@@ -27,7 +27,7 @@ ws_test 'browse release group via release',
             <title>My Demons</title>
             <first-release-date>2007-01-29</first-release-date>
             <primary-type id="f529b476-6e62-324f-b0aa-1f3e33d313fc">Album</primary-type>
-            <artist-credit>
+            <artist-credit id="76cd8b1c-c129-3631-81cd-c03679516925">
                 <name-credit>
                     <artist id="472bc127-8861-45e8-bc9e-31e8dd32de7a" type="Person" type-id="b6e035f4-3ce9-331c-97df-83397230b0df">
                         <name>Distance</name>
@@ -56,7 +56,7 @@ ws_test 'browse release group via artist',
             <title>My Demons</title>
             <first-release-date>2007-01-29</first-release-date>
             <primary-type id="f529b476-6e62-324f-b0aa-1f3e33d313fc">Album</primary-type>
-            <artist-credit>
+            <artist-credit id="76cd8b1c-c129-3631-81cd-c03679516925">
                 <name-credit>
                     <artist id="472bc127-8861-45e8-bc9e-31e8dd32de7a" type="Person" type-id="b6e035f4-3ce9-331c-97df-83397230b0df">
                         <name>Distance</name>
@@ -80,7 +80,7 @@ ws_test 'browse release group via artist',
             <secondary-type-list>
               <secondary-type id="0c60f497-ff81-3818-befd-abfc84a4858b">Remix</secondary-type>
             </secondary-type-list>
-            <artist-credit>
+            <artist-credit id="76cd8b1c-c129-3631-81cd-c03679516925">
                 <name-credit>
                     <artist id="472bc127-8861-45e8-bc9e-31e8dd32de7a" type="Person" type-id="b6e035f4-3ce9-331c-97df-83397230b0df">
                         <name>Distance</name>

@@ -192,7 +192,7 @@ ws_test 'recording lookup with artists',
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <recording id="0cf3008f-e246-428f-abc1-35f87d584d60">
         <title>the Love Bug</title><length>243000</length>
-        <artist-credit>
+        <artist-credit id="8df9a1df-24aa-3457-b994-15a715777ff6">
             <name-credit joinphrase="♥">
                 <artist id="22dd2db3-88ea-4428-a7a8-5cd3acf23175" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
                     <name>m-flo</name><sort-name>m-flo</sort-name>
@@ -228,7 +228,7 @@ ws_test 'recording lookup with release relationships and artist credits',
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <recording id="37a8d72a-a9c9-4edc-9ecf-b5b58e6197a9">
         <title>Dear Diary</title>
-        <artist-credit>
+        <artist-credit id="b6810eae-d108-3940-9b62-1667531589e6">
             <name-credit>
                 <artist id="6fe9f838-112e-44f1-af83-97464f08285b" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
                     <name>Wedlock</name>
@@ -246,7 +246,7 @@ ws_test 'recording lookup with release relationships and artist credits',
                 <begin>2008</begin>
                 <release id="4ccb3e54-caab-4ad4-94a6-a598e0e52eec">
                     <title>An Inextricable Tale Audiobook</title>
-                    <artist-credit>
+                    <artist-credit id="84d4a3ec-0e1a-30ec-b650-643f9ffaf25b">
                         <name-credit>
                             <artist id="05d83760-08b5-42bb-a8d7-00d80b3bf47c">
                                 <name>Paul Allgood</name>

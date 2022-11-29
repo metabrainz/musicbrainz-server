@@ -135,7 +135,7 @@ ws_test 'recording lookup with artist relationships and credits',
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <recording id="0cf3008f-e246-428f-abc1-35f87d584d60">
         <title>the Love Bug</title><length>243000</length>
-        <artist-credit>
+        <artist-credit id="8df9a1df-24aa-3457-b994-15a715777ff6">
             <name-credit joinphrase="♥">
                 <artist id="22dd2db3-88ea-4428-a7a8-5cd3acf23175" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
                     <name>m-flo</name>

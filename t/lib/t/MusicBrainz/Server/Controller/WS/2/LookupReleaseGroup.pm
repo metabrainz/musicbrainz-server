@@ -93,7 +93,7 @@ ws_test 'release group lookup with artists',
         <secondary-type-list>
           <secondary-type id="0c60f497-ff81-3818-befd-abfc84a4858b">Remix</secondary-type>
         </secondary-type-list>
-        <artist-credit>
+        <artist-credit id="76cd8b1c-c129-3631-81cd-c03679516925">
             <name-credit>
                 <artist id="472bc127-8861-45e8-bc9e-31e8dd32de7a" type="Person" type-id="b6e035f4-3ce9-331c-97df-83397230b0df">
                     <name>Distance</name><sort-name>Distance</sort-name><disambiguation>UK dubstep artist Greg Sanders</disambiguation>
@@ -111,8 +111,8 @@ ws_test 'release group lookup with inc=artists+releases+tags+ratings',
         <title>the Love Bug</title>
         <first-release-date>2004-03-17</first-release-date>
         <primary-type id="d6038452-8ee0-3f68-affc-2de9a1ede0b9">Single</primary-type>
-        <artist-credit>
-            <name-credit>
+        <artist-credit id="2e12df5b-963e-38f7-9be3-d78adef836c3">
+            <name-credit id="2e12df5b-963e-38f7-9be3-d78adef836c3>
                 <artist id="22dd2db3-88ea-4428-a7a8-5cd3acf23175" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
                     <name>m-flo</name><sort-name>m-flo</sort-name>
                     <rating votes-count="3">3</rating>
@@ -156,7 +156,7 @@ ws_test 'release group lookup with pseudo-releases',
         <title>the Love Bug</title>
         <first-release-date>2004-03-17</first-release-date>
         <primary-type id="d6038452-8ee0-3f68-affc-2de9a1ede0b9">Single</primary-type>
-        <artist-credit>
+        <artist-credit id="2e12df5b-963e-38f7-9be3-d78adef836c3>
             <name-credit>
                 <artist id="22dd2db3-88ea-4428-a7a8-5cd3acf23175" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
                     <name>m-flo</name><sort-name>m-flo</sort-name>
