@@ -44,6 +44,7 @@ test 'browse release group via release' => sub {
                             },
                             joinphrase => '',
                         }],
+                    'artist-credit-id' => '76cd8b1c-c129-3631-81cd-c03679516925',
                     tags => [
                         { count => 2, name => 'dubstep' },
                         { count => 1, name => 'electronic' },
@@ -91,6 +92,7 @@ test 'browse release group via artist' => sub {
                             },
                             joinphrase => '',
                         }],
+                    'artist-credit-id' => '76cd8b1c-c129-3631-81cd-c03679516925',
                     tags => [
                         { count => 2, name => 'dubstep' },
                         { count => 1, name => 'electronic' },
@@ -125,6 +127,7 @@ test 'browse release group via artist' => sub {
                             },
                             joinphrase => '',
                         }],
+                    'artist-credit-id' => '76cd8b1c-c129-3631-81cd-c03679516925',
                     tags => [ ],
                     genres => [ ],
                     'rating' => { 'votes-count' => 0, 'value' => JSON::null },

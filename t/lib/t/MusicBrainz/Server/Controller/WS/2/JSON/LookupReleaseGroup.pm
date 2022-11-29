@@ -122,6 +122,7 @@ test 'release group lookup with artists' => sub {
                     },
                     joinphrase => '',
                 }],
+            'artist-credit-id' => '76cd8b1c-c129-3631-81cd-c03679516925',
             disambiguation => '',
         };
 };
@@ -154,6 +155,7 @@ test 'release group lookup with inc=artists+releases+tags+ratings' => sub {
                     },
                     joinphrase => '',
                 }],
+            'artist-credit-id' => '2e12df5b-963e-38f7-9be3-d78adef836c3',
             releases => [
                 {
                     id => 'aff4a693-5970-4e2e-bd46-e2ee49c22de7',
@@ -215,6 +217,7 @@ test 'release group lookup with pseudo-releases' => sub {
                     },
                     joinphrase => '',
                 }],
+            'artist-credit-id' => '2e12df5b-963e-38f7-9be3-d78adef836c3',
             releases => [],
             disambiguation => '',
         };
