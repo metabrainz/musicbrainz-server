@@ -16,15 +16,9 @@ __PACKAGE__->config(
 with 'MusicBrainz::Server::Controller::Role::Load' => {
     model => 'ArtistCredit',
 };
+with 'MusicBrainz::Server::Controller::Role::LoadWithRowID';
 
 sub base : Chained('/') PathPart('artist-credit') CaptureArgs(0) { }
-
-sub _load
-{
-    my ($self, $c, $id) = @_;
-    my $artist_credit = $c->model('ArtistCredit')->get_by_id($id);
-    return $artist_credit;
-}
 
 sub show : Chained('load') PathPart('')
 {

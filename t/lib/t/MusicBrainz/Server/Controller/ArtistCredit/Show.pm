@@ -66,19 +66,19 @@ test 'Page fails gracefully when sent an invalid ID' => sub {
     is(
         $mech->status(),
         404,
-        'Trying to fetch an AC by DB ID with a too-large integer 404s',
+        'Trying to fetch an AC by DB ID with a non-existent integer 404s',
     );
 
     $mech->get('/artist-credit/undefined');
     is(
         $mech->status(),
-        404,
-        'Trying to fetch an AC by an invalid ID 404s',
+        400,
+        'Trying to fetch an AC by an incorrectly formatted ID 400s',
     );
 
     $mech->text_contains(
-        'Sorry, we could not find an artist credit with that ID.',
-        'The message about the AC not being found is shown',
+        '\'undefined\' is not a valid MusicBrainz ID',
+        'The message about the text being an invalid ID is shown',
     );
 };
 

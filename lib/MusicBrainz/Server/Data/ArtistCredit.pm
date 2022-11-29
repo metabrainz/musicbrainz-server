@@ -12,11 +12,17 @@ use MusicBrainz::Server::Data::Utils qw( object_to_ids placeholders load_subobje
 use MusicBrainz::Server::Constants qw( entities_with );
 
 extends 'MusicBrainz::Server::Data::Entity';
-with 'MusicBrainz::Server::Data::Role::EntityCache';
+with 'MusicBrainz::Server::Data::Role::EntityModelClass';
+with 'MusicBrainz::Server::Data::Role::GetByGID';
+with 'MusicBrainz::Server::Data::Role::MainTable';
+# Follows GetByGID and MainTable as it requires 'get_by_gid' and '_main_table';
+with 'MusicBrainz::Server::Data::Role::GIDRedirect';
+# Follows GIDRedirect as it goes around 'get_by_gid' globally;
+with 'MusicBrainz::Server::Data::Role::GIDEntityCache';
+# Makes use of GIDEntityCache
 with 'MusicBrainz::Server::Data::Role::Editable' => {
     table => 'artist_credit',
 };
-with 'MusicBrainz::Server::Data::Role::GetByGID';
 
 sub _type { 'artist_credit' }
 
