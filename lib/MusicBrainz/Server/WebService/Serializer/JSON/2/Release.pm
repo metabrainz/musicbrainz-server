@@ -4,6 +4,7 @@ use MusicBrainz::Server::Constants qw( :quality );
 use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw(
     boolean
     list_of
+    serialize_artist_credit
     serialize_entity
 );
 
@@ -99,12 +100,12 @@ sub serialize
 
     if ($toplevel)
     {
-        $body{'artist-credit'} = serialize_entity($entity->artist_credit, $inc, $stash, $inc->artists)
+        serialize_artist_credit(\%body, $entity, $inc, $stash, $inc->artists)
             if $inc->artist_credits || $inc->artists;
     }
     else
     {
-        $body{'artist-credit'} = serialize_entity($entity->artist_credit, $inc, $stash)
+        serialize_artist_credit(\%body, $entity, $inc, $stash)
             if $inc && $inc->artist_credits;
     }
 
