@@ -86,6 +86,13 @@ test 'Page fails gracefully when sent an invalid ID' => sub {
         'Trying to fetch an AC by DB ID with a non-existent integer 404s',
     );
 
+    $mech->get('/artist-credit/acce97ed-fade-cafe-d1ce-21993d7ea907');
+    is(
+        $mech->status(),
+        404,
+        'Trying to fetch an AC by non-existent MBID 404s',
+    );
+
     $mech->get('/artist-credit/undefined');
     is(
         $mech->status(),
