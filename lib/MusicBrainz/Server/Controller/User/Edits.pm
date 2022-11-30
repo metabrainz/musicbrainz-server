@@ -4,7 +4,7 @@ use Moose;
 BEGIN { extends 'MusicBrainz::Server::Controller' };
 
 use MusicBrainz::Server::Data::Utils qw( load_everything_for_edits );
-use MusicBrainz::Server::Constants qw( :edit_status );
+use MusicBrainz::Server::Constants qw( :edit_status :vote );
 use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
 use MusicBrainz::Server::Entity::Util::JSON qw(
     to_json_array
@@ -335,6 +335,21 @@ sub votes : Chained('/user/load') PathPart('votes') RequireAuth HiddenOnMirrors 
     });
 
     my $user = to_json_object($c->stash->{user});
+    my $refine_url_args = {
+        form_only => 'yes',
+        auto_edit_filter => '',
+        order => 'desc',
+        negation => 0,
+        combinator => 'and',
+        'conditions.0.field' => 'voter',
+        'conditions.0.operator' => '=',
+        'conditions.0.name' => $c->stash->{user}->name,
+        'conditions.0.voter_id' => $c->stash->{user}->id,
+        'conditions.0.args.0' => $VOTE_ABSTAIN,
+        'conditions.0.args.1' => $VOTE_NO,
+        'conditions.0.args.2' => $VOTE_YES,
+        'conditions.0.args.3' => $VOTE_APPROVE,
+    };
 
     $c->stash(
         current_view => 'Node',
@@ -343,6 +358,7 @@ sub votes : Chained('/user/load') PathPart('votes') RequireAuth HiddenOnMirrors 
             editCountLimit => $c->stash->{edit_count_limit},
             edits => to_json_array($edits),
             pager => serialize_pager($c->stash->{pager}),
+            refineUrlArgs => $refine_url_args,
             user => $user,
             voter => $user,
         },
