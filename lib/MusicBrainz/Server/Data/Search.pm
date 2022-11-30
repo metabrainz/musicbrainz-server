@@ -319,11 +319,17 @@ sub search
             SQL
 
         $use_hard_search_limit = 0;
-    } elsif ($type eq 'tag') {
+    }
+
+    elsif ($type eq 'tag') {
         $query = <<~'SQL';
-            SELECT tag.id, tag.name, genre.id AS genre_id,
+            SELECT tag.id,
+                   tag.name,
+                   coalesce(genre.id, genre_alias.genre) AS genre_id,
                    ts_rank_cd(mb_simple_tsvector(tag.name), query, 2) AS rank
-            FROM tag LEFT JOIN genre USING (name), plainto_tsquery('mb_simple', mb_lower(?)) AS query
+            FROM tag
+            LEFT JOIN genre USING (name)
+            LEFT JOIN genre_alias USING (name), plainto_tsquery('mb_simple', mb_lower(?)) AS query
             WHERE mb_simple_tsvector(tag.name) @@ query
             ORDER BY rank DESC, tag.name
             OFFSET ?

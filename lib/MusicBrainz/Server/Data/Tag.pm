@@ -16,7 +16,9 @@ sub _type { 'tag' }
 
 sub _table
 {
-    return 'tag LEFT JOIN genre USING (name)';
+    return 'tag
+            LEFT JOIN genre USING (name)
+            LEFT JOIN genre_alias USING (name)';
 }
 
 sub _id_column
@@ -26,7 +28,9 @@ sub _id_column
 
 sub _columns
 {
-    return 'tag.id, tag.name, genre.id as genre_id';
+    return 'tag.id,
+            tag.name,
+            coalesce(genre.id, genre_alias.genre) as genre_id';
 }
 
 sub _column_mapping
