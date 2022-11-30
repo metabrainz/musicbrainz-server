@@ -6,24 +6,24 @@ use namespace::autoclean;
 extends 'MusicBrainz::Server::Controller';
 
 with 'MusicBrainz::Server::Controller::Role::Load' => {
-    model       => 'Event',
-    entity_name => 'event',
-    relationships   => { all => ['show'], cardinal => ['edit'], default => ['url'] },
-};
-with 'MusicBrainz::Server::Controller::Role::LoadWithRowID';
-with 'MusicBrainz::Server::Controller::Role::Annotation';
-with 'MusicBrainz::Server::Controller::Role::Alias';
-with 'MusicBrainz::Server::Controller::Role::Cleanup';
-with 'MusicBrainz::Server::Controller::Role::Details';
-with 'MusicBrainz::Server::Controller::Role::EditListing';
-with 'MusicBrainz::Server::Controller::Role::Rating';
-with 'MusicBrainz::Server::Controller::Role::Tag';
-with 'MusicBrainz::Server::Controller::Role::WikipediaExtract';
-with 'MusicBrainz::Server::Controller::Role::CommonsImage';
-with 'MusicBrainz::Server::Controller::Role::EditRelationships';
-with 'MusicBrainz::Server::Controller::Role::Collection' => {
-    entity_type     => 'event',
-};
+        model       => 'Event',
+        entity_name => 'event',
+        relationships   => { all => ['show'], cardinal => ['edit'], default => ['url'] },
+     },
+     'MusicBrainz::Server::Controller::Role::LoadWithRowID',
+     'MusicBrainz::Server::Controller::Role::Annotation',
+     'MusicBrainz::Server::Controller::Role::Alias',
+     'MusicBrainz::Server::Controller::Role::Cleanup',
+     'MusicBrainz::Server::Controller::Role::Details',
+     'MusicBrainz::Server::Controller::Role::EditListing',
+     'MusicBrainz::Server::Controller::Role::Rating',
+     'MusicBrainz::Server::Controller::Role::Tag',
+     'MusicBrainz::Server::Controller::Role::WikipediaExtract',
+     'MusicBrainz::Server::Controller::Role::CommonsImage',
+     'MusicBrainz::Server::Controller::Role::EditRelationships',
+     'MusicBrainz::Server::Controller::Role::Collection' => {
+        entity_type     => 'event',
+     };
 
 use MusicBrainz::Server::Constants qw(
     $EDIT_EVENT_CREATE
