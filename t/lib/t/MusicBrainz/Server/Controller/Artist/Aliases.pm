@@ -42,7 +42,7 @@ test 'Artist alias appears on alias page content and on JSON-LD' => sub {
     );
 
     page_test_jsonld $mech => {
-        '@context' => 'http://schema.org',
+        '@context' => 'https://schema.org/docs/jsonldcontext.json',
         '@id' => 'http://musicbrainz.org/artist/745c079d-374e-4436-9448-da92dedef3ce',
         '@type' => ['Person', 'MusicGroup'],
         'alternateName' => ['Test Alias'],

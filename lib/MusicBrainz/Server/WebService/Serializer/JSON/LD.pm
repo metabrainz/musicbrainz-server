@@ -3,7 +3,9 @@ use Moose;
 
 sub serialize {
     my ($self, $entity, $inc, $stash, $toplevel) = @_;
-    return $toplevel ? {'@context' => 'http://schema.org'} : {};
+    return $toplevel
+        ? {'@context' => 'https://schema.org/docs/jsonldcontext.json'}
+        : {};
 }
 
 __PACKAGE__->meta->make_immutable;

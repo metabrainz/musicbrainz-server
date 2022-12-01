@@ -122,7 +122,7 @@ test 'Basic artist data appears on JSON-LD' => sub {
         },
         'alternateName' => ['Seekrit Identity'],
         '@id' => 'http://musicbrainz.org/artist/745c079d-374e-4436-9448-da92dedef3ce',
-        '@context' => 'http://schema.org',
+        '@context' => 'https://schema.org/docs/jsonldcontext.json',
         'birthPlace' => {
             '@id' => 'http://musicbrainz.org/area/8a754a16-0027-3a29-b6d7-2b40ea0481ed',
             '@type' => 'Country',
@@ -232,7 +232,7 @@ test 'Embedded JSON-LD `member` property' => sub {
                 'roleName' => 'guitar'
             }
         ],
-        '@context' => 'http://schema.org'
+        '@context' => 'https://schema.org/docs/jsonldcontext.json'
     };
 
     $mech->get_ok(
@@ -257,7 +257,7 @@ test 'Embedded JSON-LD `member` property' => sub {
                 }
             },
         ],
-        '@context' => 'http://schema.org'
+        '@context' => 'https://schema.org/docs/jsonldcontext.json'
     };
 };
 
@@ -304,7 +304,7 @@ test 'Embedded JSON-LD `track` property (for artists with only recordings)' => s
                 '@type' => 'MusicRecording'
             }
         ],
-        '@context' => 'http://schema.org'
+        '@context' => 'https://schema.org/docs/jsonldcontext.json'
     };
 };
 
@@ -338,7 +338,7 @@ test 'Embedded JSON-LD `genre` property' => sub {
         '@type' => 'MusicGroup',
         '@id' => 'http://musicbrainz.org/artist/dcb48a49-b17d-49b9-aee5-4f168d8004d9',
         'genre' => 'http://musicbrainz.org/genre/1b50083b-1afa-4778-82c8-548b309af783',
-        '@context' => 'http://schema.org'
+        '@context' => 'https://schema.org/docs/jsonldcontext.json'
     };
 
     $c->sql->do(<<~'SQL');
@@ -358,7 +358,7 @@ test 'Embedded JSON-LD `genre` property' => sub {
             'http://musicbrainz.org/genre/1b50083b-1afa-4778-82c8-548b309af783',
             'http://musicbrainz.org/genre/2b50083b-1afa-4778-82c8-548b309af783',
         ],
-        '@context' => 'http://schema.org'
+        '@context' => 'https://schema.org/docs/jsonldcontext.json'
     };
 };
 
@@ -375,7 +375,7 @@ test 'Embedded JSON-LD sameAs & performsAs' => sub {
     );
 
     page_test_jsonld $mech => {
-        '@context' => 'http://schema.org',
+        '@context' => 'https://schema.org/docs/jsonldcontext.json',
         '@id' => 'http://musicbrainz.org/artist/960db060-0ba8-4f6c-9770-49b81dc6e5ea',
         '@type' => ['Person', 'MusicGroup'],
         'alternateName' => ['Calvin Broadus', 'Snoop Dogg'],
@@ -421,7 +421,7 @@ test 'Embedded JSON-LD dates & origins for people' => sub {
     );
 
     page_test_jsonld $mech => {
-        '@context' => 'http://schema.org',
+        '@context' => 'https://schema.org/docs/jsonldcontext.json',
         '@id' => 'http://musicbrainz.org/artist/b972f589-fb0e-474e-b64a-803b0364fa75',
         '@type' => ['Person', 'MusicGroup'],
         'birthDate' => '1756-01-27',
@@ -473,7 +473,7 @@ test 'Embedded JSON-LD for groups' => sub {
     );
 
     page_test_jsonld $mech => {
-        '@context' => 'http://schema.org',
+        '@context' => 'https://schema.org/docs/jsonldcontext.json',
         '@id' => 'http://musicbrainz.org/artist/b10bbbfc-cf9e-42e0-be17-e2c3e1d2600d',
         '@type' => 'MusicGroup',
         'dissolutionDate' => '1970-04-10',
@@ -591,7 +591,7 @@ test 'Embedded JSON-LD for an empty artist' => sub {
     );
 
     page_test_jsonld $mech => {
-        '@context' => 'http://schema.org',
+        '@context' => 'https://schema.org/docs/jsonldcontext.json',
         '@type' => 'MusicGroup',
         '@id' => 'http://musicbrainz.org/artist/60e5d080-c964-11de-8a39-0800200c9a66',
         'name' => 'Empty Artist'

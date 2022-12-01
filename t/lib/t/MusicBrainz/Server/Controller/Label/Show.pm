@@ -35,7 +35,7 @@ $mech->content_like(qr{GB}, 'has country in release list');
 $mech->content_like(qr{/release/f34c079d-374e-4436-9448-da92dedef3ce}, 'links to correct release');
 
 page_test_jsonld $mech => {
-    '@context' => 'http://schema.org',
+    '@context' => 'https://schema.org/docs/jsonldcontext.json',
     'releasePublished' => [
         {
             'name' => 'Aerial',

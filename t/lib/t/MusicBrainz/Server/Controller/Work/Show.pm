@@ -27,7 +27,7 @@ test all => sub {
         '@type' => 'MusicComposition',
         'iswcCode' => 'T-000.000.001-0',
         'sameAs' => 'http://musicbrainz.org/work/28e73402-5666-4d74-80ab-c3734dc699ea',
-        '@context' => 'http://schema.org',
+        '@context' => 'https://schema.org/docs/jsonldcontext.json',
         'name' => 'Dancing Queen',
         '@id' => 'http://musicbrainz.org/work/745c079d-374e-4436-9448-da92dedef3ce'
     };
@@ -61,7 +61,7 @@ test 'Embedded JSON-LD' => sub {
             'duration' => 'PT05M00S'
         },
         'sameAs' => 'http://musicbrainz.org/work/a30a4245-a7ec-4979-8b1e-b549f2782239',
-        '@context' => 'http://schema.org',
+        '@context' => 'https://schema.org/docs/jsonldcontext.json',
         'musicArrangement' => [
             {
                 '@id' => 'http://musicbrainz.org/work/a72c9be6-5ef9-4bdf-afa1-6a3db697ff62',
@@ -126,7 +126,7 @@ test 'Embedded JSON-LD' => sub {
             'duration' => 'PT05M00S'
         },
         'sameAs' => 'http://musicbrainz.org/work/a30a4245-a7ec-4979-8b1e-b549f2782239',
-        '@context' => 'http://schema.org',
+        '@context' => 'https://schema.org/docs/jsonldcontext.json',
         'iswcCode' => ['T-000.000.001-0', 'T-000.000.002-0'],
         'inLanguage' => 'en'
     };
