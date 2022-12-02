@@ -639,6 +639,28 @@ limited_link_type_combinations: [
              input_entity_type: 'release',
     expected_relationship_type: 'downloadpurchase',
   },
+  // Audiomack
+  {
+                     input_url: 'http://www.audiomack.com/dablixx-osha',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://audiomack.com/dablixx-osha',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://audiomack.com/dablixx-osha/song/they-cant-understand/',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://audiomack.com/dablixx-osha/song/they-cant-understand',
+       only_valid_entity_types: ['recording'],
+  },
+  {
+                     input_url: 'https://audiomack.com/dablixx-osha/album/country-boy#testy',
+             input_entity_type: 'release',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://audiomack.com/dablixx-osha/album/country-boy',
+       only_valid_entity_types: ['release'],
+  },
   // Avex Trax
   {
                      input_url: 'http://avexnet.jp/id/supeg/discography/product/CTCR-11051.html',
@@ -1159,6 +1181,28 @@ limited_link_type_combinations: [
              input_entity_type: 'work',
     expected_relationship_type: 'bookbrainz',
             expected_clean_url: 'https://bookbrainz.org/work/65e71f2e-7245-42df-b93e-89463a28f75c',
+  },
+  // Boomplay
+  {
+                     input_url: 'https://boomplay.com/artists/4334757?srModel=COPYLINK&srList=WEB',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://www.boomplay.com/artists/4334757',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'http://www.boomplay.com/songs/99760140?from=home',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://www.boomplay.com/songs/99760140',
+       only_valid_entity_types: ['recording'],
+  },
+  {
+                     input_url: 'https://www.boomplay.com/albums/53557880#albumsDetails',
+             input_entity_type: 'release',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://www.boomplay.com/albums/53557880',
+       only_valid_entity_types: ['release'],
   },
   // Brahms Ircam
   {
@@ -2352,6 +2396,14 @@ limited_link_type_combinations: [
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'https://www.ibdb.com/broadway-cast-staff/antonin-leopold-dvorak-447817',
   },
+  // IdRef
+  {
+                     input_url: 'http://idref.fr/172248248',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.idref.fr/172248248',
+       only_valid_entity_types: ['artist', 'genre', 'instrument', 'label', 'place', 'series', 'work'],
+  },
   // IMDb (Internet Movie Database)
   {
                      input_url: 'http://www.imdb.com/name/nm1539156/',
@@ -2700,6 +2752,28 @@ limited_link_type_combinations: [
     expected_relationship_type: 'lyrics',
             expected_clean_url: 'https://kashinavi.com/song_view.html?68574',
        only_valid_entity_types: ['work'],
+  },
+  // KBR
+  {
+                     input_url: 'http://opac.kbr.be/LIBRARY/doc/AUTHORITY/14160974',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://opac.kbr.be/LIBRARY/doc/AUTHORITY/14160974',
+       only_valid_entity_types: ['artist', 'label'],
+  },
+  {
+                     input_url: 'https://opac.kbr.be/LIBRARY/doc/AUTHORITY/13974166',
+             input_entity_type: 'label',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://opac.kbr.be/LIBRARY/doc/AUTHORITY/13974166',
+       only_valid_entity_types: ['artist', 'label'],
+  },
+  {
+                     input_url: 'https://opac.kbr.be/LIBRARY/doc/SYRACUSE/17060572',
+             input_entity_type: 'release',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://opac.kbr.be/LIBRARY/doc/SYRACUSE/17060572',
+       only_valid_entity_types: ['release'],
   },
   // Kget.jp
   {

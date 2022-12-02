@@ -45,7 +45,7 @@ test 'Place alias appears on alias page content and on JSON-LD' => sub {
             '@type' => 'GeoCoordinates'
         },
         'name' => 'A Test Place',
-        '@context' => 'http://schema.org',
+        '@context' => 'https://schema.org/docs/jsonldcontext.json',
         '@type' => 'Place',
         '@id' => 'http://musicbrainz.org/place/df9269dd-0470-4ea2-97e8-c11e46080edd'
     };

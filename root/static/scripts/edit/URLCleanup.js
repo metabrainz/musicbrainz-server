@@ -915,6 +915,42 @@ const CLEANUPS: CleanupEntries = {
       return url.replace(/^(https:\/\/archive\.org\/details\/[A-Za-z0-9._-]+)\/$/, '$1');
     },
   },
+  'audiomack': {
+    match: [new RegExp('^(https?://)?([^/]+\\.)?audiomack\\.com/', 'i')],
+    restrict: [LINK_TYPES.streamingfree],
+    clean: function (url) {
+      url = url.replace(
+        /^https?:\/\/(?:www.)?audiomack.com\/([^\/?&#]+(?:\/(album|song)\/[^\/?&#]+)?).*$/,
+        'https://audiomack.com/$1',
+      );
+      return url;
+    },
+    validate: function (url, id) {
+      const m = /^https:\/\/audiomack\.com\/[^\/?&#]+(?:\/(album|song)\/[^\/?&#]+)?$/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.streamingfree.artist:
+            return {
+              result: !prefix,
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.streamingfree.release:
+            return {
+              result: prefix === 'album',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.streamingfree.recording:
+            return {
+              result: prefix === 'song',
+              target: ERROR_TARGETS.ENTITY,
+            };
+        }
+        return {result: false, target: ERROR_TARGETS.ENTITY};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
   'baidubaike': {
     match: [new RegExp('^(https?://)?baike\\.baidu\\.com/', 'i')],
     restrict: [LINK_TYPES.otherdatabases],
@@ -1313,6 +1349,42 @@ const CLEANUPS: CleanupEntries = {
         result: /^https:\/\/bookbrainz\.org\/[^\/]+\/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/.test(url),
         target: ERROR_TARGETS.URL,
       };
+    },
+  },
+  'boomplay': {
+    match: [new RegExp('^(https?://)?([^/]+\\.)?boomplay\\.com/', 'i')],
+    restrict: [LINK_TYPES.streamingfree],
+    clean: function (url) {
+      url = url.replace(
+        /^https?:\/\/(?:www.)?boomplay.com\/((?:albums|artists|songs)\/\d+).*$/,
+        'https://www.boomplay.com/$1',
+      );
+      return url;
+    },
+    validate: function (url, id) {
+      const m = /^https:\/\/www\.boomplay\.com\/(albums|artists|songs)\/\d+$/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.streamingfree.artist:
+            return {
+              result: prefix === 'artists',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.streamingfree.release:
+            return {
+              result: prefix === 'albums',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.streamingfree.recording:
+            return {
+              result: prefix === 'songs',
+              target: ERROR_TARGETS.ENTITY,
+            };
+        }
+        return {result: false, target: ERROR_TARGETS.ENTITY};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
     },
   },
   'brahms': {
@@ -2304,6 +2376,31 @@ const CLEANUPS: CleanupEntries = {
       return url;
     },
   },
+  'idref': {
+    match: [new RegExp('^(https?://)?(www\\.)?idref\\.fr/', 'i')],
+    restrict: [LINK_TYPES.otherdatabases],
+    clean: function (url) {
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?idref\.fr/, 'https://www.idref.fr');
+      return url;
+    },
+    validate: function (url, id) {
+      const m = /^https:\/\/www\.idref\.fr\/\d+?$/.exec(url);
+      if (m) {
+        switch (id) {
+          case LINK_TYPES.otherdatabases.artist:
+          case LINK_TYPES.otherdatabases.genre:
+          case LINK_TYPES.otherdatabases.instrument:
+          case LINK_TYPES.otherdatabases.label:
+          case LINK_TYPES.otherdatabases.place:
+          case LINK_TYPES.otherdatabases.series:
+          case LINK_TYPES.otherdatabases.work:
+            return {result: true};
+        }
+        return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
   'imdb': {
     match: [new RegExp('^(https?://)?([^/]+\\.)?imdb\\.', 'i')],
     restrict: [LINK_TYPES.imdb],
@@ -2658,6 +2755,35 @@ const CLEANUPS: CleanupEntries = {
           case LINK_TYPES.lyrics.work:
             return {
               result: /^song_view\.html\?\d+$/.test(tail),
+              target: ERROR_TARGETS.ENTITY,
+            };
+        }
+        return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
+  'kbr': {
+    match: [new RegExp('^(https?://)?opac\\.kbr\\.be/', 'i')],
+    restrict: [LINK_TYPES.otherdatabases],
+    clean: function (url) {
+      // Standardise to https
+      return url.replace(/^https?:\/\/(?:www\.)?(.*)$/, 'https://$1');
+    },
+    validate: function (url, id) {
+      const m = /^https:\/\/opac\.kbr\.be\/LIBRARY\/doc\/(AUTHORITY|SYRACUSE)\/[0-9]+$/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.otherdatabases.artist:
+          case LINK_TYPES.otherdatabases.label:
+            return {
+              result: prefix === 'AUTHORITY',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.otherdatabases.release:
+            return {
+              result: prefix === 'SYRACUSE',
               target: ERROR_TARGETS.ENTITY,
             };
         }

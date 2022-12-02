@@ -48,7 +48,7 @@ test 'Artist relationships page contains the expected data and JSON-LD' => sub {
             '@id' => 'http://musicbrainz.org/area/8a754a16-0027-3a29-b6d7-2b40ea0481ed',
             '@type' => 'Country'
         },
-        '@context' => 'http://schema.org',
+        '@context' => 'https://schema.org/docs/jsonldcontext.json',
         '@type' => ['Person', 'MusicGroup'],
         'birthDate' => '2008-01-02',
         'birthPlace' => {

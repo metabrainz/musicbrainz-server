@@ -33,7 +33,7 @@ test 'Work alias appears on alias page content and on JSON-LD' => sub {
 
     page_test_jsonld $mech => {
         'sameAs' => 'http://musicbrainz.org/work/a30a4245-a7ec-4979-8b1e-b549f2782239',
-        '@context' => 'http://schema.org',
+        '@context' => 'https://schema.org/docs/jsonldcontext.json',
         '@id' => 'http://musicbrainz.org/work/559be0c1-2c87-45d6-ba43-1b1feb8f831e',
         'iswcCode' => ['T-000.000.001-0', 'T-000.000.002-0'],
         'alternateName' => ['WA1', 'WA2'],

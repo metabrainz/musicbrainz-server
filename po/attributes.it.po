@@ -603,7 +603,7 @@ msgctxt "medium_format"
 msgid ""
 "A video format used in the 1980s and 90s for professional work, including "
 "television and video archival."
-msgstr ""
+msgstr "Un formato video utilizzato negli anni 1980 e '90 in ambito professionale, tra cui archivistica video e televisiva."
 
 #: DB:work_type/description:19
 msgctxt "work_type"
@@ -1407,7 +1407,7 @@ msgstr "Bestenigar"
 #: DB:medium_format/name:131
 msgctxt "medium_format"
 msgid "Betacam SP"
-msgstr ""
+msgstr "Betacam SP"
 
 #: DB:medium_format/name:24
 msgctxt "medium_format"

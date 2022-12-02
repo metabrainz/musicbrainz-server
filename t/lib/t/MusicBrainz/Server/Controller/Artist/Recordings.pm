@@ -58,7 +58,7 @@ test 'Artist recordings page contains the expected data and JSON-LD' => sub {
             '@id' => 'http://musicbrainz.org/area/8a754a16-0027-3a29-b6d7-2b40ea0481ed'
         },
         '@type' => ['Person', 'MusicGroup'],
-        '@context' => 'http://schema.org',
+        '@context' => 'https://schema.org/docs/jsonldcontext.json',
         'birthDate' => '2008-01-02',
         'birthPlace' => {
             '@id' => 'http://musicbrainz.org/area/8a754a16-0027-3a29-b6d7-2b40ea0481ed',

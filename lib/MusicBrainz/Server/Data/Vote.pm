@@ -51,7 +51,7 @@ sub enter_votes
     Sql::run_in_transaction(sub {
         $self->sql->do('LOCK vote IN SHARE ROW EXCLUSIVE MODE');
 
-        # Deal with votes on closed or own edits, by beginners/limited users, etc.
+        # Deal with votes on closed or own edits, by blocked users, etc.
         my @edit_ids = map { $_->{edit_id} } @votes;
         my $edits = $self->c->model('Edit')->get_by_ids(@edit_ids);
         @votes = grep { defined $edits->{ $_->{edit_id} } } @votes;

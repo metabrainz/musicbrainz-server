@@ -92,11 +92,7 @@ function generateUserTypesList(user: UnsanitizedEditorT) {
     typesList.push(
       <span
         className="tooltip"
-        title={l(
-          `User accounts must be more than 2 weeks old, have a verified
-           email address, and more than 10 accepted edits in order
-           to vote on others' edits.`,
-        )}
+        title={l('This user is new to MusicBrainz.')}
       >
         {l('Beginner')}
       </span>,

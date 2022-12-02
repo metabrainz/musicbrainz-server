@@ -14,13 +14,14 @@
 # AriasNicolas <email address hidden>, 2014
 # Nicolás Tamargo <email address hidden>, 2011-2013
 # Kevin López Brante <email address hidden>, 2012
+# Tiago Natale, 2022
 #   Tobias Quathamer <email address hidden>, 2007
 # t0n3t <email address hidden>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "PO-Revision-Date: 2012-05-24 18:57+0000\n"
-"Last-Translator: ikerm2003, 2022\n"
+"Last-Translator: Tiago Natale, 2022\n"
 "Language-Team: Spanish (http://www.transifex.com/musicbrainz/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -752,7 +753,7 @@ msgstr "bombarda"
 #: DB:instrument/name:1071
 msgctxt "Andean bass-drum"
 msgid "bombo legüero"
-msgstr ""
+msgstr "bombo legüero"
 
 #: DB:instrument/name:969
 msgctxt "Family of bronze gong-chime sets used in Javanese gamelan"
@@ -971,7 +972,7 @@ msgstr ""
 #: DB:instrument/name:466
 msgctxt "Small Andean lute"
 msgid "charango"
-msgstr ""
+msgstr "charango"
 
 #: DB:instrument/name:640
 msgid "chau gong"
@@ -1348,7 +1349,7 @@ msgstr ""
 #: DB:instrument/name:120
 msgctxt "drum programming"
 msgid "drum machine"
-msgstr ""
+msgstr "caja de ritmos"
 
 #: DB:instrument/name:101
 msgctxt "Set of drums in modern music"
@@ -3193,12 +3194,12 @@ msgstr ""
 #: DB:instrument/name:568
 msgctxt "Ecuadorean panpipes"
 msgid "rondador"
-msgstr ""
+msgstr "rondador"
 
 #: DB:instrument/name:1070
 msgctxt "South American square charango"
 msgid "ronroco"
-msgstr ""
+msgstr "ronroco"
 
 #: DB:instrument/name:731
 msgid "rototom"

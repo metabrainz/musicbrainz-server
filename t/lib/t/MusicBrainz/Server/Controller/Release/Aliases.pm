@@ -70,7 +70,7 @@ test 'Release alias appears on alias page content and on JSON-LD' => sub {
         '@id' => 'http://musicbrainz.org/release/f205627f-b70a-409d-adbe-66289b614e80',
         'name' => 'Aerial',
         'musicReleaseFormat' => 'http://schema.org/CDFormat',
-        '@context' => 'http://schema.org'
+        '@context' => 'https://schema.org/docs/jsonldcontext.json'
     };
 };
 

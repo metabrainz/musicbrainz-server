@@ -148,27 +148,21 @@ sub update
         my $type = $self->type;
         my $table_raw = $type . '_rating_raw';
 
-        # Check if user has already rated this entity
-        my $whetherrated = $sql->select_single_value("
-            SELECT rating FROM $table_raw
-            WHERE $type = ? AND editor = ?", $entity_id, $user_id);
-        if (defined $whetherrated) {
-            # Already rated - so update
-            if ($rating) {
-                $sql->do("UPDATE $table_raw SET rating = ?
-                              WHERE $type = ? AND editor = ?",
-                              $rating, $entity_id, $user_id);
-            }
-            else {
-                $sql->do("DELETE FROM $table_raw
-                              WHERE $type = ? AND editor = ?",
-                              $entity_id, $user_id);
-            }
-        }
-        elsif ($rating) {
-            # Not rated - so insert raw rating value, unless rating = 0
-            $sql->do("INSERT INTO $table_raw (rating, $type, editor)
-                          VALUES (?, ?, ?)", $rating, $entity_id, $user_id);
+        if ($rating) {
+            # Rating is not 0, so insert or update as needed
+            $sql->do(<<~"SQL", $rating, $entity_id, $user_id, $rating);
+                INSERT INTO $table_raw (rating, $type, editor)
+                     VALUES (?, ?, ?)
+                ON CONFLICT ($type, editor) DO UPDATE
+                        SET rating = ?
+                SQL
+        } else {
+            # Rating is 0, so delete the rating, if there is one
+            $sql->do(<<~"SQL", $entity_id, $user_id);
+                DELETE FROM $table_raw
+                      WHERE $type = ?
+                        AND editor = ?
+                SQL
         }
 
         # Get the new aggregate rating.

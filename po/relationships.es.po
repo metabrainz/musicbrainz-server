@@ -15,13 +15,14 @@
 # Oscar Rivas Krucker <email address hidden>, 2015
 # Stich Lilo <email address hidden>, 2020
 # Kevin López Brante <email address hidden>, 2012
+# Tiago Natale, 2022
 #   Tobias Quathamer <email address hidden>, 2007
 # t0n3t <email address hidden>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "PO-Revision-Date: 2012-05-24 18:50+0000\n"
-"Last-Translator: Antonio Perea, 2022\n"
+"Last-Translator: Tiago Natale, 2022\n"
 "Language-Team: Spanish (http://www.transifex.com/musicbrainz/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -422,7 +423,7 @@ msgstr ""
 
 #: DB:link_attribute_type/description:567
 msgid "Indicates that one entity is a cover of another entity"
-msgstr ""
+msgstr "Indica que una entidad es la imagen de otra entidad."
 
 #: DB:link_type/description:996
 msgid "Indicates that the artist is part of a series."
@@ -922,7 +923,7 @@ msgstr "página de Myspace de"
 
 #: DB:link_attribute_type/description:461
 msgid "Other vocalizations"
-msgstr ""
+msgstr "Otras vocalizaciones"
 
 #: DB:link_type/description:852
 msgid "Points to the BookBrainz page for this artist."
@@ -1117,7 +1118,7 @@ msgstr ""
 
 #: DB:link_attribute_type/description:561
 msgid "Spoken vocals (speech)"
-msgstr ""
+msgstr "Voz hablada (habla)"
 
 #: DB:link_type/long_link_phrase:880
 msgid ""
@@ -1184,7 +1185,7 @@ msgstr ""
 msgid ""
 "This attribute indicates a 'guest' performance where the performer is not "
 "usually part of the band."
-msgstr ""
+msgstr "Este atributo indica una actuación de un invitado en la cual el intérprete no suele formar parte de la banda."
 
 #: DB:link_attribute_type/description:1094
 msgid ""
@@ -1223,7 +1224,7 @@ msgstr ""
 msgid ""
 "This attribute is to be used if the role was fulfilled in an executive "
 "capacity."
-msgstr ""
+msgstr "El atributo debe utilizarse si el rol se cumplió en una capacidad ejecutiva."
 
 #: DB:link_type/description:146
 msgid ""
@@ -2221,7 +2222,7 @@ msgstr ""
 msgid ""
 "This links a label to a channel, playlist, or user page on a video sharing "
 "site containing videos curated by it."
-msgstr ""
+msgstr "Esto vincula una etiqueta a un canal, lista de reproducción o página de usuario en un sitio para compartir videos que contiene videos seleccionados por ella."
 
 #: DB:link_type/description:214
 msgid "This links a label to a fan-created website."
@@ -2525,7 +2526,7 @@ msgstr ""
 msgid ""
 "This links an artist to a channel, playlist, or user page on a video sharing"
 " site containing videos curated by it."
-msgstr ""
+msgstr "Esto vincula a un artista a un canal, lista de reproducción o página de usuario en un sitio para compartir videos seleccionados por él."
 
 #: DB:link_type/description:172
 msgid "This links an artist to a fan-created website."
@@ -3646,7 +3647,7 @@ msgstr ""
 #: DB:link_type/link_phrase:135 DB:link_type/link_phrase:62
 #: DB:link_type/reverse_link_phrase:135 DB:link_type/reverse_link_phrase:62
 msgid "artist & repertoire support"
-msgstr ""
+msgstr "soporte de artistas y repertorio"
 
 #: DB:link_type/name:1079
 msgid "artist rename"
@@ -3790,7 +3791,7 @@ msgstr "adicional"
 #: DB:link_type/name:23 DB:link_type/name:134
 #: DB:link_type/reverse_link_phrase:23 DB:link_type/reverse_link_phrase:134
 msgid "booking"
-msgstr ""
+msgstr "reserva"
 
 #: DB:link_type/name:929 DB:link_type/reverse_link_phrase:929
 msgid "booklet editor"
@@ -3804,7 +3805,7 @@ msgstr ""
 #: DB:link_type/name:205 DB:link_type/reverse_link_phrase:205
 #: DB:link_type/long_link_phrase:205
 msgid "business association"
-msgstr ""
+msgstr "asociación de negocios"
 
 #: DB:link_type/reverse_link_phrase:66
 msgid "business association with"
@@ -4253,7 +4254,7 @@ msgstr ""
 
 #: DB:link_type/reverse_link_phrase:238
 msgid "earliest release"
-msgstr ""
+msgstr "ultimo lanzamiento"
 
 #: DB:link_attribute_type/name:1131
 msgid "early music"
@@ -4428,11 +4429,11 @@ msgstr ""
 
 #: DB:link_type/name:1088
 msgid "genre origin"
-msgstr ""
+msgstr "origen del género"
 
 #: DB:link_type/link_phrase:1088
 msgid "genres"
-msgstr ""
+msgstr "generos"
 
 #: DB:link_type/name:934 DB:link_type/name:713
 msgid "geonames"
@@ -4448,7 +4449,7 @@ msgstr ""
 #: DB:link_type/long_link_phrase:257 DB:link_type/long_link_phrase:73
 #: DB:link_type/long_link_phrase:1091 DB:link_type/long_link_phrase:187
 msgid "get the music"
-msgstr ""
+msgstr "obtén la música"
 
 #: DB:link_type/link_phrase:911 DB:link_type/name:911
 #: DB:link_type/reverse_link_phrase:911 DB:link_type/long_link_phrase:911
@@ -4494,7 +4495,7 @@ msgstr "intérpretes invitados"
 
 #: DB:link_type/long_link_phrase:115
 msgid "had a creative position at"
-msgstr ""
+msgstr "tuvo una posición creativa en"
 
 #: DB:link_type/long_link_phrase:162
 msgid "had a miscellaneous role on"
@@ -4502,11 +4503,11 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:117
 msgid "had a producer position at"
-msgstr ""
+msgstr "tuvo un puesto de productor en"
 
 #: DB:link_type/long_link_phrase:121
 msgid "had a recording contract with"
-msgstr ""
+msgstr "tuvo un contrato de grabación con"
 
 #: DB:link_type/long_link_phrase:1081
 msgid "had an artists and repertoire position at"
@@ -4514,7 +4515,7 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:120
 msgid "had an engineer position at"
-msgstr ""
+msgstr "tuvo un puesto de ingeniero en"
 
 #: DB:link_type/long_link_phrase:936
 msgid "had tribute event"
@@ -4636,7 +4637,7 @@ msgstr "tiene un blog en"
 
 #: DB:link_type/long_link_phrase:212
 msgid "has a catalog of records at"
-msgstr ""
+msgstr "tuvo un catalogo de discos en"
 
 #: DB:link_type/long_link_phrase:904 DB:link_type/long_link_phrase:909
 #: DB:link_type/long_link_phrase:903 DB:link_type/long_link_phrase:905
@@ -6752,11 +6753,11 @@ msgstr ""
 
 #: DB:link_type/link_phrase:104
 msgid "supporting artist for"
-msgstr ""
+msgstr "artista de soporte para"
 
 #: DB:link_type/reverse_link_phrase:104
 msgid "supporting artists"
-msgstr ""
+msgstr "artistas de soporte"
 
 #: DB:link_type/name:104
 msgid "supporting musician"
@@ -6772,11 +6773,11 @@ msgstr ""
 
 #: DB:link_type/reverse_link_phrase:105
 msgid "supporting {instrument} by"
-msgstr ""
+msgstr "{instrument} de soporte por"
 
 #: DB:link_type/link_phrase:105
 msgid "supporting {instrument} for"
-msgstr ""
+msgstr "{instrument} de soporte para"
 
 #: DB:link_attribute_type/name:1150
 msgid "task"
@@ -6842,15 +6843,15 @@ msgstr ""
 
 #: DB:link_type/name:1082
 msgid "translated version"
-msgstr ""
+msgstr "versión traducida"
 
 #: DB:link_type/reverse_link_phrase:1082
 msgid "translated version of"
-msgstr ""
+msgstr "versión traducida de"
 
 #: DB:link_type/link_phrase:1082
 msgid "translated versions"
-msgstr ""
+msgstr "versiones traducidas"
 
 #: DB:link_attribute_type/name:1018 DB:link_type/name:871
 #: DB:link_type/name:872
@@ -6859,7 +6860,7 @@ msgstr ""
 
 #: DB:link_attribute_type/name:477
 msgid "transliterated"
-msgstr ""
+msgstr "transcrito"
 
 #: DB:link_type/reverse_link_phrase:2
 msgid "transliterated/translated track listing of"
@@ -6905,7 +6906,7 @@ msgstr ""
 
 #: DB:link_type/link_phrase:1090
 msgid "used instruments"
-msgstr ""
+msgstr "instrumentos usados"
 
 #: DB:link_type/name:86 DB:link_type/name:191 DB:link_type/name:210
 #: DB:link_type/name:788 DB:link_type/name:992 DB:link_type/name:1013

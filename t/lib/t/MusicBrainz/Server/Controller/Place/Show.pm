@@ -31,7 +31,7 @@ test all => sub {
             'latitude' => '0.323'
         },
         '@type' => 'Place',
-        '@context' => 'http://schema.org',
+        '@context' => 'https://schema.org/docs/jsonldcontext.json',
         'foundingDate' => '2013',
         '@id' => 'http://musicbrainz.org/place/df9269dd-0470-4ea2-97e8-c11e46080edd'
     };

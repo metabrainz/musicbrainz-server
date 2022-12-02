@@ -993,7 +993,7 @@ msgstr ""
 msgid "Hmong"
 msgstr ""
 
-#. frequency:1 iso_code_3:hun 
+#. frequency:2 iso_code_3:hun 
 #: DB:language/name:176
 msgid "Hungarian"
 msgstr ""
@@ -1768,7 +1768,7 @@ msgstr ""
 msgid "North American Indian languages"
 msgstr ""
 
-#. frequency:2 iso_code_3:nor 
+#. frequency:1 iso_code_3:nor 
 #: DB:language/name:309
 msgid "Norwegian"
 msgstr ""
