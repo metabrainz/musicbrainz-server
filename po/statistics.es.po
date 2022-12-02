@@ -1625,7 +1625,7 @@ msgstr "Mujeres:"
 
 #: ../root/statistics/Index.js:327
 msgid "Non-binary"
-msgstr ""
+msgstr "No binario"
 
 #: ../root/statistics/Index.js:338
 msgid "Other gender:"

@@ -17,6 +17,7 @@
 # Salvador Morales León <email address hidden>, 2016
 # t0n3t <email address hidden>, 2012
 # Kevin López Brante <email address hidden>, 2012
+# Tiago Natale, 2022
 #   Tobias Quathamer <email address hidden>, 2007
 # t0n3t <email address hidden>, 2012
 # Yumi V <email address hidden>, 2017
@@ -24,7 +25,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "PO-Revision-Date: 2012-05-24 19:17+0000\n"
-"Last-Translator: Antonio Perea, 2022\n"
+"Last-Translator: Tiago Natale, 2022\n"
 "Language-Team: Spanish (http://www.transifex.com/musicbrainz/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -4773,17 +4774,17 @@ msgstr ""
 #. name:hichiriki
 #: DB:instrument/description:616
 msgid "Used in gagaku, it is a double reed flute"
-msgstr ""
+msgstr "Utilizado en gagaku, es una flauta de doble lengüeta"
 
 #. name:ryuteki
 #: DB:instrument/description:617
 msgid "Used in gagaku, it is a transverse flute"
-msgstr ""
+msgstr "Utilizado en gagaku, es una flauta travesera"
 
 #. name:kagurabue
 #: DB:instrument/description:849
 msgid "Used in gagaku, this traditional bamboo flute has six holes."
-msgstr ""
+msgstr "Utilizado en gagaku, esta tradicional flauta de bambú tiene 6 agujeros."
 
 #. name:kendang
 #: DB:instrument/description:989

@@ -5420,7 +5420,7 @@ msgstr "Ajouter un alias de lieu"
 
 #: ../lib/MusicBrainz/Server/Edit/Place/AddAnnotation.pm:11
 msgid "Add place annotation"
-msgstr "Ajouter un annotation de lieu"
+msgstr "Ajouter une annotation de lieu"
 
 #: ../lib/MusicBrainz/Server/Edit/Place/Create.pm:25
 msgid "Add place"
