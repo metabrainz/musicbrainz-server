@@ -2,6 +2,8 @@ package MusicBrainz::Server::Entity::URL::Audiomack;
 
 use Moose;
 
+use MusicBrainz::Server::Translation qw( l );
+
 extends 'MusicBrainz::Server::Entity::URL';
 with 'MusicBrainz::Server::Entity::URL::Sidebar';
 
