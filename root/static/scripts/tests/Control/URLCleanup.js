@@ -1182,6 +1182,28 @@ limited_link_type_combinations: [
     expected_relationship_type: 'bookbrainz',
             expected_clean_url: 'https://bookbrainz.org/work/65e71f2e-7245-42df-b93e-89463a28f75c',
   },
+  // Boomplay
+  {
+                     input_url: 'https://boomplay.com/artists/4334757?srModel=COPYLINK&srList=WEB',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://www.boomplay.com/artists/4334757',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'http://www.boomplay.com/songs/99760140?from=home',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://www.boomplay.com/songs/99760140',
+       only_valid_entity_types: ['recording'],
+  },
+  {
+                     input_url: 'https://www.boomplay.com/albums/53557880#albumsDetails',
+             input_entity_type: 'release',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://www.boomplay.com/albums/53557880',
+       only_valid_entity_types: ['release'],
+  },
   // Brahms Ircam
   {
                      input_url: 'http://brahms.ircam.fr/gilbert-amy#parcours',
