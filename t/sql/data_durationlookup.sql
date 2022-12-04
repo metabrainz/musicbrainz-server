@@ -40,6 +40,8 @@ INSERT INTO medium (id, release, position, format, name) VALUES (4, 2, 2, 1, 'A 
 
 INSERT INTO medium_index (medium, toc) VALUES (1, '(663400, 258839, 358960, 332613, 296160, 372386)');
 INSERT INTO medium_index (medium, toc) VALUES (2, '(428492, 290053, 454506, 61333, 815305, 472880)');
+INSERT INTO medium_index (medium, toc) VALUES (3, '(663400, 258839, 358960, 332613, 296160, 372389)');
+INSERT INTO medium_index (medium, toc) VALUES (4, '(428492, 290023, 454506, 61333, 815305, 472880)');
 
 INSERT INTO track (id, gid, medium, position, number, recording, name, artist_credit, length) VALUES (1, '66c2ebff-86a8-4e12-a9a2-1650fb97d9d8', 1, 1, 1, 1, 'King of the Mountain', 1, NULL);
 INSERT INTO track (id, gid, medium, position, number, recording, name, artist_credit, length) VALUES (2, 'b0caa7d1-0d1e-483e-b22b-ec6ab7fada06', 1, 2, 2, 2, 'π', 1, 369680);
@@ -65,11 +67,11 @@ INSERT INTO track (id, gid, medium, position, number, recording, name, artist_cr
 INSERT INTO track (id, gid, medium, position, number, recording, name, artist_credit, length) VALUES (20, 'b3e6f1fa-09e6-467d-aa58-f598f2ad9215', 3, 4, 4, 4, 'Mrs. Bartolozzi', 1, 358960);
 INSERT INTO track (id, gid, medium, position, number, recording, name, artist_credit, length) VALUES (21, '4ee82e1a-7b32-420d-a138-5c6bb9d3b79d', 3, 5, 5, 5, 'How to Be Invisible', 1, 332613);
 INSERT INTO track (id, gid, medium, position, number, recording, name, artist_credit, length) VALUES (22, '0056c1e6-e3ac-4b0c-8c22-0986c89e8ac5', 3, 6, 6, 6, 'Joanni', 1, 296160);
-INSERT INTO track (id, gid, medium, position, number, recording, name, artist_credit, length) VALUES (23, 'f921c8a9-4731-4083-b2ea-e8735fb89034', 3, 7, 7, 7, 'A Coral Room', 1, 372386);
+INSERT INTO track (id, gid, medium, position, number, recording, name, artist_credit, length) VALUES (23, 'f921c8a9-4731-4083-b2ea-e8735fb89034', 3, 7, 7, 7, 'A Coral Room', 1, 372389);
 
 INSERT INTO track (id, gid, medium, position, number, recording, name, artist_credit, length) VALUES (24, '07e1a081-ecf8-4ac4-92dd-6697c775b341', 4, 1, 1, 8, 'Prelude', 1, 86186);
 INSERT INTO track (id, gid, medium, position, number, recording, name, artist_credit, length) VALUES (25, 'ee10482e-d2e5-4204-9e26-7289e5f9f39d', 4, 2, 2, 9, 'Prologue', 1, 342306);
-INSERT INTO track (id, gid, medium, position, number, recording, name, artist_credit, length) VALUES (26, '1e394020-16e1-49d6-ac78-d6c8d833b775', 4, 3, 3, 10, 'An Architect''s Dream', 1, 290053);
+INSERT INTO track (id, gid, medium, position, number, recording, name, artist_credit, length) VALUES (26, '1e394020-16e1-49d6-ac78-d6c8d833b775', 4, 3, 3, 10, 'An Architect''s Dream', 1, 290023);
 INSERT INTO track (id, gid, medium, position, number, recording, name, artist_credit, length) VALUES (27, '05262836-6f29-4807-9b2c-f07b5d5eeb33', 4, 4, 4, 11, 'The Painter''s Link', 1, 95933);
 INSERT INTO track (id, gid, medium, position, number, recording, name, artist_credit, length) VALUES (28, '33e4113d-97ce-4ad0-9642-3420d0440a5b', 4, 5, 5, 12, 'Sunset', 1, 358573);
 INSERT INTO track (id, gid, medium, position, number, recording, name, artist_credit, length) VALUES (29, 'c05600b8-8ff4-4c66-bd57-b6690252e4f3', 4, 6, 6, 13, 'Aerial Tal', 1, 61333);
