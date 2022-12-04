@@ -8,6 +8,12 @@ use MusicBrainz::Server::Test;
 
 with 't::Context';
 
+=head1 DESCRIPTION
+
+This test checks the post_fields function for cover art uploading.
+
+=cut
+
 test 'Calculates S3 policy/signature fields correctly' => sub {
     my $test = shift;
 
