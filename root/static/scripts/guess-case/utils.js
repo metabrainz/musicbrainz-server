@@ -66,6 +66,7 @@ const preBracketSingleWordsList = [
   'reworked',
   'session',
   'short',
+  'studio',
   'take',
   'takes',
   'techno',
@@ -117,7 +118,6 @@ const lowerCaseBracketWordsList = [
   'single',
   'skit',
   'stereo',
-  'studio',
   'unplugged',
   'vs',
 ].concat(preBracketSingleWordsList);
