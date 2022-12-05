@@ -173,6 +173,7 @@ export default {
   'relationship/linktype/RelationshipTypesList': (): Promise<mixed> => import('../relationship/linktype/RelationshipTypesList.js'),
   'release/CoverArt': (): Promise<mixed> => import('../release/CoverArt.js'),
   'release/CoverArtDarkened': (): Promise<mixed> => import('../release/CoverArtDarkened.js'),
+  'release/DeleteRelease': (): Promise<mixed> => import('../release/DeleteRelease.js'),
   'release/EditRelationships': (): Promise<mixed> => import('../release/EditRelationships.js'),
   'release/ReleaseIndex': (): Promise<mixed> => import('../release/ReleaseIndex.js'),
   'release/ReleaseMerge': (): Promise<mixed> => import('../release/ReleaseMerge.js'),

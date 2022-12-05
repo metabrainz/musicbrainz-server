@@ -377,7 +377,7 @@
   <div id="external-links-editor-container"></div>
 [%- END -%]
 
-[%- MACRO removal_help(extra_help) BLOCK -%]
+[%- MACRO removal_help(extra_help) BLOCK -%] # Converted to React at root/components/EntityDeletionHelp.js 
   <div id="removal-help">
     <p>
       [% l('Are you sure you wish to remove {entity} from MusicBrainz?', { entity => link_entity(entity) }) %]
