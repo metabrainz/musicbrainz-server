@@ -18,6 +18,7 @@ import {
 import useOutsideClickEffect from '../hooks/useOutsideClickEffect.js';
 import {unwrapNl} from '../i18n.js';
 import clean from '../utility/clean.js';
+import getCookie from '../utility/getCookie.js';
 
 import {
   CLOSE_ADD_ENTITY_DIALOG,
@@ -34,7 +35,9 @@ import {
   ARIA_LIVE_STYLE,
   SEARCH_PLACEHOLDERS,
 } from './Autocomplete2/constants.js';
-import formatItem from './Autocomplete2/formatters.js';
+import formatItem, {
+  type FormatOptionsT,
+} from './Autocomplete2/formatters.js';
 import {getOrFetchRecentItems} from './Autocomplete2/recentItems.js';
 import {
   generateItems,
@@ -201,6 +204,8 @@ export function createInitialState<+T: EntityItemT>(
     recentItemsKey: recentItemsKey ?? entityType,
     results: staticResults,
     selectedItem: selectedItem ?? null,
+    showDescriptions:
+      getCookie('show_autocomplete_descriptions') !== 'false',
     staticItems,
     statusMessage: '',
     totalPages: null,
@@ -215,6 +220,7 @@ export function createInitialState<+T: EntityItemT>(
 
 type AutocompleteItemPropsT<T: EntityItemT> = {
   autocompleteId: string,
+  formatOptions?: ?FormatOptionsT,
   isHighlighted: boolean,
   isSelected: boolean,
   item: ItemT<T>,
@@ -223,6 +229,7 @@ type AutocompleteItemPropsT<T: EntityItemT> = {
 
 const AutocompleteItem = React.memo(<+T: EntityItemT>({
   autocompleteId,
+  formatOptions,
   isHighlighted,
   isSelected,
   item,
@@ -276,7 +283,7 @@ const AutocompleteItem = React.memo(<+T: EntityItemT>({
       role="option"
       style={style}
     >
-      {formatItem<T>(item)}
+      {formatItem<T>(item, formatOptions)}
     </li>
   );
 });
@@ -657,6 +664,14 @@ const Autocomplete2 = (React.memo(<+T: EntityItemT>(
     () => items.map((item) => (
       <AutocompleteItemWithType
         autocompleteId={id}
+        formatOptions={
+          (
+            entityType === 'link_attribute_type' ||
+            entityType === 'link_type'
+          )
+            ? {showDescriptions: state.showDescriptions}
+            : undefined
+        }
         isHighlighted={!!(highlightedItem && item.id === highlightedItem.id)}
         isSelected={!!(
           selectedItem &&
@@ -669,11 +684,13 @@ const Autocomplete2 = (React.memo(<+T: EntityItemT>(
       />
     )),
     [
+      entityType,
       highlightedItem,
       id,
       items,
       selectItem,
       selectedItem,
+      state.showDescriptions,
     ],
   );
 

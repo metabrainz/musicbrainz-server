@@ -38,6 +38,7 @@ export type StateT<T: EntityItemT> = {
   +recentItemsKey: string,
   +results: $ReadOnlyArray<ItemT<T>> | null,
   +selectedItem: OptionItemT<T> | null,
+  +showDescriptions?: boolean,
   +staticItems?: $ReadOnlyArray<OptionItemT<T>>,
   +statusMessage: string,
   +totalPages: ?number,
@@ -84,6 +85,10 @@ export type ActionT<+T: EntityItemT> =
   | { +type: 'stop-search' }
   | { +type: 'toggle-add-entity-dialog', +isOpen: boolean }
   | { +type: 'toggle-indexed-search' }
+  | {
+      +type: 'toggle-descriptions',
+      +showDescriptions: boolean,
+    }
   | { +type: 'type-value', +value: string };
 
 export type ActionItemT<+T> = {
