@@ -259,8 +259,6 @@ declare type AddPlaceEditT = $ReadOnly<{
 declare type AddRelationshipEditT = $ReadOnly<{
   ...GenericEditT,
   +display_data: {
-    +entity0?: CoreEntityT,
-    +entity1?: CoreEntityT,
     +relationship: RelationshipT,
     +unknown_attributes: boolean,
   },
