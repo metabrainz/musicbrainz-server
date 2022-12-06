@@ -7,6 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import {areFormattedLengthsEqual} from '../cdtoc/utils.js';
 import TrackDurationChanges from '../edit/components/TrackDurationChanges.js';
 import Layout from '../layout/index.js';
 import MediumTracklist from '../medium/MediumTracklist.js';
@@ -15,9 +16,6 @@ import ArtistCreditLink
 import EntityLink
   from '../static/scripts/common/components/EntityLink.js';
 import linkedEntities from '../static/scripts/common/linkedEntities.mjs';
-import {arraysEqual} from '../static/scripts/common/utility/arrays.js';
-import formatTrackLength
-  from '../static/scripts/common/utility/formatTrackLength.js';
 import mediumFormatName
   from '../static/scripts/common/utility/mediumFormatName.js';
 import EnterEdit from '../static/scripts/edit/components/EnterEdit.js';
@@ -38,11 +36,6 @@ const AttachCDTocConfirmation = ({
   const newLengths = cdToc.track_details.map(track => track.length_time);
   const oldLengths = medium.cdtoc_tracks.map(track => track.length);
   const release = linkedEntities.release[medium.release_id];
-  const areFormattedLengthsEqual = arraysEqual(
-    oldLengths,
-    newLengths,
-    (a, b) => formatTrackLength(a) === formatTrackLength(b),
-  );
 
   return (
     <Layout fullWidth title={lp('Attach CD TOC', 'header')}>
@@ -79,7 +72,7 @@ const AttachCDTocConfirmation = ({
 
       <h2>{l('Track length comparison')}</h2>
 
-      {areFormattedLengthsEqual ? (
+      {areFormattedLengthsEqual(oldLengths, newLengths) ? (
         <p>
           {l('This edit would only make subsecond changes to track lengths.')}
         </p>
