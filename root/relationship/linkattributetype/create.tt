@@ -1,6 +1,0 @@
-[% WRAPPER "layout.tt" title="New relationship attribute" full_width=1 %]
-    <div id="content">
-        <h1>[% 'New relationship attribute' %]</h1>
-        [% INCLUDE "relationship/linkattributetype/form.tt" %]
-    </div>
-[% END %]
