@@ -172,7 +172,7 @@ sub edit : Chained('load') RequireAuth(relationship_editor)
         init_object => {
             attributes => $attribs,
             map { $_ => $link_type->$_ }
-                qw( parent_id child_order name link_phrase reverse_link_phrase
+                qw( id parent_id child_order name link_phrase reverse_link_phrase
                     long_link_phrase description documentation
                     examples is_deprecated has_dates entity0_cardinality entity1_cardinality
                     orderable_direction ),
