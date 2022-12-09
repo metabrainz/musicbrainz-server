@@ -2,6 +2,8 @@ package MusicBrainz::Server::Data::Role::OptionsTree;
 use MooseX::Role::Parameterized;
 use namespace::autoclean;
 
+use MusicBrainz::Server::Constants qw( %ENTITIES );
+
 # This is not used by the role directly,
 # but passed to Role::SelectAll below
 parameter 'order_by' => (
@@ -44,7 +46,36 @@ role {
 
         return $root;
     }
+
+    sub is_child {
+        my ($self, $own_id, $possible_child_id) = @_;
+
+        my $table = $ENTITIES{$self->_type}{table};
+
+        return $self->sql->select_single_value(<<~"SQL", $own_id, $possible_child_id);
+            WITH RECURSIVE hierarchy(parent, children) AS (
+                    SELECT parent, ARRAY[id] AS children
+                      FROM $table
+                UNION ALL
+                    SELECT $table.parent, hierarchy.children || $table.id
+                      FROM $table
+                      JOIN hierarchy ON $table.id = hierarchy.parent
+                     WHERE $table.parent != any(hierarchy.children)
+            )
+            SELECT 1
+              FROM hierarchy
+             WHERE parent = ?
+               AND ? = any(children)
+             LIMIT 1
+            SQL
+    }
 };
+
+=method is_child
+
+Checks whether a specific row id is a child of the given one in the tree. 
+
+=cut
 
 1;
 
