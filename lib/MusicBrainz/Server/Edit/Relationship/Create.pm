@@ -181,14 +181,14 @@ sub build_display_data
     my $loaded_entity_0 = $loaded->{$model0}{$entity0_gid_or_id} if $entity0_gid_or_id;
     my $entity0 = $loaded_entity_0 ||
         $self->c->model($model0)->_entity_class->new(
-            id => 0,
+            id => $self->data->{entity0}{id} // 0,
             name => $self->data->{entity0}{name}
         );
     my $entity1_gid_or_id = gid_or_id($self->data->{entity1});
     my $loaded_entity_1 = $loaded->{$model1}{$entity1_gid_or_id} if $entity1_gid_or_id;
     my $entity1 = $loaded_entity_1 ||
         $self->c->model($model1)->_entity_class->new(
-            id => 0,
+            id => $self->data->{entity1}{id} // 0,
             name => $self->data->{entity1}{name}
         );
     my $entity0_credit = $self->data->{entity0_credit} // '';
@@ -238,10 +238,6 @@ sub build_display_data
             grep { !exists $loaded->{LinkAttributeType}{$_->{type}{id}} }
                 @{ $self->data->{attributes} // [] }
         )),
-        source_type => $type0,
-        target_type => $type1,
-        entity0 => defined $entity0->id ? undef : to_json_object($entity0),
-        entity1 => defined $entity1->id ? undef : to_json_object($entity1),
     }
 }
 
