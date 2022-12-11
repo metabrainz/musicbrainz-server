@@ -4,7 +4,6 @@ use DBDefs;
 use Moose;
 use namespace::autoclean;
 use List::AllUtils qw( any partition_by );
-use MusicBrainz::Server::Constants qw( $STATUS_OPEN );
 use MusicBrainz::Server::Data::Edit;
 use MusicBrainz::Server::Entity::Area;
 use MusicBrainz::Server::Entity::PartialDate;
@@ -156,17 +155,11 @@ sub can_delete
     return 0 if $self->is_release_country_area($area_id);
 
     my $used_in_relationship = used_in_relationship($self->c, area => 'area_row.id');
-    return 1 if $self->sql->select_single_value(<<~"SQL", $area_id, $STATUS_OPEN);
+    return 1 if $self->sql->select_single_value(<<~"SQL", $area_id);
         SELECT TRUE
         FROM area area_row
         WHERE id = ?
-        AND edits_pending = 0
         AND NOT (
-            EXISTS (
-                SELECT TRUE FROM edit_area
-                JOIN edit ON edit_area.edit = edit.id
-                WHERE edit.status = ? AND edit_area.area = area_row.id
-            ) OR
             EXISTS (
                 SELECT TRUE FROM artist
                 WHERE area = area_row.id
