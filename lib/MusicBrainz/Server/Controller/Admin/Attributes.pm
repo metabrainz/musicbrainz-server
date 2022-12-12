@@ -90,6 +90,22 @@ sub create : Chained('attribute_base') RequireAuth(account_admin) SecureForm {
         $c->response->redirect($c->uri_for('/admin/attributes', $model));
         $c->detach;
     }
+
+    $c->stash(
+        current_view => 'Node',
+        component_path => 'admin/attributes/CreateAttribute',
+        component_props => {
+            action => 'add',
+            $form->can('options_item_entity_type')
+                ? (entityTypeSelectOptions => { $form->options_item_entity_type })
+                : (),
+            form => $form->TO_JSON,
+            $form->can('options_parent_id')
+                ? (parentSelectOptions => $form->options_parent_id)
+                : (),
+            type => $model,
+        },
+    );
 }
 
 sub edit : Chained('attribute_base') Args(1) RequireAuth(account_admin) SecureForm {
@@ -112,6 +128,22 @@ sub edit : Chained('attribute_base') Args(1) RequireAuth(account_admin) SecureFo
         $c->response->redirect($c->uri_for('/admin/attributes', $model));
         $c->detach;
     }
+
+    $c->stash(
+        current_view => 'Node',
+        component_path => 'admin/attributes/EditAttribute',
+        component_props => {
+            action => 'edit',
+            $form->can('options_item_entity_type')
+                ? (entityTypeSelectOptions => { $form->options_item_entity_type })
+                : (),
+            form => $form->TO_JSON,
+            $form->can('options_parent_id')
+                ? (parentSelectOptions => $form->options_parent_id)
+                : (),
+            type => $model,
+        },
+    );
 }
 
 sub delete : Chained('attribute_base') Args(1) RequireAuth(account_admin) SecureForm {
