@@ -697,7 +697,7 @@ export class _ExternalLinksEditor
       error = {
         message: exp.l(
           `“{example_url}” is just an example.
-          Please enter the actual link you want to add.`,
+           Please enter the actual link you want to add.`,
           {example_url: <span className="url-quote">{link.url}</span>},
         ),
         target: URLCleanup.ERROR_TARGETS.URL,
