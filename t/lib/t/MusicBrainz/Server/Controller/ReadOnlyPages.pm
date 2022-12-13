@@ -29,7 +29,6 @@ for my $path (
     '/admin/wikidoc/create',
     '/admin/wikidoc/edit',
     '/admin/wikidoc/delete',
-    '/cdstub/add',
     '/edit/enter_votes',
 ) {
     test "Cannot browse $path when DB_READ_ONLY is set" => sub {

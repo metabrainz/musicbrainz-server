@@ -7,50 +7,28 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import SubHeader from '../components/SubHeader.js';
-import Tabs from '../components/Tabs.js';
 import CDStubLink from '../static/scripts/common/components/CDStubLink.js';
 
 type Props = {
   +cdstub: CDStubT,
-  +page: string,
 };
 
 const CDStubHeader = ({
   cdstub,
-  page,
-}: Props): React$Element<typeof React.Fragment> => {
+}: Props): React$Element<'div'> => {
   const subHeading = exp.l(
     'CD stub by {artist}',
     {artist: cdstub.artist || l('Various Artists')},
   );
 
   return (
-    <>
-      <div className="blankheader">
-        <h1>
-          {cdstub.title}
-        </h1>
-        <SubHeader subHeading={subHeading} />
-      </div>
-      <Tabs>
-        <li className={page === 'index' ? 'sel' : ''} key="index">
-          <CDStubLink
-            cdstub={cdstub}
-            content={l('Overview')}
-          />
-        </li>
-        <li className={page === 'edit' ? 'sel' : ''} key="edit">
-          <CDStubLink
-            cdstub={cdstub}
-            content={l('Edit')}
-            subPath="edit"
-          />
-        </li>
-      </Tabs>
-    </>
+    <div className="blankheader">
+      <h1>
+        <CDStubLink cdstub={cdstub} content={cdstub.title} />
+      </h1>
+      <SubHeader subHeading={subHeading} />
+    </div>
   );
 };
 
