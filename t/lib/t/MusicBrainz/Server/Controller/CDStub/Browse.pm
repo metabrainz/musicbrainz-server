@@ -3,6 +3,7 @@ use strict;
 use warnings;
 
 use Test::Routine;
+use Date::Calc qw(N_Delta_YMD Today);
 use MusicBrainz::Server::Test qw( html_ok );
 use Hook::LexWrap;
 
@@ -21,22 +22,17 @@ test 'Browse CD Stubs page contains the expected data' => sub {
 
     MusicBrainz::Server::Test->prepare_raw_test_database($c, '+cdstub_raw');
 
-    {
-        # This test is dependent on the current time to generate the
-        # 'x years ago' content. I'm using a lexically scoped wrapper around
-        # Date::Calc::Today in order to 'lock' the date to 2012/01/01.
-        # See https://metacpan.org/pod/Hook::LexWrap#Lexically-scoped-wrappers
-        # -- ocharles
-        my $wrapper = wrap 'Date::Calc::Today',
-            post => sub {
-                $_[-1] = [2012, 1, 1];
-            };
+    my @today_YMD = Today;
+    my ($added_years, undef, undef) = N_Delta_YMD(
+        (2000, 1, 1),
+        @today_YMD,
+    );
+    my ($modified_years, undef, undef) = N_Delta_YMD(
+        (2001, 1, 1),
+        @today_YMD,
+    );
 
-        $mech->get_ok('/cdstub/browse', 'Fetched the top CD stubs page');
-
-        $wrapper->DESTROY;
-    }
-
+    $mech->get_ok('/cdstub/browse', 'Fetched the top CD stubs page');
 
     html_ok($mech->content);
 
@@ -53,11 +49,11 @@ test 'Browse CD Stubs page contains the expected data' => sub {
         'The page contains the disc id for the one existing CD stub',
     );
     $mech->content_like(
-        qr/Added 12 years ago/,
+        qr/Added $added_years years ago/,
         'The page contains the add date for the one existing CD stub',
     );
     $mech->content_like(
-        qr/last modified 11 years ago/,
+        qr/last modified $modified_years years ago/,
         'The page contains the last change date for the one existing CD stub',
     );
 };

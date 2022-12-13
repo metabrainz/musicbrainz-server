@@ -131,10 +131,17 @@ sub browse : Path('browse')
     my $stubs = $self->_load_paged($c, sub {
                     $c->model('CDStub')->load_top_cdstubs(shift, shift);
                 });
+
+    my %props = (
+        cdStubs => to_json_array($stubs),
+        pager   => serialize_pager($c->stash->{pager}),
+    );
+
     $c->stash(
-              template => 'cdstub/browse.tt',
-              cdstubs  => $stubs
-             );
+        current_view => 'Node',
+        component_path => 'cdstub/BrowseCDStubs.js',
+        component_props => \%props,
+    );
 }
 
 sub edit : Chained('load') DenyWhenReadonly
