@@ -708,6 +708,15 @@ export class _ExternalLinksEditor
                     Did you mean to paste something else?`),
         target: URLCleanup.ERROR_TARGETS.URL,
       };
+    } else if (isNewOrChangedLink && isCritiqueBrainz(link.url)) {
+      error = {
+        message: texp.l(
+          `Please don’t enter CritiqueBrainz links — reviews
+           are automatically linked from the “{reviews_tab_name}” tab.`,
+          {reviews_tab_name: l('Reviews')},
+        ),
+        target: URLCleanup.ERROR_TARGETS.URL,
+      };
     } else if (isNewOrChangedLink && isMalware(link.url)) {
       error = {
         message: l(`Links to this website are not allowed
@@ -1726,6 +1735,10 @@ function isExample(url: string) {
 
 function isMusicBrainz(url: string) {
   return /^https?:\/\/([^/]+\.)?musicbrainz\.org/.test(url);
+}
+
+function isCritiqueBrainz(url: string) {
+  return /^https?:\/\/([^/]+\.)?critiquebrainz\.org/.test(url);
 }
 
 type InitialOptionsT = {
