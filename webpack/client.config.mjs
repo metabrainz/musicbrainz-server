@@ -106,6 +106,7 @@ const entries = [
   'release/edit-relationships',
   'release/index',
   'release-editor',
+  'release-group/components/SetCoverArtForm',
   'release-group/edit',
   'release-group/index',
   'selenium',
