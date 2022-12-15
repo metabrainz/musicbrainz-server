@@ -9,13 +9,13 @@
 
 import * as React from 'react';
 
-import {Artwork} from '../../../../components/Artwork.js';
 import ReleaseCatnoList from '../../../../components/ReleaseCatnoList.js';
 import ReleaseCountryList from '../../../../components/ReleaseCountryList.js';
 import ReleaseDateList from '../../../../components/ReleaseDateList.js';
 import ReleaseLabelList from '../../../../components/ReleaseLabelList.js';
 import {type SetCoverArtFormT} from '../../../../release_group/types.js';
 import ArtistCreditLink from '../../common/components/ArtistCreditLink.js';
+import {Artwork} from '../../common/components/Artwork.js';
 import EntityLink from '../../common/components/EntityLink.js';
 import {commaListText} from '../../common/i18n/commaList.js';
 import formatDate from '../../common/utility/formatDate.js';
