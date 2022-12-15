@@ -14,13 +14,6 @@ import DBDefs from '../static/scripts/common/DBDefs.mjs';
 
 import DocSearchBox from './components/DocSearchBox.js';
 
-type DocPageT = {
-  +content: string,
-  +hierarchy: $ReadOnlyArray<string>,
-  +title: string,
-  +version: number,
-};
-
 type Props = {
   +id: string,
   +page: DocPageT,
