@@ -473,14 +473,19 @@ sub edit_types : Path('/doc/Edit_Types')
 
     for my $category (keys %by_category) {
         $by_category{$category} = [
+            map {{
+                editName => $_->l_edit_name,
+                id => $_->edit_type,
+            }}
             sort { $a->l_edit_name cmp $b->l_edit_name }
                 @{ $by_category{$category} },
             ];
     }
 
     $c->stash(
-        by_category => \%by_category,
-        template => 'doc/edit_types.tt',
+        current_view => 'Node',
+        component_path => 'doc/EditTypeList.js',
+        component_props => { editTypesByCategory => \%by_category },
     );
 }
 
