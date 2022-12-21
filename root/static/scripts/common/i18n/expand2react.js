@@ -230,17 +230,7 @@ const htmlAttrValueParsers = [
   parseHtmlAttrValueCondSubst,
 ];
 
-// Keep in sync with the htmlAttrName RegExp above.
-type HtmlAttrs = {
-  className?: string,
-  href?: string,
-  id?: string,
-  key?: string,
-  rel?: string,
-  target?: string,
-  title?: string,
-  ...
-};
+type HtmlAttrs = {[attr: string]: string};
 
 function parseHtmlAttr(args: VarArgsClass<Input>) {
   if (!gotMatch(accept(htmlAttrStart))) {
