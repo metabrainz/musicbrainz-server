@@ -5,6 +5,7 @@
 # reneweesp <email address hidden>, 2017-2018
 # Maurits Meulenbelt, 2012
 # Maurits Meulenbelt, 2012-2022
+# Nicolás Tamargo <email address hidden>, 2022
 # nikki, 2012-2013
 # nikki2 <email address hidden>, 2012
 # Nikolai Prokoschenko <email address hidden>, 2011
@@ -14,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "PO-Revision-Date: 2012-05-24 18:50+0000\n"
-"Last-Translator: Maurits Meulenbelt, 2012-2022\n"
+"Last-Translator: Nicolás Tamargo <reosarevok@gmail.com>, 2022\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1183,7 +1184,7 @@ msgstr "Deze eigenschap geeft aan dat een gast meespeelt die normaal geen deel v
 msgid ""
 "This attribute indicates a member the band is named after and without which "
 "it wouldn't exist (e.g. Miles Davis -&gt; Miles Davis Sextet)"
-msgstr "Deze eigenschap geeft een lid van de groep aan waarnaar de groep is vernoemd en zonder wie de groep niet zou bestaan (bijv. Miles Davis > Miles Davis Sextet)"
+msgstr "Deze eigenschap geeft een lid van de groep aan waarnaar de groep is vernoemd en zonder wie de groep niet zou bestaan (bijv. Miles Davis -&gt; Miles Davis Sextet)"
 
 #: DB:link_attribute_type/description:511
 msgid ""
