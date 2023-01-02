@@ -23,6 +23,7 @@ export type FilterFormT = $ReadOnly<{
     +setlist?: FieldT<string>,
     +status_id?: FieldT<number>,
     +type_id?: FieldT<number>,
+    +video?: FieldT<number>,
   }>,
   entity_type: 'recording' | 'release' | 'release_group',
   options_artist_credit_id: SelectOptionsT,
@@ -32,6 +33,7 @@ export type FilterFormT = $ReadOnly<{
   options_secondary_type_id?: SelectOptionsT,
   options_status_id?: SelectOptionsT,
   options_type_id?: SelectOptionsT,
+  options_video?: SelectOptionsT,
 }>;
 
 type Props = {
@@ -71,6 +73,8 @@ const FilterForm = ({form}: Props): React$Element<'div'> => {
   const statusIdOptions = form.options_status_id;
   const statusIdField = form.field.status_id;
   const setlistField = form.field.setlist;
+  const videoField = form.field.video;
+  const videoOptions = form.options_video;
 
   return (
     <div id="filter">
@@ -249,6 +253,25 @@ const FilterForm = ({form}: Props): React$Element<'div'> => {
                     type="text"
                   />
                   <FieldErrors field={setlistField} />
+                </td>
+              </tr>
+            ) : null}
+
+            {videoField && videoOptions ? (
+              <tr>
+                <td>
+                  {addColonText(l('Video'))}
+                </td>
+                <td>
+                  <SelectField
+                    field={videoField}
+                    options={{
+                      grouped: false,
+                      options: videoOptions,
+                    }}
+                    style={{maxWidth: '40em'}}
+                    uncontrolled
+                  />
                 </td>
               </tr>
             ) : null}
