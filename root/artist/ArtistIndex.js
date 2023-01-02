@@ -20,7 +20,7 @@ import Annotation from '../static/scripts/common/components/Annotation.js';
 import DescriptiveLink
   from '../static/scripts/common/components/DescriptiveLink.js';
 import Filter from '../static/scripts/common/components/Filter.js';
-import {type FilterFormT}
+import {type ReleaseGroupFilterT}
   from '../static/scripts/common/components/FilterForm.js';
 import WikipediaExtract
   from '../static/scripts/common/components/WikipediaExtract.js';
@@ -49,7 +49,7 @@ type Props = {
   +baseName: ?ArtistT,
   +baseNameLegalNameAliases: ?$ReadOnlyArray<string>,
   +eligibleForCleanup: boolean,
-  +filterForm: ?FilterFormT,
+  +filterForm: ?ReleaseGroupFilterT,
   +hasDefault: boolean,
   +hasExtra: boolean,
   +hasFilter: boolean,
