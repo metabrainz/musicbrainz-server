@@ -4,17 +4,13 @@ use strict;
 use warnings;
 
 use HTML::FormHandler::Moose::Role;
+use MusicBrainz::Server::Form::Utils qw( localize_error );
 use MusicBrainz::Server::Translation qw( l N_l );
 
 my $error_message = N_l(
     'The form you’ve submitted has expired. ' .
     'Please resubmit your request.',
 );
-
-sub localize_error {
-    my ($self, @message) = @_;
-    return l(@message);
-}
 
 has_field 'csrf_token' => (
     type => 'Hidden',

@@ -3,7 +3,7 @@ use strict;
 use warnings;
 
 use HTML::FormHandler::Moose;
-use MusicBrainz::Server::Form::Utils qw( validate_username );
+use MusicBrainz::Server::Form::Utils qw( localize_error validate_username );
 use MusicBrainz::Server::Translation qw( l N_l );
 
 extends 'MusicBrainz::Server::Form';
@@ -53,7 +53,7 @@ has_field 'confirm_password' => (
     required       => 1,
     minlength      => 1,
     messages       => { pass_conf_not_matched => N_l('The password confirmation does not match the password') },
-    localize_meth => sub { my ($self, @message) = @_; return l(@message); },
+    localize_meth  => \&localize_error,
 );
 
 has_field 'email' => (

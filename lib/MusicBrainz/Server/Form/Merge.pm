@@ -4,7 +4,8 @@ use warnings;
 
 use HTML::FormHandler::Moose;
 use namespace::autoclean;
-use MusicBrainz::Server::Translation qw( l N_l );
+use MusicBrainz::Server::Form::Utils qw( localize_error );
+use MusicBrainz::Server::Translation qw( N_l );
 
 extends 'MusicBrainz::Server::Form';
 with 'MusicBrainz::Server::Form::Role::Edit';
@@ -19,7 +20,7 @@ has_field 'target' => (
     type => '+MusicBrainz::Server::Form::Field::Integer',
     required => 1,
     required_message => N_l('Please pick the entity you want the others merged into.'),
-    localize_meth => sub { my ($self, @message) = @_; return l(@message); },
+    localize_meth => \&localize_error,
 );
 
 has_field 'merging' => (
