@@ -490,14 +490,6 @@ const testData = [
     expected_relationship_type: 'blog',
             expected_clean_url: 'https://ameblo.jp/murataayumi/',
   },
-  // Animationsong.com
-  {
-                     input_url: 'http://animationsong.com/archives/816073.html#post-13222',
-             input_entity_type: 'work',
-    expected_relationship_type: 'lyrics',
-            expected_clean_url: 'http://animationsong.com/archives/816073.html',
-       only_valid_entity_types: ['work'],
-  },
   // Anime News Network
   {
                      input_url: 'https://animenewsnetwork.com/encyclopedia/people.php?id=59062',

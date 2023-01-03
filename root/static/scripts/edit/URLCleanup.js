@@ -730,22 +730,6 @@ const CLEANUPS: CleanupEntries = {
       return {result: false, target: ERROR_TARGETS.URL};
     },
   },
-  'animationsong': {
-    match: [new RegExp('^(https?://)?([^/]+\\.)?animationsong\\.com/', 'i')],
-    restrict: [LINK_TYPES.lyrics],
-    clean: function (url) {
-      return url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?animationsong\.com\/(archives\/\d+\.html).*$/, 'http://animationsong.com/$1');
-    },
-    validate: function (url, id) {
-      if (/^http:\/\/animationsong\.com\/archives\/\d+\.html$/.test(url)) {
-        if (id === LINK_TYPES.lyrics.work) {
-          return {result: true};
-        }
-        return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
-      }
-      return {result: false, target: ERROR_TARGETS.URL};
-    },
-  },
   'animenewsnetwork': {
     match: [new RegExp('^(https?://)?(www\\.)?animenewsnetwork\\.com', 'i')],
     restrict: [LINK_TYPES.otherdatabases],
