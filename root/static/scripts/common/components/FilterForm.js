@@ -11,8 +11,13 @@ import SelectField from '../../common/components/SelectField.js';
 import FieldErrors from '../../edit/components/FieldErrors.js';
 import {addColonText} from '../i18n/addColon.js';
 
-type EventFilterFormT = FormT<{
+type GenericFilterFormFieldsT = {
+  +disambiguation: FieldT<string>,
   +name: FieldT<string>,
+};
+
+type EventFilterFormT = FormT<{
+  ...GenericFilterFormFieldsT,
   +setlist: FieldT<string>,
   +type_id: FieldT<number>,
 }>;
@@ -24,8 +29,8 @@ export type EventFilterT = $ReadOnly<{
 }>;
 
 type RecordingFilterFormT = FormT<{
+  ...GenericFilterFormFieldsT,
   +artist_credit_id: FieldT<number>,
-  +name: FieldT<string>,
   +video: FieldT<number>,
 }>;
 
@@ -37,11 +42,11 @@ export type RecordingFilterT = $ReadOnly<{
 }>;
 
 type ReleaseFilterFormT = FormT<{
+  ...GenericFilterFormFieldsT,
   +artist_credit_id: FieldT<number>,
   +country_id: FieldT<number>,
   +date: FieldT<string>,
   +label_id: FieldT<number>,
-  +name: FieldT<string>,
   +status_id: FieldT<number>,
 }>;
 
@@ -55,8 +60,8 @@ export type ReleaseFilterT = $ReadOnly<{
 }>;
 
 type ReleaseGroupFilterFormT = FormT<{
+  ...GenericFilterFormFieldsT,
   +artist_credit_id: FieldT<number>,
-  +name: FieldT<string>,
   +secondary_type_id: FieldT<number>,
   +type_id: FieldT<number>,
 }>;
@@ -70,7 +75,7 @@ export type ReleaseGroupFilterT = $ReadOnly<{
 }>;
 
 type WorkFilterFormT = FormT<{
-  +name: FieldT<string>,
+  ...GenericFilterFormFieldsT,
   +role_type: FieldT<number>,
   +type_id: FieldT<number>,
 }>;
@@ -344,6 +349,18 @@ const FilterForm = ({form}: Props): React$Element<'div'> => (
               </tr>
             </>
           ) : null}
+
+          <tr>
+            <td>{addColonText(l('Disambiguation'))}</td>
+            <td>
+              <input
+                defaultValue={form.field.disambiguation.value}
+                name={form.field.disambiguation.html_name}
+                size="47"
+                type="text"
+              />
+            </td>
+          </tr>
 
           <tr>
             <td />

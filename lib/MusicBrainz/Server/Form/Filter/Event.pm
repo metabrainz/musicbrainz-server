@@ -22,7 +22,7 @@ has_field 'type_id' => (
 );
 
 sub filter_field_names {
-    return qw/ name setlist type_id /;
+    return qw/ disambiguation name setlist type_id /;
 }
 
 sub options_type_id {

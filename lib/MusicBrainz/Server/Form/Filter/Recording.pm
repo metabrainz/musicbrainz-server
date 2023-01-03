@@ -22,7 +22,7 @@ has_field 'video' => (
 );
 
 sub filter_field_names {
-    return qw/ name artist_credit_id video /;
+    return qw/ disambiguation name artist_credit_id video /;
 }
 
 sub options_artist_credit_id {
