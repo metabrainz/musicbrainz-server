@@ -24,6 +24,7 @@ type AutomaticRemovalPropsT = {
 const ENTITIES = {
   annotation: {
     model: 'Annotation',
+    table: 'annotation',
   },
   area: {
     add_edit_type: 81,
@@ -62,6 +63,7 @@ const ENTITIES = {
     removal: {
       manual: true,
     },
+    table: 'area',
     tags: true,
     type: {
       simple: true,
@@ -74,6 +76,7 @@ const ENTITIES = {
   },
   area_type: {
     model: 'AreaType',
+    table: 'area_type',
   },
   artist: {
     add_edit_type: 1,
@@ -131,6 +134,7 @@ const ENTITIES = {
       deleted: true,
       entity: true,
     },
+    table: 'artist',
     tags: true,
     type: {
       simple: true,
@@ -143,16 +147,20 @@ const ENTITIES = {
   },
   artist_credit: {
     model: 'ArtistCredit',
+    table: 'artist_credit',
   },
   artist_type: {
     model: 'ArtistType',
+    table: 'artist_type',
   },
   cdstub: {
     model: 'CDStub',
+    table: 'release_raw',
     url: 'cdstub',
   },
   cdtoc: {
     model: 'CDTOC',
+    table: 'cdtoc',
     url: 'cdtoc',
   },
   collection: {
@@ -174,9 +182,11 @@ const ENTITIES = {
   },
   collection_type: {
     model: 'CollectionType',
+    table: 'editor_collection_type',
   },
   cover_art_type: {
     model: 'CoverArtType',
+    table: 'cover_art_archive.art_type',
   },
   editor: {
     last_updated_column: true,
@@ -184,6 +194,7 @@ const ENTITIES = {
     subscriptions: {
       entity: false,
     },
+    table: 'editor',
     url: 'user',
   },
   event: {
@@ -218,6 +229,7 @@ const ENTITIES = {
     },
     reviews: true,
     series: true,
+    table: 'event',
     tags: true,
     type: {
       simple: true,
@@ -230,9 +242,11 @@ const ENTITIES = {
   },
   event_type: {
     model: 'EventType',
+    table: 'event_type',
   },
   gender: {
     model: 'Gender',
+    table: 'gender',
   },
   genre: {
     add_edit_type: 160,
@@ -259,6 +273,7 @@ const ENTITIES = {
     removal: {
       manual: true,
     },
+    table: 'genre',
     url: 'genre',
   },
   genre_alias_type: {
@@ -297,6 +312,7 @@ const ENTITIES = {
     removal: {
       manual: true,
     },
+    table: 'instrument',
     tags: true,
     type: {
       simple: true,
@@ -309,13 +325,16 @@ const ENTITIES = {
   },
   instrument_type: {
     model: 'InstrumentType',
+    table: 'instrument_type',
   },
   isrc: {
     model: 'ISRC',
+    table: 'isrc',
     url: 'isrc',
   },
   iswc: {
     model: 'ISWC',
+    table: 'iswc',
     url: 'iswc',
   },
   label: {
@@ -365,6 +384,7 @@ const ENTITIES = {
       deleted: true,
       entity: true,
     },
+    table: 'label',
     tags: true,
     type: {
       simple: true,
@@ -377,16 +397,20 @@ const ENTITIES = {
   },
   label_type: {
     model: 'LabelType',
+    table: 'label_type',
   },
   language: {
     model: 'Language',
+    table: 'language',
   },
   link: {
     model: 'Link',
+    table: 'link',
   },
   link_attribute_type: {
     last_updated_column: true,
     model: 'LinkAttributeType',
+    table: 'link_attribute_type',
   },
   link_type: {
     last_updated_column: true,
@@ -394,16 +418,20 @@ const ENTITIES = {
       relatable: false,
     },
     model: 'LinkType',
+    table: 'link_type',
     url: 'relationship',
   },
   medium: {
     model: 'Medium',
+    table: 'medium',
   },
   medium_cdtoc: {
     model: 'MediumCDTOC',
+    table: 'medium_cdtoc',
   },
   medium_format: {
     model: 'MediumFormat',
+    table: 'medium_format',
   },
   place: {
     add_edit_type: 61,
@@ -441,6 +469,7 @@ const ENTITIES = {
     },
     reviews: true,
     sitemaps_lastmod_table: true,
+    table: 'place',
     tags: true,
     type: {
       simple: true,
@@ -453,6 +482,7 @@ const ENTITIES = {
   },
   place_type: {
     model: 'PlaceType',
+    table: 'place_type',
   },
   recording: {
     add_edit_type: 71,
@@ -490,6 +520,7 @@ const ENTITIES = {
     reviews: true,
     series: true,
     sitemaps_lastmod_table: true,
+    table: 'recording',
     tags: true,
     url: 'recording',
   },
@@ -530,6 +561,7 @@ const ENTITIES = {
     report_filter: true,
     series: true,
     sitemaps_lastmod_table: true,
+    table: 'release',
     tags: true,
     url: 'release',
   },
@@ -575,6 +607,7 @@ const ENTITIES = {
     reviews: true,
     series: true,
     sitemaps_lastmod_table: true,
+    table: 'release_group',
     tags: true,
     type: {
       complex: true,
@@ -587,18 +620,23 @@ const ENTITIES = {
   },
   release_group_secondary_type: {
     model: 'ReleaseGroupSecondaryType',
+    table: 'release_group_secondary_type',
   },
   release_group_type: {
     model: 'ReleaseGroupType',
+    table: 'release_group_primary_type',
   },
   release_packaging: {
     model: 'ReleasePackaging',
+    table: 'release_packaging',
   },
   release_status: {
     model: 'ReleaseStatus',
+    table: 'release_status',
   },
   script: {
     model: 'Script',
+    table: 'script',
   },
   series: {
     add_edit_type: 140,
@@ -632,6 +670,7 @@ const ENTITIES = {
       deleted: true,
       entity: true,
     },
+    table: 'series',
     tags: true,
     type: {
       simple: true,
@@ -644,12 +683,15 @@ const ENTITIES = {
   },
   series_ordering_type: {
     model: 'SeriesOrderingType',
+    table: 'series_ordering_type',
   },
   series_type: {
     model: 'SeriesType',
+    table: 'series_type',
   },
   tag: {
     model: 'Tag',
+    table: 'tag',
   },
   track: {
     artist_credits: true,
@@ -661,6 +703,7 @@ const ENTITIES = {
     model: 'Track',
     plural: 'tracks',
     plural_url: 'tracks',
+    table: 'track',
     url: 'track',
   },
   url: {
@@ -677,6 +720,7 @@ const ENTITIES = {
     removal: {
       automatic: ({}: AutomaticRemovalPropsT),
     },
+    table: 'url',
     url: 'url',
   },
   work: {
@@ -712,6 +756,7 @@ const ENTITIES = {
     reviews: true,
     series: true,
     sitemaps_lastmod_table: true,
+    table: 'work',
     tags: true,
     type: {
       simple: true,
@@ -724,15 +769,19 @@ const ENTITIES = {
   },
   work_attribute: {
     model: 'WorkAttribute',
+    table: 'work_attribute',
   },
   work_attribute_type: {
     model: 'WorkAttributeType',
+    table: 'work_attribute_type',
   },
   work_attribute_type_allowed_value: {
     model: 'WorkAttributeTypeAllowedValue',
+    table: 'work_attribute_type_allowed_value',
   },
   work_type: {
     model: 'WorkType',
+    table: 'work_type',
   },
 };
 
