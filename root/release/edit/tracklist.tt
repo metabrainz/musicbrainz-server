@@ -18,7 +18,7 @@
   <textarea class="tracklist" data-bind="value: toBeParsed"></textarea>
 
   <!-- ko if: error -->
-    <p>[% l('Unable to parse the tracklist you entered.') %]</p>
+    <p class="error">[% l('Unable to parse the tracklist you entered.') %]</p>
   <!-- /ko -->
 
   <h3 class="track-parser-options">[% l('Options') %]</h3>
@@ -141,7 +141,7 @@
   <!-- /ko -->
 
   <!-- ko if: error -->
-    <p>[% l('An error occurred: ') %] <span data-bind="text: error"></span></p>
+    <p class="error">[% l('An error occurred: ') %] <span data-bind="text: error"></span></p>
   <!-- /ko -->
 
   <!-- ko foreach: { data: searchResults, if: searchResults } -->
