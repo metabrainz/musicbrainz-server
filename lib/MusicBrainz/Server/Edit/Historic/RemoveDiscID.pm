@@ -38,9 +38,10 @@ sub build_display_data
         releases => [ map {
             to_json_object($loaded->{Release}{$_})
         } @{ $self->data->{release_ids} } ],
-        cdtoc => to_json_object(CDTOC->new(
-            discid => $self->data->{disc_id}
-        )),
+        cdtoc => {
+            entityType => 'cdtoc',
+            discid => $self->data->{disc_id},
+        },
     };
 }
 

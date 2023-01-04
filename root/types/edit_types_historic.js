@@ -305,7 +305,10 @@ declare type MoveReleaseToReleaseGroupHistoricEditT = $ReadOnly<{
 declare type RemoveDiscIdHistoricEditT = $ReadOnly<{
   ...GenericEditT,
   +display_data: {
-    +cdtoc: CDTocT,
+    +cdtoc: {
+      +discid: string,
+      +entityType: 'cdtoc',
+    },
     +releases: $ReadOnlyArray<ReleaseT | null>,
   },
   +edit_type: EDIT_HISTORIC_REMOVE_DISCID_T,
