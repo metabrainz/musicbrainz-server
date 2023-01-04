@@ -4,6 +4,10 @@ use warnings;
 use MusicBrainz::Server::Constants qw( %ENTITIES @RELATABLE_ENTITIES );
 
 for my $type (@RELATABLE_ENTITIES) {
+    # We want its own non-searchable predicate until URL is properly searchable (MBS-12122)
+    if ($type eq 'url') {
+        next;
+    }
     my $model = $ENTITIES{$type}{model};
     my $has_subs = $ENTITIES{$type}{subscriptions};
     my $subs_section = '';
