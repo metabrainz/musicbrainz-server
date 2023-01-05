@@ -270,7 +270,7 @@ test('merging duplicate relationships', function (t) {
 });
 
 test('splitRelationshipByAttributes', function (t) {
-  t.plan(12);
+  t.plan(14);
 
   const lyre = {
     type: {
@@ -552,6 +552,74 @@ test('splitRelationshipByAttributes', function (t) {
   t.ok(
     splitRelationships[0] === modifiedRelationship4,
     'the same relationship is returned back',
+  );
+
+  /*
+   * This test adds an instrument and vocal to an existing relationship
+   * which has neither (MBS-12787).  One of the newly-added attributes is
+   * merged into the existing relationship, and the other is split.
+   */
+
+  const existingRelationship4: RelationshipStateT = {
+    _original: null,
+    _status: REL_STATUS_NOOP,
+    attributes: null,
+    begin_date: null,
+    editsPending: false,
+    end_date: null,
+    ended: false,
+    entity0: artist,
+    entity0_credit: '',
+    entity1: event,
+    entity1_credit: '',
+    id: 3,
+    linkOrder: 0,
+    linkTypeID: 798,
+  };
+  Object.freeze(existingRelationship4);
+
+  const leadVocals = {
+    type: {
+      gid: '8e2a3255-87c2-4809-a174-98cb3704f1a5',
+    },
+    typeID: 4,
+    typeName: 'lead vocals',
+  };
+
+  const modifiedRelationship5 = {
+    ...existingRelationship4,
+    _original: existingRelationship4,
+    _status: REL_STATUS_EDIT,
+    attributes: tree.fromDistinctAscArray([drums, leadVocals]),
+  };
+
+  splitRelationships =
+    splitRelationshipByAttributes(modifiedRelationship5);
+
+  t.ok(
+    relationshipsAreIdentical(
+      splitRelationships[0],
+      {
+        ...existingRelationship4,
+        _original: existingRelationship4,
+        _status: REL_STATUS_EDIT,
+        attributes: tree.fromDistinctAscArray([leadVocals]),
+      },
+    ),
+    'first relationship is edited to contain lead vocals',
+  );
+  t.ok(
+    relationshipsAreIdentical(
+      splitRelationships[1],
+      {
+        ...existingRelationship4,
+        _original: null,
+        _status: REL_STATUS_ADD,
+        attributes: tree.fromDistinctAscArray([drums]),
+        id: splitRelationships[1].id,
+      },
+    ),
+    'second relationship contains drums',
   );
 });
 
