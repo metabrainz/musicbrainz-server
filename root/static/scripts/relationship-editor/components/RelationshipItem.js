@@ -44,6 +44,7 @@ import type {
 import getLinkPhrase from '../utility/getLinkPhrase.js';
 import getRelationshipKey from '../utility/getRelationshipKey.js';
 import getRelationshipLinkType from '../utility/getRelationshipLinkType.js';
+import isRelationshipBackward from '../utility/isRelationshipBackward.js';
 
 import NewWorkLink from './NewWorkLink.js';
 
@@ -66,7 +67,7 @@ const RelationshipItem = (React.memo<PropsT>(({
   source,
   track,
 }: PropsT): React.MixedElement => {
-  const backward = relationship.entity1.id === source.id;
+  const backward = isRelationshipBackward(relationship, source);
   const target: CoreEntityT = backward
     ? relationship.entity0
     : relationship.entity1;
