@@ -41,7 +41,7 @@ const DialogLinkOrder = (React.memo<PropsT>(({
   return (
     <tr className="link-order">
       <td className="section">
-        {addColonText(l('Order'))}
+        {l('Order')}
       </td>
       <td className="fields">
         <input

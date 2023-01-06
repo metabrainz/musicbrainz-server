@@ -270,7 +270,7 @@ const DialogLinkType = (React.memo<PropsT>(({
   return (
     <tr>
       <td className="required section">
-        {addColonText(l('Relationship type'))}
+        {l('Relationship type')}
       </td>
       <td className="fields">
         <LinkTypeAutocomplete

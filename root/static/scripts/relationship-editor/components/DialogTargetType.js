@@ -23,12 +23,6 @@ type PropsT = {
   +targetType: CoreEntityTypeT,
 };
 
-const foo: {+[key: CoreEntityTypeT]: null} = {
-  artist: null,
-};
-
-foo;
-
 const DialogTargetType = (React.memo<PropsT>((
   props: PropsT,
 ): React.MixedElement => {
@@ -51,7 +45,7 @@ const DialogTargetType = (React.memo<PropsT>((
   return (
     <tr>
       <td className="required section">
-        {addColonText(l('Related entity type'))}
+        {l('Type')}
       </td>
       <td className="fields">
         <select

@@ -24,6 +24,7 @@ import {
 } from '../../common/entity2.js';
 import linkedEntities from '../../common/linkedEntities.mjs';
 import MB from '../../common/MB.js';
+import bracketed from '../../common/utility/bracketed.js';
 import clean from '../../common/utility/clean.js';
 import {
   performReactUpdateAndMaintainFocus,
@@ -44,7 +45,9 @@ import {
   REL_STATUS_ADD,
   RelationshipSourceGroupsContext,
 } from '../constants.js';
+import useRangeSelectionHandler from '../hooks/useRangeSelectionHandler.js';
 import type {
+  DialogAttributesStateT,
   ExternalLinkAttrT,
   LinkAttributesByRootIdT,
   RelationshipDialogStateT,
@@ -487,6 +490,74 @@ export function reducer(
   return newState;
 }
 
+type AttributesSectionPropsT = {
+  +attributesState: DialogAttributesStateT,
+  +canEditDates: boolean,
+  +datePeriodField: DatePeriodFieldT,
+  +dispatch: (DialogActionT) => void,
+};
+
+const AttributesSection = (React.memo<AttributesSectionPropsT>(({
+  attributesState,
+  canEditDates,
+  datePeriodField,
+  dispatch,
+}) => {
+  const attributesDispatch = React.useCallback((action) => {
+    dispatch({action, type: 'update-attribute'});
+  }, [dispatch]);
+
+  const dateDispatch = React.useCallback((action) => {
+    dispatch({action, type: 'update-date-period'});
+  }, [dispatch]);
+
+  const handleAttributesHelpClick = React.useCallback((
+    event: SyntheticEvent<HTMLAnchorElement>,
+  ) => {
+    event.preventDefault();
+    attributesDispatch({
+      type: 'set-help-visible',
+      isHelpVisible: !attributesState.isHelpVisible,
+    });
+  }, [
+    attributesDispatch,
+    attributesState.isHelpVisible,
+  ]);
+
+  const booleanRangeSelectionHandler =
+    useRangeSelectionHandler('boolean');
+
+  return (attributesState.attributesList.length || canEditDates) ? (
+    <>
+      <h2>
+        {l('Attributes')}
+        {' '}
+        {bracketed(
+          <a href="#" onClick={handleAttributesHelpClick}>
+            {l('help')}
+          </a>,
+        )}
+      </h2>
+      <table className="relationship-details">
+        <tbody onClick={booleanRangeSelectionHandler}>
+          {attributesState.attributesList.length ? (
+            <DialogAttributes
+              dispatch={attributesDispatch}
+              state={attributesState}
+            />
+          ) : null}
+          {canEditDates ? (
+            <DialogDatePeriod
+              dispatch={dateDispatch}
+              state={datePeriodField}
+            />
+          ) : null}
+        </tbody>
+      </table>
+    </>
+  ) : null;
+}): React.AbstractComponent<AttributesSectionPropsT, mixed>);
+
 const RelationshipDialogContent = (React.memo<PropsT>((
   props: PropsT,
 ): React.MixedElement => {
@@ -530,12 +601,13 @@ const RelationshipDialogContent = (React.memo<PropsT>((
   const selectedTargetEntity = targetEntityState.target;
   const targetType = targetEntityState.targetType;
   const datePeriodField = state.datePeriodField;
+  const attributesList = state.attributes.attributesList;
 
   const hasErrors = !!(
     nonEmpty(linkTypeState.error) ||
     nonEmpty(sourceEntityState.error) ||
     targetEntityState.error ||
-    state.attributes.attributesList.some(x => x.error) ||
+    attributesList.some(x => x.error) ||
     datePeriodField.errors?.length ||
     datePeriodField.field.begin_date.errors?.length ||
     datePeriodField.field.end_date.errors?.length
@@ -773,14 +845,6 @@ const RelationshipDialogContent = (React.memo<PropsT>((
     dispatch({action, source, type: 'update-link-type'});
   }, [dispatch, source]);
 
-  const attributesDispatch = React.useCallback((action) => {
-    dispatch({action, type: 'update-attribute'});
-  }, [dispatch]);
-
-  const dateDispatch = React.useCallback((action) => {
-    dispatch({action, type: 'update-date-period'});
-  }, [dispatch]);
-
   const openEditsLink = (
     initialRelationship._original &&
     initialRelationship?.editsPending
@@ -802,6 +866,9 @@ const RelationshipDialogContent = (React.memo<PropsT>((
       acceptDialog();
     }
   }, [acceptDialog]);
+
+  const canEditDates = selectedLinkType != null &&
+    selectedLinkType.has_dates;
 
   return (
     <div
@@ -834,6 +901,15 @@ const RelationshipDialogContent = (React.memo<PropsT>((
       )}
       <table className="relationship-details">
         <tbody>
+          <DialogSourceEntity
+            backward={backward}
+            batchSelectionCount={batchSelectionCount}
+            dispatch={sourceEntityDispatch}
+            linkType={selectedLinkType}
+            source={source}
+            state={sourceEntityState}
+            targetType={targetType}
+          />
           {(
             initialRelationship._status === REL_STATUS_ADD &&
             targetTypeOptions
@@ -845,15 +921,13 @@ const RelationshipDialogContent = (React.memo<PropsT>((
               targetType={targetEntityState.targetType}
             />
             ) : null}
-          <DialogSourceEntity
-            backward={backward}
-            batchSelectionCount={batchSelectionCount}
-            dispatch={sourceEntityDispatch}
-            linkType={selectedLinkType}
-            source={source}
-            state={sourceEntityState}
-            targetType={targetType}
-          />
+        </tbody>
+      </table>
+      <h2>
+        {l('Relationship')}
+      </h2>
+      <table className="relationship-details">
+        <tbody>
           <DialogLinkType
             dispatch={linkTypeDispatch}
             source={source}
@@ -867,16 +941,6 @@ const RelationshipDialogContent = (React.memo<PropsT>((
             source={source}
             state={targetEntityState}
           />
-          <DialogAttributes
-            dispatch={attributesDispatch}
-            state={state.attributes}
-          />
-          {(selectedLinkType && selectedLinkType.has_dates) ? (
-            <DialogDatePeriod
-              dispatch={dateDispatch}
-              state={state.datePeriodField}
-            />
-          ) : null}
           {(
             selectedLinkType &&
             isLinkTypeOrderableByUser(selectedLinkType.id, source, backward)
@@ -888,6 +952,12 @@ const RelationshipDialogContent = (React.memo<PropsT>((
             ) : null}
         </tbody>
       </table>
+      <AttributesSection
+        attributesState={state.attributes}
+        canEditDates={canEditDates}
+        datePeriodField={state.datePeriodField}
+        dispatch={dispatch}
+      />
       {source ? (
         <DialogPreview
           backward={backward}

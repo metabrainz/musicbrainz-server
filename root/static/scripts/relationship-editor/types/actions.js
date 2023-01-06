@@ -76,7 +76,7 @@ export type DialogActionT =
       +type: 'update-link-type',
     }
   | {
-      +action: DialogUpdateAttributeActionT,
+      +action: DialogAttributeActionT,
       +type: 'update-attribute',
     }
   | {
@@ -84,7 +84,11 @@ export type DialogActionT =
       +type: 'update-date-period',
     };
 
-export type DialogUpdateAttributeActionT =
+export type DialogAttributeActionT =
+  | {
+      +isHelpVisible: boolean,
+      +type: 'set-help-visible',
+    }
   | {
       +action: DialogBooleanAttributeActionT,
       +rootKey: number,
@@ -193,7 +197,7 @@ export type DialogTargetEntityActionT =
 
 export type BatchCreateWorksDialogActionT =
   | {
-      action: DialogUpdateAttributeActionT,
+      action: DialogAttributeActionT,
       type: 'update-attribute',
     }
   | {

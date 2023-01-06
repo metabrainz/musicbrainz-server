@@ -328,7 +328,7 @@ const DialogTargetEntity = (React.memo<PropsT>((
   return (
     <tr>
       <td className="required section">
-        {addColonText(ENTITY_NAMES[targetType]())}
+        {ENTITY_NAMES[targetType]()}
       </td>
       <td className="fields">
         {targetType === 'url' ? (

@@ -57,6 +57,7 @@ div.relationship-dialog, div.work-dialog {
             vertical-align: top;
             text-align: right;
             width: 25%;
+            padding-right: 0.5em;
             &.required {font-weight: bold;}
         }
         td.fields {
@@ -67,8 +68,26 @@ div.relationship-dialog, div.work-dialog {
 }
 
 div.relationship-dialog {
+    h2 {
+        text-align: center;
+        font-size: @medium-text;
+        margin: 0.5em 0;
+        border-top: 1px @medium-grey solid;
+        padding-top: 0.5em;
+    }
+
     table.relationship-details {
         select.entity-type, input.entity-credit { min-width: 60%; }
+        td.fields.end-date div.row {
+            /*
+             * Remove bottom margin below the ended checkbox, since the
+             * "Preview" h2 below already has sufficient margin/padding.
+             */
+            margin-bottom: 0;
+        }
+    }
+    table.preview.details th {
+        width: unset;
     }
     input.attribute-credit {
         width: 130px;
@@ -96,9 +115,6 @@ div.multiselect-value {
 }
 
 div.attribute-container {
-    &.multiselect, &.text {
-        padding-top: 6px;
-    }
     button.add-item {
         margin-top: 6px;
     }

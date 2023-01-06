@@ -44,7 +44,7 @@ const DialogDatePeriod = (React.memo<PropsT>(({
       <tr>
         <td className="section">
           <label htmlFor={'id-' + beginDateField.field.year.html_name}>
-            {addColonText(l('Begin date'))}
+            {l('Begin date')}
           </label>
         </td>
         <td className="fields">
@@ -65,10 +65,10 @@ const DialogDatePeriod = (React.memo<PropsT>(({
       <tr>
         <td className="section">
           <label htmlFor={'id-' + endDateField.field.year.html_name}>
-            {addColonText(l('End date'))}
+            {l('End date')}
           </label>
         </td>
-        <td className="fields">
+        <td className="fields end-date">
           <PartialDateInput
             dispatch={hooks.endDateDispatch}
             field={state.field.end_date}
