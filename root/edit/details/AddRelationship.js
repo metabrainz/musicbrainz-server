@@ -17,19 +17,15 @@ type Props = {
 };
 
 const AddRelationship = ({edit}: Props): React.MixedElement => {
-  const relationship = {
-    ...edit.display_data.relationship,
-    entity0: edit.display_data.entity0,
-    entity1: edit.display_data.entity1,
-  };
+  const relationship = edit.display_data.relationship;
   return (
     <table className="details add-relationship">
       <tr>
         <th>{l('Relationship:')}</th>
         <td>
           <Relationship
-            allowNewEntity0={!edit.display_data.entity0?.id}
-            allowNewEntity1={!edit.display_data.entity1?.id}
+            allowNewEntity0={relationship.entity0_id === 0}
+            allowNewEntity1={relationship.entity1_id === 0}
             relationship={relationship}
           />
         </td>

@@ -211,18 +211,24 @@ function stripHtml(description: ?string) {
   return description;
 }
 
-function formatInstrument(instrument: InstrumentT) {
+function formatInstrument(
+  instrument: InstrumentT,
+  showDescriptions: ?boolean,
+) {
   const extraInfo = [];
 
   if (nonEmpty(instrument.typeName)) {
     extraInfo.push(lp_attributes(instrument.typeName, 'instrument_type'));
   }
 
-  const description = stripHtml(
-    instrument.description
-      ? l_instrument_descriptions(instrument.description)
-      : null,
-  );
+  let description;
+  if (showDescriptions !== false) {
+    description = stripHtml(
+      instrument.description
+        ? l_instrument_descriptions(instrument.description)
+        : null,
+    );
+  }
 
   return (
     <>
@@ -234,7 +240,10 @@ function formatInstrument(instrument: InstrumentT) {
   );
 }
 
-function formatLinkAttributeType(type: LinkAttrTypeT) {
+function formatLinkAttributeType(
+  type: LinkAttrTypeT,
+  showDescriptions: ?boolean,
+) {
   if (type.root_id === INSTRUMENT_ROOT_ID) {
     return formatInstrument({
       comment: type.instrument_comment ?? '',
@@ -246,12 +255,15 @@ function formatLinkAttributeType(type: LinkAttrTypeT) {
       name: type.name,
       typeID: type.instrument_type_id ?? null,
       typeName: type.instrument_type_name,
-    });
+    }, showDescriptions);
   }
 
-  const description = stripHtml(
-    localizeLinkAttributeTypeDescription(type),
-  );
+  let description;
+  if (showDescriptions !== false) {
+    description = stripHtml(
+      localizeLinkAttributeTypeDescription(type),
+    );
+  }
 
   return (
     <>
@@ -261,26 +273,38 @@ function formatLinkAttributeType(type: LinkAttrTypeT) {
   );
 }
 
-function formatLinkType(linkType: LinkTypeT) {
+function formatLinkType(
+  linkType: LinkTypeT,
+  showDescriptions: ?boolean,
+) {
   const description = stripHtml(linkType.l_description);
-  const linkPhrase = linkType.l_link_phrase;
-  const reverseLinkPhrase = linkType.l_reverse_link_phrase;
   const isGroupingType = empty(description);
+
+  let nameDisplay = linkType.l_name;
+  if (!isGroupingType) {
+    let linkPhrase = linkType.l_link_phrase;
+    let reverseLinkPhrase = linkType.l_reverse_link_phrase;
+    if (!empty(linkPhrase) && !empty(reverseLinkPhrase)) {
+      linkPhrase = stripAttributes(linkType, linkPhrase);
+      reverseLinkPhrase = stripAttributes(linkType, reverseLinkPhrase);
+      if (linkPhrase === reverseLinkPhrase) {
+        nameDisplay = linkPhrase;
+      } else {
+        nameDisplay =
+          texp.l('{forward_link_phrase} / {backward_link_phrase}', {
+            backward_link_phrase: reverseLinkPhrase,
+            forward_link_phrase: linkPhrase,
+          });
+      }
+    }
+  }
 
   return (
     <>
-      {linkType.l_name}
-      {nonEmpty(linkPhrase) && !isGroupingType ? showExtraInfoLine(
-        l('Forward link phrase:') + ' ' +
-          stripAttributes(linkType, linkPhrase),
-        'comment',
-      ) : null}
-      {nonEmpty(reverseLinkPhrase) && !isGroupingType ? showExtraInfoLine(
-        l('Reverse link phrase:') + ' ' +
-        stripAttributes(linkType, reverseLinkPhrase),
-        'comment',
-      ) : null}
-      {isGroupingType ? null : showExtraInfoLine(description)}
+      {nameDisplay}
+      {(
+        isGroupingType || showDescriptions !== true
+      ) ? null : showExtraInfoLine(description)}
     </>
   );
 }
@@ -488,8 +512,13 @@ function formatWork(work: WorkT) {
   );
 }
 
+export type FormatOptionsT = {
+  +showDescriptions?: boolean,
+};
+
 export default function formatItem<+T: EntityItemT>(
   item: ItemT<T>,
+  options?: ?FormatOptionsT,
 ): Expand2ReactOutput {
   switch (item.type) {
     case 'action':
@@ -510,13 +539,22 @@ export default function formatItem<+T: EntityItemT>(
           return formatEvent(entity);
 
         case 'instrument':
-          return formatInstrument(entity);
+          return formatInstrument(
+            entity,
+            options?.showDescriptions,
+          );
 
         case 'link_attribute_type':
-          return formatLinkAttributeType(entity);
+          return formatLinkAttributeType(
+            entity,
+            options?.showDescriptions,
+          );
 
         case 'link_type':
-          return formatLinkType(entity);
+          return formatLinkType(
+            entity,
+            options?.showDescriptions,
+          );
 
         case 'place':
           return formatPlace(entity);

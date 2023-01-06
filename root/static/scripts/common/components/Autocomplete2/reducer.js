@@ -16,6 +16,7 @@ import {
   isLocationEditor,
   isRelationshipEditor,
 } from '../../utility/privileges.js';
+import setCookie from '../../utility/setCookie.js';
 
 import {
   OPEN_ADD_ENTITY_DIALOG,
@@ -94,9 +95,11 @@ export function generateItems<+T: EntityItemT>(
   }
 
   const {
+    entityType,
     page,
     recentItems,
     results,
+    showDescriptions = true,
   } = state;
 
   const isInputValueNonEmpty = nonEmpty(state.inputValue);
@@ -138,6 +141,25 @@ export function generateItems<+T: EntityItemT>(
 
       if (page < totalPages) {
         items.push(MENU_ITEMS.SHOW_MORE);
+      }
+
+      if (
+        entityType === 'link_attribute_type' ||
+        entityType === 'link_type'
+      ) {
+        items.push({
+          type: 'action',
+          action: {
+            showDescriptions: !showDescriptions,
+            type: 'toggle-descriptions',
+          },
+          id: 'toggle-descriptions',
+          name:
+            showDescriptions
+              ? l('Hide descriptions')
+              : l('Show descriptions'),
+          separator: true,
+        });
       }
     } else if (isInputValueNonEmpty && !hasSelection) {
       items.push(MENU_ITEMS.NO_RESULTS);
@@ -506,6 +528,12 @@ export function runReducer<+T: EntityItemT>(
     case 'stop-search':
       state.pendingSearch = null;
       break;
+
+    case 'toggle-descriptions': {
+      state.showDescriptions = action.showDescriptions;
+      setCookie('show_autocomplete_descriptions', state.showDescriptions);
+      break;
+    }
 
     case 'toggle-indexed-search':
       state.indexedSearch = !state.indexedSearch;

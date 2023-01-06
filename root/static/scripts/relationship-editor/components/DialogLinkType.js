@@ -20,9 +20,7 @@ import type {
   PropsT as AutocompletePropsT,
 } from '../../common/components/Autocomplete2/types.js';
 import {PART_OF_SERIES_LINK_TYPE_IDS} from '../../common/constants.js';
-import expand2react from '../../common/i18n/expand2react.js';
 import linkedEntities from '../../common/linkedEntities.mjs';
-import bracketed from '../../common/utility/bracketed.js';
 import isBlank from '../../common/utility/isBlank.js';
 import {stripAttributes} from '../../edit/utility/linkPhrase.js';
 import type {
@@ -261,15 +259,6 @@ const DialogLinkType = (React.memo<PropsT>(({
     error,
   } = state;
 
-  const linkType = autocomplete.selectedItem?.entity;
-
-  const [isHelpVisible, setHelpVisible] = React.useState(false);
-
-  function toggleHelp(event: SyntheticEvent<HTMLAnchorElement>) {
-    event.preventDefault();
-    setHelpVisible(!isHelpVisible);
-  }
-
   const autocompleteDispatch = React.useCallback((action) => {
     dispatch({
       action,
@@ -282,12 +271,6 @@ const DialogLinkType = (React.memo<PropsT>(({
     <tr>
       <td className="required section">
         {addColonText(l('Relationship type'))}
-        <br />
-        {bracketed(
-          <a href="#" onClick={toggleHelp}>
-            {l('help')}
-          </a>,
-        )}
       </td>
       <td className="fields">
         <LinkTypeAutocomplete
@@ -297,15 +280,6 @@ const DialogLinkType = (React.memo<PropsT>(({
         <div aria-atomic="true" className="error" role="alert">
           {error}
         </div>
-        {isHelpVisible && (linkType?.description) ? (
-          <div className="ar-descr">
-            {exp.l('{description} ({url|more documentation})', {
-              description:
-                expand2react(l_relationships(linkType.description)),
-              url: {href: '/relationship/' + linkType.gid, target: '_blank'},
-            })}
-          </div>
-        ) : null}
       </td>
     </tr>
   );
