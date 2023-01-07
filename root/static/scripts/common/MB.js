@@ -12,13 +12,15 @@
 import global from '../global.js';
 
 import * as constants from './constants.js';
+import linkedEntities from './linkedEntities.mjs';
 
 // Namespaces
 const MB: {[namespace: string]: {...}, ...} = {
   // Classes, common controls used throughout MusicBrainz
   Control: {},
 
-  // Exposes relationship editor internals for userscripts.
+  // Exposes internal data structures for userscripts.
+  linkedEntities,
   relationshipEditor: {},
 
   // Utility functions
