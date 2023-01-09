@@ -207,7 +207,10 @@ sub validate_username {
     if (defined $username) {
         unless (defined $previous_username && $editor_model->are_names_equivalent($previous_username, $username)) {
             my $sanitized_name = sanitize($username);
-            if ($username ne $sanitized_name) {
+            if (
+                $username ne $sanitized_name ||
+                $sanitized_name =~ qr{://}
+            ) {
                 $self->add_error(l('This username contains invalid characters. (Check for consecutive spaces.)'));
             }
             if ($username =~ qr{^deleted editor \#\d+$}i) {

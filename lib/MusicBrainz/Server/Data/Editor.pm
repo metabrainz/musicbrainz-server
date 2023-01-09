@@ -253,7 +253,8 @@ sub _die_if_username_invalid {
 
     die 'Invalid user name' if (
         $name ne $sanitized_name ||
-        $sanitized_name =~ qr{^deleted editor \#\d+$}i
+        $sanitized_name =~ qr{^deleted editor \#\d+$}i ||
+        $sanitized_name =~ qr{://}
     );
 }
 
