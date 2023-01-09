@@ -74,6 +74,24 @@ test 'Trying to register with an invalid name' => sub {
 
     like($mech->uri, qr{/register}, 'stays on registration page');
     $mech->content_contains('username is reserved', 'form has error message');
+
+    $mech->submit_form( with_fields => {
+        'register.username' => "very\rnew\nlines",
+        'register.password' => 'foo',
+        'register.confirm_password' => 'foo',
+        'register.email' => 'foobar@example.org',
+    });
+    like($mech->uri, qr{/register}, 'stays on registration page');
+    $mech->content_contains('username contains invalid characters', 'form has error message for newlines in username');
+
+    $mech->submit_form( with_fields => {
+        'register.username' => 'consecutive  spaces',
+        'register.password' => 'foo',
+        'register.confirm_password' => 'foo',
+        'register.email' => 'foobar@example.org',
+    });
+    like($mech->uri, qr{/register}, 'stays on registration page');
+    $mech->content_contains('username contains invalid characters', 'form has error message for consecutive spaces in username');
 };
 
 test 'Trying to register with an existing name' => sub {

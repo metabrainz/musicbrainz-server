@@ -3,6 +3,7 @@ package MusicBrainz::Server::Form::Utils;
 use strict;
 use warnings;
 
+use MusicBrainz::Server::Data::Utils qw( sanitize );
 use MusicBrainz::Server::Translation qw( l lp );
 use List::AllUtils qw( sort_by );
 
@@ -205,6 +206,10 @@ sub validate_username {
 
     if (defined $username) {
         unless (defined $previous_username && $editor_model->are_names_equivalent($previous_username, $username)) {
+            my $sanitized_name = sanitize($username);
+            if ($username ne $sanitized_name) {
+                $self->add_error(l('This username contains invalid characters. (Check for consecutive spaces.)'));
+            }
             if ($username =~ qr{^deleted editor \#\d+$}i) {
                 $self->add_error(l('This username is reserved for internal use.'));
             }
