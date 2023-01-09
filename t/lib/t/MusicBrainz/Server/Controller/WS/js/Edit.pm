@@ -288,6 +288,7 @@ test 'previewing/creating/editing a release group and release' => sub {
             ],
             editsPending => JSON::false,
             cover_art_presence => undef,
+            has_no_tracks => JSON::true,
             may_have_cover_art => JSON::true,
             may_have_discids => JSON::false,
             quality => 1,

@@ -260,6 +260,7 @@ export function createReleaseObject(
     cover_art_presence: 'absent',
     entityType: 'release',
     gid: '',
+    has_no_tracks: true,
     id: 0,
     language: null,
     languageID: null,
