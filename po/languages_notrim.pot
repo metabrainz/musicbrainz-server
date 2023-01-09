@@ -5048,7 +5048,7 @@ msgstr ""
 msgid "Bualkhaw Chin"
 msgstr ""
 
-#. frequency:0 iso_code_3:box 
+#. frequency:1 iso_code_3:box 
 #: DB:language/name:1322
 msgid "Buamu"
 msgstr ""

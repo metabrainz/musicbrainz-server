@@ -28,6 +28,7 @@ import {
   findTargetTypeGroups,
   iterateRelationshipsInTargetTypeGroups,
 } from '../utility/findState.js';
+import isRelationshipBackward from '../utility/isRelationshipBackward.js';
 
 function pushRelationshipHiddenInputs(
   formName: string,
@@ -46,7 +47,7 @@ function pushRelationshipHiddenInputs(
     pushInput(relPrefix, 'removed', '1');
   }
 
-  const backward = relationship.entity1.id === source.id;
+  const backward = isRelationshipBackward(relationship, source);
   const target = backward ? relationship.entity0 : relationship.entity1;
 
   if (target.gid) {

@@ -101,9 +101,19 @@ const RelationshipPhraseGroup = (React.memo<PropsT>(({
       if (canBeOrdered) {
         maxLinkOrder = Math.max(maxLinkOrder, relationship.linkOrder);
       }
+      // Drop number attribute for part of series - useless to reuse
+      const relationshipAttributesForReuse = tree.removeIfExists(
+        relationship.attributes,
+        {
+          type: {gid: 'a59c5830-5ec7-38fe-9a21-c7ea54f6650a'},
+          typeID: 788,
+          typeName: 'number',
+        },
+        compareLinkAttributeIds,
+      );
       newAttributesData = tree.union(
         newAttributesData,
-        relationship.attributes,
+        relationshipAttributesForReuse,
         compareLinkAttributeIds,
       );
     }

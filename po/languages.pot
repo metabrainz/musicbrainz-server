@@ -343,6 +343,11 @@ msgstr ""
 msgid "Breton"
 msgstr ""
 
+#. frequency:1 iso_code_3:box 
+#: DB:language/name:1322
+msgid "Buamu"
+msgstr ""
+
 #. frequency:1 iso_code_3:bug 
 #: DB:language/name:61
 msgid "Buginese"

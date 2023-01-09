@@ -78,6 +78,7 @@ export default function splitRelationshipByAttributes(
     tree.toArray(origRelationship ? origRelationship.attributes : null)
       .filter(isInstrumentOrVocal),
   );
+  const hasOrigInstrumentsAndVocals = origInstrumentsAndVocals != null;
 
   /*
    * If this is an existing relationship, split any newly-added instrument
@@ -189,6 +190,34 @@ export default function splitRelationshipByAttributes(
 
   if (origRelationship) {
     const newRelationship = cloneRelationshipState(relationship);
+    /*
+     * If the existing relationship has no instruments or vocals, add the
+     * first new instrument or vocal to it (MBS-12787).
+     */
+    if (
+      newAttributesToSplit != null &&
+      !hasOrigInstrumentsAndVocals
+    ) {
+      let firstInstrumentOrVocalToSplit;
+      for (const attribute of tree.iterate(newAttributesToSplit)) {
+        if (isInstrumentOrVocal(attribute)) {
+          firstInstrumentOrVocalToSplit = attribute;
+          break;
+        }
+      }
+      if (firstInstrumentOrVocalToSplit) {
+        newAttributesToSplit = tree.remove(
+          newAttributesToSplit,
+          firstInstrumentOrVocalToSplit,
+          compareLinkAttributes,
+        );
+        attributesForExistingRelationship = tree.insertIfNotExists(
+          attributesForExistingRelationship,
+          firstInstrumentOrVocalToSplit,
+          compareLinkAttributeIds,
+        );
+      }
+    }
     newRelationship.attributes = tree.union(
       attributesForExistingRelationship,
       commonAttributes,

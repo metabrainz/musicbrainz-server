@@ -10,7 +10,7 @@ msgstr ""
 "#-#-#-#-#  mb_server.pot (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-02 17:22+0200\n"
+"POT-Creation-Date: 2022-12-30 12:51+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -123,7 +123,7 @@ msgstr ""
 #: ../root/cdtoc/attach_filter_release.tt:30 ../root/cdtoc/list.tt:10
 #: ../root/edit/details/MergeReleases.js:237
 #: ../root/recording/RecordingIndex.js:60
-#: ../root/release_group/ReleaseGroupIndex.js:168
+#: ../root/release_group/ReleaseGroupIndex.js:171
 #: ../root/search/components/ReleaseResults.js:116
 #: ../root/utility/tableColumns.js:498 ../root/utility/tableColumns.js:506
 msgctxt "and"
@@ -485,7 +485,7 @@ msgstr ""
 #: ../root/edit/details/historic/AddTrackKV.js:43
 #: ../root/edit/details/historic/EditTrack.js:37 ../root/isrc/Index.js:67
 #: ../root/layout/components/Search.js:26
-#: ../root/release_group/ReleaseGroupIndex.js:165
+#: ../root/release_group/ReleaseGroupIndex.js:168
 #: ../root/report/DuplicateArtists.js:67
 #: ../root/report/DuplicateReleaseGroups.js:61
 #: ../root/report/IsrcsWithManyRecordings.js:59
@@ -535,8 +535,8 @@ msgstr ""
 #: ../root/edit/details/historic/ChangeReleaseArtist.js:27
 #: ../root/edit/details/historic/MoveRelease.js:32
 #: ../root/edit/details/historic/RemoveRelease.js:28
-#: ../root/layout/components/sidebar/RecordingSidebar.js:45
-#: ../root/layout/components/sidebar/ReleaseGroupSidebar.js:50
+#: ../root/layout/components/sidebar/RecordingSidebar.js:51
+#: ../root/layout/components/sidebar/ReleaseGroupSidebar.js:62
 #: ../root/static/scripts/edit/components/forms.js:24
 msgid "Artist:"
 msgstr ""
@@ -596,7 +596,7 @@ msgstr ""
 #: ../root/edit/details/historic/AddRelease.js:127
 #: ../root/edit/details/historic/EditReleaseEvents.js:115
 #: ../root/otherlookup/OtherLookupForm.js:64
-#: ../root/release_group/ReleaseGroupIndex.js:171
+#: ../root/release_group/ReleaseGroupIndex.js:174
 #: ../root/report/ReleasesSameBarcode.js:42
 #: ../root/search/components/ReleaseResults.js:119
 msgid "Barcode"
@@ -605,7 +605,7 @@ msgstr ""
 #: ../root/cdstub/edit_form.tt:7 ../root/release/edit/information.tt:216
 #: ../root/release_group/set_cover_art.tt:62
 #: ../root/layout/components/sidebar/CDStubSidebar.js:77
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:117
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:123
 msgid "Barcode:"
 msgstr ""
 
@@ -760,7 +760,7 @@ msgstr ""
 #: ../root/cdtoc/lookup.tt:45 ../root/release/edit/duplicates.tt:16
 #: ../root/edit/details/MergeReleases.js:239
 #: ../root/recording/RecordingIndex.js:62
-#: ../root/release_group/ReleaseGroupIndex.js:170
+#: ../root/release_group/ReleaseGroupIndex.js:173
 #: ../root/search/components/ReleaseResults.js:118
 #: ../root/utility/tableColumns.js:472 ../root/utility/tableColumns.js:477
 msgid "Catalog#"
@@ -886,7 +886,7 @@ msgstr ""
 #: ../root/edit/details/historic/AddRelease.js:124
 #: ../root/edit/details/historic/EditReleaseEvents.js:112
 #: ../root/recording/RecordingIndex.js:60
-#: ../root/release_group/ReleaseGroupIndex.js:168
+#: ../root/release_group/ReleaseGroupIndex.js:171
 #: ../root/search/components/ReleaseResults.js:116
 #: ../root/static/scripts/common/components/FilterForm.js:162
 #: ../root/utility/tableColumns.js:494 ../root/utility/tableColumns.js:506
@@ -960,7 +960,7 @@ msgstr ""
 #: ../root/edit/details/historic/AddRelease.js:123
 #: ../root/edit/details/historic/EditReleaseEvents.js:111
 #: ../root/elections/ElectionVotes.js:28 ../root/recording/RecordingIndex.js:60
-#: ../root/release_group/ReleaseGroupIndex.js:168
+#: ../root/release_group/ReleaseGroupIndex.js:171
 #: ../root/search/components/EventResults.js:74
 #: ../root/search/components/ReleaseResults.js:116
 #: ../root/static/scripts/annotation/AnnotationHistoryTable.js:95
@@ -1015,7 +1015,7 @@ msgstr ""
 #: ../root/admin/statistics-events/DeleteStatisticsEvent.js:37
 #: ../root/admin/statistics-events/StatisticsEventEditForm.js:46
 #: ../root/admin/statistics-events/StatisticsEventIndex.js:32
-#: ../root/collection/CollectionIndex.js:180
+#: ../root/collection/CollectionIndex.js:189
 #: ../root/edit/details/AddInstrument.js:67
 #: ../root/edit/details/AddRelationshipAttribute.js:44
 #: ../root/edit/details/AddRelationshipType.js:74
@@ -1411,7 +1411,7 @@ msgstr ""
 #: ../root/edit/details/MergeReleases.js:235
 #: ../root/edit/details/historic/AddRelease.js:128
 #: ../root/edit/details/historic/EditReleaseEvents.js:116
-#: ../root/release_group/ReleaseGroupIndex.js:166
+#: ../root/release_group/ReleaseGroupIndex.js:169
 #: ../root/report/components/CDTocList.js:46
 #: ../root/search/components/ReleaseResults.js:114
 msgid "Format"
@@ -1420,7 +1420,7 @@ msgstr ""
 #: ../root/release/edit/tracklist.tt:305
 #: ../root/release_group/set_cover_art.tt:46
 #: ../root/edit/details/AddMedium.js:138
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:123
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:129
 msgid "Format:"
 msgstr ""
 
@@ -1881,7 +1881,7 @@ msgstr ""
 #: ../root/edit/details/historic/EditReleaseEvents.js:113
 #: ../root/label/LabelHeader.js:27 ../root/layout/components/Search.js:39
 #: ../root/recording/RecordingIndex.js:61
-#: ../root/release_group/ReleaseGroupIndex.js:169
+#: ../root/release_group/ReleaseGroupIndex.js:172
 #: ../root/report/ReleaseLabelSameArtist.js:32
 #: ../root/report/components/LabelList.js:44
 #: ../root/report/components/LabelUrlList.js:35
@@ -1919,7 +1919,7 @@ msgid "Label:"
 msgstr ""
 
 #: ../root/release/edit/information.tt:110
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:168
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:174
 msgid "Language:"
 msgstr ""
 
@@ -1947,8 +1947,8 @@ msgid "Length"
 msgstr ""
 
 #: ../root/recording/edit_form.tt:35 ../root/recording/edit_form.tt:38
-#: ../root/layout/components/sidebar/RecordingSidebar.js:50
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:129
+#: ../root/layout/components/sidebar/RecordingSidebar.js:56
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:135
 msgid "Length:"
 msgstr ""
 
@@ -2341,7 +2341,7 @@ msgid "PDF file"
 msgstr ""
 
 #: ../root/release/edit/information.tt:234
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:147
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:153
 msgid "Packaging:"
 msgstr ""
 
@@ -2586,7 +2586,7 @@ msgstr ""
 #: ../root/edit/details/ReorderMediums.js:27
 #: ../root/edit/details/historic/EditReleaseEvents.js:110
 #: ../root/layout/components/Search.js:31
-#: ../root/release_group/ReleaseGroupIndex.js:164
+#: ../root/release_group/ReleaseGroupIndex.js:167
 #: ../root/report/components/CDTocReleaseList.js:46
 #: ../root/report/components/ReleaseList.js:49
 #: ../root/report/components/ReleaseUrlList.js:37
@@ -2658,12 +2658,12 @@ msgid "Release group ratings"
 msgstr ""
 
 #: ../root/release_group/layout.tt:1
-#: ../root/release_group/ReleaseGroupLayout.js:35
+#: ../root/release_group/ReleaseGroupLayout.js:37
 msgid "Release group “{name}” by {artist}"
 msgstr ""
 
 #: ../root/release/edit/information.tt:3
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:112
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:118
 msgid "Release information"
 msgstr ""
 
@@ -2861,7 +2861,7 @@ msgid "Save"
 msgstr ""
 
 #: ../root/release/edit/information.tt:112
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:177
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:183
 msgid "Script:"
 msgstr ""
 
@@ -2987,7 +2987,7 @@ msgstr ""
 
 #: ../root/release_group/set_cover_art.tt:4
 #: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/SetCoverArt.pm:20
-#: ../root/layout/components/sidebar/ReleaseGroupSidebar.js:78
+#: ../root/layout/components/sidebar/ReleaseGroupSidebar.js:90
 msgid "Set cover art"
 msgstr ""
 
@@ -3098,7 +3098,7 @@ msgstr ""
 #: ../root/cdtoc/attach_artist_releases.tt:21
 #: ../root/cdtoc/attach_filter_release.tt:35 ../root/cdtoc/list.tt:15
 #: ../root/recording/RecordingIndex.js:65
-#: ../root/release_group/ReleaseGroupIndex.js:174
+#: ../root/release_group/ReleaseGroupIndex.js:177
 #: ../root/search/components/RecordingResults.js:146
 #: ../root/search/components/ReleaseResults.js:125
 #: ../root/static/scripts/common/components/TaggerIcon.js:82
@@ -3548,7 +3548,7 @@ msgstr ""
 #: ../root/components/list/ReleaseList.js:108
 #: ../root/edit/details/MergeReleases.js:236
 #: ../root/edit/details/historic/AddRelease.js:85
-#: ../root/release_group/ReleaseGroupIndex.js:167
+#: ../root/release_group/ReleaseGroupIndex.js:170
 #: ../root/search/components/CDStubResults.js:48
 #: ../root/search/components/ReleaseResults.js:115
 msgid "Tracks"
@@ -3633,9 +3633,9 @@ msgstr ""
 #: ../root/label/edit_form.tt:15 ../root/place/edit_form.tt:15
 #: ../root/release/add_cover_art.tt:52 ../root/release/edit/information.tt:99
 #: ../root/series/edit_form.tt:16 ../root/work/edit_form.tt:14
-#: ../root/layout/components/sidebar/CollectionSidebar.js:49
-#: ../root/layout/components/sidebar/ReleaseGroupSidebar.js:55
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:141
+#: ../root/layout/components/sidebar/CollectionSidebar.js:59
+#: ../root/layout/components/sidebar/ReleaseGroupSidebar.js:67
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:147
 #: ../root/layout/components/sidebar/SidebarType.js:27
 #: ../root/search/components/SearchForm.js:84
 msgid "Type:"
@@ -5147,7 +5147,7 @@ msgstr ""
 #: ../root/cdstub/CDStubAddWhileLoggedIn.js:29
 #: ../root/layout/components/sidebar/ArtistSidebar.js:146
 #: ../root/layout/components/sidebar/LabelSidebar.js:102
-#: ../root/layout/components/sidebar/ReleaseGroupSidebar.js:70
+#: ../root/layout/components/sidebar/ReleaseGroupSidebar.js:82
 msgid "Add release"
 msgstr ""
 
@@ -7264,7 +7264,7 @@ msgstr ""
 #: ../root/area/AreaLabels.js:32 ../root/area/AreaLabels.js:33
 #: ../root/components/EntityTabs.js:28
 #: ../root/components/TagEntitiesList.js:175
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:194
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:200
 #: ../root/report/ReportsIndex.js:174
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:25
 #: ../root/tag/TagLayout.js:30
@@ -7338,7 +7338,7 @@ msgstr ""
 
 #: ../root/area/AreaReleases.js:52 ../root/artist/ArtistReleases.js:64
 #: ../root/instrument/InstrumentReleases.js:58 ../root/label/LabelIndex.js:96
-#: ../root/release_group/ReleaseGroupIndex.js:188
+#: ../root/release_group/ReleaseGroupIndex.js:191
 msgid "Add selected releases for merging"
 msgstr ""
 
@@ -7532,7 +7532,7 @@ msgstr ""
 
 #: ../root/artist/ArtistReleases.js:74
 #: ../root/instrument/InstrumentReleases.js:66
-#: ../root/release_group/ReleaseGroupIndex.js:194
+#: ../root/release_group/ReleaseGroupIndex.js:197
 msgid "No releases found."
 msgstr ""
 
@@ -7911,28 +7911,28 @@ msgstr ""
 msgid "See all of {editor}'s public collections"
 msgstr ""
 
-#: ../root/collection/CollectionIndex.js:185 ../root/user/UserProfile.js:326
+#: ../root/collection/CollectionIndex.js:194 ../root/user/UserProfile.js:326
 #: ../root/user/UserProfile.js:384
 msgid ""
 "This content is hidden to prevent spam. To view it, please {url|log in}."
 msgstr ""
 
-#: ../root/collection/CollectionIndex.js:196
+#: ../root/collection/CollectionIndex.js:205
 #: ../root/collection/CollectionMerge.js:70
 #: ../root/static/scripts/collection/components/CollectionEditForm.js:101
 #: ../root/user/UserCollections.js:117
 msgid "Collaborators"
 msgstr ""
 
-#: ../root/collection/CollectionIndex.js:210
+#: ../root/collection/CollectionIndex.js:219
 msgid "Remove selected items from collection"
 msgstr ""
 
-#: ../root/collection/CollectionIndex.js:215
+#: ../root/collection/CollectionIndex.js:224
 msgid "This collection is empty."
 msgstr ""
 
-#: ../root/collection/CollectionLayout.js:34
+#: ../root/collection/CollectionLayout.js:36
 msgid "Collection “{collection}”"
 msgstr ""
 
@@ -8333,14 +8333,14 @@ msgstr ""
 
 #: ../root/components/UserAccountTabs.js:43
 #: ../root/layout/components/TopMenu.js:55
-#: ../root/layout/components/sidebar/CollectionSidebar.js:86
+#: ../root/layout/components/sidebar/CollectionSidebar.js:96
 #: ../root/layout/components/sidebar/SubscriptionLinks.js:32
 msgid "Subscriptions"
 msgstr ""
 
 #: ../root/components/UserAccountTabs.js:53 ../root/entity/Subscribers.js:51
 #: ../root/entity/Subscribers.js:53
-#: ../root/layout/components/sidebar/CollectionSidebar.js:115
+#: ../root/layout/components/sidebar/CollectionSidebar.js:125
 #: ../root/layout/components/sidebar/SubscriptionLinks.js:58
 msgid "Subscribers"
 msgstr ""
@@ -8919,7 +8919,7 @@ msgid "Subscribed editors"
 msgstr ""
 
 #: ../root/edit/components/ListHeader.js:160
-#: ../root/layout/components/sidebar/CollectionSidebar.js:67
+#: ../root/layout/components/sidebar/CollectionSidebar.js:77
 #: ../root/layout/components/sidebar/EditLinks.js:43
 msgid "Open edits"
 msgstr ""
@@ -9122,7 +9122,7 @@ msgstr ""
 #: ../root/edit/details/AddRelease.js:84
 #: ../root/edit/details/EditRelease.js:103
 #: ../root/edit/details/historic/AddRelease.js:58
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:158
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:164
 msgctxt "release status"
 msgid "Status:"
 msgstr ""
@@ -9134,7 +9134,7 @@ msgstr ""
 
 #: ../root/edit/details/AddRelease.js:121
 #: ../root/edit/details/EditReleaseLabel.js:94
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:220
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:226
 #: ../root/static/scripts/common/components/ReleaseEvents.js:91
 msgid "Release events"
 msgstr ""
@@ -10388,7 +10388,7 @@ msgid "Tag Cloud"
 msgstr ""
 
 #: ../root/layout/components/BottomMenu.js:237
-#: ../root/layout/components/sidebar/CollectionSidebar.js:62
+#: ../root/layout/components/sidebar/CollectionSidebar.js:72
 #: ../root/layout/components/sidebar/EditLinks.js:31
 #: ../root/static/scripts/account/components/PreferencesForm.js:242
 msgid "Editing"
@@ -10745,30 +10745,30 @@ msgstr ""
 msgid "Add to {collection}"
 msgstr ""
 
-#: ../root/layout/components/sidebar/CollectionSidebar.js:40
+#: ../root/layout/components/sidebar/CollectionSidebar.js:50
 msgid "Collection information"
 msgstr ""
 
-#: ../root/layout/components/sidebar/CollectionSidebar.js:44
+#: ../root/layout/components/sidebar/CollectionSidebar.js:54
 msgid "Owner:"
 msgstr ""
 
-#: ../root/layout/components/sidebar/CollectionSidebar.js:56
+#: ../root/layout/components/sidebar/CollectionSidebar.js:66
 msgid "Number of entities"
 msgstr ""
 
-#: ../root/layout/components/sidebar/CollectionSidebar.js:74
+#: ../root/layout/components/sidebar/CollectionSidebar.js:84
 #: ../root/layout/components/sidebar/EditLinks.js:50
 msgid "Editing history"
 msgstr ""
 
-#: ../root/layout/components/sidebar/CollectionSidebar.js:97
+#: ../root/layout/components/sidebar/CollectionSidebar.js:107
 #: ../root/layout/components/sidebar/SubscriptionLinks.js:42
 #: ../root/user/UserSubscriptions.js:89
 msgid "Unsubscribe"
 msgstr ""
 
-#: ../root/layout/components/sidebar/CollectionSidebar.js:109
+#: ../root/layout/components/sidebar/CollectionSidebar.js:119
 #: ../root/layout/components/sidebar/SubscriptionLinks.js:52
 msgid "Subscribe"
 msgstr ""
@@ -10842,62 +10842,70 @@ msgstr ""
 msgid "Coordinates:"
 msgstr ""
 
-#: ../root/layout/components/sidebar/RecordingSidebar.js:41
+#: ../root/layout/components/sidebar/PlayOnListenBrainzButton.js:61
+msgid "ListenBrainz"
+msgstr ""
+
+#: ../root/layout/components/sidebar/PlayOnListenBrainzButton.js:66
+msgid "Play on ListenBrainz"
+msgstr ""
+
+#: ../root/layout/components/sidebar/RecordingSidebar.js:47
 msgid "Recording information"
 msgstr ""
 
-#: ../root/layout/components/sidebar/RecordingSidebar.js:58
+#: ../root/layout/components/sidebar/RecordingSidebar.js:64
 msgid "First release year"
 msgstr ""
 
-#: ../root/layout/components/sidebar/ReleaseGroupSidebar.js:46
+#: ../root/layout/components/sidebar/ReleaseGroupSidebar.js:58
 msgid "Release group information"
 msgstr ""
 
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:88
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:89
 msgid "Front cover image failed to load correctly.<br/>{all|View all artwork}."
 msgstr ""
 
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:94
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:95
 #: ../root/release/CoverArt.js:69
 msgid ""
 "Cover art for this release has been hidden by the Internet Archive because "
 "of a takedown request."
 msgstr ""
 
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:100
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:101
 msgid "No front cover image available."
 msgstr ""
 
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:103
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:104
 msgid "View all artwork"
 msgstr ""
 
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:106
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:107
 msgid "No cover art available."
 msgstr ""
 
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:136
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:142
 msgid "Additional details"
 msgstr ""
 
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:231
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:237
 msgid "Release group rating"
 msgstr ""
 
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:237
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:243
 msgid "Release group reviews"
 msgstr ""
 
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:252
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:258
 msgid "Release group external links"
 msgstr ""
 
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:258
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:264
 msgid "Edit relationships"
 msgstr ""
 
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:264
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:270
 msgid "Change data quality"
 msgstr ""
 

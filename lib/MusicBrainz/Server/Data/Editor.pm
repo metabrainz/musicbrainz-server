@@ -18,6 +18,7 @@ use MusicBrainz::Server::Data::Utils qw(
     hash_to_row
     load_subobjects
     placeholders
+    sanitize
     type_to_model
 );
 use MusicBrainz::Server::Constants qw( :edit_status :privileges );
@@ -246,11 +247,23 @@ sub find_subscribers
     $self->query_to_list_limited($query, [$editor_id], $limit, $offset);
 }
 
+sub _die_if_username_invalid {
+    my $name = shift;
+    my $sanitized_name = sanitize($name);
+
+    die 'Invalid user name' if (
+        $name ne $sanitized_name ||
+        $sanitized_name =~ qr{^deleted editor \#\d+$}i ||
+        $sanitized_name =~ qr{://}
+    );
+}
+
 sub insert
 {
     my ($self, $data) = @_;
 
-    die 'Invalid user name' if $data->{name} =~ qr{^deleted editor \#\d+$}i;
+    _die_if_username_invalid($data->{name});
+
     my $plaintext = $data->{password};
     $data->{password} = hash_password($plaintext);
     $data->{ha1} = ha1_password($data->{name}, $plaintext);
@@ -321,6 +334,10 @@ sub update_password
 sub update_profile
 {
     my ($self, $editor, $update) = @_;
+
+    if (defined $update->{username}) {
+        _die_if_username_invalid($update->{username});
+    }
 
     my $row = hash_to_row(
         $update,

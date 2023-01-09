@@ -224,7 +224,9 @@ const MultiselectAttribute = (React.memo<PropsT>(({
       {addColonText(localizeLinkAttributeTypeName(state.type))}
       <br />
       <LinkAttrTypeMultiselect
-        addLabel={addLabel ? addLabel() : ''}
+        addLabel={addLabel
+          ? addLabel()
+          : lp('Add another', 'relationship attribute')}
         buildExtraValueChildren={buildExtraValueChildren}
         dispatch={multiselectDispatch}
         state={state}

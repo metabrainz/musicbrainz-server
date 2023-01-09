@@ -13,7 +13,11 @@ import entityHref from '../utility/entityHref.js';
 
 type Props = {
   +anchorPath?: string,
-  +cdToc: CDTocT,
+  +cdToc: {
+    +discid: string,
+    +entityType: 'cdtoc',
+    ...
+  },
   +content?: string,
   +subPath?: string,
 };

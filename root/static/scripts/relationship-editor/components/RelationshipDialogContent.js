@@ -854,6 +854,11 @@ const RelationshipDialogContent = (React.memo<PropsT>((
             state={sourceEntityState}
             targetType={targetType}
           />
+          <DialogLinkType
+            dispatch={linkTypeDispatch}
+            source={source}
+            state={linkTypeState}
+          />
           <DialogTargetEntity
             allowedTypes={targetTypeOptions}
             backward={backward}
@@ -861,11 +866,6 @@ const RelationshipDialogContent = (React.memo<PropsT>((
             linkType={selectedLinkType}
             source={source}
             state={targetEntityState}
-          />
-          <DialogLinkType
-            dispatch={linkTypeDispatch}
-            source={source}
-            state={linkTypeState}
           />
           <DialogAttributes
             dispatch={attributesDispatch}
