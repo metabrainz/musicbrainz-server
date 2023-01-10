@@ -121,6 +121,12 @@ foreach my $ed (@{$editors}) {
             print 'Not removing account ' . $details . " because it has OAuth tokens.\n";
             next;
         }
+
+        my $collaboration_count = $c->sql->select_single_value('SELECT count(*) FROM editor_collection_collaborator WHERE editor = ?', $id);
+        if ($collaboration_count > 0) {
+            print 'Not removing account ' . $details . " because it is a collection collaborator.\n";
+            next;
+        }
     }
 
     if ($dry_run) {
