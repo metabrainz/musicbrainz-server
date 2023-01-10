@@ -4,9 +4,14 @@ use MooseX::Role::Parameterized;
 use namespace::autoclean;
 
 use List::AllUtils qw( any nsort_by uniq );
-use MusicBrainz::Server::Data::Utils qw( type_to_model );
+use MusicBrainz::Server::Constants qw(
+    $EDIT_RELEASEGROUP_MERGE
+    $EDITOR_MODBOT
+);
+use MusicBrainz::Server::Data::Utils qw( localized_note type_to_model );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 use MusicBrainz::Server::Log qw( log_assertion );
+use MusicBrainz::Server::Translation qw( N_l );
 use MusicBrainz::Server::Validation qw( is_positive_integer );
 
 parameter 'edit_type' => (
@@ -218,6 +223,61 @@ role {
                         }, @old_ids ],
                         (map { $_->name => $_->value } $form->edit_fields),
                         $self->_merge_parameters($c, $form, $entities),
+                    },
+                    on_creation => sub {
+                        my ($edit, $form) = @_;
+
+                        if ($c->namespace eq 'release' && $form->field('merge_rgs')->value) {
+                            my $edit_id = $edit->id;
+
+                            my $new_rg_id = $new->release_group->id;
+                            # We want to make sure we're merging only different RGs!
+                            my @old_entities = map +{
+                                id => $entity_id{$_}->release_group->id,
+                                name => $entity_id{$_}->release_group->name,
+                            },
+                            grep { $entity_id{$_}->release_group->id != $new_rg_id }
+                            @old_ids;
+                            if (scalar @old_entities) {
+                                my $rg_edit = $self->_insert_edit(
+                                    $c, $form,
+                                    edit_type => $EDIT_RELEASEGROUP_MERGE,
+                                    editor_id => $c->user->id,
+                                    old_entities => \@old_entities,
+                                    new_entity => {
+                                        id => $new_rg_id,
+                                        name => $new->release_group->name,
+                                    },
+                                );
+                                my $rg_edit_id = $rg_edit->id;
+                                $c->model('EditNote')->add_note(
+                                    $rg_edit_id,
+                                    {
+                                        text => localized_note(
+                                            N_l('These release groups are being merged in connection with a release merge in {edit_link|edit #{edit_id}}.'),
+                                            vars => {
+                                                edit_id => $edit_id,
+                                                edit_link => '' . $c->uri_for_action('/edit/show', [ $edit_id ]),
+                                            },
+                                        ),
+                                        editor_id => $EDITOR_MODBOT,
+                                    },
+                                );
+                                $c->model('EditNote')->add_note(
+                                    $edit_id,
+                                    {
+                                        text => localized_note(
+                                            N_l('The associated release groups are being merged in {edit_link|edit #{edit_id}}.'),
+                                            vars => {
+                                                edit_id => $rg_edit_id,
+                                                edit_link => '' . $c->uri_for_action('/edit/show', [ $rg_edit_id ]),
+                                            },
+                                        ),
+                                        editor_id => $EDITOR_MODBOT,
+                                    },
+                                );
+                            }
+                        }
                     },
                 );
             } elsif ($c->namespace eq 'collection') {
