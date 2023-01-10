@@ -202,21 +202,23 @@ role {
 
         $c->model('MB')->with_transaction(sub {
             if ($params->edit_type) {
-                $self->_insert_edit(
-                    $c, $form,
-                    edit_type => $params->edit_type,
-                    new_entity => {
-                        id => $new->id,
-                        name => $new->name,
-                        $self->_extra_entity_data($c, $form, $new),
+                $self->edit_action($c,
+                    form        => $params->merge_form,
+                    type        => $params->edit_type,
+                    edit_args   => {
+                        new_entity => {
+                            id => $new->id,
+                            name => $new->name,
+                            $self->_extra_entity_data($c, $form, $new),
+                        },
+                        old_entities => [ map +{
+                            id => $entity_id{$_}->id,
+                            name => $entity_id{$_}->name,
+                            $self->_extra_entity_data($c, $form, $entity_id{$_}),
+                        }, @old_ids ],
+                        (map { $_->name => $_->value } $form->edit_fields),
+                        $self->_merge_parameters($c, $form, $entities),
                     },
-                    old_entities => [ map +{
-                        id => $entity_id{$_}->id,
-                        name => $entity_id{$_}->name,
-                        $self->_extra_entity_data($c, $form, $entity_id{$_}),
-                    }, @old_ids ],
-                    (map { $_->name => $_->value } $form->edit_fields),
-                    $self->_merge_parameters($c, $form, $entities),
                 );
             } elsif ($c->namespace eq 'collection') {
                 $c->model('Collection')->merge(
