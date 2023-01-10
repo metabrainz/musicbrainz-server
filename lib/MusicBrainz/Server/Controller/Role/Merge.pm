@@ -194,7 +194,7 @@ role {
 
         my %entity_id = map { $_->id => $_ } @$entities;
 
-        my $new_id = $form->field('target')->value or die 'Coludnt figure out new_id';
+        my $new_id = $form->field('target')->value or die q{Couldn't figure out new_id};
         my $new = $entity_id{$new_id};
         my @old_ids = grep { $_ != $new_id } @{ $form->field('merging')->value };
 
