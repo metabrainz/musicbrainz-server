@@ -1,13 +1,21 @@
 The Developer’s Guide to implementing URL handlers in the MusicBrainz Server
 ============================================================================
 
-This file contains instructions on how to deal with feature requests for
-supporting new URL domains in MusicBrainz, or to change how they are currently
-supported.
+This file describes how to implement specific handlers for external websites in
+MusicBrainz Server to: allow linking to other databases and lyrics website,
+make it easier to add links, prevent editor from entering wrong links,
+improve the display of links on MusicBrainz website.
 
-Our URL support has three main parts: cleanup, favicons and sidebar display.
-Often you will want to add all three, but in some cases you might only want
-to display the links more prominently without cleaning them up, or vice versa.
+For easy starting, look at similar
+[resolved MBS "URL cleanup" tickets](https://tickets.metabrainz.org/issues/?jql=project%20%3D%20MBS%20AND%20component%20%3D%20%22URL%20cleanup%22%20AND%20status%20%3D%20Closed%20AND%20resolution%20IN%20%28Done%2CFixed%29)
+which have comments linking to pull requests. More particularly,
+look at potential STYLE tickets linked to these MBS tickets,
+and at the commit messages in the pull requests. Do the same.
+If any doubt, get back to this guide which should contain the answer.
+
+Our URL handling has two main parts: editing handlers (unwanted URL block, URL
+cleanup, relationship type autoselection, relationship validation), and
+display handlers (with favicons, in relationship lists, in the sidebar).
 
 Table of Contents
 -----------------
