@@ -4826,6 +4826,14 @@ const CLEANUPS: CleanupEntries = {
       return url;
     },
   },
+  'tsutaya': {
+    match: [new RegExp('^(https?://)?shop\\.tsutaya\\.co\\.jp/', 'i')],
+    restrict: [LINK_TYPES.mailorder],
+    clean: function (url) {
+      url = url.replace(/^(?:https?:\/\/)?shop\.tsutaya\.co\.jp\/cd\/product\/(\d+)(?:\/.*)?$/, 'https://shop.tsutaya.co.jp/cd/product/$1/');
+      return url;
+    },
+  },
   'twitch': {
     match: [new RegExp('^(https?://)?([^/]+\\.)?twitch\\.(?:com|tv)/', 'i')],
     restrict: [{...LINK_TYPES.streamingfree, ...LINK_TYPES.videochannel}],

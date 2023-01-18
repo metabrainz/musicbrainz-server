@@ -183,6 +183,7 @@ my %URL_SPECIALIZATIONS = (
     'Traxsource'          => qr{^https?://(?:www\.)?traxsource.com/}i,
     'TripleJUnearthed'    => qr{^https?://(?:www\.)?(?:abc\.net\.au/triplejunearthed|triplejunearthed\.com)/}i,
     'Trove'               => qr{^https?://(?:www\.)?(?:trove\.)?nla\.gov\.au/}i,
+    'Tsutaya'             => qr{^https?://(?:www\.)?shop\.tsutaya\.co\.jp/}i,
     'Tunearch'            => qr{^https?://(?:www\.)?tunearch\.org/}i,
     'Twitch'              => qr{^https?://(?:www\.)?twitch\.tv/}i,
     'Twitter'             => qr{^https?://(?:www\.)?twitter\.com/}i,
