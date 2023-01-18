@@ -78,58 +78,49 @@ const BatchAddRelationshipButtonPopover = ({
     });
   }, [dispatch, sourcePlaceholder]);
 
-  const [hover, setHover] = React.useState(false);
-
-  const onMouseEnter = React.useCallback(() => {
-    setHover(true);
-  }, [setHover]);
-
-  const onMouseLeave = React.useCallback(() => {
-    setHover(false);
-  }, [setHover]);
-
   const isDisabled = batchSelectionCount === 0;
 
-  const wrapButtonForTooltip = React.useCallback((buttonElement) => {
-    /*
-     * Note: mouseenter isn't triggered for disabled buttons, so these
-     * events must go on the parent.
-     */
-    return (
-      <span
-        className="tooltip-wrapper"
-        onMouseEnter={() => setHover(true)}
-        onMouseLeave={() => setHover(false)}
-      >
-        {buttonElement}
-        {(isDisabled && hover) ? (
-          <Tooltip
-            content={l(
-              `To use the batch tools, select some
-              recordings or works using the checkboxes.`,
-            )}
-            hoverCallback={setHover}
-          />
-        ) : null}
-      </span>
-    );
-  }, [setHover, isDisabled, hover]);
+  const buttonProps = React.useMemo(() => ({
+    className: `add-item with-label ${buttonClassName}`,
+  }), [buttonClassName]);
+
+  let tooltipMessage = null;
+  if (isDisabled) {
+    switch (sourceType) {
+      case 'recording': {
+        tooltipMessage = l(
+          `To use this tool, select some recordings
+           using the checkboxes below.`,
+        );
+        break;
+      }
+      case 'work': {
+        tooltipMessage = l(
+          `To use this tool, select some works
+           using the checkboxes below.`,
+        );
+        break;
+      }
+    }
+  }
 
   return (
-    <ButtonPopover
-      buildChildren={buildPopoverContent}
-      buttonContent={buttonContent}
-      buttonProps={{
-        className: `add-item with-label ${buttonClassName}`,
-      }}
-      buttonRef={addButtonRef}
-      className="relationship-dialog"
-      closeOnOutsideClick={false}
-      id={popoverId}
-      isDisabled={isDisabled}
-      isOpen={isOpen}
-      toggle={setOpen}
-      wrapButton={wrapButtonForTooltip}
+    <Tooltip
+      content={tooltipMessage}
+      target={
+        <ButtonPopover
+          buildChildren={buildPopoverContent}
+          buttonContent={buttonContent}
+          buttonProps={buttonProps}
+          buttonRef={addButtonRef}
+          className="relationship-dialog"
+          closeOnOutsideClick={false}
+          id={popoverId}
+          isDisabled={isDisabled}
+          isOpen={isOpen}
+          toggle={setOpen}
+        />
+      }
     />
   );
 };

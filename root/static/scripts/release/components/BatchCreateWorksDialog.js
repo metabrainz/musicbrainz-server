@@ -18,6 +18,7 @@ import linkedEntities from '../../common/linkedEntities.mjs';
 import {
   accumulateMultiselectValues,
 } from '../../edit/components/Multiselect.js';
+import Tooltip from '../../edit/components/Tooltip.js';
 import DialogAttributes, {
   createInitialState as createDialogAttributesState,
   reducer as dialogAttributesReducer,
@@ -260,20 +261,33 @@ export const BatchCreateWorksButtonPopover = (React.memo<
     />
   ), [closeDialog, dispatch]);
 
+  let tooltipMessage = null;
+  if (isDisabled) {
+    tooltipMessage = l(
+      `To use this tool, select some recordings
+       using the checkboxes below.`,
+    );
+  }
+
   return (
-    <ButtonPopover
-      buildChildren={buildPopoverContent}
-      buttonContent={l('Batch-create new works')}
-      buttonProps={{
-        className: 'add-item with-label batch-create-works',
-      }}
-      buttonRef={addButtonRef}
-      className="relationship-dialog"
-      closeOnOutsideClick={false}
-      id="batch-create-works-dialog"
-      isDisabled={isDisabled}
-      isOpen={isOpen}
-      toggle={setOpen}
+    <Tooltip
+      content={tooltipMessage}
+      target={
+        <ButtonPopover
+          buildChildren={buildPopoverContent}
+          buttonContent={l('Batch-create new works')}
+          buttonProps={{
+            className: 'add-item with-label batch-create-works',
+          }}
+          buttonRef={addButtonRef}
+          className="relationship-dialog"
+          closeOnOutsideClick={false}
+          id="batch-create-works-dialog"
+          isDisabled={isDisabled}
+          isOpen={isOpen}
+          toggle={setOpen}
+        />
+      }
     />
   );
 }): React.AbstractComponent<BatchCreateWorksButtonPopoverPropsT, mixed>);

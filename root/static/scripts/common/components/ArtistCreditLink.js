@@ -29,9 +29,7 @@ type MpIconProps = {
 
 export const MpIcon = (hydrate<MpIconProps>('span.ac-mp', (
   {artistCredit}: MpIconProps,
-): React.Element<typeof React.Fragment> => {
-  const [hover, setHover] = React.useState(false);
-
+): React.MixedElement => {
   let editSearch =
     '/search/edits?auto_edit_filter=&order=desc&negation=0' +
     '&combinator=and&conditions.0.field=type&conditions.0.operator=%3D' +
@@ -48,24 +46,19 @@ export const MpIcon = (hydrate<MpIconProps>('span.ac-mp', (
   }
 
   return (
-    <>
-      <img
-        alt={l('This artist credit has pending edits.')}
-        className="info"
-        onMouseEnter={() => setHover(true)}
-        onMouseLeave={() => setHover(false)}
-        src={informationIconUrl}
-      />
-      {hover ? (
-        <Tooltip
-          content={exp.l(
-            'This artist credit has {edit_search|pending edits}.',
-            {edit_search: editSearch},
-          )}
-          hoverCallback={setHover}
+    <Tooltip
+      content={exp.l(
+        'This artist credit has {edit_search|pending edits}.',
+        {edit_search: editSearch},
+      )}
+      target={
+        <img
+          alt={l('This artist credit has pending edits.')}
+          className="info"
+          src={informationIconUrl}
         />
-      ) : null}
-    </>
+      }
+    />
   );
 }): React.AbstractComponent<MpIconProps, void>);
 
