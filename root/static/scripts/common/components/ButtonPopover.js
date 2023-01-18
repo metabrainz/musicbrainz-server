@@ -29,6 +29,7 @@ type PropsT = {
   +isDisabled?: boolean,
   +isOpen: boolean,
   +toggle: (boolean) => void,
+  +wrapButton?: (React.MixedElement) => React.MixedElement,
 };
 
 const ButtonPopover = (props: PropsT): React.MixedElement => {
@@ -39,6 +40,7 @@ const ButtonPopover = (props: PropsT): React.MixedElement => {
     isDisabled = false,
     isOpen,
     toggle,
+    wrapButton,
     ...dialogProps
   } = props;
   const buttonId = buttonProps?.id;
@@ -82,27 +84,44 @@ const ButtonPopover = (props: PropsT): React.MixedElement => {
     toggle(false);
   }, [returnFocusToButton, toggle]);
 
+  const customButtonProps = buttonProps ? {
+    id: buttonProps.id,
+    title: nonEmpty(buttonProps.title)
+      ? unwrapNl(buttonProps.title)
+      : undefined,
+    className: buttonProps.className,
+  } : null;
+
+  let buttonElement: React.MixedElement = (
+    <button
+      aria-controls={isOpen ? dialogProps.id : null}
+      aria-haspopup="dialog"
+      className={buttonProps?.className}
+      disabled={isDisabled}
+      id={buttonId}
+      onClick={() => {
+        if (isOpen) {
+          closeAndReturnFocus();
+        } else {
+          toggle(true);
+        }
+      }}
+      ref={buttonRef}
+      title={buttonTitle == null ? null : unwrapNl(buttonTitle)}
+      type="button"
+      {...customButtonProps}
+    >
+      {buttonContent}
+    </button>
+  );
+
+  if (wrapButton) {
+    buttonElement = wrapButton(buttonElement);
+  }
+
   return (
     <>
-      <button
-        aria-controls={isOpen ? dialogProps.id : null}
-        aria-haspopup="dialog"
-        className={buttonProps?.className}
-        disabled={isDisabled}
-        id={buttonId}
-        onClick={() => {
-          if (isOpen) {
-            closeAndReturnFocus();
-          } else {
-            toggle(true);
-          }
-        }}
-        ref={buttonRef}
-        title={buttonTitle == null ? null : unwrapNl(buttonTitle)}
-        type="button"
-      >
-        {buttonContent}
-      </button>
+      {buttonElement}
       {isOpen
         ? (
           <Popover

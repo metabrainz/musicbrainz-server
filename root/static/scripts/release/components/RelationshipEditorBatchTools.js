@@ -11,6 +11,7 @@ import * as React from 'react';
 
 import ButtonPopover from '../../common/components/ButtonPopover.js';
 import {createCoreEntityObject} from '../../common/entity2.js';
+import Tooltip from '../../edit/components/Tooltip.js';
 import {
   useAddRelationshipDialogContent,
 } from '../../relationship-editor/hooks/useRelationshipDialogContent.js';
@@ -75,6 +76,43 @@ const BatchAddRelationshipButtonPopover = ({
     });
   }, [dispatch, sourcePlaceholder]);
 
+  const [hover, setHover] = React.useState(false);
+
+  const onMouseEnter = React.useCallback(() => {
+    setHover(true);
+  }, [setHover]);
+
+  const onMouseLeave = React.useCallback(() => {
+    setHover(false);
+  }, [setHover]);
+
+  const isDisabled = batchSelectionCount === 0;
+
+  const wrapButtonForTooltip = React.useCallback((buttonElement) => {
+    /*
+     * Note: mouseenter isn't triggered for disabled buttons, so these
+     * events must go on the parent.
+     */
+    return (
+      <span
+        className="tooltip-wrapper"
+        onMouseEnter={() => setHover(true)}
+        onMouseLeave={() => setHover(false)}
+      >
+        {buttonElement}
+        {(isDisabled && hover) ? (
+          <Tooltip
+            content={l(
+              `To use the batch tools, select some
+              recordings or works using the checkboxes.`,
+            )}
+            hoverCallback={setHover}
+          />
+        ) : null}
+      </span>
+    );
+  }, [setHover, isDisabled, hover]);
+
   return (
     <ButtonPopover
       buildChildren={buildPopoverContent}
@@ -85,9 +123,10 @@ const BatchAddRelationshipButtonPopover = ({
       buttonRef={addButtonRef}
       className="relationship-dialog"
       id={popoverId}
-      isDisabled={batchSelectionCount === 0}
+      isDisabled={isDisabled}
       isOpen={isOpen}
       toggle={setOpen}
+      wrapButton={wrapButtonForTooltip}
     />
   );
 };

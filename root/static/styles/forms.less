@@ -521,6 +521,10 @@ button.with-label {
     background-repeat: no-repeat;
     padding-right: @form-icon-size + 4;
     cursor: pointer;
+
+    &[disabled] {
+        cursor: default;
+    }
 }
 
 button.add-item {
