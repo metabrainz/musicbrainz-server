@@ -42,7 +42,6 @@ import {
   createField,
 } from '../../edit/utility/createField.js';
 import {
-  REL_STATUS_ADD,
   RelationshipSourceGroupsContext,
 } from '../constants.js';
 import useRangeSelectionHandler from '../hooks/useRangeSelectionHandler.js';
@@ -913,17 +912,12 @@ const RelationshipDialogContent = (React.memo<PropsT>((
             state={sourceEntityState}
             targetType={targetType}
           />
-          {(
-            initialRelationship._status === REL_STATUS_ADD &&
-            targetTypeOptions
-          ) ? (
-            <DialogTargetType
-              dispatch={dispatch}
-              options={targetTypeOptions}
-              source={source}
-              targetType={targetEntityState.targetType}
-            />
-            ) : null}
+          <DialogTargetType
+            dispatch={dispatch}
+            options={targetTypeOptions}
+            source={source}
+            targetType={targetEntityState.targetType}
+          />
         </tbody>
       </table>
       <h2>
