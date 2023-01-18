@@ -227,6 +227,7 @@ const RelationshipItem = (React.memo<PropsT>(({
           }}
           buttonRef={editButtonRef}
           className="relationship-dialog"
+          closeOnOutsideClick={false}
           id="edit-relationship-dialog"
           isDisabled={isRemoved}
           isOpen={isDialogOpen}

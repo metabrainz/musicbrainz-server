@@ -189,6 +189,7 @@ const NewRelatedWorkHeading = ({
         }}
         buttonRef={editWorkButtonRef}
         className="work-dialog"
+        closeOnOutsideClick={false}
         id="edit-work-dialog"
         isOpen={isEditWorkDialogOpen}
         toggle={setEditWorkDialogOpen}
@@ -395,6 +396,7 @@ const RelatedWorksRelationshipEditor = React.memo<
         }}
         buttonRef={addRelatedWorkButtonRef}
         className="relationship-dialog"
+        closeOnOutsideClick={false}
         id="add-relationship-dialog"
         isDisabled={false}
         isOpen={

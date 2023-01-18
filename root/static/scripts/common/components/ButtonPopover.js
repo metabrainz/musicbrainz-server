@@ -25,6 +25,7 @@ type PropsT = {
   },
   +buttonRef: {current: HTMLButtonElement | null},
   +className?: string,
+  +closeOnOutsideClick?: boolean,
   +id: string,
   +isDisabled?: boolean,
   +isOpen: boolean,
@@ -37,6 +38,7 @@ const ButtonPopover = (props: PropsT): React.MixedElement => {
     buttonContent,
     buttonProps = null,
     buttonRef,
+    closeOnOutsideClick = true,
     isDisabled = false,
     isOpen,
     toggle,
@@ -56,6 +58,7 @@ const ButtonPopover = (props: PropsT): React.MixedElement => {
        * click, but is already handled separately.
        */
       if (
+        closeOnOutsideClick &&
         event.target !== buttonRef.current &&
         /*
          * If the event target is the <html> element, the user probably

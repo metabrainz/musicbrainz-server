@@ -122,6 +122,7 @@ const BatchAddRelationshipButtonPopover = ({
       }}
       buttonRef={addButtonRef}
       className="relationship-dialog"
+      closeOnOutsideClick={false}
       id={popoverId}
       isDisabled={isDisabled}
       isOpen={isOpen}

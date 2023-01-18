@@ -96,6 +96,7 @@ const RelationshipTargetTypeGroups = (React.memo<PropsT>(({
               }}
               buttonRef={addButtonRef}
               className="relationship-dialog"
+              closeOnOutsideClick={false}
               id="add-relationship-dialog"
               isDisabled={false}
               isOpen={isAddDialogOpen}

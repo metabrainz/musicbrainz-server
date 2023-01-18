@@ -269,6 +269,7 @@ export const BatchCreateWorksButtonPopover = (React.memo<
       }}
       buttonRef={addButtonRef}
       className="relationship-dialog"
+      closeOnOutsideClick={false}
       id="batch-create-works-dialog"
       isDisabled={isDisabled}
       isOpen={isOpen}
