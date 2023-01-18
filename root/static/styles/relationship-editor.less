@@ -81,8 +81,19 @@ div.relationship-dialog {
         text-align: center;
         font-size: @medium-text;
         margin: 0.5em 0;
-        border-top: 1px @medium-grey solid;
-        padding-top: 0.5em;
+        position: relative;
+
+        .heading-text {
+            background-color: @text-white;
+            padding: 0 1em;
+        }
+
+        .heading-line {
+            border-top: 1px @medium-grey solid;
+            position: relative;
+            top: 0.75em;
+            z-index: -1;
+        }
     }
 
     table.relationship-details {

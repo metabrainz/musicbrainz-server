@@ -530,13 +530,16 @@ const AttributesSection = (React.memo<AttributesSectionPropsT>(({
   return (attributesState.attributesList.length || canEditDates) ? (
     <>
       <h2>
-        {l('Attributes')}
-        {' '}
-        {bracketed(
-          <a href="#" onClick={handleAttributesHelpClick}>
-            {l('help')}
-          </a>,
-        )}
+        <div className="heading-line" />
+        <span className="heading-text">
+          {l('Attributes')}
+          {' '}
+          {bracketed(
+            <a href="#" onClick={handleAttributesHelpClick}>
+              {l('help')}
+            </a>,
+          )}
+        </span>
       </h2>
       <table className="relationship-details">
         <tbody onClick={booleanRangeSelectionHandler}>
@@ -924,7 +927,10 @@ const RelationshipDialogContent = (React.memo<PropsT>((
         </tbody>
       </table>
       <h2>
-        {l('Relationship')}
+        <div className="heading-line" />
+        <span className="heading-text">
+          {l('Relationship')}
+        </span>
       </h2>
       <table className="relationship-details">
         <tbody>
