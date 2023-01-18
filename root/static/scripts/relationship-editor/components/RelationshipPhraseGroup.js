@@ -212,13 +212,34 @@ const RelationshipPhraseGroup = (React.memo<PropsT>(({
   }
   const textPhraseLength = textPhraseLabel?.length ?? 0;
   const textPhraseElement = (
-    <label>
-      {textPhraseLabel ?? (
-        <span className="no-value">
-          {addColonText(l('no type'))}
-        </span>
-      )}
-    </label>
+    <>
+      <label>
+        {textPhraseLabel ?? (
+          <span className="no-value">
+            {addColonText(l('no type'))}
+          </span>
+        )}
+      </label>
+      {' '}
+      <ButtonPopover
+        buildChildren={buildPopoverContent}
+        buttonContent={null}
+        buttonProps={{
+          className: 'icon add-item add-another-entity',
+          title: addAnotherEntityLabels[targetType](),
+        }}
+        buttonRef={addButtonRef}
+        className="relationship-dialog"
+        closeOnOutsideClick={false}
+        id="add-relationship-dialog"
+        isDisabled={false}
+        isOpen={
+          dialogLocation != null &&
+          dialogLocation.relationshipId == null
+        }
+        toggle={setAddDialogOpen}
+      />
+    </>
   );
   const relationshipListElement = (
     <td className="relationship-list">
@@ -278,28 +299,6 @@ const RelationshipPhraseGroup = (React.memo<PropsT>(({
           </td>
         </tr>
       ) : null}
-      <tr className="add-item-row">
-        <td />
-        <td>
-          <ButtonPopover
-            buildChildren={buildPopoverContent}
-            buttonContent={addAnotherEntityLabels[targetType]()}
-            buttonProps={{
-              className: 'add-item with-label add-another-entity',
-            }}
-            buttonRef={addButtonRef}
-            className="relationship-dialog"
-            closeOnOutsideClick={false}
-            id="add-relationship-dialog"
-            isDisabled={false}
-            isOpen={
-              dialogLocation != null &&
-              dialogLocation.relationshipId == null
-            }
-            toggle={setAddDialogOpen}
-          />
-        </td>
-      </tr>
     </>
   ) : null;
 }): React.AbstractComponent<PropsT>);

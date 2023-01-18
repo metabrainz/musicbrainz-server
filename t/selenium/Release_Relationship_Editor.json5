@@ -1656,13 +1656,13 @@
     },
     {
       command: 'click',
-      target: 'xpath=(//td[contains(@class, "recording")])[10]//table[contains(@class, "rel-editor-table")]//button[text() = "Add another work"]',
+      target: 'xpath=(//td[contains(@class, "recording")])[10]//table[contains(@class, "rel-editor-table")]//button[@title = "Add another work"]',
       value: '',
     },
     {
-      command: 'select',
-      target: 'css=#add-relationship-dialog select.entity-type',
-      value: 'label=Area',
+      command: 'runScript',
+      target: 'MB.relationshipEditor.relationshipDialogDispatch({type: "update-target-type", source: MB.tree.toArray(MB.tree.toArray(MB.relationshipEditor.state.mediums)[1][1])[0].recording, targetType: "area"});',
+      value: '',
     },
     {
       command: 'type',
@@ -1688,13 +1688,13 @@
     },
     {
       command: 'click',
-      target: 'xpath=(//td[contains(@class, "recording")])[10]//table[contains(@class, "rel-editor-table")]//button[text() = "Add another work"]',
+      target: 'xpath=(//td[contains(@class, "recording")])[10]//table[contains(@class, "rel-editor-table")]//button[@title = "Add another work"]',
       value: '',
     },
     {
       command: 'assertEval',
-      target: 'document.querySelector("#add-relationship-dialog select.entity-type").value === "work"',
-      value: 'true',
+      target: 'MB.relationshipEditor.relationshipDialogState.targetEntity.targetType',
+      value: 'work',
     },
     {
       command: 'click',
@@ -1976,7 +1976,7 @@
     },
     {
       command: 'click',
-      target: 'xpath=((//tr[contains(@class, "track")])[1]//tr[contains(@class, "bass-guitar")]/following-sibling::tr[contains(@class, "add-item")])[1]//button[contains(@class, "add-item")]',
+      target: 'xpath=((//tr[contains(@class, "track")])[1]//tr[contains(@class, "bass-guitar")])[1]//button[contains(@class, "add-item")]',
       value: '',
     },
     {
