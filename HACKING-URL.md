@@ -22,6 +22,7 @@ Table of Contents
 
 <!-- toc -->
 
+- [Prerequisites](#prerequisites)
 - [URL editing handlers](#url-editing-handlers)
   * [Cleanup](#cleanup)
   * [Autoselection](#autoselection)
@@ -34,6 +35,46 @@ Table of Contents
   * [Sidebar display](#sidebar-display)
 
 <!-- tocstop -->
+
+Prerequisites
+-------------
+
+Allowing to link external websites as
+either [other databases](https://musicbrainz.org/doc/Other_Databases_Relationship_Type/Whitelist) (for persistence issues)
+or [lyrics websites](https://musicbrainz.org/doc/Style/Relationships/URLs/Lyrics_whitelist) (for license issues)
+must be approved by a STYLE decision beforehand.
+See <https://musicbrainz.org/doc/Proposals>
+for how to request such STYLE decision,
+before even thinking about coding handlers.
+
+Other relationship types don’t require any STYLE decision,
+but having a self-assigned MBS ticket is still required.
+
+The following research work is usually expected about external websites to be handled:
+
+* Form and number of its URLs in the MusicBrainz database already;
+  - Tip: For a first approximate count, you can query the MusicBrainz API about URLs with (approximate) patterns;
+  - For example [`url:*/openlibrary.org/*`](https://musicbrainz.org/ws/2/url?query=url:*/openlibrary.org/*&limit=1&fmt=json) counts Open Library URLs (mainly).
+
+* Mapping between patterns of its URLs and MusicBrainz entities with relationship type(s);
+  - For example `/authors/` Open Library URLs match MusicBrainz artists.
+
+* Potential alternative forms of its URLs;
+  - For example `youtu.be/REF` is an alias for `www.youtube.com/watch?v=REF`.
+
+* Potential query (`?...`) and fragment (`#...`);
+  - For example `&list=...` is removed from YouTube video URLs taken from a playlist.
+
+* Potential patterns to be blocked (search pages, unreliable URLs...);
+  - For example `youtube.com/playlist` URLs are unwanted and blocked with a message.
+
+* Rationale and real examples for all the above.
+
+Expected behavior and rationale should be given in the ticket,
+and implementation details in the pull request and commit messages.
+
+It isn’t required to make a fine-grained implementation.
+Sometimes it is even impossible because of URL patterns.
 
 URL editing handlers
 --------------------
