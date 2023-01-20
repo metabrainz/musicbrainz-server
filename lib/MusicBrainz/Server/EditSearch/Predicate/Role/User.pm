@@ -48,34 +48,27 @@ role {
         if ($self->operator eq 'me' || $self->operator eq 'not_me') {
             $query->add_where([ $sql, [ $self->user->id ] ]);
         } elsif ($self->operator eq 'limited') {
-            # Please keep the logic in sync with Report::LimitedEditors and Entity::Editor
-            $sql = q{
-              edit.editor != ?
-              AND (
-                NOT EXISTS (
-                  SELECT 1
-                  FROM editor
-                  WHERE id = edit.editor
-                  AND deleted = TRUE
-                )
-              ) AND (
-                  NOT EXISTS (
-                    SELECT 1
-                    FROM edit e2
-                    WHERE e2.editor = edit.editor
-                    AND e2.autoedit = 0
-                    AND e2.status = ?
-                    OFFSET 9
-                  )
-                OR
-                  EXISTS (
-                    SELECT 1
-                    FROM editor
-                    WHERE id = edit.editor
-                    AND member_since > NOW() - INTERVAL '2 weeks'
-                  )
-              )
-            };
+            # Please keep the beginner logic in sync with Report::LimitedEditors and Entity::Editor
+            my $beginner_sql = <<~'SQL';
+                SELECT id
+                  FROM editor beginner
+                 WHERE id != ?
+                   AND deleted = FALSE
+                   AND (
+                        member_since > NOW() - INTERVAL '2 weeks'
+                        OR NOT EXISTS (
+                            SELECT 1
+                              FROM edit e2
+                             WHERE e2.editor = beginner.id
+                               AND e2.autoedit = 0
+                               AND e2.status = ?
+                            OFFSET 9
+                        )
+                   )
+                SQL
+
+            $sql = $template_clause =~
+                s/ROLE_CLAUSE\(([^)]*)\)/$1 IN ($beginner_sql)/r;
             $query->add_where([ $sql, [ $EDITOR_MODBOT, $STATUS_APPLIED ] ]);
         } elsif ($self->operator eq 'not_edit_author') {
             $query->add_where([
