@@ -5,26 +5,42 @@ use warnings;
 use Test::Routine;
 use MusicBrainz::Server::Test qw( html_ok );
 
-with 't::Edit';
-with 't::Mechanize';
-with 't::Context';
+with 't::Mechanize', 't::Context';
 
-test all => sub {
+=head2 Test description
+
+This test checks that the series details page contains all the expected data.
+
+=cut
+
+test 'Details tab has all the expected data' => sub {
     my $test = shift;
     my $mech = $test->mech;
-    my $c = $test->c;
+    my $c    = $test->c;
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+series');
 
-    $mech->get_ok('/series/a8749d0c-4a5a-4403-97c5-f6cd018f8e6d/details',
-                  'fetch series details page');
+    $mech->get_ok(
+        '/series/a8749d0c-4a5a-4403-97c5-f6cd018f8e6d/details',
+        'Fetched series details page',
+    );
     html_ok($mech->content);
-
-    $mech->content_contains('https://musicbrainz.org/series/a8749d0c-4a5a-4403-97c5-f6cd018f8e6d',
-                            '..has permanent link');
-
-    $mech->content_contains('>a8749d0c-4a5a-4403-97c5-f6cd018f8e6d</',
-                            '..has mbid in plain text');
+    $mech->text_contains(
+        'Permanent link:https://musicbrainz.org/series/a8749d0c-4a5a-4403-97c5-f6cd018f8e6d',
+        'The details tab contains the series permalink',
+    );
+    $mech->text_contains(
+        'MBID:a8749d0c-4a5a-4403-97c5-f6cd018f8e6d',
+        'The details tab contains the MBID in plain text',
+    );
+    $mech->text_contains(
+        'Last updated:2002-02-20 00:00 UTC',
+        'The details tab contains the last updated date',
+    );
+    $mech->text_contains(
+        '/ws/2/series/a8749d0c-4a5a-4403-97c5-f6cd018f8e6d?',
+        'The details tab contains a WS link',
+    );
 };
 
 1;
