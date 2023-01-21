@@ -18,3 +18,6 @@ INSERT INTO link_attribute_text_value (link, attribute_type, text_value)
 INSERT INTO l_series_work (id, link, entity0, entity1, edits_pending, last_updated, link_order, entity0_credit, entity1_credit)
     VALUES (15120, 170801, 25, 10465539, 0, '2015-11-11 16:23:07.850893+00', 0, '', ''),
            (2025, 170801, 25, 10465539, 1, '2014-05-21 06:35:59.318332+00', 749, '', '');
+
+INSERT INTO editor (id, name, password, ha1, email, email_confirm_date)
+    VALUES (1, 'editor', '{CLEARTEXT}pass', '3f3edade87115ce351d63f42d92a1834', 'foo@example.com', now());
