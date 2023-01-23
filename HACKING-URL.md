@@ -79,8 +79,8 @@ Sometimes it is even impossible because of URL patterns.
 URL editing handlers
 --------------------
 
-Most of the handling of URLs, including all three of cleanup, autoselect and
-validation, happen on
+Most of the handling of URLs, including all three of (URL) cleanup,
+(relationship type) autoselect and (URL relationship) validation, happen on
 [`root/static/scripts/edit/URLCleanup.js`](root/static/scripts/edit/URLCleanup.js).
 (Note: The name of this file is historical and will be changed in the future;
 See [MBS-12836](https://tickets.metabrainz.org/browse/MBS-12836).)
