@@ -103,7 +103,22 @@ sub name { shift->url->as_string }
 
 sub affiliate_url { shift->url }
 
+=method url_is_scheme_independent
+
+Returns true if the scheme for this URL should be ignored
+and replaced with the scheme for this MusicBrainz Server instance.
+See "Rendered scheme override" in F<HACKING-URL.md> for more details.
+
+=cut
+
 sub url_is_scheme_independent { 0 }
+
+=method href_url
+
+Returns the C<href> string for this URL.
+See "Rendered scheme override" in F<HACKING-URL.md> for more details.
+
+=cut
 
 sub href_url {
     my $self = shift;
