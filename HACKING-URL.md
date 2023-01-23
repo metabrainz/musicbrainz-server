@@ -10,7 +10,7 @@ The easiest way to get started is probably to look at similar
 [resolved MBS "URL cleanup" tickets](https://tickets.metabrainz.org/issues/?jql=project%20%3D%20MBS%20AND%20component%20%3D%20%22URL%20cleanup%22%20AND%20status%20%3D%20Closed%20AND%20resolution%20IN%20%28Done%2CFixed%29)
 which have comments linking to pull requests. More particularly,
 look at potential STYLE tickets linked to these MBS tickets,
-and at the commit messages in the pull requests. Do the same.
+and at the commit messages in the pull requests, and try to follow a similar process.
 If any doubt, get back to this guide which should contain the answer.
 
 Our URL handling has two main parts: editing handlers (unwanted URL block, URL
