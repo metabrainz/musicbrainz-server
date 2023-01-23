@@ -1,0 +1,399 @@
+ArtistJson:
+  type: object
+  properties:
+    id:
+      type: string
+      format: uuid
+      description: The MBID for the artist.
+    name:
+      type: string
+      description: The artist name.
+    sort-name:
+      type: string
+      description: The artist sort name.
+    disambiguation:
+        type: string
+        description: The disambiguation comment for the artist.
+    type:
+      type: string
+      description: The name for the artist type for the artist.
+      nullable: true
+    type-id:
+      type: string
+      format: uuid
+      description: The MBID for the artist type for the artist.
+      nullable: true
+    gender:
+      type: string
+      description: The name for the gender for the artist.
+      nullable: true
+    gender-id:
+      type: string
+      format: uuid
+      description: The MBID for the gender for the artist.
+      nullable: true
+    country:
+      type: string
+      description: |
+        The first [ISO 3166-1](https://en.wikipedia.org/wiki/ISO_3166-1) code
+        for the artist's main area, if any. Compatibility field,
+        prefer area instead.
+      nullable: true
+    area:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The MBID for the area.
+        name:
+          type: string
+          description: The area name.
+        sort-name:
+          type: string
+          description: The area sort name (same as the name).
+        disambiguation:
+          type: string
+          description: The disambiguation comment for the area.
+        type:
+          type: string
+          description: The name for the area type for the area.
+          nullable: true
+        type-id:
+          type: string
+          format: uuid
+          description: The MBID for the area type for the area.
+          nullable: true
+        iso-3166-1-codes:
+          type: array
+          description: |
+            The [ISO 3166-1](https://en.wikipedia.org/wiki/ISO_3166-1) code(s)
+            for the area.
+          items:
+            type: string
+        iso-3166-2-codes:
+          type: array
+          description: |
+            The [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2) code(s)
+            for the area.
+          items:
+            type: string
+        iso-3166-3-codes:
+          type: array
+          description: |
+            The [ISO 3166-3](https://en.wikipedia.org/wiki/ISO_3166-3) code(s)
+            for the area.
+          items:
+            type: string
+      required: 
+        - id
+        - name
+        - sort-name
+        - disambiguation
+        - type-id
+        - type
+      nullable: true
+      description: The main area for the artist.
+    begin-area:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The MBID for the area.
+        name:
+          type: string
+          description: The area name.
+        sort-name:
+          type: string
+          description: The area sort name (same as the name).
+        disambiguation:
+          type: string
+          description: The disambiguation comment for the area.
+        type:
+          type: string
+          description: The name for the area type for the area.
+          nullable: true
+        type-id:
+          type: string
+          format: uuid
+          description: The MBID for the area type for the area.
+          nullable: true
+        iso-3166-1-codes:
+          type: array
+          description: |
+            The [ISO 3166-1](https://en.wikipedia.org/wiki/ISO_3166-1) code(s)
+            for the area.
+          items:
+            type: string
+        iso-3166-2-codes:
+          type: array
+          description: |
+            The [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2) code(s)
+            for the area.
+          items:
+            type: string
+        iso-3166-3-codes:
+          type: array
+          description: |
+            The [ISO 3166-3](https://en.wikipedia.org/wiki/ISO_3166-3) code(s)
+            for the area.
+          items:
+            type: string
+      required: 
+        - id
+        - name
+        - sort-name
+        - disambiguation
+        - type-id
+        - type
+      nullable: true
+      description: The begin area for the artist.
+    end-area:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The MBID for the area.
+        name:
+          type: string
+          description: The area name.
+        sort-name:
+          type: string
+          description: The area sort name (same as the name).
+        disambiguation:
+          type: string
+          description: The disambiguation comment for the area.
+        type:
+          type: string
+          description: The name for the area type for the area.
+          nullable: true
+        type-id:
+          type: string
+          format: uuid
+          description: The MBID for the area type for the area.
+          nullable: true
+        iso-3166-1-codes:
+          type: array
+          description: |
+            The [ISO 3166-1](https://en.wikipedia.org/wiki/ISO_3166-1) code(s)
+            for the area.
+          items:
+            type: string
+        iso-3166-2-codes:
+          type: array
+          description: |
+            The [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2) code(s)
+            for the area.
+          items:
+            type: string
+        iso-3166-3-codes:
+          type: array
+          description: |
+            The [ISO 3166-3](https://en.wikipedia.org/wiki/ISO_3166-3) code(s)
+            for the area.
+          items:
+            type: string
+      required: 
+        - id
+        - name
+        - sort-name
+        - disambiguation
+        - type-id
+        - type
+      nullable: true
+      description: The end area for the artist.
+    life-span:
+      type: object
+      properties:
+        begin:
+          type: string
+          description: |
+            The begin date for the artist
+            (formation for groups, birth for people).
+          nullable: true
+        end:
+          type: string
+          description: |
+            The end date for the artist
+            (dissolution for groups, death for people).
+          nullable: true
+        ended:
+          type: boolean
+          description: |
+            Whether the artist has ended
+            (dissolution for groups, death for people).
+            Can be set without `end` if the date is unknown.
+      required:
+        - begin
+        - end
+        - ended
+    ipis:
+      type: array
+      description: The IPI codes for the artist.
+      items:
+        type: string
+    isnis:
+      type: array
+      description: The ISNI codes for the artist.
+      items:
+        type: string
+    aliases:
+      type: array
+      description: The aliases for the artist.
+      items:
+        type: object
+        properties:
+          name:
+            type: string
+            description: The alias name.
+          sort-name:
+            type: string
+            description: The alias sort name.
+          type:
+            type: string
+            description: The name for the alias type for the alias.
+            nullable: true
+          type-id:
+            type: string
+            format: uuid
+            description: The MBID for the alias type for the alias.
+            nullable: true
+          locale:
+            type: string
+            description: |
+              The locale for the alias. Possible options follow
+              [DateTime::Locale](https://metacpan.org/pod/DateTime::Locale::Catalog).
+            nullable: true
+          primary:
+            type: boolean
+            description: |
+              Whether the alias is marked as the primary one for its locale
+              (that is, the one to pick if you are only using one).
+              Set to null if there is no locale.
+            nullable: true
+          begin:
+            type: string
+            description: |
+              The begin date for the alias (when it started applying).
+            nullable: true
+          end:
+            type: string
+            description: |
+              The end date for the alias (when it stopped applying).
+            nullable: true
+          ended:
+            type: boolean
+            description: |
+              Whether the alias no longer applies.
+              Can be set without `end` if the date is unknown.
+    annotation:
+      type: string
+      description: |
+        The [annotation](https://musicbrainz.org/doc/Annotation)
+        for the artist, if any.
+      nullable: true
+    genres:
+      type: array
+      description: |
+        Any [genre tags](https://musicbrainz.org/genres) for the artist
+        which have been upvoted by the community more times
+        than they have been downvoted.
+      items:
+        type: object
+        properties:
+          id:
+            type: string
+            format: uuid
+            description: The MBID for the genre.
+          name:
+            type: string
+            description: The genre name.
+          disambiguation:
+            type: string
+            description: The disambiguation comment for the genre.
+          count:
+            type: integer
+            description: |
+              The community voting value for the genre tag
+              (upvotes - downvotes).
+    user-genres:
+      type: array
+      description: |
+        Any [genre tags](https://musicbrainz.org/genres) for the artist
+        upvoted by the authenticated user.
+      items:
+        type: object
+        properties:
+          id:
+            type: string
+            format: uuid
+            description: The MBID for the genre.
+          name:
+            type: string
+            description: The genre name.
+          disambiguation:
+            type: string
+            description: The disambiguation comment for the genre.
+    tags:
+      type: array
+      description: |
+        Any folksonomy tags (including genre tags) for the artist
+        which have been upvoted by the community more times
+        than they have been downvoted.
+      items:
+        type: object
+        properties:
+          name:
+            type: string
+            description: The tag name.
+          count:
+            type: integer
+            description: |
+              The community voting value for the tag (upvotes - downvotes).
+    user-tags:
+      type: array
+      description: |
+        Any folksonomy tags (including genre tags) for the artist
+        upvoted by the authenticated user.
+      items:
+        type: object
+        properties:
+          name:
+            type: string
+            description: The tag name.
+    rating:
+      type: object
+      properties:
+        value:
+          type: number
+          description: The average community rating for the artist (0-5).
+          nullable: true
+        votes-count:
+          type: integer
+          description: The number of community ratings for the artist.
+    user-rating:
+      type: object
+      properties:
+        value:
+          type: number
+          description: |
+            The rating for the artist (0-5) by the authenticated user.
+          nullable: true
+  required:
+    - area
+    - begin-area
+    - country
+    - disambiguation
+    - end-area
+    - gender-id
+    - gender
+    - id
+    - ipis
+    - isnis
+    - life-span
+    - name
+    - sort-name
+    - type-id
+    - type
