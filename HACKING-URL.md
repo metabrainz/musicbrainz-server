@@ -33,7 +33,7 @@ Table of Contents
   * [Favicons](#favicons)
   * [Sidebar display](#sidebar-display)
   * [Rendered scheme override](#rendered-scheme-override)
-  * [In-page display](#in-page-display)
+  * [Custom in-page display](#custom-in-page-display)
   * [Miscellaneous display customization](miscellaneous-display-customization)
 
 <!-- tocstop -->
@@ -296,9 +296,9 @@ then override the method `href_url` to make the appropriate change;
 That way, the URL scheme will be systematically overridden accordingly.
 See [VIAF](lib/MusicBrainz/Server/Entity/URL/VIAF.pm) for example.
 
-### In-page display
+### Custom in-page display
 
-External links are also shown under the “Relationships” tab of entity pages.
+All external links are shown under the “Relationships” tab of entity pages.
 
 You will notice that some very rare websites (Amazon, IMSLP, VIAF, Wikidata...)
 have a custom `pretty_name` for URL display here. These websites actually have
