@@ -249,14 +249,27 @@ argument `32` if the favicon file is 32x32 rather than 16x16.
 
 ### Sidebar display
 
+:warning:
+The MVC pattern is bent here as the names displayed for hyperlinks are coded in
+the entity model layer. Plans are to address this issue tracked with the ticket
+[MBS-10605](https://tickets.metabrainz.org/browse/MBS-10605).
+
 For a domain to be displayed on the sidebar, you’ll need to create a file in
 [`lib/MusicBrainz/Server/Entity/URL`](lib/MusicBrainz/Server/Entity/URL).
-Base your file on the existing ones, and name it after the site in question.
+Base your file on any of the existing ones that are known to go by the same
+types of relationship, and name it after the site in question.
 
 The `sidebar_name` method most often returns a simple untranslated string,
-the name of the site. You can also return a translated string such as
-`l('Stream at YouTube Music')`, or write a more complex method that depends
-on the URL, like for [IMSLP](lib/MusicBrainz/Server/Entity/URL/IMSLP.pm).
+the name of the site. You can also return a translated string, most often when:
+* The name of the site has official localizations, for example `l(Niconico)`;
+* The site is mainly about streaming, for example `l('Stream at YouTube Music')`;
+* The site is about scores, even for just some paths, for example the more
+  complex method in [IMSLP](lib/MusicBrainz/Server/Entity/URL/IMSLP.pm).
+
+:warning:
+The two latter cases are temporary fallbacks to the lack of display layout;
+Instead plans are to smartly group external links by relationship type;
+See [MBS-10605](https://tickets.metabrainz.org/browse/MBS-10605) again.
 
 If you want the URLs to only be shown on the sidebar if they fulfil a specific
 condition, use the `show_in_external_links` method.
