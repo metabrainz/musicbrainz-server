@@ -249,6 +249,20 @@ argument `32` if the favicon file is 32x32 rather than 16x16.
 
 ### In-page display
 
+External links are also shown under the “Relationships” tab of entity pages.
+
+You will notice that some very rare websites (Amazon, IMSLP, VIAF, Wikidata...)
+have a custom `pretty_name` for URL display here. These websites actually have
+dedicated relationship types which names are used as label ahead of the URL so
+that the identifier contained in the URL can be shown instead of the full URL.
+
+So it is pointless to have a custom `pretty_name` for other websites.
+
+Moreover the current dedicated relationship types are destined to be removed
+when generic relationship types can be used instead, for example all the
+download/streaming platforms since
+[MBS-9902](https://tickets.metabrainz.org/browse/MBS-9902).
+
 ### Sidebar display
 
 For a domain to be displayed on the sidebar, you’ll need to create a file in
@@ -262,12 +276,6 @@ on the URL, like for [IMSLP](lib/MusicBrainz/Server/Entity/URL/IMSLP.pm).
 
 If you want the URLs to only be shown on the sidebar if they fulfil a specific
 condition, use the `show_in_external_links` method.
-
-If the URLs should be displayed in a custom way elsewhere, and not just on
-the sidebar, you can use the `pretty_name` method. This can then be passed to
-sidebar_name if you want to use the exact same name on the sidebar. See
-[`Entity::URL::ASIN`](lib/MusicBrainz/Server/Entity/URL/ASIN.pm)
-for an example.
 
 Add a method `url_is_scheme_independent { 1 }` if both HTTP and HTTPS are
 supported by the site. That way, HTTP mirrors of MusicBrainz can link to the
