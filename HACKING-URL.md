@@ -300,7 +300,7 @@ See [VIAF](lib/MusicBrainz/Server/Entity/URL/VIAF.pm) for example.
 
 All external links are shown under the “Relationships” tab of entity pages.
 
-You will notice that some very rare websites (Amazon, IMSLP, VIAF, Wikidata...)
+You will notice that a few selected websites (Amazon, IMSLP, VIAF, Wikidata...)
 have a custom `pretty_name` for URL display here. These websites actually have
 dedicated relationship types which names are used as label ahead of the URL so
 that the identifier contained in the URL can be shown instead of the full URL.
