@@ -34,6 +34,7 @@ Table of Contents
   * [Sidebar display](#sidebar-display)
   * [Rendered scheme override](#rendered-scheme-override)
   * [In-page display](#in-page-display)
+  * [Miscellaneous display customization](miscellaneous-display-customization)
 
 <!-- tocstop -->
 
@@ -272,9 +273,6 @@ The two latter cases are temporary fallbacks to the lack of display layout;
 Instead plans are to smartly group external links by relationship type;
 See [MBS-10605](https://tickets.metabrainz.org/browse/MBS-10605) again.
 
-If you want the URLs to only be shown on the sidebar if they fulfil a specific
-condition, use the `show_in_external_links` method.
-
 For URLs to actually be mapped to the specific URL file you created, you also
 need to add the mapping to `%URL_SPECIALIZATIONS` in
 [`MusicBrainz::Server::Data::URL`](lib/MusicBrainz/Server/Data/URL.pm).
@@ -314,3 +312,8 @@ when generic relationship types can be used instead, for example all the
 download/streaming platforms since
 [MBS-9902](https://tickets.metabrainz.org/browse/MBS-9902).
 
+### Miscellaneous display customization
+
+See documentation comments in
+[`lib/MusicBrainz/Server/Entity/URL.pm`](lib/MusicBrainz/Server/Entity/URL.pm)
+for other customization options that can be made by overriding these methods.

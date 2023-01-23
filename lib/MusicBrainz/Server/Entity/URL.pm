@@ -117,6 +117,15 @@ sub href_url {
     return $url->as_string;
 }
 
+=method show_in_external_links
+
+Returns true if this URL should be displayed in the sidebar,
+as in C<MusicBrainz::Server::Entity::URL::Sidebar>,
+or false if it should not (the default).
+Allows subclasses to do per-value checks on URLs.
+
+=cut
+
 around TO_JSON => sub {
     my ($orig, $self) = @_;
 

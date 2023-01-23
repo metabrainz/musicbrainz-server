@@ -5,8 +5,8 @@ requires 'sidebar_name';
 
 =method show_in_external_links
 
-Returns true if this URL should be displayed in the sidebar, or false if it
-should not. Allows URLs to do per-value checks on URLs.
+Returns true to display this URL in the sidebar.
+Allows subclasses to do per-value checks on URLs.
 
 =cut
 
