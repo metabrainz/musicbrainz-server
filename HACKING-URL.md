@@ -256,9 +256,9 @@ The MVC pattern is bent here as the names displayed for hyperlinks are coded in
 the entity model layer. Plans are to address this issue tracked with the ticket
 [MBS-10605](https://tickets.metabrainz.org/browse/MBS-10605).
 
-For a domain to be displayed on the sidebar, you’ll need to create a file in
-[`lib/MusicBrainz/Server/Entity/URL`](lib/MusicBrainz/Server/Entity/URL).
-Base your file on any of the existing ones that are known to go by the same
+For a domain to be displayed on the sidebar, you’ll need to create an URL model
+in [`lib/MusicBrainz/Server/Entity/URL/`](lib/MusicBrainz/Server/Entity/URL/).
+Base your model on any of the existing ones that are known to go by the same
 types of relationship, and name it after the site in question.
 
 The `sidebar_name` method most often returns a simple untranslated string,
@@ -273,7 +273,7 @@ The two latter cases are temporary fallbacks to the lack of display layout;
 Instead plans are to smartly group external links by relationship type;
 See [MBS-10605](https://tickets.metabrainz.org/browse/MBS-10605) again.
 
-For URLs to actually be mapped to the specific URL file you created, you also
+For your shiny new URL model to be actually used when loading URLs, you also
 need to add the mapping to `%URL_SPECIALIZATIONS` in
 [`MusicBrainz::Server::Data::URL`](lib/MusicBrainz/Server/Data/URL.pm).
 
