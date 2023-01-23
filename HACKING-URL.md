@@ -32,6 +32,7 @@ Table of Contents
 - [URL display handlers](#url-display-handlers)
   * [Favicons](#favicons)
   * [Sidebar display](#sidebar-display)
+  * [Rendered scheme override](#rendered-scheme-override)
   * [In-page display](#in-page-display)
 
 <!-- tocstop -->
@@ -274,13 +275,28 @@ See [MBS-10605](https://tickets.metabrainz.org/browse/MBS-10605) again.
 If you want the URLs to only be shown on the sidebar if they fulfil a specific
 condition, use the `show_in_external_links` method.
 
-Add a method `url_is_scheme_independent { 1 }` if both HTTP and HTTPS are
-supported by the site. That way, HTTP mirrors of MusicBrainz can link to the
-HTTP version while the rest link to HTTPS.
-
 For URLs to actually be mapped to the specific URL file you created, you also
 need to add the mapping to `%URL_SPECIALIZATIONS` in
 [`MusicBrainz::Server::Data::URL`](lib/MusicBrainz/Server/Data/URL.pm).
+
+### Rendered scheme override
+
+There are mainly two reasons for overriding URL scheme (`http`/`https`) on
+display:
+
+If the external site supports both `http` and `https` schemes,
+then override the method `url_is_scheme_independent` with `{ 1 }`
+in the corresponding `Entity` model added for sidebar display.
+That way, the URL scheme will match the scheme of the MusicBrainz Server
+instance (`https` for `musicbrainz.org`, usually `http` for mirrors).
+See [InternetArchive](lib/MusicBrainz/Server/Entity/URL/InternetArchive.pm) for example.
+
+If the external site dropped support for `http` scheme or redirect from `http`
+to `https`, and its URLs stored in the MusicBrainz database still use `http`
+(for example to keep following the permalink format),
+then override the method `href_url` to make the appropriate change;
+That way, the URL scheme will be systematically overridden accordingly.
+See [VIAF](lib/MusicBrainz/Server/Entity/URL/VIAF.pm) for example.
 
 ### In-page display
 
