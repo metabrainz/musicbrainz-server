@@ -6,7 +6,7 @@ MusicBrainz Server to: allow linking to other databases and lyrics website,
 make it easier to add links, prevent editor from entering wrong links,
 improve the display of links on MusicBrainz website.
 
-For easy starting, look at similar
+The easiest way to get started is probably to look at similar
 [resolved MBS "URL cleanup" tickets](https://tickets.metabrainz.org/issues/?jql=project%20%3D%20MBS%20AND%20component%20%3D%20%22URL%20cleanup%22%20AND%20status%20%3D%20Closed%20AND%20resolution%20IN%20%28Done%2CFixed%29)
 which have comments linking to pull requests. More particularly,
 look at potential STYLE tickets linked to these MBS tickets,
