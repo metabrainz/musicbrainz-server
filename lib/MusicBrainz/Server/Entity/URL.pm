@@ -126,6 +126,15 @@ Allows subclasses to do per-value checks on URLs.
 
 =cut
 
+=method sidebar_name
+
+Returns a string to be used as link title for display in the sidebar
+as in C<MusicBrainz::Server::Entity::URL::ArtLibre>.
+Allows subclasses to do per-value checks on URLs.
+See "Sidebar display" in F<HACKING-URL.md> for more details.
+
+=cut
+
 around TO_JSON => sub {
     my ($orig, $self) = @_;
 
