@@ -289,7 +289,7 @@ That way, the URL scheme will match the scheme of the MusicBrainz Server
 instance (`https` for `musicbrainz.org`, usually `http` for mirrors).
 See [InternetArchive](lib/MusicBrainz/Server/Entity/URL/InternetArchive.pm) for example.
 
-If the external site dropped support for `http` scheme or redirect from `http`
+If the external site has dropped support for the `http` scheme or redirects from `http`
 to `https`, and its URLs stored in the MusicBrainz database still use `http`
 (for example to keep following the permalink format),
 then override the method `href_url` to make the appropriate change;
