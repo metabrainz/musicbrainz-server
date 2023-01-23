@@ -90,6 +90,7 @@ Return a human readable display of this URL. This is usually the URL with
 most character entities decoded, except when the URL uses a legacy encoding.
 In that case, the URL is displayed as it is in the database, complete with
 character entities.
+See "Custom in-page display" in F<HACKING-URL.md> for more details.
 
 =cut
 
