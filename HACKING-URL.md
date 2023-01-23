@@ -31,8 +31,8 @@ Table of Contents
   * [Entity-wide rules](#entity-wide-rules)
 - [URL display handlers](#url-display-handlers)
   * [Favicons](#favicons)
-  * [In-page display](#in-page-display)
   * [Sidebar display](#sidebar-display)
+  * [In-page display](#in-page-display)
 
 <!-- tocstop -->
 
@@ -247,22 +247,6 @@ Then add the favicon to the list in
 use the favicon class you added in the previous step, and pass a second
 argument `32` if the favicon file is 32x32 rather than 16x16.
 
-### In-page display
-
-External links are also shown under the “Relationships” tab of entity pages.
-
-You will notice that some very rare websites (Amazon, IMSLP, VIAF, Wikidata...)
-have a custom `pretty_name` for URL display here. These websites actually have
-dedicated relationship types which names are used as label ahead of the URL so
-that the identifier contained in the URL can be shown instead of the full URL.
-
-So it is pointless to have a custom `pretty_name` for other websites.
-
-Moreover the current dedicated relationship types are destined to be removed
-when generic relationship types can be used instead, for example all the
-download/streaming platforms since
-[MBS-9902](https://tickets.metabrainz.org/browse/MBS-9902).
-
 ### Sidebar display
 
 For a domain to be displayed on the sidebar, you’ll need to create a file in
@@ -284,3 +268,20 @@ HTTP version while the rest link to HTTPS.
 For URLs to actually be mapped to the specific URL file you created, you also
 need to add the mapping to `%URL_SPECIALIZATIONS` in
 [`MusicBrainz::Server::Data::URL`](lib/MusicBrainz/Server/Data/URL.pm).
+
+### In-page display
+
+External links are also shown under the “Relationships” tab of entity pages.
+
+You will notice that some very rare websites (Amazon, IMSLP, VIAF, Wikidata...)
+have a custom `pretty_name` for URL display here. These websites actually have
+dedicated relationship types which names are used as label ahead of the URL so
+that the identifier contained in the URL can be shown instead of the full URL.
+
+So it is pointless to have a custom `pretty_name` for other websites.
+
+Moreover the current dedicated relationship types are destined to be removed
+when generic relationship types can be used instead, for example all the
+download/streaming platforms since
+[MBS-9902](https://tickets.metabrainz.org/browse/MBS-9902).
+
