@@ -1,4 +1,4 @@
-package MusicBrainz::Server::Entity::URL::Tower;
+package MusicBrainz::Server::Entity::URL::Tsutaya;
 
 use Moose;
 
