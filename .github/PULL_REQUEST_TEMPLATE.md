@@ -31,6 +31,17 @@
 :beginner: If you have a lot to say, be more detailed in this section.
 
 
+# Testing
+<!--
+    Talk about the testing you have (and have not) done. It's useful
+    for others to know what you've already checked so that they can
+    avoid repeating the same things and consider what you might have missed.
+-->
+
+:beginner: If you tested on specific pages, mention them here (such as
+“Tested on `/release/mbid` using a sample/full database”).
+
+
 # Checklist for author
 <!--
     The tasks you have to do to get your change ready for review. Use this if
