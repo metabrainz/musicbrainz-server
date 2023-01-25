@@ -4,6 +4,7 @@ use Moose;
 use namespace::autoclean;
 use MooseX::Types::Moose qw( ArrayRef Int Str );
 use MooseX::Types::Structured qw( Dict );
+use MusicBrainz::Server::Edit::Constants qw( %EDIT_KIND_LABELS );
 use MusicBrainz::Server::Edit::Types qw( Nullable NullableOnPreview );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_REORDER_MEDIUMS );
@@ -18,7 +19,7 @@ with 'MusicBrainz::Server::Edit::Role::Preview',
 use aliased 'MusicBrainz::Server::Entity::Release';
 
 sub edit_name { N_lp('Reorder mediums', 'edit type') }
-sub edit_kind { 'other' }
+sub edit_kind { $EDIT_KIND_LABELS{'other'} }
 sub edit_type { $EDIT_RELEASE_REORDER_MEDIUMS }
 sub edit_template { 'ReorderMediums' }
 

@@ -10,6 +10,7 @@ use aliased 'MusicBrainz::Server::Entity::Label';
 use aliased 'MusicBrainz::Server::Entity::Recording';
 
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_ADD_RELEASE );
+use MusicBrainz::Server::Edit::Constants qw( %EDIT_KIND_LABELS );
 use MusicBrainz::Server::Edit::Historic::Utils qw(
     get_historic_type
     upgrade_date upgrade_id
@@ -20,7 +21,7 @@ use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Translation qw( N_lp );
 
 sub edit_name     { N_lp('Add release', 'edit type') }
-sub edit_kind     { 'add' }
+sub edit_kind     { $EDIT_KIND_LABELS{'add'} }
 sub historic_type { 16 }
 sub edit_type     { $EDIT_HISTORIC_ADD_RELEASE }
 sub edit_template { 'historic/AddRelease' }

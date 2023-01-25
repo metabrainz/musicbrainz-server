@@ -13,6 +13,7 @@ use MusicBrainz::Server::Data::Utils qw(
     partial_date_to_hash
     type_to_model
 );
+use MusicBrainz::Server::Edit::Constants qw( %EDIT_KIND_LABELS );
 use MusicBrainz::Server::Edit::Utils qw( gid_or_id );
 use MusicBrainz::Server::Edit::Types qw( LinkAttributesArray PartialDateHash );
 use MusicBrainz::Server::Entity::Types;
@@ -34,7 +35,7 @@ with 'MusicBrainz::Server::Edit::Relationship',
 
 sub edit_type { $EDIT_RELATIONSHIP_DELETE }
 sub edit_name { N_lp('Remove relationship', 'edit type') }
-sub edit_kind { 'remove' }
+sub edit_kind { $EDIT_KIND_LABELS{'remove'} }
 sub edit_template { 'RemoveRelationship' }
 
 has '+data' => (

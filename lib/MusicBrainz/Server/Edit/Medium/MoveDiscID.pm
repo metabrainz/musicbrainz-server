@@ -3,6 +3,7 @@ use Moose;
 use namespace::autoclean;
 
 use MusicBrainz::Server::Constants qw( $EDIT_MEDIUM_MOVE_DISCID );
+use MusicBrainz::Server::Edit::Constants qw( %EDIT_KIND_LABELS );
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Translation qw( N_lp );
@@ -19,7 +20,7 @@ use aliased 'MusicBrainz::Server::Entity::Release';
 use aliased 'MusicBrainz::Server::Entity::Medium';
 
 sub edit_name { N_lp('Move disc ID', 'edit type') }
-sub edit_kind { 'other' }
+sub edit_kind { $EDIT_KIND_LABELS{'other'} }
 sub edit_type { $EDIT_MEDIUM_MOVE_DISCID }
 sub edit_template { 'MoveDiscId' }
 

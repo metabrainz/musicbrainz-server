@@ -6,6 +6,7 @@ use MooseX::Types::Moose qw( ArrayRef Str Int );
 use MooseX::Types::Structured qw( Dict Optional );
 
 use MusicBrainz::Server::Constants qw( %ENTITIES );
+use MusicBrainz::Server::Edit::Constants qw( %EDIT_KIND_LABELS );
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Entity::Util::JSON qw(
     to_json_array
@@ -24,7 +25,7 @@ requires qw(
     edit_type
 );
 
-sub edit_kind { 'edit' }
+sub edit_kind { $EDIT_KIND_LABELS{'edit'} }
 
 sub entity_ids { shift->data->{entity}{id} }
 

@@ -2,6 +2,7 @@ package MusicBrainz::Server::Edit::Generic::Merge;
 use Moose;
 
 use MusicBrainz::Server::Data::Utils qw( model_to_type );
+use MusicBrainz::Server::Edit::Constants qw( %EDIT_KIND_LABELS );
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MooseX::Types::Moose qw( ArrayRef Int Str );
@@ -17,7 +18,7 @@ with 'MusicBrainz::Server::Edit::Role::NeverAutoEdit';
 
 sub _merge_model { die 'Unimplemented' }
 
-sub edit_kind { 'merge' }
+sub edit_kind { $EDIT_KIND_LABELS{'merge'} }
 
 sub alter_edit_pending
 {

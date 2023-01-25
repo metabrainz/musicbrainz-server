@@ -4,12 +4,13 @@ use Method::Signatures::Simple;
 use MooseX::Types::Structured qw( Dict );
 use MooseX::Types::Moose qw( Int Str );
 use MusicBrainz::Server::Constants qw( $EDIT_MEDIUM_REMOVE_DISCID );
+use MusicBrainz::Server::Edit::Constants qw( %EDIT_KIND_LABELS );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Translation qw( N_lp );
 
 sub edit_name { N_lp('Remove disc ID', 'edit type') }
 sub edit_type { $EDIT_MEDIUM_REMOVE_DISCID }
-sub edit_kind { 'remove' }
+sub edit_kind { $EDIT_KIND_LABELS{'remove'} }
 sub edit_template { 'RemoveDiscId' }
 
 extends 'MusicBrainz::Server::Edit';

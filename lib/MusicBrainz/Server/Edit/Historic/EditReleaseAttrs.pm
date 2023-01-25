@@ -8,6 +8,7 @@ use List::AllUtils qw( uniq );
 use MusicBrainz::Server::Constants qw(
     $EDIT_HISTORIC_EDIT_RELEASE_ATTRS
 );
+use MusicBrainz::Server::Edit::Constants qw( %EDIT_KIND_LABELS );
 use MusicBrainz::Server::Edit::Historic::Utils qw( get_historic_type upgrade_type_and_status );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Translation qw( N_lp );
@@ -15,7 +16,7 @@ use MusicBrainz::Server::Translation qw( N_lp );
 use aliased 'MusicBrainz::Server::Entity::Release';
 
 sub edit_name     { N_lp('Edit release', 'edit type') }
-sub edit_kind     { 'edit' }
+sub edit_kind     { $EDIT_KIND_LABELS{'edit'} }
 sub edit_type     { $EDIT_HISTORIC_EDIT_RELEASE_ATTRS }
 sub historic_type { 26 }
 sub edit_template { 'historic/EditReleaseAttributes' }

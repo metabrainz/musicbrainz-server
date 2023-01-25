@@ -4,6 +4,7 @@ use MooseX::Types::Structured qw( Dict Optional );
 use MooseX::Types::Moose qw( Bool Int Str );
 use MusicBrainz::Server::Constants qw( $EDIT_RELATIONSHIP_ADD_ATTRIBUTE );
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
+use MusicBrainz::Server::Edit::Constants qw( %EDIT_KIND_LABELS );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Translation qw( N_lp );
@@ -14,7 +15,7 @@ with 'MusicBrainz::Server::Edit::Relationship',
      'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
 sub edit_name { N_lp('Add relationship attribute', 'edit type') }
-sub edit_kind { 'add' }
+sub edit_kind { $EDIT_KIND_LABELS{'add'} }
 sub edit_type { $EDIT_RELATIONSHIP_ADD_ATTRIBUTE }
 sub edit_template { 'AddRelationshipAttribute' }
 

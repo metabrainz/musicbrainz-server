@@ -5,6 +5,7 @@ use namespace::autoclean;
 use MooseX::Types::Moose qw( ArrayRef Str Int );
 use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Constants qw( %ENTITIES );
+use MusicBrainz::Server::Edit::Constants qw( %EDIT_KIND_LABELS );
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 
@@ -33,7 +34,7 @@ sub data_fields {
     ];
 }
 
-sub edit_kind { 'add' }
+sub edit_kind { $EDIT_KIND_LABELS{'add'} }
 
 # The order here is significant w.r.t. `insert_art`.
 our @art_field_names = qw( id position types comment mime_type );

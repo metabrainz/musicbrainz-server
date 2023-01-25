@@ -2,6 +2,7 @@ package MusicBrainz::Server::Edit::Series::EditAlias;
 use Moose;
 
 use MusicBrainz::Server::Constants qw( $EDIT_SERIES_EDIT_ALIAS );
+use MusicBrainz::Server::Edit::Constants qw( %EDIT_KIND_LABELS );
 use MusicBrainz::Server::Translation qw ( N_lp );
 
 extends 'MusicBrainz::Server::Edit::Alias::Edit';
@@ -10,7 +11,7 @@ with 'MusicBrainz::Server::Edit::Series';
 sub _alias_model { shift->c->model('Series')->alias }
 
 sub edit_name { N_lp('Edit series alias', 'edit type') }
-sub edit_kind { 'edit' }
+sub edit_kind { $EDIT_KIND_LABELS{'edit'} }
 sub edit_type { $EDIT_SERIES_EDIT_ALIAS }
 
 sub _build_related_entities { { series => [ shift->series_id ] } }

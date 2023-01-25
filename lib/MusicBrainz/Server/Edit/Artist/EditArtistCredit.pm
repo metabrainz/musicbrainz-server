@@ -8,6 +8,7 @@ use aliased 'MusicBrainz::Server::Entity::Artist';
 use Data::Compare;
 use MusicBrainz::Server::Constants qw( $EDIT_ARTIST_EDITCREDIT );
 use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref );
+use MusicBrainz::Server::Edit::Constants qw( %EDIT_KIND_LABELS );
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Edit::Types qw( ArtistCreditDefinition );
 use MusicBrainz::Server::Edit::Utils qw(
@@ -24,7 +25,7 @@ with 'MusicBrainz::Server::Edit::Artist',
      'MusicBrainz::Server::Edit::Role::NeverAutoEdit';
 
 sub edit_name { N_lp('Edit artist credit', 'edit type') }
-sub edit_kind { 'edit' }
+sub edit_kind { $EDIT_KIND_LABELS{'edit'} }
 sub edit_type { $EDIT_ARTIST_EDITCREDIT }
 sub edit_template { 'EditArtistCredit' }
 

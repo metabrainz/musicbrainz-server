@@ -5,6 +5,7 @@ use MooseX::Types::Moose qw( Bool Int Str );
 use Data::Compare;
 use MusicBrainz::Server::Constants qw( $EDIT_RELATIONSHIP_ATTRIBUTE );
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
+use MusicBrainz::Server::Edit::Constants qw( %EDIT_KIND_LABELS );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
 use MusicBrainz::Server::Edit::Utils qw( changed_display_data );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
@@ -15,7 +16,7 @@ with 'MusicBrainz::Server::Edit::Relationship',
      'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
 sub edit_name { N_lp('Edit relationship attribute', 'edit type') }
-sub edit_kind { 'edit' }
+sub edit_kind { $EDIT_KIND_LABELS{'edit'} }
 sub edit_type { $EDIT_RELATIONSHIP_ATTRIBUTE }
 sub edit_template { 'EditRelationshipAttribute' }
 

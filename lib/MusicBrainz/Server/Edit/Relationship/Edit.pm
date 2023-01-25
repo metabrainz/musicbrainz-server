@@ -12,6 +12,7 @@ use MusicBrainz::Server::Constants qw(
     $AMAZON_ASIN_LINK_TYPE_ID
     $EDIT_RELATIONSHIP_EDIT
 );
+use MusicBrainz::Server::Edit::Constants qw( %EDIT_KIND_LABELS );
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Entity::LinkAttribute;
 use MusicBrainz::Server::Entity::Types;
@@ -38,7 +39,7 @@ with 'MusicBrainz::Server::Edit::Relationship',
 
 sub edit_type { $EDIT_RELATIONSHIP_EDIT }
 sub edit_name { N_lp('Edit relationship', 'edit type') }
-sub edit_kind { 'edit' }
+sub edit_kind { $EDIT_KIND_LABELS{'edit'} }
 sub edit_template { 'EditRelationship' }
 
 subtype 'LinkHash'
