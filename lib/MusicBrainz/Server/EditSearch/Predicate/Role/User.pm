@@ -32,6 +32,7 @@ role {
             'me' => 0,
             'not_me' => 0,
             'limited' => 0,
+            'not_limited' => 0,
             'not_edit_author' => 0,
             'nobody' => 0,
         );
@@ -70,6 +71,39 @@ role {
 
             $sql = $template_clause =~
                 s/ROLE_CLAUSE\(([^)]*)\)/$1 IN ($beginner_sql)/r;
+            $query->add_where([ $sql, [ $EDITOR_MODBOT, $STATUS_APPLIED ] ]);
+        } elsif ($self->operator eq 'not_limited') {
+            # Please keep the logic in sync with Report::LimitedEditors and Entity::Editor
+            $sql = <<~'SQL';
+                (
+                    edit.editor = ?
+                    OR
+                    EXISTS (
+                        SELECT 1
+                          FROM editor
+                         WHERE id = edit.editor
+                           AND deleted = TRUE
+                    )
+                    OR (
+                        EXISTS (
+                            SELECT 1
+                              FROM edit e2
+                             WHERE e2.editor = edit.editor
+                               AND e2.autoedit = 0
+                               AND e2.status = ?
+                            OFFSET 9
+                        )
+                        AND
+                        EXISTS (
+                            SELECT 1
+                              FROM editor
+                             WHERE id = edit.editor
+                               AND member_since <= NOW() - INTERVAL '2 weeks'
+                        )
+                    )
+                )
+                SQL
+
             $query->add_where([ $sql, [ $EDITOR_MODBOT, $STATUS_APPLIED ] ]);
         } elsif ($self->operator eq 'not_edit_author') {
             $query->add_where([
