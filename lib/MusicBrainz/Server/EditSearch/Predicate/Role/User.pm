@@ -32,6 +32,7 @@ role {
             'me' => 0,
             'not_me' => 0,
             'limited' => 0,
+            'not_limited' => 0,
             'not_edit_author' => 0,
             'nobody' => 0,
         );
@@ -57,6 +58,16 @@ role {
 
             $sql = $template_clause =~
                 s/ROLE_CLAUSE\(([^)]*)\)/$1 IN ($beginner_sql)/r;
+            $query->add_where([ $sql, [ $BEGINNER_FLAG ] ]);
+        } elsif ($self->operator eq 'not_limited') {
+            my $nonbeginner_sql = <<~'SQL';
+                SELECT id
+                  FROM editor beginner
+                 WHERE (privs & ?) = 0
+                SQL
+
+            $sql = $template_clause =~
+                s/ROLE_CLAUSE\(([^)]*)\)/$1 IN ($nonbeginner_sql)/r;
             $query->add_where([ $sql, [ $BEGINNER_FLAG ] ]);
         } elsif ($self->operator eq 'not_edit_author') {
             $query->add_where([
