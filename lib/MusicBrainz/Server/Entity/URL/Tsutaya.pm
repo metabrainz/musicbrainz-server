@@ -14,7 +14,7 @@ no Moose;
 =head1 COPYRIGHT AND LICENSE
 
 Copyright (C) 2023 MetaBrainz Foundation
-Drafted by https://github.com/julian45
+Copyright (C) 2023 Julian Anderson
 
 This file is part of MusicBrainz, the open internet music database,
 and is licensed under the GPL version 2, or (at your option) any
