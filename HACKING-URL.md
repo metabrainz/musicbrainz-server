@@ -11,7 +11,7 @@ The easiest way to get started is probably to look at similar
 which have comments linking to pull requests. More particularly,
 look at potential STYLE tickets linked to these MBS tickets,
 and at the commit messages in the pull requests, and try to follow a similar process.
-If any doubt, get back to this guide which should contain the answer.
+When in doubt, you will hopefully find an answer in this guide.
 
 Our URL handling has two main parts: editing handlers (unwanted URL block, URL
 cleanup, relationship type autoselection, relationship validation), and
