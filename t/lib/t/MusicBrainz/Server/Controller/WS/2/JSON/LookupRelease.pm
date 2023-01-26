@@ -342,6 +342,7 @@ test 'release lookup with artists + aliases' => sub {
                             ],
                     }
                 }],
+            'artist-credit-id' => '2e12df5b-963e-38f7-9be3-d78adef836c3',
             date => '2004-03-17',
             country => 'JP',
             'release-events' => [{
@@ -579,6 +580,7 @@ test 'release lookup with release-groups' => sub {
                    joinphrase => '',
                 }
             ],
+            'artist-credit-id' => '2e12df5b-963e-38f7-9be3-d78adef836c3',
             'release-group' => {
                 id => '153f0a09-fead-3370-9b17-379ebd09446b',
                 title => 'the Love Bug',
@@ -602,6 +604,7 @@ test 'release lookup with release-groups' => sub {
                        joinphrase => '',
                     }
                 ],
+                'artist-credit-id' => '2e12df5b-963e-38f7-9be3-d78adef836c3',
             }
         };
 };
@@ -1133,6 +1136,7 @@ test 'release lookup, related artists have no tags/genres' => sub {
             joinphrase => '',
             name => 'Plone'
         } ],
+        'artist-credit-id' => '68734848-cbfb-3d65-9e0c-d4e2870650bf',
         asin => 'B00001IVAI',
         barcode => '5021603064126',
         country => 'GB',
@@ -1611,7 +1615,7 @@ test 'release lookup, pregap track' => sub {
         },
         joinphrase => '',
         name => 'Blind Melon'
-    }]);
+    }], 'artist-credit-id' => 'c891596f-5584-3022-804b-717f04c64edf');
 
     ws2_test_json 'release lookup, pregap track',
     '/release/ec0d0122-b559-4aa1-a017-7068814aae57?inc=artists+recordings+artist-credits'
@@ -1731,6 +1735,7 @@ test 'MBS-7914' => sub {
             joinphrase => '',
             name => 'Gustav Mahler'
         }],
+        'artist-credit-id' => '8be3611a-5fd9-3b69-8cfe-34243b02379b',
         asin => JSON::null,
         barcode => JSON::null,
         'cover-art-archive' => {
@@ -1773,6 +1778,7 @@ test 'MBS-7914' => sub {
                     joinphrase => '',
                     name => 'Gustav Mahler'
                 }],
+                'artist-credit-id' => '8be3611a-5fd9-3b69-8cfe-34243b02379b',
                 id => '8ac89142-1318-490a-bed2-5b0c89b251b2',
                 length => JSON::null,
                 position => 1,
@@ -1802,6 +1808,7 @@ test 'MBS-7914' => sub {
                         joinphrase => '',
                         name => 'Chicago Symphony Orchestra'
                     }],
+                    'artist-credit-id' => '15586615-0b5a-304e-be70-afddad1c0b0e',
                     disambiguation => '',
                     id => '36d398e2-85bf-40d5-8686-4f0b78c80ca8',
                     length => JSON::null,
@@ -1862,6 +1869,7 @@ test 'tags and genres on associated entities' => sub {
                 name => 'Lori Cooke',
             },
         ],
+        'artist-credit-id' => '649c6252-0b9a-3c0b-ae32-57e7a8070566',
         asin => JSON::null,
         barcode => JSON::null,
         'cover-art-archive' => {
@@ -1957,6 +1965,7 @@ test 'tags and genres on associated entities' => sub {
                                 name => 'Lavone Grimm',
                             },
                         ],
+                        'artist-credit-id' => '1b8dba09-51b9-3aef-8d97-97019f7654ea',
                         id => 'ee78f26a-f14c-44b4-95a6-b3a312985f30',
                         length => 36000000,
                         number => '1',
@@ -2014,6 +2023,7 @@ test 'tags and genres on associated entities' => sub {
                                     name => 'Leslie Rice',
                                 },
                             ],
+                            'artist-credit-id' => '79781832-6f41-3d46-b287-31898336b696',
                             disambiguation => '',
                             genres => [
                                 {
@@ -2083,6 +2093,7 @@ test 'tags and genres on associated entities' => sub {
                     name => 'Frances Jones',
                 },
             ],
+            'artist-credit-id' => '9a245340-2bc7-3981-b386-992d4d27c9d4',
             disambiguation => '',
             'first-release-date' => '',
             genres => [

@@ -212,6 +212,7 @@ sub _serialize_artist_credit
     my ($self, $parent_node, $artist_credit, $inc, $stash, $toplevel) = @_;
 
     my $ac_node = $parent_node->addNewChild(undef, 'artist-credit');
+    $ac_node->_setAttribute('id', $artist_credit->gid);
 
     foreach my $name (@{$artist_credit->names})
     {

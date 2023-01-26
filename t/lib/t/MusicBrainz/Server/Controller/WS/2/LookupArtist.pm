@@ -314,7 +314,7 @@ ws_test 'artist lookup with recordings and artist credits',
         <recording-list count="2">
             <recording id="0cf3008f-e246-428f-abc1-35f87d584d60">
                 <title>the Love Bug</title><length>243000</length>
-                <artist-credit>
+                <artist-credit id="8df9a1df-24aa-3457-b994-15a715777ff6">
                     <name-credit joinphrase="♥">
                         <artist id="22dd2db3-88ea-4428-a7a8-5cd3acf23175" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
                             <name>m-flo</name>
@@ -331,7 +331,7 @@ ws_test 'artist lookup with recordings and artist credits',
             </recording>
             <recording id="84c98ebf-5d40-4a29-b7b2-0e9c26d9061d">
                 <title>the Love Bug (Big Bug NYC remix)</title><length>222000</length>
-                <artist-credit>
+                <artist-credit id="8df9a1df-24aa-3457-b994-15a715777ff6">
                     <name-credit joinphrase="♥">
                         <artist id="22dd2db3-88ea-4428-a7a8-5cd3acf23175" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
                             <name>m-flo</name>

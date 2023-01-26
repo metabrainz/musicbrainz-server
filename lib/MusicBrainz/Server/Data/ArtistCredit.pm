@@ -8,15 +8,21 @@ use Carp qw( cluck );
 use MusicBrainz::Server::Entity::Artist;
 use MusicBrainz::Server::Entity::ArtistCredit;
 use MusicBrainz::Server::Entity::ArtistCreditName;
-use MusicBrainz::Server::Data::Utils qw( placeholders load_subobjects type_to_model sanitize generate_gid );
+use MusicBrainz::Server::Data::Utils qw( object_to_ids placeholders load_subobjects type_to_model sanitize generate_gid );
 use MusicBrainz::Server::Constants qw( entities_with );
 
 extends 'MusicBrainz::Server::Data::Entity';
-with 'MusicBrainz::Server::Data::Role::EntityCache';
+with 'MusicBrainz::Server::Data::Role::EntityModelClass';
+with 'MusicBrainz::Server::Data::Role::GetByGID';
+with 'MusicBrainz::Server::Data::Role::MainTable';
+# Follows GetByGID and MainTable as it requires 'get_by_gid' and '_main_table';
+with 'MusicBrainz::Server::Data::Role::GIDRedirect';
+# Follows GIDRedirect as it goes around 'get_by_gid' globally;
+with 'MusicBrainz::Server::Data::Role::GIDEntityCache';
+# Makes use of GIDEntityCache
 with 'MusicBrainz::Server::Data::Role::Editable' => {
     table => 'artist_credit',
 };
-with 'MusicBrainz::Server::Data::Role::GetByGID';
 
 sub _type { 'artist_credit' }
 
@@ -31,22 +37,32 @@ sub get_by_ids
     @ids = grep { $self->is_valid_id($_) } @ids;
     return {} unless @ids;
 
+    return $self->_get_hash_by_keys('id', @ids);
+}
+
+sub _get_hash_by_keys
+{
+    my ($self, $key_column, @keys) = @_;
+
+    @keys = grep { defined && $_ } @keys;
+    return () unless @keys;
+
     my $artist_columns = $self->c->model('Artist')->_columns;
     my $query = "SELECT artist, artist_credit_name.name AS ac_name, join_phrase, artist_credit,
                 $artist_columns, ac.edits_pending AS ac_edits_pending, ac.gid AS ac_gid
                 FROM artist_credit_name
                 JOIN artist ON artist.id=artist_credit_name.artist
                 JOIN artist_credit ac ON ac.id = artist_credit_name.artist_credit
-                WHERE artist_credit IN (" . placeholders(@ids) . ')
+                WHERE ac.$key_column IN (" . placeholders(@keys) . ')
                 ORDER BY artist_credit, position';
 
     my %result;
     my %counts;
-    for my $row (@{ $self->sql->select_list_of_hashes($query, @ids) }) {
-        my $id = $row->{artist_credit};
-        $counts{$id} //= 0;
-        $result{$id} //= MusicBrainz::Server::Entity::ArtistCredit->new(
-            id => $id,
+    for my $row (@{ $self->sql->select_list_of_hashes($query, @keys) }) {
+        my $row_key = $row->{$key_column eq 'id' ? 'artist_credit' : "ac_$key_column"};
+        $counts{$row_key} //= 0;
+        $result{$row_key} //= MusicBrainz::Server::Entity::ArtistCredit->new(
+            id => $row->{artist_credit},
             edits_pending => $row->{ac_edits_pending},
             gid => $row->{ac_gid},
         );
@@ -57,20 +73,27 @@ sub get_by_ids
                       name => $row->{ac_name},
                       join_phrase => $row->{join_phrase} // '',
                   );
-        $result{$id}->add_name($acn);
-        $counts{$id} += 1;
+        $result{$row_key}->add_name($acn);
+        $counts{$row_key} += 1;
     }
-    foreach my $id (@ids) {
-        if (!defined $counts{$id}) {
+    foreach my $key (@keys) {
+        if (!defined $counts{$key}) {
             # It's unclear how this could happen, but it seems to be the
             # cause of MBS-8806. Perhaps we'll find out with the call trace
             # provided by cluck.
-            cluck "Attempted to load non-existent AC $id, please investigate";
+            cluck "Attempted to load non-existent AC with $key_column = '$key', please investigate";
             next;
         }
-        $result{$id}->artist_count($counts{$id});
+        $result{$key}->artist_count($counts{$key});
     }
     return \%result;
+}
+
+sub _get_by_keys
+{
+    my ($self, $key_column, @keys) = @_;
+
+    return values %{ $self->_get_hash_by_keys($key_column, @keys) };
 }
 
 sub load
@@ -453,9 +476,29 @@ sub delete_returning_gids {
 __PACKAGE__->meta->make_immutable;
 1;
 
+=head1 NAME
+
+MusicBrainz::Server::Data::ArtistCredit
+
+=head1 METHODS
+
+=head2 _get_by_keys ($key_column, @keys)
+
+Given a key column (for example C<id>, C<gid>) and a list of keys for this column,
+it loads and returns an array reference of C<ArtistCredit> instances.
+
+Note: This method overrides the method C<_get_by_keys> of the extended
+C<Musicbrainz::Server::Data::Entity> class.
+
+=head2 _get_hash_by_keys ($key_column, @keys)
+
+Given a key column (for example C<id>, C<gid>) and a list of keys for this column,
+it loads and returns a (key => object) hash reference of C<ArtistCredit> instances.
+
 =head1 COPYRIGHT AND LICENSE
 
 Copyright (C) 2009 Lukas Lalinsky
+Copyright (C) 2022 MetaBrainz Foundation
 
 This file is part of MusicBrainz, the open internet music database,
 and is licensed under the GPL version 2, or (at your option) any

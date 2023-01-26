@@ -285,7 +285,7 @@ ws_test 'release lookup with artists + aliases',
             <language>eng</language>
             <script>Latn</script>
         </text-representation>
-        <artist-credit>
+        <artist-credit id="2e12df5b-963e-38f7-9be3-d78adef836c3">
             <name-credit>
                 <artist id="22dd2db3-88ea-4428-a7a8-5cd3acf23175" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
                     <name>m-flo</name><sort-name>m-flo</sort-name>
@@ -423,7 +423,7 @@ ws_test 'release lookup with release-groups and ratings',
             <language>eng</language>
             <script>Latn</script>
         </text-representation>
-        <artist-credit>
+        <artist-credit id="2e12df5b-963e-38f7-9be3-d78adef836c3">
             <name-credit>
                 <artist id="22dd2db3-88ea-4428-a7a8-5cd3acf23175" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
                     <name>m-flo</name>
@@ -436,7 +436,7 @@ ws_test 'release lookup with release-groups and ratings',
             <title>the Love Bug</title>
             <first-release-date>2004-03-17</first-release-date>
             <primary-type id="d6038452-8ee0-3f68-affc-2de9a1ede0b9">Single</primary-type>
-            <artist-credit>
+            <artist-credit id="2e12df5b-963e-38f7-9be3-d78adef836c3">
                 <name-credit>
                     <artist id="22dd2db3-88ea-4428-a7a8-5cd3acf23175" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
                         <name>m-flo</name>
@@ -806,7 +806,7 @@ ws_test 'release lookup, related artists have no tags',
     <text-representation>
       <language>eng</language><script>Latn</script>
     </text-representation>
-    <artist-credit>
+    <artist-credit id="68734848-cbfb-3d65-9e0c-d4e2870650bf">
       <name-credit>
         <artist id="3088b672-fba9-4b4b-8ae0-dce13babfbb4" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
           <name>Plone</name><sort-name>Plone</sort-name>
@@ -1043,7 +1043,7 @@ ws_test 'release lookup, track artists have no aliases',
     <text-representation>
       <language>eng</language><script>Latn</script>
     </text-representation>
-    <artist-credit>
+    <artist-credit id="2e12df5b-963e-38f7-9be3-d78adef836c3">
       <name-credit>
         <artist id="22dd2db3-88ea-4428-a7a8-5cd3acf23175" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
           <name>m-flo</name><sort-name>m-flo</sort-name>
@@ -1078,7 +1078,7 @@ ws_test 'release lookup, track artists have no aliases',
             <position>1</position><number>1</number><length>243000</length>
             <recording id="0cf3008f-e246-428f-abc1-35f87d584d60">
               <title>the Love Bug</title><length>243000</length>
-              <artist-credit>
+              <artist-credit id="8df9a1df-24aa-3457-b994-15a715777ff6">
                 <name-credit joinphrase="♥">
                   <artist id="22dd2db3-88ea-4428-a7a8-5cd3acf23175" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
                     <name>m-flo</name><sort-name>m-flo</sort-name>
@@ -1133,7 +1133,7 @@ ws_test 'release lookup, track artists have no aliases',
             <position>2</position><number>2</number><length>222000</length>
             <recording id="84c98ebf-5d40-4a29-b7b2-0e9c26d9061d">
               <title>the Love Bug (Big Bug NYC remix)</title><length>222000</length>
-              <artist-credit>
+              <artist-credit id="8df9a1df-24aa-3457-b994-15a715777ff6">
                 <name-credit joinphrase="♥">
                   <artist id="22dd2db3-88ea-4428-a7a8-5cd3acf23175" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
                     <name>m-flo</name><sort-name>m-flo</sort-name>
@@ -1162,7 +1162,7 @@ ws_test 'release lookup, track artists have no aliases',
             <position>3</position><number>3</number><length>333000</length>
             <recording id="3f33fc37-43d0-44dc-bfd6-60efd38810c5">
               <title>the Love Bug (cover)</title><length>333000</length>
-              <artist-credit>
+              <artist-credit id="174aaa1a-8beb-3d6c-94eb-fcb9aa58d50d">
                 <name-credit>
                   <artist id="97fa3f6e-557c-4227-bc0e-95a7f9f3285d">
                     <name>BAGDAD CAFE THE trench town</name><sort-name>BAGDAD CAFE THE trench town</sort-name>
@@ -1190,7 +1190,7 @@ ws_test 'release lookup, tags are not duplicated for artists that are both relea
       <language>eng</language>
       <script>Latn</script>
     </text-representation>
-    <artist-credit>
+    <artist-credit id="68734848-cbfb-3d65-9e0c-d4e2870650bf">
       <name-credit>
         <artist id="3088b672-fba9-4b4b-8ae0-dce13babfbb4" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
           <name>Plone</name>
@@ -1255,7 +1255,7 @@ ws_test 'release lookup, tags are not duplicated for artists that are both relea
             <recording id="44704dda-b877-4551-a2a8-c1f764476e65">
               <title>On My Bus</title>
               <length>267560</length>
-              <artist-credit>
+              <artist-credit id="68734848-cbfb-3d65-9e0c-d4e2870650bf">
                 <name-credit>
                   <artist id="3088b672-fba9-4b4b-8ae0-dce13babfbb4" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
                     <name>Plone</name>
@@ -1296,7 +1296,7 @@ ws_test 'release lookup, tags are not duplicated for artists that are both relea
             <recording id="8920288e-7541-48a7-b23b-f80447c8b1ab">
               <title>Top &amp; Low Rent</title>
               <length>230506</length>
-              <artist-credit>
+              <artist-credit id="68734848-cbfb-3d65-9e0c-d4e2870650bf">
                 <name-credit>
                   <artist id="3088b672-fba9-4b4b-8ae0-dce13babfbb4" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
                     <name>Plone</name>
@@ -1337,7 +1337,7 @@ ws_test 'release lookup, tags are not duplicated for artists that are both relea
             <recording id="6e89c516-b0b6-4735-a758-38e31855dcb6">
               <title>Plock</title>
               <length>237133</length>
-              <artist-credit>
+              <artist-credit id="68734848-cbfb-3d65-9e0c-d4e2870650bf">
                 <name-credit>
                   <artist id="3088b672-fba9-4b4b-8ae0-dce13babfbb4" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
                     <name>Plone</name>
@@ -1378,7 +1378,7 @@ ws_test 'release lookup, tags are not duplicated for artists that are both relea
             <recording id="791d9b27-ae1a-4295-8943-ded4284f2122">
               <title>Marbles</title>
               <length>229826</length>
-              <artist-credit>
+              <artist-credit id="68734848-cbfb-3d65-9e0c-d4e2870650bf">
                 <name-credit>
                   <artist id="3088b672-fba9-4b4b-8ae0-dce13babfbb4" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
                     <name>Plone</name>
@@ -1419,7 +1419,7 @@ ws_test 'release lookup, tags are not duplicated for artists that are both relea
             <recording id="4f392ffb-d3df-4f8a-ba74-fdecbb1be877">
               <title>Busy Working</title>
               <length>217440</length>
-              <artist-credit>
+              <artist-credit id="68734848-cbfb-3d65-9e0c-d4e2870650bf">
                 <name-credit>
                   <artist id="3088b672-fba9-4b4b-8ae0-dce13babfbb4" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
                     <name>Plone</name>
@@ -1460,7 +1460,7 @@ ws_test 'release lookup, tags are not duplicated for artists that are both relea
             <recording id="dc891eca-bf42-4103-8682-86068fe732a5">
               <title>The Greek Alphabet</title>
               <length>227293</length>
-              <artist-credit>
+              <artist-credit id="68734848-cbfb-3d65-9e0c-d4e2870650bf">
                 <name-credit>
                   <artist id="3088b672-fba9-4b4b-8ae0-dce13babfbb4" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
                     <name>Plone</name>
@@ -1501,7 +1501,7 @@ ws_test 'release lookup, tags are not duplicated for artists that are both relea
             <recording id="25e9ae0f-8b7d-4230-9cde-9a07f7680e4a">
               <title>Press a Key</title>
               <length>244506</length>
-              <artist-credit>
+              <artist-credit id="68734848-cbfb-3d65-9e0c-d4e2870650bf">
                 <name-credit>
                   <artist id="3088b672-fba9-4b4b-8ae0-dce13babfbb4" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
                     <name>Plone</name>
@@ -1542,7 +1542,7 @@ ws_test 'release lookup, tags are not duplicated for artists that are both relea
             <recording id="6f9c8c32-3aae-4dad-b023-56389361cf6b">
               <title>Bibi Plone</title>
               <length>173960</length>
-              <artist-credit>
+              <artist-credit id="68734848-cbfb-3d65-9e0c-d4e2870650bf">
                 <name-credit>
                   <artist id="3088b672-fba9-4b4b-8ae0-dce13babfbb4" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
                     <name>Plone</name>
@@ -1583,7 +1583,7 @@ ws_test 'release lookup, tags are not duplicated for artists that are both relea
             <recording id="7e379a1d-f2bc-47b8-964e-00723df34c8a">
               <title>Be Rude to Your School</title>
               <length>208706</length>
-              <artist-credit>
+              <artist-credit id="68734848-cbfb-3d65-9e0c-d4e2870650bf">
                 <name-credit>
                   <artist id="3088b672-fba9-4b4b-8ae0-dce13babfbb4" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
                     <name>Plone</name>
@@ -1624,7 +1624,7 @@ ws_test 'release lookup, tags are not duplicated for artists that are both relea
             <recording id="a8614bda-42dc-43c7-ac5f-4067acb6f1c5">
               <title>Summer Plays Out</title>
               <length>320067</length>
-              <artist-credit>
+              <artist-credit id="68734848-cbfb-3d65-9e0c-d4e2870650bf">
                 <name-credit>
                   <artist id="3088b672-fba9-4b4b-8ae0-dce13babfbb4" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
                     <name>Plone</name>
@@ -1676,7 +1676,7 @@ ws_test 'release lookup, pregap track',
       <language>eng</language>
       <script>Latn</script>
     </text-representation>
-    <artist-credit>
+    <artist-credit id="c891596f-5584-3022-804b-717f04c64edf">
       <name-credit>
         <artist id="38c5cdab-5d6d-43d1-85b0-dac41bde186e" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
           <name>Blind Melon</name>
@@ -1702,7 +1702,7 @@ ws_test 'release lookup, pregap track',
           <recording id="c0beb80b-4185-4328-8761-b9e45a5d0ac6">
             <title>Hello Goodbye [hidden track]</title>
             <length>128000</length>
-            <artist-credit>
+            <artist-credit id="c891596f-5584-3022-804b-717f04c64edf">
               <name-credit>
                 <artist id="38c5cdab-5d6d-43d1-85b0-dac41bde186e" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
                   <name>Blind Melon</name>
@@ -1721,7 +1721,7 @@ ws_test 'release lookup, pregap track',
             <recording id="c43ee188-0049-4eec-ba2e-0385c5edd2db">
               <title>Hello Goodbye / Galaxie</title>
               <length>211133</length>
-              <artist-credit>
+              <artist-credit id="c891596f-5584-3022-804b-717f04c64edf">
                 <name-credit>
                   <artist id="38c5cdab-5d6d-43d1-85b0-dac41bde186e" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
                     <name>Blind Melon</name>
@@ -1738,7 +1738,7 @@ ws_test 'release lookup, pregap track',
             <recording id="c830c239-3f91-4485-9577-4b86f92ad725">
               <title>2 X 4</title>
               <length>240400</length>
-              <artist-credit>
+              <artist-credit id="c891596f-5584-3022-804b-717f04c64edf">
                 <name-credit>
                   <artist id="38c5cdab-5d6d-43d1-85b0-dac41bde186e" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
                     <name>Blind Melon</name>
@@ -1769,7 +1769,7 @@ test 'MBS-7914' => sub {
   <release id="a3ea3821-5955-4cee-b44f-4f7da8a332f7">
     <title>Symphony no. 2</title>
     <quality>normal</quality>
-    <artist-credit>
+    <artist-credit id="8be3611a-5fd9-3b69-8cfe-34243b02379b">
       <name-credit>
         <artist id="8d610e51-64b4-4654-b8df-064b0fb7a9d9" type="Person" type-id="b6e035f4-3ce9-331c-97df-83397230b0df">
           <name>Gustav Mahler</name>
@@ -1793,7 +1793,7 @@ test 'MBS-7914' => sub {
           <track id="8ac89142-1318-490a-bed2-5b0c89b251b2">
             <position>1</position>
             <number>1</number>
-            <artist-credit>
+            <artist-credit id="8be3611a-5fd9-3b69-8cfe-34243b02379b">
               <name-credit>
                 <artist id="8d610e51-64b4-4654-b8df-064b0fb7a9d9" type="Person" type-id="b6e035f4-3ce9-331c-97df-83397230b0df">
                   <name>Gustav Mahler</name>
@@ -1806,7 +1806,7 @@ test 'MBS-7914' => sub {
             </artist-credit>
             <recording id="36d398e2-85bf-40d5-8686-4f0b78c80ca8">
               <title>Symphony no. 2 in C minor: I. Allegro maestoso</title>
-              <artist-credit>
+              <artist-credit id="15586615-0b5a-304e-be70-afddad1c0b0e">
                 <name-credit>
                   <artist id="509c772e-1164-4457-8d09-0553cfa77d64" type="Orchestra" type-id="a0b36c92-3eb1-3839-a4f9-4799823f54a5">
                     <name>Chicago Symphony Orchestra</name>

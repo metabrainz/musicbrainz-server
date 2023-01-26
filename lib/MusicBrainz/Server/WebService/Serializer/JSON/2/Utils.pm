@@ -13,6 +13,7 @@ our @EXPORT_OK = qw(
     count_of
     list_of
     number
+    serialize_artist_credit
     serialize_date_period
     serialize_entity
     serialize_rating
@@ -193,6 +194,30 @@ sub serialize_annotation {
     my $annotation = $entity->latest_annotation;
     $into->{annotation} = defined $annotation ?
         $annotation->text : JSON::null;
+    return;
+}
+
+sub serialize_artist_credit {
+    my ($into, $entity, $inc, $stash, $toplevel) = @_;
+
+    # In contrast to most other serialize_* methods,
+    # this method has to be called only when appropriate.
+    # Because the conditions to decided whether or not to serialize
+    # artist credit vary a lot depending on the entity type,
+    # no further check is made here.
+
+    my $artist_credit = $entity->artist_credit;
+
+    $into->{'artist-credit'} = [map {
+        {
+            'name' => $_->name,
+            'joinphrase' => $_->join_phrase,
+            'artist' => serialize_entity($_->artist, $inc, $stash),
+        }
+    } @{ $artist_credit->{names} }];
+
+    $into->{'artist-credit-id'} = $artist_credit->{gid};
+
     return;
 }
 

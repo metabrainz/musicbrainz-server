@@ -162,6 +162,10 @@ const ENTITIES = {
     cache: {
       id: 4,
     },
+    mbid: {
+      multiple: true,
+      relatable: false,
+    },
     model: 'ArtistCredit',
   },
   artist_type: {

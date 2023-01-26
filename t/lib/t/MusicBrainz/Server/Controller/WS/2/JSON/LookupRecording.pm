@@ -261,6 +261,7 @@ test 'recording lookup with artists' => sub {
                     joinphrase => '',
                 }
                 ],
+            'artist-credit-id' => '8df9a1df-24aa-3457-b994-15a715777ff6',
         };
 };
 
@@ -304,6 +305,7 @@ test 'recording lookup with release relationships' => sub {
                     joinphrase => '',
                 },
             ],
+            'artist-credit-id' => 'b6810eae-d108-3940-9b62-1667531589e6',
             disambiguation => '',
             length => 86666,
             video => JSON::false,
@@ -334,6 +336,7 @@ test 'recording lookup with release relationships' => sub {
                                 joinphrase => '',
                             },
                         ],
+                        'artist-credit-id' => '84d4a3ec-0e1a-30ec-b650-643f9ffaf25b',
                         'release-events' => [{
                             area => {
                               disambiguation => '',
