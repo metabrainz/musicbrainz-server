@@ -4830,7 +4830,7 @@ const CLEANUPS: CleanupEntries = {
     match: [new RegExp('^(https?://)?shop\\.tsutaya\\.co\\.jp/', 'i')],
     restrict: [LINK_TYPES.mailorder],
     clean: function (url) {
-      url = url.replace(/^(?:https?:\/\/)?shop\.tsutaya\.co\.jp\/cd\/product\/(\d+)(?:\/.*)?$/, 'https://shop.tsutaya.co.jp/cd/product/$1/');
+      url = url.replace(/^(?:https?:\/\/)?shop\.tsutaya\.co\.jp\/cd\/product\/(\d+).*$/, 'https://shop.tsutaya.co.jp/cd/product/$1/');
       url = url.replace(/^(?:https?:\/\/)?shop\.tsutaya\.co\.jp\/dir_result\.html\?searchType\=3\&artistCD\=(\d+)\&artistName\=(.*)?$/, 'https://shop.tsutaya.co.jp/dir_result.html?searchType=3&artistCd=$1');
       return url;
     },
