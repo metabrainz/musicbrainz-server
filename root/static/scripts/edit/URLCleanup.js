@@ -4831,7 +4831,7 @@ const CLEANUPS: CleanupEntries = {
     restrict: [LINK_TYPES.mailorder],
     clean: function (url) {
       url = url.replace(/^(?:https?:\/\/)?shop\.tsutaya\.co\.jp\/cd\/product\/(\d+).*$/, 'https://shop.tsutaya.co.jp/cd/product/$1/');
-      url = url.replace(/^(?:https?:\/\/)?shop\.tsutaya\.co\.jp\/dir_result\.html\?searchType\=3\&artistCD\=(\d+).*$/, 'https://shop.tsutaya.co.jp/dir_result.html?searchType=3&artistCd=$1');
+      url = url.replace(/^(?:https?:\/\/)?shop\.tsutaya\.co\.jp\/dir_result\.html\?searchType\=3\&artistCd\=(\d+).*$/, 'https://shop.tsutaya.co.jp/dir_result.html?searchType=3&artistCd=$1');
       return url;
     },
     validate: function (url, id) {
