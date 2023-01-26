@@ -4831,7 +4831,28 @@ const CLEANUPS: CleanupEntries = {
     restrict: [LINK_TYPES.mailorder],
     clean: function (url) {
       url = url.replace(/^(?:https?:\/\/)?shop\.tsutaya\.co\.jp\/cd\/product\/(\d+)(?:\/.*)?$/, 'https://shop.tsutaya.co.jp/cd/product/$1/');
+      url = url.replace(/^(?:https?:\/\/)?shop\.tsutaya\.co\.jp\/dir_result\.html\?searchType\=3\&artistCD\=(\d+)\&artistName\=(.*)?$/, 'https://shop.tsutaya.co.jp/dir_result.html?searchType=3&artistCd=$1');
       return url;
+    },
+    validate: function (url, id) {
+      const m = /^https:\/\/shop\.tsutaya\.co.jp\/(dir_result|cd)\.*$/.exec(url);
+      if (m) {
+        const suffix = m[1];
+        switch (id) {
+          case LINK_TYPES.mailorder.artist:
+            return {
+              result: suffix === 'dir_result',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.mailorder.release:
+            return {
+              result: suffix === 'cd',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          }
+          return {result: false, target: ERROR_TARGETS.ENTITY};
+        };
+      return {result: false, target: ERROR_TARGETS.URL};
     },
   },
   'twitch': {
