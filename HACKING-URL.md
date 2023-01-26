@@ -305,11 +305,6 @@ that the identifier contained in the URL can be shown instead of the full URL.
 
 So it is pointless to have a custom `pretty_name` for other websites.
 
-Moreover the current dedicated relationship types are destined to be removed
-when generic relationship types can be used instead, for example all the
-download/streaming platforms since
-[MBS-9902](https://tickets.metabrainz.org/browse/MBS-9902).
-
 ### Miscellaneous display customization
 
 See documentation comments in
