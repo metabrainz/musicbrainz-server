@@ -4835,9 +4835,9 @@ const CLEANUPS: CleanupEntries = {
       return url;
     },
     validate: function (url, id) {
-      const m = /^https:\/\/shop\.tsutaya\.co.jp\/(dir_result|cd)\.*$/.exec(url);
+      const m = /^https:\/\/shop\.tsutaya\.co.jp\/(?:(cd)\/product\/\d+\/|(dir_result)\.html\?searchType=3\&artistCd=\d+)$/.exec(url);
       if (m) {
-        const suffix = m[1];
+        const suffix = m[1] || m[2];
         switch (id) {
           case LINK_TYPES.mailorder.artist:
             return {
