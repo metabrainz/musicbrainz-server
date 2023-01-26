@@ -4849,9 +4849,9 @@ const CLEANUPS: CleanupEntries = {
               result: suffix === 'cd',
               target: ERROR_TARGETS.ENTITY,
             };
-          }
-          return {result: false, target: ERROR_TARGETS.ENTITY};
-        };
+        }
+        return {result: false, target: ERROR_TARGETS.ENTITY};
+      }
       return {result: false, target: ERROR_TARGETS.URL};
     },
   },
