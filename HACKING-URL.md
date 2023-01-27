@@ -64,7 +64,7 @@ The following research work is usually expected about external websites to be ha
 * Potential alternative forms of its URLs;
   - For example `youtu.be/REF` is an alias for `www.youtube.com/watch?v=REF`.
 
-* Potential query (`?...`) and fragment (`#...`);
+* Potentially unneeded query (`?...&...`) and fragment (`#...`);
   - For example `&list=...` is removed from YouTube video URLs taken from a playlist.
 
 * Potential patterns to be blocked (unmappable URLs, unreliable URLs such as search pages...);
