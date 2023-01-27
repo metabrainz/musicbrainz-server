@@ -67,8 +67,8 @@ The following research work is usually expected about external websites to be ha
 * Potential query (`?...`) and fragment (`#...`);
   - For example `&list=...` is removed from YouTube video URLs taken from a playlist.
 
-* Potential patterns to be blocked (search pages, unreliable URLs...);
-  - For example `youtube.com/playlist` URLs are unwanted and blocked with a message.
+* Potential patterns to be blocked (unmappable URLs, unreliable URLs such as search pages...);
+  - For example `whosampled.com/sample` URLs have no equivalent in MusicBrainz and blocked with a message.
 
 * Rationale and real examples for all the above.
 
