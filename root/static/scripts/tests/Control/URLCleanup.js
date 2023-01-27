@@ -4892,7 +4892,22 @@ limited_link_type_combinations: [
              input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'https://www.abc.net.au/triplejunearthed/artist/sophisticated-dingo/',
-},
+  },
+  // Tsutaya
+  {
+                     input_url: 'https://shop.tsutaya.co.jp/cd/product/4562494355418/',
+             input_entity_type: 'release',
+    expected_relationship_type: 'mailorder',
+            expected_clean_url: 'https://shop.tsutaya.co.jp/cd/product/4562494355418/',
+       only_valid_entity_types: ['release'],
+  },
+  {
+                     input_url: 'https://shop.tsutaya.co.jp/dir_result.html?searchType=3&artistCd=00133519&artistName=%E7%B1%B3%E6%B4%A5%E7%8E%84%E5%B8%AB',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'mailorder',
+            expected_clean_url: 'https://shop.tsutaya.co.jp/dir_result.html?searchType=3&artistCd=00133519',
+       only_valid_entity_types: ['artist'],
+  },
   // Tumblr
   {
                      input_url: 'http://deadmau5.tumblr.com/',

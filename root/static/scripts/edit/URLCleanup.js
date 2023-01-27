@@ -4826,6 +4826,35 @@ const CLEANUPS: CleanupEntries = {
       return url;
     },
   },
+  'tsutaya': {
+    match: [new RegExp('^(https?://)?shop\\.tsutaya\\.co\\.jp/', 'i')],
+    restrict: [LINK_TYPES.mailorder],
+    clean: function (url) {
+      url = url.replace(/^(?:https?:\/\/)?shop\.tsutaya\.co\.jp\/cd\/product\/(\d+).*$/, 'https://shop.tsutaya.co.jp/cd/product/$1/');
+      url = url.replace(/^(?:https?:\/\/)?shop\.tsutaya\.co\.jp\/dir_result\.html\?searchType\=3\&artistCd\=(\d+).*$/, 'https://shop.tsutaya.co.jp/dir_result.html?searchType=3&artistCd=$1');
+      return url;
+    },
+    validate: function (url, id) {
+      const m = /^https:\/\/shop\.tsutaya\.co.jp\/(?:(cd)\/product\/\d+\/|(dir_result)\.html\?searchType=3\&artistCd=\d+)$/.exec(url);
+      if (m) {
+        const suffix = m[1] || m[2];
+        switch (id) {
+          case LINK_TYPES.mailorder.artist:
+            return {
+              result: suffix === 'dir_result',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.mailorder.release:
+            return {
+              result: suffix === 'cd',
+              target: ERROR_TARGETS.ENTITY,
+            };
+        }
+        return {result: false, target: ERROR_TARGETS.ENTITY};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
   'twitch': {
     match: [new RegExp('^(https?://)?([^/]+\\.)?twitch\\.(?:com|tv)/', 'i')],
     restrict: [{...LINK_TYPES.streamingfree, ...LINK_TYPES.videochannel}],
