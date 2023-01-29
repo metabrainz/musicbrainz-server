@@ -110,6 +110,7 @@ export function createInitialState(
       id: 'relationship-type-' + id,
       inputClass: 'relationship-type',
       inputValue: (linkType?.name) ?? '',
+      placeholder: l('Type or click to search'),
       recentItemsKey: 'link_type-' + source.entityType + '-' + targetType,
       selectedItem: linkType ? {
         entity: linkType,
