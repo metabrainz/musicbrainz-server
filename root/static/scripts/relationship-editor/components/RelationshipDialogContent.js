@@ -205,6 +205,7 @@ export function createInitialState(props: PropsT): RelationshipDialogStateT {
       ),
       ended: createField('period.ended', relationship.ended),
     }),
+    isAttributesHelpVisible: false,
     linkOrder: relationship.linkOrder,
     linkType: createDialogLinkTypeState(
       linkType,
@@ -325,6 +326,11 @@ export function reducer(
         (state.linkType.autocomplete.selectedItem?.entity) ?? null,
         getAttributeRootIdMap(action.attributes),
       );
+      break;
+    }
+
+    case 'toggle-attributes-help': {
+      newState.isAttributesHelpVisible = !state.isAttributesHelpVisible;
       break;
     }
 
@@ -498,6 +504,7 @@ type AttributesSectionPropsT = {
   +canEditDates: boolean,
   +datePeriodField: DatePeriodFieldT,
   +dispatch: (DialogActionT) => void,
+  +isHelpVisible: boolean,
 };
 
 const AttributesSection = (React.memo<AttributesSectionPropsT>(({
@@ -505,6 +512,7 @@ const AttributesSection = (React.memo<AttributesSectionPropsT>(({
   canEditDates,
   datePeriodField,
   dispatch,
+  isHelpVisible,
 }) => {
   const attributesDispatch = React.useCallback((action) => {
     dispatch({action, type: 'update-attribute'});
@@ -518,14 +526,10 @@ const AttributesSection = (React.memo<AttributesSectionPropsT>(({
     event: SyntheticEvent<HTMLAnchorElement>,
   ) => {
     event.preventDefault();
-    attributesDispatch({
-      type: 'set-help-visible',
-      isHelpVisible: !attributesState.isHelpVisible,
+    dispatch({
+      type: 'toggle-attributes-help',
     });
-  }, [
-    attributesDispatch,
-    attributesState.isHelpVisible,
-  ]);
+  }, [dispatch]);
 
   const booleanRangeSelectionHandler =
     useRangeSelectionHandler('boolean');
@@ -551,12 +555,14 @@ const AttributesSection = (React.memo<AttributesSectionPropsT>(({
           {attributesState.attributesList.length ? (
             <DialogAttributes
               dispatch={attributesDispatch}
+              isHelpVisible={isHelpVisible}
               state={attributesState}
             />
           ) : null}
           {canEditDates ? (
             <DialogDatePeriod
               dispatch={dateDispatch}
+              isHelpVisible={isHelpVisible}
               state={datePeriodField}
             />
           ) : null}
@@ -969,6 +975,7 @@ const RelationshipDialogContent = (React.memo<PropsT>((
         canEditDates={canEditDates}
         datePeriodField={state.datePeriodField}
         dispatch={dispatch}
+        isHelpVisible={state.isAttributesHelpVisible}
       />
       {source ? (
         <DialogPreview

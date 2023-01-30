@@ -46,6 +46,7 @@ import TextAttribute, {
 
 type PropsT = {
   +dispatch: (DialogAttributeActionT) => void,
+  +isHelpVisible: boolean,
   +state: $ReadOnly<{...DialogAttributesStateT, ...}>,
 };
 
@@ -161,7 +162,6 @@ export function createInitialState(
   );
   return {
     attributesList,
-    isHelpVisible: false,
     resultingLinkAttributes: getLinkAttributesFromState(attributesList),
   };
 }
@@ -246,12 +246,6 @@ export function reducer(
   let updateResultingLinkAttributes = true;
 
   switch (action.type) {
-    case 'set-help-visible': {
-      newState.isHelpVisible = action.isHelpVisible;
-      updateResultingLinkAttributes = false;
-      break;
-    }
-
     case 'update-boolean-attribute': {
       newState.attributesList = newState.attributesList.map((x) => {
         if (x.key === action.rootKey) {
@@ -346,6 +340,7 @@ const wrapAttributeElement = (
 
 const DialogAttributes = (React.memo<PropsT>(({
   dispatch,
+  isHelpVisible,
   state,
 }: PropsT): React.MixedElement | null => {
   const booleanAttributeDispatch = React.useCallback((rootKey, action) => {
@@ -399,7 +394,7 @@ const DialogAttributes = (React.memo<PropsT>(({
               dispatch={booleanAttributeDispatch}
               state={attribute}
             />,
-            state.isHelpVisible,
+            isHelpVisible,
           ),
         ]);
         break;
@@ -413,7 +408,7 @@ const DialogAttributes = (React.memo<PropsT>(({
               dispatch={multiselectAttributeDispatch}
               state={attribute}
             />,
-            state.isHelpVisible,
+            isHelpVisible,
           ),
         ]);
         break;
@@ -429,7 +424,7 @@ const DialogAttributes = (React.memo<PropsT>(({
               inputId={inputId}
               state={attribute}
             />,
-            state.isHelpVisible,
+            isHelpVisible,
           ),
         ]);
         break;

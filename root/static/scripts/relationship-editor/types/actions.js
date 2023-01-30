@@ -55,6 +55,7 @@ export type DialogActionT =
       +attributes: $ReadOnlyArray<ExternalLinkAttrT>,
       +type: 'set-attributes',
     }
+  | {+type: 'toggle-attributes-help'}
   | {
       +action: DialogEntityCreditActionT,
       +type: 'update-source-entity',
@@ -85,10 +86,6 @@ export type DialogActionT =
     };
 
 export type DialogAttributeActionT =
-  | {
-      +isHelpVisible: boolean,
-      +type: 'set-help-visible',
-    }
   | {
       +action: DialogBooleanAttributeActionT,
       +rootKey: number,

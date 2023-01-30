@@ -131,6 +131,7 @@ export type RelationshipDialogStateT = {
   +attributes: DialogAttributesStateT,
   +backward: boolean,
   +datePeriodField: DatePeriodFieldT,
+  +isAttributesHelpVisible: boolean,
   +linkOrder: number,
   +linkType: DialogLinkTypeStateT,
   +resultingDatePeriod: DatePeriodRoleT,
@@ -175,7 +176,6 @@ export type DialogAttributesT = $ReadOnlyArray<DialogAttributeT>;
 
 export type DialogAttributesStateT = {
   +attributesList: DialogAttributesT,
-  +isHelpVisible: boolean,
   +resultingLinkAttributes: tree.ImmutableTree<LinkAttrT> | null,
 };
 

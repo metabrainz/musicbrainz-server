@@ -211,6 +211,7 @@ const BatchCreateWorksDialogContent = React.memo<
           />
           <DialogAttributes
             dispatch={attributesDispatch}
+            isHelpVisible={false}
             state={attributes}
           />
         </tbody>
