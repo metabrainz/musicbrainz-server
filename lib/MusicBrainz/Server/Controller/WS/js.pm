@@ -622,8 +622,14 @@ sub entities : Chained('root') PathPart('entities') Args(2)
         }
     }
 
+    my @entities = values %{$results};
+
     if ($ENTITIES{$type_name}{artist_credits}) {
-        $c->model('ArtistCredit')->load(values %{$results});
+        $c->model('ArtistCredit')->load(@entities);
+    }
+
+    if ($ENTITIES{$type_name}{type}) {
+        $c->model(type_to_model($type_name) . 'Type')->load(@entities);
     }
 
     while (my ($id, $entity) = each %{$results}) {
