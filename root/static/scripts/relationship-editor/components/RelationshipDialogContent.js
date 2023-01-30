@@ -210,6 +210,7 @@ export function createInitialState(props: PropsT): RelationshipDialogStateT {
       targetType,
       linkTypeOptions,
       getRelationshipKey(relationship),
+      false,
     ),
     resultingDatePeriod: {
       begin_date: relationship.begin_date,

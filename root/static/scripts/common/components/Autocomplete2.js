@@ -485,7 +485,9 @@ const Autocomplete2 = (React.memo(<+T: EntityItemT>(
   }
 
   function handleInputFocus() {
-    showAvailableItems();
+    if (selectedItem == null) {
+      showAvailableItems();
+    }
   }
 
   function showAvailableItems() {

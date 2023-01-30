@@ -139,6 +139,7 @@ const RelationshipPhraseGroup = (React.memo<PropsT>(({
     defaultTargetType: targetType,
     dispatch,
     source,
+    targetTypeOptions: null,
     title: l('Add Relationship'),
   });
 

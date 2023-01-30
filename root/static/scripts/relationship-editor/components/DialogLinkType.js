@@ -113,7 +113,7 @@ export function createInitialState(
       entityType: 'link_type',
       extractSearchTerms: extractLinkTypeSearchTerms,
       id: 'relationship-type-' + id,
-      inputClass: 'relationship-type',
+      inputClass: 'relationship-type focus-first',
       inputValue: (linkType?.name) ?? '',
       placeholder: l('Type or click to search'),
       recentItemsKey: 'link_type-' + source.entityType + '-' + targetType,

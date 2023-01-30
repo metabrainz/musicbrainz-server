@@ -54,7 +54,7 @@ const DialogTargetType = (React.memo<PropsT>((
           formatEntityTypeName(targetType)
         ) : (
           <select
-            className="entity-type"
+            className="entity-type focus-first"
             onChange={handleTargetTypeChange}
             value={targetType}
           >

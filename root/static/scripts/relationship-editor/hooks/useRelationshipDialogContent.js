@@ -118,6 +118,7 @@ export function useAddRelationshipDialogContent(
     +buildNewRelationshipData?:
       () => $Partial<RelationshipStateT> | null,
     +defaultTargetType: CoreEntityTypeT | null,
+    +targetTypeOptions?: TargetTypeOptionsT | null,
   }>,
 ): (
   closeAndReturnFocus: () => void,
@@ -127,14 +128,23 @@ export function useAddRelationshipDialogContent(
     defaultTargetType,
     buildNewRelationshipData,
     source,
+    targetTypeOptions: customTargetTypeOptions,
     ...otherOptions
   } = options;
 
   const user = useCatalystUser();
 
   const targetTypeOptions = React.useMemo(() => {
+    /*
+     * Note: We distinguish between null and undefined here.
+     * null: don't allow any target types for selection
+     * undefined: no options were provided
+     */
+    if (customTargetTypeOptions === null) {
+      return null;
+    }
     return getTargetTypeOptions(user, source.entityType);
-  }, [user, source.entityType]);
+  }, [customTargetTypeOptions, user, source.entityType]);
 
   // Remembers the most recently selected target type.
   const targetTypeRef = React.useRef<CoreEntityTypeT | null>(null);
@@ -142,29 +152,30 @@ export function useAddRelationshipDialogContent(
   const targetType = (
     defaultTargetType ||
     targetTypeRef.current ||
-    (targetTypeOptions?.[0]?.value)
+    (targetTypeOptions?.[0]?.value) ||
+    /*
+     * targetType may be undefined if the current server doesn't have any
+     * available link types for the source entity type.  In that case
+     * `defaultTargetObject` won't be used, but a dummy 'artist' type is
+     * supplied to simplify type-checking.
+     */
+    'artist'
   );
 
-  const defaultTargetObject = React.useMemo(() => {
-    return createCoreEntityObject(
-      /*
-       * targetType may be undefined if the current server doesn't have any
-       * available link types for the source entity type.  In that case this
-       * object won't be used, but a dummy 'artist' type is supplied to
-       * simplify type-checking.
-       */
-      targetType || 'artist',
-      {id: uniqueNegativeId(), name: ''},
-    );
-  }, [targetType]);
-
-  if (targetType && backward != null) {
+  if (backward != null) {
     invariant(
       backward
         ? (source.entityType >= targetType)
         : (source.entityType <= targetType),
     );
   }
+
+  const defaultTargetObject = React.useMemo(() => {
+    return createCoreEntityObject(
+      targetType,
+      {id: uniqueNegativeId(), name: ''},
+    );
+  }, [targetType]);
 
   const _backward = backward ?? (source.entityType > targetType);
 
