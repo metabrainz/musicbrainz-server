@@ -109,6 +109,8 @@ export type PropsT = {
   +user: ActiveEditorT,
 };
 
+const FONT_WEIGHT_NORMAL = {fontWeight: 'normal'};
+
 function accumulateRelationshipLinkAttributeByRootId(
   result: LinkAttributesByRootIdT,
   linkAttribute: LinkAttrT | ExternalLinkAttrT,
@@ -535,11 +537,13 @@ const AttributesSection = (React.memo<AttributesSectionPropsT>(({
         <span className="heading-text">
           {l('Attributes')}
           {' '}
-          {bracketed(
-            <a href="#" onClick={handleAttributesHelpClick}>
-              {l('help')}
-            </a>,
-          )}
+          <span style={FONT_WEIGHT_NORMAL}>
+            {bracketed(
+              <a href="#" onClick={handleAttributesHelpClick}>
+                {l('help')}
+              </a>,
+            )}
+          </span>
         </span>
       </h2>
       <table className="relationship-details">
