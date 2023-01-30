@@ -154,6 +154,7 @@ type InitialStateT<T: EntityItemT> = {
   +labelStyle?: {...},
   +placeholder?: string,
   +recentItemsKey?: string,
+  +required?: boolean,
   +selectedItem?: OptionItemT<T> | null,
   +staticItems?: $ReadOnlyArray<OptionItemT<T>>,
   +width?: string,
@@ -170,6 +171,7 @@ export function createInitialState<+T: EntityItemT>(
     extractSearchTerms = getItemName,
     inputValue: initialInputValue,
     recentItemsKey,
+    required = false,
     selectedItem,
     staticItems,
     ...restProps
@@ -202,6 +204,7 @@ export function createInitialState<+T: EntityItemT>(
     pendingSearch: null,
     recentItems: null,
     recentItemsKey: recentItemsKey ?? entityType,
+    required,
     results: staticResults,
     selectedItem: selectedItem ?? null,
     showDescriptions:
@@ -694,6 +697,12 @@ const Autocomplete2 = (React.memo(<+T: EntityItemT>(
     ],
   );
 
+  const isLookupPerformed = (
+    state.isLookupPerformed == null
+      ? (selectedItem != null)
+      : state.isLookupPerformed
+  );
+
   return (
     <div
       className={
@@ -735,13 +744,11 @@ const Autocomplete2 = (React.memo(<+T: EntityItemT>(
                 ? ''
                 : (state.inputClass + ' ')
             ) +
-            ((
-              state.isLookupPerformed == null
-                ? selectedItem
-                : state.isLookupPerformed
+            (
+              isLookupPerformed
+                ? 'lookup-performed'
+                : (state.required ? 'required' : '')
             )
-              ? 'lookup-performed'
-              : '')
           }
           disabled={disabled}
           id={inputId}

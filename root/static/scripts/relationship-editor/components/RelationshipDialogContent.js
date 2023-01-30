@@ -91,6 +91,7 @@ import DialogTargetEntity, {
   createInitialAutocompleteStateForTarget,
   createInitialState as createDialogTargetEntityState,
   getTargetError,
+  isTargetSelectable,
   reducer as dialogTargetEntityReducer,
   updateTargetAutocomplete,
 } from './DialogTargetEntity.js';
@@ -605,6 +606,11 @@ const RelationshipDialogContent = (React.memo<PropsT>((
   const datePeriodField = state.datePeriodField;
   const attributesList = state.attributes.attributesList;
 
+  const hasBlankRequiredFields = (
+    linkTypeState.autocomplete.selectedItem == null ||
+    !isTargetSelectable(targetEntityState.autocomplete?.selectedItem?.entity)
+  );
+
   const hasErrors = !!(
     nonEmpty(linkTypeState.error) ||
     nonEmpty(sourceEntityState.error) ||
@@ -636,7 +642,7 @@ const RelationshipDialogContent = (React.memo<PropsT>((
    * If there are errors or incomplete data, it's null.
    */
   const newRelationshipState = React.useMemo(() => {
-    if (hasErrors) {
+    if (hasBlankRequiredFields || hasErrors) {
       return null;
     }
 
@@ -693,6 +699,7 @@ const RelationshipDialogContent = (React.memo<PropsT>((
     return newRelationship;
   }, [
     backward,
+    hasBlankRequiredFields,
     hasErrors,
     initialRelationship,
     selectedLinkType,
@@ -975,6 +982,7 @@ const RelationshipDialogContent = (React.memo<PropsT>((
       ) : null}
       <DialogButtons
         isDoneDisabled={(
+          hasBlankRequiredFields ||
           hasErrors ||
           hasPendingDateErrors ||
           relationshipAlreadyExists

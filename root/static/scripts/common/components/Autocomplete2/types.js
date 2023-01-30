@@ -36,6 +36,7 @@ export type StateT<T: EntityItemT> = {
   +placeholder?: string,
   +recentItems: $ReadOnlyArray<OptionItemT<T>> | null,
   +recentItemsKey: string,
+  +required: boolean,
   +results: $ReadOnlyArray<ItemT<T>> | null,
   +selectedItem: OptionItemT<T> | null,
   +showDescriptions?: boolean,

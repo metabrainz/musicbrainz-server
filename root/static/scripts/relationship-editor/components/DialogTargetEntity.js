@@ -64,8 +64,9 @@ const INCORRECT_SERIES_ENTITY_MESSAGES = {
   work: N_l('The series you’ve selected is for works.'),
 };
 
-function isTargetSelectable(target: CoreEntityT): boolean {
-  return (
+export function isTargetSelectable(target: ?CoreEntityT): boolean %checks {
+  return target != null && (
+    // `target` is placeholder entity in cases where only a name is set.
     isDatabaseRowId(target.id) ||
     (
       target.entityType === 'work' &&
@@ -79,8 +80,13 @@ export function getTargetError(
   source: CoreEntityT,
   linkType: ?LinkTypeT,
 ): string {
-  if (!target || !isTargetSelectable(target)) {
-    return l('Required field.');
+  if (!isTargetSelectable(target)) {
+    /*
+     * Blank fields are handled specially in the dialog (grep
+     * `hasBlankRequiredFields`).  To avoid overwhelming the user with
+     * "required field" errors, we only highlight the fields red.
+     */
+    return '';
   }
 
   if (source.gid === target.gid) {
@@ -125,6 +131,7 @@ export function createInitialAutocompleteStateForTarget(
     inputChangeHook: selectNewWork,
     inputClass: 'relationship-target',
     inputValue: target.name,
+    required: true,
     selectedItem: selectedEntity ? {
       entity: selectedEntity,
       id: selectedEntity.id,

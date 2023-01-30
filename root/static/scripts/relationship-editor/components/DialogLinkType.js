@@ -48,7 +48,12 @@ function getLinkTypeError(
   source: CoreEntityT,
 ): React$Node {
   if (!linkType) {
-    return l('Required field.');
+    /*
+     * Blank fields are handled specially in the dialog (grep
+     * `hasBlankRequiredFields`).  To avoid overwhelming the user with
+     * "required field" errors, we only highlight the fields red.
+     */
+    return '';
   } else if (!linkType.description) {
     return l(
       `Please select a subtype of the currently selected relationship
@@ -112,6 +117,7 @@ export function createInitialState(
       inputValue: (linkType?.name) ?? '',
       placeholder: l('Type or click to search'),
       recentItemsKey: 'link_type-' + source.entityType + '-' + targetType,
+      required: true,
       selectedItem: linkType ? {
         entity: linkType,
         id: linkType.id,
