@@ -632,6 +632,15 @@ sub entities : Chained('root') PathPart('entities') Args(2)
         $c->model(type_to_model($type_name) . 'Type')->load(@entities);
     }
 
+    if ($type_name eq 'area') {
+        $c->model('Area')->load_containment(@entities);
+    }
+
+    if ($type_name eq 'place') {
+        $c->model('Area')->load(@entities);
+        $c->model('Area')->load_containment(map { $_->area } @entities);
+    }
+
     while (my ($id, $entity) = each %{$results}) {
         $results->{$id} = $entity->TO_JSON;
     }
