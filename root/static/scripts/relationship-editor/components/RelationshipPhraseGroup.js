@@ -56,8 +56,6 @@ type PropsT = {
   +track: TrackWithRecordingT | null,
 };
 
-const TEXT_ALIGN_LEFT = {textAlign: 'left'};
-
 function someRelationshipsHaveLinkOrder(
   relationships: tree.ImmutableTree<RelationshipStateT> | null,
 ): boolean {
@@ -211,7 +209,6 @@ const RelationshipPhraseGroup = (React.memo<PropsT>(({
     textPhraseLabel = addColonText(linkPhraseGroup.textPhrase);
     textPhraseClassName = kebabCase(linkPhraseGroup.textPhrase);
   }
-  const textPhraseLength = textPhraseLabel?.length ?? 0;
   const textPhraseElement = (
     <>
       <label>
@@ -260,30 +257,12 @@ const RelationshipPhraseGroup = (React.memo<PropsT>(({
 
   return relationshipCount ? (
     <>
-      {/*
-        * If the link phrase is too long (common for credited instruments),
-        * span it across two columns.
-        */}
-      {textPhraseLength > 24 ? (
-        <>
-          <tr>
-            <th colSpan="2" style={TEXT_ALIGN_LEFT}>
-              {textPhraseElement}
-            </th>
-          </tr>
-          <tr className={textPhraseClassName}>
-            <th />
-            {relationshipListElement}
-          </tr>
-        </>
-      ) : (
-        <tr className={textPhraseClassName}>
-          <th>
-            {textPhraseElement}
-          </th>
-          {relationshipListElement}
-        </tr>
-      )}
+      <tr className={textPhraseClassName}>
+        <th className="link-phrase">
+          {textPhraseElement}
+        </th>
+        {relationshipListElement}
+      </tr>
       {canBeOrdered ? (
         <tr>
           <td />
