@@ -9,6 +9,8 @@
 
 import * as React from 'react';
 
+import formatEntityTypeName
+  from '../../common/utility/formatEntityTypeName.js';
 import type {TargetTypeOptionsT} from '../types.js';
 import type {
   DialogActionT,
@@ -18,16 +20,10 @@ import type {
 
 type PropsT = {
   +dispatch: (DialogActionT) => void,
-  +options: TargetTypeOptionsT,
+  +options: ?TargetTypeOptionsT,
   +source: CoreEntityT,
   +targetType: CoreEntityTypeT,
 };
-
-const foo: {+[key: CoreEntityTypeT]: null} = {
-  artist: null,
-};
-
-foo;
 
 const DialogTargetType = (React.memo<PropsT>((
   props: PropsT,
@@ -51,20 +47,24 @@ const DialogTargetType = (React.memo<PropsT>((
   return (
     <tr>
       <td className="required section">
-        {addColonText(l('Related entity type'))}
+        {l('Related type')}
       </td>
       <td className="fields">
-        <select
-          className="entity-type"
-          onChange={handleTargetTypeChange}
-          value={targetType}
-        >
-          {options.map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.text}
-            </option>
-          ))}
-        </select>
+        {options == null ? (
+          formatEntityTypeName(targetType)
+        ) : (
+          <select
+            className="entity-type focus-first"
+            onChange={handleTargetTypeChange}
+            value={targetType}
+          >
+            {options.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.text}
+              </option>
+            ))}
+          </select>
+        )}
       </td>
     </tr>
   );

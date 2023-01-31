@@ -131,6 +131,7 @@ export type RelationshipDialogStateT = {
   +attributes: DialogAttributesStateT,
   +backward: boolean,
   +datePeriodField: DatePeriodFieldT,
+  +isAttributesHelpVisible: boolean,
   +linkOrder: number,
   +linkType: DialogLinkTypeStateT,
   +resultingDatePeriod: DatePeriodRoleT,

@@ -55,6 +55,7 @@ export type DialogActionT =
       +attributes: $ReadOnlyArray<ExternalLinkAttrT>,
       +type: 'set-attributes',
     }
+  | {+type: 'toggle-attributes-help'}
   | {
       +action: DialogEntityCreditActionT,
       +type: 'update-source-entity',
@@ -76,7 +77,7 @@ export type DialogActionT =
       +type: 'update-link-type',
     }
   | {
-      +action: DialogUpdateAttributeActionT,
+      +action: DialogAttributeActionT,
       +type: 'update-attribute',
     }
   | {
@@ -84,7 +85,7 @@ export type DialogActionT =
       +type: 'update-date-period',
     };
 
-export type DialogUpdateAttributeActionT =
+export type DialogAttributeActionT =
   | {
       +action: DialogBooleanAttributeActionT,
       +rootKey: number,
@@ -193,7 +194,7 @@ export type DialogTargetEntityActionT =
 
 export type BatchCreateWorksDialogActionT =
   | {
-      action: DialogUpdateAttributeActionT,
+      action: DialogAttributeActionT,
       type: 'update-attribute',
     }
   | {

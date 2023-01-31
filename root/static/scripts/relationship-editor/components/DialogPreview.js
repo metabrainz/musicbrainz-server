@@ -82,7 +82,7 @@ const DialogPreview = (React.memo<PropsT>(({
   source,
   newRelationship,
   oldRelationship,
-}: PropsT): React.Element<'fieldset'> => {
+}: PropsT): React.MixedElement => {
   function changeDirection() {
     dispatch({type: 'change-direction'});
   }
@@ -113,7 +113,6 @@ const DialogPreview = (React.memo<PropsT>(({
       }
       disableLink={isDisabledLink(relationship, entity)}
       entity={entity}
-      showDisambiguation={false}
       target="_blank"
     />
   );
@@ -123,8 +122,10 @@ const DialogPreview = (React.memo<PropsT>(({
     className: string,
     extraRows?: React.Node,
   ) => {
+    const fullClassName = 'preview details' +
+      (className ? ' ' + className : '');
     return (
-      <table className={'details' + (className ? ' ' + className : '')}>
+      <table className={fullClassName}>
         <tbody>
           <tr>
             <th>{l('Relationship:')}</th>
@@ -162,10 +163,13 @@ const DialogPreview = (React.memo<PropsT>(({
   );
 
   return (
-    <fieldset>
-      <legend>
-        {l('Preview')}
-      </legend>
+    <>
+      <h2>
+        <div className="heading-line" />
+        <span className="heading-text">
+          {l('Preview')}
+        </span>
+      </h2>
       {(oldRelationship && newRelationship) ? (
         /*
          * Relationship previews using the long link phrase currently don't
@@ -189,7 +193,7 @@ const DialogPreview = (React.memo<PropsT>(({
             )
           )
           : (
-            <table className="details edit-relationship">
+            <table className="preview details edit-relationship">
               <tbody>
                 <RelationshipDiff
                   makeEntityLink={makeEntityLink}
@@ -231,7 +235,7 @@ const DialogPreview = (React.memo<PropsT>(({
           </button>
         </>
       ) : null}
-    </fieldset>
+    </>
   );
 }): React.AbstractComponent<PropsT>);
 

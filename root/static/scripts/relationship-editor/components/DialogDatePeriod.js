@@ -26,11 +26,13 @@ import useDateRangeFieldset from '../../edit/hooks/useDateRangeFieldset.js';
 
 type PropsT = {
   +dispatch: (ActionT) => void,
+  +isHelpVisible: boolean,
   +state: StateT,
 };
 
 const DialogDatePeriod = (React.memo<PropsT>(({
   dispatch,
+  isHelpVisible,
   state,
 }: PropsT): React.MixedElement | null => {
   const hooks = useDateRangeFieldset(dispatch);
@@ -44,7 +46,7 @@ const DialogDatePeriod = (React.memo<PropsT>(({
       <tr>
         <td className="section">
           <label htmlFor={'id-' + beginDateField.field.year.html_name}>
-            {addColonText(l('Begin date'))}
+            {l('Begin date')}
           </label>
         </td>
         <td className="fields">
@@ -65,10 +67,10 @@ const DialogDatePeriod = (React.memo<PropsT>(({
       <tr>
         <td className="section">
           <label htmlFor={'id-' + endDateField.field.year.html_name}>
-            {addColonText(l('End date'))}
+            {l('End date')}
           </label>
         </td>
-        <td className="fields">
+        <td className="fields end-date">
           <PartialDateInput
             dispatch={hooks.endDateDispatch}
             field={state.field.end_date}
@@ -88,6 +90,28 @@ const DialogDatePeriod = (React.memo<PropsT>(({
           />
         </td>
       </tr>
+      {isHelpVisible ? (
+        <tr>
+          <td />
+          <td>
+            <div className="ar-descr">
+              <p>
+                {l(`If you want to set the relationship as happening on one
+                    specific date, just set the same end date and start date.
+                    You can use the arrow button to copy the begin date to
+                    the end date.`)}
+              </p>
+              <p>
+                {l(`If you do not know the end date, but you know the
+                    relationship has ended and this seems like useful
+                    information to store (for example, if someone is no
+                    longer a member of a band), you can indicate it with the
+                    checkbox above.`)}
+              </p>
+            </div>
+          </td>
+        </tr>
+      ) : null}
     </>
   );
 }): React.AbstractComponent<PropsT>);

@@ -3,6 +3,7 @@
 # nikki, 2014
 # Jaakko Perttilä <email address hidden>, 2014,2018
 # jozo, 2014
+# Juhana Uuttu <email address hidden>, 2023
 # 68c019e72ca2ecf7f5428dd4599050d2_f003645, 2014
 # Timo Martikainen <email address hidden>, 2012
 # nikki, 2014
@@ -16,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "PO-Revision-Date: 2012-05-24 18:50+0000\n"
-"Last-Translator: Sami Korkalainen, 2019\n"
+"Last-Translator: Juhana Uuttu <rexroom@sci.fi>, 2023\n"
 "Language-Team: Finnish (http://www.transifex.com/musicbrainz/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -93,7 +94,7 @@ msgstr "BBC Music"
 
 #: DB:link_type/name:190
 msgid "BBC Music page"
-msgstr ""
+msgstr "BBC Music -sivu"
 
 #: DB:link_type/reverse_link_phrase:190
 msgid "BBC Music page for"
@@ -151,7 +152,7 @@ msgstr ""
 
 #: DB:link_type/name:227 DB:link_type/name:8
 msgid "DJ-mix"
-msgstr ""
+msgstr "DJ-miksaus"
 
 #: DB:link_type/link_phrase:227 DB:link_type/link_phrase:8
 msgid "DJ-mix of"
@@ -281,7 +282,7 @@ msgstr ""
 
 #: DB:link_attribute_type/description:516
 msgid "Indicates a bonus disc"
-msgstr ""
+msgstr "Viittaa bonuslevyyn"
 
 #: DB:link_type/description:162
 msgid ""
@@ -596,12 +597,12 @@ msgstr ""
 #: DB:link_type/link_phrase:840 DB:link_type/link_phrase:837
 #: DB:link_type/link_phrase:839 DB:link_type/link_phrase:838
 msgid "Last.fm"
-msgstr ""
+msgstr "Last.fm"
 
 #: DB:link_type/reverse_link_phrase:840 DB:link_type/reverse_link_phrase:837
 #: DB:link_type/reverse_link_phrase:839 DB:link_type/reverse_link_phrase:838
 msgid "Last.fm page for"
-msgstr ""
+msgstr "Last.fm-sivuna"
 
 #: DB:link_attribute_type/description:4
 msgid "Lead or solo vocal"
@@ -4039,11 +4040,11 @@ msgstr ""
 
 #: DB:link_type/name:708 DB:link_type/name:709
 msgid "copyright"
-msgstr ""
+msgstr "tekijänoikeus"
 
 #: DB:link_type/reverse_link_phrase:708 DB:link_type/reverse_link_phrase:709
 msgid "copyrighted (©) by"
-msgstr ""
+msgstr "tekijänoikeuden (©) omistaa"
 
 #: DB:link_attribute_type/description:8 DB:link_attribute_type/name:8
 msgid "countertenor vocals"
@@ -4894,14 +4895,14 @@ msgstr ""
 #: DB:link_type/link_phrase:708 DB:link_type/link_phrase:709
 #: DB:link_type/long_link_phrase:708 DB:link_type/long_link_phrase:709
 msgid "holds copyright (©) for"
-msgstr ""
+msgstr "omistaa tekijänoikeuden (©)"
 
 #: DB:link_type/link_phrase:867 DB:link_type/link_phrase:711
 #: DB:link_type/link_phrase:710 DB:link_type/link_phrase:869
 #: DB:link_type/long_link_phrase:867 DB:link_type/long_link_phrase:711
 #: DB:link_type/long_link_phrase:710 DB:link_type/long_link_phrase:869
 msgid "holds phonographic copyright (℗) for"
-msgstr ""
+msgstr "omistaa äänitteen tekijänoikeuden (℗)"
 
 #: DB:link_type/name:801
 msgid "host"
@@ -5248,7 +5249,7 @@ msgstr ""
 #: DB:link_type/name:840 DB:link_type/name:837 DB:link_type/name:839
 #: DB:link_type/name:838
 msgid "last.fm"
-msgstr ""
+msgstr "last.fm"
 
 #: DB:link_type/link_phrase:238
 msgid "later releases"
@@ -5994,12 +5995,12 @@ msgstr "henkilösuhde"
 #: DB:link_type/name:867 DB:link_type/name:711 DB:link_type/name:710
 #: DB:link_type/name:869
 msgid "phonographic copyright"
-msgstr ""
+msgstr "äänitteen tekijänoikeus"
 
 #: DB:link_type/reverse_link_phrase:867 DB:link_type/reverse_link_phrase:711
 #: DB:link_type/reverse_link_phrase:710 DB:link_type/reverse_link_phrase:869
 msgid "phonographic copyright (℗) by"
-msgstr ""
+msgstr "äänitteen tekijänoikeuden (℗) omistaa"
 
 #: DB:link_type/name:123 DB:link_type/name:20
 msgid "photography"
@@ -6779,7 +6780,7 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:847
 msgid "taught"
-msgstr ""
+msgstr "opetti"
 
 #: DB:link_type/link_phrase:893 DB:link_type/link_phrase:924
 #: DB:link_type/name:924 DB:link_type/long_link_phrase:893
@@ -6850,7 +6851,7 @@ msgstr ""
 #: DB:link_attribute_type/name:1018 DB:link_type/name:871
 #: DB:link_type/name:872
 msgid "translator"
-msgstr ""
+msgstr "kääntäjä"
 
 #: DB:link_attribute_type/name:477
 msgid "transliterated"
@@ -7756,16 +7757,16 @@ msgstr ""
 msgid "{entity1} is a tour by {entity0}"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:752
-msgid "{entity1} is a traditional instrument from {entity0}"
-msgstr ""
-
 #: DB:link_type/long_link_phrase:1082
 msgid "{entity1} is a translated version of {entity0}"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:65 DB:link_type/long_link_phrase:970
 msgid "{entity1} is a tribute to {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:752
+msgid "{entity1} is an instrument from {entity0}"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:1090

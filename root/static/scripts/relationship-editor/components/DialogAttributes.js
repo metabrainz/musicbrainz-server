@@ -13,19 +13,20 @@ import * as tree from 'weight-balanced-tree';
 import {compare} from '../../common/i18n.js';
 import expand2react from '../../common/i18n/expand2react.js';
 import linkedEntities from '../../common/linkedEntities.mjs';
-import bracketed from '../../common/utility/bracketed.js';
 import clean from '../../common/utility/clean.js';
 import {uniqueId} from '../../common/utility/numbers.js';
-import {kebabCase} from '../../common/utility/strings.js';
-import useRangeSelectionHandler from '../hooks/useRangeSelectionHandler.js';
+import {capitalize, kebabCase} from '../../common/utility/strings.js';
 import type {
   DialogAttributesStateT,
   DialogAttributesT,
   DialogAttributeT,
+  DialogBooleanAttributeStateT,
+  DialogMultiselectAttributeStateT,
+  DialogTextAttributeStateT,
   LinkAttributesByRootIdT,
 } from '../types.js';
 import type {
-  DialogUpdateAttributeActionT,
+  DialogAttributeActionT,
 } from '../types/actions.js';
 import {
   areLinkAttributesEqual,
@@ -44,7 +45,8 @@ import TextAttribute, {
 } from './DialogAttribute/TextAttribute.js';
 
 type PropsT = {
-  +dispatch: (DialogUpdateAttributeActionT) => void,
+  +dispatch: (DialogAttributeActionT) => void,
+  +isHelpVisible: boolean,
   +state: $ReadOnly<{...DialogAttributesStateT, ...}>,
 };
 
@@ -238,7 +240,7 @@ function getLinkAttributesFromState(
 
 export function reducer(
   state: DialogAttributesStateT,
-  action: DialogUpdateAttributeActionT,
+  action: DialogAttributeActionT,
 ): DialogAttributesStateT {
   const newState: {...DialogAttributesStateT} = {...state};
   let updateResultingLinkAttributes = true;
@@ -307,20 +309,40 @@ export function reducer(
   return newState;
 }
 
+const wrapAttributeElement = (
+  attribute:
+    | DialogBooleanAttributeStateT
+    | DialogMultiselectAttributeStateT
+    | DialogTextAttributeStateT,
+  attributeElement: React.MixedElement,
+  isHelpVisible: boolean,
+): React.MixedElement => (
+  <div
+    className={
+      'attribute-container ' +
+      attribute.control + ' ' +
+      kebabCase(attribute.type.name)
+    }
+    key={attribute.key}
+  >
+    {attributeElement}
+    {attribute.error}
+    {(
+      isHelpVisible &&
+      nonEmpty(attribute.type.l_description)
+    ) ? (
+      <div className="ar-descr">
+        {expand2react(attribute.type.l_description)}
+      </div>
+      ) : null}
+  </div>
+);
+
 const DialogAttributes = (React.memo<PropsT>(({
   dispatch,
+  isHelpVisible,
   state,
 }: PropsT): React.MixedElement | null => {
-  const [
-    isAttributesHelpVisible,
-    setAttributesHelpVisible,
-  ] = React.useState(false);
-
-  function handleHelpClick(event: SyntheticEvent<HTMLAnchorElement>) {
-    event.preventDefault();
-    setAttributesHelpVisible(!isAttributesHelpVisible);
-  }
-
   const booleanAttributeDispatch = React.useCallback((rootKey, action) => {
     dispatch({
       action,
@@ -348,78 +370,104 @@ const DialogAttributes = (React.memo<PropsT>(({
     });
   }, [dispatch]);
 
-  const booleanRangeSelectionHandler =
-    useRangeSelectionHandler('boolean');
+  const attributesByControl: {
+    checkbox: Array<[DialogBooleanAttributeStateT, React.MixedElement]>,
+    multiselect: Array<[
+      DialogMultiselectAttributeStateT,
+      React.MixedElement,
+    ]>,
+    text: Array<[DialogTextAttributeStateT, React.MixedElement]>,
+  } = {
+    checkbox: [],
+    multiselect: [],
+    text: [],
+  };
 
-  return state.attributesList.length ? (
-    <tr>
-      <td className="section">
-        {l('Attributes')}
-        <br />
-        {bracketed(
-          <a href="#" onClick={handleHelpClick}>
-            {l('help')}
-          </a>,
-        )}
-      </td>
-      <td className="fields" onClick={booleanRangeSelectionHandler}>
-        {state.attributesList.map((attribute) => {
-          let attributeElement;
-          switch (attribute.control) {
-            case 'checkbox': {
-              attributeElement = (
-                <BooleanAttribute
-                  dispatch={booleanAttributeDispatch}
-                  state={attribute}
-                />
-              );
-              break;
-            }
-            case 'multiselect': {
-              attributeElement = (
-                <MultiselectAttribute
-                  dispatch={multiselectAttributeDispatch}
-                  state={attribute}
-                />
-              );
-              break;
-            }
-            case 'text': {
-              attributeElement = (
-                <TextAttribute
-                  dispatch={textAttributeDispatch}
-                  state={attribute}
-                />
-              );
-              break;
-            }
-          }
+  for (const attribute of state.attributesList) {
+    switch (attribute.control) {
+      case 'checkbox': {
+        attributesByControl.checkbox.push([
+          attribute,
+          wrapAttributeElement(
+            attribute,
+            <BooleanAttribute
+              dispatch={booleanAttributeDispatch}
+              state={attribute}
+            />,
+            isHelpVisible,
+          ),
+        ]);
+        break;
+      }
+      case 'multiselect': {
+        attributesByControl.multiselect.push([
+          attribute,
+          wrapAttributeElement(
+            attribute,
+            <MultiselectAttribute
+              dispatch={multiselectAttributeDispatch}
+              state={attribute}
+            />,
+            isHelpVisible,
+          ),
+        ]);
+        break;
+      }
+      case 'text': {
+        const inputId = 'text-attribute-' + String(attribute.type.id);
+        attributesByControl.text.push([
+          attribute,
+          wrapAttributeElement(
+            attribute,
+            <TextAttribute
+              dispatch={textAttributeDispatch}
+              inputId={inputId}
+              state={attribute}
+            />,
+            isHelpVisible,
+          ),
+        ]);
+        break;
+      }
+    }
+  }
 
-          return (
-            <div
-              className={
-                'attribute-container ' +
-                attribute.control + ' ' +
-                kebabCase(attribute.type.name)
-              }
-              key={attribute.key}
-            >
-              {attributeElement}
-              {attribute.error}
-              {(
-                isAttributesHelpVisible &&
-                nonEmpty(attribute.type.l_description)
-              ) ? (
-                <div className="ar-descr">
-                  {expand2react(attribute.type.l_description)}
-                </div>
-                ) : null}
-            </div>
-          );
-        })}
-      </td>
-    </tr>
-  ) : null;
+  return (
+    <>
+      {attributesByControl.checkbox.map((
+        [state, checkboxDiv],
+      ) => (
+        <tr key={state.type.id}>
+          <td className="section" />
+          <td className="fields">
+            {checkboxDiv}
+          </td>
+        </tr>
+      ))}
+      {attributesByControl.text.map(([state, textDiv]) => (
+        <tr key={state.type.id}>
+          <td className="section">
+            <label htmlFor={'text-attribute-' + String(state.type.id)}>
+              {capitalize(state.type.l_name ?? state.type.name)}
+            </label>
+          </td>
+          <td className="fields">
+            {textDiv}
+          </td>
+        </tr>
+      ))}
+      {attributesByControl.multiselect.map(([state, multiselectDiv]) => (
+        <tr key={state.type.id}>
+          <td className="section">
+            {capitalize(state.type.l_name ?? state.type.name)}
+          </td>
+          <td className="fields">
+            {multiselectDiv}
+          </td>
+        </tr>
+      ))}
+    </>
+  );
 }): React.AbstractComponent<PropsT>);
 
 export default DialogAttributes;

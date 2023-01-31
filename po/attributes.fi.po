@@ -3,6 +3,7 @@
 # Jaakko Perttilä <email address hidden>, 2012
 # Jaakko Perttilä <email address hidden>, 2012-2014,2017-2019
 # Jaakko Perttilä <email address hidden>, 2014
+# Juhana Uuttu <email address hidden>, 2023
 # Kai Kasurinen <email address hidden>, 2014
 # ListMyCDs.com Martikainen <email address hidden>, 2012
 # Timo Martikainen <email address hidden>, 2012
@@ -17,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "PO-Revision-Date: 2012-05-24 18:52+0000\n"
-"Last-Translator: Jaakko Perttilä <jormangeud@gmail.com>, 2012-2014,2017-2019\n"
+"Last-Translator: Juhana Uuttu <rexroom@sci.fi>, 2023\n"
 "Language-Team: Finnish (http://www.transifex.com/musicbrainz/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -73,7 +74,7 @@ msgstr "3,5″ levyke"
 #: DB:medium_format/name:91
 msgctxt "medium_format"
 msgid "5.25\" Floppy Disk"
-msgstr ""
+msgstr "5,25\" levyke"
 
 #: DB:medium_format/name:52
 msgctxt "medium_format"
@@ -884,7 +885,7 @@ msgstr ""
 #: DB:release_group_secondary_type/description:5
 msgctxt "release_group_secondary_type"
 msgid "An audiobook is a book read by a narrator without music."
-msgstr ""
+msgstr "Äänikirja on juontajan lukema kirja, missä ei ole musiikkia."
 
 #: DB:event_type/description:7
 msgctxt "event_type"
@@ -1601,7 +1602,7 @@ msgstr ""
 #: DB:release_packaging/name:19
 msgctxt "release_packaging"
 msgid "Box"
-msgstr ""
+msgstr "Laatikko"
 
 #: DB:work_attribute_type_allowed_value/value:607
 msgctxt "work_attribute_type_allowed_value"
@@ -1752,7 +1753,7 @@ msgstr "CD-Video"
 #: DB:medium_format/name:60
 msgctxt "medium_format"
 msgid "CED"
-msgstr ""
+msgstr "CED"
 
 #: DB:work_attribute_type/name:45
 msgctxt "work_attribute_type"
@@ -1919,7 +1920,7 @@ msgstr "Kokoelma"
 #: DB:event_type/name:1
 msgctxt "event_type"
 msgid "Concert"
-msgstr ""
+msgstr "Konsertti"
 
 #: DB:work_type/name:4
 msgctxt "work_type"
@@ -1934,7 +1935,7 @@ msgstr ""
 #: DB:medium_format/name:61
 msgctxt "medium_format"
 msgid "Copy Control CD"
-msgstr ""
+msgstr "Copy Control CD"
 
 #: DB:medium_format/description:61
 msgctxt "medium_format"
@@ -2070,7 +2071,7 @@ msgstr "DJ-miksaus"
 #: DB:medium_format/name:44
 msgctxt "medium_format"
 msgid "DTS CD"
-msgstr ""
+msgstr "DTS CD"
 
 #: DB:medium_format/name:2
 msgctxt "medium_format"
@@ -2095,22 +2096,22 @@ msgstr "DVD-Video"
 #: DB:medium_format/name:47
 msgctxt "medium_format"
 msgid "DVDplus"
-msgstr ""
+msgstr "DVDplus"
 
 #: DB:medium_format/name:70
 msgctxt "medium_format"
 msgid "DVDplus (CD side)"
-msgstr ""
+msgstr "DVDplus (CD-puoli)"
 
 #: DB:medium_format/name:68
 msgctxt "medium_format"
 msgid "DVDplus (DVD-Audio side)"
-msgstr ""
+msgstr "DVDplus (DVD-Audio-puoli)"
 
 #: DB:medium_format/name:69
 msgctxt "medium_format"
 msgid "DVDplus (DVD-Video side)"
-msgstr ""
+msgstr "DVDplus (DVD-Video-puoli)"
 
 #: DB:work_attribute_type_allowed_value/value:343
 msgctxt "work_attribute_type_allowed_value"
@@ -2291,7 +2292,7 @@ msgstr "Dhēnuka"
 #: DB:release_packaging/name:17
 msgctxt "release_packaging"
 msgid "Digibook"
-msgstr ""
+msgstr "Digibook"
 
 #: DB:release_packaging/name:3
 msgctxt "release_packaging"
@@ -2381,7 +2382,7 @@ msgstr ""
 #: DB:medium_format/name:46
 msgctxt "medium_format"
 msgid "Download Card"
-msgstr ""
+msgstr "Latauskortti"
 
 #: DB:medium_format/name:4
 msgctxt "medium_format"
@@ -2391,22 +2392,22 @@ msgstr "DualDisc"
 #: DB:medium_format/name:67
 msgctxt "medium_format"
 msgid "DualDisc (CD side)"
-msgstr ""
+msgstr "DualDisc (CD-puoli)"
 
 #: DB:medium_format/name:130
 msgctxt "medium_format"
 msgid "DualDisc (DVD side)"
-msgstr ""
+msgstr "DualDisc (DVD-puoli)"
 
 #: DB:medium_format/name:65
 msgctxt "medium_format"
 msgid "DualDisc (DVD-Audio side)"
-msgstr ""
+msgstr "DualDisc (DVD-Audio-puoli)"
 
 #: DB:medium_format/name:66
 msgctxt "medium_format"
 msgid "DualDisc (DVD-Video side)"
-msgstr ""
+msgstr "DualDisc (DVD-Video-puoli)"
 
 #: DB:work_attribute_type_allowed_value/value:612
 msgctxt "work_attribute_type_allowed_value"
@@ -2602,7 +2603,7 @@ msgstr "Sähköinen soitin"
 #: DB:medium_format/name:42
 msgctxt "medium_format"
 msgid "Enhanced CD"
-msgstr ""
+msgstr "Enhanced CD"
 
 #: DB:instrument_type/name:6
 msgctxt "instrument_type"
@@ -2802,12 +2803,12 @@ msgstr ""
 #: DB:event_type/name:2
 msgctxt "event_type"
 msgid "Festival"
-msgstr ""
+msgstr "Festivaali"
 
 #: DB:series_type/name:8
 msgctxt "series_type"
 msgid "Festival"
-msgstr ""
+msgstr "Festivaali"
 
 #: DB:work_attribute_type_allowed_value/value:372
 msgctxt "work_attribute_type_allowed_value"
@@ -2844,7 +2845,7 @@ msgstr ""
 #: DB:medium_format/name:51
 msgctxt "medium_format"
 msgid "Flexi-disc"
-msgstr ""
+msgstr "Flexi-levy"
 
 #: DB:medium_format/description:51
 msgctxt "medium_format"
@@ -2857,7 +2858,7 @@ msgstr ""
 #: DB:medium_format/name:76
 msgctxt "medium_format"
 msgid "Floppy Disk"
-msgstr ""
+msgstr "Levyke"
 
 #: DB:gender/description:4
 msgctxt "gender"
@@ -3825,6 +3826,11 @@ msgstr ""
 #: DB:work_attribute_type/description:42
 msgctxt "work_attribute_type"
 msgid "ID for the Venezuelan rights society SACVEN"
+msgstr ""
+
+#: DB:work_attribute_type/description:107
+msgctxt "work_attribute_type"
+msgid "ID for the Vietnamese rights society VCPMC"
 msgstr ""
 
 #: DB:work_attribute_type/description:38
@@ -4886,7 +4892,7 @@ msgstr ""
 #: DB:medium_format/name:83
 msgctxt "medium_format"
 msgid "Microcassette"
-msgstr ""
+msgstr "Mikrokasetti"
 
 #: DB:area_type/name:8
 msgctxt "area_type"
@@ -5074,7 +5080,7 @@ msgstr ""
 #: DB:work_type/name:29
 msgctxt "work_type"
 msgid "Musical"
-msgstr ""
+msgstr "Musikaali"
 
 #: DB:work_type/description:29
 msgctxt "work_type"
@@ -5516,7 +5522,7 @@ msgstr ""
 #: DB:gender/name:5
 msgctxt "gender"
 msgid "Non-binary"
-msgstr ""
+msgstr "Muunsukupuolinen"
 
 #: DB:release_group_secondary_type/description:3
 msgctxt "release_group_secondary_type"
@@ -5531,7 +5537,7 @@ msgstr "Ei mitään"
 #: DB:gender/name:4
 msgctxt "gender"
 msgid "Not applicable"
-msgstr ""
+msgstr "Ei sovellettavissa"
 
 #: DB:work_attribute_type_allowed_value/value:491
 msgctxt "work_attribute_type_allowed_value"
@@ -5746,7 +5752,7 @@ msgstr "Partita"
 #: DB:medium_format/name:58
 msgctxt "medium_format"
 msgid "Pathé disc"
-msgstr ""
+msgstr "Pathé-levy"
 
 #: DB:work_attribute_type_allowed_value/value:995
 msgctxt "work_attribute_type_allowed_value"
@@ -5852,7 +5858,7 @@ msgstr "Toista"
 #: DB:medium_format/name:74
 msgctxt "medium_format"
 msgid "PlayTape"
-msgstr ""
+msgstr "PlayTape"
 
 #: DB:medium_format/name:45
 msgctxt "medium_format"
@@ -6170,7 +6176,7 @@ msgstr ""
 #: DB:place_type/name:6
 msgctxt "place_type"
 msgid "Religious building"
-msgstr ""
+msgstr "Uskonnollinen rakennus"
 
 #: DB:work_attribute_type_allowed_value/value:765
 msgctxt "work_attribute_type_allowed_value"
@@ -6336,12 +6342,12 @@ msgstr "Super Audio CD"
 #: DB:medium_format/name:84
 msgctxt "medium_format"
 msgid "SACD (2 channels)"
-msgstr ""
+msgstr "SACD (2-kanava)"
 
 #: DB:medium_format/name:85
 msgctxt "medium_format"
 msgid "SACD (multichannel)"
-msgstr ""
+msgstr "SACD (monikanava)"
 
 #: DB:work_attribute_type/name:21
 msgctxt "work_attribute_type"
@@ -6386,7 +6392,7 @@ msgstr ""
 #: DB:medium_format/name:62
 msgctxt "medium_format"
 msgid "SD Card"
-msgstr ""
+msgstr "SD-kortti"
 
 #: DB:work_attribute_type/name:8
 msgctxt "work_attribute_type"
@@ -7075,7 +7081,7 @@ msgstr "Tanarūpi"
 #: DB:work_attribute_type_allowed_value/value:668
 msgctxt "work_attribute_type_allowed_value"
 msgid "Tango"
-msgstr ""
+msgstr "Tango"
 
 #: DB:work_attribute_type_allowed_value/value:1040
 msgctxt "work_attribute_type_allowed_value"
@@ -7413,7 +7419,7 @@ msgstr ""
 #: DB:series_type/name:7
 msgctxt "series_type"
 msgid "Tour"
-msgstr ""
+msgstr "Kiertue"
 
 #: DB:cover_art_archive.art_type/name:7
 msgctxt "cover_art_type"
@@ -7562,10 +7568,15 @@ msgctxt "medium_format"
 msgid "VCD"
 msgstr "Video-CD"
 
+#: DB:work_attribute_type/name:107
+msgctxt "work_attribute_type"
+msgid "VCPMC ID"
+msgstr ""
+
 #: DB:medium_format/name:59
 msgctxt "medium_format"
 msgid "VHD"
-msgstr ""
+msgstr "VHD"
 
 #: DB:medium_format/name:21
 msgctxt "medium_format"
@@ -7672,22 +7683,22 @@ msgstr "Vinyyli"
 #: DB:medium_format/name:48
 msgctxt "medium_format"
 msgid "VinylDisc"
-msgstr ""
+msgstr "VinylDisc"
 
 #: DB:medium_format/name:82
 msgctxt "medium_format"
 msgid "VinylDisc (CD side)"
-msgstr ""
+msgstr "VinylDisc (CD-puoli)"
 
 #: DB:medium_format/name:80
 msgctxt "medium_format"
 msgid "VinylDisc (DVD side)"
-msgstr ""
+msgstr "VinylDisc (DVD-puoli)"
 
 #: DB:medium_format/name:81
 msgctxt "medium_format"
 msgid "VinylDisc (Vinyl side)"
-msgstr ""
+msgstr "VinylDisc (vinyylipuoli)"
 
 #: DB:work_attribute_type_allowed_value/value:259
 #: DB:work_attribute_type_allowed_value/value:1047
@@ -7738,7 +7749,7 @@ msgstr "Puhallinsoitin"
 #: DB:editor_collection_type/name:3
 msgctxt "collection_type"
 msgid "Wishlist"
-msgstr ""
+msgstr "Toivelista"
 
 #: DB:release_status/name:5
 msgctxt "release_status"

@@ -21,6 +21,7 @@ type PropsT = {
     rootKey: number,
     action: DialogTextAttributeActionT,
   ) => void,
+  +inputId: string,
   +state: DialogTextAttributeStateT,
 };
 
@@ -46,22 +47,20 @@ export function reducer(
 
 const TextAttribute = (React.memo(({
   dispatch,
+  inputId,
   state,
 }) => (
-  <label>
-    {addColonText(state.type.l_name ?? '')}
-    <br />
-    <input
-      onChange={(event) => {
-        dispatch(state.key, {
-          textValue: event.target.value,
-          type: 'set-text-value',
-        });
-      }}
-      type="text"
-      value={state.textValue}
-    />
-  </label>
+  <input
+    id={inputId}
+    onChange={(event) => {
+      dispatch(state.key, {
+        textValue: event.target.value,
+        type: 'set-text-value',
+      });
+    }}
+    type="text"
+    value={state.textValue}
+  />
 )): React.AbstractComponent<PropsT>);
 
 export default TextAttribute;

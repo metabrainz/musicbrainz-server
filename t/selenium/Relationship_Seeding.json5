@@ -14,7 +14,7 @@
     {
       command: 'assertEval',
       target: "Array.from(document.querySelectorAll('#relationship-editor table.rel-editor-table tr')).map(x => x.textContent.replace(/\\s{2,}/g, ' ').replace(/(^\\s*|\\s*$)/g, '')).join('\\n ')",
-      value: 'involved with: Name Only (from 2021-??-01 to ????)You must select a relationship type and target entity for every relationship.\n Add another artist\n involved with: Name Only (from 2021-??-01 to ????)You must select a relationship type and target entity for every relationship.\n Add another artist\n main performer at: MusicBrainz Summit 14 (2014-09-26 – 2014-09-28) (time: 19:00)\n Add another event\n Add relationship',
+      value: 'involved with: Name Only (from 2021-??-01 to ????)You must select a relationship type and target entity for every relationship.\n main performer at: MusicBrainz Summit 14 (2014-09-26 – 2014-09-28) (time: 19:00)\n Add relationship',
     },
     {
       command: 'type',

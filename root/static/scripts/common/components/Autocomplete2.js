@@ -154,6 +154,7 @@ type InitialStateT<T: EntityItemT> = {
   +labelStyle?: {...},
   +placeholder?: string,
   +recentItemsKey?: string,
+  +required?: boolean,
   +selectedItem?: OptionItemT<T> | null,
   +staticItems?: $ReadOnlyArray<OptionItemT<T>>,
   +width?: string,
@@ -170,6 +171,7 @@ export function createInitialState<+T: EntityItemT>(
     extractSearchTerms = getItemName,
     inputValue: initialInputValue,
     recentItemsKey,
+    required = false,
     selectedItem,
     staticItems,
     ...restProps
@@ -202,6 +204,7 @@ export function createInitialState<+T: EntityItemT>(
     pendingSearch: null,
     recentItems: null,
     recentItemsKey: recentItemsKey ?? entityType,
+    required,
     results: staticResults,
     selectedItem: selectedItem ?? null,
     showDescriptions:
@@ -220,7 +223,9 @@ export function createInitialState<+T: EntityItemT>(
 
 type AutocompleteItemPropsT<T: EntityItemT> = {
   autocompleteId: string,
+  dispatch: (ActionT<T>) => void,
   formatOptions?: ?FormatOptionsT,
+  index: number,
   isHighlighted: boolean,
   isSelected: boolean,
   item: ItemT<T>,
@@ -229,7 +234,9 @@ type AutocompleteItemPropsT<T: EntityItemT> = {
 
 const AutocompleteItem = React.memo(<+T: EntityItemT>({
   autocompleteId,
+  dispatch,
   formatOptions,
+  index,
   isHighlighted,
   isSelected,
   item,
@@ -265,6 +272,12 @@ const AutocompleteItem = React.memo(<+T: EntityItemT>({
     }
   }
 
+  function handleItemMouseOver() {
+    if (item.disabled !== true) {
+      dispatch({index, type: 'highlight-index'});
+    }
+  }
+
   return (
     <li
       aria-disabled={isDisabled ? 'true' : 'false'}
@@ -280,6 +293,7 @@ const AutocompleteItem = React.memo(<+T: EntityItemT>({
       key={item.id}
       onClick={handleItemClick}
       onMouseDown={handleItemMouseDown}
+      onMouseOver={handleItemMouseOver}
       role="option"
       style={style}
     >
@@ -482,7 +496,9 @@ const Autocomplete2 = (React.memo(<+T: EntityItemT>(
   }
 
   function handleInputFocus() {
-    showAvailableItems();
+    if (selectedItem == null) {
+      showAvailableItems();
+    }
   }
 
   function showAvailableItems() {
@@ -661,9 +677,10 @@ const Autocomplete2 = (React.memo(<+T: EntityItemT>(
     (AutocompleteItem: any);
 
   const menuItemElements = React.useMemo(
-    () => items.map((item) => (
+    () => items.map((item, index) => (
       <AutocompleteItemWithType
         autocompleteId={id}
+        dispatch={dispatch}
         formatOptions={
           (
             entityType === 'link_attribute_type' ||
@@ -672,6 +689,7 @@ const Autocomplete2 = (React.memo(<+T: EntityItemT>(
             ? {showDescriptions: state.showDescriptions}
             : undefined
         }
+        index={index}
         isHighlighted={!!(highlightedItem && item.id === highlightedItem.id)}
         isSelected={!!(
           selectedItem &&
@@ -684,6 +702,7 @@ const Autocomplete2 = (React.memo(<+T: EntityItemT>(
       />
     )),
     [
+      dispatch,
       entityType,
       highlightedItem,
       id,
@@ -692,6 +711,12 @@ const Autocomplete2 = (React.memo(<+T: EntityItemT>(
       selectedItem,
       state.showDescriptions,
     ],
+  );
+
+  const isLookupPerformed = (
+    state.isLookupPerformed == null
+      ? (selectedItem != null)
+      : state.isLookupPerformed
   );
 
   return (
@@ -735,13 +760,11 @@ const Autocomplete2 = (React.memo(<+T: EntityItemT>(
                 ? ''
                 : (state.inputClass + ' ')
             ) +
-            ((
-              state.isLookupPerformed == null
-                ? selectedItem
-                : state.isLookupPerformed
+            (
+              isLookupPerformed
+                ? 'lookup-performed'
+                : (state.required ? 'required' : '')
             )
-              ? 'lookup-performed'
-              : '')
           }
           disabled={disabled}
           id={inputId}

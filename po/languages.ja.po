@@ -358,6 +358,11 @@ msgstr "ブラジ語"
 msgid "Breton"
 msgstr "ブルトン語"
 
+#. frequency:1 iso_code_3:box
+#: DB:language/name:1322
+msgid "Buamu"
+msgstr ""
+
 #. frequency:1 iso_code_3:bug
 #: DB:language/name:61
 msgid "Buginese"
@@ -377,6 +382,11 @@ msgstr "ブリアット語"
 #: DB:language/name:63
 msgid "Burmese"
 msgstr "ビルマ語"
+
+#. frequency:1 iso_code_3:bsk
+#: DB:language/name:1406
+msgid "Burushaski"
+msgstr ""
 
 #. frequency:1 iso_code_3:cad
 #: DB:language/name:65
@@ -918,6 +928,11 @@ msgstr "グリーンランド語"
 msgid "Gronings"
 msgstr "フローニン語"
 
+#. frequency:1 iso_code_3:gcf
+#: DB:language/name:2386
+msgid "Guadeloupean Creole French"
+msgstr ""
+
 #. frequency:1 iso_code_3:grn
 #: DB:language/name:160
 msgid "Guarani"
@@ -1008,7 +1023,7 @@ msgstr "ヒッタイト語"
 msgid "Hmong"
 msgstr "フモング語"
 
-#. frequency:1 iso_code_3:hun
+#. frequency:2 iso_code_3:hun
 #: DB:language/name:176
 msgid "Hungarian"
 msgstr "ハンガリー語"
@@ -1783,7 +1798,7 @@ msgstr "古ノルド語"
 msgid "North American Indian languages"
 msgstr "北米インディアン諸語"
 
-#. frequency:2 iso_code_3:nor
+#. frequency:1 iso_code_3:nor
 #: DB:language/name:309
 msgid "Norwegian"
 msgstr "ノルウェー語"

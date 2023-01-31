@@ -17,25 +17,6 @@ msgstr ""
 "Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#. name:unspecified drum
-#: DB:instrument/description:933
-msgid ""
-"\"Drum\" or \"drums\" is a common but generic credit can refer to multiple "
-"instruments. If you know which instrument this is, please select the "
-"specific instrument: <ul> <li> For the instrument commonly known as "
-"\"drums\", and often used in Western popular music, use <a "
-"href=\"/instrument/12092505-6ee1-46af-a15a-b5b468b6b155\">drums (drum "
-"set)</a>. </li> <li> For programmed or \"drum-loops\" use <a "
-"href=\"/instrument/ce0eed13-58d8-4744-8ad0-b7d6182a2d0f\">drum machine</a>. "
-"</li> <li> For specific drums not yet in MusicBrainz, use <a "
-"href=\"/instrument/3bccb7eb-cbca-42cd-b0ac-a5e959df7221\">membranophone</a> "
-"(or <a href=\"/instrument/1a03e9a1-f81f-40ce-9d57-65d6c1b9dcb3\">slit "
-"drum</a>, if appropriate) and consider <a "
-"href=\"/doc/How_to_Add_Instruments\">requesting the missing instrument</a>. "
-"</li> </ul> If you can't find more information than the generic \"drum\" or "
-"\"drums\" credit, use this instrument."
-msgstr "Met ‘drum’ of ‘drums’ kan naar verschillende instrumenten worden verwezen. Als je weet welk instrument er wordt bedoeld, kan je beter dat specifieke instrument selecteren: <ul> <li>Voor het instrument ‘drums’ dat veel in de westerse popmuziek wordt bespeeld, gebruik je <a href=\"/instrument/12092505-6ee1-46af-a15a-b5b468b6b155\">drumstel</a>. </li> <li>Voor geprogrammeerde ‘drumloops’ gebruik je <a href=\"/instrument/ce0eed13-58d8-4744-8ad0-b7d6182a2d0f\">drumcomputer</a>. </li> <li>Voor specifieke trommels waar we nog geen instrument voor hebben, kan je <a href=\"/instrument/3bccb7eb-cbca-42cd-b0ac-a5e959df7221\">membranofoon</a> gebruiken (of <a href=\"/instrument/1a03e9a1-f81f-40ce-9d57-65d6c1b9dcb3\">spleettrommel</a> als dat de juiste is). Je kan het ontbrekende instrument ook <a href=\"/doc/How_to_Add_Instruments\">aanvragen</a>. </li> </ul>Als je er niet achter kan komen welk instrument er wordt bedoeld, kan je dit instrument gebruiken."
-
 #. name:rebab
 #: DB:instrument/description:239
 msgid ""
@@ -337,6 +318,17 @@ msgid ""
 "styles, the strings are nylon or gut."
 msgstr ""
 
+#. name:musette de cour
+#: DB:instrument/description:735
+msgid ""
+"Also known as baroque musette, it was a small bagpipe used predominantly by "
+"French court and nobility in the 1600-1700's.<br /> For the instrument known"
+" as \"chinese musette\", see <a "
+"href=\"/instrument/15cd573d-15a8-4f9f-a48f-f73218d85e14/\">suona</a><br /> "
+"For the oboe also known as musette, see <a "
+"href=\"/instrument/77b29599-96c7-4571-9fae-09e7e42b8175/\">piccolo oboe</a>"
+msgstr ""
+
 #. name:gopichant
 #: DB:instrument/description:643
 msgid ""
@@ -524,13 +516,6 @@ msgid ""
 "As long as a trumpet, it shares the piston valve design of both instruments "
 "with a mellow sound between the two."
 msgstr "Een flümpet is even lang als een trompet, heeft dezelfde ventielen als de flügelhorn en trompet waar het van is afgeleid en een geluid dat tussen de twee instrumenten in ligt."
-
-#. name:bellow-blown bagpipes
-#: DB:instrument/description:428
-msgid ""
-"Bagpipes played by pumping air into a bellow and then from the bellow into "
-"the chanter(s)."
-msgstr "Doedelzakken die bespeeld worden door lucht in een luchtzak en van de luchtzak naar de speelbuis te pompen."
 
 #. name:balafon
 #: DB:instrument/description:364
@@ -1280,6 +1265,13 @@ msgid ""
 "instrument being rubbed."
 msgstr "Frictie-idiofonen zijn idiofonen waarbij het geluid wordt veroorzaakt door over het instrument te wrijven."
 
+#. name:gaita sanabresa
+#: DB:instrument/description:1078
+msgid ""
+"From Sanabria, it is distinct from other Spanish bagpipes, with its single "
+"drone and open fingering, it is accompanied by percussion in folk music."
+msgstr ""
+
 #. name:pluriarc
 #: DB:instrument/description:1026
 msgid ""
@@ -1414,6 +1406,14 @@ msgid ""
 "sound-holes. It has 3 to 4 metal strings (including drone) and is fretted "
 "diatonically."
 msgstr "De dulcimer is een volksinstrument uit de Appalachen met een achtvormige klankkast van verschillende houtsoorten met vaak hartvormige klankgaten. Het instrument heeft drie of vier metalen snaren (waaronder bourdonsnaren) en diatonische fretten."
+
+#. name:gaita de boto
+#: DB:instrument/description:1081
+msgid ""
+"Historically solo instrument used in traditional and ritual dances, the "
+"drones have reinforced peter rings and the goatskin bag is covered with a "
+"colourful fabric."
+msgstr ""
 
 #. name:mendoza
 #: DB:instrument/description:114
@@ -1684,6 +1684,13 @@ msgid ""
 "different sizes. Played by rubbing dampened fingers on the rims."
 msgstr "De glasharp was al in de 14e eeuw in Perzië bekend. Het bestaat uit glazen containers, die worden gestemd door ze deels met water te vullen of door de grootte van de glazen te variëren. Het instrument wordt bespeeld door met vochtige vingers over de randen te wrijven."
 
+#. name:Great Highland bagpipe
+#: DB:instrument/description:1073
+msgid ""
+"Known since 1400, traditionally in military context, today it is the most "
+"widespread and famous of bagpipes."
+msgstr ""
+
 #. name:zill
 #: DB:instrument/description:455
 msgid ""
@@ -1760,6 +1767,14 @@ msgid ""
 "in a stand with a damper operated by pedals, they are tuned at a definite "
 "pitch and played with mallets."
 msgstr "Buisklokken is een grotere versie van het klokkenspel, bedoeld voor gebruik in orkesten. Het instrument bestaat uit holle metalen buizen met een gesloten bovenkant in een standaard. De standaard beschikt over dempers die met pedalen worden aangestuurd. De buizen worden met hamers beslagen."
+
+#. name:gaita asturiana
+#: DB:instrument/description:1080
+msgid ""
+"Larger than the gallega, it has been in use since atleast the 13th century, "
+"traditionally with only one chanter and drone, it has very colourfully "
+"decorated fur."
+msgstr ""
 
 #. name:seni rebab
 #: DB:instrument/description:1014
@@ -2780,6 +2795,14 @@ msgstr "Een fluitje met een zuiger in de buis om de toonhoogte te veranderen."
 #: DB:instrument/description:434
 msgid ""
 "Slightly smaller, four-string version of the steel-string acoustic guitar"
+msgstr ""
+
+#. name:gaida
+#: DB:instrument/description:1077
+msgid ""
+"Small Bulgarian/Macedonian and Balkan goat or sheep-skin bagpipe used in "
+"folk, pastoral or other traditional settings. There are many similarly named"
+" small bagpipes in this area."
 msgstr ""
 
 #. name:flabiol
@@ -4599,6 +4622,14 @@ msgstr "Een puukaea is een houten trompet met een lengte tot 2,5 meter. Hij werd
 msgid "Used as rhythm accompaniment, it has a shorter neck and 17-19 frets"
 msgstr "De tenorbanjo wordt voor ritmische begeleiding gebruikt. Het instrument heeft een kortere hals en 17 tot 19 fretten."
 
+#. name:gaita gallega
+#: DB:instrument/description:1079
+msgid ""
+"Used at-least since the 9th century, it has two to three drones with bag and"
+" pipe both decorated with fur. Used in festivals by marching players "
+"accompanied by percussion."
+msgstr ""
+
 #. name:clapstick
 #: DB:instrument/description:955
 msgid ""
@@ -4636,6 +4667,13 @@ msgid ""
 "suspended above resonator rods, it is the middle-pitched member of the "
 "gendèr family."
 msgstr "De gendèr baroeng heeft relatief dunne en brede metalen toetsen ten opzichte van andere leden van de gendèr-familie, en bevindt zich wat toonhoogte betreft in het midden. Hij wordt gebruikt voor complexe melodieën."
+
+#. name:Northumbrian pipes
+#: DB:instrument/description:358
+msgid ""
+"Used for more than 250 years, its one chanter and usually four drones have "
+"narrow bores."
+msgstr ""
 
 #. name:gendèr panerus
 #: DB:instrument/description:1003
@@ -4937,6 +4975,19 @@ msgid ""
 "Very long metal bar fitted with strings and electric pickups, it makes a "
 "deep ominous booming sound and is often used in score."
 msgstr "Een Blaster Beam is een lange metalen balk met snaren en elektrische gitaarelementen. Hij maakt een diep onheilspellend geluid en wordt vaak gebruikt voor filmmuziek."
+
+#. name:percussion
+#: DB:instrument/description:99
+msgid ""
+"Very wide grouping, played by hitting directly aka <a "
+"href=\"/instrument/06266b6a-2fb8-4c71-9894-186edbac5dff\">idiophone</a>s and"
+" <a href=\"/instrument/3bccb7eb-"
+"cbca-42cd-b0ac-a5e959df7221\">membranophone</a>s (from drums to xylophones)."
+" Use the closest approximate instrument possible for credits, use percussion"
+" with a credit if no better can be found and <a "
+"href=\"/doc/How_to_Add_Instruments\">create an instrument ticket</a> if "
+"necessary."
+msgstr ""
 
 #. name:violone
 #: DB:instrument/description:420

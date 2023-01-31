@@ -94,10 +94,12 @@ const Dialog = ({
      * the <select> options list.
      */
     const tid = setTimeout(() => {
-      const toFocus = findFirstTabbableElement(
-        dialogNode,
-        true, /* skipAnchors */
-      );
+      const toFocus =
+        dialogNode.querySelector('.focus-first:not([disabled])') ??
+        findFirstTabbableElement(
+          dialogNode,
+          true, /* skipAnchors */
+        );
       if (toFocus) {
         toFocus.focus();
       }

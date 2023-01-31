@@ -104,7 +104,7 @@ const DialogSourceEntity = (React.memo<PropsT>(({
   return (
     <tr>
       <td className="required section">
-        {addColonText(ENTITY_NAMES[sourceType]())}
+        {ENTITY_NAMES[sourceType]()}
       </td>
       <td className="fields">
         {source && batchSelectionCount == null ? (

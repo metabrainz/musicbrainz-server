@@ -3838,6 +3838,11 @@ msgctxt "work_attribute_type"
 msgid "ID for the Venezuelan rights society SACVEN"
 msgstr "ベネズエラの権利者団体SACVENのID"
 
+#: DB:work_attribute_type/description:107
+msgctxt "work_attribute_type"
+msgid "ID for the Vietnamese rights society VCPMC"
+msgstr ""
+
 #: DB:work_attribute_type/description:38
 msgctxt "work_attribute_type"
 msgid "ID for the international (formerly US) rights society AMRA"
@@ -7572,6 +7577,11 @@ msgstr ""
 msgctxt "medium_format"
 msgid "VCD"
 msgstr "VCD"
+
+#: DB:work_attribute_type/name:107
+msgctxt "work_attribute_type"
+msgid "VCPMC ID"
+msgstr ""
 
 #: DB:medium_format/name:59
 msgctxt "medium_format"

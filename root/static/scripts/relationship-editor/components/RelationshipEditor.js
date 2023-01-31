@@ -26,6 +26,7 @@ import {
   getSourceEntityDataForRelationshipEditor,
 } from '../../common/utility/catalyst.js';
 import isDatabaseRowId from '../../common/utility/isDatabaseRowId.js';
+import {uniqueNegativeId} from '../../common/utility/numbers.js';
 import {hasSessionStorage} from '../../common/utility/storage.js';
 import reducerWithErrorHandling
   from '../../edit/utility/reducerWithErrorHandling.js';
@@ -105,7 +106,19 @@ export function* getInitialRelationshipUpdates(
       continue;
     }
 
-    const {backward, target} = relationshipData;
+    const backward = relationshipData.backward;
+
+    let target = relationshipData.target;
+    /*
+     * Make sure all seeded placeholder targets have unique IDs. These default
+     * to '0' on the server, and '0' is also used for the source entity in
+     * creation forms. That conflict can cause strange things to happen if
+     * the source and target entity types are the same; see e.g. MBS-12850.
+     */
+    if (!isDatabaseRowId(target.id)) {
+      // $FlowIssue[incompatible-cast] - Flow doesn't like spreading unions
+      target = ({...target, id: uniqueNegativeId()}: CoreEntityT);
+    }
 
     const relationshipState: RelationshipStateT = {
       _original: null,

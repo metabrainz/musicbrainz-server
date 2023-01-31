@@ -4,6 +4,7 @@ use MooseX::Role::Parameterized;
 use MusicBrainz::Server::Constants qw(
     $DIRECTION_BACKWARD
     $DIRECTION_FORWARD
+    %ENTITIES_WITH_RELATIONSHIP_CREDITS
     entities_with
 );
 use MusicBrainz::Server::ControllerUtils::Relationship qw( merge_link_attributes );
@@ -143,6 +144,16 @@ role {
                 next;
             }
 
+            if ($field_name eq 'source_credit') {
+                $rel->{source_credit} = $param_value;
+                next;
+            }
+
+            if ($field_name eq 'target_credit') {
+                $rel->{target_credit} = $param_value;
+                next;
+            }
+
             my ($attr_index, $attr_field_name) =
                 ($field_name =~ /^attributes\.([0-9]+)\.([0-9a-z_\.]+)$/);
 
@@ -210,6 +221,15 @@ role {
                 name => $rel->{target_name} // l('[unknown]'),
             });
 
+            my $source_credit = '';
+            my $target_credit = '';
+            if ($ENTITIES_WITH_RELATIONSHIP_CREDITS{$source_type}) {
+                $source_credit = $rel->{source_credit} // '';
+            }
+            if ($ENTITIES_WITH_RELATIONSHIP_CREDITS{$target_type}) {
+                $target_credit = $rel->{target_credit} // '';
+            }
+
             my $rel_attributes = $rel->{attributes} // {};
             my @seeded_link_attributes;
 
@@ -254,14 +274,14 @@ role {
                     entity1 => $target,
                     defined $target->id ? (entity1_id => $target->id) : (),
                 ),
-                entity0_credit => '',
-                entity1_credit => '',
+                entity0_credit => $backward ? $target_credit : $source_credit,
+                entity1_credit => $backward ? $source_credit : $target_credit,
                 defined $source ? (source => $source) : (),
                 target => $target,
                 source_type => $source_type,
                 target_type => $target_type,
-                source_credit => '',
-                target_credit => '',
+                source_credit => $source_credit,
+                target_credit => $target_credit,
                 link_order => $rel->{link_order} // 0,
                 direction => $backward ? $DIRECTION_BACKWARD : $DIRECTION_FORWARD,
             );

@@ -220,18 +220,14 @@ const MultiselectAttribute = (React.memo<PropsT>(({
   );
 
   return (
-    <>
-      {addColonText(localizeLinkAttributeTypeName(state.type))}
-      <br />
-      <LinkAttrTypeMultiselect
-        addLabel={addLabel
-          ? addLabel()
-          : lp('Add another', 'relationship attribute')}
-        buildExtraValueChildren={buildExtraValueChildren}
-        dispatch={multiselectDispatch}
-        state={state}
-      />
-    </>
+    <LinkAttrTypeMultiselect
+      addLabel={addLabel
+        ? addLabel()
+        : lp('Add another', 'relationship attribute')}
+      buildExtraValueChildren={buildExtraValueChildren}
+      dispatch={multiselectDispatch}
+      state={state}
+    />
   );
 }): React.AbstractComponent<PropsT, mixed>);
 
