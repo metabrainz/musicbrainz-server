@@ -7755,10 +7755,6 @@ msgstr "{entity1} is een concertresidentie van {entity0}"
 msgid "{entity1} is a tour by {entity0}"
 msgstr "{entity1} is een tournee van {entity0}"
 
-#: DB:link_type/long_link_phrase:752
-msgid "{entity1} is a traditional instrument from {entity0}"
-msgstr "{entity1} is een traditioneel instrument uit {entity0}"
-
 #: DB:link_type/long_link_phrase:1082
 msgid "{entity1} is a translated version of {entity0}"
 msgstr "{entity1} is een vertaalde versie van {entity0}"
@@ -7766,6 +7762,10 @@ msgstr "{entity1} is een vertaalde versie van {entity0}"
 #: DB:link_type/long_link_phrase:65 DB:link_type/long_link_phrase:970
 msgid "{entity1} is a tribute to {entity0}"
 msgstr "{entity1} is een eerbetoon aan {entity0}"
+
+#: DB:link_type/long_link_phrase:752
+msgid "{entity1} is an instrument from {entity0}"
+msgstr ""
 
 #: DB:link_type/long_link_phrase:1090
 msgid "{entity1} is commonly used in {entity0}"

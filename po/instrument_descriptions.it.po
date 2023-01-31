@@ -24,25 +24,6 @@ msgstr ""
 "Language: it\n"
 "Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 
-#. name:unspecified drum
-#: DB:instrument/description:933
-msgid ""
-"\"Drum\" or \"drums\" is a common but generic credit can refer to multiple "
-"instruments. If you know which instrument this is, please select the "
-"specific instrument: <ul> <li> For the instrument commonly known as "
-"\"drums\", and often used in Western popular music, use <a "
-"href=\"/instrument/12092505-6ee1-46af-a15a-b5b468b6b155\">drums (drum "
-"set)</a>. </li> <li> For programmed or \"drum-loops\" use <a "
-"href=\"/instrument/ce0eed13-58d8-4744-8ad0-b7d6182a2d0f\">drum machine</a>. "
-"</li> <li> For specific drums not yet in MusicBrainz, use <a "
-"href=\"/instrument/3bccb7eb-cbca-42cd-b0ac-a5e959df7221\">membranophone</a> "
-"(or <a href=\"/instrument/1a03e9a1-f81f-40ce-9d57-65d6c1b9dcb3\">slit "
-"drum</a>, if appropriate) and consider <a "
-"href=\"/doc/How_to_Add_Instruments\">requesting the missing instrument</a>. "
-"</li> </ul> If you can't find more information than the generic \"drum\" or "
-"\"drums\" credit, use this instrument."
-msgstr "\"Tamburo\" o \"tamburi\" è un accreditamento comune ma generico che si può riferire a diversi strumenti. Se sai di quale strumento si tratta, selezionalo: <ul> <li> Per lo strumento comunemente chiamato \"batteria\", utilizzato spesso nella musica popolare occidentale, usa <a href=\"/instrument/12092505-6ee1-46af-a15a-b5b468b6b155\">batteria</a>. </li> <li> Per loop di batteria o programmati, usa <a href=\"/instrument/ce0eed13-58d8-4744-8ad0-b7d6182a2d0f\">drum machine</a>. </li> <li> Per specifici tipi di tamburo non ancora presenti su MusicBrainz, usa <a href=\"/instrument/3bccb7eb-cbca-42cd-b0ac-a5e959df7221\">membranofono</a> (o <a href=\"/instrument/1a03e9a1-f81f-40ce-9d57-65d6c1b9dcb3\">tamburo a fessura</a>, se rilevante) e considera di <a href=\"/doc/How_to_Add_Instruments\">fare richiesta per lo strumento mancante</a>. </li> </ul> Se non ti è possibile trovare informazioni aggiuntive all'accreditamento generico \"tamburo\" o \"tamburi\", usa questo strumento."
-
 #. name:rebab
 #: DB:instrument/description:239
 msgid ""
@@ -344,6 +325,17 @@ msgid ""
 "styles, the strings are nylon or gut."
 msgstr "Conosciuta anche come chitarra spagnola, è usata nella musica classica, tradizionale e in altri generi; ha corde in nylon o budello."
 
+#. name:musette de cour
+#: DB:instrument/description:735
+msgid ""
+"Also known as baroque musette, it was a small bagpipe used predominantly by "
+"French court and nobility in the 1600-1700's.<br /> For the instrument known"
+" as \"chinese musette\", see <a "
+"href=\"/instrument/15cd573d-15a8-4f9f-a48f-f73218d85e14/\">suona</a><br /> "
+"For the oboe also known as musette, see <a "
+"href=\"/instrument/77b29599-96c7-4571-9fae-09e7e42b8175/\">piccolo oboe</a>"
+msgstr ""
+
 #. name:gopichant
 #: DB:instrument/description:643
 msgid ""
@@ -531,13 +523,6 @@ msgid ""
 "As long as a trumpet, it shares the piston valve design of both instruments "
 "with a mellow sound between the two."
 msgstr "Lunga quanto una tromba, condivide il design con valvole a pistone della tromba e del flicorno soprano e ha un suono melodioso a metà tra i due."
-
-#. name:bellow-blown bagpipes
-#: DB:instrument/description:428
-msgid ""
-"Bagpipes played by pumping air into a bellow and then from the bellow into "
-"the chanter(s)."
-msgstr "Cornamuse suonate immettendo aria in un mantice e poi dal mantice in una o più canne del canto."
 
 #. name:balafon
 #: DB:instrument/description:364
@@ -1287,6 +1272,13 @@ msgid ""
 "instrument being rubbed."
 msgstr "Idiofoni in cui il suono è prodotto strofinando lo strumento."
 
+#. name:gaita sanabresa
+#: DB:instrument/description:1078
+msgid ""
+"From Sanabria, it is distinct from other Spanish bagpipes, with its single "
+"drone and open fingering, it is accompanied by percussion in folk music."
+msgstr ""
+
 #. name:pluriarc
 #: DB:instrument/description:1026
 msgid ""
@@ -1421,6 +1413,14 @@ msgid ""
 "sound-holes. It has 3 to 4 metal strings (including drone) and is fretted "
 "diatonically."
 msgstr "Storicamente uno strumento tradizionale dell'Appalachia, la sua cassa di risonanza allungata a forma di 8 è realizzata in vari legni e ha spesso dei fori di risonanza a forma di cuore. Ha 3 o 4 corde in metallo (comprese corde bordone) ed è dotato di tasti diatonici."
+
+#. name:gaita de boto
+#: DB:instrument/description:1081
+msgid ""
+"Historically solo instrument used in traditional and ritual dances, the "
+"drones have reinforced peter rings and the goatskin bag is covered with a "
+"colourful fabric."
+msgstr ""
 
 #. name:mendoza
 #: DB:instrument/description:114
@@ -1691,6 +1691,13 @@ msgid ""
 "different sizes. Played by rubbing dampened fingers on the rims."
 msgstr "Conosciuta già dal XIV secolo in Persia, è composta da contenitori in vetro (per es. bicchieri), che sono intonati o venendo riempiti d'acqua in diversa misura o essendo di dimensioni diverse. È suonata sfregando le dita, opportunamente inumidite, sull'orlo dei contenitori."
 
+#. name:Great Highland bagpipe
+#: DB:instrument/description:1073
+msgid ""
+"Known since 1400, traditionally in military context, today it is the most "
+"widespread and famous of bagpipes."
+msgstr ""
+
 #. name:zill
 #: DB:instrument/description:455
 msgid ""
@@ -1767,6 +1774,14 @@ msgid ""
 "in a stand with a damper operated by pedals, they are tuned at a definite "
 "pitch and played with mallets."
 msgstr "Versione più grande e orchestrale dei chimes, è composta da tubi cavi in metallo chiusi nella parte superiore, disposti su un supporto con uno smorzatore a pedale. Sono intonate su un tono preciso e suonate con delle mazzuole."
+
+#. name:gaita asturiana
+#: DB:instrument/description:1080
+msgid ""
+"Larger than the gallega, it has been in use since atleast the 13th century, "
+"traditionally with only one chanter and drone, it has very colourfully "
+"decorated fur."
+msgstr ""
 
 #. name:seni rebab
 #: DB:instrument/description:1014
@@ -2788,6 +2803,14 @@ msgstr "Usato come suono nei 'Clangers'."
 msgid ""
 "Slightly smaller, four-string version of the steel-string acoustic guitar"
 msgstr "Versione leggermente più piccola e a quattro corde della chitarra acustica con corde in acciaio."
+
+#. name:gaida
+#: DB:instrument/description:1077
+msgid ""
+"Small Bulgarian/Macedonian and Balkan goat or sheep-skin bagpipe used in "
+"folk, pastoral or other traditional settings. There are many similarly named"
+" small bagpipes in this area."
+msgstr ""
 
 #. name:flabiol
 #: DB:instrument/description:845
@@ -4606,6 +4629,14 @@ msgstr "Lunga fino a 2,5 metri, questa tromba in legno era usata per vari scopi,
 msgid "Used as rhythm accompaniment, it has a shorter neck and 17-19 frets"
 msgstr "Utilizzato come accompagnamento ritmico, ha un manico più corto e 17-19 tasti."
 
+#. name:gaita gallega
+#: DB:instrument/description:1079
+msgid ""
+"Used at-least since the 9th century, it has two to three drones with bag and"
+" pipe both decorated with fur. Used in festivals by marching players "
+"accompanied by percussion."
+msgstr ""
+
 #. name:clapstick
 #: DB:instrument/description:955
 msgid ""
@@ -4643,6 +4674,13 @@ msgid ""
 "suspended above resonator rods, it is the middle-pitched member of the "
 "gendèr family."
 msgstr "Usato per parti elaborate e complesse, ha sbarre in metallo più sottili ma più larghe sospese su canne risonanti; è il membro di tono intermedio della famiglia dei gendèr."
+
+#. name:Northumbrian pipes
+#: DB:instrument/description:358
+msgid ""
+"Used for more than 250 years, its one chanter and usually four drones have "
+"narrow bores."
+msgstr ""
 
 #. name:gendèr panerus
 #: DB:instrument/description:1003
@@ -4944,6 +4982,19 @@ msgid ""
 "Very long metal bar fitted with strings and electric pickups, it makes a "
 "deep ominous booming sound and is often used in score."
 msgstr "Sbarra in metallo molto lunga equipaggiata con corde e pick-up elettrici; fa un suono grave, rimbombante e minaccioso ed è spesso usata nelle colonne sonore."
+
+#. name:percussion
+#: DB:instrument/description:99
+msgid ""
+"Very wide grouping, played by hitting directly aka <a "
+"href=\"/instrument/06266b6a-2fb8-4c71-9894-186edbac5dff\">idiophone</a>s and"
+" <a href=\"/instrument/3bccb7eb-"
+"cbca-42cd-b0ac-a5e959df7221\">membranophone</a>s (from drums to xylophones)."
+" Use the closest approximate instrument possible for credits, use percussion"
+" with a credit if no better can be found and <a "
+"href=\"/doc/How_to_Add_Instruments\">create an instrument ticket</a> if "
+"necessary."
+msgstr ""
 
 #. name:violone
 #: DB:instrument/description:420

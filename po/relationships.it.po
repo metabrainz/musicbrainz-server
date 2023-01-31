@@ -7758,10 +7758,6 @@ msgstr "{entity1} è una residency di {entity0}"
 msgid "{entity1} is a tour by {entity0}"
 msgstr "{entity1} è un tour di {entity0}"
 
-#: DB:link_type/long_link_phrase:752
-msgid "{entity1} is a traditional instrument from {entity0}"
-msgstr "{entity1} è uno strumento tradizionale di {entity0}"
-
 #: DB:link_type/long_link_phrase:1082
 msgid "{entity1} is a translated version of {entity0}"
 msgstr "{entity1} è una versione tradotta di {entity0}"
@@ -7769,6 +7765,10 @@ msgstr "{entity1} è una versione tradotta di {entity0}"
 #: DB:link_type/long_link_phrase:65 DB:link_type/long_link_phrase:970
 msgid "{entity1} is a tribute to {entity0}"
 msgstr "{entity1} è un tributo a {entity0}"
+
+#: DB:link_type/long_link_phrase:752
+msgid "{entity1} is an instrument from {entity0}"
+msgstr ""
 
 #: DB:link_type/long_link_phrase:1090
 msgid "{entity1} is commonly used in {entity0}"
