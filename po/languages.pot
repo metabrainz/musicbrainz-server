@@ -368,6 +368,11 @@ msgstr ""
 msgid "Burmese"
 msgstr ""
 
+#. frequency:1 iso_code_3:bsk 
+#: DB:language/name:1406
+msgid "Burushaski"
+msgstr ""
+
 #. frequency:1 iso_code_3:cad 
 #: DB:language/name:65
 msgid "Caddo"
@@ -906,6 +911,11 @@ msgstr ""
 #. frequency:1 iso_code_3:gos 
 #: DB:language/name:2534
 msgid "Gronings"
+msgstr ""
+
+#. frequency:1 iso_code_3:gcf 
+#: DB:language/name:2386
+msgid "Guadeloupean Creole French"
 msgstr ""
 
 #. frequency:1 iso_code_3:grn 
