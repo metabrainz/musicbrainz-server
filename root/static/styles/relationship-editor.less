@@ -151,6 +151,16 @@ div.relationship-editor, div.release-relationship-editor {
         width: 100%;
 
         > tbody > tr {
+            button.icon {
+                box-sizing: content-box;
+                padding: 0px 2px;
+                @media (pointer: coarse) {
+                    padding: 2px 4px;
+                    margin: 0px 2px;
+                    height: 20px;
+                    background-size: 20px;
+                }
+            }
             > th {
                 text-align: right;
                 min-width: 160px;
@@ -159,17 +169,25 @@ div.relationship-editor, div.release-relationship-editor {
                 &.link-phrase {
                     display: flex;
                     > label { flex-grow: 1; }
+                    > button.add-another-entity { background-position-x: right; }
                 }
             }
             > td.add-relationship {
                 text-align: right;
                 width: 160px;
+                @media (pointer: coarse) {
+                    button.add-relationship {
+                        height: 20px;
+                        background-size: 20px;
+                        padding-right: 24px;
+                    }
+                }
             }
             > td.relationship-list {
                 width: 100%;
                 div.relationship-item {
                     display: flex;
-                    > button.icon { padding: 1px; }
+                    > button.icon { background-position-x: center; }
                     > span { margin-left: 4px; }
                 }
             }
