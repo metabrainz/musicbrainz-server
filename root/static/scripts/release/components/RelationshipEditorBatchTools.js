@@ -11,6 +11,7 @@ import * as React from 'react';
 
 import ButtonPopover from '../../common/components/ButtonPopover.js';
 import {createCoreEntityObject} from '../../common/entity2.js';
+import Tooltip from '../../edit/components/Tooltip.js';
 import {
   useAddRelationshipDialogContent,
 } from '../../relationship-editor/hooks/useRelationshipDialogContent.js';
@@ -53,9 +54,11 @@ const BatchAddRelationshipButtonPopover = ({
 }: BatchAddRelationshipButtonPopoverPropsT) => {
   const addButtonRef = React.useRef<HTMLButtonElement | null>(null);
 
-  const sourcePlaceholder = createCoreEntityObject(sourceType, {
-    name: entityPlaceholder,
-  });
+  const sourcePlaceholder = React.useMemo(() =>(
+    createCoreEntityObject(sourceType, {
+      name: entityPlaceholder,
+    })
+  ), [sourceType, entityPlaceholder]);
 
   const buildPopoverContent = useAddRelationshipDialogContent({
     batchSelectionCount,
@@ -75,19 +78,49 @@ const BatchAddRelationshipButtonPopover = ({
     });
   }, [dispatch, sourcePlaceholder]);
 
+  const isDisabled = batchSelectionCount === 0;
+
+  const buttonProps = React.useMemo(() => ({
+    className: `add-item with-label ${buttonClassName}`,
+  }), [buttonClassName]);
+
+  let tooltipMessage = null;
+  if (isDisabled) {
+    switch (sourceType) {
+      case 'recording': {
+        tooltipMessage = l(
+          `To use this tool, select some recordings
+           using the checkboxes below.`,
+        );
+        break;
+      }
+      case 'work': {
+        tooltipMessage = l(
+          `To use this tool, select some works
+           using the checkboxes below.`,
+        );
+        break;
+      }
+    }
+  }
+
   return (
-    <ButtonPopover
-      buildChildren={buildPopoverContent}
-      buttonContent={buttonContent}
-      buttonProps={{
-        className: `add-item with-label ${buttonClassName}`,
-      }}
-      buttonRef={addButtonRef}
-      className="relationship-dialog"
-      id={popoverId}
-      isDisabled={batchSelectionCount === 0}
-      isOpen={isOpen}
-      toggle={setOpen}
+    <Tooltip
+      content={tooltipMessage}
+      target={
+        <ButtonPopover
+          buildChildren={buildPopoverContent}
+          buttonContent={buttonContent}
+          buttonProps={buttonProps}
+          buttonRef={addButtonRef}
+          className="relationship-dialog"
+          closeOnOutsideClick={false}
+          id={popoverId}
+          isDisabled={isDisabled}
+          isOpen={isOpen}
+          toggle={setOpen}
+        />
+      }
     />
   );
 };

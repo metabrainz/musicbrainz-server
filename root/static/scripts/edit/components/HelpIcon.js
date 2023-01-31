@@ -15,32 +15,24 @@ type PropsT = {
   +content: React.Node,
 };
 
+const ICON_STYLE = {
+  display: 'inline-block',
+  marginLeft: '10px',
+  verticalAlign: 'text-top',
+};
+
 const HelpIcon = ({
   content,
-}: PropsT): React.Element<'div'> => {
-  const [hover, setHover] = React.useState(false);
-  return (
-    <div
-      style={{
-        position: 'relative',
-        display: 'inline-block',
-        marginLeft: '10px',
-      }}
-    >
+}: PropsT): React.MixedElement => (
+  <Tooltip
+    content={content}
+    target={
       <div
         className="img icon help"
-        onMouseEnter={() => setHover(true)}
-        onMouseLeave={() => setHover(false)}
-        style={{verticalAlign: 'text-top'}}
+        style={ICON_STYLE}
       />
-      {hover ? (
-        <Tooltip
-          content={content}
-          hoverCallback={setHover}
-        />
-      ) : null}
-    </div>
-  );
-};
+    }
+  />
+);
 
 export default HelpIcon;

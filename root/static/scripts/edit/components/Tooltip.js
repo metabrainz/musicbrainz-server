@@ -16,12 +16,12 @@ import * as React from 'react';
 
 type TooltipProps = {
   +content: React.Node,
-  +hoverCallback: (boolean) => void,
+  +target: React.Node,
 };
 
 const Tooltip = ({
   content,
-  hoverCallback,
+  target,
 }: TooltipProps): React.Element<'div'> => {
   const containerRef = React.useRef<HTMLDivElement | null>(null);
 
@@ -36,14 +36,14 @@ const Tooltip = ({
   }, []);
 
   return (
-    <div
-      className="tooltip-container"
-      onMouseEnter={() => hoverCallback(true)}
-      onMouseLeave={() => hoverCallback(false)}
-      ref={containerRef}
-    >
-      <div className="tooltip-triangle" />
-      <div className="tooltip-content">{content}</div>
+    <div className="tooltip-wrapper">
+      {target}
+      {nonEmpty(content) ? (
+        <div className="tooltip-container" ref={containerRef}>
+          <div className="tooltip-triangle" />
+          <div className="tooltip-content">{content}</div>
+        </div>
+      ) : null}
     </div>
   );
 };

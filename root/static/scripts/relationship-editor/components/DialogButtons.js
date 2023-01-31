@@ -21,7 +21,7 @@ const DialogButtons = (React.memo<PropsT>(({
   onDone,
 }: PropsT): React$Element<'div'> => (
   <div
-    className="buttons ui-helper-clearfix"
+    className="buttons"
     style={{marginTop: '1em'}}
   >
     <button className="negative" onClick={onCancel} type="button">

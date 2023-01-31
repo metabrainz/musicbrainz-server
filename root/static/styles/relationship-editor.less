@@ -57,6 +57,7 @@ div.relationship-dialog, div.work-dialog {
             vertical-align: top;
             text-align: right;
             width: 25%;
+            padding-right: 0.5em;
             &.required {font-weight: bold;}
         }
         td.fields {
@@ -67,8 +68,39 @@ div.relationship-dialog, div.work-dialog {
 }
 
 div.relationship-dialog {
+    h2 {
+        text-align: center;
+        font-size: @medium-text;
+        margin: 0.5em 0;
+        position: relative;
+
+        .heading-text {
+            background-color: @text-white;
+            padding: 0 1em;
+        }
+
+        .heading-line {
+            border-top: 1px @medium-grey solid;
+            position: relative;
+            top: 0.75em;
+            z-index: -1;
+        }
+    }
+
+    p { margin: 0.5em 0; }
+
     table.relationship-details {
         select.entity-type, input.entity-credit { min-width: 60%; }
+        td.fields.end-date div.row {
+            /*
+             * Remove bottom margin below the ended checkbox, since the
+             * "Preview" h2 below already has sufficient margin/padding.
+             */
+            margin-bottom: 0;
+        }
+    }
+    table.preview.details th {
+        width: unset;
     }
     input.attribute-credit {
         width: 130px;
@@ -88,6 +120,9 @@ div.relationship-dialog {
     input[type="checkbox"] {
         vertical-align: middle;
     }
+    div.buttons {
+        width: 100%;
+    }
 }
 
 div.multiselect-value {
@@ -96,9 +131,6 @@ div.multiselect-value {
 }
 
 div.attribute-container {
-    &.multiselect, &.text {
-        padding-top: 6px;
-    }
     button.add-item {
         margin-top: 6px;
     }
@@ -106,10 +138,6 @@ div.attribute-container {
 
 div.ar-descr {
     width: 95%;
-}
-
-button.copy-date {
-    background-image: data-uri('../images/icons/down.png');
 }
 
 div.relationship-editor, div.release-relationship-editor {
@@ -123,19 +151,43 @@ div.relationship-editor, div.release-relationship-editor {
         width: 100%;
 
         > tbody > tr {
-            &.add-item-row > td {
-                margin-bottom: @form-margin;
+            button.icon {
+                box-sizing: content-box;
+                padding: 0px 2px;
+                @media (pointer: coarse) {
+                    padding: 2px 4px;
+                    margin: 0px 2px;
+                    height: 20px;
+                    background-size: 20px;
+                }
             }
             > th {
                 text-align: right;
                 min-width: 160px;
                 vertical-align: top;
+
+                &.link-phrase {
+                    display: flex;
+                    > label { flex-grow: 1; }
+                    > button.add-another-entity { background-position-x: right; }
+                }
+            }
+            > td.add-relationship {
+                text-align: right;
+                width: 160px;
+                @media (pointer: coarse) {
+                    button.add-relationship {
+                        height: 20px;
+                        background-size: 20px;
+                        padding-right: 24px;
+                    }
+                }
             }
             > td.relationship-list {
                 width: 100%;
                 div.relationship-item {
                     display: flex;
-                    > button.icon { padding: 1px; }
+                    > button.icon { background-position-x: center; }
                     > span { margin-left: 4px; }
                 }
             }

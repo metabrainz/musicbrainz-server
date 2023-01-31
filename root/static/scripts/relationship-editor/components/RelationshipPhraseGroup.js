@@ -56,8 +56,6 @@ type PropsT = {
   +track: TrackWithRecordingT | null,
 };
 
-const TEXT_ALIGN_LEFT = {textAlign: 'left'};
-
 function someRelationshipsHaveLinkOrder(
   relationships: tree.ImmutableTree<RelationshipStateT> | null,
 ): boolean {
@@ -139,6 +137,7 @@ const RelationshipPhraseGroup = (React.memo<PropsT>(({
     defaultTargetType: targetType,
     dispatch,
     source,
+    targetTypeOptions: null,
     title: l('Add Relationship'),
   });
 
@@ -210,15 +209,35 @@ const RelationshipPhraseGroup = (React.memo<PropsT>(({
     textPhraseLabel = addColonText(linkPhraseGroup.textPhrase);
     textPhraseClassName = kebabCase(linkPhraseGroup.textPhrase);
   }
-  const textPhraseLength = textPhraseLabel?.length ?? 0;
   const textPhraseElement = (
-    <label>
-      {textPhraseLabel ?? (
-        <span className="no-value">
-          {addColonText(l('no type'))}
-        </span>
-      )}
-    </label>
+    <>
+      <label>
+        {textPhraseLabel ?? (
+          <span className="no-value">
+            {addColonText(l('no type'))}
+          </span>
+        )}
+      </label>
+      {' '}
+      <ButtonPopover
+        buildChildren={buildPopoverContent}
+        buttonContent={null}
+        buttonProps={{
+          className: 'icon add-item add-another-entity',
+          title: addAnotherEntityLabels[targetType](),
+        }}
+        buttonRef={addButtonRef}
+        className="relationship-dialog"
+        closeOnOutsideClick={false}
+        id="add-relationship-dialog"
+        isDisabled={false}
+        isOpen={
+          dialogLocation != null &&
+          dialogLocation.relationshipId == null
+        }
+        toggle={setAddDialogOpen}
+      />
+    </>
   );
   const relationshipListElement = (
     <td className="relationship-list">
@@ -238,30 +257,12 @@ const RelationshipPhraseGroup = (React.memo<PropsT>(({
 
   return relationshipCount ? (
     <>
-      {/*
-        * If the link phrase is too long (common for credited instruments),
-        * span it across two columns.
-        */}
-      {textPhraseLength > 24 ? (
-        <>
-          <tr>
-            <th colSpan="2" style={TEXT_ALIGN_LEFT}>
-              {textPhraseElement}
-            </th>
-          </tr>
-          <tr className={textPhraseClassName}>
-            <th />
-            {relationshipListElement}
-          </tr>
-        </>
-      ) : (
-        <tr className={textPhraseClassName}>
-          <th>
-            {textPhraseElement}
-          </th>
-          {relationshipListElement}
-        </tr>
-      )}
+      <tr className={textPhraseClassName}>
+        <th className="link-phrase">
+          {textPhraseElement}
+        </th>
+        {relationshipListElement}
+      </tr>
       {canBeOrdered ? (
         <tr>
           <td />
@@ -278,27 +279,6 @@ const RelationshipPhraseGroup = (React.memo<PropsT>(({
           </td>
         </tr>
       ) : null}
-      <tr className="add-item-row">
-        <td />
-        <td>
-          <ButtonPopover
-            buildChildren={buildPopoverContent}
-            buttonContent={addAnotherEntityLabels[targetType]()}
-            buttonProps={{
-              className: 'add-item with-label add-another-entity',
-            }}
-            buttonRef={addButtonRef}
-            className="relationship-dialog"
-            id="add-relationship-dialog"
-            isDisabled={false}
-            isOpen={
-              dialogLocation != null &&
-              dialogLocation.relationshipId == null
-            }
-            toggle={setAddDialogOpen}
-          />
-        </td>
-      </tr>
     </>
   ) : null;
 }): React.AbstractComponent<PropsT>);

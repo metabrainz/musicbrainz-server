@@ -428,6 +428,7 @@ div.half-width fieldset input[type=checkbox] {
     width: auto;
 }
 
+span.partial-date,
 div.half-width fieldset span.partial-date {
     white-space: nowrap;
 
@@ -521,6 +522,10 @@ button.with-label {
     background-repeat: no-repeat;
     padding-right: @form-icon-size + 4;
     cursor: pointer;
+
+    &[disabled] {
+        cursor: default;
+    }
 }
 
 button.add-item {
@@ -701,14 +706,6 @@ table.artist-credit-editor {
     }
 }
 
-.external-link-attribute-dialog {
-    span.partial-date {
-        input {
-            width: 4em;
-        }
-    }
-}
-
 #external-links-editor, #work-attributes {
     width: 100%;
     padding: (@form-margin / 2);
@@ -871,3 +868,11 @@ button.guess-timezone {
 /* root/account/register.tt */
 
 #email-username-warning {display: none}
+
+/* root/static/scripts/edit/components/DateRangeFieldset.js */
+/* root/static/scripts/relationship-editor/components/DialogDatePeriod.js */
+
+button.copy-date {
+    background-image: data-uri('../images/icons/down.png');
+    margin-left: 4px;
+}

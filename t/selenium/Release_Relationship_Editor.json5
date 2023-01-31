@@ -238,7 +238,7 @@
     {
       command: 'sendKeys',
       target: 'css=#batch-add-work-relationship-dialog input.relationship-type',
-      value: '${KEY_ESC}${KEY_ENTER}',
+      value: '${KEY_ENTER}',
     },
     // Set the number attributes on the added series-work relationships.
     {
@@ -1649,6 +1649,11 @@
     // "recording of:", and then changing the target entity type within the
     // dialog such that it would change the direction of the relationship
     // (like from recording-work to area-recording).
+    //
+    // (Update 2023-01-30: The fix for MBS-12834 made it so that you can no
+    // longer change the target type in this scenario. The test still seems
+    // useful, so I've changed 'select' to 'runScript' and invoke the
+    // update-target-type action directly. -- mwiencek)
     {
       command: 'open',
       target: '/release/868cc741-e3bc-31bc-9dac-756e35c8f152/edit-relationships',
@@ -1656,13 +1661,13 @@
     },
     {
       command: 'click',
-      target: 'xpath=(//td[contains(@class, "recording")])[10]//table[contains(@class, "rel-editor-table")]//button[text() = "Add another work"]',
+      target: 'xpath=(//td[contains(@class, "recording")])[10]//table[contains(@class, "rel-editor-table")]//button[@title = "Add another work"]',
       value: '',
     },
     {
-      command: 'select',
-      target: 'css=#add-relationship-dialog select.entity-type',
-      value: 'label=Area',
+      command: 'runScript',
+      target: 'MB.relationshipEditor.relationshipDialogDispatch({type: "update-target-type", source: MB.tree.toArray(MB.tree.toArray(MB.relationshipEditor.state.mediums)[1][1])[0].recording, targetType: "area"});',
+      value: '',
     },
     {
       command: 'type',
@@ -1688,13 +1693,13 @@
     },
     {
       command: 'click',
-      target: 'xpath=(//td[contains(@class, "recording")])[10]//table[contains(@class, "rel-editor-table")]//button[text() = "Add another work"]',
+      target: 'xpath=(//td[contains(@class, "recording")])[10]//table[contains(@class, "rel-editor-table")]//button[@title = "Add another work"]',
       value: '',
     },
     {
       command: 'assertEval',
-      target: 'document.querySelector("#add-relationship-dialog select.entity-type").value === "work"',
-      value: 'true',
+      target: 'MB.relationshipEditor.relationshipDialogState.targetEntity.targetType',
+      value: 'work',
     },
     {
       command: 'click',
@@ -1976,7 +1981,7 @@
     },
     {
       command: 'click',
-      target: 'xpath=((//tr[contains(@class, "track")])[1]//tr[contains(@class, "bass-guitar")]/following-sibling::tr[contains(@class, "add-item")])[1]//button[contains(@class, "add-item")]',
+      target: 'xpath=((//tr[contains(@class, "track")])[1]//tr[contains(@class, "bass-guitar")])[1]//button[contains(@class, "add-item")]',
       value: '',
     },
     {

@@ -36,6 +36,7 @@ export type StateT<T: EntityItemT> = {
   +placeholder?: string,
   +recentItems: $ReadOnlyArray<OptionItemT<T>> | null,
   +recentItemsKey: string,
+  +required: boolean,
   +results: $ReadOnlyArray<ItemT<T>> | null,
   +selectedItem: OptionItemT<T> | null,
   +showDescriptions?: boolean,
@@ -65,6 +66,7 @@ export type ActionT<+T: EntityItemT> =
       +entityType: SearchableTypeT,
     }
   | { +type: 'clear-recent-items' }
+  | { +type: 'highlight-index', +index: number }
   | { +type: 'highlight-next-item' }
   | { +type: 'highlight-previous-item' }
   | { +type: 'noop' }

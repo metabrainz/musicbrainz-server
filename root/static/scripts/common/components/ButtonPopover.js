@@ -25,20 +25,25 @@ type PropsT = {
   },
   +buttonRef: {current: HTMLButtonElement | null},
   +className?: string,
+  +closeOnOutsideClick?: boolean,
   +id: string,
   +isDisabled?: boolean,
   +isOpen: boolean,
   +toggle: (boolean) => void,
+  +wrapButton?: (React.MixedElement) => React.MixedElement,
 };
 
-const ButtonPopover = (props: PropsT): React.MixedElement => {
+const ButtonPopover: React.AbstractComponent<PropsT, mixed> =
+React.memo((props: PropsT): React.MixedElement => {
   const {
     buttonContent,
     buttonProps = null,
     buttonRef,
+    closeOnOutsideClick = true,
     isDisabled = false,
     isOpen,
     toggle,
+    wrapButton,
     ...dialogProps
   } = props;
   const buttonId = buttonProps?.id;
@@ -54,6 +59,7 @@ const ButtonPopover = (props: PropsT): React.MixedElement => {
        * click, but is already handled separately.
        */
       if (
+        closeOnOutsideClick &&
         event.target !== buttonRef.current &&
         /*
          * If the event target is the <html> element, the user probably
@@ -82,27 +88,44 @@ const ButtonPopover = (props: PropsT): React.MixedElement => {
     toggle(false);
   }, [returnFocusToButton, toggle]);
 
+  const customButtonProps = buttonProps ? {
+    id: buttonProps.id,
+    title: nonEmpty(buttonProps.title)
+      ? unwrapNl(buttonProps.title)
+      : undefined,
+    className: buttonProps.className,
+  } : null;
+
+  let buttonElement: React.MixedElement = (
+    <button
+      aria-controls={isOpen ? dialogProps.id : null}
+      aria-haspopup="dialog"
+      className={buttonProps?.className}
+      disabled={isDisabled}
+      id={buttonId}
+      onClick={() => {
+        if (isOpen) {
+          closeAndReturnFocus();
+        } else {
+          toggle(true);
+        }
+      }}
+      ref={buttonRef}
+      title={buttonTitle == null ? null : unwrapNl(buttonTitle)}
+      type="button"
+      {...customButtonProps}
+    >
+      {buttonContent}
+    </button>
+  );
+
+  if (wrapButton) {
+    buttonElement = wrapButton(buttonElement);
+  }
+
   return (
     <>
-      <button
-        aria-controls={isOpen ? dialogProps.id : null}
-        aria-haspopup="dialog"
-        className={buttonProps?.className}
-        disabled={isDisabled}
-        id={buttonId}
-        onClick={() => {
-          if (isOpen) {
-            closeAndReturnFocus();
-          } else {
-            toggle(true);
-          }
-        }}
-        ref={buttonRef}
-        title={buttonTitle == null ? null : unwrapNl(buttonTitle)}
-        type="button"
-      >
-        {buttonContent}
-      </button>
+      {buttonElement}
       {isOpen
         ? (
           <Popover
@@ -115,6 +138,6 @@ const ButtonPopover = (props: PropsT): React.MixedElement => {
         : null}
     </>
   );
-};
+});
 
 export default ButtonPopover;

@@ -305,6 +305,7 @@ div.autocomplete2 {
 
         input {
             flex-grow: 1;
+            &.required { background-color: @negative-light-bg; }
         }
 
         button.search {
@@ -342,10 +343,11 @@ div.autocomplete2 {
 
         li {
             background: @text-white;
-            border-width: 1px 0 1px 0;
+            border-width: 1px;
             border-color: @text-white;
             border-style: solid;
             cursor: pointer;
+            margin: 1px;
             padding: 4px;
             &.action-item {
                 font-style: italic;
@@ -354,9 +356,10 @@ div.autocomplete2 {
                 color: #666;
                 cursor: default;
             }
-            &.highlighted, &:hover:not(.disabled) {
-                background: lighten(@musicbrainz-orange, 30%);
-                border-color: lighten(@musicbrainz-orange, 20%);
+            &.highlighted {
+                background: linear-gradient(180deg, @very-light-bg 0%, darken(@very-light-bg, 10%) 50%, @very-light-bg);
+                border-color: @dark-border;
+                border-radius: 4px;
             }
             &.selected {
                 font-weight: bold;

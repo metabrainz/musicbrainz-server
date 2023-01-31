@@ -19,6 +19,9 @@ import type {
   RelationshipTargetTypeGroupsT,
 } from '../types.js';
 import type {RelationshipEditorActionT} from '../types/actions.js';
+import {
+  iterateRelationshipsInTargetTypeGroup,
+} from '../utility/findState.js';
 
 import RelationshipTargetTypeGroup from './RelationshipTargetTypeGroup.js';
 
@@ -49,8 +52,15 @@ const RelationshipTargetTypeGroups = (React.memo<PropsT>(({
   });
 
   const sections = [];
-  for (const [targetType, linkTypeGroups] of tree.iterate(targetTypeGroups)) {
-    if (linkTypeGroups?.size && (filter == null || filter(targetType))) {
+  for (const targetTypeGroup of tree.iterate(targetTypeGroups)) {
+    const [targetType, linkTypeGroups] = targetTypeGroup;
+    if (filter != null && !filter(targetType)) {
+      continue;
+    }
+    const isLinkTypeGroupEmpty = iterateRelationshipsInTargetTypeGroup(
+      targetTypeGroup,
+    ).next().done;
+    if (!isLinkTypeGroupEmpty) {
       sections.push(
         <RelationshipTargetTypeGroup
           dialogLocation={
@@ -87,7 +97,7 @@ const RelationshipTargetTypeGroups = (React.memo<PropsT>(({
       <tbody>
         {sections}
         <tr>
-          <td colSpan="2">
+          <td className="add-relationship">
             <ButtonPopover
               buildChildren={buildPopoverContent}
               buttonContent={l('Add relationship')}
@@ -96,12 +106,14 @@ const RelationshipTargetTypeGroups = (React.memo<PropsT>(({
               }}
               buttonRef={addButtonRef}
               className="relationship-dialog"
+              closeOnOutsideClick={false}
               id="add-relationship-dialog"
               isDisabled={false}
               isOpen={isAddDialogOpen}
               toggle={setAddDialogOpen}
             />
           </td>
+          <td />
         </tr>
       </tbody>
     </table>
