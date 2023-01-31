@@ -66,6 +66,7 @@ export type ActionT<+T: EntityItemT> =
       +entityType: SearchableTypeT,
     }
   | { +type: 'clear-recent-items' }
+  | { +type: 'highlight-index', +index: number }
   | { +type: 'highlight-next-item' }
   | { +type: 'highlight-previous-item' }
   | { +type: 'noop' }

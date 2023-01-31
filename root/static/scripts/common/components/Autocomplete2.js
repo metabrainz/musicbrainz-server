@@ -223,7 +223,9 @@ export function createInitialState<+T: EntityItemT>(
 
 type AutocompleteItemPropsT<T: EntityItemT> = {
   autocompleteId: string,
+  dispatch: (ActionT<T>) => void,
   formatOptions?: ?FormatOptionsT,
+  index: number,
   isHighlighted: boolean,
   isSelected: boolean,
   item: ItemT<T>,
@@ -232,7 +234,9 @@ type AutocompleteItemPropsT<T: EntityItemT> = {
 
 const AutocompleteItem = React.memo(<+T: EntityItemT>({
   autocompleteId,
+  dispatch,
   formatOptions,
+  index,
   isHighlighted,
   isSelected,
   item,
@@ -268,6 +272,12 @@ const AutocompleteItem = React.memo(<+T: EntityItemT>({
     }
   }
 
+  function handleItemMouseOver() {
+    if (item.disabled !== true) {
+      dispatch({index, type: 'highlight-index'});
+    }
+  }
+
   return (
     <li
       aria-disabled={isDisabled ? 'true' : 'false'}
@@ -283,6 +293,7 @@ const AutocompleteItem = React.memo(<+T: EntityItemT>({
       key={item.id}
       onClick={handleItemClick}
       onMouseDown={handleItemMouseDown}
+      onMouseOver={handleItemMouseOver}
       role="option"
       style={style}
     >
@@ -666,9 +677,10 @@ const Autocomplete2 = (React.memo(<+T: EntityItemT>(
     (AutocompleteItem: any);
 
   const menuItemElements = React.useMemo(
-    () => items.map((item) => (
+    () => items.map((item, index) => (
       <AutocompleteItemWithType
         autocompleteId={id}
+        dispatch={dispatch}
         formatOptions={
           (
             entityType === 'link_attribute_type' ||
@@ -677,6 +689,7 @@ const Autocomplete2 = (React.memo(<+T: EntityItemT>(
             ? {showDescriptions: state.showDescriptions}
             : undefined
         }
+        index={index}
         isHighlighted={!!(highlightedItem && item.id === highlightedItem.id)}
         isSelected={!!(
           selectedItem &&
@@ -689,6 +702,7 @@ const Autocomplete2 = (React.memo(<+T: EntityItemT>(
       />
     )),
     [
+      dispatch,
       entityType,
       highlightedItem,
       id,
