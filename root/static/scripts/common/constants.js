@@ -178,6 +178,7 @@ export const FAVICON_CLASSES = {
   'saisaibatake.ame-zaiku.com/musical_instrument': 'gakki',
   'secondhandsongs.com': 'secondhandsongs',
   'setlist.fm': 'setlistfm',
+  'shop.tsutaya.co.jp': 'tsutaya',
   'smdb.kb.se': 'smdb',
   'snaccooperative.org': 'snac',
   'songfacts.com': 'songfacts',

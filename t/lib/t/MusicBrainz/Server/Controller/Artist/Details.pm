@@ -13,7 +13,7 @@ This test checks that the artist details page contains all the expected data.
 
 =cut
 
-test 'Check details tab has all the expected data' => sub {
+test 'Details tab has all the expected data' => sub {
     my $test = shift;
     my $mech = $test->mech;
     my $c    = $test->c;
@@ -28,19 +28,19 @@ test 'Check details tab has all the expected data' => sub {
         'Fetched artist details page',
     );
     html_ok($mech->content);
-    $mech->content_contains(
-        'https://musicbrainz.org/artist/745c079d-374e-4436-9448-da92dedef3ce',
+    $mech->text_contains(
+        'Permanent link:https://musicbrainz.org/artist/745c079d-374e-4436-9448-da92dedef3ce',
         'The details tab contains the artist permalink',
     );
-    $mech->content_contains(
-        '>745c079d-374e-4436-9448-da92dedef3ce</',
+    $mech->text_contains(
+        'MBID:745c079d-374e-4436-9448-da92dedef3ce',
         'The details tab contains the MBID in plain text',
     );
-    $mech->content_contains(
-        '>2009-07-09 00:00 UTC</',
+    $mech->text_contains(
+        'Last updated:2009-07-09 00:00 UTC',
         'The details tab contains the last updated date',
     );
-    $mech->content_contains(
+    $mech->text_contains(
         '/ws/2/artist/745c079d-374e-4436-9448-da92dedef3ce?',
         'The details tab contains a WS link',
     );

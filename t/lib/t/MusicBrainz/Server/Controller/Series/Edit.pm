@@ -4,84 +4,142 @@ use warnings;
 
 use Test::Routine;
 use Test::More;
-use Test::Deep qw( cmp_deeply ignore re );
+use Test::Deep qw( cmp_deeply ignore );
 use MusicBrainz::Server::Test qw( capture_edits html_ok );
 
-with 't::Edit';
-with 't::Mechanize';
-with 't::Context';
+with 't::Edit', 't::Mechanize', 't::Context';
 
-test all => sub {
+=head2 Test description
+
+This test checks whether basic series editing works, and whether editing
+the parts of series data works.
+
+=cut
+
+test 'Editing a series' => sub {
     my $test = shift;
     my $mech = $test->mech;
     my $c = $test->c;
 
-    MusicBrainz::Server::Test->prepare_test_database($c, '+series');
+    prepare_test($test);
 
-    $mech->get_ok('/login');
-    $mech->submit_form(with_fields => { username => 'editor', password => 'pass' });
-
-    $mech->get_ok('/series/a8749d0c-4a5a-4403-97c5-f6cd018f8e6d/edit');
+    $mech->get_ok(
+        '/series/a8749d0c-4a5a-4403-97c5-f6cd018f8e6d/edit',
+        'Fetched the series editing page',
+    );
     html_ok($mech->content);
 
-    $mech->submit_form(
-        with_fields => {
-            'edit-series.name' => 'New Name!',
-            'edit-series.comment' => 'new comment!',
-            'edit-series.ordering_type_id' => 2,
-        }
-    );
-
-    my $edit = MusicBrainz::Server::Test->get_latest_edit($c);
-    isa_ok($edit, 'MusicBrainz::Server::Edit::Series::Edit');
-
-    cmp_deeply($edit->data, {
-        entity => {
-            id => 1,
-            gid => re('[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'),
-            name => 'Test Recording Series'
-        },
-        new => {
-            name => 'New Name!',
-            comment => 'new comment!',
-            ordering_type_id => 2,
-
-        },
-        old => {
-            name => 'Test Recording Series',
-            comment => 'test comment 1',
-            ordering_type_id => 1,
-        }
-    });
-
-    $edit->accept;
-    $mech->get_ok('/edit/' . $edit->id, 'Fetch the edit page');
-    html_ok($mech->content, '..valid xml');
-    $mech->text_contains('New Name!', '..has new name');
-    $mech->text_contains('Test Recording Series', '..has old name');
-    $mech->text_contains('Automatic', '..has old ordering type');
-    $mech->text_contains('Manual', '..has new ordering type');
-
     my @edits = capture_edits {
-        $mech->post('/series/a8749d0c-4a5a-4403-97c5-f6cd018f8e6d/edit', {
-            'edit-series.name' => 'New Name!',
-            'edit-series.comment' => 'new comment!',
-            'edit-series.type_id' => 3,
-            'edit-series.ordering_type_id' => 2,
-            'edit-series.rel.0.relationship_id' => 1,
-            'edit-series.rel.0.link_type_id' => 740,
-            'edit-series.rel.0.attributes.0.type.gid' => 'a59c5830-5ec7-38fe-9a21-c7ea54f6650a',
-            'edit-series.rel.0.attributes.0.text_value' => 'B1',
-            'edit-series.rel.1.relationship_id' => 2,
-            'edit-series.rel.1.link_type_id' => 740,
-            'edit-series.rel.1.attributes.0.type.gid' => 'a59c5830-5ec7-38fe-9a21-c7ea54f6650a',
-            'edit-series.rel.1.attributes.0.text_value' => 'B11',
-            'edit-series.rel.1.link_order' => '3',
-        });
+        $mech->submit_form_ok({
+            with_fields => {
+                'edit-series.name' => 'New Name!',
+                'edit-series.comment' => 'new comment!',
+                'edit-series.ordering_type_id' => 2,
+            },
+        },
+        'The form returned a 2xx response code')
     } $c;
 
-    $edit = $edits[0];
-    isa_ok($edit, 'MusicBrainz::Server::Edit::Relationship::Edit');
+    ok(
+        $mech->uri =~ qr{/series/a8749d0c-4a5a-4403-97c5-f6cd018f8e6d$},
+        'The user is redirected to the series page after entering the edit',
+    );
+
+    is(@edits, 1, 'The edit was entered');
+
+    my $edit = shift(@edits);
+
+    isa_ok($edit, 'MusicBrainz::Server::Edit::Series::Edit');
+
+    is_deeply(
+        $edit->data,
+        {
+            entity => {
+                id => 1,
+                gid => 'a8749d0c-4a5a-4403-97c5-f6cd018f8e6d',
+                name => 'Test Recording Series',
+            },
+            new => {
+                name => 'New Name!',
+                comment => 'new comment!',
+                ordering_type_id => 2,
+
+            },
+            old => {
+                name => 'Test Recording Series',
+                comment => 'test comment 1',
+                ordering_type_id => 1,
+            },
+        },
+        'The edit contains the right data',
+    );
+
+    # Test display of edit data
+    $mech->get_ok('/edit/' . $edit->id, 'Fetched the edit page');
+    html_ok($mech->content);
+    $mech->text_contains(
+        'Test Recording Series',
+        'The edit page contains the old series name',
+    );
+    $mech->text_contains(
+        'New Name!',
+        'The edit page contains the new series name',
+    );
+    $mech->text_contains(
+        'Automatic',
+        'The edit page contains the old series ordering type',
+    );
+    $mech->text_contains(
+        'Manual',
+        'The edit page contains the new series ordering type',
+    );
+    $mech->text_contains(
+        'test comment 1',
+        'The edit page contains the old disambiguation',
+    );
+    $mech->text_contains(
+        'new comment!',
+        'The edit page contains the new disambiguation',
+    );
+};
+
+test 'Editing parts of series data' => sub {
+    my $test = shift;
+    my $mech = $test->mech;
+    my $c = $test->c;
+
+    prepare_test($test);
+
+    # Make the ordering type manual so we can test changing that too
+    MusicBrainz::Server::Test->prepare_test_database($c, <<~'SQL');
+        UPDATE series SET ordering_type = 2 WHERE id = 1
+        SQL
+
+    my @edits = capture_edits {
+        $mech->post_ok(
+            '/series/a8749d0c-4a5a-4403-97c5-f6cd018f8e6d/edit',
+            {
+                'edit-series.name' => 'Test Recording Series',
+                'edit-series.comment' => 'test comment 1',
+                'edit-series.type_id' => 3,
+                'edit-series.ordering_type_id' => 2,
+                'edit-series.rel.0.relationship_id' => 1,
+                'edit-series.rel.0.link_type_id' => 740,
+                'edit-series.rel.0.attributes.0.type.gid' => 'a59c5830-5ec7-38fe-9a21-c7ea54f6650a',
+                'edit-series.rel.0.attributes.0.text_value' => 'B1',
+                'edit-series.rel.1.relationship_id' => 2,
+                'edit-series.rel.1.link_type_id' => 740,
+                'edit-series.rel.1.attributes.0.type.gid' => 'a59c5830-5ec7-38fe-9a21-c7ea54f6650a',
+                'edit-series.rel.1.attributes.0.text_value' => 'B11',
+                'edit-series.rel.1.link_order' => '3',
+            },
+            'The form returned a 2xx response code'
+        );
+    } $c;
+
+    is(@edits, 3, 'Three edits were entered');
+
+    isa_ok($edits[0], 'MusicBrainz::Server::Edit::Relationship::Edit');
 
     my $number_attribute = {
         type => {
@@ -96,34 +154,74 @@ test all => sub {
         }
     };
 
-    cmp_deeply($edit->data->{old}, {
-        attributes => [{ %$number_attribute, text_value => 'A1' }]
-    });
-
-    cmp_deeply($edit->data->{new}, {
-        attributes => [{ %$number_attribute, text_value => 'B1' }]
-    });
-
-    $edit = $edits[1];
-    isa_ok($edit, 'MusicBrainz::Server::Edit::Relationship::Edit');
-
-    cmp_deeply($edit->data->{old}, {
-        attributes => [{ %$number_attribute, text_value => 'A11' }]
-    });
-
-    cmp_deeply($edit->data->{new}, {
-        attributes => [{ %$number_attribute, text_value => 'B11' }]
-    });
-
-    $edit = $edits[2];
-
-    cmp_deeply($edit->data->{relationship_order}, [
+    cmp_deeply(
+        $edits[0]->data,
         {
-            relationship => ignore(),
-            old_order => 2,
-            new_order => 3,
-        }
-    ]);
+            link => ignore(),
+            relationship_id => ignore(),
+            type0 => 'recording',
+            type1 => 'series',
+            entity0_credit => '',
+            entity1_credit => '',
+            edit_version => 2,
+            new => {
+                attributes => [{ %$number_attribute, text_value => 'B1' }],
+            },
+            old => {
+                attributes => [{ %$number_attribute, text_value => 'A1' }],
+            },
+        },
+        'The first relationship edit has the right data'
+    );
+
+    isa_ok($edits[1], 'MusicBrainz::Server::Edit::Relationship::Edit');
+
+    cmp_deeply(
+        $edits[1]->data,
+        {
+            link => ignore(),
+            relationship_id => ignore(),
+            type0 => 'recording',
+            type1 => 'series',
+            entity0_credit => '',
+            entity1_credit => '',
+            edit_version => 2,
+            new => {
+                attributes => [{ %$number_attribute, text_value => 'B11' }],
+            },
+            old => {
+                attributes => [{ %$number_attribute, text_value => 'A11' }],
+            },
+        },
+        'The second relationship edit has the right data'
+    );
+
+    isa_ok($edits[2], 'MusicBrainz::Server::Edit::Relationship::Reorder');
+
+    cmp_deeply(
+        $edits[2]->data,
+        {
+            edit_version => 2,
+            link_type => ignore(),
+            relationship_order => [{
+                relationship => ignore(),
+                old_order => 2,
+                new_order => 3,
+            }],
+        },
+        'The reorder relationship edit has the right data',
+    );
 };
+
+sub prepare_test {
+    my $test = shift;
+
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+series');
+
+    $test->mech->get('/login');
+    $test->mech->submit_form(
+        with_fields => { username => 'editor', password => 'pass' }
+    );
+}
 
 1;

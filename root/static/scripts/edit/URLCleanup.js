@@ -454,10 +454,10 @@ const CLEANUPS: CleanupEntries = {
     // $FlowIssue[incompatible-type]: Array<mixed>
     restrict: [LINK_TYPES.otherdatabases],
     clean: function (url) {
-      return url.replace(/^(?:https?:\/\/)?(?:www\.)?45cat\.com\/([a-z]+\/[^\/?&#]+)(?:[\/?&#].*)?$/, 'http://www.45cat.com/$1');
+      return url.replace(/^(?:https?:\/\/)?(?:www\.)?45cat\.com\/([a-z]+\/[^\/?&#]+)(?:[\/?&#].*)?$/, 'https://www.45cat.com/$1');
     },
     validate: function (url, id) {
-      const m = /^http:\/\/www\.45cat\.com\/([a-z]+)\/[^\/?&#]+$/.exec(url);
+      const m = /^https:\/\/www\.45cat\.com\/([a-z]+)\/[^\/?&#]+$/.exec(url);
       if (m) {
         const prefix = m[1];
         switch (id) {
@@ -486,10 +486,10 @@ const CLEANUPS: CleanupEntries = {
     match: [new RegExp('^(https?://)?(www\\.)?45worlds\\.com/', 'i')],
     restrict: [LINK_TYPES.otherdatabases],
     clean: function (url) {
-      return url.replace(/^(?:https?:\/\/)?(?:www\.)?45worlds\.com\/([0-9a-z]+\/[a-z]+\/[^\/?&#]+)(?:[\/?&#].*)?$/, 'http://www.45worlds.com/$1');
+      return url.replace(/^(?:https?:\/\/)?(?:www\.)?45worlds\.com\/([0-9a-z]+\/[a-z]+\/[^\/?&#]+)(?:[\/?&#].*)?$/, 'https://www.45worlds.com/$1');
     },
     validate: function (url, id) {
-      const m = /^http:\/\/www\.45worlds\.com\/([0-9a-z]+)\/([a-z]+)\/[^\/?&#]+$/.exec(url);
+      const m = /^https:\/\/www\.45worlds\.com\/([0-9a-z]+)\/([a-z]+)\/[^\/?&#]+$/.exec(url);
       if (m) {
         const prefix = m[2];
         switch (id) {
@@ -4824,6 +4824,35 @@ const CLEANUPS: CleanupEntries = {
       url = url.replace(/^(?:https?:\/\/)?trove\.nla\.gov\.au\/people\/([^\/?#]+).*$/, 'https://nla.gov.au/nla.party-$1');
       url = url.replace(/^(?:https?:\/\/)?nla\.gov\.au\/(nla\.party-|anbd\.bib-an)([^\/?#]+).*$/, 'https://nla.gov.au/$1$2');
       return url;
+    },
+  },
+  'tsutaya': {
+    match: [new RegExp('^(https?://)?shop\\.tsutaya\\.co\\.jp/', 'i')],
+    restrict: [LINK_TYPES.mailorder],
+    clean: function (url) {
+      url = url.replace(/^(?:https?:\/\/)?shop\.tsutaya\.co\.jp\/cd\/product\/(\d+).*$/, 'https://shop.tsutaya.co.jp/cd/product/$1/');
+      url = url.replace(/^(?:https?:\/\/)?shop\.tsutaya\.co\.jp\/dir_result\.html\?searchType\=3\&artistCd\=(\d+).*$/, 'https://shop.tsutaya.co.jp/dir_result.html?searchType=3&artistCd=$1');
+      return url;
+    },
+    validate: function (url, id) {
+      const m = /^https:\/\/shop\.tsutaya\.co.jp\/(?:(cd)\/product\/\d+\/|(dir_result)\.html\?searchType=3\&artistCd=\d+)$/.exec(url);
+      if (m) {
+        const suffix = m[1] || m[2];
+        switch (id) {
+          case LINK_TYPES.mailorder.artist:
+            return {
+              result: suffix === 'dir_result',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.mailorder.release:
+            return {
+              result: suffix === 'cd',
+              target: ERROR_TARGETS.ENTITY,
+            };
+        }
+        return {result: false, target: ERROR_TARGETS.ENTITY};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
     },
   },
   'twitch': {
