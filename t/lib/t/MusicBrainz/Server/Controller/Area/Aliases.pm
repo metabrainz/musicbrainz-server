@@ -8,7 +8,7 @@ use MusicBrainz::Server::Test qw( html_ok page_test_jsonld );
 
 with 't::Mechanize', 't::Context';
 
-=head2 Test description
+=head1 DESCRIPTION
 
 This test checks whether area aliases are correctly listed on the area
 alias page, both on the site itself and on the JSON-LD data.
@@ -41,3 +41,13 @@ test 'Area alias appears on alias page content and on JSON-LD' => sub {
 };
 
 1;
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright (C) 2015 MetaBrainz Foundation
+
+This file is part of MusicBrainz, the open internet music database,
+and is licensed under the GPL version 2, or (at your option) any
+later version: http://www.gnu.org/licenses/gpl-2.0.txt
+
+=cut

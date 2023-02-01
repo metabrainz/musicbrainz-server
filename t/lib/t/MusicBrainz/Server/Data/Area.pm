@@ -12,6 +12,12 @@ use MusicBrainz::Server::Test;
 with 't::Edit';
 with 't::Context';
 
+=head1 DESCRIPTION
+
+This test checks ISO code getters and area contaiment loading.
+
+=cut
+
 my $AREA_GID = 'f03dd94f-a936-42eb-bb97-819102487899';
 my $INSERT_AREA = <<~"SQL";
     INSERT INTO area (id, gid, name)
@@ -35,11 +41,16 @@ for my $test_data (
             INSERT INTO $iso (area, code) VALUES (1, '$code');
             SQL
 
+        note("We run $method($code, 'NA')");
         my $areas = $c->model('Area')->$method($code, 'NA');
-        ok(exists $areas->{$code}, "Found an area for $code");
+        ok(exists $areas->{$code}, "There is an entry for $code");
         ok(exists $areas->{NA}, 'There is an entry for NA');
-        is($areas->{NA}, undef, 'No area for NA');
-        is($areas->{$code}->gid, $AREA_GID, "Found $code area");
+        is($areas->{NA}, undef, 'The entry for NA contains no area');
+        is(
+            $areas->{$code}->gid,
+            $AREA_GID,
+            "The entry for $code contains the expected area",
+        );
     };
 }
 
@@ -58,40 +69,100 @@ test 'Test load_containment' => sub {
             VALUES (1, 2, 1), (1, 3, 2), (1, 4, 3), (1, 5, 4);
         SQL
 
+    note('We load the lowest area in the hierarchy');
     my $area = $test->c->model('Area')->get_by_id(1);
-    is($area->name, 'descendant', 'correct descendant country is loaded');
+    is($area->name, 'descendant', 'Correct basic area is loaded');
 
     $test->c->model('Area')->load_containment($area);
-    is(scalar @{$area->containment}, 4);
-    is($area->containment->[0]->name, 'parent city', 'correct parent city is loaded');
-    is($area->containment->[1]->name, 'parent subdivision', 'correct parent subdivision is loaded');
-    is($area->containment->[2]->name, 'parent country', 'correct parent country is loaded');
-    is($area->containment->[3]->name, 'parent meta-country', 'parent meta-country is loaded');
+    is(scalar @{$area->containment}, 4, 'Four levels of containment loaded');
+    is(
+        $area->containment->[0]->name,
+        'parent city',
+        'The correct parent city is loaded',
+    );
+    is(
+        $area->containment->[1]->name,
+        'parent subdivision',
+        'The correct parent subdivision is loaded',
+    );
+    is(
+        $area->containment->[2]->name,
+        'parent country',
+        'The correct parent country is loaded',
+    );
+    is(
+        $area->containment->[3]->name,
+        'parent meta-country',
+        'The correct parent meta-country is loaded',
+    );
 
+    note('We load the second lowest area in the hierarchy');
     $area = $test->c->model('Area')->get_by_id(2);
-    is($area->name, 'parent city', 'correct descendant is loaded');
+    is($area->name, 'parent city', 'Correct basic area is loaded');
 
     $test->c->model('Area')->load_containment($area);
-    is(scalar @{$area->containment}, 3);
-    is($area->containment->[0]->name, 'parent subdivision', 'correct parent subdivision is loaded');
-    is($area->containment->[1]->name, 'parent country', 'correct parent country is loaded');
-    is($area->containment->[2]->name, 'parent meta-country', 'parent meta-country is loaded');
+    is(scalar @{$area->containment}, 3, 'Three levels of containment loaded');
+    is(
+        $area->containment->[0]->name,
+        'parent subdivision',
+        'The correct parent subdivision is loaded',
+    );
+    is(
+        $area->containment->[1]->name,
+        'parent country',
+        'The correct parent country is loaded',
+    );
+    is(
+        $area->containment->[2]->name,
+        'parent meta-country',
+        'The correct parent meta-country is loaded',
+    );
 
+    note('We load the third lowest area in the hierarchy');
     $area = $test->c->model('Area')->get_by_id(3);
-    is($area->name, 'parent subdivision', 'correct descendant is loaded');
+    is($area->name, 'parent subdivision', 'Correct basic area is loaded');
 
     $test->c->model('Area')->load_containment($area);
-    is(scalar @{$area->containment}, 2);
-    is($area->containment->[0]->name, 'parent country', 'correct parent country is loaded');
-    is($area->containment->[1]->name, 'parent meta-country', 'parent meta-country is loaded');
+    is(scalar @{$area->containment}, 2, 'Two levels of containment loaded');
+    is(
+        $area->containment->[0]->name,
+        'parent country',
+        'The correct parent country is loaded',
+    );
+    is(
+        $area->containment->[1]->name,
+        'parent meta-country',
+        'The correct parent meta-country is loaded',
+    );
 
+    note('We load the second highest area in the hierarchy');
     $area = $test->c->model('Area')->get_by_id(4);
-    is($area->name, 'parent country', 'correct descendant is loaded');
+    is($area->name, 'parent country', 'Correct basic area is loaded');
 
     $test->c->model('Area')->load_containment($area);
-    is(scalar @{$area->containment}, 1);
-    is($area->containment->[0]->name, 'parent meta-country', 'correct parent meta-country is loaded');
+    is(scalar @{$area->containment}, 1, 'One level of containment loaded');
+    is(
+        $area->containment->[0]->name,
+        'parent meta-country',
+        'The correct parent meta-country is loaded',
+    );
 
+    note('We load the highest area in the hierarchy');
+    $area = $test->c->model('Area')->get_by_id(5);
+    is($area->name, 'parent meta-country', 'Correct basic area is loaded');
+
+    $test->c->model('Area')->load_containment($area);
+    is(scalar @{$area->containment}, 0, 'No levels of containment loaded');
 };
 
 1;
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright (C) 2013 MetaBrainz Foundation
+
+This file is part of MusicBrainz, the open internet music database,
+and is licensed under the GPL version 2, or (at your option) any
+later version: http://www.gnu.org/licenses/gpl-2.0.txt
+
+=cut

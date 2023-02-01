@@ -17,10 +17,13 @@ allow_includes=1
 
 [Moose::ProhibitNewMethod]
 
+[MusicBrainz::RequirePodSectionsAlways]
+
 [Subroutines::ProhibitReturnSort]
 
 [TestingAndDebugging::ProhibitNoStrict]
 allow=refs
+[TestingAndDebugging::RequireTestLabels]
 [TestingAndDebugging::RequireUseStrict]
 [TestingAndDebugging::RequireUseWarnings]
 

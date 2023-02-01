@@ -18,7 +18,7 @@ use MusicBrainz::Server::Test qw( capture_edits );
 
 with 't::Context', 't::Mechanize';
 
-=head2 Test description
+=head1 DESCRIPTION
 
 This test checks whether non-URL relationships are correctly added, removed
 and modified when editing artists, including several edge cases.
@@ -445,3 +445,13 @@ test 'Ensure duplicate link attribute types are ignored' => sub {
 };
 
 1;
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright (C) 2014 MetaBrainz Foundation
+
+This file is part of MusicBrainz, the open internet music database,
+and is licensed under the GPL version 2, or (at your option) any
+later version: http://www.gnu.org/licenses/gpl-2.0.txt
+
+=cut

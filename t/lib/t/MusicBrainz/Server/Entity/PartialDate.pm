@@ -8,138 +8,248 @@ use Test::More;
 
 use aliased 'MusicBrainz::Server::Entity::PartialDate' => 'Date';
 
-test all => sub {
+=head1 DESCRIPTION
 
-my $date;
-my $partial;
+This test checks partial date generation, emptiness, formatting
+and comparison.
 
-$date = Date->new();
-ok( $date->is_empty );
-is( $date->format, '' );
+=cut
 
-$date = Date->new( year => 0 );
-ok( not $date->is_empty );
+test 'Date emptiness' => sub {
+    my $date;
+    $date = Date->new();
+    ok($date->is_empty, 'Unset date is marked as empty');
 
-$date = Date->new( year => 2009 );
-ok( not $date->is_empty );
-is( $date->year, 2009 );
-is( $date->format, '2009' );
+    $date = Date->new('');
+    ok($date->is_empty, 'Creating a date from an empty string creates an empty date');
 
-$date = Date->new( year => 2009, month => 4 );
-is( $date->format, '2009-04' );
+    $date = Date->new(year => 2009);
+    is($date->year, '2009', 'Year is stored correctly');
+    ok(!$date->is_empty, 'A date with a year is not empty');
 
-$date = Date->new( year => 2009, month => 4, day => 18 );
-is( $date->format, '2009-04-18' );
+    $date = Date->new(year => 0);
+    ok(!$date->is_empty, 'Year 0 does not mean the date is empty');
+};
 
-$partial = { 'year' => 1476, 'month' => 12 };
-$date = Date->new( $partial );
-is ($date->format, '1476-12');
+test 'Creating dates from objects' => sub {
+    my $date;
+    my $partial;
 
-$partial = { 'year' => 1476, 'month' => 12, 'day' => undef };
-$date = Date->new( $partial );
-is ($date->format, '1476-12');
+    note(q({'year' => 1476, 'month' => 12}));
+    $partial = {'year' => 1476, 'month' => 12};
+    $date = Date->new($partial);
+    is($date->year, '1476', 'Year is 1476');
+    is($date->month, '12', 'Month is 12');
+    is($date->day, undef, 'Day is undef');
 
-$date = Date->new( '1476' );
-is ($date->format, '1476');
+    note(q({'year' => 1476, 'month' => 12, 'day' => undef}));
+    $partial = {'year' => 1476, 'month' => 12, 'day' => undef};
+    $date = Date->new($partial);
+    is($date->year, '1476', 'Year is 1476');
+    is($date->month, '12', 'Month is 12');
+    is($date->day, undef, 'Day is undef');
 
-$date = Date->new( '1476-12' );
-is ($date->format, '1476-12');
+    note(q({'year' => undef, 'month' => undef, 'day' => undef}));
+    $partial = {'year' => undef, 'month' => undef, 'day' => undef};
+    $date = Date->new($partial);
+    is($date->year, undef, 'Year is undef');
+    is($date->month, undef, 'Month is undef');
+    is($date->day, undef, 'Day is undef');
+    ok($date->is_empty, 'Date is marked as empty');
+};
 
-$date = Date->new( '1476-12-1' );
-is ($date->format, '1476-12-01');
+test 'Creating dates from date strings' => sub {
+    my $date;
 
-$date = Date->new( '1476-12-01' );
-is ($date->format, '1476-12-01');
+    note('1476');
+    $date = Date->new('1476');
+    is($date->year, '1476', 'Year is 1476');
+    is($date->month, undef, 'Month is undef');
+    is($date->day, undef, 'Day is undef');
 
-$date = Date->new( month => 4, day => 1 );
-is ($date->format, '????-04-01');
+    note('1476-12');
+    $date = Date->new('1476-12');
+    is($date->year, '1476', 'Year is 1476');
+    is($date->month, '12', 'Month is 12');
+    is($date->day, undef, 'Day is undef');
 
-$date = Date->new( year => 1999, day => 1 );
-is ($date->format, '1999-??-01');
+    note('1476-12-1');
+    $date = Date->new('1476-12-1');
+    is($date->year, '1476', 'Year is 1476');
+    is($date->month, '12', 'Month is 12');
+    is($date->day, '1', 'Day is 1');
 
-$date = Date->new( day => 1 );
-is ($date->format, '????-??-01');
+    note('1476-12-01');
+    $date = Date->new('1476-12-01');
+    is($date->year, '1476', 'Year is 1476');
+    is($date->month, '12', 'Month is 12');
+    is($date->day, '01', 'Day is 01');
+};
 
-$date = Date->new( year => 0 );
-is ($date->format, '0000');
+test 'String formatting for dates' => sub {
+    my $date;
 
-$date = Date->new( month => 1 );
-is ($date->format, '????-01');
+    $date = Date->new();
+    is($date->format, '', 'Formatted empty date is the empty string');
 
-$date = Date->new( year => -1, month => 1, day => 1 );
-is ($date->format, '-001-01-01');
+    $date = Date->new(year => 2009);
+    is($date->format, '2009', 'YYYY formatting works');
 
-my ($a, $b);
+    $date = Date->new(year => 2009, month => 4);
+    is($date->format, '2009-04', 'YYYY-MM formatting works');
 
-$a = Date->new();
-$b = Date->new();
-ok(!($a < $b), 'empty dates sort the same');
-ok(!($b > $a), 'empty dates sort the same');
+    $date = Date->new(year => 2009, month => 4, day => 18);
+    is($date->format, '2009-04-18', 'YYYY-MM-DD formatting works');
 
-$a = Date->new( year => 1995 );
-$b = Date->new( year => 1995 );
-ok(!($a < $b), 'given only year, same year sorts the same');
-ok(!($b > $a), 'given only year, same year sorts the same');
+    $date = Date->new('1476-12-1');
+    my $date_with_leading_zero = Date->new('1476-12-01');
+    ok(
+        $date->format eq $date_with_leading_zero->format,
+        'Present or missing leading zero leads to same formatting result',
+    );
 
-$a = Date->new( year => -1995 );
-$b = Date->new( year => -1995 );
-ok(!($a < $b), 'given only negative year, same year sorts the same');
-ok(!($b > $a), 'given only negative year, same year sorts the same');
+    $date = Date->new(month => 4, day => 1);
+    is (
+        $date->format,
+        '????-04-01',
+        'Formatting works for dates missing a year',
+    );
 
-$a = Date->new( year => 2000 );
-$b = Date->new( year => 2001 );
-ok($a < $b, 'given only year, earlier sorts first');
-ok($b > $a, 'given only year, later sorts second');
+    $date = Date->new(year => 1999, day => 1);
+    is (
+        $date->format,
+        '1999-??-01',
+        'Formatting works for dates missing a month',
+    );
 
-$a = Date->new( year => 2000, month => 1 );
-$b = Date->new( year => 2000, month => 5 );
-ok($a < $b, 'given year and month, earlier sorts first');
-ok($b > $a, 'given year and month, later sorts second');
+    $date = Date->new(day => 1);
+    is (
+        $date->format,
+        '????-??-01',
+        'Formatting works for dates having just a day',
+    );
 
-$a = Date->new( year => 2000, month => 1, day => 1 );
-$b = Date->new( year => 2000, month => 1, day => 20 );
-ok($a < $b, 'given full date, earlier sorts first');
-ok($b > $a, 'given full date, later sorts second');
+    $date = Date->new(month => 1);
+    is (
+        $date->format,
+        '????-01',
+        'Formatting works for dates having just a month',
+    );
 
-$a = Date->new( year => 2000, month => 1, day => 1 );
-$b = Date->new( year => 2000, month => 1, day => 1 );
-ok(!($a < $b), 'given full date, same date sorts the same');
-ok(!($b < $a), 'given full date, same date sorts the same');
+    $date = Date->new(year => 0);
+    is ($date->format, '0000', 'Year zero formatting works');
 
-$a = Date->new( month => 1, day => 1 );
-$b = Date->new( year => 2000, month => 1, day => 1 );
-ok($a < $b, 'missing year date sorts before full date');
-ok($b > $a, 'full date sorts after missing year date');
+    $date = Date->new(year => -1, month => 1, day => 1);
+    is ($date->format, '-001-01-01', 'Negative year formatting works');
+};
 
-$a = Date->new( month => 1, day => 1 );
-$b = Date->new( month => 1, day => 1 );
-ok(!($a < $b), 'missing year date, otherwise equal, sorts the same');
-ok(!($b < $a), 'missing year date, otherwise equal, sorts the same');
+test 'Date comparison' => sub {
+    my ($date1, $date2);
 
-$a = Date->new( year => 0 );
-$b = Date->new( year => 2000 );
-ok($a < $b, 'year 0 sorts before 2000');
-ok($b > $a, 'year 2000 sorts after 0');
+    $date1 = Date->new();
+    $date2 = Date->new();
+    ok(!($date1 < $date2) && !($date2 > $date1), 'Empty dates sort the same');
 
-$a = Date->new( year => 0 );
-$b = Date->new( year => -1 );
-ok($a > $b);
-ok($b < $a);
+    $date1 = Date->new(year => 1995);
+    $date2 = Date->new(year => 1995);
+    ok(
+        !($date1 < $date2) && !($date2 > $date1),
+        'Given only year, same year sorts the same',
+    );
 
-$a = Date->new( year => -1, month => 1 );
-$b = Date->new( year => -1, month => 2 );
+    $date1 = Date->new(year => -1995);
+    $date2 = Date->new(year => -1995);
+    ok(
+        !($date1 < $date2) && !($date2 > $date1),
+        'Given only (negative) year, same year sorts the same',
+    );
 
-ok($b > $a);
-ok($a < $b);
+    $date1 = Date->new(year => 2000);
+    $date2 = Date->new(year => 2001);
+    ok(
+        $date1 < $date2 && $date2 > $date1,
+        'Given only year, earlier sorts first',
+    );
 
-$a = Date->new( year => 1994, month => 2, day => 29 );
-$b = Date->new( year => 1994 );
+    $date1 = Date->new( year => 2000, month => 1 );
+    $date2 = Date->new( year => 2000, month => 5 );
+    ok(
+        $date1 < $date2 && $date2 > $date1,
+        'Given year and month, earlier sorts first',
+    );
 
-ok($a < $b, 'invalid dates sort before valid ones');
-ok($b > $a, 'valid dates sort after invalid ones');
+    $date1 = Date->new( year => 2000, month => 1, day => 1 );
+    $date2 = Date->new( year => 2000, month => 1, day => 20 );
+    ok(
+        $date1 < $date2 && $date2 > $date1,
+        'Given two full dates, earlier sorts first',
+    );
 
-ok(Date->new('')->is_empty);
+    $date1 = Date->new( year => 2000, month => 1, day => 1 );
+    $date2 = Date->new( year => 2000, month => 1, day => 1 );
+    ok(
+        !($date1 < $date2) && !($date2 > $date1),
+        'Given two full dates, the same date sorts the same',
+    );
 
+    $date1 = Date->new('1476-12-1');
+    $date2 = Date->new('1476-12-01');
+    ok(
+        !($date1 < $date2) && !($date2 > $date1),
+        'Present or missing leading zero on date creation sorts the same',
+    );
+
+    $date1 = Date->new( month => 1, day => 1 );
+    $date2 = Date->new( year => 2000, month => 1, day => 1 );
+    ok(
+        $date1 < $date2 && $date2 > $date1,
+        'Date missing year sorts before full date',
+    );
+
+    $date1 = Date->new( month => 1, day => 1 );
+    $date2 = Date->new( month => 1, day => 1 );
+    ok(
+        !($date1 < $date2) && !($date2 > $date1),
+        'Dates missing year and otherwise equal sort the same',
+    );
+
+    $date1 = Date->new( year => 0 );
+    $date2 = Date->new( year => 2000 );
+    ok(
+        $date1 < $date2 && $date2 > $date1,
+        'Year 0 sorts before positive years',
+    );
+
+    $date1 = Date->new(year => 0);
+    $date2 = Date->new(year => -1);
+    ok(
+        $date1 > $date2 && $date2 < $date1,
+        'Year 0 sorts before negative years',
+    );
+
+    $date1 = Date->new(year => -1, month => 1);
+    $date2 = Date->new(year => -1, month => 2);
+    ok(
+        $date2 > $date1 && $date1 < $date2,
+        'February sorts after January even for negative years',
+    );
+
+    $date1 = Date->new(year => 1994, month => 2, day => 29);
+    $date2 = Date->new(year => 1994);
+    ok(
+        $date1 < $date2 && $date2 > $date1,
+        'Invalid dates sort before valid ones',
+    );
 };
 
 1;
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright (C) 2011 MetaBrainz Foundation
+
+This file is part of MusicBrainz, the open internet music database,
+and is licensed under the GPL version 2, or (at your option) any
+later version: http://www.gnu.org/licenses/gpl-2.0.txt
+
+=cut

@@ -7,7 +7,13 @@ use Test::More;
 
 with 't::Context';
 
-test 'Items should be ordered by relationship date' => sub {
+=head1 DESCRIPTION
+
+This test checks automatic series ordering.
+
+=cut
+
+test 'Works should be ordered by relationship date' => sub {
     my $c = shift->c;
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+series');
@@ -73,7 +79,7 @@ test 'Items should be ordered by relationship date' => sub {
     is_deeply(
         [map { $_->{entity}->id } @$items],
         [9, 6, 5, 7, 8],
-        'works are ordered by relationship date'
+        'Works are ordered by relationship date',
     );
 };
 
@@ -142,12 +148,20 @@ test 'Events should be ordered by event date, then name (MBS-7557, MBS-7987)' =>
     $c->model('SeriesType')->load($series);
 
     my ($items, $count) = $c->model('Series')->get_entities($series, 7, 0);
-    is_deeply([map { $_->{entity}->id } @$items], [6, 4, 2, 7, 5, 3, 1], 'events are ordered by name');
+    is_deeply(
+        [map { $_->{entity}->id } @$items],
+        [6, 4, 2, 7, 5, 3, 1],
+        'Events are ordered by name',
+    );
 
     $c->model('Event')->update($_, { name => "E${_}" }) for (1 .. 7);
 
     ($items, $count) = $c->model('Series')->get_entities($series, 7, 0);
-    is_deeply([map { $_->{entity}->id } @$items], [1, 2, 3, 4, 5, 6, 7], 'events are re-ordered after name changes');
+    is_deeply(
+        [map { $_->{entity}->id } @$items],
+        [1, 2, 3, 4, 5, 6, 7],
+        'Events are re-ordered after name changes',
+    );
 
     $c->model('Event')->update(1, { begin_date => { year => 1977 }, end_date => { year => 1995 } });
     $c->model('Event')->update(2, { end_date => { year => 1995 } });
@@ -158,13 +172,21 @@ test 'Events should be ordered by event date, then name (MBS-7557, MBS-7987)' =>
     $c->model('Event')->update(7, { end_date => { year => 1991 }, time => '00:00:00' });
 
     ($items, $count) = $c->model('Series')->get_entities($series, 7, 0);
-    is_deeply([map { $_->{entity}->id } @$items], [5, 7, 6, 2, 1, 3, 4], 'events are ordered by date');
+    is_deeply(
+        [map { $_->{entity}->id } @$items],
+        [5, 7, 6, 2, 1, 3, 4],
+        'Events are ordered by date',
+    );
 
     $c->model('Event')->update(2, { begin_date => { year => 1994 } });
     $c->model('Event')->update(7, { time => '00:20:00' });
 
     ($items, $count) = $c->model('Series')->get_entities($series, 7, 0);
-    is_deeply([map { $_->{entity}->id } @$items], [5, 6, 7, 1, 3, 4, 2], 'events are re-ordered by date after changes');
+    is_deeply(
+        [map { $_->{entity}->id } @$items],
+        [5, 6, 7, 1, 3, 4, 2],
+        'Events are re-ordered by date after changes',
+    );
 };
 
 test 'Releases should be ordered by date, then catalog number, then name (MBS-7557)' => sub {
@@ -215,26 +237,42 @@ test 'Releases should be ordered by date, then catalog number, then name (MBS-75
     $c->model('SeriesType')->load($series);
     my ($items, $count) = $c->model('Series')->get_entities($series, 3, 0);
 
-    is_deeply([map { $_->{entity}->id } @$items], [3, 2, 1], 'releases are ordered by name');
+    is_deeply(
+        [map { $_->{entity}->id } @$items],
+        [3, 2, 1],
+        'Releases are ordered by name',
+    );
 
     my $label1 = $c->model('ReleaseLabel')->insert({ release_id => 1, catalog_number => 'A' });
     my $label2 = $c->model('ReleaseLabel')->insert({ release_id => 2, catalog_number => 'B' });
     my $label3 = $c->model('ReleaseLabel')->insert({ release_id => 3, catalog_number => 'C' });
 
     ($items, $count) = $c->model('Series')->get_entities($series, 3, 0);
-    is_deeply([map { $_->{entity}->id } @$items], [1, 2, 3], 'releases are reordered after inserting catalog numbers');
+    is_deeply(
+        [map { $_->{entity}->id } @$items],
+        [1, 2, 3],
+        'Releases are reordered after inserting catalog numbers',
+    );
 
     $c->model('ReleaseLabel')->update($label1->id, { catalog_number => 'B' });
     $c->model('ReleaseLabel')->update($label2->id, { catalog_number => 'C' });
     $c->model('ReleaseLabel')->update($label3->id, { catalog_number => 'A' });
 
     ($items, $count) = $c->model('Series')->get_entities($series, 3, 0);
-    is_deeply([map { $_->{entity}->id } @$items], [3, 1, 2], 'releases are reordered after updating catalog numbers');
+    is_deeply(
+        [map { $_->{entity}->id } @$items],
+        [3, 1, 2],
+        'Releases are reordered after updating catalog numbers',
+    );
 
     $c->model('ReleaseLabel')->delete($label1->id, $label2->id, $label3->id);
 
     ($items, $count) = $c->model('Series')->get_entities($series, 3, 0);
-    is_deeply([map { $_->{entity}->id } @$items], [3, 2, 1], 'releases are reordered after deleting catalog numbers');
+    is_deeply(
+        [map { $_->{entity}->id } @$items],
+        [3, 2, 1],
+        'Releases are reordered after deleting catalog numbers',
+    );
 
     $c->model('Release')->update(1, {
         events => [
@@ -258,7 +296,11 @@ test 'Releases should be ordered by date, then catalog number, then name (MBS-75
     });
 
     ($items, $count) = $c->model('Series')->get_entities($series, 3, 0);
-    is_deeply([map { $_->{entity}->id } @$items], [1, 2, 3], 'releases are reordered after inserting release events');
+    is_deeply(
+        [map { $_->{entity}->id } @$items],
+        [1, 2, 3],
+        'Releases are reordered after inserting release events',
+    );
 };
 
 test 'Release groups should be ordered by first release date, then name (MBS-7557)' => sub {
@@ -306,13 +348,21 @@ test 'Release groups should be ordered by first release date, then name (MBS-755
     $c->model('SeriesType')->load($series);
 
     my ($items, $count) = $c->model('Series')->get_entities($series, 3, 0);
-    is_deeply([map { $_->{entity}->id } @$items], [3, 2, 1], 'release groups are ordered by name');
+    is_deeply(
+        [map { $_->{entity}->id } @$items],
+        [3, 2, 1],
+        'Release groups are ordered by name',
+    );
 
     $c->model('ReleaseGroup')->update(1, {name => 'RG1'});
     $c->model('ReleaseGroup')->update(3, {name => 'RG3'});
 
     ($items, $count) = $c->model('Series')->get_entities($series, 3, 0);
-    is_deeply([map { $_->{entity}->id } @$items], [1, 2, 3], 'release groups are re-ordered after names change');
+    is_deeply(
+        [map { $_->{entity}->id } @$items],
+        [1, 2, 3],
+        'Release groups are re-ordered after names change',
+    );
 
     $c->sql->do(<<~'SQL');
         INSERT INTO release (id, gid, name, release_group, artist_credit)
@@ -367,7 +417,11 @@ test 'Release groups should be ordered by first release date, then name (MBS-755
     });
 
     ($items, $count) = $c->model('Series')->get_entities($series, 3, 0);
-    is_deeply([map { $_->{entity}->id } @$items], [2, 1, 3], 'release groups are reordered after inserting release events');
+    is_deeply(
+        [map { $_->{entity}->id } @$items],
+        [2, 1, 3],
+        'Release groups are reordered after inserting release events',
+    );
 };
 
 test 'Can reorder series with multiple of the same item without conflicts (MBS-8553)' => sub {
@@ -406,7 +460,21 @@ test 'Can reorder series with multiple of the same item without conflicts (MBS-8
     $c->model('SeriesType')->load($series);
     my ($items, undef) = $c->model('Series')->get_entities($series, 3, 0);
 
-    is_deeply([map { $_->{entity}->id } @$items], [1, 1]);
+    is_deeply(
+        [map { $_->{entity}->id } @$items],
+        [1, 1],
+        'Reordering duplicate entries did not crash and left behind a normally-ordered series',
+    );
 };
 
 1;
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright (C) 2015 MetaBrainz Foundation
+
+This file is part of MusicBrainz, the open internet music database,
+and is licensed under the GPL version 2, or (at your option) any
+later version: http://www.gnu.org/licenses/gpl-2.0.txt
+
+=cut

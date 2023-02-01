@@ -5,6 +5,14 @@ use warnings;
 use Test::Routine;
 use Test::More;
 
+
+=head1 DESCRIPTION
+
+This test checks whether cache routing works as expected, including whether
+the cache set as default answers to any non-specific requests.
+
+=cut
+
 {
     package t::MusicBrainz::Server::CacheManager::TestCache1;
     use Moose;
@@ -18,7 +26,6 @@ use Test::More;
     sub set {}
     1;
 }
-
 
 test 'Check CacheManager routing' => sub {
     my $test = shift;
@@ -38,10 +45,36 @@ test 'Check CacheManager routing' => sub {
         default_profile => 'test1',
     );
 
-    is( $cache_manager->cache->get, '1' );
-    is( $cache_manager->cache('foo')->get, '1' );
-    is( $cache_manager->cache('baz')->get, '1' );
-    is( $cache_manager->cache('bar')->get, '2' );
+    is(
+        $cache_manager->cache->get,
+        '1',
+        'The default profile is used when not passing a specific key',
+    );
+    is(
+        $cache_manager->cache('foo')->get,
+        '1',
+        'The first (default) profile is used when passing its key',
+    );
+    is(
+        $cache_manager->cache('baz')->get,
+        '1',
+        'The default profile is used when passing an unused key',
+    );
+    is(
+        $cache_manager->cache('bar')->get,
+        '2',
+        'The second (non-default) profile is used when passing its key',
+    );
 };
 
 1;
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright (C) 2012 MetaBrainz Foundation
+
+This file is part of MusicBrainz, the open internet music database,
+and is licensed under the GPL version 2, or (at your option) any
+later version: http://www.gnu.org/licenses/gpl-2.0.txt
+
+=cut

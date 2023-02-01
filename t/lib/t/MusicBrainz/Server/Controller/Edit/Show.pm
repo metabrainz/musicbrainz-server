@@ -12,7 +12,7 @@ use MusicBrainz::Server::Test qw( html_ok );
 
 with 't::Mechanize', 't::Context';
 
-=head2 Test description
+=head1 DESCRIPTION
 
 This test checks whether the shared components of edit display pages work as
 expected for all kinds of editors: default / author / beginner / logged out.
@@ -134,3 +134,13 @@ sub prepare {
 }
 
 1;
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright (C) 2012 MetaBrainz Foundation
+
+This file is part of MusicBrainz, the open internet music database,
+and is licensed under the GPL version 2, or (at your option) any
+later version: http://www.gnu.org/licenses/gpl-2.0.txt
+
+=cut

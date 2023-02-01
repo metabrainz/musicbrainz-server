@@ -6,44 +6,105 @@ use Test::Routine;
 use Test::Moose;
 use Test::More;
 
+use MusicBrainz::Server::Entity::Annotation;
 use MusicBrainz::Server::Entity::Artist;
 
-BEGIN { use MusicBrainz::Server::Entity::Annotation };
+=head1 DESCRIPTION
 
-test all => sub {
+This test checks whether the annotation summaries are generated correctly.
 
-my $text = <<'TEXT';
-This is a ''test'' annotation
+=cut
 
-This is more of the test annotation!
+test 'Annotation summary generation' => sub {
+    my $text = <<~'TEXT';
+        This is a ''test'' annotation
 
-And '''even''' ''more''.
-TEXT
+        This is more of the test annotation!
 
-my $annotation = MusicBrainz::Server::Entity::Annotation->new( text => $text );
+        And '''even''' ''more''.
+        TEXT
 
-like($annotation->summary, qr/This is a ''test'' annotation/);
-unlike($annotation->summary, qr/This is more of the test annotation!/, 'summary shouldnt have second para');
-unlike($annotation->summary, qr/And '''even''' ''more''./, 'summary shouldnt have third para');
-unlike($annotation->summary, qr/\n/, 'summary shouldnt have line breaks');
+    my $annotation = MusicBrainz::Server::Entity::Annotation->new(
+        text => $text,
+    );
 
-unlike($annotation->summary, qr/This is more of the test annotation!/, 'summary shouldnt have second para');
-unlike($annotation->summary, qr{And <strong>even</strong> <em>more</em>.}, 'summary shouldnt have third para');
-unlike($annotation->summary, qr/\n/, 'summary shouldnt have line breaks');
+    like(
+        $annotation->summary,
+        qr/This is a ''test'' annotation/,
+        'The first paragraph of the annotation is shown in the summary',
+    );
+    unlike(
+        $annotation->summary,
+        qr/This is more of the test annotation!/,
+        'The second paragraph of the annotation is not shown in the summary',
+    );
+    unlike(
+        $annotation->summary,
+        qr/And '''even''' ''more''\./,
+        'The third paragraph of the annotation is not shown in the summary in markup form',
+    );
+    unlike(
+        $annotation->summary,
+        qr{And <strong>even</strong> <em>more</em>.},
+        'The third paragraph of the annotation is not shown in the summary in HTML form either',
+    );
+    unlike(
+        $annotation->summary,
+        qr/\n/,
+        'The summary does not contain line breaks',
+    );
 
-my $artist = MusicBrainz::Server::Entity::Artist->new();
-$annotation->parent( $artist );
-ok( defined $annotation->parent );
+    my $artist = MusicBrainz::Server::Entity::Artist->new();
+    $annotation->parent($artist);
+    ok(defined $annotation->parent, 'Annotation parent entity can be set');
 
-$annotation = MusicBrainz::Server::Entity::Annotation->new(
-    text => "This is...\nthe preview!\n\nMore text here"
-);
+    $annotation = MusicBrainz::Server::Entity::Annotation->new(
+        text => "This is...\nthe preview!\n\nMore text here",
+    );
 
-like($annotation->summary, qr/This is.../, 'has first line of summary');
-like($annotation->summary, qr/the preview!/, 'has second line of summary');
-unlike($annotation->summary, qr/More text here/, 'doesnt have second paragraph');
-ok($annotation->summary_is_short);
+    like(
+        $annotation->summary,
+        qr/This is\.\.\./,
+        'The first line of a multi-line first paragraph is shown in the summary',
+    );
+    like(
+        $annotation->summary,
+        qr/the preview!/,
+        'The second line of a multi-line first paragraph is shown in the summary',
+    );
+    unlike(
+        $annotation->summary,
+        qr/More text here/,
+        'The second paragraph of the annotation is not shown in the summary',
+    );
+    ok(
+        $annotation->summary_is_short,
+        'The annotation is correctly marked as having more content than displayed on the summary',
+    );
 
+    $annotation = MusicBrainz::Server::Entity::Annotation->new(
+        text => 'This is a short annotation.',
+    );
+
+    like(
+        $annotation->summary,
+        qr/This is a short annotation\./,
+        'The entirety of a one-line annotation is shown in the summary',
+    );
+    ok(
+        !$annotation->summary_is_short,
+        'The annotation is correctly marked as having all its content already displayed on the summary',
+    );
 };
 
 1;
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright (C) 2011 MetaBrainz Foundation
+
+This file is part of MusicBrainz, the open internet music database,
+and is licensed under the GPL version 2, or (at your option) any
+later version: http://www.gnu.org/licenses/gpl-2.0.txt
+
+=cut
