@@ -104,6 +104,7 @@ const DialogEntityCredit = (React.memo<PropsT, void>(({
   let changeCreditsSection;
   if (
     state.creditsToChange ||
+    state.creditedAs !== '' ||
     state.creditedAs !== origCredit.current
   ) {
     changeCreditsSection = (
