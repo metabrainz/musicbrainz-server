@@ -676,19 +676,12 @@ const RelationshipDialogContent = (React.memo<PropsT>((
     const targetCredit = clean(targetEntityState.creditedAs);
     let entity0Credit = '';
     let entity1Credit = '';
-    if (targetCredit !== selectedTargetEntity.name) {
-      if (backward) {
-        entity0Credit = targetCredit;
-      } else {
-        entity1Credit = targetCredit;
-      }
-    }
-    if (sourceCredit !== source.name) {
-      if (backward) {
-        entity1Credit = sourceCredit;
-      } else {
-        entity0Credit = sourceCredit;
-      }
+    if (backward) {
+      entity0Credit = targetCredit;
+      entity1Credit = sourceCredit;
+    } else {
+      entity1Credit = targetCredit;
+      entity0Credit = sourceCredit;
     }
 
     const newRelationship: {...RelationshipStateT} = {
