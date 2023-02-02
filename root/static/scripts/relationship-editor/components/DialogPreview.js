@@ -113,6 +113,7 @@ const DialogPreview = (React.memo<PropsT>(({
       }
       disableLink={isDisabledLink(relationship, entity)}
       entity={entity}
+      showDisambiguation
       target="_blank"
     />
   );
