@@ -86,6 +86,10 @@ export default function moveRelationship(
     newLinkOrder: number,
   ) => {
     const newRelationship = cloneRelationshipState(relationship);
+    newRelationship._lineage = [
+      ...newRelationship._lineage,
+      'reordered',
+    ];
     newRelationship.linkOrder = newLinkOrder;
     newRelationship._status = getRelationshipEditStatus(
       newRelationship,

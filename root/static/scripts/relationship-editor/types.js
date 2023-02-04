@@ -27,6 +27,12 @@ export type RelationshipStateForTypesT<
   +T0: CoreEntityT,
   +T1: CoreEntityT,
 > = {
+  /*
+   * _lineage is purely to help debug how a piece of relationship
+   * state was created.  It should be appended to whenever
+   * `cloneRelationshipState` is used.
+   */
+  +_lineage: $ReadOnlyArray<string>,
   +_original: RelationshipStateT | null,
   +_status: RelationshipEditStatusT,
   +attributes: tree.ImmutableTree<LinkAttrT> | null,
