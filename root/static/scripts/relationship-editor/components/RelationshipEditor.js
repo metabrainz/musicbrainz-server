@@ -509,6 +509,26 @@ export function runReducer(
   }
 }
 
+type ErrorMessagePropsT = {
+  +error: string,
+};
+
+export const ErrorMessage:
+  React.AbstractComponent<ErrorMessagePropsT, mixed> =
+  React.memo<ErrorMessagePropsT>(({
+    error,
+  }: ErrorMessagePropsT): React.MixedElement => (
+    <div className="error">
+      <strong className="error">
+        {l('Oops, something went wrong!')}
+      </strong>
+      <br />
+      <pre style={{whiteSpace: 'pre-wrap'}}>
+        {error}
+      </pre>
+    </div>
+  ));
+
 const RelationshipEditor = (
   props: PropsT,
 ): React.Element<'fieldset'> | null => {
@@ -563,15 +583,7 @@ const RelationshipEditor = (
   return (
     <fieldset id="relationship-editor">
       {reducerError ? (
-        <div className="error">
-          <strong className="error">
-            {l('Oops, something went wrong!')}
-          </strong>
-          <br />
-          <pre style={{whiteSpace: 'pre-wrap'}}>
-            {reducerError.stack}
-          </pre>
-        </div>
+        <ErrorMessage error={reducerError.stack} />
       ) : null}
 
       <legend>

@@ -57,6 +57,7 @@ import {createField} from '../../edit/utility/createField.js';
 import reducerWithErrorHandling
   from '../../edit/utility/reducerWithErrorHandling.js';
 import {
+  ErrorMessage,
   getInitialRelationshipUpdates,
   getUpdatesForAcceptedRelationship,
   runReducer as runRelationshipEditorReducer,
@@ -1778,9 +1779,7 @@ let ReleaseRelationshipEditor: React.AbstractComponent<{}, void> = (
       />
 
       {state.submissionError == null ? null : (
-        <p className="warning" id="errors-msg">
-          {state.submissionError}
-        </p>
+        <ErrorMessage error={state.submissionError} />
       )}
 
       <form
