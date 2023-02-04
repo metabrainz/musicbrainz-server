@@ -271,6 +271,7 @@
       target: 'css=#edit-relationship-dialog div.attribute-container.text input',
       value: 'C${KEY_ENTER}',
     },
+    // Add some release/release-group relationships.
     {
       command: 'click',
       target: 'css=#release-rels button.add-item',
@@ -304,6 +305,31 @@
     {
       command: 'check',
       target: 'id=id-period.ended',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'css=#add-relationship-dialog div.buttons button.positive',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'css=#release-rels button.add-relationship',
+      value: '',
+    },
+    {
+      command: 'sendKeys',
+      target: 'css=#add-relationship-dialog input.relationship-type',
+      value: 'arrang${KEY_ENTER}',
+    },
+    {
+      command: 'type',
+      target: 'css=#add-relationship-dialog input.relationship-target',
+      value: '30bcaa92-9870-4798-be1a-4e0036755316',
+    },
+    {
+      command: 'pause',
+      target: '500',
       value: '',
     },
     {
@@ -1069,6 +1095,38 @@
           edit_version: 2,
           ended: 0,
           entity0: {
+            gid: '30bcaa92-9870-4798-be1a-4e0036755316',
+            id: 7282,
+            name: 'Osaka',
+          },
+          entity1: {
+            gid: '868cc741-e3bc-31bc-9dac-756e35c8f152',
+            id: 249113,
+            name: 'Vision Creation Newsun',
+          },
+          entity_id: 2,
+          link_type: {
+            id: 863,
+            link_phrase: 'arranging location for',
+            long_link_phrase: 'was the arranging location for',
+            name: 'arranged in',
+            reverse_link_phrase: 'arranged in',
+          },
+          type0: 'area',
+          type1: 'release',
+        },
+      },
+    },
+    {
+      command: 'assertEditData',
+      target: 19,
+      value: {
+        type: 90,
+        status: 2,
+        data: {
+          edit_version: 2,
+          ended: 0,
+          entity0: {
             gid: '0798d15b-64e2-499f-9969-70167b1d8617',
             id: 39282,
             name: 'Boredoms',
@@ -1195,7 +1253,7 @@
     },
     {
       command: 'assertEditData',
-      target: 19,
+      target: 20,
       value: {
         type: 91,
         status: 2,
@@ -1261,7 +1319,7 @@
     },
     {
       command: 'assertEditData',
-      target: 20,
+      target: 21,
       value: {
         type: 92,
         status: 1,
@@ -1305,7 +1363,7 @@
     },
     {
       command: 'assertEditData',
-      target: 21,
+      target: 22,
       value: {
         type: 91,
         status: 2,
@@ -1371,7 +1429,7 @@
     },
     {
       command: 'assertEditData',
-      target: 22,
+      target: 23,
       value: {
         type: 92,
         status: 1,
@@ -1415,7 +1473,7 @@
     },
     {
       command: 'assertEditData',
-      target: 23,
+      target: 24,
       value: {
         type: 91,
         status: 2,
@@ -1481,7 +1539,7 @@
     },
     {
       command: 'assertEditData',
-      target: 24,
+      target: 25,
       value: {
         type: 92,
         status: 1,
@@ -1525,7 +1583,7 @@
     },
     {
       command: 'assertEditData',
-      target: 25,
+      target: 26,
       value: {
         type: 91,
         status: 2,
@@ -1602,7 +1660,7 @@
     },
     {
       command: 'assertEditData',
-      target: 26,
+      target: 27,
       value: {
         type: 92,
         status: 1,
@@ -1713,7 +1771,7 @@
     },
     {
       command: 'assertEditData',
-      target: 27,
+      target: 28,
       value: {
         type: 90,
         status: 2,
@@ -1792,7 +1850,7 @@
     },
     {
       command: 'assertEditData',
-      target: 28,
+      target: 29,
       value: {
         type: 90,
         status: 2,
@@ -1883,7 +1941,7 @@
     },
     {
       command: 'assertEditData',
-      target: 29,
+      target: 30,
       value: {
         type: 90,
         status: 2,
@@ -1929,7 +1987,7 @@
     },
     {
       command: 'assertEditData',
-      target: 30,
+      target: 31,
       value: {
         type: 90,
         status: 2,
@@ -2016,7 +2074,7 @@
     },
     {
       command: 'assertEditData',
-      target: 31,
+      target: 32,
       value: {
         type: 90,
         status: 2,
@@ -2061,5 +2119,278 @@
       },
     },
     // End of test for MBS-12626.
+    // MBS-12860: A "Two relationships with the same key" error occurs under certain
+    // circumstances. One identified cause was 6230a40b799f0879408fe03d79d8fce83293c0d3,
+    // which memoized the initial data seeded to add-relationship dialogs -- including
+    // the new relationship ID, which would get reused if the memoized data didn't
+    // change.
+    {
+      command: 'open',
+      target: '/release/868cc741-e3bc-31bc-9dac-756e35c8f152/edit-relationships',
+      value: '',
+    },
+    // Add two area relationships of different link types.
+    {
+      command: 'click',
+      target: 'xpath=(//tr[contains(@class, "track")])[1]//button[contains(@class, "add-relationship")]',
+      value: '',
+    },
+    {
+      command: 'sendKeys',
+      target: 'css=#add-relationship-dialog input.relationship-type',
+      value: 'arrang${KEY_ENTER}',
+    },
+    {
+      command: 'type',
+      target: 'css=#add-relationship-dialog input.relationship-target',
+      value: '30bcaa92-9870-4798-be1a-4e0036755316',
+    },
+    {
+      command: 'pause',
+      target: '500',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'css=#add-relationship-dialog div.buttons button.positive',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'xpath=(//tr[contains(@class, "track")])[1]//button[contains(@class, "add-relationship")]',
+      value: '',
+    },
+    {
+      command: 'sendKeys',
+      target: 'css=#add-relationship-dialog input.relationship-type',
+      value: 'prod${KEY_ENTER}',
+    },
+    {
+      command: 'type',
+      target: 'css=#add-relationship-dialog input.relationship-target',
+      value: '30bcaa92-9870-4798-be1a-4e0036755316',
+    },
+    {
+      command: 'pause',
+      target: '500',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'css=#add-relationship-dialog div.buttons button.positive',
+      value: '',
+    },
+    // Add a vocal relationship.
+    {
+      command: 'click',
+      target: 'xpath=(//tr[contains(@class, "track")])[1]//button[contains(@class, "add-relationship")]',
+      value: '',
+    },
+    {
+      command: 'select',
+      target: 'css=#add-relationship-dialog select.entity-type',
+      value: 'label=Artist',
+    },
+    {
+      command: 'sendKeys',
+      target: 'css=#add-relationship-dialog input.relationship-type',
+      value: 'vocal${KEY_ENTER}',
+    },
+    {
+      command: 'type',
+      target: 'css=#add-relationship-dialog input.relationship-target',
+      value: '0798d15b-64e2-499f-9969-70167b1d8617',
+    },
+    {
+      command: 'click',
+      target: 'css=#add-relationship-dialog div.buttons button.positive',
+      value: '',
+    },
+    // Remove the relationship that was just added.
+    // (Changing the target type from area to artist would have cause the memoized relationship
+    // ID to change, but only after the dialog was closed -- so to get the same ID twice, we
+    // would have had to add the relationship again without changing the type. Next time we
+    // open the dialog, "artist" will be the preselected target type.)
+    {
+      command: 'click',
+      target: 'xpath=(//tr[contains(@class, "track")])[1]//tr[contains(@class, "vocals")]//button[contains(@class, "remove-item")]',
+      value: '',
+    },
+    // Add it again.
+    {
+      command: 'click',
+      target: 'xpath=(//tr[contains(@class, "track")])[1]//button[contains(@class, "add-relationship")]',
+      value: '',
+    },
+    {
+      command: 'select',
+      target: 'css=#add-relationship-dialog select.entity-type',
+      value: 'label=Artist',
+    },
+    {
+      command: 'sendKeys',
+      target: 'css=#add-relationship-dialog input.relationship-type',
+      value: 'vocal${KEY_ENTER}',
+    },
+    {
+      command: 'type',
+      target: 'css=#add-relationship-dialog input.relationship-target',
+      value: '0798d15b-64e2-499f-9969-70167b1d8617',
+    },
+    {
+      command: 'click',
+      target: 'css=#add-relationship-dialog div.buttons button.positive',
+      value: '',
+    },
+    // Add it a third time, but now with a different date.
+    {
+      command: 'click',
+      target: 'xpath=(//tr[contains(@class, "track")])[1]//button[contains(@class, "add-relationship")]',
+      value: '',
+    },
+    {
+      command: 'select',
+      target: 'css=#add-relationship-dialog select.entity-type',
+      value: 'label=Artist',
+    },
+    {
+      command: 'sendKeys',
+      target: 'css=#add-relationship-dialog input.relationship-type',
+      value: 'vocal${KEY_ENTER}',
+    },
+    {
+      command: 'type',
+      target: 'css=#add-relationship-dialog input.relationship-target',
+      value: '0798d15b-64e2-499f-9969-70167b1d8617',
+    },
+    {
+      command: 'type',
+      target: 'css=#add-relationship-dialog #id-period\\.begin_date\\.year',
+      value: '1990',
+    },
+    {
+      command: 'type',
+      target: 'css=#add-relationship-dialog #id-period\\.end_date\\.year',
+      value: '1991',
+    },
+    {
+      command: 'click',
+      target: 'css=#add-relationship-dialog div.buttons button.positive',
+      value: '',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'css=#relationship-editor-form button.positive',
+      value: '',
+    },
+    {
+      command: 'assertEditData',
+      target: 33,
+      value: {
+        type: 90,
+        status: 2,
+        data: {
+          edit_version: 2,
+          ended: 0,
+          entity0: {
+            gid: '30bcaa92-9870-4798-be1a-4e0036755316',
+            id: 7282,
+            name: 'Osaka',
+          },
+          entity1: {
+            gid: 'f66857fb-bb59-444e-97dc-62c73e5eddae',
+            id: 636551,
+            name: '○',
+          },
+          entity_id: 2,
+          link_type: {
+            id: 827,
+            link_phrase: 'producing location for',
+            long_link_phrase: 'was the producing location for',
+            name: 'produced in',
+            reverse_link_phrase: 'produced in',
+          },
+          type0: 'area',
+          type1: 'recording',
+        },
+      },
+    },
+    {
+      command: 'assertEditData',
+      target: 34,
+      value: {
+        type: 90,
+        status: 2,
+        data: {
+          edit_version: 2,
+          ended: 0,
+          entity0: {
+            gid: '30bcaa92-9870-4798-be1a-4e0036755316',
+            id: 7282,
+            name: 'Osaka',
+          },
+          entity1: {
+            gid: 'f66857fb-bb59-444e-97dc-62c73e5eddae',
+            id: 636551,
+            name: '○',
+          },
+          entity_id: 3,
+          link_type: {
+            id: 864,
+            link_phrase: 'arranging location for',
+            long_link_phrase: 'was the arranging location for',
+            name: 'arranged in',
+            reverse_link_phrase: 'arranged in',
+          },
+          type0: 'area',
+          type1: 'recording',
+        },
+      },
+    },
+    // Only one vocal relationship should be added.
+    // (The dated relationship should have been merged with the undated one.)
+    {
+      command: 'assertEditData',
+      target: 35,
+      value: {
+        type: 90,
+        status: 2,
+        data: {
+          begin_date: {
+            day: null,
+            month: null,
+            year: 1990,
+          },
+          edit_version: 2,
+          end_date: {
+            day: null,
+            month: null,
+            year: 1991,
+          },
+          ended: 1,
+          entity0: {
+            gid: '0798d15b-64e2-499f-9969-70167b1d8617',
+            id: 39282,
+            name: 'Boredoms',
+          },
+          entity1: {
+            gid: 'f66857fb-bb59-444e-97dc-62c73e5eddae',
+            id: 636551,
+            name: '○',
+          },
+          entity_id: 7,
+          link_type: {
+            id: 149,
+            link_phrase: '{additional} {guest} {solo} {vocal} {vocal:|vocals}',
+            long_link_phrase: 'performed {additional} {solo} {guest} {vocal} {vocal:|vocals} on',
+            name: 'vocal',
+            reverse_link_phrase: '{additional} {guest} {solo} {vocal} {vocal:|vocals}',
+          },
+          type0: 'artist',
+          type1: 'recording',
+        },
+      },
+    },
+    // End of test for MBS-12860.
   ],
 }

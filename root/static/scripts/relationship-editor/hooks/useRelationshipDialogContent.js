@@ -179,18 +179,13 @@ export function useAddRelationshipDialogContent(
 
   const _backward = backward ?? (source.entityType > targetType);
 
-  const newRelationshipState: RelationshipStateT = React.useMemo(() => ({
+  const newRelationshipState: RelationshipStateT = {
     ...RELATIONSHIP_DEFAULTS,
     entity0: _backward ? defaultTargetObject : source,
     entity1: _backward ? source : defaultTargetObject,
     id: getRelationshipStateId(null),
     ...(buildNewRelationshipData ? buildNewRelationshipData() : null),
-  }), [
-    _backward,
-    source,
-    defaultTargetObject,
-    buildNewRelationshipData,
-  ]);
+  };
 
   return useRelationshipDialogContent({
     ...otherOptions,
