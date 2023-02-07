@@ -103,6 +103,11 @@ export function mergeRelationshipStates(
     targetRelationship,
   );
 
+  mergedRelationship._lineage = [
+    ...mergedRelationship._lineage,
+    'merged with id=' + String(sourceRelationship.id),
+  ];
+
   mergedRelationship.begin_date = mergedBeginDate;
   mergedRelationship.end_date = mergedEndDate;
   mergedRelationship.ended = isDateEmpty(mergedEndDate)

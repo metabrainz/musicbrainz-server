@@ -686,6 +686,9 @@ const RelationshipDialogContent = (React.memo<PropsT>((
 
     const newRelationship: {...RelationshipStateT} = {
       ...initialRelationship,
+      _lineage: initialRelationship._lineage.length
+        ? [...initialRelationship._lineage, 'edited']
+        : ['added'],
       ...state.resultingDatePeriod,
       attributes: state.attributes.resultingLinkAttributes,
       entity0_credit: entity0Credit,

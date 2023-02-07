@@ -27,6 +27,7 @@ import getTargetTypeOptions from '../utility/getTargetTypeOptions.js';
 import useCatalystUser from './useCatalystUser.js';
 
 const RELATIONSHIP_DEFAULTS = {
+  _lineage: [],
   _original: null,
   _status: REL_STATUS_ADD,
   attributes: null,

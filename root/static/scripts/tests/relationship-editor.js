@@ -70,6 +70,7 @@ const initialState = createInitialState({
 
 test('merging duplicate relationships', function (t) {
   let nonEndedRelationshipWithBeginDate = {
+    _lineage: [],
     _original: null,
     _status: REL_STATUS_ADD,
     attributes: ids2attrs([194, 277]),
@@ -294,6 +295,7 @@ test('splitRelationshipByAttributes', function (t) {
   ]);
 
   const existingRelationship: RelationshipStateT = {
+    _lineage: [],
     _original: null,
     _status: REL_STATUS_NOOP,
     attributes: originalAttributes,
@@ -421,6 +423,7 @@ test('splitRelationshipByAttributes', function (t) {
    * be returned unmodified.
    */
   const existingRelationship2 = ({
+    _lineage: [],
     _original: null,
     _status: REL_STATUS_NOOP,
     attributes: tree.fromDistinctAscArray([
@@ -517,6 +520,7 @@ test('splitRelationshipByAttributes', function (t) {
    */
 
   const existingRelationship3: RelationshipStateT = {
+    _lineage: [],
     _original: null,
     _status: REL_STATUS_NOOP,
     attributes: tree.fromDistinctAscArray([zither]),
@@ -561,6 +565,7 @@ test('splitRelationshipByAttributes', function (t) {
    */
 
   const existingRelationship4: RelationshipStateT = {
+    _lineage: [],
     _original: null,
     _status: REL_STATUS_NOOP,
     attributes: null,

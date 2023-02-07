@@ -58,6 +58,7 @@ import {createField} from '../../edit/utility/createField.js';
 import reducerWithErrorHandling
   from '../../edit/utility/reducerWithErrorHandling.js';
 import {
+  ErrorMessage,
   getInitialRelationshipUpdates,
   getUpdatesForAcceptedRelationship,
   runReducer as runRelationshipEditorReducer,
@@ -114,6 +115,8 @@ import getRelationshipLinkType
   from '../../relationship-editor/utility/getRelationshipLinkType.js';
 import isRelationshipBackward
   from '../../relationship-editor/utility/isRelationshipBackward.js';
+import prettyPrintRelationshipState
+  from '../../relationship-editor/utility/prettyPrintRelationshipState.js';
 import updateRecordingStates, {
   compareMediumWithMediumStateTuple,
   compareRecordingIdWithRecordingState,
@@ -488,10 +491,13 @@ function* getAllRelationshipEdits(
          * the same object.  If not, then we either didn't sync the state
          * correctly or we reused a new relationship ID.
          */
-        invariant(
-          seenRelationship === relationship,
-          'Two relationships with the same key',
-        );
+        if (seenRelationship !== relationship) {
+          throw new Error(
+            'Two relationships with the same key:\n\n' +
+            prettyPrintRelationshipState(seenRelationship) + '\n' +
+            prettyPrintRelationshipState(relationship),
+          );
+        }
         continue;
       }
       seenRelationships.set(relationshipKey, relationship);
@@ -927,6 +933,10 @@ const reducer = reducerWithErrorHandling<
           for (const newSource of tree.iterate(selection)) {
             const relationshipWithNewSource =
               cloneRelationshipState(newRelationshipState);
+            relationshipWithNewSource._lineage = [
+              ...relationshipWithNewSource._lineage,
+              'batch-added to ' + sourceEntity.entityType,
+            ];
             relationshipWithNewSource.id = uniqueNegativeId();
             relationshipWithNewSource[sourceEntityProp] = newSource;
             yield *getUpdatesForAcceptedRelationship(
@@ -972,6 +982,7 @@ const reducer = reducerWithErrorHandling<
             },
           });
           const relationship: RelationshipStateT = {
+            _lineage: ['batch-created work'],
             _original: null,
             _status: REL_STATUS_ADD,
             attributes: action.attributes,
@@ -1021,6 +1032,10 @@ const reducer = reducerWithErrorHandling<
         iterateRelationshipsInTargetTypeGroups(targetTypeGroups)
       ) {
         const newRelationship = cloneRelationshipState(relationship);
+        newRelationship._lineage = [
+          ...newRelationship._lineage,
+          'edited new work',
+        ];
         if (newRelationship.entity0.id === oldWork.id) {
           newRelationship.entity0 = newWork;
         }
@@ -1194,6 +1209,10 @@ const reducer = reducerWithErrorHandling<
       ) {
         const newRelationship =
           cloneRelationshipState(relationship);
+        newRelationship._lineage = [
+          ...newRelationship._lineage,
+          'submitted',
+        ];
         callback(newRelationship);
         updates.push(
           {
@@ -1248,6 +1267,10 @@ const reducer = reducerWithErrorHandling<
                   const newOriginal = cloneRelationshipState(
                     newRelationship,
                   );
+                  newOriginal._lineage = [
+                    ...newOriginal._lineage,
+                    'submitted edit-relationship',
+                  ];
                   /*:: invariant(newRelationship._original); */
                   // Can't modify the link order via EDIT_RELATIONSHIP_EDIT
                   newOriginal.linkOrder = newRelationship._original.linkOrder;
@@ -1273,6 +1296,10 @@ const reducer = reducerWithErrorHandling<
                     const newOriginal = cloneRelationshipState(
                       newRelationship._original,
                     );
+                    newOriginal._lineage = [
+                      ...newOriginal._lineage,
+                      'submitted reorder-relationships',
+                    ];
                     newOriginal.linkOrder = newRelationship.linkOrder;
                     newRelationship._original = newOriginal;
                     newRelationship._status = getRelationshipEditStatus(
@@ -1734,9 +1761,7 @@ let ReleaseRelationshipEditor: React.AbstractComponent<{}, void> = (
       />
 
       {state.submissionError == null ? null : (
-        <p className="warning" id="errors-msg">
-          {state.submissionError}
-        </p>
+        <ErrorMessage error={state.submissionError} />
       )}
 
       <form

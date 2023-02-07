@@ -35,6 +35,7 @@ export const release: ReleaseT = createReleaseObject({
 });
 
 export const emptyRelationship: RelationshipStateT = {
+  _lineage: [],
   _original: null,
   _status: REL_STATUS_ADD,
   attributes: null,

@@ -190,6 +190,10 @@ export default function splitRelationshipByAttributes(
 
   if (origRelationship) {
     const newRelationship = cloneRelationshipState(relationship);
+    newRelationship._lineage = [
+      ...newRelationship._lineage,
+      'split attribute onto existing relationship',
+    ];
     /*
      * If the existing relationship has no instruments or vocals, add the
      * first new instrument or vocal to it (MBS-12787).
@@ -236,6 +240,10 @@ export default function splitRelationshipByAttributes(
 
   for (const linkAttribute of tree.iterate(newAttributesToSplit)) {
     const newRelationship = cloneRelationshipState(relationship);
+    newRelationship._lineage = [
+      ...newRelationship._lineage,
+      'split attribute onto new relationship',
+    ];
     newRelationship.id = uniqueNegativeId();
     newRelationship.attributes = tree.insert(
       commonAttributes,

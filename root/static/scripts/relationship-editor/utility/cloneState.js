@@ -65,6 +65,7 @@ export const cloneLinkPhraseGroup:
 export const cloneRelationshipState:
   (RelationshipStateT) => {...RelationshipStateT} =
   createFastObjectCloneFunction<RelationshipStateT>({
+    _lineage: null,
     _original: null,
     _status: null,
     attributes: null,
