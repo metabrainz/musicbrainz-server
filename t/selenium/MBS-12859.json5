@@ -1,0 +1,73 @@
+{
+  title: 'MBS-12859: Allow relationship credits to be the same as the entity name',
+  commands: [
+    {
+      command: 'open',
+      target: '/recording/96f64611-49df-4e54-84e7-0f9a30f01766/edit',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'css=#relationship-editor button.add-item',
+      value: '',
+    },
+    {
+      command: 'type',
+      target: 'css=#add-relationship-dialog input.relationship-target',
+      value: '2437980f-513a-44fc-80f1-b90d9d7fcf8f',
+    },
+    {
+      command: 'sendKeys',
+      target: 'css=#add-relationship-dialog input.relationship-type',
+      value: 'performer${KEY_ENTER}',
+    },
+    {
+      command: 'type',
+      target: 'css=#add-relationship-dialog div.target-entity-credit input.entity-credit',
+      value: 'Bing Crosby',
+    },
+    {
+      command: 'click',
+      target: 'css=#add-relationship-dialog div.buttons button.positive',
+      value: '',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'css=form.edit-recording button[type=submit]',
+      value: '',
+    },
+    {
+      command: 'assertEditData',
+      target: 1,
+      value: {
+        type: 90,
+        status: 2,
+        data: {
+          edit_version: 2,
+          ended: 0,
+          entity0: {
+            gid: '2437980f-513a-44fc-80f1-b90d9d7fcf8f',
+            id: 99,
+            name: 'Bing Crosby',
+          },
+          entity0_credit: 'Bing Crosby',
+          entity1: {
+            gid: '96f64611-49df-4e54-84e7-0f9a30f01766',
+            id: 164872,
+            name: 'mr self destruct',
+          },
+          entity_id: 1,
+          link_type: {
+            id: 156,
+            link_phrase: '{additional:additionally} {guest} {solo} performed',
+            long_link_phrase: '{additional:additionally} {guest} {solo} performed',
+            name: 'performer',
+            reverse_link_phrase: '{additional} {guest} {solo} performer',
+          },
+          type0: 'artist',
+          type1: 'recording',
+        },
+      },
+    },
+  ],
+}
