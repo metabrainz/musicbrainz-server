@@ -45,6 +45,7 @@ import {
 import clean from '../../common/utility/clean.js';
 import isDatabaseRowId from '../../common/utility/isDatabaseRowId.js';
 import isDateEmpty from '../../common/utility/isDateEmpty.js';
+import natatime from '../../common/utility/natatime.js';
 import {uniqueNegativeId} from '../../common/utility/numbers.js';
 import setMapDefault from '../../common/utility/setMapDefault.js';
 import sleep from '../../common/utility/sleep.js';
@@ -406,14 +407,7 @@ async function submitWorkEdits(
 function* getAllRelationshipEdits(
   state: ReleaseRelationshipEditorStateT,
 ): Generator<
-  {
-    +edits: Generator<
-      [Array<RelationshipStateT>, WsJsEditRelationshipT],
-      void,
-      void,
-    >,
-    +entity: CoreEntityT,
-  },
+  [Array<RelationshipStateT>, WsJsEditRelationshipT],
   void,
   void,
 > {
@@ -715,44 +709,30 @@ function* getAllRelationshipEdits(
 
   for (const [/* position */, mediumState] of tree.iterate(state.mediums)) {
     for (const recordingState of tree.iterate(mediumState)) {
-      yield {
-        edits: getRelationshipEditsForEntity(recordingState.targetTypeGroups),
-        entity: recordingState.recording,
-      };
+      yield* getRelationshipEditsForEntity(recordingState.targetTypeGroups);
 
       for (const relatedWork of tree.iterate(recordingState.relatedWorks)) {
-        yield {
-          edits: getRelationshipEditsForEntity(relatedWork.targetTypeGroups),
-          entity: relatedWork.work,
-        };
+        yield* getRelationshipEditsForEntity(relatedWork.targetTypeGroups);
       }
     }
   }
 
-  yield {
-    edits: getRelationshipEditsForEntity(findTargetTypeGroups(
-      state.relationshipsBySource,
-      state.entity,
-    )),
-    entity: state.entity,
-  };
+  yield* getRelationshipEditsForEntity(findTargetTypeGroups(
+    state.relationshipsBySource,
+    state.entity,
+  ));
 
-  yield {
-    edits: getRelationshipEditsForEntity(findTargetTypeGroups(
-      state.relationshipsBySource,
-      state.entity.releaseGroup,
-    )),
-    entity: state.entity.releaseGroup,
-  };
+  yield* getRelationshipEditsForEntity(findTargetTypeGroups(
+    state.relationshipsBySource,
+    state.entity.releaseGroup,
+  ));
 }
 
 function stateHasPendingEdits(
   state: ReleaseRelationshipEditorStateT,
 ): boolean {
-  for (const {edits} of getAllRelationshipEdits(state)) {
-    if (!edits.next().done) {
-      return true;
-    }
+  if (!getAllRelationshipEdits(state).next().done) {
+    return true;
   }
   return false;
 }
@@ -763,8 +743,10 @@ async function submitRelationshipEdits(
 ): Promise<void> {
   let editCount = 0;
   let responseData;
-  for (const {edits} of getAllRelationshipEdits(state)) {
-    const editsList = Array.from(edits);
+  for (
+    // Submits 25 edits per request.
+    const editsList of natatime(25, getAllRelationshipEdits(state))
+  ) {
     editCount += editsList.length;
     responseData = await handlePromiseRejection(
       dispatch,

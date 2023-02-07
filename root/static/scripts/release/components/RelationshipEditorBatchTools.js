@@ -54,11 +54,9 @@ const BatchAddRelationshipButtonPopover = ({
 }: BatchAddRelationshipButtonPopoverPropsT) => {
   const addButtonRef = React.useRef<HTMLButtonElement | null>(null);
 
-  const sourcePlaceholder = React.useMemo(() =>(
-    createCoreEntityObject(sourceType, {
-      name: entityPlaceholder,
-    })
-  ), [sourceType, entityPlaceholder]);
+  const sourcePlaceholder = createCoreEntityObject(sourceType, {
+    name: entityPlaceholder,
+  });
 
   const buildPopoverContent = useAddRelationshipDialogContent({
     batchSelectionCount,
