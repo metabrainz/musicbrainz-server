@@ -11,8 +11,10 @@ import $ from 'jquery';
 
 import {arraysEqual} from '../common/utility/arrays.js';
 
+type EntityTypes = string | $ReadOnlyArray<string>;
+
 type EntityTypesMap = {
-  +[entityType: RelatableEntityTypeT]: string | $ReadOnlyArray<string>,
+  +[entityType: RelatableEntityTypeT]: EntityTypes,
 };
 
 type EntityTypeMap = {
@@ -4526,42 +4528,24 @@ const CLEANUPS: CleanupEntries = {
     match: [new RegExp('^(https?://)?([^/]+\\.)?soundcloud\\.com', 'i')],
     restrict: [
       LINK_TYPES.soundcloud,
-      {
-        recording: LINK_TYPES.downloadfree.recording,
-        release: LINK_TYPES.downloadfree.release,
-      },
-      {
-        recording: LINK_TYPES.downloadpurchase.recording,
-        release: LINK_TYPES.downloadpurchase.release,
-      },
-      {
-        recording: LINK_TYPES.streamingfree.recording,
-        release: LINK_TYPES.streamingfree.release,
-      },
-      {
-        recording: LINK_TYPES.streamingpaid.recording,
-        release: LINK_TYPES.streamingpaid.release,
-      },
-      {
-        recording: [
+      ...anyCombinationOf(
+        'recording',
+        [
           LINK_TYPES.downloadfree.recording,
-          LINK_TYPES.streamingfree.recording,
-        ],
-        release: [
-          LINK_TYPES.downloadfree.release,
-          LINK_TYPES.streamingfree.release,
-        ],
-      },
-      {
-        recording: [
           LINK_TYPES.downloadpurchase.recording,
+          LINK_TYPES.streamingfree.recording,
           LINK_TYPES.streamingpaid.recording,
         ],
-        release: [
+      ),
+      ...anyCombinationOf(
+        'release',
+        [
+          LINK_TYPES.downloadfree.release,
           LINK_TYPES.downloadpurchase.release,
+          LINK_TYPES.streamingfree.release,
           LINK_TYPES.streamingpaid.release,
         ],
-      },
+      ),
     ],
     clean: function (url) {
       url = url.replace(/^(https?:\/\/)?((www|m)\.)?soundcloud\.com(\/#!)?/, 'https://soundcloud.com');
@@ -5874,6 +5858,47 @@ entitySpecificRules.release_group = function (url) {
 };
 
 /**
+ * Allows for every combination of the given types for the given entity type.
+ * Useful for cases where we want to restrict the options to just a specific
+ * subset of relationships (e.g. "get the music" ones), but without making
+ * extra assumptions about how that subset can be used.
+ *
+ * e.g: anyCombinationOf('release', [1, 2, 3]) allows for:
+ * 1, 2, 3, [1, 2], [1, 3], [2, 3], [1, 2, 3]
+ */
+function anyCombinationOf(
+  entityType: RelatableEntityTypeT,
+  types: $ReadOnlyArray<string>,
+): $ReadOnlyArray<EntityTypesMap> {
+  const validCombinations = Array(1 << types.length).fill().map(
+    (e1, i) => types.filter((e2, j) => i & 1 << j),
+  );
+
+  const result = [];
+  for (const combination of validCombinations) {
+    let option;
+    if (combination.length === 0) {
+      // The empty subset is technically valid, but not of interest to us
+      continue;
+    }
+    if (combination.length === 1) {
+      // One-type subsets are expected as a string, not a 1-element array
+      option = combination[0];
+    } else {
+      option = combination;
+    }
+
+    const resultOption: {
+      [entityType: RelatableEntityTypeT]: EntityTypes,
+    } = {};
+    resultOption[entityType] = option;
+    result.push(resultOption);
+  }
+
+  return result;
+}
+
+/**
  * Merge multiple link types into one object.
  *
  * e.g: multiple(LINK_TYPES.downloadfree, LINK_TYPES.streamingfree)
@@ -6005,6 +6030,7 @@ export class Checker {
     selectedTypes: $ReadOnlyArray<string>,
     allowedTypes: $ReadOnlyArray<RelationshipTypeT> | false,
   ): ValidationResult {
+    console.log(allowedTypes);
     if (!allowedTypes) {
       return {result: true};
     }
