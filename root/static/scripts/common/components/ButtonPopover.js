@@ -33,8 +33,7 @@ type PropsT = {
   +wrapButton?: (React.MixedElement) => React.MixedElement,
 };
 
-const ButtonPopover: React.AbstractComponent<PropsT, mixed> =
-React.memo((props: PropsT): React.MixedElement => {
+const ButtonPopover = (props: PropsT): React.MixedElement => {
   const {
     buttonContent,
     buttonProps = null,
@@ -138,6 +137,6 @@ React.memo((props: PropsT): React.MixedElement => {
         : null}
     </>
   );
-});
+};
 
 export default ButtonPopover;
