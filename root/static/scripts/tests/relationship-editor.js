@@ -15,6 +15,7 @@ import {
 
 import {defaultContext} from '../../../context.mjs';
 import linkedEntities from '../common/linkedEntities.mjs';
+import {uniqueNegativeId} from '../common/utility/numbers.js';
 import {
   createInitialState,
   reducer,
@@ -271,7 +272,7 @@ test('merging duplicate relationships', function (t) {
 });
 
 test('splitRelationshipByAttributes', function (t) {
-  t.plan(14);
+  t.plan(16);
 
   const lyre = {
     type: {
@@ -625,6 +626,43 @@ test('splitRelationshipByAttributes', function (t) {
       },
     ),
     'second relationship contains drums',
+  );
+
+  /*
+   * This test attempts to split a newly-added relationship with a single
+   * vocal attribute. Since there's no need to split a single attribute,
+   * we should return the same relationship as-is (MBS-12874).
+   */
+
+  const newRelationship1: RelationshipStateT = {
+    _lineage: [],
+    _original: null,
+    _status: REL_STATUS_ADD,
+    attributes: tree.fromDistinctAscArray([leadVocals]),
+    begin_date: null,
+    editsPending: false,
+    end_date: null,
+    ended: false,
+    entity0: artist,
+    entity0_credit: '',
+    entity1: event,
+    entity1_credit: '',
+    id: uniqueNegativeId(),
+    linkOrder: 0,
+    linkTypeID: 798,
+  };
+  Object.freeze(newRelationship1);
+
+  splitRelationships =
+    splitRelationshipByAttributes(newRelationship1);
+
+  t.ok(
+    splitRelationships.length === 1,
+    'one relationships is returned',
+  );
+  t.ok(
+    splitRelationships[0] === newRelationship1,
+    'the same relationship is returned back',
   );
 });
 

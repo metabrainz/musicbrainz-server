@@ -28,6 +28,7 @@ import type {
 
 import {cloneRelationshipState} from './cloneState.js';
 import {
+  areLinkAttributesEqual,
   compareLinkAttributeIds,
   compareLinkAttributeRootIds,
   compareLinkAttributes,
@@ -236,6 +237,21 @@ export default function splitRelationshipByAttributes(
     } else {
       splitRelationships.push(newRelationship);
     }
+  }
+
+  /*
+   * If (1) this is a new relationship, (2) `newAttributesToSplit` contains a
+   * single attribute, and (3) it's identical to `newAttributes`, then
+   * there's nothing to split; we can just return the relationship as-is.
+   * (Triggered MBS-12874 in a roundabout way.)
+   */
+  if (
+    origRelationship == null &&
+    newAttributesToSplit != null &&
+    newAttributesToSplit.size === 1 &&
+    areLinkAttributesEqual(newAttributes, newAttributesToSplit)
+  ) {
+    newAttributesToSplit = null;
   }
 
   for (const linkAttribute of tree.iterate(newAttributesToSplit)) {
