@@ -71,8 +71,7 @@ const DialogEntityCredit = (React.memo<PropsT, void>(({
   state,
   targetType,
 }: PropsT): React.MixedElement => {
-  const creditedAsOrName = state.creditedAs || entityName;
-  const origCredit = React.useRef(creditedAsOrName);
+  const origCredit = React.useRef(state.creditedAs || '');
   const inputRef = React.useRef(null);
   const inputId = React.useId();
 
@@ -105,8 +104,8 @@ const DialogEntityCredit = (React.memo<PropsT, void>(({
   let changeCreditsSection;
   if (
     state.creditsToChange ||
-    creditedAsOrName !== origCredit.current ||
-    creditedAsOrName !== entityName
+    state.creditedAs !== '' ||
+    state.creditedAs !== origCredit.current
   ) {
     changeCreditsSection = (
       <>
