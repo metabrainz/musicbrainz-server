@@ -1120,12 +1120,34 @@ const CLEANUPS: CleanupEntries = {
       },
     ],
     clean: function (url) {
+      // To reject /videoframe links without breaking the ?video_id parameter
+      if (/^https?:\/\/bandcamp.com\/videoframe/.test(url)) {
+        return url;
+      }
       url = url.replace(/^(?:https?:\/\/)?([^\/]+\.)?bandcamp\.com(?:\/([^?#]*))?.*$/, 'https://$1bandcamp.com/$2');
       url = url.replace(/^https:\/\/([^\/]+)\.bandcamp\.com\/(?:((?:album|track)\/[^\/]+))?.*$/, 'https://$1.bandcamp.com/$2');
       url = url.replace(/^https:\/\/bandcamp\.com\/(?:discover|tag)\/([^\/]+).*$/, 'https://bandcamp.com/discover/$1');
       return url;
     },
     validate: function (url, id) {
+      if (/^https:\/\/(?:[^\/]+\.)?bandcamp\.com\/videoframe/.test(url)) {
+        return {
+          error: exp.l(
+            `Please do not add “{blocked_url_pattern}” links,
+             link to the appropriate “{wanted_url_pattern}” page instead.`,
+            {
+              blocked_url_pattern: (
+                <span className="url-quote">{'/videoframe'}</span>
+              ),
+              wanted_url_pattern: (
+                <span className="url-quote">{'/track'}</span>
+              ),
+            },
+          ),
+          result: false,
+          target: ERROR_TARGETS.URL,
+        };
+      }
       switch (id) {
         case LINK_TYPES.bandcamp.artist:
           if (/^https:\/\/[^\/]+\.bandcamp\.com\/(album|track)/.test(url)) {
