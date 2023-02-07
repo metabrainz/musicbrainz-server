@@ -120,9 +120,12 @@ export function* getInitialRelationshipUpdates(
       target = ({...target, id: uniqueNegativeId()}: CoreEntityT);
     }
 
+    const isExistingRelationship = isDatabaseRowId(relationshipData.id);
+
     const relationshipState: RelationshipStateT = {
+      _lineage: [isExistingRelationship ? 'loaded from database' : 'seeded'],
       _original: null,
-      _status: isDatabaseRowId(relationshipData.id)
+      _status: isExistingRelationship
         ? REL_STATUS_NOOP
         : REL_STATUS_ADD,
       attributes: tree.fromDistinctAscArray(
@@ -342,6 +345,10 @@ export function runReducer(
       if (relationship._original) {
         const newRelationshipState =
           cloneRelationshipState(relationship._original);
+        newRelationshipState._lineage = [
+          ...newRelationshipState._lineage,
+          'removed',
+        ];
         // Clicking the `x` again undoes the removal.
         newRelationshipState._status =
           relationship._status === REL_STATUS_REMOVE
@@ -373,6 +380,10 @@ export function runReducer(
       ) {
         const newRelationship = cloneRelationshipState(relationship);
 
+        newRelationship._lineage = [
+          ...newRelationship._lineage,
+          'toggled ordering',
+        ];
         newRelationship.linkOrder =
           hasOrdering ? (nextLogicalLinkOrder++) : 0;
         newRelationship._status = getRelationshipEditStatus(
@@ -498,6 +509,26 @@ export function runReducer(
   }
 }
 
+type ErrorMessagePropsT = {
+  +error: string,
+};
+
+export const ErrorMessage:
+  React.AbstractComponent<ErrorMessagePropsT, mixed> =
+  React.memo<ErrorMessagePropsT>(({
+    error,
+  }: ErrorMessagePropsT): React.MixedElement => (
+    <div className="error">
+      <strong className="error">
+        {l('Oops, something went wrong!')}
+      </strong>
+      <br />
+      <pre style={{whiteSpace: 'pre-wrap'}}>
+        {error}
+      </pre>
+    </div>
+  ));
+
 const RelationshipEditor = (
   props: PropsT,
 ): React.Element<'fieldset'> | null => {
@@ -552,15 +583,7 @@ const RelationshipEditor = (
   return (
     <fieldset id="relationship-editor">
       {reducerError ? (
-        <div className="error">
-          <strong className="error">
-            {l('Oops, something went wrong!')}
-          </strong>
-          <br />
-          <pre style={{whiteSpace: 'pre-wrap'}}>
-            {reducerError.stack}
-          </pre>
-        </div>
+        <ErrorMessage error={reducerError.stack} />
       ) : null}
 
       <legend>

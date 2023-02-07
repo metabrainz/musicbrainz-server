@@ -28,8 +28,6 @@ import {
   getPhraseAndExtraAttributesText,
 } from '../../edit/utility/linkPhrase.js';
 import {
-  REL_STATUS_ADD,
-  REL_STATUS_EDIT,
   REL_STATUS_REMOVE,
 } from '../constants.js';
 import useCatalystUser from '../hooks/useCatalystUser.js';
@@ -44,6 +42,8 @@ import type {
 import getLinkPhrase from '../utility/getLinkPhrase.js';
 import getRelationshipKey from '../utility/getRelationshipKey.js';
 import getRelationshipLinkType from '../utility/getRelationshipLinkType.js';
+import getRelationshipStatusName
+  from '../utility/getRelationshipStatusName.js';
 import isRelationshipBackward from '../utility/isRelationshipBackward.js';
 
 import NewWorkLink from './NewWorkLink.js';
@@ -283,15 +283,7 @@ const RelationshipItem = (React.memo<PropsT>(({
 }): React.AbstractComponent<PropsT>);
 
 function getRelationshipStyling(relationship: RelationshipStateT) {
-  switch (relationship._status) {
-    case REL_STATUS_ADD:
-      return 'rel-add';
-    case REL_STATUS_EDIT:
-      return 'rel-edit';
-    case REL_STATUS_REMOVE:
-      return 'rel-remove';
-  }
-  return '';
+  return 'rel-' + getRelationshipStatusName(relationship);
 }
 
 export default RelationshipItem;

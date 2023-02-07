@@ -78,6 +78,10 @@ export default function* updateEntityCredits(
       : 'entity0_credit';
     if (relationship[creditProp] !== creditedName) {
       const newRelationship = cloneRelationshipState(relationship);
+      newRelationship._lineage = [
+        ...newRelationship._lineage,
+        'updated entity credit',
+      ];
       newRelationship[creditProp] = creditedName;
       newRelationship._status =
         getRelationshipEditStatus(newRelationship);
