@@ -970,16 +970,36 @@ const CLEANUPS: CleanupEntries = {
   },
   'bandcamp': {
     match: [new RegExp(
-      '^(https?://)?(((?!daily)[^/])+\\.)?bandcamp\\.com(?!/campaign/)',
+      '^(https?://)?(((?!daily)[^/])+\\.)?bandcamp\\.com' +
+      '(?!/(?:campaign|merch)/)',
       'i',
     )],
-    restrict: [{
-      ...LINK_TYPES.bandcamp,
-      work: LINK_TYPES.lyrics.work,
-    }],
+    restrict: [
+      LINK_TYPES.bandcamp,
+      ...anyCombinationOf(
+        'recording',
+        [
+          LINK_TYPES.downloadfree.recording,
+          LINK_TYPES.downloadpurchase.recording,
+          LINK_TYPES.streamingfree.recording,
+        ],
+      ),
+      ...anyCombinationOf(
+        'release',
+        [
+          LINK_TYPES.downloadfree.release,
+          LINK_TYPES.downloadpurchase.release,
+          LINK_TYPES.streamingfree.release,
+          LINK_TYPES.mailorder.release,
+        ],
+      ),
+      {
+        work: LINK_TYPES.lyrics.work,
+      },
+    ],
     clean: function (url) {
       url = url.replace(/^(?:https?:\/\/)?([^\/]+\.)?bandcamp\.com(?:\/([^?#]*))?.*$/, 'https://$1bandcamp.com/$2');
-      url = url.replace(/^https:\/\/([^\/]+)\.bandcamp\.com\/(?:((?:album|merch|track)\/[^\/]+))?.*$/, 'https://$1.bandcamp.com/$2');
+      url = url.replace(/^https:\/\/([^\/]+)\.bandcamp\.com\/(?:((?:album|track)\/[^\/]+))?.*$/, 'https://$1.bandcamp.com/$2');
       return url;
     },
     validate: function (url, id) {
@@ -1019,6 +1039,64 @@ const CLEANUPS: CleanupEntries = {
         case LINK_TYPES.lyrics.work:
           return {
             result: /^https:\/\/[^\/]+\.bandcamp\.com\/track\/[\w-]+$/.test(url),
+            target: ERROR_TARGETS.ENTITY,
+          };
+        case LINK_TYPES.downloadfree.recording:
+        case LINK_TYPES.downloadpurchase.recording:
+        case LINK_TYPES.streamingfree.recording:
+          if (/^(https?:\/\/)?([^\/]+)\.bandcamp\.com\/?$/.test(url)) {
+            return {
+              error: exp.l(
+                `This is a Bandcamp profile, not a page for a specific
+                 recording. Even if it shows a single recording right now,
+                 that can change when the artist releases another.
+                 Please find and add the appropriate recording page
+                 (“{single_url_pattern}”)
+                 instead, and feel free to add this profile link
+                 to the appropriate artist or label.`,
+                {
+                  single_url_pattern: (
+                    <span className="url-quote">{'/track'}</span>
+                  ),
+                },
+              ),
+              result: false,
+              target: ERROR_TARGETS.URL,
+            };
+          }
+          return {
+            result: /^https:\/\/[^\/]+\.bandcamp\.com\/track\/[\w-]+$/.test(url),
+            target: ERROR_TARGETS.ENTITY,
+          };
+        case LINK_TYPES.downloadfree.release:
+        case LINK_TYPES.downloadpurchase.release:
+        case LINK_TYPES.mailorder.release:
+        case LINK_TYPES.streamingfree.release:
+          if (/^(https?:\/\/)?([^\/]+)\.bandcamp\.com\/?$/.test(url)) {
+            return {
+              error: exp.l(
+                `This is a Bandcamp profile, not a page for a specific
+                 release. Even if it shows this release right now,
+                 that can change when the artist releases another.
+                 Please find and add the appropriate release page
+                 (“{album_url_pattern}” or “{single_url_pattern}”)
+                 instead, and feel free to add this profile link
+                 to the appropriate artist or label.`,
+                {
+                  album_url_pattern: (
+                    <span className="url-quote">{'/album'}</span>
+                  ),
+                  single_url_pattern: (
+                    <span className="url-quote">{'/track'}</span>
+                  ),
+                },
+              ),
+              result: false,
+              target: ERROR_TARGETS.URL,
+            };
+          }
+          return {
+            result: /^https:\/\/[^\/]+\.bandcamp\.com\/(?:album|track)\/[\w-]+$/.test(url),
             target: ERROR_TARGETS.ENTITY,
           };
       }
@@ -1068,6 +1146,23 @@ const CLEANUPS: CleanupEntries = {
           };
       }
       return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
+  'bandcampmerch': {
+    match: [new RegExp(
+      '^(https?://)?([^/]+)\\.bandcamp\\.com/merch',
+      'i',
+    )],
+    restrict: [LINK_TYPES.mailorder],
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?([^\/]+)\.bandcamp\.com\/merch\/([^\/]+)?.*$/, 'https://$1.bandcamp.com/merch/$2');
+    },
+    validate: function (url, id) {
+      switch (id) {
+        case LINK_TYPES.mailorder.release:
+          return {result: /^https:\/\/[^\/]+\.bandcamp\.com\/merch\/[\w-]+$/.test(url)};
+      }
+      return {result: false, target: ERROR_TARGETS.ENTITY};
     },
   },
   'bandsintown': {
@@ -5759,10 +5854,7 @@ const entitySpecificRules: {
   [entityType: RelatableEntityTypeT]: (string) => ValidationResult,
 } = {};
 
-/*
- * Avoid Wikipedia/Wikidata being added as release-level relationship
- * Disallow https://*.bandcamp.com/ URLs at release level
- */
+// Avoid Wikipedia/Wikidata being added as release-level relationship
 entitySpecificRules.release = function (url) {
   if (/^(https?:\/\/)?([^.\/]+\.)?wikipedia\.org\//.test(url)) {
     return {
@@ -5793,54 +5885,6 @@ entitySpecificRules.release = function (url) {
       error: linkAsLyricsMsg(),
       result: false,
       target: ERROR_TARGETS.ENTITY,
-    };
-  }
-  if (/^(https?:\/\/)?([^\/]+)\.bandcamp\.com\/?$/.test(url)) {
-    return {
-      error: exp.l(
-        `This is a Bandcamp profile, not a page for a specific
-         release. Even if it shows this release right now,
-         that can change when the artist releases another.
-         Please find and add the appropriate release page
-         (“{album_url_pattern}” or “{single_url_pattern}”)
-         instead, and feel free to add this profile link
-         to the appropriate artist or label.`,
-        {
-          album_url_pattern: (
-            <span className="url-quote">{'/album'}</span>
-          ),
-          single_url_pattern: (
-            <span className="url-quote">{'/track'}</span>
-          ),
-        },
-      ),
-      result: false,
-      target: ERROR_TARGETS.URL,
-    };
-  }
-  return {result: true};
-};
-
-// Disallow https://*.bandcamp.com/ URLs at recording level
-entitySpecificRules.recording = function (url) {
-  if (/^(https?:\/\/)?([^\/]+)\.bandcamp\.com\/?$/.test(url)) {
-    return {
-      error: exp.l(
-        `This is a Bandcamp profile, not a page for a specific
-         recording. Even if it shows a single recording right now,
-         that can change when the artist releases another.
-         Please find and add the appropriate recording page
-         (“{single_url_pattern}”)
-         instead, and feel free to add this profile link
-         to the appropriate artist or label.`,
-        {
-          single_url_pattern: (
-            <span className="url-quote">{'/track'}</span>
-          ),
-        },
-      ),
-      result: false,
-      target: ERROR_TARGETS.URL,
     };
   }
   return {result: true};
