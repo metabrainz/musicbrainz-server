@@ -70,5 +70,5 @@ Updated [WikiDocs page](https://wiki.musicbrainz.org/Category:WikiDocs_Page)
     with your change? This could include reviewing a specific part of your PR.
 -->
 
-1. Make updated WikiDocs pages visible on MusicBrainz website
-2. :beginner: Action...
+1. :beginner: If any action is needed on merge or deployment, list it such as:
+   1. Make updated WikiDocs pages visible on MusicBrainz website
