@@ -43,6 +43,16 @@
 Tested something on `/release/mbid` using a sample/full database
 
 
+# Documenting
+<!--
+    List changes to the documentation, which can be placed in the WikiDoc pages,
+    in this Git repository, in another repository, in the database...
+-->
+
+:beginner: If you updated documentation pages, mention them here, such as:
+Updated [WikiDocs page](https://wiki.musicbrainz.org/Category:WikiDocs_Page)
+
+
 # Checklist for author
 <!--
     The tasks you have to do to get your change ready for review. Use this if
@@ -52,8 +62,6 @@ Tested something on `/release/mbid` using a sample/full database
 
 * [x] Read the [Contributing Guidelines](https://github.com/metabrainz/musicbrainz-server/blob/master/CONTRIBUTING.md)
 * [ ] Delete irrelevant parts of this template
-* [ ] Update the [WikiDocs pages](https://wiki.musicbrainz.org/Category:WikiDocs_Page)
-  * [ ] :beginner: Page...
 * [ ] :beginner: Task...
 
 
