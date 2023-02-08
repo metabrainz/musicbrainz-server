@@ -20,10 +20,6 @@ export const HIGHLIGHT_PREVIOUS_ITEM = {
   type: 'highlight-previous-item',
 };
 
-export const NOOP = {
-  type: 'noop',
-};
-
 export const SHOW_MENU = {
   type: 'set-menu-visibility',
   value: true,

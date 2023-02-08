@@ -418,9 +418,6 @@ export function runReducer<+T: EntityItemT>(
       break;
     }
 
-    case 'noop':
-      break;
-
     case 'toggle-add-entity-dialog': {
       state.isAddEntityDialogOpen = action.isOpen;
       break;
@@ -609,10 +606,6 @@ export default function reducer<+T: EntityItemT>(
   state: StateT<T>,
   action: ActionT<T>,
 ): StateT<T> {
-  if (action.type === 'noop') {
-    return state;
-  }
-
   const nextState = {...state};
   runReducer<T>(nextState, action);
   return nextState;
