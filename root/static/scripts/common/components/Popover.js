@@ -76,7 +76,7 @@ const Popover = (props: PropsT): React.Portal => {
       dialogRef={dialogRef}
       onEscape={closeAndReturnFocus}
       siblings={<div data-popper-arrow />}
-      trapFocus={false}
+      trapFocus
     >
       {buildChildren(closeAndReturnFocus)}
     </Dialog>,
