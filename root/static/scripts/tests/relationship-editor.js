@@ -372,7 +372,7 @@ test('splitRelationshipByAttributes', function (t) {
         // Add a new credit to the existing lyre attribute.
         {...lyre, credited_as: 'LYRE'},
         drums,
-      ]),
+      ].sort(compareLinkAttributeIds)),
       compareLinkAttributeIds,
       onConflictUseSecondValue,
     ),
@@ -596,7 +596,12 @@ test('splitRelationshipByAttributes', function (t) {
     ...existingRelationship4,
     _original: existingRelationship4,
     _status: REL_STATUS_EDIT,
-    attributes: tree.fromDistinctAscArray([drums, leadVocals]),
+    attributes: tree.fromDistinctAscArray(
+      [
+        drums,
+        leadVocals,
+      ].sort(compareLinkAttributeIds),
+    ),
   };
 
   splitRelationships =
