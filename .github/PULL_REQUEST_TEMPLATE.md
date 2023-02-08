@@ -53,16 +53,15 @@ Tested something on `/release/mbid` using a sample/full database
 Updated [WikiDocs page](https://wiki.musicbrainz.org/Category:WikiDocs_Page)
 
 
-# Checklist for author
+# Draft progress
 <!--
     The tasks you have to do to get your change ready for review. Use this if
     you draft a pull request. Mark done tasks with an [x] as you progress. See
     https://github.blog/2019-02-14-introducing-draft-pull-requests/
 -->
 
-* [x] Read the [Contributing Guidelines](https://github.com/metabrainz/musicbrainz-server/blob/master/CONTRIBUTING.md)
-* [ ] Delete irrelevant parts of this template
-* [ ] :beginner: Task...
+* [ ] :beginner: If you draft a pull request, mention missing tasks as items:
+  * [ ] :beginner: And even subtasks as indented/nested items!
 
 
 # Action
