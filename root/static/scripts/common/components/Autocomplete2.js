@@ -551,11 +551,9 @@ const Autocomplete2 = (React.memo(<+T: EntityItemT>(
 
       case 'Enter':
       case 'Tab': {
-        if (isOpen) {
+        if (isOpen && highlightedItem) {
           event.preventDefault();
-          if (highlightedItem) {
-            selectItem(highlightedItem);
-          }
+          selectItem(highlightedItem);
         }
         break;
       }
@@ -822,6 +820,7 @@ const Autocomplete2 = (React.memo(<+T: EntityItemT>(
             ? 'visible'
             : 'hidden',
         }}
+        tabIndex="-1"
       >
         {disabled ? null : menuItemElements}
       </ul>

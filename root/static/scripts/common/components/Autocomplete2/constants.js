@@ -10,7 +10,7 @@
 import {bracketedText} from '../../utility/bracketed.js';
 
 import {
-  NOOP,
+  HIDE_MENU,
   SEARCH_AGAIN,
   SHOW_MORE_RESULTS,
   TOGGLE_INDEXED_SEARCH,
@@ -71,19 +71,19 @@ export const MENU_ITEMS: {+[name: string]: ActionItemT<empty>, ...} = {
   },
   LOOKUP_ERROR: {
     type: 'action',
-    action: NOOP,
+    action: HIDE_MENU,
     id: 'lookup-error',
     name: N_l('An error occurred while looking up the MBID you entered.'),
   },
   LOOKUP_TYPE_ERROR: {
     type: 'action',
-    action: NOOP,
+    action: HIDE_MENU,
     id: 'lookup-type-error',
     name: N_l('The type of entity you pasted isn’t supported here.'),
   },
   NO_RESULTS: {
     type: 'action',
-    action: NOOP,
+    action: HIDE_MENU,
     id: 'no-results',
     name: () => bracketedText(l('No results')),
   },

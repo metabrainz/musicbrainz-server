@@ -69,7 +69,6 @@ export type ActionT<+T: EntityItemT> =
   | { +type: 'highlight-index', +index: number }
   | { +type: 'highlight-next-item' }
   | { +type: 'highlight-previous-item' }
-  | { +type: 'noop' }
   | { +type: 'reset-menu' }
   | { +type: 'select-item', +item: ItemT<T> }
   | { +type: 'set-menu-visibility', +value: boolean }
