@@ -39,8 +39,8 @@
     avoid repeating the same things and consider what you might have missed.
 -->
 
-:beginner: If you tested on specific pages, mention them here (such as
-“Tested on `/release/mbid` using a sample/full database”).
+:beginner: If you tested anything on specific pages, mention them here, such as:
+Tested something on `/release/mbid` using a sample/full database
 
 
 # Checklist for author
