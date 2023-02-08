@@ -33,8 +33,9 @@
 
 # Testing
 <!--
-    Talk about the testing you have (and have not) done. It's useful
-    for others to know what you've already checked so that they can
+    Talk about the testing you have done, and the testing you have not done
+    whether you rely on automated tests or you don't know how to test something.
+    It's useful for others to know what you've already checked so that they can
     avoid repeating the same things and consider what you might have missed.
 -->
 
