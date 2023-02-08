@@ -137,13 +137,21 @@ export function runReducer(
       const year = String(beginDateFields.year.value ?? '');
       const month = String(beginDateFields.month.value ?? '');
       const day = String(beginDateFields.day.value ?? '');
+      const newEndDate: PartialDateStringsT =
+        {day: day, month: month, year: year};
       runFormRowPartialDateReducer(
         subfields.end_date,
         {
-          date: {day: day, month: month, year: year},
+          date: newEndDate,
           type: 'set-date',
         },
       );
+      if (!isDateEmpty(newEndDate)) {
+        runReducer(
+          state,
+          {enabled: true, type: 'set-ended'},
+        );
+      }
       validateDatePeriod(state);
       applyAllPendingErrors(state);
       break;

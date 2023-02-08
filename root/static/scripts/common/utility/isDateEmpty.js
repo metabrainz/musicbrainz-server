@@ -7,12 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-declare type PartialDateStringsT = {
-  +day?: string,
-  +month?: string,
-  +year?: string,
-};
-
 export default function isDateEmpty(
   date: ?PartialDateT | ?PartialDateStringsT,
 ): boolean %checks {
