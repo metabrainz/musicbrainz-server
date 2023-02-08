@@ -17,5 +17,5 @@ export default function isDateEmpty(
   date: ?PartialDateT | ?PartialDateStringsT,
 ): boolean %checks {
   return (date == null) ||
-    (date.year == null && date.month == null && date.day == null);
+         (empty(date.year) && empty(date.month) && empty(date.day));
 }
