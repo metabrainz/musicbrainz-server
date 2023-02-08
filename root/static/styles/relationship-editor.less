@@ -1,7 +1,15 @@
 #content.rel-editor #tracklist td {vertical-align: top;}
 #content.rel-editor #tracklist td.midcol {vertical-align: middle; font-size: @small-text;}
 #content.rel-editor #tracklist input[type="checkbox"] {vertical-align: middle;}
-#content.rel-editor #batch-tools {width: 100%; margin: 0.8em;}
+#content.rel-editor #batch-tools {
+    width: 100%;
+    margin: 0.8em;
+    /*
+     * Center the tooltips so that they're less likely to clip
+     * outside the viewport.
+     */
+    .tooltip-container { left: 50%; }
+}
 #content.rel-editor div.ars {padding: 0; margin: 0.5em 0; margin-left: 1.5em;}
 #content.rel-editor #release-rels {margin-top: 1em;}
 

@@ -446,11 +446,22 @@ export function runReducer(
         const updates = [];
 
         if (oldRelationshipState != null) {
-          updates.push({
-            relationship: oldRelationshipState,
-            throwIfNotExists: false,
-            type: REMOVE_RELATIONSHIP,
-          });
+          /*
+           * The old relationship state must be removed first in a separate
+           * `updateRelationships` call, because its presence affects other
+           * functions that act on the current state, like
+           * `mergeRelationship`.
+           */
+          updateRelationships(
+            writableState,
+            [
+              {
+                relationship: oldRelationshipState,
+                throwIfNotExists: false,
+                type: REMOVE_RELATIONSHIP,
+              },
+            ],
+          );
         }
 
         updates.push(...getUpdatesForAcceptedRelationship(

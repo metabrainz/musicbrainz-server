@@ -372,6 +372,7 @@ export function runReducer<+T: EntityItemT>(
   const wasOpen = state.isOpen;
   let updateItems = false;
   let updateStatusMessage = false;
+  let highlightFirstIndex = false;
 
   switch (action.type) {
     case 'change-entity-type': {
@@ -416,9 +417,6 @@ export function runReducer<+T: EntityItemT>(
       updateStatusMessage = true;
       break;
     }
-
-    case 'noop':
-      break;
 
     case 'toggle-add-entity-dialog': {
       state.isAddEntityDialogOpen = action.isOpen;
@@ -477,7 +475,7 @@ export function runReducer<+T: EntityItemT>(
          * where "Show more" was clicked).
          */
       } else {
-        state.highlightedIndex = 0;
+        highlightFirstIndex = true;
       }
 
       state.results = newResults;
@@ -563,6 +561,7 @@ export function runReducer<+T: EntityItemT>(
         if (nonEmpty(newInputValue)) {
           // We'll display "(No results)" even if `results` is null.
           state.isOpen = true;
+          highlightFirstIndex = true;
         }
       } else {
         state.results = null;
@@ -595,9 +594,8 @@ export function runReducer<+T: EntityItemT>(
     state.statusMessage = generateStatusMessage(state);
   }
 
-  // Highlight the first item by default.
   const isOpen = state.isOpen;
-  if (isOpen && (!wasOpen || state.highlightedIndex < 0)) {
+  if (isOpen && highlightFirstIndex) {
     state.highlightedIndex = getFirstHighlightableIndex(state);
   } else if (wasOpen && !isOpen) {
     state.highlightedIndex = -1;
@@ -608,10 +606,6 @@ export default function reducer<+T: EntityItemT>(
   state: StateT<T>,
   action: ActionT<T>,
 ): StateT<T> {
-  if (action.type === 'noop') {
-    return state;
-  }
-
   const nextState = {...state};
   runReducer<T>(nextState, action);
   return nextState;

@@ -96,6 +96,12 @@ declare type PartialDateT = {
   +year: number | null,
 };
 
+declare type PartialDateStringsT = {
+  +day?: string,
+  +month?: string,
+  +year?: string,
+};
+
 declare type TypeRoleT<T> = {
   +typeID: number | null,
   +typeName?: string,
