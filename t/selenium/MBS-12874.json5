@@ -1,0 +1,116 @@
+{
+  title: 'MBS-12874: Don\'t crash when trying to edit dates into a new vocal or instrument relationship',
+  commands: [
+    {
+      command: 'open',
+      target: '/recording/96f64611-49df-4e54-84e7-0f9a30f01766/edit',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'css=#relationship-editor button.add-item',
+      value: '',
+    },
+    {
+      command: 'type',
+      target: 'css=#add-relationship-dialog input.relationship-target',
+      value: '2437980f-513a-44fc-80f1-b90d9d7fcf8f',
+    },
+    {
+      command: 'sendKeys',
+      target: 'css=#add-relationship-dialog input.relationship-type',
+      value: 'instruments${KEY_ENTER}',
+    },
+    {
+      command: 'sendKeys',
+      target: 'css=#add-relationship-dialog div.multiselect.instrument input[placeholder=instrument]',
+      value: 'horn${KEY_ENTER}',
+    },
+    {
+      command: 'click',
+      target: 'css=#add-relationship-dialog div.buttons button.positive',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'css=#relationship-editor tr.horn button.edit-item',
+      value: '',
+    },
+    {
+      command: 'type',
+      target: 'id=id-period.begin_date.year',
+      value: '1999',
+    },
+    {
+      command: 'type',
+      target: 'id=id-period.end_date.year',
+      value: '1999',
+    },
+    {
+      command: 'click',
+      target: 'css=#edit-relationship-dialog div.buttons button.positive',
+      value: '',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'css=form.edit-recording button[type=submit]',
+      value: '',
+    },
+    {
+      command: 'assertEditData',
+      target: 1,
+      value: {
+        type: 90,
+        status: 2,
+        data: {
+          attributes: [
+            {
+              type: {
+                gid: 'e798a2bd-a578-4c28-8eea-6eca2d8b2c5d',
+                id: 40,
+                name: 'horn',
+                root: {
+                  gid: '0abd7f04-5e28-425b-956f-94789d9bcbe2',
+                  id: 14,
+                  name: 'instrument',
+                },
+              },
+            },
+          ],
+          begin_date: {
+            day: null,
+            month: null,
+            year: '1999',
+          },
+          edit_version: 2,
+          end_date: {
+            day: null,
+            month: null,
+            year: '1999',
+          },
+          ended: 1,
+          entity0: {
+            gid: '2437980f-513a-44fc-80f1-b90d9d7fcf8f',
+            id: 99,
+            name: 'Bing Crosby',
+          },
+          entity1: {
+            gid: '96f64611-49df-4e54-84e7-0f9a30f01766',
+            id: 164872,
+            name: 'mr self destruct',
+          },
+          entity_id: 1,
+          link_type: {
+            id: 148,
+            link_phrase: '{additional} {guest} {solo} {instrument:%|instruments}',
+            long_link_phrase: 'performed {additional} {guest} {solo} {instrument:%|instruments} on',
+            name: 'instrument',
+            reverse_link_phrase: '{additional} {guest} {solo} {instrument:%|instruments}',
+          },
+          type0: 'artist',
+          type1: 'recording',
+        },
+      },
+    },
+  ],
+}
