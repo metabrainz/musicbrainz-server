@@ -63,8 +63,8 @@ const BatchAddRelationshipButtonPopover = ({
 
   const buildPopoverContent = useAddRelationshipDialogContent({
     batchSelectionCount,
-    defaultTargetType: null,
     dispatch,
+    preselectedTargetType: null,
     releaseHasUnloadedTracks,
     source: sourcePlaceholder,
     title: l('Add Relationship'),

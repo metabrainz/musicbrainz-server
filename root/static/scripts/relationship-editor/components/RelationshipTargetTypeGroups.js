@@ -47,8 +47,8 @@ const RelationshipTargetTypeGroups = (React.memo<PropsT>(({
   const addButtonRef = React.useRef<HTMLButtonElement | null>(null);
 
   const buildPopoverContent = useAddRelationshipDialogContent({
-    defaultTargetType: null,
     dispatch,
+    preselectedTargetType: null,
     releaseHasUnloadedTracks,
     source,
     title: l('Add Relationship'),

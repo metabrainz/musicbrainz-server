@@ -174,6 +174,7 @@ const RelationshipItem = (React.memo<PropsT>(({
 
   const buildPopoverContent = useRelationshipDialogContent({
     dispatch,
+    hasPreselectedTargetType: true,
     relationship,
     releaseHasUnloadedTracks,
     source,

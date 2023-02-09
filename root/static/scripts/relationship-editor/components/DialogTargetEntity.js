@@ -129,7 +129,7 @@ export function createInitialAutocompleteStateForTarget(
     entityType: target.entityType,
     id: 'relationship-target-' + String(relationshipId),
     inputChangeHook: selectNewWork,
-    inputClass: 'relationship-target',
+    inputClass: 'relationship-target focus-first',
     inputValue: target.name,
     required: true,
     selectedItem: selectedEntity ? {

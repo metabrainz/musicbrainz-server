@@ -375,8 +375,8 @@ const RelatedWorksRelationshipEditor = React.memo<
 
   const buildAddRelatedWorkPopoverContent = useAddRelationshipDialogContent({
     buildNewRelationshipData: buildNewRelatedWorkRelationshipData,
-    defaultTargetType: 'work',
     dispatch,
+    preselectedTargetType: 'work',
     releaseHasUnloadedTracks,
     source: recording,
     title: l('Add Relationship'),
