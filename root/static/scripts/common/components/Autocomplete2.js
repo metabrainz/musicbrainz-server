@@ -744,6 +744,7 @@ const Autocomplete2 = (React.memo(<+T: EntityItemT>(
         aria-expanded={isOpen ? 'true' : 'false'}
         aria-haspopup="listbox"
         aria-owns={menuId}
+        className={state.required ? 'required' : undefined}
         role="combobox"
       >
         <input
@@ -751,6 +752,7 @@ const Autocomplete2 = (React.memo(<+T: EntityItemT>(
           aria-autocomplete="list"
           aria-controls={menuId}
           aria-labelledby={labelId}
+          aria-required={state.required ? 'true' : 'false'}
           autoComplete="off"
           className={
             (

@@ -219,7 +219,7 @@ const DialogPreview = (React.memo<PropsT>(({
       ) : newRelationship ? (
         relationshipPreview(newRelationship, 'add-relationship')
       ) : (
-        <p>
+        <p className="required-fields-note">
           {l('Please fill out all required fields.')}
         </p>
       )}
