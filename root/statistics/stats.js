@@ -548,6 +548,11 @@ const stats = {
     color: '#bc0a0a',
     label: l('Places'),
   },
+  'count.place.country.null': {
+    category: 'place-countries',
+    color: '#ff0000',
+    label: l('Places with no country set'),
+  },
   'count.place.type.null': {
     category: 'place-types',
     color: '#ff0000',
@@ -1031,6 +1036,12 @@ export function buildTypeStats(typeData) {
       category: 'label-countries',
       color: '#ff0000',
       label: texp.l('{country} labels', countryArg),
+    };
+
+    stats[`count.place.country.${key}`] = {
+      category: 'place-countries',
+      color: '#ff0000',
+      label: texp.l('{country} places', countryArg),
     };
 
     stats[`count.release.country.${key}`] = {

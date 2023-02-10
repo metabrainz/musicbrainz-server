@@ -29,6 +29,7 @@ type CountryStatT = {
   +entity: AreaT,
   +event_count: number,
   +label_count: number,
+  +place_count: number,
   +release_count: number,
 };
 
@@ -65,6 +66,10 @@ const Countries = ({
             </th>
             <th>
               {l('Events')}
+              <div className="arrow" />
+            </th>
+            <th>
+              {l('Places')}
               <div className="arrow" />
             </th>
             <th>
@@ -162,12 +167,30 @@ const Countries = ({
                   />
                 </td>
                 <td className="t">
+                  {hasCountryCode ? (
+                    <EntityLink
+                      content={formatCount($c, countryStat.place_count)}
+                      entity={country}
+                      subPath="places"
+                    />
+                  ) : formatCount($c, countryStat.place_count)}
+                  {' '}
+                  <TimelineLink
+                    statName={
+                      'count.event.country.' + (hasCountryCode
+                        ? country.country_code
+                        : 'null')
+                    }
+                  />
+                </td>
+                <td className="t">
                   {formatCount(
                     $c,
                     countryStat.artist_count +
                     countryStat.release_count +
                     countryStat.label_count +
-                    countryStat.event_count,
+                    countryStat.event_count +
+                    countryStat.place_count,
                   )}
                 </td>
               </tr>

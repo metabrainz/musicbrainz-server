@@ -432,6 +432,37 @@ my %stats = (
         DESC => 'Count of all places',
         SQL => 'SELECT COUNT(*) FROM place',
     },
+    'count.place.country' => {
+        DESC => 'Distribution of places per country',
+        CALC => sub {
+            my ($self, $sql) = @_;
+
+            my $area_containment_join = get_area_containment_join($sql);
+
+            my $data = $sql->select_list_of_lists(qq{
+                SELECT COALESCE(iso.code::text, 'null'), COUNT(p.id)
+                FROM place p
+                LEFT JOIN $area_containment_join ac
+                    ON p.area = ac.descendant
+                    AND ac.parent IN (SELECT area FROM country_area)
+                FULL OUTER JOIN iso_3166_1 iso
+                    ON iso.area = COALESCE(
+                        (SELECT area FROM country_area WHERE area = ac.descendant),
+                        ac.parent,
+                        p.area
+                    )
+                GROUP BY iso.code
+            });
+
+            my %dist = map { @$_ } @$data;
+
+            +{
+                map {
+                    'count.place.country.'.$_ => $dist{$_}
+                } keys %dist
+            };
+        },
+    },
     'count.place.type' => {
         DESC => 'Distribution of places by type',
         CALC => sub {
