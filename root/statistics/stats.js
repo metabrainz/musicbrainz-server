@@ -433,6 +433,11 @@ const stats = {
     color: '#e8ab08',
     label: l('Events'),
   },
+  'count.event.country.null': {
+    category: 'event-countries',
+    color: '#ff0000',
+    label: l('Events with no country set'),
+  },
   'count.event.type.null': {
     category: 'event-types',
     color: '#ff0000',
@@ -1014,6 +1019,12 @@ export function buildTypeStats(typeData) {
       category: 'artist-countries',
       color: '#ff0000',
       label: texp.l('{country} artists', countryArg),
+    };
+
+    stats[`count.event.country.${key}`] = {
+      category: 'event-countries',
+      color: '#ff0000',
+      label: texp.l('{country} events', countryArg),
     };
 
     stats[`count.label.country.${key}`] = {

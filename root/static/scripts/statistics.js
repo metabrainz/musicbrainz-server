@@ -53,9 +53,10 @@ $('#countries-table').tablesorter({
     [3]: {sorter: 'fancyNumber'},
     [4]: {sorter: 'fancyNumber'},
     [5]: {sorter: 'fancyNumber'},
+    [6]: {sorter: 'fancyNumber'},
   },
   // order by descending number of entities, then name
-  sortList: [[5, 1], [1, 0]],
+  sortList: [[6, 1], [1, 0]],
   widgets: ['indexFirstColumn', 'loopParity'],
 });
 
