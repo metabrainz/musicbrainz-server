@@ -941,7 +941,7 @@ my %stats = (
                 FROM release r
                 LEFT JOIN release_country rc ON r.id = rc.release
                 FULL OUTER JOIN country_area c ON rc.country = c.area
-                LEFT JOIN iso_3166_1 iso ON c.area = iso.area
+                FULL OUTER JOIN iso_3166_1 iso ON c.area = iso.area
                 GROUP BY iso.code},
             );
 
