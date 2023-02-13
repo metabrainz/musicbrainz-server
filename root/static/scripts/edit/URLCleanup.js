@@ -4690,6 +4690,25 @@ const CLEANUPS: CleanupEntries = {
       return url;
     },
   },
+  'tmdb': {
+    match: [new RegExp('^(https?://)?(www\\.)?themoviedb\\.org', 'i')],
+    restrict: [LINK_TYPES.otherdatabases],
+    clean: function (url) {
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?themoviedb\.org\/person\/([0-9]*)(?:[^0-9].*)?$/, 'https://www.themoviedb.org/person/$1');
+      return url;
+    },
+    validate: function (url, id) {
+      const m = /^https:\/\/www\.themoviedb\.org\/person\/[0-9]*$/.exec(url);
+      if (m) {
+        switch (id) {
+          case LINK_TYPES.otherdatabases.artist:
+            return {result: true};
+        }
+        return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
   'tobarandualchais': {
     match: [new RegExp(
       '^(https?://)?([^/]+\\.)?tobarandualchais\\.co\\.uk',
