@@ -544,6 +544,11 @@ sub entity : Chained('root') PathPart('entity') Args(1)
         $data->{relationships} = $relationships if @$relationships;
     };
 
+    if ($type eq 'Work') {
+        my %artists = $c->model('Work')->find_artists([$entity], 3);
+        $data->{related_artists} = $artists{$entity->id};
+    }
+
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body(encode_json($data));
 }
@@ -641,8 +646,17 @@ sub entities : Chained('root') PathPart('entities') Args(2)
         $c->model('Area')->load_containment(map { $_->area } @entities);
     }
 
+    my %artists;
+    if ($type_name eq 'work') {
+        %artists = $c->model('Work')->find_artists(\@entities, 3);
+    }
+
     while (my ($id, $entity) = each %{$results}) {
-        $results->{$id} = $entity->TO_JSON;
+        my $json_entity = $entity->TO_JSON;
+        if ($type_name eq 'work') {
+            $json_entity->{related_artists} = $artists{$entity->id};
+        }
+        $results->{$id} = $json_entity;
     }
 
     $c->res->content_type($serializer->mime_type . '; charset=utf-8');
