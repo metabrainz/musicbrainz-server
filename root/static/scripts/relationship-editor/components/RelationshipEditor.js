@@ -605,6 +605,7 @@ const RelationshipEditor = (
         <RelationshipTargetTypeGroups
           dialogLocation={state.dialogLocation}
           dispatch={dispatch}
+          releaseHasUnloadedTracks={false}
           source={state.entity}
           targetTypeGroups={findTargetTypeGroups(
             state.relationshipsBySource,

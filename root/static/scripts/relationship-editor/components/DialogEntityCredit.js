@@ -31,10 +31,12 @@ type PropsT = {
 
 export function createInitialState(
   creditedAs: string,
+  releaseHasUnloadedTracks: boolean,
 ): DialogEntityCreditStateT {
   return {
     creditedAs,
     creditsToChange: '',
+    releaseHasUnloadedTracks,
   };
 }
 
@@ -113,6 +115,7 @@ const DialogEntityCredit = (React.memo<PropsT, void>(({
         <label className="change-credits-checkbox">
           <input
             checked={!!state.creditsToChange}
+            disabled={state.releaseHasUnloadedTracks}
             onChange={handleChangeCreditsChecked}
             type="checkbox"
           />
@@ -124,65 +127,75 @@ const DialogEntityCredit = (React.memo<PropsT, void>(({
             )}
           </span>
         </label>
-        {state.creditsToChange ? (
-          <div className="change-credits-radio-options">
-            <label>
-              <input
-                checked={state.creditsToChange === 'all'}
-                name="changed-credits"
-                onChange={handleChangedCreditsSelection}
-                type="radio"
-                value="all"
-              />
-              {l('All of these relationships.')}
-            </label>
-
-            <label>
-              <input
-                checked={state.creditsToChange === 'same-entity-types'}
-                name="changed-credits"
-                onChange={handleChangedCreditsSelection}
-                type="radio"
-                value="same-entity-types"
-              />
-              <span>
-                {texp.l('Only relationships to {entity_type} entities.', {
-                  entity_type: ENTITY_NAMES[targetType](),
-                })}
-              </span>
-            </label>
-
-            {linkType ? (
+        {state.releaseHasUnloadedTracks ? (
+          <div className="form-help">
+            <p>
+              {l(`Some tracks/mediums haven’t been loaded yet. If you want
+                  to use this option, please close this dialog and load all
+                  tracks/mediums beforehand.`)}
+            </p>
+          </div>
+        ) : (
+          state.creditsToChange ? (
+            <div className="change-credits-radio-options">
               <label>
                 <input
-                  checked={
-                    state.creditsToChange === 'same-relationship-type'}
+                  checked={state.creditsToChange === 'all'}
                   name="changed-credits"
                   onChange={handleChangedCreditsSelection}
                   type="radio"
-                  value="same-relationship-type"
+                  value="all"
+                />
+                {l('All of these relationships.')}
+              </label>
+
+              <label>
+                <input
+                  checked={state.creditsToChange === 'same-entity-types'}
+                  name="changed-credits"
+                  onChange={handleChangedCreditsSelection}
+                  type="radio"
+                  value="same-entity-types"
                 />
                 <span>
-                  {texp.l(
-                    `Only “{relationship_type}” relationships to
-                    {entity_type} entities.`,
-                    {
-                      entity_type: ENTITY_NAMES[targetType](),
-                      relationship_type: stripAttributes(
-                        linkType,
-                        l_relationships(
-                          backward
-                            ? linkType.reverse_link_phrase
-                            : linkType.link_phrase,
-                        ),
-                      ),
-                    },
-                  )}
+                  {texp.l('Only relationships to {entity_type} entities.', {
+                    entity_type: ENTITY_NAMES[targetType](),
+                  })}
                 </span>
               </label>
-            ) : null}
-          </div>
-        ) : null}
+
+              {linkType ? (
+                <label>
+                  <input
+                    checked={
+                      state.creditsToChange === 'same-relationship-type'}
+                    name="changed-credits"
+                    onChange={handleChangedCreditsSelection}
+                    type="radio"
+                    value="same-relationship-type"
+                  />
+                  <span>
+                    {texp.l(
+                      `Only “{relationship_type}” relationships to
+                      {entity_type} entities.`,
+                      {
+                        entity_type: ENTITY_NAMES[targetType](),
+                        relationship_type: stripAttributes(
+                          linkType,
+                          l_relationships(
+                            backward
+                              ? linkType.reverse_link_phrase
+                              : linkType.link_phrase,
+                          ),
+                        ),
+                      },
+                    )}
+                  </span>
+                </label>
+              ) : null}
+            </div>
+          ) : null
+        )}
       </>
     );
   }

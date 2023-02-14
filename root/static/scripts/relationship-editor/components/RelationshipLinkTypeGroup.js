@@ -22,6 +22,7 @@ type PropsT = {
   +dialogLocation: RelationshipDialogLocationT | null,
   +dispatch: (RelationshipEditorActionT) => void,
   +linkTypeGroup: RelationshipLinkTypeGroupT,
+  +releaseHasUnloadedTracks: boolean,
   +source: CoreEntityT,
   +targetType: CoreEntityTypeT,
   +track: TrackWithRecordingT | null,
@@ -31,6 +32,7 @@ const RelationshipLinkTypeGroup = (React.memo<PropsT>(({
   dialogLocation,
   dispatch,
   linkTypeGroup,
+  releaseHasUnloadedTracks,
   source,
   targetType,
   track,
@@ -50,6 +52,7 @@ const RelationshipLinkTypeGroup = (React.memo<PropsT>(({
         key={linkPhraseGroup.textPhrase}
         linkPhraseGroup={linkPhraseGroup}
         linkTypeId={linkTypeGroup.typeId}
+        releaseHasUnloadedTracks={releaseHasUnloadedTracks}
         source={source}
         targetType={targetType}
         track={track}

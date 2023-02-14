@@ -137,6 +137,7 @@ import {
   getMediumTracks,
   isMediumExpanded,
   runLazyReleaseReducer,
+  useReleaseHasUnloadedTracks,
   useUnloadedTracksMap,
 } from './TracklistAndCredits.js';
 
@@ -1387,6 +1388,8 @@ const MediumRelationshipEditors = React.memo(({
 }: MediumRelationshipEditorsPropsT) => {
   const hasUnloadedTracksPerMedium =
     useUnloadedTracksMap(release.mediums, loadedTracks);
+  const hasUnloadedTracks =
+    useReleaseHasUnloadedTracks(hasUnloadedTracksPerMedium);
   const mediumElements = [];
   for (const [medium, recordingStates] of tree.iterate(mediums)) {
     mediumElements.push(
@@ -1405,6 +1408,7 @@ const MediumRelationshipEditors = React.memo(({
         medium={medium}
         recordingStates={recordingStates}
         release={release}
+        releaseHasUnloadedTracks={hasUnloadedTracks}
         tracks={getMediumTracks(loadedTracks, medium)}
       />,
     );
@@ -1419,6 +1423,7 @@ type TrackRelationshipsSectionPropsT = {
   +loadedTracks: LoadedTracksMapT,
   +mediums: MediumStateTreeT,
   +release: ReleaseWithMediumsT,
+  +releaseHasUnloadedTracks: boolean,
   +selectedRecordings: tree.ImmutableTree<RecordingT> | null,
   +selectedWorks: tree.ImmutableTree<WorkT> | null,
 };
@@ -1430,6 +1435,7 @@ const TrackRelationshipsSection = React.memo(({
   loadedTracks,
   mediums,
   release,
+  releaseHasUnloadedTracks,
   selectedRecordings,
   selectedWorks,
 }: TrackRelationshipsSectionPropsT) => {
@@ -1481,6 +1487,7 @@ const TrackRelationshipsSection = React.memo(({
             }
             dispatch={dispatch}
             recordingSelectionCount={recordingCount}
+            releaseHasUnloadedTracks={releaseHasUnloadedTracks}
             workSelectionCount={workCount}
           />
           <span id="medium-toolbox">
@@ -1555,6 +1562,7 @@ type ReleaseRelationshipSectionPropsT = {
   +dispatch: (ReleaseRelationshipEditorActionT) => void,
   +relationshipsBySource: RelationshipSourceGroupsT,
   +release: ReleaseWithMediumsT,
+  +releaseHasUnloadedTracks: boolean,
 };
 
 const ReleaseRelationshipSection = React.memo(({
@@ -1562,6 +1570,7 @@ const ReleaseRelationshipSection = React.memo(({
   dispatch,
   relationshipsBySource,
   release,
+  releaseHasUnloadedTracks,
 }: ReleaseRelationshipSectionPropsT) => {
   if (dialogLocation != null) {
     invariant(dialogLocation.source.id === release.id);
@@ -1581,6 +1590,7 @@ const ReleaseRelationshipSection = React.memo(({
         <RelationshipTargetTypeGroups
           dialogLocation={dialogLocation}
           dispatch={dispatch}
+          releaseHasUnloadedTracks={releaseHasUnloadedTracks}
           source={release}
           targetTypeGroups={releaseCredits}
           track={null}
@@ -1595,6 +1605,7 @@ type ReleaseGroupRelationshipSectionPropsT = {
   +dispatch: (ReleaseRelationshipEditorActionT) => void,
   +relationshipsBySource: RelationshipSourceGroupsT,
   +releaseGroup: ReleaseGroupT,
+  +releaseHasUnloadedTracks: boolean,
 };
 
 const ReleaseGroupRelationshipSection = React.memo(({
@@ -1602,6 +1613,7 @@ const ReleaseGroupRelationshipSection = React.memo(({
   dispatch,
   relationshipsBySource,
   releaseGroup,
+  releaseHasUnloadedTracks,
 }: ReleaseGroupRelationshipSectionPropsT) => {
   if (dialogLocation != null) {
     invariant(dialogLocation.source.id === releaseGroup.id);
@@ -1621,6 +1633,7 @@ const ReleaseGroupRelationshipSection = React.memo(({
         <RelationshipTargetTypeGroups
           dialogLocation={dialogLocation}
           dispatch={dispatch}
+          releaseHasUnloadedTracks={releaseHasUnloadedTracks}
           source={releaseGroup}
           targetTypeGroups={releaseGroupCredits}
           track={null}
@@ -1715,6 +1728,11 @@ let ReleaseRelationshipEditor: React.AbstractComponent<{}, void> = (
 
   const dialogLocation = state.dialogLocation;
 
+  const hasUnloadedTracksPerMedium =
+    useUnloadedTracksMap(state.entity.mediums, state.loadedTracks);
+  const hasUnloadedTracks =
+    useReleaseHasUnloadedTracks(hasUnloadedTracksPerMedium);
+
   return (
     <RelationshipSourceGroupsContext.Provider value={sourceGroupsContext}>
       <TrackRelationshipsSection
@@ -1732,6 +1750,7 @@ let ReleaseRelationshipEditor: React.AbstractComponent<{}, void> = (
         loadedTracks={state.loadedTracks}
         mediums={state.mediums}
         release={state.entity}
+        releaseHasUnloadedTracks={hasUnloadedTracks}
         selectedRecordings={state.selectedRecordings}
         selectedWorks={state.selectedWorks}
       />
@@ -1746,6 +1765,7 @@ let ReleaseRelationshipEditor: React.AbstractComponent<{}, void> = (
         dispatch={dispatch}
         relationshipsBySource={state.relationshipsBySource}
         release={state.entity}
+        releaseHasUnloadedTracks={hasUnloadedTracks}
       />
 
       <ReleaseGroupRelationshipSection
@@ -1758,6 +1778,7 @@ let ReleaseRelationshipEditor: React.AbstractComponent<{}, void> = (
         dispatch={dispatch}
         relationshipsBySource={state.relationshipsBySource}
         releaseGroup={state.entity.releaseGroup}
+        releaseHasUnloadedTracks={hasUnloadedTracks}
       />
 
       {state.submissionError == null ? null : (

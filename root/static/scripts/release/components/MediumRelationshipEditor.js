@@ -35,6 +35,7 @@ type PropsT = {
   +medium: MediumWithRecordingsT,
   +recordingStates: MediumRecordingStateTreeT | null,
   +release: ReleaseWithMediumsT,
+  +releaseHasUnloadedTracks: boolean,
   +tracks: $ReadOnlyArray<TrackWithRecordingT> | null,
 };
 
@@ -78,6 +79,7 @@ const MediumRelationshipEditor = (React.memo<PropsT>(({
   medium,
   recordingStates,
   release,
+  releaseHasUnloadedTracks,
   tracks,
 }: PropsT) => {
   const tableVars = usePagedMediumTable({
@@ -175,6 +177,7 @@ const MediumRelationshipEditor = (React.memo<PropsT>(({
                 dispatch={dispatch}
                 key={track.id}
                 recordingState={recordingState}
+                releaseHasUnloadedTracks={releaseHasUnloadedTracks}
                 showArtists={tableVars.showArtists}
                 track={track}
               />

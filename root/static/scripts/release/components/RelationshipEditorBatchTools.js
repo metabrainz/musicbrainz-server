@@ -28,6 +28,7 @@ type PropsT = {
   +dialogLocation: RelationshipDialogLocationT | null,
   +dispatch: (ReleaseRelationshipEditorActionT) => void,
   +recordingSelectionCount: number,
+  +releaseHasUnloadedTracks: boolean,
   +workSelectionCount: number,
 };
 
@@ -39,6 +40,7 @@ type BatchAddRelationshipButtonPopoverPropsT = {
   +entityPlaceholder: string,
   +isOpen: boolean,
   +popoverId: string,
+  +releaseHasUnloadedTracks: boolean,
   +sourceType: CoreEntityTypeT,
 };
 
@@ -50,6 +52,7 @@ const BatchAddRelationshipButtonPopover = ({
   entityPlaceholder,
   isOpen,
   popoverId,
+  releaseHasUnloadedTracks,
   sourceType,
 }: BatchAddRelationshipButtonPopoverPropsT) => {
   const addButtonRef = React.useRef<HTMLButtonElement | null>(null);
@@ -62,6 +65,7 @@ const BatchAddRelationshipButtonPopover = ({
     batchSelectionCount,
     defaultTargetType: null,
     dispatch,
+    releaseHasUnloadedTracks,
     source: sourcePlaceholder,
     title: l('Add Relationship'),
   });
@@ -127,6 +131,7 @@ const RelationshipEditorBatchTools = (React.memo<PropsT>(({
   dialogLocation,
   dispatch,
   recordingSelectionCount,
+  releaseHasUnloadedTracks,
   workSelectionCount,
 }: PropsT): React.Element<'table'> => {
   return (
@@ -146,6 +151,7 @@ const RelationshipEditorBatchTools = (React.memo<PropsT>(({
                 dialogLocation.targetType == null
               }
               popoverId="batch-add-recording-relationship-dialog"
+              releaseHasUnloadedTracks={releaseHasUnloadedTracks}
               sourceType="recording"
             />
           </td>
@@ -172,6 +178,7 @@ const RelationshipEditorBatchTools = (React.memo<PropsT>(({
                 dialogLocation.source.entityType === 'work'
               }
               popoverId="batch-add-work-relationship-dialog"
+              releaseHasUnloadedTracks={releaseHasUnloadedTracks}
               sourceType="work"
             />
           </td>

@@ -23,6 +23,7 @@ type Props = {
   +dialogLocation: RelationshipDialogLocationT | null,
   +dispatch: (RelationshipEditorActionT) => void,
   +linkTypeGroups: RelationshipLinkTypeGroupsT,
+  +releaseHasUnloadedTracks: boolean,
   +source: CoreEntityT,
   +targetType: CoreEntityTypeT,
   +track: TrackWithRecordingT | null,
@@ -32,6 +33,7 @@ const RelationshipTargetTypeGroup = (React.memo<Props>(({
   dialogLocation,
   dispatch,
   linkTypeGroups,
+  releaseHasUnloadedTracks,
   source,
   targetType,
   track,
@@ -53,6 +55,7 @@ const RelationshipTargetTypeGroup = (React.memo<Props>(({
           linkTypeGroup.backward,
         )}
         linkTypeGroup={linkTypeGroup}
+        releaseHasUnloadedTracks={releaseHasUnloadedTracks}
         source={source}
         targetType={targetType}
         track={track}

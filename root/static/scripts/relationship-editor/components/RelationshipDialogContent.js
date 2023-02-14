@@ -101,6 +101,7 @@ export type PropsT = {
   +batchSelectionCount?: number,
   +closeDialog: () => void,
   +initialRelationship: RelationshipStateT,
+  +releaseHasUnloadedTracks: boolean,
   +source: CoreEntityT,
   +sourceDispatch: (UpdateRelationshipActionT) => void,
   +targetTypeOptions: TargetTypeOptionsT | null,
@@ -221,12 +222,14 @@ export function createInitialState(props: PropsT): RelationshipDialogStateT {
       ended: relationship.ended,
     },
     sourceEntity: createDialogSourceEntityState(
+      props.releaseHasUnloadedTracks,
       sourceType,
       relationship,
       source,
     ),
     targetEntity: createDialogTargetEntityState(
       props.user,
+      props.releaseHasUnloadedTracks,
       source,
       relationship,
       props.targetTypeOptions,

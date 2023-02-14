@@ -143,6 +143,7 @@ export function createInitialAutocompleteStateForTarget(
 
 export function createInitialState(
   user: ActiveEditorT,
+  releaseHasUnloadedTracks: boolean,
   source: CoreEntityT,
   initialRelationship: RelationshipStateT,
   allowedTypes: TargetTypeOptionsT | null,
@@ -166,6 +167,7 @@ export function createInitialState(
       backward
         ? initialRelationship.entity0_credit
         : initialRelationship.entity1_credit,
+      releaseHasUnloadedTracks,
     ),
     allowedTypes,
     autocomplete,
