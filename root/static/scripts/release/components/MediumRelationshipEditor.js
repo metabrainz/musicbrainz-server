@@ -94,12 +94,14 @@ const MediumRelationshipEditor = (React.memo<PropsT>(({
   });
 
   const allMediumRecordingsChecked = React.useMemo(() => {
+    let hasRecordings = false;
     for (const recordingState of tree.iterate(recordingStates)) {
       if (!recordingState.isSelected) {
         return false;
       }
+      hasRecordings = true;
     }
-    return true;
+    return hasRecordings;
   }, [recordingStates]);
 
   const allMediumWorksChecked = React.useMemo(() => {
