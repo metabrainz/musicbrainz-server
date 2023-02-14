@@ -12,6 +12,9 @@ import * as tree from 'weight-balanced-tree';
 
 import invariant from '../../../../utility/invariant.js';
 import {
+  formatLinkTypePhrases,
+} from '../../common/components/Autocomplete2/formatters.js';
+import {
   filterStaticItems,
   resetPage as resetAutocompletePage,
 } from '../../common/components/Autocomplete2/reducer.js';
@@ -268,7 +271,7 @@ function updateDialogStateForTargetTypeChange(
   const newLinkTypeAutocompleteState = {
     ...oldLinkTypeAutocompleteState,
     inputValue: onlyLinkType
-      ? onlyLinkType.name
+      ? formatLinkTypePhrases(onlyLinkType)
       : (
         oldLinkTypeAutocompleteState.selectedItem
           ? ''
