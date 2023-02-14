@@ -71,7 +71,9 @@ function formatName<+T: EntityItemT>(entity: T) {
 function formatGeneric(
   entity: | ArtistT
           | EventT
+          | GenreT
           | InstrumentT
+          | LabelT
           | PlaceT
           | ReleaseT
           | WorkT,
@@ -538,11 +540,17 @@ export default function formatItem<+T: EntityItemT>(
         case 'event':
           return formatEvent(entity);
 
+        case 'genre':
+          return formatGeneric(entity);
+
         case 'instrument':
           return formatInstrument(
             entity,
             options?.showDescriptions,
           );
+
+        case 'label':
+          return formatGeneric(entity);
 
         case 'link_attribute_type':
           return formatLinkAttributeType(
