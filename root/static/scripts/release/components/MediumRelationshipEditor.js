@@ -142,6 +142,7 @@ const MediumRelationshipEditor = (React.memo<PropsT>(({
             <input
               checked={allMediumRecordingsChecked}
               className="medium-recordings"
+              disabled={hasUnloadedTracks}
               id={'medium-recordings-checkbox-' + String(medium.id)}
               onChange={selectMediumRecordings}
               type="checkbox"
@@ -153,6 +154,7 @@ const MediumRelationshipEditor = (React.memo<PropsT>(({
             <input
               checked={allMediumWorksChecked}
               className="medium-works"
+              disabled={hasUnloadedTracks}
               id={'medium-works-checkbox-' + String(medium.id)}
               onChange={selectMediumWorks}
               type="checkbox"

@@ -1490,6 +1490,17 @@ const TrackRelationshipsSection = React.memo(({
             releaseHasUnloadedTracks={releaseHasUnloadedTracks}
             workSelectionCount={workCount}
           />
+          {releaseHasUnloadedTracks ? (
+            <div className="form-help">
+              <p>
+                {l(
+                  `Some tracks/mediums haven’t been loaded yet.
+                   If you want to make batch operations on all tracks,
+                   please fully load all mediums beforehand.`,
+                )}
+              </p>
+            </div>
+          ) : null}
           <span id="medium-toolbox">
             <ToggleAllMediumsButtons
               dispatch={dispatch}
@@ -1508,6 +1519,7 @@ const TrackRelationshipsSection = React.memo(({
                   <input
                     className="all-recordings"
                     defaultChecked={false}
+                    disabled={releaseHasUnloadedTracks}
                     onChange={selectAllRecordings}
                     type="checkbox"
                   />
@@ -1520,6 +1532,7 @@ const TrackRelationshipsSection = React.memo(({
                   <input
                     className="all-works"
                     defaultChecked={false}
+                    disabled={releaseHasUnloadedTracks}
                     onChange={selectAllWorks}
                     type="checkbox"
                   />
