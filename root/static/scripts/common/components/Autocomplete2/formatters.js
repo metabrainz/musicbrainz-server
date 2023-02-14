@@ -24,6 +24,7 @@ import bracketed, {bracketedText} from '../../utility/bracketed.js';
 import formatDate from '../../utility/formatDate.js';
 import formatDatePeriod from '../../utility/formatDatePeriod.js';
 import formatTrackLength from '../../utility/formatTrackLength.js';
+import isDateEmpty from '../../utility/isDateEmpty.js';
 import CountryAbbr from '../CountryAbbr.js';
 
 import type {
@@ -107,6 +108,8 @@ function formatGeneric(
 function formatArtist(artist: ArtistT) {
   const sortName = artist.sort_name;
   let extraInfo;
+  const secondInfoLine = [];
+
   if (
     sortName &&
     sortName !== artist.name &&
@@ -117,7 +120,23 @@ function formatArtist(artist: ArtistT) {
       info.unshift(sortName);
     };
   }
-  return formatGeneric(artist, extraInfo);
+
+  if (nonEmpty(artist.typeName)) {
+    secondInfoLine.push(lp_attributes(artist.typeName, 'artist_type'));
+  }
+
+  if (!isDateEmpty(artist.begin_date) || !isDateEmpty(artist.end_date)) {
+    secondInfoLine.push(formatDatePeriod(artist));
+  }
+
+  return (
+    <>
+      {formatGeneric(artist, extraInfo)}
+      {secondInfoLine.length
+        ? showExtraInfoLine(commaOnlyListText(secondInfoLine))
+        : null}
+    </>
+  );
 }
 
 function showLabeledTextList(
@@ -238,6 +257,27 @@ function formatInstrument(
         info.push(...extraInfo);
       })}
       {nonEmpty(description) ? showExtraInfoLine(description) : null}
+    </>
+  );
+}
+
+function formatLabel(label: LabelT) {
+  const secondInfoLine = [];
+
+  if (nonEmpty(label.typeName)) {
+    secondInfoLine.push(lp_attributes(label.typeName, 'label_type'));
+  }
+
+  if (!isDateEmpty(label.begin_date) || !isDateEmpty(label.end_date)) {
+    secondInfoLine.push(formatDatePeriod(label));
+  }
+
+  return (
+    <>
+      {formatGeneric(label)}
+      {secondInfoLine.length
+        ? showExtraInfoLine(commaOnlyListText(secondInfoLine))
+        : null}
     </>
   );
 }
@@ -550,7 +590,7 @@ export default function formatItem<+T: EntityItemT>(
           );
 
         case 'label':
-          return formatGeneric(entity);
+          return formatLabel(entity);
 
         case 'link_attribute_type':
           return formatLinkAttributeType(

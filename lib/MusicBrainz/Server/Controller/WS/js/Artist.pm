@@ -30,4 +30,9 @@ sub search : Chained('root') PathPart('artist')
     $self->dispatch_search($c);
 }
 
+after _load_entities => sub {
+    my ($self, $c, @entities) = @_;
+    $c->model('ArtistType')->load(@entities);
+};
+
 1;
