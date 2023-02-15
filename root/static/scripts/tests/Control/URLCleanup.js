@@ -4788,6 +4788,20 @@ limited_link_type_combinations: [
     expected_relationship_type: 'patronage',
             expected_clean_url: 'https://www.tipeee.com/example',
   },
+  // TMDB
+  {
+                     input_url: 'http://www.themoviedb.org/person/3125-madonna/images/profiles',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.themoviedb.org/person/3125',
+  },
+  {
+                     input_url: 'https://www.themoviedb.org/movie/8818-evita',
+             input_entity_type: 'work',
+    expected_relationship_type: undefined,
+       input_relationship_type: 'otherdatabases',
+       only_valid_entity_types: [],
+  },
   // Tobar an Dualchais
   {
                      input_url: 'http://tobarandualchais.co.uk/person/5305',
