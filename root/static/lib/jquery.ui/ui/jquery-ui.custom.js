@@ -5055,9 +5055,6 @@ $.widget( "ui.autocomplete", {
 	},
 
 	__response: function( content ) {
-		if ( content ) {
-			content = this._normalize( content );
-		}
 		this._trigger( "response", null, { content: content } );
 		if ( !this.options.disabled && content && content.length && !this.cancelSearch ) {
 			this._suggest( content );
@@ -5086,25 +5083,6 @@ $.widget( "ui.autocomplete", {
 		if ( this.previous !== this._value() ) {
 			this._trigger( "change", event, { item: this.selectedItem } );
 		}
-	},
-
-	_normalize: function( items ) {
-		// assume all items have the right format when the first item is complete
-		if ( items.length && items[0].label && items[0].value ) {
-			return items;
-		}
-		return $.map( items, function( item ) {
-			if ( typeof item === "string" ) {
-				return {
-					label: item,
-					value: item
-				};
-			}
-			return $.extend({
-				label: item.label || item.value,
-				value: item.value || item.label
-			}, item );
-		});
 	},
 
 	_suggest: function( items ) {
