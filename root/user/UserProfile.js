@@ -19,7 +19,8 @@ import Warning from '../static/scripts/common/components/Warning.js';
 import {FLUENCY_NAMES} from '../static/scripts/common/constants.js';
 import * as TYPES from '../static/scripts/common/constants/editTypes.js';
 import {compare} from '../static/scripts/common/i18n.js';
-import commaList from '../static/scripts/common/i18n/commaList.js';
+import commaList, {commaListText}
+  from '../static/scripts/common/i18n/commaList.js';
 import commaOnlyList from '../static/scripts/common/i18n/commaOnlyList.js';
 import expand2react from '../static/scripts/common/i18n/expand2react.js';
 import bracketed, {bracketedText}
@@ -31,9 +32,11 @@ import {
   isAddingNotesDisabled,
   isAutoEditor,
   isBot,
+  isEditingDisabled,
   isLocationEditor,
   isRelationshipEditor,
   isSpammer,
+  isUntrusted,
   isWikiTranscluder,
 } from '../static/scripts/common/utility/privileges.js';
 import {formatCount, formatPercentage} from '../statistics/utilities.js';
@@ -855,6 +858,16 @@ const UserProfile = ({
   const viewingOwnProfile = $c.user != null && $c.user.id === user.id;
   const adminViewing = $c.user != null && isAccountAdmin($c.user);
   const encodedName = encodeURIComponent(user.name);
+  const restrictions = [];
+  if (isEditingDisabled(user)) {
+    restrictions.push(l('Editing/voting disabled'));
+  }
+  if (isAddingNotesDisabled(user)) {
+    restrictions.push(l('Edit notes disabled'));
+  }
+  if (isUntrusted(user)) {
+    restrictions.push(l('Untrusted'));
+  }
 
   return (
     <UserAccountLayout
@@ -878,6 +891,20 @@ const UserProfile = ({
               message={
                 l(`This user is marked as a spammer and is blocked
                    for all non-admin users.`)
+              }
+            />
+          ) : null}
+
+          {restrictions.length && adminViewing ? (
+            <Warning
+              message={
+                texp.l(
+                  `This user’s editing rights have been restricted.
+                   Active restrictions: {restrictions}`,
+                  {
+                    restrictions: commaListText(restrictions),
+                  },
+                )
               }
             />
           ) : null}
