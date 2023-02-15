@@ -136,8 +136,8 @@ const RelationshipPhraseGroup = (React.memo<PropsT>(({
   const buildPopoverContent = useAddRelationshipDialogContent({
     backward,
     buildNewRelationshipData,
-    defaultTargetType: targetType,
     dispatch,
+    preselectedTargetType: targetType,
     releaseHasUnloadedTracks,
     source,
     targetTypeOptions: null,

@@ -100,6 +100,7 @@ import DialogTargetType from './DialogTargetType.js';
 export type PropsT = {
   +batchSelectionCount?: number,
   +closeDialog: () => void,
+  +hasPreselectedTargetType: boolean,
   +initialRelationship: RelationshipStateT,
   +releaseHasUnloadedTracks: boolean,
   +source: CoreEntityT,
@@ -581,6 +582,7 @@ const RelationshipDialogContent = (React.memo<PropsT>((
   const {
     batchSelectionCount,
     closeDialog,
+    hasPreselectedTargetType,
     initialRelationship,
     sourceDispatch,
     source,
@@ -931,6 +933,7 @@ const RelationshipDialogContent = (React.memo<PropsT>((
           />
           <DialogTargetType
             dispatch={dispatch}
+            hasPreselectedTargetType={hasPreselectedTargetType}
             options={targetTypeOptions}
             source={source}
             targetType={targetEntityState.targetType}

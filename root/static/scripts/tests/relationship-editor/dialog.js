@@ -22,6 +22,7 @@ import {
 
 const commonInitialState = {
   closeDialog: () => undefined,
+  hasPreselectedTargetType: true,
   releaseHasUnloadedTracks: false,
   sourceDispatch: () => undefined,
   targetTypeOptions: null,
