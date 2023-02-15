@@ -13,6 +13,9 @@ import Autocomplete2, {
   createInitialState as createInitialAutocompleteState,
 } from '../../common/components/Autocomplete2.js';
 import {
+  formatLinkTypePhrases,
+} from '../../common/components/Autocomplete2/formatters.js';
+import {
   default as autocompleteReducer,
 } from '../../common/components/Autocomplete2/reducer.js';
 import type {
@@ -115,7 +118,7 @@ export function createInitialState(
       id: 'relationship-type-' + id,
       inputClass: 'relationship-type' +
         (linkType == null ? ' focus-first' : ''),
-      inputValue: (linkType?.name) ?? '',
+      inputValue: linkType == null ? '' : formatLinkTypePhrases(linkType),
       placeholder: l('Type or click to search'),
       recentItemsKey: 'link_type-' + source.entityType + '-' + targetType,
       required: true,

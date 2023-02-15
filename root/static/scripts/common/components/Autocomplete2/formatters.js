@@ -315,14 +315,8 @@ function formatLinkAttributeType(
   );
 }
 
-function formatLinkType(
-  linkType: LinkTypeT,
-  showDescriptions: ?boolean,
-) {
-  const description = stripHtml(linkType.l_description);
-  const isGroupingType = empty(description);
-
-  let nameDisplay = linkType.l_name;
+export function formatLinkTypePhrases(linkType: LinkTypeT): string {
+  const isGroupingType = empty(linkType.description);
   if (!isGroupingType) {
     let linkPhrase = linkType.l_link_phrase;
     let reverseLinkPhrase = linkType.l_reverse_link_phrase;
@@ -330,16 +324,24 @@ function formatLinkType(
       linkPhrase = stripAttributes(linkType, linkPhrase);
       reverseLinkPhrase = stripAttributes(linkType, reverseLinkPhrase);
       if (linkPhrase === reverseLinkPhrase) {
-        nameDisplay = linkPhrase;
-      } else {
-        nameDisplay =
-          texp.l('{forward_link_phrase} / {backward_link_phrase}', {
-            backward_link_phrase: reverseLinkPhrase,
-            forward_link_phrase: linkPhrase,
-          });
+        return linkPhrase;
       }
+      return texp.l('{forward_link_phrase} / {backward_link_phrase}', {
+        backward_link_phrase: reverseLinkPhrase,
+        forward_link_phrase: linkPhrase,
+      });
     }
   }
+  return linkType.l_name ?? linkType.name;
+}
+
+function formatLinkType(
+  linkType: LinkTypeT,
+  showDescriptions: ?boolean,
+) {
+  const description = stripHtml(linkType.l_description);
+  const isGroupingType = empty(description);
+  const nameDisplay = formatLinkTypePhrases(linkType);
 
   return (
     <>
