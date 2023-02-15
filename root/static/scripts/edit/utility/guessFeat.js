@@ -22,6 +22,8 @@ import {
   hasFullwidthLatin,
   toFullwidthLatin,
 } from './fullwidthLatin.js';
+import getRelatedArtists from './getRelatedArtists.js';
+import isEntityProbablyClassical from './isEntityProbablyClassical.js';
 import getSimilarity from './similarity.js';
 
 /* eslint-disable sort-keys */
@@ -212,12 +214,16 @@ export default function guessFeat(entity) {
   }
 
   let relatedArtists = entity.relatedArtists;
-  if (typeof relatedArtists === 'function') {
+  if (relatedArtists == null) {
+    relatedArtists = getRelatedArtists(entity.relationships);
+  } else if (typeof relatedArtists === 'function') {
     relatedArtists = relatedArtists.call(entity);
   }
 
   let isProbablyClassical = entity.isProbablyClassical;
-  if (typeof isProbablyClassical === 'function') {
+  if (isProbablyClassical == null) {
+    isProbablyClassical = isEntityProbablyClassical(entity);
+  } else if (typeof isProbablyClassical === 'function') {
     isProbablyClassical = isProbablyClassical.call(entity);
   }
 
