@@ -100,12 +100,32 @@ const RelationshipPhraseGroup = (React.memo<PropsT>(({
         maxLinkOrder = Math.max(maxLinkOrder, relationship.linkOrder);
       }
       // Drop number attribute for part of series - useless to reuse
-      const relationshipAttributesForReuse = tree.removeIfExists(
+      let relationshipAttributesForReuse = tree.removeIfExists(
         relationship.attributes,
         {
           type: {gid: 'a59c5830-5ec7-38fe-9a21-c7ea54f6650a'},
           typeID: 788,
           typeName: 'number',
+        },
+        compareLinkAttributeIds,
+      );
+      // Drop cancelled for event performers (often not applicable)
+      relationshipAttributesForReuse = tree.removeIfExists(
+        relationshipAttributesForReuse,
+        {
+          type: {gid: 'efd89258-fb07-48e9-acf9-0a54ce03606d'},
+          typeID: 921,
+          typeName: 'cancelled',
+        },
+        compareLinkAttributeIds,
+      );
+      // Drop time for event performers (often not applicable)
+      relationshipAttributesForReuse = tree.removeIfExists(
+        relationshipAttributesForReuse,
+        {
+          type: {gid: 'ebd303c3-7f57-452a-aa3b-d780ebad868d'},
+          typeID: 830,
+          typeName: 'time',
         },
         compareLinkAttributeIds,
       );
