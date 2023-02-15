@@ -658,6 +658,12 @@ sub entities : Chained('root') PathPart('entities') Args(2)
         $appears_on = $c->model('Recording')->appears_on(\@entities, 3, 1);
     }
 
+    if ($type_name eq 'release') {
+        $c->model('Release')->load_release_events(@entities);
+        $c->model('ReleaseLabel')->load(@entities);
+        $c->model('Label')->load(map { $_->all_labels } @entities);
+    }
+
     my %artists;
     if ($type_name eq 'work') {
         %artists = $c->model('Work')->find_artists(\@entities, 3);
