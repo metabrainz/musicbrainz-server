@@ -859,14 +859,16 @@ const UserProfile = ({
   const adminViewing = $c.user != null && isAccountAdmin($c.user);
   const encodedName = encodeURIComponent(user.name);
   const restrictions = [];
-  if (isEditingDisabled(user)) {
-    restrictions.push(l('Editing/voting disabled'));
-  }
-  if (isAddingNotesDisabled(user)) {
-    restrictions.push(l('Edit notes disabled'));
-  }
-  if (isUntrusted(user)) {
-    restrictions.push(l('Untrusted'));
+  if (adminViewing) {
+    if (isEditingDisabled(user)) {
+      restrictions.push(l('Editing/voting disabled'));
+    }
+    if (isAddingNotesDisabled(user)) {
+      restrictions.push(l('Edit notes disabled'));
+    }
+    if (isUntrusted(user)) {
+      restrictions.push(l('Untrusted'));
+    }
   }
 
   return (
