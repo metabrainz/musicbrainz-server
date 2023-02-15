@@ -45,6 +45,7 @@ const RELATIONSHIP_DEFAULTS = {
 type CommonOptionsT = {
   +batchSelectionCount?: number,
   +dispatch: (UpdateRelationshipActionT) => void,
+  +releaseHasUnloadedTracks: boolean,
   +source: CoreEntityT,
   +title: string,
 };
@@ -64,6 +65,7 @@ export default function useRelationshipDialogContent(
     batchSelectionCount,
     dispatch,
     relationship,
+    releaseHasUnloadedTracks,
     source,
     targetTypeOptions,
     targetTypeRef,
@@ -92,6 +94,7 @@ export default function useRelationshipDialogContent(
         batchSelectionCount={batchSelectionCount}
         closeDialog={closeAndReturnFocus}
         initialRelationship={relationship}
+        releaseHasUnloadedTracks={releaseHasUnloadedTracks}
         source={source}
         sourceDispatch={dispatch}
         targetTypeOptions={targetTypeOptions}
@@ -104,6 +107,7 @@ export default function useRelationshipDialogContent(
     batchSelectionCount,
     dispatch,
     relationship,
+    releaseHasUnloadedTracks,
     source,
     targetTypeOptions,
     targetTypeRef,
@@ -128,6 +132,7 @@ export function useAddRelationshipDialogContent(
     backward,
     defaultTargetType,
     buildNewRelationshipData,
+    releaseHasUnloadedTracks,
     source,
     targetTypeOptions: customTargetTypeOptions,
     ...otherOptions
@@ -191,6 +196,7 @@ export function useAddRelationshipDialogContent(
   return useRelationshipDialogContent({
     ...otherOptions,
     relationship: newRelationshipState,
+    releaseHasUnloadedTracks,
     source,
     targetTypeOptions,
     targetTypeRef,

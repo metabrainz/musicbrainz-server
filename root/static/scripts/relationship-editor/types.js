@@ -236,6 +236,7 @@ export type DialogTargetEntityStateT = $ReadOnly<{
 export type DialogEntityCreditStateT = {
   +creditedAs: string,
   +creditsToChange: CreditChangeOptionT,
+  +releaseHasUnloadedTracks: boolean,
 };
 
 export type LinkAttributeShapeT = {

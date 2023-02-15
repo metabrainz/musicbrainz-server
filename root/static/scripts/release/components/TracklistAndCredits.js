@@ -225,6 +225,22 @@ export function useUnloadedTracksMap(
   ), [loadedTracks, mediums]);
 }
 
+export function useReleaseHasUnloadedTracks(
+  hasUnloadedTracksPerMedium: $ReadOnlyMap<number, boolean>,
+): boolean {
+  return React.useMemo(() => {
+    for (
+      const mediumHasUnloadedTracks of
+      hasUnloadedTracksPerMedium.values()
+    ) {
+      if (mediumHasUnloadedTracks) {
+        return true;
+      }
+    }
+    return false;
+  }, [hasUnloadedTracksPerMedium]);
+}
+
 const TracklistAndCredits = React.memo<PropsT>((props: PropsT) => {
   const {
     noScript,
@@ -254,14 +270,8 @@ const TracklistAndCredits = React.memo<PropsT>((props: PropsT) => {
   const hasUnloadedTracksPerMedium =
     useUnloadedTracksMap(mediums, loadedTracks);
 
-  const hasUnloadedTracks = React.useMemo(() => {
-    for (const value of hasUnloadedTracksPerMedium.values()) {
-      if (value) {
-        return true;
-      }
-    }
-    return false;
-  }, [hasUnloadedTracksPerMedium]);
+  const hasUnloadedTracks =
+    useReleaseHasUnloadedTracks(hasUnloadedTracksPerMedium);
 
   const bottomMediumCredits = React.useMemo(() => (
     creditsMode === 'bottom'

@@ -67,6 +67,7 @@ export function getSourceError(
 }
 
 export function createInitialState(
+  releaseHasUnloadedTracks: boolean,
   sourceType: CoreEntityTypeT,
   relationship: RelationshipStateT,
   source: CoreEntityT,
@@ -80,6 +81,7 @@ export function createInitialState(
       backward
         ? relationship.entity1_credit
         : relationship.entity0_credit,
+      releaseHasUnloadedTracks,
     ),
   };
 }
