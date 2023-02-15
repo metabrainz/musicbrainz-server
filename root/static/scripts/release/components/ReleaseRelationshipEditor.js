@@ -1495,8 +1495,8 @@ const TrackRelationshipsSection = React.memo(({
               <p>
                 {l(
                   `Some tracks/mediums haven’t been loaded yet.
-                   If you want to make batch operations on all tracks,
-                   please fully load all mediums beforehand.`,
+                   If you want to make batch operations on these,
+                   please fully load them first.`,
                 )}
               </p>
             </div>
