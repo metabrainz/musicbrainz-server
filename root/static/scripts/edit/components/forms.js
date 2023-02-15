@@ -34,7 +34,8 @@ export const FormRowArtistCredit = ({form, entity}) => (
 );
 
 MB.initializeArtistCredit = function (form, initialArtistCredit) {
-  const source = MB.sourceEntity || {name: ''};
+  const source = MB.getSourceEntityInstance() ?? {name: ''};
+  source.uniqueID = 'source';
   source.artistCredit = ko.observable(initialArtistCredit);
 
   const container = document.getElementById('artist-credit-editor');
