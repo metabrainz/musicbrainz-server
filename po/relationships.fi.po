@@ -88,6 +88,16 @@ msgstr "Allmusic"
 msgid "Allmusic page for"
 msgstr "Allmusic-sivuna"
 
+#: DB:link_type/link_phrase:1131 DB:link_type/link_phrase:1132
+#: DB:link_type/link_phrase:1130
+msgid "Apple Music"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:1131 DB:link_type/reverse_link_phrase:1132
+#: DB:link_type/reverse_link_phrase:1130
+msgid "Apple Music page for"
+msgstr ""
+
 #: DB:link_type/link_phrase:190
 msgid "BBC Music"
 msgstr "BBC Music"
@@ -144,7 +154,7 @@ msgstr "CD Baby -sivuna"
 
 #: DB:link_type/link_phrase:981 DB:link_type/name:981
 msgid "CPDL"
-msgstr ""
+msgstr "CPDL"
 
 #: DB:link_type/reverse_link_phrase:981
 msgid "CPDL page for"
@@ -544,7 +554,7 @@ msgstr ""
 
 #: DB:link_type/description:219
 msgid "Indicates the official homepage for a label."
-msgstr ""
+msgstr "Viittaa levymerkin virallisiin kotisivuihin."
 
 #: DB:link_type/description:363
 msgid "Indicates the official homepage for a place."
@@ -918,7 +928,7 @@ msgstr "Myspace-sivuna"
 
 #: DB:link_attribute_type/description:461
 msgid "Other vocalizations"
-msgstr ""
+msgstr "Muut vokalisaatiot"
 
 #: DB:link_type/description:852
 msgid "Points to the BookBrainz page for this artist."
@@ -1082,7 +1092,7 @@ msgstr "Songfacts sivuna"
 #: DB:link_type/link_phrase:786 DB:link_type/link_phrase:785
 #: DB:link_type/link_phrase:787
 msgid "Songkick"
-msgstr ""
+msgstr "Songkick"
 
 #: DB:link_type/reverse_link_phrase:786 DB:link_type/reverse_link_phrase:785
 #: DB:link_type/reverse_link_phrase:787
@@ -2229,6 +2239,10 @@ msgid ""
 "donations/patronage, such as Flattr or PayPal.me."
 msgstr ""
 
+#: DB:link_type/description:1130
+msgid "This links a label to its page at Apple Music."
+msgstr ""
+
 #: DB:link_type/description:719
 msgid "This links a label to its page at Bandcamp."
 msgstr ""
@@ -2551,6 +2565,10 @@ msgstr ""
 
 #: DB:link_type/description:1080
 msgid "This links an artist to its channel at YouTube Music."
+msgstr ""
+
+#: DB:link_type/description:1131 DB:link_type/description:1132
+msgid "This links an artist to its page at Apple Music."
 msgstr ""
 
 #: DB:link_type/description:718
@@ -3488,7 +3506,7 @@ msgstr "VGMdb-sivuna"
 #: DB:link_type/name:311 DB:link_type/name:310 DB:link_type/name:312
 #: DB:link_type/name:920 DB:link_type/name:1001
 msgid "VIAF"
-msgstr ""
+msgstr "VIAF"
 
 #: DB:link_type/link_phrase:311 DB:link_type/link_phrase:310
 #: DB:link_type/link_phrase:920 DB:link_type/link_phrase:1001
@@ -3504,7 +3522,7 @@ msgstr "VIAF-tunnisteena"
 
 #: DB:link_attribute_type/description:1151
 msgid "Whistling (with mouth, not a whistle)"
-msgstr ""
+msgstr "viheltäminen"
 
 #: DB:link_type/link_phrase:1087 DB:link_type/link_phrase:353
 #: DB:link_type/link_phrase:749 DB:link_type/link_phrase:594
@@ -3540,7 +3558,7 @@ msgstr "Wikipedia-sivuna"
 
 #: DB:link_type/link_phrase:1080
 msgid "YouTube Music"
-msgstr ""
+msgstr "YouTube Music"
 
 #: DB:link_type/reverse_link_phrase:1080
 msgid "YouTube Music channel for"
@@ -3569,7 +3587,7 @@ msgstr "lisä"
 #: DB:link_type/name:755 DB:link_type/name:284 DB:link_type/name:283
 #: DB:link_type/name:285 DB:link_type/name:286 DB:link_type/name:1093
 msgid "allmusic"
-msgstr ""
+msgstr "allmusic"
 
 #: DB:link_attribute_type/description:5 DB:link_attribute_type/name:5
 msgid "alto vocals"
@@ -3597,6 +3615,10 @@ msgstr "kansallislauluna"
 
 #: DB:link_type/link_phrase:858 DB:link_type/long_link_phrase:858
 msgid "appears on video"
+msgstr ""
+
+#: DB:link_type/name:1131 DB:link_type/name:1132 DB:link_type/name:1130
+msgid "apple music"
 msgstr ""
 
 #: DB:link_type/name:866 DB:link_type/name:865 DB:link_type/name:886
@@ -3628,7 +3650,7 @@ msgstr ""
 
 #: DB:link_type/name:297 DB:link_type/name:295 DB:link_type/name:293
 msgid "arranger"
-msgstr ""
+msgstr "sovittaja"
 
 #: DB:link_type/link_phrase:864 DB:link_type/link_phrase:863
 #: DB:link_type/link_phrase:866 DB:link_type/link_phrase:865
@@ -3698,7 +3720,7 @@ msgstr ""
 
 #: DB:link_type/name:140 DB:link_type/name:31
 msgid "audio"
-msgstr ""
+msgstr "audio"
 
 #: DB:link_type/name:795 DB:link_type/reverse_link_phrase:795
 msgid "available at"
@@ -3730,7 +3752,7 @@ msgstr ""
 
 #: DB:link_type/name:1092 DB:link_type/name:718 DB:link_type/name:719
 msgid "bandcamp"
-msgstr ""
+msgstr "bandcamp"
 
 #: DB:link_type/name:861 DB:link_type/name:862 DB:link_type/name:860
 msgid "bandsintown"
@@ -3758,7 +3780,7 @@ msgstr "elämäkerrat"
 
 #: DB:link_type/name:182
 msgid "biography"
-msgstr ""
+msgstr "biografia"
 
 #: DB:link_type/reverse_link_phrase:182
 msgid "biography of"
@@ -3766,7 +3788,7 @@ msgstr "elämäkerta"
 
 #: DB:link_type/name:224 DB:link_type/name:199 DB:link_type/name:627
 msgid "blog"
-msgstr ""
+msgstr "blogi"
 
 #: DB:link_type/reverse_link_phrase:224 DB:link_type/reverse_link_phrase:199
 #: DB:link_type/reverse_link_phrase:627
@@ -3878,7 +3900,7 @@ msgstr ""
 
 #: DB:link_attribute_type/name:1204
 msgid "classical music"
-msgstr ""
+msgstr "klassinen musiikki"
 
 #: DB:link_attribute_type/name:424
 msgid "co"
@@ -3933,7 +3955,7 @@ msgstr ""
 
 #: DB:link_type/name:55 DB:link_type/name:168
 msgid "composer"
-msgstr ""
+msgstr "säveltäjä"
 
 #: DB:link_type/name:855 DB:link_type/name:937
 msgid "composer-in-residence"
@@ -4193,7 +4215,7 @@ msgstr "diskografiasivut"
 #: DB:link_type/name:217 DB:link_type/name:90 DB:link_type/name:747
 #: DB:link_type/name:705 DB:link_type/name:971
 msgid "discogs"
-msgstr ""
+msgstr "discogs"
 
 #: DB:link_type/link_phrase:361 DB:link_type/name:361
 #: DB:link_type/long_link_phrase:361
@@ -4293,7 +4315,7 @@ msgstr ""
 
 #: DB:link_attribute_type/name:1127
 msgid "electronic music"
-msgstr ""
+msgstr "elektorinen musiikki"
 
 #: DB:link_attribute_type/name:617
 msgid "emeritus"
@@ -4351,7 +4373,7 @@ msgstr "fanisivustot"
 
 #: DB:link_type/name:214 DB:link_type/name:172
 msgid "fanpage"
-msgstr ""
+msgstr "fanisivu"
 
 #: DB:link_type/reverse_link_phrase:1011 DB:link_type/reverse_link_phrase:1012
 msgid "field recordings"
@@ -4386,7 +4408,7 @@ msgstr ""
 
 #: DB:link_type/name:832 DB:link_type/name:895 DB:link_type/name:1004
 msgid "founder"
-msgstr ""
+msgstr "perustaja"
 
 #: DB:link_type/reverse_link_phrase:832 DB:link_type/reverse_link_phrase:116
 msgid "founders"
@@ -4518,11 +4540,16 @@ msgstr ""
 
 #: DB:link_attribute_type/name:1019
 msgid "half"
-msgstr ""
+msgstr "puoli"
 
 #: DB:link_type/long_link_phrase:77
 msgid "has Amazon ASIN"
 msgstr "omaa Amazon ASIN -tunnisteen"
+
+#: DB:link_type/long_link_phrase:1131 DB:link_type/long_link_phrase:1132
+#: DB:link_type/long_link_phrase:1130
+msgid "has Apple Music page at"
+msgstr ""
 
 #: DB:link_type/long_link_phrase:1092 DB:link_type/long_link_phrase:718
 #: DB:link_type/long_link_phrase:719
@@ -4811,7 +4838,7 @@ msgid "has orchestration"
 msgstr "orkestraatio"
 
 #: DB:link_type/long_link_phrase:739 DB:link_type/long_link_phrase:717
-#: DB:link_type/long_link_phrase:281 DB:link_type/long_link_phrase:356
+#: DB:link_type/long_link_phrase:356 DB:link_type/long_link_phrase:281
 msgid "has part"
 msgstr "omaa osan"
 
@@ -5003,7 +5030,7 @@ msgstr "soittimet"
 
 #: DB:link_type/name:707
 msgid "interview"
-msgstr ""
+msgstr "haastattelu"
 
 #: DB:link_type/reverse_link_phrase:707
 msgid "interview with"
@@ -5121,7 +5148,7 @@ msgstr ""
 
 #: DB:link_type/name:108
 msgid "is person"
-msgstr ""
+msgstr "on henkilö"
 
 #: DB:link_type/long_link_phrase:738
 msgid "is related to"
@@ -5181,7 +5208,7 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:200
 msgid "is/was the parent label of"
-msgstr ""
+msgstr "on/oli emolevymerkki levymerkille"
 
 #: DB:link_type/long_link_phrase:103
 msgid "is/was {additional:an|a} {additional} {original} {eponymous} member of"
@@ -5195,11 +5222,11 @@ msgstr ""
 
 #: DB:link_attribute_type/name:1132
 msgid "jazz"
-msgstr ""
+msgstr "jazz"
 
 #: DB:link_attribute_type/name:1261 DB:link_type/name:226
 msgid "karaoke"
-msgstr ""
+msgstr "karaoke"
 
 #: DB:link_type/reverse_link_phrase:226
 msgid "karaoke version of"
@@ -5215,7 +5242,7 @@ msgstr ""
 
 #: DB:link_type/name:116
 msgid "label founder"
-msgstr ""
+msgstr "levymerkin perustaja"
 
 #: DB:link_type/name:200
 msgid "label ownership"
@@ -5322,7 +5349,7 @@ msgstr ""
 #: DB:link_type/link_phrase:712 DB:link_type/link_phrase:1010
 #: DB:link_type/long_link_phrase:712 DB:link_type/long_link_phrase:1010
 msgid "licensed"
-msgstr ""
+msgstr "lisensöity"
 
 #: DB:link_type/reverse_link_phrase:712 DB:link_type/reverse_link_phrase:1010
 msgid "licensed from"
@@ -5370,7 +5397,7 @@ msgstr ""
 
 #: DB:link_type/name:213
 msgid "logo"
-msgstr ""
+msgstr "logo"
 
 #: DB:link_type/reverse_link_phrase:213
 msgid "logo of"
@@ -5663,15 +5690,15 @@ msgstr ""
 
 #: DB:link_attribute_type/name:1222
 msgid "music theory"
-msgstr ""
+msgstr "musiikkiteoria"
 
 #: DB:link_attribute_type/name:1203
 msgid "music therapy"
-msgstr ""
+msgstr "musiikkiterapia"
 
 #: DB:link_type/name:857
 msgid "music video"
-msgstr ""
+msgstr "musiikkivideo"
 
 #: DB:link_type/reverse_link_phrase:857
 msgid "music video for"
@@ -5700,11 +5727,11 @@ msgstr ""
 
 #: DB:link_attribute_type/name:1141
 msgid "musicology"
-msgstr ""
+msgstr "musikologia"
 
 #: DB:link_type/name:215 DB:link_type/name:462 DB:link_type/name:189
 msgid "myspace"
-msgstr ""
+msgstr "myspace"
 
 #: DB:link_type/link_phrase:973 DB:link_type/link_phrase:972
 #: DB:link_type/link_phrase:974 DB:link_type/name:973 DB:link_type/name:972
@@ -5720,12 +5747,12 @@ msgstr ""
 
 #: DB:link_attribute_type/name:788 DB:link_attribute_type/name:1032
 msgid "number"
-msgstr ""
+msgstr "numero"
 
 #: DB:link_type/name:745 DB:link_type/name:782 DB:link_type/name:287
 #: DB:link_type/name:183 DB:link_type/name:363
 msgid "official homepage"
-msgstr ""
+msgstr "virallinen kotisivu"
 
 #: DB:link_type/reverse_link_phrase:745 DB:link_type/reverse_link_phrase:782
 #: DB:link_type/reverse_link_phrase:183 DB:link_type/reverse_link_phrase:219
@@ -5741,7 +5768,7 @@ msgstr "virallinen kotisivu"
 
 #: DB:link_type/name:219
 msgid "official site"
-msgstr ""
+msgstr "virallinen sivusto"
 
 #: DB:link_type/link_phrase:185
 msgid "online communities"
@@ -5766,7 +5793,7 @@ msgstr ""
 
 #: DB:link_attribute_type/name:1220
 msgid "opera"
-msgstr ""
+msgstr "ooppera"
 
 #: DB:link_attribute_type/name:1053
 msgid "optional"
@@ -5774,7 +5801,7 @@ msgstr ""
 
 #: DB:link_type/name:807
 msgid "orchestra"
-msgstr ""
+msgstr "orkesteri"
 
 #: DB:link_type/link_phrase:807
 msgid "orchestra at"
@@ -5856,7 +5883,7 @@ msgstr "muu laulu"
 #: DB:link_type/reverse_link_phrase:988 DB:link_type/reverse_link_phrase:989
 #: DB:link_type/reverse_link_phrase:991
 msgid "owner"
-msgstr ""
+msgstr "omistaja"
 
 #: DB:link_type/link_phrase:990 DB:link_type/name:990
 #: DB:link_type/reverse_link_phrase:990 DB:link_type/long_link_phrase:990
@@ -5887,8 +5914,8 @@ msgstr "parodia"
 #: DB:link_type/name:743 DB:link_type/name:742 DB:link_type/name:740
 #: DB:link_type/name:741 DB:link_type/name:996
 #: DB:link_type/reverse_link_phrase:739 DB:link_type/reverse_link_phrase:818
-#: DB:link_type/reverse_link_phrase:717 DB:link_type/reverse_link_phrase:281
-#: DB:link_type/reverse_link_phrase:356 DB:link_type/reverse_link_phrase:743
+#: DB:link_type/reverse_link_phrase:717 DB:link_type/reverse_link_phrase:356
+#: DB:link_type/reverse_link_phrase:281 DB:link_type/reverse_link_phrase:743
 msgid "part of"
 msgstr "kuuluu osana"
 
@@ -5905,7 +5932,7 @@ msgid "partial"
 msgstr "osittainen"
 
 #: DB:link_type/link_phrase:818 DB:link_type/link_phrase:717
-#: DB:link_type/link_phrase:281 DB:link_type/link_phrase:356
+#: DB:link_type/link_phrase:356 DB:link_type/link_phrase:281
 #: DB:link_type/name:739 DB:link_type/name:818 DB:link_type/name:717
 #: DB:link_type/name:281
 msgid "parts"
@@ -5973,7 +6000,7 @@ msgstr "esiintyy nimellä"
 
 #: DB:link_type/name:723
 msgid "personal label"
-msgstr ""
+msgstr "henkilökohtainen levymerkki"
 
 #: DB:link_type/reverse_link_phrase:723
 msgid "personal label for"
@@ -6009,7 +6036,7 @@ msgstr ""
 #: DB:link_type/link_phrase:173 DB:link_type/link_phrase:396
 #: DB:link_type/link_phrase:732
 msgid "picture"
-msgstr ""
+msgstr "kuva"
 
 #: DB:link_type/reverse_link_phrase:173 DB:link_type/reverse_link_phrase:396
 #: DB:link_type/reverse_link_phrase:732
@@ -6591,7 +6618,7 @@ msgstr ""
 #: DB:link_type/name:784 DB:link_type/name:783 DB:link_type/name:218
 #: DB:link_type/name:429 DB:link_type/name:192
 msgid "social network"
-msgstr ""
+msgstr "yhteisösivu"
 
 #: DB:link_type/link_phrase:784 DB:link_type/link_phrase:783
 #: DB:link_type/link_phrase:218 DB:link_type/link_phrase:429
@@ -6657,21 +6684,21 @@ msgstr "suoratoistettavissa {video} ilmaiseksi"
 #: DB:link_type/name:978 DB:link_type/name:979 DB:link_type/name:980
 #: DB:link_type/name:1005
 msgid "streaming"
-msgstr ""
+msgstr "suoratoisto"
 
 #: DB:link_type/link_phrase:978 DB:link_type/link_phrase:979
 #: DB:link_type/link_phrase:980 DB:link_type/link_phrase:1005
 msgid "streaming page"
-msgstr ""
+msgstr "suoratoistosivu"
 
 #: DB:link_type/reverse_link_phrase:978 DB:link_type/reverse_link_phrase:979
 #: DB:link_type/reverse_link_phrase:980 DB:link_type/reverse_link_phrase:1005
 msgid "streaming page for"
-msgstr ""
+msgstr "suoratoistosivu kohteelle"
 
 #: DB:link_type/link_phrase:847 DB:link_type/reverse_link_phrase:923
 msgid "students"
-msgstr ""
+msgstr "oppilaita"
 
 #: DB:link_type/link_phrase:923 DB:link_type/name:923
 #: DB:link_type/long_link_phrase:923
@@ -6906,7 +6933,7 @@ msgstr ""
 #: DB:link_type/name:86 DB:link_type/name:191 DB:link_type/name:210
 #: DB:link_type/name:788 DB:link_type/name:992 DB:link_type/name:1013
 msgid "vgmdb"
-msgstr ""
+msgstr "vgmdb"
 
 #: DB:link_attribute_type/name:582 DB:link_type/link_phrase:961
 #: DB:link_type/name:961 DB:link_type/reverse_link_phrase:961
@@ -6961,7 +6988,7 @@ msgstr ""
 
 #: DB:link_type/name:292
 msgid "voice actor"
-msgstr ""
+msgstr "ääninäyttelijä"
 
 #: DB:link_type/link_phrase:292
 msgid "voice of"
@@ -7066,13 +7093,13 @@ msgstr ""
 #: DB:link_type/name:790 DB:link_type/name:352 DB:link_type/name:733
 #: DB:link_type/name:358
 msgid "wikidata"
-msgstr ""
+msgstr "wikidata"
 
 #: DB:link_type/name:179 DB:link_type/name:595 DB:link_type/name:355
 #: DB:link_type/name:744 DB:link_type/name:279 DB:link_type/name:216
 #: DB:link_type/name:731 DB:link_type/name:89 DB:link_type/name:789
 msgid "wikipedia"
-msgstr ""
+msgstr "wikipedia"
 
 #: DB:link_type/link_phrase:1002 DB:link_type/name:1002
 #: DB:link_type/reverse_link_phrase:1002 DB:link_type/long_link_phrase:1002
@@ -7109,7 +7136,7 @@ msgstr ""
 
 #: DB:link_type/name:54 DB:link_type/name:167
 msgid "writer"
-msgstr ""
+msgstr "kirjoittaja"
 
 #: DB:link_type/name:874
 msgid "written at"
@@ -7122,11 +7149,11 @@ msgstr ""
 #: DB:link_type/name:791 DB:link_type/name:792 DB:link_type/name:193
 #: DB:link_type/name:225 DB:link_type/name:528
 msgid "youtube"
-msgstr ""
+msgstr "youtube"
 
 #: DB:link_type/name:1080
 msgid "youtube music"
-msgstr ""
+msgstr "youtube music"
 
 #: DB:link_type/reverse_link_phrase:886
 msgid "{additional:additionally} arranged at"
@@ -7777,7 +7804,7 @@ msgstr ""
 #: DB:link_type/long_link_phrase:922 DB:link_type/long_link_phrase:914
 #: DB:link_type/long_link_phrase:868
 msgid "{entity1} is dedicated to {entity0}"
-msgstr ""
+msgstr "{entity1} on omistettu kohteelle {entity0}"
 
 #: DB:link_type/long_link_phrase:939
 msgid "{entity1} is licensed under {entity0}"

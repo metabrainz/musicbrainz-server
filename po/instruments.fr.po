@@ -1643,6 +1643,11 @@ msgctxt "Small single drone Sanabrian bagpipe"
 msgid "gaita sanabresa"
 msgstr ""
 
+#: DB:instrument/name:1114
+msgctxt "Large Silesian bellow-blown bagpipe"
+msgid "gajdy"
+msgstr ""
+
 #: DB:instrument/name:977
 msgctxt "Indonesian wood box-resonated xylophone"
 msgid "gambang"

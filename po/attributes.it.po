@@ -9,12 +9,12 @@
 # salo.rock, 2016-2022
 # salo.rock, 2013-2015
 # salo.rock, 2012
-# salo.rock, 2022
+# salo.rock, 2022-2023
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "PO-Revision-Date: 2012-05-24 18:52+0000\n"
-"Last-Translator: salo.rock, 2022\n"
+"Last-Translator: salo.rock, 2022-2023\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -2290,6 +2290,11 @@ msgctxt "release_packaging"
 msgid "Digibook"
 msgstr "Digibook"
 
+#: DB:release_packaging/name:89
+msgctxt "release_packaging"
+msgid "Digifile"
+msgstr ""
+
 #: DB:release_packaging/name:3
 msgctxt "release_packaging"
 msgid "Digipak"
@@ -3827,7 +3832,7 @@ msgstr "ID per la società di diritti venezuelana SACVEN"
 #: DB:work_attribute_type/description:107
 msgctxt "work_attribute_type"
 msgid "ID for the Vietnamese rights society VCPMC"
-msgstr ""
+msgstr "ID per la società di diritti vietnamita VCPMC"
 
 #: DB:work_attribute_type/description:38
 msgctxt "work_attribute_type"
@@ -5694,6 +5699,11 @@ msgstr "Ouverture"
 msgctxt "collection_type"
 msgid "Owned music"
 msgstr "Musica in mio possesso"
+
+#: DB:editor_collection_type/name:17
+msgctxt "collection_type"
+msgid "Owned recordings"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:762
 msgctxt "work_attribute_type_allowed_value"
@@ -7567,7 +7577,7 @@ msgstr "VCD"
 #: DB:work_attribute_type/name:107
 msgctxt "work_attribute_type"
 msgid "VCPMC ID"
-msgstr ""
+msgstr "ID VCPMC"
 
 #: DB:medium_format/name:59
 msgctxt "medium_format"

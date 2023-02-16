@@ -93,6 +93,16 @@ msgstr "Allmusic"
 msgid "Allmusic page for"
 msgstr "página de Allmusic para"
 
+#: DB:link_type/link_phrase:1131 DB:link_type/link_phrase:1132
+#: DB:link_type/link_phrase:1130
+msgid "Apple Music"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:1131 DB:link_type/reverse_link_phrase:1132
+#: DB:link_type/reverse_link_phrase:1130
+msgid "Apple Music page for"
+msgstr ""
+
 #: DB:link_type/link_phrase:190
 msgid "BBC Music"
 msgstr "BBC Music"
@@ -2234,6 +2244,10 @@ msgid ""
 "donations/patronage, such as Flattr or PayPal.me."
 msgstr ""
 
+#: DB:link_type/description:1130
+msgid "This links a label to its page at Apple Music."
+msgstr ""
+
 #: DB:link_type/description:719
 msgid "This links a label to its page at Bandcamp."
 msgstr ""
@@ -2556,6 +2570,10 @@ msgstr ""
 
 #: DB:link_type/description:1080
 msgid "This links an artist to its channel at YouTube Music."
+msgstr ""
+
+#: DB:link_type/description:1131 DB:link_type/description:1132
+msgid "This links an artist to its page at Apple Music."
 msgstr ""
 
 #: DB:link_type/description:718
@@ -3604,6 +3622,10 @@ msgstr "himno de"
 msgid "appears on video"
 msgstr "aparece en el video"
 
+#: DB:link_type/name:1131 DB:link_type/name:1132 DB:link_type/name:1130
+msgid "apple music"
+msgstr ""
+
 #: DB:link_type/name:866 DB:link_type/name:865 DB:link_type/name:886
 #: DB:link_type/reverse_link_phrase:866 DB:link_type/reverse_link_phrase:865
 msgid "arranged at"
@@ -4529,6 +4551,11 @@ msgstr ""
 msgid "has Amazon ASIN"
 msgstr "tiene la ASIN de Amazon"
 
+#: DB:link_type/long_link_phrase:1131 DB:link_type/long_link_phrase:1132
+#: DB:link_type/long_link_phrase:1130
+msgid "has Apple Music page at"
+msgstr ""
+
 #: DB:link_type/long_link_phrase:1092 DB:link_type/long_link_phrase:718
 #: DB:link_type/long_link_phrase:719
 msgid "has Bandcamp page at"
@@ -4816,7 +4843,7 @@ msgid "has orchestration"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:739 DB:link_type/long_link_phrase:717
-#: DB:link_type/long_link_phrase:281 DB:link_type/long_link_phrase:356
+#: DB:link_type/long_link_phrase:356 DB:link_type/long_link_phrase:281
 msgid "has part"
 msgstr "tiene la parte"
 
@@ -5892,8 +5919,8 @@ msgstr "Parodia "
 #: DB:link_type/name:743 DB:link_type/name:742 DB:link_type/name:740
 #: DB:link_type/name:741 DB:link_type/name:996
 #: DB:link_type/reverse_link_phrase:739 DB:link_type/reverse_link_phrase:818
-#: DB:link_type/reverse_link_phrase:717 DB:link_type/reverse_link_phrase:281
-#: DB:link_type/reverse_link_phrase:356 DB:link_type/reverse_link_phrase:743
+#: DB:link_type/reverse_link_phrase:717 DB:link_type/reverse_link_phrase:356
+#: DB:link_type/reverse_link_phrase:281 DB:link_type/reverse_link_phrase:743
 msgid "part of"
 msgstr "parte de"
 
@@ -5910,7 +5937,7 @@ msgid "partial"
 msgstr "parcial"
 
 #: DB:link_type/link_phrase:818 DB:link_type/link_phrase:717
-#: DB:link_type/link_phrase:281 DB:link_type/link_phrase:356
+#: DB:link_type/link_phrase:356 DB:link_type/link_phrase:281
 #: DB:link_type/name:739 DB:link_type/name:818 DB:link_type/name:717
 #: DB:link_type/name:281
 msgid "parts"

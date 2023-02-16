@@ -2282,6 +2282,11 @@ msgctxt "release_packaging"
 msgid "Digibook"
 msgstr "digibook"
 
+#: DB:release_packaging/name:89
+msgctxt "release_packaging"
+msgid "Digifile"
+msgstr ""
+
 #: DB:release_packaging/name:3
 msgctxt "release_packaging"
 msgid "Digipak"
@@ -5686,6 +5691,11 @@ msgstr "overtüür"
 msgctxt "collection_type"
 msgid "Owned music"
 msgstr "isiklik muusikakogu"
+
+#: DB:editor_collection_type/name:17
+msgctxt "collection_type"
+msgid "Owned recordings"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:762
 msgctxt "work_attribute_type_allowed_value"
