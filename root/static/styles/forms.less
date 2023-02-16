@@ -217,6 +217,18 @@ div.required {
     font-weight: bold;
 }
 
+/* Used to indicate required fields. */
+.asterisk {
+    content: "*";
+    left: -0.75em;
+    top: -0.25em;
+}
+
+div.required::before {
+    position: absolute;
+    .asterisk();
+}
+
 textarea {
     font-family: sans-serif;
     font-size: @medium-text;
