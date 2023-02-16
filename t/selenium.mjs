@@ -627,6 +627,7 @@ const seleniumTests = [
   {name: 'MBS-9941.json5', login: true},
   {name: 'MBS-10188.json5', login: true, sql: 'mbs-10188.sql'},
   {name: 'MBS-10510.json5', login: true, sql: 'mbs-10510.sql'},
+  {name: 'MBS-11529.json5', login: true},
   {name: 'MBS-11730.json5', login: true},
   {name: 'MBS-11735.json5', login: true},
   {name: 'MBS-12641.json5', login: true},
