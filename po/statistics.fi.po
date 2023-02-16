@@ -1292,7 +1292,7 @@ msgstr "Kappaletta kansitaidetta"
 
 #: ../root/statistics/CoverArt.js:117
 msgid "By Release Group Type"
-msgstr "Julkaisunryhmän tyypin mukaisesti"
+msgstr "Julkaisuryhmän tyypin mukaisesti"
 
 #: ../root/statistics/CoverArt.js:134 ../root/statistics/CoverArt.js:306
 msgid "No type"

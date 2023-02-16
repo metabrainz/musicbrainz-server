@@ -10,13 +10,13 @@
 # salo.rock, 2020-2022
 # salo.rock, 2020
 # salo.rock, 2012
-# salo.rock, 2022
+# salo.rock, 2022-2023
 # Valentina Menale <email address hidden>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "PO-Revision-Date: 2012-05-24 19:17+0000\n"
-"Last-Translator: salo.rock, 2022\n"
+"Last-Translator: salo.rock, 2022-2023\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -334,7 +334,7 @@ msgid ""
 "href=\"/instrument/15cd573d-15a8-4f9f-a48f-f73218d85e14/\">suona</a><br /> "
 "For the oboe also known as musette, see <a "
 "href=\"/instrument/77b29599-96c7-4571-9fae-09e7e42b8175/\">piccolo oboe</a>"
-msgstr ""
+msgstr "Conosciuta anche come musette o musette barocca, era una piccola cornamusa usata principalmente dalla corte e dalla nobiltà francese nel XVII e XVIII secolo.<br /> Per lo strumento conosciuto come \"musette cinese\", utilizza <a href=\"/instrument/15cd573d-15a8-4f9f-a48f-f73218d85e14/\">suona</a><br /> Per l'oboe conosciuto anche come musette, utilizza <a href=\"/instrument/77b29599-96c7-4571-9fae-09e7e42b8175/\">oboe musette</a>."
 
 #. name:gopichant
 #: DB:instrument/description:643
@@ -873,6 +873,14 @@ msgstr "Usato dal XIV al XVII secolo in Europa."
 msgid "Cup or bellshaped bells, these are shook or struck."
 msgstr "A forma di tazza rovesciata, viene scossa o percossa."
 
+#. name:gajdy
+#: DB:instrument/description:1114
+msgid ""
+"Czech-polish bellow-blown large goatskin bag with a 6 finger hole chanter "
+"and a long angular drone pipe that is balanced over the shoulder, the two "
+"flared pipes have inlaid metal designs and can have goat head decorations."
+msgstr ""
+
 #. name:davul
 #: DB:instrument/description:411
 msgid "Davul, turkish drum"
@@ -1277,7 +1285,7 @@ msgstr "Idiofoni in cui il suono è prodotto strofinando lo strumento."
 msgid ""
 "From Sanabria, it is distinct from other Spanish bagpipes, with its single "
 "drone and open fingering, it is accompanied by percussion in folk music."
-msgstr ""
+msgstr "Proveniente dalla Sanabria, si distingue dalle altre cornamuse spagnole per la singola canna di bordone e per la diteggiatura aperta. È accompagnata da percussioni nella musica tradizionale."
 
 #. name:pluriarc
 #: DB:instrument/description:1026
@@ -1420,7 +1428,7 @@ msgid ""
 "Historically solo instrument used in traditional and ritual dances, the "
 "drones have reinforced peter rings and the goatskin bag is covered with a "
 "colourful fabric."
-msgstr ""
+msgstr "Storicamente uno strumento solista usato nelle danze tradizionali e rituali, le sue canne di bordone hanno anelli rinforzati in peltro e la sacca in pelle di capra è ricoperta da un tessuto colorato."
 
 #. name:mendoza
 #: DB:instrument/description:114
@@ -1696,7 +1704,7 @@ msgstr "Conosciuta già dal XIV secolo in Persia, è composta da contenitori in 
 msgid ""
 "Known since 1400, traditionally in military context, today it is the most "
 "widespread and famous of bagpipes."
-msgstr ""
+msgstr "Conosciuta dal 1400, tradizionalmente in contesti militari, oggi è la cornamusa più diffusa e più famosa."
 
 #. name:zill
 #: DB:instrument/description:455
@@ -1781,7 +1789,7 @@ msgid ""
 "Larger than the gallega, it has been in use since atleast the 13th century, "
 "traditionally with only one chanter and drone, it has very colourfully "
 "decorated fur."
-msgstr ""
+msgstr "Più grande di quella galiziana, è usata almeno a partire dal XIII secolo; tradizionalmente a canna del canto e canna di bordone singole, ha una pelliccia decorata in modo molto colorato."
 
 #. name:seni rebab
 #: DB:instrument/description:1014
@@ -2810,7 +2818,7 @@ msgid ""
 "Small Bulgarian/Macedonian and Balkan goat or sheep-skin bagpipe used in "
 "folk, pastoral or other traditional settings. There are many similarly named"
 " small bagpipes in this area."
-msgstr ""
+msgstr "Piccola cornamusa bulgara/macedone e balcanica in pelle di capra o di pecora usata in contesti tradizionali o pastorali. Nell'area ne esistono molte varianti dai nomi simili."
 
 #. name:flabiol
 #: DB:instrument/description:845
@@ -4635,7 +4643,7 @@ msgid ""
 "Used at-least since the 9th century, it has two to three drones with bag and"
 " pipe both decorated with fur. Used in festivals by marching players "
 "accompanied by percussion."
-msgstr ""
+msgstr "Usata almeno a partire dal IX secolo, ha due o tre canne di bordone con sacca e canna entrambe decorate con pelliccia. Usata in occasione di festival da bande in cui è accompagnata da percussioni."
 
 #. name:clapstick
 #: DB:instrument/description:955
@@ -4680,7 +4688,7 @@ msgstr "Usato per parti elaborate e complesse, ha sbarre in metallo più sottili
 msgid ""
 "Used for more than 250 years, its one chanter and usually four drones have "
 "narrow bores."
-msgstr ""
+msgstr "Usata da più di 250 anni, con canna del canto singola e (solitamente) quattro canne di bordone a sezione stretta."
 
 #. name:gendèr panerus
 #: DB:instrument/description:1003
@@ -4994,7 +5002,7 @@ msgid ""
 " with a credit if no better can be found and <a "
 "href=\"/doc/How_to_Add_Instruments\">create an instrument ticket</a> if "
 "necessary."
-msgstr ""
+msgstr "Gruppo di strumenti molto ampio che viene suonato tramite percussione diretta, ovvero <a href=\"/instrument/06266b6a-2fb8-4c71-9894-186edbac5dff\">idiofoni</a> e <a href=\"/instrument/3bccb7eb-cbca-42cd-b0ac-a5e959df7221\">membranofoni</a> (dalle batterie agli xilofoni). Utilizza lo strumento che più si avvicina all'accreditamento, oppure utilizza percussione con un accreditamento se non trovi nessuna corrispondenza più vicina e, se necessario, <a href=\"/doc/How_to_Add_Instruments\">crea un ticket strumento</a>."
 
 #. name:violone
 #: DB:instrument/description:420

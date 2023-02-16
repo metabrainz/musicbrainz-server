@@ -10,6 +10,9 @@ import ko from 'knockout';
 import * as ReactDOMServer from 'react-dom/server';
 
 import formatLabelCode from '../../../utility/formatLabelCode.js';
+import getRelatedArtists from '../edit/utility/getRelatedArtists.js';
+import isEntityProbablyClassical
+  from '../edit/utility/isEntityProbablyClassical.js';
 
 import ArtistCreditLink from './components/ArtistCreditLink.js';
 import DescriptiveLink from './components/DescriptiveLink.js';
@@ -24,7 +27,6 @@ import formatTrackLength from './utility/formatTrackLength.js';
 import {
   ENTITY_NAMES,
   PART_OF_SERIES_LINK_TYPES,
-  PROBABLY_CLASSICAL_LINK_TYPES,
 } from './constants.js';
 import {
   artistCreditsAreEqual,
@@ -317,8 +319,8 @@ import MB from './MB.js';
         this.artistCredit = {names: []};
       }
 
-      this.relatedArtists = relatedArtists(data.relationships);
-      this.isProbablyClassical = isProbablyClassical(data);
+      this.relatedArtists = getRelatedArtists(data.relationships);
+      this.isProbablyClassical = isEntityProbablyClassical(data);
 
       if (this._afterRecordingCtor) {
         this._afterRecordingCtor(data);
@@ -347,8 +349,8 @@ import MB from './MB.js';
         this.mediums = data.mediums.map(x => new Medium(x));
       }
 
-      this.relatedArtists = relatedArtists(data.relationships);
-      this.isProbablyClassical = isProbablyClassical(data);
+      this.relatedArtists = getRelatedArtists(data.relationships);
+      this.isProbablyClassical = isEntityProbablyClassical(data);
     }
 
     toJSON() {
@@ -490,27 +492,6 @@ import MB from './MB.js';
   MB.entity.Track = Track;
   MB.entity.URL = URL;
   MB.entity.Work = Work;
-
-  function relatedArtists(relationships) {
-    if (!relationships) {
-      return [];
-    }
-    return relationships.reduce((accum, r) => {
-      if (r.target.entityType === 'artist') {
-        accum.push(r.target);
-      }
-      return accum;
-    }, []);
-  }
-
-  var classicalRoles = /\W(baritone|cello|conductor|gamba|guitar|orch|orchestra|organ|piano|soprano|tenor|trumpet|vocals?|viola|violin): /;
-
-  function isProbablyClassical(entity) {
-    return classicalRoles.test(entity.name) ||
-           entity.relationships?.some(function (r) {
-             return PROBABLY_CLASSICAL_LINK_TYPES.includes(r.linkTypeID);
-           });
-  }
 
   /*
    * Used by MB.entity() to look up classes. JSON from the web service

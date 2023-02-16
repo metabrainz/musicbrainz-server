@@ -390,7 +390,7 @@ msgstr "burma"
 #. frequency:1 iso_code_3:bsk
 #: DB:language/name:1406
 msgid "Burushaski"
-msgstr ""
+msgstr "burušaski"
 
 #. frequency:1 iso_code_3:cad
 #: DB:language/name:65
@@ -440,7 +440,7 @@ msgstr "keskiokinawa"
 #. frequency:1 iso_code_3:esu
 #: DB:language/name:2243
 msgid "Central Yupik"
-msgstr ""
+msgstr "alaskanjupik"
 
 #. frequency:1 iso_code_3:chg
 #: DB:language/name:75
