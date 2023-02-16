@@ -850,6 +850,14 @@ msgstr ""
 msgid "Cup or bellshaped bells, these are shook or struck."
 msgstr ""
 
+#. name:gajdy 
+#: DB:instrument/description:1114
+msgid ""
+"Czech-polish bellow-blown large goatskin bag with a 6 finger hole chanter "
+"and a long angular drone pipe that is balanced over the shoulder, the two "
+"flared pipes have inlaid metal designs and can have goat head decorations."
+msgstr ""
+
 #. name:davul 
 #: DB:instrument/description:411
 msgid "Davul, turkish drum"
