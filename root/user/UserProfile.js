@@ -902,7 +902,7 @@ const UserProfile = ({
               message={
                 texp.l(
                   `This user’s editing rights have been restricted.
-                   Active restrictions: {restrictions}`,
+                   Active restrictions: {restrictions}.`,
                   {
                     restrictions: commaListText(restrictions),
                   },
