@@ -146,6 +146,7 @@ sub format_iswc
 sub is_valid_ipi
 {
     my $ipi = shift;
+    return 0 if $ipi =~ /^0{11}$/;
     return $ipi =~ /^[0-9]{11}$/;
 }
 

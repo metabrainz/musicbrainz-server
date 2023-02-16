@@ -332,6 +332,8 @@ const Autocomplete2 = (React.memo(<+T: EntityItemT>(
   const inputTimeout = React.useRef<TimeoutID | null>(null);
   const containerRef = React.useRef<HTMLDivElement | null>(null);
   const shouldUpdateScrollPositionRef = React.useRef<boolean>(false);
+  const recentItemsPromise =
+    React.useRef<Promise<$ReadOnlyArray<OptionItemT<T>>> | null>(null);
 
   const highlightedItem = highlightedIndex >= 0
     ? (items[highlightedIndex] ?? null)
@@ -501,8 +503,14 @@ const Autocomplete2 = (React.memo(<+T: EntityItemT>(
     }
   }
 
-  function showAvailableItems() {
-    if (items.length && !isOpen) {
+  async function showAvailableItems() {
+    const recentItems = await recentItemsPromise.current;
+    /*
+     * Normally `items` should comprise `recentItems` after the
+     * `set-recent-items` action runs, but this event may trigger before that
+     * action is run and thus while `items` has yet to be updated.
+     */
+    if ((items.length || recentItems?.length) && !isOpen) {
       shouldUpdateScrollPositionRef.current = true;
       dispatch(SHOW_MENU);
       return true;
@@ -510,8 +518,8 @@ const Autocomplete2 = (React.memo(<+T: EntityItemT>(
     return false;
   }
 
-  function showAvailableItemsOrBeginLookupOrSearch() {
-    if (showAvailableItems()) {
+  async function showAvailableItemsOrBeginLookupOrSearch() {
+    if (await showAvailableItems()) {
       return;
     }
     /*
@@ -627,7 +635,7 @@ const Autocomplete2 = (React.memo(<+T: EntityItemT>(
 
   React.useEffect(() => {
     if (!recentItems) {
-      getOrFetchRecentItems<T>(
+      recentItemsPromise.current = getOrFetchRecentItems<T>(
         entityType,
         state.recentItemsKey,
       ).then((loadedRecentItems) => {
@@ -635,6 +643,7 @@ const Autocomplete2 = (React.memo(<+T: EntityItemT>(
           items: loadedRecentItems,
           type: 'set-recent-items',
         });
+        return loadedRecentItems;
       });
     }
 
@@ -744,6 +753,7 @@ const Autocomplete2 = (React.memo(<+T: EntityItemT>(
         aria-expanded={isOpen ? 'true' : 'false'}
         aria-haspopup="listbox"
         aria-owns={menuId}
+        className={state.required ? 'required' : undefined}
         role="combobox"
       >
         <input
@@ -751,6 +761,7 @@ const Autocomplete2 = (React.memo(<+T: EntityItemT>(
           aria-autocomplete="list"
           aria-controls={menuId}
           aria-labelledby={labelId}
+          aria-required={state.required ? 'true' : 'false'}
           autoComplete="off"
           className={
             (

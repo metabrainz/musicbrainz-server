@@ -1,0 +1,70 @@
+{
+  title: 'MBS-12641: Relationship editor dialog initial focus',
+  commands: [
+    {
+      command: 'open',
+      target: '/recording/96f64611-49df-4e54-84e7-0f9a30f01766/edit?rels.0.target=2437980f-513a-44fc-80f1-b90d9d7fcf8f',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'xpath=//th[contains(@class, "link-phrase")][contains(descendant::text(), "no type:")]/following-sibling::td//button[contains(@class, "edit-item")]',
+      value: '',
+    },
+    {
+      command: 'assertEval',
+      target: 'document.activeElement === document.querySelector("#edit-relationship-dialog input.relationship-type")',
+      value: 'true',
+    },
+    {
+      command: 'sendKeys',
+      target: 'css=#edit-relationship-dialog input.relationship-type',
+      value: 'vocals${KEY_ENTER}',
+    },
+    {
+      command: 'click',
+      target: 'css=#edit-relationship-dialog div.buttons button.positive',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'xpath=//th[contains(@class, "link-phrase")][contains(descendant::text(), "vocals:")]/following-sibling::td//button[contains(@class, "edit-item")]',
+      value: '',
+    },
+    {
+      command: 'assertEval',
+      target: 'document.activeElement === document.querySelector("#edit-relationship-dialog input.relationship-target")',
+      value: 'true',
+    },
+    {
+      command: 'click',
+      target: 'css=#edit-relationship-dialog div.buttons button.negative',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'xpath=//th[contains(@class, "link-phrase")][contains(descendant::text(), "vocals:")]//button[contains(@class, "add-another-entity")]',
+      value: '',
+    },
+    {
+      command: 'assertEval',
+      target: 'document.activeElement === document.querySelector("#add-relationship-dialog input.relationship-target")',
+      value: 'true',
+    },
+    {
+      command: 'click',
+      target: 'css=#add-relationship-dialog div.buttons button.negative',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'css=#relationship-editor td.add-relationship button.add-item',
+      value: '',
+    },
+    {
+      command: 'assertEval',
+      target: 'document.activeElement === document.querySelector("#add-relationship-dialog select.entity-type")',
+      value: 'true',
+    },
+  ],
+}

@@ -192,6 +192,7 @@ export const FAVICON_CLASSES = {
   'tedcrane.com/DanceDB': 'dancedb',
   'theatricalia.com': 'theatricalia',
   'thedancegypsy.com': 'thedancegypsy',
+  'themoviedb.org': 'tmdb',
   'thesession.org': 'thesession',
   'tidal.com': 'tidal',
   'tiktok.com': 'tiktok',

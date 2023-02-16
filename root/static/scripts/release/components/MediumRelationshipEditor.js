@@ -35,6 +35,7 @@ type PropsT = {
   +medium: MediumWithRecordingsT,
   +recordingStates: MediumRecordingStateTreeT | null,
   +release: ReleaseWithMediumsT,
+  +releaseHasUnloadedTracks: boolean,
   +tracks: $ReadOnlyArray<TrackWithRecordingT> | null,
 };
 
@@ -78,6 +79,7 @@ const MediumRelationshipEditor = (React.memo<PropsT>(({
   medium,
   recordingStates,
   release,
+  releaseHasUnloadedTracks,
   tracks,
 }: PropsT) => {
   const tableVars = usePagedMediumTable({
@@ -92,12 +94,14 @@ const MediumRelationshipEditor = (React.memo<PropsT>(({
   });
 
   const allMediumRecordingsChecked = React.useMemo(() => {
+    let hasRecordings = false;
     for (const recordingState of tree.iterate(recordingStates)) {
       if (!recordingState.isSelected) {
         return false;
       }
+      hasRecordings = true;
     }
-    return true;
+    return hasRecordings;
   }, [recordingStates]);
 
   const allMediumWorksChecked = React.useMemo(() => {
@@ -138,6 +142,7 @@ const MediumRelationshipEditor = (React.memo<PropsT>(({
             <input
               checked={allMediumRecordingsChecked}
               className="medium-recordings"
+              disabled={hasUnloadedTracks}
               id={'medium-recordings-checkbox-' + String(medium.id)}
               onChange={selectMediumRecordings}
               type="checkbox"
@@ -149,6 +154,7 @@ const MediumRelationshipEditor = (React.memo<PropsT>(({
             <input
               checked={allMediumWorksChecked}
               className="medium-works"
+              disabled={hasUnloadedTracks}
               id={'medium-works-checkbox-' + String(medium.id)}
               onChange={selectMediumWorks}
               type="checkbox"
@@ -175,6 +181,7 @@ const MediumRelationshipEditor = (React.memo<PropsT>(({
                 dispatch={dispatch}
                 key={track.id}
                 recordingState={recordingState}
+                releaseHasUnloadedTracks={releaseHasUnloadedTracks}
                 showArtists={tableVars.showArtists}
                 track={track}
               />

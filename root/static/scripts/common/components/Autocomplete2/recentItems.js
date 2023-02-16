@@ -15,6 +15,7 @@ import isDatabaseRowId from '../../utility/isDatabaseRowId.js';
 import isGuid from '../../utility/isGuid.js';
 import {localStorage} from '../../utility/storage.js';
 
+import {formatLinkTypePhrases} from './formatters.js';
 import type {
   EntityItemT,
   OptionItemT,
@@ -161,6 +162,17 @@ export function getRecentItems<+T: EntityItemT>(
   return _recentItemsCache.get(key) ?? [];
 }
 
+function getEntityName(entity: EntityItemT): string {
+  switch (entity.entityType) {
+    case 'link_type': {
+      return formatLinkTypePhrases(entity);
+    }
+    default: {
+      return entity.name;
+    }
+  }
+}
+
 export async function getOrFetchRecentItems<+T: EntityItemT>(
   entityType: string,
   key?: string = entityType,
@@ -185,7 +197,7 @@ export async function getOrFetchRecentItems<+T: EntityItemT>(
         cachedList.push({
           entity: entity,
           id: String(entity.id) + '-recent',
-          name: entity.name,
+          name: getEntityName(entity),
           type: 'option',
         });
         ids.delete(id);
@@ -220,7 +232,7 @@ export async function getOrFetchRecentItems<+T: EntityItemT>(
               // $FlowIgnore[incompatible-return]
               entity,
               id: String(entity.id) + '-recent',
-              name: entity.name,
+              name: getEntityName(entity),
               type: 'option',
             });
           }

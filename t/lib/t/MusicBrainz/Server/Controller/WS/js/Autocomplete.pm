@@ -62,6 +62,7 @@ test all => sub {
                 'name' => 'Warp Records',
                 'primaryAlias' => undef,
                 'typeID' => 4,
+                'typeName' => 'Original Production',
               }, { 'current' => 1, 'pages' => 1 } ];
 
 };

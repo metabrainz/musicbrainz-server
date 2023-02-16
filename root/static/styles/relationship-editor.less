@@ -65,7 +65,7 @@ div.relationship-dialog, div.work-dialog {
             vertical-align: top;
             text-align: right;
             width: 25%;
-            padding-right: 0.5em;
+            padding-right: 0.75em;
             &.required {font-weight: bold;}
         }
         td.fields {
@@ -128,6 +128,7 @@ div.relationship-dialog {
     input[type="checkbox"] {
         vertical-align: middle;
     }
+    p.required-fields-note::before { .asterisk(); }
     div.buttons {
         width: 100%;
     }

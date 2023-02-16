@@ -29,6 +29,7 @@ type PropsT = {
   +dialogLocation: RelationshipDialogLocationT | null,
   +dispatch: (RelationshipEditorActionT) => void,
   +filter?: (CoreEntityTypeT) => boolean,
+  +releaseHasUnloadedTracks: boolean,
   +source: CoreEntityT,
   +targetTypeGroups: RelationshipTargetTypeGroupsT,
   +track: TrackWithRecordingT | null,
@@ -38,6 +39,7 @@ const RelationshipTargetTypeGroups = (React.memo<PropsT>(({
   dialogLocation,
   dispatch,
   filter,
+  releaseHasUnloadedTracks,
   source,
   targetTypeGroups,
   track,
@@ -45,8 +47,9 @@ const RelationshipTargetTypeGroups = (React.memo<PropsT>(({
   const addButtonRef = React.useRef<HTMLButtonElement | null>(null);
 
   const buildPopoverContent = useAddRelationshipDialogContent({
-    defaultTargetType: null,
     dispatch,
+    preselectedTargetType: null,
+    releaseHasUnloadedTracks,
     source,
     title: l('Add Relationship'),
   });
@@ -72,6 +75,7 @@ const RelationshipTargetTypeGroups = (React.memo<PropsT>(({
           dispatch={dispatch}
           key={targetType}
           linkTypeGroups={linkTypeGroups}
+          releaseHasUnloadedTracks={releaseHasUnloadedTracks}
           source={source}
           targetType={targetType}
           track={track}

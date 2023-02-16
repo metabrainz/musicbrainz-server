@@ -7,6 +7,9 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import {
+  formatLinkTypePhrases,
+} from '../../common/components/Autocomplete2/formatters.js';
 import {type OptionItemT}
   from '../../common/components/Autocomplete2/types.js';
 import {
@@ -38,7 +41,7 @@ function buildOption(
     entity: linkType,
     id: linkType.id,
     level,
-    name: l_relationships(linkType.name),
+    name: formatLinkTypePhrases(linkType),
     type: 'option',
   };
 }

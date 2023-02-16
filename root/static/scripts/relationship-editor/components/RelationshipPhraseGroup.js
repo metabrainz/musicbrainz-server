@@ -51,6 +51,7 @@ type PropsT = {
   +dispatch: (RelationshipEditorActionT) => void,
   +linkPhraseGroup: RelationshipPhraseGroupT,
   +linkTypeId: number,
+  +releaseHasUnloadedTracks: boolean,
   +source: CoreEntityT,
   +targetType: CoreEntityTypeT,
   +track: TrackWithRecordingT | null,
@@ -73,6 +74,7 @@ const RelationshipPhraseGroup = (React.memo<PropsT>(({
   dispatch,
   linkPhraseGroup,
   linkTypeId,
+  releaseHasUnloadedTracks,
   source,
   targetType,
   track,
@@ -134,8 +136,9 @@ const RelationshipPhraseGroup = (React.memo<PropsT>(({
   const buildPopoverContent = useAddRelationshipDialogContent({
     backward,
     buildNewRelationshipData,
-    defaultTargetType: targetType,
     dispatch,
+    preselectedTargetType: targetType,
+    releaseHasUnloadedTracks,
     source,
     targetTypeOptions: null,
     title: l('Add Relationship'),
@@ -194,6 +197,7 @@ const RelationshipPhraseGroup = (React.memo<PropsT>(({
         }
         key={relationship.id}
         relationship={relationship}
+        releaseHasUnloadedTracks={releaseHasUnloadedTracks}
         source={source}
         track={track}
       />,

@@ -129,7 +129,7 @@ export function createInitialAutocompleteStateForTarget(
     entityType: target.entityType,
     id: 'relationship-target-' + String(relationshipId),
     inputChangeHook: selectNewWork,
-    inputClass: 'relationship-target',
+    inputClass: 'relationship-target focus-first',
     inputValue: target.name,
     required: true,
     selectedItem: selectedEntity ? {
@@ -143,6 +143,7 @@ export function createInitialAutocompleteStateForTarget(
 
 export function createInitialState(
   user: ActiveEditorT,
+  releaseHasUnloadedTracks: boolean,
   source: CoreEntityT,
   initialRelationship: RelationshipStateT,
   allowedTypes: TargetTypeOptionsT | null,
@@ -166,6 +167,7 @@ export function createInitialState(
       backward
         ? initialRelationship.entity0_credit
         : initialRelationship.entity1_credit,
+      releaseHasUnloadedTracks,
     ),
     allowedTypes,
     autocomplete,

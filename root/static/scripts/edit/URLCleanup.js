@@ -730,22 +730,6 @@ const CLEANUPS: CleanupEntries = {
       return {result: false, target: ERROR_TARGETS.URL};
     },
   },
-  'animationsong': {
-    match: [new RegExp('^(https?://)?([^/]+\\.)?animationsong\\.com/', 'i')],
-    restrict: [LINK_TYPES.lyrics],
-    clean: function (url) {
-      return url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?animationsong\.com\/(archives\/\d+\.html).*$/, 'http://animationsong.com/$1');
-    },
-    validate: function (url, id) {
-      if (/^http:\/\/animationsong\.com\/archives\/\d+\.html$/.test(url)) {
-        if (id === LINK_TYPES.lyrics.work) {
-          return {result: true};
-        }
-        return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
-      }
-      return {result: false, target: ERROR_TARGETS.URL};
-    },
-  },
   'animenewsnetwork': {
     match: [new RegExp('^(https?://)?(www\\.)?animenewsnetwork\\.com', 'i')],
     restrict: [LINK_TYPES.otherdatabases],
@@ -1963,8 +1947,8 @@ const CLEANUPS: CleanupEntries = {
     restrict: [LINK_TYPES.otherdatabases],
     clean: function (url) {
       url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?d-nb\.info\//, 'http://d-nb.info/');
-      url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?dnb\.de\/opac(?:\.htm\?)?.*\bquery=nid%3D(1[012]?\d{7}[0-9X]|[47]\d{6}-\d|[1-9]\d{0,7}-[0-9X]|3\d{7}[0-9X]).*$/, 'http://d-nb.info/gnd/$1');
-      url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?dnb\.de\/opac(?:\.htm\?)?.*\bquery=idn%3D(1[012]?\d{7}[0-9X]|[47]\d{6}-\d|[1-9]\d{0,7}-[0-9X]|3\d{7}[0-9X]).*$/, 'http://d-nb.info/$1');
+      url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?dnb\.de\/opac(?:\.htm\?)?.*\bquery=nid%3D([0-9X-]{9,10}).*$/, 'http://d-nb.info/gnd/$1');
+      url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?dnb\.de\/opac(?:\.htm\?)?.*\bquery=idn%3D([0-9X-]{9,10}).*$/, 'http://d-nb.info/$1');
       return url;
     },
     validate: function (url, id) {
@@ -1974,17 +1958,17 @@ const CLEANUPS: CleanupEntries = {
         case LINK_TYPES.otherdatabases.series:
         case LINK_TYPES.otherdatabases.work:
           return {
-            result: /^http:\/\/d-nb\.info\/(?:gnd\/)?(?:1[012]?\d{7}[0-9X]|[47]\d{6}-\d|[1-9]\d{0,7}-[0-9X]|3\d{7}[0-9X])$/.test(url),
+            result: /^http:\/\/d-nb\.info\/(?:gnd\/)?[0-9X-]{9,10}$/.test(url),
             target: ERROR_TARGETS.ENTITY,
           };
         case LINK_TYPES.otherdatabases.label:
           return {
-            result: /^http:\/\/d-nb\.info\/(?:(?:dnbn|gnd)\/)?(?:1[012]?\d{7}[0-9X]|[47]\d{6}-\d|[1-9]\d{0,7}-[0-9X]|3\d{7}[0-9X])$/.test(url),
+            result: /^http:\/\/d-nb\.info\/(?:(?:dnbn|gnd)\/)?[0-9X-]{9,10}$/.test(url),
             target: ERROR_TARGETS.ENTITY,
           };
         case LINK_TYPES.otherdatabases.release:
           return {
-            result: /^http:\/\/d-nb\.info\/(?:1[012]?\d{7}[0-9X]|[47]\d{6}-\d|[1-9]\d{0,7}-[0-9X]|3\d{7}[0-9X])$/.test(url),
+            result: /^http:\/\/d-nb\.info\/[0-9X-]{9,10}$/.test(url),
             target: ERROR_TARGETS.ENTITY,
           };
       }
@@ -4688,6 +4672,25 @@ const CLEANUPS: CleanupEntries = {
     clean: function (url) {
       url = url.replace(/^(?:https?:\/\/)?(?:[^/]+\.)?tipeee\.com\/([^\/?#]+).*$/, 'https://www.tipeee.com/$1');
       return url;
+    },
+  },
+  'tmdb': {
+    match: [new RegExp('^(https?://)?(www\\.)?themoviedb\\.org', 'i')],
+    restrict: [LINK_TYPES.otherdatabases],
+    clean: function (url) {
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?themoviedb\.org\/person\/([0-9]*)(?:[^0-9].*)?$/, 'https://www.themoviedb.org/person/$1');
+      return url;
+    },
+    validate: function (url, id) {
+      const m = /^https:\/\/www\.themoviedb\.org\/person\/[0-9]*$/.exec(url);
+      if (m) {
+        switch (id) {
+          case LINK_TYPES.otherdatabases.artist:
+            return {result: true};
+        }
+        return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
     },
   },
   'tobarandualchais': {

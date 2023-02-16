@@ -544,6 +544,23 @@ sub entity : Chained('root') PathPart('entity') Args(1)
         $data->{relationships} = $relationships if @$relationships;
     };
 
+    if ($type eq 'Event') {
+        my %related_entities =
+            $c->model('Event')->find_related_entities([$entity], 3);
+        $data->{related_entities} = $related_entities{$entity->id};
+    }
+
+    if ($type eq 'Recording') {
+        $c->model('ISRC')->load_for_recordings($entity);
+        my $appears_on = $c->model('Recording')->appears_on([$entity], 3, 1);
+        $data->{appearsOn} = $appears_on->{$entity->id};
+    }
+
+    if ($type eq 'Work') {
+        my %artists = $c->model('Work')->find_artists([$entity], 3);
+        $data->{related_artists} = $artists{$entity->id};
+    }
+
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body(encode_json($data));
 }
@@ -636,13 +653,45 @@ sub entities : Chained('root') PathPart('entities') Args(2)
         $c->model('Area')->load_containment(@entities);
     }
 
+    my %related_entities;
+    if ($type_name eq 'event') {
+        %related_entities = $c->model('Event')->find_related_entities(\@entities, 3);
+    }
+
     if ($type_name eq 'place') {
         $c->model('Area')->load(@entities);
         $c->model('Area')->load_containment(map { $_->area } @entities);
     }
 
+    my $appears_on;
+    if ($type_name eq 'recording') {
+        $c->model('ISRC')->load_for_recordings(@entities);
+        $appears_on = $c->model('Recording')->appears_on(\@entities, 3, 1);
+    }
+
+    if ($type_name eq 'release') {
+        $c->model('Release')->load_release_events(@entities);
+        $c->model('ReleaseLabel')->load(@entities);
+        $c->model('Label')->load(map { $_->all_labels } @entities);
+    }
+
+    my %artists;
+    if ($type_name eq 'work') {
+        %artists = $c->model('Work')->find_artists(\@entities, 3);
+    }
+
     while (my ($id, $entity) = each %{$results}) {
-        $results->{$id} = $entity->TO_JSON;
+        my $json_entity = $entity->TO_JSON;
+        if ($type_name eq 'event') {
+            $json_entity->{related_entities} = $related_entities{$entity->id};
+        }
+        if ($type_name eq 'recording') {
+            $json_entity->{appearsOn} = $appears_on->{$entity->id};
+        }
+        if ($type_name eq 'work') {
+            $json_entity->{related_artists} = $artists{$entity->id};
+        }
+        $results->{$id} = $json_entity;
     }
 
     $c->res->content_type($serializer->mime_type . '; charset=utf-8');

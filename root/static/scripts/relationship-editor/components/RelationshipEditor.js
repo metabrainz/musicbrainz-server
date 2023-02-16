@@ -553,11 +553,30 @@ const RelationshipEditor = (
 
   const submissionInProgress = React.useRef(false);
 
+  const [
+    prepareSubmissionError,
+    setPrepareSubmissionError,
+  ] = React.useState<Error | null>(null);
+
+  const error = reducerError ?? prepareSubmissionError;
+
   React.useEffect(() => {
-    const handleSubmission = () => {
+    const handleSubmission = (event: Event) => {
       if (!submissionInProgress.current) {
         submissionInProgress.current = true;
-        prepareHtmlFormSubmission(formName, state);
+        try {
+          prepareHtmlFormSubmission(formName, state);
+        } catch (error) {
+          event.preventDefault();
+
+          captureException(error);
+
+          setPrepareSubmissionError(
+            error instanceof Error
+              ? error
+              : new Error(String(error)),
+          );
+        }
       }
     };
 
@@ -593,8 +612,8 @@ const RelationshipEditor = (
 
   return (
     <fieldset id="relationship-editor">
-      {reducerError ? (
-        <ErrorMessage error={reducerError.stack} />
+      {error ? (
+        <ErrorMessage error={error.stack} />
       ) : null}
 
       <legend>
@@ -605,6 +624,7 @@ const RelationshipEditor = (
         <RelationshipTargetTypeGroups
           dialogLocation={state.dialogLocation}
           dispatch={dispatch}
+          releaseHasUnloadedTracks={false}
           source={state.entity}
           targetTypeGroups={findTargetTypeGroups(
             state.relationshipsBySource,

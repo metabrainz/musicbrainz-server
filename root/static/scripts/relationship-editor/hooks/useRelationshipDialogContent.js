@@ -45,6 +45,7 @@ const RELATIONSHIP_DEFAULTS = {
 type CommonOptionsT = {
   +batchSelectionCount?: number,
   +dispatch: (UpdateRelationshipActionT) => void,
+  +releaseHasUnloadedTracks: boolean,
   +source: CoreEntityT,
   +title: string,
 };
@@ -52,6 +53,7 @@ type CommonOptionsT = {
 export default function useRelationshipDialogContent(
   options: $ReadOnly<{
     ...CommonOptionsT,
+    +hasPreselectedTargetType: boolean,
     +relationship: RelationshipStateT,
     +targetTypeOptions: TargetTypeOptionsT | null,
     +targetTypeRef: {-current: CoreEntityTypeT} | null,
@@ -63,7 +65,9 @@ export default function useRelationshipDialogContent(
   const {
     batchSelectionCount,
     dispatch,
+    hasPreselectedTargetType,
     relationship,
+    releaseHasUnloadedTracks,
     source,
     targetTypeOptions,
     targetTypeRef,
@@ -91,7 +95,9 @@ export default function useRelationshipDialogContent(
       <RelationshipDialogContent
         batchSelectionCount={batchSelectionCount}
         closeDialog={closeAndReturnFocus}
+        hasPreselectedTargetType={hasPreselectedTargetType}
         initialRelationship={relationship}
+        releaseHasUnloadedTracks={releaseHasUnloadedTracks}
         source={source}
         sourceDispatch={dispatch}
         targetTypeOptions={targetTypeOptions}
@@ -103,7 +109,9 @@ export default function useRelationshipDialogContent(
   }, [
     batchSelectionCount,
     dispatch,
+    hasPreselectedTargetType,
     relationship,
+    releaseHasUnloadedTracks,
     source,
     targetTypeOptions,
     targetTypeRef,
@@ -118,7 +126,7 @@ export function useAddRelationshipDialogContent(
     +backward?: boolean,
     +buildNewRelationshipData?:
       () => $Partial<RelationshipStateT> | null,
-    +defaultTargetType: CoreEntityTypeT | null,
+    +preselectedTargetType: CoreEntityTypeT | null,
     +targetTypeOptions?: TargetTypeOptionsT | null,
   }>,
 ): (
@@ -126,8 +134,9 @@ export function useAddRelationshipDialogContent(
 ) => React.MixedElement {
   const {
     backward,
-    defaultTargetType,
     buildNewRelationshipData,
+    preselectedTargetType,
+    releaseHasUnloadedTracks,
     source,
     targetTypeOptions: customTargetTypeOptions,
     ...otherOptions
@@ -151,7 +160,7 @@ export function useAddRelationshipDialogContent(
   const targetTypeRef = React.useRef<CoreEntityTypeT | null>(null);
 
   const targetType = (
-    defaultTargetType ||
+    preselectedTargetType ||
     targetTypeRef.current ||
     (targetTypeOptions?.[0]?.value) ||
     /*
@@ -190,7 +199,9 @@ export function useAddRelationshipDialogContent(
 
   return useRelationshipDialogContent({
     ...otherOptions,
+    hasPreselectedTargetType: preselectedTargetType != null,
     relationship: newRelationshipState,
+    releaseHasUnloadedTracks,
     source,
     targetTypeOptions,
     targetTypeRef,

@@ -12,6 +12,9 @@ import * as tree from 'weight-balanced-tree';
 
 import invariant from '../../../../utility/invariant.js';
 import {
+  formatLinkTypePhrases,
+} from '../../common/components/Autocomplete2/formatters.js';
+import {
   filterStaticItems,
   resetPage as resetAutocompletePage,
 } from '../../common/components/Autocomplete2/reducer.js';
@@ -100,7 +103,9 @@ import DialogTargetType from './DialogTargetType.js';
 export type PropsT = {
   +batchSelectionCount?: number,
   +closeDialog: () => void,
+  +hasPreselectedTargetType: boolean,
   +initialRelationship: RelationshipStateT,
+  +releaseHasUnloadedTracks: boolean,
   +source: CoreEntityT,
   +sourceDispatch: (UpdateRelationshipActionT) => void,
   +targetTypeOptions: TargetTypeOptionsT | null,
@@ -221,12 +226,14 @@ export function createInitialState(props: PropsT): RelationshipDialogStateT {
       ended: relationship.ended,
     },
     sourceEntity: createDialogSourceEntityState(
+      props.releaseHasUnloadedTracks,
       sourceType,
       relationship,
       source,
     ),
     targetEntity: createDialogTargetEntityState(
       props.user,
+      props.releaseHasUnloadedTracks,
       source,
       relationship,
       props.targetTypeOptions,
@@ -264,7 +271,7 @@ function updateDialogStateForTargetTypeChange(
   const newLinkTypeAutocompleteState = {
     ...oldLinkTypeAutocompleteState,
     inputValue: onlyLinkType
-      ? onlyLinkType.name
+      ? formatLinkTypePhrases(onlyLinkType)
       : (
         oldLinkTypeAutocompleteState.selectedItem
           ? ''
@@ -578,6 +585,7 @@ const RelationshipDialogContent = (React.memo<PropsT>((
   const {
     batchSelectionCount,
     closeDialog,
+    hasPreselectedTargetType,
     initialRelationship,
     sourceDispatch,
     source,
@@ -928,6 +936,7 @@ const RelationshipDialogContent = (React.memo<PropsT>((
           />
           <DialogTargetType
             dispatch={dispatch}
+            hasPreselectedTargetType={hasPreselectedTargetType}
             options={targetTypeOptions}
             source={source}
             targetType={targetEntityState.targetType}

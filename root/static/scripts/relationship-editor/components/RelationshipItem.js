@@ -54,6 +54,7 @@ type PropsT = {
   +hasOrdering: boolean,
   +isDialogOpen: boolean,
   +relationship: RelationshipStateT,
+  +releaseHasUnloadedTracks: boolean,
   +source: CoreEntityT,
   +track: TrackWithRecordingT | null,
 };
@@ -64,6 +65,7 @@ const RelationshipItem = (React.memo<PropsT>(({
   isDialogOpen,
   hasOrdering,
   relationship,
+  releaseHasUnloadedTracks,
   source,
   track,
 }: PropsT): React.MixedElement => {
@@ -172,7 +174,9 @@ const RelationshipItem = (React.memo<PropsT>(({
 
   const buildPopoverContent = useRelationshipDialogContent({
     dispatch,
+    hasPreselectedTargetType: true,
     relationship,
+    releaseHasUnloadedTracks,
     source,
     targetTypeOptions: null,
     targetTypeRef: null,

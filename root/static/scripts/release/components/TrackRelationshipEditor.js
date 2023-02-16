@@ -204,6 +204,7 @@ type RelatedWorkRelationshipEditorPropsT = {
   +dialogLocation: RelationshipDialogLocationT | null,
   +dispatch: (ReleaseRelationshipEditorActionT) => void,
   +relatedWork: MediumWorkStateT,
+  +releaseHasUnloadedTracks: boolean,
   +track: TrackWithRecordingT,
 };
 
@@ -217,6 +218,7 @@ const RelatedWorkRelationshipEditor = React.memo<
   dialogLocation,
   dispatch,
   relatedWork,
+  releaseHasUnloadedTracks,
   track,
 }) => {
   const work = relatedWork.work;
@@ -313,6 +315,7 @@ const RelatedWorkRelationshipEditor = React.memo<
         dialogLocation={dialogLocation}
         dispatch={dispatch}
         filter={filterRecordings}
+        releaseHasUnloadedTracks={releaseHasUnloadedTracks}
         source={work}
         targetTypeGroups={relatedWork.targetTypeGroups}
         track={track}
@@ -326,6 +329,7 @@ type RelatedWorksRelationshipEditorPropsT = {
   +dispatch: (ReleaseRelationshipEditorActionT) => void,
   +recording: RecordingT,
   +relatedWorks: MediumWorkStateTreeT | null,
+  +releaseHasUnloadedTracks: boolean,
   +track: TrackWithRecordingT,
 };
 
@@ -336,6 +340,7 @@ const RelatedWorksRelationshipEditor = React.memo<
   dispatch,
   recording,
   relatedWorks,
+  releaseHasUnloadedTracks,
   track,
 }) => {
   const relatedWorkElements = [];
@@ -352,6 +357,7 @@ const RelatedWorksRelationshipEditor = React.memo<
         dispatch={dispatch}
         key={relatedWork.work.id}
         relatedWork={relatedWork}
+        releaseHasUnloadedTracks={releaseHasUnloadedTracks}
         track={track}
       />,
     );
@@ -369,8 +375,9 @@ const RelatedWorksRelationshipEditor = React.memo<
 
   const buildAddRelatedWorkPopoverContent = useAddRelationshipDialogContent({
     buildNewRelationshipData: buildNewRelatedWorkRelationshipData,
-    defaultTargetType: 'work',
     dispatch,
+    preselectedTargetType: 'work',
+    releaseHasUnloadedTracks,
     source: recording,
     title: l('Add Relationship'),
   });
@@ -414,6 +421,7 @@ type TrackRelationshipEditorPropsT = {
   +dialogLocation: RelationshipDialogLocationT | null,
   +dispatch: (ReleaseRelationshipEditorActionT) => void,
   +recordingState: MediumRecordingStateT,
+  +releaseHasUnloadedTracks: boolean,
   +showArtists: boolean,
   +track: TrackWithRecordingT,
 };
@@ -422,6 +430,7 @@ const TrackRelationshipEditor = (React.memo<TrackRelationshipEditorPropsT>(({
   dialogLocation,
   dispatch,
   recordingState,
+  releaseHasUnloadedTracks,
   showArtists,
   track,
 }: TrackRelationshipEditorPropsT) => {
@@ -467,6 +476,7 @@ const TrackRelationshipEditor = (React.memo<TrackRelationshipEditorPropsT>(({
             ) ? dialogLocation : null
           }
           dispatch={dispatch}
+          releaseHasUnloadedTracks={releaseHasUnloadedTracks}
           source={track.recording}
           targetTypeGroups={recordingState.targetTypeGroups}
           track={track}
@@ -489,6 +499,7 @@ const TrackRelationshipEditor = (React.memo<TrackRelationshipEditorPropsT>(({
         dispatch={dispatch}
         recording={recordingState.recording}
         relatedWorks={recordingState.relatedWorks}
+        releaseHasUnloadedTracks={releaseHasUnloadedTracks}
         track={track}
       />
     </tr>
