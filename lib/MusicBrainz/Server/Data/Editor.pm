@@ -372,6 +372,8 @@ sub update_profile
 sub update_privileges {
     my ($self, $editor, $values) = @_;
 
+    my $should_cancel_edits = $values->{spammer};
+
     # Setting Spammer should also block editing and notes
     $values->{editing_disabled} ||= $values->{spammer};
     $values->{adding_notes_disabled} ||= $values->{spammer};
@@ -392,6 +394,10 @@ sub update_privileges {
 
     Sql::run_in_transaction(sub {
         $self->sql->do('UPDATE editor SET privs = ? WHERE id = ?', $privs, $editor->id);
+
+        if ($should_cancel_edits) {
+            $self->c->model('Editor')->cancel_edits_and_votes($editor);
+        }
     }, $self->sql);
 }
 
