@@ -1204,20 +1204,30 @@ const reducer = reducerWithErrorHandling<
         );
       }
 
+      const updatedRelationshipsByKey =
+        new Map<string, RelationshipStateT>();
+
       const updateRelationshipState = function (
         relationship: RelationshipStateT,
         callback: ({...RelationshipStateT}) => void,
       ) {
+        const currentRelationship = updatedRelationshipsByKey.get(
+          getRelationshipKey(relationship),
+        ) ?? relationship;
         const newRelationship =
-          cloneRelationshipState(relationship);
+          cloneRelationshipState(currentRelationship);
         newRelationship._lineage = [
           ...newRelationship._lineage,
           'submitted',
         ];
         callback(newRelationship);
+        updatedRelationshipsByKey.set(
+          getRelationshipKey(newRelationship),
+          newRelationship,
+        );
         updates.push(
           {
-            relationship,
+            relationship: currentRelationship,
             throwIfNotExists: false,
             type: REMOVE_RELATIONSHIP,
           },
@@ -1319,6 +1329,10 @@ const reducer = reducerWithErrorHandling<
                 relationships.length === 1,
               );
               const relationship = relationships[0];
+              /*
+               * `relationship` is always recording-work here
+               * (see `getWorkEditsForEntity`).
+               */
               const oldWork = relationship.entity1;
               const newWork = response.entity;
               updateRelationshipState(
@@ -1339,10 +1353,30 @@ const reducer = reducerWithErrorHandling<
                 if (workRelationship.id === relationship.id) {
                   continue;
                 }
+                /*
+                 * Iterate through all other relationships associated with
+                 * the pending work, and update them to point to the created
+                 * work.
+                 */
                 updateRelationshipState(
                   workRelationship,
                   (newWorkRelationship) => {
-                    newWorkRelationship.entity1 = newWork;
+                    const {entity0, entity1} = newWorkRelationship;
+                    /*
+                     * The old work is not necessarily entity1, e.g. for
+                     * work-work relationships.
+                     */
+                    if (
+                      entity0.entityType === 'work' &&
+                      entity0.id === oldWork.id
+                    ) {
+                      newWorkRelationship.entity0 = newWork;
+                    } else if (
+                      entity1.entityType === 'work' &&
+                      entity1.id === oldWork.id
+                    ) {
+                      newWorkRelationship.entity1 = newWork;
+                    }
                   },
                 );
               }

@@ -89,7 +89,10 @@ export function getTargetError(
     return '';
   }
 
-  if (source.gid === target.gid) {
+  if (
+    source.entityType === target.entityType &&
+    source.id === target.id
+  ) {
     return l('Entities in a relationship cannot be the same.');
   }
 
