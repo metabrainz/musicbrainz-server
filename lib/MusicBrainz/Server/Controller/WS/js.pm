@@ -678,6 +678,7 @@ sub entities : Chained('root') PathPart('entities') Args(2)
     my %artists;
     if ($type_name eq 'work') {
         %artists = $c->model('Work')->find_artists(\@entities, 3);
+        $c->model('Language')->load_for_works(@entities);
     }
 
     while (my ($id, $entity) = each %{$results}) {
