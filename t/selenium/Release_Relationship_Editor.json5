@@ -278,6 +278,11 @@
       value: '',
     },
     {
+      command: 'select',
+      target: 'css=#add-relationship-dialog select.entity-type',
+      value: 'label=Area',
+    },
+    {
       command: 'type',
       target: 'css=#add-relationship-dialog input.relationship-target',
       value: 'Osaka',
@@ -2136,11 +2141,6 @@
       value: '',
     },
     {
-      command: 'sendKeys',
-      target: 'css=#add-relationship-dialog input.relationship-type',
-      value: 'arrang${KEY_ENTER}',
-    },
-    {
       command: 'type',
       target: 'css=#add-relationship-dialog input.relationship-target',
       value: '30bcaa92-9870-4798-be1a-4e0036755316',
@@ -2149,6 +2149,11 @@
       command: 'pause',
       target: '500',
       value: '',
+    },
+    {
+      command: 'sendKeys',
+      target: 'css=#add-relationship-dialog input.relationship-type',
+      value: 'arrang${KEY_ENTER}',
     },
     {
       command: 'click',
@@ -2161,11 +2166,6 @@
       value: '',
     },
     {
-      command: 'sendKeys',
-      target: 'css=#add-relationship-dialog input.relationship-type',
-      value: 'prod${KEY_ENTER}',
-    },
-    {
       command: 'type',
       target: 'css=#add-relationship-dialog input.relationship-target',
       value: '30bcaa92-9870-4798-be1a-4e0036755316',
@@ -2174,6 +2174,11 @@
       command: 'pause',
       target: '500',
       value: '',
+    },
+    {
+      command: 'sendKeys',
+      target: 'css=#add-relationship-dialog input.relationship-type',
+      value: 'prod${KEY_ENTER}',
     },
     {
       command: 'click',
