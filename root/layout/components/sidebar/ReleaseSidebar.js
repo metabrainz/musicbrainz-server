@@ -78,6 +78,7 @@ const ReleaseSidebar = ({release}: Props): React.Element<'div'> | null => {
   const script = scriptId == null
     ? null
     : linkedEntities.script[scriptId];
+  const isEmpty = release.has_no_tracks;
 
   return (
     <div id="sidebar">
@@ -109,10 +110,12 @@ const ReleaseSidebar = ({release}: Props): React.Element<'div'> | null => {
         )}
       </div>
 
-      <PlayOnListenBrainzButton
-        entityType="release"
-        mbids={release.gid}
-      />
+      {isEmpty ? null : (
+        <PlayOnListenBrainzButton
+          entityType="release"
+          mbids={release.gid}
+        />
+      )}
 
       <h2 className="release-information">
         {l('Release information')}
