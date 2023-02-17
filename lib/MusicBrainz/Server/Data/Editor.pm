@@ -392,6 +392,8 @@ sub update_profile
 sub update_privileges {
     my ($self, $editor, $values) = @_;
 
+    my $should_cancel_edits_and_votes = $values->{spammer};
+
     # Setting Spammer should also block editing, voting and notes
     $values->{editing_disabled} ||= $values->{spammer};
     $values->{voting_disabled} ||= $values->{spammer};
@@ -420,6 +422,10 @@ sub update_privileges {
             $BEGINNER_FLAG,
             $editor->id,
         );
+
+        if ($should_cancel_edits_and_votes) {
+            $self->c->model('Editor')->cancel_edits_and_votes($editor);
+        }
     }, $self->sql);
 }
 
