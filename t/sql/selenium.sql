@@ -176,7 +176,8 @@ INSERT INTO l_release_url (id, link, entity0, entity1, edits_pending, last_updat
 
 INSERT INTO work (id, gid, name, type, comment, edits_pending, last_updated) VALUES
     (346907, '4491f749-d06a-348c-aa58-a288d2eafa5f', 'Starman', 17, '', 0, '2017-04-01 20:00:18.388559+00'),
-    (12610030, '69cd3461-089e-4138-adc2-f3a1907a5013', 'The Night Is Over', 17, '', 0, '2013-04-17 11:06:22.012835+00');
+    (12610030, '69cd3461-089e-4138-adc2-f3a1907a5013', 'The Night Is Over', 17, '', 0, '2013-04-17 11:06:22.012835+00'),
+    (14042436, 'bba52ea6-ed91-4be8-91b1-9acb10f57093', 'Travelling Man', 17, '', 0, '2022-11-14 22:15:02.357535+00');
 
 INSERT INTO work_gid_redirect (gid, new_id, created) VALUES
     ('1643dc96-e980-8314-2cda-3105a7091a3f', 12610030, '2013-04-17 11:06:22.012835+00');

@@ -510,7 +510,20 @@ const Autocomplete2 = (React.memo(<+T: EntityItemT>(
      * `set-recent-items` action runs, but this event may trigger before that
      * action is run and thus while `items` has yet to be updated.
      */
-    if ((items.length || recentItems?.length) && !isOpen) {
+    if (
+      (
+        items.length ||
+        (
+          /*
+           * Recent items are only shown if the input is empty.
+           * (See `generateItems` in ./reducer.js.)
+           */
+          empty(state.inputValue) &&
+          recentItems?.length
+        )
+      ) &&
+      !isOpen
+    ) {
       shouldUpdateScrollPositionRef.current = true;
       dispatch(SHOW_MENU);
       return true;
