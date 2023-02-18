@@ -19,6 +19,7 @@ import useOutsideClickEffect from '../hooks/useOutsideClickEffect.js';
 import {unwrapNl} from '../i18n.js';
 import clean from '../utility/clean.js';
 import getCookie from '../utility/getCookie.js';
+import isBlank from '../utility/isBlank.js';
 
 import {
   CLOSE_ADD_ENTITY_DIALOG,
@@ -414,11 +415,10 @@ const Autocomplete2 = (React.memo(<+T: EntityItemT>(
     event: SyntheticKeyboardEvent<HTMLInputElement>,
   ) {
     const newInputValue = event.currentTarget.value;
-    const newCleanInputValue = clean(newInputValue);
 
     dispatch({type: 'type-value', value: newInputValue});
 
-    if (!newCleanInputValue) {
+    if (isBlank(newInputValue)) {
       stopRequests();
       return;
     }
@@ -426,7 +426,7 @@ const Autocomplete2 = (React.memo(<+T: EntityItemT>(
     if (
       inputChangeHook != null &&
       inputChangeHook(
-        newCleanInputValue,
+        newInputValue,
         state,
         selectItem,
       )
@@ -434,14 +434,14 @@ const Autocomplete2 = (React.memo(<+T: EntityItemT>(
       return;
     }
 
-    beginLookupOrSearch(inputValue, newCleanInputValue);
+    beginLookupOrSearch(inputValue, newInputValue);
   }
 
   function beginLookupOrSearch(
     oldInputValue: string,
-    newCleanInputValue: string,
+    newInputValue: string,
   ) {
-    const mbidMatch = newCleanInputValue.match(MBID_REGEXP);
+    const mbidMatch = newInputValue.match(MBID_REGEXP);
     if (mbidMatch) {
       /*
        * The user pasted an MBID (or a URL containing one). Perform a
@@ -488,10 +488,10 @@ const Autocomplete2 = (React.memo(<+T: EntityItemT>(
 
       lookupXhr.open('GET', '/ws/js/entity/' + mbidMatch[0]);
       lookupXhr.send();
-    } else if (clean(oldInputValue) !== newCleanInputValue) {
+    } else if (oldInputValue !== newInputValue) {
       stopRequests();
       dispatch({
-        searchTerm: newCleanInputValue,
+        searchTerm: clean(newInputValue),
         type: 'search-after-timeout',
       });
     }
@@ -541,9 +541,8 @@ const Autocomplete2 = (React.memo(<+T: EntityItemT>(
      * the entity type probably changed; re-initiate the search with
      * the existing input value.
      */
-    const cleanInputValue = clean(inputValue);
-    if (cleanInputValue) {
-      beginLookupOrSearch('', cleanInputValue);
+    if (!isBlank(inputValue)) {
+      beginLookupOrSearch('', inputValue);
     }
   }
 
