@@ -651,10 +651,12 @@ const Autocomplete2 = (React.memo(<+T: EntityItemT>(
         entityType,
         state.recentItemsKey,
       ).then((loadedRecentItems) => {
-        dispatch({
-          items: loadedRecentItems,
-          type: 'set-recent-items',
-        });
+        setTimeout(() => {
+          dispatch({
+            items: loadedRecentItems,
+            type: 'set-recent-items',
+          });
+        }, 1);
         return loadedRecentItems;
       });
     }
