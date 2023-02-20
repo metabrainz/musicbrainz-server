@@ -794,6 +794,7 @@ async function submitEdits(
     syncDispatch,
     submitRelationshipEdits(syncDispatch, currentStateRef.current),
   );
+  dispatch({type: 'stop-submission'});
 }
 
 function setRecordingsAsSelected(
