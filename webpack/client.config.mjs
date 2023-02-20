@@ -258,7 +258,7 @@ export default {
 
   context: MB_SERVER_ROOT,
 
-  devtool: 'source-map',
+  devtool: process.env.WEBPACK_DEVTOOL ?? 'source-map',
 
   entry: entries,
 
