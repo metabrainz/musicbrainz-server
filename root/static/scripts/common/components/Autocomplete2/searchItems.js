@@ -103,7 +103,14 @@ export function indexItems<+T: EntityItemT>(
 function getItem<+T: EntityItemT>(
   itemAndRank: [OptionItemT<T>, number],
 ): OptionItemT<T> {
-  return itemAndRank[0];
+  const itemCopy = {...itemAndRank[0]};
+  /*
+   * The searched items are displayed as a flat list. If there's a tree
+   * hierarchy, it wouldn't make sense here, so we should remove any
+   * `level`.
+   */
+  delete itemCopy.level;
+  return itemCopy;
 }
 
 function compareItemRanks<+T: EntityItemT>(
