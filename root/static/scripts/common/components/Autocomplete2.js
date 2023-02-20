@@ -645,12 +645,18 @@ const Autocomplete2 = (React.memo(<+T: EntityItemT>(
     handleOuterClick,
   );
 
+  const recentItemsNotLoaded = recentItems == null;
+
   React.useEffect(() => {
-    if (!recentItems) {
+    let cancelled = false;
+    if (recentItemsNotLoaded) {
       recentItemsPromise.current = getOrFetchRecentItems<T>(
         entityType,
         state.recentItemsKey,
       ).then((loadedRecentItems) => {
+        if (cancelled) {
+          return [];
+        }
         setTimeout(() => {
           dispatch({
             items: loadedRecentItems,
@@ -660,7 +666,17 @@ const Autocomplete2 = (React.memo(<+T: EntityItemT>(
         return loadedRecentItems;
       });
     }
+    return () => {
+      cancelled = true;
+    };
+  }, [
+    recentItemsNotLoaded,
+    dispatch,
+    entityType,
+    state.recentItemsKey,
+  ]);
 
+  React.useEffect(() => {
     if (
       !staticItems &&
       nonEmpty(pendingSearch) &&
@@ -680,6 +696,10 @@ const Autocomplete2 = (React.memo(<+T: EntityItemT>(
         }
       }, 300);
     }
+
+    return () => {
+      clearTimeout(inputTimeout.current);
+    };
   });
 
   React.useLayoutEffect(() => {
