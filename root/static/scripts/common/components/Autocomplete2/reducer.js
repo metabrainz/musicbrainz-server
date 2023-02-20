@@ -435,7 +435,7 @@ export function runReducer<+T: EntityItemT>(
       break;
 
     case 'set-menu-visibility':
-      state.isOpen = action.value;
+      state.isOpen = action.value && state.items.length > 0;
       updateStatusMessage = true;
       break;
 
