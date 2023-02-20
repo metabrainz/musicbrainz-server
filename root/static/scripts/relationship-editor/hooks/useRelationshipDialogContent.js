@@ -162,14 +162,25 @@ export function useAddRelationshipDialogContent(
   const targetType = (
     preselectedTargetType ||
     targetTypeRef.current ||
-    (targetTypeOptions?.[0]?.value) ||
-    /*
-     * targetType may be undefined if the current server doesn't have any
-     * available link types for the source entity type.  In that case
-     * `defaultTargetObject` won't be used, but a dummy 'artist' type is
-     * supplied to simplify type-checking.
-     */
-    'artist'
+    (
+      targetTypeOptions?.length
+        ? (
+          /*
+           * If artist is available, use that (MBS-12915). Otherwise select
+           * the first available type as they are sorted.
+           */
+          (targetTypeOptions.find(
+            (option) => option.value === 'artist',
+          )?.value) ?? targetTypeOptions[0].value
+        )
+        /*
+         * targetType may be undefined if the current server doesn't have any
+         * available link types for the source entity type.  In that case
+         * `defaultTargetObject` won't be used, but a dummy 'artist' type is
+         * supplied to simplify type-checking.
+         */
+        : 'artist'
+    )
   );
 
   if (backward != null) {
