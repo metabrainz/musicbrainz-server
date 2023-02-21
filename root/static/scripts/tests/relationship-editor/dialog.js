@@ -43,7 +43,7 @@ const commonInitialState = {
 };
 
 test('action: set-credit', function (t) {
-  t.plan(4);
+  t.plan(5);
 
   let initialState = createInitialState({
     ...commonInitialState,
@@ -105,5 +105,19 @@ test('action: set-credit', function (t) {
     newState.targetEntity.creditedAs,
     'newtargetcredit',
     'target entity credit is updated (entity1)',
+  );
+
+  const targetTypeAction = {
+    source: recording,
+    targetType: 'work',
+    type: 'update-target-type',
+  };
+
+  newState = reducer(newState, targetTypeAction);
+
+  t.equals(
+    newState.targetEntity.creditedAs,
+    '',
+    'target entity credit is reset after selecting a different target type',
   );
 });
