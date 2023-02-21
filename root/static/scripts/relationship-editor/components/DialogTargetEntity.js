@@ -182,7 +182,7 @@ export function createInitialState(
   };
 }
 
-const NEW_WORK_HASH = /#new-work-(-[0-9]+)$/;
+const NEW_WORK_HASH = /#new-work-(-[0-9]+)\s*$/;
 
 function selectNewWork(
   newInputValue: string,
