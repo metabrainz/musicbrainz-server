@@ -47,6 +47,7 @@ import {
 import {
   RelationshipSourceGroupsContext,
 } from '../constants.js';
+import useDialogEnterKeyHandler from '../hooks/useDialogEnterKeyHandler.js';
 import useRangeSelectionHandler from '../hooks/useRangeSelectionHandler.js';
 import type {
   DialogAttributesStateT,
@@ -874,22 +875,7 @@ const RelationshipDialogContent = (React.memo<PropsT>((
     initialRelationship?.editsPending
   ) ? getOpenEditsLink(initialRelationship._original) : null;
 
-  const handleKeyDown = React.useCallback((event) => {
-    if (
-      event.keyCode === 13 &&
-      !event.isDefaultPrevented() &&
-      /*
-       * MBS-12619: Hitting <Enter> on a button should click the button
-       * rather than accept the dialog.
-       */
-      !(event.target instanceof HTMLButtonElement)
-    ) {
-      // Prevent a click event on the ButtonPopover.
-      event.preventDefault();
-      // This will return focus to the button.
-      acceptDialog();
-    }
-  }, [acceptDialog]);
+  const handleKeyDown = useDialogEnterKeyHandler(acceptDialog);
 
   const canEditDates = selectedLinkType != null &&
     selectedLinkType.has_dates;
