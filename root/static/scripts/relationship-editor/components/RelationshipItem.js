@@ -10,6 +10,7 @@
 import * as React from 'react';
 import * as tree from 'weight-balanced-tree';
 
+import warningIconUrl from '../../../images/icons/warning.png';
 import ButtonPopover from '../../common/components/ButtonPopover.js';
 import DescriptiveLink from '../../common/components/DescriptiveLink.js';
 import {bracketedText} from '../../common/utility/bracketed.js';
@@ -24,6 +25,7 @@ import {
 } from '../../common/utility/isLinkTypeDirectionOrderable.js';
 import relationshipDateText
   from '../../common/utility/relationshipDateText.js';
+import Tooltip from '../../edit/components/Tooltip.js';
 import {
   getPhraseAndExtraAttributesText,
 } from '../../edit/utility/linkPhrase.js';
@@ -40,6 +42,7 @@ import type {
   RelationshipEditorActionT,
 } from '../types/actions.js';
 import getLinkPhrase from '../utility/getLinkPhrase.js';
+import getOpenEditsLink from '../utility/getOpenEditsLink.js';
 import getRelationshipKey from '../utility/getRelationshipKey.js';
 import getRelationshipLinkType from '../utility/getRelationshipLinkType.js';
 import getRelationshipStatusName
@@ -76,6 +79,8 @@ const RelationshipItem = (React.memo<PropsT>(({
   const [sourceCredit, targetCredit] = backward
     ? [relationship.entity1_credit, relationship.entity0_credit]
     : [relationship.entity0_credit, relationship.entity1_credit];
+  const hasPendingEdits = relationship.editsPending;
+  const openEditsLink = getOpenEditsLink(relationship);
   const isRemoved = relationship._status === REL_STATUS_REMOVE;
   const removeButtonId =
     'remove-relationship-' + getRelationshipKey(relationship);
@@ -272,6 +277,26 @@ const RelationshipItem = (React.memo<PropsT>(({
               })
             )
             : targetDisplay}
+          {hasPendingEdits && nonEmpty(openEditsLink) ? (
+            <>
+              {' '}
+              <Tooltip
+                content={exp.l(
+                  'This relationship has {edit_search|pending edits}.',
+                  {edit_search: openEditsLink},
+                )}
+                target={
+                  <img
+                    alt={l('This relationship has pending edits.')}
+                    className="info"
+                    src={warningIconUrl}
+                    style={{verticalAlign: 'middle'}}
+                    width={14}
+                  />
+                }
+              />
+            </>
+          ) : null}
           {datesAndAttributes}
         </span>
       </div>
