@@ -66,6 +66,7 @@ import {
   findTargetTypeGroups,
 } from '../utility/findState.js';
 import getDialogLinkTypeOptions from '../utility/getDialogLinkTypeOptions.js';
+import getOpenEditsLink from '../utility/getOpenEditsLink.js';
 import getRelationshipEditStatus
   from '../utility/getRelationshipEditStatus.js';
 import getRelationshipKey from '../utility/getRelationshipKey.js';
@@ -1007,32 +1008,6 @@ function getBatchSelectionMessage(sourceType: CoreEntityTypeT) {
     }
   }
   return '';
-}
-
-function getOpenEditsLink(relationship: RelationshipStateT) {
-  const entity0 = relationship.entity0;
-  const entity1 = relationship.entity1;
-
-  if (!isDatabaseRowId(entity0.id) || !isDatabaseRowId(entity1.id)) {
-    return null;
-  }
-
-  return (
-    '/search/edits?auto_edit_filter=&order=desc&negation=0&combinator=and' +
-    `&conditions.0.field=${encodeURIComponent(entity0.entityType)}` +
-    '&conditions.0.operator=%3D' +
-    `&conditions.0.name=${encodeURIComponent(entity0.name)}` +
-    `&conditions.0.args.0=${encodeURIComponent(String(entity0.id))}` +
-    `&conditions.1.field=${encodeURIComponent(entity1.entityType)}` +
-    '&conditions.1.operator=%3D' +
-    `&conditions.1.name=${encodeURIComponent(entity1.name)}` +
-    `&conditions.1.args.0=${encodeURIComponent(String(entity1.id))}` +
-    '&conditions.2.field=type' +
-    '&conditions.2.operator=%3D&conditions.2.args=90%2C233' +
-    '&conditions.2.args=91&conditions.2.args=92' +
-    '&conditions.3.field=status&conditions.3.operator=%3D' +
-    '&conditions.3.args=1&field=Please+choose+a+condition'
-  );
 }
 
 export default RelationshipDialogContent;
