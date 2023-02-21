@@ -29,6 +29,8 @@ import DialogLinkType, {
   createInitialState as createDialogLinkTypeState,
   updateDialogState as updateDialogLinkTypeState,
 } from '../../relationship-editor/components/DialogLinkType.js';
+import useDialogEnterKeyHandler
+  from '../../relationship-editor/hooks/useDialogEnterKeyHandler.js';
 import type {
   BatchCreateWorksDialogStateT,
 } from '../../relationship-editor/types.js';
@@ -123,7 +125,7 @@ const BatchCreateWorksDialogContent = React.memo<
 >(({
   closeDialog,
   sourceDispatch,
-}: BatchCreateWorksDialogContentPropsT): React.MixedElement => {
+}: BatchCreateWorksDialogContentPropsT): React.Element<'div'> => {
   const [state, dispatch] = React.useReducer(
     reducer,
     null,
@@ -182,8 +184,10 @@ const BatchCreateWorksDialogContent = React.memo<
     sourceDispatch,
   ]);
 
+  const handleKeyDown = useDialogEnterKeyHandler(acceptDialog);
+
   return (
-    <>
+    <div className="form" onKeyDown={handleKeyDown}>
       <p className="msg">
         {l(`This will create a new work for each checked recording that has no
             work already. The work names will be the same as their respective
@@ -221,7 +225,7 @@ const BatchCreateWorksDialogContent = React.memo<
         onCancel={closeDialog}
         onDone={acceptDialog}
       />
-    </>
+    </div>
   );
 });
 
