@@ -105,7 +105,10 @@ sub find_by_instrument {
 
     my $query =
         'SELECT ' . $self->_columns . q(,
-                array_agg(json_build_object('typeName', link_type.name, 'credit', lac.credited_as)) AS instrument_credits_and_rel_types
+                array_agg(
+                    json_build_object('typeName', link_type.name, 'credit', lac.credited_as)
+                    ORDER BY link_type.name, lac.credited_as, link_type.entity_type1, rels.id
+                ) AS instrument_credits_and_rel_types
             FROM ) . $self->_table . '
                 JOIN (
                     SELECT * FROM l_artist_artist
