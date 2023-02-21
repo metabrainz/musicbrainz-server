@@ -174,7 +174,7 @@ const EntityLink = ({
   disableLink = false,
   entity,
   hover: passedHover,
-  nameVariation: passedNameVariation = false,
+  nameVariation: passedNameVariation,
   showCaaPresence = false,
   showDeleted = true,
   showDisambiguation: passedShowDisambiguation,
@@ -245,7 +245,7 @@ $ReadOnlyArray<Expand2ReactOutput> | Expand2ReactOutput | null => {
       nameVariation = content !== entity.name;
     }
 
-    if (nameVariation) {
+    if (nameVariation === true) {
       if (nonEmpty(hover)) {
         hover = texp.l('{name} – {additional_info}', {
           additional_info: hover,
@@ -280,7 +280,7 @@ $ReadOnlyArray<Expand2ReactOutput> | Expand2ReactOutput | null => {
       </span>
     ) : <a key="link" {...anchorProps}>{isolateText(content)}</a>;
 
-  if (nameVariation) {
+  if (nameVariation === true) {
     content = (
       <span className="name-variation" key="namevar">
         {content}
