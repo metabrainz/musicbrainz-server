@@ -7,6 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import * as Sentry from '@sentry/browser';
 import ko from 'knockout';
 import * as React from 'react';
 
@@ -195,6 +196,17 @@ $ReadOnlyArray<Expand2ReactOutput> | Expand2ReactOutput | null => {
   let nameVariation = passedNameVariation;
   let showDisambiguation = passedShowDisambiguation;
   let showIcon = passedShowIcon;
+
+  if (nameVariation === undefined &&
+    nonEmpty(content) && typeof content !== 'string'
+  ) {
+    const errorMessage = 'Content of type ' + typeof content +
+      ' cannot be compared as a string to entity name for name variation.';
+    if (__DEV__) {
+      invariant(false, errorMessage);
+    }
+    Sentry.captureMessage(errorMessage);
+  }
 
   if (showDisambiguation === undefined) {
     showDisambiguation = !hasCustomContent;
