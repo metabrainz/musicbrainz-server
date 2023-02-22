@@ -18,6 +18,7 @@ import webdriver from 'selenium-webdriver';
 import chrome from 'selenium-webdriver/chrome.js';
 import firefox from 'selenium-webdriver/firefox.js';
 import {Key} from 'selenium-webdriver/lib/input.js';
+import logging from 'selenium-webdriver/lib/logging.js';
 import until from 'selenium-webdriver/lib/until.js';
 import webdriverProxy from 'selenium-webdriver/proxy.js';
 import test from 'tape';
@@ -860,6 +861,16 @@ async function runCommands(commands, t) {
             );
             throw error;
           } finally {
+            await driver.manage().logs().get(logging.Type.BROWSER)
+              .then(function (entries) {
+                entries.forEach(function (entry) {
+                  t.comment(
+                    '[browser console log] ' +
+                    `[${entry.level.name}] ${entry.message}`,
+                  );
+                });
+              });
+
             const finishTime = new Date();
             const elapsedTime = (finishTime - startTime) / 1000;
             t.comment(timePrefix(
