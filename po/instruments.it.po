@@ -1638,7 +1638,7 @@ msgstr "gaita sanabrese"
 #: DB:instrument/name:1114
 msgctxt "Large Silesian bellow-blown bagpipe"
 msgid "gajdy"
-msgstr ""
+msgstr "gajdy"
 
 #: DB:instrument/name:977
 msgctxt "Indonesian wood box-resonated xylophone"

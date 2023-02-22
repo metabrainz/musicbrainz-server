@@ -92,12 +92,12 @@ msgstr "pagina di Allmusic su"
 #: DB:link_type/link_phrase:1131 DB:link_type/link_phrase:1132
 #: DB:link_type/link_phrase:1130
 msgid "Apple Music"
-msgstr ""
+msgstr "Apple Music"
 
 #: DB:link_type/reverse_link_phrase:1131 DB:link_type/reverse_link_phrase:1132
 #: DB:link_type/reverse_link_phrase:1130
 msgid "Apple Music page for"
-msgstr ""
+msgstr "pagina di Apple Music su"
 
 #: DB:link_type/link_phrase:190
 msgid "BBC Music"
@@ -2242,7 +2242,7 @@ msgstr "Collega un'etichetta ad un sito su cui l'etichetta può ricevere donazio
 
 #: DB:link_type/description:1130
 msgid "This links a label to its page at Apple Music."
-msgstr ""
+msgstr "Collega un'etichetta alla sua pagina di Apple Music."
 
 #: DB:link_type/description:719
 msgid "This links a label to its page at Bandcamp."
@@ -2570,7 +2570,7 @@ msgstr "Collega un artista al suo canale su YouTube Music."
 
 #: DB:link_type/description:1131 DB:link_type/description:1132
 msgid "This links an artist to its page at Apple Music."
-msgstr ""
+msgstr "Collega un artista alla sua pagina di Apple Music."
 
 #: DB:link_type/description:718
 msgid "This links an artist to its page at Bandcamp."
@@ -3620,7 +3620,7 @@ msgstr "compare nel video"
 
 #: DB:link_type/name:1131 DB:link_type/name:1132 DB:link_type/name:1130
 msgid "apple music"
-msgstr ""
+msgstr "apple music"
 
 #: DB:link_type/name:866 DB:link_type/name:865 DB:link_type/name:886
 #: DB:link_type/reverse_link_phrase:866 DB:link_type/reverse_link_phrase:865
@@ -4550,7 +4550,7 @@ msgstr "ha l'ASIN di Amazon"
 #: DB:link_type/long_link_phrase:1131 DB:link_type/long_link_phrase:1132
 #: DB:link_type/long_link_phrase:1130
 msgid "has Apple Music page at"
-msgstr ""
+msgstr "ha la pagina di Apple Music"
 
 #: DB:link_type/long_link_phrase:1092 DB:link_type/long_link_phrase:718
 #: DB:link_type/long_link_phrase:719

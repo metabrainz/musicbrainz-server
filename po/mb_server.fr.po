@@ -6489,7 +6489,7 @@ msgstr "Autre"
 #: ../lib/MusicBrainz/Server/Form/Utils.pm:214
 msgid ""
 "This username contains invalid characters. (Check for consecutive spaces.)"
-msgstr ""
+msgstr "Ce nom d’utilisateur contient des caractères invalides. (Ou des doubles espaces.)"
 
 #: ../lib/MusicBrainz/Server/Form/Utils.pm:217
 msgid "This username is reserved for internal use."
@@ -15192,7 +15192,7 @@ msgstr ""
 #: ../root/static/scripts/relationship-editor/components/DialogAttribute/MultiselectAttribute.js:226
 msgctxt "relationship attribute"
 msgid "Add another"
-msgstr ""
+msgstr "Ajouter un autre"
 
 #: ../root/static/scripts/relationship-editor/components/DialogDatePeriod.js:99
 msgid ""
@@ -15238,14 +15238,14 @@ msgstr ""
 
 #: ../root/static/scripts/relationship-editor/components/DialogLinkOrder.js:44
 msgid "Order"
-msgstr ""
+msgstr "Ordre"
 
 #: ../root/static/scripts/relationship-editor/components/DialogLinkOrder.js:56
 msgid ""
 "If this relationship has a specific order among others of the same type, you"
 " may set its position in the list here (as an alternative to the up- and "
 "down-arrow buttons)."
-msgstr ""
+msgstr "Si cette relation a un ordre spécifique parmi les autres de même type, vous pouvez préciser son rang dans cette liste ici (comme alternative aux flèches haut-bas)."
 
 #: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:62
 msgid ""
@@ -15259,7 +15259,7 @@ msgstr "Ce type de relation n’est pas autorisé pour ce type de série."
 
 #: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:122
 msgid "Type or click to search"
-msgstr ""
+msgstr "Tapez ou cliquez pour chercher"
 
 #: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:284
 msgid "Relationship type"
@@ -15267,11 +15267,11 @@ msgstr "Type de relation"
 
 #: ../root/static/scripts/relationship-editor/components/DialogPreview.js:156
 msgid "Old order"
-msgstr ""
+msgstr "Ancien ordre"
 
 #: ../root/static/scripts/relationship-editor/components/DialogPreview.js:160
 msgid "New order"
-msgstr ""
+msgstr "Nouvel ordre"
 
 #: ../root/static/scripts/relationship-editor/components/DialogPreview.js:223
 msgid "Please fill out all required fields."
@@ -16625,19 +16625,19 @@ msgstr "votes contre"
 
 #: ../root/user/components/UserTagFilters.js:48
 msgid "Sort by"
-msgstr ""
+msgstr "Classer par"
 
 #: ../root/user/components/UserTagFilters.js:51
 msgid "name"
-msgstr ""
+msgstr "nom"
 
 #: ../root/user/components/UserTagFilters.js:52
 msgid "count (more first)"
-msgstr ""
+msgstr "compte (plus d’abord)"
 
 #: ../root/user/components/UserTagFilters.js:53
 msgid "count (less first)"
-msgstr ""
+msgstr "compte (moins d’abord)"
 
 #: ../root/utility/age.js:148
 msgid "aged {num}"
