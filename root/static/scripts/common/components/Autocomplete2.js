@@ -122,12 +122,15 @@ function setScrollPosition(menuId: string) {
   if (!menu) {
     return;
   }
-  const selectedItem = menu.querySelector('li[aria-selected=true]');
-  if (!selectedItem) {
+  let highlightedItem =
+    menu.querySelector('li[aria-selected=true]') ??
+    // If there's no highlighted item, scroll to the top of the list.
+    menu.querySelector('li');
+  if (!highlightedItem) {
     return;
   }
   const position =
-    (selectedItem.offsetTop + (selectedItem.offsetHeight / 2)) -
+    (highlightedItem.offsetTop + (highlightedItem.offsetHeight / 2)) -
     menu.scrollTop;
   const middle = menu.offsetHeight / 2;
   if (position < middle) {
@@ -199,6 +202,7 @@ export function createInitialState<+T: EntityItemT>(
     highlightedIndex: -1,
     indexedSearch: true,
     inputValue,
+    isInputFocused: false,
     isOpen: false,
     items: EMPTY_ITEMS,
     page: 1,
@@ -332,9 +336,8 @@ const Autocomplete2 = (React.memo(<+T: EntityItemT>(
   const buttonRef = React.useRef<HTMLButtonElement | null>(null);
   const inputTimeout = React.useRef<TimeoutID | null>(null);
   const containerRef = React.useRef<HTMLDivElement | null>(null);
-  const shouldUpdateScrollPositionRef = React.useRef<boolean>(false);
-  const recentItemsPromise =
-    React.useRef<Promise<$ReadOnlyArray<OptionItemT<T>>> | null>(null);
+  const prevIsOpen = React.useRef<boolean>(false);
+  const prevHighlightedIndex = React.useRef<number>(-1);
 
   const highlightedItem = highlightedIndex >= 0
     ? (items[highlightedIndex] ?? null)
@@ -496,50 +499,23 @@ const Autocomplete2 = (React.memo(<+T: EntityItemT>(
   }
 
   function handleInputFocus() {
-    if (selectedItem == null) {
-      showAvailableItems();
-    }
+    dispatch({isFocused: true, type: 'set-input-focus'});
   }
 
-  async function showAvailableItems() {
-    const recentItems = await recentItemsPromise.current;
-    /*
-     * Normally `items` should comprise `recentItems` after the
-     * `set-recent-items` action runs, but this event may trigger before that
-     * action is run and thus while `items` has yet to be updated.
-     */
-    if (
-      (
-        items.length ||
-        (
-          /*
-           * Recent items are only shown if the input is empty.
-           * (See `generateItems` in ./reducer.js.)
-           */
-          empty(state.inputValue) &&
-          recentItems?.length
-        )
-      ) &&
-      !isOpen
-    ) {
-      shouldUpdateScrollPositionRef.current = true;
-      dispatch(SHOW_MENU);
-      return true;
-    }
-    return false;
+  function handleInputBlur() {
+    dispatch({isFocused: false, type: 'set-input-focus'});
   }
 
-  async function showAvailableItemsOrBeginLookupOrSearch() {
-    if (await showAvailableItems()) {
-      return;
-    }
+  function showAvailableItemsOrBeginLookupOrSearch() {
     /*
      * If there's an existing search term, there should be at least one
      * item even if there are no results (saying so). If there isn't,
      * the entity type probably changed; re-initiate the search with
      * the existing input value.
      */
-    if (!isBlank(inputValue)) {
+    if (items.length) {
+      dispatch(SHOW_MENU);
+    } else if (!isBlank(inputValue)) {
       beginLookupOrSearch('', inputValue);
     }
   }
@@ -552,7 +528,6 @@ const Autocomplete2 = (React.memo(<+T: EntityItemT>(
         event.preventDefault();
 
         if (isOpen) {
-          shouldUpdateScrollPositionRef.current = true;
           dispatch(HIGHLIGHT_NEXT_ITEM);
         } else {
           showAvailableItemsOrBeginLookupOrSearch();
@@ -562,7 +537,6 @@ const Autocomplete2 = (React.memo(<+T: EntityItemT>(
       case 'ArrowUp':
         if (isOpen) {
           event.preventDefault();
-          shouldUpdateScrollPositionRef.current = true;
           dispatch(HIGHLIGHT_PREVIOUS_ITEM);
         }
         break;
@@ -648,7 +622,7 @@ const Autocomplete2 = (React.memo(<+T: EntityItemT>(
   React.useEffect(() => {
     let cancelled = false;
     if (recentItemsNotLoaded) {
-      recentItemsPromise.current = getOrFetchRecentItems<T>(
+      getOrFetchRecentItems<T>(
         entityType,
         state.recentItemsKey,
       ).then((loadedRecentItems) => {
@@ -701,11 +675,23 @@ const Autocomplete2 = (React.memo(<+T: EntityItemT>(
   });
 
   React.useLayoutEffect(() => {
-    if (shouldUpdateScrollPositionRef.current) {
+    const shouldUpdateScrollPosition = (
+      isOpen &&
+      (
+        !prevIsOpen.current ||
+        highlightedIndex !== prevHighlightedIndex.current
+      )
+    );
+    prevIsOpen.current = isOpen;
+    prevHighlightedIndex.current = highlightedIndex;
+    if (shouldUpdateScrollPosition) {
       setScrollPosition(menuId);
-      shouldUpdateScrollPositionRef.current = false;
     }
-  });
+  }, [
+    isOpen,
+    highlightedIndex,
+    menuId,
+  ]);
 
   type AutocompleteItemComponent<T> =
     React$AbstractComponent<AutocompleteItemPropsT<T>, void>;
@@ -809,8 +795,8 @@ const Autocomplete2 = (React.memo(<+T: EntityItemT>(
           }
           disabled={disabled}
           id={inputId}
+          onBlur={handleInputBlur}
           onChange={handleInputChange}
-          onClick={handleInputFocus}
           onFocus={handleInputFocus}
           onKeyDown={handleInputKeyDown}
           placeholder={
@@ -842,6 +828,7 @@ const Autocomplete2 = (React.memo(<+T: EntityItemT>(
           data-toggle="true"
           disabled={disabled}
           onClick={handleButtonClick}
+          onKeyDown={handleInputKeyDown}
           ref={buttonRef}
           role="button"
           tabIndex="-1"

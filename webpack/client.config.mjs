@@ -77,6 +77,7 @@ const entries = [
   'release/index',
   'release-editor',
   'release-group/index',
+  'selenium',
   'series/edit',
   'series/index',
   'statistics',

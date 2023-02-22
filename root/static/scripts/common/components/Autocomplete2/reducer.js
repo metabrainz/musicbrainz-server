@@ -373,6 +373,7 @@ export function runReducer<+T: EntityItemT>(
   let updateItems = false;
   let updateStatusMessage = false;
   let highlightFirstIndex = false;
+  let showAvailableItems = false;
 
   switch (action.type) {
     case 'change-entity-type': {
@@ -433,6 +434,14 @@ export function runReducer<+T: EntityItemT>(
       updateItems = true;
       updateStatusMessage = true;
       break;
+
+    case 'set-input-focus': {
+      state.isInputFocused = action.isFocused;
+      if (action.isFocused && state.selectedItem == null) {
+        showAvailableItems = true;
+      }
+      break;
+    }
 
     case 'set-menu-visibility':
       state.isOpen = action.value && state.items.length > 0;
@@ -503,6 +512,15 @@ export function runReducer<+T: EntityItemT>(
       }
 
       updateItems = true;
+
+      if (
+        state.isInputFocused &&
+        empty(state.inputValue) &&
+        state.recentItems?.length
+      ) {
+        showAvailableItems = true;
+      }
+
       break;
     }
 
@@ -574,6 +592,7 @@ export function runReducer<+T: EntityItemT>(
 
       updateItems = true;
       updateStatusMessage = true;
+      showAvailableItems = true;
       break;
     }
 
@@ -588,6 +607,10 @@ export function runReducer<+T: EntityItemT>(
     if (!state.items.length) {
       state.isOpen = false;
     }
+  }
+
+  if (showAvailableItems && state.items.length) {
+    state.isOpen = true;
   }
 
   if (updateStatusMessage) {

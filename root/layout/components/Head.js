@@ -150,6 +150,8 @@ const Head = ({
         }),
       })}
 
+      {MUSICBRAINZ_RUNNING_TESTS ? manifest.js('selenium') : null}
+
       {$c.stash.jsonld_data ? (
         <script
           dangerouslySetInnerHTML={

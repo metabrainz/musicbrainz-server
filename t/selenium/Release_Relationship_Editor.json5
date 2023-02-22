@@ -1908,17 +1908,6 @@
       target: 'css=#add-relationship-dialog input.relationship-target',
       value: '',
     },
-    // FIXME: Sometimes the recent-items list doesn't show up. Wait and click again.
-    {
-      command: 'pause',
-      target: '100',
-      value: '',
-    },
-    {
-      command: 'click',
-      target: 'css=#add-relationship-dialog input.relationship-target',
-      value: '',
-    },
     // "Boredoms" should be in the recent entities list.
     {
       command: 'click',
@@ -2060,17 +2049,6 @@
     },
     {
       command: 'focus',
-      target: 'css=#add-relationship-dialog input.relationship-target',
-      value: '',
-    },
-    // FIXME: Sometimes the recent-items list doesn't show up. Wait and click again.
-    {
-      command: 'pause',
-      target: '100',
-      value: '',
-    },
-    {
-      command: 'click',
       target: 'css=#add-relationship-dialog input.relationship-target',
       value: '',
     },
