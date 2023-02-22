@@ -15181,7 +15181,7 @@ msgstr "Cambia gli accreditamenti per le altre relazioni di {entity} presenti ne
 msgid ""
 "Some tracks/mediums haven’t been loaded yet. If you want to use this option,"
 " please close this dialog and load all tracks/mediums beforehand."
-msgstr ""
+msgstr "Alcune tracce/alcuni supporti non sono ancora stati caricati. Se vuoi usare questa opzione, chiudi questa finestra di dialogo e carica prima tutte le tracce/i supporti."
 
 #: ../root/static/scripts/relationship-editor/components/DialogEntityCredit.js:149
 msgid "All of these relationships."
@@ -15575,7 +15575,7 @@ msgstr "Relazioni della traccia"
 msgid ""
 "Some tracks/mediums haven’t been loaded yet. If you want to make batch "
 "operations on these, please fully load them first."
-msgstr ""
+msgstr "Alcune tracce/alcuni supporti non sono ancora stati caricati. Se vuoi effettuare modifiche in blocco su di essi, prima caricali tutti."
 
 #: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1540
 msgid "Related Works"
@@ -16462,7 +16462,7 @@ msgstr "Questo utente è contrassegnato come spammer ed è bloccato per tutti gl
 msgid ""
 "This user’s editing rights have been restricted. Active restrictions: "
 "{restrictions}."
-msgstr ""
+msgstr "I permessi di modifica di questo utente sono stati limitati. Limitazioni attive: {restrictions}."
 
 #: ../root/user/UserProfile.js:935
 msgid "Report this user for bad behavior"

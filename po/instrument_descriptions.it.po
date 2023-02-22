@@ -879,7 +879,7 @@ msgid ""
 "Czech-polish bellow-blown large goatskin bag with a 6 finger hole chanter "
 "and a long angular drone pipe that is balanced over the shoulder, the two "
 "flared pipes have inlaid metal designs and can have goat head decorations."
-msgstr ""
+msgstr "Di provenienza ceco-polacca, grande sacca in pelle di capra azionata tramite il mantice, con una canna del canto a sei fori di diteggiatura e una lunga canna di bordone ad angolo che si appoggia sulla spalla; le due canne, con padiglione a campana, hanno motivi in metallo intarsiato e possono avere decorazioni a forma di testa di capra."
 
 #. name:davul
 #: DB:instrument/description:411

@@ -35,6 +35,7 @@ declare type ReleaseT = $ReadOnly<{
   +combined_track_count?: string,
   +cover_art_presence: 'absent' | 'present' | 'darkened' | null,
   +events?: $ReadOnlyArray<ReleaseEventT>,
+  +has_no_tracks: boolean,
   +labels?: $ReadOnlyArray<ReleaseLabelT>,
   +language: LanguageT | null,
   +languageID: number | null,

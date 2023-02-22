@@ -880,7 +880,7 @@ msgid ""
 "An audio drama is an audio-only performance of a play (often, but not "
 "always, meant for radio). Unlike audiobooks, it usually has multiple "
 "performers rather than a main narrator."
-msgstr "Kuunnelma on näytelmän näytelty ääniversio (yleensä radiota varten, mutta ei aina). Toisin kuin äänikirjoissa, siinä on yleensä useita näyttelijöitä mukana pääkertojan sijaan."
+msgstr "Kuunnelma on näytelmän näytelty ääniversio (yleensä radiota varten, mutta ei aina). Toisin kuin äänikirjoissa, pääkertojan sijaan on yleensä useita näyttelijöitä esiintymässä."
 
 #: DB:release_group_secondary_type/description:5
 msgctxt "release_group_secondary_type"
@@ -957,7 +957,7 @@ msgid ""
 "An unofficial/underground release that was not sanctioned by the artist "
 "and/or the record company. This includes unofficial live recordings and "
 "pirated releases."
-msgstr ""
+msgstr "Epävirallinen/underground-julkaisu joka ei ole artistin ja/tai levy-yhtiön hyväksymä. Tähän kuuluu myös epäviralliset live-äänitteet ja piraattijulkaisut."
 
 #: DB:work_type/description:20
 msgctxt "work_type"
@@ -1039,7 +1039,7 @@ msgstr ""
 #: DB:editor_collection_type/name:7
 msgctxt "collection_type"
 msgid "Area collection"
-msgstr ""
+msgstr "Aluekokoelma"
 
 #: DB:area_alias_type/name:1
 msgctxt "alias_type"
@@ -1059,7 +1059,7 @@ msgstr "Artistipalkinto"
 #: DB:editor_collection_type/name:8
 msgctxt "collection_type"
 msgid "Artist collection"
-msgstr ""
+msgstr "Artistikokoelma"
 
 #: DB:artist_alias_type/name:1
 msgctxt "alias_type"
@@ -1411,7 +1411,7 @@ msgstr ""
 #: DB:medium_format/name:131
 msgctxt "medium_format"
 msgid "Betacam SP"
-msgstr ""
+msgstr "Betacam SP"
 
 #: DB:medium_format/name:24
 msgctxt "medium_format"
@@ -1597,7 +1597,7 @@ msgstr "Bootleg-tuotanto"
 #: DB:cover_art_archive.art_type/name:49
 msgctxt "cover_art_type"
 msgid "Bottom"
-msgstr ""
+msgstr "Pohja"
 
 #: DB:release_packaging/name:19
 msgctxt "release_packaging"
@@ -2870,7 +2870,7 @@ msgctxt "gender"
 msgid ""
 "For cases where gender just doesn't apply at all (like companies entered as "
 "artists)."
-msgstr ""
+msgstr "Tapauksiin, jossa sukupuoli ei päde lainkaan (kuten artisteiksi listatut yhtiöt)."
 
 #: DB:work_attribute_type/name:16
 msgctxt "work_attribute_type"
@@ -6106,17 +6106,17 @@ msgstr "Ravicandrika"
 #: DB:cover_art_archive.art_type/name:14
 msgctxt "cover_art_type"
 msgid "Raw/Unedited"
-msgstr ""
+msgstr "Raaka/käsittelemätön"
 
 #: DB:series_type/name:48
 msgctxt "series_type"
 msgid "Recording award"
-msgstr ""
+msgstr "Äänitepalkinto"
 
 #: DB:editor_collection_type/name:12
 msgctxt "collection_type"
 msgid "Recording collection"
-msgstr ""
+msgstr "Äänitekokoelma"
 
 #: DB:recording_alias_type/name:1
 msgctxt "alias_type"
@@ -6151,17 +6151,17 @@ msgstr ""
 #: DB:editor_collection_type/name:1
 msgctxt "collection_type"
 msgid "Release collection"
-msgstr ""
+msgstr "Julkaisukokoelma"
 
 #: DB:series_type/name:47
 msgctxt "series_type"
 msgid "Release group award"
-msgstr ""
+msgstr "Julkaisuryhmäpalkinto"
 
 #: DB:editor_collection_type/name:13
 msgctxt "collection_type"
 msgid "Release group collection"
-msgstr ""
+msgstr "Julkaisuryhmäkokoelma"
 
 #: DB:release_group_alias_type/name:1
 msgctxt "alias_type"
@@ -6683,14 +6683,14 @@ msgstr ""
 #: DB:medium_format/name:53
 msgctxt "medium_format"
 msgid "Shellac"
-msgstr ""
+msgstr "Sellakka"
 
 #: DB:medium_format/description:53
 msgctxt "medium_format"
 msgid ""
 "Shellac records were the most predominant type of gramophone record during "
 "the first half of the 20th century."
-msgstr ""
+msgstr "Sellakkalevyt olivat vallitsevin gramofonilevytyyppi 1900-luvun ensimmäisellä puoliskolla."
 
 #: DB:work_attribute_type_allowed_value/value:236
 msgctxt "work_attribute_type_allowed_value"
@@ -7769,12 +7769,12 @@ msgstr "Poisvedetty"
 #: DB:series_type/name:46
 msgctxt "series_type"
 msgid "Work award"
-msgstr ""
+msgstr "Teospalkinto"
 
 #: DB:editor_collection_type/name:15
 msgctxt "collection_type"
 msgid "Work collection"
-msgstr ""
+msgstr "Teoskokoelma"
 
 #: DB:work_alias_type/name:1
 msgctxt "alias_type"
@@ -7917,7 +7917,7 @@ msgstr ""
 #: DB:work_attribute_type_allowed_value/value:681
 msgctxt "work_attribute_type_allowed_value"
 msgid "ambiguous"
-msgstr ""
+msgstr "epäselvä"
 
 #: DB:medium_format/name:27
 msgctxt "medium_format"

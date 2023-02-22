@@ -10,6 +10,7 @@
 import * as Sentry from '@sentry/browser';
 
 import {MAX_RECENT_ENTITIES} from '../../constants.js';
+import localizeLanguageName from '../../i18n/localizeLanguageName.js';
 import linkedEntities from '../../linkedEntities.mjs';
 import isDatabaseRowId from '../../utility/isDatabaseRowId.js';
 import isGuid from '../../utility/isGuid.js';
@@ -162,8 +163,14 @@ export function getRecentItems<+T: EntityItemT>(
   return _recentItemsCache.get(key) ?? [];
 }
 
-function getEntityName(entity: EntityItemT): string {
+function getEntityName(
+  entity: EntityItemT,
+  isLanguageForWorks?: boolean,
+): string {
   switch (entity.entityType) {
+    case 'language': {
+      return localizeLanguageName(entity, isLanguageForWorks);
+    }
     case 'link_type': {
       return formatLinkTypePhrases(entity);
     }
@@ -190,6 +197,8 @@ export async function getOrFetchRecentItems<+T: EntityItemT>(
   }
 
   if (ids.size) {
+    const isLanguageForWorks = key === 'language-lyrics';
+
     // Convert ids to an array since we delete in the loop.
     for (const id of Array.from(ids)) {
       const entity: ?T = linkedEntities[entityType]?.[id];
@@ -197,7 +206,7 @@ export async function getOrFetchRecentItems<+T: EntityItemT>(
         cachedList.push({
           entity: entity,
           id: String(entity.id) + '-recent',
-          name: getEntityName(entity),
+          name: getEntityName(entity, isLanguageForWorks),
           type: 'option',
         });
         ids.delete(id);

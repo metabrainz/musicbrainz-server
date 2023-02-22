@@ -1,0 +1,79 @@
+{
+  title: 'MBS-12922',
+  commands: [
+    {
+      command: 'open',
+      target: '/release/24d4159a-99d9-425d-a7b8-1b9ec0261a33/edit-relationships',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'css=td.works button.add-item',
+      value: '',
+    },
+    // Wait for works to show up in the index...
+    {
+      command: 'pause',
+      target: '2500',
+      value: '',
+    },
+    // Check that adding a space can trigger a search.
+    {
+      command: 'sendKeys',
+      target: 'css=#add-relationship-dialog input.relationship-target',
+      value: ' ',
+    },
+    {
+      command: 'pause',
+      target: '1000',
+      value: '',
+    },
+    {
+      command: 'sendKeys',
+      target: 'css=#add-relationship-dialog input.relationship-target',
+      value: '${KEY_ENTER}',
+    },
+    {
+      command: 'click',
+      target: 'css=#add-relationship-dialog button.positive',
+      value: '',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'css=#relationship-editor-form button.positive',
+      value: '',
+    },
+    {
+      command: 'assertEditData',
+      target: 1,
+      value: {
+        type: 90,
+        status: 2,
+        data: {
+          edit_version: 2,
+          ended: 0,
+          entity0: {
+            gid: '0f42ab32-22cd-4dcf-927b-a8d9a183d68b',
+            id: 20937085,
+            name: 'Travelling Man',
+          },
+          entity1: {
+            gid: 'bba52ea6-ed91-4be8-91b1-9acb10f57093',
+            id: 14042436,
+            name: 'Travelling Man',
+          },
+          entity_id: 1,
+          link_type: {
+            id: 278,
+            link_phrase: '{live} {medley:medley including a} {partial} {instrumental} {cover} recording of',
+            long_link_phrase: 'is a {live} {medley:medley including a} {partial} {instrumental} {cover} recording of',
+            name: 'performance',
+            reverse_link_phrase: '{live} {medley:medleys including} {partial} {instrumental} {cover} recordings',
+          },
+          type0: 'recording',
+          type1: 'work',
+        },
+      },
+    },
+  ],
+}

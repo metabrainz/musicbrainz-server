@@ -16,6 +16,8 @@ import {
 } from '../../edit/components/Multiselect.js';
 import DialogButtons
   from '../../relationship-editor/components/DialogButtons.js';
+import useDialogEnterKeyHandler
+  from '../../relationship-editor/hooks/useDialogEnterKeyHandler.js';
 import type {
   EditWorkDialogStateT,
 } from '../../relationship-editor/types.js';
@@ -151,8 +153,10 @@ const EditWorkDialog: React.AbstractComponent<
     closeDialog,
   ]);
 
+  const handleKeyDown = useDialogEnterKeyHandler(acceptDialog);
+
   return (
-    <div className="form">
+    <div className="form" onKeyDown={handleKeyDown}>
       <h1>{l('Edit Work')}</h1>
       <table className="work-details">
         <tbody>

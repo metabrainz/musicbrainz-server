@@ -15171,7 +15171,7 @@ msgstr ""
 
 #: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:284
 msgid "Relationship type"
-msgstr ""
+msgstr "Yhteyden tyyppi"
 
 #: ../root/static/scripts/relationship-editor/components/DialogPreview.js:156
 msgid "Old order"
@@ -15219,7 +15219,7 @@ msgstr "Yhteyden kohteet eivät voi olla samat."
 
 #: ../root/static/scripts/relationship-editor/components/DialogTargetType.js:52
 msgid "Related type"
-msgstr ""
+msgstr "Yhteyden kohteen tyyppi"
 
 #: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:914
 msgid ""
