@@ -385,10 +385,8 @@ const Autocomplete2 = (React.memo(<+T: EntityItemT>(
     dispatch,
   ]);
 
-  function handleButtonClick(
-    event: SyntheticMouseEvent<HTMLButtonElement>,
-  ) {
-    event.currentTarget.focus();
+  function handleButtonClick() {
+    inputRef.current?.focus();
 
     stopRequests();
 
@@ -844,7 +842,6 @@ const Autocomplete2 = (React.memo(<+T: EntityItemT>(
           data-toggle="true"
           disabled={disabled}
           onClick={handleButtonClick}
-          onKeyDown={handleInputKeyDown}
           ref={buttonRef}
           role="button"
           tabIndex="-1"
