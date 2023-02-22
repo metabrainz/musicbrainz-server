@@ -5,7 +5,6 @@
 
 /* eslint-disable import/no-commonjs */
 
-import DBDefs from './common/DBDefs-client.mjs';
 import MB from './common/MB.js';
 
 /* Global polyfills not provided by core-js */
@@ -15,7 +14,7 @@ require('./common/focusin-focusout-polyfill');
 
 require('./public-path');
 
-if (DBDefs.DEVELOPMENT_SERVER) {
+if (MUSICBRAINZ_RUNNING_TESTS) {
   /*
    * Used by the Selenium tests under /t/selenium/ to make sure that no errors
    * occurred on the page.
