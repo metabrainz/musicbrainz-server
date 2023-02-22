@@ -43,7 +43,7 @@ const commonInitialState = {
 };
 
 test('action: set-credit', function (t) {
-  t.plan(5);
+  t.plan(4);
 
   let initialState = createInitialState({
     ...commonInitialState,
@@ -105,6 +105,35 @@ test('action: set-credit', function (t) {
     newState.targetEntity.creditedAs,
     'newtargetcredit',
     'target entity credit is updated (entity1)',
+  );
+});
+
+test('action: update-target-type', function (t) {
+  t.plan(2);
+
+  let initialState = createInitialState({
+    ...commonInitialState,
+    initialRelationship: newArtistRecordingRelationship,
+    source: recording,
+  });
+
+  const targetAction = {
+    action: {
+      action: {
+        creditedAs: 'newtargetcredit',
+        type: 'set-credit',
+      },
+      type: 'update-credit',
+    },
+    type: 'update-target-entity',
+  };
+
+  let newState = reducer(initialState, {...targetAction, source: recording});
+
+  t.equals(
+    newState.targetEntity.creditedAs,
+    'newtargetcredit',
+    'target entity credit is updated (entity0)',
   );
 
   const targetTypeAction = {
