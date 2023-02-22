@@ -89,7 +89,10 @@ export function getTargetError(
     return '';
   }
 
-  if (source.gid === target.gid) {
+  if (
+    source.entityType === target.entityType &&
+    source.id === target.id
+  ) {
     return l('Entities in a relationship cannot be the same.');
   }
 
@@ -182,7 +185,7 @@ export function createInitialState(
   };
 }
 
-const NEW_WORK_HASH = /#new-work-(-[0-9]+)$/;
+const NEW_WORK_HASH = /#new-work-(-[0-9]+)\s*$/;
 
 function selectNewWork(
   newInputValue: string,
