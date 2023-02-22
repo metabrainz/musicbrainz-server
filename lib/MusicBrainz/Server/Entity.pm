@@ -18,10 +18,11 @@ sub TO_JSON {
     my ($self) = @_;
 
     my $entity_type = ref_to_type($self);
+    my $id = $self->id;
 
     return {
         entityType => $entity_type,
-        id => $self->id,
+        id => defined $id ? (0 + $id) : undef,
     };
 }
 
