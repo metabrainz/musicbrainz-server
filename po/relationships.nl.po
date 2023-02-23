@@ -3912,12 +3912,12 @@ msgstr "werkte {minor:in een kleine rol} {additional:aanvullend} samen in het pr
 msgid "collaboration"
 msgstr "samenwerking"
 
-#: DB:link_type/link_phrase:891 DB:link_type/link_phrase:890
-#: DB:link_type/link_phrase:889 DB:link_type/link_phrase:892
-#: DB:link_type/name:891 DB:link_type/name:890 DB:link_type/name:889
-#: DB:link_type/name:892 DB:link_type/long_link_phrase:891
-#: DB:link_type/long_link_phrase:890 DB:link_type/long_link_phrase:889
-#: DB:link_type/long_link_phrase:892
+#: DB:link_type/link_phrase:890 DB:link_type/link_phrase:889
+#: DB:link_type/link_phrase:892 DB:link_type/link_phrase:891
+#: DB:link_type/name:890 DB:link_type/name:889 DB:link_type/name:892
+#: DB:link_type/name:891 DB:link_type/long_link_phrase:890
+#: DB:link_type/long_link_phrase:889 DB:link_type/long_link_phrase:892
+#: DB:link_type/long_link_phrase:891
 msgid "commissioned"
 msgstr "gaf opdracht voor"
 
@@ -7032,8 +7032,8 @@ msgstr "was technicus bij"
 msgid "was an orchestra at"
 msgstr "speelde als orkest op"
 
-#: DB:link_type/reverse_link_phrase:891 DB:link_type/reverse_link_phrase:890
-#: DB:link_type/reverse_link_phrase:889 DB:link_type/reverse_link_phrase:892
+#: DB:link_type/reverse_link_phrase:890 DB:link_type/reverse_link_phrase:889
+#: DB:link_type/reverse_link_phrase:892 DB:link_type/reverse_link_phrase:891
 msgid "was commissioned by"
 msgstr "geschreven in opdracht van"
 
