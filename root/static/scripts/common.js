@@ -5,27 +5,12 @@
 
 /* eslint-disable import/no-commonjs */
 
-import {DEVELOPMENT_SERVER} from './common/DBDefs-client.mjs';
-import MB from './common/MB.js';
-
 /* Global polyfills not provided by core-js */
 require('whatwg-fetch');
 require('./common/focusin-focusout-polyfill');
 /* End of global polyfills */
 
 require('./public-path');
-
-if (DEVELOPMENT_SERVER) {
-  /*
-   * Used by the Selenium tests under /t/selenium/ to make sure that no errors
-   * occurred on the page.
-   */
-  MB.js_errors = [];
-  window.onerror = function (message, source, lineno, colno, error) {
-    MB.js_errors.push(error && error.stack ? error.stack : message);
-  };
-}
-
 require('./common/sentry');
 
 window.ko = require('knockout');

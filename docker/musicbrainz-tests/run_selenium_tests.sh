@@ -51,7 +51,10 @@ sv start artwork-indexer artwork-redirect ssssss
 # Compile static resources.
 sudo -E -H -u musicbrainz yarn
 sudo -E -H -u musicbrainz make -C po all_quiet deploy
-NODE_ENV=test WEBPACK_MODE=development NO_PROGRESS=1 \
+NODE_ENV=test \
+     WEBPACK_MODE=development \
+     MUSICBRAINZ_RUNNING_TESTS=1 \
+     NO_PROGRESS=1 \
      sudo -E -H -u musicbrainz carton exec -- ./script/compile_resources.sh default tests
 
 # Add mbtest host alias to work around NO_PROXY restriction.

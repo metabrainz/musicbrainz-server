@@ -428,6 +428,9 @@ before dispatch => sub {
         my $cache_namespace = DBDefs->CACHE_NAMESPACE;
         *DBDefs::CACHE_NAMESPACE = sub { $cache_namespace . $database . ':' };
         *DBDefs::ENTITY_CACHE_TTL = sub { 1 };
+        # CSP script-src directives conflict with `Function` constructor calls
+        # injected by babel-plugin-instanbul (unsafe-eval).
+        $self->res->header('Content-Security-Policy', '');
     } else {
         # Use a fresh database connection for every request, and
         # remember to disconnect at the end.

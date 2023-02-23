@@ -3915,12 +3915,12 @@ msgstr "ha collaborato {additional:in aggiunta} {minor:in modo minore} su"
 msgid "collaboration"
 msgstr "collaborazione"
 
-#: DB:link_type/link_phrase:891 DB:link_type/link_phrase:890
-#: DB:link_type/link_phrase:889 DB:link_type/link_phrase:892
-#: DB:link_type/name:891 DB:link_type/name:890 DB:link_type/name:889
-#: DB:link_type/name:892 DB:link_type/long_link_phrase:891
-#: DB:link_type/long_link_phrase:890 DB:link_type/long_link_phrase:889
-#: DB:link_type/long_link_phrase:892
+#: DB:link_type/link_phrase:890 DB:link_type/link_phrase:889
+#: DB:link_type/link_phrase:892 DB:link_type/link_phrase:891
+#: DB:link_type/name:890 DB:link_type/name:889 DB:link_type/name:892
+#: DB:link_type/name:891 DB:link_type/long_link_phrase:890
+#: DB:link_type/long_link_phrase:889 DB:link_type/long_link_phrase:892
+#: DB:link_type/long_link_phrase:891
 msgid "commissioned"
 msgstr "ha commissionato"
 
@@ -7035,8 +7035,8 @@ msgstr "ha lavorato come tecnico a"
 msgid "was an orchestra at"
 msgstr "è stata un'orchestra presso"
 
-#: DB:link_type/reverse_link_phrase:891 DB:link_type/reverse_link_phrase:890
-#: DB:link_type/reverse_link_phrase:889 DB:link_type/reverse_link_phrase:892
+#: DB:link_type/reverse_link_phrase:890 DB:link_type/reverse_link_phrase:889
+#: DB:link_type/reverse_link_phrase:892 DB:link_type/reverse_link_phrase:891
 msgid "was commissioned by"
 msgstr "è stata commissionata da"
 

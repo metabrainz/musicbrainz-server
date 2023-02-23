@@ -18,6 +18,7 @@ import webdriver from 'selenium-webdriver';
 import chrome from 'selenium-webdriver/chrome.js';
 import firefox from 'selenium-webdriver/firefox.js';
 import {Key} from 'selenium-webdriver/lib/input.js';
+import logging from 'selenium-webdriver/lib/logging.js';
 import until from 'selenium-webdriver/lib/until.js';
 import webdriverProxy from 'selenium-webdriver/proxy.js';
 import test from 'tape';
@@ -444,6 +445,15 @@ async function handleCommand({command, target, value}, t) {
     ' value=' + JSON.stringify(value),
   ));
 
+  if (
+    typeof value === 'string' &&
+    value.startsWith('$$_EVAL_$$')
+  ) {
+    const valueScript = value.slice(10);
+    // eslint-disable-next-line require-atomic-updates
+    value = await driver.executeScript(`return (${valueScript})`);
+  }
+
   let element;
   switch (command) {
     case 'assertArtworkJson':
@@ -576,6 +586,7 @@ async function handleCommand({command, target, value}, t) {
       break;
 
     case 'sendKeys':
+      // eslint-disable-next-line require-atomic-updates
       value = value.split(/(\$\{[A-Z_]+\})/)
         .filter(x => x)
         .map(x => KEY_CODES[x] || x);
@@ -597,7 +608,10 @@ async function handleCommand({command, target, value}, t) {
        * selenium-webdriver 3.6.0
        */
       await element.clear();
-      await driver.executeScript('arguments[0].value = ""', element);
+      await driver.executeScript(
+        'window.MB.setInputValueForReact(arguments[0], "")',
+        element,
+      );
       await element.sendKeys(value);
       break;
 
@@ -635,6 +649,11 @@ const seleniumTests = [
   {name: 'MBS-12874.json5', login: true},
   {name: 'MBS-12885.json5', login: true},
   {name: 'MBS-12904.json5', login: true},
+  {
+    name: 'MBS-12911.json5',
+    login: true,
+    sql: 'vision_creation_newsun.sql',
+  },
   {name: 'MBS-12921.json5', login: true},
   {name: 'MBS-12922.json5', login: true},
   {name: 'Artist_Credit_Editor.json5', login: true},
@@ -860,6 +879,16 @@ async function runCommands(commands, t) {
             );
             throw error;
           } finally {
+            await driver.manage().logs().get(logging.Type.BROWSER)
+              .then(function (entries) {
+                entries.forEach(function (entry) {
+                  t.comment(
+                    '[browser console log] ' +
+                    `[${entry.level.name}] ${entry.message}`,
+                  );
+                });
+              });
+
             const finishTime = new Date();
             const elapsedTime = (finishTime - startTime) / 1000;
             t.comment(timePrefix(

@@ -10,7 +10,7 @@ msgstr ""
 "#-#-#-#-#  mb_server.pot (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-22 15:15+0000\n"
+"POT-Creation-Date: 2023-02-22 20:37-0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -74,7 +74,7 @@ msgstr ""
 #: ../root/edit/details/historic/AddRelease.js:90
 #: ../root/recording/RecordingIndex.js:53
 #: ../root/static/scripts/release/components/MediumTable.js:83
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1518
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1552
 #: ../root/utility/tableColumns.js:557
 msgid "#"
 msgstr ""
@@ -2394,8 +2394,8 @@ msgstr ""
 
 #: ../root/release/edit/information.tt:308
 msgid ""
-"Please enter the barcode of the release you are entering, see <a href="
-"\"{url}\" target=\"_blank\">Barcode</a> for more information."
+"Please enter the barcode of the release you are entering, see <a "
+"href=\"{url}\" target=\"_blank\">Barcode</a> for more information."
 msgstr ""
 
 #: ../root/account/change_password.tt:13
@@ -2495,7 +2495,7 @@ msgstr ""
 #: ../root/search/components/SearchForm.js:40
 #: ../root/static/scripts/common/constants.js:31
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:64
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1528
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1562
 #: ../root/user/UserProfile.js:55
 msgid "Recording"
 msgstr ""
@@ -2849,8 +2849,8 @@ msgstr ""
 #: ../root/layout/components/Search.js:97
 #: ../root/otherlookup/OtherLookupForm.js:46 ../root/search/SearchIndex.js:30
 #: ../root/search/SearchIndex.js:32 ../root/search/components/SearchForm.js:100
-#: ../root/static/scripts/common/components/Autocomplete2.js:809
-#: ../root/static/scripts/common/components/Autocomplete2.js:829
+#: ../root/static/scripts/common/components/Autocomplete2.js:815
+#: ../root/static/scripts/common/components/Autocomplete2.js:835
 #: ../root/static/scripts/common/components/SearchIcon.js:16
 #: ../root/taglookup/Form.js:56
 msgid "Search"
@@ -3056,7 +3056,7 @@ msgid "Submit this CD using the simple method."
 msgstr ""
 
 #: ../root/release/edit/editnote.tt:44
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1821
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1855
 msgid "Submitting edits..."
 msgstr ""
 
@@ -3258,12 +3258,12 @@ msgid "This disc has a hidden pregap track before track 1"
 msgstr ""
 
 #: ../root/components/common-macros.tt:196
-#: ../root/static/scripts/common/components/EntityLink.js:36
+#: ../root/static/scripts/common/components/EntityLink.js:37
 msgid "This entity has been removed, and cannot be displayed correctly."
 msgstr ""
 
 #: ../root/components/common-macros.tt:196
-#: ../root/static/scripts/common/components/EntityLink.js:35
+#: ../root/static/scripts/common/components/EntityLink.js:36
 msgid "This entity will be created by this edit."
 msgstr ""
 
@@ -3381,7 +3381,7 @@ msgstr ""
 #: ../root/components/common-macros.tt:239
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:685
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:383
-#: ../root/static/scripts/common/components/EntityLink.js:311
+#: ../root/static/scripts/common/components/EntityLink.js:323
 msgid "This recording is a video"
 msgstr ""
 
@@ -4010,7 +4010,7 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Edit/Release/Create.pm:112
 #: ../root/edit/details/EditAlias.js:78
 #: ../root/edit/details/SetTrackLengths.js:60
-#: ../root/static/scripts/common/components/EntityLink.js:47
+#: ../root/static/scripts/common/components/EntityLink.js:48
 #: ../root/static/scripts/common/i18n/localizeLanguageName.js:15
 #: ../root/static/scripts/edit/components/Multiselect.js:197
 msgid "[removed]"
@@ -4053,7 +4053,7 @@ msgid "by"
 msgstr ""
 
 #: ../root/components/common-macros.tt:117
-#: ../root/static/scripts/common/components/EntityLink.js:95
+#: ../root/static/scripts/common/components/EntityLink.js:96
 msgid "cancelled"
 msgstr ""
 
@@ -4090,7 +4090,7 @@ msgstr ""
 #: ../root/release/edit/tracklist.tt:83 ../root/release/edit/tracklist.tt:316
 #: ../root/release/edit/tracklist.tt:491 ../root/release/edit/tracklist.tt:506
 #: ../root/static/scripts/edit/components/GuessCaseOptions.js:123
-#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:556
+#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:558
 msgid "help"
 msgstr ""
 
@@ -4099,17 +4099,17 @@ msgid "hide tracklist"
 msgstr ""
 
 #: ../root/components/common-macros.tt:108
-#: ../root/static/scripts/common/components/EntityLink.js:116
+#: ../root/static/scripts/common/components/EntityLink.js:117
 msgid "historical"
 msgstr ""
 
 #: ../root/components/common-macros.tt:106
-#: ../root/static/scripts/common/components/EntityLink.js:118
+#: ../root/static/scripts/common/components/EntityLink.js:119
 msgid "historical, until {end}"
 msgstr ""
 
 #: ../root/components/common-macros.tt:104
-#: ../root/static/scripts/common/components/EntityLink.js:112
+#: ../root/static/scripts/common/components/EntityLink.js:113
 msgid "historical, {begin}-{end}"
 msgstr ""
 
@@ -4143,8 +4143,8 @@ msgstr ""
 
 #: ../root/components/common-macros.tt:163
 #: ../root/components/common-macros.tt:239
-#: ../root/static/scripts/common/components/EntityLink.js:140
-#: ../root/static/scripts/common/components/EntityLink.js:414
+#: ../root/static/scripts/common/components/EntityLink.js:141
+#: ../root/static/scripts/common/components/EntityLink.js:426
 msgid "info"
 msgstr ""
 
@@ -4317,7 +4317,7 @@ msgid ""
 msgstr ""
 
 #: ../root/components/common-macros.tt:270
-#: ../root/static/scripts/common/components/EntityLink.js:250
+#: ../root/static/scripts/common/components/EntityLink.js:262
 msgid "{name} – {additional_info}"
 msgstr ""
 
@@ -5369,7 +5369,7 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Relationship.pm:18
 #: ../root/edit/details/ReorderRelationships.js:22
-#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:936
+#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:938
 msgid "Relationship"
 msgstr ""
 
@@ -6899,7 +6899,7 @@ msgstr ""
 #: ../root/edit/details/EditRelationshipType.js:297
 #: ../root/edit/details/RemoveRelationshipType.js:119
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:46
-#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:551
+#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:553
 #: ../root/utility/tableColumns.js:656
 msgid "Attributes"
 msgstr ""
@@ -9461,8 +9461,8 @@ msgstr ""
 
 #: ../root/edit/details/ReorderMediums.js:63
 msgid ""
-"Medium <span class=\"new\">{new}</span> (moved from position <span class="
-"\"old\">{old}</span>)"
+"Medium <span class=\"new\">{new}</span> (moved from position <span "
+"class=\"old\">{old}</span>)"
 msgstr ""
 
 #: ../root/edit/details/ReorderRelationships.js:23
@@ -13752,7 +13752,7 @@ msgid "Try with indexed search instead."
 msgstr ""
 
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:126
-#: ../root/static/scripts/common/components/Autocomplete2.js:799
+#: ../root/static/scripts/common/components/Autocomplete2.js:805
 msgid "Type to search, or paste an MBID"
 msgstr ""
 
@@ -14002,28 +14002,28 @@ msgstr ""
 msgid "[missing editor]"
 msgstr ""
 
-#: ../root/static/scripts/common/components/EntityLink.js:124
+#: ../root/static/scripts/common/components/EntityLink.js:125
 #: ../root/url/UrlIndex.js:33
 msgid ""
 "This link has been temporarily disabled because it has been reported as "
 "potentially harmful."
 msgstr ""
 
-#: ../root/static/scripts/common/components/EntityLink.js:325
+#: ../root/static/scripts/common/components/EntityLink.js:337
 msgid "This release has artwork in the Cover Art Archive"
 msgstr ""
 
-#: ../root/static/scripts/common/components/EntityLink.js:339
+#: ../root/static/scripts/common/components/EntityLink.js:351
 msgid "This release group has artwork in the Cover Art Archive"
 msgstr ""
 
-#: ../root/static/scripts/common/components/EntityLink.js:355
+#: ../root/static/scripts/common/components/EntityLink.js:367
 msgid ""
 "High quality: All available data has been added, if possible including cover "
 "art with liner info that proves it"
 msgstr ""
 
-#: ../root/static/scripts/common/components/EntityLink.js:368
+#: ../root/static/scripts/common/components/EntityLink.js:380
 msgid ""
 "Low quality: The release needs serious fixes, or its existence is hard to "
 "prove (but it’s not clearly fake)"
@@ -14900,7 +14900,7 @@ msgid "Please select a link type for the URL you’ve entered."
 msgstr ""
 
 #: ../root/static/scripts/edit/externalLinks.js:754
-#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:984
+#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:986
 #: ../root/static/scripts/relationship-editor/components/RelationshipEditor.js:507
 msgid "This relationship already exists."
 msgstr ""
@@ -15164,7 +15164,7 @@ msgstr ""
 msgid "The series you’ve selected is for works."
 msgstr ""
 
-#: ../root/static/scripts/relationship-editor/components/DialogTargetEntity.js:93
+#: ../root/static/scripts/relationship-editor/components/DialogTargetEntity.js:96
 msgid "Entities in a relationship cannot be the same."
 msgstr ""
 
@@ -15172,17 +15172,17 @@ msgstr ""
 msgid "Related type"
 msgstr ""
 
-#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:901
+#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:903
 msgid ""
 "Warning: This relationship has pending edits. {show|Click here} to view "
 "these edits and make sure they do not conflict with your own."
 msgstr ""
 
-#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:1004
+#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:1006
 msgid "This will add a relationship to all checked recordings."
 msgstr ""
 
-#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:1007
+#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:1009
 msgid "This will add a relationship to all checked works."
 msgstr ""
 
@@ -15461,30 +15461,30 @@ msgstr ""
 msgid "An error occurred:"
 msgstr ""
 
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1479
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1513
 msgid "Track Relationships"
 msgstr ""
 
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1498
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1532
 msgid ""
 "Some tracks/mediums haven’t been loaded yet. If you want to make batch "
 "operations on these, please fully load them first."
 msgstr ""
 
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1541
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1575
 msgid "Related Works"
 msgstr ""
 
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1565
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1599
 #: ../root/static/scripts/release/components/TracklistAndCredits.js:371
 msgid "We have no information about this release’s media and tracklist."
 msgstr ""
 
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1602
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1636
 msgid "Release Relationships"
 msgstr ""
 
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1645
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1679
 msgid "Release Group Relationships"
 msgstr ""
 

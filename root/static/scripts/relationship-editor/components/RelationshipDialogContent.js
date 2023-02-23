@@ -419,6 +419,8 @@ export function reducer(
         });
       }
 
+      newTargetState.creditedAs = '';
+
       newState.targetEntity = newTargetState;
       break;
     }

@@ -1,0 +1,189 @@
+{
+  title: 'MBS-12911',
+  commands: [
+    {
+      command: 'open',
+      target: '/release/868cc741-e3bc-31bc-9dac-756e35c8f152/edit-relationships',
+      value: '',
+    },
+    {
+      command: 'check',
+      target: 'xpath=(//tr[contains(@class, "track")])[1]//input[contains(@class, "recording")]',
+      value: '',
+    },
+    {
+      command: 'check',
+      target: 'xpath=(//tr[contains(@class, "track")])[2]//input[contains(@class, "recording")]',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'css=button.batch-create-works',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'css=#batch-create-works-dialog div.buttons button.positive',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'xpath=(//tr[contains(@class, "track")])[2]/td[contains(@class, "works")]//button[contains(@class, "add-relationship")]',
+      value: '',
+    },
+    // Copy the first new work link into the relationship target field.
+    {
+      command: 'type',
+      target: 'css=#add-relationship-dialog input.relationship-target',
+      value: '$$_EVAL_$$ document.querySelector("tr.track:nth-child(1) td.works a[href^=\\"#new-work\\"]").href',
+    },
+    {
+      command: 'pause',
+      target: '500',
+      value: '',
+    },
+    {
+      command: 'sendKeys',
+      target: 'css=#add-relationship-dialog input.relationship-type',
+      value: 'version${KEY_ENTER}',
+    },
+    {
+      command: 'click',
+      target: 'css=#add-relationship-dialog div.buttons button.positive',
+      value: '',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'css=#relationship-editor-form button.positive',
+      value: '',
+    },
+    {
+      command: 'assertEditData',
+      target: 1,
+      value: {
+        type: 41,
+        status: 2,
+        data: {
+          comment: '',
+          entity_gid: '$$__IGNORE__$$',
+          entity_id: 1,
+          languages: [],
+          name: '○',
+          type_id: null,
+        },
+      },
+    },
+    {
+      command: 'assertEditData',
+      target: 2,
+      value: {
+        type: 41,
+        status: 2,
+        data: {
+          comment: '',
+          entity_gid: '$$__IGNORE__$$',
+          entity_id: 2,
+          languages: [],
+          name: '☆',
+          type_id: null,
+        },
+      },
+    },
+    {
+      command: 'assertEditData',
+      target: 3,
+      value: {
+        type: 90,
+        status: 2,
+        data: {
+          edit_version: 2,
+          ended: 0,
+          entity0: {
+            gid: 'f66857fb-bb59-444e-97dc-62c73e5eddae',
+            id: 636551,
+            name: '○',
+          },
+          entity1: {
+            gid: '$$__IGNORE__$$',
+            id: 1,
+            name: '○',
+          },
+          entity_id: 1,
+          link_type: {
+            id: 278,
+            link_phrase: '{live} {medley:medley including a} {partial} {instrumental} {cover} recording of',
+            long_link_phrase: 'is a {live} {medley:medley including a} {partial} {instrumental} {cover} recording of',
+            name: 'performance',
+            reverse_link_phrase: '{live} {medley:medleys including} {partial} {instrumental} {cover} recordings',
+          },
+          type0: 'recording',
+          type1: 'work',
+        },
+      },
+    },
+    {
+      command: 'assertEditData',
+      target: 4,
+      value: {
+        type: 90,
+        status: 2,
+        data: {
+          edit_version: 2,
+          ended: 0,
+          entity0: {
+            gid: '$$__IGNORE__$$',
+            id: 2,
+            name: '☆',
+          },
+          entity1: {
+            gid: '$$__IGNORE__$$',
+            id: 1,
+            name: '○',
+          },
+          entity_id: 1,
+          link_type: {
+            id: 241,
+            link_phrase: 'later {translated} {parody} versions',
+            long_link_phrase: 'is the earliest version of {translated} {parody}',
+            name: 'other version',
+            reverse_link_phrase: '{translated} {parody} version of',
+          },
+          type0: 'work',
+          type1: 'work'
+        },
+      },
+    },
+    {
+      command: 'assertEditData',
+      target: 5,
+      value: {
+        type: 90,
+        status: 2,
+        data: {
+          edit_version: 2,
+          ended: 0,
+          entity0: {
+            gid: '6c97b1d7-aa12-480e-8376-fa435235f164',
+            id: 636552,
+            name: '☆',
+          },
+          entity1: {
+            gid: '$$__IGNORE__$$',
+            id: 2,
+            name: '☆',
+          },
+          entity_id: 2,
+          link_type: {
+            id: 278,
+            link_phrase: '{live} {medley:medley including a} {partial} {instrumental} {cover} recording of',
+            long_link_phrase: 'is a {live} {medley:medley including a} {partial} {instrumental} {cover} recording of',
+            name: 'performance',
+            reverse_link_phrase: '{live} {medley:medleys including} {partial} {instrumental} {cover} recordings',
+          },
+          type0: 'recording',
+          type1: 'work',
+        },
+      },
+    },
+  ],
+}
