@@ -53,6 +53,7 @@ const entries = [
   'common/components/ArtistRoles',
   'common/components/AttributeList',
   'common/components/IsrcList',
+  'common/components/IswcList',
   'common/components/ReleaseEvents',
   'common/components/TaggerIcon',
   'common/components/WorkArtists',
