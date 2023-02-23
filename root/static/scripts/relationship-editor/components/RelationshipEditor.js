@@ -435,9 +435,19 @@ export function runReducer(
         sourceEntity,
       } = action;
 
+      const relationshipStateChanged = (
+        oldRelationshipState != null &&
+        !relationshipsAreIdentical(
+          oldRelationshipState,
+          newRelationshipState,
+        )
+      );
+
       if (
         oldRelationshipState == null ||
-        !relationshipsAreIdentical(oldRelationshipState, newRelationshipState)
+        relationshipStateChanged ||
+        creditsToChangeForSource ||
+        creditsToChangeForTarget
       ) {
         const targetEntity = getRelationshipTarget(
           newRelationshipState,
@@ -445,7 +455,10 @@ export function runReducer(
         );
         const updates = [];
 
-        if (oldRelationshipState != null) {
+        if (
+          oldRelationshipState != null &&
+          relationshipStateChanged
+        ) {
           /*
            * The old relationship state must be removed first in a separate
            * `updateRelationships` call, because its presence affects other
@@ -464,11 +477,16 @@ export function runReducer(
           );
         }
 
-        updates.push(...getUpdatesForAcceptedRelationship(
-          writableState,
-          newRelationshipState,
-          sourceEntity,
-        ));
+        if (
+          oldRelationshipState == null ||
+          relationshipStateChanged
+        ) {
+          updates.push(...getUpdatesForAcceptedRelationship(
+            writableState,
+            newRelationshipState,
+            sourceEntity,
+          ));
+        }
 
         /*
          * `updateEntityCredits` only uses `newRelationshipState` to obtain
