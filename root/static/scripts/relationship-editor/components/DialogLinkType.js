@@ -23,6 +23,7 @@ import type {
   PropsT as AutocompletePropsT,
 } from '../../common/components/Autocomplete2/types.js';
 import {PART_OF_SERIES_LINK_TYPE_IDS} from '../../common/constants.js';
+import expand2react from '../../common/i18n/expand2react.js';
 import linkedEntities from '../../common/linkedEntities.mjs';
 import isBlank from '../../common/utility/isBlank.js';
 import {stripAttributes} from '../../edit/utility/linkPhrase.js';
@@ -42,6 +43,7 @@ import {
 
 type PropsT = {
   +dispatch: (DialogLinkTypeActionT) => void,
+  +isHelpVisible: boolean,
   +source: CoreEntityT,
   +state: DialogLinkTypeStateT,
 };
@@ -262,6 +264,7 @@ const LinkTypeAutocomplete:
 
 const DialogLinkType = (React.memo<PropsT>(({
   dispatch,
+  isHelpVisible,
   source,
   state,
 }: PropsT): React.Element<'tr'> => {
@@ -278,6 +281,8 @@ const DialogLinkType = (React.memo<PropsT>(({
     });
   }, [dispatch, source]);
 
+  const linkType = autocomplete.selectedItem?.entity;
+
   return (
     <tr>
       <td className="required section">
@@ -291,6 +296,18 @@ const DialogLinkType = (React.memo<PropsT>(({
         <div aria-atomic="true" className="error" role="alert">
           {error}
         </div>
+        {isHelpVisible && linkType !== undefined
+          ? (
+            <div className="ar-descr">
+              {exp.l('{description} ({url|more documentation})', {
+                description: expand2react(linkType?.l_description ?? ''),
+                url: {
+                  href: '/relationship/' + linkType.gid,
+                  target: '_blank',
+                },
+              })}
+            </div>
+          ) : null}
       </td>
     </tr>
   );

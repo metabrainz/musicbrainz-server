@@ -213,6 +213,7 @@ export function createInitialState(props: PropsT): RelationshipDialogStateT {
       ended: createField('period.ended', relationship.ended),
     }),
     isAttributesHelpVisible: false,
+    isRelationshipHelpVisible: false,
     linkOrder: relationship.linkOrder,
     linkType: createDialogLinkTypeState(
       linkType,
@@ -340,6 +341,11 @@ export function reducer(
 
     case 'toggle-attributes-help': {
       newState.isAttributesHelpVisible = !state.isAttributesHelpVisible;
+      break;
+    }
+
+    case 'toggle-relationship-help': {
+      newState.isRelationshipHelpVisible = !state.isRelationshipHelpVisible;
       break;
     }
 
@@ -880,6 +886,15 @@ const RelationshipDialogContent = (React.memo<PropsT>((
 
   const handleKeyDown = useDialogEnterKeyHandler(acceptDialog);
 
+  const handleRelationshipHelpClick = React.useCallback((
+    event: SyntheticEvent<HTMLAnchorElement>,
+  ) => {
+    event.preventDefault();
+    dispatch({
+      type: 'toggle-relationship-help',
+    });
+  }, [dispatch]);
+
   const canEditDates = selectedLinkType != null &&
     selectedLinkType.has_dates;
 
@@ -936,12 +951,21 @@ const RelationshipDialogContent = (React.memo<PropsT>((
         <div className="heading-line" />
         <span className="heading-text">
           {l('Relationship')}
+          {' '}
+          <span style={FONT_WEIGHT_NORMAL}>
+            {bracketed(
+              <a href="#" onClick={handleRelationshipHelpClick}>
+                {l('help')}
+              </a>,
+            )}
+          </span>
         </span>
       </h2>
       <table className="relationship-details">
         <tbody>
           <DialogLinkType
             dispatch={linkTypeDispatch}
+            isHelpVisible={state.isRelationshipHelpVisible}
             source={source}
             state={linkTypeState}
           />

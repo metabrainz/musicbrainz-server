@@ -56,6 +56,7 @@ export type DialogActionT =
       +type: 'set-attributes',
     }
   | {+type: 'toggle-attributes-help'}
+  | {+type: 'toggle-relationship-help'}
   | {
       +action: DialogEntityCreditActionT,
       +type: 'update-source-entity',
