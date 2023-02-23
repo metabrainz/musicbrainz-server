@@ -42,6 +42,8 @@ import {isMalware} from '../url/utility/isGreyedOut.js';
 import ExternalLinkAttributeDialog
   from './components/ExternalLinkAttributeDialog.js';
 import HelpIcon from './components/HelpIcon.js';
+import RelationshipPendingEditsWarning
+  from './components/RelationshipPendingEditsWarning.js';
 import RemoveButton from './components/RemoveButton.js';
 import URLInputPopover from './components/URLInputPopover.js';
 import withLoadedTypeInfo from './components/withLoadedTypeInfo.js';
@@ -79,6 +81,18 @@ type LinkTypeOptionT = {
 export type LinkStateT = $ReadOnly<{
   ...DatePeriodRoleT,
   +deleted: boolean,
+  +editsPending: boolean,
+  +entity0?:
+    | RelatableEntityT
+    | {
+        +entityType: RelatableEntityTypeT,
+        +id?: void,
+        +isNewEntity?: true,
+        +name?: string,
+        +orderingTypeID?: number,
+        +relationships?: void,
+      },
+  +entity1?: RelatableEntityT,
   +pendingTypes?: $ReadOnlyArray<number>,
   +rawUrl: string,
   // New relationships will use a unique string ID like "new-1".
@@ -139,7 +153,7 @@ export class _ExternalLinksEditor
     const sourceData = props.sourceData;
     const sourceType = sourceData.entityType;
     const entityTypes = [sourceType, 'url'].sort().join('-');
-    let initialLinks = parseRelationships(sourceData.relationships);
+    let initialLinks = parseRelationships(sourceData);
 
     initialLinks.sort(function (a, b) {
       const typeA = a.type && linkedEntities.link_type[a.type];
@@ -1237,6 +1251,7 @@ const ExternalLinkRelationship =
               {link.url && !link.error && !hasUrlError
                 ? <TypeDescription type={link.type} url={link.url} />
                 : null}
+              <RelationshipPendingEditsWarning relationship={link} />
               {hasDate ? (
                 <span className="date-period">
                   {' '}
@@ -1550,8 +1565,11 @@ export const ExternalLinksEditor:
 const defaultLinkState: LinkStateT = {
   begin_date: EMPTY_PARTIAL_DATE,
   deleted: false,
+  editsPending: false,
   end_date: EMPTY_PARTIAL_DATE,
   ended: false,
+  entity0: undefined,
+  entity1: undefined,
   rawUrl: '',
   relationship: null,
   submitted: false,
@@ -1608,15 +1626,18 @@ const isVideoAttribute =
   (attr: LinkAttrT) => attr.type.gid === VIDEO_ATTRIBUTE_GID;
 
 export function parseRelationships(
-  relationships?: $ReadOnlyArray<RelationshipT | {
-    +id: null,
-    +linkTypeID?: number,
-    +target: {
-      +entityType: 'url',
-      +name: string,
+  sourceData?:
+  | RelatableEntityT
+  | {
+      +entityType: RelatableEntityTypeT,
+      +id?: void,
+      +isNewEntity?: true,
+      +name?: string,
+      +orderingTypeID?: number,
+      +relationships?: void,
     },
-  }>,
 ): Array<LinkStateT> {
+  const relationships = sourceData?.relationships;
   if (!relationships) {
     return [];
   }
@@ -1626,8 +1647,11 @@ export function parseRelationships(
       accum.push({
         begin_date: data.begin_date || EMPTY_PARTIAL_DATE,
         deleted: false,
+        editsPending: data.editsPending,
         end_date: data.end_date || EMPTY_PARTIAL_DATE,
         ended: data.ended || false,
+        entity0: sourceData || undefined,
+        entity1: target,
         rawUrl: target.name,
         relationship: data.id,
         submitted: true,
@@ -1749,6 +1773,8 @@ type InitialOptionsT = {
         +entityType: RelatableEntityTypeT,
         +id?: void,
         +isNewEntity?: true,
+        +name?: string,
+        +orderingTypeID?: number,
         +relationships?: void,
       },
 };
