@@ -314,6 +314,7 @@ const KEY_CODES = {
   '${KEY_HOME}': Key.HOME,
   '${KEY_SHIFT}': Key.SHIFT,
   '${KEY_TAB}': Key.TAB,
+  '${KEY_UP}': Key.ARROW_UP,
   '${MBS_ROOT}': DBDefs.MB_SERVER_ROOT.replace(/\/$/, ''),
 };
 
