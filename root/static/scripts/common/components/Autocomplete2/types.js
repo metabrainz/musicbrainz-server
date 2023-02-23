@@ -26,6 +26,7 @@ export type StateT<T: EntityItemT> = {
   +inputClass?: string,
   +inputValue: string,
   +isAddEntityDialogOpen?: boolean,
+  +isInputFocused: boolean,
   +isLookupPerformed?: boolean,
   +isOpen: boolean,
   +items: $ReadOnlyArray<ItemT<T>>,
@@ -71,6 +72,7 @@ export type ActionT<+T: EntityItemT> =
   | { +type: 'highlight-previous-item' }
   | { +type: 'reset-menu' }
   | { +type: 'select-item', +item: ItemT<T> }
+  | { +type: 'set-input-focus', +isFocused: boolean }
   | { +type: 'set-menu-visibility', +value: boolean }
   | {
       +type: 'show-ws-results',

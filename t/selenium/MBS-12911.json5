@@ -33,20 +33,9 @@
     },
     // Copy the first new work link into the relationship target field.
     {
-      command: 'runScript',
-      target: '\
-        const workInput = document.querySelector("#add-relationship-dialog input.relationship-target");\
-        /* XXX Allows React to see the input value change. */\
-        Object.getOwnPropertyDescriptor(\
-          window.HTMLInputElement.prototype,\
-          "value",\
-        ).set.call(\
-          workInput,\
-          document.querySelector("tr.track:nth-child(1) td.works a[href^=\\"#new-work\\"]").href,\
-        );\
-        workInput.dispatchEvent(new Event("input", {bubbles: true}));\
-      ',
-      value: '',
+      command: 'type',
+      target: 'css=#add-relationship-dialog input.relationship-target',
+      value: '$$_EVAL_$$ document.querySelector("tr.track:nth-child(1) td.works a[href^=\\"#new-work\\"]").href',
     },
     {
       command: 'pause',

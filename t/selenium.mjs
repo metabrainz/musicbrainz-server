@@ -445,6 +445,15 @@ async function handleCommand({command, target, value}, t) {
     ' value=' + JSON.stringify(value),
   ));
 
+  if (
+    typeof value === 'string' &&
+    value.startsWith('$$_EVAL_$$')
+  ) {
+    const valueScript = value.slice(10);
+    // eslint-disable-next-line require-atomic-updates
+    value = await driver.executeScript(`return (${valueScript})`);
+  }
+
   let element;
   switch (command) {
     case 'assertArtworkJson':
@@ -577,6 +586,7 @@ async function handleCommand({command, target, value}, t) {
       break;
 
     case 'sendKeys':
+      // eslint-disable-next-line require-atomic-updates
       value = value.split(/(\$\{[A-Z_]+\})/)
         .filter(x => x)
         .map(x => KEY_CODES[x] || x);
@@ -598,7 +608,10 @@ async function handleCommand({command, target, value}, t) {
        * selenium-webdriver 3.6.0
        */
       await element.clear();
-      await driver.executeScript('arguments[0].value = ""', element);
+      await driver.executeScript(
+        'window.MB.setInputValueForReact(arguments[0], "")',
+        element,
+      );
       await element.sendKeys(value);
       break;
 

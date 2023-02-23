@@ -16,6 +16,8 @@ import MB from '../../common/MB.js';
 import {last} from '../../common/utility/arrays.js';
 import clean from '../../common/utility/clean.js';
 import {cloneArrayDeep} from '../../common/utility/cloneDeep.mjs';
+import setInputValueForReact
+  from '../../common/utility/setInputValueForReact.mjs';
 
 import {
   fromFullwidthLatin,
@@ -267,12 +269,7 @@ MB.Control.initGuessFeatButton = function (formName) {
       name: function () {
         const nameInput = document.getElementById('id-' + formName + '.name');
         if (arguments.length) {
-          // XXX Allows React to see the input value change.
-          Object.getOwnPropertyDescriptor(
-            window.HTMLInputElement.prototype,
-            'value',
-          ).set.call(nameInput, arguments[0]);
-          nameInput.dispatchEvent(new Event('input', {bubbles: true}));
+          setInputValueForReact(nameInput, arguments[0]);
           return undefined;
         }
         return nameInput.value;
