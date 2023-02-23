@@ -205,6 +205,7 @@ const BatchCreateWorksDialogContent = React.memo<
             isHelpVisible={false}
             source={RECORDING_PLACEHOLDER}
             state={linkTypeState}
+            targetType="work"
           />
           <WorkTypeSelect
             dispatch={dispatch}

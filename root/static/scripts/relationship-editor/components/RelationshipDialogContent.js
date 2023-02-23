@@ -968,6 +968,7 @@ const RelationshipDialogContent = (React.memo<PropsT>((
             isHelpVisible={state.isRelationshipHelpVisible}
             source={source}
             state={linkTypeState}
+            targetType={targetEntityState.targetType}
           />
           <DialogTargetEntity
             allowedTypes={targetTypeOptions}

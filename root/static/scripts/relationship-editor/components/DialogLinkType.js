@@ -46,6 +46,7 @@ type PropsT = {
   +isHelpVisible: boolean,
   +source: CoreEntityT,
   +state: DialogLinkTypeStateT,
+  +targetType: CoreEntityTypeT,
 };
 
 function getLinkTypeError(
@@ -267,6 +268,7 @@ const DialogLinkType = (React.memo<PropsT>(({
   isHelpVisible,
   source,
   state,
+  targetType,
 }: PropsT): React.Element<'tr'> => {
   const {
     autocomplete,
@@ -296,18 +298,35 @@ const DialogLinkType = (React.memo<PropsT>(({
         <div aria-atomic="true" className="error" role="alert">
           {error}
         </div>
-        {isHelpVisible && linkType !== undefined
-          ? (
-            <div className="ar-descr">
-              {exp.l('{description} ({url|more documentation})', {
-                description: expand2react(linkType?.l_description ?? ''),
-                url: {
-                  href: '/relationship/' + linkType.gid,
-                  target: '_blank',
-                },
-              })}
-            </div>
-          ) : null}
+        {isHelpVisible ? (
+          <div className="ar-descr">
+            {linkType === undefined ? (
+              <>
+                {exp.l(
+                  `Please select a relationship type.
+                   ({url|more documentation})`,
+                  {
+                    url: {
+                      href: '/relationships/' +
+                       [source.entityType, targetType].sort().join('-'),
+                      target: '_blank',
+                    },
+                  },
+                )}
+              </>
+            ) : (
+              <>
+                {exp.l('{description} ({url|more documentation})', {
+                  description: expand2react(linkType?.l_description ?? ''),
+                  url: {
+                    href: '/relationship/' + linkType.gid,
+                    target: '_blank',
+                  },
+                })}
+              </>
+            )}
+          </div>
+        ) : null}
       </td>
     </tr>
   );
