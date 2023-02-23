@@ -10,14 +10,11 @@
 import * as React from 'react';
 import * as tree from 'weight-balanced-tree';
 
-import openEditsForEntityIconUrl
-  from '../../../images/icons/open_edits_for_entity.svg';
 import ButtonPopover from '../../common/components/ButtonPopover.js';
 import DescriptiveLink from '../../common/components/DescriptiveLink.js';
 import {bracketedText} from '../../common/utility/bracketed.js';
 import {displayLinkAttributesText}
   from '../../common/utility/displayLinkAttribute.js';
-import entityHref from '../../common/utility/entityHref.js';
 import {
   performReactUpdateAndMaintainFocus,
 } from '../../common/utility/focusManagement.js';
@@ -27,9 +24,10 @@ import {
 } from '../../common/utility/isLinkTypeDirectionOrderable.js';
 import relationshipDateText
   from '../../common/utility/relationshipDateText.js';
+import EntityPendingEditsWarning
+  from '../../edit/components/EntityPendingEditsWarning.js';
 import RelationshipPendingEditsWarning
   from '../../edit/components/RelationshipPendingEditsWarning.js';
-import Tooltip from '../../edit/components/Tooltip.js';
 import {
   getPhraseAndExtraAttributesText,
 } from '../../edit/utility/linkPhrase.js';
@@ -82,7 +80,6 @@ const RelationshipItem = (React.memo<PropsT>(({
   const [sourceCredit, targetCredit] = backward
     ? [relationship.entity1_credit, relationship.entity0_credit]
     : [relationship.entity0_credit, relationship.entity1_credit];
-  const targetHasPendingEdits = Boolean(target.editsPending);
   const isRemoved = relationship._status === REL_STATUS_REMOVE;
   const removeButtonId =
     'remove-relationship-' + getRelationshipKey(relationship);
@@ -282,26 +279,7 @@ const RelationshipItem = (React.memo<PropsT>(({
               })
             )
             : targetDisplay}
-          {targetHasPendingEdits ? (
-            <>
-              {' '}
-              <Tooltip
-                content={exp.l(
-                  'This entity has {edits_link|pending edits}.',
-                  {edits_link: entityHref(target, '/open_edits')},
-                )}
-                target={
-                  <img
-                    alt={l('This entity has pending edits.')}
-                    className="info"
-                    height={16}
-                    src={openEditsForEntityIconUrl}
-                    style={{verticalAlign: 'middle'}}
-                  />
-                }
-              />
-            </>
-          ) : null}
+          <EntityPendingEditsWarning entity={target} />
           <RelationshipPendingEditsWarning relationship={relationship} />
           {datesAndAttributes}
         </span>

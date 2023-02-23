@@ -39,6 +39,8 @@ import {
 } from '../relationship-editor/utility/prepareHtmlFormSubmission.js';
 import {isMalware} from '../url/utility/isGreyedOut.js';
 
+import EntityPendingEditsWarning
+  from './components/EntityPendingEditsWarning.js';
 import ExternalLinkAttributeDialog
   from './components/ExternalLinkAttributeDialog.js';
 import HelpIcon from './components/HelpIcon.js';
@@ -937,7 +939,7 @@ export class _ExternalLinksEditor
              * The first element of tuple `item` is not the URL
              * when the URL is not submitted therefore isn't grouped.
              */
-            const {url, rawUrl} = relationships[0];
+            const {url, rawUrl, entity1} = relationships[0];
             const isLastLink = index === linksByUrl.length - 1;
             const links = [...relationships];
             const linkIndexes = [];
@@ -1072,6 +1074,7 @@ export class _ExternalLinksEditor
                 relationships={links}
                 typeOptions={typeOptions}
                 url={url}
+                urlEntity={entity1}
                 urlMatchesType={urlMatchesType}
                 validateLink={(link) => this.validateLink(link)}
               />
@@ -1315,6 +1318,7 @@ type LinkProps = {
   +relationships: $ReadOnlyArray<LinkRelationshipT>,
   +typeOptions: $ReadOnlyArray<LinkTypeOptionT>,
   +url: string,
+  +urlEntity?: RelatableEntityT,
   +urlMatchesType: boolean,
   +validateLink: (LinkRelationshipT | LinkStateT) => ErrorT | null,
 };
@@ -1457,6 +1461,9 @@ export class ExternalLink extends React.Component<LinkProps> {
                 {props.url}
               </a>
             )}
+            {props.urlEntity ? (
+              <EntityPendingEditsWarning entity={props.urlEntity} />
+            ) : null}
             {props.url && props.duplicate !== null ? (
               <div
                 className="error field-error"
