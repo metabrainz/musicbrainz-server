@@ -671,6 +671,71 @@ test('splitRelationshipByAttributes', function (t) {
   );
 });
 
+test('MBS-12937: Changing credits for other relationships without modifying the source relationship', function (t) {
+  t.plan(1);
+
+  const relationship1 = {
+    _lineage: [],
+    _original: null,
+    _status: REL_STATUS_ADD,
+    attributes: null,
+    begin_date: null,
+    editsPending: false,
+    end_date: null,
+    ended: false,
+    entity0: artist,
+    entity0_credit: 'SOMECREDIT',
+    entity1: recording,
+    entity1_credit: '',
+    id: -1,
+    linkOrder: 0,
+    linkTypeID: 148,
+  };
+
+  const relationship2 = {
+    ...relationship1,
+    entity0_credit: '',
+    id: -2,
+    linkTypeID: 297,
+  };
+
+  Object.freeze(relationship1);
+  Object.freeze(relationship2);
+
+  let state = addRelationships(
+    initialState,
+    recording,
+    [relationship1, relationship2],
+  );
+
+  state = reducer(
+    state,
+    {
+      batchSelectionCount: 0,
+      creditsToChangeForSource: '',
+      creditsToChangeForTarget: 'all',
+      newRelationshipState: relationship1,
+      oldRelationshipState: relationship1,
+      sourceEntity: recording,
+      type: 'update-relationship-state',
+    },
+  );
+
+  currentRelationshipsEqual(
+    t,
+    state,
+    [
+      relationship1,
+      {
+        ...relationship2,
+        entity0_credit: 'SOMECREDIT',
+      },
+    ],
+    'all entity credits are updated despite not modifying the source ' +
+    'relationship',
+  );
+});
+
 function addRelationships(
   rootState: RelationshipEditorStateT,
   source: CoreEntityT,
