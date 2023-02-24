@@ -337,7 +337,7 @@ const Autocomplete2 = (React.memo(<+T: EntityItemT>(
   const inputTimeout = React.useRef<TimeoutID | null>(null);
   const containerRef = React.useRef<HTMLDivElement | null>(null);
   const prevIsOpen = React.useRef<boolean>(false);
-  const prevHighlightedIndex = React.useRef<number>(-1);
+  const shouldUpdateScrollPositionRef = React.useRef<boolean>(false);
 
   const highlightedItem = highlightedIndex >= 0
     ? (items[highlightedIndex] ?? null)
@@ -528,6 +528,7 @@ const Autocomplete2 = (React.memo(<+T: EntityItemT>(
         event.preventDefault();
 
         if (isOpen) {
+          shouldUpdateScrollPositionRef.current = true;
           dispatch(HIGHLIGHT_NEXT_ITEM);
         } else {
           showAvailableItemsOrBeginLookupOrSearch();
@@ -537,6 +538,7 @@ const Autocomplete2 = (React.memo(<+T: EntityItemT>(
       case 'ArrowUp':
         if (isOpen) {
           event.preventDefault();
+          shouldUpdateScrollPositionRef.current = true;
           dispatch(HIGHLIGHT_PREVIOUS_ITEM);
         }
         break;
@@ -676,22 +678,15 @@ const Autocomplete2 = (React.memo(<+T: EntityItemT>(
 
   React.useLayoutEffect(() => {
     const shouldUpdateScrollPosition = (
-      isOpen &&
-      (
-        !prevIsOpen.current ||
-        highlightedIndex !== prevHighlightedIndex.current
-      )
+      (isOpen && !prevIsOpen.current) ||
+      shouldUpdateScrollPositionRef.current
     );
     prevIsOpen.current = isOpen;
-    prevHighlightedIndex.current = highlightedIndex;
     if (shouldUpdateScrollPosition) {
       setScrollPosition(menuId);
+      shouldUpdateScrollPositionRef.current = false;
     }
-  }, [
-    isOpen,
-    highlightedIndex,
-    menuId,
-  ]);
+  });
 
   type AutocompleteItemComponent<T> =
     React$AbstractComponent<AutocompleteItemPropsT<T>, void>;
