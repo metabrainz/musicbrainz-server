@@ -233,14 +233,10 @@ const RelationshipPhraseGroup = (React.memo<PropsT>(({
     textPhraseLabel = addColonText(linkPhraseGroup.textPhrase);
     textPhraseClassName = kebabCase(linkPhraseGroup.textPhrase);
   }
-  const textPhraseElement = (
+  const textPhraseElement = nonEmpty(textPhraseLabel) ? (
     <>
       <label>
-        {textPhraseLabel ?? (
-          <span className="no-value">
-            {addColonText(l('no type'))}
-          </span>
-        )}
+        {textPhraseLabel}
       </label>
       {' '}
       <ButtonPopover
@@ -262,6 +258,12 @@ const RelationshipPhraseGroup = (React.memo<PropsT>(({
         toggle={setAddDialogOpen}
       />
     </>
+  ) : (
+    <label>
+      <span className="no-value">
+        {addColonText(l('no type'))}
+      </span>
+    </label>
   );
   const relationshipListElement = (
     <td className="relationship-list">
