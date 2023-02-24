@@ -212,7 +212,7 @@ export function createInitialState(props: PropsT): RelationshipDialogStateT {
       ),
       ended: createField('period.ended', relationship.ended),
     }),
-    isAttributesHelpVisible: false,
+    isHelpVisible: false,
     linkOrder: relationship.linkOrder,
     linkType: createDialogLinkTypeState(
       linkType,
@@ -338,8 +338,8 @@ export function reducer(
       break;
     }
 
-    case 'toggle-attributes-help': {
-      newState.isAttributesHelpVisible = !state.isAttributesHelpVisible;
+    case 'toggle-help': {
+      newState.isHelpVisible = !state.isHelpVisible;
       break;
     }
 
@@ -533,15 +533,6 @@ const AttributesSection = (React.memo<AttributesSectionPropsT>(({
     dispatch({action, type: 'update-date-period'});
   }, [dispatch]);
 
-  const handleAttributesHelpClick = React.useCallback((
-    event: SyntheticEvent<HTMLAnchorElement>,
-  ) => {
-    event.preventDefault();
-    dispatch({
-      type: 'toggle-attributes-help',
-    });
-  }, [dispatch]);
-
   const booleanRangeSelectionHandler =
     useRangeSelectionHandler('boolean');
 
@@ -551,14 +542,6 @@ const AttributesSection = (React.memo<AttributesSectionPropsT>(({
         <div className="heading-line" />
         <span className="heading-text">
           {l('Attributes')}
-          {' '}
-          <span style={FONT_WEIGHT_NORMAL}>
-            {bracketed(
-              <a href="#" onClick={handleAttributesHelpClick}>
-                {l('help')}
-              </a>,
-            )}
-          </span>
         </span>
       </h2>
       <table className="relationship-details">
@@ -878,6 +861,15 @@ const RelationshipDialogContent = (React.memo<PropsT>((
     initialRelationship?.editsPending
   ) ? getOpenEditsLink(initialRelationship._original) : null;
 
+  const handleHelpClick = React.useCallback((
+    event: SyntheticEvent<HTMLAnchorElement>,
+  ) => {
+    event.preventDefault();
+    dispatch({
+      type: 'toggle-help',
+    });
+  }, [dispatch]);
+
   const handleKeyDown = useDialogEnterKeyHandler(acceptDialog);
 
   const canEditDates = selectedLinkType != null &&
@@ -889,7 +881,20 @@ const RelationshipDialogContent = (React.memo<PropsT>((
       onKeyDown={handleKeyDown}
       ref={formDivRef}
     >
-      <h1>{title}</h1>
+      <div className="dialog-titlebar">
+        <h1>
+          {title}
+        </h1>
+        <div className="buttons-right">
+          <span style={FONT_WEIGHT_NORMAL}>
+            {bracketed(
+              <a href="#" onClick={handleHelpClick}>
+                {l('help')}
+              </a>,
+            )}
+          </span>
+        </div>
+      </div>
 
       {batchSelectionCount == null ? null : (
         <p>
@@ -942,8 +947,10 @@ const RelationshipDialogContent = (React.memo<PropsT>((
         <tbody>
           <DialogLinkType
             dispatch={linkTypeDispatch}
+            isHelpVisible={state.isHelpVisible}
             source={source}
             state={linkTypeState}
+            targetType={targetEntityState.targetType}
           />
           <DialogTargetEntity
             allowedTypes={targetTypeOptions}
@@ -969,7 +976,7 @@ const RelationshipDialogContent = (React.memo<PropsT>((
         canEditDates={canEditDates}
         datePeriodField={state.datePeriodField}
         dispatch={dispatch}
-        isHelpVisible={state.isAttributesHelpVisible}
+        isHelpVisible={state.isHelpVisible}
       />
       {source ? (
         <DialogPreview

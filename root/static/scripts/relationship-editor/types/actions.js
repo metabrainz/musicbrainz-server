@@ -55,7 +55,7 @@ export type DialogActionT =
       +attributes: $ReadOnlyArray<ExternalLinkAttrT>,
       +type: 'set-attributes',
     }
-  | {+type: 'toggle-attributes-help'}
+  | {+type: 'toggle-help'}
   | {
       +action: DialogEntityCreditActionT,
       +type: 'update-source-entity',
