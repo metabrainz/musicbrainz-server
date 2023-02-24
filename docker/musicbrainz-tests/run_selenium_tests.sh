@@ -77,3 +77,9 @@ sudo -E -H -u musicbrainz carton exec -- ./t/selenium.js \
 sv down template-renderer
 sleep 10
 sudo -E -H -u musicbrainz ./node_modules/.bin/nyc report --reporter=html
+
+sudo -E -H -u musicbrainz mkdir -p svlog
+for service in /var/log/service/*; do
+     cp "$service"/current svlog/"$(basename "$service")".log
+done
+chown musicbrainz:musicbrainz svlog/*.log
