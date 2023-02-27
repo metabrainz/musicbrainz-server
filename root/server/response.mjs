@@ -40,6 +40,9 @@ export async function getResponse(requestBody, context) {
     Sentry.setUser(null);
   }
 
+  Sentry.setTag('component', requestBody.component);
+  Sentry.setTag('url', context.req.uri);
+
   /*
    * Set the current translations to be used for this request based on the
    * given 'current_language' in the stash.
