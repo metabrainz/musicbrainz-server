@@ -143,7 +143,13 @@ const RelationshipPhraseGroup = (React.memo<PropsT>(({
       [backward ? 'entity1' : 'entity0']: source,
       attributes: newAttributesData,
       linkOrder: maxLinkOrder > 0 ? (maxLinkOrder + 1) : 0,
-      linkTypeID: linkTypeId,
+      /*
+       * The `typeId` on `RelationshipLinkTypeGroupT` stores empty types as
+       * `0` (which isn't a valid relationship type row ID anyway) for easier
+       * sorting. `RelationshipStateT` stores empty types as `null`. Convert
+       * `0` back to `null` here.
+       */
+      linkTypeID: linkTypeId || null,
     };
   }, [
     canBeOrdered,

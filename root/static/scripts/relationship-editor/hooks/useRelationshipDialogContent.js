@@ -7,6 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import * as Sentry from '@sentry/browser';
 import * as React from 'react';
 
 import {createCoreEntityObject} from '../../common/entity2.js';
@@ -74,6 +75,17 @@ export default function useRelationshipDialogContent(
     title,
     user,
   } = options;
+
+  if (relationship.linkTypeID === 0) {
+    /*
+     * Empty link types should be stored as `null` on `RelationshipStateT`.
+     * We store them as `0` on `RelationshipLinkTypeGroupT`, so check to
+     * make sure those don't wind up here. (See MBS-12931.)
+     */
+    Sentry.captureException(
+      new Error('relationship.linkTypeID is 0, but should be null'),
+    );
+  }
 
   return React.useCallback((closeAndReturnFocus) => {
     if (targetTypeOptions != null && !targetTypeOptions.length) {
