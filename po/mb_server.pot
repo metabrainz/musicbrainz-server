@@ -10,7 +10,7 @@ msgstr ""
 "#-#-#-#-#  mb_server.pot (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-24 16:44+0000\n"
+"POT-Creation-Date: 2023-02-27 12:59-0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -8218,7 +8218,7 @@ msgid "as “{credit}”"
 msgstr ""
 
 #: ../root/components/RelationshipsTable.js:140
-#: ../root/static/scripts/relationship-editor/components/RelationshipPhraseGroup.js:275
+#: ../root/static/scripts/relationship-editor/components/RelationshipPhraseGroup.js:281
 msgid "See all {num} relationships"
 msgstr ""
 
@@ -15267,18 +15267,18 @@ msgstr ""
 msgid "Add another work"
 msgstr ""
 
-#: ../root/static/scripts/relationship-editor/components/RelationshipPhraseGroup.js:164
+#: ../root/static/scripts/relationship-editor/components/RelationshipPhraseGroup.js:170
 #: ../root/static/scripts/relationship-editor/components/RelationshipTargetTypeGroups.js:54
 #: ../root/static/scripts/release/components/RelationshipEditorBatchTools.js:70
 #: ../root/static/scripts/release/components/TrackRelationshipEditor.js:382
 msgid "Add Relationship"
 msgstr ""
 
-#: ../root/static/scripts/relationship-editor/components/RelationshipPhraseGroup.js:264
+#: ../root/static/scripts/relationship-editor/components/RelationshipPhraseGroup.js:270
 msgid "no type"
 msgstr ""
 
-#: ../root/static/scripts/relationship-editor/components/RelationshipPhraseGroup.js:303
+#: ../root/static/scripts/relationship-editor/components/RelationshipPhraseGroup.js:309
 msgid "These relationships have a specific ordering"
 msgstr ""
 
