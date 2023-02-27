@@ -109,13 +109,11 @@ msgstr "Allmusic"
 msgid "Allmusic page for"
 msgstr "Page Allmusic pour"
 
-#: DB:link_type/link_phrase:1131 DB:link_type/link_phrase:1132
-#: DB:link_type/link_phrase:1130
+#: DB:link_type/link_phrase:1131 DB:link_type/link_phrase:1130
 msgid "Apple Music"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:1131 DB:link_type/reverse_link_phrase:1132
-#: DB:link_type/reverse_link_phrase:1130
+#: DB:link_type/reverse_link_phrase:1131 DB:link_type/reverse_link_phrase:1130
 msgid "Apple Music page for"
 msgstr ""
 
@@ -2588,7 +2586,7 @@ msgstr "Ceci relie un artiste à une une discographie en ligne de ses œuvres. L
 msgid "This links an artist to its channel at YouTube Music."
 msgstr "Ceci relie un artiste à sa chaîne sur YouTube Music."
 
-#: DB:link_type/description:1131 DB:link_type/description:1132
+#: DB:link_type/description:1131
 msgid "This links an artist to its page at Apple Music."
 msgstr ""
 
@@ -3638,7 +3636,7 @@ msgstr "hymne de"
 msgid "appears on video"
 msgstr "apparaît dans la vidéo"
 
-#: DB:link_type/name:1131 DB:link_type/name:1132 DB:link_type/name:1130
+#: DB:link_type/name:1131 DB:link_type/name:1130
 msgid "apple music"
 msgstr ""
 
@@ -4567,8 +4565,7 @@ msgstr "demi"
 msgid "has Amazon ASIN"
 msgstr "a un ASIN d’Amazon"
 
-#: DB:link_type/long_link_phrase:1131 DB:link_type/long_link_phrase:1132
-#: DB:link_type/long_link_phrase:1130
+#: DB:link_type/long_link_phrase:1131 DB:link_type/long_link_phrase:1130
 msgid "has Apple Music page at"
 msgstr ""
 

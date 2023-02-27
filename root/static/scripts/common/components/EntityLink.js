@@ -205,7 +205,7 @@ $ReadOnlyArray<Expand2ReactOutput> | Expand2ReactOutput | null => {
     if (__DEV__) {
       invariant(false, errorMessage);
     }
-    Sentry.captureMessage(errorMessage);
+    Sentry.captureException(new Error(errorMessage));
   }
 
   if (showDisambiguation === undefined) {

@@ -86,13 +86,11 @@ msgstr "Allmusic"
 msgid "Allmusic page for"
 msgstr "Allmusicpagina over"
 
-#: DB:link_type/link_phrase:1131 DB:link_type/link_phrase:1132
-#: DB:link_type/link_phrase:1130
+#: DB:link_type/link_phrase:1131 DB:link_type/link_phrase:1130
 msgid "Apple Music"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:1131 DB:link_type/reverse_link_phrase:1132
-#: DB:link_type/reverse_link_phrase:1130
+#: DB:link_type/reverse_link_phrase:1131 DB:link_type/reverse_link_phrase:1130
 msgid "Apple Music page for"
 msgstr ""
 
@@ -2565,7 +2563,7 @@ msgstr "Deze relatie koppelt een artiest aan een online discografie van zijn wer
 msgid "This links an artist to its channel at YouTube Music."
 msgstr "Deze relatie koppelt een artiest aan zijn YouTube Music-kanaal."
 
-#: DB:link_type/description:1131 DB:link_type/description:1132
+#: DB:link_type/description:1131
 msgid "This links an artist to its page at Apple Music."
 msgstr ""
 
@@ -3615,7 +3613,7 @@ msgstr "volkslied van"
 msgid "appears on video"
 msgstr "{entity1} is te zien in de clip van {entity0}"
 
-#: DB:link_type/name:1131 DB:link_type/name:1132 DB:link_type/name:1130
+#: DB:link_type/name:1131 DB:link_type/name:1130
 msgid "apple music"
 msgstr ""
 
@@ -4544,8 +4542,7 @@ msgstr "half"
 msgid "has Amazon ASIN"
 msgstr "heeft Amazon-ASIN"
 
-#: DB:link_type/long_link_phrase:1131 DB:link_type/long_link_phrase:1132
-#: DB:link_type/long_link_phrase:1130
+#: DB:link_type/long_link_phrase:1131 DB:link_type/long_link_phrase:1130
 msgid "has Apple Music page at"
 msgstr ""
 

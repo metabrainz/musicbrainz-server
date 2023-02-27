@@ -29,7 +29,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-22 20:37-0600\n"
+"POT-Creation-Date: 2023-02-27 12:59-0600\n"
 "PO-Revision-Date: 2011-01-30 16:57+0000\n"
 "Last-Translator: salo.rock, 2022-2023\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
@@ -2875,8 +2875,8 @@ msgstr "Script:"
 #: ../root/otherlookup/OtherLookupForm.js:46 ../root/search/SearchIndex.js:30
 #: ../root/search/SearchIndex.js:32
 #: ../root/search/components/SearchForm.js:100
-#: ../root/static/scripts/common/components/Autocomplete2.js:815
-#: ../root/static/scripts/common/components/Autocomplete2.js:835
+#: ../root/static/scripts/common/components/Autocomplete2.js:810
+#: ../root/static/scripts/common/components/Autocomplete2.js:830
 #: ../root/static/scripts/common/components/SearchIcon.js:16
 #: ../root/taglookup/Form.js:56
 msgid "Search"
@@ -4123,7 +4123,7 @@ msgstr "modifiche"
 #: ../root/release/edit/tracklist.tt:83 ../root/release/edit/tracklist.tt:316
 #: ../root/release/edit/tracklist.tt:491 ../root/release/edit/tracklist.tt:506
 #: ../root/static/scripts/edit/components/GuessCaseOptions.js:123
-#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:558
+#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:892
 msgid "help"
 msgstr "guida"
 
@@ -5413,7 +5413,7 @@ msgstr "Rimuovi ISRC"
 
 #: ../lib/MusicBrainz/Server/Edit/Relationship.pm:18
 #: ../root/edit/details/ReorderRelationships.js:22
-#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:938
+#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:943
 msgid "Relationship"
 msgstr "Relazione"
 
@@ -6952,7 +6952,7 @@ msgstr "Testo libero"
 #: ../root/edit/details/EditRelationshipType.js:297
 #: ../root/edit/details/RemoveRelationshipType.js:119
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:46
-#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:553
+#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:544
 #: ../root/utility/tableColumns.js:656
 msgid "Attributes"
 msgstr "Attributi"
@@ -7384,7 +7384,7 @@ msgstr "Quest'area non ha relazioni con nessuna registrazione."
 #: ../root/components/EntityTabs.js:93 ../root/label/LabelRelationships.js:32
 #: ../root/relationship/RelationshipsHeader.js:39
 #: ../root/static/scripts/common/components/Relationships.js:91
-#: ../root/static/scripts/relationship-editor/components/RelationshipEditor.js:620
+#: ../root/static/scripts/relationship-editor/components/RelationshipEditor.js:638
 msgid "Relationships"
 msgstr "Relazioni"
 
@@ -8284,7 +8284,7 @@ msgid "as “{credit}”"
 msgstr "come “{credit}”"
 
 #: ../root/components/RelationshipsTable.js:140
-#: ../root/static/scripts/relationship-editor/components/RelationshipPhraseGroup.js:273
+#: ../root/static/scripts/relationship-editor/components/RelationshipPhraseGroup.js:281
 msgid "See all {num} relationships"
 msgstr "Visualizza tutte le relazioni ({num})"
 
@@ -11194,7 +11194,7 @@ msgid "Internal Server Error"
 msgstr "Errore interno del server"
 
 #: ../root/main/error/Error500.js:40
-#: ../root/static/scripts/relationship-editor/components/RelationshipEditor.js:534
+#: ../root/static/scripts/relationship-editor/components/RelationshipEditor.js:552
 msgid "Oops, something went wrong!"
 msgstr "Ops, qualcosa è andato storto!"
 
@@ -11714,7 +11714,7 @@ msgstr "{entity0}-{entity1}"
 
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:126
 #: ../root/static/scripts/edit/externalLinks.js:744
-#: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:68
+#: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:71
 msgid "This relationship type is deprecated and should not be used."
 msgstr "Questo tipo di relazione è obsoleto e non deve essere utilizzato."
 
@@ -13861,7 +13861,7 @@ msgid "Try with indexed search instead."
 msgstr "Prova a usare la ricerca indicizzata."
 
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:126
-#: ../root/static/scripts/common/components/Autocomplete2.js:805
+#: ../root/static/scripts/common/components/Autocomplete2.js:800
 msgid "Type to search, or paste an MBID"
 msgstr "Digita per cercare o incolla un MBID"
 
@@ -15013,8 +15013,8 @@ msgid "Please select a link type for the URL you’ve entered."
 msgstr "Seleziona un tipo di collegamento per l'URL che hai inserito."
 
 #: ../root/static/scripts/edit/externalLinks.js:754
-#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:986
-#: ../root/static/scripts/relationship-editor/components/RelationshipEditor.js:507
+#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:993
+#: ../root/static/scripts/relationship-editor/components/RelationshipEditor.js:525
 msgid "This relationship already exists."
 msgstr "Questa relazione è già esistente."
 
@@ -15074,6 +15074,7 @@ msgid "This URL is not allowed for works."
 msgstr "Questo URL non è consentito per le opere."
 
 #: ../root/static/scripts/edit/externalLinks.js:1113
+#: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:319
 msgid "{description} ({url|more documentation})"
 msgstr "{description} ({url|altra documentazione})"
 
@@ -15219,23 +15220,27 @@ msgid ""
 "down-arrow buttons)."
 msgstr "Se questa relazione ha un ordine specifico tra le altre dello stesso tipo, qui puoi impostarne la posizione nell'elenco (in alternativa ai pulsanti freccia in su e in giù)."
 
-#: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:62
+#: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:65
 msgid ""
 "Please select a subtype of the currently selected relationship type. The "
 "selected relationship type is only used for grouping subtypes."
 msgstr "Seleziona un sottotipo del tipo di relazione attualmente selezionato. Questo tipo di relazione è usato solo per raggruppare altre relazioni."
 
-#: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:84
+#: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:87
 msgid "This relationship type is not allowed with the current series type."
 msgstr "Questo tipo di relazione non è consentito per il tipo di serie attuale."
 
-#: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:122
+#: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:125
 msgid "Type or click to search"
 msgstr "Digita o clicca per cercare"
 
-#: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:284
+#: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:291
 msgid "Relationship type"
 msgstr "Tipo di relazione"
+
+#: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:306
+msgid "Please select a relationship type. ({url|more documentation})"
+msgstr "Seleziona un tipo di relazione. ({url|altra documentazione})"
 
 #: ../root/static/scripts/relationship-editor/components/DialogPreview.js:156
 msgid "Old order"
@@ -15285,17 +15290,17 @@ msgstr "Le entità in una relazione non possono essere le stesse."
 msgid "Related type"
 msgstr "Tipo collegato"
 
-#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:903
+#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:908
 msgid ""
 "Warning: This relationship has pending edits. {show|Click here} to view "
 "these edits and make sure they do not conflict with your own."
 msgstr "Attenzione: questa relazione ha delle modifiche in corso. {show|Clicca qui} per visualizzare queste modifiche e assicurarti che non siano in conflitto con la tua."
 
-#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:1006
+#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:1013
 msgid "This will add a relationship to all checked recordings."
 msgstr "Quest'operazione aggiungerà una relazione ad ogni registrazione selezionata."
 
-#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:1009
+#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:1016
 msgid "This will add a relationship to all checked works."
 msgstr "Quest'operazione aggiungerà una relazione ad ogni opera selezionata."
 
@@ -15375,18 +15380,18 @@ msgstr "Aggiungi un'altra serie"
 msgid "Add another work"
 msgstr "Aggiungi un'altra opera"
 
-#: ../root/static/scripts/relationship-editor/components/RelationshipPhraseGroup.js:164
+#: ../root/static/scripts/relationship-editor/components/RelationshipPhraseGroup.js:170
 #: ../root/static/scripts/relationship-editor/components/RelationshipTargetTypeGroups.js:54
 #: ../root/static/scripts/release/components/RelationshipEditorBatchTools.js:70
 #: ../root/static/scripts/release/components/TrackRelationshipEditor.js:382
 msgid "Add Relationship"
 msgstr "Aggiungi relazione"
 
-#: ../root/static/scripts/relationship-editor/components/RelationshipPhraseGroup.js:241
+#: ../root/static/scripts/relationship-editor/components/RelationshipPhraseGroup.js:270
 msgid "no type"
 msgstr "nessun tipo"
 
-#: ../root/static/scripts/relationship-editor/components/RelationshipPhraseGroup.js:301
+#: ../root/static/scripts/relationship-editor/components/RelationshipPhraseGroup.js:309
 msgid "These relationships have a specific ordering"
 msgstr "Queste relazioni hanno un ordine specifico"
 
@@ -15514,12 +15519,12 @@ msgid ""
 "to create, and are certain they do not already exist on MusicBrainz."
 msgstr "Usa questa opzione solo dopo aver cercato l'opera/e che intendi creare e se sei certo che essa non esiste già su MusicBrainz."
 
-#: ../root/static/scripts/release/components/BatchCreateWorksDialog.js:272
+#: ../root/static/scripts/release/components/BatchCreateWorksDialog.js:274
 #: ../root/static/scripts/release/components/RelationshipEditorBatchTools.js:94
 msgid "To use this tool, select some recordings using the checkboxes below."
 msgstr "Per usare questo strumento, seleziona alcune registrazioni utilizzando le caselle qui sotto."
 
-#: ../root/static/scripts/release/components/BatchCreateWorksDialog.js:283
+#: ../root/static/scripts/release/components/BatchCreateWorksDialog.js:285
 msgid "Batch-create new works"
 msgstr "Crea nuove opere in blocco"
 
