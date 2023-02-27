@@ -32,7 +32,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-22 20:37-0600\n"
+"POT-Creation-Date: 2023-02-27 12:59-0600\n"
 "PO-Revision-Date: 2011-01-30 16:57+0000\n"
 "Last-Translator: Juhana Uuttu <rexroom@sci.fi>, 2023\n"
 "Language-Team: Finnish (http://www.transifex.com/musicbrainz/musicbrainz/language/fi/)\n"
@@ -2874,8 +2874,8 @@ msgstr "Merkistö:"
 #: ../root/otherlookup/OtherLookupForm.js:46 ../root/search/SearchIndex.js:30
 #: ../root/search/SearchIndex.js:32
 #: ../root/search/components/SearchForm.js:100
-#: ../root/static/scripts/common/components/Autocomplete2.js:815
-#: ../root/static/scripts/common/components/Autocomplete2.js:835
+#: ../root/static/scripts/common/components/Autocomplete2.js:810
+#: ../root/static/scripts/common/components/Autocomplete2.js:830
 #: ../root/static/scripts/common/components/SearchIcon.js:16
 #: ../root/taglookup/Form.js:56
 msgid "Search"
@@ -4122,7 +4122,7 @@ msgstr "muokkaukset"
 #: ../root/release/edit/tracklist.tt:83 ../root/release/edit/tracklist.tt:316
 #: ../root/release/edit/tracklist.tt:491 ../root/release/edit/tracklist.tt:506
 #: ../root/static/scripts/edit/components/GuessCaseOptions.js:123
-#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:558
+#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:892
 msgid "help"
 msgstr "apua"
 
@@ -4385,7 +4385,7 @@ msgstr "{place} sijaitsee alueella {area}"
 #: ../root/recording/edit_form.tt:39
 msgid ""
 "{recording_length} ({length_info|derived} from the associated track lengths)"
-msgstr ""
+msgstr "{recording_length} ({length_info|johdettu} vastaavan kappaleen kestoista)"
 
 #: ../root/cdtoc/move_search.tt:33
 msgid "{release} by {artist}"
@@ -5402,7 +5402,7 @@ msgstr "Poista ISRC-koodi"
 
 #: ../lib/MusicBrainz/Server/Edit/Relationship.pm:18
 #: ../root/edit/details/ReorderRelationships.js:22
-#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:938
+#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:943
 msgid "Relationship"
 msgstr "Yhteys"
 
@@ -6937,7 +6937,7 @@ msgstr "Vapaamuotoinen teksti"
 #: ../root/edit/details/EditRelationshipType.js:297
 #: ../root/edit/details/RemoveRelationshipType.js:119
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:46
-#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:553
+#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:544
 #: ../root/utility/tableColumns.js:656
 msgid "Attributes"
 msgstr "Määritteet"
@@ -7307,7 +7307,7 @@ msgstr "Lisää valitut tapahtumat sulautettaviksi"
 
 #: ../root/area/AreaEvents.js:62
 msgid "This area is not currently associated with any events."
-msgstr ""
+msgstr "Tätä aluetta ei ole liitetty yhteenkään tapahtumaan."
 
 #: ../root/area/AreaHeader.js:31
 msgid "{area_type} in {parent_areas}"
@@ -7369,7 +7369,7 @@ msgstr ""
 #: ../root/components/EntityTabs.js:93 ../root/label/LabelRelationships.js:32
 #: ../root/relationship/RelationshipsHeader.js:39
 #: ../root/static/scripts/common/components/Relationships.js:91
-#: ../root/static/scripts/relationship-editor/components/RelationshipEditor.js:620
+#: ../root/static/scripts/relationship-editor/components/RelationshipEditor.js:638
 msgid "Relationships"
 msgstr "Yhteydet"
 
@@ -8259,7 +8259,7 @@ msgid "as “{credit}”"
 msgstr ""
 
 #: ../root/components/RelationshipsTable.js:140
-#: ../root/static/scripts/relationship-editor/components/RelationshipPhraseGroup.js:273
+#: ../root/static/scripts/relationship-editor/components/RelationshipPhraseGroup.js:281
 msgid "See all {num} relationships"
 msgstr ""
 
@@ -11143,7 +11143,7 @@ msgid "Internal Server Error"
 msgstr "Sisäinen palvelinvirhe"
 
 #: ../root/main/error/Error500.js:40
-#: ../root/static/scripts/relationship-editor/components/RelationshipEditor.js:534
+#: ../root/static/scripts/relationship-editor/components/RelationshipEditor.js:552
 msgid "Oops, something went wrong!"
 msgstr "Jotakin taisi mennä pieleen!"
 
@@ -11662,7 +11662,7 @@ msgstr "{entity0}-{entity1}"
 
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:126
 #: ../root/static/scripts/edit/externalLinks.js:744
-#: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:68
+#: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:71
 msgid "This relationship type is deprecated and should not be used."
 msgstr "Tämä yhteystyyppi on vanhentunut eikä sitä tulisi käyttää. "
 
@@ -13807,7 +13807,7 @@ msgid "Try with indexed search instead."
 msgstr "Kokeile indeksoidulla haulla sen sijaan."
 
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:126
-#: ../root/static/scripts/common/components/Autocomplete2.js:805
+#: ../root/static/scripts/common/components/Autocomplete2.js:800
 msgid "Type to search, or paste an MBID"
 msgstr "Kirjoita etsiäksesi, tai liitä MBID-tunniste"
 
@@ -14956,8 +14956,8 @@ msgid "Please select a link type for the URL you’ve entered."
 msgstr "Valitse linkin tyyppi kirjoittamallesi web-osoitteelle."
 
 #: ../root/static/scripts/edit/externalLinks.js:754
-#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:986
-#: ../root/static/scripts/relationship-editor/components/RelationshipEditor.js:507
+#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:993
+#: ../root/static/scripts/relationship-editor/components/RelationshipEditor.js:525
 msgid "This relationship already exists."
 msgstr "Tämä yhteys on jo olemassa."
 
@@ -15017,6 +15017,7 @@ msgid "This URL is not allowed for works."
 msgstr ""
 
 #: ../root/static/scripts/edit/externalLinks.js:1113
+#: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:319
 msgid "{description} ({url|more documentation})"
 msgstr "{description} ({url|lisää dokumentaatiota})"
 
@@ -15162,23 +15163,27 @@ msgid ""
 "down-arrow buttons)."
 msgstr ""
 
-#: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:62
+#: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:65
 msgid ""
 "Please select a subtype of the currently selected relationship type. The "
 "selected relationship type is only used for grouping subtypes."
 msgstr "Valitse jokin yhteystyyppi tämän alta. Tämä yhteystyyppi ryhmittää vain muita yhteystyyppejä."
 
-#: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:84
+#: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:87
 msgid "This relationship type is not allowed with the current series type."
 msgstr ""
 
-#: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:122
+#: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:125
 msgid "Type or click to search"
 msgstr ""
 
-#: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:284
+#: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:291
 msgid "Relationship type"
 msgstr "Yhteyden tyyppi"
+
+#: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:306
+msgid "Please select a relationship type. ({url|more documentation})"
+msgstr ""
 
 #: ../root/static/scripts/relationship-editor/components/DialogPreview.js:156
 msgid "Old order"
@@ -15228,17 +15233,17 @@ msgstr "Yhteyden kohteet eivät voi olla samat."
 msgid "Related type"
 msgstr "Yhteyden kohteen tyyppi"
 
-#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:903
+#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:908
 msgid ""
 "Warning: This relationship has pending edits. {show|Click here} to view "
 "these edits and make sure they do not conflict with your own."
 msgstr "Varoitus: Tällä yhteydellä on avoimia muokkauksia. {show|Näytä} avoimet muokkaukset ja varmista etteivät ne ole ristiriidassa omiisi."
 
-#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:1006
+#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:1013
 msgid "This will add a relationship to all checked recordings."
 msgstr "Tämä lisää yhteyden kaikkiin valittuihin äänitteisiin."
 
-#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:1009
+#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:1016
 msgid "This will add a relationship to all checked works."
 msgstr "Tämä lisää yhteyden kaikkiin valittuihin teoksiin."
 
@@ -15318,18 +15323,18 @@ msgstr "Lisää toinen sarja"
 msgid "Add another work"
 msgstr "Lisää toinen teos"
 
-#: ../root/static/scripts/relationship-editor/components/RelationshipPhraseGroup.js:164
+#: ../root/static/scripts/relationship-editor/components/RelationshipPhraseGroup.js:170
 #: ../root/static/scripts/relationship-editor/components/RelationshipTargetTypeGroups.js:54
 #: ../root/static/scripts/release/components/RelationshipEditorBatchTools.js:70
 #: ../root/static/scripts/release/components/TrackRelationshipEditor.js:382
 msgid "Add Relationship"
 msgstr "Lisää yhteys"
 
-#: ../root/static/scripts/relationship-editor/components/RelationshipPhraseGroup.js:241
+#: ../root/static/scripts/relationship-editor/components/RelationshipPhraseGroup.js:270
 msgid "no type"
 msgstr "ei tyyppiä"
 
-#: ../root/static/scripts/relationship-editor/components/RelationshipPhraseGroup.js:301
+#: ../root/static/scripts/relationship-editor/components/RelationshipPhraseGroup.js:309
 msgid "These relationships have a specific ordering"
 msgstr "Näillä yhteyksillä on määrätty järjestys"
 
@@ -15455,12 +15460,12 @@ msgid ""
 "to create, and are certain they do not already exist on MusicBrainz."
 msgstr "Käytä tätä vaihtoehtoa vain jos olet jo etsinyt vastaavaa teosta ja olet varma ettei sitä vielä löydy MusicBrainzista."
 
-#: ../root/static/scripts/release/components/BatchCreateWorksDialog.js:272
+#: ../root/static/scripts/release/components/BatchCreateWorksDialog.js:274
 #: ../root/static/scripts/release/components/RelationshipEditorBatchTools.js:94
 msgid "To use this tool, select some recordings using the checkboxes below."
 msgstr ""
 
-#: ../root/static/scripts/release/components/BatchCreateWorksDialog.js:283
+#: ../root/static/scripts/release/components/BatchCreateWorksDialog.js:285
 msgid "Batch-create new works"
 msgstr "Luo uusi teos kaikille valituille äänitteille"
 

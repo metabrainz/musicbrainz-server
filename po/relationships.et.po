@@ -79,13 +79,11 @@ msgstr "Allmusic"
 msgid "Allmusic page for"
 msgstr ""
 
-#: DB:link_type/link_phrase:1131 DB:link_type/link_phrase:1132
-#: DB:link_type/link_phrase:1130
+#: DB:link_type/link_phrase:1131 DB:link_type/link_phrase:1130
 msgid "Apple Music"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:1131 DB:link_type/reverse_link_phrase:1132
-#: DB:link_type/reverse_link_phrase:1130
+#: DB:link_type/reverse_link_phrase:1131 DB:link_type/reverse_link_phrase:1130
 msgid "Apple Music page for"
 msgstr ""
 
@@ -2558,7 +2556,7 @@ msgstr ""
 msgid "This links an artist to its channel at YouTube Music."
 msgstr ""
 
-#: DB:link_type/description:1131 DB:link_type/description:1132
+#: DB:link_type/description:1131
 msgid "This links an artist to its page at Apple Music."
 msgstr ""
 
@@ -3608,7 +3606,7 @@ msgstr ""
 msgid "appears on video"
 msgstr ""
 
-#: DB:link_type/name:1131 DB:link_type/name:1132 DB:link_type/name:1130
+#: DB:link_type/name:1131 DB:link_type/name:1130
 msgid "apple music"
 msgstr ""
 
@@ -4537,8 +4535,7 @@ msgstr ""
 msgid "has Amazon ASIN"
 msgstr "evib Amazoni ASIN-i"
 
-#: DB:link_type/long_link_phrase:1131 DB:link_type/long_link_phrase:1132
-#: DB:link_type/long_link_phrase:1130
+#: DB:link_type/long_link_phrase:1131 DB:link_type/long_link_phrase:1130
 msgid "has Apple Music page at"
 msgstr ""
 

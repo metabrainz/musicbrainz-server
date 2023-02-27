@@ -89,13 +89,11 @@ msgstr "Allmusic"
 msgid "Allmusic page for"
 msgstr "pagina di Allmusic su"
 
-#: DB:link_type/link_phrase:1131 DB:link_type/link_phrase:1132
-#: DB:link_type/link_phrase:1130
+#: DB:link_type/link_phrase:1131 DB:link_type/link_phrase:1130
 msgid "Apple Music"
 msgstr "Apple Music"
 
-#: DB:link_type/reverse_link_phrase:1131 DB:link_type/reverse_link_phrase:1132
-#: DB:link_type/reverse_link_phrase:1130
+#: DB:link_type/reverse_link_phrase:1131 DB:link_type/reverse_link_phrase:1130
 msgid "Apple Music page for"
 msgstr "pagina di Apple Music su"
 
@@ -2568,7 +2566,7 @@ msgstr "Collega un artista ad una discografia online delle sue opere. La discogr
 msgid "This links an artist to its channel at YouTube Music."
 msgstr "Collega un artista al suo canale su YouTube Music."
 
-#: DB:link_type/description:1131 DB:link_type/description:1132
+#: DB:link_type/description:1131
 msgid "This links an artist to its page at Apple Music."
 msgstr "Collega un artista alla sua pagina di Apple Music."
 
@@ -3618,7 +3616,7 @@ msgstr "inno di"
 msgid "appears on video"
 msgstr "compare nel video"
 
-#: DB:link_type/name:1131 DB:link_type/name:1132 DB:link_type/name:1130
+#: DB:link_type/name:1131 DB:link_type/name:1130
 msgid "apple music"
 msgstr "apple music"
 
@@ -4547,8 +4545,7 @@ msgstr "-astro (con legame di sangue)"
 msgid "has Amazon ASIN"
 msgstr "ha l'ASIN di Amazon"
 
-#: DB:link_type/long_link_phrase:1131 DB:link_type/long_link_phrase:1132
-#: DB:link_type/long_link_phrase:1130
+#: DB:link_type/long_link_phrase:1131 DB:link_type/long_link_phrase:1130
 msgid "has Apple Music page at"
 msgstr "ha la pagina di Apple Music"
 

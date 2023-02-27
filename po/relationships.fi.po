@@ -88,13 +88,11 @@ msgstr "Allmusic"
 msgid "Allmusic page for"
 msgstr "Allmusic-sivuna"
 
-#: DB:link_type/link_phrase:1131 DB:link_type/link_phrase:1132
-#: DB:link_type/link_phrase:1130
+#: DB:link_type/link_phrase:1131 DB:link_type/link_phrase:1130
 msgid "Apple Music"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:1131 DB:link_type/reverse_link_phrase:1132
-#: DB:link_type/reverse_link_phrase:1130
+#: DB:link_type/reverse_link_phrase:1131 DB:link_type/reverse_link_phrase:1130
 msgid "Apple Music page for"
 msgstr ""
 
@@ -684,7 +682,7 @@ msgstr ""
 
 #: DB:link_type/description:694
 msgid "Links a recording to the place it was mixed at."
-msgstr ""
+msgstr "Yhdistaa äänitteen paikkaan, missä sen ääniraidat yhdistettiin."
 
 #: DB:link_type/description:825
 msgid "Links a recording to the place it was produced at."
@@ -696,7 +694,7 @@ msgstr ""
 
 #: DB:link_type/description:829
 msgid "Links a recording to the place it was remixed at."
-msgstr ""
+msgstr "Yhdistää äänitteen paikkaan, missä sen ääniraidat uudelleen yhdistettiin."
 
 #: DB:link_type/description:1008
 msgid ""
@@ -808,7 +806,7 @@ msgstr ""
 
 #: DB:link_type/description:696
 msgid "Links a release to the place it was mixed at."
-msgstr ""
+msgstr "Yhdistää julkaisun paikkaan, missä sen ääniraidat yhdistettiin."
 
 #: DB:link_type/description:941
 msgid "Links a release to the place it was pressed at."
@@ -2567,7 +2565,7 @@ msgstr ""
 msgid "This links an artist to its channel at YouTube Music."
 msgstr ""
 
-#: DB:link_type/description:1131 DB:link_type/description:1132
+#: DB:link_type/description:1131
 msgid "This links an artist to its page at Apple Music."
 msgstr ""
 
@@ -3617,7 +3615,7 @@ msgstr "kansallislauluna"
 msgid "appears on video"
 msgstr ""
 
-#: DB:link_type/name:1131 DB:link_type/name:1132 DB:link_type/name:1130
+#: DB:link_type/name:1131 DB:link_type/name:1130
 msgid "apple music"
 msgstr ""
 
@@ -4546,8 +4544,7 @@ msgstr "puoli"
 msgid "has Amazon ASIN"
 msgstr "omaa Amazon ASIN -tunnisteen"
 
-#: DB:link_type/long_link_phrase:1131 DB:link_type/long_link_phrase:1132
-#: DB:link_type/long_link_phrase:1130
+#: DB:link_type/long_link_phrase:1131 DB:link_type/long_link_phrase:1130
 msgid "has Apple Music page at"
 msgstr ""
 
@@ -5633,7 +5630,7 @@ msgstr ""
 
 #: DB:link_type/name:694 DB:link_type/name:696
 msgid "mixed at"
-msgstr ""
+msgstr "yhdistelty kohteessa"
 
 #: DB:link_type/name:946 DB:link_type/name:947
 #: DB:link_type/reverse_link_phrase:946 DB:link_type/reverse_link_phrase:947
@@ -6438,7 +6435,7 @@ msgstr ""
 
 #: DB:link_type/name:829 DB:link_type/name:828
 msgid "remixed at"
-msgstr ""
+msgstr "uudelleenyhdistelty kohteessa"
 
 #: DB:link_type/name:831 DB:link_type/name:830
 msgid "remixed in"
@@ -7199,7 +7196,7 @@ msgstr ""
 
 #: DB:link_type/reverse_link_phrase:694 DB:link_type/reverse_link_phrase:696
 msgid "{additional:additionally} mixed at"
-msgstr ""
+msgstr "{additional:lisä}yhdistelty kohteessa"
 
 #: DB:link_type/reverse_link_phrase:757 DB:link_type/reverse_link_phrase:758
 msgid "{additional:additionally} mixed in"
@@ -7238,7 +7235,7 @@ msgstr "{additional:additionally} uudelleenmiksasi"
 
 #: DB:link_type/reverse_link_phrase:829 DB:link_type/reverse_link_phrase:828
 msgid "{additional:additionally} remixed at"
-msgstr ""
+msgstr "{additional:lisä}uudelleenyhdistelty kohteessa"
 
 #: DB:link_type/reverse_link_phrase:831 DB:link_type/reverse_link_phrase:830
 msgid "{additional:additionally} remixed in"
@@ -7320,7 +7317,7 @@ msgstr "{additional:additionally} {assistant} {associate} {co:co-}masteroi"
 #: DB:link_type/link_phrase:26 DB:link_type/link_phrase:143
 #: DB:link_type/long_link_phrase:26 DB:link_type/long_link_phrase:143
 msgid "{additional:additionally} {assistant} {associate} {co:co-}mixed"
-msgstr "{additional:additionally} {assistant} {associate} {co:co-}miksasi"
+msgstr ""
 
 #: DB:link_type/link_phrase:133 DB:link_type/link_phrase:29
 #: DB:link_type/long_link_phrase:133 DB:link_type/long_link_phrase:29
