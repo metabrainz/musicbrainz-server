@@ -27,7 +27,7 @@ const HelpIcon = ({
   <Tooltip
     content={content}
     target={
-      <div
+      <span
         className="img icon help"
         style={ICON_STYLE}
       />
