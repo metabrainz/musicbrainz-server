@@ -22,8 +22,8 @@ type TooltipProps = {
 const Tooltip = ({
   content,
   target,
-}: TooltipProps): React.Element<'div'> => {
-  const containerRef = React.useRef<HTMLDivElement | null>(null);
+}: TooltipProps): React.Element<'span'> => {
+  const containerRef = React.useRef<HTMLSpanElement | null>(null);
 
   React.useEffect(() => {
     const container = containerRef.current;
@@ -36,15 +36,15 @@ const Tooltip = ({
   }, []);
 
   return (
-    <div className="tooltip-wrapper">
+    <span className="tooltip-wrapper">
       {target}
       {nonEmpty(content) ? (
-        <div className="tooltip-container" ref={containerRef}>
-          <div className="tooltip-triangle" />
-          <div className="tooltip-content">{content}</div>
-        </div>
+        <span className="tooltip-container" ref={containerRef}>
+          <span className="tooltip-triangle" />
+          <span className="tooltip-content">{content}</span>
+        </span>
       ) : null}
-    </div>
+    </span>
   );
 };
 
