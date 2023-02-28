@@ -27,7 +27,11 @@ import {PART_OF_SERIES_LINK_TYPE_IDS} from '../../common/constants.js';
 import expand2react from '../../common/i18n/expand2react.js';
 import linkedEntities from '../../common/linkedEntities.mjs';
 import isBlank from '../../common/utility/isBlank.js';
+import {
+  partialDateFromField,
+} from '../../edit/components/DateRangeFieldset.js';
 import {stripAttributes} from '../../edit/utility/linkPhrase.js';
+import {EMPTY_DIALOG_DATE_PERIOD_FIELD} from '../constants.js';
 import type {
   DialogAttributesStateT,
   DialogAttributeT,
@@ -187,11 +191,42 @@ export function updateDialogState(
   const newLinkType = newState.linkType.autocomplete.selectedItem?.entity;
 
   if (oldLinkType !== newLinkType) {
+    if (oldLinkType?.has_dates && !newLinkType?.has_dates) {
+      stashDialogDatePeriod(newState);
+    } else if (!oldLinkType?.has_dates && newLinkType?.has_dates) {
+      restoreDialogDatePeriod(newState);
+    }
     updateDialogAttributesStateForLinkType(newState, newLinkType ?? null);
     return true;
   }
 
   return false;
+}
+
+function stashDialogDatePeriod(
+  newState: {...PartialDialogStateT, ...},
+): void {
+  newState.stashedDatePeriod = newState.datePeriodField;
+  newState.datePeriodField = EMPTY_DIALOG_DATE_PERIOD_FIELD;
+  const newDatePeriodField = newState.datePeriodField;
+  newState.resultingDatePeriod = {
+    begin_date: partialDateFromField(newDatePeriodField.field.begin_date),
+    end_date: partialDateFromField(newDatePeriodField.field.end_date),
+    ended: newDatePeriodField.field.ended.value,
+  };
+}
+
+function restoreDialogDatePeriod(
+  newState: {...PartialDialogStateT, ...},
+): void {
+  newState.datePeriodField = newState.stashedDatePeriod;
+  newState.stashedDatePeriod = EMPTY_DIALOG_DATE_PERIOD_FIELD;
+  const newDatePeriodField = newState.datePeriodField;
+  newState.resultingDatePeriod = {
+    begin_date: partialDateFromField(newDatePeriodField.field.begin_date),
+    end_date: partialDateFromField(newDatePeriodField.field.end_date),
+    ended: newDatePeriodField.field.ended.value,
+  };
 }
 
 export function updateDialogAttributesStateForLinkType(
