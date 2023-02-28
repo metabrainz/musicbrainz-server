@@ -1772,11 +1772,17 @@ export function createExternalLinksEditorForHtmlForm(
     externalLinksEditorRef,
   } = createExternalLinksEditor();
   $(document).on('submit', '#page form', function () {
-    invariant(externalLinksEditorRef.current);
-    prepareExternalLinksHtmlFormSubmission(
-      formName,
-      externalLinksEditorRef.current,
-    );
+    const externalLinksEditor = externalLinksEditorRef.current;
+    /*
+     * If externalLinksEditor isn't set, then it's likely that the form was
+     * submitted before `withLoadedTypeInfo` finished loading.
+     */
+    if (externalLinksEditor) {
+      prepareExternalLinksHtmlFormSubmission(
+        formName,
+        externalLinksEditor,
+      );
+    }
   });
 }
 
