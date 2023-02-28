@@ -13,7 +13,7 @@ sub edit_name     { N_l('Move disc ID') }
 sub edit_kind     { 'other' }
 sub historic_type { 21 }
 sub edit_type     { $EDIT_HISTORIC_MOVE_DISCID }
-sub edit_template_react { 'historic/MoveDiscId' }
+sub edit_template { 'historic/MoveDiscId' }
 
 sub _build_related_entities
 {

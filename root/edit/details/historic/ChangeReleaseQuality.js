@@ -1,5 +1,5 @@
 /*
- * @flow strict-local
+ * @flow strict
  * Copyright (C) 2020 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -9,9 +9,9 @@
 
 import * as React from 'react';
 
-import {QUALITY_NAMES} from '../../../static/scripts/common/constants.js';
 import DescriptiveLink
   from '../../../static/scripts/common/components/DescriptiveLink.js';
+import {QUALITY_NAMES} from '../../../static/scripts/common/constants.js';
 
 type Props = {
   +edit: ChangeReleaseQualityHistoricEditT,

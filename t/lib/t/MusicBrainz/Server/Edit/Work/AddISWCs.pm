@@ -1,4 +1,7 @@
 package t::MusicBrainz::Server::Edit::Work::AddISWCs;
+use strict;
+use warnings;
+
 use MusicBrainz::Server::Constants qw( $UNTRUSTED_FLAG );
 use Test::Routine;
 use Test::More;

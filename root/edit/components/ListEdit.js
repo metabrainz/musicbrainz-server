@@ -9,11 +9,11 @@
 
 import * as React from 'react';
 
+import {SanitizedCatalystContext} from '../../context.mjs';
 import {getEditStatusClass} from '../../utility/edit.js';
 import EditHeader from '../components/EditHeader.js';
 import EditNotes from '../components/EditNotes.js';
 import EditSummary from '../components/EditSummary.js';
-import {SanitizedCatalystContext} from '../../context.mjs';
 import getEditDetailsElement from '../utility/getEditDetailsElement.js';
 
 type Props = {

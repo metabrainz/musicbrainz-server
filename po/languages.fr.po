@@ -9,12 +9,12 @@
 # Raphaël Fery <email address hidden>, 2017
 # AO <email address hidden>, 2015
 # AO <email address hidden>, 2014-2015
-# yvanz, 2016-2022
+# yvanz, 2016-2023
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "PO-Revision-Date: 2012-05-24 19:23+0000\n"
-"Last-Translator: yvanz, 2016-2022\n"
+"Last-Translator: yvanz, 2016-2023\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -357,6 +357,11 @@ msgstr "Braj"
 msgid "Breton"
 msgstr "Breton"
 
+#. frequency:1 iso_code_3:box
+#: DB:language/name:1322
+msgid "Buamu"
+msgstr "Bwamu"
+
 #. frequency:1 iso_code_3:bug
 #: DB:language/name:61
 msgid "Buginese"
@@ -376,6 +381,11 @@ msgstr "Bouriate"
 #: DB:language/name:63
 msgid "Burmese"
 msgstr "Birman"
+
+#. frequency:1 iso_code_3:bsk
+#: DB:language/name:1406
+msgid "Burushaski"
+msgstr "Bourouchaski"
 
 #. frequency:1 iso_code_3:cad
 #: DB:language/name:65
@@ -917,6 +927,11 @@ msgstr "Groenlandais"
 msgid "Gronings"
 msgstr "Groningois"
 
+#. frequency:1 iso_code_3:gcf
+#: DB:language/name:2386
+msgid "Guadeloupean Creole French"
+msgstr "Créole guadeloupéen"
+
 #. frequency:1 iso_code_3:grn
 #: DB:language/name:160
 msgid "Guarani"
@@ -1007,7 +1022,7 @@ msgstr "Hittite"
 msgid "Hmong"
 msgstr "Hmong"
 
-#. frequency:1 iso_code_3:hun
+#. frequency:2 iso_code_3:hun
 #: DB:language/name:176
 msgid "Hungarian"
 msgstr "Hongrois"
@@ -1782,7 +1797,7 @@ msgstr "Norrois"
 msgid "North American Indian languages"
 msgstr "Nord-amérindiennes, langues"
 
-#. frequency:2 iso_code_3:nor
+#. frequency:1 iso_code_3:nor
 #: DB:language/name:309
 msgid "Norwegian"
 msgstr "Norvégien"

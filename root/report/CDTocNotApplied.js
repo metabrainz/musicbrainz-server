@@ -1,5 +1,5 @@
 /*
- * @flow strict-local
+ * @flow strict
  * Copyright (C) 2021 Jerome Roy
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -11,7 +11,7 @@ import * as React from 'react';
 
 import CDTocReleaseList from './components/CDTocReleaseList.js';
 import ReportLayout from './components/ReportLayout.js';
-import type {ReportDataT, ReportCDTocReleaseT} from './types.js';
+import type {ReportCDTocReleaseT, ReportDataT} from './types.js';
 
 const CDTocNotApplied = ({
   canBeFiltered,

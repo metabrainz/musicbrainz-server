@@ -3,6 +3,7 @@
 # Jaakko Perttilä <email address hidden>, 2012-2013,2018
 # Jaakko Perttilä <email address hidden>, 2020
 # Tukea <email address hidden>, 2016
+# Juhana Uuttu <email address hidden>, 2023
 # ListMyCDs.com Martikainen <>, 2012
 # Timo Martikainen <email address hidden>, 2012
 # phonebox, 2014
@@ -18,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "PO-Revision-Date: 2012-05-24 19:23+0000\n"
-"Last-Translator: Tommi Vainikainen <Tommi.Vainikainen@iki.fi>, 2005\n"
+"Last-Translator: Juhana Uuttu <rexroom@sci.fi>, 2023\n"
 "Language-Team: Finnish (http://www.transifex.com/musicbrainz/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -104,7 +105,7 @@ msgstr "algonkinkielet"
 #. frequency:1 iso_code_3:alq
 #: DB:language/name:709
 msgid "Algonquin"
-msgstr ""
+msgstr "algonkin"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:434
@@ -344,7 +345,7 @@ msgstr "bliss-symbolit"
 #. frequency:1 iso_code_3:brx
 #: DB:language/name:1394
 msgid "Bodo (India)"
-msgstr "bodo"
+msgstr "bodo (Intia)"
 
 #. frequency:1 iso_code_3:bos
 #: DB:language/name:56
@@ -360,6 +361,11 @@ msgstr "bradž"
 #: DB:language/name:58
 msgid "Breton"
 msgstr "bretoni"
+
+#. frequency:1 iso_code_3:box
+#: DB:language/name:1322
+msgid "Buamu"
+msgstr ""
 
 #. frequency:1 iso_code_3:bug
 #: DB:language/name:61
@@ -380,6 +386,11 @@ msgstr "burjaatti"
 #: DB:language/name:63
 msgid "Burmese"
 msgstr "burma"
+
+#. frequency:1 iso_code_3:bsk
+#: DB:language/name:1406
+msgid "Burushaski"
+msgstr "burušaski"
 
 #. frequency:1 iso_code_3:cad
 #: DB:language/name:65
@@ -429,7 +440,7 @@ msgstr "keskiokinawa"
 #. frequency:1 iso_code_3:esu
 #: DB:language/name:2243
 msgid "Central Yupik"
-msgstr ""
+msgstr "alaskanjupik"
 
 #. frequency:1 iso_code_3:chg
 #: DB:language/name:75
@@ -921,6 +932,11 @@ msgstr "grönlannin kieli"
 msgid "Gronings"
 msgstr "gronings"
 
+#. frequency:1 iso_code_3:gcf
+#: DB:language/name:2386
+msgid "Guadeloupean Creole French"
+msgstr ""
+
 #. frequency:1 iso_code_3:grn
 #: DB:language/name:160
 msgid "Guarani"
@@ -1011,7 +1027,7 @@ msgstr "heetti"
 msgid "Hmong"
 msgstr "hmong"
 
-#. frequency:1 iso_code_3:hun
+#. frequency:2 iso_code_3:hun
 #: DB:language/name:176
 msgid "Hungarian"
 msgstr "unkari"
@@ -1339,7 +1355,7 @@ msgstr "kumykki"
 #. frequency:1 iso_code_3:xug
 #: DB:language/name:7421
 msgid "Kunigami"
-msgstr ""
+msgstr "kunigami"
 
 #. frequency:1 iso_code_3:kur
 #: DB:language/name:232
@@ -1629,7 +1645,7 @@ msgstr "min nan -kiina"
 #. frequency:1 iso_code_3:hna
 #: DB:language/name:2735
 msgid "Mina (Cameroon)"
-msgstr "mina"
+msgstr "mina (Kamerun)"
 
 #. frequency:1 iso_code_3:min
 #: DB:language/name:272
@@ -1644,7 +1660,7 @@ msgstr "mirandeesi"
 #. frequency:1 iso_code_3:mvi
 #: DB:language/name:4538
 msgid "Miyako"
-msgstr ""
+msgstr "miyako"
 
 #. frequency:1 iso_code_3:moh
 #: DB:language/name:280
@@ -1786,7 +1802,7 @@ msgstr "muinaisnorja"
 msgid "North American Indian languages"
 msgstr "pohjoisamerikkalaiset intiaanikielet"
 
-#. frequency:2 iso_code_3:nor
+#. frequency:1 iso_code_3:nor
 #: DB:language/name:309
 msgid "Norwegian"
 msgstr "norja"
@@ -2024,7 +2040,7 @@ msgstr "venäjä"
 #. frequency:1 iso_code_3:rue
 #: DB:language/name:5790
 msgid "Rusyn"
-msgstr ""
+msgstr "ruteeni"
 
 #. frequency:1 iso_code_3:rcf
 #: DB:language/name:5690
@@ -2309,7 +2325,7 @@ msgstr "susu"
 #. frequency:1 iso_code_3:sva
 #: DB:language/name:6216
 msgid "Svan"
-msgstr ""
+msgstr "svanin kieli"
 
 #. frequency:1 iso_code_3:swa
 #: DB:language/name:402
@@ -2429,7 +2445,7 @@ msgstr "tokelau"
 #. frequency:1 iso_code_3:tok
 #: DB:language/name:7845
 msgid "Toki Pona"
-msgstr ""
+msgstr "toki pona"
 
 #. frequency:1 iso_code_3:tog
 #: DB:language/name:424

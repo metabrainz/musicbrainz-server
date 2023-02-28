@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict
  * Copyright (C) 2019 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -7,8 +7,8 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import fastDiff from 'fast-diff';
-import genericDiff from 'generic-diff';
+import fastDiff, {type FastEditDiff} from 'fast-diff';
+import genericDiff, {type GenericEditDiff} from 'generic-diff';
 
 const INSERT: 1 = 1;
 const EQUAL: 2 = 2;
@@ -34,21 +34,7 @@ const FAST_DIFF_CHANGE_TYPE_MAP = new Map([
   [fastDiff.DELETE, DELETE],
 ]);
 
-export {INSERT, EQUAL, DELETE, CHANGE, CLASS_MAP};
-
-type GenericEditDiff<+T> = {
-  +added: boolean,
-  +items: $ReadOnlyArray<T>,
-  +removed: boolean,
-};
-
-/*
- * fast-diff constants:
- * INSERT = 1
- * EQUAL = 0
- * DELETE = -1
- */
-type FastEditDiff = [-1 | 0 | 1, string];
+export {CHANGE, CLASS_MAP, DELETE, EQUAL, INSERT};
 
 export type EditDiff<+T> = {
   +newItems: $ReadOnlyArray<T>,

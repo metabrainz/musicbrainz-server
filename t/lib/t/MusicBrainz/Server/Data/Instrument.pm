@@ -1,4 +1,7 @@
 package t::MusicBrainz::Server::Data::Instrument;
+use strict;
+use warnings;
+
 use Test::Routine;
 use Test::Moose;
 use Test::More;
@@ -48,10 +51,18 @@ test 'Load basic data' => sub {
 
 test 'Create, update, delete instruments' => sub {
     my $test = shift;
+    my $c = $test->cache_aware_c;
 
-    MusicBrainz::Server::Test->prepare_test_database($test->c, '+data_instrument');
+    MusicBrainz::Server::Test->prepare_test_database($c, '+data_instrument');
 
-    my $instrument_data = $test->c->model('Instrument');
+    my $instrument_data = $c->model('Instrument');
+
+    my $type_info_key = 'js_link_attribute_type_info';
+    $c->cache->set($type_info_key, '123');
+    $c->cache->set("$type_info_key:etag", '456');
+
+    is($c->cache->get($type_info_key), '123', 'type-info cache key is set');
+    is($c->cache->get("$type_info_key:etag"), '456', 'type-info etag cache key is set');
 
     my $instrument = $instrument_data->insert({
             name => 'New Instrument',
@@ -60,13 +71,17 @@ test 'Create, update, delete instruments' => sub {
         });
     ok($instrument->{id} > 4);
 
+    # MBS-12629: Adding new instrument doesn't clear type-info cache
+    is($c->cache->get($type_info_key), undef, 'type-info cache key is cleared');
+    is($c->cache->get("$type_info_key:etag"), undef, 'type-info etag cache key is cleared');
+
     $instrument = $instrument_data->get_by_id($instrument->{id});
     is($instrument->name, 'New Instrument', 'newly-created instrument is correct');
     is($instrument->type_id, 1, 'newly-created instrument is correct');
     is($instrument->comment, 'Instrument comment', 'newly-created instrument is correct');
     is($instrument->description, '', 'newly-created instrument is correct');
     ok(defined $instrument->gid, 'newly-created instrument has an MBID');
-    ok($test->c->sql->select_single_value('SELECT TRUE FROM link_attribute_type WHERE gid = ?', $instrument->gid),
+    ok($c->sql->select_single_value('SELECT TRUE FROM link_attribute_type WHERE gid = ?', $instrument->gid),
        'link_attribute_type row was inserted too');
 
     # ---
@@ -84,7 +99,7 @@ test 'Create, update, delete instruments' => sub {
     is($instrument->type_id, undef, 'updated instrument data is correct');
     is($instrument->comment, 'Updated comment', 'updated instrument data is correct');
     is($instrument->description, 'Newly-created description', 'updated instrument data is correct');
-    is($test->c->sql->select_single_value('SELECT description FROM link_attribute_type WHERE gid = ?', $instrument->gid),
+    is($c->sql->select_single_value('SELECT description FROM link_attribute_type WHERE gid = ?', $instrument->gid),
        'Newly-created description',
        'link_attribute_type row was updated');
 
@@ -92,7 +107,7 @@ test 'Create, update, delete instruments' => sub {
     $instrument_data->delete($instrument->id);
     $instrument = $instrument_data->get_by_id($instrument->id);
     ok(!defined $instrument, 'instrument was deleted');
-    ok(!defined $test->c->sql->select_single_value('SELECT TRUE FROM link_attribute_type WHERE gid = ?', $gid),
+    ok(!defined $c->sql->select_single_value('SELECT TRUE FROM link_attribute_type WHERE gid = ?', $gid),
        'link_attribute_type row was deleted too');
 };
 

@@ -1,5 +1,5 @@
 /*
- * @flow strict-local
+ * @flow strict
  * Copyright (C) 2020 Jerome Roy
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -11,12 +11,12 @@ import * as React from 'react';
 
 import PaginatedResults from '../../components/PaginatedResults.js';
 import Table from '../../components/Table.js';
+import formatTrackLength
+  from '../../static/scripts/common/utility/formatTrackLength.js';
 import {
   defineCDTocColumn,
   defineTextColumn,
 } from '../../utility/tableColumns.js';
-import formatTrackLength
-  from '../../static/scripts/common/utility/formatTrackLength.js';
 import type {ReportCDTocT} from '../types.js';
 
 type Props = {

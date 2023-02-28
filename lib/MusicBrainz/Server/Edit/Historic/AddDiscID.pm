@@ -13,7 +13,7 @@ sub edit_name     { N_l('Add disc ID') }
 sub edit_kind     { 'add' }
 sub historic_type { 32 }
 sub edit_type     { $EDIT_HISTORIC_ADD_DISCID }
-sub edit_template_react { 'historic/AddDiscId' }
+sub edit_template { 'historic/AddDiscId' }
 
 sub _build_related_entities
 {

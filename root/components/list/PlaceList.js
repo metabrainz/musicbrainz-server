@@ -1,5 +1,5 @@
 /*
- * @flow strict-local
+ * @flow strict
  * Copyright (C) 2019 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -10,18 +10,18 @@
 import * as React from 'react';
 
 import {CatalystContext} from '../../context.mjs';
-import Table from '../Table.js';
 import {
-  defineCheckboxColumn,
-  defineNameColumn,
-  defineTypeColumn,
-  defineTextColumn,
-  defineEntityColumn,
   defineBeginDateColumn,
+  defineCheckboxColumn,
   defineEndDateColumn,
+  defineEntityColumn,
+  defineNameColumn,
   defineRatingsColumn,
+  defineTextColumn,
+  defineTypeColumn,
   removeFromMergeColumn,
 } from '../../utility/tableColumns.js';
+import Table from '../Table.js';
 
 type Props = {
   +checkboxes?: string,

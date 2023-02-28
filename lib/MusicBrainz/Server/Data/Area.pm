@@ -4,7 +4,6 @@ use DBDefs;
 use Moose;
 use namespace::autoclean;
 use List::AllUtils qw( any partition_by );
-use MusicBrainz::Server::Constants qw( $STATUS_OPEN );
 use MusicBrainz::Server::Data::Edit;
 use MusicBrainz::Server::Entity::Area;
 use MusicBrainz::Server::Entity::PartialDate;
@@ -21,10 +20,12 @@ use MusicBrainz::Server::Data::Utils qw(
 );
 use MusicBrainz::Server::Data::Utils::Cleanup qw( used_in_relationship );
 
-extends 'MusicBrainz::Server::Data::CoreEntity';
+extends 'MusicBrainz::Server::Data::Entity';
+with 'MusicBrainz::Server::Data::Role::Relatable';
+with 'MusicBrainz::Server::Data::Role::Name';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'area' };
 with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'area' };
-with 'MusicBrainz::Server::Data::Role::CoreEntityCache';
+with 'MusicBrainz::Server::Data::Role::GIDEntityCache';
 with 'MusicBrainz::Server::Data::Role::DeleteAndLog' => { type => 'area' };
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'area' };
 with 'MusicBrainz::Server::Data::Role::Merge';
@@ -154,17 +155,11 @@ sub can_delete
     return 0 if $self->is_release_country_area($area_id);
 
     my $used_in_relationship = used_in_relationship($self->c, area => 'area_row.id');
-    return 1 if $self->sql->select_single_value(<<~"SQL", $area_id, $STATUS_OPEN);
+    return 1 if $self->sql->select_single_value(<<~"SQL", $area_id);
         SELECT TRUE
         FROM area area_row
         WHERE id = ?
-        AND edits_pending = 0
         AND NOT (
-            EXISTS (
-                SELECT TRUE FROM edit_area
-                JOIN edit ON edit_area.edit = edit.id
-                WHERE edit.status = ? AND edit_area.area = area_row.id
-            ) OR
             EXISTS (
                 SELECT TRUE FROM artist
                 WHERE area = area_row.id

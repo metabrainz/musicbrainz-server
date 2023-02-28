@@ -10,9 +10,9 @@ import $ from 'jquery';
 import ko from 'knockout';
 import * as ReactDOMServer from 'react-dom/server';
 
-import MB from '../common/MB.js';
 import DescriptiveLink from '../common/components/DescriptiveLink.js';
 import expand2text from '../common/i18n/expand2text.js';
+import MB from '../common/MB.js';
 import {errorsExist} from '../edit/validation.js';
 
 import utils from './utils.js';

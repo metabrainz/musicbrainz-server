@@ -26,11 +26,7 @@ sub edit_name { die 'Unimplemented' }
 sub edit_kind { die 'Unimplemented' }
 sub l_edit_name { l(shift->edit_name) }
 
-sub edit_template {
-    lc(shift->edit_name) =~ s/\s+/_/gr
-}
-
-sub edit_template_react { '' }
+sub edit_template { die 'Unimplemented' }
 
 has 'c' => (
     isa => 'Object',
@@ -151,7 +147,6 @@ sub editor_may_vote {
         $self->is_open &&
         defined $editor &&
         $editor->id != $self->editor_id &&
-        !$editor->is_limited &&
         !$editor->is_bot &&
         !$editor->is_editing_disabled
     );
@@ -162,7 +157,6 @@ sub editor_may_add_note
     my ($self, $editor) = @_;
 
     return defined $editor && $editor->email_confirmation_date &&
-        ($editor->id == $self->editor_id || !$editor->is_limited) &&
         !$editor->is_adding_notes_disabled;
 }
 

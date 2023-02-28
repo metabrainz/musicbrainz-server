@@ -1,4 +1,6 @@
 package MusicBrainz::Server::Form::Role::UserProfile;
+use strict;
+use warnings;
 
 use HTML::FormHandler::Moose::Role;
 use List::AllUtils qw( all any );

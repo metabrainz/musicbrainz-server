@@ -1,5 +1,5 @@
 /*
- * @flow strict-local
+ * @flow strict
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -108,6 +108,7 @@ const CollaborativeCollectionList = ({
       collections={collections}
       entity={entity}
     />
+    <li className="separator" role="separator" />
   </ul>
 );
 
@@ -128,6 +129,7 @@ const OwnCollectionList = ({
         {addText}
       </a>
     </li>
+    <li className="separator" role="separator" />
   </ul>
 );
 
@@ -157,7 +159,6 @@ const CollectionList = ({
       entity={entity}
       noneText={ownCollectionsNoneText}
     />
-    <li className="separator" role="separator" />
     {collaborativeCollections?.length ? (
       <>
         <h3>
@@ -167,7 +168,6 @@ const CollectionList = ({
           collections={collaborativeCollections}
           entity={entity}
         />
-        <li className="separator" role="separator" />
       </>
     ) : null}
     <h3>

@@ -1,5 +1,5 @@
 /*
- * @flow strict-local
+ * @flow strict
  * Copyright (C) 2020 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -12,9 +12,9 @@ import * as React from 'react';
 import bugTrackerURL
   from '../../static/scripts/common/utility/bugTrackerURL.js';
 
-import ErrorLayout from './ErrorLayout.js';
 import ErrorEnvironment from './components/ErrorEnvironment.js';
 import ErrorInfo from './components/ErrorInfo.js';
+import ErrorLayout from './ErrorLayout.js';
 
 type Props = {
   +message?: string,

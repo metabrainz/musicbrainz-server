@@ -27,7 +27,7 @@ override 'foreign_keys' => sub {
     return $data;
 };
 
-sub edit_template_react { 'MergeReleaseGroups' };
+sub edit_template { 'MergeReleaseGroups' };
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

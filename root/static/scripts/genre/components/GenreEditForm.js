@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2019 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -7,112 +7,165 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import $ from 'jquery';
+import mutate from 'mutate-cow';
 import * as React from 'react';
 
-import MB from '../../common/MB.js';
-import type {GenreFormT} from '../../../../genre/types.js';
+import {SanitizedCatalystContext} from '../../../../context.mjs';
+import type {
+  GenreFormT,
+  WritableGenreFormT,
+} from '../../../../genre/types.js';
+import isBlank from '../../common/utility/isBlank.js';
 import EnterEdit from '../../edit/components/EnterEdit.js';
 import EnterEditNote from '../../edit/components/EnterEditNote.js';
+import FormRowNameWithGuessCase, {
+  type ActionT as NameActionT,
+  runReducer as runNameReducer,
+} from '../../edit/components/FormRowNameWithGuessCase.js';
 import FormRowTextLong from '../../edit/components/FormRowTextLong.js';
-import {createExternalLinksEditor} from '../../edit/externalLinks.js';
-import {exportTypeInfo} from '../../relationship-editor/common/viewModel.js';
-import {prepareSubmission} from '../../relationship-editor/generic.js';
+import {
+  type StateT as GuessCaseOptionsStateT,
+  type WritableStateT as WritableGuessCaseOptionsStateT,
+  createInitialState as createGuessCaseOptionsState,
+} from '../../edit/components/GuessCaseOptions.js';
+import {
+  ExternalLinksEditor,
+  prepareExternalLinksHtmlFormSubmission,
+} from '../../edit/externalLinks.js';
+import {
+  NonHydratedRelationshipEditorWrapper as RelationshipEditorWrapper,
+} from '../../relationship-editor/components/RelationshipEditorWrapper.js';
 
 type Props = {
-  +attrInfo: LinkAttrTypeOptionsT,
   +form: GenreFormT,
-  +sourceEntity: GenreT | {entityType: 'genre'},
-  +typeInfo: LinkTypeOptionsT,
 };
 
-const GenreEditForm = ({
-  attrInfo,
-  form,
-  sourceEntity,
-  typeInfo,
-}: Props): React.Element<'form'> => {
-  const externalLinksEditorContainerRef = React.useRef(null);
-  const isMounted = React.useRef(false);
+/* eslint-disable flowtype/sort-keys */
+type ActionT =
+  | {+type: 'update-name', +action: NameActionT};
+/* eslint-enable flowtype/sort-keys */
 
-  const handleSubmit = () => {
-    prepareSubmission('edit-genre');
+type StateT = {
+  +form: GenreFormT,
+  +guessCaseOptions: GuessCaseOptionsStateT,
+  +isGuessCaseOptionsOpen: boolean,
+};
+
+type WritableStateT = {
+  ...StateT,
+  form: WritableGenreFormT,
+  guessCaseOptions: WritableGuessCaseOptionsStateT,
+};
+
+function createInitialState(form: GenreFormT) {
+  return {
+    form,
+    guessCaseOptions: createGuessCaseOptionsState(),
+    isGuessCaseOptionsOpen: false,
+  };
+}
+
+function reducer(state: StateT, action: ActionT): StateT {
+  return mutate<WritableStateT, StateT>(state, newState => {
+    switch (action.type) {
+      case 'update-name': {
+        const nameState = {
+          field: newState.form.field.name,
+          guessCaseOptions: newState.guessCaseOptions,
+          isGuessCaseOptionsOpen: newState.isGuessCaseOptionsOpen,
+        };
+        runNameReducer(nameState, action.action);
+        newState.guessCaseOptions = nameState.guessCaseOptions;
+        newState.isGuessCaseOptionsOpen = nameState.isGuessCaseOptionsOpen;
+        break;
+      }
+      default: {
+        /*:: exhaustive(action); */
+      }
+    }
+  });
+}
+
+const GenreEditForm = ({
+  form: initialForm,
+}: Props): React.Element<'form'> => {
+  const $c = React.useContext(SanitizedCatalystContext);
+
+  const [state, dispatch] = React.useReducer(
+    reducer,
+    createInitialState(initialForm),
+  );
+
+  const nameDispatch = React.useCallback((action: NameActionT) => {
+    dispatch({action, type: 'update-name'});
+  }, [dispatch]);
+
+  const missingRequired = isBlank(state.form.field.name.value);
+
+  const hasErrors = missingRequired;
+
+  // Ensure errors are shown if the user tries to submit with Enter
+  const handleKeyDown = (event: SyntheticKeyboardEvent<HTMLFormElement>) => {
+    if (event.key === 'Enter' && hasErrors) {
+      event.preventDefault();
+    }
   };
 
-  /*
-   * TODO: We should just be rendering <ExternalLinksEditor /> inline
-   * instead of hackishly mounting/unmounting it inside an effect. This
-   * should be possible if we can factor out functionality from
-   * `createExternalLinksEditor` and generate the props for it in advance.
-   */
-  React.useEffect(() => {
-    isMounted.current = true;
+  const genre = $c.stash.source_entity;
+  invariant(genre && genre.entityType === 'genre');
 
-    const externalLinksEditorContainer =
-      externalLinksEditorContainerRef.current;
+  const externalLinksEditorRef = React.createRef();
 
-    exportTypeInfo(typeInfo, attrInfo);
-
-    invariant(externalLinksEditorContainer != null);
-
-    const {externalLinksEditorRef, root} = createExternalLinksEditor({
-      mountPoint: externalLinksEditorContainer,
-      sourceData: sourceEntity,
-    });
-
-    // $FlowIgnore[incompatible-type]
-    MB.sourceExternalLinksEditor = externalLinksEditorRef;
-
-    return () => {
-      isMounted.current = false;
-
-      /*
-       * XXX React cannot synchronously unmount the root while a render is
-       * already in progress, so delay it via `setTimeout`.
-       */
-      setTimeout(() => {
-        if (!isMounted.current) {
-          root.unmount();
-          $(externalLinksEditorContainer).data('react-root', null);
-        }
-      }, 0);
-    };
-  }, [attrInfo, sourceEntity, typeInfo]);
+  const handleSubmit = (event: SyntheticEvent<HTMLFormElement>) => {
+    if (hasErrors) {
+      event.preventDefault();
+    }
+    invariant(externalLinksEditorRef.current);
+    prepareExternalLinksHtmlFormSubmission(
+      'edit-genre',
+      externalLinksEditorRef.current,
+    );
+  };
 
   return (
     <form
       className="edit-genre"
       method="post"
+      onKeyDown={handleKeyDown}
       onSubmit={handleSubmit}
     >
       <div className="half-width">
         <fieldset>
           <legend>{l('Genre details')}</legend>
-          <FormRowTextLong
-            field={form.field.name}
+          <FormRowNameWithGuessCase
+            dispatch={nameDispatch}
+            entity={genre}
+            field={state.form.field.name}
+            guessCaseOptions={state.guessCaseOptions}
+            isGuessCaseOptionsOpen={state.isGuessCaseOptionsOpen}
             label={addColonText(l('Name'))}
-            required
-            uncontrolled
           />
           <FormRowTextLong
-            field={form.field.comment}
+            field={state.form.field.comment}
             label={addColonText(l('Disambiguation'))}
             uncontrolled
           />
         </fieldset>
-
-        <div data-form-name="edit-genre" id="relationship-editor" />
-
+        <RelationshipEditorWrapper
+          formName={state.form.name}
+          seededRelationships={$c.stash.seeded_relationships}
+        />
         <fieldset>
           <legend>{l('External Links')}</legend>
-          <div
-            id="external-links-editor-container"
-            ref={externalLinksEditorContainerRef}
+          <ExternalLinksEditor
+            isNewEntity={!genre.id}
+            ref={externalLinksEditorRef}
+            sourceData={genre}
           />
         </fieldset>
 
-        <EnterEditNote field={form.field.edit_note} />
-        <EnterEdit form={form} />
+        <EnterEditNote field={state.form.field.edit_note} />
+        <EnterEdit disabled={hasErrors} form={state.form} />
       </div>
     </form>
   );

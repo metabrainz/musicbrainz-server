@@ -1,9 +1,12 @@
 package t::MusicBrainz::Server::Controller::WS::2::LookupRelationship;
+use utf8;
+use strict;
+use warnings;
+
 use Test::Routine;
 
 with 't::Mechanize', 't::Context';
 
-use utf8;
 use MusicBrainz::Server::Test ws_test => {
     version => 2
 };

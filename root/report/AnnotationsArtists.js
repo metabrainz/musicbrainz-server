@@ -1,5 +1,5 @@
 /*
- * @flow strict-local
+ * @flow strict
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -9,10 +9,10 @@
 
 import * as React from 'react';
 
-import {ANNOTATION_REPORT_TEXT} from './constants.js';
 import ArtistList from './components/ArtistList.js';
 import ReportLayout from './components/ReportLayout.js';
 import useAnnotationColumns from './hooks/useAnnotationColumns.js';
+import {ANNOTATION_REPORT_TEXT} from './constants.js';
 import type {ReportArtistAnnotationT, ReportDataT} from './types.js';
 
 const AnnotationsArtists = ({

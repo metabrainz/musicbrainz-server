@@ -1,5 +1,5 @@
 /*
- * @flow strict-local
+ * @flow strict
  * Copyright (C) 2019 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -9,20 +9,22 @@
 
 import * as React from 'react';
 
+import {stripAttributes} from '../../../edit/utility/linkPhrase.js';
 import {INSTRUMENT_ROOT_ID} from '../../constants.js';
-import {commaOnlyListText} from '../../i18n/commaOnlyList.js';
 import {unwrapNl} from '../../i18n.js';
 import {addColonText} from '../../i18n/addColon.js';
+import {commaOnlyListText} from '../../i18n/commaOnlyList.js';
+import localizeLanguageName from '../../i18n/localizeLanguageName.js';
 import localizeLinkAttributeTypeDescription
   from '../../i18n/localizeLinkAttributeTypeDescription.js';
 import localizeLinkAttributeTypeName
   from '../../i18n/localizeLinkAttributeTypeName.js';
-import localizeLanguageName from '../../i18n/localizeLanguageName.js';
 import {reduceArtistCredit} from '../../immutable-entities.js';
 import bracketed, {bracketedText} from '../../utility/bracketed.js';
 import formatDate from '../../utility/formatDate.js';
 import formatDatePeriod from '../../utility/formatDatePeriod.js';
 import formatTrackLength from '../../utility/formatTrackLength.js';
+import isDateEmpty from '../../utility/isDateEmpty.js';
 import CountryAbbr from '../CountryAbbr.js';
 
 import type {
@@ -70,7 +72,9 @@ function formatName<+T: EntityItemT>(entity: T) {
 function formatGeneric(
   entity: | ArtistT
           | EventT
+          | GenreT
           | InstrumentT
+          | LabelT
           | PlaceT
           | ReleaseT
           | WorkT,
@@ -104,17 +108,35 @@ function formatGeneric(
 function formatArtist(artist: ArtistT) {
   const sortName = artist.sort_name;
   let extraInfo;
+  const secondInfoLine = [];
+
   if (
     sortName &&
     sortName !== artist.name &&
-    !nonEmpty(artist.primaryAlias) &&
+    empty(artist.primaryAlias) &&
     isNonLatin(artist.name)
   ) {
     extraInfo = (info: Array<string>) => {
       info.unshift(sortName);
     };
   }
-  return formatGeneric(artist, extraInfo);
+
+  if (nonEmpty(artist.typeName)) {
+    secondInfoLine.push(lp_attributes(artist.typeName, 'artist_type'));
+  }
+
+  if (!isDateEmpty(artist.begin_date) || !isDateEmpty(artist.end_date)) {
+    secondInfoLine.push(formatDatePeriod(artist));
+  }
+
+  return (
+    <>
+      {formatGeneric(artist, extraInfo)}
+      {secondInfoLine.length
+        ? showExtraInfoLine(commaOnlyListText(secondInfoLine))
+        : null}
+    </>
+  );
 }
 
 function showLabeledTextList(
@@ -210,18 +232,24 @@ function stripHtml(description: ?string) {
   return description;
 }
 
-function formatInstrument(instrument: InstrumentT) {
+function formatInstrument(
+  instrument: InstrumentT,
+  showDescriptions: ?boolean,
+) {
   const extraInfo = [];
 
   if (nonEmpty(instrument.typeName)) {
     extraInfo.push(lp_attributes(instrument.typeName, 'instrument_type'));
   }
 
-  const description = stripHtml(
-    instrument.description
-      ? l_instrument_descriptions(instrument.description)
-      : null,
-  );
+  let description;
+  if (showDescriptions !== false) {
+    description = stripHtml(
+      instrument.description
+        ? l_instrument_descriptions(instrument.description)
+        : null,
+    );
+  }
 
   return (
     <>
@@ -233,7 +261,31 @@ function formatInstrument(instrument: InstrumentT) {
   );
 }
 
-function formatLinkAttributeType(type: LinkAttrTypeT) {
+function formatLabel(label: LabelT) {
+  const secondInfoLine = [];
+
+  if (nonEmpty(label.typeName)) {
+    secondInfoLine.push(lp_attributes(label.typeName, 'label_type'));
+  }
+
+  if (!isDateEmpty(label.begin_date) || !isDateEmpty(label.end_date)) {
+    secondInfoLine.push(formatDatePeriod(label));
+  }
+
+  return (
+    <>
+      {formatGeneric(label)}
+      {secondInfoLine.length
+        ? showExtraInfoLine(commaOnlyListText(secondInfoLine))
+        : null}
+    </>
+  );
+}
+
+function formatLinkAttributeType(
+  type: LinkAttrTypeT,
+  showDescriptions: ?boolean,
+) {
   if (type.root_id === INSTRUMENT_ROOT_ID) {
     return formatInstrument({
       comment: type.instrument_comment ?? '',
@@ -245,12 +297,15 @@ function formatLinkAttributeType(type: LinkAttrTypeT) {
       name: type.name,
       typeID: type.instrument_type_id ?? null,
       typeName: type.instrument_type_name,
-    });
+    }, showDescriptions);
   }
 
-  const description = stripHtml(
-    localizeLinkAttributeTypeDescription(type),
-  );
+  let description;
+  if (showDescriptions !== false) {
+    description = stripHtml(
+      localizeLinkAttributeTypeDescription(type),
+    );
+  }
 
   return (
     <>
@@ -260,13 +315,40 @@ function formatLinkAttributeType(type: LinkAttrTypeT) {
   );
 }
 
-function formatLinkType(linkType: LinkTypeT) {
+export function formatLinkTypePhrases(linkType: LinkTypeT): string {
+  const isGroupingType = empty(linkType.description);
+  if (!isGroupingType) {
+    let linkPhrase = linkType.l_link_phrase;
+    let reverseLinkPhrase = linkType.l_reverse_link_phrase;
+    if (!empty(linkPhrase) && !empty(reverseLinkPhrase)) {
+      linkPhrase = stripAttributes(linkType, linkPhrase);
+      reverseLinkPhrase = stripAttributes(linkType, reverseLinkPhrase);
+      if (linkPhrase === reverseLinkPhrase) {
+        return linkPhrase;
+      }
+      return texp.l('{forward_link_phrase} / {backward_link_phrase}', {
+        backward_link_phrase: reverseLinkPhrase,
+        forward_link_phrase: linkPhrase,
+      });
+    }
+  }
+  return linkType.l_name ?? linkType.name;
+}
+
+function formatLinkType(
+  linkType: LinkTypeT,
+  showDescriptions: ?boolean,
+) {
   const description = stripHtml(linkType.l_description);
+  const isGroupingType = empty(description);
+  const nameDisplay = formatLinkTypePhrases(linkType);
 
   return (
     <>
-      {linkType.l_name}
-      {nonEmpty(description) ? showExtraInfoLine(description) : null}
+      {nameDisplay}
+      {(
+        isGroupingType || showDescriptions !== true
+      ) ? null : showExtraInfoLine(description)}
     </>
   );
 }
@@ -474,8 +556,13 @@ function formatWork(work: WorkT) {
   );
 }
 
+export type FormatOptionsT = {
+  +showDescriptions?: boolean,
+};
+
 export default function formatItem<+T: EntityItemT>(
   item: ItemT<T>,
+  options?: ?FormatOptionsT,
 ): Expand2ReactOutput {
   switch (item.type) {
     case 'action':
@@ -495,14 +582,29 @@ export default function formatItem<+T: EntityItemT>(
         case 'event':
           return formatEvent(entity);
 
+        case 'genre':
+          return formatGeneric(entity);
+
         case 'instrument':
-          return formatInstrument(entity);
+          return formatInstrument(
+            entity,
+            options?.showDescriptions,
+          );
+
+        case 'label':
+          return formatLabel(entity);
 
         case 'link_attribute_type':
-          return formatLinkAttributeType(entity);
+          return formatLinkAttributeType(
+            entity,
+            options?.showDescriptions,
+          );
 
         case 'link_type':
-          return formatLinkType(entity);
+          return formatLinkType(
+            entity,
+            options?.showDescriptions,
+          );
 
         case 'place':
           return formatPlace(entity);
@@ -523,7 +625,7 @@ export default function formatItem<+T: EntityItemT>(
           return formatWork(entity);
 
         default:
-          return formatName(entity);
+          return unwrapNl<string>(item.name);
       }
     }
   }

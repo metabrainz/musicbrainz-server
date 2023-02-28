@@ -1,4 +1,7 @@
 package MusicBrainz::Server::Form::Series;
+use strict;
+use warnings;
+
 use HTML::FormHandler::Moose;
 use MusicBrainz::Server::Entity::SeriesOrderingType;
 use MusicBrainz::Server::Entity::SeriesType;

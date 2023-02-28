@@ -10,8 +10,8 @@ import fs from 'fs';
 import path from 'path';
 
 import canonicalJson from 'canonical-json';
-import shell from 'shelljs';
 import shellQuote from 'shell-quote';
+import shell from 'shelljs';
 import TerserPlugin from 'terser-webpack-plugin';
 import webpack from 'webpack';
 
@@ -59,7 +59,7 @@ const entries = [
   'common/components/WorkArtists',
   'confirm-seed',
   'edit',
-  'edit/notes-received',
+  'edit/components/NewNotesAlertCheckbox',
   'event/edit',
   'event/index',
   'genre/components/GenreEditForm',
@@ -72,10 +72,13 @@ const entries = [
   'place/map',
   'recording/edit',
   'register',
+  'relationship-editor',
+  'release/coverart',
+  'release/edit-relationships',
+  'release/index',
   'release-editor',
   'release-group/index',
-  'release/coverart',
-  'release/index',
+  'selenium',
   'series/edit',
   'series/index',
   'statistics',
@@ -119,7 +122,7 @@ function mtime(fpath) {
 }
 
 function findNewerPo(domain, lang, bundleMtime) {
-  let srcPo = poFile.find(domain, lang);
+  const srcPo = poFile.find(domain, lang);
   const poMtime = mtime(srcPo);
   if (poMtime === null) {
     console.warn(`Warning: ${srcPo} does not exist, skipping`);
@@ -257,7 +260,7 @@ export default {
 
   context: MB_SERVER_ROOT,
 
-  devtool: 'source-map',
+  devtool: process.env.WEBPACK_DEVTOOL ?? 'source-map',
 
   entry: entries,
 

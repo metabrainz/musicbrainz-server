@@ -10,9 +10,9 @@
 import * as React from 'react';
 
 import {CatalystContext} from '../context.mjs';
+import EntityLink from '../static/scripts/common/components/EntityLink.js';
 import {ENTITIES} from '../static/scripts/common/constants.js';
 import DBDefs from '../static/scripts/common/DBDefs.mjs';
-import EntityLink from '../static/scripts/common/components/EntityLink.js';
 import chooseLayoutComponent from '../utility/chooseLayoutComponent.js';
 import formatUserDate from '../utility/formatUserDate.js';
 

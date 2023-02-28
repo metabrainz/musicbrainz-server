@@ -6,10 +6,10 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import * as Sentry from '@sentry/browser';
 import filesize from 'filesize';
 import $ from 'jquery';
 import ko from 'knockout';
-import * as Sentry from '@sentry/browser';
 
 import image404Url from '../../../images/image404-125.png';
 import MB from '../../common/MB.js';

@@ -12,9 +12,7 @@ use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array to_json_object );
 
 extends 'MusicBrainz::Server::Entity::CoreEntity';
 with 'MusicBrainz::Server::Entity::Role::Taggable';
-with 'MusicBrainz::Server::Entity::Role::Linkable';
 with 'MusicBrainz::Server::Entity::Role::Annotation';
-with 'MusicBrainz::Server::Entity::Role::LastUpdate';
 with 'MusicBrainz::Server::Entity::Role::Quality';
 with 'MusicBrainz::Server::Entity::Role::Comment';
 with 'MusicBrainz::Server::Entity::Role::ArtistCredit';
@@ -200,6 +198,26 @@ has 'cover_art_presence' => (
     is => 'rw'
 );
 
+=head2 has_no_tracks
+
+Returns true if the release has no tracks at all, or false
+if at least one medium on the release has one track or more.
+
+=cut
+
+sub has_no_tracks
+{
+    my ($self) = @_;
+    my @mediums = $self->all_mediums;
+    return 1 if !@mediums;
+
+    if (any { $_->track_count > 0 } @mediums) {
+        return 0;
+    };
+
+    return 1;
+}
+
 sub may_have_cover_art {
     my $cover_art_presence = shift->cover_art_presence;
 
@@ -284,6 +302,7 @@ around TO_JSON => sub {
         statusID    => $self->status_id,
         status      => to_json_object($self->status),
         cover_art_presence => $self->cover_art_presence,
+        has_no_tracks => boolean_to_json($self->has_no_tracks),
         may_have_cover_art => boolean_to_json($self->may_have_cover_art),
         may_have_discids => boolean_to_json($self->may_have_discids),
     };

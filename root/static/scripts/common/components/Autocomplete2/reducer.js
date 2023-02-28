@@ -1,5 +1,5 @@
 /*
- * @flow strict-local
+ * @flow strict
  * Copyright (C) 2019 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -11,10 +11,12 @@ import {
   TITLES as ADD_NEW_ENTITY_TITLES,
 } from '../../../edit/components/AddEntityDialog.js';
 import {unwrapNl} from '../../i18n.js';
+import {getCatalystContext} from '../../utility/catalyst.js';
 import {
   isLocationEditor,
   isRelationshipEditor,
 } from '../../utility/privileges.js';
+import setCookie from '../../utility/setCookie.js';
 
 import {
   OPEN_ADD_ENTITY_DIALOG,
@@ -30,6 +32,11 @@ import {
   PAGE_SIZE,
   RECENT_ITEMS_HEADER,
 } from './constants.js';
+import {
+  clearRecentItems,
+  pushRecentItem,
+} from './recentItems.js';
+import searchItems from './searchItems.js';
 import type {
   ActionT,
   EntityItemT,
@@ -37,10 +44,6 @@ import type {
   SearchActionT,
   StateT,
 } from './types.js';
-import {
-  clearRecentItems,
-  pushRecentItem,
-} from './recentItems.js';
 
 function initSearch<+T: EntityItemT>(
   state: {...StateT<T>},
@@ -92,14 +95,16 @@ export function generateItems<+T: EntityItemT>(
   }
 
   const {
+    entityType,
     page,
     recentItems,
     results,
+    showDescriptions = true,
   } = state;
 
   const isInputValueNonEmpty = nonEmpty(state.inputValue);
   const hasStaticItems = !!state.staticItems;
-  const hasSelection = !!state.selectedEntity;
+  const hasSelection = !!state.selectedItem;
   const showingRecentItems = !!(
     !isInputValueNonEmpty && recentItems?.length
   );
@@ -121,7 +126,8 @@ export function generateItems<+T: EntityItemT>(
 
     if (resultCount > 0) {
       const visibleResults = Math.min(resultCount, page * PAGE_SIZE);
-      const totalPages = Math.ceil(resultCount / PAGE_SIZE);
+      const totalPages = state.totalPages ??
+        Math.ceil(resultCount / PAGE_SIZE);
 
       if (showingRecentItems) {
         items.push({...results[0], separator: true});
@@ -136,6 +142,25 @@ export function generateItems<+T: EntityItemT>(
       if (page < totalPages) {
         items.push(MENU_ITEMS.SHOW_MORE);
       }
+
+      if (
+        entityType === 'link_attribute_type' ||
+        entityType === 'link_type'
+      ) {
+        items.push({
+          type: 'action',
+          action: {
+            showDescriptions: !showDescriptions,
+            type: 'toggle-descriptions',
+          },
+          id: 'toggle-descriptions',
+          name:
+            showDescriptions
+              ? l('Hide descriptions')
+              : l('Show descriptions'),
+          separator: true,
+        });
+      }
     } else if (isInputValueNonEmpty && !hasSelection) {
       items.push(MENU_ITEMS.NO_RESULTS);
     }
@@ -146,7 +171,10 @@ export function generateItems<+T: EntityItemT>(
       } else {
         items.push(MENU_ITEMS.TRY_AGAIN_INDEXED);
       }
-      if (determineIfUserCanAddEntities(state)) {
+      if (
+        determineIfUserCanAddEntities(state) &&
+        typeof ADD_NEW_ENTITY_TITLES[state.entityType] === 'function'
+      ) {
         items.push({
           action: OPEN_ADD_ENTITY_DIALOG,
           id: 'add-new-entity',
@@ -163,7 +191,7 @@ export function generateItems<+T: EntityItemT>(
 export function determineIfUserCanAddEntities<+T: EntityItemT>(
   state: StateT<T>,
 ): boolean {
-  const user = state.activeUser;
+  const user = getCatalystContext().user;
 
   if (!user || !IS_TOP_WINDOW) {
     return false;
@@ -175,6 +203,7 @@ export function determineIfUserCanAddEntities<+T: EntityItemT>(
     case 'genre':
     case 'link_type':
     case 'link_attribute_type':
+    case 'release':
       return false;
     case 'instrument':
       return isRelationshipEditor(user);
@@ -234,8 +263,8 @@ export function generateStatusMessage<+T: EntityItemT>(
         )
       );
     }
-  } else if (state.selectedEntity) {
-    return state.selectedEntity.name;
+  } else if (state.selectedItem) {
+    return unwrapNl<string>(state.selectedItem.name);
   }
 
   return '';
@@ -245,36 +274,9 @@ export function filterStaticItems<+T: EntityItemT>(
   state: {...StateT<T>},
   newInputValue: string,
 ): void {
-  const {
-    inputValue: prevInputValue,
-    results: prevResults,
-    staticItems,
-    staticItemsFilter: filter = defaultStaticItemsFilter,
-  } = state;
-
+  const staticItems = state.staticItems;
   invariant(staticItems);
-
-  /*
-   * If the new search term starts with the previous one,
-   * we can filter the existing items rather than starting
-   * anew.
-   */
-  const itemsToFilter = (
-    nonEmpty(prevInputValue) &&
-    newInputValue.startsWith(prevInputValue)
-  ) ? prevResults : staticItems;
-
-  state.results = (itemsToFilter && nonEmpty(newInputValue))
-    ? (itemsToFilter.reduce(
-        (accum: Array<ItemT<T>>, item: ItemT<T>) => {
-          if (filter(item, newInputValue)) {
-            accum.push(item);
-          }
-          return accum;
-        },
-        [],
-    ): $ReadOnlyArray<ItemT<T>>)
-    : itemsToFilter;
+  state.results = searchItems(staticItems, newInputValue);
 }
 
 export function resetPage<+T: EntityItemT>(
@@ -283,6 +285,7 @@ export function resetPage<+T: EntityItemT>(
   state.highlightedIndex = -1;
   state.isOpen = false;
   state.page = 1;
+  state.totalPages = null;
   state.error = 0;
 }
 
@@ -296,16 +299,15 @@ function selectItem<+T: EntityItemT>(
       return;
     }
     case 'option': {
-      const entity = item.entity;
-      const entityName = entity.name;
+      const itemName = unwrapNl<string>(item.name);
 
-      state.selectedEntity = entity;
+      state.selectedItem = item;
 
-      if (entityName !== state.inputValue) {
+      if (itemName !== state.inputValue) {
         if (state.staticItems) {
-          filterStaticItems<T>(state, entityName);
+          filterStaticItems<T>(state, itemName);
         }
-        state.inputValue = entityName;
+        state.inputValue = itemName;
       }
 
       if (!state.staticItems) {
@@ -362,18 +364,6 @@ function highlightNextItem<+T: EntityItemT>(
   }
 }
 
-export function defaultStaticItemsFilter<+T: EntityItemT>(
-  item: ItemT<T>,
-  searchTerm: string,
-): boolean {
-  if (item.type === 'option') {
-    return unwrapNl<string>(item.name)
-      .toLowerCase()
-      .includes(searchTerm.toLowerCase());
-  }
-  return true;
-}
-
 // `runReducer` should only be run on a copy of the existing state.
 export function runReducer<+T: EntityItemT>(
   state: {...StateT<T>},
@@ -382,12 +372,14 @@ export function runReducer<+T: EntityItemT>(
   const wasOpen = state.isOpen;
   let updateItems = false;
   let updateStatusMessage = false;
+  let highlightFirstIndex = false;
+  let showAvailableItems = false;
 
   switch (action.type) {
     case 'change-entity-type': {
       const oldEntityType = state.entityType;
       state.entityType = action.entityType;
-      state.selectedEntity = null;
+      state.selectedItem = null;
       state.recentItems = null;
       if (state.recentItemsKey === oldEntityType) {
         state.recentItemsKey = action.entityType;
@@ -395,6 +387,12 @@ export function runReducer<+T: EntityItemT>(
       state.results = null;
       resetPage<T>(state);
       updateItems = true;
+      updateStatusMessage = true;
+      break;
+    }
+
+    case 'highlight-index': {
+      state.highlightedIndex = action.index;
       updateStatusMessage = true;
       break;
     }
@@ -421,9 +419,6 @@ export function runReducer<+T: EntityItemT>(
       break;
     }
 
-    case 'noop':
-      break;
-
     case 'toggle-add-entity-dialog': {
       state.isAddEntityDialogOpen = action.isOpen;
       break;
@@ -440,8 +435,16 @@ export function runReducer<+T: EntityItemT>(
       updateStatusMessage = true;
       break;
 
+    case 'set-input-focus': {
+      state.isInputFocused = action.isFocused;
+      if (action.isFocused && state.selectedItem == null) {
+        showAvailableItems = true;
+      }
+      break;
+    }
+
     case 'set-menu-visibility':
-      state.isOpen = action.value;
+      state.isOpen = action.value && state.items.length > 0;
       updateStatusMessage = true;
       break;
 
@@ -460,7 +463,7 @@ export function runReducer<+T: EntityItemT>(
     }
 
     case 'show-ws-results': {
-      const {entities, page} = action;
+      const {entities, page, totalPages} = action;
 
       let newResults: Array<ItemT<T>> = entities.map((entity: T) => ({
         entity,
@@ -476,14 +479,20 @@ export function runReducer<+T: EntityItemT>(
         newResults = prevResults.concat(
           newResults.filter(x => !prevIds.has(x.id)),
         );
+        /*
+         * Keep the previous `highlightedIndex` position here (most likely
+         * where "Show more" was clicked).
+         */
+      } else {
+        highlightFirstIndex = true;
       }
 
       state.results = newResults;
       state.isOpen = true;
       state.page = page;
+      state.totalPages = totalPages;
       state.pendingSearch = null;
       state.error = 0;
-      state.highlightedIndex = 0;
 
       updateItems = true;
       updateStatusMessage = true;
@@ -492,7 +501,26 @@ export function runReducer<+T: EntityItemT>(
 
     case 'set-recent-items': {
       state.recentItems = action.items;
+
+      const staticItems = state.staticItems;
+      if (staticItems) {
+        state.recentItems = state.recentItems.filter(
+          (recentItem) => staticItems.find((staticItem) => (
+            staticItem.entity.id === recentItem.entity.id
+          )),
+        );
+      }
+
       updateItems = true;
+
+      if (
+        state.isInputFocused &&
+        empty(state.inputValue) &&
+        state.recentItems?.length
+      ) {
+        showAvailableItems = true;
+      }
+
       break;
     }
 
@@ -523,6 +551,12 @@ export function runReducer<+T: EntityItemT>(
       state.pendingSearch = null;
       break;
 
+    case 'toggle-descriptions': {
+      state.showDescriptions = action.showDescriptions;
+      setCookie('show_autocomplete_descriptions', state.showDescriptions);
+      break;
+    }
+
     case 'toggle-indexed-search':
       state.indexedSearch = !state.indexedSearch;
       state.page = 1;
@@ -545,6 +579,7 @@ export function runReducer<+T: EntityItemT>(
         if (nonEmpty(newInputValue)) {
           // We'll display "(No results)" even if `results` is null.
           state.isOpen = true;
+          highlightFirstIndex = true;
         }
       } else {
         state.results = null;
@@ -552,11 +587,12 @@ export function runReducer<+T: EntityItemT>(
 
       state.error = 0;
       state.inputValue = newInputValue;
-      state.selectedEntity = null;
+      state.selectedItem = null;
       state.highlightedIndex = -1;
 
       updateItems = true;
       updateStatusMessage = true;
+      showAvailableItems = true;
       break;
     }
 
@@ -573,13 +609,16 @@ export function runReducer<+T: EntityItemT>(
     }
   }
 
+  if (showAvailableItems && state.items.length) {
+    state.isOpen = true;
+  }
+
   if (updateStatusMessage) {
     state.statusMessage = generateStatusMessage(state);
   }
 
-  // Highlight the first item by default.
   const isOpen = state.isOpen;
-  if (isOpen && (!wasOpen || state.highlightedIndex < 0)) {
+  if (isOpen && highlightFirstIndex) {
     state.highlightedIndex = getFirstHighlightableIndex(state);
   } else if (wasOpen && !isOpen) {
     state.highlightedIndex = -1;
@@ -590,10 +629,6 @@ export default function reducer<+T: EntityItemT>(
   state: StateT<T>,
   action: ActionT<T>,
 ): StateT<T> {
-  if (action.type === 'noop') {
-    return state;
-  }
-
   const nextState = {...state};
   runReducer<T>(nextState, action);
   return nextState;

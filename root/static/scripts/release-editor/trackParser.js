@@ -18,8 +18,8 @@ import {
 import {compactMap, sortByNumber} from '../common/utility/arrays.js';
 import clean from '../common/utility/clean.js';
 import {debounceComputed} from '../common/utility/debounce.js';
-import isBlank from '../common/utility/isBlank.js';
 import getCookie from '../common/utility/getCookie.js';
+import isBlank from '../common/utility/isBlank.js';
 import setCookie from '../common/utility/setCookie.js';
 import {fromFullwidthLatin} from '../edit/utility/fullwidthLatin.js';
 import getSimilarity from '../edit/utility/similarity.js';

@@ -12,9 +12,9 @@ import * as React from 'react';
 import {SanitizedCatalystContext} from '../../../../context.mjs';
 import formatUserDate from '../../../../utility/formatUserDate.js';
 import hydrate from '../../../../utility/hydrate.js';
-import bracketed from '../utility/bracketed.js';
 import {StaticRatingStars} from '../components/RatingStars.js';
 import DBDefs from '../DBDefs-client.mjs';
+import bracketed from '../utility/bracketed.js';
 
 import Collapsible from './Collapsible.js';
 

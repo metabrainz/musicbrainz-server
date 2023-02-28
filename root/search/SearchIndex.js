@@ -1,5 +1,5 @@
 /*
- * @flow strict-local
+ * @flow strict
  * Copyright (C) 2020 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -10,9 +10,9 @@
 import * as React from 'react';
 
 import Layout from '../layout/index.js';
-import TagLookupForm from '../taglookup/Form.js';
 import OtherLookupForm from '../otherlookup/OtherLookupForm.js';
 import type {OtherLookupFormT} from '../otherlookup/types.js';
+import TagLookupForm from '../taglookup/Form.js';
 
 import SearchForm from './components/SearchForm.js';
 

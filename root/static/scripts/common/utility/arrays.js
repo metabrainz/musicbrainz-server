@@ -57,6 +57,25 @@ export function compactMap<T, U>(
 
 /*
  * Given a `destination` array that's already in sorted order according
+ * to the provided `cmp` function, find and returns an item in the array
+ * already equivalent to `value`, or inserts `value` in sorted order if
+ * one isn't found.
+ */
+export function sortedFindOrInsert<T>(
+  array: Array<T>,
+  value: T,
+  cmp: (T, T) => number,
+): T {
+  const [index, exists] = sortedIndexWith(array, value, cmp);
+  if (exists) {
+    return array[index];
+  }
+  array.splice(index, 0, value);
+  return value;
+}
+
+/*
+ * Given a `destination` array that's already in sorted order according
  * to the provided `cmp` function, merges unique items from `source`
  * into `destination` while preserving the sorted order.
  */
@@ -67,15 +86,7 @@ export function mergeSortedArrayInto<T>(
 ) {
   const length = source.length;
   for (let i = 0; i < length; i++) {
-    const value = source[i];
-    const [index, exists] = sortedIndexWith(
-      destination,
-      value,
-      cmp,
-    );
-    if (!exists) {
-      destination.splice(index, 0, value);
-    }
+    sortedFindOrInsert(destination, source[i], cmp);
   }
 }
 

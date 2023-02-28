@@ -2,16 +2,7 @@
 
 require('./common');
 
-require('knockout-arraytransforms');
 require('../lib/knockout/knockout-delegatedEvents');
-
-require('./relationship-editor/common/multiselect');
-require('./relationship-editor/common/fields');
-require('./relationship-editor/common/viewModel');
-require('./relationship-editor/common/entity');
-require('./relationship-editor/common/dialog');
-require('./relationship-editor/generic');
-require('./relationship-editor/release');
 
 require('./edit/common');
 require('./edit/confirmNavigationFallback');
@@ -23,6 +14,7 @@ require('./edit/utility/guessFeat');
 require('./edit/utility/toggleEnded');
 require('./edit/MB/Control/Area');
 require('./edit/components/ArtistCreditEditor');
+require('./edit/components/ReleaseMergeStrategy');
 require('./edit/components/forms');
 require('./edit/MB/Control/ArtistEdit');
 require('./edit/MB/Control/Bubble');

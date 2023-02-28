@@ -1,5 +1,5 @@
 /*
- * @flow strict-local
+ * @flow strict
  * Copyright (C) 2020 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -35,6 +35,10 @@ export type PropsT = $ReadOnly<{
   +trapFocus?: boolean,
 }>;
 
+function stopPropagation(event: Event) {
+  event.stopPropagation();
+}
+
 export function getDialogRootNode(
   id: string,
 ): HTMLDivElement {
@@ -48,6 +52,9 @@ export function getDialogRootNode(
     dialogRoot = document.createElement('div');
     dialogRoot.setAttribute('id', rootId);
     dialogRoot.classList.add('dialog-root');
+    dialogRoot.addEventListener('click', stopPropagation);
+    dialogRoot.addEventListener('mouseup', stopPropagation);
+    dialogRoot.addEventListener('mousedown', stopPropagation);
     document.body?.appendChild(dialogRoot);
   }
   return dialogRoot;
@@ -87,7 +94,12 @@ const Dialog = ({
      * the <select> options list.
      */
     const tid = setTimeout(() => {
-      const toFocus = findFirstTabbableElement(dialogNode);
+      const toFocus =
+        dialogNode.querySelector('.focus-first:not([disabled])') ??
+        findFirstTabbableElement(
+          dialogNode,
+          true, /* skipAnchors */
+        );
       if (toFocus) {
         toFocus.focus();
       }
@@ -122,6 +134,14 @@ const Dialog = ({
 
     switch (event.key) {
       case 'Tab': {
+        /*
+         * Prevent the Tab keydown from propagating to parent dialogs,
+         * e.g. "Add a new artist" (child) -> "Add Relationship" (parent).
+         * This is possible because React bubbles events through portals:
+         * https://reactjs.org/docs/portals.html#event-bubbling-through-portals
+         */
+        event.stopPropagation();
+
         const dialogNode = getElementFromRef(dialogRef);
         const tabbableElement = handleTabKeyPress(
           event,

@@ -1,5 +1,5 @@
 /*
- * @flow strict-local
+ * @flow strict
  * Copyright (C) 2015–2016 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -17,6 +17,9 @@ import EntityLink, {DeletedLink} from './EntityLink.js';
 type Props = {
   +artistCredit: ArtistCreditT,
   +showDeleted?: boolean,
+  +showDisambiguation?: boolean,
+  +showEditsPending?: boolean,
+  +showIcon?: boolean,
   +target?: '_blank',
 };
 
@@ -26,9 +29,7 @@ type MpIconProps = {
 
 export const MpIcon = (hydrate<MpIconProps>('span.ac-mp', (
   {artistCredit}: MpIconProps,
-): React.Element<typeof React.Fragment> => {
-  const [hover, setHover] = React.useState(false);
-
+): React.MixedElement => {
   let editSearch =
     '/search/edits?auto_edit_filter=&order=desc&negation=0' +
     '&combinator=and&conditions.0.field=type&conditions.0.operator=%3D' +
@@ -45,30 +46,28 @@ export const MpIcon = (hydrate<MpIconProps>('span.ac-mp', (
   }
 
   return (
-    <>
-      <img
-        alt={l('This artist credit has pending edits.')}
-        className="info"
-        onMouseEnter={() => setHover(true)}
-        onMouseLeave={() => setHover(false)}
-        src={informationIconUrl}
-      />
-      {hover ? (
-        <Tooltip
-          content={exp.l(
-            'This artist credit has {edit_search|pending edits}.',
-            {edit_search: editSearch},
-          )}
-          hoverCallback={setHover}
+    <Tooltip
+      content={exp.l(
+        'This artist credit has {edit_search|pending edits}.',
+        {edit_search: editSearch},
+      )}
+      target={
+        <img
+          alt={l('This artist credit has pending edits.')}
+          className="info"
+          src={informationIconUrl}
         />
-      ) : null}
-    </>
+      }
+    />
   );
 }): React.AbstractComponent<MpIconProps, void>);
 
 const ArtistCreditLink = ({
   artistCredit,
   showDeleted = true,
+  showDisambiguation = false,
+  showEditsPending = true,
+  showIcon = false,
   ...props
 }: Props): React.Element<'span'> | Array<React.Node> => {
   const names = artistCredit.names;
@@ -83,7 +82,9 @@ const ArtistCreditLink = ({
           entity={artist}
           key={`${artist.id}-${i}`}
           showDeleted={showDeleted}
-          showEditsPending={!artistCredit.editsPending}
+          showDisambiguation={showDisambiguation}
+          showEditsPending={showEditsPending && !artistCredit.editsPending}
+          showIcon={showIcon}
           target={props.target}
         />,
       );
@@ -98,7 +99,7 @@ const ArtistCreditLink = ({
     }
     parts.push(credit.joinPhrase);
   }
-  if (artistCredit.editsPending /*:: === true */) {
+  if (showEditsPending && artistCredit.editsPending /*:: === true */) {
     return (
       <span className="mp">
         {parts}

@@ -1,5 +1,8 @@
 package t::MusicBrainz::Server::Controller::WS::2::JSON::LookupArtist;
 use utf8;
+use strict;
+use warnings;
+
 use JSON;
 use Test::Routine;
 use Test::More;

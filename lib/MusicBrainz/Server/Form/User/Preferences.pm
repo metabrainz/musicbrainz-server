@@ -1,4 +1,6 @@
 package MusicBrainz::Server::Form::User::Preferences;
+use strict;
+use warnings;
 
 use HTML::FormHandler::Moose;
 use DateTime;

@@ -1,8 +1,11 @@
 package t::MusicBrainz::Server::Validation;
+use utf8;
+use strict;
+use warnings;
+
 use Test::Routine;
 use Test::More;
 use Test::Warn;
-use utf8;
 
 use MusicBrainz::Server::Validation qw(
     is_positive_integer
@@ -138,6 +141,7 @@ test 'Test format_isrc' => sub {
 
 test 'Test is_valid_ipi' => sub {
     ok(is_valid_ipi('00014107338'));
+    ok(!is_valid_ipi('00000000000'), 'All-zeros IPI is not valid');
     ok(!is_valid_ipi(''));
     ok(!is_valid_ipi('MusicBrainz::Server::Entity::ArtistIPI=HASH(0x11c9a410)'),
        'Regression test #MBS-5066');

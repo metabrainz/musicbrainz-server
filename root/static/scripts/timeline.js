@@ -1,15 +1,15 @@
 import $ from 'jquery';
 import ko from 'knockout';
 
-import stats, {buildTypeStats, getStat} from '../../statistics/stats.js';
-
-import debounce, {debounceComputed} from './common/utility/debounce.js';
-import parseDate from './common/utility/parseDate.js';
-
 import '../lib/flot/jquery.flot.js';
 import '../lib/flot/jquery.flot.selection.js';
 import '../lib/flot/jquery.flot.time.js';
 import './jquery.flot.musicbrainz_events.js';
+
+import stats, {buildTypeStats, getStat} from '../../statistics/stats.js';
+
+import debounce, {debounceComputed} from './common/utility/debounce.js';
+import parseDate from './common/utility/parseDate.js';
 
 const defaultLines = [
   'count.area',

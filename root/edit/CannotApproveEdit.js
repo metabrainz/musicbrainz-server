@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict
  * Copyright (C) 2020 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -9,9 +9,9 @@
 
 import * as React from 'react';
 
+import {EDIT_STATUS_DELETED} from '../constants.js';
 import Layout from '../layout/index.js';
 import EditLink from '../static/scripts/common/components/EditLink.js';
-import {EDIT_STATUS_DELETED} from '../constants.js';
 
 type Props = {
   +edit: GenericEditWithIdT,

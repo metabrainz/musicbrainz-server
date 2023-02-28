@@ -1,5 +1,5 @@
 /*
- * @flow strict-local
+ * @flow strict
  * Copyright (C) 2018 Shamroy Pellew
  * Copyright (C) 2019 MetaBrainz Foundation
  *  *
@@ -10,8 +10,8 @@
 
 import * as React from 'react';
 
-import expand2react from '../static/scripts/common/i18n/expand2react.js';
 import NotFoundComponent from '../components/NotFound.js';
+import expand2react from '../static/scripts/common/i18n/expand2react.js';
 
 const defaultSearchArgs = {search_url: '/search'};
 

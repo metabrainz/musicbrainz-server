@@ -1,4 +1,7 @@
 package t::MusicBrainz::Server::Controller::Release::Edits;
+use strict;
+use warnings;
+
 use Test::Routine;
 
 with 't::Mechanize', 't::Context';

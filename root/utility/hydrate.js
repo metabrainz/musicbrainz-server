@@ -7,14 +7,17 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import * as Sentry from '@sentry/browser';
 import mutate from 'mutate-cow';
 import * as React from 'react';
 // $FlowIgnore[missing-export]
 import {flushSync} from 'react-dom';
 import * as ReactDOMClient from 'react-dom/client';
-import * as Sentry from '@sentry/browser';
 
 import {SanitizedCatalystContext} from '../context.mjs';
+import {
+  getCatalystContext,
+} from '../static/scripts/common/utility/catalyst.js';
 
 import escapeClosingTags from './escapeClosingTags.js';
 
@@ -116,32 +119,31 @@ export default function hydrate<
           Sentry.captureException(new Error(errorMsg));
           continue;
         }
+        const $c = getCatalystContext();
         const propString = propScript.textContent;
-        if (propString) {
-          const $c: SanitizedCatalystContextT =
-            window[GLOBAL_JS_NAMESPACE].$c;
-          const props: SanitizedConfig = JSON.parse(propString);
-          if (__DEV__) {
-            checkForUnsanitizedEditorData((props: any));
-          }
-          /*
-           * Flush updates to the DOM immediately to try and avoid hydration
-           * errors due to user scripts modifying the page. This is ultimately
-           * affected by the order in which the scripts run, though.
-           */
-          flushSync(() => {
-            ReactDOMClient.hydrateRoot(
-              root,
-              <React.StrictMode>
-                <SanitizedCatalystContext.Provider value={$c}>
-                  <Component {...props} />
-                </SanitizedCatalystContext.Provider>
-              </React.StrictMode>,
-            );
-          });
-          // Custom event that userscripts can listen for.
-          root.dispatchEvent(new Event('mb-hydration', {bubbles: true}));
+        const props: SanitizedConfig =
+          propString ? JSON.parse(propString) : ({}: any);
+
+        if (__DEV__) {
+          checkForUnsanitizedEditorData((props: any));
         }
+        /*
+         * Flush updates to the DOM immediately to try and avoid hydration
+         * errors due to user scripts modifying the page. This is ultimately
+         * affected by the order in which the scripts run, though.
+         */
+        flushSync(() => {
+          ReactDOMClient.hydrateRoot(
+            root,
+            <React.StrictMode>
+              <SanitizedCatalystContext.Provider value={$c}>
+                <Component {...props} />
+              </SanitizedCatalystContext.Provider>
+            </React.StrictMode>,
+          );
+        });
+        // Custom event that userscripts can listen for.
+        root.dispatchEvent(new Event('mb-hydration', {bubbles: true}));
       }
     });
   }

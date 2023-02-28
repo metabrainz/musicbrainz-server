@@ -51,8 +51,11 @@ sv start artwork-indexer artwork-redirect ssssss
 # Compile static resources.
 sudo -E -H -u musicbrainz yarn
 sudo -E -H -u musicbrainz make -C po all_quiet deploy
-NODE_ENV=test WEBPACK_MODE=development NO_PROGRESS=1 \
-     sudo -E -H -u musicbrainz carton exec -- ./script/compile_resources.sh
+NODE_ENV=test \
+     WEBPACK_MODE=development \
+     MUSICBRAINZ_RUNNING_TESTS=1 \
+     NO_PROGRESS=1 \
+     sudo -E -H -u musicbrainz carton exec -- ./script/compile_resources.sh default tests
 
 # Add mbtest host alias to work around NO_PROXY restriction.
 # See add_mbtest_alias.sh for details.
@@ -74,3 +77,9 @@ sudo -E -H -u musicbrainz carton exec -- ./t/selenium.js \
 sv down template-renderer
 sleep 10
 sudo -E -H -u musicbrainz ./node_modules/.bin/nyc report --reporter=html
+
+sudo -E -H -u musicbrainz mkdir -p svlog
+for service in /var/log/service/*; do
+     cp "$service"/current svlog/"$(basename "$service")".log
+done
+chown musicbrainz:musicbrainz svlog/*.log

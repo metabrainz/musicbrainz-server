@@ -1,5 +1,5 @@
 /*
- * @flow strict-local
+ * @flow strict
  * Copyright (C) 2021 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -9,8 +9,8 @@
 
 import * as React from 'react';
 
-import IntentionallyRawIcon from '../components/IntentionallyRawIcon.js';
 import {ENTITY_NAMES} from '../../static/scripts/common/constants.js';
+import IntentionallyRawIcon from '../components/IntentionallyRawIcon.js';
 
 type Props = {
   +edit: RemoveRelationshipTypeEditT,

@@ -5,19 +5,9 @@ use Moose;
 extends 'MusicBrainz::Server::Entity';
 with 'MusicBrainz::Server::Entity::Role::Editable';
 with 'MusicBrainz::Server::Entity::Role::GID';
-
-has 'name' => (
-    is => 'rw',
-    isa => 'Str'
-);
-
-around TO_JSON => sub {
-    my ($orig, $self) = @_;
-
-    my $json = $self->$orig;
-    $json->{name} = $self->name;
-    return $json;
-};
+with 'MusicBrainz::Server::Entity::Role::LastUpdate';
+with 'MusicBrainz::Server::Entity::Role::Relatable';
+with 'MusicBrainz::Server::Entity::Role::Name';
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

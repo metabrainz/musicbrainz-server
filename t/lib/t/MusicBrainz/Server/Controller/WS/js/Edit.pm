@@ -1,11 +1,14 @@
 package t::MusicBrainz::Server::Controller::WS::js::Edit;
+use utf8;
+use strict;
+use warnings;
+
 use t::MusicBrainz::Server::Controller::RelationshipEditor qw(
     $additional_attribute
     $string_instruments_attribute
     $guitar_attribute
     $crazy_guitar
 );
-use utf8;
 use JSON;
 use MusicBrainz::Server::Constants qw(
     $EDIT_RECORDING_EDIT
@@ -285,6 +288,7 @@ test 'previewing/creating/editing a release group and release' => sub {
             ],
             editsPending => JSON::false,
             cover_art_presence => undef,
+            has_no_tracks => JSON::true,
             may_have_cover_art => JSON::true,
             may_have_discids => JSON::false,
             quality => 1,
@@ -778,6 +782,27 @@ test 'adding a relationship with an invalid date' => sub {
 
     my $response = from_json($mech->content);
     like($response->{error}, qr/^invalid date/, 'error is returned for invalid begin date');
+
+    $edit_data = [ {
+        edit_type   => $EDIT_RELATIONSHIP_CREATE,
+        linkTypeID  => 148,
+        attributes  => [],
+        entities => [
+            { gid => '745c079d-374e-4436-9448-da92dedef3ce' },
+            { gid => '54b9d183-7dab-42ba-94a3-7388a66604b8' }
+        ],
+        begin_date   => { year => 2000, month => undef, day => undef },
+        end_date     => { year => 1999, month => undef, day => undef },
+    } ];
+
+    @edits = capture_edits {
+        post_json($mech, '/ws/js/edit/create', encode_json({ edits => $edit_data }));
+    } $c;
+
+    ok(scalar(@edits) == 0, 'relationship for invalid date range is not created');
+
+    my $response2 = from_json($mech->content);
+    like($response2->{error}, qr/^invalid date range/, 'error is returned for invalid date range');
 };
 
 

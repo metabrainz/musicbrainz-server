@@ -1,4 +1,5 @@
 /*
+ * @flow strict
  * Copyright (C) 2015 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -10,36 +11,28 @@ import * as React from 'react';
 
 import Tooltip from './Tooltip.js';
 
-class HelpIcon extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {hover: false};
-  }
+type PropsT = {
+  +content: React.Node,
+};
 
-  render() {
-    return (
+const ICON_STYLE = {
+  display: 'inline-block',
+  marginLeft: '10px',
+  verticalAlign: 'text-top',
+};
+
+const HelpIcon = ({
+  content,
+}: PropsT): React.MixedElement => (
+  <Tooltip
+    content={content}
+    target={
       <div
-        style={{
-          position: 'relative',
-          display: 'inline-block',
-          marginLeft: '10px',
-        }}
-      >
-        <div
-          className="img icon help"
-          onMouseEnter={() => this.setState({hover: true})}
-          onMouseLeave={() => this.setState({hover: false})}
-          style={{verticalAlign: 'text-top'}}
-        />
-        {this.state.hover ? (
-          <Tooltip
-            content={this.props.content}
-            hoverCallback={hover => this.setState({hover})}
-          />
-        ) : null}
-      </div>
-    );
-  }
-}
+        className="img icon help"
+        style={ICON_STYLE}
+      />
+    }
+  />
+);
 
 export default HelpIcon;

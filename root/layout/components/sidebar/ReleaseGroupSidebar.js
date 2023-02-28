@@ -9,12 +9,12 @@
 
 import * as React from 'react';
 
+import {Artwork} from '../../../components/Artwork.js';
 import ArtistCreditLink
   from '../../../static/scripts/common/components/ArtistCreditLink.js';
 import entityHref from '../../../static/scripts/common/utility/entityHref.js';
-import ExternalLinks from '../ExternalLinks.js';
 import releaseGroupType from '../../../utility/releaseGroupType.js';
-import {Artwork} from '../../../components/Artwork.js';
+import ExternalLinks from '../ExternalLinks.js';
 
 import AnnotationLinks from './AnnotationLinks.js';
 import CollectionLinks from './CollectionLinks.js';
@@ -23,7 +23,7 @@ import LastUpdated from './LastUpdated.js';
 import MergeLink from './MergeLink.js';
 import PlayOnListenBrainzButton from './PlayOnListenBrainzButton.js';
 import SidebarLicenses from './SidebarLicenses.js';
-import {SidebarProperty, SidebarProperties} from './SidebarProperties.js';
+import {SidebarProperties, SidebarProperty} from './SidebarProperties.js';
 import SidebarRating from './SidebarRating.js';
 import SidebarTags from './SidebarTags.js';
 

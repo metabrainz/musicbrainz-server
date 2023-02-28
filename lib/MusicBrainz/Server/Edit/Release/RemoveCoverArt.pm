@@ -22,7 +22,7 @@ sub edit_kind { 'remove' }
 sub edit_type { $EDIT_RELEASE_REMOVE_COVER_ART }
 sub release_ids { shift->data->{entity}{id} }
 sub cover_art_id { shift->data->{cover_art_id} }
-sub edit_template_react { 'RemoveCoverArt' }
+sub edit_template { 'RemoveCoverArt' }
 
 has '+data' => (
     isa => Dict[

@@ -1,5 +1,5 @@
 /*
- * @flow strict-local
+ * @flow strict
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -25,10 +25,13 @@ import areDatePeriodsEqual from './areDatePeriodsEqual.js';
 import {
   arraysEqual,
   mergeSortedArrayInto,
+  sortedFindOrInsert,
   sortedIndexWith,
 } from './arrays.js';
 import {compareStrings} from './compare.js';
 import {compareDatePeriods} from './compareDates.js';
+import getSortName from './getSortName.js';
+import isLinkTypeDirectionOrderable from './isLinkTypeDirectionOrderable.js';
 import {uniqueId} from './strings.js';
 
 const UNIT_SEP = '\x1F';
@@ -52,6 +55,7 @@ export type RelationshipTargetGroupT = {
 };
 
 type PhraseGroupLinkTypeInfoT = {
+  backward: boolean,
   editsPending: boolean,
   phrase: Expand2ReactOutput,
   rootTypeId: number | null,
@@ -68,19 +72,13 @@ export type RelationshipPhraseGroupT = {
 
 export type RelationshipTargetTypeGroupT = {
   +relationshipPhraseGroups: Array<RelationshipPhraseGroupT>,
-  +targetType: string,
+  +targetType: CoreEntityTypeT,
 };
 
-function cmpRelationshipPhraseGroups(
-  a: RelationshipPhraseGroupT,
-  b: RelationshipPhraseGroupT,
-) {
-  const linkTypeInfoA = a.linkTypeInfo[0];
-  const linkTypeInfoB = b.linkTypeInfo[0];
-  return (
-    (linkTypeInfoA.typeId - linkTypeInfoB.typeId) ||
-    compare(linkTypeInfoA.textPhrase, linkTypeInfoB.textPhrase)
-  );
+export function cmpTargetTypeGroups<
+  T: {+targetType: CoreEntityTypeT, ...},
+>(a: T, b: T): number {
+  return compareStrings(a.targetType, b.targetType);
 }
 
 const cmpPhraseGroupLinkTypeInfo = (
@@ -88,8 +86,16 @@ const cmpPhraseGroupLinkTypeInfo = (
   b: PhraseGroupLinkTypeInfoT,
 ) => (
   (a.typeId - b.typeId) ||
-  compare(a.textPhrase, b.textPhrase)
+  compare(a.textPhrase, b.textPhrase) ||
+  ((a.backward ? 1 : 0) - (b.backward ? 1 : 0))
 );
+
+function cmpRelationshipPhraseGroups(
+  a: RelationshipPhraseGroupT,
+  b: RelationshipPhraseGroupT,
+) {
+  return cmpPhraseGroupLinkTypeInfo(a.linkTypeInfo[0], b.linkTypeInfo[0]);
+}
 
 function cmpFirstDatePeriods(
   a: DatedExtraAttributes,
@@ -114,10 +120,10 @@ const cmpRelationshipTargetGroups = (
   (a.target.id - b.target.id)
 );
 
-const areLinkAttrsEqual = (a: LinkAttrT, b: LinkAttrT) => (
+export const areLinkAttrsEqual = (a: LinkAttrT, b: LinkAttrT): boolean => (
   a.typeID === b.typeID &&
-  a.text_value === b.text_value &&
-  a.credited_as === b.credited_as
+  (a.text_value ?? '') === (b.text_value ?? '') &&
+  (a.credited_as ?? '') === (b.credited_as ?? '')
 );
 
 const areDatedExtraAttributesEqual = (
@@ -334,18 +340,6 @@ function mergeTargetGroupsByTracks(
   }
 }
 
-const getSortName = (x: CoreEntityT) => (
-  x.entityType === 'artist' ? x.sort_name : x.name
-);
-
-function targetIsOrderable(relationship: RelationshipT) {
-  const linkType = linkedEntities.link_type[relationship.linkTypeID];
-  const backward = relationship.backward;
-  // `backward` indicates that the relationship target is entity0
-  return (linkType.orderable_direction === 1 && !backward) ||
-          (linkType.orderable_direction === 2 && backward);
-}
-
 function areSetsEqual<T>(a: Set<T>, b: Set<T>): boolean {
   if (a.size !== b.size) {
     return false;
@@ -399,23 +393,14 @@ export default function groupRelationships(
       continue;
     }
 
-    let targetTypeGroup;
-    {
-      const [index, exists] = sortedIndexWith(
-        targetTypeGroups,
+    const targetTypeGroup = sortedFindOrInsert(
+      targetTypeGroups,
+      ({
+        relationshipPhraseGroups: [],
         targetType,
-        (group, targetType) => compareStrings(group.targetType, targetType),
-      );
-      if (exists) {
-        targetTypeGroup = targetTypeGroups[index];
-      } else {
-        targetTypeGroup = ({
-          relationshipPhraseGroups: [],
-          targetType,
-        }: RelationshipTargetTypeGroupT);
-        targetTypeGroups.splice(index, 0, targetTypeGroup);
-      }
-    }
+      }: RelationshipTargetTypeGroupT),
+      cmpTargetTypeGroups,
+    );
 
     const backward = relationship.backward;
     const linkType = linkedEntities.link_type[relationship.linkTypeID];
@@ -481,44 +466,34 @@ export default function groupRelationships(
       }
     }
 
-    /*
-     * linkType.id shouldn't really be needed in the grouping key, since
-     * two different link types to the same entity types shouldn't ever
-     * produce the same text phrase. Nonetheless, the code should continue
-     * to work if that happens.
-     */
-    const phraseGroupKey = textPhrase + UNIT_SEP + String(linkType.id);
-    let phraseGroup;
-    {
-      const phraseGroups = targetTypeGroup.relationshipPhraseGroups;
-      const [index, exists] = sortedIndexWith(
-        phraseGroups,
-        phraseGroupKey,
-        (group, phraseGroupKey) => compare(group.key, phraseGroupKey),
-      );
-      if (exists) {
-        phraseGroup = phraseGroups[index];
-      } else {
-        phraseGroup = ({
-          combinedPhrase: '',
-          key: phraseGroupKey,
-          linkTypeInfo: [{
-            editsPending: relationship.editsPending,
-            phrase: phrase ?? textPhrase,
-            rootTypeId: linkType.root_id,
-            textPhrase,
-            typeId: linkType.id,
-          }],
-          targetGroups: [],
-        }: RelationshipPhraseGroupT);
-        phraseGroups.splice(index, 0, phraseGroup);
-      }
-    }
+    const phraseGroup = sortedFindOrInsert(
+      targetTypeGroup.relationshipPhraseGroups,
+      ({
+        combinedPhrase: '',
+        /*
+         * linkTypeId shouldn't really be needed in the grouping key, since
+         * two different link types to the same entity types shouldn't ever
+         * produce the same text phrase. Nonetheless, the code should continue
+         * to work if that happens.
+         */
+        key: String(linkType.id) + UNIT_SEP + textPhrase,
+        linkTypeInfo: [{
+          backward: relationship.backward,
+          editsPending: relationship.editsPending,
+          phrase: phrase ?? textPhrase,
+          rootTypeId: linkType.root_id,
+          textPhrase,
+          typeId: linkType.id,
+        }],
+        targetGroups: [],
+      }: RelationshipPhraseGroupT),
+      cmpRelationshipPhraseGroups,
+    );
 
-    const targetCredit = relationship.backward
+    const targetCredit = backward
       ? relationship.entity0_credit
       : relationship.entity1_credit;
-    const isOrderable = targetIsOrderable(relationship);
+    const isOrderable = isLinkTypeDirectionOrderable(linkType, backward);
     const linkOrder = relationship.linkOrder;
     const datePeriod = {
       begin_date: relationship.begin_date,
@@ -661,8 +636,6 @@ export default function groupRelationships(
         ? commaList(linkTypeInfo1.map(displayLinkPhrase))
         : displayLinkPhrase(linkTypeInfo1[0]);
     }
-
-    phraseGroups.sort(cmpRelationshipPhraseGroups);
   }
 
   return targetTypeGroups;

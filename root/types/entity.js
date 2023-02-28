@@ -48,7 +48,7 @@ declare type CoreEntityT =
   | NonUrlCoreEntityT
   | UrlT;
 
-declare type CoreEntityTypeT =
+declare type NonUrlCoreEntityTypeT =
   | 'area'
   | 'artist'
   | 'event'
@@ -60,8 +60,11 @@ declare type CoreEntityTypeT =
   | 'release_group'
   | 'release'
   | 'series'
-  | 'url'
   | 'work';
+
+declare type CoreEntityTypeT =
+  | NonUrlCoreEntityTypeT
+  | 'url';
 
 declare type DatePeriodRoleT = {
   +begin_date: PartialDateT | null,
@@ -91,6 +94,12 @@ declare type PartialDateT = {
   +day: number | null,
   +month: number | null,
   +year: number | null,
+};
+
+declare type PartialDateStringsT = {
+  +day?: string,
+  +month?: string,
+  +year?: string,
 };
 
 declare type TypeRoleT<T> = {

@@ -1,4 +1,7 @@
 package t::MusicBrainz::Server::Controller::WS::js::Release;
+use strict;
+use warnings;
+
 use Test::More;
 use Test::Deep qw( cmp_deeply ignore );
 use Test::Routine;

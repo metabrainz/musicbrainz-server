@@ -6,12 +6,14 @@ BEGIN { extends 'Catalyst' }
 use Class::Load qw( load_class );
 use DBDefs;
 use Digest::SHA qw( sha256 );
+use HTML::Entities ();
 use JSON;
 use MIME::Base64 qw( encode_base64 );
 use Moose::Util qw( does_role );
 use MusicBrainz::Server::Data::Utils qw(
     boolean_to_json
     datetime_to_iso8601
+    non_empty
 );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array to_json_object );
 use MusicBrainz::Server::Log qw( logger );
@@ -426,6 +428,9 @@ before dispatch => sub {
         my $cache_namespace = DBDefs->CACHE_NAMESPACE;
         *DBDefs::CACHE_NAMESPACE = sub { $cache_namespace . $database . ':' };
         *DBDefs::ENTITY_CACHE_TTL = sub { 1 };
+        # CSP script-src directives conflict with `Function` constructor calls
+        # injected by babel-plugin-instanbul (unsafe-eval).
+        $self->res->header('Content-Security-Policy', '');
     } else {
         # Use a fresh database connection for every request, and
         # remember to disconnect at the end.
@@ -557,6 +562,29 @@ around make_session_cookie => sub {
     $cookie->{samesite} = 'Lax';
     $cookie->{secure} = 1 if $self->req->secure;
     return $cookie;
+};
+
+# Catalyst::Plugin::Session will by default throw an error if the request
+# contains an invalid session ID cookie (musicbrainz_server_session).
+# So we override `get_session_id` such that the plugin never sees invalid IDs
+# at all.  This prevents external requests from triggering 502s simply by
+# setting the session cookie to a garbage value.
+around get_session_id => sub {
+    my ($orig, $self, @args) = @_;
+    my $sid = $self->$orig(@args);
+    if (non_empty($sid)) {
+        if ($self->validate_session_id($sid)) {
+            return $sid;
+        } else {
+            $sid = HTML::Entities::encode_entities($sid);
+            my $err = "Invalid session ID '$sid'";
+            $self->log->error($err);
+            $self->res->status(400);
+            $self->res->content_type('text/plain; charset=utf-8');
+            $self->res->body($err);
+        }
+    }
+    return;
 };
 
 has json => (
@@ -780,6 +808,7 @@ sub TO_JSON {
         release_cdtoc_count
         server_details
         server_languages
+        source_entity
         subscribed
         to_merge
         top_tags
@@ -873,6 +902,7 @@ sub TO_JSON {
         req => {
             body_params => $req->body_params,
             headers => \%headers,
+            method => uc($req->method),
             query_params => $req->query_params,
             secure => boolean_to_json($req->secure),
             uri => '' . $req->uri,

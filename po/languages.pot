@@ -343,6 +343,11 @@ msgstr ""
 msgid "Breton"
 msgstr ""
 
+#. frequency:1 iso_code_3:box 
+#: DB:language/name:1322
+msgid "Buamu"
+msgstr ""
+
 #. frequency:1 iso_code_3:bug 
 #: DB:language/name:61
 msgid "Buginese"
@@ -361,6 +366,11 @@ msgstr ""
 #. frequency:1 iso_code_3:mya 
 #: DB:language/name:63
 msgid "Burmese"
+msgstr ""
+
+#. frequency:1 iso_code_3:bsk 
+#: DB:language/name:1406
+msgid "Burushaski"
 msgstr ""
 
 #. frequency:1 iso_code_3:cad 
@@ -903,6 +913,11 @@ msgstr ""
 msgid "Gronings"
 msgstr ""
 
+#. frequency:1 iso_code_3:gcf 
+#: DB:language/name:2386
+msgid "Guadeloupean Creole French"
+msgstr ""
+
 #. frequency:1 iso_code_3:grn 
 #: DB:language/name:160
 msgid "Guarani"
@@ -993,7 +1008,7 @@ msgstr ""
 msgid "Hmong"
 msgstr ""
 
-#. frequency:1 iso_code_3:hun 
+#. frequency:2 iso_code_3:hun 
 #: DB:language/name:176
 msgid "Hungarian"
 msgstr ""
@@ -1768,7 +1783,7 @@ msgstr ""
 msgid "North American Indian languages"
 msgstr ""
 
-#. frequency:2 iso_code_3:nor 
+#. frequency:1 iso_code_3:nor 
 #: DB:language/name:309
 msgid "Norwegian"
 msgstr ""

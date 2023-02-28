@@ -1,5 +1,5 @@
 /*
- * @flow strict-local
+ * @flow strict
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -13,12 +13,12 @@ import ArtistList from '../components/list/ArtistList.js';
 import Layout from '../layout/index.js';
 import sortByEntityName
   from '../static/scripts/common/utility/sortByEntityName.js';
-import FieldErrors from '../static/scripts/edit/components/FieldErrors.js';
-import FormRowCheckbox
-  from '../static/scripts/edit/components/FormRowCheckbox.js';
 import EnterEdit from '../static/scripts/edit/components/EnterEdit.js';
 import EnterEditNote
   from '../static/scripts/edit/components/EnterEditNote.js';
+import FieldErrors from '../static/scripts/edit/components/FieldErrors.js';
+import FormRowCheckbox
+  from '../static/scripts/edit/components/FormRowCheckbox.js';
 
 type Props = {
   +form: MergeFormT,

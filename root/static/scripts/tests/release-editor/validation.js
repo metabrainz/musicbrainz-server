@@ -8,11 +8,11 @@
 
 import test from 'tape';
 
+import '../../release-editor/init.js';
+
 import * as validation from '../../edit/validation.js';
 import fields from '../../release-editor/fields.js';
 import releaseEditor from '../../release-editor/viewModel.js';
-
-import '../../release-editor/init.js';
 
 function validationTest(name, callback) {
   test(name, function (t) {

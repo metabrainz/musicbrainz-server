@@ -39,16 +39,16 @@ const potFile = {
   charset: 'utf-8',
 
   headers: {
+    'content-transfer-encoding': '8bit',
+    'content-type': 'text/plain; charset=UTF-8',
+    'language': '',
+    'language-team': 'LANGUAGE <LL@li.org>',
+    'last-translator': 'FULL NAME <EMAIL@ADDRESS>',
+    'mime-version': '1.0',
+    'plural-forms': 'nplurals=INTEGER; plural=EXPRESSION;',
+    'po-revision-date': 'YEAR-MO-DA HO:MI+ZONE',
     'project-id-version': 'PACKAGE VERSION',
     'report-msgid-bugs-to': '',
-    'po-revision-date': 'YEAR-MO-DA HO:MI+ZONE',
-    'last-translator': 'FULL NAME <EMAIL@ADDRESS>',
-    'language-team': 'LANGUAGE <LL@li.org>',
-    'language': '',
-    'mime-version': '1.0',
-    'content-type': 'text/plain; charset=UTF-8',
-    'content-transfer-encoding': '8bit',
-    'plural-forms': 'nplurals=INTEGER; plural=EXPRESSION;',
   },
 
   translations,
@@ -152,10 +152,6 @@ const catchErrors = cb => {
 };
 
 const keywords = {
-  N_l: match => keywords.l(match),
-  N_ln: match => keywords.ln(match),
-  N_lp: match => keywords.lp(match),
-
   l: catchErrors(function (match) {
     const [arg0] = match.arguments;
 
@@ -220,6 +216,10 @@ const keywords = {
       });
     }
   }),
+
+  N_l: match => keywords.l(match),
+  N_ln: match => keywords.ln(match),
+  N_lp: match => keywords.lp(match),
 };
 
 const parser = new XGettext({

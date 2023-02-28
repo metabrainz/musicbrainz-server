@@ -1,5 +1,7 @@
 package Plack::Middleware::Debug::ExclusiveTime;
 use strict;
+use warnings;
+
 use parent qw(Plack::Middleware::Debug::Base);
 use Scalar::Util qw( blessed );
 use Time::HiRes qw( gettimeofday tv_interval );

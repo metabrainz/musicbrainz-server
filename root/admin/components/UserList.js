@@ -1,5 +1,5 @@
 /*
- * @flow strict-local
+ * @flow strict
  * Copyright (C) 2020 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -28,9 +28,11 @@ const UserList = ({users}: Props): React.Element<'table'> => {
         <tr>
           <th>{l('Editor')}</th>
           <th>{l('Member since')}</th>
+          <th>{l('Website')}</th>
           <th>{l('Email')}</th>
           <th>{l('Verified on')}</th>
           <th>{l('Last login')}</th>
+          <th>{l('Bio')}</th>
         </tr>
       </thead>
       <tbody>
@@ -54,6 +56,9 @@ const UserList = ({users}: Props): React.Element<'table'> => {
               )}
             </td>
             <td>{formatUserDate($c, user.registration_date)}</td>
+            <td>
+              {nonEmpty(user.website) ? user.website : null}
+            </td>
             <td>{user.email}</td>
             <td>
               {nonEmpty(user.email_confirmation_date) ? (
@@ -64,6 +69,9 @@ const UserList = ({users}: Props): React.Element<'table'> => {
               {nonEmpty(user.last_login_date) ? (
                 formatUserDate($c, user.last_login_date)
               ) : null}
+            </td>
+            <td>
+              {nonEmpty(user.biography) ? user.biography : null}
             </td>
           </tr>
         ))}

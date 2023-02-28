@@ -13,7 +13,7 @@ with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 sub edit_name { N_l('Remove relationship attribute') }
 sub edit_kind { 'remove' }
 sub edit_type { $EDIT_RELATIONSHIP_REMOVE_LINK_ATTRIBUTE }
-sub edit_template_react { 'RemoveRelationshipAttribute' }
+sub edit_template { 'RemoveRelationshipAttribute' }
 
 has '+data' => (
     isa => Dict[

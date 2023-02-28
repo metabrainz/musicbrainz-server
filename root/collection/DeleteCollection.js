@@ -1,5 +1,5 @@
 /*
- * @flow strict-local
+ * @flow strict
  * Copyright (C) 2019 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -9,8 +9,8 @@
 
 import * as React from 'react';
 
-import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
 import EntityLink from '../static/scripts/common/components/EntityLink.js';
+import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
 
 import CollectionLayout from './CollectionLayout.js';
 

@@ -1,4 +1,7 @@
 package t::MusicBrainz::Server::Controller::Place::Aliases;
+use strict;
+use warnings;
+
 use Test::Routine;
 use MusicBrainz::Server::Test qw( html_ok page_test_jsonld );
 
@@ -17,6 +20,7 @@ test 'Place alias appears on alias page content and on JSON-LD' => sub {
     my $c = $test->c;
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+area');
+    MusicBrainz::Server::Test->prepare_test_database($c, '+area_hierarchy');
     MusicBrainz::Server::Test->prepare_test_database($c, '+place');
 
     $mech->get_ok(
@@ -31,9 +35,19 @@ test 'Place alias appears on alias page content and on JSON-LD' => sub {
     page_test_jsonld $mech => {
         'foundingDate' => '2013',
         'containedIn' => {
-            '@type' => 'Country',
-            '@id' => 'http://musicbrainz.org/area/89a675c2-3e37-3518-b83c-418bad59a85a',
-            'name' => 'Europe'
+            'name' => 'London',
+            '@id' => 'http://musicbrainz.org/area/f03d09b3-39dc-4083-afd6-159e3f0d462f',
+            '@type' => 'City',
+            'containedIn' => {
+                'name' => 'England',
+                '@id' => 'http://musicbrainz.org/area/9d5dd675-3cf4-4296-9e39-67865ebee758',
+                '@type' => 'AdministrativeArea',
+                'containedIn' => {
+                    'name' => 'United Kingdom',
+                    '@id' => 'http://musicbrainz.org/area/8a754a16-0027-3a29-b6d7-2b40ea0481ed',
+                    '@type' => 'Country',
+                },
+            },
         },
         'alternateName' => ['A Test Alias'],
         'geo' => {
@@ -42,7 +56,7 @@ test 'Place alias appears on alias page content and on JSON-LD' => sub {
             '@type' => 'GeoCoordinates'
         },
         'name' => 'A Test Place',
-        '@context' => 'http://schema.org',
+        '@context' => 'https://schema.org/docs/jsonldcontext.json',
         '@type' => 'Place',
         '@id' => 'http://musicbrainz.org/place/df9269dd-0470-4ea2-97e8-c11e46080edd'
     };

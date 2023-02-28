@@ -11,8 +11,8 @@ import path from 'path';
 
 import webpack from 'webpack';
 
-import {BUILD_DIR} from './constants.mjs';
 import clientConfig from './client.config.mjs';
+import {BUILD_DIR} from './constants.mjs';
 import serverConfig from './server.config.mjs';
 import testsConfig from './tests.config.mjs';
 

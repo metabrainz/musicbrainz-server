@@ -18,8 +18,8 @@ import {uniqBy} from '../common/utility/arrays.js';
 import {debounceComputed} from '../common/utility/debounce.js';
 import similarity from '../edit/utility/similarity.js';
 
-import releaseEditor from './viewModel.js';
 import utils from './utils.js';
+import releaseEditor from './viewModel.js';
 
 const recordingAssociation = {};
 

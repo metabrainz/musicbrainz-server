@@ -7,6 +7,8 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import {uniqueId as uniqueNumericId} from './numbers.js';
+
 export function capitalize(str: string): string {
   return str[0].toUpperCase() + str.slice(1).toLowerCase();
 }
@@ -46,8 +48,6 @@ export function unaccent(str: string): string {
     .replace(combiningDiacriticalMarks, '');
 }
 
-let NEXT_UNIQUE_ID = 1;
-
 export function uniqueId(prefix?: string = ''): string {
-  return prefix + String(NEXT_UNIQUE_ID++);
+  return prefix + String(uniqueNumericId());
 }

@@ -1,5 +1,5 @@
 /*
- * @flow strict-local
+ * @flow strict
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -9,6 +9,9 @@
 
 import * as React from 'react';
 
+import ReleaseCatnoList from '../../components/ReleaseCatnoList.js';
+import ReleaseLabelList from '../../components/ReleaseLabelList.js';
+import ReleaseLanguageScript from '../../components/ReleaseLanguageScript.js';
 import {CatalystContext} from '../../context.mjs';
 import * as manifest from '../../static/manifest.mjs';
 import ArtistCreditLink
@@ -22,9 +25,6 @@ import formatBarcode
 import {isEditingEnabled}
   from '../../static/scripts/common/utility/privileges.js';
 import loopParity from '../../utility/loopParity.js';
-import ReleaseCatnoList from '../../components/ReleaseCatnoList.js';
-import ReleaseLabelList from '../../components/ReleaseLabelList.js';
-import ReleaseLanguageScript from '../../components/ReleaseLanguageScript.js';
 import type {
   InlineResultsPropsT,
   ResultsPropsT,

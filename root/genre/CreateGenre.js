@@ -17,29 +17,19 @@ import GenreEditForm
 import type {GenreFormT} from './types.js';
 
 type Props = {
-  +attrInfo: LinkAttrTypeOptionsT,
   +form: GenreFormT,
-  +sourceEntity: {entityType: 'genre'},
-  +typeInfo: LinkTypeOptionsT,
 };
 
 const CreateGenre = ({
-  attrInfo,
   form,
-  sourceEntity,
-  typeInfo,
 }: Props): React.Element<typeof Layout> => (
   <Layout fullWidth title={l('Add a new genre')}>
     <div id="content">
       <h1>{l('Add a new genre')}</h1>
-      <GenreEditForm
-        attrInfo={attrInfo}
-        form={form}
-        sourceEntity={sourceEntity}
-        typeInfo={typeInfo}
-      />
+      <GenreEditForm form={form} />
     </div>
     {manifest.js('genre/components/GenreEditForm', {async: 'async'})}
+    {manifest.js('relationship-editor', {async: 'async'})}
   </Layout>
 );
 

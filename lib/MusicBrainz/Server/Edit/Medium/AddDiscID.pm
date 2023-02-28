@@ -11,7 +11,7 @@ use MusicBrainz::Server::Translation qw( N_l );
 sub edit_name { N_l('Add disc ID') }
 sub edit_kind { 'add' }
 sub edit_type { $EDIT_MEDIUM_ADD_DISCID }
-sub edit_template_react { 'AddDiscId' }
+sub edit_template { 'AddDiscId' }
 
 sub medium_id { shift->data->{medium_id} }
 

@@ -15,8 +15,8 @@ import type {CollaboratorStateT, CollectionEditFormT}
 import {SanitizedCatalystContext} from '../../../../context.mjs';
 import Autocomplete from '../../common/components/Autocomplete.js';
 import FieldErrors from '../../edit/components/FieldErrors.js';
-import FormRow from '../../edit/components/FormRow.js';
 import FormLabel from '../../edit/components/FormLabel.js';
+import FormRow from '../../edit/components/FormRow.js';
 import FormRowCheckbox from '../../edit/components/FormRowCheckbox.js';
 import FormRowSelect from '../../edit/components/FormRowSelect.js';
 import FormRowTextArea from '../../edit/components/FormRowTextArea.js';

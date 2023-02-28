@@ -1,4 +1,7 @@
 package t::MusicBrainz::Server::Edit::Release::Merge;
+use strict;
+use warnings;
+
 use Test::Routine;
 use Test::More;
 
@@ -603,6 +606,78 @@ test 'Merging release with empty medium (MBS-11614)' => sub {
 
     ok($mediums[0]->track_count == 1, 'First medium has one track');
     ok($mediums[1]->track_count == 1, 'Second medium has one track');
+};
+
+test 'Merge goes through despite duplicate annotations (MBS-12550)' => sub {
+
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+release');
+    MusicBrainz::Server::Test->prepare_test_database($c, <<~'SQL');
+        INSERT INTO annotation (id, editor, text)
+            VALUES (100, 1, 'Annotation'),
+                   (200, 1, 'Annotation');
+        INSERT INTO release_annotation (release, annotation)
+            VALUES (6, 100), (7, 200);
+        SQL
+
+    my $edit = $c->model('Edit')->create(
+        edit_type => $EDIT_RELEASE_MERGE,
+        editor_id => 1,
+        new_entity => {
+            id => 6,
+            name => 'Release 1',
+        },
+        old_entities => [
+            {
+                id => 7,
+                name => 'Release 2'
+            }
+        ],
+        merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_APPEND,
+        medium_changes => [
+            {
+                release => {
+                    id => 6,
+                    name => 'Release 1',
+                },
+                mediums => [
+                    {
+                        id => 2,
+                        old_position => 1,
+                        new_position => 1,
+                        old_name => '',
+                        new_name => '',
+                    },
+                ]
+            },
+            {
+                release => {
+                    id => 7,
+                    name => 'Release 2',
+                },
+                mediums => [
+                    {
+                        id => 3,
+                        old_position => 1,
+                        new_position => 2,
+                        old_name => '',
+                        new_name => '',
+                    },
+                ]
+            }
+        ]
+    );
+
+    accept_edit($c, $edit);
+    is($edit->status, $STATUS_APPLIED, 'The edit was applied');
+    my $merged_annotation = $c->model('Release')->annotation->get_latest(6);
+    is(
+        $merged_annotation->text,
+        'Annotation',
+        'The annotation was kept and not duplicated since it was the same'
+    );
 };
 
 1;

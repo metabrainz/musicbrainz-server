@@ -1,5 +1,5 @@
 /*
- * @flow strict-local
+ * @flow strict
  * Copyright (C) 2019 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -10,7 +10,7 @@
 import {bracketedText} from '../../utility/bracketed.js';
 
 import {
-  NOOP,
+  HIDE_MENU,
   SEARCH_AGAIN,
   SHOW_MORE_RESULTS,
   TOGGLE_INDEXED_SEARCH,
@@ -36,8 +36,6 @@ export const ARIA_LIVE_STYLE: {
   top: '-1px',
   width: '1px',
 });
-
-export const DISPLAY_NONE_STYLE = {display: 'none'};
 
 export const ERROR_LOOKUP: 1 = 1;
 export const ERROR_LOOKUP_TYPE: 2 = 2;
@@ -73,19 +71,19 @@ export const MENU_ITEMS: {+[name: string]: ActionItemT<empty>, ...} = {
   },
   LOOKUP_ERROR: {
     type: 'action',
-    action: NOOP,
+    action: HIDE_MENU,
     id: 'lookup-error',
     name: N_l('An error occurred while looking up the MBID you entered.'),
   },
   LOOKUP_TYPE_ERROR: {
     type: 'action',
-    action: NOOP,
+    action: HIDE_MENU,
     id: 'lookup-type-error',
     name: N_l('The type of entity you pasted isn’t supported here.'),
   },
   NO_RESULTS: {
     type: 'action',
-    action: NOOP,
+    action: HIDE_MENU,
     id: 'no-results',
     name: () => bracketedText(l('No results')),
   },
@@ -130,8 +128,10 @@ export const SEARCH_PLACEHOLDERS: {
   artist: N_l('Search for an artist'),
   editor: N_l('Search for an editor'),
   event: N_l('Search for an event'),
+  genre: N_l('Search for a genre'),
   instrument: N_l('Search for an instrument'),
   label: N_l('Search for a label'),
+  link_attribute_type: () => '',
   link_type: N_l('Search for a relationship type'),
   place: N_l('Search for a place'),
   recording: N_l('Search for a recording'),

@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict
  * Copyright (C) 2019 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -8,11 +8,11 @@
  */
 
 import {
-  useTable,
   type Cell,
   type ColumnInstance,
   type HeaderGroup,
   type Row,
+  useTable,
 } from 'react-table';
 
 import loopParity from '../utility/loopParity.js';
@@ -50,7 +50,7 @@ type Props<CV, D> = {
 };
 
 const Table = <CV, D>({
-  className,
+  className: passedClassName,
   columns,
   data,
 }: Props<CV, D>): React$MixedElement => {
@@ -65,7 +65,8 @@ const Table = <CV, D>({
     data,
   });
 
-  className = 'tbl' + (className ? ' ' + className : '');
+  const className =
+    'tbl' + (nonEmpty(passedClassName) ? ' ' + passedClassName : '');
 
   return (
     <table {...getTableProps({className: className})}>

@@ -7,8 +7,11 @@
  */
 
 import ko from 'knockout';
+import {createRef} from 'react';
 import {flushSync} from 'react-dom';
 import * as ReactDOMClient from 'react-dom/client';
+
+import '../../common/entity.js';
 
 import MB from '../../common/MB.js';
 
@@ -16,7 +19,11 @@ import ArtistCreditEditor from './ArtistCreditEditor.js';
 import FieldErrors from './FieldErrors.js';
 import FormRow from './FormRow.js';
 
-export const FormRowArtistCredit = ({form, entity}) => (
+export const FormRowArtistCredit = ({
+  artistCreditEditorRef,
+  form,
+  entity,
+}) => (
   <FormRow>
     <label className="required" htmlFor="entity-artist">
       {l('Artist:')}
@@ -26,26 +33,29 @@ export const FormRowArtistCredit = ({form, entity}) => (
       forLabel="entity-artist"
       form={form}
       hiddenInputs
+      // eslint-disable-next-line react/jsx-handler-names
+      onChange={entity.artistCredit}
+      ref={artistCreditEditorRef}
     />
     {form ? <FieldErrors field={form.field.artist_credit} /> : null}
   </FormRow>
 );
 
 MB.initializeArtistCredit = function (form, initialArtistCredit) {
-  const source = MB.sourceEntity || {name: ''};
+  const source = MB.getSourceEntityInstance() ?? {name: ''};
+  source.uniqueID = 'source';
   source.artistCredit = ko.observable(initialArtistCredit);
+  source.artistCreditEditorInst = createRef();
 
   const container = document.getElementById('artist-credit-editor');
   const root = ReactDOMClient.createRoot(container);
   flushSync(() => {
     root.render(
-      <FormRowArtistCredit entity={source} form={form} />,
+      <FormRowArtistCredit
+        artistCreditEditorRef={source.artistCreditEditorInst}
+        entity={source}
+        form={form}
+      />,
     );
-  });
-
-  source.artistCredit.subscribe((artistCredit) => {
-    $('table.artist-credit-editor', container)
-      .data('componentInst')
-      .setState({artistCredit});
   });
 };

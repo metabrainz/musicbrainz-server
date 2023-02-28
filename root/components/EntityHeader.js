@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -11,8 +11,8 @@ import * as React from 'react';
 
 import EntityLink from '../static/scripts/common/components/EntityLink.js';
 
-import EntityTabs from './EntityTabs.js';
 import typeof EntityTabLink from './EntityTabLink.js';
+import EntityTabs from './EntityTabs.js';
 import SubHeader from './SubHeader.js';
 
 type Props = {
@@ -36,9 +36,9 @@ const EntityHeader = ({
 }: Props): React.Element<typeof React.Fragment> => (
   <>
     <div className={'entityheader ' + headerClass}>
-      {preHeader || null}
+      {nonEmpty(preHeader) ? preHeader : null}
       <h1>
-        {heading || <EntityLink entity={entity} />}
+        {nonEmpty(heading) ? heading : <EntityLink entity={entity} />}
       </h1>
       <SubHeader subHeading={subHeading} />
     </div>

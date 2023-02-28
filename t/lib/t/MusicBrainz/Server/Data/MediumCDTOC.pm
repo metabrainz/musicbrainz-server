@@ -1,4 +1,7 @@
 package t::MusicBrainz::Server::Data::MediumCDTOC;
+use strict;
+use warnings;
+
 use Test::Routine;
 use Test::Moose;
 use Test::More;

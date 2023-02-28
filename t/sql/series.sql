@@ -1,9 +1,9 @@
 SET client_min_messages TO 'WARNING';
 
-INSERT INTO series (id, gid, name, comment, type, ordering_type)
-    VALUES (1, 'a8749d0c-4a5a-4403-97c5-f6cd018f8e6d', 'Test Recording Series', 'test comment 1', 3, 1),
-           (2, '2e8872b9-2745-4807-a84e-094d425ec267', 'Test Work Series', 'test comment 2', 4, 2),
-           (3, 'dbb23c50-d4e4-11e3-9c1a-0800200c9a66', 'Dumb Recording Series', '', 3, 1);
+INSERT INTO series (id, gid, name, comment, type, ordering_type, last_updated)
+    VALUES (1, 'a8749d0c-4a5a-4403-97c5-f6cd018f8e6d', 'Test Recording Series', 'test comment 1', 3, 1, '2002-02-20'),
+           (2, '2e8872b9-2745-4807-a84e-094d425ec267', 'Test Work Series', 'test comment 2', 4, 2, NOW()),
+           (3, 'dbb23c50-d4e4-11e3-9c1a-0800200c9a66', 'Dumb Recording Series', '', 3, 1, NOW());
 
 INSERT INTO series_alias (id, series, name, type, sort_name) VALUES
     (1, 1, 'Test Series Alias', 1, 'Test Series Alias');

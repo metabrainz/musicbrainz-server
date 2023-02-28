@@ -10,7 +10,7 @@ use MusicBrainz::Server::Translation qw( N_l );
 sub edit_name { N_l('Remove disc ID') }
 sub edit_type { $EDIT_MEDIUM_REMOVE_DISCID }
 sub edit_kind { 'remove' }
-sub edit_template_react { 'RemoveDiscId' }
+sub edit_template { 'RemoveDiscId' }
 
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Medium::RelatedEntities';

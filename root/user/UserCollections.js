@@ -1,5 +1,5 @@
 /*
- * @flow strict-local
+ * @flow strict
  * Copyright (C) 2019 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -17,10 +17,10 @@ import {SanitizedCatalystContext} from '../context.mjs';
 import {formatPluralEntityTypeName}
   from '../static/scripts/common/utility/formatEntityTypeName.js';
 import {
+  defineActionsColumn,
   defineNameColumn,
   defineTypeColumn,
   subscriptionColumn,
-  defineActionsColumn,
 } from '../utility/tableColumns.js';
 
 type Props = {

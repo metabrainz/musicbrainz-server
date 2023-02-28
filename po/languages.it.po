@@ -5,11 +5,12 @@
 # salo.rock, 2016-2022
 # salo.rock, 2013-2015
 # salo.rock, 2012
+# salo.rock, 2023
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "PO-Revision-Date: 2012-05-24 19:23+0000\n"
-"Last-Translator: salo.rock, 2016-2022\n"
+"Last-Translator: salo.rock, 2023\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -352,6 +353,11 @@ msgstr "Braj"
 msgid "Breton"
 msgstr "Bretone"
 
+#. frequency:1 iso_code_3:box
+#: DB:language/name:1322
+msgid "Buamu"
+msgstr "Buamu"
+
 #. frequency:1 iso_code_3:bug
 #: DB:language/name:61
 msgid "Buginese"
@@ -371,6 +377,11 @@ msgstr "Buriato"
 #: DB:language/name:63
 msgid "Burmese"
 msgstr "Birmano"
+
+#. frequency:1 iso_code_3:bsk
+#: DB:language/name:1406
+msgid "Burushaski"
+msgstr "Burushaski"
 
 #. frequency:1 iso_code_3:cad
 #: DB:language/name:65
@@ -912,6 +923,11 @@ msgstr "Groenlandese"
 msgid "Gronings"
 msgstr "Gronings"
 
+#. frequency:1 iso_code_3:gcf
+#: DB:language/name:2386
+msgid "Guadeloupean Creole French"
+msgstr "Francese creolo della Guadalupa"
+
 #. frequency:1 iso_code_3:grn
 #: DB:language/name:160
 msgid "Guarani"
@@ -1002,7 +1018,7 @@ msgstr "Ittita"
 msgid "Hmong"
 msgstr "Hmong"
 
-#. frequency:1 iso_code_3:hun
+#. frequency:2 iso_code_3:hun
 #: DB:language/name:176
 msgid "Hungarian"
 msgstr "Ungherese"
@@ -1777,7 +1793,7 @@ msgstr "Norreno antico"
 msgid "North American Indian languages"
 msgstr "Lingue native nordamericane"
 
-#. frequency:2 iso_code_3:nor
+#. frequency:1 iso_code_3:nor
 #: DB:language/name:309
 msgid "Norwegian"
 msgstr "Norvegese"

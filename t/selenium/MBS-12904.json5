@@ -1,0 +1,144 @@
+{
+  title: 'MBS-12904',
+  // This issue is very similar to MBS-12694, but involves selecting the
+  // recording artist from a search first in order to push it onto the
+  // recent entities list.
+  //
+  // The issue was that, when displaying search results, jQuery UI would
+  // modify the entity JSON to add undefined `label` and `value` properties
+  // as part of its "normalization" process. These undefined properties
+  // would cause `compactEntityJson` to throw an error.
+  commands: [
+    {
+      command: 'open',
+      target: '/recording/create',
+      value: '',
+    },
+    {
+      command: 'type',
+      target: 'id=id-edit-recording.name',
+      value: 'test',
+    },
+    {
+      command: 'type',
+      target: 'id=entity-artist',
+      value: 'david bowie',
+    },
+    {
+      command: 'pause',
+      target: '1000',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'xpath=(//li[contains(@class, "ui-menu-item")][contains(descendant::text(), "David Bowie")])[1]',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'css=#relationship-editor button.add-relationship',
+      value: '',
+    },
+    {
+      command: 'select',
+      target: 'css=#add-relationship-dialog select.entity-type',
+      value: 'label=Artist',
+    },
+    {
+      command: 'sendKeys',
+      target: 'css=#add-relationship-dialog input.relationship-type',
+      value: 'arrange${KEY_ENTER}',
+    },
+    {
+      command: 'focus',
+      target: 'css=#add-relationship-dialog input.relationship-target',
+      value: '',
+    },
+    {
+      command: 'pause',
+      target: '250',
+      value: '',
+    },
+    // "David Bowie" should be in the recent entities list.
+    {
+      command: 'click',
+      target: 'xpath=//div[@id = "add-relationship-dialog"]//div[contains(@class, "relationship-target")]//li[contains(descendant::text(), "David Bowie")]',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'css=#add-relationship-dialog div.buttons button.positive',
+      value: '',
+    },
+    {
+      command: 'type',
+      target: 'id=id-edit-recording.edit_note',
+      value: 'ok',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'css=form.edit-recording button[type=submit].positive',
+      value: '',
+    },
+    {
+      command: 'assertEditData',
+      target: 1,
+      value: {
+        type: 71,
+        status: 2,
+        data: {
+          artist_credit: {
+            names: [
+              {
+                artist: {
+                  id: 956,
+                  name: 'David Bowie',
+                },
+                join_phrase: '',
+                name: 'David Bowie',
+              }
+            ]
+          },
+          comment: '',
+          entity_gid: '$$__IGNORE__$$',
+          entity_id: 1,
+          length: null,
+          name: 'test',
+          video: '0',
+        },
+      },
+    },
+    {
+      command: 'assertEditData',
+      target: 2,
+      value: {
+        type: 90,
+        status: 2,
+        data: {
+          edit_version: 2,
+          ended: '0',
+          entity0: {
+            gid: '5441c29d-3602-4898-b1a1-b77fa23b8e50',
+            id: 956,
+            name: 'David Bowie',
+          },
+          entity1: {
+            gid: '$$__IGNORE__$$',
+            id: 1,
+            name: 'test',
+          },
+          entity_id: 1,
+          link_type: {
+            id: 297,
+            link_phrase: '{additional:additionally} arranged',
+            long_link_phrase: '{additional:additionally} arranged',
+            name: 'arranger',
+            reverse_link_phrase: '{additional} arranger',
+          },
+          type0: 'artist',
+          type1: 'recording',
+        },
+      },
+    },
+  ],
+}

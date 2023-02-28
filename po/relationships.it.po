@@ -13,12 +13,12 @@
 # Nicolás Tamargo <email address hidden>, 2021
 # salo.rock, 2014
 # salo.rock, 2012
-# salo.rock, 2022
+# salo.rock, 2022-2023
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "PO-Revision-Date: 2012-05-24 18:50+0000\n"
-"Last-Translator: salo.rock, 2022\n"
+"Last-Translator: salo.rock, 2022-2023\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -88,6 +88,14 @@ msgstr "Allmusic"
 #: DB:link_type/reverse_link_phrase:285 DB:link_type/reverse_link_phrase:1093
 msgid "Allmusic page for"
 msgstr "pagina di Allmusic su"
+
+#: DB:link_type/link_phrase:1131 DB:link_type/link_phrase:1130
+msgid "Apple Music"
+msgstr "Apple Music"
+
+#: DB:link_type/reverse_link_phrase:1131 DB:link_type/reverse_link_phrase:1130
+msgid "Apple Music page for"
+msgstr "pagina di Apple Music su"
 
 #: DB:link_type/link_phrase:190
 msgid "BBC Music"
@@ -1491,6 +1499,18 @@ msgid ""
 "degree."
 msgstr "Indica che (più comunemente) un festival ha commissionato l'opera. Ciò è più comune per opere di musica classica, ma talvolta può avvenire anche in altri generi."
 
+#: DB:link_type/description:1097
+msgid ""
+"This indicates that a genre has influences of another, but is not connected "
+"to it enough to be a subgenre of it."
+msgstr "Indica che un genere è influenzato da un altro, ma non gli è collegato abbastanza da esserne un sottogenere."
+
+#: DB:link_type/description:1096
+msgid ""
+"This indicates that a genre originated as a hybrid of two or more other "
+"genres."
+msgstr "Indica che un genere ha avuto origine come un ibrido di due o più altri generi."
+
 #: DB:link_type/description:305
 msgid "This indicates that a person is, or was, a conductor for a group."
 msgstr "Indica che una persona è, o è stata, direttore d'orchestra di un gruppo."
@@ -1613,6 +1633,12 @@ msgid ""
 "happening on multiple venues over the course of a few days)."
 msgstr "Indica che un evento è composto di più parti (per es. un festival che si tiene in più sedi nel corso di qualche giorno)."
 
+#: DB:link_type/description:739
+msgid ""
+"This indicates that an instrument (often an ensemble or family) consists of "
+"two or more other instruments."
+msgstr "Indica che uno strumento (spesso un'ensemble o famiglia) consta di due o più altri strumenti."
+
 #: DB:link_type/description:916
 msgid ""
 "This indicates that an instrument is a hybrid of two or more other "
@@ -1689,6 +1715,12 @@ msgid ""
 "still contain backing vocals and other sections that would not be present in"
 " a true instrumental recording."
 msgstr "Indica che questa è una registrazione karaoke dell'opera. Si differenzia da una registrazione strumentale nel fatto che è realizzata appositamente per cantarci sopra, e pertanto le informazioni sui testi restano pertinenti. Potrebbe contenere parti vocali di accompagnamento e altre sezioni che non sarebbero presenti in un'autentica registrazione strumentale."
+
+#: DB:link_type/description:738
+msgid ""
+"This indicates that two instruments are related in a way not covered by "
+"other, more specific relationships."
+msgstr "Indica che due strumenti sono imparentati in un modo che non è coperto da altre relazioni più specifiche."
 
 #: DB:link_type/description:973
 msgid "This indicates the artist that inspired this artist’s name."
@@ -2180,6 +2212,10 @@ msgstr "Collega un tour di concerti con un gruppo di pubblicazioni (di solito un
 msgid "This links a genre to its page at Bandcamp."
 msgstr "Collega un genere alla sua pagina di Bandcamp."
 
+#: DB:link_type/description:1095
+msgid "This links a genre to its subgenres."
+msgstr "Collega un genere ai suoi sottogeneri."
+
 #: DB:link_type/description:855
 msgid ""
 "This links a group (often an orchestra) to a composer who has a composer-in-"
@@ -2201,6 +2237,10 @@ msgid ""
 "This links a label to a site where the label can receive "
 "donations/patronage, such as Flattr or PayPal.me."
 msgstr "Collega un'etichetta ad un sito su cui l'etichetta può ricevere donazioni/patrocinio, come Flattr o PayPal.me."
+
+#: DB:link_type/description:1130
+msgid "This links a label to its page at Apple Music."
+msgstr "Collega un'etichetta alla sua pagina di Apple Music."
 
 #: DB:link_type/description:719
 msgid "This links a label to its page at Bandcamp."
@@ -2526,6 +2566,10 @@ msgstr "Collega un artista ad una discografia online delle sue opere. La discogr
 msgid "This links an artist to its channel at YouTube Music."
 msgstr "Collega un artista al suo canale su YouTube Music."
 
+#: DB:link_type/description:1131
+msgid "This links an artist to its page at Apple Music."
+msgstr "Collega un artista alla sua pagina di Apple Music."
+
 #: DB:link_type/description:718
 msgid "This links an artist to its page at Bandcamp."
 msgstr "Collega un artista alla sua pagina di Bandcamp."
@@ -2628,6 +2672,14 @@ msgid ""
 "This links an event to the relevant crowdfunding project at a crowdfunding "
 "site like Kickstarter or Indiegogo."
 msgstr "Collega un evento al progetto di crowdfunding dedicatogli su un sito come Kickstarter o Indiegogo."
+
+#: DB:link_type/description:737
+msgid "This links an instrument to an older instrument that it was based on."
+msgstr "Collega uno strumento ad uno strumento più vecchio su cui si basa."
+
+#: DB:link_type/description:736
+msgid "This links an instrument to more specific subtypes of it."
+msgstr "Collega uno strumento ai suoi sottotipi più specifici."
 
 #: DB:link_type/description:111
 msgid "This links artists who were married."
@@ -3564,6 +3616,10 @@ msgstr "inno di"
 msgid "appears on video"
 msgstr "compare nel video"
 
+#: DB:link_type/name:1131 DB:link_type/name:1130
+msgid "apple music"
+msgstr "apple music"
+
 #: DB:link_type/name:866 DB:link_type/name:865 DB:link_type/name:886
 #: DB:link_type/reverse_link_phrase:866 DB:link_type/reverse_link_phrase:865
 msgid "arranged at"
@@ -3857,12 +3913,12 @@ msgstr "ha collaborato {additional:in aggiunta} {minor:in modo minore} su"
 msgid "collaboration"
 msgstr "collaborazione"
 
-#: DB:link_type/link_phrase:891 DB:link_type/link_phrase:890
-#: DB:link_type/link_phrase:889 DB:link_type/link_phrase:892
-#: DB:link_type/name:891 DB:link_type/name:890 DB:link_type/name:889
-#: DB:link_type/name:892 DB:link_type/long_link_phrase:891
-#: DB:link_type/long_link_phrase:890 DB:link_type/long_link_phrase:889
-#: DB:link_type/long_link_phrase:892
+#: DB:link_type/link_phrase:890 DB:link_type/link_phrase:889
+#: DB:link_type/link_phrase:892 DB:link_type/link_phrase:891
+#: DB:link_type/name:890 DB:link_type/name:889 DB:link_type/name:892
+#: DB:link_type/name:891 DB:link_type/long_link_phrase:890
+#: DB:link_type/long_link_phrase:889 DB:link_type/long_link_phrase:892
+#: DB:link_type/long_link_phrase:891
 msgid "commissioned"
 msgstr "ha commissionato"
 
@@ -4031,8 +4087,7 @@ msgstr "copertina per"
 msgid "cover art link"
 msgstr "collegamento alla copertina"
 
-#: DB:link_type/name:12 DB:link_type/name:4 DB:link_type/name:233
-#: DB:link_type/long_link_phrase:12
+#: DB:link_type/name:12 DB:link_type/name:4 DB:link_type/long_link_phrase:12
 msgid "covers and versions"
 msgstr "cover e versioni"
 
@@ -4108,7 +4163,7 @@ msgstr "derivazione"
 msgid "derivations"
 msgstr "derivazioni"
 
-#: DB:link_type/description:737 DB:link_type/reverse_link_phrase:737
+#: DB:link_type/reverse_link_phrase:737
 msgid "derived from"
 msgstr "derivato da"
 
@@ -4384,6 +4439,10 @@ msgstr "streaming gratuito"
 msgid "from"
 msgstr "da"
 
+#: DB:link_type/link_phrase:1096 DB:link_type/name:1096
+msgid "fusion of"
+msgstr "fusione di"
+
 #: DB:link_type/name:1088
 msgid "genre origin"
 msgstr "provenienza del genere"
@@ -4485,6 +4544,10 @@ msgstr "-astro (con legame di sangue)"
 #: DB:link_type/long_link_phrase:77
 msgid "has Amazon ASIN"
 msgstr "ha l'ASIN di Amazon"
+
+#: DB:link_type/long_link_phrase:1131 DB:link_type/long_link_phrase:1130
+msgid "has Apple Music page at"
+msgstr "ha la pagina di Apple Music"
 
 #: DB:link_type/long_link_phrase:1092 DB:link_type/long_link_phrase:718
 #: DB:link_type/long_link_phrase:719
@@ -4739,6 +4802,10 @@ msgstr "ha una copertina su"
 msgid "has derived instrument"
 msgstr "ha lo strumento derivato"
 
+#: DB:link_type/reverse_link_phrase:1096
+msgid "has fusion genres"
+msgstr "ha i generi fusione"
+
 #: DB:link_type/reverse_link_phrase:916
 msgid "has hybrids"
 msgstr "ha gli ibridi"
@@ -4746,6 +4813,10 @@ msgstr "ha gli ibridi"
 #: DB:link_type/long_link_phrase:725
 msgid "has imprint"
 msgstr "ha il marchio discografico"
+
+#: DB:link_type/long_link_phrase:1097
+msgid "has influences of"
+msgstr "ha influenze da"
 
 #: DB:link_type/long_link_phrase:984 DB:link_type/long_link_phrase:211
 msgid "has its history presented at"
@@ -4765,7 +4836,7 @@ msgid "has orchestration"
 msgstr "ha l'orchestrazione"
 
 #: DB:link_type/long_link_phrase:739 DB:link_type/long_link_phrase:717
-#: DB:link_type/long_link_phrase:281 DB:link_type/long_link_phrase:356
+#: DB:link_type/long_link_phrase:356 DB:link_type/long_link_phrase:281
 msgid "has part"
 msgstr "ha la parte"
 
@@ -4799,6 +4870,10 @@ msgstr "ha la revisione"
 #: DB:link_type/long_link_phrase:729
 msgid "has show notes at"
 msgstr "ha le note di episodio su"
+
+#: DB:link_type/long_link_phrase:1095
+msgid "has subgenre"
+msgstr "ha il sottogenere"
 
 #: DB:link_type/long_link_phrase:823
 msgid "has subseries"
@@ -4903,6 +4978,14 @@ msgstr "compresa in"
 msgid "includes"
 msgstr "comprende"
 
+#: DB:link_type/link_phrase:1097 DB:link_type/name:1097
+msgid "influenced by"
+msgstr "influenzato da"
+
+#: DB:link_type/reverse_link_phrase:1097
+msgid "influenced genres"
+msgstr "generi influenzati"
+
 #: DB:link_type/description:734 DB:link_type/link_phrase:734
 #: DB:link_type/name:734 DB:link_type/reverse_link_phrase:734
 #: DB:link_type/long_link_phrase:734
@@ -4975,6 +5058,10 @@ msgstr "è un DJ mix di"
 #: DB:link_type/long_link_phrase:228
 msgid "is a compilation of"
 msgstr "è una raccolta di"
+
+#: DB:link_type/long_link_phrase:1096
+msgid "is a fusion of"
+msgstr "è una fusione di"
 
 #: DB:link_type/long_link_phrase:916
 msgid "is a hybrid of"
@@ -5781,8 +5868,8 @@ msgstr "altri database"
 msgid "other version"
 msgstr "altra versione"
 
-#: DB:link_type/link_phrase:233 DB:link_type/reverse_link_phrase:233
-#: DB:link_type/long_link_phrase:233
+#: DB:link_type/link_phrase:233 DB:link_type/name:233
+#: DB:link_type/reverse_link_phrase:233 DB:link_type/long_link_phrase:233
 msgid "other versions"
 msgstr "altre versioni"
 
@@ -5825,8 +5912,8 @@ msgstr "parodia"
 #: DB:link_type/name:743 DB:link_type/name:742 DB:link_type/name:740
 #: DB:link_type/name:741 DB:link_type/name:996
 #: DB:link_type/reverse_link_phrase:739 DB:link_type/reverse_link_phrase:818
-#: DB:link_type/reverse_link_phrase:717 DB:link_type/reverse_link_phrase:281
-#: DB:link_type/reverse_link_phrase:356 DB:link_type/reverse_link_phrase:743
+#: DB:link_type/reverse_link_phrase:717 DB:link_type/reverse_link_phrase:356
+#: DB:link_type/reverse_link_phrase:281 DB:link_type/reverse_link_phrase:743
 msgid "part of"
 msgstr "parte di"
 
@@ -5842,10 +5929,10 @@ msgstr "parte del set"
 msgid "partial"
 msgstr "parziale"
 
-#: DB:link_type/description:739 DB:link_type/link_phrase:818
-#: DB:link_type/link_phrase:717 DB:link_type/link_phrase:281
-#: DB:link_type/link_phrase:356 DB:link_type/name:739 DB:link_type/name:818
-#: DB:link_type/name:717 DB:link_type/name:281
+#: DB:link_type/link_phrase:818 DB:link_type/link_phrase:717
+#: DB:link_type/link_phrase:356 DB:link_type/link_phrase:281
+#: DB:link_type/name:739 DB:link_type/name:818 DB:link_type/name:717
+#: DB:link_type/name:281
 msgid "parts"
 msgstr "parti"
 
@@ -6306,7 +6393,7 @@ msgstr "rimette in vendita il catalogo di"
 msgid "related instruments"
 msgstr "strumenti imparentati"
 
-#: DB:link_type/description:738 DB:link_type/name:738
+#: DB:link_type/name:738
 msgid "related to"
 msgstr "imparentato con"
 
@@ -6616,6 +6703,18 @@ msgstr "studenti"
 msgid "studied at"
 msgstr "ha studiato presso"
 
+#: DB:link_type/name:1095
+msgid "subgenre"
+msgstr "sottogenere"
+
+#: DB:link_type/reverse_link_phrase:1095
+msgid "subgenre of"
+msgstr "sottogenere di"
+
+#: DB:link_type/link_phrase:1095
+msgid "subgenres"
+msgstr "sottogeneri"
+
 #: DB:link_type/name:722
 msgid "subgroup"
 msgstr "sottogruppo"
@@ -6817,7 +6916,7 @@ msgstr "eventi tributo"
 msgid "tribute to"
 msgstr "tributo a"
 
-#: DB:link_type/description:736 DB:link_type/reverse_link_phrase:736
+#: DB:link_type/reverse_link_phrase:736
 msgid "type of"
 msgstr "tipo di"
 
@@ -6933,8 +7032,8 @@ msgstr "ha lavorato come tecnico a"
 msgid "was an orchestra at"
 msgstr "è stata un'orchestra presso"
 
-#: DB:link_type/reverse_link_phrase:891 DB:link_type/reverse_link_phrase:890
-#: DB:link_type/reverse_link_phrase:889 DB:link_type/reverse_link_phrase:892
+#: DB:link_type/reverse_link_phrase:890 DB:link_type/reverse_link_phrase:889
+#: DB:link_type/reverse_link_phrase:892 DB:link_type/reverse_link_phrase:891
 msgid "was commissioned by"
 msgstr "è stata commissionata da"
 
@@ -7683,10 +7782,6 @@ msgstr "{entity1} è una residency di {entity0}"
 msgid "{entity1} is a tour by {entity0}"
 msgstr "{entity1} è un tour di {entity0}"
 
-#: DB:link_type/long_link_phrase:752
-msgid "{entity1} is a traditional instrument from {entity0}"
-msgstr "{entity1} è uno strumento tradizionale di {entity0}"
-
 #: DB:link_type/long_link_phrase:1082
 msgid "{entity1} is a translated version of {entity0}"
 msgstr "{entity1} è una versione tradotta di {entity0}"
@@ -7694,6 +7789,10 @@ msgstr "{entity1} è una versione tradotta di {entity0}"
 #: DB:link_type/long_link_phrase:65 DB:link_type/long_link_phrase:970
 msgid "{entity1} is a tribute to {entity0}"
 msgstr "{entity1} è un tributo a {entity0}"
+
+#: DB:link_type/long_link_phrase:752
+msgid "{entity1} is an instrument from {entity0}"
+msgstr "{entity1} è uno strumento proveniente da {entity0}"
 
 #: DB:link_type/long_link_phrase:1090
 msgid "{entity1} is commonly used in {entity0}"

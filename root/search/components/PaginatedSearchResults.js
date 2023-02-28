@@ -1,5 +1,5 @@
 /*
- * @flow strict-local
+ * @flow strict
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -9,10 +9,10 @@
 
 import * as React from 'react';
 
-import {CatalystContext} from '../../context.mjs';
 import PaginatedResults from '../../components/PaginatedResults.js';
-import {type SearchResultT} from '../types.js';
+import {CatalystContext} from '../../context.mjs';
 import uriWith from '../../utility/uriWith.js';
+import {type SearchResultT} from '../types.js';
 
 type Props<T> = {
   +buildResult: (SearchResultT<T>, number) => React.Node,

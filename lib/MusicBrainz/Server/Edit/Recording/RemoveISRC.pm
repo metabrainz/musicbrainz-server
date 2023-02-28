@@ -21,7 +21,7 @@ with 'MusicBrainz::Server::Edit::Role::AllowAmending' => {
 sub edit_name { N_l('Remove ISRC') }
 sub edit_kind { 'remove' }
 sub edit_type { $EDIT_RECORDING_REMOVE_ISRC }
-sub edit_template_react { 'RemoveIsrc' }
+sub edit_template { 'RemoveIsrc' }
 
 sub recording_id { shift->data->{recording}{id} }
 

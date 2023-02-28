@@ -1,6 +1,7 @@
 package Plack::Middleware::Debug::DAOLogger;
-
 use utf8;
+use strict;
+use warnings;
 
 use parent qw(Plack::Middleware::Debug::Base);
 use List::AllUtils qw( sum );
@@ -18,7 +19,7 @@ sub run {
     $i = 0;
 
     return sub {
-        my $sum = sum(map { $_->[1] } @call_stack);
+        my $sum = sum(map { $_->[1] } @call_stack) // 0;
 
         $panel->content(
             '<p>This panel shows time spent within the data access layer. Rows '.
@@ -38,7 +39,7 @@ sub run {
 
 sub render_stack {
     my ($indent, @stack) = @_;
-    return unless @stack;
+    return '' unless @stack;
 
     my @times = map { $_->[1] } @stack;
     my $mean = mean(@times);

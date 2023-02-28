@@ -1,53 +1,63 @@
 @import "colors.less";
 
-.tooltip-container {
-    position: absolute;
-    top: -12px;
-    left: 22px;
-    z-index: 1000;
+.tooltip-wrapper {
+    position: relative;
+    display: inline-block;
 
-    .tooltip-triangle-mixin {
-        border-bottom: 9px solid transparent;
-        border-top: 9px solid transparent;
-        content: " ";
-        height: 0;
+    .tooltip-container {
+        visibility: hidden;
         position: absolute;
-        top: 0;
-        width: 0;
-    }
+        top: -12px;
+        left: 100%;
+        z-index: 1000;
 
-    .tooltip-triangle {
-        height: 10px;
-        left: 0;
-        position: absolute;
-        top: 8px;
-        width: 0;
-        z-index: 1;
-
-        &:before {
-            .tooltip-triangle-mixin;
-            border-right: 9px solid @medium-border;
-            right: 0;
+        .tooltip-triangle-mixin {
+            border-bottom: 9px solid transparent;
+            border-top: 9px solid transparent;
+            content: " ";
+            height: 0;
+            position: absolute;
+            top: 0;
+            width: 0;
         }
 
-        &:after {
-            .tooltip-triangle-mixin;
-            border-right: 9px solid @text-white;
-            right: -1px;
+        .tooltip-triangle {
+            height: 10px;
+            left: 0;
+            position: absolute;
+            top: 8px;
+            width: 0;
+            z-index: 1;
+
+            &:before {
+                .tooltip-triangle-mixin;
+                border-right: 9px solid @medium-border;
+                right: 0;
+            }
+
+            &:after {
+                .tooltip-triangle-mixin;
+                border-right: 9px solid @text-white;
+                right: -1px;
+            }
+        }
+
+        .tooltip-content {
+            background: @text-white;
+            border: 1px solid @medium-border;
+            box-shadow: 0 2px 5px @medium-border;
+            font-size: @default-text-size;
+            font-weight: normal;
+            padding: 5px 10px;
+            width: 240px;
+        }
+
+        .tooltip-content a {
+            color: @link-default !important;
         }
     }
 
-    .tooltip-content {
-        background: @text-white;
-        border: 1px solid @medium-border;
-        box-shadow: 0 2px 5px @medium-border;
-        font-size: @default-text-size;
-        font-weight: normal;
-        padding: 5px 10px;
-        width: 240px;
-    }
-
-    .tooltip-content a {
-        color: @link-default !important;
+    &:hover .tooltip-container {
+        visibility: visible;
     }
 }

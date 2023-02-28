@@ -1,5 +1,5 @@
 /*
- * @flow strict-local
+ * @flow strict
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -14,8 +14,8 @@ import {CatalystContext} from '../context.mjs';
 import {l as lMbServer} from '../static/scripts/common/i18n.js';
 import {l_statistics as l} from '../static/scripts/common/i18n/statistics.js';
 
-import {formatCount, formatPercentage, TimelineLink} from './utilities.js';
 import StatisticsLayout from './StatisticsLayout.js';
+import {formatCount, formatPercentage, TimelineLink} from './utilities.js';
 
 type EditCategoryT = {
   +edit_name: string,

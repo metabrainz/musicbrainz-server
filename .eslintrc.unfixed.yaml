@@ -31,6 +31,7 @@ rules:
                        "N_l",
                        "N_ln",
                        "N_lp",
+                       "__webpack_public_path__",
                      ]}]
   consistent-this: [warn, self]
   sort-keys: [warn, asc, {caseSensitive: false, natural: true}]

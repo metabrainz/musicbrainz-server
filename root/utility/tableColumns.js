@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict
  * Copyright (C) 2019 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -10,14 +10,14 @@
 import * as React from 'react';
 import type {ColumnOptions} from 'react-table';
 
-import {CatalystContext} from '../context.mjs';
 import ENTITIES from '../../entities.mjs';
 import InstrumentRelTypes from '../components/InstrumentRelTypes.js';
 import ReleaseCatnoList from '../components/ReleaseCatnoList.js';
 import ReleaseLabelList from '../components/ReleaseLabelList.js';
 import ReleaseLanguageScript from '../components/ReleaseLanguageScript.js';
 import SortableTableHeader from '../components/SortableTableHeader.js';
-import linkedEntities from '../static/scripts/common/linkedEntities.mjs';
+import {CatalystContext} from '../context.mjs';
+import type {ReportRelationshipRoleT} from '../report/types.js';
 import ArtistCreditLink
   from '../static/scripts/common/components/ArtistCreditLink.js';
 import ArtistRoles
@@ -40,18 +40,18 @@ import ReleaseEvents
 import TaggerIcon from '../static/scripts/common/components/TaggerIcon.js';
 import WorkArtists
   from '../static/scripts/common/components/WorkArtists.js';
-import formatDate from '../static/scripts/common/utility/formatDate.js';
-import formatDatePeriod
-  from '../static/scripts/common/utility/formatDatePeriod.js';
-import {formatCount} from '../statistics/utilities.js';
-import formatEndDate from '../static/scripts/common/utility/formatEndDate.js';
-import renderMergeCheckboxElement
-  from '../static/scripts/common/utility/renderMergeCheckboxElement.js';
 import expand2react from '../static/scripts/common/i18n/expand2react.js';
 import localizeLanguageName
   from '../static/scripts/common/i18n/localizeLanguageName.js';
+import linkedEntities from '../static/scripts/common/linkedEntities.mjs';
+import formatDate from '../static/scripts/common/utility/formatDate.js';
+import formatDatePeriod
+  from '../static/scripts/common/utility/formatDatePeriod.js';
+import formatEndDate from '../static/scripts/common/utility/formatEndDate.js';
+import renderMergeCheckboxElement
+  from '../static/scripts/common/utility/renderMergeCheckboxElement.js';
 import yesNo from '../static/scripts/common/utility/yesNo.js';
-import type {ReportRelationshipRoleT} from '../report/types.js';
+import {formatCount} from '../statistics/utilities.js';
 
 import {returnToCurrentPage} from './returnUri.js';
 
@@ -94,17 +94,22 @@ export function defineArtistCreditColumn<D>(
     +title: string,
   },
 ): ColumnOptions<D, string> {
+  const {
+    showExpandedArtistCredits = false,
+    sortable = false,
+  } = props;
+
   return {
     Cell: ({row: {original}}) => {
       const artistCredit = props.getArtistCredit(original);
       return (artistCredit
-        ? props.showExpandedArtistCredits
+        ? showExpandedArtistCredits
           ? <ExpandedArtistCredit artistCredit={artistCredit} />
           : <ArtistCreditLink artistCredit={artistCredit} />
         : null
       );
     },
-    Header: (props.sortable
+    Header: (sortable
       ? (
         <SortableTableHeader
           label={props.title}
@@ -145,10 +150,12 @@ export function defineArtistRolesColumn<D>(
 export function defineBeginDateColumn(
   props: OrderableProps,
 ): ColumnOptions<{+begin_date: PartialDateT, ...}, PartialDateT> {
+  const sortable = props.sortable ?? false;
+
   return {
     accessor: x => x.begin_date,
     Cell: ({cell: {value}}) => formatDate(value),
-    Header: (props.sortable
+    Header: (sortable
       ? (
         <SortableTableHeader
           label={l('Begin')}
@@ -167,17 +174,16 @@ export function defineCDTocColumn<D>(
     +getCDToc: (D) => CDTocT | null,
   },
 ): ColumnOptions<D, string> {
+  const sortable = props.sortable ?? false;
+
   return {
     Cell: ({row: {original}}) => {
       const cdToc = props.getCDToc(original);
       return (cdToc ? (
-        <CDTocLink
-          cdToc={cdToc}
-          content={cdToc.discid}
-        />
+        <CDTocLink cdToc={cdToc} />
       ) : null);
     },
-    Header: (props.sortable
+    Header: (sortable
       ? (
         <SortableTableHeader
           label={l('Disc ID')}
@@ -192,7 +198,7 @@ export function defineCDTocColumn<D>(
 
 export function defineCheckboxColumn(
   props: {
-    +mergeForm?: MergeFormT,
+    +mergeForm?: MergeFormT | MergeReleasesFormT,
     +name?: string,
   },
 ): ColumnOptions<CoreEntityT, number> {
@@ -220,6 +226,8 @@ export function defineCountColumn<D>(
     +title: string,
   },
 ): ColumnOptions<D, number> {
+  const sortable = props.sortable ?? false;
+
   return {
     accessor: row => props.getCount(row),
     Cell: ({cell: {value}}) => (
@@ -228,7 +236,7 @@ export function defineCountColumn<D>(
       </CatalystContext.Consumer>
     ),
     cellProps: {className: 'c'},
-    Header: (props.sortable
+    Header: (sortable
       ? (
         <SortableTableHeader
           label={props.title}
@@ -248,12 +256,14 @@ export function defineDatePeriodColumn<D>(
     +getEntity: (D) => EventT | null,
   },
 ): ColumnOptions<D, string> {
+  const sortable = props.sortable ?? false;
+
   return {
     Cell: ({row: {original}}) => {
       const entity = props.getEntity(original);
       return entity ? formatDatePeriod(entity) : null;
     },
-    Header: (props.sortable
+    Header: (sortable
       ? (
         <SortableTableHeader
           label={l('Date')}
@@ -269,9 +279,11 @@ export function defineDatePeriodColumn<D>(
 export function defineEndDateColumn(
   props: OrderableProps,
 ): ColumnOptions<{...DatePeriodRoleT, ...}, PartialDateT | null> {
+  const sortable = props.sortable ?? false;
+
   return {
     Cell: ({row: {original}}) => formatEndDate(original),
-    Header: (props.sortable
+    Header: (sortable
       ? (
         <SortableTableHeader
           label={l('End')}
@@ -294,14 +306,13 @@ export function defineEntityColumn<D>(
     +title: string,
   },
 ): ColumnOptions<D, string> {
-  const descriptive =
-    hasOwnProp(props, 'descriptive')
-      ? props.descriptive
-      : true;
+  const descriptive = props.descriptive ?? true;
+  const sortable = props.sortable ?? false;
   const subPath =
     hasOwnProp(props, 'subPath')
       ? props.subPath
       : '';
+
   return {
     Cell: ({row: {original}}) => {
       const entity = props.getEntity(original);
@@ -318,7 +329,7 @@ export function defineEntityColumn<D>(
           )
         : null);
     },
-    Header: (props.sortable
+    Header: (sortable
       ? (
         <SortableTableHeader
           label={props.title}
@@ -392,10 +403,9 @@ export function defineNameColumn<T: CoreEntityT | CollectionT>(
     +title: string,
   },
 ): ColumnOptions<T, string> {
-  const descriptive =
-    hasOwnProp(props, 'descriptive')
-      ? props.descriptive
-      : true;
+  const descriptive = props.descriptive ?? true;
+  const sortable = props.sortable ?? false;
+
   return {
     Cell: ({row: {original}}) => (
       descriptive
@@ -409,7 +419,7 @@ export function defineNameColumn<T: CoreEntityT | CollectionT>(
           />
         )
     ),
-    Header: (props.sortable
+    Header: (sortable
       ? (
         <SortableTableHeader
           label={props.title}
@@ -450,11 +460,13 @@ export function defineReleaseCatnosColumn<D>(
     getLabels: (D) => $ReadOnlyArray<ReleaseLabelT>,
   },
 ): ColumnOptions<D, $ReadOnlyArray<ReleaseLabelT>> {
+  const sortable = props.sortable ?? false;
+
   return {
     Cell: ({row: {original}}) => (
       <ReleaseCatnoList labels={props.getLabels(original)} />
     ),
-    Header: (props.sortable
+    Header: (sortable
       ? (
         <SortableTableHeader
           label={l('Catalog#')}
@@ -470,10 +482,12 @@ export function defineReleaseCatnosColumn<D>(
 export function defineReleaseEventsColumn(
   props: OrderableProps,
 ): ColumnOptions<ReleaseT, ?$ReadOnlyArray<ReleaseEventT>> {
+  const sortable = props.sortable ?? false;
+
   return {
     accessor: x => x.events,
     Cell: ({cell: {value}}) => <ReleaseEvents events={value} />,
-    Header: (props.sortable
+    Header: (sortable
       ? (
         <>
           <SortableTableHeader
@@ -498,10 +512,12 @@ export function defineReleaseEventsColumn(
 export function defineReleaseLabelsColumn(
   props: OrderableProps,
 ): ColumnOptions<ReleaseT, ?$ReadOnlyArray<ReleaseLabelT>> {
+  const sortable = props.sortable ?? false;
+
   return {
     accessor: x => x.labels,
     Cell: ({cell: {value}}) => <ReleaseLabelList labels={value} />,
-    Header: (props.sortable
+    Header: (sortable
       ? (
         <SortableTableHeader
           label={l('Label')}
@@ -554,10 +570,12 @@ export function defineTextColumn<D>(
     +title: string,
   },
 ): ColumnOptions<D, StrOrNum> {
+  const sortable = props.sortable ?? false;
+
   return {
     Cell: ({row: {original}}) => props.getText(original),
     cellProps: props.cellProps,
-    Header: (props.sortable
+    Header: (sortable
       ? (
         <SortableTableHeader
           label={props.title}
@@ -581,12 +599,14 @@ export function defineTextHtmlColumn<D>(
     +title: string,
   },
 ): ColumnOptions<D, StrOrNum> {
+  const sortable = props.sortable ?? false;
+
   return {
     Cell: ({row: {original}}) => (
       <div dangerouslySetInnerHTML={{__html: props.getText(original)}} />
     ),
     cellProps: props.cellProps,
-    Header: (props.sortable
+    Header: (sortable
       ? (
         <SortableTableHeader
           label={props.title}
@@ -606,12 +626,14 @@ export function defineTypeColumn(
     +typeContext: string,
   },
 ): ColumnOptions<{+typeName: string, ...}, string> {
+  const sortable = props.sortable ?? false;
+
   return {
     accessor: x => x.typeName,
     Cell: ({cell: {value}}) => (value
       ? lp_attributes(value, props.typeContext)
       : null),
-    Header: (props.sortable
+    Header: (sortable
       ? (
         <SortableTableHeader
           label={l('Type')}
@@ -718,9 +740,9 @@ export const seriesOrderingTypeColumn:
   ColumnOptions<{+orderingTypeID?: number, ...}, ?number> = {
     accessor: x => x.orderingTypeID,
     Cell: ({cell: {value}}) => {
-      const orderingType = value
-        ? linkedEntities.series_ordering_type[value]
-        : null;
+      const orderingType = value == null
+        ? null
+        : linkedEntities.series_ordering_type[value];
       return orderingType
         ? lp_attributes(orderingType.name, 'series_ordering_type')
         : null;

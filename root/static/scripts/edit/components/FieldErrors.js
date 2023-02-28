@@ -1,5 +1,5 @@
 /*
- * @flow strict-local
+ * @flow strict
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -16,7 +16,7 @@ import subfieldErrors from '../utility/subfieldErrors.js';
 // FIXME: Use expandable object instead of HTML string for safety (MBS-10632)
 const buildErrorListItem = (
   error: string,
-  hasHtmlErrors: boolean = false,
+  hasHtmlErrors: boolean,
   index: number,
 ) => {
   if (hasHtmlErrors) {
@@ -33,17 +33,13 @@ type Props = {
   +includeSubFields?: boolean,
 };
 
-const FieldErrors = ({
-  field,
+export const FieldErrorsList = ({
   hasHtmlErrors,
-  includeSubFields = true,
-}: Props): React.Element<'ul'> | null => {
-  if (!field) {
-    return null;
-  }
-  const errors = includeSubFields
-    ? subfieldErrors(field)
-    : field.errors;
+  errors,
+}: {
+  +errors: ?$ReadOnlyArray<string>,
+  +hasHtmlErrors: boolean,
+}): React.Element<'ul'> | null => {
   if (errors?.length) {
     return (
       <ul className="errors">
@@ -54,6 +50,25 @@ const FieldErrors = ({
     );
   }
   return null;
+};
+
+const FieldErrors = ({
+  field,
+  hasHtmlErrors = false,
+  includeSubFields = true,
+}: Props): React.Element<typeof FieldErrorsList> | null => {
+  if (!field) {
+    return null;
+  }
+  const errors = includeSubFields
+    ? subfieldErrors(field)
+    : field.errors;
+  return (
+    <FieldErrorsList
+      errors={errors}
+      hasHtmlErrors={hasHtmlErrors}
+    />
+  );
 };
 
 export default FieldErrors;

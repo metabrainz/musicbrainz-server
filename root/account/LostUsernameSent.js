@@ -1,5 +1,5 @@
 /*
- * @flow strict-local
+ * @flow strict
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -9,8 +9,8 @@
 
 import * as React from 'react';
 
-import {CONTACT_URL} from '../constants.js';
 import StatusPage from '../components/StatusPage.js';
+import {CONTACT_URL} from '../constants.js';
 
 const LostUsernameSent = (): React.Element<typeof StatusPage> => (
   <StatusPage title={hyphenateTitle(l('Lost Username'), l('Email Sent!'))}>

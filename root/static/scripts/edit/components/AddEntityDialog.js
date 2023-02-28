@@ -1,5 +1,5 @@
 /*
- * @flow strict-local
+ * @flow strict
  * Copyright (C) 2021 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -61,22 +61,6 @@ const AddEntityDialog = ({
     contentWindow.containingDialog = instanceRef;
     adjustDialogSize(contentWindow);
     setLoading(false);
-
-    if (nonEmpty(name)) {
-      const nameFieldId =
-        'id-edit-' + entityType.replace('_', '-') + '.name';
-
-      // Must use contentWindow's jQuery handle or this won't work.
-      const $ = contentWindow.$;
-      $(function () {
-        contentWindow.setTimeout(function () {
-          $(contentWindow.document.getElementById(nameFieldId))
-            .val(name)
-            .change()
-            .focus();
-        }, 1);
-      });
-    }
   };
 
   const adjustDialogSize = React.useCallback((contentWindow) => {
@@ -90,6 +74,13 @@ const AddEntityDialog = ({
     adjustDialogSize,
     close,
   };
+
+  let dialogPath = '/' + entityType + '/create';
+  if (nonEmpty(name)) {
+    const nameField =
+      'edit-' + entityType.replace('_', '-') + '.name';
+    dialogPath += '?' + nameField + '=' + encodeURIComponent(name);
+  }
 
   return (
     <Modal
@@ -106,8 +97,7 @@ const AddEntityDialog = ({
       <iframe
         onLoad={handlePageLoad}
         ref={iframeRef}
-        src={'/dialog?path=' +
-          encodeURIComponent('/' + entityType + '/create')}
+        src={'/dialog?path=' + encodeURIComponent(dialogPath)}
       />
     </Modal>
   );

@@ -1,7 +1,10 @@
 package t::MusicBrainz::Server::Controller::Collection::AddAndRemove;
+use utf8;
+use strict;
+use warnings;
+
 use Test::Routine;
 use Test::More;
-use utf8;
 
 around run_test => sub {
     my ($orig, $test, @args) = @_;

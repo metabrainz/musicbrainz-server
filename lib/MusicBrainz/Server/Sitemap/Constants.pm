@@ -1,4 +1,6 @@
 package MusicBrainz::Server::Sitemap::Constants;
+use strict;
+use warnings;
 
 use base 'Exporter';
 use MusicBrainz::Server::Constants qw(
@@ -25,7 +27,8 @@ sub priority_by_count {
     my ($count_prop) = @_;
     sub {
         my (%opts) = @_;
-        return $SECONDARY_PAGE_PRIORITY if $opts{$count_prop} > 0;
+        return $SECONDARY_PAGE_PRIORITY
+            if $opts{$count_prop} && $opts{$count_prop} > 0;
         return $EMPTY_PAGE_PRIORITY;
     };
 }

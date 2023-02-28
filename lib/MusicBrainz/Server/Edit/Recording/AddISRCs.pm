@@ -22,7 +22,7 @@ use aliased 'MusicBrainz::Server::Entity::ISRC';
 sub edit_type { $EDIT_RECORDING_ADD_ISRCS }
 sub edit_name { N_l('Add ISRCs') }
 sub edit_kind { 'add' }
-sub edit_template_react { 'AddIsrcs' }
+sub edit_template { 'AddIsrcs' }
 
 sub recording_ids { map { $_->{recording}{id} } @{ shift->data->{isrcs} } }
 

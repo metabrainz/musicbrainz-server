@@ -1,5 +1,5 @@
 /*
- * @flow strict-local
+ * @flow strict
  * Copyright (C) 2020 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -9,14 +9,12 @@
 
 import * as React from 'react';
 
-import {artistCreditsAreEqual}
-  from '../../static/scripts/common/immutable-entities.js';
 import ArtistCreditLink
   from '../../static/scripts/common/components/ArtistCreditLink.js';
-import DescriptiveLink
-  from '../../static/scripts/common/components/DescriptiveLink.js';
 import DataTrackIcon
   from '../../static/scripts/common/components/DataTrackIcon.js';
+import DescriptiveLink
+  from '../../static/scripts/common/components/DescriptiveLink.js';
 import EntityLink
   from '../../static/scripts/common/components/EntityLink.js';
 import ExpandedArtistCredit
@@ -25,17 +23,19 @@ import MediumLink
   from '../../static/scripts/common/components/MediumLink.js';
 import PregapTrackIcon
   from '../../static/scripts/common/components/PregapTrackIcon.js';
+import {artistCreditsAreEqual}
+  from '../../static/scripts/common/immutable-entities.js';
 import formatTrackLength
   from '../../static/scripts/common/utility/formatTrackLength.js';
 import DiffSide from '../../static/scripts/edit/components/edit/DiffSide.js';
 import FullChangeDiff
   from '../../static/scripts/edit/components/edit/FullChangeDiff.js';
+import WordDiff from '../../static/scripts/edit/components/edit/WordDiff.js';
 import InformationIcon
   from '../../static/scripts/edit/components/InformationIcon.js';
-import WordDiff from '../../static/scripts/edit/components/edit/WordDiff.js';
 import diffArtistCredits
   from '../../static/scripts/edit/utility/diffArtistCredits.js';
-import {INSERT, DELETE} from '../../static/scripts/edit/utility/editDiff.js';
+import {DELETE, INSERT} from '../../static/scripts/edit/utility/editDiff.js';
 import loopParity from '../../utility/loopParity.js';
 
 type TracklistChangesAddProps = {

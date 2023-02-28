@@ -9,14 +9,14 @@
 
 import * as React from 'react';
 
-import Layout from '../layout/index.js';
-import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
 import RequestLogin from '../components/RequestLogin.js';
 import {CatalystContext} from '../context.mjs';
-import DBDefs from '../static/scripts/common/DBDefs.mjs';
-import linkedEntities from '../static/scripts/common/linkedEntities.mjs';
+import Layout from '../layout/index.js';
 import EditLink from '../static/scripts/common/components/EditLink.js';
 import EditorLink from '../static/scripts/common/components/EditorLink.js';
+import DBDefs from '../static/scripts/common/DBDefs.mjs';
+import linkedEntities from '../static/scripts/common/linkedEntities.mjs';
+import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
 import getVoteName from '../static/scripts/edit/utility/getVoteName.js';
 import {editorMayAddNote, editorMayVote}
   from '../utility/edit.js';

@@ -7,11 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-/* eslint-disable multiline-comment-style */
-/* eslint-disable sort-keys */
-/* eslint-disable spaced-comment */
-
-/*::
 export type LinkedEntitiesT = {
   area: {
     [areaId: number]: AreaT,
@@ -21,6 +16,9 @@ export type LinkedEntitiesT = {
   },
   artist_type: {
     [artistId: number]: ArtistTypeT,
+  },
+  edit: {
+    [editId: number]: EditWithIdT,
   },
   editor: {
     [editorId: number]: EditorT,
@@ -47,7 +45,7 @@ export type LinkedEntitiesT = {
     [linkTypeIdOrGid: StrOrNum]: LinkTypeT,
   },
   link_type_tree: {
-    [entityTypes: string]: $ReadOnlyArray<LinkTypeT>,
+    [entityTypes: string]: Array<LinkTypeT>,
   },
   place: {
     [placeId: number]: PlaceT,
@@ -83,7 +81,7 @@ export type LinkedEntitiesT = {
     [seriesOrderingTypeId: number]: SeriesOrderingTypeT,
   },
   series_type: {
-    [seriesTypeId: number]: SeriesTypeT,
+    [seriesTypeId: string]: SeriesTypeT,
   },
   url: {
     [urlId: number]: UrlT,
@@ -94,19 +92,22 @@ export type LinkedEntitiesT = {
   work_attribute_type: {
     [workAttributeTypeId: number]: WorkAttributeTypeT,
   },
+  work_type: {
+    [workTypeId: string]: WorkTypeT,
+  },
   ...
 };
-*/
 
 // $FlowIgnore[method-unbinding]
 const hasOwnProperty = Object.prototype.hasOwnProperty;
 
 const EMPTY_OBJECT = Object.freeze({});
 
-const linkedEntities/*: LinkedEntitiesT */ = Object.create(Object.seal({
+const linkedEntities: LinkedEntitiesT = Object.create(Object.seal({
   area:                           EMPTY_OBJECT,
   artist:                         EMPTY_OBJECT,
   artist_type:                    EMPTY_OBJECT,
+  edit:                           EMPTY_OBJECT,
   editor:                         EMPTY_OBJECT,
   event:                          EMPTY_OBJECT,
   genre:                          EMPTY_OBJECT,
@@ -131,13 +132,14 @@ const linkedEntities/*: LinkedEntitiesT */ = Object.create(Object.seal({
   url:                            EMPTY_OBJECT,
   work:                           EMPTY_OBJECT,
   work_attribute_type:            EMPTY_OBJECT,
+  work_type:                      EMPTY_OBJECT,
 }));
 
 export default linkedEntities;
 
 export function mergeLinkedEntities(
-  update/*: ?$ReadOnly<$Partial<LinkedEntitiesT>> */,
-)/*: void */ {
+  update: ?$ReadOnly<$Partial<LinkedEntitiesT>>,
+): void {
   if (update) {
     for (const [type, entities] of Object.entries(update)) {
       if (hasOwnProperty.call(linkedEntities, type)) {
@@ -150,15 +152,15 @@ export function mergeLinkedEntities(
 }
 
 export function setLinkedEntities(
-  update/*: ?LinkedEntitiesT */,
-)/*: void */ {
+  update: ?LinkedEntitiesT,
+): void {
   for (const key of Object.keys(linkedEntities)) {
     // $FlowIgnore[incompatible-type]
     delete linkedEntities[key];
     /*
-      * The above line is deleting the own property only, not the one on the
-      * prototype. However, Flow thinks it'll make the object key undefined.
-      */
+     * The above line is deleting the own property only, not the one on the
+     * prototype. However, Flow thinks it'll make the object key undefined.
+     */
   }
   if (update) {
     Object.assign(linkedEntities, update);

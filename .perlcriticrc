@@ -15,10 +15,14 @@ allow_includes=1
 
 [Modules::RequireFilenameMatchesPackage]
 
+[Moose::ProhibitNewMethod]
+
 [Subroutines::ProhibitReturnSort]
 
 [TestingAndDebugging::ProhibitNoStrict]
 allow=refs
+[TestingAndDebugging::RequireUseStrict]
+[TestingAndDebugging::RequireUseWarnings]
 
 [TooMuchCode::ProhibitUnusedImport]
 [TooMuchCode::ProhibitUnusedInclude]

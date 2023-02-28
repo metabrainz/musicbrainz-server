@@ -1,4 +1,6 @@
 package MusicBrainz::Server::Test;
+use strict;
+use warnings;
 
 use feature 'state';
 
@@ -159,9 +161,9 @@ sub get_latest_edit
 sub capture_edits (&$)
 {
     my ($code, $c) = @_;
-    my $current_max = $c->sql->select_single_value('SELECT max(id) FROM edit');
+    my $current_max = $c->sql->select_single_value('SELECT max(id) FROM edit') // 0;
     $code->();
-    my $new_max = $c->sql->select_single_value('SELECT max(id) FROM edit');
+    my $new_max = $c->sql->select_single_value('SELECT max(id) FROM edit') // 0;
     return () if $new_max <= $current_max;
     return nsort_by { $_->id } values %{ $c->model('Edit')->get_by_ids(
         ($current_max + 1)..$new_max
@@ -169,16 +171,6 @@ sub capture_edits (&$)
 }
 
 my $Test = Test::Builder->new();
-
-sub diag_lineno
-{
-    my @lines = split /\n/, $_[0];
-    my $line = 1;
-    foreach (@lines) {
-        diag $line, $_;
-        $line += 1;
-    }
-}
 
 =func test_xpath_html
 
@@ -291,8 +283,8 @@ sub schema_validator
 {
     my $version = shift;
 
+    $version = '2.0' if !$version || $version == 2;
     $version = '1.4' if $version == 1;
-    $version = '2.0' if $version == 2 || !$version;
 
     my $mmd_root = $ENV{'MMD_SCHEMA_ROOT'} ||
                    Cwd::realpath( File::Basename::dirname(__FILE__) ) . '/../../../../mmd-schema';

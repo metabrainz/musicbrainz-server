@@ -122,10 +122,7 @@ role {
 
     method _merge_confirm => sub {
         my ($self, $c) = @_;
-        $c->stash(
-            template => $c->namespace . '/merge.tt',
-            hide_merge_helper => 1
-        );
+        $c->stash( hide_merge_helper => 1 );
 
         my $merger = $c->session->{merger}
             or $c->res->redirect('/'), $c->detach;
@@ -165,25 +162,25 @@ role {
         # field errors won't be encoded.
         my $is_merge_valid = $self->_validate_merge($c, $form);
 
-        if ($c->namespace =~ /^(?:area|artist|collection|event|instrument|label|place|recording|release_group|series|work)$/) {
-            my %props = (
-                isrcsDiffer => $c->stash->{isrcs_differ},
-                iswcsDiffer => $c->stash->{iswcs_differ},
-                privaciesDiffer => $c->stash->{privacies_differ},
-                typesDiffer => $c->stash->{types_differ},
-                form => $form->TO_JSON,
-                toMerge => to_json_array(\@entities),
-            );
-            $c->stash(
-                component_path => $c->namespace . '/'. type_to_model($c->namespace) . 'Merge',
-                component_props => \%props,
-                current_view => 'Node',
-            );
-        }
-
         if ($is_merge_valid) {
             $self->_merge_submit($c, $form, \@entities);
         }
+
+        my %props = (
+            badRecordingMerges => $c->stash->{bad_recording_merges},
+            isrcsDiffer => $c->stash->{isrcs_differ},
+            iswcsDiffer => $c->stash->{iswcs_differ},
+            mediums => to_json_array($c->stash->{mediums}),
+            privaciesDiffer => $c->stash->{privacies_differ},
+            typesDiffer => $c->stash->{types_differ},
+            form => $form->TO_JSON,
+            toMerge => to_json_array(\@entities),
+        );
+        $c->stash(
+            component_path => $c->namespace . '/' . type_to_model($c->namespace) . 'Merge',
+            component_props => \%props,
+            current_view => 'Node',
+        );
     };
 
     method _validate_merge => sub {

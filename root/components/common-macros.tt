@@ -6,14 +6,6 @@
 [%~ MACRO add_commas(n) GET n.chunk(-3).join(',') -%]
 [%~ MACRO replace(text, search, replace) BLOCK; text | replace(search, replace); END # Converted to React with standard String.replace
 -%]
-[%~# Use uri_escape for percent-encoding random text to be used as a parameter
-   # in an external URL (use c.uri_for(_action) for making internal URLs).
-   # A URL passed in from somewhere, on the other hand, should already be
-   # percent-encoded and not be run through uri_escape; just use html_escape
-   # for entity-encoding reserved characters (the ampersand, in particular).
-   # ~%]
-[%~ MACRO uri_escape(text) BLOCK; text | uri; END # Converted to React with standard encodeURIComponent
-~%]
 [%~ MACRO html_escape(text) BLOCK; text | html; END # Converted to React (unneeded)
 ~%]
 [%~ MACRO html_unescape(text) BLOCK; text.replace('&quot;', '"').replace('&lt;', '<').replace('&gt;', '>').replace('&#39;', "'").replace('&amp;', '&'); END -%]
@@ -27,7 +19,6 @@
 [%~ MACRO va_doc_link BLOCK -%]
     [%- doc_link('Style/Unknown_and_untitled/Special_purpose_artist#List_of_official_SPAs') -%]
 [%- END -%]
-[%~ MACRO yesno(b) BLOCK; b ? l('Yes') : l('No'); END ~%] [% # Converted to React at root/static/scripts/common/utility/yesNo.js %]
 
 [%~ MACRO isolate_text(text) BLOCK; # Converted to React at root/static/scripts/common/utility/isolateText.js
     IF text != ''; INCLUDE _wrap_text options=['isolate', 'escape'] content=text;
@@ -50,14 +41,6 @@ more than two plural forms, then the first plural form (germanic plural) is chos
 two. -%]
 [%~ MACRO ln(text, plural, num, args) BLOCK; # Converted to React at root/static/scripts/common/i18n.js
     Translation.ln(text, plural, num, args);
-END; -%]
-
-[%~ MACRO N_ln(text, plural) BLOCK; # Converted to React at root/static/scripts/common/i18n.js
-    Translation.N_ln(text, plural);
-END; -%]
-
-[%~ MACRO expand(text, args) BLOCK; # Converted to React at root/static/scripts/common/i18n/expand2.js
-    Translation.expand(text, args);
 END; -%]
 
 [%~ MACRO display_age_ago(age) BLOCK; # Converted to React at root/utility/age.js
@@ -176,8 +159,6 @@ END; -%]
   [%- artist_credit(ac) -%]<br />
   [%- expanded_artist_credit_list(ac) -%]<br />
 [%- END -%]
-
-[%~ MACRO entity_exists(entity) BLOCK; entity.gid.defined; END -%]
 
 [%~ MACRO link_entity(entity, action, text, credited_as, no_escape) BLOCK; # Converted to React at root/static/scripts/common/components/EntityLink.js
     # no_escape is only available for artists and recordings
@@ -417,18 +398,6 @@ END -%]
     INCLUDE _link_mbid_entity entity=url type='url' action=action content=text;
 END -%]
 
-[%~ MACRO link_tag(tag, action, text) BLOCK;
-    INCLUDE _link_other_entity content=text action=action type='tag' default_content=tag.name;
-END -%]
-
-[%~ MACRO link_isrc(isrc, action, text) BLOCK;
-    INCLUDE _link_other_entity content=text action=action type='isrc' default_content=isrc.isrc edits_pending=isrc.edits_pending code_tag=1;
-END -%]
-
-[%~ MACRO link_iswc(iswc, action, text) BLOCK;
-    INCLUDE _link_other_entity content=text action=action type='iswc' default_content=iswc.iswc edits_pending=iswc.edits_pending code_tag=1;
-END -%]
-
 [%~ MACRO link_cdtoc(cdtoc, action, text) BLOCK; # Converted to React at root/static/scripts/common/components/CDTocLink.js
     INCLUDE _link_other_entity content=text action=action type='cdtoc' default_content=cdtoc.discid;
 END -%]
@@ -446,13 +415,6 @@ END -%]
 [%~ MACRO link_edit(edit, action, text) BLOCK; # Converted to React at root/static/scripts/common/components/EditLink.js
     INCLUDE _link_other_entity content=text action=action type='edit' default_content=edit.id;
 END -%]
-
-[%~ MACRO link_searchable_property(search_field, search_value, entity_type, text) BLOCK # Converted to React at root/components/LinkSearchableProperty.js -%]
-  [%- text = text == '' ? search_value : text -%]
-  [%- search_field = search_value == '*' ? '-' _ search_field : search_field -%]
-  [%- -%]<a href="[% c.uri_for('/search', {query => search_field _ ':' _ search_value, type => entity_type, limit => 25, method => 'advanced'}) | html %]">
-      [%- text -%]</a>
-[%- END -%]
 
 [%~ MACRO login_url(redirect) BLOCK;
     c.uri_for_action('/user/login', { returnto => c.req.query_params.returnto || redirect || c.relative_uri });
@@ -498,63 +460,6 @@ END -%]
     comma_only_list(out);
 END -%]
 
-[%~ MACRO entity_label(type) BLOCK;
-    IF type == 'artist'; l('Artist:');
-    ELSIF type == 'area'; l('Area:');
-    ELSIF type == 'event'; l('Event:');
-    ELSIF type == 'instrument'; l('Instrument:');
-    ELSIF type == 'label'; l('Label:');
-    ELSIF type == 'place'; l('Place:');
-    ELSIF type == 'release'; l('Release:');
-    ELSIF type == 'release_group'; l('Release group:');
-    ELSIF type == 'recording'; l('Recording:');
-    ELSIF type == 'series'; lp('Series:', 'singular');
-    ELSIF type == 'work'; l('Work:');
-    ELSIF type == 'url'; l('URL:');
-    END;
-END -%]
-
-[%~ MACRO format_entity_type_name(type_name) BLOCK # Converted to React at root/static/scripts/common/utility/formatEntityTypeName.js -%]
-    [%- IF    type_name == 'artist'; l('Artist');
-        ELSIF type_name == 'area'; l('Area');
-        ELSIF type_name == 'event'; l('Event');
-        ELSIF type_name == 'collection'; l('Collection');
-        ELSIF type_name == 'instrument'; l('Instrument');
-        ELSIF type_name == 'place'; l('Place');
-        ELSIF type_name == 'release'; l('Release');
-        ELSIF type_name == 'recording'; l('Recording');
-        ELSIF type_name == 'release_group'; l('Release Group');
-        ELSIF type_name == 'series'; lp('Series', 'singular');
-        ELSIF type_name == 'work'; l('Work');
-        ELSIF type_name == 'label'; l('Label');
-        ELSIF type_name == 'url'; l('URL');
-    END -%]
-[%- END -%]
-
-[%~ MACRO format_plural_entity_type_name(type_name) BLOCK # Converted to React at root/static/scripts/common/utility/formatEntityTypeName.js -%]
-    [%- IF    type_name == 'artist'; l('Artists');
-        ELSIF type_name == 'area'; l('Areas');
-        ELSIF type_name == 'event'; l('Events');
-        ELSIF type_name == 'collection'; l('Collections');
-        ELSIF type_name == 'instrument'; l('Instruments');
-        ELSIF type_name == 'place'; l('Places');
-        ELSIF type_name == 'release'; l('Releases');
-        ELSIF type_name == 'recording'; l('Recordings');
-        ELSIF type_name == 'release_group'; l('Release Groups');
-        ELSIF type_name == 'series'; lp('Series', 'plural');
-        ELSIF type_name == 'work'; l('Works');
-        ELSIF type_name == 'label'; l('Labels');
-        ELSIF type_name == 'url'; l('URLs');
-    END -%]
-[%- END -%]
-
-[%~ MACRO quality_name(quality) SWITCH quality; # Converted to React as QUALITY_NAMES in root/static/scripts/common/constants.js
-    CASE 0;  l('Low');
-    CASE 1;  l('Normal');
-    CASE -1; l('Normal');
-    CASE 2;  l('High');
-END -%]
-
 [%~ MACRO edit_status_class(edit) BLOCK # Converted to React as getEditStatusClass at root/utility/edit.js ~%]
     [%~ IF edit.status == 1 ~%]
         [%- " open" -%]
@@ -569,14 +474,6 @@ END -%]
     [%~ END ~%]
 [%~ END ~%]
 
-[%~ MACRO vote_tally(edit) BLOCK # Converted to React at root/edit/components/VoteTally.js -%]
-    [%- IF edit.auto_edit; '<strong>' _ l('automatically applied') _ '</strong>';
-       ELSE; l('{yes} yes : {no} no',
-        { yes => '<strong>' _ edit.yes_votes _ '</strong>',
-          no => '<strong>' _ edit.no_votes _ '</strong>' });
-    END -%]
-[%- END -%]
-
 [%~ MACRO css_class_name(name) BLOCK; # React equivalent is kebabCase at root/static/scripts/common/utility/strings.js
     name | lower | replace('[^a-z]+', '-') | remove('^-|-$');
     END -%]
@@ -584,13 +481,6 @@ END -%]
 [%~ MACRO warning_icon BLOCK # Converted to React at root/static/scripts/common/components/WarningIcon.js
 -%]
    [% React.embed(c, 'static/scripts/common/components/WarningIcon') %]
-[%- END -%]
-
-[%~ MACRO error(message, class) BLOCK -%]
-   <div class="warning[% ' ' _ class IF class %]">
-     [%- warning_icon %]
-     <p>[% l('<strong>Error</strong>:') %] [% message %]</p>
-   </div>
 [%- END -%]
 
 [%~ MACRO warning(message, class) BLOCK # Converted to React at root/static/scripts/components/Warning.js
@@ -623,25 +513,6 @@ END -%]
     [% medium.l_format_name or l("Medium") | html %]
 [%- END -%]
 
-[%~ MACRO medium_description(medium) BLOCK; # Converted to React at root/static/scripts/common/components/MediumDescription.js
-    format_position = l('{medium_format} {position}', {
-        medium_format => medium_format_name(medium),
-        position => medium.position,
-    });
-    IF medium.name != '';
-        '<span>' _ add_colon(format_position) _ '</span> <span class="medium-name">' _ isolate_text(medium.name) _ '</span>';
-    ELSE;
-        '<span>' _ format_position _ '</span>';
-    END;
-END ~%]
-
-[%~ MACRO medium_link(medium) BLOCK; # Converted to React at root/static/scripts/common/components/MediumLink.js
-    l('{medium} on {release}', {
-        medium => medium_description(medium),
-        release => descriptive_link(medium.release),
-    });
-END ~%]
-
 [%~ MACRO medium_in_release(release, medium) BLOCK -%]
     [%- fragment = "disc" _ medium.position -%]
     <a id="[%- fragment -%]"
@@ -653,67 +524,6 @@ END ~%]
     [%~ END ~%]
     </a>
 [%- END -%]
-
-[%~ MACRO artist_begin_label_from_type(type_id) BLOCK ~%]
-    [%~ type_id == 1 ? l('Born:') : (type_id ==  2 || type_id == 5 || type_id == 6) ? l('Founded:') : l('Begin date:') ~%]
-[%~ END -%]
-
-[%~ MACRO artist_end_label_from_type(type_id) BLOCK ~%]
-    [%~ type_id == 1 ? l('Died:') : (type_id ==  2 || type_id == 5 || type_id == 6) ? l('Dissolved:') : l('End date:') ~%]
-[%~ END -%]
-
-[%~ MACRO show_wikipedia_extract BLOCK # Converted to React at root/static/scripts/common/components/WikipediaExtract.js
--%]
-    [%- React.embed(c, 'static/scripts/common/components/WikipediaExtract', {
-        entity => {entityType => entity.entity_type, gid => entity.gid},
-        cachedWikipediaExtract => React.to_json_object(wikipedia_extract),
-    }) -%]
-[%- END -%]
-
-[%~ MACRO track_duration_changes(loop_over, old_base, new_base, old_prop, new_prop, old_label, new_label) BLOCK # Converted to React at root/edit/components/TrackDurationChanges.js -%]
-  [% USE Diff %]
-  [%- IF old_label && new_label -%]
-    <table class="wrap-block details">
-        <tr>
-            <th>[%- old_label -%]</th>
-        </tr>
-        <tr>
-            <th>[%- new_label -%]</th>
-        </tr>
-    </table>
-  [%- END -%]  
-  [%- FOR i = loop_over %]
-     [%- IF old_prop;
-       old_length = old_base.${ loop.index }.${ old_prop } | format_length;
-         ELSE;
-       old_length = old_base.${ loop.index } | format_length;
-         END;
-         IF new_prop;
-       new_length = new_base.${ loop.index }.${ new_prop } | format_length;
-         ELSE;
-       new_length = new_base.${ loop.index } | format_length;
-         END %]
-     <table class="wrap-block details">
-         <tr>
-             <td class="old">[%- Diff.diff_side(old_length, new_length, '-', '') -%]</td>
-         </tr><tr>
-             <td class="new">[%- Diff.diff_side(old_length, new_length, '+', '') -%]</td>
-         </tr>
-     </table>
-  [%- END -%]
-[%- END -%]
-
-[%~ MACRO relationship_target_links(rel, for_grouping) BLOCK;
-    '<span class="mp mp-rel">' IF rel.edits_pending;
-    IF rel.target.artist_credit AND rel.target.artist_credit.name == hide_ac;
-        link_entity(rel.target, 'show', '', rel.target_credit);
-    ELSE;
-        descriptive_link(rel.target, rel.target_credit);
-    END;
-    bracketedWithSpace(for_grouping ? rel.extra_grouping_phrase_attributes : rel.extra_phrase_attributes);
-    bracketedWithSpace(rel.link.formatted_date);
-    '</span>' IF rel.edits_pending;
-END ~%]
 
 [%~ MACRO release_countries_list(release_events) BLOCK;
     out = [];
@@ -737,19 +547,6 @@ END -%]
     comma_only_list(out);
 END -%]
 
-[%~ MACRO release_event(event) BLOCK; # Converted to React at root/static/scripts/common/components/ReleaseEvent.js
-      date = event.date;
-      country = event.country;
-      parts = [];
-      parts.push(link_entity(country)) IF country.id;
-      parts.push('<span class="release-date">' _ date.format _ '</span>') UNLESS date.is_empty;
-      parts.join('<br />');
-    END -%]
-
-[%~ MACRO format_isni(isni) BLOCK;
-      isni.replace('(.{4})(.{4})(.{4})(.{4})', '$1 $2 $3 $4');
-    END -%]
-
 [%~ MACRO country_abbr(country) BLOCK # Converted to React at root/static/scripts/common/components/CountryAbbr.js -%]
     <span class="flag flag-[% country.primary_code %]"></span>
     <abbr title="[% html_escape(country.l_name) %]">[% country.primary_code %]</abbr>
@@ -763,20 +560,6 @@ END -%]
 [%~ MACRO add_colon(variable) BLOCK; # Converted to React at root/static/scripts/common/i18n.js
       l('{variable}:', { variable => variable });
     END -%]
-
-[%~ MACRO link_type_cardinality_name(cardinality) BLOCK ~%] [% # Converted to React at root/static/scripts/common/components/Cardinality.js %]
-  [%~ IF cardinality == 0; l('Few relationships');
-      ELSIF cardinality == 1; l('Many relationships');
-      ELSE; l('Unknown');
-  END %] ([% cardinality %])
-[%~ END ~%]
-
-[%~ MACRO orderable_direction_name(direction) BLOCK ~%]  [% # Converted to React at root/static/scripts/common/components/OrderableDirection.js %]
-  [%~ IF direction == 0; l('None');
-      ELSIF direction == 1; l('Forward');
-      ELSIF direction == 2; l('Backward');
-  END %] ([% direction %])
-[%~ END ~%]
 
 [%~ MACRO pregap_track_icon BLOCK ~%]  [% # Converted to React at root/static/scripts/common/components/PregapTrackIcon.js %]
   <div class="pregap-track icon img" title="[% l('This track is hidden in the pregap.') %]"></div>
@@ -805,12 +588,6 @@ END -%]
     </div>
   [%- END -%]
 [%~ END ~%]
-
-[%~ MACRO bugtracker_url(description) BLOCK; # Converted to React at root/static/scripts/common/utility/bugTrackerURL.js
-    'http://tickets.metabrainz.org/secure/CreateIssueDetails!init.jspa?' _
-    'pid=10000&issuetype=1' _
-    (description == '' ? '' : '&description=' _ uri_escape(description));
-END ~%]
 
 [%- MACRO remove_from_merge_header(to_merge) BLOCK -%] [% # Converted to React at root/utility/tableColumns.js %]
   [% IF to_merge.size > 2 %]

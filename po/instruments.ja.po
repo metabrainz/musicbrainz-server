@@ -119,6 +119,11 @@ msgctxt "Modern 24-stringed stainless steel kora"
 msgid "Gravikord"
 msgstr "クラヴィコード"
 
+#: DB:instrument/name:1073
+msgctxt "Large Scottish bagpipe"
+msgid "Great Highland bagpipe"
+msgstr ""
+
 #: DB:instrument/name:795
 msgctxt "electric lamellophone"
 msgid "Guitaret"
@@ -176,6 +181,7 @@ msgid "Moog"
 msgstr "モーグ・シンセサイザー"
 
 #: DB:instrument/name:358
+msgctxt "Small north east England bagpipes"
 msgid "Northumbrian pipes"
 msgstr "ノーサンブリアン・パイプ"
 
@@ -222,6 +228,7 @@ msgid "Schwyzerörgeli"
 msgstr "シュヴィッツァオルガリ"
 
 #: DB:instrument/name:427
+msgctxt "Small Scottish bagpipe"
 msgid "Scottish smallpipes"
 msgstr "スコティッシュ・スモール・パイプ"
 
@@ -278,8 +285,9 @@ msgid "accordina"
 msgstr "アコーディナ"
 
 #: DB:instrument/name:41
+msgctxt "Commonly used bellowed free reed with keys/buttons"
 msgid "accordion"
-msgstr "アコーディオン"
+msgstr ""
 
 #: DB:instrument/name:50
 msgid "acoustic bass guitar"
@@ -655,13 +663,14 @@ msgctxt "Tuned metal cups"
 msgid "bell"
 msgstr "ベル"
 
+#: DB:instrument/name:1072
+msgctxt "Set of tuned metal plates used in western orchestra"
+msgid "bell plate"
+msgstr ""
+
 #: DB:instrument/name:479
 msgid "bell tree"
 msgstr "ベルツリー"
-
-#: DB:instrument/name:428
-msgid "bellow-blown bagpipes"
-msgstr "ビローブラウン バグパイプ"
 
 #: DB:instrument/name:983
 msgid "bellowed reed"
@@ -1290,10 +1299,6 @@ msgctxt "ancient Iraqi bowed string instrument"
 msgid "djoza"
 msgstr "djoza"
 
-#: DB:instrument/name:184
-msgid "dobro"
-msgstr "ドブロ"
-
 #: DB:instrument/name:399
 msgid "dohol"
 msgstr "ダホル"
@@ -1540,6 +1545,10 @@ msgctxt "Reedless aerophone"
 msgid "flute"
 msgstr "笛"
 
+#: DB:instrument/name:1074
+msgid "flutina"
+msgstr ""
+
 #: DB:instrument/name:415
 msgid "flûte d'amour"
 msgstr "フルート・ダモーレ"
@@ -1602,6 +1611,36 @@ msgstr "fundeh"
 msgid "gadulka"
 msgstr "ガドゥルカ"
 
+#: DB:instrument/name:1077
+msgctxt "Southeastern Europe and Balkan bagpipe"
+msgid "gaida"
+msgstr ""
+
+#: DB:instrument/name:1080
+msgctxt "Larger Asturian bagpipe"
+msgid "gaita asturiana"
+msgstr ""
+
+#: DB:instrument/name:1081
+msgctxt "Cloth covered Aragonese bagpipe"
+msgid "gaita de boto"
+msgstr ""
+
+#: DB:instrument/name:1079
+msgctxt "Two to three drone Galician bagpipe"
+msgid "gaita gallega"
+msgstr ""
+
+#: DB:instrument/name:1078
+msgctxt "Small single drone Sanabrian bagpipe"
+msgid "gaita sanabresa"
+msgstr ""
+
+#: DB:instrument/name:1114
+msgctxt "Large Silesian bellow-blown bagpipe"
+msgid "gajdy"
+msgstr ""
+
 #: DB:instrument/name:977
 msgctxt "Indonesian wood box-resonated xylophone"
 msgid "gambang"
@@ -1637,6 +1676,11 @@ msgstr "ガリフナ太鼓"
 #: DB:instrument/name:289
 msgid "garklein recorder"
 msgstr "ガークライン"
+
+#: DB:instrument/name:1075
+msgctxt "Russian diatonic folk accordion"
+msgid "garmon"
+msgstr ""
 
 #: DB:instrument/name:75
 msgid "gayageum"
@@ -1811,11 +1855,6 @@ msgctxt "Traditional Russian plucked psaltery"
 msgid "gusli"
 msgstr "グースリ"
 
-#: DB:instrument/name:567
-msgctxt "modern gut-stringed acoustic guitar"
-msgid "gut guitar"
-msgstr "ガットギター"
-
 #: DB:instrument/name:452
 msgid "guzheng"
 msgstr "古筝（グーチェン）"
@@ -1867,7 +1906,7 @@ msgid "harmonica"
 msgstr "ハーモニカ"
 
 #: DB:instrument/name:135
-msgctxt "reed organ"
+msgctxt "Portable Indian reed organ"
 msgid "harmonium"
 msgstr "ハーモニウム"
 
@@ -2614,6 +2653,7 @@ msgid "mukkuri"
 msgstr "ムックリ"
 
 #: DB:instrument/name:735
+msgctxt "French baroque bagpipe"
 msgid "musette de cour"
 msgstr "ミュゼット・ド・クール"
 
@@ -2708,11 +2748,6 @@ msgstr "ニャティティ"
 #: DB:instrument/name:228
 msgid "nyckelharpa"
 msgstr "ニッケルハルパ"
-
-#: DB:instrument/name:566
-msgctxt "Modern nylon-stringed acoustic guitar"
-msgid "nylon acoustic guitar"
-msgstr ""
 
 #: DB:instrument/name:8
 msgid "oboe"
@@ -2845,6 +2880,11 @@ msgstr "pang gu ly hu hmông"
 msgctxt "Smallest member of the viol family"
 msgid "pardessus de viole"
 msgstr "パルメッソスデヴィオレ"
+
+#: DB:instrument/name:1076
+msgctxt "Polish foot-pedal accordion"
+msgid "pedal accordion"
+msgstr ""
 
 #: DB:instrument/name:606
 msgid "pedal piano"
@@ -2984,6 +3024,7 @@ msgid "portative"
 msgstr "portative"
 
 #: DB:instrument/name:626
+msgctxt "Post-signalling valveless coiled brass"
 msgid "post horn"
 msgstr "ポストホルン"
 
@@ -4080,8 +4121,9 @@ msgid "ugal"
 msgstr "ウガル"
 
 #: DB:instrument/name:187
+msgctxt "Irish bellow-blown bagpipe"
 msgid "uilleann pipes"
-msgstr "イリアン・パイプス"
+msgstr ""
 
 #: DB:instrument/name:631
 msgid "ukeke"
@@ -4090,14 +4132,6 @@ msgstr "ウケケ"
 #: DB:instrument/name:89
 msgid "ukulele"
 msgstr "ウクレレ"
-
-#: DB:instrument/name:933
-msgctxt ""
-"Drums not specified. For rock \"drums\" credits, you generally want \"drums "
-"(drum set)\". For \"programmed\" drums you generally want drum machine. ONLY"
-" USE IF THERE'S NO BETTER ALTERNATIVE"
-msgid "unspecified drum"
-msgstr "unspecified drum"
 
 #: DB:instrument/name:140
 msgid "upright piano"
@@ -4504,6 +4538,7 @@ msgid "żafżafa"
 msgstr "żafżafa"
 
 #: DB:instrument/name:590
+msgctxt "Maltese mouth-blown bagpipe"
 msgid "żaqq"
 msgstr "żaqq"
 

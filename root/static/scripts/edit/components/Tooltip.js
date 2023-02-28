@@ -16,42 +16,36 @@ import * as React from 'react';
 
 type TooltipProps = {
   +content: React.Node,
-  +hoverCallback: (boolean) => void,
+  +target: React.Node,
 };
 
-class Tooltip extends React.Component<TooltipProps> {
-  containerRef: {current: HTMLDivElement | null};
+const Tooltip = ({
+  content,
+  target,
+}: TooltipProps): React.Element<'div'> => {
+  const containerRef = React.useRef<HTMLDivElement | null>(null);
 
-  constructor(props: TooltipProps) {
-    super(props);
-
-    this.containerRef = React.createRef();
-  }
-
-  componentDidMount() {
-    const container = this.containerRef.current;
+  React.useEffect(() => {
+    const container = containerRef.current;
     const links = container?.getElementsByTagName('a');
     if (links) {
       for (let i = 0; i < links.length; i++) {
         links[i].setAttribute('target', '_blank');
       }
     }
-  }
+  }, []);
 
-  render(): React.Element<'div'> {
-    var hoverCallback = this.props.hoverCallback;
-    return (
-      <div
-        className="tooltip-container"
-        onMouseEnter={() => hoverCallback(true)}
-        onMouseLeave={() => hoverCallback(false)}
-        ref={this.containerRef}
-      >
-        <div className="tooltip-triangle" />
-        <div className="tooltip-content">{this.props.content}</div>
-      </div>
-    );
-  }
-}
+  return (
+    <div className="tooltip-wrapper">
+      {target}
+      {nonEmpty(content) ? (
+        <div className="tooltip-container" ref={containerRef}>
+          <div className="tooltip-triangle" />
+          <div className="tooltip-content">{content}</div>
+        </div>
+      ) : null}
+    </div>
+  );
+};
 
 export default Tooltip;

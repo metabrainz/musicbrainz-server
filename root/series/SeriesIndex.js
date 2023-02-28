@@ -9,9 +9,7 @@
 
 import * as React from 'react';
 
-import Annotation from '../static/scripts/common/components/Annotation.js';
-import Relationships
-  from '../static/scripts/common/components/Relationships.js';
+import CleanupBanner from '../components/CleanupBanner.js';
 import ArtistList from '../components/list/ArtistList.js';
 import EventList from '../components/list/EventList.js';
 import RecordingList from '../components/list/RecordingList.js';
@@ -19,12 +17,14 @@ import {ReleaseGroupListTable} from '../components/list/ReleaseGroupList.js';
 import ReleaseList from '../components/list/ReleaseList.js';
 import WorkList from '../components/list/WorkList.js';
 import PaginatedResults from '../components/PaginatedResults.js';
+import * as manifest from '../static/manifest.mjs';
+import Annotation from '../static/scripts/common/components/Annotation.js';
+import Relationships
+  from '../static/scripts/common/components/Relationships.js';
 import WikipediaExtract
   from '../static/scripts/common/components/WikipediaExtract.js';
 import {formatPluralEntityTypeName}
   from '../static/scripts/common/utility/formatEntityTypeName.js';
-import CleanupBanner from '../components/CleanupBanner.js';
-import * as manifest from '../static/manifest.mjs';
 
 import SeriesLayout from './SeriesLayout.js';
 

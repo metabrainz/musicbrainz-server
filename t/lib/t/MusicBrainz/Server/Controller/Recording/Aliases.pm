@@ -1,4 +1,7 @@
 package t::MusicBrainz::Server::Controller::Recording::Aliases;
+use strict;
+use warnings;
+
 use Test::Routine;
 use MusicBrainz::Server::Test qw( html_ok page_test_jsonld );
 
@@ -32,7 +35,7 @@ test 'Recording alias appears on alias page content and on JSON-LD' => sub {
         'alternateName' => ['King of the Mt.'],
         'isrcCode' => 'DEE250800230',
         '@type' => 'MusicRecording',
-        '@context' => 'http://schema.org',
+        '@context' => 'https://schema.org/docs/jsonldcontext.json',
         'duration' => 'PT04M54S',
         'name' => 'King of the Mountain'
     };

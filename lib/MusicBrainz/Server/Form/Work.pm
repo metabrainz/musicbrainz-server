@@ -1,4 +1,7 @@
 package MusicBrainz::Server::Form::Work;
+use strict;
+use warnings;
+
 use HTML::FormHandler::Moose;
 use MusicBrainz::Server::Translation qw( l N_l );
 use MusicBrainz::Server::Form::Utils qw( language_options select_options_tree );

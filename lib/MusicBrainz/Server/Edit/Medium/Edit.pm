@@ -51,7 +51,7 @@ sub edit_type { $EDIT_MEDIUM_EDIT }
 sub edit_name { N_l('Edit medium') }
 sub edit_kind { 'edit' }
 sub _edit_model { 'Medium' }
-sub edit_template_react { 'EditMedium' }
+sub edit_template { 'EditMedium' }
 
 sub entity_id { shift->data->{entity_id} }
 sub medium_id { shift->entity_id }
@@ -614,7 +614,9 @@ sub allow_auto_edit
                                                        $new->{name});
 
             return 0 if $old_name ne $new_name;
-            return 0 if $old->{length} && $old->{length} != $new->{length};
+            return 0 if $old->{length} && (
+                !$new->{length} || $old->{length} != $new->{length}
+            );
             return 0 if hash_artist_credit($old->{artist_credit}) ne hash_artist_credit($new->{artist_credit});
             return 0 if ($old->{recording_id} // 0) != ($new->{recording_id} // 0);
         }

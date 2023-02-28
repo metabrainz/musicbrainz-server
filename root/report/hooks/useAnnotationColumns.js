@@ -1,5 +1,5 @@
 /*
- * @flow strict-local
+ * @flow strict
  * Copyright (C) 2021 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -11,8 +11,8 @@ import * as React from 'react';
 import type {ColumnOptions} from 'react-table';
 
 import {
-  defineTextHtmlColumn,
   defineTextColumn,
+  defineTextHtmlColumn,
 } from '../../utility/tableColumns.js';
 import type {ReportAnnotationRoleT} from '../types.js';
 

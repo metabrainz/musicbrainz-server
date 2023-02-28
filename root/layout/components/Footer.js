@@ -1,5 +1,5 @@
 /*
- * @flow strict-local
+ * @flow strict
  * Copyright (C) 2015 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -9,9 +9,9 @@
 
 import * as React from 'react';
 
+import {DONATE_URL} from '../../constants.js';
 import {CatalystContext} from '../../context.mjs';
 import DBDefs from '../../static/scripts/common/DBDefs.mjs';
-import {DONATE_URL} from '../../constants.js';
 import {bracketedText}
   from '../../static/scripts/common/utility/bracketed.js';
 import formatUserDate from '../../utility/formatUserDate.js';

@@ -596,6 +596,13 @@ msgid ""
 "were released in the format in the early 00s."
 msgstr "DataPlay is een optisch schijfje in een beschermende cassette. Het was bedoeld als draagbaar medium, maar werd geen commercieel succes. In de vroegen jaren 2000 zijn een paar DataPlay-albums uitgebracht."
 
+#: DB:medium_format/description:131
+msgctxt "medium_format"
+msgid ""
+"A video format used in the 1980s and 90s for professional work, including "
+"television and video archival."
+msgstr ""
+
 #: DB:work_type/description:19
 msgctxt "work_type"
 msgid ""
@@ -1394,6 +1401,11 @@ msgstr "Beste Isfahan"
 msgctxt "work_attribute_type_allowed_value"
 msgid "Bestenigar"
 msgstr "Bestenigar"
+
+#: DB:medium_format/name:131
+msgctxt "medium_format"
+msgid "Betacam SP"
+msgstr ""
 
 #: DB:medium_format/name:24
 msgctxt "medium_format"
@@ -2275,6 +2287,11 @@ msgstr "Dhēnuka"
 msgctxt "release_packaging"
 msgid "Digibook"
 msgstr "Digibook"
+
+#: DB:release_packaging/name:89
+msgctxt "release_packaging"
+msgid "Digifile"
+msgstr ""
 
 #: DB:release_packaging/name:3
 msgctxt "release_packaging"
@@ -3809,6 +3826,11 @@ msgstr "Een ID van de Uruguayaanse auteursrechtenorganisatie AGADU"
 msgctxt "work_attribute_type"
 msgid "ID for the Venezuelan rights society SACVEN"
 msgstr "Een ID van de Venezolaanse auteursrechtenorganisatie SACVEN"
+
+#: DB:work_attribute_type/description:107
+msgctxt "work_attribute_type"
+msgid "ID for the Vietnamese rights society VCPMC"
+msgstr ""
 
 #: DB:work_attribute_type/description:38
 msgctxt "work_attribute_type"
@@ -5675,6 +5697,11 @@ msgstr "Ouverture"
 msgctxt "collection_type"
 msgid "Owned music"
 msgstr "Heb ik"
+
+#: DB:editor_collection_type/name:17
+msgctxt "collection_type"
+msgid "Owned recordings"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:762
 msgctxt "work_attribute_type_allowed_value"
@@ -7544,6 +7571,11 @@ msgstr "Uşşakaşiran"
 msgctxt "medium_format"
 msgid "VCD"
 msgstr "video-cd"
+
+#: DB:work_attribute_type/name:107
+msgctxt "work_attribute_type"
+msgid "VCPMC ID"
+msgstr ""
 
 #: DB:medium_format/name:59
 msgctxt "medium_format"

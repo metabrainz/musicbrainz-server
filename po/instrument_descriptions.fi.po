@@ -20,25 +20,6 @@ msgstr ""
 "Language: fi\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#. name:unspecified drum
-#: DB:instrument/description:933
-msgid ""
-"\"Drum\" or \"drums\" is a common but generic credit can refer to multiple "
-"instruments. If you know which instrument this is, please select the "
-"specific instrument: <ul> <li> For the instrument commonly known as "
-"\"drums\", and often used in Western popular music, use <a "
-"href=\"/instrument/12092505-6ee1-46af-a15a-b5b468b6b155\">drums (drum "
-"set)</a>. </li> <li> For programmed or \"drum-loops\" use <a "
-"href=\"/instrument/ce0eed13-58d8-4744-8ad0-b7d6182a2d0f\">drum machine</a>. "
-"</li> <li> For specific drums not yet in MusicBrainz, use <a "
-"href=\"/instrument/3bccb7eb-cbca-42cd-b0ac-a5e959df7221\">membranophone</a> "
-"(or <a href=\"/instrument/1a03e9a1-f81f-40ce-9d57-65d6c1b9dcb3\">slit "
-"drum</a>, if appropriate) and consider <a "
-"href=\"/doc/How_to_Add_Instruments\">requesting the missing instrument</a>. "
-"</li> </ul> If you can't find more information than the generic \"drum\" or "
-"\"drums\" credit, use this instrument."
-msgstr ""
-
 #. name:rebab
 #: DB:instrument/description:239
 msgid ""
@@ -333,18 +314,22 @@ msgid ""
 "orchestra."
 msgstr ""
 
-#. name:diatonic button accordion
-#: DB:instrument/description:361
-msgid ""
-"Also known as Melodeon, it has 1 to 2 rows of buttons that each produce two "
-"tones (bisonoric)."
-msgstr ""
-
 #. name:classical guitar
 #: DB:instrument/description:54
 msgid ""
 "Also known as Spanish guitar, it is used in classical, folk and other "
 "styles, the strings are nylon or gut."
+msgstr ""
+
+#. name:musette de cour
+#: DB:instrument/description:735
+msgid ""
+"Also known as baroque musette, it was a small bagpipe used predominantly by "
+"French court and nobility in the 1600-1700's.<br /> For the instrument known"
+" as \"chinese musette\", see <a "
+"href=\"/instrument/15cd573d-15a8-4f9f-a48f-f73218d85e14/\">suona</a><br /> "
+"For the oboe also known as musette, see <a "
+"href=\"/instrument/77b29599-96c7-4571-9fae-09e7e42b8175/\">piccolo oboe</a>"
 msgstr ""
 
 #. name:gopichant
@@ -364,14 +349,6 @@ msgid ""
 "tight goat skin membrane and it is struck with the fingertips. Important in "
 "the Jamaican Burru music and Rastafari movement, it is part of the "
 "Nyabinghi/Akete drums."
-msgstr ""
-
-#. name:reed organ
-#: DB:instrument/description:204
-msgid ""
-"Also known as pump organ, it is large, looks like an upright piano and has "
-"pedals attached to bellows with reeds. Sound is produced by playing the "
-"keyboard."
 msgstr ""
 
 #. name:soprano recorder
@@ -542,13 +519,6 @@ msgid ""
 "As long as a trumpet, it shares the piston valve design of both instruments "
 "with a mellow sound between the two."
 msgstr ""
-
-#. name:bellow-blown bagpipes
-#: DB:instrument/description:428
-msgid ""
-"Bagpipes played by pumping air into a bellow and then from the bellow into "
-"the chanter(s)."
-msgstr "Säkkipillit joita soitetaan puhaltamalla palkeella ilmaa säkkiin, ja siitä sitten melodiapilliin."
 
 #. name:balafon
 #: DB:instrument/description:364
@@ -899,6 +869,14 @@ msgstr ""
 msgid "Cup or bellshaped bells, these are shook or struck."
 msgstr ""
 
+#. name:gajdy
+#: DB:instrument/description:1114
+msgid ""
+"Czech-polish bellow-blown large goatskin bag with a 6 finger hole chanter "
+"and a long angular drone pipe that is balanced over the shoulder, the two "
+"flared pipes have inlaid metal designs and can have goat head decorations."
+msgstr ""
+
 #. name:davul
 #: DB:instrument/description:411
 msgid "Davul, turkish drum"
@@ -946,6 +924,13 @@ msgid ""
 "century, it has an extended neck with a second pegbox."
 msgstr ""
 
+#. name:post horn
+#: DB:instrument/description:626
+msgid ""
+"Developed as early as the 1500-hundreds and used for mail-carrier "
+"signalling, it was coiled (usually just once) and valveless."
+msgstr ""
+
 #. name:chitarra battente
 #: DB:instrument/description:939
 msgid ""
@@ -978,6 +963,14 @@ msgid ""
 "href=\"/instrument/1975ee04-30de-4835-9656-102ccd49c0c7\">taishogoto</a>, it"
 " is made of wood, often an integral case. It has two courses of strings; "
 "drone and melody strings operated by buttons or keys."
+msgstr ""
+
+#. name:pedal accordion
+#: DB:instrument/description:1076
+msgid ""
+"Developed in Warszaw, Poland, it is used in folk music. It has two foot-"
+"operated bellows attached via metal/brass pipe; its body-bellows are only "
+"used for accents."
 msgstr ""
 
 #. name:violin family
@@ -1020,8 +1013,8 @@ msgid ""
 "Giannini."
 msgstr ""
 
-#. name:dobro
-#: DB:instrument/description:184
+#. name:resonator guitar
+#: DB:instrument/description:386
 msgid "Dobro, resonator guitar"
 msgstr "Eräänlainen resonaattorikitara. "
 
@@ -1047,6 +1040,15 @@ msgstr "Puhaltamalla ohjattava Akain valmistama syntetisaattori."
 msgid ""
 "Early 19th century brass instrument with a conical bore, it is more compact "
 "and mellower than the trumpet which it resembles."
+msgstr ""
+
+#. name:flutina
+#: DB:instrument/description:1074
+msgid ""
+"Early predecessor to the <a "
+"href=\"/instrument/842d3d24-f638-47e6-a239-8578723db09c\">diatonic "
+"accordion</a>, it was similar to the German concertina and had 4 fold "
+"bellows and brass reeds."
 msgstr ""
 
 #. name:đing buốt
@@ -1217,6 +1219,31 @@ msgid ""
 "with colourful bands."
 msgstr ""
 
+#. name:reed organ
+#: DB:instrument/description:204
+msgid ""
+"For the accordion also known as Melodeon, see <a "
+"href=\"/instrument/842d3d24-f638-47e6-a239-8578723db09c\">diatonic button "
+"accordion</a>.<br /> For the mouth blown keyed MELODION, see <a "
+"href=\"/instrument/8ab40df2-106b-4b9b-a50c-0798ee95da8f\">melodica</a>.<br "
+"/> For the portable reed organ used in India see <a "
+"href=\"/instrument/c43c7647-077d-4d60-a01b-769de71b82f2\">harmonium</a>.<br "
+"/> Also known as pump organ, it is large, looks like an upright piano and "
+"has pedals attached to bellows with reeds. Sound is produced by playing the "
+"keyboard."
+msgstr ""
+
+#. name:diatonic button accordion
+#: DB:instrument/description:361
+msgid ""
+"For the organ also known as Melodeon, see <a "
+"href=\"/instrument/20443ce3-cde1-4968-b7cc-65e45bb9714f\">reed organ</a>.<br"
+" /> For the mouth blown keyed MELODION, see <a "
+"href=\"/instrument/8ab40df2-106b-4b9b-a50c-0798ee95da8f\">melodica</a>.<br "
+"/> Also known as Melodeon, it has 1 to 2 rows of buttons that each produce "
+"two tones (bisonoric)."
+msgstr ""
+
 #. name:lira da braccio
 #: DB:instrument/description:1016
 msgid ""
@@ -1247,6 +1274,13 @@ msgstr ""
 msgid ""
 "Friction idiophones are idiophones where the sound is created by the "
 "instrument being rubbed."
+msgstr ""
+
+#. name:gaita sanabresa
+#: DB:instrument/description:1078
+msgid ""
+"From Sanabria, it is distinct from other Spanish bagpipes, with its single "
+"drone and open fingering, it is accompanied by percussion in folk music."
 msgstr ""
 
 #. name:pluriarc
@@ -1384,14 +1418,12 @@ msgid ""
 "diatonically."
 msgstr ""
 
-#. name:gut guitar
-#: DB:instrument/description:567
-msgid "Hollow-body acoustic guitar strung with gut-strings."
-msgstr ""
-
-#. name:nylon acoustic guitar
-#: DB:instrument/description:566
-msgid "Hollow-body acoustic guitar strung with nylon-strings."
+#. name:gaita de boto
+#: DB:instrument/description:1081
+msgid ""
+"Historically solo instrument used in traditional and ritual dances, the "
+"drones have reinforced peter rings and the goatskin bag is covered with a "
+"colourful fabric."
 msgstr ""
 
 #. name:mendoza
@@ -1509,6 +1541,22 @@ msgid ""
 "with street musicians."
 msgstr ""
 
+#. name:accordion
+#: DB:instrument/description:41
+msgid ""
+"Invented and developed by several people in the early 1800's, it has an arm "
+"operated bellows with keys or buttons at one end and bass buttons at the "
+"other."
+msgstr ""
+
+#. name:bandoneón
+#: DB:instrument/description:193
+msgid ""
+"Invented and used in 1800's Europe, it became popular in Argentina. Unlike "
+"concertinas it is square, but alike its button action is parallel, typically"
+" it has several reeds per button."
+msgstr ""
+
 #. name:mandora / gallichon
 #: DB:instrument/description:895
 msgid ""
@@ -1602,13 +1650,6 @@ msgstr "Perinteinen japanilainen rumpu jota soitetaan bachi-nimisillä kapuloill
 msgid "Kanun, Arabic plucked strings"
 msgstr ""
 
-#. name:keyed brass instruments
-#: DB:instrument/description:154
-msgid ""
-"Keyed brass instruments use holes along the body of the instrument in a "
-"similar way to a woodwind instrument."
-msgstr ""
-
 #. name:klong that
 #: DB:instrument/description:673
 msgid ""
@@ -1652,6 +1693,13 @@ msgid ""
 "Known in Persia as far back as the 14th century, it consists of glass "
 "containers, tuned by either being filled with water or later being of "
 "different sizes. Played by rubbing dampened fingers on the rims."
+msgstr ""
+
+#. name:Great Highland bagpipe
+#: DB:instrument/description:1073
+msgid ""
+"Known since 1400, traditionally in military context, today it is the most "
+"widespread and famous of bagpipes."
 msgstr ""
 
 #. name:zill
@@ -1729,6 +1777,14 @@ msgid ""
 "Larger orchestral version of chimes, closed top hollow metal tubes are set "
 "in a stand with a damper operated by pedals, they are tuned at a definite "
 "pitch and played with mallets."
+msgstr ""
+
+#. name:gaita asturiana
+#: DB:instrument/description:1080
+msgid ""
+"Larger than the gallega, it has been in use since atleast the 13th century, "
+"traditionally with only one chanter and drone, it has very colourfully "
+"decorated fur."
 msgstr ""
 
 #. name:seni rebab
@@ -1831,6 +1887,14 @@ msgstr ""
 msgid ""
 "Made of a gourd wrapped in a beaded net, it is used in Brazilian afoxé "
 "music."
+msgstr ""
+
+#. name:żaqq
+#: DB:instrument/description:590
+msgid ""
+"Made of a whole animal-skin, it is used in festivals. The blowpipe (mserka) "
+"is made of rubber or cane, the chanter (saqqafa) are two cane pipes, one 2 "
+"holed, the other 5 holed, with the bell of an ox horn."
 msgstr ""
 
 #. name:żummara
@@ -2087,11 +2151,6 @@ msgid ""
 "the two middle open strings.\""
 msgstr ""
 
-#. name:Northumbrian pipes
-#: DB:instrument/description:358
-msgid "Northumbrian (small)pipes"
-msgstr ""
-
 #. name:melophone
 #: DB:instrument/description:1022
 msgid ""
@@ -2100,6 +2159,26 @@ msgid ""
 "brass valved instrument.<br /> Wooden body shaped like a lute, it has a "
 "bellow operated by a handle at the bottom and buttons operating the reeds in"
 " the \"neck\""
+msgstr ""
+
+#. name:mellophone
+#: DB:instrument/description:37
+msgid ""
+"Not to be confused with <a "
+"href=\"/instrument/eafabec6-af67-4a49-be38-4401e7200494\">melophone</a>, a "
+"bellowed free reed shaped like a lute.<br /> Originating in the 19th century"
+" horn-design boom, it is used mostly in outside concert and marching music"
+msgstr ""
+
+#. name:harmonium
+#: DB:instrument/description:135
+msgid ""
+"Not to be confused with European upright <a "
+"href=\"/instrument/20443ce3-cde1-4968-b7cc-65e45bb9714f\">reed organ</a> "
+"also commonly known as \"Harmonium\". <br /> Also known as the samvadini, it"
+" was developed in India from imported reed organs. Consists of a wooden box-"
+"shape with a keyboard and a bellows in the back; both are operated by the "
+"same player, often a singer. While upright versions exist, they are rare."
 msgstr ""
 
 #. name:ghijak
@@ -2266,13 +2345,6 @@ msgid ""
 " one opening and a gut string which ends in a bamboo piece attached to the "
 "membrane. The instrument is held in the armpit and played by plucking the "
 "string while pulling the it."
-msgstr ""
-
-#. name:mellophone
-#: DB:instrument/description:37
-msgid ""
-"Originating in the 19th century horn-design boom, it is used mostly in "
-"outside concert and marching music"
 msgstr ""
 
 #. name:octavina
@@ -2736,6 +2808,14 @@ msgid ""
 "Slightly smaller, four-string version of the steel-string acoustic guitar"
 msgstr ""
 
+#. name:gaida
+#: DB:instrument/description:1077
+msgid ""
+"Small Bulgarian/Macedonian and Balkan goat or sheep-skin bagpipe used in "
+"folk, pastoral or other traditional settings. There are many similarly named"
+" small bagpipes in this area."
+msgstr ""
+
 #. name:flabiol
 #: DB:instrument/description:845
 msgid ""
@@ -2956,13 +3036,6 @@ msgstr ""
 msgid "The Xaphoon is a keyless chromatic single-reed woodwind instrument."
 msgstr "Xaphoon on kromaattinen ruokolehtisen suukappaleen omaava puupuhaltimiin kuuluva soitin. "
 
-#. name:accordion
-#: DB:instrument/description:41
-msgid ""
-"The accordion is a rectangular free-reed bellows-driven instrument with a "
-"keyboard & buttons."
-msgstr ""
-
 #. name:agogô
 #: DB:instrument/description:487
 msgid ""
@@ -3046,13 +3119,6 @@ msgstr ""
 msgid ""
 "The bajo sexto is a Mexican string instrument with 12 strings in 6 double "
 "courses."
-msgstr ""
-
-#. name:bandoneón
-#: DB:instrument/description:193
-msgid ""
-"The bandoneón is a type of bisonoric concertina popular in parts of South "
-"America and in Lithuania."
 msgstr ""
 
 #. name:banhu
@@ -3855,13 +3921,6 @@ msgid ""
 " as the regular trumpet."
 msgstr ""
 
-#. name:post horn
-#: DB:instrument/description:626
-msgid ""
-"The post horn is a valveless coiled brass instrument used to signal the "
-"arrival or departure of a post rider or mail coach."
-msgstr ""
-
 #. name:pātē
 #: DB:instrument/description:726
 msgid "The pātē is a Polynesian slit drum made from a hollowed-out log."
@@ -4382,14 +4441,6 @@ msgid ""
 "donax reed attached."
 msgstr ""
 
-#. name:żaqq
-#: DB:instrument/description:590
-msgid ""
-"The żaqq is a Maltese bagpipe made from the complete skin of an animal "
-"(typically a premature calf, goat or dog). The chanter consists of two side-"
-"by-side pipes and a bull's horn is normally attached to the end."
-msgstr ""
-
 #. name:theatre organ
 #: DB:instrument/description:347
 msgid "Theatre organ, such as the Wurlitzer"
@@ -4402,6 +4453,13 @@ msgid ""
 "made of a single piece of wood and descended from the kacapi pantun as used "
 "in epic story. And a flat box-zither made of wood used from the 1950's and "
 "in experimental music."
+msgstr ""
+
+#. name:keyed brass instruments
+#: DB:instrument/description:154
+msgid ""
+"These have holes along the body and sound production is similarly to "
+"woodwinds."
 msgstr ""
 
 #. name:lute
@@ -4575,6 +4633,14 @@ msgstr ""
 msgid "Used as rhythm accompaniment, it has a shorter neck and 17-19 frets"
 msgstr ""
 
+#. name:gaita gallega
+#: DB:instrument/description:1079
+msgid ""
+"Used at-least since the 9th century, it has two to three drones with bag and"
+" pipe both decorated with fur. Used in festivals by marching players "
+"accompanied by percussion."
+msgstr ""
+
 #. name:clapstick
 #: DB:instrument/description:955
 msgid ""
@@ -4611,6 +4677,13 @@ msgid ""
 "Used for elaborate and complex parts, it has thinner but wider metal bars "
 "suspended above resonator rods, it is the middle-pitched member of the "
 "gendèr family."
+msgstr ""
+
+#. name:Northumbrian pipes
+#: DB:instrument/description:358
+msgid ""
+"Used for more than 250 years, its one chanter and usually four drones have "
+"narrow bores."
 msgstr ""
 
 #. name:gendèr panerus
@@ -4658,6 +4731,13 @@ msgid ""
 "Used in Laos and Isan traditional music, it is made of bamboo or ku wood, "
 "the individual stopped pipes are arranged around a central core using "
 "beeswax."
+msgstr ""
+
+#. name:garmon
+#: DB:instrument/description:1075
+msgid ""
+"Used in Russian, Mari and Caucasus folk music, it has two rows of buttons in"
+" a diatonic scale, as well as additional bass buttons."
 msgstr ""
 
 #. name:octavilla
@@ -4825,6 +4905,14 @@ msgid ""
 "the plate(s)."
 msgstr ""
 
+#. name:bell plate
+#: DB:instrument/description:1072
+msgid ""
+"Used occasionally in the western classical orchestra and theatre, it "
+"consists of several tuned aluminium, steel or bronze plates, struck to "
+"imitate the sound of bells."
+msgstr ""
+
 #. name:bonang panerus
 #: DB:instrument/description:971
 msgid ""
@@ -4897,6 +4985,19 @@ msgstr ""
 msgid ""
 "Very long metal bar fitted with strings and electric pickups, it makes a "
 "deep ominous booming sound and is often used in score."
+msgstr ""
+
+#. name:percussion
+#: DB:instrument/description:99
+msgid ""
+"Very wide grouping, played by hitting directly aka <a "
+"href=\"/instrument/06266b6a-2fb8-4c71-9894-186edbac5dff\">idiophone</a>s and"
+" <a href=\"/instrument/3bccb7eb-"
+"cbca-42cd-b0ac-a5e959df7221\">membranophone</a>s (from drums to xylophones)."
+" Use the closest approximate instrument possible for credits, use percussion"
+" with a credit if no better can be found and <a "
+"href=\"/doc/How_to_Add_Instruments\">create an instrument ticket</a> if "
+"necessary."
 msgstr ""
 
 #. name:violone

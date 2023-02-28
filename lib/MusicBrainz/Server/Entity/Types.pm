@@ -36,8 +36,8 @@ subtype 'Edit'
 subtype 'Entity'
     => as class_type 'MusicBrainz::Server::Entity';
 
-subtype 'Linkable'
-    => as role_type 'MusicBrainz::Server::Entity::Role::Linkable';
+subtype 'Relatable'
+    => as role_type 'MusicBrainz::Server::Entity::Role::Relatable';
 
 1;
 

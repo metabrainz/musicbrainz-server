@@ -9,18 +9,23 @@
 import * as ReactDOMServer from 'react-dom/server';
 import test from 'tape';
 
-import formatDate from '../common/utility/formatDate.js';
 import * as age from '../../../utility/age.js';
 import formatUserDate from '../../../utility/formatUserDate.js';
+import {
+  EMPTY_PARTIAL_DATE,
+} from '../common/constants.js';
+import areDatesEqual from '../common/utility/areDatesEqual.js';
 import compareDates, {
   compareDatePeriods,
 } from '../common/utility/compareDates.js';
+import formatDate from '../common/utility/formatDate.js';
 import formatDatePeriod from '../common/utility/formatDatePeriod.js';
 import formatSetlist from '../common/utility/formatSetlist.js';
 import formatTrackLength from '../common/utility/formatTrackLength.js';
 import parseDate from '../common/utility/parseDate.js';
 import * as dates from '../edit/utility/dates.js';
 import * as fullwidthLatin from '../edit/utility/fullwidthLatin.js';
+import isShortenedUrl from '../edit/utility/isShortenedUrl.js';
 
 test('age', function (t) {
   t.plan(11);
@@ -94,6 +99,21 @@ test('age', function (t) {
     end_date: {year: 2012, month: 1, day: null},
     ended: true,
   }), [1, 0, 1], 'age with partial dates is 1 year, 1 day');
+});
+
+test('areDatesEqual', function (t) {
+  t.plan(7);
+
+  const date1 = {year: 2000, month: 1, day: 1};
+  const date2 = {year: 2000, month: 11, day: 1};
+
+  t.ok(areDatesEqual(null, null));
+  t.ok(areDatesEqual(EMPTY_PARTIAL_DATE, null));
+  t.ok(areDatesEqual(null, EMPTY_PARTIAL_DATE));
+  t.ok(areDatesEqual(EMPTY_PARTIAL_DATE, EMPTY_PARTIAL_DATE));
+  t.ok(areDatesEqual(date1, date1));
+  t.ok(areDatesEqual(date2, date2));
+  t.ok(!areDatesEqual(date1, date2));
 });
 
 test('compareDates', function (t) {
@@ -363,42 +383,70 @@ test('formatDatePeriod', function (t) {
 });
 
 test('validDate', function (t) {
-  t.plan(14);
+  t.plan(12);
 
-  t.equal(dates.isDateValid('', '', ''), true, 'all empty strings are valid');
+  /* eslint-disable sort-keys */
   t.equal(
-    dates.isDateValid(undefined, undefined, undefined),
+    dates.isDateValid({year: '', month: '', day: ''}),
+    true,
+    'all empty strings are valid',
+  );
+  t.equal(
+    dates.isDateValid({year: undefined, month: undefined, day: undefined}),
     true,
     'all undefined values are valid',
   );
   t.equal(
-    dates.isDateValid(null, null, null),
+    dates.isDateValid({year: null, month: null, day: null}),
     true,
     'all null values are valid',
   );
-  t.equal(dates.isDateValid(2000), true, 'just a year is valid');
-  t.equal(dates.isDateValid('', 10), true, 'just a month is valid');
-  t.equal(dates.isDateValid('', '', 29), true, 'just a day is valid');
-  t.equal(dates.isDateValid(0), false, 'the year 0 is invalid');
-  t.equal(dates.isDateValid('', 13), false, 'months > 12 are invalid');
-  t.equal(dates.isDateValid('', '', 32), false, 'days > 31 are invalid');
-  t.equal(dates.isDateValid(2001, 2, 29), false, '2001-02-29 is invalid');
-  t.equal(dates.isDateValid('2000f'), false, 'letters are invalid');
   t.equal(
-    dates.isDateValid(1960, 2, 29),
+    dates.isDateValid({year: 2000}),
+    true,
+    'just a year is valid',
+  );
+  t.equal(
+    dates.isDateValid({year: '', month: 10}),
+    true,
+    'just a month is valid',
+  );
+  t.equal(
+    dates.isDateValid({year: '', month: '', day: 29}),
+    true,
+    'just a day is valid',
+  );
+  t.equal(
+    dates.isDateValid({year: 0}),
+    false,
+    'the year 0 is invalid',
+  );
+  t.equal(
+    dates.isDateValid({year: '', month: 13}),
+    false,
+    'months > 12 are invalid',
+  );
+  t.equal(
+    dates.isDateValid({year: '', month: '', day: 32}),
+    false,
+    'days > 31 are invalid',
+  );
+  t.equal(
+    dates.isDateValid({year: 2001, month: 2, day: 29}),
+    false,
+    '2001-02-29 is invalid',
+  );
+  t.equal(
+    dates.isDateValid({year: '2000f'}),
+    false,
+    'letters are invalid',
+  );
+  t.equal(
+    dates.isDateValid({year: 1960, month: 2, day: 29}),
     true,
     'leap years are handled correctly (MBS-5663)',
   );
-  t.equal(
-    dates.isDateValid(null, null, 10),
-    true,
-    'just a day with nulls is valid',
-  );
-  t.equal(
-    dates.isDateValid(2010, null, 10),
-    true,
-    'just a day and year with null month is valid',
-  );
+  /* eslint-enable sort-keys */
 });
 
 test('validDatePeriod', function (t) {
@@ -606,4 +654,32 @@ test('formatSetlist', function (t) {
     '</strong><br/>' +
     'plain text work<br/><br/><br/>',
   );
+});
+
+test('isShortenedUrl', function (t) {
+  t.plan(17);
+
+  t.ok(isShortenedUrl('https://su.pr/example'));
+  t.ok(isShortenedUrl('https://t.co/example'));
+  t.ok(isShortenedUrl('https://bit.ly/example'));
+  t.ok(isShortenedUrl('http://example.su.pr'));
+  t.ok(isShortenedUrl('http://example.t.co'));
+  t.ok(isShortenedUrl('http://example.bit.ly'));
+
+  // Allowed host-only shorteners
+  t.ok(!isShortenedUrl('https://example.bruit.app/'));
+  t.ok(!isShortenedUrl('https://example.distrokid.com'));
+  t.ok(!isShortenedUrl('https://example.trac.co'));
+
+  t.ok(isShortenedUrl('https://bruit.app/abc'));
+  t.ok(isShortenedUrl('https://example.distrokid.com/abc'));
+  t.ok(isShortenedUrl('https://example.trac.co/abc'));
+
+  // MBS-12566
+  t.ok(!isShortenedUrl('https://surprisechef.bandcamp.com' +
+                       '/album/velodrome-b-w-springs-theme'));
+  t.ok(!isShortenedUrl('https://t.co.example'));
+  t.ok(!isShortenedUrl('https://taco.example'));
+  t.ok(!isShortenedUrl('https://bit.ly.example'));
+  t.ok(!isShortenedUrl('https://bitaly.example'));
 });

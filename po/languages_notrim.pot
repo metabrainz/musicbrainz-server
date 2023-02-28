@@ -5048,7 +5048,7 @@ msgstr ""
 msgid "Bualkhaw Chin"
 msgstr ""
 
-#. frequency:0 iso_code_3:box 
+#. frequency:1 iso_code_3:box 
 #: DB:language/name:1322
 msgid "Buamu"
 msgstr ""
@@ -5413,7 +5413,7 @@ msgstr ""
 msgid "Burunge"
 msgstr ""
 
-#. frequency:0 iso_code_3:bsk 
+#. frequency:1 iso_code_3:bsk 
 #: DB:language/name:1406
 msgid "Burushaski"
 msgstr ""
@@ -10928,7 +10928,7 @@ msgstr ""
 msgid "Gua"
 msgstr ""
 
-#. frequency:0 iso_code_3:gcf 
+#. frequency:1 iso_code_3:gcf 
 #: DB:language/name:2386
 msgid "Guadeloupean Creole French"
 msgstr ""
@@ -12228,7 +12228,7 @@ msgstr ""
 msgid "Hungana"
 msgstr ""
 
-#. frequency:1 iso_code_3:hun 
+#. frequency:2 iso_code_3:hun 
 #: DB:language/name:176
 msgid "Hungarian"
 msgstr ""
@@ -25333,7 +25333,7 @@ msgstr ""
 msgid "Northwestern Tamang"
 msgstr ""
 
-#. frequency:2 iso_code_3:nor 
+#. frequency:1 iso_code_3:nor 
 #: DB:language/name:309
 msgid "Norwegian"
 msgstr ""

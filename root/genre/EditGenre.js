@@ -17,19 +17,13 @@ import GenreLayout from './GenreLayout.js';
 import type {GenreFormT} from './types.js';
 
 type Props = {
-  +attrInfo: LinkAttrTypeOptionsT,
   +entity: GenreT,
   +form: GenreFormT,
-  +sourceEntity: GenreT,
-  +typeInfo: LinkTypeOptionsT,
 };
 
 const EditGenre = ({
-  attrInfo,
   entity,
   form,
-  sourceEntity,
-  typeInfo,
 }: Props): React.Element<typeof GenreLayout> => (
   <GenreLayout
     entity={entity}
@@ -37,13 +31,9 @@ const EditGenre = ({
     page="edit"
     title={l('Edit genre')}
   >
-    <GenreEditForm
-      attrInfo={attrInfo}
-      form={form}
-      sourceEntity={sourceEntity}
-      typeInfo={typeInfo}
-    />
+    <GenreEditForm form={form} />
     {manifest.js('genre/components/GenreEditForm', {async: 'async'})}
+    {manifest.js('relationship-editor', {async: 'async'})}
   </GenreLayout>
 );
 

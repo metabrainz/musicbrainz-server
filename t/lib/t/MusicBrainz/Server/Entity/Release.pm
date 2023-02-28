@@ -1,8 +1,11 @@
 package t::MusicBrainz::Server::Entity::Release;
+use utf8;
+use strict;
+use warnings;
+
 use Test::Routine;
 use Test::Moose;
 use Test::More;
-use utf8;
 
 use aliased 'MusicBrainz::Server::Entity::Release';
 use aliased 'MusicBrainz::Server::Entity::ReleasePackaging';

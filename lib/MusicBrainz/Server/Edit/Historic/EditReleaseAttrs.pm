@@ -1,4 +1,6 @@
 package MusicBrainz::Server::Edit::Historic::EditReleaseAttrs;
+use strict;
+use warnings;
 
 use MusicBrainz::Server::Edit::Historic::Base;
 
@@ -16,7 +18,7 @@ sub edit_name     { N_l('Edit release') }
 sub edit_kind     { 'edit' }
 sub edit_type     { $EDIT_HISTORIC_EDIT_RELEASE_ATTRS }
 sub historic_type { 26 }
-sub edit_template_react { 'historic/EditReleaseAttributes' }
+sub edit_template { 'historic/EditReleaseAttributes' }
 
 sub _changes     { return @{ shift->data->{changes} } }
 sub _release_ids

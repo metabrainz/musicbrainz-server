@@ -1,5 +1,5 @@
 /*
- * @flow strict-local
+ * @flow strict
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -11,9 +11,9 @@ import * as React from 'react';
 
 import {unwrapNl} from '../../common/i18n.js';
 
-import FormRow from './FormRow.js';
 import FieldErrors from './FieldErrors.js';
 import FormLabel from './FormLabel.js';
+import FormRow from './FormRow.js';
 
 type RadioOptionsT = $ReadOnlyArray<{
   +label: string | (() => string | React$MixedElement),

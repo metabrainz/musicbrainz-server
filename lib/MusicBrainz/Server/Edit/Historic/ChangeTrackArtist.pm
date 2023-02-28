@@ -15,7 +15,7 @@ sub edit_name     { N_l('Edit track (historic)') }
 sub edit_kind     { 'edit' }
 sub edit_type     { $EDIT_HISTORIC_CHANGE_TRACK_ARTIST }
 sub historic_type { 10 }
-sub edit_template_react { 'historic/EditTrack' }
+sub edit_template { 'historic/EditTrack' }
 
 sub _build_related_entities {
     my $self = shift;

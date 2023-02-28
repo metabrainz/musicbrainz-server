@@ -1,5 +1,5 @@
 /*
- * @flow strict-local
+ * @flow strict
  * Copyright (C) 2015 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -9,9 +9,9 @@
 
 import * as React from 'react';
 
+import BottomMenu from './BottomMenu.js';
 import HeaderLogo from './HeaderLogo.js';
 import TopMenu from './TopMenu.js';
-import BottomMenu from './BottomMenu.js';
 
 const Header = (): React.Element<'div'> => (
   <div className="header">

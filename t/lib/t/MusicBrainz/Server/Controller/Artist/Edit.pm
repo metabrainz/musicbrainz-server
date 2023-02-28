@@ -1,21 +1,21 @@
 package t::MusicBrainz::Server::Controller::Artist::Edit;
+use strict;
+use warnings;
+
 use Test::Routine;
 use Test::More;
-use Test::Deep qw( cmp_deeply re );
 use MusicBrainz::Server::Test qw( capture_edits html_ok );
-
-use List::AllUtils qw( sort_by );
 
 with 't::Mechanize', 't::Context';
 
 =head2 Test description
 
-This test checks that the artist edit form works properly, including when
+This test checks whether basic artist editing works, including when also
 updating artist credits.
 
 =cut
 
-test 'Test artist editing' => sub {
+test 'Editing an artist' => sub {
     my $test = shift;
     my $mech = $test->mech;
     my $c    = $test->c;
@@ -25,10 +25,15 @@ test 'Test artist editing' => sub {
         '+controller_artist',
     );
 
-    $mech->get_ok('/login');
-    $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
+    $mech->get('/login');
+    $mech->submit_form(
+        with_fields => { username => 'new_editor', password => 'password' }
+    );
 
-    $mech->get_ok('/artist/745c079d-374e-4436-9448-da92dedef3ce/edit');
+    $mech->get_ok(
+        '/artist/745c079d-374e-4436-9448-da92dedef3ce/edit',
+        'Fetched the artist editing page',
+    );
     html_ok($mech->content);
 
     my @edits = capture_edits {
@@ -64,13 +69,13 @@ test 'Test artist editing' => sub {
     my $edit = shift(@edits);
 
     isa_ok($edit, 'MusicBrainz::Server::Edit::Artist::Edit');
-    cmp_deeply(
+    is_deeply(
         $edit->data,
         {
             entity => {
                 id => 3,
-                gid => re('[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'),
-                name => 'Test Artist'
+                gid => '745c079d-374e-4436-9448-da92dedef3ce',
+                name => 'Test Artist',
             },
             new => {
                 name => 'edit artist',
@@ -82,7 +87,7 @@ test 'Test artist editing' => sub {
                 begin_date => {
                     year => 1990,
                     month => 1,
-                    day => 2
+                    day => 2,
                 },
                 begin_area_id => 222,
                 end_date => {
@@ -102,13 +107,13 @@ test 'Test artist editing' => sub {
                 begin_date => {
                     year => 2008,
                     month => 1,
-                    day => 2
+                    day => 2,
                 },
                 begin_area_id => 221,
                 end_date => {
                     year => 2009,
                     month => 3,
-                    day => 4
+                    day => 4,
                 },
                 end_area_id => 221,
             }
@@ -177,17 +182,22 @@ test 'Test artist editing' => sub {
     );
 };
 
-test 'Looooooong disambiguation' => sub {
+test 'Too long disambiguation is rejected without ISE' => sub {
     my $test = shift;
     my $mech = $test->mech;
     my $c    = $test->c;
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+controller_artist');
 
-    $mech->get_ok('/login');
-    $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
+    $mech->get('/login');
+    $mech->submit_form(
+        with_fields => { username => 'new_editor', password => 'password' }
+    );
 
-    $mech->get_ok('/artist/745c079d-374e-4436-9448-da92dedef3ce/edit');
+    $mech->get_ok(
+        '/artist/745c079d-374e-4436-9448-da92dedef3ce/edit',
+        'Fetched the artist editing page',
+    );
     html_ok($mech->content);
 
     my @edits = capture_edits {
@@ -209,13 +219,13 @@ test 'Looooooong disambiguation' => sub {
 
     is(@edits, 0, 'No edit was entered');
 
-    $mech->content_contains(
+    $mech->text_contains(
         'Field should not exceed 255 characters',
         'The "too long disambiguation" error is shown',
     );
 };
 
-test 'Test updating artist credits' => sub {
+test 'Updating artist credits' => sub {
     my $test = shift;
     my $c = $test->c;
     my $mech = $test->mech;
@@ -232,11 +242,18 @@ test 'Test updating artist credits' => sub {
             VALUES (1, 10, 'Alternative Name', 1, '');
         SQL
 
-    $mech->get_ok('/login');
-    $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
+    $mech->get('/login');
+    $mech->submit_form(
+        with_fields => { username => 'new_editor', password => 'password' }
+    );
+
+    $mech->get_ok(
+        '/artist/9f0b3e1a-2431-400f-b6ff-2bcebbf0971a/edit',
+        'Fetched the artist editing page',
+    );
+    html_ok($mech->content);
 
     my @edits = capture_edits {
-        $mech->get_ok('/artist/9f0b3e1a-2431-400f-b6ff-2bcebbf0971a/edit');
         $mech->submit_form_ok({
             with_fields => {
                 'edit-artist.name' => 'test artist',
@@ -245,8 +262,6 @@ test 'Test updating artist credits' => sub {
         },
         'The form returned a 2xx response code');
     } $c;
-
-    @edits = sort_by { $_->id } @edits;
 
     is(@edits, 2, 'Two edits were entered');
     my ($edit_artist, $edit_ac) = @edits;

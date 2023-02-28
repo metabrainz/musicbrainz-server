@@ -1,5 +1,5 @@
 /*
- * @flow strict-local
+ * @flow strict
  * Copyright (C) 2019 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -9,10 +9,10 @@
 
 import * as React from 'react';
 
-import {bracketedText} from '../utility/bracketed.js';
-import {kebabCase} from '../utility/strings.js';
 import {SidebarProperty}
   from '../../../../layout/components/sidebar/SidebarProperties.js';
+import {bracketedText} from '../utility/bracketed.js';
+import {kebabCase} from '../utility/strings.js';
 
 import CollapsibleList from './CollapsibleList.js';
 

@@ -1,4 +1,7 @@
 package t::MusicBrainz::Server::Controller::Artist::Split;
+use strict;
+use warnings;
+
 use Test::Routine;
 use HTTP::Request::Common qw( POST );
 use MusicBrainz::Server::Test qw( capture_edits );

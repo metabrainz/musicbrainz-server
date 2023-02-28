@@ -10,7 +10,6 @@
 export type SearchableTypeT = EntityItemT['entityType'];
 
 export type StateT<T: EntityItemT> = {
-  +activeUser: ActiveEditorT | null,
   +canChangeType?: (string) => boolean,
   +containerClass?: string,
   +disabled?: boolean,
@@ -19,22 +18,32 @@ export type StateT<T: EntityItemT> = {
   +highlightedIndex: number,
   +id: string,
   +indexedSearch: boolean,
+  +inputChangeHook?: (
+    inputValue: string,
+    state: StateT<T>,
+    selectItem: (OptionItemT<T>) => boolean,
+  ) => boolean,
+  +inputClass?: string,
   +inputValue: string,
   +isAddEntityDialogOpen?: boolean,
+  +isInputFocused: boolean,
   +isLookupPerformed?: boolean,
   +isOpen: boolean,
   +items: $ReadOnlyArray<ItemT<T>>,
   +labelClass?: string,
+  +labelStyle?: {...},
   +page: number,
   +pendingSearch: string | null,
   +placeholder?: string,
-  +recentItems: $ReadOnlyArray<ItemT<T>> | null,
+  +recentItems: $ReadOnlyArray<OptionItemT<T>> | null,
   +recentItemsKey: string,
+  +required: boolean,
   +results: $ReadOnlyArray<ItemT<T>> | null,
-  +selectedEntity: T | null,
-  +staticItems?: $ReadOnlyArray<ItemT<T>>,
-  +staticItemsFilter?: (ItemT<T>, string) => boolean,
+  +selectedItem: OptionItemT<T> | null,
+  +showDescriptions?: boolean,
+  +staticItems?: $ReadOnlyArray<OptionItemT<T>>,
   +statusMessage: string,
+  +totalPages: ?number,
   +width?: string,
 };
 
@@ -58,16 +67,18 @@ export type ActionT<+T: EntityItemT> =
       +entityType: SearchableTypeT,
     }
   | { +type: 'clear-recent-items' }
+  | { +type: 'highlight-index', +index: number }
   | { +type: 'highlight-next-item' }
   | { +type: 'highlight-previous-item' }
-  | { +type: 'noop' }
   | { +type: 'reset-menu' }
   | { +type: 'select-item', +item: ItemT<T> }
+  | { +type: 'set-input-focus', +isFocused: boolean }
   | { +type: 'set-menu-visibility', +value: boolean }
   | {
       +type: 'show-ws-results',
       +entities: $ReadOnlyArray<T>,
       +page: number,
+      +totalPages: number,
     }
   | { +type: 'show-lookup-error' }
   | { +type: 'show-lookup-type-error' }
@@ -77,6 +88,10 @@ export type ActionT<+T: EntityItemT> =
   | { +type: 'stop-search' }
   | { +type: 'toggle-add-entity-dialog', +isOpen: boolean }
   | { +type: 'toggle-indexed-search' }
+  | {
+      +type: 'toggle-descriptions',
+      +showDescriptions: boolean,
+    }
   | { +type: 'type-value', +value: string };
 
 export type ActionItemT<+T> = {
@@ -127,6 +142,7 @@ export type EntityItemT =
   | GenreT
   | InstrumentT
   | LabelT
+  | LanguageT
   | LinkAttrTypeT
   | LinkTypeT
   | PlaceT

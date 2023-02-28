@@ -1,4 +1,7 @@
 package t::MusicBrainz::Server::Data::WorkType;
+use strict;
+use warnings;
+
 use Test::Routine;
 use Test::More;
 use Test::Moose;

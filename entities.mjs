@@ -781,10 +781,11 @@ const ENTITIES = {
     model: 'Tag',
   },
   track: {
-    artist_credits: 1,
+    artist_credits: true,
     last_updated_column: true,
     mbid: {
       multiple: true,
+      relatable: false,
     },
     model: 'Track',
     plural: 'tracks',

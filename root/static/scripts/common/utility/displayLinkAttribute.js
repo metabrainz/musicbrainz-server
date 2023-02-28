@@ -1,5 +1,5 @@
 /*
- * @flow strict-local
+ * @flow strict
  * Copyright (C) 2019 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -15,7 +15,7 @@ import localizeLinkAttributeTypeName
 import linkedEntities from '../linkedEntities.mjs';
 import clean from '../utility/clean.js';
 
-function _displayLinkAttribute<T>(
+export function displayLinkAttributeCustom<T>(
   attribute: LinkAttrT,
   getAttributeValue: (LinkAttrTypeT) => T,
   l: (string, VarArgsObject<T | string>) => T,
@@ -58,7 +58,7 @@ function getAttributeValueReact(type: LinkAttrTypeT) {
 export default function displayLinkAttribute(
   attribute: LinkAttrT,
 ): Expand2ReactOutput {
-  return _displayLinkAttribute<Expand2ReactOutput>(
+  return displayLinkAttributeCustom<Expand2ReactOutput>(
     attribute,
     getAttributeValueReact,
     exp.l,
@@ -66,7 +66,7 @@ export default function displayLinkAttribute(
 }
 
 export function displayLinkAttributeText(attribute: LinkAttrT): string {
-  return _displayLinkAttribute<string>(
+  return displayLinkAttributeCustom<string>(
     attribute,
     localizeLinkAttributeTypeName,
     texp.l,

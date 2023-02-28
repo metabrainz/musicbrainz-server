@@ -1,4 +1,7 @@
 package t::MusicBrainz::Server::Controller::WS::js::Autocomplete;
+use strict;
+use warnings;
+
 use Test::Deep qw( ignore );
 use Test::Routine;
 
@@ -59,6 +62,7 @@ test all => sub {
                 'name' => 'Warp Records',
                 'primaryAlias' => undef,
                 'typeID' => 4,
+                'typeName' => 'Original Production',
               }, { 'current' => 1, 'pages' => 1 } ];
 
 };

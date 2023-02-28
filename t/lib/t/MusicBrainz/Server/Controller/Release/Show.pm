@@ -1,4 +1,7 @@
 package t::MusicBrainz::Server::Controller::Release::Show;
+use strict;
+use warnings;
+
 use Test::Routine;
 use MusicBrainz::Server::Test qw( html_ok page_test_jsonld );
 
@@ -195,7 +198,7 @@ page_test_jsonld $mech => {
             'duration' => 'PT07M53S'
         }
     ],
-    '@context' => 'http://schema.org',
+    '@context' => 'https://schema.org/docs/jsonldcontext.json',
     'hasReleaseRegion' => [
         {
             'releaseCountry' => {

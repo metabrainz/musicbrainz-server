@@ -1,5 +1,5 @@
 /*
- * @flow strict-local
+ * @flow strict
  * Copyright (C) 2020 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -11,17 +11,17 @@ import * as React from 'react';
 
 import {CatalystContext} from '../context.mjs';
 import Layout from '../layout/index.js';
-import DBDefs from '../static/scripts/common/DBDefs.mjs';
+import * as manifest from '../static/manifest.mjs';
 import PostParameters, {
   type PostParametersT,
 } from '../static/scripts/common/components/PostParameters.js';
+import DBDefs from '../static/scripts/common/DBDefs.mjs';
 import FormCsrfToken
   from '../static/scripts/edit/components/FormCsrfToken.js';
 import FormRowCheckbox
   from '../static/scripts/edit/components/FormRowCheckbox.js';
 import FormRowText from '../static/scripts/edit/components/FormRowText.js';
 import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
-import * as manifest from '../static/manifest.mjs';
 import returnUri from '../utility/returnUri.js';
 
 type PropsT = {

@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -11,9 +11,9 @@ import * as React from 'react';
 
 import SelectField from '../../common/components/SelectField.js';
 
-import FormRow from './FormRow.js';
 import FieldErrors from './FieldErrors.js';
 import FormLabel from './FormLabel.js';
+import FormRow from './FormRow.js';
 import HiddenField from './HiddenField.js';
 
 type Props = {
@@ -45,9 +45,10 @@ const FormRowSelect = ({
   label,
   onChange,
   options,
-  required = false,
+  required: passedRequired = false,
   uncontrolled = false,
 }: Props): React.Element<typeof FormRow> => {
+  let required = passedRequired;
   if (!allowEmpty) {
     // If the field can't be unset, there's nothing required from the user.
     required = false;

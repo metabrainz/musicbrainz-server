@@ -13,8 +13,8 @@
     },
     {
       command: 'assertEval',
-      target: "Array.from(document.querySelectorAll('#relationship-editor table.details.row-form tr')).map(x => x.textContent.replace(/\\s{2,}/g, ' ').replace(/(^\\s*|\\s*$)/g, '')).join('\\n ')",
-      value: 'involved with: Name Only (2021-??-01 – ????)\n Add another artist\n main performer at: MusicBrainz Summit 14 (time: 19:00)\n Add another event',
+      target: "Array.from(document.querySelectorAll('#relationship-editor table.rel-editor-table tr')).map(x => x.textContent.replace(/\\s{2,}/g, ' ').replace(/(^\\s*|\\s*$)/g, '')).join('\\n ')",
+      value: 'involved with: Name Only (from 2021-??-01 to ????)You must select a relationship type and target entity for every relationship.\n main performer at: MusicBrainz Summit 14 (2014-09-26 – 2014-09-28) (time: 19:00)\n Add relationship',
     },
     {
       command: 'type',
@@ -32,7 +32,7 @@
     },
     {
       command: 'type',
-      target: 'css=#dialog input.name',
+      target: 'css=#edit-relationship-dialog input.relationship-target',
       value: '89ad4ac3-39f7-470e-963a-56509c546377',
     },
     {
@@ -41,7 +41,7 @@
     },
     {
       command: 'click',
-      target: 'css=#dialog button.positive',
+      target: 'css=#edit-relationship-dialog button.positive',
     },
     {
       command: 'clickAndWait',

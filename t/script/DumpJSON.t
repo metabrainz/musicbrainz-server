@@ -1,3 +1,6 @@
+use strict;
+use warnings;
+
 use DBDefs;
 use File::Slurp;
 use File::Spec;

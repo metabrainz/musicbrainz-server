@@ -16,20 +16,18 @@ type PartialDateWithStringsT = {
   +year: StrOrNum | null,
 };
 
-export const isDateValid = function (
-  year: StrOrNum | null,
-  month: StrOrNum | null,
-  day: StrOrNum | null,
-): boolean {
-  const y = typeof year === 'number'
-    ? year
-    : (nonEmpty(year) ? parseInteger(year) : null);
-  const m = typeof month === 'number'
-    ? month
-    : (nonEmpty(month) ? parseInteger(month) : null);
-  const d = typeof day === 'number'
-    ? day
-    : (nonEmpty(day) ? parseInteger(day) : null);
+export const isDateValid = (date: PartialDateWithStringsT): boolean => {
+  let {year: y, month: m, day: d} = date;
+
+  y = typeof y === 'number'
+    ? y
+    : (nonEmpty(y) ? parseInteger(y) : null);
+  m = typeof m === 'number'
+    ? m
+    : (nonEmpty(m) ? parseInteger(m) : null);
+  d = typeof d === 'number'
+    ? d
+    : (nonEmpty(d) ? parseInteger(d) : null);
 
   // We couldn't parse one of the fields as a number.
   if (isNaN(y) || isNaN(m) || isNaN(d)) {
@@ -71,24 +69,24 @@ export const isDatePeriodValid = function (
   a: PartialDateWithStringsT,
   b: PartialDateWithStringsT,
 ): boolean {
-  const {year: y1, month: m1, day: d1} = a;
-  const {year: y2, month: m2, day: d2} = b;
-
-  if (!isDateValid(y1, m1, d1) || !isDateValid(y2, m2, d2)) {
+  if (!isDateValid(a) || !isDateValid(b)) {
     return false;
   }
 
-  if (!nonEmpty(y1) || !nonEmpty(y2) || +y1 < +y2) {
+  const {year: y1, month: m1, day: d1} = a;
+  const {year: y2, month: m2, day: d2} = b;
+
+  if (empty(y1) || empty(y2) || +y1 < +y2) {
     return true;
   } else if (+y2 < +y1) {
     return false;
   }
-  if (!nonEmpty(m1) || !nonEmpty(m2) || +m1 < +m2) {
+  if (empty(m1) || empty(m2) || +m1 < +m2) {
     return true;
   } else if (+m2 < +m1) {
     return false;
   }
-  if (!nonEmpty(d1) || !nonEmpty(d2) || +d1 < +d2) {
+  if (empty(d1) || empty(d2) || +d1 < +d2) {
     return true;
   } else if (+d2 < +d1) {
     return false;

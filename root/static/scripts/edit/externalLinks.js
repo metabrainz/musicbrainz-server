@@ -14,34 +14,43 @@ import ko from 'knockout';
 import * as React from 'react';
 import * as ReactDOMClient from 'react-dom/client';
 
+import invariant from '../../../utility/invariant.js';
 import {
+  EMPTY_PARTIAL_DATE,
   FAVICON_CLASSES,
-  VIDEO_ATTRIBUTE_ID,
   VIDEO_ATTRIBUTE_GID,
+  VIDEO_ATTRIBUTE_ID,
 } from '../common/constants.js';
 import {compare, l} from '../common/i18n.js';
 import expand2react from '../common/i18n/expand2react.js';
 import linkedEntities from '../common/linkedEntities.mjs';
 import MB from '../common/MB.js';
 import {groupBy, keyBy, uniqBy} from '../common/utility/arrays.js';
-import isDateEmpty from '../common/utility/isDateEmpty.js';
+import {bracketedText} from '../common/utility/bracketed.js';
+import {getSourceEntityData} from '../common/utility/catalyst.js';
+import {compareDatePeriods} from '../common/utility/compareDates.js';
 import formatDatePeriod from '../common/utility/formatDatePeriod.js';
+import isDateEmpty from '../common/utility/isDateEmpty.js';
 import {hasSessionStorage} from '../common/utility/storage.js';
 import {uniqueId} from '../common/utility/strings.js';
-import {bracketedText} from '../common/utility/bracketed.js';
-import {compareDatePeriods} from '../common/utility/compareDates.js';
+import {stripAttributes} from '../edit/utility/linkPhrase.js';
+import {
+  appendHiddenRelationshipInputs,
+} from '../relationship-editor/utility/prepareHtmlFormSubmission.js';
 import {isMalware} from '../url/utility/isGreyedOut.js';
 
-import isPositiveInteger from './utility/isPositiveInteger.js';
+import ExternalLinkAttributeDialog
+  from './components/ExternalLinkAttributeDialog.js';
 import HelpIcon from './components/HelpIcon.js';
 import RemoveButton from './components/RemoveButton.js';
 import URLInputPopover from './components/URLInputPopover.js';
+import withLoadedTypeInfo from './components/withLoadedTypeInfo.js';
+import isPositiveInteger from './utility/isPositiveInteger.js';
+import isShortenedUrl from './utility/isShortenedUrl.js';
 import {linkTypeOptions} from './forms.js';
-import * as URLCleanup from './URLCleanup.js';
 import type {RelationshipTypeT} from './URLCleanup.js';
+import * as URLCleanup from './URLCleanup.js';
 import * as validation from './validation.js';
-import ExternalLinkAttributeDialog
-  from './components/ExternalLinkAttributeDialog.js';
 
 type ErrorTarget = $Values<typeof URLCleanup.ERROR_TARGETS>;
 
@@ -90,18 +99,25 @@ export type LinkRelationshipT = $ReadOnly<{
 }>;
 
 type LinksEditorProps = {
-  +errorObservable: (boolean) => void,
-  +initialLinks: $ReadOnlyArray<LinkStateT>,
+  +errorObservable?: (boolean) => void,
   +isNewEntity: boolean,
-  +sourceType: CoreEntityTypeT,
-  +typeOptions: $ReadOnlyArray<LinkTypeOptionT>,
+  +sourceData:
+    | CoreEntityT
+    | {
+        +entityType: CoreEntityTypeT,
+        +id?: void,
+        +isNewEntity?: true,
+        +name?: string,
+        +orderingTypeID?: number,
+        +relationships?: void,
+      },
 };
 
 type LinksEditorState = {
   +links: $ReadOnlyArray<LinkStateT>,
 };
 
-export class ExternalLinksEditor
+class _ExternalLinksEditor
   extends React.Component<LinksEditorProps, LinksEditorState> {
   tableRef: {current: HTMLTableElement | null};
 
@@ -109,16 +125,104 @@ export class ExternalLinksEditor
 
   oldLinks: LinkMapT;
 
+  +errorObservable: (boolean) => void;
+
+  +initialLinks: $ReadOnlyArray<LinkStateT>;
+
+  +sourceType: CoreEntityTypeT;
+
+  +typeOptions: $ReadOnlyArray<LinkTypeOptionT>;
+
   constructor(props: LinksEditorProps) {
     super(props);
-    this.state = {links: withOneEmptyLink(props.initialLinks)};
+
+    const sourceData = props.sourceData;
+    const sourceType = sourceData.entityType;
+    const entityTypes = [sourceType, 'url'].sort().join('-');
+    let initialLinks = parseRelationships(sourceData.relationships);
+
+    initialLinks.sort(function (a, b) {
+      const typeA = a.type && linkedEntities.link_type[a.type];
+      const typeB = b.type && linkedEntities.link_type[b.type];
+
+      return compare(
+        typeA ? l_relationships(typeA.link_phrase).toLowerCase() : '',
+        typeB ? l_relationships(typeB.link_phrase).toLowerCase() : '',
+      );
+    });
+
+    if (typeof window !== 'undefined') {
+      // Terribly get seeded URLs
+      if (MB.formWasPosted) {
+        if (hasSessionStorage) {
+          const submittedLinks =
+            window.sessionStorage.getItem('submittedLinks');
+          if (submittedLinks) {
+            initialLinks = JSON.parse(submittedLinks)
+              .filter(l => !isEmpty(l)).map(newLinkState);
+          }
+        }
+      } else {
+        const seededLinkRegex = new RegExp(
+          '(?:\\?|&)edit-' + sourceType +
+            '\\.url\\.([0-9]+)\\.(text|link_type_id)=([^&]+)',
+          'g',
+        );
+        const urls = {};
+        let match;
+
+        while ((match = seededLinkRegex.exec(window.location.search))) {
+          const [/* unused */, index, key, value] = match;
+          (urls[index] = urls[index] || {})[key] = decodeURIComponent(value);
+        }
+
+        for (
+          const data of
+          ((Object.values(urls): any): $ReadOnlyArray<SeededUrlShape>)
+        ) {
+          initialLinks.push(newLinkState({
+            rawUrl: data.text || '',
+            relationship: uniqueId('new-'),
+            type: parseInt(data.link_type_id, 10) || null,
+            url: getUnicodeUrl(data.text || ''),
+          }));
+        }
+      }
+    }
+
+    initialLinks = initialLinks.map(function (link) {
+      /*
+       * Only run the URL cleanup on seeded URLs, i.e. URLs that don't have an
+       * existing relationship ID.
+       */
+      if (!isPositiveInteger(link.relationship)) {
+        const url = getUnicodeUrl(link.url);
+        return {
+          ...link,
+          relationship: uniqueId('new-'),
+          url: URLCleanup.cleanURL(url) || url,
+        };
+      }
+      return link;
+    });
+
+    this.typeOptions = linkTypeOptions(
+      {children: linkedEntities.link_type_tree[entityTypes]},
+      /^url-/.test(entityTypes),
+    );
+
+    this.sourceType = sourceType;
+    this.initialLinks = initialLinks;
+    this.state = {links: withOneEmptyLink(initialLinks)};
     this.tableRef = React.createRef();
     this.oldLinks = this.getOldLinksHash();
-    this.generalLinkTypes = props.typeOptions.filter(
+    this.generalLinkTypes = this.typeOptions.filter(
       // Keep disabled options for grouping
       (option) => option.disabled ||
       !URLCleanup.RESTRICTED_LINK_TYPES.includes(option.data.gid),
     );
+    this.errorObservable = props.errorObservable ||
+      validation.errorField(ko.observable(false));
     this.copyEditDataToReleaseEditor();
   }
 
@@ -177,7 +281,7 @@ export class ExternalLinksEditor
         }
 
         const newLink = {...newLinks[index], url, rawUrl};
-        const checker = new URLCleanup.Checker(url, this.props.sourceType);
+        const checker = new URLCleanup.Checker(url, this.sourceType);
         const guessedType = checker.guessType();
         const possibleTypes = checker.getPossibleTypes();
         const typeOptions = this.filterTypeOptions(possibleTypes);
@@ -449,7 +553,7 @@ export class ExternalLinksEditor
 
   getOldLinksHash(): LinkMapT {
     return keyBy<LinkStateT, string>(
-      this.props.initialLinks
+      this.initialLinks
         .filter(link => isPositiveInteger(link.relationship)),
       x => String(x.relationship),
     );
@@ -479,7 +583,7 @@ export class ExternalLinksEditor
     pushInput: (string, string, string) => void,
   ) {
     let index = 0;
-    const backward = this.props.sourceType > 'url';
+    const backward = this.sourceType > 'url';
     const {oldLinks, newLinks, allLinks} = this.getEditData();
 
     for (const [relationship, link] of allLinks) {
@@ -512,8 +616,8 @@ export class ExternalLinksEditor
 
       pushInput(prefix, 'link_type_id', String(link.type) || '');
 
-      const beginDate = link.begin_date || nullPartialDate;
-      const endDate = link.end_date || nullPartialDate;
+      const beginDate = link.begin_date || EMPTY_PARTIAL_DATE;
+      const endDate = link.end_date || EMPTY_PARTIAL_DATE;
 
       pushInput(
         prefix,
@@ -555,7 +659,7 @@ export class ExternalLinksEditor
   ): ErrorT | null {
     const linksByTypeAndUrl = groupBy(
       uniqBy(
-        this.state.links.concat(this.props.initialLinks),
+        this.state.links.concat(this.initialLinks),
         link => link.relationship,
       ),
       linkTypeAndUrlString,
@@ -566,7 +670,7 @@ export class ExternalLinksEditor
       ? linkedEntities.link_type[link.type] : {};
     // Use existing checker if possible, otherwise create a new one
     checker = checker ||
-      new URLCleanup.Checker(link.url, this.props.sourceType);
+      new URLCleanup.Checker(link.url, this.sourceType);
     const oldLink = this.oldLinks.get(String(link.relationship));
     const isNewLink = !isPositiveInteger(link.relationship);
     const linkChanged = oldLink && link.url !== oldLink.url;
@@ -607,7 +711,7 @@ export class ExternalLinksEditor
                     because it is known to host malware.`),
         target: URLCleanup.ERROR_TARGETS.URL,
       };
-    } else if (isNewOrChangedLink && isShortened(link.url)) {
+    } else if (isNewOrChangedLink && isShortenedUrl(link.url)) {
       error = {
         message: l(`Please don’t enter bundled/shortened URLs,
                     enter the destination URL(s) instead.`),
@@ -717,7 +821,7 @@ export class ExternalLinksEditor
     if (!possibleTypes) {
       return this.generalLinkTypes;
     }
-    return this.props.typeOptions.filter((option) => {
+    return this.typeOptions.filter((option) => {
       // Keep disabled options for grouping
       if (option.disabled) {
         return true;
@@ -786,7 +890,7 @@ export class ExternalLinksEditor
   }
 
   render(): React.Element<'table'> {
-    this.props.errorObservable(false);
+    this.errorObservable(false);
 
     const linksArray = this.state.links;
     const linksGroupMap = groupLinksByUrl(linksArray);
@@ -818,7 +922,7 @@ export class ExternalLinksEditor
             let hasError = false;
             let canMerge = true;
             const checker = new URLCleanup.Checker(
-              url, this.props.sourceType,
+              url, this.sourceType,
             );
             const possibleTypes = checker.getPossibleTypes();
             const selectedTypes = [];
@@ -836,7 +940,7 @@ export class ExternalLinksEditor
               const error = this.validateLink(link, checker);
               if (error) {
                 if (this.isNewOrChangedLink(link)) {
-                  this.props.errorObservable(true);
+                  this.errorObservable(true);
                   hasError = true;
                 }
                 if (error.target === URLCleanup.ERROR_TARGETS.RELATIONSHIP) {
@@ -880,7 +984,7 @@ export class ExternalLinksEditor
               links[0].submitted &&
               selectedTypes.length > 0 &&
               !hasError) {
-              this.props.errorObservable(true);
+              this.errorObservable(true);
               urlError = {
                 message: check.error ||
                     l('This relationship type combination is invalid.'),
@@ -1100,32 +1204,20 @@ const ExternalLinkRelationship =
                     />
                   ) : (
                     linkType ? (
-                      backward
-                        ? l_relationships(linkType.reverse_link_phrase)
-                        : l_relationships(linkType.link_phrase)
+                      backward ? (
+                        stripAttributes(
+                          linkType,
+                          linkType.l_reverse_link_phrase ?? '',
+                        )
+                      ) : (
+                        stripAttributes(
+                          linkType,
+                          linkType.l_link_phrase ?? '',
+                        )
+                      )
                     ) : null
                   )
               }
-              {linkType &&
-                hasOwnProp(
-                  linkType.attributes,
-                  String(VIDEO_ATTRIBUTE_ID),
-                ) ? (
-                  <div className="attribute-container">
-                    <label>
-                      <input
-                        checked={link.video}
-                        onChange={
-                          (event) => props.onVideoChange(link.index, event)
-                        }
-                        style={{verticalAlign: 'text-top'}}
-                        type="checkbox"
-                      />
-                      {' '}
-                      {l('video')}
-                    </label>
-                  </div>
-                ) : null}
               {link.url && !link.error && !hasUrlError
                 ? <TypeDescription type={link.type} url={link.url} />
                 : null}
@@ -1137,6 +1229,26 @@ const ExternalLinkRelationship =
               ) : null}
             </label>
           </div>
+          {linkType &&
+            hasOwnProp(
+              linkType.attributes,
+              String(VIDEO_ATTRIBUTE_ID),
+            ) ? (
+              <div className="attribute-container">
+                <label>
+                  <input
+                    checked={link.video}
+                    onChange={
+                      (event) => props.onVideoChange(link.index, event)
+                    }
+                    style={{verticalAlign: 'text-top'}}
+                    type="checkbox"
+                  />
+                  {' '}
+                  {l('video')}
+                </label>
+              </div>
+            ) : null}
           {link.error ? (
             <div className="error field-error" data-visible="1">
               {link.error.message}
@@ -1369,21 +1481,25 @@ export class ExternalLink extends React.Component<LinkProps> {
             />
         ))}
         {firstLink.pendingTypes &&
-          firstLink.pendingTypes.map((type) => (
-            <tr className="relationship-item" key={type}>
-              <td />
-              <td>
-                <div className="relationship-content">
-                  <label>{addColonText(l('Type'))}</label>
-                  <label className="relationship-name">
-                    {l_relationships(
-                      linkedEntities.link_type[type].link_phrase,
-                    )}
-                  </label>
-                </div>
-              </td>
-            </tr>
-        ))}
+          firstLink.pendingTypes.map((type) => {
+            const relType = linkedEntities.link_type[type];
+            return (
+              <tr className="relationship-item" key={type}>
+                <td />
+                <td>
+                  <div className="relationship-content">
+                    <label>{addColonText(l('Type'))}</label>
+                    <label className="relationship-name">
+                      {stripAttributes(
+                        relType,
+                        relType.l_link_phrase ?? '',
+                      )}
+                    </label>
+                  </div>
+                </td>
+              </tr>
+            );
+          })}
         {/*
           * Hide the button when link is not submitted
           * or link type is auto-selected.
@@ -1408,16 +1524,17 @@ export class ExternalLink extends React.Component<LinkProps> {
   }
 }
 
-const nullPartialDate: PartialDateT = {
-  day: null,
-  month: null,
-  year: null,
-};
+export const ExternalLinksEditor:
+  React.AbstractComponent<LinksEditorProps, _ExternalLinksEditor> =
+  withLoadedTypeInfo<LinksEditorProps, _ExternalLinksEditor>(
+    _ExternalLinksEditor,
+    new Set(['link_type', 'link_attribute_type']),
+  );
 
 const defaultLinkState: LinkStateT = {
-  begin_date: nullPartialDate,
+  begin_date: EMPTY_PARTIAL_DATE,
   deleted: false,
-  end_date: nullPartialDate,
+  end_date: EMPTY_PARTIAL_DATE,
   ended: false,
   rawUrl: '',
   relationship: null,
@@ -1491,9 +1608,9 @@ export function parseRelationships(
     const target = data.target;
     if (target.entityType === 'url') {
       accum.push({
-        begin_date: data.begin_date || nullPartialDate,
+        begin_date: data.begin_date || EMPTY_PARTIAL_DATE,
         deleted: false,
-        end_date: data.end_date || nullPartialDate,
+        end_date: data.end_date || EMPTY_PARTIAL_DATE,
         ended: data.ended || false,
         rawUrl: target.name,
         relationship: data.id,
@@ -1588,113 +1705,6 @@ function isValidURL(url: string) {
   return true;
 }
 
-// For shortener pages which should still be allowed as a host-only link
-const SHORTENER_ALLOWED_HOSTS = [
-  'bruit.app',
-  'distrokid.com',
-  'trac.co',
-];
-
-const URL_SHORTENERS = [
-  'adf.ly',
-  'album.link',
-  'ampl.ink',
-  'amu.se',
-  'artist.link',
-  'band.link',
-  'bfan.link',
-  'biglink.to',
-  'bio.link',
-  'bit.ly',
-  'bitly.com',
-  'backl.ink',
-  'bruit.app',
-  'bstlnk.to',
-  'cli.gs',
-  'deck.ly',
-  'distrokid.com',
-  'ditto.fm',
-  'eventlink.to',
-  'fanlink.to',
-  'ffm.to',
-  'found.ee',
-  'fty.li',
-  'fur.ly',
-  'g.co',
-  'gate.fm',
-  'geni.us',
-  'goo.gl',
-  'hypeddit.com',
-  'hypel.ink',
-  'hyperfollow.com',
-  'hyperurl.co',
-  'is.gd',
-  'kl.am',
-  'laburbain.com',
-  'li.sten.to',
-  'linkco.re',
-  'lnkfi.re',
-  'linkfly.to',
-  'linktr.ee',
-  'listen.lt',
-  'lnk.bio',
-  'lnk.co',
-  'lnk.site',
-  'lnk.to',
-  'lsnto.me',
-  'many.link',
-  'mcaf.ee',
-  'mez.ink',
-  'moourl.com',
-  'music.indiefy.net',
-  'musics.link',
-  'mylink.page',
-  'myurls.bio',
-  'odesli.co',
-  'orcd.co',
-  'owl.ly',
-  'page.link',
-  'pandora.app.link',
-  'podlink.to',
-  'pods.link',
-  'push.fm',
-  'rb.gy',
-  'rubyurl.com',
-  'share.amuse.io',
-  'smarturl.it',
-  'snd.click',
-  'song.link',
-  'songwhip.com',
-  'spinnup.link',
-  'spoti.fi',
-  'sptfy.com',
-  'spread.link',
-  'streamerlinks.com',
-  'streamlink.to',
-  'su.pr',
-  't.co',
-  'tiny.cc',
-  'tinyurl.com',
-  'tourlink.to',
-  'trac.co',
-  'u.nu',
-  'unitedmasters.com',
-  'untd.io',
-  'vyd.co',
-  'yep.it',
-].map(shortener => new RegExp(
-  '^https?://([^/]+\\.)?' +
-  shortener +
-  (SHORTENER_ALLOWED_HOSTS.includes(shortener) ? '/.+' : ''),
-  'i',
-));
-
-function isShortened(url: string) {
-  return URL_SHORTENERS.some(function (shortenerRegex) {
-    return url.match(shortenerRegex) !== null;
-  });
-}
-
 function isGoogleAmp(url: string) {
   return /^https?:\/\/([^/]+\.)?google\.[^/]+\/amp/.test(url);
 }
@@ -1713,12 +1723,14 @@ function isMusicBrainz(url: string) {
 
 type InitialOptionsT = {
   errorObservable?: (boolean) => void,
-  mountPoint: Element,
-  sourceData: CoreEntityT | {
-    +entityType: CoreEntityTypeT,
-    +id?: void,
-    +relationships?: void,
-  },
+  sourceData?:
+    | CoreEntityT
+    | {
+        +entityType: CoreEntityTypeT,
+        +id?: void,
+        +isNewEntity?: true,
+        +relationships?: void,
+      },
 };
 
 type SeededUrlShape = {
@@ -1727,105 +1739,76 @@ type SeededUrlShape = {
 };
 
 export function createExternalLinksEditor(
-  options: InitialOptionsT,
+  options?: InitialOptionsT,
 ): {
-  +externalLinksEditorRef: React$Ref<typeof ExternalLinksEditor>,
+  +externalLinksEditorRef: {current: _ExternalLinksEditor | null},
   +root: {+unmount: () => void, ...},
 } {
-  const sourceData = options.sourceData;
-  const sourceType = sourceData.entityType;
-  const entityTypes = [sourceType, 'url'].sort().join('-');
-  let initialLinks = parseRelationships(sourceData.relationships);
+  const sourceData = options?.sourceData ?? getSourceEntityData();
+  invariant(sourceData);
 
-  initialLinks.sort(function (a, b) {
-    const typeA = a.type && linkedEntities.link_type[a.type];
-    const typeB = b.type && linkedEntities.link_type[b.type];
-
-    return compare(
-      typeA ? l_relationships(typeA.link_phrase).toLowerCase() : '',
-      typeB ? l_relationships(typeB.link_phrase).toLowerCase() : '',
-    );
-  });
-
-  // Terribly get seeded URLs
-  if (MB.formWasPosted) {
-    if (hasSessionStorage) {
-      const submittedLinks = window.sessionStorage.getItem('submittedLinks');
-      if (submittedLinks) {
-        initialLinks = JSON.parse(submittedLinks)
-          .filter(l => !isEmpty(l)).map(newLinkState);
-      }
-    }
-  } else {
-    const seededLinkRegex = new RegExp(
-      '(?:\\?|&)edit-' + sourceType +
-        '\\.url\\.([0-9]+)\\.(text|link_type_id)=([^&]+)',
-      'g',
-    );
-    const urls = {};
-    let match;
-
-    while ((match = seededLinkRegex.exec(window.location.search))) {
-      const [/* unused */, index, key, value] = match;
-      (urls[index] = urls[index] || {})[key] = decodeURIComponent(value);
-    }
-
-    for (
-      const data of
-      ((Object.values(urls): any): $ReadOnlyArray<SeededUrlShape>)
-    ) {
-      initialLinks.push(newLinkState({
-        rawUrl: data.text || '',
-        relationship: uniqueId('new-'),
-        type: parseInt(data.link_type_id, 10) || null,
-        url: getUnicodeUrl(data.text || ''),
-      }));
-    }
-  }
-
-  initialLinks = initialLinks.map(function (link) {
-    /*
-     * Only run the URL cleanup on seeded URLs, i.e. URLs that don't have an
-     * existing relationship ID.
-     */
-    if (!isPositiveInteger(link.relationship)) {
-      const url = getUnicodeUrl(link.url);
-      return {
-        ...link,
-        relationship: uniqueId('new-'),
-        url: URLCleanup.cleanURL(url) || url,
-      };
-    }
-    return link;
-  });
-
-  const typeOptions = linkTypeOptions(
-    {children: linkedEntities.link_type_tree[entityTypes]},
-    /^url-/.test(entityTypes),
-  );
-
-  const errorObservable = options.errorObservable ||
-    validation.errorField(ko.observable(false));
-
-  const mountPoint = options.mountPoint;
+  const mountPoint = $('#external-links-editor-container')[0];
   let root = $(mountPoint).data('react-root');
   if (!root) {
     root = ReactDOMClient.createRoot(mountPoint);
     $(mountPoint).data('react-root', root);
   }
-
   const externalLinksEditorRef = React.createRef();
   root.render(
     <ExternalLinksEditor
-      errorObservable={errorObservable}
-      initialLinks={initialLinks}
+      errorObservable={options?.errorObservable}
       isNewEntity={!sourceData.id}
       ref={externalLinksEditorRef}
-      sourceType={sourceData.entityType}
-      typeOptions={typeOptions}
+      sourceData={sourceData}
     />,
   );
   return {externalLinksEditorRef, root};
 }
 
-MB.createExternalLinksEditor = createExternalLinksEditor;
+export function createExternalLinksEditorForHtmlForm(
+  formName: string,
+): void {
+  const {
+    externalLinksEditorRef,
+  } = createExternalLinksEditor();
+  $(document).on('submit', '#page form', function () {
+    invariant(externalLinksEditorRef.current);
+    prepareExternalLinksHtmlFormSubmission(
+      formName,
+      externalLinksEditorRef.current,
+    );
+  });
+}
+
+export function prepareExternalLinksHtmlFormSubmission(
+  formName: string,
+  externalLinksEditor: _ExternalLinksEditor,
+): void {
+  let hiddenInputsContainer = document.getElementById(
+    'external-links-editor-submission',
+  );
+  if (!hiddenInputsContainer) {
+    hiddenInputsContainer = document.createElement('div');
+    hiddenInputsContainer.setAttribute(
+      'id',
+      'external-links-editor-submission',
+    );
+    document.querySelector('#page form')?.appendChild(
+      hiddenInputsContainer,
+    );
+  }
+  appendHiddenRelationshipInputs(
+    'external-links-editor-submission',
+    function (pushInput) {
+      externalLinksEditor.getFormData(formName + '.url', 0, pushInput);
+
+      const links = externalLinksEditor.state.links;
+      if (hasSessionStorage && links.length) {
+        window.sessionStorage.setItem(
+          'submittedLinks',
+          JSON.stringify(links),
+        );
+      }
+    },
+  );
+}

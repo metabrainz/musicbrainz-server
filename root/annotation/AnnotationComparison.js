@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2022 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -13,7 +13,7 @@ import ENTITIES from '../../entities.mjs';
 import {SanitizedCatalystContext} from '../context.mjs';
 import EditorLink from '../static/scripts/common/components/EditorLink.js';
 import DiffSide from '../static/scripts/edit/components/edit/DiffSide.js';
-import {INSERT, DELETE} from '../static/scripts/edit/utility/editDiff.js';
+import {DELETE, INSERT} from '../static/scripts/edit/utility/editDiff.js';
 import chooseLayoutComponent from '../utility/chooseLayoutComponent.js';
 import formatUserDate from '../utility/formatUserDate.js';
 

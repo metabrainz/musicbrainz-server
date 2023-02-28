@@ -1,5 +1,5 @@
 /*
- * @flow strict-local
+ * @flow strict
  * Copyright (C) 2019 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -9,12 +9,12 @@
 
 import * as React from 'react';
 
+import DescriptiveLink
+  from '../../static/scripts/common/components/DescriptiveLink.js';
 import {commaOnlyListText}
   from '../../static/scripts/common/i18n/commaOnlyList.js';
 import formatDate from '../../static/scripts/common/utility/formatDate.js';
 import isDateEmpty from '../../static/scripts/common/utility/isDateEmpty.js';
-import DescriptiveLink
-  from '../../static/scripts/common/components/DescriptiveLink.js';
 import yesNo from '../../static/scripts/common/utility/yesNo.js';
 
 type Props = {

@@ -65,8 +65,8 @@ INSERT INTO country_area (area) VALUES
     (241);
 
 INSERT INTO editor VALUES
-    -- privs: BANNER_EDITOR_FLAG
-    (5, 'editor', 512, 'editor@example.com', NULL, NULL, '2018-03-30 00:39:29.175923-05', '2018-03-30 00:39:30.023663-05', '2018-03-30 00:39:29.175923-05', '2018-03-30 00:39:30.023663-05', NULL, NULL, NULL, '{CRYPT}$2a$10$d.6vAYMxGN56ExVNioQnZuLvSmnm3S5QCeSFWQSAo561aYhAEcLqC', '3a115bc4f05ea9856bd4611b75c80bca', false);
+    -- privs: BANNER_EDITOR_FLAG | RELATIONSHIP_EDITOR_FLAG
+    (5, 'editor', 520, 'editor@example.com', NULL, NULL, '2018-03-30 00:39:29.175923-05', '2018-03-30 00:39:30.023663-05', '2018-03-30 00:39:29.175923-05', '2018-03-30 00:39:30.023663-05', NULL, NULL, NULL, '{CRYPT}$2a$10$d.6vAYMxGN56ExVNioQnZuLvSmnm3S5QCeSFWQSAo561aYhAEcLqC', '3a115bc4f05ea9856bd4611b75c80bca', false);
 
 INSERT INTO event (id, gid, name, begin_date_year, begin_date_month, begin_date_day, end_date_year, end_date_month, end_date_day, time, type, cancelled, setlist, comment, edits_pending, last_updated, ended) VALUES
     (1606, 'a43f824a-1679-4453-9722-d9ab51fbc85a', 'MusicBrainz Summit 14', 2014, 9, 26, 2014, 9, 28, NULL, NULL, 'f', NULL, '', 0, '2014-12-18 13:00:34.106501+00', 't');
@@ -125,9 +125,9 @@ INSERT INTO place_gid_redirect (gid, new_id, created) VALUES
     ('bcdf4f88-7a7c-3fd4-d7db-23a2bc8a20b9', 1161, '2012-04-09 20:07:05.161415+00');
 
 INSERT INTO recording (id, gid, name, artist_credit, length, comment, edits_pending, last_updated, video) VALUES
-    (164872, '96f64611-49df-4e54-84e7-0f9a30f01766', 'mr self destruct', 347, 270573, '', 0, '2017-09-29 09:00:51.064128+00', 'f'),
-    (164873, '429f0b1a-0293-4793-993b-0bb5f73567f2', 'Piggy', 347, 264426, '', 0, '2017-01-16 21:00:48.187704+00', 'f'),
-    (20937085, '0f42ab32-22cd-4dcf-927b-a8d9a183d68b', 'Travelling Man', 347, 270573, '', 0, '2017-05-15 20:36:38.082509+00', 'f');
+    (164872, '96f64611-49df-4e54-84e7-0f9a30f01766', 'mr self destruct', 347, NULL, '', 0, '2017-09-29 09:00:51.064128+00', 'f'),
+    (164873, '429f0b1a-0293-4793-993b-0bb5f73567f2', 'Piggy', 347, NULL, '', 0, '2017-01-16 21:00:48.187704+00', 'f'),
+    (20937085, '0f42ab32-22cd-4dcf-927b-a8d9a183d68b', 'Travelling Man', 347, NULL, '', 0, '2017-05-15 20:36:38.082509+00', 'f');
 
 INSERT INTO recording_gid_redirect (gid, new_id, created) VALUES
     ('23ba24f0-dc22-fcd4-b729-b86d381a9d8a', 20937085, '2012-04-09 20:07:05.161415+00');
@@ -176,7 +176,8 @@ INSERT INTO l_release_url (id, link, entity0, entity1, edits_pending, last_updat
 
 INSERT INTO work (id, gid, name, type, comment, edits_pending, last_updated) VALUES
     (346907, '4491f749-d06a-348c-aa58-a288d2eafa5f', 'Starman', 17, '', 0, '2017-04-01 20:00:18.388559+00'),
-    (12610030, '69cd3461-089e-4138-adc2-f3a1907a5013', 'The Night Is Over', 17, '', 0, '2013-04-17 11:06:22.012835+00');
+    (12610030, '69cd3461-089e-4138-adc2-f3a1907a5013', 'The Night Is Over', 17, '', 0, '2013-04-17 11:06:22.012835+00'),
+    (14042436, 'bba52ea6-ed91-4be8-91b1-9acb10f57093', 'Travelling Man', 17, '', 0, '2022-11-14 22:15:02.357535+00');
 
 INSERT INTO work_gid_redirect (gid, new_id, created) VALUES
     ('1643dc96-e980-8314-2cda-3105a7091a3f', 12610030, '2013-04-17 11:06:22.012835+00');

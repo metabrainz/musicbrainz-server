@@ -1,5 +1,8 @@
 package t::MusicBrainz::Server::Controller::WS::2::JSON::LookupRelease;
 use utf8;
+use strict;
+use warnings;
+
 use JSON;
 use Test::Routine;
 use MusicBrainz::Server::Test::WS qw(
@@ -775,7 +778,7 @@ test 'release lookup with release-group-level-rels and series-rels' => sub {
                     'ordering-key' => 1,
                     series => {
                         name => 'A Release Group Series',
-                        type => 'Release group',
+                        type => 'Release group series',
                         id => 'd977f7fd-96c9-4e3e-83b5-eb484a9e6581',
                         'type-id' => '4c1c4949-7b6c-3a2d-9d54-a50a27e4fa77',
                         disambiguation => '',

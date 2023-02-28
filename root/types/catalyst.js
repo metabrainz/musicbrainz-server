@@ -29,6 +29,7 @@ declare type CatalystContextT = {
 declare type CatalystRequestContextT = {
   +body_params: {+[param: string]: string},
   +headers: {+[header: string]: string},
+  +method: string,
   +query_params: {+[param: string]: string},
   +secure: boolean,
   +uri: string,
@@ -67,7 +68,9 @@ declare type CatalystStashT = {
   +release_artwork?: ArtworkT,
   +release_artwork_count?: number,
   +release_cdtoc_count?: number,
+  +seeded_relationships?: ?$ReadOnlyArray<SeededRelationshipT>,
   +server_languages?: $ReadOnlyArray<ServerLanguageT>,
+  +source_entity?: ?CoreEntityT,
   +subscribed?: boolean,
   +to_merge?: $ReadOnlyArray<CoreEntityT>,
   +top_tags?: $ReadOnlyArray<AggregatedTagT>,
@@ -92,13 +95,16 @@ declare type SanitizedCatalystContextT = {
   },
   +relative_uri: string,
   +req: {
+    +method: string,
     +uri: string,
   },
   +session: SanitizedCatalystSessionT | null,
   +stash: {
     +current_language: string,
     +genre_map?: {+[genreName: string]: GenreT, ...},
+    +seeded_relationships?: ?$ReadOnlyArray<SeededRelationshipT>,
     +server_languages?: $ReadOnlyArray<ServerLanguageT>,
+    +source_entity?: ?CoreEntityT,
   },
   +user: ActiveEditorT | null,
 };

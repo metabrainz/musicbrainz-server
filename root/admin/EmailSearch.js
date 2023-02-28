@@ -1,5 +1,5 @@
 /*
- * @flow strict-local
+ * @flow strict
  * Copyright (C) 2020 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -9,10 +9,10 @@
 
 import * as React from 'react';
 
-import FormRowText from '../static/scripts/edit/components/FormRowText.js';
-import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
 import Layout from '../layout/index.js';
 import expand2react from '../static/scripts/common/i18n/expand2react.js';
+import FormRowText from '../static/scripts/edit/components/FormRowText.js';
+import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
 
 import UserList from './components/UserList.js';
 

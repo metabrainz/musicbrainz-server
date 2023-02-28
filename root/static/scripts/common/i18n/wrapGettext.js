@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict
  * Copyright (C) 2015 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -57,8 +57,8 @@ type GettextDomainT =
 export function dgettext(domain: GettextDomainT): ((string) => string) {
   return function (key: string) {
     tryLoadDomain(domain);
-    key = cleanMsgid(key);
-    return gettext.dgettext(domain, key);
+    const cleanedKey = cleanMsgid(key);
+    return gettext.dgettext(domain, cleanedKey);
   };
 }
 
@@ -67,9 +67,9 @@ export function dngettext(
 ): ((string, string, number) => string) {
   return function (skey: string, pkey: string, val: number) {
     tryLoadDomain(domain);
-    skey = cleanMsgid(skey);
-    pkey = cleanMsgid(pkey);
-    return gettext.dngettext(domain, skey, pkey, val);
+    const cleanedSKey = cleanMsgid(skey);
+    const cleanedPKey = cleanMsgid(pkey);
+    return gettext.dngettext(domain, cleanedSKey, cleanedPKey, val);
   };
 }
 
@@ -78,7 +78,7 @@ export function dpgettext(
 ): ((string, string) => string) {
   return function (key: string, context: string) {
     tryLoadDomain(domain);
-    key = cleanMsgid(key);
-    return gettext.dpgettext(domain, context, key);
+    const cleanedKey = cleanMsgid(key);
+    return gettext.dpgettext(domain, context, cleanedKey);
   };
 }

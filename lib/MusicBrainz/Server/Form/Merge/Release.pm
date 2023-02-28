@@ -1,4 +1,7 @@
 package MusicBrainz::Server::Form::Merge::Release;
+use strict;
+use warnings;
+
 use HTML::FormHandler::Moose;
 use MusicBrainz::Server::Translation qw( l );
 
@@ -6,6 +9,7 @@ extends 'MusicBrainz::Server::Form::Merge';
 
 has_field 'merge_strategy' => (
     type => 'Select',
+    default => $MusicBrainz::Server::Data::Release::MERGE_APPEND,
     required => 1
 );
 

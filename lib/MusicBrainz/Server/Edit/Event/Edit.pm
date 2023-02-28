@@ -41,7 +41,7 @@ with 'MusicBrainz::Server::Edit::Role::DatePeriod';
 
 sub edit_name { N_l('Edit event') }
 sub edit_type { $EDIT_EVENT_EDIT }
-sub edit_template_react { 'EditEvent' }
+sub edit_template { 'EditEvent' }
 
 sub _edit_model { 'Event' }
 

@@ -1,5 +1,5 @@
 /*
- * @flow strict-local
+ * @flow strict
  * Copyright (C) 2020 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -9,14 +9,14 @@
 
 import * as React from 'react';
 
-import HistoricReleaseList
-  from '../../components/HistoricReleaseList.js';
 import EntityLink
   from '../../../static/scripts/common/components/EntityLink.js';
 import formatDate
   from '../../../static/scripts/common/utility/formatDate.js';
 import formatTrackLength
   from '../../../static/scripts/common/utility/formatTrackLength.js';
+import HistoricReleaseList
+  from '../../components/HistoricReleaseList.js';
 
 type Props = {
   +edit: AddReleaseHistoricEditT,

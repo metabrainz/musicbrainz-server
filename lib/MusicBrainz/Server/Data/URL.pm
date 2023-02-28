@@ -7,7 +7,8 @@ use MusicBrainz::Server::Data::Utils qw( generate_gid hash_to_row );
 use MusicBrainz::Server::Entity::URL;
 use URI;
 
-extends 'MusicBrainz::Server::Data::CoreEntity';
+extends 'MusicBrainz::Server::Data::Entity';
+with 'MusicBrainz::Server::Data::Role::Relatable';
 with
     'MusicBrainz::Server::Data::Role::Editable' => { table => 'url' },
     'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'url' },
@@ -22,12 +23,12 @@ my %URL_SPECIALIZATIONS = (
     '45worlds'            => qr{^https?://(?:www\.)?45worlds\.com/}i,
     'Allmusic'            => qr{^https?://(?:www\.)?allmusic\.com/}i,
     'AmazonMusic'         => qr{^https:\/\/music\.amazon\.(?:ae|at|com\.au|com\.br|ca|cn|com|de|es|fr|in|it|jp|co\.jp|com\.mx|nl|pl|se|sg|com\.tr|co\.uk)/}i,
-    'Animationsong'       => qr{^https?://(?:www\.)?animationsong\.com/}i,
     'AnimeNewsNetwork'    => qr{^https?://(?:www\.)?animenewsnetwork\.com/}i,
     'AnisonGeneration'    => qr{^https?://anison\.info/}i,
     'AppleBooks'          => qr{^https?://books\.apple\.com/}i,
     'AppleMusic'          => qr{^https?://music\.apple\.com/}i,
     'ASIN'                => qr{^https?://(?:www\.)?amazon(.*?)(?:\:[0-9]+)?/.*/([0-9B][0-9A-Z]{9})(?:[^0-9A-Z]|$)}i,
+    'Audiomack'           => qr{^https?://(?:www\.)?audiomack\.com/}i,
     'BaiduBaike'          => qr{^https?://baike\.baidu\.com/}i,
     'Bandcamp'            => qr{^https?://([^/]+\.)?bandcamp\.com/}i,
     'Bandsintown'         => qr{^https?://(?:www\.)?bandsintown\.com/}i,
@@ -35,7 +36,9 @@ my %URL_SPECIALIZATIONS = (
     'BigCartel'           => qr{^https?://([^/]+\.)?bigcartel\.com}i,
     'BnFCatalogue'        => qr{^https?://catalogue\.bnf\.fr/}i,
     'BookBrainz'          => qr{^https?://(?:www\.)?bookbrainz\.org}i,
+    'Boomplay'            => qr{^https?://(?:www\.)?boomplay\.com/}i,
     'BrahmsIrcam'         => qr{^https?://brahms\.ircam\.fr/}i,
+    'Bugs'                => qr{^https?://music\.bugs\.co\.kr/}i,
     'Canzone'             => qr{^https?://(?:www\.)?discografia\.dds\.it/}i,
     'Cancioneros'         => qr{^https?://(?:www\.)?cancioneros\.si/}i,
     'Castalbums'          => qr{^https?://(?:www\.)?castalbums\.org/}i,
@@ -75,6 +78,7 @@ my %URL_SPECIALIZATIONS = (
     'HMikuWiki'           => qr{^https?://www5\.atwiki\.jp/hmiku/}i,
     'Hoick'               => qr{^https?://(?:www\.)?hoick\.jp/}i,
     'IBDb'                => qr{^https?://(?:www\.)?ibdb\.com/}i,
+    'IdRef'               => qr{^https?://(?:www\.)?idref\.fr/}i,
     'IMDb'                => qr{^https?://(?:www\.)?imdb\.com/}i,
     'IMSLP'               => qr{^https?://(?:www\.)?imslp\.org/wiki/}i,
     'IMVDb'               => qr{^https?://(?:www\.)?imvdb\.com/}i,
@@ -92,6 +96,7 @@ my %URL_SPECIALIZATIONS = (
     'Joysound'            => qr{^https?://(?:www\.)?joysound\.com/}i,
     'JunoDownload'        => qr{^https?://(?:www\.)?junodownload\.com/}i,
     'Kashinavi'           => qr{^https?://(?:www\.)?kashinavi\.com/}i,
+    'KBR'                 => qr{^https?://opac\.kbr\.be/}i,
     'Kget'                => qr{^https?://(?:www\.)?kget\.jp/}i,
     'Kickstarter'         => qr{^https?://(?:www\.)?kickstarter\.com/}i,
     'Kofi'                => qr{^https?://(?:www\.)?ko-fi\.com/}i,
@@ -106,6 +111,7 @@ my %URL_SPECIALIZATIONS = (
     'LyricEvesta'         => qr{^https?://lyric\.evesta\.jp/}i,
     'MainlyNorfolk'       => qr{^https?://(?:www\.)?mainlynorfolk\.info/}i,
     'Maniadb'             => qr{^https?://(?:www\.)?maniadb\.com/}i,
+    'Melon'               => qr{^https?://www\.melon\.com/}i,
     'MetalArchives'       => qr{^https?://(?:www\.)?metal-archives\.com/}i,
     'MiguMusic'           => qr{^https?://music\.migu\.cn/}i,
     'Mixcloud'            => qr{^https?://(?:www\.)?mixcloud\.com/}i,
@@ -170,12 +176,14 @@ my %URL_SPECIALIZATIONS = (
     'Tidal'               => qr{^https?://(?:[^/]+\.)?tidal\.com/}i,
     'TikTok'              => qr{^https?://(?:www\.)?tiktok\.com/}i,
     'Tipeee'              => qr{^https?://(?:www\.)?tipeee\.com/}i,
+    'TMDB'                => qr{^https?://(?:www\.)?themoviedb\.org/}i,
     'TobaranDualchais'    => qr{^https?://(?:www\.)?tobarandualchais\.co\.uk/}i,
     'TouhouDB'            => qr{^https?://(?:www\.)?touhoudb\.com/}i,
     'Tower'               => qr{^https?://(?:www\.)?tower\.jp/}i,
     'Traxsource'          => qr{^https?://(?:www\.)?traxsource.com/}i,
     'TripleJUnearthed'    => qr{^https?://(?:www\.)?(?:abc\.net\.au/triplejunearthed|triplejunearthed\.com)/}i,
     'Trove'               => qr{^https?://(?:www\.)?(?:trove\.)?nla\.gov\.au/}i,
+    'Tsutaya'             => qr{^https?://(?:www\.)?shop\.tsutaya\.co\.jp/}i,
     'Tunearch'            => qr{^https?://(?:www\.)?tunearch\.org/}i,
     'Twitch'              => qr{^https?://(?:www\.)?twitch\.tv/}i,
     'Twitter'             => qr{^https?://(?:www\.)?twitter\.com/}i,

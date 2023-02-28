@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict
  * Copyright (C) 2015 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -36,20 +36,17 @@ type Props = {
 
 const EditorLink = ({
   editor,
-  content,
-  avatarSize,
+  content: passedContent,
+  avatarSize = 15,
   subPath,
 }: Props): React.Element<typeof MissingEditorLink | 'a'> => {
   if (!editor) {
     return <MissingEditorLink />;
   }
 
-  if (!content) {
+  let content = passedContent;
+  if (empty(content)) {
     content = editor.name;
-  }
-
-  if (!avatarSize) {
-    avatarSize = 15;
   }
 
   const hasAvatar = nonEmpty(editor.avatar);

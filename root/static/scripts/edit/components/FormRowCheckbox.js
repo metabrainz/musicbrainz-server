@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -47,11 +47,13 @@ const FormRowCheckbox = ({
     extraProps.checked = field.value;
   }
 
+  const showHelp = nonEmpty(help);
+
   return (
     <FormRow hasNoLabel>
       <label className="inline">
         <input
-          aria-describedby={help ? `field-help-${field.id}` : null}
+          aria-describedby={showHelp ? `field-help-${field.id}` : null}
           disabled={disabled}
           id={'id-' + String(field.html_name)}
           name={field.html_name}
@@ -64,7 +66,7 @@ const FormRowCheckbox = ({
         {label}
       </label>
       <FieldErrors field={field} />
-      {help ? (
+      {showHelp ? (
         <div className="form-help" id={`field-help-${field.id}`}>
           {help}
         </div>

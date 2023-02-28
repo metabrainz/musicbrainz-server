@@ -13,7 +13,7 @@ sub edit_name     { N_l('Remove disc ID') }
 sub edit_kind     { 'remove' }
 sub historic_type { 20 }
 sub edit_type     { $EDIT_HISTORIC_REMOVE_DISCID }
-sub edit_template_react { 'historic/RemoveDiscId' }
+sub edit_template { 'historic/RemoveDiscId' }
 
 sub _build_related_entities
 {
@@ -38,9 +38,10 @@ sub build_display_data
         releases => [ map {
             to_json_object($loaded->{Release}{$_})
         } @{ $self->data->{release_ids} } ],
-        cdtoc => to_json_object(CDTOC->new(
-            discid => $self->data->{disc_id}
-        )),
+        cdtoc => {
+            entityType => 'cdtoc',
+            discid => $self->data->{disc_id},
+        },
     };
 }
 

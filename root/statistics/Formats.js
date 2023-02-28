@@ -1,5 +1,5 @@
 /*
- * @flow strict-local
+ * @flow strict
  * Copyright (C) 2018 Shamroy Pellew
  * Copyright (C) 2018 MetaBrainz Foundation
  *
@@ -10,13 +10,13 @@
 
 import * as React from 'react';
 
+import LinkSearchableProperty from '../components/LinkSearchableProperty.js';
 import {CatalystContext} from '../context.mjs';
 import {l_statistics as l} from '../static/scripts/common/i18n/statistics.js';
 import loopParity from '../utility/loopParity.js';
-import LinkSearchableProperty from '../components/LinkSearchableProperty.js';
 
-import {formatCount, formatPercentage, TimelineLink} from './utilities.js';
 import StatisticsLayout from './StatisticsLayout.js';
+import {formatCount, formatPercentage, TimelineLink} from './utilities.js';
 
 type FormatsStatsT = {
   +dateCollected: string,

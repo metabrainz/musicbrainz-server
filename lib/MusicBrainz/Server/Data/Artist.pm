@@ -23,14 +23,16 @@ use MusicBrainz::Server::Data::Utils::Cleanup qw( used_in_relationship );
 use MusicBrainz::Server::Data::Utils::Uniqueness qw( assert_uniqueness_conserved );
 use Scalar::Util qw( looks_like_number );
 
-extends 'MusicBrainz::Server::Data::CoreEntity';
+extends 'MusicBrainz::Server::Data::Entity';
+with 'MusicBrainz::Server::Data::Role::Relatable';
+with 'MusicBrainz::Server::Data::Role::Name';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'artist' };
 with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'artist' };
 with 'MusicBrainz::Server::Data::Role::Area';
 with 'MusicBrainz::Server::Data::Role::DeleteAndLog' => { type => 'artist' };
 with 'MusicBrainz::Server::Data::Role::IPI' => { type => 'artist' };
 with 'MusicBrainz::Server::Data::Role::ISNI' => { type => 'artist' };
-with 'MusicBrainz::Server::Data::Role::CoreEntityCache';
+with 'MusicBrainz::Server::Data::Role::GIDEntityCache';
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'artist' };
 with 'MusicBrainz::Server::Data::Role::Rating' => { type => 'artist' };
 with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'artist' };
@@ -103,7 +105,10 @@ sub find_by_instrument {
 
     my $query =
         'SELECT ' . $self->_columns . q(,
-                array_agg(json_build_object('typeName', link_type.name, 'credit', lac.credited_as)) AS instrument_credits_and_rel_types
+                array_agg(
+                    json_build_object('typeName', link_type.name, 'credit', lac.credited_as)
+                    ORDER BY link_type.name, lac.credited_as, link_type.entity_type1, rels.id
+                ) AS instrument_credits_and_rel_types
             FROM ) . $self->_table . '
                 JOIN (
                     SELECT * FROM l_artist_artist

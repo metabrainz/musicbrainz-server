@@ -1,5 +1,8 @@
 package t::MusicBrainz::Server::Controller::User::Register;
 use utf8;
+use strict;
+use warnings;
+
 use Test::Routine;
 use Test::More;
 

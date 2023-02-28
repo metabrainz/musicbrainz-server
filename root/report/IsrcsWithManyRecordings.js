@@ -1,5 +1,5 @@
 /*
- * @flow strict-local
+ * @flow strict
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -13,9 +13,9 @@ import PaginatedResults from '../components/PaginatedResults.js';
 import ArtistCreditLink
   from '../static/scripts/common/components/ArtistCreditLink.js';
 import EntityLink from '../static/scripts/common/components/EntityLink.js';
+import {bracketedText} from '../static/scripts/common/utility/bracketed.js';
 import formatTrackLength
   from '../static/scripts/common/utility/formatTrackLength.js';
-import {bracketedText} from '../static/scripts/common/utility/bracketed.js';
 
 import ReportLayout from './components/ReportLayout.js';
 import type {ReportDataT, ReportIsrcT} from './types.js';

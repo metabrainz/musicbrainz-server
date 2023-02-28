@@ -10,9 +10,9 @@ import test from 'tape';
 
 import {arraysEqual} from '../../common/utility/arrays.js';
 import {
-  LINK_TYPES,
-  cleanURL,
   Checker,
+  cleanURL,
+  LINK_TYPES,
 } from '../../edit/URLCleanup.js';
 
 /*
@@ -130,25 +130,25 @@ const testData = [
                      input_url: 'https://www.45cat.com/artist/edwin-starr',
              input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
-            expected_clean_url: 'http://www.45cat.com/artist/edwin-starr',
+            expected_clean_url: 'https://www.45cat.com/artist/edwin-starr',
        only_valid_entity_types: ['artist'],
   },
   {
                      input_url: 'www.45cat.com/label/eastwest/all',
              input_entity_type: 'label',
     expected_relationship_type: 'otherdatabases',
-            expected_clean_url: 'http://www.45cat.com/label/eastwest',
+            expected_clean_url: 'https://www.45cat.com/label/eastwest',
        only_valid_entity_types: ['label'],
   },
   {
                      input_url: 'http://45cat.com/record/vs1370&rc=365077#365077',
              input_entity_type: 'release_group',
     expected_relationship_type: 'otherdatabases',
-            expected_clean_url: 'http://www.45cat.com/record/vs1370',
+            expected_clean_url: 'https://www.45cat.com/record/vs1370',
        only_valid_entity_types: ['release_group'],
   },
   {
-                     input_url: 'http://www.45cat.com/45_composer.php?tc=Floyd+Hunt',
+                     input_url: 'https://www.45cat.com/45_composer.php?tc=Floyd+Hunt',
              input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
        only_valid_entity_types: [],
@@ -162,70 +162,70 @@ const testData = [
                      input_url: 'http://www.45worlds.com/78rpm/artist/yehudi-menuhin',
              input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
-            expected_clean_url: 'http://www.45worlds.com/78rpm/artist/yehudi-menuhin',
+            expected_clean_url: 'https://www.45worlds.com/78rpm/artist/yehudi-menuhin',
        only_valid_entity_types: ['artist'],
   },
   {
                      input_url: 'https://45worlds.com/classical/artist/yehudi-menuhin',
              input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
-            expected_clean_url: 'http://www.45worlds.com/classical/artist/yehudi-menuhin',
+            expected_clean_url: 'https://www.45worlds.com/classical/artist/yehudi-menuhin',
        only_valid_entity_types: ['artist'],
   },
   {
                      input_url: 'www.45worlds.com/classical/soloist/yehudi-menuhin',
              input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
-            expected_clean_url: 'http://www.45worlds.com/classical/soloist/yehudi-menuhin',
+            expected_clean_url: 'https://www.45worlds.com/classical/soloist/yehudi-menuhin',
        only_valid_entity_types: ['artist'],
   },
   {
                      input_url: 'http://www.45worlds.com/live/listing/rumer-fawcetts-field-2012&rc=186697#186697',
              input_entity_type: 'event',
     expected_relationship_type: 'otherdatabases',
-            expected_clean_url: 'http://www.45worlds.com/live/listing/rumer-fawcetts-field-2012',
+            expected_clean_url: 'https://www.45worlds.com/live/listing/rumer-fawcetts-field-2012',
        only_valid_entity_types: ['event'],
   },
   {
                      input_url: 'http://www.45worlds.com/tape/label/parlophone/all',
              input_entity_type: 'label',
     expected_relationship_type: 'otherdatabases',
-            expected_clean_url: 'http://www.45worlds.com/tape/label/parlophone',
+            expected_clean_url: 'https://www.45worlds.com/tape/label/parlophone',
        only_valid_entity_types: ['label'],
   },
   {
                      input_url: 'http://www.45worlds.com/live/venue/stadium-high-school-stadium',
              input_entity_type: 'place',
     expected_relationship_type: 'otherdatabases',
-            expected_clean_url: 'http://www.45worlds.com/live/venue/stadium-high-school-stadium',
+            expected_clean_url: 'https://www.45worlds.com/live/venue/stadium-high-school-stadium',
        only_valid_entity_types: ['place'],
   },
   {
                      input_url: 'http://www.45worlds.com/vinyl/album/mfsl1100',
              input_entity_type: 'release_group',
     expected_relationship_type: 'otherdatabases',
-            expected_clean_url: 'http://www.45worlds.com/vinyl/album/mfsl1100',
+            expected_clean_url: 'https://www.45worlds.com/vinyl/album/mfsl1100',
        only_valid_entity_types: ['release_group'],
   },
   {
                      input_url: 'http://www.45worlds.com/12single/record/fu2t',
              input_entity_type: 'release_group',
     expected_relationship_type: 'otherdatabases',
-            expected_clean_url: 'http://www.45worlds.com/12single/record/fu2t',
+            expected_clean_url: 'https://www.45worlds.com/12single/record/fu2t',
        only_valid_entity_types: ['release_group'],
   },
   {
                      input_url: 'http://www.45worlds.com/cdsingle/cd/pwcd227',
              input_entity_type: 'release_group',
     expected_relationship_type: 'otherdatabases',
-            expected_clean_url: 'http://www.45worlds.com/cdsingle/cd/pwcd227',
+            expected_clean_url: 'https://www.45worlds.com/cdsingle/cd/pwcd227',
        only_valid_entity_types: ['release_group'],
   },
   {
                      input_url: 'http://www.45worlds.com/classical/music/asd264',
              input_entity_type: 'release_group',
     expected_relationship_type: 'otherdatabases',
-            expected_clean_url: 'http://www.45worlds.com/classical/music/asd264',
+            expected_clean_url: 'https://www.45worlds.com/classical/music/asd264',
        only_valid_entity_types: ['release_group'],
   },
   // 7digital (zdigital)
@@ -490,14 +490,6 @@ const testData = [
     expected_relationship_type: 'blog',
             expected_clean_url: 'https://ameblo.jp/murataayumi/',
   },
-  // Animationsong.com
-  {
-                     input_url: 'http://animationsong.com/archives/816073.html#post-13222',
-             input_entity_type: 'work',
-    expected_relationship_type: 'lyrics',
-            expected_clean_url: 'http://animationsong.com/archives/816073.html',
-       only_valid_entity_types: ['work'],
-  },
   // Anime News Network
   {
                      input_url: 'https://animenewsnetwork.com/encyclopedia/people.php?id=59062',
@@ -638,6 +630,28 @@ limited_link_type_combinations: [
                      input_url: 'http://www.audiojelly.com/releases/turn-up-the-sound/242895',
              input_entity_type: 'release',
     expected_relationship_type: 'downloadpurchase',
+  },
+  // Audiomack
+  {
+                     input_url: 'http://www.audiomack.com/dablixx-osha',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://audiomack.com/dablixx-osha',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://audiomack.com/dablixx-osha/song/they-cant-understand/',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://audiomack.com/dablixx-osha/song/they-cant-understand',
+       only_valid_entity_types: ['recording'],
+  },
+  {
+                     input_url: 'https://audiomack.com/dablixx-osha/album/country-boy#testy',
+             input_entity_type: 'release',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://audiomack.com/dablixx-osha/album/country-boy',
+       only_valid_entity_types: ['release'],
   },
   // Avex Trax
   {
@@ -1160,12 +1174,41 @@ limited_link_type_combinations: [
     expected_relationship_type: 'bookbrainz',
             expected_clean_url: 'https://bookbrainz.org/work/65e71f2e-7245-42df-b93e-89463a28f75c',
   },
+  // Boomplay
+  {
+                     input_url: 'https://boomplay.com/artists/4334757?srModel=COPYLINK&srList=WEB',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://www.boomplay.com/artists/4334757',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'http://www.boomplay.com/songs/99760140?from=home',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://www.boomplay.com/songs/99760140',
+       only_valid_entity_types: ['recording'],
+  },
+  {
+                     input_url: 'https://www.boomplay.com/albums/53557880#albumsDetails',
+             input_entity_type: 'release',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://www.boomplay.com/albums/53557880',
+       only_valid_entity_types: ['release'],
+  },
   // Brahms Ircam
   {
                      input_url: 'http://brahms.ircam.fr/gilbert-amy#parcours',
              input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'http://brahms.ircam.fr/gilbert-amy',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://brahms.ircam.fr/fr/anders-hillborg',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'http://brahms.ircam.fr/anders-hillborg',
        only_valid_entity_types: ['artist'],
   },
   {
@@ -1180,6 +1223,83 @@ limited_link_type_combinations: [
              input_entity_type: 'work',
     expected_relationship_type: undefined,
        input_relationship_type: 'otherdatabases',
+       only_valid_entity_types: [],
+  },
+  // Bugs
+  {
+                     input_url: 'https://music.bugs.co.kr/album/20488834?wl_ref=M_contents_01_07',
+             input_entity_type: 'release',
+    expected_relationship_type: ['downloadpurchase', 'streamingpaid'],
+limited_link_type_combinations: [
+                                  ['downloadpurchase', 'streamingpaid'],
+                                  'streamingpaid',
+                                ],
+            expected_clean_url: 'https://music.bugs.co.kr/album/20488834',
+  },
+  {
+                     input_url: 'https://m.bugs.co.kr/album/20488834?wl_ref=M_contents_01_07',
+             input_entity_type: 'release',
+    expected_relationship_type: ['downloadpurchase', 'streamingpaid'],
+limited_link_type_combinations: [
+                                  ['downloadpurchase', 'streamingpaid'],
+                                  'streamingpaid',
+                                ],
+            expected_clean_url: 'https://music.bugs.co.kr/album/20488834',
+  },
+  {
+                     input_url: 'https://music.bugs.co.kr/artist/80276288?wl_ref=M_Search_01_01',
+             input_entity_type: 'artist',
+    expected_relationship_type: ['downloadpurchase', 'streamingpaid'],
+limited_link_type_combinations: [
+                                  ['downloadpurchase', 'streamingpaid'],
+                                  'streamingpaid',
+                                ],
+            expected_clean_url: 'https://music.bugs.co.kr/artist/80276288',
+  },
+  {
+                     input_url: 'https://m.bugs.co.kr/artist/80276288',
+             input_entity_type: 'artist',
+    expected_relationship_type: ['downloadpurchase', 'streamingpaid'],
+limited_link_type_combinations: [
+                                  ['downloadpurchase', 'streamingpaid'],
+                                  'streamingpaid',
+                                ],
+            expected_clean_url: 'https://music.bugs.co.kr/artist/80276288',
+  },
+  {
+                     input_url: 'https://music.bugs.co.kr/search/integrated?q=dreamcatcher',
+             input_entity_type: 'artist',
+       input_relationship_type: 'streamingpaid',
+    expected_relationship_type: undefined,
+            expected_clean_url: 'https://music.bugs.co.kr/search/integrated?q=dreamcatcher',
+                expected_error: {
+                                  error: 'a link to a search result',
+                                  target: 'url',
+                                },
+       only_valid_entity_types: [],
+  },
+  {
+                     input_url: 'https://music.bugs.co.kr/search/album?q=dreamcatcher',
+             input_entity_type: 'artist',
+       input_relationship_type: 'streamingpaid',
+    expected_relationship_type: undefined,
+            expected_clean_url: 'https://music.bugs.co.kr/search/album?q=dreamcatcher',
+                expected_error: {
+                                  error: 'a link to a search result',
+                                  target: 'url',
+                                },
+       only_valid_entity_types: [],
+  },
+  {
+                     input_url: 'https://m.bugs.co.kr/search/track?q=dreamcatcher',
+             input_entity_type: 'recording',
+       input_relationship_type: 'streamingpaid',
+    expected_relationship_type: undefined,
+            expected_clean_url: 'https://music.bugs.co.kr/search/track?q=dreamcatcher',
+                expected_error: {
+                                  error: 'a link to a search result',
+                                  target: 'url',
+                                },
        only_valid_entity_types: [],
   },
   // Cancioneros Musicales Españoles (CME)
@@ -1719,6 +1839,13 @@ limited_link_type_combinations: [
              input_entity_type: 'release',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'http://d-nb.info/1181136512',
+       only_valid_entity_types: ['artist', 'label', 'place', 'release', 'series', 'work'],
+  },
+  {
+                     input_url: 'http://d-nb.info/97248485X',
+             input_entity_type: 'release',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'http://d-nb.info/97248485X',
        only_valid_entity_types: ['artist', 'label', 'place', 'release', 'series', 'work'],
   },
   // Dogmazic
@@ -2268,6 +2395,14 @@ limited_link_type_combinations: [
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'https://www.ibdb.com/broadway-cast-staff/antonin-leopold-dvorak-447817',
   },
+  // IdRef
+  {
+                     input_url: 'http://idref.fr/172248248',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.idref.fr/172248248',
+       only_valid_entity_types: ['artist', 'genre', 'instrument', 'label', 'place', 'series', 'work'],
+  },
   // IMDb (Internet Movie Database)
   {
                      input_url: 'http://www.imdb.com/name/nm1539156/',
@@ -2617,6 +2752,28 @@ limited_link_type_combinations: [
             expected_clean_url: 'https://kashinavi.com/song_view.html?68574',
        only_valid_entity_types: ['work'],
   },
+  // KBR
+  {
+                     input_url: 'http://opac.kbr.be/LIBRARY/doc/AUTHORITY/14160974',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://opac.kbr.be/LIBRARY/doc/AUTHORITY/14160974',
+       only_valid_entity_types: ['artist', 'label'],
+  },
+  {
+                     input_url: 'https://opac.kbr.be/LIBRARY/doc/AUTHORITY/13974166',
+             input_entity_type: 'label',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://opac.kbr.be/LIBRARY/doc/AUTHORITY/13974166',
+       only_valid_entity_types: ['artist', 'label'],
+  },
+  {
+                     input_url: 'https://opac.kbr.be/LIBRARY/doc/SYRACUSE/17060572',
+             input_entity_type: 'release',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://opac.kbr.be/LIBRARY/doc/SYRACUSE/17060572',
+       only_valid_entity_types: ['release'],
+  },
   // Kget.jp
   {
                      input_url: 'http://www.kget.jp/search/index.php?c=0&r=%E3%83%A4%E3%83%B3%E3%82%B0%E3%83%BB%E3%83%95%E3%83%AC%E3%83%83%E3%82%B7%E3%83%A5&t=&v=&f=',
@@ -2924,6 +3081,69 @@ limited_link_type_combinations: [
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'http://www.maniadb.com/album/736792',
        only_valid_entity_types: ['release_group'],
+  },
+  // Melon
+  {
+                     input_url: 'https://www.melon.com/album/detail.htm?albumId=11074452#d_cmtpgn',
+             input_entity_type: 'release',
+    expected_relationship_type: ['downloadpurchase', 'streamingpaid'],
+limited_link_type_combinations: [
+                                  ['downloadpurchase', 'streamingpaid'],
+                                  'streamingpaid',
+                                ],
+            expected_clean_url: 'https://www.melon.com/album/detail.htm?albumId=11074452',
+  },
+  {
+                     input_url: 'melon.com/album/detail.htm?albumId=11074452',
+             input_entity_type: 'release',
+    expected_relationship_type: ['downloadpurchase', 'streamingpaid'],
+limited_link_type_combinations: [
+                                  ['downloadpurchase', 'streamingpaid'],
+                                  'streamingpaid',
+                                ],
+            expected_clean_url: 'https://www.melon.com/album/detail.htm?albumId=11074452',
+  },
+  {
+                     input_url: 'https://m2.melon.com/album/music.htm?albumId=11074452',
+             input_entity_type: 'release',
+    expected_relationship_type: ['downloadpurchase', 'streamingpaid'],
+limited_link_type_combinations: [
+                                  ['downloadpurchase', 'streamingpaid'],
+                                  'streamingpaid',
+                                ],
+            expected_clean_url: 'https://www.melon.com/album/detail.htm?albumId=11074452',
+  },
+  {
+                     input_url: 'https://www.melon.com/artist/timeline.htm?artistId=1284664#params[listType]=C',
+             input_entity_type: 'artist',
+    expected_relationship_type: ['downloadpurchase', 'streamingpaid'],
+limited_link_type_combinations: [
+                                  ['downloadpurchase', 'streamingpaid'],
+                                  'streamingpaid',
+                                ],
+            expected_clean_url: 'https://www.melon.com/artist/detail.htm?artistId=1284664',
+  },
+  {
+                     input_url: 'https://www.melon.com/artist/album.htm?artistId=1284664',
+             input_entity_type: 'artist',
+    expected_relationship_type: ['downloadpurchase', 'streamingpaid'],
+limited_link_type_combinations: [
+                                  ['downloadpurchase', 'streamingpaid'],
+                                  'streamingpaid',
+                                ],
+            expected_clean_url: 'https://www.melon.com/artist/detail.htm?artistId=1284664',
+  },
+  {
+                     input_url: 'https://www.melon.com/search/total/index.htm?q=dreamcatcher',
+             input_entity_type: 'artist',
+       input_relationship_type: 'streamingpaid',
+    expected_relationship_type: undefined,
+            expected_clean_url: 'https://www.melon.com/search/total/index.htm?q=dreamcatcher',
+                expected_error: {
+                                  error: 'a link to a search result',
+                                  target: 'url',
+                                },
+       only_valid_entity_types: [],
   },
   // (The) Metal Archives
   {
@@ -4567,6 +4787,20 @@ limited_link_type_combinations: [
     expected_relationship_type: 'patronage',
             expected_clean_url: 'https://www.tipeee.com/example',
   },
+  // TMDB
+  {
+                     input_url: 'http://www.themoviedb.org/person/3125-madonna/images/profiles',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.themoviedb.org/person/3125',
+  },
+  {
+                     input_url: 'https://www.themoviedb.org/movie/8818-evita',
+             input_entity_type: 'work',
+    expected_relationship_type: undefined,
+       input_relationship_type: 'otherdatabases',
+       only_valid_entity_types: [],
+  },
   // Tobar an Dualchais
   {
                      input_url: 'http://tobarandualchais.co.uk/person/5305',
@@ -4671,7 +4905,22 @@ limited_link_type_combinations: [
              input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'https://www.abc.net.au/triplejunearthed/artist/sophisticated-dingo/',
-},
+  },
+  // Tsutaya
+  {
+                     input_url: 'https://shop.tsutaya.co.jp/cd/product/4562494355418/',
+             input_entity_type: 'release',
+    expected_relationship_type: 'mailorder',
+            expected_clean_url: 'https://shop.tsutaya.co.jp/cd/product/4562494355418/',
+       only_valid_entity_types: ['release'],
+  },
+  {
+                     input_url: 'https://shop.tsutaya.co.jp/dir_result.html?searchType=3&artistCd=00133519&artistName=%E7%B1%B3%E6%B4%A5%E7%8E%84%E5%B8%AB',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'mailorder',
+            expected_clean_url: 'https://shop.tsutaya.co.jp/dir_result.html?searchType=3&artistCd=00133519',
+       only_valid_entity_types: ['artist'],
+  },
   // Tumblr
   {
                      input_url: 'http://deadmau5.tumblr.com/',
@@ -5420,6 +5669,13 @@ limited_link_type_combinations: [
              input_entity_type: 'artist',
     expected_relationship_type: 'youtube',
             expected_clean_url: 'https://www.youtube.com/MetaBrainz',
+       only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series'],
+  },
+  {
+                     input_url: 'https://www.youtube.com/@MetaBrainz#soon',
+             input_entity_type: 'label',
+    expected_relationship_type: 'youtube',
+            expected_clean_url: 'https://www.youtube.com/@MetaBrainz',
        only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series'],
   },
   {

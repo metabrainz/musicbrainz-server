@@ -16,7 +16,7 @@ FILES=$(find bin lib script t \
     -type f \( \
         -name '*.pl' -or \
         -name '*.pm' -or \
-        -name '*.t' -or \
+        -name '*.t' ! -name 'critic.t' -or \
         -exec awk '/^#!.*perl/ { exit 0 } { exit 1 }' '{}' \; \
     \) \
     -print)

@@ -1,5 +1,5 @@
 /*
- * @flow strict-local
+ * @flow strict
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -9,12 +9,12 @@
 
 import * as React from 'react';
 
+import VotingPeriod from '../components/VotingPeriod.js';
+import {CatalystContext} from '../context.mjs';
 import EditorLink from '../static/scripts/common/components/EditorLink.js';
 import bracketed from '../static/scripts/common/utility/bracketed.js';
 import formatUserDate from '../utility/formatUserDate.js';
 import {votesVisible} from '../utility/voting.js';
-import VotingPeriod from '../components/VotingPeriod.js';
-import {CatalystContext} from '../context.mjs';
 
 type PropsT = {
   +election: AutoEditorElectionT,

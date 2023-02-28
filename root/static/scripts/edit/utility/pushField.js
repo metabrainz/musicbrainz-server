@@ -8,9 +8,9 @@
  */
 
 import {
-  createCompoundField,
-  createField,
   type MapFields,
+  createCompoundFieldFromObject,
+  createField,
 } from './createField.js';
 
 export function pushField<V>(
@@ -30,5 +30,5 @@ export function pushCompoundField<F: {...}>(
   fieldValues: F,
 ) {
   const name = repeatable.html_name + '.' + String(++repeatable.last_index);
-  repeatable.field.push(createCompoundField(name, fieldValues));
+  repeatable.field.push(createCompoundFieldFromObject(name, fieldValues));
 }

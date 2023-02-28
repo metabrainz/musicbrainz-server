@@ -1,5 +1,5 @@
 /*
- * @flow strict-local
+ * @flow strict
  * Copyright (C) 2020 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -9,18 +9,18 @@
 
 import * as React from 'react';
 
-import linkedEntities
-  from '../../../static/scripts/common/linkedEntities.mjs';
 import DescriptiveLink
   from '../../../static/scripts/common/components/DescriptiveLink.js';
-import DiffSide
-  from '../../../static/scripts/edit/components/edit/DiffSide.js';
 import Warning from '../../../static/scripts/common/components/Warning.js';
+import linkedEntities
+  from '../../../static/scripts/common/linkedEntities.mjs';
 import relationshipDateText
   from '../../../static/scripts/common/utility/relationshipDateText.js';
+import DiffSide
+  from '../../../static/scripts/edit/components/edit/DiffSide.js';
 import {
-  INSERT,
   DELETE,
+  INSERT,
 } from '../../../static/scripts/edit/utility/editDiff.js';
 import {interpolateText}
   from '../../../static/scripts/edit/utility/linkPhrase.js';

@@ -1,5 +1,8 @@
 package MusicBrainz::Server::Validation;
+use strict;
+use warnings;
 
+use Date::Calc;
 use List::AllUtils qw( any );
 
 require Exporter;
@@ -33,6 +36,7 @@ require Exporter;
         is_valid_iso_3166_2
         is_valid_iso_3166_3
         is_valid_partial_date
+        is_date_range_valid
         is_valid_edit_note
         encode_entities
         normalise_strings
@@ -77,6 +81,7 @@ sub is_positive_integer
     is_integer($t) and $t > 0;
 }
 
+# Converted to JavaScript at root/static/scripts/common/utility/isDatabaseRowId.js
 sub is_database_row_id {
     my $t = shift;
 
@@ -141,6 +146,7 @@ sub format_iswc
 sub is_valid_ipi
 {
     my $ipi = shift;
+    return 0 if $ipi =~ /^0{11}$/;
     return $ipi =~ /^[0-9]{11}$/;
 }
 
@@ -172,7 +178,10 @@ sub is_valid_url
     my $u = eval { URI->new($url) }
         or return 0;
 
-    return 0 if $u->scheme eq '';
+    my $scheme = $u->scheme;
+
+    return 0 unless defined $scheme;
+    return 0 if $scheme eq '';
     return 0 if $u->can('authority') && !($u->authority =~ /\./);
     return 1;
 }
@@ -288,10 +297,21 @@ sub is_valid_partial_date
     return 1;
 }
 
+sub is_date_range_valid {
+    my ($a, $b) = @_;
+
+    my @a = ($a->{year}, $a->{month} || 1, $a->{day} || 1);
+    my @b = ($b->{year}, $b->{month} || 12, $b->{day} || Date::Calc::Days_in_Month($b->{year}, $b->{month} || 12));
+
+    return Date::Calc::Delta_Days(@a, @b) >= 0;
+}
+
 # Keep in sync with invalidEditNote in static/scripts/release-editor/init.js
 sub is_valid_edit_note
 {
     my $edit_note = shift;
+
+    return 0 unless $edit_note;
 
     # An edit note with only spaces and / or punctuation is useless
     return 0 if $edit_note =~ /^[[:space:][:punct:]]+$/;
@@ -325,7 +345,7 @@ sub encode_entities
 sub normalise_strings
 {
     my @r = map {
-        my $t = $_;
+        my $t = $_ // '';
 
         # Using lc() on U+0130 LATIN CAPITAL LETTER I WITH DOT ABOVE turns it into U+0069 LATIN SMALL LETTER I
         # and U+0307 COMBINING DOT ABOVE which causes problems later, so remove that before using lc().

@@ -18,16 +18,16 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "#-#-#-#-#  statistics_js.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Language: \n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
 #: DB:statistics.statistic_event/title:2015-09-08
 msgid "\"Do Not Cluster\" guideline dropped"
@@ -1241,7 +1241,7 @@ msgstr ""
 
 #: ../root/statistics/Countries.js:48 ../root/statistics/Editors.js:53
 #: ../root/statistics/Formats.js:55 ../root/statistics/LanguagesScripts.js:66
-#: ../root/statistics/LanguagesScripts.js:147
+#: ../root/statistics/LanguagesScripts.js:154
 msgid "Rank"
 msgstr ""
 
@@ -1257,7 +1257,7 @@ msgstr ""
 #: ../root/statistics/Countries.js:58 ../root/statistics/CoverArt.js:106
 #: ../root/statistics/Formats.js:57 ../root/statistics/Index.js:376
 #: ../root/statistics/LanguagesScripts.js:72
-#: ../root/statistics/LanguagesScripts.js:153 ../root/statistics/stats.js:664
+#: ../root/statistics/LanguagesScripts.js:160 ../root/statistics/stats.js:664
 msgid "Releases"
 msgstr ""
 
@@ -2035,19 +2035,19 @@ msgstr ""
 msgid "Languages"
 msgstr ""
 
-#: ../root/statistics/LanguagesScripts.js:93
+#: ../root/statistics/LanguagesScripts.js:97
 msgid "Unknown language"
 msgstr ""
 
-#: ../root/statistics/LanguagesScripts.js:143
+#: ../root/statistics/LanguagesScripts.js:150
 msgid "Scripts"
 msgstr ""
 
-#: ../root/statistics/LanguagesScripts.js:149
+#: ../root/statistics/LanguagesScripts.js:156
 msgid "Script"
 msgstr ""
 
-#: ../root/statistics/LanguagesScripts.js:166
+#: ../root/statistics/LanguagesScripts.js:173
 msgid "Unknown script"
 msgstr ""
 

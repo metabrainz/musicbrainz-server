@@ -102,6 +102,7 @@ sub merge
     my ($self, $new_id, @old_ids) = @_;
     my $table = $self->table;
     my $type = $self->type;
+    my $model = type_to_model($type);
 
     my @ids = ($new_id, @old_ids);
     my %entity_to_annotation = map { @$_ } @{
@@ -118,6 +119,8 @@ sub merge
         )
     };
 
+    my $current_target_annotation_text = $entity_to_annotation{$new_id} // '';
+
     my $modbot = $self->c->model('Editor')->get_by_id($EDITOR_MODBOT);
     if (keys %entity_to_annotation > 1) {
         my $new_text = join("\n\n-------\n\n",
@@ -125,11 +128,11 @@ sub merge
                             grep { $_ ne '' }
                             map { $entity_to_annotation{$_} // '' }
                             @ids);
-        if ($new_text ne '') {
+        if ($new_text ne '' && $new_text ne $current_target_annotation_text) {
             $self->c->model('Edit')->create(
                 edit_type => $ENTITIES{$type}{annotations}{edit_type},
                 editor => $modbot,
-                entity => $self->c->model(type_to_model($type))->get_by_id($new_id),
+                entity => $self->c->model($model)->get_by_id($new_id),
                 text => $new_text,
                 changelog => "Result of $type merge"
             );

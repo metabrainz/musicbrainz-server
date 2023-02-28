@@ -454,10 +454,10 @@ const CLEANUPS: CleanupEntries = {
     // $FlowIssue[incompatible-type]: Array<mixed>
     restrict: [LINK_TYPES.otherdatabases],
     clean: function (url) {
-      return url.replace(/^(?:https?:\/\/)?(?:www\.)?45cat\.com\/([a-z]+\/[^\/?&#]+)(?:[\/?&#].*)?$/, 'http://www.45cat.com/$1');
+      return url.replace(/^(?:https?:\/\/)?(?:www\.)?45cat\.com\/([a-z]+\/[^\/?&#]+)(?:[\/?&#].*)?$/, 'https://www.45cat.com/$1');
     },
     validate: function (url, id) {
-      const m = /^http:\/\/www\.45cat\.com\/([a-z]+)\/[^\/?&#]+$/.exec(url);
+      const m = /^https:\/\/www\.45cat\.com\/([a-z]+)\/[^\/?&#]+$/.exec(url);
       if (m) {
         const prefix = m[1];
         switch (id) {
@@ -486,10 +486,10 @@ const CLEANUPS: CleanupEntries = {
     match: [new RegExp('^(https?://)?(www\\.)?45worlds\\.com/', 'i')],
     restrict: [LINK_TYPES.otherdatabases],
     clean: function (url) {
-      return url.replace(/^(?:https?:\/\/)?(?:www\.)?45worlds\.com\/([0-9a-z]+\/[a-z]+\/[^\/?&#]+)(?:[\/?&#].*)?$/, 'http://www.45worlds.com/$1');
+      return url.replace(/^(?:https?:\/\/)?(?:www\.)?45worlds\.com\/([0-9a-z]+\/[a-z]+\/[^\/?&#]+)(?:[\/?&#].*)?$/, 'https://www.45worlds.com/$1');
     },
     validate: function (url, id) {
-      const m = /^http:\/\/www\.45worlds\.com\/([0-9a-z]+)\/([a-z]+)\/[^\/?&#]+$/.exec(url);
+      const m = /^https:\/\/www\.45worlds\.com\/([0-9a-z]+)\/([a-z]+)\/[^\/?&#]+$/.exec(url);
       if (m) {
         const prefix = m[2];
         switch (id) {
@@ -730,22 +730,6 @@ const CLEANUPS: CleanupEntries = {
       return {result: false, target: ERROR_TARGETS.URL};
     },
   },
-  'animationsong': {
-    match: [new RegExp('^(https?://)?([^/]+\\.)?animationsong\\.com/', 'i')],
-    restrict: [LINK_TYPES.lyrics],
-    clean: function (url) {
-      return url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?animationsong\.com\/(archives\/\d+\.html).*$/, 'http://animationsong.com/$1');
-    },
-    validate: function (url, id) {
-      if (/^http:\/\/animationsong\.com\/archives\/\d+\.html$/.test(url)) {
-        if (id === LINK_TYPES.lyrics.work) {
-          return {result: true};
-        }
-        return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
-      }
-      return {result: false, target: ERROR_TARGETS.URL};
-    },
-  },
   'animenewsnetwork': {
     match: [new RegExp('^(https?://)?(www\\.)?animenewsnetwork\\.com', 'i')],
     restrict: [LINK_TYPES.otherdatabases],
@@ -913,6 +897,42 @@ const CLEANUPS: CleanupEntries = {
       url = url.replace(/^https?:\/\/(?:.*)\.archive.org\/\d+\/items\/(.*)\/(.*)/, 'https://archive.org/download/$1/$2');
       // clean up links to items
       return url.replace(/^(https:\/\/archive\.org\/details\/[A-Za-z0-9._-]+)\/$/, '$1');
+    },
+  },
+  'audiomack': {
+    match: [new RegExp('^(https?://)?([^/]+\\.)?audiomack\\.com/', 'i')],
+    restrict: [LINK_TYPES.streamingfree],
+    clean: function (url) {
+      url = url.replace(
+        /^https?:\/\/(?:www.)?audiomack.com\/([^\/?&#]+(?:\/(album|song)\/[^\/?&#]+)?).*$/,
+        'https://audiomack.com/$1',
+      );
+      return url;
+    },
+    validate: function (url, id) {
+      const m = /^https:\/\/audiomack\.com\/[^\/?&#]+(?:\/(album|song)\/[^\/?&#]+)?$/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.streamingfree.artist:
+            return {
+              result: !prefix,
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.streamingfree.release:
+            return {
+              result: prefix === 'album',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.streamingfree.recording:
+            return {
+              result: prefix === 'song',
+              target: ERROR_TARGETS.ENTITY,
+            };
+        }
+        return {result: false, target: ERROR_TARGETS.ENTITY};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
     },
   },
   'baidubaike': {
@@ -1315,11 +1335,47 @@ const CLEANUPS: CleanupEntries = {
       };
     },
   },
+  'boomplay': {
+    match: [new RegExp('^(https?://)?([^/]+\\.)?boomplay\\.com/', 'i')],
+    restrict: [LINK_TYPES.streamingfree],
+    clean: function (url) {
+      url = url.replace(
+        /^https?:\/\/(?:www.)?boomplay.com\/((?:albums|artists|songs)\/\d+).*$/,
+        'https://www.boomplay.com/$1',
+      );
+      return url;
+    },
+    validate: function (url, id) {
+      const m = /^https:\/\/www\.boomplay\.com\/(albums|artists|songs)\/\d+$/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.streamingfree.artist:
+            return {
+              result: prefix === 'artists',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.streamingfree.release:
+            return {
+              result: prefix === 'albums',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.streamingfree.recording:
+            return {
+              result: prefix === 'songs',
+              target: ERROR_TARGETS.ENTITY,
+            };
+        }
+        return {result: false, target: ERROR_TARGETS.ENTITY};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
   'brahms': {
     match: [new RegExp('^(https?://)?brahms\\.ircam\\.fr/', 'i')],
     restrict: [LINK_TYPES.otherdatabases],
     clean: function (url) {
-      return url.replace(/^(?:https?:\/\/)?brahms\.ircam\.fr\/((works\/work)(?:\/)([0-9]+)|(?!works)[^?\/#]+).*$/, 'http://brahms.ircam.fr/$1');
+      return url.replace(/^(?:https?:\/\/)?brahms\.ircam\.fr\/(?:(?:en|fr)\/)?((works\/work)(?:\/)([0-9]+)|(?!works)[^?\/#]+).*$/, 'http://brahms.ircam.fr/$1');
     },
     validate: function (url, id) {
       const m = /^(?:https?:\/\/)?brahms\.ircam\.fr\/(works\/work|(?!works)[^?\/#]+).*$/.exec(url);
@@ -1334,6 +1390,96 @@ const CLEANUPS: CleanupEntries = {
           case LINK_TYPES.otherdatabases.artist:
             return {
               result: prefix !== 'works/work',
+              target: ERROR_TARGETS.ENTITY,
+            };
+        }
+        return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
+  'bugs': {
+    match: [
+      new RegExp('^(https?://)?(music|m)\\.bugs\\.co\\.kr/', 'i'),
+    ],
+    restrict: [
+      multiple(LINK_TYPES.downloadpurchase, LINK_TYPES.streamingpaid),
+      LINK_TYPES.streamingpaid,
+    ],
+    select: function (url, sourceType) {
+      const m = /^https:\/\/music\.bugs\.co\.kr\/(album|artist|track|mv)/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (prefix) {
+          case 'album':
+            if (sourceType === 'release') {
+              return [
+                LINK_TYPES.downloadpurchase.release,
+                LINK_TYPES.streamingpaid.release,
+              ];
+            }
+            break;
+          case 'artist':
+            if (sourceType === 'artist') {
+              return [
+                LINK_TYPES.downloadpurchase.artist,
+                LINK_TYPES.streamingpaid.artist,
+              ];
+            }
+            break;
+          case 'track':
+            if (sourceType === 'recording') {
+              return [
+                LINK_TYPES.downloadpurchase.recording,
+                LINK_TYPES.streamingpaid.recording,
+              ];
+            }
+            break;
+          default: // mv
+            if (sourceType === 'recording') {
+              return [
+                LINK_TYPES.downloadpurchase.recording,
+                LINK_TYPES.streamingpaid.recording,
+              ];
+            }
+            break;
+        }
+      }
+      return false;
+    },
+    clean: function (url) {
+      url = url.replace(/^(?:https?:\/\/)?(?:music|m)\.bugs\.co\.kr\//, 'https://music.bugs.co.kr/');
+      url = url.replace(/^(https:\/\/music\.bugs\.co\.kr)\/(album|artist|track|mv)\/(\d+)(?:[\/.?#].*)?$/, '$1/$2/$3');
+      return url;
+    },
+    validate: function (url, id) {
+      if (/https:\/\/music\.bugs\.co\.kr\/search\//.test(url)) {
+        return {
+          error: noLinkToSearchMsg(),
+          result: false,
+          target: ERROR_TARGETS.URL,
+        };
+      }
+      const m = /^https:\/\/music\.bugs\.co\.kr\/(album|artist|track|mv)\/\d+$/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.downloadpurchase.release:
+          case LINK_TYPES.streamingpaid.release:
+            return {
+              result: prefix === 'album',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.downloadpurchase.artist:
+          case LINK_TYPES.streamingpaid.artist:
+            return {
+              result: prefix === 'artist',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.downloadpurchase.recording:
+          case LINK_TYPES.streamingpaid.recording:
+            return {
+              result: prefix === 'track' || prefix === 'mv',
               target: ERROR_TARGETS.ENTITY,
             };
         }
@@ -1801,8 +1947,8 @@ const CLEANUPS: CleanupEntries = {
     restrict: [LINK_TYPES.otherdatabases],
     clean: function (url) {
       url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?d-nb\.info\//, 'http://d-nb.info/');
-      url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?dnb\.de\/opac(?:\.htm\?)?.*\bquery=nid%3D(1[012]?\d{7}[0-9X]|[47]\d{6}-\d|[1-9]\d{0,7}-[0-9X]|3\d{7}[0-9X]).*$/, 'http://d-nb.info/gnd/$1');
-      url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?dnb\.de\/opac(?:\.htm\?)?.*\bquery=idn%3D(1[012]?\d{7}[0-9X]|[47]\d{6}-\d|[1-9]\d{0,7}-[0-9X]|3\d{7}[0-9X]).*$/, 'http://d-nb.info/$1');
+      url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?dnb\.de\/opac(?:\.htm\?)?.*\bquery=nid%3D([0-9X-]{9,10}).*$/, 'http://d-nb.info/gnd/$1');
+      url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?dnb\.de\/opac(?:\.htm\?)?.*\bquery=idn%3D([0-9X-]{9,10}).*$/, 'http://d-nb.info/$1');
       return url;
     },
     validate: function (url, id) {
@@ -1812,17 +1958,17 @@ const CLEANUPS: CleanupEntries = {
         case LINK_TYPES.otherdatabases.series:
         case LINK_TYPES.otherdatabases.work:
           return {
-            result: /^http:\/\/d-nb\.info\/(?:gnd\/)?(?:1[012]?\d{7}[0-9X]|[47]\d{6}-\d|[1-9]\d{0,7}-[0-9X]|3\d{7}[0-9X])$/.test(url),
+            result: /^http:\/\/d-nb\.info\/(?:gnd\/)?[0-9X-]{9,10}$/.test(url),
             target: ERROR_TARGETS.ENTITY,
           };
         case LINK_TYPES.otherdatabases.label:
           return {
-            result: /^http:\/\/d-nb\.info\/(?:(?:dnbn|gnd)\/)?(?:1[012]?\d{7}[0-9X]|[47]\d{6}-\d|[1-9]\d{0,7}-[0-9X]|3\d{7}[0-9X])$/.test(url),
+            result: /^http:\/\/d-nb\.info\/(?:(?:dnbn|gnd)\/)?[0-9X-]{9,10}$/.test(url),
             target: ERROR_TARGETS.ENTITY,
           };
         case LINK_TYPES.otherdatabases.release:
           return {
-            result: /^http:\/\/d-nb\.info\/(?:1[012]?\d{7}[0-9X]|[47]\d{6}-\d|[1-9]\d{0,7}-[0-9X]|3\d{7}[0-9X])$/.test(url),
+            result: /^http:\/\/d-nb\.info\/[0-9X-]{9,10}$/.test(url),
             target: ERROR_TARGETS.ENTITY,
           };
       }
@@ -2214,6 +2360,31 @@ const CLEANUPS: CleanupEntries = {
       return url;
     },
   },
+  'idref': {
+    match: [new RegExp('^(https?://)?(www\\.)?idref\\.fr/', 'i')],
+    restrict: [LINK_TYPES.otherdatabases],
+    clean: function (url) {
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?idref\.fr/, 'https://www.idref.fr');
+      return url;
+    },
+    validate: function (url, id) {
+      const m = /^https:\/\/www\.idref\.fr\/\d+?$/.exec(url);
+      if (m) {
+        switch (id) {
+          case LINK_TYPES.otherdatabases.artist:
+          case LINK_TYPES.otherdatabases.genre:
+          case LINK_TYPES.otherdatabases.instrument:
+          case LINK_TYPES.otherdatabases.label:
+          case LINK_TYPES.otherdatabases.place:
+          case LINK_TYPES.otherdatabases.series:
+          case LINK_TYPES.otherdatabases.work:
+            return {result: true};
+        }
+        return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
   'imdb': {
     match: [new RegExp('^(https?://)?([^/]+\\.)?imdb\\.', 'i')],
     restrict: [LINK_TYPES.imdb],
@@ -2576,6 +2747,35 @@ const CLEANUPS: CleanupEntries = {
       return {result: false, target: ERROR_TARGETS.URL};
     },
   },
+  'kbr': {
+    match: [new RegExp('^(https?://)?opac\\.kbr\\.be/', 'i')],
+    restrict: [LINK_TYPES.otherdatabases],
+    clean: function (url) {
+      // Standardise to https
+      return url.replace(/^https?:\/\/(?:www\.)?(.*)$/, 'https://$1');
+    },
+    validate: function (url, id) {
+      const m = /^https:\/\/opac\.kbr\.be\/LIBRARY\/doc\/(AUTHORITY|SYRACUSE)\/[0-9]+$/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.otherdatabases.artist:
+          case LINK_TYPES.otherdatabases.label:
+            return {
+              result: prefix === 'AUTHORITY',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.otherdatabases.release:
+            return {
+              result: prefix === 'SYRACUSE',
+              target: ERROR_TARGETS.ENTITY,
+            };
+        }
+        return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
   'kget': {
     match: [new RegExp('^(https?://)?([^/]+\\.)?kget\\.jp/', 'i')],
     restrict: [LINK_TYPES.lyrics],
@@ -2927,6 +3127,90 @@ const CLEANUPS: CleanupEntries = {
           case LINK_TYPES.otherdatabases.release_group:
             return {
               result: prefix === 'album',
+              target: ERROR_TARGETS.ENTITY,
+            };
+        }
+        return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
+  'melon': {
+    match: [
+      new RegExp('^(https?://)?((www|m2)\\.)?melon\\.com/', 'i'),
+    ],
+    restrict: [
+      multiple(LINK_TYPES.downloadpurchase, LINK_TYPES.streamingpaid),
+      LINK_TYPES.streamingpaid,
+    ],
+    select: function (url, sourceType) {
+      const m = /^https:\/\/www\.melon\.com\/(album|artist|song)/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (prefix) {
+          case 'album':
+            if (sourceType === 'release') {
+              return [
+                LINK_TYPES.downloadpurchase.release,
+                LINK_TYPES.streamingpaid.release,
+              ];
+            }
+            break;
+          case 'artist':
+            if (sourceType === 'artist') {
+              return [
+                LINK_TYPES.downloadpurchase.artist,
+                LINK_TYPES.streamingpaid.artist,
+              ];
+            }
+            break;
+          default: // song
+            if (sourceType === 'recording') {
+              return [
+                LINK_TYPES.downloadpurchase.recording,
+                LINK_TYPES.streamingpaid.recording,
+              ];
+            }
+            break;
+        }
+      }
+      return false;
+    },
+    clean: function (url) {
+      url = url.replace(/^(?:https?:\/\/)?(?:(?:www|m2)\.)?melon\.com\//, 'https://www.melon.com/');
+      url = url.replace(/^(https:\/\/www\.melon\.com\/album)\/(?:detail|music)\.htm\?(albumId=\d+)(?:[\/#&].*)?$/, '$1/detail.htm?$2');
+      url = url.replace(/^(https:\/\/www\.melon\.com\/artist)\/(?:timeline|detail|song|album|video|photo|fan|hifi|song\/all|detail\/info|magazine)\.htm\?(artistId=\d+)(?:[\/#&].*)?$/, '$1/detail.htm?$2');
+      url = url.replace(/^(https:\/\/www\.melon\.com\/song\/detail\.htm\?songId=\d+)(?:[\/#&].*)?$/, '$1');
+      return url;
+    },
+    validate: function (url, id) {
+      if (/https:\/\/www\.melon\.com\/search\//.test(url)) {
+        return {
+          error: noLinkToSearchMsg(),
+          result: false,
+          target: ERROR_TARGETS.URL,
+        };
+      }
+      const m = /^https:\/\/www\.melon\.com\/(album|artist|song)\/detail.htm\?(?:albumId|artistId|songId)=\d+$/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.downloadpurchase.release:
+          case LINK_TYPES.streamingpaid.release:
+            return {
+              result: prefix === 'album',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.downloadpurchase.artist:
+          case LINK_TYPES.streamingpaid.artist:
+            return {
+              result: prefix === 'artist',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.downloadpurchase.recording:
+          case LINK_TYPES.streamingpaid.recording:
+            return {
+              result: prefix === 'song',
               target: ERROR_TARGETS.ENTITY,
             };
         }
@@ -4390,6 +4674,25 @@ const CLEANUPS: CleanupEntries = {
       return url;
     },
   },
+  'tmdb': {
+    match: [new RegExp('^(https?://)?(www\\.)?themoviedb\\.org', 'i')],
+    restrict: [LINK_TYPES.otherdatabases],
+    clean: function (url) {
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?themoviedb\.org\/person\/([0-9]*)(?:[^0-9].*)?$/, 'https://www.themoviedb.org/person/$1');
+      return url;
+    },
+    validate: function (url, id) {
+      const m = /^https:\/\/www\.themoviedb\.org\/person\/[0-9]*$/.exec(url);
+      if (m) {
+        switch (id) {
+          case LINK_TYPES.otherdatabases.artist:
+            return {result: true};
+        }
+        return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
   'tobarandualchais': {
     match: [new RegExp(
       '^(https?://)?([^/]+\\.)?tobarandualchais\\.co\\.uk',
@@ -4524,6 +4827,35 @@ const CLEANUPS: CleanupEntries = {
       url = url.replace(/^(?:https?:\/\/)?trove\.nla\.gov\.au\/people\/([^\/?#]+).*$/, 'https://nla.gov.au/nla.party-$1');
       url = url.replace(/^(?:https?:\/\/)?nla\.gov\.au\/(nla\.party-|anbd\.bib-an)([^\/?#]+).*$/, 'https://nla.gov.au/$1$2');
       return url;
+    },
+  },
+  'tsutaya': {
+    match: [new RegExp('^(https?://)?shop\\.tsutaya\\.co\\.jp/', 'i')],
+    restrict: [LINK_TYPES.mailorder],
+    clean: function (url) {
+      url = url.replace(/^(?:https?:\/\/)?shop\.tsutaya\.co\.jp\/cd\/product\/(\d+).*$/, 'https://shop.tsutaya.co.jp/cd/product/$1/');
+      url = url.replace(/^(?:https?:\/\/)?shop\.tsutaya\.co\.jp\/dir_result\.html\?searchType\=3\&artistCd\=(\d+).*$/, 'https://shop.tsutaya.co.jp/dir_result.html?searchType=3&artistCd=$1');
+      return url;
+    },
+    validate: function (url, id) {
+      const m = /^https:\/\/shop\.tsutaya\.co.jp\/(?:(cd)\/product\/\d+\/|(dir_result)\.html\?searchType=3\&artistCd=\d+)$/.exec(url);
+      if (m) {
+        const suffix = m[1] || m[2];
+        switch (id) {
+          case LINK_TYPES.mailorder.artist:
+            return {
+              result: suffix === 'dir_result',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.mailorder.release:
+            return {
+              result: suffix === 'cd',
+              target: ERROR_TARGETS.ENTITY,
+            };
+        }
+        return {result: false, target: ERROR_TARGETS.ENTITY};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
     },
   },
   'twitch': {
@@ -5129,6 +5461,8 @@ const CLEANUPS: CleanupEntries = {
         /^https:\/\/www\.youtube\.com\/([a-zA-Z0-9_-]+)\/(?:about|channels|community|featured|playlists|videos)(?:[\/?&#].*)?$/,
         'https://www.youtube.com/$1',
       );
+      // YouTube handle
+      url = url.replace(/^https:\/\/www\.youtube\.com\/(@[a-zA-Z0-9_.-]{3,30}).*$/, 'https://www.youtube.com/$1');
       // YouTube URL shortener
       url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?youtu\.be\/([a-zA-Z0-9_-]+).*$/, 'https://www.youtube.com/watch?v=$1');
       // YouTube standard watch URL

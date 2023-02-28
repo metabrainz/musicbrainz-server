@@ -1,5 +1,5 @@
 /*
- * @flow strict-local
+ * @flow strict
  * Copyright (C) 2020 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -9,11 +9,11 @@
 
 import * as React from 'react';
 
-import IntentionallyRawIcon
-  from '../components/IntentionallyRawIcon.js';
 import localizeLinkAttributeTypeName
   from '../../static/scripts/common/i18n/localizeLinkAttributeTypeName.js';
 import yesNo from '../../static/scripts/common/utility/yesNo.js';
+import IntentionallyRawIcon
+  from '../components/IntentionallyRawIcon.js';
 
 type Props = {
   +edit: AddRelationshipAttributeEditT,

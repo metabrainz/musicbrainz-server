@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2020 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -63,6 +63,8 @@ const URLInputPopover = (props: PropsT): React.MixedElement => {
       <form
         onSubmit={(event: SyntheticEvent<HTMLFormElement>) => {
           event.preventDefault();
+          // Prevent the submit event from propagating to the parent form.
+          event.stopPropagation();
           handleConfirm(closeAndReturnFocus);
         }}
       >
@@ -123,10 +125,7 @@ const URLInputPopover = (props: PropsT): React.MixedElement => {
           >
             {l('Cancel')}
           </button>
-          <div
-            className="buttons-right"
-            style={{float: 'right', textAlign: 'right'}}
-          >
+          <div className="buttons-right">
             <button
               className="positive"
               onClick={() => handleConfirm(closeAndReturnFocus)}

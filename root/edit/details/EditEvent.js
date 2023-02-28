@@ -1,5 +1,5 @@
 /*
- * @flow strict-local
+ * @flow strict
  * Copyright (C) 2020 Anirudh Jain
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -10,12 +10,12 @@
 import * as React from 'react';
 
 import EntityLink from '../../static/scripts/common/components/EntityLink.js';
+import formatDate from '../../static/scripts/common/utility/formatDate.js';
+import yesNo from '../../static/scripts/common/utility/yesNo.js';
 import Diff from '../../static/scripts/edit/components/edit/Diff.js';
 import FullChangeDiff from
   '../../static/scripts/edit/components/edit/FullChangeDiff.js';
 import WordDiff from '../../static/scripts/edit/components/edit/WordDiff.js';
-import yesNo from '../../static/scripts/common/utility/yesNo.js';
-import formatDate from '../../static/scripts/common/utility/formatDate.js';
 
 type Props = {
   +edit: EditEventEditT,

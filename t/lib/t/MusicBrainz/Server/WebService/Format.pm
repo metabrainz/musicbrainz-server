@@ -1,4 +1,6 @@
 package t::MusicBrainz::Server::WebService::Format;
+use strict;
+use warnings;
 
 use JSON qw( encode_json );
 use Test::JSON import => [qw( is_json )];

@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict
  * Copyright (C) 2015 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -17,12 +17,12 @@ import iconLessUrl from '../../static/styles/icons.less';
 import noScriptLessUrl from '../../static/styles/noscript.less';
 import escapeClosingTags from '../../utility/escapeClosingTags.js';
 
-import globalsScript from './globalsScript.mjs';
 import FaviconLinks from './FaviconLinks.js';
+import globalsScript from './globalsScript.mjs';
 import MetaDescription from './MetaDescription.js';
 
 export type HeadProps = {
-  +homepage?: boolean,
+  +isHomepage?: boolean,
   +noIcons?: boolean,
   +pager?: PagerT,
   +title?: string,
@@ -35,14 +35,13 @@ function canonicalize(url: string) {
     : url;
 }
 
-function getTitle(props: HeadProps) {
-  const pager = props.pager;
-  let title = props.title;
+function getTitle(title?: string, isHomepage: boolean, pager?: PagerT) {
+  let finalTitle = title;
 
-  if (!props.homepage) {
+  if (!isHomepage) {
     const parts = [];
 
-    if (title) {
+    if (nonEmpty(title)) {
       parts.push(title);
     }
 
@@ -51,10 +50,10 @@ function getTitle(props: HeadProps) {
     }
 
     parts.push('MusicBrainz');
-    title = parts.join(' - ');
+    finalTitle = parts.join(' - ');
   }
 
-  return title;
+  return finalTitle;
 }
 
 const CanonicalLink = ({requestUri}: {+requestUri: string}) => {
@@ -65,7 +64,12 @@ const CanonicalLink = ({requestUri}: {+requestUri: string}) => {
   return null;
 };
 
-const Head = ({...props}: HeadProps): React.Element<'head'> => {
+const Head = ({
+  isHomepage = false,
+  noIcons = false,
+  pager,
+  title,
+}: HeadProps): React.Element<'head'> => {
   const $c = React.useContext(CatalystContext);
 
   return (
@@ -77,7 +81,7 @@ const Head = ({...props}: HeadProps): React.Element<'head'> => {
 
       <MetaDescription entity={$c.stash.entity} />
 
-      <title>{getTitle(props)}</title>
+      <title>{getTitle(title, isHomepage, pager)}</title>
 
       <CanonicalLink requestUri={$c.req.uri} />
 
@@ -87,7 +91,7 @@ const Head = ({...props}: HeadProps): React.Element<'head'> => {
         type="text/css"
       />
 
-      {props.noIcons ? null : (
+      {noIcons ? null : (
         <link
           href={iconLessUrl}
           rel="stylesheet"
@@ -145,6 +149,8 @@ const Head = ({...props}: HeadProps): React.Element<'head'> => {
           user: $c.user ? {id: $c.user.id, name: $c.user.name} : null,
         }),
       })}
+
+      {MUSICBRAINZ_RUNNING_TESTS ? manifest.js('selenium') : null}
 
       {$c.stash.jsonld_data ? (
         <script

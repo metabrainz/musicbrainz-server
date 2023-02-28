@@ -9,8 +9,8 @@
 
 import * as React from 'react';
 
-import Layout from '../layout/index.js';
 import WorkSidebar from '../layout/components/sidebar/WorkSidebar.js';
+import Layout from '../layout/index.js';
 
 import WorkHeader from './WorkHeader.js';
 

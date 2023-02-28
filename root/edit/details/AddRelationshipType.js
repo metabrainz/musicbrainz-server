@@ -1,5 +1,5 @@
 /*
- * @flow strict-local
+ * @flow strict
  * Copyright (C) 2020 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -9,13 +9,13 @@
 
 import * as React from 'react';
 
-import IntentionallyRawIcon from '../components/IntentionallyRawIcon.js';
 import Cardinality
   from '../../static/scripts/common/components/Cardinality.js';
 import EntityLink from '../../static/scripts/common/components/EntityLink.js';
 import OrderableDirection
   from '../../static/scripts/common/components/OrderableDirection.js';
 import {ENTITY_NAMES} from '../../static/scripts/common/constants.js';
+import IntentionallyRawIcon from '../components/IntentionallyRawIcon.js';
 
 type Props = {
   +edit: AddRelationshipTypeEditT,

@@ -1,5 +1,5 @@
 /*
- * @flow strict-local
+ * @flow strict
  * Copyright (C) 2019 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -9,12 +9,12 @@
 
 import * as React from 'react';
 
+import Layout from '../layout/index.js';
 import FormCsrfToken
   from '../static/scripts/edit/components/FormCsrfToken.js';
 import FormRowTextArea
   from '../static/scripts/edit/components/FormRowTextArea.js';
 import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
-import Layout from '../layout/index.js';
 
 type Props = {
   +form: ReadOnlyFormT<{

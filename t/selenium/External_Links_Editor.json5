@@ -901,7 +901,7 @@
     {
       command: 'assertEval',
       target: "Array.from(document.querySelectorAll('#external-links-editor label.relationship-name')).map(x => x.innerText).sort().toString()",
-      value: 'download for free,stream {video} for free video',
+      value: 'download for free,stream for free',
     },
     {
       command: 'open',

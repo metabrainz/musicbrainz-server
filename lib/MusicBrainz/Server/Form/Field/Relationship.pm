@@ -1,6 +1,9 @@
 package MusicBrainz::Server::Form::Field::Relationship;
+use strict;
+use warnings;
 
 use HTML::FormHandler::Moose;
+use MusicBrainz::Server::Translation qw( l );
 extends 'HTML::FormHandler::Field::Compound';
 
 has_field 'relationship_id' => (
@@ -83,5 +86,16 @@ sub is_empty {
     );
     return 0;
 }
+
+after 'validate' => sub {
+    my $self = shift;
+    my $link_type = $self->field('link_type_id')->value;
+
+    if (!$link_type) {
+        return $self->add_error(l('You must select a relationship type and target entity for every relationship.'));
+    }
+
+    return 1;
+};
 
 1;

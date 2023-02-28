@@ -2,6 +2,8 @@ package MusicBrainz::Server::Entity::Subscription::Label;
 use Moose;
 use namespace::autoclean;
 
+use MusicBrainz::Server::Entity::Types;
+
 with 'MusicBrainz::Server::Entity::Subscription::Active';
 
 has 'label_id' => (

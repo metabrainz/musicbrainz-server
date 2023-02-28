@@ -34,7 +34,7 @@ before build_display_data => sub {
     $self->c->model('InstrumentType')->load(@instruments);
 };
 
-sub edit_template_react { 'MergeInstruments' };
+sub edit_template { 'MergeInstruments' };
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

@@ -7,12 +7,10 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-/* eslint-disable multiline-comment-style */
-
-function _cloneDeep/*:: <+T> */(
-  value/*: T */,
-  seen/*: WeakMap<any, any> */,
-)/*: any */ {
+function _cloneDeep<+T>(
+  value: T,
+  seen: WeakMap<any, any>,
+): any {
   if (value != null && typeof value === 'object') {
     const clone = seen.get(value);
     if (clone) {
@@ -26,23 +24,23 @@ function _cloneDeep/*:: <+T> */(
   return value;
 }
 
-function _cloneArrayDeep/*:: <+T> */(
-  array/*: $ReadOnlyArray<T> */,
-  seen/*: WeakMap<any, any> */,
-)/*: $ReadOnlyArray<T> */ {
-  const clone/*: Array<T> */ = [];
+function _cloneArrayDeep<+T>(
+  array: $ReadOnlyArray<T>,
+  seen: WeakMap<any, any>,
+): $ReadOnlyArray<T> {
+  const clone: Array<T> = [];
   seen.set(array, clone);
   const size = array.length;
   for (let i = 0; i < size; i++) {
-    clone.push(_cloneDeep/*:: <T> */(array[i], seen));
+    clone.push(_cloneDeep<T>(array[i], seen));
   }
   return clone;
 }
 
-export function cloneArrayDeep/*:: <+T> */(
-  array/*: $ReadOnlyArray<T> */,
-)/*: $ReadOnlyArray<T> */ {
-  return _cloneArrayDeep/*:: <T> */(array, new WeakMap());
+export function cloneArrayDeep<+T>(
+  array: $ReadOnlyArray<T>,
+): $ReadOnlyArray<T> {
+  return _cloneArrayDeep<T>(array, new WeakMap());
 }
 
 /*
@@ -52,11 +50,11 @@ export function cloneArrayDeep/*:: <+T> */(
 // $FlowIgnore[method-unbinding]
 const hasOwnProperty = Object.prototype.hasOwnProperty;
 
-function _cloneObjectDeep/*:: <+T: {...}> */(
-  object/*: T */,
-  seen/*: WeakMap<any, any> */,
-)/*: T */ {
-  const clone/*: any */ = Object.create(Object.getPrototypeOf(object));
+function _cloneObjectDeep<+T: {...}>(
+  object: T,
+  seen: WeakMap<any, any>,
+): T {
+  const clone: any = Object.create(Object.getPrototypeOf(object));
   seen.set(object, clone);
   for (const key in object) {
     if (hasOwnProperty.call(object, key)) {
@@ -66,8 +64,8 @@ function _cloneObjectDeep/*:: <+T: {...}> */(
   return clone;
 }
 
-export function cloneObjectDeep/*:: <+T: {...}> */(
-  object/*: T */,
-)/*: T */ {
-  return _cloneObjectDeep/*:: <T> */(object, new WeakMap());
+export function cloneObjectDeep<+T: {...}>(
+  object: T,
+): T {
+  return _cloneObjectDeep<T>(object, new WeakMap());
 }

@@ -9,8 +9,8 @@
 import test from 'tape';
 
 import {
-  unformatTrackLength,
   calculateDiscID,
+  unformatTrackLength,
 } from '../../release-editor/utils.js';
 
 test('unformatTrackLength', function (t) {

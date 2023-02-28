@@ -513,6 +513,7 @@ DROP INDEX track_idx_artist_credit;
 DROP INDEX track_idx_gid;
 DROP INDEX track_idx_recording;
 DROP INDEX track_raw_idx_release;
+DROP INDEX unreferenced_row_log_idx_inserted;
 DROP INDEX url_gid_redirect_idx_new_id;
 DROP INDEX url_idx_gid;
 DROP INDEX url_idx_url;

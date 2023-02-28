@@ -1,5 +1,5 @@
 /*
- * @flow strict-local
+ * @flow strict
  * Copyright (C) 2020 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -13,8 +13,12 @@ import entityHref from '../utility/entityHref.js';
 
 type Props = {
   +anchorPath?: string,
-  +cdToc: CDTocT,
-  +content: string,
+  +cdToc: {
+    +discid: string,
+    +entityType: 'cdtoc',
+    ...
+  },
+  +content?: string,
   +subPath?: string,
 };
 
@@ -23,7 +27,7 @@ const CDTocLink = (
 ): React.Element<'a'> => (
   <a href={entityHref(cdToc, subPath, anchorPath)}>
     <bdi>
-      {content}
+      {nonEmpty(content) ? content : cdToc.discid}
     </bdi>
   </a>
 );

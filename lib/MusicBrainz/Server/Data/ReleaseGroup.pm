@@ -18,9 +18,11 @@ use MusicBrainz::Server::Data::Utils::Cleanup qw( used_in_relationship );
 
 use MusicBrainz::Server::Constants qw( $STATUS_OPEN );
 
-extends 'MusicBrainz::Server::Data::CoreEntity';
+extends 'MusicBrainz::Server::Data::Entity';
+with 'MusicBrainz::Server::Data::Role::Relatable';
+with 'MusicBrainz::Server::Data::Role::Name';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'release_group' };
-with 'MusicBrainz::Server::Data::Role::CoreEntityCache';
+with 'MusicBrainz::Server::Data::Role::GIDEntityCache';
 with 'MusicBrainz::Server::Data::Role::DeleteAndLog' => { type => 'release_group' };
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'release_group' };
 with 'MusicBrainz::Server::Data::Role::Rating' => { type => 'release_group' };
@@ -633,8 +635,8 @@ sub _order_by {
         },
         'artist' => sub {
             $extra_join = 'JOIN artist_credit ac ON ac.id = rg.artist_credit';
-            $also_select = 'ac.name AS ac_name';
-            return 'ac_name COLLATE musicbrainz, release_group.name COLLATE musicbrainz';
+            $also_select = 'ac.name AS ac_name, rg.name AS rg_name';
+            return 'ac_name COLLATE musicbrainz, rg_name COLLATE musicbrainz';
         },
         'primary_type' => sub {
             return 'primary_type_id, name COLLATE musicbrainz'
@@ -645,7 +647,7 @@ sub _order_by {
     });
 
     my $inner_order_by = $order_by
-        =~ s/ac_name/ac.name/r;
+        =~ s/(ac|rg)_name/$1.name/gr;
 
     return ($order_by, $extra_join, $also_select, $inner_order_by);
 }

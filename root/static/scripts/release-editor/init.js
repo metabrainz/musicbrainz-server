@@ -15,6 +15,7 @@ import {
   reduceArtistCredit,
 } from '../common/immutable-entities.js';
 import MB from '../common/MB.js';
+import {getSourceEntityData} from '../common/utility/catalyst.js';
 import clean from '../common/utility/clean.js';
 import {cloneObjectDeep} from '../common/utility/cloneDeep.mjs';
 import request from '../common/utility/request.js';
@@ -284,6 +285,7 @@ releaseEditor.init = function (options) {
   // Keep in sync with is_valid_edit_note in Server::Validation
   this.rootField.invalidEditNote = function () {
     return self.action === 'add' && (
+      empty(self.rootField.editNote()) ||
       /^[\p{White_Space}\p{Punctuation}]+$/u.test(self.rootField.editNote()) ||
       /^\p{ASCII}$/u.test(self.rootField.editNote())
     );
@@ -292,7 +294,7 @@ releaseEditor.init = function (options) {
   this.seed(options.seed);
 
   if (this.action === 'edit') {
-    this.releaseLoaded(options.release);
+    this.releaseLoaded(getSourceEntityData());
   } else {
     releaseEditor.createExternalLinksEditor(
       {entityType: 'release'},

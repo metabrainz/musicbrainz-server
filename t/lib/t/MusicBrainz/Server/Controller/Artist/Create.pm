@@ -1,8 +1,11 @@
 package t::MusicBrainz::Server::Controller::Artist::Create;
-use utf8;
+use strict;
+use warnings;
+
 use Test::Routine;
 use Test::More;
 use MusicBrainz::Server::Test qw( capture_edits html_ok );
+use utf8;
 
 with 't::Mechanize', 't::Context';
 
@@ -23,7 +26,10 @@ test 'Creating artist with most fields filled in' => sub {
 
     prepare_test($test);
 
-    $mech->get_ok('/artist/create');
+    $mech->get_ok(
+        '/artist/create',
+        'Fetched the artist creation page',
+    );
     html_ok($mech->content);
 
     my @edits = capture_edits {
@@ -90,35 +96,35 @@ test 'Creating artist with most fields filled in' => sub {
     # Test display of edit data
     $mech->get_ok('/edit/' . $edit->id, 'Fetched the edit page');
     html_ok($mech->content);
-    $mech->content_contains(
+    $mech->text_contains(
         'controller artist',
         'The edit page contains the artist name',
     );
-    $mech->content_contains(
+    $mech->text_contains(
         'artist, controller',
         'The edit page contains the artist sort name',
     );
-    $mech->content_contains(
+    $mech->text_contains(
         'Person',
         'The edit page contains the artist type',
     );
-    $mech->content_contains(
+    $mech->text_contains(
         'United States',
         'The edit page contains the area',
     );
-    $mech->content_contains(
+    $mech->text_contains(
         'Female',
         'The edit page contains the artist gender',
     );
-    $mech->content_contains(
+    $mech->text_contains(
         'artist created in controller_artist.t',
         'The edit page contains the disambiguation',
     );
-    $mech->content_contains(
+    $mech->text_contains(
         '1990-01-02',
         'The edit page contains the artist begin date',
     );
-    $mech->content_contains(
+    $mech->text_contains(
         '2003-04-15',
         'The edit page contains the artist end date',
     );
@@ -130,7 +136,10 @@ test 'Creating artist with only the minimal amount of fields' => sub {
 
     prepare_test($test);
 
-    $mech->get_ok('/artist/create');
+    $mech->get_ok(
+        '/artist/create',
+        'Fetched the artist creation page',
+    );
     html_ok($mech->content);
 
     my @edits = capture_edits {
@@ -190,11 +199,11 @@ test 'Creating artist with only the minimal amount of fields' => sub {
     # Test display of edit data
     $mech->get_ok('/edit/' . $edit->id, 'Fetched the edit page');
     html_ok($mech->content);
-    $mech->content_contains(
+    $mech->text_contains(
         'Alice Artist',
         'The edit page contains the artist name',
     );
-    $mech->content_contains(
+    $mech->text_contains(
         'Artist, Alice',
         'The edit page contains the artist sort name',
     );
@@ -206,7 +215,10 @@ test 'MBS-10976: No ISE if only invalid characters are submitted' => sub {
 
     prepare_test($test);
 
-    $mech->get_ok('/artist/create');
+    $mech->get_ok(
+        '/artist/create',
+        'Fetched the artist creation page',
+    );
 
     my $invalid = "\x{200B}\x{00AD}\x{FEFF}";
 
@@ -227,7 +239,7 @@ test 'MBS-10976: No ISE if only invalid characters are submitted' => sub {
 
     is(@edits, 0, 'No edit was entered');
 
-    $mech->content_contains(
+    $mech->text_contains(
         'The characters you’ve entered are invalid or not allowed.',
         'contains error for invalid characters',
     );
@@ -239,7 +251,10 @@ test 'MBS-10976: Private use characters U+E000..U+F8FF are allowed' => sub {
 
     prepare_test($test);
 
-    $mech->get_ok('/artist/create');
+    $mech->get_ok(
+        '/artist/create',
+        'Fetched the artist creation page',
+    );
 
     my $klingon = "\x{F8D3}\x{F8D4}\x{F8D5}";
     my $other_private_use = "\x{E000}\x{F8FF}";

@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -7,16 +7,12 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-/* eslint-disable sort-keys */
-const NULL_DATE: PartialDateT = Object.freeze({
-  year: null,
-  month: null,
-  day: null,
-});
+import {EMPTY_PARTIAL_DATE} from '../constants.js';
 
+/* eslint-disable sort-keys */
 const NULL_DATE_PERIOD: DatePeriodRoleT = Object.freeze({
-  begin_date: NULL_DATE,
-  end_date: NULL_DATE,
+  begin_date: EMPTY_PARTIAL_DATE,
+  end_date: EMPTY_PARTIAL_DATE,
   ended: false,
 });
 /* eslint-enable sort-keys */
@@ -35,13 +31,13 @@ export default function compareDates(
   a: ?PartialDateT,
   b: ?PartialDateT,
 ): number {
-  a = a ?? NULL_DATE;
-  b = b ?? NULL_DATE;
+  const aOrEmpty = a ?? EMPTY_PARTIAL_DATE;
+  const bOrEmpty = b ?? EMPTY_PARTIAL_DATE;
 
   return (
-    compareNullableNumbers(a.year, b.year) ||
-    compareNullableNumbers(a.month, b.month) ||
-    compareNullableNumbers(a.day, b.day)
+    compareNullableNumbers(aOrEmpty.year, bOrEmpty.year) ||
+    compareNullableNumbers(aOrEmpty.month, bOrEmpty.month) ||
+    compareNullableNumbers(aOrEmpty.day, bOrEmpty.day)
   );
 }
 
@@ -49,13 +45,13 @@ export function compareDatePeriods(
   a: ?$ReadOnly<{...DatePeriodRoleT, ...}>,
   b: ?$ReadOnly<{...DatePeriodRoleT, ...}>,
 ): number {
-  a = a ?? NULL_DATE_PERIOD;
-  b = b ?? NULL_DATE_PERIOD;
+  const aOrEmpty = a ?? NULL_DATE_PERIOD;
+  const bOrEmpty = b ?? NULL_DATE_PERIOD;
 
-  const beginDateA = a.begin_date ?? NULL_DATE;
-  const beginDateB = b.begin_date ?? NULL_DATE;
-  const endDateA = a.end_date ?? NULL_DATE;
-  const endDateB = b.end_date ?? NULL_DATE;
+  const beginDateA = aOrEmpty.begin_date ?? EMPTY_PARTIAL_DATE;
+  const beginDateB = bOrEmpty.begin_date ?? EMPTY_PARTIAL_DATE;
+  const endDateA = aOrEmpty.end_date ?? EMPTY_PARTIAL_DATE;
+  const endDateB = bOrEmpty.end_date ?? EMPTY_PARTIAL_DATE;
 
   return (
     compareNullableNumbers(beginDateA.year, beginDateB.year) ||
@@ -65,6 +61,6 @@ export function compareDatePeriods(
     compareNullableNumbers(beginDateA.day, beginDateB.day) ||
     compareNullableNumbers(endDateA.day, endDateB.day) ||
     // Sort ended dates before non-ended ones
-    ((a.ended ? 0 : 1) - (b.ended ? 0 : 1))
+    ((aOrEmpty.ended ? 0 : 1) - (bOrEmpty.ended ? 0 : 1))
   );
 }

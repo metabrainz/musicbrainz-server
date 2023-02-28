@@ -9,10 +9,10 @@
 
 import * as React from 'react';
 
-import chooseLayoutComponent from '../../utility/chooseLayoutComponent.js';
 import EnterEdit from '../../static/scripts/edit/components/EnterEdit.js';
 import EnterEditNote
   from '../../static/scripts/edit/components/EnterEditNote.js';
+import chooseLayoutComponent from '../../utility/chooseLayoutComponent.js';
 
 import type {AliasDeleteFormT} from './types.js';
 

@@ -14,20 +14,29 @@ import path from 'path';
 import defined from 'defined';
 import httpProxy from 'http-proxy';
 import JSON5 from 'json5';
-import test from 'tape';
-import TestCls from 'tape/lib/test.js';
 import webdriver from 'selenium-webdriver';
 import chrome from 'selenium-webdriver/chrome.js';
 import firefox from 'selenium-webdriver/firefox.js';
-import webdriverProxy from 'selenium-webdriver/proxy.js';
 import {Key} from 'selenium-webdriver/lib/input.js';
+import logging from 'selenium-webdriver/lib/logging.js';
 import until from 'selenium-webdriver/lib/until.js';
+import webdriverProxy from 'selenium-webdriver/proxy.js';
+import test from 'tape';
+import TestCls from 'tape/lib/test.js';
 import yargs from 'yargs';
 
 import * as DBDefs from '../root/static/scripts/common/DBDefs.mjs';
 import deepEqual from '../root/static/scripts/common/utility/deepEqual.js';
-import escapeRegExp from '../root/static/scripts/common/utility/escapeRegExp.mjs';
+import escapeRegExp
+  from '../root/static/scripts/common/utility/escapeRegExp.mjs';
 import writeCoverage from '../root/utility/writeCoverage.mjs';
+
+/*
+ * We can't run all of the Selenium tests concurrently
+ * because all tests share a database and Chrome driver
+ * so disabling no-await-in-loop for this file instead
+ */
+/* eslint-disable no-await-in-loop */
 
 const argv = yargs
   .option('b', {
@@ -80,11 +89,11 @@ function compareEditDataValues(actualValue, expectedValue) {
 
 TestCls.prototype.deepEqual2 = function (a, b, msg, extra) {
   this._assert(deepEqual(a, b, compareEditDataValues), {
-    message: defined(msg, 'should be equivalent'),
-    operator: 'deepEqual2',
     actual: a,
     expected: b,
     extra: extra,
+    message: defined(msg, 'should be equivalent'),
+    operator: 'deepEqual2',
   });
 };
 
@@ -305,6 +314,7 @@ const KEY_CODES = {
   '${KEY_HOME}': Key.HOME,
   '${KEY_SHIFT}': Key.SHIFT,
   '${KEY_TAB}': Key.TAB,
+  '${KEY_UP}': Key.ARROW_UP,
   '${MBS_ROOT}': DBDefs.MB_SERVER_ROOT.replace(/\/$/, ''),
 };
 
@@ -435,6 +445,15 @@ async function handleCommand({command, target, value}, t) {
     ' target=' + JSON.stringify(target) +
     ' value=' + JSON.stringify(value),
   ));
+
+  if (
+    typeof value === 'string' &&
+    value.startsWith('$$_EVAL_$$')
+  ) {
+    const valueScript = value.slice(10);
+    // eslint-disable-next-line require-atomic-updates
+    value = await driver.executeScript(`return (${valueScript})`);
+  }
 
   let element;
   switch (command) {
@@ -568,6 +587,7 @@ async function handleCommand({command, target, value}, t) {
       break;
 
     case 'sendKeys':
+      // eslint-disable-next-line require-atomic-updates
       value = value.split(/(\$\{[A-Z_]+\})/)
         .filter(x => x)
         .map(x => KEY_CODES[x] || x);
@@ -589,7 +609,10 @@ async function handleCommand({command, target, value}, t) {
        * selenium-webdriver 3.6.0
        */
       await element.clear();
-      await driver.executeScript('arguments[0].value = ""', element);
+      await driver.executeScript(
+        'window.MB.setInputValueForReact(arguments[0], "")',
+        element,
+      );
       await element.sendKeys(value);
       break;
 
@@ -609,6 +632,7 @@ async function handleCommand({command, target, value}, t) {
   return null;
 }
 
+/* eslint-disable sort-keys */
 const seleniumTests = [
   {name: 'Create_Account.json5'},
   {name: 'MBS-5387.json5', login: true},
@@ -618,9 +642,23 @@ const seleniumTests = [
   {name: 'MBS-9941.json5', login: true},
   {name: 'MBS-10188.json5', login: true, sql: 'mbs-10188.sql'},
   {name: 'MBS-10510.json5', login: true, sql: 'mbs-10510.sql'},
+  {name: 'MBS-11529.json5', login: true},
   {name: 'MBS-11730.json5', login: true},
   {name: 'MBS-11735.json5', login: true},
+  {name: 'MBS-12641.json5', login: true},
+  {name: 'MBS-12859.json5', login: true},
+  {name: 'MBS-12874.json5', login: true},
+  {name: 'MBS-12885.json5', login: true},
+  {name: 'MBS-12904.json5', login: true},
+  {
+    name: 'MBS-12911.json5',
+    login: true,
+    sql: 'vision_creation_newsun.sql',
+  },
+  {name: 'MBS-12921.json5', login: true},
+  {name: 'MBS-12922.json5', login: true},
   {name: 'Artist_Credit_Editor.json5', login: true},
+  {name: 'Autocomplete2.json5'},
   {name: 'CAA.json5', login: true},
   {name: 'External_Links_Editor.json5', login: true},
   {name: 'Work_Editor.json5', login: true},
@@ -655,10 +693,38 @@ const seleniumTests = [
     sql: 'duplicate_checker.sql',
   },
   {name: 'CD_Lookup.json5', login: true},
+  {name: 'CD_Stub_Search.json5', sql: 'cdstub_raw.sql'},
   {name: 'FilterForm.json5', sql: 'filtering.sql'},
+  {
+    name: 'Release_Relationship_Editor.json5',
+    login: true,
+    sql: 'vision_creation_newsun.sql',
+  },
+  {
+    name: 'Series_Relationship_Editor.json5',
+    login: true,
+  },
+  {
+    name: 'Artist_Edit_Form.json5',
+    login: true,
+  },
+  {
+    name: 'Event_Edit_Form.json5',
+    login: true,
+  },
+  {
+    name: 'Genre_Edit_Form.json5',
+    login: true,
+  },
+  {
+    name: 'Recording_Edit_Form.json5',
+    login: true,
+  },
 ];
+/* eslint-enable sort-keys */
 
-const testPath = name => path.resolve(DBDefs.MB_SERVER_ROOT, 't/selenium', name);
+const testPath =
+  name => path.resolve(DBDefs.MB_SERVER_ROOT, 't/selenium', name);
 
 seleniumTests.forEach(x => {
   x.path = testPath(x.name);
@@ -687,7 +753,7 @@ async function runCommands(commands, t) {
   await driver.manage().window().setRect({height: 768, width: 1024});
 
   for (let i = 0; i < commands.length; i++) {
-    let reqsCountBeforeCommand = reqsCount;
+    const reqsCountBeforeCommand = reqsCount;
 
     await handleCommand(commands[i], t);
 
@@ -740,13 +806,15 @@ async function runCommands(commands, t) {
 }
 
 (async function runTests() {
-  const TEST_TIMEOUT = 300000; // 300 seconds
+  const TEST_TIMEOUT = 480000; // 8 minutes
 
   async function cleanSeleniumDb(t, extraSql) {
     const startTime = new Date();
     await execFile(
       path.resolve(DBDefs.MB_SERVER_ROOT, 'script/reset_selenium_env.sh'),
-      extraSql ? [path.resolve(DBDefs.MB_SERVER_ROOT, 't/sql', extraSql)] : [],
+      extraSql
+        ? [path.resolve(DBDefs.MB_SERVER_ROOT, 't/sql', extraSql)]
+        : [],
     );
     const finishTime = new Date();
     const elapsedTime = (finishTime - startTime) / 1000;
@@ -812,6 +880,16 @@ async function runCommands(commands, t) {
             );
             throw error;
           } finally {
+            await driver.manage().logs().get(logging.Type.BROWSER)
+              .then(function (entries) {
+                entries.forEach(function (entry) {
+                  t.comment(
+                    '[browser console log] ' +
+                    `[${entry.level.name}] ${entry.message}`,
+                  );
+                });
+              });
+
             const finishTime = new Date();
             const elapsedTime = (finishTime - startTime) / 1000;
             t.comment(timePrefix(

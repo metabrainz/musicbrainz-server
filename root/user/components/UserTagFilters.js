@@ -7,9 +7,9 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import FormRow from '../../static/scripts/edit/components/FormRow.js';
+import InlineSubmitButton
+  from '../../static/scripts/edit/components/InlineSubmitButton.js';
 
 type PropsT = {
   +showDownvoted: boolean,
@@ -17,15 +17,6 @@ type PropsT = {
   +showVotesSelect?: boolean,
   +sortBy?: 'count' | 'countdesc' | 'name',
 };
-
-const InlineSubmitButton = (): React.Element<typeof React.Fragment> => (
-  <>
-    {' '}
-    <button type="submit">
-      {l('Submit')}
-    </button>
-  </>
-);
 
 const UserTagFilters = ({
   showDownvoted,

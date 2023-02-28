@@ -16,7 +16,7 @@ with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 sub edit_name { N_l('Add relationship attribute') }
 sub edit_kind { 'add' }
 sub edit_type { $EDIT_RELATIONSHIP_ADD_ATTRIBUTE }
-sub edit_template_react { 'AddRelationshipAttribute' }
+sub edit_template { 'AddRelationshipAttribute' }
 
 has '+data' => (
     isa => Dict[

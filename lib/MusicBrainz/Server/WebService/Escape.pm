@@ -1,4 +1,6 @@
 package MusicBrainz::Server::WebService::Escape;
+use strict;
+use warnings;
 
 use base 'Exporter';
 our @EXPORT_OK = qw( xml_escape );

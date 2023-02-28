@@ -2,6 +2,7 @@
 # Translators:
 # Alexander Dupuy <email address hidden>, 2012
 # Alfredo Briones <email address hidden>, 2016
+# Antonio Perea, 2022
 # 3b2b9b2970dff2223d07f096c7a072f3, 2011
 # Héctor Arroyo <email address hidden>, 2012
 # Mario Herrera <email address hidden>, 2020
@@ -18,7 +19,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "PO-Revision-Date: 2012-05-24 18:54+0000\n"
-"Last-Translator: Mario Herrera <eduardomariohs@gmail.com>, 2020\n"
+"Last-Translator: Antonio Perea, 2022\n"
 "Language-Team: Spanish (http://www.transifex.com/musicbrainz/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -358,7 +359,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2003-06-07
 msgid "Email verification"
-msgstr ""
+msgstr "Verificación de la dirección de correo electrónico"
 
 #: DB:statistics.statistic_event/description:2012-06-25
 msgid ""
@@ -441,11 +442,11 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2015-07-17
 msgid "Ian McEwen leaves MetaBrainz"
-msgstr ""
+msgstr "Ian McEwen abandona MetaBrainz"
 
 #: DB:statistics.statistic_event/description:2015-07-17
 msgid "Ian McEwen leaves the project for personal reasons."
-msgstr ""
+msgstr "Ian McEwen abandona el proyecto por motivos personales."
 
 #: DB:statistics.statistic_event/title:2009-06-17
 msgid "Imported CD Baby catalog as CD Stubs"
@@ -605,7 +606,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2005-04-19
 msgid "MetaBrainz launched"
-msgstr ""
+msgstr "MetaBrainz fue lanzado"
 
 #: DB:statistics.statistic_event/title:2016-11-08
 msgid "MetaBrainz projects complete move to European servers"
@@ -1047,7 +1048,7 @@ msgstr "Mejoras de usuario"
 
 #: DB:statistics.statistic_event/description:2003-06-07
 msgid "Users now have to verify their email address for editing."
-msgstr ""
+msgstr "Ahora los usuarios deben verificar su dirección de correo para poder editar."
 
 #: DB:statistics.statistic_event/description:2019-04-26
 msgid ""
@@ -1240,7 +1241,7 @@ msgstr "Última actualización: {date}"
 
 #: ../root/statistics/Countries.js:48 ../root/statistics/Editors.js:53
 #: ../root/statistics/Formats.js:55 ../root/statistics/LanguagesScripts.js:66
-#: ../root/statistics/LanguagesScripts.js:147
+#: ../root/statistics/LanguagesScripts.js:154
 msgid "Rank"
 msgstr "Posicición"
 
@@ -1256,7 +1257,7 @@ msgstr "Artistas"
 #: ../root/statistics/Countries.js:58 ../root/statistics/CoverArt.js:106
 #: ../root/statistics/Formats.js:57 ../root/statistics/Index.js:376
 #: ../root/statistics/LanguagesScripts.js:72
-#: ../root/statistics/LanguagesScripts.js:153 ../root/statistics/stats.js:664
+#: ../root/statistics/LanguagesScripts.js:160 ../root/statistics/stats.js:664
 msgid "Releases"
 msgstr "Publicaciones"
 
@@ -1424,7 +1425,7 @@ msgstr "Formato"
 
 #: ../root/statistics/Formats.js:58
 msgid "% of total releases"
-msgstr ""
+msgstr "% del total de lanzamientos"
 
 #: ../root/statistics/Formats.js:59 ../root/statistics/stats.js:529
 msgid "Mediums"
@@ -1624,7 +1625,7 @@ msgstr "Mujeres:"
 
 #: ../root/statistics/Index.js:327
 msgid "Non-binary"
-msgstr ""
+msgstr "No binario"
 
 #: ../root/statistics/Index.js:338
 msgid "Other gender:"
@@ -2036,19 +2037,19 @@ msgstr ""
 msgid "Languages"
 msgstr "Idiomas"
 
-#: ../root/statistics/LanguagesScripts.js:93
+#: ../root/statistics/LanguagesScripts.js:97
 msgid "Unknown language"
 msgstr "Idioma desconocido"
 
-#: ../root/statistics/LanguagesScripts.js:143
+#: ../root/statistics/LanguagesScripts.js:150
 msgid "Scripts"
 msgstr "Alfabetos"
 
-#: ../root/statistics/LanguagesScripts.js:149
+#: ../root/statistics/LanguagesScripts.js:156
 msgid "Script"
 msgstr "Alfabeto"
 
-#: ../root/statistics/LanguagesScripts.js:166
+#: ../root/statistics/LanguagesScripts.js:173
 msgid "Unknown script"
 msgstr "Alfabeto desconocido"
 

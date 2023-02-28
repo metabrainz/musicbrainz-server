@@ -25,7 +25,7 @@ sub edit_kind { 'edit' }
 sub edit_type { $EDIT_RELEASE_EDIT_COVER_ART }
 sub release_ids { shift->data->{entity}{id} }
 sub cover_art_id { shift->data->{id} }
-sub edit_template_react { 'EditCoverArt' }
+sub edit_template { 'EditCoverArt' }
 
 sub change_fields
 {

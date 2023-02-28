@@ -1,9 +1,12 @@
 package t::MusicBrainz::Server::Controller::WS::2::LookupRelease;
+use utf8;
+use strict;
+use warnings;
+
 use Test::Routine;
 
 with 't::Mechanize', 't::Context';
 
-use utf8;
 use MusicBrainz::Server::Test ws_test => {
     version => 2
 };
@@ -493,7 +496,7 @@ ws_test 'release lookup with release-group-level-rels and series-rels',
                     <attribute-list>
                         <attribute type-id="a59c5830-5ec7-38fe-9a21-c7ea54f6650a" value="1">number</attribute>
                     </attribute-list>
-                    <series id="d977f7fd-96c9-4e3e-83b5-eb484a9e6581" type="Release group" type-id="4c1c4949-7b6c-3a2d-9d54-a50a27e4fa77">
+                    <series id="d977f7fd-96c9-4e3e-83b5-eb484a9e6581" type="Release group series" type-id="4c1c4949-7b6c-3a2d-9d54-a50a27e4fa77">
                         <name>A Release Group Series</name>
                     </series>
                 </relation>

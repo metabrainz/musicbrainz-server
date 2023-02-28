@@ -11,9 +11,11 @@ import type {LinkedEntitiesT} from '../common/linkedEntities.mjs';
 
 export type CreditsModeT = 'bottom' | 'inline';
 
-export type ActionT =
-  | {+type: 'toggle-credits-mode'}
-  | {+medium: MediumWithRecordingsT, +type: 'toggle-medium'}
+export type LazyReleaseActionT =
+  | {
+      +medium: MediumWithRecordingsT,
+      +type: 'toggle-medium',
+    }
   | {
       +expanded: boolean,
       +mediums: $ReadOnlyArray<MediumWithRecordingsT>,
@@ -25,6 +27,10 @@ export type ActionT =
       +type: 'load-tracks',
     };
 
+export type ActionT =
+  | {+type: 'toggle-credits-mode'}
+  | LazyReleaseActionT;
+
 export type PropsT = {
   +initialCreditsMode: CreditsModeT,
   +initialLinkedEntities: $ReadOnly<$Partial<LinkedEntitiesT>>,
@@ -32,8 +38,16 @@ export type PropsT = {
   +release: ReleaseWithMediumsT,
 };
 
-export type StateT = {
-  +creditsMode: CreditsModeT,
-  +expandedMediums: Map<number, boolean>,
-  +loadedTracks: Map<number, $ReadOnlyArray<TrackWithRecordingT>>,
+export type LoadedTracksMapT =
+  $ReadOnlyMap<number, $ReadOnlyArray<TrackWithRecordingT>>;
+
+export type LazyReleaseStateT = {
+  +expandedMediums: $ReadOnlyMap<number, boolean>,
+  +loadedTracks: LoadedTracksMapT,
+  ...
 };
+
+export type StateT = $ReadOnly<{
+  +creditsMode: CreditsModeT,
+  ...$Exact<LazyReleaseStateT>,
+}>;

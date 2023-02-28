@@ -5,6 +5,7 @@ plugins:
   - react
   - flowtype
   - react-hooks
+  - simple-import-sort
 
 env:
   browser: true
@@ -24,6 +25,7 @@ globals:
   MUSICBRAINZ_RUNNING_TESTS: readonly
   addColon: readonly
   addColonText: readonly
+  empty: readonly
   hasOwnProp: readonly
   hydrate: readonly
   hyphenateTitle: readonly

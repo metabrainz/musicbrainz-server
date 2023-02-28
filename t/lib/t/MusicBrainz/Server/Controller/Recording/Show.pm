@@ -1,4 +1,7 @@
 package t::MusicBrainz::Server::Controller::Recording::Show;
+use strict;
+use warnings;
+
 use Test::Routine;
 use MusicBrainz::Server::Test qw( html_ok page_test_jsonld );
 
@@ -35,7 +38,7 @@ $mech->content_contains('Test annotation 3', 'has annotation');
 page_test_jsonld $mech => {
     'isrcCode' => 'DEE250800231',
     '@id' => 'http://musicbrainz.org/recording/123c079d-374e-4436-9448-da92dedef3ce',
-    '@context' => 'http://schema.org',
+    '@context' => 'https://schema.org/docs/jsonldcontext.json',
     '@type' => 'MusicRecording',
     'sameAs' => 'http://musicbrainz.org/recording/0986e67c-6b7a-40b7-b4ba-c9d7583d6426',
     'name' => 'Dancing Queen',
@@ -54,7 +57,7 @@ test 'Embedded JSON-LD' => sub {
     $mech->get_ok('/recording/6b517117-8b98-463b-9457-f8e3a08d1f49', 'fetch dancing queen recording');
 
     page_test_jsonld $mech => {
-        '@context' => 'http://schema.org',
+        '@context' => 'https://schema.org/docs/jsonldcontext.json',
         '@id' => 'http://musicbrainz.org/recording/6b517117-8b98-463b-9457-f8e3a08d1f49',
         '@type' => 'MusicRecording',
         'contributor' => [

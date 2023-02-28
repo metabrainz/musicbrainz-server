@@ -1,5 +1,5 @@
 /*
- * @flow strict-local
+ * @flow strict
  * Copyright (C) 2020 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -32,10 +32,7 @@ const RemoveDiscId = ({edit}: Props): React.Element<'table'> => {
       <tr>
         <th>{l('Disc ID:')}</th>
         <td>
-          <CDTocLink
-            cdToc={cdToc}
-            content={cdToc.discid}
-          />
+          <CDTocLink cdToc={cdToc} />
         </td>
       </tr>
     </table>

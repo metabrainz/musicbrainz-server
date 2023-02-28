@@ -1,4 +1,7 @@
 package t::MusicBrainz::Server::Controller::Area::Show;
+use strict;
+use warnings;
+
 use Test::Routine;
 use MusicBrainz::Server::Test qw( html_ok page_test_jsonld );
 
@@ -26,7 +29,7 @@ test 'Basic area data appears on JSON-LD' => sub {
 
     page_test_jsonld $mech => {
         '@id' => 'http://musicbrainz.org/area/3f179da4-83c6-4a28-a627-e46b4a8ff1ed',
-        '@context' => 'http://schema.org',
+        '@context' => 'https://schema.org/docs/jsonldcontext.json',
         'name' => 'Sydney',
         '@type' => 'City',
         'containedIn' => {

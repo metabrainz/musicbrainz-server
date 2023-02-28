@@ -23,7 +23,7 @@ sub edit_name     { N_l('Add release') }
 sub edit_kind     { 'add' }
 sub historic_type { 16 }
 sub edit_type     { $EDIT_HISTORIC_ADD_RELEASE }
-sub edit_template_react { 'historic/AddRelease' }
+sub edit_template { 'historic/AddRelease' }
 
 sub _recording_ids
 {

@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2022 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -12,9 +12,9 @@ import * as React from 'react';
 import ENTITIES from '../../entities.mjs';
 import PaginatedResults from '../components/PaginatedResults.js';
 import * as manifest from '../static/manifest.mjs';
-import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
 import AnnotationHistoryTable
   from '../static/scripts/annotation/AnnotationHistoryTable.js';
+import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
 import chooseLayoutComponent from '../utility/chooseLayoutComponent.js';
 
 type AnnotationHistoryProps = {

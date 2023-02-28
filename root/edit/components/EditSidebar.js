@@ -1,5 +1,5 @@
 /*
- * @flow strict-local
+ * @flow strict
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -18,8 +18,8 @@ import {
 } from '../../layout/components/sidebar/SidebarProperties.js';
 import {
   getEditExpireAction,
-  getEditStatusName,
   getEditStatusDescription,
+  getEditStatusName,
 } from '../../utility/edit.js';
 import formatUserDate from '../../utility/formatUserDate.js';
 

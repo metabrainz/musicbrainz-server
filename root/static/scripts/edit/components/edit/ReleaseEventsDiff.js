@@ -1,5 +1,5 @@
 /*
- * @flow strict-local
+ * @flow strict
  * Copyright (C) 2019 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -9,15 +9,15 @@
 
 import * as React from 'react';
 
+import EntityLink from '../../../common/components/EntityLink.js';
 import {l} from '../../../common/i18n.js';
 import {keyBy} from '../../../common/utility/arrays.js';
 import formatDate from '../../../common/utility/formatDate.js';
 import {
-  INSERT,
-  DELETE,
   CLASS_MAP,
+  DELETE,
+  INSERT,
 } from '../../utility/editDiff.js';
-import EntityLink from '../../../common/components/EntityLink.js';
 
 function areReleaseCountriesEqual(a: ReleaseEventT, b: ReleaseEventT) {
   return !!(

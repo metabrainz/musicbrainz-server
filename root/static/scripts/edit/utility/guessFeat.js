@@ -6,20 +6,26 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import $ from 'jquery';
 import balanced from 'balanced-match';
+import $ from 'jquery';
+
+import '../../common/entity.js';
 
 import {MIN_NAME_SIMILARITY} from '../../common/constants.js';
 import MB from '../../common/MB.js';
 import {last} from '../../common/utility/arrays.js';
 import clean from '../../common/utility/clean.js';
 import {cloneArrayDeep} from '../../common/utility/cloneDeep.mjs';
+import setInputValueForReact
+  from '../../common/utility/setInputValueForReact.mjs';
 
 import {
   fromFullwidthLatin,
   hasFullwidthLatin,
   toFullwidthLatin,
 } from './fullwidthLatin.js';
+import getRelatedArtists from './getRelatedArtists.js';
+import isEntityProbablyClassical from './isEntityProbablyClassical.js';
 import getSimilarity from './similarity.js';
 
 /* eslint-disable sort-keys */
@@ -204,18 +210,22 @@ function expandCredit(fullName, artists, isProbablyClassical) {
 export default function guessFeat(entity) {
   const name = entity.name();
 
-  if (!nonEmpty(name)) {
+  if (empty(name)) {
     // Nothing to guess from an empty name
     return;
   }
 
   let relatedArtists = entity.relatedArtists;
-  if (typeof relatedArtists === 'function') {
+  if (relatedArtists == null) {
+    relatedArtists = getRelatedArtists(entity.relationships);
+  } else if (typeof relatedArtists === 'function') {
     relatedArtists = relatedArtists.call(entity);
   }
 
   let isProbablyClassical = entity.isProbablyClassical;
-  if (typeof isProbablyClassical === 'function') {
+  if (isProbablyClassical == null) {
+    isProbablyClassical = isEntityProbablyClassical(entity);
+  } else if (typeof isProbablyClassical === 'function') {
     isProbablyClassical = isProbablyClassical.call(entity);
   }
 
@@ -248,8 +258,9 @@ export default function guessFeat(entity) {
 
 // For use outside of the release editor.
 MB.Control.initGuessFeatButton = function (formName) {
+  const source = MB.getSourceEntityInstance();
   const augmentedEntity = Object.assign(
-    Object.create(MB.sourceRelationshipEditor.source),
+    Object.create(source),
     {
       /*
        * Emulate an observable that just reads/writes
@@ -258,22 +269,11 @@ MB.Control.initGuessFeatButton = function (formName) {
       name: function () {
         const nameInput = document.getElementById('id-' + formName + '.name');
         if (arguments.length) {
-          // XXX Allows React to see the input value change.
-          Object.getOwnPropertyDescriptor(
-            window.HTMLInputElement.prototype,
-            'value',
-          ).set.call(nameInput, arguments[0]);
-          nameInput.dispatchEvent(new Event('input', {bubbles: true}));
+          setInputValueForReact(nameInput, arguments[0]);
           return undefined;
         }
         return nameInput.value;
       },
-      /*
-       * Confusingly, the artistCredit object used to generated hidden input
-       * fields is also different from MB.sourceRelationshipEditor.source's,
-       * so we have to replace this field too.
-       */
-      artistCredit: MB.sourceEntity.artistCredit,
     },
   );
 

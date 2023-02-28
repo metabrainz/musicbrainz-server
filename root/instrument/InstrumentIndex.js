@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2019 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -9,13 +9,13 @@
 
 import * as React from 'react';
 
+import * as manifest from '../static/manifest.mjs';
 import Annotation from '../static/scripts/common/components/Annotation.js';
 import Relationships
   from '../static/scripts/common/components/Relationships.js';
 import WikipediaExtract
   from '../static/scripts/common/components/WikipediaExtract.js';
 import expand2react from '../static/scripts/common/i18n/expand2react.js';
-import * as manifest from '../static/manifest.mjs';
 
 import InstrumentLayout from './InstrumentLayout.js';
 

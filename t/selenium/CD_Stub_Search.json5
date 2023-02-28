@@ -1,0 +1,15 @@
+{
+  title: 'CD Stub Search',
+  commands: [
+    {
+      command: 'open',
+      target: '/search?query=Test&type=cdstub&method=indexed',
+      value: '',
+    },
+    {
+      command: 'assertEval',
+      target: "window.document.querySelector('table.tbl').innerText",
+      value: 'CD Stub\tArtist\tTracks\nTest Stub\tTest Artist\t2',
+    },
+  ],
+}

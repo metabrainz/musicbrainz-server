@@ -3,6 +3,7 @@
 <PROJECT_ROOT>/.nyc_output/.*
 <PROJECT_ROOT>/coverage/.*
 <PROJECT_ROOT>/lib/.*
+<PROJECT_ROOT>/node_modules/resolve/test/resolver/malformed_package_json/package.json
 <PROJECT_ROOT>/root/static/build/.*
 <PROJECT_ROOT>/perl_modules/.*
 <PROJECT_ROOT>/t/.*
@@ -15,13 +16,11 @@
 ./root/vars.js
 
 [lints]
+unnecessary-invariant=error
 
 [options]
 autoimports=true
 exact_by_default=true
-experimental.enforce_local_inference_annotations=true
-experimental.enforce_this_annotations=true
-experimental.enforce_class_annotations=true
 format.bracket_spacing=false
 format.single_quotes=true
 inference_mode=constrain_writes

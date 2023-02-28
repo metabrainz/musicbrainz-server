@@ -588,6 +588,13 @@ msgid ""
 "were released in the format in the early 00s."
 msgstr ""
 
+#: DB:medium_format/description:131
+msgctxt "medium_format"
+msgid ""
+"A video format used in the 1980s and 90s for professional work, including "
+"television and video archival."
+msgstr ""
+
 #: DB:work_type/description:19
 msgctxt "work_type"
 msgid ""
@@ -1385,6 +1392,11 @@ msgstr ""
 #: DB:work_attribute_type_allowed_value/value:328
 msgctxt "work_attribute_type_allowed_value"
 msgid "Bestenigar"
+msgstr ""
+
+#: DB:medium_format/name:131
+msgctxt "medium_format"
+msgid "Betacam SP"
 msgstr ""
 
 #: DB:medium_format/name:24
@@ -2266,6 +2278,11 @@ msgstr ""
 #: DB:release_packaging/name:17
 msgctxt "release_packaging"
 msgid "Digibook"
+msgstr ""
+
+#: DB:release_packaging/name:89
+msgctxt "release_packaging"
+msgid "Digifile"
 msgstr ""
 
 #: DB:release_packaging/name:3
@@ -3800,6 +3817,11 @@ msgstr ""
 #: DB:work_attribute_type/description:42
 msgctxt "work_attribute_type"
 msgid "ID for the Venezuelan rights society SACVEN"
+msgstr ""
+
+#: DB:work_attribute_type/description:107
+msgctxt "work_attribute_type"
+msgid "ID for the Vietnamese rights society VCPMC"
 msgstr ""
 
 #: DB:work_attribute_type/description:38
@@ -5666,6 +5688,11 @@ msgstr "Overturë"
 #: DB:editor_collection_type/name:2
 msgctxt "collection_type"
 msgid "Owned music"
+msgstr ""
+
+#: DB:editor_collection_type/name:17
+msgctxt "collection_type"
+msgid "Owned recordings"
 msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:762
@@ -7536,6 +7563,11 @@ msgstr ""
 msgctxt "medium_format"
 msgid "VCD"
 msgstr "VCD"
+
+#: DB:work_attribute_type/name:107
+msgctxt "work_attribute_type"
+msgid "VCPMC ID"
+msgstr ""
 
 #: DB:medium_format/name:59
 msgctxt "medium_format"

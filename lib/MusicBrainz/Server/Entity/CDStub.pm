@@ -4,6 +4,7 @@ use Moose;
 use MusicBrainz::Server::Data::Utils qw( datetime_to_iso8601 );
 use MusicBrainz::Server::Entity::Barcode;
 use MusicBrainz::Server::Entity::Types;
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 use MusicBrainz::Server::Types qw( DateTime );
 
 use namespace::autoclean;
@@ -124,11 +125,18 @@ around TO_JSON => sub {
     $json->{date_added} = datetime_to_iso8601($self->date_added);
     $json->{discid} = $self->discid;
     $json->{last_modified} = datetime_to_iso8601($self->last_modified);
+    $json->{leadout_offset} = $self->leadout_offset
+        ? 0 + $self->leadout_offset
+        : undef;
     $json->{lookup_count} = $self->lookup_count;
     $json->{modify_count} = $self->modify_count;
     $json->{title} = $self->title;
     $json->{toc} = $self->track_offset ? $self->toc : undef;
     $json->{track_count} = $self->track_count;
+    $json->{track_offset} = $self->track_offset
+        ? [map { 0 + $_ } @{ $self->track_offset }]
+        : undef;
+    $json->{tracks} = to_json_array($self->tracks);
 
     return $json;
 };

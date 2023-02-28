@@ -17,9 +17,11 @@ use aliased 'MusicBrainz::Server::Entity::PartialDate';
 use MusicBrainz::Server::Entity::Recording;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 
-extends 'MusicBrainz::Server::Data::CoreEntity';
+extends 'MusicBrainz::Server::Data::Entity';
+with 'MusicBrainz::Server::Data::Role::Relatable';
+with 'MusicBrainz::Server::Data::Role::Name';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'recording' };
-with 'MusicBrainz::Server::Data::Role::CoreEntityCache';
+with 'MusicBrainz::Server::Data::Role::GIDEntityCache';
 with 'MusicBrainz::Server::Data::Role::DeleteAndLog' => { type => 'recording' };
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'recording' };
 with 'MusicBrainz::Server::Data::Role::Rating' => { type => 'recording' };

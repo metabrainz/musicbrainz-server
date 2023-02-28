@@ -1,6 +1,8 @@
 package MusicBrainz::Server::Form::Role::CSRFToken;
-
 use utf8;
+use strict;
+use warnings;
+
 use HTML::FormHandler::Moose::Role;
 use MusicBrainz::Server::Translation qw( l N_l );
 

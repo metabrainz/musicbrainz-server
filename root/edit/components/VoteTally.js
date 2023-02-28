@@ -8,8 +8,8 @@
  */
 
 import {
-  EDIT_VOTE_YES,
   EDIT_VOTE_NO,
+  EDIT_VOTE_YES,
 } from '../../constants.js';
 
 function countVotes(

@@ -1,5 +1,5 @@
 /*
- * @flow strict-local
+ * @flow strict
  * Copyright (C) 2021 Jerome Roy
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -12,9 +12,9 @@ import * as React from 'react';
 import PaginatedResults from '../../components/PaginatedResults.js';
 import Table from '../../components/Table.js';
 import {
+  defineArtistCreditColumn,
   defineCDTocColumn,
   defineEntityColumn,
-  defineArtistCreditColumn,
 } from '../../utility/tableColumns.js';
 import type {ReportCDTocReleaseT} from '../types.js';
 

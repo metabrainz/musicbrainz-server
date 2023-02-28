@@ -1,5 +1,5 @@
 /*
- * @flow strict-local
+ * @flow strict
  * Copyright (C) 2015 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -10,9 +10,6 @@
 import * as React from 'react';
 
 import {CatalystContext} from '../context.mjs';
-import {age} from '../utility/age.js';
-import {formatUserDateObject} from '../utility/formatUserDate.js';
-import getRequestCookie from '../utility/getRequestCookie.mjs';
 import {RT_MIRROR} from '../static/scripts/common/constants.js';
 import DBDefs from '../static/scripts/common/DBDefs.mjs';
 import parseDate from '../static/scripts/common/utility/parseDate.js';
@@ -20,10 +17,13 @@ import {
   isAddingNotesDisabled,
   isEditingDisabled,
 } from '../static/scripts/common/utility/privileges.js';
+import {age} from '../utility/age.js';
+import {formatUserDateObject} from '../utility/formatUserDate.js';
+import getRequestCookie from '../utility/getRequestCookie.mjs';
 
 import Footer from './components/Footer.js';
-import Header from './components/Header.js';
 import Head, {type HeadProps} from './components/Head.js';
+import Header from './components/Header.js';
 import MergeHelper from './components/MergeHelper.js';
 
 const DismissBannerButton = ({bannerName}: {+bannerName: string}) => (
@@ -162,7 +162,7 @@ export type Props = $ReadOnly<{
 const Layout = ({
   children,
   fullWidth = false,
-  homepage = false,
+  isHomepage = false,
   noIcons,
   pager,
   title,
@@ -183,7 +183,7 @@ const Layout = ({
   return (
     <html lang={$c.stash.current_language_html}>
       <Head
-        homepage={homepage}
+        isHomepage={isHomepage}
         noIcons={noIcons}
         pager={pager}
         title={title}
@@ -296,7 +296,7 @@ const Layout = ({
 
         <div
           className={(fullWidth ? 'fullwidth ' : '') +
-            (homepage ? 'homepage' : '')}
+            (isHomepage ? 'homepage' : '')}
           id="page"
         >
           {children}

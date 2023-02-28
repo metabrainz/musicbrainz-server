@@ -1,4 +1,6 @@
 package MusicBrainz::Script::Utils;
+use strict;
+use warnings;
 
 use feature 'state';
 

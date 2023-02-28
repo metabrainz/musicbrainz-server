@@ -30,7 +30,7 @@ import SidebarEndDate from './SidebarEndDate.js';
 import SidebarIpis from './SidebarIpis.js';
 import SidebarIsnis from './SidebarIsnis.js';
 import SidebarLicenses from './SidebarLicenses.js';
-import {SidebarProperty, SidebarProperties} from './SidebarProperties.js';
+import {SidebarProperties, SidebarProperty} from './SidebarProperties.js';
 import SidebarRating from './SidebarRating.js';
 import SidebarTags from './SidebarTags.js';
 import SidebarType from './SidebarType.js';

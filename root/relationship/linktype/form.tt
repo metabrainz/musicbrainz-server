@@ -69,8 +69,8 @@
     [% IF form.isa('MusicBrainz::Server::Form::Admin::LinkType::Edit') %]
     <fieldset>
         <legend>[% l('Examples') %]</legend>
-        <span data-bind="if: MB.ExampleRelationshipsEditor.viewModel.examples().length > 0">
-            <span data-bind="foreach: MB.ExampleRelationshipsEditor.viewModel.examples">
+        <div data-bind="if: MB.ExampleRelationshipsEditor.viewModel.examples().length > 0">
+            <div data-bind="foreach: MB.ExampleRelationshipsEditor.viewModel.examples">
                 [% WRAPPER form_row %]
                     <label class="required"
                            data-bind="attr: { for: examplePrefix($index(), 'name') }">
@@ -91,16 +91,16 @@
                     <a data-bind="text: target.name, attr: { href: '[% c.uri_for("/${link_type.entity1_type}/") %]' + target.mbid }"></a>
                 </div>
                 [% END %]
-            </span>
-        </span>
+            </div>
+        </div>
 
-        <span data-bind="if: MB.ExampleRelationshipsEditor.viewModel.examples().length == 0">
+        <div data-bind="if: MB.ExampleRelationshipsEditor.viewModel.examples().length == 0">
             [% WRAPPER form_row %]
                 <div class="no-label">
                     [% l('This relationship type does not have any examples.') %]
                 </div>
             [% END %]
-        </span>
+        </div>
 
         <h3>[% l('Add a New Example') %]</h3>
         [% WRAPPER form_row %]
@@ -131,7 +131,7 @@
             <span class="error" data-bind="text: currentExample.possibleRelationships.error"></span>
         </div>
 
-        <span data-bind="if: currentExample.possibleRelationships.results().length">
+        <div data-bind="if: currentExample.possibleRelationships.results().length">
         [% WRAPPER form_row %]
             <div class="no-label">
                 <ul data-bind="foreach: currentExample.possibleRelationships.results">
@@ -146,7 +146,7 @@
                 </ul>
             </div>
         [% END %]
-        </span>
+        </div>
 
         [% WRAPPER form_row %]
             <div class="no-label">

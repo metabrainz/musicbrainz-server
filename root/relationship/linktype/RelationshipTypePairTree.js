@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict
  * Copyright (C) 2020 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -21,8 +21,8 @@ import formatEntityTypeName
   from '../../static/scripts/common/utility/formatEntityTypeName.js';
 import {isRelationshipEditor}
   from '../../static/scripts/common/utility/privileges.js';
-import compareChildren from '../utility/compareChildren.js';
 import RelationshipsHeader from '../RelationshipsHeader.js';
+import compareChildren from '../utility/compareChildren.js';
 
 type RelationshipTypeDetailsProps = {
   +relType: LinkTypeT,

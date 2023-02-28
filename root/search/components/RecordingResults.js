@@ -1,5 +1,5 @@
 /*
- * @flow strict-local
+ * @flow strict
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -11,6 +11,8 @@ import * as React from 'react';
 
 import {CatalystContext} from '../../context.mjs';
 import * as manifest from '../../static/manifest.mjs';
+import ArtistCreditLink
+  from '../../static/scripts/common/components/ArtistCreditLink.js';
 import EntityLink from '../../static/scripts/common/components/EntityLink.js';
 import IsrcList from '../../static/scripts/common/components/IsrcList.js';
 import TaggerIcon from '../../static/scripts/common/components/TaggerIcon.js';
@@ -24,8 +26,6 @@ import type {
   ResultsPropsT,
   SearchResultT,
 } from '../types.js';
-import ArtistCreditLink
-  from '../../static/scripts/common/components/ArtistCreditLink.js';
 
 import PaginatedSearchResults from './PaginatedSearchResults.js';
 import ResultsLayout from './ResultsLayout.js';

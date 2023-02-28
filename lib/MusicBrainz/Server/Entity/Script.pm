@@ -4,11 +4,7 @@ use Moose;
 use MusicBrainz::Server::Translation::Scripts qw( l );
 
 extends 'MusicBrainz::Server::Entity';
-
-has 'name' => (
-    is => 'rw',
-    isa => 'Str'
-);
+with 'MusicBrainz::Server::Entity::Role::Name';
 
 sub l_name {
     my $self = shift;
@@ -34,7 +30,6 @@ around TO_JSON => sub {
     my ($orig, $self) = @_;
 
     my $json = $self->$orig;
-    $json->{name} = $self->name;
     $json->{iso_code} = $self->iso_code;
     $json->{iso_number} = $self->iso_number;
     $json->{frequency} = $self->frequency;

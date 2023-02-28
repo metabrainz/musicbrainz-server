@@ -8,24 +8,27 @@
  */
 
 import $ from 'jquery';
-import ko from 'knockout';
+import ko, {
+  type Observable as KnockoutObservable,
+  type ObservableArray as KnockoutObservableArray,
+} from 'knockout';
 import mutate from 'mutate-cow';
 // $FlowIgnore[missing-export]
 import {flushSync} from 'react-dom';
 import * as ReactDOMClient from 'react-dom/client';
-import {createStore} from 'redux';
+import {legacy_createStore as createStore} from 'redux';
 
+import {LANGUAGE_MUL_ID, LANGUAGE_ZXX_ID} from '../common/constants.js';
 import {groupBy} from '../common/utility/arrays.js';
 import getScriptArgs from '../common/utility/getScriptArgs.js';
 import FormRowSelectList from '../edit/components/FormRowSelectList.js';
 import {buildOptionsTree} from '../edit/forms.js';
-import typeBubble from '../edit/typeBubble.js';
 import {initializeBubble} from '../edit/MB/Control/Bubble.js';
-import {createCompoundField} from '../edit/utility/createField.js';
+import typeBubble from '../edit/typeBubble.js';
+import {createCompoundFieldFromObject} from '../edit/utility/createField.js';
 import {pushCompoundField, pushField} from '../edit/utility/pushField.js';
 import subfieldErrors from '../edit/utility/subfieldErrors.js';
 import {initializeGuessCase} from '../guess-case/MB/Control/GuessCase.js';
-import {LANGUAGE_MUL_ID, LANGUAGE_ZXX_ID} from '../common/constants.js';
 
 const scriptArgs = getScriptArgs();
 
@@ -103,19 +106,19 @@ function removeLanguageFromState(form: WorkForm, i: number): WorkForm {
 class WorkAttribute {
   allowedValues: () => OptionListT;
 
-  attributeValue: KnockoutObservable<string>;
+  attributeValue: KnockoutObservable<?StrOrNum>;
 
   errors: KnockoutObservableArray<string>;
 
   parent: ViewModel;
 
-  previousTypeID: number | null;
+  previousTypeID: ?StrOrNum;
 
-  previousValue: string | null;
+  previousValue: ?StrOrNum;
 
   typeHasFocus: KnockoutObservable<boolean>;
 
-  typeID: KnockoutObservable<number>;
+  typeID: KnockoutObservable<?StrOrNum>;
 
   constructor(
     data: WorkAttributeField,
@@ -166,7 +169,7 @@ class WorkAttribute {
     });
   }
 
-  allowsFreeText(typeID: number | null): boolean {
+  allowsFreeText(typeID: ?StrOrNum): boolean {
     return !typeID ||
       this.parent.attributeTypesByID[typeID].free_text;
   }
@@ -232,7 +235,7 @@ class ViewModel {
     const attributesField = form.field.attributes;
     const fieldName = attributesField.html_name + '.' +
       String(attributesField.field.length);
-    const attr = new WorkAttribute(createCompoundField(fieldName, {
+    const attr = new WorkAttribute(createCompoundFieldFromObject(fieldName, {
       type_id: null,
       value: null,
     }), this);

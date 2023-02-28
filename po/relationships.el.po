@@ -78,6 +78,14 @@ msgstr "Allmusic"
 msgid "Allmusic page for"
 msgstr "Σελίδα του Allmusic για"
 
+#: DB:link_type/link_phrase:1131 DB:link_type/link_phrase:1130
+msgid "Apple Music"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:1131 DB:link_type/reverse_link_phrase:1130
+msgid "Apple Music page for"
+msgstr ""
+
 #: DB:link_type/link_phrase:190
 msgid "BBC Music"
 msgstr "BBC Music"
@@ -1480,6 +1488,18 @@ msgid ""
 "degree."
 msgstr ""
 
+#: DB:link_type/description:1097
+msgid ""
+"This indicates that a genre has influences of another, but is not connected "
+"to it enough to be a subgenre of it."
+msgstr ""
+
+#: DB:link_type/description:1096
+msgid ""
+"This indicates that a genre originated as a hybrid of two or more other "
+"genres."
+msgstr ""
+
 #: DB:link_type/description:305
 msgid "This indicates that a person is, or was, a conductor for a group."
 msgstr ""
@@ -1602,6 +1622,12 @@ msgid ""
 "happening on multiple venues over the course of a few days)."
 msgstr ""
 
+#: DB:link_type/description:739
+msgid ""
+"This indicates that an instrument (often an ensemble or family) consists of "
+"two or more other instruments."
+msgstr ""
+
 #: DB:link_type/description:916
 msgid ""
 "This indicates that an instrument is a hybrid of two or more other "
@@ -1677,6 +1703,12 @@ msgid ""
 "sing on top of, and as such the lyrics info is still relevant. It might "
 "still contain backing vocals and other sections that would not be present in"
 " a true instrumental recording."
+msgstr ""
+
+#: DB:link_type/description:738
+msgid ""
+"This indicates that two instruments are related in a way not covered by "
+"other, more specific relationships."
 msgstr ""
 
 #: DB:link_type/description:973
@@ -2169,6 +2201,10 @@ msgstr ""
 msgid "This links a genre to its page at Bandcamp."
 msgstr ""
 
+#: DB:link_type/description:1095
+msgid "This links a genre to its subgenres."
+msgstr ""
+
 #: DB:link_type/description:855
 msgid ""
 "This links a group (often an orchestra) to a composer who has a composer-in-"
@@ -2189,6 +2225,10 @@ msgstr ""
 msgid ""
 "This links a label to a site where the label can receive "
 "donations/patronage, such as Flattr or PayPal.me."
+msgstr ""
+
+#: DB:link_type/description:1130
+msgid "This links a label to its page at Apple Music."
 msgstr ""
 
 #: DB:link_type/description:719
@@ -2515,6 +2555,10 @@ msgstr ""
 msgid "This links an artist to its channel at YouTube Music."
 msgstr ""
 
+#: DB:link_type/description:1131
+msgid "This links an artist to its page at Apple Music."
+msgstr ""
+
 #: DB:link_type/description:718
 msgid "This links an artist to its page at Bandcamp."
 msgstr ""
@@ -2616,6 +2660,14 @@ msgstr ""
 msgid ""
 "This links an event to the relevant crowdfunding project at a crowdfunding "
 "site like Kickstarter or Indiegogo."
+msgstr ""
+
+#: DB:link_type/description:737
+msgid "This links an instrument to an older instrument that it was based on."
+msgstr ""
+
+#: DB:link_type/description:736
+msgid "This links an instrument to more specific subtypes of it."
 msgstr ""
 
 #: DB:link_type/description:111
@@ -3553,6 +3605,10 @@ msgstr ""
 msgid "appears on video"
 msgstr ""
 
+#: DB:link_type/name:1131 DB:link_type/name:1130
+msgid "apple music"
+msgstr ""
+
 #: DB:link_type/name:866 DB:link_type/name:865 DB:link_type/name:886
 #: DB:link_type/reverse_link_phrase:866 DB:link_type/reverse_link_phrase:865
 msgid "arranged at"
@@ -3846,12 +3902,12 @@ msgstr ""
 msgid "collaboration"
 msgstr ""
 
-#: DB:link_type/link_phrase:891 DB:link_type/link_phrase:890
-#: DB:link_type/link_phrase:889 DB:link_type/link_phrase:892
-#: DB:link_type/name:891 DB:link_type/name:890 DB:link_type/name:889
-#: DB:link_type/name:892 DB:link_type/long_link_phrase:891
-#: DB:link_type/long_link_phrase:890 DB:link_type/long_link_phrase:889
-#: DB:link_type/long_link_phrase:892
+#: DB:link_type/link_phrase:890 DB:link_type/link_phrase:889
+#: DB:link_type/link_phrase:892 DB:link_type/link_phrase:891
+#: DB:link_type/name:890 DB:link_type/name:889 DB:link_type/name:892
+#: DB:link_type/name:891 DB:link_type/long_link_phrase:890
+#: DB:link_type/long_link_phrase:889 DB:link_type/long_link_phrase:892
+#: DB:link_type/long_link_phrase:891
 msgid "commissioned"
 msgstr ""
 
@@ -4020,8 +4076,7 @@ msgstr "εξώφυλλο για"
 msgid "cover art link"
 msgstr ""
 
-#: DB:link_type/name:12 DB:link_type/name:4 DB:link_type/name:233
-#: DB:link_type/long_link_phrase:12
+#: DB:link_type/name:12 DB:link_type/name:4 DB:link_type/long_link_phrase:12
 msgid "covers and versions"
 msgstr "διασκευές και εκδόσεις"
 
@@ -4097,7 +4152,7 @@ msgstr ""
 msgid "derivations"
 msgstr ""
 
-#: DB:link_type/description:737 DB:link_type/reverse_link_phrase:737
+#: DB:link_type/reverse_link_phrase:737
 msgid "derived from"
 msgstr ""
 
@@ -4373,6 +4428,10 @@ msgstr ""
 msgid "from"
 msgstr ""
 
+#: DB:link_type/link_phrase:1096 DB:link_type/name:1096
+msgid "fusion of"
+msgstr ""
+
 #: DB:link_type/name:1088
 msgid "genre origin"
 msgstr ""
@@ -4474,6 +4533,10 @@ msgstr ""
 #: DB:link_type/long_link_phrase:77
 msgid "has Amazon ASIN"
 msgstr "έχει Amazon ASIN"
+
+#: DB:link_type/long_link_phrase:1131 DB:link_type/long_link_phrase:1130
+msgid "has Apple Music page at"
+msgstr ""
 
 #: DB:link_type/long_link_phrase:1092 DB:link_type/long_link_phrase:718
 #: DB:link_type/long_link_phrase:719
@@ -4728,12 +4791,20 @@ msgstr "έχει εξώφυλλο στο"
 msgid "has derived instrument"
 msgstr ""
 
+#: DB:link_type/reverse_link_phrase:1096
+msgid "has fusion genres"
+msgstr ""
+
 #: DB:link_type/reverse_link_phrase:916
 msgid "has hybrids"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:725
 msgid "has imprint"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:1097
+msgid "has influences of"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:984 DB:link_type/long_link_phrase:211
@@ -4754,7 +4825,7 @@ msgid "has orchestration"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:739 DB:link_type/long_link_phrase:717
-#: DB:link_type/long_link_phrase:281 DB:link_type/long_link_phrase:356
+#: DB:link_type/long_link_phrase:356 DB:link_type/long_link_phrase:281
 msgid "has part"
 msgstr ""
 
@@ -4787,6 +4858,10 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:729
 msgid "has show notes at"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:1095
+msgid "has subgenre"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:823
@@ -4892,6 +4967,14 @@ msgstr ""
 msgid "includes"
 msgstr ""
 
+#: DB:link_type/link_phrase:1097 DB:link_type/name:1097
+msgid "influenced by"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:1097
+msgid "influenced genres"
+msgstr ""
+
 #: DB:link_type/description:734 DB:link_type/link_phrase:734
 #: DB:link_type/name:734 DB:link_type/reverse_link_phrase:734
 #: DB:link_type/long_link_phrase:734
@@ -4964,6 +5047,10 @@ msgstr ""
 #: DB:link_type/long_link_phrase:228
 msgid "is a compilation of"
 msgstr "είναι συλλογή από"
+
+#: DB:link_type/long_link_phrase:1096
+msgid "is a fusion of"
+msgstr ""
 
 #: DB:link_type/long_link_phrase:916
 msgid "is a hybrid of"
@@ -5770,8 +5857,8 @@ msgstr "άλλες βάσεις δεδομένων"
 msgid "other version"
 msgstr ""
 
-#: DB:link_type/link_phrase:233 DB:link_type/reverse_link_phrase:233
-#: DB:link_type/long_link_phrase:233
+#: DB:link_type/link_phrase:233 DB:link_type/name:233
+#: DB:link_type/reverse_link_phrase:233 DB:link_type/long_link_phrase:233
 msgid "other versions"
 msgstr "άλλες εκδόσεις"
 
@@ -5814,8 +5901,8 @@ msgstr "παρωδία"
 #: DB:link_type/name:743 DB:link_type/name:742 DB:link_type/name:740
 #: DB:link_type/name:741 DB:link_type/name:996
 #: DB:link_type/reverse_link_phrase:739 DB:link_type/reverse_link_phrase:818
-#: DB:link_type/reverse_link_phrase:717 DB:link_type/reverse_link_phrase:281
-#: DB:link_type/reverse_link_phrase:356 DB:link_type/reverse_link_phrase:743
+#: DB:link_type/reverse_link_phrase:717 DB:link_type/reverse_link_phrase:356
+#: DB:link_type/reverse_link_phrase:281 DB:link_type/reverse_link_phrase:743
 msgid "part of"
 msgstr "μέρος του"
 
@@ -5831,10 +5918,10 @@ msgstr ""
 msgid "partial"
 msgstr "μερική"
 
-#: DB:link_type/description:739 DB:link_type/link_phrase:818
-#: DB:link_type/link_phrase:717 DB:link_type/link_phrase:281
-#: DB:link_type/link_phrase:356 DB:link_type/name:739 DB:link_type/name:818
-#: DB:link_type/name:717 DB:link_type/name:281
+#: DB:link_type/link_phrase:818 DB:link_type/link_phrase:717
+#: DB:link_type/link_phrase:356 DB:link_type/link_phrase:281
+#: DB:link_type/name:739 DB:link_type/name:818 DB:link_type/name:717
+#: DB:link_type/name:281
 msgid "parts"
 msgstr "μέρη"
 
@@ -6295,7 +6382,7 @@ msgstr "επανεκδίδει τον κατάλογο της"
 msgid "related instruments"
 msgstr ""
 
-#: DB:link_type/description:738 DB:link_type/name:738
+#: DB:link_type/name:738
 msgid "related to"
 msgstr ""
 
@@ -6605,6 +6692,18 @@ msgstr ""
 msgid "studied at"
 msgstr ""
 
+#: DB:link_type/name:1095
+msgid "subgenre"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:1095
+msgid "subgenre of"
+msgstr ""
+
+#: DB:link_type/link_phrase:1095
+msgid "subgenres"
+msgstr ""
+
 #: DB:link_type/name:722
 msgid "subgroup"
 msgstr ""
@@ -6806,7 +6905,7 @@ msgstr ""
 msgid "tribute to"
 msgstr "αφιέρωμα σε"
 
-#: DB:link_type/description:736 DB:link_type/reverse_link_phrase:736
+#: DB:link_type/reverse_link_phrase:736
 msgid "type of"
 msgstr ""
 
@@ -6922,8 +7021,8 @@ msgstr ""
 msgid "was an orchestra at"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:891 DB:link_type/reverse_link_phrase:890
-#: DB:link_type/reverse_link_phrase:889 DB:link_type/reverse_link_phrase:892
+#: DB:link_type/reverse_link_phrase:890 DB:link_type/reverse_link_phrase:889
+#: DB:link_type/reverse_link_phrase:892 DB:link_type/reverse_link_phrase:891
 msgid "was commissioned by"
 msgstr ""
 
@@ -7672,16 +7771,16 @@ msgstr ""
 msgid "{entity1} is a tour by {entity0}"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:752
-msgid "{entity1} is a traditional instrument from {entity0}"
-msgstr ""
-
 #: DB:link_type/long_link_phrase:1082
 msgid "{entity1} is a translated version of {entity0}"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:65 DB:link_type/long_link_phrase:970
 msgid "{entity1} is a tribute to {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:752
+msgid "{entity1} is an instrument from {entity0}"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:1090

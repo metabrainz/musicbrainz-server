@@ -2,7 +2,8 @@
 
     <h1>[% l('Disc ID “<code>{discid}</code>”', { discid => link_cdtoc(cdtoc) }) %]</h1>
 
-    [% INCLUDE 'cdtoc/info.tt' %]
+    [%- cdtoc_json_obj = React.to_json_object(cdtoc) -%]
+    [% React.embed(c, 'cdtoc/CDTocInfo', {cdToc => cdtoc_json_obj}) %]
 
     <h2>[% l('Attached to releases') %]</h2>
     [% INCLUDE 'cdtoc/list.tt' edit_links = 1 %]

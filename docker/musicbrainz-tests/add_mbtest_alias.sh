@@ -7,3 +7,6 @@
 # to /etc/hosts here and in the selenium job below.
 
 echo '127.0.0.1 mbtest' >> /etc/hosts
+
+# For BETA_REDIRECT_HOSTNAME
+echo '127.0.0.1 mbtest-beta' >> /etc/hosts

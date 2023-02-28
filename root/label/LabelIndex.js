@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2019 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -10,19 +10,19 @@
 import * as React from 'react';
 
 import CleanupBanner from '../components/CleanupBanner.js';
-import FormRow from '../static/scripts/edit/components/FormRow.js';
-import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
+import ReleaseList from '../components/list/ReleaseList.js';
 import PaginatedResults from '../components/PaginatedResults.js';
+import RelatedEntitiesDisplay from '../components/RelatedEntitiesDisplay.js';
 import {SanitizedCatalystContext} from '../context.mjs';
+import * as manifest from '../static/manifest.mjs';
+import Annotation from '../static/scripts/common/components/Annotation.js';
 import DescriptiveLink
   from '../static/scripts/common/components/DescriptiveLink.js';
 import WikipediaExtract
   from '../static/scripts/common/components/WikipediaExtract.js';
 import commaOnlyList from '../static/scripts/common/i18n/commaOnlyList.js';
-import ReleaseList from '../components/list/ReleaseList.js';
-import RelatedEntitiesDisplay from '../components/RelatedEntitiesDisplay.js';
-import * as manifest from '../static/manifest.mjs';
-import Annotation from '../static/scripts/common/components/Annotation.js';
+import FormRow from '../static/scripts/edit/components/FormRow.js';
+import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
 import {returnToCurrentPage} from '../utility/returnUri.js';
 
 import LabelLayout from './LabelLayout.js';

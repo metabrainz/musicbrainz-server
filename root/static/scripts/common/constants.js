@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict
  * Copyright (C) 2015 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -10,6 +10,12 @@
 import ENTITIES from '../../../../entities.mjs';
 
 export {ENTITIES};
+
+export const EMPTY_PARTIAL_DATE: PartialDateT = Object.freeze({
+  day: null,
+  month: null,
+  year: null,
+});
 
 export const ENTITY_NAMES: {
   +[entityType: CoreEntityTypeT]: () => string,
@@ -53,6 +59,7 @@ export const FAVICON_CLASSES = {
   'animenewsnetwork.com': 'animenewsnetwork',
   'anison.info': 'anisongeneration',
   'archive.org': 'archive',
+  'audiomack.com': 'audiomack',
   'baidu.com': 'baidu',
   'bandcamp.com': 'bandcamp',
   'bandsintown.com': 'bandsintown',
@@ -62,6 +69,7 @@ export const FAVICON_CLASSES = {
   'bigcartel.com': 'bigcartel',
   'bookbrainz.org': 'bookbrainz',
   'books.apple.com': 'applebooks',
+  'boomplay.com': 'boomplay',
   'cancioneros.si': 'cancioneros',
   'castalbums.org': 'castalbums',
   'catalogue.bnf.fr': 'bnfcatalogue',
@@ -93,6 +101,7 @@ export const FAVICON_CLASSES = {
   'gutenberg.org': 'gutenberg',
   'hoick.jp': 'hoick',
   'ibdb.com': 'ibdb',
+  'idref.fr': 'idref',
   'imdb.com': 'imdb',
   'imslp.org': 'imslp',
   'imvdb.com': 'imvdb',
@@ -120,11 +129,13 @@ export const FAVICON_CLASSES = {
   'loudr.fm': 'loudr',
   'lyric.evesta.jp': 'evestalyric',
   'mainlynorfolk.info': 'mainlynorfolk',
+  'melon.com': 'melon',
   'metal-archives.com': 'metalarchives',
   'mixcloud.com': 'mixcloud',
   'mora.jp': 'mora',
   'music.amazon': 'amazonmusic',
   'music.apple.com': 'applemusic',
+  'music.bugs.co.kr': 'bugs',
   'music.migu.cn': 'migumusic',
   'music.youtube.com': 'youtubemusic',
   'musicapopular.cl': 'musicapopularcl',
@@ -140,6 +151,7 @@ export const FAVICON_CLASSES = {
   'ocremix.org': 'ocremix',
   'offiziellecharts.de': 'offiziellecharts',
   'online-bijbel.nl': 'onlinebijbel',
+  'opac.kbr.be': 'kbr',
   'openlibrary.org': 'openlibrary',
   'operabase.com': 'operabase',
   'overture.doremus.org': 'overture',
@@ -166,6 +178,7 @@ export const FAVICON_CLASSES = {
   'saisaibatake.ame-zaiku.com/musical_instrument': 'gakki',
   'secondhandsongs.com': 'secondhandsongs',
   'setlist.fm': 'setlistfm',
+  'shop.tsutaya.co.jp': 'tsutaya',
   'smdb.kb.se': 'smdb',
   'snaccooperative.org': 'snac',
   'songfacts.com': 'songfacts',
@@ -179,6 +192,7 @@ export const FAVICON_CLASSES = {
   'tedcrane.com/DanceDB': 'dancedb',
   'theatricalia.com': 'theatricalia',
   'thedancegypsy.com': 'thedancegypsy',
+  'themoviedb.org': 'tmdb',
   'thesession.org': 'thesession',
   'tidal.com': 'tidal',
   'tiktok.com': 'tiktok',
@@ -199,6 +213,7 @@ export const FAVICON_CLASSES = {
   'viaf.org': 'viaf',
   'videogam.in': 'videogamin',
   'vimeo.com/ondemand': 'vimeoondemand',
+  // eslint-disable-next-line sort-keys
   'vimeo.com': 'vimeo',
   'vk.com': 'vk',
   'vkdb.jp': 'vkdb',
@@ -215,7 +230,9 @@ export const FAVICON_CLASSES = {
   'yesasia.com': 'yesasia',
 };
 
-export const PART_OF_SERIES_LINK_TYPES = {
+export const PART_OF_SERIES_LINK_TYPES: {
+  +[type: CoreEntityTypeT]: string | null,
+} = {
   area: null,
   artist: 'd1a845d1-8c03-3191-9454-e4e8d37fa5e0',
   event: '707d947d-9563-328a-9a7d-0c5b9c3a9791',
@@ -231,9 +248,27 @@ export const PART_OF_SERIES_LINK_TYPES = {
   work: 'b0d44366-cdf0-3acb-bee6-0f65a77a6ef0',
 };
 
+export const PART_OF_SERIES_LINK_TYPE_GIDS: $ReadOnlyArray<string> =
+  // $FlowIssue (Flow thinks Object.values is Array<mixed>)
+  (Object.values(PART_OF_SERIES_LINK_TYPES).filter(Boolean));
+
+export const PART_OF_SERIES_LINK_TYPE_IDS: $ReadOnlyArray<number> = [
+  740, // recording
+  741, // release
+  742, // release group
+  743, // work
+  802, // event
+  996, // artist
+];
+
 // orchestrator, orchestra performed, conductor, concertmaster
 export const PROBABLY_CLASSICAL_LINK_TYPES =
   [40, 45, 46, 150, 151, 300, 759, 760];
+
+export const RECORDING_OF_LINK_TYPE_ID: number = 278;
+
+export const RECORDING_OF_LINK_TYPE_GID: string =
+  'a3005666-a872-32c3-ad06-98af558e99b0';
 
 export const RT_MIRROR = 2;
 
@@ -302,3 +337,8 @@ export const FLUENCY_NAMES:
 
 export const LANGUAGE_MUL_ID = 284;
 export const LANGUAGE_ZXX_ID = 486;
+
+export const DISPLAY_NONE_STYLE = Object.freeze({display: 'none'});
+
+export const WS_EDIT_RESPONSE_OK: WS_EDIT_RESPONSE_OK_T = 1;
+export const WS_EDIT_RESPONSE_NO_CHANGES: WS_EDIT_RESPONSE_NO_CHANGES_T = 2;

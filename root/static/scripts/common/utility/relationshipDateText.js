@@ -1,5 +1,5 @@
 /*
- * @flow strict-local
+ * @flow strict
  * Copyright (C) 2019 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -10,14 +10,16 @@
 import areDatesEqual from './areDatesEqual.js';
 import {bracketedText} from './bracketed.js';
 import formatDate from './formatDate.js';
+import isDateEmpty from './isDateEmpty.js';
 
 export default function relationshipDateText(
   r: $ReadOnly<{...DatePeriodRoleT, ...}>,
   bracketEnded?: boolean = true,
 ): string {
-  if (r.begin_date) {
-    if (r.end_date) {
+  if (!isDateEmpty(r.begin_date)) {
+    if (!isDateEmpty(r.end_date)) {
       if (areDatesEqual(r.begin_date, r.end_date)) {
+        // $FlowIssue[incompatible-use]
         if (r.begin_date.day != null) {
           return texp.l('on {date}', {date: formatDate(r.begin_date)});
         }
@@ -31,7 +33,7 @@ export default function relationshipDateText(
       return texp.l('from {date} to ????', {date: formatDate(r.begin_date)});
     }
     return texp.l('from {date} to present', {date: formatDate(r.begin_date)});
-  } else if (r.end_date) {
+  } else if (!isDateEmpty(r.end_date)) {
     return texp.l('until {date}', {date: formatDate(r.end_date)});
   } else if (r.ended) {
     let text = l('ended');

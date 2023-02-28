@@ -10,10 +10,10 @@
 import parseCookie from '../static/scripts/common/utility/parseCookie.mjs';
 
 export default function getRequestCookie(
-  req /*: CatalystRequestContextT */,
-  name /*: string */,
-  defaultValue /*: string */ = '',
-) /*: string */ {
+  req: CatalystRequestContextT,
+  name: string,
+  defaultValue: string = '',
+): string {
   const headers = req.headers;
   const cookie = (
     headers.cookie ||

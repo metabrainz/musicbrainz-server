@@ -1,14 +1,11 @@
 package MusicBrainz::Server::Entity::Tag;
 
 use Moose;
+use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 
 extends 'MusicBrainz::Server::Entity';
-
-has 'name' => (
-    is => 'rw',
-    isa => 'Str'
-);
+with 'MusicBrainz::Server::Entity::Role::Name';
 
 has 'genre_id' => (
     is => 'rw',
@@ -24,8 +21,6 @@ around TO_JSON => sub {
     my ($orig, $self) = @_;
 
     my $json = $self->$orig;
-
-    $json->{name} = $self->name;
 
     if ($self->genre) {
         $json->{genre} = to_json_object($self->genre);

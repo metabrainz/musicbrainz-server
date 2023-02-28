@@ -1,5 +1,5 @@
 /*
- * @flow strict-local
+ * @flow strict
  * Copyright (C) 2019 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -15,11 +15,11 @@ import {
   artistEndAreaLabel,
   artistEndLabel,
 } from '../../artist/utils.js';
-import formatDate from '../../static/scripts/common/utility/formatDate.js';
-import isDateEmpty from '../../static/scripts/common/utility/isDateEmpty.js';
 import DescriptiveLink
   from '../../static/scripts/common/components/DescriptiveLink.js';
 import EntityLink from '../../static/scripts/common/components/EntityLink.js';
+import formatDate from '../../static/scripts/common/utility/formatDate.js';
+import isDateEmpty from '../../static/scripts/common/utility/isDateEmpty.js';
 import yesNo from '../../static/scripts/common/utility/yesNo.js';
 import formatIsni from '../../utility/formatIsni.js';
 

@@ -1,7 +1,7 @@
 // flow-typed signature: 2fc805a0cc6a4c4f229f1ab5259c37a3
 // flow-typed version: 40038b550b/@sentry/browser_v5.x.x/flow_>=v0.90.x
 
-// @flow
+// @flow strict
 
 declare module '@sentry/browser' {
     declare export function addGlobalEventProcessor(callback: EventProcessor): void;

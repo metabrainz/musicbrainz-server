@@ -7,6 +7,8 @@ use utf8;
 use Data::OptList;
 use DBDefs;
 use HTTP::Request;
+use Digest::MD5 qw( md5_hex );
+use IO::Compress::Gzip qw( gzip $GzipError );
 use JSON qw( encode_json decode_json );
 use List::AllUtils qw( part uniq_by );
 use MusicBrainz::Errors qw(
@@ -60,6 +62,9 @@ my $ws_defs = Data::OptList::mkopt([
         method => 'GET',
     },
     'events' => {
+        method => 'GET'
+    },
+    'type-info' => {
         method => 'GET'
     },
 ]);
@@ -539,6 +544,23 @@ sub entity : Chained('root') PathPart('entity') Args(1)
         $data->{relationships} = $relationships if @$relationships;
     };
 
+    if ($type eq 'Event') {
+        my %related_entities =
+            $c->model('Event')->find_related_entities([$entity], 3);
+        $data->{related_entities} = $related_entities{$entity->id};
+    }
+
+    if ($type eq 'Recording') {
+        $c->model('ISRC')->load_for_recordings($entity);
+        my $appears_on = $c->model('Recording')->appears_on([$entity], 3, 1);
+        $data->{appearsOn} = $appears_on->{$entity->id};
+    }
+
+    if ($type eq 'Work') {
+        my %artists = $c->model('Work')->find_artists([$entity], 3);
+        $data->{related_artists} = $artists{$entity->id};
+    }
+
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body(encode_json($data));
 }
@@ -617,12 +639,60 @@ sub entities : Chained('root') PathPart('entities') Args(2)
         }
     }
 
+    my @entities = values %{$results};
+
     if ($ENTITIES{$type_name}{artist_credits}) {
-        $c->model('ArtistCredit')->load(values %{$results});
+        $c->model('ArtistCredit')->load(@entities);
+    }
+
+    if ($ENTITIES{$type_name}{type}) {
+        $c->model(type_to_model($type_name) . 'Type')->load(@entities);
+    }
+
+    if ($type_name eq 'area') {
+        $c->model('Area')->load_containment(@entities);
+    }
+
+    my %related_entities;
+    if ($type_name eq 'event') {
+        %related_entities = $c->model('Event')->find_related_entities(\@entities, 3);
+    }
+
+    if ($type_name eq 'place') {
+        $c->model('Area')->load(@entities);
+        $c->model('Area')->load_containment(map { $_->area } @entities);
+    }
+
+    my $appears_on;
+    if ($type_name eq 'recording') {
+        $c->model('ISRC')->load_for_recordings(@entities);
+        $appears_on = $c->model('Recording')->appears_on(\@entities, 3, 1);
+    }
+
+    if ($type_name eq 'release') {
+        $c->model('Release')->load_release_events(@entities);
+        $c->model('ReleaseLabel')->load(@entities);
+        $c->model('Label')->load(map { $_->all_labels } @entities);
+    }
+
+    my %artists;
+    if ($type_name eq 'work') {
+        %artists = $c->model('Work')->find_artists(\@entities, 3);
+        $c->model('Language')->load_for_works(@entities);
     }
 
     while (my ($id, $entity) = each %{$results}) {
-        $results->{$id} = $entity->TO_JSON;
+        my $json_entity = $entity->TO_JSON;
+        if ($type_name eq 'event') {
+            $json_entity->{related_entities} = $related_entities{$entity->id};
+        }
+        if ($type_name eq 'recording') {
+            $json_entity->{appearsOn} = $appears_on->{$entity->id};
+        }
+        if ($type_name eq 'work') {
+            $json_entity->{related_artists} = $artists{$entity->id};
+        }
+        $results->{$id} = $json_entity;
     }
 
     $c->res->content_type($serializer->mime_type . '; charset=utf-8');
@@ -647,6 +717,51 @@ sub events : Chained('root') PathPart('events') {
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body(encode_json($events));
+}
+
+sub type_info : Chained('root') PathPart('type-info') Args(1) {
+    my ($self, $c, $type_name) = @_;
+
+    my $type_model_name = eval { type_to_model($type_name) };
+
+    $self->detach_with_error($c, "unknown type: $type_name", 400)
+        if $@;
+
+    my $type_model = $c->model($type_model_name);
+
+    $self->detach_with_error($c, "unsupported type: $type_name", 400)
+        unless $type_model->can('get_all');
+
+    my $cache = $c->model('MB')->cache;
+    my $cache_key = "js_${type_name}_info";
+    my $response = $cache->get($cache_key);
+    my $etag = $cache->get("$cache_key:etag");
+
+    unless (defined $response) {
+        my @all_types = $type_model->get_all;
+        if ($type_name eq 'language') {
+            @all_types = grep { $_->frequency != 0 } @all_types;
+        } elsif ($type_name eq 'script') {
+            @all_types = grep { $_->frequency != 1 } @all_types;
+        }
+        my $response_obj = {
+            "${type_name}_list" => \@all_types,
+        };
+        my $encoded_json = $c->json_canonical_utf8->encode($response_obj);
+        gzip(\$encoded_json => \$response) or die qq(gzip failed: $GzipError);
+        $cache->set($cache_key, $response);
+        $etag = undef;
+    }
+
+    unless (defined $etag) {
+        $etag = md5_hex($response);
+        $cache->set("$cache_key:etag", $etag);
+    }
+
+    $c->res->content_type('application/json; charset=utf-8');
+    $c->res->content_encoding('gzip');
+    $c->response->headers->etag($etag);
+    $c->res->body($response);
 }
 
 sub detach_with_error : Private {

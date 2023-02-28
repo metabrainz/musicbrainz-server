@@ -17,7 +17,9 @@ let LAST_FIELD_ID = 99999;
 
 export type MapFields<F> = $ObjMap<F, <T>(T) => FieldT<T>>;
 
-export function createCompoundField<F: {[fieldValueKey: string]: mixed, ...}>(
+export function createCompoundFieldFromObject<
+  F: {[fieldValueKey: string]: mixed, ...},
+>(
   name: string,
   fieldValues: F,
 ): CompoundFieldT<MapFields<F>> {
@@ -28,6 +30,20 @@ export function createCompoundField<F: {[fieldValueKey: string]: mixed, ...}>(
   return {
     errors: [],
     field,
+    has_errors: false,
+    html_name: name,
+    id: ++LAST_FIELD_ID,
+    type: 'compound_field',
+  };
+}
+
+export function createCompoundField<+T>(
+  name: string,
+  fieldValues: T,
+): ReadOnlyCompoundFieldT<T> {
+  return {
+    errors: [],
+    field: fieldValues,
     has_errors: false,
     html_name: name,
     id: ++LAST_FIELD_ID,

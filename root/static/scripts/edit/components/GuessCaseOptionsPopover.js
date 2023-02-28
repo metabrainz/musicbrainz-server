@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2020 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -55,10 +55,7 @@ const GuessCaseOptionsPopover = (React.memo(({
         className="buttons"
         style={{marginTop: '1em'}}
       >
-        <div
-          className="buttons-right"
-          style={{float: 'right', textAlign: 'right'}}
-        >
+        <div className="buttons-right">
           <button
             className="positive"
             onClick={closeAndReturnFocus}

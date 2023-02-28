@@ -1,7 +1,12 @@
 package MusicBrainz::Server::Controller::Role::EditRelationships;
 use MooseX::MethodAttributes::Role;
 use MooseX::Role::Parameterized;
-use MusicBrainz::Server::Constants qw( $SERIES_ORDERING_TYPE_MANUAL entities_with );
+use MusicBrainz::Server::Constants qw(
+    $DIRECTION_BACKWARD
+    $DIRECTION_FORWARD
+    %ENTITIES_WITH_RELATIONSHIP_CREDITS
+    entities_with
+);
 use MusicBrainz::Server::ControllerUtils::Relationship qw( merge_link_attributes );
 use MusicBrainz::Server::Data::Utils qw(
     model_to_type
@@ -11,11 +16,11 @@ use MusicBrainz::Server::Data::Utils qw(
     type_to_model
 );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
-use MusicBrainz::Server::Form::Utils qw( build_type_info );
 use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::Validation qw(
     is_database_row_id
     is_non_negative_integer
+    is_positive_integer
     is_guid
 );
 use aliased 'MusicBrainz::Server::Entity::Link';
@@ -139,6 +144,16 @@ role {
                 next;
             }
 
+            if ($field_name eq 'source_credit') {
+                $rel->{source_credit} = $param_value;
+                next;
+            }
+
+            if ($field_name eq 'target_credit') {
+                $rel->{target_credit} = $param_value;
+                next;
+            }
+
             my ($attr_index, $attr_field_name) =
                 ($field_name =~ /^attributes\.([0-9]+)\.([0-9a-z_\.]+)$/);
 
@@ -206,6 +221,15 @@ role {
                 name => $rel->{target_name} // l('[unknown]'),
             });
 
+            my $source_credit = '';
+            my $target_credit = '';
+            if ($ENTITIES_WITH_RELATIONSHIP_CREDITS{$source_type}) {
+                $source_credit = $rel->{source_credit} // '';
+            }
+            if ($ENTITIES_WITH_RELATIONSHIP_CREDITS{$target_type}) {
+                $target_credit = $rel->{target_credit} // '';
+            }
+
             my $rel_attributes = $rel->{attributes} // {};
             my @seeded_link_attributes;
 
@@ -250,15 +274,16 @@ role {
                     entity1 => $target,
                     defined $target->id ? (entity1_id => $target->id) : (),
                 ),
-                entity0_credit => '',
-                entity1_credit => '',
+                entity0_credit => $backward ? $target_credit : $source_credit,
+                entity1_credit => $backward ? $source_credit : $target_credit,
                 defined $source ? (source => $source) : (),
                 target => $target,
                 source_type => $source_type,
                 target_type => $target_type,
-                source_credit => '',
-                target_credit => '',
+                source_credit => $source_credit,
+                target_credit => $target_credit,
                 link_order => $rel->{link_order} // 0,
+                direction => $backward ? $DIRECTION_BACKWARD : $DIRECTION_FORWARD,
             );
         }
 
@@ -274,7 +299,28 @@ role {
         my $model = $self->config->{model};
         my $source_type = model_to_type($model);
         my $source = $c->stash->{$self->{entity_name}};
-        my $source_entity = $source ? $source->TO_JSON : {entityType => $source_type};
+        my $source_entity = $source
+            ? $source->TO_JSON
+            : {entityType => $source_type, isNewEntity => \1};
+
+        my $form_name = "edit-$source_type";
+
+        # Grrr. release_group => release-group.
+        $form_name =~ s/_/-/;
+
+        # XXX Copy any submitted data required by the relationship editor.
+        {
+            my $name = $c->req->params->{"${form_name}.name"};
+            if (non_empty($name)) {
+                $source_entity->{name} = $name;
+            }
+        }
+        if ($source_type eq 'series') {
+            my $ordering_type_id = $c->req->params->{'edit-series.ordering_type_id'};
+            if (is_positive_integer($ordering_type_id)) {
+                $source_entity->{orderingTypeID} = 0 + $ordering_type_id;
+            }
+        }
 
         if ($source) {
             my @existing_relationships =
@@ -290,30 +336,10 @@ role {
             $source_entity->{relationships} = to_json_array(\@existing_relationships);
         }
 
-        my $form_name = "edit-$source_type";
-
-        # Grrr. release_group => release-group.
-        $form_name =~ s/_/-/;
-
-        my $seeded_relationships = get_seeded_relationships($c, $source_type, $source);
-        my @link_type_tree = $c->model('LinkType')->get_full_tree;
-        my @link_attribute_types = $c->model('LinkAttributeType')->get_all;
-        my $type_info = build_type_info(
-            $c,
-            qr/(^$source_type-|-$source_type$)/,
-            @link_type_tree,
-        );
-
         $c->stash(
-            seeded_relationships => $c->json->encode(to_json_array($seeded_relationships)),
-            source_entity => $c->json->encode($source_entity),
-            attr_info => $c->json->encode(\@link_attribute_types),
-            type_info => $c->json->encode($type_info),
+            source_entity => $source_entity,
+            seeded_relationships => to_json_array(get_seeded_relationships($c, $source_type, $source)),
         );
-
-        $c->stash->{component_props}{sourceEntity} = $source_entity;
-        $c->stash->{component_props}{attrInfo} = to_json_array(\@link_attribute_types);
-        $c->stash->{component_props}{typeInfo} = $type_info;
 
         my $post_creation = delete $opts{post_creation};
 
@@ -359,11 +385,14 @@ role {
         my @edits;
         my @field_values = map { $_->value } @$fields;
         my $entity_map = load_entities($c, ref_to_type($source), @field_values);
+        my $link_types_by_id = {};
         my %reordered_relationships;
 
         for my $field (@field_values) {
             my %args;
             my $link_type = $field->{link_type};
+
+            $link_types_by_id->{$link_type->id} = $link_type;
 
             if (my $period = $field->{period}) {
                 $args{begin_date} = $period->{begin_date} if $period->{begin_date};
@@ -427,11 +456,8 @@ role {
                     next unless non_empty($field->{link_order});
 
                     if ($field->{link_order} != $relationship->link_order) {
-                        my $unorderable_entity = $orderable_direction == 1 ? $relationship->entity0 : $relationship->entity1;
-                        my $is_series = $unorderable_entity->isa('MusicBrainz::Server::Entity::Series');
-
-                        if (!$is_series || $unorderable_entity->ordering_type_id == $SERIES_ORDERING_TYPE_MANUAL) {
-                            my $key = join '-', $link_type->id, $unorderable_entity->id;
+                        if ($relationship->can_manually_reorder) {
+                            my $key = join '-', $link_type->id, $relationship->unorderable_entity->id;
 
                             push @{ $reordered_relationships{$key} //= [] }, {
                                 relationship => $relationship,
@@ -449,9 +475,11 @@ role {
         while (my ($key, $relationship_order) = each %reordered_relationships) {
             my ($link_type_id) = split /-/, $key;
 
+            my $link_type = $link_types_by_id->{$link_type_id};
+
             push @edits, $self->reorder_relationships(
                 $c, $form,
-                link_type_id => $link_type_id,
+                link_type => $link_type,
                 relationship_order => $relationship_order,
             );
         }

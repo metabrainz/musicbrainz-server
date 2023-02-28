@@ -1,5 +1,5 @@
 /*
- * @flow strict-local
+ * @flow strict
  * Copyright (C) 2019 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -10,10 +10,9 @@
 import * as React from 'react';
 
 import {CatalystContext} from '../../context.mjs';
-import Table from '../Table.js';
-import releaseGroupType from '../../utility/releaseGroupType.js';
 import {groupBy} from '../../static/scripts/common/utility/arrays.js';
 import parseDate from '../../static/scripts/common/utility/parseDate.js';
+import releaseGroupType from '../../utility/releaseGroupType.js';
 import {
   defineArtistCreditColumn,
   defineCheckboxColumn,
@@ -24,6 +23,7 @@ import {
   defineTextColumn,
   removeFromMergeColumn,
 } from '../../utility/tableColumns.js';
+import Table from '../Table.js';
 
 type ReleaseGroupListTableProps = {
   ...SeriesItemNumbersRoleT,
@@ -59,7 +59,7 @@ export const ReleaseGroupListTable = ({
   const $c = React.useContext(CatalystContext);
 
   function getFirstReleaseYear(entity: ReleaseGroupT) {
-    if (!nonEmpty(entity.firstReleaseDate)) {
+    if (empty(entity.firstReleaseDate)) {
       return '—';
     }
 
@@ -93,6 +93,8 @@ export const ReleaseGroupListTable = ({
       const artistCreditColumn = defineArtistCreditColumn<ReleaseGroupT>({
         columnName: 'artist',
         getArtistCredit: entity => entity.artistCredit,
+        order: order,
+        sortable: sortable,
         title: l('Artist'),
       });
       const typeColumn = defineTextColumn<ReleaseGroupT>({

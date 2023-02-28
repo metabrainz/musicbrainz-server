@@ -1,4 +1,7 @@
 package t::MusicBrainz::Server::Data::Relationship;
+use strict;
+use warnings;
+
 use List::AllUtils qw( nsort_by );
 
 use Test::Routine;

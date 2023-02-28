@@ -1,4 +1,7 @@
 package t::MusicBrainz::Server::Controller::UnconfirmedEmailAddresses;
+use strict;
+use warnings;
+
 use Test::Routine;
 use Test::Deep qw( cmp_set );
 
@@ -519,6 +522,7 @@ test 'Paths that allow browsing without a confirmed email address' => sub {
   'Controller::WS::js::medium_search',
   'Controller::WS::js::ParseCoordinates::parse_coordinates',
   'Controller::WS::js::tracks',
+  'Controller::WS::js::type_info',
   'Controller::Watch::list',
   'Controller::Work::alias',
   'Controller::Work::aliases',

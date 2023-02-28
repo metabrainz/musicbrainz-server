@@ -10,6 +10,12 @@
 import * as React from 'react';
 import * as ReactDOMServer from 'react-dom/server';
 
+import {Artwork} from '../../../components/Artwork.js';
+import CritiqueBrainzLinks from '../../../components/CritiqueBrainzLinks.js';
+import LinkSearchableLanguage
+  from '../../../components/LinkSearchableLanguage.js';
+import LinkSearchableProperty
+  from '../../../components/LinkSearchableProperty.js';
 import {QUALITY_UNKNOWN} from '../../../constants.js';
 import {CatalystContext} from '../../../context.mjs';
 import * as manifest from '../../../static/manifest.mjs';
@@ -26,12 +32,6 @@ import formatTrackLength
   from '../../../static/scripts/common/utility/formatTrackLength.js';
 import releaseLabelKey
   from '../../../static/scripts/common/utility/releaseLabelKey.js';
-import {Artwork} from '../../../components/Artwork.js';
-import CritiqueBrainzLinks from '../../../components/CritiqueBrainzLinks.js';
-import LinkSearchableLanguage
-  from '../../../components/LinkSearchableLanguage.js';
-import LinkSearchableProperty
-  from '../../../components/LinkSearchableProperty.js';
 import ExternalLinks from '../ExternalLinks.js';
 
 import AnnotationLinks from './AnnotationLinks.js';
@@ -43,7 +43,7 @@ import PlayOnListenBrainzButton from './PlayOnListenBrainzButton.js';
 import RemoveLink from './RemoveLink.js';
 import SidebarDataQuality from './SidebarDataQuality.js';
 import SidebarLicenses from './SidebarLicenses.js';
-import {SidebarProperty, SidebarProperties} from './SidebarProperties.js';
+import {SidebarProperties, SidebarProperty} from './SidebarProperties.js';
 import SidebarRating from './SidebarRating.js';
 import SidebarTags from './SidebarTags.js';
 
@@ -78,6 +78,7 @@ const ReleaseSidebar = ({release}: Props): React.Element<'div'> | null => {
   const script = scriptId == null
     ? null
     : linkedEntities.script[scriptId];
+  const isEmpty = release.has_no_tracks;
 
   return (
     <div id="sidebar">
@@ -109,10 +110,12 @@ const ReleaseSidebar = ({release}: Props): React.Element<'div'> | null => {
         )}
       </div>
 
-      <PlayOnListenBrainzButton
-        entityType="release"
-        mbids={release.gid}
-      />
+      {isEmpty ? null : (
+        <PlayOnListenBrainzButton
+          entityType="release"
+          mbids={release.gid}
+        />
+      )}
 
       <h2 className="release-information">
         {l('Release information')}

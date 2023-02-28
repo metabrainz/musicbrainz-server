@@ -5,9 +5,11 @@ use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Track qw( format_track_length );
 
-extends 'MusicBrainz::Server::Entity::CoreEntity';
+extends 'MusicBrainz::Server::Entity';
 with 'MusicBrainz::Server::Entity::Role::Editable';
 with 'MusicBrainz::Server::Entity::Role::ArtistCredit';
+with 'MusicBrainz::Server::Entity::Role::GID';
+with 'MusicBrainz::Server::Entity::Role::Name';
 
 has 'recording_id' => (
     is => 'rw',
@@ -41,11 +43,6 @@ has 'number' => (
     isa => 'Str'
 );
 
-has 'name' => (
-    is => 'rw',
-    isa => 'Str'
-);
-
 has 'length' => (
     is => 'rw',
     isa => 'Maybe[Int]',
@@ -69,6 +66,7 @@ around TO_JSON => sub {
         isDataTrack     => boolean_to_json($self->is_data_track),
         length          => $self->length,
         medium          => $self->medium ? $self->medium->TO_JSON : undef,
+        medium_id       => $self->medium_id ? 0 + $self->medium_id : undef,
         number          => $self->number,
         position        => $self->position,
     };

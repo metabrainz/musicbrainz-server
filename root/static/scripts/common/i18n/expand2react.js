@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -17,6 +17,10 @@ import {
 } from '../i18n.js';
 
 import expand, {
+  type NO_MATCH,
+  type Parser,
+  type VarArgsClass,
+  type VarArgsObject,
   accept,
   createCondSubstParser,
   createTextContentParser,
@@ -32,16 +36,10 @@ import expand, {
   state,
   substEnd,
   VarArgs,
-  type NO_MATCH,
-  type Parser,
-  type VarArgsObject,
-  type VarArgsClass,
 } from './expand2.js';
 
 type Input = Expand2ReactInput;
 type Output = Expand2ReactOutput;
-
-const EMPTY_ARRAY: Array<any> = Object.freeze([]);
 
 const textContent = /^[^<>{}]+/;
 const condSubstThenTextContent = /^[^<>{}|]+/;
@@ -57,10 +55,11 @@ const htmlAttrTextContent = /^[^{}"]+/;
 const hrefValueStart = /^(?:\/|https?:\/\/|ircs?:\/\/)/;
 
 function handleTextContentText(text: string) {
+  let handledText = text;
   if (typeof state.replacement === 'string') {
-    text = text.replace(/%/g, he.encode(state.replacement));
+    handledText = text.replace(/%/g, he.encode(state.replacement));
   }
-  return he.decode(text);
+  return he.decode(handledText);
 }
 
 /*
@@ -132,7 +131,7 @@ const parseLinkSubst = saveMatch<
     if (typeof props === 'string') {
       props = ({href: props}: AnchorProps);
     }
-    if (!props || typeof props === 'number' || !props.href) {
+    if (!props || typeof props === 'number' || empty(props.href)) {
       throw error('bad link props');
     }
     return React.createElement('a', props, ...children);
@@ -168,17 +167,18 @@ function concatArrayMatch<T: MatchUpperBoundT>(
   children: Array<T> | NO_MATCH,
   match: Array<T> | T,
 ): Array<T> {
-  if (!gotMatch(children)) {
-    children = [];
+  let matchedChildren = children;
+  if (!gotMatch(matchedChildren)) {
+    matchedChildren = [];
   }
   if (Array.isArray(match)) {
     for (let j = 0; j < match.length; j++) {
-      pushChild(children, match[j]);
+      pushChild(matchedChildren, match[j]);
     }
   } else {
-    pushChild(children, match);
+    pushChild(matchedChildren, match);
   }
-  return children;
+  return matchedChildren;
 }
 
 function parseContinuousArray<T: MatchUpperBoundT, V>(
@@ -189,7 +189,7 @@ function parseContinuousArray<T: MatchUpperBoundT, V>(
     parsers,
     args,
     concatArrayMatch,
-    EMPTY_ARRAY,
+    [],
   );
 }
 

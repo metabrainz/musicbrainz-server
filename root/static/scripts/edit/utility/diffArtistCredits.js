@@ -1,5 +1,5 @@
 /*
- * @flow strict-local
+ * @flow strict
  * Copyright (C) 2019 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -13,11 +13,11 @@ import EntityLink from '../../common/components/EntityLink.js';
 import DiffSide from '../components/edit/DiffSide.js';
 
 import editDiff, {
-  INSERT,
-  EQUAL,
-  DELETE,
   CHANGE,
   CLASS_MAP,
+  DELETE,
+  EQUAL,
+  INSERT,
 } from './editDiff.js';
 
 function areArtistCreditNamesEqual(

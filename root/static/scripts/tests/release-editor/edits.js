@@ -11,14 +11,14 @@ import test from 'tape';
 
 import MB from '../../common/MB.js';
 import * as validation from '../../edit/validation.js';
-import '../../relationship-editor/common/viewModel.js';
 import fields from '../../release-editor/fields.js';
-import {linkTypeTree, linkAttributeTypes} from '../typeInfo.js';
+import exportTypeInfo from '../exportTypeInfo.js';
+import {linkAttributeTypes, linkTypes} from '../typeInfo.js';
 
 import * as common from './common.js';
 
-MB.relationshipEditor.exportTypeInfo(
-  linkTypeTree,
+exportTypeInfo(
+  linkTypes,
   linkAttributeTypes,
 );
 

@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict
  * Copyright (C) 2018 Shamroy Pellew
  * Copyright (C) 2018 MetaBrainz Foundation
  *
@@ -10,14 +10,14 @@
 
 import * as React from 'react';
 
+import LinkSearchableProperty from '../components/LinkSearchableProperty.js';
 import {CatalystContext} from '../context.mjs';
 import * as manifest from '../static/manifest.mjs';
 import {l_statistics as l} from '../static/scripts/common/i18n/statistics.js';
 import loopParity from '../utility/loopParity.js';
-import LinkSearchableProperty from '../components/LinkSearchableProperty.js';
 
-import {formatCount, TimelineLink} from './utilities.js';
 import StatisticsLayout from './StatisticsLayout.js';
+import {formatCount, TimelineLink} from './utilities.js';
 
 type LanguagesScriptsStatsT = {
   +dateCollected: string,
@@ -83,59 +83,66 @@ const LanguagesScripts = ({
             </tr>
           </thead>
           <tbody>
-            {languageStats.map((languageStat, index) => (
-              languageStat.total > 0 ? (
-                <tr className={loopParity(index)} key={'language' + index}>
-                  <td className="t">{index + 1}</td>
-                  <td>
-                    {languageStat.entity
-                      ? l_languages(languageStat.entity.name)
-                      : l('Unknown language')}
-                  </td>
-                  <td className="t">
-                    {languageStat.entity && languageStat.entity.iso_code_3 ? (
-                      <LinkSearchableProperty
-                        entityType="release"
-                        searchField="lang"
-                        searchValue={languageStat.entity.iso_code_3}
-                        text={formatCount($c, languageStat.releases)}
+            {languageStats.map((languageStat, index) => {
+              const language = languageStat.entity;
+              const isoCode3 = language?.iso_code_3;
+
+              return (
+                languageStat.total > 0 ? (
+                  <tr className={loopParity(index)} key={'language' + index}>
+                    <td className="t">{index + 1}</td>
+                    <td>
+                      {language
+                        ? l_languages(language.name)
+                        : l('Unknown language')}
+                    </td>
+                    <td className="t">
+                      {nonEmpty(isoCode3) ? (
+                        <LinkSearchableProperty
+                          entityType="release"
+                          searchField="lang"
+                          searchValue={isoCode3}
+                          text={formatCount($c, languageStat.releases)}
+                        />
+                      ) : (
+                        formatCount($c, languageStat.releases)
+                      )}
+                      {' '}
+                      <TimelineLink
+                        statName={
+                          'count.release.language.' + (
+                            languageStat.entity?.iso_code_3 ?? 'null'
+                          )
+                        }
                       />
-                    ) : (
-                      formatCount($c, languageStat.releases)
-                    )}
-                    {' '}
-                    <TimelineLink
-                      statName={
-                        'count.release.language.' + (
-                          languageStat.entity?.iso_code_3 ?? 'null'
-                        )
-                      }
-                    />
-                  </td>
-                  <td className="t">
-                    {languageStat.entity && languageStat.entity.iso_code_3 ? (
-                      <LinkSearchableProperty
-                        entityType="work"
-                        searchField="lang"
-                        searchValue={languageStat.entity.iso_code_3}
-                        text={formatCount($c, languageStat.works)}
+                    </td>
+                    <td className="t">
+                      {nonEmpty(isoCode3) ? (
+                        <LinkSearchableProperty
+                          entityType="work"
+                          searchField="lang"
+                          searchValue={isoCode3}
+                          text={formatCount($c, languageStat.works)}
+                        />
+                      ) : (
+                        formatCount($c, languageStat.works)
+                      )}
+                      {' '}
+                      <TimelineLink
+                        statName={
+                          'count.work.language.' + (
+                            languageStat.entity?.iso_code_3 ?? 'null'
+                          )
+                        }
                       />
-                    ) : (
-                      formatCount($c, languageStat.works)
-                    )}
-                    {' '}
-                    <TimelineLink
-                      statName={
-                        'count.work.language.' + (
-                          languageStat.entity?.iso_code_3 ?? 'null'
-                        )
-                      }
-                    />
-                  </td>
-                  <td className="t">{formatCount($c, languageStat.total)}</td>
-                </tr>
-              ) : null
-            ))}
+                    </td>
+                    <td className="t">
+                      {formatCount($c, languageStat.total)}
+                    </td>
+                  </tr>
+                ) : null
+              );
+            })}
           </tbody>
         </table>
       </div>

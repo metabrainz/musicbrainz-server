@@ -1,7 +1,10 @@
 package t::MusicBrainz::Server::Controller::ReleaseGroup::Show;
+use utf8;
+use strict;
+use warnings;
+
 use Test::Routine;
 use MusicBrainz::Server::Test qw( html_ok page_test_jsonld );
-use utf8;
 
 with 't::Mechanize', 't::Context';
 
@@ -24,7 +27,7 @@ $mech->content_like(qr{/artist/a45c079d-374e-4436-9448-da92dedef3cf}, 'link to a
 $mech->content_like(qr/Test annotation 5/, 'has annotation');
 
 page_test_jsonld $mech => {
-    '@context' => 'http://schema.org',
+    '@context' => 'https://schema.org/docs/jsonldcontext.json',
     'albumProductionType' => 'http://schema.org/StudioAlbum',
     'byArtist' => {
         'name' => 'ABBA',
@@ -87,7 +90,7 @@ page_test_jsonld $mech => {
         '@id' => 'http://musicbrainz.org/artist/4b585938-f271-45e2-b19a-91c634b5e396',
         'name' => 'Kate Bush'
     },
-    '@context' => 'http://schema.org',
+    '@context' => 'https://schema.org/docs/jsonldcontext.json',
     'name' => 'Aerial',
     '@id' => 'http://musicbrainz.org/release-group/7c3218d7-75e0-4e8c-971f-f097b6c308c5',
     'albumReleaseType' => 'http://schema.org/AlbumRelease',

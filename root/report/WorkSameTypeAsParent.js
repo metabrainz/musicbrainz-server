@@ -1,5 +1,5 @@
 /*
- * @flow strict-local
+ * @flow strict
  * Copyright (C) 2020 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -9,8 +9,8 @@
 
 import * as React from 'react';
 
-import WorkList from './components/WorkList.js';
 import ReportLayout from './components/ReportLayout.js';
+import WorkList from './components/WorkList.js';
 import type {ReportDataT, ReportWorkT} from './types.js';
 
 const WorkSameTypeAsParent = ({

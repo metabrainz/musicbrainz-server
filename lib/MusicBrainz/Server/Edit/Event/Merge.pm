@@ -36,7 +36,7 @@ before build_display_data => sub {
     $self->c->model('Event')->load_areas(@events);
 };
 
-sub edit_template_react { 'MergeEvents' };
+sub edit_template { 'MergeEvents' };
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

@@ -1,5 +1,5 @@
 /*
- * @flow strict-local
+ * @flow strict
  * Copyright (C) 2020 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -15,7 +15,7 @@ import {
 import EntityLink from '../../static/scripts/common/components/EntityLink.js';
 import DiffSide from '../../static/scripts/edit/components/edit/DiffSide.js';
 import WordDiff from '../../static/scripts/edit/components/edit/WordDiff.js';
-import {INSERT, DELETE} from '../../static/scripts/edit/utility/editDiff.js';
+import {DELETE, INSERT} from '../../static/scripts/edit/utility/editDiff.js';
 
 type Props = {
   +edit: EditUrlEditT,

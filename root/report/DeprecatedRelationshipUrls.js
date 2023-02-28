@@ -1,5 +1,5 @@
 /*
- * @flow strict-local
+ * @flow strict
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -13,8 +13,8 @@ import {
   relTypeColumn,
 } from '../utility/tableColumns.js';
 
-import UrlList from './components/UrlList.js';
 import ReportLayout from './components/ReportLayout.js';
+import UrlList from './components/UrlList.js';
 import type {ReportDataT, ReportUrlRelationshipT} from './types.js';
 
 const DeprecatedRelationshipUrls = ({

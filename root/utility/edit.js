@@ -1,5 +1,5 @@
 /*
- * @flow strict-local
+ * @flow strict
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -10,24 +10,26 @@
 import {
   EDIT_EXPIRE_ACCEPT,
   EDIT_EXPIRE_REJECT,
-  EDIT_STATUS_OPEN,
   EDIT_STATUS_APPLIED,
-  EDIT_STATUS_FAILEDVOTE,
-  EDIT_STATUS_FAILEDDEP,
-  EDIT_STATUS_ERROR,
-  EDIT_STATUS_FAILEDPREREQ,
-  EDIT_STATUS_NOVOTES,
   EDIT_STATUS_DELETED,
+  EDIT_STATUS_ERROR,
+  EDIT_STATUS_FAILEDDEP,
+  EDIT_STATUS_FAILEDPREREQ,
+  EDIT_STATUS_FAILEDVOTE,
+  EDIT_STATUS_NOVOTES,
+  EDIT_STATUS_OPEN,
 } from '../constants.js';
 import {
   EDIT_RELATIONSHIP_DELETE,
   EDIT_SERIES_EDIT,
 } from '../static/scripts/common/constants/editTypes.js';
 import {
+  isAddingNotesDisabled,
   isAutoEditor,
   isBot,
   isEditingEnabled,
 } from '../static/scripts/common/utility/privileges.js';
+import {kebabCase} from '../static/scripts/common/utility/strings.js';
 
 const EXPIRE_ACTIONS = {
   [EDIT_EXPIRE_ACCEPT]:   N_l('Accept upon closing'),
@@ -91,6 +93,13 @@ export function getEditStatusDescription(edit: GenericEditWithIdT): string {
   }
 }
 
+export function getEditHeaderClass(edit: GenericEditWithIdT): string {
+  return 'edit-header' + ' ' +
+         getEditStatusClass(edit) + ' ' +
+         'edit-' + edit.edit_kind + ' ' +
+         kebabCase(edit.edit_name);
+}
+
 export function getEditStatusClass(edit: GenericEditWithIdT): string {
   switch (edit.status) {
     case EDIT_STATUS_OPEN:
@@ -118,7 +127,7 @@ export function editorMayAddNote(
   editor: ?UnsanitizedEditorT,
 ): boolean {
   return !!editor && nonEmpty(editor.email_confirmation_date) &&
-    (editor.id === edit.editor_id || !editor.is_limited);
+    !isAddingNotesDisabled(editor);
 }
 
 export function editorMayApprove(
@@ -155,6 +164,7 @@ export function editorMayApprove(
       const oldOrderingType = (edit.data.old?.ordering_type_id) ?? 0;
       const newOrderingType = (edit.data.new?.ordering_type_id) ?? 0;
       // Intentional != since some edit data store numbers as strings
+      // eslint-disable-next-line eqeqeq
       if (oldOrderingType != newOrderingType) {
         return false;
       }
@@ -180,7 +190,6 @@ export function editorMayVote(
     !!editor &&
     edit.status === EDIT_STATUS_OPEN &&
     editor.id !== edit.editor_id &&
-    !editor.is_limited &&
     !isBot(editor) &&
     isEditingEnabled(editor)
   );

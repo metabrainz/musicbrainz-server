@@ -1,5 +1,5 @@
 /*
- * @flow strict-local
+ * @flow strict
  * Copyright (C) 2020 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -18,20 +18,69 @@ import OrderableDirection
   from '../../static/scripts/common/components/OrderableDirection.js';
 import Relationship
   from '../../static/scripts/common/components/Relationship.js';
-import linkedEntities from '../../static/scripts/common/linkedEntities.mjs';
 import {compare} from '../../static/scripts/common/i18n.js';
 import expand2react from '../../static/scripts/common/i18n/expand2react.js';
 import localizeLinkAttributeTypeName
   from '../../static/scripts/common/i18n/localizeLinkAttributeTypeName.js';
+import linkedEntities from '../../static/scripts/common/linkedEntities.mjs';
 import formatEntityTypeName
   from '../../static/scripts/common/utility/formatEntityTypeName.js';
 import {isRelationshipEditor}
   from '../../static/scripts/common/utility/privileges.js';
 import {upperFirst} from '../../static/scripts/common/utility/strings.js';
 
+type UsedAttributesListProps = {
+  +attributes?: $ReadOnlyArray<LinkAttrTypeT>,
+  +relType: LinkTypeT,
+};
+
 type Props = {
   +relType: LinkTypeT,
 };
+
+const UsedAttributesList = ({
+  attributes,
+  relType,
+}: UsedAttributesListProps) => (
+  <>
+    <h2>{l('Attributes')}</h2>
+    {!attributes?.length && !relType.has_dates ? (
+      <p>{l('This relationship type doesn\'t allow any attributes.')}</p>
+    ) : (
+      <>
+        <p>
+          {l(`The following attributes can be used
+              with this relationship type:`)}
+        </p>
+        {attributes ? (
+          attributes.map(attributeType => (
+            <React.Fragment key={attributeType.id}>
+              <h3>
+                <a href={'/relationship-attribute/' + attributeType.gid}>
+                  {l_relationships(attributeType.name)}
+                </a>
+              </h3>
+              <p>
+                {expand2react(l_relationships(
+                  attributeType.description,
+                ))}
+              </p>
+            </React.Fragment>
+          ))
+        ) : null}
+        {relType.has_dates ? (
+          <>
+            <h3>{l('start date')}</h3>
+            <p />
+
+            <h3>{l('end date')}</h3>
+            <p />
+          </>
+        ) : null}
+      </>
+    )}
+  </>
+);
 
 const RelationshipTypeIndex = ({
   relType,
@@ -163,38 +212,10 @@ const RelationshipTypeIndex = ({
               </ul>
             </p>
 
-            <h2>{l('Attributes')}</h2>
-            <p>
-              {!possibleAttributes.length && !relType.has_dates ? (
-                l('This relationship type doesn\'t allow any attributes.')
-              ) : (
-                <>
-                  {l(`The following attributes can be used
-                      with this relationship type:`)}
-                  {possibleAttributes ? (
-                    possibleAttributes.map(attributeType => (
-                      <React.Fragment key={attributeType.id}>
-                        <h3>{l_relationships(attributeType.name)}</h3>
-                        <p>
-                          {expand2react(l_relationships(
-                            attributeType.description,
-                          ))}
-                        </p>
-                      </React.Fragment>
-                    ))
-                  ) : null}
-                  {relType.has_dates ? (
-                    <>
-                      <h3>{l('start date')}</h3>
-                      <p />
-
-                      <h3>{l('end date')}</h3>
-                      <p />
-                    </>
-                  ) : null}
-                </>
-              )}
-            </p>
+            <UsedAttributesList
+              attributes={possibleAttributes}
+              relType={relType}
+            />
 
             {nonEmpty(relType.documentation) ||
               type0 === 'url' || type1 === 'url' ? (

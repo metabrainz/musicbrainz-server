@@ -1,4 +1,7 @@
 package t::MusicBrainz::Server::Controller::Label::Aliases;
+use strict;
+use warnings;
+
 use Test::Routine;
 use MusicBrainz::Server::Test qw( html_ok page_test_jsonld );
 
@@ -39,7 +42,7 @@ test 'Label alias appears on alias page content and on JSON-LD' => sub {
         },
         '@id' => 'http://musicbrainz.org/label/46f0f4cd-8aab-4b33-b698-f459faf64190',
         '@type' => 'MusicLabel',
-        '@context' => 'http://schema.org',
+        '@context' => 'https://schema.org/docs/jsonldcontext.json',
         'alternateName' => ['Test Label Alias']
     };
 };

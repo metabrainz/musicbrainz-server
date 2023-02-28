@@ -20,8 +20,8 @@ import {
   SCRIPTS_DIR,
   WEBPACK_MODE,
 } from './constants.mjs';
-import moduleConfig from './moduleConfig.mjs';
 import definePluginConfig from './definePluginConfig.mjs';
+import moduleConfig from './moduleConfig.mjs';
 import providePluginConfig from './providePluginConfig.mjs';
 
 export default {
@@ -33,6 +33,7 @@ export default {
 
   entry: {
     server: {
+      chunkLoading: false,
       import: path.resolve(ROOT_DIR, 'server.mjs'),
       /*
        * This prevents code-splitting of async imports into separate chunks.
@@ -40,7 +41,6 @@ export default {
        * certain modules that must be shared into each chunk (context,
        * gettext, DBDefs, linkedEntities, ...).
        */
-      chunkLoading: false,
     },
   },
 
@@ -52,8 +52,12 @@ export default {
        *
        * mutate-cow is allowed because it's published as an ES module, which
        * must be converted to CommonJS.
+       *
+       * weight-balanced-tree is allowed because it needs to be transpiled to
+       * remove Flow and ESM syntax; this is also fine because it's free of
+       * side-effects.
        */
-      allowlist: [/(jquery|@popperjs|mutate-cow)/],
+      allowlist: [/(jquery|@popperjs|mutate-cow|weight-balanced-tree)/],
       modulesFromFile: true,
     }),
   ],
@@ -67,6 +71,9 @@ export default {
   node: false,
 
   output: {
+    environment: {
+      module: false,
+    },
     filename: '[name].js',
     libraryTarget: 'commonjs2',
     path: BUILD_DIR,

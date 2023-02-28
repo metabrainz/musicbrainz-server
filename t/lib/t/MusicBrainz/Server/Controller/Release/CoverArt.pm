@@ -1,4 +1,7 @@
 package t::MusicBrainz::Server::Controller::Release::CoverArt;
+use strict;
+use warnings;
+
 use DBDefs;
 use Test::Routine;
 use MusicBrainz::Server::Test qw( html_ok page_test_jsonld );
@@ -16,7 +19,7 @@ test all => sub {
     html_ok($mech->content);
 
     page_test_jsonld $mech => {
-        '@context' => 'http://schema.org',
+        '@context' => 'https://schema.org/docs/jsonldcontext.json',
         'releaseOf' => {
             '@type' => 'MusicAlbum',
             'albumProductionType' => 'http://schema.org/StudioAlbum',

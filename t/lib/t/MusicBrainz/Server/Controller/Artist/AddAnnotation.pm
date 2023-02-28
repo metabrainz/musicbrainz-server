@@ -1,4 +1,7 @@
 package t::MusicBrainz::Server::Controller::Artist::AddAnnotation;
+use strict;
+use warnings;
+
 use Test::Routine;
 use Test::More;
 use MusicBrainz::Server::Test qw( capture_edits );
@@ -21,7 +24,10 @@ test 'MBS-4091: Test submitting annotation starting with list syntax' => sub {
 
     prepare_test($test);
 
-    $mech->get_ok('/artist/745c079d-374e-4436-9448-da92dedef3ce/edit_annotation');
+    $mech->get_ok(
+        '/artist/745c079d-374e-4436-9448-da92dedef3ce/edit_annotation',
+        'Fetched the edit annotation page',
+    );
     my @edits = capture_edits {
         $mech->submit_form_ok({
             with_fields => {
@@ -34,7 +40,8 @@ test 'MBS-4091: Test submitting annotation starting with list syntax' => sub {
 
     ok(
         $mech->uri =~ qr{/artist/745c079d-374e-4436-9448-da92dedef3ce/?$},
-        'The user is redirected to the artist page after entering the edit');
+        'The user is redirected to the artist page after entering the edit',
+    );
 
     is(@edits, 1, 'The edit was entered');
 
@@ -72,7 +79,10 @@ test 'MBS-12161: Test submitting annotation with too long changelog' => sub {
 
     prepare_test($test);
 
-    $mech->get_ok('/artist/745c079d-374e-4436-9448-da92dedef3ce/edit_annotation');
+    $mech->get_ok(
+        '/artist/745c079d-374e-4436-9448-da92dedef3ce/edit_annotation',
+        'Fetched the edit annotation page',
+    );
     my @edits = capture_edits {
         $mech->submit_form_ok({
             with_fields => {

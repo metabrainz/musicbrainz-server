@@ -18,6 +18,7 @@ use MusicBrainz::Server::Validation qw( is_positive_integer );
 extends 'MusicBrainz::Server::Data::Entity';
 with 'MusicBrainz::Server::Data::Role::GetByGID';
 with 'MusicBrainz::Server::Data::Role::EntityCache';
+with 'MusicBrainz::Server::Data::Role::SelectAll';
 
 sub _type { 'link_type' }
 
@@ -111,6 +112,22 @@ sub load
     my ($self, @objs) = @_;
     load_subobjects($self, 'type', @objs);
 }
+
+around '_get_all_from_db' => sub {
+    my ($orig, $self, $p) = @_;
+
+    my @all = $self->$orig($p);
+    my @ids;
+    my %id_to_obj;
+
+    for my $obj (@all) {
+        push @ids, $obj->id;
+        $id_to_obj{$obj->id} = $obj;
+    }
+
+    $self->_load_attributes(\%id_to_obj, @ids);
+    return @all;
+};
 
 sub get_tree
 {

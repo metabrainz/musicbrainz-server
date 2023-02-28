@@ -1,5 +1,5 @@
 /*
- * @flow strict-local
+ * @flow strict
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -18,8 +18,8 @@ import {
   isRelationshipEditor,
 } from '../static/scripts/common/utility/privileges.js';
 
-import Tabs from './Tabs.js';
 import EntityTabLink from './EntityTabLink.js';
+import Tabs from './Tabs.js';
 
 const tabLinkNames = {
   artists: N_l('Artists'),

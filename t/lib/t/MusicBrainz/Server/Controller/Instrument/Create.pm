@@ -1,8 +1,10 @@
 package t::MusicBrainz::Server::Controller::Instrument::Create;
+use strict;
+use warnings;
 
 use Test::Routine;
 use Test::More;
-use MusicBrainz::Server::Test qw( capture_edits );
+use MusicBrainz::Server::Test qw( capture_edits html_ok );
 
 with 't::Mechanize', 't::Context';
 
@@ -23,12 +25,17 @@ test 'Adding a new instrument' => sub {
       '+instrument_editing',
     );
 
-    $mech->get_ok('/login');
-    $mech->submit_form(with_fields => { username => 'instrument_editor', password => 'pass' });
+    $mech->get('/login');
+    $mech->submit_form(
+        with_fields => { username => 'instrument_editor', password => 'pass' }
+    );
+
     $mech->get_ok(
         '/instrument/create',
         'Fetched the instrument creation page',
     );
+    html_ok($mech->content);
+
     my @edits = capture_edits {
         $mech->submit_form_ok({
             with_fields => {
@@ -39,6 +46,11 @@ test 'Adding a new instrument' => sub {
         },
         'The form returned a 2xx response code')
     } $c;
+
+    ok(
+        $mech->uri =~ qr{/instrument/([a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})},
+        'The user is redirected to the instrument page after entering the edit',
+    );
 
     is(@edits, 1, 'The edit was entered');
 
@@ -55,6 +67,22 @@ test 'Adding a new instrument' => sub {
             type_id => undef,
         },
         'The edit contains the right data',
+    );
+
+    # Test display of edit data
+    $mech->get_ok('/edit/' . $edit->id, 'Fetched the edit page');
+    html_ok($mech->content);
+    $mech->text_contains(
+        'New Instrument',
+        'The edit page contains the instrument name',
+    );
+    $mech->text_contains(
+        'This is made up!',
+        'The edit page contains the instrument description',
+    );
+    $mech->text_contains(
+        'a newly invented instrument',
+        'The edit page contains the disambiguation',
     );
 };
 

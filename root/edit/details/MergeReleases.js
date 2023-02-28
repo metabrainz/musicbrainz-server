@@ -1,5 +1,5 @@
 /*
- * @flow strict-local
+ * @flow strict
  * Copyright (C) 2021 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -9,8 +9,8 @@
 
 import * as React from 'react';
 
-import ReleaseLabelList from '../../components/ReleaseLabelList.js';
 import ReleaseCatnoList from '../../components/ReleaseCatnoList.js';
+import ReleaseLabelList from '../../components/ReleaseLabelList.js';
 import * as manifest from '../../static/manifest.mjs';
 import ArtistCreditLink
   from '../../static/scripts/common/components/ArtistCreditLink.js';
@@ -20,12 +20,12 @@ import EntityLink
   from '../../static/scripts/common/components/EntityLink.js';
 import ReleaseEvents
   from '../../static/scripts/common/components/ReleaseEvents.js';
+import expand2react from '../../static/scripts/common/i18n/expand2react.js';
 import formatBarcode
   from '../../static/scripts/common/utility/formatBarcode.js';
 import formatTrackLength from
   '../../static/scripts/common/utility/formatTrackLength.js';
 import loopParity from '../../utility/loopParity.js';
-import expand2react from '../../static/scripts/common/i18n/expand2react.js';
 
 type Props = {
   +edit: MergeReleasesEditT,

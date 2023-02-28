@@ -1,5 +1,5 @@
 /*
- * @flow strict-local
+ * @flow strict
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -11,10 +11,10 @@ import * as React from 'react';
 
 import PaginatedResults from '../components/PaginatedResults.js';
 import {SanitizedCatalystContext} from '../context.mjs';
-import loopParity from '../utility/loopParity.js';
 import EntityLink from '../static/scripts/common/components/EntityLink.js';
 import FormRow from '../static/scripts/edit/components/FormRow.js';
 import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
+import loopParity from '../utility/loopParity.js';
 import {returnToCurrentPage} from '../utility/returnUri.js';
 
 import ReportLayout from './components/ReportLayout.js';

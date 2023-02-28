@@ -36,7 +36,12 @@ export async function getResponse(requestBody, context) {
   const user = context.user;
   if (user) {
     Sentry.setUser({id: user.id, username: user.name});
+  } else {
+    Sentry.setUser(null);
   }
+
+  Sentry.setTag('component', requestBody.component);
+  Sentry.setTag('url', context.req.uri);
 
   /*
    * Set the current translations to be used for this request based on the

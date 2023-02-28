@@ -1,5 +1,5 @@
 /*
- * @flow strict-local
+ * @flow strict
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -9,9 +9,9 @@
 
 import * as React from 'react';
 
-import Layout from '../layout/index.js';
 import CollectionSidebar
   from '../layout/components/sidebar/CollectionSidebar.js';
+import Layout from '../layout/index.js';
 
 import CollectionHeader from './CollectionHeader.js';
 

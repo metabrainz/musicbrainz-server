@@ -1,5 +1,5 @@
 /*
- * @flow strict-local
+ * @flow strict
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -66,7 +66,7 @@ const UserAccountLayout = ({
     {...layoutProps}
   >
     <h1>
-      <EditorLink avatarSize={54} editor={user} />
+      <EditorLink avatarSize={32} editor={user} />
     </h1>
     <UserAccountTabs page={page} user={user} />
     {children}

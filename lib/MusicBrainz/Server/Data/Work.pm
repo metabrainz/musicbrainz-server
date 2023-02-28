@@ -16,10 +16,12 @@ use MusicBrainz::Server::Entity::Work;
 use MusicBrainz::Server::Entity::WorkAttribute;
 use MusicBrainz::Server::Entity::WorkAttributeType;
 
-extends 'MusicBrainz::Server::Data::CoreEntity';
+extends 'MusicBrainz::Server::Data::Entity';
+with 'MusicBrainz::Server::Data::Role::Relatable';
+with 'MusicBrainz::Server::Data::Role::Name';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'work' };
 with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'work' };
-with 'MusicBrainz::Server::Data::Role::CoreEntityCache';
+with 'MusicBrainz::Server::Data::Role::GIDEntityCache';
 with 'MusicBrainz::Server::Data::Role::DeleteAndLog' => { type => 'work' };
 with 'MusicBrainz::Server::Data::Role::Rating' => { type => 'work' };
 with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'work' };

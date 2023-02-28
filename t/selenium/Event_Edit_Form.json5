@@ -1,0 +1,248 @@
+{
+  title: 'Event Edit Form',
+  commands: [
+    {
+      command: 'open',
+      target: '/event/create',
+      value: '',
+    },
+    {
+      command: 'type',
+      target: 'id=id-edit-event.name',
+      value: 'newevent',
+    },
+    {
+      command: 'click',
+      target: 'css=#relationship-editor button.add-item',
+      value: '',
+    },
+    {
+      command: 'type',
+      target: 'css=#add-relationship-dialog input.relationship-target',
+      value: '2437980f-513a-44fc-80f1-b90d9d7fcf8f',
+    },
+    {
+      command: 'pause',
+      target: '1000',
+      value: '',
+    },
+    {
+      command: 'sendKeys',
+      target: 'css=#add-relationship-dialog input.relationship-type',
+      value: 'main performer${KEY_ENTER}',
+    },
+    {
+      command: 'type',
+      target: 'css=#add-relationship-dialog .attribute-container.text.time input[type=text]',
+      value: '6:00',
+    },
+    {
+      command: 'click',
+      target: 'css=#add-relationship-dialog button.positive',
+      value: '',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'css=form.edit-event button[type=submit]',
+      value: '',
+    },
+    {
+      command: 'assertEditData',
+      target: 1,
+      value: {
+        type: 150,
+        status: 2,
+        data: {
+          begin_date: {
+            day: null,
+            month: null,
+            year: null,
+          },
+          cancelled: '0',
+          comment: '',
+          end_date: {
+            day: null,
+            month: null,
+            year: null,
+          },
+          ended: 0,
+          entity_gid: '$$__IGNORE__$$',
+          entity_id: 1,
+          name: 'newevent',
+          setlist: '',
+          time: null,
+          type_id: null,
+        },
+      },
+    },
+    {
+      command: 'assertEditData',
+      target: 2,
+      value: {
+        type: 90,
+        status: 2,
+        data: {
+          attributes: [
+            {
+              text_value: '6:00',
+              type: {
+                gid: 'ebd303c3-7f57-452a-aa3b-d780ebad868d',
+                id: 830,
+                name: 'time',
+                root: {
+                  gid: 'ebd303c3-7f57-452a-aa3b-d780ebad868d',
+                  id: 830,
+                  name: 'time',
+                },
+              },
+            },
+          ],
+          edit_version: 2,
+          ended: '0',
+          entity0: {
+            gid: '2437980f-513a-44fc-80f1-b90d9d7fcf8f',
+            id: 99,
+            name: 'Bing Crosby',
+          },
+          entity1: {
+            gid: '$$__IGNORE__$$',
+            id: 1,
+            name: 'newevent',
+          },
+          entity_id: 1,
+          link_type: {
+            id: 798,
+            link_phrase: 'main performer at',
+            long_link_phrase: 'was a main performer at',
+            name: 'main performer',
+            reverse_link_phrase: 'main performers',
+          },
+          type0: 'artist',
+          type1: 'event',
+        },
+      },
+    },
+    {
+      command: 'clickAndWait',
+      target: 'css=.tabs a[href$="/edit"]',
+      value: '',
+    },
+    // MBS-12646: Change the time of an artist-event relationship.
+    {
+      command: 'click',
+      target: 'xpath=(//tr[contains(@class, "main-performers")])[1]//button[contains(@class, "edit-item")]',
+      value: '',
+    },
+    {
+      command: 'type',
+      target: 'css=#edit-relationship-dialog .attribute-container.text.time input[type=text]',
+      value: '7:00',
+    },
+    {
+      command: 'click',
+      target: 'css=#edit-relationship-dialog button.positive',
+      value: '',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'css=form.edit-event button[type=submit]',
+      value: '',
+    },
+    {
+      command: 'assertEditData',
+      target: 3,
+      value: {
+        type: 91,
+        status: 2,
+        data: {
+          edit_version: 2,
+          entity0_credit: '',
+          entity1_credit: '',
+          link: {
+            attributes: [
+              {
+                text_value: '6:00',
+                type: {
+                  gid: 'ebd303c3-7f57-452a-aa3b-d780ebad868d',
+                  id: 830,
+                  name: 'time',
+                  root: {
+                    gid: 'ebd303c3-7f57-452a-aa3b-d780ebad868d',
+                    id: 830,
+                    name: 'time',
+                  },
+                },
+              },
+            ],
+            begin_date: {
+              day: null,
+              month: null,
+              year: null,
+            },
+            end_date: {
+              day: null,
+              month: null,
+              year: null,
+            },
+            ended: 0,
+            entity0: {
+              gid: '2437980f-513a-44fc-80f1-b90d9d7fcf8f',
+              id: 99,
+              name: 'Bing Crosby',
+            },
+            entity1: {
+              gid: '$$__IGNORE__$$',
+              id: 1,
+              name: 'newevent',
+            },
+            link_type: {
+              id: 798,
+              link_phrase: 'main performer at',
+              long_link_phrase: 'was a main performer at',
+              name: 'main performer',
+              reverse_link_phrase: 'main performers',
+            },
+          },
+          new: {
+            attributes: [
+              {
+                text_value: '7:00',
+                type: {
+                  gid: 'ebd303c3-7f57-452a-aa3b-d780ebad868d',
+                  id: 830,
+                  name: 'time',
+                  root: {
+                    gid: 'ebd303c3-7f57-452a-aa3b-d780ebad868d',
+                    id: 830,
+                    name: 'time',
+                  },
+                },
+              },
+            ],
+          },
+          old: {
+            attributes: [
+              {
+                text_value: '6:00',
+                type: {
+                  gid: 'ebd303c3-7f57-452a-aa3b-d780ebad868d',
+                  id: 830,
+                  name: 'time',
+                  root: {
+                    gid: 'ebd303c3-7f57-452a-aa3b-d780ebad868d',
+                    id: 830,
+                    name: 'time',
+                  },
+                },
+              },
+            ],
+          },
+          relationship_id: 1,
+          type0: 'artist',
+          type1: 'event',
+        },
+      },
+    },
+    // End of test for MBS-12646.
+  ],
+}

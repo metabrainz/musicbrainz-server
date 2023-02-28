@@ -350,6 +350,7 @@ ALTER TABLE tag_relation ADD CONSTRAINT tag_relation_pkey PRIMARY KEY (tag1, tag
 ALTER TABLE track ADD CONSTRAINT track_pkey PRIMARY KEY (id);
 ALTER TABLE track_gid_redirect ADD CONSTRAINT track_gid_redirect_pkey PRIMARY KEY (gid);
 ALTER TABLE track_raw ADD CONSTRAINT track_raw_pkey PRIMARY KEY (id);
+ALTER TABLE unreferenced_row_log ADD CONSTRAINT unreferenced_row_log_pkey PRIMARY KEY (table_name, row_id);
 ALTER TABLE url ADD CONSTRAINT url_pkey PRIMARY KEY (id);
 ALTER TABLE url_gid_redirect ADD CONSTRAINT url_gid_redirect_pkey PRIMARY KEY (gid);
 ALTER TABLE vote ADD CONSTRAINT vote_pkey PRIMARY KEY (id);

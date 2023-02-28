@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict
  * Copyright (C) 2015–2016 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -7,38 +7,45 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import * as Sentry from '@sentry/browser';
 import ko from 'knockout';
 import * as React from 'react';
 
+import isGreyedOut from '../../url/utility/isGreyedOut.js';
 import localizeAreaName from '../i18n/localizeAreaName.js';
 import localizeInstrumentName from '../i18n/localizeInstrumentName.js';
 import bracketed, {bracketedText} from '../utility/bracketed.js';
 import entityHref from '../utility/entityHref.js';
 import formatDatePeriod from '../utility/formatDatePeriod.js';
 import isolateText from '../utility/isolateText.js';
-import isGreyedOut from '../../url/utility/isGreyedOut.js';
 
 type DeletedLinkProps = {
   +allowNew: boolean,
+  +className?: string,
   +deletedCaption?: string,
   +name: ?Expand2ReactOutput,
 };
 
 export const DeletedLink = ({
   allowNew,
+  className,
   deletedCaption,
   name,
 }: DeletedLinkProps): React.Element<'span'> => {
-  const caption = deletedCaption || (allowNew
+  const caption = nonEmpty(deletedCaption) ? deletedCaption : (allowNew
     ? l('This entity will be created by this edit.')
     : l('This entity has been removed, and cannot be displayed correctly.'));
 
   return (
     <span
-      className={(allowNew ? '' : 'deleted ') + 'tooltip'}
+      className={
+        (nonEmpty(className) ? className + ' ' : '') +
+        (allowNew ? '' : 'deleted ') +
+        'tooltip'
+      }
       title={caption}
     >
-      {isolateText(name || l('[removed]'))}
+      {isolateText(nonEmpty(name) ? name : l('[removed]'))}
     </span>
   );
 };
@@ -101,15 +108,15 @@ const AreaDisambiguation = ({area}: {+area: AreaT}) => {
   const beginYear = area.begin_date ? area.begin_date.year : null;
   const endYear = area.end_date ? area.end_date.year : null;
 
-  if (beginYear && endYear) {
+  if (beginYear != null && endYear != null) {
     comment = texp.l(
       'historical, {begin}-{end}',
       {begin: beginYear, end: endYear},
     );
-  } else if (endYear) {
-    comment = texp.l('historical, until {end}', {end: endYear});
-  } else {
+  } else if (endYear == null) {
     comment = l('historical');
+  } else {
+    comment = texp.l('historical, until {end}', {end: endYear});
   }
 
   return <Comment className="historical" comment={comment} />;
@@ -163,42 +170,61 @@ type EntityLinkProps = {
 
 const EntityLink = ({
   allowNew = false,
-  content,
+  content: passedContent,
   deletedCaption,
   disableLink = false,
   entity,
-  hover,
-  nameVariation,
-  showCaaPresence,
+  hover: passedHover,
+  nameVariation: passedNameVariation,
+  showCaaPresence = false,
   showDeleted = true,
-  showDisambiguation,
+  showDisambiguation: passedShowDisambiguation,
   showEditsPending = true,
   showEventDate = true,
-  showIcon = false,
+  showIcon: passedShowIcon = false,
   subPath,
   ...anchorProps
 }: EntityLinkProps):
 $ReadOnlyArray<Expand2ReactOutput> | Expand2ReactOutput | null => {
-  const hasCustomContent = nonEmpty(content);
-  const comment = entity.comment ? ko.unwrap(entity.comment) : '';
+  const hasCustomContent = nonEmpty(passedContent);
+  const hasEditsPending = entity.editsPending || false;
+  const hasSubPath = nonEmpty(subPath);
+  const comment = nonEmpty(entity.comment) ? ko.unwrap(entity.comment) : '';
+
+  let content = passedContent;
+  let hover = passedHover;
+  let nameVariation = passedNameVariation;
+  let showDisambiguation = passedShowDisambiguation;
+  let showIcon = passedShowIcon;
+
+  if (nameVariation === undefined &&
+    nonEmpty(content) && typeof content !== 'string'
+  ) {
+    const errorMessage = 'Content of type ' + typeof content +
+      ' cannot be compared as a string to entity name for name variation.';
+    if (__DEV__) {
+      invariant(false, errorMessage);
+    }
+    Sentry.captureException(new Error(errorMessage));
+  }
 
   if (showDisambiguation === undefined) {
     showDisambiguation = !hasCustomContent;
   }
 
-  if (entity.entityType === 'artist' && !nonEmpty(hover)) {
+  if (entity.entityType === 'artist' && empty(hover)) {
     hover = entity.sort_name + (comment ? ' ' + bracketedText(comment) : '');
   }
 
   if (entity.entityType === 'area') {
-    content = content || localizeAreaName(entity);
+    content = nonEmpty(content) ? content : localizeAreaName(entity);
   } else if (entity.entityType === 'instrument') {
-    content = content || localizeInstrumentName(entity);
+    content = nonEmpty(content) ? content : localizeInstrumentName(entity);
   } else if (entity.entityType === 'link_type') {
-    content = content || l_relationships(entity.name);
+    content = nonEmpty(content) ? content : l_relationships(entity.name);
   }
 
-  content = content || ko.unwrap(entity.name);
+  content = nonEmpty(content) ? content : ko.unwrap(entity.name);
 
   if (!ko.unwrap(entity.gid)) {
     if (entity.entityType === 'url') {
@@ -226,13 +252,13 @@ $ReadOnlyArray<Expand2ReactOutput> | Expand2ReactOutput | null => {
   }
 
   // URLs are kind of weird and we probably don't care to set this for them
-  if (!subPath && entity.entityType !== 'url') {
+  if (!hasSubPath && entity.entityType !== 'url') {
     if (nameVariation === undefined && typeof content === 'string') {
       nameVariation = content !== entity.name;
     }
 
-    if (nameVariation) {
-      if (hover) {
+    if (nameVariation === true) {
+      if (nonEmpty(hover)) {
         hover = texp.l('{name} – {additional_info}', {
           additional_info: hover,
           name: entity.name,
@@ -245,7 +271,7 @@ $ReadOnlyArray<Expand2ReactOutput> | Expand2ReactOutput | null => {
 
   anchorProps.href = href;
 
-  if (hover) {
+  if (nonEmpty(hover)) {
     anchorProps.title = hover;
   }
 
@@ -257,6 +283,7 @@ $ReadOnlyArray<Expand2ReactOutput> | Expand2ReactOutput | null => {
     ? (
       <span
         className="deleted"
+        key="deleted"
         title={entity.entityType === 'url' && isGreyedOut(href)
           ? disabledLinkText()
           : null}
@@ -265,7 +292,7 @@ $ReadOnlyArray<Expand2ReactOutput> | Expand2ReactOutput | null => {
       </span>
     ) : <a key="link" {...anchorProps}>{isolateText(content)}</a>;
 
-  if (nameVariation) {
+  if (nameVariation === true) {
     content = (
       <span className="name-variation" key="namevar">
         {content}
@@ -273,11 +300,11 @@ $ReadOnlyArray<Expand2ReactOutput> | Expand2ReactOutput | null => {
     );
   }
 
-  if (showEditsPending && !subPath && entity.editsPending) {
+  if (showEditsPending && !hasSubPath && hasEditsPending) {
     content = <span className="mp" key="mp">{content}</span>;
   }
 
-  if (!subPath && entity.entityType === 'area') {
+  if (!hasSubPath && entity.entityType === 'area') {
     const isoCodes = entity.iso_3166_1_codes;
     if (isoCodes && isoCodes.length) {
       content = (
@@ -290,12 +317,12 @@ $ReadOnlyArray<Expand2ReactOutput> | Expand2ReactOutput | null => {
     }
   }
 
-  if (!subPath && entity.entityType === 'recording' && entity.video) {
+  if (!hasSubPath && entity.entityType === 'recording' && entity.video) {
     content = (
-      <>
+      <React.Fragment key="video">
         <span className="video" title={l('This recording is a video')} />
         {content}
-      </>
+      </React.Fragment>
     );
   }
 
@@ -303,7 +330,7 @@ $ReadOnlyArray<Expand2ReactOutput> | Expand2ReactOutput | null => {
     if (entity.entityType === 'release' &&
         entity.cover_art_presence === 'present') {
       content = (
-        <>
+        <React.Fragment key="caa">
           <a href={'/release/' + entity.gid + '/cover-art'}>
             <span
               className="caa-icon"
@@ -311,13 +338,13 @@ $ReadOnlyArray<Expand2ReactOutput> | Expand2ReactOutput | null => {
             />
           </a>
           {content}
-        </>
+        </React.Fragment>
       );
     }
 
     if (entity.entityType === 'release_group' && entity.hasCoverArt) {
       content = (
-        <>
+        <React.Fragment key="caa">
           <span
             className="caa-icon"
             title={l(
@@ -325,12 +352,12 @@ $ReadOnlyArray<Expand2ReactOutput> | Expand2ReactOutput | null => {
             )}
           />
           {content}
-        </>
+        </React.Fragment>
       );
     }
   }
 
-  if (!subPath && entity.entityType === 'release') {
+  if (!hasSubPath && entity.entityType === 'release') {
     if (entity.quality === 2) {
       content = (
         <>
@@ -346,7 +373,7 @@ $ReadOnlyArray<Expand2ReactOutput> | Expand2ReactOutput | null => {
       );
     } else if (entity.quality === 0) {
       content = (
-        <>
+        <React.Fragment key="quality">
           <span
             className="low-data-quality"
             title={l(
@@ -355,7 +382,7 @@ $ReadOnlyArray<Expand2ReactOutput> | Expand2ReactOutput | null => {
             )}
           />
           {content}
-        </>
+        </React.Fragment>
       );
     }
   }
@@ -368,7 +395,7 @@ $ReadOnlyArray<Expand2ReactOutput> | Expand2ReactOutput | null => {
     );
   }
 
-  if (!showDisambiguation && !infoLink) {
+  if (!showDisambiguation && empty(infoLink)) {
     return parts;
   }
 
@@ -392,7 +419,7 @@ $ReadOnlyArray<Expand2ReactOutput> | Expand2ReactOutput | null => {
     }
   }
 
-  if (infoLink) {
+  if (nonEmpty(infoLink)) {
     parts.push(
       ' ',
       bracketed(

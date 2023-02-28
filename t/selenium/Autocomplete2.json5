@@ -1,0 +1,125 @@
+{
+  title: 'Autocomplete2',
+  commands: [
+    {
+      command: 'open',
+      target: '/static/scripts/tests/autocomplete2.html',
+      value: '',
+    },
+    // MBS-12631: Don't show unselectable (disabled) items when typing.
+    {
+      command: 'type',
+      target: 'id=attribute-type-test-input',
+      value: 'im disabled',
+    },
+    {
+      command: 'assertEval',
+      target: 'Array.from(document.getElementById("attribute-type-test-menu").children).filter(li => li.textContent.trim() === "im disabled").length',
+      value: '0',
+    },
+    // End of test for MBS-12631.
+    // MBS-12936: The menu scroll position should only be updated when
+    // navigating items using the arrow keys, or when initially opening the
+    // menu (to reset it to the top). Hovering over items with the mouse
+    // should explicitly not affect the scroll position.
+    // The menu should now be open; first check that the scroll position is
+    // initially zero:
+    {
+      command: 'assertEval',
+      target: 'document.querySelector("#attribute-type-test-menu").scrollTop',
+      value: '0',
+    },
+    // Simulate a mouseover event on the last item.
+    {
+      command: 'runScript',
+      target: '\
+        document.querySelector("#attribute-type-test-menu li:last-child")\
+          .dispatchEvent(new Event("mouseover", {bubbles: true}))\
+      ',
+      value: '',
+    },
+    // Make sure the last item is highlighted.
+    {
+      command: 'assertEval',
+      target: 'document.querySelector("#attribute-type-test-menu li:last-child[aria-selected=true]") != null',
+      value: 'true',
+    },
+    // Check that the scroll position did not change.
+    {
+      command: 'assertEval',
+      target: 'document.querySelector("#attribute-type-test-menu").scrollTop',
+      value: '0',
+    },
+    {
+      command: 'type',
+      target: 'id=attribute-type-test-input',
+      value: '',
+    },
+    // Close the menu, open it with the down arrow key, and then move to the
+    // last item with the up arrow key.
+    {
+      command: 'pause',
+      target: '100',
+      value: '',
+    },
+    {
+      command: 'sendKeys',
+      target: 'id=attribute-type-test-input',
+      value: '${KEY_ESC}',
+    },
+    {
+      command: 'pause',
+      target: '100',
+      value: '',
+    },
+    {
+      command: 'sendKeys',
+      target: 'id=attribute-type-test-input',
+      value: '${KEY_DOWN}',
+    },
+    {
+      command: 'pause',
+      target: '100',
+      value: '',
+    },
+    {
+      command: 'sendKeys',
+      target: 'id=attribute-type-test-input',
+      value: '${KEY_UP}',
+    },
+    // Check that the scroll position changed.
+    {
+      command: 'assertEval',
+      target: 'document.querySelector("#attribute-type-test-menu").scrollTop > 0',
+      value: 'true',
+    },
+    // Close the menu, open it with the down arrow key, and check that the
+    // scroll position is back at the top.
+    {
+      command: 'pause',
+      target: '100',
+      value: '',
+    },
+    {
+      command: 'sendKeys',
+      target: 'id=attribute-type-test-input',
+      value: '${KEY_ESC}',
+    },
+    {
+      command: 'pause',
+      target: '100',
+      value: '',
+    },
+    {
+      command: 'sendKeys',
+      target: 'id=attribute-type-test-input',
+      value: '${KEY_DOWN}',
+    },
+    {
+      command: 'assertEval',
+      target: 'document.querySelector("#attribute-type-test-menu").scrollTop',
+      value: '0',
+    },
+    // End of test for MBS-12936.
+  ],
+}

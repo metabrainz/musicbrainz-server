@@ -1,0 +1,212 @@
+{
+  title: 'MBS-11529',
+  commands: [
+    {
+      command: 'open',
+      target: '/recording/create',
+      value: '',
+    },
+    {
+      command: 'type',
+      target: 'id=id-edit-recording.name',
+      value: 'test feat. bing crosby',
+    },
+    {
+      command: 'type',
+      target: 'id=entity-artist',
+      value: 'david bowie',
+    },
+    {
+      command: 'pause',
+      target: '1000',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'xpath=(//li[contains(@class, "ui-menu-item")][contains(descendant::text(), "David Bowie")])[1]',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'css=div.recording-name button.guessfeat',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'css=button.open-ac',
+      value: '',
+    },
+    {
+      command: 'sendKeys',
+      target: 'xpath=(//div[@id = "artist-credit-bubble"]//input[contains(@class, "name")])[2]',
+      value: '${KEY_DOWN}',
+    },
+    {
+      command: 'pause',
+      target: '1000',
+      value: '',
+    },
+    {
+      command: 'sendKeys',
+      target: 'xpath=(//div[@id = "artist-credit-bubble"]//input[contains(@class, "name")])[2]',
+      value: '${KEY_ENTER}',
+    },
+    {
+      command: 'click',
+      target: 'css=#artist-credit-bubble button.positive',
+      value: '',
+    },
+    {
+      command: 'type',
+      target: 'id=id-edit-recording.edit_note',
+      value: 'ok',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'css=form.edit-recording button[type=submit].positive',
+      value: '',
+    },
+    {
+      command: 'assertEditData',
+      target: 1,
+      value: {
+        type: 71,
+        status: 2,
+        data: {
+          artist_credit: {
+            names: [
+              {
+                artist: {
+                  id: 956,
+                  name: 'David Bowie',
+                },
+                join_phrase: ' feat. ',
+                name: 'David Bowie',
+              },
+              {
+                artist: {
+                  id: 99,
+                  name: 'Bing Crosby',
+                },
+                join_phrase: '',
+                name: 'Bing Crosby',
+              }
+            ]
+          },
+          comment: '',
+          entity_gid: '$$__IGNORE__$$',
+          entity_id: 1,
+          length: null,
+          name: 'test',
+          video: '0',
+        },
+      },
+    },
+    // Repeat the same test, but with a seeded artist that's replaced.
+    // (As reported in the comments to MBS-11529, changing the artist and
+    // hitting "guess feat." would incorrectly cause it to reset to the
+    // seeded artist.)
+    //
+    {
+      command: 'open',
+      target: '/recording/create?artist=4f74991f-0156-427a-88db-9b2ac293dd42',
+      value: '',
+    },
+    {
+      command: 'type',
+      target: 'id=id-edit-recording.name',
+      value: 'test feat. bing crosby',
+    },
+    {
+      command: 'type',
+      target: 'id=entity-artist',
+      value: 'david bowie',
+    },
+    {
+      command: 'pause',
+      target: '1000',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'xpath=(//li[contains(@class, "ui-menu-item")][contains(descendant::text(), "David Bowie")])[1]',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'css=div.recording-name button.guessfeat',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'css=button.open-ac',
+      value: '',
+    },
+    {
+      command: 'sendKeys',
+      target: 'xpath=(//div[@id = "artist-credit-bubble"]//input[contains(@class, "name")])[2]',
+      value: '${KEY_DOWN}',
+    },
+    {
+      command: 'pause',
+      target: '1000',
+      value: '',
+    },
+    {
+      command: 'sendKeys',
+      target: 'xpath=(//div[@id = "artist-credit-bubble"]//input[contains(@class, "name")])[2]',
+      value: '${KEY_ENTER}',
+    },
+    {
+      command: 'click',
+      target: 'css=#artist-credit-bubble button.positive',
+      value: '',
+    },
+    {
+      command: 'type',
+      target: 'id=id-edit-recording.edit_note',
+      value: 'ok',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'css=form.edit-recording button[type=submit].positive',
+      value: '',
+    },
+    {
+      command: 'assertEditData',
+      target: 2,
+      value: {
+        type: 71,
+        status: 2,
+        data: {
+          artist_credit: {
+            names: [
+              {
+                artist: {
+                  id: 956,
+                  name: 'David Bowie',
+                },
+                join_phrase: ' feat. ',
+                name: 'David Bowie',
+              },
+              {
+                artist: {
+                  id: 99,
+                  name: 'Bing Crosby',
+                },
+                join_phrase: '',
+                name: 'Bing Crosby',
+              }
+            ]
+          },
+          comment: '',
+          entity_gid: '$$__IGNORE__$$',
+          entity_id: 2,
+          length: null,
+          name: 'test',
+          video: '0',
+        },
+      },
+    },
+  ],
+}

@@ -1,5 +1,5 @@
 /*
- * @flow strict-local
+ * @flow strict
  * Copyright (C) 2020 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -9,10 +9,10 @@
 
 import * as React from 'react';
 
-import IntentionallyRawIcon from '../components/IntentionallyRawIcon.js';
 import EntityLink
   from '../../static/scripts/common/components/EntityLink.js';
 import expand2react from '../../static/scripts/common/i18n/expand2react.js';
+import IntentionallyRawIcon from '../components/IntentionallyRawIcon.js';
 
 type Props = {
   +allowNew?: boolean,

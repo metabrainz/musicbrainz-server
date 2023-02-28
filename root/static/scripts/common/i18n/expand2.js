@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -7,20 +7,14 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
 import * as Sentry from '@sentry/browser';
+import * as React from 'react';
 
 /*
  * Flow doesn't have very good support for Symbols, so we use a unique
- * singleton class to fill its role.
+ * class instance to fill its role.
  */
-export class NO_MATCH {
-  static instance: ?NO_MATCH;
-
-  constructor(): NO_MATCH {
-    return NO_MATCH.instance || (NO_MATCH.instance = this);
-  }
-}
+export class NO_MATCH {}
 
 export const NO_MATCH_VALUE: NO_MATCH = new NO_MATCH();
 Object.freeze(NO_MATCH);
@@ -100,6 +94,7 @@ export function getString(x: mixed): string {
 
 export function getVarSubstArg(x: mixed): React$MixedElement | string {
   if (React.isValidElement(x)) {
+    // $FlowIgnore[unclear-type] We know this is a valid element
     return ((x: any): React$MixedElement);
   }
   return getString(x);
@@ -254,6 +249,11 @@ export const createCondSubstParser = <T, V>(
 
   if (args.has(name)) {
     const value = args.get(name);
+    /*
+     * The Flow lint is disabled because we intend to
+     * strip /all/ falsey values here.
+     */
+    // flowlint-next-line sketchy-null-mixed:off
     if (value) {
       return thenChildren;
     }
@@ -281,7 +281,7 @@ export default function expand<+T, V>(
   source: ?string,
   args: ?VarArgsClass<V>,
 ): T | string {
-  if (!source) {
+  if (empty(source)) {
     return '';
   }
 

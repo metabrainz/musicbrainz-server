@@ -1,4 +1,7 @@
 package t::MusicBrainz::Server::Edit::Label::AddAlias;
+use strict;
+use warnings;
+
 use Test::Routine;
 use Test::More;
 

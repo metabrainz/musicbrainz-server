@@ -1,5 +1,5 @@
 /*
- * @flow strict-local
+ * @flow strict
  * Copyright (C) 2020 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -9,9 +9,9 @@
 
 import * as React from 'react';
 
-import HistoricReleaseList from '../../components/HistoricReleaseList.js';
 import WordDiff
   from '../../../static/scripts/edit/components/edit/WordDiff.js';
+import HistoricReleaseList from '../../components/HistoricReleaseList.js';
 
 type Props = {
   +edit: EditReleaseNameHistoricEditT,
