@@ -15,6 +15,8 @@ import {
   ENTITY_NAMES,
 } from '../../common/constants.js';
 import * as URLCleanup from '../../edit/URLCleanup.js';
+import getRelationshipLinkType
+  from '../../edit/utility/getRelationshipLinkType.js';
 import type {
   DialogSourceEntityStateT,
   RelationshipStateT,
@@ -23,7 +25,6 @@ import type {
   DialogEntityCreditActionT,
 } from '../types/actions.js';
 import getBatchSelectionMessage from '../utility/getBatchSelectionMessage.js';
-import getRelationshipLinkType from '../utility/getRelationshipLinkType.js';
 import isRelationshipBackward from '../utility/isRelationshipBackward.js';
 
 import DialogEntityCredit, {
