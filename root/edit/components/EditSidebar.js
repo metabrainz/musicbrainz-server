@@ -90,7 +90,6 @@ component EditSidebar(edit: GenericEditWithIdT) {
       <ul className="links">
         <li><a href="/doc/Introduction_to_Voting">{l('Voting FAQ')}</a></li>
         <li><a href="/doc/Editing_FAQ">{l('Editing FAQ')}</a></li>
-        <li><a href="/doc/Edit_Types">{lp('Edit types', 'noun')}</a></li>
       </ul>
     </div>
   );
