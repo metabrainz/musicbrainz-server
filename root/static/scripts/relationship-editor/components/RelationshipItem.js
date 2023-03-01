@@ -28,6 +28,8 @@ import EntityPendingEditsWarning
   from '../../edit/components/EntityPendingEditsWarning.js';
 import RelationshipPendingEditsWarning
   from '../../edit/components/RelationshipPendingEditsWarning.js';
+import getRelationshipLinkType
+  from '../../edit/utility/getRelationshipLinkType.js';
 import {
   getPhraseAndExtraAttributesText,
 } from '../../edit/utility/linkPhrase.js';
@@ -45,7 +47,6 @@ import type {
 } from '../types/actions.js';
 import getLinkPhrase from '../utility/getLinkPhrase.js';
 import getRelationshipKey from '../utility/getRelationshipKey.js';
-import getRelationshipLinkType from '../utility/getRelationshipLinkType.js';
 import getRelationshipStatusName
   from '../utility/getRelationshipStatusName.js';
 import isRelationshipBackward from '../utility/isRelationshipBackward.js';

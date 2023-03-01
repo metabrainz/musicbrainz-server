@@ -32,6 +32,8 @@ import {
   hasSessionStorage,
   sessionStorageWrapper,
 } from '../../common/utility/storage.js';
+import getRelationshipLinkType
+  from '../../edit/utility/getRelationshipLinkType.js';
 import reducerWithErrorHandling
   from '../../edit/utility/reducerWithErrorHandling.js';
 import {
@@ -61,7 +63,6 @@ import {
 } from '../utility/findState.js';
 import getRelationshipEditStatus
   from '../utility/getRelationshipEditStatus.js';
-import getRelationshipLinkType from '../utility/getRelationshipLinkType.js';
 import getRelationshipStateId from '../utility/getRelationshipStateId.js';
 import getRelationshipTarget from '../utility/getRelationshipTarget.js';
 import isRelationshipBackward from '../utility/isRelationshipBackward.js';
