@@ -9,17 +9,23 @@
 
 import Relationship
   from '../../static/scripts/common/components/Relationship.js';
+import RelationshipDocsTooltip
+  from '../components/RelationshipDocsTooltip.js';
 
 component RemoveRelationship(edit: RemoveRelationshipEditT) {
+  const relationship = edit.display_data.relationship;
   return (
-    <table className="details remove-relationship">
-      <tr>
-        <th>{addColonText(l('Relationship'))}</th>
-        <td>
-          <Relationship relationship={edit.display_data.relationship} />
-        </td>
-      </tr>
-    </table>
+    <>
+      <RelationshipDocsTooltip relationships={[relationship]} />
+      <table className="details remove-relationship">
+        <tr>
+          <th>{addColonText(l('Relationship'))}</th>
+          <td>
+            <Relationship relationship={relationship} />
+          </td>
+        </tr>
+      </table>
+    </>
   );
 }
 
