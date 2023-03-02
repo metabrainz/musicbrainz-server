@@ -23,7 +23,7 @@ my $ws_defs = Data::OptList::mkopt([
                          action   => '/ws/2/artist/lookup',
                          method   => 'GET',
                          inc      => [ qw(recordings releases release-groups works
-                                          aliases various-artists annotation
+                                          aliases annotation
                                           _relations tags user-tags genres user-genres ratings user-ratings) ],
                          optional => [ qw(fmt) ],
      },
