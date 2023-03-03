@@ -168,18 +168,21 @@ class _ExternalLinksEditor
             '\\.url\\.([0-9]+)\\.(text|link_type_id)=([^&]+)',
           'g',
         );
-        const urls: {[index: string]: {[key: string]: string}} = {};
+        const urls: {[index: string]: SeededUrlShape} = {};
         let match;
 
         while ((match = seededLinkRegex.exec(window.location.search))) {
           const [/* unused */, index, key, value] = match;
-          (urls[index] = urls[index] || {})[key] = decodeURIComponent(value);
+          switch (key) {
+            case 'link_type_id':
+            case 'text':
+              (urls[index] = urls[index] || {})[key] =
+                decodeURIComponent(value);
+              break;
+          }
         }
 
-        for (
-          const data of
-          ((Object.values(urls): any): $ReadOnlyArray<SeededUrlShape>)
-        ) {
+        for (const data of Object.values(urls)) {
           initialLinks.push(newLinkState({
             rawUrl: data.text || '',
             relationship: uniqueId('new-'),
@@ -1738,8 +1741,8 @@ type InitialOptionsT = {
 };
 
 type SeededUrlShape = {
-  +link_type_id?: string,
-  +text?: string,
+  link_type_id?: string,
+  text?: string,
 };
 
 export function createExternalLinksEditor(

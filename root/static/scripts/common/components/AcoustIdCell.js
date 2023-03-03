@@ -77,7 +77,6 @@ function loadAcoustIdData(
       })
       .finally(() => {
         const callbacks: $ReadOnlyArray<AcoustIdRequestCallbackT> =
-          // $FlowIssue[incompatible-type]
           Object.values(batch);
 
         for (const callback of callbacks) {

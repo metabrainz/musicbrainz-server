@@ -29,7 +29,6 @@ const PostParameters = ({
 
   const sortedParams:
     $ReadOnlyArray<[string, string | $ReadOnlyArray<string>]> =
-    // $FlowIgnore[incompatible-type]
     Object.entries(params).sort(
       (a, b) => compareStrings(a[0], b[0]),
     );

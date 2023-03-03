@@ -296,7 +296,6 @@ const RelationshipsTable = ({
         ...PagedLinkTypeGroupT,
         +phrase: string,
       }>> = Object.values(targetTypeGroup)
-        // $FlowIgnore[incompatible-call]
         .map((group: PagedLinkTypeGroupT) => ({
           ...group,
           phrase: getLinkPhraseForGroup(group),

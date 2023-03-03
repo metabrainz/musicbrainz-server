@@ -39,7 +39,6 @@ const WorkTypeSelect: React.AbstractComponent<
 }: WorkTypeSelectPropsT) => {
   const workTypeOptions: OptionListT = React.useMemo(() => {
     const workTypes: $ReadOnlyArray<WorkTypeT> =
-      // $FlowIgnore[incompatible-type]
       Object.values(linkedEntities.work_type);
 
     return buildOptionList(workTypes, l_languages);
