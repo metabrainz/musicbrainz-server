@@ -18,7 +18,7 @@ import DBDefs from '../static/scripts/common/DBDefs.mjs';
 import linkedEntities from '../static/scripts/common/linkedEntities.mjs';
 import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
 import getVoteName from '../static/scripts/edit/utility/getVoteName.js';
-import {editorMayAddNote, editorMayVote}
+import {editorMayAddNote, editorMayVoteOnEdit}
   from '../utility/edit.js';
 import formatUserDate from '../utility/formatUserDate.js';
 
@@ -41,7 +41,7 @@ const EditIndex = ({
   const $c = React.useContext(CatalystContext);
   const canAddNote = Boolean($c.user && editorMayAddNote(edit, $c.user));
   const isOwnEdit = Boolean($c.user && $c.user.id === edit.editor_id);
-  const canVote = Boolean($c.user && editorMayVote(edit, $c.user));
+  const canVoteHere = Boolean($c.user && editorMayVoteOnEdit(edit, $c.user));
   const detailsElement = getEditDetailsElement(edit);
 
   return (
@@ -77,7 +77,7 @@ const EditIndex = ({
             </tr>
             {$c.user ? (
               <>
-                {canVote ? (
+                {canVoteHere ? (
                   <tr className="noborder">
                     <th>{l('My vote:')}</th>
                     <td className="vote">
@@ -111,7 +111,7 @@ const EditIndex = ({
             ) : null}
           </table>
 
-          {edit.is_open && $c.user && !canVote && !isOwnEdit ? (
+          {edit.is_open && $c.user && !canVoteHere && !isOwnEdit ? (
             <p>
               {exp.l(
                 `You are not currently able
@@ -155,7 +155,7 @@ const EditIndex = ({
           {$c.user ? (
             <>
               <EditNotes edit={edit} index={0} isOnEditPage />
-              {canVote ? (
+              {canVoteHere ? (
                 <FormSubmit label={l('Submit vote and note')} />
               ) : canAddNote ? (
                 <FormSubmit label={l('Submit note')} />

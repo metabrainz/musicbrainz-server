@@ -19,7 +19,7 @@ import {CatalystContext} from '../../context.mjs';
 import DBDefs from '../../static/scripts/common/DBDefs.mjs';
 import FormSubmit from '../../static/scripts/edit/components/FormSubmit.js';
 import {
-  editorMayVote,
+  editorMayVoteOnEdit,
   getLatestVoteForEditor,
 } from '../../utility/edit.js';
 
@@ -71,7 +71,7 @@ const Vote = ({
 }: VoteProps): React.Element<'div'> | null => {
   const $c = React.useContext(CatalystContext);
   const user = $c.user;
-  if (DBDefs.DB_READ_ONLY || !user || !editorMayVote(edit, user)) {
+  if (DBDefs.DB_READ_ONLY || !user || !editorMayVoteOnEdit(edit, user)) {
     return null;
   }
   const props = {
