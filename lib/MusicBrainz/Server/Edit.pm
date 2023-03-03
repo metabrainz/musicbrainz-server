@@ -146,6 +146,7 @@ sub editor_may_vote {
     return (
         $self->is_open &&
         defined $editor &&
+        $editor->email_confirmation_date &&
         $editor->id != $self->editor_id &&
         !$editor->is_bot &&
         !$editor->is_editing_disabled

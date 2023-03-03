@@ -188,6 +188,7 @@ export function editorMayVote(
 ): boolean {
   return (
     !!editor &&
+    nonEmpty(editor.email_confirmation_date) &&
     edit.status === EDIT_STATUS_OPEN &&
     editor.id !== edit.editor_id &&
     !isBot(editor) &&
