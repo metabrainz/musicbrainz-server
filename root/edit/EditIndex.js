@@ -24,6 +24,7 @@ import formatUserDate from '../utility/formatUserDate.js';
 
 import EditHeader from './components/EditHeader.js';
 import EditNotes from './components/EditNotes.js';
+import EditorTypeInfo from './components/EditorTypeInfo.js';
 import EditSidebar from './components/EditSidebar.js';
 import Vote from './components/Vote.js';
 import VoteTally from './components/VoteTally.js';
@@ -97,7 +98,11 @@ const EditIndex = ({
                           : ''}
                       key={index}
                     >
-                      <th><EditorLink editor={voter} /></th>
+                      <th>
+                        <EditorLink editor={voter} />
+                        {' '}
+                        <EditorTypeInfo editor={voter} />
+                      </th>
                       <td className="vote">
                         {lp(getVoteName(vote.vote), 'vote')}
                         <span className="date">
