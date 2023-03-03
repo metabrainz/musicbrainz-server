@@ -144,7 +144,7 @@ export function mergeLinkedEntities(
       if (hasOwnProperty.call(linkedEntities, type)) {
         Object.assign(linkedEntities[type], entities);
       } else if (type in linkedEntities) {
-        // $FlowIgnore[prop-missing]
+        // $FlowIgnore[incompatible-type]
         linkedEntities[type] = entities;
       } else {
         throw new Error(
