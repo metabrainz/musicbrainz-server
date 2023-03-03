@@ -23,6 +23,7 @@ import getVoteName from '../../static/scripts/edit/utility/getVoteName.js';
 import {
   editorMayApprove,
   editorMayCancel,
+  editorMayVote,
   getEditHeaderClass,
   getLatestVoteForEditor,
 } from '../../utility/edit.js';
@@ -69,6 +70,7 @@ const EditHeader = ({
   const user = $c.user;
   const mayApprove = editorMayApprove(edit, user);
   const mayCancel = editorMayCancel(edit, user);
+  const mayVote = editorMayVote(edit, user);
   const editTitle = texp.l(
     'Edit #{id} - {name}',
     {id: edit.id, name: l(edit.edit_name)},
@@ -130,7 +132,7 @@ const EditHeader = ({
                         ? lp(latestVoteForVoterName, 'vote')
                         : null}
                     </div>
-                  ) : user ? (
+                  ) : mayVote ? (
                     <div className="my-vote">
                       <strong>{l('My vote: ')}</strong>
                       {nonEmpty(latestVoteForEditorName) ? (
