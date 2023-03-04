@@ -262,7 +262,7 @@ export function pushRecentItem<+T: EntityItemT>(
   const entity = item.entity;
   const entityId = _getGidOrId(entity);
 
-  const cachedList: Array<OptionItemT<T>> = [...getRecentItems(key)];
+  const cachedList: Array<OptionItemT<T>> = [...getRecentItems<T>(key)];
   _recentItemsCache.set(key, cachedList);
 
   if (entityId == null) {

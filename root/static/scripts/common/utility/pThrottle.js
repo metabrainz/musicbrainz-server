@@ -90,7 +90,7 @@ const pThrottle = <
           clearTimeout(timeout);
           aborted = true;
         },
-        promise: new Promise((resolve, reject) => {
+        promise: new Promise<R>((resolve, reject) => {
           const execute = () => {
             if (aborted) {
               reject(new ThrottleAbortError());

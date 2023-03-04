@@ -10,6 +10,7 @@
 import * as React from 'react';
 
 import {CatalystContext} from '../../context.mjs';
+import useTable from '../../hooks/useTable.js';
 import {
   defineBeginDateColumn,
   defineCheckboxColumn,
@@ -23,7 +24,6 @@ import {
   defineTypeColumn,
   removeFromMergeColumn,
 } from '../../utility/tableColumns.js';
-import Table from '../Table.js';
 
 type Props = {
   ...InstrumentCreditsAndRelTypesRoleT,
@@ -51,7 +51,7 @@ const ArtistList = ({
   showRatings = false,
   showSortName = false,
   sortable,
-}: Props): React.Element<typeof Table> => {
+}: Props): React.Element<'table'> => {
   const $c = React.useContext(CatalystContext);
 
   const columns = React.useMemo(
@@ -153,7 +153,7 @@ const ArtistList = ({
     ],
   );
 
-  return <Table columns={columns} data={artists} />;
+  return useTable<ArtistT>({columns, data: artists});
 };
 
 export default ArtistList;

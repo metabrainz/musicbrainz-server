@@ -39,7 +39,7 @@ type PropsDataT =
  * `GLOBAL_JS_NAMESPACE`; we otherwise may need to relax this check for
  * admin-only forms in the future.
  */
-let checkForUnsanitizedEditorData;
+let checkForUnsanitizedEditorData: ((PropsDataT) => void);
 if (__DEV__) {
   /*
    * Please keep these keys in sync with what's returned by
@@ -59,7 +59,7 @@ if (__DEV__) {
 
   checkForUnsanitizedEditorData = (
     data: PropsDataT,
-  ) => {
+  ): void => {
     if (data) {
       if (Array.isArray(data)) {
         data.forEach(checkForUnsanitizedEditorData);

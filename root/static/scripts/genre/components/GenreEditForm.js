@@ -29,6 +29,7 @@ import {
   createInitialState as createGuessCaseOptionsState,
 } from '../../edit/components/GuessCaseOptions.js';
 import {
+  _ExternalLinksEditor,
   ExternalLinksEditor,
   prepareExternalLinksHtmlFormSubmission,
 } from '../../edit/externalLinks.js';
@@ -114,7 +115,7 @@ const GenreEditForm = ({
   const genre = $c.stash.source_entity;
   invariant(genre && genre.entityType === 'genre');
 
-  const externalLinksEditorRef = React.createRef();
+  const externalLinksEditorRef = React.createRef<_ExternalLinksEditor>();
 
   const handleSubmit = (event: SyntheticEvent<HTMLFormElement>) => {
     if (hasErrors) {

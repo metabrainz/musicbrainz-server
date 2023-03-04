@@ -96,8 +96,8 @@ const VoteButton = ({
   const isActive = vote === currentVote;
   const className = 'tag-vote tag-' + VOTE_ACTIONS[vote];
   const buttonTitle = isActive
-    ? unwrapNl(activeTitle)
-    : (currentVote === 0 ? unwrapNl(title) : l('Withdraw vote'));
+    ? unwrapNl<string>(activeTitle)
+    : (currentVote === 0 ? unwrapNl<string>(title) : l('Withdraw vote'));
 
   return (
     <button
@@ -322,7 +322,14 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
     } {
     const tags = this.state.tags;
 
-    return tags.reduce((accum, t, index) => {
+    return tags.reduce((
+      accum: {
+        +genres: Array<React.MixedElement>,
+        +tags: Array<React.MixedElement>,
+      },
+      t: UserTagT,
+      index: number,
+    ) => {
       const callback = (newVote: VoteT) => {
         this.updateVote(index, newVote);
         this.addPendingVote(t.tag, newVote, index);
@@ -704,12 +711,12 @@ export const SidebarTagEditor = (hydrate<TagEditorProps>(
 function createInitialTagState(
   aggregatedTags: $ReadOnlyArray<AggregatedTagT>,
   userTags: $ReadOnlyArray<UserTagT>,
-) {
+): $ReadOnlyArray<UserTagT> {
   const userTagsByName = keyBy(userTags, t => t.tag.name);
 
-  const used = new Set();
+  const used = new Set<string>();
 
-  const combined = aggregatedTags.map(function (t) {
+  const combined: Array<UserTagT> = aggregatedTags.map(function (t) {
     const userTag = userTagsByName.get(t.tag.name);
 
     used.add(t.tag.name);

@@ -58,9 +58,9 @@ const DialogTest = () => {
     createInitialState,
   );
 
-  const modalButtonRef = React.useRef(null);
-  const popoverButtonRef = React.useRef(null);
-  const modalDialogRef = React.useRef(null);
+  const modalButtonRef = React.useRef<HTMLButtonElement | null>(null);
+  const popoverButtonRef = React.useRef<HTMLButtonElement | null>(null);
+  const modalDialogRef = React.useRef<HTMLDivElement | null>(null);
   const focusModalButton = useReturnFocus(modalButtonRef);
 
   const openModal = React.useCallback(() => {
@@ -83,7 +83,7 @@ const DialogTest = () => {
   }, []);
 
   const buildPopoverChildren = React.useCallback((
-    closeAndReturnFocus,
+    closeAndReturnFocus: () => void,
   ) => (
     <form
       onSubmit={(event) => {

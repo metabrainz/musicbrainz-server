@@ -21,6 +21,7 @@ import {legacy_createStore as createStore} from 'redux';
 import {LANGUAGE_MUL_ID, LANGUAGE_ZXX_ID} from '../common/constants.js';
 import {groupBy} from '../common/utility/arrays.js';
 import getScriptArgs from '../common/utility/getScriptArgs.js';
+import parseIntegerOrNull from '../common/utility/parseIntegerOrNull.js';
 import FormRowSelectList from '../edit/components/FormRowSelectList.js';
 import {buildOptionsTree} from '../edit/forms.js';
 import {initializeBubble} from '../edit/MB/Control/Bubble.js';
@@ -52,6 +53,18 @@ type WritableWorkForm = FormT<{
   +languages: RepeatableFieldT<FieldT<?number>>,
 }>;
 
+type ActionT =
+  | {+type: 'ADD_LANGUAGE'}
+  | {
+      +index: number,
+      +languageId: string,
+      +type: 'EDIT_LANGUAGE',
+    }
+  | {
+      index: number,
+      type: 'REMOVE_LANGUAGE',
+    };
+
 /*
  * Flow does not support assigning types within destructuring assignments:
  * https://github.com/facebook/flow/issues/235
@@ -66,16 +79,25 @@ const workLanguageOptions: MaybeGroupedOptionsT = {
   options: scriptArgs.workLanguageOptions,
 };
 
-const store = createStore(function (state: WorkForm = form, action) {
+/*
+ * Without this, ESLint compplains about unexpected whitespace after
+ * `ActionT, `, which seems to be an ESLint-related bug, or a bug in
+ * the parser we use.
+ */
+// eslint-disable-next-line func-call-spacing
+const store = createStore<WorkForm, ActionT, (ActionT) => empty>(function (
+  state: WorkForm = form,
+  action: ActionT,
+) {
   switch (action.type) {
     case 'ADD_LANGUAGE':
       state = addLanguageToState(state);
       break;
 
     case 'EDIT_LANGUAGE':
-      state = mutate<WorkForm, _>(state, newState => {
+      state = mutate<WritableWorkForm, WorkForm>(state, newState => {
         newState.field.languages.field[action.index].value =
-          action.languageId;
+          parseIntegerOrNull(action.languageId);
       });
       break;
 
@@ -247,7 +269,7 @@ class ViewModel {
 function byID(
   result: {[id: StrOrNum]: WorkAttributeTypeTreeT},
   parent: WorkAttributeTypeTreeT,
-) {
+): {[id: StrOrNum]: WorkAttributeTypeTreeT} {
   result[parent.id] = parent;
   if (parent.children) {
     parent.children.reduce(byID, result);

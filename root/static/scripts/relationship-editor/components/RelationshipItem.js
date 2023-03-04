@@ -189,7 +189,9 @@ const RelationshipItem = (React.memo<PropsT>(({
     user,
   });
 
-  const setDialogOpen = React.useCallback((open) => {
+  const setDialogOpen = React.useCallback((
+    open: boolean,
+  ) => {
     dispatch({
       location: open ? {
         backward,

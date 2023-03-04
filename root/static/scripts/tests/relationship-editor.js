@@ -45,6 +45,7 @@ import relationshipsAreIdentical
 import splitRelationshipByAttributes
   from '../relationship-editor/utility/splitRelationshipByAttributes.js';
 import updateRelationships, {
+  type RelationshipUpdateT,
   ADD_RELATIONSHIP,
 } from '../relationship-editor/utility/updateRelationships.js';
 
@@ -786,7 +787,10 @@ function createRelationshipSourceGroups(
   const writableRootState = {...initialState};
   updateRelationships(
     writableRootState,
-    relationships.reduce((accum, relationship) => {
+    relationships.reduce((
+      accum: Array<RelationshipUpdateT>,
+      relationship,
+    ) => {
       if (relationship) {
         accum.push({
           relationship,

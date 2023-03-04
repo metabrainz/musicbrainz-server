@@ -136,7 +136,10 @@ export function getMediumTracks(
   return loadedTracks.get(medium.position) || medium.tracks || null;
 }
 
-const combinedTrackRelsCache = new WeakMap();
+const combinedTrackRelsCache = new WeakMap<
+  $ReadOnlyArray<TrackWithRecordingT>,
+  $ReadOnlyArray<RelationshipTargetTypeGroupT>,
+>();
 
 function getCombinedTrackRelationships(
   tracks: $ReadOnlyArray<TrackWithRecordingT> | null,

@@ -97,7 +97,9 @@ const AttributeDetails = ({
   );
 };
 
-const AttributeTree = ({attribute}: AttributeTreeProps) => {
+const AttributeTree = ({
+  attribute,
+}: AttributeTreeProps): React.Element<'li'> => {
   const childrenAttrs = attribute.children || [];
   return (
     <li style={{marginTop: '0.25em'}}>

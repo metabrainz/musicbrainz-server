@@ -19,6 +19,7 @@ import {
   default as autocompleteReducer,
 } from '../../common/components/Autocomplete2/reducer.js';
 import type {
+  ActionT as AutocompleteActionT,
   OptionItemT as AutocompleteOptionItemT,
   PropsT as AutocompletePropsT,
 } from '../../common/components/Autocomplete2/types.js';
@@ -275,7 +276,9 @@ const DialogLinkType = (React.memo<PropsT>(({
     error,
   } = state;
 
-  const autocompleteDispatch = React.useCallback((action) => {
+  const autocompleteDispatch = React.useCallback((
+    action: AutocompleteActionT<LinkTypeT>,
+  ) => {
     dispatch({
       action,
       source,

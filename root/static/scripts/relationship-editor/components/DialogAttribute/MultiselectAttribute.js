@@ -72,7 +72,10 @@ function _createLinkAttributeTypeOptions(
  * for the autocomplete component. Sets a `level` property on each item
  * which is used by the autocomplete for visual indentation.
  */
-const linkAttributeTypeOptionsCache = new Map();
+const linkAttributeTypeOptionsCache = new Map<
+  number,
+  $ReadOnlyArray<OptionItemT<LinkAttrTypeT>>,
+>();
 const createLinkAttributeTypeOptions = (
   rootAttributeType: LinkAttrTypeT,
 ) => {
@@ -129,7 +132,10 @@ export function reducer(
 
   switch (action.type) {
     case 'set-value-credit': {
-      newState.values = updateMultiselectValue(
+      newState.values = updateMultiselectValue<
+        LinkAttrTypeT,
+        DialogMultiselectAttributeValueStateT,
+      >(
         newState.values,
         action.valueKey,
         (x) => ({...x, creditedAs: action.creditedAs}),
@@ -170,11 +176,15 @@ const MultiselectAttribute = (React.memo<PropsT>(({
   const linkTypeAttributeType = state.type;
   const addLabel = addAttributeLabels[linkTypeAttributeType.id];
 
-  const multiselectDispatch = React.useCallback((action) => {
+  const multiselectDispatch = React.useCallback((
+    action: DialogMultiselectAttributeActionT,
+  ) => {
     dispatch(state.key, action);
   }, [dispatch, state.key]);
 
-  const buildExtraValueChildren = React.useCallback((valueState) => {
+  const buildExtraValueChildren = React.useCallback((
+    valueState: DialogMultiselectAttributeValueStateT,
+  ) => {
     const attributeType = valueState.autocomplete.selectedItem?.entity;
 
     const handleCreditChange = (event: SyntheticEvent<HTMLInputElement>) => {

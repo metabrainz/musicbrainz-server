@@ -74,7 +74,7 @@ const DialogEntityCredit = (React.memo<PropsT, void>(({
   targetType,
 }: PropsT): React.MixedElement => {
   const origCredit = React.useRef(state.creditedAs || '');
-  const inputRef = React.useRef(null);
+  const inputRef = React.useRef<HTMLInputElement | null>(null);
   const inputId = React.useId();
 
   function handleCreditedAsChange(event: SyntheticEvent<HTMLInputElement>) {

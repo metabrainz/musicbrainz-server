@@ -38,8 +38,8 @@ yargs
     }
   }
 
-  await pgClient.query('BEGIN');
-  await pgClient.query('SET LOCAL statement_timeout = 0');
+  await pgClient.query<string>('BEGIN');
+  await pgClient.query<string>('SET LOCAL statement_timeout = 0');
 
   const cursor = pgClient.query(
     new SingleColumnCursor(
@@ -54,7 +54,7 @@ yargs
   const createIterator = () => {
     let buffer: Array<string> | null = [];
     let index = 0;
-    const it = {
+    const it: AsyncIterator<string> = {
       /*:: @@asyncIterator: function () { return it; }, */
       async next() {
         if (buffer == null) {
@@ -66,7 +66,10 @@ yargs
             value: buffer[index++],
           };
         }
-        return new Promise((resolve, reject) => {
+        return new Promise<IteratorResult<string, void>>((
+          resolve,
+          reject,
+        ) => {
           cursor.read(500, (err, rows) => {
             if (err) {
               reject(err);
@@ -98,6 +101,6 @@ yargs
     isEditDataTypeInfo: true,
   }));
 
-  await pgClient.query('ROLLBACK');
+  await pgClient.query<string>('ROLLBACK');
   await pgClient.end();
 }());

@@ -59,6 +59,10 @@ import type {
 } from '../types.js';
 import type {
   DialogActionT,
+  DialogAttributeActionT,
+  DialogEntityCreditActionT,
+  DialogLinkTypeActionT,
+  DialogTargetEntityActionT,
   UpdateRelationshipActionT,
 } from '../types/actions.js';
 import {
@@ -78,7 +82,9 @@ import DialogAttributes, {
   reducer as dialogAttributesReducer,
 } from './DialogAttributes.js';
 import DialogButtons from './DialogButtons.js';
-import DialogDatePeriod from './DialogDatePeriod.js';
+import DialogDatePeriod, {
+  type ActionT as DialogDatePeriodActionT,
+} from './DialogDatePeriod.js';
 import DialogLinkOrder from './DialogLinkOrder.js';
 import DialogLinkType, {
   createInitialState as createDialogLinkTypeState,
@@ -525,11 +531,15 @@ const AttributesSection = (React.memo<AttributesSectionPropsT>(({
   dispatch,
   isHelpVisible,
 }) => {
-  const attributesDispatch = React.useCallback((action) => {
+  const attributesDispatch = React.useCallback((
+    action: DialogAttributeActionT,
+  ) => {
     dispatch({action, type: 'update-attribute'});
   }, [dispatch]);
 
-  const dateDispatch = React.useCallback((action) => {
+  const dateDispatch = React.useCallback((
+    action: DialogDatePeriodActionT,
+  ) => {
     dispatch({action, type: 'update-date-period'});
   }, [dispatch]);
 
@@ -840,11 +850,15 @@ const RelationshipDialogContent = (React.memo<PropsT>((
     closeDialogWithEvent('cancel');
   }, [closeDialogWithEvent]);
 
-  const sourceEntityDispatch = React.useCallback((action) => {
+  const sourceEntityDispatch = React.useCallback((
+    action: DialogEntityCreditActionT,
+  ) => {
     dispatch({action, type: 'update-source-entity'});
   }, [dispatch]);
 
-  const targetEntityDispatch = React.useCallback((action) => {
+  const targetEntityDispatch = React.useCallback((
+    action: DialogTargetEntityActionT,
+  ) => {
     dispatch({
       action,
       source,
@@ -852,7 +866,9 @@ const RelationshipDialogContent = (React.memo<PropsT>((
     });
   }, [dispatch, source]);
 
-  const linkTypeDispatch = React.useCallback((action) => {
+  const linkTypeDispatch = React.useCallback((
+    action: DialogLinkTypeActionT,
+  ) => {
     dispatch({action, source, type: 'update-link-type'});
   }, [dispatch, source]);
 

@@ -387,7 +387,7 @@ $ReadOnlyArray<Expand2ReactOutput> | Expand2ReactOutput | null => {
     }
   }
 
-  const parts = [content];
+  const parts: Array<Expand2ReactOutput> = [content];
 
   if (showIcon) {
     parts.unshift(

@@ -334,7 +334,7 @@ export function runReducer(
     case 'remove-relationship': {
       const {relationship} = action;
 
-      const updates = [
+      const updates: Array<RelationshipUpdateT> = [
         {
           relationship,
           throwIfNotExists: true,
@@ -371,7 +371,7 @@ export function runReducer(
         linkPhraseGroup,
       } = action;
 
-      const updates = [];
+      const updates: Array<RelationshipUpdateT> = [];
       let nextLogicalLinkOrder = 1;
 
       for (
@@ -453,7 +453,7 @@ export function runReducer(
           newRelationshipState,
           sourceEntity,
         );
-        const updates = [];
+        const updates: Array<RelationshipUpdateT> = [];
 
         if (
           oldRelationshipState != null &&

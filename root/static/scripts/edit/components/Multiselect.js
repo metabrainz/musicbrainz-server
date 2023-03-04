@@ -82,7 +82,7 @@ export function accumulateMultiselectValues<
   values: $ReadOnlyArray<$Exact<VS>>,
 ): $ReadOnlyArray<V> {
   return values.reduce(
-    (accum, valueState) => {
+    (accum: Array<V>, valueState) => {
       const item = valueState.autocomplete.selectedItem?.entity;
       if (item) {
         accum.push(item);
@@ -128,7 +128,7 @@ export function runReducer<
       break;
     }
     case 'remove-value': {
-      newState.values = updateValue(
+      newState.values = updateValue<V, VS>(
         newState.values,
         action.valueKey,
         (x) => ({...x, removed: true}),
@@ -136,7 +136,7 @@ export function runReducer<
       break;
     }
     case 'update-value-autocomplete': {
-      newState.values = updateValue(
+      newState.values = updateValue<V, VS>(
         newState.values,
         action.valueKey,
         (x) => ({

@@ -53,7 +53,7 @@ export class VarArgs<+T, +U = T> implements VarArgsClass<T | U> {
 export type Parser<+T, -V> = (VarArgsClass<V>) => T;
 
 const EMPTY_OBJECT = Object.freeze({});
-const EMPTY_VARARGS = new VarArgs(EMPTY_OBJECT);
+const EMPTY_VARARGS = new VarArgs<empty, empty>(EMPTY_OBJECT);
 
 type State = {
   /*

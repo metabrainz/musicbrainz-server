@@ -33,9 +33,17 @@ const TagList = ({
   tags,
 }: TagListProps) => {
   const upvotedTags = tags ? tags.filter(tag => tag.count > 0) : null;
-  const links = upvotedTags ? upvotedTags.reduce((accum, t) => {
-    if (Boolean(t.tag.genre) === isGenreList) {
-      accum.push(<TagLink key={'tag-' + t.tag.name} tag={t.tag.name} />);
+  const links = upvotedTags ? upvotedTags.reduce((
+    accum: Array<React.Element<typeof TagLink>>,
+    aggregatedTag,
+  ) => {
+    if (Boolean(aggregatedTag.tag.genre) === isGenreList) {
+      accum.push(
+        <TagLink
+          key={'tag-' + aggregatedTag.tag.name}
+          tag={aggregatedTag.tag.name}
+        />,
+      );
     }
     return accum;
   }, []) : null;

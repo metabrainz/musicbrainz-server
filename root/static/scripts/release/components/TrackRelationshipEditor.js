@@ -106,9 +106,11 @@ const RelatedWorkHeading = ({
   removeWorkButton,
   work,
 }: RelatedWorkHeadingPropsT) => {
-  const selectWork = React.useCallback((event) => {
+  const selectWork = React.useCallback((
+    event: SyntheticEvent<HTMLInputElement>,
+  ) => {
     dispatch({
-      isSelected: event.target.checked,
+      isSelected: event.currentTarget.checked,
       type: 'toggle-select-work',
       work,
     });
@@ -145,15 +147,18 @@ const NewRelatedWorkHeading = ({
   removeWorkButton,
   work,
 }: RelatedWorkHeadingPropsT) => {
-  const selectWork = React.useCallback((event) => {
+  const selectWork = React.useCallback((
+    event: SyntheticEvent<HTMLInputElement>,
+  ) => {
     dispatch({
-      isSelected: event.target.checked,
+      isSelected: event.currentTarget.checked,
       type: 'toggle-select-work',
       work,
     });
   }, [dispatch, work]);
 
-  const editWorkButtonRef = React.useRef(null);
+  const editWorkButtonRef =
+    React.useRef<HTMLButtonElement | null>(null);
 
   const [
     isEditWorkDialogOpen,
@@ -161,7 +166,7 @@ const NewRelatedWorkHeading = ({
   ] = React.useState(false);
 
   const buildEditWorkPopoverContent = React.useCallback(
-    (closeAndReturnFocus) => (
+    (closeAndReturnFocus: () => void) => (
       <EditWorkDialog
         closeDialog={closeAndReturnFocus}
         rootDispatch={dispatch}
@@ -363,7 +368,8 @@ const RelatedWorksRelationshipEditor = React.memo<
     );
   }
 
-  const addRelatedWorkButtonRef = React.useRef(null);
+  const addRelatedWorkButtonRef =
+    React.useRef<HTMLButtonElement | null>(null);
 
   const buildNewRelatedWorkRelationshipData = React.useCallback(() => ({
     entity0: recording,
@@ -382,7 +388,9 @@ const RelatedWorksRelationshipEditor = React.memo<
     title: l('Add Relationship'),
   });
 
-  const setAddRelatedWorkDialogOpen = React.useCallback((open) => {
+  const setAddRelatedWorkDialogOpen = React.useCallback((
+    open: boolean,
+  ) => {
     dispatch({
       location: open ? {
         source: track.recording,

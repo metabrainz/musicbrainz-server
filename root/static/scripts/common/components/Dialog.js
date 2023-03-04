@@ -82,7 +82,7 @@ const Dialog = ({
   title,
   trapFocus = false,
 }: PropsT): React.Element<'div'> => {
-  const tabbableElementRef = React.useRef(null);
+  const tabbableElementRef = React.useRef<HTMLElement | null>(null);
 
   React.useLayoutEffect(() => {
     const dialogNode = getElementFromRef(dialogRef);

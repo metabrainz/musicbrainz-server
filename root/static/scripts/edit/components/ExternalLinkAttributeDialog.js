@@ -144,7 +144,9 @@ const ExternalLinkAttributeDialog = (props: PropsT): React.MixedElement => {
     dispatch({type: 'update-initial-date-period', props});
   }, [props]);
 
-  const dateDispatch = React.useCallback((action) => {
+  const dateDispatch = React.useCallback((
+    action: DateRangeFieldsetActionT,
+  ) => {
     dispatch({action, type: 'update-date-period'});
   }, [dispatch]);
 

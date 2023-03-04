@@ -25,7 +25,6 @@ import displayLinkAttribute, {displayLinkAttributeText}
 
 const EMPTY_OBJECT = Object.freeze({});
 
-const emptyResult = Object.freeze(['', []]);
 const entity0Subst = /\{entity0\}/;
 const entity1Subst = /\{entity1\}/;
 
@@ -216,7 +215,7 @@ export function getPhraseAndExtraAttributes<T>(
 ): [T | string, Array<LinkAttrT>] {
   let phraseSource = l_relationships(linkType[phraseProp]);
   if (!phraseSource) {
-    return emptyResult;
+    return ['', []];
   }
 
   const attributesByRootName = _getAttributesByRootName<T | string>(

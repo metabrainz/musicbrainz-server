@@ -69,9 +69,9 @@ const ArtistCreditLink = ({
   showEditsPending = true,
   showIcon = false,
   ...props
-}: Props): React.Element<'span'> | Array<React.Node> => {
+}: Props): React.Node => {
   const names = artistCredit.names;
-  const parts = [];
+  const parts: Array<React.Node> = [];
   for (let i = 0; i < names.length; i++) {
     const credit = names[i];
     const artist = credit.artist;

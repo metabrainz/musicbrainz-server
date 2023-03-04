@@ -22,7 +22,7 @@ type PropsT = {
     className?: string,
     id?: string,
     title?: string | (() => string),
-  },
+  } | null,
   +buttonRef: {current: HTMLButtonElement | null},
   +className?: string,
   +closeOnOutsideClick?: boolean,
@@ -90,7 +90,7 @@ const ButtonPopover = (props: PropsT): React.MixedElement => {
   const customButtonProps = buttonProps ? {
     id: buttonProps.id,
     title: nonEmpty(buttonProps.title)
-      ? unwrapNl(buttonProps.title)
+      ? unwrapNl<string>(buttonProps.title)
       : undefined,
     className: buttonProps.className,
   } : null;

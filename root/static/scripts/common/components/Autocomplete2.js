@@ -65,7 +65,7 @@ function doSearch<T: EntityItemT>(
   dispatch: (ActionT<T>) => void,
   state: StateT<T>,
   xhr: {current: XMLHttpRequest | null},
-) {
+): void {
   const searchXhr = new XMLHttpRequest();
   xhr.current = searchXhr;
 
@@ -246,7 +246,7 @@ const AutocompleteItem = React.memo(<+T: EntityItemT>({
   isSelected,
   item,
   selectItem,
-}: AutocompleteItemPropsT<T>) => {
+}: AutocompleteItemPropsT<T>): React.MixedElement => {
   const itemId = `${autocompleteId}-item-${item.id}`;
   const isDisabled = !!item.disabled;
   const isSeparator = !!item.separator;
@@ -359,7 +359,9 @@ const Autocomplete2 = (React.memo(<+T: EntityItemT>(
     }
   }, [dispatch, pendingSearch]);
 
-  const selectItem = React.useCallback((item) => {
+  const selectItem = React.useCallback((
+    item: ItemT<T>,
+  ) => {
     const isDisabled = !!item.disabled;
 
     if (!isDisabled) {

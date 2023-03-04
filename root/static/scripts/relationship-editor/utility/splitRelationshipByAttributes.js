@@ -66,14 +66,17 @@ export default function splitRelationshipByAttributes(
    * Attributes that will be preserved on the original relationship,
    * if this is an existing relationship in the database.
    */
-  let attributesForExistingRelationship = null;
+  let attributesForExistingRelationship:
+    tree.ImmutableTree<LinkAttrT> | null = null;
   /*
    * Individual instrument and vocal attributes that are to be split
    * into separate relationships.
    */
-  let newAttributesToSplit = null;
+  let newAttributesToSplit:
+    tree.ImmutableTree<LinkAttrT> | null = null;
   // Common attributes that will exist on all split relationships.
-  let commonAttributes = null;
+  let commonAttributes:
+    tree.ImmutableTree<LinkAttrT> | null = null;
   let newAttributes = relationship.attributes;
   let origInstrumentsAndVocals = tree.fromDistinctAscArray(
     tree.toArray(origRelationship ? origRelationship.attributes : null)

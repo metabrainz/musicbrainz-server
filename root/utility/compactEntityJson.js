@@ -49,7 +49,7 @@ function _indexValue(
     case 'object': {
       if (value) {
         if (Array.isArray(value)) {
-          compactValue = [];
+          compactValue = ([]: Array<number>);
           for (const arrayItem of value) {
             compactValue.push(
               _indexValue(
@@ -110,7 +110,7 @@ function _indexValue(
 export function compactEntityJson(
   value: mixed,
 ): $ReadOnlyArray<mixed> {
-  const result = [];
+  const result: Array<mixed> = [];
   _indexValue(value, new Map(), result);
   return result;
 }
@@ -118,7 +118,10 @@ export function compactEntityJson(
 export function decompactEntityJson(
   compactedArray: $ReadOnlyArray<mixed>,
 ): mixed {
-  const resolved = new Array(compactedArray.length);
+  const resolved = new Array<
+    | Array<mixed>
+    | {[objectKey: string]: mixed},
+  >(compactedArray.length);
 
   function _decompactIndex(
     index: number,

@@ -65,7 +65,7 @@ function showExtraInfoLine(
   );
 }
 
-function formatName<+T: EntityItemT>(entity: T) {
+function formatName<+T: EntityItemT>(entity: T): string {
   return unwrapNl<string>(entity.name);
 }
 

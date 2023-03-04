@@ -44,10 +44,12 @@ const WorkTypeSelect: React.AbstractComponent<
     return buildOptionList(workTypes, l_languages);
   }, []);
 
-  const handleWorkTypeChange = React.useCallback((event) => {
+  const handleWorkTypeChange = React.useCallback((
+    event: SyntheticEvent<HTMLSelectElement>,
+  ) => {
     dispatch({
       type: 'update-work-type',
-      workType: parseIntegerOrNull(event.target.value),
+      workType: parseIntegerOrNull(event.currentTarget.value),
     });
   }, [dispatch]);
 

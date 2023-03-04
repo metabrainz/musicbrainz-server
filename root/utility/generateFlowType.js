@@ -161,7 +161,7 @@ exports.generateFlowType = async function (
     +isEditDataTypeInfo: boolean,
   } */,
 )/*: Promise<string> */ {
-  const seenTypes = new Set();
+  const seenTypes = new Set/*:: <string> */();
   const isEditDataTypeInfo = options && options.isEditDataTypeInfo;
   const rootTypeInfo = new TypeInfo(
     null,

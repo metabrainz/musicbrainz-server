@@ -125,7 +125,9 @@ const EditWorkDialog: React.AbstractComponent<
     dispatch({name: event.currentTarget.value, type: 'update-name'});
   };
 
-  const languagesDispatch = React.useCallback((action) => {
+  const languagesDispatch = React.useCallback((
+    action: MultiselectActionT<LanguageT>,
+  ) => {
     dispatch({action, type: 'update-languages'});
   }, [dispatch]);
 

@@ -33,7 +33,8 @@ function orderTracks(a: AcoustIdTrackT, b: AcoustIdTrackT) {
 }
 
 const FingerprintTable = ({recording}: {recording: RecordingT}) => {
-  const [tracks, setTracks] = React.useState([]);
+  const [tracks, setTracks] =
+    React.useState<$ReadOnlyArray<AcoustIdTrackT>>([]);
   const [isLoaded, setIsLoaded] = React.useState(false);
 
   // We ensure fetch only runs client-side since it's not in node

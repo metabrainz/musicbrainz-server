@@ -70,7 +70,7 @@ const BatchAddRelationshipButtonPopover = ({
     title: l('Add Relationship'),
   });
 
-  const setOpen = React.useCallback((open) => {
+  const setOpen = React.useCallback((open: boolean) => {
     dispatch({
       location: open ? {
         batchSelection: true,

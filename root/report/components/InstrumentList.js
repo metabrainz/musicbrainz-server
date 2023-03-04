@@ -10,8 +10,8 @@
 import * as React from 'react';
 
 import PaginatedResults from '../../components/PaginatedResults.js';
-import Table from '../../components/Table.js';
 import {CatalystContext} from '../../context.mjs';
+import useTable from '../../hooks/useTable.js';
 import formatUserDate from '../../utility/formatUserDate.js';
 import {
   defineEntityColumn,
@@ -29,7 +29,10 @@ const InstrumentList = ({
   pager,
 }: Props): React.Element<typeof PaginatedResults> => {
   const $c = React.useContext(CatalystContext);
-  const existingInstrumentItems = items.reduce((result, item) => {
+  const existingInstrumentItems = items.reduce((
+    result: Array<ReportInstrumentT>,
+    item,
+  ) => {
     if (item.instrument != null) {
       result.push(item);
     }
@@ -75,9 +78,14 @@ const InstrumentList = ({
     [$c],
   );
 
+  const table = useTable<ReportInstrumentT>({
+    columns,
+    data: existingInstrumentItems,
+  });
+
   return (
     <PaginatedResults pager={pager}>
-      <Table columns={columns} data={existingInstrumentItems} />
+      {table}
     </PaginatedResults>
   );
 };

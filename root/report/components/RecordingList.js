@@ -11,12 +11,11 @@ import * as React from 'react';
 import type {ColumnOptionsNoValue} from 'react-table';
 
 import PaginatedResults from '../../components/PaginatedResults.js';
-import Table from '../../components/Table.js';
+import useTable from '../../hooks/useTable.js';
 import {
   defineArtistCreditColumn,
   defineEntityColumn,
 } from '../../utility/tableColumns.js';
-import type {ReportRecordingT} from '../types.js';
 
 type Props<D: {+recording: ?RecordingT, ...}> = {
   +columnsAfter?: $ReadOnlyArray<ColumnOptionsNoValue<D>>,
@@ -31,7 +30,10 @@ const RecordingList = <D: {+recording: ?RecordingT, ...}>({
   items,
   pager,
 }: Props<D>): React.Element<typeof PaginatedResults> => {
-  const existingRecordingItems = items.reduce((result, item) => {
+  const existingRecordingItems = items.reduce((
+    result: Array<D>,
+    item,
+  ) => {
     if (item.recording != null) {
       result.push(item);
     }
@@ -40,14 +42,14 @@ const RecordingList = <D: {+recording: ?RecordingT, ...}>({
 
   const columns = React.useMemo(
     () => {
-      const recordingColumn = defineEntityColumn<ReportRecordingT>({
+      const recordingColumn = defineEntityColumn<D>({
         columnName: 'recording',
         descriptive: false,
         getEntity: result => result.recording ?? null,
         title: l('Recording'),
       });
       const artistCreditColumn =
-        defineArtistCreditColumn<ReportRecordingT>({
+        defineArtistCreditColumn<D>({
           columnName: 'artist',
           getArtistCredit: result => result.recording?.artistCredit ?? null,
           title: l('Artist'),
@@ -63,9 +65,11 @@ const RecordingList = <D: {+recording: ?RecordingT, ...}>({
     [columnsAfter, columnsBefore],
   );
 
+  const table = useTable<D>({columns, data: existingRecordingItems});
+
   return (
     <PaginatedResults pager={pager}>
-      <Table columns={columns} data={existingRecordingItems} />
+      {table}
     </PaginatedResults>
   );
 };

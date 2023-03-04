@@ -10,6 +10,7 @@
 import * as React from 'react';
 
 import {CatalystContext} from '../../context.mjs';
+import useTable from '../../hooks/useTable.js';
 import {
   defineCheckboxColumn,
   defineNameColumn,
@@ -17,7 +18,6 @@ import {
   removeFromMergeColumn,
   seriesOrderingTypeColumn,
 } from '../../utility/tableColumns.js';
-import Table from '../Table.js';
 
 type Props = {
   +checkboxes?: string,
@@ -33,7 +33,7 @@ const SeriesList = ({
   order,
   series,
   sortable,
-}: Props): React.Element<typeof Table> => {
+}: Props): React.Element<'table'> => {
   const $c = React.useContext(CatalystContext);
 
   const columns = React.useMemo(
@@ -63,7 +63,7 @@ const SeriesList = ({
     [$c.user, checkboxes, mergeForm, order, series, sortable],
   );
 
-  return <Table columns={columns} data={series} />;
+  return useTable<SeriesT>({columns, data: series});
 };
 
 export default SeriesList;
