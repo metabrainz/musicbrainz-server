@@ -51,13 +51,28 @@ our %relation_types = (
 # request for a recording or a request with inc=recordings.  This hash
 # helps validate the second case (inc=recordings).
 our %extra_inc = (
-    'recordings' => [ qw( artist-credits puids isrcs ) ],
-    'recording-rels' => [ qw( artist-credits ) ],
-    'releases' => [ qw( artist-credits discids media type status ) ],
-    'release-rels' => [ qw( artist-credits ) ],
-    'release-groups' => [ qw( artist-credits type ) ],
-    'release-group-rels' => [ qw( artist-credits ) ],
-    'works' => [ qw( artist-credits ) ],
+    'recordings' => {
+        generic => [ qw( artist-credits puids isrcs ) ],
+    },
+    'recording-rels' => {
+        generic => [ qw( artist-credits ) ],
+    },
+    'releases' => {
+        artist => [ qw ( various-artists ) ],
+        generic => [ qw( artist-credits discids media status type ) ],
+    },
+    'release-rels' => {
+        generic => [ qw( artist-credits ) ],
+    },
+    'release-groups' => {
+        generic => [ qw( artist-credits type ) ],
+    },
+    'release-group-rels' => {
+        generic => [ qw( artist-credits ) ],
+    },
+    'works' => {
+        generic => [ qw( artist-credits ) ],
+    },
 );
 
 
@@ -204,7 +219,15 @@ sub validate_inc
     my %extra;
     for my $i (@inc)
     {
-        map { $extra{$_} = 1 } @{ $extra_inc{$i} } if (defined $extra_inc{$i});
+        if (defined $extra_inc{$i}) {
+            my @available_extra_incs = (
+                @{ $extra_inc{$i}{generic} // [] },
+                @{ $extra_inc{$i}{$resource} // [] },
+            );
+            for my $extra_inc (@available_extra_incs) {
+                $extra{$extra_inc} = 1;
+            }
+        }
     }
 
     for my $i (@inc)
@@ -221,8 +244,10 @@ sub validate_inc
         if (!exists $acc{$i} && !exists $extra{$i})
         {
             my @possible = grep {
-                my %all = map { $_ => 1 } @{ $extra_inc{$_} };
-                exists $all{$i}
+                my %all = map { $_ => 1 } @{ $extra_inc{$_}{generic} // [] };
+                my %per_resource =
+                    map { $_ => 1 } @{ $extra_inc{$_}{$resource} // [] };
+                exists $all{$i} || exists $per_resource{$i}
             } keys %extra_inc;
 
             if (@possible) {
