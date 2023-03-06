@@ -49,6 +49,8 @@ const changeSide = (
           : <span className={CLASS_MAP[type]}>{sideACountry.name}</span>
       }
       entity={sideACountry}
+      // The text content is the area name, so not really nameVariation
+      nameVariation={false}
     />
   ) : null;
 
