@@ -139,7 +139,11 @@ sub _load_mediums_limited {
     my ($self, $c, $mediums, $paged_medium, $medium_page_number) = @_;
 
     my @mediums = @{$mediums};
-    my $user_id = $c->user->id if $c->user_exists;
+    my $user_id;
+
+    if ($c->user_exists) {
+        $user_id = $c->user->id;
+    }
 
     if (@mediums && !defined $paged_medium) {
         my $medium_counter = 0;

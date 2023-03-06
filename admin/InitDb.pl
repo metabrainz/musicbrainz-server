@@ -3,6 +3,7 @@
 use strict;
 use warnings;
 
+use English;
 use FindBin;
 use lib "$FindBin::Bin/../lib";
 
@@ -83,14 +84,14 @@ sub RunSQLScript
 
     print "$psql $quiet $echo -f $path/$file $opts 2>&1 $stdout |\n" if $fVerbose;
     open(PIPE, "$psql $quiet $echo -f $path/$file $opts 2>&1 $stdout |")
-        or die "exec '$psql': $!";
+        or die "exec '$psql': $OS_ERROR";
     while (<PIPE>)
     {
         print localtime() . ' : ' . $_;
     }
     close PIPE;
 
-    die "Error during $file" if ($? >> 8);
+    die "Error during $file" if ($CHILD_ERROR >> 8);
 }
 
 sub HasEditData
@@ -109,7 +110,7 @@ sub InstallExtension
     my $stdout = (!$fVerbose ? '>/dev/null' : '');
 
     my $sharedir = `pg_config --sharedir`;
-    die 'Cannot find pg_config on path' if !defined $sharedir || $? != 0;
+    die 'Cannot find pg_config on path' if !defined $sharedir || $CHILD_ERROR != 0;
 
     chomp($sharedir);
 
@@ -149,7 +150,7 @@ sub Create
     # Check we can find these programs on the path
     for my $prog (qw( pg_config ))
     {
-        next if `which $prog` and $? == 0;
+        next if `which $prog` and $CHILD_ERROR == 0;
         die "Can't find '$prog' on your PATH\n";
     }
 
@@ -249,7 +250,7 @@ sub CreateRelations
             wikidocs
             dbmirror2
         ));
-    die "\nFailed to create schema\n" if ($? >> 8);
+    die "\nFailed to create schema\n" if ($CHILD_ERROR >> 8);
 
     RunSQLScript($SYSMB, 'Extensions.sql', 'Installing extensions');
     RunSQLScript($DB, 'CreateCollations.sql', 'Creating collations ...');
@@ -267,13 +268,13 @@ sub CreateRelations
 
     if ($import)
     {
-        local $" = ' ';
+        local $LIST_SEPARATOR = ' ';
         my @opts = '--ignore-errors';
         push @opts, '--fix-broken-utf8' if ($fFixUTF8);
         push @opts, "--tmp-dir=$tmp_dir" if ($tmp_dir);
         push @opts, '--database', $databaseName;
         system($^X, "$FindBin::Bin/MBImport.pl", @opts, @$import);
-        die "\nFailed to import dataset.\n" if ($? >> 8);
+        die "\nFailed to import dataset.\n" if ($CHILD_ERROR >> 8);
     } else {
         RunSQLScript($DB, 'InsertDefaultRows.sql', 'Adding default rows ...');
     }
@@ -377,7 +378,7 @@ sub CreateRelations
     $opts = $DB->shell_args;
     $ENV{'PGPASSWORD'} = $DB->password;
     system(qq(echo "vacuum analyze" | $psql $opts));
-    die "\nFailed to optimize database\n" if ($? >> 8);
+    die "\nFailed to optimize database\n" if ($CHILD_ERROR >> 8);
 
     print localtime() . " : Initialized and imported data into the database.\n" unless $fQuiet;
 }
@@ -559,7 +560,7 @@ if ($databaseName eq 'MAINTENANCE' || $databaseName eq 'READWRITE') {
 
 END {
     print localtime() . ' : InitDb.pl '
-        . ($? == 0 ? 'succeeded' : 'failed')
+        . ($CHILD_ERROR == 0 ? 'succeeded' : 'failed')
         . "\n"
         if $started;
 }

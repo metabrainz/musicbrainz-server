@@ -4,6 +4,7 @@ use warnings;
 
 use strict;
 
+use English;
 use FindBin;
 use lib "$FindBin::Bin/../../lib";
 
@@ -69,7 +70,7 @@ for my $arg (@ARGV)
     my $dir = make_tmp_dir();
     print localtime() . " : tar -C $dir --$mode -xvf $arg\n";
     system "tar -C $dir --$mode -xvf $arg";
-    exit $? if $?;
+    exit $CHILD_ERROR if $CHILD_ERROR;
     $arg = $dir;
 }
 
@@ -120,11 +121,11 @@ sub ImportTable
                 $rows / ($interval||1);
     };
 
-    $| = 1;
+    $OUTPUT_AUTOFLUSH = 1;
 
     eval
     {
-        open(LOAD, '<:encoding(utf8)', $file) or die "open $file: $!";
+        open(LOAD, '<:encoding(utf8)', $file) or die "open $file: $OS_ERROR";
 
         $sql->begin;
         my $dbh = $sql->dbh; # issues a ping, must be done before COPY
@@ -150,7 +151,7 @@ sub ImportTable
         $p->("\r", sprintf(" %.2f sec\n", $interval));
 
         close LOAD
-                or die $!;
+                or die $OS_ERROR;
 
         $sql->commit;
 
@@ -163,8 +164,8 @@ sub ImportTable
         1;
     };
 
-    return 1 unless $@;
-    warn "Error loading $file: $@";
+    return 1 unless $EVAL_ERROR;
+    warn "Error loading $file: $EVAL_ERROR";
     $sql->rollback;
 
     ++$errors, return 0 if $fIgnoreErrors;
@@ -268,9 +269,9 @@ sub find_file
                 }
 
                 use Errno 'EEXIST';
-                next if $! == EEXIST;
+                next if $OS_ERROR == EEXIST;
 
-                die "Error creating temporary directory ($!)";
+                die "Error creating temporary directory ($OS_ERROR)";
         }
     }
 }

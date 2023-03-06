@@ -175,12 +175,17 @@ sub edit_action
 
             # the on_creation hook is only called when an edit was entered.
             # the post_creation hook is always called.
-            my $post_creation_changes = $opts{post_creation}->($edit, $form)
-                if exists $opts{post_creation};
+            my $has_post_creation_changes = 0;
+            if (exists $opts{post_creation}) {
+                $has_post_creation_changes =
+                    $opts{post_creation}->($edit, $form);
+            }
 
-            $opts{on_creation}->($edit, $form) if $edit && exists $opts{on_creation};
+            if ($edit && exists $opts{on_creation}) {
+                $opts{on_creation}->($edit, $form);
+            }
 
-            if ($post_creation_changes && $c->stash->{makes_no_changes}) {
+            if ($has_post_creation_changes && $c->stash->{makes_no_changes}) {
                 $c->stash( makes_no_changes => 0 );
             }
         });

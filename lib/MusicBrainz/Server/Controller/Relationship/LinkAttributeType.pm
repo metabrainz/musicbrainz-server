@@ -76,11 +76,16 @@ sub create : Path('/relationship-attributes/create') Args(0) RequireAuth(relatio
     my $form = $c->form( form => 'Admin::LinkAttributeType' );
 
     my $gid = $c->request->params->{parent};
-    my $parent_link_attr_type = $c->model('LinkAttributeType')->get_by_gid($gid)
-      if (is_guid($gid));
+    my $parent_link_attr_type;
 
-    $form->field('parent_id')->value($parent_link_attr_type->id)
-        if $parent_link_attr_type;
+    if (is_guid($gid)) {
+        $parent_link_attr_type =
+            $c->model('LinkAttributeType')->get_by_gid($gid);
+    }
+
+    if ($parent_link_attr_type) {
+        $form->field('parent_id')->value($parent_link_attr_type->id);
+    }
 
     if ($c->form_posted_and_valid($form)) {
         my $attribute_edit = $c->model('MB')->with_transaction(sub {

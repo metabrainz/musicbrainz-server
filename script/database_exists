@@ -3,6 +3,7 @@
 use utf8;
 use strict;
 use warnings;
+use English;
 use FindBin;
 use lib "$FindBin::Bin/../lib";
 use DBDefs;
@@ -29,7 +30,7 @@ if ($ARGV[0])
         exit 0 if $so;
     };
 
-    my $error = $@;
+    my $error = $EVAL_ERROR;
 
     if (ref $error eq 'MusicBrainz::Server::Exceptions::DatabaseError') {
         my $expected_error = 'database "' . $db->database . '" does not exist';

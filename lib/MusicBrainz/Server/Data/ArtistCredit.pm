@@ -112,8 +112,8 @@ sub _find
     my @names = @{ $artist_credit->{names} };
 
     # remove unused trailing artistcredit slots.
-    while (!defined $names[$#names]->{artist}->{id} &&
-           (!defined $names[$#names]->{name} || $names[$#names]->{name} eq ''))
+    while (!defined $names[-1]->{artist}->{id} &&
+           (!defined $names[-1]->{name} || $names[-1]->{name} eq ''))
     {
         pop @names;
     }

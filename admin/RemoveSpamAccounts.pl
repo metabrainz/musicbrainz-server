@@ -3,6 +3,7 @@
 use warnings;
 use strict;
 
+use English;
 use FindBin;
 use lib "$FindBin::Bin/../lib";
 use open ':std', ':encoding(UTF-8)';
@@ -142,8 +143,8 @@ foreach my $ed (@{$editors}) {
             $sql->do('DELETE FROM editor WHERE id = ?', $id);
             $sql->commit;
         };
-        if ($@) {
-            warn "Remove editor $id died with $@\n";
+        if ($EVAL_ERROR) {
+            warn "Remove editor $id died with $EVAL_ERROR\n";
         }
     }
 }
