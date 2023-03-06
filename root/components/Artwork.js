@@ -47,7 +47,7 @@ export const ArtworkImage = ({
       data-large-thumbnail={artwork.large_ia_thumbnail}
       data-message={nonEmpty(message)
         ? message
-        : l('Image not available yet, please try again in a few minutes.')}
+        : l('Image not available, please try again later.')}
       data-small-thumbnail={artwork.small_ia_thumbnail}
       data-title={nonEmpty(hover) ? hover : artworkHover(artwork)}
     />
