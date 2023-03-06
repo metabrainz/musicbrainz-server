@@ -36,7 +36,6 @@ export function createInitialState(
   initialLanguages?: $ReadOnlyArray<LanguageT>,
 ): MultiselectLanguageStateT {
   const languages: Array<LanguageT> =
-    // $FlowIgnore[incompatible-type]
     Object.values(linkedEntities.language);
 
   languages.sort((a, b) => (

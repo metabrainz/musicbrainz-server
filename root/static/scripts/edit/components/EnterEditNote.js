@@ -34,7 +34,11 @@ const EnterEditNote = ({
   ...otherProps
 }: Props):
 React.Element<'fieldset'> => {
-  const textAreaProps = {};
+  const textAreaProps: {
+    defaultValue?: string,
+    onChange?: (event: SyntheticEvent<HTMLTextAreaElement>) => void,
+    value?: string,
+  } = {};
   if (otherProps.controlled) {
     textAreaProps.value = field.value;
     textAreaProps.onChange = otherProps.onChange;

@@ -67,12 +67,8 @@ const RelationshipDiff = (React.memo(({
   oldRelationship,
   makeEntityLink = makeDescriptiveLink,
 }: Props): React.Element<typeof React.Fragment> => {
-  const oldAttrs = oldRelationship.attributes
-    ? keyBy(oldRelationship.attributes, getTypeId)
-    : {};
-  const newAttrs = newRelationship.attributes
-    ? keyBy(newRelationship.attributes, getTypeId)
-    : {};
+  const oldAttrs = keyBy(oldRelationship.attributes, getTypeId);
+  const newAttrs = keyBy(newRelationship.attributes, getTypeId);
 
   const i18nConfig: LinkPhraseI18n<Expand2ReactOutput> = {
     commaList,

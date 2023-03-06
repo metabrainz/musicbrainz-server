@@ -95,7 +95,6 @@ export type LinkedEntitiesT = {
   work_type: {
     [workTypeId: string]: WorkTypeT,
   },
-  ...
 };
 
 // $FlowIgnore[method-unbinding]
@@ -144,8 +143,14 @@ export function mergeLinkedEntities(
     for (const [type, entities] of Object.entries(update)) {
       if (hasOwnProperty.call(linkedEntities, type)) {
         Object.assign(linkedEntities[type], entities);
-      } else {
+      } else if (type in linkedEntities) {
+        // $FlowIgnore[incompatible-type]
         linkedEntities[type] = entities;
+      } else {
+        throw new Error(
+          JSON.stringify(type) +
+          ' is not a valid type assignable to linkedEntities',
+        );
       }
     }
   }

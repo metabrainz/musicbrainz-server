@@ -99,5 +99,5 @@ yargs
   }));
 
   await pgClient.query('ROLLBACK');
-  pgClient.end();
+  await pgClient.end();
 }());

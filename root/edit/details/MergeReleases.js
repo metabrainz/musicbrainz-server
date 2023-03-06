@@ -202,12 +202,14 @@ function buildRecordingMergeRow(
   );
 }
 
-function getHtmlVars(vars: {+[var: string]: string}) {
+function getHtmlVars(
+  vars: {+[var: string]: string},
+): {+[var: string]: Expand2ReactOutput} {
   if (!vars || Object.keys(vars).length === 0) {
     return vars;
   }
 
-  const htmlArgs = {};
+  const htmlArgs: {[var: string]: Expand2ReactOutput} = {};
 
   for (const key of Object.keys(vars)) {
     htmlArgs[key] = expand2react(vars[key]);

@@ -296,7 +296,6 @@ export const LINK_TYPES: LinkTypeMap = {
 
 // See https://musicbrainz.org/doc/Style/Relationships/URLs#Restricted_relationships
 
-// $FlowIssue[incompatible-type]: Array<mixed>
 export const RESTRICTED_LINK_TYPES: $ReadOnlyArray<string> = [
   LINK_TYPES.allmusic,
   LINK_TYPES.amazon,
@@ -5550,7 +5549,6 @@ function testAll(tests: $ReadOnlyArray<RegExp>, text: string) {
   return false;
 }
 
-// $FlowIssue[incompatible-type]: Array<mixed>
 const CLEANUP_ENTRIES: Array<CleanupEntry> = Object.values(CLEANUPS);
 
 const entitySpecificRules: {
@@ -5657,7 +5655,7 @@ entitySpecificRules.recording = function (url) {
  * }
  */
 function multiple(...types: $ReadOnlyArray<EntityTypeMap>): EntityTypesMap {
-  const result = {};
+  const result: {[entityType: CoreEntityTypeT]: Array<string>} = {};
   types.forEach(function (type: EntityTypeMap) {
     for (const [entityType, id] of Object.entries(type)) {
       result[entityType] = result[entityType] || [];

@@ -230,17 +230,7 @@ const htmlAttrValueParsers = [
   parseHtmlAttrValueCondSubst,
 ];
 
-// Keep in sync with the htmlAttrName RegExp above.
-type HtmlAttrs = {
-  className?: string,
-  href?: string,
-  id?: string,
-  key?: string,
-  rel?: string,
-  target?: string,
-  title?: string,
-  ...
-};
+type HtmlAttrs = {[attr: string]: string};
 
 function parseHtmlAttr(args: VarArgsClass<Input>) {
   if (!gotMatch(accept(htmlAttrStart))) {
@@ -296,7 +286,7 @@ function parseHtmlTag(args: VarArgsClass<Input>) {
     // Self-closing tag
     return React.createElement(
       name,
-      Object.assign({}, ...attributes),
+      Object.assign(({}: HtmlAttrs), ...attributes),
     );
   }
 
@@ -312,7 +302,7 @@ function parseHtmlTag(args: VarArgsClass<Input>) {
 
   return React.createElement(
     name,
-    Object.assign({}, ...attributes),
+    Object.assign(({}: HtmlAttrs), ...attributes),
     ...children,
   );
 }

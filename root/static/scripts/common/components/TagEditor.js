@@ -254,9 +254,9 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
     this.handleSubmitBound = (event) => this.handleSubmit(event);
     this.setTagsInputBound = (input) => this.setTagsInput(input);
 
-    this.genreMap = props.genreMap ?? {};
+    this.genreMap = props.genreMap ?? ({}: {+[genreName: string]: GenreT});
     this.genreOptions =
-      ((Object.values(this.genreMap): any): $ReadOnlyArray<GenreT>)
+      Object.values(this.genreMap)
         .map(genre => {
           return {
             label: formatGenreLabel(genre),
@@ -272,7 +272,7 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
   }
 
   flushPendingVotes(asap?: boolean) {
-    const actions = {};
+    const actions: {[action: string]: Array<PendingVoteT>} = {};
 
     for (const item of this.pendingVotes.values()) {
       const action =

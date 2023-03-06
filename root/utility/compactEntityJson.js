@@ -67,7 +67,7 @@ function _indexValue(
             typeof prototype.constructor === 'function' &&
             functionToString.call(prototype.constructor) === objectCtorString
           ) {
-            compactValue = {};
+            compactValue = ({}: {[compactObjectKey: number]: number});
             for (const objectKey in value) {
               if (hasOwnProp(value, objectKey)) {
                 const compactObjectKey = _indexValue(
@@ -137,7 +137,7 @@ export function decompactEntityJson(
         }
         return result;
       }
-      const result = {};
+      const result: {[objectKey: string]: mixed} = {};
       resolved[index] = result;
       for (const objectKeyIndex in value) {
         if (hasOwnProp(value, objectKeyIndex)) {
