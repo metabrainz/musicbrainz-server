@@ -34,11 +34,10 @@ const Aliases = ({
       title={l('Aliases')}
     >
       <AliasesComponent aliases={aliases} entity={entity} />
-      {artistCredits?.length ? (
+      {/*:: entity.entityType === 'artist' && */ artistCredits?.length ? (
         <ArtistCreditList
           artistCredits={artistCredits}
-          // $FlowIgnore[unclear-type] Only artists have credits
-          entity={((entity: any): ArtistT)}
+          entity={entity}
         />
       ) : null}
     </LayoutComponent>
