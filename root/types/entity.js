@@ -62,6 +62,19 @@ declare type CoreEntityT =
   | NonUrlCoreEntityT
   | UrlT;
 
+declare type CollectableEntityTypeT =
+  | 'area'
+  | 'artist'
+  | 'event'
+  | 'instrument'
+  | 'label'
+  | 'place'
+  | 'recording'
+  | 'release_group'
+  | 'release'
+  | 'series'
+  | 'work';
+
 declare type NonUrlCoreEntityTypeT =
   | 'area'
   | 'artist'
