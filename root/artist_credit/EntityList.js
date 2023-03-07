@@ -37,7 +37,7 @@ const noEntitiesText = {
 
 type Props = {
   +artistCredit: $ReadOnly<{...ArtistCreditT, +id: number}>,
-  +entities: $ReadOnlyArray<CoreEntityT | TrackT>,
+  +entities: $ReadOnlyArray<EntityWithArtistCreditsT>,
   +entityType: string,
   +page: string,
   +pager: PagerT,

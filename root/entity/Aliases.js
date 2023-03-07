@@ -16,7 +16,7 @@ import chooseLayoutComponent from '../utility/chooseLayoutComponent.js';
 type Props = {
   +aliases: $ReadOnlyArray<AliasT>,
   +artistCredits?: $ReadOnlyArray<{+id: number} & ArtistCreditT>,
-  +entity: CoreEntityT,
+  +entity: EntityWithAliasesT,
 };
 
 const Aliases = ({
@@ -34,7 +34,7 @@ const Aliases = ({
       title={l('Aliases')}
     >
       <AliasesComponent aliases={aliases} entity={entity} />
-      {artistCredits?.length ? (
+      {/*:: entity.entityType === 'artist' && */ artistCredits?.length ? (
         <ArtistCreditList
           artistCredits={artistCredits}
           entity={entity}

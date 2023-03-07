@@ -20,7 +20,7 @@ import isolateText from '../../static/scripts/common/utility/isolateText.js';
 type Props = {
   +alias: AliasT,
   +allowEditing: boolean,
-  +entity: CoreEntityT,
+  +entity: EntityWithAliasesT,
   +row: string,
 };
 

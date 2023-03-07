@@ -7,6 +7,20 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+declare type EntityWithAliasesT =
+  | AreaT
+  | ArtistT
+  | EventT
+  | GenreT
+  | InstrumentT
+  | LabelT
+  | PlaceT
+  | RecordingT
+  | ReleaseGroupT
+  | ReleaseT
+  | SeriesT
+  | WorkT;
+
 declare type AppearancesT<T> = {
   +hits: number,
   +results: $ReadOnlyArray<T>,
@@ -27,7 +41,7 @@ declare type CoreEntityRoleT<+T> = {
   +relationships?: $ReadOnlyArray<RelationshipT>,
 };
 
-declare type CollectableCoreEntityT =
+declare type CollectableEntityT =
   | AreaT
   | ArtistT
   | EventT
@@ -41,7 +55,7 @@ declare type CollectableCoreEntityT =
   | WorkT;
 
 declare type NonUrlCoreEntityT =
-  | CollectableCoreEntityT
+  | CollectableEntityT
   | GenreT;
 
 declare type CoreEntityT =
@@ -65,6 +79,12 @@ declare type NonUrlCoreEntityTypeT =
 declare type CoreEntityTypeT =
   | NonUrlCoreEntityTypeT
   | 'url';
+
+declare type EntityWithArtistCreditsT =
+  | RecordingT
+  | ReleaseGroupT
+  | ReleaseT
+  | TrackT;
 
 declare type DatePeriodRoleT = {
   +begin_date: PartialDateT | null,
