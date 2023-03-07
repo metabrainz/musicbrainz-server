@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import DescriptiveLink
   from '../../static/scripts/common/components/DescriptiveLink.js';
 import {DeletedLink}
@@ -26,7 +24,7 @@ type HistoricReleaseListProps = {
 
 export const HistoricReleaseListContent = ({
   releases,
-}: HistoricReleaseListContentProps): React.Element<'ul'> => (
+}: HistoricReleaseListContentProps): React$Element<'ul'> => (
   <ul>
     {releases.length ? (
       releases.map((release, index) => (
@@ -46,7 +44,7 @@ const HistoricReleaseList = ({
   colSpan,
   label,
   releases,
-}: HistoricReleaseListProps): React.Element<'tr'> => (
+}: HistoricReleaseListProps): React$Element<'tr'> => (
   <tr>
     <th>{nonEmpty(label) ? label : l('Releases:')}</th>
     <td colSpan={colSpan}>

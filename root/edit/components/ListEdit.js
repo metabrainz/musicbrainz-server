@@ -26,7 +26,7 @@ const ListEdit = ({
   edit,
   index,
   voter,
-}: Props): React.Element<'div'> => {
+}: Props): React$Element<'div'> => {
   const $c = React.useContext(SanitizedCatalystContext);
   const editStatusClass = getEditStatusClass(edit);
   const detailsElement = getEditDetailsElement(edit);

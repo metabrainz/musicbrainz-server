@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import Layout from '../layout/index.js';
 
 import ElectionTable from './ElectionTable/index.js';
@@ -17,7 +15,7 @@ type Props = {
   +elections: $ReadOnlyArray<AutoEditorElectionT>,
 };
 
-const Index = ({elections}: Props): React.Element<typeof Layout> => (
+const Index = ({elections}: Props): React$Element<typeof Layout> => (
   <Layout fullWidth title={l('Auto-editor elections')}>
     <h1>{l('Auto-editor elections')}</h1>
     {elections.length

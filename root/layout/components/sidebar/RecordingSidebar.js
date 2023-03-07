@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import * as manifest from '../../../static/manifest.mjs';
 import ArtistCreditLink
   from '../../../static/scripts/common/components/ArtistCreditLink.js';
@@ -33,7 +31,7 @@ type Props = {
   +recording: RecordingWithArtistCreditT,
 };
 
-const RecordingSidebar = ({recording}: Props): React.Element<'div'> => {
+const RecordingSidebar = ({recording}: Props): React$Element<'div'> => {
   const firstReleaseYear = recording.first_release_date?.year;
 
   return (

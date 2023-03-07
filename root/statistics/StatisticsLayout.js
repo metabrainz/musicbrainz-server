@@ -94,7 +94,7 @@ const StatisticsLayout = ({
   page,
   sidebar,
   title,
-}: StatisticsLayoutPropsT): React.Element<typeof Layout> => {
+}: StatisticsLayoutPropsT): React$Element<typeof Layout> => {
   const htmlTitle = hyphenateTitle(l('Database Statistics'), title);
   return (
     <Layout

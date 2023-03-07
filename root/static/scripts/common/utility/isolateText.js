@@ -7,9 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
-function isolateText(content: ?React$Node): React.Element<'bdi'> | string {
+function isolateText(content: ?React$Node): React$Element<'bdi'> | string {
   if (content != null && content !== '') {
     return <bdi>{content}</bdi>;
   }

@@ -7,13 +7,11 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import {l_statistics as l} from '../static/scripts/common/i18n/statistics.js';
 
 import StatisticsLayout from './StatisticsLayout.js';
 
-const NoStatistics = (): React.Element<typeof StatisticsLayout> => (
+const NoStatistics = (): React$Element<typeof StatisticsLayout> => (
   <StatisticsLayout fullWidth page="index" title={l('No Statistics')}>
     <h2>{l('No Statistics')}</h2>
     <p>

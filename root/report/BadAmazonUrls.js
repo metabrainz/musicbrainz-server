@@ -7,7 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
 import type {CellRenderProps} from 'react-table';
 
 import EntityLink from '../static/scripts/common/components/EntityLink.js';
@@ -22,7 +21,7 @@ const BadAmazonUrls = ({
   generated,
   items,
   pager,
-}: ReportDataT<ReportReleaseUrlT>): React.Element<typeof ReportLayout> => {
+}: ReportDataT<ReportReleaseUrlT>): React$Element<typeof ReportLayout> => {
   const urlColumn = {
     Cell: ({row: {original}}: CellRenderProps<ReportReleaseUrlT, empty>) => {
       const url = original.url;

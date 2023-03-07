@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import AliasTableRow from './AliasTableRow.js';
 
 type Props = {
@@ -20,7 +18,7 @@ type Props = {
 const AliasTableBody = ({
   aliases,
   ...props
-}: Props): React.Element<'tbody'> => {
+}: Props): React$Element<'tbody'> => {
   const aliasRows = [];
   for (let i = 0; i < aliases.length; i++) {
     const alias = aliases[i];

@@ -73,7 +73,7 @@ const FooterSwitch = ({
   hasVariousArtistsExtra,
   includingAllStatuses,
   showingVariousArtistsOnly,
-}: FooterSwitchProps): React.Element<'p' | typeof React.Fragment> => {
+}: FooterSwitchProps): React$Element<'p' | typeof React.Fragment> => {
   const artistLink = entityHref(artist);
 
   function buildLinks(
@@ -212,7 +212,7 @@ const ArtistIndex = ({
   releaseGroups,
   showingVariousArtistsOnly,
   wikipediaExtract,
-}: Props): React.Element<typeof ArtistLayout> => {
+}: Props): React$Element<typeof ArtistLayout> => {
   const $c = React.useContext(SanitizedCatalystContext);
   const existingRecordings = recordings?.length ? recordings : null;
   const existingReleaseGroups = releaseGroups?.length ? releaseGroups : null;

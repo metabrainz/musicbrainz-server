@@ -69,7 +69,7 @@ const MediumToolbox = (React.memo<MediumToolboxPropsT>(({
   creditsMode,
   dispatch,
   mediums,
-}: MediumToolboxPropsT): React.Element<'span'> => (
+}: MediumToolboxPropsT): React$Element<'span'> => (
   <span id="medium-toolbox">
     {mediums.length > 1 ? (
       <>

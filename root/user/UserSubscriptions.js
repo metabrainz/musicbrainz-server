@@ -37,7 +37,7 @@ type UserSubscriptionsTableProps = {
 const UserSubscriptionsTable = ({
   entities,
   viewingOwnProfile,
-}: UserSubscriptionsTableProps): React.Element<'table'> => (
+}: UserSubscriptionsTableProps): React$Element<'table'> => (
   <table className="tbl">
     <thead>
       <tr>
@@ -77,7 +77,7 @@ const UserSubscriptionsSection = ({
   entities,
   pager,
   viewingOwnProfile,
-}: UserSubscriptionsSectionProps): React.Element<typeof PaginatedResults> => (
+}: UserSubscriptionsSectionProps): React$Element<typeof PaginatedResults> => (
   viewingOwnProfile ? (
     <PaginatedResults pager={pager}>
       <form action={action} method="post">
@@ -125,7 +125,7 @@ const UserSubscriptions = ({
   type,
   user,
   visiblePrivateCollections,
-}: UserSubscriptionsProps): React.Element<typeof UserAccountLayout> => {
+}: UserSubscriptionsProps): React$Element<typeof UserAccountLayout> => {
   const $c = React.useContext(SanitizedCatalystContext);
   const viewingOwnProfile = Boolean($c.user && $c.user.id === user.id);
   const isAdminViewingPrivate = Boolean(

@@ -22,7 +22,7 @@ type Props = {
 const SearchError = ({
   children,
   form,
-}: Props): React.Element<typeof StatusPage> => (
+}: Props): React$Element<typeof StatusPage> => (
   <StatusPage title={l('Search Error')}>
     {children}
     <p>

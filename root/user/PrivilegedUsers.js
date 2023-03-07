@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import Layout from '../layout/index.js';
 
 import UserInlineList from './components/UserInlineList.js';
@@ -31,7 +29,7 @@ const PrivilegedUsers = ({
   locationEditors,
   relationshipEditors,
   transclusionEditors,
-}: Props): React.Element<typeof Layout> => (
+}: Props): React$Element<typeof Layout> => (
   <Layout fullWidth title={l('Privileged user accounts')}>
     <div id="content">
       <h1>{l('Privileged user accounts')}</h1>

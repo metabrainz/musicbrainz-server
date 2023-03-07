@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import Layout from '../layout/index.js';
 import FormCsrfToken
   from '../static/scripts/edit/components/FormCsrfToken.js';
@@ -25,7 +23,7 @@ const ConfirmLayout = ({
   form,
   question,
   title,
-}: Props): React.Element<typeof Layout> => (
+}: Props): React$Element<typeof Layout> => (
   <Layout fullWidth title={title}>
     <h1>{title}</h1>
     <p>{question}</p>

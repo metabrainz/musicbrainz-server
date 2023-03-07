@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import informationIconUrl from '../../../images/icons/information.png';
 
 type Props = {
@@ -16,7 +14,7 @@ type Props = {
   title?: string,
 };
 
-const InformationIcon = (props: Props): React.Element<'img'> => (
+const InformationIcon = (props: Props): React$Element<'img'> => (
   <img
     src={informationIconUrl}
     {...props}

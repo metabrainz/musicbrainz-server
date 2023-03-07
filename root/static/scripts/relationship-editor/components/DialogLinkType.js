@@ -270,7 +270,7 @@ const DialogLinkType = (React.memo<PropsT>(({
   source,
   state,
   targetType,
-}: PropsT): React.Element<'tr'> => {
+}: PropsT): React$Element<'tr'> => {
   const {
     autocomplete,
     error,

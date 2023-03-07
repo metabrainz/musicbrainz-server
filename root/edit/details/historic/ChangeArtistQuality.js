@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import DescriptiveLink
   from '../../../static/scripts/common/components/DescriptiveLink.js';
 import {QUALITY_NAMES} from '../../../static/scripts/common/constants.js';
@@ -17,7 +15,7 @@ type Props = {
   +edit: ChangeArtistQualityHistoricEditT,
 };
 
-const ChangeArtistQuality = ({edit}: Props): React.Element<'table'> => {
+const ChangeArtistQuality = ({edit}: Props): React$Element<'table'> => {
   const oldQuality = QUALITY_NAMES.get(edit.display_data.quality.old);
   const newQuality = QUALITY_NAMES.get(edit.display_data.quality.new);
   return (

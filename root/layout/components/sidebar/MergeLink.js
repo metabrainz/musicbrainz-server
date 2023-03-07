@@ -26,7 +26,7 @@ const mergeUrl = (
     returnToCurrentPage($c);
 };
 
-const MergeLink = ({entity}: Props): React.Element<'li'> => {
+const MergeLink = ({entity}: Props): React$Element<'li'> => {
   const $c = React.useContext(CatalystContext);
   return (
     <li>

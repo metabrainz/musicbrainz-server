@@ -19,7 +19,7 @@ export const SidebarProperty = ({
   children,
   className,
   label,
-}: SidebarPropertyProps): React.Element<typeof React.Fragment> => (
+}: SidebarPropertyProps): React$Element<typeof React.Fragment> => (
   <>
     <dt>{label}</dt>
     <dd className={className}>
@@ -36,7 +36,7 @@ type SidebarPropertiesProps = {
 export const SidebarProperties = ({
   className,
   children,
-}: SidebarPropertiesProps): React.Element<'dl'> => {
+}: SidebarPropertiesProps): React$Element<'dl'> => {
   let _className = 'properties';
   if (nonEmpty(className)) {
     _className += ' ' + className;

@@ -152,7 +152,7 @@ const ArtistCreditRenamer = ({
   initialSelectedArtistCreditIds,
 }: ArtistCreditRenamerPropsT): React.MixedElement | null => {
   const rowsRef = React.useRef<
-    $ReadOnlyArray<React.Element<typeof ArtistCreditRow>> | null,
+    $ReadOnlyArray<React$Element<typeof ArtistCreditRow>> | null,
   >(null);
 
   const [state, dispatch] = React.useReducer(

@@ -25,7 +25,7 @@ type Props = {
 
 const CoverArtLinks = ({
   artwork,
-}: {artwork: ArtworkT}): React.Element<typeof React.Fragment> => (
+}: {artwork: ArtworkT}): React$Element<typeof React.Fragment> => (
   <>
     {artwork.small_thumbnail ? (
       <>
@@ -52,7 +52,7 @@ const CoverArtLinks = ({
 const CoverArt = ({
   coverArt,
   release,
-}: Props): React.Element<typeof ReleaseLayout> => {
+}: Props): React$Element<typeof ReleaseLayout> => {
   const $c = React.useContext(SanitizedCatalystContext);
   const title = l('Cover Art');
 

@@ -159,7 +159,7 @@ class EditProfileForm extends React.Component<Props, State> {
     }));
   }
 
-  render(): React.Element<'form'> {
+  render(): React$Element<'form'> {
     const form = this.state.form;
     const field = form.field;
     const areaField = field.area.field;

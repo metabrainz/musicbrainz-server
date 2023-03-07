@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import RelationshipsTable from '../components/RelationshipsTable.js';
 
 import PlaceLayout from './PlaceLayout.js';
@@ -23,7 +21,7 @@ const PlacePerformances = ({
   pagedLinkTypeGroup,
   pager,
   place,
-}: Props): React.Element<typeof PlaceLayout> => (
+}: Props): React$Element<typeof PlaceLayout> => (
   <PlaceLayout
     entity={place}
     page="performances"

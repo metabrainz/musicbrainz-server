@@ -26,7 +26,7 @@ type Props = {
 const ArtistCreditList = ({
   artistCredits,
   entity,
-}: Props): React.Element<typeof React.Fragment> => {
+}: Props): React$Element<typeof React.Fragment> => {
   const $c = React.useContext(SanitizedCatalystContext);
   return (
     <>

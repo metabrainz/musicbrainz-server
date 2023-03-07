@@ -22,7 +22,7 @@ const CountryAbbr = ({
   className,
   country,
   withLink = false,
-}: Props): React.Element<'span'> | null => {
+}: Props): React$Element<'span'> | null => {
   const primaryCode = primaryAreaCode(country);
   if (empty(primaryCode)) {
     return null;

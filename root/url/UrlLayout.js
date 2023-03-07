@@ -28,7 +28,7 @@ const UrlLayout = ({
   fullWidth = false,
   page,
   title,
-}: Props): React.Element<typeof Layout> => (
+}: Props): React$Element<typeof Layout> => (
   <Layout title={title}>
     <div id="content">
       <UrlHeader page={page} url={url} />

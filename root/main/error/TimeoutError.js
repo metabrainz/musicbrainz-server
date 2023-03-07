@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import ErrorEnvironment from './components/ErrorEnvironment.js';
 import ErrorInfo from './components/ErrorInfo.js';
 import ErrorLayout from './ErrorLayout.js';
@@ -23,7 +21,7 @@ const TimeoutError = ({
   formattedErrors,
   hostname,
   useLanguages,
-}: Props): React.Element<typeof ErrorLayout> => (
+}: Props): React$Element<typeof ErrorLayout> => (
   <ErrorLayout title={l('Request Timed Out')}>
     <p>
       <strong>

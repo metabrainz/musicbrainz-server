@@ -13,7 +13,7 @@ type Props = {
   +children: React.Node,
 };
 
-const Tabs = ({children}: Props): React.Element<'div'> => (
+const Tabs = ({children}: Props): React$Element<'div'> => (
   <div className="tabs">
     <ul className="tabs">
       {children}

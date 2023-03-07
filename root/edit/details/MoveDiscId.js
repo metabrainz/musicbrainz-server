@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import CDTocLink from '../../static/scripts/common/components/CDTocLink.js';
 import MediumLink
   from '../../static/scripts/common/components/MediumLink.js';
@@ -17,7 +15,7 @@ type Props = {
   +edit: MoveDiscIdEditT,
 };
 
-const MoveDiscId = ({edit}: Props): React.Element<'table'> => {
+const MoveDiscId = ({edit}: Props): React$Element<'table'> => {
   const oldMedium = edit.display_data.old_medium;
   const newMedium = edit.display_data.new_medium;
   const cdToc = edit.display_data.medium_cdtoc.cdtoc;

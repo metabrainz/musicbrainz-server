@@ -32,7 +32,7 @@ const RecordingLayout = ({
   fullWidth = false,
   page,
   title,
-}: Props): React.Element<typeof Layout> => {
+}: Props): React$Element<typeof Layout> => {
   const titleArgs = {
     artist: reduceArtistCredit(recording.artistCredit),
     name: recording.name,

@@ -31,7 +31,7 @@ const ReleaseList = <D: {+release: ?ReleaseT, ...}>({
   items,
   pager,
   subPath,
-}: Props<D>): React.Element<typeof PaginatedResults> => {
+}: Props<D>): React$Element<typeof PaginatedResults> => {
   const existingReleaseItems = items.reduce((
     result: Array<D>,
     item,

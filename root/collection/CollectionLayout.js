@@ -31,7 +31,7 @@ const CollectionLayout = ({
   page,
   recordingMbids,
   title,
-}: Props): React.Element<typeof Layout> => {
+}: Props): React$Element<typeof Layout> => {
   const mainTitle = texp.l(
     'Collection “{collection}”',
     {collection: collection.name},

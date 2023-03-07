@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import CDTocLink
   from '../../../static/scripts/common/components/CDTocLink.js';
 import HistoricReleaseList
@@ -18,7 +16,7 @@ type Props = {
   +edit: AddDiscIdHistoricEditT,
 };
 
-const AddDiscId = ({edit}: Props): React.Element<'table'> => (
+const AddDiscId = ({edit}: Props): React$Element<'table'> => (
   <table className="details add-discid">
     <HistoricReleaseList releases={edit.display_data.releases} />
     <tr>

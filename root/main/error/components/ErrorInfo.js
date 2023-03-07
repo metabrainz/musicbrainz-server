@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 type Props = {
   +formattedErrors?: $ReadOnlyArray<string>,
   +message?: string,
@@ -17,7 +15,7 @@ type Props = {
 const ErrorInfo = ({
   formattedErrors,
   message,
-}: Props): (React.Element<'p'>) => (
+}: Props): (React$Element<'p'>) => (
   formattedErrors ? (
     <p id="errors">
       <strong>{ln('Error:', 'Errors:', formattedErrors.length)}</strong>

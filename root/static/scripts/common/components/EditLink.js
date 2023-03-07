@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import {editHref} from '../utility/entityHref.js';
 
 type Props = {
@@ -21,7 +19,7 @@ const EditLink = ({
   edit,
   content,
   subPath,
-}: Props): React.Element<'a'> => (
+}: Props): React$Element<'a'> => (
   <a href={editHref(edit, subPath)}>
     <bdi>
       {content}

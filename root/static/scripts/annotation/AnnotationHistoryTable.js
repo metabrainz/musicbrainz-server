@@ -63,7 +63,7 @@ function reducer(state: StateT, action: ActionT): StateT {
 const AnnotationHistoryTable = ({
   annotations,
   baseUrl,
-}: Props): React.Element<'table'> => {
+}: Props): React$Element<'table'> => {
   const $c = React.useContext(SanitizedCatalystContext);
 
   const canCompare = annotations.length > 1;

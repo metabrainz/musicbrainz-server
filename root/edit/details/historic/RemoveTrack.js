@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import DescriptiveLink
   from '../../../static/scripts/common/components/DescriptiveLink.js';
 import HistoricReleaseList
@@ -18,7 +16,7 @@ type Props = {
   +edit: RemoveTrackHistoricEditT,
 };
 
-const RemoveTrack = ({edit}: Props): React.Element<'table'> => (
+const RemoveTrack = ({edit}: Props): React$Element<'table'> => (
   <table className="details remove-track">
     <HistoricReleaseList releases={edit.display_data.releases} />
     <tr>

@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import PaginatedResults from '../../components/PaginatedResults.js';
 import ArtistCreditLink
   from '../../static/scripts/common/components/ArtistCreditLink.js';
@@ -24,7 +22,7 @@ type Props = {
 const ReleaseUrlList = ({
   items,
   pager,
-}: Props): React.Element<typeof PaginatedResults> => {
+}: Props): React$Element<typeof PaginatedResults> => {
   let lastGID: string = '';
   let currentGID: string = '';
 

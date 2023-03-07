@@ -28,7 +28,7 @@ const PaginatedSearchResults = <T>({
   pager,
   query,
   results,
-}: Props<T>): React.Element<typeof PaginatedResults | 'p'> => {
+}: Props<T>): React$Element<typeof PaginatedResults | 'p'> => {
   const $c = React.useContext(CatalystContext);
   const hasLastPage = pager.total_entries > 0;
   const lastPageUrl = hasLastPage

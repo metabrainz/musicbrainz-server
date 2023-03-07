@@ -28,7 +28,7 @@ const ArtistLayout = ({
   fullWidth = false,
   page,
   title,
-}: Props): React.Element<typeof Layout> => (
+}: Props): React$Element<typeof Layout> => (
   <Layout
     title={nonEmpty(title) ? hyphenateTitle(artist.name, title) : artist.name}
   >

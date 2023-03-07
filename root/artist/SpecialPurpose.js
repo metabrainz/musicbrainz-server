@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import ArtistLayout from './ArtistLayout.js';
 
 type Props = {
@@ -17,7 +15,7 @@ type Props = {
 
 const SpecialPurpose = ({
   artist,
-}: Props): React.Element<typeof ArtistLayout> => (
+}: Props): React$Element<typeof ArtistLayout> => (
   <ArtistLayout
     entity={artist}
     fullWidth

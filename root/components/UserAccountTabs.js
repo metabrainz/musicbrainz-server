@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import {CatalystContext} from '../context.mjs';
 import DBDefs from '../static/scripts/common/DBDefs.mjs';
 import {isAccountAdmin} from '../static/scripts/common/utility/privileges.js';
@@ -21,7 +19,7 @@ function buildTabs(
   $c: CatalystContextT,
   user: AccountLayoutUserT,
   page: string,
-): $ReadOnlyArray<React.Element<'li'>> {
+): $ReadOnlyArray<React$Element<'li'>> {
   const viewingOwnProfile = Boolean($c.user && $c.user.id === user.id);
 
   const userName = encodeURIComponent(user.name);
@@ -127,7 +125,7 @@ type Props = {
 const UserAccountTabs = ({
   user,
   page,
-}: Props): React.Element<typeof Tabs> => (
+}: Props): React$Element<typeof Tabs> => (
   <Tabs>
     <CatalystContext.Consumer>
       {($c: CatalystContextT) => buildTabs($c, user, page)}

@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-const FaviconLinks = (): React.Element<typeof React.Fragment> => (
+const FaviconLinks = (): React$Element<typeof React.Fragment> => (
   <>
     <link
       href="/static/images/favicons/apple-touch-icon-57x57.png"

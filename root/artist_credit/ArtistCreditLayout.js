@@ -36,7 +36,7 @@ const ArtistCreditLayout = ({
   children,
   page,
   title,
-}: Props): React.Element<typeof Layout> => (
+}: Props): React$Element<typeof Layout> => (
   <Layout
     fullWidth
     title={

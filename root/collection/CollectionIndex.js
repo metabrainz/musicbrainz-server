@@ -158,7 +158,7 @@ const listPicker = (
 };
 
 const CollectionIndex = (props: Props):
-React.Element<typeof CollectionLayout> => {
+React$Element<typeof CollectionLayout> => {
   const $c = React.useContext(SanitizedCatalystContext);
   const {
     collection,

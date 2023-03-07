@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import PaginatedResults from '../components/PaginatedResults.js';
 import ArtistCreditLink
   from '../static/scripts/common/components/ArtistCreditLink.js';
@@ -30,7 +28,7 @@ const DuplicateReleaseGroups = ({
   items,
   pager,
 }: ReportDataT<ReportReleaseGroupWithKeyT>):
-React.Element<typeof ReportLayout> => {
+React$Element<typeof ReportLayout> => {
   let currentKey = '';
   let lastKey = '';
 

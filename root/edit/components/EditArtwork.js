@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import {Artwork} from '../../components/Artwork.js';
 import expand2html from '../../static/scripts/common/i18n/expand2html.js';
 import entityHref from '../../static/scripts/common/utility/entityHref.js';
@@ -23,7 +21,7 @@ const EditArtwork = ({
   artwork,
   colSpan,
   release,
-}: Props): React.Element<'tr'> => {
+}: Props): React$Element<'tr'> => {
   const historyMessage = release.gid ? (
     expand2html(
       l(`We are unable to display history for this cover

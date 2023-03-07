@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import RelationshipsTable from '../components/RelationshipsTable.js';
 
 import AreaLayout from './AreaLayout.js';
@@ -23,7 +21,7 @@ const AreaWorks = ({
   area,
   pagedLinkTypeGroup,
   pager,
-}: Props): React.Element<typeof AreaLayout> => (
+}: Props): React$Element<typeof AreaLayout> => (
   <AreaLayout entity={area} page="works" title={l('Works')}>
     <RelationshipsTable
       entity={area}

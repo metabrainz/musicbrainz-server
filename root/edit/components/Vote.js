@@ -68,7 +68,7 @@ const Vote = ({
   edit,
   index = 0,
   summary = false,
-}: VoteProps): React.Element<'div'> | null => {
+}: VoteProps): React$Element<'div'> | null => {
   const $c = React.useContext(CatalystContext);
   const user = $c.user;
   if (DBDefs.DB_READ_ONLY || !user || !editorMayVote(edit, user)) {

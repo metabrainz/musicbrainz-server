@@ -29,7 +29,7 @@ type Props = {
 const CollectionSidebar = ({
   collection,
   recordingMbids,
-}: Props): React.Element<'div'> => {
+}: Props): React$Element<'div'> => {
   const $c = React.useContext(CatalystContext);
   const typeName = collection.typeName;
   const owner = collection.editor;

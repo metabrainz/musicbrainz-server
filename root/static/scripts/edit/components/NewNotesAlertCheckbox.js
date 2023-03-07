@@ -17,7 +17,7 @@ type Props = {
 
 const NewNotesAlertCheckbox = ({
   checked,
-}: Props): React.Element<'p'> => {
+}: Props): React$Element<'p'> => {
   const handlePreferenceChange = (
     event: SyntheticMouseEvent<HTMLInputElement>,
   ) => {

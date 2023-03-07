@@ -47,7 +47,7 @@ const LabelIndex = ({
   renamedFrom,
   renamedInto,
   wikipediaExtract,
-}: Props): React.Element<typeof LabelLayout> => {
+}: Props): React$Element<typeof LabelLayout> => {
   const $c = React.useContext(SanitizedCatalystContext);
   return (
     <LabelLayout entity={label} page="index">

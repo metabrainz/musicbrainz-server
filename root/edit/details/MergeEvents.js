@@ -7,15 +7,13 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import EventList from '../../components/list/EventList.js';
 
 type Props = {
   +edit: MergeEventsEditT,
 };
 
-const MergeEvents = ({edit}: Props): React.Element<'table'> => (
+const MergeEvents = ({edit}: Props): React$Element<'table'> => (
   <table className="details merge-events">
     <tr>
       <th>{l('Merge:')}</th>

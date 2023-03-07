@@ -22,7 +22,7 @@ type TooltipProps = {
 const Tooltip = ({
   content,
   target,
-}: TooltipProps): React.Element<'span'> => {
+}: TooltipProps): React$Element<'span'> => {
   const containerRef = React.useRef<HTMLSpanElement | null>(null);
 
   React.useEffect(() => {

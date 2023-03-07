@@ -133,7 +133,7 @@ const RelationshipEditorBatchTools = (React.memo<PropsT>(({
   recordingSelectionCount,
   releaseHasUnloadedTracks,
   workSelectionCount,
-}: PropsT): React.Element<'table'> => {
+}: PropsT): React$Element<'table'> => {
   return (
     <table id="batch-tools">
       <tbody>

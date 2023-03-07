@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import {
   trackColumn,
 } from '../utility/tableColumns.js';
@@ -32,7 +30,7 @@ const RecordingTrackDifferentName = ({
   items,
   pager,
 }: ReportDataT<ReportRecordingTrackT>):
-React.Element<typeof ReportLayout> => (
+React$Element<typeof ReportLayout> => (
   <ReportLayout
     canBeFiltered={canBeFiltered}
     description={l(

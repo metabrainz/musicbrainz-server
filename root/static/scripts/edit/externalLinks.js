@@ -894,7 +894,7 @@ export class _ExternalLinksEditor
     return Boolean(linkChanged || linkTypeChanged);
   }
 
-  render(): React.Element<'table'> {
+  render(): React$Element<'table'> {
     this.errorObservable(false);
 
     const linksArray = this.state.links;
@@ -1074,7 +1074,7 @@ const LinkTypeSelect = ({
   handleTypeChange,
   options,
   type,
-}: LinkTypeSelectPropsT): React.Element<'select'> => {
+}: LinkTypeSelectPropsT): React$Element<'select'> => {
   const optionAvailable = options.some(option => option.value === type);
   // If the selected type is not available, display it as placeholder
   const linkType = type ? linkedEntities.link_type[type] : null;
@@ -1112,7 +1112,7 @@ type TypeDescriptionProps = {
 };
 
 const TypeDescription =
-  (props: TypeDescriptionProps): React.Element<typeof HelpIcon> => {
+  (props: TypeDescriptionProps): React$Element<typeof HelpIcon> => {
     const linkType = props.type ? linkedEntities.link_type[props.type] : null;
     let typeDescription: Expand2ReactOutput = '';
 
@@ -1147,7 +1147,7 @@ type ExternalLinkRelationshipProps = {
 };
 
 const ExternalLinkRelationship =
-  (props: ExternalLinkRelationshipProps): React.Element<'tr'> => {
+  (props: ExternalLinkRelationshipProps): React$Element<'tr'> => {
     const {link, hasUrlError, highlight, urlMatchesType} = props;
     const linkType = link.type ? linkedEntities.link_type[link.type] : null;
     const backward = linkType && linkType.type1 > 'url';
@@ -1320,7 +1320,7 @@ export class ExternalLink extends React.Component<LinkProps> {
     setTimeout(() => target.style.backgroundColor = 'initial', 1000);
   }
 
-  render(): React.Element<typeof React.Fragment> {
+  render(): React$Element<typeof React.Fragment> {
     const props = this.props;
     const notEmpty = props.relationships.some(link => {
       return !isEmpty(link);

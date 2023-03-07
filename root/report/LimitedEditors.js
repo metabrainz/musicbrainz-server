@@ -22,7 +22,7 @@ const LimitedEditors = ({
   generated,
   items,
   pager,
-}: ReportDataT<ReportEditorT>): React.Element<typeof ReportLayout> => {
+}: ReportDataT<ReportEditorT>): React$Element<typeof ReportLayout> => {
   const $c = React.useContext(CatalystContext);
   return (
     <ReportLayout

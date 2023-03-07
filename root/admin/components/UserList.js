@@ -19,7 +19,7 @@ type Props = {
   +users: $ReadOnlyArray<UnsanitizedEditorT>,
 };
 
-const UserList = ({users}: Props): React.Element<'table'> => {
+const UserList = ({users}: Props): React$Element<'table'> => {
   const $c = React.useContext(CatalystContext);
 
   return (

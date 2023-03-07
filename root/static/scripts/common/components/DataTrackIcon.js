@@ -7,9 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
-const DataTrackIcon = (): React.Element<'div'> => (
+const DataTrackIcon = (): React$Element<'div'> => (
   <div
     className="data-track icon img"
     title={l('This track is a data track.')}

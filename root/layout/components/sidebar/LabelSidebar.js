@@ -40,7 +40,7 @@ type Props = {
   +label: LabelT,
 };
 
-const LabelSidebar = ({label}: Props): React.Element<'div'> => {
+const LabelSidebar = ({label}: Props): React$Element<'div'> => {
   const $c = React.useContext(CatalystContext);
   const labelAge = age.age(label);
   const gid = encodeURIComponent(label.gid);

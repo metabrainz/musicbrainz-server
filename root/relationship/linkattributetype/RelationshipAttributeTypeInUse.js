@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import Layout from '../../layout/index.js';
 
 type Props = {
@@ -17,7 +15,7 @@ type Props = {
 
 const RelationshipAttributeTypeInUse = ({
   type,
-}: Props): React.Element<typeof Layout> => (
+}: Props): React$Element<typeof Layout> => (
   <Layout fullWidth title={l('Relationship attribute in use')}>
     <div className="content">
       <h1>{l('Relationship attribute in use')}</h1>

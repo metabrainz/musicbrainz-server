@@ -26,7 +26,7 @@ const UrlList = <D: {+url: ?UrlT, ...}>({
   columnsAfter,
   items,
   pager,
-}: Props<D>): React.Element<typeof PaginatedResults> => {
+}: Props<D>): React$Element<typeof PaginatedResults> => {
   const existingUrlItems = items.reduce((
     result: Array<D>,
     item,

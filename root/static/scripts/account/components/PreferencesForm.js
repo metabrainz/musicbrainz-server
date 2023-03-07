@@ -147,7 +147,7 @@ class PreferencesForm extends React.Component<Props, State> {
     }));
   }
 
-  render(): React.Element<'form'> {
+  render(): React$Element<'form'> {
     const field = this.state.form.field;
     return (
       <form method="post">

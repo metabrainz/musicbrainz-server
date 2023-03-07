@@ -19,7 +19,7 @@ const FullChangeDiff = ({
   label,
   newContent,
   oldContent,
-}: FullChangeDiffProps): React.Element<'tr'> | null => (
+}: FullChangeDiffProps): React$Element<'tr'> | null => (
   oldContent === newContent ? null : (
     <tr>
       <th>{label}</th>

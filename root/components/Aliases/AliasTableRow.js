@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import locales from '../../static/scripts/common/constants/locales.json';
 import bracketed from '../../static/scripts/common/utility/bracketed.js';
 import entityHref from '../../static/scripts/common/utility/entityHref.js';
@@ -29,7 +27,7 @@ const AliasTableRow = ({
   allowEditing,
   entity,
   row,
-}: Props): React.Element<'tr'> => (
+}: Props): React$Element<'tr'> => (
   <tr className={row}>
     <td colSpan={alias.name === alias.sort_name ? 2 : 1}>
       {alias.editsPending

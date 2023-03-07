@@ -40,7 +40,7 @@ const TagLayout = ({
   page,
   tag,
   title,
-}: Props): React.Element<typeof Layout> => (
+}: Props): React$Element<typeof Layout> => (
   <Layout
     fullWidth
     title={

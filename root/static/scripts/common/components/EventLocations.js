@@ -7,15 +7,13 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import DescriptiveLink from './DescriptiveLink.js';
 
 type Props = {
   +event: EventT,
 };
 
-const EventLocations = ({event}: Props): React.Element<'ul'> => (
+const EventLocations = ({event}: Props): React$Element<'ul'> => (
   <ul>
     {event.places.map(place => (
       <li key={place.entity.id}>

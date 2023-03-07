@@ -18,7 +18,7 @@ const FormRow = ({
   children,
   hasNoLabel = false,
   ...props
-}: Props): React.Element<'div'> => (
+}: Props): React$Element<'div'> => (
   <div
     className={'row' + (hasNoLabel ? ' no-label' : '')}
     {...props}

@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import {HistoricRelationship}
   from '../../../static/scripts/common/components/Relationship.js';
 
@@ -16,7 +14,7 @@ type Props = {
   +edit: RemoveRelationshipHistoricEditT,
 };
 
-const RemoveRelationship = ({edit}: Props): React.Element<'table'> => (
+const RemoveRelationship = ({edit}: Props): React$Element<'table'> => (
   <table className="details remove-relationship-historic">
     <tr>
       {edit.display_data.relationships.length ? (

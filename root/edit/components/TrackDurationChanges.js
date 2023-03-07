@@ -26,7 +26,7 @@ const TrackDurationChanges = ({
   newLengths,
   oldLabel,
   oldLengths,
-}: Props): React.Element<typeof React.Fragment> => {
+}: Props): React$Element<typeof React.Fragment> => {
   const lengthsSize = oldLengths.length;
   const lengthComparisonTables = [];
   for (let i = 0; i < lengthsSize; i++) {

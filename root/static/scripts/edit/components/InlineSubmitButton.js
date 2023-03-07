@@ -15,7 +15,7 @@ type PropsT = {
 
 const InlineSubmitButton = ({
   label,
-}: PropsT): React.Element<typeof React.Fragment> => (
+}: PropsT): React$Element<typeof React.Fragment> => (
   <>
     {' '}
     <button type="submit">

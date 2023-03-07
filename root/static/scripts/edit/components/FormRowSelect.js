@@ -47,7 +47,7 @@ const FormRowSelect = ({
   options,
   required: passedRequired = false,
   uncontrolled = false,
-}: Props): React.Element<typeof FormRow> => {
+}: Props): React$Element<typeof FormRow> => {
   let required = passedRequired;
   if (!allowEmpty) {
     // If the field can't be unset, there's nothing required from the user.

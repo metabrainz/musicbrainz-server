@@ -7,11 +7,9 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import warningIconUrl from '../../../images/icons/warning.png';
 
-const WarningIcon = (): React.Element<'img'> => (
+const WarningIcon = (): React$Element<'img'> => (
   <img
     alt={l('Warning')}
     className="warning"

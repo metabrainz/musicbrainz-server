@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import DescriptiveLink
   from '../../static/scripts/common/components/DescriptiveLink.js';
 import {commaOnlyListText}
@@ -29,7 +27,7 @@ type Props = {
 const localizeLanguage =
   (language: LanguageT) => localizeLanguageName(language, true);
 
-const EditWork = ({edit}: Props): React.Element<'table'> => {
+const EditWork = ({edit}: Props): React$Element<'table'> => {
   const display = edit.display_data;
   const comment = display.comment;
   const iswc = display.iswc;

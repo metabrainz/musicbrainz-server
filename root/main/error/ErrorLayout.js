@@ -19,7 +19,7 @@ type Props = {
 const ErrorLayout = ({
   children,
   title,
-}: Props): React.Element<typeof Layout> => (
+}: Props): React$Element<typeof Layout> => (
   <Layout fullWidth title={title}>
     <div id="content">
       <h1>{title}</h1>

@@ -31,7 +31,7 @@ const ArtistList = <D: {+artist: ?ArtistT, ...}>({
   items,
   pager,
   subPath,
-}: Props<D>): React.Element<typeof PaginatedResults> => {
+}: Props<D>): React$Element<typeof PaginatedResults> => {
   const existingArtistItems = items.reduce((
     result: Array<D>,
     item,

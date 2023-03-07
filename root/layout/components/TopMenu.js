@@ -210,7 +210,7 @@ const UserMenu = () => {
   );
 };
 
-const TopMenu = (): React.Element<'div'> => (
+const TopMenu = (): React$Element<'div'> => (
   <div className="top">
     <div className="links-container">
       <UserMenu />

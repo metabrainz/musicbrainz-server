@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import SearchError from '../components/SearchError.js';
 
 type Props = {
@@ -19,7 +17,7 @@ type Props = {
 const NoInfo = ({
   form,
   query,
-}: Props): React.Element<typeof SearchError> => (
+}: Props): React$Element<typeof SearchError> => (
   <SearchError form={form}>
     <p>
       {exp.l(

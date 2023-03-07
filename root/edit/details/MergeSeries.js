@@ -7,15 +7,13 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import SeriesList from '../../components/list/SeriesList.js';
 
 type Props = {
   +edit: MergeSeriesEditT,
 };
 
-const MergeSeries = ({edit}: Props): React.Element<'table'> => (
+const MergeSeries = ({edit}: Props): React$Element<'table'> => (
   <table className="details merge-series">
     <tr>
       <th>{l('Merge:')}</th>

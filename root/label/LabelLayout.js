@@ -28,7 +28,7 @@ const LabelLayout = ({
   fullWidth = false,
   page,
   title,
-}: Props): React.Element<typeof Layout> => (
+}: Props): React$Element<typeof Layout> => (
   <Layout
     title={nonEmpty(title) ? hyphenateTitle(label.name, title) : label.name}
   >

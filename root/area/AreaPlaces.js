@@ -30,7 +30,7 @@ const AreaPlaces = ({
   mapDataArgs,
   pager,
   places,
-}: Props): React.Element<typeof AreaLayout> => {
+}: Props): React$Element<typeof AreaLayout> => {
   const $c = React.useContext(SanitizedCatalystContext);
   return (
     <AreaLayout entity={area} page="places" title={l('Places')}>

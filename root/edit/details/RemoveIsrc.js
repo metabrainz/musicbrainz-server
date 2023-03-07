@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import CodeLink
   from '../../static/scripts/common/components/CodeLink.js';
 import DescriptiveLink
@@ -19,7 +17,7 @@ type Props = {
   +edit: RemoveIsrcEditT,
 };
 
-const RemoveIsrc = ({edit}: Props): React.Element<'table'> => {
+const RemoveIsrc = ({edit}: Props): React$Element<'table'> => {
   const isrc = edit.display_data.isrc;
   const recording = linkedEntities.recording[isrc.recording_id];
 

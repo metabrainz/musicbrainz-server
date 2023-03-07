@@ -29,7 +29,7 @@ type Props = {
 
 const EditSidebar = ({
   edit,
-}: Props): React.Element<'div'> => {
+}: Props): React$Element<'div'> => {
   const $c = React.useContext(SanitizedCatalystContext);
   return (
     <div id="sidebar">

@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 type Props = {
   +children: React$Node,
   +title: string,
@@ -16,7 +14,7 @@ type Props = {
 
 const RelatedEntitiesDisplay = (
   {children, title}: Props,
-): React.Element<'p'> => (
+): React$Element<'p'> => (
   <p>
     <strong>{addColonText(title)}</strong>
     {' '}

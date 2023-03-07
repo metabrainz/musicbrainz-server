@@ -66,7 +66,7 @@ const RelationshipDiff = (React.memo(({
   newRelationship,
   oldRelationship,
   makeEntityLink = makeDescriptiveLink,
-}: Props): React.Element<typeof React.Fragment> => {
+}: Props): React$Element<typeof React.Fragment> => {
   const oldAttrs = keyBy(oldRelationship.attributes, getTypeId);
   const newAttrs = keyBy(newRelationship.attributes, getTypeId);
 

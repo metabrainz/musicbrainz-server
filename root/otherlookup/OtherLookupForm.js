@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import FieldErrors from '../static/scripts/edit/components/FieldErrors.js';
 import FormLabel from '../static/scripts/edit/components/FormLabel.js';
 import FormRow from '../static/scripts/edit/components/FormRow.js';
@@ -30,7 +28,7 @@ const OtherLookupFormRow = ({
   action,
   field,
   label,
-}: OtherLookupFormRowProps): React.Element<'form'> => (
+}: OtherLookupFormRowProps): React$Element<'form'> => (
   <form action={'/otherlookup/' + action}>
     <FormRow>
       <FormLabel forField={field} label={label} required={field.has_errors} />
@@ -51,7 +49,7 @@ const OtherLookupFormRow = ({
 
 const OtherLookupForm = ({
   form,
-}: OtherLookupFormProps): React.Element<'div'> => (
+}: OtherLookupFormProps): React$Element<'div'> => (
   <div className="searchform">
     <OtherLookupFormRow
       action="catno"

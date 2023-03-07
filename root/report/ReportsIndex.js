@@ -24,7 +24,7 @@ type ReportsIndexEntryProps = {
 const ReportsIndexEntry = ({
   content,
   reportName,
-}: ReportsIndexEntryProps): React.Element<'li'> => (
+}: ReportsIndexEntryProps): React$Element<'li'> => (
   <li>
     <a href={`/report/${reportName}`}>
       {content}
@@ -33,7 +33,7 @@ const ReportsIndexEntry = ({
 
 );
 
-const ReportsIndex = (): React.Element<typeof Layout> => {
+const ReportsIndex = (): React$Element<typeof Layout> => {
   const $c = React.useContext(SanitizedCatalystContext);
   return (
     <Layout fullWidth title={l('Reports')}>

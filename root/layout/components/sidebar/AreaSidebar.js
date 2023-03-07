@@ -34,7 +34,7 @@ type Props = {
   +area: AreaT,
 };
 
-const AreaSidebar = ({area}: Props): React.Element<'div'> => {
+const AreaSidebar = ({area}: Props): React$Element<'div'> => {
   const $c = React.useContext(CatalystContext);
   const areaAge = age.age(area);
 

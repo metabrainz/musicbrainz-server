@@ -560,7 +560,7 @@ export const ErrorMessage:
 
 const RelationshipEditor = (
   props: PropsT,
-): React.Element<'fieldset'> | null => {
+): React$Element<'fieldset'> | null => {
   const {
     dispatch,
     formName,

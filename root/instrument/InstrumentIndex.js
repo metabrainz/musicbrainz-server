@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import * as manifest from '../static/manifest.mjs';
 import Annotation from '../static/scripts/common/components/Annotation.js';
 import Relationships
@@ -29,7 +27,7 @@ const InstrumentIndex = ({
   instrument,
   numberOfRevisions,
   wikipediaExtract,
-}: Props): React.Element<typeof InstrumentLayout> => (
+}: Props): React$Element<typeof InstrumentLayout> => (
   <InstrumentLayout entity={instrument} page="index">
     {instrument.description ? (
       <>

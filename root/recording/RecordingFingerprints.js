@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import FingerprintTable
   from '../static/scripts/common/components/FingerprintTable.js';
 
@@ -20,7 +18,7 @@ type Props = {
 
 const RecordingFingerprints = ({
   recording,
-}: Props): React.Element<typeof RecordingLayout> => (
+}: Props): React$Element<typeof RecordingLayout> => (
   <RecordingLayout
     entity={recording}
     page="fingerprints"

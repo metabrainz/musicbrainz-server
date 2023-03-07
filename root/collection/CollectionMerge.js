@@ -102,7 +102,7 @@ const CollectionMerge = ({
   privaciesDiffer,
   toMerge,
   typesDiffer,
-}: Props): React.Element<typeof Layout> => {
+}: Props): React$Element<typeof Layout> => {
   const collections = sortByString(toMerge, collection => collection.name);
   const collaborators = sortByString(
     uniqBy(

@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import Layout from '../layout/index.js';
 
 import UserList from './components/UserList.js';
@@ -21,7 +19,7 @@ type Props = {
 const IpLookup = ({
   ipHash,
   users,
-}: Props): React.Element<typeof Layout> => (
+}: Props): React$Element<typeof Layout> => (
   <Layout fullWidth title={l('IP lookup')}>
     <div id="content">
       <h1>{l('IP lookup')}</h1>

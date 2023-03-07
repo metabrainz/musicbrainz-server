@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import Layout from '../layout/index.js';
 import EnterEditNote
   from '../static/scripts/edit/components/EnterEditNote.js';
@@ -23,7 +21,7 @@ type Props = {
 const CancelEdit = ({
   edit,
   form,
-}: Props): React.Element<typeof Layout> => {
+}: Props): React$Element<typeof Layout> => {
   const detailsElement = getEditDetailsElement(edit);
 
   return (

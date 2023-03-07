@@ -90,7 +90,7 @@ const ChangedMbidIcon = () => (
 const TracklistChangesAdd = ({
   change,
   changedMbids,
-}: TracklistChangesAddProps): React.Element<'tr'> => {
+}: TracklistChangesAddProps): React$Element<'tr'> => {
   const track = change.new_track;
   return (
     <tr className="diff-addition edit-medium-track">
@@ -137,7 +137,7 @@ const TracklistChangesChange = ({
   changedMbids,
   change,
   index,
-}: TracklistChangesChangeProps): React.Element<'tr'> => {
+}: TracklistChangesChangeProps): React$Element<'tr'> => {
   const oldTrack = change.old_track;
   const newTrack = change.new_track;
   const artistCreditDiff = diffArtistCredits(
@@ -265,7 +265,7 @@ const TracklistChangesChange = ({
 const TracklistChangesRemove = ({
   change,
   changedMbids,
-}: TracklistChangesRemoveProps): React.Element<'tr'> => {
+}: TracklistChangesRemoveProps): React$Element<'tr'> => {
   const track = change.old_track;
   return (
     <tr className="diff-removal edit-medium-track">
@@ -304,7 +304,7 @@ const TracklistChangesRemove = ({
 const TracklistChangesTable = ({
   changedMbids,
   changes,
-}: TracklistChangesTableProps): React.Element<'table'> => (
+}: TracklistChangesTableProps): React$Element<'table'> => (
   <table className="tbl">
     <thead>
       <tr>
@@ -364,7 +364,7 @@ const CondensedTrackACsDiffRow = ({
   oldArtistCredit,
   rowCounter,
   startNumber,
-}: CondensedTrackACsDiffRowProps): React.Element<'tr'> => (
+}: CondensedTrackACsDiffRowProps): React$Element<'tr'> => (
   <tr className={loopParity(rowCounter)}>
     <td className="pos t">
       {nonEmpty(endNumber) && endNumber !== startNumber
@@ -387,7 +387,7 @@ const CondensedTrackACsDiffRow = ({
 const CondensedTrackACsDiff = ({
   artistCreditChanges,
 }: CondensedTrackACsDiffProps):
-  Array<React.Element<typeof CondensedTrackACsDiffRow>> => {
+  Array<React$Element<typeof CondensedTrackACsDiffRow>> => {
   let thisOldCredit;
   let thisNewCredit;
   let thisPosition = 0;

@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import {CatalystContext} from '../../../context.mjs';
 import formatUserDate from '../../../utility/formatUserDate.js';
 
@@ -16,7 +14,7 @@ type Props = {
   +entity: CoreEntityT,
 };
 
-const LastUpdated = ({entity}: Props): React.Element<'p'> => {
+const LastUpdated = ({entity}: Props): React$Element<'p'> => {
   const lastUpdated = entity.last_updated;
   return (
     <p className="lastupdate">

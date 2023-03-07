@@ -7,11 +7,9 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import addIconUrl from '../../../images/icons/add.png';
 
-const AddIcon = (): React.Element<'img'> => (
+const AddIcon = (): React$Element<'img'> => (
   <img
     className="bottom"
     src={addIconUrl}

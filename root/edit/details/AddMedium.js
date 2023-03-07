@@ -40,7 +40,7 @@ const CondensedTrackACsRow = ({
   endNumber,
   rowCounter,
   startNumber,
-}: CondensedTrackACsRowProps): React.Element<'tr'> => (
+}: CondensedTrackACsRowProps): React$Element<'tr'> => (
   <tr className={loopParity(rowCounter)}>
     <td className="pos t">
       {nonEmpty(endNumber) && endNumber !== startNumber
@@ -56,7 +56,7 @@ const CondensedTrackACsRow = ({
 const CondensedTrackACs = ({
   tracks,
 }: CondensedTrackACsProps):
-  Array<React.Element<typeof CondensedTrackACsRow>> => {
+  Array<React$Element<typeof CondensedTrackACsRow>> => {
   if (!tracks) {
     return [];
   }

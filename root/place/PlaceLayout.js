@@ -28,7 +28,7 @@ const PlaceLayout = ({
   fullWidth = false,
   page,
   title,
-}: Props): React.Element<typeof Layout> => (
+}: Props): React$Element<typeof Layout> => (
   <Layout
     title={nonEmpty(title) ? hyphenateTitle(place.name, title) : place.name}
   >

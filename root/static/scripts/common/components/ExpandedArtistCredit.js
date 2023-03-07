@@ -19,7 +19,7 @@ type Props = {
 
 export const ExpandedArtistCreditList = ({
   artistCredit,
-}: Props): React.Element<'span'> | null => {
+}: Props): React$Element<'span'> | null => {
   if (!artistCredit) {
     return null;
   }

@@ -31,7 +31,7 @@ const InstrumentLayout = ({
   fullWidth = false,
   page,
   title,
-}: Props): React.Element<typeof Layout> => {
+}: Props): React$Element<typeof Layout> => {
   const nameWithType = texp.l('{type} “{instrument}”', {
     instrument: localizeInstrumentName(instrument),
     type: nonEmpty(instrument.typeName)

@@ -143,7 +143,7 @@ const WikiDocTable = ({
   });
 };
 
-const WikiDocIndex = (props: PropsT): React.Element<typeof Layout> => {
+const WikiDocIndex = (props: PropsT): React$Element<typeof Layout> => {
   const $c = React.useContext(SanitizedCatalystContext);
   return (
     <Layout fullWidth title={l('Transclusion Table')}>

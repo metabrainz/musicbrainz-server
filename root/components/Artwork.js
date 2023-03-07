@@ -36,7 +36,7 @@ export const ArtworkImage = ({
   artwork,
   hover,
   message,
-}: Props): React.Element<typeof React.Fragment> => (
+}: Props): React$Element<typeof React.Fragment> => (
   <>
     <noscript>
       <img src={artwork.small_ia_thumbnail} />
@@ -58,7 +58,7 @@ export const Artwork = ({
   artwork,
   hover,
   message,
-}: Props): React.Element<'a'> => (
+}: Props): React$Element<'a'> => (
   <a
     className={artwork.mime_type === 'application/pdf'
       ? 'artwork-pdf'

@@ -27,7 +27,7 @@ type Props = {
 const InstrumentList = ({
   items,
   pager,
-}: Props): React.Element<typeof PaginatedResults> => {
+}: Props): React$Element<typeof PaginatedResults> => {
   const $c = React.useContext(CatalystContext);
   const existingInstrumentItems = items.reduce((
     result: Array<ReportInstrumentT>,

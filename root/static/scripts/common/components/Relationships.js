@@ -69,7 +69,7 @@ const Relationships = (React.memo<PropsT>(({
   relationships: passedRelationships,
   showIfEmpty = false,
   source,
-}: PropsT): React.Element<typeof React.Fragment> => {
+}: PropsT): React$Element<typeof React.Fragment> => {
   let srcRels = source.relationships;
   let relationships = passedRelationships;
   if (!relationships) {

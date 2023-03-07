@@ -37,7 +37,7 @@ type Props = {
   +work: WorkT,
 };
 
-const WorkSidebar = ({work}: Props): React.Element<'div'> => {
+const WorkSidebar = ({work}: Props): React$Element<'div'> => {
   const $c = React.useContext(CatalystContext);
   const {attributes, iswcs, languages, typeID} = work;
   const showInfo = Boolean(

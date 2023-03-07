@@ -37,7 +37,7 @@ type Props = {
 const EditIndex = ({
   edit,
   fullWidth = false,
-}: Props): React.Element<typeof Layout> => {
+}: Props): React$Element<typeof Layout> => {
   const $c = React.useContext(CatalystContext);
   const canAddNote = Boolean($c.user && editorMayAddNote(edit, $c.user));
   const isOwnEdit = Boolean($c.user && $c.user.id === edit.editor_id);

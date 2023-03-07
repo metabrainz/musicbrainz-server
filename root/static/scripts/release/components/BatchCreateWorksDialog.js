@@ -128,7 +128,7 @@ const BatchCreateWorksDialogContent = React.memo<
 >(({
   closeDialog,
   sourceDispatch,
-}: BatchCreateWorksDialogContentPropsT): React.Element<'div'> => {
+}: BatchCreateWorksDialogContentPropsT): React$Element<'div'> => {
   const [state, dispatch] = React.useReducer(
     reducer,
     null,

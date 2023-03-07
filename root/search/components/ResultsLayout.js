@@ -25,7 +25,7 @@ const ResultsLayout = ({
   children,
   form,
   lastUpdated,
-}: Props): React.Element<typeof Layout> => {
+}: Props): React$Element<typeof Layout> => {
   const $c = React.useContext(CatalystContext);
 
   return (

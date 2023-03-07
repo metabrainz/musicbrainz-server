@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import {
   relTypeColumn,
 } from '../utility/tableColumns.js';
@@ -24,7 +22,7 @@ const DeprecatedRelationshipPlaces = ({
   items,
   pager,
 }: ReportDataT<ReportPlaceRelationshipT>):
-React.Element<typeof ReportLayout> => (
+React$Element<typeof ReportLayout> => (
   <ReportLayout
     canBeFiltered={canBeFiltered}
     description={l(

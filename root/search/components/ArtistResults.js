@@ -44,7 +44,7 @@ export const ArtistResultsInline = ({
   query,
   results,
 }: InlineResultsPropsT<ArtistT>):
-React.Element<typeof PaginatedSearchResults> => (
+React$Element<typeof PaginatedSearchResults> => (
   <PaginatedSearchResults
     buildResult={(result, index) => buildResult(result, index)}
     columns={
@@ -72,7 +72,7 @@ const ArtistResults = ({
   pager,
   query,
   results,
-}: ResultsPropsT<ArtistT>): React.Element<typeof ResultsLayout> => {
+}: ResultsPropsT<ArtistT>): React$Element<typeof ResultsLayout> => {
   const $c = React.useContext(CatalystContext);
   return (
     <ResultsLayout form={form} lastUpdated={lastUpdated}>

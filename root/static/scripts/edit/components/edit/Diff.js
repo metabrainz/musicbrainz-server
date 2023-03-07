@@ -33,7 +33,7 @@ const Diff = ({
   newText,
   oldText,
   split = '',
-}: Props): React.Element<'tr'> | null => (
+}: Props): React$Element<'tr'> | null => (
   oldText === newText ? null : (
     <tr>
       <th>{label}</th>

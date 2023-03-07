@@ -26,7 +26,7 @@ const CDStubLayout = ({
   entity: cdstub,
   fullWidth = false,
   page,
-}: Props): React.Element<typeof Layout> => {
+}: Props): React$Element<typeof Layout> => {
   const title = texp.l(
     'CD stub “{title}” by {artist}',
     {

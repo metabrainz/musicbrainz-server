@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import EntityLink
   from '../../../static/scripts/common/components/EntityLink.js';
 import formatTrackLength
@@ -20,7 +18,7 @@ type Props = {
   +edit: AddTrackKVHistoricEditT,
 };
 
-const AddTrackKV = ({edit}: Props): React.Element<'table'> => {
+const AddTrackKV = ({edit}: Props): React$Element<'table'> => {
   const display = edit.display_data;
   const artist = display.artist;
 

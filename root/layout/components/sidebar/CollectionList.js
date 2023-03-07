@@ -67,7 +67,7 @@ type CollectionListProps = {
   +ownCollectionsHeader: string,
   +ownCollectionsNoneText: string,
   +sectionClass: string,
-  +usersLink: React.Element<EntityLink>,
+  +usersLink: React$Element<EntityLink>,
   +usersLinkHeader: string,
 };
 

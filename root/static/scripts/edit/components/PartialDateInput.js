@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import {isDateValid, isYearFourDigits} from '../utility/dates.js';
 import {applyPendingErrors} from '../utility/subfieldErrors.js';
 
@@ -101,7 +99,7 @@ type DatePartPropsT = {
   value?: StrOrNum,
 };
 
-const PartialDateInput = (props: Props): React.Element<'span'> => {
+const PartialDateInput = (props: Props): React$Element<'span'> => {
   const disabled = props.disabled ?? false;
   const field = props.field;
   const yearInputRef = props.yearInputRef;

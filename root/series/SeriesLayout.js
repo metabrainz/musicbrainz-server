@@ -28,7 +28,7 @@ const SeriesLayout = ({
   fullWidth = false,
   page,
   title,
-}: Props): React.Element<typeof Layout> => (
+}: Props): React$Element<typeof Layout> => (
   <Layout
     title={nonEmpty(title) ? hyphenateTitle(series.name, title) : series.name}
   >

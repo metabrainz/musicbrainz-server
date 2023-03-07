@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import {artistBeginLabel, artistEndLabel} from '../../artist/utils.js';
 import formatBarcode
   from '../../static/scripts/common/utility/formatBarcode.js';
@@ -190,7 +188,7 @@ type Props = {
   +entity: ?CoreEntityT,
 };
 
-const MetaDescription = ({entity}: Props): React.Element<'meta'> | null => {
+const MetaDescription = ({entity}: Props): React$Element<'meta'> | null => {
   if (!entity) {
     return null;
   }

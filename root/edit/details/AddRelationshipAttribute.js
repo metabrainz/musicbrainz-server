@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import localizeLinkAttributeTypeName
   from '../../static/scripts/common/i18n/localizeLinkAttributeTypeName.js';
 import yesNo from '../../static/scripts/common/utility/yesNo.js';
@@ -19,7 +17,7 @@ type Props = {
   +edit: AddRelationshipAttributeEditT,
 };
 
-const AddRelationshipAttribute = ({edit}: Props): React.Element<'table'> => {
+const AddRelationshipAttribute = ({edit}: Props): React$Element<'table'> => {
   const display = edit.display_data;
   const description = display.description;
   const parent = display.parent;

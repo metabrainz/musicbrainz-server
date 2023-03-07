@@ -30,7 +30,7 @@ const WikidataLinksWithMultipleEntities = ({
   generated,
   items,
   pager,
-}: ReportDataT<ReportEntryT>): React.Element<typeof ReportLayout> => {
+}: ReportDataT<ReportEntryT>): React$Element<typeof ReportLayout> => {
   const $c = React.useContext(CatalystContext);
 
   return (

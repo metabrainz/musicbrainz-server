@@ -89,7 +89,7 @@ function loadAcoustIdData(
 
 const AcoustIdCell = ({
   recordingMbid,
-}: PropsT): React.Element<typeof React.Fragment> => {
+}: PropsT): React$Element<typeof React.Fragment> => {
   const [acoustIdTracks, setAcoustIdTracks] = React.useState<
     $ReadOnlyArray<AcoustIdTrackT> | null,
   >(null);

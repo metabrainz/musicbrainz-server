@@ -186,7 +186,7 @@ const ExternalLinkAttributeDialog = (props: PropsT): React.MixedElement => {
   };
 
   const buildPopoverChildren =
-    (closeAndReturnFocus: () => void): React.Element<'form'> => {
+    (closeAndReturnFocus: () => void): React$Element<'form'> => {
       return (
         <form
           className="external-link-attribute-dialog"

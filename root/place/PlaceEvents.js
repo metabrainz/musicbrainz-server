@@ -26,7 +26,7 @@ const PlaceEvents = ({
   events,
   pager,
   place,
-}: Props): React.Element<typeof PlaceLayout> => {
+}: Props): React$Element<typeof PlaceLayout> => {
   const $c = React.useContext(SanitizedCatalystContext);
   return (
     <PlaceLayout entity={place} page="events" title={l('Events')}>

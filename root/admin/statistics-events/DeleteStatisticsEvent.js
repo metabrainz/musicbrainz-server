@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import Layout from '../../layout/index.js';
 import expand2react from '../../static/scripts/common/i18n/expand2react.js';
 import FormSubmit from '../../static/scripts/edit/components/FormSubmit.js';
@@ -21,7 +19,7 @@ type PropsT = {
 
 const DeleteStatisticsEvent = ({
   event,
-}: PropsT): React.Element<typeof Layout> => (
+}: PropsT): React$Element<typeof Layout> => (
   <Layout fullWidth title={l('Remove statistics event')}>
     <h2>{l('Remove statistics event')}</h2>
     <table className="details">

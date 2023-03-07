@@ -26,7 +26,7 @@ type Props = {
 
 const Error404 = ({
   message,
-}: Props): React.Element<typeof ErrorLayout> => {
+}: Props): React$Element<typeof ErrorLayout> => {
   const $c = React.useContext(CatalystContext);
   return (
     <ErrorLayout title={l('Page Not Found')}>

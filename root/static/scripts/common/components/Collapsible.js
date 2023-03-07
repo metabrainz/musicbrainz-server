@@ -40,7 +40,7 @@ class Collapsible extends React.Component<Props, State> {
     }
   }
 
-  containerRef: {current: null | React.ElementRef<'div'>};
+  containerRef: {current: null | React$ElementRef<'div'>};
 
   handleToggleBound: (event: SyntheticEvent<HTMLAnchorElement>) => void;
 

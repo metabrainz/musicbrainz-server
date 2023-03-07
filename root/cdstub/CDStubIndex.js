@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import calculateFullToc
   from '../static/scripts/common/utility/calculateFullToc.js';
 import formatTrackLength
@@ -25,7 +23,7 @@ type Props = {
 const CDStubIndex = ({
   cdstub,
   showArtists,
-}: Props): React.Element<typeof CDStubLayout> => {
+}: Props): React$Element<typeof CDStubLayout> => {
   const totalLength = cdstub.tracks.reduce(
     (length, track) => length + track.length,
     0,

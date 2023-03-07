@@ -7,15 +7,13 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import InstrumentList from '../../components/list/InstrumentList.js';
 
 type Props = {
   +edit: MergeInstrumentsEditT,
 };
 
-const MergeInstruments = ({edit}: Props): React.Element<'table'> => (
+const MergeInstruments = ({edit}: Props): React$Element<'table'> => (
   <table className="details merge-instruments">
     <tr>
       <th>{l('Merge:')}</th>

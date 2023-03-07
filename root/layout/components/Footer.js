@@ -17,7 +17,7 @@ import {bracketedText}
 import formatUserDate from '../../utility/formatUserDate.js';
 import {returnToCurrentPage} from '../../utility/returnUri.js';
 
-const Footer = (): React.Element<'div'> => {
+const Footer = (): React$Element<'div'> => {
   const $c = React.useContext(CatalystContext);
   const stash = $c.stash;
   return (

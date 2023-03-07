@@ -57,7 +57,7 @@ const UserAccountLayout = ({
   page,
   title,
   ...layoutProps
-}: Props): React.Element<typeof Layout> => (
+}: Props): React$Element<typeof Layout> => (
   <Layout
     fullWidth
     title={nonEmpty(title)

@@ -30,7 +30,7 @@ const AreaLayout = ({
   fullWidth = false,
   page,
   title,
-}: Props): React.Element<typeof Layout> => (
+}: Props): React$Element<typeof Layout> => (
   <Layout
     title={nonEmpty(title)
       ? hyphenateTitle(localizeAreaName(area), title)

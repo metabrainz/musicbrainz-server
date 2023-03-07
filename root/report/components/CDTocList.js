@@ -27,7 +27,7 @@ type Props = {
 const CDTocList = ({
   items,
   pager,
-}: Props): React.Element<typeof PaginatedResults> => {
+}: Props): React$Element<typeof PaginatedResults> => {
   const existingCDTocItems = items.reduce((
     result: Array<ReportCDTocT>,
     item,

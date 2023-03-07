@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import ReleaseList from './components/ReleaseList.js';
 import ReportLayout from './components/ReportLayout.js';
 import useAnnotationColumns from './hooks/useAnnotationColumns.js';
@@ -22,7 +20,7 @@ const AnnotationsReleases = ({
   items,
   pager,
 }: ReportDataT<ReportReleaseAnnotationT>):
-React.Element<typeof ReportLayout> => {
+React$Element<typeof ReportLayout> => {
   const annotationColumns = useAnnotationColumns<ReportReleaseAnnotationT>();
 
   return (

@@ -7,11 +7,9 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import NotFound from '../components/NotFound.js';
 
-const TagLookupNotFound = (): React.Element<typeof NotFound> => (
+const TagLookupNotFound = (): React$Element<typeof NotFound> => (
   <NotFound title={l('Tag Lookup Error')}>
     <p>
       {l(

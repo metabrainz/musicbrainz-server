@@ -26,7 +26,7 @@ const AreaArtists = ({
   area,
   artists,
   pager,
-}: Props): React.Element<typeof AreaLayout> => {
+}: Props): React$Element<typeof AreaLayout> => {
   const $c = React.useContext(SanitizedCatalystContext);
   return (
     <AreaLayout entity={area} page="artists" title={l('Artists')}>

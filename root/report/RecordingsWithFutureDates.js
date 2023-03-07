@@ -26,7 +26,7 @@ const RecordingsWithFutureDates = ({
   items,
   pager,
 }: ReportDataT<ReportRecordingRelationshipT>):
-React.Element<typeof ReportLayout> => {
+React$Element<typeof ReportLayout> => {
   const extraColumns = React.useMemo(
     () => {
       const beginDateColumn = defineTextColumn<ReportRecordingRelationshipT>({

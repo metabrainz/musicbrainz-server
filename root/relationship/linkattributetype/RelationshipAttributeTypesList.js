@@ -99,7 +99,7 @@ const AttributeDetails = ({
 
 const AttributeTree = ({
   attribute,
-}: AttributeTreeProps): React.Element<'li'> => {
+}: AttributeTreeProps): React$Element<'li'> => {
   const childrenAttrs = attribute.children || [];
   return (
     <li style={{marginTop: '0.25em'}}>
@@ -172,7 +172,7 @@ const AttributesList = ({root}: AttributesListProps) => {
 
 const RelationshipAttributeTypesList = ({
   root,
-}: AttributesListProps): React.Element<typeof Layout> => {
+}: AttributesListProps): React$Element<typeof Layout> => {
   const $c = React.useContext(SanitizedCatalystContext);
   return (
     <Layout fullWidth noIcons title={l('Relationship Attributes')}>

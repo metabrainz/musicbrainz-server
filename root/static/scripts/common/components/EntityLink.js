@@ -31,7 +31,7 @@ export const DeletedLink = ({
   className,
   deletedCaption,
   name,
-}: DeletedLinkProps): React.Element<'span'> => {
+}: DeletedLinkProps): React$Element<'span'> => {
   const caption = nonEmpty(deletedCaption) ? deletedCaption : (allowNew
     ? l('This entity will be created by this edit.')
     : l('This entity has been removed, and cannot be displayed correctly.'));

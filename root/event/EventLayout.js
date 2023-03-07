@@ -28,7 +28,7 @@ const EventLayout = ({
   fullWidth = false,
   page,
   title,
-}: Props): React.Element<typeof Layout> => (
+}: Props): React$Element<typeof Layout> => (
   <Layout
     title={nonEmpty(title) ? hyphenateTitle(event.name, title) : event.name}
   >

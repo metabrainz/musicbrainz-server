@@ -220,7 +220,7 @@ function getHtmlVars(
 
 const MergeReleases = ({
   edit,
-}: Props): React.Element<typeof React.Fragment> => {
+}: Props): React$Element<typeof React.Fragment> => {
   const display = edit.display_data;
   const emptyReleases = display.empty_releases;
   const changes = display.changes;

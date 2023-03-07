@@ -34,7 +34,7 @@ type CountryStatT = {
 const Countries = ({
   countryStats,
   dateCollected,
-}: CountriesStatsT): React.Element<typeof StatisticsLayout> => {
+}: CountriesStatsT): React$Element<typeof StatisticsLayout> => {
   const $c = React.useContext(CatalystContext);
   return (
     <StatisticsLayout fullWidth page="countries" title={l('Countries')}>

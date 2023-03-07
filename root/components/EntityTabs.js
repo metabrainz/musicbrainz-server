@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import {CatalystContext} from '../context.mjs';
 import {ENTITIES} from '../static/scripts/common/constants.js';
 import isSpecialPurpose
@@ -76,8 +74,8 @@ function buildLinks(
   $c: CatalystContextT,
   entity: CoreEntityT,
   page?: string,
-  editTab: ?React.Element<typeof EntityTabLink>,
-): $ReadOnlyArray<React.Element<typeof EntityTabLink>> {
+  editTab: ?React$Element<typeof EntityTabLink>,
+): $ReadOnlyArray<React$Element<typeof EntityTabLink>> {
   const links = [buildLink(l('Overview'), entity, '', page, false, 'index')];
   const user = $c.user;
 
@@ -169,7 +167,7 @@ function buildLinks(
 }
 
 type Props = {
-  +editTab: ?React.Element<typeof EntityTabLink>,
+  +editTab: ?React$Element<typeof EntityTabLink>,
   +entity: CoreEntityT,
   +page?: string,
 };
@@ -178,7 +176,7 @@ const EntityTabs = ({
   editTab,
   entity,
   page,
-}: Props): React.Element<typeof Tabs> => (
+}: Props): React$Element<typeof Tabs> => (
   <Tabs>
     <CatalystContext.Consumer>
       {($c: CatalystContextT) => buildLinks($c, entity, page, editTab)}

@@ -327,7 +327,7 @@ const DocumentationMenu = () => (
   </li>
 );
 
-const BottomMenu = (): React.Element<'div'> => {
+const BottomMenu = (): React$Element<'div'> => {
   const $c = React.useContext(SanitizedCatalystContext);
   const serverLanguages = $c.stash.server_languages;
   return (

@@ -166,7 +166,7 @@ const Layout = ({
   noIcons,
   pager,
   title,
-}: Props): React.Element<'html'> => {
+}: Props): React$Element<'html'> => {
   const $c = React.useContext(CatalystContext);
 
   const showAlert = nonEmpty($c.stash.alert) &&

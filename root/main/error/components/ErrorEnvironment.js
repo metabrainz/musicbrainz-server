@@ -19,7 +19,7 @@ type Props = {
 const ErrorEnvironment = ({
   hostname,
   useLanguages = false,
-}: Props): React.Element<typeof React.Fragment> => {
+}: Props): React$Element<typeof React.Fragment> => {
   const $c = React.useContext(CatalystContext);
   return (
     <>

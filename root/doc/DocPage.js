@@ -29,7 +29,7 @@ type Props = {
 const DocPage = ({
   id,
   page,
-}: Props): React.Element<typeof Layout> => {
+}: Props): React$Element<typeof Layout> => {
   let doc = '';
   let lastDoc = '';
   // We check whether we have a Google Custom Search engine

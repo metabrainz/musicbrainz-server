@@ -29,7 +29,7 @@ type Props = {
 
 const AttributeTree = ({
   attribute,
-}: {attribute: LinkAttrTypeT}): React.Element<'li'> => {
+}: {attribute: LinkAttrTypeT}): React$Element<'li'> => {
   const childrenAttrs = attribute.children || [];
   return (
     <li style={{marginTop: '0.25em'}}>
@@ -67,7 +67,7 @@ const AttributeTree = ({
 const RelationshipAttributeTypeIndex = ({
   attribute,
   relationships,
-}: Props): React.Element<typeof Layout> => {
+}: Props): React$Element<typeof Layout> => {
   const $c = React.useContext(SanitizedCatalystContext);
   const isInstrumentRoot = attribute.id === 14;
   const isInstrumentChild = attribute.root_id === 14 && !isInstrumentRoot;

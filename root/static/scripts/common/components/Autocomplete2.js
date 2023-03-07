@@ -310,7 +310,7 @@ const AutocompleteItem = React.memo(<+T: EntityItemT>({
 
 const Autocomplete2 = (React.memo(<+T: EntityItemT>(
   props: PropsT<T>,
-): React.Element<'div'> => {
+): React$Element<'div'> => {
   const {dispatch, state} = props;
 
   const {

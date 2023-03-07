@@ -28,7 +28,7 @@ const WorkLayout = ({
   fullWidth = false,
   page,
   title,
-}: Props): React.Element<typeof Layout> => {
+}: Props): React$Element<typeof Layout> => {
   const mainTitle = texp.l('{type} “{work}”', {
     type: nonEmpty(work.typeName)
       ? lp_attributes(work.typeName, 'work_type')

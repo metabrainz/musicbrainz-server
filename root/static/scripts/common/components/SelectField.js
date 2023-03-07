@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import {unwrapNl} from '../i18n.js';
 import getSelectValue from '../utility/getSelectValue.js';
 
@@ -83,7 +81,7 @@ export const MultipleSelectField = ({
   required,
   uncontrolled = false,
   ...props
-}: MultipleSelectFieldProps): React.Element<'select'> => {
+}: MultipleSelectFieldProps): React$Element<'select'> => {
   const selectProps: MultipleSelectElementProps = {...props, multiple: true};
 
   if (selectProps.className === undefined) {
@@ -123,7 +121,7 @@ const SelectField = ({
   required,
   uncontrolled = false,
   ...props
-}: SelectFieldProps): React.Element<'select'> => {
+}: SelectFieldProps): React$Element<'select'> => {
   const selectProps: SelectElementProps = props;
 
   if (selectProps.className === undefined) {

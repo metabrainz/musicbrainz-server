@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import DescriptiveLink
   from '../../static/scripts/common/components/DescriptiveLink.js';
 import EntityLink from '../../static/scripts/common/components/EntityLink.js';
@@ -25,7 +23,7 @@ type Props = {
   edit: AddRemoveAliasEditT,
 };
 
-const AddRemoveAlias = ({edit}: Props): React.Element<'table'> => {
+const AddRemoveAlias = ({edit}: Props): React$Element<'table'> => {
   const display = edit.display_data;
   const entityType = display.entity_type;
   const entity = display[entityType];

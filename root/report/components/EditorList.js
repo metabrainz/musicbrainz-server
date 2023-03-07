@@ -27,7 +27,7 @@ type Props = {
 const EditorList = ({
   items,
   pager,
-}: Props): React.Element<typeof PaginatedResults> => {
+}: Props): React$Element<typeof PaginatedResults> => {
   const existingEditorItems = items.reduce((
     result: Array<ReportEditorT>,
     item,

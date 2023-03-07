@@ -35,7 +35,7 @@ type Props = {
   +event: EventT,
 };
 
-const EventSidebar = ({event}: Props): React.Element<'div'> => {
+const EventSidebar = ({event}: Props): React$Element<'div'> => {
   const $c = React.useContext(CatalystContext);
   const hasBegin = !isDateEmpty(event.begin_date);
   const hasEnd = !isDateEmpty(event.end_date);

@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import EntityLink from '../../static/scripts/common/components/EntityLink.js';
 import formatDate from '../../static/scripts/common/utility/formatDate.js';
 import yesNo from '../../static/scripts/common/utility/yesNo.js';
@@ -21,7 +19,7 @@ type Props = {
   +edit: EditEventEditT,
 };
 
-const EditEvent = ({edit}: Props): React.Element<'table'> => {
+const EditEvent = ({edit}: Props): React$Element<'table'> => {
   const display = edit.display_data;
   const name = display.name;
   const comment = display.comment;

@@ -43,7 +43,7 @@ const buildArtistRoleRow = (relation: RelationT) => {
 
 const ArtistRoles = ({
   relations,
-}: ArtistRolesProps): React.Element<typeof CollapsibleList> => (
+}: ArtistRolesProps): React$Element<typeof CollapsibleList> => (
   <CollapsibleList
     ariaLabel={l('Artist Roles')}
     buildRow={buildArtistRoleRow}

@@ -30,7 +30,7 @@ const ReleaseLayout = ({
   fullWidth = false,
   page,
   title,
-}: Props): React.Element<typeof Layout> => {
+}: Props): React$Element<typeof Layout> => {
   const mainTitle = texp.l('Release “{name}” by {artist}', {
     artist: reduceArtistCredit(release.artistCredit),
     name: release.name,

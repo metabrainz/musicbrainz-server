@@ -7,7 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
 import type {CellRenderProps} from 'react-table';
 
 import ReleaseList from './components/ReleaseList.js';
@@ -20,7 +19,7 @@ const ReleaseLabelSameArtist = ({
   generated,
   items,
   pager,
-}: ReportDataT<ReportReleaseLabelT>): React.Element<typeof ReportLayout> => {
+}: ReportDataT<ReportReleaseLabelT>): React$Element<typeof ReportLayout> => {
   const labelColumn = {
     Cell: ({
       row: {original},

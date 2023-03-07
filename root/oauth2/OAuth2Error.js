@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import Layout from '../layout/index.js';
 
 type Props = {
@@ -19,7 +17,7 @@ type Props = {
 const OAuth2Error = ({
   errorDescription,
   errorMessage,
-}: Props): React.Element<typeof Layout> => (
+}: Props): React$Element<typeof Layout> => (
   <Layout fullWidth title={l('OAuth Authorization Error')}>
     <h1>{texp.l('Error: {error}', {error: errorMessage})}</h1>
     <p>{errorDescription}</p>
