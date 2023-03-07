@@ -51,7 +51,7 @@ function compareRecordingWithRecordingState(
 }
 
 function handleLinkedEntitiesForMedium(
-  update: ?$ReadOnly<$Partial<LinkedEntitiesT>>,
+  update: ?$ReadOnly<Partial<LinkedEntitiesT>>,
 ): void {
   if (update) {
     /*

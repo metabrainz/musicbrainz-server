@@ -209,7 +209,7 @@ const linkedEntities: LinkedEntitiesT = Object.seal({
 export default linkedEntities;
 
 export function mergeLinkedEntities(
-  update: ?$ReadOnly<$Partial<LinkedEntitiesT>>,
+  update: ?$ReadOnly<Partial<LinkedEntitiesT>>,
 ): void {
   if (update) {
     for (const [type, entities] of Object.entries(update)) {
@@ -235,7 +235,7 @@ export function mergeLinkedEntities(
 const linkedEntityTypes = Object.keys(linkedEntities);
 
 export function setLinkedEntities(
-  update: ?$Partial<LinkedEntitiesT>,
+  update: ?Partial<LinkedEntitiesT>,
 ): void {
   for (const key of linkedEntityTypes) {
     if (!isObjectEmpty(linkedEntities[key])) {

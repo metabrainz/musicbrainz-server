@@ -32,7 +32,7 @@ import DateRangeFieldset, {
 } from './DateRangeFieldset.js';
 
 type PropsT = {
-  onConfirm: ($ReadOnly<$Partial<LinkStateT>>) => void,
+  onConfirm: ($ReadOnly<Partial<LinkStateT>>) => void,
   relationship: LinkRelationshipT,
 };
 

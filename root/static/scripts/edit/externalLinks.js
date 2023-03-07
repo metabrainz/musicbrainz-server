@@ -247,7 +247,7 @@ export class _ExternalLinksEditor
 
   setLinkState(
     index: number,
-    state: $ReadOnly<$Partial<LinkStateT>>,
+    state: $ReadOnly<Partial<LinkStateT>>,
     callback?: () => void,
   ) {
     const newLinks: Array<LinkStateT> = this.state.links.slice(0);
@@ -1137,7 +1137,7 @@ type ExternalLinkRelationshipProps = {
   +highlight: HighlightT,
   +isOnlyRelationship: boolean,
   +link: LinkRelationshipT,
-  +onAttributesChange: (number, $ReadOnly<$Partial<LinkStateT>>) => void,
+  +onAttributesChange: (number, $ReadOnly<Partial<LinkStateT>>) => void,
   +onLinkRemove: (number) => void,
   +onTypeBlur: (number, SyntheticFocusEvent<HTMLSelectElement>) => void,
   +onTypeChange: (number, SyntheticEvent<HTMLSelectElement>) => void,
@@ -1272,7 +1272,7 @@ type LinkProps = {
   +duplicate: number | null,
   +error: ErrorT | null,
   +getRelationshipHighlightType: (LinkRelationshipT) => HighlightT,
-  +handleAttributesChange: (number, $ReadOnly<$Partial<LinkStateT>>) => void,
+  +handleAttributesChange: (number, $ReadOnly<Partial<LinkStateT>>) => void,
   +handleLinkRemove: (number) => void,
   +handleLinkSubmit: (SyntheticKeyboardEvent<HTMLInputElement>) => void,
   +handleUrlBlur: (SyntheticFocusEvent<HTMLInputElement>) => void,
@@ -1551,7 +1551,7 @@ const defaultLinkState: LinkStateT = {
   video: false,
 };
 
-function newLinkState(state: $ReadOnly<$Partial<LinkStateT>>) {
+function newLinkState(state: $ReadOnly<Partial<LinkStateT>>) {
   return {...defaultLinkState, ...state};
 }
 
