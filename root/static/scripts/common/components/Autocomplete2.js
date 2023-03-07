@@ -7,6 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import * as Sentry from '@sentry/browser';
 import * as React from 'react';
 
 import ENTITIES from '../../../../../entities.mjs';
@@ -640,6 +641,9 @@ const Autocomplete2 = (React.memo(<+T: EntityItemT>(
           });
         }, 1);
         return loadedRecentItems;
+      }).catch((error) => {
+        console.error(error);
+        Sentry.captureException(error);
       });
     }
     return () => {

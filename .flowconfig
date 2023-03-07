@@ -17,7 +17,7 @@
 
 [lints]
 unnecessary-invariant=error
-unused-promise-in-async-scope=error
+unused-promise=error
 
 [options]
 autoimports=true

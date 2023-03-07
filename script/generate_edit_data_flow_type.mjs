@@ -103,4 +103,6 @@ yargs
 
   await pgClient.query<string>('ROLLBACK');
   await pgClient.end();
-}());
+}()).catch((error: mixed) => {
+  throw error;
+});

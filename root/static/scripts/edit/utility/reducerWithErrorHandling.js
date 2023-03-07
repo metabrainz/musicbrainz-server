@@ -9,6 +9,8 @@
 
 import * as Sentry from '@sentry/browser';
 
+import coerceToError from '../../common/utility/coerceToError.js';
+
 /*
  * Wraps a reducer function, returning a new reducer that catches
  * any exceptions in the original. In that event, we log the exception
@@ -26,7 +28,7 @@ export default function reducerWithErrorHandling<
     try {
       return reducer(state, action);
     } catch (e) {
-      error = e instanceof Error ? e : new Error(String(e));
+      error = coerceToError(e);
       if (
         !hasOwnProp(error, 'doNotLogToSentry') ||
         // $FlowIgnore[prop-missing]

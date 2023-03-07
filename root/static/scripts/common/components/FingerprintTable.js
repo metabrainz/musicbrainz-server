@@ -10,6 +10,7 @@
 import * as React from 'react';
 
 import loopParity from '../../../../utility/loopParity.js';
+import coerceToError from '../utility/coerceToError.js';
 import {compareStrings} from '../utility/compare.js';
 
 type AcoustIdTrackT = {
@@ -36,24 +37,39 @@ const FingerprintTable = ({recording}: {recording: RecordingT}) => {
   const [tracks, setTracks] =
     React.useState<$ReadOnlyArray<AcoustIdTrackT>>([]);
   const [isLoaded, setIsLoaded] = React.useState(false);
+  const [error, setError] = React.useState<Error | null>(null);
 
   // We ensure fetch only runs client-side since it's not in node
   React.useEffect(() => {
     fetch(
       '//api.acoustid.org/v2/track/list_by_mbid' +
       `?format=json&disabled=1&jsoncallback=?&mbid=${recording.gid}`,
-    ).then(
-      function (response) {
-        return response.json();
-      },
-    ).then(
-      function (data: AcoustIdListResponseT) {
-        data.tracks.sort(orderTracks);
-        setTracks(data.tracks);
-        setIsLoaded(true);
-      },
-    );
+    )
+      .then(
+        function (response) {
+          return response.json();
+        },
+      )
+      .then(
+        function (data: AcoustIdListResponseT) {
+          data.tracks.sort(orderTracks);
+          setTracks(data.tracks);
+          setIsLoaded(true);
+        },
+      )
+      .catch((caughtError: mixed) => {
+        console.error(caughtError);
+        setError(coerceToError(caughtError));
+      });
   }, [recording.gid]);
+
+  if (error) {
+    return (
+      <p className="error">
+        {texp.l('Error loading AcoustIDs: {error}', {error: error.message})}
+      </p>
+    );
+  }
 
   return (
     tracks && tracks.length ? (

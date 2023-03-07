@@ -25,6 +25,7 @@ import {
   getCatalystContext,
   getSourceEntityDataForRelationshipEditor,
 } from '../../common/utility/catalyst.js';
+import coerceToError from '../../common/utility/coerceToError.js';
 import isDatabaseRowId from '../../common/utility/isDatabaseRowId.js';
 import {uniqueNegativeId} from '../../common/utility/numbers.js';
 import {hasSessionStorage} from '../../common/utility/storage.js';
@@ -589,11 +590,7 @@ const RelationshipEditor = (
 
           captureException(error);
 
-          setPrepareSubmissionError(
-            error instanceof Error
-              ? error
-              : new Error(String(error)),
-          );
+          setPrepareSubmissionError(coerceToError(error));
         }
       }
     };

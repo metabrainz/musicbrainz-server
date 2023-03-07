@@ -16,6 +16,7 @@ import EntityLink from '../../common/components/EntityLink.js';
 import {RECORDING_OF_LINK_TYPE_ID} from '../../common/constants.js';
 import {createWorkObject} from '../../common/entity2.js';
 import {bracketedText} from '../../common/utility/bracketed.js';
+import coerceToError from '../../common/utility/coerceToError.js';
 import formatTrackLength from '../../common/utility/formatTrackLength.js';
 import NewWorkLink
   from '../../relationship-editor/components/NewWorkLink.js';
@@ -229,28 +230,32 @@ const RelatedWorkRelationshipEditor = React.memo<
   const work = relatedWork.work;
   const isNewWork = work._fromBatchCreateWorksDialog === true;
   const hasLoadedRelationships = work.relationships != null;
+  const [loadingError, setLoadingError] = React.useState<Error | null>(null);
 
   React.useEffect(function () {
     if (isNewWork || hasLoadedRelationships) {
       return;
     }
-    fetch(
-      '/ws/js/entity/' + work.gid + '?inc=rels',
-    ).then((resp) => {
-      if (!resp.ok) {
-        return null;
-      }
-      return resp.json();
-    // $FlowIgnore[unclear-type]
-    }).then((data: any) => {
-      if (data.relationships?.length) {
-        dispatch({
-          relationships: data.relationships,
-          type: 'load-work-relationships',
-          work,
-        });
-      }
-    });
+    fetch('/ws/js/entity/' + work.gid + '?inc=rels')
+      .then((resp) => {
+        if (!resp.ok) {
+          return null;
+        }
+        return resp.json();
+      })
+      // $FlowIgnore[unclear-type]
+      .then((data: any) => {
+        if (data.relationships?.length) {
+          dispatch({
+            relationships: data.relationships,
+            type: 'load-work-relationships',
+            work,
+          });
+        }
+      })
+      .catch((caughtError: mixed) => {
+        setLoadingError(coerceToError(caughtError));
+      });
   }, [
     isNewWork,
     hasLoadedRelationships,
@@ -325,6 +330,14 @@ const RelatedWorkRelationshipEditor = React.memo<
         targetTypeGroups={relatedWork.targetTypeGroups}
         track={track}
       />
+      {loadingError ? (
+        <p className="error">
+          {texp.l(
+            'Error loading work relationships: {error}',
+            {error: loadingError.message},
+          )}
+        </p>
+      ) : null}
     </>
   );
 });
