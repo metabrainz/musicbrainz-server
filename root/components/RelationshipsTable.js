@@ -255,10 +255,10 @@ const RelationshipsTable = ({
       );
       columnsCount = (
         1 +
-        hasCreditColumn +
-        hasAttributeColumn +
-        hasArtistColumn +
-        hasLengthColumn
+        (hasCreditColumn ? 1 : 0) +
+        (hasAttributeColumn ? 1 : 0) +
+        (hasArtistColumn ? 1 : 0) +
+        (hasLengthColumn ? 1 : 0)
       );
 
       rows.push(
