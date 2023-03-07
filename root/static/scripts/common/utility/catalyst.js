@@ -26,9 +26,9 @@ export function getCatalystContext(): SanitizedCatalystContextT {
 }
 
 export function getSourceEntityData():
-    | CoreEntityT
+    | RelatableEntityT
     | {
-        +entityType: CoreEntityTypeT,
+        +entityType: RelatableEntityTypeT,
         +isNewEntity: true,
         +name?: string,
         +orderingTypeID?: number,
@@ -38,7 +38,7 @@ export function getSourceEntityData():
   return $c.stash.source_entity ?? null;
 }
 
-export function getSourceEntityDataForRelationshipEditor(): CoreEntityT {
+export function getSourceEntityDataForRelationshipEditor(): RelatableEntityT {
   let source = getSourceEntityData();
   invariant(
     source,
