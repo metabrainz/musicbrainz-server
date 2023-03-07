@@ -8,10 +8,10 @@ use lib "$FindBin::Bin/../lib";
 use MusicBrainz::Server::Constants qw( %ENTITIES entities_with );
 use Template;
 
-my $DATA_DIR = "$FindBin::Bin/../lib/MusicBrainz/Server/Data";
+my $SERVER_DIR = "$FindBin::Bin/../lib/MusicBrainz/Server";
 
 my $TT = Template->new(
-    INCLUDE_PATH => $DATA_DIR,
+    INCLUDE_PATH => $SERVER_DIR,
 );
 
 for my $entity_type (entities_with('aliases')) {
@@ -23,9 +23,12 @@ for my $entity_type (entities_with('aliases')) {
         %{ $ENTITIES{$alias_type} },
     };
 
-    open my $fh, '>', File::Spec->catfile($DATA_DIR, "${model}AliasType.pm");
+    my $fh;
+    open $fh, '>', File::Spec->catfile($SERVER_DIR, "Data/${model}AliasType.pm");
+    $TT->process('Data/AliasType.tt', $vars, $fh);
 
-    $TT->process('AliasType.tt', $vars, $fh);
+    open $fh, '>', File::Spec->catfile($SERVER_DIR, "Entity/${model}AliasType.pm");
+    $TT->process('Entity/AliasType.tt', $vars, $fh);
 }
 
 =head1 COPYRIGHT AND LICENSE

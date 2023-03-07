@@ -1,17 +1,15 @@
 # Automatically generated, do not edit.
-package MusicBrainz::Server::Data::EventAliasType;
+package MusicBrainz::Server::Entity::GenreAliasType;
 
 use Moose;
 
-extends 'MusicBrainz::Server::Data::Entity';
+extends 'MusicBrainz::Server::Entity::AliasType';
 
-with 'MusicBrainz::Server::Data::Role::AliasType';
+with 'MusicBrainz::Server::Entity::Role::OptionsTree' => {
+    type => 'GenreAliasType',
+};
 
-sub _entity_class { 'MusicBrainz::Server::Entity::EventAliasType' }
-
-sub _table { 'event_alias_type' }
-
-sub _type { 'event_alias_type' }
+sub entity_type { 'genre_alias_type' }
 
 __PACKAGE__->meta->make_immutable;
 
@@ -21,7 +19,7 @@ no Moose;
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright (C) 2016 MetaBrainz Foundation
+Copyright (C) 2012 MetaBrainz Foundation
 
 This file is part of MusicBrainz, the open internet music database,
 and is licensed under the GPL version 2, or (at your option) any

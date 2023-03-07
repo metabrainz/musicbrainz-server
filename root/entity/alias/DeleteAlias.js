@@ -17,7 +17,7 @@ import chooseLayoutComponent from '../../utility/chooseLayoutComponent.js';
 import type {AliasDeleteFormT} from './types.js';
 
 type Props = {
-  +alias: AliasT,
+  +alias: AnyAiasT,
   +entity: CoreEntityT,
   +form: AliasDeleteFormT,
   +type: string,

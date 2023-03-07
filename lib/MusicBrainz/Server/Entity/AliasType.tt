@@ -2,19 +2,17 @@
     the benefit of people looking at the auto-generated files. To regenerate
     them from this template, run ./script/generate_code.pl. -%]
 # Automatically generated, do not edit.
-package MusicBrainz::Server::Data::[% model %];
+package MusicBrainz::Server::Entity::[% model %];
 
 use Moose;
 
-extends 'MusicBrainz::Server::Data::Entity';
+extends 'MusicBrainz::Server::Entity::AliasType';
 
-with 'MusicBrainz::Server::Data::Role::AliasType';
+with 'MusicBrainz::Server::Entity::Role::OptionsTree' => {
+    type => '[% model %]',
+};
 
-sub _entity_class { 'MusicBrainz::Server::Entity::[% model %]' }
-
-sub _table { '[% table %]' }
-
-sub _type { '[% alias_type %]' }
+sub entity_type { '[% alias_type %]' }
 
 __PACKAGE__->meta->make_immutable;
 
@@ -24,7 +22,7 @@ no Moose;
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright (C) 2016 MetaBrainz Foundation
+Copyright (C) 2023 MetaBrainz Foundation
 
 This file is part of MusicBrainz, the open internet music database,
 and is licensed under the GPL version 2, or (at your option) any

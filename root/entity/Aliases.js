@@ -14,7 +14,7 @@ import AliasesComponent from '../components/Aliases/index.js';
 import chooseLayoutComponent from '../utility/chooseLayoutComponent.js';
 
 type Props = {
-  +aliases: $ReadOnlyArray<AliasT>,
+  +aliases: $ReadOnlyArray<AnyAiasT>,
   +artistCredits?: $ReadOnlyArray<{+id: number} & ArtistCreditT>,
   +entity: CoreEntityT,
 };
