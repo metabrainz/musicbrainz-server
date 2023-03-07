@@ -23,7 +23,7 @@ test 'Load basic data' => sub {
     MusicBrainz::Server::Test->prepare_test_database($test->c, '+data_instrument');
 
     my $instrument_data = $test->c->model('Instrument');
-    does_ok($instrument_data, 'MusicBrainz::Server::Data::Role::Editable');
+    does_ok($instrument_data, 'MusicBrainz::Server::Data::Role::PendingEdits');
 
     # ----
     # Test fetching instruments:

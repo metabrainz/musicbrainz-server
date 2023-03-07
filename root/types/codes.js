@@ -12,7 +12,7 @@ declare type IpiCodesRoleT = {
 };
 
 declare type IpiCodeT = {
-  ...EditableRoleT,
+  ...PendingEditsRoleT,
   +ipi: string,
 };
 
@@ -21,20 +21,20 @@ declare type IsniCodesRoleT = {
 };
 
 declare type IsniCodeT = {
-  ...EditableRoleT,
+  ...PendingEditsRoleT,
   +isni: string,
 };
 
 declare type IsrcT = {
-  ...EditableRoleT,
   ...EntityRoleT<'isrc'>,
+  ...PendingEditsRoleT,
   +isrc: string,
   +recording_id: number,
 };
 
 declare type IswcT = {
-  ...EditableRoleT,
   ...EntityRoleT<'iswc'>,
+  ...PendingEditsRoleT,
   +iswc: string,
   +work_id: number,
 };

@@ -17,7 +17,7 @@ with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'instrument' };
 with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'instrument' };
 with 'MusicBrainz::Server::Data::Role::GIDEntityCache';
 with 'MusicBrainz::Server::Data::Role::DeleteAndLog' => { type => 'instrument' };
-with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'instrument' };
+with 'MusicBrainz::Server::Data::Role::PendingEdits' => { table => 'instrument' };
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'instrument' };
 with 'MusicBrainz::Server::Data::Role::Merge';
 with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'instrument' };

@@ -9,7 +9,7 @@
 
 // MusicBrainz::Server::Entity::Artwork::TO_JSON
 declare type ArtworkT = {
-  ...EditableRoleT,
+  ...PendingEditsRoleT,
   +comment: string,
   +filename: string | null,
   +huge_ia_thumbnail: string,

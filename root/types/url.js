@@ -10,7 +10,7 @@
 // MusicBrainz::Server::Entity::URL::TO_JSON
 declare type UrlT = {
   ...CoreEntityRoleT<'url'>,
-  ...EditableRoleT,
+  ...PendingEditsRoleT,
   +decoded: string,
   +href_url: string,
   +pretty_name: string,

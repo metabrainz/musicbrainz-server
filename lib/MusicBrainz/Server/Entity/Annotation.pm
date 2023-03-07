@@ -9,7 +9,7 @@ use MusicBrainz::Server::Filters qw( format_wikitext );
 use namespace::autoclean;
 
 extends 'MusicBrainz::Server::Entity';
-with 'MusicBrainz::Server::Entity::Role::Editable';
+with 'MusicBrainz::Server::Entity::Role::PendingEdits';
 
 sub entity_type { 'annotation' }
 

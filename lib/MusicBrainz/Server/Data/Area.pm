@@ -27,7 +27,7 @@ with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'area' };
 with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'area' };
 with 'MusicBrainz::Server::Data::Role::GIDEntityCache';
 with 'MusicBrainz::Server::Data::Role::DeleteAndLog' => { type => 'area' };
-with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'area' };
+with 'MusicBrainz::Server::Data::Role::PendingEdits' => { table => 'area' };
 with 'MusicBrainz::Server::Data::Role::Merge';
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'area' };
 with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'area' };

@@ -53,7 +53,7 @@ test all => sub {
     # Artist data should do the alias role
     my $artist_data = MusicBrainz::Server::Data::Artist->new(c => $test->c);
     does_ok($artist_data, 'MusicBrainz::Server::Data::Role::Alias');
-    does_ok($artist_data->alias, 'MusicBrainz::Server::Data::Role::Editable');
+    does_ok($artist_data->alias, 'MusicBrainz::Server::Data::Role::PendingEdits');
 
     # Make sure we can load specific aliases
     my $alias = $artist_data->alias->get_by_id(1);

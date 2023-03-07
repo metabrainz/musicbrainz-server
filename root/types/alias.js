@@ -10,8 +10,8 @@
 // MusicBrainz::Server::Entity::Alias::TO_JSON
 declare type AliasT = {
   ...DatePeriodRoleT,
-  ...EditableRoleT,
   ...EntityRoleT<'alias'>,
+  ...PendingEditsRoleT,
   ...TypeRoleT<AliasTypeT>,
   +locale: string | null,
   +name: string,

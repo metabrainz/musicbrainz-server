@@ -94,7 +94,7 @@ my $sql = $test->c->sql;
 $sql->begin;
 
 my $place_data = MusicBrainz::Server::Data::Place->new(c => $test->c);
-does_ok($place_data, 'MusicBrainz::Server::Data::Role::Editable');
+does_ok($place_data, 'MusicBrainz::Server::Data::Role::PendingEdits');
 
 # A place with the minimal set of required attributes
 my $place = $place_data->get_by_id(1);
