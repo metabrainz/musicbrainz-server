@@ -11,11 +11,17 @@ export type LinkedEntitiesT = {
   area: {
     [areaId: number]: AreaT,
   },
+  area_type: {
+    [areaTypeId: number]: AreaTypeT,
+  },
   artist: {
     [artistId: number]: ArtistT,
   },
   artist_type: {
     [artistId: number]: ArtistTypeT,
+  },
+  collection_type: {
+    [collectionTypeId: number]: CollectionTypeT,
   },
   edit: {
     [editId: number]: EditWithIdT,
@@ -26,14 +32,23 @@ export type LinkedEntitiesT = {
   event: {
     [eventId: number]: EventT,
   },
+  event_type: {
+    [eventTypeId: number]: EventTypeT,
+  },
   genre: {
     [genreId: number]: GenreT,
   },
   instrument: {
     [instrumentId: number]: InstrumentT,
   },
+  instrument_type: {
+    [instrumentTypeId: number]: InstrumentTypeT,
+  },
   label: {
     [labelId: number]: LabelT,
+  },
+  label_type: {
+    [labelTypeId: number]: LabelTypeT,
   },
   language: {
     [languageId: number]: LanguageT,
@@ -49,6 +64,9 @@ export type LinkedEntitiesT = {
   },
   place: {
     [placeId: number]: PlaceT,
+  },
+  place_type: {
+    [placeTypeId: number]: PlaceTypeT,
   },
   recording: {
     [recordingId: number]: RecordingT,
@@ -104,19 +122,25 @@ const EMPTY_OBJECT = Object.freeze({});
 
 const linkedEntities: LinkedEntitiesT = Object.create(Object.seal({
   area:                           EMPTY_OBJECT,
+  area_type:                      EMPTY_OBJECT,
   artist:                         EMPTY_OBJECT,
   artist_type:                    EMPTY_OBJECT,
+  collection_type:                EMPTY_OBJECT,
   edit:                           EMPTY_OBJECT,
   editor:                         EMPTY_OBJECT,
   event:                          EMPTY_OBJECT,
+  event_type:                     EMPTY_OBJECT,
   genre:                          EMPTY_OBJECT,
   instrument:                     EMPTY_OBJECT,
+  instrument_type:                EMPTY_OBJECT,
   label:                          EMPTY_OBJECT,
+  label_type:                     EMPTY_OBJECT,
   language:                       EMPTY_OBJECT,
   link_attribute_type:            EMPTY_OBJECT,
   link_type:                      EMPTY_OBJECT,
   link_type_tree:                 EMPTY_OBJECT,
   place:                          EMPTY_OBJECT,
+  place_type:                     EMPTY_OBJECT,
   recording:                      EMPTY_OBJECT,
   release:                        EMPTY_OBJECT,
   release_group:                  EMPTY_OBJECT,
