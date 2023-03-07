@@ -55,8 +55,18 @@ declare type CollectableEntityT =
   | WorkT;
 
 declare type NonUrlCoreEntityT =
-  | CollectableEntityT
-  | GenreT;
+  | AreaT
+  | ArtistT
+  | EventT
+  | GenreT
+  | InstrumentT
+  | LabelT
+  | PlaceT
+  | RecordingT
+  | ReleaseGroupT
+  | ReleaseT
+  | SeriesT
+  | WorkT;
 
 declare type CoreEntityT =
   | NonUrlCoreEntityT
@@ -136,8 +146,18 @@ declare type PartialDateStringsT = {
 };
 
 declare type NonUrlRelatableEntityT =
-  | CollectableEntityT
-  | GenreT;
+  | AreaT
+  | ArtistT
+  | EventT
+  | GenreT
+  | InstrumentT
+  | LabelT
+  | PlaceT
+  | RecordingT
+  | ReleaseGroupT
+  | ReleaseT
+  | SeriesT
+  | WorkT;
 
 declare type RelatableEntityT =
   | NonUrlRelatableEntityT
