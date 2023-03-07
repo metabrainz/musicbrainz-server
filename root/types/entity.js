@@ -225,6 +225,23 @@ declare type RelatableEntityTypeT =
   | NonUrlRelatableEntityTypeT
   | 'url';
 
+declare type SubscribableEntityT =
+  | SubscribableEntityWithSidebarT
+  | CollectionT
+  | EditorT;
+
+declare type SubscribableEntityWithSidebarT =
+  | ArtistT
+  | LabelT
+  | SeriesT;
+
+declare type SubscribableEntityTypeT =
+  | 'artist'
+  | 'collection'
+  | 'editor'
+  | 'label'
+  | 'series';
+
 declare type TypeRoleT<T> = {
   +typeID: number | null,
   +typeName?: string,
