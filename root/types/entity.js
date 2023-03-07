@@ -242,6 +242,32 @@ declare type SubscribableEntityTypeT =
   | 'label'
   | 'series';
 
+declare type TaggableEntityT =
+  | AreaT
+  | ArtistT
+  | EventT
+  | InstrumentT
+  | LabelT
+  | PlaceT
+  | RecordingT
+  | ReleaseGroupT
+  | ReleaseT
+  | SeriesT
+  | WorkT;
+
+declare type TaggableEntityTypeT =
+  | 'area'
+  | 'artist'
+  | 'event'
+  | 'instrument'
+  | 'label'
+  | 'place'
+  | 'recording'
+  | 'release_group'
+  | 'release'
+  | 'series'
+  | 'work';
+
 declare type TypeRoleT<T> = {
   +typeID: number | null,
   +typeName?: string,
