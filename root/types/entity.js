@@ -159,6 +159,34 @@ declare type DatePeriodRoleT = {
   +ended: boolean,
 };
 
+declare type MergeableEntityT =
+  | AreaT
+  | ArtistT
+  | CollectionT
+  | EventT
+  | InstrumentT
+  | LabelT
+  | PlaceT
+  | RecordingT
+  | ReleaseGroupT
+  | ReleaseT
+  | SeriesT
+  | WorkT;
+
+declare type MergeableEntityTypeT =
+  | 'area'
+  | 'artist'
+  | 'collection'
+  | 'event'
+  | 'instrument'
+  | 'label'
+  | 'place'
+  | 'recording'
+  | 'release_group'
+  | 'release'
+  | 'series'
+  | 'work';
+
 declare type PendingEditsRoleT = {
   +editsPending: boolean,
 };

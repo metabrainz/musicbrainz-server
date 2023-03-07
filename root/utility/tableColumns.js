@@ -204,7 +204,7 @@ export function defineCheckboxColumn(
     +mergeForm?: MergeFormT | MergeReleasesFormT,
     +name?: string,
   },
-): ColumnOptions<NonUrlCoreEntityT | CollectionT, number> {
+): ColumnOptions<CollectableEntityT | MergeableEntityT, number> {
   return {
     Cell: ({row: {index, original}}) => props.mergeForm
       ? renderMergeCheckboxElement(original, props.mergeForm, index)
