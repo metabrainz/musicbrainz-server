@@ -22,7 +22,7 @@ import {
   indexItems,
 } from '../../common/components/Autocomplete2/searchItems.js';
 import {
-  createNonUrlCoreEntityObject,
+  createNonUrlRelatableEntityObject,
   createUrlObject,
 } from '../../common/entity2.js';
 import linkedEntities from '../../common/linkedEntities.mjs';
@@ -114,10 +114,10 @@ export type PropsT = {
   +hasPreselectedTargetType: boolean,
   +initialRelationship: RelationshipStateT,
   +releaseHasUnloadedTracks: boolean,
-  +source: CoreEntityT,
+  +source: RelatableEntityT,
   +sourceDispatch: (UpdateRelationshipActionT) => void,
   +targetTypeOptions: TargetTypeOptionsT | null,
-  +targetTypeRef: {-current: CoreEntityTypeT} | null,
+  +targetTypeRef: {-current: RelatableEntityTypeT} | null,
   +title: string,
   +user: ActiveEditorT,
 };
@@ -251,9 +251,9 @@ export function createInitialState(props: PropsT): RelationshipDialogStateT {
 
 function updateDialogStateForTargetTypeChange(
   newState: {...RelationshipDialogStateT},
-  oldTargetType: CoreEntityTypeT,
-  newTargetType: CoreEntityTypeT,
-  source: CoreEntityT,
+  oldTargetType: RelatableEntityTypeT,
+  newTargetType: RelatableEntityTypeT,
+  source: RelatableEntityT,
 ): void {
   /*
    * This function handles updating the available link type options,
@@ -393,7 +393,7 @@ export function reducer(
         newTargetType !== 'url'
       ) {
         const newPlaceholderTarget =
-          createNonUrlCoreEntityObject(newTargetType);
+          createNonUrlRelatableEntityObject(newTargetType);
 
         newTargetState.autocomplete = createInitialAutocompleteStateForTarget(
           newPlaceholderTarget,
@@ -1023,7 +1023,7 @@ const RelationshipDialogContent = (React.memo<PropsT>((
   );
 }): React$AbstractComponent<PropsT, mixed>);
 
-function getBatchSelectionMessage(sourceType: CoreEntityTypeT) {
+function getBatchSelectionMessage(sourceType: RelatableEntityTypeT) {
   switch (sourceType) {
     case 'recording': {
       return l('This will add a relationship to all checked recordings.');

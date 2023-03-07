@@ -10,7 +10,7 @@
 import {bracketedText} from '../../common/utility/bracketed.js';
 
 export default function getBatchSelectionMessage(
-  sourceType: CoreEntityTypeT,
+  sourceType: RelatableEntityTypeT,
   batchSelectionCount: number,
 ): string {
   switch (sourceType) {

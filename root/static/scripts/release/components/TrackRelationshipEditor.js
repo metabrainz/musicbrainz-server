@@ -215,7 +215,7 @@ type RelatedWorkRelationshipEditorPropsT = {
 };
 
 const filterRecordings = (
-  targetType: CoreEntityTypeT,
+  targetType: RelatableEntityTypeT,
 ) => targetType !== 'recording';
 
 const RelatedWorkRelationshipEditor = React.memo<

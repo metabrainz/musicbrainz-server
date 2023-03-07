@@ -28,9 +28,9 @@ import RelationshipTargetTypeGroup from './RelationshipTargetTypeGroup.js';
 type PropsT = {
   +dialogLocation: RelationshipDialogLocationT | null,
   +dispatch: (RelationshipEditorActionT) => void,
-  +filter?: (CoreEntityTypeT) => boolean,
+  +filter?: (RelatableEntityTypeT) => boolean,
   +releaseHasUnloadedTracks: boolean,
-  +source: CoreEntityT,
+  +source: RelatableEntityT,
   +targetTypeGroups: RelationshipTargetTypeGroupsT,
   +track: TrackWithRecordingT | null,
 };

@@ -10,7 +10,7 @@
 import * as React from 'react';
 
 import ButtonPopover from '../../common/components/ButtonPopover.js';
-import {createCoreEntityObject} from '../../common/entity2.js';
+import {createRelatableEntityObject} from '../../common/entity2.js';
 import Tooltip from '../../edit/components/Tooltip.js';
 import {
   useAddRelationshipDialogContent,
@@ -41,7 +41,7 @@ type BatchAddRelationshipButtonPopoverPropsT = {
   +isOpen: boolean,
   +popoverId: string,
   +releaseHasUnloadedTracks: boolean,
-  +sourceType: CoreEntityTypeT,
+  +sourceType: RelatableEntityTypeT,
 };
 
 const BatchAddRelationshipButtonPopover = ({
@@ -57,7 +57,7 @@ const BatchAddRelationshipButtonPopover = ({
 }: BatchAddRelationshipButtonPopoverPropsT) => {
   const addButtonRef = React.useRef<HTMLButtonElement | null>(null);
 
-  const sourcePlaceholder = createCoreEntityObject(sourceType, {
+  const sourcePlaceholder = createRelatableEntityObject(sourceType, {
     name: entityPlaceholder,
   });
 

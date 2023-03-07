@@ -94,14 +94,14 @@ export type PropsT = {
 export type InitialStateArgsT = {
   +formName: string,
   +seededRelationships: ?$ReadOnlyArray<SeededRelationshipT>,
-  +source?: CoreEntityT,
+  +source?: RelatableEntityT,
 };
 
 export function* getInitialRelationshipUpdates(
   relationships:
     | $ReadOnlyArray<RelationshipT>
     | $ReadOnlyArray<SeededRelationshipT>,
-  source: CoreEntityT,
+  source: RelatableEntityT,
 ): Generator<RelationshipUpdateT, void, void> {
   for (const relationshipData of relationships) {
     if (relationshipData.target_type === 'url') {
@@ -118,7 +118,7 @@ export function* getInitialRelationshipUpdates(
      * the source and target entity types are the same; see e.g. MBS-12850.
      */
     if (!isDatabaseRowId(target.id)) {
-      target = ({...target, id: uniqueNegativeId()}: CoreEntityT);
+      target = ({...target, id: uniqueNegativeId()}: RelatableEntityT);
     }
 
     const isExistingRelationship = isDatabaseRowId(relationshipData.id);
@@ -241,7 +241,7 @@ export function* getUpdatesForAcceptedRelationship(
     ...
   },
   newRelationshipState: RelationshipStateT,
-  source: CoreEntityT,
+  source: RelatableEntityT,
 ): Generator<RelationshipUpdateT, void, void> {
   const mergeAndYieldUpdates = function* (
     relationshipState: RelationshipStateT,

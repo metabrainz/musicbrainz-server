@@ -37,7 +37,7 @@ export default function* updateEntityCredits(
   sourceGroups: RelationshipSourceGroupsT,
   sourceRelationship: RelationshipStateT,
   creditsToChange: CreditChangeOptionT,
-  creditedEntity: CoreEntityT,
+  creditedEntity: RelatableEntityT,
   creditedName: string,
 ): Generator<RelationshipUpdateT, void, void> {
   const targetTypeGroups = findTargetTypeGroups(

@@ -122,6 +122,32 @@ declare type PartialDateStringsT = {
   +year?: string,
 };
 
+declare type NonUrlRelatableEntityT =
+  | CollectableEntityT
+  | GenreT;
+
+declare type RelatableEntityT =
+  | NonUrlRelatableEntityT
+  | UrlT;
+
+declare type NonUrlRelatableEntityTypeT =
+  | 'area'
+  | 'artist'
+  | 'event'
+  | 'genre'
+  | 'instrument'
+  | 'label'
+  | 'place'
+  | 'recording'
+  | 'release_group'
+  | 'release'
+  | 'series'
+  | 'work';
+
+declare type RelatableEntityTypeT =
+  | NonUrlRelatableEntityTypeT
+  | 'url';
+
 declare type TypeRoleT<T> = {
   +typeID: number | null,
   +typeName?: string,

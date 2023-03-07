@@ -32,7 +32,7 @@ import isRelationshipBackward from '../utility/isRelationshipBackward.js';
 
 function pushRelationshipHiddenInputs(
   formName: string,
-  source: CoreEntityT,
+  source: RelatableEntityT,
   relationship: RelationshipStateT,
   index: number,
   pushInput: (string, string, string) => void,

@@ -26,7 +26,7 @@ import {
   PART_OF_SERIES_LINK_TYPE_GIDS,
 } from '../../common/constants.js';
 import {
-  createNonUrlCoreEntityObject,
+  createNonUrlRelatableEntityObject,
 } from '../../common/entity2.js';
 import linkedEntities from '../../common/linkedEntities.mjs';
 import isDatabaseRowId from '../../common/utility/isDatabaseRowId.js';
@@ -53,7 +53,7 @@ type PropsT = {
   +backward: boolean,
   +dispatch: (DialogTargetEntityActionT) => void,
   +linkType: ?LinkTypeT,
-  +source: CoreEntityT,
+  +source: RelatableEntityT,
   +state: DialogTargetEntityStateT,
 };
 
@@ -66,7 +66,7 @@ const INCORRECT_SERIES_ENTITY_MESSAGES = {
   work: N_l('The series you’ve selected is for works.'),
 };
 
-export function isTargetSelectable(target: ?CoreEntityT): boolean %checks {
+export function isTargetSelectable(target: ?RelatableEntityT): boolean %checks {
   return target != null && (
     // `target` is placeholder entity in cases where only a name is set.
     isDatabaseRowId(target.id) ||
@@ -78,8 +78,8 @@ export function isTargetSelectable(target: ?CoreEntityT): boolean %checks {
 }
 
 export function getTargetError(
-  target: ?CoreEntityT,
-  source: CoreEntityT,
+  target: ?RelatableEntityT,
+  source: RelatableEntityT,
   linkType: ?LinkTypeT,
 ): string {
   if (!isTargetSelectable(target)) {
@@ -121,12 +121,12 @@ export function getTargetError(
 const returnFalse = () => false;
 
 export function createInitialAutocompleteStateForTarget(
-  target: NonUrlCoreEntityT,
+  target: NonUrlRelatableEntityT,
   relationshipId: number,
   allowedTypes: TargetTypeOptionsT | null,
-): AutocompleteStateT<NonUrlCoreEntityT> {
+): AutocompleteStateT<NonUrlRelatableEntityT> {
   const selectedEntity = isTargetSelectable(target) ? target : null;
-  return createInitialAutocompleteState<NonUrlCoreEntityT>({
+  return createInitialAutocompleteState<NonUrlRelatableEntityT>({
     canChangeType: allowedTypes ? (newType) => (
       allowedTypes.some(option => option.value === newType)
     ) : returnFalse,
@@ -149,7 +149,7 @@ export function createInitialAutocompleteStateForTarget(
 export function createInitialState(
   user: ActiveEditorT,
   releaseHasUnloadedTracks: boolean,
-  source: CoreEntityT,
+  source: RelatableEntityT,
   initialRelationship: RelationshipStateT,
   allowedTypes: TargetTypeOptionsT | null,
 ): DialogTargetEntityStateT {
@@ -191,8 +191,8 @@ const NEW_WORK_HASH = /#new-work-(-[0-9]+)\s*$/;
 
 function selectNewWork(
   newInputValue: string,
-  state: AutocompleteStateT<NonUrlCoreEntityT>,
-  selectItem: (OptionItemT<NonUrlCoreEntityT>) => boolean,
+  state: AutocompleteStateT<NonUrlRelatableEntityT>,
+  selectItem: (OptionItemT<NonUrlRelatableEntityT>) => boolean,
 ): boolean {
   const match = newInputValue.match(NEW_WORK_HASH);
   if (match) {
@@ -216,7 +216,7 @@ export function updateTargetAutocomplete(
 ): void {
   invariant(newState.autocomplete);
 
-  newState.autocomplete = autocompleteReducer<NonUrlCoreEntityT>(
+  newState.autocomplete = autocompleteReducer<NonUrlRelatableEntityT>(
     newState.autocomplete,
     action.action,
   );
@@ -247,7 +247,7 @@ export function reducer(
       newState.targetType = autocomplete.entityType;
 
       const newTarget = (autocomplete.selectedItem?.entity) ||
-        createNonUrlCoreEntityObject(newState.targetType, {
+        createNonUrlRelatableEntityObject(newState.targetType, {
           name: autocomplete.inputValue,
         });
 
@@ -290,7 +290,7 @@ export function reducer(
 
 // XXX Until Flow supports https://github.com/facebook/flow/issues/7672
 const TargetAutocomplete:
-  React$AbstractComponent<AutocompletePropsT<NonUrlCoreEntityT>, void> =
+  React$AbstractComponent<AutocompletePropsT<NonUrlRelatableEntityT>, void> =
   // $FlowIgnore[incompatible-type]
   Autocomplete2;
 
@@ -315,7 +315,7 @@ const DialogTargetEntity = (React.memo<PropsT>((
   }
 
   const autocompleteDispatch = React.useCallback((
-    action: AutocompleteActionT<NonUrlCoreEntityT>,
+    action: AutocompleteActionT<NonUrlRelatableEntityT>,
   ) => {
     dispatch({
       action,

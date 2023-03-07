@@ -40,7 +40,7 @@ function editorMayEditTypes(
 }
 
 const allowedRelations =
-  new Map<CoreEntityTypeT, Array<CoreEntityTypeT>>();
+  new Map<RelatableEntityTypeT, Array<RelatableEntityTypeT>>();
 
 function calculateAllowedRelations(user: ActiveEditorT) {
   const entityTypePairs = Object.keys(linkedEntities.link_type_tree);
@@ -49,7 +49,7 @@ function calculateAllowedRelations(user: ActiveEditorT) {
     const typeString = entityTypePairs[i];
     const [type0, type1] =
       // $FlowIgnore[incompatible-cast]
-      (typeString.split('-'): $ReadOnlyArray<CoreEntityTypeT>);
+      (typeString.split('-'): $ReadOnlyArray<RelatableEntityTypeT>);
 
     if (editorMayEditTypes(user, typeString)) {
       // Only allow URL as a source type.
@@ -78,7 +78,7 @@ function calculateAllowedRelations(user: ActiveEditorT) {
 }
 
 export function createTargetTypeOption(
-  type: CoreEntityTypeT,
+  type: RelatableEntityTypeT,
 ): TargetTypeOptionT {
   return {
     text: ENTITY_NAMES[type](),
@@ -88,13 +88,13 @@ export function createTargetTypeOption(
 
 export default function getTargetTypeOptions(
   user: ActiveEditorT,
-  sourceType: CoreEntityTypeT,
+  sourceType: RelatableEntityTypeT,
 ): TargetTypeOptionsT {
   if (!allowedRelations.size) {
     calculateAllowedRelations(user);
   }
 
-  const typeList: $ReadOnlyArray<CoreEntityTypeT> =
+  const typeList: $ReadOnlyArray<RelatableEntityTypeT> =
     allowedRelations.get(sourceType) ?? [];
 
   return typeList

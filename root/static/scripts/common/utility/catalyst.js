@@ -8,7 +8,7 @@
  */
 
 import {
-  createCoreEntityObject,
+  createRelatableEntityObject,
   createSeriesObject,
 } from '../entity2.js';
 
@@ -56,7 +56,7 @@ export function getSourceEntityDataForRelationshipEditor(): CoreEntityT {
         break;
       }
       default: {
-        source = createCoreEntityObject(
+        source = createRelatableEntityObject(
           source.entityType,
           {name: source.name ?? ''},
         );
