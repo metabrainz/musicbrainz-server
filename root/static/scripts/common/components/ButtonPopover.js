@@ -110,7 +110,7 @@ const ButtonPopover = (props: PropsT): React.MixedElement => {
         }
       }}
       ref={buttonRef}
-      title={buttonTitle == null ? null : unwrapNl(buttonTitle)}
+      title={buttonTitle == null ? null : unwrapNl<string>(buttonTitle)}
       type="button"
       {...customButtonProps}
     >
