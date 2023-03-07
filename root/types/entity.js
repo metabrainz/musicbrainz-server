@@ -117,6 +117,36 @@ declare type CoreEntityTypeT =
   | NonUrlCoreEntityTypeT
   | 'url';
 
+declare type EditableEntityT =
+  | AreaT
+  | ArtistT
+  | EventT
+  | GenreT
+  | InstrumentT
+  | LabelT
+  | PlaceT
+  | RecordingT
+  | ReleaseGroupT
+  | ReleaseT
+  | SeriesT
+  | UrlT
+  | WorkT;
+
+declare type EditableEntityTypeT =
+  | 'area'
+  | 'artist'
+  | 'event'
+  | 'genre'
+  | 'instrument'
+  | 'label'
+  | 'place'
+  | 'recording'
+  | 'release_group'
+  | 'release'
+  | 'series'
+  | 'url'
+  | 'work';
+
 declare type EntityWithArtistCreditsT =
   | RecordingT
   | ReleaseGroupT
