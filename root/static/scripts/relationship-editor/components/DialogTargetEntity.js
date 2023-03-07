@@ -66,7 +66,9 @@ const INCORRECT_SERIES_ENTITY_MESSAGES = {
   work: N_l('The series you’ve selected is for works.'),
 };
 
-export function isTargetSelectable(target: ?RelatableEntityT): boolean %checks {
+export function isTargetSelectable(
+  target: ?RelatableEntityT,
+): boolean %checks {
   return target != null && (
     // `target` is placeholder entity in cases where only a name is set.
     isDatabaseRowId(target.id) ||
