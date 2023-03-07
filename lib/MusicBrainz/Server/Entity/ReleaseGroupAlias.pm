@@ -5,6 +5,8 @@ use MusicBrainz::Server::Entity::Types;
 
 extends 'MusicBrainz::Server::Entity::Alias';
 
+with 'MusicBrainz::Server::Entity::Role::Type' => { model => 'ReleaseGroupAliasType' };
+
 sub entity_type { 'release_group_alias' }
 
 has 'release_group_id' => (

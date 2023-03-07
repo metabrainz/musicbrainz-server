@@ -12,7 +12,7 @@ import * as React from 'react';
 import AliasTableBody from './AliasTableBody.js';
 
 type Props = {
-  +aliases: $ReadOnlyArray<AliasT>,
+  +aliases: $ReadOnlyArray<AnyAiasT>,
   +allowEditing: boolean,
   +entity: EntityWithAliasesT,
 };
