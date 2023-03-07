@@ -295,11 +295,11 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
 
     for (const [action, items] of Object.entries(actions)) {
       const url = action + '?tags=' +
-        encodeURIComponent((items: any).map(x => x.tag.name).join(','));
+        encodeURIComponent(items.map(x => x.tag.name).join(','));
 
       doRequest({url: url})
         .done(data => this.updateTags(data.updates))
-        .fail(() => (items: any).forEach(x => x.fail()));
+        .fail(() => items.forEach(x => x.fail()));
     }
   }
 
