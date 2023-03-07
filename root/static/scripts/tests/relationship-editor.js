@@ -839,7 +839,7 @@ function getAddRelationshipAction(
 
 function addRelationships(
   rootState: RelationshipEditorStateT,
-  source: CoreEntityT,
+  source: RelatableEntityT,
   relationships: $ReadOnlyArray<RelationshipStateT>,
 ): RelationshipEditorStateT {
   let newState = rootState;
@@ -863,7 +863,7 @@ function addRelationshipsToRelease(
 
 function addRelationship(
   rootState: RelationshipEditorStateT,
-  source: CoreEntityT,
+  source: RelatableEntityT,
   relationship: RelationshipStateT,
 ): RelationshipEditorStateT {
   return reducer(
