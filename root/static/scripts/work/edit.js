@@ -168,8 +168,7 @@ class WorkAttribute {
     }), this, 'beforeChange');
 
     this.typeID.subscribe(newTypeID => {
-      // != is used intentionally for type coercion.
-      if (this.previousTypeID != newTypeID) { // eslint-disable-line eqeqeq
+      if (String(this.previousTypeID ?? '') !== String(newTypeID ?? '')) {
         // Don't blank text value if user e.g. misclicked and corrects type
         if (!(this.allowsFreeText(this.previousTypeID) &&
               this.allowsFreeText(newTypeID))) {
@@ -184,8 +183,7 @@ class WorkAttribute {
     }), this, 'beforeChange');
 
     this.attributeValue.subscribe(newValue => {
-      // != is used intentionally for type coercion.
-      if (this.previousValue != newValue) { // eslint-disable-line eqeqeq
+      if (String(this.previousValue ?? '') !== String(newValue ?? '')) {
         this.resetErrors();
       }
     });
