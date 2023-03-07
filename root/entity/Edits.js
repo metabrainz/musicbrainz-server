@@ -62,7 +62,6 @@ const Edits = ({
   const subHeadingTypeName = localizeTypeNameForEntity(entity);
   let pageSubHeading: Expand2ReactOutput = subHeadingTypeName;
   if (hasOwnProp(entity, 'artistCredit')) {
-    // $FlowIgnore[prop-missing] as per hasOwnProp above
     const artistCredit = entity.artistCredit;
     if (!artistCredit) {
       throw new Error(

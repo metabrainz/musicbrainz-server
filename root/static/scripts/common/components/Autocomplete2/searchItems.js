@@ -22,7 +22,6 @@ const itemIndexes:
   WeakMap<
     // $FlowIgnore[unclear-type]
     $ReadOnlyArray<ItemT<any>>,
-    // $FlowIgnore[unclear-type]
     Map<
       string, // gram
       // $FlowIgnore[unclear-type]

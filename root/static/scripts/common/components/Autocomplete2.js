@@ -457,7 +457,6 @@ const Autocomplete2 = (React.memo(<+T: EntityItemT>(
         const option = staticItems.find((item) => (
           item.type === 'option' &&
           hasOwnProp(item.entity, 'gid') &&
-          // $FlowIgnore[prop-missing]
           item.entity.gid === mbidMatch[0]
         ));
         if (option) {

@@ -117,7 +117,6 @@ export function* getInitialRelationshipUpdates(
      * the source and target entity types are the same; see e.g. MBS-12850.
      */
     if (!isDatabaseRowId(target.id)) {
-      // $FlowIssue[incompatible-cast] - Flow doesn't like spreading unions
       target = ({...target, id: uniqueNegativeId()}: CoreEntityT);
     }
 

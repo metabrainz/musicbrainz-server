@@ -215,7 +215,6 @@ $(function () {
         </div>
         <div>
           <h2>{'Attribute type autocomplete'}</h2>
-          {/* $FlowIssue[incompatible-use] */}
           <Autocomplete2
             dispatch={attributeTypeAutocompleteDispatch}
             state={state.attributeTypeAutocomplete}

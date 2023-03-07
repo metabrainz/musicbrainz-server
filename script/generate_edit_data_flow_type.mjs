@@ -92,7 +92,6 @@ yargs
   };
 
   const objectStrings = {
-    // $FlowIssue[prop-missing]
     [Symbol.asyncIterator]: createIterator,
     /*:: @@asyncIterator: createIterator, */
   };

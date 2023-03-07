@@ -217,7 +217,6 @@ export async function getOrFetchRecentItems<+T: EntityItemT>(
   if (ids.size) {
     const rowIds = _filterFakeIds(ids);
     if (rowIds.length) {
-      // $FlowIgnore[incompatible-return]
       return fetch(
         '/ws/js/entities/' +
         entityType + '/' +
@@ -238,7 +237,6 @@ export async function getOrFetchRecentItems<+T: EntityItemT>(
           const entity = results[id];
           if (entity && entity.entityType === entityType) {
             cachedList.push({
-              // $FlowIgnore[incompatible-return]
               entity,
               id: String(entity.id) + '-recent',
               name: getEntityName(entity),
@@ -266,7 +264,6 @@ export function pushRecentItem<+T: EntityItemT>(
   _recentItemsCache.set(key, cachedList);
 
   if (entityId == null) {
-    // $FlowIgnore[incompatible-return]
     return cachedList;
   }
 

@@ -60,7 +60,6 @@ const DescriptiveLink = ({
     ...sharedProps,
   };
 
-  // $FlowFixMe
   const artistCredit = customArtistCredit || entity.artistCredit;
 
   if (entity.entityType === 'area' && entity.gid) {

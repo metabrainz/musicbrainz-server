@@ -94,7 +94,6 @@ function _indexValue(
       }
       break;
     }
-    // $FlowIssue[illegal-typeof]
     case 'bigint':
     case 'function':
     case 'symbol':
