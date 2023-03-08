@@ -24,7 +24,6 @@ autoimports=true
 exact_by_default=true
 format.bracket_spacing=false
 format.single_quotes=true
-inference_mode=lti
 module.name_mapper.extension='less' -> '<PROJECT_ROOT>/root/flowstub.js.flow'
 react.runtime=automatic
 
