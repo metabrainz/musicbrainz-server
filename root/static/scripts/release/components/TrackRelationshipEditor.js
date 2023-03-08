@@ -525,7 +525,7 @@ const TrackRelationshipEditor = (React.memo<TrackRelationshipEditorPropsT>(({
       />
     </tr>
   );
-}): React.AbstractComponent<TrackRelationshipEditorPropsT>);
+}): React$AbstractComponent<TrackRelationshipEditorPropsT, mixed>);
 
 TrackRelationshipEditor.displayName = 'TrackRelationshipEditor';
 

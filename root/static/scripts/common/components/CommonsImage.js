@@ -56,4 +56,4 @@ export default (hydrate<Props>(
   'div.commons-image',
   CommonsImage,
   minimalEntity,
-): React.AbstractComponent<Props, void>);
+): React$AbstractComponent<Props, void>);

@@ -238,6 +238,6 @@ const DialogPreview = (React.memo<PropsT>(({
       ) : null}
     </>
   );
-}): React.AbstractComponent<PropsT>);
+}): React$AbstractComponent<PropsT, mixed>);
 
 export default DialogPreview;

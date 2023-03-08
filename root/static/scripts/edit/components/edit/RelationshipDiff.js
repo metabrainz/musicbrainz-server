@@ -223,6 +223,6 @@ const RelationshipDiff = (React.memo(({
       </tr>
     </>
   );
-}): React.AbstractComponent<Props, void>);
+}): React$AbstractComponent<Props, void>);
 
 export default RelationshipDiff;

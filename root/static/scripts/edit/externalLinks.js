@@ -1532,7 +1532,7 @@ export class ExternalLink extends React.Component<LinkProps> {
 }
 
 export const ExternalLinksEditor:
-  React.AbstractComponent<LinksEditorProps, _ExternalLinksEditor> =
+  React$AbstractComponent<LinksEditorProps, _ExternalLinksEditor> =
   withLoadedTypeInfo<LinksEditorProps, _ExternalLinksEditor>(
     _ExternalLinksEditor,
     new Set(['link_type', 'link_attribute_type']),

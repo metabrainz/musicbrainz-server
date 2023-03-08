@@ -238,4 +238,4 @@ const ReleaseMergeStrategy = ({
 export default (hydrate<Props>(
   'div.release-merge-strategy',
   ReleaseMergeStrategy,
-): React.AbstractComponent<Props, void>);
+): React$AbstractComponent<Props, void>);

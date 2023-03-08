@@ -43,7 +43,7 @@ function getSeriesType(typeId: number | null): SeriesTypeT | null {
 }
 
 let SeriesRelationshipEditor:
-  React.AbstractComponent<PropsT, void> =
+  React$AbstractComponent<PropsT, void> =
 (props: PropsT) => {
   const [state, dispatch] = React.useReducer(
     reducer,

@@ -119,7 +119,7 @@ type WorkLanguageMultiselectPropsT = {
 const LanguageMultiselect = (
   // $FlowIgnore
   Multiselect:
-    React.AbstractComponent<
+    React$AbstractComponent<
       MultiselectPropsT<
         LanguageT,
         MultiselectLanguageValueStateT,

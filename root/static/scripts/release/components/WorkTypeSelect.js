@@ -30,7 +30,7 @@ type WorkTypeSelectPropsT = {
   +workType: number | null,
 };
 
-const WorkTypeSelect: React.AbstractComponent<
+const WorkTypeSelect: React$AbstractComponent<
   WorkTypeSelectPropsT,
   mixed,
 > = React.memo<WorkTypeSelectPropsT>(({

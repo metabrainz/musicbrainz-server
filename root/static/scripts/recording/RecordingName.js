@@ -68,4 +68,4 @@ export const RecordingName = ({
 export default (hydrate<Props>(
   'div.recording-name',
   RecordingName,
-): React.AbstractComponent<Props, void>);
+): React$AbstractComponent<Props, void>);

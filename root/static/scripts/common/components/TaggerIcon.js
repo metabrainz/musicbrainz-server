@@ -90,5 +90,5 @@ export default (
   hydrate<Props>(
     'span.tagger-icon',
     TaggerIcon,
-  ): React.AbstractComponent<Props, void>
+  ): React$AbstractComponent<Props, void>
 );

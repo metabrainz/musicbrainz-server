@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import setCookie from '../../common/utility/setCookie.js';
 
 type Props = {
@@ -44,5 +42,5 @@ export default (
   hydrate<Props>(
     'span.new-notes-alert-checkbox',
     NewNotesAlertCheckbox,
-  ): React.AbstractComponent<Props, void>
+  ): React$AbstractComponent<Props, void>
 );

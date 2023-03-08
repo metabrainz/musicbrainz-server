@@ -118,4 +118,4 @@ const FingerprintTable = ({recording}: {recording: RecordingT}) => {
 export default (hydrate<{recording: RecordingT}>(
   'div.acoustid-fingerprints',
   FingerprintTable,
-): React.AbstractComponent<{recording: RecordingT}, void>);
+): React$AbstractComponent<{recording: RecordingT}, void>);

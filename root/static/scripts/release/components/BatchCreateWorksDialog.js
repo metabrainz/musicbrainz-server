@@ -306,4 +306,4 @@ export const BatchCreateWorksButtonPopover = (React.memo<
       }
     />
   );
-}): React.AbstractComponent<BatchCreateWorksButtonPopoverPropsT, mixed>);
+}): React$AbstractComponent<BatchCreateWorksButtonPopoverPropsT, mixed>);

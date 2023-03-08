@@ -95,7 +95,7 @@ type EditWorkDialogPropsT = {
   +work: WorkT,
 };
 
-const EditWorkDialog: React.AbstractComponent<
+const EditWorkDialog: React$AbstractComponent<
   EditWorkDialogPropsT,
   mixed,
 > = React.memo<

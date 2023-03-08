@@ -84,6 +84,6 @@ const GuessCaseOptionsPopover = (React.memo(({
       toggle={toggle}
     />
   );
-}): React.AbstractComponent<Props, void>);
+}): React$AbstractComponent<Props, void>);
 
 export default GuessCaseOptionsPopover;

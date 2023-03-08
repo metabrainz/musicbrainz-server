@@ -318,4 +318,4 @@ const ArtistCreditRenamer = ({
 export default (hydrate<ArtistCreditRenamerPropsT>(
   'div.artist-credit-renamer',
   ArtistCreditRenamer,
-): React.AbstractComponent<ArtistCreditRenamerPropsT, void>);
+): React$AbstractComponent<ArtistCreditRenamerPropsT, void>);

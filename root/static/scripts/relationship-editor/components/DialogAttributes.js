@@ -477,6 +477,6 @@ const DialogAttributes = (React.memo<PropsT>(({
       ))}
     </>
   );
-}): React.AbstractComponent<PropsT>);
+}): React$AbstractComponent<PropsT, mixed>);
 
 export default DialogAttributes;

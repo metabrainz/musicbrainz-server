@@ -57,7 +57,7 @@ export const ToggleAllMediumsButtons = (React.memo<
       {l('Collapse all mediums')}
     </button>
   </>
-)): React.AbstractComponent<ToggleAllMediumsButtonsPropsT>);
+)): React$AbstractComponent<ToggleAllMediumsButtonsPropsT, mixed>);
 
 type MediumToolboxPropsT = {
   +creditsMode: CreditsModeT,
@@ -93,6 +93,6 @@ const MediumToolbox = (React.memo<MediumToolboxPropsT>(({
         : l('Display Credits at Bottom')}
     </button>
   </span>
-)): React.AbstractComponent<MediumToolboxPropsT>);
+)): React$AbstractComponent<MediumToolboxPropsT, mixed>);
 
 export default MediumToolbox;

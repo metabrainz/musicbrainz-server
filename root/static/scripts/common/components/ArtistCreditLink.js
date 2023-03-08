@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import informationIconUrl from '../../../images/icons/information.png';
 import Tooltip from '../../edit/components/Tooltip.js';
 
@@ -60,7 +58,7 @@ export const MpIcon = (hydrate<MpIconProps>('span.ac-mp', (
       }
     />
   );
-}): React.AbstractComponent<MpIconProps, void>);
+}): React$AbstractComponent<MpIconProps, void>);
 
 const ArtistCreditLink = ({
   artistCredit,

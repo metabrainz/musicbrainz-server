@@ -222,6 +222,6 @@ const DialogEntityCredit = (React.memo<PropsT, void>(({
       {changeCreditsSection}
     </div>
   );
-}): React.AbstractComponent<PropsT, void>);
+}): React$AbstractComponent<PropsT, void>);
 
 export default DialogEntityCredit;

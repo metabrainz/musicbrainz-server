@@ -140,6 +140,6 @@ const DialogSourceEntity = (React.memo<PropsT>(({
       </td>
     </tr>
   );
-}): React.AbstractComponent<PropsT>);
+}): React$AbstractComponent<PropsT, mixed>);
 
 export default DialogSourceEntity;

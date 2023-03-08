@@ -311,7 +311,7 @@ const RelationshipItem = (React.memo<PropsT>(({
       ) : null}
     </>
   );
-}): React.AbstractComponent<PropsT>);
+}): React$AbstractComponent<PropsT, mixed>);
 
 function getRelationshipStyling(relationship: RelationshipStateT) {
   return 'rel-' + getRelationshipStatusName(relationship);

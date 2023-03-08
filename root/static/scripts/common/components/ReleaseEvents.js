@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import formatDate from '../utility/formatDate.js';
 import isDateEmpty from '../utility/isDateEmpty.js';
 
@@ -103,4 +101,4 @@ const ReleaseEvents = ({
 export default (hydrate<ReleaseEventsProps>(
   'div.release-events-container',
   ReleaseEvents,
-): React.AbstractComponent<ReleaseEventsProps, void>);
+): React$AbstractComponent<ReleaseEventsProps, void>);

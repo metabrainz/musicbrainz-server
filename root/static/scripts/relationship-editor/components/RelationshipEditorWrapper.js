@@ -35,7 +35,7 @@ import RelationshipEditor, {
 type PropsT = InitialStateArgsT;
 
 let RelationshipEditorWrapper:
-  React.AbstractComponent<PropsT, void> =
+  React$AbstractComponent<PropsT, void> =
 (props: PropsT) => {
   const [state, dispatch] = React.useReducer(
     reducer,

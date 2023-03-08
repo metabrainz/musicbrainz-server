@@ -96,4 +96,4 @@ const PostParameters = ({
 export default (hydrate(
   'div.post-parameters',
   PostParameters,
-): React.AbstractComponent<PropsT, void>);
+): React$AbstractComponent<PropsT, void>);

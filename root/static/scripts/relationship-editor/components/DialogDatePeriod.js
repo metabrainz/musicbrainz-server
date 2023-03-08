@@ -116,6 +116,6 @@ const DialogDatePeriod = (React.memo<PropsT>(({
       ) : null}
     </>
   );
-}): React.AbstractComponent<PropsT>);
+}): React$AbstractComponent<PropsT, mixed>);
 
 export default DialogDatePeriod;

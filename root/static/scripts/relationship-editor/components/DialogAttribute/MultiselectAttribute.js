@@ -219,7 +219,7 @@ const MultiselectAttribute = (React.memo<PropsT>(({
   const LinkAttrTypeMultiselect = (
     // $FlowIgnore
     Multiselect:
-      React.AbstractComponent<
+      React$AbstractComponent<
         MultiselectPropsT<
           LinkAttrTypeT,
           DialogMultiselectAttributeValueStateT,
@@ -239,6 +239,6 @@ const MultiselectAttribute = (React.memo<PropsT>(({
       state={state}
     />
   );
-}): React.AbstractComponent<PropsT, mixed>);
+}): React$AbstractComponent<PropsT, mixed>);
 
 export default MultiselectAttribute;
