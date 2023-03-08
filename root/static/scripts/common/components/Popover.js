@@ -48,7 +48,7 @@ type PropsT = {
   +id: string,
 };
 
-const Popover = (props: PropsT): React.Portal => {
+const Popover = (props: PropsT): React$Portal => {
   const {
     buildChildren,
     buttonRef,
