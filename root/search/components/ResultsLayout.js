@@ -16,7 +16,7 @@ import formatUserDate from '../../utility/formatUserDate.js';
 import SearchForm from './SearchForm.js';
 
 type Props = {
-  +children: React.Node,
+  +children: React$Node,
   +form: SearchFormT,
   +lastUpdated?: string,
 };

@@ -12,7 +12,7 @@ import * as React from 'react';
 import Tooltip from './Tooltip.js';
 
 type PropsT = {
-  +content: React.Node,
+  +content: React$Node,
 };
 
 const ICON_STYLE = {

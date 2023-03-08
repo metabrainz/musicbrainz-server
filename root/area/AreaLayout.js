@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import AreaSidebar from '../layout/components/sidebar/AreaSidebar.js';
 import Layout from '../layout/index.js';
 import localizeAreaName
@@ -17,7 +15,7 @@ import localizeAreaName
 import AreaHeader from './AreaHeader.js';
 
 type Props = {
-  +children: React.Node,
+  +children: React$Node,
   +entity: AreaT,
   +fullWidth?: boolean,
   +page: string,

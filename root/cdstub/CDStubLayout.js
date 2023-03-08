@@ -7,15 +7,13 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import CDStubSidebar from '../layout/components/sidebar/CDStubSidebar.js';
 import Layout from '../layout/index.js';
 
 import CDStubHeader from './CDStubHeader.js';
 
 type Props = {
-  +children: React.Node,
+  +children: React$Node,
   +entity: CDStubT,
   +fullWidth?: boolean,
   +page: string,

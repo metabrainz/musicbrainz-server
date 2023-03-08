@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import Layout from '../layout/index.js';
 import EditorLink from '../static/scripts/common/components/EditorLink.js';
 import sanitizedEditor from '../utility/sanitizedEditor.mjs';
@@ -31,7 +29,7 @@ export type AccountLayoutUserT = {
 };
 
 type Props = {
-  +children: React.Node,
+  +children: React$Node,
   +entity: AccountLayoutUserT,
   +page: string,
   +title?: string,

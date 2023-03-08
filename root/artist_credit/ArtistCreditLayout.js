@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import Tabs from '../components/Tabs.js';
 import Layout from '../layout/index.js';
 import ArtistCreditUsageLink
@@ -18,7 +16,7 @@ import {reduceArtistCredit}
 
 type Props = {
   +artistCredit: $ReadOnly<{...ArtistCreditT, +id: number}>,
-  +children: React.Node,
+  +children: React$Node,
   +page: string,
   +title?: string,
 };

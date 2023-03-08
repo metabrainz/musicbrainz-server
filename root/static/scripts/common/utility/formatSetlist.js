@@ -51,7 +51,7 @@ export default function formatSetlist(
   setlistText: string,
 ): Expand2ReactOutput {
   const rawLines = setlistText.split(/(?:\r\n|\n\r|\r|\n)/);
-  const elements: Array<React.Node> = [];
+  const elements: Array<React$Node> = [];
 
   for (const rawLine of rawLines) {
     if (empty(rawLine)) {

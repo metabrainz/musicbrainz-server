@@ -7,9 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
-type Props = {+subHeading: React.Node};
+type Props = {+subHeading: React$Node};
 
 const SubHeader = ({subHeading}: Props): React$Element<'p'> => (
   <p className="subheader">

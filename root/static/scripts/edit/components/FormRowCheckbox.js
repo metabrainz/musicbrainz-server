@@ -7,15 +7,13 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import FieldErrors from './FieldErrors.js';
 import FormRow from './FormRow.js';
 
 type CommonProps = {
   +disabled?: boolean,
   +field: ReadOnlyFieldT<boolean>,
-  +help?: React.Node,
+  +help?: React$Node,
   +label: string,
 };
 

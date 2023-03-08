@@ -16,8 +16,8 @@ import {unwrapNl} from '../i18n.js';
 import Popover from './Popover.js';
 
 type PropsT = {
-  +buildChildren: (() => void) => React.Node,
-  +buttonContent: React.Node,
+  +buildChildren: (() => void) => React$Node,
+  +buttonContent: React$Node,
   +buttonProps?: {
     className?: string,
     id?: string,

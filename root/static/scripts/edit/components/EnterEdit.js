@@ -10,7 +10,7 @@
 import * as React from 'react';
 
 type CommonProps = {
-  +children?: React.Node,
+  +children?: React$Node,
   +disabled?: boolean,
   +form: ReadOnlyFormT<{
     +make_votable: ReadOnlyFieldT<boolean>,

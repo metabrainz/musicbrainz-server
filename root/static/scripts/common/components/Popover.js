@@ -40,7 +40,7 @@ const POPPER_OPTIONS = {
 };
 
 type PropsT = {
-  +buildChildren: (() => void) => React.Node,
+  +buildChildren: (() => void) => React$Node,
   +buttonRef: {current: HTMLButtonElement | null},
   +className?: string,
   +closeAndReturnFocus: () => void,

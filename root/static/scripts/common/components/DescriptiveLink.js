@@ -8,7 +8,6 @@
  */
 
 import ko from 'knockout';
-import * as React from 'react';
 
 import AreaWithContainmentLink from './AreaWithContainmentLink.js';
 import ArtistCreditLink from './ArtistCreditLink.js';
@@ -42,7 +41,7 @@ const DescriptiveLink = ({
   showIcon = false,
   subPath,
   target,
-}: DescriptiveLinkProps): Expand2ReactOutput | React.Node => {
+}: DescriptiveLinkProps): Expand2ReactOutput | React$Node => {
   const sharedProps = {
     showDisambiguation,
     showEditsPending,

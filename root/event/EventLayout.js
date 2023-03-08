@@ -7,15 +7,13 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import EventSidebar from '../layout/components/sidebar/EventSidebar.js';
 import Layout from '../layout/index.js';
 
 import EventHeader from './EventHeader.js';
 
 type Props = {
-  +children: React.Node,
+  +children: React$Node,
   +entity: EventT,
   +fullWidth?: boolean,
   +page: string,

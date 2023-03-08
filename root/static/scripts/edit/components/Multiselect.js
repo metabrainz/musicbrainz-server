@@ -46,7 +46,7 @@ export type MultiselectValuePropsT<
   V: AutocompleteEntityItemT,
   VS: MultiselectValueStateT<V>,
 > = {
-  +buildExtraChildren?: ($Exact<VS>) => React.Node,
+  +buildExtraChildren?: ($Exact<VS>) => React$Node,
   +dispatch: (MultiselectActionT<V>) => void,
   +state: $Exact<VS>,
 };
@@ -66,7 +66,7 @@ export type MultiselectPropsT<
   S: MultiselectStateT<V, VS>,
 > = {
   +addLabel: string,
-  +buildExtraValueChildren?: ($Exact<VS>) => React.Node,
+  +buildExtraValueChildren?: ($Exact<VS>) => React$Node,
   +dispatch: (MultiselectActionT<V>) => void,
   +state: $Exact<S>,
 };

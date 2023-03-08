@@ -15,7 +15,7 @@ import {formatCount} from '../statistics/utilities.js';
 import Paginator from './Paginator.js';
 
 type Props = {
-  +children: React.Node,
+  +children: React$Node,
   +guessSearch?: boolean,
   +pager: PagerT,
   +pageVar?: 'apps_page' | 'page' | 'tokens_page',

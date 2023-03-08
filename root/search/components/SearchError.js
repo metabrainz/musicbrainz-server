@@ -7,15 +7,13 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import StatusPage from '../../components/StatusPage.js';
 import TagLookupForm from '../../taglookup/Form.js';
 
 import SearchForm from './SearchForm.js';
 
 type Props = {
-  +children: React.Node,
+  +children: React$Node,
   +form: SearchFormT | TagLookupFormT,
 };
 

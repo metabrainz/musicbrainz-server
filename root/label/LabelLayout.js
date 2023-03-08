@@ -7,15 +7,13 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import LabelSidebar from '../layout/components/sidebar/LabelSidebar.js';
 import Layout from '../layout/index.js';
 
 import LabelHeader from './LabelHeader.js';
 
 type Props = {
-  +children: React.Node,
+  +children: React$Node,
   +entity: LabelT,
   +fullWidth?: boolean,
   +page: string,

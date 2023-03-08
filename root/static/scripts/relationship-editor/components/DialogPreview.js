@@ -121,7 +121,7 @@ const DialogPreview = (React.memo<PropsT>(({
   const relationshipPreview = (
     relationship: RelationshipStateT,
     className: string,
-    extraRows?: React.Node,
+    extraRows?: React$Node,
   ) => {
     const fullClassName = 'preview details' +
       (className ? ' ' + className : '');

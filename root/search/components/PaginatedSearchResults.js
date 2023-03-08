@@ -15,8 +15,8 @@ import uriWith from '../../utility/uriWith.js';
 import {type SearchResultT} from '../types.js';
 
 type Props<T> = {
-  +buildResult: (SearchResultT<T>, number) => React.Node,
-  +columns: React.Node,
+  +buildResult: (SearchResultT<T>, number) => React$Node,
+  +columns: React$Node,
   +pager: PagerT,
   +query: string,
   +results: $ReadOnlyArray<SearchResultT<T>>,

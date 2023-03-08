@@ -112,7 +112,7 @@ function generateUserTypesList(
 }
 
 type UserProfilePropertyProps = {
-  +children: React.Node,
+  +children: React$Node,
   +className?: string,
   +name: string,
 };

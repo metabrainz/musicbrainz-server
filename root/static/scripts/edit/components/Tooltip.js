@@ -15,8 +15,8 @@
 import * as React from 'react';
 
 type TooltipProps = {
-  +content: React.Node,
-  +target: React.Node,
+  +content: React$Node,
+  +target: React$Node,
 };
 
 const Tooltip = ({

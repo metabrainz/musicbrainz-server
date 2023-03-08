@@ -10,7 +10,7 @@
 import * as React from 'react';
 
 type SidebarPropertyProps = {
-  +children: React.Node,
+  +children: React$Node,
   +className: string,
   +label: string,
 };
@@ -29,7 +29,7 @@ export const SidebarProperty = ({
 );
 
 type SidebarPropertiesProps = {
-  +children: React.Node,
+  +children: React$Node,
   +className?: string,
 };
 

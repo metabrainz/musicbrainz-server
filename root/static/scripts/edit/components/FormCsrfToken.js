@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 type PropsT = {
   +form: ReadOnlyFormT<{
     +csrf_session_key?: ReadOnlyFieldT<string>,
@@ -17,7 +15,7 @@ type PropsT = {
   }>,
 };
 
-const FormCsrfToken = ({form}: PropsT): React.Node => {
+const FormCsrfToken = ({form}: PropsT): React$Node => {
   const sessionKeyField = form.field.csrf_session_key;
   const tokenField = form.field.csrf_token;
   return (sessionKeyField && tokenField) ? (

@@ -116,7 +116,7 @@ const FooterSwitch = ({
       return (
         <>
           {' ('}
-          {links.reduce((accum: Array<React.Node>, link, index) => {
+          {links.reduce((accum: Array<React$Node>, link, index) => {
             accum.push(link);
             if (index < (links.length - 1)) {
               accum.push(' / ');
