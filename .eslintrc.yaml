@@ -375,6 +375,5 @@ rules:
       ["^\\.\\.(?!/?$)", "^\\.\\./?$"],
       # Other relative imports. Put same-folder imports and `.` last.
       ["^\\./(?=.*/)(?!/?$)", "^\\.(?!/?$)", "^\\./?$"],
-    ],
-  }]
+    ]}]
   simple-import-sort/exports: warn
