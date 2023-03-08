@@ -11,7 +11,7 @@ import * as React from 'react';
 import type {ColumnOptionsNoValue} from 'react-table';
 
 import PaginatedResults from '../../components/PaginatedResults.js';
-import Table from '../../components/Table.js';
+import useTable from '../../hooks/useTable.js';
 import * as manifest from '../../static/manifest.mjs';
 import {
   defineArtistRolesColumn,
@@ -20,7 +20,6 @@ import {
   defineLocationColumn,
   defineTextColumn,
 } from '../../utility/tableColumns.js';
-import type {ReportEventT} from '../types.js';
 
 type Props<D: {+event: ?EventT, ...}> = {
   +columnsAfter?: $ReadOnlyArray<ColumnOptionsNoValue<D>>,
@@ -35,7 +34,10 @@ const EventList = <D: {+event: ?EventT, ...}>({
   items,
   pager,
 }: Props<D>): React.Element<typeof PaginatedResults> => {
-  const existingEventItems = items.reduce((result, item) => {
+  const existingEventItems = items.reduce((
+    result: Array<D>,
+    item,
+  ) => {
     if (item.event != null) {
       result.push(item);
     }
@@ -44,13 +46,13 @@ const EventList = <D: {+event: ?EventT, ...}>({
 
   const columns = React.useMemo(
     () => {
-      const nameColumn = defineEntityColumn<ReportEventT>({
+      const nameColumn = defineEntityColumn<D>({
         columnName: 'event',
         descriptive: false, // since dates have their own column
         getEntity: result => result.event ?? null,
         title: l('Event'),
       });
-      const typeColumn = defineTextColumn<ReportEventT>({
+      const typeColumn = defineTextColumn<D>({
         columnName: 'type',
         getText: result => {
           const typeName = result.event?.typeName;
@@ -61,20 +63,20 @@ const EventList = <D: {+event: ?EventT, ...}>({
         },
         title: l('Type'),
       });
-      const artistsColumn = defineArtistRolesColumn<ReportEventT>({
+      const artistsColumn = defineArtistRolesColumn<D>({
         columnName: 'performers',
         getRoles: result => result.event?.performers ?? [],
         title: l('Artists'),
       });
-      const locationColumn = defineLocationColumn<ReportEventT>({
+      const locationColumn = defineLocationColumn<D>({
         getEntity: result => result.event ?? null,
       });
-      const timeColumn = defineTextColumn<ReportEventT>({
+      const timeColumn = defineTextColumn<D>({
         columnName: 'time',
         getText: result => result.event?.time ?? '',
         title: l('Time'),
       });
-      const dateColumn = defineDatePeriodColumn<ReportEventT>({
+      const dateColumn = defineDatePeriodColumn<D>({
         getEntity: result => result.event ?? null,
       });
 
@@ -92,9 +94,11 @@ const EventList = <D: {+event: ?EventT, ...}>({
     [columnsAfter, columnsBefore],
   );
 
+  const table = useTable<D>({columns, data: existingEventItems});
+
   return (
     <PaginatedResults pager={pager}>
-      <Table columns={columns} data={existingEventItems} />
+      {table}
       {manifest.js('common/components/ArtistRoles', {async: 'async'})}
     </PaginatedResults>
   );

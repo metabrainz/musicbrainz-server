@@ -76,7 +76,6 @@ const Ratings = ({
               ) : null}
               {l('Average rating:')}
               {' '}
-              {/* $FlowIgnore[prop-missing] we know it has ratings */}
               <StaticRatingStars rating={entity.rating} />
             </>
           ) : (
@@ -92,7 +91,6 @@ const Ratings = ({
         <>
           <h2>{l('Reviews')}</h2>
 
-          {/* $FlowIgnore[incompatible-type] we know it has reviews */}
           <CritiqueBrainzLinks entity={entity} />
           <div id="critiquebrainz-reviews">
             {mostRecentReview ? (

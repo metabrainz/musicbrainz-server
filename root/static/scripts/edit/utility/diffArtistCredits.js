@@ -57,8 +57,8 @@ export default function diffArtistCredits(
     areArtistCreditNamesEqual,
   );
 
-  const oldNames = [];
-  const newNames = [];
+  const oldNames: Array<React.Node> = [];
+  const newNames: Array<React.Node> = [];
 
   for (let i = 0; i < diffs.length; i++) {
     const diff = diffs[i];

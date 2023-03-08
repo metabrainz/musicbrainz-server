@@ -53,12 +53,12 @@ const attributeTypeOptions = (
   let level = 0;
   let parentId = type.parent_id;
   let parentType =
-    parentId == null ? null : attributeTypesById.get(parentId);
+    parentId == null ? null : attributeTypesById.get(String(parentId));
   while (parentType) {
     level++;
     parentId = parentType.parent_id;
     parentType =
-      parentId == null ? null : attributeTypesById.get(parentId);
+      parentId == null ? null : attributeTypesById.get(String(parentId));
   }
   return {
     entity: type,
@@ -160,7 +160,9 @@ $(function () {
       createInitialState,
     );
 
-    const entityAutocompleteDispatch = React.useCallback((action) => {
+    const entityAutocompleteDispatch = React.useCallback((
+      action: AutocompleteActionT<NonUrlCoreEntityT>,
+    ) => {
       dispatch({
         action,
         prop: 'entityAutocomplete',
@@ -168,7 +170,9 @@ $(function () {
       });
     }, []);
 
-    const attributeTypeAutocompleteDispatch = React.useCallback((action) => {
+    const attributeTypeAutocompleteDispatch = React.useCallback((
+      action: AutocompleteActionT<LinkAttrTypeT>,
+    ) => {
       dispatch({
         action,
         prop: 'attributeTypeAutocomplete',
@@ -211,7 +215,6 @@ $(function () {
         </div>
         <div>
           <h2>{'Attribute type autocomplete'}</h2>
-          {/* $FlowIssue[incompatible-use] */}
           <Autocomplete2
             dispatch={attributeTypeAutocompleteDispatch}
             state={state.attributeTypeAutocomplete}

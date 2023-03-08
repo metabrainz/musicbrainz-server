@@ -54,7 +54,7 @@ export function createInitialState(
   const newState = {
     max: null,
     staticItems: languageOptions,
-    values: [],
+    values: ([]: Array<MultiselectLanguageValueStateT>),
   };
   if (initialLanguages?.length) {
     for (const language of initialLanguages) {
@@ -94,7 +94,7 @@ export function createSelectedLanguageValue(
 }
 
 export function createEmptyLanguageValue(
-  newState: {...MultiselectLanguageStateT},
+  newState: {...MultiselectLanguageStateT, ...},
 ): MultiselectLanguageValueStateT {
   return createSelectedLanguageValue(newState.staticItems, null);
 }

@@ -41,7 +41,7 @@ export function compactMap<T, U>(
   array: $ReadOnlyArray<T>,
   func: (T) => ?U,
 ): $ReadOnlyArray<U> {
-  return array.reduce(function (result, item) {
+  return array.reduce(function (result: Array<U>, item) {
     const mappedValue = func(item);
     /*
      * The Flow lint is disabled because we intend to

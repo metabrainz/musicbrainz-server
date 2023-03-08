@@ -13,6 +13,7 @@ import * as flags from '../../flags.js';
 
 import GuessCaseAreaHandler from './Handler/Area.js';
 import GuessCaseArtistHandler from './Handler/Artist.js';
+import GuessCaseHandler from './Handler/Base.js';
 import GuessCaseLabelHandler from './Handler/Label.js';
 import GuessCasePlaceHandler from './Handler/Place.js';
 import GuessCaseReleaseHandler from './Handler/Release.js';
@@ -108,12 +109,15 @@ class GuessCase {
 
   // Member functions
 
-  guess(handlerName: string, method: string): (string) => string {
+  guess(
+    handlerName: string,
+    method: 'process' | 'guessSortName',
+  ): (string) => string {
     if (handlerName === 'genre' || handlerName === 'instrument') {
       return ((inputString) => this.lowercaseEntityName(inputString));
     }
 
-    let handler;
+    let handler: GuessCaseHandler;
     const handlerPicker = {
       area: GuessCaseAreaHandler,
       artist: GuessCaseArtistHandler,
@@ -148,6 +152,8 @@ class GuessCase {
       const output = handler.isSpecialCase(num)
         ? handler.getSpecialCaseFormatted(inputString, num)
         // if it was not a special case, start guessing
+        // eslint-disable-next-line multiline-comment-style
+        // $FlowIgnore[prop-missing]
         : handler[method].apply(handler, arguments);
 
       return output;

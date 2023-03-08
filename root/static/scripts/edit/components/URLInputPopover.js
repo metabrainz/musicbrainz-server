@@ -25,7 +25,7 @@ type PropsT = {
 };
 
 const URLInputPopover = (props: PropsT): React.MixedElement => {
-  const popoverButtonRef = React.useRef(null);
+  const popoverButtonRef = React.useRef<HTMLButtonElement | null>(null);
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
   const [link, setLink] = React.useState<LinkRelationshipT>(props.link);
 

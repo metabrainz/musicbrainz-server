@@ -10,7 +10,7 @@
 import * as React from 'react';
 
 import PaginatedResults from '../../components/PaginatedResults.js';
-import Table from '../../components/Table.js';
+import useTable from '../../hooks/useTable.js';
 import {
   defineArtistCreditColumn,
   defineCDTocColumn,
@@ -27,7 +27,10 @@ const CDTocReleaseList = ({
   items,
   pager,
 }: Props): React.Element<typeof PaginatedResults> => {
-  const existingCDTocItems = items.reduce((result, item) => {
+  const existingCDTocItems = items.reduce((
+    result: Array<ReportCDTocReleaseT>,
+    item,
+  ) => {
     if (item.cdtoc != null) {
       result.push(item);
     }
@@ -61,9 +64,14 @@ const CDTocReleaseList = ({
     [],
   );
 
+  const table = useTable<ReportCDTocReleaseT>({
+    columns,
+    data: existingCDTocItems,
+  });
+
   return (
     <PaginatedResults pager={pager}>
-      <Table columns={columns} data={existingCDTocItems} />
+      {table}
     </PaginatedResults>
   );
 };

@@ -10,6 +10,7 @@
 import * as React from 'react';
 
 import {CatalystContext} from '../../context.mjs';
+import useTable from '../../hooks/useTable.js';
 import {groupBy} from '../../static/scripts/common/utility/arrays.js';
 import parseDate from '../../static/scripts/common/utility/parseDate.js';
 import releaseGroupType from '../../utility/releaseGroupType.js';
@@ -23,7 +24,6 @@ import {
   defineTextColumn,
   removeFromMergeColumn,
 } from '../../utility/tableColumns.js';
-import Table from '../Table.js';
 
 type ReleaseGroupListTableProps = {
   ...SeriesItemNumbersRoleT,
@@ -55,7 +55,7 @@ export const ReleaseGroupListTable = ({
   showRatings = false,
   showType = true,
   sortable,
-}: ReleaseGroupListTableProps): React.Element<typeof Table> => {
+}: ReleaseGroupListTableProps): React.Element<'table'> => {
   const $c = React.useContext(CatalystContext);
 
   function getFirstReleaseYear(entity: ReleaseGroupT) {
@@ -140,13 +140,11 @@ export const ReleaseGroupListTable = ({
     ],
   );
 
-  return (
-    <Table
-      className="release-group-list"
-      columns={columns}
-      data={releaseGroups}
-    />
-  );
+  return useTable<ReleaseGroupT>({
+    className: 'release-group-list',
+    columns,
+    data: releaseGroups,
+  });
 };
 
 const ReleaseGroupList = ({
@@ -157,7 +155,7 @@ const ReleaseGroupList = ({
   seriesItemNumbers,
   showRatings,
   sortable,
-}: ReleaseGroupListProps): Array<React$Node> => {
+}: ReleaseGroupListProps): Array<React.Element<typeof React.Fragment>> => {
   const groupedReleaseGroups = groupBy(releaseGroups, x => x.typeName ?? '');
   const tables = [];
   for (const [type, releaseGroupsOfType] of groupedReleaseGroups) {

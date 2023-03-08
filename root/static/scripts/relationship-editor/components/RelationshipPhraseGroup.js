@@ -95,7 +95,7 @@ const RelationshipPhraseGroup = (React.memo<PropsT>(({
 
   const buildNewRelationshipData = React.useCallback(() => {
     let maxLinkOrder = 0;
-    let newAttributesData = null;
+    let newAttributesData: tree.ImmutableTree<LinkAttrT> | null = null;
 
     for (const relationship of tree.iterate(relationships)) {
       if (canBeOrdered) {
@@ -170,7 +170,9 @@ const RelationshipPhraseGroup = (React.memo<PropsT>(({
     title: l('Add Relationship'),
   });
 
-  const setAddDialogOpen = React.useCallback((open) => {
+  const setAddDialogOpen = React.useCallback((
+    open: boolean,
+  ) => {
     dispatch({
       location: open ? {
         backward,

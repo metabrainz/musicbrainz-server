@@ -240,7 +240,6 @@ const RelationshipsTable = ({
 
       const target = relationship.target;
       const artistCredit = hasOwnProp(target, 'artistCredit')
-        // $FlowIgnore[prop-missing]
         ? target.artistCredit
         : null;
 
@@ -250,15 +249,14 @@ const RelationshipsTable = ({
       hasArtistColumn = hasArtistColumn || (artistCredit != null);
       hasLengthColumn = hasLengthColumn || (
         hasOwnProp(target, 'length') &&
-        // $FlowIgnore[prop-missing]
         target.length != null
       );
       columnsCount = (
         1 +
-        hasCreditColumn +
-        hasAttributeColumn +
-        hasArtistColumn +
-        hasLengthColumn
+        (hasCreditColumn ? 1 : 0) +
+        (hasAttributeColumn ? 1 : 0) +
+        (hasArtistColumn ? 1 : 0) +
+        (hasLengthColumn ? 1 : 0)
       );
 
       rows.push(

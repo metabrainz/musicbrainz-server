@@ -450,7 +450,6 @@ const CLEANUPS: CleanupEntries = {
   },
   '45cat': {
     match: [new RegExp('^(https?://)?(www\\.)?45cat\\.com/', 'i')],
-    // $FlowIssue[incompatible-type]: Array<mixed>
     restrict: [LINK_TYPES.otherdatabases],
     clean: function (url) {
       return url.replace(/^(?:https?:\/\/)?(?:www\.)?45cat\.com\/([a-z]+\/[^\/?&#]+)(?:[\/?&#].*)?$/, 'https://www.45cat.com/$1');

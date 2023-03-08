@@ -60,7 +60,7 @@ export default function usePagedMediumTable(
     dispatch: (LazyReleaseActionT) => void,
     getColumnCount: (boolean) => number,
     handleLinkedEntities?:
-      (update: ?$ReadOnly<$Partial<LinkedEntitiesT>>) => void,
+      (update: ?$ReadOnly<Partial<LinkedEntitiesT>>) => void,
     hasUnloadedTracks: boolean,
     isExpanded: boolean,
     medium: MediumWithRecordingsT,

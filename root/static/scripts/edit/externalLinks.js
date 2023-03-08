@@ -117,7 +117,7 @@ type LinksEditorState = {
   +links: $ReadOnlyArray<LinkStateT>,
 };
 
-class _ExternalLinksEditor
+export class _ExternalLinksEditor
   extends React.Component<LinksEditorProps, LinksEditorState> {
   tableRef: {current: HTMLTableElement | null};
 
@@ -247,10 +247,10 @@ class _ExternalLinksEditor
 
   setLinkState(
     index: number,
-    state: $ReadOnly<$Partial<LinkStateT>>,
+    state: $ReadOnly<Partial<LinkStateT>>,
     callback?: () => void,
   ) {
-    const newLinks: Array<LinkStateT> = this.state.links.concat();
+    const newLinks: Array<LinkStateT> = this.state.links.slice(0);
     newLinks[index] = {...newLinks[index], ...state};
     this.setState({links: newLinks}, callback);
   }
@@ -490,7 +490,7 @@ class _ExternalLinksEditor
 
   removeLink(index: number) {
     this.setState(prevState => {
-      const newLinks = prevState.links.concat();
+      const newLinks = prevState.links.slice(0);
       const link = newLinks[index];
       if (isPositiveInteger(link.relationship)) { // Old link, toggle deleted
         newLinks[index] = {...link, deleted: !link.deleted};
@@ -1137,7 +1137,7 @@ type ExternalLinkRelationshipProps = {
   +highlight: HighlightT,
   +isOnlyRelationship: boolean,
   +link: LinkRelationshipT,
-  +onAttributesChange: (number, $ReadOnly<$Partial<LinkStateT>>) => void,
+  +onAttributesChange: (number, $ReadOnly<Partial<LinkStateT>>) => void,
   +onLinkRemove: (number) => void,
   +onTypeBlur: (number, SyntheticFocusEvent<HTMLSelectElement>) => void,
   +onTypeChange: (number, SyntheticEvent<HTMLSelectElement>) => void,
@@ -1272,7 +1272,7 @@ type LinkProps = {
   +duplicate: number | null,
   +error: ErrorT | null,
   +getRelationshipHighlightType: (LinkRelationshipT) => HighlightT,
-  +handleAttributesChange: (number, $ReadOnly<$Partial<LinkStateT>>) => void,
+  +handleAttributesChange: (number, $ReadOnly<Partial<LinkStateT>>) => void,
   +handleLinkRemove: (number) => void,
   +handleLinkSubmit: (SyntheticKeyboardEvent<HTMLInputElement>) => void,
   +handleUrlBlur: (SyntheticFocusEvent<HTMLInputElement>) => void,
@@ -1551,7 +1551,7 @@ const defaultLinkState: LinkStateT = {
   video: false,
 };
 
-function newLinkState(state: $ReadOnly<$Partial<LinkStateT>>) {
+function newLinkState(state: $ReadOnly<Partial<LinkStateT>>) {
   return {...defaultLinkState, ...state};
 }
 
@@ -1637,8 +1637,8 @@ export function parseRelationships(
 function groupLinksByUrl(
   links: $ReadOnlyArray<LinkStateT>,
 ): Map<string, Array<LinkRelationshipT>> {
-  const map = new Map();
-  const urlTypePairs = new Set();
+  const map = new Map<string, Array<LinkRelationshipT>>();
+  const urlTypePairs = new Set<string>();
   let urlIndex = 0;
   links.forEach((link, index) => {
     const relationship = {
@@ -1760,7 +1760,7 @@ export function createExternalLinksEditor(
     root = ReactDOMClient.createRoot(mountPoint);
     $(mountPoint).data('react-root', root);
   }
-  const externalLinksEditorRef = React.createRef();
+  const externalLinksEditorRef = React.createRef<_ExternalLinksEditor>();
   root.render(
     <ExternalLinksEditor
       errorObservable={options?.errorObservable}

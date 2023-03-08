@@ -57,8 +57,9 @@ export default function updateWorkStates(
   works: Iterable<WorkT>,
   updateWorkState: (MediumWorkStateT) => MediumWorkStateT,
 ): void {
-  const worksByRecordingId = new Map();
-  let recordingsToUpdate = null;
+  const worksByRecordingId =
+    new Map<number, tree.ImmutableTree<WorkT> | null>();
+  let recordingsToUpdate: tree.ImmutableTree<RecordingT> | null = null;
 
   for (const work of works) {
     for (

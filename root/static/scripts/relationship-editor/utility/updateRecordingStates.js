@@ -23,14 +23,15 @@ export function compareRecordingIdWithRecordingState(
   return recordingId - recordingState.recording.id;
 }
 
-const createSet = () => new Set();
+const createSet = <T>(): Set<T> => new Set<T>();
 
 export default function updateRecordingStates(
   writableRootState: ReleaseRelationshipEditorStateT,
   recordings: Iterable<RecordingT>,
   updateRecordingState: (MediumRecordingStateT) => MediumRecordingStateT,
 ): void {
-  const recordingsByMedium = new Map();
+  const recordingsByMedium =
+    new Map<MediumWithRecordingsT, Set<RecordingT>>();
 
   for (const recording of recordings) {
     const mediums =

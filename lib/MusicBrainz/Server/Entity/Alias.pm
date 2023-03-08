@@ -7,7 +7,6 @@ extends 'MusicBrainz::Server::Entity';
 with 'MusicBrainz::Server::Entity::Role::DatePeriod';
 with 'MusicBrainz::Server::Entity::Role::Name';
 with 'MusicBrainz::Server::Entity::Role::PendingEdits';
-with 'MusicBrainz::Server::Entity::Role::Type' => { model => 'AliasType' };
 
 has 'sort_name' => (
     is => 'rw',

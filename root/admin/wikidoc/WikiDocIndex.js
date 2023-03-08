@@ -10,8 +10,8 @@
 import * as React from 'react';
 import type {CellRenderProps} from 'react-table';
 
-import Table from '../../components/Table.js';
 import {SanitizedCatalystContext} from '../../context.mjs';
+import useTable from '../../hooks/useTable.js';
 import Layout from '../../layout/index.js';
 import bracketed from '../../static/scripts/common/utility/bracketed.js';
 import {isWikiTranscluder}
@@ -136,13 +136,11 @@ const WikiDocTable = ({
     ],
   );
 
-  return (
-    <Table
-      className="wiki-pages"
-      columns={columns}
-      data={pages}
-    />
-  );
+  return useTable<WikiDocT>({
+    className: 'wiki-pages',
+    columns,
+    data: pages,
+  });
 };
 
 const WikiDocIndex = (props: PropsT): React.Element<typeof Layout> => {

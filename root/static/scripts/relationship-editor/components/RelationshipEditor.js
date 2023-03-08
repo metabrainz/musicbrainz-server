@@ -25,6 +25,7 @@ import {
   getCatalystContext,
   getSourceEntityDataForRelationshipEditor,
 } from '../../common/utility/catalyst.js';
+import coerceToError from '../../common/utility/coerceToError.js';
 import isDatabaseRowId from '../../common/utility/isDatabaseRowId.js';
 import {uniqueNegativeId} from '../../common/utility/numbers.js';
 import {hasSessionStorage} from '../../common/utility/storage.js';
@@ -116,7 +117,6 @@ export function* getInitialRelationshipUpdates(
      * the source and target entity types are the same; see e.g. MBS-12850.
      */
     if (!isDatabaseRowId(target.id)) {
-      // $FlowIssue[incompatible-cast] - Flow doesn't like spreading unions
       target = ({...target, id: uniqueNegativeId()}: CoreEntityT);
     }
 
@@ -334,7 +334,7 @@ export function runReducer(
     case 'remove-relationship': {
       const {relationship} = action;
 
-      const updates = [
+      const updates: Array<RelationshipUpdateT> = [
         {
           relationship,
           throwIfNotExists: true,
@@ -371,7 +371,7 @@ export function runReducer(
         linkPhraseGroup,
       } = action;
 
-      const updates = [];
+      const updates: Array<RelationshipUpdateT> = [];
       let nextLogicalLinkOrder = 1;
 
       for (
@@ -453,7 +453,7 @@ export function runReducer(
           newRelationshipState,
           sourceEntity,
         );
-        const updates = [];
+        const updates: Array<RelationshipUpdateT> = [];
 
         if (
           oldRelationshipState != null &&
@@ -589,11 +589,7 @@ const RelationshipEditor = (
 
           captureException(error);
 
-          setPrepareSubmissionError(
-            error instanceof Error
-              ? error
-              : new Error(String(error)),
-          );
+          setPrepareSubmissionError(coerceToError(error));
         }
       }
     };

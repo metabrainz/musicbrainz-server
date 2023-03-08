@@ -16,6 +16,7 @@ import EntityLink from '../../common/components/EntityLink.js';
 import {RECORDING_OF_LINK_TYPE_ID} from '../../common/constants.js';
 import {createWorkObject} from '../../common/entity2.js';
 import {bracketedText} from '../../common/utility/bracketed.js';
+import coerceToError from '../../common/utility/coerceToError.js';
 import formatTrackLength from '../../common/utility/formatTrackLength.js';
 import NewWorkLink
   from '../../relationship-editor/components/NewWorkLink.js';
@@ -106,9 +107,11 @@ const RelatedWorkHeading = ({
   removeWorkButton,
   work,
 }: RelatedWorkHeadingPropsT) => {
-  const selectWork = React.useCallback((event) => {
+  const selectWork = React.useCallback((
+    event: SyntheticEvent<HTMLInputElement>,
+  ) => {
     dispatch({
-      isSelected: event.target.checked,
+      isSelected: event.currentTarget.checked,
       type: 'toggle-select-work',
       work,
     });
@@ -145,15 +148,18 @@ const NewRelatedWorkHeading = ({
   removeWorkButton,
   work,
 }: RelatedWorkHeadingPropsT) => {
-  const selectWork = React.useCallback((event) => {
+  const selectWork = React.useCallback((
+    event: SyntheticEvent<HTMLInputElement>,
+  ) => {
     dispatch({
-      isSelected: event.target.checked,
+      isSelected: event.currentTarget.checked,
       type: 'toggle-select-work',
       work,
     });
   }, [dispatch, work]);
 
-  const editWorkButtonRef = React.useRef(null);
+  const editWorkButtonRef =
+    React.useRef<HTMLButtonElement | null>(null);
 
   const [
     isEditWorkDialogOpen,
@@ -161,7 +167,7 @@ const NewRelatedWorkHeading = ({
   ] = React.useState(false);
 
   const buildEditWorkPopoverContent = React.useCallback(
-    (closeAndReturnFocus) => (
+    (closeAndReturnFocus: () => void) => (
       <EditWorkDialog
         closeDialog={closeAndReturnFocus}
         rootDispatch={dispatch}
@@ -224,28 +230,32 @@ const RelatedWorkRelationshipEditor = React.memo<
   const work = relatedWork.work;
   const isNewWork = work._fromBatchCreateWorksDialog === true;
   const hasLoadedRelationships = work.relationships != null;
+  const [loadingError, setLoadingError] = React.useState<Error | null>(null);
 
   React.useEffect(function () {
     if (isNewWork || hasLoadedRelationships) {
       return;
     }
-    fetch(
-      '/ws/js/entity/' + work.gid + '?inc=rels',
-    ).then((resp) => {
-      if (!resp.ok) {
-        return null;
-      }
-      return resp.json();
-    // $FlowIgnore[unclear-type]
-    }).then((data: any) => {
-      if (data.relationships?.length) {
-        dispatch({
-          relationships: data.relationships,
-          type: 'load-work-relationships',
-          work,
-        });
-      }
-    });
+    fetch('/ws/js/entity/' + work.gid + '?inc=rels')
+      .then((resp) => {
+        if (!resp.ok) {
+          return null;
+        }
+        return resp.json();
+      })
+      // $FlowIgnore[unclear-type]
+      .then((data: any) => {
+        if (data.relationships?.length) {
+          dispatch({
+            relationships: data.relationships,
+            type: 'load-work-relationships',
+            work,
+          });
+        }
+      })
+      .catch((caughtError: mixed) => {
+        setLoadingError(coerceToError(caughtError));
+      });
   }, [
     isNewWork,
     hasLoadedRelationships,
@@ -320,6 +330,14 @@ const RelatedWorkRelationshipEditor = React.memo<
         targetTypeGroups={relatedWork.targetTypeGroups}
         track={track}
       />
+      {loadingError ? (
+        <p className="error">
+          {texp.l(
+            'Error loading work relationships: {error}',
+            {error: loadingError.message},
+          )}
+        </p>
+      ) : null}
     </>
   );
 });
@@ -363,7 +381,8 @@ const RelatedWorksRelationshipEditor = React.memo<
     );
   }
 
-  const addRelatedWorkButtonRef = React.useRef(null);
+  const addRelatedWorkButtonRef =
+    React.useRef<HTMLButtonElement | null>(null);
 
   const buildNewRelatedWorkRelationshipData = React.useCallback(() => ({
     entity0: recording,
@@ -382,7 +401,9 @@ const RelatedWorksRelationshipEditor = React.memo<
     title: l('Add Relationship'),
   });
 
-  const setAddRelatedWorkDialogOpen = React.useCallback((open) => {
+  const setAddRelatedWorkDialogOpen = React.useCallback((
+    open: boolean,
+  ) => {
     dispatch({
       location: open ? {
         source: track.recording,

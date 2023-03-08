@@ -22,7 +22,6 @@ const itemIndexes:
   WeakMap<
     // $FlowIgnore[unclear-type]
     $ReadOnlyArray<ItemT<any>>,
-    // $FlowIgnore[unclear-type]
     Map<
       string, // gram
       // $FlowIgnore[unclear-type]
@@ -159,7 +158,7 @@ export default function searchItems<+T: EntityItemT>(
     index,
     'The items to be searched have not been indexed',
   );
-  const itemRanks = new Map();
+  const itemRanks = new Map<OptionItemT<T>, number>();
   const addMatchingItems = (
     n: number,
     items: Set<OptionItemT<T>>,

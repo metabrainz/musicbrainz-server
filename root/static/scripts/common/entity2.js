@@ -253,7 +253,7 @@ export function createReleaseObject(
   return {
     artist: '',
     artistCredit: {
-      names: [],
+      names: ([]: $ReadOnlyArray<ArtistCreditNameT>),
     },
     barcode: null,
     comment: '',

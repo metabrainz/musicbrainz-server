@@ -89,7 +89,9 @@ const RelationshipTargetTypeGroups = (React.memo<PropsT>(({
     dialogLocation.targetType == null
   );
 
-  const setAddDialogOpen = React.useCallback((open) => {
+  const setAddDialogOpen = React.useCallback((
+    open: boolean,
+  ) => {
     dispatch({
       location: open ? {source, track: track} : null,
       type: 'update-dialog-location',

@@ -33,7 +33,7 @@ export type ActionT =
 
 export type PropsT = {
   +initialCreditsMode: CreditsModeT,
-  +initialLinkedEntities: $ReadOnly<$Partial<LinkedEntitiesT>>,
+  +initialLinkedEntities: $ReadOnly<Partial<LinkedEntitiesT>>,
   +noScript: boolean,
   +release: ReleaseWithMediumsT,
 };

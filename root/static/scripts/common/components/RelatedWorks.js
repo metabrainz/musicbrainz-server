@@ -29,9 +29,7 @@ type Props = {
 };
 
 const RelatedWorks = ({workIds}: Props): React.MixedElement => {
-  const createArgs = [
-    React.Fragment,
-    null,
+  const parts: Array<React.Node> = [
     /* eslint-disable react/jsx-key */
     <h2 className="related-works">
       {l('Related works')}
@@ -39,7 +37,7 @@ const RelatedWorks = ({workIds}: Props): React.MixedElement => {
   ];
   for (let i = 0; i < workIds.length; i++) {
     const work = linkedEntities.work[workIds[i]];
-    createArgs.push(
+    parts.push(
       <h3>
         <EntityLink entity={work} showIcon />
       </h3>,
@@ -50,7 +48,7 @@ const RelatedWorks = ({workIds}: Props): React.MixedElement => {
       />,
     );
   }
-  return React.createElement.apply(React, createArgs);
+  return React.createElement(React.Fragment, null, ...parts);
 };
 
 export default RelatedWorks;

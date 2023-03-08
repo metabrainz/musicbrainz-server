@@ -114,10 +114,10 @@ const parseVarSubst = createVarSubstParser<Output, Input>(
   getVarSubstArg,
 );
 
-const parseLinkSubst = saveMatch<
+const parseLinkSubst: Parser<
   React.Element<'a'> | string | NO_MATCH,
   Input,
->(function (args) {
+> = saveMatch(function (args) {
   const name = accept(linkSubstStart);
   if (typeof name !== 'string') {
     return NO_MATCH_VALUE;
@@ -197,8 +197,9 @@ const parseHtmlAttrValue = (args: VarArgsClass<Input>) => (
   parseContinuousString(htmlAttrValueParsers, args)
 );
 
-const parseHtmlAttrValueCondSubst =
-  createCondSubstParser<string, Input>(
+const parseHtmlAttrValueCondSubst:
+  Parser<string | NO_MATCH, Input> =
+  createCondSubstParser(
     args => parseContinuousString(htmlAttrCondSubstThenParsers, args),
     args => parseContinuousString(htmlAttrCondSubstElseParsers, args),
   );
@@ -307,10 +308,11 @@ function parseHtmlTag(args: VarArgsClass<Input>) {
   );
 }
 
-const parseCondSubst = createCondSubstParser<Array<Output>, Input>(
-  args => parseContinuousArray(condSubstThenParsers, args),
-  args => parseContinuousArray(condSubstElseParsers, args),
-);
+const parseCondSubst: Parser<Array<Output> | string | NO_MATCH, Input> =
+  createCondSubstParser(
+    args => parseContinuousArray(condSubstThenParsers, args),
+    args => parseContinuousArray(condSubstElseParsers, args),
+  );
 
 const condSubstThenParsers = [
   createTextContentParser<Output, Input>(
@@ -323,7 +325,9 @@ const condSubstThenParsers = [
   parseHtmlTag,
 ];
 
-const condSubstElseParsers = [
+const condSubstElseParsers: $ReadOnlyArray<
+  Parser<Output | Array<Output> | string | NO_MATCH, Input>,
+> = [
   parseRootTextContent,
   parseVarSubst,
   parseLinkSubst,
@@ -331,7 +335,9 @@ const condSubstElseParsers = [
   parseHtmlTag,
 ];
 
-const rootParsers = [
+const rootParsers: $ReadOnlyArray<
+  Parser<Output | Array<Output> | string | NO_MATCH, Input>,
+> = [
   parseRootTextContent,
   parseVarSubst,
   parseLinkSubst,

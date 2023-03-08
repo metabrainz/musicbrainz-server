@@ -137,7 +137,7 @@ export function useAddRelationshipDialogContent(
     ...CommonOptionsT,
     +backward?: boolean,
     +buildNewRelationshipData?:
-      () => $Partial<RelationshipStateT> | null,
+      () => Partial<RelationshipStateT> | null,
     +preselectedTargetType: CoreEntityTypeT | null,
     +targetTypeOptions?: TargetTypeOptionsT | null,
   }>,

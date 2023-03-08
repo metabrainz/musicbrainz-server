@@ -28,7 +28,7 @@ const CLASS_MAP: {+[editType: EditType]: string} = {
   [INSERT]: 'diff-only-b',
 };
 
-const FAST_DIFF_CHANGE_TYPE_MAP = new Map([
+const FAST_DIFF_CHANGE_TYPE_MAP = new Map<number, EditType>([
   [fastDiff.INSERT, INSERT],
   [fastDiff.EQUAL, EQUAL],
   [fastDiff.DELETE, DELETE],
@@ -48,7 +48,7 @@ export type StringEditDiff = {
   +type: EditType,
 };
 
-function getChangeType<+T>(diff: GenericEditDiff<T>) {
+function getChangeType<+T>(diff: GenericEditDiff<T>): EditType {
   if (!diff.added && !diff.removed) {
     return EQUAL;
   }

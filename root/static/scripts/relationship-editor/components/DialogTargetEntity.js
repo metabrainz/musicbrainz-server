@@ -15,6 +15,7 @@ import Autocomplete2, {
 import {default as autocompleteReducer}
   from '../../common/components/Autocomplete2/reducer.js';
 import type {
+  ActionT as AutocompleteActionT,
   OptionItemT,
   PropsT as AutocompletePropsT,
   StateT as AutocompleteStateT,
@@ -35,6 +36,7 @@ import type {
   TargetTypeOptionsT,
 } from '../types.js';
 import type {
+  DialogEntityCreditActionT,
   DialogTargetEntityActionT,
   UpdateTargetEntityAutocompleteActionT,
 } from '../types/actions.js';
@@ -312,7 +314,9 @@ const DialogTargetEntity = (React.memo<PropsT>((
     }
   }
 
-  const autocompleteDispatch = React.useCallback((action) => {
+  const autocompleteDispatch = React.useCallback((
+    action: AutocompleteActionT<NonUrlCoreEntityT>,
+  ) => {
     dispatch({
       action,
       linkType,
@@ -328,7 +332,9 @@ const DialogTargetEntity = (React.memo<PropsT>((
     });
   }
 
-  const creditDispatch = React.useCallback((action) => {
+  const creditDispatch = React.useCallback((
+    action: DialogEntityCreditActionT,
+  ) => {
     dispatch({action, type: 'update-credit'});
   }, [dispatch]);
 

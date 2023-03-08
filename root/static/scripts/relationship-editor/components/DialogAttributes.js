@@ -27,6 +27,9 @@ import type {
 } from '../types.js';
 import type {
   DialogAttributeActionT,
+  DialogBooleanAttributeActionT,
+  DialogMultiselectAttributeActionT,
+  DialogTextAttributeActionT,
 } from '../types/actions.js';
 import {
   areLinkAttributesEqual,
@@ -169,57 +172,39 @@ export function createInitialState(
 function getLinkAttributesFromState(
   attributesList: DialogAttributesT,
 ): tree.ImmutableTree<LinkAttrT> | null {
-  return attributesList.reduce(
-    (accum, attributeState) => {
-      switch (attributeState.control) {
-        case 'checkbox': {
-          if (attributeState.enabled) {
-            const linkAttributeType = attributeState.type;
-            return tree.insert(
-              accum, {
-                type: {
-                  gid: linkAttributeType.gid,
-                },
-                typeID: linkAttributeType.id,
-                typeName: linkAttributeType.name,
-              },
-              compareLinkAttributes,
-            );
-          }
-          break;
-        }
-        case 'multiselect': {
-          let newAccum = accum;
-          for (const valueAttribute of attributeState.values) {
-            if (valueAttribute.removed) {
-              continue;
-            }
-            const linkAttributeType =
-              valueAttribute.autocomplete.selectedItem?.entity;
-            if (linkAttributeType) {
-              newAccum = tree.insertIfNotExists(
-                newAccum, {
-                  credited_as: clean(valueAttribute.creditedAs),
-                  type: {
-                    gid: linkAttributeType.gid,
-                  },
-                  typeID: linkAttributeType.id,
-                  typeName: linkAttributeType.name,
-                },
-                compareLinkAttributes,
-              );
-            }
-          }
-          return newAccum;
-        }
-        case 'text': {
+  return attributesList.reduce((
+    accum: tree.ImmutableTree<LinkAttrT> | null,
+    attributeState,
+  ) => {
+    switch (attributeState.control) {
+      case 'checkbox': {
+        if (attributeState.enabled) {
           const linkAttributeType = attributeState.type;
-          const textValue = clean(attributeState.textValue);
-
-          if (nonEmpty(textValue)) {
-            return tree.insert(
-              accum, {
-                text_value: textValue,
+          return tree.insert(
+            accum, {
+              type: {
+                gid: linkAttributeType.gid,
+              },
+              typeID: linkAttributeType.id,
+              typeName: linkAttributeType.name,
+            },
+            compareLinkAttributes,
+          );
+        }
+        break;
+      }
+      case 'multiselect': {
+        let newAccum = accum;
+        for (const valueAttribute of attributeState.values) {
+          if (valueAttribute.removed) {
+            continue;
+          }
+          const linkAttributeType =
+            valueAttribute.autocomplete.selectedItem?.entity;
+          if (linkAttributeType) {
+            newAccum = tree.insertIfNotExists(
+              newAccum, {
+                credited_as: clean(valueAttribute.creditedAs),
                 type: {
                   gid: linkAttributeType.gid,
                 },
@@ -229,13 +214,31 @@ function getLinkAttributesFromState(
               compareLinkAttributes,
             );
           }
-          break;
         }
+        return newAccum;
       }
-      return accum;
-    },
-    null,
-  );
+      case 'text': {
+        const linkAttributeType = attributeState.type;
+        const textValue = clean(attributeState.textValue);
+
+        if (nonEmpty(textValue)) {
+          return tree.insert(
+            accum, {
+              text_value: textValue,
+              type: {
+                gid: linkAttributeType.gid,
+              },
+              typeID: linkAttributeType.id,
+              typeName: linkAttributeType.name,
+            },
+            compareLinkAttributes,
+          );
+        }
+        break;
+      }
+    }
+    return accum;
+  }, null);
 }
 
 export function reducer(
@@ -343,7 +346,10 @@ const DialogAttributes = (React.memo<PropsT>(({
   isHelpVisible,
   state,
 }: PropsT): React.MixedElement | null => {
-  const booleanAttributeDispatch = React.useCallback((rootKey, action) => {
+  const booleanAttributeDispatch = React.useCallback((
+    rootKey: number,
+    action: DialogBooleanAttributeActionT,
+  ) => {
     dispatch({
       action,
       rootKey,
@@ -351,18 +357,21 @@ const DialogAttributes = (React.memo<PropsT>(({
     });
   }, [dispatch]);
 
-  const multiselectAttributeDispatch = React.useCallback(
-    (rootKey, action) => {
-      dispatch({
-        action,
-        rootKey,
-        type: 'update-multiselect-attribute',
-      });
-    },
-    [dispatch],
-  );
+  const multiselectAttributeDispatch = React.useCallback((
+    rootKey: number,
+    action: DialogMultiselectAttributeActionT,
+  ) => {
+    dispatch({
+      action,
+      rootKey,
+      type: 'update-multiselect-attribute',
+    });
+  }, [dispatch]);
 
-  const textAttributeDispatch = React.useCallback((rootKey, action) => {
+  const textAttributeDispatch = React.useCallback((
+    rootKey: number,
+    action: DialogTextAttributeActionT,
+  ) => {
     dispatch({
       action,
       rootKey,

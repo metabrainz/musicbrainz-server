@@ -59,8 +59,10 @@ const ADDED_ENTITIES_TYPES = {
   work:         N_l('Work'),
 };
 
-function generateUserTypesList(user: UnsanitizedEditorT) {
-  const typesList = [];
+function generateUserTypesList(
+  user: UnsanitizedEditorT,
+): $ReadOnlyArray<VarSubstArg> {
+  const typesList: Array<VarSubstArg> = [];
   if (user.deleted) {
     typesList.push(l('Deleted User'));
   }

@@ -10,6 +10,7 @@
 import * as React from 'react';
 
 import {CatalystContext} from '../../context.mjs';
+import useTable from '../../hooks/useTable.js';
 import * as manifest from '../../static/manifest.mjs';
 import {
   attributesColumn,
@@ -24,7 +25,6 @@ import {
   workArtistsColumn,
   workLanguagesColumn,
 } from '../../utility/tableColumns.js';
-import Table from '../Table.js';
 
 type Props = {
   ...SeriesItemNumbersRoleT,
@@ -100,9 +100,11 @@ const WorkList = ({
     ],
   );
 
+  const table = useTable<WorkT>({columns, data: works});
+
   return (
     <>
-      <Table columns={columns} data={works} />
+      {table}
       {manifest.js('common/components/ArtistRoles', {async: 'async'})}
       {manifest.js('common/components/AttributeList', {async: 'async'})}
       {manifest.js('common/components/IswcList', {async: 'async'})}

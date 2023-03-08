@@ -11,7 +11,7 @@ import * as React from 'react';
 import type {ColumnOptionsNoValue} from 'react-table';
 
 import PaginatedResults from '../../components/PaginatedResults.js';
-import Table from '../../components/Table.js';
+import useTable from '../../hooks/useTable.js';
 import {
   defineEntityColumn,
   defineTextColumn,
@@ -32,7 +32,10 @@ const ArtistList = <D: {+artist: ?ArtistT, ...}>({
   pager,
   subPath,
 }: Props<D>): React.Element<typeof PaginatedResults> => {
-  const existingArtistItems = items.reduce((result, item) => {
+  const existingArtistItems = items.reduce((
+    result: Array<D>,
+    item,
+  ) => {
     if (item.artist != null) {
       result.push(item);
     }
@@ -69,9 +72,14 @@ const ArtistList = <D: {+artist: ?ArtistT, ...}>({
     [columnsAfter, columnsBefore, subPath],
   );
 
+  const table = useTable<D>({
+    columns,
+    data: existingArtistItems,
+  });
+
   return (
     <PaginatedResults pager={pager}>
-      <Table columns={columns} data={existingArtistItems} />
+      {table}
     </PaginatedResults>
   );
 };

@@ -45,7 +45,7 @@ declare type WsJsEditRelationshipCreateT = $ReadOnly<{
 }>;
 
 declare type WsJsEditRelationshipEditT = $ReadOnly<{
-  ...$Partial<WsJsRelationshipCommonT>,
+  ...Partial<WsJsRelationshipCommonT>,
   +edit_type: EDIT_RELATIONSHIP_EDIT_T,
   +id: number,
   +linkTypeID: number,

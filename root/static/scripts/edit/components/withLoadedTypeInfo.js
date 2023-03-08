@@ -17,8 +17,8 @@ import {
   exportLinkTypeInfo,
 } from '../../relationship-editor/utility/exportTypeInfo.js';
 
-const typeInfoPromises = new Map();
-const loadedTypeInfo = new Set();
+const typeInfoPromises = new Map<string, Promise<void>>();
+const loadedTypeInfo = new Set<string>();
 
 export default function withLoadedTypeInfo<-Config, +Instance = mixed>(
   WrappedComponent: React.AbstractComponent<Config, Instance>,
@@ -39,7 +39,9 @@ export default function withLoadedTypeInfo<-Config, +Instance = mixed>(
 
     const loadingCanceledRef = React.useRef<boolean>(false);
 
-    const loadTypeInfo = React.useCallback(async function (typeName) {
+    const loadTypeInfo = React.useCallback(async function (
+      typeName: string,
+    ) {
       const fetchUrl = '/ws/js/type-info/' + typeName;
 
       const response = await fetch(fetchUrl);
