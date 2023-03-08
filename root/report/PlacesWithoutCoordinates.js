@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import PaginatedResults from '../components/PaginatedResults.js';
 import DescriptiveLink
   from '../static/scripts/common/components/DescriptiveLink.js';
@@ -25,7 +23,7 @@ const PlacesWithoutCoordinates = ({
   items,
   pager,
 }: ReportDataT<ReportPlaceRelationshipT>):
-React.Element<typeof ReportLayout> => (
+React$Element<typeof ReportLayout> => (
   <ReportLayout
     canBeFiltered={canBeFiltered}
     description={l('This report lists places without coordinates.')}

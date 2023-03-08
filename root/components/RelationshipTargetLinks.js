@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import DescriptiveLink
   from '../static/scripts/common/components/DescriptiveLink.js';
 import EntityLink from '../static/scripts/common/components/EntityLink.js';
@@ -32,7 +30,7 @@ import relationshipDateText
 
 export function displayDatedExtraAttributes(
   pair: DatedExtraAttributes,
-): React.MixedElement | string {
+): React$MixedElement | string {
   const renderedDatePeriods = commaOnlyListText(
     pair.datePeriods.map(datePeriod => (
       relationshipDateText(datePeriod, false /* bracketEnded */)
@@ -64,7 +62,7 @@ type Props = {
 const RelationshipTargetLinks = ({
   hiddenArtistCredit,
   relationship,
-}: Props): React.MixedElement => {
+}: Props): React$MixedElement => {
   const target = relationship.target;
   const targetCredit = relationship.targetCredit;
   const disableLink = isDisabledLink(relationship.earliestDatePeriod, target);
@@ -86,7 +84,7 @@ const RelationshipTargetLinks = ({
   const datesAndAttributes = semicolonOnlyList(
     relationship.datedExtraAttributesList.map(displayDatedExtraAttributes),
   );
-  let result: React.MixedElement = (
+  let result: React$MixedElement = (
     <>
       {link}
       {datesAndAttributes ? (

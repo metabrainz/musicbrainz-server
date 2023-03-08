@@ -55,7 +55,7 @@ export const ReleaseGroupListTable = ({
   showRatings = false,
   showType = true,
   sortable,
-}: ReleaseGroupListTableProps): React.Element<'table'> => {
+}: ReleaseGroupListTableProps): React$Element<'table'> => {
   const $c = React.useContext(CatalystContext);
 
   function getFirstReleaseYear(entity: ReleaseGroupT) {
@@ -155,7 +155,7 @@ const ReleaseGroupList = ({
   seriesItemNumbers,
   showRatings,
   sortable,
-}: ReleaseGroupListProps): Array<React.Element<typeof React.Fragment>> => {
+}: ReleaseGroupListProps): Array<React$Element<typeof React.Fragment>> => {
   const groupedReleaseGroups = groupBy(releaseGroups, x => x.typeName ?? '');
   const tables = [];
   for (const [type, releaseGroupsOfType] of groupedReleaseGroups) {

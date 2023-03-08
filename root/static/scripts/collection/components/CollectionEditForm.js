@@ -165,4 +165,4 @@ const CollectionEditForm = ({collectionTypes, form}: Props) => {
 export default (hydrate<Props>(
   'div.collection-edit-form',
   CollectionEditForm,
-): React.AbstractComponent<Props, void>);
+): React$AbstractComponent<Props, void>);

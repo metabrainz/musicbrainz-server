@@ -89,7 +89,7 @@ function reducer(state: StateT, action: ActionT): StateT {
 
 const GenreEditForm = ({
   form: initialForm,
-}: Props): React.Element<'form'> => {
+}: Props): React$Element<'form'> => {
   const $c = React.useContext(SanitizedCatalystContext);
 
   const [state, dispatch] = React.useReducer(
@@ -175,4 +175,4 @@ const GenreEditForm = ({
 export default (hydrate<Props>(
   'div.genre-edit-form',
   GenreEditForm,
-): React.AbstractComponent<Props, void>);
+): React$AbstractComponent<Props, void>);

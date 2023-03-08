@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import Annotation from '../static/scripts/common/components/Annotation.js';
 import chooseLayoutComponent from '../utility/chooseLayoutComponent.js';
 
@@ -22,7 +20,7 @@ const AnnotationRevision = ({
   annotation,
   entity,
   numberOfRevisions,
-}: AnnotationRevisionProps): React.MixedElement => {
+}: AnnotationRevisionProps): React$MixedElement => {
   const entityType = entity.entityType;
   const LayoutComponent = chooseLayoutComponent(entityType);
 

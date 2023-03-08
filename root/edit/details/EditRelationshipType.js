@@ -92,7 +92,7 @@ function formatExample(
 
 const EditRelationshipType = ({
   edit,
-}: Props): React.Element<typeof React.Fragment> => {
+}: Props): React$Element<typeof React.Fragment> => {
   const display = edit.display_data;
   const name = display.name;
   const oldDescription = display.description?.old ?? '';

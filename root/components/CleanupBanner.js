@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 const cleanupBannerStrings = {
   artist: N_l(
     `This artist has no relationships, recordings, releases or
@@ -52,7 +50,7 @@ type Props = {
   +entityType: string,
 };
 
-const CleanupBanner = ({entityType}: Props): React.Element<'p'> => (
+const CleanupBanner = ({entityType}: Props): React$Element<'p'> => (
   <p className="cleanup">
     {cleanupBannerStrings[entityType]()}
   </p>

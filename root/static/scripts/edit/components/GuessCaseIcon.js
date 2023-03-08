@@ -7,13 +7,11 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import guessCaseIconUrl from '../../../images/icons/guesscase.32x32.png';
 
 const style = {float: 'left', margin: '1em'};
 
-const GuessCaseIcon = (): React.Element<'img'> => (
+const GuessCaseIcon = (): React$Element<'img'> => (
   <img
     alt=""
     src={guessCaseIconUrl}

@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import EventList from '../components/list/EventList.js';
 import Layout from '../layout/index.js';
 import sortByEntityName
@@ -26,7 +24,7 @@ type Props = {
 const EventMerge = ({
   form,
   toMerge,
-}: Props): React.Element<typeof Layout> => (
+}: Props): React$Element<typeof Layout> => (
   <Layout fullWidth title={l('Merge events')}>
     <div id="content">
       <h1>{l('Merge events')}</h1>

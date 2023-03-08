@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import PaginatedResults from '../../components/PaginatedResults.js';
 import EntityLink from '../../static/scripts/common/components/EntityLink.js';
 import bracketed from '../../static/scripts/common/utility/bracketed.js';
@@ -22,7 +20,7 @@ type Props = {
 const ArtistUrlList = ({
   items,
   pager,
-}: Props): React.Element<typeof PaginatedResults> => {
+}: Props): React$Element<typeof PaginatedResults> => {
   let lastGID: string = '';
   let currentGID: string = '';
 

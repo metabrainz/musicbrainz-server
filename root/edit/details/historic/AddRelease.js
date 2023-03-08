@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import EntityLink
   from '../../../static/scripts/common/components/EntityLink.js';
 import formatDate
@@ -22,7 +20,7 @@ type Props = {
   +edit: AddReleaseHistoricEditT,
 };
 
-const AddRelease = ({edit}: Props): React.Element<'table'> => {
+const AddRelease = ({edit}: Props): React$Element<'table'> => {
   const display = edit.display_data;
   const artist = display.artist;
   const type = display.type;

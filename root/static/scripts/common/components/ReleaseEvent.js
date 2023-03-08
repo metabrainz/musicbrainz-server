@@ -20,7 +20,7 @@ type Props = {
 
 const ReleaseEvent = ({
   event,
-}: Props): React.Element<typeof React.Fragment> => (
+}: Props): React$Element<typeof React.Fragment> => (
   <>
     {isDateEmpty(event.date) ? null : (
       <>

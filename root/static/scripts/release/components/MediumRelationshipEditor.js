@@ -198,6 +198,6 @@ const MediumRelationshipEditor = (React.memo<PropsT>(({
       </tbody>
     </>
   );
-}): React.AbstractComponent<PropsT>);
+}): React$AbstractComponent<PropsT, mixed>);
 
 export default MediumRelationshipEditor;

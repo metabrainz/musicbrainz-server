@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import {ArtistResultsInline} from '../search/components/ArtistResults.js';
 
 import TagLookupResults from './Results.js';
@@ -16,7 +14,7 @@ import type {TagLookupResultsPropsT} from './types.js';
 
 const TagLookupArtistResults = (
   props: TagLookupResultsPropsT<ArtistT>,
-): React.Element<typeof TagLookupResults> => (
+): React$Element<typeof TagLookupResults> => (
   <TagLookupResults {...props}>
     <ArtistResultsInline
       pager={props.pager}

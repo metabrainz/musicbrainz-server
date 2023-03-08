@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import CleanupBanner from '../components/CleanupBanner.js';
 import ArtistList from '../components/list/ArtistList.js';
 import EventList from '../components/list/EventList.js';
@@ -118,7 +116,7 @@ const SeriesIndex = ({
   series,
   seriesItemNumbers,
   wikipediaExtract,
-}: SeriesIndexProps): React.Element<typeof SeriesLayout> => {
+}: SeriesIndexProps): React$Element<typeof SeriesLayout> => {
   const seriesEntityType = series.type.item_entity_type;
   const existingEntities = entities?.length ? entities : null;
   return (

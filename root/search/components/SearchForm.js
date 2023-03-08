@@ -69,7 +69,7 @@ const methodOptions = [
 
 const SearchForm = ({
   form,
-}: Props): React.Element<typeof React.Fragment> => (
+}: Props): React$Element<typeof React.Fragment> => (
   <>
     <div className="searchform">
       <form action="/search" method="get">

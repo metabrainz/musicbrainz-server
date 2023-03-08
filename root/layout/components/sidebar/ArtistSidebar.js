@@ -48,7 +48,7 @@ type Props = {
   +artist: ArtistT,
 };
 
-const ArtistSidebar = ({artist}: Props): React.Element<'div'> => {
+const ArtistSidebar = ({artist}: Props): React$Element<'div'> => {
   const $c = React.useContext(CatalystContext);
   const artistAge = age.age(artist);
   const gid = encodeURIComponent(artist.gid);

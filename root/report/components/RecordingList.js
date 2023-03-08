@@ -29,7 +29,7 @@ const RecordingList = <D: {+recording: ?RecordingT, ...}>({
   columnsAfter,
   items,
   pager,
-}: Props<D>): React.Element<typeof PaginatedResults> => {
+}: Props<D>): React$Element<typeof PaginatedResults> => {
   const existingRecordingItems = items.reduce((
     result: Array<D>,
     item,

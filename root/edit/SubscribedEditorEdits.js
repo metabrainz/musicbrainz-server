@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import Layout from '../layout/index.js';
 
 import EditList from './components/EditList.js';
@@ -25,7 +23,7 @@ const SubscribedEditorEdits = ({
   edits,
   pager,
   refineUrlArgs,
-}: Props): React.Element<typeof Layout> => (
+}: Props): React$Element<typeof Layout> => (
   <Layout fullWidth title={l('Edits by Your Subscribed Editors')}>
     <div id="content">
       <h1>{l('Edits by Your Subscribed Editors')}</h1>

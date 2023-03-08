@@ -41,7 +41,7 @@ const AddEntityDialog = ({
   close,
   entityType,
   name,
-}: PropsT): React.Element<typeof Modal> => {
+}: PropsT): React$Element<typeof Modal> => {
   const dialogRef = React.useRef<HTMLDivElement | null>(null);
   const iframeRef = React.useRef<HTMLIFrameElement | null>(null);
   const instanceRef = React.useRef<InstanceT | null>(null);

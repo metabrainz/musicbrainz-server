@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import {SidebarProperty}
   from '../../../../layout/components/sidebar/SidebarProperties.js';
 
@@ -57,4 +55,4 @@ const IsrcList = ({
 export default (hydrate<IsrcListProps>(
   'div.isrc-list-container',
   IsrcList,
-): React.AbstractComponent<IsrcListProps, void>);
+): React$AbstractComponent<IsrcListProps, void>);

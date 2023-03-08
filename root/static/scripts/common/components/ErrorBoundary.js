@@ -35,7 +35,7 @@ export default class ErrorBoundary extends React.Component<Props, State> {
     });
   }
 
-  render(): React.Node {
+  render(): React$Node {
     const errorMessage = this.state.errorMessage;
     if (errorMessage) {
       return <div className="error">{errorMessage}</div>;

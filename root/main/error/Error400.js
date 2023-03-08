@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import bugTrackerURL
   from '../../static/scripts/common/utility/bugTrackerURL.js';
 
@@ -24,7 +22,7 @@ type Props = {
 const Error400 = ({
   message,
   useLanguages,
-}: Props): React.Element<typeof ErrorLayout> => (
+}: Props): React$Element<typeof ErrorLayout> => (
   <ErrorLayout title={l('Bad Request')}>
     <p>
       <strong>

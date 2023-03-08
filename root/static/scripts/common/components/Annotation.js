@@ -8,7 +8,6 @@
  */
 
 import mutate from 'mutate-cow';
-import * as React from 'react';
 
 import {SanitizedCatalystContext} from '../../../../context.mjs';
 import formatUserDate from '../../../../utility/formatUserDate.js';
@@ -160,4 +159,4 @@ export default (hydrate<Props>(
       };
     });
   },
-): React.AbstractComponent<Props, void>);
+): React$AbstractComponent<Props, void>);

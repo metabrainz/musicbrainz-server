@@ -112,7 +112,7 @@ function generateUserTypesList(
 }
 
 type UserProfilePropertyProps = {
-  +children: React.Node,
+  +children: React$Node,
   +className?: string,
   +name: string,
 };
@@ -855,7 +855,7 @@ const UserProfile = ({
   user,
   votes,
   addedEntities,
-}: UserProfileProps): React.Element<typeof UserAccountLayout> => {
+}: UserProfileProps): React$Element<typeof UserAccountLayout> => {
   const $c = React.useContext(SanitizedCatalystContext);
   const viewingOwnProfile = $c.user != null && $c.user.id === user.id;
   const adminViewing = $c.user != null && isAccountAdmin($c.user);

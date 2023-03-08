@@ -128,7 +128,7 @@ const BatchCreateWorksDialogContent = React.memo<
 >(({
   closeDialog,
   sourceDispatch,
-}: BatchCreateWorksDialogContentPropsT): React.Element<'div'> => {
+}: BatchCreateWorksDialogContentPropsT): React$Element<'div'> => {
   const [state, dispatch] = React.useReducer(
     reducer,
     null,
@@ -252,7 +252,7 @@ export const BatchCreateWorksButtonPopover = (React.memo<
   dispatch,
   isDisabled,
   isOpen,
-}: BatchCreateWorksButtonPopoverPropsT): React.MixedElement => {
+}: BatchCreateWorksButtonPopoverPropsT): React$MixedElement => {
   const addButtonRef = React.useRef<HTMLButtonElement | null>(null);
 
   const setOpen = React.useCallback((open: boolean) => {
@@ -306,4 +306,4 @@ export const BatchCreateWorksButtonPopover = (React.memo<
       }
     />
   );
-}): React.AbstractComponent<BatchCreateWorksButtonPopoverPropsT, mixed>);
+}): React$AbstractComponent<BatchCreateWorksButtonPopoverPropsT, mixed>);

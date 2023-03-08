@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import EntityLink from '../../static/scripts/common/components/EntityLink.js';
 import formatEntityTypeName
   from '../../static/scripts/common/utility/formatEntityTypeName.js';
@@ -47,7 +45,7 @@ const AnnotationResults = ({
   pager,
   query,
   results,
-}: ResultsPropsT<AnnotationT>): React.Element<typeof ResultsLayout> => (
+}: ResultsPropsT<AnnotationT>): React$Element<typeof ResultsLayout> => (
   <ResultsLayout form={form} lastUpdated={lastUpdated}>
     <PaginatedSearchResults
       buildResult={buildResult}

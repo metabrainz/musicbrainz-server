@@ -8,8 +8,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import * as manifest from '../../static/manifest.mjs';
 import AliasEditForm from '../../static/scripts/alias/AliasEditForm.js';
 import {ENTITIES} from '../../static/scripts/common/constants.js';
@@ -33,7 +31,7 @@ const AddOrEditAlias = ({
   formType,
   locales,
   type,
-}: Props): React.MixedElement => {
+}: Props): React$MixedElement => {
   const LayoutComponent = chooseLayoutComponent(type);
   const header = formType === 'add'
     ? l('Add alias')

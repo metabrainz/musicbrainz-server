@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import HistoricReleaseList
   from '../../components/HistoricReleaseList.js';
 
@@ -16,7 +14,7 @@ type Props = {
   +edit: AddTrackOldHistoricEditT,
 };
 
-const AddTrackOld = ({edit}: Props): React.Element<'table'> => (
+const AddTrackOld = ({edit}: Props): React$Element<'table'> => (
   <table className="details add-track">
     <HistoricReleaseList releases={edit.display_data.releases} />
 

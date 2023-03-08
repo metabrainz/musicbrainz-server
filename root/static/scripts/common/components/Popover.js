@@ -40,7 +40,7 @@ const POPPER_OPTIONS = {
 };
 
 type PropsT = {
-  +buildChildren: (() => void) => React.Node,
+  +buildChildren: (() => void) => React$Node,
   +buttonRef: {current: HTMLButtonElement | null},
   +className?: string,
   +closeAndReturnFocus: () => void,
@@ -48,7 +48,7 @@ type PropsT = {
   +id: string,
 };
 
-const Popover = (props: PropsT): React.Portal => {
+const Popover = (props: PropsT): React$Portal => {
   const {
     buildChildren,
     buttonRef,

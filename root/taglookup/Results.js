@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import Layout from '../layout/index.js';
 
 import TagLookupForm from './Form.js';
@@ -17,7 +15,7 @@ import type {TagLookupResultsPropsT} from './types.js';
 
 const TagLookupResults = <T>(
   props: TagLookupResultsPropsT<T>,
-): React.Element<typeof Layout> => (
+): React$Element<typeof Layout> => (
   <Layout fullWidth title={l('Tag Lookup Results')}>
     <div className="content">
       <h1>{l('Tag Lookup Results')}</h1>

@@ -7,11 +7,9 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import DBDefs from '../../common/DBDefs-client.mjs';
 
-const ConfirmSeedButtons = (): React.MixedElement => (
+const ConfirmSeedButtons = (): React$MixedElement => (
   <>
     <button type="submit">
       {l('Continue')}
@@ -38,4 +36,4 @@ const ConfirmSeedButtons = (): React.MixedElement => (
 export default (hydrate(
   'span.buttons.confirm-seed',
   ConfirmSeedButtons,
-): React.AbstractComponent<{}, void>);
+): React$AbstractComponent<{}, void>);

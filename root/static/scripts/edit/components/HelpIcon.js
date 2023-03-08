@@ -7,12 +7,10 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import Tooltip from './Tooltip.js';
 
 type PropsT = {
-  +content: React.Node,
+  +content: React$Node,
 };
 
 const ICON_STYLE = {
@@ -23,7 +21,7 @@ const ICON_STYLE = {
 
 const HelpIcon = ({
   content,
-}: PropsT): React.MixedElement => (
+}: PropsT): React$MixedElement => (
   <Tooltip
     content={content}
     target={

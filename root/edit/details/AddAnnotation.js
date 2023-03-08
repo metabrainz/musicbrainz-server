@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import DescriptiveLink
   from '../../static/scripts/common/components/DescriptiveLink.js';
 import {addColonText} from '../../static/scripts/common/i18n/addColon.js';
@@ -20,7 +18,7 @@ type Props = {
   +edit: AddAnnotationEditT,
 };
 
-const AddAnnotation = ({edit}: Props): React.Element<'table'> => {
+const AddAnnotation = ({edit}: Props): React$Element<'table'> => {
   const display = edit.display_data;
   const entityType = display.entity_type;
   const oldAnnotation = display.old_annotation;

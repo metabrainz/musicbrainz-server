@@ -61,7 +61,7 @@ const CoverArt = ({
   releaseFormatStats,
   stats,
   typeStats,
-}: CoverArtStatsT): React.Element<typeof StatisticsLayout> => {
+}: CoverArtStatsT): React$Element<typeof StatisticsLayout> => {
   const $c = React.useContext(CatalystContext);
   return (
     <StatisticsLayout fullWidth page="coverart" title={l('Cover Art')}>

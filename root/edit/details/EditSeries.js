@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import EntityLink from '../../static/scripts/common/components/EntityLink.js';
 import FullChangeDiff from
   '../../static/scripts/edit/components/edit/FullChangeDiff.js';
@@ -18,7 +16,7 @@ type Props = {
   +edit: EditSeriesEditT,
 };
 
-const EditSeries = ({edit}: Props): React.Element<'table'> => {
+const EditSeries = ({edit}: Props): React$Element<'table'> => {
   const display = edit.display_data;
   const name = display.name;
   const series = display.series;

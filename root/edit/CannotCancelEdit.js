@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import Layout from '../layout/index.js';
 import EditLink from '../static/scripts/common/components/EditLink.js';
 
@@ -16,7 +14,7 @@ type Props = {
   +edit: GenericEditWithIdT,
 };
 
-const CannotCancelEdit = ({edit}: Props): React.Element<typeof Layout> => {
+const CannotCancelEdit = ({edit}: Props): React$Element<typeof Layout> => {
   const editDisplay = 'edit #' + edit.id;
   const editIsClosed = !edit.is_open;
   const editLink = <EditLink content={editDisplay} edit={edit} />;

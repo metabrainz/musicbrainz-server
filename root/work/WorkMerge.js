@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import WorkList from '../components/list/WorkList.js';
 import Layout from '../layout/index.js';
 import sortByEntityName
@@ -28,7 +26,7 @@ const WorkMerge = ({
   form,
   iswcsDiffer = false,
   toMerge,
-}: Props): React.Element<typeof Layout> => (
+}: Props): React$Element<typeof Layout> => (
   <Layout fullWidth title={l('Merge works')}>
     <div id="content">
       <h1>{l('Merge works')}</h1>

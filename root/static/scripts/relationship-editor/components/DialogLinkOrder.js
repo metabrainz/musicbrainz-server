@@ -23,7 +23,7 @@ type PropsT = {
 const DialogLinkOrder = (React.memo<PropsT>(({
   dispatch,
   linkOrder,
-}: PropsT): React.Element<'tr'> => {
+}: PropsT): React$Element<'tr'> => {
   const handleLinkOrderChange = React.useCallback((
     event: SyntheticEvent<HTMLInputElement>,
   ) => {
@@ -61,6 +61,6 @@ const DialogLinkOrder = (React.memo<PropsT>(({
       </td>
     </tr>
   );
-}): React.AbstractComponent<PropsT>);
+}): React$AbstractComponent<PropsT, mixed>);
 
 export default DialogLinkOrder;

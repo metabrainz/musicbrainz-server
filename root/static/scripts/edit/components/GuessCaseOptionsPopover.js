@@ -33,7 +33,7 @@ const GuessCaseOptionsPopover = (React.memo(({
   modeName,
   toggle,
   upperCaseRoman,
-}: Props): React.Element<typeof ButtonPopover> => {
+}: Props): React$Element<typeof ButtonPopover> => {
   const buttonRef = React.useRef<HTMLButtonElement | null>(null);
 
   const buildChildren = React.useCallback((
@@ -84,6 +84,6 @@ const GuessCaseOptionsPopover = (React.memo(({
       toggle={toggle}
     />
   );
-}): React.AbstractComponent<Props, void>);
+}): React$AbstractComponent<Props, void>);
 
 export default GuessCaseOptionsPopover;

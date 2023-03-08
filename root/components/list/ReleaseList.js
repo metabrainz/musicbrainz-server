@@ -62,7 +62,7 @@ const ReleaseList = ({
   showStatus = false,
   showType = false,
   sortable,
-}: Props): React.MixedElement => {
+}: Props): React$MixedElement => {
   const $c = React.useContext(CatalystContext);
 
   const columns = React.useMemo(

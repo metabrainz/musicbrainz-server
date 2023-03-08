@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import ReleaseList from './components/ReleaseList.js';
 import ReportLayout from './components/ReportLayout.js';
 import useCatNoColumn from './hooks/useCatNoColumn.js';
@@ -20,7 +18,7 @@ const CatNoLooksLikeAsin = ({
   generated,
   items,
   pager,
-}: ReportDataT<ReportReleaseCatNoT>): React.Element<typeof ReportLayout> => {
+}: ReportDataT<ReportReleaseCatNoT>): React$Element<typeof ReportLayout> => {
   const catNoColumn = useCatNoColumn<ReportReleaseCatNoT>();
 
   return (

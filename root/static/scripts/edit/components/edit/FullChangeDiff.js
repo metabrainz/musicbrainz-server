@@ -7,10 +7,8 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 type FullChangeDiffProps = {
-  +label: React.Node,
+  +label: React$Node,
   +newContent: React$Node,
   +oldContent: React$Node,
 };
@@ -19,7 +17,7 @@ const FullChangeDiff = ({
   label,
   newContent,
   oldContent,
-}: FullChangeDiffProps): React.Element<'tr'> | null => (
+}: FullChangeDiffProps): React$Element<'tr'> | null => (
   oldContent === newContent ? null : (
     <tr>
       <th>{label}</th>

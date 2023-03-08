@@ -15,7 +15,7 @@ import {formatCount} from '../statistics/utilities.js';
 import Paginator from './Paginator.js';
 
 type Props = {
-  +children: React.Node,
+  +children: React$Node,
   +guessSearch?: boolean,
   +pager: PagerT,
   +pageVar?: 'apps_page' | 'page' | 'tokens_page',
@@ -32,7 +32,7 @@ const PaginatedResults = ({
   query,
   search = false,
   total = false,
-}: Props): React.Element<typeof React.Fragment> => {
+}: Props): React$Element<typeof React.Fragment> => {
   const $c = React.useContext(CatalystContext);
   const paginator = (
     <Paginator

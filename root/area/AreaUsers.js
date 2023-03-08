@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import PaginatedResults from '../components/PaginatedResults.js';
 import EditorLink from '../static/scripts/common/components/EditorLink.js';
 
@@ -24,7 +22,7 @@ const AreaUsers = ({
   area,
   editors,
   pager,
-}: Props): React.Element<typeof AreaLayout> => (
+}: Props): React$Element<typeof AreaLayout> => (
   <AreaLayout entity={area} page="users" title={l('Users')}>
     <h2>{l('Users')}</h2>
 

@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import {SidebarProperty}
   from '../../../../layout/components/sidebar/SidebarProperties.js';
 import {bracketedText} from '../utility/bracketed.js';
@@ -78,4 +76,4 @@ const AttributeList = ({
 export default (hydrate<AttributeListProps>(
   'div.entity-attributes-container',
   AttributeList,
-): React.AbstractComponent<AttributeListProps, void>);
+): React$AbstractComponent<AttributeListProps, void>);

@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import CDTocLink
   from '../../../static/scripts/common/components/CDTocLink.js';
 import HistoricReleaseList from '../../components/HistoricReleaseList.js';
@@ -17,7 +15,7 @@ type Props = {
   +edit: MoveDiscIdHistoricEditT,
 };
 
-const MoveDiscId = ({edit}: Props): React.Element<'table'> => (
+const MoveDiscId = ({edit}: Props): React$Element<'table'> => (
   <table className="details move-discid">
     <tr>
       <th>{l('Disc ID:')}</th>

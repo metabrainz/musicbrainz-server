@@ -92,7 +92,7 @@ const VoteButton = ({
   text,
   title,
   vote,
-}: VoteButtonPropsT): React.Element<'button'> => {
+}: VoteButtonPropsT): React$Element<'button'> => {
   const isActive = vote === currentVote;
   const className = 'tag-vote tag-' + VOTE_ACTIONS[vote];
   const buttonTitle = isActive
@@ -117,7 +117,7 @@ const VoteButton = ({
 const UpvoteButton = ({
   callback,
   currentVote,
-}: GenericVoteButtonPropsT): React.Element<typeof VoteButton> => (
+}: GenericVoteButtonPropsT): React$Element<typeof VoteButton> => (
   <VoteButton
     activeTitle={l('You’ve upvoted this tag')}
     callback={callback}
@@ -131,7 +131,7 @@ const UpvoteButton = ({
 const DownvoteButton = ({
   callback,
   currentVote,
-}: GenericVoteButtonPropsT): React.Element<typeof VoteButton> => (
+}: GenericVoteButtonPropsT): React$Element<typeof VoteButton> => (
   <VoteButton
     activeTitle={l('You’ve downvoted this tag')}
     callback={callback}
@@ -152,7 +152,7 @@ const VoteButtons = ({
   callback,
   count,
   currentVote,
-}: VoteButtonsPropsT): React.Element<'span'> => {
+}: VoteButtonsPropsT): React$Element<'span'> => {
   const $c = React.useContext(SanitizedCatalystContext);
 
   let className = '';
@@ -189,7 +189,7 @@ const TagRow = ({
   currentVote,
   index,
   tag,
-}: TagRowPropsT): React.Element<'li'> => (
+}: TagRowPropsT): React$Element<'li'> => (
   <li className={loopParity(index)} key={tag.name}>
     <TagLink tag={tag.name} />
     <VoteButtons
@@ -317,15 +317,15 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
   }
 
   createTagRows(): {
-    +genres: $ReadOnlyArray<React.MixedElement>,
-    +tags: $ReadOnlyArray<React.MixedElement>,
+    +genres: $ReadOnlyArray<React$MixedElement>,
+    +tags: $ReadOnlyArray<React$MixedElement>,
     } {
     const tags = this.state.tags;
 
     return tags.reduce((
       accum: {
-        +genres: Array<React.MixedElement>,
-        +tags: Array<React.MixedElement>,
+        +genres: Array<React$MixedElement>,
+        +tags: Array<React$MixedElement>,
       },
       t: UserTagT,
       index: number,
@@ -526,7 +526,7 @@ export const MainTagEditor = (hydrate<TagEditorProps>(
       this.setState({positiveTagsOnly: false});
     }
 
-    render(): React.MixedElement {
+    render(): React$MixedElement {
       const {tags, positiveTagsOnly} = this.state;
       const tagRows = this.createTagRows();
 
@@ -648,12 +648,12 @@ export const MainTagEditor = (hydrate<TagEditorProps>(
     }
   },
   minimalEntity,
-): React.AbstractComponent<TagEditorProps, void>);
+): React$AbstractComponent<TagEditorProps, void>);
 
 export const SidebarTagEditor = (hydrate<TagEditorProps>(
   'div.sidebar-tags',
   class extends TagEditor {
-    render(): React.MixedElement {
+    render(): React$MixedElement {
       const tagRows = this.createTagRows();
       return (
         <>
@@ -706,7 +706,7 @@ export const SidebarTagEditor = (hydrate<TagEditorProps>(
     }
   },
   minimalEntity,
-): React.AbstractComponent<TagEditorProps, void>);
+): React$AbstractComponent<TagEditorProps, void>);
 
 function createInitialTagState(
   aggregatedTags: $ReadOnlyArray<AggregatedTagT>,

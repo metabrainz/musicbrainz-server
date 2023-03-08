@@ -95,7 +95,7 @@ type EditWorkDialogPropsT = {
   +work: WorkT,
 };
 
-const EditWorkDialog: React.AbstractComponent<
+const EditWorkDialog: React$AbstractComponent<
   EditWorkDialogPropsT,
   mixed,
 > = React.memo<
@@ -104,7 +104,7 @@ const EditWorkDialog: React.AbstractComponent<
   closeDialog,
   rootDispatch,
   work,
-}: EditWorkDialogPropsT): React.MixedElement => {
+}: EditWorkDialogPropsT): React$MixedElement => {
   const [state, dispatch] = React.useReducer(
     reducer,
     work,

@@ -30,7 +30,7 @@ type Props = {
 const NotesReceived = ({
   editNotes,
   pager,
-}: Props): React.Element<typeof Layout> => {
+}: Props): React$Element<typeof Layout> => {
   const $c = React.useContext(CatalystContext);
 
   return (

@@ -7,15 +7,13 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import GenreSidebar from '../layout/components/sidebar/GenreSidebar.js';
 import Layout from '../layout/index.js';
 
 import GenreHeader from './GenreHeader.js';
 
 type Props = {
-  +children: React.Node,
+  +children: React$Node,
   +entity: GenreT,
   +fullWidth?: boolean,
   +page: string,
@@ -28,7 +26,7 @@ const GenreLayout = ({
   fullWidth = false,
   page,
   title,
-}: Props): React.Element<typeof Layout> => (
+}: Props): React$Element<typeof Layout> => (
   <Layout
     title={nonEmpty(title) ? hyphenateTitle(genre.name, title) : genre.name}
   >

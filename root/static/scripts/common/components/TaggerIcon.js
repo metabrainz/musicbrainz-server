@@ -34,7 +34,7 @@ type Props = {
 const TaggerIcon = ({
   entityType,
   gid,
-}: Props): React.MixedElement | null => {
+}: Props): React$MixedElement | null => {
   const $c = React.useContext(SanitizedCatalystContext);
 
   const tport = $c.session?.tport;
@@ -90,5 +90,5 @@ export default (
   hydrate<Props>(
     'span.tagger-icon',
     TaggerIcon,
-  ): React.AbstractComponent<Props, void>
+  ): React$AbstractComponent<Props, void>
 );

@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import {CatalystContext} from '../../../context.mjs';
 import typeof EntityLink
   from '../../../static/scripts/common/components/EntityLink.js';
@@ -67,7 +65,7 @@ type CollectionListProps = {
   +ownCollectionsHeader: string,
   +ownCollectionsNoneText: string,
   +sectionClass: string,
-  +usersLink: React.Element<EntityLink>,
+  +usersLink: React$Element<EntityLink>,
   +usersLinkHeader: string,
 };
 
@@ -145,7 +143,7 @@ const CollectionList = ({
   sectionClass,
   usersLink,
   usersLinkHeader,
-}: CollectionListProps): React.MixedElement => (
+}: CollectionListProps): React$MixedElement => (
   <>
     <h2 className={sectionClass}>
       {header}

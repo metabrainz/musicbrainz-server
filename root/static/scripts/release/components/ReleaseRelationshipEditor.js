@@ -1694,8 +1694,8 @@ const ReleaseGroupRelationshipSection = React.memo(({
   );
 });
 
-let ReleaseRelationshipEditor: React.AbstractComponent<{}, void> = (
-): React.MixedElement => {
+let ReleaseRelationshipEditor: React$AbstractComponent<{}, void> = (
+): React$MixedElement => {
   const [state, dispatch] = React.useReducer(
     reducer,
     null,

@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import EntityHeader from '../components/EntityHeader.js';
 
 type Props = {
@@ -19,7 +17,7 @@ type Props = {
 const LabelHeader = ({
   label,
   page,
-}: Props): React.Element<typeof EntityHeader> => (
+}: Props): React$Element<typeof EntityHeader> => (
   <EntityHeader
     entity={label}
     headerClass="labelheader"

@@ -49,7 +49,7 @@ const EntityList = ({
   entityType,
   page,
   pager,
-}: Props): React.Element<typeof ArtistCreditLayout> => {
+}: Props): React$Element<typeof ArtistCreditLayout> => {
   const $c = React.useContext(CatalystContext);
   return (
     <ArtistCreditLayout artistCredit={artistCredit} page={page}>

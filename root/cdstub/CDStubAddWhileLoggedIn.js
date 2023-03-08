@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import StatusPage from '../components/StatusPage.js';
 import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
 
@@ -18,7 +16,7 @@ type Props = {
 
 const CDStubAddWhileLoggedIn = ({
   cdToc,
-}: Props): React.Element<typeof StatusPage> => (
+}: Props): React$Element<typeof StatusPage> => (
   <StatusPage title={l('Cannot Add CD Stub')}>
     <p>
       {l(`You cannot add a CD stub while logged in to MusicBrainz.

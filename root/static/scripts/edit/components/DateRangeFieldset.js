@@ -225,6 +225,6 @@ const DateRangeFieldset = (React.memo<PropsT>(({
       </fieldset>
     </>
   );
-}): React.AbstractComponent<PropsT>);
+}): React$AbstractComponent<PropsT, mixed>);
 
 export default DateRangeFieldset;

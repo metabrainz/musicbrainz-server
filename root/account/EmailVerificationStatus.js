@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import StatusPage from '../components/StatusPage.js';
 
 type Props = {
@@ -17,7 +15,7 @@ type Props = {
 
 const EmailVerificationStatus = ({
   message,
-}: Props): React.Element<typeof StatusPage> => (
+}: Props): React$Element<typeof StatusPage> => (
   <StatusPage title={l('Email Verification')}>
     <p>
       {nonEmpty(message)

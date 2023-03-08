@@ -7,13 +7,11 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 type Props = {
   +edit: RemoveLabelAliasHistoricEditT,
 };
 
-const RemoveLabelAlias = ({edit}: Props): React.Element<'table'> => (
+const RemoveLabelAlias = ({edit}: Props): React$Element<'table'> => (
   <table className="details remove-label-alias">
     <tr>
       <th>{l('Alias:')}</th>

@@ -7,15 +7,13 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import WorkList from '../../components/list/WorkList.js';
 
 type Props = {
   +edit: MergeWorksEditT,
 };
 
-const MergeWorks = ({edit}: Props): React.Element<'table'> => (
+const MergeWorks = ({edit}: Props): React$Element<'table'> => (
   <table className="details merge-works">
     <tr>
       <th>{l('Merge:')}</th>

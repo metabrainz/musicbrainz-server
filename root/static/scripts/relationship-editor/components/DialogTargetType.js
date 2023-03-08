@@ -28,7 +28,7 @@ type PropsT = {
 
 const DialogTargetType = (React.memo<PropsT>((
   props: PropsT,
-): React.MixedElement => {
+): React$MixedElement => {
   const {
     dispatch,
     hasPreselectedTargetType,
@@ -73,6 +73,6 @@ const DialogTargetType = (React.memo<PropsT>((
       </td>
     </tr>
   );
-}): React.AbstractComponent<PropsT>);
+}): React$AbstractComponent<PropsT, mixed>);
 
 export default DialogTargetType;

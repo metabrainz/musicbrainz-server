@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import DescriptiveLink from
   '../../static/scripts/common/components/DescriptiveLink.js';
 import formatDate from '../../static/scripts/common/utility/formatDate.js';
@@ -23,7 +21,7 @@ type Props = {
   +edit: EditPlaceEditT,
 };
 
-const EditPlace = ({edit}: Props): React.Element<'table'> => {
+const EditPlace = ({edit}: Props): React$Element<'table'> => {
   const display = edit.display_data;
   const address = display.address;
   const area = display.area;

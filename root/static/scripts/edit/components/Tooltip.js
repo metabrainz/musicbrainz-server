@@ -15,14 +15,14 @@
 import * as React from 'react';
 
 type TooltipProps = {
-  +content: React.Node,
-  +target: React.Node,
+  +content: React$Node,
+  +target: React$Node,
 };
 
 const Tooltip = ({
   content,
   target,
-}: TooltipProps): React.Element<'span'> => {
+}: TooltipProps): React$Element<'span'> => {
   const containerRef = React.useRef<HTMLSpanElement | null>(null);
 
   React.useEffect(() => {

@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import {SanitizedCatalystContext} from '../../../../context.mjs';
 import formatUserDate from '../../../../utility/formatUserDate.js';
 import hydrate from '../../../../utility/hydrate.js';
@@ -62,4 +60,4 @@ const CritiqueBrainzReview = ({review, title}: Props) => (
 export default (hydrate<Props, Props>(
   'div.critiquebrainz-review',
   CritiqueBrainzReview,
-): React.AbstractComponent<Props, void>);
+): React$AbstractComponent<Props, void>);

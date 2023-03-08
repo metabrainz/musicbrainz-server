@@ -414,4 +414,4 @@ const TracklistAndCredits = React.memo<PropsT>((props: PropsT) => {
 export default (hydrate<PropsT>(
   'div.tracklist-and-credits',
   TracklistAndCredits,
-): React.AbstractComponent<PropsT>);
+): React$AbstractComponent<PropsT, void>);

@@ -7,15 +7,13 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import ArtistSidebar from '../layout/components/sidebar/ArtistSidebar.js';
 import Layout from '../layout/index.js';
 
 import ArtistHeader from './ArtistHeader.js';
 
 type Props = {
-  +children: React.Node,
+  +children: React$Node,
   +entity: ArtistT,
   +fullWidth?: boolean,
   +page: string,
@@ -28,7 +26,7 @@ const ArtistLayout = ({
   fullWidth = false,
   page,
   title,
-}: Props): React.Element<typeof Layout> => (
+}: Props): React$Element<typeof Layout> => (
   <Layout
     title={nonEmpty(title) ? hyphenateTitle(artist.name, title) : artist.name}
   >

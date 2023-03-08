@@ -30,7 +30,7 @@ const ReleaseGroupList = <D: {+release_group: ?ReleaseGroupT, ...}>({
   columnsAfter,
   items,
   pager,
-}: Props<D>): React.Element<typeof PaginatedResults> => {
+}: Props<D>): React$Element<typeof PaginatedResults> => {
   const existingReleaseGroupItems = items.reduce((
     result: Array<D>,
     item,

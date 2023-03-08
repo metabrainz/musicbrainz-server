@@ -24,7 +24,7 @@ const textAreaRegExp = /(^|\.)(annotation|edit_note)$/;
 
 const PostParameters = ({
   params,
-}: PropsT): React.MixedElement => {
+}: PropsT): React$MixedElement => {
   const [expanded, setExpanded] = React.useState(false);
 
   const sortedParams:
@@ -96,4 +96,4 @@ const PostParameters = ({
 export default (hydrate(
   'div.post-parameters',
   PostParameters,
-): React.AbstractComponent<PropsT, void>);
+): React$AbstractComponent<PropsT, void>);

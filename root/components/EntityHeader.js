@@ -16,7 +16,7 @@ import EntityTabs from './EntityTabs.js';
 import SubHeader from './SubHeader.js';
 
 type Props = {
-  +editTab?: React.Element<EntityTabLink>,
+  +editTab?: React$Element<EntityTabLink>,
   +entity: CoreEntityT,
   +headerClass: string,
   +heading?: Expand2ReactOutput,
@@ -33,7 +33,7 @@ const EntityHeader = ({
   page,
   preHeader,
   subHeading,
-}: Props): React.Element<typeof React.Fragment> => (
+}: Props): React$Element<typeof React.Fragment> => (
   <>
     <div className={'entityheader ' + headerClass}>
       {nonEmpty(preHeader) ? preHeader : null}

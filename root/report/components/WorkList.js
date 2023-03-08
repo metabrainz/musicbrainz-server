@@ -31,7 +31,7 @@ const WorkList = <D: {+work: ?WorkT, ...}>({
   columnsAfter,
   items,
   pager,
-}: Props<D>): React.Element<typeof PaginatedResults> => {
+}: Props<D>): React$Element<typeof PaginatedResults> => {
   const existingWorkItems = items.reduce((
     result: Array<D>,
     item,

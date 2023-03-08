@@ -71,7 +71,7 @@ class ApplicationForm extends React.Component<Props, State> {
     }));
   }
 
-  render(): React.Element<'form'> {
+  render(): React$Element<'form'> {
     return (
       <form method="post">
         <FormCsrfToken form={this.state.form} />
@@ -120,4 +120,4 @@ export type ApplicationFormPropsT = Props;
 export default (hydrate<Props>(
   'div.application-form',
   ApplicationForm,
-): React.AbstractComponent<Props, void>);
+): React$AbstractComponent<Props, void>);

@@ -28,7 +28,7 @@ const SeriesList = <D: {+series: ?SeriesT, ...}>({
   columnsAfter,
   items,
   pager,
-}: Props<D>): React.Element<typeof PaginatedResults> => {
+}: Props<D>): React$Element<typeof PaginatedResults> => {
   const existingSeriesItems = items.reduce((
     result: Array<D>,
     item,

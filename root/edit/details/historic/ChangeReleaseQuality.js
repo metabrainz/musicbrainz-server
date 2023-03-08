@@ -17,7 +17,7 @@ type Props = {
   +edit: ChangeReleaseQualityHistoricEditT,
 };
 
-const ChangeReleaseQuality = ({edit}: Props): React.Element<'table'> => (
+const ChangeReleaseQuality = ({edit}: Props): React$Element<'table'> => (
   <table className="details change-release-quality">
     {edit.display_data.changes.map((change, index) => {
       const oldQuality = QUALITY_NAMES.get(change.quality.old);

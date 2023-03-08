@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import EventList from './components/EventList.js';
 import ReportLayout from './components/ReportLayout.js';
 import type {ReportDataT, ReportEventT} from './types.js';
@@ -19,7 +17,7 @@ const DuplicateEvents = ({
   generated,
   items,
   pager,
-}: ReportDataT<ReportEventT>): React.Element<typeof ReportLayout> => (
+}: ReportDataT<ReportEventT>): React$Element<typeof ReportLayout> => (
   <ReportLayout
     canBeFiltered={canBeFiltered}
     description={l(

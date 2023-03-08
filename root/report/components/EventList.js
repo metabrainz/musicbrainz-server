@@ -33,7 +33,7 @@ const EventList = <D: {+event: ?EventT, ...}>({
   columnsAfter,
   items,
   pager,
-}: Props<D>): React.Element<typeof PaginatedResults> => {
+}: Props<D>): React$Element<typeof PaginatedResults> => {
   const existingEventItems = items.reduce((
     result: Array<D>,
     item,

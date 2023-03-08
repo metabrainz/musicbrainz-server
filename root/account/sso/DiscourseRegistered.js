@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import Layout from '../../layout/index.js';
 
 type Props = {
@@ -17,7 +15,7 @@ type Props = {
 
 const DiscourseRegistered = ({
   emailAddress,
-}: Props): React.Element<typeof Layout> => (
+}: Props): React$Element<typeof Layout> => (
   <Layout fullWidth title={l('Account Created')}>
     <h2>{l('Account Created')}</h2>
     <p style={{fontSize: '1.2em'}}>

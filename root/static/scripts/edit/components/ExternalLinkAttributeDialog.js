@@ -129,7 +129,7 @@ const reducer = (state: StateT, action: ActionT): StateT => {
   );
 };
 
-const ExternalLinkAttributeDialog = (props: PropsT): React.MixedElement => {
+const ExternalLinkAttributeDialog = (props: PropsT): React$MixedElement => {
   const buttonRef = React.useRef<HTMLButtonElement | null>(null);
   const [open, setOpen] = React.useState(false);
 
@@ -186,7 +186,7 @@ const ExternalLinkAttributeDialog = (props: PropsT): React.MixedElement => {
   };
 
   const buildPopoverChildren =
-    (closeAndReturnFocus: () => void): React.Element<'form'> => {
+    (closeAndReturnFocus: () => void): React$Element<'form'> => {
       return (
         <form
           className="external-link-attribute-dialog"

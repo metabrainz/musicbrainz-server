@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import Diff, {type DiffProps} from './Diff.js';
 
 const WordDiff = ({
@@ -17,7 +15,7 @@ const WordDiff = ({
   label,
   newText,
   oldText,
-}: DiffProps): React.Element<typeof Diff> => (
+}: DiffProps): React$Element<typeof Diff> => (
   <Diff
     extraNew={extraNew}
     extraOld={extraOld}

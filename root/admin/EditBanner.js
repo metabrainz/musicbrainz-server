@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import Layout from '../layout/index.js';
 import FormCsrfToken
   from '../static/scripts/edit/components/FormCsrfToken.js';
@@ -23,7 +21,7 @@ type Props = {
   }>,
 };
 
-const EditBanner = ({form}: Props): React.Element<typeof Layout> => (
+const EditBanner = ({form}: Props): React$Element<typeof Layout> => (
   <Layout fullWidth title={l('Edit Banner Message')}>
     <div id="content">
       <h1>{l('Edit banner message')}</h1>

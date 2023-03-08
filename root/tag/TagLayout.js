@@ -7,14 +7,12 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import Tabs from '../components/Tabs.js';
 import Layout from '../layout/index.js';
 import TagLink from '../static/scripts/common/components/TagLink.js';
 
 type Props = {
-  +children: React.Node,
+  +children: React$Node,
   +page: string,
   +tag: TagT,
   +title?: string,
@@ -40,7 +38,7 @@ const TagLayout = ({
   page,
   tag,
   title,
-}: Props): React.Element<typeof Layout> => (
+}: Props): React$Element<typeof Layout> => (
   <Layout
     fullWidth
     title={

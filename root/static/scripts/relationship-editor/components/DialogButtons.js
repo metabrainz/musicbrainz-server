@@ -38,6 +38,6 @@ const DialogButtons = (React.memo<PropsT>(({
       </button>
     </div>
   </div>
-)): React.AbstractComponent<PropsT>);
+)): React$AbstractComponent<PropsT, mixed>);
 
 export default DialogButtons;

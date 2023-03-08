@@ -296,7 +296,7 @@ const TargetAutocomplete:
 
 const DialogTargetEntity = (React.memo<PropsT>((
   props: PropsT,
-): React.MixedElement => {
+): React$MixedElement => {
   const {
     backward,
     dispatch,
@@ -380,6 +380,6 @@ const DialogTargetEntity = (React.memo<PropsT>((
       </td>
     </tr>
   );
-}): React.AbstractComponent<PropsT>);
+}): React$AbstractComponent<PropsT, mixed>);
 
 export default DialogTargetEntity;

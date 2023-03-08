@@ -85,7 +85,7 @@ const LanguageMenu = ({
       </span>
       <ul>
         {serverLanguages.map(function (language, index) {
-          let inner: React.MixedElement =
+          let inner: React$MixedElement =
             <LanguageLink language={language} />;
 
           if (language.name === currentBCP47Language) {
@@ -327,7 +327,7 @@ const DocumentationMenu = () => (
   </li>
 );
 
-const BottomMenu = (): React.Element<'div'> => {
+const BottomMenu = (): React$Element<'div'> => {
   const $c = React.useContext(SanitizedCatalystContext);
   const serverLanguages = $c.stash.server_languages;
   return (

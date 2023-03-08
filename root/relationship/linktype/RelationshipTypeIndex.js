@@ -84,7 +84,7 @@ const UsedAttributesList = ({
 
 const RelationshipTypeIndex = ({
   relType,
-}: Props): React.Element<typeof Layout> => {
+}: Props): React$Element<typeof Layout> => {
   const $c = React.useContext(SanitizedCatalystContext);
   const childrenTypes = relType.children || [];
   const typeName = upperFirst(l_relationships(relType.name));

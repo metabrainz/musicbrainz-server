@@ -166,7 +166,7 @@ const UserCollections = ({
   ownCollections,
   collaborativeCollections,
   user,
-}: Props): React.Element<typeof UserAccountLayout> => {
+}: Props): React$Element<typeof UserAccountLayout> => {
   const $c = React.useContext(SanitizedCatalystContext);
   const activeUser = $c.user;
   const viewingOwnProfile = !!(activeUser && activeUser.id === user.id);

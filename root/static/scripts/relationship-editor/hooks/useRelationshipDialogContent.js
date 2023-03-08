@@ -62,7 +62,7 @@ export default function useRelationshipDialogContent(
   }>,
 ): (
   closeAndReturnFocus: () => void,
-) => React.MixedElement {
+) => React$MixedElement {
   const {
     batchSelectionCount,
     dispatch,
@@ -143,7 +143,7 @@ export function useAddRelationshipDialogContent(
   }>,
 ): (
   closeAndReturnFocus: () => void,
-) => React.MixedElement {
+) => React$MixedElement {
   const {
     backward,
     buildNewRelationshipData,

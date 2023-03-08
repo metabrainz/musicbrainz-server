@@ -8,8 +8,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import Tabs from '../components/Tabs.js';
 import Layout from '../layout/index.js';
 import {unwrapNl} from '../static/scripts/common/i18n.js';
@@ -18,10 +16,10 @@ import {l_statistics as l, N_l_statistics as N_l}
 import statisticsLessUrl from '../static/styles/statistics.less';
 
 type StatisticsLayoutPropsT = {
-  +children: React.Node,
+  +children: React$Node,
   +fullWidth: boolean,
   +page: string,
-  +sidebar?: ?React.Node,
+  +sidebar?: ?React$Node,
   +title: string,
 };
 
@@ -94,7 +92,7 @@ const StatisticsLayout = ({
   page,
   sidebar,
   title,
-}: StatisticsLayoutPropsT): React.Element<typeof Layout> => {
+}: StatisticsLayoutPropsT): React$Element<typeof Layout> => {
   const htmlTitle = hyphenateTitle(l('Database Statistics'), title);
   return (
     <Layout

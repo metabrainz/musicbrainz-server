@@ -22,7 +22,7 @@ type Props = {
 const SidebarRating = ({
   entity,
   heading,
-}: Props): React.Element<typeof React.Fragment> => (
+}: Props): React$Element<typeof React.Fragment> => (
   <>
     <h2 className="rating">{nonEmpty(heading) ? heading : l('Rating')}</h2>
     <p>

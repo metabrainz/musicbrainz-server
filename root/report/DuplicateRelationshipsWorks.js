@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import ReportLayout from './components/ReportLayout.js';
 import WorkList from './components/WorkList.js';
 import type {ReportDataT, ReportWorkT} from './types.js';
@@ -19,7 +17,7 @@ const DuplicateRelationshipsWorks = ({
   generated,
   items,
   pager,
-}: ReportDataT<ReportWorkT>): React.Element<typeof ReportLayout> => (
+}: ReportDataT<ReportWorkT>): React$Element<typeof ReportLayout> => (
   <ReportLayout
     canBeFiltered={canBeFiltered}
     description={l(

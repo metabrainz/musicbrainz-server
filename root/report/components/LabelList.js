@@ -28,7 +28,7 @@ const LabelList = <D: {+label: ?LabelT, ...}>({
   columnsAfter,
   items,
   pager,
-}: Props<D>): React.Element<typeof PaginatedResults> => {
+}: Props<D>): React$Element<typeof PaginatedResults> => {
   const existingLabelItems = items.reduce((
     result: Array<D>,
     item,

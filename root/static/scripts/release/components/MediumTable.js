@@ -146,6 +146,6 @@ const MediumTable = (React.memo<PropsT>(({
       </tbody>
     </table>
   );
-}): React.AbstractComponent<PropsT>);
+}): React$AbstractComponent<PropsT, mixed>);
 
 export default MediumTable;

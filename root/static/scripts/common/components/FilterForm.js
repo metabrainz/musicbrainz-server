@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import SelectField from '../../common/components/SelectField.js';
 import FieldErrors from '../../edit/components/FieldErrors.js';
 import {addColonText} from '../i18n/addColon.js';
@@ -52,7 +50,7 @@ function getSubmitText(type: string) {
   return '';
 }
 
-const FilterForm = ({form}: Props): React.Element<'div'> => {
+const FilterForm = ({form}: Props): React$Element<'div'> => {
   const typeIdField = form.field.type_id;
   const typeIdOptions = form.options_type_id;
   const secondaryTypeIdField = form.field.secondary_type_id;

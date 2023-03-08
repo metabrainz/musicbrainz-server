@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import Relationship
   from '../../static/scripts/common/components/Relationship.js';
 
@@ -16,7 +14,7 @@ type Props = {
   +edit: ReorderRelationshipsEditT,
 };
 
-const ReorderRelationships = ({edit}: Props): React.MixedElement => (
+const ReorderRelationships = ({edit}: Props): React$MixedElement => (
   <table className="details reorder-relationships">
     <tr>
       <th className="align-left wide">{l('Relationship')}</th>

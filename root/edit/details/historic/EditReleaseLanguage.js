@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import {HistoricReleaseListContent}
   from '../../components/HistoricReleaseList.js';
 
@@ -16,7 +14,7 @@ type Props = {
   +edit: EditReleaseLanguageHistoricEditT,
 };
 
-const EditReleaseLanguage = ({edit}: Props): React.Element<'table'> => (
+const EditReleaseLanguage = ({edit}: Props): React$Element<'table'> => (
   <table className="details edit-release">
     <tr>
       <th>{l('Old:')}</th>

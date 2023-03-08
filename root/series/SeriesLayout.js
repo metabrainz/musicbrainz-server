@@ -7,15 +7,13 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import SeriesSidebar from '../layout/components/sidebar/SeriesSidebar.js';
 import Layout from '../layout/index.js';
 
 import SeriesHeader from './SeriesHeader.js';
 
 type Props = {
-  +children: React.Node,
+  +children: React$Node,
   +entity: SeriesT,
   +fullWidth?: boolean,
   +page: string,
@@ -28,7 +26,7 @@ const SeriesLayout = ({
   fullWidth = false,
   page,
   title,
-}: Props): React.Element<typeof Layout> => (
+}: Props): React$Element<typeof Layout> => (
   <Layout
     title={nonEmpty(title) ? hyphenateTitle(series.name, title) : series.name}
   >

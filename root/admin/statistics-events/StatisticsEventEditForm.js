@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import FormCsrfToken
   from '../../static/scripts/edit/components/FormCsrfToken.js';
 import FormRowTextLong
@@ -23,7 +21,7 @@ type PropsT = {
 
 const StatisticsEventForm = ({
   form,
-}: PropsT): React.Element<'form'> => (
+}: PropsT): React$Element<'form'> => (
   <form method="post">
     <FormCsrfToken form={form} />
     <div className="half-width">

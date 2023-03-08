@@ -43,7 +43,7 @@ const RelationshipTargetTypeGroups = (React.memo<PropsT>(({
   source,
   targetTypeGroups,
   track,
-}: PropsT): React.MixedElement => {
+}: PropsT): React$MixedElement => {
   const addButtonRef = React.useRef<HTMLButtonElement | null>(null);
 
   const buildPopoverContent = useAddRelationshipDialogContent({
@@ -124,6 +124,6 @@ const RelationshipTargetTypeGroups = (React.memo<PropsT>(({
       </tbody>
     </table>
   );
-}): React.AbstractComponent<PropsT>);
+}): React$AbstractComponent<PropsT, mixed>);
 
 export default RelationshipTargetTypeGroups;

@@ -36,7 +36,7 @@ class CommonsImage extends React.Component<Props, State> {
     }
   }
 
-  render(): React.MixedElement | null {
+  render(): React$MixedElement | null {
     const {image} = this.state;
     return image ? (
       <div className="picture">
@@ -56,4 +56,4 @@ export default (hydrate<Props>(
   'div.commons-image',
   CommonsImage,
   minimalEntity,
-): React.AbstractComponent<Props, void>);
+): React$AbstractComponent<Props, void>);

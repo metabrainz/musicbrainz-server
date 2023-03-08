@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import EntityLink from '../../common/components/EntityLink.js';
 
 type PropsT = {
@@ -21,7 +19,7 @@ const PossibleDuplicates = ({
   duplicates,
   name,
   onCheckboxChange,
-}: PropsT): React.Element<'div'> => (
+}: PropsT): React$Element<'div'> => (
   <div>
     <h3>{l('Possible Duplicates')}</h3>
     <p>{l('We found the following entities with very similar names:')}</p>

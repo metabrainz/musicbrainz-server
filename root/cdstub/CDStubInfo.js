@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import formatTrackLength
   from '../static/scripts/common/utility/formatTrackLength.js';
 import loopParity from '../utility/loopParity.js';
@@ -21,7 +19,7 @@ type Props = {
 const CDStubInfo = ({
   cdstub,
   showArtists = false,
-}: Props): React.Element<'table'> => (
+}: Props): React$Element<'table'> => (
   <table className="tbl">
     <thead>
       <tr>

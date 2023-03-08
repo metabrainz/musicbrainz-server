@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import Layout from '../layout/index.js';
 import FormCsrfToken
   from '../static/scripts/edit/components/FormCsrfToken.js';
@@ -27,7 +25,7 @@ type Props = {
   +form: LostPasswordFormT,
 };
 
-const LostPassword = (props: Props): React.Element<typeof Layout> => (
+const LostPassword = (props: Props): React$Element<typeof Layout> => (
   <Layout fullWidth title={l('Lost Password')}>
     <h1>{l('Lost Password')}</h1>
     <p>

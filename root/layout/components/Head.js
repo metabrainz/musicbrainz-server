@@ -69,7 +69,7 @@ const Head = ({
   noIcons = false,
   pager,
   title,
-}: HeadProps): React.Element<'head'> => {
+}: HeadProps): React$Element<'head'> => {
   const $c = React.useContext(CatalystContext);
 
   return (

@@ -65,7 +65,7 @@ const EditHeader = ({
   edit,
   isSummary = false,
   voter,
-}: Props): React.Element<'div'> => {
+}: Props): React$Element<'div'> => {
   const $c = React.useContext(CatalystContext);
   const user = $c.user;
   const mayApprove = editorMayApprove(edit, user);

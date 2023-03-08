@@ -28,7 +28,7 @@ const PlaceList = <D: {+place: ?PlaceT, ...}>({
   columnsAfter,
   items,
   pager,
-}: Props<D>): React.Element<typeof PaginatedResults> => {
+}: Props<D>): React$Element<typeof PaginatedResults> => {
   const existingPlaceItems = items.reduce((
     result: Array<D>,
     item,

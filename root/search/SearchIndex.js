@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import Layout from '../layout/index.js';
 import OtherLookupForm from '../otherlookup/OtherLookupForm.js';
 import type {OtherLookupFormT} from '../otherlookup/types.js';
@@ -26,7 +24,7 @@ const SearchIndex = ({
   otherLookupForm,
   searchForm,
   tagLookupForm,
-}: Props): React.Element<typeof Layout> => (
+}: Props): React$Element<typeof Layout> => (
   <Layout fullWidth title={l('Search')}>
     <div id="content">
       <h1>{l('Search')}</h1>

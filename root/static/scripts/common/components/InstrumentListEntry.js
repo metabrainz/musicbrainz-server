@@ -65,7 +65,7 @@ const InstrumentListEntry = ({
   index,
   instrument,
   score,
-}: InstrumentListEntryProps): React.Element<'tr'> => (
+}: InstrumentListEntryProps): React$Element<'tr'> => (
   <tr className={loopParity(index)} data-score={score ?? null}>
     <InstrumentListRow
       checkboxes={checkboxes}

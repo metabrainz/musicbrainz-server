@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import ArtistCreditLink
   from '../static/scripts/common/components/ArtistCreditLink.js';
 import DataTrackIcon
@@ -34,7 +32,7 @@ const MediumTracklist = ({
   showArtists = false,
   showRatings = false,
   tracks,
-}: Props): Array<React.Element<'tr'>> => {
+}: Props): Array<React$Element<'tr'>> => {
   if (!tracks) {
     return [];
   }

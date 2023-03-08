@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import NotFound from '../components/NotFound.js';
 
 type Props = {
@@ -19,7 +17,7 @@ type Props = {
 const MbidNotFound = ({
   isGuid,
   mbid,
-}: Props): React.Element<typeof NotFound> => (
+}: Props): React$Element<typeof NotFound> => (
   <NotFound title={isGuid ? l('MBID Not Found') : l('Invalid MBID')}>
     <p>
       {nonEmpty(mbid) && isGuid ? (

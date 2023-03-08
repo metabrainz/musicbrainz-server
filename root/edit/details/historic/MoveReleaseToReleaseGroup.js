@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import DescriptiveLink
   from '../../../static/scripts/common/components/DescriptiveLink.js';
 
@@ -18,7 +16,7 @@ type Props = {
 
 const MoveReleaseToReleaseGroup = ({
   edit,
-}: Props): React.Element<'table'> => (
+}: Props): React$Element<'table'> => (
   <table className="details edit-release">
     <tr>
       <th>{l('Release:')}</th>

@@ -94,7 +94,7 @@ const Editors = ({
   topRecentlyActiveEditors,
   topRecentlyActiveVoters,
   topVoters,
-}: EditorsStatsT): React.Element<typeof StatisticsLayout> => (
+}: EditorsStatsT): React$Element<typeof StatisticsLayout> => (
   <StatisticsLayout fullWidth page="editors" title={l('Editors')}>
     <p>
       {texp.l('Last updated: {date}', {date: dateCollected})}

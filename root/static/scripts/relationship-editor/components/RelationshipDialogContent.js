@@ -574,11 +574,11 @@ const AttributesSection = (React.memo<AttributesSectionPropsT>(({
       </table>
     </>
   ) : null;
-}): React.AbstractComponent<AttributesSectionPropsT, mixed>);
+}): React$AbstractComponent<AttributesSectionPropsT, mixed>);
 
 const RelationshipDialogContent = (React.memo<PropsT>((
   props: PropsT,
-): React.MixedElement => {
+): React$MixedElement => {
   const {
     batchSelectionCount,
     closeDialog,
@@ -1021,7 +1021,7 @@ const RelationshipDialogContent = (React.memo<PropsT>((
       />
     </div>
   );
-}): React.AbstractComponent<PropsT>);
+}): React$AbstractComponent<PropsT, mixed>);
 
 function getBatchSelectionMessage(sourceType: CoreEntityTypeT) {
   switch (sourceType) {

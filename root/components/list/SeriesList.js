@@ -33,7 +33,7 @@ const SeriesList = ({
   order,
   series,
   sortable,
-}: Props): React.Element<'table'> => {
+}: Props): React$Element<'table'> => {
   const $c = React.useContext(CatalystContext);
 
   const columns = React.useMemo(

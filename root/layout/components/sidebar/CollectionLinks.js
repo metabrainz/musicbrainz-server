@@ -35,7 +35,7 @@ const noCollectionsStrings = {
 
 const CollectionLinks = ({
   entity,
-}: Props): React.Element<typeof CollectionList> | null => {
+}: Props): React$Element<typeof CollectionList> | null => {
   const $c = React.useContext(CatalystContext);
   const numberOfCollections = $c.stash.number_of_collections || 0;
   if (!$c.user) {

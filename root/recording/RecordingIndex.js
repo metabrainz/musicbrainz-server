@@ -165,7 +165,7 @@ const RecordingIndex = ({
   pager,
   recording,
   tracks,
-}: Props): React.Element<typeof RecordingLayout> => (
+}: Props): React$Element<typeof RecordingLayout> => (
   <RecordingLayout entity={recording} page="index">
     <Annotation
       annotation={recording.latest_annotation}

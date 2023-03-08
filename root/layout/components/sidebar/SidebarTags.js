@@ -34,7 +34,7 @@ const TagList = ({
 }: TagListProps) => {
   const upvotedTags = tags ? tags.filter(tag => tag.count > 0) : null;
   const links = upvotedTags ? upvotedTags.reduce((
-    accum: Array<React.Element<typeof TagLink>>,
+    accum: Array<React$Element<typeof TagLink>>,
     aggregatedTag,
   ) => {
     if (Boolean(aggregatedTag.tag.genre) === isGenreList) {
@@ -55,7 +55,7 @@ const TagList = ({
 
 const SidebarTags = ({
   entity,
-}: SidebarTagsProps): React.Element<typeof React.Fragment> | null => {
+}: SidebarTagsProps): React$Element<typeof React.Fragment> | null => {
   const $c = React.useContext(CatalystContext);
   const aggregatedTags = $c.stash.top_tags;
   const more = Boolean($c.stash.more_tags);

@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import ArtistCreditLink from './ArtistCreditLink.js';
 import CollapsibleList from './CollapsibleList.js';
 
@@ -40,4 +38,4 @@ const WorkArtists = ({artists}: WorkArtistsProps) => (
 export default (hydrate<WorkArtistsProps>(
   'div.work-artists-container',
   WorkArtists,
-): React.AbstractComponent<WorkArtistsProps, void>);
+): React$AbstractComponent<WorkArtistsProps, void>);

@@ -15,7 +15,7 @@ import EntityLink
   from '../../../static/scripts/common/components/EntityLink.js';
 
 type Props = {
-  +children?: React.Node,
+  +children?: React$Node,
   +entity: CoreEntityT,
   +requiresPrivileges?: boolean,
 };
@@ -24,7 +24,7 @@ const EditLinks = ({
   children,
   entity,
   requiresPrivileges = false,
-}: Props): React.Element<typeof React.Fragment> => {
+}: Props): React$Element<typeof React.Fragment> => {
   const $c = React.useContext(CatalystContext);
   return (
     <>

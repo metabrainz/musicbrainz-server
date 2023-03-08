@@ -79,7 +79,7 @@ const RecordingList = ({
   showRatings = false,
   showReleaseGroups = false,
   sortable,
-}: Props): React.MixedElement => {
+}: Props): React$MixedElement => {
   const $c = React.useContext(SanitizedCatalystContext);
 
   const columns = React.useMemo(

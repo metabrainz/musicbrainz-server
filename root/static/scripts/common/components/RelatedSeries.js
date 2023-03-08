@@ -28,8 +28,8 @@ export function isNotSeriesPart(r: RelationshipT): boolean {
   return !seriesPartLinkTypes.has(linkedEntities.link_type[r.linkTypeID].gid);
 }
 
-const RelatedSeries = ({seriesIds}: Props): React.MixedElement => {
-  const parts: Array<React.Node> = [
+const RelatedSeries = ({seriesIds}: Props): React$MixedElement => {
+  const parts: Array<React$Node> = [
     /* eslint-disable react/jsx-key */
     <h2 className="related-series">
       {l('Related series')}

@@ -17,7 +17,7 @@ import ReleaseRelationshipEditor
 
 import ReleaseHeader from './ReleaseHeader.js';
 
-const EditRelationships = (): React.Element<typeof Layout> => {
+const EditRelationships = (): React$Element<typeof Layout> => {
   const $c = React.useContext(CatalystContext);
   const release = $c.stash.source_entity;
   invariant(release?.entityType === 'release');

@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import Layout from '../layout/index.js';
 
 type VotingGuideRowProps = {
@@ -42,7 +40,7 @@ const VotingGuideRow = ({
   );
 };
 
-const VotingIndex = (): React.Element<typeof Layout> => (
+const VotingIndex = (): React$Element<typeof Layout> => (
   <Layout fullWidth title={l('Voting suggestions')}>
     <div id="content">
       <h1>{l('Voting suggestions')}</h1>

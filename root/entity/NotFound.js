@@ -8,8 +8,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import NotFoundComponent from '../components/NotFound.js';
 import expand2react from '../static/scripts/common/i18n/expand2react.js';
 
@@ -240,7 +238,7 @@ type Props = {
 
 const NotFound = ({
   namespace,
-}: Props): React.Element<typeof NotFoundComponent> => {
+}: Props): React$Element<typeof NotFoundComponent> => {
   const parameters = notFoundPages[namespace];
   return (
     <NotFoundComponent title={parameters.title()}>

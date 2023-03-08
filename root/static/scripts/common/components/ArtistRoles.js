@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import {commaOnlyListText} from '../i18n/commaOnlyList.js';
 import localizeArtistRoles from '../i18n/localizeArtistRoles.js';
 
@@ -43,7 +41,7 @@ const buildArtistRoleRow = (relation: RelationT) => {
 
 const ArtistRoles = ({
   relations,
-}: ArtistRolesProps): React.Element<typeof CollapsibleList> => (
+}: ArtistRolesProps): React$Element<typeof CollapsibleList> => (
   <CollapsibleList
     ariaLabel={l('Artist Roles')}
     buildRow={buildArtistRoleRow}
@@ -59,4 +57,4 @@ const ArtistRoles = ({
 export default (hydrate<ArtistRolesProps>(
   'div.artist-roles-container',
   ArtistRoles,
-): React.AbstractComponent<ArtistRolesProps, void>);
+): React$AbstractComponent<ArtistRolesProps, void>);

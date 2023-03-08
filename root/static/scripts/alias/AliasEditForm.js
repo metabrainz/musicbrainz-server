@@ -200,7 +200,7 @@ const AliasEditForm = ({
   form: initialForm,
   locales,
   searchHintType,
-}: Props): React.Element<typeof React.Fragment> => {
+}: Props): React$Element<typeof React.Fragment> => {
   const localeOptions = {
     grouped: false,
     options: locales,
@@ -353,4 +353,4 @@ const AliasEditForm = ({
 export default (hydrate<Props>(
   'div.alias-edit-form',
   AliasEditForm,
-): React.AbstractComponent<Props, void>);
+): React$AbstractComponent<Props, void>);

@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import InstrumentList from './components/InstrumentList.js';
 import ReportLayout from './components/ReportLayout.js';
 import type {ReportDataT, ReportInstrumentT} from './types.js';
@@ -19,7 +17,7 @@ const InstrumentsWithoutAnImage = ({
   generated,
   items,
   pager,
-}: ReportDataT<ReportInstrumentT>): React.Element<typeof ReportLayout> => (
+}: ReportDataT<ReportInstrumentT>): React$Element<typeof ReportLayout> => (
   <ReportLayout
     canBeFiltered={canBeFiltered}
     description={l(

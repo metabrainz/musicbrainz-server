@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import FieldErrors from './FieldErrors.js';
 import FormLabel from './FormLabel.js';
 import FormRow from './FormRow.js';
@@ -20,7 +18,7 @@ import PartialDateInput, {
 export type ActionT = PartialDateInputActionT;
 
 type CommonProps = {
-  +children?: React.Node,
+  +children?: React$Node,
   +disabled?: boolean,
   +field: PartialDateFieldT,
   +label: string,
@@ -52,7 +50,7 @@ const FormRowPartialDate = ({
   label,
   required = false,
   ...inputProps
-}: Props): React.Element<typeof FormRow> => (
+}: Props): React$Element<typeof FormRow> => (
   <FormRow>
     <FormLabel
       forField={field.field.year}

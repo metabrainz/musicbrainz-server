@@ -41,8 +41,8 @@ type TracksResponseT = {
 type PagedMediumTableVarsT = {
   +columnCount: number,
   +loadedTrackCount: number,
-  +mediumHeaderLink: React.MixedElement,
-  +pagingElements: React.MixedElement,
+  +mediumHeaderLink: React$MixedElement,
+  +pagingElements: React$MixedElement,
   +showArtists: boolean,
 };
 

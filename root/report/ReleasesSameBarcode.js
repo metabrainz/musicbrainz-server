@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import formatBarcode from '../static/scripts/common/utility/formatBarcode.js';
 import {
   defineEntityColumn,
@@ -34,7 +32,7 @@ const ReleasesSameBarcode = ({
   generated,
   items,
   pager,
-}: ReportDataT<ReportRowT>): React.Element<typeof ReportLayout> => {
+}: ReportDataT<ReportRowT>): React$Element<typeof ReportLayout> => {
   const barcodeColumn = defineTextColumn<ReportRowT>({
     cellProps: {className: 'barcode-cell'},
     columnName: 'barcode',

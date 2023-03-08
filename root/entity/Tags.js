@@ -26,7 +26,7 @@ const Tags = ({
   entity,
   moreTags,
   userTags,
-}: Props): React.MixedElement => {
+}: Props): React$MixedElement => {
   const $c = React.useContext(CatalystContext);
   const entityType = entity.entityType;
   const LayoutComponent = chooseLayoutComponent(entityType);

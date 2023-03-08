@@ -247,7 +247,7 @@ const AutocompleteItem = React.memo(<+T: EntityItemT>({
   isSelected,
   item,
   selectItem,
-}: AutocompleteItemPropsT<T>): React.MixedElement => {
+}: AutocompleteItemPropsT<T>): React$MixedElement => {
   const itemId = `${autocompleteId}-item-${item.id}`;
   const isDisabled = !!item.disabled;
   const isSeparator = !!item.separator;
@@ -310,7 +310,7 @@ const AutocompleteItem = React.memo(<+T: EntityItemT>({
 
 const Autocomplete2 = (React.memo(<+T: EntityItemT>(
   props: PropsT<T>,
-): React.Element<'div'> => {
+): React$Element<'div'> => {
   const {dispatch, state} = props;
 
   const {

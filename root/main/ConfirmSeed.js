@@ -26,7 +26,7 @@ type Props = {
 const ConfirmSeed = ({
   origin,
   postParameters,
-}: Props): React.Element<typeof Layout> => {
+}: Props): React$Element<typeof Layout> => {
   const $c = React.useContext(SanitizedCatalystContext);
   const title = l('Confirm Form Submission');
   return (

@@ -8,8 +8,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import timelineIconUrl
   from '../static/images/icons/timeline.png';
 
@@ -36,7 +34,7 @@ export function formatCount($c: CatalystContextT, num: ?number): string {
 
 export const TimelineLink = ({
   statName,
-}: {statName: string}): React.Element<'a'> => (
+}: {statName: string}): React$Element<'a'> => (
   <a
     href={'/statistics/timeline/' + encodeURIComponent(statName)}
     title={l('See on timeline')}

@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import Relationships
   from '../static/scripts/common/components/Relationships.js';
 import isGreyedOut from '../static/scripts/url/utility/isGreyedOut.js';
@@ -19,7 +17,7 @@ type Props = {
   +url: UrlT,
 };
 
-const UrlIndex = ({url}: Props): React.Element<typeof UrlLayout> => (
+const UrlIndex = ({url}: Props): React$Element<typeof UrlLayout> => (
   <UrlLayout entity={url} page="index" title={l('URL Information')}>
     <h2 className="url-details">{l('URL Details')}</h2>
     <table className="details">

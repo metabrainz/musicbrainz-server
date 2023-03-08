@@ -63,7 +63,7 @@ function reducer(state: StateT, action: ActionT): StateT {
 const AnnotationHistoryTable = ({
   annotations,
   baseUrl,
-}: Props): React.Element<'table'> => {
+}: Props): React$Element<'table'> => {
   const $c = React.useContext(SanitizedCatalystContext);
 
   const canCompare = annotations.length > 1;
@@ -164,4 +164,4 @@ const AnnotationHistoryTable = ({
 export default (hydrate<Props>(
   'div.annotation-history-table',
   AnnotationHistoryTable,
-): React.AbstractComponent<Props, void>);
+): React$AbstractComponent<Props, void>);

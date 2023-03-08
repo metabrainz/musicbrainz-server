@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import PaginatedResults from '../components/PaginatedResults.js';
 import Layout from '../layout/index.js';
 import FormRowCheckbox
@@ -42,7 +40,7 @@ const PrivilegeSearch = ({
   form,
   pager,
   results,
-}: Props): React.Element<typeof Layout> => (
+}: Props): React$Element<typeof Layout> => (
   <Layout fullWidth title={l('Search users by privileges')}>
     <div id="content">
       <h1>{l('Search users by privileges')}</h1>

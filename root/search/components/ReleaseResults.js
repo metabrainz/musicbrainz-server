@@ -101,7 +101,7 @@ export const ReleaseResultsInline = ({
   query,
   results,
 }: InlineResultsPropsT<ReleaseT>):
-React.Element<typeof PaginatedSearchResults> => {
+React$Element<typeof PaginatedSearchResults> => {
   const $c = React.useContext(CatalystContext);
 
   return (
@@ -138,7 +138,7 @@ const ReleaseResults = ({
   pager,
   query,
   results,
-}: ResultsPropsT<ReleaseT>): React.Element<typeof ResultsLayout> => {
+}: ResultsPropsT<ReleaseT>): React$Element<typeof ResultsLayout> => {
   const $c = React.useContext(CatalystContext);
   return (
     <ResultsLayout form={form} lastUpdated={lastUpdated}>

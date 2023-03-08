@@ -43,7 +43,7 @@ type Props = {
     entity: CoreEntityT,
     content: string,
     relationship: RelationshipT,
-  ) => React.MixedElement,
+  ) => React$MixedElement,
   newRelationship: RelationshipT,
   oldRelationship: RelationshipT,
 };
@@ -66,7 +66,7 @@ const RelationshipDiff = (React.memo(({
   newRelationship,
   oldRelationship,
   makeEntityLink = makeDescriptiveLink,
-}: Props): React.Element<typeof React.Fragment> => {
+}: Props): React$Element<typeof React.Fragment> => {
   const oldAttrs = keyBy(oldRelationship.attributes, getTypeId);
   const newAttrs = keyBy(newRelationship.attributes, getTypeId);
 
@@ -223,6 +223,6 @@ const RelationshipDiff = (React.memo(({
       </tr>
     </>
   );
-}): React.AbstractComponent<Props, void>);
+}): React$AbstractComponent<Props, void>);
 
 export default RelationshipDiff;

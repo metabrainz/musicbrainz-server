@@ -28,8 +28,8 @@ type Props = {
   +workIds: $ReadOnlyArray<number>,
 };
 
-const RelatedWorks = ({workIds}: Props): React.MixedElement => {
-  const parts: Array<React.Node> = [
+const RelatedWorks = ({workIds}: Props): React$MixedElement => {
+  const parts: Array<React$Node> = [
     /* eslint-disable react/jsx-key */
     <h2 className="related-works">
       {l('Related works')}

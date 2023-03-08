@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import Layout from '../../layout/index.js';
 import formatEntityTypeName
   from '../../static/scripts/common/utility/formatEntityTypeName.js';
@@ -58,7 +56,7 @@ const TypesTable = ({table, types}: Props) => (
 const RelationshipTypesList = ({
   table,
   types,
-}: Props): React.Element<typeof Layout> => (
+}: Props): React$Element<typeof Layout> => (
   <Layout fullWidth noIcons title={l('Relationship Types')}>
     <div className="wikicontent" id="content">
       <RelationshipsHeader page="relationships" />

@@ -7,12 +7,10 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import headerLogoSvgUrl
   from '../../static/images/layout/header-logo.svg';
 
-const HeaderLogo = (): React.Element<'img'> => (
+const HeaderLogo = (): React$Element<'img'> => (
   <img
     alt="MusicBrainz"
     className="logo"

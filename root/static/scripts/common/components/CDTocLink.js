@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import entityHref from '../utility/entityHref.js';
 
 type Props = {
@@ -24,7 +22,7 @@ type Props = {
 
 const CDTocLink = (
   {cdToc, content, subPath, anchorPath}: Props,
-): React.Element<'a'> => (
+): React$Element<'a'> => (
   <a href={entityHref(cdToc, subPath, anchorPath)}>
     <bdi>
       {nonEmpty(content) ? content : cdToc.discid}

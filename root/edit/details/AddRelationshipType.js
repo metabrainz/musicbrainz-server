@@ -23,7 +23,7 @@ type Props = {
 
 const AddRelationshipType = ({
   edit,
-}: Props): React.Element<typeof React.Fragment> => {
+}: Props): React$Element<typeof React.Fragment> => {
   const display = edit.display_data;
   const entity0Type = ENTITY_NAMES[display.entity0_type]();
   const entity1Type = ENTITY_NAMES[display.entity1_type]();

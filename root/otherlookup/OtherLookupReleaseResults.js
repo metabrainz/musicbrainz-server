@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import ReleaseList from '../components/list/ReleaseList.js';
 import Layout from '../layout/index.js';
 
@@ -20,7 +18,7 @@ type Props = {
 
 const OtherLookupReleaseResults = ({
   results,
-}: Props): React.Element<typeof Layout> => (
+}: Props): React$Element<typeof Layout> => (
   <Layout fullWidth title={l('Search Results')}>
     <h1>{l('Search Results')}</h1>
     {results.length ? (

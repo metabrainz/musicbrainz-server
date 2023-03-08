@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import RelationshipDiff
   from '../../static/scripts/edit/components/edit/RelationshipDiff.js';
 
@@ -16,7 +14,7 @@ type Props = {
   +edit: EditRelationshipEditT,
 };
 
-const EditRelationship = ({edit}: Props): React.MixedElement => (
+const EditRelationship = ({edit}: Props): React$MixedElement => (
   <table className="details edit-relationship">
     <RelationshipDiff
       newRelationship={edit.display_data.new}

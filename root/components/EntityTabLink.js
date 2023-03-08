@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import EntityLink from '../static/scripts/common/components/EntityLink.js';
 
 type Props = {
@@ -23,7 +21,7 @@ const EntityTabLink = ({
   disabled = false,
   selected,
   ...linkProps
-}: Props): React.Element<'li'> => (
+}: Props): React$Element<'li'> => (
   <li
     className={
       selected || disabled

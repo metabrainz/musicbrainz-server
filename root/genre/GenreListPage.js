@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import Layout from '../layout/index.js';
 import EntityLink from '../static/scripts/common/components/EntityLink.js';
 
@@ -18,7 +16,7 @@ type PropsT = {
 
 const GenreListPage = ({
   genres,
-}: PropsT): React.Element<typeof Layout> => (
+}: PropsT): React$Element<typeof Layout> => (
   <Layout fullWidth title={l('Genre List')}>
     <div id="content">
       <h1>{l('Genre List')}</h1>

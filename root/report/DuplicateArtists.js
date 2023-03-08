@@ -26,7 +26,7 @@ const DuplicateArtists = ({
   generated,
   items,
   pager,
-}: ReportDataT<ReportArtistT>): React.Element<typeof ReportLayout> => {
+}: ReportDataT<ReportArtistT>): React$Element<typeof ReportLayout> => {
   const $c = React.useContext(SanitizedCatalystContext);
 
   let currentKey: ?string = '';

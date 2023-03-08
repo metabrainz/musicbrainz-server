@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import ReleaseLayout from '../release/ReleaseLayout.js';
 import ArtistCreditLink
   from '../static/scripts/common/components/ArtistCreditLink.js';
@@ -30,7 +28,7 @@ const RemoveDiscId = ({
   form,
   mediumCDToc,
   release,
-}: RemoveDiscIdProps): React.Element<typeof ReleaseLayout> => (
+}: RemoveDiscIdProps): React$Element<typeof ReleaseLayout> => (
   <ReleaseLayout entity={release} fullWidth title={l('Remove Disc ID')}>
     <h2>{l('Remove Disc ID')}</h2>
 

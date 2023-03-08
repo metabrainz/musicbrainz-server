@@ -315,6 +315,6 @@ const RelationshipPhraseGroup = (React.memo<PropsT>(({
       ) : null}
     </>
   ) : null;
-}): React.AbstractComponent<PropsT>);
+}): React$AbstractComponent<PropsT, mixed>);
 
 export default RelationshipPhraseGroup;

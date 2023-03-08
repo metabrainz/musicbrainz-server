@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import Layout from '../layout/index.js';
 import expand2react from '../static/scripts/common/i18n/expand2react.js';
 import FormRowText from '../static/scripts/edit/components/FormRowText.js';
@@ -26,7 +24,7 @@ type Props = {
 const EmailSearch = ({
   form,
   results,
-}: Props): React.Element<typeof Layout> => (
+}: Props): React$Element<typeof Layout> => (
   <Layout fullWidth title={l('Search users by email')}>
     <div id="content">
       <h1>{l('Search users by email')}</h1>

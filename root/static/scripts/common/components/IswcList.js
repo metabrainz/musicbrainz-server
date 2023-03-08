@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import {SidebarProperty}
   from '../../../../layout/components/sidebar/SidebarProperties.js';
 
@@ -57,4 +55,4 @@ const IswcList = ({
 export default (hydrate<IswcListProps>(
   'div.iswc-list-container',
   IswcList,
-): React.AbstractComponent<IswcListProps, void>);
+): React$AbstractComponent<IswcListProps, void>);

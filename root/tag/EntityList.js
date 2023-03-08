@@ -136,7 +136,7 @@ export const EntityListContent = ({
   showVotesSelect = false,
   tag,
   user,
-}: EntityListContentProps): React.Element<typeof React.Fragment> => {
+}: EntityListContentProps): React$Element<typeof React.Fragment> => {
   const $c = React.useContext(CatalystContext);
   return (
     <>
@@ -177,7 +177,7 @@ const EntityList = ({
   page,
   pager,
   tag,
-}: EntityListProps): React.Element<typeof TagLayout> => (
+}: EntityListProps): React$Element<typeof TagLayout> => (
   <TagLayout page={page} tag={tag}>
     <EntityListContent
       entityTags={entityTags}
