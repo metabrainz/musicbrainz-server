@@ -200,8 +200,8 @@ declare type LastUpdateRoleT = {
   +last_updated: string | null,
 };
 
-declare type MinimalCoreEntityT = {
-  +entityType: CoreEntityTypeT,
+declare type MinimalEntityT = {
+  +entityType: string,
   +gid: string,
 };
 

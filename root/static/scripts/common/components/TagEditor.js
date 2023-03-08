@@ -22,6 +22,11 @@ import isBlank from '../utility/isBlank.js';
 
 import TagLink from './TagLink.js';
 
+type MinimalTaggableEntityT = {
+  +entityType: TaggableEntityT['entityType'],
+  +gid: string,
+};
+
 const VOTE_ACTIONS = {
   '-1': 'downvote',
   '0': 'withdraw',
@@ -51,7 +56,7 @@ function formatGenreLabel(genre: GenreT) {
   return output;
 }
 
-function getTagsPath(entity: TaggableEntityT | MinimalCoreEntityT) {
+function getTagsPath(entity: TaggableEntityT | MinimalTaggableEntityT) {
   const type = entity.entityType.replace('_', '-');
   return `/${type}/${entity.gid}/tags`;
 }
@@ -202,7 +207,7 @@ const TagRow = ({
 
 type TagEditorProps = {
   +aggregatedTags: $ReadOnlyArray<AggregatedTagT>,
-  +entity: TaggableEntityT | MinimalCoreEntityT,
+  +entity: TaggableEntityT | MinimalTaggableEntityT,
   +genreMap: ?{+[genreName: string]: GenreT, ...},
   +more: boolean,
   +userTags: $ReadOnlyArray<UserTagT>,
