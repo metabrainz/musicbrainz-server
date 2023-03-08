@@ -1814,10 +1814,10 @@ limited_link_type_combinations: [
        only_valid_entity_types: ['artist', 'label', 'place', 'series', 'work'],
   },
   {
-                     input_url: 'http://d-nb.info/gnd/1133522467',
+                     input_url: 'https://d-nb.info/gnd/25995-0',
              input_entity_type: 'place',
     expected_relationship_type: 'otherdatabases',
-            expected_clean_url: 'http://d-nb.info/gnd/1133522467',
+            expected_clean_url: 'http://d-nb.info/gnd/25995-0',
        only_valid_entity_types: ['artist', 'label', 'place', 'series', 'work'],
   },
   {
