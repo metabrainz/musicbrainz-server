@@ -25,6 +25,8 @@ declare type ExpandLFunc<-Input, Output> = (
   args: {+[arg: string]: Input | Output, ...},
 ) => Output;
 
+declare type N_l_T = () => string;
+
 declare type VarSubstArg =
   | StrOrNum
   | React$MixedElement;

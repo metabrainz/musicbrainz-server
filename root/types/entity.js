@@ -50,7 +50,7 @@ declare type CoreEntityRoleT<+T> = {
   +gid: string,
   +name: string,
   +paged_relationship_groups?: {
-    +[targetType: CoreEntityTypeT]: PagedTargetTypeGroupT | void,
+    +[targetType: RelatableEntityTypeT]: PagedTargetTypeGroupT | void,
   },
   +relationships?: $ReadOnlyArray<RelationshipT>,
 };

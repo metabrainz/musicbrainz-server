@@ -81,7 +81,7 @@ declare type CatalystStashT = {
 declare type MergeQueueT = {
   +entities: $ReadOnlyArray<number>,
   +ready_to_merge: boolean,
-  +type: CoreEntityTypeT,
+  +type: MergeableEntityTypeT,
 };
 
 // root/utility/sanitizedContext.mjs
