@@ -172,7 +172,7 @@ export function reducer(
 const MultiselectAttribute = (React.memo<PropsT>(({
   state,
   dispatch,
-}: PropsT): React.MixedElement => {
+}: PropsT): React$MixedElement => {
   const linkTypeAttributeType = state.type;
   const addLabel = addAttributeLabels[linkTypeAttributeType.id];
 

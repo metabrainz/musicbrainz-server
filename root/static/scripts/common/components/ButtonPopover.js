@@ -30,10 +30,10 @@ type PropsT = {
   +isDisabled?: boolean,
   +isOpen: boolean,
   +toggle: (boolean) => void,
-  +wrapButton?: (React.MixedElement) => React.MixedElement,
+  +wrapButton?: (React$MixedElement) => React$MixedElement,
 };
 
-const ButtonPopover = (props: PropsT): React.MixedElement => {
+const ButtonPopover = (props: PropsT): React$MixedElement => {
   const {
     buttonContent,
     buttonProps = null,
@@ -95,7 +95,7 @@ const ButtonPopover = (props: PropsT): React.MixedElement => {
     className: buttonProps.className,
   } : null;
 
-  let buttonElement: React.MixedElement = (
+  let buttonElement: React$MixedElement = (
     <button
       aria-controls={isOpen ? dialogProps.id : null}
       aria-haspopup="dialog"

@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import ArtistCreditList from '../components/Aliases/ArtistCreditList.js';
 import AliasesComponent from '../components/Aliases/index.js';
 import chooseLayoutComponent from '../utility/chooseLayoutComponent.js';
@@ -23,7 +21,7 @@ const Aliases = ({
   aliases,
   artistCredits,
   entity,
-}: Props): React.MixedElement => {
+}: Props): React$MixedElement => {
   const entityType = entity.entityType;
   const LayoutComponent = chooseLayoutComponent(entityType);
 

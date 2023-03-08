@@ -29,7 +29,7 @@ type MpIconProps = {
 
 export const MpIcon = (hydrate<MpIconProps>('span.ac-mp', (
   {artistCredit}: MpIconProps,
-): React.MixedElement => {
+): React$MixedElement => {
   let editSearch =
     '/search/edits?auto_edit_filter=&order=desc&negation=0' +
     '&combinator=and&conditions.0.field=type&conditions.0.operator=%3D' +

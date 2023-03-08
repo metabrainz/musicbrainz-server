@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import entityHref from '../utility/entityHref.js';
 import primaryAreaCode from '../utility/primaryAreaCode.js';
 
@@ -30,7 +28,7 @@ const CountryAbbr = ({
   const combinedClass =
     ('flag flag-' + primaryCode) +
     (nonEmpty(className) ? (' ' + className) : '');
-  let content: React.MixedElement = (
+  let content: React$MixedElement = (
     <abbr title={l_countries(country.name)}>
       {primaryCode}
     </abbr>

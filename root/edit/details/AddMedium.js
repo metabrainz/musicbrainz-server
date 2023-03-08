@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import MediumTracklist
   from '../../medium/MediumTracklist.js';
 import DescriptiveLink
@@ -104,7 +102,7 @@ const CondensedTrackACs = ({
   return rows;
 };
 
-const AddMedium = ({allowNew, edit}: Props): React.MixedElement => {
+const AddMedium = ({allowNew, edit}: Props): React$MixedElement => {
   const display = edit.display_data;
   const format = display.format;
 

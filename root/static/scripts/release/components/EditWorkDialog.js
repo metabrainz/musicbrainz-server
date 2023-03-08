@@ -104,7 +104,7 @@ const EditWorkDialog: React.AbstractComponent<
   closeDialog,
   rootDispatch,
   work,
-}: EditWorkDialogPropsT): React.MixedElement => {
+}: EditWorkDialogPropsT): React$MixedElement => {
   const [state, dispatch] = React.useReducer(
     reducer,
     work,

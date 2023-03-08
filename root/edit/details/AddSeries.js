@@ -7,15 +7,13 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import EntityLink from '../../static/scripts/common/components/EntityLink.js';
 
 type Props = {
   +edit: AddSeriesEditT,
 };
 
-const AddSeries = ({edit}: Props): React.MixedElement => {
+const AddSeries = ({edit}: Props): React$MixedElement => {
   const type = edit.display_data.type;
   const orderingType = edit.display_data.ordering_type;
 

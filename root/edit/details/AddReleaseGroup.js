@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import DescriptiveLink from
   '../../static/scripts/common/components/DescriptiveLink.js';
 import ExpandedArtistCredit from
@@ -19,7 +17,7 @@ type Props = {
   +edit: AddReleaseGroupEditT,
 };
 
-const AddReleaseGroup = ({allowNew, edit}: Props): React.MixedElement => {
+const AddReleaseGroup = ({allowNew, edit}: Props): React$MixedElement => {
   const display = edit.display_data;
   const type = display.type;
   const secondaryType = display.secondary_types;

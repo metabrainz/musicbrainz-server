@@ -25,7 +25,7 @@ export const ToggleAllMediumsButtons = (React.memo<
 >(({
   dispatch,
   mediums,
-}: ToggleAllMediumsButtonsPropsT): React.MixedElement => (
+}: ToggleAllMediumsButtonsPropsT): React$MixedElement => (
   <>
     <button
       className="btn-link"

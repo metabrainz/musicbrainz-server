@@ -150,7 +150,7 @@ const ArtistCreditRenamer = ({
   artistName,
   initialArtistName,
   initialSelectedArtistCreditIds,
-}: ArtistCreditRenamerPropsT): React.MixedElement | null => {
+}: ArtistCreditRenamerPropsT): React$MixedElement | null => {
   const rowsRef = React.useRef<
     $ReadOnlyArray<React$Element<typeof ArtistCreditRow>> | null,
   >(null);

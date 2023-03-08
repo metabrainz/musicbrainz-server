@@ -252,7 +252,7 @@ export const BatchCreateWorksButtonPopover = (React.memo<
   dispatch,
   isDisabled,
   isOpen,
-}: BatchCreateWorksButtonPopoverPropsT): React.MixedElement => {
+}: BatchCreateWorksButtonPopoverPropsT): React$MixedElement => {
   const addButtonRef = React.useRef<HTMLButtonElement | null>(null);
 
   const setOpen = React.useCallback((open: boolean) => {

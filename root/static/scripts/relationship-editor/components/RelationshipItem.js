@@ -71,7 +71,7 @@ const RelationshipItem = (React.memo<PropsT>(({
   releaseHasUnloadedTracks,
   source,
   track,
-}: PropsT): React.MixedElement => {
+}: PropsT): React$MixedElement => {
   const backward = isRelationshipBackward(relationship, source);
   const target: CoreEntityT = backward
     ? relationship.entity0

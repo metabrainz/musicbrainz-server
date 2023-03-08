@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 type CommonProps = {
   +children?: React$Node,
   +disabled?: boolean,
@@ -34,7 +32,7 @@ const EnterEdit = ({
   disabled = false,
   form,
   ...otherProps
-}: Props): React.MixedElement => {
+}: Props): React$MixedElement => {
   const isMakeVotableChecked = form.field.make_votable.value;
   const makeVotableProps: {
     checked?: boolean,

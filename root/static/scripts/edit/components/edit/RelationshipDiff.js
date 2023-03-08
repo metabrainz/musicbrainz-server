@@ -43,7 +43,7 @@ type Props = {
     entity: CoreEntityT,
     content: string,
     relationship: RelationshipT,
-  ) => React.MixedElement,
+  ) => React$MixedElement,
   newRelationship: RelationshipT,
   oldRelationship: RelationshipT,
 };

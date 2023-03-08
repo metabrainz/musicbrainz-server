@@ -171,7 +171,7 @@ export const MultiselectValue: MultiselectValueComponentT = React.memo(<
   buildExtraChildren,
   dispatch,
   state,
-}: MultiselectValuePropsT<V, VS>): React.MixedElement => {
+}: MultiselectValuePropsT<V, VS>): React$MixedElement => {
   const autocompleteDispatch = React.useCallback(
     (action: AutocompleteActionT<V>) => {
       dispatch({
@@ -223,7 +223,7 @@ const Multiselect = (React.memo(<
   buildExtraValueChildren,
   dispatch,
   state,
-}: MultiselectPropsT<V, VS, S>): React.MixedElement => {
+}: MultiselectPropsT<V, VS, S>): React$MixedElement => {
   const handleAdd = React.useCallback(() => {
     dispatch({type: 'add-value'});
   }, [dispatch]);

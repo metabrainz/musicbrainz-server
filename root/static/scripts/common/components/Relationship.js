@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import {
   getExtraAttributes,
   interpolate,
@@ -34,7 +32,7 @@ type RelationshipPropsT = {
     content: string,
     relationship: RelationshipT,
     allowNew: ?boolean,
-  ) => React.MixedElement,
+  ) => React$MixedElement,
   +relationship: RelationshipT,
 };
 
@@ -159,7 +157,7 @@ const RelationshipContent = ({
 
 export const HistoricRelationship = ({
   relationship,
-}: HistoricRelationshipPropsT): React.MixedElement => (
+}: HistoricRelationshipPropsT): React$MixedElement => (
   relationship.editsPending ? (
     <span className="mp mp-rel">
       <HistoricRelationshipContent relationship={relationship} />
@@ -167,7 +165,7 @@ export const HistoricRelationship = ({
   ) : <HistoricRelationshipContent relationship={relationship} />
 );
 
-const Relationship = (props: RelationshipPropsT): React.MixedElement => (
+const Relationship = (props: RelationshipPropsT): React$MixedElement => (
   props.relationship.editsPending ? (
     <span className="mp mp-rel">
       <RelationshipContent {...props} />

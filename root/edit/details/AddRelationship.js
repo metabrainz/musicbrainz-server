@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import Relationship
   from '../../static/scripts/common/components/Relationship.js';
 
@@ -16,7 +14,7 @@ type Props = {
   +edit: AddRelationshipEditT,
 };
 
-const AddRelationship = ({edit}: Props): React.MixedElement => {
+const AddRelationship = ({edit}: Props): React$MixedElement => {
   const relationship = edit.display_data.relationship;
   return (
     <table className="details add-relationship">

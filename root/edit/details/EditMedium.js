@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import ArtistCreditLink
   from '../../static/scripts/common/components/ArtistCreditLink.js';
 import DataTrackIcon
@@ -444,7 +442,7 @@ const CondensedTrackACsDiff = ({
   return rows;
 };
 
-const EditMedium = ({edit}: Props): React.MixedElement => {
+const EditMedium = ({edit}: Props): React$MixedElement => {
   const display = edit.display_data;
   const artistCreditChanges = display.artist_credit_changes;
   const changedDataTracks = display.data_track_changes;

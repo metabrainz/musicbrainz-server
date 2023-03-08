@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import Layout from '../layout/index.js';
 
 type Props = {
@@ -16,7 +14,7 @@ type Props = {
   +title: string,
 };
 
-const StatusPage = ({title, children}: Props): React.MixedElement => (
+const StatusPage = ({title, children}: Props): React$MixedElement => (
   <Layout fullWidth title={title}>
     <h1>{title}</h1>
     {children}

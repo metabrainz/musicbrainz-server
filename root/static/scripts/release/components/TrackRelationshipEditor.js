@@ -96,7 +96,7 @@ type RelatedWorkHeadingPropsT = {
   +dispatch: (ReleaseRelationshipEditorActionT) => void,
   +isRemoved: boolean,
   +isSelected: boolean,
-  +removeWorkButton: React.MixedElement,
+  +removeWorkButton: React$MixedElement,
   +work: WorkT,
 };
 
@@ -117,7 +117,7 @@ const RelatedWorkHeading = ({
     });
   }, [dispatch, work]);
 
-  let workLink: React.MixedElement = <WorkLink work={work} />;
+  let workLink: React$MixedElement = <WorkLink work={work} />;
   if (isRemoved) {
     workLink = (
       <span className="rel-remove">

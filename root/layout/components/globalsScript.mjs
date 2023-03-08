@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import {CatalystContext} from '../../context.mjs';
 import DBDefs from '../../static/scripts/common/DBDefs-client.mjs';
 import escapeClosingTags from '../../utility/escapeClosingTags.js';
@@ -80,4 +78,4 @@ export default ((
       );
     }}
   </CatalystContext.Consumer>
-): React.MixedElement);
+): React$MixedElement);

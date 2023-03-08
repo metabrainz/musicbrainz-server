@@ -6,8 +6,6 @@
  * http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import commaOnlyList from '../i18n/commaOnlyList.js';
 
 import ArtistCreditLink from './ArtistCreditLink.js';
@@ -51,7 +49,7 @@ export const ExpandedArtistCreditList = ({
   return null;
 };
 
-const ExpandedArtistCredit = ({artistCredit}: Props): React.MixedElement => (
+const ExpandedArtistCredit = ({artistCredit}: Props): React$MixedElement => (
   <>
     <ArtistCreditLink artistCredit={artistCredit} />
     <br />

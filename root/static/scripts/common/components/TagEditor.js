@@ -317,15 +317,15 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
   }
 
   createTagRows(): {
-    +genres: $ReadOnlyArray<React.MixedElement>,
-    +tags: $ReadOnlyArray<React.MixedElement>,
+    +genres: $ReadOnlyArray<React$MixedElement>,
+    +tags: $ReadOnlyArray<React$MixedElement>,
     } {
     const tags = this.state.tags;
 
     return tags.reduce((
       accum: {
-        +genres: Array<React.MixedElement>,
-        +tags: Array<React.MixedElement>,
+        +genres: Array<React$MixedElement>,
+        +tags: Array<React$MixedElement>,
       },
       t: UserTagT,
       index: number,
@@ -526,7 +526,7 @@ export const MainTagEditor = (hydrate<TagEditorProps>(
       this.setState({positiveTagsOnly: false});
     }
 
-    render(): React.MixedElement {
+    render(): React$MixedElement {
       const {tags, positiveTagsOnly} = this.state;
       const tagRows = this.createTagRows();
 
@@ -653,7 +653,7 @@ export const MainTagEditor = (hydrate<TagEditorProps>(
 export const SidebarTagEditor = (hydrate<TagEditorProps>(
   'div.sidebar-tags',
   class extends TagEditor {
-    render(): React.MixedElement {
+    render(): React$MixedElement {
       const tagRows = this.createTagRows();
       return (
         <>

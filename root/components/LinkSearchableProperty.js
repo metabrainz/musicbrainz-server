@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import {CatalystContext} from '../context.mjs';
 import escapeLuceneValue
   from '../static/scripts/common/utility/escapeLuceneValue.js';
@@ -25,7 +23,7 @@ const LinkSearchableProperty = ({
   searchField,
   searchValue,
   text = searchValue,
-}: Props): React.MixedElement => (
+}: Props): React$MixedElement => (
   <CatalystContext.Consumer>
     {$c => {
       const url = new URL($c.req.uri);

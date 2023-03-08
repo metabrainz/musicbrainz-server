@@ -85,7 +85,7 @@ const LanguageMenu = ({
       </span>
       <ul>
         {serverLanguages.map(function (language, index) {
-          let inner: React.MixedElement =
+          let inner: React$MixedElement =
             <LanguageLink language={language} />;
 
           if (language.name === currentBCP47Language) {

@@ -28,7 +28,7 @@ type PropsT = {
 
 const DialogTargetType = (React.memo<PropsT>((
   props: PropsT,
-): React.MixedElement => {
+): React$MixedElement => {
   const {
     dispatch,
     hasPreselectedTargetType,

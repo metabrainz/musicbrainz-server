@@ -101,7 +101,7 @@ const DialogSourceEntity = (React.memo<PropsT>(({
   source,
   state,
   targetType,
-}: PropsT): React.MixedElement => {
+}: PropsT): React$MixedElement => {
   const sourceType = source.entityType;
   return (
     <tr>

@@ -50,7 +50,7 @@ const TypeRows = ({
   parent,
   stats,
   type,
-}: TypeRowsPropsT): React.MixedElement => {
+}: TypeRowsPropsT): React$MixedElement => {
   const $c = React.useContext(CatalystContext);
   return (
     <>

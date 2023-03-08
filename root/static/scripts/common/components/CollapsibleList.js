@@ -44,7 +44,7 @@ const CollapsibleList = <T>({
   showLessTitle,
   toShowAfter,
   toShowBefore,
-}: Props<T>): React.MixedElement | null => {
+}: Props<T>): React$MixedElement | null => {
   const [expanded, setExpanded] = React.useState<boolean>(false);
 
   const expand = (event: SyntheticMouseEvent<HTMLAnchorElement>) => {

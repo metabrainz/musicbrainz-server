@@ -36,7 +36,7 @@ class CommonsImage extends React.Component<Props, State> {
     }
   }
 
-  render(): React.MixedElement | null {
+  render(): React$MixedElement | null {
     const {image} = this.state;
     return image ? (
       <div className="picture">

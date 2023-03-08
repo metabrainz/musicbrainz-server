@@ -36,7 +36,7 @@ const DialogDatePeriod = (React.memo<PropsT>(({
   dispatch,
   isHelpVisible,
   state,
-}: PropsT): React.MixedElement | null => {
+}: PropsT): React$MixedElement | null => {
   const hooks = useDateRangeFieldset(dispatch);
 
   const beginDateField = state.field.begin_date;

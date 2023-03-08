@@ -137,7 +137,7 @@ const WorkLanguageMultiselect: React$AbstractComponent<
 >(({
   dispatch,
   state,
-}: WorkLanguageMultiselectPropsT): React.MixedElement => (
+}: WorkLanguageMultiselectPropsT): React$MixedElement => (
   <tr>
     <td className="section">
       {addColonText(l('Lyrics Languages'))}

@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import EntityLink from '../../static/scripts/common/components/EntityLink.js';
 import formatDate from '../../static/scripts/common/utility/formatDate.js';
 import isDateEmpty from '../../static/scripts/common/utility/isDateEmpty.js';
@@ -18,7 +16,7 @@ type Props = {
   +edit: AddEventEditT,
 };
 
-const AddEvent = ({edit}: Props): React.MixedElement => {
+const AddEvent = ({edit}: Props): React$MixedElement => {
   const display = edit.display_data;
   const eventType = display.type;
 

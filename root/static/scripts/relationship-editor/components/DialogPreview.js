@@ -82,7 +82,7 @@ const DialogPreview = (React.memo<PropsT>(({
   source,
   newRelationship,
   oldRelationship,
-}: PropsT): React.MixedElement => {
+}: PropsT): React$MixedElement => {
   function changeDirection() {
     dispatch({type: 'change-direction'});
   }

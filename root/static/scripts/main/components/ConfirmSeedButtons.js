@@ -11,7 +11,7 @@ import * as React from 'react';
 
 import DBDefs from '../../common/DBDefs-client.mjs';
 
-const ConfirmSeedButtons = (): React.MixedElement => (
+const ConfirmSeedButtons = (): React$MixedElement => (
   <>
     <button type="submit">
       {l('Continue')}

@@ -317,9 +317,9 @@ const wrapAttributeElement = (
     | DialogBooleanAttributeStateT
     | DialogMultiselectAttributeStateT
     | DialogTextAttributeStateT,
-  attributeElement: React.MixedElement,
+  attributeElement: React$MixedElement,
   isHelpVisible: boolean,
-): React.MixedElement => (
+): React$MixedElement => (
   <div
     className={
       'attribute-container ' +
@@ -345,7 +345,7 @@ const DialogAttributes = (React.memo<PropsT>(({
   dispatch,
   isHelpVisible,
   state,
-}: PropsT): React.MixedElement | null => {
+}: PropsT): React$MixedElement | null => {
   const booleanAttributeDispatch = React.useCallback((
     rootKey: number,
     action: DialogBooleanAttributeActionT,
@@ -380,12 +380,12 @@ const DialogAttributes = (React.memo<PropsT>(({
   }, [dispatch]);
 
   const attributesByControl: {
-    checkbox: Array<[DialogBooleanAttributeStateT, React.MixedElement]>,
+    checkbox: Array<[DialogBooleanAttributeStateT, React$MixedElement]>,
     multiselect: Array<[
       DialogMultiselectAttributeStateT,
-      React.MixedElement,
+      React$MixedElement,
     ]>,
-    text: Array<[DialogTextAttributeStateT, React.MixedElement]>,
+    text: Array<[DialogTextAttributeStateT, React$MixedElement]>,
   } = {
     checkbox: [],
     multiselect: [],

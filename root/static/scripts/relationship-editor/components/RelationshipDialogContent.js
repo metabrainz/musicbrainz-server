@@ -578,7 +578,7 @@ const AttributesSection = (React.memo<AttributesSectionPropsT>(({
 
 const RelationshipDialogContent = (React.memo<PropsT>((
   props: PropsT,
-): React.MixedElement => {
+): React$MixedElement => {
   const {
     batchSelectionCount,
     closeDialog,
