@@ -251,8 +251,10 @@ export type LinkAttributesByRootIdT =
 
 export type BatchCreateWorksDialogStateT = {
   +attributes: DialogAttributesStateT,
+  +datePeriodField: DatePeriodFieldT,
   +languages: MultiselectLanguageStateT,
   +linkType: DialogLinkTypeStateT,
+  +resultingDatePeriod: DatePeriodRoleT,
   +workType: number | null,
 };
 
