@@ -14,7 +14,7 @@
 <p align="center">
   <a href="https://musicbrainz.org/">Website</a> •
   <a href="https://musicbrainz.org/doc/Development">Documentation</a> •
-  <a href="https://tickets.metabrainz.org/secure/RapidBoard.jspa?rapidView=5&projectKey=MBS">Bug tracker</a>
+  <a href="https://tickets.metabrainz.org/projects/MBS/summary">Bug tracker</a>
 </p>
 
 ---
