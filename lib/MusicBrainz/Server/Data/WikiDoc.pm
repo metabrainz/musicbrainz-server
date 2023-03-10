@@ -31,10 +31,24 @@ sub _fix_html_links
 
     my $href = $node->attr('href') || '';
 
-    # Remove broken links & links to images in the wiki
     if ($href =~ m,^(?:https?:)?//$wiki_server/(File|Image):, || $class =~ m/new/)
     {
-        $node->replace_with($node->content_list);
+        my $child = $node->getFirstChild();
+        if (defined $child && $child->tag eq 'img' && ($child->attr('class') // '') eq 'zoomable')
+        {
+            # Transform link on "zoomable" image to point directly to the original image
+            my $href = $child->attr('src') || '';
+            $href =~ s,^$WIKI_IMAGE_PREFIX/thumb,//$wiki_server$WIKI_IMAGE_PREFIX,;
+            $href =~ s,/[0-9]+px-[^/]*$,,;
+            $node->attr('href', $href);
+            $node->attr('title', 'Open in a new tab');
+            $node->attr('target', '_blank');
+        }
+        else
+        {
+            # Remove broken links & links to images in the wiki otherwise
+            $node->replace_with($node->content_list);
+        }
     }
     # if this is not a link to the wikidocs server, don't mess with it.
     elsif ($href =~ m,^(?:https?:)?//$wiki_server,)
