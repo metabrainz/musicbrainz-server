@@ -93,6 +93,13 @@ The file under mbdump/ contains one document (entity) per line, in JSON
 format, and is named according to the type of entity in the dump.
 EOF
 
+    my $copying_text = <<'EOF';
+The content of this dump is licensed under the CC0 license
+(see COPYING-PublicDomain), except for any data under keys "annotation",
+"genres", "ratings" and "tags", which is licensed under a Creative Commons
+Attribution-NonCommercial-ShareAlike 3.0 license (see COPYING-CCShareAlike).
+EOF
+
     my $mbdump = MusicBrainz::Script::MBDump->new(
         c => $c,
         compression => 'xz',
@@ -100,9 +107,16 @@ EOF
         %mbdump_options,
     );
 
+    $mbdump->write_file('COPYING', $copying_text);
+
     $mbdump->copy_file(
         catfile(DBDefs->MB_SERVER_ROOT, 'admin', 'COPYING-PublicDomain'),
-        'COPYING'
+        'COPYING-PublicDomain'
+    ) or die $OS_ERROR;
+
+    $mbdump->copy_file(
+        catfile(DBDefs->MB_SERVER_ROOT, 'admin', 'COPYING-CCShareAlike'),
+        'COPYING-CCShareAlike'
     ) or die $OS_ERROR;
 
     $mbdump->write_file('JSON_DUMPS_SCHEMA_NUMBER', "1\n");
@@ -114,7 +128,11 @@ EOF
     if ($self->compression_enabled) {
         $mbdump->make_tar(
             "$dump_fname.tar.xz",
-            "mbdump/$dump_fname",
+            (
+                "mbdump/$dump_fname",
+                'COPYING-PublicDomain',
+                'COPYING-CCShareAlike',
+            ),
             'JSON_DUMPS_SCHEMA_NUMBER',
         );
     } else {
