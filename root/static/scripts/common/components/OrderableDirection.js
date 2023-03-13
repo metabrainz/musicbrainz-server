@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import {bracketedText} from '../utility/bracketed.js';
 
 type Props = {
@@ -17,7 +15,7 @@ type Props = {
 
 const OrderableDirection = ({
   direction,
-}: Props): React.MixedElement => {
+}: Props): React$MixedElement => {
   let directionName;
   switch (direction) {
     case 0:

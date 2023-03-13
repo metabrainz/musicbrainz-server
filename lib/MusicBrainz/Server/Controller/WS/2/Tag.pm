@@ -1,5 +1,8 @@
 package MusicBrainz::Server::Controller::WS::2::Tag;
 use Moose;
+
+use English;
+
 BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::2' }
 
 use aliased 'MusicBrainz::Server::WebService::WebServiceStash';
@@ -69,7 +72,7 @@ sub tag_submit : Private
     eval {
         @nodelist = $xp->find('/mb:metadata/*/*')->get_nodelist;
     };
-    if ($@) {
+    if ($EVAL_ERROR) {
         $self->_error($c, 'Invalid XML.');
     }
 

@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import ReleaseList from './components/ReleaseList.js';
 import ReportLayout from './components/ReportLayout.js';
 import useReleaseLanguageColumn from './hooks/useReleaseLanguageColumn.js';
@@ -20,7 +18,7 @@ const ReleasesWithUnlikelyLanguageScript = ({
   generated,
   items,
   pager,
-}: ReportDataT<ReportReleaseT>): React.Element<typeof ReportLayout> => {
+}: ReportDataT<ReportReleaseT>): React$Element<typeof ReportLayout> => {
   const releaseLanguageColumn = useReleaseLanguageColumn<ReportReleaseT>();
 
   return (

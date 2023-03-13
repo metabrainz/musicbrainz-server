@@ -48,7 +48,7 @@ role {
         );
         ensure_all_roles(
             $cls,
-            'MusicBrainz::Server::Data::Role::Editable' => {
+            'MusicBrainz::Server::Data::Role::PendingEdits' => {
                 table => qq(${entity_type}_$value_type),
             },
         );

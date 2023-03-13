@@ -96,7 +96,7 @@ const TagCloud = ({
   showList = false,
   tagMaxCount,
   tags,
-}: Props): React.Element<typeof Layout> => {
+}: Props): React$Element<typeof Layout> => {
   const $c = React.useContext(CatalystContext);
   return (
     <Layout fullWidth title={l('Tags')}>

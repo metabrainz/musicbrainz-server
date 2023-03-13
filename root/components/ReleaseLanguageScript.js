@@ -11,7 +11,7 @@ import * as React from 'react';
 
 const ReleaseLanguageScript = ({
   release,
-}: {release: ReleaseT}): React.Element<typeof React.Fragment> => {
+}: {release: ReleaseT}): React$Element<typeof React.Fragment> => {
   const language = release.language;
   const script = release.script;
 

@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import {QUALITY_NAMES} from '../../../static/scripts/common/constants.js';
 
 import {SidebarProperty} from './SidebarProperties.js';
@@ -17,7 +15,7 @@ type Props = {
   +quality: QualityT,
 };
 
-const SidebarDataQuality = ({quality}: Props): React.MixedElement | null => {
+const SidebarDataQuality = ({quality}: Props): React$MixedElement | null => {
   const name = QUALITY_NAMES.get(quality);
   let qualityClass;
   switch (quality) {

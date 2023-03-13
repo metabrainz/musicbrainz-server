@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import Layout from '../layout/index.js';
 import EditLink from '../static/scripts/common/components/EditLink.js';
 import EntityLink from '../static/scripts/common/components/EntityLink.js';
@@ -32,7 +30,7 @@ const EditData = ({
   edit,
   rawData,
   relatedEntities,
-}: Props): React.Element<typeof Layout> => {
+}: Props): React$Element<typeof Layout> => {
   const title = texp.l('Edit data for edit #{id}', {id: edit.id});
   const relatedEntityTypes = Object.keys(relatedEntities).sort();
 

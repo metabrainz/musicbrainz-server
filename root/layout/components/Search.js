@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import SearchIcon from '../../static/scripts/common/components/SearchIcon.js';
 import DBDefs from '../../static/scripts/common/DBDefs.mjs';
 import {compare} from '../../static/scripts/common/i18n.js';
@@ -71,8 +69,7 @@ function compareTypeOptionEntries(
 const SearchOptions = () => (
   <select id="headerid-type" name="type">
     {TYPE_OPTION_GROUPS.map((group) => (
-      // $FlowIssue[incompatible-cast]
-      (Object.entries(group): Array<[string, SearchOptionValueT]>)
+      Object.entries(group)
         .sort(compareTypeOptionEntries)
         .map(([key, option]) => {
           const text = localizedTypeOption(option);
@@ -89,7 +86,7 @@ const SearchOptions = () => (
   </select>
 );
 
-const Search = (): React.Element<'form'> => (
+const Search = (): React$Element<'form'> => (
   <form action="/search" method="get">
     <input
       id="headerid-query"

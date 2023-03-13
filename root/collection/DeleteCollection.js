@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import EntityLink from '../static/scripts/common/components/EntityLink.js';
 import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
 
@@ -20,7 +18,7 @@ type Props = {
 
 const DeleteCollection = ({
   collection,
-}: Props): React.Element<typeof CollectionLayout> => (
+}: Props): React$Element<typeof CollectionLayout> => (
   <CollectionLayout
     entity={collection}
     fullWidth

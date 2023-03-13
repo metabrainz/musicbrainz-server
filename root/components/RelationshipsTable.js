@@ -80,7 +80,7 @@ const RelationshipsTable = ({
   heading,
   pagedLinkTypeGroup,
   pager,
-}: Props): React.MixedElement | null => {
+}: Props): React$MixedElement | null => {
   const $c = React.useContext(CatalystContext);
 
   if (pagedLinkTypeGroup && !pager) {
@@ -103,7 +103,7 @@ const RelationshipsTable = ({
 
   type RelationshipsTableGroupPropsT = {
     +group: PagedLinkTypeGroupWithPhraseT,
-    +relationshipRows: $ReadOnlyArray<React.MixedElement>,
+    +relationshipRows: $ReadOnlyArray<React$MixedElement>,
   };
 
   const RelationshipsTableGroup = ({
@@ -217,11 +217,11 @@ const RelationshipsTable = ({
     );
   };
 
-  const tableRows: Array<React.MixedElement> = [];
+  const tableRows: Array<React$MixedElement> = [];
 
   const getRelationshipRows = (
     linkTypeGroup: PagedLinkTypeGroupT | PagedLinkTypeGroupWithPhraseT,
-    rows: Array<React.MixedElement>,
+    rows: Array<React$MixedElement>,
   ) => {
     let index = 0;
 
@@ -240,7 +240,6 @@ const RelationshipsTable = ({
 
       const target = relationship.target;
       const artistCredit = hasOwnProp(target, 'artistCredit')
-        // $FlowIgnore[prop-missing]
         ? target.artistCredit
         : null;
 
@@ -250,15 +249,14 @@ const RelationshipsTable = ({
       hasArtistColumn = hasArtistColumn || (artistCredit != null);
       hasLengthColumn = hasLengthColumn || (
         hasOwnProp(target, 'length') &&
-        // $FlowIgnore[prop-missing]
         target.length != null
       );
       columnsCount = (
         1 +
-        hasCreditColumn +
-        hasAttributeColumn +
-        hasArtistColumn +
-        hasLengthColumn
+        (hasCreditColumn ? 1 : 0) +
+        (hasAttributeColumn ? 1 : 0) +
+        (hasArtistColumn ? 1 : 0) +
+        (hasLengthColumn ? 1 : 0)
       );
 
       rows.push(
@@ -296,7 +294,6 @@ const RelationshipsTable = ({
         ...PagedLinkTypeGroupT,
         +phrase: string,
       }>> = Object.values(targetTypeGroup)
-        // $FlowIgnore[incompatible-call]
         .map((group: PagedLinkTypeGroupT) => ({
           ...group,
           phrase: getLinkPhraseForGroup(group),
@@ -304,7 +301,7 @@ const RelationshipsTable = ({
         .sort((a, b) => compare(a.phrase, b.phrase));
 
       for (const linkTypeGroup of linkTypeGroups) {
-        const relationshipRows: Array<React.MixedElement> = [];
+        const relationshipRows: Array<React$MixedElement> = [];
         getRelationshipRows(linkTypeGroup, relationshipRows);
 
         tableRows.push(
@@ -345,7 +342,7 @@ const RelationshipsTable = ({
       </tbody>
     </table>
   );
-  let pageContent: React.MixedElement = tableElement;
+  let pageContent: React$MixedElement = tableElement;
   let finalHeading = heading;
 
   if (pagedLinkTypeGroup /*:: && pager */) {

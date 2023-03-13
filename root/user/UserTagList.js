@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import UserAccountLayout, {
   type AccountLayoutUserT,
 } from '../components/UserAccountLayout.js';
@@ -59,7 +57,7 @@ const UserTagList = ({
   sortBy,
   tags,
   user,
-}: Props): React.Element<typeof UserAccountLayout> => (
+}: Props): React$Element<typeof UserAccountLayout> => (
   <UserAccountLayout entity={user} page="tags" title={l('Tags')}>
     <h2>
       {getTagListHeading(user.name, showDownvoted)}

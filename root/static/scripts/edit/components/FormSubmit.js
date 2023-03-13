@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 type Props = {
   +className?: string,
   +label: string,
@@ -21,7 +19,7 @@ const FormSubmit = ({
   label,
   name,
   value,
-}: Props): React.Element<'span'> => (
+}: Props): React$Element<'span'> => (
   <span className={'buttons' + (nonEmpty(className) ? ' ' + className : '')}>
     <button name={name} type="submit" value={value}>{label}</button>
   </span>

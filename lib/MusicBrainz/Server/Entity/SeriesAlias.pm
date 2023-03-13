@@ -5,6 +5,8 @@ use MusicBrainz::Server::Entity::Types;
 
 extends 'MusicBrainz::Server::Entity::Alias';
 
+with 'MusicBrainz::Server::Entity::Role::Type' => { model => 'SeriesAliasType' };
+
 sub entity_type { 'series_alias' }
 
 has series_id => (

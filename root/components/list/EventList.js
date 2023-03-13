@@ -10,6 +10,7 @@
 import * as React from 'react';
 
 import {CatalystContext} from '../../context.mjs';
+import useTable from '../../hooks/useTable.js';
 import * as manifest from '../../static/manifest.mjs';
 import {commaOnlyListText}
   from '../../static/scripts/common/i18n/commaOnlyList.js';
@@ -27,7 +28,6 @@ import {
   defineTypeColumn,
   removeFromMergeColumn,
 } from '../../utility/tableColumns.js';
-import Table from '../Table.js';
 
 type Props = {
   ...SeriesItemNumbersRoleT,
@@ -57,7 +57,7 @@ const EventList = ({
   showRatings = false,
   showType = false,
   sortable,
-}: Props): React.Element<typeof React.Fragment> => {
+}: Props): React$Element<typeof React.Fragment> => {
   const $c = React.useContext(CatalystContext);
 
   const columns = React.useMemo(
@@ -96,7 +96,10 @@ const EventList = ({
         ? defineTextColumn<EventT>({
           columnName: 'performers',
           getText: entity => commaOnlyListText(
-            entity.performers.reduce((result, performer) => {
+            entity.performers.reduce((
+              result: Array<string>,
+              performer,
+            ) => {
               if (performer.entity.id === artist.id) {
                 result.push(...localizeArtistRoles(performer.roles));
               }
@@ -146,9 +149,11 @@ const EventList = ({
     ],
   );
 
+  const table = useTable<EventT>({columns, data: events});
+
   return (
     <>
-      <Table columns={columns} data={events} />
+      {table}
       {manifest.js('common/components/ArtistRoles', {async: 'async'})}
     </>
   );

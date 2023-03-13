@@ -7,13 +7,11 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import defaultAvatarUrl from '../../../images/entity/editor.svg';
 import entityHref from '../utility/entityHref.js';
 import isolateText from '../utility/isolateText.js';
 
-const MissingEditorLink = (): React.Element<'span'> => {
+const MissingEditorLink = (): React$Element<'span'> => {
   return (
     <span
       className="deleted tooltip"
@@ -39,7 +37,7 @@ const EditorLink = ({
   content: passedContent,
   avatarSize = 15,
   subPath,
-}: Props): React.Element<typeof MissingEditorLink | 'a'> => {
+}: Props): React$Element<typeof MissingEditorLink | 'a'> => {
   if (!editor) {
     return <MissingEditorLink />;
   }

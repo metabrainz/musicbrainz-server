@@ -35,7 +35,7 @@ const ArtistEvents = ({
   filterForm,
   hasFilter,
   pager,
-}: Props): React.Element<typeof ArtistLayout> => {
+}: Props): React$Element<typeof ArtistLayout> => {
   const $c = React.useContext(SanitizedCatalystContext);
   return (
     <ArtistLayout entity={artist} page="events" title={l('Events')}>

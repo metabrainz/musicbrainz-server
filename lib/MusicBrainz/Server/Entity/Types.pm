@@ -2,30 +2,30 @@ package MusicBrainz::Server::Entity::Types;
 
 use Moose::Util::TypeConstraints;
 
-for my $cls (qw(AggregatedTag AggregatedGenre AliasType Annotation Application
-                Area AreaAlias AreaType
-                Artist ArtistAlias ArtistCredit ArtistCreditName ArtistType
+for my $cls (qw(AggregatedTag AggregatedGenre Annotation Application
+                Area AreaAlias AreaAliasType AreaType
+                Artist ArtistAlias ArtistAliasType ArtistCredit ArtistCreditName ArtistType
                 AutoEditorElection AutoEditorElectionVote
                 Barcode CDTOC CDStub Collection CollectionType Coordinates
                 CoverArtType
                 CritiqueBrainz::Review CritiqueBrainz::User
                 Editor EditorOAuthToken
-                Event EventAlias EventType
-                Gender Genre GenreAlias
-                Instrument InstrumentType
-                Label LabelAlias LabelType
+                Event EventAlias EventAliasType EventType
+                Gender Genre GenreAlias GenreAliasType
+                Instrument InstrumentAlias InstrumentAliasType InstrumentType
+                Label LabelAlias LabelAliasType LabelType
                 Link LinkAttribute LinkAttributeType LinkType LinkTypeAttribute
                 Language
                 Medium MediumCDTOC MediumFormat
                 PartialDate
-                Place PlaceAlias PlaceType
-                Recording RecordingAlias
+                Place PlaceAlias PlaceAliasType PlaceType
+                Recording RecordingAlias RecordingAliasType
                 Relationship RelationshipTargetTypeGroup RelationshipLinkTypeGroup
-                ReleaseGroup ReleaseGroupAlias ReleaseGroupSecondaryType ReleaseGroupType
-                Release ReleaseAlias ReleaseEvent ReleaseStatus ReleasePackaging ReleaseLabel
+                ReleaseGroup ReleaseGroupAlias ReleaseGroupAliasType ReleaseGroupSecondaryType ReleaseGroupType
+                Release ReleaseAlias ReleaseAliasType ReleaseEvent ReleaseStatus ReleasePackaging ReleaseLabel
                 Script Tag Track UserTag
-                Series SeriesOrderingType SeriesType
-                Work WorkAlias WorkType WorkLanguage
+                Series SeriesAlias SeriesAliasType SeriesOrderingType SeriesType
+                Work WorkAlias WorkAliasType WorkType WorkLanguage
                 WorkAttribute WorkAttributeType WorkAttributeTypeAllowedValue)) {
     subtype $cls => as class_type "MusicBrainz::Server::Entity::$cls";
 }

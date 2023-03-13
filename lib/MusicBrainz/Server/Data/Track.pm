@@ -23,7 +23,7 @@ with 'MusicBrainz::Server::Data::Role::GID';
 with 'MusicBrainz::Server::Data::Role::GIDRedirect';
 with 'MusicBrainz::Server::Data::Role::Name';
 
-with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'track' };
+with 'MusicBrainz::Server::Data::Role::PendingEdits' => { table => 'track' };
 
 sub _type { 'track' }
 

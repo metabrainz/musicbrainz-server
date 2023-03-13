@@ -53,9 +53,9 @@ export default function useDateRangeFieldset(
     dispatch({action, type: 'update-end-date'});
   }, [dispatch]);
 
-  const beginYearInputRef = React.useRef(null);
+  const beginYearInputRef = React.useRef<HTMLInputElement | null>(null);
 
-  const endYearInputRef = React.useRef(null);
+  const endYearInputRef = React.useRef<HTMLInputElement | null>(null);
 
   return {
     beginDateDispatch,

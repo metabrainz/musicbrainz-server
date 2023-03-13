@@ -40,7 +40,7 @@ const ArtistReleases = ({
   releases,
   showingVariousArtistsOnly,
   wantVariousArtistsOnly,
-}: Props): React.Element<typeof ArtistLayout> => {
+}: Props): React$Element<typeof ArtistLayout> => {
   const $c = React.useContext(SanitizedCatalystContext);
   return (
     <ArtistLayout entity={artist} page="releases" title={l('Releases')}>

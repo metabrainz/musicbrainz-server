@@ -1870,6 +1870,13 @@ msgid ""
 "label</a>."
 msgstr ""
 
+#: DB:link_attribute_type/description:1310
+msgid ""
+"This indicates the publisher subcontracted to publish a release or work in a "
+"specific territory. Use this only when you have a specific sub-publisher "
+"credit, do not guess."
+msgstr ""
+
 #: DB:link_type/description:974
 msgid "This indicates the release group that inspired this artist’s name."
 msgstr ""
@@ -6227,18 +6234,12 @@ msgid "provided {additional} legal representation for"
 msgstr ""
 
 #: DB:link_type/link_phrase:206 DB:link_type/link_phrase:127
-#: DB:link_type/link_phrase:32 DB:link_type/link_phrase:161
-#: DB:link_type/link_phrase:208 DB:link_type/link_phrase:362
 #: DB:link_type/name:362 DB:link_type/long_link_phrase:206
-#: DB:link_type/long_link_phrase:127 DB:link_type/long_link_phrase:32
-#: DB:link_type/long_link_phrase:161 DB:link_type/long_link_phrase:208
-#: DB:link_type/long_link_phrase:362
+#: DB:link_type/long_link_phrase:127
 msgid "published"
 msgstr ""
 
 #: DB:link_type/reverse_link_phrase:206 DB:link_type/reverse_link_phrase:127
-#: DB:link_type/reverse_link_phrase:32 DB:link_type/reverse_link_phrase:161
-#: DB:link_type/reverse_link_phrase:208 DB:link_type/reverse_link_phrase:362
 msgid "publisher"
 msgstr ""
 
@@ -6247,8 +6248,8 @@ msgstr ""
 msgid "publishes series"
 msgstr ""
 
-#: DB:link_type/name:206 DB:link_type/name:127 DB:link_type/name:66
-#: DB:link_type/name:32 DB:link_type/name:161 DB:link_type/name:208
+#: DB:link_type/name:206 DB:link_type/name:127 DB:link_type/name:161
+#: DB:link_type/name:66 DB:link_type/name:208 DB:link_type/name:32
 msgid "publishing"
 msgstr ""
 
@@ -6683,6 +6684,10 @@ msgstr ""
 #: DB:link_type/link_phrase:923 DB:link_type/name:923
 #: DB:link_type/long_link_phrase:923
 msgid "studied at"
+msgstr ""
+
+#: DB:link_attribute_type/name:1310
+msgid "sub"
 msgstr ""
 
 #: DB:link_type/name:1095
@@ -8032,6 +8037,18 @@ msgstr ""
 
 #: DB:link_type/reverse_link_phrase:109
 msgid "{step}parents"
+msgstr ""
+
+#: DB:link_type/link_phrase:161 DB:link_type/link_phrase:208
+#: DB:link_type/link_phrase:32 DB:link_type/link_phrase:362
+#: DB:link_type/long_link_phrase:161 DB:link_type/long_link_phrase:208
+#: DB:link_type/long_link_phrase:32 DB:link_type/long_link_phrase:362
+msgid "{sub:sub-}published"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:161 DB:link_type/reverse_link_phrase:208
+#: DB:link_type/reverse_link_phrase:32 DB:link_type/reverse_link_phrase:362
+msgid "{sub:sub-}publisher"
 msgstr ""
 
 #: DB:link_type/reverse_link_phrase:15

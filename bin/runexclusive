@@ -7,6 +7,7 @@ my $lockfile;
 my $wait = 1;
 my $timeout;
 
+use English;
 use Getopt::Long;
 GetOptions(
     'lockfile|f=s'              => \$lockfile,
@@ -18,19 +19,19 @@ GetOptions(
 defined($lockfile) or die "No lockfile defined\n";
 
 use Fcntl qw( LOCK_EX LOCK_NB );
-open(my $fh, '>', $lockfile) or die $!;
+open(my $fh, '>', $lockfile) or die $OS_ERROR;
 
 $SIG{ALRM} = sub {};
 alarm($timeout) if $timeout;
 
 unless (flock($fh, LOCK_EX | ($wait ? 0 : LOCK_NB)))
 {
-    exit 100 if $!{EWOULDBLOCK};
-    die $! unless $!{EINTR};
+    exit 100 if $OS_ERROR{EWOULDBLOCK};
+    die $OS_ERROR unless $OS_ERROR{EINTR};
 }
 
 alarm(0);
 $SIG{ALRM} = 'DEFAULT';
 
 system @ARGV;
-exit($? >> 8);
+exit($CHILD_ERROR >> 8);

@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import Layout from '../layout/index.js';
 import expand2text from '../static/scripts/common/i18n/expand2text.js';
 import FormCsrfToken
@@ -23,7 +21,7 @@ type Props = {
 const LockedUsernameUnlock = ({
   form,
   username,
-}: Props): React.Element<typeof Layout> => (
+}: Props): React$Element<typeof Layout> => (
   <Layout fullWidth title="Unlock username">
     <div id="content">
       <h1>{'Unlock username'}</h1>

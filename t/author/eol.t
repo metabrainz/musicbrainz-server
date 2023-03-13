@@ -1,9 +1,10 @@
 use strict;
 use warnings;
+use English;
 use Test::More;
 
 eval 'use Test::EOL';
-plan skip_all => 'Test::EOL required' if $@;
+plan skip_all => 'Test::EOL required' if $EVAL_ERROR;
 
 use FindBin '$Bin';
 use File::Find;

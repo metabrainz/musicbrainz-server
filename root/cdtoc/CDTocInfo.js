@@ -18,7 +18,7 @@ type Props = {
   +cdToc: CDTocT,
 };
 
-const CDTocInfo = ({cdToc}: Props): React.Element<typeof React.Fragment> => (
+const CDTocInfo = ({cdToc}: Props): React$Element<typeof React.Fragment> => (
   <>
     <h2>{l('CD TOC details')}</h2>
 

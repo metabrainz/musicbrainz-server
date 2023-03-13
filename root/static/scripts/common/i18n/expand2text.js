@@ -14,6 +14,8 @@ import {
 } from '../i18n.js';
 
 import expand, {
+  type NO_MATCH,
+  type Parser,
   type VarArgsClass,
   type VarArgsObject,
   createCondSubstParser,
@@ -35,20 +37,23 @@ function handleTextContentText(text: string) {
   return handledText;
 }
 
-const parseRootTextContent = createTextContentParser(
-  textContent,
-  handleTextContentText,
-);
+const parseRootTextContent: Parser<string | NO_MATCH, StrOrNum> =
+  createTextContentParser(
+    textContent,
+    handleTextContentText,
+  );
 
-const parseCondSubst = createCondSubstParser<string, StrOrNum>(
-  args => parseContinuousString<StrOrNum>(condSubstThenParsers, args),
-  args => parseContinuousString<StrOrNum>(condSubstElseParsers, args),
-);
+const parseCondSubst: Parser<string | NO_MATCH, StrOrNum> =
+  createCondSubstParser<string, StrOrNum>(
+    args => parseContinuousString<StrOrNum>(condSubstThenParsers, args),
+    args => parseContinuousString<StrOrNum>(condSubstElseParsers, args),
+  );
 
-const parseCondSubstThenTextContent = createTextContentParser(
-  condSubstThenTextContent,
-  handleTextContentText,
-);
+const parseCondSubstThenTextContent: Parser<string | NO_MATCH, StrOrNum> =
+  createTextContentParser(
+    condSubstThenTextContent,
+    handleTextContentText,
+  );
 
 const condSubstThenParsers = [
   parseCondSubstThenTextContent,

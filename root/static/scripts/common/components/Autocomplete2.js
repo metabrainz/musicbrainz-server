@@ -7,6 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import * as Sentry from '@sentry/browser';
 import * as React from 'react';
 
 import ENTITIES from '../../../../../entities.mjs';
@@ -65,7 +66,7 @@ function doSearch<T: EntityItemT>(
   dispatch: (ActionT<T>) => void,
   state: StateT<T>,
   xhr: {current: XMLHttpRequest | null},
-) {
+): void {
   const searchXhr = new XMLHttpRequest();
   xhr.current = searchXhr;
 
@@ -246,7 +247,7 @@ const AutocompleteItem = React.memo(<+T: EntityItemT>({
   isSelected,
   item,
   selectItem,
-}: AutocompleteItemPropsT<T>) => {
+}: AutocompleteItemPropsT<T>): React$MixedElement => {
   const itemId = `${autocompleteId}-item-${item.id}`;
   const isDisabled = !!item.disabled;
   const isSeparator = !!item.separator;
@@ -309,7 +310,7 @@ const AutocompleteItem = React.memo(<+T: EntityItemT>({
 
 const Autocomplete2 = (React.memo(<+T: EntityItemT>(
   props: PropsT<T>,
-): React.Element<'div'> => {
+): React$Element<'div'> => {
   const {dispatch, state} = props;
 
   const {
@@ -359,7 +360,9 @@ const Autocomplete2 = (React.memo(<+T: EntityItemT>(
     }
   }, [dispatch, pendingSearch]);
 
-  const selectItem = React.useCallback((item) => {
+  const selectItem = React.useCallback((
+    item: ItemT<T>,
+  ) => {
     const isDisabled = !!item.disabled;
 
     if (!isDisabled) {
@@ -454,7 +457,6 @@ const Autocomplete2 = (React.memo(<+T: EntityItemT>(
         const option = staticItems.find((item) => (
           item.type === 'option' &&
           hasOwnProp(item.entity, 'gid') &&
-          // $FlowIgnore[prop-missing]
           item.entity.gid === mbidMatch[0]
         ));
         if (option) {
@@ -638,6 +640,9 @@ const Autocomplete2 = (React.memo(<+T: EntityItemT>(
           });
         }, 1);
         return loadedRecentItems;
+      }).catch((error) => {
+        console.error(error);
+        Sentry.captureException(error);
       });
     }
     return () => {

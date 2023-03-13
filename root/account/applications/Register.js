@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import Layout from '../../layout/index.js';
 import * as manifest from '../../static/manifest.mjs';
 import type {ApplicationFormT}
@@ -20,7 +18,7 @@ type Props = {
   +form: ApplicationFormT,
 };
 
-const RegisterApplication = (props: Props): React.Element<typeof Layout> => (
+const RegisterApplication = (props: Props): React$Element<typeof Layout> => (
   <Layout fullWidth title={l('Register Application')}>
     <h1>{l('Register Application')}</h1>
     <ApplicationForm

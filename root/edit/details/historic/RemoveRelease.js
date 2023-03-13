@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import ArtistCreditLink
   from '../../../static/scripts/common/components/ArtistCreditLink.js';
 import HistoricReleaseList
@@ -18,7 +16,7 @@ type Props = {
   +edit: RemoveReleaseHistoricEditT,
 };
 
-const RemoveRelease = ({edit}: Props): React.Element<'table'> => {
+const RemoveRelease = ({edit}: Props): React$Element<'table'> => {
   const artistCredit = edit.display_data.artist_credit;
   return (
     <table className="details remove-release">

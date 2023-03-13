@@ -23,7 +23,7 @@ test 'Work alias appears on alias page content and on JSON-LD' => sub {
 
     $mech->get_ok(
         '/work/559be0c1-2c87-45d6-ba43-1b1feb8f831e/aliases',
-        'Fetched release aliases page',
+        'Fetched work aliases page',
     );
     html_ok($mech->content);
 

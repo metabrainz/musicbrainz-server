@@ -7,10 +7,8 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 type Props = {
-  +children: React.Node,
+  +children: React$Node,
   +hasNoLabel?: boolean,
 };
 
@@ -18,7 +16,7 @@ const FormRow = ({
   children,
   hasNoLabel = false,
   ...props
-}: Props): React.Element<'div'> => (
+}: Props): React$Element<'div'> => (
   <div
     className={'row' + (hasNoLabel ? ' no-label' : '')}
     {...props}

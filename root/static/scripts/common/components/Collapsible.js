@@ -40,7 +40,7 @@ class Collapsible extends React.Component<Props, State> {
     }
   }
 
-  containerRef: {current: null | React.ElementRef<'div'>};
+  containerRef: {current: null | React$ElementRef<'div'>};
 
   handleToggleBound: (event: SyntheticEvent<HTMLAnchorElement>) => void;
 
@@ -51,7 +51,7 @@ class Collapsible extends React.Component<Props, State> {
     }));
   }
 
-  render(): React.MixedElement {
+  render(): React$MixedElement {
     const {className, html} = this.props;
     const {isCollapsed, isCollapsible} = this.state;
 

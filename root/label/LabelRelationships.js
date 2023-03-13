@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import RelationshipsTable from '../components/RelationshipsTable.js';
 import Relationships
   from '../static/scripts/common/components/Relationships.js';
@@ -25,7 +23,7 @@ const LabelRelationships = ({
   label,
   pagedLinkTypeGroup,
   pager,
-}: Props): React.Element<typeof LabelLayout> => (
+}: Props): React$Element<typeof LabelLayout> => (
   <LabelLayout
     entity={label}
     page="relationships"

@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import FieldErrors from './FieldErrors.js';
 import FormLabel from './FormLabel.js';
 import FormRow from './FormRow.js';
@@ -29,7 +27,7 @@ type InputProps = {
 };
 
 type CommonProps = {
-  +children?: React.Node,
+  +children?: React$Node,
   +className?: string,
   +disabled?: boolean,
   +field: ReadOnlyFieldT<?string>,
@@ -50,7 +48,7 @@ export type Props =
       uncontrolled: true,
     }>;
 
-const FormRowText = (props: Props): React.Element<typeof FormRow> => {
+const FormRowText = (props: Props): React$Element<typeof FormRow> => {
   const field = props.field;
   const required = props.required ?? false;
 

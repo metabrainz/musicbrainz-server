@@ -46,7 +46,7 @@ export type MultiselectValuePropsT<
   V: AutocompleteEntityItemT,
   VS: MultiselectValueStateT<V>,
 > = {
-  +buildExtraChildren?: ($Exact<VS>) => React.Node,
+  +buildExtraChildren?: ($Exact<VS>) => React$Node,
   +dispatch: (MultiselectActionT<V>) => void,
   +state: $Exact<VS>,
 };
@@ -66,7 +66,7 @@ export type MultiselectPropsT<
   S: MultiselectStateT<V, VS>,
 > = {
   +addLabel: string,
-  +buildExtraValueChildren?: ($Exact<VS>) => React.Node,
+  +buildExtraValueChildren?: ($Exact<VS>) => React$Node,
   +dispatch: (MultiselectActionT<V>) => void,
   +state: $Exact<S>,
 };
@@ -82,7 +82,7 @@ export function accumulateMultiselectValues<
   values: $ReadOnlyArray<$Exact<VS>>,
 ): $ReadOnlyArray<V> {
   return values.reduce(
-    (accum, valueState) => {
+    (accum: Array<V>, valueState) => {
       const item = valueState.autocomplete.selectedItem?.entity;
       if (item) {
         accum.push(item);
@@ -128,7 +128,7 @@ export function runReducer<
       break;
     }
     case 'remove-value': {
-      newState.values = updateValue(
+      newState.values = updateValue<V, VS>(
         newState.values,
         action.valueKey,
         (x) => ({...x, removed: true}),
@@ -136,7 +136,7 @@ export function runReducer<
       break;
     }
     case 'update-value-autocomplete': {
-      newState.values = updateValue(
+      newState.values = updateValue<V, VS>(
         newState.values,
         action.valueKey,
         (x) => ({
@@ -156,7 +156,7 @@ export function runReducer<
   }
 }
 
-type MultiselectValueComponentT = React.AbstractComponent<
+type MultiselectValueComponentT = React$AbstractComponent<
   MultiselectValuePropsT<
     AutocompleteEntityItemT,
     MultiselectValueStateT<AutocompleteEntityItemT>,
@@ -171,7 +171,7 @@ export const MultiselectValue: MultiselectValueComponentT = React.memo(<
   buildExtraChildren,
   dispatch,
   state,
-}: MultiselectValuePropsT<V, VS>): React.MixedElement => {
+}: MultiselectValuePropsT<V, VS>): React$MixedElement => {
   const autocompleteDispatch = React.useCallback(
     (action: AutocompleteActionT<V>) => {
       dispatch({
@@ -223,7 +223,7 @@ const Multiselect = (React.memo(<
   buildExtraValueChildren,
   dispatch,
   state,
-}: MultiselectPropsT<V, VS, S>): React.MixedElement => {
+}: MultiselectPropsT<V, VS, S>): React$MixedElement => {
   const handleAdd = React.useCallback(() => {
     dispatch({type: 'add-value'});
   }, [dispatch]);
@@ -236,7 +236,7 @@ const Multiselect = (React.memo(<
   const GenericMultiselectValue = (
     // $FlowIgnore[incompatible-cast]
     MultiselectValue:
-      React.AbstractComponent<
+      React$AbstractComponent<
         MultiselectValuePropsT<V, VS>,
         mixed,
       >
@@ -263,7 +263,7 @@ const Multiselect = (React.memo(<
       ) : null}
     </>
   );
-}): React.AbstractComponent<
+}): React$AbstractComponent<
   MultiselectPropsT<
     AutocompleteEntityItemT,
     MultiselectValueStateT<AutocompleteEntityItemT>,

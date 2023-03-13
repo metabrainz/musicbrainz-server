@@ -11,7 +11,7 @@ use MusicBrainz::Server::Data::Utils qw(
 );
 
 extends 'MusicBrainz::Server::Data::Entity';
-with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'medium' };
+with 'MusicBrainz::Server::Data::Role::PendingEdits' => { table => 'medium' };
 
 use Scalar::Util qw( weaken );
 

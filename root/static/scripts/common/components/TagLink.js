@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 type UserTagLinkProps = {
   +content?: string,
   +showDownvoted?: boolean,
@@ -25,7 +23,7 @@ type TagLinkProps = {
 
 export const UserTagLink = (
   {content, showDownvoted = false, subPath, tag, username}: UserTagLinkProps,
-): React.Element<'a'> => {
+): React$Element<'a'> => {
   const url = '/user/' + encodeURIComponent(username) +
               '/tag/' + encodeURIComponent(tag) +
               (subPath == null ? '' : '/' + subPath) +
@@ -35,7 +33,7 @@ export const UserTagLink = (
 
 const TagLink = (
   {content, subPath, tag}: TagLinkProps,
-): React.Element<'a'> => {
+): React$Element<'a'> => {
   const url = '/tag/' + encodeURIComponent(tag) +
               (subPath == null ? '' : '/' + subPath);
   return <a href={url}>{content == null ? tag : content}</a>;

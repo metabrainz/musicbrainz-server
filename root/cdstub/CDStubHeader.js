@@ -21,7 +21,7 @@ type Props = {
 const CDStubHeader = ({
   cdstub,
   page,
-}: Props): React.Element<typeof React.Fragment> => {
+}: Props): React$Element<typeof React.Fragment> => {
   const subHeading = exp.l(
     'CD stub by {artist}',
     {artist: cdstub.artist || l('Various Artists')},

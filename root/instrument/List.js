@@ -38,7 +38,7 @@ const Instrument = ({instrument}: {+instrument: InstrumentT}) => (
 const InstrumentList = ({
   instrument_types: instrumentTypes,
   instruments_by_type: instrumentsByType,
-}: PropsT): React.Element<typeof Layout> => {
+}: PropsT): React$Element<typeof Layout> => {
   const unknown = instrumentsByType.unknown;
 
   return (

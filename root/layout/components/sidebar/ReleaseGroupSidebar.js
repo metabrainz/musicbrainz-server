@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import {Artwork} from '../../../components/Artwork.js';
 import ArtistCreditLink
   from '../../../static/scripts/common/components/ArtistCreditLink.js';
@@ -35,7 +33,7 @@ type Props = {
 const ReleaseGroupSidebar = ({
   firstReleaseGid,
   releaseGroup,
-}: Props): React.Element<'div'> => {
+}: Props): React$Element<'div'> => {
   const gid = encodeURIComponent(releaseGroup.gid);
   const typeName = releaseGroupType(releaseGroup);
 

@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import EditorLink from '../../static/scripts/common/components/EditorLink.js';
 import loopParity from '../../utility/loopParity.js';
 import type {ResultsPropsT, SearchResultT} from '../types.js';
@@ -35,7 +33,7 @@ const EditorResults = ({
   pager,
   query,
   results,
-}: ResultsPropsT<EditorT>): React.Element<typeof ResultsLayout> => (
+}: ResultsPropsT<EditorT>): React$Element<typeof ResultsLayout> => (
   <ResultsLayout form={form} lastUpdated={lastUpdated}>
     <PaginatedSearchResults
       buildResult={buildResult}

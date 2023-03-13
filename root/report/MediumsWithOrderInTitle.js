@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import ReleaseList from './components/ReleaseList.js';
 import ReportLayout from './components/ReportLayout.js';
 import type {ReportDataT, ReportReleaseT} from './types.js';
@@ -19,7 +17,7 @@ const MediumsWithOrderInTitle = ({
   generated,
   items,
   pager,
-}: ReportDataT<ReportReleaseT>): React.Element<typeof ReportLayout> => (
+}: ReportDataT<ReportReleaseT>): React$Element<typeof ReportLayout> => (
   <ReportLayout
     canBeFiltered={canBeFiltered}
     description={exp.l(

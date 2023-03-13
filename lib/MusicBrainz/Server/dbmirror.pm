@@ -5,6 +5,8 @@ use strict;
 
 package MusicBrainz::Server::dbmirror;
 
+use English;
+
 # These three subs handle INSERT, UPDATE and DELETE operations respectively.
 # Each one accepts a table name and one or two sets of column-value pairs;
 # each one then returns an SQL statement and the arguments to go with it.
@@ -93,7 +95,7 @@ sub unpack_data
         # "ColumnName"=
         my ($k) = ($packed =~ /\A"(.*?)"=/)
                 or warn(qq(Failed to parse: expected ["ColumnName"=] but found [$packed])), return undef;
-        substr($packed, 0, $+[0], '');
+        substr($packed, 0, $LAST_PAREN_MATCH[0], '');
 
         my $v = undef;
         # Optionally, a quoted string

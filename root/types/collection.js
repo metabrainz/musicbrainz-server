@@ -8,7 +8,7 @@
  */
 
 // MusicBrainz::Server::Entity::Collection::TO_JSON
-declare type CollectionT = {
+declare type CollectionT = $ReadOnly<{
   ...EntityRoleT<'collection'>,
   ...TypeRoleT<CollectionTypeT>,
   +collaborators: $ReadOnlyArray<EditorT>,
@@ -22,7 +22,7 @@ declare type CollectionT = {
   +name: string,
   +public: boolean,
   +subscribed?: boolean,
-};
+}>;
 
 declare type CollectionTypeT = {
   ...OptionTreeT<'collection_type'>,

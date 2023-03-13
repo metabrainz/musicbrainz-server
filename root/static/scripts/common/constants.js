@@ -249,7 +249,6 @@ export const PART_OF_SERIES_LINK_TYPES: {
 };
 
 export const PART_OF_SERIES_LINK_TYPE_GIDS: $ReadOnlyArray<string> =
-  // $FlowIssue (Flow thinks Object.values is Array<mixed>)
   (Object.values(PART_OF_SERIES_LINK_TYPES).filter(Boolean));
 
 export const PART_OF_SERIES_LINK_TYPE_IDS: $ReadOnlyArray<number> = [

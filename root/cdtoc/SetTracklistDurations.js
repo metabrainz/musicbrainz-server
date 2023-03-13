@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import TrackDurationChanges from '../edit/components/TrackDurationChanges.js';
 import Layout from '../layout/index.js';
 import MediumTracklist from '../medium/MediumTracklist.js';
@@ -34,7 +32,7 @@ const SetTracklistDurations = ({
   cdToc,
   form,
   medium,
-}: SetTracklistDurationsProps): React.Element<typeof Layout> => {
+}: SetTracklistDurationsProps): React$Element<typeof Layout> => {
   const newLengths = cdToc.track_details.map(track => track.length_time);
   const oldLengths = medium.cdtoc_tracks.map(track => track.length);
   const release = linkedEntities.release[medium.release_id];

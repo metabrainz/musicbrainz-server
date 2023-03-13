@@ -21,7 +21,7 @@ import EditProfileForm
 
 const EditProfile = (
   props: EditProfileFormPropsT,
-): React.Element<typeof UserAccountLayout> | null => {
+): React$Element<typeof UserAccountLayout> | null => {
   const $c = React.useContext(CatalystContext);
   const user = $c.user;
   if (!user) {

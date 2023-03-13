@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import CodeLink
   from '../../static/scripts/common/components/CodeLink.js';
 import DescriptiveLink
@@ -18,7 +16,7 @@ type Props = {
   +edit: AddIsrcsEditT,
 };
 
-const AddIsrcs = ({edit}: Props): React.Element<'table'> => {
+const AddIsrcs = ({edit}: Props): React$Element<'table'> => {
   const additions = edit.display_data.additions;
   const clientVersion = edit.display_data.client_version;
 

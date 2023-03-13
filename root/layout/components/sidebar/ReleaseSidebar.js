@@ -51,7 +51,7 @@ type Props = {
   +release: ReleaseT,
 };
 
-const ReleaseSidebar = ({release}: Props): React.Element<'div'> | null => {
+const ReleaseSidebar = ({release}: Props): React$Element<'div'> | null => {
   const $c = React.useContext(CatalystContext);
 
   const releaseGroup = release.releaseGroup;

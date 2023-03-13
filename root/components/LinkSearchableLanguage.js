@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import localizeLanguageName
   from '../static/scripts/common/i18n/localizeLanguageName.js';
 
@@ -22,7 +20,7 @@ type Props = {
 const LinkSearchableLanguage = ({
   entityType,
   language,
-}: Props): React.Element<typeof LinkSearchableProperty> => (
+}: Props): React$Element<typeof LinkSearchableProperty> => (
   <LinkSearchableProperty
     entityType={entityType}
     searchField="lang"

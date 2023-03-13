@@ -49,7 +49,7 @@ const FooterSwitch = ({
   hasVideo,
   standaloneOnly,
   videoOnly,
-}: FooterSwitchProps): React.Element<'p'> => {
+}: FooterSwitchProps): React$Element<'p'> => {
   const showAllLink = (
     <a href={`/artist/${artist.gid}/recordings`}>
       {l('Show all recordings')}
@@ -135,7 +135,7 @@ const ArtistRecordings = ({
   releaseGroupAppearances,
   standaloneOnly,
   videoOnly,
-}: Props): React.Element<typeof ArtistLayout> => {
+}: Props): React$Element<typeof ArtistLayout> => {
   const $c = React.useContext(SanitizedCatalystContext);
   return (
     <ArtistLayout

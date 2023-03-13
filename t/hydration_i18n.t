@@ -44,7 +44,7 @@ for my $hydrated_file (@hydrated_files) {
 
 sub check_imports {
     my @source_path = @_;
-    my $source_file = $source_path[scalar(@source_path) - 1];
+    my $source_file = $source_path[-1];
 
     return if exists $checked_files{$source_file};
     $checked_files{$source_file} = 1;

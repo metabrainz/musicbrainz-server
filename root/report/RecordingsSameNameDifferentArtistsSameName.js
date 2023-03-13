@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import PaginatedResults from '../components/PaginatedResults.js';
 import ArtistCreditLink
   from '../static/scripts/common/components/ArtistCreditLink.js';
@@ -25,7 +23,7 @@ const RecordingsSameNameDifferentArtistsSameName = ({
   generated,
   items,
   pager,
-}: ReportDataT<ReportRecordingT>): React.Element<typeof ReportLayout> => (
+}: ReportDataT<ReportRecordingT>): React$Element<typeof ReportLayout> => (
   <ReportLayout
     canBeFiltered={canBeFiltered}
     description={exp.l(

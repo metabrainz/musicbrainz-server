@@ -23,7 +23,7 @@ with 'MusicBrainz::Server::Data::Role::Name';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'recording' };
 with 'MusicBrainz::Server::Data::Role::GIDEntityCache';
 with 'MusicBrainz::Server::Data::Role::DeleteAndLog' => { type => 'recording' };
-with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'recording' };
+with 'MusicBrainz::Server::Data::Role::PendingEdits' => { table => 'recording' };
 with 'MusicBrainz::Server::Data::Role::Rating' => { type => 'recording' };
 with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'recording' };
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'recording' };

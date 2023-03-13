@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import DescriptiveLink from
   '../../static/scripts/common/components/DescriptiveLink.js';
 import ExpandedArtistCredit from
@@ -22,7 +20,7 @@ type Props = {
   +edit: EditReleaseGroupEditT,
 };
 
-const EditReleaseGroup = ({edit}: Props): React.Element<'table'> => {
+const EditReleaseGroup = ({edit}: Props): React$Element<'table'> => {
   const display = edit.display_data;
   const name = display.name;
   const comment = display.comment;

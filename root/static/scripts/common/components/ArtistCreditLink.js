@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import informationIconUrl from '../../../images/icons/information.png';
 import Tooltip from '../../edit/components/Tooltip.js';
 
@@ -29,7 +27,7 @@ type MpIconProps = {
 
 export const MpIcon = (hydrate<MpIconProps>('span.ac-mp', (
   {artistCredit}: MpIconProps,
-): React.MixedElement => {
+): React$MixedElement => {
   let editSearch =
     '/search/edits?auto_edit_filter=&order=desc&negation=0' +
     '&combinator=and&conditions.0.field=type&conditions.0.operator=%3D' +
@@ -60,7 +58,7 @@ export const MpIcon = (hydrate<MpIconProps>('span.ac-mp', (
       }
     />
   );
-}): React.AbstractComponent<MpIconProps, void>);
+}): React$AbstractComponent<MpIconProps, void>);
 
 const ArtistCreditLink = ({
   artistCredit,
@@ -69,9 +67,9 @@ const ArtistCreditLink = ({
   showEditsPending = true,
   showIcon = false,
   ...props
-}: Props): React.Element<'span'> | Array<React.Node> => {
+}: Props): React$Node => {
   const names = artistCredit.names;
-  const parts = [];
+  const parts: Array<React$Node> = [];
   for (let i = 0; i < names.length; i++) {
     const credit = names[i];
     const artist = credit.artist;

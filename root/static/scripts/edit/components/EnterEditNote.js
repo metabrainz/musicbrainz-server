@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import FieldErrors from './FieldErrors.js';
 import FormRow from './FormRow.js';
 
@@ -33,8 +31,12 @@ const EnterEditNote = ({
   hideHelp = false,
   ...otherProps
 }: Props):
-React.Element<'fieldset'> => {
-  const textAreaProps = {};
+React$Element<'fieldset'> => {
+  const textAreaProps: {
+    defaultValue?: string,
+    onChange?: (event: SyntheticEvent<HTMLTextAreaElement>) => void,
+    value?: string,
+  } = {};
   if (otherProps.controlled) {
     textAreaProps.value = field.value;
     textAreaProps.onChange = otherProps.onChange;

@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import EntityLink from '../../static/scripts/common/components/EntityLink.js';
 import TagLink from '../../static/scripts/common/components/TagLink.js';
 import loopParity from '../../utility/loopParity.js';
@@ -44,7 +42,7 @@ const TagResults = ({
   pager,
   query,
   results,
-}: ResultsPropsT<TagT>): React.Element<typeof ResultsLayout> => (
+}: ResultsPropsT<TagT>): React$Element<typeof ResultsLayout> => (
   <ResultsLayout form={form} lastUpdated={lastUpdated}>
     <PaginatedSearchResults
       buildResult={buildResult}

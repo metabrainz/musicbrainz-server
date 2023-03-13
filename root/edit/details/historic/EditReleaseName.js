@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import WordDiff
   from '../../../static/scripts/edit/components/edit/WordDiff.js';
 import HistoricReleaseList from '../../components/HistoricReleaseList.js';
@@ -17,7 +15,7 @@ type Props = {
   +edit: EditReleaseNameHistoricEditT,
 };
 
-const EditReleaseName = ({edit}: Props): React.Element<'table'> => (
+const EditReleaseName = ({edit}: Props): React$Element<'table'> => (
   <table className="details edit-release">
     <HistoricReleaseList colSpan="2" releases={edit.display_data.releases} />
     <WordDiff

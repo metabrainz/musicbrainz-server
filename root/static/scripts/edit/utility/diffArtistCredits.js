@@ -50,15 +50,15 @@ const ArtistLink = ({content, credit, nameVariation}: ArtistLinkProps) => (
 export default function diffArtistCredits(
   oldArtistCredit: ArtistCreditT,
   newArtistCredit: ArtistCreditT,
-): {new: React.Node, old: React.Node} {
+): {new: React$Node, old: React$Node} {
   const diffs = editDiff(
     oldArtistCredit.names,
     newArtistCredit.names,
     areArtistCreditNamesEqual,
   );
 
-  const oldNames = [];
-  const newNames = [];
+  const oldNames: Array<React$Node> = [];
+  const newNames: Array<React$Node> = [];
 
   for (let i = 0; i < diffs.length; i++) {
     const diff = diffs[i];

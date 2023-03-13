@@ -73,18 +73,15 @@ declare module 'react-table' {
     +rows: $ReadOnlyArray<Row<D>>,
   };
 
-  declare type GetColumnOptions<D> = <V>(V) => ColumnOptions<D, V>;
-
-  declare export type UseTableOptions<CV, D> = {
-    +columns: $TupleMap<CV, GetColumnOptions<D>>,
+  declare export type UseTableOptions<D> = {
+    +columns: $ReadOnlyArray<ColumnOptionsNoValue<D>>,
     +data: $ReadOnlyArray<D>,
   };
 
   /*
-   * CV = cell values, an array/tuple of the value types of each column cell.
    * D = data, the type of row data used to populate the table.
    */
-  declare export function useTable<CV, D>(
-    UseTableOptions<CV, D>,
+  declare export function useTable<D>(
+    UseTableOptions<D>,
   ): UseTableInstance<D>;
 }

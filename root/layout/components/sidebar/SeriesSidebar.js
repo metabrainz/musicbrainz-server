@@ -31,7 +31,7 @@ type Props = {
   +series: SeriesT,
 };
 
-const SeriesSidebar = ({series}: Props): React.Element<'div'> => {
+const SeriesSidebar = ({series}: Props): React$Element<'div'> => {
   const $c = React.useContext(CatalystContext);
 
   return (

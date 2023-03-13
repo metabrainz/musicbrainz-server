@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import EntityHeader from '../components/EntityHeader.js';
 import AreaContainmentLink
   from '../static/scripts/common/components/AreaContainmentLink.js';
@@ -23,7 +21,7 @@ type Props = {
 const AreaHeader = ({
   area,
   page,
-}: Props): React.Element<typeof EntityHeader> => {
+}: Props): React$Element<typeof EntityHeader> => {
   const areaType = localizeTypeNameForEntity(area);
   let subHeading: Expand2ReactOutput = areaType;
   if (area.containment?.length) {

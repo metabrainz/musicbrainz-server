@@ -2,6 +2,7 @@
 use strict;
 use warnings;
 
+use English;
 use MusicBrainz::Server::Context;
 use DBDefs;
 
@@ -33,10 +34,10 @@ sub _load_index_from_disk
 {
     my $index_file = DBDefs->STATIC_FILES_DIR . '/wikidocs/index.txt';
     if (!open(FILE, "<" . $index_file)) {
-        warn "Could not open wikitrans index file '$index_file': $!.";
+        warn "Could not open wikitrans index file '$index_file': $OS_ERROR.";
         return {};
     }
-    my $data = do { local $/; <FILE> };
+    my $data = do { local $INPUT_RECORD_SEPARATOR; <FILE> };
     close(FILE);
 
     return _parse_index($data);

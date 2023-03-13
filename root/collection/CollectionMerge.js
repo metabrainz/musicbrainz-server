@@ -10,7 +10,7 @@
 import * as React from 'react';
 import type {ColumnOptions} from 'react-table';
 
-import Table from '../components/Table.js';
+import useTable from '../hooks/useTable.js';
 import Layout from '../layout/index.js';
 import {ENTITY_NAMES} from '../static/scripts/common/constants.js';
 import {
@@ -94,7 +94,7 @@ const CollectionMergeTable = ({
     [collections, form],
   );
 
-  return <Table columns={columns} data={collections} />;
+  return useTable<CollectionT>({columns, data: collections});
 };
 
 const CollectionMerge = ({
@@ -102,7 +102,7 @@ const CollectionMerge = ({
   privaciesDiffer,
   toMerge,
   typesDiffer,
-}: Props): React.Element<typeof Layout> => {
+}: Props): React$Element<typeof Layout> => {
   const collections = sortByString(toMerge, collection => collection.name);
   const collaborators = sortByString(
     uniqBy(

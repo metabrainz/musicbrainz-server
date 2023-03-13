@@ -130,7 +130,7 @@ export const RecordingResultsInline = ({
   query,
   results,
 }: InlineResultsPropsT<RecordingWithArtistCreditT>):
-React.Element<typeof PaginatedSearchResults> => {
+React$Element<typeof PaginatedSearchResults> => {
   const $c = React.useContext(CatalystContext);
 
   return (
@@ -163,7 +163,7 @@ const RecordingResults = ({
   query,
   results,
 }: ResultsPropsT<RecordingWithArtistCreditT>):
-React.Element<typeof ResultsLayout> => {
+React$Element<typeof ResultsLayout> => {
   const $c = React.useContext(CatalystContext);
   linenum = 0;
   return (

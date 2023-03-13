@@ -29,7 +29,7 @@ const AreaReleases = ({
   pagedLinkTypeGroup,
   pager,
   releases,
-}: Props): React.Element<typeof AreaLayout> => {
+}: Props): React$Element<typeof AreaLayout> => {
   const $c = React.useContext(SanitizedCatalystContext);
   return (
     <AreaLayout entity={area} page="releases" title={l('Releases')}>

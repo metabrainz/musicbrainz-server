@@ -11,6 +11,7 @@ later version: http://www.gnu.org/licenses/gpl-2.0.txt
 =cut
 
 use DBDefs;
+use English;
 use File::Copy qw( copy );
 use List::AllUtils qw( natatime );
 use Moose;
@@ -219,7 +220,7 @@ sub run {
     }
 
     copy(DBDefs->MB_SERVER_ROOT . '/admin/COPYING-CCShareAlike',
-         $mbdump->export_dir . '/COPYING') or die $!;
+         $mbdump->export_dir . '/COPYING') or die $OS_ERROR;
 
     my @all_tables = sort { $a cmp $b } (@DUMP_ALL, keys %table_map);
     $mbdump->make_tar('mbdump-sample.tar.xz', @all_tables);

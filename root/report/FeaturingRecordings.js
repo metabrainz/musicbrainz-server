@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import RecordingList from './components/RecordingList.js';
 import ReportLayout from './components/ReportLayout.js';
 import type {ReportDataT, ReportRecordingT} from './types.js';
@@ -19,7 +17,7 @@ const FeaturingRecordings = ({
   generated,
   items,
   pager,
-}: ReportDataT<ReportRecordingT>): React.Element<typeof ReportLayout> => (
+}: ReportDataT<ReportRecordingT>): React$Element<typeof ReportLayout> => (
   <ReportLayout
     canBeFiltered={canBeFiltered}
     description={exp.l(

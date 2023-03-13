@@ -7,13 +7,11 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import BottomMenu from './BottomMenu.js';
 import HeaderLogo from './HeaderLogo.js';
 import TopMenu from './TopMenu.js';
 
-const Header = (): React.Element<'div'> => (
+const Header = (): React$Element<'div'> => (
   <div className="header">
     <a className="logo" href="/" title="MusicBrainz">
       <HeaderLogo />

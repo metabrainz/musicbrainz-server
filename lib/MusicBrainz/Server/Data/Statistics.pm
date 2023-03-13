@@ -1865,7 +1865,12 @@ my %stats = (
                     my $count = $_->{count};
                     while (defined $parent) {
                         my @parent_obj = grep { $_->{id} == $parent } @$data;
-                        my $parent_obj = $parent_obj[0] if scalar(@parent_obj) == 1;
+                        my $parent_obj;
+
+                        if (scalar(@parent_obj) == 1) {
+                            $parent_obj = $parent_obj[0];
+                        }
+
                         die unless $parent_obj;
 
                         $dist{ $table . q(.) . $parent_obj->{name} . '.inclusive' } += $count;

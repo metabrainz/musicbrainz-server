@@ -147,7 +147,7 @@ const ArtistListEntry = ({
   showInstrumentCreditsAndRelTypes,
   showRatings,
   showSortName,
-}: ArtistListEntryProps): React.Element<'tr'> => (
+}: ArtistListEntryProps): React$Element<'tr'> => (
   <tr className={loopParity(index)} data-score={score ?? null}>
     <ArtistListRow
       artist={artist}

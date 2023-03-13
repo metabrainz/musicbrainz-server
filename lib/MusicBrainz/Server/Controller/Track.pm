@@ -66,7 +66,10 @@ around load => sub {
     # exist, stash it so we can redirect to /recording/:mbid in
     # show().
 
-    my $recording = $c->model('Recording')->get_by_gid($id) if is_guid($id);
+    my $recording;
+    if (is_guid($id)) {
+        $recording = $c->model('Recording')->get_by_gid($id);
+    }
     return $self->$orig($c, $id) unless defined $recording;
 
     $c->stash( recording => $recording );

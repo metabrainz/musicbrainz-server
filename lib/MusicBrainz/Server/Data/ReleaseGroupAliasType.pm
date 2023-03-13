@@ -7,6 +7,8 @@ extends 'MusicBrainz::Server::Data::Entity';
 
 with 'MusicBrainz::Server::Data::Role::AliasType';
 
+sub _entity_class { 'MusicBrainz::Server::Entity::ReleaseGroupAliasType' }
+
 sub _table { 'release_group_alias_type' }
 
 sub _type { 'release_group_alias_type' }

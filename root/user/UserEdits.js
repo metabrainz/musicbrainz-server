@@ -30,7 +30,7 @@ const UserEdits = ({
   refineUrlArgs,
   user,
   voter,
-}: Props): React.Element<typeof Layout> => {
+}: Props): React$Element<typeof Layout> => {
   const $c = React.useContext(SanitizedCatalystContext);
   const titleParam = {name: user.name};
   const headingParam = {name: <EditorLink editor={user} />};

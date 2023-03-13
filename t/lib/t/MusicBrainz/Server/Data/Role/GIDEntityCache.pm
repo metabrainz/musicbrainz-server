@@ -149,7 +149,7 @@ test 'Cache is transactional (MBS-7241)' => sub {
 
     my $artist_gid = '31456bd3-0e1a-4c47-a5cc-e147a42965f2';
 
-    *MusicBrainz::Server::Data::Artist::_delete_from_cache = sub {
+    *MusicBrainz::Server::Data::Artist::_delete_from_cache = sub { ## no critic (ProtectPrivateVars)
         my $artist = $c2->model('Artist')->get_by_id(3);
         is($artist->id, 3,
             'concurrent get_by_id returns artist before ' .
@@ -197,7 +197,7 @@ test 'Cache is transactional (MBS-7241)' => sub {
         DELETE FROM deleted_entity WHERE gid = '31456bd3-0e1a-4c47-a5cc-e147a42965f2';
         SQL
 
-    *MusicBrainz::Server::Data::Artist::_delete_from_cache = $_delete_from_cache;
+    *MusicBrainz::Server::Data::Artist::_delete_from_cache = $_delete_from_cache; ## no critic (ProtectPrivateVars)
     $c1->connector->disconnect;
     $c2->connector->disconnect;
 };

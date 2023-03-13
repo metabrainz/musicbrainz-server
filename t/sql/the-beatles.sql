@@ -337,7 +337,7 @@ INSERT INTO url (edits_pending, gid, id, last_updated, url) VALUES
 	(0, '91c7742e-cb41-4bf6-8ae5-e4dd9634899d', 1575371, '2013-01-02 06:27:41.792618+00', 'http://www.beatlesfanclub.nl/'),
 	(0, '787c5ab9-5546-4753-8280-fb4eec8df66b', 1598325, '2013-01-30 22:38:20.049699+00', 'http://viaf.org/viaf/141205608'),
 	(0, '7a14a19d-17d6-452e-8741-6ace4eea275c', 1699619, '2013-05-09 10:42:08.624588+00', 'http://www.wikidata.org/wiki/Q1299'),
-	(0, 'ce11dac4-3aa0-4980-b828-c982865085e9', 1739259, '2013-05-26 19:04:33.316374+00', 'http://www.45cat.com/artist/the-beatles'),
+	(0, 'ce11dac4-3aa0-4980-b828-c982865085e9', 1739259, '2013-05-26 19:04:33.316374+00', 'https://www.45cat.com/artist/the-beatles'),
 	(0, 'b4b3477b-92fa-46bb-b8f6-00458ed8c278', 1739261, '2013-05-26 19:05:13.290719+00', 'http://rateyourmusic.com/artist/the_beatles'),
 	(0, '043fa87a-7b70-405d-9881-daf6c0e60472', 1813105, '2013-07-08 16:22:17.660424+00', 'https://plus.google.com/111520018934389590684'),
 	(0, '9fa78c08-2c45-4135-851e-3e642bc32633', 1813107, '2013-07-08 16:23:25.095818+00', 'http://www.secondhandsongs.com/artist/41'),

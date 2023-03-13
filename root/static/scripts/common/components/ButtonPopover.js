@@ -16,13 +16,13 @@ import {unwrapNl} from '../i18n.js';
 import Popover from './Popover.js';
 
 type PropsT = {
-  +buildChildren: (() => void) => React.Node,
-  +buttonContent: React.Node,
+  +buildChildren: (() => void) => React$Node,
+  +buttonContent: React$Node,
   +buttonProps?: {
     className?: string,
     id?: string,
     title?: string | (() => string),
-  },
+  } | null,
   +buttonRef: {current: HTMLButtonElement | null},
   +className?: string,
   +closeOnOutsideClick?: boolean,
@@ -30,10 +30,10 @@ type PropsT = {
   +isDisabled?: boolean,
   +isOpen: boolean,
   +toggle: (boolean) => void,
-  +wrapButton?: (React.MixedElement) => React.MixedElement,
+  +wrapButton?: (React$MixedElement) => React$MixedElement,
 };
 
-const ButtonPopover = (props: PropsT): React.MixedElement => {
+const ButtonPopover = (props: PropsT): React$MixedElement => {
   const {
     buttonContent,
     buttonProps = null,
@@ -90,12 +90,12 @@ const ButtonPopover = (props: PropsT): React.MixedElement => {
   const customButtonProps = buttonProps ? {
     id: buttonProps.id,
     title: nonEmpty(buttonProps.title)
-      ? unwrapNl(buttonProps.title)
+      ? unwrapNl<string>(buttonProps.title)
       : undefined,
     className: buttonProps.className,
   } : null;
 
-  let buttonElement: React.MixedElement = (
+  let buttonElement: React$MixedElement = (
     <button
       aria-controls={isOpen ? dialogProps.id : null}
       aria-haspopup="dialog"
@@ -110,7 +110,7 @@ const ButtonPopover = (props: PropsT): React.MixedElement => {
         }
       }}
       ref={buttonRef}
-      title={buttonTitle == null ? null : unwrapNl(buttonTitle)}
+      title={buttonTitle == null ? null : unwrapNl<string>(buttonTitle)}
       type="button"
       {...customButtonProps}
     >

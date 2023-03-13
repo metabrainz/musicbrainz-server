@@ -31,7 +31,7 @@ const EditNotes = ({
   index = 0,
   isOnEditPage,
   verbose = true,
-}: Props): React.Element<'div'> => {
+}: Props): React$Element<'div'> => {
   const $c = React.useContext(CatalystContext);
   const user = $c.user;
   const mayAddNote = editorMayAddNote(edit, user);

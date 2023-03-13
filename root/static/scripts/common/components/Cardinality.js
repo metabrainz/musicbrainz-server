@@ -7,15 +7,13 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import {bracketedText} from '../utility/bracketed.js';
 
 type Props = {
   +cardinality: number,
 };
 
-const Cardinality = ({cardinality}: Props): React.MixedElement => {
+const Cardinality = ({cardinality}: Props): React$MixedElement => {
   let cardinalityName;
   switch (cardinality) {
     case 0:

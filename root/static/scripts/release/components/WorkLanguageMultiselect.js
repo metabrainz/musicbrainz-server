@@ -36,7 +36,6 @@ export function createInitialState(
   initialLanguages?: $ReadOnlyArray<LanguageT>,
 ): MultiselectLanguageStateT {
   const languages: Array<LanguageT> =
-    // $FlowIgnore[incompatible-type]
     Object.values(linkedEntities.language);
 
   languages.sort((a, b) => (
@@ -55,7 +54,7 @@ export function createInitialState(
   const newState = {
     max: null,
     staticItems: languageOptions,
-    values: [],
+    values: ([]: Array<MultiselectLanguageValueStateT>),
   };
   if (initialLanguages?.length) {
     for (const language of initialLanguages) {
@@ -95,7 +94,7 @@ export function createSelectedLanguageValue(
 }
 
 export function createEmptyLanguageValue(
-  newState: {...MultiselectLanguageStateT},
+  newState: {...MultiselectLanguageStateT, ...},
 ): MultiselectLanguageValueStateT {
   return createSelectedLanguageValue(newState.staticItems, null);
 }
@@ -120,7 +119,7 @@ type WorkLanguageMultiselectPropsT = {
 const LanguageMultiselect = (
   // $FlowIgnore
   Multiselect:
-    React.AbstractComponent<
+    React$AbstractComponent<
       MultiselectPropsT<
         LanguageT,
         MultiselectLanguageValueStateT,
@@ -138,7 +137,7 @@ const WorkLanguageMultiselect: React$AbstractComponent<
 >(({
   dispatch,
   state,
-}: WorkLanguageMultiselectPropsT): React.MixedElement => (
+}: WorkLanguageMultiselectPropsT): React$MixedElement => (
   <tr>
     <td className="section">
       {addColonText(l('Lyrics Languages'))}

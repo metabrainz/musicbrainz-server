@@ -5,6 +5,8 @@ use MusicBrainz::Server::Entity::Types;
 
 extends 'MusicBrainz::Server::Entity::Alias';
 
+with 'MusicBrainz::Server::Entity::Role::Type' => { model => 'PlaceAliasType' };
+
 sub entity_type { 'place_alias' }
 
 has 'place_id' => (

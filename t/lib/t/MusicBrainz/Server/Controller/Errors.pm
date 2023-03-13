@@ -20,7 +20,7 @@ test 'Controller error handling' => sub {
     my $test = shift;
     my $mech = $test->mech;
 
-    $MusicBrainz::Errors::_sentry_enabled = 1;
+    $MusicBrainz::Errors::_sentry_enabled = 1; ## no critic (ProtectPrivateVars)
 
     # Need ctx_request here rather than $mech->get to get $ctx for
     # passing to register_action_methods.

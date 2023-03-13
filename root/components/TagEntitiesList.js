@@ -45,11 +45,10 @@ const TagEntitiesList = ({
   tag,
   taggedEntities,
   user,
-}: Props): React.Element<typeof React.Fragment> => {
+}: Props): React$Element<typeof React.Fragment> => {
   const $c = React.useContext(CatalystContext);
 
   const totalCount = Object.values(taggedEntities)
-    // $FlowIssue[incompatible-use]
     .reduce((count, info) => count + info.count, 0);
 
   const tagContent = showLink

@@ -28,7 +28,7 @@ const ListHeader = ({
   page,
   refineUrlArgs,
   username,
-}: Props): React.Element<'table'> => {
+}: Props): React$Element<'table'> => {
   const $c = React.useContext(CatalystContext);
   const isSecureConnection = $c.req.secure;
   const protocol = isSecureConnection ? 'https://' : 'http://';

@@ -53,7 +53,7 @@ export class VarArgs<+T, +U = T> implements VarArgsClass<T | U> {
 export type Parser<+T, -V> = (VarArgsClass<V>) => T;
 
 const EMPTY_OBJECT = Object.freeze({});
-const EMPTY_VARARGS = new VarArgs(EMPTY_OBJECT);
+const EMPTY_VARARGS = new VarArgs<empty, empty>(EMPTY_OBJECT);
 
 type State = {
   /*
@@ -268,7 +268,7 @@ export const createCondSubstParser = <T, V>(
  * of type V, and produce an expansion result of type T.
  *
  * So in the case of expand2react, the types would be:
- * expand<string | React.Element<any>, string | number | React.Element<any>>;
+ * expand<string | React$Element<any>, string | number | React$Element<any>>;
  *
  * And for expand2text they'd be:
  * expand<string, string | number>;

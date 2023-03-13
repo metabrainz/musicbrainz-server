@@ -29,7 +29,8 @@ const VotingPeriod = ({
   const now = new Date();
 
   if (date > now) {
-    const durationSeconds = Math.floor((date - now) / 1000);
+    const durationSeconds =
+      Math.floor((date.getTime() - now.getTime()) / 1000);
     const durationMinutes = Math.round(durationSeconds / 60);
     const durationHours = Math.round(durationMinutes / 60);
     const durationDays = Math.round(durationHours / 24);

@@ -11,6 +11,7 @@ import * as React from 'react';
 import type {ColumnOptions} from 'react-table';
 
 import {SanitizedCatalystContext} from '../../context.mjs';
+import useTable from '../../hooks/useTable.js';
 import * as manifest from '../../static/manifest.mjs';
 import ReleaseGroupAppearances
   from '../../static/scripts/common/components/ReleaseGroupAppearances.js';
@@ -29,7 +30,6 @@ import {
   isrcsColumn,
   removeFromMergeColumn,
 } from '../../utility/tableColumns.js';
-import Table from '../Table.js';
 
 type Props = {
   ...InstrumentCreditsAndRelTypesRoleT,
@@ -79,7 +79,7 @@ const RecordingList = ({
   showRatings = false,
   showReleaseGroups = false,
   sortable,
-}: Props): React.MixedElement => {
+}: Props): React$MixedElement => {
   const $c = React.useContext(SanitizedCatalystContext);
 
   const columns = React.useMemo(
@@ -163,12 +163,14 @@ const RecordingList = ({
     ],
   );
 
+  const table = useTable<RecordingWithArtistCreditT>({
+    columns,
+    data: recordings,
+  });
+
   return (
     <>
-      <Table
-        columns={columns}
-        data={recordings}
-      />
+      {table}
       {manifest.js('common/components/AcoustIdCell', {async: 'async'})}
       {manifest.js('common/components/IsrcList', {async: 'async'})}
     </>

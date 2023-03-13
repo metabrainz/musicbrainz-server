@@ -139,7 +139,7 @@ around TO_JSON => sub {
         length          => 0 + $self->length,
         track_count     => 0 + $self->track_count,
         track_details   => $self->track_details,
-        track_offset    => [map { 0 + $_ } @{ $self->track_offset }],
+        track_offset    => [map { 0 + $_ } @{ $self->track_offset // [] }],
     };
 
     return $data;

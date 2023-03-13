@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import PaginatedResults from '../../components/PaginatedResults.js';
 import {ACCESS_SCOPE_PERMISSIONS} from '../../constants.js';
 import Layout from '../../layout/index.js';
@@ -80,7 +78,7 @@ const Index = ({
   appsPager,
   tokens,
   tokensPager,
-}: Props): React.Element<typeof Layout> => (
+}: Props): React$Element<typeof Layout> => (
   <Layout fullWidth title={l('Applications')}>
     <h1>{l('Applications')}</h1>
 

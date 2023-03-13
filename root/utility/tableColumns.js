@@ -149,7 +149,10 @@ export function defineArtistRolesColumn<D>(
 
 export function defineBeginDateColumn(
   props: OrderableProps,
-): ColumnOptions<{+begin_date: PartialDateT, ...}, PartialDateT> {
+): ColumnOptions<
+  {+begin_date: PartialDateT | null, ...},
+  PartialDateT | null,
+> {
   const sortable = props.sortable ?? false;
 
   return {
@@ -201,7 +204,7 @@ export function defineCheckboxColumn(
     +mergeForm?: MergeFormT | MergeReleasesFormT,
     +name?: string,
   },
-): ColumnOptions<CoreEntityT, number> {
+): ColumnOptions<NonUrlCoreEntityT | CollectionT, number> {
   return {
     Cell: ({row: {index, original}}) => props.mergeForm
       ? renderMergeCheckboxElement(original, props.mergeForm, index)
@@ -278,7 +281,7 @@ export function defineDatePeriodColumn<D>(
 
 export function defineEndDateColumn(
   props: OrderableProps,
-): ColumnOptions<{...DatePeriodRoleT, ...}, PartialDateT | null> {
+): ColumnOptions<$ReadOnly<{...DatePeriodRoleT, ...}>, PartialDateT | null> {
   const sortable = props.sortable ?? false;
 
   return {
@@ -625,11 +628,11 @@ export function defineTypeColumn(
     ...OrderableProps,
     +typeContext: string,
   },
-): ColumnOptions<{+typeName: string, ...}, string> {
+): ColumnOptions<{+typeName?: string, ...}, string> {
   const sortable = props.sortable ?? false;
 
   return {
-    accessor: x => x.typeName,
+    accessor: x => x.typeName ?? '',
     Cell: ({cell: {value}}) => (value
       ? lp_attributes(value, props.typeContext)
       : null),
@@ -695,7 +698,7 @@ export const iswcsColumn:
   };
 
 export const removeFromMergeColumn:
-  ColumnOptions<ArtistT | RecordingT | ReleaseT, number> = {
+  ColumnOptions<NonUrlCoreEntityT | CollectionT, number> = {
     Cell: ({row: {original}}) => {
       const url = ENTITIES[original.entityType].url;
       return (

@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import {isDateValid, isYearFourDigits} from '../utility/dates.js';
 import {applyPendingErrors} from '../utility/subfieldErrors.js';
 
@@ -94,14 +92,21 @@ export function runReducer(
   }
 }
 
-const PartialDateInput = (props: Props): React.Element<'span'> => {
+type DatePartPropsT = {
+  defaultValue?: StrOrNum | null,
+  onBlur?: () => void,
+  onChange?: (SyntheticEvent<HTMLInputElement>) => void,
+  value?: StrOrNum,
+};
+
+const PartialDateInput = (props: Props): React$Element<'span'> => {
   const disabled = props.disabled ?? false;
   const field = props.field;
   const yearInputRef = props.yearInputRef;
 
-  const yearProps = {};
-  const monthProps = {};
-  const dayProps = {};
+  const yearProps: DatePartPropsT = {};
+  const monthProps: DatePartPropsT = {};
+  const dayProps: DatePartPropsT = {};
 
   if (props.uncontrolled) {
     yearProps.defaultValue = field.field.year.value;

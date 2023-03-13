@@ -125,7 +125,7 @@ const ReleaseGroupIndex = ({
   releaseGroup,
   releases,
   wikipediaExtract,
-}: Props): React.Element<typeof ReleaseGroupLayout> => {
+}: Props): React$Element<typeof ReleaseGroupLayout> => {
   const $c = React.useContext(CatalystContext);
   const firstReleaseGid = releases.length ? releases[0][0].gid : null;
 

@@ -25,7 +25,7 @@ import useEntityNameFromField
 type PropsT = InitialStateArgsT;
 
 let UrlRelationshipEditor:
-  React.AbstractComponent<PropsT, void> =
+  React$AbstractComponent<PropsT, void> =
 (props: PropsT) => {
   const [state, dispatch] = React.useReducer(
     reducer,

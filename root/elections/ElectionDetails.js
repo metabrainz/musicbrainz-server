@@ -20,7 +20,7 @@ type PropsT = {
   +election: AutoEditorElectionT,
 };
 
-const ElectionDetails = ({election}: PropsT): React.MixedElement => {
+const ElectionDetails = ({election}: PropsT): React$MixedElement => {
   const $c = React.useContext(CatalystContext);
   return (
     <>

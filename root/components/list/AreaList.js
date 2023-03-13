@@ -10,13 +10,13 @@
 import * as React from 'react';
 
 import {CatalystContext} from '../../context.mjs';
+import useTable from '../../hooks/useTable.js';
 import {
   defineCheckboxColumn,
   defineNameColumn,
   defineTypeColumn,
   removeFromMergeColumn,
 } from '../../utility/tableColumns.js';
-import Table from '../Table.js';
 
 type Props = {
   +areas: $ReadOnlyArray<AreaT>,
@@ -32,7 +32,7 @@ const AreaList = ({
   mergeForm,
   order,
   sortable,
-}: Props): React.Element<typeof Table> => {
+}: Props): React$Element<'table'> => {
   const $c = React.useContext(CatalystContext);
 
   const columns = React.useMemo(
@@ -61,7 +61,7 @@ const AreaList = ({
     [$c.user, areas, checkboxes, mergeForm, order, sortable],
   );
 
-  return <Table columns={columns} data={areas} />;
+  return useTable<AreaT>({columns, data: areas});
 };
 
 export default AreaList;

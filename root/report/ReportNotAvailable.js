@@ -7,11 +7,9 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import Layout from '../layout/index.js';
 
-const ReportNotAvailable = (): React.Element<typeof Layout> => (
+const ReportNotAvailable = (): React$Element<typeof Layout> => (
   <Layout fullWidth title={l('Error')}>
     <div id="content">
       <h1>{l('Error')}</h1>

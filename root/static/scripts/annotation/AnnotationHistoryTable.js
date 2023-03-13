@@ -13,6 +13,7 @@ import {SanitizedCatalystContext} from '../../../context.mjs';
 import formatUserDate from '../../../utility/formatUserDate.js';
 import EditorLink from '../common/components/EditorLink.js';
 import bracketed from '../common/utility/bracketed.js';
+import parseInteger from '../common/utility/parseInteger.js';
 
 type Props = {
   +annotations: $ReadOnlyArray<AnnotationT>,
@@ -62,7 +63,7 @@ function reducer(state: StateT, action: ActionT): StateT {
 const AnnotationHistoryTable = ({
   annotations,
   baseUrl,
-}: Props): React.Element<'table'> => {
+}: Props): React$Element<'table'> => {
   const $c = React.useContext(SanitizedCatalystContext);
 
   const canCompare = annotations.length > 1;
@@ -73,12 +74,22 @@ const AnnotationHistoryTable = ({
     createInitialState,
   );
 
-  const handleNew = React.useCallback((event) => {
-    dispatch({index: event.currentTarget.dataset.index, type: 'update-new'});
+  const handleNew = React.useCallback((
+    event: SyntheticEvent<HTMLInputElement>,
+  ) => {
+    dispatch({
+      index: parseInteger(event.currentTarget.dataset.index),
+      type: 'update-new',
+    });
   }, [dispatch]);
 
-  const handleOld = React.useCallback((event) => {
-    dispatch({index: event.currentTarget.dataset.index, type: 'update-old'});
+  const handleOld = React.useCallback((
+    event: SyntheticEvent<HTMLInputElement>,
+  ) => {
+    dispatch({
+      index: parseInteger(event.currentTarget.dataset.index),
+      type: 'update-old',
+    });
   }, [dispatch]);
 
   return (
@@ -153,4 +164,4 @@ const AnnotationHistoryTable = ({
 export default (hydrate<Props>(
   'div.annotation-history-table',
   AnnotationHistoryTable,
-): React.AbstractComponent<Props, void>);
+): React$AbstractComponent<Props, void>);

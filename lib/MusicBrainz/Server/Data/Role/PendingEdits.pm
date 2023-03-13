@@ -1,4 +1,4 @@
-package MusicBrainz::Server::Data::Role::Editable;
+package MusicBrainz::Server::Data::Role::PendingEdits;
 use MooseX::Role::Parameterized;
 
 use MusicBrainz::Server::Data::Utils qw( placeholders );

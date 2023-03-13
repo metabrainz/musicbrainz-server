@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import CritiqueBrainzLinks from '../components/CritiqueBrainzLinks.js';
 import * as manifest from '../static/manifest.mjs';
 import CritiqueBrainzReview
@@ -35,7 +33,7 @@ const Ratings = ({
   mostRecentReview,
   privateRatingCount,
   publicRatings,
-}: Props): React.MixedElement => {
+}: Props): React$MixedElement => {
   const entityType = entity.entityType;
   const entityProperties = ENTITIES[entity.entityType];
   const LayoutComponent = chooseLayoutComponent(entityType);
@@ -76,7 +74,6 @@ const Ratings = ({
               ) : null}
               {l('Average rating:')}
               {' '}
-              {/* $FlowIgnore[prop-missing] we know it has ratings */}
               <StaticRatingStars rating={entity.rating} />
             </>
           ) : (
@@ -92,7 +89,6 @@ const Ratings = ({
         <>
           <h2>{l('Reviews')}</h2>
 
-          {/* $FlowIgnore[incompatible-type] we know it has reviews */}
           <CritiqueBrainzLinks entity={entity} />
           <div id="critiquebrainz-reviews">
             {mostRecentReview ? (

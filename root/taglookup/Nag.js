@@ -7,9 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
-const TagLookupNagSection = (): React.Element<'div'> => (
+const TagLookupNagSection = (): React$Element<'div'> => (
   <div className="nagpanel">
     <p>
       {l('The users make MusicBrainz happen and we appreciate your help!')}

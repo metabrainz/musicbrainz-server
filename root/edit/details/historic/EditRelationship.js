@@ -31,7 +31,7 @@ type Props = {
 
 const EditRelationship = ({
   edit,
-}: Props): React.Element<typeof React.Fragment> => {
+}: Props): React$Element<typeof React.Fragment> => {
   const oldRels = edit.display_data.relationship.old;
   const newRels = edit.display_data.relationship.new;
   const isDataBroken = oldRels.length !== newRels.length;

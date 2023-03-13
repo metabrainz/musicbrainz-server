@@ -3,6 +3,7 @@ use strict;
 use warnings;
 
 use Class::Load qw( load_class );
+use English;
 
 our %_types;
 our $_registered = 0;
@@ -214,7 +215,7 @@ sub _register_type
 sub _register_default_types
 {
     foreach my $class (@CLASSES) {
-        load_class($class) or die $@;
+        load_class($class) or die $EVAL_ERROR;
         _register_type(undef, $class);
     }
     $_registered = 1;

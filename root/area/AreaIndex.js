@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import * as manifest from '../static/manifest.mjs';
 import Annotation from '../static/scripts/common/components/Annotation.js';
 import Relationships
@@ -28,7 +26,7 @@ const AreaIndex = ({
   area,
   numberOfRevisions,
   wikipediaExtract,
-}: Props): React.Element<typeof AreaLayout> => (
+}: Props): React$Element<typeof AreaLayout> => (
   <AreaLayout entity={area} page="index">
     <Annotation
       annotation={area.latest_annotation}

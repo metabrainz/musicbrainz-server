@@ -2,6 +2,7 @@
 
 use strict;
 use warnings;
+use English;
 use FindBin;
 use lib "$FindBin::Bin/../lib";
 use POSIX qw( setsid );
@@ -61,7 +62,7 @@ if ($child) {
             $server_build,
     } else {
         eval('use Server::Starter;');
-        if ($@) {
+        if ($EVAL_ERROR) {
             die (
                 'The CPAN package Server::Starter must be installed ' .
                 'in production environments.'

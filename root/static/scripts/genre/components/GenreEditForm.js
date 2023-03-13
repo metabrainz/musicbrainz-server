@@ -29,6 +29,7 @@ import {
   createInitialState as createGuessCaseOptionsState,
 } from '../../edit/components/GuessCaseOptions.js';
 import {
+  _ExternalLinksEditor,
   ExternalLinksEditor,
   prepareExternalLinksHtmlFormSubmission,
 } from '../../edit/externalLinks.js';
@@ -88,7 +89,7 @@ function reducer(state: StateT, action: ActionT): StateT {
 
 const GenreEditForm = ({
   form: initialForm,
-}: Props): React.Element<'form'> => {
+}: Props): React$Element<'form'> => {
   const $c = React.useContext(SanitizedCatalystContext);
 
   const [state, dispatch] = React.useReducer(
@@ -114,7 +115,7 @@ const GenreEditForm = ({
   const genre = $c.stash.source_entity;
   invariant(genre && genre.entityType === 'genre');
 
-  const externalLinksEditorRef = React.createRef();
+  const externalLinksEditorRef = React.createRef<_ExternalLinksEditor>();
 
   const handleSubmit = (event: SyntheticEvent<HTMLFormElement>) => {
     if (hasErrors) {
@@ -174,4 +175,4 @@ const GenreEditForm = ({
 export default (hydrate<Props>(
   'div.genre-edit-form',
   GenreEditForm,
-): React.AbstractComponent<Props, void>);
+): React$AbstractComponent<Props, void>);

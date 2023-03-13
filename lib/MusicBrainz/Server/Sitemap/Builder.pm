@@ -5,6 +5,7 @@ use DateTime::Format::Pg;
 use DateTime::Format::W3CDTF;
 use DBDefs;
 use Digest::MD5 qw( md5_hex );
+use English;
 use File::Slurp qw( read_dir );
 use File::Spec;
 use Fcntl qw( :flock );
@@ -229,7 +230,7 @@ sub build_one_sitemap {
         $existing_md5 =~ s/[^0-9a-f]//g;
     }
 
-    local $| = 1; # autoflush stdout
+    local $OUTPUT_AUTOFLUSH = 1; # autoflush stdout
     log_info { "Building $filename..." };
 
     my $data = serialize_sitemap(@urls);
@@ -261,7 +262,7 @@ sub build_one_sitemap {
 
     if ($write_sitemap) {
         open(my $fh, '>', $local_xml_filename)
-            or die "Can't open sitemap: $!";
+            or die "Can't open sitemap: $OS_ERROR";
         print $fh $$data;
         close $fh;
 
@@ -330,9 +331,9 @@ sub lock_index {
     # And we can't acquire a lock on a non-existent file.
 
     open(my $index_lock_fh, '>>', $self->index_localname . '.lock')
-        or die "Can't open sitemap index lock: $!";
+        or die "Can't open sitemap index lock: $OS_ERROR";
     flock($index_lock_fh, LOCK_EX)
-        or die "Can't lock sitemap index: $!";
+        or die "Can't lock sitemap index: $OS_ERROR";
     $callback->();
     close $index_lock_fh;
 }
@@ -364,7 +365,7 @@ sub write_index {
         }
 
         open(my $index_fh, '>', $self->index_localname)
-            or die "Can't open sitemap index: $!";
+            or die "Can't open sitemap index: $OS_ERROR";
         my $data = serialize_sitemap_index($self->all_sitemaps);
         print $index_fh $$data;
         close $index_fh;

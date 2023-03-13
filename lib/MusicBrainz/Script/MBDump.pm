@@ -1,6 +1,7 @@
 package MusicBrainz::Script::MBDump;
 
 use DBDefs;
+use English;
 use File::Copy qw( copy );
 use File::Path qw( make_path );
 use File::Spec::Functions qw( catfile );
@@ -79,7 +80,7 @@ sub begin_dump {
 
     my $export_dir = tempdir(
         'mbexport-XXXXXX', DIR => $self->tmp_dir, CLEANUP => 0);
-    mkdir "$export_dir/mbdump" or die $!;
+    mkdir "$export_dir/mbdump" or die $OS_ERROR;
     log_info { "Exporting to $export_dir" };
     $self->export_dir($export_dir);
 
@@ -137,9 +138,9 @@ sub gpg_sign {
            '--yes',
            $file_to_be_signed;
 
-    if ($? != 0) {
+    if ($CHILD_ERROR != 0) {
         print STDERR "Failed to sign $file_to_be_signed\n",
-                     "GPG returned $?\n";
+                     "GPG returned $CHILD_ERROR\n";
     }
 }
 
@@ -183,7 +184,7 @@ sub make_tar {
             ($compression ? " | $compress_command" : '') .
             ' > ' . shell_quote("$output_dir/$tar_file");
 
-    $? == 0 or die "Tar returned $?";
+    $CHILD_ERROR == 0 or die "Tar returned $CHILD_ERROR";
     log_info { sprintf "Tar completed in %d seconds\n", tv_interval($t0) };
 
     gpg_sign("$output_dir/$tar_file");
@@ -202,9 +203,9 @@ sub copy_file {
 sub write_file {
     my ($self, $file, $contents) = @_;
 
-    open(my $fh, '>' . $self->export_dir . "/$file") or die $!;
-    print $fh $contents or die $!;
-    close $fh or die $!;
+    open(my $fh, '>' . $self->export_dir . "/$file") or die $OS_ERROR;
+    print $fh $contents or die $OS_ERROR;
+    close $fh or die $OS_ERROR;
 }
 
 sub write_checksum_files {
@@ -226,7 +227,7 @@ sub write_checksum_files {
                 "cd $output_dir && $hash_bin --binary *.tar.${tar_ext}" .
                 " | grep -v mbdump-private > $hash_output_file";
 
-        $? == 0 or die "$hash_program returned $?";
+        $CHILD_ERROR == 0 or die "$hash_program returned $CHILD_ERROR";
 
         gpg_sign("$output_dir/$hash_output_file");
     }
@@ -244,7 +245,7 @@ sub DEMOLISH {
         -d "$export_dir/mbdump"
     ) {
         # Buffer this so concurrent processes don't overlap.
-        my $log_output .= "Disk space just before erasing $export_dir:\n";
+        my $log_output = "Disk space just before erasing $export_dir:\n";
         $log_output .= qx(/bin/df -m 2>&1);
         $log_output .= "Erasing $export_dir\n";
         my $quoted_dir = shell_quote($export_dir);

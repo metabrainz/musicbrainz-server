@@ -7,6 +7,8 @@ extends 'MusicBrainz::Server::Data::Entity';
 
 with 'MusicBrainz::Server::Data::Role::AliasType';
 
+sub _entity_class { 'MusicBrainz::Server::Entity::InstrumentAliasType' }
+
 sub _table { 'instrument_alias_type' }
 
 sub _type { 'instrument_alias_type' }

@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import ArtistList from '../../components/list/ArtistList.js';
 import yesNo from '../../static/scripts/common/utility/yesNo.js';
 
@@ -16,7 +14,7 @@ type Props = {
   +edit: MergeArtistsEditT,
 };
 
-const MergeArtists = ({edit}: Props): React.Element<'table'> => (
+const MergeArtists = ({edit}: Props): React$Element<'table'> => (
   <table className="details merge-artists">
     <tr>
       <th>{l('Merge:')}</th>

@@ -24,4 +24,6 @@ const {generateFlowType} = require('../root/utility/generateFlowType');
       {isEditDataTypeInfo: false},
     ),
   );
-}());
+}()).catch((error: mixed) => {
+  throw error;
+});

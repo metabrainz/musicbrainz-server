@@ -19,7 +19,7 @@ type Props = {
 const LinkSearchableEditType = ({
   editTypeId,
   text,
-}: Props): React.MixedElement => {
+}: Props): React$MixedElement => {
   const $c = React.useContext(CatalystContext);
   const url = new URL($c.req.uri);
   url.pathname = 'search/edits';

@@ -41,7 +41,7 @@ const LanguagesScripts = ({
   dateCollected,
   languageStats,
   scriptStats,
-}: LanguagesScriptsStatsT): React.Element<typeof StatisticsLayout> => {
+}: LanguagesScriptsStatsT): React$Element<typeof StatisticsLayout> => {
   const $c = React.useContext(CatalystContext);
   return (
     <StatisticsLayout

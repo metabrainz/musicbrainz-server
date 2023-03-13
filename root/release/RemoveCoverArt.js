@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import {Artwork} from '../components/Artwork.js';
 import ArtistCreditLink
   from '../static/scripts/common/components/ArtistCreditLink.js';
@@ -29,7 +27,7 @@ const RemoveCoverArt = ({
   artwork,
   form,
   release,
-}: Props): React.Element<typeof ReleaseLayout> => {
+}: Props): React$Element<typeof ReleaseLayout> => {
   const title = l('Remove Cover Art');
 
   return (

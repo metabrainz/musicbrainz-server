@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import * as manifest from '../../static/manifest.mjs';
 import DescriptiveLink from
   '../../static/scripts/common/components/DescriptiveLink.js';
@@ -24,7 +22,7 @@ type Props = {
   +edit: AddReleaseEditT,
 };
 
-const AddRelease = ({allowNew, edit}: Props): React.MixedElement => {
+const AddRelease = ({allowNew, edit}: Props): React$MixedElement => {
   const display = edit.display_data;
   const language = display.language;
   const packaging = display.packaging;

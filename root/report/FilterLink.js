@@ -16,7 +16,7 @@ type Props = {
   +filtered: boolean,
 };
 
-const FilterLink = ({filtered = false}: Props): React.Element<'li'> => {
+const FilterLink = ({filtered = false}: Props): React$Element<'li'> => {
   const $c = React.useContext(SanitizedCatalystContext);
   const reqUri = $c.req.uri;
 

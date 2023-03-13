@@ -1,6 +1,7 @@
 #!/usr/bin/env perl
 
 use warnings;
+use English;
 use FindBin;
 use lib "$FindBin::Bin/../lib";
 
@@ -287,10 +288,10 @@ if ($fCompress and $fDoReplication)
 
     if ($fAnyDBMirrorReplicationData || $fAnyDBMirror2ReplicationData)
     {
-        $mbdump->copy_readme() or die $!;
+        $mbdump->copy_readme() or die $OS_ERROR;
         # Go for the "most restrictive" license
         copy("$FindBin::Bin/COPYING-CCShareAlike",
-             catfile($mbdump->export_dir, 'COPYING')) or die $!;
+             catfile($mbdump->export_dir, 'COPYING')) or die $OS_ERROR;
 
         if ($fAnyDBMirrorReplicationData) {
             $mbdump->make_tar($tarfile, @dbmirror_tables);
@@ -311,12 +312,12 @@ if ($fCompress and $fDoReplication)
 
 if ($fCompress and $fDoFullExport)
 {
-    $mbdump->copy_readme() or die $!;
-    $mbdump->copy_file("$FindBin::Bin/COPYING-PublicDomain", 'COPYING') or die $!;
+    $mbdump->copy_readme() or die $OS_ERROR;
+    $mbdump->copy_file("$FindBin::Bin/COPYING-PublicDomain", 'COPYING') or die $OS_ERROR;
     $mbdump->make_tar('mbdump.tar.bz2', @CORE_TABLE_LIST);
 
-    $mbdump->copy_readme() or die $!;
-    $mbdump->copy_file("$FindBin::Bin/COPYING-CCShareAlike", 'COPYING') or die $!;
+    $mbdump->copy_readme() or die $OS_ERROR;
+    $mbdump->copy_file("$FindBin::Bin/COPYING-CCShareAlike", 'COPYING') or die $OS_ERROR;
     $mbdump->make_tar('mbdump-derived.tar.bz2', @DERIVED_TABLE_LIST);
     $mbdump->make_tar('mbdump-editor.tar.bz2', @EDITOR_TABLE_LIST);
     $mbdump->make_tar('mbdump-edit.tar.bz2', @EDIT_TABLE_LIST);
@@ -341,7 +342,7 @@ if ($fCompress and $fDoFullExport)
 }
 
 # Tar files all created safely... we can erase the tmpdir on exit
-system '/bin/sync'; $? == 0 or die "sync failed (rc=$?)";
+system '/bin/sync'; $CHILD_ERROR == 0 or die "sync failed (rc=$CHILD_ERROR)";
 $mbdump->erase_files_on_exit(1);
 
 exit;
@@ -387,7 +388,7 @@ sub parse_create_tables
     my ($dir, $schema, $tables) = @_;
 
     open FILE, "<$FindBin::Bin/../admin/sql/$dir/CreateTables.sql";
-    my $create_tables_sql = do { local $/; <FILE> };
+    my $create_tables_sql = do { local $INPUT_RECORD_SEPARATOR; <FILE> };
     close FILE;
     while ($create_tables_sql =~ m/CREATE TABLE\s+([a-z0-9_]+)\s+\(\s*(.*?)\s*\);/gsi) {
         my $table = $schema ? "$schema.$1" : $1;

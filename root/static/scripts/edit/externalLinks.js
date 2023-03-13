@@ -117,7 +117,7 @@ type LinksEditorState = {
   +links: $ReadOnlyArray<LinkStateT>,
 };
 
-class _ExternalLinksEditor
+export class _ExternalLinksEditor
   extends React.Component<LinksEditorProps, LinksEditorState> {
   tableRef: {current: HTMLTableElement | null};
 
@@ -168,18 +168,21 @@ class _ExternalLinksEditor
             '\\.url\\.([0-9]+)\\.(text|link_type_id)=([^&]+)',
           'g',
         );
-        const urls = {};
+        const urls: {[index: string]: SeededUrlShape} = {};
         let match;
 
         while ((match = seededLinkRegex.exec(window.location.search))) {
           const [/* unused */, index, key, value] = match;
-          (urls[index] = urls[index] || {})[key] = decodeURIComponent(value);
+          switch (key) {
+            case 'link_type_id':
+            case 'text':
+              (urls[index] = urls[index] || {})[key] =
+                decodeURIComponent(value);
+              break;
+          }
         }
 
-        for (
-          const data of
-          ((Object.values(urls): any): $ReadOnlyArray<SeededUrlShape>)
-        ) {
+        for (const data of Object.values(urls)) {
           initialLinks.push(newLinkState({
             rawUrl: data.text || '',
             relationship: uniqueId('new-'),
@@ -244,10 +247,10 @@ class _ExternalLinksEditor
 
   setLinkState(
     index: number,
-    state: $ReadOnly<$Partial<LinkStateT>>,
+    state: $ReadOnly<Partial<LinkStateT>>,
     callback?: () => void,
   ) {
-    const newLinks: Array<LinkStateT> = this.state.links.concat();
+    const newLinks: Array<LinkStateT> = this.state.links.slice(0);
     newLinks[index] = {...newLinks[index], ...state};
     this.setState({links: newLinks}, callback);
   }
@@ -487,7 +490,7 @@ class _ExternalLinksEditor
 
   removeLink(index: number) {
     this.setState(prevState => {
-      const newLinks = prevState.links.concat();
+      const newLinks = prevState.links.slice(0);
       const link = newLinks[index];
       if (isPositiveInteger(link.relationship)) { // Old link, toggle deleted
         newLinks[index] = {...link, deleted: !link.deleted};
@@ -667,7 +670,7 @@ class _ExternalLinksEditor
     let error: ErrorT | null = null;
 
     const linkType = link.type
-      ? linkedEntities.link_type[link.type] : {};
+      ? linkedEntities.link_type[link.type] : null;
     // Use existing checker if possible, otherwise create a new one
     checker = checker ||
       new URLCleanup.Checker(link.url, this.sourceType);
@@ -738,7 +741,9 @@ class _ExternalLinksEditor
         target: URLCleanup.ERROR_TARGETS.RELATIONSHIP,
       };
     } else if (
-      linkType.deprecated && (isNewLink || linkTypeChanged)
+      linkType &&
+      linkType.deprecated &&
+      (isNewLink || linkTypeChanged)
     ) {
       error = {
         message: l(`This relationship type is deprecated 
@@ -754,7 +759,7 @@ class _ExternalLinksEditor
         message: l('This relationship already exists.'),
         target: URLCleanup.ERROR_TARGETS.RELATIONSHIP,
       };
-    } else if (isNewOrChangedLink) {
+    } else if (linkType && isNewOrChangedLink) {
       const check = checker.checkRelationship(linkType.gid);
       if (!check.result) {
         error = ({
@@ -889,7 +894,7 @@ class _ExternalLinksEditor
     return Boolean(linkChanged || linkTypeChanged);
   }
 
-  render(): React.Element<'table'> {
+  render(): React$Element<'table'> {
     this.errorObservable(false);
 
     const linksArray = this.state.links;
@@ -925,13 +930,15 @@ class _ExternalLinksEditor
               url, this.sourceType,
             );
             const possibleTypes = checker.getPossibleTypes();
-            const selectedTypes = [];
+            const selectedTypes: Array<string> = [];
             const typeOptions = this.filterTypeOptions(possibleTypes);
             links.forEach(link => {
               linkIndexes.push(link.index);
               const linkType = link.type
-                ? linkedEntities.link_type[link.type] : {};
-              selectedTypes.push(linkType.gid);
+                ? linkedEntities.link_type[link.type] : null;
+              if (linkType) {
+                selectedTypes.push(linkType.gid);
+              }
 
               /*
                * FIXME: Why are links validated on every render, rather than
@@ -1067,7 +1074,7 @@ const LinkTypeSelect = ({
   handleTypeChange,
   options,
   type,
-}: LinkTypeSelectPropsT): React.Element<'select'> => {
+}: LinkTypeSelectPropsT): React$Element<'select'> => {
   const optionAvailable = options.some(option => option.value === type);
   // If the selected type is not available, display it as placeholder
   const linkType = type ? linkedEntities.link_type[type] : null;
@@ -1105,7 +1112,7 @@ type TypeDescriptionProps = {
 };
 
 const TypeDescription =
-  (props: TypeDescriptionProps): React.Element<typeof HelpIcon> => {
+  (props: TypeDescriptionProps): React$Element<typeof HelpIcon> => {
     const linkType = props.type ? linkedEntities.link_type[props.type] : null;
     let typeDescription: Expand2ReactOutput = '';
 
@@ -1130,7 +1137,7 @@ type ExternalLinkRelationshipProps = {
   +highlight: HighlightT,
   +isOnlyRelationship: boolean,
   +link: LinkRelationshipT,
-  +onAttributesChange: (number, $ReadOnly<$Partial<LinkStateT>>) => void,
+  +onAttributesChange: (number, $ReadOnly<Partial<LinkStateT>>) => void,
   +onLinkRemove: (number) => void,
   +onTypeBlur: (number, SyntheticFocusEvent<HTMLSelectElement>) => void,
   +onTypeChange: (number, SyntheticEvent<HTMLSelectElement>) => void,
@@ -1140,7 +1147,7 @@ type ExternalLinkRelationshipProps = {
 };
 
 const ExternalLinkRelationship =
-  (props: ExternalLinkRelationshipProps): React.Element<'tr'> => {
+  (props: ExternalLinkRelationshipProps): React$Element<'tr'> => {
     const {link, hasUrlError, highlight, urlMatchesType} = props;
     const linkType = link.type ? linkedEntities.link_type[link.type] : null;
     const backward = linkType && linkType.type1 > 'url';
@@ -1265,7 +1272,7 @@ type LinkProps = {
   +duplicate: number | null,
   +error: ErrorT | null,
   +getRelationshipHighlightType: (LinkRelationshipT) => HighlightT,
-  +handleAttributesChange: (number, $ReadOnly<$Partial<LinkStateT>>) => void,
+  +handleAttributesChange: (number, $ReadOnly<Partial<LinkStateT>>) => void,
   +handleLinkRemove: (number) => void,
   +handleLinkSubmit: (SyntheticKeyboardEvent<HTMLInputElement>) => void,
   +handleUrlBlur: (SyntheticFocusEvent<HTMLInputElement>) => void,
@@ -1313,7 +1320,7 @@ export class ExternalLink extends React.Component<LinkProps> {
     setTimeout(() => target.style.backgroundColor = 'initial', 1000);
   }
 
-  render(): React.Element<typeof React.Fragment> {
+  render(): React$Element<typeof React.Fragment> {
     const props = this.props;
     const notEmpty = props.relationships.some(link => {
       return !isEmpty(link);
@@ -1525,7 +1532,7 @@ export class ExternalLink extends React.Component<LinkProps> {
 }
 
 export const ExternalLinksEditor:
-  React.AbstractComponent<LinksEditorProps, _ExternalLinksEditor> =
+  React$AbstractComponent<LinksEditorProps, _ExternalLinksEditor> =
   withLoadedTypeInfo<LinksEditorProps, _ExternalLinksEditor>(
     _ExternalLinksEditor,
     new Set(['link_type', 'link_attribute_type']),
@@ -1544,7 +1551,7 @@ const defaultLinkState: LinkStateT = {
   video: false,
 };
 
-function newLinkState(state: $ReadOnly<$Partial<LinkStateT>>) {
+function newLinkState(state: $ReadOnly<Partial<LinkStateT>>) {
   return {...defaultLinkState, ...state};
 }
 
@@ -1568,7 +1575,7 @@ function withOneEmptyLink(
 ) {
   let emptyCount = 0;
   let canRemoveCount = 0;
-  const canRemove = {};
+  const canRemove: {[index: number]: boolean} = {};
 
   links.forEach(function (link, index) {
     if (isEmpty(link)) {
@@ -1630,8 +1637,8 @@ export function parseRelationships(
 function groupLinksByUrl(
   links: $ReadOnlyArray<LinkStateT>,
 ): Map<string, Array<LinkRelationshipT>> {
-  const map = new Map();
-  const urlTypePairs = new Set();
+  const map = new Map<string, Array<LinkRelationshipT>>();
+  const urlTypePairs = new Set<string>();
   let urlIndex = 0;
   links.forEach((link, index) => {
     const relationship = {
@@ -1734,8 +1741,8 @@ type InitialOptionsT = {
 };
 
 type SeededUrlShape = {
-  +link_type_id?: string,
-  +text?: string,
+  link_type_id?: string,
+  text?: string,
 };
 
 export function createExternalLinksEditor(
@@ -1753,7 +1760,7 @@ export function createExternalLinksEditor(
     root = ReactDOMClient.createRoot(mountPoint);
     $(mountPoint).data('react-root', root);
   }
-  const externalLinksEditorRef = React.createRef();
+  const externalLinksEditorRef = React.createRef<_ExternalLinksEditor>();
   root.render(
     <ExternalLinksEditor
       errorObservable={options?.errorObservable}

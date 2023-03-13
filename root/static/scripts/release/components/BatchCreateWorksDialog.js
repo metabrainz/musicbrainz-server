@@ -16,6 +16,7 @@ import {
 import {createRecordingObject} from '../../common/entity2.js';
 import linkedEntities from '../../common/linkedEntities.mjs';
 import {
+  type MultiselectActionT,
   accumulateMultiselectValues,
 } from '../../edit/components/Multiselect.js';
 import Tooltip from '../../edit/components/Tooltip.js';
@@ -37,6 +38,8 @@ import type {
 import type {
   AcceptBatchCreateWorksDialogActionT,
   BatchCreateWorksDialogActionT,
+  DialogAttributeActionT,
+  DialogLinkTypeActionT,
   ReleaseRelationshipEditorActionT,
 } from '../../relationship-editor/types/actions.js';
 import getDialogLinkTypeOptions
@@ -125,7 +128,7 @@ const BatchCreateWorksDialogContent = React.memo<
 >(({
   closeDialog,
   sourceDispatch,
-}: BatchCreateWorksDialogContentPropsT): React.Element<'div'> => {
+}: BatchCreateWorksDialogContentPropsT): React$Element<'div'> => {
   const [state, dispatch] = React.useReducer(
     reducer,
     null,
@@ -144,7 +147,9 @@ const BatchCreateWorksDialogContent = React.memo<
     attributes.attributesList.some(x => x.error)
   );
 
-  const linkTypeDispatch = React.useCallback((action) => {
+  const linkTypeDispatch = React.useCallback((
+    action: DialogLinkTypeActionT,
+  ) => {
     dispatch({
       action,
       source: RECORDING_PLACEHOLDER,
@@ -152,11 +157,15 @@ const BatchCreateWorksDialogContent = React.memo<
     });
   }, [dispatch]);
 
-  const attributesDispatch = React.useCallback((action) => {
+  const attributesDispatch = React.useCallback((
+    action: DialogAttributeActionT,
+  ) => {
     dispatch({action, type: 'update-attribute'});
   }, [dispatch]);
 
-  const languagesDispatch = React.useCallback((action) => {
+  const languagesDispatch = React.useCallback((
+    action: MultiselectActionT<LanguageT>,
+  ) => {
     dispatch({action, type: 'update-languages'});
   }, [dispatch]);
 
@@ -243,10 +252,10 @@ export const BatchCreateWorksButtonPopover = (React.memo<
   dispatch,
   isDisabled,
   isOpen,
-}: BatchCreateWorksButtonPopoverPropsT): React.MixedElement => {
+}: BatchCreateWorksButtonPopoverPropsT): React$MixedElement => {
   const addButtonRef = React.useRef<HTMLButtonElement | null>(null);
 
-  const setOpen = React.useCallback((open) => {
+  const setOpen = React.useCallback((open: boolean) => {
     dispatch({
       location: open ? {
         batchSelection: true,
@@ -297,4 +306,4 @@ export const BatchCreateWorksButtonPopover = (React.memo<
       }
     />
   );
-}): React.AbstractComponent<BatchCreateWorksButtonPopoverPropsT, mixed>);
+}): React$AbstractComponent<BatchCreateWorksButtonPopoverPropsT, mixed>);

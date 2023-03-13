@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import CDStubLink
   from '../../../static/scripts/common/components/CDStubLink.js';
 import escapeLuceneValue
@@ -22,7 +20,7 @@ type Props = {
   +cdstub: CDStubT,
 };
 
-const CDStubSidebar = ({cdstub}: Props): React.Element<'div'> => {
+const CDStubSidebar = ({cdstub}: Props): React$Element<'div'> => {
   const now = parseDate((new Date()).toISOString().slice(0, 10));
 
   const addedAge = nonEmpty(cdstub.date_added) ? age({

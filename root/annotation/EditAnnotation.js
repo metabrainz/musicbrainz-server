@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import EnterEdit from '../static/scripts/edit/components/EnterEdit.js';
 import EnterEditNote
   from '../static/scripts/edit/components/EnterEditNote.js';
@@ -37,7 +35,7 @@ const EditAnnotation = ({
   form,
   preview,
   showPreview = false,
-}: EditAnnotationProps): React.MixedElement => {
+}: EditAnnotationProps): React$MixedElement => {
   const entityType = entity.entityType;
   const LayoutComponent = chooseLayoutComponent(entityType);
 

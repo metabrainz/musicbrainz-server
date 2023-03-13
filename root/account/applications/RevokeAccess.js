@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import ConfirmLayout from '../../components/ConfirmLayout.js';
 
 type Props = {
@@ -17,7 +15,7 @@ type Props = {
 
 const RevokeApplicationAccess = ({
   form,
-}: Props): React.Element<typeof ConfirmLayout> => (
+}: Props): React$Element<typeof ConfirmLayout> => (
   <ConfirmLayout
     form={form}
     question={l(

@@ -30,7 +30,7 @@ type WorkTypeSelectPropsT = {
   +workType: number | null,
 };
 
-const WorkTypeSelect: React.AbstractComponent<
+const WorkTypeSelect: React$AbstractComponent<
   WorkTypeSelectPropsT,
   mixed,
 > = React.memo<WorkTypeSelectPropsT>(({
@@ -39,16 +39,17 @@ const WorkTypeSelect: React.AbstractComponent<
 }: WorkTypeSelectPropsT) => {
   const workTypeOptions: OptionListT = React.useMemo(() => {
     const workTypes: $ReadOnlyArray<WorkTypeT> =
-      // $FlowIgnore[incompatible-type]
       Object.values(linkedEntities.work_type);
 
     return buildOptionList(workTypes, l_languages);
   }, []);
 
-  const handleWorkTypeChange = React.useCallback((event) => {
+  const handleWorkTypeChange = React.useCallback((
+    event: SyntheticEvent<HTMLSelectElement>,
+  ) => {
     dispatch({
       type: 'update-work-type',
-      workType: parseIntegerOrNull(event.target.value),
+      workType: parseIntegerOrNull(event.currentTarget.value),
     });
   }, [dispatch]);
 

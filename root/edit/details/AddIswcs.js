@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import CodeLink
   from '../../static/scripts/common/components/CodeLink.js';
 import EntityLink
@@ -18,7 +16,7 @@ type Props = {
   +edit: AddIswcsEditT,
 };
 
-const AddIswcs = ({edit}: Props): React.Element<'table'> => {
+const AddIswcs = ({edit}: Props): React$Element<'table'> => {
   const additions = edit.display_data.additions;
 
   return (

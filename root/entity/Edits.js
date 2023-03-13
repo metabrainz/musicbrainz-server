@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import SubHeader from '../components/SubHeader.js';
 import EditList from '../edit/components/EditList.js';
 import Layout from '../layout/index.js';
@@ -35,7 +33,7 @@ const Edits = ({
   pager,
   refineUrlArgs,
   showingOpenOnly,
-}: Props): React.Element<typeof Layout> => {
+}: Props): React$Element<typeof Layout> => {
   const entityTypeClass = entity.entityType === 'release_group'
     ? 'rg'
     : entity.entityType;
@@ -62,7 +60,6 @@ const Edits = ({
   const subHeadingTypeName = localizeTypeNameForEntity(entity);
   let pageSubHeading: Expand2ReactOutput = subHeadingTypeName;
   if (hasOwnProp(entity, 'artistCredit')) {
-    // $FlowIgnore[prop-missing] as per hasOwnProp above
     const artistCredit = entity.artistCredit;
     if (!artistCredit) {
       throw new Error(

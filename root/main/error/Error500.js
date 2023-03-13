@@ -31,7 +31,7 @@ const Error500 = ({
   formattedErrors,
   hostname,
   useLanguages,
-}: Props): React.Element<typeof ErrorLayout> => {
+}: Props): React$Element<typeof ErrorLayout> => {
   const $c = React.useContext(CatalystContext);
   return (
     <ErrorLayout title={l('Internal Server Error')}>

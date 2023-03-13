@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import * as manifest from '../static/manifest.mjs';
 import Annotation from '../static/scripts/common/components/Annotation.js';
 import linkedEntities from '../static/scripts/common/linkedEntities.mjs';
@@ -30,7 +28,7 @@ const ReleaseIndex = ({
   noScript,
   numberOfRevisions,
   release,
-}: PropsT): React.Element<typeof ReleaseLayout> => {
+}: PropsT): React$Element<typeof ReleaseLayout> => {
   const {
     link_attribute_type: linkAttributeTypes,
     link_type: linkTypes,

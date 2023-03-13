@@ -16,8 +16,11 @@ after load => sub {
     my $tags_model = $c->model($self->{model})->tags;
     my @tags = $tags_model->find_top_tags($entity->id, $TOP_TAGS_COUNT);
     my $count = $tags_model->find_tag_count($entity->id);
-    my @user_tags = $tags_model->find_user_tags($c->user->id, $entity->id)
-        if $c->user_exists;
+    my @user_tags;
+
+    if ($c->user_exists) {
+        @user_tags = $tags_model->find_user_tags($c->user->id, $entity->id);
+    }
 
     $c->model('Genre')->load(map { $_->tag } (@tags, @user_tags));
     my %genre_map = map { $_->name => $_->TO_JSON } $c->model('Genre')->get_all;

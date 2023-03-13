@@ -7,16 +7,14 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import entityHref from '../utility/entityHref.js';
 
 type Props = {
   +code: IsrcT | IswcT,
 };
 
-const CodeLink = ({code}: Props): React.MixedElement=> {
-  let link: React.MixedElement = (
+const CodeLink = ({code}: Props): React$MixedElement=> {
+  let link: React$MixedElement = (
     <a href={entityHref(code)}>
       <bdi>
         {/* $FlowIssue[prop-missing] */}

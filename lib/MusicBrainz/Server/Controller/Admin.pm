@@ -161,15 +161,23 @@ sub email_search : Path('/admin/email-search') Args(0) RequireAuth(account_admin
     my ($self, $c) = @_;
 
     my $form = $c->form(form => 'Admin::EmailSearch');
-    my @results;
-    my $searched = 0;
+    my $results;
+    my $stored_email = $c->session->{admin_searched_email};
 
     if ($c->form_posted_and_valid($form, $c->req->body_params)) {
         try {
-            @results = $c->model('Editor')->search_by_email(
-                $form->field('email')->value // '',
-            );
-            $searched = 1;
+            delete $c->session->{admin_searched_email};
+            my $searched_email = $form->field('email')->value;
+            $results = $self->_load_paged($c, sub {
+                $c->model('Editor')->search_by_email(
+                    $searched_email // '',
+                    shift,
+                    shift,
+                );
+            });
+            if ($searched_email) {
+                $c->session->{admin_searched_email} = $searched_email;
+            }
         } catch {
             my $error = $_;
             if ("$error" =~ m/invalid regular expression/) {
@@ -179,6 +187,15 @@ sub email_search : Path('/admin/email-search') Args(0) RequireAuth(account_admin
                 die $error;
             }
         };
+    } elsif ($stored_email) {
+        $results = $self->_load_paged($c, sub {
+            $c->model('Editor')->search_by_email(
+                $stored_email,
+                shift,
+                shift,
+            );
+        });
+        $form->field('email')->value($stored_email);
     }
 
     $c->stash(
@@ -186,8 +203,9 @@ sub email_search : Path('/admin/email-search') Args(0) RequireAuth(account_admin
         component_path => 'admin/EmailSearch',
         component_props => {
             form => $form->TO_JSON,
-            $searched ? (
-                results => [map { $c->unsanitized_editor_json($_) } @results],
+            $c->stash->{pager} ? (
+                pager => serialize_pager($c->stash->{pager}),
+                results => [map { $c->unsanitized_editor_json($_) } @$results],
             ) : (),
         },
     );
@@ -196,14 +214,18 @@ sub email_search : Path('/admin/email-search') Args(0) RequireAuth(account_admin
 sub ip_lookup : Path('/admin/ip-lookup') Args(1) RequireAuth(account_admin) HiddenOnMirrors {
     my ($self, $c, $ip_hash) = @_;
 
-    my @users = $c->model('Editor')->find_by_ip($ip_hash // '');
+    my $results = $self->_load_paged($c, sub {
+        $c->model('Editor')->find_by_ip($ip_hash // '', shift, shift);
+    });
+
 
     $c->stash(
         current_view => 'Node',
         component_path => 'admin/IpLookup',
         component_props => {
             ipHash => $ip_hash,
-            users => [map { $c->unsanitized_editor_json($_) } @users],
+            pager => serialize_pager($c->stash->{pager}),
+            users => [map { $c->unsanitized_editor_json($_) } @$results],
         },
     );
 }

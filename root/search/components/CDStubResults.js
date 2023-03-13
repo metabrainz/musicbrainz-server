@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import CDStubLink from '../../static/scripts/common/components/CDStubLink.js';
 import loopParity from '../../utility/loopParity.js';
 import type {ResultsPropsT, SearchResultT} from '../types.js';
@@ -37,7 +35,7 @@ const CDStubResults = ({
   pager,
   query,
   results,
-}: ResultsPropsT<CDStubT>): React.Element<typeof ResultsLayout> => (
+}: ResultsPropsT<CDStubT>): React$Element<typeof ResultsLayout> => (
   <ResultsLayout form={form} lastUpdated={lastUpdated}>
     <PaginatedSearchResults
       buildResult={buildResult}

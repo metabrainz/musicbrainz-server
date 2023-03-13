@@ -10,9 +10,10 @@
 import {
   type Cell,
   type ColumnInstance,
+  type ColumnOptionsNoValue,
   type HeaderGroup,
   type Row,
-  useTable,
+  useTable as useReactTable,
 } from 'react-table';
 
 import loopParity from '../utility/loopParity.js';
@@ -37,30 +38,30 @@ const renderTableCell = (cell: Cell<mixed>) => (
   </td>
 );
 
-const renderTableRow = <D>(row: Row<D>, i: number) => (
+const renderTableRow = <D>(row: Row<D>, i: number): React$Element<'tr'> => (
   <tr {...row.getRowProps({className: loopParity(i)})}>
     {row.cells.map(renderTableCell)}
   </tr>
 );
 
-type Props<CV, D> = {
+type Props<D> = {
   className?: string,
-  columns: CV,
+  columns: $ReadOnlyArray<ColumnOptionsNoValue<D>>,
   data: $ReadOnlyArray<D>,
 };
 
-const Table = <CV, D>({
+const useRenderedTable = <D>({
   className: passedClassName,
   columns,
   data,
-}: Props<CV, D>): React$MixedElement => {
+}: Props<D>): React$Element<'table'> => {
   const {
     getTableProps,
     getTableBodyProps,
     headerGroups,
     rows,
     prepareRow,
-  } = useTable({
+  } = useReactTable<D>({
     columns,
     data,
   });
@@ -83,4 +84,4 @@ const Table = <CV, D>({
   );
 };
 
-export default Table;
+export default useRenderedTable;

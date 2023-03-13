@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import * as manifest from '../static/manifest.mjs';
 import CollectionEditForm
   from '../static/scripts/collection/components/CollectionEditForm.js';
@@ -26,7 +24,7 @@ const EditCollection = ({
   collection,
   collectionTypes,
   form,
-}: Props): React.Element<typeof CollectionLayout> => (
+}: Props): React$Element<typeof CollectionLayout> => (
   <CollectionLayout
     entity={collection}
     fullWidth

@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import {
   artistBeginAreaLabel,
   artistBeginLabel,
@@ -31,7 +29,7 @@ type Props = {
   +edit: EditArtistEditT,
 };
 
-const EditArtist = ({edit}: Props): React.MixedElement => {
+const EditArtist = ({edit}: Props): React$MixedElement => {
   const display = edit.display_data;
   const area = display.area;
   const beginDate = display.begin_date;

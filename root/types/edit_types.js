@@ -343,7 +343,7 @@ declare type AddReleaseLabelEditT = $ReadOnly<{
   +edit_type: EDIT_RELEASE_ADDRELEASELABEL_T,
 }>;
 
-declare type AddRemoveAliasEditGenericT = $ReadOnly<{
+declare type AddRemoveAliasEditGenericT<+T> = $ReadOnly<{
   ...GenericEditT,
   +display_data: {
     +[coreEntityType: CoreEntityTypeT]: CoreEntityT,
@@ -355,127 +355,127 @@ declare type AddRemoveAliasEditGenericT = $ReadOnly<{
     +locale: string | null,
     +primary_for_locale: boolean,
     +sort_name: string | null,
-    +type: AliasTypeT | null,
+    +type: T | null,
   },
 }>;
 
 declare type AddAreaAliasEditT = $ReadOnly<{
-  ...AddRemoveAliasEditGenericT,
+  ...AddRemoveAliasEditGenericT<AreaAliasTypeT>,
   +edit_type: EDIT_AREA_ADD_ALIAS_T,
 }>;
 
 declare type AddArtistAliasEditT = $ReadOnly<{
-  ...AddRemoveAliasEditGenericT,
+  ...AddRemoveAliasEditGenericT<ArtistAliasTypeT>,
   +edit_type: EDIT_ARTIST_ADD_ALIAS_T,
 }>;
 
 declare type AddEventAliasEditT = $ReadOnly<{
-  ...AddRemoveAliasEditGenericT,
+  ...AddRemoveAliasEditGenericT<EventAliasTypeT>,
   +edit_type: EDIT_EVENT_ADD_ALIAS_T,
 }>;
 
 declare type AddGenreAliasEditT = $ReadOnly<{
-  ...AddRemoveAliasEditGenericT,
+  ...AddRemoveAliasEditGenericT<GenreAliasTypeT>,
   +edit_type: EDIT_GENRE_ADD_ALIAS_T,
 }>;
 
 declare type AddInstrumentAliasEditT = $ReadOnly<{
-  ...AddRemoveAliasEditGenericT,
+  ...AddRemoveAliasEditGenericT<InstrumentAliasTypeT>,
   +edit_type: EDIT_INSTRUMENT_ADD_ALIAS_T,
 }>;
 
 declare type AddLabelAliasEditT = $ReadOnly<{
-  ...AddRemoveAliasEditGenericT,
+  ...AddRemoveAliasEditGenericT<LabelAliasTypeT>,
   +edit_type: EDIT_LABEL_ADD_ALIAS_T,
 }>;
 
 declare type AddPlaceAliasEditT = $ReadOnly<{
-  ...AddRemoveAliasEditGenericT,
+  ...AddRemoveAliasEditGenericT<PlaceAliasTypeT>,
   +edit_type: EDIT_PLACE_ADD_ALIAS_T,
 }>;
 
 declare type AddRecordingAliasEditT = $ReadOnly<{
-  ...AddRemoveAliasEditGenericT,
+  ...AddRemoveAliasEditGenericT<RecordingAliasTypeT>,
   +edit_type: EDIT_RECORDING_ADD_ALIAS_T,
 }>;
 
 declare type AddReleaseGroupAliasEditT = $ReadOnly<{
-  ...AddRemoveAliasEditGenericT,
+  ...AddRemoveAliasEditGenericT<ReleaseGroupAliasTypeT>,
   +edit_type: EDIT_RELEASEGROUP_ADD_ALIAS_T,
 }>;
 
 declare type AddReleaseAliasEditT = $ReadOnly<{
-  ...AddRemoveAliasEditGenericT,
+  ...AddRemoveAliasEditGenericT<ReleaseAliasTypeT>,
   +edit_type: EDIT_RELEASE_ADD_ALIAS_T,
 }>;
 
 declare type AddSeriesAliasEditT = $ReadOnly<{
-  ...AddRemoveAliasEditGenericT,
+  ...AddRemoveAliasEditGenericT<SeriesAliasTypeT>,
   +edit_type: EDIT_SERIES_ADD_ALIAS_T,
 }>;
 
 declare type AddWorkAliasEditT = $ReadOnly<{
-  ...AddRemoveAliasEditGenericT,
+  ...AddRemoveAliasEditGenericT<WorkAliasTypeT>,
   +edit_type: EDIT_WORK_ADD_ALIAS_T,
 }>;
 
 declare type RemoveAreaAliasEditT = $ReadOnly<{
-  ...AddRemoveAliasEditGenericT,
+  ...AddRemoveAliasEditGenericT<AreaAliasTypeT>,
   +edit_type: EDIT_AREA_DELETE_ALIAS_T,
 }>;
 
 declare type RemoveArtistAliasEditT = $ReadOnly<{
-  ...AddRemoveAliasEditGenericT,
+  ...AddRemoveAliasEditGenericT<ArtistAliasTypeT>,
   +edit_type: EDIT_ARTIST_DELETE_ALIAS_T,
 }>;
 
 declare type RemoveEventAliasEditT = $ReadOnly<{
-  ...AddRemoveAliasEditGenericT,
+  ...AddRemoveAliasEditGenericT<EventAliasTypeT>,
   +edit_type: EDIT_EVENT_DELETE_ALIAS_T,
 }>;
 
 declare type RemoveGenreAliasEditT = $ReadOnly<{
-  ...AddRemoveAliasEditGenericT,
+  ...AddRemoveAliasEditGenericT<GenreAliasTypeT>,
   +edit_type: EDIT_GENRE_DELETE_ALIAS_T,
 }>;
 
 declare type RemoveInstrumentAliasEditT = $ReadOnly<{
-  ...AddRemoveAliasEditGenericT,
+  ...AddRemoveAliasEditGenericT<InstrumentAliasTypeT>,
   +edit_type: EDIT_INSTRUMENT_DELETE_ALIAS_T,
 }>;
 
 declare type RemoveLabelAliasEditT = $ReadOnly<{
-  ...AddRemoveAliasEditGenericT,
+  ...AddRemoveAliasEditGenericT<LabelAliasTypeT>,
   +edit_type: EDIT_LABEL_DELETE_ALIAS_T,
 }>;
 
 declare type RemovePlaceAliasEditT = $ReadOnly<{
-  ...AddRemoveAliasEditGenericT,
+  ...AddRemoveAliasEditGenericT<PlaceAliasTypeT>,
   +edit_type: EDIT_PLACE_DELETE_ALIAS_T,
 }>;
 
 declare type RemoveRecordingAliasEditT = $ReadOnly<{
-  ...AddRemoveAliasEditGenericT,
+  ...AddRemoveAliasEditGenericT<RecordingAliasTypeT>,
   +edit_type: EDIT_RECORDING_DELETE_ALIAS_T,
 }>;
 
 declare type RemoveReleaseGroupAliasEditT = $ReadOnly<{
-  ...AddRemoveAliasEditGenericT,
+  ...AddRemoveAliasEditGenericT<ReleaseGroupAliasTypeT>,
   +edit_type: EDIT_RELEASEGROUP_DELETE_ALIAS_T,
 }>;
 
 declare type RemoveReleaseAliasEditT = $ReadOnly<{
-  ...AddRemoveAliasEditGenericT,
+  ...AddRemoveAliasEditGenericT<ReleaseAliasTypeT>,
   +edit_type: EDIT_RELEASE_DELETE_ALIAS_T,
 }>;
 
 declare type RemoveSeriesAliasEditT = $ReadOnly<{
-  ...AddRemoveAliasEditGenericT,
+  ...AddRemoveAliasEditGenericT<SeriesAliasTypeT>,
   +edit_type: EDIT_SERIES_DELETE_ALIAS_T,
 }>;
 
 declare type RemoveWorkAliasEditT = $ReadOnly<{
-  ...AddRemoveAliasEditGenericT,
+  ...AddRemoveAliasEditGenericT<WorkAliasTypeT>,
   +edit_type: EDIT_WORK_DELETE_ALIAS_T,
 }>;
 
@@ -564,9 +564,9 @@ declare type ChangeWikiDocEditT = $ReadOnly<{
   +edit_type: EDIT_WIKIDOC_CHANGE_T,
 }>;
 
-declare type EditAliasEditGenericT = $ReadOnly<{
+declare type EditAliasEditGenericT<+A, +T> = $ReadOnly<{
   ...GenericEditT,
-  +alias: AliasT | null,
+  +alias: A | null,
   +display_data: {
     +[coreEntityType: CoreEntityTypeT]: CoreEntityT,
     +alias: CompT<string>,
@@ -577,67 +577,67 @@ declare type EditAliasEditGenericT = $ReadOnly<{
     +locale: CompT<string | null>,
     +primary_for_locale: CompT<boolean>,
     +sort_name: CompT<string>,
-    +type: CompT<AliasTypeT | null>,
+    +type: CompT<T | null>,
   },
 }>;
 
 declare type EditAreaAliasEditT = $ReadOnly<{
-  ...EditAliasEditGenericT,
+  ...EditAliasEditGenericT<AreaAliasT, AreaAliasTypeT>,
   +edit_type: EDIT_AREA_EDIT_ALIAS_T,
 }>;
 
 declare type EditArtistAliasEditT = $ReadOnly<{
-  ...EditAliasEditGenericT,
+  ...EditAliasEditGenericT<ArtistAliasT, ArtistAliasTypeT>,
   +edit_type: EDIT_ARTIST_EDIT_ALIAS_T,
 }>;
 
 declare type EditEventAliasEditT = $ReadOnly<{
-  ...EditAliasEditGenericT,
+  ...EditAliasEditGenericT<EventAliasT, EventAliasTypeT>,
   +edit_type: EDIT_EVENT_EDIT_ALIAS_T,
 }>;
 
 declare type EditGenreAliasEditT = $ReadOnly<{
-  ...EditAliasEditGenericT,
+  ...EditAliasEditGenericT<GenreAliasT, GenreAliasTypeT>,
   +edit_type: EDIT_GENRE_EDIT_ALIAS_T,
 }>;
 
 declare type EditInstrumentAliasEditT = $ReadOnly<{
-  ...EditAliasEditGenericT,
+  ...EditAliasEditGenericT<InstrumentAliasT, InstrumentAliasTypeT>,
   +edit_type: EDIT_INSTRUMENT_EDIT_ALIAS_T,
 }>;
 
 declare type EditLabelAliasEditT = $ReadOnly<{
-  ...EditAliasEditGenericT,
+  ...EditAliasEditGenericT<LabelAliasT, LabelAliasTypeT>,
   +edit_type: EDIT_LABEL_EDIT_ALIAS_T,
 }>;
 
 declare type EditPlaceAliasEditT = $ReadOnly<{
-  ...EditAliasEditGenericT,
+  ...EditAliasEditGenericT<PlaceAliasT, PlaceAliasTypeT>,
   +edit_type: EDIT_PLACE_EDIT_ALIAS_T,
 }>;
 
 declare type EditRecordingAliasEditT = $ReadOnly<{
-  ...EditAliasEditGenericT,
+  ...EditAliasEditGenericT<RecordingAliasT, RecordingAliasTypeT>,
   +edit_type: EDIT_RECORDING_EDIT_ALIAS_T,
 }>;
 
 declare type EditReleaseGroupAliasEditT = $ReadOnly<{
-  ...EditAliasEditGenericT,
+  ...EditAliasEditGenericT<ReleaseGroupAliasT, ReleaseGroupAliasTypeT>,
   +edit_type: EDIT_RELEASEGROUP_EDIT_ALIAS_T,
 }>;
 
 declare type EditReleaseAliasEditT = $ReadOnly<{
-  ...EditAliasEditGenericT,
+  ...EditAliasEditGenericT<ReleaseAliasT, ReleaseAliasTypeT>,
   +edit_type: EDIT_RELEASE_EDIT_ALIAS_T,
 }>;
 
 declare type EditSeriesAliasEditT = $ReadOnly<{
-  ...EditAliasEditGenericT,
+  ...EditAliasEditGenericT<SeriesAliasT, SeriesAliasTypeT>,
   +edit_type: EDIT_SERIES_EDIT_ALIAS_T,
 }>;
 
 declare type EditWorkAliasEditT = $ReadOnly<{
-  ...EditAliasEditGenericT,
+  ...EditAliasEditGenericT<WorkAliasT, WorkAliasTypeT>,
   +edit_type: EDIT_WORK_EDIT_ALIAS_T,
 }>;
 

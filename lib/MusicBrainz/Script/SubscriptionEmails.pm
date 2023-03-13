@@ -2,6 +2,7 @@ package MusicBrainz::Script::SubscriptionEmails;
 use Moose;
 use namespace::autoclean;
 
+use English;
 use Readonly;
 use Moose::Util qw( does_role );
 use MusicBrainz::Server::Constants qw( :edit_status );
@@ -85,7 +86,7 @@ sub _build_emailer {
 
 sub run {
     my ($self, @args) = @_;
-    die "Usage error ($0 takes no arguments)" if @args;
+    die "Usage error ($PROGRAM_NAME takes no arguments)" if @args;
 
     my $collator = get_collator('root');
         # plain UCA without language-specific tailoring

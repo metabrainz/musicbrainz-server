@@ -20,13 +20,13 @@ import loopParity from '../../utility/loopParity.js';
 
 type Props = {
   +artistCredits: $ReadOnlyArray<{+id: number} & ArtistCreditT>,
-  +entity: CoreEntityT,
+  +entity: ArtistT,
 };
 
 const ArtistCreditList = ({
   artistCredits,
   entity,
-}: Props): React.Element<typeof React.Fragment> => {
+}: Props): React$Element<typeof React.Fragment> => {
   const $c = React.useContext(SanitizedCatalystContext);
   return (
     <>

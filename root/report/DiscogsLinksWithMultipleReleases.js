@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import ReleaseUrlList from './components/ReleaseUrlList.js';
 import ReportLayout from './components/ReportLayout.js';
 import type {ReportDataT, ReportReleaseUrlT} from './types.js';
@@ -20,7 +18,7 @@ const DiscogsLinksWithMultipleReleases = ({
   items,
   pager,
 }: ReportDataT<ReportReleaseUrlT>):
-React.Element<typeof ReportLayout> => (
+React$Element<typeof ReportLayout> => (
   <ReportLayout
     canBeFiltered={canBeFiltered}
     description={exp.l(

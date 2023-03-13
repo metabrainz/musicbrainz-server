@@ -11,7 +11,7 @@ import * as React from 'react';
 import type {CellRenderProps} from 'react-table';
 
 import PaginatedResults from '../../components/PaginatedResults.js';
-import Table from '../../components/Table.js';
+import useTable from '../../hooks/useTable.js';
 import EditorLink from '../../static/scripts/common/components/EditorLink.js';
 import bracketed from '../../static/scripts/common/utility/bracketed.js';
 import {
@@ -27,8 +27,11 @@ type Props = {
 const EditorList = ({
   items,
   pager,
-}: Props): React.Element<typeof PaginatedResults> => {
-  const existingEditorItems = items.reduce((result, item) => {
+}: Props): React$Element<typeof PaginatedResults> => {
+  const existingEditorItems = items.reduce((
+    result: Array<ReportEditorT>,
+    item,
+  ) => {
     if (item.editor != null) {
       result.push(item);
     }
@@ -92,9 +95,14 @@ const EditorList = ({
     [],
   );
 
+  const table = useTable<ReportEditorT>({
+    columns,
+    data: existingEditorItems,
+  });
+
   return (
     <PaginatedResults pager={pager}>
-      <Table columns={columns} data={existingEditorItems} />
+      {table}
     </PaginatedResults>
   );
 };

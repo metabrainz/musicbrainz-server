@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import EntityLink from '../static/scripts/common/components/EntityLink.js';
 import EnterEdit from '../static/scripts/edit/components/EnterEdit.js';
 import EnterEditNote
@@ -25,7 +23,7 @@ type Props = {
 const DeleteGenre = ({
   entity: genre,
   form,
-}: Props): React.Element<typeof GenreLayout> => (
+}: Props): React$Element<typeof GenreLayout> => (
   <GenreLayout
     entity={genre}
     fullWidth

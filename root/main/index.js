@@ -8,7 +8,6 @@
  */
 
 import he from 'he';
-import * as React from 'react';
 
 import {ArtworkImage} from '../components/Artwork.js';
 import Layout from '../layout/index.js';
@@ -30,7 +29,7 @@ type Props = {
 const Homepage = ({
   blogEntries,
   newestReleases,
-}: Props): React.Element<typeof Layout> => (
+}: Props): React$Element<typeof Layout> => (
   <Layout
     fullWidth
     isHomepage

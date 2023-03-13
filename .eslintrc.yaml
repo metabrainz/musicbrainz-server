@@ -290,7 +290,7 @@ rules:
   react/jsx-closing-tag-location: error
   react/jsx-curly-spacing: [error, {when: never, children: true}]
   react/jsx-equals-spacing: [error, never]
-  react/jsx-filename-extension: [error, {extensions: [.js]}]
+  react/jsx-filename-extension: [error, {extensions: [.js, .mjs]}]
   react/jsx-first-prop-new-line: [error, multiline-multiprop]
   react/jsx-handler-names: warn
   react/jsx-indent: [error, 2]
@@ -375,6 +375,5 @@ rules:
       ["^\\.\\.(?!/?$)", "^\\.\\./?$"],
       # Other relative imports. Put same-folder imports and `.` last.
       ["^\\./(?=.*/)(?!/?$)", "^\\.(?!/?$)", "^\\./?$"],
-    ],
-  }]
+    ]}]
   simple-import-sort/exports: warn

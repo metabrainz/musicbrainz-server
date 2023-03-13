@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import WarningIcon from './WarningIcon.js';
 
 type Props = {
@@ -20,7 +18,7 @@ const Warning = ({
   className,
   message,
   ...divProps
-}: Props): React.Element<'div'> => (
+}: Props): React$Element<'div'> => (
   <div
     className={'warning' + (nonEmpty(className) ? ' ' + className : '')}
     {...divProps}

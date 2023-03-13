@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import * as manifest from '../static/manifest.mjs';
 import GenreEditForm
   from '../static/scripts/genre/components/GenreEditForm.js';
@@ -24,7 +22,7 @@ type Props = {
 const EditGenre = ({
   entity,
   form,
-}: Props): React.Element<typeof GenreLayout> => (
+}: Props): React$Element<typeof GenreLayout> => (
   <GenreLayout
     entity={entity}
     fullWidth

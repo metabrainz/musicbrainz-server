@@ -5,6 +5,7 @@ use warnings;
 use feature 'state';
 
 use DBDefs;
+use English;
 use File::Spec::Functions qw( catdir catfile );
 use Moose;
 
@@ -192,7 +193,7 @@ sub run_impl {
                 }
 
                 system(@replicate_args) == 0
-                    or die "Replication failed (exit code $?)";
+                    or die "Replication failed (exit code $CHILD_ERROR)";
 
                 $current_replication_sequence = $c->sql->select_single_value(
                     'SELECT current_replication_sequence FROM replication_control');

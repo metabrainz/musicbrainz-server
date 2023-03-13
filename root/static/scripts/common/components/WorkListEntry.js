@@ -48,7 +48,7 @@ export const WorkListRow = ({
   showIswcs = false,
   showRatings = false,
   work,
-}: WorkListRowProps): React.Element<typeof React.Fragment> => {
+}: WorkListRowProps): React$Element<typeof React.Fragment> => {
   const $c = React.useContext(CatalystContext);
 
   return (
@@ -139,7 +139,7 @@ const WorkListEntry = ({
   showIswcs,
   showRatings,
   work,
-}: WorkListEntryProps): React.Element<'tr'> => (
+}: WorkListEntryProps): React$Element<'tr'> => (
   <tr className={loopParity(index)} data-score={score ?? null}>
     <WorkListRow
       checkboxes={checkboxes}

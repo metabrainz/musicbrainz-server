@@ -60,7 +60,7 @@ sub enter_votes
             confess 'Unauthorized editor ' . $editor->id . ' tried to approve edit #' . $_->{edit_id};
         }
         @votes = grep {
-            $_->{vote} == $VOTE_APPROVE || $edits->{ $_->{edit_id} }->editor_may_vote($editor)
+            $_->{vote} == $VOTE_APPROVE || $edits->{ $_->{edit_id} }->editor_may_vote_on_edit($editor)
         } @votes;
 
         return unless @votes;

@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import DescriptiveLink
   from '../../static/scripts/common/components/DescriptiveLink.js';
 import {ENTITY_NAMES} from '../../static/scripts/common/constants.js';
@@ -17,7 +15,7 @@ type Props = {
   +edit: RemoveEntityEditT,
 };
 
-const RemoveEntity = ({edit}: Props): React.Element<'table'> => {
+const RemoveEntity = ({edit}: Props): React$Element<'table'> => {
   const display = edit.display_data;
 
   return (

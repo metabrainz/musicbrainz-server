@@ -65,6 +65,6 @@ const BooleanAttribute = (React.memo(({
     {' '}
     {state.type.l_name}
   </label>
-)): React.AbstractComponent<PropsT>);
+)): React$AbstractComponent<PropsT, mixed>);
 
 export default BooleanAttribute;

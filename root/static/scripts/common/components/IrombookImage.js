@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 type Props = {
   +entity: InstrumentT,
 };
@@ -17,7 +15,7 @@ function isIrombookImage(url: UrlT): boolean {
   return /https:\/\/staticbrainz\.org\/irombook\//.test(url.href_url);
 }
 
-const IrombookImage = ({entity}: Props): React.Element<'div'> | null => {
+const IrombookImage = ({entity}: Props): React$Element<'div'> | null => {
   const relationships = entity.relationships;
 
   if (!relationships) {

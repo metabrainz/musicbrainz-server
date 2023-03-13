@@ -12,7 +12,7 @@
 # Marta PD <email address hidden>, 2014
 # Marta PD <email address hidden>, 2014
 # Maurizio Corripio <email address hidden>, 2019
-# Nicolás Tamargo <email address hidden>, 2011-2013
+# Nicolás Tamargo <email address hidden>, 2011-2013,2023
 # Peter Cuevas <email address hidden>, 2020
 # Salvador Morales León <email address hidden>, 2016
 # t0n3t <email address hidden>, 2012
@@ -25,7 +25,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "PO-Revision-Date: 2012-05-24 19:17+0000\n"
-"Last-Translator: Tiago Natale, 2022\n"
+"Last-Translator: Nicolás Tamargo <reosarevok@gmail.com>, 2011-2013,2023\n"
 "Language-Team: Spanish (http://www.transifex.com/musicbrainz/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -220,7 +220,7 @@ msgstr ""
 #: DB:instrument/description:504
 msgid ""
 "A piano whose strings are bowed, using nylon filament or other materials"
-msgstr "Un piano cuyas cuerdas están arqueadas, usando filamento de nailon u otros materiales"
+msgstr "Un piano cuyas cuerdas son tocadas frotándolas con un arco, hecho de filamento de nailon u otros materiales"
 
 #. name:prepared piano
 #: DB:instrument/description:481

@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import TagEntitiesList from '../components/TagEntitiesList.js';
 import EntityLink
   from '../static/scripts/common/components/EntityLink.js';
@@ -29,7 +27,7 @@ type Props = {
   },
 };
 
-const TagIndex = (props: Props): React.Element<typeof TagLayout> => {
+const TagIndex = (props: Props): React$Element<typeof TagLayout> => {
   const genre = props.tag.genre;
   return (
     <TagLayout page="" tag={props.tag}>

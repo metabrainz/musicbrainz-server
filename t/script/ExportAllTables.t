@@ -2,6 +2,7 @@ use strict;
 use warnings;
 
 use DBDefs;
+use English;
 use File::Spec;
 use File::Temp qw( tempdir );
 use String::ShellQuote;
@@ -79,9 +80,9 @@ test all => sub {
 
     my $quoted_output_dir = shell_quote($output_dir);
     system("cd $quoted_output_dir && md5sum -c MD5SUMS") == 0
-        or die $!;
+        or die $OS_ERROR;
     system("cd $quoted_output_dir && sha256sum -c SHA256SUMS") == 0
-        or die $!;
+        or die $OS_ERROR;
 
     $exec_sql->(<<~"SQL");
         SET client_min_messages TO WARNING;

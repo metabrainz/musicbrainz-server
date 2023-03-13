@@ -18,7 +18,7 @@ type Props = {
 
 const EditorTypeInfo = ({
   editor,
-}: Props): React.Element<typeof React.Fragment> | null => (
+}: Props): React$Element<typeof React.Fragment> | null => (
   editor == null ? null : (
     <>
       {editor.is_limited ? (

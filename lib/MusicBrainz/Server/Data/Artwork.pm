@@ -9,7 +9,7 @@ use MusicBrainz::Server::Data::Utils qw(
 use MusicBrainz::Server::Validation qw( is_database_bigint_id );
 
 extends 'MusicBrainz::Server::Data::Entity';
-with 'MusicBrainz::Server::Data::Role::Editable' => {
+with 'MusicBrainz::Server::Data::Role::PendingEdits' => {
     table => 'cover_art_archive.cover_art'
 };
 

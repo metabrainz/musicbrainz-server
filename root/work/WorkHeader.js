@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import EntityHeader from '../components/EntityHeader.js';
 import localizeTypeNameForEntity
   from '../static/scripts/common/i18n/localizeTypeNameForEntity.js';
@@ -21,7 +19,7 @@ type Props = {
 const WorkHeader = ({
   work,
   page,
-}: Props): React.Element<typeof EntityHeader> => (
+}: Props): React$Element<typeof EntityHeader> => (
   <EntityHeader
     entity={work}
     headerClass="workheader"

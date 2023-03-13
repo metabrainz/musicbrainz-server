@@ -34,7 +34,11 @@ class GuessCaseHandler {
 
   // Member functions
 
-  checkSpecialCase(): number {
+  /*
+   * The `inputString` argument is specified to prevent Flow from
+   * triggering an extra-arg error where we invoke `checkSpecialCase`.
+   */
+  checkSpecialCase(/*:: inputString?: string */): number {
     return this.specialCaseValues.NOT_A_SPECIALCASE;
   }
 

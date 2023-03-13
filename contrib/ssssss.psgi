@@ -34,6 +34,7 @@ use feature "switch";
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 use Cwd qw( abs_path );
+use English;
 use File::Copy;
 use File::Slurp qw( read_file );
 use File::Spec;
@@ -264,7 +265,7 @@ sub handle_delete {
             system('mv', $fpath, "$history_dir/") == 0
                 or die "failed to move $fpath to history";
         } else {
-            unlink $fpath or die $!;
+            unlink $fpath or die $OS_ERROR;
         }
         my $cascade = $request->header('x-archive-cascade-delete');
         if ($cascade && $fpath =~ m/\.(?:$imgext)$/) {

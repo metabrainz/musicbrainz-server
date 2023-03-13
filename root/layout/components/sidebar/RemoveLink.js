@@ -22,7 +22,7 @@ type Props = {
     | ReleaseT,
 };
 
-const RemoveLink = ({entity}: Props): React.Element<'li'> | null => {
+const RemoveLink = ({entity}: Props): React$Element<'li'> | null => {
   const $c = React.useContext(CatalystContext);
   if (!$c.stash.can_delete /*:: === true */) {
     return null;

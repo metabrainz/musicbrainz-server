@@ -183,25 +183,25 @@ sub find_by_email
 }
 
 sub find_by_ip {
-    my ($self, $ip) = @_;
+    my ($self, $ip, $limit, $offset) = @_;
 
     my $query = 'SELECT ' . $self->_columns .
         ' FROM ' . $self->_table . ' WHERE id = any(?)' .
-        ' ORDER BY member_since LIMIT 100';
+        ' ORDER BY member_since';
 
     my @ids = $self->store->set_members("ipusers:$ip");
-    $self->query_to_list($query, [\@ids]);
+    $self->query_to_list_limited($query, [\@ids], $limit, $offset);
 }
 
 sub search_by_email {
-    my ($self, $email_regexp) = @_;
+    my ($self, $email_regexp, $limit, $offset) = @_;
 
     my $query = 'SELECT ' . $self->_columns .
         ' FROM ' . $self->_table .
-        q" WHERE (regexp_replace(regexp_replace(email, '[@+].*', ''), '\.', '', 'g') || regexp_replace(email, '.*@', '@')) ~ ?" .
-        ' ORDER BY member_since DESC LIMIT 100';
+        q" WHERE (regexp_replace(regexp_replace(email, '[@+].*', ''), '\.', '', 'g') || regexp_replace(email, '.*@', '@')) ~* ?" .
+        ' ORDER BY member_since DESC';
 
-    $self->query_to_list($query, [$email_regexp]);
+    $self->query_to_list_limited($query, [$email_regexp], $limit, $offset);
 }
 
 sub find_by_privileges

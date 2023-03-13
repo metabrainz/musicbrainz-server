@@ -13,7 +13,7 @@ with 'MusicBrainz::Server::Data::Role::Name';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'genre' };
 with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'genre' };
 with 'MusicBrainz::Server::Data::Role::GIDEntityCache';
-with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'genre' };
+with 'MusicBrainz::Server::Data::Role::PendingEdits' => { table => 'genre' };
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'genre' };
 with 'MusicBrainz::Server::Data::Role::SelectAll';
 with 'MusicBrainz::Server::Data::Role::DeleteAndLog' => { type => 'genre' };

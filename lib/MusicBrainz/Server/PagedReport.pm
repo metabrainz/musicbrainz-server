@@ -5,6 +5,7 @@ use strict;
 
 package MusicBrainz::Server::PagedReport;
 
+use English;
 use Storable qw( freeze thaw );
 my $intlen = length(pack 'i', 0);
 
@@ -15,8 +16,8 @@ my $intlen = length(pack 'i', 0);
 sub Save
 {
     my ($class, $file) = @_;
-    open(my $fh1, ">$file.dat") or die $!;
-    open(my $fh2, ">$file.idx") or die $!;
+    open(my $fh1, ">$file.dat") or die $OS_ERROR;
+    open(my $fh2, ">$file.idx") or die $OS_ERROR;
     binmode $fh1;
     binmode $fh2;
     bless {
@@ -37,17 +38,17 @@ sub Print
     my $pos = tell $dat;
     die if $pos < 0;
     print $dat pack('i', length($record)), $record
-        or die $!;
+        or die $OS_ERROR;
     print $idx pack 'i', $pos
-        or die $!;
+        or die $OS_ERROR;
 
     ++$self->{NUM};
 }
 
 sub End
 {
-    close $_[0]{IDX} or die $!;
-    close $_[0]{DAT} or die $!;
+    close $_[0]{IDX} or die $OS_ERROR;
+    close $_[0]{DAT} or die $OS_ERROR;
 }
 
 ################################################################################
@@ -57,8 +58,8 @@ sub End
 sub Load
 {
     my ($class, $file) = @_;
-    open(my $dat, "<$file.dat") or die $!;
-    open(my $idx, "<$file.idx") or die $!;
+    open(my $dat, "<$file.dat") or die $OS_ERROR;
+    open(my $idx, "<$file.idx") or die $OS_ERROR;
     binmode $dat;
     binmode $idx;
     bless {
@@ -84,17 +85,17 @@ sub Seek
     my $idx = $self->{IDX};
 
     seek($idx, $pos * $intlen, 0)
-        or die $!;
+        or die $OS_ERROR;
 
     if (eof $idx)
     {
         seek($dat, 0, 2)
-                or die $!;
+                or die $OS_ERROR;
     } else {
         read($idx, my $idxpos, $intlen)
-                or die $!;
+                or die $OS_ERROR;
         seek($dat, unpack('i', $idxpos), 0)
-                or die $!;
+                or die $OS_ERROR;
     }
 
     $self->{CUR} = $pos;
@@ -111,9 +112,9 @@ sub Get
     return undef if eof $dat;
 
     read($dat, my $reclen, $intlen)
-        or die $!;
+        or die $OS_ERROR;
     read($dat, my $record, unpack('i', $reclen))
-        or die $!;
+        or die $OS_ERROR;
     ++$self->{CUR};
 
     thaw($record);

@@ -60,6 +60,6 @@ const RelationshipLinkTypeGroup = (React.memo<PropsT>(({
     );
   }
   return elements;
-}): React.AbstractComponent<PropsT>);
+}): React$AbstractComponent<PropsT, mixed>);
 
 export default RelationshipLinkTypeGroup;

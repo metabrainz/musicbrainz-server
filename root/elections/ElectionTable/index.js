@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import Rows from './ElectionTableRows.js';
 
 type PropsT = {
@@ -17,7 +15,7 @@ type PropsT = {
 
 const ElectionTable = ({
   elections,
-}: PropsT): React.Element<'table'> => (
+}: PropsT): React$Element<'table'> => (
   <table className="tbl" style={{width: 'auto'}}>
     <thead>
       <tr>

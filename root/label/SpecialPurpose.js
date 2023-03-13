@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import LabelLayout from './LabelLayout.js';
 
 type Props = {
@@ -17,7 +15,7 @@ type Props = {
 
 const SpecialPurpose = ({
   label,
-}: Props): React.Element<typeof LabelLayout> => (
+}: Props): React$Element<typeof LabelLayout> => (
   <LabelLayout
     entity={label}
     fullWidth

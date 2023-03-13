@@ -3,11 +3,12 @@ use warnings;
 
 use Authen::Passphrase::BlowfishCrypt;
 use Authen::Passphrase::RejectAll;
+use English;
 use MusicBrainz::Server::Context;
 use Sql;
 use Try::Tiny;
 
-$| = 1;
+$OUTPUT_AUTOFLUSH = 1;
 
 my $c = MusicBrainz::Server::Context->create_script_context;
 

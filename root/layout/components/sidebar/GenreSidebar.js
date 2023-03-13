@@ -23,7 +23,7 @@ type Props = {
   +genre: GenreT,
 };
 
-const GenreSidebar = ({genre}: Props): React.Element<'div'> => {
+const GenreSidebar = ({genre}: Props): React$Element<'div'> => {
   const $c = React.useContext(CatalystContext);
 
   return (

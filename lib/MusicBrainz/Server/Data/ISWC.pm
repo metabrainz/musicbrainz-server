@@ -9,7 +9,7 @@ use MusicBrainz::Server::Data::Utils qw(
 );
 
 extends 'MusicBrainz::Server::Data::Entity';
-with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'iswc' };
+with 'MusicBrainz::Server::Data::Role::PendingEdits' => { table => 'iswc' };
 
 sub _table
 {

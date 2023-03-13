@@ -3,6 +3,7 @@
 use strict;
 use warnings;
 
+use English;
 use FindBin;
 use lib "$FindBin::Bin/../lib";
 
@@ -23,8 +24,8 @@ use vars qw( %allowed_nonmember_automods %allowed_posting_guests );
 
 if (-f $sConfigFile)
 {
-    $@ = ''; $! = 0;
-    do $sConfigFile or die($!||$@);
+    $EVAL_ERROR = ''; $OS_ERROR = 0;
+    do $sConfigFile or die($OS_ERROR||$EVAL_ERROR);
 }
 
 my $automods = $c->sql->select_list_of_lists('SELECT name, email FROM editor
@@ -34,15 +35,15 @@ my $automods = $c->sql->select_list_of_lists('SELECT name, email FROM editor
     my $rsync_script = DBDefs->MB_SERVER_ROOT . '/bin/rsync-automods-list';
     last unless -f $rsync_script and -x _;
     require POSIX;
-    pipe(my $r, my $w) or die $!;
-    defined(my $pid = fork) or die $!;
+    pipe(my $r, my $w) or die $OS_ERROR;
+    defined(my $pid = fork) or die $OS_ERROR;
     if ($pid == 0)
     {
         close($w);
-        POSIX::dup2(fileno($r), &POSIX::STDIN_FILENO) != -1 or die $!;
+        POSIX::dup2(fileno($r), &POSIX::STDIN_FILENO) != -1 or die $OS_ERROR;
         close($r);
         { exec $rsync_script };
-        die $!;
+        die $OS_ERROR;
     }
 
     close $r;
@@ -54,7 +55,7 @@ my $automods = $c->sql->select_list_of_lists('SELECT name, email FROM editor
     close $w;
 
     waitpid $pid, 0;
-    exit($? >> 8);
+    exit($CHILD_ERROR >> 8);
 }
 
 my %automods = map { lc($_->[1]) => $_->[0] } @$automods;

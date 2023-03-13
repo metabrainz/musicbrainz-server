@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import CleanupBanner from '../components/CleanupBanner.js';
 import * as manifest from '../static/manifest.mjs';
 import Annotation from '../static/scripts/common/components/Annotation.js';
@@ -31,7 +29,7 @@ const PlaceIndex = ({
   numberOfRevisions,
   place,
   wikipediaExtract,
-}: Props): React.Element<typeof PlaceLayout> => (
+}: Props): React$Element<typeof PlaceLayout> => (
   <PlaceLayout entity={place} page="index">
     {eligibleForCleanup ? (
       <CleanupBanner entityType="place" />

@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import EntityHeader from '../components/EntityHeader.js';
 import * as manifest from '../static/manifest.mjs';
 import ArtistCreditLink
@@ -23,7 +21,7 @@ type Props = {
 const RecordingHeader = ({
   recording,
   page,
-}: Props): React.Element<typeof EntityHeader> => {
+}: Props): React$Element<typeof EntityHeader> => {
   const lArgs = {
     artist: <ArtistCreditLink artistCredit={recording.artistCredit} />,
   };

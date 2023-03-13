@@ -3,6 +3,7 @@
 use warnings;
 use strict;
 
+use English;
 use FindBin;
 use lib "$FindBin::Bin/../../lib";
 
@@ -52,7 +53,7 @@ GetOptions(
 ) or exit 2;
 print($help), exit 2 if @ARGV;
 
-$| = 1;
+$OUTPUT_AUTOFLUSH = 1;
 print localtime() . " : Processing replication changes\n";
 
 $SIG{'INT'} = sub { die "SIGINT\n" };
