@@ -47,7 +47,7 @@ const EditHeader = ({
   const user = $c.user;
   const mayApprove = editorMayApprove(edit, user);
   const mayCancel = editorMayCancel(edit, user);
-  const mayVote = editorMayVote(edit, user);
+  const mayVote = editorMayVote(user);
   const editTitle = texp.l(
     'Edit #{id} - {name}',
     {id: edit.id, name: l(edit.edit_name)},

@@ -140,16 +140,14 @@ sub is_open
     return shift->status == $STATUS_OPEN;
 }
 
-sub editor_may_vote {
+sub editor_may_vote_on_edit {
     my ($self, $editor) = @_;
 
     return (
         $self->is_open &&
         defined $editor &&
-        $editor->email_confirmation_date &&
-        $editor->id != $self->editor_id &&
-        !$editor->is_bot &&
-        !$editor->is_editing_disabled
+        $editor->may_vote &&
+        $editor->id != $self->editor_id
     );
 }
 

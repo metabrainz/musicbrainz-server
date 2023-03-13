@@ -104,6 +104,14 @@ sub is_editing_enabled {
     (shift->privileges & $EDITING_DISABLED_FLAG) == 0;
 }
 
+sub may_vote {
+    my $self = shift;
+
+    return $self->has_confirmed_email_address &&
+           !$self->is_bot &&
+           $self->is_editing_enabled;
+}
+
 sub is_adding_notes_disabled {
     (shift->privileges & $ADDING_NOTES_DISABLED_FLAG) > 0;
 }

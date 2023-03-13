@@ -183,16 +183,25 @@ export function editorMayCancel(
 }
 
 export function editorMayVote(
-  edit: GenericEditWithIdT,
   editor: ?UnsanitizedEditorT,
 ): boolean {
   return (
     !!editor &&
     nonEmpty(editor.email_confirmation_date) &&
-    edit.status === EDIT_STATUS_OPEN &&
-    editor.id !== edit.editor_id &&
     !isBot(editor) &&
     isEditingEnabled(editor)
+  );
+}
+
+export function editorMayVoteOnEdit(
+  edit: GenericEditWithIdT,
+  editor: ?UnsanitizedEditorT,
+): boolean {
+  return (
+    !!editor &&
+    editorMayVote(editor) &&
+    edit.status === EDIT_STATUS_OPEN &&
+    editor.id !== edit.editor_id
   );
 }
 
