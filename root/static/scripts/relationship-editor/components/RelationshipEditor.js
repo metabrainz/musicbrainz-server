@@ -94,6 +94,7 @@ export type PropsT = {
 export type InitialStateArgsT = {
   +formName: string,
   +seededRelationships: ?$ReadOnlyArray<SeededRelationshipT>,
+  +source?: CoreEntityT,
 };
 
 export function* getInitialRelationshipUpdates(
@@ -173,7 +174,7 @@ export function createInitialState(
 ): RelationshipEditorStateT {
   const {seededRelationships} = args;
 
-  const source = getSourceEntityDataForRelationshipEditor();
+  const source = args.source ?? getSourceEntityDataForRelationshipEditor();
 
   invariant(
     source.entityType !== 'release',

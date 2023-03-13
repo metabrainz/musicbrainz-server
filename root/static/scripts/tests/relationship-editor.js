@@ -13,7 +13,9 @@ import {
   onConflictUseSecondValue,
 } from 'weight-balanced-tree/union';
 
-import {defaultContext} from '../../../context.mjs';
+import {
+  createWorkObject,
+} from '../common/entity2.js';
 import linkedEntities from '../common/linkedEntities.mjs';
 import {uniqueNegativeId} from '../common/utility/numbers.js';
 import {
@@ -33,7 +35,11 @@ import type {
   RelationshipSourceGroupT,
   RelationshipStateT,
   RelationshipTargetTypeGroupT,
+  ReleaseRelationshipEditorStateT,
 } from '../relationship-editor/types.js';
+import type {
+  RelationshipEditorActionT,
+} from '../relationship-editor/types/actions.js';
 import {
   compareLinkAttributeIds,
 } from '../relationship-editor/utility/compareRelationships.js';
@@ -48,27 +54,27 @@ import updateRelationships, {
   type RelationshipUpdateT,
   ADD_RELATIONSHIP,
 } from '../relationship-editor/utility/updateRelationships.js';
+import {
+  createInitialState as createInitialReleaseState,
+  reducer as releaseReducer,
+} from '../release/components/ReleaseRelationshipEditor.js';
 
 import {
   artist,
   event,
   recording,
+  releaseWithMediumsAndReleaseGroup,
 } from './relationship-editor/constants.js';
-
-const $c = {
-  ...defaultContext,
-  stash: {
-    ...defaultContext.stash,
-    source_entity: artist,
-  },
-};
-
-window[GLOBAL_JS_NAMESPACE] = {$c};
 
 const initialState = createInitialState({
   formName: 'edit-artist',
   seededRelationships: undefined,
+  source: artist,
 });
+
+const initialReleaseState = createInitialReleaseState(
+  releaseWithMediumsAndReleaseGroup,
+);
 
 test('merging duplicate relationships', function (t) {
   let nonEndedRelationshipWithBeginDate = {
@@ -737,6 +743,100 @@ test('MBS-12937: Changing credits for other relationships without modifying the 
   );
 });
 
+test('MBS-12976: Changing a work can cause duplication/key errors', function (t) {
+  t.plan(1);
+
+  const work1 = createWorkObject({
+    id: 3,
+    name: 'A',
+  });
+
+  const work2 = createWorkObject({
+    id: 2,
+    name: 'B',
+  });
+
+  const work3 = createWorkObject({
+    id: 1,
+    name: 'C',
+  });
+
+  const relationship1 = Object.freeze({
+    _lineage: [],
+    _original: null,
+    _status: REL_STATUS_ADD,
+    attributes: null,
+    begin_date: null,
+    editsPending: false,
+    end_date: null,
+    ended: false,
+    entity0: recording,
+    entity0_credit: '',
+    entity1: work1,
+    entity1_credit: '',
+    id: -1,
+    linkOrder: 0,
+    linkTypeID: 278,
+  });
+
+  const relationship2 = Object.freeze({
+    ...relationship1,
+    id: -2,
+    entity1: work3,
+  });
+
+  // Start with works A, C
+  let state = addRelationshipsToRelease(
+    initialReleaseState,
+    recording,
+    [relationship1, relationship2],
+  );
+
+  // Replace work C with B
+  state = releaseReducer(
+    state,
+    {
+      batchSelectionCount: undefined,
+      creditsToChangeForSource: '',
+      creditsToChangeForTarget: '',
+      newRelationshipState: Object.freeze({
+        ...relationship2,
+        entity1: work2,
+      }),
+      oldRelationshipState: relationship2,
+      sourceEntity: recording,
+      type: 'update-relationship-state',
+    },
+  );
+
+  const relatedWorks = tree.toArray(
+    tree.toArray(
+      tree.toArray(state.mediums)[0][1],
+    )[0].relatedWorks,
+  ).map(x => x.work);
+
+  t.deepEqual(
+    relatedWorks,
+    [work1, work2],
+    'work C was replaced by work B',
+  );
+});
+
+function getAddRelationshipAction(
+  source: CoreEntityT,
+  relationship: RelationshipStateT,
+): RelationshipEditorActionT {
+  return {
+    batchSelectionCount: undefined,
+    creditsToChangeForSource: '',
+    creditsToChangeForTarget: '',
+    newRelationshipState: relationship,
+    oldRelationshipState: null,
+    sourceEntity: source,
+    type: 'update-relationship-state',
+  };
+}
+
 function addRelationships(
   rootState: RelationshipEditorStateT,
   source: CoreEntityT,
@@ -749,6 +849,18 @@ function addRelationships(
   return newState;
 }
 
+function addRelationshipsToRelease(
+  rootState: ReleaseRelationshipEditorStateT,
+  source: CoreEntityT,
+  relationships: $ReadOnlyArray<RelationshipStateT>,
+): ReleaseRelationshipEditorStateT {
+  let newState = rootState;
+  relationships.forEach((relationship) => {
+    newState = addRelationshipToRelease(newState, source, relationship);
+  });
+  return newState;
+}
+
 function addRelationship(
   rootState: RelationshipEditorStateT,
   source: CoreEntityT,
@@ -756,21 +868,26 @@ function addRelationship(
 ): RelationshipEditorStateT {
   return reducer(
     rootState,
-    {
-      batchSelectionCount: undefined,
-      creditsToChangeForSource: '',
-      creditsToChangeForTarget: '',
-      newRelationshipState: relationship,
-      oldRelationshipState: null,
-      sourceEntity: source,
-      type: 'update-relationship-state',
-    },
+    getAddRelationshipAction(source, relationship),
+  );
+}
+
+function addRelationshipToRelease(
+  rootState: ReleaseRelationshipEditorStateT,
+  source: CoreEntityT,
+  relationship: RelationshipStateT,
+): ReleaseRelationshipEditorStateT {
+  return releaseReducer(
+    rootState,
+    getAddRelationshipAction(source, relationship),
   );
 }
 
 function currentRelationshipsEqual(
   t: tape$Context,
-  rootState: RelationshipEditorStateT,
+  rootState:
+    | RelationshipEditorStateT
+    | ReleaseRelationshipEditorStateT,
   relationships: $ReadOnlyArray<RelationshipStateT | null>,
   msg: string,
 ) {
