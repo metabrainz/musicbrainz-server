@@ -489,19 +489,25 @@ test 'Searching editor by email (for admin only)' => sub {
 
     my @editors;
 
-    # Bounded search with trimmed user info and escaped host name (recommended)
+    diag('Bounded search with trimmed user info and escaped host name (recommended)');
     @editors = $editor_data->search_by_email('^abc@f\.g\.h$');
     is(@editors => 2, 'found 2 editors');
     is($editors[0]->id => 1, 'is editor #1');
     is($editors[1]->id => 2, 'is editor #2');
 
-    # Search with trimmed user info suffix and escaped host name prefix
+    diag('Bounded search with trimmed user info and escaped host name (ALL CAPS)');
+    @editors = $editor_data->search_by_email('^ABC@F\.G\.H$');
+    is(@editors => 2, 'found 2 editors');
+    is($editors[0]->id => 1, 'is editor #1');
+    is($editors[1]->id => 2, 'is editor #2');
+
+    diag('Search with trimmed user info suffix and escaped host name prefix');
     @editors = $editor_data->search_by_email('bc@f\.g');
     is(@editors => 2, 'found 2 editors');
     is($editors[0]->id => 1, 'is editor #1');
     is($editors[1]->id => 2, 'is editor #2');
 
-    # Search with trimmed user info and unescaped host name
+    diag('Search with trimmed user info and unescaped host name');
     @editors = $editor_data->search_by_email('abc@f.g.h');
     is(@editors => 3, 'found 3 editors');
     is($editors[0]->id => 1, 'is editor #1');
@@ -509,7 +515,7 @@ test 'Searching editor by email (for admin only)' => sub {
     # Special character '.' matches '-'
     is($editors[2]->id => 3, 'is editor #3');
 
-    # Search with trimmed user info only
+    diag('Search with trimmed user info only');
     @editors = $editor_data->search_by_email('abc@');
     is(@editors => 4, 'found 4 editors');
     is($editors[0]->id => 1, 'is editor #1');
@@ -517,11 +523,11 @@ test 'Searching editor by email (for admin only)' => sub {
     is($editors[2]->id => 3, 'is editor #3');
     is($editors[3]->id => 5, 'is editor #5');
 
-    # Search with untrimmed unescaped user info only
+    diag('Search with untrimmed unescaped user info only');
     @editors = $editor_data->search_by_email('a.b.c+d.e@');
     is(@editors => 0, 'found 0 editor');
 
-    # Search with untrimmed escaped user info only
+    diag('Search with untrimmed escaped user info only');
     @editors = $editor_data->search_by_email('a\.b\.c\+d\.e@');
     is(@editors => 0, 'found 0 editor');
 };
