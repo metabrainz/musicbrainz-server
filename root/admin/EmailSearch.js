@@ -7,6 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import PaginatedResults from '../components/PaginatedResults.js';
 import Layout from '../layout/index.js';
 import expand2react from '../static/scripts/common/i18n/expand2react.js';
 import FormRowText from '../static/scripts/edit/components/FormRowText.js';
@@ -18,11 +19,13 @@ type Props = {
   +form: FormT<{
     +email: ReadOnlyFieldT<string>,
   }>,
+  +pager?: PagerT,
   +results?: $ReadOnlyArray<UnsanitizedEditorT>,
 };
 
 const EmailSearch = ({
   form,
+  pager,
   results,
 }: Props): React$Element<typeof Layout> => (
   <Layout fullWidth title={l('Search users by email')}>
@@ -76,8 +79,10 @@ const EmailSearch = ({
         </div>
 
         {results ? (
-          results.length ? (
-            <UserList users={results} />
+          results.length && pager ? (
+            <PaginatedResults pager={pager}>
+              <UserList users={results} />
+            </PaginatedResults>
           ) : (
             <p>{l('No results found.')}</p>
           )
