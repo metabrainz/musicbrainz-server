@@ -293,14 +293,12 @@ sub _detach_with_ia_server_error {
 sub _detach_with_temporary_delay : Private {
     my ($self, $c) = @_;
 
-    $self->detach_with_error(
-        $c,
+    $self->detach_with_error($c, {
         message => l(
             'We’ve hit a temporary delay while trying to fetch metadata ' .
             'from the Internet Archive. Please wait a minute and try again.',
         ),
-        500,
-    );
+    }, 500);
 }
 
 sub cover_art_upload : Chained('root') PathPart('cover-art-upload') Args(1)
