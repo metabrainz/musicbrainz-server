@@ -16,18 +16,10 @@ import {
 import {createRecordingObject} from '../../common/entity2.js';
 import linkedEntities from '../../common/linkedEntities.mjs';
 import {
-  partialDateFromField,
-  reducer as dateRangeFieldsetReducer,
-} from '../../edit/components/DateRangeFieldset.js';
-import {
   type MultiselectActionT,
   accumulateMultiselectValues,
 } from '../../edit/components/Multiselect.js';
 import Tooltip from '../../edit/components/Tooltip.js';
-import {
-  createCompoundField,
-  createField,
-} from '../../edit/utility/createField.js';
 import DialogAttributes, {
   createInitialState as createDialogAttributesState,
   reducer as dialogAttributesReducer,
@@ -36,6 +28,8 @@ import DialogButtons
   from '../../relationship-editor/components/DialogButtons.js';
 import DialogDatePeriod, {
   type ActionT as DialogDatePeriodActionT,
+  createInitialState as createDialogDatePeriodState,
+  updateDialogDatePeriodState,
 } from '../../relationship-editor/components/DialogDatePeriod.js';
 import DialogLinkType, {
   createInitialState as createDialogLinkTypeState,
@@ -70,42 +64,10 @@ export function createInitialState(): BatchCreateWorksDialogStateT {
       linkedEntities.link_type[RECORDING_OF_LINK_TYPE_GID],
       null,
     ),
-    datePeriodField: createCompoundField('period', {
-      begin_date: createCompoundField(
-        'period.begin_date',
-        {
-          day: createField(
-            'period.begin_date.day',
-            null,
-          ),
-          month: createField(
-            'period.begin_date.month',
-            null,
-          ),
-          year: createField(
-            'period.begin_date.year',
-            null,
-          ),
-        },
-      ),
-      end_date: createCompoundField(
-        'period.end_date',
-        {
-          day: createField(
-            'period.end_date.day',
-            null,
-          ),
-          month: createField(
-            'period.end_date.month',
-            null,
-          ),
-          year: createField(
-            'period.end_date.year',
-            null,
-          ),
-        },
-      ),
-      ended: createField('period.ended', false),
+    datePeriod: createDialogDatePeriodState({
+      begin_date: null,
+      end_date: null,
+      ended: false,
     }),
     languages: createWorkLanguagesState(),
     linkType: createDialogLinkTypeState(
@@ -121,11 +83,6 @@ export function createInitialState(): BatchCreateWorksDialogStateT {
        * allows focus to start on "Work Type" instead.
        */
     ),
-    resultingDatePeriod: {
-      begin_date: null,
-      end_date: null,
-      ended: false,
-    },
     workType: null,
   };
 }
@@ -146,48 +103,10 @@ export function reducer(
     }
 
     case 'update-date-period': {
-      const subAction = action.action;
-      const oldDatePeriodField = state.datePeriodField;
-      const newDatePeriodField = dateRangeFieldsetReducer(
-        newState.datePeriodField,
-        subAction,
+      newState.datePeriod = updateDialogDatePeriodState(
+        newState.datePeriod,
+        action.action,
       );
-      newState.datePeriodField = newDatePeriodField;
-
-      const newBeginDate = newDatePeriodField.field.begin_date;
-      const newEndDate = newDatePeriodField.field.end_date;
-      const newEnded = newDatePeriodField.field.ended.value;
-
-      const beginDateChanged =
-        oldDatePeriodField.field.begin_date.field !== newBeginDate.field;
-      const endDateChanged =
-        oldDatePeriodField.field.end_date.field !== newEndDate.field;
-      const endedChanged =
-        oldDatePeriodField.field.ended.value !== newEnded;
-
-      if (
-        (
-          beginDateChanged ||
-          endDateChanged ||
-          endedChanged
-        ) &&
-        !(
-          newBeginDate.errors.length ||
-          newBeginDate.pendingErrors?.length ||
-          newEndDate.errors.length ||
-          newEndDate.pendingErrors?.length
-        )
-      ) {
-        newState.resultingDatePeriod = {
-          begin_date: beginDateChanged
-            ? partialDateFromField(newBeginDate)
-            : state.resultingDatePeriod.begin_date,
-          end_date: endDateChanged
-            ? partialDateFromField(newEndDate)
-            : state.resultingDatePeriod.end_date,
-          ended: newEnded,
-        };
-      }
       break;
     }
 
@@ -236,7 +155,7 @@ const BatchCreateWorksDialogContent = React.memo<
 
   const {
     attributes,
-    datePeriodField,
+    datePeriod,
     languages,
     linkType: linkTypeState,
     workType,
@@ -246,6 +165,8 @@ const BatchCreateWorksDialogContent = React.memo<
     nonEmpty(linkTypeState.error) ||
     attributes.attributesList.some(x => x.error)
   );
+
+  const datePeriodField = datePeriod.field;
 
   const hasPendingDateErrors = !!(
     datePeriodField.pendingErrors?.length ||
@@ -287,7 +208,7 @@ const BatchCreateWorksDialogContent = React.memo<
     invariant(!hasErrors && linkType);
 
     sourceDispatch({
-      ...state.resultingDatePeriod,
+      ...datePeriod.result,
       attributes: attributes.resultingLinkAttributes,
       languages: accumulateMultiselectValues(languages.values),
       linkType,
@@ -301,7 +222,7 @@ const BatchCreateWorksDialogContent = React.memo<
     linkTypeState.autocomplete.selectedItem?.entity,
     attributes.resultingLinkAttributes,
     languages.values,
-    state.resultingDatePeriod,
+    datePeriod.result,
     workType,
     closeDialog,
     sourceDispatch,
@@ -346,7 +267,7 @@ const BatchCreateWorksDialogContent = React.memo<
           <DialogDatePeriod
             dispatch={dateDispatch}
             isHelpVisible={false}
-            state={datePeriodField}
+            state={datePeriod}
           />
         </tbody>
       </table>

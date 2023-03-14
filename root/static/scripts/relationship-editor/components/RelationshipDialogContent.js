@@ -37,20 +37,13 @@ import {
   isLinkTypeOrderableByUser,
 } from '../../common/utility/isLinkTypeDirectionOrderable.js';
 import {
-  partialDateFromField,
-  reducer as dateRangeFieldsetReducer,
-} from '../../edit/components/DateRangeFieldset.js';
-import {
-  createCompoundField,
-  createField,
-} from '../../edit/utility/createField.js';
-import {
   RelationshipSourceGroupsContext,
 } from '../constants.js';
 import useDialogEnterKeyHandler from '../hooks/useDialogEnterKeyHandler.js';
 import useRangeSelectionHandler from '../hooks/useRangeSelectionHandler.js';
 import type {
   DialogAttributesStateT,
+  DialogDatePeriodStateT,
   ExternalLinkAttrT,
   LinkAttributesByRootIdT,
   RelationshipDialogStateT,
@@ -84,6 +77,8 @@ import DialogAttributes, {
 import DialogButtons from './DialogButtons.js';
 import DialogDatePeriod, {
   type ActionT as DialogDatePeriodActionT,
+  createInitialState as createDialogDatePeriodState,
+  updateDialogDatePeriodState,
 } from './DialogDatePeriod.js';
 import DialogLinkOrder from './DialogLinkOrder.js';
 import DialogLinkType, {
@@ -157,8 +152,6 @@ function getAttributeRootIdMap(
 
 export function createInitialState(props: PropsT): RelationshipDialogStateT {
   const relationship = props.initialRelationship;
-  const beginDate = relationship.begin_date;
-  const endDate = relationship.end_date;
   const source = props.source;
   const backward = isRelationshipBackward(relationship, source);
   const sourceType = source.entityType;
@@ -181,43 +174,7 @@ export function createInitialState(props: PropsT): RelationshipDialogStateT {
       getAttributeRootIdMap(tree.toArray(relationship.attributes)),
     ),
     backward,
-    datePeriodField: createCompoundField('period', {
-      begin_date: createCompoundField(
-        'period.begin_date',
-        {
-          day: createField(
-            'period.begin_date.day',
-            (beginDate?.day ?? null),
-          ),
-          month: createField(
-            'period.begin_date.month',
-            (beginDate?.month ?? null),
-          ),
-          year: createField(
-            'period.begin_date.year',
-            (beginDate?.year ?? null),
-          ),
-        },
-      ),
-      end_date: createCompoundField(
-        'period.end_date',
-        {
-          day: createField(
-            'period.end_date.day',
-            (endDate?.day ?? null),
-          ),
-          month: createField(
-            'period.end_date.month',
-            (endDate?.month ?? null),
-          ),
-          year: createField(
-            'period.end_date.year',
-            (endDate?.year ?? null),
-          ),
-        },
-      ),
-      ended: createField('period.ended', relationship.ended),
-    }),
+    datePeriod: createDialogDatePeriodState(relationship),
     isHelpVisible: false,
     linkOrder: relationship.linkOrder,
     linkType: createDialogLinkTypeState(
@@ -228,11 +185,6 @@ export function createInitialState(props: PropsT): RelationshipDialogStateT {
       getRelationshipKey(relationship),
       false,
     ),
-    resultingDatePeriod: {
-      begin_date: relationship.begin_date,
-      end_date: relationship.end_date,
-      ended: relationship.ended,
-    },
     sourceEntity: createDialogSourceEntityState(
       props.releaseHasUnloadedTracks,
       sourceType,
@@ -462,48 +414,10 @@ export function reducer(
     }
 
     case 'update-date-period': {
-      const subAction = action.action;
-      const oldDatePeriodField = state.datePeriodField;
-      const newDatePeriodField = dateRangeFieldsetReducer(
-        newState.datePeriodField,
-        subAction,
+      newState.datePeriod = updateDialogDatePeriodState(
+        newState.datePeriod,
+        action.action,
       );
-      newState.datePeriodField = newDatePeriodField;
-
-      const newBeginDate = newDatePeriodField.field.begin_date;
-      const newEndDate = newDatePeriodField.field.end_date;
-      const newEnded = newDatePeriodField.field.ended.value;
-
-      const beginDateChanged =
-        oldDatePeriodField.field.begin_date.field !== newBeginDate.field;
-      const endDateChanged =
-        oldDatePeriodField.field.end_date.field !== newEndDate.field;
-      const endedChanged =
-        oldDatePeriodField.field.ended.value !== newEnded;
-
-      if (
-        (
-          beginDateChanged ||
-          endDateChanged ||
-          endedChanged
-        ) &&
-        !(
-          newBeginDate.errors.length ||
-          newBeginDate.pendingErrors?.length ||
-          newEndDate.errors.length ||
-          newEndDate.pendingErrors?.length
-        )
-      ) {
-        newState.resultingDatePeriod = {
-          begin_date: beginDateChanged
-            ? partialDateFromField(newBeginDate)
-            : state.resultingDatePeriod.begin_date,
-          end_date: endDateChanged
-            ? partialDateFromField(newEndDate)
-            : state.resultingDatePeriod.end_date,
-          ended: newEnded,
-        };
-      }
       break;
     }
 
@@ -519,7 +433,7 @@ export function reducer(
 type AttributesSectionPropsT = {
   +attributesState: DialogAttributesStateT,
   +canEditDates: boolean,
-  +datePeriodField: DatePeriodFieldT,
+  +datePeriod: DialogDatePeriodStateT,
   +dispatch: (DialogActionT) => void,
   +isHelpVisible: boolean,
 };
@@ -527,7 +441,7 @@ type AttributesSectionPropsT = {
 const AttributesSection = (React.memo<AttributesSectionPropsT>(({
   attributesState,
   canEditDates,
-  datePeriodField,
+  datePeriod,
   dispatch,
   isHelpVisible,
 }) => {
@@ -567,7 +481,7 @@ const AttributesSection = (React.memo<AttributesSectionPropsT>(({
             <DialogDatePeriod
               dispatch={dateDispatch}
               isHelpVisible={isHelpVisible}
-              state={datePeriodField}
+              state={datePeriod}
             />
           ) : null}
         </tbody>
@@ -619,7 +533,7 @@ const RelationshipDialogContent = (React.memo<PropsT>((
   const targetEntityState = state.targetEntity;
   const selectedTargetEntity = targetEntityState.target;
   const targetType = targetEntityState.targetType;
-  const datePeriodField = state.datePeriodField;
+  const datePeriodField = state.datePeriod.field;
   const attributesList = state.attributes.attributesList;
 
   const hasBlankRequiredFields = (
@@ -694,7 +608,7 @@ const RelationshipDialogContent = (React.memo<PropsT>((
       _lineage: initialRelationship._lineage.length
         ? [...initialRelationship._lineage, 'edited']
         : ['added'],
-      ...state.resultingDatePeriod,
+      ...state.datePeriod.result,
       attributes: state.attributes.resultingLinkAttributes,
       entity0_credit: entity0Credit,
       entity1_credit: entity1Credit,
@@ -719,7 +633,7 @@ const RelationshipDialogContent = (React.memo<PropsT>((
     source,
     state.attributes.resultingLinkAttributes,
     state.linkOrder,
-    state.resultingDatePeriod,
+    state.datePeriod.result,
     sourceEntityState.creditedAs,
     targetEntityState.creditedAs,
     targetType,
@@ -990,7 +904,7 @@ const RelationshipDialogContent = (React.memo<PropsT>((
       <AttributesSection
         attributesState={state.attributes}
         canEditDates={canEditDates}
-        datePeriodField={state.datePeriodField}
+        datePeriod={state.datePeriod}
         dispatch={dispatch}
         isHelpVisible={state.isHelpVisible}
       />
