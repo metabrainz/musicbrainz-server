@@ -45,7 +45,7 @@ declare type MediumT = $ReadOnly<{
   +cdtocs: $ReadOnlyArray<string>,
   +editsPending: boolean,
   +format: MediumFormatT | null,
-  +format_id: number,
+  +format_id: number | null,
   +name: string,
   +position: number,
   +release_id: number,
