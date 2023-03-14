@@ -2,6 +2,7 @@
 package MusicBrainz::Server::Data::ReleaseGroupAliasType;
 
 use Moose;
+use MusicBrainz::Server::Entity::ReleaseGroupAliasType;
 
 extends 'MusicBrainz::Server::Data::Entity';
 

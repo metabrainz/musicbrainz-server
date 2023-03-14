@@ -2,6 +2,7 @@
 package MusicBrainz::Server::Data::PlaceAliasType;
 
 use Moose;
+use MusicBrainz::Server::Entity::PlaceAliasType;
 
 extends 'MusicBrainz::Server::Data::Entity';
 

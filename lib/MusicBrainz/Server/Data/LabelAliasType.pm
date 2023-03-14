@@ -2,6 +2,7 @@
 package MusicBrainz::Server::Data::LabelAliasType;
 
 use Moose;
+use MusicBrainz::Server::Entity::LabelAliasType;
 
 extends 'MusicBrainz::Server::Data::Entity';
 
