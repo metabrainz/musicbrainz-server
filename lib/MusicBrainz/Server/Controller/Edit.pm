@@ -402,6 +402,9 @@ sub subscribed_editors : Local RequireAuth {
         'conditions.1.field' => $only_open ? 'status' : 'open_time',
         'conditions.1.operator' => $only_open ? '=' : '>',
         'conditions.1.args.0' => $only_open ? '1' : $c->model('Edit')->_max_open_duration_search_format,
+        'conditions.2.field' => 'voter',
+        'conditions.2.operator' => 'me',
+        'conditions.2.args' => 'no',
     };
 
     load_everything_for_edits($c, $edits);
