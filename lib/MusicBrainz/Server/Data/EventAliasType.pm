@@ -2,6 +2,7 @@
 package MusicBrainz::Server::Data::EventAliasType;
 
 use Moose;
+use MusicBrainz::Server::Entity::EventAliasType;
 
 extends 'MusicBrainz::Server::Data::Entity';
 

@@ -2,6 +2,7 @@
 package MusicBrainz::Server::Data::InstrumentAliasType;
 
 use Moose;
+use MusicBrainz::Server::Entity::InstrumentAliasType;
 
 extends 'MusicBrainz::Server::Data::Entity';
 
