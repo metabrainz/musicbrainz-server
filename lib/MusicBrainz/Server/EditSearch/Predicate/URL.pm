@@ -1,19 +1,13 @@
 package MusicBrainz::Server::EditSearch::Predicate::URL;
 use Moose;
 use namespace::autoclean;
-use Scalar::Util qw( looks_like_number );
-
-# Should be replaced with a usual Entity predicate when URL is properly searchable (MBS-12122)
+use MusicBrainz::Server::Validation qw( is_valid_url );
 
 with 'MusicBrainz::Server::EditSearch::Predicate';
 
 has name => (
     is => 'ro',
     isa => 'Str'
-);
-
-has id => (
-    is => 'ro'
 );
 
 sub operator_cardinality_map {
@@ -26,7 +20,7 @@ sub operator_cardinality_map {
 sub valid {
     my $self = shift;
     my @args = @{ $self->sql_arguments };
-    return @args && looks_like_number($args[0]);
+    return @args && is_valid_url($args[0]);
 }
 
 sub combine_with_query {
@@ -34,7 +28,7 @@ sub combine_with_query {
 
     $query->add_where([
         ($self->operator eq '!=' ? 'NOT ' : '') .
-        'EXISTS (SELECT 1 FROM edit_url WHERE edit = edit.id AND url = ?)', $self->sql_arguments
+        'EXISTS (SELECT 1 FROM edit_url JOIN url ON edit_url.url = url.id WHERE edit = edit.id AND url.url = ?)', $self->sql_arguments
     ]);
 }
 

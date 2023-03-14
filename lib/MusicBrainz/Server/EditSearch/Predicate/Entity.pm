@@ -4,7 +4,7 @@ use warnings;
 use MusicBrainz::Server::Constants qw( %ENTITIES @RELATABLE_ENTITIES );
 
 for my $type (@RELATABLE_ENTITIES) {
-    # We want its own non-searchable predicate until URL is properly searchable (MBS-12122)
+    # We search for URL with Predicate::URL instead
     if ($type eq 'url') {
         next;
     }

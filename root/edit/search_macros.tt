@@ -53,14 +53,7 @@
     [% FOR field=query.fields %]
     <li class="condition">
       [% PROCESS remove %]
-      [% # To avoid URL being selectable when not seeded until it is properly searchable (MBS-12122) %]
-      [% IF field.field_name == 'url' %]
-        <select name="field" class="field">
-          <option selected="selected" value="url">[% html_escape(l('URL')) %]</option>
-        </select>
-      [% ELSE %]
-        [% select_field(field) %]
-      [% END %]
+      [% select_field(field) %]
       <span class="field-container">
         [% SWITCH field.meta.name;
              CASE 'MusicBrainz::Server::EditSearch::Predicate::ID';
@@ -419,15 +412,12 @@
   </select>
 [% END %]
 
-[% # Should be replaced with a usual _link when URL is properly searchable (MBS-12122) %]
 [% MACRO predicate_url(field, field_contents) WRAPPER wfield predicate="url" %]
   [% operators([ [ '=', l('is') ]
                  [ '!=', l('is not') ] ], field_contents) %]
 
   <span class="arg">
-    [% field_contents.name %]
-    <input type="hidden" class="id" name="args.0" value="[% html_escape(field_contents.argument(0)) %]" />
-    <input type="hidden" class="name" name="name" value="[% html_escape(field_contents.name) %]" />
+    <input type="text" size="75" class="name" name="args.0" value="[% html_escape(field_contents.argument(0)) %]" />
   </span>
 [% END %]
 
@@ -462,6 +452,7 @@
                    [ 'release', l('Release') ],
                    [ 'release_group', l('Release Group') ],
                    [ 'series', lp('Series', 'singular') ],
+                   [ 'url', l('URL') ],
                    [ 'work', l('Work') ],
                    [ 'editor', l('Editor'), {requires_login => 1} ],
                    [ 'voter', l('Voter'), {requires_login => 1} ]
