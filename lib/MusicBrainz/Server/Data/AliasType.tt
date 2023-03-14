@@ -5,6 +5,7 @@
 package MusicBrainz::Server::Data::[% model %];
 
 use Moose;
+use MusicBrainz::Server::Entity::[% model %];
 
 extends 'MusicBrainz::Server::Data::Entity';
 
