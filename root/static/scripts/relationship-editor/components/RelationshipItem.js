@@ -10,7 +10,8 @@
 import * as React from 'react';
 import * as tree from 'weight-balanced-tree';
 
-import warningIconUrl from '../../../images/icons/warning.png';
+import openEditsForRelIconUrl
+  from '../../../images/icons/open_edits_for_rel.png';
 import ButtonPopover from '../../common/components/ButtonPopover.js';
 import DescriptiveLink from '../../common/components/DescriptiveLink.js';
 import {bracketedText} from '../../common/utility/bracketed.js';
@@ -291,9 +292,9 @@ const RelationshipItem = (React.memo<PropsT>(({
                   <img
                     alt={l('This relationship has pending edits.')}
                     className="info"
-                    src={warningIconUrl}
+                    height={16}
+                    src={openEditsForRelIconUrl}
                     style={{verticalAlign: 'middle'}}
-                    width={14}
                   />
                 }
               />
