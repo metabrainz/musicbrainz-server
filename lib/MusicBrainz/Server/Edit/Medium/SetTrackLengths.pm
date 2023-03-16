@@ -63,6 +63,27 @@ sub foreign_keys {
     }
 }
 
+around _build_related_entities => sub {
+    my ($orig, $self) = splice(@_, 0, 2);
+    my $related = $self->$orig(@_);
+
+    my $medium = $self->c->model('Medium')->get_by_id($self->data->{medium_id});
+    $self->c->model('Track')->load_for_mediums($medium);
+
+    my $old_lengths = $self->data->{length}{old};
+    my $new_lengths = $self->data->{length}{new};
+    my $cdtoc_tracks = $medium->cdtoc_tracks;
+
+    for my $i (0 .. scalar @{$new_lengths}-1) {
+        if ($new_lengths->[$i] != $old_lengths->[$i]) {
+            my $changed_track = $cdtoc_tracks->[$i];
+            push @{ $related->{recording} }, $changed_track->{recording_id};
+        }
+    }
+
+    return $related;
+};
+
 sub build_display_data {
     my ($self, $loaded) = @_;
 

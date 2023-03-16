@@ -247,7 +247,9 @@ sub _display_relationships {
                 entity0_id => $entity0_id,
                 entity1_id => $entity1_id,
                 source => $entity0,
+                source_type => $entity0_type,
                 target => $entity1,
+                target_type => $entity1_type,
                 link    => Link->new(
                     id         => $data->{link_id},
                     begin_date => PartialDate->new($data->{begin_date}),

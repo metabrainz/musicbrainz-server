@@ -94,6 +94,7 @@ export type PropsT = {
 export type InitialStateArgsT = {
   +formName: string,
   +seededRelationships: ?$ReadOnlyArray<SeededRelationshipT>,
+  +source?: CoreEntityT,
 };
 
 export function* getInitialRelationshipUpdates(
@@ -173,7 +174,7 @@ export function createInitialState(
 ): RelationshipEditorStateT {
   const {seededRelationships} = args;
 
-  const source = getSourceEntityDataForRelationshipEditor();
+  const source = args.source ?? getSourceEntityDataForRelationshipEditor();
 
   invariant(
     source.entityType !== 'release',
@@ -626,27 +627,30 @@ const RelationshipEditor = (
 
   return (
     <fieldset id="relationship-editor">
-      {error ? (
-        <ErrorMessage error={error.stack} />
-      ) : null}
-
       <legend>
         {l('Relationships')}
       </legend>
 
-      <RelationshipSourceGroupsContext.Provider value={sourceGroupsContext}>
-        <RelationshipTargetTypeGroups
-          dialogLocation={state.dialogLocation}
-          dispatch={dispatch}
-          releaseHasUnloadedTracks={false}
-          source={state.entity}
-          targetTypeGroups={findTargetTypeGroups(
-            state.relationshipsBySource,
-            state.entity,
-          )}
-          track={null}
-        />
-      </RelationshipSourceGroupsContext.Provider>
+      <div className="relationship-editor-fieldset-content">
+        {error ? (
+          <ErrorMessage error={error.stack} />
+        ) : null}
+
+
+        <RelationshipSourceGroupsContext.Provider value={sourceGroupsContext}>
+          <RelationshipTargetTypeGroups
+            dialogLocation={state.dialogLocation}
+            dispatch={dispatch}
+            releaseHasUnloadedTracks={false}
+            source={state.entity}
+            targetTypeGroups={findTargetTypeGroups(
+              state.relationshipsBySource,
+              state.entity,
+            )}
+            track={null}
+          />
+        </RelationshipSourceGroupsContext.Provider>
+      </div>
     </fieldset>
   );
 };

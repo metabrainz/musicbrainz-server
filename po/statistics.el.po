@@ -1119,18 +1119,18 @@ msgid "Controls"
 msgstr "Στοιχεία ελέγχου"
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/Countries.js:40
-#: ../root/statistics/StatisticsLayout.js:52
+#: ../root/statistics/StatisticsLayout.js:50
 msgid "Countries"
 msgstr "Χώρες"
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/CoverArt.js:67
-#: ../root/statistics/StatisticsLayout.js:62 ../root/statistics/stats.js:21
+#: ../root/statistics/StatisticsLayout.js:60 ../root/statistics/stats.js:21
 msgid "Cover Art"
 msgstr "Εξώφυλλο"
 
 #: ../root/statistics/layout.tt:23 ../root/statistics/layout.tt:34
-#: ../root/statistics/StatisticsLayout.js:98
-#: ../root/statistics/StatisticsLayout.js:111
+#: ../root/statistics/StatisticsLayout.js:96
+#: ../root/statistics/StatisticsLayout.js:109
 msgid "Database Statistics"
 msgstr "Στατιστικά βάσης δεδομένων"
 
@@ -1144,13 +1144,13 @@ msgstr "Σχεδιασμός παραλληλογράμμου σε οποιοδ�
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/Editors.js:98
 #: ../root/statistics/Editors.js:109 ../root/statistics/Index.js:1084
-#: ../root/statistics/StatisticsLayout.js:82
+#: ../root/statistics/StatisticsLayout.js:80
 msgid "Editors"
 msgstr ""
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/Edits.js:38
 #: ../root/statistics/Edits.js:42 ../root/statistics/Edits.js:51
-#: ../root/statistics/Index.js:1208 ../root/statistics/StatisticsLayout.js:72
+#: ../root/statistics/Index.js:1208 ../root/statistics/StatisticsLayout.js:70
 #: ../root/statistics/stats.js:289
 msgid "Edits"
 msgstr "Επεξεργασίες"
@@ -1159,7 +1159,7 @@ msgstr "Επεξεργασίες"
 msgid "Exact Values (items vs. day)"
 msgstr "Ακριβείες τιμές (αντικείμενα έναντι ημέρας)"
 
-#: ../root/statistics/layout.tt:4 ../root/statistics/StatisticsLayout.js:77
+#: ../root/statistics/layout.tt:4 ../root/statistics/StatisticsLayout.js:75
 #: ../root/statistics/stats.js:25
 msgid "Formats"
 msgstr "Μορφές"
@@ -1168,7 +1168,7 @@ msgstr "Μορφές"
 msgid "Hover and click on vertical lines"
 msgstr ""
 
-#: ../root/statistics/layout.tt:4 ../root/statistics/StatisticsLayout.js:57
+#: ../root/statistics/layout.tt:4 ../root/statistics/StatisticsLayout.js:55
 msgid "Languages/Scripts"
 msgstr ""
 
@@ -1185,7 +1185,7 @@ msgid "MusicBrainz Events:"
 msgstr "Γεγονότα MusicBrainz:"
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/Index.js:83
-#: ../root/statistics/StatisticsLayout.js:47
+#: ../root/statistics/StatisticsLayout.js:45
 msgid "Overview"
 msgstr "Επισκόπηση"
 
@@ -1199,7 +1199,7 @@ msgstr "Γράφημα ρυθμού αλλαγών"
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/Relationships.js:105
 #: ../root/statistics/Relationships.js:110
-#: ../root/statistics/StatisticsLayout.js:67 ../root/statistics/stats.js:32
+#: ../root/statistics/StatisticsLayout.js:65 ../root/statistics/stats.js:32
 #: ../root/statistics/stats.js:48
 msgid "Relationships"
 msgstr "Σχέσεις"
@@ -1208,7 +1208,7 @@ msgstr "Σχέσεις"
 msgid "Reset:"
 msgstr "Επαναφορά:"
 
-#: ../root/statistics/layout.tt:4 ../root/statistics/StatisticsLayout.js:87
+#: ../root/statistics/layout.tt:4 ../root/statistics/StatisticsLayout.js:85
 msgid "Timeline"
 msgstr ""
 
@@ -2040,11 +2040,11 @@ msgstr "Γραφή"
 msgid "Unknown script"
 msgstr "Άγνωστη γραφή"
 
-#: ../root/statistics/NoStatistics.js:17 ../root/statistics/NoStatistics.js:18
+#: ../root/statistics/NoStatistics.js:15 ../root/statistics/NoStatistics.js:16
 msgid "No Statistics"
 msgstr ""
 
-#: ../root/statistics/NoStatistics.js:21
+#: ../root/statistics/NoStatistics.js:19
 msgid ""
 "Statistics have never been collected for this server. If you are the "
 "administrator for this server, you should run "
@@ -2907,6 +2907,6 @@ msgstr ""
 msgid "{type} works"
 msgstr ""
 
-#: ../root/statistics/utilities.js:42
+#: ../root/statistics/utilities.js:40
 msgid "See on timeline"
 msgstr ""

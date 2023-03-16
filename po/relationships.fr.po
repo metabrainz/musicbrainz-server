@@ -31,14 +31,14 @@
 # AO <email address hidden>, 2013-2015
 # Youenn Piolet, 2015
 # Youenn Piolet, 2015
-# yvanz, 2016-2022
+# yvanz, 2016-2023
 # yvanz, 2016
 # yvanz, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "PO-Revision-Date: 2012-05-24 18:50+0000\n"
-"Last-Translator: yvanz, 2016-2022\n"
+"Last-Translator: yvanz, 2016-2023\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -262,7 +262,7 @@ msgstr "Page Discogs pour"
 msgid ""
 "For indicating the step-spouse of the artist's parent, or the sibling "
 "relationship with the children of such a spouse"
-msgstr "Indique un parent ou un enfant avec qui l’artiste n'est pas lié par le sang mais seulement par alliance."
+msgstr "Indique un parent ou un enfant avec qui l’artiste n’est pas lié par le sang mais seulement par alliance."
 
 #: DB:link_attribute_type/description:580
 msgid ""
@@ -1911,6 +1911,13 @@ msgid ""
 "<strong>not</strong> the same concept as the <a href=\"/doc/Label\">record "
 "label</a>."
 msgstr "Indique l’organisation qui presse une parution. Ce n’est <strong>pas</strong> le même concept que le <a href=\"/doc/Label\">label discographique</a>."
+
+#: DB:link_attribute_type/description:1310
+msgid ""
+"This indicates the publisher subcontracted to publish a release or work in a"
+" specific territory. Use this only when you have a specific sub-publisher "
+"credit, do not guess."
+msgstr ""
 
 #: DB:link_type/description:974
 msgid "This indicates the release group that inspired this artist’s name."
@@ -4909,7 +4916,7 @@ msgstr "a des échantillons {additional:additionnels} provenant de"
 
 #: DB:link_type/long_link_phrase:110
 msgid "has {half:half-}{step}sibling"
-msgstr "a pour {half:demi-}{step:demi-}frère ou {half:demi-}{step:demi-}sœur"
+msgstr "a pour {half:demi-}{step:beau-}frère ou {half:demi-}{step:belle-}sœur"
 
 #: DB:link_type/link_phrase:794 DB:link_type/name:794 DB:link_type/name:995
 #: DB:link_type/reverse_link_phrase:995
@@ -5194,7 +5201,7 @@ msgstr "est la société de gestion des droits associé avec"
 
 #: DB:link_type/long_link_phrase:109
 msgid "is the {step}parent of"
-msgstr "est le {half:beau-}{step:beau-}père ou la {half:belle-}{step:belle-}mère de"
+msgstr "est le {step:beau-}père ou la {step:belle-}mère de"
 
 #: DB:link_type/long_link_phrase:722
 msgid "is/was a subgroup of"
@@ -6265,18 +6272,12 @@ msgid "provided {additional} legal representation for"
 msgstr "a assuré la représentation juridique {additional:supplémentaire} pour"
 
 #: DB:link_type/link_phrase:206 DB:link_type/link_phrase:127
-#: DB:link_type/link_phrase:32 DB:link_type/link_phrase:161
-#: DB:link_type/link_phrase:208 DB:link_type/link_phrase:362
 #: DB:link_type/name:362 DB:link_type/long_link_phrase:206
-#: DB:link_type/long_link_phrase:127 DB:link_type/long_link_phrase:32
-#: DB:link_type/long_link_phrase:161 DB:link_type/long_link_phrase:208
-#: DB:link_type/long_link_phrase:362
+#: DB:link_type/long_link_phrase:127
 msgid "published"
 msgstr "publié"
 
 #: DB:link_type/reverse_link_phrase:206 DB:link_type/reverse_link_phrase:127
-#: DB:link_type/reverse_link_phrase:32 DB:link_type/reverse_link_phrase:161
-#: DB:link_type/reverse_link_phrase:208 DB:link_type/reverse_link_phrase:362
 msgid "publisher"
 msgstr "éditeur"
 
@@ -6285,8 +6286,8 @@ msgstr "éditeur"
 msgid "publishes series"
 msgstr "édite la série"
 
-#: DB:link_type/name:206 DB:link_type/name:127 DB:link_type/name:66
-#: DB:link_type/name:32 DB:link_type/name:161 DB:link_type/name:208
+#: DB:link_type/name:206 DB:link_type/name:127 DB:link_type/name:161
+#: DB:link_type/name:66 DB:link_type/name:208 DB:link_type/name:32
 msgid "publishing"
 msgstr "édition"
 
@@ -6722,6 +6723,10 @@ msgstr "étudiants"
 #: DB:link_type/long_link_phrase:923
 msgid "studied at"
 msgstr "a étudié à"
+
+#: DB:link_attribute_type/name:1310
+msgid "sub"
+msgstr ""
 
 #: DB:link_type/name:1095
 msgid "subgenre"
@@ -8044,7 +8049,7 @@ msgstr "premier violon {guest:invité} pour"
 
 #: DB:link_type/link_phrase:110 DB:link_type/reverse_link_phrase:110
 msgid "{half:half-}{step}siblings"
-msgstr "{half:demi-}frère/{half:demie-}soeur"
+msgstr "{half:demi-}{step:beaux-}frères/{half:demi-}{step:belles-}sœurs"
 
 #: DB:link_type/reverse_link_phrase:986 DB:link_type/reverse_link_phrase:987
 msgid "{instrument:%|instruments} technician"
@@ -8068,11 +8073,23 @@ msgstr "{medley:pot-pourri} {live:en public} {medley:incluant des} enregistremen
 
 #: DB:link_type/link_phrase:109
 msgid "{step}children"
-msgstr "{step:beau-}fils ou {step:belle-}fille"
+msgstr "{step:beaux-}fils ou {step:belles-}filles"
 
 #: DB:link_type/reverse_link_phrase:109
 msgid "{step}parents"
-msgstr "beaux-parents"
+msgstr "{step:beaux-}parents"
+
+#: DB:link_type/link_phrase:161 DB:link_type/link_phrase:208
+#: DB:link_type/link_phrase:32 DB:link_type/link_phrase:362
+#: DB:link_type/long_link_phrase:161 DB:link_type/long_link_phrase:208
+#: DB:link_type/long_link_phrase:32 DB:link_type/long_link_phrase:362
+msgid "{sub:sub-}published"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:161 DB:link_type/reverse_link_phrase:208
+#: DB:link_type/reverse_link_phrase:32 DB:link_type/reverse_link_phrase:362
+msgid "{sub:sub-}publisher"
+msgstr ""
 
 #: DB:link_type/reverse_link_phrase:15
 msgid "{translated} {parody:parodies|covers}"

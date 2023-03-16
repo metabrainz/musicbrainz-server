@@ -39,13 +39,13 @@ declare type MediumFormatT = {
 
 // MusicBrainz::Server::Entity::Medium::TO_JSON
 declare type MediumT = $ReadOnly<{
-  ...EntityRoleT<'track'>,
+  ...EntityRoleT<'medium'>,
   ...LastUpdateRoleT,
   +cdtoc_tracks?: $ReadOnlyArray<TrackT>,
   +cdtocs: $ReadOnlyArray<string>,
   +editsPending: boolean,
   +format: MediumFormatT | null,
-  +format_id: number,
+  +format_id: number | null,
   +name: string,
   +position: number,
   +release_id: number,

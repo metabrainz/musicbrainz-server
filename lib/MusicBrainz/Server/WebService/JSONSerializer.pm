@@ -129,10 +129,7 @@ sub autocomplete_editor {
     my ($self, $output, $pager) = @_;
 
     return encode_json([
-        (map +{
-            name => $_->name,
-            id => $_->id,
-        }, @$output),
+        (map { $_->TO_JSON } @$output),
         {
             pages => $pager->last_page,
             current => $pager->current_page

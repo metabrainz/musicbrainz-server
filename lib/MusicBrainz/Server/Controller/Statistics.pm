@@ -449,6 +449,20 @@ sub no_statistics : Private {
     );
 }
 
+sub musicbrainz_history : Path('/history') Args(0) {
+    my ($self, $c) = @_;
+
+    # We want to show the latest events first
+    my @sorted_events = reverse @{$c->model('Statistics')->all_events};
+
+    $c->stash(
+        current_view => 'Node',
+        component_path => 'statistics/MusicBrainzHistory',
+        component_props => { events => to_json_array(\@sorted_events) },
+    );
+}
+
+
 =head1 COPYRIGHT AND LICENSE
 
 Copyright (C) 2011 MetaBrainz Foundation Inc.
