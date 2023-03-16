@@ -12,7 +12,6 @@ import {
   onNotFoundDoNothing,
 } from 'weight-balanced-tree/update';
 
-import {compare} from '../../common/i18n.js';
 import type {
   MediumWorkStateT,
   ReleaseRelationshipEditorStateT,
@@ -32,10 +31,7 @@ export function compareWorkWithWorkState(
   work: WorkT,
   workState: MediumWorkStateT,
 ): number {
-  return (
-    compare(work.name, workState.work.name) ||
-    (work.id - workState.work.id)
-  );
+  return compareWorks(work, workState.work);
 }
 
 export function* findWorkRecordings(

@@ -186,8 +186,11 @@ function compareMediumStateTuples(
   return a[0].position - b[0].position;
 }
 
-export function createInitialState(): ReleaseRelationshipEditorStateT {
+export function createInitialState(
+  source?: ?ReleaseWithMediumsAndReleaseGroupT,
+): ReleaseRelationshipEditorStateT {
   const release: ReleaseWithMediumsAndReleaseGroupT =
+    source ??
     // $FlowIgnore[unclear-type]
     (getSourceEntityDataForRelationshipEditor(): any);
 
@@ -840,7 +843,10 @@ function setWorksAsSelected(
   );
 }
 
-const reducer = reducerWithErrorHandling<
+export const reducer: ((
+  ReleaseRelationshipEditorStateT,
+  ReleaseRelationshipEditorActionT,
+) => ReleaseRelationshipEditorStateT) = reducerWithErrorHandling<
   ReleaseRelationshipEditorStateT,
   ReleaseRelationshipEditorActionT,
 >(function (
