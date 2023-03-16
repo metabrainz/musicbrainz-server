@@ -712,7 +712,7 @@ test('MBS-12937: Changing credits for other relationships without modifying the 
   state = reducer(
     state,
     {
-      batchSelectionCount: 0,
+      batchSelectionCount: undefined,
       creditsToChangeForSource: '',
       creditsToChangeForTarget: 'all',
       newRelationshipState: relationship1,
@@ -757,7 +757,7 @@ function addRelationship(
   return reducer(
     rootState,
     {
-      batchSelectionCount: 0,
+      batchSelectionCount: undefined,
       creditsToChangeForSource: '',
       creditsToChangeForTarget: '',
       newRelationshipState: relationship,
