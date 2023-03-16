@@ -11,8 +11,6 @@ import Layout from '../../layout/index.js';
 import expand2react from '../../static/scripts/common/i18n/expand2react.js';
 import FormSubmit from '../../static/scripts/edit/components/FormSubmit.js';
 
-import type {StatisticsEventT} from './types.js';
-
 type PropsT = {
   +event: StatisticsEventT,
 };

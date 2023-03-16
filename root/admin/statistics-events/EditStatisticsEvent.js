@@ -10,7 +10,6 @@
 import Layout from '../../layout/index.js';
 
 import StatisticsEventEditForm from './StatisticsEventEditForm.js';
-import type {StatisticsEventFormT} from './types.js';
 
 type PropsT = {
   +form: StatisticsEventFormT,

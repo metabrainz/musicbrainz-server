@@ -161,6 +161,9 @@ const AboutMenu = () => (
       <li>
         <a href="/statistics/timeline">{l('Timeline Graph')}</a>
       </li>
+      <li>
+        <a href="/history">{l('MusicBrainz History')}</a>
+      </li>
     </ul>
   </li>
 );
