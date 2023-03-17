@@ -274,6 +274,7 @@
                  [ 'not_me', l('is not me') ]
                  [ 'subscribed', l('is in my subscriptions') ]
                  [ 'not_subscribed', l('is not in my subscriptions') ]
+                 [ 'limited', l('is a beginner') ]
                ], field_contents) %]
 
   <span class="arg autocomplete editor">

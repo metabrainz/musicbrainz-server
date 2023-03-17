@@ -30,6 +30,7 @@ $(function () {
       'not_me': 0,
       'subscribed': 0,
       'not_subscribed': 0,
+      'limited': 0,
     },
     subscription: {
       '=': 1, '!=': 1, 'subscribed': 0, 'not_subscribed': 0,
