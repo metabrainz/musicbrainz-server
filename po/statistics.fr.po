@@ -2051,6 +2051,22 @@ msgstr "Système d’écriture"
 msgid "Unknown script"
 msgstr "Système d’écriture inconnu"
 
+#: ../root/statistics/MusicBrainzHistory.js:20
+msgid "History"
+msgstr ""
+
+#: ../root/statistics/MusicBrainzHistory.js:21
+msgid "Our Glorious History"
+msgstr ""
+
+#: ../root/statistics/MusicBrainzHistory.js:25
+msgid "{date} - {title}"
+msgstr ""
+
+#: ../root/statistics/MusicBrainzHistory.js:41
+msgid "It seems we have no history to show at all!"
+msgstr ""
+
 #: ../root/statistics/NoStatistics.js:15 ../root/statistics/NoStatistics.js:16
 msgid "No Statistics"
 msgstr "Pas de statistiques"

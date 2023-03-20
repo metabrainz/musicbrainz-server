@@ -1328,13 +1328,13 @@ msgid ""
 " or manipulate sound in either an analogue or digital form."
 msgstr "Dit geeft de technicus aan die betrokken was bij de machines die gebruikt zijn om geluid te maken, zoals apparatuur voor effecten en digitale audioapparatuur die wordt gebruikt om geluid in zowel analoge als digitale vorm te manipuleren."
 
-#: DB:link_type/description:128 DB:link_type/description:36
+#: DB:link_type/description:36 DB:link_type/description:128
 msgid ""
 "This describes an engineer responsible for committing the performance to "
-"tape. This can be as complex as setting up the microphones, amplifiers, and "
-"recording devices, or as simple as pressing the 'record' button on a "
-"4-track."
-msgstr "Dit geeft de technicus aan die verantwoordelijk was voor de geluidsopname van een uitvoering. Dit kan zo complex zijn als het opzetten van de microfoons, versterkers en opnameapparatuur, maar ook zo simpel als het indrukken van een opnameknop."
+"tape or another recording medium. This can be as complex as setting up the "
+"microphones, amplifiers, and recording devices, or as simple as pressing the"
+" 'record' button on a 4-track or a digital audio workstation."
+msgstr ""
 
 #: DB:link_type/description:144 DB:link_type/description:38
 msgid ""
@@ -6355,7 +6355,7 @@ msgstr "opgenomen opnames"
 msgid "recorded release groups"
 msgstr "opgenomen uitgavegroepen"
 
-#: DB:link_type/name:128 DB:link_type/name:36
+#: DB:link_type/name:36 DB:link_type/name:128
 msgid "recording"
 msgstr "opname"
 
@@ -7075,7 +7075,7 @@ msgstr "was de {gast}concertmeester op"
 msgid "was the {instrument:%|instruments} technician for"
 msgstr "was de {instrument:%|instrument}technicus voor"
 
-#: DB:link_type/long_link_phrase:128 DB:link_type/long_link_phrase:36
+#: DB:link_type/long_link_phrase:36 DB:link_type/long_link_phrase:128
 msgid ""
 "was {additional} {assistant} {associate} {co:co-}recording engineer for"
 msgstr "was {additional:aanvullend} {assistant:assisterend} {associate:geassocieerd} {co:co-}opnametechnicus van"
@@ -7576,11 +7576,11 @@ msgstr "{additional:aanvullende} {assistant:assisterende} {associate:geassocieer
 msgid "{additional} {assistant} {associate} {co:co-}mixer"
 msgstr "{additional:aanvullende} {assistant:assisterende} {associate:geassocieerd} {co:co-}mixer"
 
-#: DB:link_type/reverse_link_phrase:128 DB:link_type/reverse_link_phrase:36
+#: DB:link_type/reverse_link_phrase:36 DB:link_type/reverse_link_phrase:128
 msgid "{additional} {assistant} {associate} {co:co-}recording engineer"
 msgstr "{additional:aanvullend} {assistant:assisterend} {associate:geassocieerd} {co:co-}opnametechnicus"
 
-#: DB:link_type/link_phrase:128 DB:link_type/link_phrase:36
+#: DB:link_type/link_phrase:36 DB:link_type/link_phrase:128
 msgid "{additional} {assistant} {associate} {co:co-}recording engineer for"
 msgstr "{additional:aanvullend} {assistant:assisterend} {associate:geassocieerd} {co:co-}opnametechnicus van"
 
