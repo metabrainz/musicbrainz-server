@@ -69,7 +69,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-13 22:37+0200\n"
+"POT-Creation-Date: 2023-03-16 13:24+0200\n"
 "PO-Revision-Date: 2011-01-30 16:57+0000\n"
 "Last-Translator: Till Berger <till@mellthas.de>, 2017,2021\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
@@ -122,7 +122,7 @@ msgstr "„YY“ sind die letzten zwei Ziffern des Registrierungsjahrs."
 #: ../root/edit/details/historic/AddRelease.js:88
 #: ../root/recording/RecordingIndex.js:53
 #: ../root/static/scripts/release/components/MediumTable.js:83
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1555
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1561
 #: ../root/utility/tableColumns.js:560
 msgid "#"
 msgstr "Nr."
@@ -286,7 +286,7 @@ msgstr "Label hinzufügen"
 
 #: ../root/release/edit/information.tt:209
 #: ../root/release/edit/information.tt:210
-#: ../root/layout/components/BottomMenu.js:245
+#: ../root/layout/components/BottomMenu.js:248
 msgctxt "button/menu"
 msgid "Add Label"
 msgstr "Label hinzufügen"
@@ -987,9 +987,9 @@ msgstr "Datenspuren"
 #: ../root/cdtoc/attach_artist_releases.tt:16
 #: ../root/cdtoc/attach_filter_release.tt:30 ../root/cdtoc/list.tt:10
 #: ../root/cdtoc/lookup.tt:42 ../root/release/edit/duplicates.tt:13
-#: ../root/admin/statistics-events/DeleteStatisticsEvent.js:27
-#: ../root/admin/statistics-events/StatisticsEventEditForm.js:32
-#: ../root/admin/statistics-events/StatisticsEventIndex.js:28
+#: ../root/admin/statistics-events/DeleteStatisticsEvent.js:25
+#: ../root/admin/statistics-events/StatisticsEventEditForm.js:30
+#: ../root/admin/statistics-events/StatisticsEventIndex.js:26
 #: ../root/components/RelationshipsTable.js:332
 #: ../root/edit/details/EditReleaseLabel.js:105
 #: ../root/edit/details/MergeReleases.js:239
@@ -1049,9 +1049,9 @@ msgstr "{e} löschen"
 
 #: ../root/admin/attributes/form.tt:61 ../root/doc/edit_type.tt:23
 #: ../root/admin/attributes/Attribute.js:97
-#: ../root/admin/statistics-events/DeleteStatisticsEvent.js:35
-#: ../root/admin/statistics-events/StatisticsEventEditForm.js:44
-#: ../root/admin/statistics-events/StatisticsEventIndex.js:30
+#: ../root/admin/statistics-events/DeleteStatisticsEvent.js:33
+#: ../root/admin/statistics-events/StatisticsEventEditForm.js:42
+#: ../root/admin/statistics-events/StatisticsEventIndex.js:28
 #: ../root/collection/CollectionIndex.js:189
 #: ../root/edit/details/AddInstrument.js:65
 #: ../root/edit/details/AddRelationshipAttribute.js:42
@@ -1068,7 +1068,7 @@ msgstr "{e} löschen"
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:110
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:146
 #: ../root/search/components/InstrumentResults.js:55
-#: ../root/static/scripts/collection/components/CollectionEditForm.js:90
+#: ../root/static/scripts/collection/components/CollectionEditForm.js:206
 #: ../root/utility/tableColumns.js:669
 msgid "Description"
 msgstr "Beschreibung"
@@ -1171,7 +1171,7 @@ msgstr "Jeder Titel in MusicBrainz muss mit einer Aufnahme verbunden sein. Wähl
 #: ../root/admin/attributes/Attribute.js:117
 #: ../root/admin/attributes/Language.js:64
 #: ../root/admin/attributes/Script.js:61
-#: ../root/admin/statistics-events/StatisticsEventIndex.js:47
+#: ../root/admin/statistics-events/StatisticsEventIndex.js:45
 #: ../root/cdstub/CDStubHeader.js:48 ../root/collection/CollectionHeader.js:86
 #: ../root/collection/EditCollection.js:32
 #: ../root/components/Aliases/AliasTableRow.js:61
@@ -1226,7 +1226,7 @@ msgstr "Beziehungstyp bearbeiten"
 
 #: ../root/doc/edit_type.tt:18 ../root/doc/edit_types.tt:1
 #: ../root/doc/edit_types.tt:3 ../root/edit/components/EditSidebar.js:96
-#: ../root/layout/components/BottomMenu.js:312
+#: ../root/layout/components/BottomMenu.js:315
 msgid "Edit Types"
 msgstr "Bearbeitungstypen"
 
@@ -2197,7 +2197,7 @@ msgstr "MusicBrainz hat nur einen Benutzerkontentyp für alle Benutzer. Wenn du 
 #: ../root/search/components/TagResults.js:51
 #: ../root/search/components/WorkResults.js:54
 #: ../root/static/scripts/account/components/ApplicationForm.js:81
-#: ../root/static/scripts/collection/components/CollectionEditForm.js:78
+#: ../root/static/scripts/collection/components/CollectionEditForm.js:194
 #: ../root/static/scripts/common/components/FilterForm.js:127
 #: ../root/static/scripts/edit/components/FormRowNameWithGuessCase.js:112
 #: ../root/static/scripts/genre/components/GenreEditForm.js:147
@@ -2557,7 +2557,7 @@ msgstr "Bewertungen"
 #: ../root/search/components/SearchForm.js:40
 #: ../root/static/scripts/common/constants.js:31
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:64
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1565
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1571
 #: ../root/user/UserProfile.js:55
 msgid "Recording"
 msgstr "Aufnahme"
@@ -2734,7 +2734,7 @@ msgstr "Veröffentlichung:"
 #: ../root/admin/attributes/Attribute.js:121
 #: ../root/admin/attributes/Language.js:68
 #: ../root/admin/attributes/Script.js:65
-#: ../root/admin/statistics-events/StatisticsEventIndex.js:51
+#: ../root/admin/statistics-events/StatisticsEventIndex.js:49
 #: ../root/admin/wikidoc/WikiDocIndex.js:108
 #: ../root/collection/CollectionHeader.js:93
 #: ../root/collection/DeleteCollection.js:26
@@ -2906,7 +2906,7 @@ msgstr "Schrift:"
 #: ../root/release/edit/tracklist.tt:117 ../root/admin/EmailSearch.js:75
 #: ../root/admin/PrivilegeSearch.js:146 ../root/cdstub/ImportCDStub.js:49
 #: ../root/doc/components/DocSearchBox.js:22
-#: ../root/layout/components/BottomMenu.js:214
+#: ../root/layout/components/BottomMenu.js:217
 #: ../root/layout/components/Search.js:94
 #: ../root/otherlookup/OtherLookupForm.js:44 ../root/search/SearchIndex.js:28
 #: ../root/search/SearchIndex.js:30
@@ -3108,7 +3108,7 @@ msgid "Subject:"
 msgstr "Betreff:"
 
 #: ../root/cdstub/edit_form.tt:24
-#: ../root/admin/statistics-events/StatisticsEventEditForm.js:55
+#: ../root/admin/statistics-events/StatisticsEventEditForm.js:53
 #: ../root/oauth2/OAuth2FormPost.js:44
 #: ../root/static/scripts/edit/components/InlineSubmitButton.js:22
 #: ../root/user/components/UserTagFilters.js:61
@@ -3120,7 +3120,7 @@ msgid "Submit this CD using the simple method."
 msgstr "Diese CD mit der einfachen Methode einreichen"
 
 #: ../root/release/edit/editnote.tt:44
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1862
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1868
 msgid "Submitting edits..."
 msgstr "Übermittle Bearbeitungen …"
 
@@ -3509,9 +3509,9 @@ msgstr "Zeit:"
 #: ../root/cdstub/browse.tt:8 ../root/cdstub/cdstub.tt:5
 #: ../root/cdtoc/list.tt:7 ../root/release/edit/tracklist.tt:162
 #: ../root/release/edit/tracklist.tt:448
-#: ../root/admin/statistics-events/DeleteStatisticsEvent.js:31
-#: ../root/admin/statistics-events/StatisticsEventEditForm.js:38
-#: ../root/admin/statistics-events/StatisticsEventIndex.js:29
+#: ../root/admin/statistics-events/DeleteStatisticsEvent.js:29
+#: ../root/admin/statistics-events/StatisticsEventEditForm.js:36
+#: ../root/admin/statistics-events/StatisticsEventIndex.js:27
 #: ../root/cdstub/CDStubInfo.js:27 ../root/cdtoc/AttachCDTocConfirmation.js:70
 #: ../root/components/RelationshipsTable.js:333
 #: ../root/components/list/ReleaseGroupList.js:91
@@ -3543,7 +3543,7 @@ msgid ""
 msgstr "Um einen Künstler zu beobachten und über neue Veröffentlichungen benachrichtigt zu werden, {search_url|suche} nach dem Künstler und wähle „Diesen Künstler auf neue Veröffentlichungen hin beobachten“ in der Seitenleiste."
 
 #: ../root/cdstub/browse.tt:2 ../root/cdstub/browse.tt:3
-#: ../root/layout/components/BottomMenu.js:228
+#: ../root/layout/components/BottomMenu.js:231
 msgid "Top CD Stubs"
 msgstr "Top-CD-Stubs"
 
@@ -3657,7 +3657,7 @@ msgstr "Twitter"
 #: ../root/search/components/WorkResults.js:58
 #: ../root/static/scripts/account/components/ApplicationForm.js:88
 #: ../root/static/scripts/alias/AliasEditForm.js:331
-#: ../root/static/scripts/collection/components/CollectionEditForm.js:84
+#: ../root/static/scripts/collection/components/CollectionEditForm.js:200
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:871
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:544
 #: ../root/static/scripts/common/components/FilterForm.js:75
@@ -3986,7 +3986,7 @@ msgid "You haven’t entered a complete artist credit."
 msgstr "Du hast noch keine vollständige Künstlernennung eingetragen."
 
 #: ../root/release/edit/editnote.tt:10
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:773
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:776
 msgid "You haven’t made any changes!"
 msgstr "Du hast keine Veränderungen durchgeführt!"
 
@@ -5360,7 +5360,7 @@ msgstr "Medium hinzufügen"
 msgid "Edit medium"
 msgstr "Medium bearbeiten"
 
-#: ../lib/MusicBrainz/Server/Edit/Medium/SetTrackLengths.pm:148
+#: ../lib/MusicBrainz/Server/Edit/Medium/SetTrackLengths.pm:169
 msgid ""
 "The CD TOC the track times were being set from has been removed since this "
 "edit was entered."
@@ -6347,7 +6347,7 @@ msgstr "Tag"
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:55
 #: ../root/edit/details/AddRelationshipType.js:187
 #: ../root/edit/details/EditRelationshipType.js:327
-#: ../root/layout/components/BottomMenu.js:290
+#: ../root/layout/components/BottomMenu.js:293
 #: ../root/layout/components/Search.js:51
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:80
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:92
@@ -6816,7 +6816,7 @@ msgstr "Zugriff"
 #: ../root/admin/attributes/Attribute.js:101
 #: ../root/admin/attributes/Language.js:46
 #: ../root/admin/attributes/Script.js:45
-#: ../root/admin/statistics-events/StatisticsEventIndex.js:32
+#: ../root/admin/statistics-events/StatisticsEventIndex.js:30
 #: ../root/admin/wikidoc/WikiDocIndex.js:118
 #: ../root/components/Aliases/AliasTable.js:29
 #: ../root/components/Aliases/ArtistCreditList.js:54
@@ -7041,42 +7041,42 @@ msgstr "Über mich"
 msgid "delete"
 msgstr "löschen"
 
-#: ../root/admin/statistics-events/CreateStatisticsEvent.js:22
-#: ../root/admin/statistics-events/CreateStatisticsEvent.js:24
+#: ../root/admin/statistics-events/CreateStatisticsEvent.js:21
+#: ../root/admin/statistics-events/CreateStatisticsEvent.js:23
 msgid "Add a new statistics event"
 msgstr ""
 
-#: ../root/admin/statistics-events/DeleteStatisticsEvent.js:23
-#: ../root/admin/statistics-events/DeleteStatisticsEvent.js:24
-#: ../root/admin/statistics-events/DeleteStatisticsEvent.js:47
+#: ../root/admin/statistics-events/DeleteStatisticsEvent.js:21
+#: ../root/admin/statistics-events/DeleteStatisticsEvent.js:22
+#: ../root/admin/statistics-events/DeleteStatisticsEvent.js:45
 msgid "Remove statistics event"
 msgstr ""
 
-#: ../root/admin/statistics-events/DeleteStatisticsEvent.js:39
-#: ../root/admin/statistics-events/StatisticsEventEditForm.js:49
-#: ../root/admin/statistics-events/StatisticsEventIndex.js:31
+#: ../root/admin/statistics-events/DeleteStatisticsEvent.js:37
+#: ../root/admin/statistics-events/StatisticsEventEditForm.js:47
+#: ../root/admin/statistics-events/StatisticsEventIndex.js:29
 #: ../root/static/scripts/common/components/FingerprintTable.js:105
 msgid "Link"
 msgstr "Verlinken"
 
-#: ../root/admin/statistics-events/DeleteStatisticsEvent.js:44
+#: ../root/admin/statistics-events/DeleteStatisticsEvent.js:42
 msgid "Are you sure you want to remove this statistics event?"
 msgstr ""
 
-#: ../root/admin/statistics-events/EditStatisticsEvent.js:22
+#: ../root/admin/statistics-events/EditStatisticsEvent.js:21
 msgid "Edit statistics event"
 msgstr ""
 
-#: ../root/admin/statistics-events/StatisticsEventEditForm.js:29
+#: ../root/admin/statistics-events/StatisticsEventEditForm.js:27
 msgid "Statistics event details"
 msgstr ""
 
-#: ../root/admin/statistics-events/StatisticsEventIndex.js:23
-#: ../root/admin/statistics-events/StatisticsEventIndex.js:24
+#: ../root/admin/statistics-events/StatisticsEventIndex.js:21
+#: ../root/admin/statistics-events/StatisticsEventIndex.js:22
 msgid "Statistics Events"
 msgstr ""
 
-#: ../root/admin/statistics-events/StatisticsEventIndex.js:61
+#: ../root/admin/statistics-events/StatisticsEventIndex.js:59
 msgctxt "statistics event"
 msgid "Add new event"
 msgstr ""
@@ -7406,7 +7406,7 @@ msgstr "Dieses Gebiet hat keinerlei Beziehungen zu Aufnahmen."
 #: ../root/components/EntityTabs.js:91 ../root/label/LabelRelationships.js:30
 #: ../root/relationship/RelationshipsHeader.js:37
 #: ../root/static/scripts/common/components/Relationships.js:91
-#: ../root/static/scripts/relationship-editor/components/RelationshipEditor.js:634
+#: ../root/static/scripts/relationship-editor/components/RelationshipEditor.js:631
 msgid "Relationships"
 msgstr "Beziehungen"
 
@@ -8011,7 +8011,7 @@ msgstr "Dieser Inhalt ist versteckt, um Spam zu verhindern. Bitte {url|melde dic
 
 #: ../root/collection/CollectionIndex.js:205
 #: ../root/collection/CollectionMerge.js:70
-#: ../root/static/scripts/collection/components/CollectionEditForm.js:101
+#: ../root/static/scripts/collection/components/CollectionEditForm.js:217
 #: ../root/user/UserCollections.js:117
 msgid "Collaborators"
 msgstr "Mitwirkende"
@@ -10259,7 +10259,7 @@ msgid "Primary tag"
 msgstr "Primäres Tag"
 
 #: ../root/genre/GenreListPage.js:20 ../root/genre/GenreListPage.js:22
-#: ../root/layout/components/BottomMenu.js:321
+#: ../root/layout/components/BottomMenu.js:324
 msgid "Genre List"
 msgstr "Genres"
 
@@ -10291,7 +10291,7 @@ msgid ""
 msgstr "Du bist dabei, all diese Instrumente in ein einziges zusammenzuführen. Bitte wähle das Instrument, in das alle anderen integriert werden sollen:"
 
 #: ../root/instrument/List.js:45 ../root/instrument/List.js:47
-#: ../root/layout/components/BottomMenu.js:318
+#: ../root/layout/components/BottomMenu.js:321
 msgid "Instrument List"
 msgstr "Instrumentenliste"
 
@@ -10426,143 +10426,147 @@ msgstr "Statistiken"
 msgid "Timeline Graph"
 msgstr "Zeitleistengraph"
 
-#: ../root/layout/components/BottomMenu.js:171
+#: ../root/layout/components/BottomMenu.js:165
+msgid "MusicBrainz History"
+msgstr ""
+
+#: ../root/layout/components/BottomMenu.js:174
 msgid "Products"
 msgstr "Produkte"
 
-#: ../root/layout/components/BottomMenu.js:176 ../root/main/index.js:153
+#: ../root/layout/components/BottomMenu.js:179 ../root/main/index.js:153
 msgid "MusicBrainz Picard"
 msgstr "MusicBrainz Picard"
 
-#: ../root/layout/components/BottomMenu.js:179 ../root/main/index.js:157
+#: ../root/layout/components/BottomMenu.js:182 ../root/main/index.js:157
 msgid "AudioRanger"
 msgstr "AudioRanger"
 
-#: ../root/layout/components/BottomMenu.js:182 ../root/main/index.js:160
+#: ../root/layout/components/BottomMenu.js:185 ../root/main/index.js:160
 msgid "Mp3tag"
 msgstr ""
 
-#: ../root/layout/components/BottomMenu.js:185 ../root/main/index.js:163
+#: ../root/layout/components/BottomMenu.js:188 ../root/main/index.js:163
 msgid "Yate Music Tagger"
 msgstr "Yate Music Tagger"
 
-#: ../root/layout/components/BottomMenu.js:189
+#: ../root/layout/components/BottomMenu.js:192
 msgid "MusicBrainz for Android"
 msgstr "MusicBrainz für Android"
 
-#: ../root/layout/components/BottomMenu.js:193
+#: ../root/layout/components/BottomMenu.js:196
 msgid "MusicBrainz Server"
 msgstr "MusicBrainz-Server"
 
-#: ../root/layout/components/BottomMenu.js:196 ../root/main/index.js:218
+#: ../root/layout/components/BottomMenu.js:199 ../root/main/index.js:218
 msgid "MusicBrainz Database"
 msgstr "MusicBrainz-Datenbank"
 
-#: ../root/layout/components/BottomMenu.js:199
+#: ../root/layout/components/BottomMenu.js:202
 msgid "Developer Resources"
 msgstr "Entwicklerressourcen"
 
-#: ../root/layout/components/BottomMenu.js:202
+#: ../root/layout/components/BottomMenu.js:205
 msgid "MusicBrainz API"
 msgstr "MusicBrainz API"
 
-#: ../root/layout/components/BottomMenu.js:205
+#: ../root/layout/components/BottomMenu.js:208
 msgid "Live Data Feed"
 msgstr "Live-Datenfeed"
 
-#: ../root/layout/components/BottomMenu.js:219
+#: ../root/layout/components/BottomMenu.js:222
 msgid "Advanced Search"
 msgstr ""
 
-#: ../root/layout/components/BottomMenu.js:222
+#: ../root/layout/components/BottomMenu.js:225
 msgid "Edit Search"
 msgstr ""
 
-#: ../root/layout/components/BottomMenu.js:225
+#: ../root/layout/components/BottomMenu.js:228
 msgid "Tag Cloud"
 msgstr ""
 
-#: ../root/layout/components/BottomMenu.js:237
+#: ../root/layout/components/BottomMenu.js:240
 #: ../root/layout/components/sidebar/CollectionSidebar.js:72
 #: ../root/layout/components/sidebar/EditLinks.js:31
 #: ../root/static/scripts/account/components/PreferencesForm.js:242
 msgid "Editing"
 msgstr "Bearbeiten"
 
-#: ../root/layout/components/BottomMenu.js:242
+#: ../root/layout/components/BottomMenu.js:245
 msgctxt "button/menu"
 msgid "Add Artist"
 msgstr "Künstler hinzufügen"
 
-#: ../root/layout/components/BottomMenu.js:249
+#: ../root/layout/components/BottomMenu.js:252
 msgctxt "button/menu"
 msgid "Add Release Group"
 msgstr "Veröffentlichungsgruppe hinzufügen"
 
-#: ../root/layout/components/BottomMenu.js:253
+#: ../root/layout/components/BottomMenu.js:256
 msgctxt "button/menu"
 msgid "Add Release"
 msgstr "Veröffentlichung hinzufügen"
 
-#: ../root/layout/components/BottomMenu.js:257
+#: ../root/layout/components/BottomMenu.js:260
 msgid "Add Various Artists Release"
 msgstr "Diverse-Interpreten-Veröffentlichung hinzufügen"
 
-#: ../root/layout/components/BottomMenu.js:262
+#: ../root/layout/components/BottomMenu.js:265
 msgctxt "button/menu"
 msgid "Add Standalone Recording"
 msgstr "Alleinstehende Aufnahme hinzufügen"
 
-#: ../root/layout/components/BottomMenu.js:266
+#: ../root/layout/components/BottomMenu.js:269
 msgctxt "button/menu"
 msgid "Add Work"
 msgstr "Werk hinzufügen"
 
-#: ../root/layout/components/BottomMenu.js:269
+#: ../root/layout/components/BottomMenu.js:272
 msgctxt "button/menu"
 msgid "Add Place"
 msgstr "Örtlichkeit hinzufügen"
 
-#: ../root/layout/components/BottomMenu.js:272
+#: ../root/layout/components/BottomMenu.js:275
 msgctxt "button/menu"
 msgid "Add Series"
 msgstr "Serie hinzufügen"
 
-#: ../root/layout/components/BottomMenu.js:275
+#: ../root/layout/components/BottomMenu.js:278
 msgctxt "button/menu"
 msgid "Add Event"
 msgstr "Ereignis hinzufügen"
 
-#: ../root/layout/components/BottomMenu.js:278
+#: ../root/layout/components/BottomMenu.js:281
 msgid "Vote on Edits"
 msgstr "Über Bearbeitungen abstimmen"
 
-#: ../root/layout/components/BottomMenu.js:281
+#: ../root/layout/components/BottomMenu.js:284
 #: ../root/report/ReportsIndex.js:39 ../root/report/ReportsIndex.js:41
 msgid "Reports"
 msgstr "Reporte"
 
-#: ../root/layout/components/BottomMenu.js:295
+#: ../root/layout/components/BottomMenu.js:298
 msgid "Beginners Guide"
 msgstr "Leitfaden für Anfänger"
 
-#: ../root/layout/components/BottomMenu.js:298
+#: ../root/layout/components/BottomMenu.js:301
 msgid "Style Guidelines"
 msgstr "Stilrichtlinien"
 
-#: ../root/layout/components/BottomMenu.js:301
+#: ../root/layout/components/BottomMenu.js:304
 msgid "How Tos"
 msgstr "Kurzanleitungen"
 
-#: ../root/layout/components/BottomMenu.js:304 ../root/main/index.js:183
+#: ../root/layout/components/BottomMenu.js:307 ../root/main/index.js:183
 msgid "FAQs"
 msgstr "FAQ"
 
-#: ../root/layout/components/BottomMenu.js:308
+#: ../root/layout/components/BottomMenu.js:311
 msgid "Documentation Index"
 msgstr "Dokumentations-Index"
 
-#: ../root/layout/components/BottomMenu.js:315
+#: ../root/layout/components/BottomMenu.js:318
 #: ../root/relationship/RelationshipsHeader.js:17
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:111
 #: ../root/relationship/linktype/RelationshipTypesList.js:60
@@ -10570,7 +10574,7 @@ msgstr "Dokumentations-Index"
 msgid "Relationship Types"
 msgstr "Beziehungstypen"
 
-#: ../root/layout/components/BottomMenu.js:324
+#: ../root/layout/components/BottomMenu.js:327
 msgid "Development"
 msgstr "Entwicklung"
 
@@ -11177,7 +11181,7 @@ msgid "Internal Server Error"
 msgstr "Interner Server-Fehler"
 
 #: ../root/main/error/Error500.js:40
-#: ../root/static/scripts/relationship-editor/components/RelationshipEditor.js:552
+#: ../root/static/scripts/relationship-editor/components/RelationshipEditor.js:553
 msgid "Oops, something went wrong!"
 msgstr "Ohje! Da ist etwas schiefgegangen."
 
@@ -13803,29 +13807,29 @@ msgstr ""
 msgid "Show more..."
 msgstr "Zeige mehr …"
 
-#: ../root/static/scripts/collection/components/CollectionEditForm.js:75
+#: ../root/static/scripts/collection/components/CollectionEditForm.js:191
 msgid "Collection details"
 msgstr "Sammlungsdetails"
 
-#: ../root/static/scripts/collection/components/CollectionEditForm.js:94
+#: ../root/static/scripts/collection/components/CollectionEditForm.js:210
 msgid "Allow other users to see this collection"
 msgstr "Andere Benutzer dürfen diese Sammlung sehen"
 
-#: ../root/static/scripts/collection/components/CollectionEditForm.js:131
-msgid "Remove collaborator"
-msgstr "Mitwirkenden entfernen"
-
-#: ../root/static/scripts/collection/components/CollectionEditForm.js:145
-msgid "Add collaborator"
-msgstr "Mitwirkenden hinzufügen"
-
-#: ../root/static/scripts/collection/components/CollectionEditForm.js:154
+#: ../root/static/scripts/collection/components/CollectionEditForm.js:225
 msgid "Create collection"
 msgstr "Sammlung erstellen"
 
-#: ../root/static/scripts/collection/components/CollectionEditForm.js:156
+#: ../root/static/scripts/collection/components/CollectionEditForm.js:227
 msgid "Update collection"
 msgstr "Änderungen speichern"
+
+#: ../root/static/scripts/collection/components/CollectionEditForm.js:285
+msgid "Add collaborator"
+msgstr "Mitwirkenden hinzufügen"
+
+#: ../root/static/scripts/collection/components/CollectionEditForm.js:327
+msgid "Remove collaborator"
+msgstr "Mitwirkenden entfernen"
 
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:88
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:94
@@ -14995,7 +14999,7 @@ msgstr "Wähle bitte einen Linktyp für die von dir eingegebene URL aus."
 
 #: ../root/static/scripts/edit/externalLinks.js:759
 #: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:1009
-#: ../root/static/scripts/relationship-editor/components/RelationshipEditor.js:525
+#: ../root/static/scripts/relationship-editor/components/RelationshipEditor.js:526
 msgid "This relationship already exists."
 msgstr "Diese Beziehung besteht bereits,"
 
@@ -15556,34 +15560,34 @@ msgstr "Beziehung zu mehreren Werken auf einmal hinzufügen"
 msgid "[selected work]"
 msgstr ""
 
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:273
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:276
 msgid "An error occurred:"
 msgstr ""
 
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1516
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1522
 msgid "Track Relationships"
 msgstr "Titelbeziehungen"
 
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1535
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1541
 msgid ""
 "Some tracks/mediums haven’t been loaded yet. If you want to make batch "
 "operations on these, please fully load them first."
 msgstr ""
 
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1578
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1584
 msgid "Related Works"
 msgstr "Verbundene Werke"
 
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1602
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1608
 #: ../root/static/scripts/release/components/TracklistAndCredits.js:374
 msgid "We have no information about this release’s media and tracklist."
 msgstr "Wir haben keine Informationen über die Medien und die Titelliste dieser Veröffentlichung."
 
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1639
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1645
 msgid "Release Relationships"
 msgstr "Veröffentlichungsbeziehungen"
 
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1682
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1688
 msgid "Release Group Relationships"
 msgstr "Veröffentlichungsgruppenbeziehungen"
 

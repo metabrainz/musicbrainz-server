@@ -1351,13 +1351,13 @@ msgid ""
 " or manipulate sound in either an analogue or digital form."
 msgstr "Ceci décrit un technicien s’occupant des machines utilisées pour générer le son tels que les processeurs à effets et l’équipement audio numérique utilisés pour modifier ou manipuler le son qu’il soit analogique ou numérique."
 
-#: DB:link_type/description:128 DB:link_type/description:36
+#: DB:link_type/description:36 DB:link_type/description:128
 msgid ""
 "This describes an engineer responsible for committing the performance to "
-"tape. This can be as complex as setting up the microphones, amplifiers, and "
-"recording devices, or as simple as pressing the 'record' button on a "
-"4-track."
-msgstr "Ceci décrit un ingénieur responsable du transfert de l’interprétation sur une bande. Ceci peu être aussi complexe que de mettre en place les microphones, les amplificateurs et les dispositifs d’enregistrement, ou aussi simple que d’appuyer sur le bouton « Enregistrer » d’un enregistreur à 4 pistes."
+"tape or another recording medium. This can be as complex as setting up the "
+"microphones, amplifiers, and recording devices, or as simple as pressing the"
+" 'record' button on a 4-track or a digital audio workstation."
+msgstr ""
 
 #: DB:link_type/description:144 DB:link_type/description:38
 msgid ""
@@ -6378,7 +6378,7 @@ msgstr ""
 msgid "recorded release groups"
 msgstr ""
 
-#: DB:link_type/name:128 DB:link_type/name:36
+#: DB:link_type/name:36 DB:link_type/name:128
 msgid "recording"
 msgstr "enregistrement"
 
@@ -7098,7 +7098,7 @@ msgstr "était le premier violon {guest:invité} pour"
 msgid "was the {instrument:%|instruments} technician for"
 msgstr "était le technicien en {instrument:%|instruments} pour"
 
-#: DB:link_type/long_link_phrase:128 DB:link_type/long_link_phrase:36
+#: DB:link_type/long_link_phrase:36 DB:link_type/long_link_phrase:128
 msgid ""
 "was {additional} {assistant} {associate} {co:co-}recording engineer for"
 msgstr "était {additional:aussi} {co:co-}ingénieur du son {assistant} {associate:associé} pour"
@@ -7599,11 +7599,11 @@ msgstr "{co:co-}matriçage {additional:supplémentaire} {assistant} {associate:a
 msgid "{additional} {assistant} {associate} {co:co-}mixer"
 msgstr "{co:co-}mixeur {additional:supplémentaire} {assistant} {associate:associé}"
 
-#: DB:link_type/reverse_link_phrase:128 DB:link_type/reverse_link_phrase:36
+#: DB:link_type/reverse_link_phrase:36 DB:link_type/reverse_link_phrase:128
 msgid "{additional} {assistant} {associate} {co:co-}recording engineer"
 msgstr "{additional:aussi} {co:co-}ingénieur du son {assistant} {associate:associé}"
 
-#: DB:link_type/link_phrase:128 DB:link_type/link_phrase:36
+#: DB:link_type/link_phrase:36 DB:link_type/link_phrase:128
 msgid "{additional} {assistant} {associate} {co:co-}recording engineer for"
 msgstr "{additional:aussi} {co:co-}ingénieur du son {assistant} {associate:associé} pour"
 

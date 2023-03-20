@@ -1330,13 +1330,13 @@ msgid ""
 " or manipulate sound in either an analogue or digital form."
 msgstr "これは、アナログまたはデジタル形式のサウンドを変更または操作するために使用されるエフェクトプロセッサやデジタルオーディオ機器など、サウンドを生成するために使用されるマシンに関与するエンジニアについて説明している。"
 
-#: DB:link_type/description:128 DB:link_type/description:36
+#: DB:link_type/description:36 DB:link_type/description:128
 msgid ""
 "This describes an engineer responsible for committing the performance to "
-"tape. This can be as complex as setting up the microphones, amplifiers, and "
-"recording devices, or as simple as pressing the 'record' button on a "
-"4-track."
-msgstr "これは、パフォーマンスをテープレコーディングする際の責任者としてのエンジニアについて説明している。 本作業は、マイク、アンプ、録音デバイスのセットアップのように複雑な場合もあれば、4トラックの「録音」ボタンを押すのと同じくらい容易な場合もある。"
+"tape or another recording medium. This can be as complex as setting up the "
+"microphones, amplifiers, and recording devices, or as simple as pressing the"
+" 'record' button on a 4-track or a digital audio workstation."
+msgstr ""
 
 #: DB:link_type/description:144 DB:link_type/description:38
 msgid ""
@@ -6357,7 +6357,7 @@ msgstr ""
 msgid "recorded release groups"
 msgstr ""
 
-#: DB:link_type/name:128 DB:link_type/name:36
+#: DB:link_type/name:36 DB:link_type/name:128
 msgid "recording"
 msgstr "レコーディング"
 
@@ -7077,7 +7077,7 @@ msgstr ""
 msgid "was the {instrument:%|instruments} technician for"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:128 DB:link_type/long_link_phrase:36
+#: DB:link_type/long_link_phrase:36 DB:link_type/long_link_phrase:128
 msgid ""
 "was {additional} {assistant} {associate} {co:co-}recording engineer for"
 msgstr ""
@@ -7578,11 +7578,11 @@ msgstr "{additional:補助的な} {assistant} {associate} {co:共同}マスタ�
 msgid "{additional} {assistant} {associate} {co:co-}mixer"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:128 DB:link_type/reverse_link_phrase:36
+#: DB:link_type/reverse_link_phrase:36 DB:link_type/reverse_link_phrase:128
 msgid "{additional} {assistant} {associate} {co:co-}recording engineer"
 msgstr "{additional:補助的な} {assistant} {associate} {co:共同}レコーディングエンジニア"
 
-#: DB:link_type/link_phrase:128 DB:link_type/link_phrase:36
+#: DB:link_type/link_phrase:36 DB:link_type/link_phrase:128
 msgid "{additional} {assistant} {associate} {co:co-}recording engineer for"
 msgstr ""
 

@@ -1428,7 +1428,7 @@ msgid ""
 "Historically solo instrument used in traditional and ritual dances, the "
 "drones have reinforced pewter rings and the goatskin bag is covered with a "
 "colourful fabric."
-msgstr ""
+msgstr "Storicamente uno strumento solista usato nelle danze tradizionali e rituali, le sue canne di bordone hanno anelli rinforzati in peltro e la sacca in pelle di capra è ricoperta da un tessuto colorato."
 
 #. name:mendoza
 #: DB:instrument/description:114
@@ -5072,7 +5072,7 @@ msgid ""
 "With a bag made of seal's stomach, 5-6 holed chanter of juniper, pine or ash"
 " and 1-2 drones, it was attested at least from the 14th century. It survived"
 " in coastal regions until its recent revival."
-msgstr ""
+msgstr "Con una sacca in stomaco di foca, una canna del canto a 5 o 6 fori in ginepro, pino o frassino e una o due canne di bordone, è attestata almeno dal XIV secolo. È sopravvissuta nelle regioni costiere fino alla sua recente riscoperta."
 
 #. name:rebec
 #: DB:instrument/description:206

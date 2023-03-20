@@ -3957,7 +3957,7 @@ msgstr "topshuur"
 #: DB:instrument/name:1115
 msgctxt "Estonian folk bagpipe"
 msgid "torupill"
-msgstr ""
+msgstr "torupill"
 
 #: DB:instrument/name:258
 msgid "toy piano"
