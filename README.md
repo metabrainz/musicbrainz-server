@@ -1,5 +1,25 @@
-MusicBrainz Server
-==================
+<h1 align="center">
+  <br>
+  <a href="https://musicbrainz.org/"><img src="https://github.com/metabrainz/metabrainz-logos/blob/master/logos/MusicBrainz/SVG/MusicBrainz_logo.svg" alt="MusicBrainz"></a>
+</h1>
+<h4 align="center">Server for the MusicBrainz project</h4>
+<p align="center">
+    <a href="https://github.com/metabrainz/musicbrainz-server/commits/master">
+    <img src="https://img.shields.io/github/last-commit/metabrainz/musicbrainz-server.svg?style=flat-square&logo=github&logoColor=white"
+         alt="GitHub last commit"></a>
+    <a href="https://github.com/metabrainz/musicbrainz-server/pulls">
+    <img src="https://img.shields.io/github/issues-pr-raw/metabrainz/musicbrainz-server?style=flat-square&logo=github&logoColor=white"
+         alt="GitHub pull requests"></a>
+</p>
+<p align="center">
+  <a href="https://musicbrainz.org/">Website</a> •
+  <a href="https://musicbrainz.org/doc/Development">Documentation</a> •
+  <a href="https://tickets.metabrainz.org/projects/MBS/summary">Bug tracker</a>
+</p>
+
+---
+
+## About
 
 MusicBrainz Server is the web frontend to the MusicBrainz Database
 and is accessible at http://musicbrainz.org.
