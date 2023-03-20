@@ -7,11 +7,9 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import FormSubmit from '../../static/scripts/edit/components/FormSubmit.js';
 
-const DocSearchBox = (): React.Element<'div'> => (
+const DocSearchBox = (): React$Element<'div'> => (
   <div className="wikidoc-search">
     <form action="/search" method="get">
       <input name="type" type="hidden" value="doc" />

@@ -2,7 +2,7 @@ package MusicBrainz::Server::Entity::IPI;
 
 use Moose;
 
-with 'MusicBrainz::Server::Entity::Role::Editable';
+with 'MusicBrainz::Server::Entity::Role::PendingEdits';
 
 has 'ipi' => (
     is => 'rw',

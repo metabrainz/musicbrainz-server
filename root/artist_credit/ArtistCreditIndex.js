@@ -27,7 +27,7 @@ type Props = {
   +creditedEntities: {
     +[entityType: string]: {
       +count: number,
-      +entities: $ReadOnlyArray<CoreEntityT | TrackT>,
+      +entities: $ReadOnlyArray<EntityWithArtistCreditsT>,
     },
   },
 };
@@ -82,7 +82,7 @@ function buildSection(
 
 const ArtistCreditIndex = (
   props: Props,
-): React.Element<typeof ArtistCreditLayout> => {
+): React$Element<typeof ArtistCreditLayout> => {
   const $c = React.useContext(CatalystContext);
   return (
     <ArtistCreditLayout

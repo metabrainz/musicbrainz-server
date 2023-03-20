@@ -49,7 +49,7 @@ function _indexValue(
     case 'object': {
       if (value) {
         if (Array.isArray(value)) {
-          compactValue = [];
+          compactValue = ([]: Array<number>);
           for (const arrayItem of value) {
             compactValue.push(
               _indexValue(
@@ -67,7 +67,7 @@ function _indexValue(
             typeof prototype.constructor === 'function' &&
             functionToString.call(prototype.constructor) === objectCtorString
           ) {
-            compactValue = {};
+            compactValue = ({}: {[compactObjectKey: number]: number});
             for (const objectKey in value) {
               if (hasOwnProp(value, objectKey)) {
                 const compactObjectKey = _indexValue(
@@ -94,7 +94,6 @@ function _indexValue(
       }
       break;
     }
-    // $FlowIssue[illegal-typeof]
     case 'bigint':
     case 'function':
     case 'symbol':
@@ -110,7 +109,7 @@ function _indexValue(
 export function compactEntityJson(
   value: mixed,
 ): $ReadOnlyArray<mixed> {
-  const result = [];
+  const result: Array<mixed> = [];
   _indexValue(value, new Map(), result);
   return result;
 }
@@ -118,7 +117,10 @@ export function compactEntityJson(
 export function decompactEntityJson(
   compactedArray: $ReadOnlyArray<mixed>,
 ): mixed {
-  const resolved = new Array(compactedArray.length);
+  const resolved = new Array<
+    | Array<mixed>
+    | {[objectKey: string]: mixed},
+  >(compactedArray.length);
 
   function _decompactIndex(
     index: number,
@@ -137,7 +139,7 @@ export function decompactEntityJson(
         }
         return result;
       }
-      const result = {};
+      const result: {[objectKey: string]: mixed} = {};
       resolved[index] = result;
       for (const objectKeyIndex in value) {
         if (hasOwnProp(value, objectKeyIndex)) {

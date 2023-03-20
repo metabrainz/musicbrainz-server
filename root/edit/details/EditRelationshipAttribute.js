@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import expand2react from '../../static/scripts/common/i18n/expand2react.js';
 import localizeLinkAttributeTypeName
   from '../../static/scripts/common/i18n/localizeLinkAttributeTypeName.js';
@@ -23,7 +21,7 @@ type Props = {
   +edit: EditRelationshipAttributeEditT,
 };
 
-const EditRelationshipAttribute = ({edit}: Props): React.Element<'table'> => {
+const EditRelationshipAttribute = ({edit}: Props): React$Element<'table'> => {
   const display = edit.display_data;
   const childOrder = display.child_order;
   const oldDescription = display.description.old ?? '';

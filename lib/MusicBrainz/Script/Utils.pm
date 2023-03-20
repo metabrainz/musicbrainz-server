@@ -2,6 +2,8 @@ package MusicBrainz::Script::Utils;
 use strict;
 use warnings;
 
+use English;
+
 use feature 'state';
 
 use base 'Exporter';
@@ -64,11 +66,11 @@ sub retry {
         my $error;
         if (wantarray) {
             my @result = eval { $callback->() };
-            $error = $@;
+            $error = $EVAL_ERROR;
             return @result unless $error;
         } else {
             my $result = eval { $callback->() };
-            $error = $@;
+            $error = $EVAL_ERROR;
             return $result unless $error;
         }
         if ($attempts_remaining--) {

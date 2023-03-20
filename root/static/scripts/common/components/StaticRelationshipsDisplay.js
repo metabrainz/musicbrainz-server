@@ -62,7 +62,7 @@ type PropsT = {
 const StaticRelationshipsDisplay = (React.memo<PropsT>(({
   hiddenArtistCredit,
   relationships: groupedRelationships,
-}: PropsT): Array<React.Element<'table'>> => {
+}: PropsT): Array<React$Element<'table'>> => {
   const tables = [];
 
   for (let i = 0; i < groupedRelationships.length; i++) {
@@ -143,6 +143,6 @@ const StaticRelationshipsDisplay = (React.memo<PropsT>(({
   }
 
   return tables;
-}): React.AbstractComponent<PropsT>);
+}): React$AbstractComponent<PropsT, mixed>);
 
 export default StaticRelationshipsDisplay;

@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import EnterEdit from '../../static/scripts/edit/components/EnterEdit.js';
 import EnterEditNote
   from '../../static/scripts/edit/components/EnterEditNote.js';
@@ -18,7 +16,7 @@ import type {AliasDeleteFormT} from './types.js';
 
 type Props = {
   +alias: AnyAiasT,
-  +entity: CoreEntityT,
+  +entity: EntityWithAliasesT,
   +form: AliasDeleteFormT,
   +type: string,
 };
@@ -28,7 +26,7 @@ const DeleteAlias = ({
   entity,
   form,
   type,
-}: Props): React.MixedElement => {
+}: Props): React$MixedElement => {
   const LayoutComponent = chooseLayoutComponent(type);
   const header = l('Remove alias');
 

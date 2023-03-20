@@ -9,7 +9,7 @@
 
 import parseIsoDate from './parseIsoDate.js';
 
-const formatterCache = new Map();
+const formatterCache = new Map<string, Intl$DateTimeFormat>();
 
 /*
  * This maps the `strftime` patterns we use to `Intl.DateTimeFormat` options.

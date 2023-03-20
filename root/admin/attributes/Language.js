@@ -8,8 +8,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import Layout from '../../layout/index.js';
 import {compare} from '../../static/scripts/common/i18n.js';
 import loopParity from '../../utility/loopParity.js';
@@ -28,7 +26,7 @@ type Props = {
 const Language = ({
   model,
   attributes,
-}: Props): React.Element<typeof Layout> => {
+}: Props): React$Element<typeof Layout> => {
   return (
     <Layout fullWidth title={model || l('Language')}>
       <h1>

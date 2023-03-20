@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 type PropsT = {
   dataIndex?: number,
   onClick: (event: SyntheticEvent<HTMLInputElement>) => void,
@@ -19,7 +17,7 @@ const RemoveButton = ({
   dataIndex,
   onClick,
   title,
-}: PropsT): React.Element<'button'> => (
+}: PropsT): React$Element<'button'> => (
   <button
     className="nobutton icon remove-item"
     data-index={dataIndex}

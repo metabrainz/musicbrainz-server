@@ -54,7 +54,7 @@ const EditNote = ({
   editNote,
   index,
   isOnEditPage = false,
-}: PropsT): React.Element<'div'> => {
+}: PropsT): React$Element<'div'> => {
   const $c = React.useContext(CatalystContext);
   const isModBot = editNote.editor_id === 4;
   const anchor = returnNoteAnchor(edit, index);

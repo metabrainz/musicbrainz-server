@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import CleanupBanner from '../components/CleanupBanner.js';
 import RelationshipsTable from '../components/RelationshipsTable.js';
 import * as manifest from '../static/manifest.mjs';
@@ -36,7 +34,7 @@ const WorkIndex = ({
   pager,
   wikipediaExtract,
   work,
-}: Props): React.Element<typeof WorkLayout> => (
+}: Props): React$Element<typeof WorkLayout> => (
   <WorkLayout entity={work} page="index">
     {eligibleForCleanup ? (
       <CleanupBanner entityType="work" />

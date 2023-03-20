@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import EntityLink from '../../static/scripts/common/components/EntityLink.js';
 import {FAVICON_CLASSES} from '../../static/scripts/common/constants.js';
 import {compare, l} from '../../static/scripts/common/i18n.js';
@@ -85,7 +83,7 @@ const ExternalLinks = ({
   entity,
   empty,
   heading,
-}: Props): React.MixedElement | null => {
+}: Props): React$MixedElement | null => {
   const relationships = entity.relationships;
   if (!relationships) {
     return null;

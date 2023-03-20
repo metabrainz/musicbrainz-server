@@ -43,7 +43,7 @@ const RelationshipTargetTypeGroups = (React.memo<PropsT>(({
   source,
   targetTypeGroups,
   track,
-}: PropsT): React.MixedElement => {
+}: PropsT): React$MixedElement => {
   const addButtonRef = React.useRef<HTMLButtonElement | null>(null);
 
   const buildPopoverContent = useAddRelationshipDialogContent({
@@ -89,7 +89,9 @@ const RelationshipTargetTypeGroups = (React.memo<PropsT>(({
     dialogLocation.targetType == null
   );
 
-  const setAddDialogOpen = React.useCallback((open) => {
+  const setAddDialogOpen = React.useCallback((
+    open: boolean,
+  ) => {
     dispatch({
       location: open ? {source, track: track} : null,
       type: 'update-dialog-location',
@@ -122,6 +124,6 @@ const RelationshipTargetTypeGroups = (React.memo<PropsT>(({
       </tbody>
     </table>
   );
-}): React.AbstractComponent<PropsT>);
+}): React$AbstractComponent<PropsT, mixed>);
 
 export default RelationshipTargetTypeGroups;

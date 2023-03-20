@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import ArtistCreditUsageLink
   from '../../static/scripts/common/components/ArtistCreditUsageLink.js';
 import ExpandedArtistCredit from
@@ -18,7 +16,7 @@ type Props = {
   +edit: EditArtistCreditEditT,
 };
 
-const EditArtistCredit = ({edit}: Props): React.Element<'table'> => {
+const EditArtistCredit = ({edit}: Props): React$Element<'table'> => {
   const display = edit.display_data;
 
   return (

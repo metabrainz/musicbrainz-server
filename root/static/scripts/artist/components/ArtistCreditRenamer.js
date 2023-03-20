@@ -150,8 +150,10 @@ const ArtistCreditRenamer = ({
   artistName,
   initialArtistName,
   initialSelectedArtistCreditIds,
-}: ArtistCreditRenamerPropsT): React.MixedElement | null => {
-  const rowsRef = React.useRef(null);
+}: ArtistCreditRenamerPropsT): React$MixedElement | null => {
+  const rowsRef = React.useRef<
+    $ReadOnlyArray<React$Element<typeof ArtistCreditRow>> | null,
+  >(null);
 
   const [state, dispatch] = React.useReducer(
     reducer,
@@ -183,7 +185,9 @@ const ArtistCreditRenamer = ({
   const tooManyRows = rows.length > 10;
   const installedArtistNameEvent = React.useRef(false);
 
-  const handleArtistNameChange = React.useCallback((event) => {
+  const handleArtistNameChange = React.useCallback((
+    event: SyntheticInputEvent<HTMLInputElement>,
+  ) => {
     dispatch({name: event.target.value, type: 'set-name'});
   }, [dispatch]);
 
@@ -314,4 +318,4 @@ const ArtistCreditRenamer = ({
 export default (hydrate<ArtistCreditRenamerPropsT>(
   'div.artist-credit-renamer',
   ArtistCreditRenamer,
-): React.AbstractComponent<ArtistCreditRenamerPropsT, void>);
+): React$AbstractComponent<ArtistCreditRenamerPropsT, void>);

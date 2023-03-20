@@ -1331,13 +1331,13 @@ msgid ""
 " or manipulate sound in either an analogue or digital form."
 msgstr "Indica un tecnico che lavora con le macchine usate per generare suono, come gli effetti musicali e l'attrezzatura audio digitale utilizzata per modificare o manipolare il suono in forma analogica o digitale."
 
-#: DB:link_type/description:128 DB:link_type/description:36
+#: DB:link_type/description:36 DB:link_type/description:128
 msgid ""
 "This describes an engineer responsible for committing the performance to "
-"tape. This can be as complex as setting up the microphones, amplifiers, and "
-"recording devices, or as simple as pressing the 'record' button on a "
-"4-track."
-msgstr "Indica un tecnico responsabile per fissare l'esecuzione su nastro. Ciò può comportare montare i microfoni, gli amplificatori e i dispositivi di registrazione, o anche solo schiacciare il tasto \"registra\" su un registratore multitraccia."
+"tape or another recording medium. This can be as complex as setting up the "
+"microphones, amplifiers, and recording devices, or as simple as pressing the"
+" 'record' button on a 4-track or a digital audio workstation."
+msgstr "Indica un tecnico responsabile per fissare l'esecuzione su nastro o su un altro supporto di registrazione. Ciò può comportare montare i microfoni, gli amplificatori e i dispositivi di registrazione, oppure semplicemente schiacciare il tasto \"registra\" su un registratore multitraccia o su una workstation audio digitale."
 
 #: DB:link_type/description:144 DB:link_type/description:38
 msgid ""
@@ -1891,6 +1891,13 @@ msgid ""
 "<strong>not</strong> the same concept as the <a href=\"/doc/Label\">record "
 "label</a>."
 msgstr "Indica la società di pressatura che ha pressato una pubblicazione. <strong>Non</strong> è la stessa cosa dell'<a href=\"/doc/Label\">etichetta discografica</a>."
+
+#: DB:link_attribute_type/description:1310
+msgid ""
+"This indicates the publisher subcontracted to publish a release or work in a"
+" specific territory. Use this only when you have a specific sub-publisher "
+"credit, do not guess."
+msgstr "Indica l'editore subappaltato per editare una pubblicazione o un'opera in uno specifico territorio. Da usare solo quando trovi uno specifico accreditamento come sub-editore, senza tirare a indovinare."
 
 #: DB:link_type/description:974
 msgid "This indicates the release group that inspired this artist’s name."
@@ -6245,18 +6252,12 @@ msgid "provided {additional} legal representation for"
 msgstr "ha fornito rappresentanza legale {additional:aggiuntiva} per"
 
 #: DB:link_type/link_phrase:206 DB:link_type/link_phrase:127
-#: DB:link_type/link_phrase:32 DB:link_type/link_phrase:161
-#: DB:link_type/link_phrase:208 DB:link_type/link_phrase:362
 #: DB:link_type/name:362 DB:link_type/long_link_phrase:206
-#: DB:link_type/long_link_phrase:127 DB:link_type/long_link_phrase:32
-#: DB:link_type/long_link_phrase:161 DB:link_type/long_link_phrase:208
-#: DB:link_type/long_link_phrase:362
+#: DB:link_type/long_link_phrase:127
 msgid "published"
 msgstr "ha edito"
 
 #: DB:link_type/reverse_link_phrase:206 DB:link_type/reverse_link_phrase:127
-#: DB:link_type/reverse_link_phrase:32 DB:link_type/reverse_link_phrase:161
-#: DB:link_type/reverse_link_phrase:208 DB:link_type/reverse_link_phrase:362
 msgid "publisher"
 msgstr "editore"
 
@@ -6265,8 +6266,8 @@ msgstr "editore"
 msgid "publishes series"
 msgstr "pubblica la serie"
 
-#: DB:link_type/name:206 DB:link_type/name:127 DB:link_type/name:66
-#: DB:link_type/name:32 DB:link_type/name:161 DB:link_type/name:208
+#: DB:link_type/name:206 DB:link_type/name:127 DB:link_type/name:161
+#: DB:link_type/name:66 DB:link_type/name:208 DB:link_type/name:32
 msgid "publishing"
 msgstr "edizione"
 
@@ -6357,7 +6358,7 @@ msgstr "registrazioni registrate"
 msgid "recorded release groups"
 msgstr "gruppi di pubblicazioni registrati"
 
-#: DB:link_type/name:128 DB:link_type/name:36
+#: DB:link_type/name:36 DB:link_type/name:128
 msgid "recording"
 msgstr "registrazione"
 
@@ -6702,6 +6703,10 @@ msgstr "studenti"
 #: DB:link_type/long_link_phrase:923
 msgid "studied at"
 msgstr "ha studiato presso"
+
+#: DB:link_attribute_type/name:1310
+msgid "sub"
+msgstr "sub"
 
 #: DB:link_type/name:1095
 msgid "subgenre"
@@ -7073,7 +7078,7 @@ msgstr "è stato il primo violino {guest:ospite} per"
 msgid "was the {instrument:%|instruments} technician for"
 msgstr "è stato il tecnico di {instrument:%|strumenti} per"
 
-#: DB:link_type/long_link_phrase:128 DB:link_type/long_link_phrase:36
+#: DB:link_type/long_link_phrase:36 DB:link_type/long_link_phrase:128
 msgid ""
 "was {additional} {assistant} {associate} {co:co-}recording engineer for"
 msgstr "è stato un {assistant:assistente} {co:co-}tecnico di registrazione {associate:associato} {additional:aggiunto} su"
@@ -7574,11 +7579,11 @@ msgstr "{assistant:assistente} {co:co-}tecnico di mastering {associate:associato
 msgid "{additional} {assistant} {associate} {co:co-}mixer"
 msgstr "{assistant:assistente} {co:co-}tecnico di missaggio {associate:associato} {additional:aggiunto}"
 
-#: DB:link_type/reverse_link_phrase:128 DB:link_type/reverse_link_phrase:36
+#: DB:link_type/reverse_link_phrase:36 DB:link_type/reverse_link_phrase:128
 msgid "{additional} {assistant} {associate} {co:co-}recording engineer"
 msgstr "{assistant:assistente} {co:co-}tecnico di registrazione {associate:associato} {additional:aggiunto}"
 
-#: DB:link_type/link_phrase:128 DB:link_type/link_phrase:36
+#: DB:link_type/link_phrase:36 DB:link_type/link_phrase:128
 msgid "{additional} {assistant} {associate} {co:co-}recording engineer for"
 msgstr "{assistant:assistente} {co:co-}tecnico di registrazione {associate:associato} {additional:aggiunto} per"
 
@@ -8053,6 +8058,18 @@ msgstr "figli{step:astri}"
 #: DB:link_type/reverse_link_phrase:109
 msgid "{step}parents"
 msgstr "genitori {step:acquisiti}"
+
+#: DB:link_type/link_phrase:161 DB:link_type/link_phrase:208
+#: DB:link_type/link_phrase:32 DB:link_type/link_phrase:362
+#: DB:link_type/long_link_phrase:161 DB:link_type/long_link_phrase:208
+#: DB:link_type/long_link_phrase:32 DB:link_type/long_link_phrase:362
+msgid "{sub:sub-}published"
+msgstr "ha {sub:sub-}edito"
+
+#: DB:link_type/reverse_link_phrase:161 DB:link_type/reverse_link_phrase:208
+#: DB:link_type/reverse_link_phrase:32 DB:link_type/reverse_link_phrase:362
+msgid "{sub:sub-}publisher"
+msgstr "{sub:sub-}editore"
 
 #: DB:link_type/reverse_link_phrase:15
 msgid "{translated} {parody:parodies|covers}"

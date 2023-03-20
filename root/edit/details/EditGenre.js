@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import DescriptiveLink
   from '../../static/scripts/common/components/DescriptiveLink.js';
 import WordDiff from '../../static/scripts/edit/components/edit/WordDiff.js';
@@ -17,7 +15,7 @@ type Props = {
   +edit: EditGenreEditT,
 };
 
-const EditGenre = ({edit}: Props): React.MixedElement => {
+const EditGenre = ({edit}: Props): React$MixedElement => {
   const display = edit.display_data;
   const comment = display.comment;
   const name = display.name;

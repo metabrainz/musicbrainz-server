@@ -7,12 +7,9 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import Layout from '../../layout/index.js';
 
 import StatisticsEventEditForm from './StatisticsEventEditForm.js';
-import type {StatisticsEventFormT} from './types.js';
 
 type PropsT = {
   +form: StatisticsEventFormT,
@@ -20,7 +17,7 @@ type PropsT = {
 
 const CreateStatisticsEvent = ({
   form,
-}: PropsT): React.Element<typeof Layout> => (
+}: PropsT): React$Element<typeof Layout> => (
   <Layout fullWidth title={l('Add a new statistics event')}>
     <div id="content">
       <h1>{l('Add a new statistics event')}</h1>

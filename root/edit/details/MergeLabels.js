@@ -7,15 +7,13 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import LabelList from '../../components/list/LabelList.js';
 
 type Props = {
   +edit: MergeLabelsEditT,
 };
 
-const MergeLabels = ({edit}: Props): React.Element<'table'> => (
+const MergeLabels = ({edit}: Props): React$Element<'table'> => (
   <table className="details merge-labels">
     <tr>
       <th>{l('Merge:')}</th>

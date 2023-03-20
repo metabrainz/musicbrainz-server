@@ -37,7 +37,7 @@ const noEntitiesText = {
 
 type Props = {
   +artistCredit: $ReadOnly<{...ArtistCreditT, +id: number}>,
-  +entities: $ReadOnlyArray<CoreEntityT | TrackT>,
+  +entities: $ReadOnlyArray<EntityWithArtistCreditsT>,
   +entityType: string,
   +page: string,
   +pager: PagerT,
@@ -49,7 +49,7 @@ const EntityList = ({
   entityType,
   page,
   pager,
-}: Props): React.Element<typeof ArtistCreditLayout> => {
+}: Props): React$Element<typeof ArtistCreditLayout> => {
   const $c = React.useContext(CatalystContext);
   return (
     <ArtistCreditLayout artistCredit={artistCredit} page={page}>

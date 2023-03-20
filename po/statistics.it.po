@@ -6,13 +6,13 @@
 # salo.rock, 2020
 # salo.rock, 2013-2015
 # salo.rock, 2012
-# salo.rock, 2021
+# salo.rock, 2021,2023
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "PO-Revision-Date: 2012-05-24 18:54+0000\n"
-"Last-Translator: salo.rock, 2012,2016,2019-2022\n"
+"Last-Translator: salo.rock, 2021,2023\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1123,18 +1123,18 @@ msgid "Controls"
 msgstr "Comandi"
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/Countries.js:40
-#: ../root/statistics/StatisticsLayout.js:52
+#: ../root/statistics/StatisticsLayout.js:50
 msgid "Countries"
 msgstr "Paesi"
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/CoverArt.js:67
-#: ../root/statistics/StatisticsLayout.js:62 ../root/statistics/stats.js:21
+#: ../root/statistics/StatisticsLayout.js:60 ../root/statistics/stats.js:21
 msgid "Cover Art"
 msgstr "Copertine"
 
 #: ../root/statistics/layout.tt:23 ../root/statistics/layout.tt:34
-#: ../root/statistics/StatisticsLayout.js:98
-#: ../root/statistics/StatisticsLayout.js:111
+#: ../root/statistics/StatisticsLayout.js:96
+#: ../root/statistics/StatisticsLayout.js:109
 msgid "Database Statistics"
 msgstr "Statistiche database"
 
@@ -1148,13 +1148,13 @@ msgstr "Disegna un rettangolo su uno dei grafici"
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/Editors.js:98
 #: ../root/statistics/Editors.js:109 ../root/statistics/Index.js:1084
-#: ../root/statistics/StatisticsLayout.js:82
+#: ../root/statistics/StatisticsLayout.js:80
 msgid "Editors"
 msgstr "Editor"
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/Edits.js:38
 #: ../root/statistics/Edits.js:42 ../root/statistics/Edits.js:51
-#: ../root/statistics/Index.js:1208 ../root/statistics/StatisticsLayout.js:72
+#: ../root/statistics/Index.js:1208 ../root/statistics/StatisticsLayout.js:70
 #: ../root/statistics/stats.js:289
 msgid "Edits"
 msgstr "Modifiche"
@@ -1163,7 +1163,7 @@ msgstr "Modifiche"
 msgid "Exact Values (items vs. day)"
 msgstr "Valori esatti (elementi per ogni giorno)"
 
-#: ../root/statistics/layout.tt:4 ../root/statistics/StatisticsLayout.js:77
+#: ../root/statistics/layout.tt:4 ../root/statistics/StatisticsLayout.js:75
 #: ../root/statistics/stats.js:25
 msgid "Formats"
 msgstr "Formati"
@@ -1172,7 +1172,7 @@ msgstr "Formati"
 msgid "Hover and click on vertical lines"
 msgstr "Soffermati e clicca sulle righe verticali"
 
-#: ../root/statistics/layout.tt:4 ../root/statistics/StatisticsLayout.js:57
+#: ../root/statistics/layout.tt:4 ../root/statistics/StatisticsLayout.js:55
 msgid "Languages/Scripts"
 msgstr "Lingue/Script"
 
@@ -1189,7 +1189,7 @@ msgid "MusicBrainz Events:"
 msgstr "Eventi di MusicBrainz:"
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/Index.js:83
-#: ../root/statistics/StatisticsLayout.js:47
+#: ../root/statistics/StatisticsLayout.js:45
 msgid "Overview"
 msgstr "Riepilogo"
 
@@ -1203,7 +1203,7 @@ msgstr "Grafico del tasso di variazione"
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/Relationships.js:105
 #: ../root/statistics/Relationships.js:110
-#: ../root/statistics/StatisticsLayout.js:67 ../root/statistics/stats.js:32
+#: ../root/statistics/StatisticsLayout.js:65 ../root/statistics/stats.js:32
 #: ../root/statistics/stats.js:48
 msgid "Relationships"
 msgstr "Relazioni"
@@ -1212,7 +1212,7 @@ msgstr "Relazioni"
 msgid "Reset:"
 msgstr "Reimposta:"
 
-#: ../root/statistics/layout.tt:4 ../root/statistics/StatisticsLayout.js:87
+#: ../root/statistics/layout.tt:4 ../root/statistics/StatisticsLayout.js:85
 msgid "Timeline"
 msgstr "Cronologia"
 
@@ -2046,11 +2046,27 @@ msgstr "Script"
 msgid "Unknown script"
 msgstr "Script sconosciuto"
 
-#: ../root/statistics/NoStatistics.js:17 ../root/statistics/NoStatistics.js:18
+#: ../root/statistics/MusicBrainzHistory.js:20
+msgid "History"
+msgstr "Storia"
+
+#: ../root/statistics/MusicBrainzHistory.js:21
+msgid "Our Glorious History"
+msgstr "La nostra gloriosa storia"
+
+#: ../root/statistics/MusicBrainzHistory.js:25
+msgid "{date} - {title}"
+msgstr "{date} - {title}"
+
+#: ../root/statistics/MusicBrainzHistory.js:41
+msgid "It seems we have no history to show at all!"
+msgstr "A quanto pare non abbiamo alcuna storia da mostrare!"
+
+#: ../root/statistics/NoStatistics.js:15 ../root/statistics/NoStatistics.js:16
 msgid "No Statistics"
 msgstr "Nessuna statistica"
 
-#: ../root/statistics/NoStatistics.js:21
+#: ../root/statistics/NoStatistics.js:19
 msgid ""
 "Statistics have never been collected for this server. If you are the "
 "administrator for this server, you should run "
@@ -2917,6 +2933,6 @@ msgstr "Opere con attributo “{attribute}”"
 msgid "{type} works"
 msgstr "Opere {type}"
 
-#: ../root/statistics/utilities.js:42
+#: ../root/statistics/utilities.js:40
 msgid "See on timeline"
 msgstr "Visualizza nella cronologia"

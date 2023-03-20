@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import ReleaseGroupList from './components/ReleaseGroupList.js';
 import ReportLayout from './components/ReportLayout.js';
 import type {ReportDataT, ReportReleaseGroupT} from './types.js';
@@ -19,7 +17,7 @@ const SetInDifferentRg = ({
   generated,
   items,
   pager,
-}: ReportDataT<ReportReleaseGroupT>): React.Element<typeof ReportLayout> => (
+}: ReportDataT<ReportReleaseGroupT>): React$Element<typeof ReportLayout> => (
   <ReportLayout
     canBeFiltered={canBeFiltered}
     description={exp.l(

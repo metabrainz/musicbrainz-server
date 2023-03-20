@@ -11,7 +11,7 @@ import * as React from 'react';
 import type {ColumnOptionsNoValue} from 'react-table';
 
 import PaginatedResults from '../../components/PaginatedResults.js';
-import Table from '../../components/Table.js';
+import useTable from '../../hooks/useTable.js';
 import * as manifest from '../../static/manifest.mjs';
 import {
   defineArtistRolesColumn,
@@ -31,8 +31,11 @@ const WorkList = <D: {+work: ?WorkT, ...}>({
   columnsAfter,
   items,
   pager,
-}: Props<D>): React.Element<typeof PaginatedResults> => {
-  const existingWorkItems = items.reduce((result, item) => {
+}: Props<D>): React$Element<typeof PaginatedResults> => {
+  const existingWorkItems = items.reduce((
+    result: Array<D>,
+    item,
+  ) => {
     if (item.work != null) {
       result.push(item);
     }
@@ -74,9 +77,11 @@ const WorkList = <D: {+work: ?WorkT, ...}>({
     [columnsAfter, columnsBefore],
   );
 
+  const table = useTable<D>({columns, data: existingWorkItems});
+
   return (
     <PaginatedResults pager={pager}>
-      <Table columns={columns} data={existingWorkItems} />
+      {table}
       {manifest.js('common/components/ArtistRoles', {async: 'async'})}
     </PaginatedResults>
   );

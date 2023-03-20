@@ -4,6 +4,7 @@ use utf8;
 use warnings;
 use strict;
 
+use English;
 use FindBin;
 use lib "$FindBin::Bin/../lib";
 
@@ -40,7 +41,7 @@ sub process_tables
         return;
     }
     open FILE, "<$dir/$infile";
-    my $create_tables_sql = do { local $/; <FILE> };
+    my $create_tables_sql = do { local $INPUT_RECORD_SEPARATOR; <FILE> };
     close FILE;
 
     my @tables;
@@ -106,7 +107,7 @@ sub process_tables
 
     if (-e "$dir/CreateViews.sql") {
         open FILE, "<$dir/CreateViews.sql";
-        my $create_views_sql = do { local $/; <FILE> };
+        my $create_views_sql = do { local $INPUT_RECORD_SEPARATOR; <FILE> };
         close FILE;
 
         my @views;
@@ -258,7 +259,7 @@ sub process_indexes
     }
 
     open FILE, "<$dir/$infile";
-    my $create_indexes_sql = do { local $/; <FILE> };
+    my $create_indexes_sql = do { local $INPUT_RECORD_SEPARATOR; <FILE> };
     close FILE;
 
     my @indexes;
@@ -291,7 +292,7 @@ sub process_functions
     }
 
     open FILE, "<$dir/$infile";
-    my $create_functions_sql = do { local $/; <FILE> };
+    my $create_functions_sql = do { local $INPUT_RECORD_SEPARATOR; <FILE> };
     close FILE;
 
     my @functions;
@@ -334,7 +335,7 @@ sub process_triggers
     }
 
     open FILE, "<$dir/$infile";
-    my $create_triggers_sql = do { local $/; <FILE> };
+    my $create_triggers_sql = do { local $INPUT_RECORD_SEPARATOR; <FILE> };
     close FILE;
 
     my @triggers;
@@ -367,7 +368,7 @@ sub process_types
     }
 
     open FILE, "<$dir/$infile";
-    my $create_types_sql = do { local $/; <FILE> };
+    my $create_types_sql = do { local $INPUT_RECORD_SEPARATOR; <FILE> };
     close FILE;
 
     my @types;

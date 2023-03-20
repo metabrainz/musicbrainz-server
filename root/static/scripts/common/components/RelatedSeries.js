@@ -28,10 +28,8 @@ export function isNotSeriesPart(r: RelationshipT): boolean {
   return !seriesPartLinkTypes.has(linkedEntities.link_type[r.linkTypeID].gid);
 }
 
-const RelatedSeries = ({seriesIds}: Props): React.MixedElement => {
-  const createArgs = [
-    React.Fragment,
-    null,
+const RelatedSeries = ({seriesIds}: Props): React$MixedElement => {
+  const parts: Array<React$Node> = [
     /* eslint-disable react/jsx-key */
     <h2 className="related-series">
       {l('Related series')}
@@ -39,7 +37,7 @@ const RelatedSeries = ({seriesIds}: Props): React.MixedElement => {
   ];
   for (let i = 0; i < seriesIds.length; i++) {
     const series = linkedEntities.series[seriesIds[i]];
-    createArgs.push(
+    parts.push(
       <h3>
         <EntityLink entity={series} showIcon />
       </h3>,
@@ -53,7 +51,7 @@ const RelatedSeries = ({seriesIds}: Props): React.MixedElement => {
       />,
     );
   }
-  return React.createElement.apply(React, createArgs);
+  return React.createElement(React.Fragment, null, ...parts);
 };
 
 export default RelatedSeries;

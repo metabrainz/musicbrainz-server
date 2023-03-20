@@ -8,8 +8,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import Layout from '../../layout/index.js';
 import {compare} from '../../static/scripts/common/i18n.js';
 import expand2react from '../../static/scripts/common/i18n/expand2react.js';
@@ -85,7 +83,7 @@ const renderAttributes = (attribute: AttributeT) => {
 const Attribute = ({
   attributes,
   model,
-}: Props): React.Element<typeof Layout> => (
+}: Props): React$Element<typeof Layout> => (
   <Layout fullWidth title={model}>
     <h1>
       <a href="/admin/attributes">{l('Attributes')}</a>

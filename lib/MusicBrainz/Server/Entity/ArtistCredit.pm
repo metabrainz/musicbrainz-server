@@ -13,8 +13,8 @@ use overload
     fallback => 1;
 
 extends 'MusicBrainz::Server::Entity';
-with 'MusicBrainz::Server::Entity::Role::Editable';
 with 'MusicBrainz::Server::Entity::Role::GID';
+with 'MusicBrainz::Server::Entity::Role::PendingEdits';
 
 sub entity_type { 'artist_credit' }
 

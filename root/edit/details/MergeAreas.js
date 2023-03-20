@@ -7,15 +7,13 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import AreaList from '../../components/list/AreaList.js';
 
 type Props = {
   +edit: MergeAreasEditT,
 };
 
-const MergeAreas = ({edit}: Props): React.Element<'table'> => (
+const MergeAreas = ({edit}: Props): React$Element<'table'> => (
   <table className="details merge-areas">
     <tr>
       <th>{l('Merge:')}</th>

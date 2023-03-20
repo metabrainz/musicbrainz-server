@@ -21,7 +21,7 @@ type Props = {
   +edit: EditUrlEditT,
 };
 
-const EditUrl = ({edit}: Props): React.Element<typeof React.Fragment> => {
+const EditUrl = ({edit}: Props): React$Element<typeof React.Fragment> => {
   const display = edit.display_data;
   const description = display.description;
   const uri = display.uri;

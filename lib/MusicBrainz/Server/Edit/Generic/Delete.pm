@@ -26,7 +26,7 @@ sub alter_edit_pending
 {
     my $self = shift;
     my $model = $self->c->model( $self->_delete_model);
-    if ($model->does('MusicBrainz::Server::Data::Role::Editable')) {
+    if ($model->does('MusicBrainz::Server::Data::Role::PendingEdits')) {
         return {
             $self->_delete_model => [ $self->entity_id ]
         }

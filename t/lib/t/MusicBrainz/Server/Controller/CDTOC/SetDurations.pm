@@ -78,6 +78,28 @@ test 'Setting track lengths based on disc ID' => sub {
         'Thank you, your <a href="',
         'The user is notified that they entered an edit',
     );
+
+    my $edit_title = 'Edit #' . $edit->id;
+
+    $mech->get_ok(
+        '/recording/54b9d183-7dab-42ba-94a3-7388a66604b8/edits',
+        'Fetch changed recording edit history',
+    );
+
+    $mech->content_contains(
+        $edit_title,
+        'The edit history for the changed recording includes the edit',
+    );
+
+    $mech->get_ok(
+        '/recording/54b9d183-7dab-42ba-94a3-7388a66604b1/edits',
+        'Fetch unchanged recording edit history',
+    );
+
+    $mech->content_lacks(
+        $edit_title,
+        'The edit history for the unchanged recording does not include the edit',
+    );
 };
 
 1;

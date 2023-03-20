@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import expand2react from '../../common/i18n/expand2react.js';
 import {type AnyFieldT} from '../utility/iterSubfields.js';
 import subfieldErrors from '../utility/subfieldErrors.js';
@@ -39,7 +37,7 @@ export const FieldErrorsList = ({
 }: {
   +errors: ?$ReadOnlyArray<string>,
   +hasHtmlErrors: boolean,
-}): React.Element<'ul'> | null => {
+}): React$Element<'ul'> | null => {
   if (errors?.length) {
     return (
       <ul className="errors">
@@ -56,7 +54,7 @@ const FieldErrors = ({
   field,
   hasHtmlErrors = false,
   includeSubFields = true,
-}: Props): React.Element<typeof FieldErrorsList> | null => {
+}: Props): React$Element<typeof FieldErrorsList> | null => {
   if (!field) {
     return null;
   }

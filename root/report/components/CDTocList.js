@@ -10,7 +10,7 @@
 import * as React from 'react';
 
 import PaginatedResults from '../../components/PaginatedResults.js';
-import Table from '../../components/Table.js';
+import useTable from '../../hooks/useTable.js';
 import formatTrackLength
   from '../../static/scripts/common/utility/formatTrackLength.js';
 import {
@@ -27,8 +27,11 @@ type Props = {
 const CDTocList = ({
   items,
   pager,
-}: Props): React.Element<typeof PaginatedResults> => {
-  const existingCDTocItems = items.reduce((result, item) => {
+}: Props): React$Element<typeof PaginatedResults> => {
+  const existingCDTocItems = items.reduce((
+    result: Array<ReportCDTocT>,
+    item,
+  ) => {
     if (item.cdtoc != null) {
       result.push(item);
     }
@@ -60,9 +63,14 @@ const CDTocList = ({
     [],
   );
 
+  const table = useTable<ReportCDTocT>({
+    columns,
+    data: existingCDTocItems,
+  });
+
   return (
     <PaginatedResults pager={pager}>
-      <Table columns={columns} data={existingCDTocItems} />
+      {table}
     </PaginatedResults>
   );
 };

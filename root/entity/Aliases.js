@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import ArtistCreditList from '../components/Aliases/ArtistCreditList.js';
 import AliasesComponent from '../components/Aliases/index.js';
 import chooseLayoutComponent from '../utility/chooseLayoutComponent.js';
@@ -16,14 +14,14 @@ import chooseLayoutComponent from '../utility/chooseLayoutComponent.js';
 type Props = {
   +aliases: $ReadOnlyArray<AnyAiasT>,
   +artistCredits?: $ReadOnlyArray<{+id: number} & ArtistCreditT>,
-  +entity: CoreEntityT,
+  +entity: EntityWithAliasesT,
 };
 
 const Aliases = ({
   aliases,
   artistCredits,
   entity,
-}: Props): React.MixedElement => {
+}: Props): React$MixedElement => {
   const entityType = entity.entityType;
   const LayoutComponent = chooseLayoutComponent(entityType);
 
@@ -34,7 +32,7 @@ const Aliases = ({
       title={l('Aliases')}
     >
       <AliasesComponent aliases={aliases} entity={entity} />
-      {artistCredits?.length ? (
+      {/*:: entity.entityType === 'artist' && */ artistCredits?.length ? (
         <ArtistCreditList
           artistCredits={artistCredits}
           entity={entity}

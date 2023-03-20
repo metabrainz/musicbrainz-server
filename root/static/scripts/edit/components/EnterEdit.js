@@ -7,10 +7,8 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 type CommonProps = {
-  +children?: React.Node,
+  +children?: React$Node,
   +disabled?: boolean,
   +form: ReadOnlyFormT<{
     +make_votable: ReadOnlyFieldT<boolean>,
@@ -34,9 +32,13 @@ const EnterEdit = ({
   disabled = false,
   form,
   ...otherProps
-}: Props): React.MixedElement => {
+}: Props): React$MixedElement => {
   const isMakeVotableChecked = form.field.make_votable.value;
-  const makeVotableProps = {};
+  const makeVotableProps: {
+    checked?: boolean,
+    defaultChecked?: boolean,
+    onChange?: (event: SyntheticEvent<HTMLInputElement>) => void,
+  } = {};
   if (otherProps.controlled) {
     makeVotableProps.checked = isMakeVotableChecked;
     makeVotableProps.onChange = otherProps.onChange;

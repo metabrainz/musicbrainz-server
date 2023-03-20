@@ -4,6 +4,7 @@ use utf8;
 use open ':std', ':encoding(UTF-8)';
 use warnings;
 use strict;
+use English;
 
 ################################################################################
 
@@ -125,7 +126,7 @@ sub parse_tables
         return;
     }
     open my $infile_handle, '<', "$infile_path";
-    my $infile_content = do { local $/; <$infile_handle> };
+    my $infile_content = do { local $INPUT_RECORD_SEPARATOR; <$infile_handle> };
     close $infile_handle;
     my $search_path = 'musicbrainz';
     if ($infile_content =~ /(?:^|\n)\s*SET\s+search_path\s+=\s+'?([a-z_]+)'?\s*(?:,[^;]+\s*)?;\s*(?:\n|$)/i) {

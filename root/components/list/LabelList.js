@@ -10,6 +10,7 @@
 import * as React from 'react';
 
 import {CatalystContext} from '../../context.mjs';
+import useTable from '../../hooks/useTable.js';
 import formatLabelCode from '../../utility/formatLabelCode.js';
 import {
   defineBeginDateColumn,
@@ -22,7 +23,6 @@ import {
   defineTypeColumn,
   removeFromMergeColumn,
 } from '../../utility/tableColumns.js';
-import Table from '../Table.js';
 
 type Props = {
   +checkboxes?: string,
@@ -40,7 +40,7 @@ const LabelList = ({
   order,
   showRatings = false,
   sortable,
-}: Props): React.Element<typeof Table> => {
+}: Props): React$Element<'table'> => {
   const $c = React.useContext(CatalystContext);
 
   const columns = React.useMemo(
@@ -109,7 +109,7 @@ const LabelList = ({
     ],
   );
 
-  return <Table columns={columns} data={labels} />;
+  return useTable<LabelT>({columns, data: labels});
 };
 
 export default LabelList;

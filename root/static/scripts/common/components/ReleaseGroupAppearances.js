@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import EntityLink from './EntityLink.js';
 
 const buildAppearancesRow = (releaseGroup: ReleaseGroupT) => (
@@ -23,7 +21,7 @@ type ReleaseGroupAppearancesProps = {
 
 const ReleaseGroupAppearances = (
   {appearances}: ReleaseGroupAppearancesProps,
-): React.Element<'ul'> | null => {
+): React$Element<'ul'> | null => {
   const releaseGroups = appearances.results;
   const unloadedReleaseGroupCount = appearances.hits - releaseGroups.length;
   return (

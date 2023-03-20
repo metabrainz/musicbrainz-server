@@ -14,7 +14,11 @@ import type {
   ReleaseRelationshipEditorStateT,
 } from '../types.js';
 
-import {compareRecordings, compareWorks} from './comparators.js';
+import {
+  compareRecordings,
+  compareWorks,
+  compareWorkStates,
+} from './comparators.js';
 import {
   findTargetTypeGroups,
   iterateTargetEntitiesOfType,
@@ -28,13 +32,6 @@ import {
 
 export const ADD_RELATIONSHIP: 1 = 1;
 export const REMOVE_RELATIONSHIP: 2 = 2;
-
-function compareWorkStates(
-  a: MediumWorkStateT,
-  b: MediumWorkStateT,
-): number {
-  return a.work.id - b.work.id;
-}
 
 function workHasNoRecordings(
   writableRootState: ReleaseRelationshipEditorStateT,
@@ -51,7 +48,7 @@ export default function updateReleaseRelationships(
     writableRootState.entity.entityType === 'release',
   );
 
-  let updatedRecordings = null;
+  let updatedRecordings: tree.ImmutableTree<RecordingT> | null = null;
 
   for (const update of updates) {
     const relationship = update.relationship;
@@ -103,7 +100,7 @@ export default function updateReleaseRelationships(
     }
   }
 
-  let selectedWorksToRemove = null;
+  let selectedWorksToRemove: tree.ImmutableTree<WorkT> | null = null;
 
   updateRecordingStates(
     writableRootState,
@@ -116,7 +113,7 @@ export default function updateReleaseRelationships(
         recordingState.recording,
       );
 
-      const recordingWorkIds = new Set();
+      const recordingWorkIds = new Set<number>();
 
       for (
         const work of iterateTargetEntitiesOfType<WorkT>(

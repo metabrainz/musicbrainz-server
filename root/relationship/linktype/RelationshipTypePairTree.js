@@ -34,7 +34,7 @@ type RelationshipTypePairTreeProps = {
 
 const RelationshipTypeDetails = ({
   relType,
-}: RelationshipTypeDetailsProps) => {
+}: RelationshipTypeDetailsProps): React$Element<'li'> => {
   const $c = React.useContext(SanitizedCatalystContext);
   const childrenTypes = relType.children || [];
   return (
@@ -156,7 +156,7 @@ const RelationshipTypeDetails = ({
 
 const RelationshipTypePairTree = ({
   root,
-}: RelationshipTypePairTreeProps): React.Element<typeof Layout> => {
+}: RelationshipTypePairTreeProps): React$Element<typeof Layout> => {
   const $c = React.useContext(SanitizedCatalystContext);
   const childrenTypes = root.children || [];
   const type0 = root.type0;

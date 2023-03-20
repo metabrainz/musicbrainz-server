@@ -8,8 +8,6 @@
  * later version: http://www.gnu.org/license/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import EditorLink from '../../static/scripts/common/components/EditorLink.js';
 import commaOnlyList from '../../static/scripts/common/i18n/commaOnlyList.js';
 
@@ -17,7 +15,7 @@ type Props = {
   +editors: $ReadOnlyArray<EditorT>,
 };
 
-const UserInlineList = ({editors}: Props): React.Element<'p'> => (
+const UserInlineList = ({editors}: Props): React$Element<'p'> => (
   <p>
     {editors.length ? (
       commaOnlyList(

@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import ArtistCreditList from './components/ArtistCreditList.js';
 import ReportLayout from './components/ReportLayout.js';
 import type {ReportArtistCreditT, ReportDataT} from './types.js';
@@ -19,7 +17,7 @@ const ArtistCreditsWithDubiousTrailingPhrases = ({
   generated,
   items,
   pager,
-}: ReportDataT<ReportArtistCreditT>): React.Element<typeof ReportLayout> => (
+}: ReportDataT<ReportArtistCreditT>): React$Element<typeof ReportLayout> => (
   <ReportLayout
     canBeFiltered={canBeFiltered}
     description={l(

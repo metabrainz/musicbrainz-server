@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import MediumTracklist
   from '../../medium/MediumTracklist.js';
 import DescriptiveLink
@@ -40,7 +38,7 @@ const CondensedTrackACsRow = ({
   endNumber,
   rowCounter,
   startNumber,
-}: CondensedTrackACsRowProps): React.Element<'tr'> => (
+}: CondensedTrackACsRowProps): React$Element<'tr'> => (
   <tr className={loopParity(rowCounter)}>
     <td className="pos t">
       {nonEmpty(endNumber) && endNumber !== startNumber
@@ -56,7 +54,7 @@ const CondensedTrackACsRow = ({
 const CondensedTrackACs = ({
   tracks,
 }: CondensedTrackACsProps):
-  Array<React.Element<typeof CondensedTrackACsRow>> => {
+  Array<React$Element<typeof CondensedTrackACsRow>> => {
   if (!tracks) {
     return [];
   }
@@ -104,7 +102,7 @@ const CondensedTrackACs = ({
   return rows;
 };
 
-const AddMedium = ({allowNew, edit}: Props): React.MixedElement => {
+const AddMedium = ({allowNew, edit}: Props): React$MixedElement => {
   const display = edit.display_data;
   const format = display.format;
 

@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import listenBrainzIconUrl
   from '../../../static/images/icons/listenbrainz.png';
 
@@ -43,7 +41,7 @@ function getListenBrainzLink(
 const PlayOnListenBrainzButton = ({
   entityType,
   mbids,
-}: Props): React.Element<'a'> | null => {
+}: Props): React$Element<'a'> | null => {
   const link = getListenBrainzLink(entityType, mbids);
 
   if (link == null) {

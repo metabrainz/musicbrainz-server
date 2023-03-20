@@ -1330,13 +1330,13 @@ msgid ""
 " or manipulate sound in either an analogue or digital form."
 msgstr "これは、アナログまたはデジタル形式のサウンドを変更または操作するために使用されるエフェクトプロセッサやデジタルオーディオ機器など、サウンドを生成するために使用されるマシンに関与するエンジニアについて説明している。"
 
-#: DB:link_type/description:128 DB:link_type/description:36
+#: DB:link_type/description:36 DB:link_type/description:128
 msgid ""
 "This describes an engineer responsible for committing the performance to "
-"tape. This can be as complex as setting up the microphones, amplifiers, and "
-"recording devices, or as simple as pressing the 'record' button on a "
-"4-track."
-msgstr "これは、パフォーマンスをテープレコーディングする際の責任者としてのエンジニアについて説明している。 本作業は、マイク、アンプ、録音デバイスのセットアップのように複雑な場合もあれば、4トラックの「録音」ボタンを押すのと同じくらい容易な場合もある。"
+"tape or another recording medium. This can be as complex as setting up the "
+"microphones, amplifiers, and recording devices, or as simple as pressing the"
+" 'record' button on a 4-track or a digital audio workstation."
+msgstr ""
 
 #: DB:link_type/description:144 DB:link_type/description:38
 msgid ""
@@ -1890,6 +1890,13 @@ msgid ""
 "<strong>not</strong> the same concept as the <a href=\"/doc/Label\">record "
 "label</a>."
 msgstr "これは、リリースをプレスするプレス会社を示す。 これは<a href=\"/doc/Label\">レコードレーベル</a>と同じ概念<strong>ではない</strong>。"
+
+#: DB:link_attribute_type/description:1310
+msgid ""
+"This indicates the publisher subcontracted to publish a release or work in a"
+" specific territory. Use this only when you have a specific sub-publisher "
+"credit, do not guess."
+msgstr ""
 
 #: DB:link_type/description:974
 msgid "This indicates the release group that inspired this artist’s name."
@@ -6244,18 +6251,12 @@ msgid "provided {additional} legal representation for"
 msgstr ""
 
 #: DB:link_type/link_phrase:206 DB:link_type/link_phrase:127
-#: DB:link_type/link_phrase:32 DB:link_type/link_phrase:161
-#: DB:link_type/link_phrase:208 DB:link_type/link_phrase:362
 #: DB:link_type/name:362 DB:link_type/long_link_phrase:206
-#: DB:link_type/long_link_phrase:127 DB:link_type/long_link_phrase:32
-#: DB:link_type/long_link_phrase:161 DB:link_type/long_link_phrase:208
-#: DB:link_type/long_link_phrase:362
+#: DB:link_type/long_link_phrase:127
 msgid "published"
 msgstr "が音楽出版社の"
 
 #: DB:link_type/reverse_link_phrase:206 DB:link_type/reverse_link_phrase:127
-#: DB:link_type/reverse_link_phrase:32 DB:link_type/reverse_link_phrase:161
-#: DB:link_type/reverse_link_phrase:208 DB:link_type/reverse_link_phrase:362
 msgid "publisher"
 msgstr "音楽出版社"
 
@@ -6264,8 +6265,8 @@ msgstr "音楽出版社"
 msgid "publishes series"
 msgstr ""
 
-#: DB:link_type/name:206 DB:link_type/name:127 DB:link_type/name:66
-#: DB:link_type/name:32 DB:link_type/name:161 DB:link_type/name:208
+#: DB:link_type/name:206 DB:link_type/name:127 DB:link_type/name:161
+#: DB:link_type/name:66 DB:link_type/name:208 DB:link_type/name:32
 msgid "publishing"
 msgstr ""
 
@@ -6356,7 +6357,7 @@ msgstr ""
 msgid "recorded release groups"
 msgstr ""
 
-#: DB:link_type/name:128 DB:link_type/name:36
+#: DB:link_type/name:36 DB:link_type/name:128
 msgid "recording"
 msgstr "レコーディング"
 
@@ -6700,6 +6701,10 @@ msgstr "生徒"
 #: DB:link_type/link_phrase:923 DB:link_type/name:923
 #: DB:link_type/long_link_phrase:923
 msgid "studied at"
+msgstr ""
+
+#: DB:link_attribute_type/name:1310
+msgid "sub"
 msgstr ""
 
 #: DB:link_type/name:1095
@@ -7072,7 +7077,7 @@ msgstr ""
 msgid "was the {instrument:%|instruments} technician for"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:128 DB:link_type/long_link_phrase:36
+#: DB:link_type/long_link_phrase:36 DB:link_type/long_link_phrase:128
 msgid ""
 "was {additional} {assistant} {associate} {co:co-}recording engineer for"
 msgstr ""
@@ -7573,11 +7578,11 @@ msgstr "{additional:補助的な} {assistant} {associate} {co:共同}マスタ�
 msgid "{additional} {assistant} {associate} {co:co-}mixer"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:128 DB:link_type/reverse_link_phrase:36
+#: DB:link_type/reverse_link_phrase:36 DB:link_type/reverse_link_phrase:128
 msgid "{additional} {assistant} {associate} {co:co-}recording engineer"
 msgstr "{additional:補助的な} {assistant} {associate} {co:共同}レコーディングエンジニア"
 
-#: DB:link_type/link_phrase:128 DB:link_type/link_phrase:36
+#: DB:link_type/link_phrase:36 DB:link_type/link_phrase:128
 msgid "{additional} {assistant} {associate} {co:co-}recording engineer for"
 msgstr ""
 
@@ -8051,6 +8056,18 @@ msgstr ""
 
 #: DB:link_type/reverse_link_phrase:109
 msgid "{step}parents"
+msgstr ""
+
+#: DB:link_type/link_phrase:161 DB:link_type/link_phrase:208
+#: DB:link_type/link_phrase:32 DB:link_type/link_phrase:362
+#: DB:link_type/long_link_phrase:161 DB:link_type/long_link_phrase:208
+#: DB:link_type/long_link_phrase:32 DB:link_type/long_link_phrase:362
+msgid "{sub:sub-}published"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:161 DB:link_type/reverse_link_phrase:208
+#: DB:link_type/reverse_link_phrase:32 DB:link_type/reverse_link_phrase:362
+msgid "{sub:sub-}publisher"
 msgstr ""
 
 #: DB:link_type/reverse_link_phrase:15

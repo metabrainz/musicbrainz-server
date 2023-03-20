@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import {reduceArtistCredit} from '../immutable-entities.js';
 
 import {MpIcon} from './ArtistCreditLink.js';
@@ -27,7 +25,7 @@ const ArtistCreditUsageLink = ({
   showEditsPending = false,
   subPath,
   ...props
-}: Props): React.Element<'a' | 'span'> | null => {
+}: Props): React$Element<'a' | 'span'> | null => {
   const id = artistCredit.id;
   if (id == null) {
     return null;

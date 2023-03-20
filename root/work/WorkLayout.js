@@ -7,15 +7,13 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import WorkSidebar from '../layout/components/sidebar/WorkSidebar.js';
 import Layout from '../layout/index.js';
 
 import WorkHeader from './WorkHeader.js';
 
 type Props = {
-  +children: React.Node,
+  +children: React$Node,
   +entity: WorkT,
   +fullWidth?: boolean,
   +page: string,
@@ -28,7 +26,7 @@ const WorkLayout = ({
   fullWidth = false,
   page,
   title,
-}: Props): React.Element<typeof Layout> => {
+}: Props): React$Element<typeof Layout> => {
   const mainTitle = texp.l('{type} “{work}”', {
     type: nonEmpty(work.typeName)
       ? lp_attributes(work.typeName, 'work_type')

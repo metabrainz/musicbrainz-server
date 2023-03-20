@@ -44,7 +44,7 @@ const Paginator = ({
   hash,
   pager,
   pageVar = 'page',
-}: Props): React.Element<'nav'> | null => {
+}: Props): React$Element<'nav'> | null => {
   const $c = React.useContext(SanitizedCatalystContext);
 
   const lastPage = pager.last_page;

@@ -82,7 +82,7 @@ declare type PagedTargetTypeGroupT = {
 
 declare type RelationshipT = $ReadOnly<{
   ...DatePeriodRoleT,
-  ...EditableRoleT,
+  ...PendingEditsRoleT,
   +attributes: $ReadOnlyArray<LinkAttrT>,
   +backward: boolean,
   +entity0?: ?CoreEntityT,

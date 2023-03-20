@@ -7,13 +7,11 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import InformationIcon
   from '../../static/scripts/edit/components/InformationIcon.js';
 
 const IntentionallyRawIcon =
-  (): React.Element<typeof InformationIcon> => (
+  (): React$Element<typeof InformationIcon> => (
     <InformationIcon
       className="align-top"
       title={l(`This field is intentionally left as it was originally

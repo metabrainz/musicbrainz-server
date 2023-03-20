@@ -10,6 +10,7 @@
 import * as React from 'react';
 
 import {CatalystContext} from '../../context.mjs';
+import useTable from '../../hooks/useTable.js';
 import {
   defineCheckboxColumn,
   defineNameColumn,
@@ -17,7 +18,6 @@ import {
   instrumentDescriptionColumn,
   removeFromMergeColumn,
 } from '../../utility/tableColumns.js';
-import Table from '../Table.js';
 
 type Props = {
   +checkboxes?: string,
@@ -33,7 +33,7 @@ const InstrumentList = ({
   mergeForm,
   order,
   sortable,
-}: Props): React.Element<typeof Table> => {
+}: Props): React$Element<'table'> => {
   const $c = React.useContext(CatalystContext);
 
   const columns = React.useMemo(
@@ -65,7 +65,7 @@ const InstrumentList = ({
     [$c.user, checkboxes, instruments, mergeForm, order, sortable],
   );
 
-  return <Table columns={columns} data={instruments} />;
+  return useTable<InstrumentT>({columns, data: instruments});
 };
 
 export default InstrumentList;

@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import IntentionallyRawIcon from '../components/IntentionallyRawIcon.js';
 
 type Props = {
@@ -17,7 +15,7 @@ type Props = {
 
 const RemoveRelationshipAttribute = ({
   edit,
-}: Props): React.Element<'table'> => {
+}: Props): React$Element<'table'> => {
   const display = edit.display_data;
 
   const rawIconSection = (

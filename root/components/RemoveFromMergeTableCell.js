@@ -22,7 +22,7 @@ type Props = {
 const RemoveFromMergeTableCell = ({
   entity,
   toMerge,
-}: Props): React.Element<'td'> | null => {
+}: Props): React$Element<'td'> | null => {
   const $c = React.useContext(SanitizedCatalystContext);
   const url = ENTITIES[entity.entityType].url;
   return (

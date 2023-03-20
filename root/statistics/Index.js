@@ -50,7 +50,7 @@ const Index = ({
   statuses,
   workAttributeTypes,
   workTypes,
-}: MainStatsT): React.Element<typeof StatisticsLayout> => {
+}: MainStatsT): React$Element<typeof StatisticsLayout> => {
   const $c = React.useContext(CatalystContext);
 
   const nonGroupCount = stats['count.artist.type.null'] +

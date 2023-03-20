@@ -36,7 +36,7 @@ export const ArtworkImage = ({
   artwork,
   hover,
   message,
-}: Props): React.Element<typeof React.Fragment> => (
+}: Props): React$Element<typeof React.Fragment> => (
   <>
     <noscript>
       <img src={artwork.small_ia_thumbnail} />
@@ -47,7 +47,7 @@ export const ArtworkImage = ({
       data-large-thumbnail={artwork.large_ia_thumbnail}
       data-message={nonEmpty(message)
         ? message
-        : l('Image not available yet, please try again in a few minutes.')}
+        : l('Image not available, please try again later.')}
       data-small-thumbnail={artwork.small_ia_thumbnail}
       data-title={nonEmpty(hover) ? hover : artworkHover(artwork)}
     />
@@ -58,7 +58,7 @@ export const Artwork = ({
   artwork,
   hover,
   message,
-}: Props): React.Element<'a'> => (
+}: Props): React$Element<'a'> => (
   <a
     className={artwork.mime_type === 'application/pdf'
       ? 'artwork-pdf'

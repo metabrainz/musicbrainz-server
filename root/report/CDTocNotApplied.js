@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import CDTocReleaseList from './components/CDTocReleaseList.js';
 import ReportLayout from './components/ReportLayout.js';
 import type {ReportCDTocReleaseT, ReportDataT} from './types.js';
@@ -19,7 +17,7 @@ const CDTocNotApplied = ({
   generated,
   items,
   pager,
-}: ReportDataT<ReportCDTocReleaseT>): React.Element<typeof ReportLayout> => (
+}: ReportDataT<ReportCDTocReleaseT>): React$Element<typeof ReportLayout> => (
   <ReportLayout
     canBeFiltered={canBeFiltered}
     description={l(

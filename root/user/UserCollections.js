@@ -10,10 +10,10 @@
 import * as React from 'react';
 import type {ColumnOptions} from 'react-table';
 
-import Table from '../components/Table.js';
 import UserAccountLayout, {type AccountLayoutUserT}
   from '../components/UserAccountLayout.js';
 import {SanitizedCatalystContext} from '../context.mjs';
+import useTable from '../hooks/useTable.js';
 import {formatPluralEntityTypeName}
   from '../static/scripts/common/utility/formatEntityTypeName.js';
 import {
@@ -141,18 +141,23 @@ const CollectionsEntityTypeSection = ({
         typeColumn,
         sizeColumn,
         collaboratorsColumn,
-        ...(activeUserId == null ? [] : [subscriptionColumn]),
-        ...(viewingOwnProfile || isCollaborative ? [privacyColumn] : []),
-        ...(viewingOwnProfile && !isCollaborative ? [actionsColumn] : []),
-      ];
+        (activeUserId == null) ? null : subscriptionColumn,
+        (viewingOwnProfile || isCollaborative) ? privacyColumn : null,
+        (viewingOwnProfile && !isCollaborative) ? actionsColumn : null,
+      ].filter(Boolean);
     },
     [activeUserId, isCollaborative, type, user.id],
   );
 
+  const table = useTable<CollectionWithSubscribedT>({
+    columns,
+    data: collections,
+  });
+
   return (
     <>
       <h3>{collectionsListTitles[type]()}</h3>
-      <Table columns={columns} data={collections} />
+      {table}
     </>
   );
 };
@@ -161,7 +166,7 @@ const UserCollections = ({
   ownCollections,
   collaborativeCollections,
   user,
-}: Props): React.Element<typeof UserAccountLayout> => {
+}: Props): React$Element<typeof UserAccountLayout> => {
   const $c = React.useContext(SanitizedCatalystContext);
   const activeUser = $c.user;
   const viewingOwnProfile = !!(activeUser && activeUser.id === user.id);

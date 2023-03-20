@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import EntityLink from '../../static/scripts/common/components/EntityLink.js';
 import {commaOnlyListText} from
   '../../static/scripts/common/i18n/commaOnlyList.js';
@@ -19,7 +17,7 @@ type Props = {
   +edit: AddWorkEditT,
 };
 
-const AddWork = ({edit}: Props): React.MixedElement => {
+const AddWork = ({edit}: Props): React$MixedElement => {
   const display = edit.display_data;
   const attributes = display.attributes ?? {};
   const type = display.type;

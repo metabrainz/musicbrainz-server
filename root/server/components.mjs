@@ -319,6 +319,7 @@ export default {
   'statistics/Formats': (): Promise<mixed> => import('../statistics/Formats.js'),
   'statistics/Index': (): Promise<mixed> => import('../statistics/Index.js'),
   'statistics/LanguagesScripts': (): Promise<mixed> => import('../statistics/LanguagesScripts.js'),
+  'statistics/MusicBrainzHistory': (): Promise<mixed> => import('../statistics/MusicBrainzHistory.js'),
   'statistics/NoStatistics': (): Promise<mixed> => import('../statistics/NoStatistics.js'),
   'statistics/Relationships': (): Promise<mixed> => import('../statistics/Relationships.js'),
   'tag/EntityList': (): Promise<mixed> => import('../tag/EntityList.js'),

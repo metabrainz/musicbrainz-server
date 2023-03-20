@@ -13,7 +13,7 @@ import {CatalystContext} from '../../context.mjs';
 
 import ErrorLayout from './ErrorLayout.js';
 
-const Error401 = (): React.Element<typeof ErrorLayout> => {
+const Error401 = (): React$Element<typeof ErrorLayout> => {
   const $c = React.useContext(CatalystContext);
   return (
     <ErrorLayout title={l('Unauthorized Request')}>

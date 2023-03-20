@@ -298,8 +298,8 @@ export default function updateRelationships(
     | {...ReleaseRelationshipEditorStateT},
   updates: Iterable<RelationshipUpdateT>,
 ): void {
-  const sourceGroupUpdates = new Map();
-  const allUpdates =
+  const sourceGroupUpdates = new Map<string, TargetTypeGroupUpdatesT>();
+  const allUpdates: Array<RelationshipUpdateT> | null =
     writableRootState.entity.entityType === 'release' ? [] : null;
 
   for (const update of updates) {

@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import Layout from '../../layout/index.js';
 import type {ApplicationFormT}
   from '../../static/scripts/account/components/ApplicationForm.js';
@@ -19,7 +17,7 @@ type Props = {
   +form: ApplicationFormT,
 };
 
-const EditApplication = (props: Props): React.Element<typeof Layout> => (
+const EditApplication = (props: Props): React$Element<typeof Layout> => (
   <Layout fullWidth title={l('Edit Application')}>
     <h1>{l('Edit Application')}</h1>
     <ApplicationForm

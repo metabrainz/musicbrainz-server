@@ -39,7 +39,7 @@ function isNonLatin(str: string) {
 }
 
 function showExtraInfo(
-  children: React.Node,
+  children: React$Node,
   className?: string = 'comment',
 ) {
   return (
@@ -54,7 +54,7 @@ function showBracketedTextInfo(comment: ?string) {
 }
 
 function showExtraInfoLine(
-  children: React.Node,
+  children: React$Node,
   className?: string = 'comment',
 ) {
   return (
@@ -65,7 +65,7 @@ function showExtraInfoLine(
   );
 }
 
-function formatName<+T: EntityItemT>(entity: T) {
+function formatName<+T: EntityItemT>(entity: T): string {
   return unwrapNl<string>(entity.name);
 }
 

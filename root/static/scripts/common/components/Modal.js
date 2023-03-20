@@ -25,7 +25,7 @@ type PropsT = $ReadOnly<{
   +title: string,
 }>;
 
-const Modal = (props: PropsT): React.Portal => {
+const Modal = (props: PropsT): React$Portal => {
   const {
     className,
     dialogRef,

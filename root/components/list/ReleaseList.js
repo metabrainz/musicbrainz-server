@@ -10,6 +10,7 @@
 import * as React from 'react';
 
 import {CatalystContext} from '../../context.mjs';
+import useTable from '../../hooks/useTable.js';
 import * as manifest from '../../static/manifest.mjs';
 import filterReleaseLabels
   from '../../static/scripts/common/utility/filterReleaseLabels.js';
@@ -30,7 +31,6 @@ import {
   removeFromMergeColumn,
   taggerColumn,
 } from '../../utility/tableColumns.js';
-import Table from '../Table.js';
 
 type Props = {
   ...InstrumentCreditsAndRelTypesRoleT,
@@ -62,7 +62,7 @@ const ReleaseList = ({
   showStatus = false,
   showType = false,
   sortable,
-}: Props): React.MixedElement => {
+}: Props): React$MixedElement => {
   const $c = React.useContext(CatalystContext);
 
   const columns = React.useMemo(
@@ -118,9 +118,15 @@ const ReleaseList = ({
           sortable: sortable,
         });
       const catnosColumn = defineReleaseCatnosColumn({
-        getLabels: entity => filterLabel
-          ? filterReleaseLabels(entity.labels, filterLabel)
-          : entity.labels,
+        getLabels: (release: ReleaseT) => {
+          const labels = release.labels;
+          if (labels == null) {
+            return [];
+          }
+          return filterLabel
+            ? filterReleaseLabels(labels, filterLabel)
+            : labels;
+        },
         order: order,
         sortable: sortable,
       });
@@ -163,24 +169,24 @@ const ReleaseList = ({
       });
 
       return [
-        ...(checkboxColumn ? [checkboxColumn] : []),
-        ...(seriesNumberColumn ? [seriesNumberColumn] : []),
+        checkboxColumn,
+        seriesNumberColumn,
         nameColumn,
         artistCreditColumn,
         formatColumn,
         tracksColumn,
         releaseEventsColumn,
-        ...(labelsColumn ? [labelsColumn] : []),
+        labelsColumn,
         catnosColumn,
         barcodeColumn,
-        ...(showLanguages ? [releaseLanguageColumn] : []),
-        ...(instrumentUsageColumn ? [instrumentUsageColumn] : []),
-        ...(typeColumn ? [typeColumn] : []),
-        ...(statusColumn ? [statusColumn] : []),
-        ...($c.session?.tport == null ? [] : [taggerColumn]),
-        ...(showRatings ? [ratingsColumn] : []),
-        ...(mergeForm && releases.length > 2 ? [removeFromMergeColumn] : []),
-      ];
+        releaseLanguageColumn,
+        instrumentUsageColumn,
+        typeColumn,
+        statusColumn,
+        ($c.session?.tport == null) ? null : taggerColumn,
+        showRatings ? ratingsColumn : null,
+        (mergeForm && releases.length > 2) ? removeFromMergeColumn : null,
+      ].filter(Boolean);
     },
     [
       $c.session?.tport,
@@ -201,9 +207,11 @@ const ReleaseList = ({
     ],
   );
 
+  const table = useTable<ReleaseT>({columns, data: releases});
+
   return (
     <>
-      <Table columns={columns} data={releases} />
+      {table}
       {manifest.js('common/components/ReleaseEvents', {async: 'async'})}
       {manifest.js('common/components/TaggerIcon', {async: 'async'})}
     </>

@@ -39,7 +39,7 @@ type RatingStarsProps = {
 
 export const StaticRatingStars = ({
   rating,
-}: StaticRatingStarsProps): React.Element<'span'> => {
+}: StaticRatingStarsProps): React$Element<'span'> => {
   const starRating = rating == null ? 0 : (5 * rating / 100);
   return (
     <span className="inline-rating">
@@ -55,7 +55,7 @@ export const StaticRatingStars = ({
   );
 };
 
-const RatingStars = ({entity}: RatingStarsProps): React.Element<'span'> => {
+const RatingStars = ({entity}: RatingStarsProps): React$Element<'span'> => {
   const currentStarRating =
     entity.user_rating == null ? 0 : (5 * entity.user_rating / 100);
   const $c = React.useContext(SanitizedCatalystContext);

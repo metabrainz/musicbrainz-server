@@ -51,7 +51,7 @@ function compareRecordingWithRecordingState(
 }
 
 function handleLinkedEntitiesForMedium(
-  update: ?$ReadOnly<$Partial<LinkedEntitiesT>>,
+  update: ?$ReadOnly<Partial<LinkedEntitiesT>>,
 ): void {
   if (update) {
     /*
@@ -198,6 +198,6 @@ const MediumRelationshipEditor = (React.memo<PropsT>(({
       </tbody>
     </>
   );
-}): React.AbstractComponent<PropsT>);
+}): React$AbstractComponent<PropsT, mixed>);
 
 export default MediumRelationshipEditor;

@@ -46,7 +46,7 @@ const DiffSide = ({
   newText,
   oldText,
   split = '',
-}: Props): React.MixedElement | string => {
+}: Props): React$MixedElement | string => {
   const stack = [];
   const splitMatch = new RegExp('^(?:' + split + ')$');
 

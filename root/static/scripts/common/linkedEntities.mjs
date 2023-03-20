@@ -7,6 +7,8 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import isObjectEmpty from './utility/isObjectEmpty.js';
+
 export type LinkedEntitiesT = {
   area: {
     [areaId: number]: AreaT,
@@ -25,6 +27,9 @@ export type LinkedEntitiesT = {
   },
   artist_type: {
     [artistId: number]: ArtistTypeT,
+  },
+  collection_type: {
+    [collectionTypeId: number]: CollectionTypeT,
   },
   edit: {
     [editId: number]: EditWithIdT,
@@ -146,91 +151,100 @@ export type LinkedEntitiesT = {
   work_type: {
     [workTypeId: string]: WorkTypeT,
   },
-  ...
 };
 
 // $FlowIgnore[method-unbinding]
 const hasOwnProperty = Object.prototype.hasOwnProperty;
 
-const EMPTY_OBJECT = Object.freeze({});
-
-const linkedEntities: LinkedEntitiesT = Object.create(Object.seal({
-  area:                           EMPTY_OBJECT,
-  area_alias_type:                EMPTY_OBJECT,
-  area_type:                      EMPTY_OBJECT,
-  artist:                         EMPTY_OBJECT,
-  artist_alias_type:              EMPTY_OBJECT,
-  artist_type:                    EMPTY_OBJECT,
-  edit:                           EMPTY_OBJECT,
-  editor:                         EMPTY_OBJECT,
-  event:                          EMPTY_OBJECT,
-  event_alias_type:               EMPTY_OBJECT,
-  event_type:                     EMPTY_OBJECT,
-  genre:                          EMPTY_OBJECT,
-  genre_alias_type:               EMPTY_OBJECT,
-  instrument:                     EMPTY_OBJECT,
-  instrument_alias_type:          EMPTY_OBJECT,
-  instrument_type:                EMPTY_OBJECT,
-  label:                          EMPTY_OBJECT,
-  label_alias_type:               EMPTY_OBJECT,
-  label_type:                     EMPTY_OBJECT,
-  language:                       EMPTY_OBJECT,
-  link_attribute_type:            EMPTY_OBJECT,
-  link_type:                      EMPTY_OBJECT,
-  link_type_tree:                 EMPTY_OBJECT,
-  place:                          EMPTY_OBJECT,
-  place_alias_type:               EMPTY_OBJECT,
-  place_type:                     EMPTY_OBJECT,
-  recording:                      EMPTY_OBJECT,
-  recording_alias_type:           EMPTY_OBJECT,
-  release:                        EMPTY_OBJECT,
-  release_alias_type:             EMPTY_OBJECT,
-  release_group:                  EMPTY_OBJECT,
-  release_group_alias_type:       EMPTY_OBJECT,
-  release_group_primary_type:     EMPTY_OBJECT,
-  release_group_secondary_type:   EMPTY_OBJECT,
-  release_packaging:              EMPTY_OBJECT,
-  release_status:                 EMPTY_OBJECT,
-  script:                         EMPTY_OBJECT,
-  series:                         EMPTY_OBJECT,
-  series_alias_type:              EMPTY_OBJECT,
-  series_ordering_type:           EMPTY_OBJECT,
-  series_type:                    EMPTY_OBJECT,
-  url:                            EMPTY_OBJECT,
-  work:                           EMPTY_OBJECT,
-  work_alias_type:                EMPTY_OBJECT,
-  work_attribute_type:            EMPTY_OBJECT,
-  work_type:                      EMPTY_OBJECT,
-}));
+const linkedEntities: LinkedEntitiesT = Object.seal({
+  area:                           {},
+  area_alias_type:                {},
+  area_type:                      {},
+  artist:                         {},
+  artist_alias_type:              {},
+  artist_type:                    {},
+  collection_type:                {},
+  edit:                           {},
+  editor:                         {},
+  event:                          {},
+  event_alias_type:               {},
+  event_type:                     {},
+  genre:                          {},
+  genre_alias_type:               {},
+  instrument:                     {},
+  instrument_alias_type:          {},
+  instrument_type:                {},
+  label:                          {},
+  label_alias_type:               {},
+  label_type:                     {},
+  language:                       {},
+  link_attribute_type:            {},
+  link_type:                      {},
+  link_type_tree:                 {},
+  place:                          {},
+  place_alias_type:               {},
+  place_type:                     {},
+  recording:                      {},
+  recording_alias_type:           {},
+  release:                        {},
+  release_alias_type:             {},
+  release_group:                  {},
+  release_group_alias_type:       {},
+  release_group_primary_type:     {},
+  release_group_secondary_type:   {},
+  release_packaging:              {},
+  release_status:                 {},
+  script:                         {},
+  series:                         {},
+  series_alias_type:              {},
+  series_ordering_type:           {},
+  series_type:                    {},
+  url:                            {},
+  work:                           {},
+  work_alias_type:                {},
+  work_attribute_type:            {},
+  work_type:                      {},
+});
 
 export default linkedEntities;
 
 export function mergeLinkedEntities(
-  update: ?$ReadOnly<$Partial<LinkedEntitiesT>>,
+  update: ?$ReadOnly<Partial<LinkedEntitiesT>>,
 ): void {
   if (update) {
     for (const [type, entities] of Object.entries(update)) {
       if (hasOwnProperty.call(linkedEntities, type)) {
-        Object.assign(linkedEntities[type], entities);
+        if (entities != null) {
+          if (isObjectEmpty(linkedEntities[type])) {
+            // $FlowIgnore[incompatible-type]
+            linkedEntities[type] = entities;
+          } else {
+            Object.assign(linkedEntities[type], entities);
+          }
+        }
       } else {
-        linkedEntities[type] = entities;
+        throw new Error(
+          JSON.stringify(type) +
+          ' is not a valid type assignable to linkedEntities',
+        );
       }
     }
   }
 }
 
+const linkedEntityTypes = Object.keys(linkedEntities);
+
 export function setLinkedEntities(
-  update: ?LinkedEntitiesT,
+  update: ?Partial<LinkedEntitiesT>,
 ): void {
-  for (const key of Object.keys(linkedEntities)) {
-    // $FlowIgnore[incompatible-type]
-    delete linkedEntities[key];
-    /*
-     * The above line is deleting the own property only, not the one on the
-     * prototype. However, Flow thinks it'll make the object key undefined.
-     */
+  for (const key of linkedEntityTypes) {
+    if (!isObjectEmpty(linkedEntities[key])) {
+      linkedEntities[key] = {};
+    }
   }
   if (update) {
-    Object.assign(linkedEntities, update);
+    mergeLinkedEntities(update);
   }
 }
+
+setLinkedEntities({artist: undefined});

@@ -11,7 +11,7 @@ import * as React from 'react';
 import type {ColumnOptionsNoValue} from 'react-table';
 
 import PaginatedResults from '../../components/PaginatedResults.js';
-import Table from '../../components/Table.js';
+import useTable from '../../hooks/useTable.js';
 import {
   defineArtistCreditColumn,
   defineEntityColumn,
@@ -31,8 +31,11 @@ const ReleaseList = <D: {+release: ?ReleaseT, ...}>({
   items,
   pager,
   subPath,
-}: Props<D>): React.Element<typeof PaginatedResults> => {
-  const existingReleaseItems = items.reduce((result, item) => {
+}: Props<D>): React$Element<typeof PaginatedResults> => {
+  const existingReleaseItems = items.reduce((
+    result: Array<D>,
+    item,
+  ) => {
     if (item.release != null) {
       result.push(item);
     }
@@ -65,9 +68,11 @@ const ReleaseList = <D: {+release: ?ReleaseT, ...}>({
     [columnsAfter, columnsBefore, subPath],
   );
 
+  const table = useTable<D>({columns, data: existingReleaseItems});
+
   return (
     <PaginatedResults pager={pager}>
-      <Table columns={columns} data={existingReleaseItems} />
+      {table}
     </PaginatedResults>
   );
 };

@@ -125,7 +125,7 @@ export function isIrrelevantLinkType(
 
 const GroupedTrackRelationships = ({
   source,
-}: Props): Array<React.Element<'dl'>> => {
+}: Props): Array<React$Element<'dl'>> => {
   const workRelationships = [];
 
   const groupedRelationships = groupRelationships(

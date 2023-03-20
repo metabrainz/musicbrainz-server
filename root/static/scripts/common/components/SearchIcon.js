@@ -7,11 +7,9 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import searchIconUrl from '../../../images/icons/search.svg';
 
-const SearchIcon = (): React.Element<'img'> => (
+const SearchIcon = (): React$Element<'img'> => (
   <img
     alt={l('Search')}
     className="search"

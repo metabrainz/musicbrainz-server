@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import ArtistList from '../components/list/ArtistList.js';
 import Layout from '../layout/index.js';
 import sortByEntityName
@@ -28,7 +26,7 @@ type Props = {
 const ArtistMerge = ({
   form,
   toMerge,
-}: Props): React.Element<typeof Layout> => (
+}: Props): React$Element<typeof Layout> => (
   <Layout fullWidth title={l('Merge artists')}>
     <div id="content">
       <h1>{l('Merge artists')}</h1>

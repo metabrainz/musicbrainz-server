@@ -140,16 +140,14 @@ sub is_open
     return shift->status == $STATUS_OPEN;
 }
 
-sub editor_may_vote {
+sub editor_may_vote_on_edit {
     my ($self, $editor) = @_;
 
     return (
         $self->is_open &&
         defined $editor &&
-        $editor->email_confirmation_date &&
-        $editor->id != $self->editor_id &&
-        !$editor->is_bot &&
-        !$editor->is_editing_disabled
+        $editor->may_vote &&
+        $editor->id != $self->editor_id
     );
 }
 
@@ -261,8 +259,8 @@ sub adjust_edit_pending
     my $to_inc = $self->alter_edit_pending;
     while ( my ($model_name, $ids) = each %$to_inc) {
         my $model = $self->c->model($model_name);
-        $model->does('MusicBrainz::Server::Data::Role::Editable')
-            or croak 'Model must do MusicBrainz::Server::Data::Role::Editable';
+        $model->does('MusicBrainz::Server::Data::Role::PendingEdits')
+            or croak 'Model must do MusicBrainz::Server::Data::Role::PendingEdits';
         $model->adjust_edit_pending($adjust, @$ids);
     }
 }

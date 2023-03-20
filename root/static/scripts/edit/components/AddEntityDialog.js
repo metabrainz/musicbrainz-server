@@ -31,27 +31,34 @@ type PropsT = {
   +name?: string,
 };
 
+type InstanceT = {
+  +adjustDialogSize: (WindowProxy) => void,
+  +close: () => void,
+};
+
 const AddEntityDialog = ({
   callback,
   close,
   entityType,
   name,
-}: PropsT): React.Element<typeof Modal> => {
+}: PropsT): React$Element<typeof Modal> => {
   const dialogRef = React.useRef<HTMLDivElement | null>(null);
   const iframeRef = React.useRef<HTMLIFrameElement | null>(null);
-  const instanceRef = React.useRef(null);
+  const instanceRef = React.useRef<InstanceT | null>(null);
   const [isLoading, setLoading] = React.useState(true);
 
   /*
    * Make sure click events within the dialog don't bubble and cause
    * side-effects.
    */
-  const handleModalClick = React.useCallback((event) => {
+  const handleModalClick = React.useCallback((
+    event: SyntheticMouseEvent<HTMLDivElement>,
+  ) => {
     event.stopPropagation();
   }, []);
 
   const handlePageLoad = (event: SyntheticEvent<HTMLIFrameElement>) => {
-    const contentWindow = event.currentTarget.contentWindow;
+    const contentWindow: WindowProxy = event.currentTarget.contentWindow;
 
     if (contentWindow.dialogResult) {
       callback(contentWindow.dialogResult);
@@ -63,7 +70,9 @@ const AddEntityDialog = ({
     setLoading(false);
   };
 
-  const adjustDialogSize = React.useCallback((contentWindow) => {
+  const adjustDialogSize = React.useCallback((
+    contentWindow: WindowProxy,
+  ) => {
     const iframe = iframeRef.current;
     if (iframe) {
       iframe.style.height = String(contentWindow.outerHeight) + 'px';

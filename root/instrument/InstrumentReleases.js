@@ -28,7 +28,7 @@ const InstrumentReleases = ({
   instrumentCreditsAndRelTypes,
   pager,
   releases,
-}: Props): React.Element<typeof InstrumentLayout> => {
+}: Props): React$Element<typeof InstrumentLayout> => {
   const $c = React.useContext(SanitizedCatalystContext);
   return (
     <InstrumentLayout

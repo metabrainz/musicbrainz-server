@@ -122,6 +122,7 @@ import updateRecordingStates, {
   compareRecordingIdWithRecordingState,
 } from '../../relationship-editor/utility/updateRecordingStates.js';
 import updateRelationships, {
+  type RelationshipUpdateT,
   ADD_RELATIONSHIP,
   REMOVE_RELATIONSHIP,
 } from '../../relationship-editor/utility/updateRelationships.js';
@@ -185,8 +186,11 @@ function compareMediumStateTuples(
   return a[0].position - b[0].position;
 }
 
-export function createInitialState(): ReleaseRelationshipEditorStateT {
+export function createInitialState(
+  source?: ?ReleaseWithMediumsAndReleaseGroupT,
+): ReleaseRelationshipEditorStateT {
   const release: ReleaseWithMediumsAndReleaseGroupT =
+    source ??
     // $FlowIgnore[unclear-type]
     (getSourceEntityDataForRelationshipEditor(): any);
 
@@ -344,7 +348,7 @@ async function submitWorkEdits(
   dispatch: (ReleaseRelationshipEditorActionT) => void,
   state: ReleaseRelationshipEditorStateT,
 ): Promise<void> {
-  const seenWorks = new Set();
+  const seenWorks = new Set<number>();
 
   function getWorkEditsForEntity(
     targetTypeGroups: RelationshipTargetTypeGroupsT,
@@ -392,7 +396,9 @@ async function submitWorkEdits(
     }
   }
 
-  const workEdits = [];
+  const workEdits: Array<
+    [Array<RelationshipStateT>, WsJsEditWorkCreateT],
+  > = [];
 
   for (const [/* position */, mediumState] of tree.iterate(state.mediums)) {
     for (const recordingState of tree.iterate(mediumState)) {
@@ -415,7 +421,7 @@ function* getAllRelationshipEdits(
   void,
   void,
 > {
-  const seenRelationships = new Map();
+  const seenRelationships = new Map<string, RelationshipStateT>();
 
   function linkAttributeEditData(
     attr: LinkAttrT,
@@ -837,7 +843,10 @@ function setWorksAsSelected(
   );
 }
 
-const reducer = reducerWithErrorHandling<
+export const reducer: ((
+  ReleaseRelationshipEditorStateT,
+  ReleaseRelationshipEditorActionT,
+) => ReleaseRelationshipEditorStateT) = reducerWithErrorHandling<
   ReleaseRelationshipEditorStateT,
   ReleaseRelationshipEditorActionT,
 >(function (
@@ -1028,7 +1037,7 @@ const reducer = reducerWithErrorHandling<
         newState.relationshipsBySource,
         oldWork,
       );
-      const updates = [];
+      const updates: Array<RelationshipUpdateT> = [];
       for (
         const relationship of
         iterateRelationshipsInTargetTypeGroups(targetTypeGroups)
@@ -1061,7 +1070,7 @@ const reducer = reducerWithErrorHandling<
       break;
     }
     case 'toggle-select-all-recordings': {
-      let allRecordings = null;
+      let allRecordings: tree.ImmutableTree<RecordingT> | null = null;
       for (
         const [/* mediumPosition */, recordingStateTree] of
         tree.iterate(newState.mediums)
@@ -1084,7 +1093,7 @@ const reducer = reducerWithErrorHandling<
       break;
     }
     case 'toggle-select-all-works': {
-      let allWorks = null;
+      let allWorks: tree.ImmutableTree<WorkT> | null = null;
       for (
         const [/* mediumPosition */, recordingStateTree] of
         tree.iterate(newState.mediums)
@@ -1125,7 +1134,7 @@ const reducer = reducerWithErrorHandling<
       break;
     }
     case 'toggle-select-medium-recordings': {
-      let mediumRecordings = null;
+      let mediumRecordings: tree.ImmutableTree<RecordingT> | null = null;
       for (const recordingState of tree.iterate(action.recordingStates)) {
         mediumRecordings = tree.insertIfNotExists(
           mediumRecordings,
@@ -1143,7 +1152,7 @@ const reducer = reducerWithErrorHandling<
       break;
     }
     case 'toggle-select-medium-works': {
-      let mediumWorks = null;
+      let mediumWorks: tree.ImmutableTree<WorkT> | null = null;
       for (const recordingState of tree.iterate(action.recordingStates)) {
         for (const workState of tree.iterate(recordingState.relatedWorks)) {
           mediumWorks = tree.insertIfNotExists(
@@ -1240,7 +1249,7 @@ const reducer = reducerWithErrorHandling<
         );
       };
 
-      const updates = [];
+      const updates: Array<RelationshipUpdateT> = [];
       for (let i = 0; i < edits.length; i++) {
         const [relationships, wsJsEdit] = edits[i];
         const response = responseData.edits[i];
@@ -1691,8 +1700,8 @@ const ReleaseGroupRelationshipSection = React.memo(({
   );
 });
 
-let ReleaseRelationshipEditor: React.AbstractComponent<{}, void> = (
-): React.MixedElement => {
+let ReleaseRelationshipEditor: React$AbstractComponent<{}, void> = (
+): React$MixedElement => {
   const [state, dispatch] = React.useReducer(
     reducer,
     null,
@@ -1707,14 +1716,18 @@ let ReleaseRelationshipEditor: React.AbstractComponent<{}, void> = (
     state.relationshipsBySource,
   ]);
 
-  const handleEditNoteChange = React.useCallback((event) => {
+  const handleEditNoteChange = React.useCallback((
+    event: SyntheticEvent<HTMLTextAreaElement>,
+  ) => {
     dispatch({
       editNote: event.currentTarget.value,
       type: 'update-edit-note',
     });
   }, [dispatch]);
 
-  const handleMakeVotableChange = React.useCallback((event) => {
+  const handleMakeVotableChange = React.useCallback((
+    event: SyntheticEvent<HTMLInputElement>,
+  ) => {
     dispatch({
       checked: event.currentTarget.checked,
       type: 'update-make-votable',

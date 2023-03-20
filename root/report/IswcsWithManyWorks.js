@@ -23,7 +23,7 @@ const IswcsWithManyWorks = ({
   generated,
   items,
   pager,
-}: ReportDataT<ReportIswcT>): React.Element<typeof ReportLayout> => {
+}: ReportDataT<ReportIswcT>): React$Element<typeof ReportLayout> => {
   let lastIswc: string = '';
   let currentIswc: string = '';
 

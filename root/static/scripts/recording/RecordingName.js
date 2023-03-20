@@ -38,7 +38,7 @@ function reducer(
 export const RecordingName = ({
   field,
   recording,
-}: Props): React.Element<typeof FormRowNameWithGuessCase> => {
+}: Props): React$Element<typeof FormRowNameWithGuessCase> => {
   /*
    * State must be moved higher up in the component hierarchy once more
    * of the page is converted to React.
@@ -68,4 +68,4 @@ export const RecordingName = ({
 export default (hydrate<Props>(
   'div.recording-name',
   RecordingName,
-): React.AbstractComponent<Props, void>);
+): React$AbstractComponent<Props, void>);

@@ -59,8 +59,10 @@ const ADDED_ENTITIES_TYPES = {
   work:         N_l('Work'),
 };
 
-function generateUserTypesList(user: UnsanitizedEditorT) {
-  const typesList = [];
+function generateUserTypesList(
+  user: UnsanitizedEditorT,
+): $ReadOnlyArray<VarSubstArg> {
+  const typesList: Array<VarSubstArg> = [];
   if (user.deleted) {
     typesList.push(l('Deleted User'));
   }
@@ -110,7 +112,7 @@ function generateUserTypesList(user: UnsanitizedEditorT) {
 }
 
 type UserProfilePropertyProps = {
-  +children: React.Node,
+  +children: React$Node,
   +className?: string,
   +name: string,
 };
@@ -853,7 +855,7 @@ const UserProfile = ({
   user,
   votes,
   addedEntities,
-}: UserProfileProps): React.Element<typeof UserAccountLayout> => {
+}: UserProfileProps): React$Element<typeof UserAccountLayout> => {
   const $c = React.useContext(SanitizedCatalystContext);
   const viewingOwnProfile = $c.user != null && $c.user.id === user.id;
   const adminViewing = $c.user != null && isAccountAdmin($c.user);

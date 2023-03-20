@@ -7,15 +7,13 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import {DELETE, INSERT} from '../../utility/editDiff.js';
 
 import DiffSide from './DiffSide.js';
 
 export type DiffProps = {
-  +extraNew?: React.Node,
-  +extraOld?: React.Node,
+  +extraNew?: React$Node,
+  +extraOld?: React$Node,
   +label: string,
   +newText: string,
   +oldText: string,
@@ -33,7 +31,7 @@ const Diff = ({
   newText,
   oldText,
   split = '',
-}: Props): React.Element<'tr'> | null => (
+}: Props): React$Element<'tr'> | null => (
   oldText === newText ? null : (
     <tr>
       <th>{label}</th>

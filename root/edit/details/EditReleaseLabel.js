@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import * as manifest from '../../static/manifest.mjs';
 import DescriptiveLink
   from '../../static/scripts/common/components/DescriptiveLink.js';
@@ -24,7 +22,7 @@ type Props = {
   +edit: EditReleaseLabelEditT,
 };
 
-const EditReleaseLabel = ({edit}: Props): React.Element<'table'> => {
+const EditReleaseLabel = ({edit}: Props): React$Element<'table'> => {
   const display = edit.display_data;
   const barcode = display.barcode;
   const catNo = display.catalog_number;

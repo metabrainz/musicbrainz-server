@@ -82,7 +82,7 @@ const DialogPreview = (React.memo<PropsT>(({
   source,
   newRelationship,
   oldRelationship,
-}: PropsT): React.MixedElement => {
+}: PropsT): React$MixedElement => {
   function changeDirection() {
     dispatch({type: 'change-direction'});
   }
@@ -121,7 +121,7 @@ const DialogPreview = (React.memo<PropsT>(({
   const relationshipPreview = (
     relationship: RelationshipStateT,
     className: string,
-    extraRows?: React.Node,
+    extraRows?: React$Node,
   ) => {
     const fullClassName = 'preview details' +
       (className ? ' ' + className : '');
@@ -238,6 +238,6 @@ const DialogPreview = (React.memo<PropsT>(({
       ) : null}
     </>
   );
-}): React.AbstractComponent<PropsT>);
+}): React$AbstractComponent<PropsT, mixed>);
 
 export default DialogPreview;

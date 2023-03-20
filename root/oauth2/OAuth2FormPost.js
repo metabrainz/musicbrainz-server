@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 type Props = {
   +applicationName: string,
   +fields: {+[fieldName: string]: string, ...},
@@ -19,7 +17,7 @@ const OAuth2FormPost = ({
   applicationName,
   fields,
   redirectUri,
-}: Props): React.Element<'html'> => {
+}: Props): React$Element<'html'> => {
   const title = texp.l('Redirecting to {application}', {
     application: applicationName,
   });

@@ -17,13 +17,13 @@ import {
   exportLinkTypeInfo,
 } from '../../relationship-editor/utility/exportTypeInfo.js';
 
-const typeInfoPromises = new Map();
-const loadedTypeInfo = new Set();
+const typeInfoPromises = new Map<string, Promise<void>>();
+const loadedTypeInfo = new Set<string>();
 
 export default function withLoadedTypeInfo<-Config, +Instance = mixed>(
-  WrappedComponent: React.AbstractComponent<Config, Instance>,
+  WrappedComponent: React$AbstractComponent<Config, Instance>,
   typeInfoToLoad: $ReadOnlySet<string>,
-): React.AbstractComponent<Config, Instance> {
+): React$AbstractComponent<Config, Instance> {
   const ComponentWrapper = React.forwardRef((
     props: Config,
     ref:
@@ -39,7 +39,9 @@ export default function withLoadedTypeInfo<-Config, +Instance = mixed>(
 
     const loadingCanceledRef = React.useRef<boolean>(false);
 
-    const loadTypeInfo = React.useCallback(async function (typeName) {
+    const loadTypeInfo = React.useCallback(async function (
+      typeName: string,
+    ) {
       const fetchUrl = '/ws/js/type-info/' + typeName;
 
       const response = await fetch(fetchUrl);
@@ -155,9 +157,9 @@ export function withLoadedTypeInfoForRelationshipEditor<
   -Config,
   +Instance = mixed,
 >(
-  WrappedComponent: React.AbstractComponent<Config, Instance>,
+  WrappedComponent: React$AbstractComponent<Config, Instance>,
   extraTypeInfoToLoad?: $ReadOnlyArray<string> = [],
-): React.AbstractComponent<Config, Instance> {
+): React$AbstractComponent<Config, Instance> {
   return withLoadedTypeInfo(
     WrappedComponent,
     new Set([

@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import {bracketedText}
   from '../../../static/scripts/common/utility/bracketed.js';
 import formatDate from '../../../static/scripts/common/utility/formatDate.js';
@@ -33,7 +31,7 @@ const SidebarEndDate = ({
   age,
   entity,
   label,
-}: Props): React.MixedElement | null => (
+}: Props): React$MixedElement | null => (
   isDateEmpty(entity.end_date) ? (
     entity.ended ? (
       <SidebarProperty className="end-date" label={label}>

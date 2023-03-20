@@ -33,7 +33,7 @@ const areTracksEqual = (a: TrackT, b: TrackT) => (
 
 const RemoveMedium = ({
   edit,
-}: Props): React.Element<typeof React.Fragment> => {
+}: Props): React$Element<typeof React.Fragment> => {
   const display = edit.display_data;
   const originalTracklist = display.tracks ?? [];
   const currentTracklist = display.medium.tracks ?? [];

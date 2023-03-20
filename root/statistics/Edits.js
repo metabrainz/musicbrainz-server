@@ -32,7 +32,7 @@ const Edits = ({
   dateCollected,
   stats,
   statsByCategory,
-}: EditsStatsT): React.Element<typeof StatisticsLayout> => {
+}: EditsStatsT): React$Element<typeof StatisticsLayout> => {
   const $c = React.useContext(CatalystContext);
   return (
     <StatisticsLayout fullWidth page="edits" title={l('Edits')}>

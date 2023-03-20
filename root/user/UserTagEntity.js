@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import UserAccountLayout, {type AccountLayoutUserT}
   from '../components/UserAccountLayout.js';
 import {
@@ -49,7 +47,7 @@ const UserTagEntity = ({
   showDownvoted = false,
   tag,
   user,
-}: UserTagEntityProps): React.Element<typeof UserAccountLayout> => (
+}: UserTagEntityProps): React$Element<typeof UserAccountLayout> => (
   <UserAccountLayout entity={user} page="tags">
     <nav className="breadcrumb">
       <ol>

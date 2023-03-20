@@ -74,7 +74,7 @@ const WSLink = ({
 
 const Details = ({
   entity,
-}: DetailsProps): React.MixedElement => {
+}: DetailsProps): React$MixedElement => {
   const $c = React.useContext(CatalystContext);
   const entityType = entity.entityType;
   const entityProperties = ENTITIES[entityType];

@@ -7,8 +7,8 @@ use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 
 extends 'MusicBrainz::Server::Entity';
-with 'MusicBrainz::Server::Entity::Role::Editable';
 with 'MusicBrainz::Server::Entity::Role::Name';
+with 'MusicBrainz::Server::Entity::Role::PendingEdits';
 
 sub entity_type { 'medium' }
 
@@ -171,14 +171,15 @@ around TO_JSON => sub {
     my ($orig, $self) = @_;
 
     my $track_count = $self->track_count;
+    my $format_id = $self->format_id;
 
     my $data = {
         %{ $self->$orig },
         cdtocs      => [map { $_->cdtoc->toc } $self->all_cdtocs],
         format      => $self->format ? $self->format->TO_JSON : undef,
-        format_id   => $self->format_id,
-        position    => $self->position,
-        release_id  => $self->release_id,
+        format_id   => defined $format_id ? (0 + $format_id) : undef,
+        position    => (0 + $self->position),
+        release_id  => (0 + $self->release_id),
         track_count => defined $track_count ? (0 + $track_count) : undef,
     };
 

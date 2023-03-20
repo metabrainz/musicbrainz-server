@@ -17,7 +17,7 @@ type PropsT = {
   +election: AutoEditorElectionT,
 };
 
-const ElectionVotes = ({election}: PropsT): React.Element<'table'> => {
+const ElectionVotes = ({election}: PropsT): React$Element<'table'> => {
   const $c = React.useContext(SanitizedCatalystContext);
   return (
     <table className="tbl" style={{width: 'auto'}}>

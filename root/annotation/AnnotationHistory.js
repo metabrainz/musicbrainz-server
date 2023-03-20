@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import ENTITIES from '../../entities.mjs';
 import PaginatedResults from '../components/PaginatedResults.js';
 import * as manifest from '../static/manifest.mjs';
@@ -27,7 +25,7 @@ const AnnotationHistory = ({
   annotations,
   entity,
   pager,
-}: AnnotationHistoryProps): React.MixedElement => {
+}: AnnotationHistoryProps): React$MixedElement => {
   const entityType = entity.entityType;
   const entityUrlFragment = ENTITIES[entityType].url;
   const baseUrl = `/${entityUrlFragment}/${entity.gid}`;

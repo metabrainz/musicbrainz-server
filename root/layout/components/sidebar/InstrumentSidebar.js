@@ -33,7 +33,7 @@ type Props = {
   +instrument: InstrumentT,
 };
 
-const InstrumentSidebar = ({instrument}: Props): React.Element<'div'> => {
+const InstrumentSidebar = ({instrument}: Props): React$Element<'div'> => {
   const $c = React.useContext(CatalystContext);
 
   return (

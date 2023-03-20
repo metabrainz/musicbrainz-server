@@ -22,7 +22,7 @@ type RowProps = {
 const ElectionTableRow = ({
   election,
   index,
-}: RowProps): React.Element<'tr'> => {
+}: RowProps): React$Element<'tr'> => {
   const $c = React.useContext(CatalystContext);
   return (
     <tr className={index % 2 ? 'even' : 'odd'}>
@@ -68,7 +68,7 @@ type Props = {
 
 const ElectionTableRows = ({
   elections,
-}: Props): $ReadOnlyArray<React.Element<typeof ElectionTableRow>> => (
+}: Props): $ReadOnlyArray<React$Element<typeof ElectionTableRow>> => (
   elections.map((election, index) => (
     <ElectionTableRow
       election={election}

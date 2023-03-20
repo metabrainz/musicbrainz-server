@@ -36,7 +36,7 @@ const Formats = ({
   dateCollected,
   formatStats,
   stats,
-}: FormatsStatsT): React.Element<typeof StatisticsLayout> => {
+}: FormatsStatsT): React$Element<typeof StatisticsLayout> => {
   const $c = React.useContext(CatalystContext);
   return (
     <StatisticsLayout

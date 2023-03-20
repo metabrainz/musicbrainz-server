@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import linkedEntities
   from '../../../static/scripts/common/linkedEntities.mjs';
 
@@ -22,7 +20,7 @@ type Props = {
 const SidebarType = ({
   entity,
   typeType,
-}: Props): React.MixedElement | null => (
+}: Props): React$MixedElement | null => (
   entity.typeID == null ? null : (
     <SidebarProperty className="type" label={l('Type:')}>
       {lp_attributes(

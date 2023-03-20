@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import ReleaseLayout from './ReleaseLayout.js';
 
 type Props = {
@@ -17,7 +15,7 @@ type Props = {
 
 const CoverArtDarkened = ({
   release,
-}: Props): React.Element<typeof ReleaseLayout> => {
+}: Props): React$Element<typeof ReleaseLayout> => {
   const title = l('Cannot Add Cover Art');
 
   return (

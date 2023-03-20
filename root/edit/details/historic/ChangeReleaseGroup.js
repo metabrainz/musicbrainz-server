@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import DescriptiveLink
   from '../../../static/scripts/common/components/DescriptiveLink.js';
 import HistoricReleaseList from '../../components/HistoricReleaseList.js';
@@ -17,7 +15,7 @@ type Props = {
   +edit: ChangeReleaseGroupHistoricEditT,
 };
 
-const ChangeReleaseGroup = ({edit}: Props): React.Element<'table'> => (
+const ChangeReleaseGroup = ({edit}: Props): React$Element<'table'> => (
   <table className="details change-release-group">
     <HistoricReleaseList
       colSpan="2"

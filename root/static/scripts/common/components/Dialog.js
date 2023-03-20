@@ -18,7 +18,7 @@ import {
 import ErrorBoundary from './ErrorBoundary.js';
 
 export type RequiredPropsT = {
-  +children: React.Node,
+  +children: React$Node,
   +dialogRef: {current: HTMLDivElement | null},
   +id: string,
   +onEscape: (Event | SyntheticEvent<>) => void,
@@ -29,7 +29,7 @@ export type PropsT = $ReadOnly<{
   +activeElementRef?: {-current: HTMLElement},
   +className?: string,
   +onClick?: (SyntheticMouseEvent<HTMLDivElement>) => void,
-  +siblings?: React.Node,
+  +siblings?: React$Node,
   // Set `title` to a non-null value to show the title bar.
   +title?: string,
   +trapFocus?: boolean,
@@ -81,8 +81,8 @@ const Dialog = ({
   siblings,
   title,
   trapFocus = false,
-}: PropsT): React.Element<'div'> => {
-  const tabbableElementRef = React.useRef(null);
+}: PropsT): React$Element<'div'> => {
+  const tabbableElementRef = React.useRef<HTMLElement | null>(null);
 
   React.useLayoutEffect(() => {
     const dialogNode = getElementFromRef(dialogRef);

@@ -15,8 +15,8 @@ import uriWith from '../../utility/uriWith.js';
 import {type SearchResultT} from '../types.js';
 
 type Props<T> = {
-  +buildResult: (SearchResultT<T>, number) => React.Node,
-  +columns: React.Node,
+  +buildResult: (SearchResultT<T>, number) => React$Node,
+  +columns: React$Node,
   +pager: PagerT,
   +query: string,
   +results: $ReadOnlyArray<SearchResultT<T>>,
@@ -28,7 +28,7 @@ const PaginatedSearchResults = <T>({
   pager,
   query,
   results,
-}: Props<T>): React.Element<typeof PaginatedResults | 'p'> => {
+}: Props<T>): React$Element<typeof PaginatedResults | 'p'> => {
   const $c = React.useContext(CatalystContext);
   const hasLastPage = pager.total_entries > 0;
   const lastPageUrl = hasLastPage

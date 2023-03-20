@@ -28,7 +28,7 @@ type PropsT = {
 const Index = ({
   isrcs,
   recordings,
-}: PropsT): React.Element<typeof Layout> => {
+}: PropsT): React$Element<typeof Layout> => {
   const $c = React.useContext(SanitizedCatalystContext);
   const userExists = !!$c.user;
   const isrc = isrcs[0];

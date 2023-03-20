@@ -21,7 +21,7 @@ const CollaborationRelationships = ({
   generated,
   items,
   pager,
-}: ReportDataT<ReportCollaborationT>): React.Element<typeof ReportLayout> => {
+}: ReportDataT<ReportCollaborationT>): React$Element<typeof ReportLayout> => {
   let lastID = 0;
   let currentID = 0;
 

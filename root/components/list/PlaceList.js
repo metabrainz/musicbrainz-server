@@ -10,6 +10,7 @@
 import * as React from 'react';
 
 import {CatalystContext} from '../../context.mjs';
+import useTable from '../../hooks/useTable.js';
 import {
   defineBeginDateColumn,
   defineCheckboxColumn,
@@ -21,7 +22,6 @@ import {
   defineTypeColumn,
   removeFromMergeColumn,
 } from '../../utility/tableColumns.js';
-import Table from '../Table.js';
 
 type Props = {
   +checkboxes?: string,
@@ -39,7 +39,7 @@ const PlaceList = ({
   places,
   showRatings = false,
   sortable,
-}: Props): React.Element<typeof Table> => {
+}: Props): React$Element<'table'> => {
   const $c = React.useContext(CatalystContext);
 
   const columns = React.useMemo(
@@ -99,7 +99,7 @@ const PlaceList = ({
     ],
   );
 
-  return <Table columns={columns} data={places} />;
+  return useTable<PlaceT>({columns, data: places});
 };
 
 export default PlaceList;

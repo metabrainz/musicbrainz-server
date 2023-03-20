@@ -71,7 +71,7 @@ const RelationshipItem = (React.memo<PropsT>(({
   releaseHasUnloadedTracks,
   source,
   track,
-}: PropsT): React.MixedElement => {
+}: PropsT): React$MixedElement => {
   const backward = isRelationshipBackward(relationship, source);
   const target: CoreEntityT = backward
     ? relationship.entity0
@@ -189,7 +189,9 @@ const RelationshipItem = (React.memo<PropsT>(({
     user,
   });
 
-  const setDialogOpen = React.useCallback((open) => {
+  const setDialogOpen = React.useCallback((
+    open: boolean,
+  ) => {
     dispatch({
       location: open ? {
         backward,
@@ -309,7 +311,7 @@ const RelationshipItem = (React.memo<PropsT>(({
       ) : null}
     </>
   );
-}): React.AbstractComponent<PropsT>);
+}): React$AbstractComponent<PropsT, mixed>);
 
 function getRelationshipStyling(relationship: RelationshipStateT) {
   return 'rel-' + getRelationshipStatusName(relationship);

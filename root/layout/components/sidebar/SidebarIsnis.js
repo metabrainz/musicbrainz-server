@@ -32,7 +32,7 @@ type Props = {
 };
 
 const SidebarIsnis = ({entity}: Props):
-  React.ChildrenArray<React.Element<typeof SidebarProperty>> => (
+  React.ChildrenArray<React$Element<typeof SidebarProperty>> => (
   entity.isni_codes.map(buildSidebarIsni)
 );
 

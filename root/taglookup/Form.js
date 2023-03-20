@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import FormRow from '../static/scripts/edit/components/FormRow.js';
 import FormRowText from '../static/scripts/edit/components/FormRowText.js';
 import FormRowTextLong
@@ -19,7 +17,7 @@ type Props = {
   +form: TagLookupFormT,
 };
 
-const TagLookupForm = ({form}: Props): React.Element<'div'> => (
+const TagLookupForm = ({form}: Props): React$Element<'div'> => (
   <div className="searchform">
     <form action="/taglookup/index" method="get">
       <FormRowTextLong

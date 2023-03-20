@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import ArtistList from './components/ArtistList.js';
 import ReportLayout from './components/ReportLayout.js';
 import type {ReportArtistT, ReportDataT} from './types.js';
@@ -19,7 +17,7 @@ const ArtistsContainingDisambiguationComments = ({
   generated,
   items,
   pager,
-}: ReportDataT<ReportArtistT>): React.Element<typeof ReportLayout> => (
+}: ReportDataT<ReportArtistT>): React$Element<typeof ReportLayout> => (
   <ReportLayout
     canBeFiltered={canBeFiltered}
     description={l(

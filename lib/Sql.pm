@@ -4,6 +4,7 @@ use feature 'state';
 
 use Moose;
 use DBDefs;
+use English;
 use Carp qw( cluck croak );
 use List::AllUtils qw( any );
 use Try::Tiny;
@@ -80,8 +81,10 @@ sub select
     my $prepare_method = (@params ? 'prepare_cached' : 'prepare');
 
     return try {
-        my $tt = Sql::Timer->new($query, \@params) if $self->debug;
-
+        my $tt;
+        if ($self->debug) {
+            $tt = Sql::Timer->new($query, \@params);
+        }
         $self->sth( $self->dbh->$prepare_method($query) );
         $self->sth->execute(@params);
         return $self->sth->rows;
@@ -105,7 +108,10 @@ sub do
 
     $self->_auto_commit(0) if $self->_auto_commit;
     return try {
-        my $tt = Sql::Timer->new($query, \@params) if $self->debug;
+        my $tt;
+        if ($self->debug) {
+            $tt = Sql::Timer->new($query, \@params);
+        }
         my $sth = $self->dbh->$prepare_method($query);
         my $rows = $sth->execute(@params);
         $sth->finish;
@@ -251,7 +257,10 @@ sub commit
     return unless $self->transaction_depth == 0;
 
     return try {
-        my $tt = Sql::Timer->new('COMMIT', []) if $self->debug;
+        my $tt;
+        if ($self->debug) {
+            $tt = Sql::Timer->new('COMMIT', []);
+        }
         my $rv = $self->dbh->commit;
         cluck 'Commit failed' if ($rv eq '' && !$self->quiet);
         $self->dbh->{AutoCommit} = 1;
@@ -275,7 +284,10 @@ sub rollback
     return unless $self->transaction_depth == 0;
 
     return try {
-        my $tt = Sql::Timer->new('ROLLBACK', []) if $self->debug;
+        my $tt;
+        if ($self->debug) {
+            $tt = Sql::Timer->new('ROLLBACK', []);
+        }
         my $rv = $self->dbh->rollback;
         cluck 'Rollback failed' if ($rv eq '' && !$self->quiet);
         $self->dbh->{AutoCommit} = 1;
@@ -372,13 +384,19 @@ sub _select_single_row
 
     my $sth;
     return try {
-        my $tt = Sql::Timer->new($query, $params) if $self->debug;
+        my $tt;
+        if ($self->debug) {
+            $tt = Sql::Timer->new($query, $params);
+        }
 
         $sth = $self->dbh->prepare_cached($query);
         my $rv = $sth->execute(@params) or croak 'Could not execute query';
 
         my $first_row = $sth->$method;
-        my $next_row  = $sth->$method if $first_row;
+        my $next_row;
+        if ($first_row) {
+            $next_row = $sth->$method;
+        }
 
         croak 'Query returned more than one row (expected 1 row)' if $next_row;
 
@@ -445,7 +463,10 @@ sub _select_list
     my $sth;
     try {
         # This assignment might be used by DEMOLISH
-        my $tt = Sql::Timer->new($query, $params) if $self->debug; ## no critic 'ProhibitUnusedVarsStricter'
+        my $tt;
+        if ($self->debug) {
+            $tt = Sql::Timer->new($query, $params);
+        }
 
         $sth = $self->dbh->prepare_cached($query);
         $sth->execute(@params) or croak 'Could not execute query';
@@ -607,7 +628,7 @@ sub DEMOLISH
     # than $somelimit
     #return if $t < 0.1;
 
-    local $" = ', ';
+    local $" = ', '; ## no critic (ProhibitPunctuationVars) - English version breaks for some reason
     my $msg = sprintf 'SQL: %8.4fs "%s" (%s)', $t,
         $sql, join(', ', @{ $self->args });
 

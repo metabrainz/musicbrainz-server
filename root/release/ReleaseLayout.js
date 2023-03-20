@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import ReleaseSidebar from '../layout/components/sidebar/ReleaseSidebar.js';
 import Layout from '../layout/index.js';
 import {reduceArtistCredit}
@@ -17,7 +15,7 @@ import {reduceArtistCredit}
 import ReleaseHeader from './ReleaseHeader.js';
 
 type Props = {
-  +children: React.Node,
+  +children: React$Node,
   +entity: ReleaseT,
   +fullWidth?: boolean,
   +page?: string,
@@ -30,7 +28,7 @@ const ReleaseLayout = ({
   fullWidth = false,
   page,
   title,
-}: Props): React.Element<typeof Layout> => {
+}: Props): React$Element<typeof Layout> => {
   const mainTitle = texp.l('Release “{name}” by {artist}', {
     artist: reduceArtistCredit(release.artistCredit),
     name: release.name,

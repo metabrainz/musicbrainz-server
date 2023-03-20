@@ -11,11 +11,10 @@ import * as React from 'react';
 import type {ColumnOptionsNoValue} from 'react-table';
 
 import PaginatedResults from '../../components/PaginatedResults.js';
-import Table from '../../components/Table.js';
+import useTable from '../../hooks/useTable.js';
 import {
   defineEntityColumn,
 } from '../../utility/tableColumns.js';
-import type {ReportPlaceRelationshipT} from '../types.js';
 
 type Props<D: {+place: ?PlaceT, ...}> = {
   +columnsAfter?: $ReadOnlyArray<ColumnOptionsNoValue<D>>,
@@ -29,8 +28,11 @@ const PlaceList = <D: {+place: ?PlaceT, ...}>({
   columnsAfter,
   items,
   pager,
-}: Props<D>): React.Element<typeof PaginatedResults> => {
-  const existingPlaceItems = items.reduce((result, item) => {
+}: Props<D>): React$Element<typeof PaginatedResults> => {
+  const existingPlaceItems = items.reduce((
+    result: Array<D>,
+    item,
+  ) => {
     if (item.place != null) {
       result.push(item);
     }
@@ -39,7 +41,7 @@ const PlaceList = <D: {+place: ?PlaceT, ...}>({
 
   const columns = React.useMemo(
     () => {
-      const nameColumn = defineEntityColumn<ReportPlaceRelationshipT>({
+      const nameColumn = defineEntityColumn<D>({
         columnName: 'place',
         getEntity: result => result.place ?? null,
         title: l('Place'),
@@ -54,9 +56,11 @@ const PlaceList = <D: {+place: ?PlaceT, ...}>({
     [columnsAfter, columnsBefore],
   );
 
+  const table = useTable<D>({columns, data: existingPlaceItems});
+
   return (
     <PaginatedResults pager={pager}>
-      <Table columns={columns} data={existingPlaceItems} />
+      {table}
     </PaginatedResults>
   );
 };

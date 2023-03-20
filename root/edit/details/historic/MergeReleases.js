@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import DescriptiveLink
   from '../../../static/scripts/common/components/DescriptiveLink.js';
 import yesNo from '../../../static/scripts/common/utility/yesNo.js';
@@ -17,7 +15,7 @@ type Props = {
   +edit: MergeReleasesHistoricEditT,
 };
 
-const MergeReleases = ({edit}: Props): React.MixedElement => (
+const MergeReleases = ({edit}: Props): React$MixedElement => (
   <>
     <table className="details merge-releases">
       <tr>

@@ -32,6 +32,11 @@ allow=refs
 [ValuesAndExpressions::ProhibitMismatchedOperators]
 [ValuesAndExpressions::ProhibitMixedBooleanOperators]
 
+[Variables::ProhibitAugmentedAssignmentInDeclaration]
+[Variables::ProhibitConditionalDeclarations]
+[Variables::ProhibitPunctuationVars]
 [Variables::ProhibitUnusedVarsStricter]
 allow_unused_subroutine_arguments = 1
+[Variables::ProtectPrivateVars]
 [Variables::RequireLexicalLoopIterators]
+[Variables::RequireNegativeIndices]

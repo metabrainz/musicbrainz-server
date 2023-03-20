@@ -7,12 +7,10 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import StatusPage from '../components/StatusPage.js';
 import {CONTACT_URL} from '../constants.js';
 
-const LostPasswordSent = (): React.Element<typeof StatusPage> => (
+const LostPasswordSent = (): React$Element<typeof StatusPage> => (
   <StatusPage title={hyphenateTitle(l('Lost Password'), l('Email Sent!'))}>
     <p>
       {exp.l(

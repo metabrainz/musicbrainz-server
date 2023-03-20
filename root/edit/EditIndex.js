@@ -18,12 +18,13 @@ import DBDefs from '../static/scripts/common/DBDefs.mjs';
 import linkedEntities from '../static/scripts/common/linkedEntities.mjs';
 import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
 import getVoteName from '../static/scripts/edit/utility/getVoteName.js';
-import {editorMayAddNote, editorMayVote}
+import {editorMayAddNote, editorMayVoteOnEdit}
   from '../utility/edit.js';
 import formatUserDate from '../utility/formatUserDate.js';
 
 import EditHeader from './components/EditHeader.js';
 import EditNotes from './components/EditNotes.js';
+import EditorTypeInfo from './components/EditorTypeInfo.js';
 import EditSidebar from './components/EditSidebar.js';
 import Vote from './components/Vote.js';
 import VoteTally from './components/VoteTally.js';
@@ -37,11 +38,11 @@ type Props = {
 const EditIndex = ({
   edit,
   fullWidth = false,
-}: Props): React.Element<typeof Layout> => {
+}: Props): React$Element<typeof Layout> => {
   const $c = React.useContext(CatalystContext);
   const canAddNote = Boolean($c.user && editorMayAddNote(edit, $c.user));
   const isOwnEdit = Boolean($c.user && $c.user.id === edit.editor_id);
-  const canVote = Boolean($c.user && editorMayVote(edit, $c.user));
+  const canVoteHere = Boolean($c.user && editorMayVoteOnEdit(edit, $c.user));
   const detailsElement = getEditDetailsElement(edit);
 
   return (
@@ -77,7 +78,7 @@ const EditIndex = ({
             </tr>
             {$c.user ? (
               <>
-                {canVote ? (
+                {canVoteHere ? (
                   <tr className="noborder">
                     <th>{l('My vote:')}</th>
                     <td className="vote">
@@ -97,7 +98,11 @@ const EditIndex = ({
                           : ''}
                       key={index}
                     >
-                      <th><EditorLink editor={voter} /></th>
+                      <th>
+                        <EditorLink editor={voter} />
+                        {' '}
+                        <EditorTypeInfo editor={voter} />
+                      </th>
                       <td className="vote">
                         {lp(getVoteName(vote.vote), 'vote')}
                         <span className="date">
@@ -111,7 +116,7 @@ const EditIndex = ({
             ) : null}
           </table>
 
-          {edit.is_open && $c.user && !canVote && !isOwnEdit ? (
+          {edit.is_open && $c.user && !canVoteHere && !isOwnEdit ? (
             <p>
               {exp.l(
                 `You are not currently able
@@ -155,7 +160,7 @@ const EditIndex = ({
           {$c.user ? (
             <>
               <EditNotes edit={edit} index={0} isOnEditPage />
-              {canVote ? (
+              {canVoteHere ? (
                 <FormSubmit label={l('Submit vote and note')} />
               ) : canAddNote ? (
                 <FormSubmit label={l('Submit note')} />

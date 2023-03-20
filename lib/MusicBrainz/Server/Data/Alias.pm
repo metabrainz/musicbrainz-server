@@ -12,7 +12,7 @@ use MusicBrainz::Server::Entity::PartialDate;
 
 extends 'MusicBrainz::Server::Data::Entity';
 
-# with MusicBrainz::Server::Data::Role::Editable -- see AliasRole for when this is applied
+# with MusicBrainz::Server::Data::Role::PendingEdits -- see AliasRole for when this is applied
 
 has 'parent' => (
     does => 'MusicBrainz::Server::Data::Role::Alias',

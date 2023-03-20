@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import CollectionSidebar
   from '../layout/components/sidebar/CollectionSidebar.js';
 import Layout from '../layout/index.js';
@@ -16,7 +14,7 @@ import Layout from '../layout/index.js';
 import CollectionHeader from './CollectionHeader.js';
 
 type Props = {
-  +children: React.Node,
+  +children: React$Node,
   +entity: CollectionT,
   +fullWidth?: boolean,
   +page: string,
@@ -31,7 +29,7 @@ const CollectionLayout = ({
   page,
   recordingMbids,
   title,
-}: Props): React.Element<typeof Layout> => {
+}: Props): React$Element<typeof Layout> => {
   const mainTitle = texp.l(
     'Collection “{collection}”',
     {collection: collection.name},

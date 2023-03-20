@@ -5,13 +5,14 @@ use warnings;
 use Data::Dumper::Concise;
 use DBDefs;
 use Devel::StackTrace;
+use English;
 use POSIX qw( strftime );
 use Readonly;
 
 use Log::Dispatch;
 my $logger;
 BEGIN {
-    $| = 1; # autoflush stdout
+    $OUTPUT_AUTOFLUSH = 1; # autoflush stdout
     $logger = Log::Dispatch->new(
         DBDefs->LOGGER_ARGUMENTS,
         callbacks => [

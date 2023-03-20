@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import Tabs from '../components/Tabs.js';
 import buildTab from '../utility/buildTab.js';
 
@@ -33,7 +31,7 @@ type Props = {
   +page?: string,
 };
 
-const RelationshipsHeader = ({page}: Props): React.MixedElement => (
+const RelationshipsHeader = ({page}: Props): React$MixedElement => (
   <>
     <div className="relationshipsheader">
       <h1>{l('Relationships')}</h1>

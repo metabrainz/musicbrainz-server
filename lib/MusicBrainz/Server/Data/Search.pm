@@ -85,15 +85,16 @@ sub search
     my $deleted_entity = undef;
 
     my @where_args;
+    my $extra_columns = '';
 
     if ($type eq 'artist') {
-
         my $where_deleted = 'WHERE entity.id != ?';
         $deleted_entity = $DARTIST_ID;
 
-        my $extra_columns = 'entity.gender, entity.area, entity.begin_area, entity.end_area,' if $type eq 'artist';
+        $extra_columns =
+            'entity.gender, entity.area, entity.begin_area, entity.end_area,';
 
-        $query = "
+        $query = <<~"SQL";
             SELECT
                 entity.id,
                 entity.gid,
@@ -130,49 +131,45 @@ sub search
                 rank DESC, sort_name, name, entity.gid
             OFFSET
                 ?
-        ";
+            SQL
 
         $hard_search_limit = $offset * 2;
-    }
-    elsif ($type ~~ [qw(recording release release_group)]) {
-        my $extra_columns = '';
-        $extra_columns .= 'entity.type AS primary_type_id,'
-            if ($type eq 'release_group');
+    } elsif ($type ~~ [qw(recording release release_group)]) {
+        if ($type eq 'release_group') {
+            $extra_columns = 'entity.type AS primary_type_id,';
+        } elsif ($type eq 'recording') {
+            $extra_columns = 'entity.length, entity.video,';
+        } elsif ($type eq 'release') {
+            $extra_columns = <<~'SQL';
+                entity.language, entity.script, entity.barcode,
+                entity.release_group, entity.status,
+                SQL
+        }
 
-        $extra_columns = 'entity.length, entity.video,'
-            if ($type eq 'recording');
-
-        $extra_columns .= 'entity.language, entity.script, entity.barcode,
-                           entity.release_group, entity.status,'
-            if ($type eq 'release');
-
-        my $extra_ordering = '';
+        my $extra_ordering = ', entity.artist_credit';
         $extra_columns .= 'entity.artist_credit AS artist_credit_id,';
-        $extra_ordering = ', entity.artist_credit';
 
-        my ($join_sql, $where_sql)
-            = (
-                "LEFT JOIN ${type}_alias AS alias ON (alias.name = r.name OR alias.sort_name = r.name)
-                JOIN ${type} entity ON (r.name = entity.name OR alias.${type} = entity.id)",
-                ''
-            );
+        my $join_sql = <<~"SQL";
+            LEFT JOIN ${type}_alias AS alias ON (alias.name = r.name OR alias.sort_name = r.name)
+            JOIN ${type} entity ON (r.name = entity.name OR alias.${type} = entity.id)
+            SQL
+        my $where_sql = '';
 
         if ($type eq 'release' && $where && exists $where->{track_count}) {
             $join_sql .= ' JOIN medium ON medium.release = entity.id';
-            $where_sql = 'WHERE track_count_matches_cdtoc(medium, ?)';
+            $where_sql .= 'WHERE track_count_matches_cdtoc(medium, ?)';
             push @where_args, $where->{track_count};
-        }
-        elsif ($type eq 'recording') {
+        } elsif ($type eq 'recording') {
             if ($where && exists $where->{artist})
             {
                 $join_sql .= ' JOIN artist_credit ON artist_credit.id = entity.artist_credit';
-                $where_sql = 'WHERE artist_credit.name LIKE ?';
+                $where_sql .= 'WHERE artist_credit.name LIKE ?';
                 push @where_args, '%'.$where->{artist}.'%';
             }
         }
         my $extra_groupby_columns = $extra_columns =~ s/[^ ,]+ AS //gr;
 
-        $query = "
+        $query = <<~"SQL";
             SELECT
                 entity.id,
                 entity.gid,
@@ -201,12 +198,10 @@ sub search
                 ${extra_ordering}, entity.gid
             OFFSET
                 ?
-        ";
+            SQL
 
         $hard_search_limit = int($offset * 1.2);
-    }
-
-    elsif ($type ~~ [qw(area event instrument label place series work)]) {
+    } elsif ($type ~~ [qw(area event instrument label place series work)]) {
         my $where_deleted = 'WHERE entity.id != ?';
         if ($type eq 'label') {
             $deleted_entity = $DLABEL_ID;
@@ -214,28 +209,56 @@ sub search
             $where_deleted = '';
         }
 
-        my $extra_columns = '';
-        $extra_columns .= 'entity.address, entity.area, entity.begin_date_year, entity.begin_date_month, entity.begin_date_day,
-                entity.end_date_year, entity.end_date_month, entity.end_date_day, entity.ended,' if $type eq 'place';
-        $extra_columns .= 'entity.description,' if $type eq 'instrument';
-        $extra_columns .= 'iso_3166_1s.codes AS iso_3166_1, iso_3166_2s.codes AS iso_3166_2, iso_3166_3s.codes AS iso_3166_3,
-                entity.end_date_year, entity.end_date_month, entity.end_date_day, entity.ended,' if $type eq 'area';
-        $extra_columns .= 'entity.label_code, entity.area, entity.begin_date_year, entity.begin_date_month, entity.begin_date_day,
-                entity.end_date_year, entity.end_date_month, entity.end_date_day, entity.ended,' if $type eq 'label';
-        $extra_columns .= 'entity.ordering_type,' if $type eq 'series';
-        $extra_columns .= 'entity.time, entity.cancelled, entity.begin_date_year, entity.begin_date_month, entity.begin_date_day,
-                entity.end_date_year, entity.end_date_month, entity.end_date_day, entity.ended,' if $type eq 'event';
+        if ($type eq 'place') {
+            $extra_columns = <<~'SQL';
+                entity.address, entity.area,
+                entity.begin_date_year, entity.begin_date_month,
+                entity.begin_date_day, entity.end_date_year,
+                entity.end_date_month, entity.end_date_day,
+                entity.ended,
+                SQL
+        } elsif ($type eq 'instrument') {
+            $extra_columns = 'entity.description,';
+        } elsif ($type eq 'area') {
+            $extra_columns = <<~'SQL';
+                iso_3166_1s.codes AS iso_3166_1,
+                iso_3166_2s.codes AS iso_3166_2,
+                iso_3166_3s.codes AS iso_3166_3,
+                entity.end_date_year, entity.end_date_month,
+                entity.end_date_day, entity.ended,
+                SQL
+        } elsif ($type eq 'label') {
+            $extra_columns = <<~'SQL';
+                entity.label_code, entity.area,
+                entity.begin_date_year, entity.begin_date_month,
+                entity.begin_date_day, entity.end_date_year,
+                entity.end_date_month, entity.end_date_day,
+                entity.ended,
+                SQL
+        } elsif ($type eq 'series') {
+            $extra_columns = 'entity.ordering_type,';
+        } elsif ($type eq 'event') {
+            $extra_columns = <<~'SQL';
+                entity.time, entity.cancelled,
+                entity.begin_date_year, entity.begin_date_month,
+                entity.begin_date_day, entity.end_date_year,
+                entity.end_date_month, entity.end_date_day,
+                entity.ended,
+                SQL
+        }
 
         my $extra_groupby_columns = $extra_columns =~ s/[^ ,]+ AS //gr;
 
         my $extra_joins = '';
         if ($type eq 'area') {
-            $extra_joins .= 'LEFT JOIN (SELECT area, array_agg(code) AS codes FROM iso_3166_1 GROUP BY area) iso_3166_1s ON iso_3166_1s.area = entity.id ' .
-                            'LEFT JOIN (SELECT area, array_agg(code) AS codes FROM iso_3166_2 GROUP BY area) iso_3166_2s ON iso_3166_2s.area = entity.id ' .
-                            'LEFT JOIN (SELECT area, array_agg(code) AS codes FROM iso_3166_3 GROUP BY area) iso_3166_3s ON iso_3166_3s.area = entity.id';
+            $extra_joins .= <<~'SQL';
+                LEFT JOIN (SELECT area, array_agg(code) AS codes FROM iso_3166_1 GROUP BY area) iso_3166_1s ON iso_3166_1s.area = entity.id
+                LEFT JOIN (SELECT area, array_agg(code) AS codes FROM iso_3166_2 GROUP BY area) iso_3166_2s ON iso_3166_2s.area = entity.id
+                LEFT JOIN (SELECT area, array_agg(code) AS codes FROM iso_3166_3 GROUP BY area) iso_3166_3s ON iso_3166_3s.area = entity.id
+                SQL
         }
 
-        $query = "
+        $query = <<~"SQL";
             SELECT
                 entity.id,
                 entity.gid,
@@ -266,14 +289,12 @@ sub search
                 rank DESC, entity.name, entity.gid
             OFFSET
                 ?
-        ";
+            SQL
 
         $hard_search_limit = $offset * 2;
-    }
+    } elsif ($type eq 'genre') {
 
-    elsif ($type eq 'genre') {
-
-        $query = q{
+        $query = <<~'SQL';
             SELECT
                 entity.id,
                 entity.gid,
@@ -295,32 +316,29 @@ sub search
                 rank DESC, entity.name, entity.gid
             OFFSET
                 ?
-            };
+            SQL
 
         $use_hard_search_limit = 0;
-    }
-
-    elsif ($type eq 'tag') {
-        $query = q{
+    } elsif ($type eq 'tag') {
+        $query = <<~'SQL';
             SELECT tag.id, tag.name, genre.id AS genre_id,
                    ts_rank_cd(mb_simple_tsvector(tag.name), query, 2) AS rank
             FROM tag LEFT JOIN genre USING (name), plainto_tsquery('mb_simple', mb_lower(?)) AS query
             WHERE mb_simple_tsvector(tag.name) @@ query
             ORDER BY rank DESC, tag.name
             OFFSET ?
-            };
+            SQL
 
         $use_hard_search_limit = 0;
-    }
-    elsif ($type eq 'editor') {
-        $query = q{
+    } elsif ($type eq 'editor') {
+        $query = <<~'SQL';
             SELECT id, name, ts_rank_cd(mb_simple_tsvector(name), query, 2) AS rank,
             email
             FROM editor, plainto_tsquery('mb_simple', mb_lower(?)) AS query
             WHERE mb_simple_tsvector(name) @@ query
             ORDER BY rank DESC
             OFFSET ?
-            };
+            SQL
 
         $use_hard_search_limit = 0;
     }

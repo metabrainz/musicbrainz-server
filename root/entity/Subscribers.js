@@ -29,7 +29,7 @@ const Subscribers = ({
   privateEditors,
   publicEditors,
   subscribed,
-}: Props): React.MixedElement => {
+}: Props): React$MixedElement => {
   const $c = React.useContext(SanitizedCatalystContext);
   const entityType = entity.entityType;
   const LayoutComponent = chooseLayoutComponent(entityType);

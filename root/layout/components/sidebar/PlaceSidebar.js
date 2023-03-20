@@ -37,7 +37,7 @@ type Props = {
   +place: PlaceT,
 };
 
-const PlaceSidebar = ({place}: Props): React.Element<'div'> => {
+const PlaceSidebar = ({place}: Props): React$Element<'div'> => {
   const $c = React.useContext(CatalystContext);
   const placeAge = age.age(place);
   const gid = encodeURIComponent(place.gid);

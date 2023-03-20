@@ -29,7 +29,7 @@ const AnnotationComparison = ({
   newAnnotation,
   numberOfRevisions,
   oldAnnotation,
-}: AnnotationComparisonProps): React.MixedElement => {
+}: AnnotationComparisonProps): React$MixedElement => {
   const $c = React.useContext(SanitizedCatalystContext);
   const entityType = entity.entityType;
   const entityUrlFragment = ENTITIES[entityType].url;

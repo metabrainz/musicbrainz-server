@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import DescriptiveLink from
   '../../static/scripts/common/components/DescriptiveLink.js';
 import {DeletedLink}
@@ -28,7 +26,7 @@ type Props = {
   +edit: EditReleaseEditT,
 };
 
-const EditRelease = ({edit}: Props): React.MixedElement => {
+const EditRelease = ({edit}: Props): React$MixedElement => {
   const display = edit.display_data;
   const name = display.name;
   const artistCredit = display.artist_credit;

@@ -5,7 +5,7 @@ use DBDefs;
 use MusicBrainz::Server::Entity::CoverArtType;
 
 extends 'MusicBrainz::Server::Entity';
-with 'MusicBrainz::Server::Entity::Role::Editable';
+with 'MusicBrainz::Server::Entity::Role::PendingEdits';
 
 has comment => (
     is => 'rw',

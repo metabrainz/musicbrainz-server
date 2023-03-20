@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import EntityLink from '../../static/scripts/common/components/EntityLink.js';
 import ExpandedArtistCredit from
   '../../static/scripts/common/components/ExpandedArtistCredit.js';
@@ -24,7 +22,7 @@ type Props = {
 const AddStandaloneRecording = ({
   allowNew,
   edit,
-}: Props): React.MixedElement => {
+}: Props): React$MixedElement => {
   const display = edit.display_data;
   return (
     <>

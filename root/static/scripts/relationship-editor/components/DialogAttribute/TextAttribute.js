@@ -61,6 +61,6 @@ const TextAttribute = (React.memo(({
     type="text"
     value={state.textValue}
   />
-)): React.AbstractComponent<PropsT>);
+)): React$AbstractComponent<PropsT, mixed>);
 
 export default TextAttribute;

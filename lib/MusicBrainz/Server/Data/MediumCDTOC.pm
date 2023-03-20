@@ -13,7 +13,7 @@ use MusicBrainz::Server::Constants qw(
 );
 
 extends 'MusicBrainz::Server::Data::Entity';
-with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'medium_cdtoc' };
+with 'MusicBrainz::Server::Data::Role::PendingEdits' => { table => 'medium_cdtoc' };
 
 sub _table
 {

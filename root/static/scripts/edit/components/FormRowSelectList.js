@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import SelectField from '../../common/components/SelectField.js';
 
 import FieldErrors from './FieldErrors.js';
@@ -42,7 +40,7 @@ const FormRowSelectList = <S: {+id: number, ...}>({
   removeClassName,
   removeLabel,
   repeatable,
-}: Props<S>): React.Element<typeof FormRow> => (
+}: Props<S>): React$Element<typeof FormRow> => (
   <FormRow>
     <label>{addColonText(label)}</label>
     <div className="form-row-select-list">

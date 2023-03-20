@@ -1,10 +1,11 @@
 use strict;
 use warnings;
 
+use English;
 use MusicBrainz::Server::Context;
 use Sql;
 
-$| = 1;
+$OUTPUT_AUTOFLUSH = 1;
 my $c = MusicBrainz::Server::Context->create_script_context;
 
 my $i = 0;

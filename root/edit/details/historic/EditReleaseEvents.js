@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import EntityLink, {DeletedLink}
   from '../../../static/scripts/common/components/EntityLink.js';
 import formatDate from '../../../static/scripts/common/utility/formatDate.js';
@@ -20,7 +18,7 @@ type Props = {
 function buildEventComp(
   event: OldReleaseEventCompT,
   key: string,
-): React.Element<'tr'> {
+): React$Element<'tr'> {
   return (
     <tr key={key}>
       <td>
@@ -77,7 +75,7 @@ function buildEventComp(
 function buildEvent(
   event: OldReleaseEventT,
   key: string,
-): React.Element<'tr'> {
+): React$Element<'tr'> {
   return (
     <tr key={key}>
       <td>
@@ -103,7 +101,7 @@ function buildEvent(
   );
 }
 
-const EditReleaseEvents = ({edit}: Props): React.Element<'table'> => (
+const EditReleaseEvents = ({edit}: Props): React$Element<'table'> => (
   <table className="tbl edit-release-events">
     <thead>
       <tr>

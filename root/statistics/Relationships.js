@@ -50,7 +50,7 @@ const TypeRows = ({
   parent,
   stats,
   type,
-}: TypeRowsPropsT) => {
+}: TypeRowsPropsT): React$MixedElement => {
   const $c = React.useContext(CatalystContext);
   return (
     <>
@@ -96,7 +96,7 @@ const Relationships = ({
   dateCollected,
   stats,
   types,
-}: RelationshipsStatsT): React.Element<typeof StatisticsLayout> => {
+}: RelationshipsStatsT): React$Element<typeof StatisticsLayout> => {
   const $c = React.useContext(CatalystContext);
   return (
     <StatisticsLayout

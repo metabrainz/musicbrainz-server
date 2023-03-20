@@ -28,7 +28,7 @@ type Props = {
 const CoverArtFields = ({
   form,
   typeIdOptions,
-}: Props): React.Element<typeof React.Fragment> => {
+}: Props): React$Element<typeof React.Fragment> => {
   const typeIdField = form.field.type_id;
   const selectedTypeIds = new Set(typeIdField.value.map(
     value => String(value),

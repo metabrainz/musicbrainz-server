@@ -101,7 +101,7 @@ const DialogSourceEntity = (React.memo<PropsT>(({
   source,
   state,
   targetType,
-}: PropsT): React.MixedElement => {
+}: PropsT): React$MixedElement => {
   const sourceType = source.entityType;
   return (
     <tr>
@@ -140,6 +140,6 @@ const DialogSourceEntity = (React.memo<PropsT>(({
       </td>
     </tr>
   );
-}): React.AbstractComponent<PropsT>);
+}): React$AbstractComponent<PropsT, mixed>);
 
 export default DialogSourceEntity;

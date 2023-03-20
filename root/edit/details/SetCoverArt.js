@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import {Artwork} from '../../components/Artwork.js';
 import * as manifest from '../../static/manifest.mjs';
 import DescriptiveLink
@@ -21,7 +19,7 @@ type Props = {
   +edit: SetCoverArtEditT,
 };
 
-const SetCoverArt = ({edit}: Props): React.Element<'table'> => {
+const SetCoverArt = ({edit}: Props): React$Element<'table'> => {
   const display = edit.display_data;
   const oldArt = display.artwork.old;
   const newArt = display.artwork.new;

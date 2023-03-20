@@ -7,15 +7,13 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 type Props = {
   +forField?: {+html_name: string, ...},
   +label: string,
   +required?: boolean,
 };
 
-const FormLabel = (props: Props): React.Element<'label'> => (
+const FormLabel = (props: Props): React$Element<'label'> => (
   <label
     className={props.required /*:: === true */ ? 'required' : ''}
     htmlFor={props.forField ? 'id-' + props.forField.html_name : null}

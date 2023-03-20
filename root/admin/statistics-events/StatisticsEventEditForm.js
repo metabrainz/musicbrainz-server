@@ -7,15 +7,11 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import FormCsrfToken
   from '../../static/scripts/edit/components/FormCsrfToken.js';
 import FormRowTextLong
   from '../../static/scripts/edit/components/FormRowTextLong.js';
 import FormSubmit from '../../static/scripts/edit/components/FormSubmit.js';
-
-import type {StatisticsEventFormT} from './types.js';
 
 type PropsT = {
   +form: StatisticsEventFormT,
@@ -23,7 +19,7 @@ type PropsT = {
 
 const StatisticsEventForm = ({
   form,
-}: PropsT): React.Element<'form'> => (
+}: PropsT): React$Element<'form'> => (
   <form method="post">
     <FormCsrfToken form={form} />
     <div className="half-width">

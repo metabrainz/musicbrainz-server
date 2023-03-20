@@ -25,7 +25,7 @@ with 'MusicBrainz::Server::Data::Role::GIDEntityCache';
 with 'MusicBrainz::Server::Data::Role::DeleteAndLog' => { type => 'work' };
 with 'MusicBrainz::Server::Data::Role::Rating' => { type => 'work' };
 with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'work' };
-with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'work' };
+with 'MusicBrainz::Server::Data::Role::PendingEdits' => { table => 'work' };
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'work' };
 with 'MusicBrainz::Server::Data::Role::Merge';
 with 'MusicBrainz::Server::Data::Role::Collection';

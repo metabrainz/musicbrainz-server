@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import UserAccountLayout, {
   sanitizedAccountLayoutUser,
 } from '../components/UserAccountLayout.js';
@@ -27,7 +25,7 @@ const Donation = ({
   days,
   nag,
   user,
-}: Props): React.Element<typeof UserAccountLayout> => (
+}: Props): React$Element<typeof UserAccountLayout> => (
   <UserAccountLayout
     entity={sanitizedAccountLayoutUser(user)}
     page="donation"

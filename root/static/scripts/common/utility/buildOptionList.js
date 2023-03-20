@@ -28,7 +28,10 @@ export default function buildOptionList<+T>(
     );
   };
 
-  const getOptionsByParentId = (parentId: number | null, level: number) => {
+  const getOptionsByParentId = (
+    parentId: number | null,
+    level: number,
+  ): OptionListT => {
     const options = optionsByParentId.get(parentId);
     if (!options) {
       return [];

@@ -18,7 +18,7 @@ type Props = {
   +merger: MergeQueueT,
 };
 
-const MergeHelper = ({merger}: Props): React.Element<'div'> => {
+const MergeHelper = ({merger}: Props): React$Element<'div'> => {
   const $c = React.useContext(CatalystContext);
 
   return (

@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import SelectField from '../../common/components/SelectField.js';
 
 import FieldErrors from './FieldErrors.js';
@@ -23,7 +21,7 @@ type Props = {
   +field: ReadOnlyFieldT<number | string>,
   +frozen?: boolean,
   +hasHtmlErrors?: boolean,
-  +helpers?: React.Node,
+  +helpers?: React$Node,
   +label: string,
   +onChange?: (event: SyntheticEvent<HTMLSelectElement>) => void,
   +options: MaybeGroupedOptionsT,
@@ -47,7 +45,7 @@ const FormRowSelect = ({
   options,
   required: passedRequired = false,
   uncontrolled = false,
-}: Props): React.Element<typeof FormRow> => {
+}: Props): React$Element<typeof FormRow> => {
   let required = passedRequired;
   if (!allowEmpty) {
     // If the field can't be unset, there's nothing required from the user.

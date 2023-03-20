@@ -22,7 +22,7 @@ type Props = {
 
 const DocError = ({
   id,
-}: Props): React.Element<typeof Layout> => {
+}: Props): React$Element<typeof Layout> => {
   const $c = React.useContext(CatalystContext);
 
   // We check whether we have a Google Custom Search engine

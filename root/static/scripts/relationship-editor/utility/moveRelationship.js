@@ -34,6 +34,7 @@ import {
 import getRelationshipEditStatus from './getRelationshipEditStatus.js';
 import isRelationshipBackward from './isRelationshipBackward.js';
 import updateRelationships, {
+  type RelationshipUpdateT,
   ADD_RELATIONSHIP,
   REMOVE_RELATIONSHIP,
 } from './updateRelationships.js';
@@ -79,7 +80,7 @@ export default function moveRelationship(
 
   const nextLogicalLinkOrder =
     Math.max(0, relationship.linkOrder + (moveForward ? 1 : -1));
-  const updates = [];
+  const updates: Array<RelationshipUpdateT> = [];
 
   const relationshipWithNewLinkOrder = (
     relationship: RelationshipStateT,

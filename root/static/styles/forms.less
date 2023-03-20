@@ -2,7 +2,7 @@
 @form-margin: 12px;
 @form-label-width: 150px;
 @form-input-width: @form-half-width - @form-label-width - (@form-margin * 3);
-@form-input-width-short: 220px;
+@form-input-width-short: 260px;
 @form-icon-size: 16px;
 @form-bubble-label-width: @form-label-width;
 @form-bubble-input-width: 176px;
@@ -95,6 +95,8 @@ div.form-row-add {
     margin: (@form-margin / 2) 0;
 }
 
+div.form-row-add.short { width: @form-input-width-short; }
+
 /* these rows are missing a <label> on the left and use a margin instead. */
 div.form-row-add.nolabel { margin-left: @form-label-width + @form-margin; }
 
@@ -171,7 +173,10 @@ form div.no-margin {
     margin-left: 0;
 }
 
-#collaborators-form-list ul.errors { margin-left: 0; }
+.collaborators-form-list {
+    div.autocomplete2 { width: @form-input-width-short; }
+    ul.errors { margin-left: 0; }
+}
 
 .select-list-row ul.errors {
     margin-left: 0;

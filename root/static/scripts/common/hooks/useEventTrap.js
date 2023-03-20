@@ -24,7 +24,7 @@ function setupEventHandler(
     return cachedTargetActions;
   }
 
-  const targetActions = new Map();
+  const targetActions: TargetRefsT = new Map();
   EVENTS.set(eventType, targetActions);
 
   document.addEventListener((

@@ -37,7 +37,7 @@ const countTextPicker = {
 
 type Props = {
   +canBeFiltered: boolean,
-  +children: React.Node,
+  +children: React$Node,
   +countText?: string,
   +description: Expand2ReactOutput,
   +entityType: string,
@@ -59,7 +59,7 @@ const ReportLayout = ({
   generated,
   title,
   totalEntries,
-}: Props): React.Element<typeof Layout> => {
+}: Props): React$Element<typeof Layout> => {
   const $c = React.useContext(CatalystContext);
 
   return (

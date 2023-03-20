@@ -81,7 +81,7 @@ export const FormRowSortNameWithGuessCase = ({
   field,
   label = addColonText(l('Sort name')),
   required = false,
-}: PropsT): React.Element<typeof FormRowText> => {
+}: PropsT): React$Element<typeof FormRowText> => {
   const handleSortNameChange = React.useCallback((
     event: SyntheticKeyboardEvent<HTMLInputElement>,
   ) => {

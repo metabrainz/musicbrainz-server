@@ -7,15 +7,13 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import {CatalystContext} from '../../../context.mjs';
 import typeof EntityLink
   from '../../../static/scripts/common/components/EntityLink.js';
 import entityHref from '../../../static/scripts/common/utility/entityHref.js';
 import {returnToCurrentPage} from '../../../utility/returnUri.js';
 
-function entityArg(entity: CoreEntityT) {
+function entityArg(entity: CollectableEntityT) {
   return '?' + entity.entityType + '=' +
     encodeURIComponent(String(entity.id));
 }
@@ -23,7 +21,7 @@ function entityArg(entity: CoreEntityT) {
 function collectionUrl(
   $c: CatalystContextT,
   collection: CollectionT,
-  entity: CoreEntityT,
+  entity: CollectableEntityT,
   action: string,
 ) {
   return entityHref(collection, 'collection_collaborator/' + action) +
@@ -41,19 +39,19 @@ function hasEntity(
 
 type CollectionAddRemoveProps = {
   +collections?: $ReadOnlyArray<CollectionT>,
-  +entity: CoreEntityT,
+  +entity: CollectableEntityT,
   +noneText?: string,
 };
 
 type CollaborativeCollectionListProps = {
   +collections?: $ReadOnlyArray<CollectionT>,
-  +entity: CoreEntityT,
+  +entity: CollectableEntityT,
 };
 
 type OwnCollectionListProps = {
   +addText: string,
   +collections?: $ReadOnlyArray<CollectionT>,
-  +entity: CoreEntityT,
+  +entity: CollectableEntityT,
   +noneText: string,
 };
 
@@ -61,13 +59,13 @@ type CollectionListProps = {
   +addCollectionText: string,
   +collaborativeCollections?: $ReadOnlyArray<CollectionT>,
   +collaborativeCollectionsHeader: string,
-  +entity: CoreEntityT,
+  +entity: CollectableEntityT,
   +header: string,
   +ownCollections?: $ReadOnlyArray<CollectionT>,
   +ownCollectionsHeader: string,
   +ownCollectionsNoneText: string,
   +sectionClass: string,
-  +usersLink: React.Element<EntityLink>,
+  +usersLink: React$Element<EntityLink>,
   +usersLinkHeader: string,
 };
 
@@ -145,7 +143,7 @@ const CollectionList = ({
   sectionClass,
   usersLink,
   usersLinkHeader,
-}: CollectionListProps): React.MixedElement => (
+}: CollectionListProps): React$MixedElement => (
   <>
     <h2 className={sectionClass}>
       {header}

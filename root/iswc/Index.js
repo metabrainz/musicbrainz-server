@@ -21,7 +21,7 @@ type Props = {
   +works: $ReadOnlyArray<WorkT>,
 };
 
-const Index = ({iswcs, works}: Props): React.Element<typeof Layout> => {
+const Index = ({iswcs, works}: Props): React$Element<typeof Layout> => {
   const $c = React.useContext(SanitizedCatalystContext);
   const userExists = !!$c.user;
   const iswc = iswcs[0];

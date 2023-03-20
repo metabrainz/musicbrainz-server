@@ -2,6 +2,8 @@ package MusicBrainz::Script::NotifyOfNewReleases;
 use Moose;
 use namespace::autoclean;
 
+use English;
+
 use aliased 'MusicBrainz::Server::Email';
 
 with 'MooseX::Runnable';
@@ -27,7 +29,7 @@ sub _build_emailer {
 
 sub run {
     my ($self, @args) = @_;
-    die "Usage error ($0 takes no extra arguments)" if @args;
+    die "Usage error ($PROGRAM_NAME takes no extra arguments)" if @args;
 
     my @editors = $self->c->model('WatchArtist')->find_editors_to_notify;
     for my $editor (@editors) {

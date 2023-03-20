@@ -42,7 +42,7 @@ const EditList = ({
   refineUrlArgs,
   username,
   voter,
-}: Props): React.Element<typeof React.Fragment> => {
+}: Props): React$Element<typeof React.Fragment> => {
   const $c = React.useContext(SanitizedCatalystContext);
 
   /*

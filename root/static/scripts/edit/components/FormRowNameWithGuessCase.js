@@ -110,7 +110,7 @@ export const FormRowNameWithGuessCase = ({
   guessFeat = false,
   isGuessCaseOptionsOpen = false,
   label = addColonText(l('Name')),
-}: PropsT): React.Element<typeof FormRowText> => {
+}: PropsT): React$Element<typeof FormRowText> => {
   function handleNameChange(event: SyntheticKeyboardEvent<HTMLInputElement>) {
     dispatch({
       name: event.currentTarget.value,

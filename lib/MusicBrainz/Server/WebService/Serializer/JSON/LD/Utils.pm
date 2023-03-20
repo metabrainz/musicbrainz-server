@@ -103,8 +103,17 @@ of the first defined run of numbers.
 sub format_date {
     my ($date) = @_;
 
-    my @run = $date->defined_run if $date;
-    return PartialDate->new(year => $run[0], month => $run[1], day => $run[2])->format if @run;
+    if (!$date || !$date->defined_run) {
+        return undef;
+    }
+
+    my @run = $date->defined_run;
+
+    return PartialDate->new(
+        year => $run[0],
+        month => $run[1],
+        day => $run[2],
+    )->format;
 }
 
 1;

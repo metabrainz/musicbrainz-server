@@ -18,7 +18,6 @@ import EditLink from '../../static/scripts/common/components/EditLink.js';
 import EditorLink from '../../static/scripts/common/components/EditorLink.js';
 import linkedEntities from '../../static/scripts/common/linkedEntities.mjs';
 import bracketed from '../../static/scripts/common/utility/bracketed.js';
-import {isBot} from '../../static/scripts/common/utility/privileges.js';
 import getVoteName from '../../static/scripts/edit/utility/getVoteName.js';
 import {
   editorMayApprove,
@@ -30,6 +29,7 @@ import {
 import formatUserDate from '../../utility/formatUserDate.js';
 import {returnToCurrentPage} from '../../utility/returnUri.js';
 
+import EditorTypeInfo from './EditorTypeInfo.js';
 import VoteTally from './VoteTally.js';
 
 type Props = {
@@ -38,39 +38,16 @@ type Props = {
   +voter?: UnsanitizedEditorT,
 };
 
-const EditorTypeInfo = ({editor}: {editor: EditorT}) => (
-  editor.is_limited ? (
-    <span className="editor-class">
-      {bracketed(
-        <span
-          className="tooltip"
-          title={l('This user is new to MusicBrainz.')}
-        >
-          {l('beginner')}
-        </span>,
-      )}
-    </span>
-  ) : isBot(editor) ? (
-    <span className="editor-class">
-      {bracketed(
-        <span className="tooltip" title={l('This user is automated.')}>
-          {l('bot')}
-        </span>,
-      )}
-    </span>
-  ) : null
-);
-
 const EditHeader = ({
   edit,
   isSummary = false,
   voter,
-}: Props): React.Element<'div'> => {
+}: Props): React$Element<'div'> => {
   const $c = React.useContext(CatalystContext);
   const user = $c.user;
   const mayApprove = editorMayApprove(edit, user);
   const mayCancel = editorMayCancel(edit, user);
-  const mayVote = editorMayVote(edit, user);
+  const mayVote = editorMayVote(user);
   const editTitle = texp.l(
     'Edit #{id} - {name}',
     {id: edit.id, name: l(edit.edit_name)},

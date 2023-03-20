@@ -26,7 +26,7 @@ type Props = {
 };
 
 const SidebarIpis = ({entity}: Props):
-  React.ChildrenArray<React.Element<typeof SidebarProperty>> => (
+  React.ChildrenArray<React$Element<typeof SidebarProperty>> => (
   entity.ipi_codes.map(buildSidebarIpi)
 );
 

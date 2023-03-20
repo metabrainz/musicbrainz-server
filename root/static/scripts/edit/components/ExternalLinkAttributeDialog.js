@@ -32,7 +32,7 @@ import DateRangeFieldset, {
 } from './DateRangeFieldset.js';
 
 type PropsT = {
-  onConfirm: ($ReadOnly<$Partial<LinkStateT>>) => void,
+  onConfirm: ($ReadOnly<Partial<LinkStateT>>) => void,
   relationship: LinkRelationshipT,
 };
 
@@ -129,7 +129,7 @@ const reducer = (state: StateT, action: ActionT): StateT => {
   );
 };
 
-const ExternalLinkAttributeDialog = (props: PropsT): React.MixedElement => {
+const ExternalLinkAttributeDialog = (props: PropsT): React$MixedElement => {
   const buttonRef = React.useRef<HTMLButtonElement | null>(null);
   const [open, setOpen] = React.useState(false);
 
@@ -144,7 +144,9 @@ const ExternalLinkAttributeDialog = (props: PropsT): React.MixedElement => {
     dispatch({type: 'update-initial-date-period', props});
   }, [props]);
 
-  const dateDispatch = React.useCallback((action) => {
+  const dateDispatch = React.useCallback((
+    action: DateRangeFieldsetActionT,
+  ) => {
     dispatch({action, type: 'update-date-period'});
   }, [dispatch]);
 
@@ -184,7 +186,7 @@ const ExternalLinkAttributeDialog = (props: PropsT): React.MixedElement => {
   };
 
   const buildPopoverChildren =
-    (closeAndReturnFocus: () => void): React.Element<'form'> => {
+    (closeAndReturnFocus: () => void): React$Element<'form'> => {
       return (
         <form
           className="external-link-attribute-dialog"

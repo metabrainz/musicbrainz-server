@@ -19,8 +19,6 @@
 import fs from 'fs';
 import path from 'path';
 
-import * as React from 'react';
-
 import {
   MB_SERVER_ROOT,
   STATIC_RESOURCES_LOCATION,
@@ -51,7 +49,7 @@ const jsExt = /\.js(?:on)?$/;
 export function js(
   manifest: string,
   extraAttrs?: {+'async'?: 'async', +'data-args'?: mixed} | null = null,
-): React.Element<'script'> {
+): React$Element<'script'> {
   if (jsExt.test(manifest)) {
     throw new Error(
       'Do not include .js in the manifest path name',

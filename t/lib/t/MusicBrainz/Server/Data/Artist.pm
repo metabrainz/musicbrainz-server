@@ -62,7 +62,7 @@ my $sql = $test->c->sql;
 $sql->begin;
 
 my $artist_data = MusicBrainz::Server::Data::Artist->new(c => $test->c);
-does_ok($artist_data, 'MusicBrainz::Server::Data::Role::Editable');
+does_ok($artist_data, 'MusicBrainz::Server::Data::Role::PendingEdits');
 
 # ----
 # Test fetching artists:

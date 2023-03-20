@@ -28,7 +28,7 @@ const InstrumentRecordings = ({
   instrumentCreditsAndRelTypes,
   pager,
   recordings,
-}: Props): React.Element<typeof InstrumentLayout> => {
+}: Props): React$Element<typeof InstrumentLayout> => {
   const $c = React.useContext(SanitizedCatalystContext);
   return (
     <InstrumentLayout

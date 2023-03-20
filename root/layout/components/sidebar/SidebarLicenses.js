@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import artLibreIconUrl
   from '../../../static/images/licenses/ArtLibre.png';
 import cc0IconUrl
@@ -109,22 +107,22 @@ const LicenseDisplay = ({url}: {+url: UrlT}) => {
 };
 
 const cmpLinkPhrase = (
-  a: [string, React.MixedElement],
-  b: [string, React.MixedElement],
+  a: [string, React$MixedElement],
+  b: [string, React$MixedElement],
 ) => compare(a[0], b[0]);
 
 type Props = {
   +entity: CoreEntityT,
 };
 
-const SidebarLicenses = ({entity}: Props): React.MixedElement | null => {
+const SidebarLicenses = ({entity}: Props): React$MixedElement | null => {
   const relationships = entity.relationships;
 
   if (!relationships) {
     return null;
   }
 
-  const licenses: Array<[string, React.MixedElement]> = [];
+  const licenses: Array<[string, React$MixedElement]> = [];
   for (const r of relationships) {
     const target = r.target;
     if (target.entityType === 'url' &&

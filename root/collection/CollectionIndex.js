@@ -31,7 +31,7 @@ import UserInlineList from '../user/components/UserInlineList.js';
 
 import CollectionLayout from './CollectionLayout.js';
 
-type PropsForEntity<T: CoreEntityT> = {
+type PropsForEntity<T: CollectableEntityT> = {
   +collection: CollectionT,
   +collectionEntityType: T['entityType'],
   +entities: $ReadOnlyArray<T>,
@@ -158,7 +158,7 @@ const listPicker = (
 };
 
 const CollectionIndex = (props: Props):
-React.Element<typeof CollectionLayout> => {
+React$Element<typeof CollectionLayout> => {
   const $c = React.useContext(SanitizedCatalystContext);
   const {
     collection,

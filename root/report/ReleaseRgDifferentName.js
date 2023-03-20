@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import {
   defineEntityColumn,
 } from '../utility/tableColumns.js';
@@ -24,7 +22,7 @@ const ReleaseRgDifferentName = ({
   items,
   pager,
 }: ReportDataT<ReportReleaseReleaseGroupT>):
-React.Element<typeof ReportLayout> => {
+React$Element<typeof ReportLayout> => {
   const releaseGroupColumn = defineEntityColumn<ReportReleaseReleaseGroupT>({
     columnName: 'release_group',
     descriptive: false,

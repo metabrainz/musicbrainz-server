@@ -7,21 +7,22 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
+import PaginatedResults from '../components/PaginatedResults.js';
 import Layout from '../layout/index.js';
 
 import UserList from './components/UserList.js';
 
 type Props = {
   +ipHash: string,
+  +pager: PagerT,
   +users: $ReadOnlyArray<UnsanitizedEditorT>,
 };
 
 const IpLookup = ({
   ipHash,
+  pager,
   users,
-}: Props): React.Element<typeof Layout> => (
+}: Props): React$Element<typeof Layout> => (
   <Layout fullWidth title={l('IP lookup')}>
     <div id="content">
       <h1>{l('IP lookup')}</h1>
@@ -29,7 +30,9 @@ const IpLookup = ({
         {l('IP hash:') + ' ' + ipHash}
       </p>
       {users.length ? (
-        <UserList users={users} />
+        <PaginatedResults pager={pager}>
+          <UserList users={users} />
+        </PaginatedResults>
       ) : (
         <p>
           {l('No results')}

@@ -63,6 +63,6 @@ const RelationshipTargetTypeGroup = (React.memo<Props>(({
     );
   }
   return elements;
-}): React.AbstractComponent<Props>);
+}): React$AbstractComponent<Props, mixed>);
 
 export default RelationshipTargetTypeGroup;

@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import ArtistUrlList from './components/ArtistUrlList.js';
 import ReportLayout from './components/ReportLayout.js';
 import type {ReportArtistUrlT, ReportDataT} from './types.js';
@@ -20,7 +18,7 @@ const DiscogsLinksWithMultipleArtists = ({
   items,
   pager,
 }: ReportDataT<ReportArtistUrlT>):
-React.Element<typeof ReportLayout> => (
+React$Element<typeof ReportLayout> => (
   <ReportLayout
     canBeFiltered={canBeFiltered}
     description={l(

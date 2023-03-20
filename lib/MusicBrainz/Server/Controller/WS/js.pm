@@ -6,6 +6,7 @@ BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::js'; }
 use utf8;
 use Data::OptList;
 use DBDefs;
+use English;
 use HTTP::Request;
 use Digest::MD5 qw( md5_hex );
 use IO::Compress::Gzip qw( gzip $GzipError );
@@ -292,14 +293,12 @@ sub _detach_with_ia_server_error {
 sub _detach_with_temporary_delay : Private {
     my ($self, $c) = @_;
 
-    $self->detach_with_error(
-        $c,
+    $self->detach_with_error($c, {
         message => l(
             'We’ve hit a temporary delay while trying to fetch metadata ' .
             'from the Internet Archive. Please wait a minute and try again.',
         ),
-        500,
-    );
+    }, 500);
 }
 
 sub cover_art_upload : Chained('root') PathPart('cover-art-upload') Args(1)
@@ -580,7 +579,7 @@ sub entities : Chained('root') PathPart('entities') Args(2)
     my $type_model_name = eval { type_to_model($type_name) };
 
     $self->detach_with_error($c, "unknown type: $type_name", 400)
-        if $@;
+        if $EVAL_ERROR;
 
     my $type_model = $c->model($type_model_name);
 
@@ -725,7 +724,7 @@ sub type_info : Chained('root') PathPart('type-info') Args(1) {
     my $type_model_name = eval { type_to_model($type_name) };
 
     $self->detach_with_error($c, "unknown type: $type_name", 400)
-        if $@;
+        if $EVAL_ERROR;
 
     my $type_model = $c->model($type_model_name);
 
@@ -795,7 +794,7 @@ sub get_json_request_body : Private {
     my $json_string = <$body>;
     my $decoded_object = eval { decode_json($json_string) };
 
-    $self->detach_with_error($c, "$@") if $@;
+    $self->detach_with_error($c, "$EVAL_ERROR") if $EVAL_ERROR;
 
     return $decoded_object;
 }

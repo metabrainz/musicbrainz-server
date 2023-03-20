@@ -50,7 +50,7 @@ import {
 
 type Props = {
   +aliasTypes: SelectOptionsT,
-  +entity: CoreEntityT,
+  +entity: EntityWithAliasesT,
   +form: AliasEditFormT,
   +locales: SelectOptionsT,
   +searchHintType: number,
@@ -200,7 +200,7 @@ const AliasEditForm = ({
   form: initialForm,
   locales,
   searchHintType,
-}: Props): React.Element<typeof React.Fragment> => {
+}: Props): React$Element<typeof React.Fragment> => {
   const localeOptions = {
     grouped: false,
     options: locales,
@@ -224,18 +224,24 @@ const AliasEditForm = ({
     dispatch({action, type: 'update-sortname'});
   }, [dispatch]);
 
-  const setLocale = React.useCallback((event) => {
+  const setLocale = React.useCallback((
+    event: SyntheticEvent<HTMLSelectElement>,
+  ) => {
     dispatch({locale: event.currentTarget.value, type: 'set-locale'});
   }, [dispatch]);
 
-  const setPrimaryForLocale = React.useCallback((event) => {
+  const setPrimaryForLocale = React.useCallback((
+    event: SyntheticEvent<HTMLInputElement>,
+  ) => {
     dispatch({
       enabled: event.currentTarget.checked,
       type: 'set-primary-for-locale',
     });
   }, [dispatch]);
 
-  const setType = React.useCallback((event) => {
+  const setType = React.useCallback((
+    event: SyntheticEvent<HTMLSelectElement>,
+  ) => {
     dispatch({type: 'set-type', type_id: event.currentTarget.value});
   }, [dispatch]);
 
@@ -347,4 +353,4 @@ const AliasEditForm = ({
 export default (hydrate<Props>(
   'div.alias-edit-form',
   AliasEditForm,
-): React.AbstractComponent<Props, void>);
+): React$AbstractComponent<Props, void>);

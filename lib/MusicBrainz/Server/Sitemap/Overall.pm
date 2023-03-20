@@ -300,7 +300,7 @@ sub build_one_entity {
     }
 
     # Add last batch.
-    my $last_batch = $raw_batches->[scalar @$raw_batches - 1];
+    my $last_batch = $raw_batches->[-1];
     push @batches, {count => $last_batch->{count},
                     batches => [$last_batch->{batch}]};
 

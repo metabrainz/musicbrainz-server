@@ -296,7 +296,6 @@ export const LINK_TYPES: LinkTypeMap = {
 
 // See https://musicbrainz.org/doc/Style/Relationships/URLs#Restricted_relationships
 
-// $FlowIssue[incompatible-type]: Array<mixed>
 export const RESTRICTED_LINK_TYPES: $ReadOnlyArray<string> = [
   LINK_TYPES.allmusic,
   LINK_TYPES.amazon,
@@ -451,7 +450,6 @@ const CLEANUPS: CleanupEntries = {
   },
   '45cat': {
     match: [new RegExp('^(https?://)?(www\\.)?45cat\\.com/', 'i')],
-    // $FlowIssue[incompatible-type]: Array<mixed>
     restrict: [LINK_TYPES.otherdatabases],
     clean: function (url) {
       return url.replace(/^(?:https?:\/\/)?(?:www\.)?45cat\.com\/([a-z]+\/[^\/?&#]+)(?:[\/?&#].*)?$/, 'https://www.45cat.com/$1');
@@ -1946,9 +1944,9 @@ const CLEANUPS: CleanupEntries = {
     ],
     restrict: [LINK_TYPES.otherdatabases],
     clean: function (url) {
-      url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?d-nb\.info\//, 'http://d-nb.info/');
-      url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?dnb\.de\/opac(?:\.htm\?)?.*\bquery=nid%3D([0-9X-]{9,10}).*$/, 'http://d-nb.info/gnd/$1');
-      url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?dnb\.de\/opac(?:\.htm\?)?.*\bquery=idn%3D([0-9X-]{9,10}).*$/, 'http://d-nb.info/$1');
+      url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?d-nb\.info\//, 'https://d-nb.info/');
+      url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?dnb\.de\/opac(?:\.htm\?)?.*\bquery=nid%3D([0-9X-]+).*$/, 'https://d-nb.info/gnd/$1');
+      url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?dnb\.de\/opac(?:\.htm\?)?.*\bquery=idn%3D([0-9X-]+).*$/, 'https://d-nb.info/$1');
       return url;
     },
     validate: function (url, id) {
@@ -1958,17 +1956,17 @@ const CLEANUPS: CleanupEntries = {
         case LINK_TYPES.otherdatabases.series:
         case LINK_TYPES.otherdatabases.work:
           return {
-            result: /^http:\/\/d-nb\.info\/(?:gnd\/)?[0-9X-]{9,10}$/.test(url),
+            result: /^https:\/\/d-nb\.info\/(?:gnd\/)?[0-9X-]+$/.test(url),
             target: ERROR_TARGETS.ENTITY,
           };
         case LINK_TYPES.otherdatabases.label:
           return {
-            result: /^http:\/\/d-nb\.info\/(?:(?:dnbn|gnd)\/)?[0-9X-]{9,10}$/.test(url),
+            result: /^https:\/\/d-nb\.info\/(?:(?:dnbn|gnd)\/)?[0-9X-]+$/.test(url),
             target: ERROR_TARGETS.ENTITY,
           };
         case LINK_TYPES.otherdatabases.release:
           return {
-            result: /^http:\/\/d-nb\.info\/[0-9X-]{9,10}$/.test(url),
+            result: /^https:\/\/d-nb\.info\/[0-9X-]+$/.test(url),
             target: ERROR_TARGETS.ENTITY,
           };
       }
@@ -5550,7 +5548,6 @@ function testAll(tests: $ReadOnlyArray<RegExp>, text: string) {
   return false;
 }
 
-// $FlowIssue[incompatible-type]: Array<mixed>
 const CLEANUP_ENTRIES: Array<CleanupEntry> = Object.values(CLEANUPS);
 
 const entitySpecificRules: {
@@ -5657,7 +5654,7 @@ entitySpecificRules.recording = function (url) {
  * }
  */
 function multiple(...types: $ReadOnlyArray<EntityTypeMap>): EntityTypesMap {
-  const result = {};
+  const result: {[entityType: CoreEntityTypeT]: Array<string>} = {};
   types.forEach(function (type: EntityTypeMap) {
     for (const [entityType, id] of Object.entries(type)) {
       result[entityType] = result[entityType] || [];

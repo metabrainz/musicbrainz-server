@@ -25,6 +25,7 @@ import {
   getCatalystContext,
   getSourceEntityDataForRelationshipEditor,
 } from '../../common/utility/catalyst.js';
+import coerceToError from '../../common/utility/coerceToError.js';
 import isDatabaseRowId from '../../common/utility/isDatabaseRowId.js';
 import {uniqueNegativeId} from '../../common/utility/numbers.js';
 import {hasSessionStorage} from '../../common/utility/storage.js';
@@ -93,6 +94,7 @@ export type PropsT = {
 export type InitialStateArgsT = {
   +formName: string,
   +seededRelationships: ?$ReadOnlyArray<SeededRelationshipT>,
+  +source?: CoreEntityT,
 };
 
 export function* getInitialRelationshipUpdates(
@@ -116,7 +118,6 @@ export function* getInitialRelationshipUpdates(
      * the source and target entity types are the same; see e.g. MBS-12850.
      */
     if (!isDatabaseRowId(target.id)) {
-      // $FlowIssue[incompatible-cast] - Flow doesn't like spreading unions
       target = ({...target, id: uniqueNegativeId()}: CoreEntityT);
     }
 
@@ -173,7 +174,7 @@ export function createInitialState(
 ): RelationshipEditorStateT {
   const {seededRelationships} = args;
 
-  const source = getSourceEntityDataForRelationshipEditor();
+  const source = args.source ?? getSourceEntityDataForRelationshipEditor();
 
   invariant(
     source.entityType !== 'release',
@@ -334,7 +335,7 @@ export function runReducer(
     case 'remove-relationship': {
       const {relationship} = action;
 
-      const updates = [
+      const updates: Array<RelationshipUpdateT> = [
         {
           relationship,
           throwIfNotExists: true,
@@ -371,7 +372,7 @@ export function runReducer(
         linkPhraseGroup,
       } = action;
 
-      const updates = [];
+      const updates: Array<RelationshipUpdateT> = [];
       let nextLogicalLinkOrder = 1;
 
       for (
@@ -453,7 +454,7 @@ export function runReducer(
           newRelationshipState,
           sourceEntity,
         );
-        const updates = [];
+        const updates: Array<RelationshipUpdateT> = [];
 
         if (
           oldRelationshipState != null &&
@@ -543,10 +544,10 @@ type ErrorMessagePropsT = {
 };
 
 export const ErrorMessage:
-  React.AbstractComponent<ErrorMessagePropsT, mixed> =
+  React$AbstractComponent<ErrorMessagePropsT, mixed> =
   React.memo<ErrorMessagePropsT>(({
     error,
-  }: ErrorMessagePropsT): React.MixedElement => (
+  }: ErrorMessagePropsT): React$MixedElement => (
     <div className="error">
       <strong className="error">
         {l('Oops, something went wrong!')}
@@ -560,7 +561,7 @@ export const ErrorMessage:
 
 const RelationshipEditor = (
   props: PropsT,
-): React.Element<'fieldset'> | null => {
+): React$Element<'fieldset'> | null => {
   const {
     dispatch,
     formName,
@@ -589,11 +590,7 @@ const RelationshipEditor = (
 
           captureException(error);
 
-          setPrepareSubmissionError(
-            error instanceof Error
-              ? error
-              : new Error(String(error)),
-          );
+          setPrepareSubmissionError(coerceToError(error));
         }
       }
     };
@@ -630,27 +627,30 @@ const RelationshipEditor = (
 
   return (
     <fieldset id="relationship-editor">
-      {error ? (
-        <ErrorMessage error={error.stack} />
-      ) : null}
-
       <legend>
         {l('Relationships')}
       </legend>
 
-      <RelationshipSourceGroupsContext.Provider value={sourceGroupsContext}>
-        <RelationshipTargetTypeGroups
-          dialogLocation={state.dialogLocation}
-          dispatch={dispatch}
-          releaseHasUnloadedTracks={false}
-          source={state.entity}
-          targetTypeGroups={findTargetTypeGroups(
-            state.relationshipsBySource,
-            state.entity,
-          )}
-          track={null}
-        />
-      </RelationshipSourceGroupsContext.Provider>
+      <div className="relationship-editor-fieldset-content">
+        {error ? (
+          <ErrorMessage error={error.stack} />
+        ) : null}
+
+
+        <RelationshipSourceGroupsContext.Provider value={sourceGroupsContext}>
+          <RelationshipTargetTypeGroups
+            dialogLocation={state.dialogLocation}
+            dispatch={dispatch}
+            releaseHasUnloadedTracks={false}
+            source={state.entity}
+            targetTypeGroups={findTargetTypeGroups(
+              state.relationshipsBySource,
+              state.entity,
+            )}
+            track={null}
+          />
+        </RelationshipSourceGroupsContext.Provider>
+      </div>
     </fieldset>
   );
 };

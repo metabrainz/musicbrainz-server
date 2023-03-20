@@ -20,7 +20,7 @@ type PropsT = {
   +election: AutoEditorElectionT,
 };
 
-const ElectionVoting = ({election}: PropsT): React.MixedElement => {
+const ElectionVoting = ({election}: PropsT): React$MixedElement => {
   const $c = React.useContext(CatalystContext);
   let message = exp.l(
     'To find out if you can vote for this candidate, please {url|log in}.',
