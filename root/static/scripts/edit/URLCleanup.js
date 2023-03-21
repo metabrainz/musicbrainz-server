@@ -2237,6 +2237,88 @@ const CLEANUPS: CleanupEntries = {
       };
     },
   },
+  'genie': {
+    match: [
+      new RegExp('^(https?://)?((www|mw)\\.)?genie\\.co\\.kr/', 'i'),
+    ],
+    restrict: [
+      multiple(LINK_TYPES.downloadpurchase, LINK_TYPES.streamingpaid),
+      LINK_TYPES.streamingpaid,
+    ],
+    select: function (url, sourceType) {
+      const m = /^https:\/\/www\.genie\.co\.kr\/detail\/(albumInfo|artistInfo|songInfo)/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (prefix) {
+          case 'albumInfo':
+            if (sourceType === 'release') {
+              return [
+                LINK_TYPES.downloadpurchase.release,
+                LINK_TYPES.streamingpaid.release,
+              ];
+            }
+            break;
+          case 'artistInfo':
+            if (sourceType === 'artist') {
+              return [
+                LINK_TYPES.downloadpurchase.artist,
+                LINK_TYPES.streamingpaid.artist,
+              ];
+            }
+            break;
+          default: // songInfo
+            if (sourceType === 'recording') {
+              return [
+                LINK_TYPES.downloadpurchase.recording,
+                LINK_TYPES.streamingpaid.recording,
+              ];
+            }
+            break;
+        }
+      }
+      return false;
+    },
+    clean: function (url) {
+      url = url.replace(/^(?:https?:\/\/)?(?:(?:www|mw)\.)?genie\.co\.kr\//, 'https://www.genie.co.kr/');
+      url = url.replace(/^(https:\/\/www\.genie\.co\.kr\/detail\/(?:albumInfo\?ax|artistInfo\?xx|songInfo\?xg)nm=\d+)(?:[&#\/].*)?$/, '$1');
+      return url;
+    },
+    validate: function (url, id) {
+      if (/https:\/\/www\.genie\.co\.kr\/search\//.test(url)) {
+        return {
+          error: noLinkToSearchMsg(),
+          result: false,
+          target: ERROR_TARGETS.URL,
+        };
+      }
+      const m = /^https:\/\/www\.genie\.co\.kr\/detail\/(albumInfo|artistInfo|songInfo)\?(?:ax|xx|xg)nm=\d+$/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.downloadpurchase.release:
+          case LINK_TYPES.streamingpaid.release:
+            return {
+              result: prefix === 'albumInfo',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.downloadpurchase.artist:
+          case LINK_TYPES.streamingpaid.artist:
+            return {
+              result: prefix === 'artistInfo',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.downloadpurchase.recording:
+          case LINK_TYPES.streamingpaid.recording:
+            return {
+              result: prefix === 'songInfo',
+              target: ERROR_TARGETS.ENTITY,
+            };
+        }
+        return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
   'genius': {
     match: [new RegExp('^(https?://)?([^/]+\\.)?genius\\.com', 'i')],
     restrict: [{
