@@ -2245,6 +2245,59 @@ limited_link_type_combinations: [
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'https://www.generasia.com/wiki/Ding_Ding_~Koi_Kara_Hajimaru_Futari_no_Train~',
   },
+  // Genie
+  {
+                     input_url: 'https://www.genie.co.kr/detail/albumInfo?axnm=83634218#',
+             input_entity_type: 'release',
+    expected_relationship_type: ['downloadpurchase', 'streamingpaid'],
+limited_link_type_combinations: [
+                                  ['downloadpurchase', 'streamingpaid'],
+                                  'streamingpaid',
+                                ],
+            expected_clean_url: 'https://www.genie.co.kr/detail/albumInfo?axnm=83634218',
+  },
+  {
+                     input_url: 'https://mw.genie.co.kr/detail/albumInfo?axnm=83634218',
+             input_entity_type: 'release',
+    expected_relationship_type: ['downloadpurchase', 'streamingpaid'],
+limited_link_type_combinations: [
+                                   ['downloadpurchase', 'streamingpaid'],
+                                   'streamingpaid',
+                                ],
+            expected_clean_url: 'https://www.genie.co.kr/detail/albumInfo?axnm=83634218',
+  },
+  {
+                     input_url: 'https://www.genie.co.kr/detail/artistInfo?xxnm=80441335#',
+             input_entity_type: 'artist',
+    expected_relationship_type: ['downloadpurchase', 'streamingpaid'],
+limited_link_type_combinations: [
+                                  ['downloadpurchase', 'streamingpaid'],
+                                  'streamingpaid',
+                                ],
+            expected_clean_url: 'https://www.genie.co.kr/detail/artistInfo?xxnm=80441335',
+  },
+  {
+                     input_url: 'https://mw.genie.co.kr/detail/artistInfo?xxnm=80441335',
+             input_entity_type: 'artist',
+    expected_relationship_type: ['downloadpurchase', 'streamingpaid'],
+limited_link_type_combinations: [
+                                  ['downloadpurchase', 'streamingpaid'],
+                                  'streamingpaid',
+                                ],
+            expected_clean_url: 'https://www.genie.co.kr/detail/artistInfo?xxnm=80441335',
+  },
+  {
+                     input_url: 'https://www.genie.co.kr/search/searchMain?query=Dreamcatcher',
+             input_entity_type: 'artist',
+       input_relationship_type: 'streamingpaid',
+    expected_relationship_type: undefined,
+            expected_clean_url: 'https://www.genie.co.kr/search/searchMain?query=Dreamcatcher',
+                expected_error: {
+                                  error: 'a link to a search result',
+                                  target: 'url',
+                                },
+       only_valid_entity_types: [],
+  },
   // Genius
   {
                      input_url: 'http://genius.com/artists/Dramatik',
