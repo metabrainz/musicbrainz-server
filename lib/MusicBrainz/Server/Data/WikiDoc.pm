@@ -34,7 +34,7 @@ sub _fix_html_links
     if ($href =~ m,^(?:https?:)?//$wiki_server/(File|Image):, || $class =~ m/new/)
     {
         my $child = $node->getFirstChild();
-        if (defined $child && $child->tag eq 'img' && ($child->attr('class') // '') eq 'zoomable')
+        if (defined $child && ref($child) eq 'HTML::Element' && $child->tag eq 'img' && ($child->attr('class') // '') eq 'zoomable')
         {
             # Transform link on "zoomable" image to point directly to the original image
             my $href = $child->attr('src') || '';
