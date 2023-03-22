@@ -74,4 +74,24 @@ BEGIN
 END;
 $$ LANGUAGE 'plpgsql' STRICT;
 
+-- Delete rows already in release_first_release_date for cancelled releases
+DELETE FROM release_first_release_date
+WHERE release IN (
+  SELECT id
+    FROM release
+   WHERE status = 6
+);
+
+-- Rerun set_release_group_first_release_date for release groups with cancelled releases
+SELECT set_release_group_first_release_date(release_group) FROM (
+  SELECT DISTINCT release_group
+    FROM release
+   WHERE status = 6
+) rgs_with_cancelled_releases;
+
+-- Rerun set_releases_recordings_first_release_dates for cancelled releases
+SELECT set_releases_recordings_first_release_dates(array_agg(id))
+  FROM release
+ WHERE status = 6;
+
 COMMIT;
