@@ -35,6 +35,22 @@ declare type EntityWithAliasesTypeT =
   | 'series'
   | 'work';
 
+declare type EntityWithSeriesT =
+  | ArtistT
+  | EventT
+  | RecordingT
+  | ReleaseT
+  | ReleaseGroupT
+  | WorkT;
+
+declare type EntityWithSeriesTypeT =
+  | 'artist'
+  | 'event'
+  | 'recording'
+  | 'release'
+  | 'release_group'
+  | 'work';
+
 declare type AppearancesT<T> = {
   +hits: number,
   +results: $ReadOnlyArray<T>,

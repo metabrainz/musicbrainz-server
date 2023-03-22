@@ -28,8 +28,8 @@ import SeriesLayout from './SeriesLayout.js';
 
 type ListPickerProps = {
   ...SeriesItemNumbersRoleT,
-  +entities: $ReadOnlyArray<CoreEntityT>,
-  +seriesEntityType: CoreEntityTypeT,
+  +entities: $ReadOnlyArray<EntityWithSeriesT>,
+  +seriesEntityType: EntityWithSeriesTypeT,
 };
 
 const listPicker = ({
@@ -101,7 +101,7 @@ const listPicker = ({
 type SeriesIndexProps = {
   ...SeriesItemNumbersRoleT,
   +eligibleForCleanup: boolean,
-  +entities: ?$ReadOnlyArray<CoreEntityT>,
+  +entities: ?$ReadOnlyArray<EntityWithSeriesT>,
   +numberOfRevisions: number,
   +pager: PagerT,
   +series: $ReadOnly<{...SeriesT, +type: SeriesTypeT}>,
