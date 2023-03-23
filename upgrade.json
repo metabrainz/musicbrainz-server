@@ -148,6 +148,7 @@
 
   "28": {
     "mirror": ["20220802-mbs-12497.sql",
-               "20230322-mbs-12794.sql"]
+               "20230322-mbs-12794-mirror.sql"],
+    "standalone": ["20230322-mbs-12794-standalone.sql"]
   }
 }

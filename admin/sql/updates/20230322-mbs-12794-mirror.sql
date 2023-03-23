@@ -132,4 +132,63 @@ BEGIN
 END;
 $$ LANGUAGE 'plpgsql';
 
+-- Editor function
+CREATE OR REPLACE FUNCTION update_tags_and_ratings_for_spammer()
+RETURNS trigger AS $$
+DECLARE
+  ratable_type ratable_entity_type;
+  taggable_type taggable_entity_type;
+  changes_to_spammer BOOLEAN;
+  changes_from_spammer BOOLEAN;
+  r RECORD;
+BEGIN
+  changes_to_spammer := ((OLD.privs & 4096) = 0 AND (NEW.privs & 4096) > 0);
+  changes_from_spammer := ((OLD.privs & 4096) > 0 AND (NEW.privs & 4096) = 0);
+  IF (changes_to_spammer || changes_from_spammer) THEN
+    -- Recalculate ratings for all their rated entities
+    FOR ratable_type IN EXECUTE 'SELECT enum_range(NULL::ratable_entity_type)' LOOP
+      FOR r IN EXECUTE format(
+        $SQL$
+          SELECT %1$I AS id
+            FROM %2$I
+           WHERE editor = $1
+        $SQL$,
+        ratable_type::TEXT,
+        ratable_type::TEXT || '_rating_raw'
+      ) USING NEW.id LOOP 
+        PERFORM update_aggregate_rating(ratable_type, r.id);
+      END LOOP;
+    END LOOP;
+
+    -- Recalculate tags for all their tagged entities
+    FOR taggable_type IN EXECUTE 'SELECT enum_range(NULL::taggable_entity_type)' LOOP
+    -- For each _tag_raw table:
+      -- Select into ids_to_update all ids that the editor *has* tagged
+      FOR r IN EXECUTE format(
+        $SQL$
+          SELECT %1$I AS id,
+                 tag,
+                 is_upvote
+            FROM %2$I
+           WHERE editor = $1
+        $SQL$,
+        ratable_type::TEXT,
+        ratable_type::TEXT || '_rating_raw'
+      ) USING NEW.id LOOP  
+        IF (changes_to_spammer) THEN
+          -- We want to "un-apply" their tag, so we do the opposite
+          PERFORM update_aggregate_tag_count(taggable_type, r.id, r.tag, (CASE WHEN r.is_upvote THEN -1 ELSE 1 END)::SMALLINT);
+          UPDATE tag SET ref_count = ref_count - 1 WHERE id = r.tag;
+        ELSIF (changes_from_spammer) THEN
+          -- We want to "re-apply" their tag
+          PERFORM update_aggregate_tag_count(taggable_type, r.id, r.tag, (CASE WHEN r.is_upvote THEN 1 ELSE -1 END)::SMALLINT);
+          UPDATE tag SET ref_count = ref_count + 1 WHERE id = r.tag;
+        END IF;
+      END LOOP;
+    END LOOP;
+  END IF;
+  RETURN NULL;
+END;
+$$ LANGUAGE 'plpgsql';
+
 COMMIT;
