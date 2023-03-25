@@ -6,6 +6,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import * as ReactDOMServer from 'react-dom/server';
 import test from 'tape';
 
 import {arraysEqual} from '../../common/utility/arrays.js';
@@ -5871,9 +5872,13 @@ function testErrorObject(subtest, relationshipType, st) {
       'Default error message will be used as expected',
     );
   } else {
+    let error = validationResult.error;
+    // Some errors are React elements rather than pure strings
+    if (typeof error === 'object' && error !== null) {
+      error = ReactDOMServer.renderToString(error);
+    }
     st.ok(
-      validationResult.error &&
-        validationResult.error.includes(subtest.expected_error.error),
+      error && error.includes(subtest.expected_error.error),
       'Error message contains expected string',
     );
   }
