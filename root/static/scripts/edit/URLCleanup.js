@@ -5482,7 +5482,10 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'worldcat': {
-    match: [new RegExp('^(https?://)?(www\\.)?worldcat\\.org/', 'i')],
+    match: [
+      new RegExp('^(https?://)?id\\.oclc\\.org/worldcat/', 'i'),
+      new RegExp('^(https?://)?(www\\.)?worldcat\\.org/', 'i'),
+    ],
     restrict: [LINK_TYPES.otherdatabases],
     clean: function (url) {
       url = url.replace(/^(?:https?:\/\/)?(?:www\.)?worldcat\.org/, 'https://www.worldcat.org');
