@@ -5635,6 +5635,7 @@ limited_link_type_combinations: [
                      input_url: 'https://id.oclc.org/worldcat/entity/E39PBJtCD4cBkp4m9Gfb88jKVC.html#key-information',
              input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://id.oclc.org/worldcat/entity/E39PBJtCD4cBkp4m9Gfb88jKVC',
   },
   // YesAsia
   {
