@@ -592,7 +592,7 @@ const Autocomplete2 = (React.memo(<+T: EntityItemT>(
     }, 1);
   }, [dispatch, inputRef]);
 
-  const addEntityDialogCallback = React.useCallback((entity: CoreEntityT) => {
+  const addEntityDialogCallback = React.useCallback((entity: NonUrlRelatableEntityT) => {
     invariant(
       entity?.entityType === entityType,
       'Wrong type of entity received',

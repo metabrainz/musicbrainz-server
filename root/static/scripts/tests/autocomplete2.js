@@ -163,7 +163,7 @@ $(function () {
     );
 
     const entityAutocompleteDispatch = React.useCallback((
-      action: AutocompleteActionT<NonUrlCoreEntityT>,
+      action: AutocompleteActionT<NonUrlRelatableEntityT>,
     ) => {
       dispatch({
         action,
