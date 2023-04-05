@@ -129,25 +129,9 @@ export type ItemT<+T: EntityItemT> =
 
 /* eslint-enable flowtype/sort-keys */
 
-/*
- * This is basically RelatableEntityT without UrlT (since those aren't
- * searchable), plus EditorT (which isn't a core entity, but is
- * searchable).
- */
 export type EntityItemT =
-  | AreaT
-  | ArtistT
   | EditorT
-  | EventT
-  | GenreT
-  | InstrumentT
-  | LabelT
   | LanguageT
   | LinkAttrTypeT
   | LinkTypeT
-  | PlaceT
-  | RecordingT
-  | ReleaseGroupT
-  | ReleaseT
-  | SeriesT
-  | WorkT;
+  | NonUrlRelatableEntityT;
