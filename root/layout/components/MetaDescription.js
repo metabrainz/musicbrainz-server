@@ -14,7 +14,7 @@ import formatDate from '../../static/scripts/common/utility/formatDate.js';
 import formatTrackLength
   from '../../static/scripts/common/utility/formatTrackLength.js';
 
-function entityDescription(entity: CoreEntityT) {
+function entityDescription(entity: RelatableEntityT) {
   const desc = [];
   if (nonEmpty(entity.comment)) {
     desc.push(entity.comment);
@@ -22,7 +22,7 @@ function entityDescription(entity: CoreEntityT) {
   return desc;
 }
 
-function pushTypeName(desc: Array<string>, entity: CoreEntityT) {
+function pushTypeName(desc: Array<string>, entity: RelatableEntityT) {
   const typeName = entity.typeName;
   if (nonEmpty(typeName)) {
     desc.push('Type: ' + typeName);
@@ -157,7 +157,7 @@ function releaseDescription(release: ReleaseT) {
 const getLanguageName = (wl: WorkLanguageT) => wl.language.name;
 
 const getEntityName =
-  (x: {+entity: CoreEntityT, ...}): string => x.entity.name;
+  (x: {+entity: NonUrlRelatableEntityT, ...}): string => x.entity.name;
 
 const getIswc = (x: IswcT) => x.iswc;
 
@@ -185,7 +185,7 @@ function workDescription(work: WorkT) {
 }
 
 type Props = {
-  +entity: ?CoreEntityT,
+  +entity: ?RelatableEntityT,
 };
 
 const MetaDescription = ({entity}: Props): React$Element<'meta'> | null => {
