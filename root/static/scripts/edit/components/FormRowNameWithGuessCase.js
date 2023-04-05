@@ -22,7 +22,7 @@ import {
 import GuessCaseOptionsPopover from './GuessCaseOptionsPopover.js';
 
 type NamedEntityT = {
-  +entityType: CoreEntityTypeT,
+  +entityType: EditableEntityTypeT,
   +name: string,
   ...
 };
