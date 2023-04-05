@@ -592,21 +592,23 @@ const Autocomplete2 = (React.memo(<+T: EntityItemT>(
     }, 1);
   }, [dispatch, inputRef]);
 
-  const addEntityDialogCallback = React.useCallback((entity: NonUrlRelatableEntityT) => {
-    invariant(
-      entity?.entityType === entityType,
-      'Wrong type of entity received',
-    );
-    const item = {
-      // $FlowIgnore[incompatible-cast]
-      entity: (entity: T),
-      id: entity.id,
-      name: entity.name,
-      type: 'option',
-    };
-    dispatch({item, type: 'select-item'});
-    closeAddEntityDialog();
-  }, [closeAddEntityDialog, dispatch, entityType]);
+  const addEntityDialogCallback = React.useCallback(
+    (entity: NonUrlRelatableEntityT) => {
+      invariant(
+        entity?.entityType === entityType,
+        'Wrong type of entity received',
+      );
+      const item = {
+        // $FlowIgnore[incompatible-cast]
+        entity: (entity: T),
+        id: entity.id,
+        name: entity.name,
+        type: 'option',
+      };
+      dispatch({item, type: 'select-item'});
+      closeAddEntityDialog();
+    }, [closeAddEntityDialog, dispatch, entityType],
+  );
 
   const activeDescendant = highlightedItem
     ? `${id}-item-${highlightedItem.id}`
