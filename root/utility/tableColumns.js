@@ -62,7 +62,7 @@ type OrderableProps = {
 
 export function defineActionsColumn(
   props: {+actions: $ReadOnlyArray<[string, string]>},
-): ColumnOptions<CoreEntityT | CollectionT, number> {
+): ColumnOptions<EditableEntityT | CollectionT, number> {
   return {
     Cell: ({row: {original}}) => (
       <>
@@ -304,7 +304,7 @@ export function defineEntityColumn<D>(
     ...OrderableProps,
     +columnName: string,
     +descriptive?: boolean,
-    +getEntity: (D) => CoreEntityT | null,
+    +getEntity: (D) => RelatableEntityT | null,
     +subPath?: string,
     +title: string,
   },
@@ -398,7 +398,7 @@ export function defineLinkColumn<D>(
   };
 }
 
-export function defineNameColumn<T: CoreEntityT | CollectionT>(
+export function defineNameColumn<T: NonUrlRelatableEntityT | CollectionT>(
   props: {
     ...OrderableProps,
     +descriptive?: boolean,
@@ -553,7 +553,7 @@ export function defineSeriesNumberColumn(
   props: {
     +seriesItemNumbers: $ReadOnlyArray<string>,
   },
-): ColumnOptions<CoreEntityT, number> {
+): ColumnOptions<EntityWithSeriesT, number> {
   return {
     Cell: ({row: {index}}) => props.seriesItemNumbers[index],
     cellProps: {className: 'number-column'},
@@ -698,7 +698,7 @@ export const iswcsColumn:
   };
 
 export const removeFromMergeColumn:
-  ColumnOptions<NonUrlCoreEntityT | CollectionT, number> = {
+  ColumnOptions<EditableEntityT | CollectionT, number> = {
     Cell: ({row: {original}}) => {
       const url = ENTITIES[original.entityType].url;
       return (
