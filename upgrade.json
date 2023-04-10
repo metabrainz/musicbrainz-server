@@ -1,6 +1,6 @@
 {
   "20": {
-    "mirror": [
+    "all": [
       "20140310-dates.sql",
       "20140212-ordering-columns.sql",
       "20140208-drop-script_language.sql",
@@ -21,7 +21,7 @@
     ]
   },
   "21": {
-    "mirror": [
+    "all": [
       "20140606-events.sql",
       "20141008-instrument-indexes.sql",
       "20141014-mbs-7784-data-tracks.sql",
@@ -38,7 +38,7 @@
     ]
   },
   "22": {
-    "mirror": [
+    "all": [
       "20150209-extend-aliases-to-more-entities.sql",
       "20150307-other-entities-collections.sql",
       "20150317-medium-name-not-null.sql",
@@ -57,7 +57,7 @@
     ]
   },
   "23": {
-    "mirror": [
+    "all": [
       "20160516-mbs-8838.sql",
       "20160516-mbs-8720.sql",
       "20141226-geodesic-index.sql",
@@ -88,7 +88,7 @@
     ]
   },
   "24": {
-    "mirror": [
+    "all": [
       "20160602-mbs-8963.sql",
       "20170507-mbs-8951.sql",
       "20170327-mbs-9271.sql",
@@ -104,7 +104,7 @@
     ]
   },
   "25": {
-    "mirror": [
+    "all": [
       "20180503-mbs-9708-drop-area-containment-view.sql",
       "20190317-mbs-9941-mbs-10062.sql",
       "20190422-mbs-7480.sql",
@@ -125,7 +125,7 @@
     ]
   },
   "26": {
-    "mirror": [
+    "all": [
       "20200512-mbs-10821-orphaned-recording-collection.sql",
       "20200914-oauth-pkce.sql",
       "20201028-mbs-1424.sql",
@@ -154,7 +154,7 @@
     ]
   },
   "27": {
-    "mirror": [
+    "all": [
       "20210406-mbs-11457.sql",
       "20210419-mbs-11456.sql",
       "20210526-a_upd_release_event.sql",
@@ -205,7 +205,7 @@
     ]
   },
   "28": {
-    "mirror": [
+    "all": [
       "20220802-mbs-12497.sql"
     ]
   }

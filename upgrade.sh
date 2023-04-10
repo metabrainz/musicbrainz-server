@@ -72,7 +72,7 @@ if [ -e "$EXTENSIONS_SQL" ]
 then
     ./admin/psql --system "$DATABASE" < "$EXTENSIONS_SQL" || exit 1
 fi
-./admin/psql "$DATABASE" < $SQL_DIR/${NEW_SCHEMA_SEQUENCE}.mirror.sql || exit 1
+./admin/psql "$DATABASE" < $SQL_DIR/${NEW_SCHEMA_SEQUENCE}.all.sql || exit 1
 
 ################################################################################
 # Migrations that apply for only masters
