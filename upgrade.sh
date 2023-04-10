@@ -102,7 +102,7 @@ fi
 if [ "$REPLICATION_TYPE" != "$RT_MIRROR" ]
 then
     echo `date` : 'Running upgrade scripts for master/standalone nodes'
-    ./admin/psql "$DATABASE" < $SQL_DIR/${NEW_SCHEMA_SEQUENCE}.standalone.sql || exit 1
+    ./admin/psql "$DATABASE" < $SQL_DIR/${NEW_SCHEMA_SEQUENCE}.master_and_standalone.sql || exit 1
 
     echo `date` : Enabling last_updated triggers
     OUTPUT=`./admin/psql --system "$DATABASE" < ./admin/sql/EnableLastUpdatedTriggers.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
