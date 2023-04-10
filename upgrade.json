@@ -83,7 +83,7 @@
       "20160514-mbs-8287-a-fks.sql",
       "20160514-mbs-8287-b-fks.sql"
     ],
-    "extensions": [
+    "all_extensions": [
       "20141226-geodesic-extension.sql"
     ]
   },

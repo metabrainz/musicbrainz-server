@@ -21,7 +21,7 @@ RT_MIRROR=2
 RT_STANDALONE=3
 
 SQL_DIR='./admin/sql/updates/schema-change'
-EXTENSIONS_SQL="$SQL_DIR/$NEW_SCHEMA_SEQUENCE.extensions.sql"
+EXTENSIONS_SQL="$SQL_DIR/$NEW_SCHEMA_SEQUENCE.all_extensions.sql"
 MASTER_ONLY_SQL="$SQL_DIR/$NEW_SCHEMA_SEQUENCE.master_only.sql"
 MIRROR_ONLY_SQL="$SQL_DIR/$NEW_SCHEMA_SEQUENCE.mirror_only.sql"
 
