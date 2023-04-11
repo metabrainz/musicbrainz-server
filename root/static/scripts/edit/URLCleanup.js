@@ -12,11 +12,11 @@ import $ from 'jquery';
 import {arraysEqual} from '../common/utility/arrays.js';
 
 type EntityTypesMap = {
-  +[entityType: CoreEntityTypeT]: string | $ReadOnlyArray<string>,
+  +[entityType: RelatableEntityTypeT]: string | $ReadOnlyArray<string>,
 };
 
 type EntityTypeMap = {
-  +[entityType: CoreEntityTypeT]: string,
+  +[entityType: RelatableEntityTypeT]: string,
 };
 
 type LinkTypeMap = {
@@ -422,7 +422,7 @@ type CleanupEntry = {
   +match: $ReadOnlyArray<RegExp>,
   +restrict?: $ReadOnlyArray<EntityTypesMap>,
   +select?:
-    (url: string, sourceType: CoreEntityTypeT) =>
+    (url: string, sourceType: RelatableEntityTypeT) =>
     | RelationshipTypeT
     | false, // No match
   +validate?: (url: string, id: string) => ValidationResult,
@@ -5633,7 +5633,7 @@ function testAll(tests: $ReadOnlyArray<RegExp>, text: string) {
 const CLEANUP_ENTRIES: Array<CleanupEntry> = Object.values(CLEANUPS);
 
 const entitySpecificRules: {
-  [entityType: CoreEntityTypeT]: (string) => ValidationResult,
+  [entityType: RelatableEntityTypeT]: (string) => ValidationResult,
 } = {};
 
 /*
@@ -5736,7 +5736,7 @@ entitySpecificRules.recording = function (url) {
  * }
  */
 function multiple(...types: $ReadOnlyArray<EntityTypeMap>): EntityTypesMap {
-  const result: {[entityType: CoreEntityTypeT]: Array<string>} = {};
+  const result: {[entityType: RelatableEntityTypeT]: Array<string>} = {};
   types.forEach(function (type: EntityTypeMap) {
     for (const [entityType, id] of Object.entries(type)) {
       result[entityType] = result[entityType] || [];
@@ -5749,11 +5749,11 @@ function multiple(...types: $ReadOnlyArray<EntityTypeMap>): EntityTypesMap {
 export class Checker {
   url: string;
 
-  entityType: CoreEntityTypeT;
+  entityType: RelatableEntityTypeT;
 
   cleanup: ?CleanupEntry;
 
-  constructor(url: string, entityType: CoreEntityTypeT) {
+  constructor(url: string, entityType: RelatableEntityTypeT) {
     this.url = url;
     this.entityType = entityType;
     this.cleanup = CLEANUP_ENTRIES.find(function (cleanup) {
@@ -5812,7 +5812,7 @@ export class Checker {
    */
   checkRelationship(
     id: string,
-    entityType: CoreEntityTypeT = this.entityType,
+    entityType: RelatableEntityTypeT = this.entityType,
   ): ValidationResult {
     // Perform entity-specific validation
     const rules = entitySpecificRules[this.entityType];
@@ -5892,7 +5892,7 @@ export class Checker {
   }
 
   filterApplicableTypes(
-    sourceType: CoreEntityTypeT = this.entityType,
+    sourceType: RelatableEntityTypeT = this.entityType,
   ): Array<RelationshipTypeT> {
     if (!this.cleanup || !this.cleanup.restrict) {
       return [];

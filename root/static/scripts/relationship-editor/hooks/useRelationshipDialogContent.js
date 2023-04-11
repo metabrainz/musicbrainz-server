@@ -10,7 +10,7 @@
 import * as Sentry from '@sentry/browser';
 import * as React from 'react';
 
-import {createCoreEntityObject} from '../../common/entity2.js';
+import {createRelatableEntityObject} from '../../common/entity2.js';
 import {uniqueNegativeId} from '../../common/utility/numbers.js';
 import RelationshipDialogContent
   from '../components/RelationshipDialogContent.js';
@@ -47,7 +47,7 @@ type CommonOptionsT = {
   +batchSelectionCount?: number,
   +dispatch: (UpdateRelationshipActionT) => void,
   +releaseHasUnloadedTracks: boolean,
-  +source: CoreEntityT,
+  +source: RelatableEntityT,
   +title: string,
 };
 
@@ -57,7 +57,7 @@ export default function useRelationshipDialogContent(
     +hasPreselectedTargetType: boolean,
     +relationship: RelationshipStateT,
     +targetTypeOptions: TargetTypeOptionsT | null,
-    +targetTypeRef: {-current: CoreEntityTypeT} | null,
+    +targetTypeRef: {-current: RelatableEntityTypeT} | null,
     +user: ActiveEditorT,
   }>,
 ): (
@@ -138,7 +138,7 @@ export function useAddRelationshipDialogContent(
     +backward?: boolean,
     +buildNewRelationshipData?:
       () => Partial<RelationshipStateT> | null,
-    +preselectedTargetType: CoreEntityTypeT | null,
+    +preselectedTargetType: RelatableEntityTypeT | null,
     +targetTypeOptions?: TargetTypeOptionsT | null,
   }>,
 ): (
@@ -169,7 +169,7 @@ export function useAddRelationshipDialogContent(
   }, [customTargetTypeOptions, user, source.entityType]);
 
   // Remembers the most recently selected target type.
-  const targetTypeRef = React.useRef<CoreEntityTypeT | null>(null);
+  const targetTypeRef = React.useRef<RelatableEntityTypeT | null>(null);
 
   const targetType = (
     preselectedTargetType ||
@@ -204,7 +204,7 @@ export function useAddRelationshipDialogContent(
   }
 
   const defaultTargetObject = React.useMemo(() => {
-    return createCoreEntityObject(
+    return createRelatableEntityObject(
       targetType,
       {id: uniqueNegativeId(), name: ''},
     );

@@ -20,8 +20,8 @@ type Props = {
   +edit: GenericEditWithIdT,
   +rawData: string,
   +relatedEntities: {
-    +[type: CoreEntityTypeT]: {
-      +[entityId: string]: CoreEntityT,
+    +[type: EditableEntityTypeT]: {
+      +[entityId: string]: EditableEntityT,
     },
   },
 };

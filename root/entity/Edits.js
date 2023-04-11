@@ -19,7 +19,7 @@ import localizeTypeNameForEntity
 type Props = {
   +editCountLimit: number,
   +edits: $ReadOnlyArray<$ReadOnly<{...EditT, +id: number}>>,
-  +entity: CoreEntityT | CollectionT,
+  +entity: EditableEntityT | CollectionT,
   +pager: PagerT,
   +refineUrlArgs?: {+[argument: string]: string},
   +showingOpenOnly: boolean,

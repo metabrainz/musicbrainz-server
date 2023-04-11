@@ -9,7 +9,7 @@
 
 declare type WsJsRelationshipEntityT =
   | {
-      +entityType: NonUrlCoreEntityTypeT,
+      +entityType: NonUrlRelatableEntityTypeT,
       +gid: string,
       +name: string,
     }

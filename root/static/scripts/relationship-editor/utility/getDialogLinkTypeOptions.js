@@ -57,8 +57,8 @@ function isInvalidPartOfSeriesType(
 }
 
 const getDialogLinkTypeOptions = (
-  source: CoreEntityT,
-  targetType: CoreEntityTypeT,
+  source: RelatableEntityT,
+  targetType: RelatableEntityTypeT,
 ): $ReadOnlyArray<OptionItemT<LinkTypeT>> => {
   const options: Array<OptionItemT<LinkTypeT>> = [];
 
@@ -119,8 +119,8 @@ const getDialogLinkTypeOptions = (
 export default getDialogLinkTypeOptions;
 
 export const hasDialogLinkTypeOptions = (
-  sourceType: CoreEntityTypeT,
-  targetType: CoreEntityTypeT,
+  sourceType: RelatableEntityTypeT,
+  targetType: RelatableEntityTypeT,
 ): boolean => {
   const entityTypes = [sourceType, targetType].sort().join('-');
   return (linkedEntities.link_type_tree[entityTypes]?.length || 0) > 0;

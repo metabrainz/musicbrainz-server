@@ -62,18 +62,18 @@ export type DialogActionT =
     }
   | {
       +action: DialogTargetEntityActionT,
-      +source: CoreEntityT,
+      +source: RelatableEntityT,
       +type: 'update-target-entity',
     }
   | {
-      +source: CoreEntityT,
-      +targetType: CoreEntityTypeT,
+      +source: RelatableEntityT,
+      +targetType: RelatableEntityTypeT,
       +type: 'update-target-type',
     }
   | DialogLinkOrderActionT
   | {
       +action: DialogLinkTypeActionT,
-      +source: CoreEntityT,
+      +source: RelatableEntityT,
       +type: 'update-link-type',
     }
   | {
@@ -111,7 +111,7 @@ export type DialogBooleanAttributeActionT =
 export type DialogLinkTypeActionT =
   | {
       +action: AutocompleteActionT<LinkTypeT>,
-      +source: CoreEntityT,
+      +source: RelatableEntityT,
       +type: 'update-autocomplete',
     };
 
@@ -136,7 +136,7 @@ export type UpdateRelationshipActionT =
       +creditsToChangeForTarget: CreditChangeOptionT,
       +newRelationshipState: RelationshipStateT,
       +oldRelationshipState: RelationshipStateT | null,
-      +sourceEntity: CoreEntityT,
+      +sourceEntity: RelatableEntityT,
       +type: 'update-relationship-state',
   };
 
@@ -147,18 +147,18 @@ export type RelationshipEditorActionT =
     }
   | {
       +relationship: RelationshipStateT,
-      +source: CoreEntityT,
+      +source: RelatableEntityT,
       +type: 'move-relationship-down',
     }
   | {
       +relationship: RelationshipStateT,
-      +source: CoreEntityT,
+      +source: RelatableEntityT,
       +type: 'move-relationship-up',
     }
   | {
       +hasOrdering: boolean,
       +linkPhraseGroup: RelationshipPhraseGroupT,
-      +source: CoreEntityT,
+      +source: RelatableEntityT,
       +type: 'toggle-ordering',
     }
   | {
@@ -167,15 +167,15 @@ export type RelationshipEditorActionT =
     }
   | {
       +changes: {+[property: string]: mixed},
-      +entityType: CoreEntityTypeT,
+      +entityType: RelatableEntityTypeT,
       +type: 'update-entity',
     }
   | UpdateRelationshipActionT;
 
 export type UpdateTargetEntityAutocompleteActionT = {
-  +action: AutocompleteActionT<NonUrlCoreEntityT>,
+  +action: AutocompleteActionT<NonUrlRelatableEntityT>,
   +linkType: ?LinkTypeT,
-  +source: CoreEntityT,
+  +source: RelatableEntityT,
   +type: 'update-autocomplete',
 };
 
@@ -203,7 +203,7 @@ export type BatchCreateWorksDialogActionT =
     }
   | {
       action: DialogLinkTypeActionT,
-      source: CoreEntityT,
+      source: RelatableEntityT,
       type: 'update-link-type',
     }
   | WorkTypeSelectActionT;

@@ -19,7 +19,7 @@ type LinkableEntity =
   | {+entityType: 'editor', +name: string, ...}
   | {+entityType: 'isrc', +isrc: string, ...}
   | {+entityType: 'iswc', +iswc: string, ...}
-  | {+entityType: CoreEntityTypeT, +gid: string, ...}
+  | {+entityType: RelatableEntityTypeT, +gid: string, ...}
   | {+entityType: 'collection', +gid: string, ...}
   | {+entityType: 'link_type', +gid: string, ...};
 

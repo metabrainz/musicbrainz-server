@@ -105,7 +105,7 @@ function getTagEntityListHeading(
 type EntityListContentProps = {
   +entityTags: $ReadOnlyArray<{
     +count?: number,
-    +entity: CoreEntityT,
+    +entity: TaggableEntityT,
     +entity_id: number,
   }>,
   +entityType: string,
@@ -119,7 +119,7 @@ type EntityListContentProps = {
 type EntityListProps = {
   +entityTags: $ReadOnlyArray<{
     +count: number,
-    +entity: CoreEntityT,
+    +entity: TaggableEntityT,
     +entity_id: number,
   }>,
   +entityType: string,

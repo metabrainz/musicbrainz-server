@@ -19,13 +19,13 @@ import commaOnlyList
   from '../../../static/scripts/common/i18n/commaOnlyList.js';
 
 type TagListProps = {
-  +entity: CoreEntityT,
+  +entity: TaggableEntityT,
   +isGenreList?: boolean,
   +tags: ?$ReadOnlyArray<AggregatedTagT>,
 };
 
 type SidebarTagsProps = {
-  +entity: CoreEntityT,
+  +entity: TaggableEntityT,
 };
 
 const TagList = ({

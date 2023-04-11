@@ -102,9 +102,9 @@ type LinksEditorProps = {
   +errorObservable?: (boolean) => void,
   +isNewEntity: boolean,
   +sourceData:
-    | CoreEntityT
+    | RelatableEntityT
     | {
-        +entityType: CoreEntityTypeT,
+        +entityType: RelatableEntityTypeT,
         +id?: void,
         +isNewEntity?: true,
         +name?: string,
@@ -129,7 +129,7 @@ export class _ExternalLinksEditor
 
   +initialLinks: $ReadOnlyArray<LinkStateT>;
 
-  +sourceType: CoreEntityTypeT;
+  +sourceType: RelatableEntityTypeT;
 
   +typeOptions: $ReadOnlyArray<LinkTypeOptionT>;
 
@@ -1731,9 +1731,9 @@ function isMusicBrainz(url: string) {
 type InitialOptionsT = {
   errorObservable?: (boolean) => void,
   sourceData?:
-    | CoreEntityT
+    | RelatableEntityT
     | {
-        +entityType: CoreEntityTypeT,
+        +entityType: RelatableEntityTypeT,
         +id?: void,
         +isNewEntity?: true,
         +relationships?: void,

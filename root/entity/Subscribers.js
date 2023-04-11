@@ -17,7 +17,7 @@ import chooseLayoutComponent from '../utility/chooseLayoutComponent.js';
 import {returnToCurrentPage} from '../utility/returnUri.js';
 
 type Props = {
-  +entity: CoreEntityT | CollectionT | EditorT,
+  +entity: SubscribableEntityT,
   +isSpecialEntity: boolean,
   +privateEditors: number,
   +publicEditors: $ReadOnlyArray<EditorT>,

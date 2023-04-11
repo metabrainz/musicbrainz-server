@@ -12,7 +12,7 @@ import EntityLink from '../static/scripts/common/components/EntityLink.js';
 type Props = {
   +content: string,
   +disabled?: boolean,
-  +entity: CoreEntityT | CollectionT,
+  +entity: RelatableEntityT | CollectionT,
   +selected: boolean,
   +subPath: string,
 };

@@ -43,7 +43,7 @@ const _displayAttributes = (
 };
 
 const _displayEntity = (
-  entity: CoreEntityT,
+  entity: RelatableEntityT,
   credit: string,
 ): string => {
   return (credit || entity.name) + ' (' + entity.id + ')';

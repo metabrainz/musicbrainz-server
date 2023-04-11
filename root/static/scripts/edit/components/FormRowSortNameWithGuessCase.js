@@ -15,7 +15,7 @@ import GuessCase from '../../guess-case/MB/GuessCase/Main.js';
 import FormRowText from './FormRowText.js';
 
 type SortNamedEntityT = {
-  +entityType: CoreEntityTypeT,
+  +entityType: EditableEntityTypeT,
   +typeID?: number | null,
   ...
 };

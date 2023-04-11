@@ -11,7 +11,7 @@ import {CatalystContext} from '../../../context.mjs';
 import formatUserDate from '../../../utility/formatUserDate.js';
 
 type Props = {
-  +entity: CoreEntityT,
+  +entity: $ReadOnly<{...LastUpdateRoleT, ...}>,
 };
 
 const LastUpdated = ({entity}: Props): React$Element<'p'> => {

@@ -30,12 +30,12 @@ type PropsT = {
   +dispatch: ({+type: 'change-direction'}) => void,
   +newRelationship: RelationshipStateT | null,
   +oldRelationship: RelationshipStateT | null,
-  +source: CoreEntityT,
+  +source: RelatableEntityT,
 };
 
 const createRelationshipTFromState = (
   relationship: RelationshipStateT,
-  source: CoreEntityT,
+  source: RelatableEntityT,
   backward: boolean,
 ) => {
   const target = backward ? relationship.entity0 : relationship.entity1;
@@ -92,7 +92,7 @@ const DialogPreview = (React.memo<PropsT>(({
     : newRelationship?.entity1.entityType;
 
   const makeEntityLink = (
-    entity: CoreEntityT,
+    entity: RelatableEntityT,
     content: string,
     relationship: RelationshipT,
   ) => (

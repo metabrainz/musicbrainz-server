@@ -11,7 +11,7 @@ import type {RelationshipStateT} from '../types.js';
 
 export default function isRelationshipBackward(
   relationship: RelationshipStateT,
-  source: CoreEntityT,
+  source: RelatableEntityT,
 ): boolean {
   const {entity0, entity1} = relationship;
   const backward = (

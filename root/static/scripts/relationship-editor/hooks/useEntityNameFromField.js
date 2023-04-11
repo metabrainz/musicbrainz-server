@@ -17,7 +17,7 @@ import type {RelationshipEditorActionT} from '../types/actions.js';
  * entity name in edit previews.
  */
 export default function useEntityNameFromField(
-  entityType: CoreEntityTypeT,
+  entityType: RelatableEntityTypeT,
   nameFieldId: string,
   dispatch: (RelationshipEditorActionT) => void,
   mapName?: (string) => string,

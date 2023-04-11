@@ -29,8 +29,7 @@ const titleByEntityType = {
 };
 
 type UserSubscriptionsTableProps = {
-  +entities: $ReadOnlyArray<
-    ArtistT | CollectionT | EditorT | LabelT | SeriesT>,
+  +entities: $ReadOnlyArray<SubscribableEntityT>,
   +viewingOwnProfile: boolean,
 };
 
@@ -66,8 +65,7 @@ const UserSubscriptionsTable = ({
 
 type UserSubscriptionsSectionProps = {
   +action: string,
-  +entities: $ReadOnlyArray<
-    ArtistT | CollectionT | EditorT | LabelT | SeriesT>,
+  +entities: $ReadOnlyArray<SubscribableEntityT>,
   +pager: PagerT,
   +viewingOwnProfile: boolean,
 };
@@ -101,8 +99,7 @@ const UserSubscriptionsSection = ({
 );
 
 type UserSubscriptionsProps = {
-  +entities: $ReadOnlyArray<
-    ArtistT | CollectionT | EditorT | LabelT | SeriesT>,
+  +entities: $ReadOnlyArray<SubscribableEntityT>,
   +hiddenPrivateCollectionCount?: number,
   +pager: PagerT,
   +summary: {
@@ -112,7 +109,7 @@ type UserSubscriptionsProps = {
     +label: number,
     +series: number,
   },
-  +type: 'artist' | 'collection' | 'editor' | 'label' | 'series',
+  +type: SubscribableEntityTypeT,
   +user: AccountLayoutUserT,
   +visiblePrivateCollections?: $ReadOnlyArray<CollectionT>,
 };

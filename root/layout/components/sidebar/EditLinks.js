@@ -16,7 +16,7 @@ import EntityLink
 
 type Props = {
   +children?: React$Node,
-  +entity: CoreEntityT,
+  +entity: EditableEntityT,
   +requiresPrivileges?: boolean,
 };
 

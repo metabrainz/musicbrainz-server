@@ -25,7 +25,7 @@ export const TITLES: {+[entityType: string]: () => string} = {
 };
 
 type PropsT = {
-  +callback: (CoreEntityT) => void,
+  +callback: (NonUrlRelatableEntityT) => void,
   +close: () => void,
   +entityType: string,
   +name?: string,

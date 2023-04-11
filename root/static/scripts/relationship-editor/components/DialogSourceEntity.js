@@ -36,13 +36,13 @@ type PropsT = {
   +batchSelectionCount?: number,
   +dispatch: (DialogEntityCreditActionT) => void,
   +linkType: ?LinkTypeT,
-  +source: CoreEntityT,
+  +source: RelatableEntityT,
   +state: DialogSourceEntityStateT,
-  +targetType: CoreEntityTypeT,
+  +targetType: RelatableEntityTypeT,
 };
 
 export function getSourceError(
-  source: CoreEntityT | null,
+  source: RelatableEntityT | null,
   linkType: LinkTypeT | null,
 ): React$Node {
   if (
@@ -68,9 +68,9 @@ export function getSourceError(
 
 export function createInitialState(
   releaseHasUnloadedTracks: boolean,
-  sourceType: CoreEntityTypeT,
+  sourceType: RelatableEntityTypeT,
   relationship: RelationshipStateT,
-  source: CoreEntityT,
+  source: RelatableEntityT,
 ): DialogSourceEntityStateT {
   const linkType = getRelationshipLinkType(relationship);
   const backward = isRelationshipBackward(relationship, source);

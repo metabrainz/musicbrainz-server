@@ -10,7 +10,7 @@
 import EntityLink from '../../common/components/EntityLink.js';
 
 type PropsT = {
-  duplicates: $ReadOnlyArray<CoreEntityT>,
+  duplicates: $ReadOnlyArray<EditableEntityT>,
   name: string,
   onCheckboxChange: (event: SyntheticEvent<HTMLInputElement>) => void,
 };

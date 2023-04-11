@@ -22,8 +22,8 @@ type PropsT = {
   +dispatch: (DialogActionT) => void,
   +hasPreselectedTargetType: boolean,
   +options: ?TargetTypeOptionsT,
-  +source: CoreEntityT,
-  +targetType: CoreEntityTypeT,
+  +source: RelatableEntityT,
+  +targetType: RelatableEntityTypeT,
 };
 
 const DialogTargetType = (React.memo<PropsT>((

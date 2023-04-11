@@ -19,7 +19,8 @@ import RelatedWorks from './RelatedWorks.js';
 import StaticRelationshipsDisplay from './StaticRelationshipsDisplay.js';
 
 type DisplayTargets = {
-  +[coreEntityType: CoreEntityTypeT]: ?$ReadOnlyArray<CoreEntityTypeT>,
+  +[coreEntityType: RelatableEntityTypeT]:
+    ?$ReadOnlyArray<RelatableEntityTypeT>,
   ...
 };
 
@@ -61,7 +62,7 @@ type PropsT = {
   +noRelationshipsHeading?: boolean,
   +relationships?: $ReadOnlyArray<RelationshipTargetTypeGroupT>,
   +showIfEmpty?: boolean,
-  +source: CoreEntityT,
+  +source: RelatableEntityT,
 };
 
 const Relationships = (React.memo<PropsT>(({
