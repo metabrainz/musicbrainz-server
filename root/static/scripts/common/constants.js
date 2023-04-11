@@ -159,6 +159,7 @@ export const FAVICON_CLASSES = {
   'napster.com': 'napster',
   'nicovideo.jp': 'niconicovideo',
   'nla.gov.au': 'trove',
+  'oclc.org': 'oclc',
   'ocremix.org': 'ocremix',
   'offiziellecharts.de': 'offiziellecharts',
   'online-bijbel.nl': 'onlinebijbel',

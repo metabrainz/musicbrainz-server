@@ -5482,9 +5482,13 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'worldcat': {
-    match: [new RegExp('^(https?://)?(www\\.)?worldcat\\.org/', 'i')],
+    match: [
+      new RegExp('^(https?://)?id\\.oclc\\.org/worldcat/', 'i'),
+      new RegExp('^(https?://)?(www\\.)?worldcat\\.org/', 'i'),
+    ],
     restrict: [LINK_TYPES.otherdatabases],
     clean: function (url) {
+      url = url.replace(/^(?:https?:\/\/)?(id\.oclc\.org\/worldcat\/entity\/[^./?&#]+).*$/, 'https://$1');
       url = url.replace(/^(?:https?:\/\/)?(?:www\.)?worldcat\.org/, 'https://www.worldcat.org');
       url = url.replace(/^https:\/\/www\.worldcat\.org(?:\/title\/[a-zA-Z0-9_-]+)?\/oclc\/([^&?]+)(?:.*)$/, 'https://www.worldcat.org/oclc/$1');
       // oclc permalinks have no ending slash but identities ones do
