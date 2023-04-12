@@ -106,6 +106,7 @@
 
     MB.initializeDuplicateChecker('artist');
 
+    MB.initializeToggleEnded('id-edit-artist');
     MB.initializeTooShortYearChecks('artist');
 
     MB.Control.initializeBubble("#ipi-bubble", "input[name=edit-artist\\.ipi_codes\\.0]");
