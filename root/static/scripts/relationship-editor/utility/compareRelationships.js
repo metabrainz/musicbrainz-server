@@ -216,8 +216,8 @@ function compareReleases(
 
 function compareSeriesItems(
   linkTypeId: number,
-  target1: CoreEntityT,
-  target2: CoreEntityT,
+  target1: RelatableEntityT,
+  target2: RelatableEntityT,
 ): number {
   switch (linkTypeId) {
     case 802: { // event

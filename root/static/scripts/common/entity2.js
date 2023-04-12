@@ -14,10 +14,10 @@ type CommonPropsT = {
   +name?: string,
 };
 
-export function createNonUrlCoreEntityObject(
-  type: NonUrlCoreEntityTypeT,
+export function createNonUrlRelatableEntityObject(
+  type: NonUrlRelatableEntityTypeT,
   props?: CommonPropsT,
-): NonUrlCoreEntityT {
+): NonUrlRelatableEntityT {
   switch (type) {
     case 'area':
       return createAreaObject(props);
@@ -53,15 +53,15 @@ export function createNonUrlCoreEntityObject(
   }
 }
 
-export function createCoreEntityObject(
-  type: CoreEntityTypeT,
+export function createRelatableEntityObject(
+  type: RelatableEntityTypeT,
   props?: CommonPropsT,
-): CoreEntityT {
+): RelatableEntityT {
   switch (type) {
     case 'url':
       return createUrlObject(props);
     default:
-      return createNonUrlCoreEntityObject(type, props);
+      return createNonUrlRelatableEntityObject(type, props);
   }
 }
 

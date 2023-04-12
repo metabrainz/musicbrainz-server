@@ -445,7 +445,7 @@ function* getAllRelationshipEdits(
   }
 
   function entityEditData(
-    entity: CoreEntityT,
+    entity: RelatableEntityT,
   ): WsJsRelationshipEntityT {
     if (entity.entityType === 'url') {
       const editData: {
@@ -462,7 +462,7 @@ function* getAllRelationshipEdits(
       return editData;
     }
     return {
-      entityType: (entity.entityType: NonUrlCoreEntityTypeT),
+      entityType: (entity.entityType: NonUrlRelatableEntityTypeT),
       gid: entity.gid,
       name: entity.name,
     };

@@ -112,7 +112,7 @@ const cmpLinkPhrase = (
 ) => compare(a[0], b[0]);
 
 type Props = {
-  +entity: CoreEntityT,
+  +entity: RelatableEntityT,
 };
 
 const SidebarLicenses = ({entity}: Props): React$MixedElement | null => {

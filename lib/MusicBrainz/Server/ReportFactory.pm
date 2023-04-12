@@ -68,6 +68,7 @@ my @all = qw(
     MultipleASINs
     MultipleDiscogsLinks
     NoLanguage
+    NonBootlegsOnBootlegLabels
     NoScript
     PartOfSetRelationships
     PlacesWithoutCoordinates
@@ -165,6 +166,7 @@ use MusicBrainz::Server::Report::MislinkedPseudoReleases;
 use MusicBrainz::Server::Report::MultipleASINs;
 use MusicBrainz::Server::Report::MultipleDiscogsLinks;
 use MusicBrainz::Server::Report::NoLanguage;
+use MusicBrainz::Server::Report::NonBootlegsOnBootlegLabels;
 use MusicBrainz::Server::Report::NoScript;
 use MusicBrainz::Server::Report::PartOfSetRelationships;
 use MusicBrainz::Server::Report::PlacesWithoutCoordinates;

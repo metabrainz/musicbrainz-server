@@ -44,7 +44,7 @@ export default function moveRelationship(
     | {...RelationshipEditorStateT}
     | {...ReleaseRelationshipEditorStateT},
   relationship: RelationshipStateT,
-  source: CoreEntityT,
+  source: RelatableEntityT,
   moveForward: boolean,
 ): void {
   const targetTypeGroups = findTargetTypeGroups(

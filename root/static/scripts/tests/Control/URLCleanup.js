@@ -6,6 +6,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import * as ReactDOMServer from 'react-dom/server';
 import test from 'tape';
 
 import {arraysEqual} from '../../common/utility/arrays.js';
@@ -2244,6 +2245,59 @@ limited_link_type_combinations: [
              input_entity_type: 'work',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'https://www.generasia.com/wiki/Ding_Ding_~Koi_Kara_Hajimaru_Futari_no_Train~',
+  },
+  // Genie
+  {
+                     input_url: 'https://www.genie.co.kr/detail/albumInfo?axnm=83634218#',
+             input_entity_type: 'release',
+    expected_relationship_type: ['downloadpurchase', 'streamingpaid'],
+limited_link_type_combinations: [
+                                  ['downloadpurchase', 'streamingpaid'],
+                                  'streamingpaid',
+                                ],
+            expected_clean_url: 'https://www.genie.co.kr/detail/albumInfo?axnm=83634218',
+  },
+  {
+                     input_url: 'https://mw.genie.co.kr/detail/albumInfo?axnm=83634218',
+             input_entity_type: 'release',
+    expected_relationship_type: ['downloadpurchase', 'streamingpaid'],
+limited_link_type_combinations: [
+                                   ['downloadpurchase', 'streamingpaid'],
+                                   'streamingpaid',
+                                ],
+            expected_clean_url: 'https://www.genie.co.kr/detail/albumInfo?axnm=83634218',
+  },
+  {
+                     input_url: 'https://www.genie.co.kr/detail/artistInfo?xxnm=80441335#',
+             input_entity_type: 'artist',
+    expected_relationship_type: ['downloadpurchase', 'streamingpaid'],
+limited_link_type_combinations: [
+                                  ['downloadpurchase', 'streamingpaid'],
+                                  'streamingpaid',
+                                ],
+            expected_clean_url: 'https://www.genie.co.kr/detail/artistInfo?xxnm=80441335',
+  },
+  {
+                     input_url: 'https://mw.genie.co.kr/detail/artistInfo?xxnm=80441335',
+             input_entity_type: 'artist',
+    expected_relationship_type: ['downloadpurchase', 'streamingpaid'],
+limited_link_type_combinations: [
+                                  ['downloadpurchase', 'streamingpaid'],
+                                  'streamingpaid',
+                                ],
+            expected_clean_url: 'https://www.genie.co.kr/detail/artistInfo?xxnm=80441335',
+  },
+  {
+                     input_url: 'https://www.genie.co.kr/search/searchMain?query=Dreamcatcher',
+             input_entity_type: 'artist',
+       input_relationship_type: 'streamingpaid',
+    expected_relationship_type: undefined,
+            expected_clean_url: 'https://www.genie.co.kr/search/searchMain?query=Dreamcatcher',
+                expected_error: {
+                                  error: 'a link to a search result',
+                                  target: 'url',
+                                },
+       only_valid_entity_types: [],
   },
   // Genius
   {
@@ -4598,6 +4652,17 @@ limited_link_type_combinations: [
             expected_clean_url: 'https://open.spotify.com/user/1254688529',
        only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series'],
   },
+  {
+                     input_url: 'https://spotify.link/auVCkcbzoyb',
+             input_entity_type: 'artist',
+    expected_relationship_type: undefined,
+       input_relationship_type: 'streamingfree',
+       only_valid_entity_types: [],
+                expected_error: {
+                                  error: 'is a redirect link',
+                                  target: 'url',
+                                },
+  },
   // Target
   {
                      input_url: 'https://www.target.com/b/universal-music-group/-/N-l4bvw',
@@ -5578,6 +5643,12 @@ limited_link_type_combinations: [
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'https://www.worldcat.org/identities/lccn-n94-9040/',
   },
+  {
+                     input_url: 'https://id.oclc.org/worldcat/entity/E39PBJtCD4cBkp4m9Gfb88jKVC.html#key-information',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://id.oclc.org/worldcat/entity/E39PBJtCD4cBkp4m9Gfb88jKVC',
+  },
   // YesAsia
   {
                      input_url: 'https://www.yesasia.com/global/twice-korea/0-aid3437787-0-bpt.47-zh_TW/list.html',
@@ -5871,9 +5942,13 @@ function testErrorObject(subtest, relationshipType, st) {
       'Default error message will be used as expected',
     );
   } else {
+    let error = validationResult.error;
+    // Some errors are React elements rather than pure strings
+    if (typeof error === 'object' && error !== null) {
+      error = ReactDOMServer.renderToString(error);
+    }
     st.ok(
-      validationResult.error &&
-        validationResult.error.includes(subtest.expected_error.error),
+      error && error.includes(subtest.expected_error.error),
       'Error message contains expected string',
     );
   }

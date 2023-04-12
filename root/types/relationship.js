@@ -62,8 +62,8 @@ declare type LinkTypeT = {
   +orderable_direction: number,
   +reverse_link_phrase: string,
   +root_id: number | null,
-  +type0: CoreEntityTypeT,
-  +type1: CoreEntityTypeT,
+  +type0: RelatableEntityTypeT,
+  +type1: RelatableEntityTypeT,
 };
 
 declare type PagedLinkTypeGroupT = {
@@ -85,19 +85,19 @@ declare type RelationshipT = $ReadOnly<{
   ...PendingEditsRoleT,
   +attributes: $ReadOnlyArray<LinkAttrT>,
   +backward: boolean,
-  +entity0?: ?CoreEntityT,
+  +entity0?: ?RelatableEntityT,
   +entity0_credit: string,
   +entity0_id: number,
-  +entity1?: ?CoreEntityT,
+  +entity1?: ?RelatableEntityT,
   +entity1_credit: string,
   +entity1_id: number,
   +id: number,
   +linkOrder: number,
   +linkTypeID: number,
   +source_id: number | null,
-  +source_type: CoreEntityTypeT,
-  +target: CoreEntityT,
-  +target_type: CoreEntityTypeT,
+  +source_type: RelatableEntityTypeT,
+  +target: RelatableEntityT,
+  +target_type: RelatableEntityTypeT,
   +verbosePhrase: string,
 }>;
 

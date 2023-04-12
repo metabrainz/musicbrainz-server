@@ -75,7 +75,7 @@ const ExternalLink = ({
 
 type Props = {
   empty: boolean,
-  entity: CoreEntityT,
+  entity: RelatableEntityT,
   heading?: string,
 };
 

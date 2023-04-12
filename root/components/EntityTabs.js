@@ -35,7 +35,7 @@ const tabLinkNames = {
 
 const buildLink = (
   content: string,
-  entity: CoreEntityT,
+  entity: RelatableEntityT,
   subPath: string,
   page: ?string,
   disabled?: boolean = false,
@@ -53,7 +53,7 @@ const buildLink = (
 
 function showEditTab(
   user: ?UnsanitizedEditorT,
-  entity: CoreEntityT,
+  entity: RelatableEntityT,
 ): boolean {
   switch (entity.entityType) {
     case 'area':
@@ -72,7 +72,7 @@ function showEditTab(
 
 function buildLinks(
   $c: CatalystContextT,
-  entity: CoreEntityT,
+  entity: RelatableEntityT,
   page?: string,
   editTab: ?React$Element<typeof EntityTabLink>,
 ): $ReadOnlyArray<React$Element<typeof EntityTabLink>> {
@@ -168,7 +168,7 @@ function buildLinks(
 
 type Props = {
   +editTab: ?React$Element<typeof EntityTabLink>,
-  +entity: CoreEntityT,
+  +entity: RelatableEntityT,
   +page?: string,
 };
 

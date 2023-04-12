@@ -14,9 +14,28 @@ import entityHref from '../utility/entityHref.js';
 
 import Collapsible from './Collapsible.js';
 
+type EntityWithWikipediaExtractT =
+  | AreaT
+  | ArtistT
+  | EventT
+  | GenreT
+  | InstrumentT
+  | LabelT
+  | PlaceT
+  | ReleaseGroupT
+  | SeriesT
+  | WorkT;
+
+type MinimalEntityWithWikipediaExtractT = {
+  +entityType: EntityWithWikipediaExtractT['entityType'],
+  +gid: string,
+};
+
 type Props = {
   +cachedWikipediaExtract: WikipediaExtractT | null,
-  +entity: CoreEntityT | MinimalCoreEntityT,
+  +entity:
+    | EntityWithWikipediaExtractT
+    | MinimalEntityWithWikipediaExtractT,
 };
 
 type State = {

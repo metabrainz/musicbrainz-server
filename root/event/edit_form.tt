@@ -22,6 +22,9 @@
             [%- l('Add "@ " at line start to indicate artists, "* " for a work/song, "# " for additional info (such as "Encore").
                    [mbid|name] allows linking to artists and works.') -%]
         </p>
+        <p>
+            [%- l('If needed, the characters "[", "]", and "&" can be escaped using the HTML entities "&lsqb;", "&rsqb;", and "&amp;" respectively.') -%]
+        </p>
       </fieldset>
 
 

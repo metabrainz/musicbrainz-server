@@ -10,7 +10,7 @@
 import formatEntityTypeName from '../utility/formatEntityTypeName.js';
 
 export default function localizeTypeNameForEntity(
-  entity: CoreEntityT | CollectionT,
+  entity: EditableEntityT | CollectionT,
 ): string {
   const formattedEntityTypeName = formatEntityTypeName(entity.entityType);
 

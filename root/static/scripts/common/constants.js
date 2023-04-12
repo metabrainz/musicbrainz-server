@@ -18,8 +18,19 @@ export const EMPTY_PARTIAL_DATE: PartialDateT = Object.freeze({
 });
 
 export const ENTITY_NAMES: {
-  +[entityType: CoreEntityTypeT]: () => string,
-  ...
+  area: N_l_T,
+  artist: N_l_T,
+  event: N_l_T,
+  genre: N_l_T,
+  instrument: N_l_T,
+  label: N_l_T,
+  place: N_l_T,
+  recording: N_l_T,
+  release: N_l_T,
+  release_group: N_l_T,
+  series: N_l_T,
+  url: N_l_T,
+  work: N_l_T,
 } = {
   area: N_l('Area'),
   artist: N_l('Artist'),
@@ -148,6 +159,7 @@ export const FAVICON_CLASSES = {
   'napster.com': 'napster',
   'nicovideo.jp': 'niconicovideo',
   'nla.gov.au': 'trove',
+  'oclc.org': 'oclc',
   'ocremix.org': 'ocremix',
   'offiziellecharts.de': 'offiziellecharts',
   'online-bijbel.nl': 'onlinebijbel',
@@ -211,7 +223,6 @@ export const FAVICON_CLASSES = {
   'utaten.com': 'utaten',
   'vgmdb.net': 'vgmdb',
   'viaf.org': 'viaf',
-  'videogam.in': 'videogamin',
   'vimeo.com/ondemand': 'vimeoondemand',
   // eslint-disable-next-line sort-keys
   'vimeo.com': 'vimeo',
@@ -231,7 +242,7 @@ export const FAVICON_CLASSES = {
 };
 
 export const PART_OF_SERIES_LINK_TYPES: {
-  +[type: CoreEntityTypeT]: string | null,
+  +[type: RelatableEntityTypeT]: string | null,
 } = {
   area: null,
   artist: 'd1a845d1-8c03-3191-9454-e4e8d37fa5e0',

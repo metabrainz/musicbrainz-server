@@ -8,7 +8,6 @@
  */
 
 import * as Sentry from '@sentry/browser';
-import mutate from 'mutate-cow';
 import * as React from 'react';
 // $FlowIgnore[missing-export]
 import {flushSync} from 'react-dom';
@@ -178,16 +177,19 @@ export default function hydrate<
   };
 }
 
-type PropsWithEntity = {entity: MinimalCoreEntityT, ...};
+type PropsWithEntity = {
+  +entity: $ReadOnly<{...MinimalEntityT, ...}>,
+  ...
+};
 
-export function minimalEntity<T: $ReadOnly<PropsWithEntity>>(
-  props: $Exact<T>,
-): $Exact<T> {
+export function minimalEntity<T: PropsWithEntity>(
+  props: T,
+): T {
   const entity = props.entity;
-  return mutate<PropsWithEntity, _>(props, newProps => {
-    newProps.entity = {
-      entityType: entity.entityType,
-      gid: entity.gid,
-    };
-  });
+  const newProps: {...T, ...} = {...props};
+  newProps.entity = {
+    entityType: entity.entityType,
+    gid: entity.gid,
+  };
+  return newProps;
 }

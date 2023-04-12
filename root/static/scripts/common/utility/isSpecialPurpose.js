@@ -17,7 +17,12 @@ import {
 } from '../constants.js';
 
 export default function isSpecialPurpose(
-  entity: CoreEntityT | CollectionT | EditorT,
+  entity: {
+    +entityType: string,
+    +gid?: string,
+    +id: number,
+    ...
+  },
 ): boolean {
   if (entity.entityType === 'artist') {
     return !!(

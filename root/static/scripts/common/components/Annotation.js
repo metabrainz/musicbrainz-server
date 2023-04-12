@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import mutate from 'mutate-cow';
-
 import {SanitizedCatalystContext} from '../../../../context.mjs';
 import formatUserDate from '../../../../utility/formatUserDate.js';
 import sanitizedEditor from '../../../../utility/sanitizedEditor.mjs';
@@ -17,27 +15,22 @@ import entityHref from '../utility/entityHref.js';
 import Collapsible from './Collapsible.js';
 import EditorLink from './EditorLink.js';
 
+type MinimalAnnotatedEntityT = {
+  +entityType: AnnotatedEntityT['entityType'],
+  +gid: string,
+  +latest_annotation?: AnnotationT,
+};
+
 type Props = {
   +annotation: ?AnnotationT,
   +collapse?: boolean,
   +entity: $ReadOnly<{
-    ...MinimalCoreEntityT,
-    +latest_annotation: ?AnnotationT,
+    ...MinimalAnnotatedEntityT,
     ...
   }>,
   +numberOfRevisions: number,
   +showChangeLog?: boolean,
   +showEmpty?: boolean,
-};
-
-type WritableProps = {
-  annotation: ?{...AnnotationT},
-  entity: {
-    ...MinimalCoreEntityT,
-    latest_annotation: ?{...AnnotationT},
-    ...
-  },
-  ...
 };
 
 const Annotation = ({
@@ -133,30 +126,31 @@ export default (hydrate<Props>(
   'div.annotation',
   Annotation,
   function (props) {
+    const newProps: {...Props} = {...props};
     const entity = props.entity;
+    const annotation = props.annotation;
 
-    return mutate<WritableProps, Props>(props, newProps => {
-      const annotation = newProps.annotation;
+    // editor data is usually missing on mirror server
+    if (annotation && annotation.editor) {
+      const newAnnotation = {...annotation};
+      newAnnotation.editor = sanitizedEditor(annotation.editor);
+      newProps.annotation = newAnnotation;
+    }
 
-      // editor data is usually missing on mirror server
-      if (annotation && annotation.editor) {
-        annotation.editor = sanitizedEditor(annotation.editor);
-      }
+    const newEntity: {...MinimalAnnotatedEntityT} = {
+      entityType: entity.entityType,
+      gid: entity.gid,
+    };
 
-      const latestAnnotation = entity.latest_annotation;
-      let sanitizedLatestAnnotation = null;
-      if (latestAnnotation && latestAnnotation.editor) {
-        sanitizedLatestAnnotation = ({
-          ...latestAnnotation,
-          editor: sanitizedEditor(latestAnnotation.editor),
-        }: {...AnnotationT});
-      }
+    const latestAnnotation = entity.latest_annotation;
+    if (latestAnnotation && latestAnnotation.editor) {
+      newEntity.latest_annotation = ({
+        ...latestAnnotation,
+        editor: sanitizedEditor(latestAnnotation.editor),
+      }: {...AnnotationT});
+    }
 
-      newProps.entity = {
-        entityType: entity.entityType,
-        gid: entity.gid,
-        latest_annotation: sanitizedLatestAnnotation,
-      };
-    });
+    newProps.entity = newEntity;
+    return newProps;
   },
 ): React$AbstractComponent<Props, void>);

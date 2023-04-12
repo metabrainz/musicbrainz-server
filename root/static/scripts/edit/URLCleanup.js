@@ -12,11 +12,11 @@ import $ from 'jquery';
 import {arraysEqual} from '../common/utility/arrays.js';
 
 type EntityTypesMap = {
-  +[entityType: CoreEntityTypeT]: string | $ReadOnlyArray<string>,
+  +[entityType: RelatableEntityTypeT]: string | $ReadOnlyArray<string>,
 };
 
 type EntityTypeMap = {
-  +[entityType: CoreEntityTypeT]: string,
+  +[entityType: RelatableEntityTypeT]: string,
 };
 
 type LinkTypeMap = {
@@ -422,7 +422,7 @@ type CleanupEntry = {
   +match: $ReadOnlyArray<RegExp>,
   +restrict?: $ReadOnlyArray<EntityTypesMap>,
   +select?:
-    (url: string, sourceType: CoreEntityTypeT) =>
+    (url: string, sourceType: RelatableEntityTypeT) =>
     | RelationshipTypeT
     | false, // No match
   +validate?: (url: string, id: string) => ValidationResult,
@@ -2235,6 +2235,88 @@ const CLEANUPS: CleanupEntries = {
           id === LINK_TYPES.otherdatabases.work,
         target: ERROR_TARGETS.ENTITY,
       };
+    },
+  },
+  'genie': {
+    match: [
+      new RegExp('^(https?://)?((www|mw)\\.)?genie\\.co\\.kr/', 'i'),
+    ],
+    restrict: [
+      multiple(LINK_TYPES.downloadpurchase, LINK_TYPES.streamingpaid),
+      LINK_TYPES.streamingpaid,
+    ],
+    select: function (url, sourceType) {
+      const m = /^https:\/\/www\.genie\.co\.kr\/detail\/(albumInfo|artistInfo|songInfo)/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (prefix) {
+          case 'albumInfo':
+            if (sourceType === 'release') {
+              return [
+                LINK_TYPES.downloadpurchase.release,
+                LINK_TYPES.streamingpaid.release,
+              ];
+            }
+            break;
+          case 'artistInfo':
+            if (sourceType === 'artist') {
+              return [
+                LINK_TYPES.downloadpurchase.artist,
+                LINK_TYPES.streamingpaid.artist,
+              ];
+            }
+            break;
+          default: // songInfo
+            if (sourceType === 'recording') {
+              return [
+                LINK_TYPES.downloadpurchase.recording,
+                LINK_TYPES.streamingpaid.recording,
+              ];
+            }
+            break;
+        }
+      }
+      return false;
+    },
+    clean: function (url) {
+      url = url.replace(/^(?:https?:\/\/)?(?:(?:www|mw)\.)?genie\.co\.kr\//, 'https://www.genie.co.kr/');
+      url = url.replace(/^(https:\/\/www\.genie\.co\.kr\/detail\/(?:albumInfo\?ax|artistInfo\?xx|songInfo\?xg)nm=\d+)(?:[&#\/].*)?$/, '$1');
+      return url;
+    },
+    validate: function (url, id) {
+      if (/https:\/\/www\.genie\.co\.kr\/search\//.test(url)) {
+        return {
+          error: noLinkToSearchMsg(),
+          result: false,
+          target: ERROR_TARGETS.URL,
+        };
+      }
+      const m = /^https:\/\/www\.genie\.co\.kr\/detail\/(albumInfo|artistInfo|songInfo)\?(?:ax|xx|xg)nm=\d+$/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.downloadpurchase.release:
+          case LINK_TYPES.streamingpaid.release:
+            return {
+              result: prefix === 'albumInfo',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.downloadpurchase.artist:
+          case LINK_TYPES.streamingpaid.artist:
+            return {
+              result: prefix === 'artistInfo',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.downloadpurchase.recording:
+          case LINK_TYPES.streamingpaid.recording:
+            return {
+              result: prefix === 'songInfo',
+              target: ERROR_TARGETS.ENTITY,
+            };
+        }
+        return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
     },
   },
   'genius': {
@@ -4442,7 +4524,7 @@ const CLEANUPS: CleanupEntries = {
   },
   'spotify': {
     match: [new RegExp(
-      '^(https?://)?([^/]+\\.)?(spotify\\.com)/(?!user)',
+      '^(https?://)?([^/]+\\.)?(spotify\\.(?:com|link))/(?!user)',
       'i',
     )],
     restrict: [LINK_TYPES.streamingfree],
@@ -4452,6 +4534,23 @@ const CLEANUPS: CleanupEntries = {
       return url;
     },
     validate: function (url, id) {
+      if (/spotify\.link\//i.test(url)) {
+        return {
+          error: exp.l(
+            `This is a redirect link. Please follow {redirect_url|your link}
+             and add the link it redirects to instead.`,
+            {
+              redirect_url: {
+                href: url,
+                rel: 'noopener noreferrer',
+                target: '_blank',
+              },
+            },
+          ),
+          result: false,
+          target: ERROR_TARGETS.URL,
+        };
+      }
       const m = /^https:\/\/open\.spotify\.com\/([a-z]+)\/(?:[a-zA-Z0-9_-]+)$/.exec(url);
       if (m) {
         const prefix = m[1];
@@ -5400,9 +5499,13 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'worldcat': {
-    match: [new RegExp('^(https?://)?(www\\.)?worldcat\\.org/', 'i')],
+    match: [
+      new RegExp('^(https?://)?id\\.oclc\\.org/worldcat/', 'i'),
+      new RegExp('^(https?://)?(www\\.)?worldcat\\.org/', 'i'),
+    ],
     restrict: [LINK_TYPES.otherdatabases],
     clean: function (url) {
+      url = url.replace(/^(?:https?:\/\/)?(id\.oclc\.org\/worldcat\/entity\/[^./?&#]+).*$/, 'https://$1');
       url = url.replace(/^(?:https?:\/\/)?(?:www\.)?worldcat\.org/, 'https://www.worldcat.org');
       url = url.replace(/^https:\/\/www\.worldcat\.org(?:\/title\/[a-zA-Z0-9_-]+)?\/oclc\/([^&?]+)(?:.*)$/, 'https://www.worldcat.org/oclc/$1');
       // oclc permalinks have no ending slash but identities ones do
@@ -5551,7 +5654,7 @@ function testAll(tests: $ReadOnlyArray<RegExp>, text: string) {
 const CLEANUP_ENTRIES: Array<CleanupEntry> = Object.values(CLEANUPS);
 
 const entitySpecificRules: {
-  [entityType: CoreEntityTypeT]: (string) => ValidationResult,
+  [entityType: RelatableEntityTypeT]: (string) => ValidationResult,
 } = {};
 
 /*
@@ -5654,7 +5757,7 @@ entitySpecificRules.recording = function (url) {
  * }
  */
 function multiple(...types: $ReadOnlyArray<EntityTypeMap>): EntityTypesMap {
-  const result: {[entityType: CoreEntityTypeT]: Array<string>} = {};
+  const result: {[entityType: RelatableEntityTypeT]: Array<string>} = {};
   types.forEach(function (type: EntityTypeMap) {
     for (const [entityType, id] of Object.entries(type)) {
       result[entityType] = result[entityType] || [];
@@ -5667,11 +5770,11 @@ function multiple(...types: $ReadOnlyArray<EntityTypeMap>): EntityTypesMap {
 export class Checker {
   url: string;
 
-  entityType: CoreEntityTypeT;
+  entityType: RelatableEntityTypeT;
 
   cleanup: ?CleanupEntry;
 
-  constructor(url: string, entityType: CoreEntityTypeT) {
+  constructor(url: string, entityType: RelatableEntityTypeT) {
     this.url = url;
     this.entityType = entityType;
     this.cleanup = CLEANUP_ENTRIES.find(function (cleanup) {
@@ -5730,7 +5833,7 @@ export class Checker {
    */
   checkRelationship(
     id: string,
-    entityType: CoreEntityTypeT = this.entityType,
+    entityType: RelatableEntityTypeT = this.entityType,
   ): ValidationResult {
     // Perform entity-specific validation
     const rules = entitySpecificRules[this.entityType];
@@ -5810,7 +5913,7 @@ export class Checker {
   }
 
   filterApplicableTypes(
-    sourceType: CoreEntityTypeT = this.entityType,
+    sourceType: RelatableEntityTypeT = this.entityType,
   ): Array<RelationshipTypeT> {
     if (!this.cleanup || !this.cleanup.restrict) {
       return [];

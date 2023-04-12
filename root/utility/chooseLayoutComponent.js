@@ -43,7 +43,7 @@ export default function chooseLayoutComponent(
   typeName: string,
 ): React$ComponentType<{
   +children: React$Node,
-  +entity: CoreEntityT | EditorT | CollectionT,
+  +entity: NonUrlRelatableEntityT | EditorT | CollectionT,
   +fullWidth?: boolean,
   +page?: string,
   +title: string,
