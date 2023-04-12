@@ -241,6 +241,7 @@ export default {
   'report/MultipleAsins': (): Promise<mixed> => import('../report/MultipleAsins.js'),
   'report/MultipleDiscogsLinks': (): Promise<mixed> => import('../report/MultipleDiscogsLinks.js'),
   'report/NoLanguage': (): Promise<mixed> => import('../report/NoLanguage.js'),
+  'report/NonBootlegsOnBootlegLabels': (): Promise<mixed> => import('../report/NonBootlegsOnBootlegLabels.js'),
   'report/NoScript': (): Promise<mixed> => import('../report/NoScript.js'),
   'report/PartOfSetRelationships': (): Promise<mixed> => import('../report/PartOfSetRelationships.js'),
   'report/PlacesWithoutCoordinates': (): Promise<mixed> => import('../report/PlacesWithoutCoordinates.js'),
