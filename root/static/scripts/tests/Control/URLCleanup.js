@@ -6,6 +6,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import * as ReactDOMServer from 'react-dom/server';
 import test from 'tape';
 
 import {arraysEqual} from '../../common/utility/arrays.js';
@@ -4651,6 +4652,17 @@ limited_link_type_combinations: [
             expected_clean_url: 'https://open.spotify.com/user/1254688529',
        only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series'],
   },
+  {
+                     input_url: 'https://spotify.link/auVCkcbzoyb',
+             input_entity_type: 'artist',
+    expected_relationship_type: undefined,
+       input_relationship_type: 'streamingfree',
+       only_valid_entity_types: [],
+                expected_error: {
+                                  error: 'is a redirect link',
+                                  target: 'url',
+                                },
+  },
   // Target
   {
                      input_url: 'https://www.target.com/b/universal-music-group/-/N-l4bvw',
@@ -5930,9 +5942,13 @@ function testErrorObject(subtest, relationshipType, st) {
       'Default error message will be used as expected',
     );
   } else {
+    let error = validationResult.error;
+    // Some errors are React elements rather than pure strings
+    if (typeof error === 'object' && error !== null) {
+      error = ReactDOMServer.renderToString(error);
+    }
     st.ok(
-      validationResult.error &&
-        validationResult.error.includes(subtest.expected_error.error),
+      error && error.includes(subtest.expected_error.error),
       'Error message contains expected string',
     );
   }

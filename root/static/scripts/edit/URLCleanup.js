@@ -4524,7 +4524,7 @@ const CLEANUPS: CleanupEntries = {
   },
   'spotify': {
     match: [new RegExp(
-      '^(https?://)?([^/]+\\.)?(spotify\\.com)/(?!user)',
+      '^(https?://)?([^/]+\\.)?(spotify\\.(?:com|link))/(?!user)',
       'i',
     )],
     restrict: [LINK_TYPES.streamingfree],
@@ -4534,6 +4534,23 @@ const CLEANUPS: CleanupEntries = {
       return url;
     },
     validate: function (url, id) {
+      if (/spotify\.link\//i.test(url)) {
+        return {
+          error: exp.l(
+            `This is a redirect link. Please follow {redirect_url|your link}
+             and add the link it redirects to instead.`,
+            {
+              redirect_url: {
+                href: url,
+                rel: 'noopener noreferrer',
+                target: '_blank',
+              },
+            },
+          ),
+          result: false,
+          target: ERROR_TARGETS.URL,
+        };
+      }
       const m = /^https:\/\/open\.spotify\.com\/([a-z]+)\/(?:[a-zA-Z0-9_-]+)$/.exec(url);
       if (m) {
         const prefix = m[1];
