@@ -461,9 +461,18 @@ sub warn_if_existing_data_differs {
             my $type_name = $mirror->get_column_type_name($table, $col);
             # postgres has no equality operator for json, only jsonb
             $type_name =~ s/json(?!b)/jsonb/;
+            my $comparison_query;
+            if ($type_name eq 'point') {
+                # Two points are considered equivalent if the distance
+                # between them is 0.
+                $comparison_query = "SELECT (?::point <-> ?::point) != 0";
+            } else {
+                $comparison_query =
+                    "SELECT ?::$type_name IS DISTINCT FROM ?::$type_name";
+            }
             if (
                 $mirror->select_single_value(
-                    "SELECT ?::$type_name IS DISTINCT FROM ?::$type_name",
+                    $comparison_query,
                     $packet_value,
                     $actual_value,
                 )
