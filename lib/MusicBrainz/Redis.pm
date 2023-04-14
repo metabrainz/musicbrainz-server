@@ -4,9 +4,14 @@ use Encode;
 use Moose;
 use Redis;
 
-has '_connection' => (
+has 'server' => (
     is => 'rw',
-    isa => 'Redis',
+    isa => 'Str',
+);
+
+has 'database' => (
+    is => 'rw',
+    isa => 'Str',
 );
 
 has 'namespace' => (
@@ -14,20 +19,23 @@ has 'namespace' => (
     isa => 'Str',
 );
 
-sub BUILD {
-    my ($self, $args) = @_;
+has '_connection' => (
+    is => 'rw',
+    isa => 'Redis',
+    lazy => 1,
+    builder => '_build_connection',
+);
 
-    $self->_connection(Redis->new(
+sub _build_connection {
+    my $self = shift;
+    my $connection = Redis->new(
         encoding => undef,
         reconnect => 5,
-        server => $args->{server},
-    ));
-
-    if (defined $args->{database}) {
-        $self->_connection->select($args->{database});
-    }
-
-    $self->namespace($args->{namespace});
+        server => $self->server,
+    );
+    $connection->select($self->database)
+        if defined $self->database;
+    $connection;
 }
 
 sub _prepare_key {
