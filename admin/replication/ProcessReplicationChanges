@@ -2,6 +2,7 @@
 
 use warnings;
 use strict;
+use feature 'state';
 
 use English;
 use FindBin;
@@ -12,6 +13,7 @@ use DBI;
 use DBDefs;
 use JSON::XS;
 use List::AllUtils qw( zip );
+use MusicBrainz::Script::Utils qw( get_primary_keys );
 use MusicBrainz::Server::Context;
 use Sql;
 use Types::Serialiser;
@@ -142,17 +144,17 @@ if (my $totalrows = $sql->select($query))
 
         if ($dbmirror2) {
             $query = <<~'SQL';
-                  SELECT pd.seqid,
-                         pd.tablename,
-                         pd.op,
-                         pd.olddata,
-                         pd.newdata,
-                         pk.keys
-                    FROM dbmirror2.pending_data pd
-                    JOIN dbmirror2.pending_keys pk
-                      ON pk.tablename = pd.tablename
-                   WHERE pd.xid = ?
-                ORDER BY pd.seqid ASC
+                   SELECT pd.seqid,
+                          pd.tablename,
+                          pd.op,
+                          pd.olddata,
+                          pd.newdata,
+                          pk.keys
+                     FROM dbmirror2.pending_data pd
+                LEFT JOIN dbmirror2.pending_keys pk
+                       ON pk.tablename = pd.tablename
+                    WHERE pd.xid = ?
+                 ORDER BY pd.seqid ASC
                 SQL
         }
 
@@ -295,6 +297,25 @@ sub dbmirror2_command {
 
     if (defined $newdata) {
         $newdata = $json->decode($newdata);
+    }
+
+    # Some dbmirror2 packets have an incomplete pending_keys file due to a
+    # bug. If we encounter this, fetch primary keys from the database.
+    if (!defined $keys) {
+        state $fetched_keys = {};
+        $keys = $fetched_keys->{$table};
+        if (!defined $keys) {
+            warn (
+                "Primary keys for $table were not found in the " .
+                "pending_keys file. Fetching them from the database."
+            );
+            my ($schema_part, $table_part) = @{ $mirror->select_single_value(
+                'SELECT parse_ident(?)',
+                $table,
+            ) };
+            $keys = [get_primary_keys($mirror, $schema_part, $table_part)];
+            $fetched_keys->{$table} = $keys;
+        }
     }
 
     my $t = ($bytable{$table} ||= [0, 0, 0]);
