@@ -74,7 +74,7 @@ $sql->auto_commit;
 $sql->do('SET search_path = musicbrainz, public');
 
 $sql->auto_commit;
-$sql->do('SET SESSION CHARACTERISTICS AS TRANSACTION ISOLATION LEVEL SERIALIZABLE');
+$sql->do('SET SESSION CHARACTERISTICS AS TRANSACTION ISOLATION LEVEL REPEATABLE READ');
 
 #Obtain a list of pending transactions using ordering by our approximation
 #to the commit time.  The commit time approximation is taken to be the
