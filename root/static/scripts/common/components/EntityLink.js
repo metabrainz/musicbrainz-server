@@ -134,7 +134,7 @@ const NoInfoURL = ({allowNew, url}: {+allowNew: boolean, +url: string}) => (
       >
         {isolateText(url)}
       </span>
-    ) : <a className="url-entity-link" href={url}>{url}</a>}
+    ) : <a className="wrap-anywhere" href={url}>{url}</a>}
     {' '}
     <DeletedLink
       allowNew={allowNew}
@@ -276,7 +276,7 @@ $ReadOnlyArray<Expand2ReactOutput> | Expand2ReactOutput | null => {
   }
 
   if (entity.entityType === 'url') {
-    anchorProps.className = 'url-entity-link';
+    anchorProps.className = 'wrap-anywhere';
   }
 
   content = disableLink
