@@ -16,7 +16,7 @@ import chooseLayoutComponent from '../utility/chooseLayoutComponent.js';
 
 type Props = {
   +allTags: $ReadOnlyArray<AggregatedTagT>,
-  +entity: CoreEntityT,
+  +entity: TaggableEntityT,
   +moreTags: boolean,
   +userTags: $ReadOnlyArray<UserTagT>,
 };

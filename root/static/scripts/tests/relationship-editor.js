@@ -823,7 +823,7 @@ test('MBS-12976: Changing a work can cause duplication/key errors', function (t)
 });
 
 function getAddRelationshipAction(
-  source: CoreEntityT,
+  source: RelatableEntityT,
   relationship: RelationshipStateT,
 ): RelationshipEditorActionT {
   return {
@@ -839,7 +839,7 @@ function getAddRelationshipAction(
 
 function addRelationships(
   rootState: RelationshipEditorStateT,
-  source: CoreEntityT,
+  source: RelatableEntityT,
   relationships: $ReadOnlyArray<RelationshipStateT>,
 ): RelationshipEditorStateT {
   let newState = rootState;
@@ -851,7 +851,7 @@ function addRelationships(
 
 function addRelationshipsToRelease(
   rootState: ReleaseRelationshipEditorStateT,
-  source: CoreEntityT,
+  source: RelatableEntityT,
   relationships: $ReadOnlyArray<RelationshipStateT>,
 ): ReleaseRelationshipEditorStateT {
   let newState = rootState;
@@ -863,7 +863,7 @@ function addRelationshipsToRelease(
 
 function addRelationship(
   rootState: RelationshipEditorStateT,
-  source: CoreEntityT,
+  source: RelatableEntityT,
   relationship: RelationshipStateT,
 ): RelationshipEditorStateT {
   return reducer(
@@ -874,7 +874,7 @@ function addRelationship(
 
 function addRelationshipToRelease(
   rootState: ReleaseRelationshipEditorStateT,
-  source: CoreEntityT,
+  source: RelatableEntityT,
   relationship: RelationshipStateT,
 ): ReleaseRelationshipEditorStateT {
   return releaseReducer(

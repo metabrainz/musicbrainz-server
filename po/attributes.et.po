@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "PO-Revision-Date: 2012-05-24 18:52+0000\n"
 "Last-Translator: Mihkel Tõnnov <mihhkel@gmail.com>, 2015,2017-2018,2020\n"
-"Language-Team: Estonian (http://www.transifex.com/musicbrainz/musicbrainz/language/et/)\n"
+"Language-Team: Estonian (http://app.transifex.com/musicbrainz/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -3756,6 +3756,11 @@ msgctxt "work_attribute_type"
 msgid "ID for the Singaporean rights society COMPASS"
 msgstr ""
 
+#: DB:work_attribute_type/description:140
+msgctxt "work_attribute_type"
+msgid "ID for the Slovenian rights society SAZAS"
+msgstr ""
+
 #: DB:work_attribute_type/description:68
 msgctxt "work_attribute_type"
 msgid "ID for the South African rights society SAMRO"
@@ -6385,6 +6390,11 @@ msgstr ""
 #: DB:work_attribute_type/name:39
 msgctxt "work_attribute_type"
 msgid "SAYCO ID"
+msgstr ""
+
+#: DB:work_attribute_type/name:140
+msgctxt "work_attribute_type"
+msgid "SAZAS ID"
 msgstr ""
 
 #: DB:medium_format/name:62

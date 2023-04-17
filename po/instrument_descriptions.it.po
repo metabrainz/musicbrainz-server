@@ -17,7 +17,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "PO-Revision-Date: 2012-05-24 19:17+0000\n"
 "Last-Translator: salo.rock, 2022-2023\n"
-"Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
+"Language-Team: Italian (http://app.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -969,6 +969,13 @@ msgid ""
 "drone and melody strings operated by buttons or keys."
 msgstr "Sviluppato a partire dal <a href=\"/instrument/1975ee04-30de-4835-9656-102ccd49c0c7\">taishogoto</a> giapponese, è realizzato in legno e spesso ha un contenitore integrale. Ha due ordini di corde, melodiche e bordone, azionate attraverso bottoni o tasti."
 
+#. name:biniou
+#: DB:instrument/description:1117
+msgid ""
+"Developed from the veuze and often accompanied with the bombard, the small "
+"high-pitched, singular octave bagpipe is used in Breton folk dancing."
+msgstr "Sviluppata a partire dalla veuze e spesso accompagnata dalla bombarda, è una piccola cornamusa dal tono acuto con estensione di un'ottava utilizzata nelle danze tradizionali bretoni."
+
 #. name:pedal accordion
 #: DB:instrument/description:1076
 msgid ""
@@ -1506,6 +1513,13 @@ msgstr "Ulteriormente migliorato da Jaffar Khan, aveva una tavola armonica in le
 #: DB:instrument/description:533
 msgid "Indian mouth harp, played in Carnatic and Rajastani folk music."
 msgstr "Arpa a bocca indiana suonata nella musica tradizionale carnatica e del Rajasthan."
+
+#. name:mukkuri
+#: DB:instrument/description:710
+msgid ""
+"Ingenious to the Ainu, it is made of bamboo with a string that vibrated "
+"creates sound."
+msgstr "Creazione degli ainu, è realizzato in bambù con una corda che vibrando produce suono."
 
 #. name:viololyra
 #: DB:instrument/description:834
@@ -3820,11 +3834,6 @@ msgstr "Il membro più famoso della famiglia dei violini, ha un registro soprano
 msgid "The mridangam is a double-sided drum from India."
 msgstr "Tamburo indiano a due punte."
 
-#. name:mukkuri
-#: DB:instrument/description:710
-msgid "The mukkuri is an Ainu jew's harp."
-msgstr "Scacciapensieri ainu."
-
 #. name:nabal
 #: DB:instrument/description:684
 msgid ""
@@ -4611,6 +4620,15 @@ msgid ""
 "rhythm."
 msgstr "Composto da due bastoncini, di cui uno è tenuto in bocca e funge da cassa di risonanza durante il coro o il canto, mentre l'altro è usato per picchiettare e raschiare, creando ritmo."
 
+#. name:mandoguitar
+#: DB:instrument/description:836
+msgid ""
+"Unison course tuned 12 stringed electric guitar body with mandolin neck, it "
+"is tuned an octave higher than a conventional guitar, thus having the tonal "
+"range of the mandolin. <br /> Not to be confused with flat-backed mandolin "
+"which is also sold as \"mando-guitar\""
+msgstr "Dal corpo di chitarra elettrica a 12 corde accordate in ordini all'unisono e dal manico di mandolino, è accordata un'ottava più in alto di una chitarra convenzionale e ha quindi l'estensione di tono del mandolino. <br /> Da non confondere con il mandolino a fondo piatto venduto anche come \"chitarra mandolino\"."
+
 #. name:English concertina
 #: DB:instrument/description:837
 msgid "Unisonoric concertina with hexagonal sides and concertina reeds."
@@ -4651,6 +4669,13 @@ msgid ""
 "Used by Australian Aboriginals to maintain rhythm in chants and "
 "traditionally to accompany didgeridoo. There are also Boomerang clapsticks."
 msgstr "Usato dagli aborigeni australiani per tenere il ritmo nei canti corali e tradizionalmente per accompagnare il didgeridoo. Ne esistono anche in versione boomerang."
+
+#. name:tulum
+#: DB:instrument/description:1116
+msgid ""
+"Used by shepherds and peoples of the southeast Black Sea region, it is "
+"droneless with parallel double chanters each with 5 fingerholes."
+msgstr "Utilizzato dai pastori e dai popoli della regione del Mar Nero sudorientale, è senza canne di bordone e ha due canne del canto parallele, ognuna con 5 fori di diteggiatura."
 
 #. name:charango
 #: DB:instrument/description:466
@@ -5446,14 +5471,6 @@ msgstr "Strumento a percussione che consiste in un pezzo di bambù disposto oriz
 #: DB:instrument/description:314
 msgid "trắng jâu bass form of trắng lu"
 msgstr "Versione basso del trắng lu."
-
-#. name:mandoguitar
-#: DB:instrument/description:836
-msgid ""
-"unison course tuned 12 stringed electric guitar body with mandolin neck, it "
-"is tuned an octave higher than a conventional guitar, thus having the tonal "
-"range of the mandolin."
-msgstr "Strumento a 12 corde con ordini doppi accordati all'unisono, ha la cassa di una chitarra elettrica e il manico di un mandolino. È accordata un'ottava più in alto rispetto ad una chitarra normale, e quindi ha la gamma tonale di un mandolino."
 
 #. name:khulsan khuur
 #: DB:instrument/description:811

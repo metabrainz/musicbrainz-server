@@ -24,15 +24,15 @@
 # Paul Tremberth <email address hidden>, 2013
 # AO <email address hidden>, 2015
 # AO <email address hidden>, 2013-2015
-# yvanz, 2016-2021
+# yvanz, 2016-2021,2023
 # yvanz, 2016,2018
 # yvanz, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "PO-Revision-Date: 2012-05-24 18:52+0000\n"
-"Last-Translator: homersimpsons <guillaume.alabre@gmail.com>, 2023\n"
-"Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
+"Last-Translator: yvanz, 2016-2021,2023\n"
+"Language-Team: French (http://app.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1052,7 +1052,7 @@ msgstr "Arazbarek"
 #: DB:editor_collection_type/name:7
 msgctxt "collection_type"
 msgid "Area collection"
-msgstr ""
+msgstr "Collection de régions"
 
 #: DB:area_alias_type/name:1
 msgctxt "alias_type"
@@ -1072,7 +1072,7 @@ msgstr "Récompense d’artiste"
 #: DB:editor_collection_type/name:8
 msgctxt "collection_type"
 msgid "Artist collection"
-msgstr ""
+msgstr "Collection d’artistes"
 
 #: DB:artist_alias_type/name:1
 msgctxt "alias_type"
@@ -3781,6 +3781,11 @@ msgctxt "work_attribute_type"
 msgid "ID for the Singaporean rights society COMPASS"
 msgstr "ID pour la COMPASS, société singapourienne de gestion des droits"
 
+#: DB:work_attribute_type/description:140
+msgctxt "work_attribute_type"
+msgid "ID for the Slovenian rights society SAZAS"
+msgstr ""
+
 #: DB:work_attribute_type/description:68
 msgctxt "work_attribute_type"
 msgid "ID for the South African rights society SAMRO"
@@ -4555,7 +4560,7 @@ msgstr "Kômal rishabh asâvêri"
 #: DB:editor_collection_type/name:10
 msgctxt "collection_type"
 msgid "Label collection"
-msgstr ""
+msgstr "Collection de labels"
 
 #: DB:label_alias_type/name:1
 msgctxt "alias_type"
@@ -5856,7 +5861,7 @@ msgstr "Rouleau de piano pneumatique"
 #: DB:editor_collection_type/name:11
 msgctxt "collection_type"
 msgid "Place collection"
-msgstr ""
+msgstr "Collection de lieux"
 
 #: DB:place_alias_type/name:1
 msgctxt "alias_type"
@@ -6129,7 +6134,7 @@ msgstr ""
 #: DB:editor_collection_type/name:12
 msgctxt "collection_type"
 msgid "Recording collection"
-msgstr ""
+msgstr "Collection d’enregistrements"
 
 #: DB:recording_alias_type/name:1
 msgctxt "alias_type"
@@ -6164,7 +6169,7 @@ msgstr "Rekb-i Zavil"
 #: DB:editor_collection_type/name:1
 msgctxt "collection_type"
 msgid "Release collection"
-msgstr ""
+msgstr "Collection de parutions"
 
 #: DB:series_type/name:47
 msgctxt "series_type"
@@ -6174,7 +6179,7 @@ msgstr ""
 #: DB:editor_collection_type/name:13
 msgctxt "collection_type"
 msgid "Release group collection"
-msgstr ""
+msgstr "Collection de groupes de parution"
 
 #: DB:release_group_alias_type/name:1
 msgctxt "alias_type"
@@ -6411,6 +6416,11 @@ msgstr "SAYCE ID"
 msgctxt "work_attribute_type"
 msgid "SAYCO ID"
 msgstr "SAYCO ID"
+
+#: DB:work_attribute_type/name:140
+msgctxt "work_attribute_type"
+msgid "SAZAS ID"
+msgstr ""
 
 #: DB:medium_format/name:62
 msgctxt "medium_format"
@@ -6681,7 +6691,7 @@ msgstr "Serbest"
 #: DB:editor_collection_type/name:14
 msgctxt "collection_type"
 msgid "Series collection"
-msgstr ""
+msgstr "Collection de séries"
 
 #: DB:series_alias_type/name:1
 msgctxt "alias_type"
@@ -7787,7 +7797,7 @@ msgstr ""
 #: DB:editor_collection_type/name:15
 msgctxt "collection_type"
 msgid "Work collection"
-msgstr ""
+msgstr "Collection d’œuvres"
 
 #: DB:work_alias_type/name:1
 msgctxt "alias_type"

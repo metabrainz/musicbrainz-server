@@ -45,14 +45,14 @@ import {
 type PropsT = {
   +dispatch: (DialogLinkTypeActionT) => void,
   +isHelpVisible: boolean,
-  +source: CoreEntityT,
+  +source: RelatableEntityT,
   +state: DialogLinkTypeStateT,
-  +targetType: CoreEntityTypeT,
+  +targetType: RelatableEntityTypeT,
 };
 
 function getLinkTypeError(
   linkType: ?LinkTypeT,
-  source: CoreEntityT,
+  source: RelatableEntityT,
 ): React$Node {
   if (!linkType) {
     /*
@@ -107,8 +107,8 @@ export function extractLinkTypeSearchTerms(
 
 export function createInitialState(
   linkType: LinkTypeT | null,
-  source: CoreEntityT,
-  targetType: CoreEntityTypeT,
+  source: RelatableEntityT,
+  targetType: RelatableEntityTypeT,
   linkTypeOptions: $ReadOnlyArray<AutocompleteOptionItemT<LinkTypeT>>,
   id: string,
   disabled?: boolean = false,
@@ -176,7 +176,7 @@ export function updateDialogState(
   newState: {...PartialDialogStateT, ...},
   action: {
     +action: DialogLinkTypeActionT,
-    +source: CoreEntityT,
+    +source: RelatableEntityT,
     +type: 'update-link-type',
   },
 ): boolean {

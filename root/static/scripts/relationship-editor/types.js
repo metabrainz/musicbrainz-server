@@ -24,8 +24,8 @@ export type CreditChangeOptionT =
   | 'same-relationship-type';
 
 export type RelationshipStateForTypesT<
-  +T0: CoreEntityT,
-  +T1: CoreEntityT,
+  +T0: RelatableEntityT,
+  +T1: RelatableEntityT,
 > = {
   /*
    * _lineage is purely to help debug how a piece of relationship
@@ -50,7 +50,7 @@ export type RelationshipStateForTypesT<
 };
 
 export type RelationshipStateT =
-  RelationshipStateForTypesT<CoreEntityT, CoreEntityT>;
+  RelationshipStateForTypesT<RelatableEntityT, RelatableEntityT>;
 
 export type RelationshipPhraseGroupT = {
   +relationships: tree.ImmutableTree<RelationshipStateT> | null,
@@ -73,18 +73,18 @@ export type RelationshipLinkTypeGroupsT =
   tree.ImmutableTree<RelationshipLinkTypeGroupT> | null;
 
 export type RelationshipTargetTypeGroupT =
-  [CoreEntityTypeT, RelationshipLinkTypeGroupsT];
+  [RelatableEntityTypeT, RelationshipLinkTypeGroupsT];
 
 export type RelationshipTargetTypeGroupsT =
   tree.ImmutableTree<RelationshipTargetTypeGroupT> | null;
 
 export type RelationshipSourceGroupT =
-  [CoreEntityT, RelationshipTargetTypeGroupsT];
+  [RelatableEntityT, RelationshipTargetTypeGroupsT];
 
 export type RelationshipSourceGroupsT =
   tree.ImmutableTree<RelationshipSourceGroupT> | null;
 
-export type NonReleaseCoreEntityT =
+export type NonReleaseRelatableEntityT =
   | AreaT
   | ArtistT
   | EventT
@@ -98,16 +98,16 @@ export type NonReleaseCoreEntityT =
   | UrlT
   | WorkT;
 
-export type NonReleaseCoreEntityTypeT =
-  NonReleaseCoreEntityT['entityType'];
+export type NonReleaseRelatableEntityTypeT =
+  NonReleaseRelatableEntityT['entityType'];
 
 export type RelationshipDialogLocationT = {
   +backward?: ?boolean,
   +batchSelection?: ?boolean,
   +linkTypeId?: ?number,
   +relationshipId?: ?number,
-  +source: CoreEntityT,
-  +targetType?: ?CoreEntityTypeT,
+  +source: RelatableEntityT,
+  +targetType?: ?RelatableEntityTypeT,
   +textPhrase?: ?string,
   +track?: ?TrackWithRecordingT,
 };
@@ -126,7 +126,7 @@ export type RelationshipEditorStateT = {
    * a cascade of unnecessary updates across the entire page.
    */
   +dialogLocation: RelationshipDialogLocationT | null,
-  +entity: NonReleaseCoreEntityT,
+  +entity: NonReleaseRelatableEntityT,
   // existing = relationships that exist in the database
   +existingRelationshipsBySource: RelationshipSourceGroupsT,
   +reducerError: Error | null,
@@ -212,13 +212,13 @@ export type DialogLinkTypeStateT = {
 
 export type DialogSourceEntityStateT = $ReadOnly<{
   ...DialogEntityCreditStateT,
-  +entityType: CoreEntityTypeT,
+  +entityType: RelatableEntityTypeT,
   +error: React$Node,
 }>;
 
 export type TargetTypeOptionT = {
   +text: string,
-  +value: CoreEntityTypeT,
+  +value: RelatableEntityTypeT,
 };
 
 export type TargetTypeOptionsT = $ReadOnlyArray<TargetTypeOptionT>;
@@ -226,11 +226,11 @@ export type TargetTypeOptionsT = $ReadOnlyArray<TargetTypeOptionT>;
 export type DialogTargetEntityStateT = $ReadOnly<{
   ...DialogEntityCreditStateT,
   +allowedTypes: TargetTypeOptionsT | null,
-  +autocomplete: AutocompleteStateT<NonUrlCoreEntityT> | null,
+  +autocomplete: AutocompleteStateT<NonUrlRelatableEntityT> | null,
   +error: string,
   +relationshipId: number,
-  +target: CoreEntityT,
-  +targetType: CoreEntityTypeT,
+  +target: RelatableEntityT,
+  +targetType: RelatableEntityTypeT,
 }>;
 
 export type DialogEntityCreditStateT = {

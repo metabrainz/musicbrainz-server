@@ -13,12 +13,12 @@ import {CatalystContext} from '../../../context.mjs';
 import {returnToCurrentPage} from '../../../utility/returnUri.js';
 
 type Props = {
-  +entity: CoreEntityT | CollectionT,
+  +entity: MergeableEntityT,
 };
 
 const mergeUrl = (
   $c: CatalystContextT,
-  entity: CoreEntityT | CollectionT,
+  entity: MergeableEntityT,
 ) => {
   const entityType = entity.entityType;
   const id = encodeURIComponent(String(entity.id));

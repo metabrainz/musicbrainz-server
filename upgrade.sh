@@ -21,7 +21,7 @@ RT_MIRROR=2
 RT_STANDALONE=3
 
 SQL_DIR='./admin/sql/updates/schema-change'
-EXTENSIONS_SQL="$SQL_DIR/$NEW_SCHEMA_SEQUENCE.extensions.sql"
+EXTENSIONS_SQL="$SQL_DIR/$NEW_SCHEMA_SEQUENCE.all_extensions.sql"
 MASTER_ONLY_SQL="$SQL_DIR/$NEW_SCHEMA_SEQUENCE.master_only.sql"
 MIRROR_ONLY_SQL="$SQL_DIR/$NEW_SCHEMA_SEQUENCE.mirror_only.sql"
 
@@ -72,7 +72,7 @@ if [ -e "$EXTENSIONS_SQL" ]
 then
     ./admin/psql --system "$DATABASE" < "$EXTENSIONS_SQL" || exit 1
 fi
-./admin/psql "$DATABASE" < $SQL_DIR/${NEW_SCHEMA_SEQUENCE}.mirror.sql || exit 1
+./admin/psql "$DATABASE" < $SQL_DIR/${NEW_SCHEMA_SEQUENCE}.all.sql || exit 1
 
 ################################################################################
 # Migrations that apply for only masters
@@ -102,7 +102,7 @@ fi
 if [ "$REPLICATION_TYPE" != "$RT_MIRROR" ]
 then
     echo `date` : 'Running upgrade scripts for master/standalone nodes'
-    ./admin/psql "$DATABASE" < $SQL_DIR/${NEW_SCHEMA_SEQUENCE}.standalone.sql || exit 1
+    ./admin/psql "$DATABASE" < $SQL_DIR/${NEW_SCHEMA_SEQUENCE}.master_and_standalone.sql || exit 1
 
     echo `date` : Enabling last_updated triggers
     OUTPUT=`./admin/psql --system "$DATABASE" < ./admin/sql/EnableLastUpdatedTriggers.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )

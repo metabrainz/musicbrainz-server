@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "PO-Revision-Date: 2012-05-24 18:52+0000\n"
 "Last-Translator: salo.rock, 2022-2023\n"
-"Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
+"Language-Team: Italian (http://app.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -3764,6 +3764,11 @@ msgctxt "work_attribute_type"
 msgid "ID for the Singaporean rights society COMPASS"
 msgstr "ID per la società di diritti singaporiana COMPASS"
 
+#: DB:work_attribute_type/description:140
+msgctxt "work_attribute_type"
+msgid "ID for the Slovenian rights society SAZAS"
+msgstr "ID per la società di diritti slovena SAZAS"
+
 #: DB:work_attribute_type/description:68
 msgctxt "work_attribute_type"
 msgid "ID for the South African rights society SAMRO"
@@ -6394,6 +6399,11 @@ msgstr "ID SAYCE"
 msgctxt "work_attribute_type"
 msgid "SAYCO ID"
 msgstr "ID SAYCO"
+
+#: DB:work_attribute_type/name:140
+msgctxt "work_attribute_type"
+msgid "SAZAS ID"
+msgstr "ID SAZAS"
 
 #: DB:medium_format/name:62
 msgctxt "medium_format"

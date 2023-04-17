@@ -17,7 +17,7 @@ export default function isDisabledLink(
     +ended: boolean,
     ...
   },
-  entity: CoreEntityT,
+  entity: RelatableEntityT,
 ): boolean {
   const isEnded = relationshipOrLinkDatePeriod.ended &&
                   !isFutureDate(relationshipOrLinkDatePeriod.end_date);

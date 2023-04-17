@@ -23,7 +23,7 @@ export default function isLinkTypeDirectionOrderable(
 
 export function isLinkTypeOrderableByUser(
   linkTypeId: number | null,
-  source: CoreEntityT,
+  source: RelatableEntityT,
   backward: boolean,
 ): boolean {
   const linkType: ?LinkTypeT = linkTypeId == null

@@ -75,14 +75,14 @@ type LinkPhraseGroupUpdatesT = {
 type LinkTypeGroupUpdatesT = {
   createTargetTypeGroup: boolean,
   linkPhraseGroupUpdatesMap: Map<number, LinkPhraseGroupUpdatesT>,
-  targetType: CoreEntityTypeT,
+  targetType: RelatableEntityTypeT,
   targetTypeGroupUpdates: TargetTypeGroupUpdatesT,
 };
 
 type TargetTypeGroupUpdatesT = {
   createSourceGroup: boolean,
-  linkTypeGroupUpdatesMap: Map<CoreEntityTypeT, LinkTypeGroupUpdatesT>,
-  source: CoreEntityT,
+  linkTypeGroupUpdatesMap: Map<RelatableEntityTypeT, LinkTypeGroupUpdatesT>,
+  source: RelatableEntityT,
 };
 
 function compareRelationshipUpdatesWithLinkPhraseGroup(
@@ -326,7 +326,7 @@ export default function updateRelationships(
         }),
       );
       const linkTypeGroupUpdates = setMapDefault<
-        CoreEntityTypeT,
+        RelatableEntityTypeT,
         LinkTypeGroupUpdatesT,
       >(
         targetTypeGroupUpdates.linkTypeGroupUpdatesMap,

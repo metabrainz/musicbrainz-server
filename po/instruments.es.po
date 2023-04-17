@@ -22,7 +22,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "PO-Revision-Date: 2012-05-24 18:57+0000\n"
 "Last-Translator: Tiago Natale, 2022\n"
-"Language-Team: Spanish (http://www.transifex.com/musicbrainz/musicbrainz/language/es/)\n"
+"Language-Team: Spanish (http://app.transifex.com/musicbrainz/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -709,6 +709,11 @@ msgstr "binzasara"
 #: DB:instrument/name:1013
 msgctxt "Hybrid fretted stick-zither"
 msgid "bin-sitar"
+msgstr ""
+
+#: DB:instrument/name:1117
+msgctxt "Small Breton bagpipe"
+msgid "biniou"
 msgstr ""
 
 #: DB:instrument/name:884
@@ -2540,7 +2545,7 @@ msgid "mandocello"
 msgstr ""
 
 #: DB:instrument/name:836
-msgctxt "mandolin / electric guitar hybrid"
+msgctxt "electric guitar / mandolin hybrid"
 msgid "mandoguitar"
 msgstr ""
 
@@ -4076,6 +4081,11 @@ msgstr "campanas tubulares"
 #: DB:instrument/name:873
 msgctxt "PVC pipe instrument"
 msgid "tubulum"
+msgstr ""
+
+#: DB:instrument/name:1116
+msgctxt "Droneless Turkish bagpipe"
+msgid "tulum"
 msgstr ""
 
 #: DB:instrument/name:511

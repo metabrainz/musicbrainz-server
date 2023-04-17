@@ -24,8 +24,8 @@ type Props = {
   +dispatch: (RelationshipEditorActionT) => void,
   +linkTypeGroups: RelationshipLinkTypeGroupsT,
   +releaseHasUnloadedTracks: boolean,
-  +source: CoreEntityT,
-  +targetType: CoreEntityTypeT,
+  +source: RelatableEntityT,
+  +targetType: RelatableEntityTypeT,
   +track: TrackWithRecordingT | null,
 };
 

@@ -28,7 +28,7 @@ import getLinkPhrase from './getLinkPhrase.js';
 import isRelationshipBackward from './isRelationshipBackward.js';
 
 export function compareTargetTypeWithGroup(
-  targetType: CoreEntityTypeT,
+  targetType: RelatableEntityTypeT,
   targetTypeGroup: RelationshipTargetTypeGroupT,
 ): number {
   return compareStrings(targetType, targetTypeGroup[0]);
@@ -53,7 +53,7 @@ export function compareLinkPhraseWithGroup(
 
 export function findTargetTypeGroups(
   sourceGroups: RelationshipSourceGroupsT,
-  source: CoreEntityT,
+  source: RelatableEntityT,
 ): RelationshipTargetTypeGroupsT | null {
   const sourceGroup = tree.find(
     sourceGroups,
@@ -66,8 +66,8 @@ export function findTargetTypeGroups(
 
 export function findLinkTypeGroups(
   targetTypeGroups: RelationshipTargetTypeGroupsT,
-  source: CoreEntityT,
-  targetType: CoreEntityTypeT,
+  source: RelatableEntityT,
+  targetType: RelatableEntityTypeT,
 ): RelationshipLinkTypeGroupsT | null {
   const targetTypeGroup = tree.find(
     targetTypeGroups,
@@ -106,7 +106,7 @@ export function findLinkPhraseGroup(
 export function findLinkPhraseGroupInTargetTypeGroups(
   targetTypeGroups: RelationshipTargetTypeGroupsT,
   relationshipState: RelationshipStateT,
-  source: CoreEntityT,
+  source: RelatableEntityT,
 ): RelationshipPhraseGroupT | null {
   const backward = isRelationshipBackward(
     relationshipState,
@@ -136,7 +136,7 @@ export function findLinkPhraseGroupInTargetTypeGroups(
 export function findExistingRelationship(
   targetTypeGroups: RelationshipTargetTypeGroupsT | null,
   relationshipState: RelationshipStateT,
-  source: CoreEntityT,
+  source: RelatableEntityT,
 ): RelationshipStateT | null {
   const linkPhraseGroup = findLinkPhraseGroupInTargetTypeGroups(
     targetTypeGroups,
@@ -180,7 +180,7 @@ export function* iterateRelationshipsInTargetTypeGroups(
   }
 }
 
-export function* iterateTargetEntitiesOfType<T: CoreEntityT>(
+export function* iterateTargetEntitiesOfType<T: RelatableEntityT>(
   targetTypeGroups: RelationshipTargetTypeGroupsT | null,
   targetType: T['entityType'],
   targetProperty: 'entity0' | 'entity1',

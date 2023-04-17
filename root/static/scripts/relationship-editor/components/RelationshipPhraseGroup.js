@@ -52,8 +52,8 @@ type PropsT = {
   +linkPhraseGroup: RelationshipPhraseGroupT,
   +linkTypeId: number,
   +releaseHasUnloadedTracks: boolean,
-  +source: CoreEntityT,
-  +targetType: CoreEntityTypeT,
+  +source: RelatableEntityT,
+  +targetType: RelatableEntityTypeT,
   +track: TrackWithRecordingT | null,
 };
 

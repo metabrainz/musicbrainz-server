@@ -21,6 +21,36 @@ declare type EntityWithAliasesT =
   | SeriesT
   | WorkT;
 
+declare type EntityWithAliasesTypeT =
+  | 'area'
+  | 'artist'
+  | 'event'
+  | 'genre'
+  | 'instrument'
+  | 'label'
+  | 'place'
+  | 'recording'
+  | 'release_group'
+  | 'release'
+  | 'series'
+  | 'work';
+
+declare type EntityWithSeriesT =
+  | ArtistT
+  | EventT
+  | RecordingT
+  | ReleaseT
+  | ReleaseGroupT
+  | WorkT;
+
+declare type EntityWithSeriesTypeT =
+  | 'artist'
+  | 'event'
+  | 'recording'
+  | 'release'
+  | 'release_group'
+  | 'work';
+
 declare type AppearancesT<T> = {
   +hits: number,
   +results: $ReadOnlyArray<T>,
@@ -36,7 +66,7 @@ declare type CoreEntityRoleT<+T> = {
   +gid: string,
   +name: string,
   +paged_relationship_groups?: {
-    +[targetType: CoreEntityTypeT]: PagedTargetTypeGroupT | void,
+    +[targetType: RelatableEntityTypeT]: PagedTargetTypeGroupT | void,
   },
   +relationships?: $ReadOnlyArray<RelationshipT>,
 };
@@ -54,9 +84,32 @@ declare type CollectableEntityT =
   | SeriesT
   | WorkT;
 
+declare type CollectableEntityTypeT =
+  | 'area'
+  | 'artist'
+  | 'event'
+  | 'instrument'
+  | 'label'
+  | 'place'
+  | 'recording'
+  | 'release_group'
+  | 'release'
+  | 'series'
+  | 'work';
+
 declare type NonUrlCoreEntityT =
-  | CollectableEntityT
-  | GenreT;
+  | AreaT
+  | ArtistT
+  | EventT
+  | GenreT
+  | InstrumentT
+  | LabelT
+  | PlaceT
+  | RecordingT
+  | ReleaseGroupT
+  | ReleaseT
+  | SeriesT
+  | WorkT;
 
 declare type CoreEntityT =
   | NonUrlCoreEntityT
@@ -80,6 +133,36 @@ declare type CoreEntityTypeT =
   | NonUrlCoreEntityTypeT
   | 'url';
 
+declare type EditableEntityT =
+  | AreaT
+  | ArtistT
+  | EventT
+  | GenreT
+  | InstrumentT
+  | LabelT
+  | PlaceT
+  | RecordingT
+  | ReleaseGroupT
+  | ReleaseT
+  | SeriesT
+  | UrlT
+  | WorkT;
+
+declare type EditableEntityTypeT =
+  | 'area'
+  | 'artist'
+  | 'event'
+  | 'genre'
+  | 'instrument'
+  | 'label'
+  | 'place'
+  | 'recording'
+  | 'release_group'
+  | 'release'
+  | 'series'
+  | 'url'
+  | 'work';
+
 declare type EntityWithArtistCreditsT =
   | RecordingT
   | ReleaseGroupT
@@ -91,6 +174,34 @@ declare type DatePeriodRoleT = {
   +end_date: PartialDateT | null,
   +ended: boolean,
 };
+
+declare type MergeableEntityT =
+  | AreaT
+  | ArtistT
+  | CollectionT
+  | EventT
+  | InstrumentT
+  | LabelT
+  | PlaceT
+  | RecordingT
+  | ReleaseGroupT
+  | ReleaseT
+  | SeriesT
+  | WorkT;
+
+declare type MergeableEntityTypeT =
+  | 'area'
+  | 'artist'
+  | 'collection'
+  | 'event'
+  | 'instrument'
+  | 'label'
+  | 'place'
+  | 'recording'
+  | 'release_group'
+  | 'release'
+  | 'series'
+  | 'work';
 
 declare type PendingEditsRoleT = {
   +editsPending: boolean,
@@ -105,8 +216,8 @@ declare type LastUpdateRoleT = {
   +last_updated: string | null,
 };
 
-declare type MinimalCoreEntityT = {
-  +entityType: CoreEntityTypeT,
+declare type MinimalEntityT = {
+  +entityType: string,
   +gid: string,
 };
 
@@ -121,6 +232,85 @@ declare type PartialDateStringsT = {
   +month?: string,
   +year?: string,
 };
+
+declare type NonUrlRelatableEntityT =
+  | AreaT
+  | ArtistT
+  | EventT
+  | GenreT
+  | InstrumentT
+  | LabelT
+  | PlaceT
+  | RecordingT
+  | ReleaseGroupT
+  | ReleaseT
+  | SeriesT
+  | WorkT;
+
+declare type RelatableEntityT =
+  | NonUrlRelatableEntityT
+  | UrlT;
+
+declare type NonUrlRelatableEntityTypeT =
+  | 'area'
+  | 'artist'
+  | 'event'
+  | 'genre'
+  | 'instrument'
+  | 'label'
+  | 'place'
+  | 'recording'
+  | 'release_group'
+  | 'release'
+  | 'series'
+  | 'work';
+
+declare type RelatableEntityTypeT =
+  | NonUrlRelatableEntityTypeT
+  | 'url';
+
+declare type SubscribableEntityT =
+  | SubscribableEntityWithSidebarT
+  | CollectionT
+  | EditorT;
+
+declare type SubscribableEntityWithSidebarT =
+  | ArtistT
+  | LabelT
+  | SeriesT;
+
+declare type SubscribableEntityTypeT =
+  | 'artist'
+  | 'collection'
+  | 'editor'
+  | 'label'
+  | 'series';
+
+declare type TaggableEntityT =
+  | AreaT
+  | ArtistT
+  | EventT
+  | InstrumentT
+  | LabelT
+  | PlaceT
+  | RecordingT
+  | ReleaseGroupT
+  | ReleaseT
+  | SeriesT
+  | WorkT;
+
+declare type TaggableEntityTypeT =
+  | 'area'
+  | 'artist'
+  | 'event'
+  | 'instrument'
+  | 'label'
+  | 'place'
+  | 'recording'
+  | 'release_group'
+  | 'release'
+  | 'series'
+  | 'work';
 
 declare type TypeRoleT<T> = {
   +typeID: number | null,

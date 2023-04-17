@@ -18,7 +18,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "PO-Revision-Date: 2012-05-24 18:57+0000\n"
 "Last-Translator: Suzuki Manabu, 2022\n"
-"Language-Team: Japanese (http://www.transifex.com/musicbrainz/musicbrainz/language/ja/)\n"
+"Language-Team: Japanese (http://app.transifex.com/musicbrainz/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -706,6 +706,11 @@ msgstr "びんざさら"
 msgctxt "Hybrid fretted stick-zither"
 msgid "bin-sitar"
 msgstr "bin-sitar"
+
+#: DB:instrument/name:1117
+msgctxt "Small Breton bagpipe"
+msgid "biniou"
+msgstr ""
 
 #: DB:instrument/name:884
 msgid "birbynė"
@@ -2536,7 +2541,7 @@ msgid "mandocello"
 msgstr "マンドロンチェロ"
 
 #: DB:instrument/name:836
-msgctxt "mandolin / electric guitar hybrid"
+msgctxt "electric guitar / mandolin hybrid"
 msgid "mandoguitar"
 msgstr "mandoguitar"
 
@@ -4073,6 +4078,11 @@ msgstr "チューブラーベル"
 msgctxt "PVC pipe instrument"
 msgid "tubulum"
 msgstr "tubulum"
+
+#: DB:instrument/name:1116
+msgctxt "Droneless Turkish bagpipe"
+msgid "tulum"
+msgstr ""
 
 #: DB:instrument/name:511
 msgid "tumbi"
