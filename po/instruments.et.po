@@ -697,6 +697,11 @@ msgctxt "Hybrid fretted stick-zither"
 msgid "bin-sitar"
 msgstr ""
 
+#: DB:instrument/name:1117
+msgctxt "Small Breton bagpipe"
+msgid "biniou"
+msgstr ""
+
 #: DB:instrument/name:884
 msgid "birbynė"
 msgstr ""
@@ -2526,7 +2531,7 @@ msgid "mandocello"
 msgstr "mandotšello"
 
 #: DB:instrument/name:836
-msgctxt "mandolin / electric guitar hybrid"
+msgctxt "electric guitar / mandolin hybrid"
 msgid "mandoguitar"
 msgstr ""
 
@@ -4062,6 +4067,11 @@ msgstr "torukellad (orkestrikellad)"
 #: DB:instrument/name:873
 msgctxt "PVC pipe instrument"
 msgid "tubulum"
+msgstr ""
+
+#: DB:instrument/name:1116
+msgctxt "Droneless Turkish bagpipe"
+msgid "tulum"
 msgstr ""
 
 #: DB:instrument/name:511
