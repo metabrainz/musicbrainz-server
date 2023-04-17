@@ -2054,6 +2054,11 @@ msgstr ""
 msgid "Member of the xylophone family, it has 5 octaves."
 msgstr ""
 
+#. name:cowbell 
+#: DB:instrument/description:158
+msgid "Metal bell used in various genres, it is often attached to drum kit"
+msgstr ""
+
 #. name:Mexican vihuela 
 #: DB:instrument/description:92
 msgid "Mexican vihuela, used by mariachi bands"

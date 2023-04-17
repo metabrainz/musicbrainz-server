@@ -1156,6 +1156,7 @@ msgid "cornett"
 msgstr ""
 
 #: DB:instrument/name:158
+msgctxt "Tuned metal bell"
 msgid "cowbell"
 msgstr ""
 
