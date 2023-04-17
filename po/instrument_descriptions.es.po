@@ -978,6 +978,13 @@ msgid ""
 "drone and melody strings operated by buttons or keys."
 msgstr ""
 
+#. name:biniou
+#: DB:instrument/description:1117
+msgid ""
+"Developed from the veuze and often accompanied with the bombard, the small "
+"high-pitched, singular octave bagpipe is used in Breton folk dancing."
+msgstr ""
+
 #. name:pedal accordion
 #: DB:instrument/description:1076
 msgid ""
@@ -1514,6 +1521,13 @@ msgstr ""
 #. name:morsing
 #: DB:instrument/description:533
 msgid "Indian mouth harp, played in Carnatic and Rajastani folk music."
+msgstr ""
+
+#. name:mukkuri
+#: DB:instrument/description:710
+msgid ""
+"Ingenious to the Ainu, it is made of bamboo with a string that vibrated "
+"creates sound."
 msgstr ""
 
 #. name:viololyra
@@ -3829,11 +3843,6 @@ msgstr ""
 msgid "The mridangam is a double-sided drum from India."
 msgstr ""
 
-#. name:mukkuri
-#: DB:instrument/description:710
-msgid "The mukkuri is an Ainu jew's harp."
-msgstr ""
-
 #. name:nabal
 #: DB:instrument/description:684
 msgid ""
@@ -4620,6 +4629,15 @@ msgid ""
 "rhythm."
 msgstr ""
 
+#. name:mandoguitar
+#: DB:instrument/description:836
+msgid ""
+"Unison course tuned 12 stringed electric guitar body with mandolin neck, it "
+"is tuned an octave higher than a conventional guitar, thus having the tonal "
+"range of the mandolin. <br /> Not to be confused with flat-backed mandolin "
+"which is also sold as \"mando-guitar\""
+msgstr ""
+
 #. name:English concertina
 #: DB:instrument/description:837
 msgid "Unisonoric concertina with hexagonal sides and concertina reeds."
@@ -4659,6 +4677,13 @@ msgstr ""
 msgid ""
 "Used by Australian Aboriginals to maintain rhythm in chants and "
 "traditionally to accompany didgeridoo. There are also Boomerang clapsticks."
+msgstr ""
+
+#. name:tulum
+#: DB:instrument/description:1116
+msgid ""
+"Used by shepherds and peoples of the southeast Black Sea region, it is "
+"droneless with parallel double chanters each with 5 fingerholes."
 msgstr ""
 
 #. name:charango
@@ -5454,14 +5479,6 @@ msgstr ""
 #. name:trắng jâu
 #: DB:instrument/description:314
 msgid "trắng jâu bass form of trắng lu"
-msgstr ""
-
-#. name:mandoguitar
-#: DB:instrument/description:836
-msgid ""
-"unison course tuned 12 stringed electric guitar body with mandolin neck, it "
-"is tuned an octave higher than a conventional guitar, thus having the tonal "
-"range of the mandolin."
 msgstr ""
 
 #. name:khulsan khuur

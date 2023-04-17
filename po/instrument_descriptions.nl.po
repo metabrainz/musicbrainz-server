@@ -962,6 +962,13 @@ msgid ""
 "drone and melody strings operated by buttons or keys."
 msgstr "De bulbul tarang is ontwikkeld uit de Japanse <a href=\"/instrument/1975ee04-30de-4835-9656-102ccd49c0c7\">taishogoto</a>. Het instrument is gemaakt van hout en de bourdon- en melodiesnaren worden met knoppen of toetsen bespeeld."
 
+#. name:biniou
+#: DB:instrument/description:1117
+msgid ""
+"Developed from the veuze and often accompanied with the bombard, the small "
+"high-pitched, singular octave bagpipe is used in Breton folk dancing."
+msgstr ""
+
 #. name:pedal accordion
 #: DB:instrument/description:1076
 msgid ""
@@ -1499,6 +1506,13 @@ msgstr "De sursingar is een Indiaas snaarinstrument met een houten kast en een k
 #: DB:instrument/description:533
 msgid "Indian mouth harp, played in Carnatic and Rajastani folk music."
 msgstr "De morsing is een Indiase mondharp, en wordt bespeeld in Carnatische en Rajastaanse muziek."
+
+#. name:mukkuri
+#: DB:instrument/description:710
+msgid ""
+"Ingenious to the Ainu, it is made of bamboo with a string that vibrated "
+"creates sound."
+msgstr ""
 
 #. name:viololyra
 #: DB:instrument/description:834
@@ -3813,11 +3827,6 @@ msgstr "De viool is het beroemdste lid van de vioolfamilie. De Italiaanse naam b
 msgid "The mridangam is a double-sided drum from India."
 msgstr "Een mridangam is een tweekoppige trommel uit India."
 
-#. name:mukkuri
-#: DB:instrument/description:710
-msgid "The mukkuri is an Ainu jew's harp."
-msgstr "Een mukkuri is een mondharp die wordt gebruikt door de Ainu in Japan."
-
 #. name:nabal
 #: DB:instrument/description:684
 msgid ""
@@ -4604,6 +4613,15 @@ msgid ""
 "rhythm."
 msgstr "De paakuru bestaat uit twee staven, waarvan er een in de mond wordt gehouden als klankkast tijdens het zingen, terwijl de andere staaf wordt gebruikt om met tikken en schrapen ritme te creëren."
 
+#. name:mandoguitar
+#: DB:instrument/description:836
+msgid ""
+"Unison course tuned 12 stringed electric guitar body with mandolin neck, it "
+"is tuned an octave higher than a conventional guitar, thus having the tonal "
+"range of the mandolin. <br /> Not to be confused with flat-backed mandolin "
+"which is also sold as \"mando-guitar\""
+msgstr ""
+
 #. name:English concertina
 #: DB:instrument/description:837
 msgid "Unisonoric concertina with hexagonal sides and concertina reeds."
@@ -4644,6 +4662,13 @@ msgid ""
 "Used by Australian Aboriginals to maintain rhythm in chants and "
 "traditionally to accompany didgeridoo. There are also Boomerang clapsticks."
 msgstr "De clapstick wordt gebruikt door Australische Aboriginals om bij gezang in het ritme te blijven. Hij wordt traditioneel gebruikt als begeleiding van de didgeridoo. Er zijn ook boomerangclapsticks."
+
+#. name:tulum
+#: DB:instrument/description:1116
+msgid ""
+"Used by shepherds and peoples of the southeast Black Sea region, it is "
+"droneless with parallel double chanters each with 5 fingerholes."
+msgstr ""
 
 #. name:charango
 #: DB:instrument/description:466
@@ -5439,14 +5464,6 @@ msgstr "De ti bwa is een percussie-instrument gemaakt van een horizontaal stuk b
 #: DB:instrument/description:314
 msgid "trắng jâu bass form of trắng lu"
 msgstr "De trắng jâu is de basvariant van de trắng lu."
-
-#. name:mandoguitar
-#: DB:instrument/description:836
-msgid ""
-"unison course tuned 12 stringed electric guitar body with mandolin neck, it "
-"is tuned an octave higher than a conventional guitar, thus having the tonal "
-"range of the mandolin."
-msgstr "De mandogitaar is een twaalfsnarige gitaar met de klankkast van een gitaar en de hals van een mandoline."
 
 #. name:khulsan khuur
 #: DB:instrument/description:811
