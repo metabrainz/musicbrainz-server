@@ -413,7 +413,7 @@ test('Work', function (t) {
 });
 
 test('BugFixes', function (t) {
-  t.plan(35);
+  t.plan(36);
 
   const tests = [
     {
@@ -624,6 +624,12 @@ test('BugFixes', function (t) {
       input: 'Still (Single)',
       expected: 'Still (single)',
       bug: 'MBS-12739',
+      mode: 'English',
+    },
+    {
+      input: 'The Best Song (8-Bit Loop Version)',
+      expected: 'The Best Song (8-bit loop version)',
+      bug: 'MBS-12779',
       mode: 'English',
     },
     /*
