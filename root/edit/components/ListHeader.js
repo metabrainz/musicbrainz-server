@@ -22,13 +22,13 @@ type Props = {
   +username?: string,
 };
 
-const ListHeader = ({
+const QuickLinksSection = ({
   entity,
   isSearch = false,
   page,
   refineUrlArgs,
   username,
-}: Props): React$Element<'table'> => {
+}: Props): React$Element<'td'> => {
   const $c = React.useContext(CatalystContext);
   const isSecureConnection = $c.req.secure;
   const protocol = isSecureConnection ? 'https://' : 'http://';
@@ -39,164 +39,190 @@ const ListHeader = ({
   const isEntityAllPage = !!entity && page === entity.entityType + '_all';
   const isEntityOpenPage = !!entity && page === entity.entityType + '_open';
 
+  const quickLinks = [];
+
+  if (nonEmpty(username)) {
+    if (page === 'user_all') {
+      quickLinks.push(
+        <a href={`/user/${username}/edits/open`}>
+          <strong>
+            {exp.l('Open edits for {user}', {user: username})}
+          </strong>
+        </a>,
+      );
+    } else {
+      quickLinks.push(
+        <a href={`/user/${username}/edits`}>
+          <strong>
+            {exp.l('All edits for {user}', {user: username})}
+          </strong>
+        </a>,
+      );
+    }
+  }
+  if (entity && entityUrlFragment) {
+    if (isEntityAllPage) {
+      quickLinks.push(
+        <a href={`/${entityUrlFragment}/${entity.gid}/open_edits`}>
+          <strong>
+            {entity.entityType === 'collection'
+              ? l('Open edits for this collection')
+              : l('Open edits for this entity')}
+          </strong>
+        </a>,
+      );
+    }
+    if (isEntityOpenPage) {
+      quickLinks.push(
+        <a href={`/${entityUrlFragment}/${entity.gid}/edits`}>
+          <strong>
+            {entity.entityType === 'collection'
+              ? l('All edits for this collection')
+              : l('All edits for this entity')}
+          </strong>
+        </a>,
+      );
+    }
+  }
+  if (page === 'subscribed') {
+    if (openParam === '1') {
+      quickLinks.push(
+        <a href="/edit/subscribed?open=0">
+          <strong>
+            {l('All edits for your subscribed entities')}
+          </strong>
+        </a>,
+      );
+    } else {
+      quickLinks.push(
+        <a href="/edit/subscribed?open=1">
+          <strong>
+            {l('Open edits for your subscribed entities')}
+          </strong>
+        </a>,
+      );
+    }
+  }
+  if (page === 'subscribed_editors') {
+    if (openParam === '1') {
+      quickLinks.push(
+        <a href="/edit/subscribed_editors?open=0">
+          <strong>
+            {l('All edits for your subscribed editors')}
+          </strong>
+        </a>,
+      );
+    } else {
+      quickLinks.push(
+        <a href="/edit/subscribed_editors?open=1">
+          <strong>
+            {l('Open edits for your subscribed editors')}
+          </strong>
+        </a>,
+      );
+    }
+  }
+  if (refineUrlArgs) {
+    quickLinks.push(
+      <a
+        href={uriWith(
+          protocol + DBDefs.WEB_SERVER + '/search/edits',
+          refineUrlArgs,
+        )}
+      >
+        <strong>
+          {l('Refine this search')}
+        </strong>
+      </a>,
+    );
+  }
+  if ($c.user) {
+    if (page !== 'subscribed') {
+      quickLinks.push(
+        <a href="/edit/subscribed">
+          {l('Subscribed entities')}
+        </a>,
+      );
+    }
+    if (page !== 'subscribed_editors') {
+      quickLinks.push(
+        <a href="/edit/subscribed_editors">
+          {l('Subscribed editors')}
+        </a>,
+      );
+    }
+  }
+  if (page !== 'open') {
+    quickLinks.push(
+      <a href="/edit/open">
+        {l('Open edits')}
+      </a>,
+    );
+  }
+  if ($c.user) {
+    quickLinks.push(
+      <a href="/vote">
+        {l('Voting suggestions')}
+      </a>,
+    );
+  }
+  if (!isSearch) {
+    quickLinks.push(
+      <a href="/search/edits">
+        {l('Search for edits')}
+      </a>,
+    );
+  }
   return (
-    <table className="search-help">
-      <tr>
-        <th>
-          {l('Quick links:')}
-        </th>
-        <td>
-          {nonEmpty(username) && page === 'user_all' ? (
-            <>
-              <a href={`/user/${username}/edits/open`}>
-                <strong>
-                  {exp.l('Open edits for {user}', {user: username})}
-                </strong>
-              </a>
-            </>
-          ) : null}
-          {nonEmpty(username) && page !== 'user_all' ? (
-            <>
-              <a href={`/user/${username}/edits`}>
-                <strong>
-                  {exp.l('All edits for {user}', {user: username})}
-                </strong>
-              </a>
-            </>
-          ) : null}
-          {entity && entityUrlFragment && isEntityAllPage ? (
-            <>
-              <a href={`/${entityUrlFragment}/${entity.gid}/open_edits`}>
-                <strong>
-                  {entity.entityType === 'collection'
-                    ? l('Open edits for this collection')
-                    : l('Open edits for this entity')}
-                </strong>
-              </a>
-            </>
-          ) : null}
-          {entity && entityUrlFragment && isEntityOpenPage ? (
-            <>
-              <a href={`/${entityUrlFragment}/${entity.gid}/edits`}>
-                <strong>
-                  {entity.entityType === 'collection'
-                    ? l('All edits for this collection')
-                    : l('All edits for this entity')}
-                </strong>
-              </a>
-            </>
-          ) : null}
-          {page === 'subscribed' && !(openParam === '1') ? (
-            <>
-              <a href="/edit/subscribed?open=1">
-                <strong>
-                  {l('Open edits for your subscribed entities')}
-                </strong>
-              </a>
-            </>
-          ) : null}
-          {page === 'subscribed' && openParam === '1' ? (
-            <>
-              <a href="/edit/subscribed?open=0">
-                <strong>
-                  {l('All edits for your subscribed entities')}
-                </strong>
-              </a>
-            </>
-          ) : null}
-          {page === 'subscribed_editors' && !(openParam === '1') ? (
-            <>
-              <a href="/edit/subscribed_editors?open=1">
-                <strong>
-                  {l('Open edits for your subscribed editors')}
-                </strong>
-              </a>
-            </>
-          ) : null}
-          {page === 'subscribed_editors' && openParam === '1' ? (
-            <>
-              <a href="/edit/subscribed_editors?open=0">
-                <strong>
-                  {l('All edits for your subscribed editors')}
-                </strong>
-              </a>
-            </>
-          ) : null}
-          {refineUrlArgs ? (
-            <>
-              {' | '}
-              <a
-                href={uriWith(
-                  protocol + DBDefs.WEB_SERVER + '/search/edits',
-                  refineUrlArgs,
-                )}
-              >
-                <strong>
-                  {l('Refine this search')}
-                </strong>
-              </a>
-            </>
-          ) : null}
-          {$c.user && page !== 'subscribed' ? (
-            <>
-              {' | '}
-              <a href="/edit/subscribed">
-                {l('Subscribed entities')}
-              </a>
-            </>
-          ) : null}
-          {$c.user && page !== 'subscribed_editors' ? (
-            <>
-              {' | '}
-              <a href="/edit/subscribed_editors">
-                {l('Subscribed editors')}
-              </a>
-            </>
-          ) : null}
-          {page === 'open' ? null : (
-            <>
-              {' | '}
-              <a href="/edit/open">
-                {l('Open edits')}
-              </a>
-            </>
-          )}
-          {$c.user ? (
-            <>
-              {' | '}
-              <a href="/vote">
-                {l('Voting suggestions')}
-              </a>
-            </>
-          ) : null}
-          {isSearch ? null : (
-            <>
-              {' | '}
-              <a href="/search/edits">
-                {l('Search for edits')}
-              </a>
-            </>
-          )}
-        </td>
-      </tr>
-      <tr>
-        <th>
-          {l('Help:')}
-        </th>
-        <td>
-          <a href="/doc/Introduction_to_Voting">
-            {l('Introduction to Voting')}
-          </a>
-          {' | '}
-          <a href="/doc/Introduction_to_Editing">
-            {l('Introduction to Editing')}
-          </a>
-          {' | '}
-          <a href="/doc/Style">{l('Style guidelines')}</a>
-        </td>
-      </tr>
-    </table>
+    <td>
+      {quickLinks.reduce((accum: Array<React$Node>, link, index) => {
+        accum.push(link);
+        if (index < (quickLinks.length - 1)) {
+          accum.push(' | ');
+        }
+        return accum;
+      }, [])}
+    </td>
   );
 };
+
+const ListHeader = ({
+  entity,
+  isSearch,
+  page,
+  refineUrlArgs,
+  username,
+}: Props): React$Element<'table'> => (
+  <table className="search-help">
+    <tr>
+      <th>
+        {l('Quick links:')}
+      </th>
+      <QuickLinksSection
+        entity={entity}
+        isSearch={isSearch}
+        page={page}
+        refineUrlArgs={refineUrlArgs}
+        username={username}
+      />
+    </tr>
+    <tr>
+      <th>
+        {l('Help:')}
+      </th>
+      <td>
+        <a href="/doc/Introduction_to_Voting">
+          {l('Introduction to Voting')}
+        </a>
+        {' | '}
+        <a href="/doc/Introduction_to_Editing">
+          {l('Introduction to Editing')}
+        </a>
+        {' | '}
+        <a href="/doc/Style">{l('Style guidelines')}</a>
+      </td>
+    </tr>
+  </table>
+);
 
 export default ListHeader;
