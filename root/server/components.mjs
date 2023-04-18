@@ -341,6 +341,7 @@ export default {
   'user/UserEdits': (): Promise<mixed> => import('../user/UserEdits.js'),
   'user/UserMessage': (): Promise<mixed> => import('../user/UserMessage.js'),
   'user/UserProfile': (): Promise<mixed> => import('../user/UserProfile.js'),
+  'user/UserRatingList': (): Promise<mixed> => import('../user/UserRatingList.js'),
   'user/UserSubscriptions': (): Promise<mixed> => import('../user/UserSubscriptions.js'),
   'user/UserTag': (): Promise<mixed> => import('../user/UserTag.js'),
   'user/UserTagEntity': (): Promise<mixed> => import('../user/UserTagEntity.js'),
