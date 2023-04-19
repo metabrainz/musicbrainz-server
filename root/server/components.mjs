@@ -165,6 +165,7 @@ export default {
   'recording/RecordingFingerprints': (): Promise<mixed> => import('../recording/RecordingFingerprints.js'),
   'recording/RecordingIndex': (): Promise<mixed> => import('../recording/RecordingIndex.js'),
   'recording/RecordingMerge': (): Promise<mixed> => import('../recording/RecordingMerge.js'),
+  'relationship/linkattributetype/DeleteRelationshipAttributeType': (): Promise<mixed> => import('../relationship/linkattributetype/DeleteRelationshipAttributeType.js'),
   'relationship/linkattributetype/RelationshipAttributeTypeIndex': (): Promise<mixed> => import('../relationship/linkattributetype/RelationshipAttributeTypeIndex.js'),
   'relationship/linkattributetype/RelationshipAttributeTypeInUse': (): Promise<mixed> => import('../relationship/linkattributetype/RelationshipAttributeTypeInUse.js'),
   'relationship/linkattributetype/RelationshipAttributeTypesList': (): Promise<mixed> => import('../relationship/linkattributetype/RelationshipAttributeTypesList.js'),
