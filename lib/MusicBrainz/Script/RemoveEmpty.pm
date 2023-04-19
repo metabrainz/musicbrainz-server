@@ -84,7 +84,7 @@ sub run {
         "SELECT id
          FROM $entity T
          WHERE edits_pending = 0
-           AND (last_updated < now() - '1 day'::interval OR last_updated IS NULL)
+           AND (last_updated < now() - '2 day'::interval OR last_updated IS NULL)
            AND NOT (
                EXISTS (
                    SELECT 1
