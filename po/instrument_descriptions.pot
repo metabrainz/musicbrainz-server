@@ -991,6 +991,13 @@ msgid ""
 "Cretan Lyra"
 msgstr ""
 
+#. name:frottoir 
+#: DB:instrument/description:368
+msgid ""
+"Dispenses with the frame altogether, and is worn as a vest, it is played "
+"with spoons or bottle openers."
+msgstr ""
+
 #. name:craviola 
 #: DB:instrument/description:779
 msgid ""
@@ -4577,6 +4584,14 @@ msgid ""
 "Two rods, one is held in the mouth, which works as a resonance chamber while "
 "chanting and singing, the other is used for tapping and scraping, creating "
 "rhythm."
+msgstr ""
+
+#. name:washboard 
+#: DB:instrument/description:159
+msgid ""
+"Typical metal ribbed tool used for washing, still in it's wooden frame, "
+"often has is additional noisemakers attached, such as cowbell or woodblock. "
+"It is played with thimbles as plectrum."
 msgstr ""
 
 #. name:mandoguitar 
