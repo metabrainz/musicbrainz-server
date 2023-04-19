@@ -169,6 +169,7 @@ export default {
   'relationship/linkattributetype/RelationshipAttributeTypeIndex': (): Promise<mixed> => import('../relationship/linkattributetype/RelationshipAttributeTypeIndex.js'),
   'relationship/linkattributetype/RelationshipAttributeTypeInUse': (): Promise<mixed> => import('../relationship/linkattributetype/RelationshipAttributeTypeInUse.js'),
   'relationship/linkattributetype/RelationshipAttributeTypesList': (): Promise<mixed> => import('../relationship/linkattributetype/RelationshipAttributeTypesList.js'),
+  'relationship/linktype/DeleteRelationshipType': (): Promise<mixed> => import('../relationship/linktype/DeleteRelationshipType.js'),
   'relationship/linktype/RelationshipTypeIndex': (): Promise<mixed> => import('../relationship/linktype/RelationshipTypeIndex.js'),
   'relationship/linktype/RelationshipTypeInUse': (): Promise<mixed> => import('../relationship/linktype/RelationshipTypeInUse.js'),
   'relationship/linktype/RelationshipTypePairTree': (): Promise<mixed> => import('../relationship/linktype/RelationshipTypePairTree.js'),
