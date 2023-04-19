@@ -270,6 +270,17 @@ sub change_quality : Chained('load') PathPart('change-quality') Edit {
             $c->response->redirect($uri);
         }
     );
+
+    my %props = (
+        form => $c->stash->{form}->TO_JSON,
+        release => $release->TO_JSON,
+    );
+
+    $c->stash(
+        component_path => 'release/ChangeQuality',
+        component_props => \%props,
+        current_view => 'Node',
+    );
 }
 
 sub cover_art_uploaded : Chained('load') PathPart('cover-art-uploaded') {

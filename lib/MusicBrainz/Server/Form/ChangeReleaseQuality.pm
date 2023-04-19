@@ -4,6 +4,7 @@ use warnings;
 
 use HTML::FormHandler::Moose;
 use MusicBrainz::Server::Constants qw( :quality );
+use MusicBrainz::Server::Translation qw( l );
 
 extends 'MusicBrainz::Server::Form';
 with 'MusicBrainz::Server::Form::Role::Edit';
@@ -20,9 +21,9 @@ has_field 'quality' => (
 sub options_quality
 {
     return [
-        $QUALITY_LOW => 'Low',
-        $QUALITY_NORMAL => 'Normal',
-        $QUALITY_HIGH => 'High'
+        $QUALITY_LOW => l('Low'),
+        $QUALITY_NORMAL => l('Normal'),
+        $QUALITY_HIGH => l('High'),
     ]
 }
 
