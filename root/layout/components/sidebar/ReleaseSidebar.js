@@ -207,6 +207,7 @@ const ReleaseSidebar = ({release}: Props): React$Element<'div'> | null => {
                 {releaseLabel.label ? (
                   <>
                     <EntityLink
+                      className="wrap-anywhere"
                       entity={releaseLabel.label}
                       showDisambiguation={false}
                     />
@@ -246,7 +247,7 @@ const ReleaseSidebar = ({release}: Props): React$Element<'div'> | null => {
             {l('Release group reviews')}
           </h2>
           <p>
-            <CritiqueBrainzLinks entity={releaseGroup} />
+            <CritiqueBrainzLinks entity={releaseGroup} isSidebar />
           </p>
         </>
       )}

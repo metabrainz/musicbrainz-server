@@ -413,7 +413,7 @@ test('Work', function (t) {
 });
 
 test('BugFixes', function (t) {
-  t.plan(31);
+  t.plan(36);
 
   const tests = [
     {
@@ -600,6 +600,36 @@ test('BugFixes', function (t) {
       input: 'The Best Song (Uncensored Explicit Video)',
       expected: 'The Best Song (uncensored explicit video)',
       bug: 'MBS-11797',
+      mode: 'English',
+    },
+    {
+      input: 'Nights in the Studio',
+      expected: 'Nights in the Studio',
+      bug: 'MBS-12738',
+      mode: 'English',
+    },
+    {
+      input: 'Nights (Studio Version)',
+      expected: 'Nights (studio version)',
+      bug: 'MBS-12738',
+      mode: 'English',
+    },
+    {
+      input: 'Still Single',
+      expected: 'Still Single',
+      bug: 'MBS-12739',
+      mode: 'English',
+    },
+    {
+      input: 'Still (Single)',
+      expected: 'Still (single)',
+      bug: 'MBS-12739',
+      mode: 'English',
+    },
+    {
+      input: 'The Best Song (8-Bit Loop Version)',
+      expected: 'The Best Song (8-bit loop version)',
+      bug: 'MBS-12779',
       mode: 'English',
     },
     /*

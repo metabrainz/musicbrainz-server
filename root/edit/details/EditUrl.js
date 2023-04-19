@@ -38,7 +38,7 @@ const EditUrl = ({edit}: Props): React$Element<typeof React.Fragment> => {
           <tr>
             <th>{addColonText(l('URL'))}</th>
             <td className="old">
-              <a className="url-entity-link" href={uri.old}>
+              <a className="wrap-anywhere" href={uri.old}>
                 <DiffSide
                   filter={DELETE}
                   newText={uri.new}
@@ -47,7 +47,7 @@ const EditUrl = ({edit}: Props): React$Element<typeof React.Fragment> => {
               </a>
             </td>
             <td className="new">
-              <a className="url-entity-link" href={uri.new}>
+              <a className="wrap-anywhere" href={uri.new}>
                 <DiffSide
                   filter={INSERT}
                   newText={uri.new}

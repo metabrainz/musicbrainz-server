@@ -323,27 +323,40 @@ sub delete : Chained('load') RequireAuth(relationship_editor) SecureForm
 
     my $form = $c->form( form => 'SecureConfirm' );
 
+    $c->stash(
+        component_path  => 'relationship/linktype/DeleteRelationshipType',
+        component_props => {
+            form => $form->TO_JSON,
+            type => $link_type->TO_JSON,
+        },
+        current_view    => 'Node',
+    );
+
     if ($c->form_posted_and_valid($form)) {
-        $c->model('MB')->with_transaction(sub {
-            $self->_insert_edit(
-                $c, $form,
-                edit_type => $EDIT_RELATIONSHIP_REMOVE_LINK_TYPE,
-                link_type_id => $link_type->id,
-                types => [ $link_type->entity0_type, $link_type->entity1_type ],
-                name => $link_type->name,
-                link_phrase => $link_type->link_phrase,
-                long_link_phrase => $link_type->long_link_phrase,
-                reverse_link_phrase => $link_type->reverse_link_phrase,
-                description => $link_type->description,
-                attributes => [
-                    map +{
-                        type => $_->type_id,
-                        min => $_->min,
-                        max => $_->max
-                    }, $link_type->all_attributes
-                ]
-            );
-        });
+        if ($form->field('cancel')->input) {
+            # Do nothing
+        } else {
+            $c->model('MB')->with_transaction(sub {
+                $self->_insert_edit(
+                    $c, $form,
+                    edit_type => $EDIT_RELATIONSHIP_REMOVE_LINK_TYPE,
+                    link_type_id => $link_type->id,
+                    types => [ $link_type->entity0_type, $link_type->entity1_type ],
+                    name => $link_type->name,
+                    link_phrase => $link_type->link_phrase,
+                    long_link_phrase => $link_type->long_link_phrase,
+                    reverse_link_phrase => $link_type->reverse_link_phrase,
+                    description => $link_type->description,
+                    attributes => [
+                        map +{
+                            type => $_->type_id,
+                            min => $_->min,
+                            max => $_->max
+                        }, $link_type->all_attributes
+                    ]
+                );
+            });
+        }
 
         # So we send the user back to the right entity pair page
         my $types_string =

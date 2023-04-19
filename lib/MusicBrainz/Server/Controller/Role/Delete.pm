@@ -46,7 +46,7 @@ role {
             );
         }
 
-        if ($model eq 'Genre') {
+        if ($model eq 'Genre' || $model eq 'Release') {
             my $type = model_to_type($model);
             $c->stash(
                 component_path => $type . '/Delete' . $model,

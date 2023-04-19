@@ -515,11 +515,16 @@ sub rating_summary : Chained('load') PathPart('ratings') Args(0) HiddenOnMirrors
 
     my $ratings = $c->model('Editor')->summarize_ratings($user,
                         $c->stash->{viewing_own_profile});
-    $c->model('ArtistCredit')->load(map { @$_ } values %$ratings);
+
+    my %props = (
+        ratings => $ratings,
+        user => $self->serialize_user($user),
+    );
 
     $c->stash(
-        ratings => $ratings,
-        template => 'user/ratings_summary.tt',
+        component_path  => 'user/UserRatingList',
+        component_props => \%props,
+        current_view    => 'Node',
     );
 }
 
@@ -552,9 +557,17 @@ sub ratings : Chained('load') PathPart('ratings') Args(1) HiddenOnMirrors
     }, limit => 100);
     $c->model('ArtistCredit')->load(@$ratings);
 
+    my %props = (
+        entityType => $type,
+        pager => serialize_pager($c->stash->{pager}),
+        ratings => to_json_array($ratings),
+        user => $self->serialize_user($user),
+    );
+
     $c->stash(
-        ratings => $ratings,
-        type => $type
+        component_path  => 'user/UserRatingEntity',
+        component_props => \%props,
+        current_view    => 'Node',
     );
 }
 

@@ -29,10 +29,15 @@ const writeReviewLink = (entity: ReviewableT) => (
 
 type Props = {
   +entity: ReviewableT,
+  +isSidebar?: boolean,
 };
 
-const CritiqueBrainzLinks = ({entity}: Props): null | Expand2ReactOutput => {
+const CritiqueBrainzLinks = ({
+  entity,
+  isSidebar = false,
+}: Props): null | Expand2ReactOutput => {
   const reviewCount = entity.review_count;
+  const linkClassName = isSidebar ? 'wrap-anywhere' : '';
 
   if (reviewCount == null) {
     return l('An error occurred when loading reviews.');
@@ -42,7 +47,7 @@ const CritiqueBrainzLinks = ({entity}: Props): null | Expand2ReactOutput => {
       `No one has reviewed {entity} yet.
        Be the first to {write_link|write a review}.`,
       {
-        entity: <EntityLink entity={entity} />,
+        entity: <EntityLink className={linkClassName} entity={entity} />,
         write_link: writeReviewLink(entity),
       },
     );

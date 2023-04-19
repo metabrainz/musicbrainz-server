@@ -1584,6 +1584,7 @@ msgid "friction idiophone"
 msgstr ""
 
 #: DB:instrument/name:368
+msgctxt "Zydeco vest scraper"
 msgid "frottoir"
 msgstr ""
 
@@ -4289,6 +4290,7 @@ msgid "walaycho"
 msgstr ""
 
 #: DB:instrument/name:159
+msgctxt "American scraped idiophone"
 msgid "washboard"
 msgstr ""
 
