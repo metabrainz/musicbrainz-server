@@ -10,8 +10,10 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_SET_TRACK_LENGTHS
 );
 use MusicBrainz::Server::Entity::CDTOC;
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::ControllerUtils::CDTOC qw( add_dash );
+use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
 use MusicBrainz::Server::Validation qw(
     is_database_row_id
 );
@@ -311,9 +313,17 @@ sub _attach_list {
             my $artists = $self->_load_paged($c, sub {
                 $c->model('Search')->search('artist', $search_artist->field('query')->value, shift, shift)
             });
+            my %props = (
+                form        => $search_artist->TO_JSON,
+                cdToc       => $cdtoc->TO_JSON,
+                pager       => serialize_pager($c->stash->{pager}),
+                results     => to_json_array($artists),
+                tocString   => $c->stash->{toc},
+            );
             $c->stash(
-                template => 'cdtoc/attach_filter_artist.tt',
-                artists => $artists
+                current_view => 'Node',
+                component_path => 'cdtoc/SelectArtistForCDToc.js',
+                component_props => \%props,
             );
             $c->detach;
         }
