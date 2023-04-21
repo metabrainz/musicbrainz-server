@@ -71,19 +71,6 @@ BEGIN
         pg_get_serial_sequence('dbmirror2.pending_data', 'seqid')
     );
 
-    INSERT INTO dbmirror2.pending_keys (tablename, keys)
-    VALUES (
-        _tablename,
-        (
-            SELECT array_agg(column_name)
-            FROM dbmirror2.column_info
-            WHERE table_schema = TG_TABLE_SCHEMA
-            AND table_name = TG_TABLE_NAME
-            AND is_primary = TRUE
-        )
-    )
-    ON CONFLICT DO NOTHING;
-
     INSERT INTO dbmirror2.pending_ts (xid, ts)
     VALUES (txid_current(), transaction_timestamp())
     ON CONFLICT DO NOTHING;
