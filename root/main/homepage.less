@@ -1,0 +1,105 @@
+#page.homepage {
+
+    display: grid;
+    width: 100%;
+    gap: 1.5rem;
+
+    h2 {
+        color: @text-orange;
+        padding: 5px 0 5px 0;
+        margin: 0;
+        border-bottom: 2px solid @musicbrainz-purple;
+    }
+
+    ul.with-icon {
+        padding-left: 85px;
+        min-height: 65px;
+    }
+
+    p.with-icon {
+        padding-left: 70px;
+        min-height: 65px;
+    }
+
+    #taggers ul {
+        background: data-uri('/static/images/logos/musicbrainz-picard.png') no-repeat top left;
+    }
+
+    #quick-start ul {
+        background: data-uri('/static/images/layout/quick-start.png') no-repeat top left;
+    }
+
+    #community ul {
+        background: data-uri('/static/images/layout/community.png') no-repeat top left;
+    }
+
+    #products p {
+        background: data-uri('/static/images/layout/download.png') no-repeat top left;
+    }
+
+    #developers p {
+        background: data-uri('/static/images/layout/developer.png') no-repeat top left;
+    }
+
+    .linkbar {
+        font-weight: bold;
+        margin-top: 1rem;
+    }
+}
+
+@media @narrow {
+    #page.homepage {
+        grid-template: auto / 1fr;
+    }
+}
+
+@media @all-wide {
+    #page.homepage {
+        grid-template: repeat(3, auto) / repeat(6, 1fr);
+
+        #content {
+            grid-column: 1 / 5;
+            grid-row: 1 / 2;
+        }
+
+        #blog-feed {
+            grid-column: 5 / 6;
+            grid-row: 1 / 2;
+        }
+
+        #taggers-and-quick-start {
+            grid-column: 6 / 7;
+            grid-row: 1 / 2;
+        }
+
+        #blog-feed,
+        #taggers-and-quick-start {
+            font-size: @small-text;
+            min-width: 218px;
+
+            h2 {
+                font-size: @medium-text;
+            }
+        }
+
+        #community {
+            grid-column: 1 / 3;
+            grid-row: 2 / 3;
+        }
+
+        #products {
+            grid-column: 3 / 5;
+            grid-row: 2 / 3;
+        }
+
+        #developers {
+            grid-column: 5 / 7;
+            grid-row: 2 / 3;
+        }
+
+        #recent-additions {
+            grid-column: 1 / 7;
+            grid-row: 3 / 4;
+        }
+    }
+}
