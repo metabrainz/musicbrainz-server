@@ -27,6 +27,13 @@ const SubscribedEdits = ({
   <Layout fullWidth title={l('Edits for Your Subscribed Entities')}>
     <div id="content">
       <h1>{l('Edits for Your Subscribed Entities')}</h1>
+
+      <p>
+        {l(`This page lists edits linked to entities you are directly
+            subscribed to, as well as edits linked to entities which are
+            part of a collection you are subscribed to.`)}
+      </p>
+
       <EditList
         editCountLimit={editCountLimit}
         edits={edits}

@@ -779,6 +779,14 @@ msgid ""
 "secondary and one drone string."
 msgstr ""
 
+#. name:washtub bass 
+#: DB:instrument/description:96
+msgid ""
+"Consisting of a stick, a string and an resonator of various materials, it is "
+"used in many countries' low-cost and DIY cultures. It's technically a "
+"variable tension chordophone."
+msgstr ""
+
 #. name:bonang 
 #: DB:instrument/description:969
 msgid ""
@@ -948,8 +956,8 @@ msgstr ""
 #. name:biniou 
 #: DB:instrument/description:1117
 msgid ""
-"Developed from the veuze and often accompanied with the bombard, the small "
-"high-pitched, singular octave bagpipe is used in Breton folk dancing."
+"Developed from the veuze and often accompanying the bombard, the small high-"
+"pitched, singular octave bagpipe is used in Breton folk dancing."
 msgstr ""
 
 #. name:pedal accordion 
@@ -4554,6 +4562,11 @@ msgid ""
 "Tuned an octave below the traditional violin and at about half the size of "
 "the cello, it has a range between the cello and the viola. It has a longer "
 "neck and thinner ribs than the cello."
+msgstr ""
+
+#. name:triangle 
+#: DB:instrument/description:106
+msgid "Tuned metal bar, bent into triangle shape."
 msgstr ""
 
 #. name:alto violin 

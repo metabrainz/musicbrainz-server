@@ -432,8 +432,12 @@
         [%~ l('Tracks are required. If you don’t know them, but do know some info (such as the format or number of media), tick the “I don’t know the tracklist for this medium” checkbox above and enter the available info. If you have no information about this release’s media, remove all media.') ~%]
       </p>
 
-      <p class="error field-error" style="padding: 1em" data-bind="showErrorWhenTabIsSwitched: needsTrackInfo">
-        [%~ l('You must enter a title and select an artist for every track.') ~%]
+      <p class="error field-error" style="padding: 1em" data-bind="showErrorWhenTabIsSwitched: needsTrackTitles">
+        [%~ l('You must enter a title for every track (if the track is untitled, enter “{untitled_track}”).', { untitled_track => '<code>[untitled]</code>' }) ~%]
+      </p>
+
+      <p class="error field-error" style="padding: 1em" data-bind="showErrorWhenTabIsSwitched: needsTrackArtists">
+        [%~ l('You must select an artist for every track (the background color of every artist field should be green). If you’ve entered an artist but the background remains uncolored, click the magnifying glass to match the name to a MusicBrainz artist. If the artist doesn’t exist yet, you can create it by selecting “{add_a_new_artist}” from the bottom of the search results drop-down.', { add_a_new_artist => l('Add a new artist') }) ~%]
       </p>
 
       <p class="error field-error" style="padding: 1em" data-bind="showErrorWhenTabIsSwitched: hasInvalidPregapLength">

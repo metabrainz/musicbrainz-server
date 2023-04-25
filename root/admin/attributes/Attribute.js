@@ -14,24 +14,7 @@ import expand2react from '../../static/scripts/common/i18n/expand2react.js';
 import yesNo from '../../static/scripts/common/utility/yesNo.js';
 import loopParity from '../../utility/loopParity.js';
 
-type AttributeT =
-  | AreaTypeT
-  | ArtistTypeT
-  | CollectionTypeT
-  | CoverArtTypeT
-  | EventTypeT
-  | GenderT
-  | InstrumentTypeT
-  | LabelTypeT
-  | MediumFormatT
-  | PlaceTypeT
-  | ReleaseGroupSecondaryTypeT
-  | ReleaseGroupTypeT
-  | ReleasePackagingT
-  | ReleaseStatusT
-  | SeriesTypeT
-  | WorkAttributeTypeT
-  | WorkTypeT;
+import {type AttributeT} from './types.js';
 
 type Props = {
   +attributes: Array<AttributeT>,

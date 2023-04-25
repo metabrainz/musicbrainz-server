@@ -41,7 +41,7 @@ Full installation instructions are available in [INSTALL.md](INSTALL.md).
 
 General Prerequisites:
 
-* Ubuntu/Debian
+* Ubuntu/Debian (or some other Unix-like operating system at your own risks)
 * Node (at least version 16)
 * Perl (at least version 5.30)
 * PostgreSQL (at least version 12)
