@@ -18,9 +18,11 @@ const InlineSubmitButton = ({
 }: PropsT): React$Element<typeof React.Fragment> => (
   <>
     {' '}
-    <button type="submit">
-      {nonEmpty(label) ? label : l('Submit')}
-    </button>
+    <span className="buttons inline">
+      <button type="submit">
+        {nonEmpty(label) ? label : l('Submit')}
+      </button>
+    </span>
   </>
 );
 
