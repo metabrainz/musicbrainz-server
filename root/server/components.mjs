@@ -39,6 +39,7 @@ export default {
   'account/sso/DiscourseUnconfirmedEmailAddress': (): Promise<mixed> => import('../account/sso/DiscourseUnconfirmedEmailAddress.js'),
   'admin/attributes/Attribute': (): Promise<mixed> => import('../admin/attributes/Attribute.js'),
   'admin/attributes/CannotRemoveAttribute': (): Promise<mixed> => import('../admin/attributes/CannotRemoveAttribute.js'),
+  'admin/attributes/DeleteAttribute': (): Promise<mixed> => import('../admin/attributes/DeleteAttribute.js'),
   'admin/attributes/Index': (): Promise<mixed> => import('../admin/attributes/Index.js'),
   'admin/attributes/Language': (): Promise<mixed> => import('../admin/attributes/Language.js'),
   'admin/attributes/Script': (): Promise<mixed> => import('../admin/attributes/Script.js'),
