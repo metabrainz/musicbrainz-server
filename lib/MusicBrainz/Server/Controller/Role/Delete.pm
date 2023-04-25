@@ -40,6 +40,8 @@ role {
         my $entity_name = $self->{entity_name};
         my $edit_entity = $c->stash->{ $entity_name };
         my $model = $self->{model};
+        my $can_delete = $c->model($model)->can_delete($edit_entity->id);
+
         if ($model eq 'Area') {
             $c->stash(
                 is_release_country_area => $c->model('Area')->is_release_country_area($edit_entity->id)
@@ -55,7 +57,7 @@ role {
             );
         }
 
-        if ($c->model($model)->can_delete($edit_entity->id)) {
+        if ($can_delete) {
             $c->stash( can_delete => 1 );
             # find a corresponding add edit and cancel instead, if applicable (MBS-1397)
             my $create_edit_type = $self->{create_edit_type};
