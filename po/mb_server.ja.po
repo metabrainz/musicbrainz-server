@@ -21,6 +21,7 @@
 # Nozomu KURASAWA <email address hidden>, 2012-2013,2015-2016
 # Nozomu KURASAWA <email address hidden>, 2018
 # nikki, 2013
+# okaits#7534 <email address hidden>, 2023
 # ffff23 <email address hidden>, 2021
 # PATATE12, 2014
 # Shunsuke Shimizu <email address hidden>, 2016
@@ -40,7 +41,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-04-12 17:24+0000\n"
 "PO-Revision-Date: 2011-01-30 16:57+0000\n"
-"Last-Translator: ​ <428rinsuki+transifex@gmail.com>, 2022\n"
+"Last-Translator: okaits#7534 <okaits7534@gmail.com>, 2023\n"
 "Language-Team: Japanese (http://app.transifex.com/musicbrainz/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -653,7 +654,7 @@ msgid ""
 "Below is the error information. If you wish to file a bug report, you may do"
 " so at {bugs|our bug tracker}. The information below will help, so please be"
 " sure to include it!"
-msgstr ""
+msgstr "エラー情報はこちらです。バグレポートをする場合、{Bugslour bug tracker}でしてください。エラー情報はバグの解決の手助けになります。バグレポートの際には、エラー情報も一緒に送信してください。"
 
 #: ../root/admin/edit_user.tt:44
 #: ../root/static/scripts/account/components/EditProfileForm.js:259
@@ -690,7 +691,7 @@ msgstr "バグ管理"
 
 #: ../root/release/edit/tracklist.tt:6
 msgid "By default, the parser expects the following format:"
-msgstr ""
+msgstr "デフォルトで、パーサーは次のフォーマットを想定しています:"
 
 #: ../root/cdtoc/lookup.tt:96
 msgid "CD Not Found"
@@ -1176,11 +1177,11 @@ msgstr "メモを編集"
 
 #: ../root/edit/search_macros.tt:423
 msgid "Edit Note Authors"
-msgstr ""
+msgstr "編集ノートの作者"
 
 #: ../root/edit/search_macros.tt:423
 msgid "Edit Note Content"
-msgstr ""
+msgstr "編集ノートの内容"
 
 #: ../root/relationship/linkattributetype/edit.tt:1
 #: ../root/relationship/linkattributetype/edit.tt:3
@@ -1211,7 +1212,7 @@ msgstr "メモを編集:"
 #: ../root/admin/edit_user.tt:16 ../root/admin/PrivilegeSearch.js:107
 #: ../root/user/UserProfile.js:869
 msgid "Edit notes disabled"
-msgstr ""
+msgstr "編集ノートは無効化されています"
 
 #: ../root/admin/edit_user.tt:38
 msgid "Edit profile"
@@ -1223,7 +1224,7 @@ msgstr "ユーザーを編集"
 
 #: ../root/edit/search_macros.tt:423
 msgid "Edited entity"
-msgstr ""
+msgstr "編集された項目"
 
 #: ../root/admin/edit_user.tt:15 ../root/admin/PrivilegeSearch.js:102
 #: ../root/user/UserProfile.js:866
@@ -1573,7 +1574,7 @@ msgstr "これがリリースに表示されるバーコードであることを
 
 #: ../root/release/edit/tracklist.tt:390
 msgid "I confirm this is a correct medium format/packaging combination."
-msgstr ""
+msgstr "これは正しいメディアフォーマットとパッケージングの組み合わせです。"
 
 #: ../root/release/edit/tracklist.tt:413
 msgid "I confirm this is an intentional use of Various Artists on tracks."
@@ -1626,7 +1627,7 @@ msgstr "ISNIコード"
 msgid ""
 "ISNI codes are an ISO standard used to uniquely identify persons and "
 "organizations. Check {isni_doc|the documentation} for more info."
-msgstr ""
+msgstr "ISNIコードとは、ISO規格で、人々や組織を識別するためのものです。詳細な情報については {isni_doclthe documentation} を参照してください。"
 
 #: ../root/artist/edit_form.tt:30 ../root/label/edit_form.tt:33
 #: ../root/edit/details/EditArtist.js:170
@@ -1722,7 +1723,7 @@ msgstr ""
 msgid ""
 "If needed, the characters \"[\", \"]\", and \"&\" can be escaped using the "
 "HTML entities \"&lsqb;\", \"&rsqb;\", and \"&amp;\" respectively."
-msgstr ""
+msgstr "必要な場合、「[」、「]」、そして「&」はそれぞれHTMLの「&lsqb;」「&rsqb;」「&amp;」を使うことでエスケープできます。"
 
 #: ../root/release/edit/recordings.tt:134
 msgid ""
@@ -1808,7 +1809,7 @@ msgstr ""
 msgid ""
 "If you’re sure the entered medium title is correct, confirm it above. "
 "Otherwise, please fix the data."
-msgstr ""
+msgstr "もしあなたがこのメディアのタイトルが正しいことを確信している場合、もう一度確認してください。正しくなければ修正してください。"
 
 #: ../root/release/edit/tracklist.tt:416
 msgid ""
@@ -2335,7 +2336,7 @@ msgstr "オプション"
 
 #: ../root/cdtoc/lookup.tt:110
 msgid "Or..."
-msgstr ""
+msgstr "または..."
 
 #: ../root/relationship/linktype/form.tt:37
 #: ../root/edit/details/AddRelationshipType.js:160
@@ -2413,7 +2414,7 @@ msgid ""
 "original passwords from this mishap, we are requiring all of our users to "
 "change their passwords. Sorry for the inconvenience. For more information "
 "see {blog|the recent blog post}."
-msgstr ""
+msgstr "パスワードを変更してください。残念なことに、私達のFTPサーバーから、一時的にユーザーのハッシュ化されたパスワードがダウンロードできることが判明いたしました。これは、パスワード自体が取得可能になったということではありません。ご不便をおかけして申し訳ございません。詳細については、 {blog|直近のブログの投稿} をご覧ください。"
 
 #: ../root/edit/search_macros.tt:421
 msgid "Please choose a condition"
@@ -2991,7 +2992,7 @@ msgstr "リリースグループのカバーアートを設定"
 
 #: ../root/account/reset_password.tt:5
 msgid "Set a new password for your MusicBrainz account."
-msgstr ""
+msgstr "あなたのMusicBrainzアカウントの新しいパスワードを設定してください。"
 
 #: ../root/release_group/set_cover_art.tt:4
 #: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/SetCoverArt.pm:20
@@ -3001,7 +3002,7 @@ msgstr "カバーアートを設定"
 
 #: ../root/cdtoc/list.tt:54 ../root/release/discids.tt:36
 msgid "Set track durations"
-msgstr ""
+msgstr "トラックの長さを設定"
 
 #: ../root/event/edit_form.tt:17
 msgid "Setlist:"
@@ -3025,7 +3026,7 @@ msgstr "確認をスキップ"
 msgid ""
 "Some discs contain a hidden track in the pregap section that precedes track "
 "1. Use this to add (or remove) the special pregap track section."
-msgstr ""
+msgstr "いくつかのディスクには、隠しトラックがトラック1の前にあるプリギャップセクションに収録されています。これを使用することで、プリギャップセクションのトラックを追加（または削除）することができます。"
 
 #: ../root/release/edit/tracklist.tt:510
 msgid ""
@@ -3097,7 +3098,7 @@ msgstr "編集を送信しています..."
 
 #: ../root/release/edit/recordings.tt:182
 msgid "Suggested recordings:"
-msgstr ""
+msgstr "推奨されたレコーディング"
 
 #: ../root/release/edit/tracklist.tt:522
 msgid "Swap track titles with artist credits"
@@ -3182,7 +3183,7 @@ msgstr ""
 #: ../root/edit/details/RemoveMedium.js:108
 #: ../root/static/scripts/release/components/MediumRelationshipEditor.js:193
 msgid "The tracklist for this medium is unknown."
-msgstr ""
+msgstr "このメディアのトラックリストは不明です。"
 
 #: ../root/account/register.tt:35
 msgid ""
@@ -3201,14 +3202,14 @@ msgstr ""
 msgid ""
 "The year should have four digits. If you want to enter a year earlier than "
 "1000 CE, please pad with zeros, such as “0123”."
-msgstr ""
+msgstr "年は４つの数字である必要があります。もし西暦1000年よりも前の年を入力したい場合、「0123」のように0で埋めてください。"
 
 #: ../root/cdtoc/lookup.tt:14
 msgid ""
 "There are currently no discs in MusicBrainz associated with the information "
 "you provided. You can search for the disc you are looking for using the "
 "forms below, or you may add a new release to MusicBrainz"
-msgstr ""
+msgstr "あなたが指定した情報に当てはまるディスクはMusicBrainzから見つかりませんでした。このフォームを使って検索するか、新しいリリースをMusicBrainzに追加してください。"
 
 #: ../root/release/discids.tt:56
 msgid ""
@@ -3231,7 +3232,7 @@ msgstr ""
 
 #: ../root/cdstub/edit_form.tt:9
 msgid "This CD has tracks from more than one artist (e.g. a compilation CD)"
-msgstr ""
+msgstr "このCDのトラックには複数人のアーティストの作品があります。（例: コンピレーションアルバムなど）"
 
 #: ../root/cdtoc/attach_list.tt:54 ../root/cdtoc/attach_list.tt:67
 msgid "This CDTOC is already attached to this medium."
@@ -3244,7 +3245,7 @@ msgid ""
 "text that you don't have the right to release under that license. While you "
 "can quote a source to support a point you're making, you should never enter "
 "promotional texts or other artist or label-owned texts into the annotation."
-msgstr ""
+msgstr "この注釈は、<a href=\"{url}\" target=\"_blank\">CC BY-NC-SA 3.0</a>で公開されます。あなたがこのライセンスを適用できる権利を持っていないテキストは含まれるべきではありません。あなたの主張を裏付けるために引用することはできますが、プロモーションを含むテキストや、他のアーティストやレーベルの作品名などを含ませることはできません。"
 
 #: ../root/area/delete.tt:5
 msgid ""
@@ -3286,7 +3287,7 @@ msgstr "ベータテストサーバーでは、最新のデータベースにア
 
 #: ../root/release/edit/tracklist.tt:505
 msgid "This disc contains data tracks at the end"
-msgstr ""
+msgstr "このディスクは最後に、データを含むトラックを収録しています"
 
 #: ../root/release/edit/tracklist.tt:490
 msgid "This disc has a hidden pregap track before track 1"
@@ -3361,7 +3362,7 @@ msgid ""
 "This is almost always incorrect. Please make sure whether you actually "
 "wanted a different format (such as “USB Flash Drive” or “Music Card”) or "
 "packaging type."
-msgstr ""
+msgstr "これはほとんどの場合間違っています。他のフォーマット（「USBフラッシュドライブ」または「ミュージックカード」）やパッケージングタイプを選択することを検討してください。"
 
 #: ../root/release_group/set_cover_art.tt:76
 msgid "This is the current release group image"
@@ -3438,7 +3439,7 @@ msgstr "このリリースはバーコードがありません。"
 
 #: ../root/release/discids.tt:58
 msgid "This release has no mediums that can have disc IDs."
-msgstr ""
+msgstr "このリリースにはディスクIDを持つメディアがありません。"
 
 #: ../root/release/edit/information.tt:352
 msgid ""
@@ -3463,7 +3464,7 @@ msgstr "このトラックはデータトラックです。"
 #: ../root/components/common-macros.tt:565
 #: ../root/static/scripts/common/components/PregapTrackIcon.js:13
 msgid "This track is hidden in the pregap."
-msgstr ""
+msgstr "このトラックはプリギャップに隠されています。"
 
 #: ../root/admin/delete_user.tt:26
 msgid ""
@@ -3742,7 +3743,7 @@ msgstr "ユーザー名:"
 
 #: ../root/release/add_cover_art.tt:79
 msgid "Validating file..."
-msgstr ""
+msgstr "ファイルを検証中です..."
 
 #: ../root/cdstub/browse.tt:18 ../root/cdstub/CDStubHeader.js:27
 #: ../root/cdstub/CDStubLayout.js:31
@@ -3797,7 +3798,7 @@ msgid ""
 "Warning! \"1990-10-25\" is the bogus date that Amazon gives to all releases "
 "for which they don't know the actual date. <strong>Please use this date only"
 " if you're certain this date is correct!</strong>"
-msgstr ""
+msgstr "警告: 「1990-10-25」は、Amazonがリリースの正確な日付を知らないときにつける偽の日付です。この日付が本当に正しいことを確認し、正しいときにのみこの日付を使用してください。"
 
 #: ../root/release/edit/tracklist.tt:345 ../root/release/edit/tracklist.tt:408
 msgid "Warning:"
@@ -3954,7 +3955,7 @@ msgstr "このレコーディングに「{valink|Various Artists}」という特
 
 #: ../root/release/edit/information.tt:30
 msgid "You haven’t entered a complete artist credit."
-msgstr ""
+msgstr "あなたはまだ正確なアーティスト・クレジットを入力していません。"
 
 #: ../root/release/edit/editnote.tt:10
 #: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:776
@@ -3970,7 +3971,7 @@ msgstr ""
 
 #: ../root/edit/search_macros.tt:414
 msgid "You must be logged in to use this option."
-msgstr ""
+msgstr "このオプションを使用するにはログインしてください。"
 
 #: ../root/components/common-macros.tt:586
 msgid "You must enter a disambiguation comment for this entity."
@@ -3992,7 +3993,7 @@ msgstr "リリースを追加する時は編集ノートを記述してくださ
 
 #: ../root/release/edit/information.tt:52
 msgid "You must select an existing release group."
-msgstr ""
+msgstr "存在しているリリースグループを選択する必要があります。"
 
 #: ../root/release/edit/editnote.tt:36
 #: ../lib/MusicBrainz/Server/Form/Role/EditNote.pm:30
@@ -4023,14 +4024,14 @@ msgid ""
 "You’re currently not allowed to edit, vote or leave edit notes because an "
 "admin has revoked your privileges. If you haven’t already been contacted "
 "about why, please {uri|send us a message}."
-msgstr ""
+msgstr "あなたは管理者があなたの権限を剥奪したため、編集、投票、編集ノートの投稿を許可されていません。もしあなたがまだ理由について問い合わせていない場合、{uri|私達にメッセージを送ってください}。"
 
 #: ../root/layout.tt:25 ../root/layout/index.js:218
 msgid ""
 "You’re currently not allowed to leave edit notes because an admin has "
 "revoked your privileges. If you haven’t already been contacted about why, "
 "please {uri|send us a message}."
-msgstr ""
+msgstr "あなたは管理者があなたの権限を剥奪したため、編集ノートの投稿を許可されていません。もしあなたがまだ理由について問い合わせていない場合、{uri|私達にメッセージを送ってください}。"
 
 #: ../root/release/edit/tracklist.tt:289
 msgid ""
@@ -4560,7 +4561,7 @@ msgid ""
 "We have sent you a verification email to <code>{email}</code>. Please check "
 "your mailbox and click on the link in the email to verify the new email "
 "address."
-msgstr ""
+msgstr "<code>{email}</code>に確認メールを送信しました。受信フォルダを確認して、メールに記載されているリンクにアクセスし、新しいメールアドレスを確認してください。"
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:455
 msgid "Your password has been changed."
@@ -4572,7 +4573,7 @@ msgid ""
 "you.</strong><br/>Please confirm that you have entered a valid address by "
 "editing your {settings|account settings}. If the problem still persists, "
 "please contact us at {mail|support@musicbrainz.org}."
-msgstr ""
+msgstr "<strong>確認メールの送信に失敗しました。</strong><br/>{settings|アカウント設定}で、電子メールアドレスを編集し、メールアドレスを確かめてください。もしこの問題がまだ残っている場合、{メール|support@musicbrainz.org}で問い合わせてください。"
 
 #: ../lib/MusicBrainz/Server/Controller/Account/Subscriptions/Collection.pm:21
 msgid "The provided collection ID doesn’t exist."
@@ -4632,17 +4633,17 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:86
 msgid "Please provide a medium ID."
-msgstr ""
+msgstr "メディアIDを指定してください。"
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:90
 msgid "The provided medium id is not valid."
-msgstr ""
+msgstr "メディアIDが正しくありません。"
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:96
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:224
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:431
 msgid "The provided medium ID doesn’t exist."
-msgstr ""
+msgstr "指定されたメディアIDは存在しません。"
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:102
 msgid ""
@@ -4652,7 +4653,7 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:151
 msgid "Please provide a medium ID"
-msgstr ""
+msgstr "メディアIDを指定してください"
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:156
 msgid "Could not find medium"
@@ -4798,7 +4799,7 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/User.pm:330
 msgid "You are not allowed to send messages to editors."
-msgstr ""
+msgstr "あなたは編集者にメッセージを送信することを許可されていません。"
 
 #: ../lib/MusicBrainz/Server/Controller/User.pm:344
 #, perl-brace-format
@@ -4814,7 +4815,7 @@ msgstr "メール送信しました"
 msgid ""
 "Your email has been successfully sent! Click {link|here} to continue to "
 "{user}'s profile."
-msgstr ""
+msgstr "電子メールが正常に送信されました。{link|ここ}をクリックすると{user}のプロフィールに移動します。"
 
 #: ../lib/MusicBrainz/Server/Controller/User.pm:386
 msgid "Your message could not be sent"

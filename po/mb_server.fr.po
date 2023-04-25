@@ -2014,11 +2014,11 @@ msgstr "Chargements des prévisualisations des modifications..."
 
 #: ../root/edit/search_macros.tt:397
 msgid "Location Editor"
-msgstr "Éditeur de lieu"
+msgstr "Éditeur de région"
 
 #: ../root/admin/edit_user.tt:10 ../root/admin/PrivilegeSearch.js:82
 msgid "Location editor"
-msgstr "Éditeur de lieu"
+msgstr "Éditeur de région"
 
 #: ../root/components/common-macros.tt:431
 #: ../root/components/RequestLogin.js:23
@@ -13543,7 +13543,7 @@ msgstr "Recherche dans la documentation"
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:220
 #: ../root/utility/tableColumns.js:376
 msgid "Location"
-msgstr "Lieu"
+msgstr "Localisation"
 
 #: ../root/search/components/EventResults.js:87
 msgid "Alternatively, you may {uri|add a new event}."
@@ -13695,7 +13695,7 @@ msgstr "Si vous changez votre adresse courriel, il vous sera demander de la vali
 #: ../root/static/scripts/account/components/EditProfileForm.js:215
 #: ../root/user/UserProfile.js:271
 msgid "Location:"
-msgstr "Lieu :"
+msgstr "Localisation :"
 
 #: ../root/static/scripts/account/components/EditProfileForm.js:240
 msgid ""
@@ -16091,15 +16091,15 @@ msgstr "Les {count} utilisateurs suivants sont des éditeurs de transclusions :"
 
 #: ../root/user/PrivilegedUsers.js:91
 msgid "Location editors"
-msgstr "Éditeurs de lieu"
+msgstr "Éditeurs de région"
 
 #: ../root/user/PrivilegedUsers.js:94
 msgid "Location editors are users who can add or modify {uri|areas}."
-msgstr "Les éditeurs de lieu sont des utilisateurs qui peuvent ajouter ou modifier des {uri|régions}."
+msgstr "Les éditeurs de région sont des utilisateurs qui peuvent ajouter ou modifier des {uri|régions}."
 
 #: ../root/user/PrivilegedUsers.js:100
 msgid "The following {count} users are location editors:"
-msgstr "Les {count} utilisateurs suivants sont des éditeurs de lieu :"
+msgstr "Les {count} utilisateurs suivants sont des éditeurs de région :"
 
 #: ../root/user/PrivilegedUsers.js:106
 msgid "Banner message editors"
@@ -16307,7 +16307,7 @@ msgstr "{doc|Éditeur de transclusions}"
 
 #: ../root/user/UserProfile.js:92
 msgid "{doc|Location Editor}"
-msgstr "{doc|Éditeur de lieu}"
+msgstr "{doc|Éditeur de région}"
 
 #: ../root/user/UserProfile.js:102
 msgid "Beginner"
