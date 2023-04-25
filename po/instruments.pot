@@ -3990,7 +3990,7 @@ msgid "tres"
 msgstr ""
 
 #: DB:instrument/name:106
-msgctxt "Tuned metal bar, bent into triangle shape"
+msgctxt "Tuned metal shape"
 msgid "triangle"
 msgstr ""
 
@@ -4295,6 +4295,7 @@ msgid "washboard"
 msgstr ""
 
 #: DB:instrument/name:96
+msgctxt "Improvised monochord"
 msgid "washtub bass"
 msgstr ""
 
