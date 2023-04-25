@@ -29,7 +29,7 @@ function validationTest(name, callback) {
 validationTest((
   'non-loaded mediums validate, even though they have no tracks (MBS-7222)'
 ), function (t) {
-  t.plan(8);
+  t.plan(10);
 
   releaseEditor.action = 'edit';
 
@@ -44,11 +44,13 @@ validationTest((
 
   t.ok(!medium.loaded(), 'medium is not loaded');
   t.ok(!medium.needsTracks(), "medium doesn't require tracks");
-  t.ok(!medium.needsTrackInfo(), "medium doesn't require track info");
+  t.ok(!medium.needsTrackArtists(), "medium doesn't lack track artists");
+  t.ok(!medium.needsTrackTitles(), "medium doesn't lack track titles");
   t.ok(!medium.needsRecordings(), "medium doesn't require recordings");
   t.ok(!release.needsMediums(), "release doesn't need mediums");
   t.ok(!release.needsTracks(), "release doesn't need tracks");
-  t.ok(!release.needsTrackInfo(), "release doesn't need track info");
+  t.ok(!release.needsTrackArtists(), "release doesn't lack track artists");
+  t.ok(!release.needsTrackTitles(), "release doesn't lack track titles");
   t.ok(!release.needsRecordings(), "release doesn't need recordings");
 });
 
