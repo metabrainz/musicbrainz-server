@@ -2,7 +2,7 @@ package MusicBrainz::Server::Controller::Role::Delete;
 use MooseX::MethodAttributes::Role;
 use MooseX::Role::Parameterized;
 use MusicBrainz::Server::ControllerUtils::Delete qw( cancel_or_action );
-use MusicBrainz::Server::Data::Utils qw( model_to_type );
+use MusicBrainz::Server::Data::Utils qw( boolean_to_json model_to_type );
 
 parameter 'edit_type' => (
     isa => 'Int',
@@ -40,22 +40,33 @@ role {
         my $entity_name = $self->{entity_name};
         my $edit_entity = $c->stash->{ $entity_name };
         my $model = $self->{model};
-        if ($model eq 'Area') {
-            $c->stash(
-                is_release_country_area => $c->model('Area')->is_release_country_area($edit_entity->id)
-            );
-        }
+        my $can_delete = $c->model($model)->can_delete($edit_entity->id);
 
-        if ($model eq 'Genre' || $model eq 'Release') {
+        if ($model eq 'Area' || $model eq 'Genre' || $model eq 'Release') {
             my $type = model_to_type($model);
+
+            my %props = (
+                entity => $edit_entity->TO_JSON,
+            );
+
+            if ($model eq 'Area') {
+                $props{canDelete} = boolean_to_json($can_delete);
+
+                $props{isReleaseCountry} = boolean_to_json(
+                    $c->model('Area')->is_release_country_area(
+                        $edit_entity->id,
+                    ),
+                );
+            }
+
             $c->stash(
                 component_path => $type . '/Delete' . $model,
-                component_props => {entity => $edit_entity->TO_JSON},
+                component_props => \%props,
                 current_view => 'Node',
             );
         }
 
-        if ($c->model($model)->can_delete($edit_entity->id)) {
+        if ($can_delete) {
             $c->stash( can_delete => 1 );
             # find a corresponding add edit and cancel instead, if applicable (MBS-1397)
             my $create_edit_type = $self->{create_edit_type};

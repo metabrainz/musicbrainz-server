@@ -71,6 +71,7 @@ export default {
   'area/AreaReleases': (): Promise<mixed> => import('../area/AreaReleases.js'),
   'area/AreaUsers': (): Promise<mixed> => import('../area/AreaUsers.js'),
   'area/AreaWorks': (): Promise<mixed> => import('../area/AreaWorks.js'),
+  'area/DeleteArea': (): Promise<mixed> => import('../area/DeleteArea.js'),
   'artist/ArtistEvents': (): Promise<mixed> => import('../artist/ArtistEvents.js'),
   'artist/ArtistIndex': (): Promise<mixed> => import('../artist/ArtistIndex.js'),
   'artist/ArtistMerge': (): Promise<mixed> => import('../artist/ArtistMerge.js'),
