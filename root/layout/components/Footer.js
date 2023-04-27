@@ -9,6 +9,7 @@
 
 import * as React from 'react';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {faChevronRight} from '@fortawesome/free-solid-svg-icons';
 
 import {CatalystContext} from '../../context';
 import logo from '../../static/images/meb-logos/musicbrainz.svg';
@@ -125,6 +126,11 @@ const LanguageMenu = ({
 
 const ListLinkElement = (props: LinkProps): React.Element<'li'> => (
   <li>
+    <FontAwesomeIcon
+      className="me-3"
+      icon={faChevronRight}
+      size="sm"
+    />
     <a
       className="ms-1"
       href={props.href}
@@ -156,7 +162,7 @@ const SocialNetworkLink = ({
 
 const UsefulLinksList = (): React.Element<'ul'> => {
   return (
-    <ul className="list-style-type">
+    <ul className="list-unstyled">
       {footerData.usefulLinks.map((contact, i) => (
         <ListLinkElement
           key={i}
@@ -181,6 +187,11 @@ const FellowProjectListElement = ({
 }: LinkAndImgProps): React.Element<'li'> => {
   return (
     <li>
+      <FontAwesomeIcon
+        className="me-3"
+        icon={faChevronRight}
+        size="sm"
+      />
       <img
         alt={img.alt}
         className="me-1"
@@ -200,7 +211,7 @@ const FellowProjectListElement = ({
 };
 
 const FellowProjectsList = (): React.Element<'ul'> => (
-  <ul className="list-style-type">
+  <ul className="list-unstyled">
     {footerData.fellowProjects.map((fellowProject, i) => (
       <FellowProjectListElement
         key={i}
@@ -211,7 +222,7 @@ const FellowProjectsList = (): React.Element<'ul'> => (
 );
 
 const JoinUsList = (): React.Element<'ul'> => (
-  <ul className="list-style-type">
+  <ul className="list-unstyled">
     {footerData.joinUsLinks.map((contact, i) => (
       <ListLinkElement
         key={i}
@@ -275,7 +286,7 @@ const Footer = (): React.Element<'section'> => {
           row-cols-lg-3
           row-cols-xl-4"
         >
-          <div className="col-lg-12 col-xl-4  ps-4">
+          <div className="col-lg-12 col-xl-4">
             <h3 className="mb-4">
               <img
                 alt="MusicBrainz"
@@ -301,19 +312,19 @@ const Footer = (): React.Element<'section'> => {
             ) : null}
           </div>
           <div className="col-xl-3 mt-4 mt-md-0 mt-lg-4 mt-xl-0">
-            <h3 className="fs-3 fw-bold color-black ms-3">
+            <h3 className="fw-bold color-black">
               {l('Join Us')}
             </h3>
             <JoinUsList />
           </div>
           <div className="col-xl-3 mt-4 mt-xl-0">
-            <h3 className="fs-3 fw-bold color-black ms-3">
+            <h3 className="fw-bold color-black">
               {l('Fellow Projects')}
             </h3>
             <FellowProjectsList />
           </div>
           <div className="col-xl-2 mt-4 mt-xl-0">
-            <h3 className="fs-3 fw-bold color-black ms-3">
+            <h3 className="fw-bold color-black">
               {l('Useful Links')}
             </h3>
             <UsefulLinksList />
