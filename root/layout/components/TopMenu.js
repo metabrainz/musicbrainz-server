@@ -36,7 +36,7 @@ const AccountMenu = ({
   +$c: CatalystContextT,
   +user: UnsanitizedEditorT,
 }) => (
-  <li className="account" tabIndex="-1">
+  <li className="account" id="account-menu" tabIndex="-1">
     <span className="menu-header">
       {user.name}
       {'\xA0\u25BE'}

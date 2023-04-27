@@ -1,5 +1,5 @@
 {
-  title: 'MBS-4555',
+  title: '[MBS-4555] Seeding the release editor and then logging out should not make you lose the seeded information',
   commands: [
     {
       command: 'open',
@@ -43,7 +43,7 @@
     },
     {
       command: 'click',
-      target: 'css=button[type=button]',
+      target: "id=account-menu",
       value: '',
     },
     {
