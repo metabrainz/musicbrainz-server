@@ -76,7 +76,7 @@ const LanguageMenu = ({
   currentBCP47Language,
   serverLanguages,
 }: LanguageMenuProps): React.Element<'div'> => (
-  <div className="dropdown pb-2 ms-3 dropup">
+  <div className="dropdown pb-2 dropup">
     <button
       aria-expanded="false"
       className="btn btn-outline-primary fs-5"
@@ -243,7 +243,7 @@ const ChannelElement = (props: Channel): React.Element<'li'> => {
 const ChannelsList = (
   props: FooterChannelsElementProps,
 ): React.Element<'ul'> => (
-  <ul className="list-unstyled ms-3">
+  <ul className="list-unstyled">
     {footerData.channels.map((contact, i) => (
       <ChannelElement
         key={i}
@@ -270,9 +270,14 @@ const Footer = (): React.Element<'section'> => {
   return (
     <section className="bs footer">
       <div className="border-top container-fluid p-4">
-        <div className="row">
-          <div className="col-md-4">
-            <h3 className="ms-3">
+        <div className="row
+          row-cols-1
+          row-cols-md-2
+          row-cols-lg-3
+          row-cols-xl-4"
+        >
+          <div className="col-lg-12 col-xl-4 ps-4">
+            <h3>
               <img
                 alt="MusicBrainz"
                 src={logo}
@@ -291,19 +296,19 @@ const Footer = (): React.Element<'section'> => {
               />
             ) : null}
           </div>
-          <div className="col-sm-12 col-md-3">
+          <div className="col-xl-3 mt-4 mt-md-0 mt-lg-4 mt-xl-0">
             <h3 className="fs-3 fw-bold color-black ms-3">
               {l('Join Us')}
             </h3>
             <JoinUsList />
           </div>
-          <div className="col-sm-12 col-md-3">
+          <div className="col-xl-3 mt-4 mt-xl-0">
             <h3 className="fs-3 fw-bold color-black ms-3">
               {l('Fellow Projects')}
             </h3>
             <FellowProjectsList />
           </div>
-          <div className="col-sm-12 col-md-2">
+          <div className="col-xl-2 mt-4 mt-xl-0">
             <h3 className="fs-3 fw-bold color-black ms-3">
               {l('Useful Links')}
             </h3>
