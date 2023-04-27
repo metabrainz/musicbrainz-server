@@ -126,7 +126,7 @@ const LanguageMenu = ({
 const ListLinkElement = (props: LinkProps): React.Element<'li'> => (
   <li>
     <a
-      className="fw-bold fs-5 ms-1"
+      className="ms-1"
       href={props.href}
       rel="noopener noreferrer"
       target="_blank"
@@ -189,7 +189,6 @@ const FellowProjectListElement = ({
         width="24"
       />
       <a
-        className="fw-bold fs-5"
         href={link.href}
         rel="noopener noreferrer"
         target="_blank"
@@ -227,9 +226,9 @@ const ChannelElement = (props: Channel): React.Element<'li'> => {
   const target = '_blank';
   return (
     <li>
-      <span className="fs-5">{l(props.label) + ': '}</span>
+      <span className="color-gray">{l(props.label) + ': '}</span>
       <a
-        className="fw-bold fs-5 ms-1"
+        className="ms-1"
         href={props.href}
         rel={rel}
         target={target}
@@ -243,7 +242,7 @@ const ChannelElement = (props: Channel): React.Element<'li'> => {
 const ChannelsList = (
   props: FooterChannelsElementProps,
 ): React.Element<'ul'> => (
-  <ul className="list-unstyled">
+  <ul className="list-unstyled lh-base">
     {footerData.channels.map((contact, i) => (
       <ChannelElement
         key={i}
@@ -253,7 +252,7 @@ const ChannelsList = (
     {DBDefs.BETA_REDIRECT_HOSTNAME ? (
       <li>
         <a
-          className="fw-bold fs-5 ms-1"
+          className="fw-bold"
           href={'/set-beta-preference?' + returnToCurrentPage(props.$c)}
         >
           {DBDefs.IS_BETA ? l('Stop using beta site') : l('Use beta site')}
@@ -276,15 +275,20 @@ const Footer = (): React.Element<'section'> => {
           row-cols-lg-3
           row-cols-xl-4"
         >
-          <div className="col-lg-12 col-xl-4 ps-4">
-            <h3>
+          <div className="col-lg-12 col-xl-4  ps-4">
+            <h3 className="mb-4">
               <img
                 alt="MusicBrainz"
                 src={logo}
                 width="196"
               />
             </h3>
-            <br />
+            <p className="color-gray">
+              {l(
+                `MusicBrainz is an open music encyclopedia that collects
+               music metadata and makes it available to the public.`,
+              )}
+            </p>
             <ChannelsList $c={$c} />
             {serverLanguages && serverLanguages.length > 1 ? (
               <LanguageMenu
@@ -316,7 +320,9 @@ const Footer = (): React.Element<'section'> => {
           </div>
         </div>
         <div className="row mt-4 ms-2 me-2">
-          <div className="col-md-3 border-top pt-4 d-none d-md-block fs-5">
+          <div
+            className="col-md-3 border-top pt-4 d-none d-md-block color-gray"
+          >
             <p>
               {l('OSS Geek?')}
               {' '}
@@ -331,13 +337,15 @@ const Footer = (): React.Element<'section'> => {
               </a>
             </p>
           </div>
-          <div className="col-md-6 border-top pt-4 text-center fs-5">
+          <div className="col-md-6 border-top pt-4 text-center color-gray">
             {
               // eslint-disable-next-line max-len
               exp.l('Brought to you by <span id="meb-logo"/> MetaBrainz Foundation')
             }
           </div>
-          <div className="col-md-3 border-top pt-4 d-none d-md-block fs-5">
+          <div
+            className="col-md-3 border-top pt-4 d-none d-md-block color-gray"
+          >
             <p>
               {l('Found an Issue?')}
               <a
