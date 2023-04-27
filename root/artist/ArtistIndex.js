@@ -61,6 +61,8 @@ type Props = {
   +pager: PagerT,
   +recordings: ?$ReadOnlyArray<RecordingWithArtistCreditT>,
   +releaseGroups: ?$ReadOnlyArray<ReleaseGroupT>,
+  +renamedFrom: $ReadOnlyArray<ArtistT>,
+  +renamedInto: $ReadOnlyArray<ArtistT>,
   +showingVariousArtistsOnly: boolean,
   +wikipediaExtract: WikipediaExtractT,
 };
@@ -210,6 +212,8 @@ const ArtistIndex = ({
   pager,
   recordings,
   releaseGroups,
+  renamedFrom,
+  renamedInto,
   showingVariousArtistsOnly,
   wikipediaExtract,
 }: Props): React$Element<typeof ArtistLayout> => {
@@ -246,6 +250,21 @@ const ArtistIndex = ({
       ) : legalNameAliases?.length ? (
         <RelatedEntitiesDisplay title={l('Legal name')}>
           {commaOnlyListText(legalNameAliases)}
+        </RelatedEntitiesDisplay>
+      ) : null}
+
+      {renamedFrom.length ? (
+        <RelatedEntitiesDisplay title={l('Previously known as')}>
+          {commaOnlyList(renamedFrom.map(
+            label => <DescriptiveLink entity={label} key={label.gid} />,
+          ))}
+        </RelatedEntitiesDisplay>
+      ) : null}
+      {renamedInto.length ? (
+        <RelatedEntitiesDisplay title={l('Renamed to')}>
+          {commaOnlyList(renamedInto.map(
+            label => <DescriptiveLink entity={label} key={label.gid} />,
+          ))}
         </RelatedEntitiesDisplay>
       ) : null}
 

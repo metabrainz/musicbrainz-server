@@ -66,6 +66,7 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_ARTIST_EDITCREDIT
     $EDIT_RELATIONSHIP_DELETE
     $ARTIST_ARTIST_COLLABORATION
+    $ARTIST_RENAME_LINK_TYPE
 );
 use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array to_json_object );
@@ -299,6 +300,26 @@ sub show : PathPart('') Chained('load')
         $c->stash( legal_name_aliases => \@aliases );
         $legal_name_aliases = \@aliases;
     }
+
+    my (@renamed_from, @renamed_into);
+
+    for my $rel (@{ $artist->relationships }) {
+        if ($rel->link->type->gid eq $ARTIST_RENAME_LINK_TYPE) {
+            if ($rel->direction == $DIRECTION_FORWARD) {
+                push @renamed_into, $rel->target;
+            } else {
+                push @renamed_from, $rel->target;
+            }
+        }
+    }
+
+    if (@renamed_from || @renamed_into) {
+        $c->model('Relationship')->load_subset(
+            ['artist'],
+            @renamed_from, @renamed_into,
+        );
+    }
+
     my @other_identities = sort_by { $coll->getSortKey($_->name) }
                            grep { $_->id != $artist->id }
                            uniq
@@ -331,6 +352,8 @@ sub show : PathPart('') Chained('load')
             pager => serialize_pager($c->stash->{pager}),
             recordings => to_json_array($recordings),
             releaseGroups => to_json_array($release_groups),
+            renamedFrom       => to_json_array(\@renamed_from),
+            renamedInto       => to_json_array(\@renamed_into),
             showingVariousArtistsOnly => boolean_to_json($showing_va_only),
             wikipediaExtract => to_json_object($c->stash->{wikipedia_extract}),
         },
