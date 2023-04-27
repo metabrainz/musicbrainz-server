@@ -29,13 +29,9 @@ function userLink(userName: string, path: string) {
 
 type UserProp = {+user: UnsanitizedEditorT};
 
-type AccountMenuPropsT = {
-  +user: UnsanitizedEditorT,
-};
-
 const AccountMenu = ({
   user,
-}: AccountMenuPropsT) => {
+}: UserProp) => {
   const $c = React.useContext(CatalystContext);
   return (
     <li className="account" tabIndex="-1">
