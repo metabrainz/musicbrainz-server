@@ -5175,6 +5175,13 @@ limited_link_type_combinations: [
        only_valid_entity_types: ['artist'],
   },
   {
+                     input_url: 'https://utaten.com/songWriter/10350/?sort=release_date_desc&pageType=lyricist',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'lyrics',
+            expected_clean_url: 'https://utaten.com/songWriter/10350',
+       only_valid_entity_types: ['artist'],
+  },
+  {
                      input_url: 'http://utaten.com/lyric/fripSide/prominence#sort=popular_sort_asc',
              input_entity_type: 'work',
     expected_relationship_type: 'lyrics',
