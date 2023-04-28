@@ -113,6 +113,7 @@ const DialogSourceEntity = (React.memo<PropsT>(({
           <>
             <EntityLink
               allowNew
+              className="wrap-anywhere"
               content={source.name || l('[unknown]')}
               entity={source}
               target="_blank"
