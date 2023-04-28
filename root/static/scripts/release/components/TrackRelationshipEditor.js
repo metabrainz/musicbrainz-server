@@ -56,6 +56,7 @@ const TrackLink = React.memo<TrackLinkPropsT>(({
   if (showArtists) {
     trackLink = (
       <DescriptiveLink
+        className="wrap-anywhere"
         content={track.name}
         customArtistCredit={track.artistCredit}
         entity={track.recording}
@@ -66,6 +67,7 @@ const TrackLink = React.memo<TrackLinkPropsT>(({
   } else {
     trackLink = (
       <EntityLink
+        className="wrap-anywhere"
         content={track.name}
         entity={track.recording}
         showDisambiguation={false}
