@@ -59,6 +59,7 @@ export type FooterData = {
   +usefulLinks: $ReadOnlyArray<LinkProps>,
 };
 
+// ToDO ideally this should be sent by the backend
 export const footerData: FooterData = {
   channels: [
     {
