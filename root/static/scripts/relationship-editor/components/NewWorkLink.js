@@ -19,7 +19,7 @@ const NewWorkLink = ({
   <a href={'#new-work-' + String(work.id)}>
     <DeletedLink
       allowNew
-      className="rel-add"
+      className="rel-add wrap-anywhere"
       name={work.name}
     />
   </a>

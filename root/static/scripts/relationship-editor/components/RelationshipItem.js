@@ -99,6 +99,7 @@ const RelationshipItem = (React.memo<PropsT>(({
   } else if (target.gid) {
     targetDisplay = (
       <DescriptiveLink
+        className="wrap-anywhere"
         content={targetCredit}
         entity={target}
         showDisambiguation

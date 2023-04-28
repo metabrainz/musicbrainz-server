@@ -14,6 +14,7 @@ import EntityLink from './EntityLink.js';
 type Props = {
   +allowNew?: boolean,
   +area: AreaT,
+  +className?: string,
   +content?: Expand2ReactOutput,
   +deletedCaption?: string,
   +disableLink?: boolean,

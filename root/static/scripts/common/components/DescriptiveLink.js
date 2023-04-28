@@ -15,6 +15,7 @@ import EntityLink from './EntityLink.js';
 
 type DescriptiveLinkProps = {
   +allowNew?: boolean,
+  +className?: string,
   +content?: Expand2ReactOutput,
   +customArtistCredit?: ArtistCreditT,
   +deletedCaption?: string,
@@ -30,6 +31,7 @@ type DescriptiveLinkProps = {
 
 const DescriptiveLink = ({
   allowNew,
+  className,
   content,
   customArtistCredit,
   deletedCaption,
@@ -51,6 +53,7 @@ const DescriptiveLink = ({
 
   const props = {
     allowNew,
+    className,
     content,
     deletedCaption,
     disableLink,
