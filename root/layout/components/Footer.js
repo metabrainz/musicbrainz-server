@@ -77,7 +77,7 @@ const LanguageMenu = ({
   currentBCP47Language,
   serverLanguages,
 }: LanguageMenuProps): React.Element<'div'> => (
-  <div className="dropdown pb-2 dropup">
+  <div className="dropdown dropup">
     <button
       aria-expanded="false"
       className="btn btn-outline-primary fs-5"
@@ -162,7 +162,7 @@ const SocialNetworkLink = ({
 
 const UsefulLinksList = (): React.Element<'ul'> => {
   return (
-    <ul className="list-unstyled">
+    <ul className="list-unstyled mb-0">
       {footerData.usefulLinks.map((contact, i) => (
         <ListLinkElement
           key={i}
@@ -211,7 +211,7 @@ const FellowProjectListElement = ({
 };
 
 const FellowProjectsList = (): React.Element<'ul'> => (
-  <ul className="list-unstyled">
+  <ul className="list-unstyled mb-0">
     {footerData.fellowProjects.map((fellowProject, i) => (
       <FellowProjectListElement
         key={i}
@@ -222,7 +222,7 @@ const FellowProjectsList = (): React.Element<'ul'> => (
 );
 
 const JoinUsList = (): React.Element<'ul'> => (
-  <ul className="list-unstyled">
+  <ul className="list-unstyled mb-0">
     {footerData.joinUsLinks.map((contact, i) => (
       <ListLinkElement
         key={i}
@@ -237,7 +237,7 @@ const ChannelElement = (props: Channel): React.Element<'li'> => {
   const target = '_blank';
   return (
     <li>
-      <span className="color-gray">{l(props.label) + ': '}</span>
+      <span className="color-gray">{l(props.label) + ':'}</span>
       <a
         className="ms-1"
         href={props.href}
@@ -253,7 +253,7 @@ const ChannelElement = (props: Channel): React.Element<'li'> => {
 const ChannelsList = (
   props: FooterChannelsElementProps,
 ): React.Element<'ul'> => (
-  <ul className="list-unstyled lh-base">
+  <ul className="list-unstyled lh-base mb-4">
     {footerData.channels.map((contact, i) => (
       <ChannelElement
         key={i}
@@ -279,14 +279,16 @@ const Footer = (): React.Element<'section'> => {
 
   return (
     <section className="bs footer">
-      <div className="border-top container-fluid p-4">
+      <div
+        className="container-fluid g-0 mb-theme-light"
+      >
         <div className="row
           row-cols-1
           row-cols-md-2
           row-cols-lg-3
           row-cols-xl-4"
         >
-          <div className="col-lg-12 col-xl-4">
+          <div className="col-lg-12 col-xl-4 pb-5 border-bottom">
             <h3 className="mb-4">
               <img
                 alt="MusicBrainz"
@@ -311,51 +313,61 @@ const Footer = (): React.Element<'section'> => {
               />
             ) : null}
           </div>
-          <div className="col-xl-3 mt-4 mt-md-0 mt-lg-4 mt-xl-0">
+          <div
+            className="col-xl-3 mt-5 mt-md-0 mt-lg-5 mt-xl-0
+            border-sm-bottom-0 border-md-bottom"
+          >
             <h3 className="fw-bold color-black">
               {l('Join Us')}
             </h3>
             <JoinUsList />
           </div>
-          <div className="col-xl-3 mt-4 mt-xl-0">
+          <div
+            className="col-xl-3 mt-5 mt-xl-0
+            border-sm-bottom-0 border-md-bottom"
+          >
             <h3 className="fw-bold color-black">
               {l('Fellow Projects')}
             </h3>
             <FellowProjectsList />
           </div>
-          <div className="col-xl-2 mt-4 mt-xl-0">
+          <div className="col-xl-2 mt-5 pb-5 mt-xl-0 border-bottom">
             <h3 className="fw-bold color-black">
               {l('Useful Links')}
             </h3>
             <UsefulLinksList />
           </div>
         </div>
-        <div className="row mt-4 ms-2 me-2">
+        <div className="row row-cols-1 row-cols-lg-3">
           <div
-            className="col-md-3 border-top pt-4 d-none d-md-block color-gray"
+            className="col-lg-3 mt-4 pb-4 ps-3 d-none d-md-block color-gray
+            text-start text-md-center text-lg-start
+            border-sm-bottom border-lg-bottom-0"
           >
-            <p>
-              {l('OSS Geek?')}
-              {' '}
-              <a
-                href="https://github.com/metabrainz/musicbrainz-server"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                <span>
-                  {l('Contribute here')}
-                </span>
-              </a>
-            </p>
+            {l('OSS Geek?')}
+            {' '}
+            <a
+              href="https://github.com/metabrainz/musicbrainz-server"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <span>
+                {l('Contribute here')}
+              </span>
+            </a>
           </div>
-          <div className="col-md-6 border-top pt-4 text-center color-gray">
+          <div
+            className="col-lg-6 mt-4 pb-4 text-center color-gray
+            border-sm-bottom border-lg-bottom-0"
+          >
             {
               // eslint-disable-next-line max-len
               exp.l('Brought to you by <span id="meb-logo"/> MetaBrainz Foundation')
             }
           </div>
           <div
-            className="col-md-3 border-top pt-4 d-none d-md-block color-gray"
+            className="col-lg-3 mt-4 pe-3 d-none d-md-block color-gray
+            text-end text-md-center text-lg-end"
           >
             <p>
               {l('Found an Issue?')}

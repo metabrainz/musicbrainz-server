@@ -55,6 +55,7 @@ export type FooterData = {
     usefulLinks: LinkProps[],
 };
 
+// ToDO ideally this should be sent by the backend
 export const footerData: FooterData = {
   channels: [
     {
