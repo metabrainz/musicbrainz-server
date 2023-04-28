@@ -74,6 +74,7 @@ const RelationshipTargetLinks = ({
   } else {
     link = (
       <DescriptiveLink
+        className="wrap-anywhere"
         content={targetCredit}
         disableLink={disableLink}
         entity={target}
