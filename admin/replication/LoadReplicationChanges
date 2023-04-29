@@ -141,6 +141,20 @@ unless (defined $iReplicationSequence)
 
 check_foreign_keys();
 
+my @pending_files;
+if ($dbmirror2) {
+    push @pending_files, qw(
+        pending_data
+        pending_keys
+        pending_ts
+    );
+} else {
+    push @pending_files, qw(
+        dbmirror_pending
+        dbmirror_pendingdata
+    );
+}
+
 my %known_broken_sequences = (
     # MBS-9366
     '104949' => 1,
@@ -277,27 +291,29 @@ if ($dbmirror2 && !(defined $DBMIRROR_VERSION && $DBMIRROR_VERSION == 2)) {
     exit 1;
 }
 
-my @pending_files;
-if ($dbmirror2) {
-    push @pending_files, qw(
-        pending_data
-        pending_keys
-        pending_ts
-    );
-} else {
-    push @pending_files, qw(
-        dbmirror_pending
-        dbmirror_pendingdata
-    );
-}
+# As this code may be executed multiple times via `goto`, the declaration
+# must explicitly assign an empty list in order to clobber any previous
+# value.
+my @pending_file_paths = ();
 
 # Check existence of the data files
 for my $f (@pending_files)
 {
-    next if -f "$mydir/mbdump/$f";
-    print localtime() . " : There is no mbdump/$f file in this archive!\n";
-    print localtime() . " : Please tell support\@musicbrainz.org!\n";
-    exit 1;
+    my $pending_file_path = "$mydir/mbdump/$f";
+    if (-f $pending_file_path) {
+        push @pending_file_paths, $pending_file_path;
+    } elsif (
+        # NOTE-NOPK-1: The pending_keys file isn't actually required to apply
+        # dbmirror2 packets. If it's missing, we just query for primary keys
+        # from the database instead. It *should* exist, but there are at
+        # least three packets missing it (158338, 158339, 158340) due to a
+        # mishap.
+        $f ne 'pending_keys'
+    ) {
+        print localtime() . " : There is no mbdump/$f file in this archive!\n";
+        print localtime() . " : Please tell support\@musicbrainz.org!\n";
+        exit 1;
+    }
 }
 
 # Load them
@@ -307,7 +323,7 @@ system "$FindBin::Bin/ImportReplicationChanges",
     ($dbmirror2 ? '--dbmirror2' : ()),
     '--tmp-dir', $tmpdir,
     '--',
-    map { "$mydir/mbdump/$_" } @pending_files;
+    @pending_file_paths;
 exit $CHILD_ERROR if $CHILD_ERROR;
 
 # Wipe the temporary directory

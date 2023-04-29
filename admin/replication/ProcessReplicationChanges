@@ -300,7 +300,9 @@ sub dbmirror2_command {
     }
 
     # Some dbmirror2 packets have an incomplete pending_keys file due to a
-    # bug. If we encounter this, fetch primary keys from the database.
+    # (now fixed) bug. A few other packets are missing a pending_keys file
+    # altogether. If we encounter either of these scenarios, fetch primary
+    # keys from the database.
     if (!defined $keys) {
         state $fetched_keys = {};
         $keys = $fetched_keys->{$table};
