@@ -1167,8 +1167,9 @@ msgid "cornett"
 msgstr "zink"
 
 #: DB:instrument/name:158
+msgctxt "Tuned metal bell"
 msgid "cowbell"
-msgstr "koeienbel"
+msgstr ""
 
 #: DB:instrument/name:779
 msgctxt "guitar/Viola caipira like plucked string instrument"
@@ -1594,8 +1595,9 @@ msgid "friction idiophone"
 msgstr "frictie-idiofoon"
 
 #: DB:instrument/name:368
+msgctxt "Zydeco vest scraper"
 msgid "frottoir"
-msgstr "frottoir"
+msgstr ""
 
 #: DB:instrument/name:571
 msgid "fujara"
@@ -3999,7 +4001,7 @@ msgid "tres"
 msgstr "tres"
 
 #: DB:instrument/name:106
-msgctxt "Tuned metal bar, bent into triangle shape"
+msgctxt "Tuned metal shape"
 msgid "triangle"
 msgstr "triangel"
 
@@ -4299,12 +4301,14 @@ msgid "walaycho"
 msgstr ""
 
 #: DB:instrument/name:159
+msgctxt "American scraped idiophone"
 msgid "washboard"
-msgstr "wasbord"
+msgstr ""
 
 #: DB:instrument/name:96
+msgctxt "Improvised monochord"
 msgid "washtub bass"
-msgstr "wastobbe-bas"
+msgstr ""
 
 #: DB:instrument/name:280
 msgid "waterphone"

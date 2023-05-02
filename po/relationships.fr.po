@@ -3902,7 +3902,7 @@ msgstr "catalogue les œuvres de "
 
 #: DB:link_attribute_type/name:1223
 msgid "chamber music"
-msgstr ""
+msgstr "musique de chambre"
 
 #: DB:link_type/reverse_link_phrase:735
 msgid "child of"
@@ -4010,7 +4010,7 @@ msgstr "premier violon"
 msgid "conducting"
 msgstr "direction d’orchestre"
 
-#: DB:link_type/name:806 DB:link_type/name:46 DB:link_type/name:151
+#: DB:link_type/name:806 DB:link_type/name:151 DB:link_type/name:46
 msgid "conductor"
 msgstr "chef d’orchestre"
 
@@ -4052,7 +4052,7 @@ msgstr "contient des échantillons {additional:supplémentaires} de"
 
 #: DB:link_attribute_type/name:1227
 msgid "contemporary music"
-msgstr ""
+msgstr "musique contemporaine"
 
 #: DB:link_type/link_phrase:119 DB:link_type/name:119
 #: DB:link_type/reverse_link_phrase:119 DB:link_type/long_link_phrase:119
@@ -5748,7 +5748,7 @@ msgstr "relations musicales"
 
 #: DB:link_attribute_type/name:1221
 msgid "musical theatre"
-msgstr ""
+msgstr "théâtre musical"
 
 #: DB:link_attribute_type/name:1141
 msgid "musicology"
@@ -5818,7 +5818,7 @@ msgstr "données en ligne"
 
 #: DB:link_attribute_type/name:1220
 msgid "opera"
-msgstr ""
+msgstr "opéra"
 
 #: DB:link_attribute_type/name:1053
 msgid "optional"
@@ -7199,8 +7199,8 @@ msgstr "{additional:aussi} composé à"
 msgid "{additional:additionally} composed in"
 msgstr "{additional:aussi} composé en"
 
-#: DB:link_type/link_phrase:46 DB:link_type/link_phrase:151
-#: DB:link_type/long_link_phrase:46 DB:link_type/long_link_phrase:151
+#: DB:link_type/link_phrase:151 DB:link_type/link_phrase:46
+#: DB:link_type/long_link_phrase:151 DB:link_type/long_link_phrase:46
 msgid "{additional:additionally} conducted"
 msgstr "{additional:aussi} dirigé"
 
@@ -7435,7 +7435,7 @@ msgstr "compositeur {additional:supplémentaire}"
 msgid "{additional} composing location for"
 msgstr "lieu {additional:supplémentaire} de composition de"
 
-#: DB:link_type/reverse_link_phrase:46 DB:link_type/reverse_link_phrase:151
+#: DB:link_type/reverse_link_phrase:151 DB:link_type/reverse_link_phrase:46
 msgid "{additional} conductor"
 msgstr "chef d’orchestre {additional:supplémentaire}"
 
