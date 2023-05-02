@@ -4593,6 +4593,13 @@ limited_link_type_combinations: [
        only_valid_entity_types: ['artist'],
   },
   {
+                     input_url: 'https://open.spotify.com/intl-it/artist/1cfvECgeNkitPfAecXtcVX',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://open.spotify.com/artist/1cfvECgeNkitPfAecXtcVX',
+       only_valid_entity_types: ['artist'],
+  },
+  {
                      input_url: 'open.spotify.com/album/0tabKG66W34Ms0SsovkP6Q/6yVKnHVFGkg4OQ8IrgQVpZ',
              input_entity_type: 'release',
     expected_relationship_type: 'streamingfree',
@@ -4619,7 +4626,7 @@ limited_link_type_combinations: [
        only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series'],
   },
   {
-                     input_url: 'https://open.spotify.com/user/hitradio%C3%B63',
+                     input_url: 'https://open.spotify.com/intl-de/user/hitradio%C3%B63',
              input_entity_type: 'label',
     expected_relationship_type: 'socialnetwork',
             expected_clean_url: 'https://open.spotify.com/user/hitradio%C3%B63',
