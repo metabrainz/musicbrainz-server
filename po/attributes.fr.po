@@ -287,7 +287,7 @@ msgctxt "release_packaging"
 msgid ""
 "A large cardboard box often used until the mid-1990s to sell CDs in North "
 "America, so that they would fit existing vinyl racks in stores."
-msgstr ""
+msgstr "Une boîte en carton très haute souvent utilisée au milieu des années 1990 pour vendre des CD en Amérique du Nord, de façon à ce qu’ils puissent tenir dans les étagères à vinyle présentes dans les magasins."
 
 #: DB:work_attribute_type_allowed_value/value:28
 msgctxt "work_attribute_type_allowed_value"
@@ -424,7 +424,7 @@ msgid ""
 "by the artist and/or their record company after being released, whether to "
 "replace it with a new version with some changes or to just retire it "
 "altogether (e.g. because of legal issues)."
-msgstr ""
+msgstr "Une parution précédemment officielle qui a été activement retirée de la circulation par l’artiste ou la maison de disques après sa parution, qu’elle soit remplacée par une nouvelle version avec des changements ou qu’elle soit simplement retirée (par exemple pour des problèmes de droit)."
 
 #: DB:release_group_secondary_type/description:10
 msgctxt "release_group_secondary_type"
@@ -932,7 +932,7 @@ msgstr "Un concert individuel par un seul artiste ou en collaboration, souvent a
 #: DB:release_group_secondary_type/description:4
 msgctxt "release_group_secondary_type"
 msgid "An interview release contains an interview, generally with an artist."
-msgstr ""
+msgstr "Une parution d'entrevue contient une entrevue, généralement avec un artiste."
 
 #: DB:release_packaging/description:54
 msgctxt "release_packaging"
@@ -1127,12 +1127,12 @@ msgstr "Automatique"
 #: DB:event_type/name:7
 msgctxt "event_type"
 msgid "Award ceremony"
-msgstr ""
+msgstr "Cérémonie de remise de prix"
 
 #: DB:series_type/name:15
 msgctxt "series_type"
 msgid "Award ceremony"
-msgstr ""
+msgstr "Cérémonie de remise de prix"
 
 #: DB:work_attribute_type_allowed_value/value:694
 msgctxt "work_attribute_type_allowed_value"
@@ -1424,7 +1424,7 @@ msgstr "Bestenigar"
 #: DB:medium_format/name:131
 msgctxt "medium_format"
 msgid "Betacam SP"
-msgstr ""
+msgstr "Betacam SP"
 
 #: DB:medium_format/name:24
 msgctxt "medium_format"
@@ -1610,7 +1610,7 @@ msgstr "Production pirate"
 #: DB:cover_art_archive.art_type/name:49
 msgctxt "cover_art_type"
 msgid "Bottom"
-msgstr ""
+msgstr "Dessous"
 
 #: DB:release_packaging/name:19
 msgctxt "release_packaging"
@@ -1923,7 +1923,7 @@ msgstr "Ville est utilisé pour des localités de toutes les tailles, incluant l
 #: DB:release_packaging/name:56
 msgctxt "release_packaging"
 msgid "Clamshell Case"
-msgstr ""
+msgstr "Boîte à clapet"
 
 #: DB:release_group_secondary_type/name:1
 msgctxt "release_group_secondary_type"
@@ -2953,7 +2953,7 @@ msgstr "ID GEMA"
 #: DB:work_attribute_type/name:106
 msgctxt "work_attribute_type"
 msgid "GMR ID"
-msgstr ""
+msgstr "ID GMR"
 
 #: DB:work_attribute_type_allowed_value/value:88
 msgctxt "work_attribute_type_allowed_value"
@@ -3784,7 +3784,7 @@ msgstr "ID pour la COMPASS, société singapourienne de gestion des droits"
 #: DB:work_attribute_type/description:140
 msgctxt "work_attribute_type"
 msgid "ID for the Slovenian rights society SAZAS"
-msgstr ""
+msgstr "ID pour la SAZAS, société slovène de gestion des droits"
 
 #: DB:work_attribute_type/description:68
 msgctxt "work_attribute_type"
@@ -3834,7 +3834,7 @@ msgstr "ID pour la BMI, société états-unienne de gestion des droits"
 #: DB:work_attribute_type/description:106
 msgctxt "work_attribute_type"
 msgid "ID for the US rights society GMR"
-msgstr ""
+msgstr "ID pour la GMR, société états-unienne de gestion des droits"
 
 #: DB:work_attribute_type/description:8
 msgctxt "work_attribute_type"
@@ -3854,7 +3854,7 @@ msgstr "ID pour la SACVEN, société vénézuélienne de gestion des droits"
 #: DB:work_attribute_type/description:107
 msgctxt "work_attribute_type"
 msgid "ID for the Vietnamese rights society VCPMC"
-msgstr ""
+msgstr "ID pour la VCPMC, société vietnamienne de gestion des droits"
 
 #: DB:work_attribute_type/description:38
 msgctxt "work_attribute_type"
@@ -4384,7 +4384,7 @@ msgstr "Khêmtâl"
 #: DB:medium_format/name:95
 msgctxt "medium_format"
 msgid "KiT Album"
-msgstr ""
+msgstr "« KiT Album »"
 
 #: DB:work_attribute_type_allowed_value/value:630
 msgctxt "work_attribute_type_allowed_value"
@@ -4670,7 +4670,7 @@ msgstr "Longa"
 #: DB:release_packaging/name:55
 msgctxt "release_packaging"
 msgid "Longbox"
-msgstr ""
+msgstr "« Longbox »"
 
 #: DB:work_attribute_type/name:49
 msgctxt "work_attribute_type"
@@ -4900,7 +4900,7 @@ msgstr "Mersiye"
 #: DB:release_packaging/name:54
 msgctxt "release_packaging"
 msgid "Metal Tin"
-msgstr ""
+msgstr "Boîte en métal"
 
 #: DB:work_attribute_type_allowed_value/value:745
 msgctxt "work_attribute_type_allowed_value"
@@ -5550,7 +5550,7 @@ msgstr "Non-binaire"
 #: DB:release_group_secondary_type/description:3
 msgctxt "release_group_secondary_type"
 msgid "Non-music spoken word releases."
-msgstr ""
+msgstr "Parutions non-musicales parlées."
 
 #: DB:release_packaging/name:7
 msgctxt "release_packaging"
@@ -5725,7 +5725,7 @@ msgstr "Musique possédée"
 #: DB:editor_collection_type/name:17
 msgctxt "collection_type"
 msgid "Owned recordings"
-msgstr ""
+msgstr "Enregistrements possédés"
 
 #: DB:work_attribute_type_allowed_value/value:762
 msgctxt "work_attribute_type_allowed_value"
@@ -6129,7 +6129,7 @@ msgstr "Brute / Non-modifiée"
 #: DB:series_type/name:48
 msgctxt "series_type"
 msgid "Recording award"
-msgstr ""
+msgstr "Récompense d’enregistrement"
 
 #: DB:editor_collection_type/name:12
 msgctxt "collection_type"
@@ -6174,7 +6174,7 @@ msgstr "Collection de parutions"
 #: DB:series_type/name:47
 msgctxt "series_type"
 msgid "Release group award"
-msgstr ""
+msgstr "Récompense de groupe de parution"
 
 #: DB:editor_collection_type/name:13
 msgctxt "collection_type"
@@ -6420,7 +6420,7 @@ msgstr "SAYCO ID"
 #: DB:work_attribute_type/name:140
 msgctxt "work_attribute_type"
 msgid "SAZAS ID"
-msgstr ""
+msgstr "ID SAZAS"
 
 #: DB:medium_format/name:62
 msgctxt "medium_format"
@@ -7284,7 +7284,7 @@ msgid ""
 "The bottom of a box or other similar packaging (for most common six sided "
 "packaging options, the one perpendicular to and below front, back and "
 "spines)."
-msgstr ""
+msgstr "Le dessous d’une boîte ou d’un autre emballage similaire (pour la plupart des emballages à six faces, celle qui est perpendiculaire à et en-dessous du devant, du derrière, et de la tranche)."
 
 #: DB:work_type/description:7
 msgctxt "work_type"
@@ -7315,7 +7315,7 @@ msgid ""
 "The top of a box or other similar packaging (for most common six sided "
 "packaging options, the one perpendicular to and above front, back and "
 "spines)."
-msgstr ""
+msgstr "Le dessus d’une boîte ou d’un autre emballage similaire (pour la plupart des emballages à six faces, celle qui est perpendiculaire à et au-dessus du devant, du derrière, et de la tranche)."
 
 #: DB:release_packaging/description:1
 msgctxt "release_packaging"
@@ -7447,7 +7447,7 @@ msgstr "Tishra-jâti êka"
 #: DB:cover_art_archive.art_type/name:48
 msgctxt "cover_art_type"
 msgid "Top"
-msgstr ""
+msgstr "Dessus"
 
 #: DB:series_type/name:7
 msgctxt "series_type"
@@ -7604,7 +7604,7 @@ msgstr "VCD"
 #: DB:work_attribute_type/name:107
 msgctxt "work_attribute_type"
 msgid "VCPMC ID"
-msgstr ""
+msgstr "ID VCPMC"
 
 #: DB:medium_format/name:59
 msgctxt "medium_format"
@@ -7787,12 +7787,12 @@ msgstr "Liste de souhaits"
 #: DB:release_status/name:5
 msgctxt "release_status"
 msgid "Withdrawn"
-msgstr ""
+msgstr "Retirée"
 
 #: DB:series_type/name:46
 msgctxt "series_type"
 msgid "Work award"
-msgstr ""
+msgstr "Récompense d’œuvre"
 
 #: DB:editor_collection_type/name:15
 msgctxt "collection_type"

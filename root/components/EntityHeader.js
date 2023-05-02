@@ -35,7 +35,7 @@ const EntityHeader = ({
   subHeading,
 }: Props): React$Element<typeof React.Fragment> => (
   <>
-    <div className={'entityheader ' + headerClass}>
+    <div className={'wrap-anywhere ' + headerClass}>
       {nonEmpty(preHeader) ? preHeader : null}
       <h1>
         {nonEmpty(heading) ? heading : <EntityLink entity={entity} />}

@@ -27,7 +27,11 @@
         <td class="release-artist" data-bind="artistCreditEditor: $data"></td>
       </tr>
 
-      [% table_row_error(2, 'showErrorWhenTabIsSwitched: needsArtistCredit', l('You haven’t entered a complete artist credit.')) %]
+      [% table_row_error(
+        2,
+        'showErrorWhenTabIsSwitched: needsArtistCredit',
+        l('You must select an artist for the release (the background color of the artist field should be green). If you’ve entered an artist but the background remains uncolored, click the magnifying glass to match the name to a MusicBrainz artist. If the artist doesn’t exist yet, you can create it by selecting “{add_a_new_artist}” from the bottom of the search results drop-down.', { add_a_new_artist => l('Add a new artist') }),
+      ) %]
 
       <tr>
         <td><label for="release-group">[% l('Release Group:') %]</label></td>

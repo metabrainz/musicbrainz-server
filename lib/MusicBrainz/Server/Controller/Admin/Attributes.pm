@@ -143,10 +143,24 @@ sub delete : Chained('attribute_base') Args(1) RequireAuth(account_admin) Secure
 
         $c->detach;
     }
+
+    $c->stash(
+        component_path  => 'admin/attributes/DeleteAttribute',
+        component_props => {
+            attribute => $attr->TO_JSON,
+            form => $form->TO_JSON,
+        },
+        current_view    => 'Node',
+    );
+
     if ($c->form_posted_and_valid($form)) {
-        $c->model('MB')->with_transaction(sub {
-            $c->model($model)->delete($id);
-        });
+        if ($form->field('cancel')->input) {
+            # Do nothing
+        } else {
+            $c->model('MB')->with_transaction(sub {
+                $c->model($model)->delete($id);
+            });
+        }
 
         $c->response->redirect($c->uri_for('/admin/attributes', $model));
         $c->detach;

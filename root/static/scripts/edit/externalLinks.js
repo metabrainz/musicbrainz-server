@@ -697,7 +697,7 @@ export class _ExternalLinksEditor
       error = {
         message: exp.l(
           `“{example_url}” is just an example.
-          Please enter the actual link you want to add.`,
+           Please enter the actual link you want to add.`,
           {example_url: <span className="url-quote">{link.url}</span>},
         ),
         target: URLCleanup.ERROR_TARGETS.URL,
@@ -706,6 +706,15 @@ export class _ExternalLinksEditor
       error = {
         message: l(`Links to MusicBrainz URLs are not allowed.
                     Did you mean to paste something else?`),
+        target: URLCleanup.ERROR_TARGETS.URL,
+      };
+    } else if (isNewOrChangedLink && isCritiqueBrainz(link.url)) {
+      error = {
+        message: texp.l(
+          `Please don’t enter CritiqueBrainz links — reviews
+           are automatically linked from the “{reviews_tab_name}” tab.`,
+          {reviews_tab_name: l('Reviews')},
+        ),
         target: URLCleanup.ERROR_TARGETS.URL,
       };
     } else if (isNewOrChangedLink && isMalware(link.url)) {
@@ -1726,6 +1735,10 @@ function isExample(url: string) {
 
 function isMusicBrainz(url: string) {
   return /^https?:\/\/([^/]+\.)?musicbrainz\.org/.test(url);
+}
+
+function isCritiqueBrainz(url: string) {
+  return /^https?:\/\/([^/]+\.)?critiquebrainz\.org/.test(url);
 }
 
 type InitialOptionsT = {

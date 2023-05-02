@@ -792,6 +792,14 @@ msgid ""
 "secondary and one drone string."
 msgstr ""
 
+#. name:washtub bass
+#: DB:instrument/description:96
+msgid ""
+"Consisting of a stick, a string and an resonator of various materials, it is"
+" used in many countries' low-cost and DIY cultures. It's technically a "
+"variable tension chordophone."
+msgstr ""
+
 #. name:bonang
 #: DB:instrument/description:969
 msgid ""
@@ -962,8 +970,8 @@ msgstr ""
 #. name:biniou
 #: DB:instrument/description:1117
 msgid ""
-"Developed from the veuze and often accompanied with the bombard, the small "
-"high-pitched, singular octave bagpipe is used in Breton folk dancing."
+"Developed from the veuze and often accompanying the bombard, the small high-"
+"pitched, singular octave bagpipe is used in Breton folk dancing."
 msgstr ""
 
 #. name:pedal accordion
@@ -1003,6 +1011,13 @@ msgid ""
 "Differs from other lutes in that its string tension is greater thus sounding"
 " more like the oud. From ancient Greece, it was used as an accompaniment to "
 "Cretan Lyra"
+msgstr ""
+
+#. name:frottoir
+#: DB:instrument/description:368
+msgid ""
+"Dispenses with the frame altogether, and is worn as a vest, it is played "
+"with spoons or bottle openers."
 msgstr ""
 
 #. name:craviola
@@ -2073,6 +2088,11 @@ msgstr ""
 #. name:xylorimba
 #: DB:instrument/description:703
 msgid "Member of the xylophone family, it has 5 octaves."
+msgstr ""
+
+#. name:cowbell
+#: DB:instrument/description:158
+msgid "Metal bell used in various genres, it is often attached to drum kit"
 msgstr ""
 
 #. name:Mexican vihuela
@@ -4580,6 +4600,11 @@ msgid ""
 "neck and thinner ribs than the cello."
 msgstr ""
 
+#. name:triangle
+#: DB:instrument/description:106
+msgid "Tuned metal bar, bent into triangle shape."
+msgstr ""
+
 #. name:alto violin
 #: DB:instrument/description:174
 msgid ""
@@ -4608,6 +4633,14 @@ msgid ""
 "Two rods, one is held in the mouth, which works as a resonance chamber while"
 " chanting and singing, the other is used for tapping and scraping, creating "
 "rhythm."
+msgstr ""
+
+#. name:washboard
+#: DB:instrument/description:159
+msgid ""
+"Typical metal ribbed tool used for washing, still in it's wooden frame, "
+"often has is additional noisemakers attached, such as cowbell or woodblock. "
+"It is played with thimbles as plectrum."
 msgstr ""
 
 #. name:mandoguitar

@@ -119,14 +119,6 @@ const EditList = ({
             </form>
           </PaginatedResults>
         </div>
-      ) : isSearch ? (
-        <p>
-          {exp.l(
-            `No edits were found matching your query.
-             Please {search|try again}.`,
-            {search: '/edit/search'},
-          )}
-        </p>
       ) : null}
 
       {manifest.js('voting')}

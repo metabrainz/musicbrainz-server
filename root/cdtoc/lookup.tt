@@ -6,14 +6,16 @@
   <h2>[% l('Matching CDs') %]</h2>
   [% IF medium_cdtocs.size %]
   <p>[% l('We found discs matching the information you requested, listed below. If none of these
-          are the release you are looking for, you may search using the form below in order to attach this
-          disc to another MusicBrainz release.') %]</p>
+           are the release you are looking for, you can search using the form below
+           in order to attach this disc to another MusicBrainz release, or
+           to add a new one if the search shows it is missing from the database.') %]</p>
       [% INCLUDE 'cdtoc/list.tt' edit_links=0 %]
   <p>[% l('We used DiscID <code>{discid}</code> to look up this information.', { discid => link_cdtoc(cdtoc) }) %]</p>
   [% ELSIF c.user_exists %]
-    <p>[% l('There are currently no discs in MusicBrainz associated with the information you provided. You can
-             search for the disc you are looking for using the forms below, or you may add a new release to
-             MusicBrainz') %]</p>
+    <p>[% l('There are currently no discs in MusicBrainz associated with the information
+             you provided. You can search using the form below in order to attach this disc
+             to another MusicBrainz release, or to add a new one if the search shows
+             it is missing from the database.') %]</p>
   [% END %]
 
   [% IF cdstub %]

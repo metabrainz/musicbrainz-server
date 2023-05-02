@@ -38,7 +38,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "PO-Revision-Date: 2012-05-24 18:50+0000\n"
-"Last-Translator: Nicolás Tamargo <reosarevok@gmail.com>, 2022-2023\n"
+"Last-Translator: yvanz, 2016-2023\n"
 "Language-Team: French (http://app.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -2716,7 +2716,7 @@ msgstr "Ceci relie des artistes qui étaient mariés."
 msgid ""
 "This links different revisions of the same <a href=\"/doc/Work\" "
 "title=\"Work\">work</a>."
-msgstr "Ceci relie différentes révisions de la même <a href=\"/doc/Work\" title=\"œuvre\">work</a>."
+msgstr "Ceci relie différentes révisions de la même <a href=\"/doc/Work\" title=\"Œuvre\">œuvre</a>."
 
 #: DB:link_type/description:212
 msgid "This links to a catalog or list of records published by the label."
@@ -2736,20 +2736,20 @@ msgstr "Ceci relie à un site présentant des informations relatives à l’hist
 msgid ""
 "This links two <a href=\"/doc/Work\" title=\"Work\">works</a> where one work"
 " is an arrangement of the other."
-msgstr "Ceci relie deux <a href=\"/doc/Work\" title=\"Work\">œuvres</a> dont l’une est un arrangement de l’autre."
+msgstr "Ceci relie deux <a href=\"/doc/Work\" title=\"Œuvre\">œuvres</a> dont l’une est un arrangement de l’autre."
 
 #: DB:link_type/description:316
 msgid ""
 "This links two <a href=\"/doc/Work\" title=\"Work\">works</a> where one work"
 " is an orchestration of the other."
-msgstr "Ceci relie deux <a href=\"/doc/Work\" title=\"Work\">œuvres</a> dont l’une est une orchestration de l’autre."
+msgstr "Ceci relie deux <a href=\"/doc/Work\" title=\"Œuvre\">œuvres</a> dont l’une est une orchestration de l’autre."
 
 #: DB:link_type/description:314
 msgid ""
 "This links two <a href=\"/doc/Work\" title=\"Work\">works</a>, where the "
 "second work is based on music or text from the first, but isn't directly a "
 "revision or an arrangement of it."
-msgstr "Ceci relie deux <a href=\"/doc/Work\" title=\"Work\">œuvres</a> dont la seconde est basée sur de la musique ou du texte de la première, mais n’est pas un révision directe ou un arrangement de celle-ci."
+msgstr "Ceci relie deux <a href=\"/doc/Work\" title=\"Œuvre\">œuvres</a> dont la seconde est basée sur de la musique ou du texte de la première, mais n’est pas un révision directe ou un arrangement de celle-ci."
 
 #: DB:link_type/description:6
 msgid ""
@@ -2767,7 +2767,7 @@ msgstr "Ceci relie deux personnes d’une fratrie (frères ou sœurs)."
 
 #: DB:link_type/description:241
 msgid "This links two versions of a <a href=\"/doc/Work\" title=\"Work\">work</a>."
-msgstr "Ceci relie deux versions d’une <a href=\"/doc/Work\" title=\"Work\">œuvre</a>."
+msgstr "Ceci relie deux versions d’une <a href=\"/doc/Work\" title=\"Œuvre\">œuvre</a>."
 
 #: DB:link_type/description:310
 msgid ""
@@ -3902,7 +3902,7 @@ msgstr "catalogue les œuvres de "
 
 #: DB:link_attribute_type/name:1223
 msgid "chamber music"
-msgstr ""
+msgstr "musique de chambre"
 
 #: DB:link_type/reverse_link_phrase:735
 msgid "child of"
@@ -4010,7 +4010,7 @@ msgstr "premier violon"
 msgid "conducting"
 msgstr "direction d’orchestre"
 
-#: DB:link_type/name:806 DB:link_type/name:46 DB:link_type/name:151
+#: DB:link_type/name:806 DB:link_type/name:151 DB:link_type/name:46
 msgid "conductor"
 msgstr "chef d’orchestre"
 
@@ -4052,7 +4052,7 @@ msgstr "contient des échantillons {additional:supplémentaires} de"
 
 #: DB:link_attribute_type/name:1227
 msgid "contemporary music"
-msgstr ""
+msgstr "musique contemporaine"
 
 #: DB:link_type/link_phrase:119 DB:link_type/name:119
 #: DB:link_type/reverse_link_phrase:119 DB:link_type/long_link_phrase:119
@@ -5748,7 +5748,7 @@ msgstr "relations musicales"
 
 #: DB:link_attribute_type/name:1221
 msgid "musical theatre"
-msgstr ""
+msgstr "théâtre musical"
 
 #: DB:link_attribute_type/name:1141
 msgid "musicology"
@@ -5818,7 +5818,7 @@ msgstr "données en ligne"
 
 #: DB:link_attribute_type/name:1220
 msgid "opera"
-msgstr ""
+msgstr "opéra"
 
 #: DB:link_attribute_type/name:1053
 msgid "optional"
@@ -7199,8 +7199,8 @@ msgstr "{additional:aussi} composé à"
 msgid "{additional:additionally} composed in"
 msgstr "{additional:aussi} composé en"
 
-#: DB:link_type/link_phrase:46 DB:link_type/link_phrase:151
-#: DB:link_type/long_link_phrase:46 DB:link_type/long_link_phrase:151
+#: DB:link_type/link_phrase:151 DB:link_type/link_phrase:46
+#: DB:link_type/long_link_phrase:151 DB:link_type/long_link_phrase:46
 msgid "{additional:additionally} conducted"
 msgstr "{additional:aussi} dirigé"
 
@@ -7435,7 +7435,7 @@ msgstr "compositeur {additional:supplémentaire}"
 msgid "{additional} composing location for"
 msgstr "lieu {additional:supplémentaire} de composition de"
 
-#: DB:link_type/reverse_link_phrase:46 DB:link_type/reverse_link_phrase:151
+#: DB:link_type/reverse_link_phrase:151 DB:link_type/reverse_link_phrase:46
 msgid "{additional} conductor"
 msgstr "chef d’orchestre {additional:supplémentaire}"
 

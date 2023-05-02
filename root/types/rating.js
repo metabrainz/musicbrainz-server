@@ -23,6 +23,15 @@ declare type RatableT =
   | ReleaseGroupT
   | WorkT;
 
+declare type RatableEntityTypeT =
+  | 'artist'
+  | 'event'
+  | 'label'
+  | 'place'
+  | 'recording'
+  | 'release_group'
+  | 'work';
+
 // MusicBrainz::Server::Entity::Rating::TO_JSON
 declare type RatingT = {
   +editor: EditorT,

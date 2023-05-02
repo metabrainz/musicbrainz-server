@@ -177,20 +177,35 @@ sub delete : Chained('load') RequireAuth(relationship_editor) SecureForm
         $c->detach;
     }
 
-    if ($c->form_posted_and_valid($form)) {
-        $c->model('MB')->with_transaction(sub {
-            $self->_insert_edit(
-                $c, $form,
-                edit_type => $EDIT_RELATIONSHIP_REMOVE_LINK_ATTRIBUTE,
-                name => $link_attr_type->name,
-                description => $link_attr_type->description,
-                parent_id => $link_attr_type->parent_id,
-                child_order => $link_attr_type->child_order,
-                id => $link_attr_type->id
-            );
-        });
+    $c->stash(
+        component_path  => 'relationship/linkattributetype/DeleteRelationshipAttributeType',
+        component_props => {
+            form => $form->TO_JSON,
+            type => $link_attr_type->TO_JSON,
+        },
+        current_view    => 'Node',
+    );
 
-        $c->response->redirect($c->uri_for_action('relationship/linkattributetype/list'));
+    if ($c->form_posted_and_valid($form)) {
+        if ($form->field('cancel')->input) {
+            # Do nothing
+        } else {
+            $c->model('MB')->with_transaction(sub {
+                $self->_insert_edit(
+                    $c, $form,
+                    edit_type => $EDIT_RELATIONSHIP_REMOVE_LINK_ATTRIBUTE,
+                    name => $link_attr_type->name,
+                    description => $link_attr_type->description,
+                    parent_id => $link_attr_type->parent_id,
+                    child_order => $link_attr_type->child_order,
+                    id => $link_attr_type->id
+                );
+            });
+        }
+
+        $c->response->redirect(
+            $c->uri_for_action('relationship/linkattributetype/list'),
+        );
         $c->detach;
     }
 }

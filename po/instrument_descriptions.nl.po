@@ -795,6 +795,14 @@ msgid ""
 "secondary and one drone string."
 msgstr "De rudra-vina wordt als de stamvader van alle Indiase snaarinstrumenten (vina) beschouwd. Het werd gebruikt bij rituelen en meditatie, Noord-Indiase raga en dhrupadmuziek. Het heeft twee resonatoren van gedroogde kalebas en een klankkast van bamboe, 24 houten fretten, 4 hoofdsnaren, 2 tot 3 secundaire snaren en een bourdonsnaar."
 
+#. name:washtub bass
+#: DB:instrument/description:96
+msgid ""
+"Consisting of a stick, a string and an resonator of various materials, it is"
+" used in many countries' low-cost and DIY cultures. It's technically a "
+"variable tension chordophone."
+msgstr ""
+
 #. name:bonang
 #: DB:instrument/description:969
 msgid ""
@@ -965,8 +973,8 @@ msgstr "De bulbul tarang is ontwikkeld uit de Japanse <a href=\"/instrument/1975
 #. name:biniou
 #: DB:instrument/description:1117
 msgid ""
-"Developed from the veuze and often accompanied with the bombard, the small "
-"high-pitched, singular octave bagpipe is used in Breton folk dancing."
+"Developed from the veuze and often accompanying the bombard, the small high-"
+"pitched, singular octave bagpipe is used in Breton folk dancing."
 msgstr ""
 
 #. name:pedal accordion
@@ -1007,6 +1015,13 @@ msgid ""
 " more like the oud. From ancient Greece, it was used as an accompaniment to "
 "Cretan Lyra"
 msgstr "De laouto verschilt van andere luiten door de hogere snaarspanning, waardoor het instrument meer als een oed klinkt. Het wordt vaak bespeeld in combinatie met een Kretenzische lier."
+
+#. name:frottoir
+#: DB:instrument/description:368
+msgid ""
+"Dispenses with the frame altogether, and is worn as a vest, it is played "
+"with spoons or bottle openers."
+msgstr ""
 
 #. name:craviola
 #: DB:instrument/description:779
@@ -2077,6 +2092,11 @@ msgstr "De gemshoorn stamt uit de middeleeuwen of eerder en werd vroeger gemaakt
 #: DB:instrument/description:703
 msgid "Member of the xylophone family, it has 5 octaves."
 msgstr "De xylorimba is een xylofoon met vijf octaven."
+
+#. name:cowbell
+#: DB:instrument/description:158
+msgid "Metal bell used in various genres, it is often attached to drum kit"
+msgstr ""
 
 #. name:Mexican vihuela
 #: DB:instrument/description:92
@@ -4583,6 +4603,11 @@ msgid ""
 "neck and thinner ribs than the cello."
 msgstr "Een tenoorviool is een octaaf lager gestemd dan een traditionele viool en is ongeveer half zo groot als een cello. Het bereik zit tussen een cello en een altviool in."
 
+#. name:triangle
+#: DB:instrument/description:106
+msgid "Tuned metal bar, bent into triangle shape."
+msgstr ""
+
 #. name:alto violin
 #: DB:instrument/description:174
 msgid ""
@@ -4612,6 +4637,14 @@ msgid ""
 " chanting and singing, the other is used for tapping and scraping, creating "
 "rhythm."
 msgstr "De paakuru bestaat uit twee staven, waarvan er een in de mond wordt gehouden als klankkast tijdens het zingen, terwijl de andere staaf wordt gebruikt om met tikken en schrapen ritme te creëren."
+
+#. name:washboard
+#: DB:instrument/description:159
+msgid ""
+"Typical metal ribbed tool used for washing, still in it's wooden frame, "
+"often has is additional noisemakers attached, such as cowbell or woodblock. "
+"It is played with thimbles as plectrum."
+msgstr ""
 
 #. name:mandoguitar
 #: DB:instrument/description:836

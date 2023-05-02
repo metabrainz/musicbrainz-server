@@ -793,7 +793,13 @@ const UserProfileStatistics = ({
             {hasPublicTags ? (
               <>
                 <UserProfileProperty name={l('Tags upvoted')}>
-                  {$c.user && upvotedTagCount > 0 ? exp.l(
+                  {user.deleted ? (
+                    <abbr
+                      title={l('Tags are removed when an editor is deleted.')}
+                    >
+                      {lp('Deleted', 'tags')}
+                    </abbr>
+                  ) : $c.user && upvotedTagCount > 0 ? exp.l(
                     '{count} ({view_url|view})',
                     {
                       count: formatCount($c, upvotedTagCount),
@@ -803,7 +809,13 @@ const UserProfileStatistics = ({
                 </UserProfileProperty>
 
                 <UserProfileProperty name={l('Tags downvoted')}>
-                  {$c.user && downvotedTagCount > 0 ? exp.l(
+                  {user.deleted ? (
+                    <abbr
+                      title={l('Tags are removed when an editor is deleted.')}
+                    >
+                      {lp('Deleted', 'tags')}
+                    </abbr>
+                  ) : $c.user && downvotedTagCount > 0 ? exp.l(
                     '{count} ({view_url|view})',
                     {
                       count: formatCount($c, downvotedTagCount),
@@ -815,7 +827,16 @@ const UserProfileStatistics = ({
             ) : null}
             {hasPublicRatings ? (
               <UserProfileProperty name={l('Ratings')}>
-                {$c.user && ratingCount > 0 ? exp.l(
+                {user.deleted ? (
+                  <abbr
+                    title={
+                      l('Ratings are removed when an editor is deleted.')
+                    }
+                  >
+                    {lp('Deleted', 'ratings')}
+                  </abbr>
+
+                ) : $c.user && ratingCount > 0 ? exp.l(
                   '{count} ({view_url|view})',
                   {
                     count: formatCount($c, ratingCount),
