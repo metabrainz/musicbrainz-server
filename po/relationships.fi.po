@@ -3989,7 +3989,7 @@ msgstr "konserttimestari"
 msgid "conducting"
 msgstr ""
 
-#: DB:link_type/name:806 DB:link_type/name:46 DB:link_type/name:151
+#: DB:link_type/name:806 DB:link_type/name:151 DB:link_type/name:46
 msgid "conductor"
 msgstr ""
 
@@ -7178,8 +7178,8 @@ msgstr ""
 msgid "{additional:additionally} composed in"
 msgstr ""
 
-#: DB:link_type/link_phrase:46 DB:link_type/link_phrase:151
-#: DB:link_type/long_link_phrase:46 DB:link_type/long_link_phrase:151
+#: DB:link_type/link_phrase:151 DB:link_type/link_phrase:46
+#: DB:link_type/long_link_phrase:151 DB:link_type/long_link_phrase:46
 msgid "{additional:additionally} conducted"
 msgstr "johti {additional:lisä}kapellimestarina"
 
@@ -7414,7 +7414,7 @@ msgstr "{additional}säveltäjä"
 msgid "{additional} composing location for"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:46 DB:link_type/reverse_link_phrase:151
+#: DB:link_type/reverse_link_phrase:151 DB:link_type/reverse_link_phrase:46
 msgid "{additional} conductor"
 msgstr "{additional}kapellimestari"
 

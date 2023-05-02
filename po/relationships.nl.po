@@ -3987,7 +3987,7 @@ msgstr "concertmeester"
 msgid "conducting"
 msgstr "dirigeren"
 
-#: DB:link_type/name:806 DB:link_type/name:46 DB:link_type/name:151
+#: DB:link_type/name:806 DB:link_type/name:151 DB:link_type/name:46
 msgid "conductor"
 msgstr "dirigent"
 
@@ -7176,8 +7176,8 @@ msgstr "{additional:aanvullend} gecomponeerd bij"
 msgid "{additional:additionally} composed in"
 msgstr "{additional:aanvullend} gecomponeerd in"
 
-#: DB:link_type/link_phrase:46 DB:link_type/link_phrase:151
-#: DB:link_type/long_link_phrase:46 DB:link_type/long_link_phrase:151
+#: DB:link_type/link_phrase:151 DB:link_type/link_phrase:46
+#: DB:link_type/long_link_phrase:151 DB:link_type/long_link_phrase:46
 msgid "{additional:additionally} conducted"
 msgstr "dirigeerde {additional:aanvullend}"
 
@@ -7412,7 +7412,7 @@ msgstr "{additional:aanvullend} componist"
 msgid "{additional} composing location for"
 msgstr "hier {additional:aanvullend }gecomponeerd"
 
-#: DB:link_type/reverse_link_phrase:46 DB:link_type/reverse_link_phrase:151
+#: DB:link_type/reverse_link_phrase:151 DB:link_type/reverse_link_phrase:46
 msgid "{additional} conductor"
 msgstr "{additional:aanvullend} dirigent"
 

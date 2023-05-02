@@ -64,7 +64,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-12 17:24+0000\n"
+"POT-Creation-Date: 2023-04-25 21:38+0300\n"
 "PO-Revision-Date: 2011-01-30 16:57+0000\n"
 "Last-Translator: yvanz, 2016-2023\n"
 "Language-Team: French (http://app.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
@@ -107,7 +107,7 @@ msgid "\"YY\" is the last two digits of the year of registration."
 msgstr "« YY » sont les 2 derniers chiffres de l’année d’inscription."
 
 #: ../root/cdstub/cdstub.tt:4 ../root/release/edit/tracklist.tt:161
-#: ../root/release/edit/tracklist.tt:447 ../root/cdstub/CDStubInfo.js:26
+#: ../root/release/edit/tracklist.tt:451 ../root/cdstub/CDStubInfo.js:26
 #: ../root/cdtoc/AttachCDTocConfirmation.js:69
 #: ../root/edit/details/AddMedium.js:167
 #: ../root/edit/details/EditMedium.js:314
@@ -198,7 +198,7 @@ msgstr "<strong>Note :</strong> En musique classique, les {csg_recording_artist
 msgid "<strong>Warning</strong>:"
 msgstr "<strong>Attention</strong> :"
 
-#: ../root/cdtoc/lookup.tt:21
+#: ../root/cdtoc/lookup.tt:23
 msgid ""
 "A CD Stub was found that matches the disc ID you provided. If the below "
 "tracklist appears correct, you may use it as a starting point as a new "
@@ -210,13 +210,6 @@ msgid ""
 "A format is required. If you don’t know it, tick the “I don’t know” checkbox"
 " next to the format dropdown."
 msgstr "Un format est requis. Si vous ne le connaissez pas, cochez la case « Je ne sais pas » à côté de la liste déroulante pour le format."
-
-#: ../root/entity/collections.tt:18
-msgid "A private collection"
-msgid_plural "{n} private collections"
-msgstr[0] "Une collection privée"
-msgstr[1] "{n} collections privées"
-msgstr[2] "{n} collections privées"
 
 #: ../root/release/edit/information.tt:23
 msgid "A release title is required."
@@ -280,8 +273,8 @@ msgstr "Ajouter un instrument"
 msgid "Add Label"
 msgstr "Ajouter un label"
 
-#: ../root/release/edit/information.tt:209
-#: ../root/release/edit/information.tt:210
+#: ../root/release/edit/information.tt:213
+#: ../root/release/edit/information.tt:214
 #: ../root/layout/components/BottomMenu.js:248
 msgctxt "button/menu"
 msgid "Add Label"
@@ -301,8 +294,8 @@ msgctxt "header"
 msgid "Add Release"
 msgstr "Ajouter une parution"
 
-#: ../root/release/edit/information.tt:165
-#: ../root/release/edit/information.tt:166
+#: ../root/release/edit/information.tt:169
+#: ../root/release/edit/information.tt:170
 msgctxt "button/menu"
 msgid "Add Release Event"
 msgstr "Ajouter un événement de parution"
@@ -351,14 +344,14 @@ msgid "Add a new recording"
 msgstr "Ajouter un nouvel enregistrement"
 
 #: ../root/cdtoc/attach_artist_releases.tt:54
-#: ../root/cdtoc/attach_filter_artist.tt:50
-#: ../root/cdtoc/attach_filter_artist.tt:58
 #: ../root/cdtoc/attach_filter_release.tt:74
 #: ../root/cdtoc/attach_filter_release.tt:81
+#: ../root/cdtoc/SelectArtistForCDToc.js:110
+#: ../root/cdtoc/SelectArtistForCDToc.js:130
 msgid "Add a new release"
 msgstr "Ajouter une parution"
 
-#: ../root/release/edit/tracklist.tt:529
+#: ../root/release/edit/tracklist.tt:533
 msgid "Add track(s)"
 msgstr "Ajouter la-les piste(s)"
 
@@ -366,7 +359,7 @@ msgstr "Ajouter la-les piste(s)"
 msgid "Add {item}"
 msgstr "Ajouter {item}"
 
-#: ../root/release/edit/tracklist.tt:528
+#: ../root/release/edit/tracklist.tt:532
 msgid "Add {num} track(s)"
 msgstr "Ajouter {num} piste(s)"
 
@@ -374,7 +367,7 @@ msgstr "Ajouter {num} piste(s)"
 msgid "Added {add}, last modified {lastmod}"
 msgstr "Ajouté le {add}, modifié le {lastmod}"
 
-#: ../root/release/edit/information.tt:241
+#: ../root/release/edit/information.tt:245
 msgid "Additional information"
 msgstr "Informations supplémentaires"
 
@@ -412,7 +405,7 @@ msgstr "Une entité portant ce nom ou avec cette désambiguïsation existe déj�
 msgid "An error occurred: "
 msgstr "Une erreur est survenue : "
 
-#: ../root/release/edit/information.tt:245
+#: ../root/release/edit/information.tt:249
 msgid "Annotation:"
 msgstr "Annotation :"
 
@@ -436,23 +429,7 @@ msgstr "Êtes-vous certain de vouloir supprimer toutes les informations sur {e}�
 msgid "Are you sure you want to delete your account? This cannot be undone!"
 msgstr "Êtes-vous certain de vouloir supprimer votre compte ? Ceci ne peut pas être annulé !"
 
-#: ../root/relationship/linkattributetype/delete.tt:6
-msgid ""
-"Are you sure you wish to remove the <strong>{link_attr_type}</strong> "
-"relationship attribute?"
-msgstr "Êtes-vous certain de vouloir supprimer l’attribut de relation <strong>{link_attr_type}</strong> ?"
-
-#: ../root/relationship/linktype/delete.tt:6
-msgid ""
-"Are you sure you wish to remove the <strong>{link_type}</strong> "
-"relationship type?"
-msgstr "Êtes-vous certain de vouloir supprimer le type de relation <strong>{link_type}</strong> ?"
-
-#: ../root/admin/attributes/delete.tt:6
-msgid "Are you sure you wish to remove the <strong>{name}</strong> attribute?"
-msgstr "Êtes-vous certain de vouloir supprimer l’attribut <strong>{name}</strong> ?"
-
-#: ../root/components/forms.tt:383
+#: ../root/components/forms.tt:383 ../root/components/EntityDeletionHelp.js:24
 msgid "Are you sure you wish to remove {entity} from MusicBrainz?"
 msgstr "Êtes-vous certain de vouloir supprimer {entity} de MusicBrainz ?"
 
@@ -492,12 +469,13 @@ msgstr "Région :"
 
 #: ../root/cdstub/browse.tt:9 ../root/cdstub/cdstub.tt:7
 #: ../root/cdtoc/attach_filter_release.tt:29 ../root/cdtoc/list.tt:8
-#: ../root/cdtoc/lookup.tt:41 ../root/edit/search_macros.tt:423
-#: ../root/release/edit/tracklist.tt:163 ../root/release/edit/tracklist.tt:449
+#: ../root/cdtoc/lookup.tt:43 ../root/edit/search_macros.tt:423
+#: ../root/release/edit/tracklist.tt:163 ../root/release/edit/tracklist.tt:453
 #: ../root/watch/list.tt:16 ../lib/MusicBrainz/Server/Edit/Artist.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:38
 #: ../root/cdstub/CDStubInfo.js:28 ../root/cdstub/ImportCDStub.js:45
 #: ../root/cdtoc/AttachCDTocConfirmation.js:71
+#: ../root/cdtoc/SelectArtistForCDToc.js:43
 #: ../root/components/RelationshipsTable.js:336
 #: ../root/components/list/ArtistList.js:68
 #: ../root/components/list/RecordingList.js:106
@@ -553,16 +531,12 @@ msgstr "Région de l’artiste"
 msgid "Artist Details"
 msgstr "Détails de l’artiste"
 
-#: ../root/user/ratings.tt:2 ../root/user/ratings_summary.tt:3
-msgid "Artist ratings"
-msgstr "Évaluations de l’artiste"
-
 #: ../root/cdstub/edit_form.tt:19
 msgid "Artist {n}:"
 msgstr "Artiste {n} :"
 
-#: ../root/cdstub/edit_form.tt:6 ../root/cdtoc/attach_filter_artist.tt:8
-#: ../root/cdtoc/lookup.tt:74 ../root/release/edit/information.tt:26
+#: ../root/cdstub/edit_form.tt:6 ../root/cdtoc/lookup.tt:76
+#: ../root/release/edit/information.tt:26
 #: ../root/release/edit/tracklist.tt:110
 #: ../root/release_group/set_cover_art.tt:32
 #: ../root/edit/details/historic/ChangeArtistQuality.js:24
@@ -583,17 +557,16 @@ msgstr "Attacher une TOC (table des matières) de CD"
 
 #: ../root/cdtoc/attach_artist_releases.tt:3
 #: ../root/cdtoc/attach_artist_releases.tt:4
-#: ../root/cdtoc/attach_filter_artist.tt:1
-#: ../root/cdtoc/attach_filter_artist.tt:2
 #: ../root/cdtoc/attach_filter_release.tt:3
 #: ../root/cdtoc/attach_filter_release.tt:4
 #: ../root/cdtoc/AttachCDTocConfirmation.js:48
 #: ../root/cdtoc/AttachCDTocConfirmation.js:49
+#: ../root/cdtoc/SelectArtistForCDToc.js:32
 msgctxt "header"
 msgid "Attach CD TOC"
 msgstr "Attacher une TOC (table des matières) de CD"
 
-#: ../root/cdtoc/lookup.tt:65 ../root/release/edit/tracklist.tt:474
+#: ../root/cdtoc/lookup.tt:67 ../root/release/edit/tracklist.tt:478
 msgid "Attach Disc ID"
 msgstr "Rattacher un ID de disque"
 
@@ -619,7 +592,7 @@ msgstr "Éditeur de messages de bannière"
 
 #: ../root/cdtoc/attach_artist_releases.tt:19
 #: ../root/cdtoc/attach_filter_release.tt:33 ../root/cdtoc/list.tt:13
-#: ../root/cdtoc/lookup.tt:46 ../root/release/edit/duplicates.tt:17
+#: ../root/cdtoc/lookup.tt:48 ../root/release/edit/duplicates.tt:17
 #: ../root/components/list/ReleaseList.js:139
 #: ../root/edit/details/AddRelease.js:112
 #: ../root/edit/details/EditBarcodes.js:45
@@ -636,14 +609,14 @@ msgstr "Éditeur de messages de bannière"
 msgid "Barcode"
 msgstr "Code-barres"
 
-#: ../root/cdstub/edit_form.tt:7 ../root/release/edit/information.tt:216
+#: ../root/cdstub/edit_form.tt:7 ../root/release/edit/information.tt:220
 #: ../root/release_group/set_cover_art.tt:62
 #: ../root/layout/components/sidebar/CDStubSidebar.js:75
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:126
 msgid "Barcode:"
 msgstr "Code-barres :"
 
-#: ../root/cdtoc/lookup.tt:32
+#: ../root/cdtoc/lookup.tt:34
 msgid ""
 "Based on the above CD stub, we also found the following releases in "
 "MusicBrainz that may be related:"
@@ -656,7 +629,7 @@ msgid ""
 "release on an existing release, select it below."
 msgstr "Sur la base des informations que vous nous avez fourni, nous avons trouvé une parution similaire qui existe déjà dans MusicBrainz. Si vous souhaitez baser votre parution sur une parution existante, choisissez-là ci-dessous."
 
-#: ../root/cdtoc/lookup.tt:103
+#: ../root/cdtoc/lookup.tt:105
 msgid ""
 "Become part of MusicBrainz by creating an account and {how|reading up on our"
 " process} for submitting information to MusicBrainz. Find out how we peer "
@@ -720,11 +693,11 @@ msgstr "Gestionnaire  de bogues"
 msgid "By default, the parser expects the following format:"
 msgstr "Par défaut, le parseur s’attend au format suivant :"
 
-#: ../root/cdtoc/lookup.tt:96
+#: ../root/cdtoc/lookup.tt:98
 msgid "CD Not Found"
 msgstr "CD introuvable"
 
-#: ../root/cdtoc/lookup.tt:20
+#: ../root/cdtoc/lookup.tt:22
 msgid "CD Stub found"
 msgstr "Ébauche de CD trouvée"
 
@@ -786,13 +759,13 @@ msgstr "Captcha incorrect. Essayer de nouveau."
 msgid "Cardinality of {entity_placeholder}"
 msgstr "Cardinalité de {entity_placeholder}"
 
-#: ../root/release/edit/information.tt:188
+#: ../root/release/edit/information.tt:192
 msgid "Cat. No:"
 msgstr "Cat. no :"
 
 #: ../root/cdtoc/attach_artist_releases.tt:18
 #: ../root/cdtoc/attach_filter_release.tt:32 ../root/cdtoc/list.tt:12
-#: ../root/cdtoc/lookup.tt:45 ../root/release/edit/duplicates.tt:16
+#: ../root/cdtoc/lookup.tt:47 ../root/release/edit/duplicates.tt:16
 #: ../root/edit/details/MergeReleases.js:241
 #: ../root/recording/RecordingIndex.js:62
 #: ../root/release_group/ReleaseGroupIndex.js:173
@@ -812,14 +785,8 @@ msgstr "No dans le catalogue :"
 msgid "Change Password"
 msgstr "Changer de mot de passe"
 
-#: ../root/release/change_quality.tt:1 ../root/release/change_quality.tt:2
-#: ../lib/MusicBrainz/Server/Edit/Historic/ChangeReleaseQuality.pm:13
-#: ../lib/MusicBrainz/Server/Edit/Release/ChangeQuality.pm:25
-msgid "Change release data quality"
-msgstr "Changer la qualité des données de parution"
-
 #: ../root/admin/attributes/form.tt:53
-#: ../root/admin/attributes/Attribute.js:98
+#: ../root/admin/attributes/Attribute.js:81
 #: ../root/edit/details/AddRelationshipAttribute.js:50
 #: ../root/edit/details/EditRelationshipAttribute.js:93
 msgid "Child order"
@@ -838,12 +805,6 @@ msgstr "Ordre des enfants :"
 msgid "Click Edit to edit the recording associations for this disc."
 msgstr "Cliquez sur Modifier pour modifier l’association des enregistrements de ce disque."
 
-#: ../root/cdtoc/attach_filter_artist.tt:21
-msgid ""
-"Click the radio button to select the appropriate artist, or click the "
-"artist’s name to get more info."
-msgstr "Cliquez sur le bouton radio pour sélectionner l’artiste correspondant, ou cliquez sur le nom de l’artiste pour avoir plus d’informations."
-
 #: ../root/release/edit/tracklist.tt:237 ../root/release/edit/tracklist.tt:266
 msgid "Close"
 msgstr "Fermer"
@@ -859,14 +820,6 @@ msgstr "Collaborateurs pour cet artiste"
 #: ../root/release/edit/tracklist.tt:301
 msgid "Collapse medium"
 msgstr "Réduire le support"
-
-#: ../root/entity/collections.tt:1 ../root/entity/collections.tt:2
-#: ../root/components/UserAccountTabs.js:57
-#: ../root/layout/components/sidebar/CollectionLinks.js:50
-#: ../root/static/scripts/common/utility/formatEntityTypeName.js:17
-#: ../root/user/UserCollections.js:180
-msgid "Collections"
-msgstr "Collections"
 
 #: ../root/cdstub/index.tt:3 ../root/cdstub/CDStubIndex.js:36
 msgid "Comment"
@@ -906,17 +859,17 @@ msgstr "Copier tous les titres de pistes vers les enregistrements associés."
 msgid "Copy name"
 msgstr "Copier le nom"
 
-#: ../root/release/edit/information.tt:79
+#: ../root/release/edit/information.tt:83
 msgid "Copy the release artist credit to the release group"
 msgstr "Copier les crédits de l’artiste de parution vers le groupe de parution"
 
-#: ../root/release/edit/information.tt:64
+#: ../root/release/edit/information.tt:68
 msgid "Copy the release title to the release group"
 msgstr "Copier le titre de parution vers le groupe de parution"
 
 #: ../root/cdtoc/attach_artist_releases.tt:16
 #: ../root/cdtoc/attach_filter_release.tt:30 ../root/cdtoc/list.tt:10
-#: ../root/cdtoc/lookup.tt:43 ../root/release/edit/duplicates.tt:14
+#: ../root/cdtoc/lookup.tt:45 ../root/release/edit/duplicates.tt:14
 #: ../root/edit/details/EditReleaseLabel.js:113
 #: ../root/edit/details/MergeReleases.js:239
 #: ../root/edit/details/historic/AddRelease.js:122
@@ -929,7 +882,7 @@ msgstr "Copier le titre de parution vers le groupe de parution"
 msgid "Country"
 msgstr "Pays"
 
-#: ../root/release/edit/information.tt:150
+#: ../root/release/edit/information.tt:154
 #: ../root/release_group/set_cover_art.tt:41
 msgid "Country:"
 msgstr "Pays : "
@@ -960,21 +913,13 @@ msgstr "Modification en cours de création..."
 msgid "Custom delimiter"
 msgstr "Délimiteur personnalisé"
 
-#: ../root/release/edit/information.tt:142
+#: ../root/release/edit/information.tt:146
 #: ../lib/MusicBrainz/Server/Plugin/FormRenderer.pm:253
 #: ../root/static/scripts/edit/components/PartialDateInput.js:186
 msgid "DD"
 msgstr "JJ"
 
-#: ../root/release/change_quality.tt:5
-#: ../root/edit/details/ChangeReleaseQuality.js:30
-#: ../root/edit/details/historic/ChangeArtistQuality.js:30
-#: ../root/edit/details/historic/ChangeReleaseQuality.js:40
-#: ../root/layout/components/sidebar/SidebarDataQuality.js:36
-msgid "Data Quality"
-msgstr "Qualité des données"
-
-#: ../root/medium/tracklist.tt:37 ../root/release/edit/tracklist.tt:462
+#: ../root/medium/tracklist.tt:37 ../root/release/edit/tracklist.tt:466
 #: ../root/medium/MediumTracklist.js:53
 #: ../root/static/scripts/release/components/MediumTable.js:128
 msgid "Data Tracks"
@@ -982,7 +927,7 @@ msgstr "Pistes de données"
 
 #: ../root/cdtoc/attach_artist_releases.tt:16
 #: ../root/cdtoc/attach_filter_release.tt:30 ../root/cdtoc/list.tt:10
-#: ../root/cdtoc/lookup.tt:42 ../root/release/edit/duplicates.tt:13
+#: ../root/cdtoc/lookup.tt:44 ../root/release/edit/duplicates.tt:13
 #: ../root/admin/statistics-events/DeleteStatisticsEvent.js:25
 #: ../root/admin/statistics-events/StatisticsEventEditForm.js:30
 #: ../root/admin/statistics-events/StatisticsEventIndex.js:26
@@ -1009,7 +954,7 @@ msgstr "Date"
 msgid "Date Period"
 msgstr "Période de dates"
 
-#: ../root/release/edit/information.tt:124
+#: ../root/release/edit/information.tt:128
 #: ../root/release_group/set_cover_art.tt:37
 #: ../root/layout/components/sidebar/EventSidebar.js:59
 msgid "Date:"
@@ -1044,7 +989,7 @@ msgid "Delete {e}"
 msgstr "Supprimer {e}"
 
 #: ../root/admin/attributes/form.tt:61 ../root/doc/edit_type.tt:23
-#: ../root/admin/attributes/Attribute.js:97
+#: ../root/admin/attributes/Attribute.js:80
 #: ../root/admin/statistics-events/DeleteStatisticsEvent.js:33
 #: ../root/admin/statistics-events/StatisticsEventEditForm.js:42
 #: ../root/admin/statistics-events/StatisticsEventIndex.js:28
@@ -1085,7 +1030,7 @@ msgstr "Détails"
 #: ../root/area/edit_form.tt:10 ../root/artist/edit_form.tt:14
 #: ../root/event/edit_form.tt:13 ../root/instrument/edit_form.tt:10
 #: ../root/label/edit_form.tt:13 ../root/place/edit_form.tt:13
-#: ../root/recording/edit_form.tt:33 ../root/release/edit/information.tt:252
+#: ../root/recording/edit_form.tt:33 ../root/release/edit/information.tt:256
 #: ../root/release_group/edit_form.tt:15 ../root/series/edit_form.tt:13
 #: ../root/work/edit_form.tt:13 ../root/edit/details/AddArea.js:54
 #: ../root/edit/details/AddArtist.js:62 ../root/edit/details/AddEvent.js:44
@@ -1164,7 +1109,7 @@ msgstr "Chaque piste de la base de données de MusicBrainz doit être reliée à
 #: ../root/release/edit/recordings.tt:73
 #: ../root/release/edit/recordings.tt:109
 #: ../root/account/applications/Index.js:37
-#: ../root/admin/attributes/Attribute.js:117
+#: ../root/admin/attributes/Attribute.js:100
 #: ../root/admin/attributes/Language.js:64
 #: ../root/admin/attributes/Script.js:61
 #: ../root/admin/statistics-events/StatisticsEventIndex.js:45
@@ -1237,7 +1182,7 @@ msgid "Edit note:"
 msgstr "Note de modification :"
 
 #: ../root/admin/edit_user.tt:16 ../root/admin/PrivilegeSearch.js:107
-#: ../root/user/UserProfile.js:869
+#: ../root/user/UserProfile.js:890
 msgid "Edit notes disabled"
 msgstr "Notes de modification désactivées"
 
@@ -1254,7 +1199,7 @@ msgid "Edited entity"
 msgstr "Entité modifiée"
 
 #: ../root/admin/edit_user.tt:15 ../root/admin/PrivilegeSearch.js:102
-#: ../root/user/UserProfile.js:866
+#: ../root/user/UserProfile.js:887
 msgid "Editing/voting disabled"
 msgstr "Édition / vote désactivés"
 
@@ -1336,7 +1281,7 @@ msgid ""
 msgstr "Il est fortement recommandé de saisir une {note|note de modification} décrivant où vous avez eu vos informations. Non seulement cela clarifie la provenance de vos informations, mais cela peut encourager les autres à voter pour votre modification &#x2014; ainsi votre modification sera appliquée plus rapidement."
 
 #: ../root/admin/attributes/form.tt:37
-#: ../root/admin/attributes/Attribute.js:53
+#: ../root/admin/attributes/Attribute.js:36
 msgid "Entity type"
 msgstr "Type d’entité"
 
@@ -1363,10 +1308,6 @@ msgstr "Événement"
 msgid "Event Details"
 msgstr "Détails de l’événement"
 
-#: ../root/user/ratings.tt:2 ../root/user/ratings_summary.tt:3
-msgid "Event ratings"
-msgstr "Évaluations de l’événement"
-
 #: ../root/relationship/linktype/form.tt:71
 #: ../root/edit/details/EditRelationshipType.js:335
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:240
@@ -1392,7 +1333,7 @@ msgstr "Faire expirer l’action"
 #: ../root/area/edit_form.tt:22 ../root/artist/edit_form.tt:70
 #: ../root/event/edit_form.tt:46 ../root/instrument/edit_form.tt:32
 #: ../root/label/edit_form.tt:41 ../root/place/edit_form.tt:37
-#: ../root/recording/edit_form.tt:51 ../root/release/edit/information.tt:262
+#: ../root/recording/edit_form.tt:51 ../root/release/edit/information.tt:266
 #: ../root/release_group/edit_form.tt:23 ../root/series/edit_form.tt:26
 #: ../root/work/edit_form.tt:90
 #: ../root/static/scripts/genre/components/GenreEditForm.js:160
@@ -1526,7 +1467,7 @@ msgid "Genre"
 msgstr "Genre"
 
 #: ../root/components/forms.tt:228 ../root/release/edit/information.tt:14
-#: ../root/release/edit/tracklist.tt:523
+#: ../root/release/edit/tracklist.tt:527
 #: ../root/static/scripts/edit/components/FormRowNameWithGuessCase.js:153
 msgid "Guess case"
 msgstr "Deviner la casse"
@@ -1561,7 +1502,7 @@ msgstr "Deviner la casse de la piste"
 msgid "Guess feat. artists"
 msgstr "Deviner les artistes invités"
 
-#: ../root/release/edit/tracklist.tt:524
+#: ../root/release/edit/tracklist.tt:528
 msgid "Guess feat. artists from track titles"
 msgstr "Deviner les artistes invités à partir des titres de piste"
 
@@ -1599,7 +1540,7 @@ msgstr "« Masquée » devrait être utilisé pour les langues des signes et l
 msgid "Historic"
 msgstr "Historique"
 
-#: ../root/release/edit/information.tt:321
+#: ../root/release/edit/information.tt:325
 msgid "I confirm that this is the barcode as it appears on the release."
 msgstr "Je confirme que c’est le code-barres comme l est sur la parution."
 
@@ -1623,7 +1564,7 @@ msgstr "Je ne connais pas la liste des pistes pour ce support."
 msgid "I have no information about this release’s media and tracklist."
 msgstr "Je n’ai aucune information à propos des supports et des pistes."
 
-#: ../root/edit/search_macros.tt:423 ../root/admin/attributes/Attribute.js:95
+#: ../root/edit/search_macros.tt:423 ../root/admin/attributes/Attribute.js:78
 #: ../root/admin/attributes/Language.js:39
 #: ../root/admin/attributes/Script.js:40
 msgid "ID"
@@ -1744,7 +1685,7 @@ msgstr "ISWC"
 msgid "ISWCs:"
 msgstr "ISWC :"
 
-#: ../root/components/forms.tt:386
+#: ../root/components/forms.tt:386 ../root/components/EntityDeletionHelp.js:30
 msgid ""
 "If it’s a duplicate, {doc_merge|you should probably merge it instead}. If it"
 " just has some small errors, it’s usually better to just fix those."
@@ -1763,7 +1704,7 @@ msgid ""
 "for this release."
 msgstr "Si les titres/artistes des {recording_doc|enregistrements} listés ci-dessus sont incorrects, vous pouvez cochez les cases ci-dessous pour les remplacer tous par les titres/artistes des pistes de cette parution."
 
-#: ../root/release/edit/information.tt:294
+#: ../root/release/edit/information.tt:298
 msgid ""
 "If this is an Amazon ASIN, please do not enter it in the catalog number "
 "field, but add it as a URL relationship later."
@@ -1779,18 +1720,11 @@ msgstr "Si l’enregistrement de cette piste n’est pas déjà dans la base de 
 msgid "If you can't find what you're looking for, you can add a new release:"
 msgstr "Si vous ne trouvez pas ce que vous cherchez, vous pouvez créer une nouvelle parution :"
 
-#: ../root/release/edit/information.tt:312
+#: ../root/release/edit/information.tt:316
 msgid ""
 "If you do not know whether the release has a barcode or not, just leave this"
 " blank."
 msgstr "Si vous ne savez pas si cette parution a un code-barres ou pas, laissez ce champ vide."
-
-#: ../root/cdtoc/attach_filter_artist.tt:51
-msgid ""
-"If you don't see the artist you are looking for, you can still add a new "
-"release. This will allow you to create this artist and a release at the same"
-" time"
-msgstr "Si vous ne voyez pas l’artiste que vous cherchez, vous pouvez créer une nouvelle parution. Cela vous permettra de créer l’artiste et la parution en même temps"
 
 #: ../root/cdtoc/attach_filter_release.tt:75
 msgid ""
@@ -1803,7 +1737,7 @@ msgid ""
 "If you don’t know the code for this entity, just leave the field blank."
 msgstr "Si vous ne connaissez pas le code pour cette entité, laissez ce champ vide."
 
-#: ../root/release/edit/information.tt:50
+#: ../root/release/edit/information.tt:54
 msgid ""
 "If you don’t select an existing release group, a new one will be created "
 "with the types selected below."
@@ -1852,7 +1786,7 @@ msgstr "Si vous êtes sûrs que l’utilisation de « Various Artists » est c
 msgid "Image not available, please try again later."
 msgstr "Image non disponible, veuillez réessayer plus tard."
 
-#: ../root/cdtoc/lookup.tt:27 ../root/cdstub/ImportCDStub.js:36
+#: ../root/cdtoc/lookup.tt:29 ../root/cdstub/ImportCDStub.js:36
 msgid "Import CD Stub"
 msgstr "Importer une ébauche de CD"
 
@@ -1895,14 +1829,14 @@ msgid ""
 " new recording instead."
 msgstr "Gardez à l’esprit que les durées d’un enregistrement sont {doc_link|recalculées à partir des pistes} lorsque la durée d’une piste change. Donc si vous corrigez la durée d’une piste dont l’enregistrement apparaît uniquement dans cette parution, réutilisez simplement le même enregistrement, n’en créez pas un nouveau. Si l’enregistrement apparaît également par ailleurs et les durées sont significativement différentes, veuillez créer un nouvel enregistrement à la place."
 
-#: ../root/release/edit/tracklist.tt:498
+#: ../root/release/edit/tracklist.tt:502
 msgid ""
 "Keep in mind that unselecting this will delete the track if the medium has a"
 " disc ID! If you unselect it by mistake, please readd the pregap track "
 "before submitting."
 msgstr "Gardez à l’esprit que déselectionner ceci effacera la piste si le support a un ID de disque ! Si vous la déselectionnez par erreur, merci d’ajouter à nouveau la piste de prégap avant de soumettre."
 
-#: ../root/release/edit/tracklist.tt:513
+#: ../root/release/edit/tracklist.tt:517
 msgid ""
 "Keep in mind that unselecting this will delete the tracks if the medium has "
 "a disc ID! If you unselect it by mistake, please readd the data tracks "
@@ -1917,7 +1851,7 @@ msgstr "Gardez à l’esprit que ce processus peut prendre un certain temps si v
 
 #: ../root/cdtoc/attach_artist_releases.tt:17
 #: ../root/cdtoc/attach_filter_release.tt:31 ../root/cdtoc/list.tt:11
-#: ../root/cdtoc/lookup.tt:44 ../root/edit/search_macros.tt:423
+#: ../root/cdtoc/lookup.tt:46 ../root/edit/search_macros.tt:423
 #: ../root/release/edit/duplicates.tt:15
 #: ../lib/MusicBrainz/Server/Edit/Label.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:43
@@ -1955,18 +1889,14 @@ msgstr "Détails du label"
 msgid "Label code:"
 msgstr "Code du label :"
 
-#: ../root/user/ratings.tt:2 ../root/user/ratings_summary.tt:3
-msgid "Label ratings"
-msgstr "Évaluations des labels"
-
-#: ../root/release/edit/information.tt:173
+#: ../root/release/edit/information.tt:177
 #: ../root/release_group/set_cover_art.tt:52
 #: ../root/edit/details/AddReleaseLabel.js:35
 #: ../root/edit/details/RemoveReleaseLabel.js:31
 msgid "Label:"
 msgstr "Label :"
 
-#: ../root/release/edit/information.tt:110
+#: ../root/release/edit/information.tt:114
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:177
 msgid "Language:"
 msgstr "Langue :"
@@ -1976,7 +1906,7 @@ msgid "Last replication packet received at {datetime}"
 msgstr "Dernier paquet de réplication reçu à {datetime}"
 
 #: ../root/cdstub/cdstub.tt:9 ../root/release/discids.tt:10
-#: ../root/release/edit/tracklist.tt:164 ../root/release/edit/tracklist.tt:450
+#: ../root/release/edit/tracklist.tt:164 ../root/release/edit/tracklist.tt:454
 #: ../root/cdstub/CDStubInfo.js:29 ../root/cdtoc/AttachCDTocConfirmation.js:72
 #: ../root/cdtoc/CDTocInfo.js:54 ../root/components/RelationshipsTable.js:337
 #: ../root/components/list/RecordingList.js:115
@@ -2046,7 +1976,7 @@ msgstr "Recherche de CD"
 msgid "Lookup count"
 msgstr "Nombre de recherches"
 
-#: ../root/release/edit/information.tt:135
+#: ../root/release/edit/information.tt:139
 #: ../lib/MusicBrainz/Server/Plugin/FormRenderer.pm:252
 #: ../root/static/scripts/edit/components/PartialDateInput.js:174
 msgid "MM"
@@ -2061,11 +1991,11 @@ msgstr "Permettre de voter sur toutes les modifications."
 msgid "Manual entry"
 msgstr "Saisie manuelle"
 
-#: ../root/cdtoc/lookup.tt:6 ../root/cdtoc/lookup.tt:91
+#: ../root/cdtoc/lookup.tt:6 ../root/cdtoc/lookup.tt:93
 msgid "Matching CDs"
 msgstr "CDs Correspondants"
 
-#: ../root/cdtoc/lookup.tt:40 ../root/components/common-macros.tt:513
+#: ../root/cdtoc/lookup.tt:42 ../root/components/common-macros.tt:513
 #: ../lib/MusicBrainz/Server/Edit/Medium.pm:8
 #: ../root/cdtoc/AttachCDTocConfirmation.js:65
 #: ../root/cdtoc/SetTracklistDurations.js:56
@@ -2139,7 +2069,7 @@ msgid ""
 "else. For full details, please read our {doc|Privacy Policy}."
 msgstr "MusicBrainz croit fermement au respect de la vie privée de ses utilisateurs ! Aucune donnée personnelle que vous choisissez de fournir ne sera vendue ou partagée avec qui que ce soit. Pour plus d’informations, veuillez lire notre {doc|Politique de vie privée}."
 
-#: ../root/cdtoc/lookup.tt:97
+#: ../root/cdtoc/lookup.tt:99
 msgid "MusicBrainz does not have any CDs with the TOC:"
 msgstr "MusicBrainz n’a aucun CD avec la TOC (table des matières) :"
 
@@ -2151,7 +2081,7 @@ msgstr "MusicBrainz n’a qu’un seul type de compte pour tous les utilisateurs
 
 #: ../root/admin/attributes/form.tt:7 ../root/admin/attributes/form.tt:23
 #: ../root/admin/attributes/form.tt:58
-#: ../root/admin/attributes/Attribute.js:96
+#: ../root/admin/attributes/Attribute.js:79
 #: ../root/admin/attributes/Language.js:40
 #: ../root/admin/attributes/Script.js:41
 #: ../root/components/Aliases/ArtistCreditList.js:50
@@ -2272,10 +2202,6 @@ msgstr "Aucune description disponible."
 msgid "No nag"
 msgstr "Pas d’écran ennuyeux"
 
-#: ../root/user/ratings.tt:25
-msgid "No ratings."
-msgstr "Pas d’évaluation."
-
 #: ../root/release_group/set_cover_art.tt:96
 msgid "No releases have cover art marked as \"Front\", cannot set cover art."
 msgstr "Aucune parution n’a d’illustration indiquée comme « Face avant », l’illustration ne peut être assignée. "
@@ -2291,8 +2217,8 @@ msgstr "Aucun résultat"
 msgid "No results found."
 msgstr "Aucun résultat."
 
-#: ../root/cdtoc/attach_filter_artist.tt:44
 #: ../root/cdtoc/attach_filter_release.tt:61
+#: ../root/cdtoc/SelectArtistForCDToc.js:102
 #: ../root/search/components/PaginatedSearchResults.js:58
 msgid "No results found. Try refining your search query."
 msgstr "Aucun résultat de trouvé. Essayez en affinant votre requête de recherche."
@@ -2301,7 +2227,7 @@ msgstr "Aucun résultat de trouvé. Essayez en affinant votre requête de recher
 msgid "No vote"
 msgstr "Aucun vote"
 
-#: ../root/release/edit/tracklist.tt:440
+#: ../root/release/edit/tracklist.tt:444
 #: ../root/static/scripts/release-editor/fields.js:211
 msgid ""
 "None of the attached disc IDs can fit a pregap track of the given length."
@@ -2313,7 +2239,7 @@ msgid ""
 "because they have the wrong number of tracks."
 msgstr "Aucun des supports de cette parution ne peut être lié à cette TOC (table des matières) de CD, car ils n’ont pas le bon nombre de pistes."
 
-#: ../root/release/edit/information.tt:279
+#: ../root/release/edit/information.tt:283
 msgid ""
 "Note! If you do not know the month or day of release, please leave them "
 "empty.  January 1st is not often the actual release date, please double "
@@ -2365,7 +2291,7 @@ msgstr "Oops ! Il semble que vos paramètres de recherche sont incorrects, veui
 msgid "Options"
 msgstr "Options"
 
-#: ../root/cdtoc/lookup.tt:110
+#: ../root/cdtoc/lookup.tt:112
 msgid "Or..."
 msgstr "Ou..."
 
@@ -2390,7 +2316,7 @@ msgstr "Vue d’ensemble"
 msgid "PDF file"
 msgstr "Fichier PDF"
 
-#: ../root/release/edit/information.tt:234
+#: ../root/release/edit/information.tt:238
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:156
 msgid "Packaging:"
 msgstr "Emballage :"
@@ -2433,10 +2359,6 @@ msgstr "Lieu"
 msgid "Place Details"
 msgstr "Détails de lieu"
 
-#: ../root/user/ratings.tt:2 ../root/user/ratings_summary.tt:3
-msgid "Place ratings"
-msgstr "Évaluations des lieux"
-
 #: ../root/account/change_password.tt:3
 msgid ""
 "Please change your password. Unfortunately we've discovered that secure "
@@ -2451,13 +2373,13 @@ msgstr "Veuillez changer votre mot de passe. Nous avons malheureusement découve
 msgid "Please choose a condition"
 msgstr "Veuillez choisir une condition"
 
-#: ../root/cdtoc/lookup.tt:99
+#: ../root/cdtoc/lookup.tt:101
 msgid ""
 "Please consider adding this release/CD to MusicBrainz. To add this CD, "
 "please choose one of the following two methods:"
 msgstr "Veuillez penser à ajouter ce CD, cette parution, à MusicBrainz. Pour ajouter ce CD, veuillez utiliser l’une des deux méthodes ci-dessous :"
 
-#: ../root/release/edit/information.tt:308
+#: ../root/release/edit/information.tt:312
 msgid ""
 "Please enter the barcode of the release you are entering, see <a "
 "href=\"{url}\" target=\"_blank\">Barcode</a> for more information."
@@ -2505,7 +2427,7 @@ msgstr "Position"
 msgid "Position:"
 msgstr "Position :"
 
-#: ../root/cdtoc/lookup.tt:31
+#: ../root/cdtoc/lookup.tt:33
 msgid "Possible Mediums"
 msgstr "Supports possible"
 
@@ -2517,7 +2439,7 @@ msgstr "Supports possible"
 msgid "Previous"
 msgstr "Précédent"
 
-#: ../root/release/edit/information.tt:91
+#: ../root/release/edit/information.tt:95
 #: ../root/release_group/edit_form.tt:16
 #: ../root/edit/details/AddReleaseGroup.js:67
 #: ../root/edit/details/EditReleaseGroup.js:60
@@ -2539,13 +2461,6 @@ msgid_plural "Rate: {rating} stars"
 msgstr[0] "Évaluation : {rating} étoile"
 msgstr[1] "Évaluation : {rating} étoiles"
 msgstr[2] "Évaluation : {rating} étoiles"
-
-#: ../root/user/ratings_summary.tt:1 ../root/user/ratings_summary.tt:33
-#: ../root/components/EntityTabs.js:141
-#: ../root/components/UserAccountTabs.js:68 ../root/entity/Ratings.js:50
-#: ../root/user/UserProfile.js:817
-msgid "Ratings"
-msgstr "Évaluations"
 
 #: ../root/edit/search_macros.tt:423
 #: ../lib/MusicBrainz/Server/Edit/Recording.pm:7
@@ -2570,10 +2485,6 @@ msgstr "Enregistrement"
 #: ../root/recording/edit_form.tt:24
 msgid "Recording Details"
 msgstr "Détails de l’enregistrement"
-
-#: ../root/user/ratings.tt:2 ../root/user/ratings_summary.tt:3
-msgid "Recording ratings"
-msgstr "Évaluations d’enregistrement"
 
 #: ../root/recording/layout.tt:3 ../root/recording/RecordingLayout.js:40
 msgid "Recording “{name}” by {artist}"
@@ -2616,7 +2527,7 @@ msgid "Relationship editor"
 msgstr "Éditeur de relation"
 
 #: ../root/cdtoc/attach_artist_releases.tt:15
-#: ../root/cdtoc/attach_filter_release.tt:28 ../root/cdtoc/lookup.tt:39
+#: ../root/cdtoc/attach_filter_release.tt:28 ../root/cdtoc/lookup.tt:41
 #: ../root/edit/search_macros.tt:423 ../root/release/edit/duplicates.tt:10
 #: ../lib/MusicBrainz/Server/Edit/Release.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:40
@@ -2674,7 +2585,7 @@ msgstr "Groupe de parution"
 msgid "Release Group Details"
 msgstr "Détails du groupe de parution"
 
-#: ../root/release/edit/information.tt:33
+#: ../root/release/edit/information.tt:37
 msgid "Release Group:"
 msgstr "Groupe de parution :"
 
@@ -2695,14 +2606,10 @@ msgstr "Langue de parution"
 msgid "Release Quality"
 msgstr "Qualité de la parution"
 
-#: ../root/release/edit/information.tt:118
+#: ../root/release/edit/information.tt:122
 #: ../root/static/scripts/common/components/ReleaseEvents.js:34
 msgid "Release event"
 msgstr "Événement de parution"
-
-#: ../root/user/ratings.tt:2 ../root/user/ratings_summary.tt:3
-msgid "Release group ratings"
-msgstr "Évaluations des groupes de parution"
 
 #: ../root/release_group/layout.tt:1
 #: ../root/release_group/ReleaseGroupLayout.js:35
@@ -2714,7 +2621,7 @@ msgstr "Groupe de parution « {name} » par {artist}"
 msgid "Release information"
 msgstr "Informations de parution"
 
-#: ../root/cdtoc/attach_filter_release.tt:9 ../root/cdtoc/lookup.tt:84
+#: ../root/cdtoc/attach_filter_release.tt:9 ../root/cdtoc/lookup.tt:86
 #: ../root/cdtoc/move_search.tt:15
 msgid "Release title or MBID"
 msgstr "Titre de parution ou MBID"
@@ -2731,12 +2638,9 @@ msgstr "Parution « {name} » par {artist}"
 msgid "Release:"
 msgstr "Parution :"
 
-#: ../root/admin/attributes/delete.tt:13 ../root/cdtoc/list.tt:60
-#: ../root/relationship/linkattributetype/delete.tt:14
-#: ../root/relationship/linktype/delete.tt:14
-#: ../root/release/add_cover_art.tt:108 ../root/release/discids.tt:42
-#: ../root/account/applications/Index.js:41
-#: ../root/admin/attributes/Attribute.js:121
+#: ../root/cdtoc/list.tt:60 ../root/release/add_cover_art.tt:108
+#: ../root/release/discids.tt:42 ../root/account/applications/Index.js:41
+#: ../root/admin/attributes/Attribute.js:104
 #: ../root/admin/attributes/Language.js:68
 #: ../root/admin/attributes/Script.js:65
 #: ../root/admin/statistics-events/StatisticsEventIndex.js:49
@@ -2756,14 +2660,6 @@ msgstr "Parution :"
 msgid "Remove"
 msgstr "Enlever"
 
-#: ../root/area/delete.tt:1 ../root/area/delete.tt:2
-msgid "Remove Area"
-msgstr "Enlever la région"
-
-#: ../root/admin/attributes/delete.tt:1 ../root/admin/attributes/delete.tt:3
-msgid "Remove Attribute"
-msgstr "Enlever l’attribut"
-
 #: ../root/relationship/linktype/form.tt:81
 msgid "Remove Example"
 msgstr "Enlever l’exemple"
@@ -2772,7 +2668,7 @@ msgstr "Enlever l’exemple"
 msgid "Remove Instrument"
 msgstr "Enlever l’instrument"
 
-#: ../root/release/edit/information.tt:193
+#: ../root/release/edit/information.tt:197
 msgid "Remove Label"
 msgstr "Enlever le label"
 
@@ -2780,21 +2676,7 @@ msgstr "Enlever le label"
 msgid "Remove Recording"
 msgstr "Enlever l’enregistrement"
 
-#: ../root/relationship/linkattributetype/delete.tt:1
-#: ../root/relationship/linkattributetype/delete.tt:3
-msgid "Remove Relationship Attribute"
-msgstr "Enlever l’attribut de la relation"
-
-#: ../root/relationship/linktype/delete.tt:1
-#: ../root/relationship/linktype/delete.tt:3
-msgid "Remove Relationship Type"
-msgstr "Enlever le type de relation"
-
-#: ../root/release/delete.tt:1 ../root/release/delete.tt:2
-msgid "Remove Release"
-msgstr "Enlever la parution"
-
-#: ../root/release/edit/information.tt:153
+#: ../root/release/edit/information.tt:157
 msgid "Remove Release Event"
 msgstr "Enlever l’événement de parution"
 
@@ -2849,14 +2731,13 @@ msgstr "Demande une signature..."
 msgid "Reset Password"
 msgstr "Réinitialiser le mot de passe"
 
-#: ../root/release/edit/tracklist.tt:521
+#: ../root/release/edit/tracklist.tt:525
 msgid "Reset track numbers"
 msgstr "Réinitialiser les numéros de piste"
 
-#: ../root/cdtoc/attach_filter_artist.tt:19
-#: ../root/cdtoc/attach_filter_artist.tt:42
 #: ../root/cdtoc/attach_filter_release.tt:58 ../root/cdtoc/move_search.tt:25
-#: ../root/components/search.tt:19
+#: ../root/components/search.tt:19 ../root/cdtoc/SelectArtistForCDToc.js:63
+#: ../root/cdtoc/SelectArtistForCDToc.js:99
 msgid "Results:"
 msgstr "Résultats :"
 
@@ -2877,7 +2758,7 @@ msgstr "Montrer mon adresse courriel"
 msgid "Reverse link phrase:"
 msgstr "Phrase de liaison à l’envers : "
 
-#: ../root/release/edit/information.tt:301
+#: ../root/release/edit/information.tt:305
 msgid "Review the {packaging|list of packaging types} for help."
 msgstr "Consultez la {packaging|liste des types d’emballage}pour de l’aide."
 
@@ -2899,17 +2780,17 @@ msgstr "Running: <span class=\"tooltip\" title=\"{msg}\">{branch} ({sha})</span>
 msgid "Save"
 msgstr "Enregistrer"
 
-#: ../root/release/edit/information.tt:112
+#: ../root/release/edit/information.tt:116
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:186
 msgid "Script:"
 msgstr "Système d’écriture :"
 
-#: ../root/cdtoc/attach_filter_artist.tt:10
-#: ../root/cdtoc/attach_filter_release.tt:11 ../root/cdtoc/lookup.tt:76
-#: ../root/cdtoc/lookup.tt:86 ../root/cdtoc/move_search.tt:17
+#: ../root/cdtoc/attach_filter_release.tt:11 ../root/cdtoc/lookup.tt:78
+#: ../root/cdtoc/lookup.tt:88 ../root/cdtoc/move_search.tt:17
 #: ../root/components/search.tt:11 ../root/edit/search_macros.tt:114
 #: ../root/release/edit/tracklist.tt:117 ../root/admin/EmailSearch.js:75
 #: ../root/admin/PrivilegeSearch.js:146 ../root/cdstub/ImportCDStub.js:49
+#: ../root/cdtoc/SelectArtistForCDToc.js:47
 #: ../root/doc/components/DocSearchBox.js:22
 #: ../root/layout/components/BottomMenu.js:217
 #: ../root/layout/components/Search.js:94
@@ -2923,11 +2804,11 @@ msgstr "Système d’écriture :"
 msgid "Search"
 msgstr "Recherche"
 
-#: ../root/cdtoc/lookup.tt:70
+#: ../root/cdtoc/lookup.tt:72
 msgid "Search by artist"
 msgstr "Rechercher par artiste"
 
-#: ../root/cdtoc/lookup.tt:80
+#: ../root/cdtoc/lookup.tt:82
 msgid "Search by release"
 msgstr "Rechercher par parution"
 
@@ -2935,11 +2816,6 @@ msgstr "Rechercher par parution"
 #: ../root/edit/search_results.tt:3
 msgid "Search for Edits"
 msgstr "Rechercher des modifications"
-
-#: ../root/cdtoc/attach_filter_artist.tt:3
-#: ../root/static/scripts/common/components/Autocomplete2/constants.js:128
-msgid "Search for an artist"
-msgstr "Rechercher un artiste"
 
 #: ../root/release/edit/recordings.tt:163
 msgid "Search:"
@@ -2949,14 +2825,14 @@ msgstr "Recherche :"
 msgid "Searching..."
 msgstr "Recherche en cours..."
 
-#: ../root/release/edit/information.tt:94
+#: ../root/release/edit/information.tt:98
 #: ../root/release_group/edit_form.tt:17
 #: ../root/edit/details/AddReleaseGroup.js:80
 #: ../root/edit/details/EditReleaseGroup.js:79
 msgid "Secondary Types:"
 msgstr "Types secondaires :"
 
-#: ../root/cdtoc/attach_filter_artist.tt:38 ../root/cdtoc/move_search.tt:42
+#: ../root/cdtoc/move_search.tt:42 ../root/cdtoc/SelectArtistForCDToc.js:94
 msgid "Select"
 msgstr "Choisir"
 
@@ -3055,13 +2931,13 @@ msgstr "Parutions similaires"
 msgid "Skip verification"
 msgstr "Passer la vérification"
 
-#: ../root/release/edit/tracklist.tt:495
+#: ../root/release/edit/tracklist.tt:499
 msgid ""
 "Some discs contain a hidden track in the pregap section that precedes track "
 "1. Use this to add (or remove) the special pregap track section."
 msgstr "Certains disques contiennent une piste cachée dans la section prégap qui précède la piste 1. Utilisez ceci pour ajouter (ou enlever) la section spéciale de piste de prégap."
 
-#: ../root/release/edit/tracklist.tt:510
+#: ../root/release/edit/tracklist.tt:514
 msgid ""
 "Some discs contain one or more data tracks after all audio tracks. Use this "
 "to add (or remove) the special data tracks section. You should only add data"
@@ -3096,7 +2972,7 @@ msgctxt "edit status"
 msgid "Status"
 msgstr "Statut"
 
-#: ../root/release/edit/information.tt:107
+#: ../root/release/edit/information.tt:111
 msgid "Status:"
 msgstr "État :"
 
@@ -3115,12 +2991,12 @@ msgstr "Sujet :"
 #: ../root/cdstub/edit_form.tt:24
 #: ../root/admin/statistics-events/StatisticsEventEditForm.js:53
 #: ../root/oauth2/OAuth2FormPost.js:44
-#: ../root/static/scripts/edit/components/InlineSubmitButton.js:22
+#: ../root/static/scripts/edit/components/InlineSubmitButton.js:23
 #: ../root/user/components/UserTagFilters.js:61
 msgid "Submit"
 msgstr "Envoyer"
 
-#: ../root/cdtoc/lookup.tt:118
+#: ../root/cdtoc/lookup.tt:120
 msgid "Submit this CD using the simple method."
 msgstr "Envoyer ce CD avec la méthode simple."
 
@@ -3133,7 +3009,7 @@ msgstr "Envoi des modifications..."
 msgid "Suggested recordings:"
 msgstr "Enregistrements suggérés :"
 
-#: ../root/release/edit/tracklist.tt:522
+#: ../root/release/edit/tracklist.tt:526
 msgid "Swap track titles with artist credits"
 msgstr "Échanger les titres de piste avec le crédits d’artiste"
 
@@ -3158,11 +3034,11 @@ msgid ""
 "for this release is unlikely to work at the moment."
 msgstr "L’archive d’illustrations « Cover Art Archive » éprouve des difficultés. L’ajout d’images pour cette parution ne fonctionnera probablement pas pour l’instant."
 
-#: ../root/release/edit/information.tt:330
+#: ../root/release/edit/information.tt:334
 msgid "The annotation field functions like a miniature wiki."
 msgstr "Le champ d’annotation fonctionne comme un mini-wiki."
 
-#: ../root/release/edit/information.tt:291
+#: ../root/release/edit/information.tt:295
 msgid "The catalog number you have entered looks like an Amazon ASIN."
 msgstr "Le numéro de catalogue que vous avez saisi ressemble à un ASIN d’Amazon."
 
@@ -3176,11 +3052,11 @@ msgstr "Les données que vous avez envoyées sont identiques aux données déjà
 msgid "The data you’ve seeded contained the following errors:"
 msgstr "Les données que vous avez propagées contenaient les erreurs suivantes :"
 
-#: ../root/release/edit/information.tt:157
+#: ../root/release/edit/information.tt:161
 msgid "The date you've entered is not valid."
 msgstr "La date saisie est invalide."
 
-#: ../root/release/edit/information.tt:343
+#: ../root/release/edit/information.tt:347
 msgid ""
 "The disambiguation field is used to help users distinguish between "
 "identically named releases."
@@ -3192,7 +3068,7 @@ msgid ""
 " See the {doc_link|documentation} for more info about using the filters."
 msgstr "Les filtres ci-dessous vous permettent de restreindre les modifications recherchées selon des critères particuliers. Vour la {doc_link|documentation (en anglais)} pour plus d’information sur les filtres disponibles."
 
-#: ../root/release/edit/information.tt:333
+#: ../root/release/edit/information.tt:337
 msgid ""
 "The purpose of this field is to add information that usually doesn't fit "
 "into the strict structural data schema of MusicBrainz (be it due to "
@@ -3230,19 +3106,20 @@ msgstr "Le nom d’utilisateur que vous avez entré ressemble à une adresse de 
 msgid "The watch artist feature is currently not active."
 msgstr "La fonction de surveillance d’artiste n’est pas encore activée."
 
-#: ../root/components/forms.tt:201 ../root/release/edit/information.tt:158
+#: ../root/components/forms.tt:201 ../root/release/edit/information.tt:162
 #: ../root/static/scripts/edit/components/PartialDateInput.js:52
 msgid ""
 "The year should have four digits. If you want to enter a year earlier than "
 "1000 CE, please pad with zeros, such as “0123”."
 msgstr "L’année doit avoir quatre chiffres. Si vous voulez entrer une année l’an 1000 de notre ère, veuillez remplir avec des zéros devant, par exemple « 0123 »."
 
-#: ../root/cdtoc/lookup.tt:14
+#: ../root/cdtoc/lookup.tt:15
 msgid ""
 "There are currently no discs in MusicBrainz associated with the information "
-"you provided. You can search for the disc you are looking for using the "
-"forms below, or you may add a new release to MusicBrainz"
-msgstr "Il n’y a actuellement aucun disque dans MusicBrainz associé aux informations que vous avez saisies. Vous pouvez chercher ce disque à l’aide des formulaires ci-dessous, ou vous pouvez ajouter une nouvelle parution dans MusicBrainz."
+"you provided. You can search using the form below in order to attach this "
+"disc to another MusicBrainz release, or to add a new one if the search shows"
+" it is missing from the database."
+msgstr "Il n’y a actuellement aucun disque correspondant aux informations que vous avez cherché dans MusicBrainz. Vous pouvez chercher en utilisant le formulaire ci-dessous pour rattacher ce disque à une autre parution MusicBrainz, ou pour ajouter une nouvelle parution si elle manque dans la base de données."
 
 #: ../root/release/discids.tt:56
 msgid ""
@@ -3271,7 +3148,7 @@ msgstr "Ce CD possède des pistes de plus d’un artiste (p. ex. une compilation
 msgid "This CDTOC is already attached to this medium."
 msgstr "Cette TOC (table des matières) de CD est déjà liée à ce support."
 
-#: ../root/release/edit/information.tt:336
+#: ../root/release/edit/information.tt:340
 msgid ""
 "This annotation will be published under an open license (<a href=\"{url}\" "
 "target=\"_blank\">CC BY-NC-SA 3.0</a>) and as such, it should not contain "
@@ -3279,18 +3156,6 @@ msgid ""
 "can quote a source to support a point you're making, you should never enter "
 "promotional texts or other artist or label-owned texts into the annotation."
 msgstr "Cette annotation sera publiée sous les termes de la licence ouverte (<a href=\"{url}\" target=\"_blank\">CC BY-NC-SA 3.0</a>), et donc elle ne doit pas contenir de texte que vous ne seriez pas autorisé à diffuser avec cette licence. Vous pouvez bien sûr citer une source pour appuyer votre texte, mais vous ne devez jamais entrer de texte promotionnel ou tout autre texte appartenant à l’artiste ou au label dans cette annotation."
-
-#: ../root/area/delete.tt:5
-msgid ""
-"This area cannot be removed because it is one of the areas that can be used "
-"as a release country."
-msgstr "Cette région ne peut pas être enlevée car elle peut être utilisée comme pays de parution."
-
-#: ../root/area/delete.tt:16
-msgid ""
-"This area cannot be removed because it is still in use (in artists, labels, "
-"places, relationships or open edits)."
-msgstr "Cette région ne peut pas être enlevée car elle est utilisée (pour des artistes, labels, lieux relations, et/ou modifications en cours)."
 
 #: ../root/area/edit_form.tt:17
 msgid "This area has ended."
@@ -3318,11 +3183,11 @@ msgid ""
 "This beta test server allows testing of new features with the live database."
 msgstr "Ce serveur de test bêta permet de tester de nouvelles fonctions avec la base de données de production."
 
-#: ../root/release/edit/tracklist.tt:505
+#: ../root/release/edit/tracklist.tt:509
 msgid "This disc contains data tracks at the end"
 msgstr "Ce disque contient des pistes de données à la fin"
 
-#: ../root/release/edit/tracklist.tt:490
+#: ../root/release/edit/tracklist.tt:494
 msgid "This disc has a hidden pregap track before track 1"
 msgstr "Ce disque a une piste cachée de prégap avant la piste 1"
 
@@ -3340,7 +3205,7 @@ msgstr "Cette entité sera créée par cette modification."
 msgid "This event was cancelled."
 msgstr "Cet événement a été annulé."
 
-#: ../root/release/edit/information.tt:346
+#: ../root/release/edit/information.tt:350
 msgid ""
 "This field is not a place to store general background information about the "
 "release: that kind of information should go in the annotation field."
@@ -3405,7 +3270,7 @@ msgstr "Illustration actuelle de ce groupe de parution"
 msgid "This label has ended."
 msgstr "Ce label n’existe plus."
 
-#: ../root/release/edit/information.tt:203
+#: ../root/release/edit/information.tt:207
 msgid "This label/catalog number pair already exists."
 msgstr "Cette paire label/numéro de catalogue existe déjà."
 
@@ -3466,7 +3331,7 @@ msgstr "Cette relation est obsolète"
 msgid "This relationship type does not have any examples."
 msgstr "Ce type de relation n’a pas d’exemple."
 
-#: ../root/release/edit/information.tt:229
+#: ../root/release/edit/information.tt:233
 msgid "This release does not have a barcode"
 msgstr "Cette parution n’a aucun code-barres."
 
@@ -3474,7 +3339,7 @@ msgstr "Cette parution n’a aucun code-barres."
 msgid "This release has no mediums that can have disc IDs."
 msgstr "Cette parution ne possède aucun support que peut avoir un ID de disque."
 
-#: ../root/release/edit/information.tt:352
+#: ../root/release/edit/information.tt:356
 msgid ""
 "This release status should be used for unofficial translations and "
 "transliterations of tracklists and release titles, and does not denote a "
@@ -3513,7 +3378,7 @@ msgstr "Heure :"
 
 #: ../root/cdstub/browse.tt:8 ../root/cdstub/cdstub.tt:5
 #: ../root/cdtoc/list.tt:7 ../root/release/edit/tracklist.tt:162
-#: ../root/release/edit/tracklist.tt:448
+#: ../root/release/edit/tracklist.tt:452
 #: ../root/admin/statistics-events/DeleteStatisticsEvent.js:29
 #: ../root/admin/statistics-events/StatisticsEventEditForm.js:36
 #: ../root/admin/statistics-events/StatisticsEventIndex.js:27
@@ -3537,7 +3402,7 @@ msgid ""
 " stub, select the appropriate tab."
 msgstr "Afin de créer une nouvelle liste de pistes, utiliser un support existant ou importer un disque à partir d’une ébauche de CD, sélectionnez l’onglet approprié."
 
-#: ../root/release/edit/information.tt:101
+#: ../root/release/edit/information.tt:105
 msgid "To edit types, please {edit_page|edit the release group}."
 msgstr "Pour modifier les types, veuillez {edit_page|modifier le groupe de parution}."
 
@@ -3562,7 +3427,7 @@ msgstr "Durée totale :"
 msgid "Total tracks:"
 msgstr "Nombre total de pistes :"
 
-#: ../root/release/edit/tracklist.tt:520
+#: ../root/release/edit/tracklist.tt:524
 #: ../root/static/scripts/release-editor/dialogs.js:40
 msgid "Track Parser"
 msgstr "Analyseur de piste"
@@ -3580,7 +3445,7 @@ msgstr "Piste {n} :"
 #: ../root/edit/details/AddMedium.js:144
 #: ../root/edit/details/EditMedium.js:497
 #: ../root/edit/details/RemoveMedium.js:81
-#: ../root/static/scripts/release-editor/fields.js:758
+#: ../root/static/scripts/release-editor/fields.js:768
 #: ../root/static/scripts/release/components/TracklistAndCredits.js:359
 msgid "Tracklist"
 msgstr "Liste de pistes"
@@ -3666,8 +3531,8 @@ msgstr "Twitter"
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:871
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:544
 #: ../root/static/scripts/common/components/FilterForm.js:75
-#: ../root/static/scripts/edit/externalLinks.js:1181
-#: ../root/static/scripts/edit/externalLinks.js:1498
+#: ../root/static/scripts/edit/externalLinks.js:1190
+#: ../root/static/scripts/edit/externalLinks.js:1507
 #: ../root/utility/tableColumns.js:642 ../root/utility/tableColumns.js:647
 msgid "Type"
 msgstr "Type"
@@ -3675,7 +3540,7 @@ msgstr "Type"
 #: ../root/area/edit_form.tt:11 ../root/artist/edit_form.tt:16
 #: ../root/event/edit_form.tt:14 ../root/instrument/edit_form.tt:11
 #: ../root/label/edit_form.tt:15 ../root/place/edit_form.tt:15
-#: ../root/release/add_cover_art.tt:52 ../root/release/edit/information.tt:99
+#: ../root/release/add_cover_art.tt:52 ../root/release/edit/information.tt:103
 #: ../root/series/edit_form.tt:16 ../root/work/edit_form.tt:14
 #: ../root/layout/components/sidebar/CollectionSidebar.js:59
 #: ../root/layout/components/sidebar/ReleaseGroupSidebar.js:65
@@ -3704,7 +3569,7 @@ msgid "Unable to parse the tracklist you entered."
 msgstr "Impossible d’analyser la liste de pistes que vous avez saisie."
 
 #: ../root/admin/edit_user.tt:17 ../root/edit/search_macros.tt:397
-#: ../root/admin/PrivilegeSearch.js:112 ../root/user/UserProfile.js:872
+#: ../root/admin/PrivilegeSearch.js:112 ../root/user/UserProfile.js:893
 msgid "Untrusted"
 msgstr "Non-fiable"
 
@@ -3794,10 +3659,6 @@ msgstr "Vidéo"
 msgid "Video “{name}” by {artist}"
 msgstr "Vidéo “{name}” par {artist}"
 
-#: ../root/user/ratings_summary.tt:27
-msgid "View all ratings"
-msgstr "Voir toutes les évaluations"
-
 #: ../root/edit/search_macros.tt:423 ../root/edit/EditIndex.js:76
 #: ../root/edit/components/EditHeader.js:128
 msgid "Vote tally"
@@ -3826,7 +3687,7 @@ msgstr "Durée du vote (jours)"
 msgid "Warning"
 msgstr "Attention"
 
-#: ../root/release/edit/information.tt:276
+#: ../root/release/edit/information.tt:280
 msgid ""
 "Warning! \"1990-10-25\" is the bogus date that Amazon gives to all releases "
 "for which they don't know the actual date. <strong>Please use this date only"
@@ -3845,7 +3706,7 @@ msgstr "Artistes surveillés"
 msgid "We couldn’t find a release matching that MBID."
 msgstr "Nous n’avons pas trouvé de parution ayant cet ID MusicBrainz."
 
-#: ../root/cdtoc/lookup.tt:92
+#: ../root/cdtoc/lookup.tt:94
 msgid ""
 "We found discs matching the information you requested, listed below. If none"
 " of these are the release you are looking for, please see the instructions "
@@ -3855,11 +3716,12 @@ msgstr "Nous avons trouvez ci-dessous des disques concordants aux informations q
 #: ../root/cdtoc/lookup.tt:8
 msgid ""
 "We found discs matching the information you requested, listed below. If none"
-" of these are the release you are looking for, you may search using the form"
-" below in order to attach this disc to another MusicBrainz release."
-msgstr "Nous avons trouvé des disques correspondant aux informations que vous avez cherché, listés ci-dessous. Si aucun de ceux-ci ne correspond à la parution que vous cherchez, vous pouvez chercher en utilisant le formulaire ci-dessous pour rattacher ce disque à une autre parution MusicBrainz."
+" of these are the release you are looking for, you can search using the form"
+" below in order to attach this disc to another MusicBrainz release, or to "
+"add a new one if the search shows it is missing from the database."
+msgstr "Nous avons trouvé des disques correspondant aux informations que vous avez cherché, listés ci-dessous. Si aucun de ceux-ci ne correspond à la parution que vous cherchez, vous pouvez chercher en utilisant le formulaire ci-dessous pour rattacher ce disque à une autre parution MusicBrainz, ou pour ajouter une nouvelle parution si elle manque dans la base de données."
 
-#: ../root/cdtoc/lookup.tt:12
+#: ../root/cdtoc/lookup.tt:13
 msgid "We used DiscID <code>{discid}</code> to look up this information."
 msgstr "Nous avons utilisé l’ID de disque <code>{discid}</code> pour rechercher cette information."
 
@@ -3906,18 +3768,14 @@ msgstr "Attributs de l’œuvre"
 msgid "Work Details"
 msgstr "Détails de l’œuvre"
 
-#: ../root/user/ratings.tt:2 ../root/user/ratings_summary.tt:3
-msgid "Work ratings"
-msgstr "Évaluations des œuvres"
-
-#: ../root/release/edit/information.tt:127
+#: ../root/release/edit/information.tt:131
 #: ../lib/MusicBrainz/Server/Plugin/FormRenderer.pm:251
 #: ../root/static/scripts/edit/components/PartialDateInput.js:161
 msgid "YYYY"
 msgstr "AAAA"
 
 #: ../root/admin/attributes/form.tt:68
-#: ../root/admin/attributes/Attribute.js:46
+#: ../root/admin/attributes/Attribute.js:29
 #: ../root/components/list/ReleaseGroupList.js:84
 msgid "Year"
 msgstr "Année"
@@ -3953,7 +3811,7 @@ msgstr "Vous ne surveillez actuellement aucune nouvelle parution d’aucun artis
 msgid "You are viewing releases by {artist}."
 msgstr "Vous regardez les parutions par {artist}."
 
-#: ../root/cdtoc/lookup.tt:112
+#: ../root/cdtoc/lookup.tt:114
 msgid ""
 "You can enter the data from the CD as it appears on the CD itself and not "
 "worry about becoming a part of MusicBrainz. CDs entered in this method will "
@@ -3971,7 +3829,7 @@ msgid ""
 " the parser to ignore them."
 msgstr "Vous pouvez utiliser les cases à cocher sous le parseur pour désactiver certaines sections. Par exemple, vous pouvez désactiver « {lines_have_artists} » si vos données n’ont pas d’artistes par piste, ou « {use_track_lengths} » si vous havez les durées par piste mais que vous souhaitez que le parseur les ignore."
 
-#: ../root/release/edit/information.tt:159
+#: ../root/release/edit/information.tt:163
 msgid "You cannot use the same country more than once."
 msgstr "Vous ne pouvez pas utiliser le même pays plus d’une fois."
 
@@ -3985,10 +3843,6 @@ msgid ""
 "You have used the {valink|Various Artists} special purpose artist on this "
 "recording."
 msgstr "Vous avez utilisé l’artiste à usage spécial {valink|Artistes divers} pour cet enregistrement."
-
-#: ../root/release/edit/information.tt:30
-msgid "You haven’t entered a complete artist credit."
-msgstr "Vous n’avez pas saisi de crédit d’artiste complet."
 
 #: ../root/release/edit/editnote.tt:10
 #: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:776
@@ -4011,8 +3865,10 @@ msgid "You must enter a disambiguation comment for this entity."
 msgstr "Vous devez saisir un commentaire de désambiguïsation pour cette entité."
 
 #: ../root/release/edit/tracklist.tt:436
-msgid "You must enter a title and select an artist for every track."
-msgstr "Vous devez saisir un titre et choisir un artiste pour chaque piste."
+msgid ""
+"You must enter a title for every track (if the track is untitled, enter "
+"“{untitled_track}”)."
+msgstr "Vous devez entrer un titre pour chaque piste (si la piste est sans titre, entrez « {untitled_track} »)."
 
 #: ../root/account/register.tt:41
 msgid ""
@@ -4024,7 +3880,27 @@ msgstr "Vous devez fournir une adresse courriel valide avant de pouvoir contribu
 msgid "You must provide an edit note when adding a release."
 msgstr "Vous devez fournir une note de modification lors de l’ajout d’une parution."
 
-#: ../root/release/edit/information.tt:52
+#: ../root/release/edit/tracklist.tt:440
+msgid ""
+"You must select an artist for every track (the background color of every "
+"artist field should be green). If you’ve entered an artist but the "
+"background remains uncolored, click the magnifying glass to match the name "
+"to a MusicBrainz artist. If the artist doesn’t exist yet, you can create it "
+"by selecting “{add_a_new_artist}” from the bottom of the search results "
+"drop-down."
+msgstr "Vous devez sélectionner un artiste pour chaque piste (la couleur de fond de chaque champ artiste doit être verte). Si vous avez entré le nom d’un artiste mais que le fond reste incolore, cliquez sur la loupe pour chercher un artiste dans MusicBrainz avec ce nom. Si cet artiste n’existe pas encore, vous pouvez le créer en sélectionnant « {add_a_new_artist} » au bas de la liste déroulant pour les résultats de recherche.."
+
+#: ../root/release/edit/information.tt:30
+msgid ""
+"You must select an artist for the release (the background color of the "
+"artist field should be green). If you’ve entered an artist but the "
+"background remains uncolored, click the magnifying glass to match the name "
+"to a MusicBrainz artist. If the artist doesn’t exist yet, you can create it "
+"by selecting “{add_a_new_artist}” from the bottom of the search results "
+"drop-down."
+msgstr "Vous devez sélectionner un artiste pour la parution (la couleur de fond du champ artiste doit être verte). Si vous avez entré le nom d’un artiste mais que le fond reste incolore, cliquez sur la loupe pour chercher un artiste dans MusicBrainz avec ce nom. Si cet artiste n’existe pas encore, vous pouvez le créer en sélectionnant « {add_a_new_artist} » au bas de la liste déroulant pour les résultats de recherche.."
+
+#: ../root/release/edit/information.tt:56
 msgid "You must select an existing release group."
 msgstr "Vous devez choisir un groupe de parution existant."
 
@@ -4162,7 +4038,7 @@ msgstr "modifications"
 #: ../root/components/forms.tt:263 ../root/components/forms.tt:288
 #: ../root/edit/search_macros.tt:188 ../root/release/edit/tracklist.tt:3
 #: ../root/release/edit/tracklist.tt:83 ../root/release/edit/tracklist.tt:316
-#: ../root/release/edit/tracklist.tt:491 ../root/release/edit/tracklist.tt:506
+#: ../root/release/edit/tracklist.tt:495 ../root/release/edit/tracklist.tt:510
 #: ../root/static/scripts/edit/components/GuessCaseOptions.js:121
 #: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:908
 msgid "help"
@@ -4282,7 +4158,7 @@ msgstr "n’est pas dans mes abonnements"
 msgid "is not me"
 msgstr "n'est pas moi"
 
-#: ../root/release/edit/tracklist.tt:480
+#: ../root/release/edit/tracklist.tt:484
 msgid "link"
 msgstr "lien"
 
@@ -4309,13 +4185,6 @@ msgstr "sur"
 #: ../root/release/add_cover_art.tt:31
 msgid "or drop files here"
 msgstr "ou déposer des fichiers ici"
-
-#: ../root/entity/collections.tt:15
-msgid "plus {n} other private collection"
-msgid_plural "plus {n} other private collections"
-msgstr[0] "plus {n} autre collection privée"
-msgstr[1] "plus {n} autres collections privées"
-msgstr[2] "plus {n} autres collections privées"
 
 #: ../root/edit/search_macros.tt:25
 msgid "recently closed first"
@@ -4346,7 +4215,7 @@ msgstr "vote finissant le plus tôt d’abord"
 msgid "with recent edit notes first"
 msgstr "avec des notes de modification d’abord"
 
-#: ../root/cdtoc/lookup.tt:23
+#: ../root/cdtoc/lookup.tt:25
 msgid "{artist} - {name}"
 msgstr "{artist} - {name}"
 
@@ -4362,10 +4231,6 @@ msgstr[0] "{artist} n’a aucune parution n’ayant que {n} piste."
 msgstr[1] "{artist} n’a aucune parution ayant {n} pistes."
 msgstr[2] "{artist} n’a aucune parution ayant {n} pistes."
 
-#: ../root/entity/collections.tt:10
-msgid "{collection} by {owner}"
-msgstr "{collection} par {owner}"
-
 #: ../root/cdstub/index.tt:13 ../root/cdstub/CDStubIndex.js:47
 msgid "{doc|Disc ID}:"
 msgstr "{doc|ID de disque} :"
@@ -4375,17 +4240,6 @@ msgstr "{doc|ID de disque} :"
 #: ../root/static/scripts/release-editor/dialogs.js:150
 msgid "{entity} by {artist}"
 msgstr "{entity} par {artist}"
-
-#: ../root/entity/collections.tt:4
-msgid "{entity} has been added to {num} collection:"
-msgid_plural "{entity} has been added to {num} collections:"
-msgstr[0] "{entity} a été ajouté à {num} collection :"
-msgstr[1] "{entity} a été ajouté à {num} collections :"
-msgstr[2] "{entity} a été ajouté à {num} collections :"
-
-#: ../root/entity/collections.tt:23
-msgid "{entity} has not been added to any collections."
-msgstr "{entity} n’a été ajouté à aucune collection."
 
 #: ../root/layout.tt:81 ../root/layout/index.js:271
 msgid ""
@@ -4455,10 +4309,6 @@ msgstr "{uri|Retour vers musicbrainz.org}."
 #: ../root/user/profile/layout.tt:8
 msgid "{user}"
 msgstr "{user}"
-
-#: ../root/user/ratings_summary.tt:34
-msgid "{user} has not rated anything."
-msgstr "{user} n’a rien évalué."
 
 #: ../root/recording/edit_form.tt:10
 msgid ""
@@ -4676,43 +4526,43 @@ msgstr "'{id}' n’est pas un ID d’élection valide"
 msgid "The required TOC parameter was invalid or not present"
 msgstr "Le paramètre obligatoire TOC (table des matières) était invalide ou absent"
 
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:76
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:78
 msgid "Please provide a CD TOC ID."
 msgstr "Veuillez fournir un ID de TOC (table des matières) de CD."
 
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:80
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:82
 msgid "The provided CD TOC ID is not valid."
 msgstr "La TOC (table des matières) de CD fournie est invalide."
 
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:86
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:88
 msgid "Please provide a medium ID."
 msgstr "Veuillez fournir un ID de support."
 
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:90
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:92
 msgid "The provided medium id is not valid."
 msgstr "L’identifiant de support n’est pas valide."
 
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:96
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:224
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:431
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:98
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:226
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:441
 msgid "The provided medium ID doesn’t exist."
 msgstr "L'identifiant de support n’existe pas."
 
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:102
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:104
 msgid ""
 "The provided CD TOC ID doesn’t exist or is not connected to the provided "
 "medium."
 msgstr "L’identifiant de TOC (table des matières) de CD n’existe pas ou n’est pas associé au support en présence."
 
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:151
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:153
 msgid "Please provide a medium ID"
 msgstr "Veuillez fournir un ID de support"
 
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:156
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:158
 msgid "Could not find medium"
 msgstr "Le support n’a pu être trouvé"
 
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:204
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:206
 msgid ""
 "The provided CD TOC is not valid. This is probably an issue with the "
 "software you used to generate it. Try again and please report the error to "
@@ -4720,21 +4570,21 @@ msgid ""
 "below."
 msgstr "La TOC (table des matières) du CD fournie n’est pas valide. Le problème vient probablement du logiciel que vous avez utilisé pour la générer. Essayez de nouveau et si l’erreur persiste merci de la rapporter à l’éditeur de votre logiciel, avec les informations techniques ci-dessous."
 
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:211
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:425
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:213
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:435
 msgid "The provided medium id is not valid"
 msgstr "L’identifiant de support n’est pas valide"
 
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:232
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:438
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:234
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:448
 msgid "The selected medium cannot have disc IDs"
 msgstr "Le support sélectionné ne peut pas avoir d’ID de disque"
 
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:277
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:279
 msgid "The provided artist id is not valid"
 msgstr "L’ID d’artiste fourni n’est pas valide"
 
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:411
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:421
 msgid "The provided CD TOC ID doesn’t exist."
 msgstr "L’identifiant de TOC (table des madières) de CD n’existe pas."
 
@@ -4745,17 +4595,20 @@ msgid ""
 msgstr "« {id} » n‘est pas un identifiant de ligne valide ; Si il a correspondu a une entité, celle-ci a été fusionnée ou supprimée."
 
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:293
+#: ../lib/MusicBrainz/Server/Form/ChangeReleaseQuality.pm:24
 #: ../root/static/scripts/common/constants.js:332
 msgid "Low"
 msgstr "Bas"
 
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:293
+#: ../lib/MusicBrainz/Server/Form/ChangeReleaseQuality.pm:25
 #: ../root/static/scripts/common/constants.js:333
 #: ../root/static/scripts/common/constants.js:334
 msgid "Normal"
 msgstr "Normal"
 
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:293
+#: ../lib/MusicBrainz/Server/Form/ChangeReleaseQuality.pm:26
 #: ../root/static/scripts/common/constants.js:335
 msgid "High"
 msgstr "Haute"
@@ -4781,16 +4634,16 @@ msgstr "L’évaluation doit être un nombre entier entre 0 et 100."
 msgid "'{types}' is not a valid pair of types for relationships."
 msgstr "« {types} » n’est pas une paire de type de relation valide."
 
-#: ../lib/MusicBrainz/Server/Controller/Release.pm:584
+#: ../lib/MusicBrainz/Server/Controller/Release.pm:595
 msgid ""
 "This merge strategy is not applicable to the releases you have selected."
 msgstr "Cette stratégie de fusion n’est pas applicable aux parutions que vous avez sélectionnées."
 
-#: ../lib/MusicBrainz/Server/Controller/Release.pm:613
+#: ../lib/MusicBrainz/Server/Controller/Release.pm:624
 msgid "This release has no artwork."
 msgstr "Cette parution n’a pas d’illustration."
 
-#: ../lib/MusicBrainz/Server/Controller/Release.pm:619
+#: ../lib/MusicBrainz/Server/Controller/Release.pm:630
 #, perl-brace-format
 msgid "Found no artwork with ID “{id}”."
 msgstr "Trouvé aucune illustration avec l‘ID « {id} »."
@@ -4874,16 +4727,16 @@ msgstr "Votre courriel a été envoyé avec succès ! Cliquez {link|ici} pour r
 msgid "Your message could not be sent"
 msgstr "Votre message n’a pas pu être envoyé"
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:535
+#: ../lib/MusicBrainz/Server/Controller/User.pm:540
 #, perl-brace-format
 msgid "'{type}' is not an entity type that can have ratings."
 msgstr "'{type}' n’est pas un type d’entité qui peut avoir des évaluations."
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:783
+#: ../lib/MusicBrainz/Server/Controller/User.pm:796
 msgid "An error occurred while trying to send your report."
 msgstr "Une erreur est survenue durant l’envoi de votre signalement."
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:787
+#: ../lib/MusicBrainz/Server/Controller/User.pm:800
 msgid "Your report has been sent."
 msgstr "Votre signalement a été envoyé."
 
@@ -5228,6 +5081,12 @@ msgstr "Changer la qualité de l’artiste (historique)"
 #: ../lib/MusicBrainz/Server/Edit/Release/EditArtist.pm:31
 msgid "Edit release"
 msgstr "Modifier la parution"
+
+#: ../lib/MusicBrainz/Server/Edit/Historic/ChangeReleaseQuality.pm:13
+#: ../lib/MusicBrainz/Server/Edit/Release/ChangeQuality.pm:25
+#: ../root/release/ChangeQuality.js:36
+msgid "Change release data quality"
+msgstr "Changer la qualité des données de parution"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/ChangeTrackArtist.pm:14
 #: ../lib/MusicBrainz/Server/Edit/Historic/EditTrackNum.pm:14
@@ -6832,7 +6691,7 @@ msgstr "Accès"
 
 #: ../root/account/applications/Index.js:105
 #: ../root/account/applications/Index.js:143
-#: ../root/admin/attributes/Attribute.js:101
+#: ../root/admin/attributes/Attribute.js:84
 #: ../root/admin/attributes/Language.js:46
 #: ../root/admin/attributes/Script.js:45
 #: ../root/admin/statistics-events/StatisticsEventIndex.js:30
@@ -6974,17 +6833,17 @@ msgstr "Correspondance exacte seulement"
 msgid "MBID submitter"
 msgstr "Émetteur de MBID"
 
-#: ../root/admin/attributes/Attribute.js:47
+#: ../root/admin/attributes/Attribute.js:30
 msgid "Disc IDs allowed"
 msgstr "ID de disque permis"
 
-#: ../root/admin/attributes/Attribute.js:56
+#: ../root/admin/attributes/Attribute.js:39
 #: ../root/edit/details/AddRelationshipAttribute.js:64
 #: ../root/edit/details/EditRelationshipAttribute.js:109
 msgid "Free text"
 msgstr "Texte libre"
 
-#: ../root/admin/attributes/Attribute.js:89
+#: ../root/admin/attributes/Attribute.js:72
 #: ../root/admin/attributes/Index.js:18 ../root/admin/attributes/Index.js:19
 #: ../root/admin/attributes/Language.js:33
 #: ../root/admin/attributes/Script.js:33
@@ -6998,11 +6857,11 @@ msgstr "Texte libre"
 msgid "Attributes"
 msgstr "Attributs"
 
-#: ../root/admin/attributes/Attribute.js:99
+#: ../root/admin/attributes/Attribute.js:82
 msgid "Parent ID"
 msgstr "ID du parent"
 
-#: ../root/admin/attributes/Attribute.js:131
+#: ../root/admin/attributes/Attribute.js:114
 #: ../root/admin/attributes/Language.js:77
 #: ../root/admin/attributes/Script.js:75
 msgid "Add new attribute"
@@ -7012,6 +6871,14 @@ msgstr "Ajouter un nouvel attribut"
 #: ../root/admin/attributes/CannotRemoveAttribute.js:20
 msgid "Cannot Remove Attribute"
 msgstr "Impossible de supprimer l’attribut"
+
+#: ../root/admin/attributes/DeleteAttribute.js:26
+msgid "Are you sure you wish to remove the <strong>{name}</strong> attribute?"
+msgstr "Êtes-vous certain de vouloir supprimer l’attribut <strong>{name}</strong> ?"
+
+#: ../root/admin/attributes/DeleteAttribute.js:30
+msgid "Remove Attribute"
+msgstr "Enlever l’attribut"
 
 #: ../root/admin/attributes/Language.js:31
 #: ../root/admin/attributes/Language.js:34
@@ -7487,6 +7354,22 @@ msgstr "Œuvres"
 #: ../root/area/AreaWorks.js:29
 msgid "This area has no relationships to any works."
 msgstr "Cette région n’a de relation avec aucune œuvre."
+
+#: ../root/area/DeleteArea.js:35 ../root/area/DeleteArea.js:37
+msgid "Remove Area"
+msgstr "Enlever la région"
+
+#: ../root/area/DeleteArea.js:41
+msgid ""
+"This area cannot be removed because it is one of the areas that can be used "
+"as a release country."
+msgstr "Cette région ne peut pas être enlevée car elle peut être utilisée comme pays de parution."
+
+#: ../root/area/DeleteArea.js:55
+msgid ""
+"This area cannot be removed because it is still in use (in artists, labels, "
+"places, relationships or open edits)."
+msgstr "Cette région ne peut pas être enlevée car elle est utilisée (pour des artistes, labels, lieux relations, et/ou modifications en cours)."
 
 #: ../root/artist/ArtistEvents.js:78
 msgid "No events found that match this search."
@@ -7995,6 +7878,24 @@ msgid ""
 " this topic, please see our {doc|CD submission guide}."
 msgstr "Vous devez être sûr que cet ID de disque a été ajoutée à cette parution par erreur vu qu’une parution peut avoir plusieurs ID de disque valides, et chaque ID de disque peut appartenir à plus d’une parution. Pour des informations plus approfondies à ce sujet voir {doc|Comment proposer un CD}."
 
+#: ../root/cdtoc/SelectArtistForCDToc.js:37
+#: ../root/static/scripts/common/components/Autocomplete2/constants.js:128
+msgid "Search for an artist"
+msgstr "Rechercher un artiste"
+
+#: ../root/cdtoc/SelectArtistForCDToc.js:67
+msgid ""
+"Click the radio button to select the appropriate artist, or click the "
+"artist’s name to get more info."
+msgstr "Cliquez sur le bouton radio pour sélectionner l’artiste correspondant, ou cliquez sur le nom de l’artiste pour avoir plus d’informations."
+
+#: ../root/cdtoc/SelectArtistForCDToc.js:113
+msgid ""
+"If you don't see the artist you are looking for, you can still add a new "
+"release. This will allow you to create this artist and a release at the same"
+" time"
+msgstr "Si vous ne voyez pas l’artiste que vous cherchez, vous pouvez créer une nouvelle parution. Cela vous permettra de créer l’artiste et la parution en même temps"
+
 #: ../root/cdtoc/SetTracklistDurations.js:46
 #: ../root/cdtoc/SetTracklistDurations.js:47
 msgid "Set Tracklist Durations"
@@ -8259,17 +8160,17 @@ msgstr "Cette œuvre n’a aucune relation, et sera donc enlevée automatiquemen
 msgid "Yes, I am sure"
 msgstr "Oui, je suis sûr"
 
-#: ../root/components/CritiqueBrainzLinks.js:38
+#: ../root/components/CritiqueBrainzLinks.js:43
 msgid "An error occurred when loading reviews."
 msgstr "Une erreur est survenue pendant le chargement des critiques."
 
-#: ../root/components/CritiqueBrainzLinks.js:42
+#: ../root/components/CritiqueBrainzLinks.js:47
 msgid ""
 "No one has reviewed {entity} yet. Be the first to {write_link|write a "
 "review}."
 msgstr "Personne n’a encore laissé de critique de {entity}. Soyez le premier à {write_link|rédiger une critique}."
 
-#: ../root/components/CritiqueBrainzLinks.js:51
+#: ../root/components/CritiqueBrainzLinks.js:56
 msgid ""
 "There’s {reviews_link|{review_count} review} on CritiqueBrainz. You can also"
 " {write_link|write your own}."
@@ -8313,8 +8214,16 @@ msgstr "Tags"
 
 #: ../root/components/EntityTabs.js:140 ../root/entity/Ratings.js:46
 #: ../root/entity/Ratings.js:90
+#: ../root/static/scripts/edit/externalLinks.js:716
 msgid "Reviews"
 msgstr "Critiques"
+
+#: ../root/components/EntityTabs.js:141
+#: ../root/components/UserAccountTabs.js:68 ../root/entity/Ratings.js:50
+#: ../root/user/UserProfile.js:829 ../root/user/UserRatingList.js:48
+#: ../root/user/UserRatingList.js:82
+msgid "Ratings"
+msgstr "Évaluations"
 
 #: ../root/components/EntityTabs.js:159
 msgid "Edit Relationships"
@@ -8475,6 +8384,14 @@ msgstr "Abonnements"
 #: ../root/layout/components/sidebar/SubscriptionLinks.js:58
 msgid "Subscribers"
 msgstr "Abonnés"
+
+#: ../root/components/UserAccountTabs.js:57 ../root/entity/Collections.js:33
+#: ../root/entity/Collections.js:35
+#: ../root/layout/components/sidebar/CollectionLinks.js:50
+#: ../root/static/scripts/common/utility/formatEntityTypeName.js:17
+#: ../root/user/UserCollections.js:180
+msgid "Collections"
+msgstr "Collections"
 
 #: ../root/components/UserAccountTabs.js:102
 msgid "Edit User"
@@ -8811,6 +8728,13 @@ msgstr "Modifications par les éditeurs auxquels vous êtes abonné"
 msgid "Edits for Your Subscribed Entities"
 msgstr "Modifications pour les entités auxquelles vous êtes abonné"
 
+#: ../root/edit/SubscribedEdits.js:32
+msgid ""
+"This page lists edits linked to entities you are directly subscribed to, as "
+"well as edits linked to entities which are part of a collection you are "
+"subscribed to."
+msgstr "Cette page liste les modifications liées aux entités auxquelles vous vous êtes directement abonné ou qui sont dans une collection à laquelle vous êtes abonné."
+
 #: ../root/edit/components/EditArtwork.js:27
 #: ../root/edit/details/ReorderCoverArt.js:25
 msgid ""
@@ -8887,10 +8811,6 @@ msgstr[2] "Trouvé {n} modifications"
 #: ../root/edit/components/EditList.js:116
 msgid "Submit votes & edit notes"
 msgstr "Envoyer vos votes & notes de modification"
-
-#: ../root/edit/components/EditList.js:125
-msgid "No edits were found matching your query. Please {search|try again}."
-msgstr "Aucune modification n’a été trouvée selon vos critères. Veuillez {search|ressayer}. "
 
 #: ../root/edit/components/EditNote.js:89
 msgid "[time missing]"
@@ -8993,90 +8913,90 @@ msgid ""
 " unformatted)."
 msgstr "Ce champ est laissé intentionnellement tel que saisi au départ (sans traduction ni formatage)."
 
-#: ../root/edit/components/ListHeader.js:46
-msgid "Quick links:"
-msgstr "Liens rapides :"
-
-#: ../root/edit/components/ListHeader.js:53
+#: ../root/edit/components/ListHeader.js:49
 msgid "Open edits for {user}"
 msgstr "Modification ouvertes par {user}"
 
-#: ../root/edit/components/ListHeader.js:62
+#: ../root/edit/components/ListHeader.js:57
 msgid "All edits for {user}"
 msgstr "Toutes les modifications par {user}"
 
-#: ../root/edit/components/ListHeader.js:72
+#: ../root/edit/components/ListHeader.js:69
 msgid "Open edits for this collection"
 msgstr "Modifications ouvertes pour cette collection"
 
-#: ../root/edit/components/ListHeader.js:73
+#: ../root/edit/components/ListHeader.js:70
 msgid "Open edits for this entity"
 msgstr "Modifications ouvertes pour cette entité"
 
-#: ../root/edit/components/ListHeader.js:83
+#: ../root/edit/components/ListHeader.js:80
 msgid "All edits for this collection"
 msgstr "Toutes les modifications pour cette collection"
 
-#: ../root/edit/components/ListHeader.js:84
+#: ../root/edit/components/ListHeader.js:81
 msgid "All edits for this entity"
 msgstr "Toutes les modifications pour cette entité"
 
-#: ../root/edit/components/ListHeader.js:93
-msgid "Open edits for your subscribed entities"
-msgstr "Modifications ouvertes pour les entités auxquelles vous êtes abonné"
-
-#: ../root/edit/components/ListHeader.js:102
+#: ../root/edit/components/ListHeader.js:92
 msgid "All edits for your subscribed entities"
 msgstr "Toutes les modifications pour les entités auxquelles vous êtes abonnés"
 
-#: ../root/edit/components/ListHeader.js:111
-msgid "Open edits for your subscribed editors"
-msgstr "Modifications ouvertes par les éditeurs auxquels vous êtes abonné"
+#: ../root/edit/components/ListHeader.js:100
+msgid "Open edits for your subscribed entities"
+msgstr "Modifications ouvertes pour les entités auxquelles vous êtes abonné"
 
-#: ../root/edit/components/ListHeader.js:120
+#: ../root/edit/components/ListHeader.js:111
 msgid "All edits for your subscribed editors"
 msgstr "Toutes les modifications par les éditeurs auxquels vous êtes abonné"
 
-#: ../root/edit/components/ListHeader.js:135
+#: ../root/edit/components/ListHeader.js:119
+msgid "Open edits for your subscribed editors"
+msgstr "Modifications ouvertes par les éditeurs auxquels vous êtes abonné"
+
+#: ../root/edit/components/ListHeader.js:134
 msgid "Refine this search"
 msgstr "Affiner cette recherche"
 
-#: ../root/edit/components/ListHeader.js:144
+#: ../root/edit/components/ListHeader.js:143
 msgid "Subscribed entities"
 msgstr "Abonné à ces entités"
 
-#: ../root/edit/components/ListHeader.js:152
+#: ../root/edit/components/ListHeader.js:150
 msgid "Subscribed editors"
 msgstr "Éditeurs abonnés"
 
-#: ../root/edit/components/ListHeader.js:160
+#: ../root/edit/components/ListHeader.js:158
 #: ../root/layout/components/sidebar/CollectionSidebar.js:77
 #: ../root/layout/components/sidebar/EditLinks.js:43
 msgid "Open edits"
 msgstr "Modifications en attente"
 
-#: ../root/edit/components/ListHeader.js:168 ../root/vote/VotingIndex.js:44
+#: ../root/edit/components/ListHeader.js:165 ../root/vote/VotingIndex.js:44
 #: ../root/vote/VotingIndex.js:46
 msgid "Voting suggestions"
 msgstr "Suggestions de vote"
 
-#: ../root/edit/components/ListHeader.js:176
+#: ../root/edit/components/ListHeader.js:172
 msgid "Search for edits"
 msgstr "Rechercher des modifications"
 
-#: ../root/edit/components/ListHeader.js:184
+#: ../root/edit/components/ListHeader.js:199
+msgid "Quick links:"
+msgstr "Liens rapides :"
+
+#: ../root/edit/components/ListHeader.js:211
 msgid "Help:"
 msgstr "Aide :"
 
-#: ../root/edit/components/ListHeader.js:188
+#: ../root/edit/components/ListHeader.js:215
 msgid "Introduction to Voting"
 msgstr "Introduction au vote"
 
-#: ../root/edit/components/ListHeader.js:192
+#: ../root/edit/components/ListHeader.js:219
 msgid "Introduction to Editing"
 msgstr "Introduction à l'édition"
 
-#: ../root/edit/components/ListHeader.js:195 ../root/main/index.js:180
+#: ../root/edit/components/ListHeader.js:222 ../root/main/index.js:180
 msgid "Style guidelines"
 msgstr "Directives de style"
 
@@ -9266,7 +9186,7 @@ msgstr "Emballage"
 
 #: ../root/edit/details/AddRelease.js:119
 #: ../root/edit/details/EditReleaseLabel.js:92
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:229
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:230
 #: ../root/static/scripts/common/components/ReleaseEvents.js:89
 msgid "Release events"
 msgstr "Événements de parution"
@@ -9299,6 +9219,14 @@ msgstr "Type de tri"
 #: ../root/static/scripts/work/edit.js:342 ../root/utility/tableColumns.js:809
 msgid "Lyrics Languages"
 msgstr "Langues des paroles"
+
+#: ../root/edit/details/ChangeReleaseQuality.js:30
+#: ../root/edit/details/historic/ChangeArtistQuality.js:30
+#: ../root/edit/details/historic/ChangeReleaseQuality.js:40
+#: ../root/layout/components/sidebar/SidebarDataQuality.js:36
+#: ../root/release/ChangeQuality.js:52
+msgid "Data Quality"
+msgstr "Qualité des données"
 
 #: ../root/edit/details/ChangeWikiDoc.js:39
 msgid "WikiDoc:"
@@ -9895,6 +9823,35 @@ msgstr "Revenir aux élections"
 #: ../root/elections/Show.js:34
 msgid "Votes cast"
 msgstr "Émettre des votes"
+
+#: ../root/entity/Collections.js:40
+msgid "{entity} has been added to {num} collection:"
+msgid_plural "{entity} has been added to {num} collections:"
+msgstr[0] "{entity} a été ajouté à {num} collection :"
+msgstr[1] "{entity} a été ajouté à {num} collections :"
+msgstr[2] "{entity} a été ajouté à {num} collections :"
+
+#: ../root/entity/Collections.js:50
+msgid "{collection} by {owner}"
+msgstr "{collection} par {owner}"
+
+#: ../root/entity/Collections.js:62
+msgid "plus {n} other private collection"
+msgid_plural "plus {n} other private collections"
+msgstr[0] "plus {n} autre collection privée"
+msgstr[1] "plus {n} autres collections privées"
+msgstr[2] "plus {n} autres collections privées"
+
+#: ../root/entity/Collections.js:71
+msgid "A private collection"
+msgid_plural "{n} private collections"
+msgstr[0] "Une collection privée"
+msgstr[1] "{n} collections privées"
+msgstr[2] "{n} collections privées"
+
+#: ../root/entity/Collections.js:83
+msgid "{entity} has not been added to any collections."
+msgstr "{entity} n’a été ajouté à aucune collection."
 
 #: ../root/entity/Details.js:103
 msgid "{mbid|<abbr title=\"MusicBrainz Identifier\">MBID</abbr>}:"
@@ -11043,23 +11000,23 @@ msgstr "Aucune Illustration."
 msgid "Additional details"
 msgstr "Détails additionnels"
 
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:240
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:241
 msgid "Release group rating"
 msgstr "Évaluation du groupe de parution"
 
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:246
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:247
 msgid "Release group reviews"
 msgstr "Critiques de groupe de parution"
 
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:261
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:262
 msgid "Release group external links"
 msgstr "Liens externes du groupe de parution"
 
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:267
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:268
 msgid "Edit relationships"
 msgstr "Modifier les relations"
 
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:273
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:274
 msgid "Change data quality"
 msgstr "Modifier la qualité des données"
 
@@ -11648,6 +11605,16 @@ msgstr "<strong>Avertissement :</strong> Certains enregistrements que vous vous
 msgid "Relationship Attributes"
 msgstr "Attributs de relation"
 
+#: ../root/relationship/linkattributetype/DeleteRelationshipAttributeType.js:24
+msgid ""
+"Are you sure you wish to remove the <strong>{link_attr_type}</strong> "
+"relationship attribute?"
+msgstr "Êtes-vous certain de vouloir supprimer l’attribut de relation <strong>{link_attr_type}</strong> ?"
+
+#: ../root/relationship/linkattributetype/DeleteRelationshipAttributeType.js:28
+msgid "Remove Relationship Attribute"
+msgstr "Enlever l’attribut de la relation"
+
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeInUse.js:19
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeInUse.js:21
 msgid "Relationship attribute in use"
@@ -11724,6 +11691,16 @@ msgstr "Aucun attribut de relation de trouvé."
 msgid "Create a new relationship attribute"
 msgstr "Créer un nouvel attribut de relation"
 
+#: ../root/relationship/linktype/DeleteRelationshipType.js:24
+msgid ""
+"Are you sure you wish to remove the <strong>{link_type}</strong> "
+"relationship type?"
+msgstr "Êtes-vous certain de vouloir supprimer le type de relation <strong>{link_type}</strong> ?"
+
+#: ../root/relationship/linktype/DeleteRelationshipType.js:28
+msgid "Remove Relationship Type"
+msgstr "Enlever le type de relation"
+
 #: ../root/relationship/linktype/RelationshipTypeInUse.js:19
 #: ../root/relationship/linktype/RelationshipTypeInUse.js:21
 msgid "Relationship Type In Use"
@@ -11755,7 +11732,7 @@ msgid "{entity0}-{entity1}"
 msgstr "{entity0}-{entity1}"
 
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:126
-#: ../root/static/scripts/edit/externalLinks.js:749
+#: ../root/static/scripts/edit/externalLinks.js:758
 #: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:72
 msgid "This relationship type is deprecated and should not be used."
 msgstr "Ce type de relation est obsolète et ne devrait pas être utilisé."
@@ -11879,6 +11856,10 @@ msgstr "Impossible d’ajouter une Illustration"
 #: ../root/release/CoverArtFields.js:78
 msgid "Choose one or more cover art types for this image"
 msgstr "Choisir un ou plusieurs types d’Illustration pour cette image"
+
+#: ../root/release/DeleteRelease.js:31 ../root/release/DeleteRelease.js:33
+msgid "Remove Release"
+msgstr "Enlever la parution"
 
 #: ../root/release/EditRelationships.js:28
 msgid "Edit Relationships: {release}"
@@ -12731,7 +12712,7 @@ msgstr "Ce rapport montre les parutions dont le système d’écriture n’est p
 msgid "Releases without script"
 msgstr "Parutions sans système d’écriture"
 
-#: ../root/report/NonBootlegsOnBootlegLabels.js:26
+#: ../root/report/NonBootlegsOnBootlegLabels.js:24
 msgid ""
 "This report shows releases that have at least one “Bootleg Production” label"
 " in their labels list, but are not set to status “Bootleg”. These labels "
@@ -12739,7 +12720,7 @@ msgid ""
 "the label or the status are wrong."
 msgstr "Ce rapport montre les parutions qui ont au moins un label « Production pirate » dans leur liste de labels, mais qui n’ont pas le statut « Pirate ». Ces labels ne produisent quasiment aucune parution non-pirate, donc il y a de fortes chances pour que soit le label soit le statut soit erroné."
 
-#: ../root/report/NonBootlegsOnBootlegLabels.js:34
+#: ../root/report/NonBootlegsOnBootlegLabels.js:32
 #: ../root/report/ReportsIndex.js:456
 msgid "Releases on bootleg labels not set to bootleg"
 msgstr "Parutions non-pirates de labels pirates"
@@ -14817,7 +14798,7 @@ msgid "Some relationship types are missing for this URL."
 msgstr "Certains types de relation sont manquants pour cette URL."
 
 #: ../root/static/scripts/edit/URLCleanup.js:5907
-#: ../root/static/scripts/edit/externalLinks.js:997
+#: ../root/static/scripts/edit/externalLinks.js:1006
 msgid "This relationship type combination is invalid."
 msgstr "Cette combinaison de types de relation est invalide."
 
@@ -15045,120 +15026,126 @@ msgid ""
 "else?"
 msgstr "Les liens vers des URL MusicBrainz ne sont pas autorisés. Vous pensiez ajouter autre chose ?"
 
-#: ../root/static/scripts/edit/externalLinks.js:713
+#: ../root/static/scripts/edit/externalLinks.js:714
+msgid ""
+"Please don’t enter CritiqueBrainz links — reviews are automatically linked "
+"from the “{reviews_tab_name}” tab."
+msgstr "Merci de ne pas entrer de lien CritiqueBrainz — Les critiques sont automatiquement liées depuis l’onglet « {reviews_tab_name} »."
+
+#: ../root/static/scripts/edit/externalLinks.js:722
 msgid ""
 "Links to this website are not allowed because it is known to host malware."
 msgstr "Les liens vers ce site Web ne sont pas permis car il est connu pour héberger des logiciels malveillants."
 
-#: ../root/static/scripts/edit/externalLinks.js:719
+#: ../root/static/scripts/edit/externalLinks.js:728
 msgid ""
 "Please don’t enter bundled/shortened URLs, enter the destination URL(s) "
 "instead."
 msgstr "Merci de ne pas entrer d’URL raccourcie, veuillez entrer l’URL (les URLs) cible(s) à la place."
 
-#: ../root/static/scripts/edit/externalLinks.js:725
+#: ../root/static/scripts/edit/externalLinks.js:734
 msgid ""
 "Please don’t enter Google AMP links, since they are effectively an extra "
 "redirect. Enter the destination URL instead."
 msgstr "Merci de ne pas entrer de lien Google AMP, car il s’agit d’une redirection. Veuillez entrer l’URL de destination à la place."
 
-#: ../root/static/scripts/edit/externalLinks.js:732
+#: ../root/static/scripts/edit/externalLinks.js:741
 msgid ""
 "Please don’t enter links to search results. If you’ve found any links "
 "through your search that seem useful, do enter those instead."
 msgstr "Veuillez ne pas entrer de lien vers des résultats de recherche. Si vous trouvez des liens utiles par cette recherche, merci de les entrer à la place."
 
-#: ../root/static/scripts/edit/externalLinks.js:739
+#: ../root/static/scripts/edit/externalLinks.js:748
 msgid "Please select a link type for the URL you’ve entered."
 msgstr "Veuillez choisir un type de lien pour l’URL que vous avez saisie."
 
-#: ../root/static/scripts/edit/externalLinks.js:759
+#: ../root/static/scripts/edit/externalLinks.js:768
 #: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:1009
 #: ../root/static/scripts/relationship-editor/components/RelationshipEditor.js:526
 msgid "This relationship already exists."
 msgstr "Cette relation existe déjà."
 
-#: ../root/static/scripts/edit/externalLinks.js:771
+#: ../root/static/scripts/edit/externalLinks.js:780
 #: ../root/static/scripts/relationship-editor/components/DialogSourceEntity.js:61
 msgid ""
 "This URL is not allowed for the selected link type, or is incorrectly "
 "formatted."
 msgstr "Cette URL n’est pas permise pour le type de lien choisi, ou elle est mal formatée."
 
-#: ../root/static/scripts/edit/externalLinks.js:776
+#: ../root/static/scripts/edit/externalLinks.js:785
 msgid "This URL is not allowed for the selected link type."
 msgstr "Cette URL n’est pas permise pour le type de lien sélectionné"
 
-#: ../root/static/scripts/edit/externalLinks.js:782
+#: ../root/static/scripts/edit/externalLinks.js:791
 msgid "This URL is not allowed for areas."
 msgstr "Cette URL n’est pas permise pour les régions."
 
-#: ../root/static/scripts/edit/externalLinks.js:785
+#: ../root/static/scripts/edit/externalLinks.js:794
 msgid "This URL is not allowed for artists."
 msgstr "Cette URL n’est pas permise pour les artistes."
 
-#: ../root/static/scripts/edit/externalLinks.js:788
+#: ../root/static/scripts/edit/externalLinks.js:797
 msgid "This URL is not allowed for events."
 msgstr "Cette URL n’est pas permise pour les événements."
 
-#: ../root/static/scripts/edit/externalLinks.js:791
+#: ../root/static/scripts/edit/externalLinks.js:800
 msgid "This URL is not allowed for instruments."
 msgstr "Cette URL n’est pas permise pour les instruments."
 
-#: ../root/static/scripts/edit/externalLinks.js:794
+#: ../root/static/scripts/edit/externalLinks.js:803
 msgid "This URL is not allowed for labels."
 msgstr "Cette URL n’est pas permise pour les labels."
 
-#: ../root/static/scripts/edit/externalLinks.js:797
+#: ../root/static/scripts/edit/externalLinks.js:806
 msgid "This URL is not allowed for places."
 msgstr "Cette URL n’est pas permise pour les lieux."
 
-#: ../root/static/scripts/edit/externalLinks.js:800
+#: ../root/static/scripts/edit/externalLinks.js:809
 msgid "This URL is not allowed for recordings."
 msgstr "Cette URL n’est pas permise pour les enregistrements."
 
-#: ../root/static/scripts/edit/externalLinks.js:803
+#: ../root/static/scripts/edit/externalLinks.js:812
 msgid "This URL is not allowed for releases."
 msgstr "Cette URL n’est pas permise pour les parutions."
 
-#: ../root/static/scripts/edit/externalLinks.js:806
+#: ../root/static/scripts/edit/externalLinks.js:815
 msgid "This URL is not allowed for release groups."
 msgstr "Cette URL n’est pas permise pour les groupes de parution."
 
-#: ../root/static/scripts/edit/externalLinks.js:810
+#: ../root/static/scripts/edit/externalLinks.js:819
 msgid "This URL is not allowed for series."
 msgstr "Cette URL n’est pas permise pour les séries."
 
-#: ../root/static/scripts/edit/externalLinks.js:813
+#: ../root/static/scripts/edit/externalLinks.js:822
 msgid "This URL is not allowed for works."
 msgstr "Cette URL n’est pas permise pour les œuvres."
 
-#: ../root/static/scripts/edit/externalLinks.js:1120
+#: ../root/static/scripts/edit/externalLinks.js:1129
 #: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:322
 msgid "{description} ({url|more documentation})"
 msgstr "{description} ({url|plus de documentation})"
 
-#: ../root/static/scripts/edit/externalLinks.js:1169
+#: ../root/static/scripts/edit/externalLinks.js:1178
 msgid "Remove Relationship"
 msgstr "Enlever la relation"
 
-#: ../root/static/scripts/edit/externalLinks.js:1255
+#: ../root/static/scripts/edit/externalLinks.js:1264
 msgid "video"
 msgstr "vidéo"
 
-#: ../root/static/scripts/edit/externalLinks.js:1385
+#: ../root/static/scripts/edit/externalLinks.js:1394
 msgid "Remove Link"
 msgstr "Enlever un lien"
 
-#: ../root/static/scripts/edit/externalLinks.js:1415
+#: ../root/static/scripts/edit/externalLinks.js:1424
 msgid "Add link"
 msgstr "Ajouter un lien"
 
-#: ../root/static/scripts/edit/externalLinks.js:1418
+#: ../root/static/scripts/edit/externalLinks.js:1427
 msgid "Add another link"
 msgstr "Ajouter un autre lien"
 
-#: ../root/static/scripts/edit/externalLinks.js:1524
+#: ../root/static/scripts/edit/externalLinks.js:1533
 msgid "Add another relationship"
 msgstr "Ajouter une autre relation"
 
@@ -15486,19 +15473,19 @@ msgstr "Ce support a un ou plusieurs ID de disque ce qui empêche de changer les
 msgid "Page {page} of {total}"
 msgstr "Page {page} sur {total}"
 
-#: ../root/static/scripts/release-editor/fields.js:750
+#: ../root/static/scripts/release-editor/fields.js:760
 msgid "Medium {position}: {title}"
 msgstr "Support {position} : {title}"
 
-#: ../root/static/scripts/release-editor/fields.js:756
+#: ../root/static/scripts/release-editor/fields.js:766
 msgid "Medium {position}"
 msgstr "Support {position}"
 
-#: ../root/static/scripts/release-editor/fields.js:765
+#: ../root/static/scripts/release-editor/fields.js:775
 msgid "I confirm this medium is actually titled “{medium_title}”."
 msgstr "Je confirme que ce support est en fait intitulé « {medium_title} »."
 
-#: ../root/static/scripts/release-editor/fields.js:780
+#: ../root/static/scripts/release-editor/fields.js:790
 msgid ""
 "“{matched_text}” seems to indicate medium ordering rather than a medium "
 "title. If this is the case, please use the up/down arrows on the right side "
@@ -15507,7 +15494,7 @@ msgid ""
 " the checkbox below."
 msgstr "« {matchext_text} » semble indique un ordre des supports plutôt qu’un titre de support. Si c’est le cas, veuillez utiliser les flèches haut/bas sur le côté droit pour ordonner les supports au lieu de leur ajouter un titre. (Voir les {release_style| directives de style}.) Sinon, merci de confirmer que c’est le titre actuel en cochant la case ci-dessous."
 
-#: ../root/static/scripts/release-editor/fields.js:882
+#: ../root/static/scripts/release-editor/fields.js:892
 msgid "You haven’t selected a label for “{name}”."
 msgstr "Vous n’avez pas choisi d’étiquette pour « {name} »."
 
@@ -16433,8 +16420,8 @@ msgstr "Langues : "
 #: ../root/user/UserProfile.js:604 ../root/user/UserProfile.js:614
 #: ../root/user/UserProfile.js:624 ../root/user/UserProfile.js:634
 #: ../root/user/UserProfile.js:644 ../root/user/UserProfile.js:653
-#: ../root/user/UserProfile.js:797 ../root/user/UserProfile.js:807
-#: ../root/user/UserProfile.js:819
+#: ../root/user/UserProfile.js:803 ../root/user/UserProfile.js:819
+#: ../root/user/UserProfile.js:840
 msgid "{count} ({view_url|view})"
 msgstr "{count} ({view_url|voir})"
 
@@ -16516,35 +16503,93 @@ msgstr "Balises et évaluations"
 msgid "Tags upvoted"
 msgstr "Balises votées pour"
 
-#: ../root/user/UserProfile.js:805
+#: ../root/user/UserProfile.js:798 ../root/user/UserProfile.js:814
+msgid "Tags are removed when an editor is deleted."
+msgstr "Les tags sont supprimés quand un éditeur est supprimé."
+
+#: ../root/user/UserProfile.js:800 ../root/user/UserProfile.js:816
+msgctxt "tags"
+msgid "Deleted"
+msgstr "Supprimés"
+
+#: ../root/user/UserProfile.js:811
 msgid "Tags downvoted"
 msgstr "Balises votées contre"
 
-#: ../root/user/UserProfile.js:883
+#: ../root/user/UserProfile.js:833
+msgid "Ratings are removed when an editor is deleted."
+msgstr "Les évaluations sont supprimées quand un éditeur est supprimé."
+
+#: ../root/user/UserProfile.js:836
+msgctxt "ratings"
+msgid "Deleted"
+msgstr "Supprimées"
+
+#: ../root/user/UserProfile.js:904
 msgid "Blocked Spam Account"
 msgstr "Compte spam bloqué"
 
-#: ../root/user/UserProfile.js:885
+#: ../root/user/UserProfile.js:906
 msgid ""
 "This user was blocked and their profile is hidden because they were deemed "
 "to be spamming. If you see spam in MusicBrainz, please do let us know by "
 "reporting the spammer from their user page."
 msgstr "Cet utilisateur est bloqué et son profil est masqué parce qu’il est considéré comme spammeur. Si vous voyez du spam dans MusicBrainz, veuillez nous le faire savoir en signalant le spammeur depuis sa page utilisateur."
 
-#: ../root/user/UserProfile.js:896
+#: ../root/user/UserProfile.js:917
 msgid ""
 "This user is marked as a spammer and is blocked for all non-admin users."
 msgstr "Cet utilisateur est marqué comme spammeur et est bloqué pour tous les utilisateurs non-administrateurs."
 
-#: ../root/user/UserProfile.js:906
+#: ../root/user/UserProfile.js:927
 msgid ""
 "This user’s editing rights have been restricted. Active restrictions: "
 "{restrictions}."
 msgstr "Les droits d’édition de cet utilisateur ont été restreints. Restrictions active : {restrictions}."
 
-#: ../root/user/UserProfile.js:937
+#: ../root/user/UserProfile.js:958
 msgid "Report this user for bad behavior"
 msgstr "Signaler cet utilisateur pour mauvais comportement"
+
+#: ../root/user/UserRatingEntity.js:58
+msgid "No ratings."
+msgstr "Pas d’évaluation."
+
+#: ../root/user/UserRatingList.js:28
+msgid "Artist ratings"
+msgstr "Évaluations de l’artiste"
+
+#: ../root/user/UserRatingList.js:29
+msgid "Event ratings"
+msgstr "Évaluations de l’événement"
+
+#: ../root/user/UserRatingList.js:30
+msgid "Label ratings"
+msgstr "Évaluations des labels"
+
+#: ../root/user/UserRatingList.js:31
+msgid "Place ratings"
+msgstr "Évaluations des lieux"
+
+#: ../root/user/UserRatingList.js:32
+msgid "Recording ratings"
+msgstr "Évaluations d’enregistrement"
+
+#: ../root/user/UserRatingList.js:33
+msgid "Release group ratings"
+msgstr "Évaluations des groupes de parution"
+
+#: ../root/user/UserRatingList.js:34
+msgid "Work ratings"
+msgstr "Évaluations des œuvres"
+
+#: ../root/user/UserRatingList.js:72
+msgid "View all ratings"
+msgstr "Voir toutes les évaluations"
+
+#: ../root/user/UserRatingList.js:83
+msgid "{user} has not rated anything."
+msgstr "{user} n’a rien évalué."
 
 #: ../root/user/UserSubscriptions.js:24
 msgid "Artist Subscriptions"

@@ -802,6 +802,14 @@ msgid ""
 "secondary and one drone string."
 msgstr "Considerata l'origine di tutti gli strumenti a corda indiani (vina), era usata per riti e meditazione, e per i raga e la musica dhrupad dell'India settentrionale. Ha due risuonatori in zucca a fiasco essiccata e cassa in bambù, con 24 tasti in legno, 4 corde principali, 2-3 corde secondarie e una corda bordone."
 
+#. name:washtub bass
+#: DB:instrument/description:96
+msgid ""
+"Consisting of a stick, a string and an resonator of various materials, it is"
+" used in many countries' low-cost and DIY cultures. It's technically a "
+"variable tension chordophone."
+msgstr "Composto da un bastone, una corda e un risuonatore in materiali vari, è usato nelle culture frugali e fai da te di molti paesi. È tecnicamente un cordofono a tensione variabile."
+
 #. name:bonang
 #: DB:instrument/description:969
 msgid ""
@@ -972,8 +980,8 @@ msgstr "Sviluppato a partire dal <a href=\"/instrument/1975ee04-30de-4835-9656-1
 #. name:biniou
 #: DB:instrument/description:1117
 msgid ""
-"Developed from the veuze and often accompanied with the bombard, the small "
-"high-pitched, singular octave bagpipe is used in Breton folk dancing."
+"Developed from the veuze and often accompanying the bombard, the small high-"
+"pitched, singular octave bagpipe is used in Breton folk dancing."
 msgstr "Sviluppata a partire dalla veuze e spesso accompagnata dalla bombarda, è una piccola cornamusa dal tono acuto con estensione di un'ottava utilizzata nelle danze tradizionali bretoni."
 
 #. name:pedal accordion
@@ -1014,6 +1022,13 @@ msgid ""
 " more like the oud. From ancient Greece, it was used as an accompaniment to "
 "Cretan Lyra"
 msgstr "Si differenzia dagli altri liuti per la tensione maggiore delle sue corde, che lo fa suonare in modo più simile ad un oud. Originario dell'antica Grecia, era usato come accompagnamento alla lira cretese."
+
+#. name:frottoir
+#: DB:instrument/description:368
+msgid ""
+"Dispenses with the frame altogether, and is worn as a vest, it is played "
+"with spoons or bottle openers."
+msgstr "Del tutto privo di telaio, si indossa come un gilet ed è suonato con cucchiai o apribottiglie."
 
 #. name:craviola
 #: DB:instrument/description:779
@@ -2084,6 +2099,11 @@ msgstr "Di origine medievale o forse ancora più antica, storicamente era realiz
 #: DB:instrument/description:703
 msgid "Member of the xylophone family, it has 5 octaves."
 msgstr "Membro della famiglia degli xilofoni, ha 5 ottave."
+
+#. name:cowbell
+#: DB:instrument/description:158
+msgid "Metal bell used in various genres, it is often attached to drum kit"
+msgstr "Campana in metallo usata in vari generi, è spesso attaccata ad una batteria."
 
 #. name:Mexican vihuela
 #: DB:instrument/description:92
@@ -4590,6 +4610,11 @@ msgid ""
 "neck and thinner ribs than the cello."
 msgstr "Accordato un'ottava più in basso rispetto al violino tradizionale e per dimensioni circa la metà di un violoncello, ha un'estensione tra il violoncello e la viola. Ha un manico più lungo e fasce più sottili rispetto al violoncello."
 
+#. name:triangle
+#: DB:instrument/description:106
+msgid "Tuned metal bar, bent into triangle shape."
+msgstr "Barretta di metallo intonata, piegata a forma di triangolo."
+
 #. name:alto violin
 #: DB:instrument/description:174
 msgid ""
@@ -4619,6 +4644,14 @@ msgid ""
 " chanting and singing, the other is used for tapping and scraping, creating "
 "rhythm."
 msgstr "Composto da due bastoncini, di cui uno è tenuto in bocca e funge da cassa di risonanza durante il coro o il canto, mentre l'altro è usato per picchiettare e raschiare, creando ritmo."
+
+#. name:washboard
+#: DB:instrument/description:159
+msgid ""
+"Typical metal ribbed tool used for washing, still in it's wooden frame, "
+"often has is additional noisemakers attached, such as cowbell or woodblock. "
+"It is played with thimbles as plectrum."
+msgstr "Tipico utensile in metallo con scanalature utilizzato per lavare il bucato, con telaio in legno, spesso ha attaccati accessori aggiuntivi, come campanacci e woodblock. È suonato usando dei ditali come plettro."
 
 #. name:mandoguitar
 #: DB:instrument/description:836

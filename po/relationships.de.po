@@ -3992,7 +3992,7 @@ msgstr "Konzertmeister(in)"
 msgid "conducting"
 msgstr ""
 
-#: DB:link_type/name:806 DB:link_type/name:46 DB:link_type/name:151
+#: DB:link_type/name:806 DB:link_type/name:151 DB:link_type/name:46
 msgid "conductor"
 msgstr "Dirigent"
 
@@ -7181,8 +7181,8 @@ msgstr "{additional:additionally} komponiert bei"
 msgid "{additional:additionally} composed in"
 msgstr "{additional:additionally} komponiert in"
 
-#: DB:link_type/link_phrase:46 DB:link_type/link_phrase:151
-#: DB:link_type/long_link_phrase:46 DB:link_type/long_link_phrase:151
+#: DB:link_type/link_phrase:151 DB:link_type/link_phrase:46
+#: DB:link_type/long_link_phrase:151 DB:link_type/long_link_phrase:46
 msgid "{additional:additionally} conducted"
 msgstr "dirigierte {additional:zusätzlich}"
 
@@ -7417,7 +7417,7 @@ msgstr "{additional:zusätzliche(r)} Komponist(in)"
 msgid "{additional} composing location for"
 msgstr "{additional} Kompositions-Örtlichkeit für"
 
-#: DB:link_type/reverse_link_phrase:46 DB:link_type/reverse_link_phrase:151
+#: DB:link_type/reverse_link_phrase:151 DB:link_type/reverse_link_phrase:46
 msgid "{additional} conductor"
 msgstr "{additional:zusätzliche(r)} Dirigent(in)"
 
