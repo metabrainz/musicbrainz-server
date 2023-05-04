@@ -1323,10 +1323,10 @@
   dependencies:
     prop-types "^15.8.1"
 
-"@metabrainz/design-system@1.0.8":
-  version "1.0.8"
-  resolved "https://registry.yarnpkg.com/@metabrainz/design-system/-/design-system-1.0.8.tgz#e32033711ba74e3fe5b4566df8d5398140aa16f3"
-  integrity sha512-6thFC7ukjmwsZASf3H6aAGAkPHssrLTdQjm9lfksGBrzglOXSbHj+TJlK211Y59/V0IAE4W8/M915EJ7F7S5kw==
+"@metabrainz/design-system@1.2.2":
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/@metabrainz/design-system/-/design-system-1.2.2.tgz#6e6e054ef9012bf0d93bfc78b32d047b213d364d"
+  integrity sha512-4mALspyb7zN1pCYlLkgVi2U8emNvWgFz8sW4S9HexHZU7cx78+ZxRqitCwYT64V2irb4IPINkugliRsXX1YpFA==
 
 "@nicolo-ribaudo/chokidar-2@2.1.8-no-fsevents.2":
   version "2.1.8-no-fsevents.2"
