@@ -561,7 +561,6 @@ sub delete {
     $self->c->model('EditorSubscriptions')->delete_editor($editor_id);
     $self->c->model('Editor')->unsubscribe_to($editor_id);
     $self->c->model('Collection')->delete_editor($editor_id);
-    $self->c->model('WatchArtist')->delete_editor($editor_id);
 
     $self->c->model($_)->tags->clear($editor_id)
         for (entities_with('tags', take => 'model'));
