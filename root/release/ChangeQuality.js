@@ -46,6 +46,20 @@ const ChangeQuality = ({
   return (
     <ReleaseLayout entity={release} fullWidth title={title}>
       <h2>{title}</h2>
+      <p>
+        {exp.l(
+          `{data_quality_doc|Data quality} indicates how good the data
+           for a release is. It is not a mark of how good or bad the music
+           itself is - for that, use {ratings_doc|ratings}.`,
+          {
+            data_quality_doc: {
+              href: '/doc/Release#Data_quality',
+              target: '_blank',
+            },
+            ratings_doc: {href: '/doc/Rating_System', target: '_blank'},
+          },
+        )}
+      </p>
       <form method="post">
         <FormRowSelect
           field={form.field.quality}
