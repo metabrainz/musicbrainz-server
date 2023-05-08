@@ -9,7 +9,7 @@ has '_connection' => (
     isa => 'Redis',
 );
 
-has '_namespace' => (
+has 'namespace' => (
     is => 'rw',
     isa => 'Str',
 );
@@ -27,13 +27,13 @@ sub BUILD {
         $self->_connection->select($args->{database});
     }
 
-    $self->_namespace($args->{namespace});
+    $self->namespace($args->{namespace});
 }
 
 sub _prepare_key {
     my ($self, $key) = @_;
 
-    encode('utf-8', $self->_namespace . $key);
+    encode('utf-8', $self->namespace . $key);
 }
 
 sub _encode_value { $_[1] }
