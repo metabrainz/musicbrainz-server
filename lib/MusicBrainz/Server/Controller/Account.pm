@@ -780,6 +780,10 @@ sub revoke_application_access : Path('/account/applications/revoke-access') Args
         [ l('There is no OAuth token with these parameters.') ]
     ) unless $token_exists;
 
+    my $application = $c->model('Application')->get_by_id($application_id);
+    my $permissions =
+        MusicBrainz::Server::Entity::EditorOAuthToken->permissions($scope);
+
     if ($c->form_posted_and_valid($form)) {
         if ($form->field('cancel')->input) {
             $c->response->redirect($c->uri_for_action('/account/applications'));
@@ -796,7 +800,9 @@ sub revoke_application_access : Path('/account/applications/revoke-access') Args
             current_view => 'Node',
             component_path => 'account/applications/RevokeApplicationAccess',
             component_props => {
+                application => $application->TO_JSON,
                 form => $form->TO_JSON,
+                permissions => $permissions,
             },
         );
         $c->detach;
