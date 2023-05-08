@@ -769,6 +769,17 @@ sub revoke_application_access : Path('/account/applications/revoke-access') Args
     my ($self, $c, $application_id, $scope) = @_;
 
     my $form = $c->form( form => 'Confirm' );
+
+    my $token_exists = $c->model('EditorOAuthToken')->check_granted_token(
+        $c->user->id,
+        $application_id,
+        $scope,
+    );
+    $c->detach(
+        '/error_404',
+        [ l('There is no OAuth token with these parameters.') ]
+    ) unless $token_exists;
+
     if ($c->form_posted_and_valid($form)) {
         if ($form->field('cancel')->input) {
             $c->response->redirect($c->uri_for_action('/account/applications'));
