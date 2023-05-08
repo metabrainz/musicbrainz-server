@@ -82,7 +82,7 @@ function formatScopes(token: EditorOAuthTokenT) {
   return commaOnlyListText(lScopes);
 }
 
-const Index = ({
+const ApplicationList = ({
   applications,
   appsPager,
   tokens,
@@ -170,4 +170,4 @@ const Index = ({
   );
 };
 
-export default Index;
+export default ApplicationList;

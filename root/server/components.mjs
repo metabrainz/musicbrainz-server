@@ -20,11 +20,11 @@ export default {
    * Any server-rendered page referenced via component_path in the
    * stash must be listed here.
    */
-  'account/applications/Edit': (): Promise<mixed> => import('../account/applications/Edit.js'),
-  'account/applications/Index': (): Promise<mixed> => import('../account/applications/Index.js'),
-  'account/applications/Register': (): Promise<mixed> => import('../account/applications/Register.js'),
-  'account/applications/Remove': (): Promise<mixed> => import('../account/applications/Remove.js'),
-  'account/applications/RevokeAccess': (): Promise<mixed> => import('../account/applications/RevokeAccess.js'),
+  'account/applications/ApplicationList': (): Promise<mixed> => import('../account/applications/ApplicationList.js'),
+  'account/applications/EditApplication': (): Promise<mixed> => import('../account/applications/EditApplication.js'),
+  'account/applications/RegisterApplication': (): Promise<mixed> => import('../account/applications/RegisterApplication.js'),
+  'account/applications/RemoveApplication': (): Promise<mixed> => import('../account/applications/RemoveApplication.js'),
+  'account/applications/RevokeApplicationAccess': (): Promise<mixed> => import('../account/applications/RevokeApplicationAccess.js'),
   'account/ChangePassword': (): Promise<mixed> => import('../account/ChangePassword.js'),
   'account/Donation': (): Promise<mixed> => import('../account/Donation.js'),
   'account/EditProfile': (): Promise<mixed> => import('../account/EditProfile.js'),

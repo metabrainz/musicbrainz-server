@@ -754,7 +754,7 @@ sub applications : Path('/account/applications') RequireAuth RequireSSL
 
     $c->stash(
         current_view => 'Node',
-        component_path => 'account/applications/Index',
+        component_path => 'account/applications/ApplicationList',
         component_props => {
             applications => to_json_array($applications),
             appsPager => serialize_pager($c->stash->{apps_pager}),
@@ -783,7 +783,7 @@ sub revoke_application_access : Path('/account/applications/revoke-access') Args
     } else {
         $c->stash(
             current_view => 'Node',
-            component_path => 'account/applications/RevokeAccess',
+            component_path => 'account/applications/RevokeApplicationAccess',
             component_props => {
                 form => $form->TO_JSON,
             },
@@ -810,7 +810,7 @@ sub register_application : Path('/account/applications/register') RequireAuth Re
     } else {
         $c->stash(
             current_view => 'Node',
-            component_path => 'account/applications/Register',
+            component_path => 'account/applications/RegisterApplication',
             component_props => {
                 form => $form->TO_JSON,
             },
@@ -843,7 +843,7 @@ sub edit_application : Path('/account/applications/edit') Args(1) RequireAuth Re
         $form->field('oauth_type')->value($application->oauth_type),
         $c->stash(
             current_view => 'Node',
-            component_path => 'account/applications/Edit',
+            component_path => 'account/applications/EditApplication',
             component_props => {
                 form => $form->TO_JSON,
             },
@@ -875,7 +875,7 @@ sub remove_application : Path('/account/applications/remove') Args(1) RequireAut
     } else {
         $c->stash(
             current_view => 'Node',
-            component_path => 'account/applications/Remove',
+            component_path => 'account/applications/RemoveApplication',
             component_props => {
                 form => $form->TO_JSON,
             },
