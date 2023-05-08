@@ -45,6 +45,21 @@ sub detach_if_cannot_change {
         $c->detach;
     }
 
+    if ($is_own_note && $c->user->is_adding_notes_disabled) {
+        $c->stash(
+            component_path  => 'user/UserMessage',
+            component_props => {
+                title    => l('Can’t change edit note'),
+                message  => l(
+                    'You’re currently not allowed to leave or change edit notes because an admin has revoked your privileges. If you haven’t already been contacted about why, please {uri|send us a message}.',
+                    { uri => { href => 'https://metabrainz.org/contact', target => '_blank' } },
+                ),
+            },
+            current_view    => 'Node',
+        );
+        $c->detach;
+    }
+
     my $is_note_deleted = $edit_note->{latest_change} &&
                           $edit_note->{latest_change}->{status} eq 'deleted';
 

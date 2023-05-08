@@ -16,7 +16,7 @@ import {
 } from '../../constants.js';
 import {CatalystContext} from '../../context.mjs';
 import EditorLink from '../../static/scripts/common/components/EditorLink.js';
-import {isAccountAdmin}
+import {isAccountAdmin, isAddingNotesDisabled}
   from '../../static/scripts/common/utility/privileges.js';
 import getVoteName from '../../static/scripts/edit/utility/getVoteName.js';
 import formatUserDate from '../../utility/formatUserDate.js';
@@ -115,7 +115,8 @@ const EditNote = ({
     noteDate && (new Date().getTime() - noteDate.getTime()) < twentyFourHours,
   );
   const canBeChangedByOwner = isCurrentEditor && !hasReply &&
-                              isRecent && !isDeleted;
+                              isRecent && !isDeleted &&
+                              !isAddingNotesDisabled(user);
   const canShowEditControls = showEditControls &&
                               (canBeChangedByOwner || isAccountAdmin(user));
 

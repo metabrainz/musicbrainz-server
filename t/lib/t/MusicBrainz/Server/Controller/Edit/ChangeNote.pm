@@ -77,6 +77,34 @@ test all => sub {
         'Can modify note followed by own notes only',
     );
 
+    note('We remove the editor’s edit note privileges');
+    $test->c->sql->do(<<~'SQL');
+        UPDATE editor
+           SET privs = 2048
+         WHERE id = 1
+        SQL
+
+    $mech->get_ok('/edit-note/4/modify');
+    html_ok($mech->content);
+    $mech->content_contains(
+        'currently not allowed to leave or change edit notes',
+        'Can’t modify same note when edit note privileges are off',
+    );
+
+    note('We restore the editor’s edit note privileges');
+    $test->c->sql->do(<<~'SQL');
+        UPDATE editor
+           SET privs = 0
+         WHERE id = 1
+        SQL
+
+    $mech->get_ok('/edit-note/4/modify');
+    html_ok($mech->content);
+    $mech->content_contains(
+        'You are modifying the following edit note',
+        'Can modify note again after recovering edit note privileges',
+    );
+
     # Actually modify edit note 4
     $mech->submit_form(
         with_fields => {
