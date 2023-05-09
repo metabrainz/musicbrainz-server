@@ -23,6 +23,7 @@ test all => sub {
     $mech->content_like(qr/test comment 1/, 'disambiguation comments');
     $mech->content_like(qr/Recording series/, 'has series type');
     $mech->content_like(qr/Automatic/, 'has ordering type');
+    $mech->text_contains('Number of entities:2', 'lists number of entities');
 
     # Check recordings
     $mech->content_like(qr/Dancing Queen/, 'has recording title');

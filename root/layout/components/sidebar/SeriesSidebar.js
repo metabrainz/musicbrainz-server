@@ -14,6 +14,7 @@ import CommonsImage
   from '../../../static/scripts/common/components/CommonsImage.js';
 import linkedEntities
   from '../../../static/scripts/common/linkedEntities.mjs';
+import {formatCount} from '../../../statistics/utilities.js';
 import ExternalLinks from '../ExternalLinks.js';
 
 import AnnotationLinks from './AnnotationLinks.js';
@@ -56,6 +57,13 @@ const SeriesSidebar = ({series}: Props): React$Element<'div'> => {
             linkedEntities.series_ordering_type[series.orderingTypeID].name,
             'series_ordering_type',
           )}
+        </SidebarProperty>
+
+        <SidebarProperty
+          className=""
+          label={addColonText(l('Number of entities'))}
+        >
+          {formatCount($c, series.entity_count)}
         </SidebarProperty>
       </SidebarProperties>
 
