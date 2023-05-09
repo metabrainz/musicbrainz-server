@@ -1,9 +1,10 @@
 package MusicBrainz::Server::Data::Series;
 
-use List::AllUtils qw( max );
+use List::AllUtils qw( max partition_by );
 use Moose;
 use namespace::autoclean;
 use MusicBrainz::Server::Constants qw(
+    entities_with
     $SERIES_ORDERING_TYPE_AUTOMATIC
 );
 use MusicBrainz::Server::Data::Utils qw(
@@ -222,6 +223,34 @@ sub get_entities {
             ordering_key => $ordering_key,
         };
     });
+}
+
+sub load_entity_count {
+    my ($self, @series) = @_;
+    return unless @series;
+
+    my @entity_types = entities_with('series');
+
+    my $query = join(' UNION ALL ',
+       map {
+           my $entity_type = $_;
+           my $series_table = "${entity_type}_series";
+           "  (SELECT series, count(*) AS count
+                FROM $series_table
+               WHERE series = any(?)
+            GROUP BY series)"
+       } @entity_types,
+    );
+
+    my @series_ids = map { $_->id } @series;
+    my @query_params = (\@series_ids) x scalar(@entity_types);
+    my $rows = $self->sql->select_list_of_hashes($query, @query_params);
+    my %rows_by_id = partition_by { $_->{series} } @$rows;
+
+    for my $series (@series) {
+        my $row = $rows_by_id{$series->id}->[0];
+        $series->entity_count($row->{count} // 0);
+    }
 }
 
 sub find_by_subscribed_editor
