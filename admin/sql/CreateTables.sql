@@ -524,7 +524,6 @@ CREATE TABLE cdtoc ( -- replicate
     track_count         INTEGER NOT NULL,
     leadout_offset      INTEGER NOT NULL,
     track_offset        INTEGER[] NOT NULL,
-    degraded            BOOLEAN NOT NULL DEFAULT FALSE,
     created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
