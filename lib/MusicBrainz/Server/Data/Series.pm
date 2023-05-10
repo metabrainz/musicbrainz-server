@@ -13,6 +13,7 @@ use MusicBrainz::Server::Data::Utils qw(
     merge_table_attributes
     load_subobjects
     order_by
+    placeholders
 );
 use MusicBrainz::Server::Data::Utils::Cleanup qw( used_in_relationship );
 use MusicBrainz::Server::Data::Utils::Uniqueness qw( assert_uniqueness_conserved );
@@ -136,6 +137,31 @@ sub _merge_impl {
     }
 
     return 1;
+}
+
+=method load_ids
+
+Load internal IDs for event objects that only have GIDs.
+
+=cut
+
+sub load_ids
+{
+    my ($self, @series) = @_;
+
+    my @gids = map { $_->gid } @series;
+    return () unless @gids;
+
+    my $query = '
+        SELECT gid, id FROM series
+        WHERE gid IN (' . placeholders(@gids) . ')
+    ';
+    my %map = map { $_->[0] => $_->[1] }
+        @{ $self->sql->select_list_of_lists($query, @gids) };
+
+    for my $series (@series) {
+        $series->id($map{$series->gid}) if exists $map{$series->gid};
+    }
 }
 
 sub load
