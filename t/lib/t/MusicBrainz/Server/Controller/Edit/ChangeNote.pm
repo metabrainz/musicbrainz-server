@@ -45,7 +45,7 @@ test all => sub {
     is(
         scalar @change_class_matches,
         2,
-        '2 sets of change note controls shown to normal user',
+        '2 sets of change edit note controls shown to normal user',
     );
 
     # We test this with /delete but the code for rejection is the same for /modify
@@ -74,7 +74,7 @@ test all => sub {
     html_ok($mech->content);
     $mech->content_contains(
         'You are modifying the following edit note',
-        'Can modify note followed by own notes only',
+        'Can modify note followed by own + ModBot notes only',
     );
 
     note('We remove the editor’s edit note privileges');
@@ -185,8 +185,8 @@ test all => sub {
     @change_class_matches = $mech->content =~ /$change_note_classname/g;
     is(
         scalar @change_class_matches,
-        5,
-        '5 sets of change note controls shown to admin',
+        6,
+        '6 sets of change edit note controls shown to admin',
     );
 
     $mech->get_ok('/edit-note/1/delete');

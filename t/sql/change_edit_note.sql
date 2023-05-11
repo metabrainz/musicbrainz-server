@@ -19,4 +19,5 @@ INSERT INTO edit_note (id, editor, edit, post_time, text)
            (2, 2, 1, '2014-12-05', 'Editor 2 comments'),
            (3, 1, 1, '2014-12-05', 'Editor 1 replies'),
            (4, 1, 1, NOW(), 'Editor 1 leaves another note years ltaer'),
-           (5, 1, 1, NOW(), 'Editor 1 leaves an extra comment');
+           (5, 1, 1, NOW(), 'Editor 1 leaves an extra comment'),
+           (6, 4, 1, NOW(), 'ModBot says a thing');

@@ -12,8 +12,8 @@ import FormRowText from '../static/scripts/edit/components/FormRowText.js';
 import FormRowTextArea
   from '../static/scripts/edit/components/FormRowTextArea.js';
 
-import EditNoteListEntry from './components/EditNoteListEntry.js';
 import EditNoteHelp from './components/EditNoteHelp.js';
+import EditNoteListEntry from './components/EditNoteListEntry.js';
 
 type ModifyEditNoteFormT = FormT<{
   +cancel: ReadOnlyFieldT<string>,

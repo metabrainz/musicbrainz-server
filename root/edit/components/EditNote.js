@@ -13,6 +13,7 @@ import {
   EDIT_VOTE_APPROVE,
   EDIT_VOTE_NO,
   EDIT_VOTE_YES,
+  EDITOR_MODBOT,
 } from '../../constants.js';
 import {CatalystContext} from '../../context.mjs';
 import EditorLink from '../../static/scripts/common/components/EditorLink.js';
@@ -63,7 +64,7 @@ const EditNote = ({
   const $c = React.useContext(CatalystContext);
   const user = $c.user;
   const allEditNotes = edit.edit_notes;
-  const isModBot = editNote.editor_id === 4;
+  const isModBot = editNote.editor_id === EDITOR_MODBOT;
   const anchor = returnNoteAnchor(edit, index);
   const isOwner = edit.editor_id === editNote.editor_id;
   const isCurrentEditor = Boolean(user && user.id === editNote.editor_id);
@@ -90,8 +91,8 @@ const EditNote = ({
   /*
    * We only want to show the controls for modifying/removing a note
    * to a normal user in the case where the note is their own, nobody else
-   * has posted in response (the same user can have other notes), the note
-   * is not older than 24 hours, and it hasn't already been removed.
+   * has posted in response (the same user or ModBot can have other notes),
+   * the note is not older than 24 hours, and it hasn't already been removed.
    * For admins, we can show it all the time.
    */
   let hasReply = true;
@@ -104,7 +105,8 @@ const EditNote = ({
     const noteIndex = allEditNotes.findIndex(note => note.id === editNote.id);
     const noteAndAfter = allEditNotes.slice(noteIndex);
     hasReply = (noteAndAfter.some(
-      note => note.editor_id !== editNote.editor_id,
+      note => note.editor_id !== editNote.editor_id &&
+              note.editor_id !== EDITOR_MODBOT,
     ));
   }
   const noteDate = nonEmpty(editNote.post_time)

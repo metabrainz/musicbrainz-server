@@ -4,7 +4,7 @@ use MooseX::MethodAttributes;
 use namespace::autoclean;
 
 use List::AllUtils qw( first_index );
-use MusicBrainz::Server::Constants qw( $CONTACT_URL );
+use MusicBrainz::Server::Constants qw( $CONTACT_URL $EDITOR_MODBOT );
 use MusicBrainz::Server::Data::Utils qw( load_everything_for_edits );
 use MusicBrainz::Server::Validation qw( is_database_row_id );
 use MusicBrainz::Server::Translation qw( l );
@@ -81,7 +81,9 @@ sub detach_if_cannot_change {
     } @$all_edit_notes;
     my $has_reply = 0;
     for (my $i = $note_index + 1; $i < @$all_edit_notes; $i++) {
-        if ($all_edit_notes->[$i]->editor_id != $edit_note->editor_id) {
+        my $reply_editor = $all_edit_notes->[$i]->editor_id;
+        if (($reply_editor != $edit_note->editor_id) &&
+            ($reply_editor != $EDITOR_MODBOT)) {
             $has_reply = 1;
             last;
         }
