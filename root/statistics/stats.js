@@ -753,6 +753,16 @@ const stats = {
     color: '#ff0000',
     label: l('Release groups with user-selected cover art'),
   },
+  'count.releasegroup.primary_type.null': {
+    category: 'release-group-types',
+    color: '#ff0000',
+    label: l('Release groups with no primary type set'),
+  },
+  'count.releasegroup.secondary_type.null': {
+    category: 'release-group-types',
+    color: '#ff0000',
+    label: l('Release groups with no secondary type set'),
+  },
   'count.series': {
     category: 'core-entities',
     color: '#1a6756',
