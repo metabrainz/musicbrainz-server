@@ -332,19 +332,27 @@ if (-x "$FindBin::Bin/hooks/post-process") {
 # Also last_replication_date should match TIMESTAMP
 {
     my $row = $sql->select_single_row_hash('SELECT * FROM replication_control');
+    my $current_replication_sequence = $row->{current_replication_sequence};
+    my $last_replication_date = $row->{last_replication_date};
     # If we're applying a previously aborted sequence, $REPLICATION_SEQUENCE
     # and $TIMESTAMP will not be defined.
     if (defined $aborted_sequence) {
         $aborted_sequence = undef;
+        print (
+            localtime() .
+            " : Successfully applied a previously aborted load; " .
+            "current_replication_sequence is $current_replication_sequence and " .
+            "last_replication_date is '$last_replication_date'."
+        );
     } else {
-        if ($row->{current_replication_sequence} != $REPLICATION_SEQUENCE) {
-            die "Applied changes, but current_replication_sequence is $row->{current_replication_sequence} not $REPLICATION_SEQUENCE\n";
+        if ($current_replication_sequence != $REPLICATION_SEQUENCE) {
+            die "Applied changes, but current_replication_sequence is $current_replication_sequence not $REPLICATION_SEQUENCE\n";
         }
-        if (defined($TIMESTAMP) && $row->{last_replication_date} ne $TIMESTAMP) {
-            warn "Applied changes, but last_replication_date is '$row->{last_replication_date}' not '$TIMESTAMP'\n";
+        if (defined($TIMESTAMP) && $last_replication_date ne $TIMESTAMP) {
+            warn "Applied changes, but last_replication_date is '$last_replication_date' not '$TIMESTAMP'\n";
         }
     }
-    $iReplicationSequence = $row->{current_replication_sequence};
+    $iReplicationSequence = $current_replication_sequence;
 }
 
 $count += 1;
