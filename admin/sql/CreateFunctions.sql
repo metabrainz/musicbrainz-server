@@ -479,6 +479,19 @@ BEGIN
         PERFORM dec_ref_count('artist_credit', OLD.artist_credit, 1);
         PERFORM inc_ref_count('artist_credit', NEW.artist_credit, 1);
     END IF;
+    IF (
+        NEW.status IS DISTINCT FROM OLD.status AND
+        (NEW.status = 6 OR OLD.status = 6)
+    ) THEN
+        PERFORM set_release_first_release_date(NEW.id);
+
+        -- avoid executing it twice as this will be executed a few lines below if RG changes
+        IF NEW.release_group = OLD.release_group THEN
+            PERFORM set_release_group_first_release_date(NEW.release_group);
+        END IF;
+
+        PERFORM set_releases_recordings_first_release_dates(ARRAY[NEW.id]);
+    END IF;
     IF NEW.release_group != OLD.release_group THEN
         -- release group is changed, decrement release_count in the original RG, increment in the new one
         UPDATE release_group_meta SET release_count = release_count - 1 WHERE id = OLD.release_group;
@@ -1066,7 +1079,13 @@ BEGIN
             SELECT release, date_year, date_month, date_day FROM release_unknown_country
         ) all_dates
         WHERE ' || condition ||
-        ' ORDER BY release, year NULLS LAST, month NULLS LAST, day NULLS LAST';
+        ' AND NOT EXISTS (
+          SELECT TRUE
+            FROM release
+           WHERE release.id = all_dates.release
+             AND status = 6
+        )
+        ORDER BY release, year NULLS LAST, month NULLS LAST, day NULLS LAST';
 END;
 $$ LANGUAGE 'plpgsql' STRICT;
 
