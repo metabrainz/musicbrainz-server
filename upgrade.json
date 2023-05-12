@@ -215,7 +215,7 @@
     "master_only": [
       "20230423-nix-pending-keys-insertion.sql"
     ],
-    "master_or_standalone": [
+    "master_and_standalone": [
       "20211203-mbs-11312-standalone.sql"
     ]
   }
