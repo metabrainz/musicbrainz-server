@@ -320,7 +320,7 @@ for my $f (@pending_files)
 print localtime() . " : Importing the pending data files\n";
 system "$FindBin::Bin/ImportReplicationChanges",
     '--database', $database,
-    ($dbmirror2 ? '--dbmirror2' : ()),
+    ($dbmirror2 ? '--dbmirror2' : '--nodbmirror2'),
     '--tmp-dir', $tmpdir,
     '--',
     @pending_file_paths;
@@ -335,7 +335,7 @@ rmtree($mydir);
 APPLY_CHANGES:
 # Apply the changes (ProcessReplicationChanges)
 system "$FindBin::Bin/ProcessReplicationChanges", @process_opts,
-    ($dbmirror2 ? '--dbmirror2' : ());
+    ($dbmirror2 ? '--dbmirror2' : '--nodbmirror2');
 exit $CHILD_ERROR if $CHILD_ERROR;
 
 if (-x "$FindBin::Bin/hooks/post-process") {

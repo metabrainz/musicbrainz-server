@@ -17,7 +17,7 @@ my $REPTYPE = DBDefs->REPLICATION_TYPE;
 my $psql = 'psql';
 my $path_to_pending_so;
 my $databaseName = 'MAINTENANCE';
-my $dbmirror2 = 0;
+my $dbmirror2 = 1;
 my $fFixUTF8 = 0;
 my $fCreateDB;
 my $fInstallExtension;
@@ -426,7 +426,8 @@ sub SanityCheck
     {
         (defined($path_to_pending_so) || $dbmirror2) or die <<EOF;
 Error: this is a master replication server, but you did not specify
-the path to "pending.so" (i.e. --with-pending=PATH) or pass --dbmirror2.
+the path to "pending.so" (i.e. --with-pending=PATH) while specifying
+--nodbmirror2.
 EOF
 
         return if $dbmirror2;

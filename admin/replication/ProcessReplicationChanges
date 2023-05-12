@@ -20,7 +20,7 @@ use Types::Serialiser;
 
 my $long_sql = 0;
 my $short_sql = 0;
-my $dbmirror2 = 0;
+my $dbmirror2 = 1;
 my $debug_xact = 0;
 my $skip_seqid;
 my $limit = 10000;

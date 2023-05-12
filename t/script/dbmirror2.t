@@ -59,7 +59,6 @@ test all => sub {
         File::Spec->catfile($root, 'admin/InitDb.pl'),
         '--createdb',
         '--database', 'TEST_DBMIRROR2_MASTER',
-        '--dbmirror2',
         '--clean',
         '--reptype', '1',
     );
@@ -68,7 +67,6 @@ test all => sub {
         File::Spec->catfile($root, 'admin/InitDb.pl'),
         '--createdb',
         '--database', 'TEST_DBMIRROR2_SLAVE',
-        '--dbmirror2',
         '--clean',
         '--reptype', '2',
     );
@@ -156,7 +154,6 @@ test all => sub {
             File::Spec->catfile($root, 'admin/replication/LoadReplicationChanges'),
             '--base-uri', 'file://' . $output_dir,
             '--database', 'TEST_DBMIRROR2_SLAVE',
-            '--dbmirror2',
             '--lockfile', '/tmp/.mb-LoadReplicationChanges-TEST_DBMIRROR2_SLAVE',
         );
     };

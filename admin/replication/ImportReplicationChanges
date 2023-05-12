@@ -16,7 +16,7 @@ use Sql;
 my ($fHelp, $fIgnoreErrors);
 my $tmpdir = '/tmp';
 my $database = 'READWRITE';
-my $dbmirror2 = 0;
+my $dbmirror2 = 1;
 
 GetOptions(
     'help|h'            => \$fHelp,
