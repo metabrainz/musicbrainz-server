@@ -13,7 +13,8 @@ sub _table
 
 sub _columns
 {
-    return 'id, change_editor AS editor_id, change_time, status, reason';
+    return 'id, edit_note AS edit_note_id, change_editor AS editor_id, ' .
+        'change_time, status, reason';
 }
 
 sub _entity_class
@@ -23,21 +24,24 @@ sub _entity_class
 
 sub get_latest
 {
-    my ($self, $id) = @_;
-    my $query = 'SELECT ' . $self->_columns .
+    my ($self, @ids) = @_;
+    my $query = 'SELECT DISTINCT ON (edit_note) ' . $self->_columns .
                 ' FROM ' . $self->_table .
-                ' WHERE edit_note = ?' .
-                ' ORDER BY change_time DESC, id DESC LIMIT 1';
-    my $row = $self->sql->select_single_row_hash($query, $id)
-        or return undef;
-    return $self->_new_from_row($row);
+                ' WHERE edit_note = any(?)' .
+                ' ORDER BY edit_note, change_time DESC, id DESC';
+    $self->query_to_list($query, [\@ids]);
 }
 
 sub load_latest
 {
     my ($self, @edit_notes) = @_;
+    my @changes = $self->get_latest(map { $_->id } @edit_notes);
+    my %changes;
+    for my $edit_note_change (@changes) {
+        $changes{ $edit_note_change->edit_note_id } = $edit_note_change;
+    }
     for my $edit_note (@edit_notes) {
-        my $edit_note_change = $self->get_latest($edit_note->id) or next;
+        my $edit_note_change = $changes{ $edit_note->id } or next;
         $edit_note->latest_change($edit_note_change);
     }
 }
