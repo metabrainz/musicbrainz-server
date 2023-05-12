@@ -210,6 +210,9 @@
       "20220927-mbs-12573.sql",
       "20221114-mbs-12704.sql",
       "20230320-mbs-12800.sql"
+    ],
+    "master_only": [
+      "20230423-nix-pending-keys-insertion.sql"
     ]
   }
 }

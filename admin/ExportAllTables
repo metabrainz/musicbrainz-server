@@ -230,6 +230,40 @@ if ($fDoReplication)
             # NULL columns that are useless on slaves.
             $sql->do('UPDATE dbmirror2.pending_data SET oldctid = NULL, trgdepth = NULL');
 
+            # Calculate the pending_keys table.
+            # (It should be empty, but clear it first just in case.)
+            my $pending_keys_count = $sql->select_single_value(<<~'SQL');
+                SELECT count(*) FROM dbmirror2.pending_keys;
+                SQL
+            if ($pending_keys_count) {
+                warn (
+                    'Expected dbmirror2.pending_keys to be empty. ' .
+                    'Existing data will be cleared.'
+                );
+            }
+
+            $sql->do(<<~SQL);
+                DELETE FROM dbmirror2.pending_keys;
+                INSERT INTO dbmirror2.pending_keys
+                WITH all_primary_keys AS (
+                     SELECT (quote_ident(kcu.table_schema) || '.' ||
+                             quote_ident(kcu.table_name)) AS tablename,
+                            kcu.column_name,
+                            kcu.ordinal_position
+                       FROM information_schema.key_column_usage kcu
+                    NATURAL JOIN information_schema.table_constraints tc
+                      WHERE tc.constraint_type = 'PRIMARY KEY'
+                ) SELECT p.tablename,
+                         array_agg(
+                             p.column_name ORDER BY p.ordinal_position ASC
+                         )::text[] AS keys
+                    FROM all_primary_keys p
+                   WHERE p.tablename IN (
+                       SELECT tablename FROM dbmirror2.pending_data
+                   )
+                GROUP BY p.tablename;
+                SQL
+
             for my $table (@dbmirror2_tables) {
                 # Map the schema-qualified dbmirror2 table names to file
                 # names without the schema inside the packet.

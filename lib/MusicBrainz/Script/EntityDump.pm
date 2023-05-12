@@ -68,7 +68,7 @@ sub handle_rows {
 
     my @primary_keys = sort {
         $a cmp $b
-    } get_primary_keys($c, $schema, $table);
+    } get_primary_keys($c->sql, $schema, $table);
 
     my @new_rows = grep {
         my $key = join "\t", @{$_}{@primary_keys};

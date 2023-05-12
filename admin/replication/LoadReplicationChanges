@@ -141,17 +141,32 @@ unless (defined $iReplicationSequence)
 
 check_foreign_keys();
 
+my @pending_files;
+if ($dbmirror2) {
+    push @pending_files, qw(
+        pending_data
+        pending_keys
+        pending_ts
+    );
+} else {
+    push @pending_files, qw(
+        dbmirror_pending
+        dbmirror_pendingdata
+    );
+}
+
 my %known_broken_sequences = (
     # MBS-9366
     '104949' => 1,
 );
+my $aborted_sequence;
 
 if (
     $dbmirror2
         ? $sql->select_single_value('SELECT count(*) FROM dbmirror2.pending_data')
         : $sql->select_single_value('SELECT count(*) FROM dbmirror_pending')
 ) {
-    my $aborted_sequence = $iReplicationSequence + 1;
+    $aborted_sequence = $iReplicationSequence + 1;
     if ($known_broken_sequences{$aborted_sequence}) {
         print localtime() . ' : Looks like we may have previously tried ' .
             "to apply packet #$aborted_sequence, which is known to be " .
@@ -276,27 +291,29 @@ if ($dbmirror2 && !(defined $DBMIRROR_VERSION && $DBMIRROR_VERSION == 2)) {
     exit 1;
 }
 
-my @pending_files;
-if ($dbmirror2) {
-    push @pending_files, qw(
-        pending_data
-        pending_keys
-        pending_ts
-    );
-} else {
-    push @pending_files, qw(
-        dbmirror_pending
-        dbmirror_pendingdata
-    );
-}
+# As this code may be executed multiple times via `goto`, the declaration
+# must explicitly assign an empty list in order to clobber any previous
+# value.
+my @pending_file_paths = ();
 
 # Check existence of the data files
 for my $f (@pending_files)
 {
-    next if -f "$mydir/mbdump/$f";
-    print localtime() . " : There is no mbdump/$f file in this archive!\n";
-    print localtime() . " : Please tell support\@musicbrainz.org!\n";
-    exit 1;
+    my $pending_file_path = "$mydir/mbdump/$f";
+    if (-f $pending_file_path) {
+        push @pending_file_paths, $pending_file_path;
+    } elsif (
+        # NOTE-NOPK-1: The pending_keys file isn't actually required to apply
+        # dbmirror2 packets. If it's missing, we just query for primary keys
+        # from the database instead. It *should* exist, but there are at
+        # least three packets missing it (158338, 158339, 158340) due to a
+        # mishap.
+        $f ne 'pending_keys'
+    ) {
+        print localtime() . " : There is no mbdump/$f file in this archive!\n";
+        print localtime() . " : Please tell support\@musicbrainz.org!\n";
+        exit 1;
+    }
 }
 
 # Load them
@@ -306,7 +323,7 @@ system "$FindBin::Bin/ImportReplicationChanges",
     ($dbmirror2 ? '--dbmirror2' : ()),
     '--tmp-dir', $tmpdir,
     '--',
-    map { "$mydir/mbdump/$_" } @pending_files;
+    @pending_file_paths;
 exit $CHILD_ERROR if $CHILD_ERROR;
 
 # Wipe the temporary directory
@@ -331,13 +348,27 @@ if (-x "$FindBin::Bin/hooks/post-process") {
 # Also last_replication_date should match TIMESTAMP
 {
     my $row = $sql->select_single_row_hash('SELECT * FROM replication_control');
-    if ($row->{current_replication_sequence} != $REPLICATION_SEQUENCE) {
-        die "Applied changes, but current_replication_sequence is $row->{current_replication_sequence} not $REPLICATION_SEQUENCE\n";
+    my $current_replication_sequence = $row->{current_replication_sequence};
+    my $last_replication_date = $row->{last_replication_date};
+    # If we're applying a previously aborted sequence, $REPLICATION_SEQUENCE
+    # and $TIMESTAMP will not be defined.
+    if (defined $aborted_sequence) {
+        $aborted_sequence = undef;
+        print (
+            localtime() .
+            " : Successfully applied a previously aborted load; " .
+            "current_replication_sequence is $current_replication_sequence and " .
+            "last_replication_date is '$last_replication_date'."
+        );
+    } else {
+        if ($current_replication_sequence != $REPLICATION_SEQUENCE) {
+            die "Applied changes, but current_replication_sequence is $current_replication_sequence not $REPLICATION_SEQUENCE\n";
+        }
+        if (defined($TIMESTAMP) && $last_replication_date ne $TIMESTAMP) {
+            warn "Applied changes, but last_replication_date is '$last_replication_date' not '$TIMESTAMP'\n";
+        }
     }
-    if (defined($TIMESTAMP) && $row->{last_replication_date} ne $TIMESTAMP) {
-        warn "Applied changes, but last_replication_date is '$row->{last_replication_date}' not '$TIMESTAMP'\n";
-    }
-    $iReplicationSequence = $row->{current_replication_sequence};
+    $iReplicationSequence = $current_replication_sequence;
 }
 
 $count += 1;

@@ -2,6 +2,7 @@
 
 use warnings;
 use strict;
+use feature 'state';
 
 use English;
 use FindBin;
@@ -12,6 +13,7 @@ use DBI;
 use DBDefs;
 use JSON::XS;
 use List::AllUtils qw( zip );
+use MusicBrainz::Script::Utils qw( get_primary_keys );
 use MusicBrainz::Server::Context;
 use Sql;
 use Types::Serialiser;
@@ -72,7 +74,7 @@ $sql->auto_commit;
 $sql->do('SET search_path = musicbrainz, public');
 
 $sql->auto_commit;
-$sql->do('SET SESSION CHARACTERISTICS AS TRANSACTION ISOLATION LEVEL SERIALIZABLE');
+$sql->do('SET SESSION CHARACTERISTICS AS TRANSACTION ISOLATION LEVEL REPEATABLE READ');
 
 #Obtain a list of pending transactions using ordering by our approximation
 #to the commit time.  The commit time approximation is taken to be the
@@ -142,17 +144,17 @@ if (my $totalrows = $sql->select($query))
 
         if ($dbmirror2) {
             $query = <<~'SQL';
-                  SELECT pd.seqid,
-                         pd.tablename,
-                         pd.op,
-                         pd.olddata,
-                         pd.newdata,
-                         pk.keys
-                    FROM dbmirror2.pending_data pd
-                    JOIN dbmirror2.pending_keys pk
-                      ON pk.tablename = pd.tablename
-                   WHERE pd.xid = ?
-                ORDER BY pd.seqid ASC
+                   SELECT pd.seqid,
+                          pd.tablename,
+                          pd.op,
+                          pd.olddata,
+                          pd.newdata,
+                          pk.keys
+                     FROM dbmirror2.pending_data pd
+                LEFT JOIN dbmirror2.pending_keys pk
+                       ON pk.tablename = pd.tablename
+                    WHERE pd.xid = ?
+                 ORDER BY pd.seqid ASC
                 SQL
         }
 
@@ -295,6 +297,27 @@ sub dbmirror2_command {
 
     if (defined $newdata) {
         $newdata = $json->decode($newdata);
+    }
+
+    # Some dbmirror2 packets have an incomplete pending_keys file due to a
+    # (now fixed) bug. A few other packets are missing a pending_keys file
+    # altogether. If we encounter either of these scenarios, fetch primary
+    # keys from the database.
+    if (!defined $keys) {
+        state $fetched_keys = {};
+        $keys = $fetched_keys->{$table};
+        if (!defined $keys) {
+            warn (
+                "Primary keys for $table were not found in the " .
+                "pending_keys file. Fetching them from the database."
+            );
+            my ($schema_part, $table_part) = @{ $mirror->select_single_value(
+                'SELECT parse_ident(?)',
+                $table,
+            ) };
+            $keys = [get_primary_keys($mirror, $schema_part, $table_part)];
+            $fetched_keys->{$table} = $keys;
+        }
     }
 
     my $t = ($bytable{$table} ||= [0, 0, 0]);
@@ -440,9 +463,18 @@ sub warn_if_existing_data_differs {
             my $type_name = $mirror->get_column_type_name($table, $col);
             # postgres has no equality operator for json, only jsonb
             $type_name =~ s/json(?!b)/jsonb/;
+            my $comparison_query;
+            if ($type_name eq 'point') {
+                # Two points are considered equivalent if the distance
+                # between them is 0.
+                $comparison_query = "SELECT (?::point <-> ?::point) != 0";
+            } else {
+                $comparison_query =
+                    "SELECT ?::$type_name IS DISTINCT FROM ?::$type_name";
+            }
             if (
                 $mirror->select_single_value(
-                    "SELECT ?::$type_name IS DISTINCT FROM ?::$type_name",
+                    $comparison_query,
                     $packet_value,
                     $actual_value,
                 )
