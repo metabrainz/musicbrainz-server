@@ -8,12 +8,12 @@
  */
 
 // If you update this, also update $PUBLIC_PRIVILEGE_FLAGS in Constants.pm
-const publicFlags = 1 & // AUTO_EDITOR_FLAG
-                    2 & // BOT_FLAG
-                    8 & // RELATIONSHIP_EDITOR_FLAG
-                    32 & // WIKI_TRANSCLUSION_FLAG
-                    128 & // ACCOUNT_ADMIN_FLAG
-                    256 & // LOCATION_EDITOR_FLAG
+const publicFlags = 1 | // AUTO_EDITOR_FLAG
+                    2 | // BOT_FLAG
+                    8 | // RELATIONSHIP_EDITOR_FLAG
+                    32 | // WIKI_TRANSCLUSION_FLAG
+                    128 | // ACCOUNT_ADMIN_FLAG
+                    256 | // LOCATION_EDITOR_FLAG
                     512; // BANNER_EDITOR_FLAG
 
 function sanitizePrivileges(privileges: number): number {

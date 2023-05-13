@@ -358,12 +358,12 @@ Readonly our $EDITING_DISABLED_FLAG         => 1024;
 Readonly our $ADDING_NOTES_DISABLED_FLAG    => 2048;
 Readonly our $SPAMMER_FLAG                  => 4096;
 # If you update this, also update root/utility/sanitizedEditor.js
-Readonly our $PUBLIC_PRIVILEGE_FLAGS        => $AUTO_EDITOR_FLAG &
-                                               $BOT_FLAG &
-                                               $RELATIONSHIP_EDITOR_FLAG &
-                                               $WIKI_TRANSCLUSION_FLAG &
-                                               $ACCOUNT_ADMIN_FLAG &
-                                               $LOCATION_EDITOR_FLAG &
+Readonly our $PUBLIC_PRIVILEGE_FLAGS        => $AUTO_EDITOR_FLAG |
+                                               $BOT_FLAG |
+                                               $RELATIONSHIP_EDITOR_FLAG |
+                                               $WIKI_TRANSCLUSION_FLAG |
+                                               $ACCOUNT_ADMIN_FLAG |
+                                               $LOCATION_EDITOR_FLAG |
                                                $BANNER_EDITOR_FLAG;
 
 Readonly our $ELECTION_VOTE_NO      => -1;
