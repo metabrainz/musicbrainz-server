@@ -50,9 +50,9 @@ sub REPLICATION_TYPE { RT_STANDALONE }
 sub REPLICATION_ACCESS_TOKEN { '' }
 
 # On RT_MASTER, setting this to 1 generates '-v2' packets from dbmirror2
-# (in addition to normal dbmirror packets). On RT_SLAVE, downloads the v2
-# packets when running replication.
-sub REPLICATION_USE_DBMIRROR2 { 0 }
+# (in addition to the old "v1" dbmirror packets). On RT_MIRROR, downloads the
+# v2 packets when running replication.
+sub REPLICATION_USE_DBMIRROR2 { 1 }
 
 ################################################################################
 # GPG Signature

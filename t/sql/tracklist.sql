@@ -99,11 +99,11 @@ INSERT INTO track (id, gid, medium, position, number, recording, name, artist_cr
            (42, '1a989191-d8ec-4147-9915-9ddcf59fea95', 5, 9, 9, 16, 'Aerial', 1, 123456),
            (43, 'c5c9ac02-dc07-4850-9338-03a4588de554', 5, 0, 0, 17, '[pregap]', 1, 148);
 
-INSERT INTO cdtoc (id, discid, freedb_id, track_count, leadout_offset, track_offset, degraded)
+INSERT INTO cdtoc (id, discid, freedb_id, track_count, leadout_offset, track_offset)
        VALUES (1, 'BySFY0Ymit0miawEWumIN8Nvx-', '4b094107', 7, 171327,
-              '{187, 25585, 46070, 70612, 89517, 143492, 164262}', FALSE),
+              '{187, 25585, 46070, 70612, 89517, 143492, 164262}'),
               (2, 'IeldkVfIh1wep_M8CMuDvA0nQ7Q-', '6309da09', 9, 189343,
-              '{150,6614,32287,54041,61236,88129,92729,115276,153877}', FALSE);
+              '{150,6614,32287,54041,61236,88129,92729,115276,153877}');
 
 INSERT INTO link (id, link_type, attribute_count, begin_date_year, begin_date_month, begin_date_day, end_date_year, end_date_month, end_date_day, ended)
        VALUES (1, 151, 0, 1971, 2, NULL, 1972, 2, NULL, true);

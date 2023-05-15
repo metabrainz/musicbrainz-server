@@ -2,7 +2,7 @@
 
 BEGIN;
 
-CREATE TABLE unreferenced_row_log (
+CREATE TABLE IF NOT EXISTS unreferenced_row_log (
     table_name          VARCHAR NOT NULL, -- PK
     row_id              INTEGER NOT NULL, -- PK
     inserted            TIMESTAMP WITH TIME ZONE DEFAULT NOW()
@@ -23,6 +23,6 @@ BEGIN
 END;
 $$ LANGUAGE 'plpgsql';
 
-CREATE INDEX unreferenced_row_log_idx_inserted ON unreferenced_row_log USING BRIN (inserted);
+CREATE INDEX IF NOT EXISTS unreferenced_row_log_idx_inserted ON unreferenced_row_log USING BRIN (inserted);
 
 COMMIT;

@@ -142,13 +142,6 @@ after 'load' => sub
                 $artist->id,
             );
         }
-
-        $c->stash(
-            watching_artist => $c->user_exists && $c->model('WatchArtist')->is_watching(
-                editor_id => $c->user->id,
-                artist_id => $artist->id,
-            )
-        );
     }
 
     $c->model('ArtistType')->load($artist, map { $_->target } @{ $artist->relationships_by_type('artist') });
@@ -734,34 +727,6 @@ around edit => sub {
         $self->$orig($c);
     }
 };
-
-sub watch : Chained('load') RequireAuth {
-    my ($self, $c) = @_;
-
-    my $artist = $c->stash->{artist};
-    $c->model('WatchArtist')->watch_artist(
-        artist_id => $artist->id,
-        editor_id => $c->user->id
-    ) if $c->user_exists;
-
-    $c->redirect_back(
-        fallback => $c->uri_for_action('/artist/show', [ $artist->gid ]),
-    );
-}
-
-sub stop_watching : Chained('load') RequireAuth {
-    my ($self, $c) = @_;
-
-    my $artist = $c->stash->{artist};
-    $c->model('WatchArtist')->stop_watching_artist(
-        artist_ids => [ $artist->id ],
-        editor_id => $c->user->id
-    ) if $c->user_exists;
-
-    $c->redirect_back(
-        fallback => $c->uri_for_action('/artist/show', [ $artist->gid ]),
-    );
-}
 
 sub split : Chained('load') Edit {
     my ($self, $c) = @_;

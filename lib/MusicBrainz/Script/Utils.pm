@@ -17,7 +17,7 @@ Get a list of primary key column names for $schema.$table.
 =cut
 
 sub get_primary_keys($$$) {
-    my ($c, $schema, $table) = @_;
+    my ($sql, $schema, $table) = @_;
 
     state $cache = {};
     if (defined $cache->{$table}) {
@@ -28,7 +28,7 @@ sub get_primary_keys($$$) {
     # "no statement executing", and "Field 'attnum' does not exist" errors
     # have happened here.
     my @keys = retry(
-        sub { $c->sql->dbh->primary_key(undef, $schema, $table) },
+        sub { $sql->dbh->primary_key(undef, $schema, $table) },
         reason => 'getting primary keys',
     );
     @keys = map {

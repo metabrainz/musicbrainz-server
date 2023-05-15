@@ -33,11 +33,6 @@ has 'track_offset' => (
     isa => 'ArrayRef[Int]'
 );
 
-has 'degraded' => (
-    is => 'rw',
-    isa => 'Boolean'
-);
-
 sub sectors_to_ms
 {
     return int($_[0] / 75 * 1000);

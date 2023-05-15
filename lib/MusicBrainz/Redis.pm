@@ -4,36 +4,44 @@ use Encode;
 use Moose;
 use Redis;
 
-has '_connection' => (
-    is => 'rw',
-    isa => 'Redis',
-);
-
-has '_namespace' => (
+has 'server' => (
     is => 'rw',
     isa => 'Str',
 );
 
-sub BUILD {
-    my ($self, $args) = @_;
+has 'database' => (
+    is => 'rw',
+    isa => 'Str',
+);
 
-    $self->_connection(Redis->new(
+has 'namespace' => (
+    is => 'rw',
+    isa => 'Str',
+);
+
+has '_connection' => (
+    is => 'rw',
+    isa => 'Redis',
+    lazy => 1,
+    builder => '_build_connection',
+);
+
+sub _build_connection {
+    my $self = shift;
+    my $connection = Redis->new(
         encoding => undef,
         reconnect => 5,
-        server => $args->{server},
-    ));
-
-    if (defined $args->{database}) {
-        $self->_connection->select($args->{database});
-    }
-
-    $self->_namespace($args->{namespace});
+        server => $self->server,
+    );
+    $connection->select($self->database)
+        if defined $self->database;
+    $connection;
 }
 
 sub _prepare_key {
     my ($self, $key) = @_;
 
-    encode('utf-8', $self->_namespace . $key);
+    encode('utf-8', $self->namespace . $key);
 }
 
 sub _encode_value { $_[1] }
