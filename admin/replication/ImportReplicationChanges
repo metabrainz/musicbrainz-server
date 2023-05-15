@@ -16,7 +16,7 @@ use Sql;
 my ($fHelp, $fIgnoreErrors);
 my $tmpdir = '/tmp';
 my $database = 'READWRITE';
-my $dbmirror2 = 0;
+my $dbmirror2 = 1;
 
 GetOptions(
     'help|h'            => \$fHelp,
@@ -219,7 +219,11 @@ sub ImportDBMirror2ReplicationTables {
     for my $table (qw( pending_data pending_keys pending_ts )) {
         my $file = find_file($table);
 
-        $file or die "No data file found for $table";
+        if (!$file) {
+            # See NOTE-NOPK-1 in LoadReplicationChanges.
+            next if $table eq 'pending_keys';
+            die "No data file found for $table";
+        }
 
         my $qualified_table = "dbmirror2.$table";
         if (!empty($qualified_table)) {

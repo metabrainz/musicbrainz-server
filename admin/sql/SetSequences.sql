@@ -28,6 +28,7 @@ SELECT setval('cdtoc_id_seq', COALESCE((SELECT MAX(id) FROM cdtoc), 0) + 1, FALS
 SELECT setval('cdtoc_raw_id_seq', COALESCE((SELECT MAX(id) FROM cdtoc_raw), 0) + 1, FALSE);
 SELECT setval('edit_id_seq', COALESCE((SELECT MAX(id) FROM edit), 0) + 1, FALSE);
 SELECT setval('edit_note_id_seq', COALESCE((SELECT MAX(id) FROM edit_note), 0) + 1, FALSE);
+SELECT setval('edit_note_change_id_seq', COALESCE((SELECT MAX(id) FROM edit_note_change), 0) + 1, FALSE);
 SELECT setval('editor_id_seq', COALESCE((SELECT MAX(id) FROM editor), 0) + 1, FALSE);
 SELECT setval('editor_preference_id_seq', COALESCE((SELECT MAX(id) FROM editor_preference), 0) + 1, FALSE);
 SELECT setval('editor_subscribe_artist_id_seq', COALESCE((SELECT MAX(id) FROM editor_subscribe_artist), 0) + 1, FALSE);

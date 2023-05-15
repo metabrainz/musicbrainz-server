@@ -841,10 +841,6 @@ Readonly our @PRIVATE_TABLE_LIST => qw(
     editor_subscribe_editor
     editor_subscribe_label
     editor_subscribe_series
-    editor_watch_artist
-    editor_watch_preferences
-    editor_watch_release_group_type
-    editor_watch_release_status
     event_rating_raw
     event_tag_raw
     instrument_tag_raw

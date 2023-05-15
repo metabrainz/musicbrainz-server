@@ -386,7 +386,7 @@ sub handle_replication_sequence($$) {
 
         my @primary_keys = grep {
             should_follow_primary_key("$schema.$table.$_")
-        } get_primary_keys($c, $schema, $table);
+        } get_primary_keys($c->sql, $schema, $table);
 
         for my $pk_column (@primary_keys) {
             my $value = $conditions->{$pk_column} // $data->{$pk_column};

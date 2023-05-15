@@ -50,9 +50,9 @@ sub REPLICATION_TYPE { RT_STANDALONE }
 sub REPLICATION_ACCESS_TOKEN { '' }
 
 # On RT_MASTER, setting this to 1 generates '-v2' packets from dbmirror2
-# (in addition to normal dbmirror packets). On RT_SLAVE, downloads the v2
-# packets when running replication.
-sub REPLICATION_USE_DBMIRROR2 { 0 }
+# (in addition to the old "v1" dbmirror packets). On RT_MIRROR, downloads the
+# v2 packets when running replication.
+sub REPLICATION_USE_DBMIRROR2 { 1 }
 
 ################################################################################
 # GPG Signature
@@ -355,7 +355,7 @@ sub MAPBOX_MAP_ID { 'mapbox/streets-v11' }
 sub MAPBOX_ACCESS_TOKEN { '' }
 
 # Feature toggle used for pre-schema change release of safe schema change code
-sub ACTIVE_SCHEMA_SEQUENCE { 27 }
+sub ACTIVE_SCHEMA_SEQUENCE { 28 }
 
 # Disallow OAuth2 requests over plain HTTP
 sub OAUTH2_ENFORCE_TLS { my $self = shift; !$self->DB_STAGING_SERVER }
