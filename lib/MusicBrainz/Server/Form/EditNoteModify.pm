@@ -5,6 +5,9 @@ use warnings;
 use HTML::FormHandler::Moose;
 extends 'MusicBrainz::Server::Form';
 
+use MusicBrainz::Server::Translation qw( l );
+use MusicBrainz::Server::Validation qw( is_valid_edit_note );
+
 has '+name' => ( default => 'edit-note-modify' );
 
 has_field 'cancel' => ( type => 'Submit' );
@@ -15,9 +18,21 @@ has_field 'reason' => (
 );
 has_field 'text' => (
     type => 'Text',
-    required => 1,
     input_without_param => '',
 );
+
+sub validate
+{
+    my ($self) = @_;
+
+    unless ($self->field('cancel')->input) {
+        if (!defined $self->field('text')->value) {
+            $self->field('text')->add_error(l('You must provide an edit note. If you want to blank the note, please remove it instead.'));
+        } elsif (!is_valid_edit_note($self->field('text')->value)) {
+            $self->field('text')->add_error(l('Your edit note seems to have no actual content. Please provide a note that will be helpful to your fellow editors!'));
+        }
+    }
+}
 
 1;
 

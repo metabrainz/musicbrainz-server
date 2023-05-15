@@ -105,7 +105,33 @@ test all => sub {
         'Can modify note again after recovering edit note privileges',
     );
 
-    # Actually modify edit note 4
+    note('We try to modify the note by blanking it');
+    $mech->submit_form(
+        with_fields => {
+        'edit-note-modify.text' => '',
+        'edit-note-modify.reason' => 'Fixing typo',
+        }
+    );
+    html_ok($mech->content);
+    $mech->content_contains(
+        'You must provide an edit note',
+        'Can’t submit blank edit note when modifying it',
+    );
+
+    note('We try to modify the note and make it just the letter "a"');
+    $mech->submit_form(
+        with_fields => {
+        'edit-note-modify.text' => 'a',
+        'edit-note-modify.reason' => 'Fixing typo',
+        }
+    );
+    html_ok($mech->content);
+    $mech->content_contains(
+        'no actual content',
+        'Can’t submit content-free edit note when modifying it',
+    );
+
+    note('We actually modify the note with a proper text');
     $mech->submit_form(
         with_fields => {
         'edit-note-modify.text' => 'Editor 1 leaves another note years later',

@@ -50,7 +50,6 @@ const ModifyNote = ({
         cols={50}
         field={form.field.text}
         label={addColonText(l('New edit note'))}
-        required
         rows={10}
       />
       <EditNoteHelp>
