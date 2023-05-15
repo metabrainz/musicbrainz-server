@@ -354,12 +354,11 @@ if (-x "$FindBin::Bin/hooks/post-process") {
     # and $TIMESTAMP will not be defined.
     if (defined $aborted_sequence) {
         $aborted_sequence = undef;
-        print (
+        print
             localtime() .
             " : Successfully applied a previously aborted load; " .
             "current_replication_sequence is $current_replication_sequence and " .
-            "last_replication_date is '$last_replication_date'."
-        );
+            "last_replication_date is '$last_replication_date'.";
     } else {
         if ($current_replication_sequence != $REPLICATION_SEQUENCE) {
             die "Applied changes, but current_replication_sequence is $current_replication_sequence not $REPLICATION_SEQUENCE\n";
