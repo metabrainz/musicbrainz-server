@@ -933,6 +933,8 @@ INSERT INTO release_status VALUES (1, 'Official', NULL, 1, 'Any release official
 INSERT INTO release_status VALUES (2, 'Promotion', NULL, 2, 'A give-away release or a release intended to promote an upcoming official release (e.g. pre-release versions, releases included with a magazine, versions supplied to radio DJs for air-play).', '518ffc83-5cde-34df-8627-81bff5093d92');
 INSERT INTO release_status VALUES (3, 'Bootleg', NULL, 3, 'An unofficial/underground release that was not sanctioned by the artist and/or the record company. This includes unofficial live recordings and pirated releases.', '1156806e-d06a-38bd-83f0-cf2284a808b9');
 INSERT INTO release_status VALUES (4, 'Pseudo-Release', NULL, 4, 'An alternate version of a release where the titles have been changed. These don''t correspond to any real release and should be linked to the original release using the transl(iter)ation relationship.', '41121bb9-3413-3818-8a9a-9742318349aa');
+INSERT INTO release_status VALUES (5, 'Withdrawn', NULL, 5, 'A previously official release that was actively withdrawn from circulation by the artist and/or their record company after being released, whether to replace it with a new version with some changes or to just retire it altogether (e.g. because of legal issues).', '6a3772de-4605-4132-993d-aa315cd19b4b');
+INSERT INTO release_status VALUES (6, 'Cancelled', NULL, 6, 'A planned official release that was cancelled before being released, but for which enough info is known to still confidently list it (e.g. it was available for preorder).', '55005350-bc3f-441a-b0c7-27c565eae341');
 
 INSERT INTO script VALUES (3, 'Ugar', '040', 'Ugaritic', 2);
 INSERT INTO script VALUES (28, 'Latn', '215', 'Latin', 4);

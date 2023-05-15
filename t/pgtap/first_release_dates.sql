@@ -225,6 +225,149 @@ SELECT results_eq(
   'VALUES (1970::smallint, 11::smallint, null::smallint)'
 );
 
+UPDATE release SET status = 6 WHERE id = 3;
+
+SELECT results_eq(
+  'all_release_first_release_dates',
+  $$
+    VALUES
+      (1::integer, 1999::smallint, 1::smallint, 4::smallint),
+      (2::integer, 1989::smallint, null::smallint, null::smallint)
+  $$,
+  'Release (first release event) dates as expected after marking release as cancelled'
+);
+
+SELECT results_eq(
+  'release_group_first_release_dates',
+  $$
+    VALUES
+      (1::integer, 1999::smallint, 1::smallint, 4::smallint),
+      (2::integer, 1989::smallint, null::smallint, null::smallint)
+  $$,
+  'RG (first release) dates as expected after marking release as cancelled'
+);
+
+SELECT results_eq(
+  'recording_1_first_release_date',
+  'VALUES (1989::smallint, null::smallint, null::smallint)',
+  'Recording (first release) date as expected after marking release as cancelled'
+);
+
+UPDATE release SET status = 1 WHERE id = 3;
+
+SELECT results_eq(
+  'all_release_first_release_dates',
+  $$
+    VALUES
+      (1::integer, 1999::smallint, 1::smallint, 4::smallint),
+      (2::integer, 1989::smallint, null::smallint, null::smallint),
+      (3::integer, 1970::smallint, 11::smallint, null::smallint)
+  $$,
+  'Release (first release event) dates as expected after marking release as official again'
+);
+
+SELECT results_eq(
+  'release_group_first_release_dates',
+  $$
+    VALUES
+      (1::integer, 1999::smallint, 1::smallint, 4::smallint),
+      (2::integer, 1970::smallint, 11::smallint, null::smallint)
+  $$,
+  'RG (first release) dates as expected after marking release as official again'
+);
+
+SELECT results_eq(
+  'recording_1_first_release_date',
+  'VALUES (1970::smallint, 11::smallint, null::smallint)',
+  'Recording (first release) date as expected after marking release as official again'
+);
+
+UPDATE release SET status = 6, release_group = 1 WHERE id = 3;
+
+SELECT results_eq(
+  'all_release_first_release_dates',
+  $$
+    VALUES
+      (1::integer, 1999::smallint, 1::smallint, 4::smallint),
+      (2::integer, 1989::smallint, null::smallint, null::smallint)
+  $$,
+  'Release (first release event) dates as expected after marking release as cancelled and changing its RG'
+);
+
+SELECT results_eq(
+  'release_group_first_release_dates',
+  $$
+    VALUES
+      (1::integer, 1999::smallint, 1::smallint, 4::smallint),
+      (2::integer, 1989::smallint, null::smallint, null::smallint)
+  $$,
+  'RG (first release) dates as expected after marking release as cancelled and changing its RG'
+);
+
+SELECT results_eq(
+  'recording_1_first_release_date',
+  'VALUES (1989::smallint, null::smallint, null::smallint)',
+  'Recording (first release) date as expected after marking release as cancelled and changing its RG'
+);
+
+UPDATE release SET status = 1 WHERE id = 3;
+
+SELECT results_eq(
+  'all_release_first_release_dates',
+  $$
+    VALUES
+      (1::integer, 1999::smallint, 1::smallint, 4::smallint),
+      (2::integer, 1989::smallint, null::smallint, null::smallint),
+      (3::integer, 1970::smallint, 11::smallint, null::smallint)
+  $$,
+  'Release (first release event) dates as expected after marking release as official again'
+);
+
+SELECT results_eq(
+  'release_group_first_release_dates',
+  $$
+    VALUES
+      (1::integer, 1970::smallint, 11::smallint, null::smallint),
+      (2::integer, 1989::smallint, null::smallint, null::smallint)
+  $$,
+  'RG (first release) dates as expected after marking release as official again'
+);
+
+SELECT results_eq(
+  'recording_1_first_release_date',
+  'VALUES (1970::smallint, 11::smallint, null::smallint)',
+  'Recording (first release) date as expected after marking release as official again'
+);
+
+UPDATE release SET release_group = 2 WHERE id = 3;
+
+SELECT results_eq(
+  'all_release_first_release_dates',
+  $$
+    VALUES
+      (1::integer, 1999::smallint, 1::smallint, 4::smallint),
+      (2::integer, 1989::smallint, null::smallint, null::smallint),
+      (3::integer, 1970::smallint, 11::smallint, null::smallint)
+  $$,
+  'Release (first release event) dates as expected after changing release RG back'
+);
+
+SELECT results_eq(
+  'release_group_first_release_dates',
+  $$
+    VALUES
+      (1::integer, 1999::smallint, 1::smallint, 4::smallint),
+      (2::integer, 1970::smallint, 11::smallint, null::smallint)
+  $$,
+  'RG (first release) dates as expected after changing release RG back'
+);
+
+SELECT results_eq(
+  'recording_1_first_release_date',
+  'VALUES (1970::smallint, 11::smallint, null::smallint)',
+  'Recording (first release) date as expected after changing release RG back'
+);
+
 DELETE FROM release_unknown_country;
 
 SELECT results_eq(

@@ -22,7 +22,6 @@ DROP TRIGGER IF EXISTS restore_collection_sub_on_public ON editor_collection;
 DROP TRIGGER IF EXISTS search_hint ON artist_alias;
 DROP TRIGGER IF EXISTS b_upd_artist_tag ON artist_tag;
 DROP TRIGGER IF EXISTS b_upd_editor ON editor;
-DROP TRIGGER IF EXISTS a_ins_editor ON editor;
 DROP TRIGGER IF EXISTS check_editor_name ON editor;
 DROP TRIGGER IF EXISTS a_ins_event ON event;
 DROP TRIGGER IF EXISTS b_upd_event ON event;

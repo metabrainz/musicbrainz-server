@@ -1,0 +1,7 @@
+\set ON_ERROR_STOP 1
+
+BEGIN;
+
+ALTER TABLE cdtoc DROP COLUMN degraded CASCADE;
+
+COMMIT;

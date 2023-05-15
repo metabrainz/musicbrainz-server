@@ -87,6 +87,7 @@ DROP INDEX edit_instrument_idx;
 DROP INDEX edit_label_idx;
 DROP INDEX edit_label_idx_status;
 DROP INDEX edit_mood_idx;
+DROP INDEX edit_note_change_idx_edit_note;
 DROP INDEX edit_note_idx_edit;
 DROP INDEX edit_note_idx_editor;
 DROP INDEX edit_note_recipient_idx_recipient;
