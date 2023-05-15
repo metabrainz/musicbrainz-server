@@ -78,7 +78,7 @@ Readonly my $DEF_DIR => realpath("$FindBin::Bin/source");
 Readonly my $SQL_DIR => realpath("$FindBin::Bin/../../admin/sql");
 Readonly my $OUTPUT_DIR => realpath($output_dir);
 
-Readonly my $DB_SCHEMA_SEQUENCE => 27;
+Readonly my $DB_SCHEMA_SEQUENCE => 28;
 
 Readonly my $TABLE_FONT_SIZE => '17';
 Readonly my $COLUMN_FONT_SIZE => '14';

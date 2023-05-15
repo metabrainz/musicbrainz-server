@@ -355,7 +355,7 @@ sub MAPBOX_MAP_ID { 'mapbox/streets-v11' }
 sub MAPBOX_ACCESS_TOKEN { '' }
 
 # Feature toggle used for pre-schema change release of safe schema change code
-sub ACTIVE_SCHEMA_SEQUENCE { 27 }
+sub ACTIVE_SCHEMA_SEQUENCE { 28 }
 
 # Disallow OAuth2 requests over plain HTTP
 sub OAUTH2_ENFORCE_TLS { my $self = shift; !$self->DB_STAGING_SERVER }

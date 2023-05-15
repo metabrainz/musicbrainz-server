@@ -1,7 +1,7 @@
 {
   "DBDefs": {
     "CATALYST_DEBUG": "0",
-    "DB_SCHEMA_SEQUENCE": "27",
+    "DB_SCHEMA_SEQUENCE": "28",
     "DB_STAGING_TESTING_FEATURES": "1",
     "DEVELOPMENT_SERVER": "1",
     "FORK_RENDERER": "0",
