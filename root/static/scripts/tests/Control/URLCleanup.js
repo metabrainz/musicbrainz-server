@@ -5167,7 +5167,7 @@ limited_link_type_combinations: [
        only_valid_entity_types: ['artist'],
   },
   {
-                     input_url: 'https://www.uta-net.com/lyricist/21/5/',
+                     input_url: 'https://www.uta-net.com/lyricist/21/#top',
              input_entity_type: 'artist',
     expected_relationship_type: 'lyrics',
             expected_clean_url: 'https://www.uta-net.com/lyricist/21/',
