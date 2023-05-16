@@ -18,8 +18,8 @@ use MusicBrainz::Server::Context;
 use Sql;
 use Types::Serialiser;
 
-my $long_sql = 0;
-my $short_sql = 0;
+my $show_long_sql = 0;
+my $show_short_sql = 0;
 my $dbmirror2 = 1;
 my $debug_xact = 0;
 my $skip_seqid;
@@ -44,8 +44,8 @@ Options are:
 EOF
 
 GetOptions(
-    'short-sql'         => \$short_sql,
-    'long-sql'          => \$long_sql,
+    'short-sql'         => \$show_short_sql,
+    'long-sql'          => \$show_long_sql,
     'dbmirror2!'        => \$dbmirror2,
     'debug-xact'        => \$debug_xact,
     'skip-seqid|s=i'    => \$skip_seqid,
@@ -126,7 +126,7 @@ if (my $totalrows = $sql->select($query))
     };
 
     $p = sub { $lasttime = time }
-        if $short_sql or $long_sql or $debug_xact;
+        if $show_short_sql or $show_long_sql or $debug_xact;
 
         $p->('', '');
 
@@ -359,8 +359,8 @@ sub mirrorInsert
 
     my ($statement, $args) = MusicBrainz::Server::dbmirror::prepare_insert($tableName, $valuepairs);
 
-    print localtime() . " : INSERT INTO $tableName\n" if $short_sql;
-    show_long_sql($statement, $args) if $long_sql;
+    print localtime() . " : INSERT INTO $tableName\n" if $show_short_sql;
+    show_long_sql($statement, $args) if $show_long_sql;
     $applying_change_sql->do($statement, @$args);
 
     return 1;
@@ -509,8 +509,8 @@ sub dbmirror2_insert {
     my $placholders = join q(, ), (('?') x @$columns);
     my $statement = "INSERT INTO $table ($columns_string) VALUES ($placholders)";
 
-    print localtime() . " : INSERT INTO $table\n" if $short_sql;
-    show_long_sql($statement, $values) if $long_sql;
+    print localtime() . " : INSERT INTO $table\n" if $show_short_sql;
+    show_long_sql($statement, $values) if $show_long_sql;
 
     $applying_change_sql->do($statement, @$values);
 
@@ -528,8 +528,8 @@ sub mirrorDelete
 
     my ($statement, $args) = MusicBrainz::Server::dbmirror::prepare_delete($tableName, $keypairs);
 
-    print localtime() . " : DELETE FROM $tableName\n" if $short_sql;
-    show_long_sql($statement, $args) if $long_sql;
+    print localtime() . " : DELETE FROM $tableName\n" if $show_short_sql;
+    show_long_sql($statement, $args) if $show_long_sql;
     $applying_change_sql->do($statement, @$args);
 
     return 1;
@@ -552,8 +552,8 @@ sub dbmirror2_delete {
 
     my $statement = "DELETE FROM $table WHERE $conditions";
 
-    print localtime() . " : DELETE FROM $table\n" if $short_sql;
-    show_long_sql($statement, \@key_data) if $long_sql;
+    print localtime() . " : DELETE FROM $table\n" if $show_short_sql;
+    show_long_sql($statement, \@key_data) if $show_long_sql;
 
     $applying_change_sql->do($statement, @key_data);
 
@@ -579,8 +579,8 @@ sub mirrorUpdate
 
     my ($statement, $args) = MusicBrainz::Server::dbmirror::prepare_update($tableName, $valuepairs, $keypairs);
 
-    print localtime() . " : UPDATE $tableName\n" if $short_sql;
-    show_long_sql($statement, $args) if $long_sql;
+    print localtime() . " : UPDATE $tableName\n" if $show_short_sql;
+    show_long_sql($statement, $args) if $show_long_sql;
     $applying_change_sql->do($statement, @$args);
 
     return 1;
@@ -620,8 +620,8 @@ sub dbmirror2_update {
 
     my $statement = "UPDATE $table SET $updates WHERE $conditions";
 
-    print localtime() . " : UPDATE $table\n" if $short_sql;
-    show_long_sql($statement, \@key_data) if $long_sql;
+    print localtime() . " : UPDATE $table\n" if $show_short_sql;
+    show_long_sql($statement, \@key_data) if $show_long_sql;
 
     $applying_change_sql->do($statement, @changed_values, @key_data);
 
