@@ -4593,6 +4593,13 @@ limited_link_type_combinations: [
        only_valid_entity_types: ['artist'],
   },
   {
+                     input_url: 'https://open.spotify.com/intl-it/artist/1cfvECgeNkitPfAecXtcVX',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://open.spotify.com/artist/1cfvECgeNkitPfAecXtcVX',
+       only_valid_entity_types: ['artist'],
+  },
+  {
                      input_url: 'open.spotify.com/album/0tabKG66W34Ms0SsovkP6Q/6yVKnHVFGkg4OQ8IrgQVpZ',
              input_entity_type: 'release',
     expected_relationship_type: 'streamingfree',
@@ -4619,7 +4626,7 @@ limited_link_type_combinations: [
        only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series'],
   },
   {
-                     input_url: 'https://open.spotify.com/user/hitradio%C3%B63',
+                     input_url: 'https://open.spotify.com/intl-de/user/hitradio%C3%B63',
              input_entity_type: 'label',
     expected_relationship_type: 'socialnetwork',
             expected_clean_url: 'https://open.spotify.com/user/hitradio%C3%B63',
@@ -5160,6 +5167,20 @@ limited_link_type_combinations: [
        only_valid_entity_types: ['artist'],
   },
   {
+                     input_url: 'https://www.uta-net.com/composer/30/7/',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'lyrics',
+            expected_clean_url: 'https://www.uta-net.com/composer/30/',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://www.uta-net.com/lyricist/21/#top',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'lyrics',
+            expected_clean_url: 'https://www.uta-net.com/lyricist/21/',
+       only_valid_entity_types: ['artist'],
+  },
+  {
                      input_url: 'www.uta-net.com/song/188300/',
              input_entity_type: 'work',
     expected_relationship_type: 'lyrics',
@@ -5172,6 +5193,13 @@ limited_link_type_combinations: [
              input_entity_type: 'artist',
     expected_relationship_type: 'lyrics',
             expected_clean_url: 'https://utaten.com/artist/fripSide',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://utaten.com/songWriter/10350/?sort=release_date_desc&pageType=lyricist',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'lyrics',
+            expected_clean_url: 'https://utaten.com/songWriter/10350',
        only_valid_entity_types: ['artist'],
   },
   {

@@ -244,7 +244,8 @@ unless ($SCHEMA_SEQUENCE == $iSchemaSequence)
         $iSchemaSequence,
         ;
     print localtime() . " : You must upgrade your database in order to apply this replication packet\n";
-    exit 1;
+    # See NOTE-SEQM-1 in Script::JSONDump::Incremental
+    exit 3;
 }
 
 # Read REPLICATION_SEQUENCE.  Check that it matches the one we thought we'd

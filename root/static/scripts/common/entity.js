@@ -281,7 +281,7 @@ import MB from './MB.js';
       return ReactDOMServer.renderToStaticMarkup(
         exp.l(
           'You selected {area}.',
-          {area: this.reactElement({target: '_blank'})},
+          {area: <DescriptiveLink entity={this} target="_blank" />},
         ),
       );
     }

@@ -521,7 +521,7 @@ ul.conditions button.remove img {
     }
 }
 
-input.icon, div.icon.img, span.icon.img, button.icon {
+input.icon, div.icon.img, span.icon.img, button.icon, a.icon {
     min-width: @form-icon-size;
     min-height: @form-icon-size;
     border: 0 !important;
@@ -531,7 +531,7 @@ input.icon, div.icon.img, span.icon.img, button.icon {
     cursor: pointer;
 }
 
-div.img, button.icon { display: inline-block; }
+div.img, button.icon, a.icon { display: inline-block; }
 
 button.with-label {
     border: none;
@@ -551,6 +551,7 @@ button.add-item {
 }
 
 .remove-artist-credit,
+a.remove-item,
 button.remove-item,
 button.close-dialog {
     /* The !important overrides .nobutton:hover. */
