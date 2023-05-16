@@ -5138,16 +5138,16 @@ const CLEANUPS: CleanupEntries = {
     match: [new RegExp('^(https?://)?([^/]+\\.)?utaten\\.com/', 'i')],
     restrict: [LINK_TYPES.lyrics],
     clean: function (url) {
-      return url.replace(/^(?:https?:\/\/)?utaten\.com\/(artist|lyric\/.+)\/([^\/?#]+).*$/, 'https://utaten.com/$1/$2');
+      return url.replace(/^(?:https?:\/\/)?utaten\.com\/(artist|songWriter|lyric\/.+)\/([^\/?#]+).*$/, 'https://utaten.com/$1/$2');
     },
     validate: function (url, id) {
-      const m = /^https:\/\/utaten\.com\/(artist|lyric)\/.+$/.exec(url);
+      const m = /^https:\/\/utaten\.com\/(artist|songWriter|lyric)\/.+$/.exec(url);
       if (m) {
         const prefix = m[1];
         switch (id) {
           case LINK_TYPES.lyrics.artist:
             return {
-              result: prefix === 'artist',
+              result: prefix === 'artist' || prefix === 'songWriter',
               target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.lyrics.work:
