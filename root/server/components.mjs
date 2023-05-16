@@ -130,6 +130,7 @@ export default {
   'genre/EditGenre': (): Promise<mixed> => import('../genre/EditGenre.js'),
   'genre/GenreIndex': (): Promise<mixed> => import('../genre/GenreIndex.js'),
   'genre/GenreListPage': (): Promise<mixed> => import('../genre/GenreListPage.js'),
+  'instrument/DeleteInstrument': (): Promise<mixed> => import('../instrument/DeleteInstrument.js'),
   'instrument/InstrumentArtists': (): Promise<mixed> => import('../instrument/InstrumentArtists.js'),
   'instrument/InstrumentIndex': (): Promise<mixed> => import('../instrument/InstrumentIndex.js'),
   'instrument/InstrumentMerge': (): Promise<mixed> => import('../instrument/InstrumentMerge.js'),
