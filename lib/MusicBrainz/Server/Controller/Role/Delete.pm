@@ -42,7 +42,7 @@ role {
         my $model = $self->{model};
         my $can_delete = $c->model($model)->can_delete($edit_entity->id);
 
-        if ($model eq 'Area' || $model eq 'Genre' || $model eq 'Instrument' || $model eq 'Release') {
+        if ($model =~ /^(Area|Genre|Instrument|Release)$/) {
             my $type = model_to_type($model);
 
             my %props = (
