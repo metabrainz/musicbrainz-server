@@ -5111,16 +5111,16 @@ const CLEANUPS: CleanupEntries = {
     match: [new RegExp('^(https?://)?([^/]+\\.)?uta-net\\.com/', 'i')],
     restrict: [LINK_TYPES.lyrics],
     clean: function (url) {
-      return url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?uta-net\.com\/(artist|song)\/(\d+).*$/, 'https://www.uta-net.com/$1/$2/');
+      return url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?uta-net\.com\/(artist|composer|lyricist|song)\/(\d+).*$/, 'https://www.uta-net.com/$1/$2/');
     },
     validate: function (url, id) {
-      const m = /^https:\/\/www\.uta-net\.com\/(artist|song)\/\d+\/$/.exec(url);
+      const m = /^https:\/\/www\.uta-net\.com\/(artist|composer|lyricist|song)\/\d+\/$/.exec(url);
       if (m) {
         const prefix = m[1];
         switch (id) {
           case LINK_TYPES.lyrics.artist:
             return {
-              result: prefix === 'artist',
+              result: /^(artist|composer|lyricist)$/.test(prefix),
               target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.lyrics.work:
