@@ -4524,13 +4524,14 @@ const CLEANUPS: CleanupEntries = {
   },
   'spotify': {
     match: [new RegExp(
-      '^(https?://)?([^/]+\\.)?(spotify\\.(?:com|link))/(?!user)',
+      '^(https?://)?([^/]+\\.)?(spotify\\.(?:com|link))/' +
+      '(?!(?:intl-[a-z]+/)?user)',
       'i',
     )],
     restrict: [LINK_TYPES.streamingfree],
     clean: function (url) {
       url = url.replace(/^(?:https?:\/\/)?embed\.spotify\.com\/\?uri=spotify:([a-z]+):([a-zA-Z0-9_-]+)$/, 'https://open.spotify.com/$1/$2');
-      url = url.replace(/^(?:https?:\/\/)?(?:play|open)\.spotify\.com\/([a-z]+)\/([a-zA-Z0-9_-]+)(?:[/?#].*)?$/, 'https://open.spotify.com/$1/$2');
+      url = url.replace(/^(?:https?:\/\/)?(?:play|open)\.spotify\.com\/(?:intl-[a-z]+\/)?([a-z]+)\/([a-zA-Z0-9_-]+)(?:[/?#].*)?$/, 'https://open.spotify.com/$1/$2');
       return url;
     },
     validate: function (url, id) {
@@ -4577,10 +4578,13 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'spotifyuseraccount': {
-    match: [new RegExp('^(https?://)?([^/]+\\.)?(spotify\\.com)/user', 'i')],
+    match: [new RegExp(
+      '^(https?://)?([^/]+\\.)?(spotify\\.com)/(?:intl-[a-z]+\/)?user',
+      'i',
+    )],
     restrict: [LINK_TYPES.socialnetwork],
     clean: function (url) {
-      url = url.replace(/^(?:https?:\/\/)?(?:play|open)\.spotify\.com\/user\/([^\/?#]+)\/?(?:[?#].*)?$/, 'https://open.spotify.com/user/$1');
+      url = url.replace(/^(?:https?:\/\/)?(?:play|open)\.spotify\.com\/(?:intl-[a-z]+\/)?user\/([^\/?#]+)\/?(?:[?#].*)?$/, 'https://open.spotify.com/user/$1');
       return url;
     },
     validate: function (url) {
