@@ -164,7 +164,7 @@ const ReportUser = ({
                 )}
               </p>
             }
-            label={l('Reveal my email address')}
+            label={l('Receive email updates about this report')}
             uncontrolled
           />
 
