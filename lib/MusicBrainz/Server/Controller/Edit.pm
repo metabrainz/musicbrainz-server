@@ -437,6 +437,7 @@ sub notes_received : Path('/edit/notes-received') RequireAuth {
     });
 
     $c->model('Editor')->load(@$edit_notes);
+    $c->model('EditNoteChange')->load_latest(@$edit_notes);
     $c->model('Edit')->load_for_edit_notes(@$edit_notes);
     $c->model('Vote')->load_for_edits(map { $_->edit } @$edit_notes);
 

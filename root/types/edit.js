@@ -31,15 +31,23 @@ declare type EditT = CurrentEditT | HistoricEditT;
 
 declare type EditWithIdT = $ReadOnly<{...EditT, +id: number}>;
 
+declare type EditNoteChangeT = {
+  +change_editor_id: number,
+  +change_time: string,
+  +reason: string,
+  +status: 'edited' | 'deleted',
+};
+
 // MusicBrainz::Server::Entity::EditNote::TO_JSON
 declare type EditNoteT = {
   +edit_id: number,
   +editor: EditorT | null,
   +editor_id: number,
   +formatted_text: string,
+  +id: number,
+  +latest_change?: EditNoteChangeT,
   +post_time: string | null,
 };
-
 
 // Reused by all other edit types
 declare type GenericEditT = {
