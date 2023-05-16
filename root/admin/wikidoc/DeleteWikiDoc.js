@@ -35,7 +35,7 @@ const DeleteWikiDoc = ({
       <form method="post" name="confirm">
         <FormCsrfToken form={form} />
         <FormSubmit
-          label={l('Yes, I\'m sure')}
+          label={l('Yes, I am sure')}
           name="confirm.submit"
           value="1"
         />
