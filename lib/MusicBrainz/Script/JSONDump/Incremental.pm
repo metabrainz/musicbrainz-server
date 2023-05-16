@@ -194,6 +194,7 @@ sub run_impl {
 
                 system(@replicate_args);
                 my $exit_code = $CHILD_ERROR >> 8;
+                # NOTE-SEQM-1:
                 # An exit code of 3 indicates a schema sequence mismatch, i.e.
                 # that a schema upgrade is required. We should not die in this
                 # case: it's not an error, and would prevent any parent script
