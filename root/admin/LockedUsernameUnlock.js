@@ -35,7 +35,7 @@ const LockedUsernameUnlock = ({
       <form method="post" name="confirm">
         <FormCsrfToken form={form} />
         <FormSubmit
-          label="Yes, I’m sure"
+          label="Yes, I am sure"
           name="confirm.submit"
           value="1"
         />
