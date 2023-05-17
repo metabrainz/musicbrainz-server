@@ -42,14 +42,14 @@ role {
         my $model = $self->{model};
         my $can_delete = $c->model($model)->can_delete($edit_entity->id);
 
-        if ($model =~ /^(Area|Genre|Instrument|Release)$/) {
+        if ($model =~ /^(Area|Genre|Instrument|Recording|Release)$/) {
             my $type = model_to_type($model);
 
             my %props = (
                 entity => $edit_entity->TO_JSON,
             );
 
-            if ($model eq 'Area' || $model eq 'Instrument') {
+            if ($model =~ /^(Area|Instrument|Recording)$/) {
                 $props{canDelete} = boolean_to_json($can_delete);
             }
 

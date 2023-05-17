@@ -376,20 +376,3 @@
 [%- MACRO external_links_editor BLOCK -%]
   <div id="external-links-editor-container"></div>
 [%- END -%]
-
-[%- MACRO removal_help(extra_help) BLOCK # Converted to React at root/components/EntityDeletionHelp.js 
--%]
-  <div id="removal-help">
-    <p>
-      [% l('Are you sure you wish to remove {entity} from MusicBrainz?', { entity => link_entity(entity) }) %]
-    </p>
-    <p>
-      [% l('If it’s a duplicate, {doc_merge|you should probably merge it instead}. If it just has some small errors, it’s usually better to just fix those.', { doc_merge => doc_link('Merge_Rather_Than_Delete') }) %]
-    </p>
-    [% IF extra_help %]
-      <p>
-        [% extra_help %]
-      </p>
-    [% END %]
-  </div>
-[%- END -%]
