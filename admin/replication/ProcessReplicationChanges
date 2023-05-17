@@ -72,7 +72,7 @@ my $sql = Sql->new($c->conn);
 
 # Connection wrapper used only for looping, through a cursor, over each
 # pending_data change for the transaction (X) ID obtained from the above.
-my $sql2 = Sql->new($c->conn);
+my $fetching_change_sql = Sql->new($c->conn);
 
 # Connection wrapper used only for applying all of the changes obtained from the
 # above in a single but separate transaction for each transaction (X) ID.
@@ -169,16 +169,16 @@ if (my $totalrows = $sql->select($query))
         $mirror->begin;
         $mirror->do('SET CONSTRAINTS ALL DEFERRED');
 
-        $sql2->do("DECLARE csr NO SCROLL CURSOR FOR $query", $XID);
+        $fetching_change_sql->do("DECLARE csr NO SCROLL CURSOR FOR $query", $XID);
 
         my @row2;
         my $pull = sub {
-            $sql2->finish;
-            $sql2->select("FETCH FORWARD $limit FROM csr");
+            $fetching_change_sql->finish;
+            $fetching_change_sql->select("FETCH FORWARD $limit FROM csr");
         };
         while ($pull->())
         {
-            while (@row2 = $sql2->next_row)
+            while (@row2 = $fetching_change_sql->next_row)
             {
                 # TODO: Figure out how to handle errors here
                 if ($dbmirror2) {
@@ -186,16 +186,16 @@ if (my $totalrows = $sql->select($query))
                         die "Mirror command failed.\n";
                     }
                 }
-                elsif (!mirrorCommand($row2[2], $sql2, $mirror, \@row2, $XID, $pull))
+                elsif (!mirrorCommand($row2[2], $fetching_change_sql, $mirror, \@row2, $XID, $pull))
                 {
                     die "Mirror command failed.\n";
                 }
                 ++$strows;
             }
         }
-        $sql2->finish;
+        $fetching_change_sql->finish;
 
-        $sql2->do('CLOSE csr');
+        $fetching_change_sql->do('CLOSE csr');
         $mirror->do(
             $dbmirror2
                 ? 'DELETE FROM dbmirror2.pending_data WHERE xid = ?'
