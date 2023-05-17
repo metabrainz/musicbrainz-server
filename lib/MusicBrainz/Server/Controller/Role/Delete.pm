@@ -49,7 +49,7 @@ role {
                 entity => $edit_entity->TO_JSON,
             );
 
-            if ($model eq 'Area' || $model eq 'Instrument' || $model eq 'Recording') {
+            if ($model =~ /^(Area|Instrument|Recording)$/) {
                 $props{canDelete} = boolean_to_json($can_delete);
             }
 
