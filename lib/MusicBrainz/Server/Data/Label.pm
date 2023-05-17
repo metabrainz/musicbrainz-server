@@ -3,7 +3,6 @@ package MusicBrainz::Server::Data::Label;
 use Moose;
 use namespace::autoclean;
 use List::AllUtils qw( any );
-use MusicBrainz::Server::Constants qw( $STATUS_OPEN );
 use MusicBrainz::Server::Data::Edit;
 use MusicBrainz::Server::Data::ReleaseLabel;
 use MusicBrainz::Server::Entity::Label;
@@ -258,16 +257,11 @@ sub is_empty {
     my ($self, $label_id) = @_;
 
     my $used_in_relationship = used_in_relationship($self->c, label => 'label_row.id');
-    return $self->sql->select_single_value(<<~"SQL", $label_id, $STATUS_OPEN);
+    return $self->sql->select_single_value(<<~"SQL", $label_id);
         SELECT TRUE
         FROM label label_row
         WHERE id = ?
-        AND edits_pending = 0
         AND NOT (
-            EXISTS (
-                SELECT TRUE FROM edit_label
-                WHERE status = ? AND label = label_row.id
-            ) OR
             EXISTS (
                 SELECT TRUE FROM release_label
                 WHERE label = label_row.id

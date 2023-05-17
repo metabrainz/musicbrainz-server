@@ -30,6 +30,7 @@ const ENTITIES = {
     model: 'Annotation',
   },
   area: {
+    add_edit_type: 81,
     aliases: {
       add_edit_type: 86,
       delete_edit_type: 87,
@@ -88,6 +89,7 @@ const ENTITIES = {
     model: 'AreaType',
   },
   artist: {
+    add_edit_type: 1,
     aliases: {
       add_edit_type: 6,
       delete_edit_type: 7,
@@ -216,6 +218,7 @@ const ENTITIES = {
     url: 'user',
   },
   event: {
+    add_edit_type: 150,
     aliases: {
       add_edit_type: 155,
       delete_edit_type: 156,
@@ -275,6 +278,7 @@ const ENTITIES = {
     model: 'Gender',
   },
   genre: {
+    add_edit_type: 160,
     aliases: {
       add_edit_type: 165,
       delete_edit_type: 166,
@@ -311,6 +315,7 @@ const ENTITIES = {
     table: 'genre_alias_type',
   },
   instrument: {
+    add_edit_type: 131,
     aliases: {
       add_edit_type: 136,
       delete_edit_type: 137,
@@ -372,6 +377,7 @@ const ENTITIES = {
     url: 'iswc',
   },
   label: {
+    add_edit_type: 10,
     aliases: {
       add_edit_type: 16,
       delete_edit_type: 17,
@@ -483,6 +489,7 @@ const ENTITIES = {
     model: 'MediumFormat',
   },
   place: {
+    add_edit_type: 61,
     aliases: {
       add_edit_type: 66,
       delete_edit_type: 67,
@@ -540,6 +547,7 @@ const ENTITIES = {
     model: 'PlaceType',
   },
   recording: {
+    add_edit_type: 71,
     aliases: {
       add_edit_type: 711,
       delete_edit_type: 712,
@@ -588,6 +596,7 @@ const ENTITIES = {
     table: 'recording_alias_type',
   },
   release: {
+    add_edit_type: 31,
     aliases: {
       add_edit_type: 318,
       delete_edit_type: 319,
@@ -633,6 +642,7 @@ const ENTITIES = {
     table: 'release_alias_type',
   },
   release_group: {
+    add_edit_type: 20,
     aliases: {
       add_edit_type: 26,
       delete_edit_type: 27,
@@ -716,6 +726,7 @@ const ENTITIES = {
     model: 'Script',
   },
   series: {
+    add_edit_type: 140,
     aliases: {
       add_edit_type: 145,
       delete_edit_type: 146,
@@ -809,6 +820,7 @@ const ENTITIES = {
     url: 'url',
   },
   work: {
+    add_edit_type: 41,
     aliases: {
       add_edit_type: 46,
       delete_edit_type: 47,
