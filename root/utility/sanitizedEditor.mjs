@@ -30,9 +30,9 @@ export default function sanitizedEditor(
    *    root/utility/hydrate.js
    */
   return {
+    avatar: editor.avatar,
     deleted: editor.deleted,
     entityType: 'editor',
-    avatar: editor.avatar,
     id: editor.id,
     is_limited: editor.is_limited,
     name: editor.name,
