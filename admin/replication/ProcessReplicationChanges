@@ -66,8 +66,16 @@ my $c = MusicBrainz::Server::Context->create_script_context(database => $databas
 my $json = JSON::XS->new;
 $json->boolean_values(0, 1)->pretty(0);
 
+# Main connection wrapper used for looping over all of the ordered transaction (X) IDs,
+# and also any other miscellaneous queries at the beginning/ending of the script.
 my $sql = Sql->new($c->conn);
+
+# Connection wrapper used only for looping, through a cursor, over each
+# pending_data change for the transaction (X) ID obtained from the above.
 my $sql2 = Sql->new($c->conn);
+
+# Connection wrapper used only for applying all of the changes obtained from the
+# above in a single but separate transaction for each transaction (X) ID.
 my $mirror = Sql->new($c->conn);
 
 $sql->auto_commit;
