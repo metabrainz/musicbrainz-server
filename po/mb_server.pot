@@ -10,7 +10,7 @@ msgstr ""
 "#-#-#-#-#  mb_server.pot (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-16 22:06+0000\n"
+"POT-Creation-Date: 2023-05-18 11:18+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -386,10 +386,6 @@ msgstr ""
 msgid "Are you sure you want to delete your account? This cannot be undone!"
 msgstr ""
 
-#: ../root/components/forms.tt:384 ../root/components/EntityDeletionHelp.js:24
-msgid "Are you sure you wish to remove {entity} from MusicBrainz?"
-msgstr ""
-
 #: ../root/edit/search_macros.tt:423 ../lib/MusicBrainz/Server/Edit/Area.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:44
 #: ../root/components/list/AreaList.js:46
@@ -739,7 +735,7 @@ msgstr ""
 msgid "Change Password"
 msgstr ""
 
-#: ../root/admin/attributes/form.tt:53 ../root/admin/attributes/Attribute.js:81
+#: ../root/admin/attributes/form.tt:53 ../root/admin/attributes/Attribute.js:82
 #: ../root/edit/details/AddRelationshipAttribute.js:50
 #: ../root/edit/details/EditRelationshipAttribute.js:93
 msgid "Child order"
@@ -1058,7 +1054,7 @@ msgstr ""
 #: ../root/release/discids.tt:12 ../root/release/edit/recordings.tt:73
 #: ../root/release/edit/recordings.tt:109
 #: ../root/account/applications/Index.js:37
-#: ../root/admin/attributes/Attribute.js:100
+#: ../root/admin/attributes/Attribute.js:102
 #: ../root/admin/attributes/Language.js:64
 #: ../root/admin/attributes/Script.js:61
 #: ../root/admin/statistics-events/StatisticsEventIndex.js:45
@@ -1627,12 +1623,6 @@ msgstr ""
 
 #: ../root/work/edit_form.tt:16
 msgid "ISWCs:"
-msgstr ""
-
-#: ../root/components/forms.tt:387 ../root/components/EntityDeletionHelp.js:30
-msgid ""
-"If it’s a duplicate, {doc_merge|you should probably merge it instead}. If it "
-"just has some small errors, it’s usually better to just fix those."
 msgstr ""
 
 #: ../root/event/edit_form.tt:26
@@ -2330,12 +2320,6 @@ msgstr ""
 msgid "Please enter your old password below, and then your new password."
 msgstr ""
 
-#: ../root/recording/delete.tt:4
-msgid ""
-"Please make sure you’re not removing a legitimate {doc_standalone|standalone "
-"recording}."
-msgstr ""
-
 #: ../root/layout/merge-helper.tt:24
 #: ../root/layout/components/MergeHelper.js:58
 msgid ""
@@ -2579,7 +2563,7 @@ msgstr ""
 
 #: ../root/cdtoc/list.tt:60 ../root/release/add_cover_art.tt:108
 #: ../root/release/discids.tt:42 ../root/account/applications/Index.js:41
-#: ../root/admin/attributes/Attribute.js:104
+#: ../root/admin/attributes/Attribute.js:106
 #: ../root/admin/attributes/Language.js:68
 #: ../root/admin/attributes/Script.js:65
 #: ../root/admin/statistics-events/StatisticsEventIndex.js:49
@@ -2605,10 +2589,6 @@ msgstr ""
 
 #: ../root/release/edit/information.tt:197
 msgid "Remove Label"
-msgstr ""
-
-#: ../root/recording/delete.tt:1 ../root/recording/delete.tt:2
-msgid "Remove Recording"
 msgstr ""
 
 #: ../root/release/edit/information.tt:157
@@ -3225,10 +3205,6 @@ msgid ""
 "don’t need to do anything about it. But if you have some time, consider "
 "trying to find out what the real format should be or if the release should "
 "be split!"
-msgstr ""
-
-#: ../root/recording/delete.tt:14
-msgid "This recording cannot be removed because it is still used on releases."
 msgstr ""
 
 #: ../root/components/common-macros.tt:239
@@ -5379,7 +5355,7 @@ msgid "Edit release group alias"
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/Merge.pm:13
-#: ../root/artist/ArtistIndex.js:307
+#: ../root/artist/ArtistIndex.js:303
 #: ../root/release_group/ReleaseGroupMerge.js:28
 #: ../root/release_group/ReleaseGroupMerge.js:30
 msgid "Merge release groups"
@@ -6593,7 +6569,7 @@ msgstr ""
 
 #: ../root/account/applications/Index.js:105
 #: ../root/account/applications/Index.js:143
-#: ../root/admin/attributes/Attribute.js:84
+#: ../root/admin/attributes/Attribute.js:85
 #: ../root/admin/attributes/Language.js:46
 #: ../root/admin/attributes/Script.js:45
 #: ../root/admin/statistics-events/StatisticsEventIndex.js:30
@@ -6758,11 +6734,16 @@ msgstr ""
 msgid "Attributes"
 msgstr ""
 
-#: ../root/admin/attributes/Attribute.js:82
+#: ../root/admin/attributes/Attribute.js:81
+#: ../root/otherlookup/OtherLookupForm.js:107
+msgid "MBID"
+msgstr ""
+
+#: ../root/admin/attributes/Attribute.js:83
 msgid "Parent ID"
 msgstr ""
 
-#: ../root/admin/attributes/Attribute.js:114
+#: ../root/admin/attributes/Attribute.js:116
 #: ../root/admin/attributes/Language.js:77
 #: ../root/admin/attributes/Script.js:75
 msgid "Add new attribute"
@@ -7278,91 +7259,84 @@ msgstr ""
 msgid "This artist is not currently associated with any events."
 msgstr ""
 
-#: ../root/artist/ArtistIndex.js:91
+#: ../root/artist/ArtistIndex.js:92
 msgid "Show official release groups"
 msgstr ""
 
-#: ../root/artist/ArtistIndex.js:98
+#: ../root/artist/ArtistIndex.js:99
 msgid "Show all release groups"
 msgstr ""
 
-#: ../root/artist/ArtistIndex.js:105
+#: ../root/artist/ArtistIndex.js:106
 msgid "Show official various artist release groups"
 msgstr ""
 
-#: ../root/artist/ArtistIndex.js:112
+#: ../root/artist/ArtistIndex.js:113
 msgid "Show all various artist release groups"
 msgstr ""
 
-#: ../root/artist/ArtistIndex.js:141
+#: ../root/artist/ArtistIndex.js:142
 msgid "This artist only has unofficial release groups by various artists."
 msgstr ""
 
-#: ../root/artist/ArtistIndex.js:147
+#: ../root/artist/ArtistIndex.js:148
 msgid "Showing all release groups for various artists"
 msgstr ""
 
-#: ../root/artist/ArtistIndex.js:148
+#: ../root/artist/ArtistIndex.js:149
 msgid "This artist does not have any various artists release groups"
 msgstr ""
 
-#: ../root/artist/ArtistIndex.js:157
+#: ../root/artist/ArtistIndex.js:158
 msgid "This artist only has release groups by various artists."
 msgstr ""
 
-#: ../root/artist/ArtistIndex.js:161
+#: ../root/artist/ArtistIndex.js:162
 msgid "Showing official release groups for various artists"
 msgstr ""
 
-#: ../root/artist/ArtistIndex.js:169
+#: ../root/artist/ArtistIndex.js:170
 msgid "This artist only has unofficial release groups."
 msgstr ""
 
-#: ../root/artist/ArtistIndex.js:173
+#: ../root/artist/ArtistIndex.js:174
 msgid "Showing all release groups by this artist"
 msgstr ""
 
-#: ../root/artist/ArtistIndex.js:184
+#: ../root/artist/ArtistIndex.js:185
 msgid "Showing official release groups by this artist"
 msgstr ""
 
-#: ../root/artist/ArtistIndex.js:228 ../root/components/CleanupBanner.js:12
-msgid ""
-"This artist has no relationships, recordings, releases or release groups, "
-"and will be removed automatically in the next few days. If this is not "
-"intended, please add more data to this artist."
-msgstr ""
-
-#: ../root/artist/ArtistIndex.js:243 ../root/artist/ArtistIndex.js:251
+#: ../root/artist/ArtistIndex.js:239 ../root/artist/ArtistIndex.js:247
 msgid "Legal name"
 msgstr ""
 
-#: ../root/artist/ArtistIndex.js:257 ../root/label/LabelIndex.js:64
+#: ../root/artist/ArtistIndex.js:253 ../root/label/LabelIndex.js:64
 msgid "Previously known as"
 msgstr ""
 
-#: ../root/artist/ArtistIndex.js:264 ../root/label/LabelIndex.js:71
+#: ../root/artist/ArtistIndex.js:260 ../root/label/LabelIndex.js:71
 msgid "Renamed to"
 msgstr ""
 
-#: ../root/artist/ArtistIndex.js:272
+#: ../root/artist/ArtistIndex.js:268
 msgid "Also performs as"
 msgstr ""
 
-#: ../root/artist/ArtistIndex.js:286
+#: ../root/artist/ArtistIndex.js:282
 msgid "Discography"
 msgstr ""
 
-#: ../root/artist/ArtistIndex.js:327 ../root/artist/ArtistRecordings.js:169
+#: ../root/artist/ArtistIndex.js:323 ../root/artist/ArtistRecordings.js:169
 #: ../root/instrument/InstrumentRecordings.js:59 ../root/isrc/Index.js:99
 msgid "Add selected recordings for merging"
 msgstr ""
 
-#: ../root/artist/ArtistIndex.js:336
+#: ../root/artist/ArtistIndex.js:332
 msgid "This artist has no release groups, only standalone recordings."
 msgstr ""
 
-#: ../root/artist/ArtistIndex.js:340
+#: ../root/artist/ArtistIndex.js:336
 msgid "No release groups found that match this search."
 msgstr ""
 
@@ -8016,6 +7990,13 @@ msgstr ""
 msgid "Add a new alias"
 msgstr ""
 
+#: ../root/components/CleanupBanner.js:12
+msgid ""
+"This artist has no relationships, recordings, releases or release groups, "
+"and will be removed automatically in the next few days. If this is not "
+"intended, please add more data to this artist."
+msgstr ""
+
 #: ../root/components/CleanupBanner.js:18
 msgid ""
 "This event has no relationships and will be removed automatically in the "
@@ -8073,6 +8054,16 @@ msgid_plural ""
 "also {write_link|write your own}."
 msgstr[0] ""
 msgstr[1] ""
+
+#: ../root/components/EntityDeletionHelp.js:24
+msgid "Are you sure you wish to remove {entity} from MusicBrainz?"
+msgstr ""
+
+#: ../root/components/EntityDeletionHelp.js:30
+msgid ""
+"If it’s a duplicate, {doc_merge|you should probably merge it instead}. If it "
+"just has some small errors, it’s usually better to just fix those."
+msgstr ""
 
 #: ../root/components/EntityTabs.js:25
 #: ../root/recording/RecordingFingerprints.js:25
@@ -9182,7 +9173,7 @@ msgstr ""
 #: ../root/edit/details/historic/ChangeArtistQuality.js:30
 #: ../root/edit/details/historic/ChangeReleaseQuality.js:40
 #: ../root/layout/components/sidebar/SidebarDataQuality.js:36
-#: ../root/release/ChangeQuality.js:52
+#: ../root/release/ChangeQuality.js:66
 msgid "Data Quality"
 msgstr ""
 
@@ -11443,10 +11434,6 @@ msgstr ""
 msgid "FreeDB ID:"
 msgstr ""
 
-#: ../root/otherlookup/OtherLookupForm.js:107
-msgid "MBID"
-msgstr ""
-
 #: ../root/otherlookup/OtherLookupIndex.js:22
 #: ../root/otherlookup/OtherLookupIndex.js:24
 msgid "Other Lookups"
@@ -11475,6 +11462,23 @@ msgstr ""
 
 #: ../root/place/PlacePerformances.js:33
 msgid "No recordings, releases or release groups are linked to this place."
+msgstr ""
+
+#: ../root/recording/DeleteRecording.js:34
+#: ../root/recording/DeleteRecording.js:36
+msgid "Remove Recording"
+msgstr ""
+
+#: ../root/recording/DeleteRecording.js:43
+msgid ""
+"Please make sure you’re not removing a legitimate {doc_standalone|standalone "
+"recording}."
+msgstr ""
+
+#: ../root/recording/DeleteRecording.js:57
+msgid ""
+"This recording recording cannot be removed because it is still used on "
+"releases."
 msgstr ""
 
 #: ../root/recording/RecordingFingerprints.js:27
@@ -11736,6 +11740,13 @@ msgstr ""
 
 #: ../root/relationship/linktype/RelationshipTypesList.js:40
 msgid "{type0}-{type1}"
+msgstr ""
+
+#: ../root/release/ChangeQuality.js:51
+msgid ""
+"{data_quality_doc|Data quality} indicates how good the data for a release "
+"is. It is not a mark of how good or bad the music itself is — for that, use "
+"{ratings_doc|ratings}."
 msgstr ""
 
 #: ../root/release/CoverArt.js:32
