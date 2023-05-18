@@ -9,6 +9,7 @@
 
 import * as React from 'react';
 
+import CleanupBanner from '../components/CleanupBanner.js';
 import RecordingList from '../components/list/RecordingList.js';
 import ReleaseGroupList from '../components/list/ReleaseGroupList.js';
 import PaginatedResults from '../components/PaginatedResults.js';
@@ -224,12 +225,7 @@ const ArtistIndex = ({
   return (
     <ArtistLayout entity={artist} page="index">
       {eligibleForCleanup ? (
-        <p className="cleanup">
-          {l(`This artist has no relationships, recordings, releases or
-              release groups, and will be removed automatically in the next
-              few days. If this is not intended, please add more data to
-              this artist.`)}
-        </p>
+        <CleanupBanner entityType="artist" />
       ) : null}
 
       <Annotation

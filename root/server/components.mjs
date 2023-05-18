@@ -168,6 +168,7 @@ export default {
   'place/PlaceMap': (): Promise<mixed> => import('../place/PlaceMap.js'),
   'place/PlaceMerge': (): Promise<mixed> => import('../place/PlaceMerge.js'),
   'place/PlacePerformances': (): Promise<mixed> => import('../place/PlacePerformances.js'),
+  'recording/DeleteRecording': (): Promise<mixed> => import('../recording/DeleteRecording.js'),
   'recording/RecordingFingerprints': (): Promise<mixed> => import('../recording/RecordingFingerprints.js'),
   'recording/RecordingIndex': (): Promise<mixed> => import('../recording/RecordingIndex.js'),
   'recording/RecordingMerge': (): Promise<mixed> => import('../recording/RecordingMerge.js'),
