@@ -15,8 +15,10 @@ import areDatesEqual from '../../common/utility/areDatesEqual.js';
 test('areDatesEqual', function (t) {
   t.plan(7);
 
+  /* eslint-disable sort-keys */
   const date1 = {year: 2000, month: 1, day: 1};
   const date2 = {year: 2000, month: 11, day: 1};
+  /* eslint-enable sort-keys */
 
   t.ok(areDatesEqual(null, null));
   t.ok(areDatesEqual(EMPTY_PARTIAL_DATE, null));
