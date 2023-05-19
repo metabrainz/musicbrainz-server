@@ -81,7 +81,8 @@ test('isDateValid', function (t) {
 test('isDatePeriodValid', function (t) {
   t.plan(8);
 
-  var tests = [
+  /* eslint-disable sort-keys */
+  const tests = [
     {
       a: {},
       b: {},
@@ -123,6 +124,7 @@ test('isDatePeriodValid', function (t) {
       expected: false,
     },
   ];
+  /* eslint-enable sort-keys */
 
   for (const test of tests) {
     t.equal(dates.isDatePeriodValid(test.a, test.b), test.expected);
