@@ -14,6 +14,7 @@ import formatDate from '../../common/utility/formatDate.js';
 test('formatDate', function (t) {
   t.plan(13);
 
+  /* eslint-disable sort-keys */
   t.equal(formatDate(null), '');
   t.equal(formatDate(undefined), '');
   t.equal(formatDate({}), '');
@@ -27,4 +28,5 @@ test('formatDate', function (t) {
   t.equal(formatDate({day: 1}), '????-??-01');
   t.equal(formatDate({year: 0, month: 1, day: 1}), '0000-01-01');
   t.equal(formatDate({year: -1, month: 1, day: 1}), '-0001-01-01');
+  /* eslint-enable sort-keys */
 });
