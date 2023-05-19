@@ -14,7 +14,8 @@ import parseDate from '../../common/utility/parseDate.js';
 test('parseDate', function (t) {
   t.plan(16);
 
-  var parseDateTests = [
+  /* eslint-disable sort-keys */
+  const parseDateTests = [
     {date: '', expected: {year: null, month: null, day: null}},
     {date: '0000', expected: {year: 0, month: null, day: null}},
     {date: '1999-01-02', expected: {year: 1999, month: 1, day: 2}},
@@ -34,6 +35,7 @@ test('parseDate', function (t) {
     {date: '1999---02', expected: {year: 1999, month: null, day: 2}},
     {date: '1999-01--', expected: {year: 1999, month: 1, day: null}},
   ];
+  /* eslint-enable sort-keys */
 
   for (const test of parseDateTests) {
     const result = parseDate(test.date);
