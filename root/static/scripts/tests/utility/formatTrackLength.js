@@ -14,9 +14,9 @@ import formatTrackLength from '../../common/utility/formatTrackLength.js';
 test('formatTrackLength', function (t) {
   t.plan(6);
 
-  var seconds = 1000;
-  var minutes = 60 * seconds;
-  var hours = 60 * minutes;
+  const seconds = 1000;
+  const minutes = 60 * seconds;
+  const hours = 60 * minutes;
 
   t.equal(formatTrackLength(23), '23 ms', 'formatTrackLength');
   t.equal(formatTrackLength(260586), '4:21', 'formatTrackLength');
