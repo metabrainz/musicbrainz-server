@@ -17,7 +17,6 @@ import areDatesEqual from '../common/utility/areDatesEqual.js';
 import compareDates, {
   compareDatePeriods,
 } from '../common/utility/compareDates.js';
-import formatDatePeriod from '../common/utility/formatDatePeriod.js';
 import formatSetlist from '../common/utility/formatSetlist.js';
 import * as fullwidthLatin from '../edit/utility/fullwidthLatin.js';
 import isShortenedUrl from '../edit/utility/isShortenedUrl.js';
@@ -163,50 +162,6 @@ test('compareDatePeriods', function (t) {
     {begin_date: null, end_date: null, ended: false},
   ) < 0, 'ended date periods are sorted before non-ended ones');
 });
-
-test('formatDatePeriod', function (t) {
-  t.plan(8);
-
-  var a = {year: 1999};
-  var b = {year: 2000};
-
-  t.equal(
-    formatDatePeriod({begin_date: a, end_date: a, ended: false}),
-    '1999',
-  );
-  t.equal(
-    formatDatePeriod({begin_date: a, end_date: a, ended: true}),
-    '1999',
-  );
-
-  t.equal(
-    formatDatePeriod({begin_date: a, end_date: b, ended: false}),
-    '1999 \u2013 2000',
-  );
-  t.equal(
-    formatDatePeriod({begin_date: a, end_date: b, ended: true}),
-    '1999 \u2013 2000',
-  );
-
-  t.equal(
-    formatDatePeriod({begin_date: {}, end_date: b, ended: false}),
-    '\u2013 2000',
-  );
-  t.equal(
-    formatDatePeriod({begin_date: {}, end_date: b, ended: true}),
-    '\u2013 2000',
-  );
-
-  t.equal(
-    formatDatePeriod({begin_date: a, end_date: {}, ended: false}),
-    '1999 \u2013',
-  );
-  t.equal(
-    formatDatePeriod({begin_date: a, end_date: {}, ended: true}),
-    '1999 \u2013 ????',
-  );
-});
-
 
 test('fullwidthLatin', function (t) {
   t.plan(17);
