@@ -80,8 +80,8 @@ test('compareDatePeriods', function (t) {
 
   t.ok(compareDatePeriods(
     null,
-    {},
-  ) === 0, 'empty date period objects are considered null');
+    {begin_date: null, end_date: null, ended: false},
+  ) === 0, 'period objects with null dates are considered null');
 
   t.ok(compareDatePeriods(
     {
