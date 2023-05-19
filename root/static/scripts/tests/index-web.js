@@ -29,5 +29,6 @@ require('./utility/dates');
 require('./utility/formatDate');
 require('./utility/formatDatePeriod');
 require('./utility/formatTrackLength');
+require('./utility/formatUserDate');
 require('./utility/parseDate');
 require('./utility/sanitizedEditor');
