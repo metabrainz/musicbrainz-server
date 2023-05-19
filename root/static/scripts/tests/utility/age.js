@@ -11,6 +11,7 @@ import test from 'tape';
 
 import * as age from '../../../../utility/age.js';
 
+/* eslint-disable sort-keys */
 test('age', function (t) {
   t.plan(11);
 
