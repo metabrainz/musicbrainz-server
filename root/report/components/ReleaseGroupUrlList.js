@@ -14,6 +14,8 @@ import EntityLink from '../../static/scripts/common/components/EntityLink.js';
 import bracketed from '../../static/scripts/common/utility/bracketed.js';
 import type {ReportReleaseGroupUrlT} from '../types.js';
 
+import RemovedUrlRow from './RemovedUrlRow.js';
+
 type Props = {
   +items: $ReadOnlyArray<ReportReleaseGroupUrlT>,
   +pager: PagerT,
@@ -37,7 +39,11 @@ const ReleaseGroupUrlList = ({
           </tr>
         </thead>
         <tbody>
-          {items.map((item) => {
+          {items.map((item, index) => {
+            if (!item.url) {
+              return <RemovedUrlRow colSpan="3" index={index} />;
+            }
+
             lastGID = currentGID;
             currentGID = item.url.gid;
 

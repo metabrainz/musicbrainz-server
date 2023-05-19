@@ -12,6 +12,8 @@ import EntityLink from '../../static/scripts/common/components/EntityLink.js';
 import bracketed from '../../static/scripts/common/utility/bracketed.js';
 import type {ReportArtistUrlT} from '../types.js';
 
+import RemovedUrlRow from './RemovedUrlRow.js';
+
 type Props = {
   +items: $ReadOnlyArray<ReportArtistUrlT>,
   +pager: PagerT,
@@ -34,7 +36,10 @@ const ArtistUrlList = ({
           </tr>
         </thead>
         <tbody>
-          {items.map((item) => {
+          {items.map((item, index) => {
+            if (!item.url) {
+              return <RemovedUrlRow colSpan="2" index={index} />;
+            }
             lastGID = currentGID;
             currentGID = item.url.gid;
 
