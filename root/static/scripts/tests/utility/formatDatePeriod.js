@@ -14,8 +14,8 @@ import formatDatePeriod from '../../common/utility/formatDatePeriod.js';
 test('formatDatePeriod', function (t) {
   t.plan(8);
 
-  var a = {year: 1999};
-  var b = {year: 2000};
+  const a = {year: 1999};
+  const b = {year: 2000};
 
   t.equal(
     formatDatePeriod({begin_date: a, end_date: a, ended: false}),
