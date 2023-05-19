@@ -21,6 +21,7 @@ test('compareDates', function (t) {
   t.ok(compareDates(null, {}) === 0);
   t.ok(compareDates({}, null) === 0);
 
+  /* eslint-disable sort-keys */
   const sortedDates = [
     null,
     {day: 1},
@@ -50,6 +51,7 @@ test('compareDates', function (t) {
     {year: 2000, month: 2, day: 1},
     {year: 2000, month: 2, day: 2},
   ];
+  /* eslint-enable sort-keys */
 
   let copy = sortedDates.slice(0)
     .sort((a, b) => (a?.year ?? 0) - (b?.year ?? 0));
@@ -70,6 +72,7 @@ test('compareDates', function (t) {
 test('compareDatePeriods', function (t) {
   t.plan(9);
 
+  /* eslint-disable sort-keys */
   t.ok(compareDatePeriods(
     null,
     {begin_date: {year: 0}, end_date: {year: 0}, ended: true},
@@ -138,4 +141,5 @@ test('compareDatePeriods', function (t) {
     {begin_date: null, end_date: null, ended: true},
     {begin_date: null, end_date: null, ended: false},
   ) < 0, 'ended date periods are sorted before non-ended ones');
+  /* eslint-enable sort-keys */
 });
