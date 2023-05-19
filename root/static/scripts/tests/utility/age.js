@@ -11,7 +11,14 @@ import test from 'tape';
 
 import * as age from '../../../../utility/age.js';
 
+type WritableDatePeriodRoleT = {
+  begin_date: PartialDateT | null,
+  end_date: PartialDateT | null,
+  ended: boolean,
+};
+
 /* eslint-disable sort-keys */
+
 test('age', function (t) {
   t.plan(11);
 
@@ -59,7 +66,7 @@ test('age', function (t) {
     },
     end_date: null,
     ended: false,
-  })[0], 24, 'age is 24 years');
+  })?.[0], 24, 'age is 24 years');
 
   t.deepEqual(age.age({
     begin_date: {year: 2010, month: null, day: null},
@@ -89,7 +96,7 @@ test('age', function (t) {
 test('hasAge', function (t) {
   t.plan(4);
 
-  const entity = {
+  const entity: WritableDatePeriodRoleT = {
     begin_date: {year: 1970, month: 1, day: 1},
     end_date: {year: null, month: 1, day: 1},
     ended: true,
