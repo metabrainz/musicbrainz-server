@@ -25,4 +25,5 @@ require('./utility');
 require('./utility/age');
 require('./utility/dates');
 require('./utility/formatTrackLength');
+require('./utility/parseDate');
 require('./utility/sanitizedEditor');
