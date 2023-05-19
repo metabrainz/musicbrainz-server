@@ -20,7 +20,6 @@ import compareDates, {
 import formatDate from '../common/utility/formatDate.js';
 import formatDatePeriod from '../common/utility/formatDatePeriod.js';
 import formatSetlist from '../common/utility/formatSetlist.js';
-import formatTrackLength from '../common/utility/formatTrackLength.js';
 import parseDate from '../common/utility/parseDate.js';
 import * as fullwidthLatin from '../edit/utility/fullwidthLatin.js';
 import isShortenedUrl from '../edit/utility/isShortenedUrl.js';
@@ -165,25 +164,6 @@ test('compareDatePeriods', function (t) {
     {begin_date: null, end_date: null, ended: true},
     {begin_date: null, end_date: null, ended: false},
   ) < 0, 'ended date periods are sorted before non-ended ones');
-});
-
-test('formatTrackLength', function (t) {
-  t.plan(6);
-
-  var seconds = 1000;
-  var minutes = 60 * seconds;
-  var hours = 60 * minutes;
-
-  t.equal(formatTrackLength(23), '23 ms', 'formatTrackLength');
-  t.equal(formatTrackLength(260586), '4:21', 'formatTrackLength');
-  t.equal(formatTrackLength(23 * seconds), '0:23', 'formatTrackLength');
-  t.equal(formatTrackLength(59 * minutes), '59:00', 'formatTrackLength');
-  t.equal(formatTrackLength(60 * minutes), '1:00:00', 'formatTrackLength');
-  t.equal(
-    formatTrackLength(14 * hours + 15 * minutes + 16 * seconds),
-    '14:15:16',
-    'formatTrackLength',
-  );
 });
 
 test('parseDate', function (t) {

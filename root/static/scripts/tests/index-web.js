@@ -24,4 +24,5 @@ require('./release-editor/validation');
 require('./utility');
 require('./utility/age');
 require('./utility/dates');
+require('./utility/formatTrackLength');
 require('./utility/sanitizedEditor');
