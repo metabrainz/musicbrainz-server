@@ -10,28 +10,9 @@ import * as ReactDOMServer from 'react-dom/server';
 import test from 'tape';
 
 import formatUserDate from '../../../utility/formatUserDate.js';
-import {
-  EMPTY_PARTIAL_DATE,
-} from '../common/constants.js';
-import areDatesEqual from '../common/utility/areDatesEqual.js';
 import formatSetlist from '../common/utility/formatSetlist.js';
 import * as fullwidthLatin from '../edit/utility/fullwidthLatin.js';
 import isShortenedUrl from '../edit/utility/isShortenedUrl.js';
-
-test('areDatesEqual', function (t) {
-  t.plan(7);
-
-  const date1 = {year: 2000, month: 1, day: 1};
-  const date2 = {year: 2000, month: 11, day: 1};
-
-  t.ok(areDatesEqual(null, null));
-  t.ok(areDatesEqual(EMPTY_PARTIAL_DATE, null));
-  t.ok(areDatesEqual(null, EMPTY_PARTIAL_DATE));
-  t.ok(areDatesEqual(EMPTY_PARTIAL_DATE, EMPTY_PARTIAL_DATE));
-  t.ok(areDatesEqual(date1, date1));
-  t.ok(areDatesEqual(date2, date2));
-  t.ok(!areDatesEqual(date1, date2));
-});
 
 test('fullwidthLatin', function (t) {
   t.plan(17);

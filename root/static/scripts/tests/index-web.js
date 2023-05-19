@@ -23,6 +23,7 @@ require('./release-editor/utils');
 require('./release-editor/validation');
 require('./utility');
 require('./utility/age');
+require('./utility/areDatesEqual');
 require('./utility/compareDates');
 require('./utility/dates');
 require('./utility/formatDate');
