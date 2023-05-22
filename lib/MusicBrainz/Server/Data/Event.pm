@@ -159,7 +159,7 @@ sub is_empty {
         SELECT TRUE
         FROM event event_row
         WHERE id = ?
-        AND NOT $used_in_relationship
+        AND NOT ($used_in_relationship)
         SQL
 }
 
