@@ -17,43 +17,43 @@ test('hasFullwidthLatin', function (t) {
   t.equal(
     fullwidthLatin.hasFullwidthLatin(undefined),
     false,
-    'undefined has no fullwidth Latin',
+    'undefined contains no full width Latin',
   );
 
   t.equal(
     fullwidthLatin.hasFullwidthLatin(null),
     false,
-    'null has no fullwidth Latin',
+    'null contains no full width Latin',
   );
 
   t.equal(
     fullwidthLatin.hasFullwidthLatin(''),
     false,
-    'empty has no fullwidth Latin',
+    'the empty string contains no full width Latin',
   );
 
   t.equal(
     fullwidthLatin.hasFullwidthLatin('　ｆｅａｔ．　'),
     true,
-    'fully fullwidth Latin has fullwidth Latin',
+    'entirely full width Latin string contains full width Latin',
   );
 
   t.equal(
     fullwidthLatin.hasFullwidthLatin(' ｆｅａｔ. '),
     true,
-    'fullwidth Latin letters are fullwidth Latin',
+    'Latin string with full width letters only contains full width Latin',
   );
 
   t.equal(
     fullwidthLatin.hasFullwidthLatin('　feat.　'),
     true,
-    'ideographic space is fullwidth Latin',
+    'Latin string with ideographic space contains full width Latin',
   );
 
   t.equal(
     fullwidthLatin.hasFullwidthLatin(' feat． '),
     true,
-    'fullwidth full stop is fullwidth Latin',
+    'Latin string with one full width full stop contains full width Latin',
   );
 });
 
@@ -63,31 +63,31 @@ test('fromFullwidthLatin', function (t) {
   t.equal(
     fullwidthLatin.fromFullwidthLatin(undefined),
     '',
-    'undefined (fromFullwidthLatin) empty',
+    'fromFullwidthLatin returns the empty string from undefined',
   );
 
   t.equal(
     fullwidthLatin.fromFullwidthLatin(null),
     '',
-    'null (fromFullwidthLatin) empty',
+    'fromFullwidthLatin returns the empty string from null',
   );
 
   t.equal(
     fullwidthLatin.fromFullwidthLatin(''),
     '',
-    'empty (fromFullwidthLatin) empty',
+    'fromFullwidthLatin returns the empty string from the empty string',
   );
 
   t.equal(
     fullwidthLatin.fromFullwidthLatin('　ｆｅａｔ．　'),
     ' feat. ',
-    'fully converted fromFullwidthLatin',
+    'entirely full width text is converted to entirely non-full width text',
   );
 
   t.equal(
     fullwidthLatin.fromFullwidthLatin(' ｆｅａｔ. '),
     ' feat. ',
-    'partly converted fromFullwidthLatin',
+    'partly full width text is converted to entirely non-full width text',
   );
 });
 
@@ -97,30 +97,30 @@ test('toFullwidthLatin', function (t) {
   t.equal(
     fullwidthLatin.toFullwidthLatin(undefined),
     '',
-    'undefined (toFullwidthLatin) empty',
+    'toFullwidthLatin returns the empty string from undefined',
   );
 
   t.equal(
     fullwidthLatin.toFullwidthLatin(null),
     '',
-    'null (toFullwidthLatin) empty',
+    'toFullwidthLatin returns the empty string from null',
   );
 
   t.equal(
     fullwidthLatin.toFullwidthLatin(''),
     '',
-    'empty (toFullwidthLatin) empty',
+    'toFullwidthLatin returns the empty string from the empty string',
   );
 
   t.equal(
     fullwidthLatin.toFullwidthLatin('　feat．　'),
     '　ｆｅａｔ．　',
-    'partly converted toFullwidthLatin',
+    'partly full width text is converted to entirely full width text',
   );
 
   t.equal(
     fullwidthLatin.toFullwidthLatin(' feat. '),
     '　ｆｅａｔ．　',
-    'fully converted toFullwidthLatin',
+    'entirely non-full width text is converted to entirely full width text',
   );
 });
