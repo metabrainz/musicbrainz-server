@@ -28,6 +28,7 @@ require('./utility/compareDates');
 require('./utility/dates');
 require('./utility/formatDate');
 require('./utility/formatDatePeriod');
+require('./utility/formatSetlist');
 require('./utility/formatTrackLength');
 require('./utility/formatUserDate');
 require('./utility/fullwidthLatin');
