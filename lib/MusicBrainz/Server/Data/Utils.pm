@@ -221,6 +221,7 @@ sub load_everything_for_edits
         $c->model('Vote')->load_for_edits(@$edits);
         $c->model('EditNote')->load_for_edits(@$edits);
         $c->model('Editor')->load(map { ($_, @{ $_->votes }, @{ $_->edit_notes }) } @$edits);
+        $c->model('EditNoteChange')->load_latest(map { @{ $_->edit_notes } } @$edits);
     } catch {
         use Data::Dumper;
         croak 'Failed loading edits (' . (join q(, ), map { $_->id } @$edits) . ")\n" .

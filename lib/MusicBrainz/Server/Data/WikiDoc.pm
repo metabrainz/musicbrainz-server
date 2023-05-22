@@ -38,8 +38,8 @@ sub _fix_html_links
         {
             # Transform link on "zoomable" image to point directly to the original image
             my $href = $child->attr('src') || '';
-            $href =~ s,^$WIKI_IMAGE_PREFIX/thumb,//$wiki_server$WIKI_IMAGE_PREFIX,;
-            $href =~ s,/[0-9]+px-[^/]*$,,;
+            $href =~ s,^$WIKI_IMAGE_PREFIX,//$wiki_server$WIKI_IMAGE_PREFIX,;
+            $href =~ s,^(//$wiki_server$WIKI_IMAGE_PREFIX)/thumb(.*)/[0-9]+px-[^/]*$,$1$2,;
             $node->attr('href', $href);
             $node->attr('title', 'Open in a new tab');
             $node->attr('target', '_blank');

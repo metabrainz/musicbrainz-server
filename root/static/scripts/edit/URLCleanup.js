@@ -4524,13 +4524,14 @@ const CLEANUPS: CleanupEntries = {
   },
   'spotify': {
     match: [new RegExp(
-      '^(https?://)?([^/]+\\.)?(spotify\\.(?:com|link))/(?!user)',
+      '^(https?://)?([^/]+\\.)?(spotify\\.(?:com|link))/' +
+      '(?!(?:intl-[a-z]+/)?user)',
       'i',
     )],
     restrict: [LINK_TYPES.streamingfree],
     clean: function (url) {
       url = url.replace(/^(?:https?:\/\/)?embed\.spotify\.com\/\?uri=spotify:([a-z]+):([a-zA-Z0-9_-]+)$/, 'https://open.spotify.com/$1/$2');
-      url = url.replace(/^(?:https?:\/\/)?(?:play|open)\.spotify\.com\/([a-z]+)\/([a-zA-Z0-9_-]+)(?:[/?#].*)?$/, 'https://open.spotify.com/$1/$2');
+      url = url.replace(/^(?:https?:\/\/)?(?:play|open)\.spotify\.com\/(?:intl-[a-z]+\/)?([a-z]+)\/([a-zA-Z0-9_-]+)(?:[/?#].*)?$/, 'https://open.spotify.com/$1/$2');
       return url;
     },
     validate: function (url, id) {
@@ -4577,10 +4578,13 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'spotifyuseraccount': {
-    match: [new RegExp('^(https?://)?([^/]+\\.)?(spotify\\.com)/user', 'i')],
+    match: [new RegExp(
+      '^(https?://)?([^/]+\\.)?(spotify\\.com)/(?:intl-[a-z]+\/)?user',
+      'i',
+    )],
     restrict: [LINK_TYPES.socialnetwork],
     clean: function (url) {
-      url = url.replace(/^(?:https?:\/\/)?(?:play|open)\.spotify\.com\/user\/([^\/?#]+)\/?(?:[?#].*)?$/, 'https://open.spotify.com/user/$1');
+      url = url.replace(/^(?:https?:\/\/)?(?:play|open)\.spotify\.com\/(?:intl-[a-z]+\/)?user\/([^\/?#]+)\/?(?:[?#].*)?$/, 'https://open.spotify.com/user/$1');
       return url;
     },
     validate: function (url) {
@@ -5107,16 +5111,16 @@ const CLEANUPS: CleanupEntries = {
     match: [new RegExp('^(https?://)?([^/]+\\.)?uta-net\\.com/', 'i')],
     restrict: [LINK_TYPES.lyrics],
     clean: function (url) {
-      return url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?uta-net\.com\/(artist|song)\/(\d+).*$/, 'https://www.uta-net.com/$1/$2/');
+      return url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?uta-net\.com\/(artist|composer|lyricist|song)\/(\d+).*$/, 'https://www.uta-net.com/$1/$2/');
     },
     validate: function (url, id) {
-      const m = /^https:\/\/www\.uta-net\.com\/(artist|song)\/\d+\/$/.exec(url);
+      const m = /^https:\/\/www\.uta-net\.com\/(artist|composer|lyricist|song)\/\d+\/$/.exec(url);
       if (m) {
         const prefix = m[1];
         switch (id) {
           case LINK_TYPES.lyrics.artist:
             return {
-              result: prefix === 'artist',
+              result: /^(artist|composer|lyricist)$/.test(prefix),
               target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.lyrics.work:
@@ -5134,16 +5138,16 @@ const CLEANUPS: CleanupEntries = {
     match: [new RegExp('^(https?://)?([^/]+\\.)?utaten\\.com/', 'i')],
     restrict: [LINK_TYPES.lyrics],
     clean: function (url) {
-      return url.replace(/^(?:https?:\/\/)?utaten\.com\/(artist|lyric\/.+)\/([^\/?#]+).*$/, 'https://utaten.com/$1/$2');
+      return url.replace(/^(?:https?:\/\/)?utaten\.com\/(artist|songWriter|lyric\/.+)\/([^\/?#]+).*$/, 'https://utaten.com/$1/$2');
     },
     validate: function (url, id) {
-      const m = /^https:\/\/utaten\.com\/(artist|lyric)\/.+$/.exec(url);
+      const m = /^https:\/\/utaten\.com\/(artist|songWriter|lyric)\/.+$/.exec(url);
       if (m) {
         const prefix = m[1];
         switch (id) {
           case LINK_TYPES.lyrics.artist:
             return {
-              result: prefix === 'artist',
+              result: prefix === 'artist' || prefix === 'songWriter',
               target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.lyrics.work:

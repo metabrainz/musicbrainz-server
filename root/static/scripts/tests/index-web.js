@@ -22,3 +22,4 @@ require('./release-editor/trackParser');
 require('./release-editor/utils');
 require('./release-editor/validation');
 require('./utility');
+require('./utility/sanitizedEditor');

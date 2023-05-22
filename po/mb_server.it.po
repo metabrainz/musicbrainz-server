@@ -12,7 +12,7 @@
 # leofiore <email address hidden>, 2012
 # leofiore <email address hidden>, 2012
 # leofiore <email address hidden>, 2012
-# salo.rock <email address hidden>, 2012
+# Luca Salini <email address hidden>, 2012
 # salo.rock, 2012-2013,2016-2022
 # salo.rock, 2020
 # Nicolás Tamargo <email address hidden>, 2021
@@ -29,7 +29,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-25 21:38+0300\n"
+"POT-Creation-Date: 2023-05-18 11:18+0000\n"
 "PO-Revision-Date: 2011-01-30 16:57+0000\n"
 "Last-Translator: salo.rock, 2022-2023\n"
 "Language-Team: Italian (http://app.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
@@ -394,10 +394,6 @@ msgstr "Sei sicuro di voler eliminare tutte le informazioni su {e}? Quest'operaz
 msgid "Are you sure you want to delete your account? This cannot be undone!"
 msgstr "Sei sicuro di voler eliminare il tuo account? Quest'operazione non può essere annullata!"
 
-#: ../root/components/forms.tt:383 ../root/components/EntityDeletionHelp.js:24
-msgid "Are you sure you wish to remove {entity} from MusicBrainz?"
-msgstr "Sei sicuro di voler rimuovere {entity} da MusicBrainz?"
-
 #: ../root/edit/search_macros.tt:423 ../lib/MusicBrainz/Server/Edit/Area.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:44
 #: ../root/components/list/AreaList.js:46
@@ -436,7 +432,7 @@ msgstr "Area:"
 #: ../root/cdtoc/attach_filter_release.tt:29 ../root/cdtoc/list.tt:8
 #: ../root/cdtoc/lookup.tt:43 ../root/edit/search_macros.tt:423
 #: ../root/release/edit/tracklist.tt:163 ../root/release/edit/tracklist.tt:453
-#: ../root/watch/list.tt:16 ../lib/MusicBrainz/Server/Edit/Artist.pm:7
+#: ../lib/MusicBrainz/Server/Edit/Artist.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:38
 #: ../root/cdstub/CDStubInfo.js:28 ../root/cdstub/ImportCDStub.js:45
 #: ../root/cdtoc/AttachCDTocConfirmation.js:71
@@ -689,7 +685,8 @@ msgstr "Può essere approvato"
 #: ../root/layout/merge-helper.tt:34 ../root/release/edit/layout.tt:59
 #: ../root/release/edit/tracklist.tt:117 ../root/area/AreaMerge.js:51
 #: ../root/artist/ArtistMerge.js:79 ../root/collection/CollectionMerge.js:193
-#: ../root/components/ConfirmLayout.js:46 ../root/event/EventMerge.js:54
+#: ../root/components/ConfirmLayout.js:46 ../root/edit/DeleteNote.js:72
+#: ../root/edit/ModifyNote.js:89 ../root/event/EventMerge.js:54
 #: ../root/instrument/InstrumentMerge.js:51 ../root/label/LabelMerge.js:51
 #: ../root/layout/components/MergeHelper.js:83 ../root/place/PlaceMerge.js:51
 #: ../root/recording/RecordingMerge.js:67 ../root/release/ReleaseMerge.js:68
@@ -751,7 +748,7 @@ msgid "Change Password"
 msgstr "Cambia password"
 
 #: ../root/admin/attributes/form.tt:53
-#: ../root/admin/attributes/Attribute.js:81
+#: ../root/admin/attributes/Attribute.js:82
 #: ../root/edit/details/AddRelationshipAttribute.js:50
 #: ../root/edit/details/EditRelationshipAttribute.js:93
 msgid "Child order"
@@ -1074,7 +1071,7 @@ msgstr "Ogni traccia nel database di MusicBrainz deve essere collegata a una reg
 #: ../root/release/edit/recordings.tt:73
 #: ../root/release/edit/recordings.tt:109
 #: ../root/account/applications/Index.js:37
-#: ../root/admin/attributes/Attribute.js:100
+#: ../root/admin/attributes/Attribute.js:102
 #: ../root/admin/attributes/Language.js:64
 #: ../root/admin/attributes/Script.js:61
 #: ../root/admin/statistics-events/StatisticsEventIndex.js:45
@@ -1649,12 +1646,6 @@ msgstr "ISWC"
 #: ../root/work/edit_form.tt:16
 msgid "ISWCs:"
 msgstr "ISWC:"
-
-#: ../root/components/forms.tt:386 ../root/components/EntityDeletionHelp.js:30
-msgid ""
-"If it’s a duplicate, {doc_merge|you should probably merge it instead}. If it"
-" just has some small errors, it’s usually better to just fix those."
-msgstr "Se è un doppione, {doc_merge|probabilmente è preferibile unirlo}. Se ha solo qualche piccolo errore, solitamente è preferibile correggerlo."
 
 #: ../root/event/edit_form.tt:26
 msgid ""
@@ -2354,12 +2345,6 @@ msgstr "Inserisci il codice a barre della pubblicazione che stai aggiungendo. Co
 msgid "Please enter your old password below, and then your new password."
 msgstr "Inserisci qui sotto la tua vecchia password e poi quella nuova."
 
-#: ../root/recording/delete.tt:4
-msgid ""
-"Please make sure you’re not removing a legitimate {doc_standalone|standalone"
-" recording}."
-msgstr "Assicurati che tu non stia rimuovendo una {doc_standalone|registrazione a sé stante} valida."
-
 #: ../root/layout/merge-helper.tt:24
 #: ../root/layout/components/MergeHelper.js:58
 msgid ""
@@ -2605,7 +2590,7 @@ msgstr "Pubblicazione:"
 
 #: ../root/cdtoc/list.tt:60 ../root/release/add_cover_art.tt:108
 #: ../root/release/discids.tt:42 ../root/account/applications/Index.js:41
-#: ../root/admin/attributes/Attribute.js:104
+#: ../root/admin/attributes/Attribute.js:106
 #: ../root/admin/attributes/Language.js:68
 #: ../root/admin/attributes/Script.js:65
 #: ../root/admin/statistics-events/StatisticsEventIndex.js:49
@@ -2629,17 +2614,9 @@ msgstr "Rimuovi"
 msgid "Remove Example"
 msgstr "Rimuovi esempio"
 
-#: ../root/instrument/delete.tt:1 ../root/instrument/delete.tt:2
-msgid "Remove Instrument"
-msgstr "Rimuovi strumento"
-
 #: ../root/release/edit/information.tt:197
 msgid "Remove Label"
 msgstr "Rimuovi etichetta"
-
-#: ../root/recording/delete.tt:1 ../root/recording/delete.tt:2
-msgid "Remove Recording"
-msgstr "Rimuovi registrazione"
 
 #: ../root/release/edit/information.tt:157
 msgid "Remove Release Event"
@@ -2710,7 +2687,7 @@ msgstr "Risultati:"
 msgid "Reuse previous recordings"
 msgstr "Riutilizza le registrazioni precedenti"
 
-#: ../root/user/contact.tt:18 ../root/user/ReportUser.js:167
+#: ../root/user/contact.tt:18
 msgid "Reveal my email address"
 msgstr "Rivela il mio indirizzo email"
 
@@ -2945,17 +2922,13 @@ msgstr "Status:"
 msgid "Stop using beta site"
 msgstr "Non usare più la versione beta del sito"
 
-#: ../root/watch/list.tt:30
-msgid "Stop watching selected artists"
-msgstr "Smetti di seguire gli artisti selezionati"
-
 #: ../root/user/contact.tt:10
 msgid "Subject:"
 msgstr "Titolo:"
 
 #: ../root/cdstub/edit_form.tt:24
 #: ../root/admin/statistics-events/StatisticsEventEditForm.js:53
-#: ../root/oauth2/OAuth2FormPost.js:44
+#: ../root/edit/ModifyNote.js:81 ../root/oauth2/OAuth2FormPost.js:44
 #: ../root/static/scripts/edit/components/InlineSubmitButton.js:23
 #: ../root/user/components/UserTagFilters.js:61
 msgid "Submit"
@@ -3066,10 +3039,6 @@ msgid ""
 "email address as your username if you are completely sure you are happy with"
 " that."
 msgstr "Il nome utente che hai inserito sembra essere un indirizzo email. Questo è consentito, ma tieni presente che sarà visibile a tutti. Usa un indirizzo email come nome utente solo se sei certo che ciò ti vada bene."
-
-#: ../root/watch/list.tt:4
-msgid "The watch artist feature is currently not active."
-msgstr "La funzione \"Segui artista\" non è attualmente attiva."
 
 #: ../root/components/forms.tt:201 ../root/release/edit/information.tt:162
 #: ../root/static/scripts/edit/components/PartialDateInput.js:52
@@ -3194,12 +3163,6 @@ msgstr "Questo modulo ti permette di dividere {artist} in artisti separati. Quan
 msgid "This format can have disc IDs"
 msgstr "Questo formato può avere ID disco"
 
-#: ../root/instrument/delete.tt:12
-msgid ""
-"This instrument cannot be removed because there are still relationships "
-"attributed to it."
-msgstr "Lo strumento non può essere rimosso perché ci sono ancora relazioni attribuite ad esso."
-
 #: ../root/layout.tt:37 ../root/layout/index.js:115
 msgid "This is a MusicBrainz development server."
 msgstr "Questo è un server di sviluppo di MusicBrainz."
@@ -3272,10 +3235,6 @@ msgid ""
 "trying to find out what the real format should be or if the release should "
 "be split!"
 msgstr "Questo problema esisteva già da prima che tu aprissi l'editor della pubblicazione, quindi non c'è bisogno che tu faccia nulla a riguardo. Ma se hai un po' di tempo, potresti cercare informazioni su quale dovrebbe essere il vero formato o se la pubblicazione andrebbe divisa!"
-
-#: ../root/recording/delete.tt:14
-msgid "This recording cannot be removed because it is still used on releases."
-msgstr "La registrazione non può essere rimossa perché è ancora in uso in alcune pubblicazioni."
 
 #: ../root/components/common-macros.tt:239
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:685
@@ -3370,12 +3329,6 @@ msgstr "Per creare un nuovo elenco tracce, usare un supporto esistente o importa
 #: ../root/release/edit/information.tt:105
 msgid "To edit types, please {edit_page|edit the release group}."
 msgstr "Per modificare i tipi, {edit_page|modifica il gruppo di pubblicazioni}."
-
-#: ../root/watch/list.tt:38
-msgid ""
-"To watch an artist and be notified of new releases, {search_url|search} for "
-"them and select 'Watch this artist for new releases' from the sidebar."
-msgstr "Per seguire un artista e ricevere notifica delle sue nuove pubblicazioni, {search_url|cercalo} e seleziona 'Segui le nuove pubblicazioni di quest'artista' nella barra laterale."
 
 #: ../root/cdstub/browse.tt:2 ../root/cdstub/browse.tt:3
 #: ../root/layout/components/BottomMenu.js:231
@@ -3663,10 +3616,6 @@ msgstr "Attenzione! \"1990-10-25\" è la data fasulla che Amazon assegna a tutte
 msgid "Warning:"
 msgstr "Attenzione:"
 
-#: ../root/watch/list.tt:1 ../root/watch/list.tt:2
-msgid "Watched Artists"
-msgstr "Artisti che seguo"
-
 #: ../root/cdtoc/attach_filter_release.tt:61
 msgid "We couldn’t find a release matching that MBID."
 msgstr "Non è stato possibile trovare una pubblicazione corrispondente a quel MBID."
@@ -3764,14 +3713,6 @@ msgid ""
 "standard <code>T-DDD.DDD.DDD-C</code> format:"
 msgstr "Stai per aggiungere un ISWC a quest'opera. L'ISWC deve essere inserito nel formato standard <code>T-DDD.DDD.DDD-C</code>:"
 
-#: ../root/watch/list.tt:7
-msgid "You are currently watching the following artists for new releases."
-msgstr "Al momento stai seguendo le nuove pubblicazioni di questi artisti."
-
-#: ../root/watch/list.tt:34
-msgid "You are not currently watching any artists for new releases."
-msgstr "Al momento non stai seguendo le nuove pubblicazioni di nessun artista."
-
 #: ../root/cdtoc/attach_artist_releases.tt:5
 msgid "You are viewing releases by {artist}."
 msgstr "Stai visualizzando le pubblicazioni di {artist}."
@@ -3810,6 +3751,7 @@ msgid ""
 msgstr "Hai utilizzato l'artista speciale {valink|Artisti vari} su questa registrazione."
 
 #: ../root/release/edit/editnote.tt:10
+#: ../lib/MusicBrainz/Server/Controller/EditNote.pm:187
 #: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:776
 msgid "You haven’t made any changes!"
 msgstr "Non hai effettuato nessuna modifica!"
@@ -3870,6 +3812,7 @@ msgid "You must select an existing release group."
 msgstr "Devi selezionare un gruppo di pubblicazioni esistente."
 
 #: ../root/release/edit/editnote.tt:36
+#: ../lib/MusicBrainz/Server/Form/EditNoteModify.pm:32
 #: ../lib/MusicBrainz/Server/Form/Role/EditNote.pm:30
 msgid ""
 "Your edit note seems to have no actual content. Please provide a note that "
@@ -3900,12 +3843,13 @@ msgid ""
 "about why, please {uri|send us a message}."
 msgstr "Al momento non ti è consentito creare modifiche, votare o lasciare note di modifica perché un amministratore ha revocato i tuoi privilegi. Se non sei ancora stato contattato riguardo alle ragioni, {uri|scrivici un messaggio}."
 
-#: ../root/layout.tt:25 ../root/layout/index.js:218
+#: ../root/layout.tt:25 ../lib/MusicBrainz/Server/Controller/EditNote.pm:54
+#: ../root/layout/index.js:218
 msgid ""
-"You’re currently not allowed to leave edit notes because an admin has "
-"revoked your privileges. If you haven’t already been contacted about why, "
-"please {uri|send us a message}."
-msgstr "Al momento non ti è consentito lasciare note di modifica perché un amministratore ha revocato i tuoi privilegi. Se non sei ancora stato contattato riguardo alle ragioni, {uri|scrivici un messaggio}."
+"You’re currently not allowed to leave or change edit notes because an admin "
+"has revoked your privileges. If you haven’t already been contacted about "
+"why, please {uri|send us a message}."
+msgstr "Al momento non ti è consentito lasciare o modificare note di modifica perché un amministratore ha revocato i tuoi privilegi. Se non sei ancora stato contattato riguardo alle ragioni, {uri|scrivici un messaggio}."
 
 #: ../root/release/edit/tracklist.tt:289
 msgid ""
@@ -4474,11 +4418,11 @@ msgid ""
 "attributes."
 msgstr "Non puoi rimuovere l'attributo \"{name}\" perché è l'attributo di livello superiore di altri attributi."
 
-#: ../lib/MusicBrainz/Server/Controller/Artist.pm:704
+#: ../lib/MusicBrainz/Server/Controller/Artist.pm:720
 msgid "You cannot merge a special purpose artist into another artist"
 msgstr "Non è possibile unire un artista speciale con un altro artista."
 
-#: ../lib/MusicBrainz/Server/Controller/Artist.pm:709
+#: ../lib/MusicBrainz/Server/Controller/Artist.pm:725
 msgid "You cannot merge into Deleted Artist"
 msgstr "Non puoi unire con Artista eliminato"
 
@@ -4581,6 +4525,36 @@ msgstr "Alta"
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:293
 msgid "Default"
 msgstr "Default"
+
+#: ../lib/MusicBrainz/Server/Controller/EditNote.pm:40
+#: ../lib/MusicBrainz/Server/Controller/EditNote.pm:52
+#: ../lib/MusicBrainz/Server/Controller/EditNote.pm:70
+#: ../lib/MusicBrainz/Server/Controller/EditNote.pm:96
+#: ../lib/MusicBrainz/Server/Controller/EditNote.pm:115
+msgid "Can’t change edit note"
+msgstr "Impossibile cambiare la nota di modifica"
+
+#: ../lib/MusicBrainz/Server/Controller/EditNote.pm:41
+msgid "You can’t change other users’ edit notes."
+msgstr "Non puoi cambiare le note di modifica di altri utenti."
+
+#: ../lib/MusicBrainz/Server/Controller/EditNote.pm:71
+msgid "This note has already been removed."
+msgstr "Questa nota è già stata rimossa."
+
+#: ../lib/MusicBrainz/Server/Controller/EditNote.pm:98
+msgid ""
+"You can’t change this note, since somebody else has already replied to it. "
+"If there’s an important reason why it should be changed (for example, it "
+"contains private data), please {contact_url|contact us}."
+msgstr "Non puoi cambiare questa nota perché qualcun altro ha già risposto. Se ci sono ragioni importanti per cui dovrebbe essere modificata (per esempio, perché contiene dati privati), {contact_url|contattaci}."
+
+#: ../lib/MusicBrainz/Server/Controller/EditNote.pm:117
+msgid ""
+"You can’t change this note, since it was entered too long ago. If there’s an"
+" important reason why it should be changed (for example, it contains private"
+" data), please {contact_url|contact us}."
+msgstr "Non puoi cambiare questa nota perché è stata inserita da troppo tempo. Se ci sono ragioni importanti per cui dovrebbe essere modificata (per esempio, perché contiene dati privati), {contact_url|contattaci}."
 
 #: ../lib/MusicBrainz/Server/Controller/Label.pm:249
 msgid "You cannot merge a special purpose label into another label."
@@ -5425,7 +5399,7 @@ msgid "Edit release group alias"
 msgstr "Modifica alias del gruppo di pubblicazioni"
 
 #: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/Merge.pm:13
-#: ../root/artist/ArtistIndex.js:288
+#: ../root/artist/ArtistIndex.js:303
 #: ../root/release_group/ReleaseGroupMerge.js:28
 #: ../root/release_group/ReleaseGroupMerge.js:30
 msgid "Merge release groups"
@@ -5928,6 +5902,12 @@ msgstr "Per aggiungere “{editor}” come collaboratore, selezionalo dal menù 
 msgid "Editor “{editor}” does not exist."
 msgstr "L'editor “{editor}” non esiste."
 
+#: ../lib/MusicBrainz/Server/Form/EditNoteModify.pm:30
+msgid ""
+"You must provide an edit note. If you want to blank the note, please remove "
+"it instead."
+msgstr "Devi fornire una nota di modifica. Se vuoi cancellare l'intero contenuto della nota, rimuovila."
+
 #: ../lib/MusicBrainz/Server/Form/Field/ArtistCredit.pm:50
 #, perl-brace-format
 msgid "Please add an artist name for {credit}"
@@ -6292,22 +6272,6 @@ msgstr "L'editor abusa dei voti sì/no o vota con eccesso di zelo"
 msgid "Editor has violated some other part of our Code of Conduct"
 msgstr "L'editor ha violato un'altra parte del nostro codice di condotta"
 
-#: ../lib/MusicBrainz/Server/Form/User/WatchPreferences.pm:38
-msgid "A day"
-msgstr "Un giorno"
-
-#: ../lib/MusicBrainz/Server/Form/User/WatchPreferences.pm:39
-msgid "A week"
-msgstr "Una settimana"
-
-#: ../lib/MusicBrainz/Server/Form/User/WatchPreferences.pm:40
-msgid "2 weeks"
-msgstr "2 settimane"
-
-#: ../lib/MusicBrainz/Server/Form/User/WatchPreferences.pm:41
-msgid "A month"
-msgstr "Un mese"
-
 #: ../lib/MusicBrainz/Server/Form/Utils.pm:46
 #: ../root/static/scripts/common/i18n/localizeLanguageName.js:19
 msgid "[No lyrics]"
@@ -6656,7 +6620,7 @@ msgstr "Accesso"
 
 #: ../root/account/applications/Index.js:105
 #: ../root/account/applications/Index.js:143
-#: ../root/admin/attributes/Attribute.js:84
+#: ../root/admin/attributes/Attribute.js:85
 #: ../root/admin/attributes/Language.js:46
 #: ../root/admin/attributes/Script.js:45
 #: ../root/admin/statistics-events/StatisticsEventIndex.js:30
@@ -6822,11 +6786,16 @@ msgstr "Testo libero"
 msgid "Attributes"
 msgstr "Attributi"
 
-#: ../root/admin/attributes/Attribute.js:82
+#: ../root/admin/attributes/Attribute.js:81
+#: ../root/otherlookup/OtherLookupForm.js:107
+msgid "MBID"
+msgstr "MBID"
+
+#: ../root/admin/attributes/Attribute.js:83
 msgid "Parent ID"
 msgstr "ID controllante"
 
-#: ../root/admin/attributes/Attribute.js:114
+#: ../root/admin/attributes/Attribute.js:116
 #: ../root/admin/attributes/Language.js:77
 #: ../root/admin/attributes/Script.js:75
 msgid "Add new attribute"
@@ -6962,7 +6931,8 @@ msgid ""
 msgstr "Sei sicuro di voler rimuovere la pagina “{page_uri|{page_name}}” dalla tabella di transclusione?"
 
 #: ../root/admin/wikidoc/DeleteWikiDoc.js:38
-msgid "Yes, I'm sure"
+#: ../root/components/ConfirmLayout.js:38 ../root/edit/DeleteNote.js:64
+msgid "Yes, I am sure"
 msgstr "Sì, sono sicuro"
 
 #: ../root/admin/wikidoc/EditWikiDoc.js:30
@@ -7344,83 +7314,84 @@ msgstr "Non è stato trovato nessun evento corrispondente a questa ricerca."
 msgid "This artist is not currently associated with any events."
 msgstr "Quest'artista non è al momento associato a nessun evento."
 
-#: ../root/artist/ArtistIndex.js:89
+#: ../root/artist/ArtistIndex.js:92
 msgid "Show official release groups"
 msgstr "Mostra gruppi di pubblicazioni ufficiali"
 
-#: ../root/artist/ArtistIndex.js:96
+#: ../root/artist/ArtistIndex.js:99
 msgid "Show all release groups"
 msgstr "Mostra tutti i gruppi di pubblicazioni"
 
-#: ../root/artist/ArtistIndex.js:103
+#: ../root/artist/ArtistIndex.js:106
 msgid "Show official various artist release groups"
 msgstr "Mostra gruppi di pubblicazioni ufficiali di artisti vari"
 
-#: ../root/artist/ArtistIndex.js:110
+#: ../root/artist/ArtistIndex.js:113
 msgid "Show all various artist release groups"
 msgstr "Mostra tutti i gruppi di pubblicazioni di artisti vari"
 
-#: ../root/artist/ArtistIndex.js:139
+#: ../root/artist/ArtistIndex.js:142
 msgid "This artist only has unofficial release groups by various artists."
 msgstr "Quest'artista ha solo gruppi di pubblicazioni non ufficiali di artisti vari."
 
-#: ../root/artist/ArtistIndex.js:145
+#: ../root/artist/ArtistIndex.js:148
 msgid "Showing all release groups for various artists"
 msgstr "Sono visualizzati tutti i gruppi di pubblicazioni di artisti vari"
 
-#: ../root/artist/ArtistIndex.js:146
+#: ../root/artist/ArtistIndex.js:149
 msgid "This artist does not have any various artists release groups"
 msgstr "Quest'artista non ha gruppi di pubblicazioni di artisti vari"
 
-#: ../root/artist/ArtistIndex.js:155
+#: ../root/artist/ArtistIndex.js:158
 msgid "This artist only has release groups by various artists."
 msgstr "Quest'artista ha solo gruppi di pubblicazioni di artisti vari."
 
-#: ../root/artist/ArtistIndex.js:159
+#: ../root/artist/ArtistIndex.js:162
 msgid "Showing official release groups for various artists"
 msgstr "Sono visualizzati i gruppi di pubblicazioni ufficiali di artisti vari"
 
-#: ../root/artist/ArtistIndex.js:167
+#: ../root/artist/ArtistIndex.js:170
 msgid "This artist only has unofficial release groups."
 msgstr "Quest'artista ha solo gruppi di pubblicazioni non ufficiali."
 
-#: ../root/artist/ArtistIndex.js:171
+#: ../root/artist/ArtistIndex.js:174
 msgid "Showing all release groups by this artist"
 msgstr "Sono visualizzati tutti i gruppi di pubblicazioni di quest'artista"
 
-#: ../root/artist/ArtistIndex.js:182
+#: ../root/artist/ArtistIndex.js:185
 msgid "Showing official release groups by this artist"
 msgstr "Sono visualizzati i gruppi di pubblicazioni ufficiali di quest'artista"
-
-#: ../root/artist/ArtistIndex.js:224 ../root/components/CleanupBanner.js:12
-msgid ""
-"This artist has no relationships, recordings, releases or release groups, "
-"and will be removed automatically in the next few days. If this is not "
-"intended, please add more data to this artist."
-msgstr "Quest'artista non ha relazioni, registrazioni, pubblicazioni né gruppi di pubblicazioni e sarà rimosso automaticamente nei prossimi giorni. Se vuoi evitare che ciò succeda, aggiungi più dati."
 
 #: ../root/artist/ArtistIndex.js:239 ../root/artist/ArtistIndex.js:247
 msgid "Legal name"
 msgstr "Nome all'anagrafe"
 
-#: ../root/artist/ArtistIndex.js:253
+#: ../root/artist/ArtistIndex.js:253 ../root/label/LabelIndex.js:64
+msgid "Previously known as"
+msgstr "Conosciuta in precedenza come"
+
+#: ../root/artist/ArtistIndex.js:260 ../root/label/LabelIndex.js:71
+msgid "Renamed to"
+msgstr "Rinominata in"
+
+#: ../root/artist/ArtistIndex.js:268
 msgid "Also performs as"
 msgstr "Si esibisce anche come"
 
-#: ../root/artist/ArtistIndex.js:267
+#: ../root/artist/ArtistIndex.js:282
 msgid "Discography"
 msgstr "Discografia"
 
-#: ../root/artist/ArtistIndex.js:308 ../root/artist/ArtistRecordings.js:169
+#: ../root/artist/ArtistIndex.js:323 ../root/artist/ArtistRecordings.js:169
 #: ../root/instrument/InstrumentRecordings.js:59 ../root/isrc/Index.js:99
 msgid "Add selected recordings for merging"
 msgstr "Aggiungi le registrazioni selezionate per unirle"
 
-#: ../root/artist/ArtistIndex.js:317
+#: ../root/artist/ArtistIndex.js:332
 msgid "This artist has no release groups, only standalone recordings."
 msgstr "Quest'artista non ha nessun gruppo di pubblicazioni, ma solo registrazioni a sé stanti."
 
-#: ../root/artist/ArtistIndex.js:321
+#: ../root/artist/ArtistIndex.js:336
 msgid "No release groups found that match this search."
 msgstr "Non è stato trovato nessun gruppo di pubblicazioni corrispondente a questa ricerca."
 
@@ -8083,6 +8054,13 @@ msgstr "{entity} non ha nessun alias."
 msgid "Add a new alias"
 msgstr "Aggiungi un nuovo alias"
 
+#: ../root/components/CleanupBanner.js:12
+msgid ""
+"This artist has no relationships, recordings, releases or release groups, "
+"and will be removed automatically in the next few days. If this is not "
+"intended, please add more data to this artist."
+msgstr "Quest'artista non ha relazioni, registrazioni, pubblicazioni né gruppi di pubblicazioni e sarà rimosso automaticamente nei prossimi giorni. Se vuoi evitare che ciò succeda, aggiungi più dati."
+
 #: ../root/components/CleanupBanner.js:18
 msgid ""
 "This event has no relationships and will be removed automatically in the "
@@ -8121,10 +8099,6 @@ msgid ""
 " few days. If this is not intended, please add relationships to this work."
 msgstr "Quest'opera non ha relazioni e sarà rimossa automaticamente nei prossimi giorni. Se vuoi evitare che ciò succeda, aggiungi qualche relazione."
 
-#: ../root/components/ConfirmLayout.js:38
-msgid "Yes, I am sure"
-msgstr "Sì, sono sicuro"
-
 #: ../root/components/CritiqueBrainzLinks.js:43
 msgid "An error occurred when loading reviews."
 msgstr "Si è verificato un errore durante il caricamento delle recensioni."
@@ -8145,6 +8119,16 @@ msgid_plural ""
 msgstr[0] "C'è {reviews_link|{review_count} recensione} su CritiqueBrainz. Puoi anche {write_link|scrivere la tua}!"
 msgstr[1] "Ci sono {reviews_link|{review_count} recensioni} su CritiqueBrainz. Puoi anche {write_link|scrivere la tua}!"
 msgstr[2] "Ci sono {reviews_link|{review_count} recensioni} su CritiqueBrainz. Puoi anche {write_link|scrivere la tua}!"
+
+#: ../root/components/EntityDeletionHelp.js:24
+msgid "Are you sure you wish to remove {entity} from MusicBrainz?"
+msgstr "Sei sicuro di voler rimuovere {entity} da MusicBrainz?"
+
+#: ../root/components/EntityDeletionHelp.js:30
+msgid ""
+"If it’s a duplicate, {doc_merge|you should probably merge it instead}. If it"
+" just has some small errors, it’s usually better to just fix those."
+msgstr "Se è un doppione, {doc_merge|probabilmente è preferibile unirlo}. Se ha solo qualche piccolo errore, solitamente è preferibile correggerlo."
 
 #: ../root/components/EntityTabs.js:25
 #: ../root/recording/RecordingFingerprints.js:25
@@ -8587,6 +8571,27 @@ msgstr "Errore durante il voto sulle modifiche"
 msgid "You’re not currently allowed to vote, please read the banner."
 msgstr "Al momento non ti è consentito di votare. Per favore leggi il banner."
 
+#: ../root/edit/DeleteNote.js:32 ../root/edit/DeleteNote.js:33
+#: ../root/edit/components/EditNote.js:145
+msgid "Remove edit note"
+msgstr "Rimuovi nota di modifica"
+
+#: ../root/edit/DeleteNote.js:35
+msgid "Are you sure you want to remove the following edit note?"
+msgstr "Sei sicuro di voler rimuovere la seguente nota di modifica?"
+
+#: ../root/edit/DeleteNote.js:47
+msgid ""
+"Providing a reason for the removal is recommended if you feel it will make "
+"things clearer for other editors checking the editing history in the future."
+" Otherwise it can be omitted."
+msgstr "Fornire una motivazione per la rimozione è raccomandato se pensi che possa rendere le cose più chiare per gli altri editor che controlleranno la cronologia modifiche in futuro. In caso contrario, puoi anche ometterla."
+
+#: ../root/edit/DeleteNote.js:54 ../root/edit/ModifyNote.js:71
+#: ../root/user/ReportUser.js:139
+msgid "Reason"
+msgstr "Motivo"
+
 #: ../root/edit/EditData.js:34
 msgid "Edit data for edit #{id}"
 msgstr "Dati di modifica per la modifica #{id}"
@@ -8662,21 +8667,43 @@ msgstr "Invia nota"
 msgid "You must be logged in to see edit notes."
 msgstr "Devi effettuare l'accesso per vedere le note di modifica."
 
+#: ../root/edit/ModifyNote.js:36 ../root/edit/ModifyNote.js:37
+#: ../root/edit/components/EditNote.js:140
+msgid "Modify edit note"
+msgstr "Modifica nota di modifica"
+
+#: ../root/edit/ModifyNote.js:39
+msgid "You are modifying the following edit note:"
+msgstr "Stai modificando la seguente nota di modifica:"
+
+#: ../root/edit/ModifyNote.js:52
+msgid "New edit note"
+msgstr "Nuova nota di modifica"
+
+#: ../root/edit/ModifyNote.js:58
+msgid ""
+"Keep in mind modification of edit notes is mostly intended to correct small "
+"mistakes. Editors won’t be notified of your changes via email."
+msgstr "Ricorda che la possibilità di modificare le note di modifica è concepita soprattutto per correggere piccoli errori. Gli editor non saranno allertati per email dei tuoi cambiamenti."
+
+#: ../root/edit/ModifyNote.js:65
+msgid ""
+"Providing a reason is optional but can make things more clear for editors "
+"checking this edit in the future. Keep in mind the reason will be displayed "
+"to other editors."
+msgstr "Fornire una motivazione è facoltativo, ma può rendere le cose più chiare per gli editor che controlleranno questa modifica in futuro. Ricorda che la motivazione sarà visibile agli altri editor."
+
 #: ../root/edit/NoteIsRequired.js:25
 msgid ""
 "{edit} has received one or more \"no\" votes, you must leave an edit note "
 "before you can approve it."
 msgstr "{edit} ha ricevuto almeno un voto negativo, devi lasciare una nota di modifica prima di poterlo approvare."
 
-#: ../root/edit/NotesReceived.js:37 ../root/edit/NotesReceived.js:39
+#: ../root/edit/NotesReceived.js:35 ../root/edit/NotesReceived.js:37
 msgid "Recent Notes Left on Your Edits"
 msgstr "Note recenti lasciate sulle tue modifiche"
 
-#: ../root/edit/NotesReceived.js:57 ../root/edit/components/EditHeader.js:52
-msgid "Edit #{id} - {name}"
-msgstr "Modifica #{id} - {name}"
-
-#: ../root/edit/NotesReceived.js:75
+#: ../root/edit/NotesReceived.js:67
 msgid "Nobody has left notes on any of your edits in the past three months."
 msgstr "Nessuno ha lasciato note sulle tue modifiche negli ultimi tre mesi."
 
@@ -8714,6 +8741,11 @@ msgstr "Non è possibile visualizzare la cronologia di questa copertina."
 #: ../root/edit/components/EditArtwork.js:36
 msgid "Cover art:"
 msgstr "Copertina:"
+
+#: ../root/edit/components/EditHeader.js:52
+#: ../root/edit/components/EditNoteListEntry.js:27
+msgid "Edit #{id} - {name}"
+msgstr "Modifica #{id} - {name}"
 
 #: ../root/edit/components/EditHeader.js:78
 msgid "Edit by {editor}"
@@ -8777,26 +8809,58 @@ msgstr[2] "Trovate almeno {n} modifiche"
 msgid "Submit votes & edit notes"
 msgstr "Invia voti e note di modifica"
 
-#: ../root/edit/components/EditNote.js:89
+#: ../root/edit/components/EditNote.js:157
 msgid "[time missing]"
 msgstr "[tempo che manca]"
 
-#: ../root/edit/components/EditNotes.js:54
-msgid "No edit notes have been added."
-msgstr "Non è stata aggiunta nessuna nota di modifica."
+#: ../root/edit/components/EditNote.js:165
+msgid "This edit note was removed by its author. Reason given: “{reason}”."
+msgstr "Questa nota di modifica è stata rimossa dal suo autore. Motivazione fornita: “{reason}”."
 
-#: ../root/edit/components/EditNotes.js:66
+#: ../root/edit/components/EditNote.js:170
+msgid "This edit note was removed by its author. No reason was provided."
+msgstr "Questa nota di modifica è stata rimossa dal suo autore. Nessuna motivazione fornita."
+
+#: ../root/edit/components/EditNote.js:176
+msgid "This edit note was removed by an admin. Reason given: “{reason}”."
+msgstr "Questa nota di modifica è stata rimossa da un amministratore. Motivazione fornita: “{reason}”."
+
+#: ../root/edit/components/EditNote.js:181
+msgid "This edit note was removed by an admin. No reason was provided."
+msgstr "Questa nota di modifica è stata rimossa da un amministratore. Nessuna motivazione fornita."
+
+#: ../root/edit/components/EditNote.js:197
+msgid "Last modified by the note author ({time}). Reason given: “{reason}”."
+msgstr "Ultima modifica dell'autore della nota ({time}). Motivazione fornita: “{reason}”."
+
+#: ../root/edit/components/EditNote.js:207
+msgid "Last modified by the note author ({time})."
+msgstr "Ultima modifica dell'autore della nota ({time})."
+
+#: ../root/edit/components/EditNote.js:215
+msgid "Last modified by an admin ({time}). Reason given: “{reason}”."
+msgstr "Ultima modifica di un amministratore ({time}). Motivazione fornita: “{reason}”."
+
+#: ../root/edit/components/EditNote.js:225
+msgid "Last modified by an admin ({time})."
+msgstr "Ultima modifica di un amministratore ({time})."
+
+#: ../root/edit/components/EditNoteHelp.js:20
 msgid ""
 "Edit notes support {doc_formatting|a limited set of wiki formatting "
 "options}. Please do always keep the {doc_coc|Code of Conduct} in mind when "
 "writing edit notes!"
 msgstr "Le note di modifica supportano {doc_formatting|un insieme limitato di opzioni di formattazione wiki}. Tieni sempre a mente il {doc_coc|Codice di Condotta} quando scrivi note di modifica!"
 
-#: ../root/edit/components/EditNotes.js:80
+#: ../root/edit/components/EditNotes.js:55
+msgid "No edit notes have been added."
+msgstr "Non è stata aggiunta nessuna nota di modifica."
+
+#: ../root/edit/components/EditNotes.js:70
 msgid "Add an edit note"
 msgstr "Aggiungi una nota di modifica"
 
-#: ../root/edit/components/EditNotes.js:88
+#: ../root/edit/components/EditNotes.js:78
 msgid "You are not currently able to add notes to this edit. ({url|Details})"
 msgstr "Al momento non puoi aggiungere note a questa modifica. ({url|Maggiori informazioni})"
 
@@ -9189,7 +9253,7 @@ msgstr "Lingue del testo"
 #: ../root/edit/details/historic/ChangeArtistQuality.js:30
 #: ../root/edit/details/historic/ChangeReleaseQuality.js:40
 #: ../root/layout/components/sidebar/SidebarDataQuality.js:36
-#: ../root/release/ChangeQuality.js:52
+#: ../root/release/ChangeQuality.js:66
 msgid "Data Quality"
 msgstr "Qualità dati"
 
@@ -10253,6 +10317,17 @@ msgid ""
 "ticket}."
 msgstr "Manca un genere nell'elenco? Richiedilo {link|aggiungendo un ticket di stile}."
 
+#: ../root/instrument/DeleteInstrument.js:34
+#: ../root/instrument/DeleteInstrument.js:36
+msgid "Remove Instrument"
+msgstr "Rimuovi strumento"
+
+#: ../root/instrument/DeleteInstrument.js:49
+msgid ""
+"This instrument cannot be removed because there are still relationships "
+"attributed to it."
+msgstr "Lo strumento non può essere rimosso perché ci sono ancora relazioni attribuite ad esso."
+
 #: ../root/instrument/InstrumentArtists.js:67
 msgid "No artists found."
 msgstr "Nessun artista trovato."
@@ -10300,14 +10375,6 @@ msgid_plural "Associated with {num} works"
 msgstr[0] "Associato a {num} opera"
 msgstr[1] "Associato a {num} opere"
 msgstr[2] "Associato a {num} opere"
-
-#: ../root/label/LabelIndex.js:64
-msgid "Previously known as"
-msgstr "Conosciuta in precedenza come"
-
-#: ../root/label/LabelIndex.js:71
-msgid "Renamed to"
-msgstr "Rinominata in"
 
 #: ../root/label/LabelIndex.js:101
 msgid "This label does not have any releases."
@@ -11471,10 +11538,6 @@ msgstr "ISNI etichetta:"
 msgid "FreeDB ID:"
 msgstr "ID FreeDB:"
 
-#: ../root/otherlookup/OtherLookupForm.js:107
-msgid "MBID"
-msgstr "MBID"
-
 #: ../root/otherlookup/OtherLookupIndex.js:22
 #: ../root/otherlookup/OtherLookupIndex.js:24
 msgid "Other Lookups"
@@ -11504,6 +11567,23 @@ msgstr "Stai per unire tutti questi luoghi in un unico luogo. Seleziona il luogo
 #: ../root/place/PlacePerformances.js:33
 msgid "No recordings, releases or release groups are linked to this place."
 msgstr "Nessuna registrazione, pubblicazione o gruppo di pubblicazioni è collegata a questo luogo."
+
+#: ../root/recording/DeleteRecording.js:34
+#: ../root/recording/DeleteRecording.js:36
+msgid "Remove Recording"
+msgstr "Rimuovi registrazione"
+
+#: ../root/recording/DeleteRecording.js:43
+msgid ""
+"Please make sure you’re not removing a legitimate {doc_standalone|standalone"
+" recording}."
+msgstr "Assicurati che tu non stia rimuovendo una {doc_standalone|registrazione a sé stante} valida."
+
+#: ../root/recording/DeleteRecording.js:57
+msgid ""
+"This recording recording cannot be removed because it is still used on "
+"releases."
+msgstr "La registrazione non può essere rimossa perché è ancora in uso in alcune pubblicazioni."
 
 #: ../root/recording/RecordingFingerprints.js:27
 msgid "Associated AcoustIDs"
@@ -11765,6 +11845,13 @@ msgstr "Nessuna relazione {type0}-{type1} trovata."
 #: ../root/relationship/linktype/RelationshipTypesList.js:40
 msgid "{type0}-{type1}"
 msgstr "{type0}-{type1}"
+
+#: ../root/release/ChangeQuality.js:51
+msgid ""
+"{data_quality_doc|Data quality} indicates how good the data for a release "
+"is. It is not a mark of how good or bad the music itself is — for that, use "
+"{ratings_doc|ratings}."
+msgstr "La {data_quality_doc|qualità dei dati} indica quanto sono buoni i dati su una pubblicazione. Non è un indicatore della qualità della musica in sé — per quello scopo, puoi usare le {ratings_doc|valutazioni}."
 
 #: ../root/release/CoverArt.js:32
 msgid "250px"
@@ -14569,7 +14656,7 @@ msgstr "I collegamenti Allmusic “{album_url_pattern}” vanno aggiunti ai grup
 #: ../root/static/scripts/edit/URLCleanup.js:642
 #: ../root/static/scripts/edit/URLCleanup.js:835
 #: ../root/static/scripts/edit/URLCleanup.js:3580
-#: ../root/static/scripts/edit/URLCleanup.js:4540
+#: ../root/static/scripts/edit/URLCleanup.js:4541
 msgid ""
 "This is a redirect link. Please follow {redirect_url|your link} and add the "
 "link it redirects to instead."
@@ -14660,87 +14747,87 @@ msgid ""
 "one and, if so, add that link instead."
 msgstr "Questo è un collegamento al vecchio dominio di Resident Advisor. Segui {ra_url|il tuo collegamento}, assicurati che il collegamento a cui reindirizza sia ancora quello corretto e, se è così, aggiungi quest'ultimo."
 
-#: ../root/static/scripts/edit/URLCleanup.js:5016
+#: ../root/static/scripts/edit/URLCleanup.js:5020
 msgid "This is not a profile, but a Twitter documentation page."
 msgstr "Questo non è un profilo, bensì una pagina di documentazione di Twitter."
 
-#: ../root/static/scripts/edit/URLCleanup.js:5030
+#: ../root/static/scripts/edit/URLCleanup.js:5034
 msgid "Please link to Twitter profiles, not tweets."
 msgstr "Inserisci collegamenti a profili Twitter, non a tweet."
 
-#: ../root/static/scripts/edit/URLCleanup.js:5048
+#: ../root/static/scripts/edit/URLCleanup.js:5052
 msgid "This site does not allow direct links to their images."
 msgstr "Questo sito non consente collegamenti diretti alle sue immagini."
 
-#: ../root/static/scripts/edit/URLCleanup.js:5254
+#: ../root/static/scripts/edit/URLCleanup.js:5258
 msgid ""
 "Please link to the “{allowed_url_pattern}” page rather than this "
 "“{current_url_pattern}” link."
 msgstr "Aggiungi un collegamento alla pagina “{allowed_url_pattern}” anziché a questa pagina “{current_url_pattern}”."
 
-#: ../root/static/scripts/edit/URLCleanup.js:5310
+#: ../root/static/scripts/edit/URLCleanup.js:5314
 msgid ""
 "There is an unencoded “?” or “#” character in this URL. Please check whether"
 " it is useless and should be removed, or whether it is an error and the URL "
 "is misencoded."
 msgstr "Quest'URL contiene un carattere “?” o “#” non codificato. Controlla se va rimosso perché inutile o se è un errore e l'URL è codificato in modo errato."
 
-#: ../root/static/scripts/edit/URLCleanup.js:5330
+#: ../root/static/scripts/edit/URLCleanup.js:5334
 msgid ""
 "Please do not link directly to WhoSampled “{unwanted_url_pattern}” pages. "
 "Link to the appropriate WhoSampled artist, track or album page instead."
 msgstr "Non aggiungere collegamenti diretti a pagine “{unwanted_url_pattern}” di WhoSampled. Aggiungi collegamenti alla pagina artista, traccia o album di WhoSampled appropriata."
 
-#: ../root/static/scripts/edit/URLCleanup.js:5351
+#: ../root/static/scripts/edit/URLCleanup.js:5355
 msgid "Please link WhoSampled “{album_url_pattern}” pages to release groups."
 msgstr "Collega le pagine “{album_url_pattern}” di WhoSampled ai gruppi di pubblicazioni."
 
-#: ../root/static/scripts/edit/URLCleanup.js:5369
+#: ../root/static/scripts/edit/URLCleanup.js:5373
 msgid "Please link WhoSampled artist pages to artists."
 msgstr "Collega le pagine artista di WhoSampled agli artisti."
 
-#: ../root/static/scripts/edit/URLCleanup.js:5381
+#: ../root/static/scripts/edit/URLCleanup.js:5385
 msgid "Please link WhoSampled track pages to recordings."
 msgstr "Collega le pagine traccia di WhoSampled alle registrazioni."
 
-#: ../root/static/scripts/edit/URLCleanup.js:5448
+#: ../root/static/scripts/edit/URLCleanup.js:5452
 msgid ""
 "Links to specific sections of Wikipedia articles are not allowed. Please "
 "remove “{fragment}” if still appropriate. See the {url|guidelines}."
 msgstr "I collegamenti a specifiche sezioni di articoli di Wikipedia non sono consentiti. Se l'articolo è comunque pertinente, rimuovi “{fragment}”. Consulta le {url|linee guida}."
 
-#: ../root/static/scripts/edit/URLCleanup.js:5473
+#: ../root/static/scripts/edit/URLCleanup.js:5477
 msgid ""
 "Links to Wikipedia user pages are not allowed. Please link only to actual "
 "Wikipedia articles."
 msgstr "I collegamenti a pagine utente di Wikipedia non sono consentiti. Aggiungi solo collegamenti ad articoli di Wikipedia."
 
-#: ../root/static/scripts/edit/URLCleanup.js:5593
+#: ../root/static/scripts/edit/URLCleanup.js:5597
 msgid ""
 "This is a playlist link, which isn’t a video channel and is not guaranteed "
 "to be officially approved. Please link to the official channel for this "
 "entity, if it exists, instead."
 msgstr "Questo è un collegamento ad una playlist, che non è un canale di video e non è detto che sia autorizzata in modo ufficiale. Aggiungi piuttosto un collegamento al canale ufficiale di questa entità, se esiste."
 
-#: ../root/static/scripts/edit/URLCleanup.js:5633
+#: ../root/static/scripts/edit/URLCleanup.js:5637
 msgid "Only video and playlist links are allowed on releases."
 msgstr "Solo collegamenti video e playlist sono consentiti sulle pubblicazioni."
 
-#: ../root/static/scripts/edit/URLCleanup.js:5668
+#: ../root/static/scripts/edit/URLCleanup.js:5672
 msgid ""
 "Wikipedia normally has no entries for specific releases, so adding Wikipedia"
 " links to a release is currently blocked. Please add this Wikipedia link to "
 "the release group instead, if appropriate."
 msgstr "Wikipedia non ha solitamente voci su pubblicazioni specifiche, perciò al momento non è consentito aggiungere collegamenti a Wikipedia ad una pubblicazione. Aggiungi piuttosto questo collegamento a Wikipedia al gruppo di pubblicazioni, se pertinente."
 
-#: ../root/static/scripts/edit/URLCleanup.js:5680
+#: ../root/static/scripts/edit/URLCleanup.js:5684
 msgid ""
 "Wikidata normally has no entries for specific releases, so adding Wikidata "
 "links to a release is currently blocked. Please add this Wikidata link to "
 "the release group instead, if appropriate."
 msgstr "Wikidata non ha solitamente voci su pubblicazioni specifiche, perciò al momento non è consentito aggiungere collegamenti a Wikidata ad una pubblicazione. Aggiungi piuttosto questo collegamento a Wikidata al gruppo di pubblicazioni, se pertinente."
 
-#: ../root/static/scripts/edit/URLCleanup.js:5699
+#: ../root/static/scripts/edit/URLCleanup.js:5703
 msgid ""
 "This is a Bandcamp profile, not a page for a specific release. Even if it "
 "shows this release right now, that can change when the artist releases "
@@ -14749,7 +14836,7 @@ msgid ""
 "add this profile link to the appropriate artist or label."
 msgstr "Questo è un profilo di Bandcamp e non una pagina per una pubblicazione specifica. Anche se in questo momento mostra questa pubblicazione, ciò potrebbe cambiare quando l'artista ne pubblicherà un'altra. Ti chiediamo perciò di trovare e aggiungere la pagina corretta per la pubblicazione (“{album_url_pattern}” o “{single_url_pattern}”). Aggiungi pure questo collegamento di profilo all'artista o all'etichetta attinente."
 
-#: ../root/static/scripts/edit/URLCleanup.js:5727
+#: ../root/static/scripts/edit/URLCleanup.js:5731
 msgid ""
 "This is a Bandcamp profile, not a page for a specific recording. Even if it "
 "shows a single recording right now, that can change when the artist releases"
@@ -14758,11 +14845,11 @@ msgid ""
 "the appropriate artist or label."
 msgstr "Questo è un profilo di Bandcamp e non una pagina per una registrazione specifica. Anche se in questo momento mostra una registrazione singola, ciò potrebbe cambiare quando l'artista ne pubblicherà un'altra. Ti chiediamo perciò di trovare e aggiungere la pagina corretta per la registrazione (“{album_url_pattern}” o “{single_url_pattern}”). Aggiungi pure questo collegamento di profilo all'artista o all'etichetta attinente."
 
-#: ../root/static/scripts/edit/URLCleanup.js:5890
+#: ../root/static/scripts/edit/URLCleanup.js:5894
 msgid "Some relationship types are missing for this URL."
 msgstr "Alcuni tipi di relazione per questo URL sono mancanti."
 
-#: ../root/static/scripts/edit/URLCleanup.js:5907
+#: ../root/static/scripts/edit/URLCleanup.js:5911
 #: ../root/static/scripts/edit/externalLinks.js:1006
 msgid "This relationship type combination is invalid."
 msgstr "Questa combinazione di tipi di relazione non è valida."
@@ -14927,36 +15014,36 @@ msgstr "Nuovo titolo del disco:"
 msgid "(was medium {position}: {name} on release {release})"
 msgstr "(era il supporto {position}: {name} nella pubblicazione {release})"
 
-#: ../root/static/scripts/edit/components/ReleaseMergeStrategy.js:137
+#: ../root/static/scripts/edit/components/ReleaseMergeStrategy.js:141
 msgid "(was medium {position} on release {release})"
 msgstr "(era il supporto {position} nella pubblicazione {release})"
 
-#: ../root/static/scripts/edit/components/ReleaseMergeStrategy.js:189
+#: ../root/static/scripts/edit/components/ReleaseMergeStrategy.js:197
 msgid ""
 "This merge strategy will merge all mediums together into a single set of "
 "mediums. Recordings between mediums will also be merged, into the recordings"
 " used on the target mediums."
 msgstr "Questa strategia di unione unirà tutti i supporti, formando un singolo set di supporti. Anche le registrazioni saranno unite con quelle utilizzate nei supporti di destinazione."
 
-#: ../root/static/scripts/edit/components/ReleaseMergeStrategy.js:195
+#: ../root/static/scripts/edit/components/ReleaseMergeStrategy.js:203
 msgid ""
 "This requires that corresponding mediums have the same number of tracks."
 msgstr "È necessario che i supporti corrispondenti abbiano lo stesso numero di tracce."
 
-#: ../root/static/scripts/edit/components/ReleaseMergeStrategy.js:199
+#: ../root/static/scripts/edit/components/ReleaseMergeStrategy.js:207
 msgid ""
 "Make sure all mediums in the releases being merged are in the correct "
 "position. For example, to merge a medium into medium 2 of a release, it will"
 " need to be set as medium 2 of the release being merged."
 msgstr "Assicurati che tutti i supporti della pubblicazione che stai unendo si trovino nella posizione corretta. Per esempio, per unire un supporto nel supporto 2 di una pubblicazione, esso dovrà essere impostato come supporto 2 della pubblicazione che stai unendo."
 
-#: ../root/static/scripts/edit/components/ReleaseMergeStrategy.js:209
+#: ../root/static/scripts/edit/components/ReleaseMergeStrategy.js:217
 msgid ""
 "The recording artists do not match! Perhaps you meant to use the \"append "
 "mediums\" merge strategy?"
 msgstr "Gli artisti delle registrazioni non corrispondono! Forse intendevi usare la strategia di unione \"aggiungi supporti\"?"
 
-#: ../root/static/scripts/edit/components/ReleaseMergeStrategy.js:214
+#: ../root/static/scripts/edit/components/ReleaseMergeStrategy.js:222
 msgid ""
 "The recordings that will be merged if you continue with the current merge "
 "strategy include the following, whose artists differ:"
@@ -16120,10 +16207,6 @@ msgid ""
 "will require a lot of additional research."
 msgstr "Assicurati di fornire collegamenti diretti a esempi del comportamento che stai segnalando (per esempio, usa “<code>https://musicbrainz.org/edit/23</code>” invece di “edit #23”, e usa “<code>https://musicbrainz.org/edit/42</code> e <code>https://musicbrainz.org/edit/43</code>” invece di “<code>https://musicbrainz.org/user/SomeUser/edits</code>”). Fornire collegamenti rende molto più semplice verificare i problemi per chi riceve la segnalazione; è poco probabile che una segnalazione senza collegamenti riceva una reazione veloce, poiché richiederà ulteriori ricerche."
 
-#: ../root/user/ReportUser.js:139
-msgid "Reason"
-msgstr "Motivo"
-
 #: ../root/user/ReportUser.js:157
 msgid ""
 "If you don’t want our admins to contact you further regarding this report, "
@@ -16131,6 +16214,10 @@ msgid ""
 "so that you can be contacted if the report is resolved or the admins need "
 "more information."
 msgstr "Se non vuoi che i nostri amministratori ti contattino riguardo questa segnalazione, puoi togliere la spunta alla casella qui sopra. <br /> Ti raccomandiamo di lasciarla spuntata, in modo che possiamo contattarti se la segnalazione è risolta o se gli amministratori necessitano di ulteriori informazioni."
+
+#: ../root/user/ReportUser.js:167
+msgid "Receive email updates about this report"
+msgstr "Ricevi aggiornamenti su questo rapporto per email"
 
 #: ../root/user/UserCollections.js:42
 msgid "Area Collections"

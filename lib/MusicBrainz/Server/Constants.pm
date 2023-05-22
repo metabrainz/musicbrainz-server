@@ -71,6 +71,7 @@ our @EXPORT_OK = (
         $AMAZON_ASIN_LINK_TYPE_ID
         %PART_OF_SERIES $PART_OF_AREA_LINK_TYPE $PART_OF_AREA_LINK_TYPE_ID
         $SERIES_ORDERING_TYPE_AUTOMATIC $SERIES_ORDERING_TYPE_MANUAL
+        $ARTIST_RENAME_LINK_TYPE
         $LABEL_RENAME_LINK_TYPE
         $MAX_INITIAL_MEDIUMS $MAX_INITIAL_TRACKS
         $MAX_POSTGRES_INT $MAX_POSTGRES_BIGINT
@@ -358,12 +359,12 @@ Readonly our $EDITING_DISABLED_FLAG         => 1024;
 Readonly our $ADDING_NOTES_DISABLED_FLAG    => 2048;
 Readonly our $SPAMMER_FLAG                  => 4096;
 # If you update this, also update root/utility/sanitizedEditor.js
-Readonly our $PUBLIC_PRIVILEGE_FLAGS        => $AUTO_EDITOR_FLAG &
-                                               $BOT_FLAG &
-                                               $RELATIONSHIP_EDITOR_FLAG &
-                                               $WIKI_TRANSCLUSION_FLAG &
-                                               $ACCOUNT_ADMIN_FLAG &
-                                               $LOCATION_EDITOR_FLAG &
+Readonly our $PUBLIC_PRIVILEGE_FLAGS        => $AUTO_EDITOR_FLAG |
+                                               $BOT_FLAG |
+                                               $RELATIONSHIP_EDITOR_FLAG |
+                                               $WIKI_TRANSCLUSION_FLAG |
+                                               $ACCOUNT_ADMIN_FLAG |
+                                               $LOCATION_EDITOR_FLAG |
                                                $BANNER_EDITOR_FLAG;
 
 Readonly our $ELECTION_VOTE_NO      => -1;
@@ -416,6 +417,7 @@ Readonly our $PART_OF_AREA_LINK_TYPE => 'de7cc874-8b1b-3a05-8272-f3834c968fb7';
 
 Readonly our $PART_OF_AREA_LINK_TYPE_ID => 356;
 
+Readonly our $ARTIST_RENAME_LINK_TYPE => '9752bfdf-13ca-441a-a8bc-18928c600c73';
 Readonly our $LABEL_RENAME_LINK_TYPE => 'e6159066-6013-4d09-a2f8-bc473f21e89e';
 
 Readonly our $MAX_INITIAL_MEDIUMS => 10;

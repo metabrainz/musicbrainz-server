@@ -4,7 +4,7 @@ use namespace::autoclean;
 
 use Carp;
 use List::AllUtils qw( any );
-use MusicBrainz::Server::Constants qw( $ARTIST_TYPE_GROUP $STATUS_OPEN );
+use MusicBrainz::Server::Constants qw( $ARTIST_TYPE_GROUP );
 use MusicBrainz::Server::Entity::Artist;
 use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Data::ArtistCredit;
@@ -512,20 +512,18 @@ sub is_empty {
     my ($self, $artist_id) = @_;
 
     my $used_in_relationship = used_in_relationship($self->c, artist => 'artist_row.id');
-    return $self->sql->select_single_value(<<~"SQL", $artist_id, $STATUS_OPEN);
+    return $self->sql->select_single_value(<<~"SQL", $artist_id);
         SELECT TRUE
         FROM artist artist_row
         WHERE id = ?
-        AND edits_pending = 0
         AND NOT (
             EXISTS (
-                SELECT TRUE FROM edit_artist
-                WHERE status = ? AND artist = artist_row.id
-            ) OR
-            EXISTS (
-                SELECT TRUE FROM artist_credit_name
-                WHERE artist = artist_row.id
-                LIMIT 1
+                SELECT TRUE
+                  FROM artist_credit_name acn
+                  JOIN artist_credit ac ON ac.id = acn.artist_credit
+                 WHERE acn.artist = artist_row.id
+                   AND ac.ref_count > 0
+                 LIMIT 1
             ) OR
             $used_in_relationship
         )

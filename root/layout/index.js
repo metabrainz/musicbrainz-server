@@ -215,9 +215,9 @@ const Layout = ({
                 )
               ) : (
                 exp.l(
-                  `You’re currently not allowed to leave edit notes because
-                   an admin has revoked your privileges. If you haven’t
-                   already been contacted about why,
+                  `You’re currently not allowed to leave or change edit notes
+                   because an admin has revoked your privileges.
+                   If you haven’t already been contacted about why,
                    please {uri|send us a message}.`,
                   {uri: {href: 'https://metabrainz.org/contact', target: '_blank'}},
                 )

@@ -1668,6 +1668,7 @@ msgid "gankogui"
 msgstr "ガンコギ"
 
 #: DB:instrument/name:644
+msgctxt "Brazilian samba shaker"
 msgid "ganzá"
 msgstr "ガンザ"
 
@@ -4326,8 +4327,8 @@ msgstr "wavedrum"
 
 #: DB:instrument/name:107
 msgctxt "Hinged percussion"
-msgid "whip / slapstick"
-msgstr "ウィップ / スラップスティック"
+msgid "whipslap"
+msgstr ""
 
 #: DB:instrument/name:274
 msgctxt "Small simple single-toned flute"

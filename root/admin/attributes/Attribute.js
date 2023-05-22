@@ -78,6 +78,7 @@ const Attribute = ({
           <th>{l('ID')}</th>
           <th>{l('Name')}</th>
           <th>{l('Description')}</th>
+          <th>{l('MBID')}</th>
           <th>{l('Child order')}</th>
           <th>{l('Parent ID')}</th>
           {renderAttributesHeaderAccordingToModel(model)}
@@ -92,6 +93,7 @@ const Attribute = ({
               <td>{attribute.id}</td>
               <td>{attribute.name}</td>
               <td>{expand2react(attribute.description)}</td>
+              <td>{attribute.gid}</td>
               <td>{attribute.child_order}</td>
               <td>{attribute.parent_id}</td>
               {renderAttributes(attribute)}

@@ -3,7 +3,6 @@ package MusicBrainz::Server::Data::Work;
 use Moose;
 use namespace::autoclean;
 use List::AllUtils qw( uniq );
-use MusicBrainz::Server::Constants qw( $STATUS_OPEN );
 use MusicBrainz::Server::Data::Utils qw(
     hash_to_row
     load_subobjects
@@ -474,19 +473,11 @@ sub is_empty {
     my ($self, $work_id) = @_;
 
     my $used_in_relationship = used_in_relationship($self->c, work => 'work_row.id');
-    return $self->sql->select_single_value(<<~"SQL", $work_id, $STATUS_OPEN);
+    return $self->sql->select_single_value(<<~"SQL", $work_id);
         SELECT TRUE
         FROM work work_row
         WHERE id = ?
-        AND edits_pending = 0
-        AND NOT (
-            EXISTS (
-                SELECT TRUE
-                FROM edit_work JOIN edit ON edit_work.edit = edit.id
-                WHERE status = ? AND work = work_row.id
-            ) OR
-            $used_in_relationship
-        )
+        AND NOT ($used_in_relationship)
         SQL
 }
 

@@ -2,7 +2,6 @@ package MusicBrainz::Server::Data::Place;
 
 use Moose;
 use namespace::autoclean;
-use MusicBrainz::Server::Constants qw( $STATUS_OPEN );
 use MusicBrainz::Server::Data::Edit;
 use MusicBrainz::Server::Entity::Place;
 use MusicBrainz::Server::Entity::Coordinates;
@@ -164,19 +163,11 @@ sub is_empty {
     my ($self, $place_id) = @_;
 
     my $used_in_relationship = used_in_relationship($self->c, place => 'place_row.id');
-    return $self->sql->select_single_value(<<~"SQL", $place_id, $STATUS_OPEN);
+    return $self->sql->select_single_value(<<~"SQL", $place_id);
         SELECT TRUE
         FROM place place_row
         WHERE id = ?
-        AND edits_pending = 0
-        AND NOT (
-            EXISTS (
-                SELECT TRUE
-                FROM edit_place JOIN edit ON edit_place.edit = edit.id
-                WHERE status = ? AND place = place_row.id
-            ) OR
-            $used_in_relationship
-        )
+        AND NOT ($used_in_relationship)
         SQL
 }
 

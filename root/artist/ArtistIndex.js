@@ -9,6 +9,7 @@
 
 import * as React from 'react';
 
+import CleanupBanner from '../components/CleanupBanner.js';
 import RecordingList from '../components/list/RecordingList.js';
 import ReleaseGroupList from '../components/list/ReleaseGroupList.js';
 import PaginatedResults from '../components/PaginatedResults.js';
@@ -61,6 +62,8 @@ type Props = {
   +pager: PagerT,
   +recordings: ?$ReadOnlyArray<RecordingWithArtistCreditT>,
   +releaseGroups: ?$ReadOnlyArray<ReleaseGroupT>,
+  +renamedFrom: $ReadOnlyArray<ArtistT>,
+  +renamedInto: $ReadOnlyArray<ArtistT>,
   +showingVariousArtistsOnly: boolean,
   +wikipediaExtract: WikipediaExtractT,
 };
@@ -210,6 +213,8 @@ const ArtistIndex = ({
   pager,
   recordings,
   releaseGroups,
+  renamedFrom,
+  renamedInto,
   showingVariousArtistsOnly,
   wikipediaExtract,
 }: Props): React$Element<typeof ArtistLayout> => {
@@ -220,12 +225,7 @@ const ArtistIndex = ({
   return (
     <ArtistLayout entity={artist} page="index">
       {eligibleForCleanup ? (
-        <p className="cleanup">
-          {l(`This artist has no relationships, recordings, releases or
-              release groups, and will be removed automatically in the next
-              few days. If this is not intended, please add more data to
-              this artist.`)}
-        </p>
+        <CleanupBanner entityType="artist" />
       ) : null}
 
       <Annotation
@@ -246,6 +246,21 @@ const ArtistIndex = ({
       ) : legalNameAliases?.length ? (
         <RelatedEntitiesDisplay title={l('Legal name')}>
           {commaOnlyListText(legalNameAliases)}
+        </RelatedEntitiesDisplay>
+      ) : null}
+
+      {renamedFrom.length ? (
+        <RelatedEntitiesDisplay title={l('Previously known as')}>
+          {commaOnlyList(renamedFrom.map(
+            label => <DescriptiveLink entity={label} key={label.gid} />,
+          ))}
+        </RelatedEntitiesDisplay>
+      ) : null}
+      {renamedInto.length ? (
+        <RelatedEntitiesDisplay title={l('Renamed to')}>
+          {commaOnlyList(renamedInto.map(
+            label => <DescriptiveLink entity={label} key={label.gid} />,
+          ))}
         </RelatedEntitiesDisplay>
       ) : null}
 

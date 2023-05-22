@@ -827,7 +827,7 @@ msgid ""
 "the wooden bar equivalent."
 msgstr "Composto da sbarre, lastre o tasti intonati e in metallo, percossi con mazzuole e disposti in varie scale (spesso su risuonatori in materiale sonoro). Utilizza <a href=\"/instrument/db95a035-6a3d-44b4-8694-74ff71b61768\">xilofono</a> per lo strumento equivalente con sbarre in legno."
 
-#. name:whip / slapstick
+#. name:whipslap
 #: DB:instrument/description:107
 msgid ""
 "Consisting of two parts joined together by a hinge, it creates a whip-like "
@@ -3488,11 +3488,6 @@ msgid ""
 "Slovakia."
 msgstr "Grande flauto dritto folclorico di origine pastorale proveniente dalla Slovacchia centrale."
 
-#. name:ganzá
-#: DB:instrument/description:644
-msgid "The ganzá is a cylinder-shaped Brazilian rattle used in samba music."
-msgstr "Sonaglio cilindrico brasiliano usato nella musica samba."
-
 #. name:gaohu
 #: DB:instrument/description:216
 msgid ""
@@ -4958,6 +4953,14 @@ msgid ""
 "Used in turntablism, vinyl records are not simply played on it, instead DJ's"
 " perform creating sound."
 msgstr "Usato nel turntablism, non è limitato alla riproduzione di dischi in vinile, bensì i DJ vi si esibiscono creando suoni."
+
+#. name:ganzá
+#: DB:instrument/description:644
+msgid ""
+"Used in various performances (capoeira angola, caboclo, etc) and samba "
+"music, it is usually made of metal and filled with grains, pebbles or the "
+"like."
+msgstr "Usata in varie esibizioni (capoeira angola, caboclo, ecc.) e nella musica samba, è solitamente in metallo e riempita con cereali, ciottoli o simili."
 
 #. name:kepyak
 #: DB:instrument/description:998

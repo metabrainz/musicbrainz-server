@@ -129,7 +129,11 @@ const ReleaseMergeStrategy = ({
                           {
                             name: medium.name,
                             position: medium.position,
-                            release: releases[medium.release_id].name,
+                            release: (
+                              <EntityLink
+                                entity={releases[medium.release_id]}
+                              />
+                            ),
                           },
                         )
                       ) : (
@@ -137,7 +141,11 @@ const ReleaseMergeStrategy = ({
                           '(was medium {position} on release {release})',
                           {
                             position: medium.position,
-                            release: releases[medium.release_id].name,
+                            release: (
+                              <EntityLink
+                                entity={releases[medium.release_id]}
+                              />
+                            ),
                           },
                         )
                       )}

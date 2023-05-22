@@ -1658,6 +1658,7 @@ msgid "gankogui"
 msgstr "gankogui"
 
 #: DB:instrument/name:644
+msgctxt "Brazilian samba shaker"
 msgid "ganzá"
 msgstr "ganzá"
 
@@ -4316,7 +4317,7 @@ msgstr ""
 
 #: DB:instrument/name:107
 msgctxt "Hinged percussion"
-msgid "whip / slapstick"
+msgid "whipslap"
 msgstr ""
 
 #: DB:instrument/name:274

@@ -273,7 +273,12 @@ import MB from './MB.js';
     toJSON() {
       return Object.assign(
         super.toJSON(),
-        {iso_3166_1_codes: this.iso_3166_1_codes || []},
+        {
+          containment: this.containment || [],
+          iso_3166_1_codes: this.iso_3166_1_codes || [],
+          iso_3166_2_codes: this.iso_3166_2_codes || [],
+          iso_3166_3_codes: this.iso_3166_3_codes || [],
+        },
       );
     }
 
@@ -281,7 +286,7 @@ import MB from './MB.js';
       return ReactDOMServer.renderToStaticMarkup(
         exp.l(
           'You selected {area}.',
-          {area: this.reactElement({target: '_blank'})},
+          {area: <DescriptiveLink entity={this.toJSON()} target="_blank" />},
         ),
       );
     }

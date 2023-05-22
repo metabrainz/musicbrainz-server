@@ -192,8 +192,18 @@ sub run_impl {
                     @replicate_args = (qw( carton exec -- ), @replicate_args);
                 }
 
-                system(@replicate_args) == 0
-                    or die "Replication failed (exit code $CHILD_ERROR)";
+                system(@replicate_args);
+                my $exit_code = $CHILD_ERROR >> 8;
+                # NOTE-SEQM-1:
+                # An exit code of 3 indicates a schema sequence mismatch, i.e.
+                # that a schema upgrade is required. We should not die in this
+                # case: it's not an error, and would prevent any parent script
+                # (e.g. admin/RunIncrementalJSONDump) from syncing the
+                # incremental dumps it produced for the final replication
+                # packets of the current schema sequence.
+                if ($exit_code != 0 && $exit_code != 3) {
+                    die "Replication failed (exit code $exit_code)";
+                }
 
                 $current_replication_sequence = $c->sql->select_single_value(
                     'SELECT current_replication_sequence FROM replication_control');
