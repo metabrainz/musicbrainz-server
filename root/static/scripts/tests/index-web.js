@@ -30,5 +30,6 @@ require('./utility/formatDate');
 require('./utility/formatDatePeriod');
 require('./utility/formatTrackLength');
 require('./utility/formatUserDate');
+require('./utility/fullwidthLatin');
 require('./utility/parseDate');
 require('./utility/sanitizedEditor');
