@@ -825,7 +825,7 @@ msgid ""
 "the wooden bar equivalent."
 msgstr ""
 
-#. name:whip / slapstick
+#. name:whipslap
 #: DB:instrument/description:107
 msgid ""
 "Consisting of two parts joined together by a hinge, it creates a whip-like "
@@ -3486,11 +3486,6 @@ msgid ""
 "Slovakia."
 msgstr "Fujara ist eine lange, senkrecht gehaltene Schnabelflöte, die in der Slowakei traditionell von Hirten gespielt wird."
 
-#. name:ganzá
-#: DB:instrument/description:644
-msgid "The ganzá is a cylinder-shaped Brazilian rattle used in samba music."
-msgstr "Die Ganzá ist eine zylindrisch geformte, brasilianische Rassel, welche vor allem in der Samba-Musik als Perkussionsinstrument eingesetzt wird."
-
 #. name:gaohu
 #: DB:instrument/description:216
 msgid ""
@@ -4955,6 +4950,14 @@ msgstr ""
 msgid ""
 "Used in turntablism, vinyl records are not simply played on it, instead DJ's"
 " perform creating sound."
+msgstr ""
+
+#. name:ganzá
+#: DB:instrument/description:644
+msgid ""
+"Used in various performances (capoeira angola, caboclo, etc) and samba "
+"music, it is usually made of metal and filled with grains, pebbles or the "
+"like."
 msgstr ""
 
 #. name:kepyak

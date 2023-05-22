@@ -820,7 +820,7 @@ msgid ""
 "the wooden bar equivalent."
 msgstr "Metallofonen bestaan uit gestemde metalen plaatjes, latjes of toetsen die in verschillende schalen zijn gerangschikt en met een hamer worden aangeslagen. De <a href=\"/instrument/db95a035-6a3d-44b4-8694-74ff71b61768\">xylofoon</a> is het houten equivalent."
 
-#. name:whip / slapstick
+#. name:whipslap
 #: DB:instrument/description:107
 msgid ""
 "Consisting of two parts joined together by a hinge, it creates a whip-like "
@@ -3481,11 +3481,6 @@ msgid ""
 "Slovakia."
 msgstr "Een fujara is een extreem lange fluit uit Slowakije."
 
-#. name:ganzá
-#: DB:instrument/description:644
-msgid "The ganzá is a cylinder-shaped Brazilian rattle used in samba music."
-msgstr "Een ganzá is een cilindrische Braziliaanse ratel die wordt gebruikt voor samba-muziek."
-
 #. name:gaohu
 #: DB:instrument/description:216
 msgid ""
@@ -4951,6 +4946,14 @@ msgid ""
 "Used in turntablism, vinyl records are not simply played on it, instead DJ's"
 " perform creating sound."
 msgstr "Draaitafels worden gebruikt bij turntablism. Platen worden niet simpelweg afgespeeld, maar door dj’s gebruikt om nieuw geluid te creëren."
+
+#. name:ganzá
+#: DB:instrument/description:644
+msgid ""
+"Used in various performances (capoeira angola, caboclo, etc) and samba "
+"music, it is usually made of metal and filled with grains, pebbles or the "
+"like."
+msgstr ""
 
 #. name:kepyak
 #: DB:instrument/description:998
