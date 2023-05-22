@@ -152,8 +152,24 @@ type FormatUserDateOptions = {
   timezone?: string,
 };
 
+type FormatUserDateContext = {
+  +stash: {
+    +current_language: string,
+    ...
+  },
+  +user?: {
+    +preferences: {
+      +datetime_format: string,
+      +timezone: string,
+      ...
+    },
+    ...
+  } | null,
+  ...
+};
+
 export function formatUserDateObject(
-  $c: ?(CatalystContextT | SanitizedCatalystContextT),
+  $c: ?FormatUserDateContext,
   date: Date,
   options?: FormatUserDateOptions,
 ): string {
@@ -189,7 +205,7 @@ export function formatUserDateObject(
 }
 
 export default function formatUserDate(
-  $c: ?(CatalystContextT | SanitizedCatalystContextT),
+  $c: ?FormatUserDateContext,
   dateString: string,
   options?: FormatUserDateOptions,
 ): string {
