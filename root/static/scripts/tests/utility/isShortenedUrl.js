@@ -1,4 +1,5 @@
 /*
+ * @flow strict
  * Copyright (C) 2014 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -8,7 +9,7 @@
 
 import test from 'tape';
 
-import isShortenedUrl from '../edit/utility/isShortenedUrl.js';
+import isShortenedUrl from '../../edit/utility/isShortenedUrl.js';
 
 test('isShortenedUrl', function (t) {
   t.plan(17);
