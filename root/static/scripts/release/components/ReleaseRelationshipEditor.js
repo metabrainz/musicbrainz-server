@@ -158,15 +158,17 @@ function addTracksToState(
       recording.id,
       createArray,
     ).push(medium);
+    let didUpdateRecordingRelationships = false;
     if (recording.relationships?.length) {
-      updateRelationships(
+      didUpdateRecordingRelationships = updateRelationships(
         writableRootState,
         getInitialRelationshipUpdates(
           recording.relationships,
           recording,
         ),
       );
-    } else {
+    }
+    if (!didUpdateRecordingRelationships) {
       recordingsWithNoRelationships.push(recording);
     }
   }

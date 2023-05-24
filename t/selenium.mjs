@@ -657,6 +657,11 @@ const seleniumTests = [
   },
   {name: 'MBS-12921.json5', login: true},
   {name: 'MBS-12922.json5', login: true},
+  {
+    name: 'MBS-13015.json5',
+    login: true,
+    sql: 'mbs-13015.sql',
+  },
   {name: 'Artist_Credit_Editor.json5', login: true},
   {name: 'Autocomplete2.json5'},
   {name: 'CAA.json5', login: true},

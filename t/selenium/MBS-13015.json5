@@ -1,0 +1,15 @@
+{
+  title: 'MBS-13015',
+  commands: [
+    {
+      command: 'open',
+      target: '/release/26c37f78-4931-4c2d-bb7a-4003807ec7c4/edit-relationships',
+      value: '',
+    },
+    {
+      command: 'assertText',
+      target: 'css=tr.track td.recording a',
+      value: '可愛くてごめん // Sorry I\'m So Cute!',
+    },
+  ],
+}
