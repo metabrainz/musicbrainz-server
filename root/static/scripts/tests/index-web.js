@@ -24,6 +24,7 @@ require('./release-editor/validation.js');
 require('./utility/age.js');
 require('./utility/areDatesEqual.js');
 require('./utility/areDatePeriodsEqual.js');
+require('./utility/arrays.js');
 require('./utility/bracketed.js');
 require('./utility/calculateFullToc.js');
 require('./utility/compareDates.js');
