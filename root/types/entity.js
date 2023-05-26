@@ -97,42 +97,6 @@ declare type CollectableEntityTypeT =
   | 'series'
   | 'work';
 
-declare type NonUrlCoreEntityT =
-  | AreaT
-  | ArtistT
-  | EventT
-  | GenreT
-  | InstrumentT
-  | LabelT
-  | PlaceT
-  | RecordingT
-  | ReleaseGroupT
-  | ReleaseT
-  | SeriesT
-  | WorkT;
-
-declare type CoreEntityT =
-  | NonUrlCoreEntityT
-  | UrlT;
-
-declare type NonUrlCoreEntityTypeT =
-  | 'area'
-  | 'artist'
-  | 'event'
-  | 'genre'
-  | 'instrument'
-  | 'label'
-  | 'place'
-  | 'recording'
-  | 'release_group'
-  | 'release'
-  | 'series'
-  | 'work';
-
-declare type CoreEntityTypeT =
-  | NonUrlCoreEntityTypeT
-  | 'url';
-
 declare type EditableEntityT =
   | AreaT
   | ArtistT
