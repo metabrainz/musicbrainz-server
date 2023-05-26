@@ -175,6 +175,14 @@ declare type DatePeriodRoleT = {
   +ended: boolean,
 };
 
+declare type ManuallyRemovableEntityT =
+  | AreaT
+  | GenreT
+  | InstrumentT
+  | LabelT
+  | RecordingT
+  | ReleaseT;
+
 declare type MergeableEntityT =
   | AreaT
   | ArtistT

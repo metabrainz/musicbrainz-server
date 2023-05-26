@@ -11,7 +11,7 @@ import EntityLink from '../static/scripts/common/components/EntityLink.js';
 
 type Props = {
   +children?: React$Node,
-  +entity: CoreEntityT,
+  +entity: ManuallyRemovableEntityT,
 };
 
 const EntityDeletionHelp = ({
