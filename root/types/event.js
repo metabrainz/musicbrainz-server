@@ -11,7 +11,7 @@
 declare type EventT = $ReadOnly<{
   ...AnnotationRoleT,
   ...CommentRoleT,
-  ...CoreEntityRoleT<'event'>,
+  ...RelatableEntityRoleT<'event'>,
   ...DatePeriodRoleT,
   ...RatableRoleT,
   ...ReviewableRoleT,

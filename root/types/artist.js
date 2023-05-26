@@ -11,7 +11,7 @@
 declare type ArtistT = $ReadOnly<{
   ...AnnotationRoleT,
   ...CommentRoleT,
-  ...CoreEntityRoleT<'artist'>,
+  ...RelatableEntityRoleT<'artist'>,
   ...DatePeriodRoleT,
   ...IpiCodesRoleT,
   ...IsniCodesRoleT,

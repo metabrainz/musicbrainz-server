@@ -17,7 +17,7 @@ declare type CoordinatesT = {
 declare type PlaceT = $ReadOnly<{
   ...AnnotationRoleT,
   ...CommentRoleT,
-  ...CoreEntityRoleT<'place'>,
+  ...RelatableEntityRoleT<'place'>,
   ...DatePeriodRoleT,
   ...RatableRoleT,
   ...ReviewableRoleT,

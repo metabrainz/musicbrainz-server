@@ -15,7 +15,7 @@ declare type ReleaseGroupT = $ReadOnly<{
   ...AnnotationRoleT,
   ...ArtistCreditRoleT,
   ...CommentRoleT,
-  ...CoreEntityRoleT<'release_group'>,
+  ...RelatableEntityRoleT<'release_group'>,
   ...RatableRoleT,
   ...ReviewableRoleT,
   ...TypeRoleT<ReleaseGroupTypeT>,

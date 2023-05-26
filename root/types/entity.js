@@ -60,7 +60,7 @@ declare type CommentRoleT = {
   +comment: string,
 };
 
-declare type CoreEntityRoleT<+T> = {
+declare type RelatableEntityRoleT<+T> = {
   ...EntityRoleT<T>,
   ...LastUpdateRoleT,
   +gid: string,
