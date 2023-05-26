@@ -27,6 +27,7 @@ require('./utility/areDatePeriodsEqual.js');
 require('./utility/arrays.js');
 require('./utility/bracketed.js');
 require('./utility/calculateFullToc.js');
+require('./utility/clean.js');
 require('./utility/compareDates.js');
 require('./utility/dates.js');
 require('./utility/formatDate.js');
