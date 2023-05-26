@@ -144,6 +144,7 @@ import MB from './MB.js';
   // Used by MB.entity() above to cache everything with a GID.
   MB.entityCache = {};
 
+  // This base class is actually used for relatable entity types and editor
   class CoreEntity extends Entity {
     constructor(data) {
       super(data);
