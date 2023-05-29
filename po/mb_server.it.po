@@ -637,7 +637,7 @@ msgstr "Bot"
 msgid ""
 "Both Other and Uncommon are shown in the \"other\" section, but Uncommon "
 "should be used for scripts in Unicode which are unlikely to be used."
-msgstr "Sia Altro che Infrequente sono mostrati nella sezione \"altro\", ma Infrequente va usato per script in Unicode che difficilmente saranno selezionati."
+msgstr "Sia Altro che Infrequente sono mostrati nella sezione \"altro\", ma Infrequente va usato per sistemi di scrittura in Unicode che difficilmente saranno selezionati."
 
 #: ../root/layout.tt:124 ../root/layout/components/Footer.js:52
 msgid ""
@@ -1489,7 +1489,7 @@ msgstr "Nascosto è usato di default per le lingue antiche e per le lingue prese
 
 #: ../root/admin/attributes/form.tt:31
 msgid "Hidden should be used for scripts not in Unicode."
-msgstr "Nascosto va usato per script non in Unicode."
+msgstr "Nascosto va usato per sistemi di scrittura non in Unicode."
 
 #: ../root/admin/attributes/form.tt:16
 msgid ""
@@ -2725,7 +2725,7 @@ msgstr "Salva"
 #: ../root/release/edit/information.tt:116
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:186
 msgid "Script:"
-msgstr "Script:"
+msgstr "Sistema di scrittura:"
 
 #: ../root/cdtoc/attach_filter_release.tt:11 ../root/cdtoc/lookup.tt:78
 #: ../root/cdtoc/lookup.tt:88 ../root/cdtoc/move_search.tt:17
@@ -6830,7 +6830,7 @@ msgstr "Lingua"
 #: ../root/edit/details/EditRelease.js:125
 #: ../root/edit/details/historic/AddRelease.js:65
 msgid "Script"
-msgstr "Script"
+msgstr "Sistema di scrittura"
 
 #: ../root/admin/components/UserList.js:30
 #: ../root/report/components/EditorList.js:69
@@ -9650,7 +9650,7 @@ msgstr "Modificato"
 
 #: ../root/edit/details/historic/EditReleaseLanguage.js:27
 msgid "Language: {language}, script: {script}"
-msgstr "Lingua: {language}, script: {script}"
+msgstr "Lingua: {language}, sistema di scrittura: {script}"
 
 #: ../root/edit/details/historic/EditReleaseLanguage.js:48
 msgid "New language:"
@@ -9658,7 +9658,7 @@ msgstr "Nuova lingua:"
 
 #: ../root/edit/details/historic/EditReleaseLanguage.js:57
 msgid "New script:"
-msgstr "Nuovo script:"
+msgstr "Nuovo sistema di scrittura:"
 
 #: ../root/edit/details/historic/MergeReleases.js:22
 msgid "Old releases:"
@@ -9674,7 +9674,7 @@ msgstr "Unisci attributi:"
 
 #: ../root/edit/details/historic/MergeReleases.js:50
 msgid "Merge language & script:"
-msgstr "Unisci lingua & script:"
+msgstr "Unisci lingua & sistema di scrittura:"
 
 #: ../root/edit/details/historic/MergeReleases.js:57
 msgid ""
@@ -12758,11 +12758,11 @@ msgid ""
 "This report shows releases that have no script set. If you recognize the "
 "script, just add it! Remember that the script used for English (and most "
 "other European languages) is Latin."
-msgstr "Questo rapporto mostra le pubblicazioni che non hanno alcuno script impostato. Se riconosci lo script, impostalo! Ricorda che lo script (alfabeto) utilizzato per l'inglese (e per la maggior parte delle lingue europee) è quello latino."
+msgstr "Questo rapporto mostra le pubblicazioni che non hanno alcun sistema di scrittura impostato. Se riconosci il sistema di scrittura, impostalo! Ricorda che il sistema di scrittura utilizzato per l'inglese (e per la maggior parte delle altre lingue europee) è quello latino."
 
 #: ../root/report/NoScript.js:35 ../root/report/ReportsIndex.js:264
 msgid "Releases without script"
-msgstr "Pubblicazioni senza script"
+msgstr "Pubblicazioni senza sistema di scrittura"
 
 #: ../root/report/NonBootlegsOnBootlegLabels.js:24
 msgid ""
@@ -13098,12 +13098,12 @@ msgstr "Pubblicazioni senza supporti"
 msgid ""
 "This report shows releases that have an unlikely combination of language and"
 " script properties, such as German and Ethiopic."
-msgstr "Questo rapporto mostra le pubblicazioni che hanno una combinazione di lingua e script poco probabile, come per es. tedesco ed etiopico."
+msgstr "Questo rapporto mostra le pubblicazioni che hanno una combinazione di lingua e sistema di scrittura poco probabile, come per es. tedesco ed etiopico."
 
 #: ../root/report/ReleasesWithUnlikelyLanguageScript.js:34
 #: ../root/report/ReportsIndex.js:373
 msgid "Releases with unlikely language/script pairs"
-msgstr "Pubblicazioni con combinazioni lingua/script improbabili"
+msgstr "Pubblicazioni con combinazioni lingua/sistema di scrittura improbabili"
 
 #: ../root/report/ReleasesWithoutVaCredit.js:24
 msgid ""
