@@ -33,9 +33,7 @@
   </div>
 
   <div class="documentation">
-    <div class="bubble" id="series-type-bubble" data-bind="bubble: typeBubble">
-      <p data-bind="text: target() &amp;&amp; target().type() ? target().type().description : ''"></p>
-    </div>
+    [%- type_bubble(form.field('type_id'), series_types) -%]
 
     <div class="bubble" id="ordering-type-bubble" data-bind="bubble: orderingTypeBubble">
       <p data-bind="text: target() ? target().orderingTypeDescription() : ''"></p>

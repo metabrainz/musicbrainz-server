@@ -168,16 +168,14 @@ with 'MusicBrainz::Server::Controller::Role::Edit' => {
 before qw( edit create ) => sub {
     my ($self, $c) = @_;
 
-    my $series_types = {
-        map { $_->id => $_->TO_JSON } $c->model('SeriesType')->get_all
-    };
+    my %series_types = map {$_->id => $_} $c->model('SeriesType')->get_all();
 
     my $series_ordering_types = {
         map { $_->id => $_->TO_JSON } $c->model('SeriesOrderingType')->get_all
     };
 
     $c->stash(
-        series_types => $series_types,
+        series_types => \%series_types,
         series_ordering_types => $series_ordering_types,
     );
 };
