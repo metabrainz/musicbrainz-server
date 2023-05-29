@@ -1650,7 +1650,7 @@ msgid ""
 "This indicates that one release is identical to another release, but that "
 "the release title and track titles have been either translated (into another"
 " language) or transliterated (into another script)."
-msgstr "Indica che una pubblicazione è identica ad un'altra pubblicazione, ma i titoli della pubblicazione e delle tracce sono stati o tradotti (in un'altra lingua) o traslitterati (in un altro script)."
+msgstr "Indica che una pubblicazione è identica ad un'altra pubblicazione, ma i titoli della pubblicazione e delle tracce sono stati o tradotti (in un'altra lingua) o traslitterati (in un altro sistema di scrittura)."
 
 #: DB:link_type/description:889
 msgid ""
@@ -3398,7 +3398,7 @@ msgstr "Solitamente indica qualcuno che ha poca esperienza e che lavora sotto la
 msgid ""
 "Transliterated track listings don't change the language, just the script or "
 "spelling."
-msgstr "Gli elenchi di tracce traslitterati non modificano la lingua, ma solo lo script o la grafia."
+msgstr "Gli elenchi di tracce traslitterati non modificano la lingua, ma solo il sistema di scrittura o la grafia."
 
 #: DB:link_attribute_type/description:834
 msgid ""

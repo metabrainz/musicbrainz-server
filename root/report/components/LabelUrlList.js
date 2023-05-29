@@ -12,6 +12,8 @@ import EntityLink from '../../static/scripts/common/components/EntityLink.js';
 import bracketed from '../../static/scripts/common/utility/bracketed.js';
 import type {ReportLabelUrlT} from '../types.js';
 
+import RemovedUrlRow from './RemovedUrlRow.js';
+
 type Props = {
   +items: $ReadOnlyArray<ReportLabelUrlT>,
   +pager: PagerT,
@@ -34,7 +36,11 @@ const LabelUrlList = ({
           </tr>
         </thead>
         <tbody>
-          {items.map((item) => {
+          {items.map((item, index) => {
+            if (!item.url) {
+              return <RemovedUrlRow colSpan="2" index={index} />;
+            }
+
             lastGID = currentGID;
             currentGID = item.url.gid;
 
