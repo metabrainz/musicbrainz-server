@@ -1,4 +1,4 @@
-package MusicBrainz::Server::Entity::URL::Rateyourmusic;
+package MusicBrainz::Server::Entity::URL::RateYourMusic;
 use MusicBrainz::Server::Translation qw( l );
 
 use Moose;
@@ -10,9 +10,9 @@ sub sidebar_name {
     my $self = shift;
 
     if ($self->url =~ m{^https?://(?:www.)?rateyourmusic.com/feature/}i) {
-        return l('Interview at Rateyourmusic');
+        return l('Interview at Rate Your Music');
     } else {
-        return 'Rateyourmusic';
+        return 'Rate Your Music';
     }
 }
 
