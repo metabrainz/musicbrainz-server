@@ -143,7 +143,6 @@ declare type ManuallyRemovableEntityT =
   | AreaT
   | GenreT
   | InstrumentT
-  | LabelT
   | RecordingT
   | ReleaseT;
 
