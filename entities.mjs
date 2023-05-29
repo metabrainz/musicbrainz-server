@@ -418,7 +418,6 @@ const ENTITIES = {
           release_label: 'label',
         },
       },
-      manual: true,
     },
     report_filter: true,
     reviews: true,

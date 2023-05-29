@@ -60,7 +60,7 @@ declare type CommentRoleT = {
   +comment: string,
 };
 
-declare type CoreEntityRoleT<+T> = {
+declare type RelatableEntityRoleT<+T> = {
   ...EntityRoleT<T>,
   ...LastUpdateRoleT,
   +gid: string,
@@ -96,42 +96,6 @@ declare type CollectableEntityTypeT =
   | 'release'
   | 'series'
   | 'work';
-
-declare type NonUrlCoreEntityT =
-  | AreaT
-  | ArtistT
-  | EventT
-  | GenreT
-  | InstrumentT
-  | LabelT
-  | PlaceT
-  | RecordingT
-  | ReleaseGroupT
-  | ReleaseT
-  | SeriesT
-  | WorkT;
-
-declare type CoreEntityT =
-  | NonUrlCoreEntityT
-  | UrlT;
-
-declare type NonUrlCoreEntityTypeT =
-  | 'area'
-  | 'artist'
-  | 'event'
-  | 'genre'
-  | 'instrument'
-  | 'label'
-  | 'place'
-  | 'recording'
-  | 'release_group'
-  | 'release'
-  | 'series'
-  | 'work';
-
-declare type CoreEntityTypeT =
-  | NonUrlCoreEntityTypeT
-  | 'url';
 
 declare type EditableEntityT =
   | AreaT
@@ -174,6 +138,13 @@ declare type DatePeriodRoleT = {
   +end_date: PartialDateT | null,
   +ended: boolean,
 };
+
+declare type ManuallyRemovableEntityT =
+  | AreaT
+  | GenreT
+  | InstrumentT
+  | RecordingT
+  | ReleaseT;
 
 declare type MergeableEntityT =
   | AreaT
