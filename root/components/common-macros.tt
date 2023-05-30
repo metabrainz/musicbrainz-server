@@ -43,16 +43,6 @@ two. -%]
     Translation.ln(text, plural, num, args);
 END; -%]
 
-[%~ MACRO display_age_ago(age) BLOCK; # Converted to React at root/utility/age.js
-        IF age.0;
-          ln('{num} year ago', '{num} years ago', age.0, { num => age.0 });
-        ELSIF age.1;
-          ln('{num} month ago', '{num} months ago', age.1, { num => age.1 });
-        ELSE;
-          ln('{num} day ago', '{num} days ago', age.2, { num => age.2 });
-        END;
-    END -%]
-
 [%~ MACRO artwork_hover(artwork) BLOCK -%]
     [%- IF artwork.l_types; comma_only_list(artwork.l_types) | html; END %][% IF artwork.comment %] ([% artwork.comment | html%])[% END -%]
 [%- END -%]
