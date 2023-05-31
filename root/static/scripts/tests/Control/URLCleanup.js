@@ -4046,6 +4046,13 @@ limited_link_type_combinations: [
             expected_clean_url: 'https://rateyourmusic.com/wiki/Music:Columbia+Records/',
        only_valid_entity_types: [],
   },
+  {
+                     input_url: 'http://rateyourmusic.com/feature/sonemic-interview-vylet-pony/',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'interview',
+            expected_clean_url: 'https://rateyourmusic.com/feature/sonemic-interview-vylet-pony/',
+       only_valid_entity_types: ['artist'],
+  },
   // RecoChoku
   {
                      input_url: 'http://recochoku.jp/artist/2000166063/?affiliate=4350010210',
