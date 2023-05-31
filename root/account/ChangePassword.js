@@ -18,6 +18,7 @@ import FormCsrfToken
 import FormRow from '../static/scripts/edit/components/FormRow.js';
 import FormRowText from '../static/scripts/edit/components/FormRowText.js';
 import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
+import HiddenField from '../static/scripts/edit/components/HiddenField.js';
 
 type ChangePasswordFormT = FormT<{
   +confirm_password: ReadOnlyFieldT<string>,
@@ -29,11 +30,13 @@ type ChangePasswordFormT = FormT<{
 type Props = {
   +form: ChangePasswordFormT,
   +isMandatory?: boolean,
+  +userExists?: boolean,
 };
 
 const ChangePasswordPageContent = ({
   form,
   isMandatory = false,
+  userExists = false,
 }: Props): React$Element<typeof React.Fragment> => (
   <>
     {isMandatory ? (
@@ -57,12 +60,16 @@ const ChangePasswordPageContent = ({
 
     <form method="post">
       <FormCsrfToken form={form} />
-      <FormRowText
-        field={form.field.username}
-        label={l('Username:')}
-        required
-        uncontrolled
-      />
+      {userExists ? (
+        <HiddenField field={form.field.username} />
+      ) : (
+        <FormRowText
+          field={form.field.username}
+          label={l('Username:')}
+          required
+          uncontrolled
+        />
+      )}
       <FormRowText
         field={form.field.old_password}
         label={l('Old password:')}
@@ -106,7 +113,11 @@ const ChangePassword = ({
         title={l('Change Password')}
       >
         <h2>{l('Change Password')}</h2>
-        <ChangePasswordPageContent form={form} isMandatory={isMandatory} />
+        <ChangePasswordPageContent
+          form={form}
+          isMandatory={isMandatory}
+          userExists
+        />
       </UserAccountLayout>
     );
   }
