@@ -72,6 +72,8 @@ sub in_use {
         $id, $id, $id);
 }
 
+sub has_children { 0 }
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
