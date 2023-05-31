@@ -1,6 +1,8 @@
 package MusicBrainz::Server::Controller::Admin::Attributes;
 use Moose;
 use namespace::autoclean;
+use utf8;
+
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 
 use MusicBrainz::Server::Translation qw( l );
@@ -117,7 +119,11 @@ sub edit : Chained('attribute_base') Args(1) RequireAuth(account_admin) SecureFo
 sub delete : Chained('attribute_base') Args(1) RequireAuth(account_admin) SecureForm {
     my ($self, $c, $id) = @_;
     my $model = $c->stash->{model};
-    my $attr = $c->model($model)->get_by_id($id);
+    my $attr = $c->model($model)->get_by_id($id)
+        or $c->detach(
+            '/error_404',
+            [ "Found no attribute of type “$model” with ID “$id”." ],
+        );
     my $form = $c->form(form => 'SecureConfirm');
     $c->stash->{attribute} = $attr;
 
