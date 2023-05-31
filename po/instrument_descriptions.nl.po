@@ -820,13 +820,6 @@ msgid ""
 "the wooden bar equivalent."
 msgstr "Metallofonen bestaan uit gestemde metalen plaatjes, latjes of toetsen die in verschillende schalen zijn gerangschikt en met een hamer worden aangeslagen. De <a href=\"/instrument/db95a035-6a3d-44b4-8694-74ff71b61768\">xylofoon</a> is het houten equivalent."
 
-#. name:whipslap
-#: DB:instrument/description:107
-msgid ""
-"Consisting of two parts joined together by a hinge, it creates a whip-like "
-"sound when clacked together."
-msgstr "Een zweep bestaat uit twee delen die met een scharnier aan elkaar zijn bevestigd. Als de delen tegen elkaar aan worden geklapt, klinkt een zweep-achtig geluid."
-
 #. name:gambang
 #: DB:instrument/description:977
 msgid ""
@@ -1445,13 +1438,13 @@ msgid ""
 "colourful fabric."
 msgstr ""
 
-#. name:mendoza
+#. name:monkey stick
 #: DB:instrument/description:114
 msgid ""
-"Homemade combination of a wooden pole with beer bottle tops as jingles and a"
-" hefty boot at the bottom to create thumping bass, it is often decorated "
-"with hats or hair."
-msgstr "Een kuttepiel is een zelfgemaakt instrument dat bestaat uit een houten stok waaraan kroonkurken als een soort belletjes zijn bevestigd. Soms is aan de onderkant een laars of schoen vastgemaakt voor percussie."
+"Homemade combination of a wooden pole with beer bottle tops and other "
+"jingles and a hefty boot at the bottom to create thumping bass, it is often "
+"decorated with hats, hair or stuffed animals."
+msgstr ""
 
 #. name:olifant
 #: DB:instrument/description:888
@@ -2233,6 +2226,13 @@ msgstr "Oboe d’amore / liefdeshobo (mezzo-sopraan)."
 #: DB:instrument/description:1007
 msgid "Often called simply \"saron\", it plays the basic, balungan melody"
 msgstr "De saron baroeng, vaak simpelweg saron genoemd, is het middelste lid van de huidige saron-familie en wordt gebruikt voor baloengan, de basismelodie."
+
+#. name:slapstick
+#: DB:instrument/description:107
+msgid ""
+"Often known as whip, it consists of two parts joined together by a hinge, it"
+" creates a whip-like sound when clacked together."
+msgstr ""
 
 #. name:boomwhacker
 #: DB:instrument/description:948

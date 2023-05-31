@@ -132,6 +132,9 @@ export const LINK_TYPES: LinkTypeMap = {
   imslp: {
     artist: '8147b6a2-ad14-4ce7-8f0a-697f9a31f68f',
   },
+  interview: {
+    artist: '1f171391-1f98-4f45-b191-038ec3b12395',
+  },
   lastfm: {
     artist: '08db8098-c0df-4b78-82c3-c8697b4bba7f',
     event: 'fd86b01d-c8f7-4f0a-a077-81855a9cfeef',
@@ -4009,7 +4012,10 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'rateyourmusic': {
-    match: [new RegExp('^(https?://)?(www\\.)?rateyourmusic\\.com/', 'i')],
+    match: [new RegExp(
+      '^(https?://)?(www\\.)?rateyourmusic\\.com/(?!feature)',
+      'i',
+    )],
     restrict: [LINK_TYPES.otherdatabases],
     clean: function (url) {
       return url.replace(/^(?:https?:\/\/)?(?:www\.)?rateyourmusic\.com\//, 'https://rateyourmusic.com/');
@@ -4071,6 +4077,16 @@ const CLEANUPS: CleanupEntries = {
         return {result: false, target: ERROR_TARGETS.ENTITY};
       }
       return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
+  'rateyourmusicfeature': {
+    match: [new RegExp(
+      '^(https?://)?(www\\.)?rateyourmusic\\.com/feature',
+      'i',
+    )],
+    restrict: [LINK_TYPES.interview],
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?(?:www\.)?rateyourmusic\.com\//, 'https://rateyourmusic.com/');
     },
   },
   'recochoku': {
