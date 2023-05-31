@@ -827,13 +827,6 @@ msgid ""
 "the wooden bar equivalent."
 msgstr "Composto da sbarre, lastre o tasti intonati e in metallo, percossi con mazzuole e disposti in varie scale (spesso su risuonatori in materiale sonoro). Utilizza <a href=\"/instrument/db95a035-6a3d-44b4-8694-74ff71b61768\">xilofono</a> per lo strumento equivalente con sbarre in legno."
 
-#. name:whipslap
-#: DB:instrument/description:107
-msgid ""
-"Consisting of two parts joined together by a hinge, it creates a whip-like "
-"sound when clacked together."
-msgstr "Composta da due parti unite da un cardine, produce un suono simile a una frusta quando le si sbatte una contro l'altra."
-
 #. name:gambang
 #: DB:instrument/description:977
 msgid ""
@@ -1452,13 +1445,13 @@ msgid ""
 "colourful fabric."
 msgstr "Storicamente uno strumento solista usato nelle danze tradizionali e rituali, le sue canne di bordone hanno anelli rinforzati in peltro e la sacca in pelle di capra è ricoperta da un tessuto colorato."
 
-#. name:mendoza
+#. name:monkey stick
 #: DB:instrument/description:114
 msgid ""
-"Homemade combination of a wooden pole with beer bottle tops as jingles and a"
-" hefty boot at the bottom to create thumping bass, it is often decorated "
-"with hats or hair."
-msgstr "Combinazione fatta in casa di un palo di legno con tappi di bottiglia di birra come sonagli e di uno stivale pesante all'estremità inferiore che crea un suono basso battente, è spesso decorato con cappelli o capelli. "
+"Homemade combination of a wooden pole with beer bottle tops and other "
+"jingles and a hefty boot at the bottom to create thumping bass, it is often "
+"decorated with hats, hair or stuffed animals."
+msgstr ""
 
 #. name:olifant
 #: DB:instrument/description:888
@@ -2240,6 +2233,13 @@ msgstr "Oboe d'amore / Oboe d'amour (mezzosoprano)"
 #: DB:instrument/description:1007
 msgid "Often called simply \"saron\", it plays the basic, balungan melody"
 msgstr "Spesso chiamato solo \"saron\", suona la melodia base balungan."
+
+#. name:slapstick
+#: DB:instrument/description:107
+msgid ""
+"Often known as whip, it consists of two parts joined together by a hinge, it"
+" creates a whip-like sound when clacked together."
+msgstr ""
 
 #. name:boomwhacker
 #: DB:instrument/description:948
