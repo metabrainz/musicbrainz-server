@@ -41,11 +41,13 @@ declare type MediumFormatT = {
 declare type MediumT = $ReadOnly<{
   ...EntityRoleT<'medium'>,
   ...LastUpdateRoleT,
+  +cdtoc_track_count: number | null,
   +cdtoc_tracks?: $ReadOnlyArray<TrackT>,
   +cdtocs: $ReadOnlyArray<string>,
   +editsPending: boolean,
   +format: MediumFormatT | null,
   +format_id: number | null,
+  +may_have_discids: boolean,
   +name: string,
   +position: number,
   +release_id: number,

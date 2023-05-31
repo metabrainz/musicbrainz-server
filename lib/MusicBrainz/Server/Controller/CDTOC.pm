@@ -11,6 +11,7 @@ use MusicBrainz::Server::Constants qw(
 );
 use MusicBrainz::Server::Entity::CDTOC;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
+use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::ControllerUtils::CDTOC qw( add_dash );
 use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
@@ -329,6 +330,7 @@ sub _attach_list {
         }
         elsif ($c->form_submitted_and_valid($search_release, $c->req->query_params)) {
             my $query = $search_release->field('query')->value;
+            my $was_mbid_search = 0;
             my ($mbid) = $query =~ m/(
                 [\da-f]{8} -
                 [\da-f]{4} -
@@ -338,7 +340,7 @@ sub _attach_list {
             )/ax;
             my $releases = $self->_load_paged($c, sub {
                 if (defined $mbid) {
-                    $c->stash->{was_mbid_search} = 1;
+                    $was_mbid_search = 1;
                     my $release = $c->model('Release')->get_by_gid($mbid);
                     return [] unless defined $release;
                     return [
@@ -365,12 +367,27 @@ sub _attach_list {
             my @rgs = $c->model('ReleaseGroup')->load(@releases);
             $c->model('ReleaseGroup')->load_meta(@rgs);
 
-            $c->stash(
-                template => 'cdtoc/attach_filter_release.tt',
-                cdtoc_action => 'add',
-                results => [sort_by { $_->entity->release_group ? $_->entity->release_group->gid : '' } @$releases]
+            my $sorted_releases = [sort_by {
+                $_->entity->release_group
+                    ? $_->entity->release_group->gid
+                    : ''
+            } @$releases];
+
+            my %props = (
+                action      => 'add',
+                form        => $search_release->TO_JSON,
+                cdToc       => $cdtoc->TO_JSON,
+                pager       => serialize_pager($c->stash->{pager}),
+                results     => to_json_array($sorted_releases),
+                tocString   => $c->stash->{toc},
+                wasMbidSearch => boolean_to_json($was_mbid_search),
             );
-            $c->detach;
+
+            $c->stash(
+                current_view => 'Node',
+                component_path => 'cdtoc/AttachCDTocToRelease.js',
+                component_props => \%props,
+            );
         }
         else {
             my $cdstub = $c->model('CDStub')->get_by_discid($cdtoc->discid);
@@ -488,10 +505,12 @@ sub move : Local Edit
     else {
         my $search_release = $c->form( query_release => 'Search::Query',
                                        name => 'filter-release' );
-        $c->stash( template => 'cdtoc/move_search.tt' );
+
+        my %props;
 
         if ($c->form_submitted_and_valid($search_release, $c->req->query_params)) {
             my $query = $search_release->field('query')->value;
+            my $was_mbid_search = 0;
             my ($mbid) = $query =~ m/(
                 [\da-f]{8} -
                 [\da-f]{4} -
@@ -502,7 +521,7 @@ sub move : Local Edit
 
             my $releases = $self->_load_paged($c, sub {
                 if (defined $mbid) {
-                    $c->stash->{was_mbid_search} = 1;
+                    $was_mbid_search = 1;
                     my $release = $c->model('Release')->get_by_gid($mbid);
                     return [] unless defined $release;
                     return [
@@ -526,13 +545,30 @@ sub move : Local Edit
             $c->model('Recording')->load(map { $_->all_tracks } @mediums);
             my @rgs = $c->model('ReleaseGroup')->load(@releases);
             $c->model('ReleaseGroup')->load_meta(@rgs);
-            $c->stash(
-                template => 'cdtoc/attach_filter_release.tt',
-                cdtoc_action => 'move',
-                results => $releases
+
+            %props = (
+                action      => 'move',
+                cdToc       => $cdtoc->TO_JSON,
+                form        => $search_release->TO_JSON,
+                pager       => serialize_pager($c->stash->{pager}),
+                results     => to_json_array($releases),
+                tocString   => $medium_cdtoc->id,
+                wasMbidSearch => boolean_to_json($was_mbid_search),
             );
-            $c->detach;
+        } else {
+            %props = (
+                action      => 'move',
+                cdToc       => $cdtoc->TO_JSON,
+                form        => $search_release->TO_JSON,
+                tocString   => $medium_cdtoc->id,
+            );
         }
+
+        $c->stash(
+            current_view => 'Node',
+            component_path => 'cdtoc/AttachCDTocToRelease.js',
+            component_props => \%props,
+        );
     }
 }
 

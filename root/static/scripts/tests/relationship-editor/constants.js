@@ -71,6 +71,7 @@ export const releaseWithMediumsAndReleaseGroup:
     releaseGroup: createReleaseGroupObject(),
     mediums: [
       {
+        cdtoc_track_count: null,
         cdtocs: [],
         editsPending: false,
         entityType: 'medium',
@@ -78,6 +79,7 @@ export const releaseWithMediumsAndReleaseGroup:
         format: null,
         id: mediumId,
         last_updated: null,
+        may_have_discids: true,
         name: '',
         position: 1,
         release_id: release.id,
