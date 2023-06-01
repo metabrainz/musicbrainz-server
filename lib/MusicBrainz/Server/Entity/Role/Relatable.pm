@@ -1,6 +1,11 @@
 package MusicBrainz::Server::Entity::Role::Relatable;
 use Moose::Role;
 
+with 'MusicBrainz::Server::Entity::Role::GID';
+with 'MusicBrainz::Server::Entity::Role::LastUpdate';
+with 'MusicBrainz::Server::Entity::Role::Name';
+with 'MusicBrainz::Server::Entity::Role::PendingEdits';
+
 use List::AllUtils qw( partition_by sort_by );
 use MooseX::Types::Moose qw( Str );
 use MooseX::Types::Structured qw( Map Optional );
