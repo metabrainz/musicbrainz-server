@@ -32,7 +32,12 @@ const Show = ({election}: Props): React$Element<typeof Layout> | null => {
       <h2>{l('Voting')}</h2>
       <ElectionVoting election={election} />
       <h2>{l('Votes cast')}</h2>
-      <ElectionVotes election={election} />
+      {election.is_closed ? <ElectionVotes election={election} /> : (
+        <p>
+          {l(`The list of voters will only be shown
+              when the election is complete.`)}
+        </p>
+      )}
     </Layout>
   );
 };
