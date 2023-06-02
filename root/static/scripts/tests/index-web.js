@@ -37,6 +37,7 @@ require('./utility/formatSetlist.js');
 require('./utility/formatTrackLength.js');
 require('./utility/formatUserDate.js');
 require('./utility/fullwidthLatin.js');
+require('./utility/getSortName.js');
 require('./utility/isShortenedUrl.js');
 require('./utility/parseDate.js');
 require('./utility/sanitizedEditor.js');
