@@ -38,6 +38,7 @@ require('./utility/formatTrackLength.js');
 require('./utility/formatUserDate.js');
 require('./utility/fullwidthLatin.js');
 require('./utility/getSortName.js');
+require('./utility/isolateText.js');
 require('./utility/isDatabaseRowId.js');
 require('./utility/isShortenedUrl.js');
 require('./utility/natatime.js');
