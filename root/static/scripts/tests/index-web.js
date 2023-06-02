@@ -41,4 +41,5 @@ require('./utility/getSortName.js');
 require('./utility/isDatabaseRowId.js');
 require('./utility/isShortenedUrl.js');
 require('./utility/parseDate.js');
+require('./utility/primaryAreaCode.js');
 require('./utility/sanitizedEditor.js');
