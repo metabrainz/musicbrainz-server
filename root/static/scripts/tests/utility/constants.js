@@ -26,6 +26,59 @@ export const genericArea: AreaT = {
   typeID: null,
 };
 
+export const genericCDToc: CDTocT = {
+  discid: 'Wt.1HiYD17SbduR39yKqxoZ2o9k-',
+  entityType: 'cdtoc',
+  freedb_id: '2f0f1105',
+  id: 99836,
+  leadout_offset: 289458,
+  length: 3859440,
+  track_count: 5,
+  track_details: [
+    {
+      end_sectors: 56393,
+      end_time: 751906,
+      length_sectors: 56210,
+      length_time: 749466,
+      start_sectors: 183,
+      start_time: 2440,
+    },
+    {
+      end_sectors: 87013,
+      end_time: 1160173,
+      length_sectors: 30620,
+      length_time: 408266,
+      start_sectors: 56393,
+      start_time: 751906,
+    },
+    {
+      end_sectors: 103208,
+      end_time: 1376106,
+      length_sectors: 16195,
+      length_time: 215933,
+      start_sectors: 87013,
+      start_time: 1160173,
+    },
+    {
+      end_sectors: 159188,
+      end_time: 2122506,
+      length_sectors: 55980,
+      length_time: 746400,
+      start_sectors: 103208,
+      start_time: 1376106,
+    },
+    {
+      end_sectors: 289458,
+      end_time: 3859440,
+      length_sectors: 130270,
+      length_time: 1736933,
+      start_sectors: 159188,
+      start_time: 2122506,
+    },
+  ],
+  track_offset: [183, 56393, 87013, 103208, 159188],
+};
+
 export const genericEditor: UnsanitizedEditorT = {
   age: 20,
   area: null,
@@ -62,4 +115,12 @@ export const genericEditor: UnsanitizedEditorT = {
   privileges: 0,
   registration_date: '2007-05-31T16:05:32Z',
   website: 'http://example.com',
+};
+
+export const genericIswc: IswcT = {
+  editsPending: false,
+  entityType: 'iswc',
+  id: 123,
+  iswc: 'T-345246800-1',
+  work_id: 123,
 };
