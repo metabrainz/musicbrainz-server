@@ -40,6 +40,7 @@ const CDTocReleaseList = ({
   const columns = React.useMemo(
     () => {
       const cdTocColumn = defineCDTocColumn<ReportCDTocReleaseT>({
+        getAnchor: result => result.release?.gid ?? '',
         getCDToc: result => result.cdtoc ?? null,
       });
       const releaseColumn = defineEntityColumn<ReportCDTocReleaseT>({
