@@ -11,24 +11,7 @@ import test from 'tape';
 
 import primaryAreaCode from '../../common/utility/primaryAreaCode.js';
 
-const genericArea = {
-  begin_date: null,
-  comment: '',
-  containment: null,
-  country_code: '',
-  end_date: null,
-  ended: false,
-  entityType: 'area',
-  gid: 'b8aa865e-ffec-4562-b3f3-00c9a603d693',
-  id: 123,
-  iso_3166_1_codes: [],
-  iso_3166_2_codes: [],
-  iso_3166_3_codes: [],
-  last_updated: null,
-  name: 'Test Area',
-  primary_code: '',
-  typeID: null,
-};
+import {genericArea} from './constants.js';
 
 const onlyCode3Area = {
   ...genericArea,
