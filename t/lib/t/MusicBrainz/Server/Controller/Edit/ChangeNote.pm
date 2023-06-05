@@ -2,6 +2,7 @@ package t::MusicBrainz::Server::Controller::Edit::ChangeNote;
 use strict;
 use warnings;
 
+use DateTime;
 use Test::Routine;
 use Test::More;
 use utf8;
@@ -69,6 +70,38 @@ test all => sub {
         'it was entered too long ago',
         'Can’t remove too old note',
     );
+
+    my $orig_post_time = $test->c->sql->select_single_value(<<~'SQL');
+        SELECT post_time FROM edit_note WHERE id = 3
+        SQL
+
+    note('We update the edit note’s post time to less than one day ago');
+    my $new_post_time =
+        DateTime->now->subtract(days => 1)->set(
+            hour => 23,
+            minute => 59,
+            second => 59,
+        );
+
+    $test->c->sql->do(<<~'SQL', $new_post_time);
+        UPDATE edit_note
+           SET post_time = ?
+         WHERE id = 3
+        SQL
+
+    $mech->get_ok('/edit-note/3/delete');
+    html_ok($mech->content);
+    $mech->content_contains(
+        'Are you sure you want to remove the following edit note',
+        'Can remove note from less than one day ago',
+    );
+
+    note('We set the edit note’s post time back to its original value');
+    $test->c->sql->do(<<~'SQL', $orig_post_time);
+        UPDATE edit_note
+           SET post_time = ?
+         WHERE id = 3
+        SQL
 
     $mech->get_ok('/edit-note/4/modify');
     html_ok($mech->content);
