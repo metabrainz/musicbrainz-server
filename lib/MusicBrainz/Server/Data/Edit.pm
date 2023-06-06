@@ -756,10 +756,10 @@ sub approve
 
     $self->c->model('Vote')->enter_votes(
         $editor,
-        {
+        [{
             vote    => $VOTE_APPROVE,
             edit_id => $edit->id
-        }
+        }]
     );
 
     # Apply the changes and close the edit
@@ -884,7 +884,7 @@ sub insert_votes_and_notes {
     @votes = grep { $_->{vote} != $VOTE_APPROVE } @votes;
 
     Sql::run_in_transaction(sub {
-        $self->c->model('Vote')->enter_votes($editor, @votes);
+        $self->c->model('Vote')->enter_votes($editor, \@votes);
 
         my $edits = $self->get_by_ids(map { $_->{edit_id} } @notes);
         for my $note (@notes) {

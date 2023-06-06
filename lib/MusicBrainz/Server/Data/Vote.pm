@@ -40,10 +40,10 @@ sub _column_mapping
 
 sub enter_votes
 {
-    my ($self, $editor, @votes) = @_;
+    my ($self, $editor, $votes, %opts) = @_;
 
     # Filter any invalid votes
-    @votes = grep { VoteOption->check($_->{vote}) } @votes;
+    my @votes = grep { VoteOption->check($_->{vote}) } @$votes;
 
     return unless @votes;
 
@@ -59,9 +59,11 @@ sub enter_votes
             # not sufficient to filter the vote because the actual approval is happening elsewhere
             confess 'Unauthorized editor ' . $editor->id . ' tried to approve edit #' . $_->{edit_id};
         }
-        @votes = grep {
-            $_->{vote} == $VOTE_APPROVE || $edits->{ $_->{edit_id} }->editor_may_vote_on_edit($editor)
-        } @votes;
+        unless ($opts{override_privs}) {
+            @votes = grep {
+                $_->{vote} == $VOTE_APPROVE || $edits->{ $_->{edit_id} }->editor_may_vote_on_edit($editor)
+            } @votes
+        };
 
         return unless @votes;
 

@@ -93,7 +93,7 @@ lives_ok {
 $test->c->sql->commit;
 
 # Test adding edit notes with email sending
-$test->c->model('Vote')->enter_votes($editor2, { edit_id => $edit->id, vote => 1 });
+$test->c->model('Vote')->enter_votes($editor2, [{ edit_id => $edit->id, vote => 1 }]);
 
 $en_data->add_note($edit->id, { text => 'This is my note!', editor_id => 3 });
 

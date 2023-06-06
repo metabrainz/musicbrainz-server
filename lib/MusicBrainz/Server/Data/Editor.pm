@@ -601,10 +601,11 @@ sub delete {
     for my $edit_id (@$voted_open_edit_ids) {
         $self->c->model('Vote')->enter_votes(
             $editor,
-            {
+            [{
                 vote    => $VOTE_ABSTAIN,
                 edit_id => $edit_id
-            }
+            }],
+            (override_privs => 1),
         );
     }
 
