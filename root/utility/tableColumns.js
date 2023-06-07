@@ -34,6 +34,8 @@ import ExpandedArtistCredit
   from '../static/scripts/common/components/ExpandedArtistCredit.js';
 import IsrcList from '../static/scripts/common/components/IsrcList.js';
 import IswcList from '../static/scripts/common/components/IswcList.js';
+import MergeCheckboxElement
+  from '../static/scripts/common/components/MergeCheckboxElement.js';
 import RatingStars from '../static/scripts/common/components/RatingStars.js';
 import ReleaseEvents
   from '../static/scripts/common/components/ReleaseEvents.js';
@@ -48,8 +50,6 @@ import formatDate from '../static/scripts/common/utility/formatDate.js';
 import formatDatePeriod
   from '../static/scripts/common/utility/formatDatePeriod.js';
 import formatEndDate from '../static/scripts/common/utility/formatEndDate.js';
-import renderMergeCheckboxElement
-  from '../static/scripts/common/utility/renderMergeCheckboxElement.js';
 import yesNo from '../static/scripts/common/utility/yesNo.js';
 import {formatCount} from '../statistics/utilities.js';
 
@@ -214,8 +214,13 @@ export function defineCheckboxColumn(
 ): ColumnOptions<CollectableEntityT | MergeableEntityT, number> {
   return {
     Cell: ({row: {index, original}}) => props.mergeForm
-      ? renderMergeCheckboxElement(original, props.mergeForm, index)
-      : (
+      ? (
+        <MergeCheckboxElement
+          entity={original}
+          form={props.mergeForm}
+          index={index}
+        />
+      ) : (
         <input
           name={props.name}
           type="checkbox"
