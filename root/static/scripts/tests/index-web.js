@@ -34,6 +34,7 @@ require('./utility/entityHref.js');
 require('./utility/formatBarcode.js');
 require('./utility/formatDate.js');
 require('./utility/formatDatePeriod.js');
+require('./utility/formatEndDate.js');
 require('./utility/formatSetlist.js');
 require('./utility/formatTrackLength.js');
 require('./utility/formatUserDate.js');
