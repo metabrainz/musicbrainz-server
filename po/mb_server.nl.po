@@ -31,7 +31,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-18 11:18+0000\n"
+"POT-Creation-Date: 2023-05-29 12:56+0300\n"
 "PO-Revision-Date: 2011-01-30 16:57+0000\n"
 "Last-Translator: Nicolás Tamargo <reosarevok@gmail.com>, 2021-2022\n"
 "Language-Team: Dutch (http://app.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
@@ -466,13 +466,13 @@ msgstr "Gebied:"
 #: ../root/report/IsrcsWithManyRecordings.js:59
 #: ../root/report/RecordingsSameNameDifferentArtistsSameName.js:53
 #: ../root/report/components/ArtistList.js:51
-#: ../root/report/components/ArtistUrlList.js:33
+#: ../root/report/components/ArtistUrlList.js:35
 #: ../root/report/components/CDTocReleaseList.js:55
 #: ../root/report/components/RecordingList.js:55
 #: ../root/report/components/ReleaseGroupList.js:57
-#: ../root/report/components/ReleaseGroupUrlList.js:36
+#: ../root/report/components/ReleaseGroupUrlList.js:38
 #: ../root/report/components/ReleaseList.js:58
-#: ../root/report/components/ReleaseUrlList.js:36
+#: ../root/report/components/ReleaseUrlList.js:38
 #: ../root/search/components/CDStubResults.js:45
 #: ../root/search/components/RecordingResults.js:143
 #: ../root/search/components/ReleaseGroupResults.js:64
@@ -1822,7 +1822,7 @@ msgstr "Houd er rekening mee dat dit best lang kan duren als je veel etiketten h
 #: ../root/release_group/ReleaseGroupIndex.js:172
 #: ../root/report/ReleaseLabelSameArtist.js:31
 #: ../root/report/components/LabelList.js:47
-#: ../root/report/components/LabelUrlList.js:33
+#: ../root/report/components/LabelUrlList.js:35
 #: ../root/search/components/ReleaseResults.js:117
 #: ../root/search/components/SearchForm.js:42
 #: ../root/static/scripts/common/constants.js:40
@@ -2496,7 +2496,7 @@ msgstr "Relatieredacteur"
 #: ../root/release_group/ReleaseGroupIndex.js:167
 #: ../root/report/components/CDTocReleaseList.js:49
 #: ../root/report/components/ReleaseList.js:52
-#: ../root/report/components/ReleaseUrlList.js:35
+#: ../root/report/components/ReleaseUrlList.js:37
 #: ../root/search/components/RecordingResults.js:145
 #: ../root/search/components/SearchForm.js:39
 #: ../root/static/scripts/common/constants.js:43
@@ -2521,7 +2521,7 @@ msgstr "Duplicaten van de uitgave"
 #: ../root/report/ReleaseRgDifferentName.js:30
 #: ../root/report/ReleasesSameBarcode.js:46
 #: ../root/report/components/ReleaseGroupList.js:50
-#: ../root/report/components/ReleaseGroupUrlList.js:35
+#: ../root/report/components/ReleaseGroupUrlList.js:37
 #: ../root/search/components/ReleaseGroupResults.js:63
 #: ../root/search/components/SearchForm.js:38
 #: ../root/static/scripts/common/i18n/localizeTypeNameForEntity.js:36
@@ -5479,10 +5479,10 @@ msgstr "Serie samenvoegen"
 #: ../root/report/BadAmazonUrls.js:39
 #: ../root/report/LinksWithMultipleEntities.js:60
 #: ../root/report/WikidataLinksWithMultipleEntities.js:55
-#: ../root/report/components/ArtistUrlList.js:32
-#: ../root/report/components/LabelUrlList.js:32
-#: ../root/report/components/ReleaseGroupUrlList.js:34
-#: ../root/report/components/ReleaseUrlList.js:34
+#: ../root/report/components/ArtistUrlList.js:34
+#: ../root/report/components/LabelUrlList.js:34
+#: ../root/report/components/ReleaseGroupUrlList.js:36
+#: ../root/report/components/ReleaseUrlList.js:36
 #: ../root/report/components/UrlList.js:46
 #: ../root/static/scripts/common/constants.js:46
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:72
@@ -12091,6 +12091,7 @@ msgstr "URL’s van Amazon die aan meerdere uitgaven zijn gekoppeld"
 #: ../root/report/BadAmazonUrls.js:35
 #: ../root/report/LinksWithMultipleEntities.js:86
 #: ../root/report/WikidataLinksWithMultipleEntities.js:81
+#: ../root/report/components/RemovedUrlRow.js:16
 msgid "This URL no longer exists."
 msgstr "Deze URL bestaat niet meer."
 
@@ -12194,7 +12195,7 @@ msgstr "Samenwerker"
 #: ../root/report/CollaborationRelationships.js:68
 #: ../root/report/CollaborationRelationships.js:79
 #: ../root/report/DuplicateArtists.js:116
-#: ../root/report/components/ArtistUrlList.js:69
+#: ../root/report/components/ArtistUrlList.js:74
 msgid "This artist no longer exists."
 msgstr "Deze artiest bestaat niet meer."
 
@@ -12458,7 +12459,7 @@ msgid "Possible duplicate release groups"
 msgstr "Mogelijk dubbele uitgavegroepen"
 
 #: ../root/report/DuplicateReleaseGroups.js:100
-#: ../root/report/components/ReleaseGroupUrlList.js:77
+#: ../root/report/components/ReleaseGroupUrlList.js:83
 msgid "This release group no longer exists."
 msgstr "Deze uitgavegroep bestaat niet meer."
 
@@ -13396,11 +13397,11 @@ msgstr "In dit rapport staan composities met minimaal één bovenliggende compos
 msgid "This artist credit no longer exists."
 msgstr "Deze artiestvermelding bestaat niet meer."
 
-#: ../root/report/components/LabelUrlList.js:69
+#: ../root/report/components/LabelUrlList.js:75
 msgid "This label no longer exists."
 msgstr "Deze platenmaatschappij bestaat niet meer."
 
-#: ../root/report/components/ReleaseUrlList.js:77
+#: ../root/report/components/ReleaseUrlList.js:83
 msgid "This release no longer exists."
 msgstr "Deze uitgave bestaat niet meer."
 
@@ -14423,19 +14424,19 @@ msgstr "Inhoud van Wikipedia wordt verstrekt onder voorwaarde van de {license_li
 msgid "Work Artists"
 msgstr "Uitvoerend artiesten"
 
-#: ../root/static/scripts/common/entity.js:255
+#: ../root/static/scripts/common/entity.js:256
 msgid "You selected {label}."
 msgstr "Je hebt {label} geselecteerd."
 
-#: ../root/static/scripts/common/entity.js:261
+#: ../root/static/scripts/common/entity.js:262
 msgid "Label code: {code}"
 msgstr "Platenmaatschappijcode: {code}"
 
-#: ../root/static/scripts/common/entity.js:283
+#: ../root/static/scripts/common/entity.js:289
 msgid "You selected {area}."
 msgstr "Je hebt {area} geselecteerd."
 
-#: ../root/static/scripts/common/entity.js:376
+#: ../root/static/scripts/common/entity.js:382
 msgid "You selected {releasegroup}."
 msgstr "Je hebt {releasegroup} geselecteerd."
 

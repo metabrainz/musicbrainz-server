@@ -2599,11 +2599,6 @@ msgstr ""
 msgid "membranophone"
 msgstr ""
 
-#: DB:instrument/name:114
-msgctxt "Traditional English percussion stick"
-msgid "mendoza"
-msgstr ""
-
 #: DB:instrument/name:349
 msgctxt "Arrangement of struck tuned metal bars."
 msgid "metallophone"
@@ -2621,6 +2616,11 @@ msgstr ""
 #: DB:instrument/name:591
 msgid "mirliton"
 msgstr "mirliton"
+
+#: DB:instrument/name:114
+msgctxt "Traditional English percussion stick"
+msgid "monkey stick"
+msgstr ""
 
 #: DB:instrument/name:224
 msgctxt "traditional bowed Mongol fiddle"
@@ -3488,6 +3488,11 @@ msgctxt "Indian long-necked fretted gourdlute"
 msgid "sitar"
 msgstr "sitar"
 
+#: DB:instrument/name:107
+msgctxt "Hinged percussion"
+msgid "slapstick"
+msgstr ""
+
 #: DB:instrument/name:962
 msgctxt "Deepest pitch single octave metallophone used in Javanese gamelan"
 msgid "slenthem"
@@ -4313,11 +4318,6 @@ msgstr ""
 
 #: DB:instrument/name:374
 msgid "wavedrum"
-msgstr ""
-
-#: DB:instrument/name:107
-msgctxt "Hinged percussion"
-msgid "whipslap"
 msgstr ""
 
 #: DB:instrument/name:274

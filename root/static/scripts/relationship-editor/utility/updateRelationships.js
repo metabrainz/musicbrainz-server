@@ -297,10 +297,11 @@ export default function updateRelationships(
     | {...RelationshipEditorStateT}
     | {...ReleaseRelationshipEditorStateT},
   updates: Iterable<RelationshipUpdateT>,
-): void {
+): boolean {
   const sourceGroupUpdates = new Map<string, TargetTypeGroupUpdatesT>();
   const allUpdates: Array<RelationshipUpdateT> | null =
     writableRootState.entity.entityType === 'release' ? [] : null;
+  let performedUpdates = false;
 
   for (const update of updates) {
     const relationship = update.relationship;
@@ -373,6 +374,7 @@ export default function updateRelationships(
     if (allUpdates) {
       allUpdates.push(update);
     }
+    performedUpdates = true;
   }
 
   for (const targetTypeGroupUpdates of sourceGroupUpdates.values()) {
@@ -397,4 +399,7 @@ export default function updateRelationships(
       allUpdates,
     );
   }
+
+  // Return whether any updates occurred.
+  return performedUpdates;
 }

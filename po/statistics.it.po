@@ -1174,7 +1174,7 @@ msgstr "Soffermati e clicca sulle righe verticali"
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/StatisticsLayout.js:55
 msgid "Languages/Scripts"
-msgstr "Lingue/Script"
+msgstr "Lingue/Sistemi di scrittura"
 
 #: ../root/statistics/timeline.tt:2
 msgid "Legend"
@@ -2019,11 +2019,11 @@ msgstr "Astenuto"
 
 #: ../root/statistics/LanguagesScripts.js:50
 msgid "Languages and Scripts"
-msgstr "Lingue e script"
+msgstr "Lingue e sistemi di scrittura"
 
 #: ../root/statistics/LanguagesScripts.js:56
 msgid "All other available languages and scripts have 0 releases and works."
-msgstr "Tutte le altre lingue e script disponibili non hanno pubblicazioni né opere."
+msgstr "Tutte le altre lingue e sistemi di scrittura disponibili non hanno pubblicazioni né opere."
 
 #: ../root/statistics/LanguagesScripts.js:62
 #: ../root/statistics/LanguagesScripts.js:68
@@ -2036,15 +2036,15 @@ msgstr "Lingua sconosciuta"
 
 #: ../root/statistics/LanguagesScripts.js:150
 msgid "Scripts"
-msgstr "Script"
+msgstr "Sistemi di scrittura"
 
 #: ../root/statistics/LanguagesScripts.js:156
 msgid "Script"
-msgstr "Script"
+msgstr "Sistema di scrittura"
 
 #: ../root/statistics/LanguagesScripts.js:173
 msgid "Unknown script"
-msgstr "Script sconosciuto"
+msgstr "Sistema di scrittura sconosciuto"
 
 #: ../root/statistics/MusicBrainzHistory.js:20
 msgid "History"
@@ -2167,7 +2167,7 @@ msgstr "Qualità dati della pubblicazione"
 
 #: ../root/statistics/stats.js:38
 msgid "Release Scripts"
-msgstr "Script delle pubblicazioni"
+msgstr "Sistemi di scrittura delle pubblicazioni"
 
 #: ../root/statistics/stats.js:39
 msgid "Release Statuses"
@@ -2667,7 +2667,7 @@ msgstr "Pubblicazioni senza confezione"
 
 #: ../root/statistics/stats.js:719
 msgid "Releases with no script set"
-msgstr "Pubblicazioni senza uno script impostato"
+msgstr "Pubblicazioni senza un sistema di scrittura impostato"
 
 #: ../root/statistics/stats.js:724
 msgid "Releases with no status set"

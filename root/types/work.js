@@ -11,7 +11,7 @@
 declare type WorkT = $ReadOnly<{
   ...AnnotationRoleT,
   ...CommentRoleT,
-  ...CoreEntityRoleT<'work'>,
+  ...RelatableEntityRoleT<'work'>,
   ...RatableRoleT,
   ...ReviewableRoleT,
   ...TypeRoleT<WorkTypeT>,

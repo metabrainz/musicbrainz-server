@@ -3,6 +3,7 @@ use Moose;
 use MooseX::MethodAttributes;
 use namespace::autoclean;
 
+use DateTime;
 use List::AllUtils qw( first_index );
 use MusicBrainz::Server::Constants qw( $CONTACT_URL $EDITOR_MODBOT );
 use MusicBrainz::Server::Data::Utils qw( load_everything_for_edits );
@@ -105,8 +106,7 @@ sub detach_if_cannot_change {
     }
 
     my $now = DateTime->now( time_zone => $edit_note->post_time->time_zone );
-    my $note_age = $now - $edit_note->post_time;
-    my $is_note_too_old = $note_age->{days} > 0;
+    my $is_note_too_old = $edit_note->post_time->clone->add(days => 1) < $now;
 
     if ($is_note_too_old && !$is_admin) {
       $c->stash(

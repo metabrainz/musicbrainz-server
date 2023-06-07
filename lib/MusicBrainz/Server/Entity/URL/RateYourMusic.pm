@@ -1,11 +1,20 @@
-package MusicBrainz::Server::Entity::URL::Rateyourmusic;
+package MusicBrainz::Server::Entity::URL::RateYourMusic;
+use MusicBrainz::Server::Translation qw( l );
 
 use Moose;
 
 extends 'MusicBrainz::Server::Entity::URL';
 with 'MusicBrainz::Server::Entity::URL::Sidebar';
 
-sub sidebar_name { 'Rateyourmusic' }
+sub sidebar_name {
+    my $self = shift;
+
+    if ($self->url =~ m{^https?://(?:www.)?rateyourmusic.com/feature/}i) {
+        return l('Interview at Rate Your Music');
+    } else {
+        return 'Rate Your Music';
+    }
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

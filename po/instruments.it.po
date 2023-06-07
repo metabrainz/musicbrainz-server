@@ -1055,7 +1055,7 @@ msgstr "cizhonghu"
 #: DB:instrument/name:904
 msgctxt "egyptian ancient clappers"
 msgid "clapper"
-msgstr "battacio"
+msgstr "clapper"
 
 #: DB:instrument/name:955
 msgctxt "Ancient Aboriginal rhythm stick"
@@ -2608,11 +2608,6 @@ msgstr "melofono"
 msgid "membranophone"
 msgstr "membranofono"
 
-#: DB:instrument/name:114
-msgctxt "Traditional English percussion stick"
-msgid "mendoza"
-msgstr "mendoza"
-
 #: DB:instrument/name:349
 msgctxt "Arrangement of struck tuned metal bars."
 msgid "metallophone"
@@ -2630,6 +2625,11 @@ msgstr "minipiano"
 #: DB:instrument/name:591
 msgid "mirliton"
 msgstr "mirliton"
+
+#: DB:instrument/name:114
+msgctxt "Traditional English percussion stick"
+msgid "monkey stick"
+msgstr "monkey stick"
 
 #: DB:instrument/name:224
 msgctxt "traditional bowed Mongol fiddle"
@@ -3497,6 +3497,11 @@ msgctxt "Indian long-necked fretted gourdlute"
 msgid "sitar"
 msgstr "sitar"
 
+#: DB:instrument/name:107
+msgctxt "Hinged percussion"
+msgid "slapstick"
+msgstr "battacio"
+
 #: DB:instrument/name:962
 msgctxt "Deepest pitch single octave metallophone used in Javanese gamelan"
 msgid "slenthem"
@@ -4323,11 +4328,6 @@ msgstr "waterphone"
 #: DB:instrument/name:374
 msgid "wavedrum"
 msgstr "wavedrum"
-
-#: DB:instrument/name:107
-msgctxt "Hinged percussion"
-msgid "whipslap"
-msgstr "frusta"
 
 #: DB:instrument/name:274
 msgctxt "Small simple single-toned flute"

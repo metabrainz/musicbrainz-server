@@ -817,13 +817,6 @@ msgid ""
 "the wooden bar equivalent."
 msgstr ""
 
-#. name:whipslap
-#: DB:instrument/description:107
-msgid ""
-"Consisting of two parts joined together by a hinge, it creates a whip-like "
-"sound when clacked together."
-msgstr ""
-
 #. name:gambang
 #: DB:instrument/description:977
 msgid ""
@@ -1442,12 +1435,12 @@ msgid ""
 "colourful fabric."
 msgstr ""
 
-#. name:mendoza
+#. name:monkey stick
 #: DB:instrument/description:114
 msgid ""
-"Homemade combination of a wooden pole with beer bottle tops as jingles and a"
-" hefty boot at the bottom to create thumping bass, it is often decorated "
-"with hats or hair."
+"Homemade combination of a wooden pole with beer bottle tops and other "
+"jingles and a hefty boot at the bottom to create thumping bass, it is often "
+"decorated with hats, hair or stuffed animals."
 msgstr ""
 
 #. name:olifant
@@ -2229,6 +2222,13 @@ msgstr ""
 #. name:saron barung
 #: DB:instrument/description:1007
 msgid "Often called simply \"saron\", it plays the basic, balungan melody"
+msgstr ""
+
+#. name:slapstick
+#: DB:instrument/description:107
+msgid ""
+"Often known as whip, it consists of two parts joined together by a hinge, it"
+" creates a whip-like sound when clacked together."
 msgstr ""
 
 #. name:boomwhacker

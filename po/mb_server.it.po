@@ -29,7 +29,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-18 11:18+0000\n"
+"POT-Creation-Date: 2023-05-29 12:56+0300\n"
 "PO-Revision-Date: 2011-01-30 16:57+0000\n"
 "Last-Translator: salo.rock, 2022-2023\n"
 "Language-Team: Italian (http://app.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
@@ -464,13 +464,13 @@ msgstr "Area:"
 #: ../root/report/IsrcsWithManyRecordings.js:59
 #: ../root/report/RecordingsSameNameDifferentArtistsSameName.js:53
 #: ../root/report/components/ArtistList.js:51
-#: ../root/report/components/ArtistUrlList.js:33
+#: ../root/report/components/ArtistUrlList.js:35
 #: ../root/report/components/CDTocReleaseList.js:55
 #: ../root/report/components/RecordingList.js:55
 #: ../root/report/components/ReleaseGroupList.js:57
-#: ../root/report/components/ReleaseGroupUrlList.js:36
+#: ../root/report/components/ReleaseGroupUrlList.js:38
 #: ../root/report/components/ReleaseList.js:58
-#: ../root/report/components/ReleaseUrlList.js:36
+#: ../root/report/components/ReleaseUrlList.js:38
 #: ../root/search/components/CDStubResults.js:45
 #: ../root/search/components/RecordingResults.js:143
 #: ../root/search/components/ReleaseGroupResults.js:64
@@ -637,7 +637,7 @@ msgstr "Bot"
 msgid ""
 "Both Other and Uncommon are shown in the \"other\" section, but Uncommon "
 "should be used for scripts in Unicode which are unlikely to be used."
-msgstr "Sia Altro che Infrequente sono mostrati nella sezione \"altro\", ma Infrequente va usato per script in Unicode che difficilmente saranno selezionati."
+msgstr "Sia Altro che Infrequente sono mostrati nella sezione \"altro\", ma Infrequente va usato per sistemi di scrittura in Unicode che difficilmente saranno selezionati."
 
 #: ../root/layout.tt:124 ../root/layout/components/Footer.js:52
 msgid ""
@@ -1489,7 +1489,7 @@ msgstr "Nascosto è usato di default per le lingue antiche e per le lingue prese
 
 #: ../root/admin/attributes/form.tt:31
 msgid "Hidden should be used for scripts not in Unicode."
-msgstr "Nascosto va usato per script non in Unicode."
+msgstr "Nascosto va usato per sistemi di scrittura non in Unicode."
 
 #: ../root/admin/attributes/form.tt:16
 msgid ""
@@ -1822,7 +1822,7 @@ msgstr "Tieni presente che questo processo potrebbe richiedere una certa quantit
 #: ../root/release_group/ReleaseGroupIndex.js:172
 #: ../root/report/ReleaseLabelSameArtist.js:31
 #: ../root/report/components/LabelList.js:47
-#: ../root/report/components/LabelUrlList.js:33
+#: ../root/report/components/LabelUrlList.js:35
 #: ../root/search/components/ReleaseResults.js:117
 #: ../root/search/components/SearchForm.js:42
 #: ../root/static/scripts/common/constants.js:40
@@ -2497,7 +2497,7 @@ msgstr "Editor di relazioni"
 #: ../root/release_group/ReleaseGroupIndex.js:167
 #: ../root/report/components/CDTocReleaseList.js:49
 #: ../root/report/components/ReleaseList.js:52
-#: ../root/report/components/ReleaseUrlList.js:35
+#: ../root/report/components/ReleaseUrlList.js:37
 #: ../root/search/components/RecordingResults.js:145
 #: ../root/search/components/SearchForm.js:39
 #: ../root/static/scripts/common/constants.js:43
@@ -2522,7 +2522,7 @@ msgstr "Duplicati della pubblicazione"
 #: ../root/report/ReleaseRgDifferentName.js:30
 #: ../root/report/ReleasesSameBarcode.js:46
 #: ../root/report/components/ReleaseGroupList.js:50
-#: ../root/report/components/ReleaseGroupUrlList.js:35
+#: ../root/report/components/ReleaseGroupUrlList.js:37
 #: ../root/search/components/ReleaseGroupResults.js:63
 #: ../root/search/components/SearchForm.js:38
 #: ../root/static/scripts/common/i18n/localizeTypeNameForEntity.js:36
@@ -2725,7 +2725,7 @@ msgstr "Salva"
 #: ../root/release/edit/information.tt:116
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:186
 msgid "Script:"
-msgstr "Script:"
+msgstr "Sistema di scrittura:"
 
 #: ../root/cdtoc/attach_filter_release.tt:11 ../root/cdtoc/lookup.tt:78
 #: ../root/cdtoc/lookup.tt:88 ../root/cdtoc/move_search.tt:17
@@ -5492,10 +5492,10 @@ msgstr "Unisci serie"
 #: ../root/report/BadAmazonUrls.js:39
 #: ../root/report/LinksWithMultipleEntities.js:60
 #: ../root/report/WikidataLinksWithMultipleEntities.js:55
-#: ../root/report/components/ArtistUrlList.js:32
-#: ../root/report/components/LabelUrlList.js:32
-#: ../root/report/components/ReleaseGroupUrlList.js:34
-#: ../root/report/components/ReleaseUrlList.js:34
+#: ../root/report/components/ArtistUrlList.js:34
+#: ../root/report/components/LabelUrlList.js:34
+#: ../root/report/components/ReleaseGroupUrlList.js:36
+#: ../root/report/components/ReleaseUrlList.js:36
 #: ../root/report/components/UrlList.js:46
 #: ../root/static/scripts/common/constants.js:46
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:72
@@ -6830,7 +6830,7 @@ msgstr "Lingua"
 #: ../root/edit/details/EditRelease.js:125
 #: ../root/edit/details/historic/AddRelease.js:65
 msgid "Script"
-msgstr "Script"
+msgstr "Sistema di scrittura"
 
 #: ../root/admin/components/UserList.js:30
 #: ../root/report/components/EditorList.js:69
@@ -9650,7 +9650,7 @@ msgstr "Modificato"
 
 #: ../root/edit/details/historic/EditReleaseLanguage.js:27
 msgid "Language: {language}, script: {script}"
-msgstr "Lingua: {language}, script: {script}"
+msgstr "Lingua: {language}, sistema di scrittura: {script}"
 
 #: ../root/edit/details/historic/EditReleaseLanguage.js:48
 msgid "New language:"
@@ -9658,7 +9658,7 @@ msgstr "Nuova lingua:"
 
 #: ../root/edit/details/historic/EditReleaseLanguage.js:57
 msgid "New script:"
-msgstr "Nuovo script:"
+msgstr "Nuovo sistema di scrittura:"
 
 #: ../root/edit/details/historic/MergeReleases.js:22
 msgid "Old releases:"
@@ -9674,7 +9674,7 @@ msgstr "Unisci attributi:"
 
 #: ../root/edit/details/historic/MergeReleases.js:50
 msgid "Merge language & script:"
-msgstr "Unisci lingua & script:"
+msgstr "Unisci lingua & sistema di scrittura:"
 
 #: ../root/edit/details/historic/MergeReleases.js:57
 msgid ""
@@ -12145,6 +12145,7 @@ msgstr "URL di Amazon collegati a più pubblicazioni"
 #: ../root/report/BadAmazonUrls.js:35
 #: ../root/report/LinksWithMultipleEntities.js:86
 #: ../root/report/WikidataLinksWithMultipleEntities.js:81
+#: ../root/report/components/RemovedUrlRow.js:16
 msgid "This URL no longer exists."
 msgstr "Questo URL non esiste più."
 
@@ -12248,7 +12249,7 @@ msgstr "Collaboratore"
 #: ../root/report/CollaborationRelationships.js:68
 #: ../root/report/CollaborationRelationships.js:79
 #: ../root/report/DuplicateArtists.js:116
-#: ../root/report/components/ArtistUrlList.js:69
+#: ../root/report/components/ArtistUrlList.js:74
 msgid "This artist no longer exists."
 msgstr "Quest'artista non esiste più."
 
@@ -12512,7 +12513,7 @@ msgid "Possible duplicate release groups"
 msgstr "Gruppi di pubblicazioni che potrebbero essere doppioni"
 
 #: ../root/report/DuplicateReleaseGroups.js:100
-#: ../root/report/components/ReleaseGroupUrlList.js:77
+#: ../root/report/components/ReleaseGroupUrlList.js:83
 msgid "This release group no longer exists."
 msgstr "Questo gruppo di pubblicazioni non esiste più."
 
@@ -12758,11 +12759,11 @@ msgid ""
 "This report shows releases that have no script set. If you recognize the "
 "script, just add it! Remember that the script used for English (and most "
 "other European languages) is Latin."
-msgstr "Questo rapporto mostra le pubblicazioni che non hanno alcuno script impostato. Se riconosci lo script, impostalo! Ricorda che lo script (alfabeto) utilizzato per l'inglese (e per la maggior parte delle lingue europee) è quello latino."
+msgstr "Questo rapporto mostra le pubblicazioni che non hanno alcun sistema di scrittura impostato. Se riconosci il sistema di scrittura, impostalo! Ricorda che il sistema di scrittura utilizzato per l'inglese (e per la maggior parte delle altre lingue europee) è quello latino."
 
 #: ../root/report/NoScript.js:35 ../root/report/ReportsIndex.js:264
 msgid "Releases without script"
-msgstr "Pubblicazioni senza script"
+msgstr "Pubblicazioni senza sistema di scrittura"
 
 #: ../root/report/NonBootlegsOnBootlegLabels.js:24
 msgid ""
@@ -13098,12 +13099,12 @@ msgstr "Pubblicazioni senza supporti"
 msgid ""
 "This report shows releases that have an unlikely combination of language and"
 " script properties, such as German and Ethiopic."
-msgstr "Questo rapporto mostra le pubblicazioni che hanno una combinazione di lingua e script poco probabile, come per es. tedesco ed etiopico."
+msgstr "Questo rapporto mostra le pubblicazioni che hanno una combinazione di lingua e sistema di scrittura poco probabile, come per es. tedesco ed etiopico."
 
 #: ../root/report/ReleasesWithUnlikelyLanguageScript.js:34
 #: ../root/report/ReportsIndex.js:373
 msgid "Releases with unlikely language/script pairs"
-msgstr "Pubblicazioni con combinazioni lingua/script improbabili"
+msgstr "Pubblicazioni con combinazioni lingua/sistema di scrittura improbabili"
 
 #: ../root/report/ReleasesWithoutVaCredit.js:24
 msgid ""
@@ -13450,11 +13451,11 @@ msgstr "Questo rapporto mostra le opere che hanno almeno un'opera di livello sup
 msgid "This artist credit no longer exists."
 msgstr "Quest'accreditamento artista non esiste più."
 
-#: ../root/report/components/LabelUrlList.js:69
+#: ../root/report/components/LabelUrlList.js:75
 msgid "This label no longer exists."
 msgstr "Questa etichetta non esiste più."
 
-#: ../root/report/components/ReleaseUrlList.js:77
+#: ../root/report/components/ReleaseUrlList.js:83
 msgid "This release no longer exists."
 msgstr "Questa pubblicazione non esiste più."
 
@@ -14481,19 +14482,19 @@ msgstr "Contenuto di Wikipedia fornito ai termini della {license_link|licenza Cr
 msgid "Work Artists"
 msgstr "Artisti dell'opera"
 
-#: ../root/static/scripts/common/entity.js:255
+#: ../root/static/scripts/common/entity.js:256
 msgid "You selected {label}."
 msgstr "Hai selezionato {label}."
 
-#: ../root/static/scripts/common/entity.js:261
+#: ../root/static/scripts/common/entity.js:262
 msgid "Label code: {code}"
 msgstr "Label code: {code}"
 
-#: ../root/static/scripts/common/entity.js:283
+#: ../root/static/scripts/common/entity.js:289
 msgid "You selected {area}."
 msgstr "Hai selezionato {area}."
 
-#: ../root/static/scripts/common/entity.js:376
+#: ../root/static/scripts/common/entity.js:382
 msgid "You selected {releasegroup}."
 msgstr "Hai selezionato {releasegroup}."
 

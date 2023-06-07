@@ -11,8 +11,10 @@ import CDStubLink
   from '../../../static/scripts/common/components/CDStubLink.js';
 import escapeLuceneValue
   from '../../../static/scripts/common/utility/escapeLuceneValue.js';
-import parseDate from '../../../static/scripts/common/utility/parseDate.js';
-import {age, displayAgeAgo} from '../../../utility/age.js';
+import {
+  getCDStubAddedAgeAgo,
+  getCDStubModifiedAgeAgo,
+} from '../../../utility/getCDStubAge.js';
 
 import {SidebarProperties, SidebarProperty} from './SidebarProperties.js';
 
@@ -21,20 +23,6 @@ type Props = {
 };
 
 const CDStubSidebar = ({cdstub}: Props): React$Element<'div'> => {
-  const now = parseDate((new Date()).toISOString().slice(0, 10));
-
-  const addedAge = nonEmpty(cdstub.date_added) ? age({
-    begin_date: parseDate(cdstub.date_added.slice(0, 10)),
-    end_date: now,
-    ended: true,
-  }) : null;
-
-  const lastModifiedAge = nonEmpty(cdstub.last_modified) ? age({
-    begin_date: parseDate(cdstub.last_modified.slice(0, 10)),
-    end_date: now,
-    ended: true,
-  }) : null;
-
   const artistField =
     escapeLuceneValue(cdstub.artist || l('Various Artists'));
   const releaseField = escapeLuceneValue(cdstub.title);
@@ -56,11 +44,11 @@ const CDStubSidebar = ({cdstub}: Props): React$Element<'div'> => {
     <div id="sidebar">
       <SidebarProperties>
         <SidebarProperty className="" label={l('Added:')}>
-          {addedAge ? displayAgeAgo(addedAge) : null}
+          {getCDStubAddedAgeAgo(cdstub)}
         </SidebarProperty>
 
         <SidebarProperty className="" label={l('Last modified:')}>
-          {lastModifiedAge ? displayAgeAgo(lastModifiedAge) : null}
+          {getCDStubModifiedAgeAgo(cdstub)}
         </SidebarProperty>
 
         <SidebarProperty className="" label={l('Lookup count:')}>
