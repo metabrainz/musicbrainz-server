@@ -4,7 +4,8 @@ use Moose;
 use MooseX::Types::URI qw( Uri );
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 
-extends 'MusicBrainz::Server::Entity::CoreEntity';
+extends 'MusicBrainz::Server::Entity';
+with 'MusicBrainz::Server::Entity::Role::Relatable';
 
 sub entity_type { 'url' }
 
@@ -12,6 +13,13 @@ has 'url' => (
     is => 'ro',
     isa => Uri,
     coerce => 1
+);
+
+has 'name' => (
+    isa => 'Str',
+    is => 'rw',
+    lazy => 1,
+    default => sub { shift->url->as_string },
 );
 
 has 'iri' => (
@@ -97,8 +105,6 @@ sub pretty_name {
 
     $self->uses_legacy_encoding ? $self->name : $self->decoded
 }
-
-sub name { shift->url->as_string }
 
 sub affiliate_url { shift->url }
 

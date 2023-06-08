@@ -15,7 +15,8 @@ with 't::Context' => { -excludes => '_build_context' };
 {
     package t::GIDEntityCache::MyEntity;
     use Moose;
-    extends 'MusicBrainz::Server::Entity::CoreEntity';
+    extends 'MusicBrainz::Server::Entity';
+    with 'MusicBrainz::Server::Entity::Role::Relatable';
 
     package t::GIDEntityCache::MyEntityData;
     use Moose;
