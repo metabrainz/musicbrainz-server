@@ -2682,7 +2682,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'irombook': {
-    match: [new RegExp('^https://staticbrainz\\.org/irombook/')],
+    match: [new RegExp('^https://static\\.metabrainz\\.org/irombook/')],
     restrict: [LINK_TYPES.image],
     validate: function (url, id) {
       return {

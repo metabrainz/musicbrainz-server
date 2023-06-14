@@ -20,7 +20,7 @@ sub query
             JOIN url ON liu.entity1 = url.id
             WHERE liu.entity0 = i.id
             AND lt.gid = 'f64eacbd-1ea1-381e-9886-2cfb552b7d90' --image
-            AND url.url LIKE '%staticbrainz.org/irombook%'
+            AND url.url LIKE '%static.metabrainz.org/irombook%'
         )
     };
 }
