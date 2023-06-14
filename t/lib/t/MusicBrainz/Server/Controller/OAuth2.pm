@@ -91,9 +91,9 @@ sub csp_headers_ok {
     my $csp_pattern =
         q(default-src 'self'; ) .
         q(frame-ancestors 'none'; ) .
-        q(script-src 'self' 'nonce-[0-9A-Za-z\+/]{43}=' staticbrainz\.org; ) .
-        q(style-src 'self' staticbrainz\.org; ) .
-        q(img-src 'self' data: staticbrainz\.org; ) .
+        q(script-src 'self' 'nonce-[0-9A-Za-z\+/]{43}=' staticbrainz\.org static\.metabrainz\.org; ) .
+        q(style-src 'self' staticbrainz\.org static\.metabrainz\.org; ) .
+        q(img-src 'self' data: staticbrainz\.org static\.metabrainz\.org; ) .
         q(frame-src 'self');
     like($response->header('Content-Security-Policy'), qr{^$csp_pattern$});
 }

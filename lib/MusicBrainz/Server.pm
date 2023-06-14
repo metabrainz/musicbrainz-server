@@ -692,13 +692,15 @@ sub set_csp_headers {
         'script-src',
         q('self'),
         qq('nonce-$globals_script_nonce'),
-        'staticbrainz.org'
+        'staticbrainz.org',
+        'static.metabrainz.org',
     );
 
     my @csp_style_src = (
         'style-src',
         q('self'),
         'staticbrainz.org',
+        'static.metabrainz.org',
     );
 
     my @csp_img_src = (
@@ -706,6 +708,7 @@ sub set_csp_headers {
         q('self'),
         'data:',
         'staticbrainz.org',
+        'static.metabrainz.org',
     );
 
     my @csp_frame_src = ('frame-src', q('self'));
