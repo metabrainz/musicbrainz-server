@@ -60,7 +60,6 @@ test 'Loading existing notes' => sub {
         ),
     );
 
-
     note('Check edit that should have one note');
     $edit = $c->model('Edit')->get_by_id(2);
     $c->model('EditNote')->load_for_edits($edit);
