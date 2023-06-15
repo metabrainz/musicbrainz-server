@@ -125,25 +125,25 @@ test 'Email on first no vote' => sub {
         $editor2,
         [{ edit_id => $edit_id, vote => $VOTE_YES }],
     );
-    is($email_transport->delivery_count, 0, 'yes vote sends no email');
+    is($email_transport->delivery_count, 0, 'Yes vote sends no email');
 
     $c->model('Vote')->enter_votes(
         $editor2,
         [{ edit_id => $edit_id, vote => $VOTE_NO }],
     );
-    is($email_transport->delivery_count, 1, 'first no vote sends email');
+    is($email_transport->delivery_count, 1, 'First No vote sends email');
 
     $c->model('Vote')->enter_votes(
         $editor3,
         [{ edit_id => $edit_id, vote => $VOTE_NO }],
     );
-    is($email_transport->delivery_count, 1, 'second no vote sends no email');
+    is($email_transport->delivery_count, 1, 'Second No vote sends no email');
 
     $c->model('Vote')->enter_votes(
         $editor2,
         [{ edit_id => $edit_id, vote => $VOTE_YES }],
     );
-    is($email_transport->delivery_count, 1, 'yes vote sends no email');
+    is($email_transport->delivery_count, 1, 'Second Yes vote sends no email');
     $c->model('Vote')->enter_votes(
         $editor3,
         [{ edit_id => $edit_id, vote => $VOTE_YES }],
@@ -151,7 +151,7 @@ test 'Email on first no vote' => sub {
     is(
         $email_transport->delivery_count,
         1,
-        'changing no vote to yes vote sends no email',
+        'Changing No vote to Yes vote sends no email',
     );
 
     $c->model('Vote')->enter_votes(
@@ -161,24 +161,24 @@ test 'Email on first no vote' => sub {
     is(
         $email_transport->delivery_count,
         2,
-        'new no vote bringing count from 0 to 1 sends an email',
+        'New No vote bringing count from 0 to 1 sends an email',
     );
 
     my $email = $email_transport->shift_deliveries->{email};
     is(
         $email->get_header('Subject'),
         "Someone has voted against your edit #$edit_id",
-        'Subject explains someone has voted against your edit',
+        'Email subject explains someone has voted against your edit',
     );
     is(
         $email->get_header('References'),
         sprintf('<edit-%d@%s>', $edit_id, DBDefs->WEB_SERVER_USED_IN_EMAIL),
-        'References header contains edit id',
+        'Email’s References header contains edit id',
     );
     is(
         $email->get_header('To'),
         '"editor1" <editor1@example.com>',
-        'To header contains editor email',
+        'Email’s To header contains editor email',
     );
 
     my $server = DBDefs->WEB_SERVER_USED_IN_EMAIL;
@@ -186,9 +186,9 @@ test 'Email on first no vote' => sub {
     like(
         $email_body,
         qr{https://$server/edit/${\ $edit_id }},
-        'body contains link to edit',
+        'Email body contains link to edit',
     );
-    like($email_body, qr{'editor2'}, 'body mentions editor2');
+    like($email_body, qr{'editor2'}, 'Email body mentions editor2');
 };
 
 test 'Extend expiration on first no vote' => sub {
