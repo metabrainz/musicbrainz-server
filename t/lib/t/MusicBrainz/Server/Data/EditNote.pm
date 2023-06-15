@@ -6,6 +6,7 @@ use Test::Routine;
 use Test::Moose;
 use Test::More;
 use Test::Exception;
+use utf8;
 
 BEGIN { use MusicBrainz::Server::Data::Gender };
 
@@ -111,15 +112,6 @@ test 'Adding edit notes' => sub {
         ),
     );
 
-    # Make sure we can insert edit notes while already in a transaction
-    $c->sql->begin;
-    lives_ok {
-        $c->model('EditNote')->insert($edit->id, {
-                editor_id => 3,
-                text => 'Note' })
-    } q(Edit notes don't die while in a transaction already);
-    $c->sql->commit;
-
     # Test adding edit notes with email sending
     $c->model('Vote')->enter_votes(
         $editor2,
@@ -201,6 +193,27 @@ test 'Adding edit notes' => sub {
         qr{This is my note!},
         'Email body has correct edit note text',
     );
+};
+
+test 'Can add edit notes in transaction' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+edit_note');
+
+    my $edit = $c->model('Edit')->get_by_id(3);
+
+    $c->sql->begin;
+    lives_ok (
+        sub {
+            $c->model('EditNote')->insert(
+                $edit->id,
+                { editor_id => 3, text => 'Note' },
+            );
+        },
+        'Edit notes don’t die while in a transaction already',
+    );
+    $c->sql->commit;
 };
 
 test 'delete_content' => sub {
