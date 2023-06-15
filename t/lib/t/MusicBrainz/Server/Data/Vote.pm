@@ -27,6 +27,83 @@ with 't::Context';
 use MusicBrainz::Server::EditRegistry;
 MusicBrainz::Server::EditRegistry->register_type('t::Vote::MockEdit', 1);
 
+test 'Basic voting behaviour' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+vote');
+
+    my $vote_data = $c->model('Vote');
+
+    my $edit = $c->model('Edit')->create(
+        editor_id => 1,
+        edit_type => 4242,
+        foo => 'bar',
+    );
+    my $edit_id = $edit->id;
+
+    my $editor2 = $c->model('Editor')->get_by_id(2);
+
+    note('editor2 enters 4 votes: No -> Yes -> Abstain -> Yes');
+    $vote_data->enter_votes(
+        $editor2,
+        [{ edit_id => $edit_id, vote => $VOTE_NO }],
+    );
+    $vote_data->enter_votes(
+        $editor2,
+        [{ edit_id => $edit_id, vote => $VOTE_YES }],
+    );
+    $vote_data->enter_votes(
+        $editor2,
+        [{ edit_id => $edit_id, vote => $VOTE_ABSTAIN }],
+    );
+    $vote_data->enter_votes(
+        $editor2,
+        [{ edit_id => $edit_id, vote => $VOTE_YES }],
+    );
+
+    $edit = $c->model('Edit')->get_by_id($edit_id);
+    $vote_data->load_for_edits($edit);
+
+    is(scalar @{ $edit->votes }, 4, 'There are 4 votes on the edit');
+    is($edit->votes->[0]->vote, $VOTE_NO, 'Vote 1 is a No');
+    is($edit->votes->[1]->vote, $VOTE_YES, 'Vote 2 is a Yes');
+    is($edit->votes->[2]->vote, $VOTE_ABSTAIN, 'Vote 3 is an Abstain');
+    is($edit->votes->[3]->vote, $VOTE_YES, 'Vote 4 is a Yes (again)');
+
+    is(
+        $edit->votes->[$_]->editor_id,
+        2,
+        'Vote ' . ($_ + 1) . ' is by editor2',
+    ) for 0..3;
+
+    is(
+        $edit->votes->[$_]->superseded,
+        1,
+        'Vote ' . ($_ + 1) . ' is superseded',
+    ) for 0..2;
+    is(
+        $edit->votes->[3]->superseded,
+        0,
+        'Vote 4 (most recent vote by this editor) is not superseded',
+    );
+
+    # Check the vote counts
+    $edit = $c->model('Edit')->get_by_id($edit_id);
+    $vote_data->load_for_edits($edit);
+    is($edit->yes_votes, 1, 'There is 1 Yes vote');
+    is($edit->no_votes, 0, 'There are 0 No votes');
+
+    note('editor2 now abstains again');
+    $vote_data->enter_votes(
+        $editor2,
+        [{ edit_id => $edit_id, vote => $VOTE_ABSTAIN }],
+    );
+    $edit = $c->model('Edit')->get_by_id($edit_id);
+    is($edit->yes_votes, 0, 'There are now 0 Yes votes');
+    is($edit->no_votes, 0, 'There are still 0 No votes');
+};
+
 test 'Email on first no vote' => sub {
     my $test = shift;
     my $c = $test->c;
@@ -169,73 +246,52 @@ test 'Extend expiration on first no vote' => sub {
     );
 };
 
-test all => sub {
+test 'Voting is blocked in the appropriate cases' => sub {
+    my $test = shift;
+    my $c = $test->c;
 
-my $test = shift;
-my $c = $test->c;
+    MusicBrainz::Server::Test->prepare_test_database($c, '+vote');
 
-MusicBrainz::Server::Test->prepare_test_database($c, '+vote');
+    my $edit = $c->model('Edit')->create(
+        editor_id => 1,
+        edit_type => 4242,
+        foo => 'bar',
+    );
+    my $edit_id = $edit->id;
 
-my $vote_data = $c->model('Vote');
+    my $edit_creator = $c->model('Editor')->get_by_id(1);
+    my $normal_voter = $c->model('Editor')->get_by_id(2);
 
-my $edit = $c->model('Edit')->create(
-    editor_id => 1,
-    edit_type => 4242,
-    foo => 'bar',
-);
-my $edit_id = $edit->id;
+    my $email_transport = MusicBrainz::Server::Email->get_test_transport;
 
-my $editor1 = $c->model('Editor')->get_by_id(1);
-my $editor2 = $c->model('Editor')->get_by_id(2);
-my $editor3 = $c->model('Editor')->get_by_id(3);
+    note('We try to enter a No vote with the editor who entered the edit');
+    $c->model('Vote')->enter_votes(
+        $edit_creator,
+        [{ edit_id => $edit_id, vote => $VOTE_NO }],
+    );
+    $edit = $c->model('Edit')->get_by_id($edit_id);
+    $c->model('Vote')->load_for_edits($edit);
+    is(
+        $email_transport->delivery_count,
+        0,
+        'The forbidden No vote did not trigger an email',
+    );
 
-# Test voting on an edit
-$vote_data->enter_votes($editor2, [{ edit_id => $edit_id, vote => $VOTE_NO }]);
-$vote_data->enter_votes($editor2, [{ edit_id => $edit_id, vote => $VOTE_YES }]);
-$vote_data->enter_votes($editor2, [{ edit_id => $edit_id, vote => $VOTE_ABSTAIN }]);
-$vote_data->enter_votes($editor2, [{ edit_id => $edit_id, vote => $VOTE_YES }]);
+    is(scalar @{ $edit->votes }, 0, 'The vote count is still 0');
 
-my $email_transport = MusicBrainz::Server::Email->get_test_transport;
-is($email_transport->delivery_count, 1);
+    is($edit->yes_votes, 0, 'There are 0 Yes votes');
+    is($edit->no_votes, 0, 'There are 0 No votes');
 
-$edit = $c->model('Edit')->get_by_id($edit_id);
-$vote_data->load_for_edits($edit);
-
-is(scalar @{ $edit->votes }, 4);
-is($edit->votes->[0]->vote, $VOTE_NO, 'no vote saved correctly');
-is($edit->votes->[1]->vote, $VOTE_YES, 'yes vote saved correctly');
-is($edit->votes->[2]->vote, $VOTE_ABSTAIN, 'abstain vote saved correctly');
-is($edit->votes->[3]->vote, $VOTE_YES, 'yes vote saved correctly');
-
-is($edit->votes->[$_]->superseded, 1) for 0..2;
-is($edit->votes->[3]->superseded, 0);
-is($edit->votes->[$_]->editor_id, 2) for 0..3;
-
-# Make sure the person who created an edit cannot vote
-$vote_data->enter_votes($editor1, [{ edit_id => $edit_id, vote => $VOTE_NO }]);
-$edit = $c->model('Edit')->get_by_id($edit_id);
-$vote_data->load_for_edits($edit);
-is($email_transport->delivery_count, 1);
-
-is(scalar @{ $edit->votes }, 4);
-is($edit->votes->[$_]->editor_id, 2) for 0..3;
-
-# Check the vote counts
-$edit = $c->model('Edit')->get_by_id($edit_id);
-$vote_data->load_for_edits($edit);
-is($edit->yes_votes, 1);
-is($edit->no_votes, 0);
-
-$vote_data->enter_votes($editor2, [{ edit_id => $edit_id, vote => $VOTE_ABSTAIN }]);
-$edit = $c->model('Edit')->get_by_id($edit_id);
-is($edit->yes_votes, 0);
-is($edit->no_votes, 0);
-
-# Entering invalid votes doesn't do anything
-$vote_data->load_for_edits($edit);
-my $old_count = @{ $edit->votes };
-$vote_data->enter_votes($editor2, [{ edit_id => $edit_id, vote => 123 }]);
-is(@{ $edit->votes }, $old_count, 'vote count should not have changed');
+    note('We try to enter an invalid vote with a valid voter');
+    $c->model('Vote')->load_for_edits($edit);
+    $c->model('Vote')->enter_votes(
+        $normal_voter,
+        [{ edit_id => $edit_id, vote => 123 }],
+    );
+    $edit = $c->model('Edit')->get_by_id($edit_id);
+    is(scalar @{ $edit->votes }, 0, 'The vote count is still 0');
+    is($edit->yes_votes, 0, 'There are still 0 Yes votes');
+    is($edit->no_votes, 0, 'There are still 0 No votes');
 };
 
 test 'Vote statistics for editor' => sub {
