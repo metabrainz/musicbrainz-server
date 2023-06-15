@@ -2,6 +2,7 @@ package MusicBrainz::Server::Edit::Annotation::Edit;
 use strict;
 use Carp;
 use MooseX::Role::Parameterized;
+use namespace::autoclean;
 use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Constants qw( %ENTITIES );

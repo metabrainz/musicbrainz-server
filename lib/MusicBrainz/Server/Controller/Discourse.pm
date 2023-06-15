@@ -8,6 +8,7 @@ use LWP::UserAgent;
 use MIME::Base64 qw( decode_base64 encode_base64 );
 use Moose;
 use MusicBrainz::Server::Data::Utils qw( non_empty );
+use namespace::autoclean;
 use URI;
 use URI::Escape qw( uri_escape_utf8 );
 use URI::QueryParam;

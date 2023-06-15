@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Edit::Role::CoverArt;
 use MooseX::Role::Parameterized;
+use namespace::autoclean;
 
 role
 {
@@ -15,7 +16,6 @@ role
     };
 };
 
-no Moose::Role;
 1;
 
 =head1 COPYRIGHT AND LICENSE

@@ -1,5 +1,6 @@
 package MusicBrainz::Script::RemoveUnreferencedRows;
 use Moose;
+use namespace::autoclean;
 
 =head1 DESCRIPTION
 

@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Controller::User::SubscriptionsRole;
 use MooseX::MethodAttributes::Role;
 use MooseX::Role::Parameterized;
+use namespace::autoclean;
 
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
 use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );

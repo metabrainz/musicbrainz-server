@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Data::Role::Alias;
 use MooseX::Role::Parameterized;
+use namespace::autoclean;
 
 use MusicBrainz::Server::Data::Alias;
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
@@ -83,7 +84,6 @@ role
 };
 
 
-no Moose::Role;
 1;
 
 =head1 COPYRIGHT AND LICENSE

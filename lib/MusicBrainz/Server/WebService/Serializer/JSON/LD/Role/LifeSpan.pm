@@ -1,5 +1,6 @@
 package MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::LifeSpan;
 use MooseX::Role::Parameterized;
+use namespace::autoclean;
 use DateTime::Format::ISO8601;
 use MusicBrainz::Server::WebService::Serializer::JSON::LD::Utils qw( format_date );
 use aliased 'MusicBrainz::Server::Entity::PartialDate';
@@ -48,7 +49,6 @@ role {
     };
 };
 
-no Moose::Role;
 1;
 
 =head1 COPYRIGHT AND LICENSE

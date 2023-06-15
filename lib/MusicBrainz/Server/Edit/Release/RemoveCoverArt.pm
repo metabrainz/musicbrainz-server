@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Edit::Release::RemoveCoverArt;
 use Moose;
+use namespace::autoclean;
 
 use MooseX::Types::Moose qw( Str Int ArrayRef );
 use MooseX::Types::Structured qw( Dict Optional );

@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Controller::WS::2::ReleaseGroup;
 use Moose;
+use namespace::autoclean;
 BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::2' }
 
 use aliased 'MusicBrainz::Server::WebService::WebServiceStash';

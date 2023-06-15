@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Controller::Role::Edit;
 use MooseX::MethodAttributes::Role;
 use MooseX::Role::Parameterized;
+use namespace::autoclean;
 use MusicBrainz::Server::Data::Utils qw( model_to_type );
 
 parameter 'form' => (

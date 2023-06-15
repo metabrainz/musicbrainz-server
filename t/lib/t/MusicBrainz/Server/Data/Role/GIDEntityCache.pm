@@ -15,11 +15,13 @@ with 't::Context' => { -excludes => '_build_context' };
 {
     package t::GIDEntityCache::MyEntity;
     use Moose;
+    use namespace::autoclean;
     extends 'MusicBrainz::Server::Entity';
     with 'MusicBrainz::Server::Entity::Role::Relatable';
 
     package t::GIDEntityCache::MyEntityData;
     use Moose;
+    use namespace::autoclean;
     extends 'MusicBrainz::Server::Data::Entity';
     with 'MusicBrainz::Server::Data::Role::GetByGID';
     has 'get_by_id_called' => ( is => 'rw', isa => 'Bool', default => 0 );
@@ -39,6 +41,7 @@ with 't::Context' => { -excludes => '_build_context' };
 
     package t::GIDEntityCache::MyCachedEntityData;
     use Moose;
+    use namespace::autoclean;
     extends 't::GIDEntityCache::MyEntityData';
     with 'MusicBrainz::Server::Data::Role::GIDEntityCache';
     sub _type { 'my_cached_entity_data' }
@@ -46,6 +49,7 @@ with 't::Context' => { -excludes => '_build_context' };
 
     package t::GIDEntityCache::MockCache;
     use Moose;
+    use namespace::autoclean;
     has 'data' => ( is => 'rw', isa => 'HashRef', default => sub { +{} } );
     has 'get_called' => ( is => 'rw', isa => 'Int', default => 0 );
     has 'set_called' => ( is => 'rw', isa => 'Int', default => 0 );

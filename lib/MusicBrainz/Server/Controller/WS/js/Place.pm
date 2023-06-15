@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Controller::WS::js::Place;
 use Moose;
+use namespace::autoclean;
 BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::js' }
 
 with 'MusicBrainz::Server::Controller::WS::js::Role::Autocompletion';

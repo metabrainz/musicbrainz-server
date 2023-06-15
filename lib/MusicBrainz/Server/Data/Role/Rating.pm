@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Data::Role::Rating;
 use MooseX::Role::Parameterized;
+use namespace::autoclean;
 
 use MusicBrainz::Server::Data::Rating;
 
@@ -31,8 +32,6 @@ role
     }
 };
 
-
-no Moose::Role;
 1;
 
 =head1 COPYRIGHT AND LICENSE

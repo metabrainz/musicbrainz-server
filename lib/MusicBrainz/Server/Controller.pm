@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Controller;
 use Moose;
+use namespace::autoclean;
 BEGIN { extends 'Catalyst::Controller'; }
 
 use Carp;

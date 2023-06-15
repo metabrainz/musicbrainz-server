@@ -21,6 +21,7 @@ use DateTime::Duration;
 use DateTime::Format::Pg;
 use DBDefs;
 use Moose;
+use namespace::autoclean;
 use MusicBrainz::Server::Constants qw( %ENTITIES entities_with );
 
 with 'MooseX::Runnable';

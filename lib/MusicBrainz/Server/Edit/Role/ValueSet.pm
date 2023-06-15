@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Edit::Role::ValueSet;
 use 5.10.0;
 use MooseX::Role::Parameterized;
+use namespace::autoclean;
 
 use Clone qw( clone );
 use List::AllUtils qw( nsort_by uniq );

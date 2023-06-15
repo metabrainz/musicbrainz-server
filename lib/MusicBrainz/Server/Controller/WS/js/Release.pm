@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Controller::WS::js::Release;
 use Moose;
+use namespace::autoclean;
 use JSON qw( encode_json );
 use aliased 'MusicBrainz::Server::Entity::Work';
 use MusicBrainz::Server::Validation qw( is_guid );

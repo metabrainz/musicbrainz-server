@@ -2,6 +2,7 @@ package MusicBrainz::Server::Data::Role::EntityCache;
 
 use DBDefs;
 use Moose::Role;
+use namespace::autoclean;
 use List::AllUtils qw( any natatime uniq );
 use MusicBrainz::Server::Constants qw( %ENTITIES );
 use MusicBrainz::Server::Log qw( log_debug );

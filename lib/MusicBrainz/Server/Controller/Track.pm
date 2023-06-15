@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Controller::Track;
 use Moose;
+use namespace::autoclean;
 use MusicBrainz::Server::Validation qw( is_guid );
 
 BEGIN { extends 'MusicBrainz::Server::Controller'; }

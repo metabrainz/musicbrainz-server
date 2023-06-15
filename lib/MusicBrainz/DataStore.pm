@@ -1,5 +1,6 @@
 package MusicBrainz::DataStore;
 use Moose::Role;
+use namespace::autoclean;
 
 requires 'clear';
 requires 'delete_multi';

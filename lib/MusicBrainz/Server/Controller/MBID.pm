@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Controller::MBID;
 use Moose;
+use namespace::autoclean;
 
 use MusicBrainz::Server::Constants qw( entities_with );
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json );

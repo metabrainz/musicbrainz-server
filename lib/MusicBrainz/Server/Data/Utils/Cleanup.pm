@@ -22,4 +22,5 @@ sub used_in_relationship {
     );
 }
 
+no Moose;
 1;

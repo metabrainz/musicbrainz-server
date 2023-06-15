@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Edit::Role::CheckDuplicates;
 use Moose::Role;
+use namespace::autoclean;
 use MusicBrainz::Server::Data::Utils qw( non_empty );
 
 requires '_is_disambiguation_needed';

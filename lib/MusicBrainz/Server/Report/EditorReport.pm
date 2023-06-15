@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Report::EditorReport;
 use Moose::Role;
+use namespace::autoclean;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 
 with 'MusicBrainz::Server::Report::QueryReport';

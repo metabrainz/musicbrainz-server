@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Data::Role::Annotation;
 use MooseX::Role::Parameterized;
+use namespace::autoclean;
 
 use MusicBrainz::Server::Data::EntityAnnotation;
 

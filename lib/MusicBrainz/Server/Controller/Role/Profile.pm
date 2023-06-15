@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Controller::Role::Profile;
 use MooseX::MethodAttributes::Role;
 use MooseX::Role::Parameterized;
+use namespace::autoclean;
 
 parameter 'threshold' => (
     required => 1,

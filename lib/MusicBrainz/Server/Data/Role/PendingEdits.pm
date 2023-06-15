@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Data::Role::PendingEdits;
 use MooseX::Role::Parameterized;
+use namespace::autoclean;
 
 use MusicBrainz::Server::Data::Utils qw( placeholders );
 use Sql;
@@ -27,7 +28,6 @@ role {
 
 };
 
-no Moose::Role;
 1;
 
 =head1 COPYRIGHT AND LICENSE

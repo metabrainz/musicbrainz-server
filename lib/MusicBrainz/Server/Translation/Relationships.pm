@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Translation::Relationships;
 use Moose;
+use namespace::autoclean;
 BEGIN { extends 'MusicBrainz::Server::Translation'; }
 
 with 'MusicBrainz::Server::Role::Translation' => { domain => 'relationships' };

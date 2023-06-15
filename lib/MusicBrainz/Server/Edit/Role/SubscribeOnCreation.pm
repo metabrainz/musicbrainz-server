@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Edit::Role::SubscribeOnCreation;
 use MooseX::Role::Parameterized;
+use namespace::autoclean;
 
 parameter editor_subscription_preference => (
     isa => 'CodeRef',

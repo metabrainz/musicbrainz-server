@@ -2,6 +2,7 @@ package MusicBrainz::Server::Edit::Role::EditArtistCredit;
 
 use Data::Compare;
 use Moose::Role;
+use namespace::autoclean;
 use MusicBrainz::Server::Data::Utils qw(
     artist_credit_to_ref
 );
@@ -27,7 +28,6 @@ around initialize => sub {
     $self->$orig(%opts);
 };
 
-no Moose;
 1;
 
 =head1 COPYRIGHT AND LICENSE

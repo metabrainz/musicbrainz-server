@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Entity::Role::Area;
 use Moose::Role;
+use namespace::autoclean;
 use MusicBrainz::Server::Types;
 
 has area_id => (

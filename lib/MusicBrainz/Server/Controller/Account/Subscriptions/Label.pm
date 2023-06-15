@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Controller::Account::Subscriptions::Label;
 use Moose;
+use namespace::autoclean;
 
 BEGIN { extends 'MusicBrainz::Server::Controller' }
 

@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Controller::Admin;
 use Moose;
+use namespace::autoclean;
 use Try::Tiny;
 
 BEGIN { extends 'MusicBrainz::Server::Controller' };

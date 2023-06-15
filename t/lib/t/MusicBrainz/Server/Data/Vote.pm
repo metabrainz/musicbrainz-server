@@ -18,6 +18,7 @@ with 't::Context';
 {
     package t::Vote::MockEdit;
     use Moose;
+    use namespace::autoclean;
     extends 'MusicBrainz::Server::Edit';
     sub edit_type { 4242 }
     sub edit_name { 'mock edit' }

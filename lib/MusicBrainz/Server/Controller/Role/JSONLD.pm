@@ -2,6 +2,7 @@ package MusicBrainz::Server::Controller::Role::JSONLD;
 use JSON qw( encode_json );
 use MooseX::MethodAttributes::Role;
 use MooseX::Role::Parameterized;
+use namespace::autoclean;
 use MusicBrainz::Server::WebService::Serializer::JSON::LD::Utils qw( serialize_entity );
 use aliased 'MusicBrainz::Server::WebService::WebServiceStash';
 

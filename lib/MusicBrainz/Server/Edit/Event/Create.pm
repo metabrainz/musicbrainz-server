@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Edit::Event::Create;
 use Moose;
+use namespace::autoclean;
 
 use MusicBrainz::Server::Constants qw( $EDIT_EVENT_CREATE );
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json );

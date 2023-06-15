@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Entity::Role::Relatable;
 use Moose::Role;
+use namespace::autoclean;
 
 with 'MusicBrainz::Server::Entity::Role::GID';
 with 'MusicBrainz::Server::Entity::Role::LastUpdate';

@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Controller::Role::Create;
 use MooseX::MethodAttributes::Role;
 use MooseX::Role::Parameterized;
+use namespace::autoclean;
 use MusicBrainz::Server::Data::Utils qw( model_to_type );
 use aliased 'MusicBrainz::Server::WebService::JSONSerializer';
 

@@ -9,6 +9,8 @@ use Test::Fatal;
 {
     package t::MusicBrainz::Server::Data::Role::Merge::Impl;
     use Moose;
+    use namespace::autoclean;
+
     with 'MusicBrainz::Server::Data::Role::Merge';
 
     sub _merge_impl {

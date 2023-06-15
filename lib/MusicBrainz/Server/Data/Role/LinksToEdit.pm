@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Data::Role::LinksToEdit;
 use MooseX::Role::Parameterized;
+use namespace::autoclean;
 
 parameter 'table' => (
     isa => 'Str',

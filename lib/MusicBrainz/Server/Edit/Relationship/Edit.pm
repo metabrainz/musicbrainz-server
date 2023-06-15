@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Edit::Relationship::Edit;
 use Moose;
+use namespace::autoclean;
 use Carp;
 use Clone qw( clone );
 use Data::Compare;

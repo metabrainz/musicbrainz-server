@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Edit::Historic::AddLink;
 use Moose;
+use namespace::autoclean;
 
 use MusicBrainz::Server::Edit::Historic::Utils qw( upgrade_date );
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_ADD_LINK );

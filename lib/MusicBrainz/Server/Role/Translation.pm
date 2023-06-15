@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Role::Translation;
 use MooseX::Role::Parameterized;
+use namespace::autoclean;
 use Locale::Messages qw( dgettext dpgettext dngettext );
 use Encode;
 
