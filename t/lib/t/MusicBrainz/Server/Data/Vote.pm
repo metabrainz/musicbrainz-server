@@ -42,21 +42,21 @@ test 'Email on first no vote' => sub {
     my $editor2 = $c->model('Editor')->get_by_id(2);
     my $editor3 = $c->model('Editor')->get_by_id(3);
 
-    $c->model('Vote')->enter_votes($editor2, { edit_id => $edit->id, vote => $VOTE_YES });
+    $c->model('Vote')->enter_votes($editor2, [{ edit_id => $edit->id, vote => $VOTE_YES }]);
     is($email_transport->delivery_count, 0, 'yes vote sends no email');
 
-    $c->model('Vote')->enter_votes($editor2, { edit_id => $edit->id, vote => $VOTE_NO });
+    $c->model('Vote')->enter_votes($editor2, [{ edit_id => $edit->id, vote => $VOTE_NO }]);
     is($email_transport->delivery_count, 1, 'first no vote sends email');
 
-    $c->model('Vote')->enter_votes($editor3, { edit_id => $edit->id, vote => $VOTE_NO });
+    $c->model('Vote')->enter_votes($editor3, [{ edit_id => $edit->id, vote => $VOTE_NO }]);
     is($email_transport->delivery_count, 1, 'second no vote sends no email');
 
-    $c->model('Vote')->enter_votes($editor2, { edit_id => $edit->id, vote => $VOTE_YES });
+    $c->model('Vote')->enter_votes($editor2, [{ edit_id => $edit->id, vote => $VOTE_YES }]);
     is($email_transport->delivery_count, 1, 'yes vote sends no email');
-    $c->model('Vote')->enter_votes($editor3, { edit_id => $edit->id, vote => $VOTE_YES });
+    $c->model('Vote')->enter_votes($editor3, [{ edit_id => $edit->id, vote => $VOTE_YES }]);
     is($email_transport->delivery_count, 1, 'yes vote sends no email');
 
-    $c->model('Vote')->enter_votes($editor2, { edit_id => $edit->id, vote => $VOTE_NO });
+    $c->model('Vote')->enter_votes($editor2, [{ edit_id => $edit->id, vote => $VOTE_NO }]);
     is($email_transport->delivery_count, 2, 'new no vote bringing count from 0 to 1 sends an email');
 };
 
@@ -86,7 +86,7 @@ test 'Extend expiration on first no vote' => sub {
 
     my $editor2 = $c->model('Editor')->get_by_id(2);
 
-    $c->model('Vote')->enter_votes($editor2, { edit_id => $edit->id, vote => $VOTE_NO });
+    $c->model('Vote')->enter_votes($editor2, [{ edit_id => $edit->id, vote => $VOTE_NO }]);
 
     $expire_time = DateTime::Format::Pg->parse_datetime(
         $c->sql->select_single_value('SELECT expire_time FROM edit WHERE id = ?', $edit->id));
@@ -112,10 +112,10 @@ my $editor2 = $test->c->model('Editor')->get_by_id(2);
 my $editor3 = $test->c->model('Editor')->get_by_id(3);
 
 # Test voting on an edit
-$vote_data->enter_votes($editor2, { edit_id => $edit->id, vote => $VOTE_NO });
-$vote_data->enter_votes($editor2, { edit_id => $edit->id, vote => $VOTE_YES });
-$vote_data->enter_votes($editor2, { edit_id => $edit->id, vote => $VOTE_ABSTAIN });
-$vote_data->enter_votes($editor2, { edit_id => $edit->id, vote => $VOTE_YES });
+$vote_data->enter_votes($editor2, [{ edit_id => $edit->id, vote => $VOTE_NO }]);
+$vote_data->enter_votes($editor2, [{ edit_id => $edit->id, vote => $VOTE_YES }]);
+$vote_data->enter_votes($editor2, [{ edit_id => $edit->id, vote => $VOTE_ABSTAIN }]);
+$vote_data->enter_votes($editor2, [{ edit_id => $edit->id, vote => $VOTE_YES }]);
 
 my $email_transport = MusicBrainz::Server::Email->get_test_transport;
 is($email_transport->delivery_count, 1);
@@ -144,7 +144,7 @@ is($edit->votes->[3]->superseded, 0);
 is($edit->votes->[$_]->editor_id, 2) for 0..3;
 
 # Make sure the person who created an edit cannot vote
-$vote_data->enter_votes($editor1, { edit_id => $edit->id, vote => $VOTE_NO });
+$vote_data->enter_votes($editor1, [{ edit_id => $edit->id, vote => $VOTE_NO }]);
 $edit = $test->c->model('Edit')->get_by_id($edit->id);
 $vote_data->load_for_edits($edit);
 is($email_transport->delivery_count, 0);
@@ -158,23 +158,23 @@ $vote_data->load_for_edits($edit);
 is($edit->yes_votes, 1);
 is($edit->no_votes, 0);
 
-$vote_data->enter_votes($editor2, { edit_id => $edit->id, vote => $VOTE_ABSTAIN });
+$vote_data->enter_votes($editor2, [{ edit_id => $edit->id, vote => $VOTE_ABSTAIN }]);
 $edit = $test->c->model('Edit')->get_by_id($edit->id);
 is($edit->yes_votes, 0);
 is($edit->no_votes, 0);
 
 # Make sure *new* no-votes against result in an email being sent
-$vote_data->enter_votes($editor2, { edit_id => $edit->id, vote => $VOTE_NO });
+$vote_data->enter_votes($editor2, [{ edit_id => $edit->id, vote => $VOTE_NO }]);
 is($email_transport->delivery_count, 1, 'no-vote count 0-1 results in email');
 
 # but that ones that just add extra no-votes don't send any
-$vote_data->enter_votes($editor3, { edit_id => $edit->id, vote => $VOTE_NO });
+$vote_data->enter_votes($editor3, [{ edit_id => $edit->id, vote => $VOTE_NO }]);
 is($email_transport->delivery_count, 1, 'no-vote count 1-2 does not result in additional email');
 
 # Entering invalid votes doesn't do anything
 $vote_data->load_for_edits($edit);
 my $old_count = @{ $edit->votes };
-$vote_data->enter_votes($editor2, { edit_id => $edit->id, vote => 123 });
+$vote_data->enter_votes($editor2, [{ edit_id => $edit->id, vote => 123 }]);
 is(@{ $edit->votes }, $old_count, 'vote count should not have changed');
 
 # Check the voting statistics
