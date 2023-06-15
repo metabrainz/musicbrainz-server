@@ -97,7 +97,6 @@ test all => sub {
 
 my $test = shift;
 MusicBrainz::Server::Test->prepare_test_database($test->c, '+vote');
-MusicBrainz::Server::Test->prepare_raw_test_database($test->c, '+vote_stats');
 
 my $vote_data = $test->c->model('Vote');
 
@@ -120,8 +119,9 @@ $vote_data->enter_votes($editor2, [{ edit_id => $edit->id, vote => $VOTE_YES }])
 my $email_transport = MusicBrainz::Server::Email->get_test_transport;
 is($email_transport->delivery_count, 1);
 
+my $edit_id = $edit->id;
 my $email = $email_transport->shift_deliveries->{email};
-is($email->get_header('Subject'), 'Someone has voted against your edit #667', 'Subject explains someone has voted against your edit');
+is($email->get_header('Subject'), "Someone has voted against your edit #$edit_id", 'Subject explains someone has voted against your edit');
 is($email->get_header('References'), sprintf('<edit-%d@%s>', $edit->id, DBDefs->WEB_SERVER_USED_IN_EMAIL), 'References header contains edit id');
 is($email->get_header('To'), '"editor1" <editor1@example.com>', 'To header contains editor email');
 
@@ -176,54 +176,60 @@ $vote_data->load_for_edits($edit);
 my $old_count = @{ $edit->votes };
 $vote_data->enter_votes($editor2, [{ edit_id => $edit->id, vote => 123 }]);
 is(@{ $edit->votes }, $old_count, 'vote count should not have changed');
+};
 
-# Check the voting statistics
-my $stats = $vote_data->editor_statistics($test->c->model('Editor')->get_by_id(1));
-is_deeply($stats, [
-    {
-        name   => 'Yes',
-        recent => {
-            count      => 2,
-            percentage => 50,
-        },
-        all    => {
-            count      => 3,
-            percentage => 60
-        }
-    },
-    {
-        name   => 'No',
-        recent => {
-            count      => 1,
-            percentage => 25,
-        },
-        all    => {
-            count      => 1,
-            percentage => 20
-        }
-    },
-    {
-        name   => 'Abstain',
-        recent => {
-            count      => 1,
-            percentage => 25,
-        },
-        all    => {
-            count      => 1,
-            percentage => 20
-        }
-    },
-    {
-        name   => 'Total',
-        recent => {
-            count      => 4,
-        },
-        all    => {
-            count      => 5,
-        }
-    }
-]);
+test 'Vote statistics for editor' => sub {
+    my $test = shift;
+    my $c = $test->c;
 
+    MusicBrainz::Server::Test->prepare_raw_test_database($c, '+vote_stats');
+
+    my $editor = $c->model('Editor')->get_by_id(1);
+    my $stats = $c->model('Vote')->editor_statistics($editor);
+    is_deeply($stats, [
+        {
+            name   => 'Yes',
+            recent => {
+                count      => 2,
+                percentage => 50,
+            },
+            all    => {
+                count      => 3,
+                percentage => 60
+            }
+        },
+        {
+            name   => 'No',
+            recent => {
+                count      => 1,
+                percentage => 25,
+            },
+            all    => {
+                count      => 1,
+                percentage => 20
+            }
+        },
+        {
+            name   => 'Abstain',
+            recent => {
+                count      => 1,
+                percentage => 25,
+            },
+            all    => {
+                count      => 1,
+                percentage => 20
+            }
+        },
+        {
+            name   => 'Total',
+            recent => {
+                count      => 4,
+            },
+            all    => {
+                count      => 5,
+            }
+        }
+    ]);
 };
 
 1;
