@@ -5,6 +5,7 @@ use warnings;
 use Test::Routine;
 use Test::Moose;
 use Test::More;
+use utf8;
 
 BEGIN { use MusicBrainz::Server::Data::Vote }
 
@@ -126,25 +127,46 @@ test 'Extend expiration on first no vote' => sub {
     );
     my $edit_id = $edit->id;
 
-    $c->sql->do(
-        q(UPDATE edit SET expire_time = NOW() + interval '20 hours' WHERE id = ?),
-        $edit_id
-    );
+    $c->sql->do(<<~'SQL', $edit_id);
+        UPDATE edit
+           SET expire_time = NOW() + interval '20 hours'
+         WHERE id = ?
+        SQL
 
     my $expected_expire_time = DateTime::Format::Pg->parse_datetime(
-        $c->sql->select_single_value(q(SELECT NOW() + interval '72 hours';)));
+        $c->sql->select_single_value(q(SELECT NOW() + interval '72 hours';)),
+    );
     my $expire_time = DateTime::Format::Pg->parse_datetime(
-        $c->sql->select_single_value('SELECT expire_time FROM edit WHERE id = ?', $edit_id));
-    is(DateTime->compare($expire_time, $expected_expire_time), -1,
-                         q(edit's expiration time is less than 72 hours));
+        $c->sql->select_single_value(
+            'SELECT expire_time FROM edit WHERE id = ?',
+            $edit_id,
+        ),
+    );
+    is(
+        DateTime->compare($expire_time, $expected_expire_time),
+        -1,
+        'Edit’s expiration time is less than 72 hours',
+    );
 
     my $editor2 = $c->model('Editor')->get_by_id(2);
 
-    $c->model('Vote')->enter_votes($editor2, [{ edit_id => $edit_id, vote => $VOTE_NO }]);
+    note('We enter a No vote');
+    $c->model('Vote')->enter_votes(
+        $editor2,
+        [{ edit_id => $edit_id, vote => $VOTE_NO }],
+    );
 
     $expire_time = DateTime::Format::Pg->parse_datetime(
-        $c->sql->select_single_value('SELECT expire_time FROM edit WHERE id = ?', $edit_id));
-    is($expire_time, $expected_expire_time, q(edit's expiration was extended by the no vote));
+        $c->sql->select_single_value(
+            'SELECT expire_time FROM edit WHERE id = ?',
+            $edit_id,
+        ),
+    );
+    is(
+        $expire_time,
+        $expected_expire_time,
+        'Edit’s expiration was extended by the no vote',
+    );
 };
 
 test all => sub {
