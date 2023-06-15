@@ -6,6 +6,7 @@ use Test::Routine;
 use Test::Moose;
 use Test::More;
 use Test::Exception;
+use Test::Fatal;
 use utf8;
 
 BEGIN { use MusicBrainz::Server::Data::Gender };
@@ -201,6 +202,7 @@ test 'Adding notes is allowed / blocked in the appropriate cases' => sub {
     my $edit_id = $edit->id;
 
     my $edit_creator = $c->model('Editor')->get_by_id(1);
+    my $unverified = $c->model('Editor')->get_by_id(5);
     my $beginner = $c->model('Editor')->get_by_id(6);
 
     note('We try to enter a note with the editor who entered the edit');
@@ -222,6 +224,17 @@ test 'Adding notes is allowed / blocked in the appropriate cases' => sub {
     $edit = $c->model('Edit')->get_by_id($edit_id);
     $c->model('EditNote')->load_for_edits($edit);
     is(@{ $edit->edit_notes }, 2, 'An edit note was added');
+
+    note('We try to enter a note with an unverified editor');
+    ok exception {
+        $c->model('EditNote')->add_note(
+            $edit_id,
+            { text => 'This is my note!', editor_id => $unverified->id },
+        );
+    }, 'We got an exception';
+    $edit = $c->model('Edit')->get_by_id($edit_id);
+    $c->model('EditNote')->load_for_edits($edit);
+    is(@{ $edit->edit_notes }, 2, 'No note was added');
 };
 
 test 'Can add edit notes in transaction' => sub {

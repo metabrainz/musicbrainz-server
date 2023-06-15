@@ -893,11 +893,8 @@ sub insert_votes_and_notes {
     Sql::run_in_transaction(sub {
         $self->c->model('Vote')->enter_votes($editor, \@votes);
 
-        my $edits = $self->get_by_ids(map { $_->{edit_id} } @notes);
         for my $note (@notes) {
             my $edit_id = $note->{edit_id};
-            my $edit = $edits->{$edit_id};
-            next unless defined $edit && $edit->editor_may_add_note($editor);
             $self->c->model('EditNote')->add_note(
                 $edit_id,
                 {
