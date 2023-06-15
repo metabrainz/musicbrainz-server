@@ -89,16 +89,17 @@ test 'Adding edit notes works and sends emails' => sub {
     my $editor2 = $c->model('Editor')->get_by_id(2);
 
     my $edit = $c->model('Edit')->get_by_id(3);
+    my $edit_id = $edit->id;
 
     # We make editor2 vote so they will receive mail too on an edit note
     $c->model('Vote')->enter_votes(
         $editor2,
-        [{ edit_id => $edit->id, vote => 1 }],
+        [{ edit_id => $edit_id, vote => 1 }],
     );
 
     note('editor3 enters a note');
     $c->model('EditNote')->add_note(
-        $edit->id,
+        $edit_id,
         { text => 'This is my note!', editor_id => 3 },
     );
 
@@ -124,7 +125,7 @@ test 'Adding edit notes works and sends emails' => sub {
     note('Checking email sent to editor1 (edit creator)');
     is(
         $email->get_header('Subject'),
-        'Note added to your edit #' . $edit->id,
+        'Note added to your edit #' . $edit_id,
         'Subject explains a note was added to edit',
     );
     is(
@@ -135,7 +136,7 @@ test 'Adding edit notes works and sends emails' => sub {
     my $email_body = $email->object->body_str;
     like(
         $email_body,
-        qr{$server/edit/${\ $edit->id }},
+        qr{$server/edit/$edit_id},
         'Email body contains edit url',
     );
     like(
@@ -145,7 +146,7 @@ test 'Adding edit notes works and sends emails' => sub {
     );
     like(
         $email_body,
-        qr{to your edit #${\ $edit->id }},
+        qr{to your edit #$edit_id},
         'Email body mentions "your edit #"',
     );
     like(
@@ -157,7 +158,7 @@ test 'Adding edit notes works and sends emails' => sub {
     note('Checking email sent to editor2 (voter)');
     is(
         $email2->get_header('Subject'),
-        'Note added to edit #' . $edit->id,
+        'Note added to edit #' . $edit_id,
         'Subject explains a note was added to edit',
     );
     is(
@@ -168,7 +169,7 @@ test 'Adding edit notes works and sends emails' => sub {
     my $email2_body = $email2->object->body_str;
     like(
         $email2_body,
-        qr{$server/edit/${\ $edit->id }},
+        qr{$server/edit/$edit_id},
         'Email body contains edit url',
     );
     like(
@@ -178,7 +179,7 @@ test 'Adding edit notes works and sends emails' => sub {
     );
     like(
         $email2_body,
-        qr{to edit #${\ $edit->id }},
+        qr{to edit #$edit_id},
         'Email body mentions "edit #" (not "your edit")',
     );
     like(
