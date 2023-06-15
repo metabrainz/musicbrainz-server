@@ -30,9 +30,9 @@ test 'Email on first no vote' => sub {
     my $test = shift;
     my $c = $test->c;
 
-    MusicBrainz::Server::Test->prepare_test_database($test->c, '+vote');
+    MusicBrainz::Server::Test->prepare_test_database($c, '+vote');
 
-    my $edit = $test->c->model('Edit')->create(
+    my $edit = $c->model('Edit')->create(
         editor_id => 1,
         edit_type => 4242,
         foo => 'bar',
@@ -64,9 +64,9 @@ test 'Extend expiration on first no vote' => sub {
     my $test = shift;
     my $c = $test->c;
 
-    MusicBrainz::Server::Test->prepare_test_database($test->c, '+vote');
+    MusicBrainz::Server::Test->prepare_test_database($c, '+vote');
 
-    my $edit = $test->c->model('Edit')->create(
+    my $edit = $c->model('Edit')->create(
         editor_id => 1,
         edit_type => 4242,
         foo => 'bar',
@@ -96,19 +96,21 @@ test 'Extend expiration on first no vote' => sub {
 test all => sub {
 
 my $test = shift;
-MusicBrainz::Server::Test->prepare_test_database($test->c, '+vote');
+my $c = $test->c;
 
-my $vote_data = $test->c->model('Vote');
+MusicBrainz::Server::Test->prepare_test_database($c, '+vote');
 
-my $edit = $test->c->model('Edit')->create(
+my $vote_data = $c->model('Vote');
+
+my $edit = $c->model('Edit')->create(
     editor_id => 1,
     edit_type => 4242,
     foo => 'bar',
 );
 
-my $editor1 = $test->c->model('Editor')->get_by_id(1);
-my $editor2 = $test->c->model('Editor')->get_by_id(2);
-my $editor3 = $test->c->model('Editor')->get_by_id(3);
+my $editor1 = $c->model('Editor')->get_by_id(1);
+my $editor2 = $c->model('Editor')->get_by_id(2);
+my $editor3 = $c->model('Editor')->get_by_id(3);
 
 # Test voting on an edit
 $vote_data->enter_votes($editor2, [{ edit_id => $edit->id, vote => $VOTE_NO }]);
@@ -130,7 +132,7 @@ my $email_body = $email->object->body_str;
 like($email_body, qr{https://$server/edit/${\ $edit->id }}, 'body contains link to edit');
 like($email_body, qr{'editor2'}, 'body mentions editor2');
 
-$edit = $test->c->model('Edit')->get_by_id($edit->id);
+$edit = $c->model('Edit')->get_by_id($edit->id);
 $vote_data->load_for_edits($edit);
 
 is(scalar @{ $edit->votes }, 4);
@@ -145,7 +147,7 @@ is($edit->votes->[$_]->editor_id, 2) for 0..3;
 
 # Make sure the person who created an edit cannot vote
 $vote_data->enter_votes($editor1, [{ edit_id => $edit->id, vote => $VOTE_NO }]);
-$edit = $test->c->model('Edit')->get_by_id($edit->id);
+$edit = $c->model('Edit')->get_by_id($edit->id);
 $vote_data->load_for_edits($edit);
 is($email_transport->delivery_count, 0);
 
@@ -153,13 +155,13 @@ is(scalar @{ $edit->votes }, 4);
 is($edit->votes->[$_]->editor_id, 2) for 0..3;
 
 # Check the vote counts
-$edit = $test->c->model('Edit')->get_by_id($edit->id);
+$edit = $c->model('Edit')->get_by_id($edit->id);
 $vote_data->load_for_edits($edit);
 is($edit->yes_votes, 1);
 is($edit->no_votes, 0);
 
 $vote_data->enter_votes($editor2, [{ edit_id => $edit->id, vote => $VOTE_ABSTAIN }]);
-$edit = $test->c->model('Edit')->get_by_id($edit->id);
+$edit = $c->model('Edit')->get_by_id($edit->id);
 is($edit->yes_votes, 0);
 is($edit->no_votes, 0);
 
