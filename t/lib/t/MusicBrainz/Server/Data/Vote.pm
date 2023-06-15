@@ -33,8 +33,6 @@ test 'Basic voting behaviour' => sub {
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+vote');
 
-    my $vote_data = $c->model('Vote');
-
     my $edit = $c->model('Edit')->create(
         editor_id => 1,
         edit_type => 4242,
@@ -45,25 +43,25 @@ test 'Basic voting behaviour' => sub {
     my $editor2 = $c->model('Editor')->get_by_id(2);
 
     note('editor2 enters 4 votes: No -> Yes -> Abstain -> Yes');
-    $vote_data->enter_votes(
+    $c->model('Vote')->enter_votes(
         $editor2,
         [{ edit_id => $edit_id, vote => $VOTE_NO }],
     );
-    $vote_data->enter_votes(
+    $c->model('Vote')->enter_votes(
         $editor2,
         [{ edit_id => $edit_id, vote => $VOTE_YES }],
     );
-    $vote_data->enter_votes(
+    $c->model('Vote')->enter_votes(
         $editor2,
         [{ edit_id => $edit_id, vote => $VOTE_ABSTAIN }],
     );
-    $vote_data->enter_votes(
+    $c->model('Vote')->enter_votes(
         $editor2,
         [{ edit_id => $edit_id, vote => $VOTE_YES }],
     );
 
     $edit = $c->model('Edit')->get_by_id($edit_id);
-    $vote_data->load_for_edits($edit);
+    $c->model('Vote')->load_for_edits($edit);
 
     is(scalar @{ $edit->votes }, 4, 'There are 4 votes on the edit');
     is($edit->votes->[0]->vote, $VOTE_NO, 'Vote 1 is a No');
@@ -90,12 +88,12 @@ test 'Basic voting behaviour' => sub {
 
     # Check the vote counts
     $edit = $c->model('Edit')->get_by_id($edit_id);
-    $vote_data->load_for_edits($edit);
+    $c->model('Vote')->load_for_edits($edit);
     is($edit->yes_votes, 1, 'There is 1 Yes vote');
     is($edit->no_votes, 0, 'There are 0 No votes');
 
     note('editor2 now abstains again');
-    $vote_data->enter_votes(
+    $c->model('Vote')->enter_votes(
         $editor2,
         [{ edit_id => $edit_id, vote => $VOTE_ABSTAIN }],
     );

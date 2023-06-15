@@ -35,13 +35,9 @@ test 'Loading existing notes' => sub {
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+edit_note');
 
-    my $edit_data = MusicBrainz::Server::Data::Edit->new(c => $test->c);
-    my $en_data = MusicBrainz::Server::Data::EditNote->new(c => $test->c);
-    my $editor_data = MusicBrainz::Server::Data::Editor->new(c => $test->c);
-
     note('Check edit that should have two notes');
-    my $edit = $edit_data->get_by_id(1);
-    $en_data->load_for_edits($edit);
+    my $edit = $c->model('Edit')->get_by_id(1);
+    $c->model('EditNote')->load_for_edits($edit);
     is(@{ $edit->edit_notes }, 2, 'Edit has two edit notes');
     check_note(
         $edit->edit_notes->[0],
@@ -65,8 +61,8 @@ test 'Loading existing notes' => sub {
 
 
     note('Check edit that should have one note');
-    $edit = $edit_data->get_by_id(2);
-    $en_data->load_for_edits($edit);
+    $edit = $c->model('Edit')->get_by_id(2);
+    $c->model('EditNote')->load_for_edits($edit);
     is(@{ $edit->edit_notes }, 1, 'Edit has one edit note');
     check_note(
         $edit->edit_notes->[0],
@@ -79,31 +75,28 @@ test 'Loading existing notes' => sub {
     );
 
     note('Check edit that should have zero notes');
-    $edit = $edit_data->get_by_id(3);
-    $en_data->load_for_edits($edit);
+    $edit = $c->model('Edit')->get_by_id(3);
+    $c->model('EditNote')->load_for_edits($edit);
     is(@{ $edit->edit_notes }, 0, 'Edit has no edit notes');
 };
 
 test 'Adding edit notes' => sub {
     my $test = shift;
+    my $c = $test->c;
+
     MusicBrainz::Server::Test->prepare_test_database($test->c, '+edit_note');
 
-    my $edit_data = MusicBrainz::Server::Data::Edit->new(c => $test->c);
-    my $en_data = MusicBrainz::Server::Data::EditNote->new(c => $test->c);
-    my $editor_data = MusicBrainz::Server::Data::Editor->new(c => $test->c);
+    my $editor2 = $c->model('Editor')->get_by_id(2);
 
-    my $editor2 = $editor_data->get_by_id(2);
-
-    my $edit = $edit_data->get_by_id(3);
+    my $edit = $c->model('Edit')->get_by_id(3);
 
     # Insert a new edit note
-    $en_data->insert($edit->id, {
+    $c->model('EditNote')->insert($edit->id, {
             editor_id => 3,
             text => 'This is a new edit note',
         });
 
-
-    $en_data->load_for_edits($edit);
+    $c->model('EditNote')->load_for_edits($edit);
     is(@{ $edit->edit_notes }, 1, 'Edit has one edit note');
     check_note($edit->edit_notes->[0], 'MusicBrainz::Server::Entity::EditNote',
             editor_id => 3,
@@ -113,7 +106,7 @@ test 'Adding edit notes' => sub {
     # Make sure we can insert edit notes while already in a transaction
     $test->c->sql->begin;
     lives_ok {
-        $en_data->insert($edit->id, {
+        $c->model('EditNote')->insert($edit->id, {
                 editor_id => 3,
                 text => 'Note' })
     } q(Edit notes don't die while in a transaction already);
@@ -122,7 +115,7 @@ test 'Adding edit notes' => sub {
     # Test adding edit notes with email sending
     $test->c->model('Vote')->enter_votes($editor2, [{ edit_id => $edit->id, vote => 1 }]);
 
-    $en_data->add_note($edit->id, { text => 'This is my note!', editor_id => 3 });
+    $c->model('EditNote')->add_note($edit->id, { text => 'This is my note!', editor_id => 3 });
 
     my $server = 'https://' . DBDefs->WEB_SERVER_USED_IN_EMAIL;
     my $email_transport = MusicBrainz::Server::Email->get_test_transport;
@@ -150,16 +143,15 @@ test 'Adding edit notes' => sub {
 
 test 'delete_content' => sub {
     my $test = shift;
+    my $c = $test->c;
+
     MusicBrainz::Server::Test->prepare_test_database($test->c, '+edit_note');
 
-    my $edit_data = MusicBrainz::Server::Data::Edit->new(c => $test->c);
-    my $en_data = MusicBrainz::Server::Data::EditNote->new(c => $test->c);
-
     note('We remove the first edit note for edit #1');
-    $en_data->delete_content(1, 1, 'Wrong URL');
+    $c->model('EditNote')->delete_content(1, 1, 'Wrong URL');
 
-    my $edit = $edit_data->get_by_id(1);
-    $en_data->load_for_edits($edit);
+    my $edit = $c->model('Edit')->get_by_id(1);
+    $c->model('EditNote')->load_for_edits($edit);
 
     is(@{ $edit->edit_notes }, 2, 'The edit still has two edit notes');
     is(
@@ -190,16 +182,15 @@ test 'delete_content' => sub {
 
 test 'modify_content' => sub {
     my $test = shift;
+    my $c = $test->c;
+
     MusicBrainz::Server::Test->prepare_test_database($test->c, '+edit_note');
 
-    my $edit_data = MusicBrainz::Server::Data::Edit->new(c => $test->c);
-    my $en_data = MusicBrainz::Server::Data::EditNote->new(c => $test->c);
-
     note('We modify the note text for the first edit note for edit #1');
-    $en_data->modify_content(1, 1, 'Platypus', 'Best animal');
+    $c->model('EditNote')->modify_content(1, 1, 'Platypus', 'Best animal');
 
-    my $edit = $edit_data->get_by_id(1);
-    $en_data->load_for_edits($edit);
+    my $edit = $c->model('Edit')->get_by_id(1);
+    $c->model('EditNote')->load_for_edits($edit);
 
     is(@{ $edit->edit_notes }, 2, 'The edit still has two edit notes');
     is(
