@@ -189,6 +189,39 @@ test 'Adding edit notes works and sends emails' => sub {
     );
 };
 
+test 'Adding notes is allowed / blocked in the appropriate cases' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_note');
+
+    my $edit = $c->model('Edit')->get_by_id(3);
+    my $edit_id = $edit->id;
+
+    my $edit_creator = $c->model('Editor')->get_by_id(1);
+    my $beginner = $c->model('Editor')->get_by_id(6);
+
+    note('We try to enter a note with the editor who entered the edit');
+    $c->model('EditNote')->add_note(
+        $edit_id,
+        { text => 'This is my note!', editor_id => $edit_creator->id },
+    );
+
+    $edit = $c->model('Edit')->get_by_id($edit_id);
+    $c->model('EditNote')->load_for_edits($edit);
+    is(@{ $edit->edit_notes }, 1, 'An edit note was added');
+
+    note('We try to enter a note with a beginner editor');
+    $c->model('EditNote')->add_note(
+        $edit_id,
+        { text => 'This is my note!', editor_id => $beginner->id },
+    );
+
+    $edit = $c->model('Edit')->get_by_id($edit_id);
+    $c->model('EditNote')->load_for_edits($edit);
+    is(@{ $edit->edit_notes }, 2, 'An edit note was added');
+};
+
 test 'Can add edit notes in transaction' => sub {
     my $test = shift;
     my $c = $test->c;
