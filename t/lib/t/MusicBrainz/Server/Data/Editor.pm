@@ -555,7 +555,7 @@ test 'Searching editor by email (for admin only)' => sub {
     is(@$editors[1]->id => 2, 'is editor #2');
 
     diag('Bounded search with trimmed user info and escaped host name (ALL CAPS)');
-    my ($editors, $hits) = $editor_data->search_by_email('^ABC@F\.G\.H$');
+    ($editors, $hits) = $editor_data->search_by_email('^ABC@F\.G\.H$');
     is($hits => 2, 'found 2 editors');
     is(@$editors[0]->id => 1, 'is editor #1');
     is(@$editors[1]->id => 2, 'is editor #2');
