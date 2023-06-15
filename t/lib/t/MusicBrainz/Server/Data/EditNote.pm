@@ -81,23 +81,26 @@ test 'Loading existing notes' => sub {
     is(@{ $edit->edit_notes }, 0, 'Edit has no edit notes');
 };
 
-test 'Adding edit notes' => sub {
+test 'Adding edit notes works and sends emails' => sub {
     my $test = shift;
     my $c = $test->c;
 
-    MusicBrainz::Server::Test->prepare_test_database($test->c, '+edit_note');
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_note');
 
     my $editor2 = $c->model('Editor')->get_by_id(2);
 
     my $edit = $c->model('Edit')->get_by_id(3);
 
-    # Insert a new edit note
-    $c->model('EditNote')->insert(
+    # We make editor2 vote so they will receive mail too on an edit note
+    $c->model('Vote')->enter_votes(
+        $editor2,
+        [{ edit_id => $edit->id, vote => 1 }],
+    );
+
+    note('editor3 enters a note');
+    $c->model('EditNote')->add_note(
         $edit->id,
-        {
-            editor_id => 3,
-            text => 'This is a new edit note',
-        },
+        { text => 'This is my note!', editor_id => 3 },
     );
 
     $c->model('EditNote')->load_for_edits($edit);
@@ -108,19 +111,8 @@ test 'Adding edit notes' => sub {
         (
             editor_id => 3,
             edit_id => 3,
-            text => 'This is a new edit note',
+            text => 'This is my note!',
         ),
-    );
-
-    # Test adding edit notes with email sending
-    $c->model('Vote')->enter_votes(
-        $editor2,
-        [{ edit_id => $edit->id, vote => 1 }],
-    );
-
-    $c->model('EditNote')->add_note(
-        $edit->id,
-        { text => 'This is my note!', editor_id => 3 },
     );
 
     my $server = 'https://' . DBDefs->WEB_SERVER_USED_IN_EMAIL;
@@ -130,6 +122,7 @@ test 'Adding edit notes' => sub {
     my $email2 = $email_transport->shift_deliveries->{email};
     my $email = $email_transport->shift_deliveries->{email};
 
+    note('Checking email sent to editor1 (edit creator)');
     is(
         $email->get_header('Subject'),
         'Note added to your edit #' . $edit->id,
@@ -149,7 +142,7 @@ test 'Adding edit notes' => sub {
     like(
         $email_body,
         qr{'editor3' has added},
-        'Email body mentions editor3',
+        'Email body mentions editor3 (note adder)',
     );
     like(
         $email_body,
@@ -162,6 +155,7 @@ test 'Adding edit notes' => sub {
         'Email body has correct edit note text',
     );
 
+    note('Checking email sent to editor2 (voter)');
     is(
         $email2->get_header('Subject'),
         'Note added to edit #' . $edit->id,
@@ -181,12 +175,12 @@ test 'Adding edit notes' => sub {
     like(
         $email2_body,
         qr{'editor3' has added},
-        'Email body mentions editor3',
+        'Email body mentions editor3 (note adder)',
     );
     like(
         $email2_body,
         qr{to edit #${\ $edit->id }},
-        'Email body mentions "edit #"',
+        'Email body mentions "edit #" (not "your edit")',
     );
     like(
         $email2_body,
