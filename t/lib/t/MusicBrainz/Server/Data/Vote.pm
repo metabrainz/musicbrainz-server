@@ -11,7 +11,7 @@ BEGIN { use MusicBrainz::Server::Data::Vote }
 
 use MusicBrainz::Server::Email;
 use MusicBrainz::Server::Constants qw( :vote );
-use MusicBrainz::Server::Test;
+use MusicBrainz::Server::Test qw( accept_edit );
 use DateTime;
 
 with 't::Context';
@@ -261,6 +261,8 @@ test 'Voting is blocked in the appropriate cases' => sub {
 
     my $edit_creator = $c->model('Editor')->get_by_id(1);
     my $normal_voter = $c->model('Editor')->get_by_id(2);
+    my $unverified = $c->model('Editor')->get_by_id(5);
+    my $beginner = $c->model('Editor')->get_by_id(6);
 
     my $email_transport = MusicBrainz::Server::Email->get_test_transport;
 
@@ -289,6 +291,55 @@ test 'Voting is blocked in the appropriate cases' => sub {
         [{ edit_id => $edit_id, vote => 123 }],
     );
     $edit = $c->model('Edit')->get_by_id($edit_id);
+    is(scalar @{ $edit->votes }, 0, 'The vote count is still 0');
+    is($edit->yes_votes, 0, 'There are still 0 Yes votes');
+    is($edit->no_votes, 0, 'There are still 0 No votes');
+
+    note('We try to enter a No vote with a beginner editor');
+    $c->model('Vote')->load_for_edits($edit);
+    $c->model('Vote')->enter_votes(
+        $beginner,
+        [{ edit_id => $edit_id, vote => $VOTE_NO }],
+    );
+    $edit = $c->model('Edit')->get_by_id($edit_id);
+    is(
+        $email_transport->delivery_count,
+        0,
+        'The forbidden No vote did not trigger an email',
+    );
+    is(scalar @{ $edit->votes }, 0, 'The vote count is still 0');
+    is($edit->yes_votes, 0, 'There are still 0 Yes votes');
+    is($edit->no_votes, 0, 'There are still 0 No votes');
+
+    note('We try to enter a No vote with an unverified editor');
+    $c->model('Vote')->load_for_edits($edit);
+    $c->model('Vote')->enter_votes(
+        $unverified,
+        [{ edit_id => $edit_id, vote => $VOTE_NO }],
+    );
+    $edit = $c->model('Edit')->get_by_id($edit_id);
+    is(
+        $email_transport->delivery_count,
+        0,
+        'The forbidden No vote did not trigger an email',
+    );
+    is(scalar @{ $edit->votes }, 0, 'The vote count is still 0');
+    is($edit->yes_votes, 0, 'There are still 0 Yes votes');
+    is($edit->no_votes, 0, 'There are still 0 No votes');
+
+    note('We try to enter a No vote with a valid voter after expiration');
+    accept_edit($c, $edit);
+    $c->model('Vote')->load_for_edits($edit);
+    $c->model('Vote')->enter_votes(
+        $normal_voter,
+        [{ edit_id => $edit_id, vote => $VOTE_NO }],
+    );
+    $edit = $c->model('Edit')->get_by_id($edit_id);
+    is(
+        $email_transport->delivery_count,
+        0,
+        'The forbidden No vote did not trigger an email',
+    );
     is(scalar @{ $edit->votes }, 0, 'The vote count is still 0');
     is($edit->yes_votes, 0, 'There are still 0 Yes votes');
     is($edit->no_votes, 0, 'There are still 0 No votes');
