@@ -46,7 +46,7 @@ sub process {
   my $self = shift;
 
   my $template = $_[0];
-  if (UNIVERSAL::isa($template, 'Template::Document')) {
+  if ($template->isa('Template::Document')) {
     $template = $template->name || $template;
   }
 

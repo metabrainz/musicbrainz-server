@@ -66,7 +66,7 @@ sub _bind_domain
     # Otherwise the same. This is so we can use Locale::TextDomain's
     # search and textdomain binding code without using its crazy way
     # of determining which domain to use for a given string.
-    my @search_dirs = map $_ . '/LocaleData', @INC;
+    my @search_dirs = map { $_ . '/LocaleData' } @INC;
     my $found_dir = '';
 
     TRYDIR: foreach my $dir (map { abs_path $_ } grep { -d $_ } @search_dirs) {

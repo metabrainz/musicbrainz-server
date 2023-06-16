@@ -31,29 +31,33 @@ sub show : Chained('load') PathPart('')
 {
     my ($self, $c) = @_;
     my $artist_credit = $c->stash->{artist_credit};
+    my %credited_entities;
+
+    for my $entity_type (entities_with('artist_credits')) {
+        my $model = type_to_model($entity_type);
+        my ($entities, $total) = $c->model($model)->find_by_artist_credit(
+            $artist_credit->id, 10, 0
+        );
+
+        $credited_entities{$entity_type} = {
+            count => $total,
+            entities => to_json_array($entities),
+        };
+    }
+
     $c->stash(
         current_view => 'Node',
         component_path => 'artist_credit/ArtistCreditIndex',
         component_props => {
             %{$c->stash->{component_props}},
             artistCredit => $artist_credit->TO_JSON,
-            creditedEntities => {
-                map {
-                    my ($entities, $total) = $c->model(type_to_model($_))->find_by_artist_credit($artist_credit->id, 10, 0);
-
-                    ("$_" => {
-                        count => $total,
-                        entities => to_json_array($entities),
-                    })
-                } entities_with('artist_credits')
-            },
+            creditedEntities => \%credited_entities,
         },
 
     );
 }
 
-map {
-    my $entity_type = $_;
+for my $entity_type (entities_with('artist_credits')) {
     my $entity_properties = $ENTITIES{$entity_type};
     my $url = $entity_properties->{url};
 
@@ -80,9 +84,9 @@ map {
         );
     };
 
-    find_meta(__PACKAGE__)->add_method($_ => $method);
+    find_meta(__PACKAGE__)->add_method($entity_type => $method);
     find_meta(__PACKAGE__)->register_method_attributes($method, [q{Chained('load')}, "PathPart('$url')"]);
-} entities_with('artist_credits');
+}
 
 1;
 

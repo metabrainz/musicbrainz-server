@@ -59,7 +59,7 @@ sub parse_tags {
     my ($input) = @_;
 
     # make sure the list contains only unique tags
-    uniq grep { $_ } map { lc trim $_ } split q(,), $input;
+    uniq grep { $_ } map { lc trim $_ } split /,/, $input;
 }
 
 sub _vote_on_tags {

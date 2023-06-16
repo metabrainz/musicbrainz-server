@@ -107,8 +107,7 @@ sub show : Chained('load') PathPart('')
     );
 }
 
-map {
-    my $entity_type = $_;
+for my $entity_type (entities_with('tags')) {
     my $entity_properties = $ENTITIES{$entity_type};
     my $url = $entity_properties->{url};
 
@@ -138,9 +137,9 @@ map {
         );
     };
 
-    find_meta(__PACKAGE__)->add_method($_ => $method);
+    find_meta(__PACKAGE__)->add_method($entity_type => $method);
     find_meta(__PACKAGE__)->register_method_attributes($method, [q{Chained('load')}, "PathPart('$url')"]);
-} entities_with('tags');
+}
 
 sub not_found : Private
 {

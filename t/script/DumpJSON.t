@@ -120,7 +120,7 @@ test all => sub {
         chomp $expected;
         my $got = read_file(
             File::Spec->catfile($entity_dir, 'mbdump', $entity));
-        $got = [map { $json->decode($_) } split "\n", $got];
+        $got = [map { $json->decode($_) } split /\n/, $got];
         cmp_bag($got, $expected);
 
         $got = read_file(
