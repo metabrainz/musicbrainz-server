@@ -113,6 +113,8 @@ export default {
   'edit/OpenEdits': (): Promise<mixed> => import('../edit/OpenEdits.js'),
   'edit/SubscribedEditorEdits': (): Promise<mixed> => import('../edit/SubscribedEditorEdits.js'),
   'edit/SubscribedEdits': (): Promise<mixed> => import('../edit/SubscribedEdits.js'),
+  'edit_note/EditNoteChange': (): Promise<mixed> => import('../edit_note/EditNoteChange.js'),
+  'edit_note/EditNoteHistory': (): Promise<mixed> => import('../edit_note/EditNoteHistory.js'),
   'elections/Index': (): Promise<mixed> => import('../elections/Index.js'),
   'elections/Nominate': (): Promise<mixed> => import('../elections/Nominate.js'),
   'elections/Show': (): Promise<mixed> => import('../elections/Show.js'),

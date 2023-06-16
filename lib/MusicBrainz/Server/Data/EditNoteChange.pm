@@ -14,7 +14,7 @@ sub _table
 sub _columns
 {
     return 'id, edit_note AS edit_note_id, change_editor AS editor_id, ' .
-        'change_time, status, reason';
+        'change_time, status, reason, old_note, new_note';
 }
 
 sub _entity_class
@@ -44,6 +44,16 @@ sub load_latest
         my $edit_note_change = $changes{ $edit_note->id } or next;
         $edit_note->latest_change($edit_note_change);
     }
+}
+
+sub get_history
+{
+    my ($self, $id, $limit, $offset) = @_;
+    my $query = 'SELECT ' . $self->_columns .
+                ' FROM ' . $self->_table .
+                ' WHERE edit_note = ?' .
+                ' ORDER BY change_time DESC';
+    $self->query_to_list_limited($query, [$id], $limit, $offset);
 }
 
 no Moose;
