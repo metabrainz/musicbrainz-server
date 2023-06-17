@@ -208,6 +208,8 @@ Images:
 
     icons/add_row.png
     icons/delete_row.png
+    icons/open_edits_for_entity.png
+    icons/open_edits_for_rel.png
 
     (original .svg versions are in src/icons/*.svg)
 
