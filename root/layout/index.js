@@ -102,7 +102,15 @@ const AnniversaryBanner = () => {
   return null;
 };
 
-const ServerDetailsBanner = () => {
+const ServerDetailsBanner = ({url}: {url: string}) => {
+  const returnUrl = new URL(url);
+  returnUrl.port = ''; // won't unset it itself when setting host
+  returnUrl.host = nonEmpty(DBDefs.BETA_REDIRECT_HOSTNAME)
+    ? DBDefs.BETA_REDIRECT_HOSTNAME
+    : 'musicbrainz.org';
+  if (DBDefs.IS_BETA) {
+    returnUrl.searchParams.append('unset_beta', '1');
+  }
   if (DBDefs.DB_STAGING_SERVER) {
     let description = DBDefs.DB_STAGING_SERVER_DESCRIPTION;
     if (!description) {
@@ -123,10 +131,7 @@ const ServerDetailsBanner = () => {
           {exp.l(
             '{uri|Return to musicbrainz.org}.',
             {
-              uri: '//musicbrainz.org' + (
-                DBDefs.BETA_REDIRECT_HOSTNAME === 'musicbrainz.org'
-                  ? '?unset_beta=1'
-                  : ''),
+              uri: returnUrl.toString(),
             },
           )}
         </p>
@@ -229,7 +234,7 @@ const Layout = ({
 
         {getRequestCookie($c.req, 'server_details_dismissed_mtime')
           ? null
-          : <ServerDetailsBanner />}
+          : <ServerDetailsBanner url={$c.req.uri} />}
 
         {showAlert ? (
           <div className="banner warning-header">

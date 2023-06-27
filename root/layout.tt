@@ -43,8 +43,7 @@
                             END
                         =%]
                         [%= l('{uri|Return to musicbrainz.org}.',
-                              { uri => c.req.uri.replace('//.*?/','//musicbrainz.org/') _
-                                       (server_details.beta_redirect == 'musicbrainz.org' ? '?unset_beta=1' : '' ) }) ~%]
+                              { uri => main_server_url }) ~%]
                     </p>
                     [% dismiss_banner_button('server_details') %]
                 </div>
