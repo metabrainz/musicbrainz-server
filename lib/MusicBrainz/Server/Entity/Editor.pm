@@ -108,6 +108,7 @@ sub may_vote {
     my $self = shift;
 
     return $self->has_confirmed_email_address &&
+           !$self->is_limited &&
            !$self->is_bot &&
            $self->is_editing_enabled;
 }

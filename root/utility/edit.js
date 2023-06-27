@@ -187,6 +187,7 @@ export function editorMayVote(
 ): boolean {
   return (
     !!editor &&
+    !editor.is_limited &&
     nonEmpty(editor.email_confirmation_date) &&
     !isBot(editor) &&
     isEditingEnabled(editor)
