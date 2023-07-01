@@ -117,7 +117,7 @@ test 'previewing/creating/editing a release group and release' => sub {
     like($html, qr/Vision Creation Newsun/, 'preview has release name');
     like($html, qr/limited edition/, 'preview has release comment');
     like($html, qr/4943674011582/, 'preview has barcode');
-    like($html, qr/No linguistic content/, 'preview has language');
+    like($html, qr/\[No linguistic content\]/, 'preview has language');
     like($html, qr/Symbols/, 'preview has script');
     like($html, qr/Official/, 'preview has release status');
     like($html, qr/1999-10-27/, 'preview has release date');
