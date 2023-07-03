@@ -113,6 +113,7 @@ const lowerCaseBracketWordsList = [
   'outtakes',
   'quadraphonic',
   'reedit',
+  're_edit',
   'reinterpreted',
   'remake',
   'remix',

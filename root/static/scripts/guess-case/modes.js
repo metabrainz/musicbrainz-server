@@ -65,6 +65,7 @@ const PREPROCESS_FIXLIST = [
    */
   [/(\b|^)a\s?c+ap+el+a(\b)/i, 'a_cappella'], // A Capella preprocess
   [/(\b|^)oc\sremix(\b)/i,     'oc_remix'],   // OC ReMix preprocess
+  [/(\b|^)re-edit(\b)/ig,      're_edit'],    // re-edit preprocess
   [/(\b|^)a\/k\/a(\b)/ig,      'a_k_a_'],     // a.k.a. preprocess
   [/(\b|^)a\.k\.a\.(\s)/ig,    'a_k_a_'],
 ];
@@ -74,7 +75,8 @@ const POSTPROCESS_FIXLIST = [
   [/(\b|^)a_cappella(\b)/, 'a cappella'], // a_cappella inside brackets
   [/(\b|^)A_cappella(\b)/, 'A Cappella'], // a_cappella outside brackets
   [/(\b|^)oc_remix(\b)/i,  'OC ReMix'],   // oc_remix
-  [/(\b|^)Re_edit(\b)/,    're-edit'],    // re_edit inside brackets
+  [/(\b|^)re_edit(\b)/g,   're-edit'],    // re_edit inside brackets
+  [/(\b|^)Re_edit(\b)/g,   'Re-Edit'],    // re_edit outside brackets
   [/(\b|^)a_k_a_(\b|$)/ig, 'a.k.a.'],     // a.k.a. lowercase
   [/(\b|^)aka(\b|$)/ig,    'aka'],        // aka lowercase
 

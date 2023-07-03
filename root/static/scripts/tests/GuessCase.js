@@ -413,7 +413,7 @@ test('Work', function (t) {
 });
 
 test('BugFixes', function (t) {
-  t.plan(36);
+  t.plan(38);
 
   const tests = [
     {
@@ -630,6 +630,18 @@ test('BugFixes', function (t) {
       input: 'The Best Song (8-Bit Loop Version)',
       expected: 'The Best Song (8-bit loop version)',
       bug: 'MBS-12779',
+      mode: 'English',
+    },
+    {
+      input: 'The Best Re-Edit (Someone Famous Re-Edit)',
+      expected: 'The Best Re-Edit (Someone Famous re-edit)',
+      bug: 'MBS-13153',
+      mode: 'English',
+    },
+    {
+      input: 'The Best Re-Edit',
+      expected: 'The Best (re-edit)',
+      bug: 'MBS-13153',
       mode: 'English',
     },
     /*
