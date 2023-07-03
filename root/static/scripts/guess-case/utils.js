@@ -116,6 +116,8 @@ const lowerCaseBracketWordsList = [
   're_edit',
   'reinterpreted',
   'remake',
+  'remaster',
+  'remastered',
   'remix',
   'rmx',
   'reprise',
