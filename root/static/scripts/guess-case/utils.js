@@ -114,6 +114,7 @@ const lowerCaseBracketWordsList = [
   'quadraphonic',
   'reedit',
   're_edit',
+  'refix',
   'reinterpreted',
   'remake',
   'remaster',

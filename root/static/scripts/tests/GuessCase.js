@@ -413,7 +413,7 @@ test('Work', function (t) {
 });
 
 test('BugFixes', function (t) {
-  t.plan(39);
+  t.plan(40);
 
   const tests = [
     {
@@ -648,6 +648,12 @@ test('BugFixes', function (t) {
       input: 'The Best Remaster',
       expected: 'The Best (remaster)',
       bug: 'MBS-13156',
+      mode: 'English',
+    },
+    {
+      input: 'The Best Refix',
+      expected: 'The Best (refix)',
+      bug: 'MBS-13149',
       mode: 'English',
     },
     /*
