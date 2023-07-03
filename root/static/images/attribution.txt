@@ -208,6 +208,7 @@ Images:
 
     icons/add_row.png
     icons/delete_row.png
+    icons/edit.png
     icons/open_edits_for_entity.png
     icons/open_edits_for_rel.png
 
