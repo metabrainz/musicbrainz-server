@@ -413,7 +413,7 @@ test('Work', function (t) {
 });
 
 test('BugFixes', function (t) {
-  t.plan(40);
+  t.plan(42);
 
   const tests = [
     {
@@ -653,6 +653,18 @@ test('BugFixes', function (t) {
     {
       input: 'The Best Refix',
       expected: 'The Best (refix)',
+      bug: 'MBS-13149',
+      mode: 'English',
+    },
+    {
+      input: 'The Best OC Remix Song (OC Remix By Stan)',
+      expected: 'The Best OC ReMix Song (OC ReMix by Stan)',
+      bug: 'MBS-13149',
+      mode: 'English',
+    },
+    {
+      input: 'An A Cappella Festival (A Cappella Version)',
+      expected: 'An A Cappella Festival (a cappella version)',
       bug: 'MBS-13149',
       mode: 'English',
     },
