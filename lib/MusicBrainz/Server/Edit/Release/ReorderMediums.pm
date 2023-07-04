@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Edit::Release::ReorderMediums;
 use utf8;
 use Moose;
+use namespace::autoclean;
 use MooseX::Types::Moose qw( ArrayRef Int Str );
 use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Edit::Types qw( Nullable NullableOnPreview );

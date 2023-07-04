@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Report::DeprecatedRelationshipReport;
 use Moose::Role;
+use namespace::autoclean;
 use List::AllUtils qw( any );
 use MusicBrainz::Server::Data::Relationship;
 

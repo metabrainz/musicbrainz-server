@@ -4,6 +4,7 @@ use aliased 'MusicBrainz::Server::WebService::WebServiceStash';
 use Moose::Util qw( apply_all_roles );
 use MooseX::MethodAttributes::Role;
 use MooseX::Role::Parameterized;
+use namespace::autoclean;
 use MusicBrainz::Server::Data::Utils qw( model_to_type );
 
 parameter model => (

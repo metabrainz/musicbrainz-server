@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Entity::Role::ArtistCredit;
 use Moose::Role;
+use namespace::autoclean;
 use MusicBrainz::Server::Entity::Types;
 
 has 'artist_credit_id' => (

@@ -1,6 +1,8 @@
 package MusicBrainz::Server::CacheManager;
 
 use Moose;
+use namespace::autoclean;
+
 use MusicBrainz::Server::CacheWrapper;
 use Class::Load qw( load_class );
 

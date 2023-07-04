@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Entity::Role::Comment;
 use Moose::Role;
+use namespace::autoclean;
 
 has comment => (
     is => 'rw',

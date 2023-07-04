@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Controller::WS::2::Genre;
 use Moose;
+use namespace::autoclean;
 
 BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::2' }
 

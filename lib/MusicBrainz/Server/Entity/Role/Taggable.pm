@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Entity::Role::Taggable;
 use Moose::Role;
+use namespace::autoclean;
 
 use MusicBrainz::Server::Entity::Types;
 

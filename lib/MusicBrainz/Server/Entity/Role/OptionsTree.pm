@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Entity::Role::OptionsTree;
 use MooseX::Role::Parameterized;
+use namespace::autoclean;
 
 use MusicBrainz::Server::Entity::Types;
 

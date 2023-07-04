@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Data::Role::ISNI;
 use MooseX::Role::Parameterized;
+use namespace::autoclean;
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
 
 parameter 'type' => (
@@ -50,7 +51,6 @@ role
 
 };
 
-no Moose::Role;
 1;
 
 =head1 COPYRIGHT AND LICENSE

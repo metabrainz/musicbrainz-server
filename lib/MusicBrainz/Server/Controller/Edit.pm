@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Controller::Edit;
 use Moose;
+use namespace::autoclean;
 use Moose::Util qw( does_role );
 use Try::Tiny;
 

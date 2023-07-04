@@ -30,7 +30,7 @@ sub foreign_keys {
 before build_display_data => sub {
     my ($self, $loaded) = @_;
 
-    my @instruments = grep defined, map { $loaded->{Instrument}{$_} } $self->instrument_ids;
+    my @instruments = grep { defined } map { $loaded->{Instrument}{$_} } $self->instrument_ids;
     $self->c->model('InstrumentType')->load(@instruments);
 };
 

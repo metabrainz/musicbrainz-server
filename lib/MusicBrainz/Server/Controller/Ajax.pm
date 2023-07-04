@@ -4,6 +4,7 @@ use Moose;
 BEGIN { extends 'Catalyst::Controller' };
 
 use JSON qw( encode_json );
+use namespace::autoclean;
 use MusicBrainz::Server::FilterUtils qw(
     create_artist_events_form
     create_artist_release_groups_form

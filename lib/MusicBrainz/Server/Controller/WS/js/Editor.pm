@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Controller::WS::js::Editor;
 use Moose;
+use namespace::autoclean;
 BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::js' }
 
 use Text::Trim qw( trim );

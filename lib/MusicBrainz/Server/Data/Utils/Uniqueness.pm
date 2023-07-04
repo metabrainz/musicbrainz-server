@@ -49,4 +49,5 @@ sub assert_uniqueness_conserved {
     }
 }
 
+no Moose;
 1;

@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Entity::ReleaseEvent;
 use Moose;
+use namespace::autoclean;
 
 use MusicBrainz::Server::Entity::Types;
 

@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Edit::Historic::RemoveReleaseEvents;
 use Moose;
+use namespace::autoclean;
 
 use MusicBrainz::Server::Constants qw(
     $EDIT_HISTORIC_REMOVE_RELEASE_EVENTS

@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Controller::WS::2::Role::BrowseByCollection;
 
 use Moose::Role;
+use namespace::autoclean;
 use MusicBrainz::Server::Constants qw( $ACCESS_SCOPE_COLLECTION );
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
 

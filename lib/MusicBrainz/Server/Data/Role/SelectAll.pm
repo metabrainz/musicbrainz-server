@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Data::Role::SelectAll;
 use MooseX::Role::Parameterized;
+use namespace::autoclean;
 
 parameter 'order_by' => (
     isa => 'ArrayRef',
@@ -55,7 +56,6 @@ role
     method 'sort_in_forms' => sub { 0 };
 };
 
-no Moose::Role;
 1;
 
 =head1 COPYRIGHT AND LICENSE

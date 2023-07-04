@@ -12,7 +12,7 @@ type Props = {
 };
 
 function isIrombookImage(url: UrlT): boolean {
-  return /https:\/\/staticbrainz\.org\/irombook\//.test(url.href_url);
+  return /https:\/\/static\.metabrainz\.org\/irombook\//.test(url.href_url);
 }
 
 const IrombookImage = ({entity}: Props): React$Element<'div'> | null => {

@@ -108,6 +108,33 @@ test 'Check edit page differences for editor without confirmed email' => sub {
     );
 };
 
+test 'Check edit page differences for beginner editor' => sub {
+    my $test = shift;
+    my $mech = $test->mech;
+    my $edit = prepare($test);
+
+    $mech->get_ok('/login');
+    $mech->submit_form( with_fields => {
+        username => 'editor6',
+        password => 'pass',
+    } );
+
+    $mech->get_ok(
+        '/edit/' . $edit->id,
+        'Fetched edit page as a beginner editor other than the edit author',
+    );
+    html_ok($mech->content);
+
+    $mech->content_contains(
+        'Submit note',
+        'The edit page contains the button to add an edit note',
+    );
+    $mech->content_contains(
+        'You are not currently able to vote on this edit',
+        'The message about not being able to vote is present',
+    );
+};
+
 test 'Check edit page differences when logged out' => sub {
     my $test = shift;
     my $mech = $test->mech;

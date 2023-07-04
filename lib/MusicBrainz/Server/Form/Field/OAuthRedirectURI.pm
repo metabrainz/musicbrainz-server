@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Form::Field::OAuthRedirectURI;
 use URI;
 use Moose;
+use namespace::autoclean;
 
 extends 'HTML::FormHandler::Field::Text';
 

@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Controller::Partners;
 use Moose;
+use namespace::autoclean;
 BEGIN { extends 'MusicBrainz::Server::Controller' }
 
 sub amazon : Local Args(2)

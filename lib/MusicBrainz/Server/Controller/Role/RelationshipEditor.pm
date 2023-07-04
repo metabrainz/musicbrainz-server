@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Controller::Role::RelationshipEditor;
 use List::AllUtils qw( uniq_by );
 use Moose::Role;
+use namespace::autoclean;
 
 use MusicBrainz::Server::Constants qw(
     $EDIT_RELATIONSHIP_EDIT

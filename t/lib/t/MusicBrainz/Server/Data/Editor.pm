@@ -13,6 +13,7 @@ use DateTime::Format::Pg;
 use MusicBrainz::Server::Constants qw(
     :edit_status
     $EDIT_ARTIST_EDIT
+    $EDITING_DISABLED_FLAG
     $UNTRUSTED_FLAG
     :vote
 );
@@ -366,10 +367,10 @@ test 'Deleting an editor changes all Yes/No votes on open edits to Abstain' => s
 
     $c->model('Vote')->enter_votes(
         $editor,
-        {
+        [{
             vote    => $VOTE_NO,
             edit_id => $edit->id,
-        }
+        }]
     );
 
     $c->model('Vote')->load_for_edits($edit);
@@ -377,7 +378,55 @@ test 'Deleting an editor changes all Yes/No votes on open edits to Abstain' => s
     is($edit->votes->[0]->vote, $VOTE_NO, 'Vote is No');
     is($edit->votes->[0]->editor_id, 2, 'Vote is by editor 2');
 
+    note('We delete editor 2');
+    $c->model('Editor')->delete(2);
 
+    # Clear the votes to load again
+    $edit->votes([]);
+
+    $c->model('Vote')->load_for_edits($edit);
+    is(scalar @{ $edit->votes }, 2, 'There is two votes');
+    is($edit->votes->[1]->vote, $VOTE_ABSTAIN, 'New vote is Abstain');
+    is($edit->votes->[1]->editor_id, 2, 'New vote is by editor 2');
+};
+
+test 'Deleting an editor changes all Yes/No votes on open edits to Abstain, even if they have no vote privileges (MBS-12026)' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+vote');
+
+    my $editor = $c->model('Editor')->get_by_id(2);
+
+    my $edit = $c->model('Edit')->create(
+        edit_type => $EDIT_ARTIST_EDIT,
+        editor_id => 1,
+        to_edit => $c->model('Artist')->get_by_id(1),
+        comment => 'A Comment',
+        ipi_codes => [],
+        isni_codes => [],
+        privileges => $UNTRUSTED_FLAG,
+    );
+
+    $c->model('Vote')->enter_votes(
+        $editor,
+        [{
+            vote    => $VOTE_NO,
+            edit_id => $edit->id,
+        }]
+    );
+
+    $c->model('Vote')->load_for_edits($edit);
+    is(scalar @{ $edit->votes }, 1, 'There is one vote');
+    is($edit->votes->[0]->vote, $VOTE_NO, 'Vote is No');
+    is($edit->votes->[0]->editor_id, 2, 'Vote is by editor 2');
+
+    note('We revoke the editing/voting privileges for editor 2');
+    $test->c->sql->do(
+        "UPDATE editor SET privs = $EDITING_DISABLED_FLAG WHERE id = 2"
+    );
+
+    note('We delete editor 2');
     $c->model('Editor')->delete(2);
 
     # Clear the votes to load again
@@ -506,7 +555,7 @@ test 'Searching editor by email (for admin only)' => sub {
     is(@$editors[1]->id => 2, 'is editor #2');
 
     diag('Bounded search with trimmed user info and escaped host name (ALL CAPS)');
-    my ($editors, $hits) = $editor_data->search_by_email('^ABC@F\.G\.H$');
+    ($editors, $hits) = $editor_data->search_by_email('^ABC@F\.G\.H$');
     is($hits => 2, 'found 2 editors');
     is(@$editors[0]->id => 1, 'is editor #1');
     is(@$editors[1]->id => 2, 'is editor #2');

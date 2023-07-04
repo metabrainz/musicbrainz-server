@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Entity::WorkAttributeTypeAllowedValue;
 use Moose;
+use namespace::autoclean;
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Translation::Attributes qw( lp );
 

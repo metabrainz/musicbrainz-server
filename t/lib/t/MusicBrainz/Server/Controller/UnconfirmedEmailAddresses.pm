@@ -26,7 +26,7 @@ test 'Paths that allow browsing without a confirmed email address' => sub {
             my $attributes = Set::Scalar->new(@{$_->attributes});
             $attributes->size > 0 &&
             (
-                (grep /^Path(Part)?/, $attributes->elements) > 0 ||
+                (grep { /^Path(Part)?/ } $attributes->elements) > 0 ||
                 $attributes->has('Local')
             ) &&
             !$attributes->has('Edit')

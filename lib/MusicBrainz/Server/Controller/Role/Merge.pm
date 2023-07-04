@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Controller::Role::Merge;
 use MooseX::MethodAttributes::Role;
 use MooseX::Role::Parameterized;
+use namespace::autoclean;
 
 use List::AllUtils qw( any nsort_by uniq );
 use MusicBrainz::Server::Data::Utils qw( type_to_model );

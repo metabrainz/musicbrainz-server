@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Edit::Artist::EditArtistCredit;
 use Moose;
+use namespace::autoclean;
 
 use MooseX::Types::Structured qw( Dict );
 

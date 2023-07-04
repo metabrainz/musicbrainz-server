@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Controller::Relationship::LinkAttributeType;
 use Moose;
+use namespace::autoclean;
 use MusicBrainz::Server::Constants qw(
     $EDIT_RELATIONSHIP_ADD_ATTRIBUTE
     $EDIT_RELATIONSHIP_REMOVE_LINK_ATTRIBUTE

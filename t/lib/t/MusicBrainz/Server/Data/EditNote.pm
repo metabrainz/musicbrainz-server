@@ -6,6 +6,7 @@ use Test::Routine;
 use Test::Moose;
 use Test::More;
 use Test::Exception;
+use utf8;
 
 BEGIN { use MusicBrainz::Server::Data::Gender };
 
@@ -15,125 +16,246 @@ use MusicBrainz::Server::Data::EditNote;
 use MusicBrainz::Server::Email;
 use MusicBrainz::Server::Test;
 
+with 't::Context';
+
 BEGIN {
     package MockEdit;
     use Moose;
+    use namespace::autoclean;
+
     extends 'MusicBrainz::Server::Edit';
 
     sub edit_type { 111; }
     sub edit_name { 'mock edit' }
 };
 
-with 't::Context';
-
-test all => sub {
-
-my $test = shift;
-MusicBrainz::Server::Test->prepare_test_database($test->c, '+edit_note');
-
 use MusicBrainz::Server::EditRegistry;
 MusicBrainz::Server::EditRegistry->register_type('MockEdit');
 
-my $edit_data = MusicBrainz::Server::Data::Edit->new(c => $test->c);
-my $en_data = MusicBrainz::Server::Data::EditNote->new(c => $test->c);
-my $editor_data = MusicBrainz::Server::Data::Editor->new(c => $test->c);
+test 'Loading existing notes' => sub {
+    my $test = shift;
+    my $c = $test->c;
 
-my $editor2 = $editor_data->get_by_id(2);
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_note');
 
-# Multiple edit edit_notes
-my $edit = $edit_data->get_by_id(1);
-$en_data->load_for_edits($edit);
-is(@{ $edit->edit_notes }, 2, 'Edit has two edit notes');
-check_note($edit->edit_notes->[0], 'MusicBrainz::Server::Entity::EditNote',
-       editor_id => 1,
-       edit_id => 1,
-       text => 'This is a note');
+    note('Check edit that should have two notes');
+    my $edit = $c->model('Edit')->get_by_id(1);
+    $c->model('EditNote')->load_for_edits($edit);
+    is(@{ $edit->edit_notes }, 2, 'Edit has two edit notes');
+    check_note(
+        $edit->edit_notes->[0],
+        'MusicBrainz::Server::Entity::EditNote',
+        (
+            editor_id => 1,
+            edit_id => 1,
+            text => 'This is a note',
+        ),
+    );
 
-check_note($edit->edit_notes->[1], 'MusicBrainz::Server::Entity::EditNote',
-       editor_id => 2,
-       edit_id => 1,
-       text => 'This is a later note');
+    check_note(
+        $edit->edit_notes->[1],
+        'MusicBrainz::Server::Entity::EditNote',
+        (
+            editor_id => 2,
+            edit_id => 1,
+            text => 'This is a later note',
+        ),
+    );
 
+    note('Check edit that should have one note');
+    $edit = $c->model('Edit')->get_by_id(2);
+    $c->model('EditNote')->load_for_edits($edit);
+    is(@{ $edit->edit_notes }, 1, 'Edit has one edit note');
+    check_note(
+        $edit->edit_notes->[0],
+        'MusicBrainz::Server::Entity::EditNote',
+        (
+            editor_id => 1,
+            edit_id => 2,
+            text => 'Another edit note',
+        ),
+    );
 
-# Single edit note
-$edit = $edit_data->get_by_id(2);
-$en_data->load_for_edits($edit);
-is(@{ $edit->edit_notes }, 1, 'Edit has one edit note');
-check_note($edit->edit_notes->[0], 'MusicBrainz::Server::Entity::EditNote',
-       editor_id => 1,
-       edit_id => 2,
-       text => 'Another edit note');
+    note('Check edit that should have zero notes');
+    $edit = $c->model('Edit')->get_by_id(3);
+    $c->model('EditNote')->load_for_edits($edit);
+    is(@{ $edit->edit_notes }, 0, 'Edit has no edit notes');
+};
 
-# No edit edit_notes
-$edit = $edit_data->get_by_id(3);
-$en_data->load_for_edits($edit);
-is(@{ $edit->edit_notes }, 0, 'Edit has no edit notes');
+test 'Adding edit notes works and sends emails' => sub {
+    my $test = shift;
+    my $c = $test->c;
 
-# Insert a new edit note
-$en_data->insert($edit->id, {
-        editor_id => 3,
-        text => 'This is a new edit note',
-    });
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_note');
 
+    my $editor2 = $c->model('Editor')->get_by_id(2);
 
-$en_data->load_for_edits($edit);
-is(@{ $edit->edit_notes }, 1, 'Edit has one edit note');
-check_note($edit->edit_notes->[0], 'MusicBrainz::Server::Entity::EditNote',
-        editor_id => 3,
-        edit_id => 3,
-        text => 'This is a new edit note');
+    my $edit = $c->model('Edit')->get_by_id(3);
+    my $edit_id = $edit->id;
 
-# Make sure we can insert edit notes while already in a transaction
-$test->c->sql->begin;
-lives_ok {
-    $en_data->insert($edit->id, {
+    # We make editor2 vote so they will receive mail too on an edit note
+    $c->model('Vote')->enter_votes(
+        $editor2,
+        [{ edit_id => $edit_id, vote => 1 }],
+    );
+
+    note('editor3 enters a note');
+    $c->model('EditNote')->add_note(
+        $edit_id,
+        { text => 'This is my note!', editor_id => 3 },
+    );
+
+    $c->model('EditNote')->load_for_edits($edit);
+    is(@{ $edit->edit_notes }, 1, 'Edit has one edit note');
+    check_note(
+        $edit->edit_notes->[0],
+        'MusicBrainz::Server::Entity::EditNote',
+        (
             editor_id => 3,
-            text => 'Note' })
-} q(Edit notes don't die while in a transaction already);
-$test->c->sql->commit;
+            edit_id => 3,
+            text => 'This is my note!',
+        ),
+    );
 
-# Test adding edit notes with email sending
-$test->c->model('Vote')->enter_votes($editor2, { edit_id => $edit->id, vote => 1 });
+    my $server = 'https://' . DBDefs->WEB_SERVER_USED_IN_EMAIL;
+    my $email_transport = MusicBrainz::Server::Email->get_test_transport;
+    is($email_transport->delivery_count, 2, 'Exactly two emails sent');
 
-$en_data->add_note($edit->id, { text => 'This is my note!', editor_id => 3 });
+    my $email2 = $email_transport->shift_deliveries->{email};
+    my $email = $email_transport->shift_deliveries->{email};
 
-my $server = 'https://' . DBDefs->WEB_SERVER_USED_IN_EMAIL;
-my $email_transport = MusicBrainz::Server::Email->get_test_transport;
-is($email_transport->delivery_count, 2, 'Exactly two emails sent');
+    note('Checking email sent to editor1 (edit creator)');
+    is(
+        $email->get_header('Subject'),
+        'Note added to your edit #' . $edit_id,
+        'Subject explains a note was added to edit',
+    );
+    is(
+        $email->get_header('To'),
+        '"editor1" <editor1@example.com>',
+        'Email is addressed to editor1',
+    );
+    my $email_body = $email->object->body_str;
+    like(
+        $email_body,
+        qr{$server/edit/$edit_id},
+        'Email body contains edit url',
+    );
+    like(
+        $email_body,
+        qr{'editor3' has added},
+        'Email body mentions editor3 (note adder)',
+    );
+    like(
+        $email_body,
+        qr{to your edit #$edit_id},
+        'Email body mentions "your edit #"',
+    );
+    like(
+        $email_body,
+        qr{This is my note!},
+        'Email body has correct edit note text',
+    );
 
-my $email2 = $email_transport->shift_deliveries->{email};
-my $email = $email_transport->shift_deliveries->{email};
+    note('Checking email sent to editor2 (voter)');
+    is(
+        $email2->get_header('Subject'),
+        'Note added to edit #' . $edit_id,
+        'Subject explains a note was added to edit',
+    );
+    is(
+        $email2->get_header('To'),
+        '"editor2" <editor2@example.com>',
+        'Email is addressed to editor2',
+    );
+    my $email2_body = $email2->object->body_str;
+    like(
+        $email2_body,
+        qr{$server/edit/$edit_id},
+        'Email body contains edit url',
+    );
+    like(
+        $email2_body,
+        qr{'editor3' has added},
+        'Email body mentions editor3 (note adder)',
+    );
+    like(
+        $email2_body,
+        qr{to edit #$edit_id},
+        'Email body mentions "edit #" (not "your edit")',
+    );
+    like(
+        $email2_body,
+        qr{This is my note!},
+        'Email body has correct edit note text',
+    );
+};
 
-is($email->get_header('Subject'), 'Note added to your edit #' . $edit->id, 'Subject explains a note was added to edit');
-is($email->get_header('To'), '"editor1" <editor1@example.com>', 'Email is addressed to editor1');
-my $email_body = $email->object->body_str;
-like($email_body, qr{$server/edit/${\ $edit->id }}, 'Email body contains edit url');
-like($email_body, qr{'editor3' has added}, 'Email body mentions editor3');
-like($email_body, qr{to your edit #${\ $edit->id }}, 'Email body mentions "your edit #"');
-like($email_body, qr{This is my note!}, 'Email body has correct edit note text');
+test 'Adding notes is allowed / blocked in the appropriate cases' => sub {
+    my $test = shift;
+    my $c = $test->c;
 
-is($email2->get_header('Subject'), 'Note added to edit #' . $edit->id, 'Subject explains a note was added to edit');
-is($email2->get_header('To'), '"editor2" <editor2@example.com>', 'Email is addressed to editor2');
-my $email2_body = $email2->object->body_str;
-like($email2_body, qr{$server/edit/${\ $edit->id }}, 'Email body contains edit url');
-like($email2_body, qr{'editor3' has added}, 'Email body mentions editor3');
-like($email2_body, qr{to edit #${\ $edit->id }}, 'Email body mentions "edit #"');
-like($email2_body, qr{This is my note!}, 'Email body has correct edit note text');
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_note');
 
+    my $edit = $c->model('Edit')->get_by_id(3);
+    my $edit_id = $edit->id;
+
+    my $edit_creator = $c->model('Editor')->get_by_id(1);
+    my $beginner = $c->model('Editor')->get_by_id(6);
+
+    note('We try to enter a note with the editor who entered the edit');
+    $c->model('EditNote')->add_note(
+        $edit_id,
+        { text => 'This is my note!', editor_id => $edit_creator->id },
+    );
+
+    $edit = $c->model('Edit')->get_by_id($edit_id);
+    $c->model('EditNote')->load_for_edits($edit);
+    is(@{ $edit->edit_notes }, 1, 'An edit note was added');
+
+    note('We try to enter a note with a beginner editor');
+    $c->model('EditNote')->add_note(
+        $edit_id,
+        { text => 'This is my note!', editor_id => $beginner->id },
+    );
+
+    $edit = $c->model('Edit')->get_by_id($edit_id);
+    $c->model('EditNote')->load_for_edits($edit);
+    is(@{ $edit->edit_notes }, 2, 'An edit note was added');
+};
+
+test 'Can add edit notes in transaction' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+edit_note');
+
+    my $edit = $c->model('Edit')->get_by_id(3);
+
+    $c->sql->begin;
+    lives_ok (
+        sub {
+            $c->model('EditNote')->insert(
+                $edit->id,
+                { editor_id => 3, text => 'Note' },
+            );
+        },
+        'Edit notes don’t die while in a transaction already',
+    );
+    $c->sql->commit;
 };
 
 test 'delete_content' => sub {
     my $test = shift;
+    my $c = $test->c;
+
     MusicBrainz::Server::Test->prepare_test_database($test->c, '+edit_note');
 
-    my $edit_data = MusicBrainz::Server::Data::Edit->new(c => $test->c);
-    my $en_data = MusicBrainz::Server::Data::EditNote->new(c => $test->c);
-
     note('We remove the first edit note for edit #1');
-    $en_data->delete_content(1, 1, 'Wrong URL');
+    $c->model('EditNote')->delete_content(1, 1, 'Wrong URL');
 
-    my $edit = $edit_data->get_by_id(1);
-    $en_data->load_for_edits($edit);
+    my $edit = $c->model('Edit')->get_by_id(1);
+    $c->model('EditNote')->load_for_edits($edit);
 
     is(@{ $edit->edit_notes }, 2, 'The edit still has two edit notes');
     is(
@@ -148,7 +270,7 @@ test 'delete_content' => sub {
     );
 
     note('Check the edit_note_change row contents');
-    my $row = $test->c->sql->select_single_row_hash(
+    my $row = $c->sql->select_single_row_hash(
         'SELECT * FROM edit_note_change WHERE edit_note = 1',
     );
     is($row->{status}, 'deleted', 'The change is marked as a removal');
@@ -164,16 +286,15 @@ test 'delete_content' => sub {
 
 test 'modify_content' => sub {
     my $test = shift;
+    my $c = $test->c;
+
     MusicBrainz::Server::Test->prepare_test_database($test->c, '+edit_note');
 
-    my $edit_data = MusicBrainz::Server::Data::Edit->new(c => $test->c);
-    my $en_data = MusicBrainz::Server::Data::EditNote->new(c => $test->c);
-
     note('We modify the note text for the first edit note for edit #1');
-    $en_data->modify_content(1, 1, 'Platypus', 'Best animal');
+    $c->model('EditNote')->modify_content(1, 1, 'Platypus', 'Best animal');
 
-    my $edit = $edit_data->get_by_id(1);
-    $en_data->load_for_edits($edit);
+    my $edit = $c->model('Edit')->get_by_id(1);
+    $c->model('EditNote')->load_for_edits($edit);
 
     is(@{ $edit->edit_notes }, 2, 'The edit still has two edit notes');
     is(
@@ -188,7 +309,7 @@ test 'modify_content' => sub {
     );
 
     note('Check the edit_note_change row contents');
-    my $row = $test->c->sql->select_single_row_hash(
+    my $row = $c->sql->select_single_row_hash(
         'SELECT * FROM edit_note_change WHERE edit_note = 1',
     );
     is($row->{status}, 'edited', 'The change is marked as a modification');

@@ -495,16 +495,20 @@ sub load_for_artist_credits {
     my %artist_ids;
     for my $ac (@artist_credits)
     {
-        map { $artist_ids{$_->artist_id} = 1 }
-        grep { $_->artist_id } $ac->all_names;
+        my @ac_artist_names = grep { $_->artist_id } $ac->all_names;
+        for my $artist_name (@ac_artist_names) {
+            $artist_ids{$artist_name->artist_id} = 1;
+        }
     }
 
     my $artists = $self->get_by_ids(keys %artist_ids);
 
     for my $ac (@artist_credits)
     {
-        map { $_->artist($artists->{$_->artist_id}) }
-        grep { $_->artist_id } $ac->all_names;
+        my @ac_artist_names = grep { $_->artist_id } $ac->all_names;
+        for my $artist_name (@ac_artist_names) {
+            $artist_name->artist($artists->{$artist_name->artist_id});
+        }
     }
 };
 

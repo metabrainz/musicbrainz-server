@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Controller::Rating;
 use Moose;
+use namespace::autoclean;
 BEGIN { extends 'MusicBrainz::Server::Controller' }
 
 use MusicBrainz::Server::Data::Utils qw( type_to_model );

@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Data::Role::Merge;
 use Moose::Role;
+use namespace::autoclean;
 
 use Carp qw( croak );
 

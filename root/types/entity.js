@@ -193,9 +193,9 @@ declare type MinimalEntityT = {
 };
 
 declare type PartialDateT = {
-  +day: number | null,
-  +month: number | null,
-  +year: number | null,
+  +day?: ?number,
+  +month?: ?number,
+  +year?: ?number,
 };
 
 declare type PartialDateStringsT = {

@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Edit::Instrument::Create;
 use Moose;
+use namespace::autoclean;
 
 use MusicBrainz::Server::Constants qw( $EDIT_INSTRUMENT_CREATE );
 use MusicBrainz::Server::Edit::Types qw( Nullable );

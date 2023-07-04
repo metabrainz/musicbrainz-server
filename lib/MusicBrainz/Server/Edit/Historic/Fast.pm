@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Edit::Historic::Fast;
 
 use Moose;
+use namespace::autoclean;
 
 extends 'Class::Accessor::Fast::XS';
 

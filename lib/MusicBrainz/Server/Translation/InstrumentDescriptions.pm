@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Translation::InstrumentDescriptions;
 use Moose;
+use namespace::autoclean;
 BEGIN { extends 'MusicBrainz::Server::Translation'; }
 
 with 'MusicBrainz::Server::Role::Translation' => { domain => 'instrument_descriptions' };

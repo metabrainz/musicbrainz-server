@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Report::FilterForEditor;
 use Moose::Role;
+use namespace::autoclean;
 
 requires 'filter_sql';
 

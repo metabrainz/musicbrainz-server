@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Controller::Collection;
 use Moose;
+use namespace::autoclean;
 use utf8;
 use Scalar::Util qw( looks_like_number );
 use List::AllUtils qw( first uniq );

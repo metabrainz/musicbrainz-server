@@ -174,6 +174,7 @@ export function defineBeginDateColumn(
 export function defineCDTocColumn<D>(
   props: {
     ...OrderableProps,
+    +getAnchor?: (D) => string,
     +getCDToc: (D) => CDTocT | null,
   },
 ): ColumnOptions<D, string> {
@@ -183,7 +184,13 @@ export function defineCDTocColumn<D>(
     Cell: ({row: {original}}) => {
       const cdToc = props.getCDToc(original);
       return (cdToc ? (
-        <CDTocLink cdToc={cdToc} />
+        <CDTocLink
+          anchorPath={
+            typeof props.getAnchor === 'function'
+              ? props.getAnchor(original)
+              : ''}
+          cdToc={cdToc}
+        />
       ) : null);
     },
     Header: (sortable

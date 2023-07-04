@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Controller::Work;
 use 5.10.0;
 use Moose;
+use namespace::autoclean;
 
 BEGIN { extends 'MusicBrainz::Server::Controller'; }
 

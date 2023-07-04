@@ -30,7 +30,7 @@ my $checkout_dir = Cwd::realpath(File::Spec->catfile($Bin, '../'));
 my $scripts_dir = File::Spec->catfile($checkout_dir, 'root/static/scripts/');
 my $quoted_checkout_dir = shell_quote($checkout_dir);
 
-my @hydrated_files = split "\n",
+my @hydrated_files = split /\n/,
     qx{ git -C $quoted_checkout_dir grep -P -l '(?<!function)\\Whydrate[<(]' -- root };
 
 for my $hydrated_file (@hydrated_files) {
@@ -51,7 +51,7 @@ sub check_imports {
 
     my $quoted_source_file = shell_quote($source_file);
     my $imports = qx { cat $quoted_source_file | tr '\\n' ' ' | grep -P -o "import [^;]+;" | sed -n "s/.*'\\([^']\\+\\)';/\\1/p" };
-    my @imports = split "\n", $imports;
+    my @imports = split /\n/, $imports;
 
     for my $import (@imports) {
         next unless $import =~ /^\./; # ignore node_modules

@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Controller::User;
 use Moose;
+use namespace::autoclean;
 use Moose::Util qw( find_meta );
 
 BEGIN { extends 'MusicBrainz::Server::Controller' };
@@ -368,6 +369,7 @@ sub contact : Chained('load') RequireAuth HiddenOnMirrors SecureForm
     }
 
     my $form = $c->form( form => 'User::Contact' );
+
     if ($c->form_posted_and_valid($form)) {
 
         my $result;
@@ -389,6 +391,15 @@ sub contact : Chained('load') RequireAuth HiddenOnMirrors SecureForm
         $c->res->redirect($c->uri_for_action('/user/contact', [ $editor->name ], { sent => $result }));
         $c->detach;
     }
+
+    $c->stash(
+        current_view => 'Node',
+        component_path => 'user/ContactUser',
+        component_props => {
+            form => $form->TO_JSON,
+            user => $self->serialize_user($editor),
+        },
+    );
 }
 
 sub collections : Chained('load') PathPart('collections')
@@ -667,8 +678,7 @@ sub tag : Chained('load_tag') PathPart('')
     );
 }
 
-map {
-    my $entity_type = $_;
+for my $entity_type (entities_with('tags')) {
     my $entity_properties = $ENTITIES{$entity_type};
     my $url = $entity_properties->{url};
 
@@ -716,7 +726,7 @@ map {
 
     find_meta(__PACKAGE__)->add_method($entity_type . '_tag' => $method);
     find_meta(__PACKAGE__)->register_method_attributes($method, [q{Chained('load_tag')}, "PathPart('$url')"]);
-} entities_with('tags');
+}
 
 sub privileged : Path('/privileged')
 {

@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Entity::Role::IPI;
 use Moose::Role;
+use namespace::autoclean;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 
 has ipi_codes => (
