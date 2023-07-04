@@ -369,6 +369,7 @@ sub contact : Chained('load') RequireAuth HiddenOnMirrors SecureForm
     }
 
     my $form = $c->form( form => 'User::Contact' );
+
     if ($c->form_posted_and_valid($form)) {
 
         my $result;
@@ -390,6 +391,15 @@ sub contact : Chained('load') RequireAuth HiddenOnMirrors SecureForm
         $c->res->redirect($c->uri_for_action('/user/contact', [ $editor->name ], { sent => $result }));
         $c->detach;
     }
+
+    $c->stash(
+        current_view => 'Node',
+        component_path => 'user/ContactUser',
+        component_props => {
+            form => $form->TO_JSON,
+            user => $self->serialize_user($editor),
+        },
+    );
 }
 
 sub collections : Chained('load') PathPart('collections')

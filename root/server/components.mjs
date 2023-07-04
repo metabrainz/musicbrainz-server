@@ -347,6 +347,7 @@ export default {
   'taglookup/ReleaseResults': (): Promise<mixed> => import('../taglookup/ReleaseResults.js'),
   'taglookup/Results': (): Promise<mixed> => import('../taglookup/Results.js'),
   'url/UrlIndex': (): Promise<mixed> => import('../url/UrlIndex.js'),
+  'user/ContactUser': (): Promise<mixed> => import('../user/ContactUser.js'),
   'user/Login': (): Promise<mixed> => import('../user/Login.js'),
   'user/PrivilegedUsers': (): Promise<mixed> => import('../user/PrivilegedUsers.js'),
   'user/ReportUser': (): Promise<mixed> => import('../user/ReportUser.js'),
