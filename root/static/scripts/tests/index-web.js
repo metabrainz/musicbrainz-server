@@ -43,6 +43,7 @@ require('./utility/getSortName.js');
 require('./utility/isolateText.js');
 require('./utility/isDatabaseRowId.js');
 require('./utility/isDateEmpty.js');
+require('./utility/isDisabledLink.js');
 require('./utility/isFutureDate.js');
 require('./utility/isGuid.js');
 require('./utility/isShortenedUrl.js');

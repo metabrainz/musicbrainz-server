@@ -124,3 +124,15 @@ export const genericIswc: IswcT = {
   iswc: 'T-345246800-1',
   work_id: 123,
 };
+
+export const genericUrl: UrlT = {
+  decoded: 'https://musicbrainz.org',
+  editsPending: false,
+  entityType: 'url',
+  gid: 'b8aa865e-ffec-4562-b3f3-00c9a603d693',
+  href_url: 'https://musicbrainz.org',
+  id: 123,
+  last_updated: null,
+  name: 'https://musicbrainz.org',
+  pretty_name: 'https://musicbrainz.org',
+};
