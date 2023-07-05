@@ -26,6 +26,26 @@ export const genericArea: AreaT = {
   typeID: null,
 };
 
+export const genericArtist: ArtistT = {
+  area: null,
+  begin_area: null,
+  begin_date: null,
+  comment: '',
+  end_area: null,
+  end_date: null,
+  ended: false,
+  entityType: 'artist',
+  gender: null,
+  gid: 'daa7b69c-bb32-486a-8b88-260327938568',
+  id: 123,
+  ipi_codes: [],
+  isni_codes: [],
+  last_updated: null,
+  name: 'Test Artist',
+  sort_name: 'Artist, Test',
+  typeID: null,
+};
+
 export const genericCDToc: CDTocT = {
   discid: 'Wt.1HiYD17SbduR39yKqxoZ2o9k-',
   entityType: 'cdtoc',
@@ -135,4 +155,19 @@ export const genericUrl: UrlT = {
   last_updated: null,
   name: 'https://musicbrainz.org',
   pretty_name: 'https://musicbrainz.org',
+};
+
+export const genericWork: WorkT = {
+  artists: [],
+  attributes: [],
+  comment: '',
+  entityType: 'work',
+  gid: 'daa7b69c-bb32-486a-8b88-260327938568',
+  id: 123,
+  iswcs: [],
+  languages: [],
+  last_updated: null,
+  name: 'Test Work',
+  typeID: null,
+  writers: [],
 };
