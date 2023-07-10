@@ -173,6 +173,7 @@ my %URL_SPECIALIZATIONS = (
     'Theatricalia'        => qr{^https?://(?:www\.)?theatricalia\.com/}i,
     'TheDanceGypsy'       => qr{^https?://(?:www\.)?thedancegypsy\.com/}i,
     'TheSession'          => qr{^https?://(?:www\.)?thesession\.org/}i,
+    'Threads'             => qr{^https?://(?:www\.)?threads\.net/}i,
     'Tidal'               => qr{^https?://(?:[^/]+\.)?tidal\.com/}i,
     'TikTok'              => qr{^https?://(?:www\.)?tiktok\.com/}i,
     'Tipeee'              => qr{^https?://(?:www\.)?tipeee\.com/}i,

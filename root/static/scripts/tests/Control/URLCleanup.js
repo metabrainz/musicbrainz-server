@@ -4760,6 +4760,21 @@ limited_link_type_combinations: [
             expected_clean_url: 'https://thesession.org/tunes/2305',
        only_valid_entity_types: ['work'],
   },
+  // Threads
+  {
+                     input_url: 'http://threads.net/@cvmpliant',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'socialnetwork',
+            expected_clean_url: 'https://www.threads.net/@cvmpliant',
+       only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series'],
+  },
+  {
+                     input_url: 'https://threads.net/t/CucwR6erBPo',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://www.threads.net/t/CucwR6erBPo',
+       only_valid_entity_types: ['recording'],
+  },
   // Tidal
   {
                      input_url: 'http://desktop.tidal.com/artist/8140105',

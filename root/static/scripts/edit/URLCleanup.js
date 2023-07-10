@@ -4690,6 +4690,34 @@ const CLEANUPS: CleanupEntries = {
       return {result: false, target: ERROR_TARGETS.URL};
     },
   },
+  'threads': {
+    match: [new RegExp('^(https?://)?([^/]+\\.)?threads\\.net/', 'i')],
+    restrict: [{...LINK_TYPES.streamingfree, ...LINK_TYPES.socialnetwork}],
+    clean: function (url) {
+      return url.replace(
+        /^(?:https?:\/\/)?(?:www\.)?threads\.net(?:\/#!)?\//,
+        'https://www.threads.net/',
+      );
+    },
+    validate: function (url, id) {
+      const isAProfile = /^https:\/\/www\.threads\.net\/@[^/]+$/.test(url);
+      const isAThread = /^https:\/\/www\.threads\.net\/t\/[^/]+$/.test(url);
+      if (Object.values(LINK_TYPES.streamingfree).includes(id)) {
+        return {
+          result: isAThread &&
+            (id === LINK_TYPES.streamingfree.recording),
+          target: ERROR_TARGETS.ENTITY,
+        };
+      } else if (isAThread) {
+        return {
+          error: l('Please link to Threads profiles, not threads.'),
+          result: false,
+          target: ERROR_TARGETS.ENTITY,
+        };
+      }
+      return {result: isAProfile, target: ERROR_TARGETS.URL};
+    },
+  },
   'tidal': {
     match: [new RegExp(
       '^(https?://)?' +
