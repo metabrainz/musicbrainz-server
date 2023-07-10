@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Report::QueryReport;
 use Moose::Role;
+use namespace::autoclean;
 
 with 'MusicBrainz::Server::Report';
 

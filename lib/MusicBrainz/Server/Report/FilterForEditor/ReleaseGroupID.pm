@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Report::FilterForEditor::ReleaseGroupID;
 use Moose::Role;
+use namespace::autoclean;
 
 with 'MusicBrainz::Server::Report::FilterForEditor';
 

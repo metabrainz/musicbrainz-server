@@ -2,6 +2,7 @@ package MusicBrainz::Server::Controller::Root;
 use DateTime::Locale;
 use Digest::MD5 qw( md5_hex );
 use Moose;
+use namespace::autoclean;
 use Try::Tiny;
 use List::AllUtils qw( max );
 use Readonly;

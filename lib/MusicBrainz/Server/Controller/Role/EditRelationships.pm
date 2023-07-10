@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Controller::Role::EditRelationships;
 use MooseX::MethodAttributes::Role;
 use MooseX::Role::Parameterized;
+use namespace::autoclean;
 use MusicBrainz::Server::Constants qw(
     $DIRECTION_BACKWARD
     $DIRECTION_FORWARD

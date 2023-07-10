@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Entity::URL::MediaWiki;
 use Moose::Role;
+use namespace::autoclean;
 
 use MusicBrainz::Server::Filters;
 

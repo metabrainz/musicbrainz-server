@@ -31,7 +31,7 @@ sub foreign_keys
 before build_display_data => sub {
     my ($self, $loaded) = @_;
 
-    my @events = grep defined, map { $loaded->{Event}{$_} } $self->event_ids;
+    my @events = grep { defined } map { $loaded->{Event}{$_} } $self->event_ids;
     $self->c->model('Event')->load_related_info(@events);
     $self->c->model('Event')->load_areas(@events);
 };

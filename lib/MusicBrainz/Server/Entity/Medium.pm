@@ -172,14 +172,16 @@ around TO_JSON => sub {
 
     my $track_count = $self->track_count;
     my $format_id = $self->format_id;
+    my $position = $self->position;
+    my $release_id = $self->release_id;
 
     my $data = {
         %{ $self->$orig },
         cdtocs      => [map { $_->cdtoc->toc } $self->all_cdtocs],
         format      => $self->format ? $self->format->TO_JSON : undef,
         format_id   => defined $format_id ? (0 + $format_id) : undef,
-        position    => (0 + $self->position),
-        release_id  => (0 + $self->release_id),
+        position    => defined $position ? (0 + $position) : undef,
+        release_id  => defined $release_id ? (0 + $release_id) : undef,
         track_count => defined $track_count ? (0 + $track_count) : undef,
     };
 

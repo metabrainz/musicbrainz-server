@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Edit::Release::EditReleaseLabel;
 use Moose;
+use namespace::autoclean;
 use 5.10.0;
 
 use Moose::Util::TypeConstraints qw( find_type_constraint subtype as );
@@ -408,7 +409,6 @@ sub restore {
 }
 
 __PACKAGE__->meta->make_immutable;
-no Moose;
 1;
 
 =head1 COPYRIGHT AND LICENSE

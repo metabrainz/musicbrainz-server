@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Edit::Role::DatePeriod;
 use Moose::Role;
+use namespace::autoclean;
 use Hash::Merge qw( merge );
 use List::AllUtils qw( any );
 use MusicBrainz::Server::Data::Utils qw( non_empty partial_date_to_hash );

@@ -14,6 +14,7 @@ BEGIN { use MusicBrainz::Server::Data::Edit };
 {
     package t::Edit::MockEdit;
     use Moose;
+    use namespace::autoclean;
     extends 'MusicBrainz::Server::Edit';
     sub edit_type { 123 }
     sub edit_name { 'mock edit' }

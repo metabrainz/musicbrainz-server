@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Form::Field::URL;
 use URI;
 use Moose;
+use namespace::autoclean;
 
 use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::Validation qw( is_valid_url );

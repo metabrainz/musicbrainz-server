@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Entity::URL::Sidebar;
 use Moose::Role;
+use namespace::autoclean;
 
 requires 'sidebar_name';
 

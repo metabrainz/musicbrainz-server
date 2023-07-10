@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Edit::Relationship::Reorder;
 use strict;
 use Moose;
+use namespace::autoclean;
 use Moose::Util::TypeConstraints qw( as subtype find_type_constraint );
 use MooseX::Types::Moose qw( ArrayRef Int Str Bool );
 use MooseX::Types::Structured qw( Dict Optional );

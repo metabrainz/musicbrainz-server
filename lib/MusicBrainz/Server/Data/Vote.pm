@@ -40,10 +40,10 @@ sub _column_mapping
 
 sub enter_votes
 {
-    my ($self, $editor, @votes) = @_;
+    my ($self, $editor, $votes, %opts) = @_;
 
     # Filter any invalid votes
-    @votes = grep { VoteOption->check($_->{vote}) } @votes;
+    my @votes = grep { VoteOption->check($_->{vote}) } @$votes;
 
     return unless @votes;
 
@@ -51,7 +51,7 @@ sub enter_votes
     Sql::run_in_transaction(sub {
         $self->sql->do('LOCK vote IN SHARE ROW EXCLUSIVE MODE');
 
-        # Deal with votes on closed or own edits, by blocked users, etc.
+        # Deal with votes on closed or own edits, by blocked/beginner users, etc.
         my @edit_ids = map { $_->{edit_id} } @votes;
         my $edits = $self->c->model('Edit')->get_by_ids(@edit_ids);
         @votes = grep { defined $edits->{ $_->{edit_id} } } @votes;
@@ -59,9 +59,11 @@ sub enter_votes
             # not sufficient to filter the vote because the actual approval is happening elsewhere
             confess 'Unauthorized editor ' . $editor->id . ' tried to approve edit #' . $_->{edit_id};
         }
-        @votes = grep {
-            $_->{vote} == $VOTE_APPROVE || $edits->{ $_->{edit_id} }->editor_may_vote_on_edit($editor)
-        } @votes;
+        unless ($opts{override_privs}) {
+            @votes = grep {
+                $_->{vote} == $VOTE_APPROVE || $edits->{ $_->{edit_id} }->editor_may_vote_on_edit($editor)
+            } @votes
+        };
 
         return unless @votes;
 

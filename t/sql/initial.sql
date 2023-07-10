@@ -109,7 +109,7 @@ INSERT INTO language VALUES (198, 'jpn', 'jpn', 'ja', 'Japanese', 2, 'jpn');
 INSERT INTO language VALUES (284, 'mul', 'mul', '', '[Multiple languages]', 2, 'mul');
 INSERT INTO language VALUES (393, 'spa', 'spa', 'es', 'Spanish', 2, 'spa');
 INSERT INTO language VALUES (455, 'cym', 'wel', 'cy', 'Welsh', 1, 'cym');
-INSERT INTO language VALUES (486, 'zxx', 'zxx', NULL, 'No linguistic content', 1, 'zxx');
+INSERT INTO language VALUES (486, 'zxx', 'zxx', NULL, '[No linguistic content]', 1, 'zxx');
 
 INSERT INTO link_attribute_type VALUES (1, NULL, 1, 0, '0a5341f8-3b1d-4f99-a0c6-26b7f4e42c7f', 'additional', 'This attribute describes if a particular role was considered normal or additional.', '2014-03-30 09:53:32.715353+00');
 INSERT INTO link_attribute_type VALUES (2, NULL, 2, 0, '5b66c85d-6963-4d4b-86e5-18d2caccb349', 'minor', 'This attribute describes if a particular collaboration was considered equal or minor.', '2011-09-28 20:29:34.86135+00');

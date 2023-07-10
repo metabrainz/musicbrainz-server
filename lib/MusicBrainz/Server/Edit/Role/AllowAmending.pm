@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Edit::Role::AllowAmending;
 use MooseX::Role::Parameterized;
+use namespace::autoclean;
 
 parameter create_edit_type => ( isa => 'Int', required => 1);
 parameter entity_type => ( isa => 'Str', required => 1);

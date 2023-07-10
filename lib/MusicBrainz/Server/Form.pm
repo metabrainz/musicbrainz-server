@@ -157,7 +157,9 @@ sub clear_errors {
 
     if (!$field)
     {
-        map { $self->clear_errors($_) } $self->fields;
+        for my $listed_field ($self->fields) {
+            $self->clear_errors($listed_field);
+        }
         return;
     }
 
@@ -165,12 +167,16 @@ sub clear_errors {
 
     if ($field->is_repeatable)
     {
-        map { $self->clear_errors($_) } $field->fields;
+        for my $repeated_field ($field->fields) {
+            $self->clear_errors($repeated_field);
+        }
     }
 
     if ($field->can('is_compound') && $field->is_compound)
     {
-        map { $self->clear_errors($_) } $field->fields;
+        for my $subfield ($field->fields) {
+            $self->clear_errors($subfield);
+        }
     }
 }
 

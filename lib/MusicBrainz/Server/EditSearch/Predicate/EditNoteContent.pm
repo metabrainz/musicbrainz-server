@@ -1,5 +1,6 @@
 package MusicBrainz::Server::EditSearch::Predicate::EditNoteContent;
 use Moose;
+use namespace::autoclean;
 
 with 'MusicBrainz::Server::EditSearch::Predicate';
 

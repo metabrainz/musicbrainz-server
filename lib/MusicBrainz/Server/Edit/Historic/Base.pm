@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Edit::Historic::Base;
 
 use Moose;
+use namespace::autoclean;
 use Moose::Exporter;
 use Class::Load qw( load_class );
 

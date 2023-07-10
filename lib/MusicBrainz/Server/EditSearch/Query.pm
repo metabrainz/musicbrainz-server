@@ -1,5 +1,6 @@
 package MusicBrainz::Server::EditSearch::Query;
 use Moose;
+use namespace::autoclean;
 
 use MusicBrainz::Server::CGI::Expand qw( expand_hash );
 use MooseX::Types::Moose qw( Any ArrayRef Bool Maybe Str );

@@ -3,9 +3,15 @@ severity=1
 
 [BuiltinFunctions::ProhibitBooleanGrep]
 [BuiltinFunctions::ProhibitLvalueSubstr]
+[BuiltinFunctions::ProhibitReverseSortBlock]
 [BuiltinFunctions::ProhibitShiftRef]
 [BuiltinFunctions::ProhibitStringyEval]
 allow_includes=1
+[BuiltinFunctions::ProhibitStringySplit]
+[BuiltinFunctions::ProhibitUniversalIsa]
+[BuiltinFunctions::ProhibitVoidGrep]
+[BuiltinFunctions::ProhibitVoidMap]
+[BuiltinFunctions::RequireBlockGrep]
 
 [CodeLayout::ProhibitHardTabs]
 [CodeLayout::ProhibitTrailingWhitespace]
@@ -16,6 +22,7 @@ allow_includes=1
 [Modules::RequireFilenameMatchesPackage]
 
 [Moose::ProhibitNewMethod]
+[Moose::RequireCleanNamespace]
 
 [Subroutines::ProhibitReturnSort]
 

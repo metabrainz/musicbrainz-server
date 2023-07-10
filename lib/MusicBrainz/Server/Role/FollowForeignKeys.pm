@@ -4,6 +4,7 @@ use Data::Compare qw( Compare );
 use Data::Dumper;
 use List::AllUtils qw( any );
 use Moose::Role;
+use namespace::autoclean;
 use MusicBrainz::Script::Utils qw( retry );
 
 requires qw( follow_primary_key );

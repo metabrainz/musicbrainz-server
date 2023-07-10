@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Controller::Statistics;
 use Digest::MD5 qw( md5_hex );
 use Moose;
+use namespace::autoclean;
 use MusicBrainz::Server::Data::Statistics::ByDate;
 use MusicBrainz::Server::Data::Statistics::ByName;
 use MusicBrainz::Server::Data::CountryArea;

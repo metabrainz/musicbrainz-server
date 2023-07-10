@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Report::AnnotationReport;
 use Moose::Role;
+use namespace::autoclean;
 use MusicBrainz::Server::Data::Relationship;
 
 with 'MusicBrainz::Server::Report::QueryReport';

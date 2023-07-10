@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Model::MB;
 use Moose;
+use namespace::autoclean;
 
 extends 'Catalyst::Model';
 

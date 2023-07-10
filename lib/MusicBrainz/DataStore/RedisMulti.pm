@@ -1,6 +1,7 @@
 package MusicBrainz::DataStore::RedisMulti;
 
 use Moose;
+use namespace::autoclean;
 use DBDefs;
 use MusicBrainz::DataStore::Redis;
 

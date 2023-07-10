@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Controller::WS::js::Role::Autocompletion::PrimaryAlias;
 use MooseX::Role::Parameterized;
+use namespace::autoclean;
 
 parameter model => (
     isa => 'Str',

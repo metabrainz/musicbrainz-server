@@ -5,12 +5,13 @@ use warnings;
 use Test::Routine;
 use Test::Moose;
 use Test::More;
+use utf8;
 
 BEGIN { use MusicBrainz::Server::Data::Vote }
 
 use MusicBrainz::Server::Email;
 use MusicBrainz::Server::Constants qw( :vote );
-use MusicBrainz::Server::Test;
+use MusicBrainz::Server::Test qw( accept_edit );
 use DateTime;
 
 with 't::Context';
@@ -18,6 +19,7 @@ with 't::Context';
 {
     package t::Vote::MockEdit;
     use Moose;
+    use namespace::autoclean;
     extends 'MusicBrainz::Server::Edit';
     sub edit_type { 4242 }
     sub edit_name { 'mock edit' }
@@ -26,204 +28,374 @@ with 't::Context';
 use MusicBrainz::Server::EditRegistry;
 MusicBrainz::Server::EditRegistry->register_type('t::Vote::MockEdit', 1);
 
-test 'Email on first no vote' => sub {
+test 'Basic voting behaviour' => sub {
     my $test = shift;
     my $c = $test->c;
 
-    MusicBrainz::Server::Test->prepare_test_database($test->c, '+vote');
+    MusicBrainz::Server::Test->prepare_test_database($c, '+vote');
 
-    my $edit = $test->c->model('Edit')->create(
+    my $edit = $c->model('Edit')->create(
         editor_id => 1,
         edit_type => 4242,
         foo => 'bar',
     );
+    my $edit_id = $edit->id;
+
+    my $editor2 = $c->model('Editor')->get_by_id(2);
+
+    note('editor2 enters 4 votes: No -> Yes -> Abstain -> Yes');
+    $c->model('Vote')->enter_votes(
+        $editor2,
+        [{ edit_id => $edit_id, vote => $VOTE_NO }],
+    );
+    $c->model('Vote')->enter_votes(
+        $editor2,
+        [{ edit_id => $edit_id, vote => $VOTE_YES }],
+    );
+    $c->model('Vote')->enter_votes(
+        $editor2,
+        [{ edit_id => $edit_id, vote => $VOTE_ABSTAIN }],
+    );
+    $c->model('Vote')->enter_votes(
+        $editor2,
+        [{ edit_id => $edit_id, vote => $VOTE_YES }],
+    );
+
+    $edit = $c->model('Edit')->get_by_id($edit_id);
+    $c->model('Vote')->load_for_edits($edit);
+
+    is(scalar @{ $edit->votes }, 4, 'There are 4 votes on the edit');
+    is($edit->votes->[0]->vote, $VOTE_NO, 'Vote 1 is a No');
+    is($edit->votes->[1]->vote, $VOTE_YES, 'Vote 2 is a Yes');
+    is($edit->votes->[2]->vote, $VOTE_ABSTAIN, 'Vote 3 is an Abstain');
+    is($edit->votes->[3]->vote, $VOTE_YES, 'Vote 4 is a Yes (again)');
+
+    is(
+        $edit->votes->[$_]->editor_id,
+        2,
+        'Vote ' . ($_ + 1) . ' is by editor2',
+    ) for 0..3;
+
+    is(
+        $edit->votes->[$_]->superseded,
+        1,
+        'Vote ' . ($_ + 1) . ' is superseded',
+    ) for 0..2;
+    is(
+        $edit->votes->[3]->superseded,
+        0,
+        'Vote 4 (most recent vote by this editor) is not superseded',
+    );
+
+    # Check the vote counts
+    $edit = $c->model('Edit')->get_by_id($edit_id);
+    $c->model('Vote')->load_for_edits($edit);
+    is($edit->yes_votes, 1, 'There is 1 Yes vote');
+    is($edit->no_votes, 0, 'There are 0 No votes');
+
+    note('editor2 now abstains again');
+    $c->model('Vote')->enter_votes(
+        $editor2,
+        [{ edit_id => $edit_id, vote => $VOTE_ABSTAIN }],
+    );
+    $edit = $c->model('Edit')->get_by_id($edit_id);
+    is($edit->yes_votes, 0, 'There are now 0 Yes votes');
+    is($edit->no_votes, 0, 'There are still 0 No votes');
+};
+
+test 'Email on first no vote' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+vote');
+
+    my $edit = $c->model('Edit')->create(
+        editor_id => 1,
+        edit_type => 4242,
+        foo => 'bar',
+    );
+    my $edit_id = $edit->id;
 
     my $email_transport = MusicBrainz::Server::Email->get_test_transport;
     my $editor2 = $c->model('Editor')->get_by_id(2);
     my $editor3 = $c->model('Editor')->get_by_id(3);
 
-    $c->model('Vote')->enter_votes($editor2, { edit_id => $edit->id, vote => $VOTE_YES });
-    is($email_transport->delivery_count, 0, 'yes vote sends no email');
+    $c->model('Vote')->enter_votes(
+        $editor2,
+        [{ edit_id => $edit_id, vote => $VOTE_YES }],
+    );
+    is($email_transport->delivery_count, 0, 'Yes vote sends no email');
 
-    $c->model('Vote')->enter_votes($editor2, { edit_id => $edit->id, vote => $VOTE_NO });
-    is($email_transport->delivery_count, 1, 'first no vote sends email');
+    $c->model('Vote')->enter_votes(
+        $editor2,
+        [{ edit_id => $edit_id, vote => $VOTE_NO }],
+    );
+    is($email_transport->delivery_count, 1, 'First No vote sends email');
 
-    $c->model('Vote')->enter_votes($editor3, { edit_id => $edit->id, vote => $VOTE_NO });
-    is($email_transport->delivery_count, 1, 'second no vote sends no email');
+    $c->model('Vote')->enter_votes(
+        $editor3,
+        [{ edit_id => $edit_id, vote => $VOTE_NO }],
+    );
+    is($email_transport->delivery_count, 1, 'Second No vote sends no email');
 
-    $c->model('Vote')->enter_votes($editor2, { edit_id => $edit->id, vote => $VOTE_YES });
-    is($email_transport->delivery_count, 1, 'yes vote sends no email');
-    $c->model('Vote')->enter_votes($editor3, { edit_id => $edit->id, vote => $VOTE_YES });
-    is($email_transport->delivery_count, 1, 'yes vote sends no email');
+    $c->model('Vote')->enter_votes(
+        $editor2,
+        [{ edit_id => $edit_id, vote => $VOTE_YES }],
+    );
+    is($email_transport->delivery_count, 1, 'Second Yes vote sends no email');
+    $c->model('Vote')->enter_votes(
+        $editor3,
+        [{ edit_id => $edit_id, vote => $VOTE_YES }],
+    );
+    is(
+        $email_transport->delivery_count,
+        1,
+        'Changing No vote to Yes vote sends no email',
+    );
 
-    $c->model('Vote')->enter_votes($editor2, { edit_id => $edit->id, vote => $VOTE_NO });
-    is($email_transport->delivery_count, 2, 'new no vote bringing count from 0 to 1 sends an email');
+    $c->model('Vote')->enter_votes(
+        $editor2,
+        [{ edit_id => $edit_id, vote => $VOTE_NO }],
+    );
+    is(
+        $email_transport->delivery_count,
+        2,
+        'New No vote bringing count from 0 to 1 sends an email',
+    );
+
+    my $email = $email_transport->shift_deliveries->{email};
+    is(
+        $email->get_header('Subject'),
+        "Someone has voted against your edit #$edit_id",
+        'Email subject explains someone has voted against your edit',
+    );
+    is(
+        $email->get_header('References'),
+        sprintf('<edit-%d@%s>', $edit_id, DBDefs->WEB_SERVER_USED_IN_EMAIL),
+        'Email’s References header contains edit id',
+    );
+    is(
+        $email->get_header('To'),
+        '"editor1" <editor1@example.com>',
+        'Email’s To header contains editor email',
+    );
+
+    my $server = DBDefs->WEB_SERVER_USED_IN_EMAIL;
+    my $email_body = $email->object->body_str;
+    like(
+        $email_body,
+        qr{https://$server/edit/${\ $edit_id }},
+        'Email body contains link to edit',
+    );
+    like($email_body, qr{'editor2'}, 'Email body mentions editor2');
 };
 
 test 'Extend expiration on first no vote' => sub {
     my $test = shift;
     my $c = $test->c;
 
-    MusicBrainz::Server::Test->prepare_test_database($test->c, '+vote');
+    MusicBrainz::Server::Test->prepare_test_database($c, '+vote');
 
-    my $edit = $test->c->model('Edit')->create(
+    my $edit = $c->model('Edit')->create(
         editor_id => 1,
         edit_type => 4242,
         foo => 'bar',
     );
+    my $edit_id = $edit->id;
 
-    $c->sql->do(
-        q(UPDATE edit SET expire_time = NOW() + interval '20 hours' WHERE id = ?),
-        $edit->id
-    );
+    $c->sql->do(<<~'SQL', $edit_id);
+        UPDATE edit
+           SET expire_time = NOW() + interval '20 hours'
+         WHERE id = ?
+        SQL
 
     my $expected_expire_time = DateTime::Format::Pg->parse_datetime(
-        $c->sql->select_single_value(q(SELECT NOW() + interval '72 hours';)));
+        $c->sql->select_single_value(q(SELECT NOW() + interval '72 hours';)),
+    );
     my $expire_time = DateTime::Format::Pg->parse_datetime(
-        $c->sql->select_single_value('SELECT expire_time FROM edit WHERE id = ?', $edit->id));
-    is(DateTime->compare($expire_time, $expected_expire_time), -1,
-                         q(edit's expiration time is less than 72 hours));
+        $c->sql->select_single_value(
+            'SELECT expire_time FROM edit WHERE id = ?',
+            $edit_id,
+        ),
+    );
+    is(
+        DateTime->compare($expire_time, $expected_expire_time),
+        -1,
+        'Edit’s expiration time is less than 72 hours',
+    );
 
     my $editor2 = $c->model('Editor')->get_by_id(2);
 
-    $c->model('Vote')->enter_votes($editor2, { edit_id => $edit->id, vote => $VOTE_NO });
+    note('We enter a No vote');
+    $c->model('Vote')->enter_votes(
+        $editor2,
+        [{ edit_id => $edit_id, vote => $VOTE_NO }],
+    );
 
     $expire_time = DateTime::Format::Pg->parse_datetime(
-        $c->sql->select_single_value('SELECT expire_time FROM edit WHERE id = ?', $edit->id));
-    is($expire_time, $expected_expire_time, q(edit's expiration was extended by the no vote));
+        $c->sql->select_single_value(
+            'SELECT expire_time FROM edit WHERE id = ?',
+            $edit_id,
+        ),
+    );
+    is(
+        $expire_time,
+        $expected_expire_time,
+        'Edit’s expiration was extended by the no vote',
+    );
 };
 
-test all => sub {
+test 'Voting is blocked in the appropriate cases' => sub {
+    my $test = shift;
+    my $c = $test->c;
 
-my $test = shift;
-MusicBrainz::Server::Test->prepare_test_database($test->c, '+vote');
-MusicBrainz::Server::Test->prepare_raw_test_database($test->c, '+vote_stats');
+    MusicBrainz::Server::Test->prepare_test_database($c, '+vote');
 
-my $vote_data = $test->c->model('Vote');
+    my $edit = $c->model('Edit')->create(
+        editor_id => 1,
+        edit_type => 4242,
+        foo => 'bar',
+    );
+    my $edit_id = $edit->id;
 
-my $edit = $test->c->model('Edit')->create(
-    editor_id => 1,
-    edit_type => 4242,
-    foo => 'bar',
-);
+    my $edit_creator = $c->model('Editor')->get_by_id(1);
+    my $normal_voter = $c->model('Editor')->get_by_id(2);
+    my $unverified = $c->model('Editor')->get_by_id(5);
+    my $beginner = $c->model('Editor')->get_by_id(6);
 
-my $editor1 = $test->c->model('Editor')->get_by_id(1);
-my $editor2 = $test->c->model('Editor')->get_by_id(2);
-my $editor3 = $test->c->model('Editor')->get_by_id(3);
+    my $email_transport = MusicBrainz::Server::Email->get_test_transport;
 
-# Test voting on an edit
-$vote_data->enter_votes($editor2, { edit_id => $edit->id, vote => $VOTE_NO });
-$vote_data->enter_votes($editor2, { edit_id => $edit->id, vote => $VOTE_YES });
-$vote_data->enter_votes($editor2, { edit_id => $edit->id, vote => $VOTE_ABSTAIN });
-$vote_data->enter_votes($editor2, { edit_id => $edit->id, vote => $VOTE_YES });
+    note('We try to enter a No vote with the editor who entered the edit');
+    $c->model('Vote')->enter_votes(
+        $edit_creator,
+        [{ edit_id => $edit_id, vote => $VOTE_NO }],
+    );
+    $edit = $c->model('Edit')->get_by_id($edit_id);
+    $c->model('Vote')->load_for_edits($edit);
+    is(
+        $email_transport->delivery_count,
+        0,
+        'The forbidden No vote did not trigger an email',
+    );
 
-my $email_transport = MusicBrainz::Server::Email->get_test_transport;
-is($email_transport->delivery_count, 1);
+    is(scalar @{ $edit->votes }, 0, 'The vote count is still 0');
 
-my $email = $email_transport->shift_deliveries->{email};
-is($email->get_header('Subject'), 'Someone has voted against your edit #667', 'Subject explains someone has voted against your edit');
-is($email->get_header('References'), sprintf('<edit-%d@%s>', $edit->id, DBDefs->WEB_SERVER_USED_IN_EMAIL), 'References header contains edit id');
-is($email->get_header('To'), '"editor1" <editor1@example.com>', 'To header contains editor email');
+    is($edit->yes_votes, 0, 'There are 0 Yes votes');
+    is($edit->no_votes, 0, 'There are 0 No votes');
 
-my $server = DBDefs->WEB_SERVER_USED_IN_EMAIL;
-my $email_body = $email->object->body_str;
-like($email_body, qr{https://$server/edit/${\ $edit->id }}, 'body contains link to edit');
-like($email_body, qr{'editor2'}, 'body mentions editor2');
+    note('We try to enter an invalid vote with a valid voter');
+    $c->model('Vote')->load_for_edits($edit);
+    $c->model('Vote')->enter_votes(
+        $normal_voter,
+        [{ edit_id => $edit_id, vote => 123 }],
+    );
+    $edit = $c->model('Edit')->get_by_id($edit_id);
+    is(scalar @{ $edit->votes }, 0, 'The vote count is still 0');
+    is($edit->yes_votes, 0, 'There are still 0 Yes votes');
+    is($edit->no_votes, 0, 'There are still 0 No votes');
 
-$edit = $test->c->model('Edit')->get_by_id($edit->id);
-$vote_data->load_for_edits($edit);
+    note('We try to enter a No vote with a beginner editor');
+    $c->model('Vote')->load_for_edits($edit);
+    $c->model('Vote')->enter_votes(
+        $beginner,
+        [{ edit_id => $edit_id, vote => $VOTE_NO }],
+    );
+    $edit = $c->model('Edit')->get_by_id($edit_id);
+    is(
+        $email_transport->delivery_count,
+        0,
+        'The forbidden No vote did not trigger an email',
+    );
+    is(scalar @{ $edit->votes }, 0, 'The vote count is still 0');
+    is($edit->yes_votes, 0, 'There are still 0 Yes votes');
+    is($edit->no_votes, 0, 'There are still 0 No votes');
 
-is(scalar @{ $edit->votes }, 4);
-is($edit->votes->[0]->vote, $VOTE_NO, 'no vote saved correctly');
-is($edit->votes->[1]->vote, $VOTE_YES, 'yes vote saved correctly');
-is($edit->votes->[2]->vote, $VOTE_ABSTAIN, 'abstain vote saved correctly');
-is($edit->votes->[3]->vote, $VOTE_YES, 'yes vote saved correctly');
+    note('We try to enter a No vote with an unverified editor');
+    $c->model('Vote')->load_for_edits($edit);
+    $c->model('Vote')->enter_votes(
+        $unverified,
+        [{ edit_id => $edit_id, vote => $VOTE_NO }],
+    );
+    $edit = $c->model('Edit')->get_by_id($edit_id);
+    is(
+        $email_transport->delivery_count,
+        0,
+        'The forbidden No vote did not trigger an email',
+    );
+    is(scalar @{ $edit->votes }, 0, 'The vote count is still 0');
+    is($edit->yes_votes, 0, 'There are still 0 Yes votes');
+    is($edit->no_votes, 0, 'There are still 0 No votes');
 
-is($edit->votes->[$_]->superseded, 1) for 0..2;
-is($edit->votes->[3]->superseded, 0);
-is($edit->votes->[$_]->editor_id, 2) for 0..3;
+    note('We try to enter a No vote with a valid voter after expiration');
+    accept_edit($c, $edit);
+    $c->model('Vote')->load_for_edits($edit);
+    $c->model('Vote')->enter_votes(
+        $normal_voter,
+        [{ edit_id => $edit_id, vote => $VOTE_NO }],
+    );
+    $edit = $c->model('Edit')->get_by_id($edit_id);
+    is(
+        $email_transport->delivery_count,
+        0,
+        'The forbidden No vote did not trigger an email',
+    );
+    is(scalar @{ $edit->votes }, 0, 'The vote count is still 0');
+    is($edit->yes_votes, 0, 'There are still 0 Yes votes');
+    is($edit->no_votes, 0, 'There are still 0 No votes');
+};
 
-# Make sure the person who created an edit cannot vote
-$vote_data->enter_votes($editor1, { edit_id => $edit->id, vote => $VOTE_NO });
-$edit = $test->c->model('Edit')->get_by_id($edit->id);
-$vote_data->load_for_edits($edit);
-is($email_transport->delivery_count, 0);
+test 'Vote statistics for editor' => sub {
+    my $test = shift;
+    my $c = $test->c;
 
-is(scalar @{ $edit->votes }, 4);
-is($edit->votes->[$_]->editor_id, 2) for 0..3;
+    MusicBrainz::Server::Test->prepare_raw_test_database($c, '+vote_stats');
 
-# Check the vote counts
-$edit = $test->c->model('Edit')->get_by_id($edit->id);
-$vote_data->load_for_edits($edit);
-is($edit->yes_votes, 1);
-is($edit->no_votes, 0);
-
-$vote_data->enter_votes($editor2, { edit_id => $edit->id, vote => $VOTE_ABSTAIN });
-$edit = $test->c->model('Edit')->get_by_id($edit->id);
-is($edit->yes_votes, 0);
-is($edit->no_votes, 0);
-
-# Make sure *new* no-votes against result in an email being sent
-$vote_data->enter_votes($editor2, { edit_id => $edit->id, vote => $VOTE_NO });
-is($email_transport->delivery_count, 1, 'no-vote count 0-1 results in email');
-
-# but that ones that just add extra no-votes don't send any
-$vote_data->enter_votes($editor3, { edit_id => $edit->id, vote => $VOTE_NO });
-is($email_transport->delivery_count, 1, 'no-vote count 1-2 does not result in additional email');
-
-# Entering invalid votes doesn't do anything
-$vote_data->load_for_edits($edit);
-my $old_count = @{ $edit->votes };
-$vote_data->enter_votes($editor2, { edit_id => $edit->id, vote => 123 });
-is(@{ $edit->votes }, $old_count, 'vote count should not have changed');
-
-# Check the voting statistics
-my $stats = $vote_data->editor_statistics($test->c->model('Editor')->get_by_id(1));
-is_deeply($stats, [
-    {
-        name   => 'Yes',
-        recent => {
-            count      => 2,
-            percentage => 50,
+    my $editor = $c->model('Editor')->get_by_id(1);
+    my $stats = $c->model('Vote')->editor_statistics($editor);
+    is_deeply($stats, [
+        {
+            name   => 'Yes',
+            recent => {
+                count      => 2,
+                percentage => 50,
+            },
+            all    => {
+                count      => 3,
+                percentage => 60
+            }
         },
-        all    => {
-            count      => 3,
-            percentage => 60
-        }
-    },
-    {
-        name   => 'No',
-        recent => {
-            count      => 1,
-            percentage => 25,
+        {
+            name   => 'No',
+            recent => {
+                count      => 1,
+                percentage => 25,
+            },
+            all    => {
+                count      => 1,
+                percentage => 20
+            }
         },
-        all    => {
-            count      => 1,
-            percentage => 20
-        }
-    },
-    {
-        name   => 'Abstain',
-        recent => {
-            count      => 1,
-            percentage => 25,
+        {
+            name   => 'Abstain',
+            recent => {
+                count      => 1,
+                percentage => 25,
+            },
+            all    => {
+                count      => 1,
+                percentage => 20
+            }
         },
-        all    => {
-            count      => 1,
-            percentage => 20
+        {
+            name   => 'Total',
+            recent => {
+                count      => 4,
+            },
+            all    => {
+                count      => 5,
+            }
         }
-    },
-    {
-        name   => 'Total',
-        recent => {
-            count      => 4,
-        },
-        all    => {
-            count      => 5,
-        }
-    }
-]);
-
+    ]);
 };
 
 1;

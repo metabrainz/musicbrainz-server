@@ -15,6 +15,7 @@ use English;
 use File::Copy qw( copy );
 use List::AllUtils qw( natatime );
 use Moose;
+use namespace::autoclean;
 use MusicBrainz::Script::DatabaseDump;
 use MusicBrainz::Script::EntityDump qw(
     get_core_entities

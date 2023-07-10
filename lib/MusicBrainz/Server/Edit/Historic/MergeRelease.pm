@@ -71,7 +71,7 @@ sub build_display_data
                 map {
                     my $old_release = $_;
                     if (my @ids = @{ $_->{release_ids} }) {
-                        map {
+                        map { ## no critic (ProhibitVoidMap) - False positive
                             to_json_object(
                                 $loaded->{Release}{$_} //
                                 Release->new(name => $old_release->{name})
@@ -85,7 +85,7 @@ sub build_display_data
             ],
             new => [ do {
                 if (my @ids = $self->_new_release_ids) {
-                    map {
+                    map { ## no critic (ProhibitVoidMap) - False positive
                         to_json_object(
                             $loaded->{Release}{$_} //
                             Release->new(name => $self->data->{new_release}{name})

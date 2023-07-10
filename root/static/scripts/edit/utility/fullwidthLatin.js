@@ -15,11 +15,11 @@
  */
 const fullwidthLatinRegexp = /[\u3000\uFF01-\uFF60\uFFE0-\uFFE6]/;
 
-export const hasFullwidthLatin = function (str: string): boolean {
+export const hasFullwidthLatin = function (str: ?string): boolean {
   return fullwidthLatinRegexp.test(str || '');
 };
 
-export const fromFullwidthLatin = function (str: string): string {
+export const fromFullwidthLatin = function (str: ?string): string {
   return (str || '')
     .replace(/\u3000/g, ' ')
     .replace(/[\uFF01-\uFF5E]/g, function (c) {
@@ -36,7 +36,7 @@ export const fromFullwidthLatin = function (str: string): string {
     .replace(/\uFFE6/g, '\u20A9');
 };
 
-export const toFullwidthLatin = function (str: string): string {
+export const toFullwidthLatin = function (str: ?string): string {
   return (str || '')
     .replace(/\s/g, '\u3000')
     .replace(/[\x21-\x7E]/g, function (c) {

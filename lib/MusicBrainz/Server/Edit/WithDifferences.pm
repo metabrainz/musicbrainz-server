@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Edit::WithDifferences;
 use Moose;
+use namespace::autoclean;
 
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Data::Utils qw( remove_equal );

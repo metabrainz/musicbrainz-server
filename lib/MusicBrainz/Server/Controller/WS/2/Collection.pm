@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Controller::WS::2::Collection;
 use Moose;
+use namespace::autoclean;
 BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::2' }
 
 use aliased 'MusicBrainz::Server::WebService::WebServiceStash';
@@ -78,9 +79,8 @@ sub collection_toplevel {
     $c->model('Editor')->load(@collections);
 }
 
-map {
-    my $type = $_;
-    my $entity_properties = $ENTITIES{$type};
+for my $entity_type (entities_with('collections')) {
+    my $entity_properties = $ENTITIES{$entity_type};
     my $url = $entity_properties->{url};
     my $plural = $entity_properties->{plural};
     my $plural_url = $entity_properties->{plural_url};
@@ -101,7 +101,7 @@ map {
         $c->model('CollectionType')->load($collection);
 
         $self->_error($c, "This is not a collection for entity type $url."),
-            unless ($collection->type->item_entity_type eq $type);
+            unless ($collection->type->item_entity_type eq $entity_type);
 
         $c->model('Editor')->load($collection);
 
@@ -132,7 +132,7 @@ map {
             unless ($c->model('Collection')->is_collection_collaborator($c->user->id, $collection->id));
 
         $self->_error($c, "This is not a collection for entity type $url.")
-            unless ($collection->type->item_entity_type eq $type);
+            unless ($collection->type->item_entity_type eq $entity_type);
 
         my $client = $c->req->query_params->{client}
             or $self->_error($c, 'You must provide information about your client, by the client query parameter');
@@ -152,7 +152,7 @@ map {
         if ($c->req->method eq 'PUT') {
             $self->deny_readonly($c);
             $c->model('Collection')->add_entities_to_collection(
-                $type,
+                $entity_type,
                 $collection->id,
                 map { $_->id } grep { defined } map { $entities{$_} } @gids
             );
@@ -160,7 +160,7 @@ map {
         } elsif ($c->req->method eq 'DELETE') {
             $self->deny_readonly($c);
             $c->model('Collection')->remove_entities_from_collection(
-                $type,
+                $entity_type,
                 $collection->id,
                 map { $_->id } grep { defined } map { $entities{$_} } @gids
             );
@@ -179,7 +179,7 @@ map {
         $submission_method,
         [q{Chained('load')}, "PathPart('$plural_url')", 'Args(1)'],
     );
-} entities_with('collections');
+}
 
 sub collection_list : Chained('base') PathPart('') {
     my ($self, $c) = @_;

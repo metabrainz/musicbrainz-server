@@ -115,7 +115,7 @@ sub _create_page
 
     my $title = $id =~ tr/_/ /r;
     # Create hierarchy for displaying in the h1
-    my @hierarchy = split('/',$title);
+    my @hierarchy = split(/\//,$title);
 
     # Format nicely for <title>
     $title =~ s,/, / ,g;

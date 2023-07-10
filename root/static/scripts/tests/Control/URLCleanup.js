@@ -2612,7 +2612,7 @@ limited_link_type_combinations: [
   },
   // IROMBOOK images (StaticBrainz)
   {
-                     input_url: 'https://staticbrainz.org/irombook/sitar/sitar.png',
+                     input_url: 'https://static.metabrainz.org/irombook/sitar/sitar.png',
              input_entity_type: 'instrument',
     expected_relationship_type: 'image',
        only_valid_entity_types: ['instrument'],

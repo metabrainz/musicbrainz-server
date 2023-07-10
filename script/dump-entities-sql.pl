@@ -5,6 +5,7 @@ use warnings;
 use feature 'switch';
 
 use Moose;
+use namespace::autoclean;
 use FindBin;
 use Getopt::Long;
 use lib "$FindBin::Bin/../lib";

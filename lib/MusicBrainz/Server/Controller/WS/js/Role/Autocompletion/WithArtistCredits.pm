@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Controller::WS::js::Role::Autocompletion::WithArtistCredits;
 use Moose::Role;
+use namespace::autoclean;
 
 with 'MusicBrainz::Server::Controller::WS::js::Role::Autocompletion';
 

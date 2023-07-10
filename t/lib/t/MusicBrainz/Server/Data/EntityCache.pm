@@ -9,6 +9,8 @@ use Test::More;
 {
     package MyEntityData;
     use Moose;
+    use namespace::autoclean;
+
     extends 'MusicBrainz::Server::Data::Entity';
     sub _type { 'my_entity_data' }
     sub get_by_ids
@@ -20,6 +22,8 @@ use Test::More;
 
     package MyCachedEntityData;
     use Moose;
+    use namespace::autoclean;
+
     extends 'MyEntityData';
     with 'MusicBrainz::Server::Data::Role::EntityCache';
     has 'get_called' => ( is => 'rw', isa => 'Bool', default => 0 );
@@ -27,6 +31,8 @@ use Test::More;
 
     package MockCache;
     use Moose;
+    use namespace::autoclean;
+
     has 'data' => ( is => 'rw', isa => 'HashRef', default => sub { +{} } );
     has 'get_called' => ( is => 'rw', isa => 'Bool', default => 0 );
     has 'set_called' => ( is => 'rw', isa => 'Bool', default => 0 );

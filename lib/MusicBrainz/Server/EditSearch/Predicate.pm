@@ -1,5 +1,6 @@
 package MusicBrainz::Server::EditSearch::Predicate;
 use Moose::Role;
+use namespace::autoclean;
 
 use MooseX::Types::Moose qw( Any ArrayRef Str );
 use MusicBrainz::Server::EditSearch::Exceptions;

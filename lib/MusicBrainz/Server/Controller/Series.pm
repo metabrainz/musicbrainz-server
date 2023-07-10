@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Controller::Series;
 use Moose;
+use namespace::autoclean;
 use MusicBrainz::Server::Constants qw(
     $EDIT_SERIES_CREATE
     $EDIT_SERIES_EDIT

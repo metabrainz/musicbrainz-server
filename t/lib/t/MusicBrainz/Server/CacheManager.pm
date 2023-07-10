@@ -8,11 +8,13 @@ use Test::More;
 {
     package t::MusicBrainz::Server::CacheManager::TestCache1;
     use Moose;
+    use namespace::autoclean;
     sub get { '1' }
     sub set {}
     1;
     package t::MusicBrainz::Server::CacheManager::TestCache2;
     use Moose;
+    use namespace::autoclean;
     has 'value' => ( is => 'ro' );
     sub get { shift->value }
     sub set {}

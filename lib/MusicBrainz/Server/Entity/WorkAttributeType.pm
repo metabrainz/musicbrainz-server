@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Entity::WorkAttributeType;
 use Moose;
+use namespace::autoclean;
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Translation::Attributes qw( lp );

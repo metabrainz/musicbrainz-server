@@ -239,7 +239,7 @@ sub is_valid_time
 sub is_valid_setlist
 {
     my $setlist = shift;
-    my @invalid_lines = grep { $_ !~ /^([@#*] |\s*$)/ } split('\r\n', $setlist); return @invalid_lines ? 0 : 1;
+    my @invalid_lines = grep { $_ !~ /^([@#*] |\s*$)/ } split(/\r\n/, $setlist); return @invalid_lines ? 0 : 1;
 }
 
 sub is_valid_iso_3166_1

@@ -79,7 +79,7 @@ respective work.
 sub load_for_works
 {
     my ($self, @works) = @_;
-    my %id_to_works = object_to_ids(uniq grep defined, @works);
+    my %id_to_works = object_to_ids(uniq grep { defined } @works);
     my @ids = keys %id_to_works;
     return unless @ids; # nothing to do
     my @iswcs = $self->find_by_works(@ids);

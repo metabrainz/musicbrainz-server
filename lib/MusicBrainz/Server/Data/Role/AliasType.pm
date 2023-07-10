@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Data::Role::AliasType;
 
 use Moose::Role;
+use namespace::autoclean;
 use MusicBrainz::Server::Entity::AliasType;
 use MusicBrainz::Server::Data::Utils qw( load_subobjects );
 

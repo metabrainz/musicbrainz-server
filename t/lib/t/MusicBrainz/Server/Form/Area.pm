@@ -75,6 +75,8 @@ sub form_context {
 
 package t::FormContext;
 use Moose;
+use namespace::autoclean;
+
 use MusicBrainz::Server::Translation;
 extends 'MusicBrainz::Server::Context';
 

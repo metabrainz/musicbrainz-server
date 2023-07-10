@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Controller::Role::LoadWithRowID;
 use Moose::Role;
+use namespace::autoclean;
 use MusicBrainz::Server::Validation qw( is_positive_integer );
 
 around _load => sub

@@ -18,6 +18,8 @@ my $mock_class = 1000 + int(rand(1000));
 {
     package t::MusicBrainz::Server::EditQueue::MockEditSimple;
     use Moose;
+    use namespace::autoclean;
+
     extends 'MusicBrainz::Server::Edit';
     with 'MusicBrainz::Server::Edit::Role::NeverAutoEdit';
     sub edit_name { 'Mock edit with database votes' }

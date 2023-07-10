@@ -178,9 +178,7 @@ Authors:     Contributed to the MetaBrainz Foundation by the BBC.
 
 Images:
 
-    icons/add_row.png
     icons/collapse.png
-    icons/delete_row.png
     icons/down.png
     icons/expand.png
     icons/guesscase.32x32.png
@@ -199,3 +197,21 @@ Authors:     Calvin Walton (kepstin)
 Image:
 
     no-cover-art.png
+
+----------------------------------------------------------------------------
+
+Source:      MetaBrainz Foundation
+License:     CC0
+Authors:     Aerozol
+
+Images:
+
+    icons/add_row.png
+    icons/delete_row.png
+    icons/edit.png
+    icons/open_edits_for_entity.png
+    icons/open_edits_for_rel.png
+
+    (original .svg versions are in src/icons/*.svg)
+
+----------------------------------------------------------------------------

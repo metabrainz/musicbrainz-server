@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Controller::Admin::Attributes;
 use Moose;
+use namespace::autoclean;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 
 use MusicBrainz::Server::Translation qw( l );

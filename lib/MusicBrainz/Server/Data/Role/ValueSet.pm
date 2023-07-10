@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Data::Role::ValueSet;
 
 use MooseX::Role::Parameterized;
+use namespace::autoclean;
 use Moose::Util qw( ensure_all_roles );
 use MusicBrainz::Server::Data::ValueSet;
 
