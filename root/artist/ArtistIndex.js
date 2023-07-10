@@ -46,6 +46,8 @@ type FooterSwitchProps = {
 type Props = {
   +ajaxFilterFormUrl: string,
   +artist: ArtistT,
+  +baseName: ?ArtistT,
+  +baseNameLegalNameAliases: ?$ReadOnlyArray<string>,
   +eligibleForCleanup: boolean,
   +filterForm: ?FilterFormT,
   +hasDefault: boolean,
@@ -54,9 +56,7 @@ type Props = {
   +hasVariousArtists: boolean,
   +hasVariousArtistsExtra: boolean,
   +includingAllStatuses: boolean,
-  +legalName: ?ArtistT,
   +legalNameAliases: ?$ReadOnlyArray<string>,
-  +legalNameArtistAliases: ?$ReadOnlyArray<string>,
   +numberOfRevisions: number,
   +otherIdentities: $ReadOnlyArray<ArtistT>,
   +pager: PagerT,
@@ -197,6 +197,8 @@ const FooterSwitch = ({
 const ArtistIndex = ({
   ajaxFilterFormUrl,
   artist,
+  baseName,
+  baseNameLegalNameAliases,
   eligibleForCleanup,
   filterForm,
   hasDefault,
@@ -205,9 +207,7 @@ const ArtistIndex = ({
   hasVariousArtists,
   hasVariousArtistsExtra,
   includingAllStatuses,
-  legalName,
   legalNameAliases,
-  legalNameArtistAliases,
   numberOfRevisions,
   otherIdentities,
   pager,
@@ -235,11 +235,11 @@ const ArtistIndex = ({
         numberOfRevisions={numberOfRevisions}
       />
 
-      {legalName ? (
-        <RelatedEntitiesDisplay title={l('Legal name')}>
-          <DescriptiveLink entity={legalName} />
-          {legalNameArtistAliases
-            ? ' ' + bracketedText(commaOnlyListText(legalNameArtistAliases))
+      {baseName ? (
+        <RelatedEntitiesDisplay title={l('Performance name of')}>
+          <DescriptiveLink entity={baseName} />
+          {baseNameLegalNameAliases
+            ? ' ' + bracketedText(commaOnlyListText(baseNameLegalNameAliases))
             : null}
         </RelatedEntitiesDisplay>
 
