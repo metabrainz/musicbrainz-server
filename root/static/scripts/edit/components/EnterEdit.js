@@ -9,6 +9,7 @@
 
 type CommonProps = {
   +children?: React$Node,
+  +childrenFirst?: boolean,
   +disabled?: boolean,
   +form: ReadOnlyFormT<{
     +make_votable: ReadOnlyFieldT<boolean>,
@@ -29,6 +30,7 @@ type Props =
 
 const EnterEdit = ({
   children,
+  childrenFirst = false,
   disabled = false,
   form,
   ...otherProps
@@ -63,6 +65,7 @@ const EnterEdit = ({
         </div>
       </div>
       <div className="row no-label buttons">
+        {childrenFirst ? children : null}
         <button
           className="submit positive"
           disabled={disabled}
@@ -70,7 +73,7 @@ const EnterEdit = ({
         >
           {l('Enter edit')}
         </button>
-        {children}
+        {childrenFirst ? null : children}
       </div>
     </>
   );

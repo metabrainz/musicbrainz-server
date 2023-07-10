@@ -84,7 +84,7 @@ const EditAnnotation = ({
 
         <EnterEditNote field={form.field.edit_note} />
 
-        <EnterEdit form={form}>
+        <EnterEdit childrenFirst form={form}>
           <button
             name={form.field.preview.html_name}
             type="submit"
