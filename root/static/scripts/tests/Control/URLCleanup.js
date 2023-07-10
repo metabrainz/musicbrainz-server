@@ -1175,6 +1175,12 @@ limited_link_type_combinations: [
     expected_relationship_type: 'bookbrainz',
             expected_clean_url: 'https://bookbrainz.org/work/65e71f2e-7245-42df-b93e-89463a28f75c',
   },
+  {
+                     input_url: 'https://bookbrainz.org/series/bf771df4-ce00-43a1-972b-61ca818faf58',
+             input_entity_type: 'series',
+    expected_relationship_type: 'bookbrainz',
+            expected_clean_url: 'https://bookbrainz.org/series/bf771df4-ce00-43a1-972b-61ca818faf58',
+  },
   // Boomplay
   {
                      input_url: 'https://boomplay.com/artists/4334757?srModel=COPYLINK&srList=WEB',

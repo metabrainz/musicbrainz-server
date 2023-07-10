@@ -63,6 +63,7 @@ export const LINK_TYPES: LinkTypeMap = {
     label: 'b7be2ca4-bdb7-4d87-9619-f2fa50120409',
     release: '63b84620-ba52-4630-9bfe-8ad3b5504dff',
     release_group: '27cfc95c-d368-45a9-ae0d-308c274c2017',
+    series: 'fe60d685-8064-4501-baab-e2de8ff52a27',
     work: '0ea7cf4e-93dd-4bc4-b748-0f1073cf951c',
   },
   cdbaby: {
