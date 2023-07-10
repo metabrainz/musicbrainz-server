@@ -413,7 +413,7 @@ test('Work', function (t) {
 });
 
 test('BugFixes', function (t) {
-  t.plan(36);
+  t.plan(42);
 
   const tests = [
     {
@@ -630,6 +630,42 @@ test('BugFixes', function (t) {
       input: 'The Best Song (8-Bit Loop Version)',
       expected: 'The Best Song (8-bit loop version)',
       bug: 'MBS-12779',
+      mode: 'English',
+    },
+    {
+      input: 'The Best Re-Edit (Someone Famous Re-Edit)',
+      expected: 'The Best Re-Edit (Someone Famous re-edit)',
+      bug: 'MBS-13153',
+      mode: 'English',
+    },
+    {
+      input: 'The Best Re-Edit',
+      expected: 'The Best (re-edit)',
+      bug: 'MBS-13153',
+      mode: 'English',
+    },
+    {
+      input: 'The Best Remaster',
+      expected: 'The Best (remaster)',
+      bug: 'MBS-13156',
+      mode: 'English',
+    },
+    {
+      input: 'The Best Refix',
+      expected: 'The Best (refix)',
+      bug: 'MBS-13149',
+      mode: 'English',
+    },
+    {
+      input: 'The Best OC Remix Song (OC Remix By Stan)',
+      expected: 'The Best OC ReMix Song (OC ReMix by Stan)',
+      bug: 'MBS-13149',
+      mode: 'English',
+    },
+    {
+      input: 'An A Cappella Festival (A Cappella Version)',
+      expected: 'An A Cappella Festival (a cappella version)',
+      bug: 'MBS-13149',
       mode: 'English',
     },
     /*
