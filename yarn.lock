@@ -2488,10 +2488,10 @@ flatted@^2.0.0:
   resolved "https://registry.yarnpkg.com/flatted/-/flatted-2.0.2.tgz#4575b21e2bcee7434aa9be662f4b7b5f9c2b5138"
   integrity sha512-r5wGx7YeOwNWNlCA0wQ86zKyDLMQr+/RB8xy74M4hTphfmjlijTSSXGuH8rnvKZnfT9i+75zmd8jcKdMR4O6jA==
 
-flow-bin@0.204.1:
-  version "0.204.1"
-  resolved "https://registry.yarnpkg.com/flow-bin/-/flow-bin-0.204.1.tgz#096c1dc5413edfa3f8284f888449f436a10a68fc"
-  integrity sha512-gYlDS1cRIV/FnqLc8G0xb/pFdu9eGM+NuxZlihlxRrt3GTfei8IioPSXMpiJz11DPPkiAr9tpIyI+g5RcP1W7Q==
+flow-bin@0.205.0:
+  version "0.205.0"
+  resolved "https://registry.yarnpkg.com/flow-bin/-/flow-bin-0.205.0.tgz#dd636b03cf12273609b15c9fd219a982c2fcff45"
+  integrity sha512-akmM+++RkcIuFbfhhVfFnHNwdyUVjzZHzA9eeepiXm/NP7HUkOTndlX1o6/vjeOjUbDFcsXhvo209n4ZNK5ceA==
 
 follow-redirects@^1.0.0:
   version "1.15.2"
