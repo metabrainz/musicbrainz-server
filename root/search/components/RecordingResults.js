@@ -130,7 +130,7 @@ export const RecordingResultsInline = ({
   query,
   results,
 }: InlineResultsPropsT<RecordingWithArtistCreditT>):
-React$Element<typeof PaginatedSearchResults> => {
+React$MixedElement => {
   const $c = React.useContext(CatalystContext);
 
   return (

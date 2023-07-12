@@ -43,8 +43,7 @@ export const ArtistResultsInline = ({
   pager,
   query,
   results,
-}: InlineResultsPropsT<ArtistT>):
-React$Element<typeof PaginatedSearchResults> => (
+}: InlineResultsPropsT<ArtistT>): React$MixedElement => (
   <PaginatedSearchResults
     buildResult={(result, index) => buildResult(result, index)}
     columns={
