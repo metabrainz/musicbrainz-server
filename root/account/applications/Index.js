@@ -7,12 +7,16 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import * as React from 'react';
+
 import PaginatedResults from '../../components/PaginatedResults.js';
 import {ACCESS_SCOPE_PERMISSIONS} from '../../constants.js';
+import {SanitizedCatalystContext} from '../../context.mjs';
 import Layout from '../../layout/index.js';
 import {compare} from '../../static/scripts/common/i18n.js';
 import {commaOnlyListText}
   from '../../static/scripts/common/i18n/commaOnlyList.js';
+import formatUserDate from '../../utility/formatUserDate.js';
 import loopParity from '../../utility/loopParity.js';
 
 type Props = {
@@ -44,10 +48,15 @@ const buildApplicationRow = (application: ApplicationT, index: number) => (
   </tr>
 );
 
-const buildTokenRow = (token: EditorOAuthTokenT, index: number) => (
+const buildTokenRow = (
+  token: EditorOAuthTokenT,
+  index: number,
+  $c: SanitizedCatalystContextT,
+) => (
   <tr className={loopParity(index)} key={token.id}>
     <td>{token.application.name}</td>
     <td>{formatScopes(token)}</td>
+    <td>{formatUserDate($c, token.granted)}</td>
     <td>
       <a
         href={'/account/applications/revoke-access/' +
@@ -78,80 +87,87 @@ const Index = ({
   appsPager,
   tokens,
   tokensPager,
-}: Props): React$Element<typeof Layout> => (
-  <Layout fullWidth title={l('Applications')}>
-    <h1>{l('Applications')}</h1>
+}: Props): React$Element<typeof Layout> => {
+  const $c = React.useContext(SanitizedCatalystContext);
 
-    <h2>{l('Authorized Applications')}</h2>
+  return (
+    <Layout fullWidth title={l('Applications')}>
+      <h1>{l('Applications')}</h1>
 
-    <p>
-      {l(
-        `Some applications and websites support accessing private data from
-         or submitting data to MusicBrainz but require your permission to
-         access your account. These are the applications that you have
-         authorized to access your MusicBrainz account. If you no longer use
-         some of the applications, you can revoke their access.`,
-      )}
-    </p>
+      <h2>{l('Authorized Applications')}</h2>
 
-    {tokens.length
-      ? (
-        <PaginatedResults pageVar="tokens_page" pager={tokensPager}>
-          <table className="tbl">
-            <thead>
-              <tr>
-                <th>{l('Application')}</th>
-                <th>{l('Access')}</th>
-                <th>{l('Actions')}</th>
-              </tr>
-            </thead>
-            <tbody>
-              {tokens.map(buildTokenRow)}
-            </tbody>
-          </table>
-        </PaginatedResults>
-      ) : (
-        <p>{l('You have not authorized any applications.')}</p>
-      )}
+      <p>
+        {l(
+          `Some applications and websites support accessing private data from
+          or submitting data to MusicBrainz but require your permission to
+          access your account. These are the applications that you have
+          authorized to access your MusicBrainz account. If you no longer use
+          some of the applications, you can revoke their access.`,
+        )}
+      </p>
 
-    <h2>{l('Developer Applications')}</h2>
+      {tokens.length
+        ? (
+          <PaginatedResults pageVar="tokens_page" pager={tokensPager}>
+            <table className="tbl">
+              <thead>
+                <tr>
+                  <th>{l('Application')}</th>
+                  <th>{l('Access')}</th>
+                  <th>{l('Last granted token')}</th>
+                  <th>{l('Actions')}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {tokens.map(
+                  (token, index) => buildTokenRow(token, index, $c),
+                )}
+              </tbody>
+            </table>
+          </PaginatedResults>
+        ) : (
+          <p>{l('You have not authorized any applications.')}</p>
+        )}
 
-    <p>
-      {exp.l(
-        `Do you want to develop an application that uses the
-         {mb_api_doc_url|MusicBrainz API}? 
-         {register_url|Register an application} to generate OAuth tokens.
-         See our {oauth2_doc_url|OAuth documentation} for more details.`,
-        {
-          mb_api_doc_url: '/doc/MusicBrainz_API',
-          oauth2_doc_url: '/doc/Development/OAuth2',
-          register_url: '/account/applications/register',
-        },
-      )}
-    </p>
+      <h2>{l('Developer Applications')}</h2>
 
-    {applications.length
-      ? (
-        <PaginatedResults pageVar="apps_page" pager={appsPager}>
-          <table className="tbl">
-            <thead>
-              <tr>
-                <th>{l('Application')}</th>
-                <th>{l('Type')}</th>
-                <th>{l('OAuth Client ID')}</th>
-                <th>{l('OAuth Client Secret')}</th>
-                <th>{l('Actions')}</th>
-              </tr>
-            </thead>
-            <tbody>
-              {applications.map(buildApplicationRow)}
-            </tbody>
-          </table>
-        </PaginatedResults>
-      ) : (
-        <p>{l('You do not have any registered applications.')}</p>
-      )}
-  </Layout>
-);
+      <p>
+        {exp.l(
+          `Do you want to develop an application that uses the
+          {mb_api_doc_url|MusicBrainz API}? 
+          {register_url|Register an application} to generate OAuth tokens.
+          See our {oauth2_doc_url|OAuth documentation} for more details.`,
+          {
+            mb_api_doc_url: '/doc/MusicBrainz_API',
+            oauth2_doc_url: '/doc/Development/OAuth2',
+            register_url: '/account/applications/register',
+          },
+        )}
+      </p>
+
+      {applications.length
+        ? (
+          <PaginatedResults pageVar="apps_page" pager={appsPager}>
+            <table className="tbl">
+              <thead>
+                <tr>
+                  <th>{l('Application')}</th>
+                  <th>{l('Type')}</th>
+                  <th>{l('OAuth Client ID')}</th>
+                  <th>{l('OAuth Client Secret')}</th>
+                  <th>{l('Actions')}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {applications.map(buildApplicationRow)}
+              </tbody>
+            </table>
+          </PaginatedResults>
+        ) : (
+          <p>{l('You do not have any registered applications.')}</p>
+        )}
+    </Layout>
+  );
+};
 
 export default Index;

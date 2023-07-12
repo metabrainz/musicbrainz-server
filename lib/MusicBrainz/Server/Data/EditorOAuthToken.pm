@@ -21,7 +21,7 @@ sub _columns
 {
     return 'id, editor, application, authorization_code, ' .
            'access_token, refresh_token, expire_time, scope, ' .
-           'code_challenge, code_challenge_method';
+           'code_challenge, code_challenge_method, granted';
 }
 
 sub _column_mapping
@@ -37,6 +37,7 @@ sub _column_mapping
         refresh_token => 'refresh_token',
         expire_time => 'expire_time',
         scope => 'scope',
+        granted => 'granted',
     };
 }
 
@@ -69,7 +70,7 @@ sub get_by_refresh_token
 sub find_granted_by_editor
 {
     my ($self, $editor_id, $limit, $offset) = @_;
-    my $query = 'SELECT application, scope, max(refresh_token) AS refresh_token
+    my $query = 'SELECT application, scope, max(granted) as granted
                  FROM ' . $self->_table . '
                  WHERE
                     editor = ? AND
