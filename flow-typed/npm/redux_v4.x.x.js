@@ -31,7 +31,7 @@ declare module 'redux' {
   declare export type Reducer<S, A> = (state: S, action: A) => S;
 
   declare export type CombinedReducer<S, A> = (
-    state: ($Shape<S> & {...}) | void,
+    state: (Partial<S> & {...}) | void,
     action: A
   ) => S;
 
