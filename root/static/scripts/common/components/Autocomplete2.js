@@ -695,17 +695,9 @@ const Autocomplete2 = (React.memo(<+T: EntityItemT>(
     }
   });
 
-  type AutocompleteItemComponent<T> =
-    React$AbstractComponent<AutocompleteItemPropsT<T>, void>;
-
-  // XXX Until Flow supports https://github.com/facebook/flow/issues/7672
-  const AutocompleteItemWithType: AutocompleteItemComponent<T> =
-    // $FlowIssue[unclear-type]
-    (AutocompleteItem: any);
-
   const menuItemElements = React.useMemo(
     () => items.map((item, index) => (
-      <AutocompleteItemWithType
+      <AutocompleteItem
         autocompleteId={id}
         dispatch={dispatch}
         formatOptions={
@@ -723,6 +715,8 @@ const Autocomplete2 = (React.memo(<+T: EntityItemT>(
           item.type === 'option' &&
           item.entity.id === selectedItem.id
         )}
+        // XXX Until Flow supports https://github.com/facebook/flow/issues/7672
+        // $FlowIssue[incompatible-type-arg]
         item={item}
         key={item.id}
         selectItem={selectItem}

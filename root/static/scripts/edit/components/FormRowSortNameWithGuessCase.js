@@ -20,12 +20,12 @@ type SortNamedEntityT = {
   ...
 };
 
-/* eslint-disable flowtype/sort-keys */
+/* eslint-disable ft-flow/sort-keys */
 export type ActionT =
   | {+type: 'guess-case-sortname', +entity: SortNamedEntityT}
   | {+type: 'set-sortname', +sortName: string}
   | {+type: 'copy-sortname'};
-/* eslint-enable flowtype/sort-keys */
+/* eslint-enable ft-flow/sort-keys */
 
 type PropsT = {
   +disabled?: boolean,

@@ -44,7 +44,7 @@ type StateT = {
   +selection: Array<ArtistCreditWithIdT>,
 };
 
-/* eslint-disable flowtype/sort-keys */
+/* eslint-disable ft-flow/sort-keys */
 type ActionT =
   | {
       +type: 'set-expanded',
@@ -59,7 +59,7 @@ type ActionT =
       +artistCredit: ArtistCreditWithIdT,
       +checked: boolean,
     };
-/* eslint-enable flowtype/sort-keys */
+/* eslint-enable ft-flow/sort-keys */
 
 const MARGIN_1EM = {margin: '1em'};
 

@@ -59,7 +59,7 @@ export type SearchActionT = {
   +type: 'search-after-timeout',
 };
 
-/* eslint-disable flowtype/sort-keys */
+/* eslint-disable ft-flow/sort-keys */
 export type ActionT<+T: EntityItemT> =
   | SearchActionT
   | {
@@ -127,7 +127,7 @@ export type ItemT<+T: EntityItemT> =
   | OptionItemT<T>
   | HeaderItemT;
 
-/* eslint-enable flowtype/sort-keys */
+/* eslint-enable ft-flow/sort-keys */
 
 export type EntityItemT =
   | EditorT

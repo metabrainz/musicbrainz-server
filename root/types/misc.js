@@ -7,6 +7,8 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+/* eslint-disable no-unused-vars */
+
 /*
  * See http://search.cpan.org/~lbrocard/Data-Page-2.02/lib/Data/Page.pm
  * Serialized in MusicBrainz::Server::TO_JSON.

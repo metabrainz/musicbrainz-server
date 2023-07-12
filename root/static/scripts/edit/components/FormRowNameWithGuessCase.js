@@ -27,14 +27,14 @@ type NamedEntityT = {
   ...
 };
 
-/* eslint-disable flowtype/sort-keys */
+/* eslint-disable ft-flow/sort-keys */
 export type ActionT =
   | {+type: 'guess-case', +entity: NamedEntityT}
   | {+type: 'open-guess-case-options'}
   | {+type: 'close-guess-case-options'}
   | {+type: 'update-guess-case-options', +action: GuessCaseOptionsActionT}
   | {+type: 'set-name', +name: string};
-/* eslint-enable flowtype/sort-keys */
+/* eslint-enable ft-flow/sort-keys */
 
 type PropsT = {
   +dispatch: (ActionT) => void,

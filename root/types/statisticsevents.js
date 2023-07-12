@@ -7,6 +7,8 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+/* eslint-disable no-unused-vars */
+
 export type StatisticsEventFormT = FormT<{
   +date: ReadOnlyFieldT<string>,
   +description: ReadOnlyFieldT<string>,

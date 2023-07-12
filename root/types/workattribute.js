@@ -7,6 +7,8 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+/* eslint-disable no-unused-vars */
+
 // MusicBrainz::Server::Entity::WorkAttribute::TO_JSON
 declare type WorkAttributeT = {
   // Generally shouldn't be null, but the id isn't stored in edit data.

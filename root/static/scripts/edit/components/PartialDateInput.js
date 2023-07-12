@@ -10,14 +10,14 @@
 import {isDateValid, isYearFourDigits} from '../utility/dates.js';
 import {applyPendingErrors} from '../utility/subfieldErrors.js';
 
-/* eslint-disable flowtype/sort-keys */
+/* eslint-disable ft-flow/sort-keys */
 export type ActionT =
   | {
       +type: 'set-date',
       +date: {+year?: string, +month?: string, +day?: string},
     }
   | {+type: 'show-pending-errors'};
-/* eslint-enable flowtype/sort-keys */
+/* eslint-enable ft-flow/sort-keys */
 
 type CommonProps = {
   +disabled?: boolean,

@@ -16,7 +16,7 @@ import type {
   DialogActionT,
 } from '../types/actions.js';
 
-/* eslint-enable flowtype/sort-keys */
+/* eslint-enable ft-flow/sort-keys */
 
 type PropsT = {
   +dispatch: (DialogActionT) => void,
