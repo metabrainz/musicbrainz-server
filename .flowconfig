@@ -22,11 +22,11 @@ unused-promise=error
 [options]
 autoimports=true
 exact_by_default=true
-experimental.type_guards=true
 format.bracket_spacing=false
 format.single_quotes=true
 module.name_mapper.extension='less' -> '<PROJECT_ROOT>/root/flowstub.js.flow'
 react.runtime=automatic
+type_guards=true
 
 [strict]
 nonstrict-import
