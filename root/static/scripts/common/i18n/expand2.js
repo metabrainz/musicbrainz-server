@@ -293,9 +293,11 @@ export default function expand<+T, V>(
   // Reset the global state.
   state.match = '';
   state.position = 0;
+  // $FlowIssue
   state.remainder = source;
   state.replacement = NO_MATCH_VALUE;
   state.running = true;
+  // $FlowIssue
   state.source = source;
 
   let result;
@@ -313,6 +315,7 @@ export default function expand<+T, V>(
      */
     console.error(e);
     Sentry.captureException(e);
+  // $FlowIssue
     return source;
   } finally {
     if (savedState) {

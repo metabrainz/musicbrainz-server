@@ -36,14 +36,9 @@ declare var hydrate: (
   ) => React$AbstractComponent<Config, void>
 );
 declare var hyphenateTitle: (title: string, subtitle: string) => string;
-function nonEmptyFn(value: mixed): boolean %checks {
-  return value !== null && value !== undefined && value !== '';
-}
-declare var nonEmpty: typeof nonEmptyFn;
-function emptyFn(value: mixed): boolean %checks {
-  return !nonEmptyFn(value);
-}
-declare var empty: typeof emptyFn;
+
+declare var empty: <T>(value: ?T | '') => value is ?'';
+declare var nonEmpty: <T>(value: ?T | '') => value is T;
 
 declare var l: (key: string) => string;
 declare var ln: (skey: string, pkey: string, val: number) => string;

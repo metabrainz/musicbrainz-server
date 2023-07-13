@@ -227,6 +227,7 @@ export function titleString(
   let uppercase = guessCaseMode.toUpperCase(inputString);
 
   if (inputString === uppercase &&
+      // $FlowIssue
       inputString.length > 1 &&
       gc.CFG_KEEP_UPPERCASED) {
     outputString = uppercase;
@@ -327,6 +328,7 @@ export function titleStringByMode(
     return '';
   }
 
+  // $FlowIssue
   let outputString = guessCaseMode.toLowerCase(inputString);
 
   /*
@@ -354,6 +356,7 @@ export function titleStringByMode(
     const chars = outputString.split('');
     chars[0] = guessCaseMode.toUpperCase(chars[0]);
 
+    // $FlowIssue
     if (inputString.length > 2 && inputString.substring(0, 2) === 'mc') {
       // Make it McTitled
       chars[2] = guessCaseMode.toUpperCase(chars[2]);

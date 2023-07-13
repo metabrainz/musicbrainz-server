@@ -28,6 +28,7 @@ export default function bracketed(
   args?: Args,
 ): Expand2ReactOutput {
   if (nonEmpty(text)) {
+    // $FlowIssue
     return expand2react(_bracketed(args), {text});
   }
   return '';
@@ -35,6 +36,7 @@ export default function bracketed(
 
 export function bracketedText(text: ?StrOrNum, args?: Args): string {
   if (nonEmpty(text)) {
+    // $FlowIssue
     return expand2text(_bracketed(args), {text});
   }
   return '';

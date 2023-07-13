@@ -26,6 +26,7 @@ const CountryAbbr = ({
     return null;
   }
   const combinedClass =
+    // $FlowIssue
     ('flag flag-' + primaryCode) +
     (nonEmpty(className) ? (' ' + className) : '');
   let content: React$MixedElement = (

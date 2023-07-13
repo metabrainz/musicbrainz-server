@@ -63,6 +63,7 @@ export const ReleaseGroupListTable = ({
       return '—';
     }
 
+    // $FlowIssue
     return parseDate(entity.firstReleaseDate).year?.toString() ?? '—';
   }
 

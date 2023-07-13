@@ -90,6 +90,7 @@ const ButtonPopover = (props: PropsT): React$MixedElement => {
   const customButtonProps = buttonProps ? {
     id: buttonProps.id,
     title: nonEmpty(buttonProps.title)
+      // $FlowIssue
       ? unwrapNl<string>(buttonProps.title)
       : undefined,
     className: buttonProps.className,
