@@ -321,9 +321,7 @@ export function formatLinkTypePhrases(linkType: LinkTypeT): string {
     let linkPhrase = linkType.l_link_phrase;
     let reverseLinkPhrase = linkType.l_reverse_link_phrase;
     if (!empty(linkPhrase) && !empty(reverseLinkPhrase)) {
-      // $FlowIssue
       linkPhrase = stripAttributes(linkType, linkPhrase);
-      // $FlowIssue
       reverseLinkPhrase = stripAttributes(linkType, reverseLinkPhrase);
       if (linkPhrase === reverseLinkPhrase) {
         return linkPhrase;

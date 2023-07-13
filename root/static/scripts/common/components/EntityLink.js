@@ -217,18 +217,14 @@ $ReadOnlyArray<Expand2ReactOutput> | Expand2ReactOutput | null => {
   }
 
   if (entity.entityType === 'area') {
-    // $FlowIssue
-    content = nonEmpty(content) ? content : localizeAreaName(entity);
+    content = empty(content) ? localizeAreaName(entity) : content;
   } else if (entity.entityType === 'instrument') {
-    // $FlowIssue
-    content = nonEmpty(content) ? content : localizeInstrumentName(entity);
+    content = empty(content) ? localizeInstrumentName(entity) : content;
   } else if (entity.entityType === 'link_type') {
-    // $FlowIssue
-    content = nonEmpty(content) ? content : l_relationships(entity.name);
+    content = empty(content) ? l_relationships(entity.name) : content;
   }
 
-  // $FlowIssue
-  content = nonEmpty(content) ? content : ko.unwrap(entity.name);
+  content = empty(content) ? ko.unwrap(entity.name) : content;
 
   if (!ko.unwrap(entity.gid)) {
     if (entity.entityType === 'url') {
@@ -239,7 +235,6 @@ $ReadOnlyArray<Expand2ReactOutput> | Expand2ReactOutput | null => {
         <DeletedLink
           allowNew={allowNew}
           deletedCaption={deletedCaption}
-          // $FlowIssue
           name={content}
         />
       );

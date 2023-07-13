@@ -27,17 +27,15 @@ export default function bracketed(
   text: ?VarSubstArg,
   args?: Args,
 ): Expand2ReactOutput {
-  if (nonEmpty(text)) {
-    // $FlowIssue
-    return expand2react(_bracketed(args), {text});
+  if (empty(text)) {
+    return '';
   }
-  return '';
+  return expand2react(_bracketed(args), {text});
 }
 
 export function bracketedText(text: ?StrOrNum, args?: Args): string {
-  if (nonEmpty(text)) {
-    // $FlowIssue
-    return expand2text(_bracketed(args), {text});
+  if (empty(text)) {
+    return '';
   }
-  return '';
+  return expand2text(_bracketed(args), {text});
 }

@@ -9,7 +9,7 @@
 
 // If you modify these, please do the same in root/vars.js
 export function empty<T>(value: ?T | ''): value is ?'' {
-  return !nonEmpty(value);
+  return value === null || value === undefined || value === '';
 }
 
 export default function nonEmpty<T>(value: ?T | ''): value is T {

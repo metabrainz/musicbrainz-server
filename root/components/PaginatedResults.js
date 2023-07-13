@@ -60,7 +60,6 @@ const PaginatedResults = ({
               pager.total_entries,
               {
                 n: formatCount($c, pager.total_entries),
-                // $FlowIssue
                 q: query,
               },
             )

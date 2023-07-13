@@ -462,10 +462,9 @@ export default function groupRelationships(
         role: textPhrase,
       });
 
-      if (hasInstruments /*:: && nonEmpty(phrase) */) {
+      if (hasInstruments /*:: && !empty(phrase) */) {
         phrase = exp.l('{role} (as {credited_name})', {
           credited_name: sourceCredit,
-          // $FlowIssue
           role: phrase,
         });
       }
