@@ -80,6 +80,7 @@ export const FAVICON_CLASSES = {
   'bigcartel.com': 'bigcartel',
   'bookbrainz.org': 'bookbrainz',
   'books.apple.com': 'applebooks',
+  'boomkat.com': 'boomkat',
   'boomplay.com': 'boomplay',
   'cancioneros.si': 'cancioneros',
   'castalbums.org': 'castalbums',

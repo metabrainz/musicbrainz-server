@@ -1337,6 +1337,55 @@ const CLEANUPS: CleanupEntries = {
       };
     },
   },
+  'boomkat': {
+    match: [new RegExp('^(https?://)?(www\\.)?boomkat\\.com', 'i')],
+    restrict: [
+      {
+        artist: [
+          LINK_TYPES.downloadpurchase.artist,
+          LINK_TYPES.mailorder.artist,
+        ],
+        label: [
+          LINK_TYPES.downloadpurchase.label,
+          LINK_TYPES.mailorder.label,
+        ],
+      },
+      LINK_TYPES.downloadpurchase,
+      LINK_TYPES.mailorder,
+    ],
+    clean: function (url) {
+      url = url.replace(/^(?:https?:\/\/)(?:www\.)?boomkat\.com\/([a-z]+)\/([^\/#?]+).*$/, 'https://boomkat.com/$1/$2');
+      return url;
+    },
+    validate: function (url, id) {
+      const m = /^https:\/\/boomkat\.com\/([a-z]+)\/.*$/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.downloadpurchase.artist:
+          case LINK_TYPES.mailorder.artist:
+            return {
+              result: prefix === 'artists',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.downloadpurchase.label:
+          case LINK_TYPES.mailorder.label:
+            return {
+              result: prefix === 'labels',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.downloadpurchase.release:
+          case LINK_TYPES.mailorder.release:
+            return {
+              result: prefix === 'products',
+              target: ERROR_TARGETS.ENTITY,
+            };
+        }
+        return {result: false, target: ERROR_TARGETS.ENTITY};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
   'boomplay': {
     match: [new RegExp('^(https?://)?([^/]+\\.)?boomplay\\.com/', 'i')],
     restrict: [LINK_TYPES.streamingfree],
