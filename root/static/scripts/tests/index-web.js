@@ -49,6 +49,7 @@ require('./utility/isDateEmpty.js');
 require('./utility/isDisabledLink.js');
 require('./utility/isFutureDate.js');
 require('./utility/isGuid.js');
+require('./utility/isObjectEmpty.js');
 require('./utility/isShortenedUrl.js');
 require('./utility/natatime.js');
 require('./utility/parseDate.js');
