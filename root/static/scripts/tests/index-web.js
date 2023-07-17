@@ -31,6 +31,7 @@ require('./utility/clean.js');
 require('./utility/compareDates.js');
 require('./utility/dates.js');
 require('./utility/entityHref.js');
+require('./utility/escapeLuceneValue.js');
 require('./utility/escapeRegExp.js');
 require('./utility/formatBarcode.js');
 require('./utility/formatDate.js');
