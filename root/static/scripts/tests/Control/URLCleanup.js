@@ -750,6 +750,20 @@ limited_link_type_combinations: [
        only_valid_entity_types: ['release_group'],
   },
   {
+                     input_url: 'https://daily.bandcamp.com/album-of-the-day/saloli-canyon-review',
+             input_entity_type: 'release_group',
+    expected_relationship_type: 'review',
+            expected_clean_url: 'https://daily.bandcamp.com/album-of-the-day/saloli-canyon-review/',
+       only_valid_entity_types: ['release_group'],
+  },
+  {
+                     input_url: 'http://daily.bandcamp.com/features/arif-mirbaghi-protest-the-hero-interview',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'interview',
+            expected_clean_url: 'https://daily.bandcamp.com/features/arif-mirbaghi-protest-the-hero-interview/',
+       only_valid_entity_types: ['artist'],
+  },
+  {
                      input_url: 'http://daily.bandcamp.com/2018/05/30/gnawa-bandcamp-list',
              input_entity_type: 'release_group',
     expected_relationship_type: 'review',
