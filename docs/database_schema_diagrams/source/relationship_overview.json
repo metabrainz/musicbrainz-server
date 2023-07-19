@@ -1,6 +1,6 @@
 {
   "tooltip": "Tables for relationship connections",
-  "_comment": "Show minimal foreign keys needed to define a relationship between two entities. Artist-Work is just an example of relationship type. Main table is highlighted. All other tables are shortened to focus on foreign key constraints.",
+  "_comment": "It shows minimal foreign keys needed to define a relationship between two entities. Artist-Work is just an example of relationship type. The main table is highlighted. All other tables are shortened to focus on foreign key constraints.",
   "tables": {
     "artist": ["shortened"],
     "l_artist_work": ["highlighted"],

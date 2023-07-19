@@ -1,6 +1,6 @@
 {
   "tooltip": "Tables for the “release” core entity type properties",
-  "_comment": "Show replicated and materialized tables used to define any release entity, beyond relationships. The main table is highlighted.",
+  "_comment": "It shows replicated and materialized tables used to define any release entity, beyond relationships. The main table is highlighted.",
   "tables": {
     "annotation": [],
     "area": ["shortened"],

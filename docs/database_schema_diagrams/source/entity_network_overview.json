@@ -1,6 +1,6 @@
 {
   "tooltip": "Overview of tables connecting entities",
-  "_comment": "Show core entity tables and unique tables connecting these, that is, beyond relationships. Core entities are highlighted. All tables are shortened to focus on foreign key constraints.",
+  "_comment": "It shows core entity tables and unique tables connecting these, that is, beyond relationships. Core entities are highlighted. All tables are shortened to focus on foreign key constraints.",
   "tables": {
     "area": ["highlighted","shortened"],
     "artist": ["highlighted","shortened"],
