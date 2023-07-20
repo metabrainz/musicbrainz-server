@@ -1,7 +1,7 @@
 // Automatically generated, do not edit.
-// - Database schema sequence: 27
+// - Database schema sequence: 28
 digraph place_entity_details {
-    tooltip = "Tables for the “place” core entity type properties"
+    tooltip = "Tables for the “place” entity type properties"
     graph [
         bgcolor = "#cb75ab:#f0976c"
         concentrate = true
