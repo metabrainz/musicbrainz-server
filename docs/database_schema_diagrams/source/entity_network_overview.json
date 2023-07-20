@@ -1,6 +1,6 @@
 {
   "tooltip": "Overview of tables connecting entities",
-  "_comment": "It shows the main tables for primary entities and unique tables connecting these tables, that is, beyond relationships. Core entities are highlighted. All tables are shortened to focus on foreign key constraints.",
+  "_comment": "It shows the main tables for primary entities and unique tables connecting these tables, that is, beyond relationships. The main tables are highlighted. All tables are shortened to focus on foreign key constraints.",
   "tables": {
     "area": ["highlighted","shortened"],
     "artist": ["highlighted","shortened"],
