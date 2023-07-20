@@ -1,6 +1,6 @@
 {
-  "tooltip": "Tables specifically related to core entities",
-  "_comment": "It shows tables unique to some entities, that is, beyond aliases, collections, edits, relationships, subscriptions, ratings, tags.",
+  "tooltip": "Tables uniquely related to primary entities",
+  "_comment": "It shows the main tables for primary entity types and tables unique to some of these, that is, beyond aliases, collections, edits, relationships, subscriptions, ratings, tags.",
   "tables": {
     "area": ["highlighted"],
     "area_type": [],
