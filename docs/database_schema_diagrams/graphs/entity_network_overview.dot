@@ -1,7 +1,7 @@
 // Automatically generated, do not edit.
-// - Database schema sequence: 27
+// - Database schema sequence: 28
 digraph entity_network_overview {
-    tooltip = "Overview of tables connecting entities"
+    tooltip = "Overview of tables connecting primary entity types"
     graph [
         bgcolor = "#cb75ab:#f0976c"
         concentrate = true

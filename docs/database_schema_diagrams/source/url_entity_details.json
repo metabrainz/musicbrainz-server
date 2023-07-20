@@ -1,6 +1,6 @@
 {
-  "tooltip": "Tables for the “url” core entity type properties",
-  "_comment": "Show replicated tables used to define any URL entity, beyond relationships. The main table is highlighted.",
+  "tooltip": "Tables for the “url” entity type properties",
+  "_comment": "It shows replicated tables used to define any URL entity, beyond relationships. The main table is highlighted.",
   "tables": {
     "url": ["highlighted"],
     "url_gid_redirect": []

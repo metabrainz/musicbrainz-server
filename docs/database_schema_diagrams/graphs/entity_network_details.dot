@@ -1,7 +1,7 @@
 // Automatically generated, do not edit.
-// - Database schema sequence: 27
+// - Database schema sequence: 28
 digraph entity_network_details {
-    tooltip = "Tables specifically related to core entities"
+    tooltip = "Tables uniquely related to primary entity types"
     graph [
         bgcolor = "#cb75ab:#f0976c"
         concentrate = true
@@ -142,7 +142,6 @@ digraph entity_network_details {
                 <tr><td bgcolor="#bbbbbb33" align="left" port="track_count"><font point-size="14">track_count</font></td></tr>
                 <tr><td bgcolor="#bbbbbb33" align="left" port="leadout_offset"><font point-size="14">leadout_offset</font></td></tr>
                 <tr><td bgcolor="#bbbbbb33" align="left" port="track_offset"><font point-size="14">track_offset</font></td></tr>
-                <tr><td bgcolor="#bbbbbb33" align="left" port="degraded"><font point-size="14">degraded</font></td></tr>
                 <tr><td bgcolor="#bbbbbb33" align="left" port="created"><font point-size="14">created</font></td></tr>
             </table>
         >

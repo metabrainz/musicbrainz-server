@@ -1,7 +1,7 @@
 // Automatically generated, do not edit.
-// - Database schema sequence: 27
+// - Database schema sequence: 28
 digraph artist_entity_details {
-    tooltip = "Tables for the “artist” core entity type properties"
+    tooltip = "Tables for the “artist” entity type properties"
     graph [
         bgcolor = "#cb75ab:#f0976c"
         concentrate = true

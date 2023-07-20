@@ -6,7 +6,7 @@
 <sodipodi:namedview bordercolor="#666666" borderopacity="1.0" inkscape:current-layer="svg4589" inkscape:cx="487" inkscape:cy="385" inkscape:deskcolor="#d1d1d1" inkscape:document-units="pt" inkscape:pagecheckerboard="0" inkscape:pageopacity="0.0" inkscape:showpageshadow="2" inkscape:window-height="1034" inkscape:window-maximized="1" inkscape:window-width="1920" inkscape:window-x="-4" inkscape:window-y="-4" inkscape:zoom="0.5" pagecolor="#ffffff" showgrid="false"/>
 <g class="graph" transform="scale(1) translate(4 791.44)">
 <title>entity_network_overview</title>
-<a xlink:title="Overview of tables connecting entities">
+<a xlink:title="Overview of tables connecting primary entity types">
 <defs>
 <linearGradient id="l_0" x1="48.05" x2="720.95" y1="-592.58" y2="-194.86" gradientUnits="userSpaceOnUse">
 <stop stop-color="#cb75ab" offset="0"/>
