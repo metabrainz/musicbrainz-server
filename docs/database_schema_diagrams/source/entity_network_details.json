@@ -1,5 +1,5 @@
 {
-  "tooltip": "Tables uniquely related to primary entities",
+  "tooltip": "Tables uniquely related to primary entity types",
   "_comment": "It shows the main tables for primary entity types and tables unique to some of these, that is, beyond aliases, annotations, edits, redirects, relationships, ratings, tags.",
   "tables": {
     "area": ["highlighted"],
