@@ -1,5 +1,5 @@
 {
-  "tooltip": "Tables for the “work” entity properties",
+  "tooltip": "Tables for the “work” entity type properties",
   "_comment": "It shows replicated tables used to define any work entity, beyond relationships. It can be used as an example for tables generally used to define any entity of any type. The main table is highlighted.",
   "tables": {
     "annotation": [],
