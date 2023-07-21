@@ -13,11 +13,13 @@ sub wikipedia_extract : Chained('load') PathPart('wikipedia-extract')
 {
     my ($self, $c) = @_;
 
+    my $res = $c->res;
+
     my $wp_extract = $self->_get_extract($c, 0);
 
-    $c->res->headers->header('X-Robots-Tag' => 'noindex');
-    $c->res->content_type('application/json; charset=utf-8');
-    $c->res->{body} = $c->json_utf8->encode({wikipediaExtract => $wp_extract});
+    $res->headers->header('X-Robots-Tag' => 'noindex');
+    $res->content_type('application/json; charset=utf-8');
+    $res->{body} = $c->json_utf8->encode({wikipediaExtract => $wp_extract});
 }
 
 sub _get_extract
