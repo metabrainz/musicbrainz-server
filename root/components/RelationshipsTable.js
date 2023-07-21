@@ -44,10 +44,11 @@ const pickAppearancesTypes = (entityType: RelatableEntityTypeT) => {
   switch (entityType) {
     case 'area':
     case 'artist':
-    case 'label':
     case 'place': {
       return generalTypesList;
     }
+    case 'label':
+      return [...generalTypesList, 'event'];
     case 'work': {
       return recordingOnlyTypesList;
     }
