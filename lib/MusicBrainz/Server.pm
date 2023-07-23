@@ -767,18 +767,18 @@ sub set_csp_headers {
 
     my @csp_frame_src = ('frame-src', q('self'));
     if ($self->req->path eq 'register') {
-        my $use_captcha = ($self->req->address &&
-                           defined DBDefs->RECAPTCHA_PUBLIC_KEY &&
-                           defined DBDefs->RECAPTCHA_PRIVATE_KEY);
+        my $use_captcha = (defined DBDefs->MTCAPTCHA_PUBLIC_KEY &&
+                           defined DBDefs->MTCAPTCHA_PRIVATE_KEY);
         if ($use_captcha) {
-            push @csp_script_src, qw(
-                https://www.google.com/recaptcha/
-                https://www.gstatic.com/recaptcha/
-                https://www.recaptcha.net/recaptcha/
+            my $mtcaptcha_script_nonce = $self->generate_nonce;
+            $self->stash->{mtcaptcha_script_nonce} = $mtcaptcha_script_nonce;
+            push @csp_script_src, qq('nonce-$mtcaptcha_script_nonce'), qw(
+                https://service.mtcaptcha.com
+                https://service2.mtcaptcha.com
             );
             push @csp_frame_src, qw(
-                https://www.google.com/recaptcha/
-                https://www.recaptcha.net/recaptcha/
+                https://service.mtcaptcha.com
+                https://service2.mtcaptcha.com
             );
         }
     }
@@ -862,6 +862,7 @@ sub TO_JSON {
         jsonld_data
         last_replication_date
         more_tags
+        mtcaptcha_script_nonce
         new_edit_notes_mtime
         number_of_collections
         number_of_revisions
