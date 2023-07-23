@@ -15,9 +15,9 @@ import RegisterForm, {type RegisterFormT}
 import Warning from '../static/scripts/common/components/Warning.js';
 
 component Register(
-  captcha: string,
   form: RegisterFormT,
   invalidCaptchaResponse: boolean,
+  mtcaptchaPublicKey: string,
 ) {
   return (
     <Layout fullWidth title={lp('Create an account', 'header')}>
@@ -60,7 +60,7 @@ component Register(
         )}
       </p>
 
-      <RegisterForm captcha={captcha} form={form} />
+      <RegisterForm form={form} mtcaptchaPublicKey={mtcaptchaPublicKey} />
       {manifest('account/components/RegisterForm', {async: 'async'})}
 
       <p>

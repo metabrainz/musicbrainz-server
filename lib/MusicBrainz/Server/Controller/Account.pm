@@ -25,7 +25,6 @@ use MusicBrainz::Server::Form::Utils qw(
 use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::Validation qw( encode_entities is_positive_integer );
 use Try::Tiny;
-use Captcha::reCAPTCHA;
 
 sub index : Path('/account') RequireAuth
 {
@@ -618,10 +617,10 @@ sub register : Path('/register') ForbiddenOnMirrors RequireSSL DenyWhenReadonly 
 
     my $form = $c->form(register_form => 'User::Register');
 
-    my $captcha = Captcha::reCAPTCHA->new;
+    #my $captcha = Captcha::reCAPTCHA->new;
     my $use_captcha = ($c->req->address &&
-                       defined DBDefs->RECAPTCHA_PUBLIC_KEY &&
-                       defined DBDefs->RECAPTCHA_PRIVATE_KEY);
+                       defined DBDefs->MTCAPTCHA_PUBLIC_KEY &&
+                       defined DBDefs->MTCAPTCHA_PRIVATE_KEY);
 
     if ($c->form_posted_and_valid($form)) {
         my $valid = 0;
@@ -629,11 +628,11 @@ sub register : Path('/register') ForbiddenOnMirrors RequireSSL DenyWhenReadonly 
         {
             my $response = $c->req->params->{'g-recaptcha-response'} // '';
 
-            $valid = $captcha->check_answer_v2(
-                DBDefs->RECAPTCHA_PRIVATE_KEY,
-                $response, $c->req->address,
-                )->{is_valid}
-            unless $response eq '';
+            #$valid = $captcha->check_answer_v2(
+            #    DBDefs->RECAPTCHA_PRIVATE_KEY,
+            #    $response, $c->req->address,
+            #    )->{is_valid}
+            #unless $response eq '';
         }
         else
         {
@@ -711,15 +710,12 @@ sub register : Path('/register') ForbiddenOnMirrors RequireSSL DenyWhenReadonly 
         }
     }
 
-    my $captcha_html = '';
-    $captcha_html = $captcha->get_html_v2(DBDefs->RECAPTCHA_PUBLIC_KEY)
-        if $use_captcha;
-
     $c->stash(
         current_view => 'Node',
         component_path => 'account/Register',
         component_props => {
-            captcha => $captcha_html,
+            captcha => DBDefs->MTCAPTCHA_PUBLIC_KEY,
+            mtcaptchaPublicKey => DBDefs->MTCAPTCHA_PUBLIC_KEY,
             form => $form->TO_JSON,
             invalidCaptchaResponse => boolean_to_json(
                 $c->stash->{invalid_captcha_response} // 0,
