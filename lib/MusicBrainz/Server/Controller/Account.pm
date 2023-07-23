@@ -7,7 +7,8 @@ extends 'MusicBrainz::Server::Controller';
 use namespace::autoclean;
 use Digest::SHA qw(sha1_base64);
 use Email::Address::XS;
-use JSON;
+use HTTP::Request;
+use JSON qw( decode_json );
 use List::AllUtils qw( uniq );
 use DBDefs;
 use MusicBrainz::Server::Constants qw( $BEGINNER_FLAG $CONTACT_URL );
@@ -25,7 +26,7 @@ use MusicBrainz::Server::Form::Utils qw(
 use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::Validation qw( encode_entities is_positive_integer );
 use Try::Tiny;
-use Captcha::reCAPTCHA;
+use URI;
 
 sub index : Path('/account') RequireAuth
 {
@@ -617,22 +618,18 @@ sub register : Path('/register') ForbiddenOnMirrors RequireSSL DenyWhenReadonly 
 
     my $form = $c->form(register_form => 'User::Register');
 
-    my $captcha = Captcha::reCAPTCHA->new;
-    my $use_captcha = ($c->req->address &&
-                       defined DBDefs->RECAPTCHA_PUBLIC_KEY &&
-                       defined DBDefs->RECAPTCHA_PRIVATE_KEY);
+    my $use_captcha = (defined DBDefs->MTCAPTCHA_PUBLIC_KEY &&
+                       defined DBDefs->MTCAPTCHA_PRIVATE_KEY);
 
     if ($c->form_posted_and_valid($form)) {
         my $valid = 0;
         if ($use_captcha)
         {
-            my $response = $c->req->params->{'g-recaptcha-response'} // '';
-
-            $valid = $captcha->check_answer_v2(
-                DBDefs->RECAPTCHA_PRIVATE_KEY,
-                $response, $c->req->address,
-                )->{is_valid}
-            unless $response eq '';
+            my $verification_token =
+                $c->req->body_params->{'mtcaptcha-verifiedtoken'} // '';
+            if ($verification_token) {
+                $valid = $self->_check_mtcaptcha_token($c, $verification_token);
+            }
         }
         else
         {
@@ -710,21 +707,45 @@ sub register : Path('/register') ForbiddenOnMirrors RequireSSL DenyWhenReadonly 
         }
     }
 
-    my $captcha_html = '';
-    $captcha_html = $captcha->get_html_v2(DBDefs->RECAPTCHA_PUBLIC_KEY)
-        if $use_captcha;
-
     $c->stash(
         current_view => 'Node',
         component_path => 'account/Register',
         component_props => {
-            captcha => $captcha_html,
             form => $form->TO_JSON,
             invalidCaptchaResponse => boolean_to_json(
                 $c->stash->{invalid_captcha_response} // 0,
             ),
         },
     );
+}
+
+sub _check_mtcaptcha_token {
+    my ($self, $c, $verification_token) = @_;
+
+    my $uri = URI->new(
+        'https://service.mtcaptcha.com/mtcv1/api/checktoken',
+    );
+    $uri->query_param(privatekey => DBDefs->MTCAPTCHA_PRIVATE_KEY);
+    $uri->query_param(token => $verification_token);
+
+    my $context = $c->model('MB')->context;
+    my $request = HTTP::Request->new(GET => $uri->as_string);
+    my $response = $context->lwp->request($request);
+    if ($response->is_success) {
+        my $result = decode_json($response->content);
+        return $result->{success} ? 1 : 0;
+    } else {
+        send_message_to_sentry(
+            'Error checking MTCaptcha token',
+            build_request_and_user_context($c),
+            extra => {
+                verifications_token => $verification_token,
+                status_line => $response->status_line,
+                response_content => $response->content,
+            },
+        );
+    }
+    return 0;
 }
 
 =head2 resend_verification
