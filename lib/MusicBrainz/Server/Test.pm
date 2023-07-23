@@ -54,8 +54,8 @@ BEGIN {
     use DBDefs;
     *DBDefs::WEB_SERVER = sub { 'localhost' };
     *DBDefs::WEB_SERVER_USED_IN_EMAIL = sub { 'localhost' };
-    *DBDefs::RECAPTCHA_PUBLIC_KEY = sub { undef };
-    *DBDefs::RECAPTCHA_PRIVATE_KEY = sub { undef };
+    *DBDefs::MTCAPTCHA_PUBLIC_KEY = sub { undef };
+    *DBDefs::MTCAPTCHA_PRIVATE_KEY = sub { undef };
     *DBDefs::OAUTH2_ENFORCE_TLS = sub { 0 };
 }
 
