@@ -466,7 +466,7 @@ sub change_password : Path('/account/change-password') RequireSSL DenyWhenReadon
         $c->detach;
     }
 
-    $c->stash( mandatory => $c->req->query_params->{mandatory} );
+    my $mandatory = $c->req->query_params->{mandatory};
 
     my $form = $c->form(
         form => 'User::ChangePassword',
@@ -475,6 +475,15 @@ sub change_password : Path('/account/change-password') RequireSSL DenyWhenReadon
                 ? $c->user->name
                 : ($c->req->query_parameters->{username} // '')
         }
+    );
+
+    $c->stash(
+        current_view => 'Node',
+        component_path => 'account/ChangePassword.js',
+        component_props => {
+            form => $form->TO_JSON,
+            isMandatory => boolean_to_json($mandatory),
+        },
     );
 
     if ($c->form_posted_and_valid($form)) {

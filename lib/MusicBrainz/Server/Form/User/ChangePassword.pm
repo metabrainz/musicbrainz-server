@@ -58,6 +58,8 @@ after validate => sub {
                 l('An account with this name could not be found'));
         }
     }
+    # To update the form with the errors when it's shown again
+    $self->ctx->stash->{component_props}{form} = $self->TO_JSON;
 };
 
 1;
