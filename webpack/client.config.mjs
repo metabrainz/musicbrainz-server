@@ -38,6 +38,7 @@ const jsExt = /\.[cm]?js$/;
 
 const entries = [
   'account/applications/register',
+  'account/components/RegisterForm',
   'account/edit',
   'account/preferences',
   'annotation/AnnotationHistoryTable',
@@ -71,7 +72,6 @@ const entries = [
   'place/index',
   'place/map',
   'recording/edit',
-  'register',
   'relationship-editor',
   'release/coverart',
   'release/edit-relationships',
