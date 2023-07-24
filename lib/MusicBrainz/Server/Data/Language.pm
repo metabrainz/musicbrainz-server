@@ -68,9 +68,11 @@ sub find_by_code
 sub in_use {
     my ($self, $id) = @_;
     return $self->sql->select_single_value(
-        'SELECT 1 FROM release WHERE language = ? UNION SELECT 1 FROM work WHERE language = ? UNION SELECT 1 FROM editor_language WHERE language = ? LIMIT 1',
+        'SELECT 1 FROM release WHERE language = ? UNION SELECT 1 FROM work_language WHERE language = ? UNION SELECT 1 FROM editor_language WHERE language = ? LIMIT 1',
         $id, $id, $id);
 }
+
+sub has_children { 0 }
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
