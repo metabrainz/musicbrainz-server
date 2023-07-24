@@ -44,7 +44,7 @@ const DeleteUser = ({
     <UserAccountLayout
       entity={user}
       page="delete"
-      title={l('Delete User')}
+      title={l('Delete Account')}
     >
       <h2>{l('Delete Account')}</h2>
       {isAdmin && !viewingOwnProfile ? (
