@@ -827,9 +827,11 @@ const CLEANUPS: CleanupEntries = {
       multiple(LINK_TYPES.downloadpurchase, LINK_TYPES.streamingpaid),
     ],
     clean: function (url) {
-      url = url.replace(/^https?:\/\/(?:(?:beta|geo)\.)?music\.apple\.com\/([a-z]{2}\/)?(artist|album|author|label|music-video)\/(?:[^?#\/]+\/)?(?:id)?([0-9]+)(?:\?.*)?$/, 'https://music.apple.com/$1$2/$3');
+      url = url.replace(/^https?:\/\/(?:(?:beta|geo)\.)?music\.apple\.com\//, 'https://music.apple.com/');
       // US page is the default, add its country-code to clarify (MBS-10623)
       url = url.replace(/^(https:\/\/music\.apple\.com)\/([a-z-]{3,})\//, '$1/us/$2/');
+      url = url.replace(/^(https:\/\/music\.apple\.com\/[a-z]{2})\/album\/[^?#\/]+\/[0-9]+\?i=([0-9]+)$/, '$1/song/$2');
+      url = url.replace(/^(https:\/\/music\.apple\.com\/[a-z]{2})\/(artist|album|author|label|music-video|song)\/(?:[^?#\/]+\/)?(?:id)?([0-9]+)(?:\?.*)?$/, '$1/$2/$3');
       return url;
     },
     validate: function (url, id) {
@@ -876,7 +878,7 @@ const CLEANUPS: CleanupEntries = {
           case LINK_TYPES.downloadpurchase.recording:
           case LINK_TYPES.streamingpaid.recording:
             return {
-              result: prefix === 'music-video',
+              result: prefix === 'music-video' || prefix === 'song',
               target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.downloadpurchase.release:

@@ -598,6 +598,26 @@ limited_link_type_combinations: [
             expected_clean_url: 'https://music.apple.com/ee/music-video/539886832',
   },
   {
+                     input_url: 'https://music.apple.com/song/low-frequency-response-test/1435928320',
+             input_entity_type: 'recording',
+limited_link_type_combinations: [
+                                  'downloadpurchase',
+                                  'streamingpaid',
+                                  ['downloadpurchase', 'streamingpaid'],
+                                ],
+            expected_clean_url: 'https://music.apple.com/us/song/1435928320',
+  },
+  {
+                     input_url: 'https://music.apple.com/us/album/low-frequency-response-test/1435928305?i=1435928320',
+             input_entity_type: 'recording',
+limited_link_type_combinations: [
+                                  'downloadpurchase',
+                                  'streamingpaid',
+                                  ['downloadpurchase', 'streamingpaid'],
+                                ],
+            expected_clean_url: 'https://music.apple.com/us/song/1435928320',
+  },
+  {
                      input_url: 'https://music.apple.com/jp/album/uchiagehanabi-single/1263790414',
              input_entity_type: 'release',
 limited_link_type_combinations: [
