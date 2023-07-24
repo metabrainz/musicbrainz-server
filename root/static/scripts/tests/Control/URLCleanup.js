@@ -1215,6 +1215,72 @@ limited_link_type_combinations: [
     expected_relationship_type: 'bookbrainz',
             expected_clean_url: 'https://bookbrainz.org/series/bf771df4-ce00-43a1-972b-61ca818faf58',
   },
+  // Boomkat
+  {
+                     input_url: 'https://www.boomkat.com/artists/mr-fingers?per_page=100',
+             input_entity_type: 'artist',
+       input_relationship_type: 'mailorder',
+limited_link_type_combinations: [
+                                  ['downloadpurchase', 'mailorder'],
+                                  'downloadpurchase',
+                                  'mailorder',
+                                ],
+            expected_clean_url: 'https://boomkat.com/artists/mr-fingers',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://boomkat.com/products/around-the-sun-pt-2',
+             input_entity_type: 'release',
+       input_relationship_type: 'downloadpurchase',
+limited_link_type_combinations: [
+                                  'downloadpurchase',
+                                  'mailorder',
+                                ],
+            expected_clean_url: 'https://boomkat.com/products/around-the-sun-pt-2',
+       only_valid_entity_types: ['release'],
+  },
+  {
+                     input_url: 'https://www.boomkat.com/products/around-the-sun-pt-2',
+             input_entity_type: 'release',
+       input_relationship_type: 'mailorder',
+limited_link_type_combinations: [
+                                  'downloadpurchase',
+                                  'mailorder',
+                                ],
+            expected_clean_url: 'https://boomkat.com/products/around-the-sun-pt-2',
+       only_valid_entity_types: ['release'],
+  },
+  {
+                     input_url: 'http://www.boomkat.com/labels/alleviated-records?testing',
+             input_entity_type: 'label',
+       input_relationship_type: 'downloadpurchase',
+limited_link_type_combinations: [
+                                  ['downloadpurchase', 'mailorder'],
+                                  'downloadpurchase',
+                                  'mailorder',
+                                ],
+            expected_clean_url: 'https://boomkat.com/labels/alleviated-records',
+       only_valid_entity_types: ['label'],
+  },
+  {
+                     input_url: 'https://boomkat.com/labels/cultivated-electronics?q[format]=Download',
+             input_entity_type: 'label',
+       input_relationship_type: 'mailorder',
+limited_link_type_combinations: [
+                                  ['downloadpurchase', 'mailorder'],
+                                  'downloadpurchase',
+                                  'mailorder',
+                                ],
+            expected_clean_url: 'https://boomkat.com/labels/cultivated-electronics',
+       only_valid_entity_types: ['label'],
+  },
+  {
+                     input_url: 'https://boomkat.com/bestsellers',
+             input_entity_type: 'artist',
+    expected_relationship_type: undefined,
+       input_relationship_type: 'downloadpurchase',
+       only_valid_entity_types: [],
+  },
   // Boomplay
   {
                      input_url: 'https://boomplay.com/artists/4334757?srModel=COPYLINK&srList=WEB',
