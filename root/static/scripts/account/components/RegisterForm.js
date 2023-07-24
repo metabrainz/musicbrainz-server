@@ -59,6 +59,7 @@ export const RegisterForm = ({
     <form method="post">
       <FormCsrfToken form={form} />
       <FormRowText
+        autoComplete="username"
         field={nameField}
         label={l('Username:')}
         onChange={handleUsernameChange}
@@ -86,6 +87,7 @@ export const RegisterForm = ({
         />
       </div>
       <FormRowText
+        autoComplete="new-password"
         field={form.field.password}
         label={l('Password:')}
         required
@@ -93,6 +95,7 @@ export const RegisterForm = ({
         uncontrolled
       />
       <FormRowText
+        autoComplete="new-password"
         field={form.field.confirm_password}
         label={l('Confirm password:')}
         required
