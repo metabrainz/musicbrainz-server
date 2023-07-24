@@ -759,7 +759,7 @@ sub applications : Path('/account/applications') RequireAuth RequireSSL
 
     $c->stash(
         current_view => 'Node',
-        component_path => 'account/applications/Index',
+        component_path => 'account/applications/ApplicationList',
         component_props => {
             applications => to_json_array($applications),
             appsPager => serialize_pager($c->stash->{apps_pager}),
@@ -774,6 +774,21 @@ sub revoke_application_access : Path('/account/applications/revoke-access') Args
     my ($self, $c, $application_id, $scope) = @_;
 
     my $form = $c->form( form => 'Confirm' );
+
+    my $token_exists = $c->model('EditorOAuthToken')->check_granted_token(
+        $c->user->id,
+        $application_id,
+        $scope,
+    );
+    $c->detach(
+        '/error_404',
+        [ l('There is no OAuth token with these parameters.') ]
+    ) unless $token_exists;
+
+    my $application = $c->model('Application')->get_by_id($application_id);
+    my $permissions =
+        MusicBrainz::Server::Entity::EditorOAuthToken->permissions($scope);
+
     if ($c->form_posted_and_valid($form)) {
         if ($form->field('cancel')->input) {
             $c->response->redirect($c->uri_for_action('/account/applications'));
@@ -788,9 +803,11 @@ sub revoke_application_access : Path('/account/applications/revoke-access') Args
     } else {
         $c->stash(
             current_view => 'Node',
-            component_path => 'account/applications/RevokeAccess',
+            component_path => 'account/applications/RevokeApplicationAccess',
             component_props => {
+                application => $application->TO_JSON,
                 form => $form->TO_JSON,
+                permissions => $permissions,
             },
         );
         $c->detach;
@@ -815,7 +832,7 @@ sub register_application : Path('/account/applications/register') RequireAuth Re
     } else {
         $c->stash(
             current_view => 'Node',
-            component_path => 'account/applications/Register',
+            component_path => 'account/applications/RegisterApplication',
             component_props => {
                 form => $form->TO_JSON,
             },
@@ -848,7 +865,7 @@ sub edit_application : Path('/account/applications/edit') Args(1) RequireAuth Re
         $form->field('oauth_type')->value($application->oauth_type),
         $c->stash(
             current_view => 'Node',
-            component_path => 'account/applications/Edit',
+            component_path => 'account/applications/EditApplication',
             component_props => {
                 form => $form->TO_JSON,
             },
@@ -880,7 +897,7 @@ sub remove_application : Path('/account/applications/remove') Args(1) RequireAut
     } else {
         $c->stash(
             current_view => 'Node',
-            component_path => 'account/applications/Remove',
+            component_path => 'account/applications/RemoveApplication',
             component_props => {
                 form => $form->TO_JSON,
             },
