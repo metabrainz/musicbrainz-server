@@ -966,21 +966,16 @@ const CLEANUPS: CleanupEntries = {
   },
   'bandcamp': {
     match: [new RegExp(
-      '^(https?://)?([^/]+\\.)?bandcamp\\.com(?!/campaign/)',
+      '^(https?://)?(((?!daily)[^/])+\\.)?bandcamp\\.com(?!/campaign/)',
       'i',
     )],
     restrict: [{
-      ...LINK_TYPES.review,
       ...LINK_TYPES.bandcamp,
       work: LINK_TYPES.lyrics.work,
     }],
     clean: function (url) {
       url = url.replace(/^(?:https?:\/\/)?([^\/]+\.)?bandcamp\.com(?:\/([^?#]*))?.*$/, 'https://$1bandcamp.com/$2');
-      if (/^https:\/\/daily\.bandcamp\.com/.test(url)) {
-        url = url.replace(/^https:\/\/daily\.bandcamp\.com\/(\d+\/\d+\/\d+\/[\w-]+)(?:\/.*)?$/, 'https://daily.bandcamp.com/$1/');
-      } else {
-        url = url.replace(/^https:\/\/([^\/]+)\.bandcamp\.com\/(?:((?:album|merch|track)\/[^\/]+))?.*$/, 'https://$1.bandcamp.com/$2');
-      }
+      url = url.replace(/^https:\/\/([^\/]+)\.bandcamp\.com\/(?:((?:album|merch|track)\/[^\/]+))?.*$/, 'https://$1.bandcamp.com/$2');
       return url;
     },
     validate: function (url, id) {
@@ -1017,11 +1012,6 @@ const CLEANUPS: CleanupEntries = {
             result: /^https:\/\/[^\/]+\.bandcamp\.com\/$/.test(url),
             target: ERROR_TARGETS.ENTITY,
           };
-        case LINK_TYPES.review.release_group:
-          return {
-            result: /^https:\/\/daily\.bandcamp\.com\/\d+\/\d+\/\d+\/[\w-]+-review\/$/.test(url),
-            target: ERROR_TARGETS.ENTITY,
-          };
         case LINK_TYPES.lyrics.work:
           return {
             result: /^https:\/\/[^\/]+\.bandcamp\.com\/track\/[\w-]+$/.test(url),
@@ -1046,6 +1036,34 @@ const CLEANUPS: CleanupEntries = {
           return {result: /^https:\/\/[^\/]+\.bandcamp\.com\/campaign\/[^?#/]+$/.test(url)};
       }
       return {result: false, target: ERROR_TARGETS.ENTITY};
+    },
+  },
+  'bandcampdaily': {
+    match: [new RegExp(
+      '^(https?://)?daily\\.bandcamp\\.com',
+      'i',
+    )],
+    restrict: [{
+      ...LINK_TYPES.interview,
+      ...LINK_TYPES.review,
+    }],
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?daily\.bandcamp\.com\/((?:\d+\/\d+\/\d+|[\w-]+)\/[\w-]+)(?:\/.*)?$/, 'https://daily.bandcamp.com/$1/');
+    },
+    validate: function (url, id) {
+      switch (id) {
+        case LINK_TYPES.interview.artist:
+          return {
+            result: /^https:\/\/daily\.bandcamp\.com\/(?:\d+\/\d+\/\d+|[\w-]+)\/[\w-]+-interview\/$/.test(url),
+            target: ERROR_TARGETS.ENTITY,
+          };
+        case LINK_TYPES.review.release_group:
+          return {
+            result: /^https:\/\/daily\.bandcamp\.com\/(?:\d+\/\d+\/\d+|[\w-]+)\/[\w-]+-review\/$/.test(url),
+            target: ERROR_TARGETS.ENTITY,
+          };
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
     },
   },
   'bandsintown': {
@@ -5788,6 +5806,17 @@ entitySpecificRules.recording = function (url) {
       ),
       result: false,
       target: ERROR_TARGETS.URL,
+    };
+  }
+  return {result: true};
+};
+
+// Disallow non-daily Bandcamp URLs at release group level
+entitySpecificRules.release_group = function (url) {
+  if (/^(https?:\/\/)?(((?!daily)[^/])+\.)?bandcamp\.com/.test(url)) {
+    return {
+      result: false,
+      target: ERROR_TARGETS.ENTITY,
     };
   }
   return {result: true};
