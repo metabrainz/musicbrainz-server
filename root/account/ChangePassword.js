@@ -64,6 +64,7 @@ const ChangePasswordPageContent = ({
         <HiddenField field={form.field.username} />
       ) : (
         <FormRowText
+          autoComplete="username"
           field={form.field.username}
           label={l('Username:')}
           required
@@ -71,6 +72,7 @@ const ChangePasswordPageContent = ({
         />
       )}
       <FormRowText
+        autoComplete="current-password"
         field={form.field.old_password}
         label={l('Old password:')}
         required
@@ -78,6 +80,7 @@ const ChangePasswordPageContent = ({
         uncontrolled
       />
       <FormRowText
+        autoComplete="new-password"
         field={form.field.password}
         label={l('New password:')}
         required
@@ -85,6 +88,7 @@ const ChangePasswordPageContent = ({
         uncontrolled
       />
       <FormRowText
+        autoComplete="new-password"
         field={form.field.confirm_password}
         label={l('Confirm password:')}
         required
