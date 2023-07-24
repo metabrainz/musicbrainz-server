@@ -13,6 +13,8 @@ import FormRow from './FormRow.js';
 type CommonProps = {
   +disabled?: boolean,
   +field: ReadOnlyFieldT<boolean>,
+  +hasNoLabel?: boolean,
+  +hasNoMargin?: boolean,
   +help?: React$Node,
   +label: string,
 };
@@ -31,6 +33,8 @@ type Props =
 const FormRowCheckbox = ({
   disabled,
   field,
+  hasNoLabel = true,
+  hasNoMargin = false,
   help,
   label,
   // $FlowIssue[prop-missing]
@@ -52,7 +56,7 @@ const FormRowCheckbox = ({
   const showHelp = nonEmpty(help);
 
   return (
-    <FormRow hasNoLabel>
+    <FormRow hasNoLabel={hasNoLabel} hasNoMargin={hasNoMargin}>
       <label className="inline">
         <input
           aria-describedby={showHelp ? `field-help-${field.id}` : null}

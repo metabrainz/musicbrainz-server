@@ -9,6 +9,7 @@
 
 type Props = {
   +className?: string,
+  +inputClassName?: string,
   +label: string,
   +name?: string,
   +value?: string,
@@ -16,12 +17,20 @@ type Props = {
 
 const FormSubmit = ({
   className,
+  inputClassName,
   label,
   name,
   value,
 }: Props): React$Element<'span'> => (
   <span className={'buttons' + (nonEmpty(className) ? ' ' + className : '')}>
-    <button name={name} type="submit" value={value}>{label}</button>
+    <button
+      className={inputClassName}
+      name={name}
+      type="submit"
+      value={value}
+    >
+      {label}
+    </button>
   </span>
 );
 
