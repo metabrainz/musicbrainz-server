@@ -36,6 +36,7 @@ const ResetPassword = ({
     <form method="post">
       <FormCsrfToken form={form} />
       <FormRowText
+        autoComplete="new-password"
         field={form.field.password}
         label={l('New password:')}
         required
@@ -43,6 +44,7 @@ const ResetPassword = ({
         uncontrolled
       />
       <FormRowText
+        autoComplete="new-password"
         field={form.field.confirm_password}
         label={l('Confirm password:')}
         required
