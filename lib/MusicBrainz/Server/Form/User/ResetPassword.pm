@@ -23,6 +23,13 @@ has_field 'confirm_password' => (
     min_length => 1,
 );
 
+after validate => sub {
+    my ($self) = @_;
+
+    # To update the form with any errors when it's shown again
+    $self->ctx->stash->{component_props}{form} = $self->TO_JSON;
+};
+
 1;
 
 =head1 COPYRIGHT AND LICENSE

@@ -14,6 +14,7 @@ import FormRow from './FormRow.js';
 type InputOnChange = (SyntheticKeyboardEvent<HTMLInputElement>) => void;
 
 type InputProps = {
+  +autoComplete?: string,
   +className?: string,
   defaultValue?: string,
   +disabled: boolean,
@@ -27,6 +28,7 @@ type InputProps = {
 };
 
 type CommonProps = {
+  +autoComplete?: string,
   +children?: React$Node,
   +className?: string,
   +disabled?: boolean,
@@ -53,6 +55,7 @@ const FormRowText = (props: Props): React$Element<typeof FormRow> => {
   const required = props.required ?? false;
 
   const inputProps: InputProps = {
+    autoComplete: props.autoComplete,
     className: props.className,
     disabled: props.disabled ?? false,
     id: 'id-' + field.html_name,
