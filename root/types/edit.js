@@ -34,6 +34,10 @@ declare type EditWithIdT = $ReadOnly<{...EditT, +id: number}>;
 declare type EditNoteChangeT = {
   +change_editor_id: number,
   +change_time: string,
+  +edit_note_id: number,
+  +id: number,
+  +new_note: string,
+  +old_note: string,
   +reason: string,
   +status: 'edited' | 'deleted',
 };

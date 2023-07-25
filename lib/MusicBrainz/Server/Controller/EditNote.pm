@@ -6,9 +6,12 @@ use namespace::autoclean;
 use DateTime;
 use List::AllUtils qw( first_index );
 use MusicBrainz::Server::Constants qw( $CONTACT_URL $EDITOR_MODBOT );
+use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
 use MusicBrainz::Server::Data::Utils qw( load_everything_for_edits );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 use MusicBrainz::Server::Validation qw( is_database_row_id );
 use MusicBrainz::Server::Translation qw( l );
+use utf8;
 
 extends 'MusicBrainz::Server::Controller';
 with 'MusicBrainz::Server::Controller::Role::Load' => {
@@ -22,7 +25,12 @@ sub _load
 {
     my ($self, $c, $edit_note_id) = @_;
     return unless is_database_row_id($edit_note_id);
-    my $edit_note = $c->model('EditNote')->get_by_id($edit_note_id);
+    my $edit_note = $c->model('EditNote')->get_by_id($edit_note_id)
+        or $c->detach(
+            '/error_404',
+            [ "Found no edit note with ID “$edit_note_id”." ],
+        );
+
     $c->model('Editor')->load($edit_note);
     $c->model('EditNoteChange')->load_latest($edit_note);
     return $edit_note;
@@ -209,6 +217,79 @@ sub modify : PathPart('modify') Chained('load') {
             editNote => $edit_note->TO_JSON,
             form => $form->TO_JSON,
         },
+        current_view => 'Node',
+    );
+}
+
+sub edit_note_change : PathPart('change') Chained('load') Args(1) RequireAuth(account_admin)
+{
+    my ($self, $c, $change_id) = @_;
+
+    if (!is_database_row_id($change_id)) {
+        $c->stash(
+            message => 'The note change ID must be a positive integer'
+        );
+        $c->detach('/error_400')
+    }
+
+    my $note_change = $c->model('EditNoteChange')->get_by_id($change_id)
+        or $c->detach(
+            '/error_404',
+            [ "Found no note change with ID “$change_id”." ],
+        );
+
+    my $edit_note = $c->stash->{edit_note};
+    my $edit_id = $edit_note->{edit_id};
+    my $edit_note_id = $edit_note->{id};
+    my $note_url = "/edit/$edit_id#note-$edit_id-$edit_note_id";
+
+    if ($note_change->edit_note_id != $edit_note_id) {
+        $c->stash(
+            message =>
+                "The note change with ID “$change_id” is not associated with this note.",
+        );
+        $c->detach('/error_400')
+    }
+
+    $c->model('Editor')->load($note_change);
+
+    my %props = (
+        change => $note_change->TO_JSON,
+        noteUrl => $note_url,
+    );
+
+    $c->stash(
+        component_path => 'edit_note/EditNoteChange',
+        component_props => \%props,
+        current_view => 'Node',
+    );
+}
+
+sub edit_note_history : PathPart('changes') Chained('load') RequireAuth(account_admin)
+{
+    my ($self, $c) = @_;
+
+    my $edit_note = $c->stash->{edit_note};
+    my $edit_id = $edit_note->{edit_id};
+    my $edit_note_id = $edit_note->{id};
+    my $note_url = "/edit/$edit_id#note-$edit_id-$edit_note_id";
+
+    my $note_changes = $self->_load_paged(
+        $c, sub {
+            $c->model('EditNoteChange')->get_history($edit_note->id);
+        }
+    );
+
+    $c->model('Editor')->load(@$note_changes);
+    my %props = (
+        changes => to_json_array($note_changes),
+        noteUrl => $note_url,
+        pager => serialize_pager($c->stash->{pager}),
+    );
+
+    $c->stash(
+        component_path => 'edit_note/EditNoteHistory',
+        component_props => \%props,
         current_view => 'Node',
     );
 }
