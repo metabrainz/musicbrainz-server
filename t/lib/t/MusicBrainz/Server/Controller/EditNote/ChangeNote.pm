@@ -1,4 +1,4 @@
-package t::MusicBrainz::Server::Controller::Edit::ChangeNote;
+package t::MusicBrainz::Server::Controller::EditNote::ChangeNote;
 use strict;
 use warnings;
 

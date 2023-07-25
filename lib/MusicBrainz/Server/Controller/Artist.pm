@@ -263,26 +263,26 @@ sub show : PathPart('') Chained('load')
 
     my $coll = $c->get_collator();
     my @identities;
-    my $legal_name_artist_aliases;
+    my $base_name_legal_name_aliases;
     my $legal_name_aliases;
-    my ($legal_name) = map { $_->target }
+    my ($base_name) = map { $_->target }
                        grep { $_->direction == $DIRECTION_BACKWARD }
                        grep { $_->link->type->gid eq 'dd9886f2-1dfe-4270-97db-283f6839a666' } @{ $artist->relationships };
-    if (defined $legal_name) {
-        $c->model('Relationship')->load_subset(['artist'], $legal_name);
-        $c->stash( legal_name => $legal_name );
-        my $aliases = $c->model('Artist')->alias->find_by_entity_id($legal_name->id);
+    if (defined $base_name) {
+        $c->model('Relationship')->load_subset(['artist'], $base_name);
+        $c->stash( legal_name => $base_name );
+        my $aliases = $c->model('Artist')->alias->find_by_entity_id($base_name->id);
         $c->model('Artist')->alias_type->load(@$aliases);
         my @aliases = uniq map { $_->name }
                       sort_by { $coll->getSortKey($_->name) }
                       # An alias equal to the artist name already shown isn't useful
-                      grep { ($_->name) ne $legal_name->name }
+                      grep { ($_->name) ne $base_name->name }
                       # A legal name alias marked ended isn't a current legal name
                       grep { !($_->ended) }
                       grep { ($_->type_name // '') eq 'Legal name' } @$aliases;
         $c->stash( legal_name_artist_aliases => \@aliases );
-        $legal_name_artist_aliases = \@aliases;
-        push(@identities, $legal_name);
+        $base_name_legal_name_aliases = \@aliases;
+        push(@identities, $base_name);
     } else {
         my $aliases = $c->model('Artist')->alias->find_by_entity_id($artist->id);
         $c->model('Artist')->alias_type->load(@$aliases);
@@ -320,7 +320,7 @@ sub show : PathPart('') Chained('load')
                            map { $_->target }
                            grep { $_->direction == $DIRECTION_FORWARD }
                            grep { $_->link->type->gid eq 'dd9886f2-1dfe-4270-97db-283f6839a666' }
-                           @{ ($legal_name // $artist)->relationships };
+                           @{ ($base_name // $artist)->relationships };
     push(@identities, @other_identities);
     $c->stash(other_identities => \@other_identities,
               identities => \@identities);
@@ -338,9 +338,9 @@ sub show : PathPart('') Chained('load')
             hasVariousArtists => boolean_to_json($has_va),
             hasVariousArtistsExtra => boolean_to_json($has_va_extra),
             includingAllStatuses => boolean_to_json($including_all_statuses),
-            legalName => to_json_object($legal_name),
+            baseName => to_json_object($base_name),
+            baseNameLegalNameAliases => to_json_array($base_name_legal_name_aliases),
             legalNameAliases => to_json_array($legal_name_aliases),
-            legalNameArtistAliases => to_json_array($legal_name_artist_aliases),
             numberOfRevisions => $c->stash->{number_of_revisions},
             otherIdentities => to_json_array(\@other_identities),
             pager => serialize_pager($c->stash->{pager}),

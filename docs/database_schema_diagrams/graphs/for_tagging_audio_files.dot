@@ -1,0 +1,111 @@
+// Automatically generated, do not edit.
+// - Database schema sequence: 28
+digraph for_tagging_audio_files {
+    tooltip = "Tables for tagging audio files"
+    graph [
+        bgcolor = "#cb75ab:#f0976c"
+        concentrate = true
+        gradientangle = 330
+        pack = true
+        rankdir = "LR"
+    ];
+    node [
+        shape = plain
+    ];
+
+    // Tables
+    "artist" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#eeeeeebb"><font point-size="17">artist</font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="..."><font point-size="14">...</font></td></tr>
+            </table>
+        >
+    ];
+    "artist_credit" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#bbbbbb77"><font point-size="17">artist_credit</font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="..."><font point-size="14">...</font></td></tr>
+            </table>
+        >
+    ];
+    "artist_credit_name" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#bbbbbb77"><font point-size="17">artist_credit_name</font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="artist_credit"><font point-size="14"><u>artist_credit</u></font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="position"><font point-size="14"><u>position</u></font></td></tr>
+                <tr><td bgcolor="#eeeeee55" align="left" port="artist"><font point-size="14">artist</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="..."><font point-size="14">...</font></td></tr>
+            </table>
+        >
+    ];
+    "medium" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#bbbbbb77"><font point-size="17">medium</font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
+                <tr><td bgcolor="#eeeeee55" align="left" port="release"><font point-size="14">release</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="..."><font point-size="14">...</font></td></tr>
+            </table>
+        >
+    ];
+    "recording" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#eeeeeebb"><font point-size="17">recording</font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
+                <tr><td bgcolor="#eeeeee55" align="left" port="artist_credit"><font point-size="14">artist_credit</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="..."><font point-size="14">...</font></td></tr>
+            </table>
+        >
+    ];
+    "release" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#eeeeeebb"><font point-size="17">release</font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
+                <tr><td bgcolor="#eeeeee55" align="left" port="artist_credit"><font point-size="14">artist_credit</font></td></tr>
+                <tr><td bgcolor="#eeeeee55" align="left" port="release_group"><font point-size="14">release_group</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="..."><font point-size="14">...</font></td></tr>
+            </table>
+        >
+    ];
+    "release_group" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#eeeeeebb"><font point-size="17">release_group</font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
+                <tr><td bgcolor="#eeeeee55" align="left" port="artist_credit"><font point-size="14">artist_credit</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="..."><font point-size="14">...</font></td></tr>
+            </table>
+        >
+    ];
+    "track" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#bbbbbb77"><font point-size="17">track</font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
+                <tr><td bgcolor="#eeeeee55" align="left" port="recording"><font point-size="14">recording</font></td></tr>
+                <tr><td bgcolor="#eeeeee55" align="left" port="medium"><font point-size="14">medium</font></td></tr>
+                <tr><td bgcolor="#eeeeee55" align="left" port="artist_credit"><font point-size="14">artist_credit</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="..."><font point-size="14">...</font></td></tr>
+            </table>
+        >
+    ];
+
+    // References
+    "artist_credit_name":"artist_credit" -> "artist_credit":"id"
+    "artist_credit_name":"artist" -> "artist":"id"
+    "medium":"release" -> "release":"id"
+    "recording":"artist_credit" -> "artist_credit":"id"
+    "release":"artist_credit" -> "artist_credit":"id"
+    "release":"release_group" -> "release_group":"id"
+    "release_group":"artist_credit" -> "artist_credit":"id"
+    "track":"recording" -> "recording":"id"
+    "track":"medium" -> "medium":"id"
+    "track":"artist_credit" -> "artist_credit":"id"
+}

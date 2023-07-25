@@ -1,6 +1,6 @@
 {
-  "tooltip": "Tables for the “series” core entity type properties",
-  "_comment": "Show replicated tables used to define any series entity, beyond relationships. The main table is highlighted.",
+  "tooltip": "Tables for the “series” entity type properties",
+  "_comment": "It shows replicated tables used to define any series entity, beyond relationships. The main table is highlighted.",
   "tables": {
     "annotation": [],
     "tag": [],

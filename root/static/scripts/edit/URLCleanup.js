@@ -63,6 +63,7 @@ export const LINK_TYPES: LinkTypeMap = {
     label: 'b7be2ca4-bdb7-4d87-9619-f2fa50120409',
     release: '63b84620-ba52-4630-9bfe-8ad3b5504dff',
     release_group: '27cfc95c-d368-45a9-ae0d-308c274c2017',
+    series: 'fe60d685-8064-4501-baab-e2de8ff52a27',
     work: '0ea7cf4e-93dd-4bc4-b748-0f1073cf951c',
   },
   cdbaby: {
@@ -826,9 +827,11 @@ const CLEANUPS: CleanupEntries = {
       multiple(LINK_TYPES.downloadpurchase, LINK_TYPES.streamingpaid),
     ],
     clean: function (url) {
-      url = url.replace(/^https?:\/\/(?:(?:beta|geo)\.)?music\.apple\.com\/([a-z]{2}\/)?(artist|album|author|label|music-video)\/(?:[^?#\/]+\/)?(?:id)?([0-9]+)(?:\?.*)?$/, 'https://music.apple.com/$1$2/$3');
+      url = url.replace(/^https?:\/\/(?:(?:beta|geo)\.)?music\.apple\.com\//, 'https://music.apple.com/');
       // US page is the default, add its country-code to clarify (MBS-10623)
       url = url.replace(/^(https:\/\/music\.apple\.com)\/([a-z-]{3,})\//, '$1/us/$2/');
+      url = url.replace(/^(https:\/\/music\.apple\.com\/[a-z]{2})\/album\/[^?#\/]+\/[0-9]+\?i=([0-9]+)$/, '$1/song/$2');
+      url = url.replace(/^(https:\/\/music\.apple\.com\/[a-z]{2})\/(artist|album|author|label|music-video|song)\/(?:[^?#\/]+\/)?(?:id)?([0-9]+)(?:\?.*)?$/, '$1/$2/$3');
       return url;
     },
     validate: function (url, id) {
@@ -875,7 +878,7 @@ const CLEANUPS: CleanupEntries = {
           case LINK_TYPES.downloadpurchase.recording:
           case LINK_TYPES.streamingpaid.recording:
             return {
-              result: prefix === 'music-video',
+              result: prefix === 'music-video' || prefix === 'song',
               target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.downloadpurchase.release:
@@ -965,21 +968,16 @@ const CLEANUPS: CleanupEntries = {
   },
   'bandcamp': {
     match: [new RegExp(
-      '^(https?://)?([^/]+\\.)?bandcamp\\.com(?!/campaign/)',
+      '^(https?://)?(((?!daily)[^/])+\\.)?bandcamp\\.com(?!/campaign/)',
       'i',
     )],
     restrict: [{
-      ...LINK_TYPES.review,
       ...LINK_TYPES.bandcamp,
       work: LINK_TYPES.lyrics.work,
     }],
     clean: function (url) {
       url = url.replace(/^(?:https?:\/\/)?([^\/]+\.)?bandcamp\.com(?:\/([^?#]*))?.*$/, 'https://$1bandcamp.com/$2');
-      if (/^https:\/\/daily\.bandcamp\.com/.test(url)) {
-        url = url.replace(/^https:\/\/daily\.bandcamp\.com\/(\d+\/\d+\/\d+\/[\w-]+)(?:\/.*)?$/, 'https://daily.bandcamp.com/$1/');
-      } else {
-        url = url.replace(/^https:\/\/([^\/]+)\.bandcamp\.com\/(?:((?:album|merch|track)\/[^\/]+))?.*$/, 'https://$1.bandcamp.com/$2');
-      }
+      url = url.replace(/^https:\/\/([^\/]+)\.bandcamp\.com\/(?:((?:album|merch|track)\/[^\/]+))?.*$/, 'https://$1.bandcamp.com/$2');
       return url;
     },
     validate: function (url, id) {
@@ -1016,11 +1014,6 @@ const CLEANUPS: CleanupEntries = {
             result: /^https:\/\/[^\/]+\.bandcamp\.com\/$/.test(url),
             target: ERROR_TARGETS.ENTITY,
           };
-        case LINK_TYPES.review.release_group:
-          return {
-            result: /^https:\/\/daily\.bandcamp\.com\/\d+\/\d+\/\d+\/[\w-]+-review\/$/.test(url),
-            target: ERROR_TARGETS.ENTITY,
-          };
         case LINK_TYPES.lyrics.work:
           return {
             result: /^https:\/\/[^\/]+\.bandcamp\.com\/track\/[\w-]+$/.test(url),
@@ -1045,6 +1038,34 @@ const CLEANUPS: CleanupEntries = {
           return {result: /^https:\/\/[^\/]+\.bandcamp\.com\/campaign\/[^?#/]+$/.test(url)};
       }
       return {result: false, target: ERROR_TARGETS.ENTITY};
+    },
+  },
+  'bandcampdaily': {
+    match: [new RegExp(
+      '^(https?://)?daily\\.bandcamp\\.com',
+      'i',
+    )],
+    restrict: [{
+      ...LINK_TYPES.interview,
+      ...LINK_TYPES.review,
+    }],
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?daily\.bandcamp\.com\/((?:\d+\/\d+\/\d+|[\w-]+)\/[\w-]+)(?:\/.*)?$/, 'https://daily.bandcamp.com/$1/');
+    },
+    validate: function (url, id) {
+      switch (id) {
+        case LINK_TYPES.interview.artist:
+          return {
+            result: /^https:\/\/daily\.bandcamp\.com\/(?:\d+\/\d+\/\d+|[\w-]+)\/[\w-]+-interview\/$/.test(url),
+            target: ERROR_TARGETS.ENTITY,
+          };
+        case LINK_TYPES.review.release_group:
+          return {
+            result: /^https:\/\/daily\.bandcamp\.com\/(?:\d+\/\d+\/\d+|[\w-]+)\/[\w-]+-review\/$/.test(url),
+            target: ERROR_TARGETS.ENTITY,
+          };
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
     },
   },
   'bandsintown': {
@@ -1334,6 +1355,55 @@ const CLEANUPS: CleanupEntries = {
         result: /^https:\/\/bookbrainz\.org\/[^\/]+\/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/.test(url),
         target: ERROR_TARGETS.URL,
       };
+    },
+  },
+  'boomkat': {
+    match: [new RegExp('^(https?://)?(www\\.)?boomkat\\.com', 'i')],
+    restrict: [
+      {
+        artist: [
+          LINK_TYPES.downloadpurchase.artist,
+          LINK_TYPES.mailorder.artist,
+        ],
+        label: [
+          LINK_TYPES.downloadpurchase.label,
+          LINK_TYPES.mailorder.label,
+        ],
+      },
+      LINK_TYPES.downloadpurchase,
+      LINK_TYPES.mailorder,
+    ],
+    clean: function (url) {
+      url = url.replace(/^(?:https?:\/\/)(?:www\.)?boomkat\.com\/([a-z]+)\/([^\/#?]+).*$/, 'https://boomkat.com/$1/$2');
+      return url;
+    },
+    validate: function (url, id) {
+      const m = /^https:\/\/boomkat\.com\/([a-z]+)\/.*$/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.downloadpurchase.artist:
+          case LINK_TYPES.mailorder.artist:
+            return {
+              result: prefix === 'artists',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.downloadpurchase.label:
+          case LINK_TYPES.mailorder.label:
+            return {
+              result: prefix === 'labels',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.downloadpurchase.release:
+          case LINK_TYPES.mailorder.release:
+            return {
+              result: prefix === 'products',
+              target: ERROR_TARGETS.ENTITY,
+            };
+        }
+        return {result: false, target: ERROR_TARGETS.ENTITY};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
     },
   },
   'boomplay': {
@@ -4690,6 +4760,34 @@ const CLEANUPS: CleanupEntries = {
       return {result: false, target: ERROR_TARGETS.URL};
     },
   },
+  'threads': {
+    match: [new RegExp('^(https?://)?([^/]+\\.)?threads\\.net/', 'i')],
+    restrict: [{...LINK_TYPES.streamingfree, ...LINK_TYPES.socialnetwork}],
+    clean: function (url) {
+      return url.replace(
+        /^(?:https?:\/\/)?(?:www\.)?threads\.net(?:\/#!)?\//,
+        'https://www.threads.net/',
+      );
+    },
+    validate: function (url, id) {
+      const isAProfile = /^https:\/\/www\.threads\.net\/@[^/]+$/.test(url);
+      const isAThread = /^https:\/\/www\.threads\.net\/t\/[^/]+$/.test(url);
+      if (Object.values(LINK_TYPES.streamingfree).includes(id)) {
+        return {
+          result: isAThread &&
+            (id === LINK_TYPES.streamingfree.recording),
+          target: ERROR_TARGETS.ENTITY,
+        };
+      } else if (isAThread) {
+        return {
+          error: l('Please link to Threads profiles, not threads.'),
+          result: false,
+          target: ERROR_TARGETS.ENTITY,
+        };
+      }
+      return {result: isAProfile, target: ERROR_TARGETS.URL};
+    },
+  },
   'tidal': {
     match: [new RegExp(
       '^(https?://)?' +
@@ -5759,6 +5857,17 @@ entitySpecificRules.recording = function (url) {
       ),
       result: false,
       target: ERROR_TARGETS.URL,
+    };
+  }
+  return {result: true};
+};
+
+// Disallow non-daily Bandcamp URLs at release group level
+entitySpecificRules.release_group = function (url) {
+  if (/^(https?:\/\/)?(((?!daily)[^/])+\.)?bandcamp\.com/.test(url)) {
+    return {
+      result: false,
+      target: ERROR_TARGETS.ENTITY,
     };
   }
   return {result: true};

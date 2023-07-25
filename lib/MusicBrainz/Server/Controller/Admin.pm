@@ -107,6 +107,16 @@ sub delete_user : Path('/admin/user/delete') Args(1) RequireAuth HiddenOnMirrors
     $c->stash( user => $editor );
 
     my $form = $c->form(form => 'Admin::DeleteUser');
+
+    $c->stash(
+        current_view => 'Node',
+        component_path => 'admin/DeleteUser',
+        component_props => {
+            form => $form->TO_JSON,
+            user => $c->controller('User')->serialize_user($editor),
+        },
+    );
+
     if ($c->form_posted_and_valid($form)) {
         my $allow_reuse = 0;
         if ($id != $c->user->id && $c->user->is_account_admin) {

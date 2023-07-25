@@ -17,6 +17,7 @@ import {
 } from '../../constants.js';
 import {CatalystContext} from '../../context.mjs';
 import EditorLink from '../../static/scripts/common/components/EditorLink.js';
+import bracketed from '../../static/scripts/common/utility/bracketed.js';
 import {isAccountAdmin, isAddingNotesDisabled}
   from '../../static/scripts/common/utility/privileges.js';
 import getVoteName from '../../static/scripts/edit/utility/getVoteName.js';
@@ -116,11 +117,12 @@ const EditNote = ({
   const isRecent = Boolean(
     noteDate && (new Date().getTime() - noteDate.getTime()) < twentyFourHours,
   );
+  const isAdmin = isAccountAdmin(user);
   const canBeChangedByOwner = isCurrentEditor && !hasReply &&
                               isRecent && !isDeleted &&
                               !isAddingNotesDisabled(user);
   const canShowEditControls = showEditControls &&
-                              (canBeChangedByOwner || isAccountAdmin(user));
+                              (canBeChangedByOwner || isAdmin);
 
   return (
     <div className="edit-note" id={anchor}>
@@ -158,30 +160,42 @@ const EditNote = ({
         </a>
       </h3>
       {isDeleted ? (
-        <div className="edit-note-text deleted-note">
-          {changedBySelf ? (
-            nonEmpty(changeReason) ? (
-              texp.l(
-                `This edit note was removed by its author.
-                 Reason given: “{reason}”.`,
-                {reason: changeReason},
+        <div className="edit-note-text">
+          <span className="deleted-note">
+            {changedBySelf ? (
+              nonEmpty(changeReason) ? (
+                texp.l(
+                  `This edit note was removed by its author.
+                   Reason given: “{reason}”.`,
+                  {reason: changeReason},
+                )
+              ) : (
+                l(`This edit note was removed by its author.
+                   No reason was provided.`)
               )
             ) : (
-              l(`This edit note was removed by its author.
-                 No reason was provided.`)
-            )
-          ) : (
-            nonEmpty(changeReason) ? (
-              texp.l(
-                `This edit note was removed by an admin.
-                 Reason given: “{reason}”.`,
-                {reason: changeReason},
+              nonEmpty(changeReason) ? (
+                texp.l(
+                  `This edit note was removed by an admin.
+                   Reason given: “{reason}”.`,
+                  {reason: changeReason},
+                )
+              ) : (
+                l(`This edit note was removed by an admin.
+                   No reason was provided.`)
               )
-            ) : (
-              l(`This edit note was removed by an admin.
-                 No reason was provided.`)
-            )
-          )}
+            )}
+          </span>
+          {isAdmin ? (
+            <span className="small">
+              {' '}
+              {bracketed(
+                <a href={`/edit-note/${editNote.id}/changes`}>
+                  {lp('see all changes', 'edit note')}
+                </a>,
+              )}
+            </span>
+          ) : null}
         </div>
       ) : (
         <>
@@ -228,6 +242,16 @@ const EditNote = ({
                   )
                 )
               )}
+              {isAdmin ? (
+                <>
+                  {' '}
+                  {bracketed(
+                    <a href={`/edit-note/${editNote.id}/changes`}>
+                      {lp('see all changes', 'edit note')}
+                    </a>,
+                  )}
+                </>
+              ) : null}
             </div>
           ) : null}
         </>

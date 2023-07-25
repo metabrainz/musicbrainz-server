@@ -598,6 +598,26 @@ limited_link_type_combinations: [
             expected_clean_url: 'https://music.apple.com/ee/music-video/539886832',
   },
   {
+                     input_url: 'https://music.apple.com/song/low-frequency-response-test/1435928320',
+             input_entity_type: 'recording',
+limited_link_type_combinations: [
+                                  'downloadpurchase',
+                                  'streamingpaid',
+                                  ['downloadpurchase', 'streamingpaid'],
+                                ],
+            expected_clean_url: 'https://music.apple.com/us/song/1435928320',
+  },
+  {
+                     input_url: 'https://music.apple.com/us/album/low-frequency-response-test/1435928305?i=1435928320',
+             input_entity_type: 'recording',
+limited_link_type_combinations: [
+                                  'downloadpurchase',
+                                  'streamingpaid',
+                                  ['downloadpurchase', 'streamingpaid'],
+                                ],
+            expected_clean_url: 'https://music.apple.com/us/song/1435928320',
+  },
+  {
                      input_url: 'https://music.apple.com/jp/album/uchiagehanabi-single/1263790414',
              input_entity_type: 'release',
 limited_link_type_combinations: [
@@ -748,6 +768,20 @@ limited_link_type_combinations: [
     expected_relationship_type: 'review',
             expected_clean_url: 'https://daily.bandcamp.com/2018/05/30/brownout-fear-of-a-brown-planet-album-review/',
        only_valid_entity_types: ['release_group'],
+  },
+  {
+                     input_url: 'https://daily.bandcamp.com/album-of-the-day/saloli-canyon-review',
+             input_entity_type: 'release_group',
+    expected_relationship_type: 'review',
+            expected_clean_url: 'https://daily.bandcamp.com/album-of-the-day/saloli-canyon-review/',
+       only_valid_entity_types: ['release_group'],
+  },
+  {
+                     input_url: 'http://daily.bandcamp.com/features/arif-mirbaghi-protest-the-hero-interview',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'interview',
+            expected_clean_url: 'https://daily.bandcamp.com/features/arif-mirbaghi-protest-the-hero-interview/',
+       only_valid_entity_types: ['artist'],
   },
   {
                      input_url: 'http://daily.bandcamp.com/2018/05/30/gnawa-bandcamp-list',
@@ -1174,6 +1208,78 @@ limited_link_type_combinations: [
              input_entity_type: 'work',
     expected_relationship_type: 'bookbrainz',
             expected_clean_url: 'https://bookbrainz.org/work/65e71f2e-7245-42df-b93e-89463a28f75c',
+  },
+  {
+                     input_url: 'https://bookbrainz.org/series/bf771df4-ce00-43a1-972b-61ca818faf58',
+             input_entity_type: 'series',
+    expected_relationship_type: 'bookbrainz',
+            expected_clean_url: 'https://bookbrainz.org/series/bf771df4-ce00-43a1-972b-61ca818faf58',
+  },
+  // Boomkat
+  {
+                     input_url: 'https://www.boomkat.com/artists/mr-fingers?per_page=100',
+             input_entity_type: 'artist',
+       input_relationship_type: 'mailorder',
+limited_link_type_combinations: [
+                                  ['downloadpurchase', 'mailorder'],
+                                  'downloadpurchase',
+                                  'mailorder',
+                                ],
+            expected_clean_url: 'https://boomkat.com/artists/mr-fingers',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://boomkat.com/products/around-the-sun-pt-2',
+             input_entity_type: 'release',
+       input_relationship_type: 'downloadpurchase',
+limited_link_type_combinations: [
+                                  'downloadpurchase',
+                                  'mailorder',
+                                ],
+            expected_clean_url: 'https://boomkat.com/products/around-the-sun-pt-2',
+       only_valid_entity_types: ['release'],
+  },
+  {
+                     input_url: 'https://www.boomkat.com/products/around-the-sun-pt-2',
+             input_entity_type: 'release',
+       input_relationship_type: 'mailorder',
+limited_link_type_combinations: [
+                                  'downloadpurchase',
+                                  'mailorder',
+                                ],
+            expected_clean_url: 'https://boomkat.com/products/around-the-sun-pt-2',
+       only_valid_entity_types: ['release'],
+  },
+  {
+                     input_url: 'http://www.boomkat.com/labels/alleviated-records?testing',
+             input_entity_type: 'label',
+       input_relationship_type: 'downloadpurchase',
+limited_link_type_combinations: [
+                                  ['downloadpurchase', 'mailorder'],
+                                  'downloadpurchase',
+                                  'mailorder',
+                                ],
+            expected_clean_url: 'https://boomkat.com/labels/alleviated-records',
+       only_valid_entity_types: ['label'],
+  },
+  {
+                     input_url: 'https://boomkat.com/labels/cultivated-electronics?q[format]=Download',
+             input_entity_type: 'label',
+       input_relationship_type: 'mailorder',
+limited_link_type_combinations: [
+                                  ['downloadpurchase', 'mailorder'],
+                                  'downloadpurchase',
+                                  'mailorder',
+                                ],
+            expected_clean_url: 'https://boomkat.com/labels/cultivated-electronics',
+       only_valid_entity_types: ['label'],
+  },
+  {
+                     input_url: 'https://boomkat.com/bestsellers',
+             input_entity_type: 'artist',
+    expected_relationship_type: undefined,
+       input_relationship_type: 'downloadpurchase',
+       only_valid_entity_types: [],
   },
   // Boomplay
   {
@@ -4759,6 +4865,21 @@ limited_link_type_combinations: [
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'https://thesession.org/tunes/2305',
        only_valid_entity_types: ['work'],
+  },
+  // Threads
+  {
+                     input_url: 'http://threads.net/@cvmpliant',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'socialnetwork',
+            expected_clean_url: 'https://www.threads.net/@cvmpliant',
+       only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series'],
+  },
+  {
+                     input_url: 'https://threads.net/t/CucwR6erBPo',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://www.threads.net/t/CucwR6erBPo',
+       only_valid_entity_types: ['recording'],
   },
   // Tidal
   {

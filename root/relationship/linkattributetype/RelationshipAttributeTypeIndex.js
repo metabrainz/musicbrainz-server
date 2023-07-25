@@ -140,6 +140,18 @@ const RelationshipAttributeTypeIndex = ({
           ) : null}
         </p>
 
+        {attribute.creditable ? (
+          <p>
+            {l('This attribute supports free text credits')}
+          </p>
+        ) : null}
+
+        {attribute.free_text ? (
+          <p>
+            {l('This attribute uses free text values')}
+          </p>
+        ) : null}
+
         {childrenAttrs.length ? (
           <>
             <h2>{l('Possible values')}</h2>

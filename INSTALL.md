@@ -334,6 +334,7 @@ Creating the database
         You can import this sample dump in the same way as the full dump above.
 
     4.  Build materialized tables (optional but recommended)
+        <a name="build-materialized-tables"></a>
 
         MusicBrainz Server makes use of materialized (or denormalized) tables in
         production to improve the performance of certain pages and features. These
