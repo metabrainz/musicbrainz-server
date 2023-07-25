@@ -73,7 +73,7 @@ const MediumTracklist = ({
           </span>
           {track.number}
         </td>
-        <td>
+        <td className="wrap-anywhere">
           {recording ? (
             <EntityLink
               allowNew={allowNew}
@@ -88,7 +88,7 @@ const MediumTracklist = ({
           )}
         </td>
         {showArtists ? (
-          <td>
+          <td className="wrap-anywhere">
             <ArtistCreditLink artistCredit={track.artistCredit} />
           </td>
         ) : null}
