@@ -1,0 +1,12 @@
+{
+  "tooltip": "Tables for finding song authors",
+  "_comment": "It shows the tables commonly needed for finding the authors (composer, lyricist…) of a recorded song. The main tables for primary entity types are highlighted. All tables are shortened to focus on foreign key constraints.",
+  "tables": {
+    "artist": ["highlighted","shortened"],
+    "l_artist_work": ["shortened"],
+    "l_recording_work": ["shortened"],
+    "link": ["shortened"],
+    "recording": ["highlighted","shortened"],
+    "work": ["highlighted","shortened"]
+  }
+}
