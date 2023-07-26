@@ -20,7 +20,7 @@
 
   [%# Remove query params used to seed fields to avoid a "field must contain a single
       value" error due to submitting duplicate parameters via the body later. %]
-  <form id="add-cover-art" class="cover-art" action="[% c.req.uri.replace('\?.*', '') %]" method="post" >
+  <form id="add-cover-art" class="cover-art" action="[% c.req.uri.path %]" method="post">
     [%- USE r = FormRenderer(form) -%]
 
     <div class="add-files row">

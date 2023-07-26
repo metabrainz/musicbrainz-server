@@ -361,7 +361,7 @@ sub add_cover_art : Chained('load') PathPart('add-cover-art') Edit {
         }
     } elsif ($c->form_posted) {
         $c->response->status(500);
-    } elsif (!$c->form_posted && %{ $c->req->query_params }) {
+    } elsif (%{ $c->req->query_params }) {
         # Process query parameters to support seeding fields.
         my $merged = { ( %{$form->fif}, %{$c->req->query_params} ) };
         $form->process( params => $merged );
