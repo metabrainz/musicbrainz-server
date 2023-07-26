@@ -12,10 +12,10 @@ import * as React from 'react';
 import isDateEmpty from '../../common/utility/isDateEmpty.js';
 import type {
   ActionT as DateRangeFieldsetActionT,
-  StateT,
 } from '../../edit/components/DateRangeFieldset.js';
 import {
   partialDateFromField,
+  reducer as dateRangeFieldsetReducer,
 } from '../../edit/components/DateRangeFieldset.js';
 import FieldErrors, {
   FieldErrorsList,
@@ -23,14 +23,127 @@ import FieldErrors, {
 import FormRowCheckbox from '../../edit/components/FormRowCheckbox.js';
 import PartialDateInput from '../../edit/components/PartialDateInput.js';
 import useDateRangeFieldset from '../../edit/hooks/useDateRangeFieldset.js';
+import {
+  createCompoundField,
+  createField,
+} from '../../edit/utility/createField.js';
+import type {DialogDatePeriodStateT} from '../types.js';
 
 type PropsT = {
-  +dispatch: (ActionT) => void,
+  +dispatch: (DateRangeFieldsetActionT) => void,
   +isHelpVisible: boolean,
-  +state: StateT,
+  +state: DialogDatePeriodStateT,
 };
 
 export type ActionT = DateRangeFieldsetActionT;
+
+export function createInitialState(
+  datePeriod: $ReadOnly<{...DatePeriodRoleT, ...}>,
+): DialogDatePeriodStateT {
+  const {
+    begin_date: beginDate,
+    end_date: endDate,
+    ended,
+  } = datePeriod;
+
+  const field = createCompoundField('period', {
+    begin_date: createCompoundField(
+      'period.begin_date',
+      {
+        day: createField(
+          'period.begin_date.day',
+          (beginDate?.day ?? null),
+        ),
+        month: createField(
+          'period.begin_date.month',
+          (beginDate?.month ?? null),
+        ),
+        year: createField(
+          'period.begin_date.year',
+          (beginDate?.year ?? null),
+        ),
+      },
+    ),
+    end_date: createCompoundField(
+      'period.end_date',
+      {
+        day: createField(
+          'period.end_date.day',
+          (endDate?.day ?? null),
+        ),
+        month: createField(
+          'period.end_date.month',
+          (endDate?.month ?? null),
+        ),
+        year: createField(
+          'period.end_date.year',
+          (endDate?.year ?? null),
+        ),
+      },
+    ),
+    ended: createField('period.ended', ended),
+  });
+
+  return {
+    field,
+    result: {
+      begin_date: beginDate,
+      end_date: endDate,
+      ended,
+    },
+  };
+}
+
+export function updateDialogDatePeriodState(
+  state: DialogDatePeriodStateT,
+  action: DateRangeFieldsetActionT,
+): DialogDatePeriodStateT {
+  const newState: {...DialogDatePeriodStateT} = {...state};
+  const oldField = state.field;
+  const newField = dateRangeFieldsetReducer(
+    newState.field,
+    action,
+  );
+  newState.field = newField;
+
+  const newBeginDate = newField.field.begin_date;
+  const newEndDate = newField.field.end_date;
+  const newEnded = newField.field.ended.value;
+
+  const beginDateChanged =
+    oldField.field.begin_date.field !== newBeginDate.field;
+  const endDateChanged =
+    oldField.field.end_date.field !== newEndDate.field;
+  const endedChanged =
+    oldField.field.ended.value !== newEnded;
+
+  if (
+    beginDateChanged ||
+    endDateChanged ||
+    endedChanged
+  ) {
+    if (!(
+      newBeginDate.errors.length ||
+      newBeginDate.pendingErrors?.length ||
+      newEndDate.errors.length ||
+      newEndDate.pendingErrors?.length
+    )) {
+      newState.result = {
+        begin_date: beginDateChanged
+          ? partialDateFromField(newBeginDate)
+          : state.result.begin_date,
+        end_date: endDateChanged
+          ? partialDateFromField(newEndDate)
+          : state.result.end_date,
+        ended: newEnded,
+      };
+    }
+  } else if (newField === oldField) {
+    return state;
+  }
+
+  return newState;
+}
 
 const DialogDatePeriod = (React.memo<PropsT>(({
   dispatch,
@@ -39,8 +152,11 @@ const DialogDatePeriod = (React.memo<PropsT>(({
 }: PropsT): React$MixedElement | null => {
   const hooks = useDateRangeFieldset(dispatch);
 
-  const beginDateField = state.field.begin_date;
-  const endDateField = state.field.end_date;
+  const field = state.field;
+  const {
+    begin_date: beginDateField,
+    end_date: endDateField,
+  } = field.field;
   const endDate = partialDateFromField(endDateField);
 
   return (
@@ -75,19 +191,19 @@ const DialogDatePeriod = (React.memo<PropsT>(({
         <td className="fields end-date">
           <PartialDateInput
             dispatch={hooks.endDateDispatch}
-            field={state.field.end_date}
+            field={endDateField}
             yearInputRef={hooks.endYearInputRef}
           />
-          <FieldErrors field={state.field.end_date} />
+          <FieldErrors field={endDateField} />
           <br />
           <FormRowCheckbox
             disabled={!isDateEmpty(endDate)}
-            field={state.field.ended}
+            field={field.field.ended}
             label={l('This relationship has ended.')}
             onChange={hooks.handleEndedChange}
           />
           <FieldErrorsList
-            errors={state.errors}
+            errors={field.errors}
             hasHtmlErrors={false}
           />
         </td>
