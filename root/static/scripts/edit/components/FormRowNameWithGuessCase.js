@@ -43,7 +43,7 @@ type PropsT = {
   +guessCaseOptions: GuessCaseOptionsStateT,
   +guessFeat?: boolean,
   +isGuessCaseOptionsOpen: boolean,
-  +label?: string,
+  +label?: React$Node,
 };
 
 export type StateT = {

@@ -50,6 +50,15 @@ sub edit_user : Path('/admin/user/edit') Args(1) RequireAuth HiddenOnMirrors Sec
         },
     );
 
+    $c->stash(
+        current_view => 'Node',
+        component_path => 'admin/EditUser',
+        component_props => {
+            form => $form->TO_JSON,
+            user => $c->controller('User')->serialize_user($user),
+        },
+    );
+
     if ($c->form_posted_and_valid($form)) {
         # When an admin views their own flags page the account admin checkbox will be disabled,
         # thus we need to manually insert a value here to keep the admin's privileges intact.
@@ -82,13 +91,9 @@ sub edit_user : Path('/admin/user/edit') Args(1) RequireAuth HiddenOnMirrors Sec
         $c->flash->{message} = l('User successfully edited.');
         $c->response->redirect($c->uri_for_action('/user/profile', [$form->field('username')->value]));
         $c->detach;
+    } else {
+        $c->stash->{component_props}{form} = $form->TO_JSON;
     }
-
-    $c->stash(
-        user => $user,
-        form => $form,
-        show_flags => 1,
-    );
 }
 
 sub delete_user : Path('/admin/user/delete') Args(1) RequireAuth HiddenOnMirrors SecureForm {

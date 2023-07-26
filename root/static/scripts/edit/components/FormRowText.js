@@ -33,7 +33,7 @@ type CommonProps = {
   +className?: string,
   +disabled?: boolean,
   +field: ReadOnlyFieldT<?string>,
-  +label: string,
+  +label: React$Node,
   +required?: boolean,
   +size?: number,
   +type?: string,

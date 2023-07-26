@@ -21,7 +21,7 @@ type CommonProps = {
   +children?: React$Node,
   +disabled?: boolean,
   +field: PartialDateFieldT,
-  +label: string,
+  +label: React$Node,
   +required?: boolean,
   +yearInputRef?: {current: HTMLInputElement | null},
 };

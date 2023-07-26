@@ -22,7 +22,7 @@ type Props = {
   +frozen?: boolean,
   +hasHtmlErrors?: boolean,
   +helpers?: React$Node,
-  +label: string,
+  +label: React$Node,
   +onChange?: (event: SyntheticEvent<HTMLSelectElement>) => void,
   +options: MaybeGroupedOptionsT,
   /*
