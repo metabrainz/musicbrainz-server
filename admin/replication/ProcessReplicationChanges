@@ -18,8 +18,8 @@ use MusicBrainz::Server::Context;
 use Sql;
 use Types::Serialiser;
 
-my $long_sql = 0;
-my $short_sql = 0;
+my $show_long_sql = 0;
+my $show_short_sql = 0;
 my $dbmirror2 = 1;
 my $debug_xact = 0;
 my $skip_seqid;
@@ -44,8 +44,8 @@ Options are:
 EOF
 
 GetOptions(
-    'short-sql'         => \$short_sql,
-    'long-sql'          => \$long_sql,
+    'short-sql'         => \$show_short_sql,
+    'long-sql'          => \$show_long_sql,
     'dbmirror2!'        => \$dbmirror2,
     'debug-xact'        => \$debug_xact,
     'skip-seqid|s=i'    => \$skip_seqid,
@@ -66,9 +66,17 @@ my $c = MusicBrainz::Server::Context->create_script_context(database => $databas
 my $json = JSON::XS->new;
 $json->boolean_values(0, 1)->pretty(0);
 
+# Main connection wrapper used for looping over all of the ordered transaction (X) IDs,
+# and also any other miscellaneous queries at the beginning/ending of the script.
 my $sql = Sql->new($c->conn);
-my $sql2 = Sql->new($c->conn);
-my $mirror = Sql->new($c->conn);
+
+# Connection wrapper used only for looping, through a cursor, over each
+# pending_data change for the transaction (X) ID obtained from the above.
+my $fetching_change_sql = Sql->new($c->conn);
+
+# Connection wrapper used only for applying all of the changes obtained from the
+# above in a single but separate transaction for each transaction (X) ID.
+my $applying_change_sql = Sql->new($c->conn);
 
 $sql->auto_commit;
 $sql->do('SET search_path = musicbrainz, public');
@@ -118,7 +126,7 @@ if (my $totalrows = $sql->select($query))
     };
 
     $p = sub { $lasttime = time }
-        if $short_sql or $long_sql or $debug_xact;
+        if $show_short_sql or $show_long_sql or $debug_xact;
 
         $p->('', '');
 
@@ -158,37 +166,37 @@ if (my $totalrows = $sql->select($query))
                 SQL
         }
 
-        $mirror->begin;
-        $mirror->do('SET CONSTRAINTS ALL DEFERRED');
+        $applying_change_sql->begin;
+        $applying_change_sql->do('SET CONSTRAINTS ALL DEFERRED');
 
-        $sql2->do("DECLARE csr NO SCROLL CURSOR FOR $query", $XID);
+        $fetching_change_sql->do("DECLARE csr NO SCROLL CURSOR FOR $query", $XID);
 
         my @row2;
         my $pull = sub {
-            $sql2->finish;
-            $sql2->select("FETCH FORWARD $limit FROM csr");
+            $fetching_change_sql->finish;
+            $fetching_change_sql->select("FETCH FORWARD $limit FROM csr");
         };
         while ($pull->())
         {
-            while (@row2 = $sql2->next_row)
+            while (@row2 = $fetching_change_sql->next_row)
             {
                 # TODO: Figure out how to handle errors here
                 if ($dbmirror2) {
-                    if (!dbmirror2_command($mirror, \@row2)) {
+                    if (!dbmirror2_command($applying_change_sql, \@row2)) {
                         die "Mirror command failed.\n";
                     }
                 }
-                elsif (!mirrorCommand($row2[2], $sql2, $mirror, \@row2, $XID, $pull))
+                elsif (!mirrorCommand($row2[2], $fetching_change_sql, $applying_change_sql, \@row2, $XID, $pull))
                 {
                     die "Mirror command failed.\n";
                 }
                 ++$strows;
             }
         }
-        $sql2->finish;
+        $fetching_change_sql->finish;
 
-        $sql2->do('CLOSE csr');
-        $mirror->do(
+        $fetching_change_sql->do('CLOSE csr');
+        $applying_change_sql->do(
             $dbmirror2
                 ? 'DELETE FROM dbmirror2.pending_data WHERE xid = ?'
                 : 'DELETE FROM dbmirror_pending WHERE XID = ?',
@@ -196,7 +204,7 @@ if (my $totalrows = $sql->select($query))
         );
 
         print localtime() . " : COMMIT XID #$XID\n" if $debug_xact;
-        $mirror->commit;
+        $applying_change_sql->commit;
 
         ++$rows;
         unless ($rows & 0x1F and time() == $lasttime)
@@ -258,7 +266,7 @@ exit;
 
 sub mirrorCommand
 {
-    my ($op, $result, $mirror, $row, $transId, $pull)  = @_;
+    my ($op, $result, $applying_change_sql, $row, $transId, $pull)  = @_;
 
     my $table = $row->[1];
     $table =~ s/^"public"\.//;
@@ -269,25 +277,25 @@ sub mirrorCommand
     {
         ++$ins;
         ++$t->[0];
-        return mirrorInsert($result, $mirror, $row, $transId);
+        return mirrorInsert($result, $applying_change_sql, $row, $transId);
     }
     elsif ($op eq 'd')
     {
         ++$del;
         ++$t->[2];
-        return mirrorDelete($result, $mirror, $row, $transId);
+        return mirrorDelete($result, $applying_change_sql, $row, $transId);
     }
     elsif ($op eq 'u')
     {
         ++$upd;
         ++$t->[1];
-        return mirrorUpdate($result, $mirror, $row, $transId, $pull);
+        return mirrorUpdate($result, $applying_change_sql, $row, $transId, $pull);
     }
     return 0;
 }
 
 sub dbmirror2_command {
-    my ($mirror, $row)  = @_;
+    my ($applying_change_sql, $row)  = @_;
 
     my ($seqid, $table, $op, $olddata, $newdata, $keys) = @{$row};
 
@@ -311,11 +319,11 @@ sub dbmirror2_command {
                 "Primary keys for $table were not found in the " .
                 "pending_keys file. Fetching them from the database."
             );
-            my ($schema_part, $table_part) = @{ $mirror->select_single_value(
+            my ($schema_part, $table_part) = @{ $applying_change_sql->select_single_value(
                 'SELECT parse_ident(?)',
                 $table,
             ) };
-            $keys = [get_primary_keys($mirror, $schema_part, $table_part)];
+            $keys = [get_primary_keys($applying_change_sql, $schema_part, $table_part)];
             $fetched_keys->{$table} = $keys;
         }
     }
@@ -325,15 +333,15 @@ sub dbmirror2_command {
     if ($op eq 'i') {
         ++$ins;
         ++$t->[0];
-        return dbmirror2_insert($mirror, $table, $newdata);
+        return dbmirror2_insert($applying_change_sql, $table, $newdata);
     } elsif ($op eq 'd') {
         ++$del;
         ++$t->[2];
-        return dbmirror2_delete($mirror, $table, $olddata, $keys);
+        return dbmirror2_delete($applying_change_sql, $table, $olddata, $keys);
     } elsif ($op eq 'u') {
         ++$upd;
         ++$t->[1];
-        return dbmirror2_update($mirror, $table, $olddata, $newdata, $keys);
+        return dbmirror2_update($applying_change_sql, $table, $olddata, $newdata, $keys);
     }
     return 0;
 }
@@ -342,7 +350,7 @@ use MusicBrainz::Server::dbmirror;
 
 sub mirrorInsert
 {
-    my ($result, $mirror, $row, $transId)  = @_;
+    my ($result, $applying_change_sql, $row, $transId)  = @_;
     my $seqId = $row->[0];
     my $tableName = $row->[1];
 
@@ -351,19 +359,19 @@ sub mirrorInsert
 
     my ($statement, $args) = MusicBrainz::Server::dbmirror::prepare_insert($tableName, $valuepairs);
 
-    print localtime() . " : INSERT INTO $tableName\n" if $short_sql;
-    show_long_sql($statement, $args) if $long_sql;
-    $mirror->do($statement, @$args);
+    print localtime() . " : INSERT INTO $tableName\n" if $show_short_sql;
+    show_long_sql($statement, $args) if $show_long_sql;
+    $applying_change_sql->do($statement, @$args);
 
     return 1;
 }
 
 sub get_bind_value {
-    my ($mirror, $table, $column, $value) = @_;
+    my ($applying_change_sql, $table, $column, $value) = @_;
 
     return undef unless defined $value;
 
-    my $type_name = $mirror->get_column_type_name($table, $column);
+    my $type_name = $applying_change_sql->get_column_type_name($table, $column);
 
     # Most likely not needed, as we set `boolean_values` to (0, 1)
     # on the Perl JSON decoder.
@@ -402,14 +410,14 @@ sub get_bind_value {
 }
 
 sub get_sorted_columns_and_values {
-    my ($mirror, $table, $data) = @_;
+    my ($applying_change_sql, $table, $data) = @_;
 
     return unless defined $data;
 
     my @columns = sort { $a cmp $b } keys %{$data};
 
     my @values = map {
-        get_bind_value($mirror, $table, $_, $data->{$_})
+        get_bind_value($applying_change_sql, $table, $_, $data->{$_})
     } @columns;
 
     return (\@columns, \@values);
@@ -440,9 +448,9 @@ sub column_values_differ {
 }
 
 sub warn_if_existing_data_differs {
-    my ($mirror, $table, $olddata, $keys, $conditions, $key_data) = @_;
+    my ($applying_change_sql, $table, $olddata, $keys, $conditions, $key_data) = @_;
 
-    my $row = $mirror->select_single_row_hash(
+    my $row = $applying_change_sql->select_single_row_hash(
         "SELECT * FROM $table WHERE $conditions",
         @$key_data,
     );
@@ -450,17 +458,17 @@ sub warn_if_existing_data_differs {
     my %key_map = zip @$keys, @$key_data;
 
     my $key_string = join q( ), map {
-        $_ . '=' . $mirror->dbh->quote($key_map{$_})
+        $_ . '=' . $applying_change_sql->dbh->quote($key_map{$_})
     } @$keys;
 
     if (defined $row) {
         for my $col (keys %{$row}) {
             next if exists $key_map{$col};
 
-            my $packet_value = get_bind_value($mirror, $table, $col, $olddata->{$col});
+            my $packet_value = get_bind_value($applying_change_sql, $table, $col, $olddata->{$col});
             my $actual_value = $row->{$col};
 
-            my $type_name = $mirror->get_column_type_name($table, $col);
+            my $type_name = $applying_change_sql->get_column_type_name($table, $col);
             # postgres has no equality operator for json, only jsonb
             $type_name =~ s/json(?!b)/jsonb/;
             my $comparison_query;
@@ -473,7 +481,7 @@ sub warn_if_existing_data_differs {
                     "SELECT ?::$type_name IS DISTINCT FROM ?::$type_name";
             }
             if (
-                $mirror->select_single_value(
+                $applying_change_sql->select_single_value(
                     $comparison_query,
                     $packet_value,
                     $actual_value,
@@ -494,24 +502,24 @@ sub warn_if_existing_data_differs {
 }
 
 sub dbmirror2_insert {
-    my ($mirror, $table, $newdata)  = @_;
+    my ($applying_change_sql, $table, $newdata)  = @_;
 
-    my ($columns, $values) = get_sorted_columns_and_values($mirror, $table, $newdata);
+    my ($columns, $values) = get_sorted_columns_and_values($applying_change_sql, $table, $newdata);
     my $columns_string = join q(, ), map { valid_identifer($_) } @$columns;
     my $placholders = join q(, ), (('?') x @$columns);
     my $statement = "INSERT INTO $table ($columns_string) VALUES ($placholders)";
 
-    print localtime() . " : INSERT INTO $table\n" if $short_sql;
-    show_long_sql($statement, $values) if $long_sql;
+    print localtime() . " : INSERT INTO $table\n" if $show_short_sql;
+    show_long_sql($statement, $values) if $show_long_sql;
 
-    $mirror->do($statement, @$values);
+    $applying_change_sql->do($statement, @$values);
 
     return 1;
 }
 
 sub mirrorDelete
 {
-    my ($result, $mirror, $row, $transId) = @_;
+    my ($result, $applying_change_sql, $row, $transId) = @_;
     my $seqId = $row->[0];
     my $tableName = $row->[1];
 
@@ -520,41 +528,41 @@ sub mirrorDelete
 
     my ($statement, $args) = MusicBrainz::Server::dbmirror::prepare_delete($tableName, $keypairs);
 
-    print localtime() . " : DELETE FROM $tableName\n" if $short_sql;
-    show_long_sql($statement, $args) if $long_sql;
-    $mirror->do($statement, @$args);
+    print localtime() . " : DELETE FROM $tableName\n" if $show_short_sql;
+    show_long_sql($statement, $args) if $show_long_sql;
+    $applying_change_sql->do($statement, @$args);
 
     return 1;
 }
 
 sub dbmirror2_delete {
-    my ($mirror, $table, $olddata, $keys)  = @_;
+    my ($applying_change_sql, $table, $olddata, $keys)  = @_;
 
     my $conditions = join ' AND ',
         map { valid_identifer($_) . ' = ?' }
         @$keys;
     my @key_data = map {
-        get_bind_value($mirror, $table, $_, $olddata->{$_})
+        get_bind_value($applying_change_sql, $table, $_, $olddata->{$_})
     } @$keys;
 
     warn_if_existing_data_differs(
-        $mirror, $table, $olddata,
+        $applying_change_sql, $table, $olddata,
         $keys, $conditions, \@key_data,
     );
 
     my $statement = "DELETE FROM $table WHERE $conditions";
 
-    print localtime() . " : DELETE FROM $table\n" if $short_sql;
-    show_long_sql($statement, \@key_data) if $long_sql;
+    print localtime() . " : DELETE FROM $table\n" if $show_short_sql;
+    show_long_sql($statement, \@key_data) if $show_long_sql;
 
-    $mirror->do($statement, @key_data);
+    $applying_change_sql->do($statement, @key_data);
 
     return 1;
 }
 
 sub mirrorUpdate
 {
-    my ($result, $mirror, $row, $transId, $pull) = @_;
+    my ($result, $applying_change_sql, $row, $transId, $pull) = @_;
     my $seqId = $row->[0];
     my $tableName = $row->[1];
 
@@ -571,33 +579,33 @@ sub mirrorUpdate
 
     my ($statement, $args) = MusicBrainz::Server::dbmirror::prepare_update($tableName, $valuepairs, $keypairs);
 
-    print localtime() . " : UPDATE $tableName\n" if $short_sql;
-    show_long_sql($statement, $args) if $long_sql;
-    $mirror->do($statement, @$args);
+    print localtime() . " : UPDATE $tableName\n" if $show_short_sql;
+    show_long_sql($statement, $args) if $show_long_sql;
+    $applying_change_sql->do($statement, @$args);
 
     return 1;
 }
 
 sub dbmirror2_update {
-    my ($mirror, $table, $olddata, $newdata, $keys)  = @_;
+    my ($applying_change_sql, $table, $olddata, $newdata, $keys)  = @_;
 
     my $conditions = join ' AND ',
         map { valid_identifer($_) . ' = ?' }
         @$keys;
     my @key_data = map {
-        get_bind_value($mirror, $table, $_, $olddata->{$_})
+        get_bind_value($applying_change_sql, $table, $_, $olddata->{$_})
     } @$keys;
 
     warn_if_existing_data_differs(
-        $mirror, $table, $olddata,
+        $applying_change_sql, $table, $olddata,
         $keys, $conditions, \@key_data,
     );
 
     my (@changed_columns, @changed_values);
 
     for my $column (sort keys %{$newdata}) {
-        my $old_value = get_bind_value($mirror, $table, $column, $olddata->{$column});
-        my $new_value = get_bind_value($mirror, $table, $column, $newdata->{$column});
+        my $old_value = get_bind_value($applying_change_sql, $table, $column, $olddata->{$column});
+        my $new_value = get_bind_value($applying_change_sql, $table, $column, $newdata->{$column});
         if (column_values_differ($old_value, $new_value)) {
             push @changed_columns, $column;
             push @changed_values, $new_value;
@@ -612,10 +620,10 @@ sub dbmirror2_update {
 
     my $statement = "UPDATE $table SET $updates WHERE $conditions";
 
-    print localtime() . " : UPDATE $table\n" if $short_sql;
-    show_long_sql($statement, \@key_data) if $long_sql;
+    print localtime() . " : UPDATE $table\n" if $show_short_sql;
+    show_long_sql($statement, \@key_data) if $show_long_sql;
 
-    $mirror->do($statement, @changed_values, @key_data);
+    $applying_change_sql->do($statement, @changed_values, @key_data);
 
     return 1;
 }
