@@ -1117,12 +1117,13 @@ my %stats = (
         CALC => sub {
             my ($self, $sql) = @_;
 
-            my $data = $sql->select_list_of_lists(
-                'SELECT type.id, COUNT(rg.id) AS count
-                 FROM release_group_primary_type type
-                 LEFT JOIN release_group rg ON rg.type = type.id
-                 GROUP BY type.id',
-            );
+            my $data = $sql->select_list_of_lists(<<~'SQL');
+                         SELECT COALESCE(type.id::text, 'null'),
+                                COUNT(rg.id) AS count
+                           FROM release_group_primary_type type
+                FULL OUTER JOIN release_group rg ON rg.type = type.id
+                       GROUP BY type.id
+                SQL
 
             my %dist = map { @$_ } @$data;
 
@@ -1138,14 +1139,16 @@ my %stats = (
         CALC => sub {
             my ($self, $sql) = @_;
 
-            my $data = $sql->select_list_of_lists(
-                'SELECT type.id, COUNT(rg.id) AS count
-                 FROM release_group_secondary_type type
-                 LEFT JOIN release_group_secondary_type_join type_join
-                     ON type.id = type_join.secondary_type
-                 JOIN release_group rg ON rg.id = type_join.release_group
-                 GROUP BY type.id',
-            );
+            my $data = $sql->select_list_of_lists(<<~'SQL');
+                         SELECT COALESCE(type.id::text, 'null'),
+                                COUNT(rg.id) AS count
+                           FROM release_group_secondary_type type
+                      LEFT JOIN release_group_secondary_type_join type_join
+                             ON type.id = type_join.secondary_type
+                FULL OUTER JOIN release_group rg
+                             ON rg.id = type_join.release_group
+                       GROUP BY type.id
+                SQL
 
             my %dist = map { @$_ } @$data;
 

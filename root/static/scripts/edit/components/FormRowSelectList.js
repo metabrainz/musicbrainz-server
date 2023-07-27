@@ -17,7 +17,7 @@ type Props<S> = {
   +addLabel: string,
   +getSelectField: (S) => ReadOnlyFieldT<?StrOrNum>,
   +hideAddButton?: boolean,
-  +label: string,
+  +label: React$Node,
   +onAdd: (event: SyntheticEvent<HTMLButtonElement>) => void,
   +onEdit: (index: number, value: string) => void,
   +onRemove: (index: number) => void,
@@ -42,7 +42,7 @@ const FormRowSelectList = <S: {+id: number, ...}>({
   repeatable,
 }: Props<S>): React$Element<typeof FormRow> => (
   <FormRow>
-    <label>{addColonText(label)}</label>
+    <label>{label}</label>
     <div className="form-row-select-list">
       {repeatable.field.map((subfield, index) => (
         <div className="select-list-row" key={subfield.id}>

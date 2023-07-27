@@ -16,7 +16,7 @@ type CommonProps = {
   +hasNoLabel?: boolean,
   +hasNoMargin?: boolean,
   +help?: React$Node,
-  +label: string,
+  +label: React$Node,
 };
 
 type Props =

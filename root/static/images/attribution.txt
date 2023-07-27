@@ -39,7 +39,6 @@ Images:
 
     icons/add.png
     icons/delete.png
-    icons/edit.png
     icons/information.png
     icons/tick.png (recolored to gold by CatQuest)
 
@@ -206,12 +205,10 @@ Authors:     Aerozol
 
 Images:
 
-    icons/add_row.png
-    icons/delete_row.png
-    icons/edit.png
-    icons/open_edits_for_entity.png
-    icons/open_edits_for_rel.png
-
-    (original .svg versions are in src/icons/*.svg)
+    icons/add_row.svg
+    icons/delete_row.svg
+    icons/edit.svg
+    icons/open_edits_for_entity.svg
+    icons/open_edits_for_rel.svg
 
 ----------------------------------------------------------------------------

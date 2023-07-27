@@ -638,6 +638,12 @@ const Index = ({
               </td>
             </tr>
           ))}
+          <tr>
+            <th />
+            <th>{l('None')}</th>
+            <td>{fc('releasegroup.primary_type.null')}</td>
+            <td>{fp('releasegroup.primary_type.null', 'releasegroup')}</td>
+          </tr>
           <tr className="thead">
             <th colSpan="4">{l('Secondary Types')}</th>
           </tr>
@@ -664,6 +670,12 @@ const Index = ({
               </td>
             </tr>
           ))}
+          <tr>
+            <th />
+            <th>{l('None')}</th>
+            <td>{fc('releasegroup.secondary_type.null')}</td>
+            <td>{fp('releasegroup.secondary_type.null', 'releasegroup')}</td>
+          </tr>
         </tbody>
       </table>
 

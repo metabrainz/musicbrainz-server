@@ -26,6 +26,11 @@ import DialogAttributes, {
 } from '../../relationship-editor/components/DialogAttributes.js';
 import DialogButtons
   from '../../relationship-editor/components/DialogButtons.js';
+import DialogDatePeriod, {
+  type ActionT as DialogDatePeriodActionT,
+  createInitialState as createDialogDatePeriodState,
+  updateDialogDatePeriodState,
+} from '../../relationship-editor/components/DialogDatePeriod.js';
 import DialogLinkType, {
   createInitialState as createDialogLinkTypeState,
   updateDialogState as updateDialogLinkTypeState,
@@ -59,6 +64,11 @@ export function createInitialState(): BatchCreateWorksDialogStateT {
       linkedEntities.link_type[RECORDING_OF_LINK_TYPE_GID],
       null,
     ),
+    datePeriod: createDialogDatePeriodState({
+      begin_date: null,
+      end_date: null,
+      ended: false,
+    }),
     languages: createWorkLanguagesState(),
     linkType: createDialogLinkTypeState(
       linkedEntities.link_type[RECORDING_OF_LINK_TYPE_GID],
@@ -87,6 +97,14 @@ export function reducer(
     case 'update-attribute': {
       newState.attributes = dialogAttributesReducer(
         newState.attributes,
+        action.action,
+      );
+      break;
+    }
+
+    case 'update-date-period': {
+      newState.datePeriod = updateDialogDatePeriodState(
+        newState.datePeriod,
         action.action,
       );
       break;
@@ -137,6 +155,7 @@ const BatchCreateWorksDialogContent = React.memo<
 
   const {
     attributes,
+    datePeriod,
     languages,
     linkType: linkTypeState,
     workType,
@@ -145,6 +164,14 @@ const BatchCreateWorksDialogContent = React.memo<
   const hasErrors = !!(
     nonEmpty(linkTypeState.error) ||
     attributes.attributesList.some(x => x.error)
+  );
+
+  const datePeriodField = datePeriod.field;
+
+  const hasPendingDateErrors = !!(
+    datePeriodField.pendingErrors?.length ||
+    datePeriodField.field.begin_date.pendingErrors?.length ||
+    datePeriodField.field.end_date.pendingErrors?.length
   );
 
   const linkTypeDispatch = React.useCallback((
@@ -163,6 +190,12 @@ const BatchCreateWorksDialogContent = React.memo<
     dispatch({action, type: 'update-attribute'});
   }, [dispatch]);
 
+  const dateDispatch = React.useCallback((
+    action: DialogDatePeriodActionT,
+  ) => {
+    dispatch({action, type: 'update-date-period'});
+  }, [dispatch]);
+
   const languagesDispatch = React.useCallback((
     action: MultiselectActionT<LanguageT>,
   ) => {
@@ -175,6 +208,7 @@ const BatchCreateWorksDialogContent = React.memo<
     invariant(!hasErrors && linkType);
 
     sourceDispatch({
+      ...datePeriod.result,
       attributes: attributes.resultingLinkAttributes,
       languages: accumulateMultiselectValues(languages.values),
       linkType,
@@ -188,6 +222,7 @@ const BatchCreateWorksDialogContent = React.memo<
     linkTypeState.autocomplete.selectedItem?.entity,
     attributes.resultingLinkAttributes,
     languages.values,
+    datePeriod.result,
     workType,
     closeDialog,
     sourceDispatch,
@@ -229,10 +264,15 @@ const BatchCreateWorksDialogContent = React.memo<
             isHelpVisible={false}
             state={attributes}
           />
+          <DialogDatePeriod
+            dispatch={dateDispatch}
+            isHelpVisible={false}
+            state={datePeriod}
+          />
         </tbody>
       </table>
       <DialogButtons
-        isDoneDisabled={hasErrors}
+        isDoneDisabled={(hasErrors || hasPendingDateErrors)}
         onCancel={closeDialog}
         onDone={acceptDialog}
       />

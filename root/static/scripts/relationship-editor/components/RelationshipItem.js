@@ -11,9 +11,9 @@ import * as React from 'react';
 import * as tree from 'weight-balanced-tree';
 
 import openEditsForEntityIconUrl
-  from '../../../images/icons/open_edits_for_entity.png';
+  from '../../../images/icons/open_edits_for_entity.svg';
 import openEditsForRelIconUrl
-  from '../../../images/icons/open_edits_for_rel.png';
+  from '../../../images/icons/open_edits_for_rel.svg';
 import ButtonPopover from '../../common/components/ButtonPopover.js';
 import DescriptiveLink from '../../common/components/DescriptiveLink.js';
 import {bracketedText} from '../../common/utility/bracketed.js';

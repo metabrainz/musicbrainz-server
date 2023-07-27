@@ -136,11 +136,10 @@ export type RelationshipEditorStateT = {
 export type RelationshipDialogStateT = {
   +attributes: DialogAttributesStateT,
   +backward: boolean,
-  +datePeriodField: DatePeriodFieldT,
+  +datePeriod: DialogDatePeriodStateT,
   +isHelpVisible: boolean,
   +linkOrder: number,
   +linkType: DialogLinkTypeStateT,
-  +resultingDatePeriod: DatePeriodRoleT,
   +sourceEntity: DialogSourceEntityStateT,
   +targetEntity: DialogTargetEntityStateT,
 };
@@ -193,6 +192,11 @@ export type DialogLinkAttributeStateT = {
   min: number | null,
   textValue?: string,
   type: LinkAttrTypeT,
+};
+
+export type DialogDatePeriodStateT = {
+  +field: DatePeriodFieldT,
+  +result: DatePeriodRoleT,
 };
 
 /*
@@ -251,6 +255,7 @@ export type LinkAttributesByRootIdT =
 
 export type BatchCreateWorksDialogStateT = {
   +attributes: DialogAttributesStateT,
+  +datePeriod: DialogDatePeriodStateT,
   +languages: MultiselectLanguageStateT,
   +linkType: DialogLinkTypeStateT,
   +workType: number | null,
