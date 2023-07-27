@@ -5911,32 +5911,23 @@ entitySpecificRules.release_group = function (url) {
  * 1, 2, 3, [1, 2], [1, 3], [2, 3], [1, 2, 3]
  */
 function anyCombinationOf(
-  entityType: RelatableEntityTypeT,
+  entityType: string,
   types: $ReadOnlyArray<string>,
 ): $ReadOnlyArray<EntityTypesMap> {
-  const validCombinations = Array(1 << types.length).fill().map(
-    (e1, i) => types.filter((e2, j) => i & 1 << j),
-  );
-
   const result = [];
-  for (const combination of validCombinations) {
-    let option;
+  const numCombinations = (1 << types.length) - 1;
+  for (let i = 1; i <= numCombinations; i++) {
+    const combination = types.filter((e2, j) => i & 1 << j);
     if (combination.length === 0) {
       // The empty subset is technically valid, but not of interest to us
       continue;
     }
     if (combination.length === 1) {
       // One-type subsets are expected as a string, not a 1-element array
-      option = combination[0];
+      result.push({[entityType]: combination[0]});
     } else {
-      option = combination;
+      result.push({[entityType]: combination});
     }
-
-    const resultOption: {
-      [entityType: RelatableEntityTypeT]: EntityTypes,
-    } = {};
-    resultOption[entityType] = option;
-    result.push(resultOption);
   }
 
   return result;
