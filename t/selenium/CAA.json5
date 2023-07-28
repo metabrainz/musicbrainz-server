@@ -3,7 +3,8 @@
   commands: [
     {
       command: 'open',
-      target: '/release/dd245091-b21e-48a3-b59a-f9b8ed8a0469/add-cover-art',
+      // Seed the edit note field via a query parameter.
+      target: '/release/dd245091-b21e-48a3-b59a-f9b8ed8a0469/add-cover-art?add-cover-art.edit_note=seeded+note',
       value: '',
     },
     {
@@ -17,6 +18,11 @@
       command: 'check',
       target: "xpath=((//ul[contains(@class, 'checkboxes')])[1]//input[contains(@type, 'checkbox')][contains(@class, 'type')])[1]",
       value: '',
+    },
+    {
+      command: 'check',
+      target: "id=id-add-cover-art.edit_note",
+      value: 'seeded note',
     },
     {
       command: 'sendKeys',
@@ -102,6 +108,17 @@
       command: 'assertText',
       target: "xpath=((//div[contains(@class, 'artwork-cont mp')])[2]/p)[2]",
       value: 'back',
+    },
+    // Verify that the seeded edit note was used.
+    {
+      command: 'open',
+      target: '/edit/1',
+      value: '',
+    },
+    {
+      command: 'assertText',
+      target: "xpath=//div[contains(@class, 'edit-note-text')]",
+      value: 'seeded note',
     },
     // Wait for the artwork-indexer to catch up.
     {
