@@ -3111,6 +3111,35 @@ limited_link_type_combinations: [
             expected_clean_url: 'http://id.loc.gov/authorities/names/n86864540',
        only_valid_entity_types: ['artist', 'label', 'place', 'series', 'work'],
   },
+  // LibraryThing
+  {
+                     input_url: 'http://librarything.com/author/rovicsdavid/stats',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.librarything.com/author/rovicsdavid',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://www.librarything.com/work/7940036/reviews',
+             input_entity_type: 'work',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.librarything.com/work/7940036',
+       only_valid_entity_types: ['release_group', 'work'],
+  },
+  {
+                     input_url: 'https://www.librarything.com/work/477914/workdetails',
+             input_entity_type: 'release_group',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.librarything.com/work/477914',
+       only_valid_entity_types: ['release_group', 'work'],
+  },
+  {
+                     input_url: 'https://www.librarything.com/nseries/34968/The-Locked-Tomb',
+             input_entity_type: 'series',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.librarything.com/nseries/34968',
+       only_valid_entity_types: ['series'],
+  },
   // LiederNet Archive
   {
                      input_url: 'http://www.lieder.net/lieder/get_text.html?TextId=6448',
