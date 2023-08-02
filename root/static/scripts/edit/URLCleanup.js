@@ -3278,6 +3278,41 @@ const CLEANUPS: CleanupEntries = {
       return {result: false, target: ERROR_TARGETS.URL};
     },
   },
+  'librivox': {
+    match: [new RegExp('^(https?://)?(www\\.)?librivox\\.org', 'i')],
+    restrict: [LINK_TYPES.downloadfree],
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?(?:www\.)?librivox\.org\/((?:author|reader)\/[\d]+|[\w\d-]+).*$/, 'https://librivox.org/$1');
+    },
+    validate: function (url, id) {
+      if (/^https:\/\/librivox\.org\/search$/.test(url)) {
+        return {
+          error: noLinkToSearchMsg(),
+          result: false,
+          target: ERROR_TARGETS.URL,
+        };
+      }
+
+      const isArtist = /^https:\/\/librivox\.org\/(?:author|reader)\/[\d]+$/.test(url);
+      const isRelease = /^https:\/\/librivox\.org\/[\w\d-]+$/.test(url);
+      if (isArtist || isRelease) {
+        switch (id) {
+          case LINK_TYPES.downloadfree.artist:
+            return {
+              result: isArtist,
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.downloadfree.release:
+            return {
+              result: isRelease,
+              target: ERROR_TARGETS.ENTITY,
+            };
+        }
+        return {result: false, target: ERROR_TARGETS.ENTITY};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
   'license': {
     match: [
       new RegExp('^(https?://)?([^/]+\\.)?artlibre\\.org/licence', 'i'),

@@ -137,6 +137,7 @@ export const FAVICON_CLASSES = {
   'lantis.jp': 'lantis',
   'last.fm': 'lastfm',
   'librarything.com': 'librarything',
+  'librivox.org': 'librivox',
   'lieder.net': 'lieder',
   'linkedin.com': 'linkedin',
   'livefans.jp': 'livefans',
