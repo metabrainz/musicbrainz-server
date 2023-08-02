@@ -104,6 +104,7 @@ my %URL_SPECIALIZATIONS = (
     'LaBoiteAuxParoles'   => qr{^https?://(?:www\.)?laboiteauxparoles\.com/}i,
     'Lantis'              => qr{^https?://(?:www\.)?lantis\.jp/}i,
     'LastFM'              => qr{^https?://(?:www\.)?last\.fm/}i,
+    'LibraryThing'        => qr{^https?://(?:www\.)?librarything\.com/}i,
     'Lieder'              => qr{^https?://(?:www\.)?lieder\.net/}i,
     'LinkedIn'            => qr{^https?://([^/]+\.)?linkedin\.com/}i,
     'LiveFans'            => qr{^https?://(?:www\.)?livefans\.jp/}i,
