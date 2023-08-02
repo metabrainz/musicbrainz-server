@@ -3954,6 +3954,26 @@ const CLEANUPS: CleanupEntries = {
       return {result: false, target: ERROR_TARGETS.URL};
     },
   },
+  'orcid': {
+    match: [new RegExp('^(https?://)?(www\\.)?orcid\\.org/', 'i')],
+    restrict: [LINK_TYPES.otherdatabases],
+    clean: function (url) {
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?orcid\.org\//, 'https://orcid.org/');
+      url = url.replace(/^https:\/\/orcid\.org\/(\d{4}-\d{4}-\d{4}-\d{3}[\d|X]).*$/, 'https://orcid.org/$1');
+      return url;
+    },
+    validate: function (url, id) {
+      const isProfile = /^https:\/\/orcid\.org\/\d{4}-\d{4}-\d{4}-\d{3}[\d|X]$/.test(url);
+      if (isProfile) {
+        switch (id) {
+          case LINK_TYPES.otherdatabases.artist:
+            return {result: true};
+        }
+        return {result: false, target: ERROR_TARGETS.ENTITY};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
   'otherdatabases': {
     match: [
       new RegExp('^(https?://)?(www\\.)?musicmoz\\.org/', 'i'),

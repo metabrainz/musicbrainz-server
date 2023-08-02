@@ -3924,6 +3924,21 @@ limited_link_type_combinations: [
              input_entity_type: 'work',
     expected_relationship_type: 'otherdatabases',
   },
+  // ORCID
+  {
+                     input_url: 'http://www.orcid.org/0000-0001-8805-6372/print',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://orcid.org/0000-0001-8805-6372',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://orcid.org/orcid-search/search?searchQuery=a',
+             input_entity_type: 'artist',
+       input_relationship_type: 'otherdatabases',
+    expected_relationship_type: undefined,
+       only_valid_entity_types: [],
+  },
   // OTOTOY
   {
                      input_url: 'http://ototoy.jp/_/default/p/45622',
