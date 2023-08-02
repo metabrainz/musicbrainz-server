@@ -6252,7 +6252,6 @@ export class Checker {
     selectedTypes: $ReadOnlyArray<string>,
     allowedTypes: $ReadOnlyArray<RelationshipTypeT> | false,
   ): ValidationResult {
-    console.log(allowedTypes);
     if (!allowedTypes) {
       return {result: true};
     }
