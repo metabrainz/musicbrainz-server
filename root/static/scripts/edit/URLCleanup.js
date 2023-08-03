@@ -2222,7 +2222,6 @@ const CLEANUPS: CleanupEntries = {
   },
   'downloadpurchase': {
     match: [
-      new RegExp('^(https?://)?([^/]+\\.)?junodownload\\.com', 'i'),
       new RegExp('^(https?://)?([^/]+\\.)?audiojelly\\.com', 'i'),
       new RegExp('^(https?://)?([^/]+\\.)?e-onkyo\\.com', 'i'),
       new RegExp('^(https?://)?([^/]+\\.)?ototoy\\.jp', 'i'),
@@ -2961,6 +2960,13 @@ const CLEANUPS: CleanupEntries = {
         return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
       }
       return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
+  'junodownload': {
+    match: [new RegExp('^(?:https?://)?(?:www\\.)?junodownload\\.com', 'i')],
+    restrict: [LINK_TYPES.downloadpurchase],
+    clean: function (url) {
+      return url.replace(/^https?:\/\/(?:www\.)?junodownload\.com\/([^?#]+).*$/, 'https://www.junodownload.com/$1');
     },
   },
   'kashinavi': {

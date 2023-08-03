@@ -2907,9 +2907,16 @@ limited_link_type_combinations: [
   },
   // Juno Download
   {
-                     input_url: 'http://www.junodownload.com/products/caspa-subscape-geordie-racer-notixx-remix/2141988-02/',
+                     input_url: 'http://junodownload.com/products/caspa-subscape-geordie-racer-notixx-remix/2141988-02/',
              input_entity_type: 'release',
     expected_relationship_type: 'downloadpurchase',
+            expected_clean_url: 'https://www.junodownload.com/products/caspa-subscape-geordie-racer-notixx-remix/2141988-02/',
+  },
+  {
+                     input_url: 'https://www.junodownload.com/products/raito-krampf-deeper/5665004-02/?c=2032482&utm_campaign=alert_auto_email&utm_source=auto_email_jd&utm_medium=label&utm_content=alert_title',
+             input_entity_type: 'release',
+    expected_relationship_type: 'downloadpurchase',
+            expected_clean_url: 'https://www.junodownload.com/products/raito-krampf-deeper/5665004-02/',
   },
   // JVC Music
   {
