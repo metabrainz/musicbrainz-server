@@ -2966,7 +2966,10 @@ const CLEANUPS: CleanupEntries = {
     match: [new RegExp('^(?:https?://)?(?:www\\.)?junodownload\\.com', 'i')],
     restrict: [LINK_TYPES.downloadpurchase],
     clean: function (url) {
-      return url.replace(/^https?:\/\/(?:www\.)?junodownload\.com\/([^?#]+).*$/, 'https://www.junodownload.com/$1');
+      url = url.replace(/^https?:\/\/(?:www\.)?junodownload\.com\/([^?#]+).*$/, 'https://www.junodownload.com/$1');
+      url = url.replace(/^https:\/\/www\.junodownload\.com\/(artists|labels)\/([^\/]+).*$/, 'https://www.junodownload.com/$1/$2/');
+      url = url.replace(/^https:\/\/www\.junodownload\.com\/products\/(?:[\w\d-]+\/)?([\d-]+)(?:.htm)?.*$/, 'https://www.junodownload.com/products/$1/');
+      return url;
     },
     validate: function (url, id) {
       if (/https:\/\/www\.junodownload\.com\/search\//.test(url)) {
@@ -2976,7 +2979,7 @@ const CLEANUPS: CleanupEntries = {
           target: ERROR_TARGETS.URL,
         };
       }
-      const m = /^https:\/\/www\.junodownload\.com\/([a-z]+)\/.*$/.exec(url);
+      const m = /^https:\/\/www\.junodownload\.com\/(artists|labels|products)\/[\w\d-]+\/$/.exec(url);
       if (m) {
         const prefix = m[1];
         switch (id) {
