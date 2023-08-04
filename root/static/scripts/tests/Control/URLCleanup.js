@@ -1063,6 +1063,20 @@ limited_link_type_combinations: [
             expected_clean_url: 'https://www.beatport.com/label/mouseville/1421',
        only_valid_entity_types: ['label'],
   },
+  // Behance
+  {
+                     input_url: 'http://behance.net/tristan-gion/appreciated',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'artgallery',
+            expected_clean_url: 'https://www.behance.net/tristan-gion',
+  },
+  {
+                     input_url: 'https://www.behance.net/assets?tracking_source=nav20',
+             input_entity_type: 'artist',
+    expected_relationship_type: undefined,
+       input_relationship_type: 'artgallery',
+       only_valid_entity_types: [],
+  },
   // Biblioteka Polskiej Piosenki
   {
                      input_url: 'http://www.bibliotekapiosenki.pl/Trzetrzelewska_Barbara',

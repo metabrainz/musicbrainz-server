@@ -1351,6 +1351,44 @@ const CLEANUPS: CleanupEntries = {
       return {result: false, target: ERROR_TARGETS.URL};
     },
   },
+  'behance': {
+    match: [new RegExp('^(https?://)?(www\\.)?behance\\.net', 'i')],
+    restrict: [LINK_TYPES.artgallery],
+    clean: function (url) {
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?behance\.net\/([^\/#?]+).*$/, 'https://www.behance.net/$1');
+      return url;
+    },
+    validate: function (url) {
+      const m = /^https:\/\/www\.behance\.net\/([^\/]+)$/.exec(url);
+      if (m) {
+        const userName = m[1];
+        if (userName === 'search') {
+          return {
+            error: noLinkToSearchMsg(),
+            result: false,
+            target: ERROR_TARGETS.URL,
+          };
+        }
+        const hardcodedPaths = [
+          'assets',
+          'for_you',
+          'galleries',
+          'gallery',
+          'hire',
+          'joblist',
+          'privacy',
+        ];
+        if (hardcodedPaths.includes(userName)) {
+          return {
+            result: false,
+            target: ERROR_TARGETS.URL,
+          };
+        }
+        return {result: true};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
   'bigcartel': {
     match: [new RegExp('^(https?://)?[^/]+\\.bigcartel\\.com', 'i')],
     restrict: [LINK_TYPES.mailorder],
