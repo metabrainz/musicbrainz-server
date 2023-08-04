@@ -2236,6 +2236,20 @@ limited_link_type_combinations: [
             expected_clean_url: 'https://www.dramonline.org/instruments/brass/natural-horn',
        only_valid_entity_types: ['instrument'],
   },
+  // Dribbble
+  {
+                     input_url: 'http://www.dribbble.com/zuttoworld/collections',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'artgallery',
+            expected_clean_url: 'https://dribbble.com/zuttoworld',
+  },
+  {
+                     input_url: 'https://dribbble.com/shots/17988655-Pandora',
+             input_entity_type: 'artist',
+    expected_relationship_type: undefined,
+       input_relationship_type: 'artgallery',
+       only_valid_entity_types: [],
+  },
   // Drip
   {
                      input_url: 'https://d.rip/ehaidle/posts/RHJvcFBvc3QtMzQ4',

@@ -2420,6 +2420,44 @@ const CLEANUPS: CleanupEntries = {
       return {result: false, target: ERROR_TARGETS.URL};
     },
   },
+  'dribbble': {
+    match: [new RegExp('^(https?://)?(www\\.)?dribbble\\.com', 'i')],
+    restrict: [LINK_TYPES.artgallery],
+    clean: function (url) {
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?dribbble\.com\/([^\/#?]+).*$/, 'https://dribbble.com/$1');
+      return url;
+    },
+    validate: function (url) {
+      const m = /^https:\/\/www\.artstation\.com\/([^\/]+)$/.exec(url);
+      if (m) {
+        const userName = m[1];
+        if (userName === 'search') {
+          return {
+            error: noLinkToSearchMsg(),
+            result: false,
+            target: ERROR_TARGETS.URL,
+          };
+        }
+        const hardcodedPaths = [
+          'directories',
+          'for-designers',
+          'hiring',
+          'learn',
+          'pro',
+          'shots',
+          'tags',
+        ];
+        if (hardcodedPaths.includes(userName)) {
+          return {
+            result: false,
+            target: ERROR_TARGETS.URL,
+          };
+        }
+        return {result: true};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
   'drip': {
     match: [
       new RegExp('^(https?://)?(www\\.)?d\\.rip/[^/?#]', 'i'),
