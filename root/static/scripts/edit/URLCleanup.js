@@ -2025,6 +2025,44 @@ const CLEANUPS: CleanupEntries = {
       return {result: false, target: ERROR_TARGETS.URL};
     },
   },
+  'deviantart': {
+    match: [new RegExp('^(https?://)?(www\\.)?deviantart\\.com', 'i')],
+    restrict: [LINK_TYPES.artgallery],
+    clean: function (url) {
+      return url = url.replace(/^(?:https?:\/\/)?(?:www\.)?deviantart\.com\/([^\/?#]+).*$/, 'https://www.deviantart.com/$1');
+    },
+    validate: function (url) {
+      const m = /^https:\/\/www\.deviantart\.com\/([^\/?#]+)$/.exec(url);
+      if (m) {
+        const userName = m[1];
+        if (userName === 'search') {
+          return {
+            error: noLinkToSearchMsg(),
+            result: false,
+            target: ERROR_TARGETS.URL,
+          };
+        }
+        const hardcodedPaths = [
+          'about',
+          'core-membership',
+          'forum',
+          'groups',
+          'join',
+          'shop',
+          'team',
+          'users',
+        ];
+        if (hardcodedPaths.includes(userName)) {
+          return {
+            result: false,
+            target: ERROR_TARGETS.URL,
+          };
+        }
+        return {result: true};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
   'dhhu': {
     match: [new RegExp('^(https?://)?(www\\.)?dhhu\\.dk', 'i')],
     restrict: [LINK_TYPES.otherdatabases],

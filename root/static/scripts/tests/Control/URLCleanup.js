@@ -1799,6 +1799,26 @@ limited_link_type_combinations: [
        input_relationship_type: 'streamingfree',
        only_valid_entity_types: [],
   },
+  // DeviantArt
+  {
+                     input_url: 'https://www.deviantart.com/user/about#about',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'artgallery',
+            expected_clean_url: 'https://www.deviantart.com/user',
+  },
+  {
+                     input_url: 'https://www.deviantart.com/albertourra/art/Seoul-68-968315856',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'artgallery',
+            expected_clean_url: 'https://www.deviantart.com/albertourra',
+  },
+  {
+                     input_url: 'https://www.deviantart.com/shop',
+             input_entity_type: 'artist',
+    expected_relationship_type: undefined,
+       input_relationship_type: 'artgallery',
+       only_valid_entity_types: [],
+  },
   // DHHU
   {
                      input_url: 'http://www.dhhu.dk/w/%C3%98stkyst_Hustlers',
