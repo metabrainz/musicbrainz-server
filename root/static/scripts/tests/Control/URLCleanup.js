@@ -675,6 +675,20 @@ limited_link_type_combinations: [
                      input_url: 'https://archive.org/details/NormRejection-MaltaNotForSaleEp-Dtm020/',
             expected_clean_url: 'https://archive.org/details/NormRejection-MaltaNotForSaleEp-Dtm020',
   },
+  // Artstation
+  {
+                     input_url: 'http://artstation.com/bysau/profile',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'artgallery',
+            expected_clean_url: 'https://www.artstation.com/bysau',
+  },
+  {
+                     input_url: 'https://www.artstation.com/search?sort_by=relevance&query=a',
+             input_entity_type: 'artist',
+    expected_relationship_type: undefined,
+       input_relationship_type: 'artgallery',
+       only_valid_entity_types: [],
+  },
   // Audiojelly
   {
                      input_url: 'http://www.audiojelly.com/releases/turn-up-the-sound/242895',

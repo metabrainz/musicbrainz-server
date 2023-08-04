@@ -940,6 +940,47 @@ const CLEANUPS: CleanupEntries = {
       return url.replace(/^(https:\/\/archive\.org\/details\/[A-Za-z0-9._-]+)\/$/, '$1');
     },
   },
+  'artstation': {
+    match: [new RegExp('^(https?://)?(www\\.)?artstation\\.com', 'i')],
+    restrict: [LINK_TYPES.artgallery],
+    clean: function (url) {
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?artstation\.com\/([^\/#?]+).*$/, 'https://www.artstation.com/$1');
+      return url;
+    },
+    validate: function (url) {
+      const m = /^https:\/\/www\.artstation\.com\/([^\/]+)$/.exec(url);
+      if (m) {
+        const userName = m[1];
+        if (userName === 'search') {
+          return {
+            error: noLinkToSearchMsg(),
+            result: false,
+            target: ERROR_TARGETS.URL,
+          };
+        }
+        const hardcodedPaths = [
+          'artwork',
+          'blogs',
+          'challenges',
+          'hire',
+          'jobs',
+          'learning',
+          'marketplace',
+          'prints',
+          'schools',
+          'studios',
+        ];
+        if (hardcodedPaths.includes(userName)) {
+          return {
+            result: false,
+            target: ERROR_TARGETS.URL,
+          };
+        }
+        return {result: true};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
   'audiomack': {
     match: [new RegExp('^(https?://)?([^/]+\\.)?audiomack\\.com/', 'i')],
     restrict: [LINK_TYPES.streamingfree],
