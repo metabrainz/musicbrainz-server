@@ -56,6 +56,7 @@ my %URL_SPECIALIZATIONS = (
     'Dailymotion'         => qr{^https?://(?:www\.)?dailymotion\.com/}i,
     'DanceDB'             => qr{^https?://(?:www\.)?tedcrane\.com/DanceDB/}i,
     'Deezer'              => qr{^https?://(?:www\.)?deezer\.com/}i,
+    'DeviantArt'          => qr{^https?://(?:www\.)?deviantart\.com/}i,
     'DHHU'                => qr{^https?://(?:www\.)?dhhu\.dk/}i,
     'Directlyrics'        => qr{^https?://(?:www\.)?directlyrics\.com/}i,
     'Discogs'             => qr{^https?://(?:www\.)?discogs\.com/}i,

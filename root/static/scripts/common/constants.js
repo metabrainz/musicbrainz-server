@@ -96,6 +96,7 @@ export const FAVICON_CLASSES = {
   'd-nb.info': 'dnb',
   'dailymotion.com': 'dailymotion',
   'deezer.com': 'deezer',
+  'deviantart.com': 'deviantart',
   'dhhu.dk': 'dhhu',
   'directlyrics.com': 'directlyrics',
   'discogs.com': 'discogs',
