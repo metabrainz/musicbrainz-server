@@ -4420,6 +4420,13 @@ limited_link_type_combinations: [
     expected_relationship_type: 'socialnetwork',
             expected_clean_url: 'https://www.reverbnation.com/tomorrowsyesterdayband',
   },
+  // pixiv
+  {
+                     input_url: 'https://www.pixiv.net/en/users/23610071/illustrations',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'artgallery',
+            expected_clean_url: 'https://www.pixiv.net/users/23610071',
+  },
   // Prog Archives
   {
                      input_url: 'http://www.progarchives.com/artist.asp?id=105#discography',

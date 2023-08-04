@@ -4262,6 +4262,20 @@ const CLEANUPS: CleanupEntries = {
       return url.replace(/\/(?:boards|pins|likes|followers|following)(?:\/.*)?$/, '/');
     },
   },
+  'pixiv': {
+    match: [new RegExp('^(https?://)?(www\\.)?pixiv\\.net', 'i')],
+    restrict: [LINK_TYPES.artgallery],
+    clean: function (url) {
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?pixiv\.net\/(?:[a-z]+\/)users\/([0-9]+).*$/, 'https://www.pixiv.net/users/$1');
+      return url;
+    },
+    validate: function (url) {
+      if (/^https:\/\/www\.pixiv\.net\/users\/([0-9]+)$/.test(url)) {
+        return {result: true};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
   'progarchives': {
     match: [new RegExp('^(https?://)?(www\\.)?progarchives\\.com', 'i')],
     restrict: [LINK_TYPES.otherdatabases],
