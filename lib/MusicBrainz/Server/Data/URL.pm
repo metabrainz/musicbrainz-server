@@ -148,6 +148,7 @@ my %URL_SPECIALIZATIONS = (
     'PetitLyrics'         => qr{^https?://(?:www\.)?petitlyrics\.com/}i,
     'Pinterest'           => qr{^https?://(?:www\.)?pinterest\.com/}i,
     'Piosenki'            => qr{^https?://(?:www\.)?bibliotekapiosenki\.pl/}i,
+    'Pixiv'               => qr{^https?://(?:www\.)?pixiv\.net/}i,
     'Pomus'               => qr{^https?://(?:www\.)?pomus\.net/}i,
     'ProgArchives'        => qr{^https?://(?:www\.)?progarchives\.com/}i,
     'PsyDB'               => qr{^https?://(?:www\.)?psydb\.net/}i,
