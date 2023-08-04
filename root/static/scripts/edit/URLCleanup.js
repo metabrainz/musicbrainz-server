@@ -42,6 +42,9 @@ export const LINK_TYPES: LinkTypeMap = {
   amazon: {
     release: '4f2e710d-166c-480c-a293-2e2c8d658d87',
   },
+  artgallery: {
+    artist: '8203341a-27be-40bb-b755-08d8ca9d7a9c',
+  },
   bandcamp: {
     artist: 'c550166e-0548-4a18-b1d4-e2ae423a3e88',
     genre: 'ad28869f-0f9e-4bd5-b786-70125cc69c3c',
