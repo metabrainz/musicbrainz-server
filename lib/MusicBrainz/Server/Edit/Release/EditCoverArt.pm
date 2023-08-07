@@ -130,16 +130,32 @@ sub build_display_data {
 
     my %data;
 
-    my $release = (
-        $loaded->{Release}{ $self->data->{entity}{id} } ||
-        Release->new( name => $self->data->{entity}{name} )
-    );
+    my $loaded_release = $loaded->{Release}{ $self->data->{entity}{id} };
 
-    $data{release} = to_json_object($release);
+    # The release used to link (if it still exists) from the release field.
+    my $field_release = $loaded_release ||
+        Release->new(
+            name => $self->data->{entity}{name},
+            # Allow linking to release redirecting to still existing release.
+            $self->c->model('Release')->get_by_gid($self->data->{entity}{mbid}) ? (
+                id => $self->data->{entity}{id},
+                gid => $self->data->{entity}{mbid},
+            ) : (),
+        );
+
+    $data{release} = to_json_object($field_release);
+
+    # The release used (even if merged or removed) to load image from the cover art field.
+    my $artwork_release = $loaded_release ||
+        Release->new(
+            gid => $self->data->{entity}{mbid},
+            id => $self->data->{entity}{id},
+            name => $self->data->{entity}{name},
+        );
 
     $data{artwork} = to_json_object(
         $loaded->{Artwork}{ $self->data->{id} } ||
-        Artwork->new(release => $release,
+        Artwork->new(release => $artwork_release,
                      id => $self->data->{id},
                      comment => $self->data->{new}{comment} // '',
                      cover_art_types => [ map {
