@@ -22,7 +22,7 @@ type RadioOptionsT = $ReadOnlyArray<{
 
 type Props = {
   +field: ReadOnlyFieldT<string>,
-  +label: string,
+  +label: React$Node,
   +options: RadioOptionsT,
   +required?: boolean,
 };

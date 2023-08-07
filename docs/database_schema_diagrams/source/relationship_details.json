@@ -1,6 +1,6 @@
 {
   "tooltip": "Tables for relationship properties",
-  "_comment": "Show tables for the detailed representation of a link. Main tables are highlighted.",
+  "_comment": "It shows tables for the detailed representation of a link. The main tables are highlighted.",
   "tables": {
     "link": ["highlighted"],
     "link_attribute": ["highlighted"],

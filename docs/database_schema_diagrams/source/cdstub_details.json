@@ -1,6 +1,6 @@
 {
   "tooltip": "Tables for CD stub",
-  "_comment": "It shows tables involved in representing a CD stub. Main table is highlighted.",
+  "_comment": "It shows tables involved in representing a CD stub. The main table is highlighted.",
   "tables": {
     "cdtoc_raw": [],
     "release_raw": ["highlighted"],

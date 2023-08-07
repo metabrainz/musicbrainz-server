@@ -22,6 +22,8 @@ type PropsT = {
 
 const ElectionDetails = ({election}: PropsT): React$MixedElement => {
   const $c = React.useContext(CatalystContext);
+  const voteCount = election.votes.length;
+  const abstainCount = voteCount - (election.yes_votes + election.no_votes);
   return (
     <>
       <h2>{l('Details')}</h2>
@@ -54,12 +56,20 @@ const ElectionDetails = ({election}: PropsT): React$MixedElement => {
           ? (
             <>
               <tr>
+                <th>{addColonText(l('Total votes'))}</th>
+                <td>{voteCount}</td>
+              </tr>
+              <tr>
                 <th>{l('Votes for:')}</th>
                 <td>{election.yes_votes}</td>
               </tr>
               <tr>
                 <th>{l('Votes against:')}</th>
                 <td>{election.no_votes}</td>
+              </tr>
+              <tr>
+                <th>{addColonText(l('Abstentions'))}</th>
+                <td>{abstainCount}</td>
               </tr>
             </>
           ) : (

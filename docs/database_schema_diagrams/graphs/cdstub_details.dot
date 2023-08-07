@@ -1,5 +1,5 @@
 // Automatically generated, do not edit.
-// - Database schema sequence: 27
+// - Database schema sequence: 28
 digraph cdstub_details {
     tooltip = "Tables for CD stub"
     graph [

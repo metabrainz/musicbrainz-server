@@ -13,11 +13,29 @@ sub wikipedia_extract : Chained('load') PathPart('wikipedia-extract')
 {
     my ($self, $c) = @_;
 
+    my $res = $c->res;
+    $res->header('Access-Control-Allow-Origin' => '*');
+
+    my $req = $c->req;
+    if ($req->method eq 'OPTIONS') {
+        if ($req->header('Origin') && $req->header('Access-Control-Request-Method')) {
+            # CORS preflight request
+            $res->header('Access-Control-Allow-Methods' => 'GET, OPTIONS');
+            $res->header('Access-Control-Allow-Headers' => 'User-Agent');
+        } else {
+            # Non-CORS request
+            $res->header('Allow' => 'GET, OPTIONS');
+        }
+
+        $c->response->body('');
+        $c->detach;
+    }
+
     my $wp_extract = $self->_get_extract($c, 0);
 
-    $c->res->headers->header('X-Robots-Tag' => 'noindex');
-    $c->res->content_type('application/json; charset=utf-8');
-    $c->res->{body} = $c->json_utf8->encode({wikipediaExtract => $wp_extract});
+    $res->headers->header('X-Robots-Tag' => 'noindex');
+    $res->content_type('application/json; charset=utf-8');
+    $res->{body} = $c->json_utf8->encode({wikipediaExtract => $wp_extract});
 }
 
 sub _get_extract

@@ -22,11 +22,14 @@ type PropsT = {
 
 const ElectionVoting = ({election}: PropsT): React$MixedElement => {
   const $c = React.useContext(CatalystContext);
+
   let message = exp.l(
     'To find out if you can vote for this candidate, please {url|log in}.',
     {url: '/login'},
   );
+
   const user = $c.user;
+
   if (user) {
     if (!isAutoEditor(user)) {
       message = l(
@@ -50,6 +53,11 @@ const ElectionVoting = ({election}: PropsT): React$MixedElement => {
       message = l('Voting is closed.');
     }
   }
+
+  const userVote = election.votes.find(vote => (
+    vote.voter.id === user?.id
+  ));
+
   return (
     <>
       {canSecond(election, user) ? (
@@ -65,19 +73,29 @@ const ElectionVoting = ({election}: PropsT): React$MixedElement => {
       ) : null}
       <p>
         {canVote(election, user) ? (
-          <form action={`/election/${election.id}/vote`} method="post">
-            <span className="buttons">
-              <button name="vote.vote" type="submit" value="1">
-                {l('Vote YES')}
-              </button>
-              <button name="vote.vote" type="submit" value="-1">
-                {l('Vote NO')}
-              </button>
-              <button name="vote.vote" type="submit" value="0">
-                {l('Abstain')}
-              </button>
-            </span>
-          </form>
+          <>
+            {userVote ? (
+              <p>
+                {texp.l(
+                  'Your current vote: {vote}',
+                  {vote: lp(userVote.vote_name, 'vote')},
+                )}
+              </p>
+            ) : null}
+            <form action={`/election/${election.id}/vote`} method="post">
+              <span className="buttons">
+                <button name="vote.vote" type="submit" value="1">
+                  {l('Vote YES')}
+                </button>
+                <button name="vote.vote" type="submit" value="-1">
+                  {l('Vote NO')}
+                </button>
+                <button name="vote.vote" type="submit" value="0">
+                  {l('Abstain')}
+                </button>
+              </span>
+            </form>
+          </>
         ) : message}
       </p>
       {canCancel(election, user) ? (

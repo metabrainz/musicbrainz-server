@@ -339,7 +339,7 @@ function renderWorkLanguages() {
           selectedLanguageIds.includes(String(LANGUAGE_MUL_ID)) ||
           selectedLanguageIds.includes(String(LANGUAGE_ZXX_ID))
         }
-        label={l('Lyrics Languages')}
+        label={addColonText(l('Lyrics Languages'))}
         onAdd={addLanguage}
         onEdit={editLanguage}
         onRemove={removeLanguage}

@@ -1,0 +1,14 @@
+{
+  "tooltip": "Tables for tagging audio files",
+  "_comment": "It shows the tables commonly needed for roughly tagging audio files with basic metadata. The main tables for primary entity types are highlighted. All tables are shortened to focus on foreign key constraints.",
+  "tables": {
+    "artist": ["highlighted","shortened"],
+    "artist_credit": ["shortened"],
+    "artist_credit_name": ["shortened"],
+    "medium": ["shortened"],
+    "recording": ["highlighted","shortened"],
+    "release": ["highlighted","shortened"],
+    "release_group": ["highlighted","shortened"],
+    "track": ["shortened"]
+  }
+}

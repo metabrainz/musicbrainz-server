@@ -547,7 +547,8 @@ button.with-label {
 }
 
 button.add-item {
-    background-image: data-uri('../images/icons/add_row.png');
+    background-image: data-uri('../images/icons/add_row.svg');
+    background-size: 16px;
 }
 
 .remove-artist-credit,
@@ -555,11 +556,13 @@ a.remove-item,
 button.remove-item,
 button.close-dialog {
     /* The !important overrides .nobutton:hover. */
-    background-image: data-uri('../images/icons/delete_row.png') !important;
+    background-image: data-uri('../images/icons/delete_row.svg') !important;
+    background-size: 16px;
 }
 
 .edit-item {
-    background: data-uri('../images/icons/edit.png');
+    background: data-uri('../images/icons/edit.svg');
+    background-size: 16px;
 
     &[disabled] {
         cursor: default;
@@ -883,10 +886,6 @@ button.guess-timezone {
         width: 50ch;
     }
 }
-
-/* root/account/register.tt */
-
-#email-username-warning {display: none}
 
 /* root/static/scripts/edit/components/DateRangeFieldset.js */
 /* root/static/scripts/relationship-editor/components/DialogDatePeriod.js */

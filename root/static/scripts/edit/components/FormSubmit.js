@@ -9,19 +9,28 @@
 
 type Props = {
   +className?: string,
-  +label: string,
+  +inputClassName?: string,
+  +label: React$Node,
   +name?: string,
   +value?: string,
 };
 
 const FormSubmit = ({
   className,
+  inputClassName,
   label,
   name,
   value,
 }: Props): React$Element<'span'> => (
   <span className={'buttons' + (nonEmpty(className) ? ' ' + className : '')}>
-    <button name={name} type="submit" value={value}>{label}</button>
+    <button
+      className={inputClassName}
+      name={name}
+      type="submit"
+      value={value}
+    >
+      {label}
+    </button>
   </span>
 );
 

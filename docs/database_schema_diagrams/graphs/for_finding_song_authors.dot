@@ -1,0 +1,85 @@
+// Automatically generated, do not edit.
+// - Database schema sequence: 28
+digraph for_finding_song_authors {
+    tooltip = "Tables for finding song authors"
+    graph [
+        bgcolor = "#cb75ab:#f0976c"
+        concentrate = true
+        gradientangle = 330
+        pack = true
+        rankdir = "LR"
+    ];
+    node [
+        shape = plain
+    ];
+
+    // Tables
+    "artist" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#eeeeeebb"><font point-size="17">artist</font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="..."><font point-size="14">...</font></td></tr>
+            </table>
+        >
+    ];
+    "l_artist_work" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#bbbbbb77"><font point-size="17">l_artist_work</font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
+                <tr><td bgcolor="#eeeeee55" align="left" port="link"><font point-size="14">link</font></td></tr>
+                <tr><td bgcolor="#eeeeee55" align="left" port="entity0"><font point-size="14">entity0</font></td></tr>
+                <tr><td bgcolor="#eeeeee55" align="left" port="entity1"><font point-size="14">entity1</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="..."><font point-size="14">...</font></td></tr>
+            </table>
+        >
+    ];
+    "l_recording_work" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#bbbbbb77"><font point-size="17">l_recording_work</font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
+                <tr><td bgcolor="#eeeeee55" align="left" port="link"><font point-size="14">link</font></td></tr>
+                <tr><td bgcolor="#eeeeee55" align="left" port="entity0"><font point-size="14">entity0</font></td></tr>
+                <tr><td bgcolor="#eeeeee55" align="left" port="entity1"><font point-size="14">entity1</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="..."><font point-size="14">...</font></td></tr>
+            </table>
+        >
+    ];
+    "link" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#bbbbbb77"><font point-size="17">link</font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="..."><font point-size="14">...</font></td></tr>
+            </table>
+        >
+    ];
+    "recording" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#eeeeeebb"><font point-size="17">recording</font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="..."><font point-size="14">...</font></td></tr>
+            </table>
+        >
+    ];
+    "work" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#eeeeeebb"><font point-size="17">work</font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="..."><font point-size="14">...</font></td></tr>
+            </table>
+        >
+    ];
+
+    // References
+    "l_artist_work":"link" -> "link":"id"
+    "l_artist_work":"entity0" -> "artist":"id"
+    "l_artist_work":"entity1" -> "work":"id"
+    "l_recording_work":"link" -> "link":"id"
+    "l_recording_work":"entity0" -> "recording":"id"
+    "l_recording_work":"entity1" -> "work":"id"
+}

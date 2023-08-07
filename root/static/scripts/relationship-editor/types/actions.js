@@ -198,6 +198,10 @@ export type BatchCreateWorksDialogActionT =
       type: 'update-attribute',
     }
   | {
+      +action: DateRangeFieldsetActionT,
+      +type: 'update-date-period',
+    }
+  | {
       action: MultiselectActionT<LanguageT>,
       type: 'update-languages',
     }
@@ -210,6 +214,9 @@ export type BatchCreateWorksDialogActionT =
 
 export type AcceptBatchCreateWorksDialogActionT = {
   +attributes: tree.ImmutableTree<LinkAttrT> | null,
+  +begin_date: PartialDateT | null,
+  +end_date: PartialDateT | null,
+  +ended: boolean,
   +languages: $ReadOnlyArray<LanguageT>,
   +linkType: LinkTypeT,
   +type: 'accept-batch-create-works-dialog',

@@ -48,14 +48,32 @@ has 'status' => (
     is  => 'rw',
 );
 
+has 'new_note' => (
+    isa => 'Str',
+    is => 'rw',
+);
+
+has 'old_note' => (
+    isa => 'Str',
+    is => 'rw',
+);
+
 around TO_JSON => sub {
     my ($orig, $self) = @_;
 
     my $json = $self->$orig;
     $json->{change_editor_id} = $self->editor_id + 0;
     $json->{change_time} = datetime_to_iso8601($self->change_time);
+    $json->{edit_note_id} = $self->edit_note_id + 0;
+    $json->{id} = $self->id + 0;
+    $json->{new_note} = $self->new_note;
+    $json->{old_note} = $self->old_note;
     $json->{reason} = $self->reason;
     $json->{status} = $self->status;
+
+    if (my $editor = $self->editor) {
+        $self->link_entity('editor', $self->editor_id, $editor);
+    }
 
     return $json;
 };

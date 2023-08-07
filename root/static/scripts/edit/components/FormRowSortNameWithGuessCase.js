@@ -32,7 +32,7 @@ type PropsT = {
   +dispatch: (ActionT) => void,
   +entity: SortNamedEntityT,
   +field: ReadOnlyFieldT<string | null>,
-  +label?: string,
+  +label?: React$Node,
   +required?: boolean,
 };
 
