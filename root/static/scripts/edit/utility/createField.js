@@ -15,18 +15,21 @@
  */
 let LAST_FIELD_ID = 99999;
 
-export type MapFields<F> = $ObjMap<F, <T>(T) => FieldT<T>>;
+export type MapFields<F> = {[K in keyof F]: FieldT<F[K]>};
 
 export function createCompoundFieldFromObject<
-  F: {[fieldValueKey: string]: mixed, ...},
+  F: {...},
 >(
   name: string,
   fieldValues: F,
 ): CompoundFieldT<MapFields<F>> {
-  const field: MapFields<F> = {};
-  for (const key in fieldValues) {
-    field[key] = createField(name + '.' + key, fieldValues[key]);
-  }
+  // $FlowIssue[incompatible-type]
+  const field: MapFields<F> = Object.fromEntries(
+    Object.entries(fieldValues).map(([key, value]) => [
+      key,
+      createField(name + '.' + key, value),
+    ])
+  );
   return {
     errors: [],
     field,

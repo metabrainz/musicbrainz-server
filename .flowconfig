@@ -26,7 +26,6 @@ format.bracket_spacing=false
 format.single_quotes=true
 module.name_mapper.extension='less' -> '<PROJECT_ROOT>/root/flowstub.js.flow'
 react.runtime=automatic
-type_guards=true
 
 [strict]
 nonstrict-import

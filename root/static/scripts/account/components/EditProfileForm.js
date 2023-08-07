@@ -35,12 +35,17 @@ type AreaClassT = {
   name: string,
 };
 
-type UserLanguageFieldT = CompoundFieldT<{
-  +fluency: FieldT<FluencyT | null>,
-  +language_id: FieldT<number | null>,
+type UserLanguageFieldT = ReadOnlyCompoundFieldT<{
+  +fluency: ReadOnlyFieldT<FluencyT | null>,
+  +language_id: ReadOnlyFieldT<number | null>,
 }>;
 
-type EditProfileFormT = FormT<{
+type WritableUserLanguageFieldT = CompoundFieldT<{
+  fluency: FieldT<FluencyT | null>,
+  language_id: FieldT<number | null>,
+}>;
+
+type EditProfileFormFieldsT = {
   +area: AreaFieldT,
   +area_id: FieldT<number | null>,
   +biography: FieldT<string>,
@@ -51,6 +56,13 @@ type EditProfileFormT = FormT<{
   +languages: RepeatableFieldT<UserLanguageFieldT>,
   +username: FieldT<string>,
   +website: FieldT<string>,
+};
+
+type EditProfileFormT = FormT<EditProfileFormFieldsT>;
+
+type WritableEditProfileFormT = FormT<{
+  ...EditProfileFormFieldsT,
+  languages: RepeatableFieldT<WritableUserLanguageFieldT>,
 }>;
 
 type Props = {
@@ -59,8 +71,13 @@ type Props = {
 };
 
 type State = {
-  form: EditProfileFormT,
+  +form: EditProfileFormT,
   +languageOptions: MaybeGroupedOptionsT,
+};
+
+type WritableState = {
+  form: WritableEditProfileFormT,
+  +language_options: MaybeGroupedOptionsT,
 };
 
 const genderOptions = {
@@ -95,7 +112,7 @@ class EditProfileForm extends React.Component<Props, State> {
   handleAreaChangeBound: (area: AreaClassT) => void;
 
   handleAreaChange(area: AreaClassT) {
-    this.setState(prevState => mutate<State, _>(prevState, newState => {
+    this.setState(prevState => mutate<WritableState, State>(prevState, newState => {
       const formField = newState.form.field;
       formField.area_id.value = area.id;
       formField.area.field.name.value = area.name;
@@ -107,7 +124,7 @@ class EditProfileForm extends React.Component<Props, State> {
 
   handleGenderChange(e: SyntheticEvent<HTMLSelectElement>) {
     const selectedGender = e.currentTarget.value;
-    this.setState(prevState => mutate<State, _>(prevState, newState => {
+    this.setState(prevState => mutate<WritableState, State>(prevState, newState => {
       newState.form.field.gender_id.value = parseInt(selectedGender, 10);
     }));
   }
@@ -117,7 +134,7 @@ class EditProfileForm extends React.Component<Props, State> {
     languageIndex: number,
   ) {
     const selectedLanguage = parseInt(e.currentTarget.value, 10);
-    this.setState(prevState => mutate<State, _>(prevState, newState => {
+    this.setState(prevState => mutate<WritableState, State>(prevState, newState => {
       const compound = newState.form.field.languages.field[languageIndex];
       compound.field.language_id.value = selectedLanguage;
     }));
@@ -136,7 +153,7 @@ class EditProfileForm extends React.Component<Props, State> {
       case 'native':
         selectedFluency = selectedValue;
     }
-    this.setState(prevState => mutate<State, _>(prevState, newState => {
+    this.setState(prevState => mutate<WritableState, State>(prevState, newState => {
       const compound = newState.form.field.languages.field[languageIndex];
       compound.field.fluency.value = selectedFluency;
     }));
@@ -151,8 +168,11 @@ class EditProfileForm extends React.Component<Props, State> {
   handleLanguageAddBound: () => void;
 
   handleLanguageAdd() {
-    this.setState(prevState => mutate<State, _>(prevState, newState => {
-      pushCompoundField(newState.form.field.languages, {
+    this.setState(prevState => mutate<WritableState, State>(prevState, newState => {
+      pushCompoundField<{
+        fluency: FluencyT | null,
+        language_id: number | null,
+      }>(newState.form.field.languages, {
         fluency: null,
         language_id: null,
       });
