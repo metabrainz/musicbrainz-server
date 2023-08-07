@@ -5536,6 +5536,28 @@ limited_link_type_combinations: [
     expected_relationship_type: 'socialnetwork',
             expected_clean_url: 'https://vk.com/tin_sontsya',
   },
+  // VNDB
+  {
+                     input_url: 'http://www.vndb.org/s5406/hist',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://vndb.org/s5406',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://vndb.org/c49805/hist',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://vndb.org/c49805',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://vndb.org/p149/rg',
+             input_entity_type: 'label',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://vndb.org/p149',
+       only_valid_entity_types: ['label'],
+  },
   // Weibo
   {
                      input_url: 'www.weibo.com/mchotdog2010#test',
