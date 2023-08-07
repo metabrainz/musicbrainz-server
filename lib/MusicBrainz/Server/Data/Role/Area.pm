@@ -16,7 +16,7 @@ sub find_by_area {
     my $table = $self->can('_find_by_area_table') ? $self->_find_by_area_table : $self->_table;
     my $columns = $self->_columns;
     my $order_by = $self->can('_find_by_area_order') ? $self->_find_by_area_order : 'name, id';
-    my $extra_conditions;
+    my $extra_conditions = '';
 
     if ($table eq 'editor') {
         $extra_conditions = " AND (editor.privs & $SPAMMER_FLAG) = 0";
