@@ -2974,7 +2974,24 @@ const CLEANUPS: CleanupEntries = {
   },
   'jaxsta': {
     match: [new RegExp('^(https?://)?(www\\.)?jaxsta\\.com', 'i')],
-    restrict: [LINK_TYPES.otherdatabases],
+    restrict: [
+      LINK_TYPES.otherdatabases,
+      {work: [LINK_TYPES.otherdatabases.work, LINK_TYPES.lyrics.work]},
+    ],
+    select: function (url, sourceType) {
+      const m = /^https:\/\/jaxsta\.com\/(\w+)\/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}(?:\/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})?$/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (prefix) {
+          case 'work':
+            if (sourceType === 'work') {
+              return LINK_TYPES.otherdatabases.work;
+            }
+            break;
+        }
+      }
+      return false;
+    },
     clean: function (url) {
       url = url.replace(/^(?:https?:\/\/)?(?:www\.)?jaxsta\.com\/([^#?]+).*$/, 'https://jaxsta.com/$1');
       url = url.replace(/^https:\/\/jaxsta\.com\/(\w+)\/([a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})(\/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})?.*$/, 'https://jaxsta.com/$1/$2$3');
@@ -3006,6 +3023,7 @@ const CLEANUPS: CleanupEntries = {
               result: type === 'release' && hasVariant,
               target: ERROR_TARGETS.ENTITY,
             };
+          case LINK_TYPES.lyrics.work:
           case LINK_TYPES.otherdatabases.work:
             return {
               result: type === 'work',

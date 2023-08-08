@@ -2934,6 +2934,10 @@ limited_link_type_combinations: [
                      input_url: 'https://jaxsta.com/work/2aa4e869-85d4-5099-92fb-5a8aa1494d32/overview',
              input_entity_type: 'work',
     expected_relationship_type: 'otherdatabases',
+limited_link_type_combinations: [
+                                  'otherdatabases',
+                                  ['lyrics', 'otherdatabases'],
+                                ],
             expected_clean_url: 'https://jaxsta.com/work/2aa4e869-85d4-5099-92fb-5a8aa1494d32',
        only_valid_entity_types: ['work'],
   },
