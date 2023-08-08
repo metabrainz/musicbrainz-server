@@ -734,6 +734,38 @@ const CLEANUPS: CleanupEntries = {
       return {result: false, target: ERROR_TARGETS.URL};
     },
   },
+  'anidb': {
+    match: [new RegExp('^(?:https?://)?(?:www\\.)?anidb\\.net/', 'i')],
+    restrict: [LINK_TYPES.otherdatabases],
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?(?:www\.)?anidb\.net\/(character|collection|creator|song)\/([0-9]+).*$/, 'https://anidb.net/$1/$2');
+    },
+    validate: function (url, id) {
+      const m = /^https:\/\/anidb\.net\/(character|collection|creator|song)\/([0-9]+)$/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.otherdatabases.artist:
+            return {
+              result: prefix === 'character' || prefix === 'creator',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.otherdatabases.release:
+            return {
+              result: prefix === 'collection',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.otherdatabases.recording:
+            return {
+              result: prefix === 'song',
+              target: ERROR_TARGETS.ENTITY,
+            };
+        }
+        return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
   'animenewsnetwork': {
     match: [new RegExp('^(https?://)?(www\\.)?animenewsnetwork\\.com', 'i')],
     restrict: [LINK_TYPES.otherdatabases],
