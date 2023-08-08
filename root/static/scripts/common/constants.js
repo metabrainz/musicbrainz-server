@@ -126,6 +126,7 @@ export const FAVICON_CLASSES = {
   'iss.ndl.go.jp': 'ndl',
   'itunes.apple.com': 'itunes',
   'j-lyric.net': 'jlyric',
+  'jaxsta.com': 'jaxsta',
   'jazzmusicarchives.com': 'jazzmusicarchives',
   'joysound.com': 'joysound',
   'junodownload.com': 'junodownload',
