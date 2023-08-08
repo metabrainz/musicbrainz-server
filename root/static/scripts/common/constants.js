@@ -144,6 +144,7 @@ export const FAVICON_CLASSES = {
   'melon.com': 'melon',
   'metal-archives.com': 'metalarchives',
   'mixcloud.com': 'mixcloud',
+  'mobygames.com': 'mobygames',
   'mora.jp': 'mora',
   'music.amazon': 'amazonmusic',
   'music.apple.com': 'applemusic',
