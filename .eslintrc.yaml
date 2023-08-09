@@ -285,6 +285,7 @@ rules:
   react/require-render-return: error
   react/self-closing-comp: error
   react/sort-comp: off
+  react/sort-default-props: warn
   react/sort-prop-types: off
   react/style-prop-object: error
   react/void-dom-elements-no-children: error
@@ -310,7 +311,6 @@ rules:
   react/jsx-one-expression-per-line: [warn, {allow: single-child}]
   react/jsx-curly-brace-presence: [error, {props: never, children: ignore}]
   react/jsx-pascal-case: error
-  react/jsx-sort-default-props: warn
   react/jsx-sort-props: warn
   react/jsx-tag-spacing: [error, {beforeClosing: never}]
   # jsx-uses-react is not implied since
