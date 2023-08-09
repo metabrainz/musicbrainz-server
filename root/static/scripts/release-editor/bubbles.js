@@ -123,6 +123,34 @@ class RecordingBubble extends MB.Control.BubbleDoc {
   moveToTrack(track, stealFocus) {
     this.show(track.bubbleControlRecording, stealFocus);
   }
+
+  keydownEvent(data, event) {
+    /*
+     * Manually advance the focus to the first recording radio button if the
+     * Tab key is pressed in the recording name text input. By default, only
+     * the currently-checked radio button (which defaults to "Add a new
+     * recording" at the end of the list when entering a new tracklist) is
+     * keyboard-focusable. See MBS-13207.
+     *
+     * TODO: This only makes it possible to select the first radio button.
+     * Consider doing something similar to support tabbing to other unchecked
+     * radio buttons.
+     */
+    const noMods = !event.altKey && !event.ctrlKey && !event.metaKey &&
+      !event.shiftKey;
+    if (event.key === 'Tab' && noMods && !event.isDefaultPrevented()) {
+      const radio = document.querySelector(
+        '#recording-assoc-bubble input[name="recording-selection"]',
+      );
+      if (radio) {
+        radio.focus();
+        return false;
+      }
+    }
+
+    // Instruct Knockout to not call preventDefault.
+    return true;
+  }
 }
 
 releaseEditor.recordingBubble = new RecordingBubble('Recording');

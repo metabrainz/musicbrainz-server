@@ -1,0 +1,70 @@
+{
+  title: 'MBS-13207',
+  commands: [
+    {
+      command: 'open',
+      target: '/static/scripts/tests/release-editor/seeds/mbs-13207.html',
+      value: '',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'css=button[type=submit]',
+      value: '',
+    },
+    {
+      command: 'pause',
+      target: '500',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'css=a[href="#recordings"]',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'css=button.edit-track-recording',
+      value: '',
+    },
+    {
+      command: 'pause',
+      target: '1000',
+      value: '',
+    },
+    // Check that there's a radio button for at least one existing recording
+    // in addition to the "Add a new recording" button -- if there's only one
+    // button, then we can't verify the fix.
+    {
+      command: 'assertEval',
+      target: 'document.querySelectorAll("#recording-assoc-bubble input[name=recording-selection]").length > 1',
+      value: 'true',
+    },
+    {
+      command: 'sendKeys',
+      target: 'css=#recording-assoc-bubble input.name',
+      value: '${KEY_TAB}',
+    },
+    // The first recording's radio button should receive the focus.
+    // Normally, only checked radio buttons are keyboard-focusable.
+    {
+      command: 'assertEval',
+      target: 'document.activeElement === document.querySelector("#recording-assoc-bubble input[name=recording-selection]")',
+      value: 'true',
+    },
+    {
+      command: 'open',
+      target: '/',
+      value: '',
+    },
+    {
+      command: 'handleAlert',
+      target: 'accept',
+      value: '',
+    },
+    {
+      command: 'waitUntilUrlIs',
+      target: '/',
+      value: '',
+    },
+  ],
+}

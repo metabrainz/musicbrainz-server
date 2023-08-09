@@ -163,7 +163,7 @@
         [% l('Search:') %]
         <span class="autocomplete">
           [% React.embed(c, 'static/scripts/common/components/SearchIcon') %]
-          <input type="text" class="name" data-bind="autocomplete: { entity: 'recording', currentSelection: recording, lookupHook: $root.recordingAssociation.autocompleteHook($data) }" />
+          <input type="text" class="name" data-bind="autocomplete: { entity: 'recording', currentSelection: recording, lookupHook: $root.recordingAssociation.autocompleteHook($data) }" data-keydown="keydownEvent" />
         </span>
       </p>
 
