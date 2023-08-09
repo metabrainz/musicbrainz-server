@@ -2,8 +2,14 @@
 
 make_temp_dir()
 {
-    # Make a temporary directory dedicated to this invocation
-    TEMP_DIR=`
+    local is_extra=no
+    if [[ $# -gt 0 ]] && [[ $1 = '--extra' ]]
+    then
+      is_extra=yes
+      shift
+    fi
+    # Make a temporary directory
+    local temp_dir=`
         perl -MFile::Temp=tempdir -e'
                 $dir = tempdir(
                         "mbscript-XXXXXXXX",
@@ -12,8 +18,16 @@ make_temp_dir()
                         TMPDIR => 1,
                 ) or die $!;
                 print $dir;
-        '
+        ' "$@"
     ` || exit $?
+    # If it's an extra directory, just return its full path
+    if [[ $is_extra = yes ]]
+    then
+      echo "$temp_dir"
+      return
+    fi
+    # Otherwise dedicate this directory to this invocation
+    TEMP_DIR="$temp_dir"
     echo "Using temporary directory $TEMP_DIR"
     # Note that this only removes the directory if it's empty.  This is a
     # trade-off; we opt to not lose any files accidentally, at the risk of perhaps
