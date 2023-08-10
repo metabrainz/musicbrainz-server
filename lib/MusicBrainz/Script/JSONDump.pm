@@ -121,7 +121,7 @@ EOF
              catdir($mbdump->output_dir, $dump_fname)) or die $OS_ERROR;
     }
 
-    unlink "$dump_fpath.lock" or die $!;
+    unlink "$dump_fpath.lock" or die $OS_ERROR;
 
     return;
 }
@@ -425,7 +425,7 @@ sub run {
     my $exit_code = $self->run_impl($c);
 
     $c->connector->disconnect;
-    rmdir($TMP_EXPORT_DIR) or die $!;
+    rmdir($TMP_EXPORT_DIR) or die $OS_ERROR;
 
     log_info { 'Done' };
     return $exit_code;
