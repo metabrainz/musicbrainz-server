@@ -16,7 +16,7 @@ make_temp_dir()
                         DIR => shift(),
                         CLEANUP => 0,
                         TMPDIR => 1,
-                ) or die $!;
+                ) or die $!; # OS_ERROR
                 print $dir;
         ' "$@"
     ` || exit $?
