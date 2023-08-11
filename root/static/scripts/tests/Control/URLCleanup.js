@@ -3020,9 +3020,57 @@ limited_link_type_combinations: [
   },
   // Juno Download
   {
-                     input_url: 'http://www.junodownload.com/products/caspa-subscape-geordie-racer-notixx-remix/2141988-02/',
+                     input_url: 'http://junodownload.com/products/caspa-subscape-geordie-racer-notixx-remix/2141988-02/',
              input_entity_type: 'release',
     expected_relationship_type: 'downloadpurchase',
+            expected_clean_url: 'https://www.junodownload.com/products/2141988-02/',
+       only_valid_entity_types: ['release'],
+  },
+  {
+                     input_url: 'http://junodownload.com/products/2141988-02/',
+             input_entity_type: 'release',
+    expected_relationship_type: 'downloadpurchase',
+            expected_clean_url: 'https://www.junodownload.com/products/2141988-02/',
+       only_valid_entity_types: ['release'],
+  },
+  {
+                     input_url: 'http://junodownload.com/products/2141988-02.htm',
+             input_entity_type: 'release',
+    expected_relationship_type: 'downloadpurchase',
+            expected_clean_url: 'https://www.junodownload.com/products/2141988-02/',
+       only_valid_entity_types: ['release'],
+  },
+  {
+                     input_url: 'https://www.junodownload.com/products/raito-krampf-deeper/5665004-02/?c=2032482&utm_campaign=alert_auto_email&utm_source=auto_email_jd&utm_medium=label&utm_content=alert_title',
+             input_entity_type: 'release',
+    expected_relationship_type: 'downloadpurchase',
+            expected_clean_url: 'https://www.junodownload.com/products/5665004-02/',
+       only_valid_entity_types: ['release'],
+  },
+  {
+                     input_url: 'https://www.junodownload.com/labels/Mau5trap/releases/?music_product_type=single',
+             input_entity_type: 'label',
+    expected_relationship_type: 'downloadpurchase',
+            expected_clean_url: 'https://www.junodownload.com/labels/Mau5trap/',
+       only_valid_entity_types: ['label'],
+  },
+  {
+                     input_url: 'https://www.junodownload.com/artists/Raito/?facet%5Bsubgenre_id%5D%5B0%5D=12%7C%7C3',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'downloadpurchase',
+            expected_clean_url: 'https://www.junodownload.com/artists/Raito/',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://www.junodownload.com/search/?q%5Ball%5D%5B%5D=Orchestral+Manoeuvres+in+the+Dark',
+             input_entity_type: 'artist',
+       input_relationship_type: 'downloadpurchase',
+    expected_relationship_type: undefined,
+                expected_error: {
+                                  error: 'a link to a search result',
+                                  target: 'url',
+                                },
+       only_valid_entity_types: [],
   },
   // JVC Music
   {

@@ -2374,7 +2374,6 @@ const CLEANUPS: CleanupEntries = {
   },
   'downloadpurchase': {
     match: [
-      new RegExp('^(https?://)?([^/]+\\.)?junodownload\\.com', 'i'),
       new RegExp('^(https?://)?([^/]+\\.)?audiojelly\\.com', 'i'),
       new RegExp('^(https?://)?([^/]+\\.)?e-onkyo\\.com', 'i'),
       new RegExp('^(https?://)?([^/]+\\.)?ototoy\\.jp', 'i'),
@@ -3181,6 +3180,48 @@ const CLEANUPS: CleanupEntries = {
             };
         }
         return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
+  'junodownload': {
+    match: [new RegExp('^(?:https?://)?(?:www\\.)?junodownload\\.com', 'i')],
+    restrict: [LINK_TYPES.downloadpurchase],
+    clean: function (url) {
+      url = url.replace(/^https?:\/\/(?:www\.)?junodownload\.com\/([^?#]+).*$/, 'https://www.junodownload.com/$1');
+      url = url.replace(/^https:\/\/www\.junodownload\.com\/(artists|labels)\/([^\/]+).*$/, 'https://www.junodownload.com/$1/$2/');
+      url = url.replace(/^https:\/\/www\.junodownload\.com\/products\/(?:[\w\d-]+\/)?([\d-]+)(?:.htm)?.*$/, 'https://www.junodownload.com/products/$1/');
+      return url;
+    },
+    validate: function (url, id) {
+      if (/https:\/\/www\.junodownload\.com\/search\//.test(url)) {
+        return {
+          error: noLinkToSearchMsg(),
+          result: false,
+          target: ERROR_TARGETS.URL,
+        };
+      }
+      const m = /^https:\/\/www\.junodownload\.com\/(artists|labels|products)\/[\w\d-]+\/$/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.downloadpurchase.artist:
+            return {
+              result: prefix === 'artists',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.downloadpurchase.label:
+            return {
+              result: prefix === 'labels',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.downloadpurchase.release:
+            return {
+              result: prefix === 'products',
+              target: ERROR_TARGETS.ENTITY,
+            };
+        }
+        return {result: false, target: ERROR_TARGETS.ENTITY};
       }
       return {result: false, target: ERROR_TARGETS.URL};
     },
