@@ -2487,6 +2487,28 @@ limited_link_type_combinations: [
             expected_clean_url: 'http://sws.geonames.org/6698548/',
        only_valid_entity_types: ['area', 'place'],
   },
+  // Goodreads
+  {
+                     input_url: 'http://goodreads.com/author/list/22650322.Joe_Hill',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.goodreads.com/author/show/22650322',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://www.goodreads.com/book/show/28462158-short-poetry-collection-013',
+             input_entity_type: 'release',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.goodreads.com/book/show/28462158',
+       only_valid_entity_types: ['release'],
+  },
+  {
+                     input_url: 'https://www.goodreads.com/series/40650-discworld',
+             input_entity_type: 'series',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.goodreads.com/series/show/40650',
+       only_valid_entity_types: ['series'],
+  },
   // Google
   {
                      input_url: 'https://play.google.com/store/music/artist/Daylight?id=Ab34l5k2zbtfv2uwitbfwrwyufy',

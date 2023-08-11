@@ -110,6 +110,7 @@ export const FAVICON_CLASSES = {
   'generasia.com/wiki': 'generasia',
   'genius.com': 'genius',
   'geonames.org': 'geonames',
+  'goodreads.com': 'goodreads',
   'gutenberg.org': 'gutenberg',
   'hoick.jp': 'hoick',
   'ibdb.com': 'ibdb',

@@ -75,6 +75,7 @@ my %URL_SPECIALIZATIONS = (
     'Generasia'           => qr{^https?://(?:www\.)?generasia\.com/wiki/}i,
     'Genius'              => qr{^https?://(?:[^/]+\.)?genius\.com/}i,
     'GeoNames'            => qr{^http://sws\.geonames\.org/}i,
+    'Goodreads'           => qr{^https?://(?:www\.)?goodreads\.com/}i,
     'Gutenberg'           => qr{^https?://(?:www\.)?gutenberg\.org/}i,
     'HMikuWiki'           => qr{^https?://www5\.atwiki\.jp/hmiku/}i,
     'Hoick'               => qr{^https?://(?:www\.)?hoick\.jp/}i,

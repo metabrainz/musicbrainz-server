@@ -2531,6 +2531,38 @@ const CLEANUPS: CleanupEntries = {
       return url.replace(/^https?:\/\/(?:[a-z]+\.)?geonames.org\/([0-9]+)\/.*$/, 'http://sws.geonames.org/$1/');
     },
   },
+  'goodreads': {
+    match: [new RegExp('^(https?://)?(www\\.)?goodreads\\.com', 'i')],
+    restrict: [LINK_TYPES.otherdatabases],
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?(?:www\.)?goodreads\.com\/(author|book|series)\/(?:[a-z]+\/)?([0-9]+).*$/, 'https://www.goodreads.com/$1/show/$2');
+    },
+    validate: function (url, id) {
+      const m = /^https:\/\/www\.goodreads\.com\/(author|book|series)\/show\/[0-9]+$/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.otherdatabases.artist:
+            return {
+              result: prefix === 'author',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.otherdatabases.release:
+            return {
+              result: prefix === 'book',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.otherdatabases.series:
+            return {
+              result: prefix === 'series',
+              target: ERROR_TARGETS.ENTITY,
+            };
+        }
+        return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
   'googleplay': {
     match: [new RegExp('^(https?://)?play\\.google\\.com/store/music/', 'i')],
     clean: function (url) {
