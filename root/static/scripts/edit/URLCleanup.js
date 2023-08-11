@@ -3472,16 +3472,6 @@ const CLEANUPS: CleanupEntries = {
               return LINK_TYPES.otherdatabases.work;
             }
             break;
-          case 'records':
-            if (sourceType === 'release') {
-              return LINK_TYPES.otherdatabases.release;
-            }
-            break;
-          default: // artist
-            if (sourceType === 'artist') {
-              return LINK_TYPES.otherdatabases.artist;
-            }
-            break;
         }
       }
       return false;
