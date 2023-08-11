@@ -108,6 +108,8 @@ const irrelevantLinkTypes: {
     [315, false], // revisions
     [316, false], // orchestrations
     [350, false], // arrangements
+    [1046, true], // works quoting music from this
+    [1047, true], // works quoting lyrics from this
   ]),
 };
 
