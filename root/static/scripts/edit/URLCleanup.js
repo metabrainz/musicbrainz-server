@@ -3619,6 +3619,33 @@ const CLEANUPS: CleanupEntries = {
       return url.replace(/^https?:\/\/(?:[^/]+\.)?mixcloud\.com/, 'https://www.mixcloud.com');
     },
   },
+  'mobygames': {
+    match: [new RegExp('^(https?://)?(www\\.)?mobygames\\.com', 'i')],
+    restrict: [LINK_TYPES.otherdatabases],
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?(?:www\.)?mobygames\.com\/(company|person)\/([\d]+).*$/, 'https://www.mobygames.com/$1/$2');
+    },
+    validate: function (url, id) {
+      const m = /^https:\/\/www\.mobygames\.com\/(company|person)\/[\d]+$/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.otherdatabases.artist:
+            return {
+              result: prefix === 'person',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.otherdatabases.label:
+            return {
+              result: prefix === 'company',
+              target: ERROR_TARGETS.ENTITY,
+            };
+        }
+        return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
   'mora': {
     match: [new RegExp('^(https?://)?([^/]+\\.)?mora\\.jp', 'i')],
     restrict: [LINK_TYPES.downloadpurchase],

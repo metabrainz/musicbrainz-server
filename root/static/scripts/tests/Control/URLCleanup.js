@@ -3505,6 +3505,27 @@ limited_link_type_combinations: [
              input_entity_type: 'release',
     expected_relationship_type: 'downloadpurchase',
   },
+  // MobyGames
+  {
+                     input_url: 'http://mobygames.com/person/408750/pierre-gerwig-langer/credits/',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.mobygames.com/person/408750',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://www.mobygames.com/company/10/microprose-software-inc/games/',
+             input_entity_type: 'label',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.mobygames.com/company/10',
+       only_valid_entity_types: ['label'],
+  },
+  {
+                     input_url: 'https://www.mobygames.com/game/1143/worms-2/',
+             input_entity_type: 'release',
+    expected_relationship_type: 'otherdatabases',
+       only_valid_entity_types: [],
+  },
   // MusicaPopular.cl
   {
                      input_url: 'musicapopular.cl/artista/sensorama-19-81/',
