@@ -233,6 +233,7 @@ export const FAVICON_CLASSES = {
   'vimeo.com': 'vimeo',
   'vk.com': 'vk',
   'vkdb.jp': 'vkdb',
+  'vndb.org': 'vndb',
   'vocadb.net': 'vocadb',
   'weibo.com': 'weibo',
   'whosampled.com': 'whosampled',

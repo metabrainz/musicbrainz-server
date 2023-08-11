@@ -5580,6 +5580,33 @@ const CLEANUPS: CleanupEntries = {
       return url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?vk\.com/, 'https://vk.com');
     },
   },
+  'vndb': {
+    match: [new RegExp('^(https?://)?(www\\.)?vndb\\.org/', 'i')],
+    restrict: [LINK_TYPES.otherdatabases],
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)(?:www\.)?vndb\.org\/((?:c|p|s)[0-9]+).*$/, 'https://vndb.org/$1');
+    },
+    validate: function (url, id) {
+      const m = /^https:\/\/vndb\.org\/(c|p|s)[0-9]+$/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.otherdatabases.artist:
+            return {
+              result: prefix === 'c' || prefix === 's',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.otherdatabases.label:
+            return {
+              result: prefix === 'p',
+              target: ERROR_TARGETS.ENTITY,
+            };
+        }
+        return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
   'weibo': {
     match: [new RegExp('^(https?://)?([^/]+\\.)?weibo\\.com/', 'i')],
     restrict: [LINK_TYPES.socialnetwork],
