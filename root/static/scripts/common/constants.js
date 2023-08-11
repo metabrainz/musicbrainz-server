@@ -67,6 +67,7 @@ export const FAVICON_CLASSES = {
   'abc.net.au/triplejunearthed': 'triplejunearthed',
   'adp.library.ucsb.edu': 'dahr',
   'allmusic.com': 'allmusic',
+  'anidb.net': 'anidb',
   'animenewsnetwork.com': 'animenewsnetwork',
   'anison.info': 'anisongeneration',
   'archive.org': 'archive',

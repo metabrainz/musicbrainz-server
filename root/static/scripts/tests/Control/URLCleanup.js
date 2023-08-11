@@ -491,6 +491,35 @@ const testData = [
     expected_relationship_type: 'blog',
             expected_clean_url: 'https://ameblo.jp/murataayumi/',
   },
+  // AniDB
+  {
+                     input_url: 'https://anidb.net/creator/176',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://anidb.net/creator/176',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://anidb.net/character/8968',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://anidb.net/character/8968',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://anidb.net/song/18557',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://anidb.net/song/18557',
+       only_valid_entity_types: ['recording'],
+  },
+  {
+                     input_url: 'https://anidb.net/collection/4451',
+             input_entity_type: 'release',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://anidb.net/collection/4451',
+       only_valid_entity_types: ['release'],
+  },
   // Anime News Network
   {
                      input_url: 'https://animenewsnetwork.com/encyclopedia/people.php?id=59062',
