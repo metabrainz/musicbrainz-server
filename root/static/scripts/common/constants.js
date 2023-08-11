@@ -135,6 +135,7 @@ export const FAVICON_CLASSES = {
   'laboiteauxparoles.com': 'laboiteauxparoles',
   'lantis.jp': 'lantis',
   'last.fm': 'lastfm',
+  'librarything.com': 'librarything',
   'lieder.net': 'lieder',
   'linkedin.com': 'linkedin',
   'livefans.jp': 'livefans',

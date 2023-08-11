@@ -3212,6 +3212,40 @@ const CLEANUPS: CleanupEntries = {
       return {result: false, target: ERROR_TARGETS.URL};
     },
   },
+  'librarything': {
+    match: [new RegExp('^(https?://)?(www\\.)?librarything\\.com', 'i')],
+    restrict: [LINK_TYPES.otherdatabases],
+    clean: function (url) {
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?librarything\.com\/(author|nseries|work)\/([0-9a-z]+)(?:[/?#].*)?$/, 'https://www.librarything.com/$1/$2');
+      return url;
+    },
+    validate: function (url, id) {
+      const m = /^https:\/\/www\.librarything\.com\/([a-z]+)\/[0-9a-z]+$/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.otherdatabases.artist:
+            return {
+              result: prefix === 'author',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.otherdatabases.series:
+            return {
+              result: prefix === 'nseries',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.otherdatabases.release_group:
+          case LINK_TYPES.otherdatabases.work:
+            return {
+              result: prefix === 'work',
+              target: ERROR_TARGETS.ENTITY,
+            };
+        }
+        return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
   'license': {
     match: [
       new RegExp('^(https?://)?([^/]+\\.)?artlibre\\.org/licence', 'i'),
