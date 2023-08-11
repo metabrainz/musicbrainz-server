@@ -675,6 +675,20 @@ limited_link_type_combinations: [
                      input_url: 'https://archive.org/details/NormRejection-MaltaNotForSaleEp-Dtm020/',
             expected_clean_url: 'https://archive.org/details/NormRejection-MaltaNotForSaleEp-Dtm020',
   },
+  // Artstation
+  {
+                     input_url: 'http://artstation.com/bysau/profile',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'artgallery',
+            expected_clean_url: 'https://www.artstation.com/bysau',
+  },
+  {
+                     input_url: 'https://www.artstation.com/search?sort_by=relevance&query=a',
+             input_entity_type: 'artist',
+    expected_relationship_type: undefined,
+       input_relationship_type: 'artgallery',
+       only_valid_entity_types: [],
+  },
   // Audiojelly
   {
                      input_url: 'http://www.audiojelly.com/releases/turn-up-the-sound/242895',
@@ -1062,6 +1076,20 @@ limited_link_type_combinations: [
     expected_relationship_type: 'downloadpurchase',
             expected_clean_url: 'https://www.beatport.com/label/mouseville/1421',
        only_valid_entity_types: ['label'],
+  },
+  // Behance
+  {
+                     input_url: 'http://behance.net/tristan-gion/appreciated',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'artgallery',
+            expected_clean_url: 'https://www.behance.net/tristan-gion',
+  },
+  {
+                     input_url: 'https://www.behance.net/assets?tracking_source=nav20',
+             input_entity_type: 'artist',
+    expected_relationship_type: undefined,
+       input_relationship_type: 'artgallery',
+       only_valid_entity_types: [],
   },
   // Biblioteka Polskiej Piosenki
   {
@@ -1799,6 +1827,26 @@ limited_link_type_combinations: [
        input_relationship_type: 'streamingfree',
        only_valid_entity_types: [],
   },
+  // DeviantArt
+  {
+                     input_url: 'https://www.deviantart.com/user/about#about',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'artgallery',
+            expected_clean_url: 'https://www.deviantart.com/user',
+  },
+  {
+                     input_url: 'https://www.deviantart.com/albertourra/art/Seoul-68-968315856',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'artgallery',
+            expected_clean_url: 'https://www.deviantart.com/albertourra',
+  },
+  {
+                     input_url: 'https://www.deviantart.com/shop',
+             input_entity_type: 'artist',
+    expected_relationship_type: undefined,
+       input_relationship_type: 'artgallery',
+       only_valid_entity_types: [],
+  },
   // DHHU
   {
                      input_url: 'http://www.dhhu.dk/w/%C3%98stkyst_Hustlers',
@@ -2187,6 +2235,20 @@ limited_link_type_combinations: [
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'https://www.dramonline.org/instruments/brass/natural-horn',
        only_valid_entity_types: ['instrument'],
+  },
+  // Dribbble
+  {
+                     input_url: 'http://www.dribbble.com/zuttoworld/collections',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'artgallery',
+            expected_clean_url: 'https://dribbble.com/zuttoworld',
+  },
+  {
+                     input_url: 'https://dribbble.com/shots/17988655-Pandora',
+             input_entity_type: 'artist',
+    expected_relationship_type: undefined,
+       input_relationship_type: 'artgallery',
+       only_valid_entity_types: [],
   },
   // Drip
   {
@@ -4432,6 +4494,13 @@ limited_link_type_combinations: [
              input_entity_type: 'artist',
     expected_relationship_type: 'socialnetwork',
             expected_clean_url: 'https://www.reverbnation.com/tomorrowsyesterdayband',
+  },
+  // pixiv
+  {
+                     input_url: 'https://www.pixiv.net/en/users/23610071/illustrations',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'artgallery',
+            expected_clean_url: 'https://www.pixiv.net/users/23610071',
   },
   // Prog Archives
   {

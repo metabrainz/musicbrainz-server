@@ -42,6 +42,9 @@ export const LINK_TYPES: LinkTypeMap = {
   amazon: {
     release: '4f2e710d-166c-480c-a293-2e2c8d658d87',
   },
+  artgallery: {
+    artist: '8203341a-27be-40bb-b755-08d8ca9d7a9c',
+  },
   bandcamp: {
     artist: 'c550166e-0548-4a18-b1d4-e2ae423a3e88',
     genre: 'ad28869f-0f9e-4bd5-b786-70125cc69c3c',
@@ -937,6 +940,47 @@ const CLEANUPS: CleanupEntries = {
       return url.replace(/^(https:\/\/archive\.org\/details\/[A-Za-z0-9._-]+)\/$/, '$1');
     },
   },
+  'artstation': {
+    match: [new RegExp('^(https?://)?(www\\.)?artstation\\.com', 'i')],
+    restrict: [LINK_TYPES.artgallery],
+    clean: function (url) {
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?artstation\.com\/([^\/#?]+).*$/, 'https://www.artstation.com/$1');
+      return url;
+    },
+    validate: function (url) {
+      const m = /^https:\/\/www\.artstation\.com\/([^\/]+)$/.exec(url);
+      if (m) {
+        const userName = m[1];
+        if (userName === 'search') {
+          return {
+            error: noLinkToSearchMsg(),
+            result: false,
+            target: ERROR_TARGETS.URL,
+          };
+        }
+        const hardcodedPaths = [
+          'artwork',
+          'blogs',
+          'challenges',
+          'hire',
+          'jobs',
+          'learning',
+          'marketplace',
+          'prints',
+          'schools',
+          'studios',
+        ];
+        if (hardcodedPaths.includes(userName)) {
+          return {
+            result: false,
+            target: ERROR_TARGETS.URL,
+          };
+        }
+        return {result: true};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
   'audiomack': {
     match: [new RegExp('^(https?://)?([^/]+\\.)?audiomack\\.com/', 'i')],
     restrict: [LINK_TYPES.streamingfree],
@@ -1344,6 +1388,44 @@ const CLEANUPS: CleanupEntries = {
             };
         }
         return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
+  'behance': {
+    match: [new RegExp('^(https?://)?(www\\.)?behance\\.net', 'i')],
+    restrict: [LINK_TYPES.artgallery],
+    clean: function (url) {
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?behance\.net\/([^\/#?]+).*$/, 'https://www.behance.net/$1');
+      return url;
+    },
+    validate: function (url) {
+      const m = /^https:\/\/www\.behance\.net\/([^\/]+)$/.exec(url);
+      if (m) {
+        const userName = m[1];
+        if (userName === 'search') {
+          return {
+            error: noLinkToSearchMsg(),
+            result: false,
+            target: ERROR_TARGETS.URL,
+          };
+        }
+        const hardcodedPaths = [
+          'assets',
+          'for_you',
+          'galleries',
+          'gallery',
+          'hire',
+          'joblist',
+          'privacy',
+        ];
+        if (hardcodedPaths.includes(userName)) {
+          return {
+            result: false,
+            target: ERROR_TARGETS.URL,
+          };
+        }
+        return {result: true};
       }
       return {result: false, target: ERROR_TARGETS.URL};
     },
@@ -2022,6 +2104,44 @@ const CLEANUPS: CleanupEntries = {
       return {result: false, target: ERROR_TARGETS.URL};
     },
   },
+  'deviantart': {
+    match: [new RegExp('^(https?://)?(www\\.)?deviantart\\.com', 'i')],
+    restrict: [LINK_TYPES.artgallery],
+    clean: function (url) {
+      return url = url.replace(/^(?:https?:\/\/)?(?:www\.)?deviantart\.com\/([^\/?#]+).*$/, 'https://www.deviantart.com/$1');
+    },
+    validate: function (url) {
+      const m = /^https:\/\/www\.deviantart\.com\/([^\/?#]+)$/.exec(url);
+      if (m) {
+        const userName = m[1];
+        if (userName === 'search') {
+          return {
+            error: noLinkToSearchMsg(),
+            result: false,
+            target: ERROR_TARGETS.URL,
+          };
+        }
+        const hardcodedPaths = [
+          'about',
+          'core-membership',
+          'forum',
+          'groups',
+          'join',
+          'shop',
+          'team',
+          'users',
+        ];
+        if (hardcodedPaths.includes(userName)) {
+          return {
+            result: false,
+            target: ERROR_TARGETS.URL,
+          };
+        }
+        return {result: true};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
   'dhhu': {
     match: [new RegExp('^(https?://)?(www\\.)?dhhu\\.dk', 'i')],
     restrict: [LINK_TYPES.otherdatabases],
@@ -2296,6 +2416,44 @@ const CLEANUPS: CleanupEntries = {
             };
         }
         return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
+  'dribbble': {
+    match: [new RegExp('^(https?://)?(www\\.)?dribbble\\.com', 'i')],
+    restrict: [LINK_TYPES.artgallery],
+    clean: function (url) {
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?dribbble\.com\/([^\/#?]+).*$/, 'https://dribbble.com/$1');
+      return url;
+    },
+    validate: function (url) {
+      const m = /^https:\/\/www\.artstation\.com\/([^\/]+)$/.exec(url);
+      if (m) {
+        const userName = m[1];
+        if (userName === 'search') {
+          return {
+            error: noLinkToSearchMsg(),
+            result: false,
+            target: ERROR_TARGETS.URL,
+          };
+        }
+        const hardcodedPaths = [
+          'directories',
+          'for-designers',
+          'hiring',
+          'learn',
+          'pro',
+          'shots',
+          'tags',
+        ];
+        if (hardcodedPaths.includes(userName)) {
+          return {
+            result: false,
+            target: ERROR_TARGETS.URL,
+          };
+        }
+        return {result: true};
       }
       return {result: false, target: ERROR_TARGETS.URL};
     },
@@ -4254,6 +4412,20 @@ const CLEANUPS: CleanupEntries = {
     clean: function (url) {
       url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?pinterest\.com\/([^?#]*[^\/?#])\/*(?:[?#].*)?$/, 'https://www.pinterest.com/$1/');
       return url.replace(/\/(?:boards|pins|likes|followers|following)(?:\/.*)?$/, '/');
+    },
+  },
+  'pixiv': {
+    match: [new RegExp('^(https?://)?(www\\.)?pixiv\\.net', 'i')],
+    restrict: [LINK_TYPES.artgallery],
+    clean: function (url) {
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?pixiv\.net\/(?:[a-z]+\/)users\/([0-9]+).*$/, 'https://www.pixiv.net/users/$1');
+      return url;
+    },
+    validate: function (url) {
+      if (/^https:\/\/www\.pixiv\.net\/users\/([0-9]+)$/.test(url)) {
+        return {result: true};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
     },
   },
   'progarchives': {
