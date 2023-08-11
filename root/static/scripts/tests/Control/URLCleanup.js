@@ -3191,6 +3191,39 @@ limited_link_type_combinations: [
             expected_clean_url: 'https://www.librarything.com/nseries/34968',
        only_valid_entity_types: ['series'],
   },
+  // LibriVox
+  {
+                     input_url: 'http://www.librivox.org/author/3133?primary_key=3133&search_category=author&search_page=1&search_form=get_results',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'downloadfree',
+            expected_clean_url: 'https://librivox.org/author/3133',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://librivox.org/reader/8713?primary_key=8713&search_category=reader&search_page=1&search_form=get_results',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'downloadfree',
+            expected_clean_url: 'https://librivox.org/reader/8713',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://librivox.org/anarchism-and-other-essays-by-emma-goldman-2/',
+             input_entity_type: 'release',
+    expected_relationship_type: 'downloadfree',
+            expected_clean_url: 'https://librivox.org/anarchism-and-other-essays-by-emma-goldman-2',
+       only_valid_entity_types: ['release'],
+  },
+  {
+                     input_url: 'https://librivox.org/search?q=artist&search_form=advanced',
+             input_entity_type: 'artist',
+       input_relationship_type: 'downloadfree',
+    expected_relationship_type: undefined,
+       only_valid_entity_types: [],
+                expected_error: {
+                                  error: 'a link to a search result',
+                                  target: 'url',
+                                },
+  },
   // LiederNet Archive
   {
                      input_url: 'http://www.lieder.net/lieder/get_text.html?TextId=6448',
