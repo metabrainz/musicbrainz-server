@@ -2963,6 +2963,46 @@ limited_link_type_combinations: [
     expected_relationship_type: ['downloadfree', 'streamingfree'],
             expected_clean_url: 'http://www.jamendo.com/album/56372',
   },
+  // Jaxsta
+  {
+                     input_url: 'http://www.jaxsta.com/profile/8a9bd5c6-1ce2-4f1d-bfdc-1a2383129c79/catalogue?role_group=Featured%20Artist&view=tile',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://jaxsta.com/profile/8a9bd5c6-1ce2-4f1d-bfdc-1a2383129c79',
+       only_valid_entity_types: ['artist', 'label'],
+  },
+  {
+                     input_url: 'https://jaxsta.com/profile/5a50b1be-7473-4e51-ae4b-bb8d9ac13407/catalogue?view=tile',
+             input_entity_type: 'label',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://jaxsta.com/profile/5a50b1be-7473-4e51-ae4b-bb8d9ac13407',
+       only_valid_entity_types: ['artist', 'label'],
+  },
+  {
+                     input_url: 'https://jaxsta.com/recording/5b01140a-a82f-5f5c-aa81-93d61de00f94/releases',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://jaxsta.com/recording/5b01140a-a82f-5f5c-aa81-93d61de00f94',
+       only_valid_entity_types: ['recording'],
+  },
+  {
+                     input_url: 'https://jaxsta.com/release/66512305-5fb7-5d43-a194-d5ed56c16cab/7c5528fe-96f7-5c0c-9af2-9b756b909436/variants',
+             input_entity_type: 'release',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://jaxsta.com/release/66512305-5fb7-5d43-a194-d5ed56c16cab/7c5528fe-96f7-5c0c-9af2-9b756b909436',
+       only_valid_entity_types: ['release'],
+  },
+  {
+                     input_url: 'https://jaxsta.com/work/2aa4e869-85d4-5099-92fb-5a8aa1494d32/overview',
+             input_entity_type: 'work',
+    expected_relationship_type: 'otherdatabases',
+limited_link_type_combinations: [
+                                  'otherdatabases',
+                                  ['lyrics', 'otherdatabases'],
+                                ],
+            expected_clean_url: 'https://jaxsta.com/work/2aa4e869-85d4-5099-92fb-5a8aa1494d32',
+       only_valid_entity_types: ['work'],
+  },
   // Jazz Music Archives
   {
                      input_url: 'http://www.jazzmusicarchives.com/artist/ron-carter#discography',
