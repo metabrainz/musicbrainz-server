@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-29 12:56+0300\n"
+"POT-Creation-Date: 2023-05-31 20:29+0300\n"
 "PO-Revision-Date: 2011-01-30 16:57+0000\n"
 "Last-Translator: Nicolás Tamargo <reosarevok@gmail.com>, 2021-2022\n"
 "Language-Team: Estonian (http://app.transifex.com/musicbrainz/musicbrainz/language/et/)\n"
@@ -74,7 +74,7 @@ msgstr "„YY” on registreerimisaasta kaks viimast numbrit."
 #: ../root/edit/details/historic/AddRelease.js:88
 #: ../root/recording/RecordingIndex.js:53
 #: ../root/static/scripts/release/components/MediumTable.js:83
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1561
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1563
 #: ../root/utility/tableColumns.js:560
 msgid "#"
 msgstr "#"
@@ -151,7 +151,7 @@ msgid ""
 "classical release unless you’re very sure it’s a good idea!"
 msgstr ""
 
-#: ../root/components/common-macros.tt:490 ../root/recording/edit_form.tt:6
+#: ../root/components/common-macros.tt:480 ../root/recording/edit_form.tt:6
 msgid "<strong>Warning</strong>:"
 msgstr "<strong>Hoiatus</strong>:"
 
@@ -320,10 +320,6 @@ msgstr "Lisa {item}"
 msgid "Add {num} track(s)"
 msgstr "Lisa {num} lugu"
 
-#: ../root/cdstub/browse.tt:23
-msgid "Added {add}, last modified {lastmod}"
-msgstr "Lisatud {add}, viimati muudetud {lastmod}"
-
 #: ../root/release/edit/information.tt:245
 msgid "Additional information"
 msgstr "Lisateave"
@@ -352,7 +348,7 @@ msgstr "Iga lugu peab olema seostatud salvestisega. Loole salvestise valimiseks 
 msgid "Allow the name “{editor_name}” to be reused."
 msgstr ""
 
-#: ../root/components/common-macros.tt:587
+#: ../root/components/common-macros.tt:577
 msgid ""
 "An entity with that name and disambiguation already exists. You must enter a"
 " unique disambiguation comment."
@@ -420,13 +416,14 @@ msgstr "Piirkonna üksikasjad"
 msgid "Area:"
 msgstr "Piirkond:"
 
-#: ../root/cdstub/browse.tt:9 ../root/cdstub/cdstub.tt:7
-#: ../root/cdtoc/attach_filter_release.tt:29 ../root/cdtoc/list.tt:8
-#: ../root/cdtoc/lookup.tt:43 ../root/edit/search_macros.tt:423
-#: ../root/release/edit/tracklist.tt:163 ../root/release/edit/tracklist.tt:453
+#: ../root/cdstub/cdstub.tt:7 ../root/cdtoc/attach_filter_release.tt:29
+#: ../root/cdtoc/list.tt:8 ../root/cdtoc/lookup.tt:43
+#: ../root/edit/search_macros.tt:423 ../root/release/edit/tracklist.tt:163
+#: ../root/release/edit/tracklist.tt:453
 #: ../lib/MusicBrainz/Server/Edit/Artist.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:38
-#: ../root/cdstub/CDStubInfo.js:28 ../root/cdstub/ImportCDStub.js:45
+#: ../root/cdstub/BrowseCDStubs.js:37 ../root/cdstub/CDStubInfo.js:28
+#: ../root/cdstub/ImportCDStub.js:45
 #: ../root/cdtoc/AttachCDTocConfirmation.js:71
 #: ../root/cdtoc/SelectArtistForCDToc.js:43
 #: ../root/components/RelationshipsTable.js:336
@@ -564,7 +561,7 @@ msgstr "Vöötkood"
 
 #: ../root/cdstub/edit_form.tt:7 ../root/release/edit/information.tt:220
 #: ../root/release_group/set_cover_art.tt:62
-#: ../root/layout/components/sidebar/CDStubSidebar.js:75
+#: ../root/layout/components/sidebar/CDStubSidebar.js:63
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:126
 msgid "Barcode:"
 msgstr "Vöötkood:"
@@ -1728,7 +1725,7 @@ msgid ""
 "Otherwise, please fix the data."
 msgstr ""
 
-#: ../root/components/common-macros.tt:70 ../root/components/Artwork.js:50
+#: ../root/components/common-macros.tt:60 ../root/components/Artwork.js:50
 msgid "Image not available, please try again later."
 msgstr ""
 
@@ -1756,7 +1753,7 @@ msgstr "Instrument"
 msgid "Instrument Details"
 msgstr "Instrumendi üksikasjad"
 
-#: ../root/components/common-macros.tt:496
+#: ../root/components/common-macros.tt:486
 msgid "Javascript is required for this page to work properly."
 msgstr "Selle lehe korralikuks tööks on vaja JavaScripti."
 
@@ -1896,7 +1893,7 @@ msgstr "Piirkonnatoimetaja"
 msgid "Location editor"
 msgstr "Piirkonnatoimetaja"
 
-#: ../root/components/common-macros.tt:431
+#: ../root/components/common-macros.tt:421
 #: ../root/components/RequestLogin.js:23
 msgid "Log in"
 msgstr "Logi sisse"
@@ -1918,10 +1915,6 @@ msgstr "Soovituste otsimine..."
 msgid "Lookup CD"
 msgstr "CD päring"
 
-#: ../root/cdstub/browse.tt:10
-msgid "Lookup count"
-msgstr "Päringute arv"
-
 #: ../root/release/edit/information.tt:139
 #: ../lib/MusicBrainz/Server/Plugin/FormRenderer.pm:252
 #: ../root/static/scripts/edit/components/PartialDateInput.js:174
@@ -1941,7 +1934,7 @@ msgstr "Käsitsi"
 msgid "Matching CDs"
 msgstr "Vastavad CD-d"
 
-#: ../root/cdtoc/lookup.tt:42 ../root/components/common-macros.tt:513
+#: ../root/cdtoc/lookup.tt:42 ../root/components/common-macros.tt:503
 #: ../lib/MusicBrainz/Server/Edit/Medium.pm:8
 #: ../root/cdtoc/AttachCDTocConfirmation.js:65
 #: ../root/cdtoc/SetTracklistDurations.js:56
@@ -1971,10 +1964,6 @@ msgstr "Mestimisprotsess"
 #: ../root/user/contact.tt:13 ../root/user/ReportUser.js:147
 msgid "Message"
 msgstr "Sõnum"
-
-#: ../root/cdstub/browse.tt:11
-msgid "Modify count"
-msgstr "Muutmiste arv"
 
 #: ../root/cdtoc/list.tt:63 ../root/release/discids.tt:45
 msgid "Move"
@@ -2258,7 +2247,7 @@ msgstr "Järjestuse tüüp:"
 msgid "Overview"
 msgstr "Ülevaade"
 
-#: ../root/components/common-macros.tt:77 ../root/components/Artwork.js:77
+#: ../root/components/common-macros.tt:67 ../root/components/Artwork.js:77
 msgid "PDF file"
 msgstr "PDF-fail"
 
@@ -2416,7 +2405,7 @@ msgstr[1] "Hinda: {rating} tärni"
 #: ../root/search/components/SearchForm.js:40
 #: ../root/static/scripts/common/constants.js:42
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:64
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1571
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1573
 #: ../root/user/UserProfile.js:55
 msgid "Recording"
 msgstr "Salvestis"
@@ -2615,8 +2604,8 @@ msgstr "Eemalda väljalaskesündmus"
 msgid "Remove attribute"
 msgstr "Eemalda atribuut"
 
-#: ../root/components/common-macros.tt:594
-#: ../root/components/common-macros.tt:602
+#: ../root/components/common-macros.tt:584
+#: ../root/components/common-macros.tt:592
 #: ../root/components/RemoveFromMergeTableCell.js:39
 #: ../root/utility/tableColumns.js:715 ../root/utility/tableColumns.js:725
 msgid "Remove from merge"
@@ -2928,7 +2917,7 @@ msgid "Submit this CD using the simple method."
 msgstr "CD sisestamiseks lihtviisil klõpsa siin."
 
 #: ../root/release/edit/editnote.tt:44
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1868
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1870
 msgid "Submitting edits..."
 msgstr "Toimetuste sisestamine..."
 
@@ -3114,12 +3103,12 @@ msgstr "Plaadi lõpus on andmerada"
 msgid "This disc has a hidden pregap track before track 1"
 msgstr "Plaadi alguses enne esimest rada on peidetud pregap-rada"
 
-#: ../root/components/common-macros.tt:196
+#: ../root/components/common-macros.tt:186
 #: ../root/static/scripts/common/components/EntityLink.js:37
 msgid "This entity has been removed, and cannot be displayed correctly."
 msgstr "See olem on eemaldatud ja seda ei saa korralikult näidata."
 
-#: ../root/components/common-macros.tt:196
+#: ../root/components/common-macros.tt:186
 #: ../root/static/scripts/common/components/EntityLink.js:36
 msgid "This entity will be created by this edit."
 msgstr "See olem luuakse selle toimetuse sisestamisel."
@@ -3162,7 +3151,7 @@ msgid ""
 "please {uri|return to musicbrainz.org}."
 msgstr "See on MusicBrainzi peegelserver. Andmete lisamiseks või muutmiseks {uri|kasuta palun musicbrainz.org-i}."
 
-#: ../root/components/common-macros.tt:77 ../root/components/Artwork.js:73
+#: ../root/components/common-macros.tt:67 ../root/components/Artwork.js:73
 msgid ""
 "This is a PDF file, the thumbnail may not show the entire contents of the "
 "file."
@@ -3225,7 +3214,7 @@ msgid ""
 "be split!"
 msgstr ""
 
-#: ../root/components/common-macros.tt:239
+#: ../root/components/common-macros.tt:229
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:685
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:383
 #: ../root/static/scripts/common/components/EntityLink.js:323
@@ -3267,12 +3256,12 @@ msgid ""
 "isn’t meant to be a vinyl, or your vinyl isn’t actually a shellac disc."
 msgstr ""
 
-#: ../root/components/common-macros.tt:569
+#: ../root/components/common-macros.tt:559
 #: ../root/static/scripts/common/components/DataTrackIcon.js:13
 msgid "This track is a data track."
 msgstr "See on andmerada."
 
-#: ../root/components/common-macros.tt:565
+#: ../root/components/common-macros.tt:555
 #: ../root/static/scripts/common/components/PregapTrackIcon.js:13
 msgid "This track is hidden in the pregap."
 msgstr ""
@@ -3289,13 +3278,13 @@ msgstr ""
 msgid "Time:"
 msgstr "Kellaaeg:"
 
-#: ../root/cdstub/browse.tt:8 ../root/cdstub/cdstub.tt:5
-#: ../root/cdtoc/list.tt:7 ../root/release/edit/tracklist.tt:162
-#: ../root/release/edit/tracklist.tt:452
+#: ../root/cdstub/cdstub.tt:5 ../root/cdtoc/list.tt:7
+#: ../root/release/edit/tracklist.tt:162 ../root/release/edit/tracklist.tt:452
 #: ../root/admin/statistics-events/DeleteStatisticsEvent.js:29
 #: ../root/admin/statistics-events/StatisticsEventEditForm.js:36
 #: ../root/admin/statistics-events/StatisticsEventIndex.js:27
-#: ../root/cdstub/CDStubInfo.js:27 ../root/cdtoc/AttachCDTocConfirmation.js:70
+#: ../root/cdstub/BrowseCDStubs.js:36 ../root/cdstub/CDStubInfo.js:27
+#: ../root/cdtoc/AttachCDTocConfirmation.js:70
 #: ../root/components/RelationshipsTable.js:333
 #: ../root/components/list/ReleaseGroupList.js:91
 #: ../root/edit/details/EditMedium.js:315
@@ -3318,11 +3307,6 @@ msgstr "Uue lugude nimekirja loomiseks olemasoleva helikandja järgi või plaadi
 #: ../root/release/edit/information.tt:105
 msgid "To edit types, please {edit_page|edit the release group}."
 msgstr "(muutmiseks {edit_page|toimeta väljalaskerühma})"
-
-#: ../root/cdstub/browse.tt:2 ../root/cdstub/browse.tt:3
-#: ../root/layout/components/BottomMenu.js:231
-msgid "Top CD Stubs"
-msgstr "CD-mustandid"
 
 #: ../root/cdstub/index.tt:21 ../root/cdstub/CDStubIndex.js:55
 #: ../root/cdtoc/CDTocInfo.js:44
@@ -3550,12 +3534,6 @@ msgstr "Kasutajanimi:"
 msgid "Validating file..."
 msgstr "Faili valideerimine..."
 
-#: ../root/cdstub/browse.tt:18 ../root/cdstub/CDStubHeader.js:27
-#: ../root/cdstub/CDStubLayout.js:31
-#: ../root/layout/components/sidebar/CDStubSidebar.js:39
-msgid "Various Artists"
-msgstr "Erinevad esitajad"
-
 #: ../root/recording/edit_form.tt:44
 #: ../root/edit/details/AddStandaloneRecording.js:64
 #: ../root/edit/details/EditRecording.js:65
@@ -3741,7 +3719,7 @@ msgstr "Oled selle salvestise jaoks kasutanud eriotstarbelist artisti „{valink
 
 #: ../root/release/edit/editnote.tt:10
 #: ../lib/MusicBrainz/Server/Controller/EditNote.pm:187
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:776
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:778
 msgid "You haven’t made any changes!"
 msgstr "Midagi pole muudetud."
 
@@ -3756,7 +3734,7 @@ msgstr ""
 msgid "You must be logged in to use this option."
 msgstr ""
 
-#: ../root/components/common-macros.tt:586
+#: ../root/components/common-macros.tt:576
 msgid "You must enter a disambiguation comment for this entity."
 msgstr "Sellele olemile tuleb lisada täpsustusmärge."
 
@@ -3853,7 +3831,7 @@ msgid ""
 " please make sure the artists have been entered correctly."
 msgstr "Oled mõne alloleva loo jaoks kasutanud eriotstarbelist artisti „{valink|erinevad esitajad}”. Lugude puhul sobib see väga harva, seega palun vaata, et artistid oleks õigesti sisestatud."
 
-#: ../root/components/common-macros.tt:196
+#: ../root/components/common-macros.tt:186
 #: ../lib/MusicBrainz/Server/Edit/Relationship/RemoveLinkType.pm:86
 #: ../lib/MusicBrainz/Server/Edit/Release/Create.pm:112
 #: ../root/edit/details/EditAlias.js:76
@@ -3900,7 +3878,7 @@ msgstr "vahemikus"
 msgid "by"
 msgstr "Artist:"
 
-#: ../root/components/common-macros.tt:117
+#: ../root/components/common-macros.tt:107
 #: ../root/static/scripts/common/components/EntityLink.js:96
 msgid "cancelled"
 msgstr "tühistatud"
@@ -3946,17 +3924,17 @@ msgstr "abi"
 msgid "hide tracklist"
 msgstr "peida lugude nimekiri"
 
-#: ../root/components/common-macros.tt:108
+#: ../root/components/common-macros.tt:98
 #: ../root/static/scripts/common/components/EntityLink.js:117
 msgid "historical"
 msgstr "ajalooline"
 
-#: ../root/components/common-macros.tt:106
+#: ../root/components/common-macros.tt:96
 #: ../root/static/scripts/common/components/EntityLink.js:119
 msgid "historical, until {end}"
 msgstr "ajalooline, kuni {end}"
 
-#: ../root/components/common-macros.tt:104
+#: ../root/components/common-macros.tt:94
 #: ../root/static/scripts/common/components/EntityLink.js:113
 msgid "historical, {begin}-{end}"
 msgstr "ajalooline, {begin}–{end}"
@@ -3989,8 +3967,8 @@ msgstr ""
 msgid "includes"
 msgstr ""
 
-#: ../root/components/common-macros.tt:163
-#: ../root/components/common-macros.tt:239
+#: ../root/components/common-macros.tt:153
+#: ../root/components/common-macros.tt:229
 #: ../root/static/scripts/common/components/EntityLink.js:141
 #: ../root/static/scripts/common/components/EntityLink.js:426
 msgid "info"
@@ -4117,7 +4095,7 @@ msgstr ""
 msgid "{artist} - {name}"
 msgstr "{artist} — {name}"
 
-#: ../root/components/common-macros.tt:141
+#: ../root/components/common-macros.tt:131
 #: ../root/static/scripts/common/components/ExpandedArtistCredit.js:34
 msgid "{artist} as {name}"
 msgstr "{artist} kui {name}"
@@ -4132,7 +4110,7 @@ msgstr[1] "{artist} ei ole avaldanud ühtki {n} looga väljalaset."
 msgid "{doc|Disc ID}:"
 msgstr "{doc|Plaadi-ID}:"
 
-#: ../root/components/common-macros.tt:209 ../root/main/index.js:268
+#: ../root/components/common-macros.tt:199 ../root/main/index.js:268
 #: ../root/static/scripts/common/components/DescriptiveLink.js:71
 #: ../root/static/scripts/release-editor/dialogs.js:150
 msgid "{entity} by {artist}"
@@ -4144,22 +4122,10 @@ msgid ""
 "read them and respond if necessary."
 msgstr "Mõnele sinu toimetusele on lisatud {link|uusi märkeid}. Palun loe need läbi ja kui vaja, vasta."
 
-#: ../root/components/common-macros.tt:270
+#: ../root/components/common-macros.tt:260
 #: ../root/static/scripts/common/components/EntityLink.js:262
 msgid "{name} – {additional_info}"
 msgstr "{name} – {additional_info}"
-
-#: ../root/components/common-macros.tt:46 ../root/utility/age.js:170
-msgid "{num} day ago"
-msgid_plural "{num} days ago"
-msgstr[0] "{num} päeva eest"
-msgstr[1] "{num} päeva eest"
-
-#: ../root/components/common-macros.tt:46 ../root/utility/age.js:164
-msgid "{num} month ago"
-msgid_plural "{num} months ago"
-msgstr[0] "{num} kuu eest"
-msgstr[1] "{num} kuu eest"
 
 #: ../root/cdtoc/attach_filter_release.tt:20
 msgid "{num} release found matching your query."
@@ -4167,13 +4133,7 @@ msgid_plural "{num} releases found matching your query."
 msgstr[0] "Päringu peale leiti {num} väljalase."
 msgstr[1] "Päringu peale leiti {num} väljalaset."
 
-#: ../root/components/common-macros.tt:46 ../root/utility/age.js:161
-msgid "{num} year ago"
-msgid_plural "{num} years ago"
-msgstr[0] "{num} aasta eest"
-msgstr[1] "{num} aasta eest"
-
-#: ../root/components/common-macros.tt:209
+#: ../root/components/common-macros.tt:199
 #: ../root/static/scripts/common/components/DescriptiveLink.js:84
 msgid "{place} in {area}"
 msgstr "{place}, {area}"
@@ -4209,7 +4169,7 @@ msgid ""
 " that the artist has been entered correctly."
 msgstr "„{valink|Erinevad esitajad}” sobib väga harva salvestise artistiks, palun vaata, et artist oleks õigesti sisestatud."
 
-#: ../root/components/common-macros.tt:560
+#: ../root/components/common-macros.tt:550
 #: ../root/static/scripts/common/i18n/addColon.js:13
 #: ../root/static/scripts/common/i18n/addColon.js:17
 msgid "{variable}:"
@@ -5719,6 +5679,10 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Entity/URL/NicoNicoVideo.pm:9
 msgid "Niconico"
 msgstr "Niconico"
+
+#: ../lib/MusicBrainz/Server/Entity/URL/RateYourMusic.pm:13
+msgid "Interview at Rate Your Music"
+msgstr ""
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Runeberg.pm:9
 msgid "Project Runeberg"
@@ -7652,6 +7616,29 @@ msgstr ""
 #: ../root/artist_credit/EntityList.js:35
 msgid "No tracks with this artist credit were found."
 msgstr ""
+
+#: ../root/cdstub/BrowseCDStubs.js:30 ../root/cdstub/BrowseCDStubs.js:31
+#: ../root/layout/components/BottomMenu.js:231
+msgid "Top CD Stubs"
+msgstr "CD-mustandid"
+
+#: ../root/cdstub/BrowseCDStubs.js:38
+msgid "Lookup count"
+msgstr "Päringute arv"
+
+#: ../root/cdstub/BrowseCDStubs.js:39
+msgid "Modify count"
+msgstr "Muutmiste arv"
+
+#: ../root/cdstub/BrowseCDStubs.js:49 ../root/cdstub/CDStubHeader.js:27
+#: ../root/cdstub/CDStubLayout.js:31
+#: ../root/layout/components/sidebar/CDStubSidebar.js:27
+msgid "Various Artists"
+msgstr "Erinevad esitajad"
+
+#: ../root/cdstub/BrowseCDStubs.js:56
+msgid "Added {add}, last modified {lastmod}"
+msgstr "Lisatud {add}, viimati muudetud {lastmod}"
 
 #: ../root/cdstub/CDStubAddWhileLoggedIn.js:20
 msgid "Cannot Add CD Stub"
@@ -10722,31 +10709,31 @@ msgstr "Lisa salvestis"
 msgid "Split into separate artists"
 msgstr "Eralda mitmeks artistiks"
 
-#: ../root/layout/components/sidebar/CDStubSidebar.js:58
+#: ../root/layout/components/sidebar/CDStubSidebar.js:46
 msgid "Added:"
 msgstr "Lisatud:"
 
-#: ../root/layout/components/sidebar/CDStubSidebar.js:62
+#: ../root/layout/components/sidebar/CDStubSidebar.js:50
 msgid "Last modified:"
 msgstr "Viimati muudetud:"
 
-#: ../root/layout/components/sidebar/CDStubSidebar.js:66
+#: ../root/layout/components/sidebar/CDStubSidebar.js:54
 msgid "Lookup count:"
 msgstr "Päringute arv:"
 
-#: ../root/layout/components/sidebar/CDStubSidebar.js:70
+#: ../root/layout/components/sidebar/CDStubSidebar.js:58
 msgid "Modify count:"
 msgstr "Muutmiste arv:"
 
-#: ../root/layout/components/sidebar/CDStubSidebar.js:85
+#: ../root/layout/components/sidebar/CDStubSidebar.js:73
 msgid "Import as MusicBrainz release"
 msgstr "Impordi MusicBrainzi väljalaskena"
 
-#: ../root/layout/components/sidebar/CDStubSidebar.js:92
+#: ../root/layout/components/sidebar/CDStubSidebar.js:80
 msgid "Add disc ID to an existing release"
 msgstr "Lisa plaadi-ID olemasolevale väljalaskele"
 
-#: ../root/layout/components/sidebar/CDStubSidebar.js:101
+#: ../root/layout/components/sidebar/CDStubSidebar.js:89
 msgid "Search the database for this CD"
 msgstr "Otsi seda CD-d andmebaasist"
 
@@ -14554,213 +14541,213 @@ msgstr "Loomiskoht:"
 msgid "Dissolved in:"
 msgstr "Laialiminekukoht:"
 
-#: ../root/static/scripts/edit/URLCleanup.js:367
+#: ../root/static/scripts/edit/URLCleanup.js:370
 msgid ""
 "Please link to a channel, not a specific video. Videos should be linked to "
 "the appropriate recordings or releases instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:373
+#: ../root/static/scripts/edit/URLCleanup.js:376
 msgid ""
 "This is a link to a search result. Please link to any page in the results "
 "that is relevant to this entity instead, if available."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:378
+#: ../root/static/scripts/edit/URLCleanup.js:381
 msgid ""
 "Please link to a specific video. Add channel pages to the relevant artist, "
 "label, etc. instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:383
+#: ../root/static/scripts/edit/URLCleanup.js:386
 msgid ""
 "This is a lyrics site. As such, links to the site should be added at the "
 "release group level with the “lyrics” relationship, rather than directly to "
 "any specific release."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:555
+#: ../root/static/scripts/edit/URLCleanup.js:558
 msgid ""
 "Allmusic “{album_url_pattern}” links should be added to release groups. To "
 "find the appropriate release link for this release, please check the "
 "Releases tab from {album_url|your link}."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:642
-#: ../root/static/scripts/edit/URLCleanup.js:835
-#: ../root/static/scripts/edit/URLCleanup.js:3580
-#: ../root/static/scripts/edit/URLCleanup.js:4541
+#: ../root/static/scripts/edit/URLCleanup.js:645
+#: ../root/static/scripts/edit/URLCleanup.js:838
+#: ../root/static/scripts/edit/URLCleanup.js:3583
+#: ../root/static/scripts/edit/URLCleanup.js:4557
 msgid ""
 "This is a redirect link. Please follow {redirect_url|your link} and add the "
 "link it redirects to instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:660
+#: ../root/static/scripts/edit/URLCleanup.js:663
 msgid ""
 "This is a link to a user video and should not be added. Please add the "
 "product link instead, if relevant."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:797
+#: ../root/static/scripts/edit/URLCleanup.js:800
 msgid ""
 "Only Apple Books audiobooks can be added to MusicBrainz. Consider adding "
 "books to {bookbrainz_url|BookBrainz} instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:988
+#: ../root/static/scripts/edit/URLCleanup.js:991
 msgid ""
 "Please link to the main page for the artist, not to a specific album or "
 "track."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:1005
+#: ../root/static/scripts/edit/URLCleanup.js:1008
 msgid ""
 "Please link to the main page for the label, not to a specific album or "
 "track."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:1227
+#: ../root/static/scripts/edit/URLCleanup.js:1230
 msgid "Please link to the main page for the artist, not a specific product."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:1229
+#: ../root/static/scripts/edit/URLCleanup.js:1232
 msgid "Please link to the main page for the label, not a specific product."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:1912
+#: ../root/static/scripts/edit/URLCleanup.js:1915
 msgid ""
 "Discogs “{master_url_pattern}” links group several releases, so this should "
 "be added to the release group instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:2521
+#: ../root/static/scripts/edit/URLCleanup.js:2524
 msgid ""
 "Only IMSLP “{category_url_pattern}” links are allowed for artists. Please "
 "link work pages to the specific work in question."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:2539
+#: ../root/static/scripts/edit/URLCleanup.js:2542
 msgid ""
 "IMSLP “{category_url_pattern}” links are only allowed for artists. Please "
 "link the specific work page to this work instead, if available."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:2584
+#: ../root/static/scripts/edit/URLCleanup.js:2587
 msgid ""
 "Instagram “{explore_url_pattern}” links are not allowed. Please link to a "
 "profile instead, if there is one."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:2612
+#: ../root/static/scripts/edit/URLCleanup.js:2615
 msgid ""
 "Please do not link directly to images, link to the appropriate Instagram "
 "profile page instead. If you want to link to a video, {url|add a standalone "
 "recording} for it instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:2637
+#: ../root/static/scripts/edit/URLCleanup.js:2640
 msgid "This is an internal Instagram page and should not be added."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:3477
+#: ../root/static/scripts/edit/URLCleanup.js:3480
 msgid ""
 "Musixmatch “{album_url_pattern}” pages are a bad match for MusicBrainz "
 "release groups, and linking to them is currently disallowed. Please consider"
 " adding Musixmatch links to the relevant artists and works instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:4050
+#: ../root/static/scripts/edit/URLCleanup.js:4056
 msgid "Only RYM music videos can be linked to recordings."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:4102
+#: ../root/static/scripts/edit/URLCleanup.js:4118
 msgid ""
 "This is a link to the old Resident Advisor domain. Please follow "
 "{ra_url|your link}, make sure the link it redirects to is still the correct "
 "one and, if so, add that link instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:5020
+#: ../root/static/scripts/edit/URLCleanup.js:5036
 msgid "This is not a profile, but a Twitter documentation page."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:5034
+#: ../root/static/scripts/edit/URLCleanup.js:5050
 msgid "Please link to Twitter profiles, not tweets."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:5052
+#: ../root/static/scripts/edit/URLCleanup.js:5068
 msgid "This site does not allow direct links to their images."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:5258
+#: ../root/static/scripts/edit/URLCleanup.js:5274
 msgid ""
 "Please link to the “{allowed_url_pattern}” page rather than this "
 "“{current_url_pattern}” link."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:5314
+#: ../root/static/scripts/edit/URLCleanup.js:5330
 msgid ""
 "There is an unencoded “?” or “#” character in this URL. Please check whether"
 " it is useless and should be removed, or whether it is an error and the URL "
 "is misencoded."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:5334
+#: ../root/static/scripts/edit/URLCleanup.js:5350
 msgid ""
 "Please do not link directly to WhoSampled “{unwanted_url_pattern}” pages. "
 "Link to the appropriate WhoSampled artist, track or album page instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:5355
+#: ../root/static/scripts/edit/URLCleanup.js:5371
 msgid "Please link WhoSampled “{album_url_pattern}” pages to release groups."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:5373
+#: ../root/static/scripts/edit/URLCleanup.js:5389
 msgid "Please link WhoSampled artist pages to artists."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:5385
+#: ../root/static/scripts/edit/URLCleanup.js:5401
 msgid "Please link WhoSampled track pages to recordings."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:5452
+#: ../root/static/scripts/edit/URLCleanup.js:5468
 msgid ""
 "Links to specific sections of Wikipedia articles are not allowed. Please "
 "remove “{fragment}” if still appropriate. See the {url|guidelines}."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:5477
+#: ../root/static/scripts/edit/URLCleanup.js:5493
 msgid ""
 "Links to Wikipedia user pages are not allowed. Please link only to actual "
 "Wikipedia articles."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:5597
+#: ../root/static/scripts/edit/URLCleanup.js:5613
 msgid ""
 "This is a playlist link, which isn’t a video channel and is not guaranteed "
 "to be officially approved. Please link to the official channel for this "
 "entity, if it exists, instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:5637
+#: ../root/static/scripts/edit/URLCleanup.js:5653
 msgid "Only video and playlist links are allowed on releases."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:5672
+#: ../root/static/scripts/edit/URLCleanup.js:5688
 msgid ""
 "Wikipedia normally has no entries for specific releases, so adding Wikipedia"
 " links to a release is currently blocked. Please add this Wikipedia link to "
 "the release group instead, if appropriate."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:5684
+#: ../root/static/scripts/edit/URLCleanup.js:5700
 msgid ""
 "Wikidata normally has no entries for specific releases, so adding Wikidata "
 "links to a release is currently blocked. Please add this Wikidata link to "
 "the release group instead, if appropriate."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:5703
+#: ../root/static/scripts/edit/URLCleanup.js:5719
 msgid ""
 "This is a Bandcamp profile, not a page for a specific release. Even if it "
 "shows this release right now, that can change when the artist releases "
@@ -14769,7 +14756,7 @@ msgid ""
 "add this profile link to the appropriate artist or label."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:5731
+#: ../root/static/scripts/edit/URLCleanup.js:5747
 msgid ""
 "This is a Bandcamp profile, not a page for a specific recording. Even if it "
 "shows a single recording right now, that can change when the artist releases"
@@ -14778,11 +14765,11 @@ msgid ""
 "the appropriate artist or label."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:5894
+#: ../root/static/scripts/edit/URLCleanup.js:5910
 msgid "Some relationship types are missing for this URL."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:5911
+#: ../root/static/scripts/edit/URLCleanup.js:5927
 #: ../root/static/scripts/edit/externalLinks.js:1006
 msgid "This relationship type combination is invalid."
 msgstr ""
@@ -15607,34 +15594,34 @@ msgstr "Sama seose lisamine korraga mitmele teosele"
 msgid "[selected work]"
 msgstr ""
 
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:276
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:278
 msgid "An error occurred:"
 msgstr ""
 
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1522
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1524
 msgid "Track Relationships"
 msgstr "Lugude seosed"
 
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1541
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1543
 msgid ""
 "Some tracks/mediums haven’t been loaded yet. If you want to make batch "
 "operations on these, please fully load them first."
 msgstr ""
 
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1584
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1586
 msgid "Related Works"
 msgstr "Seotud teosed"
 
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1608
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1610
 #: ../root/static/scripts/release/components/TracklistAndCredits.js:374
 msgid "We have no information about this release’s media and tracklist."
 msgstr ""
 
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1645
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1647
 msgid "Release Relationships"
 msgstr "Väljalaske seosed"
 
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1688
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1690
 msgid "Release Group Relationships"
 msgstr "Väljalaskerühma seosed"
 
@@ -16716,6 +16703,24 @@ msgid "{num} day"
 msgid_plural "{num} days"
 msgstr[0] "{num} päev"
 msgstr[1] "{num} päeva"
+
+#: ../root/utility/age.js:161
+msgid "{num} year ago"
+msgid_plural "{num} years ago"
+msgstr[0] "{num} aasta eest"
+msgstr[1] "{num} aasta eest"
+
+#: ../root/utility/age.js:164
+msgid "{num} month ago"
+msgid_plural "{num} months ago"
+msgstr[0] "{num} kuu eest"
+msgstr[1] "{num} kuu eest"
+
+#: ../root/utility/age.js:170
+msgid "{num} day ago"
+msgid_plural "{num} days ago"
+msgstr[0] "{num} päeva eest"
+msgstr[1] "{num} päeva eest"
 
 #: ../root/utility/edit.js:35
 msgid "Accept upon closing"

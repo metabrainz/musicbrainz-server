@@ -1451,7 +1451,7 @@ msgid ""
 "Homemade combination of a wooden pole with beer bottle tops and other "
 "jingles and a hefty boot at the bottom to create thumping bass, it is often "
 "decorated with hats, hair or stuffed animals."
-msgstr ""
+msgstr "Combinazione fatta in casa di un palo di legno con tappi di bottiglia di birra e altri sonagli e di uno stivale pesante all'estremità inferiore che crea un suono basso battente, è spesso decorato con cappelli, capelli o animali di peluche."
 
 #. name:olifant
 #: DB:instrument/description:888
@@ -2239,7 +2239,7 @@ msgstr "Spesso chiamato solo \"saron\", suona la melodia base balungan."
 msgid ""
 "Often known as whip, it consists of two parts joined together by a hinge, it"
 " creates a whip-like sound when clacked together."
-msgstr ""
+msgstr "Spesso conosciuto anche come frusta, è composto da due parti unite da un cardine e produce un suono simile a una frusta quando le si sbatte una contro l'altra."
 
 #. name:boomwhacker
 #: DB:instrument/description:948
