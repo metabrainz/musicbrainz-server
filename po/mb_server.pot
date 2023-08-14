@@ -10,7 +10,7 @@ msgstr ""
 "#-#-#-#-#  mb_server.pot (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-31 20:29+0300\n"
+"POT-Creation-Date: 2023-08-14 15:30+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -75,7 +75,7 @@ msgstr ""
 #: ../root/recording/RecordingIndex.js:53
 #: ../root/static/scripts/release/components/MediumTable.js:83
 #: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1563
-#: ../root/utility/tableColumns.js:560
+#: ../root/utility/tableColumns.js:567
 msgid "#"
 msgstr ""
 
@@ -87,27 +87,27 @@ msgstr ""
 msgid "&#10005;"
 msgstr ""
 
-#: ../root/release/add_cover_art.tt:102
+#: ../root/release/add_cover_art.tt:104
 msgid "&#x26a0; Error creating edit"
 msgstr ""
 
-#: ../root/release/add_cover_art.tt:86
+#: ../root/release/add_cover_art.tt:88
 msgid "&#x26a0; Error requesting signature"
 msgstr ""
 
-#: ../root/release/add_cover_art.tt:100
+#: ../root/release/add_cover_art.tt:102
 msgid "&#x26a0; Error uploading image"
 msgstr ""
 
-#: ../root/release/add_cover_art.tt:101
+#: ../root/release/add_cover_art.tt:103
 msgid "&#x26a0; Server busy, try again later"
 msgstr ""
 
-#: ../root/release/add_cover_art.tt:85
+#: ../root/release/add_cover_art.tt:87
 msgid "&#x26a0; Unrecognized file"
 msgstr ""
 
-#: ../root/release/add_cover_art.tt:84
+#: ../root/release/add_cover_art.tt:86
 msgid "&#x2713; Success"
 msgstr ""
 
@@ -115,7 +115,7 @@ msgstr ""
 msgid "(add a new recording)"
 msgstr ""
 
-#: ../root/release/add_cover_art.tt:127
+#: ../root/release/add_cover_art.tt:129
 msgid "(no other cover art)"
 msgstr ""
 
@@ -125,22 +125,9 @@ msgstr ""
 #: ../root/recording/RecordingIndex.js:60
 #: ../root/release_group/ReleaseGroupIndex.js:171
 #: ../root/search/components/ReleaseResults.js:116
-#: ../root/utility/tableColumns.js:501 ../root/utility/tableColumns.js:509
+#: ../root/utility/tableColumns.js:508 ../root/utility/tableColumns.js:516
 msgctxt "and"
 msgid "/"
-msgstr ""
-
-#: ../root/admin/edit_user.tt:24
-msgid "<abbr title=\"MusicBrainz Identifier\">MBID</abbr> submitter"
-msgstr ""
-
-#: ../root/account/register.tt:11
-msgid ""
-"<strong>Note that any contributions you make to MusicBrainz will be released "
-"into the Public Domain and/or licensed under a Creative Commons by-nc-sa "
-"license. Furthermore, you give the MetaBrainz Foundation the right to "
-"license this data for commercial use. Please read our {doc|license page} for "
-"more details.</strong>"
 msgstr ""
 
 #: ../root/release/edit/recordings.tt:137
@@ -179,7 +166,7 @@ msgid ""
 msgstr ""
 
 #: ../root/edit/search_macros.tt:291 ../root/edit/search_macros.tt:307
-#: ../lib/MusicBrainz/Server/Data/Vote.pm:173
+#: ../lib/MusicBrainz/Server/Data/Vote.pm:175
 #: ../root/edit/components/Vote.js:100
 msgctxt "vote"
 msgid "Abstain"
@@ -187,11 +174,6 @@ msgstr ""
 
 #: ../root/doc/edit_type.tt:8
 msgid "Accept"
-msgstr ""
-
-#: ../root/admin/edit_user.tt:31 ../root/admin/edit_user.tt:35
-#: ../root/admin/PrivilegeSearch.js:140
-msgid "Account admin"
 msgstr ""
 
 #: ../root/event/edit_form.tt:22
@@ -329,23 +311,11 @@ msgstr ""
 msgid "Address:"
 msgstr ""
 
-#: ../root/admin/edit_user.tt:1
-msgid "Adjust User Account Flags"
-msgstr ""
-
-#: ../root/admin/edit_user.tt:23 ../root/admin/PrivilegeSearch.js:131
-msgid "Administration flags"
-msgstr ""
-
 #: ../root/release/edit/recordings.tt:3
 msgid ""
 "All tracks require an associated recording. Click “Edit” to select a "
 "recording for each track. Choose “Add a new recording” if an appropriate one "
 "doesn’t exist yet."
-msgstr ""
-
-#: ../root/admin/delete_user.tt:13
-msgid "Allow the name “{editor_name}” to be reused."
 msgstr ""
 
 #: ../root/components/common-macros.tt:577
@@ -367,19 +337,9 @@ msgid "Applied Edit Count of Editor"
 msgstr ""
 
 #: ../root/edit/search_macros.tt:291 ../root/edit/search_macros.tt:307
-#: ../lib/MusicBrainz/Server/Data/Vote.pm:176
+#: ../lib/MusicBrainz/Server/Data/Vote.pm:178
 msgctxt "vote"
 msgid "Approve"
-msgstr ""
-
-#: ../root/admin/delete_user.tt:6
-msgid ""
-"Are you sure you want to delete all information about {e}? This cannot be "
-"undone!"
-msgstr ""
-
-#: ../root/admin/delete_user.tt:34
-msgid "Are you sure you want to delete your account? This cannot be undone!"
 msgstr ""
 
 #: ../root/edit/search_macros.tt:423 ../lib/MusicBrainz/Server/Edit/Area.pm:7
@@ -425,7 +385,7 @@ msgstr ""
 #: ../root/cdstub/ImportCDStub.js:45
 #: ../root/cdtoc/AttachCDTocConfirmation.js:71
 #: ../root/cdtoc/SelectArtistForCDToc.js:43
-#: ../root/components/RelationshipsTable.js:336
+#: ../root/components/RelationshipsTable.js:337
 #: ../root/components/list/ArtistList.js:68
 #: ../root/components/list/RecordingList.js:106
 #: ../root/components/list/ReleaseGroupList.js:98
@@ -452,7 +412,7 @@ msgstr ""
 #: ../root/report/RecordingsSameNameDifferentArtistsSameName.js:53
 #: ../root/report/components/ArtistList.js:51
 #: ../root/report/components/ArtistUrlList.js:35
-#: ../root/report/components/CDTocReleaseList.js:55
+#: ../root/report/components/CDTocReleaseList.js:56
 #: ../root/report/components/RecordingList.js:55
 #: ../root/report/components/ReleaseGroupList.js:57
 #: ../root/report/components/ReleaseGroupUrlList.js:38
@@ -529,14 +489,6 @@ msgstr ""
 msgid "Auto-Editor"
 msgstr ""
 
-#: ../root/admin/edit_user.tt:7 ../root/admin/PrivilegeSearch.js:67
-msgid "Auto-editor"
-msgstr ""
-
-#: ../root/admin/edit_user.tt:11 ../root/admin/PrivilegeSearch.js:87
-msgid "Banner message editor"
-msgstr ""
-
 #: ../root/cdtoc/attach_artist_releases.tt:19
 #: ../root/cdtoc/attach_filter_release.tt:33 ../root/cdtoc/list.tt:13
 #: ../root/cdtoc/lookup.tt:48 ../root/release/edit/duplicates.tt:17
@@ -595,17 +547,11 @@ msgstr ""
 msgid "Begin date:"
 msgstr ""
 
-#: ../root/release/add_cover_art.tt:93 ../root/search/error/InternalError.js:29
+#: ../root/release/add_cover_art.tt:95 ../root/search/error/InternalError.js:29
 msgid ""
 "Below is the error information. If you wish to file a bug report, you may do "
 "so at {bugs|our bug tracker}. The information below will help, so please be "
 "sure to include it!"
-msgstr ""
-
-#: ../root/admin/edit_user.tt:44
-#: ../root/static/scripts/account/components/EditProfileForm.js:259
-#: ../root/user/UserProfile.js:383
-msgid "Bio:"
 msgstr ""
 
 #: ../root/layout.tt:116 ../root/layout/components/ExternalLinks.js:132
@@ -613,7 +559,7 @@ msgstr ""
 msgid "Blog"
 msgstr ""
 
-#: ../root/admin/edit_user.tt:20 ../root/edit/search_macros.tt:397
+#: ../root/edit/search_macros.tt:397 ../root/admin/EditUser.js:128
 #: ../root/admin/PrivilegeSearch.js:121
 msgid "Bot"
 msgstr ""
@@ -685,14 +631,6 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: ../root/account/register.tt:45
-msgid "Captcha"
-msgstr ""
-
-#: ../root/account/register.tt:6
-msgid "Captcha incorrect. Try again."
-msgstr ""
-
 #: ../root/relationship/linktype/form.tt:26
 #: ../root/relationship/linktype/form.tt:31
 #: ../root/edit/details/AddRelationshipType.js:135
@@ -717,19 +655,12 @@ msgstr ""
 #: ../root/recording/RecordingIndex.js:62
 #: ../root/release_group/ReleaseGroupIndex.js:173
 #: ../root/search/components/ReleaseResults.js:118
-#: ../root/utility/tableColumns.js:475 ../root/utility/tableColumns.js:480
+#: ../root/utility/tableColumns.js:482 ../root/utility/tableColumns.js:487
 msgid "Catalog#"
 msgstr ""
 
 #: ../root/release_group/set_cover_art.tt:56
 msgid "Catalog#:"
-msgstr ""
-
-#: ../root/account/change_password.tt:25 ../root/account/change_password.tt:31
-#: ../root/account/change_password.tt:32 ../root/account/change_password.tt:36
-#: ../root/account/change_password.tt:37
-#: ../root/components/UserAccountTabs.js:86
-msgid "Change Password"
 msgstr ""
 
 #: ../root/admin/attributes/form.tt:53 ../root/admin/attributes/Attribute.js:82
@@ -771,19 +702,14 @@ msgstr ""
 msgid "Comment"
 msgstr ""
 
-#: ../root/cdstub/edit_form.tt:8 ../root/release/add_cover_art.tt:67
-#: ../root/release/add_cover_art.tt:135 ../root/release/reorder_cover_art.tt:19
+#: ../root/cdstub/edit_form.tt:8 ../root/release/add_cover_art.tt:69
+#: ../root/release/add_cover_art.tt:137 ../root/release/reorder_cover_art.tt:19
 #: ../root/release_group/set_cover_art.tt:71
 #: ../root/edit/details/AddCoverArt.js:54
 #: ../root/edit/details/EditCoverArt.js:67
 #: ../root/edit/details/RemoveCoverArt.js:56
 #: ../root/release/CoverArtFields.js:93
 msgid "Comment:"
-msgstr ""
-
-#: ../root/account/change_password.tt:22 ../root/account/register.tt:38
-#: ../root/account/reset_password.tt:12
-msgid "Confirm password:"
 msgstr ""
 
 #: ../root/place/edit_form.tt:28 ../root/edit/details/AddPlace.js:67
@@ -823,7 +749,7 @@ msgstr ""
 #: ../root/release_group/ReleaseGroupIndex.js:171
 #: ../root/search/components/ReleaseResults.js:116
 #: ../root/static/scripts/common/components/FilterForm.js:160
-#: ../root/utility/tableColumns.js:497 ../root/utility/tableColumns.js:509
+#: ../root/utility/tableColumns.js:504 ../root/utility/tableColumns.js:516
 msgid "Country"
 msgstr ""
 
@@ -838,19 +764,11 @@ msgstr ""
 msgid "Cover Art"
 msgstr ""
 
-#: ../root/account/register.tt:51 ../root/layout/components/TopMenu.js:204
-msgid "Create Account"
-msgstr ""
-
-#: ../root/account/register.tt:1 ../root/account/register.tt:9
-msgid "Create an Account"
-msgstr ""
-
 #: ../root/edit/search_macros.tt:423
 msgid "Created"
 msgstr ""
 
-#: ../root/release/add_cover_art.tt:83
+#: ../root/release/add_cover_art.tt:85
 msgid "Creating edit..."
 msgstr ""
 
@@ -876,7 +794,7 @@ msgstr ""
 #: ../root/admin/statistics-events/DeleteStatisticsEvent.js:25
 #: ../root/admin/statistics-events/StatisticsEventEditForm.js:30
 #: ../root/admin/statistics-events/StatisticsEventIndex.js:26
-#: ../root/components/RelationshipsTable.js:332
+#: ../root/components/RelationshipsTable.js:333
 #: ../root/edit/details/EditReleaseLabel.js:105
 #: ../root/edit/details/MergeReleases.js:239
 #: ../root/edit/details/historic/AddRelease.js:121
@@ -887,8 +805,8 @@ msgstr ""
 #: ../root/search/components/ReleaseResults.js:116
 #: ../root/static/scripts/annotation/AnnotationHistoryTable.js:106
 #: ../root/static/scripts/common/components/FilterForm.js:179
-#: ../root/utility/tableColumns.js:272 ../root/utility/tableColumns.js:277
-#: ../root/utility/tableColumns.js:503 ../root/utility/tableColumns.js:509
+#: ../root/utility/tableColumns.js:279 ../root/utility/tableColumns.js:284
+#: ../root/utility/tableColumns.js:510 ../root/utility/tableColumns.js:516
 msgid "Date"
 msgstr ""
 
@@ -916,22 +834,6 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-#: ../root/admin/delete_user.tt:4 ../root/components/UserAccountTabs.js:111
-msgid "Delete Account"
-msgstr ""
-
-#: ../root/admin/delete_user.tt:1
-msgid "Delete User"
-msgstr ""
-
-#: ../root/admin/delete_user.tt:38
-msgid "Delete my account"
-msgstr ""
-
-#: ../root/admin/delete_user.tt:17
-msgid "Delete {e}"
-msgstr ""
-
 #: ../root/admin/attributes/form.tt:61 ../root/doc/edit_type.tt:23
 #: ../root/admin/attributes/Attribute.js:80
 #: ../root/admin/statistics-events/DeleteStatisticsEvent.js:33
@@ -954,7 +856,7 @@ msgstr ""
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:146
 #: ../root/search/components/InstrumentResults.js:55
 #: ../root/static/scripts/collection/components/CollectionEditForm.js:206
-#: ../root/utility/tableColumns.js:669
+#: ../root/utility/tableColumns.js:676
 msgid "Description"
 msgstr ""
 
@@ -966,7 +868,7 @@ msgid "Description:"
 msgstr ""
 
 #: ../root/doc/edit_type.tt:28 ../root/components/EntityTabs.js:146
-#: ../root/elections/ElectionDetails.js:27 ../root/entity/Details.js:91
+#: ../root/elections/ElectionDetails.js:29 ../root/entity/Details.js:91
 #: ../root/entity/Details.js:93
 msgid "Details"
 msgstr ""
@@ -999,7 +901,7 @@ msgstr ""
 
 #: ../root/release/discids.tt:8 ../root/edit/details/SetTrackLengths.js:54
 #: ../root/otherlookup/OtherLookupForm.js:112
-#: ../root/utility/tableColumns.js:192 ../root/utility/tableColumns.js:197
+#: ../root/utility/tableColumns.js:199 ../root/utility/tableColumns.js:204
 msgid "Disc ID"
 msgstr ""
 
@@ -1050,7 +952,7 @@ msgstr ""
 #: ../root/cdstub/header.tt:9 ../root/cdtoc/list.tt:18 ../root/entity/edit.tt:1
 #: ../root/release/discids.tt:12 ../root/release/edit/recordings.tt:73
 #: ../root/release/edit/recordings.tt:109
-#: ../root/account/applications/Index.js:37
+#: ../root/account/applications/ApplicationList.js:41
 #: ../root/admin/attributes/Attribute.js:102
 #: ../root/admin/attributes/Language.js:64
 #: ../root/admin/attributes/Script.js:61
@@ -1123,26 +1025,8 @@ msgstr ""
 msgid "Edit note:"
 msgstr ""
 
-#: ../root/admin/edit_user.tt:16 ../root/admin/PrivilegeSearch.js:107
-#: ../root/user/UserProfile.js:890
-msgid "Edit notes disabled"
-msgstr ""
-
-#: ../root/admin/edit_user.tt:38
-msgid "Edit profile"
-msgstr ""
-
-#: ../root/admin/edit_user.tt:50
-msgid "Edit user"
-msgstr ""
-
 #: ../root/edit/search_macros.tt:423
 msgid "Edited entity"
-msgstr ""
-
-#: ../root/admin/edit_user.tt:15 ../root/admin/PrivilegeSearch.js:102
-#: ../root/user/UserProfile.js:887
-msgid "Editing/voting disabled"
 msgstr ""
 
 #: ../root/edit/search_macros.tt:423
@@ -1157,16 +1041,6 @@ msgstr ""
 
 #: ../root/edit/search_macros.tt:423
 msgid "Editor Flag"
-msgstr ""
-
-#: ../root/user/profile/layout.tt:1 ../root/components/UserAccountLayout.js:62
-#: ../root/components/UserAccountLayout.js:63
-msgid "Editor “{user}”"
-msgstr ""
-
-#: ../root/account/register.tt:39 ../root/admin/edit_user.tt:40
-#: ../root/user/UserProfile.js:186
-msgid "Email:"
 msgstr ""
 
 #: ../root/release/edit/tracklist.tt:45
@@ -1202,9 +1076,9 @@ msgid ""
 "marker. If you’re too far out, clicking will zoom instead."
 msgstr ""
 
-#: ../root/components/forms.tt:51 ../root/release/add_cover_art.tt:168
+#: ../root/components/forms.tt:51 ../root/release/add_cover_art.tt:170
 #: ../root/release/edit/layout.tt:58
-#: ../root/static/scripts/edit/components/EnterEdit.js:71
+#: ../root/static/scripts/edit/components/EnterEdit.js:74
 msgid "Enter edit"
 msgstr ""
 
@@ -1281,7 +1155,7 @@ msgstr ""
 msgid "External Links"
 msgstr ""
 
-#: ../root/release/add_cover_art.tt:46
+#: ../root/release/add_cover_art.tt:48
 msgid "File:"
 msgstr ""
 
@@ -1297,18 +1171,6 @@ msgstr ""
 msgid ""
 "First enter all track information, including titles and artist credits, in "
 "order to edit their recordings."
-msgstr ""
-
-#: ../root/account/register.tt:61
-msgid ""
-"Follow our {bl|blog} or {tw|twitter account}! To talk to other users, try "
-"the {fo|forums} or {irc|IRC}."
-msgstr ""
-
-#: ../root/admin/delete_user.tt:21
-msgid ""
-"For information about the account deletion process, please read the {uri|"
-"account FAQ}."
 msgstr ""
 
 #: ../root/artist/edit_form.tt:3 ../root/recording/edit_form.tt:17
@@ -1614,7 +1476,7 @@ msgstr ""
 #: ../root/report/IswcsWithManyWorks.js:49
 #: ../root/search/components/WorkResults.js:57
 #: ../root/static/scripts/common/components/IswcList.js:26
-#: ../root/utility/tableColumns.js:696
+#: ../root/utility/tableColumns.js:703
 msgid "ISWC"
 msgstr ""
 
@@ -1675,12 +1537,6 @@ msgstr ""
 
 #: ../root/release/edit/tracklist.tt:5
 msgid "If you have a tracklist you can copy and paste, you can input it here."
-msgstr ""
-
-#: ../root/account/register.tt:55
-msgid ""
-"If you have any questions, please review the {faq|FAQs} or {doc|"
-"documentation} before {con|contacting us}. "
 msgstr ""
 
 #: ../root/release/edit/tracklist.tt:15
@@ -1773,12 +1629,6 @@ msgid ""
 "before submitting."
 msgstr ""
 
-#: ../root/admin/delete_user.tt:31
-msgid ""
-"Keep in mind this process might take a fairly long time if you have entered "
-"a lot of tags. If the process times out, please {contact_url|contact us}."
-msgstr ""
-
 #: ../root/cdtoc/attach_artist_releases.tt:17
 #: ../root/cdtoc/attach_filter_release.tt:31 ../root/cdtoc/list.tt:11
 #: ../root/cdtoc/lookup.tt:46 ../root/edit/search_macros.tt:423
@@ -1801,8 +1651,8 @@ msgstr ""
 #: ../root/search/components/SearchForm.js:42
 #: ../root/static/scripts/common/constants.js:40
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:60
-#: ../root/user/UserProfile.js:53 ../root/utility/tableColumns.js:526
-#: ../root/utility/tableColumns.js:531
+#: ../root/user/UserProfile.js:53 ../root/utility/tableColumns.js:533
+#: ../root/utility/tableColumns.js:538
 msgid "Label"
 msgstr ""
 
@@ -1838,7 +1688,7 @@ msgstr ""
 #: ../root/cdstub/cdstub.tt:9 ../root/release/discids.tt:10
 #: ../root/release/edit/tracklist.tt:164 ../root/release/edit/tracklist.tt:454
 #: ../root/cdstub/CDStubInfo.js:29 ../root/cdtoc/AttachCDTocConfirmation.js:72
-#: ../root/cdtoc/CDTocInfo.js:54 ../root/components/RelationshipsTable.js:337
+#: ../root/cdtoc/CDTocInfo.js:54 ../root/components/RelationshipsTable.js:338
 #: ../root/components/list/RecordingList.js:115
 #: ../root/edit/details/AddStandaloneRecording.js:59
 #: ../root/edit/details/EditMedium.js:317
@@ -1876,10 +1726,6 @@ msgstr ""
 msgid "Location Editor"
 msgstr ""
 
-#: ../root/admin/edit_user.tt:10 ../root/admin/PrivilegeSearch.js:82
-msgid "Location editor"
-msgstr ""
-
 #: ../root/components/common-macros.tt:421
 #: ../root/components/RequestLogin.js:23
 msgid "Log in"
@@ -1909,7 +1755,7 @@ msgid "MM"
 msgstr ""
 
 #: ../root/components/forms.tt:15 ../root/components/forms.tt:20
-#: ../root/static/scripts/edit/components/EnterEdit.js:61
+#: ../root/static/scripts/edit/components/EnterEdit.js:63
 msgid "Make all edits votable."
 msgstr ""
 
@@ -1947,10 +1793,6 @@ msgstr ""
 msgid "Merge Process"
 msgstr ""
 
-#: ../root/user/contact.tt:13 ../root/user/ReportUser.js:147
-msgid "Message"
-msgstr ""
-
 #: ../root/cdtoc/list.tt:63 ../root/release/discids.tt:45
 msgid "Move"
 msgstr ""
@@ -1959,11 +1801,11 @@ msgstr ""
 msgid "Move Disc ID"
 msgstr ""
 
-#: ../root/release/add_cover_art.tt:42
+#: ../root/release/add_cover_art.tt:44
 msgid "Move file down"
 msgstr ""
 
-#: ../root/release/add_cover_art.tt:40
+#: ../root/release/add_cover_art.tt:42
 msgid "Move file up"
 msgstr ""
 
@@ -1983,21 +1825,8 @@ msgstr ""
 msgid "Move track up"
 msgstr ""
 
-#: ../root/account/register.tt:17
-msgid ""
-"MusicBrainz believes strongly in the privacy of its users! Any personal "
-"information you choose to provide will not be sold or shared with anyone "
-"else. For full details, please read our {doc|Privacy Policy}."
-msgstr ""
-
 #: ../root/cdtoc/lookup.tt:99
 msgid "MusicBrainz does not have any CDs with the TOC:"
-msgstr ""
-
-#: ../root/account/register.tt:67
-msgid ""
-"MusicBrainz has one account type for all users. If you represent an artist "
-"or label, please use the above form to create an account."
 msgstr ""
 
 #: ../root/admin/attributes/form.tt:7 ../root/admin/attributes/form.tt:23
@@ -2077,7 +1906,7 @@ msgstr ""
 msgid "New Attribute"
 msgstr ""
 
-#: ../root/release/add_cover_art.tt:146
+#: ../root/release/add_cover_art.tt:148
 msgid "New Image Goes Here"
 msgstr ""
 
@@ -2089,10 +1918,6 @@ msgstr ""
 #: ../root/relationship/linktype/create.tt:1
 #: ../root/relationship/linktype/create.tt:3
 msgid "New Relationship Type"
-msgstr ""
-
-#: ../root/account/change_password.tt:21
-msgid "New password:"
 msgstr ""
 
 #: ../root/components/paginator.tt:44 ../root/components/paginator.tt:46
@@ -2108,7 +1933,7 @@ msgid "Next »"
 msgstr ""
 
 #: ../root/edit/search_macros.tt:291 ../root/edit/search_macros.tt:307
-#: ../lib/MusicBrainz/Server/Data/Vote.pm:174
+#: ../lib/MusicBrainz/Server/Data/Vote.pm:176
 #: ../root/edit/components/Vote.js:93
 msgctxt "vote"
 msgid "No"
@@ -2116,10 +1941,6 @@ msgstr ""
 
 #: ../root/components/forms.tt:369
 msgid "No description available."
-msgstr ""
-
-#: ../root/admin/edit_user.tt:21 ../root/admin/PrivilegeSearch.js:126
-msgid "No nag"
 msgstr ""
 
 #: ../root/release_group/set_cover_art.tt:96
@@ -2183,10 +2004,6 @@ msgstr ""
 
 #: ../root/release/edit/tracklist.tt:180 ../root/release/edit/tracklist.tt:400
 msgid "Now loading tracklist..."
-msgstr ""
-
-#: ../root/account/change_password.tt:20
-msgid "Old password:"
 msgstr ""
 
 #: ../root/release_group/set_cover_art.tt:13
@@ -2257,11 +2074,6 @@ msgstr ""
 msgid "Parse Tracks"
 msgstr ""
 
-#: ../root/account/register.tt:37 ../root/account/reset_password.tt:11
-#: ../root/user/Login.js:107
-msgid "Password:"
-msgstr ""
-
 #: ../root/edit/search_macros.tt:423 ../lib/MusicBrainz/Server/Edit/Place.pm:8
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:45
 #: ../root/components/list/PlaceList.js:54 ../root/edit/details/AddPlace.js:30
@@ -2279,16 +2091,6 @@ msgstr ""
 msgid "Place Details"
 msgstr ""
 
-#: ../root/account/change_password.tt:3
-msgid ""
-"Please change your password. Unfortunately we've discovered that secure "
-"hashes user's passwords were temporarily available for download on our FTP "
-"site. While it is extremely unlikely that anyone will be able to derive the "
-"original passwords from this mishap, we are requiring all of our users to "
-"change their passwords. Sorry for the inconvenience. For more information "
-"see {blog|the recent blog post}."
-msgstr ""
-
 #: ../root/edit/search_macros.tt:421
 msgid "Please choose a condition"
 msgstr ""
@@ -2301,12 +2103,8 @@ msgstr ""
 
 #: ../root/release/edit/information.tt:312
 msgid ""
-"Please enter the barcode of the release you are entering, see <a "
-"href=\"{url}\" target=\"_blank\">Barcode</a> for more information."
-msgstr ""
-
-#: ../root/account/change_password.tt:13
-msgid "Please enter your old password below, and then your new password."
+"Please enter the barcode of the release you are entering, see <a href="
+"\"{url}\" target=\"_blank\">Barcode</a> for more information."
 msgstr ""
 
 #: ../root/layout/merge-helper.tt:24
@@ -2316,13 +2114,7 @@ msgid ""
 "the \"merge\" link."
 msgstr ""
 
-#: ../root/account/register.tt:50
-msgid ""
-"Please review the {coc|MusicBrainz Code of Conduct} before creating an "
-"account."
-msgstr ""
-
-#: ../root/release/add_cover_art.tt:64 ../root/release/CoverArtFields.js:84
+#: ../root/release/add_cover_art.tt:66 ../root/release/CoverArtFields.js:84
 msgid ""
 "Please see the {doc|Cover Art Types} documentation for a description of "
 "these types."
@@ -2337,7 +2129,7 @@ msgstr ""
 msgid "Position"
 msgstr ""
 
-#: ../root/release/add_cover_art.tt:123 ../root/edit/details/AddMedium.js:123
+#: ../root/release/add_cover_art.tt:125 ../root/edit/details/AddMedium.js:123
 msgid "Position:"
 msgstr ""
 
@@ -2430,12 +2222,8 @@ msgstr ""
 #: ../root/edit/details/AddRelationshipType.js:56
 #: ../root/edit/details/EditRelationshipType.js:156
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:91
-#: ../root/utility/tableColumns.js:738
+#: ../root/utility/tableColumns.js:745
 msgid "Relationship Type"
-msgstr ""
-
-#: ../root/admin/edit_user.tt:9 ../root/admin/PrivilegeSearch.js:77
-msgid "Relationship editor"
 msgstr ""
 
 #: ../root/cdtoc/attach_artist_releases.tt:15
@@ -2457,7 +2245,7 @@ msgstr ""
 #: ../root/edit/details/historic/EditReleaseEvents.js:108
 #: ../root/layout/components/Search.js:29
 #: ../root/release_group/ReleaseGroupIndex.js:167
-#: ../root/report/components/CDTocReleaseList.js:49
+#: ../root/report/components/CDTocReleaseList.js:50
 #: ../root/report/components/ReleaseList.js:52
 #: ../root/report/components/ReleaseUrlList.js:37
 #: ../root/search/components/RecordingResults.js:145
@@ -2550,8 +2338,9 @@ msgstr ""
 msgid "Release:"
 msgstr ""
 
-#: ../root/cdtoc/list.tt:60 ../root/release/add_cover_art.tt:108
-#: ../root/release/discids.tt:42 ../root/account/applications/Index.js:41
+#: ../root/cdtoc/list.tt:60 ../root/release/add_cover_art.tt:110
+#: ../root/release/discids.tt:42
+#: ../root/account/applications/ApplicationList.js:45
 #: ../root/admin/attributes/Attribute.js:106
 #: ../root/admin/attributes/Language.js:68
 #: ../root/admin/attributes/Script.js:65
@@ -2591,7 +2380,7 @@ msgstr ""
 #: ../root/components/common-macros.tt:584
 #: ../root/components/common-macros.tt:592
 #: ../root/components/RemoveFromMergeTableCell.js:39
-#: ../root/utility/tableColumns.js:715 ../root/utility/tableColumns.js:725
+#: ../root/utility/tableColumns.js:722 ../root/utility/tableColumns.js:732
 msgid "Remove from merge"
 msgstr ""
 
@@ -2625,14 +2414,8 @@ msgctxt "header"
 msgid "Reorder Cover Art"
 msgstr ""
 
-#: ../root/release/add_cover_art.tt:81
+#: ../root/release/add_cover_art.tt:83
 msgid "Request signature..."
-msgstr ""
-
-#: ../root/account/reset_password.tt:1 ../root/account/reset_password.tt:3
-#: ../root/account/reset_password.tt:15 ../root/account/LostPassword.js:55
-#: ../root/account/ResetPasswordStatus.js:19
-msgid "Reset Password"
 msgstr ""
 
 #: ../root/release/edit/tracklist.tt:525
@@ -2647,10 +2430,6 @@ msgstr ""
 
 #: ../root/release/edit/recordings.tt:14
 msgid "Reuse previous recordings"
-msgstr ""
-
-#: ../root/user/contact.tt:18
-msgid "Reveal my email address"
 msgstr ""
 
 #: ../root/relationship/linktype/form.tt:14
@@ -2756,24 +2535,8 @@ msgid ""
 "seem to match any type, just leave this blank."
 msgstr ""
 
-#: ../root/release/add_cover_art.tt:29
+#: ../root/release/add_cover_art.tt:31
 msgid "Select images..."
-msgstr ""
-
-#: ../root/user/contact.tt:22 ../root/user/ReportUser.js:178
-msgid "Send"
-msgstr ""
-
-#: ../root/user/contact.tt:1 ../root/user/contact.tt:3
-#: ../lib/MusicBrainz/Server/Controller/User.pm:302
-#: ../lib/MusicBrainz/Server/Controller/User.pm:328
-#: ../lib/MusicBrainz/Server/Controller/User.pm:343
-#: ../root/account/LostUsername.js:42
-msgid "Send Email"
-msgstr ""
-
-#: ../root/user/contact.tt:19 ../root/user/ReportUser.js:173
-msgid "Send a copy to my own email address"
 msgstr ""
 
 #: ../root/components/forms.tt:259 ../root/components/forms.tt:284
@@ -2801,10 +2564,6 @@ msgstr ""
 msgid "Set Release Group Cover Art"
 msgstr ""
 
-#: ../root/account/reset_password.tt:5
-msgid "Set a new password for your MusicBrainz account."
-msgstr ""
-
 #: ../root/release_group/set_cover_art.tt:4
 #: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/SetCoverArt.pm:20
 #: ../root/layout/components/sidebar/ReleaseGroupSidebar.js:88
@@ -2827,10 +2586,6 @@ msgstr ""
 
 #: ../root/release/edit/duplicates.tt:2
 msgid "Similar releases"
-msgstr ""
-
-#: ../root/admin/edit_user.tt:41
-msgid "Skip verification"
 msgstr ""
 
 #: ../root/release/edit/tracklist.tt:499
@@ -2857,10 +2612,6 @@ msgstr ""
 msgid "Sort name:"
 msgstr ""
 
-#: ../root/admin/edit_user.tt:14 ../root/admin/PrivilegeSearch.js:96
-msgid "Spammer"
-msgstr ""
-
 #: ../root/artist/split.tt:1
 msgid "Split Artist"
 msgstr ""
@@ -2880,10 +2631,6 @@ msgstr ""
 
 #: ../root/layout.tt:119 ../root/layout/components/Footer.js:44
 msgid "Stop using beta site"
-msgstr ""
-
-#: ../root/user/contact.tt:10
-msgid "Subject:"
 msgstr ""
 
 #: ../root/cdstub/edit_form.tt:24
@@ -2918,12 +2665,8 @@ msgstr ""
 #: ../root/search/components/RecordingResults.js:146
 #: ../root/search/components/ReleaseResults.js:125
 #: ../root/static/scripts/common/components/TaggerIcon.js:82
-#: ../root/utility/tableColumns.js:770
+#: ../root/utility/tableColumns.js:777
 msgid "Tagger"
-msgstr ""
-
-#: ../root/admin/edit_user.tt:19 ../root/admin/PrivilegeSearch.js:117
-msgid "Technical flags"
 msgstr ""
 
 #: ../root/release/add_cover_art.tt:12
@@ -2992,14 +2735,6 @@ msgstr ""
 msgid "The tracklist for this medium is unknown."
 msgstr ""
 
-#: ../root/account/register.tt:35
-msgid ""
-"The username you have entered looks like an email address. This is allowed, "
-"but please keep in mind that everyone will be able to see it. Only use an "
-"email address as your username if you are completely sure you are happy with "
-"that."
-msgstr ""
-
 #: ../root/components/forms.tt:201 ../root/release/edit/information.tt:162
 #: ../root/static/scripts/edit/components/PartialDateInput.js:52
 msgid ""
@@ -3061,6 +2796,7 @@ msgid "This artist has ended."
 msgstr ""
 
 #: ../root/relationship/linkattributetype/form.tt:20
+#: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:145
 msgid "This attribute supports free text credits"
 msgstr ""
 
@@ -3069,6 +2805,7 @@ msgid "This attribute type is only used for grouping, please select a subtype"
 msgstr ""
 
 #: ../root/relationship/linkattributetype/form.tt:21
+#: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:151
 msgid "This attribute uses free text values"
 msgstr ""
 
@@ -3248,12 +2985,6 @@ msgstr ""
 msgid "This track is hidden in the pregap."
 msgstr ""
 
-#: ../root/admin/delete_user.tt:26
-msgid ""
-"This will also cancel all your open edits and change all of your votes on "
-"any edits currently open to Abstain."
-msgstr ""
-
 #: ../root/event/edit_form.tt:40
 #: ../root/layout/components/sidebar/EventSidebar.js:69
 #: ../root/main/error/components/ErrorEnvironment.js:27
@@ -3267,7 +2998,7 @@ msgstr ""
 #: ../root/admin/statistics-events/StatisticsEventIndex.js:27
 #: ../root/cdstub/BrowseCDStubs.js:36 ../root/cdstub/CDStubInfo.js:27
 #: ../root/cdtoc/AttachCDTocConfirmation.js:70
-#: ../root/components/RelationshipsTable.js:333
+#: ../root/components/RelationshipsTable.js:334
 #: ../root/components/list/ReleaseGroupList.js:91
 #: ../root/edit/details/EditMedium.js:315
 #: ../root/edit/details/EditMedium.js:319 ../root/isrc/Index.js:66
@@ -3346,10 +3077,6 @@ msgstr ""
 msgid "Tracks:"
 msgstr ""
 
-#: ../root/admin/edit_user.tt:8 ../root/admin/PrivilegeSearch.js:72
-msgid "Transclusion editor"
-msgstr ""
-
 #: ../root/components/forms.tt:261 ../root/components/forms.tt:286
 #: ../root/static/scripts/edit/components/GuessCaseOptions.js:116
 msgid "Turkish"
@@ -3359,7 +3086,8 @@ msgstr ""
 msgid "Twitter"
 msgstr ""
 
-#: ../root/edit/search_macros.tt:423 ../root/account/applications/Index.js:140
+#: ../root/edit/search_macros.tt:423
+#: ../root/account/applications/ApplicationList.js:155
 #: ../root/components/Aliases/AliasTable.js:26
 #: ../root/components/list/ReleaseGroupList.js:105
 #: ../root/components/list/ReleaseList.js:155
@@ -3404,14 +3132,14 @@ msgstr ""
 #: ../root/static/scripts/common/components/FilterForm.js:75
 #: ../root/static/scripts/edit/externalLinks.js:1190
 #: ../root/static/scripts/edit/externalLinks.js:1507
-#: ../root/utility/tableColumns.js:642 ../root/utility/tableColumns.js:647
+#: ../root/utility/tableColumns.js:649 ../root/utility/tableColumns.js:654
 msgid "Type"
 msgstr ""
 
 #: ../root/area/edit_form.tt:11 ../root/artist/edit_form.tt:16
 #: ../root/event/edit_form.tt:14 ../root/instrument/edit_form.tt:11
 #: ../root/label/edit_form.tt:15 ../root/place/edit_form.tt:15
-#: ../root/release/add_cover_art.tt:52 ../root/release/edit/information.tt:103
+#: ../root/release/add_cover_art.tt:54 ../root/release/edit/information.tt:103
 #: ../root/series/edit_form.tt:16 ../root/work/edit_form.tt:14
 #: ../root/layout/components/sidebar/CollectionSidebar.js:59
 #: ../root/layout/components/sidebar/ReleaseGroupSidebar.js:65
@@ -3421,7 +3149,7 @@ msgstr ""
 msgid "Type:"
 msgstr ""
 
-#: ../root/release/add_cover_art.tt:135 ../root/release/reorder_cover_art.tt:19
+#: ../root/release/add_cover_art.tt:137 ../root/release/reorder_cover_art.tt:19
 #: ../root/release_group/set_cover_art.tt:69
 #: ../root/edit/details/AddCoverArt.js:33
 #: ../root/edit/details/EditCoverArt.js:58
@@ -3438,7 +3166,7 @@ msgstr ""
 msgid "Unable to parse the tracklist you entered."
 msgstr ""
 
-#: ../root/admin/edit_user.tt:17 ../root/edit/search_macros.tt:397
+#: ../root/edit/search_macros.tt:397 ../root/admin/EditUser.js:121
 #: ../root/admin/PrivilegeSearch.js:112 ../root/user/UserProfile.js:893
 msgid "Untrusted"
 msgstr ""
@@ -3451,7 +3179,7 @@ msgstr ""
 msgid "Update the recording title to match the track title."
 msgstr ""
 
-#: ../root/release/add_cover_art.tt:82
+#: ../root/release/add_cover_art.tt:84
 msgid "Uploading image..."
 msgstr ""
 
@@ -3492,24 +3220,7 @@ msgstr ""
 msgid "Use track titles"
 msgstr ""
 
-#: ../root/account/change_password.tt:19
-msgid "User name:"
-msgstr ""
-
-#: ../root/admin/edit_user.tt:6 ../root/admin/PrivilegeSearch.js:63
-msgid "User permissions"
-msgstr ""
-
-#: ../root/admin/edit_user.tt:13 ../root/admin/PrivilegeSearch.js:92
-msgid "User sanctions"
-msgstr ""
-
-#: ../root/account/register.tt:30 ../root/admin/edit_user.tt:39
-#: ../root/account/LostPassword.js:44 ../root/user/Login.js:100
-msgid "Username:"
-msgstr ""
-
-#: ../root/release/add_cover_art.tt:79
+#: ../root/release/add_cover_art.tt:81
 msgid "Validating file..."
 msgstr ""
 
@@ -3585,10 +3296,6 @@ msgstr ""
 msgid "We used DiscID <code>{discid}</code> to look up this information."
 msgstr ""
 
-#: ../root/admin/edit_user.tt:42
-msgid "Website:"
-msgstr ""
-
 #: ../root/layout/merge-helper.tt:18
 #: ../root/layout/components/MergeHelper.js:53
 msgid ""
@@ -3640,7 +3347,7 @@ msgid "Year"
 msgstr ""
 
 #: ../root/edit/search_macros.tt:291 ../root/edit/search_macros.tt:307
-#: ../lib/MusicBrainz/Server/Data/Vote.pm:175
+#: ../lib/MusicBrainz/Server/Data/Vote.pm:177
 #: ../root/edit/components/Vote.js:86
 msgctxt "vote"
 msgid "Yes"
@@ -3695,16 +3402,9 @@ msgid ""
 msgstr ""
 
 #: ../root/release/edit/editnote.tt:10
-#: ../lib/MusicBrainz/Server/Controller/EditNote.pm:187
+#: ../lib/MusicBrainz/Server/Controller/EditNote.pm:195
 #: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:778
 msgid "You haven’t made any changes!"
-msgstr ""
-
-#: ../root/account/register.tt:22
-msgid ""
-"You may remove your personal information from our services anytime by "
-"deleting your account. For more details, see our {doc|GDPR compliance "
-"statement}."
 msgstr ""
 
 #: ../root/edit/search_macros.tt:414
@@ -3719,12 +3419,6 @@ msgstr ""
 msgid ""
 "You must enter a title for every track (if the track is untitled, enter "
 "“{untitled_track}”)."
-msgstr ""
-
-#: ../root/account/register.tt:41
-msgid ""
-"You must provide a working email address if you wish to contribute to the "
-"database."
 msgstr ""
 
 #: ../root/release/edit/editnote.tt:32
@@ -3769,10 +3463,6 @@ msgid ""
 "specific, or to try again."
 msgstr ""
 
-#: ../root/account/register.tt:32
-msgid "Your username will be publicly visible."
-msgstr ""
-
 #: ../root/layout.tt:21 ../root/layout/index.js:209
 msgid ""
 "You’re currently not allowed to edit or vote because an admin has revoked "
@@ -3787,7 +3477,7 @@ msgid ""
 "about why, please {uri|send us a message}."
 msgstr ""
 
-#: ../root/layout.tt:25 ../lib/MusicBrainz/Server/Controller/EditNote.pm:54
+#: ../root/layout.tt:25 ../lib/MusicBrainz/Server/Controller/EditNote.pm:63
 #: ../root/layout/index.js:218
 msgid ""
 "You’re currently not allowed to leave or change edit notes because an admin "
@@ -3893,7 +3583,7 @@ msgstr ""
 #: ../root/release/edit/tracklist.tt:83 ../root/release/edit/tracklist.tt:316
 #: ../root/release/edit/tracklist.tt:495 ../root/release/edit/tracklist.tt:510
 #: ../root/static/scripts/edit/components/GuessCaseOptions.js:121
-#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:908
+#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:822
 msgid "help"
 msgstr ""
 
@@ -4035,7 +3725,7 @@ msgstr ""
 msgid "on"
 msgstr ""
 
-#: ../root/release/add_cover_art.tt:31
+#: ../root/release/add_cover_art.tt:33
 msgid "or drop files here"
 msgstr ""
 
@@ -4136,10 +3826,6 @@ msgstr ""
 msgid "{uri|Return to musicbrainz.org}."
 msgstr ""
 
-#: ../root/user/profile/layout.tt:8
-msgid "{user}"
-msgstr ""
-
 #: ../root/recording/edit_form.tt:10
 msgid ""
 "{valink|Various Artists} should very rarely be used on recordings, make sure "
@@ -4163,7 +3849,7 @@ msgstr ""
 msgid "…"
 msgstr ""
 
-#: ../lib/MusicBrainz/Script/RemoveEmpty.pm:138
+#: ../lib/MusicBrainz/Script/RemoveEmpty.pm:139
 msgid ""
 "This entity was automatically removed because it was empty: it had no "
 "relationships associated with it, nor (if relevant for the type of entity in "
@@ -4173,12 +3859,12 @@ msgid ""
 "avoid another automatic removal."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller.pm:33
+#: ../lib/MusicBrainz/Server/Controller.pm:34
 #, perl-brace-format
 msgid "'{id}' is not a valid MusicBrainz ID"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller.pm:121
+#: ../lib/MusicBrainz/Server/Controller.pm:122
 #, perl-brace-format
 msgid ""
 "Thank you, your {edit_url|edit} ({edit_ids}) has been automatically accepted "
@@ -4189,7 +3875,7 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../lib/MusicBrainz/Server/Controller.pm:127
+#: ../lib/MusicBrainz/Server/Controller.pm:128
 #, perl-brace-format
 msgid ""
 "Thank you, your {edit_url|edit} ({edit_ids}) has been entered into the edit "
@@ -4200,7 +3886,7 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../lib/MusicBrainz/Server/Controller.pm:135
+#: ../lib/MusicBrainz/Server/Controller.pm:136
 #, perl-brace-format
 msgid ""
 "Thank you, your {edit_url|edit} ({edit_ids}) has been entered, with "
@@ -4277,15 +3963,15 @@ msgstr ""
 msgid "Sorry, this password reset link has expired."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:329
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:337
 msgid "There is no user with this email"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:412
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:420
 msgid "Your profile has been updated."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:416
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:424
 #, perl-brace-format
 msgid ""
 "We have sent you a verification email to <code>{email}</code>. Please check "
@@ -4293,11 +3979,11 @@ msgid ""
 "address."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:455
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:463
 msgid "Your password has been changed."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:679
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:701
 msgid ""
 "<strong>We were unable to send a verification email to you.</strong><br/"
 ">Please confirm that you have entered a valid address by editing your "
@@ -4305,51 +3991,55 @@ msgid ""
 "us at {mail|support@musicbrainz.org}."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Account/Subscriptions/Collection.pm:21
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:785
+msgid "There is no OAuth token with these parameters."
+msgstr ""
+
+#: ../lib/MusicBrainz/Server/Controller/Account/Subscriptions/Collection.pm:22
 msgid "The provided collection ID doesn’t exist."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Admin.pm:81
+#: ../lib/MusicBrainz/Server/Controller/Admin.pm:91
 msgid "User successfully edited."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Admin.pm:148
+#: ../lib/MusicBrainz/Server/Controller/Admin.pm:164
 msgid ""
 "Banner updated. Remember that each server has its own, independent banner."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Admin.pm:184
-#: ../lib/MusicBrainz/Server/Controller/Admin.pm:250
+#: ../lib/MusicBrainz/Server/Controller/Admin.pm:200
+#: ../lib/MusicBrainz/Server/Controller/Admin.pm:266
 #: ../root/static/scripts/release-editor/trackParser.js:497
 msgid "Invalid regular expression."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Admin/Attributes.pm:124
+#: ../lib/MusicBrainz/Server/Controller/Admin/Attributes.pm:131
 #, perl-brace-format
 msgid "You cannot remove the attribute \"{name}\" because it is still in use."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Admin/Attributes.pm:136
+#: ../lib/MusicBrainz/Server/Controller/Admin/Attributes.pm:143
 #, perl-brace-format
 msgid ""
 "You cannot remove the attribute “{name}” because it is the parent of other "
 "attributes."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Artist.pm:720
+#: ../lib/MusicBrainz/Server/Controller/Artist.pm:721
 msgid "You cannot merge a special purpose artist into another artist"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Artist.pm:725
+#: ../lib/MusicBrainz/Server/Controller/Artist.pm:726
 msgid "You cannot merge into Deleted Artist"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/AutoEditorElections.pm:85
+#: ../lib/MusicBrainz/Server/Controller/AutoEditorElections.pm:86
 #, perl-brace-format
 msgid "'{id}' is not a valid election ID"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/CDStub.pm:62
+#: ../lib/MusicBrainz/Server/Controller/CDStub.pm:63
 msgid "The required TOC parameter was invalid or not present"
 msgstr ""
 
@@ -4415,92 +4105,92 @@ msgstr ""
 msgid "The provided CD TOC ID doesn’t exist."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Collection.pm:76
+#: ../lib/MusicBrainz/Server/Controller/Collection.pm:77
 #, perl-brace-format
 msgid ""
 "“{id}” is not a valid row ID; the entity might have been merged or deleted."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Edit.pm:293
+#: ../lib/MusicBrainz/Server/Controller/Edit.pm:294
 #: ../lib/MusicBrainz/Server/Form/ChangeReleaseQuality.pm:24
-#: ../root/static/scripts/common/constants.js:332
+#: ../root/static/scripts/common/constants.js:343
 msgid "Low"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Edit.pm:293
+#: ../lib/MusicBrainz/Server/Controller/Edit.pm:294
 #: ../lib/MusicBrainz/Server/Form/ChangeReleaseQuality.pm:25
-#: ../root/static/scripts/common/constants.js:333
-#: ../root/static/scripts/common/constants.js:334
+#: ../root/static/scripts/common/constants.js:344
+#: ../root/static/scripts/common/constants.js:345
 msgid "Normal"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Edit.pm:293
+#: ../lib/MusicBrainz/Server/Controller/Edit.pm:294
 #: ../lib/MusicBrainz/Server/Form/ChangeReleaseQuality.pm:26
-#: ../root/static/scripts/common/constants.js:335
+#: ../root/static/scripts/common/constants.js:346
 msgid "High"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Edit.pm:293
+#: ../lib/MusicBrainz/Server/Controller/Edit.pm:294
 msgid "Default"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/EditNote.pm:40
-#: ../lib/MusicBrainz/Server/Controller/EditNote.pm:52
-#: ../lib/MusicBrainz/Server/Controller/EditNote.pm:70
-#: ../lib/MusicBrainz/Server/Controller/EditNote.pm:96
-#: ../lib/MusicBrainz/Server/Controller/EditNote.pm:115
+#: ../lib/MusicBrainz/Server/Controller/EditNote.pm:49
+#: ../lib/MusicBrainz/Server/Controller/EditNote.pm:61
+#: ../lib/MusicBrainz/Server/Controller/EditNote.pm:79
+#: ../lib/MusicBrainz/Server/Controller/EditNote.pm:105
+#: ../lib/MusicBrainz/Server/Controller/EditNote.pm:123
 msgid "Can’t change edit note"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/EditNote.pm:41
+#: ../lib/MusicBrainz/Server/Controller/EditNote.pm:50
 msgid "You can’t change other users’ edit notes."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/EditNote.pm:71
+#: ../lib/MusicBrainz/Server/Controller/EditNote.pm:80
 msgid "This note has already been removed."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/EditNote.pm:98
+#: ../lib/MusicBrainz/Server/Controller/EditNote.pm:107
 msgid ""
 "You can’t change this note, since somebody else has already replied to it. "
 "If there’s an important reason why it should be changed (for example, it "
 "contains private data), please {contact_url|contact us}."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/EditNote.pm:117
+#: ../lib/MusicBrainz/Server/Controller/EditNote.pm:125
 msgid ""
 "You can’t change this note, since it was entered too long ago. If there’s an "
 "important reason why it should be changed (for example, it contains private "
 "data), please {contact_url|contact us}."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Label.pm:249
+#: ../lib/MusicBrainz/Server/Controller/Label.pm:250
 msgid "You cannot merge a special purpose label into another label."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Label.pm:254
+#: ../lib/MusicBrainz/Server/Controller/Label.pm:255
 msgid "You cannot merge into Deleted Label."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Rating.pm:40
+#: ../lib/MusicBrainz/Server/Controller/Rating.pm:41
 msgid "The rating should be an integer between 0 and 100."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Relationship/LinkType.pm:70
+#: ../lib/MusicBrainz/Server/Controller/Relationship/LinkType.pm:71
 #, perl-brace-format
 msgid "'{types}' is not a valid pair of types for relationships."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Release.pm:595
+#: ../lib/MusicBrainz/Server/Controller/Release.pm:600
 msgid ""
 "This merge strategy is not applicable to the releases you have selected."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Release.pm:624
+#: ../lib/MusicBrainz/Server/Controller/Release.pm:629
 msgid "This release has no artwork."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Release.pm:630
+#: ../lib/MusicBrainz/Server/Controller/Release.pm:635
 #, perl-brace-format
 msgid "Found no artwork with ID “{id}”."
 msgstr ""
@@ -4523,7 +4213,7 @@ msgstr ""
 msgid "The old and new annotation ids must be unique, positive integers."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Role/EditRelationships.pm:221
+#: ../lib/MusicBrainz/Server/Controller/Role/EditRelationships.pm:222
 #: ../root/layout/components/sidebar/SidebarEndDate.js:38
 #: ../root/static/scripts/common/utility/formatEndDate.js:18
 #: ../root/static/scripts/relationship-editor/components/DialogPreview.js:107
@@ -4531,72 +4221,80 @@ msgstr ""
 msgid "[unknown]"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Root.pm:87
+#: ../lib/MusicBrainz/Server/Controller/Root.pm:88
 #, perl-brace-format
 msgid ""
 "Language set. If it was not intended, just {url|set “{prev_lang_name}” back}."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Root.pm:95
+#: ../lib/MusicBrainz/Server/Controller/Root.pm:96
 msgid ""
 "If you find any problems with the translation, please {url|help us improve "
 "it}!"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Root.pm:316
+#: ../lib/MusicBrainz/Server/Controller/Root.pm:317
 msgid ""
 "Our Redis server appears to be down; some features may not work as intended "
 "or expected."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Series.pm:152
+#: ../lib/MusicBrainz/Server/Controller/Series.pm:153
 msgid "Series that have different entity types cannot be merged."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:303
+#: ../lib/MusicBrainz/Server/Controller/User.pm:304
+#: ../lib/MusicBrainz/Server/Controller/User.pm:330
+#: ../lib/MusicBrainz/Server/Controller/User.pm:345
+#: ../root/account/LostUsername.js:42 ../root/user/ContactUser.js:45
+#: ../root/user/ContactUser.js:47
+msgid "Send Email"
+msgstr ""
+
+#: ../lib/MusicBrainz/Server/Controller/User.pm:305
 msgid ""
 "You cannot contact other users because you have not {url|verified your email "
 "address}."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:330
+#: ../lib/MusicBrainz/Server/Controller/User.pm:332
 msgid "You are not allowed to send messages to editors."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:344
+#: ../lib/MusicBrainz/Server/Controller/User.pm:346
 #, perl-brace-format
 msgid "The editor {name} has no email address attached to their account."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:358
+#: ../lib/MusicBrainz/Server/Controller/User.pm:360
 msgid "Email Sent"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:359
+#: ../lib/MusicBrainz/Server/Controller/User.pm:361
 #, perl-brace-format
 msgid ""
 "Your email has been successfully sent! Click {link|here} to continue to "
 "{user}'s profile."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:386
+#: ../lib/MusicBrainz/Server/Controller/User.pm:389
 msgid "Your message could not be sent"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:540
+#: ../lib/MusicBrainz/Server/Controller/User.pm:552
 #, perl-brace-format
 msgid "'{type}' is not an entity type that can have ratings."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:796
+#: ../lib/MusicBrainz/Server/Controller/User.pm:807
 msgid "An error occurred while trying to send your report."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:800
+#: ../lib/MusicBrainz/Server/Controller/User.pm:811
 msgid "Your report has been sent."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/WS/2/DiscID.pm:100
+#: ../lib/MusicBrainz/Server/Controller/WS/2/DiscID.pm:101
 msgid "Invalid TOC"
 msgstr ""
 
@@ -4734,7 +4432,7 @@ msgid ""
 "recordings are in an inconsistent order on the releases."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Data/Vote.pm:158
+#: ../lib/MusicBrainz/Server/Data/Vote.pm:160
 msgid "Total"
 msgstr ""
 
@@ -4746,7 +4444,7 @@ msgstr ""
 msgid "Add area annotation"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Edit/Area/Create.pm:22
+#: ../lib/MusicBrainz/Server/Edit/Area/Create.pm:23
 msgid "Add area"
 msgstr ""
 
@@ -4779,7 +4477,7 @@ msgstr ""
 msgid "Add artist annotation"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Edit/Artist/Create.pm:28
+#: ../lib/MusicBrainz/Server/Edit/Artist/Create.pm:29
 msgid "Add artist"
 msgstr ""
 
@@ -4799,7 +4497,7 @@ msgstr ""
 msgid "Edit artist alias"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Edit/Artist/EditArtistCredit.pm:25
+#: ../lib/MusicBrainz/Server/Edit/Artist/EditArtistCredit.pm:26
 msgid "Edit artist credit"
 msgstr ""
 
@@ -4832,7 +4530,7 @@ msgstr ""
 msgid "Add event annotation"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Edit/Event/Create.pm:22
+#: ../lib/MusicBrainz/Server/Edit/Event/Create.pm:23
 #: ../root/layout/components/sidebar/ArtistSidebar.js:161
 #: ../root/layout/components/sidebar/PlaceSidebar.js:115
 msgid "Add event"
@@ -4867,7 +4565,7 @@ msgstr ""
 msgid "Add genre annotation"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Edit/Genre/Create.pm:20
+#: ../lib/MusicBrainz/Server/Edit/Genre/Create.pm:21
 msgid "Add genre"
 msgstr ""
 
@@ -4894,7 +4592,7 @@ msgstr ""
 msgid "Add disc ID"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Edit/Historic/AddLink.pm:10
+#: ../lib/MusicBrainz/Server/Edit/Historic/AddLink.pm:11
 #: ../lib/MusicBrainz/Server/Edit/Relationship/Create.pm:32
 #: ../root/static/scripts/relationship-editor/components/RelationshipTargetTypeGroups.js:109
 msgid "Add relationship"
@@ -4914,7 +4612,7 @@ msgstr ""
 msgid "Add release annotation"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Edit/Historic/AddReleaseEvents.pm:11
+#: ../lib/MusicBrainz/Server/Edit/Historic/AddReleaseEvents.pm:12
 msgid "Add release events (historic)"
 msgstr ""
 
@@ -4939,7 +4637,7 @@ msgid "Edit release"
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/ChangeReleaseQuality.pm:13
-#: ../lib/MusicBrainz/Server/Edit/Release/ChangeQuality.pm:25
+#: ../lib/MusicBrainz/Server/Edit/Release/ChangeQuality.pm:26
 #: ../root/release/ChangeQuality.js:36
 msgid "Change release data quality"
 msgstr ""
@@ -4949,12 +4647,12 @@ msgstr ""
 msgid "Edit track (historic)"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Edit/Historic/EditLink.pm:15
-#: ../lib/MusicBrainz/Server/Edit/Relationship/Edit.pm:39
+#: ../lib/MusicBrainz/Server/Edit/Historic/EditLink.pm:16
+#: ../lib/MusicBrainz/Server/Edit/Relationship/Edit.pm:40
 msgid "Edit relationship"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Edit/Historic/EditReleaseEvents.pm:11
+#: ../lib/MusicBrainz/Server/Edit/Historic/EditReleaseEvents.pm:12
 #: ../lib/MusicBrainz/Server/Edit/Historic/EditReleaseEventsOld.pm:18
 msgid "Edit release events (historic)"
 msgstr ""
@@ -4970,7 +4668,7 @@ msgid "Convert release to single artist (historic)"
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/MergeRelease.pm:13
-#: ../lib/MusicBrainz/Server/Edit/Historic/MergeReleaseMAC.pm:9
+#: ../lib/MusicBrainz/Server/Edit/Historic/MergeReleaseMAC.pm:10
 #: ../lib/MusicBrainz/Server/Edit/Release/Merge.pm:139
 #: ../root/release/ReleaseMerge.js:37 ../root/release/ReleaseMerge.js:39
 msgid "Merge releases"
@@ -4991,7 +4689,7 @@ msgstr ""
 msgid "Remove label alias"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Edit/Historic/RemoveLink.pm:10
+#: ../lib/MusicBrainz/Server/Edit/Historic/RemoveLink.pm:11
 #: ../lib/MusicBrainz/Server/Edit/Relationship/Delete.pm:36
 msgid "Remove relationship"
 msgstr ""
@@ -5001,7 +4699,7 @@ msgstr ""
 msgid "Remove release"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Edit/Historic/RemoveReleaseEvents.pm:11
+#: ../lib/MusicBrainz/Server/Edit/Historic/RemoveReleaseEvents.pm:12
 msgid "Remove release events (historic)"
 msgstr ""
 
@@ -5026,7 +4724,7 @@ msgstr ""
 msgid "Add instrument annotation"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Edit/Instrument/Create.pm:19
+#: ../lib/MusicBrainz/Server/Edit/Instrument/Create.pm:20
 #: ../root/static/scripts/relationship-editor/components/DialogAttribute/MultiselectAttribute.js:39
 msgid "Add instrument"
 msgstr ""
@@ -5104,7 +4802,7 @@ msgstr ""
 msgid "Add place annotation"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Edit/Place/Create.pm:25
+#: ../lib/MusicBrainz/Server/Edit/Place/Create.pm:26
 msgid "Add place"
 msgstr ""
 
@@ -5169,7 +4867,7 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Relationship.pm:18
 #: ../root/edit/details/ReorderRelationships.js:20
-#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:959
+#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:873
 msgid "Relationship"
 msgstr ""
 
@@ -5188,7 +4886,7 @@ msgid ""
 "removed, please {contact_url|contact us}."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Edit/Relationship/Edit.pm:422
+#: ../lib/MusicBrainz/Server/Edit/Relationship/Edit.pm:423
 #, perl-brace-format
 msgid ""
 "The “{relationship_type}” relationship between “{entity0}” and “{entity1}” "
@@ -5211,7 +4909,7 @@ msgstr ""
 msgid "Remove relationship type"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Edit/Relationship/Reorder.pm:22
+#: ../lib/MusicBrainz/Server/Edit/Relationship/Reorder.pm:23
 msgid "Reorder relationships"
 msgstr ""
 
@@ -5247,12 +4945,12 @@ msgstr ""
 msgid "Edit cover art"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Edit/Release/EditReleaseLabel.pm:28
+#: ../lib/MusicBrainz/Server/Edit/Release/EditReleaseLabel.pm:29
 msgid "Edit release label"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Edit/Release/EditReleaseLabel.pm:99
-#: ../lib/MusicBrainz/Server/Entity/Release.pm:182
+#: ../lib/MusicBrainz/Server/Edit/Release/EditReleaseLabel.pm:100
+#: ../lib/MusicBrainz/Server/Entity/Release.pm:183
 #: ../root/static/scripts/release-editor/duplicates.js:193
 msgctxt "medium format"
 msgid "(unknown)"
@@ -5263,7 +4961,7 @@ msgstr ""
 msgid "These releases could not be merged: {reason}"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Edit/Release/RemoveCoverArt.pm:20
+#: ../lib/MusicBrainz/Server/Edit/Release/RemoveCoverArt.pm:21
 msgid "Remove cover art"
 msgstr ""
 
@@ -5271,7 +4969,7 @@ msgstr ""
 msgid "Reorder cover art"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Edit/Release/ReorderMediums.pm:13
+#: ../lib/MusicBrainz/Server/Edit/Release/ReorderMediums.pm:14
 msgid "Reorder mediums"
 msgstr ""
 
@@ -5321,7 +5019,7 @@ msgstr ""
 msgid "Merge release groups"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Edit/Role/IPI.pm:39
+#: ../lib/MusicBrainz/Server/Edit/Role/IPI.pm:40
 #, perl-brace-format
 msgid ""
 "The IPI {ipi} is already in use on {artist_count} artist. Please check "
@@ -5332,7 +5030,7 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../lib/MusicBrainz/Server/Edit/Role/IPI.pm:45
+#: ../lib/MusicBrainz/Server/Edit/Role/IPI.pm:46
 #, perl-brace-format
 msgid ""
 "The IPI {ipi} is already in use on {label_count} label. Please check "
@@ -5343,7 +5041,7 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../lib/MusicBrainz/Server/Edit/Role/ISNI.pm:39
+#: ../lib/MusicBrainz/Server/Edit/Role/ISNI.pm:40
 #, perl-brace-format
 msgid ""
 "The ISNI {isni} is already in use on {artist_count} artist. Please check "
@@ -5354,7 +5052,7 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../lib/MusicBrainz/Server/Edit/Role/ISNI.pm:45
+#: ../lib/MusicBrainz/Server/Edit/Role/ISNI.pm:46
 #, perl-brace-format
 msgid ""
 "The ISNI {isni} is already in use on {label_count} label. Please check "
@@ -5502,7 +5200,7 @@ msgstr ""
 msgid "Remove ISWC"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/EditSearch/Predicate.pm:66
+#: ../lib/MusicBrainz/Server/EditSearch/Predicate.pm:67
 msgid "This operator is not supported"
 msgstr ""
 
@@ -5611,7 +5309,7 @@ msgstr ""
 msgid "{begindate} &#x2013;"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Entity/Role/Relatable.pm:53
+#: ../lib/MusicBrainz/Server/Entity/Role/Relatable.pm:59
 #: ../root/static/scripts/common/utility/groupRelationships.js:460
 #: ../root/static/scripts/common/utility/groupRelationships.js:466
 #, perl-brace-format
@@ -5917,7 +5615,7 @@ msgid "invalid date"
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/Field/Relationship.pm:95
-#: ../root/static/scripts/relationship-editor/components/RelationshipItem.js:308
+#: ../root/static/scripts/relationship-editor/components/RelationshipItem.js:333
 msgid ""
 "You must select a relationship type and target entity for every relationship."
 msgstr ""
@@ -5934,11 +5632,11 @@ msgstr ""
 msgid "This is not a valid time."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Form/Field/URL.pm:25
+#: ../lib/MusicBrainz/Server/Form/Field/URL.pm:26
 msgid "Enter a valid url e.g. \"http://google.com/\""
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Form/Field/URL.pm:28
+#: ../lib/MusicBrainz/Server/Form/Field/URL.pm:29
 msgid "URL protocol must be HTTP, HTTPS or FTP"
 msgstr ""
 
@@ -6029,22 +5727,22 @@ msgid "A fluency level is required."
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:79
-#: ../root/static/scripts/common/constants.js:343
+#: ../root/static/scripts/common/constants.js:354
 msgid "Basic"
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:80
-#: ../root/static/scripts/common/constants.js:344
+#: ../root/static/scripts/common/constants.js:355
 msgid "Intermediate"
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:81
-#: ../root/static/scripts/common/constants.js:342
+#: ../root/static/scripts/common/constants.js:353
 msgid "Advanced"
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:82
-#: ../root/static/scripts/common/constants.js:345
+#: ../root/static/scripts/common/constants.js:356
 msgid "Native"
 msgstr ""
 
@@ -6357,6 +6055,46 @@ msgstr ""
 msgid "{commas_only_list_item}, {rest}"
 msgstr ""
 
+#: ../root/account/ChangePassword.js:45
+msgid ""
+"Please change your password. Unfortunately we've discovered that secure "
+"hashes user's passwords were temporarily available for download on our FTP "
+"site. While it is extremely unlikely that anyone will be able to derive the "
+"original passwords from this mishap, we are requiring all of our users to "
+"change their passwords. Sorry for the inconvenience. For more information "
+"see {blog|the recent blog post}."
+msgstr ""
+
+#: ../root/account/ChangePassword.js:58
+msgid "Please enter your old password below, and then your new password."
+msgstr ""
+
+#: ../root/account/ChangePassword.js:69 ../root/account/LostPassword.js:44
+#: ../root/static/scripts/account/components/RegisterForm.js:64
+#: ../root/user/Login.js:100
+msgid "Username:"
+msgstr ""
+
+#: ../root/account/ChangePassword.js:77
+msgid "Old password:"
+msgstr ""
+
+#: ../root/account/ChangePassword.js:85 ../root/account/ResetPassword.js:41
+msgid "New password:"
+msgstr ""
+
+#: ../root/account/ChangePassword.js:93 ../root/account/ResetPassword.js:49
+#: ../root/static/scripts/account/components/RegisterForm.js:100
+msgid "Confirm password:"
+msgstr ""
+
+#: ../root/account/ChangePassword.js:99 ../root/account/ChangePassword.js:117
+#: ../root/account/ChangePassword.js:119 ../root/account/ChangePassword.js:130
+#: ../root/account/ChangePassword.js:131
+#: ../root/components/UserAccountTabs.js:86
+msgid "Change Password"
+msgstr ""
+
 #: ../root/account/Donation.js:32 ../root/account/Donation.js:34
 #: ../root/components/UserAccountTabs.js:92
 msgid "Donation Check"
@@ -6426,11 +6164,19 @@ msgid ""
 msgstr ""
 
 #: ../root/account/LostPassword.js:50 ../root/account/LostUsername.js:37
-#: ../root/admin/EmailSearch.js:68 ../root/admin/components/UserList.js:32
+#: ../root/admin/EditUser.js:161 ../root/admin/EmailSearch.js:68
+#: ../root/admin/components/UserList.js:32
 #: ../root/report/components/EditorList.js:79
 #: ../root/static/scripts/account/components/EditProfileForm.js:188
 #: ../root/static/scripts/account/components/PreferencesForm.js:208
+#: ../root/static/scripts/account/components/RegisterForm.js:107
 msgid "Email"
+msgstr ""
+
+#: ../root/account/LostPassword.js:55 ../root/account/ResetPassword.js:29
+#: ../root/account/ResetPassword.js:30 ../root/account/ResetPassword.js:55
+#: ../root/account/ResetPasswordStatus.js:19
+msgid "Reset Password"
 msgstr ""
 
 #: ../root/account/LostPasswordSent.js:14
@@ -6474,46 +6220,88 @@ msgid ""
 "page."
 msgstr ""
 
-#: ../root/account/applications/Edit.js:21
-#: ../root/account/applications/Edit.js:22
-msgid "Edit Application"
+#: ../root/account/Register.js:28 ../root/account/Register.js:35
+msgid "Create an Account"
 msgstr ""
 
-#: ../root/account/applications/Edit.js:26 ../root/admin/EditBanner.js:39
-#: ../root/admin/wikidoc/EditWikiDoc.js:51
-#: ../root/admin/wikidoc/WikiDocIndex.js:102
-msgid "Update"
+#: ../root/account/Register.js:31
+msgid "Captcha incorrect. Try again."
 msgstr ""
 
-#: ../root/account/applications/Index.js:30
+#: ../root/account/Register.js:39
+msgid ""
+"<strong>Note that any contributions you make to MusicBrainz will be released "
+"into the Public Domain and/or licensed under a Creative Commons by-nc-sa "
+"license. Furthermore, you give the MetaBrainz Foundation the right to "
+"license this data for commercial use. Please read our {doc|license page} for "
+"more details.</strong>"
+msgstr ""
+
+#: ../root/account/Register.js:51
+msgid ""
+"MusicBrainz believes strongly in the privacy of its users! Any personal "
+"information you choose to provide will not be sold or shared with anyone "
+"else. For full details, please read our {doc|Privacy Policy}."
+msgstr ""
+
+#: ../root/account/Register.js:61
+msgid ""
+"You may remove your personal information from our services anytime by "
+"deleting your account. For more details, see our {doc|GDPR compliance "
+"statement}."
+msgstr ""
+
+#: ../root/account/Register.js:73
+msgid ""
+"If you have any questions, please review the {faq|FAQs} or {doc|"
+"documentation} before {con|contacting us}. "
+msgstr ""
+
+#: ../root/account/Register.js:85
+msgid ""
+"Follow our {bl|blog} or {tw|twitter account}! To talk to other users, try "
+"the {fo|forums} or {irc|IRC}."
+msgstr ""
+
+#: ../root/account/Register.js:98
+msgid ""
+"MusicBrainz has one account type for all users. If you represent an artist "
+"or label, please use the above form to create an account."
+msgstr ""
+
+#: ../root/account/ResetPassword.js:33
+msgid "Set a new password for your MusicBrainz account."
+msgstr ""
+
+#: ../root/account/applications/ApplicationList.js:34
 #: ../root/static/scripts/account/components/ApplicationForm.js:40
 msgid "Web Application"
 msgstr ""
 
-#: ../root/account/applications/Index.js:31
+#: ../root/account/applications/ApplicationList.js:35
 #: ../root/static/scripts/account/components/ApplicationForm.js:41
 msgid "Installed Application"
 msgstr ""
 
-#: ../root/account/applications/Index.js:56
+#: ../root/account/applications/ApplicationList.js:65
 msgid "Revoke Access"
 msgstr ""
 
-#: ../root/account/applications/Index.js:68
+#: ../root/account/applications/ApplicationList.js:77
 msgid "Offline Access"
 msgstr ""
 
-#: ../root/account/applications/Index.js:82
-#: ../root/account/applications/Index.js:83
+#: ../root/account/applications/ApplicationList.js:94
+#: ../root/account/applications/ApplicationList.js:95
 #: ../root/layout/components/TopMenu.js:51
 msgid "Applications"
 msgstr ""
 
-#: ../root/account/applications/Index.js:85
+#: ../root/account/applications/ApplicationList.js:97
 msgid "Authorized Applications"
 msgstr ""
 
-#: ../root/account/applications/Index.js:89
+#: ../root/account/applications/ApplicationList.js:101
 msgid ""
 "Some applications and websites support accessing private data from or "
 "submitting data to MusicBrainz but require your permission to access your "
@@ -6522,17 +6310,21 @@ msgid ""
 "revoke their access."
 msgstr ""
 
-#: ../root/account/applications/Index.js:103
-#: ../root/account/applications/Index.js:139
+#: ../root/account/applications/ApplicationList.js:115
+#: ../root/account/applications/ApplicationList.js:154
 msgid "Application"
 msgstr ""
 
-#: ../root/account/applications/Index.js:104
+#: ../root/account/applications/ApplicationList.js:116
 msgid "Access"
 msgstr ""
 
-#: ../root/account/applications/Index.js:105
-#: ../root/account/applications/Index.js:143
+#: ../root/account/applications/ApplicationList.js:117
+msgid "Last granted token"
+msgstr ""
+
+#: ../root/account/applications/ApplicationList.js:118
+#: ../root/account/applications/ApplicationList.js:158
 #: ../root/admin/attributes/Attribute.js:85
 #: ../root/admin/attributes/Language.js:46
 #: ../root/admin/attributes/Script.js:45
@@ -6545,55 +6337,70 @@ msgstr ""
 msgid "Actions"
 msgstr ""
 
-#: ../root/account/applications/Index.js:114
+#: ../root/account/applications/ApplicationList.js:129
 msgid "You have not authorized any applications."
 msgstr ""
 
-#: ../root/account/applications/Index.js:117
+#: ../root/account/applications/ApplicationList.js:132
 msgid "Developer Applications"
 msgstr ""
 
-#: ../root/account/applications/Index.js:121
+#: ../root/account/applications/ApplicationList.js:136
 msgid ""
 "Do you want to develop an application that uses the {mb_api_doc_url|"
 "MusicBrainz API}? {register_url|Register an application} to generate OAuth "
 "tokens. See our {oauth2_doc_url|OAuth documentation} for more details."
 msgstr ""
 
-#: ../root/account/applications/Index.js:141
+#: ../root/account/applications/ApplicationList.js:156
 msgid "OAuth Client ID"
 msgstr ""
 
-#: ../root/account/applications/Index.js:142
+#: ../root/account/applications/ApplicationList.js:157
 msgid "OAuth Client Secret"
 msgstr ""
 
-#: ../root/account/applications/Index.js:152
+#: ../root/account/applications/ApplicationList.js:167
 msgid "You do not have any registered applications."
 msgstr ""
 
-#: ../root/account/applications/Register.js:22
-#: ../root/account/applications/Register.js:23
+#: ../root/account/applications/EditApplication.js:21
+#: ../root/account/applications/EditApplication.js:22
+msgid "Edit Application"
+msgstr ""
+
+#: ../root/account/applications/EditApplication.js:26
+#: ../root/admin/EditBanner.js:39 ../root/admin/wikidoc/EditWikiDoc.js:51
+#: ../root/admin/wikidoc/WikiDocIndex.js:102
+msgid "Update"
+msgstr ""
+
+#: ../root/account/applications/RegisterApplication.js:22
+#: ../root/account/applications/RegisterApplication.js:23
 msgid "Register Application"
 msgstr ""
 
-#: ../root/account/applications/Register.js:27
+#: ../root/account/applications/RegisterApplication.js:27
 msgid "Register"
 msgstr ""
 
-#: ../root/account/applications/Remove.js:21
+#: ../root/account/applications/RemoveApplication.js:21
 msgid "Are you sure you want to remove this application?"
 msgstr ""
 
-#: ../root/account/applications/Remove.js:22
+#: ../root/account/applications/RemoveApplication.js:22
 msgid "Remove Application"
 msgstr ""
 
-#: ../root/account/applications/RevokeAccess.js:22
-msgid "Are you sure you want to revoke this application's access?"
+#: ../root/account/applications/RevokeApplicationAccess.js:30
+msgid "You’re about to revoke {app}’s permissions to:"
 msgstr ""
 
-#: ../root/account/applications/RevokeAccess.js:24
+#: ../root/account/applications/RevokeApplicationAccess.js:42
+msgid "Are you sure you want to revoke this application’s access?"
+msgstr ""
+
+#: ../root/account/applications/RevokeApplicationAccess.js:46
 msgid "Revoke Application Access"
 msgstr ""
 
@@ -6620,6 +6427,51 @@ msgstr ""
 msgid "Unverified Email Address"
 msgstr ""
 
+#: ../root/admin/DeleteUser.js:47 ../root/admin/DeleteUser.js:49
+#: ../root/components/UserAccountTabs.js:111
+msgid "Delete Account"
+msgstr ""
+
+#: ../root/admin/DeleteUser.js:54
+msgid ""
+"Are you sure you want to delete all information about {e}? This cannot be "
+"undone!"
+msgstr ""
+
+#: ../root/admin/DeleteUser.js:66
+msgid "Allow the name “{editor_name}” to be reused."
+msgstr ""
+
+#: ../root/admin/DeleteUser.js:75
+msgid "Delete {e}"
+msgstr ""
+
+#: ../root/admin/DeleteUser.js:84
+msgid ""
+"For information about the account deletion process, please read the {uri|"
+"account FAQ}."
+msgstr ""
+
+#: ../root/admin/DeleteUser.js:92
+msgid ""
+"This will also cancel all your open edits and change all of your votes on "
+"any edits currently open to Abstain."
+msgstr ""
+
+#: ../root/admin/DeleteUser.js:100
+msgid ""
+"Keep in mind this process might take a fairly long time if you have entered "
+"a lot of tags. If the process times out, please {contact_url|contact us}."
+msgstr ""
+
+#: ../root/admin/DeleteUser.js:109
+msgid "Are you sure you want to delete your account? This cannot be undone!"
+msgstr ""
+
+#: ../root/admin/DeleteUser.js:120
+msgid "Delete my account"
+msgstr ""
+
 #: ../root/admin/EditBanner.js:25 ../root/layout/components/TopMenu.js:156
 msgid "Edit Banner Message"
 msgstr ""
@@ -6636,6 +6488,100 @@ msgstr ""
 
 #: ../root/admin/EditBanner.js:36
 msgid "Banner message"
+msgstr ""
+
+#: ../root/admin/EditUser.js:69
+msgid "Adjust User Account Flags"
+msgstr ""
+
+#: ../root/admin/EditUser.js:76 ../root/admin/PrivilegeSearch.js:63
+msgid "User permissions"
+msgstr ""
+
+#: ../root/admin/EditUser.js:79 ../root/admin/PrivilegeSearch.js:67
+msgid "Auto-editor"
+msgstr ""
+
+#: ../root/admin/EditUser.js:84 ../root/admin/PrivilegeSearch.js:72
+msgid "Transclusion editor"
+msgstr ""
+
+#: ../root/admin/EditUser.js:89 ../root/admin/PrivilegeSearch.js:77
+msgid "Relationship editor"
+msgstr ""
+
+#: ../root/admin/EditUser.js:94 ../root/admin/PrivilegeSearch.js:82
+msgid "Location editor"
+msgstr ""
+
+#: ../root/admin/EditUser.js:99 ../root/admin/PrivilegeSearch.js:87
+msgid "Banner message editor"
+msgstr ""
+
+#: ../root/admin/EditUser.js:103 ../root/admin/PrivilegeSearch.js:92
+msgid "User sanctions"
+msgstr ""
+
+#: ../root/admin/EditUser.js:106 ../root/admin/PrivilegeSearch.js:96
+msgid "Spammer"
+msgstr ""
+
+#: ../root/admin/EditUser.js:111 ../root/admin/PrivilegeSearch.js:102
+#: ../root/user/UserProfile.js:887
+msgid "Editing/voting disabled"
+msgstr ""
+
+#: ../root/admin/EditUser.js:116 ../root/admin/PrivilegeSearch.js:107
+#: ../root/user/UserProfile.js:890
+msgid "Edit notes disabled"
+msgstr ""
+
+#: ../root/admin/EditUser.js:125 ../root/admin/PrivilegeSearch.js:117
+msgid "Technical flags"
+msgstr ""
+
+#: ../root/admin/EditUser.js:133 ../root/admin/PrivilegeSearch.js:126
+msgid "No nag"
+msgstr ""
+
+#: ../root/admin/EditUser.js:137 ../root/admin/PrivilegeSearch.js:131
+msgid "Administration flags"
+msgstr ""
+
+#: ../root/admin/EditUser.js:141
+msgid "<abbr title=\"MusicBrainz Identifier\">MBID</abbr> submitter"
+msgstr ""
+
+#: ../root/admin/EditUser.js:148 ../root/admin/PrivilegeSearch.js:140
+msgid "Account admin"
+msgstr ""
+
+#: ../root/admin/EditUser.js:152
+msgid "Edit profile"
+msgstr ""
+
+#: ../root/admin/EditUser.js:155
+msgid "Username"
+msgstr ""
+
+#: ../root/admin/EditUser.js:166
+msgid "Skip verification"
+msgstr ""
+
+#: ../root/admin/EditUser.js:171 ../root/admin/components/UserList.js:31
+#: ../root/report/components/EditorList.js:74
+#: ../root/static/scripts/account/components/EditProfileForm.js:200
+msgid "Website"
+msgstr ""
+
+#: ../root/admin/EditUser.js:177
+#: ../root/static/scripts/account/components/EditProfileForm.js:259
+#: ../root/user/UserProfile.js:383
+msgid "Bio:"
+msgstr ""
+
+#: ../root/admin/EditUser.js:182
+msgid "Edit user"
 msgstr ""
 
 #: ../root/admin/EmailSearch.js:31 ../root/admin/EmailSearch.js:33
@@ -6688,13 +6634,13 @@ msgstr ""
 #: ../root/admin/attributes/Index.js:18 ../root/admin/attributes/Index.js:19
 #: ../root/admin/attributes/Language.js:33
 #: ../root/admin/attributes/Script.js:33
-#: ../root/components/RelationshipsTable.js:335
+#: ../root/components/RelationshipsTable.js:336
 #: ../root/edit/details/AddRelationshipType.js:169
 #: ../root/edit/details/EditRelationshipType.js:297
 #: ../root/edit/details/RemoveRelationshipType.js:117
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:46
-#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:554
-#: ../root/utility/tableColumns.js:659
+#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:468
+#: ../root/utility/tableColumns.js:666
 msgid "Attributes"
 msgstr ""
 
@@ -6733,7 +6679,7 @@ msgstr ""
 #: ../root/edit/details/historic/AddRelease.js:74 ../root/iswc/Index.js:61
 #: ../root/report/IswcsWithManyWorks.js:54
 #: ../root/search/components/ReleaseResults.js:120
-#: ../root/utility/tableColumns.js:547
+#: ../root/utility/tableColumns.js:554
 msgid "Language"
 msgstr ""
 
@@ -6747,12 +6693,6 @@ msgstr ""
 #: ../root/admin/components/UserList.js:30
 #: ../root/report/components/EditorList.js:69
 msgid "Member since"
-msgstr ""
-
-#: ../root/admin/components/UserList.js:31
-#: ../root/report/components/EditorList.js:74
-#: ../root/static/scripts/account/components/EditProfileForm.js:200
-msgid "Website"
 msgstr ""
 
 #: ../root/admin/components/UserList.js:33
@@ -7047,7 +6987,7 @@ msgstr ""
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:892
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:552
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:15
-#: ../root/tag/TagLayout.js:23 ../root/utility/tableColumns.js:790
+#: ../root/tag/TagLayout.js:23 ../root/utility/tableColumns.js:797
 msgid "Artists"
 msgstr ""
 
@@ -7271,7 +7211,11 @@ msgstr ""
 msgid "Showing official release groups by this artist"
 msgstr ""
 
-#: ../root/artist/ArtistIndex.js:239 ../root/artist/ArtistIndex.js:247
+#: ../root/artist/ArtistIndex.js:239
+msgid "Performance name of"
+msgstr ""
+
+#: ../root/artist/ArtistIndex.js:247
 msgid "Legal name"
 msgstr ""
 
@@ -7691,7 +7635,7 @@ msgstr ""
 
 #: ../root/cdtoc/CDTocInfo.js:52
 #: ../root/search/components/RecordingResults.js:147
-#: ../root/taglookup/Form.js:40 ../root/utility/tableColumns.js:782
+#: ../root/taglookup/Form.js:40 ../root/utility/tableColumns.js:789
 msgid "Track"
 msgstr ""
 
@@ -7703,7 +7647,7 @@ msgstr ""
 #: ../root/search/components/ArtistResults.js:59
 #: ../root/search/components/LabelResults.js:71
 #: ../root/search/components/PlaceResults.js:68
-#: ../root/utility/tableColumns.js:292 ../root/utility/tableColumns.js:297
+#: ../root/utility/tableColumns.js:299 ../root/utility/tableColumns.js:304
 msgid "End"
 msgstr ""
 
@@ -8104,28 +8048,28 @@ msgstr ""
 msgid "as “{credit}”"
 msgstr ""
 
-#: ../root/components/RelationshipsTable.js:140
+#: ../root/components/RelationshipsTable.js:141
 #: ../root/static/scripts/relationship-editor/components/RelationshipPhraseGroup.js:283
 msgid "See all {num} relationships"
 msgstr ""
 
-#: ../root/components/RelationshipsTable.js:334
+#: ../root/components/RelationshipsTable.js:335
 msgid "Credited As"
 msgstr ""
 
-#: ../root/components/RelationshipsTable.js:351
+#: ../root/components/RelationshipsTable.js:352
 msgid "“{link_phrase}” relationships"
 msgstr ""
 
-#: ../root/components/RelationshipsTable.js:353
+#: ../root/components/RelationshipsTable.js:354
 msgid "Invalid relationship type"
 msgstr ""
 
-#: ../root/components/RelationshipsTable.js:364
+#: ../root/components/RelationshipsTable.js:365
 msgid "No relationships of the selected type were found."
 msgstr ""
 
-#: ../root/components/RelationshipsTable.js:365
+#: ../root/components/RelationshipsTable.js:366
 msgid "The provided relationship type ID is not valid."
 msgstr ""
 
@@ -8226,6 +8170,11 @@ msgid "See all {num} works"
 msgid_plural "See all {num} works"
 msgstr[0] ""
 msgstr[1] ""
+
+#: ../root/components/UserAccountLayout.js:62
+#: ../root/components/UserAccountLayout.js:63
+msgid "Editor “{user}”"
+msgstr ""
 
 #: ../root/components/UserAccountTabs.js:28
 #: ../root/layout/components/TopMenu.js:48
@@ -8484,7 +8433,7 @@ msgid "You’re not currently allowed to vote, please read the banner."
 msgstr ""
 
 #: ../root/edit/DeleteNote.js:32 ../root/edit/DeleteNote.js:33
-#: ../root/edit/components/EditNote.js:145
+#: ../root/edit/components/EditNote.js:147
 msgid "Remove edit note"
 msgstr ""
 
@@ -8580,7 +8529,7 @@ msgid "You must be logged in to see edit notes."
 msgstr ""
 
 #: ../root/edit/ModifyNote.js:36 ../root/edit/ModifyNote.js:37
-#: ../root/edit/components/EditNote.js:140
+#: ../root/edit/components/EditNote.js:142
 msgid "Modify edit note"
 msgstr ""
 
@@ -8719,39 +8668,45 @@ msgstr[1] ""
 msgid "Submit votes & edit notes"
 msgstr ""
 
-#: ../root/edit/components/EditNote.js:157
+#: ../root/edit/components/EditNote.js:159
 msgid "[time missing]"
 msgstr ""
 
-#: ../root/edit/components/EditNote.js:165
+#: ../root/edit/components/EditNote.js:168
 msgid "This edit note was removed by its author. Reason given: “{reason}”."
 msgstr ""
 
-#: ../root/edit/components/EditNote.js:170
+#: ../root/edit/components/EditNote.js:173
 msgid "This edit note was removed by its author. No reason was provided."
 msgstr ""
 
-#: ../root/edit/components/EditNote.js:176
+#: ../root/edit/components/EditNote.js:179
 msgid "This edit note was removed by an admin. Reason given: “{reason}”."
 msgstr ""
 
-#: ../root/edit/components/EditNote.js:181
+#: ../root/edit/components/EditNote.js:184
 msgid "This edit note was removed by an admin. No reason was provided."
 msgstr ""
 
-#: ../root/edit/components/EditNote.js:197
+#: ../root/edit/components/EditNote.js:194
+#: ../root/edit/components/EditNote.js:250
+msgctxt "edit note"
+msgid "see all changes"
+msgstr ""
+
+#: ../root/edit/components/EditNote.js:211
 msgid "Last modified by the note author ({time}). Reason given: “{reason}”."
 msgstr ""
 
-#: ../root/edit/components/EditNote.js:207
+#: ../root/edit/components/EditNote.js:221
 msgid "Last modified by the note author ({time})."
 msgstr ""
 
-#: ../root/edit/components/EditNote.js:215
+#: ../root/edit/components/EditNote.js:229
 msgid "Last modified by an admin ({time}). Reason given: “{reason}”."
 msgstr ""
 
-#: ../root/edit/components/EditNote.js:225
+#: ../root/edit/components/EditNote.js:239
 msgid "Last modified by an admin ({time})."
 msgstr ""
 
@@ -8968,7 +8923,7 @@ msgstr ""
 #: ../root/edit/details/EditPlace.js:93
 #: ../root/report/RecordingsWithFutureDates.js:35
 #: ../root/static/scripts/edit/components/DateRangeFieldset.js:194
-#: ../root/static/scripts/relationship-editor/components/DialogDatePeriod.js:51
+#: ../root/static/scripts/relationship-editor/components/DialogDatePeriod.js:167
 msgid "Begin date"
 msgstr ""
 
@@ -8981,7 +8936,7 @@ msgstr ""
 #: ../root/elections/ElectionTable/index.js:25
 #: ../root/report/RecordingsWithFutureDates.js:40
 #: ../root/static/scripts/edit/components/DateRangeFieldset.js:209
-#: ../root/static/scripts/relationship-editor/components/DialogDatePeriod.js:72
+#: ../root/static/scripts/relationship-editor/components/DialogDatePeriod.js:188
 msgid "End date"
 msgstr ""
 
@@ -9144,7 +9099,7 @@ msgstr ""
 
 #: ../root/edit/details/AddSeries.js:52 ../root/edit/details/EditSeries.js:66
 #: ../root/layout/components/sidebar/SeriesSidebar.js:53
-#: ../root/utility/tableColumns.js:753
+#: ../root/utility/tableColumns.js:760
 msgid "Ordering Type"
 msgstr ""
 
@@ -9152,7 +9107,7 @@ msgstr ""
 #: ../root/layout/components/sidebar/WorkSidebar.js:69
 #: ../root/search/components/WorkResults.js:59
 #: ../root/static/scripts/release/components/WorkLanguageMultiselect.js:143
-#: ../root/static/scripts/work/edit.js:342 ../root/utility/tableColumns.js:809
+#: ../root/static/scripts/work/edit.js:342 ../root/utility/tableColumns.js:816
 msgid "Lyrics Languages"
 msgstr ""
 
@@ -9443,8 +9398,8 @@ msgstr ""
 
 #: ../root/edit/details/ReorderMediums.js:61
 msgid ""
-"Medium <span class=\"new\">{new}</span> (moved from position <span "
-"class=\"old\">{old}</span>)"
+"Medium <span class=\"new\">{new}</span> (moved from position <span class="
+"\"old\">{old}</span>)"
 msgstr ""
 
 #: ../root/edit/details/ReorderRelationships.js:21
@@ -9598,40 +9553,48 @@ msgstr ""
 msgid "Track:"
 msgstr ""
 
-#: ../root/elections/ElectionDetails.js:30
+#: ../root/elections/ElectionDetails.js:32
 msgid "Candidate:"
 msgstr ""
 
-#: ../root/elections/ElectionDetails.js:34
+#: ../root/elections/ElectionDetails.js:36
 msgid "Proposer:"
 msgstr ""
 
-#: ../root/elections/ElectionDetails.js:38
+#: ../root/elections/ElectionDetails.js:40
 msgid "1st seconder:"
 msgstr ""
 
-#: ../root/elections/ElectionDetails.js:46
+#: ../root/elections/ElectionDetails.js:48
 msgid "2nd seconder:"
 msgstr ""
 
-#: ../root/elections/ElectionDetails.js:57
+#: ../root/elections/ElectionDetails.js:59
+msgid "Total votes"
+msgstr ""
+
+#: ../root/elections/ElectionDetails.js:63
 msgid "Votes for:"
 msgstr ""
 
-#: ../root/elections/ElectionDetails.js:61
+#: ../root/elections/ElectionDetails.js:67
 msgid "Votes against:"
 msgstr ""
 
-#: ../root/elections/ElectionDetails.js:69
+#: ../root/elections/ElectionDetails.js:71
+msgid "Abstentions"
+msgstr ""
+
+#: ../root/elections/ElectionDetails.js:79
 msgid "Votes for/against:"
 msgstr ""
 
-#: ../root/elections/ElectionDetails.js:71
+#: ../root/elections/ElectionDetails.js:81
 msgid ""
 "The tally of votes cast will only be shown when the election is complete."
 msgstr ""
 
-#: ../root/elections/ElectionDetails.js:79
+#: ../root/elections/ElectionDetails.js:89
 msgctxt "election status"
 msgid "Status:"
 msgstr ""
@@ -9681,20 +9644,20 @@ msgstr ""
 msgid "(private)"
 msgstr ""
 
-#: ../root/elections/ElectionVoting.js:26
+#: ../root/elections/ElectionVoting.js:27
 msgid "To find out if you can vote for this candidate, please {url|log in}."
 msgstr ""
 
-#: ../root/elections/ElectionVoting.js:33
+#: ../root/elections/ElectionVoting.js:36
 msgid "You cannot vote for this candidate, because you are not an auto-editor."
 msgstr ""
 
-#: ../root/elections/ElectionVoting.js:38
+#: ../root/elections/ElectionVoting.js:41
 msgid ""
 "You cannot vote for this candidate, because you proposed / seconded them."
 msgstr ""
 
-#: ../root/elections/ElectionVoting.js:43
+#: ../root/elections/ElectionVoting.js:46
 msgid ""
 "Voting is not yet open. If you would like to support this candidate, you can "
 "second their nomination. If you do not support this candidate, please note "
@@ -9702,27 +9665,31 @@ msgid ""
 "been found."
 msgstr ""
 
-#: ../root/elections/ElectionVoting.js:50
+#: ../root/elections/ElectionVoting.js:53
 msgid "Voting is closed."
 msgstr ""
 
-#: ../root/elections/ElectionVoting.js:60
+#: ../root/elections/ElectionVoting.js:68
 msgid "Second this candidate"
 msgstr ""
 
-#: ../root/elections/ElectionVoting.js:71
+#: ../root/elections/ElectionVoting.js:80
+msgid "Your current vote: {vote}"
+msgstr ""
+
+#: ../root/elections/ElectionVoting.js:88
 msgid "Vote YES"
 msgstr ""
 
-#: ../root/elections/ElectionVoting.js:74
+#: ../root/elections/ElectionVoting.js:91
 msgid "Vote NO"
 msgstr ""
 
-#: ../root/elections/ElectionVoting.js:77
+#: ../root/elections/ElectionVoting.js:94
 msgid "Abstain"
 msgstr ""
 
-#: ../root/elections/ElectionVoting.js:93
+#: ../root/elections/ElectionVoting.js:111
 msgid "Cancel the election"
 msgstr ""
 
@@ -9753,6 +9720,10 @@ msgstr ""
 
 #: ../root/elections/Show.js:34
 msgid "Votes cast"
+msgstr ""
+
+#: ../root/elections/Show.js:37
+msgid "The list of voters will only be shown when the election is complete."
 msgstr ""
 
 #: ../root/entity/Collections.js:40
@@ -10500,7 +10471,7 @@ msgstr ""
 #: ../root/relationship/RelationshipsHeader.js:17
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:111
 #: ../root/relationship/linktype/RelationshipTypesList.js:60
-#: ../root/utility/tableColumns.js:361
+#: ../root/utility/tableColumns.js:368
 msgid "Relationship Types"
 msgstr ""
 
@@ -10643,6 +10614,11 @@ msgstr ""
 #: ../root/layout/components/TopMenu.js:200 ../root/user/Login.js:51
 #: ../root/user/Login.js:52 ../root/user/Login.js:131
 msgid "Log In"
+msgstr ""
+
+#: ../root/layout/components/TopMenu.js:204
+#: ../root/static/scripts/account/components/RegisterForm.js:131
+msgid "Create Account"
 msgstr ""
 
 #: ../root/layout/components/sidebar/AnnotationLinks.js:38
@@ -10956,7 +10932,7 @@ msgstr ""
 
 #: ../root/layout/components/sidebar/SidebarRating.js:27
 #: ../root/static/scripts/release/components/MediumTable.js:88
-#: ../root/utility/tableColumns.js:454
+#: ../root/utility/tableColumns.js:461
 msgid "Rating"
 msgstr ""
 
@@ -11573,29 +11549,29 @@ msgstr ""
 msgid "Parent attribute"
 msgstr ""
 
-#: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:145
+#: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:157
 msgid "Possible values"
 msgstr ""
 
-#: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:149
+#: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:161
 msgid ""
 "The possible values for this relationship can be seen from the "
 "{instrument_list|instrument list}."
 msgstr ""
 
-#: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:170
+#: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:182
 msgid "Relationship usage"
 msgstr ""
 
-#: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:174
+#: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:186
 msgid "This attribute is being used by the following relationship types:"
 msgstr ""
 
-#: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:188
+#: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:200
 msgid "{type0} - {type1}"
 msgstr ""
 
-#: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:205
+#: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:217
 msgid "This attribute isn’t directly being used by any relationship types."
 msgstr ""
 
@@ -13175,7 +13151,7 @@ msgstr ""
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:717
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:408
 #: ../root/static/scripts/common/components/IsrcList.js:44
-#: ../root/utility/tableColumns.js:682
+#: ../root/utility/tableColumns.js:689
 msgid "ISRCs"
 msgstr ""
 
@@ -13451,7 +13427,7 @@ msgstr ""
 #: ../root/search/components/EventResults.js:78
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:1044
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:220
-#: ../root/utility/tableColumns.js:376
+#: ../root/utility/tableColumns.js:383
 msgid "Location"
 msgstr ""
 
@@ -13687,6 +13663,39 @@ msgstr ""
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:255
 msgid "Automatically subscribe me to series I create."
+msgstr ""
+
+#: ../root/static/scripts/account/components/RegisterForm.js:70
+msgid "Your username will be publicly visible."
+msgstr ""
+
+#: ../root/static/scripts/account/components/RegisterForm.js:81
+msgid ""
+"The username you have entered looks like an email address. This is allowed, "
+"but please keep in mind that everyone will be able to see it. Only use an "
+"email address as your username if you are completely sure you are happy with "
+"that."
+msgstr ""
+
+#: ../root/static/scripts/account/components/RegisterForm.js:92
+#: ../root/user/Login.js:107
+msgid "Password:"
+msgstr ""
+
+#: ../root/static/scripts/account/components/RegisterForm.js:113
+msgid ""
+"You must provide a working email address if you wish to contribute to the "
+"database."
+msgstr ""
+
+#: ../root/static/scripts/account/components/RegisterForm.js:119
+msgid "Captcha"
+msgstr ""
+
+#: ../root/static/scripts/account/components/RegisterForm.js:126
+msgid ""
+"Please review the {coc|MusicBrainz Code of Conduct} before creating an "
+"account."
 msgstr ""
 
 #: ../root/static/scripts/alias/AliasEditForm.js:293
@@ -14234,7 +14243,7 @@ msgid "{start_track}–{end_track}"
 msgstr ""
 
 #: ../root/static/scripts/common/components/StaticRelationshipsDisplay.js:93
-#: ../root/static/scripts/relationship-editor/components/RelationshipItem.js:276
+#: ../root/static/scripts/relationship-editor/components/RelationshipItem.js:281
 msgid "{num}. {relationship}"
 msgstr ""
 
@@ -14494,221 +14503,71 @@ msgstr ""
 msgid "Dissolved in:"
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:370
+#: ../root/static/scripts/edit/URLCleanup.js:376
 msgid ""
 "Please link to a channel, not a specific video. Videos should be linked to "
 "the appropriate recordings or releases instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:376
+#: ../root/static/scripts/edit/URLCleanup.js:382
 msgid ""
 "This is a link to a search result. Please link to any page in the results "
 "that is relevant to this entity instead, if available."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:381
+#: ../root/static/scripts/edit/URLCleanup.js:387
 msgid ""
 "Please link to a specific video. Add channel pages to the relevant artist, "
 "label, etc. instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:386
+#: ../root/static/scripts/edit/URLCleanup.js:392
 msgid ""
 "This is a lyrics site. As such, links to the site should be added at the "
 "release group level with the “lyrics” relationship, rather than directly to "
 "any specific release."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:558
+#: ../root/static/scripts/edit/URLCleanup.js:564
 msgid ""
 "Allmusic “{album_url_pattern}” links should be added to release groups. To "
 "find the appropriate release link for this release, please check the "
 "Releases tab from {album_url|your link}."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:645
-#: ../root/static/scripts/edit/URLCleanup.js:838
-#: ../root/static/scripts/edit/URLCleanup.js:3583
-#: ../root/static/scripts/edit/URLCleanup.js:4557
+#: ../root/static/scripts/edit/URLCleanup.js:651
+#: ../root/static/scripts/edit/URLCleanup.js:878
+#: ../root/static/scripts/edit/URLCleanup.js:4162
+#: ../root/static/scripts/edit/URLCleanup.js:5132
 msgid ""
 "This is a redirect link. Please follow {redirect_url|your link} and add the "
 "link it redirects to instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:663
+#: ../root/static/scripts/edit/URLCleanup.js:669
 msgid ""
 "This is a link to a user video and should not be added. Please add the "
 "product link instead, if relevant."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:800
+#: ../root/static/scripts/edit/URLCleanup.js:838
 msgid ""
 "Only Apple Books audiobooks can be added to MusicBrainz. Consider adding "
 "books to {bookbrainz_url|BookBrainz} instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:991
+#: ../root/static/scripts/edit/URLCleanup.js:1087
 msgid ""
 "Please link to the main page for the artist, not to a specific album or "
 "track."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:1008
+#: ../root/static/scripts/edit/URLCleanup.js:1104
 msgid ""
 "Please link to the main page for the label, not to a specific album or track."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:1230
-msgid "Please link to the main page for the artist, not a specific product."
-msgstr ""
-
-#: ../root/static/scripts/edit/URLCleanup.js:1232
-msgid "Please link to the main page for the label, not a specific product."
-msgstr ""
-
-#: ../root/static/scripts/edit/URLCleanup.js:1915
-msgid ""
-"Discogs “{master_url_pattern}” links group several releases, so this should "
-"be added to the release group instead."
-msgstr ""
-
-#: ../root/static/scripts/edit/URLCleanup.js:2524
-msgid ""
-"Only IMSLP “{category_url_pattern}” links are allowed for artists. Please "
-"link work pages to the specific work in question."
-msgstr ""
-
-#: ../root/static/scripts/edit/URLCleanup.js:2542
-msgid ""
-"IMSLP “{category_url_pattern}” links are only allowed for artists. Please "
-"link the specific work page to this work instead, if available."
-msgstr ""
-
-#: ../root/static/scripts/edit/URLCleanup.js:2587
-msgid ""
-"Instagram “{explore_url_pattern}” links are not allowed. Please link to a "
-"profile instead, if there is one."
-msgstr ""
-
-#: ../root/static/scripts/edit/URLCleanup.js:2615
-msgid ""
-"Please do not link directly to images, link to the appropriate Instagram "
-"profile page instead. If you want to link to a video, {url|add a standalone "
-"recording} for it instead."
-msgstr ""
-
-#: ../root/static/scripts/edit/URLCleanup.js:2640
-msgid "This is an internal Instagram page and should not be added."
-msgstr ""
-
-#: ../root/static/scripts/edit/URLCleanup.js:3480
-msgid ""
-"Musixmatch “{album_url_pattern}” pages are a bad match for MusicBrainz "
-"release groups, and linking to them is currently disallowed. Please consider "
-"adding Musixmatch links to the relevant artists and works instead."
-msgstr ""
-
-#: ../root/static/scripts/edit/URLCleanup.js:4056
-msgid "Only RYM music videos can be linked to recordings."
-msgstr ""
-
-#: ../root/static/scripts/edit/URLCleanup.js:4118
-msgid ""
-"This is a link to the old Resident Advisor domain. Please follow {ra_url|"
-"your link}, make sure the link it redirects to is still the correct one and, "
-"if so, add that link instead."
-msgstr ""
-
-#: ../root/static/scripts/edit/URLCleanup.js:5036
-msgid "This is not a profile, but a Twitter documentation page."
-msgstr ""
-
-#: ../root/static/scripts/edit/URLCleanup.js:5050
-msgid "Please link to Twitter profiles, not tweets."
-msgstr ""
-
-#: ../root/static/scripts/edit/URLCleanup.js:5068
-msgid "This site does not allow direct links to their images."
-msgstr ""
-
-#: ../root/static/scripts/edit/URLCleanup.js:5274
-msgid ""
-"Please link to the “{allowed_url_pattern}” page rather than this "
-"“{current_url_pattern}” link."
-msgstr ""
-
-#: ../root/static/scripts/edit/URLCleanup.js:5330
-msgid ""
-"There is an unencoded “?” or “#” character in this URL. Please check whether "
-"it is useless and should be removed, or whether it is an error and the URL "
-"is misencoded."
-msgstr ""
-
-#: ../root/static/scripts/edit/URLCleanup.js:5350
-msgid ""
-"Please do not link directly to WhoSampled “{unwanted_url_pattern}” pages. "
-"Link to the appropriate WhoSampled artist, track or album page instead."
-msgstr ""
-
-#: ../root/static/scripts/edit/URLCleanup.js:5371
-msgid "Please link WhoSampled “{album_url_pattern}” pages to release groups."
-msgstr ""
-
-#: ../root/static/scripts/edit/URLCleanup.js:5389
-msgid "Please link WhoSampled artist pages to artists."
-msgstr ""
-
-#: ../root/static/scripts/edit/URLCleanup.js:5401
-msgid "Please link WhoSampled track pages to recordings."
-msgstr ""
-
-#: ../root/static/scripts/edit/URLCleanup.js:5468
-msgid ""
-"Links to specific sections of Wikipedia articles are not allowed. Please "
-"remove “{fragment}” if still appropriate. See the {url|guidelines}."
-msgstr ""
-
-#: ../root/static/scripts/edit/URLCleanup.js:5493
-msgid ""
-"Links to Wikipedia user pages are not allowed. Please link only to actual "
-"Wikipedia articles."
-msgstr ""
-
-#: ../root/static/scripts/edit/URLCleanup.js:5613
-msgid ""
-"This is a playlist link, which isn’t a video channel and is not guaranteed "
-"to be officially approved. Please link to the official channel for this "
-"entity, if it exists, instead."
-msgstr ""
-
-#: ../root/static/scripts/edit/URLCleanup.js:5653
-msgid "Only video and playlist links are allowed on releases."
-msgstr ""
-
-#: ../root/static/scripts/edit/URLCleanup.js:5688
-msgid ""
-"Wikipedia normally has no entries for specific releases, so adding Wikipedia "
-"links to a release is currently blocked. Please add this Wikipedia link to "
-"the release group instead, if appropriate."
-msgstr ""
-
-#: ../root/static/scripts/edit/URLCleanup.js:5700
-msgid ""
-"Wikidata normally has no entries for specific releases, so adding Wikidata "
-"links to a release is currently blocked. Please add this Wikidata link to "
-"the release group instead, if appropriate."
-msgstr ""
-
-#: ../root/static/scripts/edit/URLCleanup.js:5719
-msgid ""
-"This is a Bandcamp profile, not a page for a specific release. Even if it "
-"shows this release right now, that can change when the artist releases "
-"another. Please find and add the appropriate release page "
-"(“{album_url_pattern}” or “{single_url_pattern}”) instead, and feel free to "
-"add this profile link to the appropriate artist or label."
-msgstr ""
-
-#: ../root/static/scripts/edit/URLCleanup.js:5747
+#: ../root/static/scripts/edit/URLCleanup.js:1126
 msgid ""
 "This is a Bandcamp profile, not a page for a specific recording. Even if it "
 "shows a single recording right now, that can change when the artist releases "
@@ -14717,11 +14576,165 @@ msgid ""
 "the appropriate artist or label."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:5910
+#: ../root/static/scripts/edit/URLCleanup.js:1154
+msgid ""
+"This is a Bandcamp profile, not a page for a specific release. Even if it "
+"shows this release right now, that can change when the artist releases "
+"another. Please find and add the appropriate release page "
+"(“{album_url_pattern}” or “{single_url_pattern}”) instead, and feel free to "
+"add this profile link to the appropriate artist or label."
+msgstr ""
+
+#: ../root/static/scripts/edit/URLCleanup.js:1462
+msgid "Please link to the main page for the artist, not a specific product."
+msgstr ""
+
+#: ../root/static/scripts/edit/URLCleanup.js:1464
+msgid "Please link to the main page for the label, not a specific product."
+msgstr ""
+
+#: ../root/static/scripts/edit/URLCleanup.js:2234
+msgid ""
+"Discogs “{master_url_pattern}” links group several releases, so this should "
+"be added to the release group instead."
+msgstr ""
+
+#: ../root/static/scripts/edit/URLCleanup.js:2912
+msgid ""
+"Only IMSLP “{category_url_pattern}” links are allowed for artists. Please "
+"link work pages to the specific work in question."
+msgstr ""
+
+#: ../root/static/scripts/edit/URLCleanup.js:2930
+msgid ""
+"IMSLP “{category_url_pattern}” links are only allowed for artists. Please "
+"link the specific work page to this work instead, if available."
+msgstr ""
+
+#: ../root/static/scripts/edit/URLCleanup.js:2975
+msgid ""
+"Instagram “{explore_url_pattern}” links are not allowed. Please link to a "
+"profile instead, if there is one."
+msgstr ""
+
+#: ../root/static/scripts/edit/URLCleanup.js:3003
+msgid ""
+"Please do not link directly to images, link to the appropriate Instagram "
+"profile page instead. If you want to link to a video, {url|add a standalone "
+"recording} for it instead."
+msgstr ""
+
+#: ../root/static/scripts/edit/URLCleanup.js:3028
+msgid "This is an internal Instagram page and should not be added."
+msgstr ""
+
+#: ../root/static/scripts/edit/URLCleanup.js:4059
+msgid ""
+"Musixmatch “{album_url_pattern}” pages are a bad match for MusicBrainz "
+"release groups, and linking to them is currently disallowed. Please consider "
+"adding Musixmatch links to the relevant artists and works instead."
+msgstr ""
+
+#: ../root/static/scripts/edit/URLCleanup.js:4649
+msgid "Only RYM music videos can be linked to recordings."
+msgstr ""
+
+#: ../root/static/scripts/edit/URLCleanup.js:4711
+msgid ""
+"This is a link to the old Resident Advisor domain. Please follow {ra_url|"
+"your link}, make sure the link it redirects to is still the correct one and, "
+"if so, add that link instead."
+msgstr ""
+
+#: ../root/static/scripts/edit/URLCleanup.js:5288
+msgid "Please link to Threads profiles, not threads."
+msgstr ""
+
+#: ../root/static/scripts/edit/URLCleanup.js:5639
+msgid "This is not a profile, but a Twitter documentation page."
+msgstr ""
+
+#: ../root/static/scripts/edit/URLCleanup.js:5653
+msgid "Please link to Twitter profiles, not tweets."
+msgstr ""
+
+#: ../root/static/scripts/edit/URLCleanup.js:5671
+msgid "This site does not allow direct links to their images."
+msgstr ""
+
+#: ../root/static/scripts/edit/URLCleanup.js:5877
+msgid ""
+"Please link to the “{allowed_url_pattern}” page rather than this "
+"“{current_url_pattern}” link."
+msgstr ""
+
+#: ../root/static/scripts/edit/URLCleanup.js:5960
+msgid ""
+"There is an unencoded “?” or “#” character in this URL. Please check whether "
+"it is useless and should be removed, or whether it is an error and the URL "
+"is misencoded."
+msgstr ""
+
+#: ../root/static/scripts/edit/URLCleanup.js:5980
+msgid ""
+"Please do not link directly to WhoSampled “{unwanted_url_pattern}” pages. "
+"Link to the appropriate WhoSampled artist, track or album page instead."
+msgstr ""
+
+#: ../root/static/scripts/edit/URLCleanup.js:6001
+msgid "Please link WhoSampled “{album_url_pattern}” pages to release groups."
+msgstr ""
+
+#: ../root/static/scripts/edit/URLCleanup.js:6019
+msgid "Please link WhoSampled artist pages to artists."
+msgstr ""
+
+#: ../root/static/scripts/edit/URLCleanup.js:6031
+msgid "Please link WhoSampled track pages to recordings."
+msgstr ""
+
+#: ../root/static/scripts/edit/URLCleanup.js:6098
+msgid ""
+"Links to specific sections of Wikipedia articles are not allowed. Please "
+"remove “{fragment}” if still appropriate. See the {url|guidelines}."
+msgstr ""
+
+#: ../root/static/scripts/edit/URLCleanup.js:6123
+msgid ""
+"Links to Wikipedia user pages are not allowed. Please link only to actual "
+"Wikipedia articles."
+msgstr ""
+
+#: ../root/static/scripts/edit/URLCleanup.js:6243
+msgid ""
+"This is a playlist link, which isn’t a video channel and is not guaranteed "
+"to be officially approved. Please link to the official channel for this "
+"entity, if it exists, instead."
+msgstr ""
+
+#: ../root/static/scripts/edit/URLCleanup.js:6283
+msgid "Only video and playlist links are allowed on releases."
+msgstr ""
+
+#: ../root/static/scripts/edit/URLCleanup.js:6315
+msgid ""
+"Wikipedia normally has no entries for specific releases, so adding Wikipedia "
+"links to a release is currently blocked. Please add this Wikipedia link to "
+"the release group instead, if appropriate."
+msgstr ""
+
+#: ../root/static/scripts/edit/URLCleanup.js:6327
+msgid ""
+"Wikidata normally has no entries for specific releases, so adding Wikidata "
+"links to a release is currently blocked. Please add this Wikidata link to "
+"the release group instead, if appropriate."
+msgstr ""
+
+#: ../root/static/scripts/edit/URLCleanup.js:6532
 msgid "Some relationship types are missing for this URL."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:5927
+#: ../root/static/scripts/edit/URLCleanup.js:6549
 #: ../root/static/scripts/edit/externalLinks.js:1006
 msgid "This relationship type combination is invalid."
 msgstr ""
@@ -14823,7 +14836,7 @@ msgid "Remove Artist Credit"
 msgstr ""
 
 #: ../root/static/scripts/edit/components/DateRangeFieldset.js:201
-#: ../root/static/scripts/relationship-editor/components/DialogDatePeriod.js:63
+#: ../root/static/scripts/relationship-editor/components/DialogDatePeriod.js:179
 msgid "Copy to end date"
 msgstr ""
 
@@ -14836,7 +14849,7 @@ msgid ""
 msgstr ""
 
 #: ../root/static/scripts/edit/components/ExternalLinkAttributeDialog.js:198
-#: ../root/static/scripts/relationship-editor/components/DialogDatePeriod.js:86
+#: ../root/static/scripts/relationship-editor/components/DialogDatePeriod.js:202
 msgid "This relationship has ended."
 msgstr ""
 
@@ -14984,7 +14997,7 @@ msgid "Please select a link type for the URL you’ve entered."
 msgstr ""
 
 #: ../root/static/scripts/edit/externalLinks.js:768
-#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:1009
+#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:923
 #: ../root/static/scripts/relationship-editor/components/RelationshipEditor.js:526
 msgid "This relationship already exists."
 msgstr ""
@@ -15081,14 +15094,14 @@ msgstr ""
 msgid "Guess Case Options"
 msgstr ""
 
-#: ../root/static/scripts/guess-case/modes.js:311
+#: ../root/static/scripts/guess-case/modes.js:313
 msgid ""
 "This mode capitalises almost all words, with some words (mainly articles and "
 "short prepositions) lowercased. Some words may need to be manually "
 "capitalised to follow the {url|English capitalisation guidelines}."
 msgstr ""
 
-#: ../root/static/scripts/guess-case/modes.js:348
+#: ../root/static/scripts/guess-case/modes.js:350
 msgid ""
 "This mode capitalises titles as sentence mode, but also inserts spaces "
 "before semicolons, colons, exclamation marks and question marks, and inside "
@@ -15096,14 +15109,14 @@ msgid ""
 "{url|French capitalisation guidelines}."
 msgstr ""
 
-#: ../root/static/scripts/guess-case/modes.js:372
+#: ../root/static/scripts/guess-case/modes.js:374
 msgid ""
 "This mode capitalises the first word of a sentence, most other words are "
 "lowercased. Some words, often proper nouns, may need to be manually fixed "
 "according to the {url|relevant language guidelines}."
 msgstr ""
 
-#: ../root/static/scripts/guess-case/modes.js:387
+#: ../root/static/scripts/guess-case/modes.js:389
 msgid ""
 "This mode handles the Turkish capitalisation of 'i' ('İ') and 'ı' ('I'). "
 "Some words may need to be manually corrected according to the {url|Turkish "
@@ -15138,14 +15151,14 @@ msgctxt "relationship attribute"
 msgid "Add another"
 msgstr ""
 
-#: ../root/static/scripts/relationship-editor/components/DialogDatePeriod.js:101
+#: ../root/static/scripts/relationship-editor/components/DialogDatePeriod.js:217
 msgid ""
 "If you want to set the relationship as happening on one specific date, just "
 "set the same end date and start date. You can use the arrow button to copy "
 "the begin date to the end date."
 msgstr ""
 
-#: ../root/static/scripts/relationship-editor/components/DialogDatePeriod.js:107
+#: ../root/static/scripts/relationship-editor/components/DialogDatePeriod.js:223
 msgid ""
 "If you do not know the end date, but you know the relationship has ended and "
 "this seems like useful information to store (for example, if someone is no "
@@ -15261,45 +15274,53 @@ msgstr ""
 msgid "Related type"
 msgstr ""
 
-#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:924
+#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:838
 msgid ""
 "Warning: This relationship has pending edits. {show|Click here} to view "
 "these edits and make sure they do not conflict with your own."
 msgstr ""
 
-#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:1029
+#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:943
 msgid "This will add a relationship to all checked recordings."
 msgstr ""
 
-#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:1032
+#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:946
 msgid "This will add a relationship to all checked works."
 msgstr ""
 
-#: ../root/static/scripts/relationship-editor/components/RelationshipItem.js:111
+#: ../root/static/scripts/relationship-editor/components/RelationshipItem.js:116
 msgid "no entity"
 msgstr ""
 
-#: ../root/static/scripts/relationship-editor/components/RelationshipItem.js:117
+#: ../root/static/scripts/relationship-editor/components/RelationshipItem.js:122
 msgid "{target} (as {credited_name})"
 msgstr ""
 
-#: ../root/static/scripts/relationship-editor/components/RelationshipItem.js:188
+#: ../root/static/scripts/relationship-editor/components/RelationshipItem.js:193
 msgid "Edit Relationship"
 msgstr ""
 
-#: ../root/static/scripts/relationship-editor/components/RelationshipItem.js:254
+#: ../root/static/scripts/relationship-editor/components/RelationshipItem.js:259
 msgid "Move entity down"
 msgstr ""
 
-#: ../root/static/scripts/relationship-editor/components/RelationshipItem.js:261
+#: ../root/static/scripts/relationship-editor/components/RelationshipItem.js:266
 msgid "Move entity up"
 msgstr ""
 
-#: ../root/static/scripts/relationship-editor/components/RelationshipItem.js:287
+#: ../root/static/scripts/relationship-editor/components/RelationshipItem.js:292
+msgid "This entity has {edits_link|pending edits}."
+msgstr ""
+
+#: ../root/static/scripts/relationship-editor/components/RelationshipItem.js:297
+msgid "This entity has pending edits."
+msgstr ""
+
+#: ../root/static/scripts/relationship-editor/components/RelationshipItem.js:312
 msgid "This relationship has {edit_search|pending edits}."
 msgstr ""
 
-#: ../root/static/scripts/relationship-editor/components/RelationshipItem.js:292
+#: ../root/static/scripts/relationship-editor/components/RelationshipItem.js:317
 msgid "This relationship has pending edits."
 msgstr ""
 
@@ -15476,24 +15497,24 @@ msgstr ""
 msgid "The barcode you entered is not a valid UPC or EAN code."
 msgstr ""
 
-#: ../root/static/scripts/release/components/BatchCreateWorksDialog.js:201
+#: ../root/static/scripts/release/components/BatchCreateWorksDialog.js:236
 msgid ""
 "This will create a new work for each checked recording that has no work "
 "already. The work names will be the same as their respective recording."
 msgstr ""
 
-#: ../root/static/scripts/release/components/BatchCreateWorksDialog.js:206
+#: ../root/static/scripts/release/components/BatchCreateWorksDialog.js:241
 msgid ""
 "Only use this option after you’ve tried searching for the work(s) you want "
 "to create, and are certain they do not already exist on MusicBrainz."
 msgstr ""
 
-#: ../root/static/scripts/release/components/BatchCreateWorksDialog.js:283
+#: ../root/static/scripts/release/components/BatchCreateWorksDialog.js:323
 #: ../root/static/scripts/release/components/RelationshipEditorBatchTools.js:94
 msgid "To use this tool, select some recordings using the checkboxes below."
 msgstr ""
 
-#: ../root/static/scripts/release/components/BatchCreateWorksDialog.js:294
+#: ../root/static/scripts/release/components/BatchCreateWorksDialog.js:334
 msgid "Batch-create new works"
 msgstr ""
 
@@ -15910,6 +15931,26 @@ msgstr ""
 msgid "URL Details"
 msgstr ""
 
+#: ../root/user/ContactUser.js:54
+msgid "Subject:"
+msgstr ""
+
+#: ../root/user/ContactUser.js:62 ../root/user/ReportUser.js:147
+msgid "Message"
+msgstr ""
+
+#: ../root/user/ContactUser.js:69
+msgid "Reveal my email address"
+msgstr ""
+
+#: ../root/user/ContactUser.js:75 ../root/user/ReportUser.js:173
+msgid "Send a copy to my own email address"
+msgstr ""
+
+#: ../root/user/ContactUser.js:80 ../root/user/ReportUser.js:178
+msgid "Send"
+msgstr ""
+
 #: ../root/user/Login.js:56
 msgid "You need to be logged in to view this page."
 msgstr ""
@@ -16233,6 +16274,10 @@ msgstr ""
 
 #: ../root/user/UserProfile.js:183
 msgid "General Information"
+msgstr ""
+
+#: ../root/user/UserProfile.js:186
+msgid "Email:"
 msgstr ""
 
 #: ../root/user/UserProfile.js:189
@@ -16721,7 +16766,7 @@ msgstr ""
 msgid "This edit was cancelled."
 msgstr ""
 
-#: ../root/utility/tableColumns.js:761
+#: ../root/utility/tableColumns.js:768
 msgid "Subscribed"
 msgstr ""
 
