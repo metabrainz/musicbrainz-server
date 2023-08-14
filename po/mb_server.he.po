@@ -12,14 +12,17 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-05-31 20:29+0300\n"
-"PO-Revision-Date: 2011-01-30 16:57+0000\n"
-"Last-Translator: Avi Markovitz <avi.markovitz@gmail.com>, 2018-2022\n"
-"Language-Team: Hebrew (http://app.transifex.com/musicbrainz/musicbrainz/language/he/)\n"
+"PO-Revision-Date: 2023-08-14 15:06+0000\n"
+"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"Language-Team: Hebrew <https://translations.metabrainz.org/projects/"
+"musicbrainz/server/he/>\n"
+"Language: he\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: he\n"
-"Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n == 2 && n % 1 == 0) ? 1: (n % 10 == 0 && n % 1 == 0 && n > 10) ? 2 : 3;\n"
+"Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
+"n % 10 == 0) ? 2 : 3));\n"
+"X-Generator: Weblate 4.18.2\n"
 
 #: ../root/components/common-macros.tt:12
 msgid " ({text})"
@@ -47,7 +50,9 @@ msgstr "\"NNNNN\" הוא מספר יחידאי בו חמש ספרות המזהה
 msgid ""
 "\"XXX\" is a three character alphanumeric registrant code, uniquely "
 "identifying the organisation which registered the code."
-msgstr "\"XXX\" הוא קוד רישום אלפאנומרי בן שלוש תווים, המזהה באופן יחידאי את הארגון שהנפיק את הקוד."
+msgstr ""
+"\"XXX\" הוא קוד רישום אלפאנומרי בן שלוש תווים, המזהה באופן יחידאי את הארגון "
+"שהנפיק את הקוד."
 
 #: ../root/components/forms.tt:325
 msgid "\"YY\" is the last two digits of the year of registration."
@@ -131,7 +136,11 @@ msgid ""
 "license. Furthermore, you give the MetaBrainz Foundation the right to "
 "license this data for commercial use. Please read our {doc|license page} for"
 " more details.</strong>"
-msgstr "לתשומת לב, כל תרומה שתעובר ל־ מוזיקבריינז תשוחרר לרשות הציבור ו/או תורשה תחת רישיון Creative Commons by-nc-sa. יתר על כן, אתם נותנים לקרן מוזיקבריינז את הזכות להעניק רישיון לנתונים אלה לשימוש מסחרי. נא קראו את {doc | דף הרישיון} שלנו לפרטים נוספים."
+msgstr ""
+"לתשומת לב, כל תרומה שתעובר ל־ מוזיקבריינז תשוחרר לרשות הציבור ו/או תורשה תחת "
+"רישיון Creative Commons by-nc-sa. יתר על כן, אתם נותנים לקרן מוזיקבריינז את "
+"הזכות להעניק רישיון לנתונים אלה לשימוש מסחרי. נא קראו את {doc | דף הרישיון} "
+"שלנו לפרטים נוספים."
 
 #: ../root/release/edit/recordings.tt:137
 msgid ""
@@ -150,7 +159,9 @@ msgid ""
 "A CD Stub was found that matches the disc ID you provided. If the below "
 "tracklist appears correct, you may use it as a starting point as a new "
 "MusicBrainz release"
-msgstr "נמצא ספח תקליטור התואם את מזהה הדיסק שסופק. אם רשימת הרצועות מטה נראית נכונה, ניתן להשתמש בה כנקודת התחלה להוצאת מוזיקבריינז חדשה "
+msgstr ""
+"נמצא ספח תקליטור התואם את מזהה הדיסק שסופק. אם רשימת הרצועות מטה נראית "
+"נכונה, ניתן להשתמש בה כנקודת התחלה להוצאת מוזיקבריינז חדשה "
 
 #: ../root/release/edit/tracklist.tt:323
 msgid ""
@@ -560,7 +571,9 @@ msgstr "ברקוד:"
 msgid ""
 "Based on the above CD stub, we also found the following releases in "
 "MusicBrainz that may be related:"
-msgstr "בהתבסס על ספח התקליטור לעיל, מצאנו את ההוצאות הבאות במוזיקבריינז שעשויות להיות קשורות:"
+msgstr ""
+"בהתבסס על ספח התקליטור לעיל, מצאנו את ההוצאות הבאות במוזיקבריינז שעשויות "
+"להיות קשורות:"
 
 #: ../root/release/edit/duplicates.tt:4
 msgid ""
@@ -622,7 +635,9 @@ msgstr ""
 msgid ""
 "Brought to you by {MeB|MetaBrainz Foundation} and our {spon|sponsors} and "
 "{supp|supporters}. Cover Art provided by the {caa|Cover Art Archive}."
-msgstr "הובא לכם על־ידי {MeB|קרן מטהבריינז} ו־ {spon|נותני החסות} שלנו ו־ {supp|תומכי}. תמונת עטיפה המסופקות על־ידי {caa|ארכיב תמונות עטיפה}."
+msgstr ""
+"הובא לכם על־ידי {MeB|קרן מטהבריינז} ו־ {spon|נותני החסות} שלנו ו־ "
+"{supp|תומכי}. תמונת עטיפה המסופקות על־ידי {caa|ארכיב תמונות עטיפה}."
 
 #: ../root/layout.tt:115 ../root/layout/components/Footer.js:32
 #: ../root/main/index.js:209
@@ -907,7 +922,9 @@ msgstr "תאריך:"
 msgid ""
 "Dates are in the format YYYY-MM-DD. Partial dates such as YYYY-MM or just "
 "YYYY are OK, or you can omit the date entirely."
-msgstr "התאריכים הם בתבנית YYYY-MM-DD. תאריכים חלקיים כגון YYYY-MM או רק  YYYY, יתקבלו גם כן או, שניתן להשמיט את התאריך לחלוטין."
+msgstr ""
+"התאריכים הם בתבנית YYYY-MM-DD. תאריכים חלקיים כגון YYYY-MM או רק  YYYY, "
+"יתקבלו גם כן או, שניתן להשמיט את התאריך לחלוטין."
 
 #: ../root/edit/search_macros.tt:120
 msgid "Delete"
@@ -1211,7 +1228,9 @@ msgstr "הזנת עריכה"
 msgid ""
 "Enter the delimiter that separates the track name from the artist name "
 "(valid {url|regular expressions} are accepted)."
-msgstr "הזנת תוחם שיפריד בין שם הרצועה לשם האמן (מתקבלים {url|regular expressions} תקינים)."
+msgstr ""
+"הזנת תוחם שיפריד בין שם הרצועה לשם האמן (מתקבלים {url|regular expressions} "
+"תקינים)."
 
 #: ../root/components/forms.tt:30
 msgid ""
@@ -1219,7 +1238,10 @@ msgid ""
 "is highly recommended. Not only does it make it clear where you got your "
 "information, but it can also encourage other users to vote on your edit "
 "&#x2014; thus making your edit get applied faster."
-msgstr "מומלץ מאוד להזין {note|edit note} לתאור מקור המידע שלכם. בנוסף להבהרת מקור המידע, עשוי גם לעודד משתמשים אחרים להצביע על העריכה שלכם — ובכך העריכה תוחל מהר יותר."
+msgstr ""
+"מומלץ מאוד להזין {note|edit note} לתאור מקור המידע שלכם. בנוסף להבהרת מקור "
+"המידע, עשוי גם לעודד משתמשים אחרים להצביע על העריכה שלכם — ובכך העריכה תוחל "
+"מהר יותר."
 
 #: ../root/admin/attributes/form.tt:37
 #: ../root/admin/attributes/Attribute.js:36
@@ -1645,7 +1667,9 @@ msgstr ""
 msgid ""
 "If this is an Amazon ASIN, please do not enter it in the catalog number "
 "field, but add it as a URL relationship later."
-msgstr "אם זהו ASIN של אמזון, נא לל להזינו בשדה מספר קטלוגי, אלא הוסיפו כקשר מען url בהמשך."
+msgstr ""
+"אם זהו ASIN של אמזון, נא לל להזינו בשדה מספר קטלוגי, אלא הוסיפו כקשר מען url "
+"בהמשך."
 
 #: ../root/release/edit/recordings.tt:160
 msgid ""
@@ -1667,7 +1691,9 @@ msgstr ""
 msgid ""
 "If you don't see the release you are looking for, you can still add a new "
 "one, using this CD TOC:"
-msgstr "אם אינכם רואים את הוצאה אותה אתם מחפשים, ניתן עדיין להוסיף הוצאה חדשה באמצעות תוכן עניינים  תקליטור זה:"
+msgstr ""
+"אם אינכם רואים את הוצאה אותה אתם מחפשים, ניתן עדיין להוסיף הוצאה חדשה "
+"באמצעות תוכן עניינים  תקליטור זה:"
 
 #: ../root/components/forms.tt:336 ../root/components/forms.tt:345
 msgid ""
@@ -2133,7 +2159,8 @@ msgstr ""
 
 #: ../root/release_group/set_cover_art.tt:96
 msgid "No releases have cover art marked as \"Front\", cannot set cover art."
-msgstr "אין הוצאות להן תמונת עטיפה המסומנת כ־\"חזית\", לא ניתן לקבוע תמונת עטיפה."
+msgstr ""
+"אין הוצאות להן תמונת עטיפה המסומנת כ־\"חזית\", לא ניתן לקבוע תמונת עטיפה."
 
 #: ../root/release/edit/tracklist.tt:140 ../root/admin/IpLookup.js:38
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:468
@@ -2166,7 +2193,9 @@ msgstr ""
 msgid ""
 "None of the mediums on this release can have the given CD TOC attached, "
 "because they have the wrong number of tracks."
-msgstr "לא ניתן לצרף תוכן עניינים תקליטור לאף מדיה בהוצאה זו, כיוון שמספר הרצועות לא נכון."
+msgstr ""
+"לא ניתן לצרף תוכן עניינים תקליטור לאף מדיה בהוצאה זו, כיוון שמספר הרצועות לא "
+"נכון."
 
 #: ../root/release/edit/information.tt:283
 msgid ""
@@ -2202,7 +2231,8 @@ msgstr "סיסמה ישנה:"
 msgid ""
 "Only releases with a front cover on the {caa|Cover Art Archive} can be "
 "selected."
-msgstr "ניתן לבחור רק הוצאות בעלות תמונת עטיפה קדמית ב־  {caa|ארכיב תמונות עטיפה}."
+msgstr ""
+"ניתן לבחור רק הוצאות בעלות תמונת עטיפה קדמית ב־  {caa|ארכיב תמונות עטיפה}."
 
 #: ../root/cdtoc/move_search.tt:7
 msgid ""
@@ -2296,7 +2326,11 @@ msgid ""
 "original passwords from this mishap, we are requiring all of our users to "
 "change their passwords. Sorry for the inconvenience. For more information "
 "see {blog|the recent blog post}."
-msgstr "נא לשנות ססמה. למרבה הצער גילינו שבליל ססמאות משתמש מאובטח זמינות להורדה באופן זמני מאתר ה־ FTP שלנו. אמנם אין זה סביר ביותר שמישהו יוכל לגזור את הססמאות המקוריות מתקלה זו, אך אנו דורשים מכל המשתמשים שלנו לשנות את ססמאותיהם. אנו מצטער על אי הנוחות. למידע נוסף ראו {blog|הפוסט האחרון בבלוג}."
+msgstr ""
+"נא לשנות ססמה. למרבה הצער גילינו שבליל ססמאות משתמש מאובטח זמינות להורדה "
+"באופן זמני מאתר ה־ FTP שלנו. אמנם אין זה סביר ביותר שמישהו יוכל לגזור את "
+"הססמאות המקוריות מתקלה זו, אך אנו דורשים מכל המשתמשים שלנו לשנות את "
+"ססמאותיהם. אנו מצטער על אי הנוחות. למידע נוסף ראו {blog|הפוסט האחרון בבלוג}."
 
 #: ../root/edit/search_macros.tt:421
 msgid "Please choose a condition"
@@ -2851,14 +2885,19 @@ msgstr ""
 msgid ""
 "Some discs contain a hidden track in the pregap section that precedes track "
 "1. Use this to add (or remove) the special pregap track section."
-msgstr "כמה מהתקליטורים מכילים רצועה מוסתרת בקטע הקדם-רווח לפני רצועה 1. נא להשתמש בזה כדי להוסיף (או להסיר) את חלק הרצועה המיוחד קדם-הרווח."
+msgstr ""
+"כמה מהתקליטורים מכילים רצועה מוסתרת בקטע הקדם-רווח לפני רצועה 1. נא להשתמש "
+"בזה כדי להוסיף (או להסיר) את חלק הרצועה המיוחד קדם-הרווח."
 
 #: ../root/release/edit/tracklist.tt:514
 msgid ""
 "Some discs contain one or more data tracks after all audio tracks. Use this "
 "to add (or remove) the special data tracks section. You should only add data"
 " tracks that contain audio or video ({info|more info})"
-msgstr "כמה תקליטורים מכילים אחת או יותר רצועת נתונים אחרי כל רצועות השמע. נא להשתמש בזה כדי להוסיף (או להסיר) את מקטע רצועות הנתונים המיוחדים. נא להוסיף רק רצועות נתונים המכילות שמע או חוזי ({info|מידע נוסף})"
+msgstr ""
+"כמה תקליטורים מכילים אחת או יותר רצועת נתונים אחרי כל רצועות השמע. נא להשתמש "
+"בזה כדי להוסיף (או להסיר) את מקטע רצועות הנתונים המיוחדים. נא להוסיף רק "
+"רצועות נתונים המכילות שמע או חוזי ({info|מידע נוסף})"
 
 #: ../root/release/edit/editnote.tt:4
 msgid ""
@@ -2944,7 +2983,9 @@ msgstr ""
 msgid ""
 "The Cover Art Archive is currently experiencing difficulties. Adding images "
 "for this release is unlikely to work at the moment."
-msgstr "אתר ארכיב תמונות עטיפה חווה כעת קשיים. ספק אם הוספת תמונות להוצאה זו כעת תצלח."
+msgstr ""
+"אתר ארכיב תמונות עטיפה חווה כעת קשיים. ספק אם הוספת תמונות להוצאה זו כעת "
+"תצלח."
 
 #: ../root/release/edit/information.tt:334
 msgid "The annotation field functions like a miniature wiki."
@@ -3033,7 +3074,9 @@ msgstr ""
 msgid ""
 "There are no disc IDs attached to this release; to find out more about how "
 "to add one, see {doc|How to Add Disc IDs}."
-msgstr "אין מזהי תקליטור המצורפים להוצאה זו; למידע נוסף על הוספה, ראu {doc|כיצד להוסיף מזהי תקליטור}."
+msgstr ""
+"אין מזהי תקליטור המצורפים להוצאה זו; למידע נוסף על הוספה, ראu {doc|כיצד "
+"להוסיף מזהי תקליטור}."
 
 #: ../root/artist/split.tt:10
 msgid ""
@@ -3042,7 +3085,11 @@ msgid ""
 "at the bottom of the {alias_uri|aliases} tab and remove all existing "
 "{rel_uri|relationships} instead, which will allow ModBot to automatically "
 "remove this artist in the upcoming days."
-msgstr "אין הקלטות, קבוצות הוצאה, הוצאות או רצועות שזוכו ל־ {name} בלבד. אם הכוונה להסיר את {name}, נא לערוך את כל זכויות האמן  בתחתית לשונית {alias_uri|כינויים} ולהסיר את כל {rel_uri|קשרי־גומלין} הקיימים במקום, מה שיאפשר ל־ ModBot להסיר את האמן הזה באופן אוטומטי בימים הקרובים ."
+msgstr ""
+"אין הקלטות, קבוצות הוצאה, הוצאות או רצועות שזוכו ל־ {name} בלבד. אם הכוונה "
+"להסיר את {name}, נא לערוך את כל זכויות האמן  בתחתית לשונית "
+"{alias_uri|כינויים} ולהסיר את כל {rel_uri|קשרי־גומלין} הקיימים במקום, מה "
+"שיאפשר ל־ ModBot להסיר את האמן הזה באופן אוטומטי בימים הקרובים ."
 
 #: ../root/place/edit_form.tt:29
 msgid "These coordinates could not be parsed."
@@ -3117,7 +3164,9 @@ msgstr ""
 msgid ""
 "This field is not a place to store general background information about the "
 "release: that kind of information should go in the annotation field."
-msgstr "שדה זה לא נועד לאחסון מידע כללי אודות ההוצאה: סוג מידע כזה ראוי שיאוחסן בשדה הביאור."
+msgstr ""
+"שדה זה לא נועד לאחסון מידע כללי אודות ההוצאה: סוג מידע כזה ראוי שיאוחסן בשדה "
+"הביאור."
 
 #: ../root/artist/edit_credit.tt:12
 msgid ""
@@ -3244,7 +3293,11 @@ msgid ""
 "separate real release. It should not be used to denote bootlegs, "
 "mixtape/street albums, demos, or digital albums. Be sure to link to the "
 "corresponding real release with the {url|transl(iter)ation relationship}."
-msgstr "קשריש לעשות שימוש במצב הוצאה זה במקרה של תרגום לא רשמי ותרגום של רשימת רצועות וכותרות הוצאה, שאינו מהווה הוצאה אמיתית נפרדת. מצב זה לא אמור לשמש כדי לציין בוטלג, mixtape / אלבומי רחוב, הדגמות, או אלבומים דיגיטליים. יש להקפד לקשר את ההוצאה האמיתית עם ה  {url|transl(iter)ation relationship}."
+msgstr ""
+"קשריש לעשות שימוש במצב הוצאה זה במקרה של תרגום לא רשמי ותרגום של רשימת "
+"רצועות וכותרות הוצאה, שאינו מהווה הוצאה אמיתית נפרדת. מצב זה לא אמור לשמש "
+"כדי לציין בוטלג, mixtape / אלבומי רחוב, הדגמות, או אלבומים דיגיטליים. יש "
+"להקפד לקשר את ההוצאה האמיתית עם ה  {url|transl(iter)ation relationship}."
 
 #: ../root/release/edit/tracklist.tt:366
 msgid ""
@@ -3298,7 +3351,9 @@ msgstr "כותרת:"
 msgid ""
 "To create a new tracklist, use an existing medium or import a disc from a CD"
 " stub, select the appropriate tab."
-msgstr "ליצירת רשימת רצועות חדשה, נא להשתמש המדיה קיימת או בייבוא דיסק מספח תקליטור, נא לבחור בלשונית המתאימה."
+msgstr ""
+"ליצירת רשימת רצועות חדשה, נא להשתמש המדיה קיימת או בייבוא דיסק מספח תקליטור, "
+"נא לבחור בלשונית המתאימה."
 
 #: ../root/release/edit/information.tt:105
 msgid "To edit types, please {edit_page|edit the release group}."
@@ -3573,7 +3628,10 @@ msgid ""
 "Warning! \"1990-10-25\" is the bogus date that Amazon gives to all releases "
 "for which they don't know the actual date. <strong>Please use this date only"
 " if you're certain this date is correct!</strong>"
-msgstr "אַזהָרָה! \"1990-10-25\" הוא התאריך המזויף שאמזון נותנת לכל המהדורות שעבורן הם לא יודעים את התאריך האמתי. נא להשתמש בתאריך זה רק אם אתם בטוחים שזהו התאריך הנכון!"
+msgstr ""
+"אַזהָרָה! \"1990-10-25\" הוא התאריך המזויף שאמזון נותנת לכל המהדורות שעבורן "
+"הם לא יודעים את התאריך האמתי. נא להשתמש בתאריך זה רק אם אתם בטוחים שזהו "
+"התאריך הנכון!"
 
 #: ../root/release/edit/tracklist.tt:345 ../root/release/edit/tracklist.tt:408
 msgid "Warning:"
@@ -3612,7 +3670,9 @@ msgid ""
 "When you are ready to merge these, just click the Merge button. You may "
 "still add more to this merge queue by simply browsing to the entities page "
 "and following the merge link."
-msgstr "על מנת למזג, פשוט יש להקיש על לחצן 'מיזוג'.  ניתן יהיה להוסיף עדיין פרטים נוספים לתור-המיזוג זאת על־ידי גלישה לעמוד הישויות ולעקוב אחר קישור המיזוג."
+msgstr ""
+"על מנת למזג, פשוט יש להקיש על לחצן 'מיזוג'.  ניתן יהיה להוסיף עדיין פרטים "
+"נוספים לתור-המיזוג זאת על־ידי גלישה לעמוד הישויות ולעקוב אחר קישור המיזוג."
 
 #: ../root/layout.tt:112 ../root/layout/components/Footer.js:27
 msgid "Wiki"
@@ -3668,13 +3728,17 @@ msgstr "כן"
 msgid ""
 "You are about to add an ISRC to this recording. The ISRC must be entered in "
 "standard <code>CCXXXYYNNNNN</code> format:"
-msgstr "אתם עומדים להוסיף ISRC להקלטה זו. יש להזין את ה־ ISRC בתבנית <code>CCXXXYYNNNN</code> רגיל:"
+msgstr ""
+"אתם עומדים להוסיף ISRC להקלטה זו. יש להזין את ה־ ISRC בתבנית "
+"<code>CCXXXYYNNNN</code> רגיל:"
 
 #: ../root/components/forms.tt:309
 msgid ""
 "You are about to add an ISWC to this work. The ISWC must be entered in "
 "standard <code>T-DDD.DDD.DDD-C</code> format:"
-msgstr "אתם עומדים להוסיף ISWC ליצירה זו. יש להזין את ה־ ISWC בתבנית <code>T-DDD.DDD.DDD-C</code> רגיל:"
+msgstr ""
+"אתם עומדים להוסיף ISWC ליצירה זו. יש להזין את ה־ ISWC בתבנית <code>T-DDD.DDD."
+"DDD-C</code> רגיל:"
 
 #: ../root/cdtoc/attach_artist_releases.tt:5
 msgid "You are viewing releases by {artist}."
@@ -3797,14 +3861,18 @@ msgid ""
 "You’re currently not allowed to edit or vote because an admin has revoked "
 "your privileges. If you haven’t already been contacted about why, please "
 "{uri|send us a message}."
-msgstr "אינכם מורשים לערוך או להצביע כרגע משום שמנהלן ביטל את הרשאותיכם. אם עדיין לא פנו אליכם לגבי הסיבות, נא {uri|שלח לנו הודעה}."
+msgstr ""
+"אינכם מורשים לערוך או להצביע כרגע משום שמנהלן ביטל את הרשאותיכם. אם עדיין לא "
+"פנו אליכם לגבי הסיבות, נא {uri|שלח לנו הודעה}."
 
 #: ../root/layout.tt:17 ../root/layout/index.js:201
 msgid ""
 "You’re currently not allowed to edit, vote or leave edit notes because an "
 "admin has revoked your privileges. If you haven’t already been contacted "
 "about why, please {uri|send us a message}."
-msgstr "אינכם מורשים לערוך, להצביע, או לערוך הערות כרגע משום שמנהלן ביטל את הרשאותיכם. אם עדיין לא פנו אליכם לגבי הסיבות, נא {uri|שלח לנו הודעה}."
+msgstr ""
+"אינכם מורשים לערוך, להצביע, או לערוך הערות כרגע משום שמנהלן ביטל את "
+"הרשאותיכם. אם עדיין לא פנו אליכם לגבי הסיבות, נא {uri|שלח לנו הודעה}."
 
 #: ../root/layout.tt:25 ../lib/MusicBrainz/Server/Controller/EditNote.pm:54
 #: ../root/layout/index.js:218
@@ -4194,7 +4262,12 @@ msgid ""
 " was a valid, non-duplicate entry that does belong in MusicBrainz, feel free"
 " to add it again, but please ensure enough data is added to it this time to "
 "avoid another automatic removal."
-msgstr "ישות זו הוסרה באופן אוטומטי כיוון שהייתה ריקה: לא היו לה קשרי־גומלין משויכים, וגם לא (ככל שרלוונטי לסוג הישות האמורה) הקלטות, הוצאות או קבוצות הוצאה. אם אתם סבורים שמדובר בערך חוקי, לא כפילות שאכן שייך למוזיקבריינז, אל תהססו להוסיף אותו שוב, אך נא לוודא שהפעם מוזנים מספיק נתונים כדי למנוע הסרה אוטומטית נוספת."
+msgstr ""
+"ישות זו הוסרה באופן אוטומטי כיוון שהייתה ריקה: לא היו לה קשרי־גומלין "
+"משויכים, וגם לא (ככל שרלוונטי לסוג הישות האמורה) הקלטות, הוצאות או קבוצות "
+"הוצאה. אם אתם סבורים שמדובר בערך חוקי, לא כפילות שאכן שייך למוזיקבריינז, אל "
+"תהססו להוסיף אותו שוב, אך נא לוודא שהפעם מוזנים מספיק נתונים כדי למנוע הסרה "
+"אוטומטית נוספת."
 
 #: ../lib/MusicBrainz/Server/Controller.pm:33
 #, perl-brace-format
@@ -4292,7 +4365,9 @@ msgstr "לא נמצא משתמש בשם משתמש ודוא\"ל אלו"
 msgid ""
 "We can't send a password reset email, because we have no email on record for"
 " this user."
-msgstr "אנחנו לא יכולים לשלוח דוא\"ל לאיפוס ססמה, מאחר וכתובת דוא\"ל אינה זמינה ברשומות שלנו למשתמש זה."
+msgstr ""
+"אנחנו לא יכולים לשלוח דוא\"ל לאיפוס ססמה, מאחר וכתובת דוא\"ל אינה זמינה "
+"ברשומות שלנו למשתמש זה."
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:237
 msgid "Your password has been reset."
@@ -4647,7 +4722,9 @@ msgstr ""
 msgid ""
 "The Cover Art Archive has had a takedown request in the past for this "
 "release, so we are unable to allow any more uploads."
-msgstr " התקבלה בעבר בקשת הסרה מארכיב תמונות עטיפה של הוצאה זו, כך שלא נוכל לאפשר העלאות נוספות."
+msgstr ""
+" התקבלה בעבר בקשת הסרה מארכיב תמונות עטיפה של הוצאה זו, כך שלא נוכל לאפשר "
+"העלאות נוספות."
 
 #: ../lib/MusicBrainz/Server/Controller/WS/js.pm:451
 #, perl-brace-format
@@ -4661,7 +4738,9 @@ msgstr ""
 msgid ""
 "You must be logged in to submit edits. {url|Log in} first, and then try "
 "submitting your edits again."
-msgstr "על מנת לשגר עריכות, נדרש להתחבר למערכת. תחילה {url|Log in} נסו שנית לשגר עריכות.  "
+msgstr ""
+"על מנת לשגר עריכות, נדרש להתחבר למערכת. תחילה {url|Log in} נסו שנית לשגר "
+"עריכות.  "
 
 #: ../lib/MusicBrainz/Server/ControllerUtils/Delete.pm:25
 msgid ""
@@ -4754,7 +4833,8 @@ msgstr ""
 msgid ""
 "Mediums with a pregap track can only be merged with other mediums with a "
 "pregap track."
-msgstr "ניתן למזג מדיה עם רצועת קדם-ריקה רק עם המדיה אחרת בעלות רצועות קדם-ריקות."
+msgstr ""
+"ניתן למזג מדיה עם רצועת קדם-ריקה רק עם המדיה אחרת בעלות רצועות קדם-ריקות."
 
 #: ../lib/MusicBrainz/Server/Data/Release.pm:57
 #, perl-brace-format
@@ -5223,7 +5303,8 @@ msgstr ""
 msgid ""
 "The “{relationship_type}” relationship between “{entity0}” and “{entity1}” "
 "already exists."
-msgstr "“{relationship_type}” קשר־הגומלין בין “{entity0}” ו־ “{entity1}” קיים כבר."
+msgstr ""
+"“{relationship_type}” קשר־הגומלין בין “{entity0}” ו־ “{entity1}” קיים כבר."
 
 #: ../lib/MusicBrainz/Server/Edit/Relationship/EditLinkAttribute.pm:17
 msgid "Edit relationship attribute"
@@ -6298,14 +6379,18 @@ msgstr "(אות מיוחדת)"
 msgid ""
 "An album release primarily consists of previously unreleased material. This "
 "includes album re-issues, with or without bonus tracks."
-msgstr "הוצאת אלבום המכילה בעיקר חומרים שלא שוחררו קודם לכן. לרבות הוצאה מחודשת של אלבום, עם או בלי רצועות הטבה."
+msgstr ""
+"הוצאת אלבום המכילה בעיקר חומרים שלא שוחררו קודם לכן. לרבות הוצאה מחודשת של "
+"אלבום, עם או בלי רצועות הטבה."
 
 #: ../lib/MusicBrainz/Server/Release.pm:32
 msgid ""
 "A single typically has one main song and possibly a handful of additional "
 "tracks or remixes of the main track. A single is usually named after its "
 "main song."
-msgstr "חַדְשִׁיר מכיל בדרך כלל שיר אחד עקרי ואולי קומץ של רצועות או ערבול־מחודש נוספים של הרצועה הראשית. חַדְשִׁיר יקראה לרוב בשם השיר המוביל."
+msgstr ""
+"חַדְשִׁיר מכיל בדרך כלל שיר אחד עקרי ואולי קומץ של רצועות או ערבול־מחודש "
+"נוספים של הרצועה הראשית. חַדְשִׁיר יקראה לרוב בשם השיר המוביל."
 
 #: ../lib/MusicBrainz/Server/Release.pm:33
 msgid ""
@@ -6317,13 +6402,15 @@ msgstr "EP הינה הוצאה של מיני אלבום ולעיתים קרוב�
 msgid ""
 "A compilation is a collection of previously released tracks by one or more "
 "artists."
-msgstr "ליקוט הוא אסופה של רצועות מהוצאות קודמות מבוצעים על־ידי אמן אחד או יותר."
+msgstr ""
+"ליקוט הוא אסופה של רצועות מהוצאות קודמות מבוצעים על־ידי אמן אחד או יותר."
 
 #: ../lib/MusicBrainz/Server/Release.pm:35
 msgid ""
 "A soundtrack is the musical score to a movie, TV series, stage show, "
 "computer game etc."
-msgstr "פס קול הינה תוספת המוסיקלית לסרט, סדרת טלוויזיה, מופע במה, משחק מחשב וכו '."
+msgstr ""
+"פס קול הינה תוספת המוסיקלית לסרט, סדרת טלוויזיה, מופע במה, משחק מחשב וכו '."
 
 #: ../lib/MusicBrainz/Server/Release.pm:36
 msgid "Non-music spoken word releases."
@@ -6353,13 +6440,17 @@ msgstr "כל גרסה שאינה תואמת את אחת מהקטגוריות ל�
 msgid ""
 "Any release officially sanctioned by the artist and/or their record company."
 " (Most releases will fit into this category.)"
-msgstr "כל הוצאה שאושרה רשמית על־ידי האמן ו/או חברת הקלטות. (רוב ההוצאות יתאימו לסוג־אב זה.)"
+msgstr ""
+"כל הוצאה שאושרה רשמית על־ידי האמן ו/או חברת הקלטות. (רוב ההוצאות יתאימו לסוג־"
+"אב זה.)"
 
 #: ../lib/MusicBrainz/Server/Release.pm:44
 msgid ""
 "A giveaway release or a release intended to promote an upcoming official "
 "release. (e.g. prerelease albums or releases included with a magazine)"
-msgstr "מהדורת מתנה או הוצאה המיועדת לקדם הוצאה רשמית עתידית (למשל, גרסאות טרום הוצאה, הוצאות הכלולות במגזין, הוצאות שסופקו לתקליטני רדיו להשמעות בשידור)"
+msgstr ""
+"מהדורת מתנה או הוצאה המיועדת לקדם הוצאה רשמית עתידית (למשל, גרסאות טרום "
+"הוצאה, הוצאות הכלולות במגזין, הוצאות שסופקו לתקליטני רדיו להשמעות בשידור)"
 
 #: ../lib/MusicBrainz/Server/Release.pm:45
 msgid ""
@@ -7148,7 +7239,9 @@ msgstr ""
 msgid ""
 "You are about to merge all these areas into a single one. Please select the "
 "area all others should be merged into:"
-msgstr "אתם עומדים למזג את כל האזורים הללו לאחד. נא לבחור את האזור אליו ימוזגו כל האחרים:"
+msgstr ""
+"אתם עומדים למזג את כל האזורים הללו לאחד. נא לבחור את האזור אליו ימוזגו כל "
+"האחרים:"
 
 #: ../root/area/AreaPlaces.js:36 ../root/area/AreaPlaces.js:37
 #: ../root/components/EntityTabs.js:29
@@ -7355,7 +7448,9 @@ msgstr ""
 msgid ""
 "You are about to merge all these artists into a single one. Please select "
 "the artist all others should be merged into:"
-msgstr "אתם עומדים למזג את כל האמנים הללו לאחד. נא לבחור את האמן אליו ימוזגו כל האחרים:"
+msgstr ""
+"אתם עומדים למזג את כל האמנים הללו לאחד. נא לבחור את האמן אליו ימוזגו כל "
+"האחרים:"
 
 #: ../root/artist/ArtistMerge.js:50
 msgid "You should only use the checkbox above to fix errors (e.g. typos)."
@@ -7366,7 +7461,9 @@ msgid ""
 "If a name appears on the cover of a release, don’t check the box: the "
 "artists will still be combined if you don’t, but the {doc_acs|artist "
 "credits} will be kept as they are now."
-msgstr "אם מופיע שם בעטיפת הוצאה, נא לא לסמן את התיבה: האמנים עדיין ישולבו למרות העדר הסימון, אך {doc_acs|מזכי האמן} יישמרו כפי שהם עכשיו."
+msgstr ""
+"אם מופיע שם בעטיפת הוצאה, נא לא לסמן את התיבה: האמנים עדיין ישולבו למרות "
+"העדר הסימון, אך {doc_acs|מזכי האמן} יישמרו כפי שהם עכשיו."
 
 #: ../root/artist/ArtistMerge.js:65
 msgid ""
@@ -7690,7 +7787,9 @@ msgstr "לא נמצא ספח תקליטור"
 msgid ""
 "Sorry, <code>{discid}</code> does not match a CD stub. You can try "
 "{search_url|searching for it} instead."
-msgstr "למרבה הצער, </code>{discid}</code> אינו תואם לספח תקליטור. יתכן ובמקום זאת ותרצו לנסות {search_url|search for it}."
+msgstr ""
+"למרבה הצער, </code>{discid}</code> אינו תואם לספח תקליטור. יתכן ובמקום זאת "
+"ותרצו לנסות {search_url|search for it}."
 
 #: ../root/cdstub/DiscIdNotValid.js:19
 msgid "Invalid Disc ID"
@@ -7712,7 +7811,9 @@ msgstr "ייבוא ספח תקליטור"
 msgid ""
 "Are you sure that you wish to attach the disc ID <code>{discid}</code> to "
 "{format} {pos} of {release} by {artist}?"
-msgstr "האם לצרף מזהה תקליטור <code>{discid}</code> ל {format} {pos} של {release} על־ידי {artist}?"
+msgstr ""
+"האם לצרף מזהה תקליטור <code>{discid}</code> ל {format} {pos} של {release} על־"
+"ידי {artist}?"
 
 #: ../root/cdtoc/AttachCDTocConfirmation.js:80
 msgid "Track duration comparison"
@@ -7791,7 +7892,9 @@ msgstr "הסרת מזהה תקליטור"
 msgid ""
 "Are you sure you want to remove the disc ID <code>{discid}</code> from the "
 "release {release} by {artist}?"
-msgstr "האם להסיר מזהה תקליטור <code>{discid}</code>מההוצאה  {release} על־ידי {artist}?"
+msgstr ""
+"האם להסיר מזהה תקליטור <code>{discid}</code>מההוצאה  {release} על־ידי "
+"{artist}?"
 
 #: ../root/cdtoc/RemoveDiscId.js:49
 msgid ""
@@ -7828,7 +7931,9 @@ msgstr ""
 msgid ""
 "You are about to enter an edit that will change the durations of tracks to "
 "match that of the below disc ID."
-msgstr "אתם עומדים להזין עריכה שתשנה את משך־זמן הרצועות כך שיתאימו למזהה התקליטור מטה."
+msgstr ""
+"אתם עומדים להזין עריכה שתשנה את משך־זמן הרצועות כך שיתאימו למזהה התקליטור "
+"מטה."
 
 #: ../root/cdtoc/SetTracklistDurations.js:63 ../root/edit/EditIndex.js:53
 msgid "Changes"
@@ -7917,20 +8022,26 @@ msgstr "מיזוג אוספים"
 msgid ""
 "You are about to merge all these collections into a single one. Please "
 "select the collection all others should be merged into:"
-msgstr "אתם עומדים למזג את כל האוספים הללו לאחד. נא לבחור את האוסף אליו ימוזגו כל האחרים:"
+msgstr ""
+"אתם עומדים למזג את כל האוספים הללו לאחד. נא לבחור את האוסף אליו ימוזגו כל "
+"האחרים:"
 
 #: ../root/collection/CollectionMerge.js:129
 msgid ""
 "<strong>Warning:</strong> These collections are for different entity types. "
 "Please remove some collections from the merge queue until you only have "
 "collections for the same entity type."
-msgstr "<strong> אזהרה: </strong> אוספים אלה מיועדים לסוגים שונים של ישויות. נא להסיר כמה אוספים מתור המיזוג עד שישארו אוספים מאותו סוג ישות."
+msgstr ""
+"<strong> אזהרה: </strong> אוספים אלה מיועדים לסוגים שונים של ישויות. נא "
+"להסיר כמה אוספים מתור המיזוג עד שישארו אוספים מאותו סוג ישות."
 
 #: ../root/collection/CollectionMerge.js:136
 msgid ""
 "<strong>Warning:</strong> These collections are for different entity types. "
 "Only collections for the same entity type can be merged."
-msgstr "<strong> אזהרה: </strong> אוספים אלה מיועדים לסוגים שונים של ישויות. ניתן למזג רק אוספים מאותו סוג ישות."
+msgstr ""
+"<strong> אזהרה: </strong> אוספים אלה מיועדים לסוגים שונים של ישויות. ניתן "
+"למזג רק אוספים מאותו סוג ישות."
 
 #: ../root/collection/CollectionMerge.js:148
 msgid ""
@@ -8031,7 +8142,10 @@ msgid ""
 "An alias is an alternate name for an entity. They typically contain common "
 "misspellings or variations of the name and are also used to improve search "
 "results. View the {doc|alias documentation} for more details."
-msgstr "כינוי הוא שם חלופי לישות. הם לרוב מכילים שגיאות כתיב נפוצות או חלופות של השם ומשמשים גם לשיפור תוצאות החיפוש. לפרטים נוספים נא לעיין ב־ {doc | תיעוד כינוי}."
+msgstr ""
+"כינוי הוא שם חלופי לישות. הם לרוב מכילים שגיאות כתיב נפוצות או חלופות של השם "
+"ומשמשים גם לשיפור תוצאות החיפוש. לפרטים נוספים נא לעיין ב־ {doc | תיעוד "
+"כינוי}."
 
 #: ../root/components/Aliases/index.js:67
 msgid "{entity} has no aliases."
@@ -8065,7 +8179,9 @@ msgstr ""
 msgid ""
 "This place has no relationships and will be removed automatically in the "
 "next few days. If this is not intended, please add more data to this place."
-msgstr "למקום הזה אין קשרי־גומלין והוא יוסר אוטומטית בימים הקרובים. אם זו לא הכוונה, נא להוסף נתונים נוספים למקום זה."
+msgstr ""
+"למקום הזה אין קשרי־גומלין והוא יוסר אוטומטית בימים הקרובים. אם זו לא הכוונה, "
+"נא להוסף נתונים נוספים למקום זה."
 
 #: ../root/components/CleanupBanner.js:33
 msgid ""
@@ -8078,7 +8194,9 @@ msgstr ""
 msgid ""
 "This series has no relationships and will be removed automatically in the "
 "next few days. If this is not intended, please add more data to this series."
-msgstr "לסידרה הזו אין קשרי־גומלין והיא תוסר אוטומטית בימים הקרובים. אם זו לא הכוונה, נא להוסיף נתונים נוספים לסדרה זה."
+msgstr ""
+"לסידרה הזו אין קשרי־גומלין והיא תוסר אוטומטית בימים הקרובים. אם זו לא "
+"הכוונה, נא להוסיף נתונים נוספים לסדרה זה."
 
 #: ../root/components/CleanupBanner.js:43
 msgid ""
@@ -8347,28 +8465,40 @@ msgstr "עריכת משתמש"
 msgid "Closes in <span class=\"tooltip\" title=\"{exactdate}\">{num} day</span>"
 msgid_plural ""
 "Closes in <span class=\"tooltip\" title=\"{exactdate}\">{num} days</span>"
-msgstr[0] "נסגר בעוד <span class=\"tooltip\" title=\"{exactdate}\">{num} יום</span>"
-msgstr[1] "נסגר בעוד <span class=\"tooltip\" title=\"{exactdate}\">{num} ימים</span>"
-msgstr[2] "נסגר בעוד <span class=\"tooltip\" title=\"{exactdate}\">{num} ימים</span>"
-msgstr[3] "נסגר בעוד <span class=\"tooltip\" title=\"{exactdate}\">{num} ימים</span>"
+msgstr[0] ""
+"נסגר בעוד <span class=\"tooltip\" title=\"{exactdate}\">{num} יום</span>"
+msgstr[1] ""
+"נסגר בעוד <span class=\"tooltip\" title=\"{exactdate}\">{num} ימים</span>"
+msgstr[2] ""
+"נסגר בעוד <span class=\"tooltip\" title=\"{exactdate}\">{num} ימים</span>"
+msgstr[3] ""
+"נסגר בעוד <span class=\"tooltip\" title=\"{exactdate}\">{num} ימים</span>"
 
 #: ../root/components/VotingPeriod.js:49
 msgid "Closes in <span class=\"tooltip\" title=\"{exactdate}\">{num} hour</span>"
 msgid_plural ""
 "Closes in <span class=\"tooltip\" title=\"{exactdate}\">{num} hours</span>"
-msgstr[0] "נסגר בעוד <span class=\"tooltip\" title=\"{exactdate}\">{num} שעה</span>"
-msgstr[1] "נסגר בעוד <span class=\"tooltip\" title=\"{exactdate}\">{num} שעות</span>"
-msgstr[2] "נסגר בעוד <span class=\"tooltip\" title=\"{exactdate}\">{num} שעות</span>"
-msgstr[3] "נסגר בעוד <span class=\"tooltip\" title=\"{exactdate}\">{num} שעות</span>"
+msgstr[0] ""
+"נסגר בעוד <span class=\"tooltip\" title=\"{exactdate}\">{num} שעה</span>"
+msgstr[1] ""
+"נסגר בעוד <span class=\"tooltip\" title=\"{exactdate}\">{num} שעות</span>"
+msgstr[2] ""
+"נסגר בעוד <span class=\"tooltip\" title=\"{exactdate}\">{num} שעות</span>"
+msgstr[3] ""
+"נסגר בעוד <span class=\"tooltip\" title=\"{exactdate}\">{num} שעות</span>"
 
 #: ../root/components/VotingPeriod.js:58
 msgid "Closes in <span class=\"tooltip\" title=\"{exactdate}\">{num} minute</span>"
 msgid_plural ""
 "Closes in <span class=\"tooltip\" title=\"{exactdate}\">{num} minutes</span>"
-msgstr[0] "נסגר בעוד <span class=\"tooltip\" title=\"{exactdate}\">{num} דקה</span>"
-msgstr[1] "נסגר בעוד <span class=\"tooltip\" title=\"{exactdate}\">{num} דקות</span>"
-msgstr[2] "נסגר בעוד <span class=\"tooltip\" title=\"{exactdate}\">{num} דקות</span>"
-msgstr[3] "נסגר בעוד <span class=\"tooltip\" title=\"{exactdate}\">{num} דקות</span>"
+msgstr[0] ""
+"נסגר בעוד <span class=\"tooltip\" title=\"{exactdate}\">{num} דקה</span>"
+msgstr[1] ""
+"נסגר בעוד <span class=\"tooltip\" title=\"{exactdate}\">{num} דקות</span>"
+msgstr[2] ""
+"נסגר בעוד <span class=\"tooltip\" title=\"{exactdate}\">{num} דקות</span>"
+msgstr[3] ""
+"נסגר בעוד <span class=\"tooltip\" title=\"{exactdate}\">{num} דקות</span>"
 
 #: ../root/components/VotingPeriod.js:66
 msgid "About to close"
@@ -8732,7 +8862,9 @@ msgstr ""
 msgid ""
 "We are unable to display history for this cover art. For a current listing "
 "of cover art, please see the {coverart|release's cover art page}."
-msgstr "לא ניתןו להציג היסטוריה עבור תמונת עטיפה זו. לקבלת רישום נוכחי של תמונות עטיפה, נא לעיין ב־ {coverart|עמוד השער של ההוצאה}."
+msgstr ""
+"לא ניתןו להציג היסטוריה עבור תמונת עטיפה זו. לקבלת רישום נוכחי של תמונות "
+"עטיפה, נא לעיין ב־ {coverart|עמוד השער של ההוצאה}."
 
 #: ../root/edit/components/EditArtwork.js:32
 msgid "We are unable to display history for this cover art."
@@ -9545,7 +9677,9 @@ msgstr "מדיה <span class=\"new\">{new}</span> (מדיה חדשה)"
 msgid ""
 "Medium <span class=\"new\">{new}</span> (moved from position <span "
 "class=\"old\">{old}</span>)"
-msgstr "מדיה <span class=\"new\">{new}</span> (עברה ממיקום <span class=\"old\">{old}</span>)"
+msgstr ""
+"מדיה <span class=\"new\">{new}</span> (עברה ממיקום <span class=\"old\""
+">{old}</span>)"
 
 #: ../root/edit/details/ReorderRelationships.js:21
 msgid "Old Order"
@@ -9801,7 +9935,9 @@ msgid ""
 " second their nomination. If you do not support this candidate, please note "
 "that you cannot cast a \"No\" vote (or abstain) until two seconders have "
 "been found."
-msgstr "ההצבעה טרם נפתחה. אם ברצונכם לקדם מועמד זה, תוכלו לתמוך במועמדותו. אם אינכם תומכים במועמד, לא תוכלו להצביע (או להימנע)  עד שימצאו שני תומכים."
+msgstr ""
+"ההצבעה טרם נפתחה. אם ברצונכם לקדם מועמד זה, תוכלו לתמוך במועמדותו. אם אינכם "
+"תומכים במועמד, לא תוכלו להצביע (או להימנע)  עד שימצאו שני תומכים."
 
 #: ../root/elections/ElectionVoting.js:50
 msgid "Voting is closed."
@@ -9935,7 +10071,9 @@ msgstr "לא נמצא אזור"
 msgid ""
 "Sorry, we could not find an area with that MusicBrainz ID. You may wish to "
 "try and {search_url|search for it} instead."
-msgstr "למרבה הצער, לא מצאנו אזור עם מזהה מוזיקבריינז זה. יתכן ובמקום זאת ותרצו לחפש {search_url|search for it}."
+msgstr ""
+"למרבה הצער, לא מצאנו אזור עם מזהה מוזיקבריינז זה. יתכן ובמקום זאת ותרצו לחפש "
+"{search_url|search for it}."
 
 #: ../root/entity/NotFound.js:28
 msgid "Artist Not Found"
@@ -9945,7 +10083,9 @@ msgstr "לא נמצא אמן"
 msgid ""
 "Sorry, we could not find an artist with that MusicBrainz ID. You may wish to"
 " try and {search_url|search for it} instead."
-msgstr "למרבה הצער, לא מצאנו אמן עם מזהה מוזיקבריינז זה. יתכן ובמקום זאת ותרצו לחפש {search_url|search for it}."
+msgstr ""
+"למרבה הצער, לא מצאנו אמן עם מזהה מוזיקבריינז זה. יתכן ובמקום זאת ותרצו לחפש "
+"{search_url|search for it}."
 
 #: ../root/entity/NotFound.js:37
 msgid "Artist Credit Not Found"
@@ -9979,7 +10119,9 @@ msgstr "לא נמצאה עריכה"
 msgid ""
 "Sorry, we could not find an edit with that edit ID. You may wish to try and "
 "perform an {search_url|edit search} instead."
-msgstr "למרבה הצער, לא הצלחנו למצוא עריכה באמצעות מזהה העריכה. מומלץ לנסות לבצע {חיפוש search_url|edit} במקום זאת."
+msgstr ""
+"למרבה הצער, לא הצלחנו למצוא עריכה באמצעות מזהה העריכה. מומלץ לנסות לבצע {"
+"חיפוש search_url|edit} במקום זאת."
 
 #: ../root/entity/NotFound.js:66
 msgid "Election Not Found"
@@ -10001,7 +10143,9 @@ msgstr "לא נמצאה אירוע"
 msgid ""
 "Sorry, we could not find an event with that MusicBrainz ID. You may wish to "
 "try and {search_url|search for it} instead."
-msgstr "למרבה הצער, לא מצאנו אירוע עם מזהה מוזיקבריינז זה. יתכן ובמקום זאת ותרצו לחפש {search_url|search for it}."
+msgstr ""
+"למרבה הצער, לא מצאנו אירוע עם מזהה מוזיקבריינז זה. יתכן ובמקום זאת ותרצו "
+"לחפש {search_url|search for it}."
 
 #: ../root/entity/NotFound.js:81
 msgid "Genre Not Found"
@@ -10011,7 +10155,9 @@ msgstr "לא נמצאה סוגה"
 msgid ""
 "Sorry, we could not find a genre with that MusicBrainz ID. You can see all "
 "available genres on our {genre_list|genre list}."
-msgstr "למרבה הצער, לא מצאנו סוגה עם מזהה מוזיקבריינז זה. ניתן לצפות בכול הסוגות הזמינות ב־ {genre_list|genre list}."
+msgstr ""
+"למרבה הצער, לא מצאנו סוגה עם מזהה מוזיקבריינז זה. ניתן לצפות בכול הסוגות "
+"הזמינות ב־ {genre_list|genre list}."
 
 #: ../root/entity/NotFound.js:90
 msgid "Instrument Not Found"
@@ -10021,7 +10167,9 @@ msgstr "לא נמצא כלי נגינה"
 msgid ""
 "Sorry, we could not find an instrument with that MusicBrainz ID. You may "
 "wish to try and {search_url|search for it} instead."
-msgstr "למרבה הצער, לא מצאנו כלי־נגינה עם מזהה מוזיקבריינז זה. יתכן ובמקום זאת תרצו לחפש {search_url|search for it}."
+msgstr ""
+"למרבה הצער, לא מצאנו כלי־נגינה עם מזהה מוזיקבריינז זה. יתכן ובמקום זאת תרצו "
+"לחפש {search_url|search for it}."
 
 #: ../root/entity/NotFound.js:99
 msgid "ISRC Not Currently Used"
@@ -10031,7 +10179,9 @@ msgstr "ISRC כרגע אינו בשימוש"
 msgid ""
 "This ISRC is not associated with any recordings. If you wish to associate it"
 " with a recording, please {search_url|search for the recording} and add it."
-msgstr "ISRC זה אינו משויך להקלטות כלשהן. אם ברצונכם לשייך אותו להקלטה, נא {search_url | חפש את ההקלטה} והוספו אותה."
+msgstr ""
+"ISRC זה אינו משויך להקלטות כלשהן. אם ברצונכם לשייך אותו להקלטה, נא {"
+"search_url | חפש את ההקלטה} והוספו אותה."
 
 #: ../root/entity/NotFound.js:109
 msgid "ISWC Not Currently Used"
@@ -10041,7 +10191,9 @@ msgstr "ISWC כרגע אינו בשימוש"
 msgid ""
 "This ISWC is not associated with any works. If you wish to associate it with"
 " a work, please {search_url|search for the work} and add it."
-msgstr "ISWC זה אינו משויך ליצירות כלשהן. אם ברצונכם לשייך אותו ליצירה, נא {search_url|חפוש יצירה} והוספו אותה."
+msgstr ""
+"ISWC זה אינו משויך ליצירות כלשהן. אם ברצונכם לשייך אותו ליצירה, נא "
+"{search_url|חפוש יצירה} והוספו אותה."
 
 #: ../root/entity/NotFound.js:118
 msgid "Label Not Found"
@@ -10051,7 +10203,9 @@ msgstr "לא נמצאה חברת תקליטים"
 msgid ""
 "Sorry, we could not find a label with that MusicBrainz ID. You may wish to "
 "try and {search_url|search for it} instead."
-msgstr "למרבה הצער, לא מצאנו חברת תקליטים עם מזהה מוזיקבריינז זה. יתכן ובמקום זאת ותרצו לחפש {search_url|search for it}."
+msgstr ""
+"למרבה הצער, לא מצאנו חברת תקליטים עם מזהה מוזיקבריינז זה. יתכן ובמקום זאת "
+"ותרצו לחפש {search_url|search for it}."
 
 #: ../root/entity/NotFound.js:127
 msgid "Entity Not Found"
@@ -10061,7 +10215,9 @@ msgstr "לא נמצאה ישות"
 msgid ""
 "Sorry, we could not find a MusicBrainz entity with that ID. You may wish to "
 "try and {search_url|search for it} instead."
-msgstr "למרבה הצער, לא מצאנו ישות מוזיקבריינז עם מזהה זה. יתכן ובמקום זאת ותרצו לחפש {search_url|search for it}."
+msgstr ""
+"למרבה הצער, לא מצאנו ישות מוזיקבריינז עם מזהה זה. יתכן ובמקום זאת ותרצו לחפש "
+"{search_url|search for it}."
 
 #: ../root/entity/NotFound.js:136
 msgid "Place Not Found"
@@ -10071,7 +10227,9 @@ msgstr "לא נמצאה מקום"
 msgid ""
 "Sorry, we could not find a place with that MusicBrainz ID. You may wish to "
 "try and {search_url|search for it} instead."
-msgstr "למרבה הצער, לא מצאנו מקום עם מזהה מוזיקבריינז זה. יתכן ובמקום זאת תרצו לחפש {search_url|search for it}."
+msgstr ""
+"למרבה הצער, לא מצאנו מקום עם מזהה מוזיקבריינז זה. יתכן ובמקום זאת תרצו לחפש "
+"{search_url|search for it}."
 
 #: ../root/entity/NotFound.js:145
 msgid "Recording Not Found"
@@ -10081,7 +10239,9 @@ msgstr "לא נמצאה הקלטה"
 msgid ""
 "Sorry, we could not find a recording with that MusicBrainz ID. You may wish "
 "to try and {search_url|search for it} instead."
-msgstr "למרבה הצער, לא מצאנו הקלטה עם מזהה מוזיקבריינז זה. יתכן ובמקום זאת ותרצו לחפש {search_url|search for it}."
+msgstr ""
+"למרבה הצער, לא מצאנו הקלטה עם מזהה מוזיקבריינז זה. יתכן ובמקום זאת ותרצו "
+"לחפש {search_url|search for it}."
 
 #: ../root/entity/NotFound.js:154
 msgid "Relationship Attribute Not Found"
@@ -10108,7 +10268,9 @@ msgstr "לא נמצא הוצאה"
 msgid ""
 "Sorry, we could not find a release with that MusicBrainz ID. You may wish to"
 " try and {search_url|search for it} instead."
-msgstr "למרבה הצער, לא מצאנו קבוצת הוצאה עם מזהה מוזיקבריינז זה. יתכן ובמקום זאת ותרצו לחפש {search_url|search for it}."
+msgstr ""
+"למרבה הצער, לא מצאנו קבוצת הוצאה עם מזהה מוזיקבריינז זה. יתכן ובמקום זאת "
+"ותרצו לחפש {search_url|search for it}."
 
 #: ../root/entity/NotFound.js:181
 msgid "Release Group Not Found"
@@ -10118,7 +10280,9 @@ msgstr "לא נמצא קבוצת הוצאה"
 msgid ""
 "Sorry, we could not find a release group with that MusicBrainz ID. You may "
 "wish to try and {search_url|search for it} instead."
-msgstr "למרבה הצער, לא מצאנו קבוצת הוצאה עם מזהה מוזיקבריינז זה. יתכן ובמקום זאת ותרצו לחפש {search_url|search for it}."
+msgstr ""
+"למרבה הצער, לא מצאנו קבוצת הוצאה עם מזהה מוזיקבריינז זה. יתכן ובמקום זאת "
+"ותרצו לחפש {search_url|search for it}."
 
 #: ../root/entity/NotFound.js:190
 msgid "Series Not Found"
@@ -10128,7 +10292,9 @@ msgstr "לא נמצאה סדרה"
 msgid ""
 "Sorry, we could not find a series with that MusicBrainz ID. You may wish to "
 "try and {search_url|search for it} instead."
-msgstr "למרבה הצער, לא מצאנו סדרה עם מזהה מוזיקבריינז זה. יתכן ובמקום זאת ותרצו לחפש {search_url|search for it}."
+msgstr ""
+"למרבה הצער, לא מצאנו סדרה עם מזהה מוזיקבריינז זה. יתכן ובמקום זאת ותרצו לחפש "
+"{search_url|search for it}."
 
 #: ../root/entity/NotFound.js:199
 msgid "Track Not Found"
@@ -10138,7 +10304,9 @@ msgstr "לא נמצאה רצועה"
 msgid ""
 "Sorry, we could not find neither a recording nor a track with that "
 "MusicBrainz ID. You may wish to try and {search_url|search for it} instead."
-msgstr "למרבה הצער, לא מצאנו הקלטה או רצועה עם מזהה מוזיקבריינז זה. במקום זאת, יתכן ותרצו לחפש ב־ {search_url|search for it}."
+msgstr ""
+"למרבה הצער, לא מצאנו הקלטה או רצועה עם מזהה מוזיקבריינז זה. במקום זאת, יתכן "
+"ותרצו לחפש ב־ {search_url|search for it}."
 
 #: ../root/entity/NotFound.js:209
 msgid "URL Not Found"
@@ -10156,7 +10324,9 @@ msgstr "לא נמצא עורך"
 msgid ""
 "Sorry, we could not find an editor with that name. You may wish to try and "
 "{search_url|search for them} instead."
-msgstr "למרבה הצער, לא הצלחנו למצוא עורך בשם זה. מומלץ לנסות לבצע {search_url|search} במקום זאת."
+msgstr ""
+"למרבה הצער, לא הצלחנו למצוא עורך בשם זה. מומלץ לנסות לבצע {search_url|search}"
+" במקום זאת."
 
 #: ../root/entity/NotFound.js:224
 msgid "Work Not Found"
@@ -10166,7 +10336,9 @@ msgstr "לא נמצאה יצירה"
 msgid ""
 "Sorry, we could not find a work with that MusicBrainz ID. You may wish to "
 "try and {search_url|search for it} instead."
-msgstr "למרבה הצער, לא מצאנו יצירה עם מזהה מוזיקבריינז זה. יתכן ובמקום זאת ותרצו לחפש {search_url|search for it}."
+msgstr ""
+"למרבה הצער, לא מצאנו יצירה עם מזהה מוזיקבריינז זה. יתכן ובמקום זאת ותרצו "
+"לחפש {search_url|search for it}."
 
 #: ../root/entity/Ratings.js:68
 msgid "{count} private rating not listed."
@@ -10286,7 +10458,9 @@ msgstr ""
 msgid ""
 "You are about to merge all these events into a single one. Please select the"
 " event all others should be merged into:"
-msgstr "אתם עומדים למזג את כל הארועים הללו לאחד. נא לבחור את הארוע אליו ימוזגו כל האחרים:"
+msgstr ""
+"אתם עומדים למזג את כל הארועים הללו לאחד. נא לבחור את הארוע אליו ימוזגו כל "
+"האחרים:"
 
 #: ../root/genre/CreateGenre.js:24 ../root/genre/CreateGenre.js:26
 msgid "Add a new genre"
@@ -10328,7 +10502,8 @@ msgstr "לשיוך סוגה עם ישות, נא לתייג את הישות עם 
 msgid ""
 "Is a genre missing from the list? Request it by {link|adding a style "
 "ticket}."
-msgstr "האם חסרה סוגה ברשימה? ניתן לבקש סוגה על־ידי {link|adding a style ticket}.."
+msgstr ""
+"האם חסרה סוגה ברשימה? ניתן לבקש סוגה על־ידי {link|adding a style ticket}.."
 
 #: ../root/instrument/DeleteInstrument.js:34
 #: ../root/instrument/DeleteInstrument.js:36
@@ -10339,7 +10514,9 @@ msgstr "הסרת כלי נגינה"
 msgid ""
 "This instrument cannot be removed because there are still relationships "
 "attributed to it."
-msgstr "לא ניתן להסיר כלי נגינה זה מכיוון שעדיין קיימות הוצאות, הקלטות ו/או תכונות קשרי־גומלין."
+msgstr ""
+"לא ניתן להסיר כלי נגינה זה מכיוון שעדיין קיימות הוצאות, הקלטות ו/או תכונות "
+"קשרי־גומלין."
 
 #: ../root/instrument/InstrumentArtists.js:67
 msgid "No artists found."
@@ -10349,7 +10526,9 @@ msgstr "לא נמצאו אמנים."
 msgid ""
 "You are about to merge all these instruments into a single one. Please "
 "select the instrument all others should be merged into:"
-msgstr "אתם עומדים למזג את כל כלי־הנגינה הללו לאחד. נא לבחור את כלי־הנגינה אליו ימוזגו כל האחרים:"
+msgstr ""
+"אתם עומדים למזג את כל כלי־הנגינה הללו לאחד. נא לבחור את כלי־הנגינה אליו "
+"ימוזגו כל האחרים:"
 
 #: ../root/instrument/List.js:45 ../root/instrument/List.js:47
 #: ../root/layout/components/BottomMenu.js:321
@@ -10399,7 +10578,9 @@ msgstr ""
 msgid ""
 "You are about to merge all these labels into a single one. Please select the"
 " label all others should be merged into:"
-msgstr "אתם עומדים למזג את כל חברות התקליטים הללו לאחת. נא לבחור את חברת התקליטים אליה ימוזגו כל האחרים:"
+msgstr ""
+"אתם עומדים למזג את כל חברות התקליטים הללו לאחת. נא לבחור את חברת התקליטים "
+"אליה ימוזגו כל האחרים:"
 
 #: ../root/label/SpecialPurpose.js:25
 msgid "You may not edit special purpose labels"
@@ -11023,7 +11204,8 @@ msgstr ""
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:90
 msgid ""
 "Front cover image failed to load correctly.<br/>{all|View all artwork}."
-msgstr "תמונת עטיפה - חזית כשלה להיטען באופן תקין.<br/>{all|הצגת כל  תמונות העטיפה}."
+msgstr ""
+"תמונת עטיפה - חזית כשלה להיטען באופן תקין.<br/>{all|הצגת כל  תמונות העטיפה}."
 
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:96
 #: ../root/release/CoverArt.js:69
@@ -11168,7 +11350,10 @@ msgid ""
 "This confirmation is important to ensure that no malicious actor can use "
 "your account to modify data without your knowledge. Below this line, you can"
 " review the data being sent and make any modifications if desired."
-msgstr "אישור זה חשוב כדי להבטיח שאף גורם זדוני לא יוכל להשתמש בחשבונכם לשינוי נתונים ללא ידיעתכם. מתחת לשורה זו, תוכלו לבדוק את הנתונים הנשלחים ולבצע שינויים ככל שתרצו."
+msgstr ""
+"אישור זה חשוב כדי להבטיח שאף גורם זדוני לא יוכל להשתמש בחשבונכם לשינוי "
+"נתונים ללא ידיעתכם. מתחת לשורה זו, תוכלו לבדוק את הנתונים הנשלחים ולבצע "
+"שינויים ככל שתרצו."
 
 #: ../root/main/error/Error400.js:26
 msgid "Bad Request"
@@ -11262,7 +11447,9 @@ msgstr ""
 msgid ""
 "We’re terribly sorry for this problem. Please wait a few minutes and repeat "
 "your request — the problem may go away."
-msgstr "אנו מצטערים מאוד על בעיה זו. נא להמתין מספר דקות ולבקש שוב — יתכן והבעיה תעלם."
+msgstr ""
+"אנו מצטערים מאוד על בעיה זו. נא להמתין מספר דקות ולבקש שוב — יתכן והבעיה "
+"תעלם."
 
 #: ../root/main/error/Error500.js:85
 msgid ""
@@ -11290,7 +11477,9 @@ msgstr "למרבה הצער, איכם ידולים לבצע פעולחה זו ב
 msgid ""
 "In order to log in or make changes to the database you must visit the main "
 "server at {mb|https://musicbrainz.org/}."
-msgstr "על מנת להתחבר או לבצע שינויים במסד הנתונים נא לבקר בשרת הראשי בכתובת {mb|https://musicbrainz.org/}."
+msgstr ""
+"על מנת להתחבר או לבצע שינויים במסד הנתונים נא לבקר בשרת הראשי בכתובת "
+"{mb|https://musicbrainz.org/}."
 
 #: ../root/main/error/MirrorError404.js:16
 msgid ""
@@ -11351,7 +11540,9 @@ msgstr "ברוכים הבאים למוזיקבריינז!"
 msgid ""
 "MusicBrainz is an open music encyclopedia that collects music metadata and "
 "makes it available to the public."
-msgstr " מוזיקבריינז היא אנציקלופדיה מוזיקלית פתוחה שאוספת נתוני־על של מוזיקה והופכת אותה לזמינה לציבור."
+msgstr ""
+" מוזיקבריינז היא אנציקלופדיה מוזיקלית פתוחה שאוספת נתוני־על של מוזיקה והופכת "
+"אותה לזמינה לציבור."
 
 #: ../root/main/index.js:50
 msgid "MusicBrainz aims to be:"
@@ -11472,7 +11663,10 @@ msgid ""
 "Either it’s incorrect, it was for an entity that has since been deleted, or "
 "it is an ID for something else than an entity (for example, a "
 "{rel_type_table|relationship type})."
-msgstr "אין {entity_doc|entities} מוזיקבריינז התואמים ל־{mbid_doc|MBID} {mbid}. זה עשוי להיות שגוי, או שנועד לישות שנמחקה מאז, או שזה מזהה למשהו אחר מאשר לישות (לדוגמה, {rel_type_table|relationship type})."
+msgstr ""
+"אין {entity_doc|entities} מוזיקבריינז התואמים ל־{mbid_doc|MBID} {mbid}. זה "
+"עשוי להיות שגוי, או שנועד לישות שנמחקה מאז, או שזה מזהה למשהו אחר מאשר לישות "
+"(לדוגמה, {rel_type_table|relationship type})."
 
 #: ../root/mbid/NotFound.js:39
 msgid "{mbid} is not a valid {mbid_doc|MBID}."
@@ -11580,7 +11774,9 @@ msgstr "לא ניתן להציג מפה מאחר ולמקום זה אין נקו
 msgid ""
 "You are about to merge all these places into a single one. Please select the"
 " place all others should be merged into:"
-msgstr "אתם עומדים למזג את כל המקומות הללו לאחד. נא לבחור את המקום אליו ימוזגו כל האחרים:"
+msgstr ""
+"אתם עומדים למזג את כל המקומות הללו לאחד. נא לבחור את המקום אליו ימוזגו כל "
+"האחרים:"
 
 #: ../root/place/PlacePerformances.js:33
 msgid "No recordings, releases or release groups are linked to this place."
@@ -11653,14 +11849,18 @@ msgstr ""
 msgid ""
 "You are about to merge all these recordings into a single one. Please select"
 " the recording all others should be merged into:"
-msgstr "אתם עומדים למזג את כל ההקלטות הללו לאחת. נא לבחור את ההקלטה אליה ימוזגו כל האחרות:"
+msgstr ""
+"אתם עומדים למזג את כל ההקלטות הללו לאחת. נא לבחור את ההקלטה אליה ימוזגו כל "
+"האחרות:"
 
 #: ../root/recording/RecordingMerge.js:41
 msgid ""
 "<strong>Warning:</strong> Some of the recordings you're merging have "
 "different ISRCs. Please make sure they are indeed the same recordings and "
 "you wish to continue with the merge."
-msgstr "<strong>אזהרה:</strong> לחלק מההקלטות שנבחרו למיזוג יש ISRC שונה. נא וודא שאכן מדובר באותן הקלטות ורק אז להמשיך במיזוג."
+msgstr ""
+"<strong>אזהרה:</strong> לחלק מההקלטות שנבחרו למיזוג יש ISRC שונה. נא וודא "
+"שאכן מדובר באותן הקלטות ורק אז להמשיך במיזוג."
 
 #: ../root/relationship/RelationshipsHeader.js:23
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:87
@@ -11899,7 +12099,9 @@ msgstr "כל הגדלים:"
 msgid ""
 "These images provided by the {caa|Cover Art Archive}. You can also see them "
 "at the {ia|Internet Archive}."
-msgstr "תמונות אלו סופקו על־ידי {caa|ארכיב תמונות עטיפה}. ניתן לצפות בהן גם ב־  {ia|ארכיב מרשתת}"
+msgstr ""
+"תמונות אלו סופקו על־ידי {caa|ארכיב תמונות עטיפה}. ניתן לצפות בהן גם ב־  {ia|"
+"ארכיב מרשתת}"
 
 #: ../root/release/CoverArt.js:137
 msgid "We do not currently have any cover art for {release}."
@@ -11985,7 +12187,9 @@ msgstr "‮קבוצת הוצאה על־ידי {artist}"
 msgid ""
 "You are about to merge all these release groups into a single one. Please "
 "select the release group all others should be merged into:"
-msgstr "אתם עומדים למזג את כל הקבוצות הוצאה הללו לאחת. נא לבחור את קבוצת הוצאה אליה ימוזגו כל האחרות:"
+msgstr ""
+"אתם עומדים למזג את כל הקבוצות הוצאה הללו לאחת. נא לבחור את קבוצת הוצאה אליה "
+"ימוזגו כל האחרות:"
 
 #: ../root/report/AnnotationsArtists.js:29
 msgid "This report lists artists with annotations."
@@ -12101,7 +12305,11 @@ msgid ""
 "listed as members. If you find that an artist here is indeed a group, change"
 " its type. If it is not, please make sure that the “member of” relationships"
 " are in the right direction and are correct."
-msgstr "דוח המפרט אמנים שהסוג שלהם לא מוגדר כקבוצה (או תת-סוג של קבוצה) אך הם עשויים להיות קבוצה מכיוון שישנם אמנים אחרים הרשומים כחברים. אם מתברר שאמן הוא אכן קבוצה, נא לשנות את הסוג. אם לא, נא לוודא כי קשרי־גומלין \"חבר ב־\" הן בכיוון הנכון ונכונות."
+msgstr ""
+"דוח המפרט אמנים שהסוג שלהם לא מוגדר כקבוצה (או תת-סוג של קבוצה) אך הם עשויים "
+"להיות קבוצה מכיוון שישנם אמנים אחרים הרשומים כחברים. אם מתברר שאמן הוא אכן "
+"קבוצה, נא לשנות את הסוג. אם לא, נא לוודא כי קשרי־גומלין \"חבר ב־\" הן בכיוון "
+"הנכון ונכונות."
 
 #: ../root/report/ArtistsThatMayBeGroups.js:34
 #: ../root/report/ReportsIndex.js:59
@@ -12138,7 +12346,10 @@ msgid ""
 "This report lists artists that have no editors subscribed to them, and whose"
 " changes may therefore be under-reviewed. Artists with more release groups "
 "and more open edits are listed first."
-msgstr "הדוח מפרט אמנים ללא  מנויי עורכים, לכן השינויים בהם ישארו במצב 'בעריכה'. אמנים בעלי קבוצות הוצאה רבות יותר ועריכות פתוחות רבות יותר יופיעו ראשונים ברשימה."
+msgstr ""
+"הדוח מפרט אמנים ללא  מנויי עורכים, לכן השינויים בהם ישארו במצב 'בעריכה'. "
+"אמנים בעלי קבוצות הוצאה רבות יותר ועריכות פתוחות רבות יותר יופיעו ראשונים "
+"ברשימה."
 
 #: ../root/report/ArtistsWithNoSubscribers.js:31
 #: ../root/report/ReportsIndex.js:67
@@ -12154,7 +12365,14 @@ msgid ""
 " barcode, you can also search Amazon for it and see which ASIN matches. You "
 "might also find some ASINs linked to several discs of a multi-disc release: "
 "just merge those (see {how_to_merge_releases|How to Merge Releases})."
-msgstr "הדוח מציג מעני url אמזון המקושרים למספר הוצאות. ברוב המקרים ASINs של אמזון אמורים להתמפות להוצאות מוזיקבריינז 1: 1, כך שרק אחד מהקישורים יהיה נכון. נא לבדוק איזה הוצאה של מוזיקבריינז מתאימה להוצאה באמזון (עיין תבנית, רשימת רצועות וכו '). אם להוצאה יש ברקוד, ניתן גם לחפש אותו באמזון ולראות איזה ASIN תואם לו. ייתכן שימצוא גם כמה ASIN המקושרים למספר דיסקים של הוצאה מרובת דיסקים: במקרה כזה, אפשר פשוט למזג אותם (ראו {how_to_merge_releases | כיצד למזג גרסאות})."
+msgstr ""
+"הדוח מציג מעני url אמזון המקושרים למספר הוצאות. ברוב המקרים ASINs של אמזון "
+"אמורים להתמפות להוצאות מוזיקבריינז 1: 1, כך שרק אחד מהקישורים יהיה נכון. נא "
+"לבדוק איזה הוצאה של מוזיקבריינז מתאימה להוצאה באמזון (עיין תבנית, רשימת "
+"רצועות וכו '). אם להוצאה יש ברקוד, ניתן גם לחפש אותו באמזון ולראות איזה ASIN "
+"תואם לו. ייתכן שימצוא גם כמה ASIN המקושרים למספר דיסקים של הוצאה מרובת "
+"דיסקים: במקרה כזה, אפשר פשוט למזג אותם (ראו {how_to_merge_releases | כיצד "
+"למזג גרסאות})."
 
 #: ../root/report/AsinsWithMultipleReleases.js:38
 #: ../root/report/ReportsIndex.js:280
@@ -12173,7 +12391,10 @@ msgid ""
 "This report shows releases with Amazon URLs which don't follow the expected "
 "format. They might still be correct if they're archive.org cover links, but "
 "in any other case they should probably be fixed or removed."
-msgstr "הדוח מציג הוצאות מעני url אמזון שאינם על פי התהנית הצפויה. הם עשויים עדיין להיות נכונים אם מדובר בקישורי עטיפה ב־ archive.org, בכל מקרה אחר יש לתקנם או להסירם."
+msgstr ""
+"הדוח מציג הוצאות מעני url אמזון שאינם על פי התהנית הצפויה. הם עשויים עדיין "
+"להיות נכונים אם מדובר בקישורי עטיפה ב־ archive.org, בכל מקרה אחר יש לתקנם או "
+"להסירם."
 
 #: ../root/report/BadAmazonUrls.js:55
 msgid "Bad Amazon URLs"
@@ -12211,7 +12432,10 @@ msgid ""
 "This is almost always wrong: ASINs are just Amazon's entries for the "
 "releases and should be linked to the release with an Amazon URL relationship"
 " instead."
-msgstr "הדוח מציג הוצאות המכילות מספרי קטלוג שנראים כמו ASIN. כמעט תמיד זה יהיה שגוי: ASIN הם רק רשומות של אמזון הוצאות, ויש לקשר אותם הוצאה בעלת קשר־גומלין מען url אמזון במקום."
+msgstr ""
+"הדוח מציג הוצאות המכילות מספרי קטלוג שנראים כמו ASIN. כמעט תמיד זה יהיה שגוי:"
+" ASIN הם רק רשומות של אמזון הוצאות, ויש לקשר אותם הוצאה בעלת קשר־גומלין מען "
+"url אמזון במקום."
 
 #: ../root/report/CatNoLooksLikeAsin.js:36 ../root/report/ReportsIndex.js:323
 msgid "Releases with catalog numbers that look like ASINs"
@@ -12276,7 +12500,9 @@ msgstr ""
 msgid ""
 "This report lists artists which have relationships using deprecated and "
 "grouping-only relationship types."
-msgstr "הדוח מפרט אמנים עם קשרי־גומלין המשתמשים בסוגי קשרי־גומלין וקיבוץ בלבד שיצאו משימוש."
+msgstr ""
+"הדוח מפרט אמנים עם קשרי־גומלין המשתמשים בסוגי קשרי־גומלין וקיבוץ בלבד שיצאו "
+"משימוש."
 
 #: ../root/report/DeprecatedRelationshipArtists.js:35
 #: ../root/report/ReportsIndex.js:103
@@ -12287,7 +12513,9 @@ msgstr "אמנים עם קישרי־גומלין שהוצאו משימוש"
 msgid ""
 "This report lists labels which have relationships using deprecated and "
 "grouping-only relationship types."
-msgstr "הדוח מפרט חברות תקליטים עם קשרי־גומלין המשתמשים בסוגי קשרי־גומלין וקיבוץ בלבד שיצאו משימוש."
+msgstr ""
+"הדוח מפרט חברות תקליטים עם קשרי־גומלין המשתמשים בסוגי קשרי־גומלין וקיבוץ "
+"בלבד שיצאו משימוש."
 
 #: ../root/report/DeprecatedRelationshipLabels.js:35
 #: ../root/report/ReportsIndex.js:186
@@ -12298,7 +12526,9 @@ msgstr "חברות תקליטים עם קישרי־גומלין שהוצאו מ�
 msgid ""
 "This report lists places which have relationships using deprecated and "
 "grouping-only relationship types."
-msgstr "הדוח מפרט מקומות עם קשרי־גומלין המשתמשים בסוגי קשרי־גומלין וקיבוץ בלבד שיצאו משימוש."
+msgstr ""
+"הדוח מפרט מקומות עם קשרי־גומלין המשתמשים בסוגי קשרי־גומלין וקיבוץ בלבד שיצאו "
+"משימוש."
 
 #: ../root/report/DeprecatedRelationshipPlaces.js:35
 #: ../root/report/ReportsIndex.js:536
@@ -12309,7 +12539,9 @@ msgstr "מקומות עם קישרי־גומלין שהוצאו משימוש"
 msgid ""
 "This report lists recordings which have relationships using deprecated and "
 "grouping-only relationship types."
-msgstr "הדוח מפרט הקלטות עם קשרי־גומלין המשתמשים בסוגי קשרי־גומלין וקיבוץ בלבד שיצאו משימוש."
+msgstr ""
+"הדוח מפרט הקלטות עם קשרי־גומלין המשתמשים בסוגי קשרי־גומלין וקיבוץ בלבד שיצאו "
+"משימוש."
 
 #: ../root/report/DeprecatedRelationshipRecordings.js:35
 #: ../root/report/ReportsIndex.js:482
@@ -12320,7 +12552,9 @@ msgstr "הקלטות עם קישרי־גומלין שהוצאו משימוש"
 msgid ""
 "This report lists release groups which have relationships using deprecated "
 "and grouping-only relationship types."
-msgstr "הדוח מפרט קבוצות הוצאה עם קשרי־גומלין המשתמשים בסוגי קשרי־גומלין וקיבוץ בלבד שיצאו משימוש."
+msgstr ""
+"הדוח מפרט קבוצות הוצאה עם קשרי־גומלין המשתמשים בסוגי קשרי־גומלין וקיבוץ בלבד "
+"שיצאו משימוש."
 
 #: ../root/report/DeprecatedRelationshipReleaseGroups.js:35
 #: ../root/report/ReportsIndex.js:223
@@ -12331,7 +12565,9 @@ msgstr "קבוצות הוצאה עם קישרי־גומלין שהוצאו מש�
 msgid ""
 "This report lists releases which have relationships using deprecated and "
 "grouping-only relationship types."
-msgstr "הדוח מפרט הוצאות עם קשרי־גומלין המשתמשים בסוגי קשרי־גומלין וקיבוץ בלבד שיצאו משימוש."
+msgstr ""
+"הדוח מפרט הוצאות עם קשרי־גומלין המשתמשים בסוגי קשרי־גומלין וקיבוץ בלבד שיצאו "
+"משימוש."
 
 #: ../root/report/DeprecatedRelationshipReleases.js:35
 #: ../root/report/ReportsIndex.js:397
@@ -12342,7 +12578,9 @@ msgstr "הוצאות עם קישרי־גומלין שהוצאו משימוש"
 msgid ""
 "This report lists URLs which have relationships using deprecated and "
 "grouping-only relationship types."
-msgstr "הדוח מפרט מעני url עם קשרי־גומלין המשתמשים בסוגי קשרי־גומלין וקיבוץ בלבד שיצאו משימוש."
+msgstr ""
+"הדוח מפרט מעני url עם קשרי־גומלין המשתמשים בסוגי קשרי־גומלין וקיבוץ בלבד "
+"שיצאו משימוש."
 
 #: ../root/report/DeprecatedRelationshipUrls.js:35
 #: ../root/report/ReportsIndex.js:583
@@ -12353,7 +12591,9 @@ msgstr "מעני url עם קישרי־גומלין שהוצאו משימוש"
 msgid ""
 "This report lists works which have relationships using deprecated and "
 "grouping-only relationship types."
-msgstr "הדוח מפרט יצירות עם קשרי־גומלין המשתמשים בסוגי קשרי־גומלין וקיבוץ בלבד שיצאו משימוש."
+msgstr ""
+"הדוח מפרט יצירות עם קשרי־גומלין המשתמשים בסוגי קשרי־גומלין וקיבוץ בלבד שיצאו "
+"משימוש."
 
 #: ../root/report/DeprecatedRelationshipWorks.js:35
 #: ../root/report/ReportsIndex.js:566
@@ -12440,7 +12680,9 @@ msgid ""
 "This report lists events happening at the same place on the same date. If "
 "there are duplicates (for example, if there are separate events for "
 "headliner and supporting artist) please merge them."
-msgstr "הדוח מפרט אירועים המתרחשים באותו מקום באותו תאריך. אם יש כפילויות (למשל, אירועים נפרדים לאמן הראשי ובנפרד לאמן התומך) נא למזג אותם."
+msgstr ""
+"הדוח מפרט אירועים המתרחשים באותו מקום באותו תאריך. אם יש כפילויות (למשל, "
+"אירועים נפרדים לאמן הראשי ובנפרד לאמן התומך) נא למזג אותם."
 
 #: ../root/report/DuplicateEvents.js:32
 msgid "Possible duplicate events"
@@ -12463,7 +12705,9 @@ msgstr ""
 msgid ""
 "This report lists labels which have multiple relationships to the same "
 "entity using the same relationship type."
-msgstr "הדוח מפרט חברות תקליטים עם קשרי־גומלין מרובים לאותה הישות המשתמשים בסוג קשר־גומלין זהה."
+msgstr ""
+"הדוח מפרט חברות תקליטים עם קשרי־גומלין מרובים לאותה הישות המשתמשים בסוג קשר־"
+"גומלין זהה."
 
 #: ../root/report/DuplicateRelationshipsLabels.js:30
 #: ../root/report/ReportsIndex.js:182
@@ -12474,7 +12718,9 @@ msgstr ""
 msgid ""
 "This report lists recordings which have multiple relationships to the same "
 "entity using the same relationship type."
-msgstr "הדוח מפרט הקלטות עם קשרי־גומלין מרובים לאותה הישות המשתמשים בסוג קשר־גומלין זהה."
+msgstr ""
+"הדוח מפרט הקלטות עם קשרי־גומלין מרובים לאותה הישות המשתמשים בסוג קשר־גומלין "
+"זהה."
 
 #: ../root/report/DuplicateRelationshipsRecordings.js:30
 #: ../root/report/ReportsIndex.js:474
@@ -12485,7 +12731,9 @@ msgstr "הקלטות עם אפשרות לקשרי־גומלין כפולים"
 msgid ""
 "This report lists release groups which have multiple relationships to the "
 "same entity using the same relationship type."
-msgstr "הדוח מפרט קבוצות הוצאה עם קשרי־גומלין מרובים לאותה הישות המשתמשים בסוג קשר־גומלין זהה."
+msgstr ""
+"הדוח מפרט קבוצות הוצאה עם קשרי־גומלין מרובים לאותה הישות המשתמשים בסוג קשר־"
+"גומלין זהה."
 
 #: ../root/report/DuplicateRelationshipsReleaseGroups.js:30
 #: ../root/report/ReportsIndex.js:218
@@ -12496,7 +12744,9 @@ msgstr "קבוצות הוצאה אם אפשרות לקשרי־גומלין כפ�
 msgid ""
 "This report lists releases which have multiple relationships to the same "
 "entity using the same relationship type."
-msgstr "הדוח מפרט הוצאות עם קשרי־גומלין מרובים לאותה הישות המשתמשים בסוג קשר־גומלין זהה."
+msgstr ""
+"הדוח מפרט הוצאות עם קשרי־גומלין מרובים לאותה הישות המשתמשים בסוג קשר־גומלין "
+"זהה."
 
 #: ../root/report/DuplicateRelationshipsReleases.js:30
 #: ../root/report/ReportsIndex.js:381
@@ -12508,7 +12758,9 @@ msgid ""
 "This report lists works which have multiple relationships to the same entity"
 " using the same relationship type. This excludes recording-work "
 "relationships. See the recording version of this report for those."
-msgstr "הדוח מפרט יצירות עם קשרי־גומלין מרובים לאותה הישות המשתמשים בסוג קשר־גומלין זהה. לא כולל יחסי הקלטה-יצירה. ראו גרסת דוח הקלטה עבור אלו."
+msgstr ""
+"הדוח מפרט יצירות עם קשרי־גומלין מרובים לאותה הישות המשתמשים בסוג קשר־גומלין "
+"זהה. לא כולל יחסי הקלטה-יצירה. ראו גרסת דוח הקלטה עבור אלו."
 
 #: ../root/report/DuplicateRelationshipsWorks.js:32
 #: ../root/report/ReportsIndex.js:562
@@ -12524,7 +12776,12 @@ msgid ""
 "artist has an album and single with the same name, then there is usually no "
 "need to change anything. In other cases, a disambiguation comment may be "
 "helpful."
-msgstr "הדוח מפרט קבוצות הוצאה עם שמות ואמנים דומים מאוד. אם יש לקבץ את ההוצאות בקבוצות הוצאה אחת (ראה {url|guidelines}), ניתן למזג אותן. אם אין לקבץ אותם יחד, אך ניתן להבחין ביניהם לפי סוגי קבוצות הוצאה, למשל. כאשר לאמן יש אלבום וחַדְשִׁיר בעלי אותו שם, לרוב אין צורך לשנות דבר. במקרים אחרים, הערת הבהרה עשויה להיות מועילה."
+msgstr ""
+"הדוח מפרט קבוצות הוצאה עם שמות ואמנים דומים מאוד. אם יש לקבץ את ההוצאות "
+"בקבוצות הוצאה אחת (ראה {url|guidelines}), ניתן למזג אותן. אם אין לקבץ אותם "
+"יחד, אך ניתן להבחין ביניהם לפי סוגי קבוצות הוצאה, למשל. כאשר לאמן יש אלבום "
+"וחַדְשִׁיר בעלי אותו שם, לרוב אין צורך לשנות דבר. במקרים אחרים, הערת הבהרה "
+"עשויה להיות מועילה."
 
 #: ../root/report/DuplicateReleaseGroups.js:52
 #: ../root/report/ReportsIndex.js:227
@@ -12626,7 +12883,12 @@ msgid ""
 "recording, the ISRCs are probably correct and should be left alone. If the "
 "same ISRC appears on two unrelated recordings on the same release, this is "
 "usually means there was an error when reading the disc."
-msgstr "הדוח מפרט את {isrc|ISRC} המצורפים ליותר מהקלטה אחת. אם ההקלטות זהות, זה בדרך כלל אומר שיש למזג אותן (ניתן להקצות באופן שגוי את ה־ ISRC ולכן יש עדיין להקפיד לוודא שהם באמת זהים). אם ההקלטות הן חלק מהקלטה גדולה יותר, ה־ ISRC הם כנראה נכונים ויש להשאיר אותם כפי שהם. אם אותו ISRC מופיע בשתי הקלטות לא קשורות באותה הוצאה, בדרך כלל זה אומר שהייתה שגיאה בקריאת הדיסק."
+msgstr ""
+"הדוח מפרט את {isrc|ISRC} המצורפים ליותר מהקלטה אחת. אם ההקלטות זהות, זה בדרך "
+"כלל אומר שיש למזג אותן (ניתן להקצות באופן שגוי את ה־ ISRC ולכן יש עדיין "
+"להקפיד לוודא שהם באמת זהים). אם ההקלטות הן חלק מהקלטה גדולה יותר, ה־ ISRC הם "
+"כנראה נכונים ויש להשאיר אותם כפי שהם. אם אותו ISRC מופיע בשתי הקלטות לא "
+"קשורות באותה הוצאה, בדרך כלל זה אומר שהייתה שגיאה בקריאת הדיסק."
 
 #: ../root/report/IsrcsWithManyRecordings.js:51
 #: ../root/report/ReportsIndex.js:600
@@ -12642,7 +12904,9 @@ msgstr ""
 msgid ""
 "This report lists {iswc|ISWCs} that are attached to more than one work. If "
 "the works are the same, this usually means they should be merged."
-msgstr "הדוח מפרט את {iswc|SWC} המצורפים ליותר מיצירה אחת. אם היצירות זהות, זה בדרך כלל אומר שיש למזג אותן."
+msgstr ""
+"הדוח מפרט את {iswc|SWC} המצורפים ליותר מיצירה אחת. אם היצירות זהות, זה בדרך "
+"כלל אומר שיש למזג אותן."
 
 #: ../root/report/IswcsWithManyWorks.js:42 ../root/report/ReportsIndex.js:609
 msgid "ISWCs with multiple works"
@@ -12716,7 +12980,9 @@ msgstr ""
 msgid ""
 "This report lists all releases with gaps in the medium numbers (e.g. there "
 "is a medium 1 and 3 but no medium 2)."
-msgstr "הדוח מפרט את כל ההוצאות עם פערים במספרם מדיה (כלומר, יש מדיה 1 ו־ 3 אך אין מדיה 2)."
+msgstr ""
+"הדוח מפרט את כל ההוצאות עם פערים במספרם מדיה (כלומר, יש מדיה 1 ו־ 3 אך אין "
+"מדיה 2)."
 
 #: ../root/report/MediumsWithSequenceIssues.js:30
 msgid "Releases with medium number issues"
@@ -12742,7 +13008,11 @@ msgid ""
 " be correct. Just check which ones do not fit the release (because of "
 "format, different number of tracks, etc). If the release has a barcode, you "
 "can search Amazon for it and see which ASIN matches."
-msgstr "הדוח מציג הוצאות בהן יותר מ־ ASIN אמזון אחד. ברוב המקרים ASIN צריכים להתמפות 1: 1 להוצאות מוזיקבריינז, כך שרק אחד מהם יהיה נכון. נא לבדוק אילו מהם אינם מתאימים הוצאה (לפי תַּבְנִית, מספר רצועות שונה וכו '). אם קיים ברקוד להוצאה, ניתן יכול לחפש אותו באמזון ולראות איזה ASIN תואם אותו."
+msgstr ""
+"הדוח מציג הוצאות בהן יותר מ־ ASIN אמזון אחד. ברוב המקרים ASIN צריכים להתמפות "
+"1: 1 להוצאות מוזיקבריינז, כך שרק אחד מהם יהיה נכון. נא לבדוק אילו מהם אינם "
+"מתאימים הוצאה (לפי תַּבְנִית, מספר רצועות שונה וכו '). אם קיים ברקוד להוצאה, "
+"ניתן יכול לחפש אותו באמזון ולראות איזה ASIN תואם אותו."
 
 #: ../root/report/MultipleAsins.js:34
 msgid "Releases with multiple ASINs"
@@ -12756,7 +13026,12 @@ msgid ""
 "release (because of format, different number of tracks, etc). Any \"master\""
 " Discogs page belongs at the {release_group|release group level}, not at the"
 " release level, and should be removed from releases too."
-msgstr "הדוח מציג הוצאות בהן יותר מקישור אחד לדיסקוגז. ברוב המקרים להוצאת מוזיקבריינז צריכה להיות מקבילה אחת בלבד בדיסקוגז, כך שרק אחד מהם יהיה נכון. נא לבדוק אילו מהם אינם מתאימים להוצאה (לפי תבנית, מספר רצועות שונה וכו'). כל  עמוד ראשי בדיסקוגז  שייך ל־ {release_group|רמת קבוצת הוצאה}, ולא לרמת הוצאה, ויש להסיר אותו גם מההוצאות. "
+msgstr ""
+"הדוח מציג הוצאות בהן יותר מקישור אחד לדיסקוגז. ברוב המקרים להוצאת "
+"מוזיקבריינז צריכה להיות מקבילה אחת בלבד בדיסקוגז, כך שרק אחד מהם יהיה נכון. "
+"נא לבדוק אילו מהם אינם מתאימים להוצאה (לפי תבנית, מספר רצועות שונה וכו'). "
+"כל  עמוד ראשי בדיסקוגז  שייך ל־ {release_group|רמת קבוצת הוצאה}, ולא לרמת "
+"הוצאה, ויש להסיר אותו גם מההוצאות. "
 
 #: ../root/report/MultipleDiscogsLinks.js:36
 msgid "Releases with multiple Discogs links"
@@ -12767,7 +13042,10 @@ msgid ""
 "This report shows releases that have no language set. If you recognize the "
 "language, please set it! Do it only if you are pretty sure, don't just "
 "guess: not everything written in Cyrillic is Russian, for example."
-msgstr "הדוח מציג הוצאות בהן השפה לא מוגדרת. אם אתם מזהים את השפה, נא להגדיר אותה! עשו זאת רק אם אתם די בטוחים, אל תנחשו: לא כל מה שכתוב בקירילית הוא רוסית, למשל."
+msgstr ""
+"הדוח מציג הוצאות בהן השפה לא מוגדרת. אם אתם מזהים את השפה, נא להגדיר אותה! "
+"עשו זאת רק אם אתם די בטוחים, אל תנחשו: לא כל מה שכתוב בקירילית הוא רוסית, "
+"למשל."
 
 #: ../root/report/NoLanguage.js:36 ../root/report/ReportsIndex.js:260
 msgid "Releases without language"
@@ -12805,7 +13083,11 @@ msgid ""
 " releases}. If the releases are not really part of a set (for example, if "
 "they are independently-released volumes in a series) just remove the "
 "relationship."
-msgstr "הדוח מציג הוצאות שעדיין יש את קשר־גומלין \"חלק מסט\" שהוצא משימוש וכנראה שיש למזגן. לקבלת הוראות לתיקונם, נא לעיין בתיעוד בנושא {how_to_merge_releases | כיצד למזג גרסאות}. אם הוצאות אינן ממש חלק מסט (למשל, אם מדובר בכרכים המוצאים באופן עצמאי בסדרה) נא פשוט להסיר את קשר־גומלין."
+msgstr ""
+"הדוח מציג הוצאות שעדיין יש את קשר־גומלין \"חלק מסט\" שהוצא משימוש וכנראה שיש "
+"למזגן. לקבלת הוראות לתיקונם, נא לעיין בתיעוד בנושא {how_to_merge_releases | "
+"כיצד למזג גרסאות}. אם הוצאות אינן ממש חלק מסט (למשל, אם מדובר בכרכים המוצאים "
+"באופן עצמאי בסדרה) נא פשוט להסיר את קשר־גומלין."
 
 #: ../root/report/PartOfSetRelationships.js:36
 msgid "Releases with “part of set” relationships"
@@ -12880,7 +13162,11 @@ msgid ""
 " they're not, the relationship should be removed. Please, do not merge "
 "recordings blindly just because the lengths fit, and do not merge recordings"
 " with very different times!"
-msgstr "הדוח מציג הקלטות שיש בהן הוצא משימוש ה\"הוצאה ראשונה\" שהוצא משימוש. יש למזגן אם הם באמת אותה הקלטה; אם לא, יש להסיר את קשר־הגומלין. נא, לא למזג הקלטות בצורה עיוורת רק בגלל שהאורכים מתאימים, ולא למזג הקלטות בעלות זמן שונה מאוד!"
+msgstr ""
+"הדוח מציג הקלטות שיש בהן הוצא משימוש ה\"הוצאה ראשונה\" שהוצא משימוש. יש "
+"למזגן אם הם באמת אותה הקלטה; אם לא, יש להסיר את קשר־הגומלין. נא, לא למזג "
+"הקלטות בצורה עיוורת רק בגלל שהאורכים מתאימים, ולא למזג הקלטות בעלות זמן שונה "
+"מאוד!"
 
 #: ../root/report/RecordingsWithEarliestReleaseRelationships.js:34
 #: ../root/report/ReportsIndex.js:466
@@ -12912,7 +13198,8 @@ msgstr ""
 msgid ""
 "This report shows recordings linked to the Various Artists entity without "
 "\"Various Artists\" as the credited name."
-msgstr "הדוח מפרט הקלטות מקושרות לישות אמנים שונים ללא 'אמנים שונים' כשם המזוכה."
+msgstr ""
+"הדוח מפרט הקלטות מקושרות לישות אמנים שונים ללא 'אמנים שונים' כשם המזוכה."
 
 #: ../root/report/RecordingsWithoutVaCredit.js:30
 #: ../root/report/ReportsIndex.js:491
@@ -12923,7 +13210,8 @@ msgstr ""
 msgid ""
 "This report shows recordings with \"Various Artists\" as the credited name "
 "but not linked to the Various Artists entity."
-msgstr "הדוח מפרט הקלטות עם 'אמנים שונים' כשם המזוכה אך ללא קישור לישות אמנים שונים."
+msgstr ""
+"הדוח מפרט הקלטות עם 'אמנים שונים' כשם המזוכה אך ללא קישור לישות אמנים שונים."
 
 #: ../root/report/RecordingsWithoutVaLink.js:30
 #: ../root/report/ReportsIndex.js:498
@@ -12934,7 +13222,9 @@ msgstr ""
 msgid ""
 "This report shows release groups linked to the Various Artists entity "
 "without \"Various Artists\" as the credited name."
-msgstr "הדוח מפרט קבוצות הוצאה מקושרות לישות אמנים שונים ללא 'אמנים שונים' כשם המזוכה."
+msgstr ""
+"הדוח מפרט קבוצות הוצאה מקושרות לישות אמנים שונים ללא 'אמנים שונים' כשם "
+"המזוכה."
 
 #: ../root/report/ReleaseGroupsWithoutVaCredit.js:31
 #: ../root/report/ReportsIndex.js:236
@@ -12945,7 +13235,9 @@ msgstr ""
 msgid ""
 "This report shows release groups with \"Various Artists\" as the credited "
 "name but not linked to the Various Artists entity."
-msgstr "הדוח מפרט קבוצות הוצאה עם 'אמנים שונים' כשם המזוכה אך ללא קישור לישות אמנים שונים."
+msgstr ""
+"הדוח מפרט קבוצות הוצאה עם 'אמנים שונים' כשם המזוכה אך ללא קישור לישות אמנים "
+"שונים."
 
 #: ../root/report/ReleaseGroupsWithoutVaLink.js:31
 #: ../root/report/ReportsIndex.js:243
@@ -13060,7 +13352,9 @@ msgid ""
 "This report shows releases which have cover art in the Cover Art Archive, "
 "but where none of it has any types set. This often means a front cover was "
 "added, but not marked as such."
-msgstr "הדוח מציג הוצאות הכוללות תמונות עטיפה בארכיב תמונות עטיפה, אך לא הוגדר סוג לאף אחת מהן. לרוב, המשמעות היא שתמונת עטיפה - חזית נוספה, אך לא סומנה ככזו."
+msgstr ""
+"הדוח מציג הוצאות הכוללות תמונות עטיפה בארכיב תמונות עטיפה, אך לא הוגדר סוג "
+"לאף אחת מהן. לרוב, המשמעות היא שתמונת עטיפה - חזית נוספה, אך לא סומנה ככזו."
 
 #: ../root/report/ReleasesWithCaaNoTypes.js:32
 #: ../root/report/ReportsIndex.js:359
@@ -13129,7 +13423,8 @@ msgstr ""
 msgid ""
 "This report shows releases linked to the Various Artists entity without "
 "\"Various Artists\" as the credited name."
-msgstr "הדוח מפרט הוצאות מקושרות לישות אמנים שונים ללא 'אמנים שונים' כשם המזוכה."
+msgstr ""
+"הדוח מפרט הוצאות מקושרות לישות אמנים שונים ללא 'אמנים שונים' כשם המזוכה."
 
 #: ../root/report/ReleasesWithoutVaCredit.js:30
 #: ../root/report/ReportsIndex.js:414
@@ -13140,7 +13435,8 @@ msgstr ""
 msgid ""
 "This report shows releases with \"Various Artists\" as the credited name but"
 " not linked to the Various Artists entity."
-msgstr "הדוח מפרט הוצאות עם 'אמנים שונים' כשם המזוכה אך ללא קישור לישות אמנים שונים."
+msgstr ""
+"הדוח מפרט הוצאות עם 'אמנים שונים' כשם המזוכה אך ללא קישור לישות אמנים שונים."
 
 #: ../root/report/ReleasesWithoutVaLink.js:30
 #: ../root/report/ReportsIndex.js:420
@@ -13368,7 +13664,9 @@ msgid ""
 "This report shows releases that have a single medium, where this medium also"
 " has a specific name. Usually, this is not necessary and is duplicate "
 "information which can be removed."
-msgstr "הדוח מציג הוצאות בעלות מדיית חַדְשִׁיר, כאשר למדיה יש גם שם מסוים. בדרך כלל זה לא הכרחי והוא מידע כפול שניתן להסיר."
+msgstr ""
+"הדוח מציג הוצאות בעלות מדיית חַדְשִׁיר, כאשר למדיה יש גם שם מסוים. בדרך כלל "
+"זה לא הכרחי והוא מידע כפול שניתן להסיר."
 
 #: ../root/report/SomeFormatsUnset.js:24
 msgid ""
@@ -13376,7 +13674,10 @@ msgid ""
 "others are unset. In most cases, it should be easy to find out which the "
 "correct formats are (don't just assume that they're all CDs because one is "
 "though!)."
-msgstr "הדוח מציג הוצאות שבהן מוגדרות חלק ממבני המדיה, אך אחרות אינן מוגדרות. ברוב המקרים, קל לגלות מהם המבנים הנכונים (רק לא להניח שכולם תקליטורים כי אחד זה בעייתי!)."
+msgstr ""
+"הדוח מציג הוצאות שבהן מוגדרות חלק ממבני המדיה, אך אחרות אינן מוגדרות. ברוב "
+"המקרים, קל לגלות מהם המבנים הנכונים (רק לא להניח שכולם תקליטורים כי אחד זה "
+"בעייתי!)."
 
 #: ../root/report/SomeFormatsUnset.js:32
 msgid "Releases with some formats unset"
@@ -13408,7 +13709,9 @@ msgid ""
 "This report lists all releases where the track numbers are not continuous "
 "(e.g. there is no \"track 2\"), or with duplicated track numbers (e.g. there"
 " are two \"track 4\"s)."
-msgstr "הדוח מפרט את כל ההוצאות שבהן מספרי הרצועות אינם רציפים (כלומר, אין \"רצועה 2\"), או עם מספרי רצועות כפולים (כלומר, קיימים שתי \"רצועה 4\")."
+msgstr ""
+"הדוח מפרט את כל ההוצאות שבהן מספרי הרצועות אינם רציפים (כלומר, אין \"רצועה "
+"2\"), או עם מספרי רצועות כפולים (כלומר, קיימים שתי \"רצועה 4\")."
 
 #: ../root/report/TracksWithSequenceIssues.js:31
 msgid "Releases with track number issues"
@@ -13678,7 +13981,9 @@ msgstr "לחלופין ניתן {uri|add a new work}."
 msgid ""
 "Sorry, but your query “(<code>{query}</code>)” could not be performed, due "
 "to an error which we are not quite able to identify."
-msgstr "למרבה הצער, השאילתה <code>{query}</code> אינה ניתנת לביצוע עקב שגיאה שלא הצלחנו לזהות."
+msgstr ""
+"למרבה הצער, השאילתה <code>{query}</code> אינה ניתנת לביצוע עקב שגיאה שלא "
+"הצלחנו לזהות."
 
 #: ../root/search/error/InternalError.js:23
 msgid ""
@@ -13694,21 +13999,27 @@ msgstr "שאילתת החיפוש שהוזנה נחשבה כבלתי תקינה 
 msgid ""
 "Sorry, your query “(<code>{query}</code>)” does not contain enough "
 "information to carry out a search."
-msgstr "למרבה הצער, השאילתה “(<code>{query}</code>)” אינה מכילה מספיק מידע על מנת לבצע את החיפוש."
+msgstr ""
+"למרבה הצער, השאילתה “(<code>{query}</code>)” אינה מכילה מספיק מידע על מנת "
+"לבצע את החיפוש."
 
 #: ../root/search/error/NoResults.js:26
 msgid ""
 "Sorry, but your query “(<code>{query}</code>)” did not find any results of "
 "the type “{type}”. Please check you used the correct spelling. Sometimes "
 "searching for fewer or different words may also help."
-msgstr "למרבה הצער, השאילתה \"(<code>query</code>)\" אינה תואמת לאף סוג {type}. נא לבדוק איות. לפעמים שימוש במספר מלים פחות או שונה במחרוזת חיפוש עשויים לעזור."
+msgstr ""
+"למרבה הצער, השאילתה \"(<code>query</code>)\" אינה תואמת לאף סוג {type}. נא "
+"לבדוק איות. לפעמים שימוש במספר מלים פחות או שונה במחרוזת חיפוש עשויים לעזור."
 
 #: ../root/search/error/RateLimited.js:24
 msgid ""
 "Sorry, but your query “(<code>{query}</code>)” could not be performed, "
 "because it appears you've been rate-limited. Either the server is overloaded"
 " or you're making a lot of requests all at once!."
-msgstr "למרבה הצער, השאילתה <code>{query}</code> אינה ניתנת לביצוע שכן נראה שישנה הגבלת קצב. יתכן והרשת עמוסה או שהתבצעו מספר רב של שאילתות בו זמנית."
+msgstr ""
+"למרבה הצער, השאילתה <code>{query}</code> אינה ניתנת לביצוע שכן נראה שישנה "
+"הגבלת קצב. יתכן והרשת עמוסה או שהתבצעו מספר רב של שאילתות בו זמנית."
 
 #: ../root/search/error/UriTooLarge.js:20
 msgid "Sorry, your query was too large."
@@ -13722,7 +14033,9 @@ msgstr "הסדרה ריקה כרגע."
 msgid ""
 "You are about to merge all these series into a single one. Please select the"
 " series all others should be merged into:"
-msgstr "אתם עומדים למזג את כל הסדרות הללו לאחת. נא לבחור את הסדרה אליה ימוזגו כל האחרות:"
+msgstr ""
+"אתם עומדים למזג את כל הסדרות הללו לאחת. נא לבחור את הסדרה אליה ימוזגו כל "
+"האחרות:"
 
 #: ../root/static/scripts/account/components/ApplicationForm.js:95
 msgid "Callback URL"
@@ -13733,7 +14046,10 @@ msgid ""
 "Callback URI is optional for installed applications. If set, its scheme must"
 " be a custom reverse-DNS string, as in <code>org.example.app://auth</code>, "
 "for installed applications."
-msgstr "מען url להתקשרות חוזרת הוא חלופה ליישומים מותקנים. אם הוגדר, המתכונת שלו חייבת להיות מחרוזת DNS הופכית מותאמת אישית, כמו ב־ <code>org.example.app://auth,</code> עבור יישומים מותקנים."
+msgstr ""
+"מען url להתקשרות חוזרת הוא חלופה ליישומים מותקנים. אם הוגדר, המתכונת שלו "
+"חייבת להיות מחרוזת DNS הופכית מותאמת אישית, כמו ב־ <code>org.example."
+"app://auth,</code> עבור יישומים מותקנים."
 
 #: ../root/static/scripts/account/components/EditProfileForm.js:180
 msgid ""
@@ -13806,7 +14122,9 @@ msgstr "לאפשר למשתמשים אחרים לצפות בדירוגים של�
 msgid ""
 "Mail me when one of my edits gets a \"no\" vote. (Note: the email is only "
 "sent for the first \"no\" vote, not each one)"
-msgstr "שלחו לי דוא\"ל כשאחת מהעריכות שלי מקבלת הצבעה \"לא\". (הערה: דוא\"ל ישלח רק להצבעה \"לא\" הראשונה, לא לכל הצבעה)"
+msgstr ""
+"שלחו לי דוא\"ל כשאחת מהעריכות שלי מקבלת הצבעה \"לא\". (הערה: דוא\"ל ישלח רק "
+"להצבעה \"לא\" הראשונה, לא לכל הצבעה)"
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:221
 msgid "When I add a note to an edit, mail me all future notes for that edit."
@@ -13903,7 +14221,9 @@ msgid ""
 "This will enter additional edits to change each specific credit to use the "
 "new name. Only use this if you are sure the existing credits are incorrect "
 "(e.g. for typos)."
-msgstr "פעולה זו תזין עריכות נוספות לשינוי כל מזכה מסויים לשימוש בשם החדש. נא להשתמש בזה רק אם אתה בטוח שהמזכים הקיימים שגויים (למשל עבור שגיאות הקלדה)."
+msgstr ""
+"פעולה זו תזין עריכות נוספות לשינוי כל מזכה מסויים לשימוש בשם החדש. נא להשתמש "
+"בזה רק אם אתה בטוח שהמזכים הקיימים שגויים (למשל עבור שגיאות הקלדה)."
 
 #: ../root/static/scripts/artist/components/ArtistCreditRenamer.js:231
 msgid ""
@@ -14045,7 +14365,9 @@ msgstr "באור הוסגל לאחרונה על־ידי {user}ב  {date}."
 msgid ""
 "This is an {history|old revision} of this annotation, as edited by {user} on"
 " {date}. {current|View current revision}."
-msgstr "זו {history|old revision} לביאור זה, כפי שנערך על־ידי {user} ב־ {date}. {current|View current revision}."
+msgstr ""
+"זו {history|old revision} לביאור זה, כפי שנערך על־ידי {user} ב־ {date}. "
+"{current|View current revision}."
 
 #: ../root/static/scripts/common/components/Annotation.js:114
 msgid "Annotation last modified on {date}."
@@ -14241,7 +14563,9 @@ msgstr ""
 msgid ""
 "High quality: All available data has been added, if possible including cover"
 " art with liner info that proves it"
-msgstr "איכות גבוהה: כל הנתונים הזמינים נוספו, במידת האפשר, כולל תמונת עטיפה עם פרטי הערת אלבום שמאמתים זאת"
+msgstr ""
+"איכות גבוהה: כל הנתונים הזמינים נוספו, במידת האפשר, כולל תמונת עטיפה עם פרטי "
+"הערת אלבום שמאמתים זאת"
 
 #: ../root/static/scripts/common/components/EntityLink.js:380
 msgid ""
@@ -14499,7 +14823,9 @@ msgstr "המשך קריאה בויקיפדיה..."
 msgid ""
 "Wikipedia content provided under the terms of the {license_link|Creative "
 "Commons BY-SA license}"
-msgstr "תוכן ויקיפדיה מורשה בתנאי הרישיון של {license_link|Creative Commons BY-SA license}"
+msgstr ""
+"תוכן ויקיפדיה מורשה בתנאי הרישיון של {license_link|Creative Commons BY-SA "
+"license}"
 
 #: ../root/static/scripts/common/components/WorkArtists.js:27
 msgid "Work Artists"
@@ -14529,7 +14855,9 @@ msgstr "טעינת מדיה כשלה."
 msgid ""
 "This medium has too many tracks to load at once; currently showing "
 "{loaded_track_count} out of {total_track_count} total."
-msgstr "מספר הרצועות באלבום זה רבות מדי מלהיטען בפעם אחת; כרגע מוצגים {loaded_track_count} מתוך {total_track_count} בסך הכל."
+msgstr ""
+"מספר הרצועות באלבום זה רבות מדי מלהיטען בפעם אחת; כרגע מוצגים "
+"{loaded_track_count} מתוך {total_track_count} בסך הכל."
 
 #: ../root/static/scripts/common/hooks/usePagedMediumTable.js:226
 msgid "Load all tracks..."
@@ -14728,19 +15056,25 @@ msgstr ""
 msgid ""
 "Only IMSLP “{category_url_pattern}” links are allowed for artists. Please "
 "link work pages to the specific work in question."
-msgstr "רק קישורי “{explore_url_pattern}”  IMSLP אפשריים לאמנים. נא לקשר עמודי יצירה ליצירה מסויימת שבספק."
+msgstr ""
+"רק קישורי “{explore_url_pattern}”  IMSLP אפשריים לאמנים. נא לקשר עמודי יצירה "
+"ליצירה מסויימת שבספק."
 
 #: ../root/static/scripts/edit/URLCleanup.js:2542
 msgid ""
 "IMSLP “{category_url_pattern}” links are only allowed for artists. Please "
 "link the specific work page to this work instead, if available."
-msgstr "קישורי “{explore_url_pattern}”  IMSLP אפשריים רק לאמנים. נא לקשר יצירה מסויימת במקום, ככול שזמינה כזאת."
+msgstr ""
+"קישורי “{explore_url_pattern}”  IMSLP אפשריים רק לאמנים. נא לקשר יצירה "
+"מסויימת במקום, ככול שזמינה כזאת."
 
 #: ../root/static/scripts/edit/URLCleanup.js:2587
 msgid ""
 "Instagram “{explore_url_pattern}” links are not allowed. Please link to a "
 "profile instead, if there is one."
-msgstr "קישורי אינסטגרם “{explore_url_pattern}” לא מאופשרים. נא לקשר פרופיל ככול שקיים כזה."
+msgstr ""
+"קישורי אינסטגרם “{explore_url_pattern}” לא מאופשרים. נא לקשר פרופיל ככול "
+"שקיים כזה."
 
 #: ../root/static/scripts/edit/URLCleanup.js:2615
 msgid ""
@@ -14769,7 +15103,9 @@ msgid ""
 "This is a link to the old Resident Advisor domain. Please follow "
 "{ra_url|your link}, make sure the link it redirects to is still the correct "
 "one and, if so, add that link instead."
-msgstr "קישור למתחם הישן של רזידנט אגויזר. נא לעקוב אחר {ra_url | הקישור שלכם}, ולוודא שהקישור אליו הוא מפנה עדיין נכון, אם כן, הוספו קישור זה במקום."
+msgstr ""
+"קישור למתחם הישן של רזידנט אגויזר. נא לעקוב אחר {ra_url | הקישור שלכם}, "
+"ולוודא שהקישור אליו הוא מפנה עדיין נכון, אם כן, הוספו קישור זה במקום."
 
 #: ../root/static/scripts/edit/URLCleanup.js:5036
 msgid "This is not a profile, but a Twitter documentation page."
@@ -14800,7 +15136,9 @@ msgstr ""
 msgid ""
 "Please do not link directly to WhoSampled “{unwanted_url_pattern}” pages. "
 "Link to the appropriate WhoSampled artist, track or album page instead."
-msgstr "נא לא לקשר ישירות לעמודי “{unwanted_url_pattern}” של הו־סאמפלד. יש לקשר לעמוד לאמן, הרצועה או האלבום המתאימים בהו־סאמפלד."
+msgstr ""
+"נא לא לקשר ישירות לעמודי “{unwanted_url_pattern}” של הו־סאמפלד. יש לקשר "
+"לעמוד לאמן, הרצועה או האלבום המתאימים בהו־סאמפלד."
 
 #: ../root/static/scripts/edit/URLCleanup.js:5371
 msgid "Please link WhoSampled “{album_url_pattern}” pages to release groups."
@@ -14818,7 +15156,9 @@ msgstr "נא לקשר בין עמודי רצועה ב־ WhoSampled להקלטו�
 msgid ""
 "Links to specific sections of Wikipedia articles are not allowed. Please "
 "remove “{fragment}” if still appropriate. See the {url|guidelines}."
-msgstr "קישור למקטעים מסוימים במאמרי ויקיפדיה אינם אפשריים. נא להסיר את \"{fragment}\" אם עדיין מתאים. נא לעיין ב־ {url | הנחיות}."
+msgstr ""
+"קישור למקטעים מסוימים במאמרי ויקיפדיה אינם אפשריים. נא להסיר את \"{fragment}"
+"\" אם עדיין מתאים. נא לעיין ב־ {url | הנחיות}."
 
 #: ../root/static/scripts/edit/URLCleanup.js:5493
 msgid ""
@@ -14985,7 +15325,10 @@ msgid ""
 "is highly recommended. Not only does it make your sources clear (both now "
 "and to users who see the edit years later), but it can also encourage other "
 "users to vote on the edit — thus making it get applied faster."
-msgstr "מומלץ מאוד להזין {note|edit note} לתאור מקור המידע שלכם. בנוסף להבהרת מקור המידע (גם כיום וגם למשתמשים שיצפו בעריכה בעוד מספר שנים), עשוי גם לעודד משתמשים אחרים להצביע על העריכה שלכם&  —   ובכך העריכה תוחל מהר יותר."
+msgstr ""
+"מומלץ מאוד להזין {note|edit note} לתאור מקור המידע שלכם. בנוסף להבהרת מקור "
+"המידע (גם כיום וגם למשתמשים שיצפו בעריכה בעוד מספר שנים), עשוי גם לעודד "
+"משתמשים אחרים להצביע על העריכה שלכם&  —   ובכך העריכה תוחל מהר יותר."
 
 #: ../root/static/scripts/edit/components/ExternalLinkAttributeDialog.js:198
 #: ../root/static/scripts/relationship-editor/components/DialogDatePeriod.js:86
@@ -15016,7 +15359,9 @@ msgstr "כן, עדיין רוצה להזין “{entity_name}”."
 msgid ""
 "Please enter a {doc_disambiguation|disambiguation} to help distinguish this "
 "entity from the others."
-msgstr "נא להזין {doc_disambiguation|disambiguation} על מנת להבחין בין רשומה זו לאחרות."
+msgstr ""
+"נא להזין {doc_disambiguation|disambiguation} על מנת להבחין בין רשומה זו "
+"לאחרות."
 
 #: ../root/static/scripts/edit/components/ReleaseMergeStrategy.js:75
 msgid ""
@@ -15024,7 +15369,10 @@ msgid ""
 "may specify the new order of mediums. The order does not have to be "
 "continuous, but all medium positions must be positive, and multiple mediums "
 "cannot be in the same position"
-msgstr "באסטרטגיית מיזוג זו, יעשה שימוש בכל מדיה מכל ההוצאות. נניתן לציין את סדר המדיה החדשה. הסדר אינו חייב להיות רציף, אך כל מיקומי המדיה חייבים להיות חיוביים, מדיה מרובה לא יכולים להיות באותו מיקום"
+msgstr ""
+"באסטרטגיית מיזוג זו, יעשה שימוש בכל מדיה מכל ההוצאות. נניתן לציין את סדר "
+"המדיה החדשה. הסדר אינו חייב להיות רציף, אך כל מיקומי המדיה חייבים להיות "
+"חיוביים, מדיה מרובה לא יכולים להיות באותו מיקום"
 
 #: ../root/static/scripts/edit/components/ReleaseMergeStrategy.js:90
 msgid "New position:"
@@ -15047,7 +15395,9 @@ msgid ""
 "This merge strategy will merge all mediums together into a single set of "
 "mediums. Recordings between mediums will also be merged, into the recordings"
 " used on the target mediums."
-msgstr "אסטרטגית מיזוג זו תמזג את כל המדיה יחד לערכת מדיה בודדת. הקלטות בין פרטי המדיה ימוזגו גם כן להקלטות בהם נעשה שימוש במדית היעד."
+msgstr ""
+"אסטרטגית מיזוג זו תמזג את כל המדיה יחד לערכת מדיה בודדת. הקלטות בין פרטי "
+"המדיה ימוזגו גם כן להקלטות בהם נעשה שימוש במדית היעד."
 
 #: ../root/static/scripts/edit/components/ReleaseMergeStrategy.js:203
 msgid ""
@@ -15100,7 +15450,8 @@ msgstr ""
 msgid ""
 "Links to MusicBrainz URLs are not allowed. Did you mean to paste something "
 "else?"
-msgstr "קישור מעני url מוזיקבריינז אינם אפשריים. האם הכוונה היתה להדביק משהו שונה?"
+msgstr ""
+"קישור מעני url מוזיקבריינז אינם אפשריים. האם הכוונה היתה להדביק משהו שונה?"
 
 #: ../root/static/scripts/edit/externalLinks.js:714
 msgid ""
@@ -15111,7 +15462,8 @@ msgstr ""
 #: ../root/static/scripts/edit/externalLinks.js:722
 msgid ""
 "Links to this website are not allowed because it is known to host malware."
-msgstr "קישורים לאתר מרשתת זה לא מאופשרים מאחר והוא ידוע כמארח של תכנות זדוניות."
+msgstr ""
+"קישורים לאתר מרשתת זה לא מאופשרים מאחר והוא ידוע כמארח של תכנות זדוניות."
 
 #: ../root/static/scripts/edit/externalLinks.js:728
 msgid ""
@@ -15347,7 +15699,9 @@ msgstr ""
 msgid ""
 "Please select a subtype of the currently selected relationship type. The "
 "selected relationship type is only used for grouping subtypes."
-msgstr "נא לבחור תת סוג לבחירה הנוכחית של סוג קשר־גומלין. סוג קשר־גומלין שנבחר משמש רק לקיבוץ תת סוגים."
+msgstr ""
+"נא לבחור תת סוג לבחירה הנוכחית של סוג קשר־גומלין. סוג קשר־גומלין שנבחר משמש "
+"רק לקיבוץ תת סוגים."
 
 #: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:88
 msgid "This relationship type is not allowed with the current series type."
@@ -15539,7 +15893,9 @@ msgid ""
 "This tracklist has artist credits with information that will be lost if you "
 "swap artist credits with track titles. This cannot be undone. Do you wish to"
 " continue?"
-msgstr "לרשימת הרצועות יש מזכה אמן עם מידע שיואבד אם מזכה אמן יוחלף  בכותרות רצועה. לא ניתן להסגה. האם להמשיך?"
+msgstr ""
+"לרשימת הרצועות יש מזכה אמן עם מידע שיואבד אם מזכה אמן יוחלף  בכותרות רצועה. "
+"לא ניתן להסגה. האם להמשיך?"
 
 #: ../root/static/scripts/release-editor/bindingHandlers.js:31
 msgid ""
@@ -15642,7 +15998,9 @@ msgstr ""
 msgid ""
 "Only use this option after you’ve tried searching for the work(s) you want "
 "to create, and are certain they do not already exist on MusicBrainz."
-msgstr "נא להשתמש באפשרות זו רק לאחר חיפוש היצירות אותם רוצים ליצור, ווידוא שהם טרם קיימות במוזיקבריינז."
+msgstr ""
+"נא להשתמש באפשרות זו רק לאחר חיפוש היצירות אותם רוצים ליצור, ווידוא שהם טרם "
+"קיימות במוזיקבריינז."
 
 #: ../root/static/scripts/release/components/BatchCreateWorksDialog.js:283
 #: ../root/static/scripts/release/components/RelationshipEditorBatchTools.js:94
@@ -16065,7 +16423,9 @@ msgstr "שגיאת חיפוש תג"
 msgid ""
 "That search can't be performed, because you must provide at least one of "
 "'recording', 'track number', 'duration', 'release', or 'artist'."
-msgstr "לא ניתן לבצע חיפוש זה מכיוון שנדרש לפחות אחד מהבאים: 'הקלטה', 'מספר רצועה', 'משך', 'הוצאה' או 'אמן'."
+msgstr ""
+"לא ניתן לבצע חיפוש זה מכיוון שנדרש לפחות אחד מהבאים: 'הקלטה', 'מספר רצועה', "
+"'משך', 'הוצאה' או 'אמן'."
 
 #: ../root/taglookup/NotFound.js:22
 msgid "Please {search|try again}, providing at least one of these parameters"
@@ -16126,7 +16486,10 @@ msgid ""
 "privileges. These privileges allow them to make select edits that are "
 "automatically approved without going through the normal voting process, as "
 "well as the ability to instantly approve other users' edits."
-msgstr "עורכים אוטומטיים הם משתמשים מהימנים שקיבלו הרשאות {url | auto-editor}. הרשאות אלה מאפשרות לבצע עריכות נבחרות שאושרו אוטומטית מבלי לעבור את תהליך ההצבעה הרגיל, כמו גם את היכולת לאשר באופן מיידי את העריכות של משתמשים אחרים."
+msgstr ""
+"עורכים אוטומטיים הם משתמשים מהימנים שקיבלו הרשאות {url | auto-editor}. "
+"הרשאות אלה מאפשרות לבצע עריכות נבחרות שאושרו אוטומטית מבלי לעבור את תהליך "
+"ההצבעה הרגיל, כמו גם את היכולת לאשר באופן מיידי את העריכות של משתמשים אחרים."
 
 #: ../root/user/PrivilegedUsers.js:50
 msgid "The following {count} users have auto-editor privileges:"
@@ -16142,7 +16505,10 @@ msgid ""
 "the database. If you would like to propose a new relationship, you must "
 "follow our {url|proposal system}. Relationship editors will only make "
 "changes that have been accepted through the proposal system."
-msgstr "עורכי קשר־גומלין הם משתמשים שיכולים להוסיף או לשנות סוגי קשרי־גומלין במאגר. להצעת קשר־גומלין חדש, נא לעקוב אחר {url | מערכת ההצעות}. עורכי מערכות יחסים יבצעו רק שינויים שהתקבלו באמצעות מערכת ההצעות."
+msgstr ""
+"עורכי קשר־גומלין הם משתמשים שיכולים להוסיף או לשנות סוגי קשרי־גומלין במאגר. "
+"להצעת קשר־גומלין חדש, נא לעקוב אחר {url | מערכת ההצעות}. עורכי מערכות יחסים "
+"יבצעו רק שינויים שהתקבלו באמצעות מערכת ההצעות."
 
 #: ../root/user/PrivilegedUsers.js:69
 msgid "The following {count} users are relationship editors:"
@@ -16156,7 +16522,9 @@ msgstr "עורכי הפניות מקושרות"
 msgid ""
 "Transclusion editors are users who add and maintain entries in the "
 "{uri|WikiDocs} transclusion table."
-msgstr "עורכי הפניות מקושרות הם משתמשים שמוסיפים ומתחזקים רשומות בטבלת ההפניות המקושרות {uri|WikiDocs} ."
+msgstr ""
+"עורכי הפניות מקושרות הם משתמשים שמוסיפים ומתחזקים רשומות בטבלת ההפניות "
+"המקושרות {uri|WikiDocs} ."
 
 #: ../root/user/PrivilegedUsers.js:85
 msgid "The following {count} users are transclusion editors:"
@@ -16182,7 +16550,9 @@ msgstr "עורכי הודעת כְּרָזָה"
 msgid ""
 "Banner message editors are users who can set a message that is shown in a "
 "banner on all pages, e.g. to warn users about upcoming site maintenance."
-msgstr "עורכי הודעות כרזה הם משתמשים שיכולים להגדיר הודעה המוצגת ככרזה בכל הדפים, למשל כדי להתריע למשתמשים על תחזוקת אתר קרובה."
+msgstr ""
+"עורכי הודעות כרזה הם משתמשים שיכולים להגדיר הודעה המוצגת ככרזה בכל הדפים, "
+"למשל כדי להתריע למשתמשים על תחזוקת אתר קרובה."
 
 #: ../root/user/PrivilegedUsers.js:114
 msgid "The following {count} users are banner message editors:"
@@ -16217,7 +16587,9 @@ msgid ""
 "This user account has already been deleted, so there’s probably no need to "
 "report it. If you feel there’s a problem that still needs action, please "
 "{link|contact us}."
-msgstr "חשבון המשתמש נמחק כבר, לכן כנראה שאין צורך לדווח עליו/ה. אם לדעתכם קיימת עדין סוגיה המצריכה פעולה, נא {link|צרו קשר}."
+msgstr ""
+"חשבון המשתמש נמחק כבר, לכן כנראה שאין צורך לדווח עליו/ה. אם לדעתכם קיימת "
+"עדין סוגיה המצריכה פעולה, נא {link|צרו קשר}."
 
 #: ../root/user/ReportUser.js:101
 msgid "Please review our {uri|Code of Conduct} before sending a report."
@@ -16896,7 +17268,9 @@ msgstr ""
 msgid ""
 "This edit failed either because an entity it was modifying no longer exists,"
 " or the entity can not be modified in this manner anymore."
-msgstr "עריכה זו כשלה משום שישות שהסגלה כבר לא קיימת, או שלא ניתן יותר להסגיל ישות באופן זה."
+msgstr ""
+"עריכה זו כשלה משום שישות שהסגלה כבר לא קיימת, או שלא ניתן יותר להסגיל ישות "
+"באופן זה."
 
 #: ../root/utility/edit.js:75
 msgid ""
@@ -16972,7 +17346,15 @@ msgid ""
 "(the edits more likely to cause a mess if they incorrectly go through), one "
 "for relationship removals only, and one for destructive changes to releases "
 "(track, medium and release label removals)."
-msgstr "לעתים קרובות קשה מאוד לבטל פעולות עריכה הרסניות (הסרות ומיזוגים). ככזו, עריכה הרסנית שגויה המוחלת ללא הבחנה, עלולה לגרום לבלגן די גדול! מובטח שרובם שיישארו פתוחים לפחות יומיים שלמים, גם אם נתקבלו שלוש הצבעות \"כן\", כדי להימנע מסגירה מהירה מדי, אבל טוב יהיה לפקוח עליהן עין. להלן ניתן למצוא ארבעה חיפושים שונים: אחד לכל עריכה הרסניות (שעשויות להיות משמעותיים לפעמים), אחד למיזוג והסרת ישויות בלבד (העריכות נוטות לגרום ליותר בלגן אם הן עוברות באופן שגוי), אחת להסרת קשר־גומלין בלבד ואחד לשינויים הרסניים בהוצאות (הסרת מדיה, רצועות וחברת תקליטים של ההוצאה)."
+msgstr ""
+"לעתים קרובות קשה מאוד לבטל פעולות עריכה הרסניות (הסרות ומיזוגים). ככזו, "
+"עריכה הרסנית שגויה המוחלת ללא הבחנה, עלולה לגרום לבלגן די גדול! מובטח שרובם "
+"שיישארו פתוחים לפחות יומיים שלמים, גם אם נתקבלו שלוש הצבעות \"כן\", כדי "
+"להימנע מסגירה מהירה מדי, אבל טוב יהיה לפקוח עליהן עין. להלן ניתן למצוא ארבעה "
+"חיפושים שונים: אחד לכל עריכה הרסניות (שעשויות להיות משמעותיים לפעמים), אחד "
+"למיזוג והסרת ישויות בלבד (העריכות נוטות לגרום ליותר בלגן אם הן עוברות באופן "
+"שגוי), אחת להסרת קשר־גומלין בלבד ואחד לשינויים הרסניים בהוצאות (הסרת מדיה, "
+"רצועות וחברת תקליטים של ההוצאה)."
 
 #: ../root/vote/VotingIndex.js:101
 msgid "All open destructive edits"
@@ -17064,7 +17446,22 @@ msgid ""
 "{voting_blog|this blog post about voting}. Also, if a beginner is making "
 "especially good edits, you might want to let them know so they’ll feel good "
 "about it!"
-msgstr "סביר שעורכים מתחילים יזדקקו  ל'עין ידידותית' שתבחן את עריכותיהם. בעת סקירת עורכים אלו, לכן יש לחפש את המקרים בהם העריכות שלהם נוגדות את הנחיות מוזיקבריינז, או שנראות שגויות, לכן מומלץ להעיר הערות מנחותעל מנת שישתפרו בעתיד. נא לדאוג לקשר  את ההערות להנחיות המתאימות, או לדוגמאות מתאימות של נתונים תקינים שהוזנו, ובעיקר זכרו להיות אדיבים. רוב הסיכויים הם שהמשתמשים האלה עושים בלגן נוראי, אבל הם לא עושים זאת בכוונת תחילה אלא מתוך בלבול: מוזיקבריינז עשוי להיות די מרתיע לעורכים חדשים! אם זה אפשרי, כדי פשוט לתקן את השגיאות (ולהודיע ​​לעורכים כדי שיוכלו לבדוק את התיקונים לעריכות ותןך כדי כך הם יוכלו לראות כיצד זה אמור להיראות) במקום להצביע \"לא\" על העריכות, שכן  הצבעות \"לא\" יכולות להיות מייאשות למדי, במיוחד לעורכים חדשים. אם נתקלתם במשהו כל כך גרוע שאין שום מצב לתקנו וזה פוגם בנתונים הקיימים, ניתן להצביע נגד העריכה, אבל גם להסביר באדיבות מדוע יש צורך בכך, ולא להסתפק כהצבעת \"לא\" שקטה. לסקירה ארוכה יותר של הגישה אליה אנו מקווים, קראו ב־{voting_blog|this blog post about voting}. כמו כן, אם עורכים מתחילים ביצעו עריכות טובות במיוחד, כדאי שתיידעו אותום כדי שירגיש טוב עם זה!"
+msgstr ""
+"סביר שעורכים מתחילים יזדקקו  ל'עין ידידותית' שתבחן את עריכותיהם. בעת סקירת "
+"עורכים אלו, לכן יש לחפש את המקרים בהם העריכות שלהם נוגדות את הנחיות "
+"מוזיקבריינז, או שנראות שגויות, לכן מומלץ להעיר הערות מנחותעל מנת שישתפרו "
+"בעתיד. נא לדאוג לקשר  את ההערות להנחיות המתאימות, או לדוגמאות מתאימות של "
+"נתונים תקינים שהוזנו, ובעיקר זכרו להיות אדיבים. רוב הסיכויים הם שהמשתמשים "
+"האלה עושים בלגן נוראי, אבל הם לא עושים זאת בכוונת תחילה אלא מתוך בלבול: "
+"מוזיקבריינז עשוי להיות די מרתיע לעורכים חדשים! אם זה אפשרי, כדי פשוט לתקן את "
+"השגיאות (ולהודיע ​​לעורכים כדי שיוכלו לבדוק את התיקונים לעריכות ותןך כדי כך "
+"הם יוכלו לראות כיצד זה אמור להיראות) במקום להצביע \"לא\" על העריכות, שכן  "
+"הצבעות \"לא\" יכולות להיות מייאשות למדי, במיוחד לעורכים חדשים. אם נתקלתם "
+"במשהו כל כך גרוע שאין שום מצב לתקנו וזה פוגם בנתונים הקיימים, ניתן להצביע "
+"נגד העריכה, אבל גם להסביר באדיבות מדוע יש צורך בכך, ולא להסתפק כהצבעת \"לא\" "
+"שקטה. לסקירה ארוכה יותר של הגישה אליה אנו מקווים, קראו ב־{voting_blog|this "
+"blog post about voting}. כמו כן, אם עורכים מתחילים ביצעו עריכות טובות "
+"במיוחד, כדאי שתיידעו אותום כדי שירגיש טוב עם זה!"
 
 #: ../root/vote/VotingIndex.js:259
 msgid ""
@@ -17137,11 +17534,15 @@ msgstr "כל העריכות הפתוחות"
 msgid ""
 "You are about to merge all these works into a single one. Please select the "
 "work all others should be merged into:"
-msgstr "אתם עומדים למזג את כל היצירות הללו לאחת. נא לבחור את היצירה אליה ימוזגו כל האחרות:"
+msgstr ""
+"אתם עומדים למזג את כל היצירות הללו לאחת. נא לבחור את היצירה אליה ימוזגו כל "
+"האחרות:"
 
 #: ../root/work/WorkMerge.js:41
 msgid ""
 "<strong>Warning:</strong> Some of the works you’re merging have different "
 "ISWCs. Please make sure they are indeed the same works and you wish to "
 "continue with the merge."
-msgstr "<strong>אזהרה:</strong> לחלק מהיצירות שנבחרו למיזוג יש ISWCs שונה. נא וודא שאכן מדובר באותן היצירות ורק אז להמשיך במיזוג."
+msgstr ""
+"<strong>אזהרה:</strong> לחלק מהיצירות שנבחרו למיזוג יש ISWCs שונה. נא וודא "
+"שאכן מדובר באותן היצירות ורק אז להמשיך במיזוג."

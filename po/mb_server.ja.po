@@ -40,14 +40,16 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-05-31 20:29+0300\n"
-"PO-Revision-Date: 2011-01-30 16:57+0000\n"
-"Last-Translator: okaits#7534 <okaits7534@gmail.com>, 2023\n"
-"Language-Team: Japanese (http://app.transifex.com/musicbrainz/musicbrainz/language/ja/)\n"
+"PO-Revision-Date: 2023-08-14 15:04+0000\n"
+"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"Language-Team: Japanese <https://translations.metabrainz.org/projects/"
+"musicbrainz/server/ja/>\n"
+"Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ja\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 4.18.2\n"
 
 #: ../root/components/common-macros.tt:12
 msgid " ({text})"
@@ -159,7 +161,11 @@ msgid ""
 "license. Furthermore, you give the MetaBrainz Foundation the right to "
 "license this data for commercial use. Please read our {doc|license page} for"
 " more details.</strong>"
-msgstr "<strong>MusicBrainzに提出したものは、すべてパブリックドメインないしクリエイティブ・コモンズの表示 - 非営利 - 継承ライセンスで公開されます。さらに、MetaBrainz Foundationに、このデータの営利目的での権利も与えることになります。詳細は{doc|ライセンスページ}をご参照ください。</strong>"
+msgstr ""
+"<strong>MusicBrainzに提出したものは、すべてパブリックドメインないしクリエイテ"
+"ィブ・コモンズの表示 - 非営利 - 継承ライセンスで公開されます。さらに、"
+"MetaBrainz Foundationに、このデータの営利目的での権利も与えることになります。"
+"詳細は{doc|ライセンスページ}をご参照ください。</strong>"
 
 #: ../root/release/edit/recordings.tt:137
 msgid ""
@@ -178,13 +184,16 @@ msgid ""
 "A CD Stub was found that matches the disc ID you provided. If the below "
 "tracklist appears correct, you may use it as a starting point as a new "
 "MusicBrainz release"
-msgstr "提出したディスクIDはCDスタブとマッチしました。以下のトラックリストは正しそうであれば、新しいMusicBrainzリリースの起点として使えます。"
+msgstr ""
+"提出したディスクIDはCDスタブとマッチしました。以下のトラックリストは正しそう"
+"であれば、新しいMusicBrainzリリースの起点として使えます。"
 
 #: ../root/release/edit/tracklist.tt:323
 msgid ""
 "A format is required. If you don’t know it, tick the “I don’t know” checkbox"
 " next to the format dropdown."
-msgstr "フォーマットを選んでください。分からない場合、フォーマット選択メニューの右側にある「不明」にチェックを入れてください。"
+msgstr "フォーマットを選んでください。分からない場合、フォーマット選択メニューの右側"
+"にある「不明」にチェックを入れてください。"
 
 #: ../root/release/edit/information.tt:23
 msgid "A release title is required."
@@ -217,7 +226,10 @@ msgid ""
 "Add \"@ \" at line start to indicate artists, \"* \" for a work/song, \"# \""
 " for additional info (such as \"Encore\"). [mbid|name] allows linking to "
 "artists and works."
-msgstr "行頭が\"@ \"であればアーティストを、\"* \"であれば作品や曲を、\"# \"であれば（「アンコール」のような）補助的な情報を表します。[mbid|name] によってアーティストを作品にリンクすることができます。"
+msgstr ""
+"行頭が\"@ \"であればアーティストを、\"* \"であれば作品や曲を、\"# \"であれば"
+"（「アンコール」のような）補助的な情報を表します。[mbid|name] "
+"によってアーティストを作品にリンクすることができます。"
 
 #: ../root/area/create.tt:1 ../root/area/create.tt:3
 msgid "Add Area"
@@ -311,7 +323,8 @@ msgstr "新しい例を追加"
 msgid ""
 "Add a medium by clicking “Add Medium” below, or tick the box confirming the "
 "tracklist is unknown."
-msgstr "下の「メディアを追加」ボタンをクリックしてメディアを追加するか、トラックリストが不明である場合はチェックボックスを選択してください。"
+msgstr "下の「メディアを追加」ボタンをクリックしてメディアを追加するか、トラックリス"
+"トが不明である場合はチェックボックスを選択してください。"
 
 #: ../root/release/edit/recordings.tt:212
 #: ../root/static/scripts/edit/components/AddEntityDialog.js:21
@@ -360,7 +373,10 @@ msgid ""
 "All tracks require an associated recording. Click “Edit” to select a "
 "recording for each track. Choose “Add a new recording” if an appropriate one"
 " doesn’t exist yet."
-msgstr "トラックには、関係したレコーディングが必要です。各トラックのレコーディングを選択するには、「編集」をクリックしてください。適切なレコーディングが存在しない場合は、「新しくレコーディングを追加」を選択してください。"
+msgstr ""
+"トラックには、関係したレコーディングが必要です。各トラックのレコーディングを"
+"選択するには、「編集」をクリックしてください。適切なレコーディングが存在しな"
+"い場合は、「新しくレコーディングを追加」を選択してください。"
 
 #: ../root/admin/delete_user.tt:13
 msgid "Allow the name “{editor_name}” to be reused."
@@ -370,7 +386,8 @@ msgstr "名前 “{editor_name}” の再利用を許可します。"
 msgid ""
 "An entity with that name and disambiguation already exists. You must enter a"
 " unique disambiguation comment."
-msgstr "同じ名前の区別不能な項目が既に存在しています。他の項目と区別できるように一意な曖昧さ回避コメントを入力してください。"
+msgstr "同じ名前の区別不能な項目が既に存在しています。他の項目と区別できるように一意"
+"な曖昧さ回避コメントを入力してください。"
 
 #: ../root/release/edit/tracklist.tt:144
 msgid "An error occurred: "
@@ -595,7 +612,9 @@ msgid ""
 "Based on the information you have provided, we have found the following "
 "similar release to already exist in MusicBrainz. If you wish to base your "
 "release on an existing release, select it below."
-msgstr "既にMusicBrainzに入ってるリリースが提出した情報と似ています。目的のリリースを既存のリリースに基づいて作成する場合は、以下で選択してください。"
+msgstr ""
+"既にMusicBrainzに入ってるリリースが提出した情報と似ています。目的のリリースを"
+"既存のリリースに基づいて作成する場合は、以下で選択してください。"
 
 #: ../root/cdtoc/lookup.tt:105
 msgid ""
@@ -604,7 +623,10 @@ msgid ""
 "review entered data to create the most accurate music database on the "
 "internet. If this appeals to you, please {reg|create an account} or "
 "{login_url|login}."
-msgstr "MusicBrainzは{how|査読を行い}、インターネットの最も正確な音楽情報データベースです。提出や手伝いの興味ある方は{reg|アカウントを作成}、または{login_url|ログインして}ください。"
+msgstr ""
+"MusicBrainzは{how|査読を行い}、インターネットの最も正確な音楽情報データベース"
+"です。提出や手伝いの興味ある方は{reg|アカウントを作成}、または{login_url|ログ"
+"インして}ください。"
 
 #: ../root/artist/edit_form.tt:42
 msgid "Begin Area:"
@@ -622,7 +644,10 @@ msgid ""
 "Below is the error information. If you wish to file a bug report, you may do"
 " so at {bugs|our bug tracker}. The information below will help, so please be"
 " sure to include it!"
-msgstr "エラー情報はこちらです。バグレポートをする場合、{Bugslour bug tracker}でしてください。エラー情報はバグの解決の手助けになります。バグレポートの際には、エラー情報も一緒に送信してください。"
+msgstr ""
+"エラー情報はこちらです。バグレポートをする場合、{Bugslour bug tracker}でして"
+"ください。エラー情報はバグの解決の手助けになります。バグレポートの際には、エ"
+"ラー情報も一緒に送信してください。"
 
 #: ../root/admin/edit_user.tt:44
 #: ../root/static/scripts/account/components/EditProfileForm.js:259
@@ -650,7 +675,10 @@ msgstr ""
 msgid ""
 "Brought to you by {MeB|MetaBrainz Foundation} and our {spon|sponsors} and "
 "{supp|supporters}. Cover Art provided by the {caa|Cover Art Archive}."
-msgstr "{MeB|MetaBrainz Foundation}と私達の{spon|スポンサー}、{supp|サポーター}によって提供されています。{caa|Cover Art Archive}によりカバーアートが提供されています。"
+msgstr ""
+"{MeB|MetaBrainz Foundation}と私達の{spon|スポンサー}、{supp|サポーター}によっ"
+"て提供されています。{caa|Cover Art "
+"Archive}によりカバーアートが提供されています。"
 
 #: ../root/layout.tt:115 ../root/layout/components/Footer.js:32
 #: ../root/main/index.js:209
@@ -935,7 +963,9 @@ msgstr "日付:"
 msgid ""
 "Dates are in the format YYYY-MM-DD. Partial dates such as YYYY-MM or just "
 "YYYY are OK, or you can omit the date entirely."
-msgstr "日付はYYYY-MM-DD（年月日）の形式で表記します。YYYY-MM（年月）やYYYY（年）の部分だけでも構いませんし、日付を省略することも可能です。"
+msgstr ""
+"日付はYYYY-MM-DD（年月日）の形式で表記します。YYYY-MM（年月）やYYYY（年）の部"
+"分だけでも構いませんし、日付を省略することも可能です。"
 
 #: ../root/edit/search_macros.tt:120
 msgid "Delete"
@@ -1071,7 +1101,9 @@ msgstr "完了"
 msgid ""
 "Each track in the MusicBrainz database has to be linked to a recording, "
 "choose the appropriate recording or look for it in the database."
-msgstr "MusicBrainzデータベースの各トラックは、レコーディングとリンクされることになりますので、適切なレコーディングを選ぶかデータベースを検索してください。"
+msgstr ""
+"MusicBrainzデータベースの各トラックは、レコーディングとリンクされることになり"
+"ますので、適切なレコーディングを選ぶかデータベースを検索してください。"
 
 #: ../root/cdstub/header.tt:9 ../root/cdtoc/list.tt:18
 #: ../root/entity/edit.tt:1 ../root/release/discids.tt:12
@@ -1247,7 +1279,10 @@ msgid ""
 "is highly recommended. Not only does it make it clear where you got your "
 "information, but it can also encourage other users to vote on your edit "
 "&#x2014; thus making your edit get applied faster."
-msgstr "編集した情報を説明する {note|編集ノート} の入力を強くお勧めします。あなたが編集した箇所を明確にするだけでなく、編集内容の投票を他のユーザに促す事ができます。それにより、編集がより早く適用されるようになります。"
+msgstr ""
+"編集した情報を説明する {note|編集ノート} の入力を強くお勧めします。あなたが編"
+"集した箇所を明確にするだけでなく、編集内容の投票を他のユーザに促す事ができま"
+"す。それにより、編集がより早く適用されるようになります。"
 
 #: ../root/admin/attributes/form.tt:37
 #: ../root/admin/attributes/Attribute.js:36
@@ -1259,7 +1294,8 @@ msgstr "項目タイプ"
 msgid ""
 "Even just providing a URL or two is helpful! For more suggestions, see "
 "{doc_how_to|our guide for writing good edit notes}."
-msgstr "一つか二つのURLだけでも有用です！！より詳しくは{doc_how_to|優れた編集ノートを書くための手引き}をご覧ください。"
+msgstr "一つか二つのURLだけでも有用です！！より詳しくは{doc_how_to|優れた編集ノートを"
+"書くための手引き}をご覧ください。"
 
 #: ../root/edit/search_macros.tt:423 ../lib/MusicBrainz/Server/Edit/Event.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:52
@@ -1325,26 +1361,31 @@ msgstr "完了"
 msgid ""
 "First enter all track information, including titles and artist credits, in "
 "order to edit their recordings."
-msgstr "レコーディングを編集する前に、タイトルやアーティストを含む全てのトラック情報を入力してください。"
+msgstr "レコーディングを編集する前に、タイトルやアーティストを含む全てのトラック情報"
+"を入力してください。"
 
 #: ../root/account/register.tt:61
 msgid ""
 "Follow our {bl|blog} or {tw|twitter account}! To talk to other users, try "
 "the {fo|forums} or {irc|IRC}."
-msgstr "ぜひ私たちの{bl|ブログ}や{tw|twitterアカウント}をフォローください！{fo|フォーラム}や{irc|IRC}で他のユーザーとも話してみましょう。"
+msgstr ""
+"ぜひ私たちの{bl|ブログ}や{tw|twitterアカウント}をフォローください！{fo|フォー"
+"ラム}や{irc|IRC}で他のユーザーとも話してみましょう。"
 
 #: ../root/admin/delete_user.tt:21
 msgid ""
 "For information about the account deletion process, please read the "
 "{uri|account FAQ}."
-msgstr "アカウント削除手続きについて知りたい場合は、{uri|アカウントのよくある質問}をお読みください。"
+msgstr "アカウント削除手続きについて知りたい場合は、{uri|アカウントのよくある質問}を"
+"お読みください。"
 
 #: ../root/artist/edit_form.tt:3 ../root/recording/edit_form.tt:17
 #: ../root/release_group/edit_form.tt:5 ../root/series/edit_form.tt:3
 msgid ""
 "For more information, check the {doc_doc|documentation} and "
 "{doc_styleguide|style guidelines}."
-msgstr "より詳細な情報は、 {doc_doc|ドキュメント} および {doc_styleguide|スタイル指針} を参照してください。"
+msgstr "より詳細な情報は、 {doc_doc|ドキュメント} および "
+"{doc_styleguide|スタイル指針} を参照してください。"
 
 #: ../root/event/edit_form.tt:3 ../root/label/edit_form.tt:3
 #: ../root/place/edit_form.tt:3 ../root/work/edit_form.tt:4
@@ -1564,7 +1605,9 @@ msgstr "ISNIコード"
 msgid ""
 "ISNI codes are an ISO standard used to uniquely identify persons and "
 "organizations. Check {isni_doc|the documentation} for more info."
-msgstr "ISNIコードとは、ISO規格で、人々や組織を識別するためのものです。詳細な情報については {isni_doclthe documentation} を参照してください。"
+msgstr ""
+"ISNIコードとは、ISO規格で、人々や組織を識別するためのものです。"
+"詳細な情報については {isni_doclthe documentation} を参照してください。"
 
 #: ../root/artist/edit_form.tt:30 ../root/label/edit_form.tt:33
 #: ../root/edit/details/EditArtist.js:170
@@ -1654,7 +1697,8 @@ msgstr "ISWC:"
 msgid ""
 "If needed, the characters \"[\", \"]\", and \"&\" can be escaped using the "
 "HTML entities \"&lsqb;\", \"&rsqb;\", and \"&amp;\" respectively."
-msgstr "必要な場合、「[」、「]」、そして「&」はそれぞれHTMLの「&lsqb;」「&rsqb;」「&amp;」を使うことでエスケープできます。"
+msgstr "必要な場合、「[」、「]」、そして「&」はそれぞれHTMLの「&lsqb;」「&rsqb;」「&a"
+"mp;」を使うことでエスケープできます。"
 
 #: ../root/release/edit/recordings.tt:134
 msgid ""
@@ -1667,40 +1711,47 @@ msgstr ""
 msgid ""
 "If this is an Amazon ASIN, please do not enter it in the catalog number "
 "field, but add it as a URL relationship later."
-msgstr "これがAmazonのASINである場合は、カタログ番号に入力せず、後でURLの関係として追加してください。"
+msgstr "これがAmazonのASINである場合は、カタログ番号に入力せず、後でURLの関係として追"
+"加してください。"
 
 #: ../root/release/edit/recordings.tt:160
 msgid ""
 "If we do not have a recording for this track in the database yet, please "
 "select \"Add a new recording\" below."
-msgstr "まだこのトラックのレコーディングがデータベースにない場合は、\"新しいレコーディングを追加\" を選択してください。"
+msgstr "まだこのトラックのレコーディングがデータベースにない場合は、"
+"\"新しいレコーディングを追加\" を選択してください。"
 
 #: ../root/cdtoc/attach_artist_releases.tt:49
 msgid "If you can't find what you're looking for, you can add a new release:"
-msgstr "探しているリリースが見つからない場合、新しいリリースを追加することができます。"
+msgstr "探しているリリースが見つからない場合、新しいリリースを追加することができます"
+"。"
 
 #: ../root/release/edit/information.tt:316
 msgid ""
 "If you do not know whether the release has a barcode or not, just leave this"
 " blank."
-msgstr "このリリースにバーコードが有るかどうかわからない場合、空白のままにしておいてください。"
+msgstr "このリリースにバーコードが有るかどうかわからない場合、空白のままにしておいて"
+"ください。"
 
 #: ../root/cdtoc/attach_filter_release.tt:75
 msgid ""
 "If you don't see the release you are looking for, you can still add a new "
 "one, using this CD TOC:"
-msgstr "探しているリリースが見つからない場合でも、このCD TOCを元に新しいリリースを追加することができます。"
+msgstr "探しているリリースが見つからない場合でも、このCD "
+"TOCを元に新しいリリースを追加することができます。"
 
 #: ../root/components/forms.tt:336 ../root/components/forms.tt:345
 msgid ""
 "If you don’t know the code for this entity, just leave the field blank."
-msgstr "この項目のコードがわからない場合は、フィールドを空白のままにしておいてください。"
+msgstr "この項目のコードがわからない場合は、フィールドを空白のままにしておいてくださ"
+"い。"
 
 #: ../root/release/edit/information.tt:54
 msgid ""
 "If you don’t select an existing release group, a new one will be created "
 "with the types selected below."
-msgstr "既にあるリリースグループを選択するか、もしくは新しく作成するリリースグループのタイプを指定してください。"
+msgstr "既にあるリリースグループを選択するか、もしくは新しく作成するリリースグループ"
+"のタイプを指定してください。"
 
 #: ../root/release/edit/tracklist.tt:5
 msgid "If you have a tracklist you can copy and paste, you can input it here."
@@ -1710,7 +1761,8 @@ msgstr "コピー&ペーストでトラックリストの入力が可能です�
 msgid ""
 "If you have any questions, please review the {faq|FAQs} or "
 "{doc|documentation} before {con|contacting us}. "
-msgstr "ご不明な点があれば、{con|お問い合わせ}の前に {faq|FAQ} や {doc|ドキュメント}をご確認ください。 "
+msgstr "ご不明な点があれば、{con|お問い合わせ}の前に {faq|FAQ} や "
+"{doc|ドキュメント}をご確認ください。 "
 
 #: ../root/release/edit/tracklist.tt:15
 msgid ""
@@ -1733,7 +1785,8 @@ msgstr ""
 msgid ""
 "If you’re sure the entered medium title is correct, confirm it above. "
 "Otherwise, please fix the data."
-msgstr "もしあなたがこのメディアのタイトルが正しいことを確信している場合、もう一度確認してください。正しくなければ修正してください。"
+msgstr "もしあなたがこのメディアのタイトルが正しいことを確信している場合、もう一度確"
+"認してください。正しくなければ修正してください。"
 
 #: ../root/release/edit/tracklist.tt:416
 msgid ""
@@ -2018,7 +2071,10 @@ msgid ""
 "MusicBrainz believes strongly in the privacy of its users! Any personal "
 "information you choose to provide will not be sold or shared with anyone "
 "else. For full details, please read our {doc|Privacy Policy}."
-msgstr "MusicBrainzは利用者のプライバシーを本当に尊重しています！あなたが提供したどのような個人情報も他者に共有したり売ったりはしません。完全な詳細については、{doc|プライバシーポリシー}をお読みください。"
+msgstr ""
+"MusicBrainzは利用者のプライバシーを本当に尊重しています！あなたが提供したどの"
+"ような個人情報も他者に共有したり売ったりはしません。完全な詳細については、{do"
+"c|プライバシーポリシー}をお読みください。"
 
 #: ../root/cdtoc/lookup.tt:99
 msgid "MusicBrainz does not have any CDs with the TOC:"
@@ -2195,7 +2251,8 @@ msgid ""
 "Note! If you do not know the month or day of release, please leave them "
 "empty.  January 1st is not often the actual release date, please double "
 "check that you have entered the release date correctly."
-msgstr "注意！リリースの発売日が知らない場合、空白のままにしておいてください。１月１日は大体本当の発売日ではないから、ご確認ください。"
+msgstr "注意！リリースの発売日が知らない場合、空白のままにしておいてください。１月１"
+"日は大体本当の発売日ではないから、ご確認ください。"
 
 #: ../root/release/edit/recordings.tt:3
 msgid "Note:"
@@ -2206,7 +2263,9 @@ msgid ""
 "Note: only searches edits that: add or edit relationships, created after "
 "2011-05-16; or which remove relationships, created after 2013-07-08; or "
 "which reorder relationships."
-msgstr "メモ: 編集の検索が可能なのは、2011年5月16日より後の関係の追加か編集。2013年7月8日より後の関係の削除か作成。または、関係の並び替えです。"
+msgstr ""
+"メモ: 編集の検索が可能なのは、2011年5月16日より後の関係の追加か編集。2013年7"
+"月8日より後の関係の削除か作成。または、関係の並び替えです。"
 
 #: ../root/release/edit/recordings.tt:120
 msgid "Now loading recording associations..."
@@ -2230,7 +2289,8 @@ msgstr ""
 msgid ""
 "Only releases with the same amount of tracks ({n}) as the release the disc "
 "ID is currently attached to are shown."
-msgstr "ディスクIDが接続してるリリースと同じトラック数（{n}）のリリースしか表示していません。"
+msgstr "ディスクIDが接続してるリリースと同じトラック数（{n}）のリリースしか表示してい"
+"ません。"
 
 #: ../root/edit/search_macros.tt:101
 msgid ""
@@ -2318,7 +2378,12 @@ msgid ""
 "original passwords from this mishap, we are requiring all of our users to "
 "change their passwords. Sorry for the inconvenience. For more information "
 "see {blog|the recent blog post}."
-msgstr "パスワードを変更してください。残念なことに、私達のFTPサーバーから、一時的にユーザーのハッシュ化されたパスワードがダウンロードできることが判明いたしました。これは、パスワード自体が取得可能になったということではありません。ご不便をおかけして申し訳ございません。詳細については、 {blog|直近のブログの投稿} をご覧ください。"
+msgstr ""
+"パスワードを変更してください。残念なことに、私達のFTPサーバーから、一時的にユ"
+"ーザーのハッシュ化されたパスワードがダウンロードできることが判明いたしました"
+"。これは、パスワード自体が取得可能になったということではありません。ご不便を"
+"おかけして申し訳ございません。詳細については、 {blog|直近のブログの投稿} "
+"をご覧ください。"
 
 #: ../root/edit/search_macros.tt:421
 msgid "Please choose a condition"
@@ -2334,7 +2399,9 @@ msgstr ""
 msgid ""
 "Please enter the barcode of the release you are entering, see <a "
 "href=\"{url}\" target=\"_blank\">Barcode</a> for more information."
-msgstr "入力しているリリースのバーコードを入力してください。詳細は<a href=\"{url}\" target=\"_blank\">バーコード</a>を参照してください"
+msgstr ""
+"入力しているリリースのバーコードを入力してください。詳細は<a href=\"{url}\" "
+"target=\"_blank\">バーコード</a>を参照してください"
 
 #: ../root/account/change_password.tt:13
 msgid "Please enter your old password below, and then your new password."
@@ -2705,7 +2772,8 @@ msgstr ""
 
 #: ../root/layout.tt:131
 msgid "Running: <span class=\"tooltip\" title=\"{msg}\">{branch} ({sha})</span>"
-msgstr "Running: <span class=\"tooltip\" title=\"{msg}\">{branch} ({sha})</span>"
+msgstr ""
+"Running: <span class=\"tooltip\" title=\"{msg}\">{branch} ({sha})</span>"
 
 #: ../root/admin/attributes/form.tt:82
 #: ../root/relationship/linkattributetype/form.tt:24
@@ -2856,7 +2924,9 @@ msgstr "セットリスト:"
 msgid ""
 "Show me {autoedit_select_block} sorted {sort_select_block} that "
 "{match_or_negation_block} {and_vs_or_block} of the following conditions:"
-msgstr "{autoedit_select_block} を {sort_select_block} でソートして以下の条件の {and_vs_or_block} に {match_or_negation_block}  結果を表示:"
+msgstr ""
+"{autoedit_select_block} を {sort_select_block} でソートして以下の条件の "
+"{and_vs_or_block} に {match_or_negation_block}  結果を表示:"
 
 #: ../root/release/edit/duplicates.tt:2
 msgid "Similar releases"
@@ -2870,7 +2940,10 @@ msgstr "確認をスキップ"
 msgid ""
 "Some discs contain a hidden track in the pregap section that precedes track "
 "1. Use this to add (or remove) the special pregap track section."
-msgstr "いくつかのディスクには、隠しトラックがトラック1の前にあるプリギャップセクションに収録されています。これを使用することで、プリギャップセクションのトラックを追加（または削除）することができます。"
+msgstr ""
+"いくつかのディスクには、隠しトラックがトラック1の前にあるプリギャップセクショ"
+"ンに収録されています。これを使用することで、プリギャップセクションのトラック"
+"を追加（または削除）することができます。"
 
 #: ../root/release/edit/tracklist.tt:514
 msgid ""
@@ -2883,7 +2956,8 @@ msgstr ""
 msgid ""
 "Some errors were detected in the data you’ve entered. Click on the "
 "highlighted tabs and correct any visible errors."
-msgstr "入力されたデータにエラーが検出されました。強調されているタブのエラーを修正してください。"
+msgstr "入力されたデータにエラーが検出されました。強調されているタブのエラーを修正し"
+"てください。"
 
 #: ../root/components/forms.tt:239
 #: ../root/layout/components/sidebar/ArtistSidebar.js:76
@@ -3038,7 +3112,8 @@ msgstr ""
 msgid ""
 "The year should have four digits. If you want to enter a year earlier than "
 "1000 CE, please pad with zeros, such as “0123”."
-msgstr "年は４つの数字である必要があります。もし西暦1000年よりも前の年を入力したい場合、「0123」のように0で埋めてください。"
+msgstr "年は４つの数字である必要があります。もし西暦1000年よりも前の年を入力したい場"
+"合、「0123」のように0で埋めてください。"
 
 #: ../root/cdtoc/lookup.tt:15
 msgid ""
@@ -3052,7 +3127,9 @@ msgstr ""
 msgid ""
 "There are no disc IDs attached to this release; to find out more about how "
 "to add one, see {doc|How to Add Disc IDs}."
-msgstr "このリリースにはディスクIDは付けられていません。追加方法の詳細については、{doc|How to Add Disc IDs}.をご覧ください。"
+msgstr ""
+"このリリースにはディスクIDは付けられていません。追加方法の詳細については、{do"
+"c|How to Add Disc IDs}.をご覧ください。"
 
 #: ../root/artist/split.tt:10
 msgid ""
@@ -3069,7 +3146,8 @@ msgstr ""
 
 #: ../root/cdstub/edit_form.tt:9
 msgid "This CD has tracks from more than one artist (e.g. a compilation CD)"
-msgstr "このCDのトラックには複数人のアーティストの作品があります。（例: コンピレーションアルバムなど）"
+msgstr "このCDのトラックには複数人のアーティストの作品があります。（例: "
+"コンピレーションアルバムなど）"
 
 #: ../root/cdtoc/attach_list.tt:54 ../root/cdtoc/attach_list.tt:67
 msgid "This CDTOC is already attached to this medium."
@@ -3082,7 +3160,12 @@ msgid ""
 "text that you don't have the right to release under that license. While you "
 "can quote a source to support a point you're making, you should never enter "
 "promotional texts or other artist or label-owned texts into the annotation."
-msgstr "この注釈は、<a href=\"{url}\" target=\"_blank\">CC BY-NC-SA 3.0</a>で公開されます。あなたがこのライセンスを適用できる権利を持っていないテキストは含まれるべきではありません。あなたの主張を裏付けるために引用することはできますが、プロモーションを含むテキストや、他のアーティストやレーベルの作品名などを含ませることはできません。"
+msgstr ""
+"この注釈は、<a href=\"{url}\" target=\"_blank\">CC BY-NC-SA 3.0</a>で公開され"
+"ます。あなたがこのライセンスを適用できる権利を持っていないテキストは含まれる"
+"べきではありません。あなたの主張を裏付けるために引用することはできますが、プ"
+"ロモーションを含むテキストや、他のアーティストやレーベルの作品名などを含ませ"
+"ることはできません。"
 
 #: ../root/area/edit_form.tt:17
 msgid "This area has ended."
@@ -3108,7 +3191,8 @@ msgstr ""
 #: ../root/layout.tt:37 ../root/layout/index.js:111
 msgid ""
 "This beta test server allows testing of new features with the live database."
-msgstr "ベータテストサーバーでは、最新のデータベースにアクセスしながら新機能のテストを行えます。"
+msgstr "ベータテストサーバーでは、最新のデータベースにアクセスしながら新機能のテスト"
+"を行えます。"
 
 #: ../root/release/edit/tracklist.tt:509
 msgid "This disc contains data tracks at the end"
@@ -3181,7 +3265,10 @@ msgid ""
 "This is almost always incorrect. Please make sure whether you actually "
 "wanted a different format (such as “USB Flash Drive” or “Music Card”) or "
 "packaging type."
-msgstr "これはほとんどの場合間違っています。他のフォーマット（「USBフラッシュドライブ」または「ミュージックカード」）やパッケージングタイプを選択することを検討してください。"
+msgstr ""
+"これはほとんどの場合間違っています。他のフォーマット（「USBフラッシュドライブ"
+"」または「ミュージックカード」）やパッケージングタイプを選択することを検討し"
+"てください。"
 
 #: ../root/release_group/set_cover_art.tt:76
 msgid "This is the current release group image"
@@ -3209,7 +3296,10 @@ msgstr ""
 msgid ""
 "This medium has a disc ID, pregap track, or data track, so you can only "
 "change the format to one that can have disc IDs."
-msgstr "このメディアはディスクID、プリギャップトラック、またはデータトラックのいずれかを持っているため、ディスクディスクIDを付与することのできるフォーマットにのみ変更可能です。"
+msgstr ""
+"このメディアはディスクID、プリギャップトラック、またはデータトラックのいずれ"
+"かを持っているため、ディスクディスクIDを付与することのできるフォーマットにの"
+"み変更可能です。"
 
 #: ../root/release/edit/tracklist.tt:363 ../root/release/edit/tracklist.tt:373
 msgid ""
@@ -3285,7 +3375,8 @@ msgstr "このトラックはプリギャップに隠されています。"
 msgid ""
 "This will also cancel all your open edits and change all of your votes on "
 "any edits currently open to Abstain."
-msgstr "あなたの未確定の編集はすべてキャンセルされ、現在開かれている編集への投票はすべて棄権に変更されます。"
+msgstr "あなたの未確定の編集はすべてキャンセルされ、現在開かれている編集への投票はす"
+"べて棄権に変更されます。"
 
 #: ../root/event/edit_form.tt:40
 #: ../root/layout/components/sidebar/EventSidebar.js:69
@@ -3317,7 +3408,8 @@ msgstr "タイトル:"
 msgid ""
 "To create a new tracklist, use an existing medium or import a disc from a CD"
 " stub, select the appropriate tab."
-msgstr "新しいトラックリストを作成するには、既存のメディアを使用するかCDのスタブからディスクをインポートし、適切なタブを選択してください。"
+msgstr "新しいトラックリストを作成するには、既存のメディアを使用するかCDのスタブから"
+"ディスクをインポートし、適切なタブを選択してください。"
 
 #: ../root/release/edit/information.tt:105
 msgid "To edit types, please {edit_page|edit the release group}."
@@ -3592,7 +3684,10 @@ msgid ""
 "Warning! \"1990-10-25\" is the bogus date that Amazon gives to all releases "
 "for which they don't know the actual date. <strong>Please use this date only"
 " if you're certain this date is correct!</strong>"
-msgstr "警告: 「1990-10-25」は、Amazonがリリースの正確な日付を知らないときにつける偽の日付です。この日付が本当に正しいことを確認し、正しいときにのみこの日付を使用してください。"
+msgstr ""
+"警告: 「1990-10-25」は、Amazonがリリースの正確な日付を知らないときにつける偽"
+"の日付です。この日付が本当に正しいことを確認し、正しいときにのみこの日付を使"
+"用してください。"
 
 #: ../root/release/edit/tracklist.tt:345 ../root/release/edit/tracklist.tt:408
 msgid "Warning:"
@@ -3687,13 +3782,15 @@ msgstr "賛成"
 msgid ""
 "You are about to add an ISRC to this recording. The ISRC must be entered in "
 "standard <code>CCXXXYYNNNNN</code> format:"
-msgstr "ISRCをレコーディングに追加します。<code>CCXXXYYNNNNN</code>の標準形式に従ってISRCを入力してください。"
+msgstr "ISRCをレコーディングに追加します。<code>CCXXXYYNNNNN</code>の標準形式に従って"
+"ISRCを入力してください。"
 
 #: ../root/components/forms.tt:309
 msgid ""
 "You are about to add an ISWC to this work. The ISWC must be entered in "
 "standard <code>T-DDD.DDD.DDD-C</code> format:"
-msgstr "ISWCを作品に追加します。<code>T-DDD.DDD.DDD-C</code>の標準形式に従ってISWCを入力してください。"
+msgstr "ISWCを作品に追加します。<code>T-DDD.DDD."
+"DDD-C</code>の標準形式に従ってISWCを入力してください。"
 
 #: ../root/cdtoc/attach_artist_releases.tt:5
 msgid "You are viewing releases by {artist}."
@@ -3730,7 +3827,8 @@ msgstr ""
 msgid ""
 "You have used the {valink|Various Artists} special purpose artist on this "
 "recording."
-msgstr "このレコーディングに「{valink|Various Artists}」という特殊目的のアーティストを使いました。"
+msgstr "このレコーディングに「{valink|Various "
+"Artists}」という特殊目的のアーティストを使いました。"
 
 #: ../root/release/edit/editnote.tt:10
 #: ../lib/MusicBrainz/Server/Controller/EditNote.pm:187
@@ -3805,7 +3903,8 @@ msgstr ""
 msgid ""
 "Your search took too long and was cancelled. It may help to be more "
 "specific, or to try again."
-msgstr "検索に時間がかかりすぎたためキャンセルされました。条件を追加するか、もう一度お試しください。"
+msgstr "検索に時間がかかりすぎたためキャンセルされました。条件を追加するか、もう一度"
+"お試しください。"
 
 #: ../root/account/register.tt:32
 msgid "Your username will be publicly visible."
@@ -3823,7 +3922,10 @@ msgid ""
 "You’re currently not allowed to edit, vote or leave edit notes because an "
 "admin has revoked your privileges. If you haven’t already been contacted "
 "about why, please {uri|send us a message}."
-msgstr "あなたは管理者があなたの権限を剥奪したため、編集、投票、編集ノートの投稿を許可されていません。もしあなたがまだ理由について問い合わせていない場合、{uri|私達にメッセージを送ってください}。"
+msgstr ""
+"あなたは管理者があなたの権限を剥奪したため、編集、投票、編集ノートの投稿を許"
+"可されていません。もしあなたがまだ理由について問い合わせていない場合、{uri|私"
+"達にメッセージを送ってください}。"
 
 #: ../root/layout.tt:25 ../lib/MusicBrainz/Server/Controller/EditNote.pm:54
 #: ../root/layout/index.js:218
@@ -4134,7 +4236,8 @@ msgstr "{artist}の{entity}"
 msgid ""
 "{link|New notes} have been left on some of your edits. Please make sure to "
 "read them and respond if necessary."
-msgstr "あなたの編集に{link|新しいメモ}が残されています。必ず確認して必要があれば対応してください。"
+msgstr "あなたの編集に{link|新しいメモ}が残されています。必ず確認して必要があれば対応"
+"してください。"
 
 #: ../root/components/common-macros.tt:260
 #: ../root/static/scripts/common/components/EntityLink.js:262
@@ -4222,7 +4325,8 @@ msgid ""
 msgid_plural ""
 "Thank you, your {num_edits} {edit_url|edits} ({edit_ids}) have been "
 "automatically accepted and applied."
-msgstr[0] "ありがとうございます、{num_edits}つの{edit_url|編集} ({edit_ids}) は自動的に同意・適用されました。"
+msgstr[0] "ありがとうございます、{num_edits}つの{edit_url|編集} ({edit_ids}) "
+"は自動的に同意・適用されました。"
 
 #: ../lib/MusicBrainz/Server/Controller.pm:127
 #, perl-brace-format
@@ -4232,7 +4336,9 @@ msgid ""
 msgid_plural ""
 "Thank you, your {num_edits} {edit_url|edits} ({edit_ids}) have been entered "
 "into the edit queue for peer review."
-msgstr[0] "ありがとうございます、{num_edits}つの{edit_url|編集} ({edit_ids}) はピアレビューのために編集キューに入りました。"
+msgstr[0] ""
+"ありがとうございます、{num_edits}つの{edit_url|編集} ({edit_ids}) "
+"はピアレビューのために編集キューに入りました。"
 
 #: ../lib/MusicBrainz/Server/Controller.pm:135
 #, perl-brace-format
@@ -4244,7 +4350,10 @@ msgid_plural ""
 "Thank you, your {num_edits} {edit_url|edits} ({edit_ids}) have been entered,"
 " with {num_open_edits} in the edit queue for peer review, and the rest "
 "automatically accepted and applied."
-msgstr[0] "ありがとうございます、{num_edits}つの{edit_url|編集} ({edit_ids}) はピアレビューのために{num_open_edits}で編集キューに入りました。残りは自動的に同意・適用されます。"
+msgstr[0] ""
+"ありがとうございます、{num_edits}つの{edit_url|編集} ({edit_ids}) はピアレビ"
+"ューのために{num_open_edits}で編集キューに入りました。残りは自動的に同意・適"
+"用されます。"
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:57
 msgid "The user ID is missing or is in an invalid format."
@@ -4282,7 +4391,9 @@ msgid ""
 "We were unable to send login information to your email address.  Please try "
 "again, however if you continue to experience difficulty contact us at "
 "support@musicbrainz.org."
-msgstr "あなたの email アドレスにログイン情報を送信できません。もう一度登録してください。しかし問題が続く場合には、support@musicbrainz.org まで連絡してください。"
+msgstr ""
+"あなたの email アドレスにログイン情報を送信できません。もう一度登録してくださ"
+"い。しかし問題が続く場合には、support@musicbrainz.org まで連絡してください。"
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:199
 msgid "There is no user with this username"
@@ -4296,7 +4407,8 @@ msgstr "このユーザー名とemail のユーザーはいません"
 msgid ""
 "We can't send a password reset email, because we have no email on record for"
 " this user."
-msgstr "このユーザーにメールアドレスが登録してないため、パスワードリセットのメールは送信できません。"
+msgstr "このユーザーにメールアドレスが登録してないため、パスワードリセットのメールは"
+"送信できません。"
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:237
 msgid "Your password has been reset."
@@ -4324,7 +4436,10 @@ msgid ""
 "We have sent you a verification email to <code>{email}</code>. Please check "
 "your mailbox and click on the link in the email to verify the new email "
 "address."
-msgstr "<code>{email}</code>に確認メールを送信しました。受信フォルダを確認して、メールに記載されているリンクにアクセスし、新しいメールアドレスを確認してください。"
+msgstr ""
+"<code>{email}</code>に確認メールを送信しました。受信フォルダを確認して、メー"
+"ルに記載されているリンクにアクセスし、新しいメールアドレスを確認してください"
+"。"
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:455
 msgid "Your password has been changed."
@@ -4336,7 +4451,11 @@ msgid ""
 "you.</strong><br/>Please confirm that you have entered a valid address by "
 "editing your {settings|account settings}. If the problem still persists, "
 "please contact us at {mail|support@musicbrainz.org}."
-msgstr "<strong>確認メールの送信に失敗しました。</strong><br/>{settings|アカウント設定}で、電子メールアドレスを編集し、メールアドレスを確かめてください。もしこの問題がまだ残っている場合、{メール|support@musicbrainz.org}で問い合わせてください。"
+msgstr ""
+"<strong>確認メールの送信に失敗しました。</strong><br/>{settings|アカウント設"
+"定}で、電子メールアドレスを編集し、メールアドレスを確かめてください。もしこの"
+"問題がまだ残っている場合、{メール|support@musicbrainz."
+"org}で問い合わせてください。"
 
 #: ../lib/MusicBrainz/Server/Controller/Account/Subscriptions/Collection.pm:21
 msgid "The provided collection ID doesn’t exist."
@@ -4349,7 +4468,8 @@ msgstr "ユーザー編集しました。"
 #: ../lib/MusicBrainz/Server/Controller/Admin.pm:148
 msgid ""
 "Banner updated. Remember that each server has its own, independent banner."
-msgstr "バナーが更新されました。それぞれのサーバーのバナーは独立していることに気を付けてください。"
+msgstr "バナーが更新されました。それぞれのサーバーのバナーは独立していることに気を付"
+"けてください。"
 
 #: ../lib/MusicBrainz/Server/Controller/Admin.pm:184
 #: ../lib/MusicBrainz/Server/Controller/Admin.pm:250
@@ -4581,7 +4701,8 @@ msgstr ""
 msgid ""
 "Our Redis server appears to be down; some features may not work as intended "
 "or expected."
-msgstr "Redisサーバーが使えなくなっています。このため、いくつかの機能が正しく動かない可能性があります。"
+msgstr "Redisサーバーが使えなくなっています。このため、いくつかの機能が正しく動かない"
+"可能性があります。"
 
 #: ../lib/MusicBrainz/Server/Controller/Series.pm:152
 msgid "Series that have different entity types cannot be merged."
@@ -4611,7 +4732,8 @@ msgstr "メール送信しました"
 msgid ""
 "Your email has been successfully sent! Click {link|here} to continue to "
 "{user}'s profile."
-msgstr "電子メールが正常に送信されました。{link|ここ}をクリックすると{user}のプロフィールに移動します。"
+msgstr "電子メールが正常に送信されました。{link|ここ}をクリックすると{user}のプロフィ"
+"ールに移動します。"
 
 #: ../lib/MusicBrainz/Server/Controller/User.pm:386
 msgid "Your message could not be sent"
@@ -5865,7 +5987,9 @@ msgstr "{credit} のアーティスト名を追加してください。"
 msgid ""
 "Artist \"{artist}\" is unlinked, please select an existing artist. You may "
 "need to add a new artist to MusicBrainz first."
-msgstr "アーティスト「{artist}」は削除されています。他のアーティストを選択してください。MusicBrainzに新たなアーティストの追加が必要な場合があります。"
+msgstr ""
+"アーティスト「{artist}」は削除されています。他のアーティストを選択してくださ"
+"い。MusicBrainzに新たなアーティストの追加が必要な場合があります。"
 
 #: ../lib/MusicBrainz/Server/Form/Field/ArtistCredit.pm:63
 msgid "Please add an artist name for each credit."
@@ -6290,32 +6414,38 @@ msgstr "(特殊ケース)"
 msgid ""
 "An album release primarily consists of previously unreleased material. This "
 "includes album re-issues, with or without bonus tracks."
-msgstr "アルバムのリリースはしばしば既に未発表の曲です。ボーナス曲が有無の再発行含む。"
+msgstr "アルバムのリリースはしばしば既に未発表の曲です。ボーナス曲が有無の再発行含む"
+"。"
 
 #: ../lib/MusicBrainz/Server/Release.pm:32
 msgid ""
 "A single typically has one main song and possibly a handful of additional "
 "tracks or remixes of the main track. A single is usually named after its "
 "main song."
-msgstr "シングルは大体代表曲１曲で、他のＢ面曲やリミックス加える事もあります。シングルは表題曲の曲名を使う事が多い。"
+msgstr "シングルは大体代表曲１曲で、他のＢ面曲やリミックス加える事もあります。シング"
+"ルは表題曲の曲名を使う事が多い。"
 
 #: ../lib/MusicBrainz/Server/Release.pm:33
 msgid ""
 "An EP is an Extended Play release and often contains the letters EP in the "
 "title."
-msgstr "EPはExtended Playの略称で、収録時間は大体シングルとアルバムの間です。ミニ・アルバムとも呼ばれて、タイトルに「EP」が含む事も多い。"
+msgstr ""
+"EPはExtended Playの略称で、収録時間は大体シングルとアルバムの間です。ミニ・ア"
+"ルバムとも呼ばれて、タイトルに「EP」が含む事も多い。"
 
 #: ../lib/MusicBrainz/Server/Release.pm:34
 msgid ""
 "A compilation is a collection of previously released tracks by one or more "
 "artists."
-msgstr "コンピレーションは、一人または複数のアーティストが以前リリースした、トラックをまとめたものです。"
+msgstr "コンピレーションは、一人または複数のアーティストが以前リリースした、トラック"
+"をまとめたものです。"
 
 #: ../lib/MusicBrainz/Server/Release.pm:35
 msgid ""
 "A soundtrack is the musical score to a movie, TV series, stage show, "
 "computer game etc."
-msgstr "サウンドトラックは、映画、TVシリーズ、ステージショー、コンピューターゲームなどの楽譜です。"
+msgstr "サウンドトラックは、映画、TVシリーズ、ステージショー、コンピューターゲームな"
+"どの楽譜です。"
 
 #: ../lib/MusicBrainz/Server/Release.pm:36
 msgid "Non-music spoken word releases."
@@ -6345,19 +6475,22 @@ msgstr "以上のカテゴリーどれにも当てはまらないリリース。
 msgid ""
 "Any release officially sanctioned by the artist and/or their record company."
 " (Most releases will fit into this category.)"
-msgstr "アーティストやレコード会社の許諾で発売されるリリース（大半のリリースはこのカテゴリー）。"
+msgstr "アーティストやレコード会社の許諾で発売されるリリース（大半のリリースはこのカ"
+"テゴリー）。"
 
 #: ../lib/MusicBrainz/Server/Release.pm:44
 msgid ""
 "A giveaway release or a release intended to promote an upcoming official "
 "release. (e.g. prerelease albums or releases included with a magazine)"
-msgstr "無料で出されたリリースや、未来のリリースを宣伝するためのリリース（例: プレリリースアルバムや、雑誌添付のリリース）。"
+msgstr "無料で出されたリリースや、未来のリリースを宣伝するためのリリース（例: "
+"プレリリースアルバムや、雑誌添付のリリース）。"
 
 #: ../lib/MusicBrainz/Server/Release.pm:45
 msgid ""
 "An unofficial/underground release that was not sanctioned by the artist "
 "and/or the record company."
-msgstr "非公式や非合法のリリース、すなわちアーティストやレコード会社の無断で販売される。"
+msgstr "非公式や非合法のリリース、すなわちアーティストやレコード会社の無断で販売され"
+"る。"
 
 #: ../lib/MusicBrainz/Server/Release.pm:46
 msgid ""
@@ -6413,7 +6546,10 @@ msgstr ""
 msgid ""
 "If you would like to make a donation, {donate|you can do that here}. If you "
 "have donated, but you are still being nagged, please {contact|contact us}."
-msgstr "もし寄付をしてくださるのであれば、{donate|ここで行うことができます}。もし寄付をしたのにしつこいメッセージが表示され続けるのであれば、{contact|私たちにご連絡}ください。"
+msgstr ""
+"もし寄付をしてくださるのであれば、{donate|ここで行うことができます}。もし寄付"
+"をしたのにしつこいメッセージが表示され続けるのであれば、{contact|私たちにご連"
+"絡}ください。"
 
 #: ../root/account/Donation.js:62
 msgid "Thank you for contributing to MusicBrainz."
@@ -6445,7 +6581,8 @@ msgstr "メールアドレスの確認"
 msgid ""
 "Thank you, your email address has now been verified! If you still can't "
 "edit, please try to log out and log in again."
-msgstr "ありがとうございます、あなたのメールアドレスは確認済みです。それでも編集できない場合は、ログアウトしてもう一度ログインしてください。"
+msgstr "ありがとうございます、あなたのメールアドレスは確認済みです。それでも編集でき"
+"ない場合は、ログアウトしてもう一度ログインしてください。"
 
 #: ../root/account/LostPassword.js:29 ../root/account/LostPassword.js:30
 #: ../root/account/LostPasswordSent.js:14
@@ -6593,7 +6730,10 @@ msgid ""
 "{mb_api_doc_url|MusicBrainz API}? {register_url|Register an application} to "
 "generate OAuth tokens. See our {oauth2_doc_url|OAuth documentation} for more"
 " details."
-msgstr "{mb_api_doc_url|MusicBrainz API}を使用するアプリケーションを開発したいですか？{register_url|アプリケーションを登録}して OAuth トークンを生成しましょう。詳細はこちらの{oauth2_doc_url|ドキュメント}を参照してください。"
+msgstr ""
+"{mb_api_doc_url|MusicBrainz API}を使用するアプリケーションを開発したいですか"
+"？{register_url|アプリケーションを登録}して OAuth トークンを生成しましょう。"
+"詳細はこちらの{oauth2_doc_url|ドキュメント}を参照してください。"
 
 #: ../root/account/applications/Index.js:141
 msgid "OAuth Client ID"
@@ -6945,7 +7085,10 @@ msgid ""
 " matches the page name, it will take the version number and provide whatever"
 " page is associated with it. Make sure to double check your work when "
 "updating a page!"
-msgstr "<strong>備考:</strong> MediaWikiはバージョン番号とページ名が合ってるかどうかを確認せず、バージョン番号と関連してるページを表示します。ページを更新する際は十分注意してご確認ください。"
+msgstr ""
+"<strong>備考:</strong> MediaWikiはバージョン番号とページ名が合ってるかどうか"
+"を確認せず、バージョン番号と関連してるページを表示します。ページを更新する際"
+"は十分注意してご確認ください。"
 
 #: ../root/admin/wikidoc/WikiDocIndex.js:185
 msgid "There was a problem accessing the wiki API."
@@ -6968,7 +7111,8 @@ msgstr ""
 msgid ""
 "Comparing revision by {user_old} on {date_old} with revision by {user_new} "
 "on {date_new}."
-msgstr "{user_old}の{date_old}時点における版と{user_new}の{date_new}時点における版間の差分。"
+msgstr "{user_old}の{date_old}時点における版と{user_new}の{date_new}時点における版間"
+"の差分。"
 
 #: ../root/annotation/AnnotationComparison.js:87
 msgid "View annotation history."
@@ -7277,7 +7421,8 @@ msgstr "すべてのさまざまなアーティストのリリースグループ
 
 #: ../root/artist/ArtistIndex.js:142
 msgid "This artist only has unofficial release groups by various artists."
-msgstr "このアーティストは、さまざまなアーティストによる非公式のリリースグループのみがあります。"
+msgstr "このアーティストは、さまざまなアーティストによる非公式のリリースグループのみ"
+"があります。"
 
 #: ../root/artist/ArtistIndex.js:148
 msgid "Showing all release groups for various artists"
@@ -7289,7 +7434,8 @@ msgstr ""
 
 #: ../root/artist/ArtistIndex.js:158
 msgid "This artist only has release groups by various artists."
-msgstr "このアーティストは、さまざまなアーティストによるリリースグループのみがあります。"
+msgstr "このアーティストは、さまざまなアーティストによるリリースグループのみがありま"
+"す。"
 
 #: ../root/artist/ArtistIndex.js:162
 msgid "Showing official release groups for various artists"
@@ -7334,7 +7480,8 @@ msgstr "選択されたレコーディングをマージ"
 
 #: ../root/artist/ArtistIndex.js:332
 msgid "This artist has no release groups, only standalone recordings."
-msgstr "このアーティストには独立したレコーディングだけが登録されており、リリースグループはありません。"
+msgstr "このアーティストには独立したレコーディングだけが登録されており、リリースグル"
+"ープはありません。"
 
 #: ../root/artist/ArtistIndex.js:336
 msgid "No release groups found that match this search."
@@ -7415,7 +7562,8 @@ msgstr "リリースが見つかりませんでした。"
 msgid ""
 "Showing Various Artist releases. {show_subset|Show releases by this artist "
 "instead}."
-msgstr "さまざまなアーティストのリリースを表示中。{show_subset|このアーティストのリリースを表示}。"
+msgstr "さまざまなアーティストのリリースを表示中。{show_subset|このアーティストのリリ"
+"ースを表示}。"
 
 #: ../root/artist/ArtistReleases.js:91
 msgid "This search only found releases by various artists."
@@ -7429,7 +7577,8 @@ msgstr "このアーティストはVarious Artistsのリリースしかありま
 msgid ""
 "Showing releases by this artist. {show_all|Show Various Artist releases "
 "instead}."
-msgstr "このアーティストのリリースを表示中。 {show_all|さまざまなアーティストのリリースを表示}。"
+msgstr "このアーティストのリリースを表示中。 "
+"{show_all|さまざまなアーティストのリリースを表示}。"
 
 #: ../root/artist/ArtistWorks.js:65 ../root/iswc/Index.js:79
 msgid "Add selected works for merging"
@@ -7677,7 +7826,9 @@ msgstr "CD スタブをインポート"
 msgid ""
 "Are you sure that you wish to attach the disc ID <code>{discid}</code> to "
 "{format} {pos} of {release} by {artist}?"
-msgstr "本当に {artist} {release} の {format} {pos} にディスクID <code>{discid}</code>  を付与してもよろしいですか？"
+msgstr ""
+"本当に {artist} {release} の {format} {pos} にディスクID <code>{discid}</"
+"code>  を付与してもよろしいですか？"
 
 #: ../root/cdtoc/AttachCDTocConfirmation.js:80
 msgid "Track duration comparison"
@@ -7756,7 +7907,8 @@ msgstr "ディスク ID を削除"
 msgid ""
 "Are you sure you want to remove the disc ID <code>{discid}</code> from the "
 "release {release} by {artist}?"
-msgstr "本当に{artist}の{release}から<code>{discid}</code>のディスクIDを削除しますか？"
+msgstr "本当に{artist}の{release}から<code>{discid}</code>のディスクIDを削除しますか"
+"？"
 
 #: ../root/cdtoc/RemoveDiscId.js:49
 msgid ""
@@ -7782,7 +7934,10 @@ msgid ""
 "If you don't see the artist you are looking for, you can still add a new "
 "release. This will allow you to create this artist and a release at the same"
 " time"
-msgstr "探しているアーティストが見当たらない場合でも、新しいリリースを追加することができます。そうする場合、そのアーティストとリリースを同時に作成することとなります。"
+msgstr ""
+"探しているアーティストが見当たらない場合でも、新しいリリースを追加することが"
+"できます。そうする場合、そのアーティストとリリースを同時に作成することとなり"
+"ます。"
 
 #: ../root/cdtoc/SetTracklistDurations.js:46
 #: ../root/cdtoc/SetTracklistDurations.js:47
@@ -7824,7 +7979,8 @@ msgstr "{editor}の公開コレクションをすべて表示"
 #: ../root/user/UserProfile.js:389
 msgid ""
 "This content is hidden to prevent spam. To view it, please {url|log in}."
-msgstr "スパム回避のため内容は表示されません。表示するには{url|ログイン}してください。"
+msgstr "スパム回避のため内容は表示されません。表示するには{url|ログイン}してください"
+"。"
 
 #: ../root/collection/CollectionIndex.js:205
 #: ../root/collection/CollectionMerge.js:70
@@ -8011,45 +8167,56 @@ msgid ""
 "This artist has no relationships, recordings, releases or release groups, "
 "and will be removed automatically in the next few days. If this is not "
 "intended, please add more data to this artist."
-msgstr "このアーティストは関係、レコーディング、リリース、リリースグループのいずれも持たないため、数日のうちに自動的に削除されます。止めるためには、このアーティストに関するデータをさらに追加してください。"
+msgstr ""
+"このアーティストは関係、レコーディング、リリース、リリースグループのいずれも"
+"持たないため、数日のうちに自動的に削除されます。止めるためには、このアーティ"
+"ストに関するデータをさらに追加してください。"
 
 #: ../root/components/CleanupBanner.js:18
 msgid ""
 "This event has no relationships and will be removed automatically in the "
 "next few days. If this is not intended, please add more data to this event."
-msgstr "このイベントは関係を持たないため、数日のうちに自動的に削除されます。止めるためには、イベントにデータを追加してください。"
+msgstr "このイベントは関係を持たないため、数日のうちに自動的に削除されます。止めるた"
+"めには、イベントにデータを追加してください。"
 
 #: ../root/components/CleanupBanner.js:23
 msgid ""
 "This label has no relationships or releases and will be removed "
 "automatically in the next few days. If this is not intended, please add more"
 " data to this label."
-msgstr "このレーベルは関連やリリースが付いてないため、数日のうちに自動的に削除されます。削除されないため、レーベルにデータをもっと付加してください。"
+msgstr "このレーベルは関連やリリースが付いてないため、数日のうちに自動的に削除されま"
+"す。削除されないため、レーベルにデータをもっと付加してください。"
 
 #: ../root/components/CleanupBanner.js:28
 msgid ""
 "This place has no relationships and will be removed automatically in the "
 "next few days. If this is not intended, please add more data to this place."
-msgstr "この場所は関係を持たないため、数日のうちに自動的に削除されます。止めるためには、場所にデータを追加してください。"
+msgstr "この場所は関係を持たないため、数日のうちに自動的に削除されます。止めるために"
+"は、場所にデータを追加してください。"
 
 #: ../root/components/CleanupBanner.js:33
 msgid ""
 "This release group has no relationships or releases associated, and will be "
 "removed automatically in the next few days. If this is not intended, please "
 "add more data to this release group."
-msgstr "このリリースグループは関係やリリースと関連付けられていないため、数日のうちに自動的に削除されます。止めるためには、リリースグループにデータを追加してください。"
+msgstr ""
+"このリリースグループは関係やリリースと関連付けられていないため、数日のうちに"
+"自動的に削除されます。止めるためには、リリースグループにデータを追加してくだ"
+"さい。"
 
 #: ../root/components/CleanupBanner.js:38
 msgid ""
 "This series has no relationships and will be removed automatically in the "
 "next few days. If this is not intended, please add more data to this series."
-msgstr "このシリーズは関係を持たないため、数日のうちに自動的に削除されます。止めるためには、シリーズにデータを追加してください。"
+msgstr "このシリーズは関係を持たないため、数日のうちに自動的に削除されます。止めるた"
+"めには、シリーズにデータを追加してください。"
 
 #: ../root/components/CleanupBanner.js:43
 msgid ""
 "This work has no relationships and will be removed automatically in the next"
 " few days. If this is not intended, please add relationships to this work."
-msgstr "この作品は関係を持たないため、数日のうちに自動的に削除されます。止めるためには、作品にデータを追加してください"
+msgstr "この作品は関係を持たないため、数日のうちに自動的に削除されます。止めるために"
+"は、作品にデータを追加してください"
 
 #: ../root/components/CritiqueBrainzLinks.js:43
 msgid "An error occurred when loading reviews."
@@ -8068,7 +8235,9 @@ msgid ""
 msgid_plural ""
 "There are {reviews_link|{review_count} reviews} on CritiqueBrainz. You can "
 "also {write_link|write your own}."
-msgstr[0] "CritiqueBrainzに{reviews_link|{review_count} 件のレビュー}があります。あなたも{write_link|書くことが可能です}。"
+msgstr[0] ""
+"CritiqueBrainzに{reviews_link|{review_count} "
+"件のレビュー}があります。あなたも{write_link|書くことが可能です}。"
 
 #: ../root/components/EntityDeletionHelp.js:24
 msgid "Are you sure you wish to remove {entity} from MusicBrainz?"
@@ -9449,7 +9618,9 @@ msgstr "メディア<span class=\"new\">{new}</span>: {title} （新しいメデ
 msgid ""
 "Medium <span class=\"new\">{new}</span>: {title} (moved from position <span "
 "class=\"old\">{old}</span>)"
-msgstr "メディア<span class=\"new\">{new}</span>: {title} （<span class=\"old\">{old}</span>から移動）"
+msgstr ""
+"メディア<span class=\"new\">{new}</span>: {title} （<span class=\"old\""
+">{old}</span>から移動）"
 
 #: ../root/edit/details/ReorderMediums.js:58
 msgid "Medium <span class=\"new\">{new}</span> (new medium)"
@@ -9459,7 +9630,9 @@ msgstr "メディア<span class=\"new\">{new}</span> （新しいメディア）
 msgid ""
 "Medium <span class=\"new\">{new}</span> (moved from position <span "
 "class=\"old\">{old}</span>)"
-msgstr "メディア<span class=\"new\">{new}</span> （<span class=\"old\">{old}</span>から移動）"
+msgstr ""
+"メディア<span class=\"new\">{new}</span> （<span class=\"old\""
+">{old}</span>から移動）"
 
 #: ../root/edit/details/ReorderRelationships.js:21
 msgid "Old Order"
@@ -9840,7 +10013,8 @@ msgstr "地域がありません"
 msgid ""
 "Sorry, we could not find an area with that MusicBrainz ID. You may wish to "
 "try and {search_url|search for it} instead."
-msgstr "残念ですが、そのMusicBrainzIDを持つ地域は見つかりませんでした。{search_url|検索}を試してみるといいかもしれません。"
+msgstr "残念ですが、そのMusicBrainzIDを持つ地域は見つかりませんでした。{search_url|検"
+"索}を試してみるといいかもしれません。"
 
 #: ../root/entity/NotFound.js:28
 msgid "Artist Not Found"
@@ -9850,7 +10024,9 @@ msgstr "アーティストが見つかりません"
 msgid ""
 "Sorry, we could not find an artist with that MusicBrainz ID. You may wish to"
 " try and {search_url|search for it} instead."
-msgstr "残念ですが、そのMusicBrainzIDを持つアーティストは見つかりませんでした。{search_url|検索}を試してみるといいかもしれません。"
+msgstr ""
+"残念ですが、そのMusicBrainzIDを持つアーティストは見つかりませんでした。{searc"
+"h_url|検索}を試してみるといいかもしれません。"
 
 #: ../root/entity/NotFound.js:37
 msgid "Artist Credit Not Found"
@@ -9884,7 +10060,8 @@ msgstr "編集がありません"
 msgid ""
 "Sorry, we could not find an edit with that edit ID. You may wish to try and "
 "perform an {search_url|edit search} instead."
-msgstr "残念ですが、その編集IDを持つ編集は見つかりませんでした。{search_url|検索}を試してみるといいかもしれません。"
+msgstr "残念ですが、その編集IDを持つ編集は見つかりませんでした。{search_url|検索}を試"
+"してみるといいかもしれません。"
 
 #: ../root/entity/NotFound.js:66
 msgid "Election Not Found"
@@ -9906,7 +10083,9 @@ msgstr "イベントがありません"
 msgid ""
 "Sorry, we could not find an event with that MusicBrainz ID. You may wish to "
 "try and {search_url|search for it} instead."
-msgstr "残念ですが、そのMusicBrainzIDを持つイベントは見つかりませんでした。{search_url|検索}を試してみるといいかもしれません。"
+msgstr ""
+"残念ですが、そのMusicBrainzIDを持つイベントは見つかりませんでした。{search_ur"
+"l|検索}を試してみるといいかもしれません。"
 
 #: ../root/entity/NotFound.js:81
 msgid "Genre Not Found"
@@ -9926,7 +10105,8 @@ msgstr "楽器がありません"
 msgid ""
 "Sorry, we could not find an instrument with that MusicBrainz ID. You may "
 "wish to try and {search_url|search for it} instead."
-msgstr "残念ですが、そのMusicBrainzIDを持つ楽器は見つかりませんでした。{search_url|検索}を試してみるといいかもしれません。"
+msgstr "残念ですが、そのMusicBrainzIDを持つ楽器は見つかりませんでした。{search_url|検"
+"索}を試してみるといいかもしれません。"
 
 #: ../root/entity/NotFound.js:99
 msgid "ISRC Not Currently Used"
@@ -9946,7 +10126,8 @@ msgstr "ISWC 未使用"
 msgid ""
 "This ISWC is not associated with any works. If you wish to associate it with"
 " a work, please {search_url|search for the work} and add it."
-msgstr "このISWCに関連した作品はありません。作品と関連付ける場合は、{search_url|作品を検索}して、追加してください。"
+msgstr "このISWCに関連した作品はありません。作品と関連付ける場合は、{search_url|作品"
+"を検索}して、追加してください。"
 
 #: ../root/entity/NotFound.js:118
 msgid "Label Not Found"
@@ -9956,7 +10137,9 @@ msgstr "レーベルがありません"
 msgid ""
 "Sorry, we could not find a label with that MusicBrainz ID. You may wish to "
 "try and {search_url|search for it} instead."
-msgstr "残念ですが、そのMusicBrainzIDを持つレーベルは見つかりませんでした。{search_url|検索}を試してみるといいかもしれません。"
+msgstr ""
+"残念ですが、そのMusicBrainzIDを持つレーベルは見つかりませんでした。{search_ur"
+"l|検索}を試してみるといいかもしれません。"
 
 #: ../root/entity/NotFound.js:127
 msgid "Entity Not Found"
@@ -9966,7 +10149,8 @@ msgstr "項目が見つかりません"
 msgid ""
 "Sorry, we could not find a MusicBrainz entity with that ID. You may wish to "
 "try and {search_url|search for it} instead."
-msgstr "残念ですが、そのIDを持つMusicBrainz項目は見つかりませんでした。{search_url|検索}を試してみるといいかもしれません。"
+msgstr "残念ですが、そのIDを持つMusicBrainz項目は見つかりませんでした。{search_url|検"
+"索}を試してみるといいかもしれません。"
 
 #: ../root/entity/NotFound.js:136
 msgid "Place Not Found"
@@ -9976,7 +10160,8 @@ msgstr "場所が見つかりません"
 msgid ""
 "Sorry, we could not find a place with that MusicBrainz ID. You may wish to "
 "try and {search_url|search for it} instead."
-msgstr "残念ですが、そのMusicBrainzIDを持つ場所は見つかりませんでした。{search_url|検索}を試してみるといいかもしれません。"
+msgstr "残念ですが、そのMusicBrainzIDを持つ場所は見つかりませんでした。{search_url|検"
+"索}を試してみるといいかもしれません。"
 
 #: ../root/entity/NotFound.js:145
 msgid "Recording Not Found"
@@ -9986,7 +10171,9 @@ msgstr "レコーディングは見つかりませんでした"
 msgid ""
 "Sorry, we could not find a recording with that MusicBrainz ID. You may wish "
 "to try and {search_url|search for it} instead."
-msgstr "残念ですが、そのMusicBrainzIDを持つレコーディングは見つかりませんでした。{search_url|検索}を試してみるといいかもしれません。"
+msgstr ""
+"残念ですが、そのMusicBrainzIDを持つレコーディングは見つかりませんでした。{sea"
+"rch_url|検索}を試してみるといいかもしれません。"
 
 #: ../root/entity/NotFound.js:154
 msgid "Relationship Attribute Not Found"
@@ -10013,7 +10200,9 @@ msgstr "リリースが見つかりません"
 msgid ""
 "Sorry, we could not find a release with that MusicBrainz ID. You may wish to"
 " try and {search_url|search for it} instead."
-msgstr "残念ですが、そのMusicBrainzIDを持つリリースは見つかりませんでした。{search_url|検索}を試してみるといいかもしれません。"
+msgstr ""
+"残念ですが、そのMusicBrainzIDを持つリリースは見つかりませんでした。{search_ur"
+"l|検索}を試してみるといいかもしれません。"
 
 #: ../root/entity/NotFound.js:181
 msgid "Release Group Not Found"
@@ -10023,7 +10212,9 @@ msgstr "リリースグループ見つかりません"
 msgid ""
 "Sorry, we could not find a release group with that MusicBrainz ID. You may "
 "wish to try and {search_url|search for it} instead."
-msgstr "残念ですが、そのMusicBrainzIDを持つリリースグループは見つかりませんでした。{search_url|検索}を試してみるといいかもしれません。"
+msgstr ""
+"残念ですが、そのMusicBrainzIDを持つリリースグループは見つかりませんでした。{s"
+"earch_url|検索}を試してみるといいかもしれません。"
 
 #: ../root/entity/NotFound.js:190
 msgid "Series Not Found"
@@ -10033,7 +10224,9 @@ msgstr "シリーズがありません"
 msgid ""
 "Sorry, we could not find a series with that MusicBrainz ID. You may wish to "
 "try and {search_url|search for it} instead."
-msgstr "残念ですが、そのMusicBrainzIDを持つシリーズは見つかりませんでした。{search_url|検索}を試してみるといいかもしれません。"
+msgstr ""
+"残念ですが、そのMusicBrainzIDを持つシリーズは見つかりませんでした。{search_ur"
+"l|検索}を試してみるといいかもしれません。"
 
 #: ../root/entity/NotFound.js:199
 msgid "Track Not Found"
@@ -10061,7 +10254,8 @@ msgstr "編集者が見つかりません"
 msgid ""
 "Sorry, we could not find an editor with that name. You may wish to try and "
 "{search_url|search for them} instead."
-msgstr "残念ですが、その名前の編集者は見つかりませんでした。{search_url|検索}を試してみるといいかもしれません。"
+msgstr "残念ですが、その名前の編集者は見つかりませんでした。{search_url|検索}を試して"
+"みるといいかもしれません。"
 
 #: ../root/entity/NotFound.js:224
 msgid "Work Not Found"
@@ -10071,7 +10265,8 @@ msgstr "作品が見つかりません"
 msgid ""
 "Sorry, we could not find a work with that MusicBrainz ID. You may wish to "
 "try and {search_url|search for it} instead."
-msgstr "残念ですが、そのMusicBrainzIDを持つ作品は見つかりませんでした。{search_url|検索}を試してみるといいかもしれません。"
+msgstr "残念ですが、そのMusicBrainzIDを持つ作品は見つかりませんでした。{search_url|検"
+"索}を試してみるといいかもしれません。"
 
 #: ../root/entity/Ratings.js:68
 msgid "{count} private rating not listed."
@@ -10215,7 +10410,8 @@ msgstr ""
 msgid ""
 "Is a genre missing from the list? Request it by {link|adding a style "
 "ticket}."
-msgstr "このリストのジャンルに誤りがありますか？{link|スタイルチケットを追加して}リクエストしてください。"
+msgstr "このリストのジャンルに誤りがありますか？{link|スタイルチケットを追加して}リク"
+"エストしてください。"
 
 #: ../root/instrument/DeleteInstrument.js:34
 #: ../root/instrument/DeleteInstrument.js:36
@@ -11057,7 +11253,9 @@ msgstr ""
 msgid ""
 "Found a problem on our site? Please {report|report a bug} and include any "
 "error message that is shown above."
-msgstr "サイトに問題が見つかった場合は、お手数ですが{report|バグ報告}でお知らせください。表示されたどのようなエラーメッセージも報告に含めてください。"
+msgstr ""
+"サイトに問題が見つかった場合は、お手数ですが{report|バグ報告}でお知らせくださ"
+"い。表示されたどのようなエラーメッセージも報告に含めてください。"
 
 #: ../root/main/error/Error400.js:52 ../root/main/error/TimeoutError.js:37
 msgid "Technical Information"
@@ -11110,7 +11308,8 @@ msgstr "エラーメッセージ:"
 msgid ""
 "Found a broken link on our site? Please {report|report a bug} and include "
 "any error message that is shown above."
-msgstr "リンク切れを発見した場合は、表示してるエラーメッセージを含めて{report|バグ報告}でお知らせください。"
+msgstr "リンク切れを発見した場合は、表示してるエラーメッセージを含めて{report|バグ報"
+"告}でお知らせください。"
 
 #: ../root/main/error/Error500.js:37
 msgid "Internal Server Error"
@@ -11143,7 +11342,8 @@ msgstr ""
 msgid ""
 "If the problem persists, please {report|report a bug} and include any error "
 "message that is shown above."
-msgstr "問題が解決しない場合は、上記のエラーメッセージを含めた{report|report a bug}を送ってください。"
+msgstr "問題が解決しない場合は、上記のエラーメッセージを含めた{report|report a "
+"bug}を送ってください。"
 
 #: ../root/main/error/Error503.js:13
 msgid "System Busy"
@@ -11176,7 +11376,8 @@ msgstr ""
 msgid ""
 "In order to view this page, please visit the main server at "
 "{mb|https://musicbrainz.org/}."
-msgstr "このページを表示するには、メインサーバーの {mb|https://musicbrainz.org/} にアクセスしてください。"
+msgstr "このページを表示するには、メインサーバーの {mb|https://musicbrainz.org/} "
+"にアクセスしてください。"
 
 #: ../root/main/error/TimeoutError.js:25
 msgid "Request Timed Out"
@@ -11223,7 +11424,8 @@ msgstr "MusicBrainzへようこそ！"
 msgid ""
 "MusicBrainz is an open music encyclopedia that collects music metadata and "
 "makes it available to the public."
-msgstr "MusicBrainzは誰でも利用可能な音楽のメタデータを収集するオープンな音楽百科事典です。"
+msgstr "MusicBrainzは誰でも利用可能な音楽のメタデータを収集するオープンな音楽百科事典"
+"です。"
 
 #: ../root/main/index.js:50
 msgid "MusicBrainz aims to be:"
@@ -11233,21 +11435,27 @@ msgstr "MusicBrainzは以下の目標を掲げています。"
 msgid ""
 "<strong>The ultimate source of music information</strong> by allowing anyone"
 " to contribute and releasing the {doc|data} under {doc2|open licenses}."
-msgstr "あらゆる人々の貢献による{doc|データ}を{doc2|オープンライセンス}で公開することで、<strong>究極の音楽情報源</strong>となること。"
+msgstr ""
+"あらゆる人々の貢献による{doc|データ}を{doc2|オープンライセンス}で公開すること"
+"で、<strong>究極の音楽情報源</strong>となること。"
 
 #: ../root/main/index.js:67
 msgid ""
 "<strong>The universal lingua franca for music</strong> by providing a "
 "reliable and unambiguous form of {doc|music identification}, enabling both "
 "people and machines to have meaningful conversations about music."
-msgstr "正確かつ曖昧でない{doc|音楽の識別}方法を提供することで、人間および機械が音楽に関する情報をやり取りするのに役立つ<strong>音楽の世界共通語</strong>となること。"
+msgstr ""
+"正確かつ曖昧でない{doc|音楽の識別}方法を提供することで、人間および機械が音楽"
+"に関する情報をやり取りするのに役立つ<strong>音楽の世界共通語</strong>となるこ"
+"と。"
 
 #: ../root/main/index.js:80
 msgid ""
 "Like Wikipedia, MusicBrainz is maintained by a global community of users and"
 " we want everyone &#x2014; including you &#x2014; to {doc|participate and "
 "contribute}."
-msgstr "Wikipediaのように、MusicBrainzは世界中のユーザーに支えられています。あなたもぜひ{doc|参加・貢献} してください。"
+msgstr "Wikipediaのように、MusicBrainzは世界中のユーザーに支えられています。あなたも"
+"ぜひ{doc|参加・貢献} してください。"
 
 #: ../root/main/index.js:91
 msgid ""
@@ -11259,7 +11467,11 @@ msgid ""
 "MusicBrainz is operated by the {uri|MetaBrainz Foundation}, a California "
 "based 501(c)(3) tax-exempt non-profit corporation dedicated to keeping "
 "MusicBrainz {free|free and open source}."
-msgstr "MusicBrainzはカリフォルニアを拠点とする非営利団体{uri|MetaBrainz Foundation}によって運営されています。MetaBrainz FoundationはMusicBrainzを{free|フリーかつオープンソース}で提供し続けるために設立された、内国歳入法第501条C項3号に基づく非課税の団体です"
+msgstr ""
+"MusicBrainzはカリフォルニアを拠点とする非営利団体{uri|MetaBrainz "
+"Foundation}によって運営されています。MetaBrainz FoundationはMusicBrainzを{fre"
+"e|フリーかつオープンソース}で提供し続けるために設立された、内国歳入法第501条C"
+"項3号に基づく非課税の団体です"
 
 #: ../root/main/index.js:116
 msgid "MetaBrainz Blog"
@@ -11314,7 +11526,9 @@ msgid ""
 "The majority of the data in the <strong>MusicBrainz Database</strong> is "
 "released into the <strong>Public Domain</strong> and can be downloaded and "
 "used <strong>for free</strong>."
-msgstr "MusicBrainz データベースのデータの大半は、<strong>パブリックドメイン</strong>でリリースされ、<strong>自由に</strong>ダウンロードして利用できます。"
+msgstr ""
+"MusicBrainz データベースのデータの大半は、<strong>パブリックドメイン</strong>"
+"でリリースされ、<strong>自由に</strong>ダウンロードして利用できます。"
 
 #: ../root/main/index.js:232
 msgid "Developers"
@@ -11324,7 +11538,9 @@ msgstr "開発者"
 msgid ""
 "Use our <strong>XML web service</strong> or <strong>development "
 "libraries</strong> to create your own MusicBrainz-enabled applications."
-msgstr "<strong>XML Webサービス</strong>や<strong>開発用ライブラリ</strong>を用いてMusicBrainzを利用したアプリケーションを作りましょう。"
+msgstr ""
+"<strong>XML Webサービス</strong>や<strong>開発用ライブラリ</strong>を用いてMu"
+"sicBrainzを利用したアプリケーションを作りましょう。"
 
 #: ../root/main/index.js:246
 msgid "Recent Additions"
@@ -11532,7 +11748,9 @@ msgid ""
 "<strong>Warning:</strong> Some of the recordings you're merging have "
 "different ISRCs. Please make sure they are indeed the same recordings and "
 "you wish to continue with the merge."
-msgstr "<strong>警告:</strong> マージしようとしているレコーディングの一部で、ISRCが異なっています。レコーディングが確かに同一であるかを確認し、続行してください。"
+msgstr ""
+"<strong>警告:</strong> マージしようとしているレコーディングの一部で、ISRCが異"
+"なっています。レコーディングが確かに同一であるかを確認し、続行してください。"
 
 #: ../root/relationship/RelationshipsHeader.js:23
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:87
@@ -11771,7 +11989,8 @@ msgstr "すべてのサイズ:"
 msgid ""
 "These images provided by the {caa|Cover Art Archive}. You can also see them "
 "at the {ia|Internet Archive}."
-msgstr "この画像は{caa|Cover Art Archive}により提供されています。{ia|Internet Archive}も参照してください。"
+msgstr "この画像は{caa|Cover Art Archive}により提供されています。{ia|Internet "
+"Archive}も参照してください。"
 
 #: ../root/release/CoverArt.js:137
 msgid "We do not currently have any cover art for {release}."
@@ -11944,7 +12163,10 @@ msgstr ""
 msgid ""
 "This report lists artists that may have disambiguation comments in their "
 "name, rather than the actual disambiguation comment field."
-msgstr "このレポートはアーティスト名の中に他のアーティストと区別するためのコメントを含んでしまっている可能性があるアーティストを示しています。そうしたコメントは曖昧さ回避コメントのフィールドに移動すべきです。"
+msgstr ""
+"このレポートはアーティスト名の中に他のアーティストと区別するためのコメントを"
+"含んでしまっている可能性があるアーティストを示しています。そうしたコメントは"
+"曖昧さ回避コメントのフィールドに移動すべきです。"
 
 #: ../root/report/ArtistsContainingDisambiguationComments.js:30
 #: ../root/report/ReportsIndex.js:84
@@ -12007,7 +12229,10 @@ msgid ""
 "This report lists artists that have no editors subscribed to them, and whose"
 " changes may therefore be under-reviewed. Artists with more release groups "
 "and more open edits are listed first."
-msgstr "このレポートは購読者がいないためレビューが不足の可能性があるアーティストを示しています。リリースグループや未解決な編集が多いアーティストは最初に表示されます。"
+msgstr ""
+"このレポートは購読者がいないためレビューが不足の可能性があるアーティストを示"
+"しています。リリースグループや未解決な編集が多いアーティストは最初に表示され"
+"ます。"
 
 #: ../root/report/ArtistsWithNoSubscribers.js:31
 #: ../root/report/ReportsIndex.js:67
@@ -12023,7 +12248,16 @@ msgid ""
 " barcode, you can also search Amazon for it and see which ASIN matches. You "
 "might also find some ASINs linked to several discs of a multi-disc release: "
 "just merge those (see {how_to_merge_releases|How to Merge Releases})."
-msgstr "このレポートは複数のリリースに紐付けられたAmazon URLを示しています。ほとんどの場合Amazon ASINとMusicBrainzのリリースは一対一に対応するため、正しいリンクは一つだけです。まず、どのMusicBrainzのリリースがAmazonのリリースに対応するかを確認してください。（フォーマットやトラックリストなどが参考になります。）バーコードがあれば、Amazonでバーコード番号を検索してどのASINがマッチするかを調べることもできます。また、複数のディスクのそれぞれに対して同じASINが紐付けられてしまっていることもありますが、その場合は一つのリリースへとマージしてください。（{how_to_merge_releases|リリースをマージする方法}を参照ください。）"
+msgstr ""
+"このレポートは複数のリリースに紐付けられたAmazon URLを示しています。"
+"ほとんどの場合Amazon ASINとMusicBrainzのリリースは一対一に対応するため、正し"
+"いリンクは一つだけです。まず、どのMusicBrainzのリリースがAmazonのリリースに対"
+"応するかを確認してください。（フォーマットやトラックリストなどが参考になりま"
+"す。）バーコードがあれば、Amazonでバーコード番号を検索してどのASINがマッチす"
+"るかを調べることもできます。また、複数のディスクのそれぞれに対して同じASINが"
+"紐付けられてしまっていることもありますが、その場合は一つのリリースへとマージ"
+"してください。（{how_to_merge_releases|リリースをマージする方法}を参照くださ"
+"い。）"
 
 #: ../root/report/AsinsWithMultipleReleases.js:38
 #: ../root/report/ReportsIndex.js:280
@@ -12042,7 +12276,10 @@ msgid ""
 "This report shows releases with Amazon URLs which don't follow the expected "
 "format. They might still be correct if they're archive.org cover links, but "
 "in any other case they should probably be fixed or removed."
-msgstr "このレポートは適切なフォーマットに従っていないAmazon URLを持つリリースを示しています。archive.org上のカバーアートへのリンクとして正しい場合はありますが、その他の場合ではおそらく修正もしくは削除すべきです。"
+msgstr ""
+"このレポートは適切なフォーマットに従っていないAmazon "
+"URLを持つリリースを示しています。archive.org上のカバーアートへのリンクとして"
+"正しい場合はありますが、その他の場合ではおそらく修正もしくは削除すべきです。"
 
 #: ../root/report/BadAmazonUrls.js:55
 msgid "Bad Amazon URLs"
@@ -12080,7 +12317,11 @@ msgid ""
 "This is almost always wrong: ASINs are just Amazon's entries for the "
 "releases and should be linked to the release with an Amazon URL relationship"
 " instead."
-msgstr "このレポートはカタログ番号がASINの形式になっているリリースを示しています。まず間違いなくカタログ番号は誤っています。Amazon独自の識別子であるASINは、カタログ番号ではなくAmazon URLとの関係によって、リリースに紐付けられるべきです。"
+msgstr ""
+"このレポートはカタログ番号がASINの形式になっているリリースを示しています。ま"
+"ず間違いなくカタログ番号は誤っています。Amazon独自の識別子であるASINは、"
+"カタログ番号ではなくAmazon "
+"URLとの関係によって、リリースに紐付けられるべきです。"
 
 #: ../root/report/CatNoLooksLikeAsin.js:36 ../root/report/ReportsIndex.js:323
 msgid "Releases with catalog numbers that look like ASINs"
@@ -12511,7 +12752,8 @@ msgstr "このレコーディングはもう存在していません。"
 msgid ""
 "This report lists {iswc|ISWCs} that are attached to more than one work. If "
 "the works are the same, this usually means they should be merged."
-msgstr "このレポートは複数の作品と繋がっている{iswc|ISWC}を表示します。作品が同じであれば、マージすべきかもしれません。"
+msgstr "このレポートは複数の作品と繋がっている{iswc|ISWC}を表示します。作品が同じであ"
+"れば、マージすべきかもしれません。"
 
 #: ../root/report/IswcsWithManyWorks.js:42 ../root/report/ReportsIndex.js:609
 msgid "ISWCs with multiple works"
@@ -12987,7 +13229,10 @@ msgstr "メディアのないリリース"
 msgid ""
 "This report shows releases that have an unlikely combination of language and"
 " script properties, such as German and Ethiopic."
-msgstr "このレポートは誤っている可能性が高い言語と文字の組み合わせが指定されているリリースを示しています。たとえば、ドイツ語とゲエズ文字（エチオピア文字）のようなものです。"
+msgstr ""
+"このレポートは誤っている可能性が高い言語と文字の組み合わせが指定されているリ"
+"リースを示しています。たとえば、ドイツ語とゲエズ文字（エチオピア文字）のよう"
+"なものです。"
 
 #: ../root/report/ReleasesWithUnlikelyLanguageScript.js:34
 #: ../root/report/ReportsIndex.js:373
@@ -13199,7 +13444,8 @@ msgstr "ISWC"
 #: ../root/report/SeparateDiscs.js:24
 msgid ""
 "This report shows releases which have (disc n) or (bonus disc) in the title."
-msgstr "このレポートは、タイトルに「ディスク n」または「ボーナスディスク」が入ってるリリースを表示します。"
+msgstr "このレポートは、タイトルに「ディスク "
+"n」または「ボーナスディスク」が入ってるリリースを表示します。"
 
 #: ../root/report/SeparateDiscs.js:29
 msgid ""
@@ -13515,7 +13761,8 @@ msgstr "検索エラー"
 msgid ""
 "For assistance in writing effective advanced search queries, read the "
 "{doc|syntax documentation}."
-msgstr "高度な検索クエリの書き方について知りたい場合は、{doc|構文のドキュメント}をお読みください。"
+msgstr "高度な検索クエリの書き方について知りたい場合は、{doc|構文のドキュメント}をお"
+"読みください。"
 
 #: ../root/search/components/SearchForm.js:28
 #: ../root/search/components/SearchForm.js:29
@@ -13675,7 +13922,8 @@ msgstr "自分の評価を他のユーザーにも公開する"
 msgid ""
 "Mail me when one of my edits gets a \"no\" vote. (Note: the email is only "
 "sent for the first \"no\" vote, not each one)"
-msgstr "自分の編集に反対投票がついた場合にメールを送る（メールは一つ一つの反対投票ごとに送られるのではなく、最初の一つについてのみ送られます）"
+msgstr "自分の編集に反対投票がついた場合にメールを送る（メールは一つ一つの反対投票ご"
+"とに送られるのではなく、最初の一つについてのみ送られます）"
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:221
 msgid "When I add a note to an edit, mail me all future notes for that edit."
@@ -13769,14 +14017,21 @@ msgid ""
 "This will enter additional edits to change each specific credit to use the "
 "new name. Only use this if you are sure the existing credits are incorrect "
 "(e.g. for typos)."
-msgstr "これにより編集が追加され、特定のクレジットが新しい名前に変更されます。既存のクレジットが間違っていることが確実な場合にのみこれを使用します(タイプミスなど)。"
+msgstr ""
+"これにより編集が追加され、特定のクレジットが新しい名前に変更されます。既存の"
+"クレジットが間違っていることが確実な場合にのみこれを使用します(タイプミスなど"
+")。"
 
 #: ../root/static/scripts/artist/components/ArtistCreditRenamer.js:231
 msgid ""
 "Keep in mind artist credits should generally follow what is printed on "
 "releases. If an artist has changed their name, but old releases were "
 "credited to the existing name, do not change the artist credit."
-msgstr "アーティストのクレジットは、一般的にリリースに記載されている内容に従う必要があることに注意してください。アーティストの名前が変更されても、古いリリースが既存の名前でクレジットされている場合、アーティストのクレジットを変更しないでください。"
+msgstr ""
+"アーティストのクレジットは、一般的にリリースに記載されている内容に従う必要が"
+"あることに注意してください。アーティストの名前が変更されても、古いリリースが"
+"既存の名前でクレジットされている場合、アーティストのクレジットを変更しないで"
+"ください。"
 
 #: ../root/static/scripts/artist/components/ArtistCreditRenamer.js:255
 msgid "Show less artist credits"
@@ -13911,7 +14166,8 @@ msgstr "注釈は{date}に{user}が更新しました。"
 msgid ""
 "This is an {history|old revision} of this annotation, as edited by {user} on"
 " {date}. {current|View current revision}."
-msgstr "この注釈は{date}に{user}が編集した{history|古いバージョン}です。{current|現在のバージョンを表示}。"
+msgstr "この注釈は{date}に{user}が編集した{history|古いバージョン}です。{current|現在"
+"のバージョンを表示}。"
 
 #: ../root/static/scripts/common/components/Annotation.js:114
 msgid "Annotation last modified on {date}."
@@ -14325,7 +14581,8 @@ msgstr "タグの追加"
 msgid ""
 "You can add your own {tagdocs|tags} below. Use commas to separate multiple "
 "tags."
-msgstr "以下に独自の{tagdocs|タグ} を追加することができます。複数のタグを区切るにはカンマを使用します。"
+msgstr "以下に独自の{tagdocs|タグ} "
+"を追加することができます。複数のタグを区切るにはカンマを使用します。"
 
 #: ../root/static/scripts/common/components/TagEditor.js:643
 msgid "Submit tags"
@@ -14356,7 +14613,8 @@ msgstr "Wikipediaで続きを読む…"
 msgid ""
 "Wikipedia content provided under the terms of the {license_link|Creative "
 "Commons BY-SA license}"
-msgstr "Wikipediaのコンテンツは{license_link|クリエイティブ・コモンズ 表示 - 継承 ライセンス}の条件下で提供されています。"
+msgstr "Wikipediaのコンテンツは{license_link|クリエイティブ・コモンズ 表示 - 継承 "
+"ライセンス}の条件下で提供されています。"
 
 #: ../root/static/scripts/common/components/WorkArtists.js:27
 msgid "Work Artists"
@@ -14781,7 +15039,8 @@ msgstr "新しい作品を追加"
 msgid ""
 "Use the following fields to enter collaborations. See the {ac|Artist Credit}"
 " documentation for more information."
-msgstr "コラボを以下のフィールドに入力してください。 詳細は{ac|アーティストクレジット}を参照してください。"
+msgstr "コラボを以下のフィールドに入力してください。 "
+"詳細は{ac|アーティストクレジット}を参照してください。"
 
 #: ../root/static/scripts/edit/components/ArtistCreditBubble.js:76
 msgid "[missing track name]"
@@ -14873,7 +15132,8 @@ msgstr ""
 msgid ""
 "Please enter a {doc_disambiguation|disambiguation} to help distinguish this "
 "entity from the others."
-msgstr "この項目を他の項目と区別するために{doc_disambiguation|曖昧さ回避}を入力してください。"
+msgstr "この項目を他の項目と区別するために{doc_disambiguation|曖昧さ回避}を入力してく"
+"ださい。"
 
 #: ../root/static/scripts/edit/components/ReleaseMergeStrategy.js:75
 msgid ""
@@ -15469,7 +15729,8 @@ msgstr "入力したバーコードは、有効なUPCコードです。"
 msgid ""
 "The barcode you entered is either an invalid UPC code, or an EAN code with "
 "the check digit missing."
-msgstr "入力したバーコードは、無効なUPCコードあるいはチェックディジットのないEANコードです。"
+msgstr "入力したバーコードは、無効なUPCコードあるいはチェックディジットのないEANコー"
+"ドです。"
 
 #: ../root/static/scripts/release-editor/validation.js:213
 msgid "The barcode you entered is a valid EAN code."
@@ -15953,7 +16214,8 @@ msgid ""
 "privileges. These privileges allow them to make select edits that are "
 "automatically approved without going through the normal voting process, as "
 "well as the ability to instantly approve other users' edits."
-msgstr "{url|自動編集者}は、編集したデータが査読を行わずに自動的に承認されます。他のユーザーの編集も自動的に承認できます。"
+msgstr "{url|自動編集者}は、編集したデータが査読を行わずに自動的に承認されます。他の"
+"ユーザーの編集も自動的に承認できます。"
 
 #: ../root/user/PrivilegedUsers.js:50
 msgid "The following {count} users have auto-editor privileges:"
@@ -16009,7 +16271,9 @@ msgstr "バナーメッセージ編集者"
 msgid ""
 "Banner message editors are users who can set a message that is shown in a "
 "banner on all pages, e.g. to warn users about upcoming site maintenance."
-msgstr "バナーメッセージ編集者は、全てのページにバナーとして表示されるメッセージを設定することができます。例えばサイトメンテナンスの予定に関する注意などです。"
+msgstr ""
+"バナーメッセージ編集者は、全てのページにバナーとして表示されるメッセージを設"
+"定することができます。例えばサイトメンテナンスの予定に関する注意などです。"
 
 #: ../root/user/PrivilegedUsers.js:114
 msgid "The following {count} users are banner message editors:"
@@ -16886,7 +17150,8 @@ msgstr "初心者編集者によるすべての「リリース/メディアの�
 msgid ""
 "All \"Add release/medium\" edits by beginner editors made less than 2 weeks "
 "ago"
-msgstr "初心者編集者による2週間未満に作成されたすべての「リリース/メディアの追加」編集"
+msgstr "初心者編集者による2週間未満に作成されたすべての「リリース/メディアの追加」編"
+"集"
 
 #: ../root/vote/VotingIndex.js:311
 msgid "All \"Add artist\" edits by beginner editors"

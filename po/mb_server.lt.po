@@ -10,14 +10,18 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-05-31 20:29+0300\n"
-"PO-Revision-Date: 2011-01-30 16:57+0000\n"
-"Last-Translator: Vaclovas lntas (Vac.) <Gateway_31@protonmail.com>, 2023\n"
-"Language-Team: Lithuanian (http://app.transifex.com/musicbrainz/musicbrainz/language/lt/)\n"
+"PO-Revision-Date: 2023-08-14 15:07+0000\n"
+"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"Language-Team: Lithuanian <https://translations.metabrainz.org/projects/"
+"musicbrainz/server/lt/>\n"
+"Language: lt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: lt\n"
-"Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < 11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 : n % 1 != 0 ? 2: 3);\n"
+"Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
+"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 :"
+" n % 1 != 0 ? 2: 3);\n"
+"X-Generator: Weblate 4.18.2\n"
 
 #: ../root/components/common-macros.tt:12
 msgid " ({text})"
@@ -39,13 +43,16 @@ msgstr "\"DDD\" – devynių skaitmenų darbo identifikatorius."
 msgid ""
 "\"NNNNN\" is a unique 5-digit number identifying the particular sound "
 "recording."
-msgstr "„NNNNN“ – unikalus penkiaženklis numeris, nurodantis konkretų garso įrašą."
+msgstr ""
+"„NNNNN“ – unikalus penkiaženklis numeris, nurodantis konkretų garso įrašą."
 
 #: ../root/components/forms.tt:324
 msgid ""
 "\"XXX\" is a three character alphanumeric registrant code, uniquely "
 "identifying the organisation which registered the code."
-msgstr "„XXX“ yra trijų ženklų raidinis-skaitmeninis registruotojo kodas, unikaliai identifikuojantis kodą įregistravo organizacija."
+msgstr ""
+"„XXX“ yra trijų ženklų raidinis-skaitmeninis registruotojo kodas, unikaliai "
+"identifikuojantis kodą įregistravo organizacija."
 
 #: ../root/components/forms.tt:325
 msgid "\"YY\" is the last two digits of the year of registration."
@@ -154,7 +161,9 @@ msgstr ""
 msgid ""
 "A format is required. If you don’t know it, tick the “I don’t know” checkbox"
 " next to the format dropdown."
-msgstr "Formatas – būtinas. Jei jo nežinote, pažymėkite žymimąjį langelį „Nežinau“, esantį šalia išskleidžiamojo sąrašo „Formatas“."
+msgstr ""
+"Formatas – būtinas. Jei jo nežinote, pažymėkite žymimąjį langelį „Nežinau“, "
+"esantį šalia išskleidžiamojo sąrašo „Formatas“."
 
 #: ../root/release/edit/information.tt:23
 msgid "A release title is required."
@@ -164,7 +173,9 @@ msgstr "Būtina nurodyti išleidimo pavadinimą."
 msgid ""
 "A value of 1 or 2 indicates that either entity1 or entity0 are orderable, "
 "respectively."
-msgstr "Reikšmė 1 arba 2 reiškia, kad subjektas1 arba subjektas0 yra atitinkamai užsakomas."
+msgstr ""
+"Reikšmė 1 arba 2 reiškia, kad subjektas1 arba subjektas0 yra atitinkamai "
+"užsakomas."
 
 #: ../root/edit/search_macros.tt:291 ../root/edit/search_macros.tt:307
 #: ../lib/MusicBrainz/Server/Data/Vote.pm:173
@@ -187,7 +198,10 @@ msgid ""
 "Add \"@ \" at line start to indicate artists, \"* \" for a work/song, \"# \""
 " for additional info (such as \"Encore\"). [mbid|name] allows linking to "
 "artists and works."
-msgstr "Eilutės pradžioje pridėkite „@ “, kad pažymėtumėte atlikėjus, „* “ – kūrinį / dainą, „# “ - papildomą informaciją (pavyzdžiui, „Bis“). [mbid|vardas] leidžia nurodyti nuorodas į atlikėjus ir kūrinius."
+msgstr ""
+"Eilutės pradžioje pridėkite „@ “, kad pažymėtumėte atlikėjus, „* “ – kūrinį /"
+" dainą, „# “ - papildomą informaciją (pavyzdžiui, „Bis“). [mbid|vardas] "
+"leidžia nurodyti nuorodas į atlikėjus ir kūrinius."
 
 #: ../root/area/create.tt:1 ../root/area/create.tt:3
 msgid "Add Area"
@@ -2131,7 +2145,9 @@ msgstr ""
 
 #: ../root/release_group/set_cover_art.tt:96
 msgid "No releases have cover art marked as \"Front\", cannot set cover art."
-msgstr "Nė vieno leidinio viršelis nėra pažymėtas kaip „Priekinė“, negalima nustatyti viršelio."
+msgstr ""
+"Nė vieno leidinio viršelis nėra pažymėtas kaip „Priekinė“, negalima "
+"nustatyti viršelio."
 
 #: ../root/release/edit/tracklist.tt:140 ../root/admin/IpLookup.js:38
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:468
@@ -2942,7 +2958,9 @@ msgstr ""
 msgid ""
 "The Cover Art Archive is currently experiencing difficulties. Adding images "
 "for this release is unlikely to work at the moment."
-msgstr "Viršelio paveikslėlių archyvas dabar susiduria su sunkumais. Pridėti šio leidinio paveikslėlius šiuo metu greičiausiai nepavyks."
+msgstr ""
+"Viršelio paveikslėlių archyvas dabar susiduria su sunkumais. Pridėti šio "
+"leidinio paveikslėlius šiuo metu greičiausiai nepavyks."
 
 #: ../root/release/edit/information.tt:334
 msgid "The annotation field functions like a miniature wiki."
@@ -4653,7 +4671,10 @@ msgid ""
 "Cover art can’t be uploaded to this release because we don’t own the "
 "associated item at the Internet Archive. Please contact us at {contact_url} "
 "so we can resolve this."
-msgstr "Viršelio paveikslėlio negalima įkelti į šį leidinį, nes mes neturime susijusio elemento Interneto archyve. Prašome susisiekti su mumis adresu {contact_url}, kad galėtume išspręsti šią problemą."
+msgstr ""
+"Viršelio paveikslėlio negalima įkelti į šį leidinį, nes mes neturime "
+"susijusio elemento Interneto archyve. Prašome susisiekti su mumis adresu "
+"{contact_url}, kad galėtume išspręsti šią problemą."
 
 #: ../lib/MusicBrainz/Server/Controller/WS/js/Edit.pm:701
 msgid ""
@@ -7364,7 +7385,10 @@ msgid ""
 "If a name appears on the cover of a release, don’t check the box: the "
 "artists will still be combined if you don’t, but the {doc_acs|artist "
 "credits} will be kept as they are now."
-msgstr "Jei ant leidinio viršelio nurodytas vardas, nepažymėkite šio langelio: atlikėjai vis tiek bus sujungti, bet {doc_acs|atlikėjų duomenys} išliks tokie, kokie yra dabar."
+msgstr ""
+"Jei ant leidinio viršelio nurodytas vardas, nepažymėkite šio langelio: "
+"atlikėjai vis tiek bus sujungti, bet {doc_acs|atlikėjų duomenys} išliks "
+"tokie, kokie yra dabar."
 
 #: ../root/artist/ArtistMerge.js:65
 msgid ""
@@ -14239,7 +14263,9 @@ msgstr ""
 msgid ""
 "High quality: All available data has been added, if possible including cover"
 " art with liner info that proves it"
-msgstr "Aukšta kokybė: Pridėti visi turimi duomenys, jei įmanoma, įskaitant viršelio paveikslėlį ir jį patvirtinančią informaciją."
+msgstr ""
+"Aukšta kokybė: Pridėti visi turimi duomenys, jei įmanoma, įskaitant viršelio "
+"paveikslėlį ir jį patvirtinančią informaciją."
 
 #: ../root/static/scripts/common/components/EntityLink.js:380
 msgid ""

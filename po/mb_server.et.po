@@ -22,14 +22,16 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-05-31 20:29+0300\n"
-"PO-Revision-Date: 2011-01-30 16:57+0000\n"
-"Last-Translator: Nicolás Tamargo <reosarevok@gmail.com>, 2021-2022\n"
-"Language-Team: Estonian (http://app.transifex.com/musicbrainz/musicbrainz/language/et/)\n"
+"PO-Revision-Date: 2023-08-14 15:03+0000\n"
+"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"Language-Team: Estonian <https://translations.metabrainz.org/projects/"
+"musicbrainz/server/et/>\n"
+"Language: et\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: et\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.18.2\n"
 
 #: ../root/components/common-macros.tt:12
 msgid " ({text})"
@@ -51,13 +53,17 @@ msgstr "„DDD.DDD.DDD” on üheksakohaline teoseidentifikaator."
 msgid ""
 "\"NNNNN\" is a unique 5-digit number identifying the particular sound "
 "recording."
-msgstr "„NNNNN” on unikaalne viiekohaline number konkreetse helisalvestise tuvastamiseks."
+msgstr ""
+"„NNNNN” on unikaalne viiekohaline number konkreetse helisalvestise "
+"tuvastamiseks."
 
 #: ../root/components/forms.tt:324
 msgid ""
 "\"XXX\" is a three character alphanumeric registrant code, uniquely "
 "identifying the organisation which registered the code."
-msgstr "„XXX” on kolmest tähest ja/või numbrist koosnev registreerija kood ISRC registreerinud asutuse tuvastamiseks."
+msgstr ""
+"„XXX” on kolmest tähest ja/või numbrist koosnev registreerija kood ISRC "
+"registreerinud asutuse tuvastamiseks."
 
 #: ../root/components/forms.tt:325
 msgid "\"YY\" is the last two digits of the year of registration."
@@ -141,7 +147,13 @@ msgid ""
 "license. Furthermore, you give the MetaBrainz Foundation the right to "
 "license this data for commercial use. Please read our {doc|license page} for"
 " more details.</strong>"
-msgstr "<strong>Pane tähele, et kogu kaastöö MusicBrainzile läheb avalikku omandisse ja/või avaldatakse Creative Commonsi by-nc-sa litsentsiga (autorile viitamine + mitteäriline eesmärk + jagamine samadel tingimustel). Veelgi enam, sa annad MetaBrainz Foundationile õiguse neid andmeid ärikasutuseks edasi litsentsida. Üksikasjade saamiseks loe palun läbi meie {doc|litsentsileht}.</strong>"
+msgstr ""
+"<strong>Pane tähele, et kogu kaastöö MusicBrainzile läheb avalikku omandisse "
+"ja/või avaldatakse Creative Commonsi by-nc-sa litsentsiga (autorile "
+"viitamine + mitteäriline eesmärk + jagamine samadel tingimustel). Veelgi "
+"enam, sa annad MetaBrainz Foundationile õiguse neid andmeid ärikasutuseks "
+"edasi litsentsida. Üksikasjade saamiseks loe palun läbi meie "
+"{doc|litsentsileht}.</strong>"
 
 #: ../root/release/edit/recordings.tt:137
 msgid ""
@@ -160,13 +172,17 @@ msgid ""
 "A CD Stub was found that matches the disc ID you provided. If the below "
 "tracklist appears correct, you may use it as a starting point as a new "
 "MusicBrainz release"
-msgstr "Leiti antud plaadi-ID-le vastav CD-mustand. Kui alltoodud lugude nimekiri näib sobivana, võid kasutada seda lähtekohana uue väljalaske sisestamisel."
+msgstr ""
+"Leiti antud plaadi-ID-le vastav CD-mustand. Kui alltoodud lugude nimekiri "
+"näib sobivana, võid kasutada seda lähtekohana uue väljalaske sisestamisel."
 
 #: ../root/release/edit/tracklist.tt:323
 msgid ""
 "A format is required. If you don’t know it, tick the “I don’t know” checkbox"
 " next to the format dropdown."
-msgstr "Formaat on kohustuslik. Kui sa pole valikus kindel, vali formaadiloendi kõrval märkeruut „Ei tea”."
+msgstr ""
+"Formaat on kohustuslik. Kui sa pole valikus kindel, vali formaadiloendi "
+"kõrval märkeruut „Ei tea”."
 
 #: ../root/release/edit/information.tt:23
 msgid "A release title is required."
@@ -199,7 +215,9 @@ msgid ""
 "Add \"@ \" at line start to indicate artists, \"* \" for a work/song, \"# \""
 " for additional info (such as \"Encore\"). [mbid|name] allows linking to "
 "artists and works."
-msgstr "“@ ” rea algul märgib artiste, “* ” teoseid/lugusid, “# ” lisainfot (nt „lisalugu”). [MBID|nimi] võimaldab lisada lingi artistile või teosele."
+msgstr ""
+"“@ ” rea algul märgib artiste, “* ” teoseid/lugusid, “# ” lisainfot (nt "
+"„lisalugu”). [MBID|nimi] võimaldab lisada lingi artistile või teosele."
 
 #: ../root/area/create.tt:1 ../root/area/create.tt:3
 msgid "Add Area"
@@ -293,7 +311,9 @@ msgstr "Uue näite lisamine"
 msgid ""
 "Add a medium by clicking “Add Medium” below, or tick the box confirming the "
 "tracklist is unknown."
-msgstr "Lisa helikandja klõpsates allpool „Lisa helikandja” või märgista ruut, kui lugude nimekiri pole teada."
+msgstr ""
+"Lisa helikandja klõpsates allpool „Lisa helikandja” või märgista ruut, kui "
+"lugude nimekiri pole teada."
 
 #: ../root/release/edit/recordings.tt:212
 #: ../root/static/scripts/edit/components/AddEntityDialog.js:21
@@ -342,7 +362,10 @@ msgid ""
 "All tracks require an associated recording. Click “Edit” to select a "
 "recording for each track. Choose “Add a new recording” if an appropriate one"
 " doesn’t exist yet."
-msgstr "Iga lugu peab olema seostatud salvestisega. Loole salvestise valimiseks klõpsa „Toimeta”. Kui sobivat salvestist pole veel andmebaasis, vali „Lisa uus salvestis”."
+msgstr ""
+"Iga lugu peab olema seostatud salvestisega. Loole salvestise valimiseks "
+"klõpsa „Toimeta”. Kui sobivat salvestist pole veel andmebaasis, vali „Lisa "
+"uus salvestis”."
 
 #: ../root/admin/delete_user.tt:13
 msgid "Allow the name “{editor_name}” to be reused."
@@ -352,7 +375,9 @@ msgstr ""
 msgid ""
 "An entity with that name and disambiguation already exists. You must enter a"
 " unique disambiguation comment."
-msgstr "Sellise nime ja täpsustusmärkega olem on juba olemas. Palun sisesta ainukordne täpsustusmärge."
+msgstr ""
+"Sellise nime ja täpsustusmärkega olem on juba olemas. Palun sisesta "
+"ainukordne täpsustusmärge."
 
 #: ../root/release/edit/tracklist.tt:144
 msgid "An error occurred: "
@@ -376,11 +401,15 @@ msgstr "Heakskiitev"
 msgid ""
 "Are you sure you want to delete all information about {e}? This cannot be "
 "undone!"
-msgstr "Kas oled kindel, et soovid kustutada kogu teabe toimetaja {e} kohta? Hiljem ümber mõelda ei saa!"
+msgstr ""
+"Kas oled kindel, et soovid kustutada kogu teabe toimetaja {e} kohta? Hiljem "
+"ümber mõelda ei saa!"
 
 #: ../root/admin/delete_user.tt:34
 msgid "Are you sure you want to delete your account? This cannot be undone!"
-msgstr "Kas oled kindel, et soovid oma konto kustutada? Hiljem enam ümber mõelda ei saa!"
+msgstr ""
+"Kas oled kindel, et soovid oma konto kustutada? Hiljem enam ümber mõelda ei "
+"saa!"
 
 #: ../root/edit/search_macros.tt:423 ../lib/MusicBrainz/Server/Edit/Area.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:44
@@ -570,14 +599,19 @@ msgstr "Vöötkood:"
 msgid ""
 "Based on the above CD stub, we also found the following releases in "
 "MusicBrainz that may be related:"
-msgstr "Ülaloleva CD-mustandi põhjal leiti MusicBrainzist ka järgmised väljalasked, mis võivad asjasse puutuda:"
+msgstr ""
+"Ülaloleva CD-mustandi põhjal leiti MusicBrainzist ka järgmised väljalasked, "
+"mis võivad asjasse puutuda:"
 
 #: ../root/release/edit/duplicates.tt:4
 msgid ""
 "Based on the information you have provided, we have found the following "
 "similar release to already exist in MusicBrainz. If you wish to base your "
 "release on an existing release, select it below."
-msgstr "Sisestatud andmete põhjal otsiti MusicBrainzist sarnaseid väljalaskeid. Leiud on toodud allpool. Kui soovid oma lisatava väljalaske põhjana kasutada mõnda olemasolevat, siis vali see allpool."
+msgstr ""
+"Sisestatud andmete põhjal otsiti MusicBrainzist sarnaseid väljalaskeid. "
+"Leiud on toodud allpool. Kui soovid oma lisatava väljalaske põhjana kasutada "
+"mõnda olemasolevat, siis vali see allpool."
 
 #: ../root/cdtoc/lookup.tt:105
 msgid ""
@@ -586,7 +620,12 @@ msgid ""
 "review entered data to create the most accurate music database on the "
 "internet. If this appeals to you, please {reg|create an account} or "
 "{login_url|login}."
-msgstr "Liitu MusicBrainzi kogukonnaga ja loe, {how|kuidas käib MusicBrainzi andmete sisestamine}. Vaata, kuidas käib kasutajatel üksteise sisestatud andmete ülevaatamine, et luua interneti täpseimat muusikaandmebaasi. Kui tundub huvitav, siis palun {reg|loo konto} (või kui sul juba on see, siis {login_url|logi sisse})."
+msgstr ""
+"Liitu MusicBrainzi kogukonnaga ja loe, {how|kuidas käib MusicBrainzi andmete "
+"sisestamine}. Vaata, kuidas käib kasutajatel üksteise sisestatud andmete "
+"ülevaatamine, et luua interneti täpseimat muusikaandmebaasi. Kui tundub "
+"huvitav, siis palun {reg|loo konto} (või kui sul juba on see, siis "
+"{login_url|logi sisse})."
 
 #: ../root/artist/edit_form.tt:42
 msgid "Begin Area:"
@@ -604,7 +643,10 @@ msgid ""
 "Below is the error information. If you wish to file a bug report, you may do"
 " so at {bugs|our bug tracker}. The information below will help, so please be"
 " sure to include it!"
-msgstr "Allpool on teave vea kohta. Kui soovid veast teada anda, siis tee seda meie {bugs|veahaldussüsteemis}. Allolev teave aitab viga parandada, nii et lisa see kindlasti kirjeldusse!"
+msgstr ""
+"Allpool on teave vea kohta. Kui soovid veast teada anda, siis tee seda meie "
+"{bugs|veahaldussüsteemis}. Allolev teave aitab viga parandada, nii et lisa "
+"see kindlasti kirjeldusse!"
 
 #: ../root/admin/edit_user.tt:44
 #: ../root/static/scripts/account/components/EditProfileForm.js:259
@@ -632,7 +674,9 @@ msgstr ""
 msgid ""
 "Brought to you by {MeB|MetaBrainz Foundation} and our {spon|sponsors} and "
 "{supp|supporters}. Cover Art provided by the {caa|Cover Art Archive}."
-msgstr "MusicBrainzi taga seisavad {MeB|MetaBrainz Foundation} ning {spon|sponsorid} ja {supp|toetajad}. Kaanepiltidega varustab {caa|Kaanepildiarhiiv}."
+msgstr ""
+"MusicBrainzi taga seisavad {MeB|MetaBrainz Foundation} ning {spon|sponsorid} "
+"ja {supp|toetajad}. Kaanepiltidega varustab {caa|Kaanepildiarhiiv}."
 
 #: ../root/layout.tt:115 ../root/layout/components/Footer.js:32
 #: ../root/main/index.js:209
@@ -917,7 +961,9 @@ msgstr "Kuupäev:"
 msgid ""
 "Dates are in the format YYYY-MM-DD. Partial dates such as YYYY-MM or just "
 "YYYY are OK, or you can omit the date entirely."
-msgstr "Kuupäevade vorming on AAAA-KK-PP. Sobivad ka osalised kuupäevad nagu AAAA-KK või AAAA (või isegi KK-PP) ning kuupäev võib ka puududa."
+msgstr ""
+"Kuupäevade vorming on AAAA-KK-PP. Sobivad ka osalised kuupäevad nagu AAAA-KK "
+"või AAAA (või isegi KK-PP) ning kuupäev võib ka puududa."
 
 #: ../root/edit/search_macros.tt:120
 msgid "Delete"
@@ -1053,7 +1099,9 @@ msgstr "Valmis"
 msgid ""
 "Each track in the MusicBrainz database has to be linked to a recording, "
 "choose the appropriate recording or look for it in the database."
-msgstr "Iga lugu MusicBrainzi andmebaasis peab olema lingitud salvestisega. Vali sobiv salvestis või otsi seda andmebaasist."
+msgstr ""
+"Iga lugu MusicBrainzi andmebaasis peab olema lingitud salvestisega. Vali "
+"sobiv salvestis või otsi seda andmebaasist."
 
 #: ../root/cdstub/header.tt:9 ../root/cdtoc/list.tt:18
 #: ../root/entity/edit.tt:1 ../root/release/discids.tt:12
@@ -1229,7 +1277,11 @@ msgid ""
 "is highly recommended. Not only does it make it clear where you got your "
 "information, but it can also encourage other users to vote on your edit "
 "&#x2014; thus making your edit get applied faster."
-msgstr "Äärmiselt soovitatav on lisada {note|toimetusmärge} ja kirjutada, kust lisatav teave pärineb. Lisaks info algse allika selgekstegemisele julgustad niiviisi teisi kasutajaid sellele toimetusele oma poolthäält andma, kiirendades selle rakendumist."
+msgstr ""
+"Äärmiselt soovitatav on lisada {note|toimetusmärge} ja kirjutada, kust "
+"lisatav teave pärineb. Lisaks info algse allika selgekstegemisele julgustad "
+"niiviisi teisi kasutajaid sellele toimetusele oma poolthäält andma, "
+"kiirendades selle rakendumist."
 
 #: ../root/admin/attributes/form.tt:37
 #: ../root/admin/attributes/Attribute.js:36
@@ -1241,7 +1293,9 @@ msgstr "Olemitüüp"
 msgid ""
 "Even just providing a URL or two is helpful! For more suggestions, see "
 "{doc_how_to|our guide for writing good edit notes}."
-msgstr "Isegi lihtsalt üks-kaks internetiaadressi on abiks! Lisasoovituste saamiseks vaata {doc_how_to|juhiseid heade toimetusmärgete kirjutamiseks}."
+msgstr ""
+"Isegi lihtsalt üks-kaks internetiaadressi on abiks! Lisasoovituste saamiseks "
+"vaata {doc_how_to|juhiseid heade toimetusmärgete kirjutamiseks}."
 
 #: ../root/edit/search_macros.tt:423 ../lib/MusicBrainz/Server/Edit/Event.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:52
@@ -1307,13 +1361,17 @@ msgstr "Valmis"
 msgid ""
 "First enter all track information, including titles and artist credits, in "
 "order to edit their recordings."
-msgstr "Salvestiste toimetamiseks sisesta esmalt lugude nimekiri koos pealkirjade ja artistiteabega."
+msgstr ""
+"Salvestiste toimetamiseks sisesta esmalt lugude nimekiri koos pealkirjade ja "
+"artistiteabega."
 
 #: ../root/account/register.tt:61
 msgid ""
 "Follow our {bl|blog} or {tw|twitter account}! To talk to other users, try "
 "the {fo|forums} or {irc|IRC}."
-msgstr "Võid jälgida ka meie {bl|blogi} ja {tw|Twitteri kontot}. Teiste kasutajatega suhtlemiseks proovi {fo|foorumit} või {irc|IRC-d}."
+msgstr ""
+"Võid jälgida ka meie {bl|blogi} ja {tw|Twitteri kontot}. Teiste kasutajatega "
+"suhtlemiseks proovi {fo|foorumit} või {irc|IRC-d}."
 
 #: ../root/admin/delete_user.tt:21
 msgid ""
@@ -1326,7 +1384,9 @@ msgstr "Konto kustutamise protsessi kirjelduse leiad {uri|konto KKK-st}."
 msgid ""
 "For more information, check the {doc_doc|documentation} and "
 "{doc_styleguide|style guidelines}."
-msgstr "Lisateabe saamiseks vaata {doc_doc|dokumentatsiooni} ja {doc_styleguide|stiilijuhiseid}."
+msgstr ""
+"Lisateabe saamiseks vaata {doc_doc|dokumentatsiooni} ja "
+"{doc_styleguide|stiilijuhiseid}."
 
 #: ../root/event/edit_form.tt:3 ../root/label/edit_form.tt:3
 #: ../root/place/edit_form.tt:3 ../root/work/edit_form.tt:4
@@ -1651,13 +1711,17 @@ msgstr ""
 msgid ""
 "If this is an Amazon ASIN, please do not enter it in the catalog number "
 "field, but add it as a URL relationship later."
-msgstr "Kui see on Amazoni ASIN, siis palun ära sisesta seda katalooginumbri väljale, vaid seosta väljalase pärast URL-iga."
+msgstr ""
+"Kui see on Amazoni ASIN, siis palun ära sisesta seda katalooginumbri "
+"väljale, vaid seosta väljalase pärast URL-iga."
 
 #: ../root/release/edit/recordings.tt:160
 msgid ""
 "If we do not have a recording for this track in the database yet, please "
 "select \"Add a new recording\" below."
-msgstr "Kui sellele loole vastavat salvestist pole veel andmebaasis, siis vali palun „Lisa uus salvestis”."
+msgstr ""
+"Kui sellele loole vastavat salvestist pole veel andmebaasis, siis vali palun "
+"„Lisa uus salvestis”."
 
 #: ../root/cdtoc/attach_artist_releases.tt:49
 msgid "If you can't find what you're looking for, you can add a new release:"
@@ -1667,13 +1731,16 @@ msgstr "Kui sa ei leia otsitavat, võid lisada uue väljalaske."
 msgid ""
 "If you do not know whether the release has a barcode or not, just leave this"
 " blank."
-msgstr "Kui sa ei tea, kas väljalaskel on vöötkood või ei, jäta see väli tühjaks."
+msgstr ""
+"Kui sa ei tea, kas väljalaskel on vöötkood või ei, jäta see väli tühjaks."
 
 #: ../root/cdtoc/attach_filter_release.tt:75
 msgid ""
 "If you don't see the release you are looking for, you can still add a new "
 "one, using this CD TOC:"
-msgstr "Kui sa ei näe otsitavat väljalaset, võid selle CD sisukorra abil andmebaasi uue lisada."
+msgstr ""
+"Kui sa ei näe otsitavat väljalaset, võid selle CD sisukorra abil andmebaasi "
+"uue lisada."
 
 #: ../root/components/forms.tt:336 ../root/components/forms.tt:345
 msgid ""
@@ -1694,7 +1761,9 @@ msgstr ""
 msgid ""
 "If you have any questions, please review the {faq|FAQs} or "
 "{doc|documentation} before {con|contacting us}. "
-msgstr "Kui sul on küsimusi, vaata palun {faq|KKK}-d ja {doc|dokumentatsiooni}, enne kui meiega {con|ühendust võtad}. "
+msgstr ""
+"Kui sul on küsimusi, vaata palun {faq|KKK}-d ja {doc|dokumentatsiooni}, enne "
+"kui meiega {con|ühendust võtad}. "
 
 #: ../root/release/edit/tracklist.tt:15
 msgid ""
@@ -2002,7 +2071,10 @@ msgid ""
 "MusicBrainz believes strongly in the privacy of its users! Any personal "
 "information you choose to provide will not be sold or shared with anyone "
 "else. For full details, please read our {doc|Privacy Policy}."
-msgstr "MusicBrainz usub tugevalt oma kasutajate privaatsusse. Ükskõik millist sisestatud isiklikku teavet ei müüda ega jagata kellegi teisega. Täielikud üksikasjad leiad meie {doc|privaatsuspõhimõtetest}."
+msgstr ""
+"MusicBrainz usub tugevalt oma kasutajate privaatsusse. Ükskõik millist "
+"sisestatud isiklikku teavet ei müüda ega jagata kellegi teisega. Täielikud "
+"üksikasjad leiad meie {doc|privaatsuspõhimõtetest}."
 
 #: ../root/cdtoc/lookup.tt:99
 msgid "MusicBrainz does not have any CDs with the TOC:"
@@ -2012,7 +2084,9 @@ msgstr "MusicBrainzis pole CD-sid, mille sisukord oleks"
 msgid ""
 "MusicBrainz has one account type for all users. If you represent an artist "
 "or label, please use the above form to create an account."
-msgstr "MusicBrainzis on kõigile kasutajatele sama kontotüüp. Kui esindad artisti või plaadifirmat, kasuta konto loomiseks sedasama ülalolevat vormi."
+msgstr ""
+"MusicBrainzis on kõigile kasutajatele sama kontotüüp. Kui esindad artisti "
+"või plaadifirmat, kasuta konto loomiseks sedasama ülalolevat vormi."
 
 #: ../root/admin/attributes/form.tt:7 ../root/admin/attributes/form.tt:23
 #: ../root/admin/attributes/form.tt:58
@@ -2139,7 +2213,8 @@ msgstr "Ei tüüdata"
 
 #: ../root/release_group/set_cover_art.tt:96
 msgid "No releases have cover art marked as \"Front\", cannot set cover art."
-msgstr "Ühelgi väljalaskel pole esikaanepilti, seega ei saa siin kaanepilti määrata."
+msgstr ""
+"Ühelgi väljalaskel pole esikaanepilti, seega ei saa siin kaanepilti määrata."
 
 #: ../root/release/edit/tracklist.tt:140 ../root/admin/IpLookup.js:38
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:468
@@ -2179,7 +2254,10 @@ msgid ""
 "Note! If you do not know the month or day of release, please leave them "
 "empty.  January 1st is not often the actual release date, please double "
 "check that you have entered the release date correctly."
-msgstr "NB! Kui sa ei tea väljalaskekuud või -päeva, siis palun jäta selle väli tühjaks. 1. jaanuar pole sageli tegelik väljalaskekuupäev — palun kontrolli üle, et sisestatud kuupäev tõesti paika peab."
+msgstr ""
+"NB! Kui sa ei tea väljalaskekuud või -päeva, siis palun jäta selle väli "
+"tühjaks. 1. jaanuar pole sageli tegelik väljalaskekuupäev — palun kontrolli "
+"üle, et sisestatud kuupäev tõesti paika peab."
 
 #: ../root/release/edit/recordings.tt:3
 msgid "Note:"
@@ -2190,7 +2268,10 @@ msgid ""
 "Note: only searches edits that: add or edit relationships, created after "
 "2011-05-16; or which remove relationships, created after 2013-07-08; or "
 "which reorder relationships."
-msgstr "Pane tähele, et otsida saab ainult seoste lisamise või muutmise toimetusi, mis on sisestatud pärast 16.05.2011, ja seoste eemaldamise toimetusi, mis on sisestatud pärast 08.07.2013, ning seoste järjestuse muutmise toimetusi."
+msgstr ""
+"Pane tähele, et otsida saab ainult seoste lisamise või muutmise toimetusi, "
+"mis on sisestatud pärast 16.05.2011, ja seoste eemaldamise toimetusi, mis on "
+"sisestatud pärast 08.07.2013, ning seoste järjestuse muutmise toimetusi."
 
 #: ../root/release/edit/recordings.tt:120
 msgid "Now loading recording associations..."
@@ -2214,13 +2295,17 @@ msgstr ""
 msgid ""
 "Only releases with the same amount of tracks ({n}) as the release the disc "
 "ID is currently attached to are shown."
-msgstr "Näidatakse ainult neid väljalaskeid, millel on {n} lugu (ehk sama palju kui sellel plaadi-ID-l)."
+msgstr ""
+"Näidatakse ainult neid väljalaskeid, millel on {n} lugu (ehk sama palju kui "
+"sellel plaadi-ID-l)."
 
 #: ../root/edit/search_macros.tt:101
 msgid ""
 "Oops! It seems your search parameters are not correct, please double check "
 "your input!"
-msgstr "Paistab, et antud otsinguparameetrid olid valed. Palun vaata sisestatu uuesti üle."
+msgstr ""
+"Paistab, et antud otsinguparameetrid olid valed. Palun vaata sisestatu "
+"uuesti üle."
 
 #: ../root/release/edit/recordings.tt:139 ../root/release/edit/tracklist.tt:24
 msgid "Options"
@@ -2302,7 +2387,12 @@ msgid ""
 "original passwords from this mishap, we are requiring all of our users to "
 "change their passwords. Sorry for the inconvenience. For more information "
 "see {blog|the recent blog post}."
-msgstr "Palun vaheta oma salasõna. Avastasime, et kasutajate paroolide turvaräsid olid meie FTP-saidil ajutiselt allalaaditavad. On küll äärmiselt ebatõenäoline, et keegi sealt algsed paroolid suudaks tuletada, aga igaks juhuks sunnime siiski kõik kasutajad parooli vahetama. Vabandust ebamugavuste pärast. Lisateavet saad vastavast {blog|blogisissekandest}."
+msgstr ""
+"Palun vaheta oma salasõna. Avastasime, et kasutajate paroolide turvaräsid "
+"olid meie FTP-saidil ajutiselt allalaaditavad. On küll äärmiselt "
+"ebatõenäoline, et keegi sealt algsed paroolid suudaks tuletada, aga igaks "
+"juhuks sunnime siiski kõik kasutajad parooli vahetama. Vabandust "
+"ebamugavuste pärast. Lisateavet saad vastavast {blog|blogisissekandest}."
 
 #: ../root/edit/search_macros.tt:421
 msgid "Please choose a condition"
@@ -2312,13 +2402,17 @@ msgstr "Palun vali tingimus"
 msgid ""
 "Please consider adding this release/CD to MusicBrainz. To add this CD, "
 "please choose one of the following two methods:"
-msgstr "Palun kaalu selle väljalaske/CD lisamist MusicBrainzi andmebaasi. Selleks vali üks järgmisest kahest meetodist:"
+msgstr ""
+"Palun kaalu selle väljalaske/CD lisamist MusicBrainzi andmebaasi. Selleks "
+"vali üks järgmisest kahest meetodist:"
 
 #: ../root/release/edit/information.tt:312
 msgid ""
 "Please enter the barcode of the release you are entering, see <a "
 "href=\"{url}\" target=\"_blank\">Barcode</a> for more information."
-msgstr "Palun sisesta lisatava väljalaske vöötkood. Lisateabe saamiseks loe dokumentatsioonilehekülge <a href=\"{url}\" target=\"_blank\">Vöötkood</a>."
+msgstr ""
+"Palun sisesta lisatava väljalaske vöötkood. Lisateabe saamiseks loe "
+"dokumentatsioonilehekülge <a href=\"{url}\" target=\"_blank\">Vöötkood</a>."
 
 #: ../root/account/change_password.tt:13
 msgid "Please enter your old password below, and then your new password."
@@ -2341,7 +2435,8 @@ msgstr "Enne konto loomist loe palun läbi {coc|MusicBrainzi käitumiskoodeks}."
 msgid ""
 "Please see the {doc|Cover Art Types} documentation for a description of "
 "these types."
-msgstr "Nende tüüpide kirjeldused leiad {doc|kaanepilditüüpide} dokumentatsioonist."
+msgstr ""
+"Nende tüüpide kirjeldused leiad {doc|kaanepilditüüpide} dokumentatsioonist."
 
 #: ../root/cdtoc/attach_artist_releases.tt:7
 msgid "Please select the medium you wish to attach this CD TOC to."
@@ -2686,7 +2781,9 @@ msgstr "Abi saamiseks vaata {packaging|ümbrisetüüpide loendit}."
 msgid ""
 "Review the {url|documentation} on release editor seeding and make sure your "
 "data is formatted correctly."
-msgstr "Vaata üle väljalasketoimetile andmete söötmise {url|dokumentatsioon} ja kontrolli, et andmed oleks vormistatud korrektselt."
+msgstr ""
+"Vaata üle väljalasketoimetile andmete söötmise {url|dokumentatsioon} ja "
+"kontrolli, et andmed oleks vormistatud korrektselt."
 
 #: ../root/layout.tt:131
 msgid "Running: <span class=\"tooltip\" title=\"{msg}\">{branch} ({sha})</span>"
@@ -2759,19 +2856,24 @@ msgstr "Vali"
 #: ../root/release/edit/tracklist.tt:123
 msgid ""
 "Select a medium from the search results below and then click \"Add Medium\"."
-msgstr "Vali allolevate otsingutulemuste hulgast sobiv ja klõpsa „Lisa helikandja”."
+msgstr ""
+"Vali allolevate otsingutulemuste hulgast sobiv ja klõpsa „Lisa helikandja”."
 
 #: ../root/cdtoc/move_search.tt:4
 msgid ""
 "Select a release to which the disc ID <code>{discid}</code>. should be moved"
 " to."
-msgstr "Otsi üles väljalase, millele plaadi-ID „<code>{discid}</code>” teisaldada tuleks."
+msgstr ""
+"Otsi üles väljalase, millele plaadi-ID „<code>{discid}</code>” teisaldada "
+"tuleks."
 
 #: ../root/components/forms.tt:360
 msgid ""
 "Select any type from the list to see its description. If the work doesn’t "
 "seem to match any type, just leave this blank."
-msgstr "Teosetüüpide kirjelduse nägemiseks vali loendist mõni neist. Kui tundub, et ükski loetletud tüüp sellele teosele ei sobi, siis jäta see väli tühjaks."
+msgstr ""
+"Teosetüüpide kirjelduse nägemiseks vali loendist mõni neist. Kui tundub, et "
+"ükski loetletud tüüp sellele teosele ei sobi, siis jäta see väli tühjaks."
 
 #: ../root/release/add_cover_art.tt:29
 msgid "Select images..."
@@ -2841,7 +2943,9 @@ msgstr "Esitatud lood:"
 msgid ""
 "Show me {autoedit_select_block} sorted {sort_select_block} that "
 "{match_or_negation_block} {and_vs_or_block} of the following conditions:"
-msgstr "Näidatakse {sort_select_block} {autoedit_select_block}, mis {match_or_negation_block} {and_vs_or_block} järgnevatest tingimustest:"
+msgstr ""
+"Näidatakse {sort_select_block} {autoedit_select_block}, mis "
+"{match_or_negation_block} {and_vs_or_block} järgnevatest tingimustest:"
 
 #: ../root/release/edit/duplicates.tt:2
 msgid "Similar releases"
@@ -2948,7 +3052,9 @@ msgstr "Tehnilised valikud"
 msgid ""
 "The Cover Art Archive is currently experiencing difficulties. Adding images "
 "for this release is unlikely to work at the moment."
-msgstr "Kaanepildiarhiivil on praegu raske aeg. Sellele väljalaskele pildi lisamine tõenäoliselt hetkel ei õnnestu."
+msgstr ""
+"Kaanepildiarhiivil on praegu raske aeg. Sellele väljalaskele pildi lisamine "
+"tõenäoliselt hetkel ei õnnestu."
 
 #: ../root/release/edit/information.tt:334
 msgid "The annotation field functions like a miniature wiki."
@@ -2962,7 +3068,8 @@ msgstr "Sisestatud katalooginumber näeb välja nagu Amazoni ASIN."
 msgid ""
 "The data you have submitted does not make any changes to the data already "
 "present."
-msgstr "Sisestatud andmed ei erine millegi poolest juba olemasolevatest andmetest."
+msgstr ""
+"Sisestatud andmed ei erine millegi poolest juba olemasolevatest andmetest."
 
 #: ../root/release/edit/layout.tt:23
 msgid "The data you’ve seeded contained the following errors:"
@@ -2990,7 +3097,11 @@ msgid ""
 "into the strict structural data schema of MusicBrainz (be it due to "
 "technical limitations that may be addressed later, or because the "
 "information in itself has to be free-text)."
-msgstr "Selle välja eesmärk on hoida teavet, mis ei sobitu MusicBrainzi range struktuuriga andmeskeemiga (olgu siis tehniliste piirangute tõttu, mis ehk millalgi tulevikus kõrvaldatakse, või seepärast, et vajalik teave saabki olla ainult vabateksti kujul)."
+msgstr ""
+"Selle välja eesmärk on hoida teavet, mis ei sobitu MusicBrainzi range "
+"struktuuriga andmeskeemiga (olgu siis tehniliste piirangute tõttu, mis ehk "
+"millalgi tulevikus kõrvaldatakse, või seepärast, et vajalik teave saabki "
+"olla ainult vabateksti kujul)."
 
 #: ../root/layout.tt:71 ../root/layout/index.js:244
 msgid "The server is temporarily in read-only mode for database maintenance."
@@ -3037,7 +3148,9 @@ msgstr ""
 msgid ""
 "There are no disc IDs attached to this release; to find out more about how "
 "to add one, see {doc|How to Add Disc IDs}."
-msgstr "Sellele väljalaskele pole plaadi-ID-sid omistatud. Soovi korral vaata, {doc|kuidas plaadi-ID-d lisada}."
+msgstr ""
+"Sellele väljalaskele pole plaadi-ID-sid omistatud. Soovi korral vaata, {doc|"
+"kuidas plaadi-ID-d lisada}."
 
 #: ../root/artist/split.tt:10
 msgid ""
@@ -3046,7 +3159,12 @@ msgid ""
 "at the bottom of the {alias_uri|aliases} tab and remove all existing "
 "{rel_uri|relationships} instead, which will allow ModBot to automatically "
 "remove this artist in the upcoming days."
-msgstr "Pole ühtegi salvestist, väljalaskerühma, väljalaset ega lugu, mille ainus artist oleks {name}. Kui tahad, et {name} andmebaasist eemaldatakse, siis toimeta kõiki artisti nimekujusid {alias_uri|aliaste} kaardil ja eemalda kõik olemasolevad {rel_uri|seosed}. Nii saab ModBot selle artisti lähipäevil automaatselt andmebaasist eemaldada."
+msgstr ""
+"Pole ühtegi salvestist, väljalaskerühma, väljalaset ega lugu, mille ainus "
+"artist oleks {name}. Kui tahad, et {name} andmebaasist eemaldatakse, siis "
+"toimeta kõiki artisti nimekujusid {alias_uri|aliaste} kaardil ja eemalda "
+"kõik olemasolevad {rel_uri|seosed}. Nii saab ModBot selle artisti lähipäevil "
+"automaatselt andmebaasist eemaldada."
 
 #: ../root/place/edit_form.tt:29
 msgid "These coordinates could not be parsed."
@@ -3054,7 +3172,8 @@ msgstr "Antud koordinaate polnud võimalik parsida."
 
 #: ../root/cdstub/edit_form.tt:9
 msgid "This CD has tracks from more than one artist (e.g. a compilation CD)"
-msgstr "Sel CD-l on lugusid rohkem kui ühelt artistilt (nt on tegu kogumik-CD-ga)"
+msgstr ""
+"Sel CD-l on lugusid rohkem kui ühelt artistilt (nt on tegu kogumik-CD-ga)"
 
 #: ../root/cdtoc/attach_list.tt:54 ../root/cdtoc/attach_list.tt:67
 msgid "This CDTOC is already attached to this medium."
@@ -3084,7 +3203,9 @@ msgstr ""
 
 #: ../root/work/edit_form.tt:56
 msgid "This attribute type is only used for grouping, please select a subtype"
-msgstr "Seda atribuuditüüpi kasutatakse ainult teiste rühmitamiseks — palun vali mõni alltüüp."
+msgstr ""
+"Seda atribuuditüüpi kasutatakse ainult teiste rühmitamiseks — palun vali "
+"mõni alltüüp."
 
 #: ../root/relationship/linkattributetype/form.tt:21
 msgid "This attribute uses free text values"
@@ -3093,7 +3214,9 @@ msgstr ""
 #: ../root/layout.tt:37 ../root/layout/index.js:111
 msgid ""
 "This beta test server allows testing of new features with the live database."
-msgstr "Selles beetatestimisserveris saab katsetada uusi funktsioone pärisandmebaasiga."
+msgstr ""
+"Selles beetatestimisserveris saab katsetada uusi funktsioone "
+"pärisandmebaasiga."
 
 #: ../root/release/edit/tracklist.tt:509
 msgid "This disc contains data tracks at the end"
@@ -3121,21 +3244,29 @@ msgstr "See sündmus jäi ära."
 msgid ""
 "This field is not a place to store general background information about the "
 "release: that kind of information should go in the annotation field."
-msgstr "See väli pole koht, kuhu kirjutada väljalaske üldist taustinfot — see käib annotatsiooni."
+msgstr ""
+"See väli pole koht, kuhu kirjutada väljalaske üldist taustinfot — see käib "
+"annotatsiooni."
 
 #: ../root/artist/edit_credit.tt:12
 msgid ""
 "This form allows you to edit the artist credit \"{ac}\". When the edit is "
 "accepted, all tracks, recordings, releases and release groups using this "
 "artist credit will be update to use the new one."
-msgstr "Siin on võimalik muuta artisti nimekuju „{ac}”. Sisestatava toimetuse rakendamisel uuendatakse automaatselt ka kõik hetkel seda nimekuju kasutavad lood, salvestised, väljalasked ja väljalaskerühmad uuele nimekujule."
+msgstr ""
+"Siin on võimalik muuta artisti nimekuju „{ac}”. Sisestatava toimetuse "
+"rakendamisel uuendatakse automaatselt ka kõik hetkel seda nimekuju kasutavad "
+"lood, salvestised, väljalasked ja väljalaskerühmad uuele nimekujule."
 
 #: ../root/artist/split.tt:29
 msgid ""
 "This form allows you to split {artist} into separate artists. When the edit "
 "is accepted, existing artist credits will be updated, and collaboration "
 "relationships will be removed"
-msgstr "Siin on võimalik {artist} mitmeks eri artistiks eraldada. Sisestatava toimetuse rakendamisel uuendatakse olemasolevad artisti nimekujud ning eemaldatakse koostööseosed."
+msgstr ""
+"Siin on võimalik {artist} mitmeks eri artistiks eraldada. Sisestatava "
+"toimetuse rakendamisel uuendatakse olemasolevad artisti nimekujud ning "
+"eemaldatakse koostööseosed."
 
 #: ../root/admin/attributes/form.tt:73
 msgid "This format can have disc IDs"
@@ -3149,7 +3280,9 @@ msgstr "See on MusicBrainzi arendusserver."
 msgid ""
 "This is a MusicBrainz mirror server. To edit or make changes to the data, "
 "please {uri|return to musicbrainz.org}."
-msgstr "See on MusicBrainzi peegelserver. Andmete lisamiseks või muutmiseks {uri|kasuta palun musicbrainz.org-i}."
+msgstr ""
+"See on MusicBrainzi peegelserver. Andmete lisamiseks või muutmiseks {uri|"
+"kasuta palun musicbrainz.org-i}."
 
 #: ../root/components/common-macros.tt:67 ../root/components/Artwork.js:73
 msgid ""
@@ -3194,7 +3327,9 @@ msgstr ""
 msgid ""
 "This medium has a disc ID, pregap track, or data track, so you can only "
 "change the format to one that can have disc IDs."
-msgstr "Sellel helikandjal on plaadi-ID, pregap- või andmerada, seega saab formaadi vahetada ainult sellise vastu, millel saab plaadi-ID olla."
+msgstr ""
+"Sellel helikandjal on plaadi-ID, pregap- või andmerada, seega saab formaadi "
+"vahetada ainult sellise vastu, millel saab plaadi-ID olla."
 
 #: ../root/release/edit/tracklist.tt:363 ../root/release/edit/tracklist.tt:373
 msgid ""
@@ -3248,7 +3383,12 @@ msgid ""
 "separate real release. It should not be used to denote bootlegs, "
 "mixtape/street albums, demos, or digital albums. Be sure to link to the "
 "corresponding real release with the {url|transl(iter)ation relationship}."
-msgstr "See väljalaskestaatus on mõeldud kasutamiseks loo- ja väljalaskepealkirjade mitteametlike tõlgete ja translitereeringute jaoks. See ei tähista reaalselt ilmunud väljalaset ja seda ei tohiks kasutada piraattoodangu, miksilintide/tänavaalbumite, demode või digitaalkujul albumite märkimiseks. Kindlasti tuleb lisada {url|tõlke/translitereeringu seos} vastava reaalse väljalaskega."
+msgstr ""
+"See väljalaskestaatus on mõeldud kasutamiseks loo- ja väljalaskepealkirjade "
+"mitteametlike tõlgete ja translitereeringute jaoks. See ei tähista reaalselt "
+"ilmunud väljalaset ja seda ei tohiks kasutada piraattoodangu, miksilintide/"
+"tänavaalbumite, demode või digitaalkujul albumite märkimiseks. Kindlasti "
+"tuleb lisada {url|tõlke/translitereeringu seos} vastava reaalse väljalaskega."
 
 #: ../root/release/edit/tracklist.tt:366
 msgid ""
@@ -3302,7 +3442,9 @@ msgstr "Pealkiri:"
 msgid ""
 "To create a new tracklist, use an existing medium or import a disc from a CD"
 " stub, select the appropriate tab."
-msgstr "Uue lugude nimekirja loomiseks olemasoleva helikandja järgi või plaadi importimiseks CD-mustandist vali vastav kaart."
+msgstr ""
+"Uue lugude nimekirja loomiseks olemasoleva helikandja järgi või plaadi "
+"importimiseks CD-mustandist vali vastav kaart."
 
 #: ../root/release/edit/information.tt:105
 msgid "To edit types, please {edit_page|edit the release group}."
@@ -3577,7 +3719,10 @@ msgid ""
 "Warning! \"1990-10-25\" is the bogus date that Amazon gives to all releases "
 "for which they don't know the actual date. <strong>Please use this date only"
 " if you're certain this date is correct!</strong>"
-msgstr "Hoiatus! „25.10.1990” on libaväljalaskekuupäev, mille Amazon määrab kõigile väljalasetele, mille tegelikku väljalaskekuupäeva nad ei tea. <strong>Enne selle sisestamist palun veendu, et see on tõesti õige.</strong>"
+msgstr ""
+"Hoiatus! „25.10.1990” on libaväljalaskekuupäev, mille Amazon määrab kõigile "
+"väljalasetele, mille tegelikku väljalaskekuupäeva nad ei tea. <strong>Enne "
+"selle sisestamist palun veendu, et see on tõesti õige.</strong>"
 
 #: ../root/release/edit/tracklist.tt:345 ../root/release/edit/tracklist.tt:408
 msgid "Warning:"
@@ -3592,7 +3737,9 @@ msgid ""
 "We found discs matching the information you requested, listed below. If none"
 " of these are the release you are looking for, please see the instructions "
 "below."
-msgstr "Päringule vastasid alltoodud plaadid. Kui ükski neist pole otsitav väljalase, siis järgi juhiseid allpool."
+msgstr ""
+"Päringule vastasid alltoodud plaadid. Kui ükski neist pole otsitav "
+"väljalase, siis järgi juhiseid allpool."
 
 #: ../root/cdtoc/lookup.tt:8
 msgid ""
@@ -3616,7 +3763,9 @@ msgid ""
 "When you are ready to merge these, just click the Merge button. You may "
 "still add more to this merge queue by simply browsing to the entities page "
 "and following the merge link."
-msgstr "Kui oled valmis neid mestima, klõpsa lihtsalt „Mesti”. Rohkemate mestitavate lisamiseks liigu nende lehele ja klõpsa linki „Mesti”."
+msgstr ""
+"Kui oled valmis neid mestima, klõpsa lihtsalt „Mesti”. Rohkemate mestitavate "
+"lisamiseks liigu nende lehele ja klõpsa linki „Mesti”."
 
 #: ../root/layout.tt:112 ../root/layout/components/Footer.js:27
 msgid "Wiki"
@@ -3672,13 +3821,17 @@ msgstr "Jah"
 msgid ""
 "You are about to add an ISRC to this recording. The ISRC must be entered in "
 "standard <code>CCXXXYYNNNNN</code> format:"
-msgstr "Hakkasid sisestama sellele salvestisele ISRC-d. ISRC tuleb sisestada standardses <code>CCXXXYYNNNNN</code> vormingus:"
+msgstr ""
+"Hakkasid sisestama sellele salvestisele ISRC-d. ISRC tuleb sisestada "
+"standardses <code>CCXXXYYNNNNN</code> vormingus:"
 
 #: ../root/components/forms.tt:309
 msgid ""
 "You are about to add an ISWC to this work. The ISWC must be entered in "
 "standard <code>T-DDD.DDD.DDD-C</code> format:"
-msgstr "Hakkasid sisestama sellele teosele ISWC-d. ISWC tuleb sisestada standardses <code>T-DDD.DDD.DDD-C</code> vormingus:"
+msgstr ""
+"Hakkasid sisestama sellele teosele ISWC-d. ISWC tuleb sisestada standardses "
+"<code>T-DDD.DDD.DDD-C</code> vormingus:"
 
 #: ../root/cdtoc/attach_artist_releases.tt:5
 msgid "You are viewing releases by {artist}."
@@ -3692,7 +3845,12 @@ msgid ""
 "main MusicBrainz database until an editor decides to take your submitted "
 "information, ensures it meets our standards and inserts it into the main "
 "database."
-msgstr "Võid sisestada CD andmed nii, nagu need kirjas on, muretsemata MusicBrainzi reeglite pärast. Niiviisi sisestatud CD-d on saadaval ka klientprogrammidele. MusicBrainzi põhiandmebaasi jõuavad need aga alles siis, kui mõni toimetaja otsustab sisestatud andmed hindava pilguga üle vaadata, reeglitele vastavaks teha ja sisestada."
+msgstr ""
+"Võid sisestada CD andmed nii, nagu need kirjas on, muretsemata MusicBrainzi "
+"reeglite pärast. Niiviisi sisestatud CD-d on saadaval ka "
+"klientprogrammidele. MusicBrainzi põhiandmebaasi jõuavad need aga alles "
+"siis, kui mõni toimetaja otsustab sisestatud andmed hindava pilguga üle "
+"vaadata, reeglitele vastavaks teha ja sisestada."
 
 #: ../root/release/edit/tracklist.tt:12
 msgid ""
@@ -3715,7 +3873,9 @@ msgstr "Hetkel on mestimiseks valitud järgnev:"
 msgid ""
 "You have used the {valink|Various Artists} special purpose artist on this "
 "recording."
-msgstr "Oled selle salvestise jaoks kasutanud eriotstarbelist artisti „{valink|erinevad esitajad}”."
+msgstr ""
+"Oled selle salvestise jaoks kasutanud eriotstarbelist artisti „{valink|"
+"erinevad esitajad}”."
 
 #: ../root/release/edit/editnote.tt:10
 #: ../lib/MusicBrainz/Server/Controller/EditNote.pm:187
@@ -3748,7 +3908,9 @@ msgstr ""
 msgid ""
 "You must provide a working email address if you wish to contribute to the "
 "database."
-msgstr "Kui soovid andmebaasile kaastööd teha, pead sisestama töötava e-posti aadressi."
+msgstr ""
+"Kui soovid andmebaasile kaastööd teha, pead sisestama töötava e-posti "
+"aadressi."
 
 #: ../root/release/edit/editnote.tt:32
 msgid "You must provide an edit note when adding a release."
@@ -3790,7 +3952,9 @@ msgstr ""
 msgid ""
 "Your search took too long and was cancelled. It may help to be more "
 "specific, or to try again."
-msgstr "Otsing võttis liiga kaua aega ja tühistati. Võid uuesti proovida või üritada otsingut täpsustada."
+msgstr ""
+"Otsing võttis liiga kaua aega ja tühistati. Võid uuesti proovida või üritada "
+"otsingut täpsustada."
 
 #: ../root/account/register.tt:32
 msgid "Your username will be publicly visible."
@@ -3822,14 +3986,19 @@ msgstr ""
 msgid ""
 "You’ve seeded some Disc IDs that aren’t matched to any medium. If this is "
 "wrong, use the “Attach Disc ID” options below."
-msgstr "Söödeti plaadi-ID-d, millele ei vasta ükski helikandja. Kui see on vale, kasuta allpool valikuid „Plaadi-ID omistamine”."
+msgstr ""
+"Söödeti plaadi-ID-d, millele ei vasta ükski helikandja. Kui see on vale, "
+"kasuta allpool valikuid „Plaadi-ID omistamine”."
 
 #: ../root/release/edit/tracklist.tt:409
 msgid ""
 "You’ve used the {valink|Various Artists} special purpose artist on some "
 "tracks below. {valink|Various Artists} should very rarely be used on tracks;"
 " please make sure the artists have been entered correctly."
-msgstr "Oled mõne alloleva loo jaoks kasutanud eriotstarbelist artisti „{valink|erinevad esitajad}”. Lugude puhul sobib see väga harva, seega palun vaata, et artistid oleks õigesti sisestatud."
+msgstr ""
+"Oled mõne alloleva loo jaoks kasutanud eriotstarbelist artisti „{valink|"
+"erinevad esitajad}”. Lugude puhul sobib see väga harva, seega palun vaata, "
+"et artistid oleks õigesti sisestatud."
 
 #: ../root/components/common-macros.tt:186
 #: ../lib/MusicBrainz/Server/Edit/Relationship/RemoveLinkType.pm:86
@@ -4120,7 +4289,9 @@ msgstr "„{entity}”, artist: {artist}"
 msgid ""
 "{link|New notes} have been left on some of your edits. Please make sure to "
 "read them and respond if necessary."
-msgstr "Mõnele sinu toimetusele on lisatud {link|uusi märkeid}. Palun loe need läbi ja kui vaja, vasta."
+msgstr ""
+"Mõnele sinu toimetusele on lisatud {link|uusi märkeid}. Palun loe need läbi "
+"ja kui vaja, vasta."
 
 #: ../root/components/common-macros.tt:260
 #: ../root/static/scripts/common/components/EntityLink.js:262
@@ -4167,7 +4338,9 @@ msgstr "{user}"
 msgid ""
 "{valink|Various Artists} should very rarely be used on recordings, make sure"
 " that the artist has been entered correctly."
-msgstr "„{valink|Erinevad esitajad}” sobib väga harva salvestise artistiks, palun vaata, et artist oleks õigesti sisestatud."
+msgstr ""
+"„{valink|Erinevad esitajad}” sobib väga harva salvestise artistiks, palun "
+"vaata, et artist oleks õigesti sisestatud."
 
 #: ../root/components/common-macros.tt:550
 #: ../root/static/scripts/common/i18n/addColon.js:13
@@ -4210,7 +4383,9 @@ msgid_plural ""
 "Thank you, your {num_edits} {edit_url|edits} ({edit_ids}) have been "
 "automatically accepted and applied."
 msgstr[0] "Aitäh, {edit_url|toimetus} ({edit_ids}) on vastuvõetud ja rakendatud."
-msgstr[1] "Aitäh, {num_edits} {edit_url|toimetust} ({edit_ids}) on vastuvõetud ja rakendatud."
+msgstr[1] ""
+"Aitäh, {num_edits} {edit_url|toimetust} ({edit_ids}) on vastuvõetud ja "
+"rakendatud."
 
 #: ../lib/MusicBrainz/Server/Controller.pm:127
 #, perl-brace-format
@@ -4220,8 +4395,12 @@ msgid ""
 msgid_plural ""
 "Thank you, your {num_edits} {edit_url|edits} ({edit_ids}) have been entered "
 "into the edit queue for peer review."
-msgstr[0] "Aitäh, {edit_url|toimetus} ({edit_ids}) on sisestatud ja ootab teistelt kasutajatelt ülevaatamist."
-msgstr[1] "Aitäh, {num_edits} {edit_url|toimetust} ({edit_ids}) on sisestatud ja ootab teistelt kasutajatelt ülevaatamist."
+msgstr[0] ""
+"Aitäh, {edit_url|toimetus} ({edit_ids}) on sisestatud ja ootab teistelt "
+"kasutajatelt ülevaatamist."
+msgstr[1] ""
+"Aitäh, {num_edits} {edit_url|toimetust} ({edit_ids}) on sisestatud ja ootab "
+"teistelt kasutajatelt ülevaatamist."
 
 #: ../lib/MusicBrainz/Server/Controller.pm:135
 #, perl-brace-format
@@ -4233,8 +4412,13 @@ msgid_plural ""
 "Thank you, your {num_edits} {edit_url|edits} ({edit_ids}) have been entered,"
 " with {num_open_edits} in the edit queue for peer review, and the rest "
 "automatically accepted and applied."
-msgstr[0] "Aitäh, {edit_url|toimetus} ({edit_ids}) on sisestatud, neist {num_open_edits} ootab teistelt kasutajatelt ülevaatamist, ülejäänud rakendati kohe."
-msgstr[1] "Aitäh, {num_edits} {edit_url|toimetust} ({edit_ids}) on sisestatud, neist {num_open_edits} ootab teistelt kasutajatelt ülevaatamist, ülejäänud rakendati kohe."
+msgstr[0] ""
+"Aitäh, {edit_url|toimetus} ({edit_ids}) on sisestatud, neist {num_open_edits}"
+" ootab teistelt kasutajatelt ülevaatamist, ülejäänud rakendati kohe."
+msgstr[1] ""
+"Aitäh, {num_edits} {edit_url|toimetust} ({edit_ids}) on sisestatud, neist "
+"{num_open_edits} ootab teistelt kasutajatelt ülevaatamist, ülejäänud "
+"rakendati kohe."
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:57
 msgid "The user ID is missing or is in an invalid format."
@@ -4272,7 +4456,10 @@ msgid ""
 "We were unable to send login information to your email address.  Please try "
 "again, however if you continue to experience difficulty contact us at "
 "support@musicbrainz.org."
-msgstr "Sisselogimisteavet ei õnnestunud sinu e-postile saata. Palun proovi uuesti, aga kui probleem siiski püsib, siis saada kiri aadressil support@musicbrainz.org."
+msgstr ""
+"Sisselogimisteavet ei õnnestunud sinu e-postile saata. Palun proovi uuesti, "
+"aga kui probleem siiski püsib, siis saada kiri aadressil support@musicbrainz."
+"org."
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:199
 msgid "There is no user with this username"
@@ -4286,7 +4473,9 @@ msgstr "Selle nime ja e-postiga kasutajat pole."
 msgid ""
 "We can't send a password reset email, because we have no email on record for"
 " this user."
-msgstr "Parooli lähtestamise kirja ei saa saata, kuna kasutaja e-post pole andmebaasis."
+msgstr ""
+"Parooli lähtestamise kirja ei saa saata, kuna kasutaja e-post pole "
+"andmebaasis."
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:237
 msgid "Your password has been reset."
@@ -4314,7 +4503,9 @@ msgid ""
 "We have sent you a verification email to <code>{email}</code>. Please check "
 "your mailbox and click on the link in the email to verify the new email "
 "address."
-msgstr "Saatsime sulle kinnituskirja aadressil <code>{email}</code>. Palun vaata oma postkasti ning klõpsa uue e-postiaadressi kinnitamiseks kirjas olevat linki."
+msgstr ""
+"Saatsime sulle kinnituskirja aadressil <code>{email}</code>. Palun vaata oma "
+"postkasti ning klõpsa uue e-postiaadressi kinnitamiseks kirjas olevat linki."
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:455
 msgid "Your password has been changed."
@@ -4339,7 +4530,8 @@ msgstr "Kasutaja andmed on edukalt muudetud."
 #: ../lib/MusicBrainz/Server/Controller/Admin.pm:148
 msgid ""
 "Banner updated. Remember that each server has its own, independent banner."
-msgstr "Päisesõnum uuendatud. Pea meeles, et igal serveril on omaenda päisesõnum."
+msgstr ""
+"Päisesõnum uuendatud. Pea meeles, et igal serveril on omaenda päisesõnum."
 
 #: ../lib/MusicBrainz/Server/Controller/Admin.pm:184
 #: ../lib/MusicBrainz/Server/Controller/Admin.pm:250
@@ -4544,7 +4736,8 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/Role/Annotation.pm:230
 msgid "The old and new annotation ids must be unique, positive integers."
-msgstr "Annotatsiooni vana ja uus ID peavad olema unikaalsed positiivsed täisarvud."
+msgstr ""
+"Annotatsiooni vana ja uus ID peavad olema unikaalsed positiivsed täisarvud."
 
 #: ../lib/MusicBrainz/Server/Controller/Role/EditRelationships.pm:221
 #: ../root/layout/components/sidebar/SidebarEndDate.js:38
@@ -4571,7 +4764,9 @@ msgstr ""
 msgid ""
 "Our Redis server appears to be down; some features may not work as intended "
 "or expected."
-msgstr "Paistab, et meie Redise-server on maas, mistõttu mõned asjad ei pruugi korralikult töötada."
+msgstr ""
+"Paistab, et meie Redise-server on maas, mistõttu mõned asjad ei pruugi "
+"korralikult töötada."
 
 #: ../lib/MusicBrainz/Server/Controller/Series.pm:152
 msgid "Series that have different entity types cannot be merged."
@@ -4601,7 +4796,9 @@ msgstr "E-kiri saadetud"
 msgid ""
 "Your email has been successfully sent! Click {link|here} to continue to "
 "{user}'s profile."
-msgstr "Sinu e-kiri on edukalt saadetud. Kasutaja {user} lehele minemiseks klõpsa {link|siin}."
+msgstr ""
+"Sinu e-kiri on edukalt saadetud. Kasutaja {user} lehele minemiseks klõpsa "
+"{link|siin}."
 
 #: ../lib/MusicBrainz/Server/Controller/User.pm:386
 msgid "Your message could not be sent"
@@ -4641,7 +4838,9 @@ msgstr ""
 msgid ""
 "The Cover Art Archive has had a takedown request in the past for this "
 "release, so we are unable to allow any more uploads."
-msgstr "Kaanepildiarhiivile esitati kunagi taotlus kaanepildi eemaldamiseks sellelt väljalaskelt, seega ei tohi me lubada sellele uue kaanepildi üleslaadimist."
+msgstr ""
+"Kaanepildiarhiivile esitati kunagi taotlus kaanepildi eemaldamiseks sellelt "
+"väljalaskelt, seega ei tohi me lubada sellele uue kaanepildi üleslaadimist."
 
 #: ../lib/MusicBrainz/Server/Controller/WS/js.pm:451
 #, perl-brace-format
@@ -4655,13 +4854,17 @@ msgstr ""
 msgid ""
 "You must be logged in to submit edits. {url|Log in} first, and then try "
 "submitting your edits again."
-msgstr "Toimetamiseks pead olema sisselogitud. {url|Logi sisse} ja proovi siis uuesti oma toimetust sisestada."
+msgstr ""
+"Toimetamiseks pead olema sisselogitud. {url|Logi sisse} ja proovi siis "
+"uuesti oma toimetust sisestada."
 
 #: ../lib/MusicBrainz/Server/ControllerUtils/Delete.pm:25
 msgid ""
 "Since your edit adding this object was still open, that edit has been "
 "cancelled instead of opening a new edit."
-msgstr "Kuna selle olemi lisas sinu enda ikka veel lahtine toimetus, siis uue toimetuse sisestamise asemel tühistati too."
+msgstr ""
+"Kuna selle olemi lisas sinu enda ikka veel lahtine toimetus, siis uue "
+"toimetuse sisestamise asemel tühistati too."
 
 #: ../lib/MusicBrainz/Server/Data/CDStub.pm:115
 msgid "No title provided"
@@ -5859,7 +6062,9 @@ msgstr "Palun sisesta {credit} jaoks artistinimi."
 msgid ""
 "Artist \"{artist}\" is unlinked, please select an existing artist. You may "
 "need to add a new artist to MusicBrainz first."
-msgstr "{artist} pole lingitud ühegi andmebaasis leiduva artistiga — palun vali mõni olemasolev või lisa uus."
+msgstr ""
+"{artist} pole lingitud ühegi andmebaasis leiduva artistiga — palun vali mõni "
+"olemasolev või lisa uus."
 
 #: ../lib/MusicBrainz/Server/Form/Field/ArtistCredit.pm:63
 msgid "Please add an artist name for each credit."
@@ -5951,7 +6156,8 @@ msgstr "Iga seose jaoks tuleb valida tüüp ja sihtolem."
 
 #: ../lib/MusicBrainz/Server/Form/Field/Setlist.pm:15
 msgid "Please ensure all lines start with @, * or #, followed by a space."
-msgstr "Palun vaata, et iga rea algul oleks kas @, * või # ning selle järel tühik."
+msgstr ""
+"Palun vaata, et iga rea algul oleks kas @, * või # ning selle järel tühik."
 
 #: ../lib/MusicBrainz/Server/Form/Field/Text.pm:21
 msgid "The characters you’ve entered are invalid or not allowed."
@@ -6284,20 +6490,26 @@ msgstr "(Erijuhtum)"
 msgid ""
 "An album release primarily consists of previously unreleased material. This "
 "includes album re-issues, with or without bonus tracks."
-msgstr "Album koosneb põhiliselt varem avaldamata materjalist. See hõlmab siiski ka albumite kordusväljalaskeid, nii lisalugudega kui ilma."
+msgstr ""
+"Album koosneb põhiliselt varem avaldamata materjalist. See hõlmab siiski ka "
+"albumite kordusväljalaskeid, nii lisalugudega kui ilma."
 
 #: ../lib/MusicBrainz/Server/Release.pm:32
 msgid ""
 "A single typically has one main song and possibly a handful of additional "
 "tracks or remixes of the main track. A single is usually named after its "
 "main song."
-msgstr "Singlil on tavaliselt üks põhilugu ja vahel ka mõni lisalugu või põhiloo remiks. Singli pealkiri on tavaliselt sama, mis põhilool."
+msgstr ""
+"Singlil on tavaliselt üks põhilugu ja vahel ka mõni lisalugu või põhiloo "
+"remiks. Singli pealkiri on tavaliselt sama, mis põhilool."
 
 #: ../lib/MusicBrainz/Server/Release.pm:33
 msgid ""
 "An EP is an Extended Play release and often contains the letters EP in the "
 "title."
-msgstr "EP (ingl Extended Play) on tavaliselt albumi ja singli vahepealse kestusega väljalase; selle pealkirjas on tihti „EP”."
+msgstr ""
+"EP (ingl Extended Play) on tavaliselt albumi ja singli vahepealse kestusega "
+"väljalase; selle pealkirjas on tihti „EP”."
 
 #: ../lib/MusicBrainz/Server/Release.pm:34
 msgid ""
@@ -6309,7 +6521,9 @@ msgstr "Kogumik sisaldab varem avaldatud lugusid ühelt või mitmelt artistilt."
 msgid ""
 "A soundtrack is the musical score to a movie, TV series, stage show, "
 "computer game etc."
-msgstr "Saatemuusika on filmis, telesarjas, teatrietenduses, arvutimängus vm kasutatud muusika."
+msgstr ""
+"Saatemuusika on filmis, telesarjas, teatrietenduses, arvutimängus vm "
+"kasutatud muusika."
 
 #: ../lib/MusicBrainz/Server/Release.pm:36
 msgid "Non-music spoken word releases."
@@ -6321,7 +6535,8 @@ msgstr "Intervjuu-väljalase sisaldab ainult intervjuud artistiga."
 
 #: ../lib/MusicBrainz/Server/Release.pm:38
 msgid "An audiobook is a book read by a narrator without music."
-msgstr "Heliraamat on ilma muusikata väljalase, kus jutustaja raamatut ette loeb."
+msgstr ""
+"Heliraamat on ilma muusikata väljalase, kus jutustaja raamatut ette loeb."
 
 #: ../lib/MusicBrainz/Server/Release.pm:39
 msgid "A release that was recorded live."
@@ -6339,25 +6554,33 @@ msgstr "Igasugune muu väljalase, mis ei sobi ühtegi teise kategooriasse."
 msgid ""
 "Any release officially sanctioned by the artist and/or their record company."
 " (Most releases will fit into this category.)"
-msgstr "Igasugune väljalase, mille on heaks kiitnud artist ja/või nende plaadifirma. Sellesse kategooriasse sobib enamik väljalaskeid."
+msgstr ""
+"Igasugune väljalase, mille on heaks kiitnud artist ja/või nende plaadifirma. "
+"Sellesse kategooriasse sobib enamik väljalaskeid."
 
 #: ../lib/MusicBrainz/Server/Release.pm:44
 msgid ""
 "A giveaway release or a release intended to promote an upcoming official "
 "release. (e.g. prerelease albums or releases included with a magazine)"
-msgstr "Tasuta jagatud või peatse ametliku väljalaske reklaamimiseks mõeldud väljalase, nt albumi eelväljalase või ajakirjaga kaasas olnud väljalase."
+msgstr ""
+"Tasuta jagatud või peatse ametliku väljalaske reklaamimiseks mõeldud "
+"väljalase, nt albumi eelväljalase või ajakirjaga kaasas olnud väljalase."
 
 #: ../lib/MusicBrainz/Server/Release.pm:45
 msgid ""
 "An unofficial/underground release that was not sanctioned by the artist "
 "and/or the record company."
-msgstr "Mitteametlik või põrandaalune väljalase, mida pole heaks kiitnud artist ega nende plaadifirma."
+msgstr ""
+"Mitteametlik või põrandaalune väljalase, mida pole heaks kiitnud artist ega "
+"nende plaadifirma."
 
 #: ../lib/MusicBrainz/Server/Release.pm:46
 msgid ""
 "A pseudo-release is a duplicate release for translation/transliteration "
 "purposes."
-msgstr "Pseudoväljalase on tõlgitud või translitereeritud pealkirjadega duplikaatväljalase."
+msgstr ""
+"Pseudoväljalase on tõlgitud või translitereeritud pealkirjadega "
+"duplikaatväljalase."
 
 #: ../lib/MusicBrainz/Server/Translation.pm:253
 #: ../root/static/scripts/common/i18n/commaList.js:24
@@ -6401,13 +6624,18 @@ msgid ""
 "We have not received a donation from you recently. If you have just made a "
 "PayPal donation, then we have not received a notification from PayPal yet. "
 "Please wait a few minutes and reload this page to check again."
-msgstr "Me pole sinult ammu annetust saanud. Kui annetasid äsja PayPali kaudu, siis pole me veel neilt selle kohta teadet saanud. Kontrollimiseks oota palun paar minutit ja laadi siis see leht uuesti."
+msgstr ""
+"Me pole sinult ammu annetust saanud. Kui annetasid äsja PayPali kaudu, siis "
+"pole me veel neilt selle kohta teadet saanud. Kontrollimiseks oota palun "
+"paar minutit ja laadi siis see leht uuesti."
 
 #: ../root/account/Donation.js:52
 msgid ""
 "If you would like to make a donation, {donate|you can do that here}. If you "
 "have donated, but you are still being nagged, please {contact|contact us}."
-msgstr "Kui soovid annetada, {donate|saad seda teha siin}. Kui oled juba annetanud, aga sind tüüdatakse ikkagi, siis palun {contact|võta ühendust}."
+msgstr ""
+"Kui soovid annetada, {donate|saad seda teha siin}. Kui oled juba annetanud, "
+"aga sind tüüdatakse ikkagi, siis palun {contact|võta ühendust}."
 
 #: ../root/account/Donation.js:62
 msgid "Thank you for contributing to MusicBrainz."
@@ -6429,7 +6657,8 @@ msgstr "Profiili muutmine"
 #: ../root/account/EditProfile.js:39
 msgid ""
 "See also your {uri|user preferences}, which include your privacy settings."
-msgstr "Vaata ka oma {uri|kasutaja eelistusi}, kus on muu hulgas privaatsusseaded."
+msgstr ""
+"Vaata ka oma {uri|kasutaja eelistusi}, kus on muu hulgas privaatsusseaded."
 
 #: ../root/account/EmailVerificationStatus.js:19
 msgid "Email Verification"
@@ -6439,7 +6668,9 @@ msgstr "E-posti kinnitus"
 msgid ""
 "Thank you, your email address has now been verified! If you still can't "
 "edit, please try to log out and log in again."
-msgstr "Sinu e-posti aadress on nüüd kinnitatud. Kui sa ikka veel toimetada ei saa, proovi välja ja uuesti sisse logida."
+msgstr ""
+"Sinu e-posti aadress on nüüd kinnitatud. Kui sa ikka veel toimetada ei saa, "
+"proovi välja ja uuesti sisse logida."
 
 #: ../root/account/LostPassword.js:29 ../root/account/LostPassword.js:30
 #: ../root/account/LostPasswordSent.js:14
@@ -6451,7 +6682,10 @@ msgid ""
 "Enter your username and email below. We will send you an email with a link "
 "to reset your password. If you have forgotten your username, {link|retrieve "
 "it} first and then reset your password."
-msgstr "Sisesta allpool oma kasutajanimi ja e-post. Saadame sulle e-kirja koos lingiga oma salasõna lähtestamiseks. Kui oled oma kasutajanime ära unustanud, lase esmalt see {link|välja otsida} ja siis lähtesta oma salasõna."
+msgstr ""
+"Sisesta allpool oma kasutajanimi ja e-post. Saadame sulle e-kirja koos "
+"lingiga oma salasõna lähtestamiseks. Kui oled oma kasutajanime ära "
+"unustanud, lase esmalt see {link|välja otsida} ja siis lähtesta oma salasõna."
 
 #: ../root/account/LostPassword.js:50 ../root/account/LostUsername.js:37
 #: ../root/admin/EmailSearch.js:68 ../root/admin/components/UserList.js:32
@@ -6471,7 +6705,9 @@ msgid ""
 "We've sent you instructions on how to reset your password. If you don't "
 "receive this email or still have problems logging in, please {link|contact "
 "us}."
-msgstr "Saatsime sulle juhised oma parooli lähtestamiseks. Kui kiri kohale ei jõua või kui sisselogimine endiselt ei õnnestu, siis {link|võta ühendust}."
+msgstr ""
+"Saatsime sulle juhised oma parooli lähtestamiseks. Kui kiri kohale ei jõua "
+"või kui sisselogimine endiselt ei õnnestu, siis {link|võta ühendust}."
 
 #: ../root/account/LostUsername.js:27 ../root/account/LostUsername.js:28
 #: ../root/account/LostUsernameSent.js:14
@@ -6482,14 +6718,18 @@ msgstr "Unustatud kasutajanimi"
 msgid ""
 "Enter your email address below and we will send you an email with your "
 "MusicBrainz account information."
-msgstr "Sisesta allpool oma e-post ja sulle saadetakse kiri sinu MusicBrainzi kontoteabega."
+msgstr ""
+"Sisesta allpool oma e-post ja sulle saadetakse kiri sinu MusicBrainzi "
+"kontoteabega."
 
 #: ../root/account/LostUsernameSent.js:17
 msgid ""
 "We've sent you information about your MusicBrainz account. If you don't "
 "receive this email or still have problems logging in, please {link|contact "
 "us}."
-msgstr "Saatsime sulle sinu MusicBrainzi konto kohta kirja. Kui see kohale ei jõua või kui sisselogimine endiselt ei õnnestu, siis {link|võta ühendust}."
+msgstr ""
+"Saatsime sulle sinu MusicBrainzi konto kohta kirja. Kui see kohale ei jõua "
+"või kui sisselogimine endiselt ei õnnestu, siis {link|võta ühendust}."
 
 #: ../root/account/Preferences.js:34 ../root/account/PreferencesSaved.js:18
 #: ../root/components/UserAccountTabs.js:80
@@ -6500,7 +6740,9 @@ msgstr "Eelistused"
 msgid ""
 "Your preferences have been saved. Click {link|here} to continue to your user"
 " page."
-msgstr "Sinu eelistused on salvestatud. Oma kasutajalehele minemiseks klõpsa {link|siin}."
+msgstr ""
+"Sinu eelistused on salvestatud. Oma kasutajalehele minemiseks klõpsa "
+"{link|siin}."
 
 #: ../root/account/applications/Edit.js:21
 #: ../root/account/applications/Edit.js:22
@@ -6548,7 +6790,12 @@ msgid ""
 "account. These are the applications that you have authorized to access your "
 "MusicBrainz account. If you no longer use some of the applications, you can "
 "revoke their access."
-msgstr "Mõned rakendused ja veebilehed võimaldavad juurdepääsu privaatsetele andmetele MusicBrainzis või andmete edastamist MusicBrainzi, kui annad neile loa oma konto juurde pääseda. Siin on rakendused, millele oled andnud juurdepääsuloa oma MusicBrainzi kontole. Kui sa mõnda rakendust enam ei kasuta, võid selle loa tühistada."
+msgstr ""
+"Mõned rakendused ja veebilehed võimaldavad juurdepääsu privaatsetele "
+"andmetele MusicBrainzis või andmete edastamist MusicBrainzi, kui annad neile "
+"loa oma konto juurde pääseda. Siin on rakendused, millele oled andnud "
+"juurdepääsuloa oma MusicBrainzi kontole. Kui sa mõnda rakendust enam ei "
+"kasuta, võid selle loa tühistada."
 
 #: ../root/account/applications/Index.js:103
 #: ../root/account/applications/Index.js:139
@@ -6642,7 +6889,9 @@ msgstr ""
 msgid ""
 "An email has been sent to {addr}. Please check your mailbox and click on the"
 " link in the email to verify your email address."
-msgstr "E-kiri saadeti aadressil {addr}. Palun vaata oma postkasti ning klõpsa uue aadressi kinnitamiseks kirjas olevat linki."
+msgstr ""
+"E-kiri saadeti aadressil {addr}. Palun vaata oma postkasti ning klõpsa uue "
+"aadressi kinnitamiseks kirjas olevat linki."
 
 #: ../root/account/sso/DiscourseUnconfirmedEmailAddress.js:13
 #: ../root/account/sso/DiscourseUnconfirmedEmailAddress.js:14
@@ -6661,7 +6910,9 @@ msgstr ""
 msgid ""
 "This will set the banner message that is shown at the top of each page. An "
 "empty string removes the banner."
-msgstr "Siin saab määrata sõnumi, mida näidatakse iga lehekülje ülaosas. Tühi väli eemaldab päisesõnumi."
+msgstr ""
+"Siin saab määrata sõnumi, mida näidatakse iga lehekülje ülaosas. Tühi väli "
+"eemaldab päisesõnumi."
 
 #: ../root/admin/EditBanner.js:36
 msgid "Banner message"
@@ -6923,7 +7174,9 @@ msgstr "Transklusioonitabel"
 msgid ""
 "Read the {doc|WikiDocs} documentation for an overview of how transclusion "
 "works."
-msgstr "Transklusiooni tööpõhimõtte ülevaate leiad {doc|WikiDocsi} dokumentatsioonist."
+msgstr ""
+"Transklusiooni tööpõhimõtte ülevaate leiad {doc|WikiDocsi} "
+"dokumentatsioonist."
 
 #: ../root/admin/wikidoc/WikiDocIndex.js:164
 msgid "Add a new entry"
@@ -6939,7 +7192,10 @@ msgid ""
 " matches the page name, it will take the version number and provide whatever"
 " page is associated with it. Make sure to double check your work when "
 "updating a page!"
-msgstr "<strong>Pane tähele:</strong> MediaWiki ei kontrolli, kas versiooninumber vastab lehekülje nimele, vaid võtab versiooninumbri ja annab sellega seostatud lehe. Lehekülje uuendamisel ole hoolikas ja vaata oma töö üle!"
+msgstr ""
+"<strong>Pane tähele:</strong> MediaWiki ei kontrolli, kas versiooninumber "
+"vastab lehekülje nimele, vaid võtab versiooninumbri ja annab sellega "
+"seostatud lehe. Lehekülje uuendamisel ole hoolikas ja vaata oma töö üle!"
 
 #: ../root/admin/wikidoc/WikiDocIndex.js:185
 msgid "There was a problem accessing the wiki API."
@@ -6962,7 +7218,9 @@ msgstr ""
 msgid ""
 "Comparing revision by {user_old} on {date_old} with revision by {user_new} "
 "on {date_new}."
-msgstr "Võrreldakse annotatsiooni, mille kirjutas {user_old} {date_old}, annotatsiooniga, mille kirjutas {user_new} {date_new}."
+msgstr ""
+"Võrreldakse annotatsiooni, mille kirjutas {user_old} {date_old}, "
+"annotatsiooniga, mille kirjutas {user_new} {date_new}."
 
 #: ../root/annotation/AnnotationComparison.js:87
 msgid "View annotation history."
@@ -7061,7 +7319,12 @@ msgid ""
 "hyperlinks. Example: If you want to use [unknown] in the annotation, you'll "
 "have to write <code>&amp;#91;unknown&amp;#93;</code> then it will appear the"
 " way you intended it to show."
-msgstr "Kuna nurksulud [] on kasutusel hüperlinkide loomiseks, tuleb nende muul otstarbel pruukimiseks kasutada kodeeritud HTML-ekvivalente (<code>&amp;#91;</code> on [ ja <code>&amp;#93;</code> on ]). Näiteks kui tahad annotatsiooni kirjutada [teadmata], siis selleks, et see jääks sinna soovitud kujul, tuleb kirjutada <code>&amp;#91;teadmata&amp;#93;</code>."
+msgstr ""
+"Kuna nurksulud [] on kasutusel hüperlinkide loomiseks, tuleb nende muul "
+"otstarbel pruukimiseks kasutada kodeeritud HTML-ekvivalente "
+"(<code>&amp;#91;</code> on [ ja <code>&amp;#93;</code> on ]). Näiteks kui "
+"tahad annotatsiooni kirjutada [teadmata], siis selleks, et see jääks sinna "
+"soovitud kujul, tuleb kirjutada <code>&amp;#91;teadmata&amp;#93;</code>."
 
 #: ../root/area/AreaArtists.js:32 ../root/area/AreaArtists.js:33
 #: ../root/components/EntityTabs.js:23
@@ -7238,7 +7501,9 @@ msgstr "Piirkonna eemaldamine"
 msgid ""
 "This area cannot be removed because it is one of the areas that can be used "
 "as a release country."
-msgstr "Seda piirkonda ei saa eemaldada, kuna see on üks neist, mida saab kasutada väljalaskemaana."
+msgstr ""
+"Seda piirkonda ei saa eemaldada, kuna see on üks neist, mida saab kasutada "
+"väljalaskemaana."
 
 #: ../root/area/DeleteArea.js:55
 msgid ""
@@ -7272,7 +7537,8 @@ msgstr ""
 
 #: ../root/artist/ArtistIndex.js:142
 msgid "This artist only has unofficial release groups by various artists."
-msgstr "Sel artistil on ainult mitteametlikke väljalaskerühmi eri esitajate hulgas."
+msgstr ""
+"Sel artistil on ainult mitteametlikke väljalaskerühmi eri esitajate hulgas."
 
 #: ../root/artist/ArtistIndex.js:148
 msgid "Showing all release groups for various artists"
@@ -7329,7 +7595,8 @@ msgstr "Vali märgitud salvestised mestimiseks"
 
 #: ../root/artist/ArtistIndex.js:332
 msgid "This artist has no release groups, only standalone recordings."
-msgstr "Sel artistil pole ühtki väljalaskerühma, üksnes eraldiseisvaid salvestisi."
+msgstr ""
+"Sel artistil pole ühtki väljalaskerühma, üksnes eraldiseisvaid salvestisi."
 
 #: ../root/artist/ArtistIndex.js:336
 msgid "No release groups found that match this search."
@@ -7410,7 +7677,9 @@ msgstr "Väljalaskeid ei leitud."
 msgid ""
 "Showing Various Artist releases. {show_subset|Show releases by this artist "
 "instead}."
-msgstr "Näidatakse eri esitajatega väljalaskeid. {show_subset|Näita selle artisti nimel väljalaskeid}"
+msgstr ""
+"Näidatakse eri esitajatega väljalaskeid. {show_subset|Näita selle artisti "
+"nimel väljalaskeid}"
 
 #: ../root/artist/ArtistReleases.js:91
 msgid "This search only found releases by various artists."
@@ -7424,7 +7693,9 @@ msgstr "Sel artistil on väljalaskeid ainult eri esitajate hulgas."
 msgid ""
 "Showing releases by this artist. {show_all|Show Various Artist releases "
 "instead}."
-msgstr "Näidatakse selle artisti nimel väljalaskeid. {show_all|Näita erinevate esitajatega väljalaskeid}"
+msgstr ""
+"Näidatakse selle artisti nimel väljalaskeid. {show_all|Näita erinevate "
+"esitajatega väljalaskeid}"
 
 #: ../root/artist/ArtistWorks.js:65 ../root/iswc/Index.js:79
 msgid "Add selected works for merging"
@@ -7447,7 +7718,9 @@ msgid ""
 "This artist has relationships other than collaboration relationships, and "
 "cannot be split until these are removed. {relationships|View all "
 "relationships}."
-msgstr "Sel artistil on muid seoseid peale koostöö ning enne nende eemaldamist ei saa seda artisti mitmeks eraldada. {relationships|Vaata kõiki seoseid}."
+msgstr ""
+"Sel artistil on muid seoseid peale koostöö ning enne nende eemaldamist ei "
+"saa seda artisti mitmeks eraldada. {relationships|Vaata kõiki seoseid}."
 
 #: ../root/artist/SpecialPurpose.js:23 ../root/label/SpecialPurpose.js:23
 msgid "Cannot edit"
@@ -7461,7 +7734,9 @@ msgstr "Eriotstarbelisi artiste pole lubatud toimetada."
 msgid ""
 "The artist you are trying to edit is a special purpose artist, and you may "
 "not make direct changes to this data."
-msgstr "Üritad toimetada eriotstarbelist artisti, aga nende andmeid pole lubatud muuta."
+msgstr ""
+"Üritad toimetada eriotstarbelist artisti, aga nende andmeid pole lubatud "
+"muuta."
 
 #: ../root/artist/utils.js:13
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:65
@@ -7658,7 +7933,9 @@ msgstr "CD-mustandeid ei leitud"
 msgid ""
 "Sorry, <code>{discid}</code> does not match a CD stub. You can try "
 "{search_url|searching for it} instead."
-msgstr "Vabandust, <code>{discid}</code> ei vasta ühelegi CD-mustandile. Võid proovida {search_url|seda otsida}."
+msgstr ""
+"Vabandust, <code>{discid}</code> ei vasta ühelegi CD-mustandile. Võid "
+"proovida {search_url|seda otsida}."
 
 #: ../root/cdstub/DiscIdNotValid.js:19
 msgid "Invalid Disc ID"
@@ -7680,7 +7957,9 @@ msgstr "Impordi"
 msgid ""
 "Are you sure that you wish to attach the disc ID <code>{discid}</code> to "
 "{format} {pos} of {release} by {artist}?"
-msgstr "Kas oled kindel, et soovid omistada plaadi-ID „<code>{discid}</code>” {format} {pos}-le väljalaskel „{release}” artistilt {artist}?"
+msgstr ""
+"Kas oled kindel, et soovid omistada plaadi-ID „<code>{discid}</code>” "
+"{format} {pos}-le väljalaskel „{release}” artistilt {artist}?"
 
 #: ../root/cdtoc/AttachCDTocConfirmation.js:80
 msgid "Track duration comparison"
@@ -7759,7 +8038,9 @@ msgstr "Plaadi-ID eemaldamine"
 msgid ""
 "Are you sure you want to remove the disc ID <code>{discid}</code> from the "
 "release {release} by {artist}?"
-msgstr "Kas oled kindel, et soovid eemaldada plaadi-ID „<code>{discid}</code>” artisti {artist} väljalaskelt „{release}”?"
+msgstr ""
+"Kas oled kindel, et soovid eemaldada plaadi-ID „<code>{discid}</code>” "
+"artisti {artist} väljalaskelt „{release}”?"
 
 #: ../root/cdtoc/RemoveDiscId.js:49
 msgid ""
@@ -7767,7 +8048,11 @@ msgid ""
 "erroneously, since a release can have multiple valid disc IDs, and each disc"
 " ID can belong to more than one release. For more in-depth information about"
 " this topic, please see our {doc|CD submission guide}."
-msgstr "Pead olema kindel, et see plaadi-ID on sellele väljalaskele lisatud ekslikult, kuna ühel väljalaskel võib olla mitu korrektset plaadi-ID-d ning iga plaadi-ID võib kuuluda rohkem kui ühele väljalaskele. Täpsemat teavet sel teemal leiad {doc|CD sisestamise juhistest}."
+msgstr ""
+"Pead olema kindel, et see plaadi-ID on sellele väljalaskele lisatud "
+"ekslikult, kuna ühel väljalaskel võib olla mitu korrektset plaadi-ID-d ning "
+"iga plaadi-ID võib kuuluda rohkem kui ühele väljalaskele. Täpsemat teavet "
+"sel teemal leiad {doc|CD sisestamise juhistest}."
 
 #: ../root/cdtoc/SelectArtistForCDToc.js:37
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:128
@@ -7785,7 +8070,9 @@ msgid ""
 "If you don't see the artist you are looking for, you can still add a new "
 "release. This will allow you to create this artist and a release at the same"
 " time"
-msgstr "Kui sa ei näe otsitavat artisti, võid ikkagi uue väljalaske lisada. Artist luuakse väljalaske lisamise käigus."
+msgstr ""
+"Kui sa ei näe otsitavat artisti, võid ikkagi uue väljalaske lisada. Artist "
+"luuakse väljalaske lisamise käigus."
 
 #: ../root/cdtoc/SetTracklistDurations.js:46
 #: ../root/cdtoc/SetTracklistDurations.js:47
@@ -7796,7 +8083,9 @@ msgstr "Loopikkuste määramine"
 msgid ""
 "You are about to enter an edit that will change the durations of tracks to "
 "match that of the below disc ID."
-msgstr "Asusid sisestama toimetust, mis muudab lugude pikkused vastavaks alloleva plaadi-ID rajapikkustele."
+msgstr ""
+"Asusid sisestama toimetust, mis muudab lugude pikkused vastavaks alloleva "
+"plaadi-ID rajapikkustele."
 
 #: ../root/cdtoc/SetTracklistDurations.js:63 ../root/edit/EditIndex.js:53
 msgid "Changes"
@@ -7981,7 +8270,9 @@ msgstr "Nimekujud"
 msgid ""
 "This is a list of all the different ways {artist} is credited in the "
 "database. View the {doc|artist credit documentation} for more details."
-msgstr "See on nimekiri kõigist nimevariantidest, mille all {artist} andmebaasis esineb. Lisateabe saamiseks vaata {doc|artisti nimekujude dokumentatsiooni}."
+msgstr ""
+"See on nimekiri kõigist nimevariantidest, mille all {artist} andmebaasis "
+"esineb. Lisateabe saamiseks vaata {doc|artisti nimekujude dokumentatsiooni}."
 
 #: ../root/components/Aliases/ArtistCreditList.js:69
 #: ../root/static/scripts/artist/components/ArtistCreditRenamer.js:139
@@ -8014,45 +8305,66 @@ msgid ""
 "This artist has no relationships, recordings, releases or release groups, "
 "and will be removed automatically in the next few days. If this is not "
 "intended, please add more data to this artist."
-msgstr "Sel artstil pole seoseid, salvestisi, väljalaskeid ega väljalaskerühmi, niisiis eemaldatakse see järgmise paari päeva jooksul automaatselt andmebaasist. Eemaldamise takistamiseks lisa palun artistile andmeid."
+msgstr ""
+"Sel artstil pole seoseid, salvestisi, väljalaskeid ega väljalaskerühmi, "
+"niisiis eemaldatakse see järgmise paari päeva jooksul automaatselt "
+"andmebaasist. Eemaldamise takistamiseks lisa palun artistile andmeid."
 
 #: ../root/components/CleanupBanner.js:18
 msgid ""
 "This event has no relationships and will be removed automatically in the "
 "next few days. If this is not intended, please add more data to this event."
-msgstr "Sel sündmusel pole seoseid, niisiis eemaldatakse see järgmise paari päeva jooksul automaatselt andmebaasist. Eemaldamise takistamiseks lisa palun sündmusele andmeid."
+msgstr ""
+"Sel sündmusel pole seoseid, niisiis eemaldatakse see järgmise paari päeva "
+"jooksul automaatselt andmebaasist. Eemaldamise takistamiseks lisa palun "
+"sündmusele andmeid."
 
 #: ../root/components/CleanupBanner.js:23
 msgid ""
 "This label has no relationships or releases and will be removed "
 "automatically in the next few days. If this is not intended, please add more"
 " data to this label."
-msgstr "Sel plaadifirmal pole seoseid ega väljalaskeid, niisiis eemaldatakse see järgmise paari päeva jooksul automaatselt andmebaasist. Eemaldamise takistamiseks lisa palun plaadifirmale andmeid."
+msgstr ""
+"Sel plaadifirmal pole seoseid ega väljalaskeid, niisiis eemaldatakse see "
+"järgmise paari päeva jooksul automaatselt andmebaasist. Eemaldamise "
+"takistamiseks lisa palun plaadifirmale andmeid."
 
 #: ../root/components/CleanupBanner.js:28
 msgid ""
 "This place has no relationships and will be removed automatically in the "
 "next few days. If this is not intended, please add more data to this place."
-msgstr "Sel kohal pole seoseid, niisiis eemaldatakse see järgmise paari päeva jooksul automaatselt andmebaasist. Eemaldamise takistamiseks lisa palun kohale andmeid."
+msgstr ""
+"Sel kohal pole seoseid, niisiis eemaldatakse see järgmise paari päeva "
+"jooksul automaatselt andmebaasist. Eemaldamise takistamiseks lisa palun "
+"kohale andmeid."
 
 #: ../root/components/CleanupBanner.js:33
 msgid ""
 "This release group has no relationships or releases associated, and will be "
 "removed automatically in the next few days. If this is not intended, please "
 "add more data to this release group."
-msgstr "Sel väljalaskerühmal pole seoseid ega väljalaskeid, niisiis eemaldatakse see järgmise paari päeva jooksul automaatselt andmebaasist. Eemaldamise takistamiseks lisa palun väljalaskerühmale andmeid."
+msgstr ""
+"Sel väljalaskerühmal pole seoseid ega väljalaskeid, niisiis eemaldatakse see "
+"järgmise paari päeva jooksul automaatselt andmebaasist. Eemaldamise "
+"takistamiseks lisa palun väljalaskerühmale andmeid."
 
 #: ../root/components/CleanupBanner.js:38
 msgid ""
 "This series has no relationships and will be removed automatically in the "
 "next few days. If this is not intended, please add more data to this series."
-msgstr "Sel seerial pole seoseid, niisiis eemaldatakse see järgmise paari päeva jooksul automaatselt andmebaasist. Eemaldamise takistamiseks lisa palun seeriale andmeid."
+msgstr ""
+"Sel seerial pole seoseid, niisiis eemaldatakse see järgmise paari päeva "
+"jooksul automaatselt andmebaasist. Eemaldamise takistamiseks lisa palun "
+"seeriale andmeid."
 
 #: ../root/components/CleanupBanner.js:43
 msgid ""
 "This work has no relationships and will be removed automatically in the next"
 " few days. If this is not intended, please add relationships to this work."
-msgstr "Sel teosel pole seoseid, niisiis eemaldatakse see järgmise paari päeva jooksul automaatselt andmebaasist. Eemaldamise takistamiseks lisa palun teosele seoseid."
+msgstr ""
+"Sel teosel pole seoseid, niisiis eemaldatakse see järgmise paari päeva "
+"jooksul automaatselt andmebaasist. Eemaldamise takistamiseks lisa palun "
+"teosele seoseid."
 
 #: ../root/components/CritiqueBrainzLinks.js:43
 msgid "An error occurred when loading reviews."
@@ -8071,8 +8383,12 @@ msgid ""
 msgid_plural ""
 "There are {reviews_link|{review_count} reviews} on CritiqueBrainz. You can "
 "also {write_link|write your own}."
-msgstr[0] "CritiqueBrainzis leidub {reviews_link|{review_count} arvustus}. Võid {write_link|kirjutada ka oma arvustuse}."
-msgstr[1] "CritiqueBrainzis leidub {reviews_link|{review_count} arvustust}. Võid {write_link|kirjutada ka oma arvustuse}."
+msgstr[0] ""
+"CritiqueBrainzis leidub {reviews_link|{review_count} arvustus}. Võid "
+"{write_link|kirjutada ka oma arvustuse}."
+msgstr[1] ""
+"CritiqueBrainzis leidub {reviews_link|{review_count} arvustust}. Võid "
+"{write_link|kirjutada ka oma arvustuse}."
 
 #: ../root/components/EntityDeletionHelp.js:24
 msgid "Are you sure you wish to remove {entity} from MusicBrainz?"
@@ -8082,7 +8398,10 @@ msgstr "Kas oled kindel, et soovid olemi „{entity}” MusicBrainzist eemaldada
 msgid ""
 "If it’s a duplicate, {doc_merge|you should probably merge it instead}. If it"
 " just has some small errors, it’s usually better to just fix those."
-msgstr "Kui see on mõne teise duplikaat, siis kustutamise asemel {doc_merge|pigem mesti need}. Kui sel on mingeid väiksemaid puudusi, on tavaliselt parem need lihtsalt ära parandada."
+msgstr ""
+"Kui see on mõne teise duplikaat, siis kustutamise asemel {doc_merge|pigem "
+"mesti need}. Kui sel on mingeid väiksemaid puudusi, on tavaliselt parem need "
+"lihtsalt ära parandada."
 
 #: ../root/components/EntityTabs.js:25
 #: ../root/recording/RecordingFingerprints.js:25
@@ -8295,22 +8614,34 @@ msgstr "Kasutaja muutmine"
 msgid "Closes in <span class=\"tooltip\" title=\"{exactdate}\">{num} day</span>"
 msgid_plural ""
 "Closes in <span class=\"tooltip\" title=\"{exactdate}\">{num} days</span>"
-msgstr[0] "lõppeb <span class=\"tooltip\" title=\"{exactdate}\">{num} päeva pärast</span>"
-msgstr[1] "lõppeb <span class=\"tooltip\" title=\"{exactdate}\">{num} päeva pärast</span>"
+msgstr[0] ""
+"lõppeb <span class=\"tooltip\" title=\"{exactdate}\">{num} päeva "
+"pärast</span>"
+msgstr[1] ""
+"lõppeb <span class=\"tooltip\" title=\"{exactdate}\">{num} päeva "
+"pärast</span>"
 
 #: ../root/components/VotingPeriod.js:49
 msgid "Closes in <span class=\"tooltip\" title=\"{exactdate}\">{num} hour</span>"
 msgid_plural ""
 "Closes in <span class=\"tooltip\" title=\"{exactdate}\">{num} hours</span>"
-msgstr[0] "lõppeb <span class=\"tooltip\" title=\"{exactdate}\">{num} tunni pärast</span>"
-msgstr[1] "lõppeb <span class=\"tooltip\" title=\"{exactdate}\">{num} tunni pärast</span>"
+msgstr[0] ""
+"lõppeb <span class=\"tooltip\" title=\"{exactdate}\">{num} tunni "
+"pärast</span>"
+msgstr[1] ""
+"lõppeb <span class=\"tooltip\" title=\"{exactdate}\">{num} tunni "
+"pärast</span>"
 
 #: ../root/components/VotingPeriod.js:58
 msgid "Closes in <span class=\"tooltip\" title=\"{exactdate}\">{num} minute</span>"
 msgid_plural ""
 "Closes in <span class=\"tooltip\" title=\"{exactdate}\">{num} minutes</span>"
-msgstr[0] "lõppeb <span class=\"tooltip\" title=\"{exactdate}\">{num} minuti pärast</span>"
-msgstr[1] "lõppeb <span class=\"tooltip\" title=\"{exactdate}\">{num} minuti pärast</span>"
+msgstr[0] ""
+"lõppeb <span class=\"tooltip\" title=\"{exactdate}\">{num} minuti "
+"pärast</span>"
+msgstr[1] ""
+"lõppeb <span class=\"tooltip\" title=\"{exactdate}\">{num} minuti "
+"pärast</span>"
 
 #: ../root/components/VotingPeriod.js:66
 msgid "About to close"
@@ -8433,11 +8764,15 @@ msgstr "Leidsid saidil katkise lingi? Palun {report|teata sellest veast}."
 msgid ""
 "This page has not been reviewed by our documentation team ({more_info|more "
 "info})."
-msgstr "See leht on meie dokumentatsioonimeeskonnal üle vaatamata ({more_info|rohkem teavet})."
+msgstr ""
+"See leht on meie dokumentatsioonimeeskonnal üle vaatamata ({more_info|rohkem "
+"teavet})."
 
 #: ../root/doc/DocPage.js:90
 msgid "This page is {doc|transcluded} from revision {version} of {title}."
-msgstr "See lehekülg on {doc|transkludeeritud} wikilehe „{title}” versioonist {version}."
+msgstr ""
+"See lehekülg on {doc|transkludeeritud} wikilehe „{title}” versioonist "
+"{version}."
 
 #: ../root/doc/DocPage.js:98
 msgid "This page is {doc|transcluded} from {title}."
@@ -8453,7 +8788,9 @@ msgstr "Toimetuse tühistamine"
 
 #: ../root/edit/CancelEdit.js:32
 msgid "Are you sure you wish to cancel edit #{n}? This cannot be undone!"
-msgstr "Kas oled kindel, et soovid toimetuse #{n} tühistada? Hiljem enam ümber mõelda ei saa!"
+msgstr ""
+"Kas oled kindel, et soovid toimetuse #{n} tühistada? Hiljem enam ümber "
+"mõelda ei saa!"
 
 #: ../root/edit/CancelEdit.js:42 ../root/edit/EditIndex.js:56
 #: ../root/edit/components/ListEdit.js:51
@@ -8465,7 +8802,9 @@ msgstr "Toimetuse laadimisel tekkis tõrge."
 msgid ""
 "You may enter an edit note while cancelling this edit. This can be useful to"
 " point editors to another edit."
-msgstr "Ühtlasi võid sisestada ka toimetusmärke. See võib olla kasulik kasutajate suunamiseks teise toimetuse juurde."
+msgstr ""
+"Ühtlasi võid sisestada ka toimetusmärke. See võib olla kasulik kasutajate "
+"suunamiseks teise toimetuse juurde."
 
 #: ../root/edit/CancelEdit.js:56 ../root/edit/components/EditHeader.js:185
 #: ../root/edit/components/EditSummary.js:76
@@ -8579,7 +8918,9 @@ msgstr "Testimisfunktsioonid"
 msgid ""
 "To aid in testing, the following features have been made available on "
 "testing servers:"
-msgstr "Testimise soodustamiseks on testserveritel sisse lülitatud järgmised funktsioonid:"
+msgstr ""
+"Testimise soodustamiseks on testserveritel sisse lülitatud järgmised "
+"funktsioonid:"
 
 #: ../root/edit/EditIndex.js:140 ../root/edit/components/EditSummary.js:87
 msgid "Accept edit"
@@ -8639,7 +8980,9 @@ msgstr ""
 msgid ""
 "{edit} has received one or more \"no\" votes, you must leave an edit note "
 "before you can approve it."
-msgstr "{edit} on saanud mõne vastuhääle; selle heakskiitmiseks pead jätma toimetusmärke."
+msgstr ""
+"{edit} on saanud mõne vastuhääle; selle heakskiitmiseks pead jätma "
+"toimetusmärke."
 
 #: ../root/edit/NotesReceived.js:35 ../root/edit/NotesReceived.js:37
 msgid "Recent Notes Left on Your Edits"
@@ -8674,7 +9017,9 @@ msgstr ""
 msgid ""
 "We are unable to display history for this cover art. For a current listing "
 "of cover art, please see the {coverart|release's cover art page}."
-msgstr "Selle kaanepildi ajalugu pole võimalik näidata. Hetkeseisu nägemiseks vaata {coverart|väljalaske kaanepildilehekülge}."
+msgstr ""
+"Selle kaanepildi ajalugu pole võimalik näidata. Hetkeseisu nägemiseks vaata "
+"{coverart|väljalaske kaanepildilehekülge}."
 
 #: ../root/edit/components/EditArtwork.js:32
 msgid "We are unable to display history for this cover art."
@@ -8790,7 +9135,10 @@ msgid ""
 "Edit notes support {doc_formatting|a limited set of wiki formatting "
 "options}. Please do always keep the {doc_coc|Code of Conduct} in mind when "
 "writing edit notes!"
-msgstr "Toimetusmärgetes saab kasutada {doc_formatting|piiratud hulka wikivormindusvalikuid}. Toimetusmärkeid kirjutades järgi palun alati {doc_coc|käitumiskoodeksit}!"
+msgstr ""
+"Toimetusmärgetes saab kasutada {doc_formatting|piiratud hulka "
+"wikivormindusvalikuid}. Toimetusmärkeid kirjutades järgi palun alati "
+"{doc_coc|käitumiskoodeksit}!"
 
 #: ../root/edit/components/EditNotes.js:55
 msgid "No edit notes have been added."
@@ -9092,7 +9440,8 @@ msgstr "Linkimisjärjestus:"
 msgid ""
 "This relationship edit also included changes to relationship attributes "
 "which no longer exist."
-msgstr "Selle seosetoimetusega muudeti ka seoseatribuute, mida enam olemas pole."
+msgstr ""
+"Selle seosetoimetusega muudeti ka seoseatribuute, mida enam olemas pole."
 
 #: ../root/edit/details/AddRelationshipAttribute.js:60
 #: ../root/edit/details/EditRelationshipAttribute.js:101
@@ -9320,7 +9669,9 @@ msgstr[1] "See muudatus mõjutab {num} seost."
 msgid ""
 "The new URL already exists in the database. This edit will therefore merge "
 "the two URL entities."
-msgstr "Uus URL on andmebaasis juba olemas. See toimetus mestib nende kahe URL-i andmebaasiolemid."
+msgstr ""
+"Uus URL on andmebaasis juba olemas. See toimetus mestib nende kahe URL-i "
+"andmebaasiolemid."
 
 #: ../root/edit/details/EditUrl.js:82
 msgid "This edit was a merge."
@@ -9370,7 +9721,9 @@ msgstr ""
 
 #: ../root/edit/details/MergeReleases.js:109
 msgid "Medium {position}: {name} is now medium {new_position}: {new_name}"
-msgstr "Helikandja {position}: „{name}” on nüüd helikandja {new_position}: „{new_name}”"
+msgstr ""
+"Helikandja {position}: „{name}” on nüüd helikandja {new_position}: "
+"„{new_name}”"
 
 #: ../root/edit/details/MergeReleases.js:120
 msgid "Medium {position}: {name} is now medium {new_position}"
@@ -9400,7 +9753,9 @@ msgstr "Loo nr"
 msgid ""
 "This edit does not store recording merge information and is closed, so no "
 "recording merge information can be shown."
-msgstr "See toimetus ei hõlma salvestiste mestimise teavet ning kuna see on juba suletud, pole salvestiste mestimise teavet võimalik näidata."
+msgstr ""
+"See toimetus ei hõlma salvestiste mestimise teavet ning kuna see on juba "
+"suletud, pole salvestiste mestimise teavet võimalik näidata."
 
 #: ../root/edit/details/MergeReleases.js:333
 msgid "All recordings for these releases are already merged."
@@ -9415,7 +9770,9 @@ msgstr "Mestimisstrateegia:"
 msgid ""
 "The data in this edit originally came from an older version of this edit, "
 "and may not display correctly"
-msgstr "Selle toimetuse andmed pärinevad algselt selle toimetuse vanemast versioonist ning nende näitamisel võib esineda vigu."
+msgstr ""
+"Selle toimetuse andmed pärinevad algselt selle toimetuse vanemast "
+"versioonist ning nende näitamisel võib esineda vigu."
 
 #: ../root/edit/details/MoveDiscId.js:32
 #: ../root/edit/details/historic/MoveDiscId.js:27
@@ -9469,7 +9826,9 @@ msgstr "Helikandja <span class=\"new\">{new}</span>: „{title}” (uus helikand
 msgid ""
 "Medium <span class=\"new\">{new}</span>: {title} (moved from position <span "
 "class=\"old\">{old}</span>)"
-msgstr "Helikandja <span class=\"new\">{new}</span>: „{title}” (teisaldati asukohalt <span class=\"old\">{old}</span>)"
+msgstr ""
+"Helikandja <span class=\"new\">{new}</span>: „{title}” (teisaldati asukohalt "
+"<span class=\"old\">{old}</span>)"
 
 #: ../root/edit/details/ReorderMediums.js:58
 msgid "Medium <span class=\"new\">{new}</span> (new medium)"
@@ -9479,7 +9838,9 @@ msgstr "Helikandja <span class=\"new\">{new}</span> (uus helikandja)"
 msgid ""
 "Medium <span class=\"new\">{new}</span> (moved from position <span "
 "class=\"old\">{old}</span>)"
-msgstr "Helikandja <span class=\"new\">{new}</span> (teisaldati asukohalt <span class=\"old\">{old}</span>)"
+msgstr ""
+"Helikandja <span class=\"new\">{new}</span> (teisaldati asukohalt <span "
+"class=\"old\">{old}</span>)"
 
 #: ../root/edit/details/ReorderRelationships.js:21
 msgid "Old Order"
@@ -9618,7 +9979,9 @@ msgstr ""
 msgid ""
 "This edit was a \"Merge Releases (Various Artists)\" edit which additionally"
 " set the release artist to Various Artists."
-msgstr "See toimetus mestis eri esitajate väljalasked ja lisaks määras väljalaskeartistiks „erinevad esitajad”."
+msgstr ""
+"See toimetus mestis eri esitajate väljalasked ja lisaks määras "
+"väljalaskeartistiks „erinevad esitajad”."
 
 #: ../root/edit/details/historic/MoveRelease.js:26
 msgid "Change track artists:"
@@ -9717,7 +10080,8 @@ msgstr "(privaatne)"
 
 #: ../root/elections/ElectionVoting.js:26
 msgid "To find out if you can vote for this candidate, please {url|log in}."
-msgstr "Et teada saada, kas tohid seda kandidaati hääletada, {url|logi palun sisse}."
+msgstr ""
+"Et teada saada, kas tohid seda kandidaati hääletada, {url|logi palun sisse}."
 
 #: ../root/elections/ElectionVoting.js:33
 msgid ""
@@ -9727,7 +10091,9 @@ msgstr "Sa ei saa seda kandidaati hääletada, kuna sa pole vanemtoimetaja."
 #: ../root/elections/ElectionVoting.js:38
 msgid ""
 "You cannot vote for this candidate, because you proposed / seconded them."
-msgstr "Sa ei saa selle kandidaadi poolt hääletada, kuna oled juba kas ettepaneku tegija või sekundant."
+msgstr ""
+"Sa ei saa selle kandidaadi poolt hääletada, kuna oled juba kas ettepaneku "
+"tegija või sekundant."
 
 #: ../root/elections/ElectionVoting.js:43
 msgid ""
@@ -9735,7 +10101,11 @@ msgid ""
 " second their nomination. If you do not support this candidate, please note "
 "that you cannot cast a \"No\" vote (or abstain) until two seconders have "
 "been found."
-msgstr "Hääletamine pole veel avatud. Kui soovid seda kandidaati toetada, võid hakata sekundandiks. Kui sa seda kandidaati ei toeta, siis pane tähele, et vastuhäält anda (või erapooletuks jääda) saab alles pärast kahe sekundandi leidmist."
+msgstr ""
+"Hääletamine pole veel avatud. Kui soovid seda kandidaati toetada, võid "
+"hakata sekundandiks. Kui sa seda kandidaati ei toeta, siis pane tähele, et "
+"vastuhäält anda (või erapooletuks jääda) saab alles pärast kahe sekundandi "
+"leidmist."
 
 #: ../root/elections/ElectionVoting.js:50
 msgid "Voting is closed."
@@ -9773,7 +10143,9 @@ msgstr "Valimisi ei leitud."
 msgid ""
 "Are you sure you want to nominate the editor {editor} for auto-editor "
 "status?"
-msgstr "Kas oled kindel, et soovid toimetaja {editor} esitada vanemtoimetaja kandidaadiks?"
+msgstr ""
+"Kas oled kindel, et soovid toimetaja {editor} esitada vanemtoimetaja "
+"kandidaadiks?"
 
 #: ../root/elections/Nominate.js:29
 msgid "Nominate a candidate for auto-editor"
@@ -9863,7 +10235,9 @@ msgstr "Piirkonda ei leitud"
 msgid ""
 "Sorry, we could not find an area with that MusicBrainz ID. You may wish to "
 "try and {search_url|search for it} instead."
-msgstr "Vabandust, selle MusicBrainzi ID-ga piirkonda ei leitud. Võid proovida {search_url|seda otsida}."
+msgstr ""
+"Vabandust, selle MusicBrainzi ID-ga piirkonda ei leitud. Võid proovida "
+"{search_url|seda otsida}."
 
 #: ../root/entity/NotFound.js:28
 msgid "Artist Not Found"
@@ -9873,7 +10247,9 @@ msgstr "Artisti ei leitud"
 msgid ""
 "Sorry, we could not find an artist with that MusicBrainz ID. You may wish to"
 " try and {search_url|search for it} instead."
-msgstr "Vabandust, selle MusicBrainzi ID-ga artisti ei leitud. Võid proovida {search_url|seda otsida}."
+msgstr ""
+"Vabandust, selle MusicBrainzi ID-ga artisti ei leitud. Võid proovida "
+"{search_url|seda otsida}."
 
 #: ../root/entity/NotFound.js:37
 msgid "Artist Credit Not Found"
@@ -9907,7 +10283,9 @@ msgstr "Toimetust ei leitud"
 msgid ""
 "Sorry, we could not find an edit with that edit ID. You may wish to try and "
 "perform an {search_url|edit search} instead."
-msgstr "Vabandust, selle ID-ga toimetust ei leitud. Võibolla tahad proovida {search_url|toimetusi otsida}?"
+msgstr ""
+"Vabandust, selle ID-ga toimetust ei leitud. Võibolla tahad proovida "
+"{search_url|toimetusi otsida}?"
 
 #: ../root/entity/NotFound.js:66
 msgid "Election Not Found"
@@ -9929,7 +10307,9 @@ msgstr "Sündmust ei leitud"
 msgid ""
 "Sorry, we could not find an event with that MusicBrainz ID. You may wish to "
 "try and {search_url|search for it} instead."
-msgstr "Vabandust, selle MusicBrainzi ID-ga sündmust ei leitud. Võid proovida {search_url|seda otsida}."
+msgstr ""
+"Vabandust, selle MusicBrainzi ID-ga sündmust ei leitud. Võid proovida "
+"{search_url|seda otsida}."
 
 #: ../root/entity/NotFound.js:81
 msgid "Genre Not Found"
@@ -9949,7 +10329,9 @@ msgstr "Instrumenti ei leitud"
 msgid ""
 "Sorry, we could not find an instrument with that MusicBrainz ID. You may "
 "wish to try and {search_url|search for it} instead."
-msgstr "Vabandust, selle MusicBrainzi ID-ga instrumenti ei leitud. Võid proovida {search_url|seda otsida}."
+msgstr ""
+"Vabandust, selle MusicBrainzi ID-ga instrumenti ei leitud. Võid proovida "
+"{search_url|seda otsida}."
 
 #: ../root/entity/NotFound.js:99
 msgid "ISRC Not Currently Used"
@@ -9959,7 +10341,10 @@ msgstr "ISRC pole hetkel kasutuses"
 msgid ""
 "This ISRC is not associated with any recordings. If you wish to associate it"
 " with a recording, please {search_url|search for the recording} and add it."
-msgstr "See ISRC pole seostatud ühegi salvestisega. Kui soovid seda mõne salvestisega seostada, siis {search_url|otsi üles soovitud salvestis} ja lisa sellele ISRC."
+msgstr ""
+"See ISRC pole seostatud ühegi salvestisega. Kui soovid seda mõne "
+"salvestisega seostada, siis {search_url|otsi üles soovitud salvestis} ja "
+"lisa sellele ISRC."
 
 #: ../root/entity/NotFound.js:109
 msgid "ISWC Not Currently Used"
@@ -9969,7 +10354,9 @@ msgstr "ISWC pole hetkel kasutuses"
 msgid ""
 "This ISWC is not associated with any works. If you wish to associate it with"
 " a work, please {search_url|search for the work} and add it."
-msgstr "See ISWC pole seostatud ühegi teosega. Kui soovid seda mõne teosega seostada, siis {search_url|otsi üles soovitud teos} ja lisa sellele ISWC."
+msgstr ""
+"See ISWC pole seostatud ühegi teosega. Kui soovid seda mõne teosega "
+"seostada, siis {search_url|otsi üles soovitud teos} ja lisa sellele ISWC."
 
 #: ../root/entity/NotFound.js:118
 msgid "Label Not Found"
@@ -9979,7 +10366,9 @@ msgstr "Plaadifirmat ei leitud"
 msgid ""
 "Sorry, we could not find a label with that MusicBrainz ID. You may wish to "
 "try and {search_url|search for it} instead."
-msgstr "Vabandust, selle MusicBrainzi ID-ga plaadifirmat ei leitud. Võid proovida {search_url|seda otsida}."
+msgstr ""
+"Vabandust, selle MusicBrainzi ID-ga plaadifirmat ei leitud. Võid proovida "
+"{search_url|seda otsida}."
 
 #: ../root/entity/NotFound.js:127
 msgid "Entity Not Found"
@@ -9989,7 +10378,9 @@ msgstr "Olemit ei leitud"
 msgid ""
 "Sorry, we could not find a MusicBrainz entity with that ID. You may wish to "
 "try and {search_url|search for it} instead."
-msgstr "Vabandust, selle ID-ga MusicBrainzi olemit ei leitud. Võid proovida {search_url|seda otsida}."
+msgstr ""
+"Vabandust, selle ID-ga MusicBrainzi olemit ei leitud. Võid proovida "
+"{search_url|seda otsida}."
 
 #: ../root/entity/NotFound.js:136
 msgid "Place Not Found"
@@ -9999,7 +10390,9 @@ msgstr "Kohta ei leitud"
 msgid ""
 "Sorry, we could not find a place with that MusicBrainz ID. You may wish to "
 "try and {search_url|search for it} instead."
-msgstr "Vabandust, selle MusicBrainzi ID-ga kohta ei leitud. Võid proovida {search_url|seda otsida}."
+msgstr ""
+"Vabandust, selle MusicBrainzi ID-ga kohta ei leitud. Võid proovida "
+"{search_url|seda otsida}."
 
 #: ../root/entity/NotFound.js:145
 msgid "Recording Not Found"
@@ -10009,7 +10402,9 @@ msgstr "Salvestist ei leitud"
 msgid ""
 "Sorry, we could not find a recording with that MusicBrainz ID. You may wish "
 "to try and {search_url|search for it} instead."
-msgstr "Vabandust, selle MusicBrainzi ID-ga salvestist ei leitud. Võid proovida {search_url|seda otsida}."
+msgstr ""
+"Vabandust, selle MusicBrainzi ID-ga salvestist ei leitud. Võid proovida "
+"{search_url|seda otsida}."
 
 #: ../root/entity/NotFound.js:154
 msgid "Relationship Attribute Not Found"
@@ -10036,7 +10431,9 @@ msgstr "Väljalaset ei leitud"
 msgid ""
 "Sorry, we could not find a release with that MusicBrainz ID. You may wish to"
 " try and {search_url|search for it} instead."
-msgstr "Vabandust, selle MusicBrainzi ID-ga väljalaset ei leitud. Võid proovida {search_url|seda otsida}."
+msgstr ""
+"Vabandust, selle MusicBrainzi ID-ga väljalaset ei leitud. Võid proovida "
+"{search_url|seda otsida}."
 
 #: ../root/entity/NotFound.js:181
 msgid "Release Group Not Found"
@@ -10046,7 +10443,9 @@ msgstr "Väljalaskerühma ei leitud"
 msgid ""
 "Sorry, we could not find a release group with that MusicBrainz ID. You may "
 "wish to try and {search_url|search for it} instead."
-msgstr "Vabandust, selle MusicBrainzi ID-ga väljalaskerühma ei leitud. Võid proovida {search_url|seda otsida}."
+msgstr ""
+"Vabandust, selle MusicBrainzi ID-ga väljalaskerühma ei leitud. Võid proovida "
+"{search_url|seda otsida}."
 
 #: ../root/entity/NotFound.js:190
 msgid "Series Not Found"
@@ -10056,7 +10455,9 @@ msgstr "Seeriat ei leitud"
 msgid ""
 "Sorry, we could not find a series with that MusicBrainz ID. You may wish to "
 "try and {search_url|search for it} instead."
-msgstr "Vabandust, selle MusicBrainzi ID-ga seeriat ei leitud. Võid proovida {search_url|seda otsida}."
+msgstr ""
+"Vabandust, selle MusicBrainzi ID-ga seeriat ei leitud. Võid proovida "
+"{search_url|seda otsida}."
 
 #: ../root/entity/NotFound.js:199
 msgid "Track Not Found"
@@ -10084,7 +10485,9 @@ msgstr "Toimetajat ei leitud"
 msgid ""
 "Sorry, we could not find an editor with that name. You may wish to try and "
 "{search_url|search for them} instead."
-msgstr "Vabandust, selle nimega toimetajat ei leitud. Võid proovida {search_url|teda otsida}."
+msgstr ""
+"Vabandust, selle nimega toimetajat ei leitud. Võid proovida {search_url|teda "
+"otsida}."
 
 #: ../root/entity/NotFound.js:224
 msgid "Work Not Found"
@@ -10094,7 +10497,9 @@ msgstr "Teost ei leitud"
 msgid ""
 "Sorry, we could not find a work with that MusicBrainz ID. You may wish to "
 "try and {search_url|search for it} instead."
-msgstr "Vabandust, selle MusicBrainzi ID-ga teost ei leitud. Võid proovida {search_url|seda otsida}."
+msgstr ""
+"Vabandust, selle MusicBrainzi ID-ga teost ei leitud. Võid proovida "
+"{search_url|seda otsida}."
 
 #: ../root/entity/Ratings.js:68
 msgid "{count} private rating not listed."
@@ -10196,7 +10601,9 @@ msgstr "Kui jätkad, eemaldatakse alias „{alias}”."
 
 #: ../root/entity/alias/DeleteAlias.js:48
 msgid "Please review the {doc|alias documentation} before entering this edit."
-msgstr "Palun loe enne selle toimetuse sisestamist läbi {doc|aliaste dokumentatsioon}."
+msgstr ""
+"Palun loe enne selle toimetuse sisestamist läbi {doc|aliaste "
+"dokumentatsioon}."
 
 #: ../root/event/EventMerge.js:32
 msgid ""
@@ -10321,7 +10728,9 @@ msgstr "Eriotstarbelisi plaadifirmasid pole lubatud toimetada."
 msgid ""
 "The label you are trying to edit is a special purpose label, and you may not"
 " make direct changes to this data."
-msgstr "Üritad toimetada eriotstarbelist plaadifirmat, aga nende andmeid pole lubatud muuta."
+msgstr ""
+"Üritad toimetada eriotstarbelist plaadifirmat, aga nende andmeid pole "
+"lubatud muuta."
 
 #: ../root/layout/components/BottomMenu.js:99
 msgid "(reset language)"
@@ -10933,7 +11342,9 @@ msgstr "Väljalaskerühma teave"
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:90
 msgid ""
 "Front cover image failed to load correctly.<br/>{all|View all artwork}."
-msgstr "Esikaanepilti ei õnnestunud korralikult laadida.<br/>{all|Näita kõiki kaanepilte}"
+msgstr ""
+"Esikaanepilti ei õnnestunud korralikult laadida.<br/>{all|Näita kõiki "
+"kaanepilte}"
 
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:96
 #: ../root/release/CoverArt.js:69
@@ -11090,7 +11501,9 @@ msgstr "Vabandust, su päringuga oli midagi valesti."
 msgid ""
 "Found a problem on our site? Please {report|report a bug} and include any "
 "error message that is shown above."
-msgstr "Leidsid saidiga probleemi? Palun {report|teata veast} ja lisa sinna ka ülalolev veateade."
+msgstr ""
+"Leidsid saidiga probleemi? Palun {report|teata veast} ja lisa sinna ka "
+"ülalolev veateade."
 
 #: ../root/main/error/Error400.js:52 ../root/main/error/TimeoutError.js:37
 msgid "Technical Information"
@@ -11108,13 +11521,17 @@ msgstr "Vabandust, sul pole lubatud sellele lehele pääseda."
 msgid ""
 "You must first {url|add and verify your email address} before being able to "
 "edit or add anything to the database."
-msgstr "Enne, kui saad midagi muuta või lisada, pead {url|sisestama ja kinnitama oma e-posti aadressi}."
+msgstr ""
+"Enne, kui saad midagi muuta või lisada, pead {url|sisestama ja kinnitama oma "
+"e-posti aadressi}."
 
 #: ../root/main/error/Error401.js:38 ../root/user/Login.js:89
 msgid ""
 "If you think this is a mistake, please contact "
 "<code>support@musicbrainz.org</code> with the name of your account."
-msgstr "Kui arvad, et see on viga, siis saada palun oma konto nimega (ingliskeelne) kiri aadressile <code>support@musicbrainz.org</code>."
+msgstr ""
+"Kui arvad, et see on viga, siis saada palun oma konto nimega (ingliskeelne) "
+"kiri aadressile <code>support@musicbrainz.org</code>."
 
 #: ../root/main/error/Error403.js:21 ../root/main/error/MirrorError403.js:13
 msgid "Forbidden Request"
@@ -11128,7 +11545,9 @@ msgstr "Soovitud leht ei ole avalik."
 msgid ""
 "If you followed a link on our site to get here, please {report|report a bug}"
 " and the URL of the page that sent you here."
-msgstr "Kui sattusid siia meie lehel mõnda linki vajutades, siis palun {report|teata veast}, lisades kirjeldusse ka selle lehe URL-i, mis su siia saatis."
+msgstr ""
+"Kui sattusid siia meie lehel mõnda linki vajutades, siis palun {report|teata "
+"veast}, lisades kirjeldusse ka selle lehe URL-i, mis su siia saatis."
 
 #: ../root/main/error/Error404.js:35
 msgid "Sorry, the page you're looking for does not exist."
@@ -11143,7 +11562,9 @@ msgstr "Veateade: "
 msgid ""
 "Found a broken link on our site? Please {report|report a bug} and include "
 "any error message that is shown above."
-msgstr "Leidsid saidil katkise lingi? Palun {report|teata veast} ja lisa sinna ka ülalolev veateade."
+msgstr ""
+"Leidsid saidil katkise lingi? Palun {report|teata veast} ja lisa sinna ka "
+"ülalolev veateade."
 
 #: ../root/main/error/Error500.js:37
 msgid "Internal Server Error"
@@ -11176,7 +11597,9 @@ msgstr ""
 msgid ""
 "If the problem persists, please {report|report a bug} and include any error "
 "message that is shown above."
-msgstr "Kui aga probleem püsib, siis palun {report|teata veast} ja kui ülalpool on mõni veateade, lisa see vea kirjeldusse."
+msgstr ""
+"Kui aga probleem püsib, siis palun {report|teata veast} ja kui ülalpool on "
+"mõni veateade, lisa see vea kirjeldusse."
 
 #: ../root/main/error/Error503.js:13
 msgid "System Busy"
@@ -11209,7 +11632,9 @@ msgstr "Vabandust, otsitud leht pole peegelserverist saadaval."
 msgid ""
 "In order to view this page, please visit the main server at "
 "{mb|https://musicbrainz.org/}."
-msgstr "Selle lehe vaatamiseks kasuta palun põhiserverit aadressil {mb|https://musicbrainz.org/}."
+msgstr ""
+"Selle lehe vaatamiseks kasuta palun põhiserverit aadressil "
+"{mb|https://musicbrainz.org/}."
 
 #: ../root/main/error/TimeoutError.js:25
 msgid "Request Timed Out"
@@ -11257,7 +11682,9 @@ msgstr "Tere tulemast MusicBrainzi!"
 msgid ""
 "MusicBrainz is an open music encyclopedia that collects music metadata and "
 "makes it available to the public."
-msgstr "MusicBrainz on vaba muusikaentsüklopeedia, mis kogub andmeid muusika kohta ja teeb need üldsusele kättesaadavaks."
+msgstr ""
+"MusicBrainz on vaba muusikaentsüklopeedia, mis kogub andmeid muusika kohta "
+"ja teeb need üldsusele kättesaadavaks."
 
 #: ../root/main/index.js:50
 msgid "MusicBrainz aims to be:"
@@ -11267,21 +11694,28 @@ msgstr "MusicBrainzi siht on olla:"
 msgid ""
 "<strong>The ultimate source of music information</strong> by allowing anyone"
 " to contribute and releasing the {doc|data} under {doc2|open licenses}."
-msgstr "<strong>Muusikaalase teabe ülim allikas</strong>, lubades kõigil kaasa aidata ja avaldades {doc|andmed} heade {doc2|avatud litsentsidega}."
+msgstr ""
+"<strong>Muusikaalase teabe ülim allikas</strong>, lubades kõigil kaasa "
+"aidata ja avaldades {doc|andmed} heade {doc2|avatud litsentsidega}."
 
 #: ../root/main/index.js:67
 msgid ""
 "<strong>The universal lingua franca for music</strong> by providing a "
 "reliable and unambiguous form of {doc|music identification}, enabling both "
 "people and machines to have meaningful conversations about music."
-msgstr "<strong>Muusika <em>lingua franca</em></strong>, pakkudes usaldusväärset ja ühetähenduslikku {doc|muusika tuvastamise} viisi ja võimaldades sellega nii inimestel kui ka masinatel muusikateemal tähenduslikke vestlusi pidada."
+msgstr ""
+"<strong>Muusika <em>lingua franca</em></strong>, pakkudes usaldusväärset ja "
+"ühetähenduslikku {doc|muusika tuvastamise} viisi ja võimaldades sellega nii "
+"inimestel kui ka masinatel muusikateemal tähenduslikke vestlusi pidada."
 
 #: ../root/main/index.js:80
 msgid ""
 "Like Wikipedia, MusicBrainz is maintained by a global community of users and"
 " we want everyone &#x2014; including you &#x2014; to {doc|participate and "
 "contribute}."
-msgstr "Nagu Wikipediat, hooldab ka MusicBrainzi üleilmne kasutajate kogukond ja me tahame, et kõik — ka sina — {doc|osaleks ja aitaks kaasa}."
+msgstr ""
+"Nagu Wikipediat, hooldab ka MusicBrainzi üleilmne kasutajate kogukond ja me "
+"tahame, et kõik — ka sina — {doc|osaleks ja aitaks kaasa}."
 
 #: ../root/main/index.js:91
 msgid ""
@@ -11293,7 +11727,10 @@ msgid ""
 "MusicBrainz is operated by the {uri|MetaBrainz Foundation}, a California "
 "based 501(c)(3) tax-exempt non-profit corporation dedicated to keeping "
 "MusicBrainz {free|free and open source}."
-msgstr "MusicBrainzi juhib {uri|MetaBrainz Foundation}, Californias asuv maksuvabastusega mittetulunduslik ettevõte, mis on pühendunud MusicBrainzi {free|avatud koodiga ja tasuta} hoidmisele."
+msgstr ""
+"MusicBrainzi juhib {uri|MetaBrainz Foundation}, Californias asuv "
+"maksuvabastusega mittetulunduslik ettevõte, mis on pühendunud MusicBrainzi "
+"{free|avatud koodiga ja tasuta} hoidmisele."
 
 #: ../root/main/index.js:116
 msgid "MetaBrainz Blog"
@@ -11348,7 +11785,10 @@ msgid ""
 "The majority of the data in the <strong>MusicBrainz Database</strong> is "
 "released into the <strong>Public Domain</strong> and can be downloaded and "
 "used <strong>for free</strong>."
-msgstr "Enamik andmetest <strong>MusicBrainzi andmebaasis</strong> on kuulutatud <strong>avalikuks omandiks</strong>, mida võib alla laadida ja kasutada <strong>tasuta</strong>."
+msgstr ""
+"Enamik andmetest <strong>MusicBrainzi andmebaasis</strong> on kuulutatud "
+"<strong>avalikuks omandiks</strong>, mida võib alla laadida ja kasutada "
+"<strong>tasuta</strong>."
 
 #: ../root/main/index.js:232
 msgid "Developers"
@@ -11358,7 +11798,9 @@ msgstr "Arendajatele"
 msgid ""
 "Use our <strong>XML web service</strong> or <strong>development "
 "libraries</strong> to create your own MusicBrainz-enabled applications."
-msgstr "Kasuta meie <strong>XML-veebiteenust</strong> või <strong>arendusteeke</strong> MusicBrainzi toega rakenduste loomiseks."
+msgstr ""
+"Kasuta meie <strong>XML-veebiteenust</strong> või <strong>arendusteeke</"
+"strong> MusicBrainzi toega rakenduste loomiseks."
 
 #: ../root/main/index.js:246
 msgid "Recent Additions"
@@ -11440,7 +11882,9 @@ msgstr "Korras!"
 msgid ""
 "You have granted access to {app}. Next, return to {app} and copy this token "
 "to complete the authorization process:"
-msgstr "{app} sai juurdepääsuloa. Autoriseerimisprotsessi lõpetamiseks mine nüüd rakenduse juurde tagasi ja kopeeri sinna see võti:"
+msgstr ""
+"{app} sai juurdepääsuloa. Autoriseerimisprotsessi lõpetamiseks mine nüüd "
+"rakenduse juurde tagasi ja kopeeri sinna see võti:"
 
 #: ../root/otherlookup/OtherLookupForm.js:82
 msgid "Artist IPI:"
@@ -11480,7 +11924,8 @@ msgstr "See koht pole hetkel ühegi sündmusega seostatud."
 
 #: ../root/place/PlaceMap.js:47
 msgid "A map cannot be shown because this place has no coordinates."
-msgstr "Kaarti pole võimalik näidata, kuna selle koha koordinaate pole süsteemis."
+msgstr ""
+"Kaarti pole võimalik näidata, kuna selle koha koordinaate pole süsteemis."
 
 #: ../root/place/PlaceMerge.js:32
 msgid ""
@@ -11501,7 +11946,9 @@ msgstr "Salvestise eemaldamine"
 msgid ""
 "Please make sure you’re not removing a legitimate {doc_standalone|standalone"
 " recording}."
-msgstr "Palun tee kindlaks, et sa ei eemalda legitiimset {doc_standalone|eraldiseisvat salvestist}."
+msgstr ""
+"Palun tee kindlaks, et sa ei eemalda legitiimset {doc_standalone|"
+"eraldiseisvat salvestist}."
 
 #: ../root/recording/DeleteRecording.js:57
 msgid ""
@@ -11566,7 +12013,10 @@ msgid ""
 "<strong>Warning:</strong> Some of the recordings you're merging have "
 "different ISRCs. Please make sure they are indeed the same recordings and "
 "you wish to continue with the merge."
-msgstr "<strong>Hoiatus:</strong> mõnel mestitavatest salvestistest on erinev ISRC. Palun tee kindlaks, kas ikka on tegu samade salvestistega, ja alles siis jätka mestimisega."
+msgstr ""
+"<strong>Hoiatus:</strong> mõnel mestitavatest salvestistest on erinev ISRC. "
+"Palun tee kindlaks, kas ikka on tegu samade salvestistega, ja alles siis "
+"jätka mestimisega."
 
 #: ../root/relationship/RelationshipsHeader.js:23
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:87
@@ -11578,7 +12028,9 @@ msgstr "Seoseatribuudid"
 msgid ""
 "Are you sure you wish to remove the <strong>{link_attr_type}</strong> "
 "relationship attribute?"
-msgstr "Kas oled kindel, et soovid eemaldada seoseatribuudi <strong>{link_attr_type}</strong>?"
+msgstr ""
+"Kas oled kindel, et soovid eemaldada seoseatribuudi "
+"<strong>{link_attr_type}</strong>?"
 
 #: ../root/relationship/linkattributetype/DeleteRelationshipAttributeType.js:28
 msgid "Remove Relationship Attribute"
@@ -11664,7 +12116,8 @@ msgstr "Loo uus seoseatribuut"
 msgid ""
 "Are you sure you wish to remove the <strong>{link_type}</strong> "
 "relationship type?"
-msgstr "Kas oled kindel, et soovid eemaldada seosetüübi <strong>{link_type}</strong>?"
+msgstr ""
+"Kas oled kindel, et soovid eemaldada seosetüübi <strong>{link_type}</strong>?"
 
 #: ../root/relationship/linktype/DeleteRelationshipType.js:28
 msgid "Remove Relationship Type"
@@ -11805,7 +12258,9 @@ msgstr "Suurused:"
 msgid ""
 "These images provided by the {caa|Cover Art Archive}. You can also see them "
 "at the {ia|Internet Archive}."
-msgstr "Need pildid on pärit {caa|Kaanepildiarhiiv}ist. Nad on nähtavad ka {ia|Interneti Arhiivis}."
+msgstr ""
+"Need pildid on pärit {caa|Kaanepildiarhiiv}ist. Nad on nähtavad ka {ia|"
+"Interneti Arhiivis}."
 
 #: ../root/release/CoverArt.js:137
 msgid "We do not currently have any cover art for {release}."
@@ -11845,7 +12300,9 @@ msgstr "Seoste toimetamine: „{release}”"
 msgid ""
 "To use the batch tools, select some recordings or works using the "
 "checkboxes."
-msgstr "Nende tööriistade kasutamiseks vali märkeruutude abil soovitud salvestised või teosed."
+msgstr ""
+"Nende tööriistade kasutamiseks vali märkeruutude abil soovitud salvestised "
+"või teosed."
 
 #: ../root/release/EditRelationships.js:42
 msgid ""
@@ -11877,7 +12334,9 @@ msgstr "Kaanepildi eemaldamine"
 msgid ""
 "Are you sure you wish to remove the below cover art from {release} by "
 "{artist}?"
-msgstr "Kas oled kindel, et soovid eemaldada alloleva kaanepildi artisti {artist} väljalaskelt „{release}”?"
+msgstr ""
+"Kas oled kindel, et soovid eemaldada alloleva kaanepildi artisti {artist} "
+"väljalaskelt „{release}”?"
 
 #: ../root/release_group/ReleaseGroupHeader.js:28
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:810
@@ -11979,7 +12438,9 @@ msgstr ""
 msgid ""
 "This report lists artists that may have disambiguation comments in their "
 "name, rather than the actual disambiguation comment field."
-msgstr "See aruanne loetleb artistid, kellel võib täpsustusmärge olla nimes, mitte selleks ette nähtud täpsustusväljal."
+msgstr ""
+"See aruanne loetleb artistid, kellel võib täpsustusmärge olla nimes, mitte "
+"selleks ette nähtud täpsustusväljal."
 
 #: ../root/report/ArtistsContainingDisambiguationComments.js:30
 #: ../root/report/ReportsIndex.js:84
@@ -12005,7 +12466,12 @@ msgid ""
 "listed as members. If you find that an artist here is indeed a group, change"
 " its type. If it is not, please make sure that the “member of” relationships"
 " are in the right direction and are correct."
-msgstr "See aruanne loetleb artistid, kelle tüübiks on määratud midagi muud kui „grupp” (või mõni grupi alamtüüp), aga kes võivad olla grupid, kuna neil on liikmed. Kui leiad, et mõni siin loetletud artist on tõepoolest grupp, siis muuda tema tüüp vastavaks. Kui mõni kindlasti pole grupp, siis vaata, et liikmeseosed osutaks õiges suunas ja oleks muidu korrektsed."
+msgstr ""
+"See aruanne loetleb artistid, kelle tüübiks on määratud midagi muud kui "
+"„grupp” (või mõni grupi alamtüüp), aga kes võivad olla grupid, kuna neil on "
+"liikmed. Kui leiad, et mõni siin loetletud artist on tõepoolest grupp, siis "
+"muuda tema tüüp vastavaks. Kui mõni kindlasti pole grupp, siis vaata, et "
+"liikmeseosed osutaks õiges suunas ja oleks muidu korrektsed."
 
 #: ../root/report/ArtistsThatMayBeGroups.js:34
 #: ../root/report/ReportsIndex.js:59
@@ -12019,7 +12485,12 @@ msgid ""
 "appear here if it is listed as a member of another. If you find that an "
 "artist here is indeed a person, change its type. If it is not, please make "
 "sure that all the relationships are correct and make sense."
-msgstr "See aruanne loetleb artistid, kelle tüübiks on määratud midagi muud kui „isik”, aga kes seoste järgi otsustades võivad olla isikud, nt on nad märgitud mõne grupi liikmeks. Kui leiad, et mõni siin loetletud artist on tõepoolest isik, siis muuda tema tüüp vastavaks. Kui mõni kindlasti pole isik, siis vaata, et kõik seosed oleks korrektsed ja mõistuspärased."
+msgstr ""
+"See aruanne loetleb artistid, kelle tüübiks on määratud midagi muud kui "
+"„isik”, aga kes seoste järgi otsustades võivad olla isikud, nt on nad "
+"märgitud mõne grupi liikmeks. Kui leiad, et mõni siin loetletud artist on "
+"tõepoolest isik, siis muuda tema tüüp vastavaks. Kui mõni kindlasti pole "
+"isik, siis vaata, et kõik seosed oleks korrektsed ja mõistuspärased."
 
 #: ../root/report/ArtistsThatMayBePersons.js:34
 #: ../root/report/ReportsIndex.js:63
@@ -12030,7 +12501,9 @@ msgstr "Artistid, kes võivad olla isikud"
 msgid ""
 "This report lists artists that appear more than once in different positions "
 "within the same artist credit."
-msgstr "See aruanne loetleb artistid, kelle nimi esineb ühel ja samal artistiteabe väljal mitu korda."
+msgstr ""
+"See aruanne loetleb artistid, kelle nimi esineb ühel ja samal artistiteabe "
+"väljal mitu korda."
 
 #: ../root/report/ArtistsWithMultipleOccurrencesInArtistCredits.js:30
 #: ../root/report/ReportsIndex.js:98
@@ -12042,7 +12515,10 @@ msgid ""
 "This report lists artists that have no editors subscribed to them, and whose"
 " changes may therefore be under-reviewed. Artists with more release groups "
 "and more open edits are listed first."
-msgstr "See aruanne loetleb artistid, keda ei jälgi ükski toimetaja ja kelle suhtes tehtud muudatused võivad seega olla ülevaatamata. Esimesena näidatakse artiste, kellel on väljalaskerühmi ja lahtisi toimetusi rohkem."
+msgstr ""
+"See aruanne loetleb artistid, keda ei jälgi ükski toimetaja ja kelle suhtes "
+"tehtud muudatused võivad seega olla ülevaatamata. Esimesena näidatakse "
+"artiste, kellel on väljalaskerühmi ja lahtisi toimetusi rohkem."
 
 #: ../root/report/ArtistsWithNoSubscribers.js:31
 #: ../root/report/ReportsIndex.js:67
@@ -12058,7 +12534,15 @@ msgid ""
 " barcode, you can also search Amazon for it and see which ASIN matches. You "
 "might also find some ASINs linked to several discs of a multi-disc release: "
 "just merge those (see {how_to_merge_releases|How to Merge Releases})."
-msgstr "See aruanne loetleb Amazoni URL-id, mis on lingitud mitme väljalaskega. Üldjuhul peaks Amazoni ASIN-id üksüheselt MusicBrainzi väljalasetele vastama, nii et ainult üks link saab õige olla. Kontrolli, milline MusicBrainzi väljalase sobib Amazoni oma vasteks (vaata formaati, loonimekirja jm). Kui väljalaskel on vöötkood, võid selle Amazoni otsingusse pista ja vaadata, mis ASIN selle peale leitakse. Võid leida ka ASIN-e, mis on lingitud mitmeplaadilise väljalaske eri plaatidele — nood tuleks lihtsalt üheks väljalaskeks mestida (vaata, {how_to_merge_releases|kuidas see käib})."
+msgstr ""
+"See aruanne loetleb Amazoni URL-id, mis on lingitud mitme väljalaskega. "
+"Üldjuhul peaks Amazoni ASIN-id üksüheselt MusicBrainzi väljalasetele "
+"vastama, nii et ainult üks link saab õige olla. Kontrolli, milline "
+"MusicBrainzi väljalase sobib Amazoni oma vasteks (vaata formaati, "
+"loonimekirja jm). Kui väljalaskel on vöötkood, võid selle Amazoni otsingusse "
+"pista ja vaadata, mis ASIN selle peale leitakse. Võid leida ka ASIN-e, mis "
+"on lingitud mitmeplaadilise väljalaske eri plaatidele — nood tuleks lihtsalt "
+"üheks väljalaskeks mestida (vaata, {how_to_merge_releases|kuidas see käib})."
 
 #: ../root/report/AsinsWithMultipleReleases.js:38
 #: ../root/report/ReportsIndex.js:280
@@ -12077,7 +12561,11 @@ msgid ""
 "This report shows releases with Amazon URLs which don't follow the expected "
 "format. They might still be correct if they're archive.org cover links, but "
 "in any other case they should probably be fixed or removed."
-msgstr "See aruanne loetleb väljalasked, millega seostatud Amazoni URL-id ei järgi ootuspärast vormingut. Need võivad olla korrektsed, kui tegu on Archive.org-i kaanepildilinkidega, kuid igal muul juhul tuleks need kas ära parandada või eemaldada."
+msgstr ""
+"See aruanne loetleb väljalasked, millega seostatud Amazoni URL-id ei järgi "
+"ootuspärast vormingut. Need võivad olla korrektsed, kui tegu on Archive.org-"
+"i kaanepildilinkidega, kuid igal muul juhul tuleks need kas ära parandada "
+"või eemaldada."
 
 #: ../root/report/BadAmazonUrls.js:55
 msgid "Bad Amazon URLs"
@@ -12115,7 +12603,11 @@ msgid ""
 "This is almost always wrong: ASINs are just Amazon's entries for the "
 "releases and should be linked to the release with an Amazon URL relationship"
 " instead."
-msgstr "See aruanne loetleb väljalasked, mille katalooginumbrid näevad välja nagu ASIN-id. Need on peaaegu alati valed: ASIN-id on lihtsalt Amazoni kirjed väljalasete jaoks ning need tuleks vastava väljalaskega seostada Amazoni URL-i seose kaudu."
+msgstr ""
+"See aruanne loetleb väljalasked, mille katalooginumbrid näevad välja nagu "
+"ASIN-id. Need on peaaegu alati valed: ASIN-id on lihtsalt Amazoni kirjed "
+"väljalasete jaoks ning need tuleks vastava väljalaskega seostada Amazoni URL-"
+"i seose kaudu."
 
 #: ../root/report/CatNoLooksLikeAsin.js:36 ../root/report/ReportsIndex.js:323
 msgid "Releases with catalog numbers that look like ASINs"
@@ -12155,7 +12647,11 @@ msgid ""
 "relationships. If the collaboration has its own independent name, do "
 "nothing. If it is in a format like \"X with Y\" or \"X & Y\", you should "
 "probably split it. See {how_to_split_artists|How to Split Artists}."
-msgstr "See aruanne loetleb artistid, kellel on koostööseosed, aga eiühtki seost URL-idega. Kui koostööl on omaenda nimi, ära tee midagi. Kui nimi on kujul „X koos Y-iga” või „X & Y”, tuleks see tõenäoliselt vastavateks artistideks eraldada (vaata, {how_to_split_artists|kuidas see käib})."
+msgstr ""
+"See aruanne loetleb artistid, kellel on koostööseosed, aga eiühtki seost URL-"
+"idega. Kui koostööl on omaenda nimi, ära tee midagi. Kui nimi on kujul „X "
+"koos Y-iga” või „X & Y”, tuleks see tõenäoliselt vastavateks artistideks "
+"eraldada (vaata, {how_to_split_artists|kuidas see käib})."
 
 #: ../root/report/CollaborationRelationships.js:42
 msgid "Artists with collaboration relationships"
@@ -12180,7 +12676,9 @@ msgstr "Seda artisti pole enam olemas."
 msgid ""
 "This report lists artists which have relationships using deprecated and "
 "grouping-only relationship types."
-msgstr "See aruanne loetleb artistid, kellel on aegunud või teiste seoste rühmitamiseks mõeldud seosetüüpe."
+msgstr ""
+"See aruanne loetleb artistid, kellel on aegunud või teiste seoste "
+"rühmitamiseks mõeldud seosetüüpe."
 
 #: ../root/report/DeprecatedRelationshipArtists.js:35
 #: ../root/report/ReportsIndex.js:103
@@ -12191,7 +12689,9 @@ msgstr "Artistid iganenud seostega"
 msgid ""
 "This report lists labels which have relationships using deprecated and "
 "grouping-only relationship types."
-msgstr "See aruanne loetleb plaadifirmad, millel on aegunud või teiste seoste rühmitamiseks mõeldud seosetüüpe."
+msgstr ""
+"See aruanne loetleb plaadifirmad, millel on aegunud või teiste seoste "
+"rühmitamiseks mõeldud seosetüüpe."
 
 #: ../root/report/DeprecatedRelationshipLabels.js:35
 #: ../root/report/ReportsIndex.js:186
@@ -12202,7 +12702,9 @@ msgstr "Plaadifirmad iganenud seostega"
 msgid ""
 "This report lists places which have relationships using deprecated and "
 "grouping-only relationship types."
-msgstr "See aruanne loetleb kohad, millel on aegunud või teiste seoste rühmitamiseks mõeldud seosetüüpe."
+msgstr ""
+"See aruanne loetleb kohad, millel on aegunud või teiste seoste rühmitamiseks "
+"mõeldud seosetüüpe."
 
 #: ../root/report/DeprecatedRelationshipPlaces.js:35
 #: ../root/report/ReportsIndex.js:536
@@ -12213,7 +12715,9 @@ msgstr "Kohad iganenud seostega"
 msgid ""
 "This report lists recordings which have relationships using deprecated and "
 "grouping-only relationship types."
-msgstr "See aruanne loetleb salvestised, millel on aegunud või teiste seoste rühmitamiseks mõeldud seosetüüpe."
+msgstr ""
+"See aruanne loetleb salvestised, millel on aegunud või teiste seoste "
+"rühmitamiseks mõeldud seosetüüpe."
 
 #: ../root/report/DeprecatedRelationshipRecordings.js:35
 #: ../root/report/ReportsIndex.js:482
@@ -12224,7 +12728,9 @@ msgstr "Salvestised iganenud seostega"
 msgid ""
 "This report lists release groups which have relationships using deprecated "
 "and grouping-only relationship types."
-msgstr "See aruanne loetleb väljalaskerühmad, millel on aegunud või teiste seoste rühmitamiseks mõeldud seosetüüpe."
+msgstr ""
+"See aruanne loetleb väljalaskerühmad, millel on aegunud või teiste seoste "
+"rühmitamiseks mõeldud seosetüüpe."
 
 #: ../root/report/DeprecatedRelationshipReleaseGroups.js:35
 #: ../root/report/ReportsIndex.js:223
@@ -12235,7 +12741,9 @@ msgstr "Väljalaskerühmad iganenud seostega"
 msgid ""
 "This report lists releases which have relationships using deprecated and "
 "grouping-only relationship types."
-msgstr "See aruanne loetleb väljalasked, millel on aegunud või teiste seoste rühmitamiseks mõeldud seosetüüpe."
+msgstr ""
+"See aruanne loetleb väljalasked, millel on aegunud või teiste seoste "
+"rühmitamiseks mõeldud seosetüüpe."
 
 #: ../root/report/DeprecatedRelationshipReleases.js:35
 #: ../root/report/ReportsIndex.js:397
@@ -12246,7 +12754,9 @@ msgstr "Väljalasked iganenud seostega"
 msgid ""
 "This report lists URLs which have relationships using deprecated and "
 "grouping-only relationship types."
-msgstr "See aruanne loetleb URL-id, millel on aegunud või teiste seoste rühmitamiseks mõeldud seosetüüpe."
+msgstr ""
+"See aruanne loetleb URL-id, millel on aegunud või teiste seoste "
+"rühmitamiseks mõeldud seosetüüpe."
 
 #: ../root/report/DeprecatedRelationshipUrls.js:35
 #: ../root/report/ReportsIndex.js:583
@@ -12257,7 +12767,9 @@ msgstr "URL-id iganenud seostega"
 msgid ""
 "This report lists works which have relationships using deprecated and "
 "grouping-only relationship types."
-msgstr "See aruanne loetleb teosed, millel on aegunud või teiste seoste rühmitamiseks mõeldud seosetüüpe."
+msgstr ""
+"See aruanne loetleb teosed, millel on aegunud või teiste seoste "
+"rühmitamiseks mõeldud seosetüüpe."
 
 #: ../root/report/DeprecatedRelationshipWorks.js:35
 #: ../root/report/ReportsIndex.js:566
@@ -12275,7 +12787,8 @@ msgstr "Mitme artistiga lingitud Discogsi URL-id"
 
 #: ../root/report/DiscogsLinksWithMultipleLabels.js:25
 msgid "This report shows Discogs URLs which are linked to multiple labels."
-msgstr "See aruanne loetleb Discogsi URL-id, mis on lingitud mitme plaadifirmaga."
+msgstr ""
+"See aruanne loetleb Discogsi URL-id, mis on lingitud mitme plaadifirmaga."
 
 #: ../root/report/DiscogsLinksWithMultipleLabels.js:30
 #: ../root/report/ReportsIndex.js:178
@@ -12285,7 +12798,8 @@ msgstr "Mitme plaadifirmaga lingitud Discogsi URL-id"
 #: ../root/report/DiscogsLinksWithMultipleReleaseGroups.js:25
 msgid ""
 "This report shows Discogs URLs which are linked to multiple release groups."
-msgstr "See aruanne loetleb Discogsi URL-id, mis on lingitud mitme väljalaskerühmaga."
+msgstr ""
+"See aruanne loetleb Discogsi URL-id, mis on lingitud mitme väljalaskerühmaga."
 
 #: ../root/report/DiscogsLinksWithMultipleReleaseGroups.js:31
 #: ../root/report/ReportsIndex.js:213
@@ -12301,7 +12815,14 @@ msgid ""
 "etc.). You might also find some Discogs URLs linked to several discs of a "
 "multi-disc release: just merge those (see {how_to_merge_releases|How to "
 "Merge Releases})."
-msgstr "See aruanne loetleb Discogsi URL-id, mis on lingitud mitme väljalaskega. Üldjuhul peaks Discogsi väljalasked üksüheselt MusicBrainzi väljalasetele vastama, nii et ainult üks link saab õige olla. Kontrolli, milline MusicBrainzi väljalase sobib Discogsi oma vasteks (vaata formaati, loonimekirja, väljalaskemaad jm). Võid leida ka Discogsi URL-e, mis on lingitud mitmeplaadilise väljalaske eri plaatidele — nood tuleks lihtsalt üheks väljalaskeks mestida (vaata, {how_to_merge_releases|kuidas see käib})."
+msgstr ""
+"See aruanne loetleb Discogsi URL-id, mis on lingitud mitme väljalaskega. "
+"Üldjuhul peaks Discogsi väljalasked üksüheselt MusicBrainzi väljalasetele "
+"vastama, nii et ainult üks link saab õige olla. Kontrolli, milline "
+"MusicBrainzi väljalase sobib Discogsi oma vasteks (vaata formaati, "
+"loonimekirja, väljalaskemaad jm). Võid leida ka Discogsi URL-e, mis on "
+"lingitud mitmeplaadilise väljalaske eri plaatidele — nood tuleks lihtsalt "
+"üheks väljalaskeks mestida (vaata, {how_to_merge_releases|kuidas see käib})."
 
 #: ../root/report/DiscogsLinksWithMultipleReleases.js:37
 #: ../root/report/ReportsIndex.js:284
@@ -12320,7 +12841,13 @@ msgid ""
 "they're different, add {disambiguation_comment|disambiguation comments} to "
 "them (and once a group of similarly named artists have disambiguation "
 "comments, they will stop appearing here)."
-msgstr "Selle aruande eesmärk on tuvastada väga sarnaste nimedega artistid. Kui kaks artisti on tegelikult üks ja sama, siis palun mesti need (ära unusta {how_to_write_edit_notes|toimetusmärget} tõendusmaterjaliga). Kui nad on erinevad, siis {disambiguation_comment|lisa neile täpsustus} (kui kõik sarnaste nimedega artistid on omale täpsustusmärke saanud, neid siin enam ei näidata)."
+msgstr ""
+"Selle aruande eesmärk on tuvastada väga sarnaste nimedega artistid. Kui kaks "
+"artisti on tegelikult üks ja sama, siis palun mesti need (ära unusta "
+"{how_to_write_edit_notes|toimetusmärget} tõendusmaterjaliga). Kui nad on "
+"erinevad, siis {disambiguation_comment|lisa neile täpsustus} (kui kõik "
+"sarnaste nimedega artistid on omale täpsustusmärke saanud, neid siin enam ei "
+"näidata)."
 
 #: ../root/report/DuplicateArtists.js:55 ../root/report/ReportsIndex.js:71
 msgid "Possibly duplicate artists"
@@ -12344,7 +12871,10 @@ msgid ""
 "This report lists events happening at the same place on the same date. If "
 "there are duplicates (for example, if there are separate events for "
 "headliner and supporting artist) please merge them."
-msgstr "See aruanne loetleb sündmused, mille toimumiskoht ja -päev on sama. Kui tegu on tegelikult ühe ja sama sündmusega (nt on eraldi sündmusena lisatud peaesineja ja soojendaja), tuleks sündmused mestida."
+msgstr ""
+"See aruanne loetleb sündmused, mille toimumiskoht ja -päev on sama. Kui tegu "
+"on tegelikult ühe ja sama sündmusega (nt on eraldi sündmusena lisatud "
+"peaesineja ja soojendaja), tuleks sündmused mestida."
 
 #: ../root/report/DuplicateEvents.js:32
 msgid "Possible duplicate events"
@@ -12356,7 +12886,11 @@ msgid ""
 "artist, label or URL using the same relationship type. For multiple "
 "relationships to release groups, recordings or works, see the reports for "
 "those entities."
-msgstr "See aruanne loetleb artistid, millel on mitu sama tüüpi seost ühe ja sama artisti, plaadifirma või URL-iga. Välja on jäetud topeltseosed väljalaskerühmade, salvestiste ja teostega — need on loetletud nende vastavates aruannetes."
+msgstr ""
+"See aruanne loetleb artistid, millel on mitu sama tüüpi seost ühe ja sama "
+"artisti, plaadifirma või URL-iga. Välja on jäetud topeltseosed "
+"väljalaskerühmade, salvestiste ja teostega — need on loetletud nende "
+"vastavates aruannetes."
 
 #: ../root/report/DuplicateRelationshipsArtists.js:32
 #: ../root/report/ReportsIndex.js:93
@@ -12367,7 +12901,9 @@ msgstr "Artistid võimalike topeltseostega"
 msgid ""
 "This report lists labels which have multiple relationships to the same "
 "entity using the same relationship type."
-msgstr "See aruanne loetleb plaadifirmad, millel on mitu sama tüüpi seost ühe ja sama olemiga."
+msgstr ""
+"See aruanne loetleb plaadifirmad, millel on mitu sama tüüpi seost ühe ja "
+"sama olemiga."
 
 #: ../root/report/DuplicateRelationshipsLabels.js:30
 #: ../root/report/ReportsIndex.js:182
@@ -12378,7 +12914,9 @@ msgstr "Plaadifirmad võimalike topeltseostega"
 msgid ""
 "This report lists recordings which have multiple relationships to the same "
 "entity using the same relationship type."
-msgstr "See aruanne loetleb salvestised, millel on mitu sama tüüpi seost ühe ja sama olemiga."
+msgstr ""
+"See aruanne loetleb salvestised, millel on mitu sama tüüpi seost ühe ja sama "
+"olemiga."
 
 #: ../root/report/DuplicateRelationshipsRecordings.js:30
 #: ../root/report/ReportsIndex.js:474
@@ -12389,7 +12927,9 @@ msgstr "Salvestised võimalike topeltseostega"
 msgid ""
 "This report lists release groups which have multiple relationships to the "
 "same entity using the same relationship type."
-msgstr "See aruanne loetleb väljalaskerühmad, millel on mitu sama tüüpi seost ühe ja sama olemiga."
+msgstr ""
+"See aruanne loetleb väljalaskerühmad, millel on mitu sama tüüpi seost ühe ja "
+"sama olemiga."
 
 #: ../root/report/DuplicateRelationshipsReleaseGroups.js:30
 #: ../root/report/ReportsIndex.js:218
@@ -12400,7 +12940,9 @@ msgstr "Väljalaskerühmad võimalike topeltseostega"
 msgid ""
 "This report lists releases which have multiple relationships to the same "
 "entity using the same relationship type."
-msgstr "See aruanne loetleb väljalasked, millel on mitu sama tüüpi seost ühe ja sama olemiga."
+msgstr ""
+"See aruanne loetleb väljalasked, millel on mitu sama tüüpi seost ühe ja sama "
+"olemiga."
 
 #: ../root/report/DuplicateRelationshipsReleases.js:30
 #: ../root/report/ReportsIndex.js:381
@@ -12412,7 +12954,10 @@ msgid ""
 "This report lists works which have multiple relationships to the same entity"
 " using the same relationship type. This excludes recording-work "
 "relationships. See the recording version of this report for those."
-msgstr "See aruanne loetleb teosed, millel on mitu sama tüüpi seost ühe ja sama olemiga. Välja on jäetud seosed salvestiste ja teoste vahel — need on loetletud selle aruande salvestiste-versioonis."
+msgstr ""
+"See aruanne loetleb teosed, millel on mitu sama tüüpi seost ühe ja sama "
+"olemiga. Välja on jäetud seosed salvestiste ja teoste vahel — need on "
+"loetletud selle aruande salvestiste-versioonis."
 
 #: ../root/report/DuplicateRelationshipsWorks.js:32
 #: ../root/report/ReportsIndex.js:562
@@ -12428,7 +12973,13 @@ msgid ""
 "artist has an album and single with the same name, then there is usually no "
 "need to change anything. In other cases, a disambiguation comment may be "
 "helpful."
-msgstr "See aruanne loetleb väga sarnaste pealkirjade ja artistidega väljalaskerühmad. Kui väljalasked neis peaks olema kokku rühmitatud (vaata {url|juhiseid}), tuleks rühmad mestida. Kui väljalasked ei peaks olema kokku rühmitatud ja neil on erinev väljalaskerühma tüüp, nt kui on tegu sama pealkirjaga albumi ja singliga, pole vaja midagi muuta. Muudel juhtudel võib abi olla täpsustusmärke lisamisest."
+msgstr ""
+"See aruanne loetleb väga sarnaste pealkirjade ja artistidega "
+"väljalaskerühmad. Kui väljalasked neis peaks olema kokku rühmitatud (vaata "
+"{url|juhiseid}), tuleks rühmad mestida. Kui väljalasked ei peaks olema kokku "
+"rühmitatud ja neil on erinev väljalaskerühma tüüp, nt kui on tegu sama "
+"pealkirjaga albumi ja singliga, pole vaja midagi muuta. Muudel juhtudel võib "
+"abi olla täpsustusmärke lisamisest."
 
 #: ../root/report/DuplicateReleaseGroups.js:52
 #: ../root/report/ReportsIndex.js:227
@@ -12444,7 +12995,9 @@ msgstr "Seda väljalaskerühma pole enam olemas."
 msgid ""
 "This report lists events where the event name indicates that it may have to "
 "be part of a series or a larger event."
-msgstr "See aruanne loetleb sündmused, mille nimest võib järeldada, et need peaks ehk olema osa seeriast või suuremast sündmusest."
+msgstr ""
+"See aruanne loetleb sündmused, mille nimest võib järeldada, et need peaks "
+"ehk olema osa seeriast või suuremast sündmusest."
 
 #: ../root/report/EventSequenceNotInSeries.js:30
 #: ../root/report/ReportsIndex.js:151
@@ -12459,7 +13012,13 @@ msgid ""
 " older version of MusicBrainz and should be fixed (both on the recordings "
 "and on the tracks!). Consult the {featured_artists|page about featured "
 "artists} to know more."
-msgstr "See aruanne loetleb salvestised, mille pealkirjas on „(feat. Artist)” vmt. Klassikalise muusika puhul pea nõu {CSG|klassikalise muusika stiilijuhistega}. Kõige muu puhul pärineb see aga üldjuhul MusicBrainzi varasemast versioonist ja tuleks ära parandada (nii salvestiste pealkirjades kui väljalasete loonimekirjas!). Lisateavet saad {featured_artists|lehelt kaasa tegevate artistide kohta}."
+msgstr ""
+"See aruanne loetleb salvestised, mille pealkirjas on „(feat. Artist)” vmt. "
+"Klassikalise muusika puhul pea nõu {CSG|klassikalise muusika stiilijuhistega}"
+". Kõige muu puhul pärineb see aga üldjuhul MusicBrainzi varasemast "
+"versioonist ja tuleks ära parandada (nii salvestiste pealkirjades kui "
+"väljalasete loonimekirjas!). Lisateavet saad {featured_artists|lehelt kaasa "
+"tegevate artistide kohta}."
 
 #: ../root/report/FeaturingRecordings.js:39 ../root/report/ReportsIndex.js:470
 msgid "Recordings with titles containing featuring artists"
@@ -12472,7 +13031,12 @@ msgid ""
 "guidelines}. For non-classical release groups, this is usually inherited "
 "from an older version of MusicBrainz and should be fixed. Consult the "
 "{featured_artists|page about featured artists} to know more."
-msgstr "See aruanne loetleb väljalaskerühmad, mille pealkirjas on „(feat. Artist)” vmt. Klassikalise muusika puhul pea nõu {CSG|klassikalise muusika stiilijuhistega}. Kõige muu puhul pärineb see aga üldjuhul MusicBrainzi varasemast versioonist ja tuleks ära parandada. Lisateavet saad {featured_artists|lehelt kaasa tegevate artistide kohta}."
+msgstr ""
+"See aruanne loetleb väljalaskerühmad, mille pealkirjas on „(feat. Artist)” "
+"vmt. Klassikalise muusika puhul pea nõu {CSG|klassikalise muusika "
+"stiilijuhistega}. Kõige muu puhul pärineb see aga üldjuhul MusicBrainzi "
+"varasemast versioonist ja tuleks ära parandada. Lisateavet saad "
+"{featured_artists|lehelt kaasa tegevate artistide kohta}."
 
 #: ../root/report/FeaturingReleaseGroups.js:38
 #: ../root/report/ReportsIndex.js:208
@@ -12530,7 +13094,15 @@ msgid ""
 "recording, the ISRCs are probably correct and should be left alone. If the "
 "same ISRC appears on two unrelated recordings on the same release, this is "
 "usually means there was an error when reading the disc."
-msgstr "See aruanne loetleb {isrc|ISRC-d}, mis on omistatud rohkem kui ühele salvestisele. Kui need salvestised on tegelikult üks ja sama, tuleks nad mestida. Et aga ISRC-d võivad ka valesti omistatud olla, siis tuleb igal juhul hoolikalt kindlaks teha, kas tegu ikka on täpselt sama salvestisega. Kui antud salvestised on mõne pikema salvestise osad, siis on ISRC-d tõenäoliselt korrektsed ja tuleks rahule jätta. Kui sama ISRC on omistatud mitteseotud salvestistele samal väljalaskel, siis tõenäoliselt tekkis plaadi lugemisel viga."
+msgstr ""
+"See aruanne loetleb {isrc|ISRC-d}, mis on omistatud rohkem kui ühele "
+"salvestisele. Kui need salvestised on tegelikult üks ja sama, tuleks nad "
+"mestida. Et aga ISRC-d võivad ka valesti omistatud olla, siis tuleb igal "
+"juhul hoolikalt kindlaks teha, kas tegu ikka on täpselt sama salvestisega. "
+"Kui antud salvestised on mõne pikema salvestise osad, siis on ISRC-d "
+"tõenäoliselt korrektsed ja tuleks rahule jätta. Kui sama ISRC on omistatud "
+"mitteseotud salvestistele samal väljalaskel, siis tõenäoliselt tekkis plaadi "
+"lugemisel viga."
 
 #: ../root/report/IsrcsWithManyRecordings.js:51
 #: ../root/report/ReportsIndex.js:600
@@ -12546,7 +13118,9 @@ msgstr "Seda salvestist pole enam olemas."
 msgid ""
 "This report lists {iswc|ISWCs} that are attached to more than one work. If "
 "the works are the same, this usually means they should be merged."
-msgstr "See aruanne loetleb {iswc|ISWC-d}, mis on omistatud rohkem kui ühele teosele. Kui need teosed on tegelikult üks ja sama, tuleks nad mestida."
+msgstr ""
+"See aruanne loetleb {iswc|ISWC-d}, mis on omistatud rohkem kui ühele "
+"teosele. Kui need teosed on tegelikult üks ja sama, tuleks nad mestida."
 
 #: ../root/report/IswcsWithManyWorks.js:42 ../root/report/ReportsIndex.js:609
 msgid "ISWCs with multiple works"
@@ -12620,7 +13194,9 @@ msgstr ""
 msgid ""
 "This report lists all releases with gaps in the medium numbers (e.g. there "
 "is a medium 1 and 3 but no medium 2)."
-msgstr "See aruanne loetleb kõik väljalasked, kus helikandjanumbrid pole järjestikused (nt puudub helikandja nr 2, kuigi 1 ja 3 on olemas)."
+msgstr ""
+"See aruanne loetleb kõik väljalasked, kus helikandjanumbrid pole "
+"järjestikused (nt puudub helikandja nr 2, kuigi 1 ja 3 on olemas)."
 
 #: ../root/report/MediumsWithSequenceIssues.js:30
 msgid "Releases with medium number issues"
@@ -12646,7 +13222,13 @@ msgid ""
 " be correct. Just check which ones do not fit the release (because of "
 "format, different number of tracks, etc). If the release has a barcode, you "
 "can search Amazon for it and see which ASIN matches."
-msgstr "See aruanne loetleb väljalasked, mis on lingitud mitme Amazoni ASIN-iga. Üldjuhul peaks ASIN-id üksüheselt MusicBrainzi väljalasetele vastama, nii et ainult üks ASIN saab õige olla. Lihtsalt kontrolli, millised neist väljalaskega ei sobi (vaata formaati, loonimekirja jm) ja eemalda need. Kui väljalaskel on vöötkood, võid selle Amazoni otsingusse pista ja vaadata, mis ASIN selle peale leitakse."
+msgstr ""
+"See aruanne loetleb väljalasked, mis on lingitud mitme Amazoni ASIN-iga. "
+"Üldjuhul peaks ASIN-id üksüheselt MusicBrainzi väljalasetele vastama, nii et "
+"ainult üks ASIN saab õige olla. Lihtsalt kontrolli, millised neist "
+"väljalaskega ei sobi (vaata formaati, loonimekirja jm) ja eemalda need. Kui "
+"väljalaskel on vöötkood, võid selle Amazoni otsingusse pista ja vaadata, mis "
+"ASIN selle peale leitakse."
 
 #: ../root/report/MultipleAsins.js:34
 msgid "Releases with multiple ASINs"
@@ -12660,7 +13242,13 @@ msgid ""
 "release (because of format, different number of tracks, etc). Any \"master\""
 " Discogs page belongs at the {release_group|release group level}, not at the"
 " release level, and should be removed from releases too."
-msgstr "See aruanne loetleb väljalasked, mis on lingitud mitme Discogsi URL-iga. Üldjuhul peaks MusicBrainzi väljalasetel Discogsis ainult üks vaste olema. Lihtsalt kontrolli, millised neist väljalaskega ei sobi (erineva formaadi, loonimekirja vm tõttu) ja eemalda need. Discogsi „master”-lehtede koht on {release_group|väljalaskerühma tasemel} ja väljalasetelt tuleks need eemaldada."
+msgstr ""
+"See aruanne loetleb väljalasked, mis on lingitud mitme Discogsi URL-iga. "
+"Üldjuhul peaks MusicBrainzi väljalasetel Discogsis ainult üks vaste olema. "
+"Lihtsalt kontrolli, millised neist väljalaskega ei sobi (erineva formaadi, "
+"loonimekirja vm tõttu) ja eemalda need. Discogsi „master”-lehtede koht on "
+"{release_group|väljalaskerühma tasemel} ja väljalasetelt tuleks need "
+"eemaldada."
 
 #: ../root/report/MultipleDiscogsLinks.js:36
 msgid "Releases with multiple Discogs links"
@@ -12671,7 +13259,10 @@ msgid ""
 "This report shows releases that have no language set. If you recognize the "
 "language, please set it! Do it only if you are pretty sure, don't just "
 "guess: not everything written in Cyrillic is Russian, for example."
-msgstr "See aruanne loetleb väljalasked, millel on keel määramata. Kui keele ära tunned, siis lihtsalt määra see, kuid ainult juhul, kui oled tõesti kindel (näiteks pole vene keel kaugeltki ainuke, mida kirillitsas kirjutatakse)."
+msgstr ""
+"See aruanne loetleb väljalasked, millel on keel määramata. Kui keele ära "
+"tunned, siis lihtsalt määra see, kuid ainult juhul, kui oled tõesti kindel ("
+"näiteks pole vene keel kaugeltki ainuke, mida kirillitsas kirjutatakse)."
 
 #: ../root/report/NoLanguage.js:36 ../root/report/ReportsIndex.js:260
 msgid "Releases without language"
@@ -12682,7 +13273,10 @@ msgid ""
 "This report shows releases that have no script set. If you recognize the "
 "script, just add it! Remember that the script used for English (and most "
 "other European languages) is Latin."
-msgstr "See aruanne loetleb väljalasked, millel on kirjasüsteem määramata. Kui kirjasüsteemi ära tunned, siis lihtsalt määra see. Pea meeles, et eesti keele (ja enamikku teiste Euroopa keelte) jaoks kasutatakse ladina kirja."
+msgstr ""
+"See aruanne loetleb väljalasked, millel on kirjasüsteem määramata. Kui "
+"kirjasüsteemi ära tunned, siis lihtsalt määra see. Pea meeles, et eesti "
+"keele (ja enamikku teiste Euroopa keelte) jaoks kasutatakse ladina kirja."
 
 #: ../root/report/NoScript.js:35 ../root/report/ReportsIndex.js:264
 msgid "Releases without script"
@@ -12709,7 +13303,12 @@ msgid ""
 " releases}. If the releases are not really part of a set (for example, if "
 "they are independently-released volumes in a series) just remove the "
 "relationship."
-msgstr "See aruanne loetleb väljalasked, millel on ikka veel „osa komplektist” seos ja mis tuleks tõenäoliselt mestida. Juhised nende kordategemiseks leiad {how_to_merge_releases|väljalasete mestimise dokumentatsioonist}. Kui väljalasked ei kuulu tegelikult ühte komplekti (näiteks on tegu sama sarja iseseisvalt avaldatud osadega), siis lihtsalt eemalda see seos."
+msgstr ""
+"See aruanne loetleb väljalasked, millel on ikka veel „osa komplektist” seos "
+"ja mis tuleks tõenäoliselt mestida. Juhised nende kordategemiseks leiad "
+"{how_to_merge_releases|väljalasete mestimise dokumentatsioonist}. Kui "
+"väljalasked ei kuulu tegelikult ühte komplekti (näiteks on tegu sama sarja "
+"iseseisvalt avaldatud osadega), siis lihtsalt eemalda see seos."
 
 #: ../root/report/PartOfSetRelationships.js:36
 msgid "Releases with “part of set” relationships"
@@ -12784,7 +13383,12 @@ msgid ""
 " they're not, the relationship should be removed. Please, do not merge "
 "recordings blindly just because the lengths fit, and do not merge recordings"
 " with very different times!"
-msgstr "See aruanne loetleb salvestised, millel on ikka veel „varaseima väljalaske” seos. Kui tegu on tõesti ühe ja sama salvestisega, siis tuleks nad mestida, vastasel juhul aga nendevaheline seos eemaldada. Pimesi, ainult sobiva pikkuse alusel ära palun salvestisi mesti, samuti ära mesti väga erineva kestusega salvestisi."
+msgstr ""
+"See aruanne loetleb salvestised, millel on ikka veel „varaseima väljalaske” "
+"seos. Kui tegu on tõesti ühe ja sama salvestisega, siis tuleks nad mestida, "
+"vastasel juhul aga nendevaheline seos eemaldada. Pimesi, ainult sobiva "
+"pikkuse alusel ära palun salvestisi mesti, samuti ära mesti väga erineva "
+"kestusega salvestisi."
 
 #: ../root/report/RecordingsWithEarliestReleaseRelationships.js:34
 #: ../root/report/ReportsIndex.js:466
@@ -12805,7 +13409,9 @@ msgstr ""
 msgid ""
 "This report shows recordings where the linked tracks have times that vary by"
 " more than 30 seconds."
-msgstr "See aruanne loetleb salvestised, millega lingitud lugude pikkused erinevad üle 30 sekundi."
+msgstr ""
+"See aruanne loetleb salvestised, millega lingitud lugude pikkused erinevad "
+"üle 30 sekundi."
 
 #: ../root/report/RecordingsWithVaryingTrackLengths.js:30
 #: ../root/report/ReportsIndex.js:478
@@ -12861,7 +13467,11 @@ msgid ""
 "This report lists releases where the label name is the same as the artist "
 "name. Often this means the release is self-released, and the label "
 "{SpecialPurposeLabel|should be \"[no label]\" instead}."
-msgstr "See aruanne loetleb väljalasked, millel plaadifirma nimi on sama nagu artisti oma. Sageli tähendab see, et artist avaldas väljalaske ise ja plaadifirmaväljal {SpecialPurposeLabel|peaks seega seisma „[ilma plaadifirmata]”}."
+msgstr ""
+"See aruanne loetleb väljalasked, millel plaadifirma nimi on sama nagu "
+"artisti oma. Sageli tähendab see, et artist avaldas väljalaske ise ja "
+"plaadifirmaväljal {SpecialPurposeLabel|peaks seega seisma „[ilma "
+"plaadifirmata]”}."
 
 #: ../root/report/ReleaseLabelSameArtist.js:50
 #: ../root/report/ReportsIndex.js:438
@@ -12886,7 +13496,11 @@ msgid ""
 "released too early to have disc IDs, where one of the medium formats didn't "
 "exist at the time the release was released or where a disc ID is attached to"
 " a medium whose format does not have disc IDs."
-msgstr "See aruanne loetleb väljalasked, millel mõne helikandja formaat polnud märgitud väljalaskeajal veel leiutatud; millele on omistatud plaadi-ID, kuigi väljalase on selleks liiga vana; või millel on plaadi-ID omistatud helikandjale, mille formaadil ei saa plaadi-ID-d olla."
+msgstr ""
+"See aruanne loetleb väljalasked, millel mõne helikandja formaat polnud "
+"märgitud väljalaskeajal veel leiutatud; millele on omistatud plaadi-ID, "
+"kuigi väljalase on selleks liiga vana; või millel on plaadi-ID omistatud "
+"helikandjale, mille formaadil ei saa plaadi-ID-d olla."
 
 #: ../root/report/ReleasedTooEarly.js:33 ../root/report/ReportsIndex.js:312
 msgid "Releases released too early"
@@ -12939,7 +13553,10 @@ msgid ""
 "artists (because the track artists are on the title field, for example). "
 "Currently it does this by looking for releases where every track contains "
 "\"/\" or \"-\"."
-msgstr "Selle aruande eesmärk on tuvastada väljalasked, mis tuleks teisendada mitme artisti alla (nt kuna lugude esitajad on pealkirjaväljal). Hetkel näidatakse siin kõiki väljalaskeid, millel on iga loo pealkirjas „/” või „-”."
+msgstr ""
+"Selle aruande eesmärk on tuvastada väljalasked, mis tuleks teisendada mitme "
+"artisti alla (nt kuna lugude esitajad on pealkirjaväljal). Hetkel näidatakse "
+"siin kõiki väljalaskeid, millel on iga loo pealkirjas „/” või „-”."
 
 #: ../root/report/ReleasesToConvert.js:32 ../root/report/ReportsIndex.js:255
 msgid "Releases which might need converting to \"multiple artists\""
@@ -13011,7 +13628,9 @@ msgstr ""
 
 #: ../root/report/ReleasesWithNoMediums.js:24
 msgid "This report shows releases without any mediums (no tracklist)."
-msgstr "See aruanne loetleb väljalasked, millel pole ühtki helikandjat (ega seega lugude nimekirja)."
+msgstr ""
+"See aruanne loetleb väljalasked, millel pole ühtki helikandjat (ega seega "
+"lugude nimekirja)."
 
 #: ../root/report/ReleasesWithNoMediums.js:29
 #: ../root/report/ReportsIndex.js:405
@@ -13022,7 +13641,10 @@ msgstr "Ilma helikandjateta väljalasked"
 msgid ""
 "This report shows releases that have an unlikely combination of language and"
 " script properties, such as German and Ethiopic."
-msgstr "See aruanne loetleb väljalasked, mis on andmebaasi sisestatud ebatõenäolise keele ja kirjasüsteemi kombinatsiooniga, nt keeleks eesti, aga kirjasüsteemiks etioopia."
+msgstr ""
+"See aruanne loetleb väljalasked, mis on andmebaasi sisestatud ebatõenäolise "
+"keele ja kirjasüsteemi kombinatsiooniga, nt keeleks eesti, aga "
+"kirjasüsteemiks etioopia."
 
 #: ../root/report/ReleasesWithUnlikelyLanguageScript.js:34
 #: ../root/report/ReportsIndex.js:373
@@ -13062,7 +13684,12 @@ msgid ""
 "database looking for data that might require fixing, either to comply with "
 "the {style|style guidelines}, or in other cases where administrative \"clean"
 " up\" tasks are required."
-msgstr "Kui soovid toimetamises osaleda, aga ei tea, millest alustada, siis peaks järgnev loetelu kasulik olema. Linkide taga on andmebaasist automaatselt leitud andmed, mis võivad vajada parandamist, kas siis {style|stiilijuhistega} vastavusse viimiseks või muude „puhastustööde” korras."
+msgstr ""
+"Kui soovid toimetamises osaleda, aga ei tea, millest alustada, siis peaks "
+"järgnev loetelu kasulik olema. Linkide taga on andmebaasist automaatselt "
+"leitud andmed, mis võivad vajada parandamist, kas siis "
+"{style|stiilijuhistega} vastavusse viimiseks või muude „puhastustööde” "
+"korras."
 
 #: ../root/report/ReportsIndex.js:75
 msgid "Artists which have collaboration relationships"
@@ -13153,7 +13780,8 @@ msgstr ""
 #: ../root/report/ReportsIndex.js:345
 msgid ""
 "Translated/Transliterated Pseudo-Releases not linked to an original version"
-msgstr "Tõlgitud/translitereeritud pseudoväljalasked, mis pole originaaliga lingitud"
+msgstr ""
+"Tõlgitud/translitereeritud pseudoväljalasked, mis pole originaaliga lingitud"
 
 #: ../root/report/ReportsIndex.js:369
 msgid "Releases with non-sequential mediums"
@@ -13234,13 +13862,17 @@ msgstr "ISWC-d"
 #: ../root/report/SeparateDiscs.js:24
 msgid ""
 "This report shows releases which have (disc n) or (bonus disc) in the title."
-msgstr "See aruanne loetleb väljalasked, mille pealkirjas on ikka veel „(disc n)” või „(bonus disc)”."
+msgstr ""
+"See aruanne loetleb väljalasked, mille pealkirjas on ikka veel „(disc n)” "
+"või „(bonus disc)”."
 
 #: ../root/report/SeparateDiscs.js:29
 msgid ""
 "For instructions on how to fix them, please see the documentation about "
 "{howto|how to merge releases}."
-msgstr "Juhised nende kordategemiseks leiad {howto|väljalasete mestimise dokumentatsioonist}"
+msgstr ""
+"Juhised nende kordategemiseks leiad {howto|väljalasete mestimise "
+"dokumentatsioonist}"
 
 #: ../root/report/SeparateDiscs.js:35
 msgid "Discs as separate releases"
@@ -13254,7 +13886,13 @@ msgid ""
 "them. If the releases are discs linked with \"part of set\" relationships, "
 "you might want to merge them too into one multi-disc release (see "
 "{how_to_merge_releases|How to Merge Releases})."
-msgstr "See aruanne loetleb väljalaskerühmad, mille väljalasked on lingitud „osa komplektist”- või transliteratsiooniseose kaudu teiste väljalaskerühmade väljalasetega. Siin loetletud väljalaskerühmade paarid tuleks tõenäoliselt mestida. Kui väljalasked on plaadid, mille vahel on seos „osa komplektist”, siis tuleks ka need üheks mitmeplaadiliseks väljalaskeks mestida (vaata, {how_to_merge_releases|kuidas see käib})."
+msgstr ""
+"See aruanne loetleb väljalaskerühmad, mille väljalasked on lingitud „osa "
+"komplektist”- või transliteratsiooniseose kaudu teiste väljalaskerühmade "
+"väljalasetega. Siin loetletud väljalaskerühmade paarid tuleks tõenäoliselt "
+"mestida. Kui väljalasked on plaadid, mille vahel on seos „osa komplektist”, "
+"siis tuleks ka need üheks mitmeplaadiliseks väljalaskeks mestida (vaata, "
+"{how_to_merge_releases|kuidas see käib})."
 
 #: ../root/report/SetInDifferentRg.js:36
 msgid "Mismatched release groups"
@@ -13272,7 +13910,10 @@ msgid ""
 "This report shows releases that have a single medium, where this medium also"
 " has a specific name. Usually, this is not necessary and is duplicate "
 "information which can be removed."
-msgstr "See aruanne loetleb väljalasked, mille ainsale helikandjale on sisestatud omaette pealkiri. Tavaliselt on see mittevajalik korduv teave, mille võib eemaldada."
+msgstr ""
+"See aruanne loetleb väljalasked, mille ainsale helikandjale on sisestatud "
+"omaette pealkiri. Tavaliselt on see mittevajalik korduv teave, mille võib "
+"eemaldada."
 
 #: ../root/report/SomeFormatsUnset.js:24
 msgid ""
@@ -13280,7 +13921,11 @@ msgid ""
 "others are unset. In most cases, it should be easy to find out which the "
 "correct formats are (don't just assume that they're all CDs because one is "
 "though!)."
-msgstr "See aruanne loetleb väljalasked, millel mõne helikandja formaat on määratud, mõne oma mitte. Enamasti peaks olema lihtne välja uurida, mis formaati helikandjad on (siiski ära eelda, et kui üks on CD, siis on tingimata teised ka)."
+msgstr ""
+"See aruanne loetleb väljalasked, millel mõne helikandja formaat on määratud, "
+"mõne oma mitte. Enamasti peaks olema lihtne välja uurida, mis formaati "
+"helikandjad on (siiski ära eelda, et kui üks on CD, siis on tingimata teised "
+"ka)."
 
 #: ../root/report/SomeFormatsUnset.js:32
 msgid "Releases with some formats unset"
@@ -13301,7 +13946,12 @@ msgid ""
 "track number, e.g. \"1) Some Name\" (instead of just \"Some Name\"). Notice "
 "that sometimes this is justified and correct, don't automatically assume it "
 "is a mistake! If you confirm it is a mistake, please correct it."
-msgstr "Selle aruande eesmärk on tuvastada väljalasked, kus loonimed algavad järjekorranumbriga, nt „Mingi laulu” asemel „1) Mingi laul”. Pane tähele, et mõnikord võib (järjekorra)numbriga algav pealkiri põhjendatud ja õige olla, seega ei tohi neid kõiki masinlikult ära muuta. Kui oled aga kindel, et tegu on veaga, siis palun paranda see ära."
+msgstr ""
+"Selle aruande eesmärk on tuvastada väljalasked, kus loonimed algavad "
+"järjekorranumbriga, nt „Mingi laulu” asemel „1) Mingi laul”. Pane tähele, et "
+"mõnikord võib (järjekorra)numbriga algav pealkiri põhjendatud ja õige olla, "
+"seega ei tohi neid kõiki masinlikult ära muuta. Kui oled aga kindel, et tegu "
+"on veaga, siis palun paranda see ära."
 
 #: ../root/report/TracksNamedWithSequence.js:33
 msgid "Releases where track names start with their track number"
@@ -13312,7 +13962,10 @@ msgid ""
 "This report lists all releases where the track numbers are not continuous "
 "(e.g. there is no \"track 2\"), or with duplicated track numbers (e.g. there"
 " are two \"track 4\"s)."
-msgstr "See aruanne loetleb kõik väljalasked, kus loonumbrid pole järjestikused (nt puudub lugu nr 2, kuigi 1 ja 3 on olemas) või kus mõnda loonumbrit on mitu (nt on kaks lugu, mille järjenumber on 4)."
+msgstr ""
+"See aruanne loetleb kõik väljalasked, kus loonumbrid pole järjestikused (nt "
+"puudub lugu nr 2, kuigi 1 ja 3 on olemas) või kus mõnda loonumbrit on mitu ("
+"nt on kaks lugu, mille järjenumber on 4)."
 
 #: ../root/report/TracksWithSequenceIssues.js:31
 msgid "Releases with track number issues"
@@ -13322,7 +13975,9 @@ msgstr "Väljalasked, millel on probleeme loonumbritega"
 msgid ""
 "This report lists all releases where some or all tracks have unknown track "
 "lengths."
-msgstr "See aruanne loetleb kõik väljalasked, kus vähemalt ühel lool on pikkus sisestamata."
+msgstr ""
+"See aruanne loetleb kõik väljalasked, kus vähemalt ühel lool on pikkus "
+"sisestamata."
 
 #: ../root/report/UnlinkedPseudoReleases.js:24
 msgid ""
@@ -13330,7 +13985,11 @@ msgid ""
 " the translation/transliteration relationship to an original version. This "
 "could be because the original version is missing, or just because the "
 "release status is wrongly set."
-msgstr "See aruanne loetleb väljalasked, mille staatuseks on märgitud pseudoväljalase, kuid mis pole tõlke-/translitereeringuseose kaudu algse väljalaskega seostatud. Põhjuseks võib olla puuduv algne väljalase või valesti määratud väljalaske staatus."
+msgstr ""
+"See aruanne loetleb väljalasked, mille staatuseks on märgitud "
+"pseudoväljalase, kuid mis pole tõlke-/translitereeringuseose kaudu algse "
+"väljalaskega seostatud. Põhjuseks võib olla puuduv algne väljalase või "
+"valesti määratud väljalaske staatus."
 
 #: ../root/report/UnlinkedPseudoReleases.js:32
 msgid "Unlinked pseudo-releases"
@@ -13550,7 +14209,9 @@ msgstr "Otsinguviga"
 msgid ""
 "For assistance in writing effective advanced search queries, read the "
 "{doc|syntax documentation}."
-msgstr "Tõhusate laiendatud päringute koostamiseks loe {doc|süntaksi dokumentatsiooni}."
+msgstr ""
+"Tõhusate laiendatud päringute koostamiseks loe {doc|süntaksi "
+"dokumentatsiooni}."
 
 #: ../root/search/components/SearchForm.js:28
 #: ../root/search/components/SearchForm.js:29
@@ -13588,7 +14249,9 @@ msgstr ""
 msgid ""
 "The search server could not fulfill your request due to an internal error. "
 "This is usually only temporary, so please retry your search again later."
-msgstr "Otsinguserveril ei õnnestunud sisemise vea tõttu päringut täita. Tavaliselt on viga ajutine, nii et proovi hiljem uuesti."
+msgstr ""
+"Otsinguserveril ei õnnestunud sisemise vea tõttu päringut täita. Tavaliselt "
+"on viga ajutine, nii et proovi hiljem uuesti."
 
 #: ../root/search/error/Invalid.js:21
 msgid "Your search query was deemed invalid by our ruthless search server."
@@ -13643,7 +14306,9 @@ msgstr ""
 msgid ""
 "This is a development server. Your email address is not private or secure. "
 "Proceed with caution!"
-msgstr "See on arendusserver. Sinu e-posti aadressi ei hoita privaatselt ega turvaliselt. Jätka ettevaatlikult!"
+msgstr ""
+"See on arendusserver. Sinu e-posti aadressi ei hoita privaatselt ega "
+"turvaliselt. Jätka ettevaatlikult!"
 
 #: ../root/static/scripts/account/components/EditProfileForm.js:193
 msgid "If you change your email address, you will be required to verify it."
@@ -13710,15 +14375,21 @@ msgstr "Teised kasutajad tohivad näha mu antud hindeid"
 msgid ""
 "Mail me when one of my edits gets a \"no\" vote. (Note: the email is only "
 "sent for the first \"no\" vote, not each one)"
-msgstr "Saadetakse kiri, kui keegi mõne mu toimetuse vastu hääletab (NB: kiri saadetakse ainult iga toimetuse esimese vastuhääle peale)"
+msgstr ""
+"Saadetakse kiri, kui keegi mõne mu toimetuse vastu hääletab (NB: kiri "
+"saadetakse ainult iga toimetuse esimese vastuhääle peale)"
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:221
 msgid "When I add a note to an edit, mail me all future notes for that edit."
-msgstr "Kui mõnele toimetusele märke kirjutan, saadetakse mulle kõik selle toimetuse edasised märked"
+msgstr ""
+"Kui mõnele toimetusele märke kirjutan, saadetakse mulle kõik selle toimetuse "
+"edasised märked"
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:229
 msgid "When I vote on an edit, mail me all future notes for that edit."
-msgstr "Kui mõnda toimetust hääletan, saadetakse mulle kõik selle toimetuse edasised märked"
+msgstr ""
+"Kui mõnda toimetust hääletan, saadetakse mulle kõik selle toimetuse edasised "
+"märked"
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:236
 msgid "Send me mails with edits to my subscriptions:"
@@ -13947,7 +14618,9 @@ msgstr "Annotatsiooni muutis viimati {user} ({date})."
 msgid ""
 "This is an {history|old revision} of this annotation, as edited by {user} on"
 " {date}. {current|View current revision}."
-msgstr "See on selle annotatsiooni {history|vana versioon}, nii nagu selle salvestas {user} {date}. {current|Vaata praegust versiooni}"
+msgstr ""
+"See on selle annotatsiooni {history|vana versioon}, nii nagu selle salvestas "
+"{user} {date}. {current|Vaata praegust versiooni}"
 
 #: ../root/static/scripts/common/components/Annotation.js:114
 msgid "Annotation last modified on {date}."
@@ -14333,7 +15006,9 @@ msgstr "Keegi pole seda veel sildistanud."
 msgid ""
 "Tags with a score of zero or below, and tags that you’ve downvoted are "
 "hidden."
-msgstr "Negatiivse või nullskooriga sildid on peidetud, samuti need, mille vastu oled hääletanud."
+msgstr ""
+"Negatiivse või nullskooriga sildid on peidetud, samuti need, mille vastu "
+"oled hääletanud."
 
 #: ../root/static/scripts/common/components/TagEditor.js:580
 msgid "Tags with a score of zero or below are hidden."
@@ -14364,7 +15039,9 @@ msgstr "Siltide lisamine"
 msgid ""
 "You can add your own {tagdocs|tags} below. Use commas to separate multiple "
 "tags."
-msgstr "Allolevasse kasti saad lisada oma {tagdocs|sildid}. Nende eraldamiseks kasuta koma."
+msgstr ""
+"Allolevasse kasti saad lisada oma {tagdocs|sildid}. Nende eraldamiseks "
+"kasuta koma."
 
 #: ../root/static/scripts/common/components/TagEditor.js:643
 msgid "Submit tags"
@@ -14395,7 +15072,9 @@ msgstr "Loe Wikipedias edasi..."
 msgid ""
 "Wikipedia content provided under the terms of the {license_link|Creative "
 "Commons BY-SA license}"
-msgstr "(Wikipedia sisu näidatakse {license_link|Creative Commonsi BY-SA litsentsi} alusel)"
+msgstr ""
+"(Wikipedia sisu näidatakse {license_link|Creative Commonsi BY-SA litsentsi} "
+"alusel)"
 
 #: ../root/static/scripts/common/components/WorkArtists.js:27
 msgid "Work Artists"
@@ -14820,7 +15499,9 @@ msgstr "Lisa uus teos"
 msgid ""
 "Use the following fields to enter collaborations. See the {ac|Artist Credit}"
 " documentation for more information."
-msgstr "Koostööde sisestamiseks kasuta järgnevaid välju. Lisateabe saamiseks loe dokumentatsioonilehekülge {ac|Artisti nimekuju}."
+msgstr ""
+"Koostööde sisestamiseks kasuta järgnevaid välju. Lisateabe saamiseks loe "
+"dokumentatsioonilehekülge {ac|Artisti nimekuju}."
 
 #: ../root/static/scripts/edit/components/ArtistCreditBubble.js:76
 msgid "[missing track name]"
@@ -14912,7 +15593,9 @@ msgstr ""
 msgid ""
 "Please enter a {doc_disambiguation|disambiguation} to help distinguish this "
 "entity from the others."
-msgstr "Palun sisesta {doc_disambiguation|täpsustus}, et aidata seda olemit teistest eristada."
+msgstr ""
+"Palun sisesta {doc_disambiguation|täpsustus}, et aidata seda olemit teistest "
+"eristada."
 
 #: ../root/static/scripts/edit/components/ReleaseMergeStrategy.js:75
 msgid ""
@@ -14920,7 +15603,11 @@ msgid ""
 "may specify the new order of mediums. The order does not have to be "
 "continuous, but all medium positions must be positive, and multiple mediums "
 "cannot be in the same position"
-msgstr "Selle mestimisstrateegiaga kasutatakse kõiki helikandjaid kõigilt väljalasetelt. Võid määrata helikandjate uue järjestuse. See ei pea olema järjestikune, aga kõik järjekorranumbrid peavad olema positiivsed arvud ning mitu helikandjat ei saa olla sama numbriga."
+msgstr ""
+"Selle mestimisstrateegiaga kasutatakse kõiki helikandjaid kõigilt "
+"väljalasetelt. Võid määrata helikandjate uue järjestuse. See ei pea olema "
+"järjestikune, aga kõik järjekorranumbrid peavad olema positiivsed arvud ning "
+"mitu helikandjat ei saa olla sama numbriga."
 
 #: ../root/static/scripts/edit/components/ReleaseMergeStrategy.js:90
 msgid "New position:"
@@ -14943,7 +15630,9 @@ msgid ""
 "This merge strategy will merge all mediums together into a single set of "
 "mediums. Recordings between mediums will also be merged, into the recordings"
 " used on the target mediums."
-msgstr "See mestimisstrateegia mestib kõik helikandjad üheks helikandjakomplektiks. Ka salvestised mestitakse sihthelikandjal olevatesse salvestistesse."
+msgstr ""
+"See mestimisstrateegia mestib kõik helikandjad üheks helikandjakomplektiks. "
+"Ka salvestised mestitakse sihthelikandjal olevatesse salvestistesse."
 
 #: ../root/static/scripts/edit/components/ReleaseMergeStrategy.js:203
 msgid ""
@@ -14955,19 +15644,26 @@ msgid ""
 "Make sure all mediums in the releases being merged are in the correct "
 "position. For example, to merge a medium into medium 2 of a release, it will"
 " need to be set as medium 2 of the release being merged."
-msgstr "Vaata, et mestitavate väljalasete kõik helikandjad oleks õiges kohas. Helikandja mestimiseks nt sihtväljalaske 2. helikandjaga peab ta mestitaval väljalaskel olema helikandja nr 2."
+msgstr ""
+"Vaata, et mestitavate väljalasete kõik helikandjad oleks õiges kohas. "
+"Helikandja mestimiseks nt sihtväljalaske 2. helikandjaga peab ta mestitaval "
+"väljalaskel olema helikandja nr 2."
 
 #: ../root/static/scripts/edit/components/ReleaseMergeStrategy.js:217
 msgid ""
 "The recording artists do not match! Perhaps you meant to use the \"append "
 "mediums\" merge strategy?"
-msgstr "Salvestiste artistid ei klapi! Vahest mõtlesid kasutada hoopis sihtväljalaskele helikandja(te) lisamise mestimisstrateegiat?"
+msgstr ""
+"Salvestiste artistid ei klapi! Vahest mõtlesid kasutada hoopis "
+"sihtväljalaskele helikandja(te) lisamise mestimisstrateegiat?"
 
 #: ../root/static/scripts/edit/components/ReleaseMergeStrategy.js:222
 msgid ""
 "The recordings that will be merged if you continue with the current merge "
 "strategy include the following, whose artists differ:"
-msgstr "Kui jätkad praeguse mestimisstrateegiaga, siis mestitakse järgmised eri artistidele omistatud salvestised:"
+msgstr ""
+"Kui jätkad praeguse mestimisstrateegiaga, siis mestitakse järgmised eri "
+"artistidele omistatud salvestised:"
 
 #: ../root/static/scripts/edit/components/URLInputPopover.js:97
 msgid "Cleaned up to"
@@ -15134,7 +15830,10 @@ msgid ""
 "This mode capitalises almost all words, with some words (mainly articles and"
 " short prepositions) lowercased. Some words may need to be manually "
 "capitalised to follow the {url|English capitalisation guidelines}."
-msgstr "See režiim muudab suureks enamiku sõnade esitähe ja väikseks ülejäänud tähed, (inglise) artiklid ja lühemad eessõnad. Mõned sõnad tuleb võibolla siiski käsitsi {url|inglise algustähejuhistega} vastavusse viia."
+msgstr ""
+"See režiim muudab suureks enamiku sõnade esitähe ja väikseks ülejäänud "
+"tähed, (inglise) artiklid ja lühemad eessõnad. Mõned sõnad tuleb võibolla "
+"siiski käsitsi {url|inglise algustähejuhistega} vastavusse viia."
 
 #: ../root/static/scripts/guess-case/modes.js:348
 msgid ""
@@ -15142,14 +15841,20 @@ msgid ""
 "before semicolons, colons, exclamation marks and question marks, and inside "
 "guillemets. Some words may need to be manually capitalised to follow the "
 "{url|French capitalisation guidelines}."
-msgstr "See toimib nagu lauserežiim, aga lisab tühiku kooloni, semikooloni, hüüu- ja küsimärgi ette ning «hanejalgade» sisse. Mõned sõnad tuleb võibolla käsitsi {url|prantsuse algustähejuhistega} vastavusse viia."
+msgstr ""
+"See toimib nagu lauserežiim, aga lisab tühiku kooloni, semikooloni, hüüu- ja "
+"küsimärgi ette ning «hanejalgade» sisse. Mõned sõnad tuleb võibolla käsitsi "
+"{url|prantsuse algustähejuhistega} vastavusse viia."
 
 #: ../root/static/scripts/guess-case/modes.js:372
 msgid ""
 "This mode capitalises the first word of a sentence, most other words are "
 "lowercased. Some words, often proper nouns, may need to be manually fixed "
 "according to the {url|relevant language guidelines}."
-msgstr "See režiim muudab suureks pealkirja (või iga lause) esitähe ja väikseks kõik muu. Mõned sõnad, tüüpiliselt pärisnimed, tuleb võibolla käsitsi {url|vastava keele algustähejuhistega} vastavusse viia."
+msgstr ""
+"See režiim muudab suureks pealkirja (või iga lause) esitähe ja väikseks kõik "
+"muu. Mõned sõnad, tüüpiliselt pärisnimed, tuleb võibolla käsitsi {url|"
+"vastava keele algustähejuhistega} vastavusse viia."
 
 #: ../root/static/scripts/guess-case/modes.js:387
 msgid ""
@@ -15243,7 +15948,9 @@ msgstr ""
 msgid ""
 "Please select a subtype of the currently selected relationship type. The "
 "selected relationship type is only used for grouping subtypes."
-msgstr "Palun vali praeguse seosetüübi asemel sobiv alltüüp. Valitud seosetüüpi kasutatakse ainult teiste seoste rühmitamiseks."
+msgstr ""
+"Palun vali praeguse seosetüübi asemel sobiv alltüüp. Valitud seosetüüpi "
+"kasutatakse ainult teiste seoste rühmitamiseks."
 
 #: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:88
 msgid "This relationship type is not allowed with the current series type."
@@ -15313,7 +16020,9 @@ msgstr ""
 msgid ""
 "Warning: This relationship has pending edits. {show|Click here} to view "
 "these edits and make sure they do not conflict with your own."
-msgstr "Hoiatus: sel seosel on ootel toimetusi. Nende nägemiseks {show|klõpsa siin} ja siis vaata, et nad poleks sinu tehtavaga vastuolus."
+msgstr ""
+"Hoiatus: sel seosel on ootel toimetusi. Nende nägemiseks {show|klõpsa siin} "
+"ja siis vaata, et nad poleks sinu tehtavaga vastuolus."
 
 #: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:1029
 msgid "This will add a relationship to all checked recordings."
@@ -15431,13 +16140,18 @@ msgid ""
 "This tracklist has artist credits with information that will be lost if you "
 "swap artist credits with track titles. This cannot be undone. Do you wish to"
 " continue?"
-msgstr "Lugude nimekirjal on artistiväljal teavet, mis läheb loopealkirjade ja artistinimede vahetamisel kaotsi. Seda ei saa tagasi võtta. Kas soovid jätkata?"
+msgstr ""
+"Lugude nimekirjal on artistiväljal teavet, mis läheb loopealkirjade ja "
+"artistinimede vahetamisel kaotsi. Seda ei saa tagasi võtta. Kas soovid "
+"jätkata?"
 
 #: ../root/static/scripts/release-editor/bindingHandlers.js:31
 msgid ""
 "This medium has one or more discids which prevent this information from "
 "being changed."
-msgstr "Sellele helikandjale on omistatud plaadi-ID, mistõttu ei saa seda teavet muuta."
+msgstr ""
+"Sellele helikandjale on omistatud plaadi-ID, mistõttu ei saa seda teavet "
+"muuta."
 
 #: ../root/static/scripts/release-editor/dialogs.js:265
 msgid "Page {page} of {total}"
@@ -15510,7 +16224,9 @@ msgstr "Sisestatud vöötkood on korrektne UPC-kood."
 msgid ""
 "The barcode you entered is either an invalid UPC code, or an EAN code with "
 "the check digit missing."
-msgstr "Sisestatud vöötkood on kas ebakorrektne UPC-kood või puuduva kontrollnumbriga EAN-kood."
+msgstr ""
+"Sisestatud vöötkood on kas ebakorrektne UPC-kood või puuduva "
+"kontrollnumbriga EAN-kood."
 
 #: ../root/static/scripts/release-editor/validation.js:213
 msgid "The barcode you entered is a valid EAN code."
@@ -15528,13 +16244,18 @@ msgstr "Sisestatud vöötkood ei ole korrektne UPC- ega EAN-kood."
 msgid ""
 "This will create a new work for each checked recording that has no work "
 "already. The work names will be the same as their respective recording."
-msgstr "Luuakse uus teos iga märgitud salvestise jaoks, mis pole veel ühegi teosega seostatud. Loodavate teoste pealkirjadena kasutatakse vastavate salvestiste pealkirju."
+msgstr ""
+"Luuakse uus teos iga märgitud salvestise jaoks, mis pole veel ühegi teosega "
+"seostatud. Loodavate teoste pealkirjadena kasutatakse vastavate salvestiste "
+"pealkirju."
 
 #: ../root/static/scripts/release/components/BatchCreateWorksDialog.js:206
 msgid ""
 "Only use this option after you’ve tried searching for the work(s) you want "
 "to create, and are certain they do not already exist on MusicBrainz."
-msgstr "Kasuta seda valikut ainult siis, kui oled soovitud teoseid tulutult otsinud ja oled kindel, et neid MusicBrainzis olemas ei ole."
+msgstr ""
+"Kasuta seda valikut ainult siis, kui oled soovitud teoseid tulutult otsinud "
+"ja oled kindel, et neid MusicBrainzis olemas ei ole."
 
 #: ../root/static/scripts/release/components/BatchCreateWorksDialog.js:283
 #: ../root/static/scripts/release/components/RelationshipEditorBatchTools.js:94
@@ -15854,7 +16575,9 @@ msgstr "Silti „{tag}” pole MusicBrainzis veel kellelegi ega millelegi pandud
 msgid ""
 "If you wish to use this tag, please {url|search} for the entity first and "
 "apply the tag using the sidebar."
-msgstr "Kui tahad ise seda silti kasutada, siis {url|otsi üles} soovitud olem ja pane silt külgriba kaudu."
+msgstr ""
+"Kui tahad ise seda silti kasutada, siis {url|otsi üles} soovitud olem ja "
+"pane silt külgriba kaudu."
 
 #: ../root/tag/TagCloud.js:62
 msgid "'{tag}' has been used {num} times"
@@ -15923,7 +16646,11 @@ msgid ""
 "screen disappear for 3 months. Or even better, sign up for a recurring "
 "donation every three months to not have to think about or see this nag "
 "again."
-msgstr "Kui annetad <strong>4 $</strong>, ei tüüdata sind selle tekstiga <strong>kuu aega</strong>. Julgustame aga annetama 12 $,  et tüütamiskuva ei näidataks kolm kuud. Või veelgi parem, sea sisse iga kolme kuu tagant korduv annetus ja sa ei pea enam tüütamisele mõtlema ega seda nägema."
+msgstr ""
+"Kui annetad <strong>4 $</strong>, ei tüüdata sind selle tekstiga <strong>kuu "
+"aega</strong>. Julgustame aga annetama 12 $,  et tüütamiskuva ei näidataks "
+"kolm kuud. Või veelgi parem, sea sisse iga kolme kuu tagant korduv annetus "
+"ja sa ei pea enam tüütamisele mõtlema ega seda nägema."
 
 #: ../root/taglookup/Nag.js:42
 msgid "Make a donation now!"
@@ -15941,7 +16668,9 @@ msgstr "Sildipäringuviga"
 msgid ""
 "That search can't be performed, because you must provide at least one of "
 "'recording', 'track number', 'duration', 'release', or 'artist'."
-msgstr "Soovitud otsingu teostamine pole võimalik — sisestada tuleb vähemalt salvestis, loonumber, kestus, väljalase või artist."
+msgstr ""
+"Soovitud otsingu teostamine pole võimalik — sisestada tuleb vähemalt "
+"salvestis, loonumber, kestus, väljalase või artist."
 
 #: ../root/taglookup/NotFound.js:22
 msgid "Please {search|try again}, providing at least one of these parameters"
@@ -16002,7 +16731,11 @@ msgid ""
 "privileges. These privileges allow them to make select edits that are "
 "automatically approved without going through the normal voting process, as "
 "well as the ability to instantly approve other users' edits."
-msgstr "Vanemtoimetajad on usaldusväärsed kasutajad, kellele on antud {url|vanemtoimetaja} õigused. See võimaldab teatud nende toimetused rakendada kohe, ilma tavapärase hääletusprotsessita. Samuti saavad nad teiste kasutajate paljusid toimetusi ühe häälega heaks kiita."
+msgstr ""
+"Vanemtoimetajad on usaldusväärsed kasutajad, kellele on antud "
+"{url|vanemtoimetaja} õigused. See võimaldab teatud nende toimetused "
+"rakendada kohe, ilma tavapärase hääletusprotsessita. Samuti saavad nad "
+"teiste kasutajate paljusid toimetusi ühe häälega heaks kiita."
 
 #: ../root/user/PrivilegedUsers.js:50
 msgid "The following {count} users have auto-editor privileges:"
@@ -16018,7 +16751,11 @@ msgid ""
 "the database. If you would like to propose a new relationship, you must "
 "follow our {url|proposal system}. Relationship editors will only make "
 "changes that have been accepted through the proposal system."
-msgstr "Seosetoimetajad on kasutajad, kes saavad lisada või muuta seosetüüpe andmebaasis. Kui tahaksid välja pakkuda uue seose, siis palun tee seda läbi {url|ettepanekusüsteemi}. Seosetoimetajad viivad sisse vaid muudatusi, mis on ettepanekusüsteemis heaks kiidetud."
+msgstr ""
+"Seosetoimetajad on kasutajad, kes saavad lisada või muuta seosetüüpe "
+"andmebaasis. Kui tahaksid välja pakkuda uue seose, siis palun tee seda läbi "
+"{url|ettepanekusüsteemi}. Seosetoimetajad viivad sisse vaid muudatusi, mis "
+"on ettepanekusüsteemis heaks kiidetud."
 
 #: ../root/user/PrivilegedUsers.js:69
 msgid "The following {count} users are relationship editors:"
@@ -16032,7 +16769,9 @@ msgstr "Transklusioonitoimetajad"
 msgid ""
 "Transclusion editors are users who add and maintain entries in the "
 "{uri|WikiDocs} transclusion table."
-msgstr "Transklusioonitoimetajad on kasutajad, kes lisavad ja hooldavad kirjeid {uri|WikiDocs}i transklusioonitabelis."
+msgstr ""
+"Transklusioonitoimetajad on kasutajad, kes lisavad ja hooldavad kirjeid "
+"{uri|WikiDocs}i transklusioonitabelis."
 
 #: ../root/user/PrivilegedUsers.js:85
 msgid "The following {count} users are transclusion editors:"
@@ -16044,7 +16783,9 @@ msgstr "Piirkonnatoimetajad"
 
 #: ../root/user/PrivilegedUsers.js:94
 msgid "Location editors are users who can add or modify {uri|areas}."
-msgstr "Piirkonnatoimetajad on kasutajad, kes saavad lisada või muuta {uri|piirkondi}."
+msgstr ""
+"Piirkonnatoimetajad on kasutajad, kes saavad lisada või muuta "
+"{uri|piirkondi}."
 
 #: ../root/user/PrivilegedUsers.js:100
 msgid "The following {count} users are location editors:"
@@ -16058,7 +16799,10 @@ msgstr "Päisesõnumitoimetajad"
 msgid ""
 "Banner message editors are users who can set a message that is shown in a "
 "banner on all pages, e.g. to warn users about upcoming site maintenance."
-msgstr "Päisesõnumitoimetajad on kasutajad, kes saavad määrata sõnumi, mida näidatakse kõigi lehekülgede ülaosas, näiteks et teavitada kasutajaid eelolevatest hooldustöödest saidil."
+msgstr ""
+"Päisesõnumitoimetajad on kasutajad, kes saavad määrata sõnumi, mida "
+"näidatakse kõigi lehekülgede ülaosas, näiteks et teavitada kasutajaid "
+"eelolevatest hooldustöödest saidil."
 
 #: ../root/user/PrivilegedUsers.js:114
 msgid "The following {count} users are banner message editors:"
@@ -16103,7 +16847,9 @@ msgstr "Enne kaebamist loe palun läbi meie {uri|käitumiskoodeks}."
 msgid ""
 "Your report will be sent to our {uri|account administrators}, who will "
 "decide what action to take."
-msgstr "Kaebus saadetakse meie {uri|kontoadministraatoritele}, kes otsustavad, mida ette võtta."
+msgstr ""
+"Kaebus saadetakse meie {uri|kontoadministraatoritele}, kes otsustavad, mida "
+"ette võtta."
 
 #: ../root/user/ReportUser.js:119
 msgid ""
@@ -16278,7 +17024,9 @@ msgstr "projekti alguspäevil"
 msgid ""
 "Your homepage and biography will not show until you have completed the email"
 " verification process."
-msgstr "Sinu veebisaiti ja enesetutvustust ei näidata enne, kui oled kinnitanud oma e-posti."
+msgstr ""
+"Sinu veebisaiti ja enesetutvustust ei näidata enne, kui oled kinnitanud oma "
+"e-posti."
 
 #: ../root/user/UserProfile.js:183
 msgid "General Information"
@@ -16746,25 +17494,33 @@ msgstr "See toimetus nurjus, kuna ei saanud piisavalt poolthääli."
 msgid ""
 "This edit failed either because an entity it was modifying no longer exists,"
 " or the entity can not be modified in this manner anymore."
-msgstr "See toimetus nurjus, kuna sisu, mida see puudutas, pole enam olemas või ei saa seda enam sel viisil muuta."
+msgstr ""
+"See toimetus nurjus, kuna sisu, mida see puudutas, pole enam olemas või ei "
+"saa seda enam sel viisil muuta."
 
 #: ../root/utility/edit.js:75
 msgid ""
 "This edit failed due to an internal error and may need to be entered again."
-msgstr "See toimetus nurjus sisemise vea tõttu ja tuleks võibolla uuesti sisestada."
+msgstr ""
+"See toimetus nurjus sisemise vea tõttu ja tuleks võibolla uuesti sisestada."
 
 #: ../root/utility/edit.js:80
 msgid ""
 "This edit failed because the data it was changing was modified after this "
 "edit was created. This may happen when the same edit is entered in twice; "
 "one will pass but the other will fail."
-msgstr "See toimetus nurjus, kuna andmeid, mida see puudutas, muudeti pärast selle toimetuse loomist. Nii võib juhtuda siis, kui sama toimetus kaks korda sisestatakse — üks rakendatakse, aga teine nurjub."
+msgstr ""
+"See toimetus nurjus, kuna andmeid, mida see puudutas, muudeti pärast selle "
+"toimetuse loomist. Nii võib juhtuda siis, kui sama toimetus kaks korda "
+"sisestatakse — üks rakendatakse, aga teine nurjub."
 
 #: ../root/utility/edit.js:86
 msgid ""
 "This edit failed because it affected high quality data and did not receive "
 "any votes."
-msgstr "See toimetus nurjus, kuna puudutas kõrge kvaliteediga andmeid ja ei saanud ühtki häält."
+msgstr ""
+"See toimetus nurjus, kuna puudutas kõrge kvaliteediga andmeid ja ei saanud "
+"ühtki häält."
 
 #: ../root/utility/edit.js:90
 msgid "This edit was cancelled."

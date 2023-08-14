@@ -20,14 +20,16 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-05-31 20:29+0300\n"
-"PO-Revision-Date: 2011-01-30 16:57+0000\n"
-"Last-Translator: Allan Nordhøy <epost@anotheragency.no>, 2017\n"
-"Language-Team: Norwegian Bokmål (http://app.transifex.com/musicbrainz/musicbrainz/language/nb/)\n"
+"PO-Revision-Date: 2023-08-14 15:08+0000\n"
+"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"Language-Team: Norwegian Bokmål <https://translations.metabrainz.org/"
+"projects/musicbrainz/server/nb_NO/>\n"
+"Language: nb\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: nb\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.18.2\n"
 
 #: ../root/components/common-macros.tt:12
 msgid " ({text})"
@@ -2839,7 +2841,9 @@ msgstr ""
 msgid ""
 "Show me {autoedit_select_block} sorted {sort_select_block} that "
 "{match_or_negation_block} {and_vs_or_block} of the following conditions:"
-msgstr "Hvis meg {autoedit_select_block} sortert {sort_select_block} som {match_or_negation_block} {and_vs_or_block} av følgende forhold:"
+msgstr ""
+"Hvis meg {autoedit_select_block} sortert {sort_select_block} som "
+"{match_or_negation_block} {and_vs_or_block} av følgende forhold:"
 
 #: ../root/release/edit/duplicates.tt:2
 msgid "Similar releases"
@@ -3788,7 +3792,9 @@ msgstr ""
 msgid ""
 "Your search took too long and was cancelled. It may help to be more "
 "specific, or to try again."
-msgstr "Søket ditt tok for lang tid og ble avbrutt. Det kan hjelpe å være mer spesifikk, eller å prøve på nytt."
+msgstr ""
+"Søket ditt tok for lang tid og ble avbrutt. Det kan hjelpe å være mer "
+"spesifikk, eller å prøve på nytt."
 
 #: ../root/account/register.tt:32
 msgid "Your username will be publicly visible."
@@ -4165,7 +4171,9 @@ msgstr ""
 msgid ""
 "{valink|Various Artists} should very rarely be used on recordings, make sure"
 " that the artist has been entered correctly."
-msgstr "{valink|Diverse artister} bør ikke brukes på innspillinger,  sørg for at artisten er riktig angitt."
+msgstr ""
+"{valink|Diverse artister} bør ikke brukes på innspillinger,  sørg for at "
+"artisten er riktig angitt."
 
 #: ../root/components/common-macros.tt:550
 #: ../root/static/scripts/common/i18n/addColon.js:13
@@ -7270,7 +7278,9 @@ msgstr ""
 
 #: ../root/artist/ArtistIndex.js:142
 msgid "This artist only has unofficial release groups by various artists."
-msgstr "Denne artisten figurerer bare på uoffisielle utgivelsegrupper av diverse artister"
+msgstr ""
+"Denne artisten figurerer bare på uoffisielle utgivelsegrupper av diverse "
+"artister"
 
 #: ../root/artist/ArtistIndex.js:148
 msgid "Showing all release groups for various artists"
@@ -16744,7 +16754,9 @@ msgstr ""
 msgid ""
 "This edit failed either because an entity it was modifying no longer exists,"
 " or the entity can not be modified in this manner anymore."
-msgstr "Denne redigeringen mislykkes fordi enheten som ble endret ikke lenge eksister eller ikke kan endres på denne måten lenger."
+msgstr ""
+"Denne redigeringen mislykkes fordi enheten som ble endret ikke lenge "
+"eksister eller ikke kan endres på denne måten lenger."
 
 #: ../root/utility/edit.js:75
 msgid ""

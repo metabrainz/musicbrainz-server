@@ -22,14 +22,16 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-05-31 20:29+0300\n"
-"PO-Revision-Date: 2011-01-30 16:57+0000\n"
-"Last-Translator: Jonatan Nyberg, 2016-2017,2021,2023\n"
-"Language-Team: Swedish (http://app.transifex.com/musicbrainz/musicbrainz/language/sv/)\n"
+"PO-Revision-Date: 2023-08-14 15:10+0000\n"
+"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"Language-Team: Swedish <https://translations.metabrainz.org/projects/"
+"musicbrainz/server/sv/>\n"
+"Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: sv\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.18.2\n"
 
 #: ../root/components/common-macros.tt:12
 msgid " ({text})"
@@ -342,7 +344,10 @@ msgid ""
 "All tracks require an associated recording. Click “Edit” to select a "
 "recording for each track. Choose “Add a new recording” if an appropriate one"
 " doesn’t exist yet."
-msgstr "Alla spår kräver en associerad inspelning. Klicka på \"Redigera\" för att välja en inspelning för varje spår. Välj \"Lägg till en ny inspelning\" om en lämplig inte finns ännu."
+msgstr ""
+"Alla spår kräver en associerad inspelning. Klicka på \"Redigera\" för att "
+"välja en inspelning för varje spår. Välj \"Lägg till en ny inspelning\" om "
+"en lämplig inte finns ännu."
 
 #: ../root/admin/delete_user.tt:13
 msgid "Allow the name “{editor_name}” to be reused."
@@ -376,7 +381,9 @@ msgstr "Godkänn"
 msgid ""
 "Are you sure you want to delete all information about {e}? This cannot be "
 "undone!"
-msgstr "Är du säker på att du vill ta bort all information om {e}? Detta kan inte ångras!"
+msgstr ""
+"Är du säker på att du vill ta bort all information om {e}? Detta kan inte "
+"ångras!"
 
 #: ../root/admin/delete_user.tt:34
 msgid "Are you sure you want to delete your account? This cannot be undone!"
@@ -604,7 +611,10 @@ msgid ""
 "Below is the error information. If you wish to file a bug report, you may do"
 " so at {bugs|our bug tracker}. The information below will help, so please be"
 " sure to include it!"
-msgstr "Nedan är felinformationen. Om du vill skicka en buggrapport kan du göra det på {bugs|våra bugghanterare}. Informaionen nedan kommer att hjälp, så se till att inkludera den!"
+msgstr ""
+"Nedan är felinformationen. Om du vill skicka en buggrapport kan du göra det "
+"på {bugs|våra bugghanterare}. Informaionen nedan kommer att hjälp, så se "
+"till att inkludera den!"
 
 #: ../root/admin/edit_user.tt:44
 #: ../root/static/scripts/account/components/EditProfileForm.js:259
@@ -632,7 +642,9 @@ msgstr ""
 msgid ""
 "Brought to you by {MeB|MetaBrainz Foundation} and our {spon|sponsors} and "
 "{supp|supporters}. Cover Art provided by the {caa|Cover Art Archive}."
-msgstr "Presenteras av {MeB|MetaBrainz Foundation} och våra {spon|sponsorer} och {supp|supportrar}. Omslag tillhandahålls av {caa|Cover Art Archive}."
+msgstr ""
+"Presenteras av {MeB|MetaBrainz Foundation} och våra {spon|sponsorer} och "
+"{supp|supportrar}. Omslag tillhandahålls av {caa|Cover Art Archive}."
 
 #: ../root/layout.tt:115 ../root/layout/components/Footer.js:32
 #: ../root/main/index.js:209
@@ -754,7 +766,8 @@ msgstr ""
 
 #: ../root/release/edit/recordings.tt:114
 msgid "Click Edit to edit the recording associations for this disc."
-msgstr "Klicka på Redigera för att redigera inspelningsassociationer för denna skiva."
+msgstr ""
+"Klicka på Redigera för att redigera inspelningsassociationer för denna skiva."
 
 #: ../root/release/edit/tracklist.tt:237 ../root/release/edit/tracklist.tt:266
 msgid "Close"
@@ -917,7 +930,9 @@ msgstr "Datum:"
 msgid ""
 "Dates are in the format YYYY-MM-DD. Partial dates such as YYYY-MM or just "
 "YYYY are OK, or you can omit the date entirely."
-msgstr "Datum är i formatet ÅÅÅÅ-MM-DD. Delvisa datum som ÅÅÅÅ-MM-DD eller bara ÅÅÅÅ går bra, eller så kan du utelämna datumet helt och hållet."
+msgstr ""
+"Datum är i formatet ÅÅÅÅ-MM-DD. Delvisa datum som ÅÅÅÅ-MM-DD eller bara ÅÅÅÅ "
+"går bra, eller så kan du utelämna datumet helt och hållet."
 
 #: ../root/edit/search_macros.tt:120
 msgid "Delete"
@@ -1053,7 +1068,9 @@ msgstr "Klar"
 msgid ""
 "Each track in the MusicBrainz database has to be linked to a recording, "
 "choose the appropriate recording or look for it in the database."
-msgstr "Varje spår i MusicBrainz-databasen måste länkas till en inspelning, välj lämplig inspelning eller leta efter den i databasen."
+msgstr ""
+"Varje spår i MusicBrainz-databasen måste länkas till en inspelning, välj "
+"lämplig inspelning eller leta efter den i databasen."
 
 #: ../root/cdstub/header.tt:9 ../root/cdtoc/list.tt:18
 #: ../root/entity/edit.tt:1 ../root/release/discids.tt:12
@@ -1313,7 +1330,9 @@ msgstr ""
 msgid ""
 "Follow our {bl|blog} or {tw|twitter account}! To talk to other users, try "
 "the {fo|forums} or {irc|IRC}."
-msgstr "Följ vår {bl|blogg} eller {tw|Twitter-konto}! För att prata med andra användare, besök {fo|forumet} eller {irc|IRC}."
+msgstr ""
+"Följ vår {bl|blogg} eller {tw|Twitter-konto}! För att prata med andra "
+"användare, besök {fo|forumet} eller {irc|IRC}."
 
 #: ../root/admin/delete_user.tt:21
 msgid ""
@@ -1491,7 +1510,8 @@ msgstr "Historisk"
 
 #: ../root/release/edit/information.tt:325
 msgid "I confirm that this is the barcode as it appears on the release."
-msgstr "Jag bekräftar att detta är streckkoden som den förekommer i utgivningen."
+msgstr ""
+"Jag bekräftar att detta är streckkoden som den förekommer i utgivningen."
 
 #: ../root/release/edit/tracklist.tt:390
 msgid "I confirm this is a correct medium format/packaging combination."
@@ -1694,7 +1714,9 @@ msgstr ""
 msgid ""
 "If you have any questions, please review the {faq|FAQs} or "
 "{doc|documentation} before {con|contacting us}. "
-msgstr "Om du har några frågor, läs {faq|vanliga frågor och svar} eller {doc|dokumentationen} innan du {con|kontaktar oss}. "
+msgstr ""
+"Om du har några frågor, läs {faq|vanliga frågor och svar} eller "
+"{doc|dokumentationen} innan du {con|kontaktar oss}. "
 
 #: ../root/release/edit/tracklist.tt:15
 msgid ""
@@ -2139,7 +2161,8 @@ msgstr ""
 
 #: ../root/release_group/set_cover_art.tt:96
 msgid "No releases have cover art marked as \"Front\", cannot set cover art."
-msgstr "Inga utgivningar har omslag markerat som \"Framsida\", kan inte ändra omslag."
+msgstr ""
+"Inga utgivningar har omslag markerat som \"Framsida\", kan inte ändra omslag."
 
 #: ../root/release/edit/tracklist.tt:140 ../root/admin/IpLookup.js:38
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:468
@@ -2341,7 +2364,8 @@ msgstr "Läs igenom {coc|MusicBrainz uppförandekod} innan du skapar ett konto."
 msgid ""
 "Please see the {doc|Cover Art Types} documentation for a description of "
 "these types."
-msgstr "Se dokumentationen om {doc|omslagstyper} för en beskrivning av dessa typer."
+msgstr ""
+"Se dokumentationen om {doc|omslagstyper} för en beskrivning av dessa typer."
 
 #: ../root/cdtoc/attach_artist_releases.tt:7
 msgid "Please select the medium you wish to attach this CD TOC to."
@@ -2948,7 +2972,9 @@ msgstr "Tekniska flaggor"
 msgid ""
 "The Cover Art Archive is currently experiencing difficulties. Adding images "
 "for this release is unlikely to work at the moment."
-msgstr "Omslagsarkivet upplever för tillfället problem. Det är osannolikt att det för tillfället går att lägga till bilder för denna utgivning."
+msgstr ""
+"Omslagsarkivet upplever för tillfället problem. Det är osannolikt att det "
+"för tillfället går att lägga till bilder för denna utgivning."
 
 #: ../root/release/edit/information.tt:334
 msgid "The annotation field functions like a miniature wiki."
@@ -2962,7 +2988,9 @@ msgstr ""
 msgid ""
 "The data you have submitted does not make any changes to the data already "
 "present."
-msgstr "De uppgifter du har skickat gör inga ändringar av de uppgifter som redan finns."
+msgstr ""
+"De uppgifter du har skickat gör inga ändringar av de uppgifter som redan "
+"finns."
 
 #: ../root/release/edit/layout.tt:23
 msgid "The data you’ve seeded contained the following errors:"
@@ -3748,7 +3776,8 @@ msgstr ""
 msgid ""
 "You must provide a working email address if you wish to contribute to the "
 "database."
-msgstr "Du måste ange en fungerande e-postadress om du vill bidra till databasen."
+msgstr ""
+"Du måste ange en fungerande e-postadress om du vill bidra till databasen."
 
 #: ../root/release/edit/editnote.tt:32
 msgid "You must provide an edit note when adding a release."
@@ -4272,7 +4301,10 @@ msgid ""
 "We were unable to send login information to your email address.  Please try "
 "again, however if you continue to experience difficulty contact us at "
 "support@musicbrainz.org."
-msgstr "Vi kunde inte skicka inloggningsinformation till din e-postadress. Försök igen, men om du fortfarande har problem kan du kontakta oss på support@musicbrainz.org."
+msgstr ""
+"Vi kunde inte skicka inloggningsinformation till din e-postadress. Försök "
+"igen, men om du fortfarande har problem kan du kontakta oss på "
+"support@musicbrainz.org."
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:199
 msgid "There is no user with this username"
@@ -4286,7 +4318,9 @@ msgstr "Det finns ingen användare med detta användarnamn och e-postadress"
 msgid ""
 "We can't send a password reset email, because we have no email on record for"
 " this user."
-msgstr "Vi kan inte skicka en lösenordsåterställning via e-post, eftersom vi inte har någon registrerad e-postadress för denna användare."
+msgstr ""
+"Vi kan inte skicka en lösenordsåterställning via e-post, eftersom vi inte "
+"har någon registrerad e-postadress för denna användare."
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:237
 msgid "Your password has been reset."
@@ -4314,7 +4348,10 @@ msgid ""
 "We have sent you a verification email to <code>{email}</code>. Please check "
 "your mailbox and click on the link in the email to verify the new email "
 "address."
-msgstr "Vi har skickar en bekräftelse till <code>{email}</code>. Kontrollera din inkorg och klicka på länken i e-postmeddelandet för att bekräfta den nya e-postadressen."
+msgstr ""
+"Vi har skickar en bekräftelse till <code>{email}</code>. Kontrollera din "
+"inkorg och klicka på länken i e-postmeddelandet för att bekräfta den nya "
+"e-postadressen."
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:455
 msgid "Your password has been changed."
@@ -4601,7 +4638,9 @@ msgstr "E-post skickat"
 msgid ""
 "Your email has been successfully sent! Click {link|here} to continue to "
 "{user}'s profile."
-msgstr "Ditt e-postmeddelande har skickats! Klicka {link|här} för att fortsätta till {user}s profil."
+msgstr ""
+"Ditt e-postmeddelande har skickats! Klicka {link|här} för att fortsätta till "
+"{user}s profil."
 
 #: ../lib/MusicBrainz/Server/Controller/User.pm:386
 msgid "Your message could not be sent"
@@ -4641,7 +4680,9 @@ msgstr ""
 msgid ""
 "The Cover Art Archive has had a takedown request in the past for this "
 "release, so we are unable to allow any more uploads."
-msgstr "Cover Art Archive har tidigare fått förfrågningar om att plocka bort omslag för denna utgivning, så vi kan inte tillåta fler uppladdningar."
+msgstr ""
+"Cover Art Archive har tidigare fått förfrågningar om att plocka bort omslag "
+"för denna utgivning, så vi kan inte tillåta fler uppladdningar."
 
 #: ../lib/MusicBrainz/Server/Controller/WS/js.pm:451
 #, perl-brace-format
@@ -4655,7 +4696,9 @@ msgstr ""
 msgid ""
 "You must be logged in to submit edits. {url|Log in} first, and then try "
 "submitting your edits again."
-msgstr "Du måste vara inloggad för att skicka redigeringar. {url|Logga in} först och försök sedan att skicka din redigeringar igen."
+msgstr ""
+"Du måste vara inloggad för att skicka redigeringar. {url|Logga in} först och "
+"försök sedan att skicka din redigeringar igen."
 
 #: ../lib/MusicBrainz/Server/ControllerUtils/Delete.pm:25
 msgid ""
@@ -6401,13 +6444,18 @@ msgid ""
 "We have not received a donation from you recently. If you have just made a "
 "PayPal donation, then we have not received a notification from PayPal yet. "
 "Please wait a few minutes and reload this page to check again."
-msgstr "Vi har inte mottagit en donation från dig på sistone. Om du precis utfört en donation via PayPal så har vi inte fått en avisering därifrån än. Vänligen vänta några minuter och ladda om denna sida för att kontrollera på nytt."
+msgstr ""
+"Vi har inte mottagit en donation från dig på sistone. Om du precis utfört en "
+"donation via PayPal så har vi inte fått en avisering därifrån än. Vänligen "
+"vänta några minuter och ladda om denna sida för att kontrollera på nytt."
 
 #: ../root/account/Donation.js:52
 msgid ""
 "If you would like to make a donation, {donate|you can do that here}. If you "
 "have donated, but you are still being nagged, please {contact|contact us}."
-msgstr "Om du vill göra en donation, {donera|kan du göra det här}. Om du har donerat, men du blir fortfarande tjatad på, vänligen {kontakta|kontakta oss}."
+msgstr ""
+"Om du vill göra en donation, {donera|kan du göra det här}. Om du har "
+"donerat, men du blir fortfarande tjatad på, vänligen {kontakta|kontakta oss}."
 
 #: ../root/account/Donation.js:62
 msgid "Thank you for contributing to MusicBrainz."
@@ -6471,7 +6519,10 @@ msgid ""
 "We've sent you instructions on how to reset your password. If you don't "
 "receive this email or still have problems logging in, please {link|contact "
 "us}."
-msgstr "Vi har skickat instruktioner om hur man återställer ditt lösenord. Om du inte får detta e-postmeddelande eller har fortfarande problem med att logga in, {link|kontakta oss}."
+msgstr ""
+"Vi har skickat instruktioner om hur man återställer ditt lösenord. Om du "
+"inte får detta e-postmeddelande eller har fortfarande problem med att logga "
+"in, {link|kontakta oss}."
 
 #: ../root/account/LostUsername.js:27 ../root/account/LostUsername.js:28
 #: ../root/account/LostUsernameSent.js:14
@@ -6482,14 +6533,19 @@ msgstr "Förlorat användarnamn"
 msgid ""
 "Enter your email address below and we will send you an email with your "
 "MusicBrainz account information."
-msgstr "Ange din e-postadress nedan och vi skickar ett e-postmeddelande med kontoinformation till MusicBrainz."
+msgstr ""
+"Ange din e-postadress nedan och vi skickar ett e-postmeddelande med "
+"kontoinformation till MusicBrainz."
 
 #: ../root/account/LostUsernameSent.js:17
 msgid ""
 "We've sent you information about your MusicBrainz account. If you don't "
 "receive this email or still have problems logging in, please {link|contact "
 "us}."
-msgstr "Vi har skickar information om ditt MusicBrainz-konto till dig. Om du inte får detta e-postmeddelande eller har fortfarande problem att logga in, {link|kontakta oss}."
+msgstr ""
+"Vi har skickar information om ditt MusicBrainz-konto till dig. Om du inte "
+"får detta e-postmeddelande eller har fortfarande problem att logga in, {link|"
+"kontakta oss}."
 
 #: ../root/account/Preferences.js:34 ../root/account/PreferencesSaved.js:18
 #: ../root/components/UserAccountTabs.js:80
@@ -6636,7 +6692,9 @@ msgstr "Konto har skapats"
 msgid ""
 "You must verify your email address before you can log in to "
 "{discourse|MetaBrainz Community Discourse}."
-msgstr "Du måste verifiera din e-postadress innan du kan logga in på {discourse|MetaBrainz gemenskapsföreläsning}."
+msgstr ""
+"Du måste verifiera din e-postadress innan du kan logga in på {discourse|"
+"MetaBrainz gemenskapsföreläsning}."
 
 #: ../root/account/sso/DiscourseRegistered.js:30
 msgid ""
@@ -6962,7 +7020,9 @@ msgstr ""
 msgid ""
 "Comparing revision by {user_old} on {date_old} with revision by {user_new} "
 "on {date_new}."
-msgstr "Jämför versioner av {user_old} den {date_old} med version av {user_new} den {date_new}."
+msgstr ""
+"Jämför versioner av {user_old} den {date_old} med version av {user_new} den "
+"{date_new}."
 
 #: ../root/annotation/AnnotationComparison.js:87
 msgid "View annotation history."
@@ -7017,7 +7077,8 @@ msgstr "Anteckningsformat"
 
 #: ../root/annotation/EditAnnotation.js:100
 msgid "Annotations support a limited set of wiki formatting options:"
-msgstr "Anteckningar stöder en begränsad uppsättning av wiki-formateringsalternativ:"
+msgstr ""
+"Anteckningar stöder en begränsad uppsättning av wiki-formateringsalternativ:"
 
 #: ../root/annotation/EditAnnotation.js:105
 msgid "Emphasis:"
@@ -7461,7 +7522,9 @@ msgstr ""
 msgid ""
 "The artist you are trying to edit is a special purpose artist, and you may "
 "not make direct changes to this data."
-msgstr "Artisten du försöker redigera är en artist för specialändamål, och du får inte göra direkta ändringar av dessa data."
+msgstr ""
+"Artisten du försöker redigera är en artist för specialändamål, och du får "
+"inte göra direkta ändringar av dessa data."
 
 #: ../root/artist/utils.js:13
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:65
@@ -7759,7 +7822,9 @@ msgstr ""
 msgid ""
 "Are you sure you want to remove the disc ID <code>{discid}</code> from the "
 "release {release} by {artist}?"
-msgstr "Är du säker på att du vill ta bort skiv-ID <code>{discid}</code> från utgivningen {release} av {artist}?"
+msgstr ""
+"Är du säker på att du vill ta bort skiv-ID <code>{discid}</code> från "
+"utgivningen {release} av {artist}?"
 
 #: ../root/cdtoc/RemoveDiscId.js:49
 msgid ""
@@ -8421,13 +8486,16 @@ msgstr ""
 #: ../root/doc/DocError.js:46 ../root/main/error/Error400.js:37
 #: ../root/main/error/Error403.js:29 ../root/main/error/Error404.js:46
 msgid "Looking for help? Check out our {doc|documentation} or {faq|FAQ}."
-msgstr "Letar efter hjälp? Kolla vår {doc|dokumentation} eller {faq|vanliga frågor}."
+msgstr ""
+"Letar efter hjälp? Kolla vår {doc|dokumentation} eller {faq|vanliga frågor}."
 
 #: ../root/doc/DocError.js:55
 msgid ""
 "Found a broken link on our site? Please let us know by {report|reporting a "
 "bug}."
-msgstr "Hittat en trasig länk på vår webbplats? Låt oss veta genom att {report|rapportera en bugg}."
+msgstr ""
+"Hittat en trasig länk på vår webbplats? Låt oss veta genom att {report|"
+"rapportera en bugg}."
 
 #: ../root/doc/DocPage.js:80
 msgid ""
@@ -8453,7 +8521,8 @@ msgstr "Avbryt redigering"
 
 #: ../root/edit/CancelEdit.js:32
 msgid "Are you sure you wish to cancel edit #{n}? This cannot be undone!"
-msgstr "Är du säker på att du vill avbryta redigering nr. {n}? Detta kan inte ångras!"
+msgstr ""
+"Är du säker på att du vill avbryta redigering nr. {n}? Detta kan inte ångras!"
 
 #: ../root/edit/CancelEdit.js:42 ../root/edit/EditIndex.js:56
 #: ../root/edit/components/ListEdit.js:51
@@ -10233,7 +10302,9 @@ msgstr ""
 msgid ""
 "These are all the {genre_url|genres} currently available for use in "
 "MusicBrainz."
-msgstr "Dessa är alla de {genre_url|genres} som för närvarande är tillgängliga för användning i MusicBrainz."
+msgstr ""
+"Dessa är alla de {genre_url|genres} som för närvarande är tillgängliga för "
+"användning i MusicBrainz."
 
 #: ../root/genre/GenreListPage.js:31
 msgid ""
@@ -11090,7 +11161,9 @@ msgstr ""
 msgid ""
 "Found a problem on our site? Please {report|report a bug} and include any "
 "error message that is shown above."
-msgstr "Hittat ett problem på vår webbplats? {report|rapportera ett problem} och inkludera alla felmeddelanden som visas ovan."
+msgstr ""
+"Hittat ett problem på vår webbplats? {report|rapportera ett problem} och "
+"inkludera alla felmeddelanden som visas ovan."
 
 #: ../root/main/error/Error400.js:52 ../root/main/error/TimeoutError.js:37
 msgid "Technical Information"
@@ -11108,7 +11181,9 @@ msgstr ""
 msgid ""
 "You must first {url|add and verify your email address} before being able to "
 "edit or add anything to the database."
-msgstr "Du måste först {url|lägga till och bekräfta din e-postadress} innan du kan redigera eller lägga till någonting i databasen."
+msgstr ""
+"Du måste först {url|lägga till och bekräfta din e-postadress} innan du kan "
+"redigera eller lägga till någonting i databasen."
 
 #: ../root/main/error/Error401.js:38 ../root/user/Login.js:89
 msgid ""
@@ -11209,7 +11284,8 @@ msgstr ""
 msgid ""
 "In order to view this page, please visit the main server at "
 "{mb|https://musicbrainz.org/}."
-msgstr "För att visa denna sida, besök huvudservern på {mb|https://musicbrainz.org/}."
+msgstr ""
+"För att visa denna sida, besök huvudservern på {mb|https://musicbrainz.org/}."
 
 #: ../root/main/error/TimeoutError.js:25
 msgid "Request Timed Out"
@@ -11257,7 +11333,9 @@ msgstr "Välkommen till MusicBrainz!"
 msgid ""
 "MusicBrainz is an open music encyclopedia that collects music metadata and "
 "makes it available to the public."
-msgstr "MusicBrainz är en öppen musikencyklopedin som samlar in metadata om musik och gör den tillgänglig till allmänheten."
+msgstr ""
+"MusicBrainz är en öppen musikencyklopedin som samlar in metadata om musik "
+"och gör den tillgänglig till allmänheten."
 
 #: ../root/main/index.js:50
 msgid "MusicBrainz aims to be:"
@@ -11281,12 +11359,17 @@ msgid ""
 "Like Wikipedia, MusicBrainz is maintained by a global community of users and"
 " we want everyone &#x2014; including you &#x2014; to {doc|participate and "
 "contribute}."
-msgstr "Som Wikipedia, tillhandahålls MusicBrainz av en global gemenskap av användare och vi vill att alla &#x2014; inklusive dig &#x2014; {doc|deltar och bidrar}."
+msgstr ""
+"Som Wikipedia, tillhandahålls MusicBrainz av en global gemenskap av "
+"användare och vi vill att alla &#x2014; inklusive dig &#x2014; {doc|deltar "
+"och bidrar}."
 
 #: ../root/main/index.js:91
 msgid ""
 "{about|More Information} &#x2014; {faq|FAQs} &#x2014; {contact|Contact Us}"
-msgstr "{about|Mer information} &#x2014; {faq|Vanliga frågor} &#x2014; {contact|Kontakta oss}"
+msgstr ""
+"{about|Mer information} &#x2014; {faq|Vanliga frågor} &#x2014; {contact|"
+"Kontakta oss}"
 
 #: ../root/main/index.js:103
 msgid ""
@@ -11348,7 +11431,10 @@ msgid ""
 "The majority of the data in the <strong>MusicBrainz Database</strong> is "
 "released into the <strong>Public Domain</strong> and can be downloaded and "
 "used <strong>for free</strong>."
-msgstr "Majoriteten av data i <strong>MusicBrainz-databasen</strong> släpps ut i <strong>Public Domain</strong> och kan hämtas och användas <strong>utan kostnad</strong>."
+msgstr ""
+"Majoriteten av data i <strong>MusicBrainz-databasen</strong> släpps ut i "
+"<strong>Public Domain</strong> och kan hämtas och användas <strong>utan "
+"kostnad</strong>."
 
 #: ../root/main/index.js:232
 msgid "Developers"
@@ -11578,7 +11664,9 @@ msgstr "Förhållandeattribut"
 msgid ""
 "Are you sure you wish to remove the <strong>{link_attr_type}</strong> "
 "relationship attribute?"
-msgstr "Är du säker på att du vill ta bort förhållandeattributet <strong>{link_attr_type}</strong>?"
+msgstr ""
+"Är du säker på att du vill ta bort förhållandeattributet "
+"<strong>{link_attr_type}</strong>?"
 
 #: ../root/relationship/linkattributetype/DeleteRelationshipAttributeType.js:28
 msgid "Remove Relationship Attribute"
@@ -11664,7 +11752,9 @@ msgstr "Skapa ett nytt förhållandeattribut"
 msgid ""
 "Are you sure you wish to remove the <strong>{link_type}</strong> "
 "relationship type?"
-msgstr "Är du säker på att du vill ta bort förhållandeattributet <strong>{link_type}</strong>?"
+msgstr ""
+"Är du säker på att du vill ta bort förhållandeattributet "
+"<strong>{link_type}</strong>?"
 
 #: ../root/relationship/linktype/DeleteRelationshipType.js:28
 msgid "Remove Relationship Type"
@@ -11805,7 +11895,9 @@ msgstr "Alla storlekar:"
 msgid ""
 "These images provided by the {caa|Cover Art Archive}. You can also see them "
 "at the {ia|Internet Archive}."
-msgstr "Dessa bilder tillhandahålla av {caa|Cover Art Archive}. Du kan även se dem i {ia|Internet Archive}."
+msgstr ""
+"Dessa bilder tillhandahålla av {caa|Cover Art Archive}. Du kan även se dem i "
+"{ia|Internet Archive}."
 
 #: ../root/release/CoverArt.js:137
 msgid "We do not currently have any cover art for {release}."
@@ -11877,7 +11969,8 @@ msgstr "Ta bort omslag"
 msgid ""
 "Are you sure you wish to remove the below cover art from {release} by "
 "{artist}?"
-msgstr "Är du säker på att du vill ta bort omslaget nedan från {release} av {artist}?"
+msgstr ""
+"Är du säker på att du vill ta bort omslaget nedan från {release} av {artist}?"
 
 #: ../root/release_group/ReleaseGroupHeader.js:28
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:810
@@ -12964,7 +13057,10 @@ msgid ""
 "This report shows releases which have cover art in the Cover Art Archive, "
 "but where none of it has any types set. This often means a front cover was "
 "added, but not marked as such."
-msgstr "Denna rapport visar utgåvor som har omslag i omslagsarkivet, men där ingen av det har några typer. Detta innebär ofta att en framomslag tillsattes, men inte märkt som sådan."
+msgstr ""
+"Denna rapport visar utgåvor som har omslag i omslagsarkivet, men där ingen "
+"av det har några typer. Detta innebär ofta att en framomslag tillsattes, men "
+"inte märkt som sådan."
 
 #: ../root/report/ReleasesWithCaaNoTypes.js:32
 #: ../root/report/ReportsIndex.js:359
@@ -13710,7 +13806,9 @@ msgstr "Tillåt andra användare att se mina betyg"
 msgid ""
 "Mail me when one of my edits gets a \"no\" vote. (Note: the email is only "
 "sent for the first \"no\" vote, not each one)"
-msgstr "Meddela mig när en av mina redigeringar får en nej-röst. (OBS: E-postmeddelandet skickas endast för den första nej-rösten, inte för varje)"
+msgstr ""
+"Meddela mig när en av mina redigeringar får en nej-röst. (OBS: E-"
+"postmeddelandet skickas endast för den första nej-rösten, inte för varje)"
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:221
 msgid "When I add a note to an edit, mail me all future notes for that edit."
@@ -15978,7 +16076,8 @@ msgstr ""
 
 #: ../root/user/Login.js:116
 msgid "This is a development server; all passwords have been reset to \"mb\"."
-msgstr "Detta är en utvecklingsserver; alla lösenord har återställts till \"mb\"."
+msgstr ""
+"Detta är en utvecklingsserver; alla lösenord har återställts till \"mb\"."
 
 #: ../root/user/Login.js:124
 msgid "Keep me logged in"

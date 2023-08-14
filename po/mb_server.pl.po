@@ -27,14 +27,18 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-05-31 20:29+0300\n"
-"PO-Revision-Date: 2011-01-30 16:57+0000\n"
-"Last-Translator: Kamil Kulawik <sosowatek1@gmail.com>, 2020\n"
-"Language-Team: Polish (http://app.transifex.com/musicbrainz/musicbrainz/language/pl/)\n"
+"PO-Revision-Date: 2023-08-14 15:08+0000\n"
+"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"Language-Team: Polish <https://translations.metabrainz.org/projects/"
+"musicbrainz/server/pl/>\n"
+"Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: pl\n"
-"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && ("
+"n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
+"n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
+"X-Generator: Weblate 4.18.2\n"
 
 #: ../root/components/common-macros.tt:12
 msgid " ({text})"
@@ -347,7 +351,10 @@ msgid ""
 "All tracks require an associated recording. Click “Edit” to select a "
 "recording for each track. Choose “Add a new recording” if an appropriate one"
 " doesn’t exist yet."
-msgstr "Wszystkie ścieżki wymagają powiązanego nagrania. Kliknij \"Edytuj\", aby zaznaczyć nagranie dla każdej ze ścieżek. Wybierz \"Dodaj nowe nagranie\", jeśli odpowiednie dla tej ścieżki jeszcze nie istnieje."
+msgstr ""
+"Wszystkie ścieżki wymagają powiązanego nagrania. Kliknij \"Edytuj\", aby "
+"zaznaczyć nagranie dla każdej ze ścieżek. Wybierz \"Dodaj nowe nagranie\", "
+"jeśli odpowiednie dla tej ścieżki jeszcze nie istnieje."
 
 #: ../root/admin/delete_user.tt:13
 msgid "Allow the name “{editor_name}” to be reused."
@@ -381,7 +388,9 @@ msgstr "Zezwól"
 msgid ""
 "Are you sure you want to delete all information about {e}? This cannot be "
 "undone!"
-msgstr "Czy na pewno chcesz usunąć wszystkie informacje o {e}? Tej akcji nie można cofnąć!"
+msgstr ""
+"Czy na pewno chcesz usunąć wszystkie informacje o {e}? Tej akcji nie można "
+"cofnąć!"
 
 #: ../root/admin/delete_user.tt:34
 msgid "Are you sure you want to delete your account? This cannot be undone!"
@@ -575,7 +584,9 @@ msgstr "Kod kreskowy:"
 msgid ""
 "Based on the above CD stub, we also found the following releases in "
 "MusicBrainz that may be related:"
-msgstr "Na podstawie powyższego szkicu CD znaleźliśmy następujące wydania w MusicBrainz, które mogą być powiązane:"
+msgstr ""
+"Na podstawie powyższego szkicu CD znaleźliśmy następujące wydania w "
+"MusicBrainz, które mogą być powiązane:"
 
 #: ../root/release/edit/duplicates.tt:4
 msgid ""
@@ -2148,7 +2159,9 @@ msgstr ""
 
 #: ../root/release_group/set_cover_art.tt:96
 msgid "No releases have cover art marked as \"Front\", cannot set cover art."
-msgstr "Żadne wydania nie posiadają okładki oznaczonej jako \"Przód\". Nie można ustawić okładki."
+msgstr ""
+"Żadne wydania nie posiadają okładki oznaczonej jako \"Przód\". Nie można "
+"ustawić okładki."
 
 #: ../root/release/edit/tracklist.tt:140 ../root/admin/IpLookup.js:38
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:468
@@ -2338,7 +2351,8 @@ msgstr ""
 msgid ""
 "Please navigate to the pages of other entities you wish to merge and select "
 "the \"merge\" link."
-msgstr "Przejdź na strony innych obiektów, które chcesz scalić i kliknij „Scal”."
+msgstr ""
+"Przejdź na strony innych obiektów, które chcesz scalić i kliknij „Scal”."
 
 #: ../root/account/register.tt:50
 msgid ""
@@ -2701,7 +2715,8 @@ msgstr ""
 
 #: ../root/layout.tt:131
 msgid "Running: <span class=\"tooltip\" title=\"{msg}\">{branch} ({sha})</span>"
-msgstr "Działa na: <span class=\"tooltip\" title=\"{msg}\">{branch} ({sha})</span>"
+msgstr ""
+"Działa na: <span class=\"tooltip\" title=\"{msg}\">{branch} ({sha})</span>"
 
 #: ../root/admin/attributes/form.tt:82
 #: ../root/relationship/linkattributetype/form.tt:24
@@ -3166,7 +3181,8 @@ msgstr ""
 msgid ""
 "This is a PDF file, the thumbnail may not show the entire contents of the "
 "file."
-msgstr "To jest plik PDF. Miniatura może nie pokazać całej zawartości dokumentu."
+msgstr ""
+"To jest plik PDF. Miniatura może nie pokazać całej zawartości dokumentu."
 
 #: ../root/admin/attributes/form.tt:77
 msgid "This is a free text work attribute"
@@ -3627,7 +3643,9 @@ msgid ""
 "When you are ready to merge these, just click the Merge button. You may "
 "still add more to this merge queue by simply browsing to the entities page "
 "and following the merge link."
-msgstr "Kiedy skończysz dodawać obiekty do listy, kliknij 'Scal', aby scalić wszystkie do wskazanego obiektu docelowego."
+msgstr ""
+"Kiedy skończysz dodawać obiekty do listy, kliknij 'Scal', aby scalić "
+"wszystkie do wskazanego obiektu docelowego."
 
 #: ../root/layout.tt:112 ../root/layout/components/Footer.js:27
 msgid "Wiki"
@@ -4224,10 +4242,18 @@ msgid ""
 msgid_plural ""
 "Thank you, your {num_edits} {edit_url|edits} ({edit_ids}) have been "
 "automatically accepted and applied."
-msgstr[0] "Dziękujemy, twoja {edit_url|edycja} ({edit_ids}) została automatyczne zaakceptowana i zastosowana."
-msgstr[1] "Dziękujemy, twoje {num_edits} {edit_url|edycje} ({edit_ids}) zostały automatyczne zaakceptowane i zastosowane."
-msgstr[2] "Dziękujemy, twoich {num_edits} {edit_url|edycji} ({edit_ids}) zostało automatyczne zaakceptowanych i zastosowanych."
-msgstr[3] "Dziękujemy, twoich {num_edits} {edit_url|edycji} ({edit_ids}) zostało automatyczne zaakceptowanych i zastosowanych."
+msgstr[0] ""
+"Dziękujemy, twoja {edit_url|edycja} ({edit_ids}) została automatyczne "
+"zaakceptowana i zastosowana."
+msgstr[1] ""
+"Dziękujemy, twoje {num_edits} {edit_url|edycje} ({edit_ids}) zostały "
+"automatyczne zaakceptowane i zastosowane."
+msgstr[2] ""
+"Dziękujemy, twoich {num_edits} {edit_url|edycji} ({edit_ids}) zostało "
+"automatyczne zaakceptowanych i zastosowanych."
+msgstr[3] ""
+"Dziękujemy, twoich {num_edits} {edit_url|edycji} ({edit_ids}) zostało "
+"automatyczne zaakceptowanych i zastosowanych."
 
 #: ../lib/MusicBrainz/Server/Controller.pm:127
 #, perl-brace-format
@@ -4293,7 +4319,9 @@ msgid ""
 "We were unable to send login information to your email address.  Please try "
 "again, however if you continue to experience difficulty contact us at "
 "support@musicbrainz.org."
-msgstr "Nie udało się wysłać e-maila z danymi logowania. Spróbuj ponownie. Jeżeli problem się powtórzy, prosimy o kontakt pod adresem support@musicbrainz.org."
+msgstr ""
+"Nie udało się wysłać e-maila z danymi logowania. Spróbuj ponownie. Jeżeli "
+"problem się powtórzy, prosimy o kontakt pod adresem support@musicbrainz.org."
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:199
 msgid "There is no user with this username"
@@ -4565,7 +4593,9 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/Role/Annotation.pm:230
 msgid "The old and new annotation ids must be unique, positive integers."
-msgstr "Identyfikatory starej i nowej adnotacji muszą być unikalnymi, dodatnimi liczbami całkowitymi."
+msgstr ""
+"Identyfikatory starej i nowej adnotacji muszą być unikalnymi, dodatnimi "
+"liczbami całkowitymi."
 
 #: ../lib/MusicBrainz/Server/Controller/Role/EditRelationships.pm:221
 #: ../root/layout/components/sidebar/SidebarEndDate.js:38
@@ -5012,7 +5042,8 @@ msgstr "Edytuj nagrania"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/MACToSAC.pm:13
 msgid "Convert release to single artist (historic)"
-msgstr "Przekształć wydanie w wydanie autorstwa pojedynczego artysty (historyczne)"
+msgstr ""
+"Przekształć wydanie w wydanie autorstwa pojedynczego artysty (historyczne)"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/MergeRelease.pm:13
 #: ../lib/MusicBrainz/Server/Edit/Historic/MergeReleaseMAC.pm:9
@@ -6313,36 +6344,47 @@ msgstr "(Specjalny przypadek)"
 msgid ""
 "An album release primarily consists of previously unreleased material. This "
 "includes album re-issues, with or without bonus tracks."
-msgstr "Album to wydanie, które zawiera głównie nowy materiał, oraz jego reedycje z lub bez dodatkowych ścieżek."
+msgstr ""
+"Album to wydanie, które zawiera głównie nowy materiał, oraz jego reedycje z "
+"lub bez dodatkowych ścieżek."
 
 #: ../lib/MusicBrainz/Server/Release.pm:32
 msgid ""
 "A single typically has one main song and possibly a handful of additional "
 "tracks or remixes of the main track. A single is usually named after its "
 "main song."
-msgstr "Singiel posiada zazwyczaj jedną piosenkę i/lub kilka jej dodatkowych wersji, remiksów. Nazwa singla pochodzi zazwyczaj od tytułu głównego utworu."
+msgstr ""
+"Singiel posiada zazwyczaj jedną piosenkę i/lub kilka jej dodatkowych wersji, "
+"remiksów. Nazwa singla pochodzi zazwyczaj od tytułu głównego utworu."
 
 #: ../lib/MusicBrainz/Server/Release.pm:33
 msgid ""
 "An EP is an Extended Play release and often contains the letters EP in the "
 "title."
-msgstr "EP (z ang. Extended Play) to wydanie będące minialbumem. Często zawiera oznaczenie „EP” w tytule."
+msgstr ""
+"EP (z ang. Extended Play) to wydanie będące minialbumem. Często zawiera "
+"oznaczenie „EP” w tytule."
 
 #: ../lib/MusicBrainz/Server/Release.pm:34
 msgid ""
 "A compilation is a collection of previously released tracks by one or more "
 "artists."
-msgstr "Kompilacja jest kolekcją już wydanych utworów autorstwa jednego lub więcej wykonawców."
+msgstr ""
+"Kompilacja jest kolekcją już wydanych utworów autorstwa jednego lub więcej "
+"wykonawców."
 
 #: ../lib/MusicBrainz/Server/Release.pm:35
 msgid ""
 "A soundtrack is the musical score to a movie, TV series, stage show, "
 "computer game etc."
-msgstr "Ścieżka dźwiękowa zawiera muzykę z filmu, gry komputerowej, serialu, itp."
+msgstr ""
+"Ścieżka dźwiękowa zawiera muzykę z filmu, gry komputerowej, serialu, itp."
 
 #: ../lib/MusicBrainz/Server/Release.pm:36
 msgid "Non-music spoken word releases."
-msgstr "Wydania zawierające słowo mówione, monologi, dyskusje. Nie jest to wydanie muzyczne."
+msgstr ""
+"Wydania zawierające słowo mówione, monologi, dyskusje. Nie jest to wydanie "
+"muzyczne."
 
 #: ../lib/MusicBrainz/Server/Release.pm:37
 msgid "An interview release contains an interview with the Artist."
@@ -6368,25 +6410,33 @@ msgstr "Wydanie nie pasujące do żadnych innych kategorii."
 msgid ""
 "Any release officially sanctioned by the artist and/or their record company."
 " (Most releases will fit into this category.)"
-msgstr "Dowolne wydania zatwierdzone przez wykonawcę lub jego/jej wytwórnię muzyczną. (Większość wydań należy do tej kategorii.)"
+msgstr ""
+"Dowolne wydania zatwierdzone przez wykonawcę lub jego/jej wytwórnię "
+"muzyczną. (Większość wydań należy do tej kategorii.)"
 
 #: ../lib/MusicBrainz/Server/Release.pm:44
 msgid ""
 "A giveaway release or a release intended to promote an upcoming official "
 "release. (e.g. prerelease albums or releases included with a magazine)"
-msgstr "Darmowe lub promocyjne wydania, poprzedzające ukazanie się oficjalnej wersji, np.: przedpremierowe albumy lub dodatki do czasopism."
+msgstr ""
+"Darmowe lub promocyjne wydania, poprzedzające ukazanie się oficjalnej "
+"wersji, np.: przedpremierowe albumy lub dodatki do czasopism."
 
 #: ../lib/MusicBrainz/Server/Release.pm:45
 msgid ""
 "An unofficial/underground release that was not sanctioned by the artist "
 "and/or the record company."
-msgstr "Nieoficjalne/podziemne wydania, które nie zostały zatwierdzone przez artystę lub jego/jej wytwórnię muzyczną."
+msgstr ""
+"Nieoficjalne/podziemne wydania, które nie zostały zatwierdzone przez artystę "
+"lub jego/jej wytwórnię muzyczną."
 
 #: ../lib/MusicBrainz/Server/Release.pm:46
 msgid ""
 "A pseudo-release is a duplicate release for translation/transliteration "
 "purposes."
-msgstr "Pseudowydanie jest duplikatem wydania przeznaczonym do tłumaczeń lub transliteracji."
+msgstr ""
+"Pseudowydanie jest duplikatem wydania przeznaczonym do tłumaczeń lub "
+"transliteracji."
 
 #: ../lib/MusicBrainz/Server/Translation.pm:253
 #: ../root/static/scripts/common/i18n/commaList.js:24
@@ -6458,7 +6508,8 @@ msgstr ""
 #: ../root/account/EditProfile.js:39
 msgid ""
 "See also your {uri|user preferences}, which include your privacy settings."
-msgstr "Zobacz także {uri|ustawienia użytkownika}, które zawierają opcje prywatności."
+msgstr ""
+"Zobacz także {uri|ustawienia użytkownika}, które zawierają opcje prywatności."
 
 #: ../root/account/EmailVerificationStatus.js:19
 msgid "Email Verification"
@@ -6468,7 +6519,9 @@ msgstr ""
 msgid ""
 "Thank you, your email address has now been verified! If you still can't "
 "edit, please try to log out and log in again."
-msgstr "Dziękujemy, twój adres e-mail został zweryfikowany! Jeśli wciąż nie możesz edytować, spróbuj zalogować się ponownie."
+msgstr ""
+"Dziękujemy, twój adres e-mail został zweryfikowany! Jeśli wciąż nie możesz "
+"edytować, spróbuj zalogować się ponownie."
 
 #: ../root/account/LostPassword.js:29 ../root/account/LostPassword.js:30
 #: ../root/account/LostPasswordSent.js:14
@@ -7054,7 +7107,9 @@ msgstr ""
 
 #: ../root/annotation/EditAnnotation.js:107
 msgid "''italics''; '''bold'''; '''''bold italics'''''; ---- horizontal rule"
-msgstr "''kursywa''; '''pogrubienie'''; '''''pogrubiona kursywa'''''; ---- pozioma linia"
+msgstr ""
+"''kursywa''; '''pogrubienie'''; '''''pogrubiona kursywa'''''; ---- pozioma "
+"linia"
 
 #: ../root/annotation/EditAnnotation.js:112
 msgid "Headings:"
@@ -7727,7 +7782,9 @@ msgstr ""
 msgid ""
 "Are you sure that you wish to attach the disc ID <code>{discid}</code> to "
 "{format} {pos} of {release} by {artist}?"
-msgstr "Czy na pewno chcesz dołączyć ID płyty <code>{discid}</code> do {format} {pos} wydania {release} autorstwa {artist}?"
+msgstr ""
+"Czy na pewno chcesz dołączyć ID płyty <code>{discid}</code> do {format} {pos}"
+" wydania {release} autorstwa {artist}?"
 
 #: ../root/cdtoc/AttachCDTocConfirmation.js:80
 msgid "Track duration comparison"
@@ -8074,7 +8131,9 @@ msgid ""
 "This label has no relationships or releases and will be removed "
 "automatically in the next few days. If this is not intended, please add more"
 " data to this label."
-msgstr "Ta wytwórnia nie posiada żadnych relacji lub wydań i zostanie automatycznie usunięta w ciągu kilku dni. Jeśli jest to błąd, dodaj więcej danych."
+msgstr ""
+"Ta wytwórnia nie posiada żadnych relacji lub wydań i zostanie automatycznie "
+"usunięta w ciągu kilku dni. Jeśli jest to błąd, dodaj więcej danych."
 
 #: ../root/components/CleanupBanner.js:28
 msgid ""
@@ -8087,7 +8146,10 @@ msgid ""
 "This release group has no relationships or releases associated, and will be "
 "removed automatically in the next few days. If this is not intended, please "
 "add more data to this release group."
-msgstr "Ta grupa wydań nie jest powiązana z żadną relacją ani wydaniem i zostanie automatycznie usunięta w ciągu kilku dni. Jeśli jest to błąd, dodaj więcej danych."
+msgstr ""
+"Ta grupa wydań nie jest powiązana z żadną relacją ani wydaniem i zostanie "
+"automatycznie usunięta w ciągu kilku dni. Jeśli jest to błąd, dodaj więcej "
+"danych."
 
 #: ../root/components/CleanupBanner.js:38
 msgid ""
@@ -9550,7 +9612,9 @@ msgstr "Średnie <span class=\"new\">{new}</span>: {title} (nowe medium)"
 msgid ""
 "Medium <span class=\"new\">{new}</span>: {title} (moved from position <span "
 "class=\"old\">{old}</span>)"
-msgstr "Średnie <span class=\"new\">{new}</span>: {title} (przeniesione z pozycji <span class=\"old\">{old}</span>)"
+msgstr ""
+"Średnie <span class=\"new\">{new}</span>: {title} (przeniesione z pozycji "
+"<span class=\"old\">{old}</span>)"
 
 #: ../root/edit/details/ReorderMediums.js:58
 msgid "Medium <span class=\"new\">{new}</span> (new medium)"
@@ -9560,7 +9624,9 @@ msgstr "Średnie <span class=\"new\">{new}</span> (nowe medium)"
 msgid ""
 "Medium <span class=\"new\">{new}</span> (moved from position <span "
 "class=\"old\">{old}</span>)"
-msgstr "Średnie <span class=\"new\">{new}</span> (przesunięte z pozycji <span class=\"old\">{old}</span>)"
+msgstr ""
+"Średnie <span class=\"new\">{new}</span> (przesunięte z pozycji <span class="
+"\"old\">{old}</span>)"
 
 #: ../root/edit/details/ReorderRelationships.js:21
 msgid "Old Order"
@@ -9803,7 +9869,8 @@ msgstr ""
 #: ../root/elections/ElectionVoting.js:33
 msgid ""
 "You cannot vote for this candidate, because you are not an auto-editor."
-msgstr "Nie możesz głosować na tego kandydata, ponieważ nie jesteś auto-redaktorem."
+msgstr ""
+"Nie możesz głosować na tego kandydata, ponieważ nie jesteś auto-redaktorem."
 
 #: ../root/elections/ElectionVoting.js:38
 msgid ""
@@ -9854,7 +9921,8 @@ msgstr "Nie odnaleziono żadnych wyborów."
 msgid ""
 "Are you sure you want to nominate the editor {editor} for auto-editor "
 "status?"
-msgstr "Czy na pewno chcesz nominować redaktora {editor} do statusu auto-redaktora?"
+msgstr ""
+"Czy na pewno chcesz nominować redaktora {editor} do statusu auto-redaktora?"
 
 #: ../root/elections/Nominate.js:29
 msgid "Nominate a candidate for auto-editor"
@@ -9960,7 +10028,9 @@ msgstr "Nie znaleziono Artysty"
 msgid ""
 "Sorry, we could not find an artist with that MusicBrainz ID. You may wish to"
 " try and {search_url|search for it} instead."
-msgstr "Niestety, nie mogliśmy znaleźć artysty o podanym MusicBrainz ID. Spróbuj użyć {search_url|wyszukiwarki}."
+msgstr ""
+"Niestety, nie mogliśmy znaleźć artysty o podanym MusicBrainz ID. Spróbuj "
+"użyć {search_url|wyszukiwarki}."
 
 #: ../root/entity/NotFound.js:37
 msgid "Artist Credit Not Found"
@@ -9994,7 +10064,9 @@ msgstr "Nie znaleziono Edycji"
 msgid ""
 "Sorry, we could not find an edit with that edit ID. You may wish to try and "
 "perform an {search_url|edit search} instead."
-msgstr "Niestety, nie mogliśmy znaleźć edycji o podanym ID. Spróbuj użyć {search_url|wyszukiwarki}."
+msgstr ""
+"Niestety, nie mogliśmy znaleźć edycji o podanym ID. Spróbuj użyć "
+"{search_url|wyszukiwarki}."
 
 #: ../root/entity/NotFound.js:66
 msgid "Election Not Found"
@@ -10046,7 +10118,9 @@ msgstr "Aktualnie Nieużywany ISRC"
 msgid ""
 "This ISRC is not associated with any recordings. If you wish to associate it"
 " with a recording, please {search_url|search for the recording} and add it."
-msgstr "Ten ISRC nie jest związany z żadnym nagraniem. Jeśli chcesz przypisać go do nagrania, {search_url|wyszukaj  je} i powiąż."
+msgstr ""
+"Ten ISRC nie jest związany z żadnym nagraniem. Jeśli chcesz przypisać go do "
+"nagrania, {search_url|wyszukaj  je} i powiąż."
 
 #: ../root/entity/NotFound.js:109
 msgid "ISWC Not Currently Used"
@@ -10066,7 +10140,9 @@ msgstr "Nie znaleziono Wytwórni"
 msgid ""
 "Sorry, we could not find a label with that MusicBrainz ID. You may wish to "
 "try and {search_url|search for it} instead."
-msgstr "Niestety, nie mogliśmy znaleźć wytwórni o podanym MusicBrainz ID. Spróbuj skorzystać z {search_url|wyszukiwarki}."
+msgstr ""
+"Niestety, nie mogliśmy znaleźć wytwórni o podanym MusicBrainz ID. Spróbuj "
+"skorzystać z {search_url|wyszukiwarki}."
 
 #: ../root/entity/NotFound.js:127
 msgid "Entity Not Found"
@@ -10096,7 +10172,9 @@ msgstr "Nie znaleziono Nagrania."
 msgid ""
 "Sorry, we could not find a recording with that MusicBrainz ID. You may wish "
 "to try and {search_url|search for it} instead."
-msgstr "Niestety, nie mogliśmy znaleźć nagrania z podanym MusicBrainz ID. Możesz spróbować użyć {search_url|wyszukiwarki}."
+msgstr ""
+"Niestety, nie mogliśmy znaleźć nagrania z podanym MusicBrainz ID. Możesz "
+"spróbować użyć {search_url|wyszukiwarki}."
 
 #: ../root/entity/NotFound.js:154
 msgid "Relationship Attribute Not Found"
@@ -10123,7 +10201,9 @@ msgstr "Nie znaleziono Wydania."
 msgid ""
 "Sorry, we could not find a release with that MusicBrainz ID. You may wish to"
 " try and {search_url|search for it} instead."
-msgstr "Niestety, nie mogliśmy znaleźć wydania o podanym MusicBrainz ID. Spróbuj użyć {search_url|wyszukiwarki}."
+msgstr ""
+"Niestety, nie mogliśmy znaleźć wydania o podanym MusicBrainz ID. Spróbuj "
+"użyć {search_url|wyszukiwarki}."
 
 #: ../root/entity/NotFound.js:181
 msgid "Release Group Not Found"
@@ -10133,7 +10213,9 @@ msgstr "Nie znaleziono Grupy Wydań."
 msgid ""
 "Sorry, we could not find a release group with that MusicBrainz ID. You may "
 "wish to try and {search_url|search for it} instead."
-msgstr "Niestety, nie mogliśmy znaleźć grupy wydań o podanym MusicBrainz ID. Spróbuj użyć {search_url|wyszukiwarki}."
+msgstr ""
+"Niestety, nie mogliśmy znaleźć grupy wydań o podanym MusicBrainz ID. Spróbuj "
+"użyć {search_url|wyszukiwarki}."
 
 #: ../root/entity/NotFound.js:190
 msgid "Series Not Found"
@@ -10161,7 +10243,8 @@ msgstr "Nie znaleziono URL"
 
 #: ../root/entity/NotFound.js:210
 msgid "Sorry, we could not find a URL with that MusicBrainz ID."
-msgstr "Niestety, nie mogliśmy znaleźć adresu URL powiązanego z tym MusicBrainz ID."
+msgstr ""
+"Niestety, nie mogliśmy znaleźć adresu URL powiązanego z tym MusicBrainz ID."
 
 #: ../root/entity/NotFound.js:215
 msgid "Editor Not Found"
@@ -10171,7 +10254,9 @@ msgstr "Nie znaleziono redaktora"
 msgid ""
 "Sorry, we could not find an editor with that name. You may wish to try and "
 "{search_url|search for them} instead."
-msgstr "Niestety, nie mogliśmy znaleźć redaktora o podanej nazwie. Spróbuj użyć {search_url|wyszukiwarki}."
+msgstr ""
+"Niestety, nie mogliśmy znaleźć redaktora o podanej nazwie. Spróbuj użyć "
+"{search_url|wyszukiwarki}."
 
 #: ../root/entity/NotFound.js:224
 msgid "Work Not Found"
@@ -10181,7 +10266,9 @@ msgstr "Nie znaleziono pracy"
 msgid ""
 "Sorry, we could not find a work with that MusicBrainz ID. You may wish to "
 "try and {search_url|search for it} instead."
-msgstr "Niestety, nie mogliśmy znaleźć pracy o podanym MusicBrainz ID. Spróbuj użyć {search_url|wyszukiwarki}."
+msgstr ""
+"Niestety, nie mogliśmy znaleźć pracy o podanym MusicBrainz ID. Spróbuj użyć "
+"{search_url|wyszukiwarki}."
 
 #: ../root/entity/Ratings.js:68
 msgid "{count} private rating not listed."
@@ -11589,7 +11676,9 @@ msgstr "To miejsce nie jest obecnie powiązane z jakimkolwiek wydarzeniem."
 
 #: ../root/place/PlaceMap.js:47
 msgid "A map cannot be shown because this place has no coordinates."
-msgstr "Mapa nie może zostać wyświetlona, ponieważ to miejsce nie posiada współrzędnych."
+msgstr ""
+"Mapa nie może zostać wyświetlona, ponieważ to miejsce nie posiada "
+"współrzędnych."
 
 #: ../root/place/PlaceMerge.js:32
 msgid ""
@@ -11675,7 +11764,10 @@ msgid ""
 "<strong>Warning:</strong> Some of the recordings you're merging have "
 "different ISRCs. Please make sure they are indeed the same recordings and "
 "you wish to continue with the merge."
-msgstr "<strong>Uwaga:</strong> Niektóre ze scalanych nagrań mają różne ISRC. Upewnij się, że na pewno są to te same nagrania i chcesz kontynuować scalanie."
+msgstr ""
+"<strong>Uwaga:</strong> Niektóre ze scalanych nagrań mają różne ISRC. "
+"Upewnij się, że na pewno są to te same nagrania i chcesz kontynuować "
+"scalanie."
 
 #: ../root/relationship/RelationshipsHeader.js:23
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:87
@@ -11914,7 +12006,9 @@ msgstr ""
 msgid ""
 "These images provided by the {caa|Cover Art Archive}. You can also see them "
 "at the {ia|Internet Archive}."
-msgstr "Obrazy dostarczane są przez {caa|Cover Art Archive}. Możesz je również zobaczyć na {ia|Internet Archive}."
+msgstr ""
+"Obrazy dostarczane są przez {caa|Cover Art Archive}. Możesz je również "
+"zobaczyć na {ia|Internet Archive}."
 
 #: ../root/release/CoverArt.js:137
 msgid "We do not currently have any cover art for {release}."
@@ -11988,7 +12082,8 @@ msgstr ""
 msgid ""
 "Are you sure you wish to remove the below cover art from {release} by "
 "{artist}?"
-msgstr "Czy na pewno chcesz usunąć poniższą okładkę z {release} autorstwa {artist}?"
+msgstr ""
+"Czy na pewno chcesz usunąć poniższą okładkę z {release} autorstwa {artist}?"
 
 #: ../root/release_group/ReleaseGroupHeader.js:28
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:810
@@ -13254,7 +13349,9 @@ msgstr ""
 
 #: ../root/report/ReportsIndex.js:317
 msgid "Releases where some (but not all) mediums have no format set"
-msgstr "Wydania, w których niektóre (nie wszystkie) media nie mają ustawionego formatu"
+msgstr ""
+"Wydania, w których niektóre (nie wszystkie) media nie mają ustawionego "
+"formatu"
 
 #: ../root/report/ReportsIndex.js:338
 msgid ""
@@ -13754,7 +13851,9 @@ msgstr ""
 msgid ""
 "This is a development server. Your email address is not private or secure. "
 "Proceed with caution!"
-msgstr "To jest serwer deweloperski. Twój adres e-mail nie jest prywatny, ani zabezpieczony. Uważaj!"
+msgstr ""
+"To jest serwer deweloperski. Twój adres e-mail nie jest prywatny, ani "
+"zabezpieczony. Uważaj!"
 
 #: ../root/static/scripts/account/components/EditProfileForm.js:193
 msgid "If you change your email address, you will be required to verify it."
@@ -13974,7 +14073,8 @@ msgstr ""
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:88
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:94
 msgid "An error occurred while searching. Click here to try again."
-msgstr "Wystąpił błąd podczas wyszukiwania. Kliknij tutaj, aby spróbować ponownie."
+msgstr ""
+"Wystąpił błąd podczas wyszukiwania. Kliknij tutaj, aby spróbować ponownie."
 
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:93
 msgid "Try with direct search instead."
@@ -14452,7 +14552,9 @@ msgstr "Nikt jeszcze tego nie otagował."
 msgid ""
 "Tags with a score of zero or below, and tags that you’ve downvoted are "
 "hidden."
-msgstr "Tagi z oceną zero lub mniej i tagi ocenione przez ciebie negatywnie są ukryte."
+msgstr ""
+"Tagi z oceną zero lub mniej i tagi ocenione przez ciebie negatywnie są "
+"ukryte."
 
 #: ../root/static/scripts/common/components/TagEditor.js:580
 msgid "Tags with a score of zero or below are hidden."
@@ -14483,7 +14585,9 @@ msgstr "Dodaj tagi"
 msgid ""
 "You can add your own {tagdocs|tags} below. Use commas to separate multiple "
 "tags."
-msgstr "Możesz dodać swoje {tagdocs|tagi} poniżej. Użyj przecinków, aby oddzielić wiele tagów."
+msgstr ""
+"Możesz dodać swoje {tagdocs|tagi} poniżej. Użyj przecinków, aby oddzielić "
+"wiele tagów."
 
 #: ../root/static/scripts/common/components/TagEditor.js:643
 msgid "Submit tags"
@@ -15362,7 +15466,9 @@ msgstr ""
 msgid ""
 "Please select a subtype of the currently selected relationship type. The "
 "selected relationship type is only used for grouping subtypes."
-msgstr "Wybierz podtyp aktualnie zaznaczonego typu relacji (który jest użyty jedynie do grupowania podtypów)."
+msgstr ""
+"Wybierz podtyp aktualnie zaznaczonego typu relacji (który jest użyty jedynie "
+"do grupowania podtypów)."
 
 #: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:88
 msgid "This relationship type is not allowed with the current series type."
@@ -15560,7 +15666,9 @@ msgstr ""
 msgid ""
 "This medium has one or more discids which prevent this information from "
 "being changed."
-msgstr "To medium ma jedno lub więcej discid, które uniemożliwia zmianę tej informacji."
+msgstr ""
+"To medium ma jedno lub więcej discid, które uniemożliwia zmianę tej "
+"informacji."
 
 #: ../root/static/scripts/release-editor/dialogs.js:265
 msgid "Page {page} of {total}"
@@ -15623,7 +15731,8 @@ msgstr "Upewnij się, że kod kreskowy jest poprawny."
 #: ../root/static/scripts/release-editor/validation.js:184
 msgid ""
 "The barcode you entered looks like a UPC code with the check digit missing."
-msgstr "Kod kreskowy, który podałeś, wygląda jak kod UPC z brakującą cyfrą kontrolną."
+msgstr ""
+"Kod kreskowy, który podałeś, wygląda jak kod UPC z brakującą cyfrą kontrolną."
 
 #: ../root/static/scripts/release-editor/validation.js:194
 msgid "The barcode you entered is a valid UPC code."
@@ -15633,7 +15742,9 @@ msgstr "Wprowadzony kod kreskowy jest prawidłowym kodem UPC."
 msgid ""
 "The barcode you entered is either an invalid UPC code, or an EAN code with "
 "the check digit missing."
-msgstr "Kod kreskowy, który podałeś, jest albo nieprawidłowym kodem UPC, albo kodem EAN z brakującą cyfrą kontrolną."
+msgstr ""
+"Kod kreskowy, który podałeś, jest albo nieprawidłowym kodem UPC, albo kodem "
+"EAN z brakującą cyfrą kontrolną."
 
 #: ../root/static/scripts/release-editor/validation.js:213
 msgid "The barcode you entered is a valid EAN code."
@@ -16141,7 +16252,11 @@ msgid ""
 "privileges. These privileges allow them to make select edits that are "
 "automatically approved without going through the normal voting process, as "
 "well as the ability to instantly approve other users' edits."
-msgstr "Auto-redaktorzy są zaufanym użytkownikami, którym przyznano uprawnienia {url|auto-redaktora}. Te uprawnienia pozwalają im dodawać edycje, które są automatycznie akceptowane bez przechodzenia procesu głosowania. Mają również możliwość natychmiastowego akceptowania edycji innych użytkowników."
+msgstr ""
+"Auto-redaktorzy są zaufanym użytkownikami, którym przyznano uprawnienia {url"
+"|auto-redaktora}. Te uprawnienia pozwalają im dodawać edycje, które są "
+"automatycznie akceptowane bez przechodzenia procesu głosowania. Mają również "
+"możliwość natychmiastowego akceptowania edycji innych użytkowników."
 
 #: ../root/user/PrivilegedUsers.js:50
 msgid "The following {count} users have auto-editor privileges:"
@@ -16171,7 +16286,9 @@ msgstr "Redaktorzy transkluzji"
 msgid ""
 "Transclusion editors are users who add and maintain entries in the "
 "{uri|WikiDocs} transclusion table."
-msgstr "Redaktorzy transkluzji to użytkownicy, którzy dodają i opiekują się wpisami w tabeli transkluzji {uri|WikiDocs}."
+msgstr ""
+"Redaktorzy transkluzji to użytkownicy, którzy dodają i opiekują się wpisami "
+"w tabeli transkluzji {uri|WikiDocs}."
 
 #: ../root/user/PrivilegedUsers.js:85
 msgid "The following {count} users are transclusion editors:"
@@ -16183,7 +16300,8 @@ msgstr "Redaktorzy lokalizacji"
 
 #: ../root/user/PrivilegedUsers.js:94
 msgid "Location editors are users who can add or modify {uri|areas}."
-msgstr "Redaktorzy lokalizacji to osoby, które mogą dodawać i edytować {uri|rejony}."
+msgstr ""
+"Redaktorzy lokalizacji to osoby, które mogą dodawać i edytować {uri|rejony}."
 
 #: ../root/user/PrivilegedUsers.js:100
 msgid "The following {count} users are location editors:"
@@ -16197,7 +16315,10 @@ msgstr "Redaktorzy treści bannerów"
 msgid ""
 "Banner message editors are users who can set a message that is shown in a "
 "banner on all pages, e.g. to warn users about upcoming site maintenance."
-msgstr "Redaktorzy treści bannerów to użytkownicy, którzy mogą ustalać wiadomości wyświetlane na wszystkich stronach, np. po to, aby poinformować innych o nadchodzącej przerwie w działaniu serwisu."
+msgstr ""
+"Redaktorzy treści bannerów to użytkownicy, którzy mogą ustalać wiadomości "
+"wyświetlane na wszystkich stronach, np. po to, aby poinformować innych o "
+"nadchodzącej przerwie w działaniu serwisu."
 
 #: ../root/user/PrivilegedUsers.js:114
 msgid "The following {count} users are banner message editors:"
@@ -16236,7 +16357,8 @@ msgstr ""
 
 #: ../root/user/ReportUser.js:101
 msgid "Please review our {uri|Code of Conduct} before sending a report."
-msgstr "Przed wysłaniem zgłoszenia zapoznaj się z naszym {uri|Kodeksem postępowania}."
+msgstr ""
+"Przed wysłaniem zgłoszenia zapoznaj się z naszym {uri|Kodeksem postępowania}."
 
 #: ../root/user/ReportUser.js:109
 msgid ""
@@ -16562,7 +16684,8 @@ msgstr ""
 
 #: ../root/user/UserProfile.js:676
 msgid "This table shows a summary of votes cast by this editor."
-msgstr "Poniższa tabela przedstawia zestawienie głosów oddanych przez tego redaktora."
+msgstr ""
+"Poniższa tabela przedstawia zestawienie głosów oddanych przez tego redaktora."
 
 #: ../root/user/UserProfile.js:681
 msgid "Votes ({view_url|view})"
