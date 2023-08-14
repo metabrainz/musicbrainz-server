@@ -22,6 +22,10 @@ import {
   indexItems,
 } from '../../common/components/Autocomplete2/searchItems.js';
 import {
+  ARTIST_GROUP_TYPES,
+  ARTIST_TYPE_PERSON,
+} from '../../common/constants.js';
+import {
   createNonUrlRelatableEntityObject,
   createUrlObject,
 } from '../../common/entity2.js';
@@ -201,6 +205,53 @@ export function createInitialState(props: PropsT): RelationshipDialogStateT {
   };
 }
 
+/*
+ * Possibly updates newState.backward based on the source and target
+ * entities and the link type. The link direction is updated only in
+ * cases where the correct value can be inferred, e.g. "member of"
+ * relationships between person and group artist entities. See MBS-2604.
+ */
+function inferLinkDirection(
+  newState: {...RelationshipDialogStateT},
+  source: RelatableEntityT,
+): void {
+  const target = newState.targetEntity.target;
+  const linkTypeId =
+    newState.linkType.autocomplete.selectedItem?.entity?.id ?? null;
+
+  if (
+    source.entityType === 'artist' &&
+    target.entityType === 'artist' &&
+    linkTypeId !== null &&
+    personGroupLinkTypeIds.has(linkTypeId)
+  ) {
+    const isSourcePerson = source.typeID === ARTIST_TYPE_PERSON;
+    const isSourceGroup =
+      source.typeID !== null && ARTIST_GROUP_TYPES.has(source.typeID);
+
+    const isTargetPerson = target.typeID === ARTIST_TYPE_PERSON;
+    const isTargetGroup =
+      target.typeID !== null && ARTIST_GROUP_TYPES.has(target.typeID);
+
+
+    if (isSourcePerson && isTargetGroup) {
+      newState.backward = false;
+    } else if (isSourceGroup && isTargetPerson) {
+      newState.backward = true;
+    }
+  }
+}
+
+// Link types for artist-artist relationships between people and groups.
+const personGroupLinkTypeIds = new Set([
+  53, // collaborator
+  103, // member
+  305, // conductor
+  855, // composer-in-residence
+  895, // founder
+  965, // artistic director
+]);
+
 function updateDialogStateForTargetTypeChange(
   newState: {...RelationshipDialogStateT},
   oldTargetType: RelatableEntityTypeT,
@@ -322,6 +373,18 @@ export function reducer(
           action.source,
         );
       }
+
+      /*
+       * Avoid unnecessary calls when update-target-entity actions are
+       * mysteriously dispatched even when the target didn't change, e.g.
+       * a null-to-null update when clicking the artist selector.
+       */
+      const oldTargetGid = state.targetEntity.target.gid;
+      const newTargetGid = newState.targetEntity.target.gid;
+      if (oldTargetGid !== newTargetGid) {
+        inferLinkDirection(newState, action.source);
+      }
+
       break;
     }
 
@@ -400,6 +463,7 @@ export function reducer(
           ...newState.sourceEntity,
           error: getSourceError(action.source, null),
         };
+        inferLinkDirection(newState, action.source);
       }
 
       break;
