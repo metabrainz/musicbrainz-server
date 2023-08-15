@@ -249,6 +249,13 @@ export const LINK_TYPES: LinkTypeMap = {
     recording: 'b5f3058a-666c-406f-aafb-f9249fc7b122',
     release: '320adf26-96fa-4183-9045-1f5f32f833cb',
   },
+  ticketing: {
+    artist: '34beaf28-cbdd-4bf7-bc41-e7de18135245',
+    event: 'bf0f91b9-d97e-4a7b-9114-f1db1e0b61de',
+    label: '705f4b36-b12e-41e4-a5f2-57e2de83ca6a',
+    place: '914021c7-01f9-4578-b3e3-1a4b0f6453a7',
+    series: 'bb8ad711-4667-4395-9bfa-453b1299a79b',
+  },
   vgmdb: {
     artist: '0af15ab3-c615-46d6-b95b-a5fcd2a92ed9',
     event: '5d3e0348-71a8-3dc1-b847-3a8f1d5de688',
