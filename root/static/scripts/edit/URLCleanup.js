@@ -5334,6 +5334,39 @@ const CLEANUPS: CleanupEntries = {
       return {result: isAProfile, target: ERROR_TARGETS.URL};
     },
   },
+  'ticketmaster': {
+    match: [new RegExp('^(https?://)?(www\\.)?ticketmaster\\.com', 'i')],
+    restrict: [LINK_TYPES.ticketing],
+    clean: function (url) {
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?ticketmaster\.com\/(?:[\w-]+\/)?(artist|event|venue)\/([0-9A-F]+).*$/, 'https://www.ticketmaster.com/$1/$2');
+      return url;
+    },
+    validate: function (url, id) {
+      const m = /^https:\/\/www\.ticketmaster\.com\/(artist|event|venue)\/[0-9A-F]+$/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.ticketing.artist:
+            if (prefix === 'artist') {
+              return {result: true};
+            }
+            return {result: false, target: ERROR_TARGETS.ENTITY};
+          case LINK_TYPES.ticketing.event:
+            if (prefix === 'event') {
+              return {result: true};
+            }
+            return {result: false, target: ERROR_TARGETS.ENTITY};
+          case LINK_TYPES.ticketing.place:
+            if (prefix === 'venue') {
+              return {result: true};
+            }
+            return {result: false, target: ERROR_TARGETS.ENTITY};
+        }
+        return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
   'tidal': {
     match: [new RegExp(
       '^(https?://)?' +

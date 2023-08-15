@@ -5236,6 +5236,28 @@ limited_link_type_combinations: [
             expected_clean_url: 'https://www.threads.net/t/CucwR6erBPo',
        only_valid_entity_types: ['recording'],
   },
+  // Ticketmaster
+  {
+                     input_url: 'http://ticketmaster.com/depeche-mode-tickets/artist/734907#about',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'ticketing',
+            expected_clean_url: 'https://www.ticketmaster.com/artist/734907',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://www.ticketmaster.com/seongjin-cho-englewood-new-jersey-10-03-2023/event/00005ED3057A881F',
+             input_entity_type: 'event',
+    expected_relationship_type: 'ticketing',
+            expected_clean_url: 'https://www.ticketmaster.com/event/00005ED3057A881F',
+       only_valid_entity_types: ['event'],
+  },
+  {
+                     input_url: 'https://www.ticketmaster.com/fenway-park-tickets-boston/venue/8839?tab=seatingCharts',
+             input_entity_type: 'place',
+    expected_relationship_type: 'ticketing',
+            expected_clean_url: 'https://www.ticketmaster.com/venue/8839',
+       only_valid_entity_types: ['place'],
+  },
   // Tidal
   {
                      input_url: 'http://desktop.tidal.com/artist/8140105',
