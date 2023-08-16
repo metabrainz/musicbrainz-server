@@ -3447,6 +3447,35 @@ limited_link_type_combinations: [
             expected_clean_url: 'https://www.livefans.jp/venues/4853',
        only_valid_entity_types: ['place'],
   },
+  // Live Nation
+  {
+                     input_url: 'https://www.livenation.com/artist/K8vZ9171ulV/alice-cooper-events#artist-info',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'ticketing',
+            expected_clean_url: 'https://www.livenation.com/artist/K8vZ9171ulV',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://concerts.livenation.com/the-smashing-pumpkins-the-world-is-dallas-texas-08-15-2023/event/0C005E791B3255BB',
+             input_entity_type: 'event',
+    expected_relationship_type: 'ticketing',
+            expected_clean_url: 'https://concerts.livenation.com/event/0C005E791B3255BB',
+       only_valid_entity_types: ['event'],
+  },
+  {
+                     input_url: 'https://www.livenation.com/event/vvG1YZ9E0hGPpD/the-smashing-pumpkins-the-world-is-a-vampire-tour',
+             input_entity_type: 'event',
+    expected_relationship_type: 'ticketing',
+            expected_clean_url: 'https://www.livenation.com/event/vvG1YZ9E0hGPpD',
+       only_valid_entity_types: ['event'],
+  },
+  {
+                     input_url: 'https://www.livenation.com/venue/KovZpZAEAFeA/dos-equis-pavilion-events#seat-map',
+             input_entity_type: 'place',
+    expected_relationship_type: 'ticketing',
+            expected_clean_url: 'https://www.livenation.com/venue/KovZpZAEAFeA',
+       only_valid_entity_types: ['place'],
+  },
   // Loudr
   {
                      input_url: 'https://loudr.fm/artist/kyle-landry/Z77SM?test',

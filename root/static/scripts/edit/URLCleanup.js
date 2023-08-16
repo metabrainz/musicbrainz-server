@@ -3651,6 +3651,44 @@ const CLEANUPS: CleanupEntries = {
       return {result: false, target: ERROR_TARGETS.URL};
     },
   },
+  'livenation': {
+    match: [new RegExp(
+      '^(https?://)?(?:(?:concerts|www)\\.)?livenation\\.com',
+      'i',
+    )],
+    restrict: [LINK_TYPES.ticketing],
+    clean: function (url) {
+      url = url.replace(/^(?:https?:\/\/)?concerts\.livenation\.com\/(?:[\w\d-]+\/)?event\/([0-9A-F]+).*$/, 'https://concerts.livenation.com/event/$1');
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?livenation\.com\/(artist|event|venue)\/([0-9a-zA-Z]+).*$/, 'https://www.livenation.com/$1/$2');
+      return url;
+    },
+    validate: function (url, id) {
+      const m = /^https:\/\/(concerts|www)\.livenation\.com\/(artist|event|venue)\/[0-9a-zA-Z]+$/.exec(url);
+      if (m) {
+        const subdomain = m[1];
+        const prefix = m[2];
+        switch (id) {
+          case LINK_TYPES.ticketing.artist:
+            if (prefix === 'artist' && subdomain === 'www') {
+              return {result: true};
+            }
+            return {result: false, target: ERROR_TARGETS.ENTITY};
+          case LINK_TYPES.ticketing.event:
+            if (prefix === 'event') {
+              return {result: true};
+            }
+            return {result: false, target: ERROR_TARGETS.ENTITY};
+          case LINK_TYPES.ticketing.place:
+            if (prefix === 'venue' && subdomain === 'www') {
+              return {result: true};
+            }
+            return {result: false, target: ERROR_TARGETS.ENTITY};
+        }
+        return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
   'loudr': {
     match: [new RegExp('^(https?://)?loudr\.fm/', 'i')],
     restrict: [LINK_TYPES.downloadpurchase],
