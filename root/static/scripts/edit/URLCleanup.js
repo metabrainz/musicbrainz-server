@@ -5582,7 +5582,7 @@ const CLEANUPS: CleanupEntries = {
     match: [new RegExp('^(https?://)?([^/]+\\.)?twitch\\.(?:com|tv)/', 'i')],
     restrict: [{...LINK_TYPES.streamingfree, ...LINK_TYPES.videochannel}],
     clean: function (url) {
-      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?twitch\.(?:com|tv)\/((?:videos\/)?[^\/?#]+).*$/, 'https://www.twitch.tv/$1');
+      url = url.replace(/^(?:https?:\/\/)?(?:(?:m|www)\.)?twitch\.(?:com|tv)\/((?:videos\/)?[^\/?#]+).*$/, 'https://www.twitch.tv/$1');
       return url;
     },
     validate: function (url, id) {

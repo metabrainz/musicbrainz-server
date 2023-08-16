@@ -5484,6 +5484,13 @@ limited_link_type_combinations: [
             expected_clean_url: 'https://www.twitch.tv/pisceze',
        only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series'],
   },
+  {
+                     input_url: 'https://m.twitch.tv/marimbamatt913',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'videochannel',
+            expected_clean_url: 'https://www.twitch.tv/marimbamatt913',
+       only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series'],
+  },
   // Twitter
   {
                      input_url: 'http://twitter.com/miguelgrimaldo',
