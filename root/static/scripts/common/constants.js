@@ -143,6 +143,7 @@ export const FAVICON_CLASSES = {
   'lieder.net': 'lieder',
   'linkedin.com': 'linkedin',
   'livefans.jp': 'livefans',
+  'livenation.com': 'livenation',
   'loc.gov': 'loc',
   'loudr.fm': 'loudr',
   'lyric.evesta.jp': 'evestalyric',

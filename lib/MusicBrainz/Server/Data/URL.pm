@@ -113,6 +113,7 @@ my %URL_SPECIALIZATIONS = (
     'Lieder'              => qr{^https?://(?:www\.)?lieder\.net/}i,
     'LinkedIn'            => qr{^https?://([^/]+\.)?linkedin\.com/}i,
     'LiveFans'            => qr{^https?://(?:www\.)?livefans\.jp/}i,
+    'LiveNation'          => qr{^https?://(?:[^/]+\.)?livenation\.com/}i,
     'LoC'                 => qr{^https?://(?:[^/]+\.)?loc\.gov/}i,
     'Loudr'               => qr{^https?://(?:www\.)?loudr\.fm/}i,
     'LyricEvesta'         => qr{^https?://lyric\.evesta\.jp/}i,
