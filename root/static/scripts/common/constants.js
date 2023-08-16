@@ -216,6 +216,7 @@ export const FAVICON_CLASSES = {
   'themoviedb.org': 'tmdb',
   'thesession.org': 'thesession',
   'threads.net': 'threads',
+  'ticketmaster.com': 'ticketmaster',
   'tidal.com': 'tidal',
   'tiktok.com': 'tiktok',
   'tipeee.com': 'tipeee',
