@@ -4331,6 +4331,7 @@ const CLEANUPS: CleanupEntries = {
     restrict: [LINK_TYPES.otherdatabases],
     clean: function (url) {
       url = url.replace(/^(?:https?:\/\/)?(?:www\.)?openlibrary\.org\/(authors|books|works)\/(OL[0-9]+[AMW]).*$/, 'https://openlibrary.org/$1/$2/');
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?openlibrary\.org\/publishers\/([^/?#]+).*$/, 'https://openlibrary.org/publishers/$1');
       return url;
     },
   },

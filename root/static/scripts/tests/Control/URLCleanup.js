@@ -4164,6 +4164,18 @@ limited_link_type_combinations: [
     expected_relationship_type: 'otherdatabases',
   },
   {
+                     input_url: 'http://openlibrary.org/publishers/Penguin_Books,_Limited',
+             input_entity_type: 'label',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://openlibrary.org/publishers/Penguin_Books,_Limited',
+  },
+  {
+                     input_url: 'https://www.openlibrary.org/publishers/McGraw-Hill',
+             input_entity_type: 'label',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://openlibrary.org/publishers/McGraw-Hill',
+  },
+  {
                      input_url: 'http://openlibrary.org/books/OL8993487M/Harry_Potter_and_the_Philosopher\'s_Stone',
              input_entity_type: 'release',
     expected_relationship_type: 'otherdatabases',
