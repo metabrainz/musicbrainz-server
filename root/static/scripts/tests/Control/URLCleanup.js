@@ -2696,6 +2696,13 @@ limited_link_type_combinations: [
             expected_clean_url: 'https://www.idref.fr/172248248',
        only_valid_entity_types: ['artist', 'genre', 'instrument', 'label', 'place', 'series', 'work'],
   },
+  {
+                     input_url: 'http://idref.fr/11762442X',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.idref.fr/11762442X',
+       only_valid_entity_types: ['artist', 'genre', 'instrument', 'label', 'place', 'series', 'work'],
+  },
   // IMDb (Internet Movie Database)
   {
                      input_url: 'http://www.imdb.com/name/nm1539156/',
