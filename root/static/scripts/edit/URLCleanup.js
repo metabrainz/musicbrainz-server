@@ -4330,12 +4330,12 @@ const CLEANUPS: CleanupEntries = {
     match: [new RegExp('^(https?://)?(www\\.)?openlibrary\\.org', 'i')],
     restrict: [LINK_TYPES.otherdatabases],
     clean: function (url) {
-      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?openlibrary\.org\/(authors|books|works)\/(OL[0-9]+[AMW]).*$/, 'https://openlibrary.org/$1/$2/');
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?openlibrary\.org\/(authors|books|works)\/(OL[0-9]+[AMW]).*$/, 'https://openlibrary.org/$1/$2');
       url = url.replace(/^(?:https?:\/\/)?(?:www\.)?openlibrary\.org\/publishers\/([^/?#]+).*$/, 'https://openlibrary.org/publishers/$1');
       return url;
     },
     validate: function (url, id) {
-      let m = /^https:\/\/openlibrary\.org\/(authors|books|works)\/OL[0-9]+[AMW]\/$/.exec(url);
+      let m = /^https:\/\/openlibrary\.org\/(authors|books|works)\/OL[0-9]+[AMW]$/.exec(url);
       if (!m) {
         m = /^https:\/\/openlibrary\.org\/(publishers)\/[^/?#]+$/.exec(url);
       }
