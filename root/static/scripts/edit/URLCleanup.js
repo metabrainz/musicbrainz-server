@@ -4334,6 +4334,39 @@ const CLEANUPS: CleanupEntries = {
       url = url.replace(/^(?:https?:\/\/)?(?:www\.)?openlibrary\.org\/publishers\/([^/?#]+).*$/, 'https://openlibrary.org/publishers/$1');
       return url;
     },
+    validate: function (url, id) {
+      let m = /^https:\/\/openlibrary\.org\/(authors|books|works)\/OL[0-9]+[AMW]\/$/.exec(url);
+      if (!m) {
+        m = /^https:\/\/openlibrary\.org\/(publishers)\/[^/?#]+$/.exec(url);
+      }
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.otherdatabases.artist:
+            return {
+              result: prefix === 'authors',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.otherdatabases.label:
+            return {
+              result: prefix === 'publishers',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.otherdatabases.release:
+            return {
+              result: prefix === 'books',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.otherdatabases.work:
+            return {
+              result: prefix === 'works',
+              target: ERROR_TARGETS.ENTITY,
+            };
+        }
+        return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
   },
   'operabase': {
     match: [new RegExp('^(https?://)?(www\\.)?operabase\\.com', 'i')],
