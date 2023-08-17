@@ -4169,6 +4169,7 @@ limited_link_type_combinations: [
                      input_url: 'https://openlibrary.org/authors/OL23919A/',
              input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://openlibrary.org/authors/OL23919A',
        only_valid_entity_types: ['artist'],
   },
   {
@@ -4189,14 +4190,14 @@ limited_link_type_combinations: [
                      input_url: 'http://openlibrary.org/books/OL8993487M/Harry_Potter_and_the_Philosopher\'s_Stone',
              input_entity_type: 'release',
     expected_relationship_type: 'otherdatabases',
-            expected_clean_url: 'https://openlibrary.org/books/OL8993487M/',
+            expected_clean_url: 'https://openlibrary.org/books/OL8993487M',
        only_valid_entity_types: ['release'],
   },
   {
                      input_url: 'https://openlibrary.org/works/OL20723256W?edition=',
              input_entity_type: 'work',
     expected_relationship_type: 'otherdatabases',
-            expected_clean_url: 'https://openlibrary.org/works/OL20723256W/',
+            expected_clean_url: 'https://openlibrary.org/works/OL20723256W',
        only_valid_entity_types: ['work'],
   },
   // Operabase
