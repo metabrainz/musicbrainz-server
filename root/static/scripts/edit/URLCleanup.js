@@ -2839,7 +2839,7 @@ const CLEANUPS: CleanupEntries = {
       return url;
     },
     validate: function (url, id) {
-      const m = /^https:\/\/www\.idref\.fr\/\d+?$/.exec(url);
+      const m = /^https:\/\/www\.idref\.fr\/[\dX]+?$/.exec(url);
       if (m) {
         switch (id) {
           case LINK_TYPES.otherdatabases.artist:
