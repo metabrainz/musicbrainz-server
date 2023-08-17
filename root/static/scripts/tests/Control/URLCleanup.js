@@ -4170,9 +4170,10 @@ limited_link_type_combinations: [
             expected_clean_url: 'https://openlibrary.org/books/OL8993487M/',
   },
   {
-                     input_url: 'https://openlibrary.org/works/OL82592W/',
+                     input_url: 'https://openlibrary.org/works/OL20723256W?edition=',
              input_entity_type: 'work',
     expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://openlibrary.org/works/OL20723256W/',
   },
   // Operabase
   {
