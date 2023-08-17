@@ -106,14 +106,14 @@ class RecordingBubble extends MB.Control.BubbleDoc {
     }
   }
 
-  show(control) {
+  show(control, stealFocus) {
     var track = ko.dataFor(control);
 
     if (track && !track.hasExistingRecording()) {
       releaseEditor.recordingAssociation.findRecordingSuggestions(track);
     }
 
-    super.show(control);
+    super.show(control, stealFocus);
   }
 
   currentTrack() {
