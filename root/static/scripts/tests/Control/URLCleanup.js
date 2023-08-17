@@ -4169,17 +4169,35 @@ limited_link_type_combinations: [
                      input_url: 'https://openlibrary.org/authors/OL23919A/',
              input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'http://openlibrary.org/publishers/Penguin_Books,_Limited',
+             input_entity_type: 'label',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://openlibrary.org/publishers/Penguin_Books,_Limited',
+       only_valid_entity_types: ['label'],
+  },
+  {
+                     input_url: 'https://openlibrary.org/publishers/McGraw-Hill',
+             input_entity_type: 'label',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://openlibrary.org/publishers/McGraw-Hill',
+       only_valid_entity_types: ['label'],
   },
   {
                      input_url: 'http://openlibrary.org/books/OL8993487M/Harry_Potter_and_the_Philosopher\'s_Stone',
              input_entity_type: 'release',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'https://openlibrary.org/books/OL8993487M/',
+       only_valid_entity_types: ['release'],
   },
   {
-                     input_url: 'https://openlibrary.org/works/OL82592W/',
+                     input_url: 'https://openlibrary.org/works/OL20723256W?edition=',
              input_entity_type: 'work',
     expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://openlibrary.org/works/OL20723256W/',
+       only_valid_entity_types: ['work'],
   },
   // Operabase
   {
