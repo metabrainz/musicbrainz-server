@@ -50,7 +50,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-08-18 12:17+0000\n"
-"PO-Revision-Date: 2023-08-14 15:03+0000\n"
+"PO-Revision-Date: 2023-08-18 12:53+0000\n"
 "Last-Translator: Anonymous <noreply@weblate.org>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/es/>\n"
@@ -58,8 +58,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
 "X-Generator: Weblate 4.18.2\n"
 
 #: ../root/components/common-macros.tt:12
@@ -226,8 +226,8 @@ msgid ""
 "artists and works."
 msgstr ""
 "Agregue '@' al comienzo de la línea para indicar artistas, \"* \" para una "
-"pieza / canción '' para obtener información adicional (como 'Encore'). [mbid|"
-"nombre] permite enlazar a artistas y obras."
+"pieza / canción '' para obtener información adicional (como 'Encore'). "
+"[mbid|nombre] permite enlazar a artistas y obras."
 
 #: ../root/area/create.tt:1 ../root/area/create.tt:3
 msgid "Add Area"
@@ -641,9 +641,9 @@ msgid ""
 "Brought to you by {MeB|MetaBrainz Foundation} and our {spon|sponsors} and "
 "{supp|supporters}. Cover Art provided by the {caa|Cover Art Archive}."
 msgstr ""
-"Sostenido por {MeB|La Fundación MetaBrainz} con la ayuda de {spon|"
-"patrocinadores} y {supp|simpatizantes}. Imágenes proporcionadas por el {caa|"
-"Cover Art Archive}."
+"Sostenido por {MeB|La Fundación MetaBrainz} con la ayuda de "
+"{spon|patrocinadores} y {supp|simpatizantes}. Imágenes proporcionadas por el "
+"{caa|Cover Art Archive}."
 
 #: ../root/layout.tt:115 ../root/layout/components/Footer.js:32
 #: ../root/main/index.js:209
@@ -2209,8 +2209,8 @@ msgid ""
 "Please enter the barcode of the release you are entering, see <a href="
 "\"{url}\" target=\"_blank\">Barcode</a> for more information."
 msgstr ""
-"Introduce el código de barras de la publicación. Consulta <a href="
-"\"{url}\">Código de barras</a> si quieres más información."
+"Introduce el código de barras de la publicación. Consulta <a href=\"{url}\""
+">Código de barras</a> si quieres más información."
 
 #: ../root/layout/merge-helper.tt:24
 #: ../root/layout/components/MergeHelper.js:58
@@ -2637,8 +2637,8 @@ msgid ""
 "Select a release to which the disc ID <code>{discid}</code>. should be moved "
 "to."
 msgstr ""
-"Elige la publicación a la que quieres mover la ID de disco <code>{discid}</"
-"code>."
+"Elige la publicación a la que quieres mover la ID de disco "
+"<code>{discid}</code>."
 
 #: ../root/components/forms.tt:360
 msgid ""
@@ -2884,9 +2884,9 @@ msgid ""
 msgstr ""
 "No hay grabaciones, grupos de publicaciones, publicaciones o pistas "
 "asociadas solo a {name}. Si estás intentando eliminar {name}, edita todos "
-"los créditos de artista de la parte inferior de la pestaña de {alias_uri|"
-"alias} y elimina todas las {rel_uri|relaciones}, lo que permitirá a ModBot "
-"eliminar el artista automáticamente en unos días."
+"los créditos de artista de la parte inferior de la pestaña de "
+"{alias_uri|alias} y elimina todas las {rel_uri|relaciones}, lo que permitirá "
+"a ModBot eliminar el artista automáticamente en unos días."
 
 #: ../root/place/edit_form.tt:29
 msgid "These coordinates could not be parsed."
@@ -4194,8 +4194,8 @@ msgstr "No puedes fusionar un artista de propósito especial con otro artista"
 #: ../lib/MusicBrainz/Server/Controller/Artist.pm:726
 msgid "You cannot merge into Deleted Artist"
 msgstr ""
-"No puedes fusionar otro artista con la entidad para artistas eliminados "
-"(Deleted Artist)."
+"No puedes fusionar otro artista con la entidad para artistas eliminados ("
+"Deleted Artist)."
 
 #: ../lib/MusicBrainz/Server/Controller/AutoEditorElections.pm:86
 #, perl-brace-format
@@ -4431,8 +4431,7 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Controller/User.pm:346
 #, perl-brace-format
 msgid "The editor {name} has no email address attached to their account."
-msgstr ""
-"El editor {name} no tiene una dirección de correo asociada a su cuenta."
+msgstr "El editor {name} no tiene una dirección de correo asociada a su cuenta."
 
 #: ../lib/MusicBrainz/Server/Controller/User.pm:360
 msgid "Email Sent"
@@ -6406,8 +6405,8 @@ msgid ""
 "us}."
 msgstr ""
 "Te hemos enviado las instrucciones para recuperar tu contraseña. Si no "
-"recibes el correo o sigues teniendo problemas para conectarte, {link|"
-"avísanos}."
+"recibes el correo o sigues teniendo problemas para conectarte, "
+"{link|avísanos}."
 
 #: ../root/account/LostUsername.js:27 ../root/account/LostUsername.js:28
 #: ../root/account/LostUsernameSent.js:14
@@ -6429,8 +6428,8 @@ msgid ""
 "us}."
 msgstr ""
 "Te hemos enviado la información sobre tu cuenta de MusicBrainz. Si no "
-"recibes el correo o sigues teniendo problemas para conectarte, {link|"
-"avísanos}."
+"recibes el correo o sigues teniendo problemas para conectarte, "
+"{link|avísanos}."
 
 #: ../root/account/Preferences.js:34 ../root/account/PreferencesSaved.js:18
 #: ../root/components/UserAccountTabs.js:80
@@ -7232,8 +7231,8 @@ msgstr ""
 "Los corchetes [] se usan para crear enlaces, así que debes usar sus "
 "equivalentes en html (<code>&amp;#91;</code> para [) and (<code>&amp;#93;</"
 "code> para ]) si quieres que no se conviertan en enlaces. Para escribir "
-"[unknown] en una anotación, por ejemplo, debes escribir <code>&amp;#91;"
-"unknown&amp;#93;</code>."
+"[unknown] en una anotación, por ejemplo, debes escribir "
+"<code>&amp;#91;unknown&amp;#93;</code>."
 
 #: ../root/area/AreaArtists.js:32 ../root/area/AreaArtists.js:33
 #: ../root/components/EntityTabs.js:23
@@ -9982,8 +9981,7 @@ msgstr "(privado)"
 
 #: ../root/elections/ElectionVoting.js:27
 msgid "To find out if you can vote for this candidate, please {url|log in}."
-msgstr ""
-"Para comprobar si puedes votar por este candidato, {url|inicia sesión}."
+msgstr "Para comprobar si puedes votar por este candidato, {url|inicia sesión}."
 
 #: ../root/elections/ElectionVoting.js:36
 msgid "You cannot vote for this candidate, because you are not an auto-editor."
@@ -10002,8 +10000,8 @@ msgid ""
 "been found."
 msgstr ""
 "La votación aún no ha comenzado. Si quieres apoyar a este candidato, puedes "
-"avalar su nominación.Si no lo apoyas, ten en cuenta que no podrás votar No "
-"(o abstenerte) hasta que haya dos avales."
+"avalar su nominación.Si no lo apoyas, ten en cuenta que no podrás votar No ("
+"o abstenerte) hasta que haya dos avales."
 
 #: ../root/elections/ElectionVoting.js:53
 msgid "Voting is closed."
@@ -11532,8 +11530,8 @@ msgid ""
 "In order to view this page, please visit the main server at {mb|https://"
 "musicbrainz.org/}."
 msgstr ""
-"Para ver esta página, visita el servidor principal en {mb|https://"
-"musicbrainz.org/}."
+"Para ver esta página, visita el servidor principal en {mb|https://musicbrainz"
+".org/}."
 
 #: ../root/main/error/TimeoutError.js:25
 msgid "Request Timed Out"
@@ -11622,8 +11620,7 @@ msgstr ""
 #: ../root/main/index.js:91
 msgid ""
 "{about|More Information} &#x2014; {faq|FAQs} &#x2014; {contact|Contact Us}"
-msgstr ""
-"{about|Más información} &#x2014; {faq|FAQs} &#x2014; {contact|Contacto}"
+msgstr "{about|Más información} &#x2014; {faq|FAQs} &#x2014; {contact|Contacto}"
 
 #: ../root/main/index.js:103
 msgid ""
@@ -11930,8 +11927,8 @@ msgid ""
 "Are you sure you wish to remove the <strong>{link_attr_type}</strong> "
 "relationship attribute?"
 msgstr ""
-"¿Seguro que quieres eliminar el atributo de relación <strong>{link_attr_type}"
-"</strong>?"
+"¿Seguro que quieres eliminar el atributo de relación "
+"<strong>{link_attr_type}</strong>?"
 
 #: ../root/relationship/linkattributetype/DeleteRelationshipAttributeType.js:28
 msgid "Remove Relationship Attribute"
@@ -12018,8 +12015,8 @@ msgid ""
 "Are you sure you wish to remove the <strong>{link_type}</strong> "
 "relationship type?"
 msgstr ""
-"¿Seguro que quieres eliminar el tipo de relación <strong>{link_type}</"
-"strong>?"
+"¿Seguro que quieres eliminar el tipo de relación "
+"<strong>{link_type}</strong>?"
 
 #: ../root/relationship/linktype/DeleteRelationshipType.js:28
 msgid "Remove Relationship Type"
@@ -13673,8 +13670,8 @@ msgstr "ISWCs"
 msgid ""
 "This report shows releases which have (disc n) or (bonus disc) in the title."
 msgstr ""
-"Este informe muestra publicaciones cuyo título contiene \"(disc n)\" o "
-"\"(bonus disc)\"."
+"Este informe muestra publicaciones cuyo título contiene \"(disc n)\" o \"("
+"bonus disc)\"."
 
 #: ../root/report/SeparateDiscs.js:29
 msgid ""
@@ -14174,9 +14171,9 @@ msgid ""
 "Mail me when one of my edits gets a \"no\" vote. (Note: the email is only "
 "sent for the first \"no\" vote, not each one)"
 msgstr ""
-"Enviadme un correo cuando alguien vote \"no\" en una de mis ediciones. "
-"(Nota: el correo se envía solo tras el primer \"no\" de cada edición, no "
-"tras cada uno de ellos)"
+"Enviadme un correo cuando alguien vote \"no\" en una de mis ediciones. (Nota:"
+" el correo se envía solo tras el primer \"no\" de cada edición, no tras cada "
+"uno de ellos)"
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:221
 msgid "When I add a note to an edit, mail me all future notes for that edit."
@@ -16045,8 +16042,7 @@ msgstr "Por favor, comprueba el código de barras de la publicación."
 #: ../root/static/scripts/release-editor/validation.js:184
 msgid ""
 "The barcode you entered looks like a UPC code with the check digit missing."
-msgstr ""
-"El código de barras introducido parece un UPC sin el dígito de control."
+msgstr "El código de barras introducido parece un UPC sin el dígito de control."
 
 #: ../root/static/scripts/release-editor/validation.js:194
 msgid "The barcode you entered is a valid UPC code."

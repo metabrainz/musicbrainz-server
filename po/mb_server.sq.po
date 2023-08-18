@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-08-18 12:17+0000\n"
-"PO-Revision-Date: 2023-08-14 15:05+0000\n"
+"PO-Revision-Date: 2023-08-18 12:54+0000\n"
 "Last-Translator: Anonymous <noreply@weblate.org>\n"
 "Language-Team: Albanian <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/sq/>\n"
@@ -320,8 +320,8 @@ msgid ""
 "doesn’t exist yet."
 msgstr ""
 "Për krejt pjesët lypset një incizim i përshoqëruar. Klikoni “Përpunoni” që "
-"të përzgjidhni një incizim për çdo pjesë. Zgjidhni “Shtoni një incizim të "
-"ri”, nëse s’ekziston ende një i duhur."
+"të përzgjidhni një incizim për çdo pjesë. Zgjidhni “Shtoni një incizim të ri”"
+", nëse s’ekziston ende një i duhur."
 
 #: ../root/components/common-macros.tt:577
 msgid ""
@@ -2002,8 +2002,8 @@ msgstr ""
 #: ../root/release_group/set_cover_art.tt:96
 msgid "No releases have cover art marked as \"Front\", cannot set cover art."
 msgstr ""
-"Asnjë hedhje në qarkullim s’ka kopertinë të shënuar si \"Ballore\", "
-"s’caktohet dot kopertinë."
+"Asnjë hedhje në qarkullim s’ka kopertinë të shënuar si \"Ballore\", s’"
+"caktohet dot kopertinë."
 
 #: ../root/release/edit/tracklist.tt:140 ../root/admin/IpLookup.js:38
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:468
@@ -5995,8 +5995,7 @@ msgstr "Ky emër përdoruesi është i rezervuar për përdorim të brendshëm."
 
 #: ../lib/MusicBrainz/Server/Form/Utils.pm:220
 msgid "Please choose another username, this one is already taken."
-msgstr ""
-"Ju lutemi, zgjidhni një tjetër emër përdoruesi, ky është i zënë tashmë."
+msgstr "Ju lutemi, zgjidhni një tjetër emër përdoruesi, ky është i zënë tashmë."
 
 #: ../lib/MusicBrainz/Server/Form/Work.pm:60
 msgid "Please select a work attribute type."
@@ -6363,8 +6362,8 @@ msgid ""
 "If you have any questions, please review the {faq|FAQs} or {doc|"
 "documentation} before {con|contacting us}. "
 msgstr ""
-"Nëse keni ndonjë pyetje, ju lutemi, shqyrtoni {faq|PBR-të} ose {doc|"
-"dokumentimin}, përpara se {con|të lidheni me ne}. "
+"Nëse keni ndonjë pyetje, ju lutemi, shqyrtoni {faq|PBR-të} ose "
+"{doc|dokumentimin}, përpara se {con|të lidheni me ne}. "
 
 #: ../root/account/Register.js:85
 msgid ""
@@ -11777,8 +11776,8 @@ msgid ""
 "Are you sure you wish to remove the <strong>{link_type}</strong> "
 "relationship type?"
 msgstr ""
-"Jeni i sigurt se dëshironi të hiqet lloji i marrëdhënieve <strong>{link_type}"
-"</strong>?"
+"Jeni i sigurt se dëshironi të hiqet lloji i marrëdhënieve "
+"<strong>{link_type}</strong>?"
 
 #: ../root/relationship/linktype/DeleteRelationshipType.js:28
 msgid "Remove Relationship Type"
@@ -13962,9 +13961,9 @@ msgid ""
 "releases. If an artist has changed their name, but old releases were "
 "credited to the existing name, do not change the artist credit."
 msgstr ""
-"Mbani parasysh që kreditet e artistit përgjithësisht duhet të ndjekin "
-"ç’është shtypur te hedhjet në qarkullim. Nëse një artist ka ndryshuar emrin "
-"e vet, por hedhje të dikurshme në qarkullim i qenë përshoqëruar emrit "
+"Mbani parasysh që kreditet e artistit përgjithësisht duhet të ndjekin ç’"
+"është shtypur te hedhjet në qarkullim. Nëse një artist ka ndryshuar emrin e "
+"vet, por hedhje të dikurshme në qarkullim i qenë përshoqëruar emrit "
 "ekzistues, mos i ndryshoni kreditet e artistit."
 
 #: ../root/static/scripts/artist/components/ArtistCreditRenamer.js:255
@@ -16249,8 +16248,8 @@ msgstr "Përpunues vendndodhjesh"
 #: ../root/user/PrivilegedUsers.js:94
 msgid "Location editors are users who can add or modify {uri|areas}."
 msgstr ""
-"Përpunuesit e vendeve janë përdorues që mund të shtojnë ose modifikojnë {uri|"
-"zona}."
+"Përpunuesit e vendeve janë përdorues që mund të shtojnë ose modifikojnë "
+"{uri|zona}."
 
 #: ../root/user/PrivilegedUsers.js:100
 msgid "The following {count} users are location editors:"

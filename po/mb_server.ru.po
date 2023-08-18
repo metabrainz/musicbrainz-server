@@ -40,7 +40,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-08-18 12:17+0000\n"
-"PO-Revision-Date: 2023-08-14 15:09+0000\n"
+"PO-Revision-Date: 2023-08-18 12:58+0000\n"
 "Last-Translator: Anonymous <noreply@weblate.org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/ru/>\n"
@@ -48,9 +48,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
-"%100>=11 && n%100<=14)? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
+"n%100>=11 && n%100<=14)? 2 : 3);\n"
 "X-Generator: Weblate 4.18.2\n"
 
 #: ../root/components/common-macros.tt:12
@@ -1425,8 +1425,7 @@ msgstr "Исторический"
 
 #: ../root/release/edit/information.tt:325
 msgid "I confirm that this is the barcode as it appears on the release."
-msgstr ""
-"Я подтверждаю, что это тот же самый штрихкод, который указан в издании."
+msgstr "Я подтверждаю, что это тот же самый штрихкод, который указан в издании."
 
 #: ../root/release/edit/tracklist.tt:390
 msgid "I confirm this is a correct medium format/packaging combination."
@@ -1467,8 +1466,8 @@ msgid ""
 "management. Check {ipi_doc|the documentation} for more info."
 msgstr ""
 "Коды IPI присваивает «заинтересованным сторонам» CISAC. Это используется для "
-"контроля за музыкальными правами. Для дополнительной информации см. {ipi_doc|"
-"документацию}."
+"контроля за музыкальными правами. Для дополнительной информации см. "
+"{ipi_doc|документацию}."
 
 #: ../root/artist/edit_form.tt:29 ../root/label/edit_form.tt:32
 #: ../root/edit/details/EditArtist.js:162
@@ -4497,8 +4496,7 @@ msgstr "ID диска соответствует анализируемой TOC"
 
 #: ../lib/MusicBrainz/Server/Data/CDStub.pm:147
 msgid "Number of submitted tracks does not match track count in TOC"
-msgstr ""
-"Количество отправляемых треков не соответствует количеству треков в TOC"
+msgstr "Количество отправляемых треков не соответствует количеству треков в TOC"
 
 #: ../lib/MusicBrainz/Server/Data/CDStub.pm:151
 msgid "Invalid barcode"
@@ -17268,8 +17266,8 @@ msgstr ""
 "беспорядок, они делают это не специально, а от растерянности: MusicBrainz "
 "может быть пугающим для новичков! Если это возможно, исправьте ошибки (и "
 "сообщите редактору, что вы это сделали и что он может проверить сделанные "
-"вами правки, чтобы увидеть, как это должно выглядеть), а не голосуйте \"Нет"
-"\" за правки, поскольку голоса \"Нет\" могут быть весьма обескураживающими, "
+"вами правки, чтобы увидеть, как это должно выглядеть), а не голосуйте \"Нет\""
+" за правки, поскольку голоса \"Нет\" могут быть весьма обескураживающими, "
 "особенно для нового редактора. Если что-то настолько плохо, что это "
 "невозможно исправить, и это ухудшает существующие данные, проголосуйте "
 "против правки, но постарайтесь хорошо объяснить, почему это необходимо, а не "
