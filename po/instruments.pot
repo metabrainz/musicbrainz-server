@@ -178,7 +178,7 @@ msgid "Paraguayan harp"
 msgstr ""
 
 #: DB:instrument/name:793
-msgctxt "electromechanical piano"
+msgctxt "an electromechanical piano"
 msgid "Pianet"
 msgstr ""
 
@@ -415,7 +415,6 @@ msgid "atarigane"
 msgstr ""
 
 #: DB:instrument/name:409
-msgctxt "Damper bar box zither"
 msgid "autoharp"
 msgstr ""
 
@@ -3412,7 +3411,6 @@ msgid "shamisen"
 msgstr ""
 
 #: DB:instrument/name:408
-msgctxt "12th century to present double reed woodwind"
 msgid "shawm"
 msgstr ""
 

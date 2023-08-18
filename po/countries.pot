@@ -1173,6 +1173,11 @@ msgstr ""
 msgid "Tunisia"
 msgstr ""
 
+#. iso.code:TR 
+#: DB:area JOIN iso_3166_1 iso ON iso.area = area.id/area.name:214
+msgid "Turkey"
+msgstr ""
+
 #. iso.code:TM 
 #: DB:area JOIN iso_3166_1 iso ON iso.area = area.id/area.name:215
 msgid "Turkmenistan"
@@ -1186,11 +1191,6 @@ msgstr ""
 #. iso.code:TV 
 #: DB:area JOIN iso_3166_1 iso ON iso.area = area.id/area.name:217
 msgid "Tuvalu"
-msgstr ""
-
-#. iso.code:TR 
-#: DB:area JOIN iso_3166_1 iso ON iso.area = area.id/area.name:214
-msgid "Türkiye"
 msgstr ""
 
 #. iso.code:VI 
