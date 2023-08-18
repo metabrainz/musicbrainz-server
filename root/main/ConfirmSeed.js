@@ -29,6 +29,17 @@ const ConfirmSeed = ({
 }: Props): React$Element<typeof Layout> => {
   const $c = React.useContext(SanitizedCatalystContext);
   const title = l('Confirm Form Submission');
+
+  /*
+   * Automatically submit the form if /release/add (where POST requests are
+   * used to seed fields rather than to create edits) was requested and the
+   * client indicated that they want the form to be skipped. See MBS-13225.
+   */
+  const url = new URL($c.req.uri);
+  const autoSubmit =
+    url.pathname === '/release/add' &&
+    url.searchParams.get('skip_confirmation') === '1';
+
   return (
     <Layout fullWidth title={title}>
       <h1>{title}</h1>
@@ -50,7 +61,7 @@ const ConfirmSeed = ({
       </p>
       <form method="post">
         {postParameters ? <PostParameters params={postParameters} /> : null}
-        <ConfirmSeedButtons />
+        <ConfirmSeedButtons autoSubmit={autoSubmit} />
       </form>
       {manifest.js('confirm-seed', {async: 'async'})}
     </Layout>

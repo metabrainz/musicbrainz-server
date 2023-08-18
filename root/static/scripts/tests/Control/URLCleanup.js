@@ -2696,6 +2696,13 @@ limited_link_type_combinations: [
             expected_clean_url: 'https://www.idref.fr/172248248',
        only_valid_entity_types: ['artist', 'genre', 'instrument', 'label', 'place', 'series', 'work'],
   },
+  {
+                     input_url: 'http://idref.fr/11762442X',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.idref.fr/11762442X',
+       only_valid_entity_types: ['artist', 'genre', 'instrument', 'label', 'place', 'series', 'work'],
+  },
   // IMDb (Internet Movie Database)
   {
                      input_url: 'http://www.imdb.com/name/nm1539156/',
@@ -4162,17 +4169,36 @@ limited_link_type_combinations: [
                      input_url: 'https://openlibrary.org/authors/OL23919A/',
              input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://openlibrary.org/authors/OL23919A',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'http://openlibrary.org/publishers/Penguin_Books,_Limited',
+             input_entity_type: 'label',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://openlibrary.org/publishers/Penguin_Books,_Limited',
+       only_valid_entity_types: ['label'],
+  },
+  {
+                     input_url: 'https://openlibrary.org/publishers/McGraw-Hill',
+             input_entity_type: 'label',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://openlibrary.org/publishers/McGraw-Hill',
+       only_valid_entity_types: ['label'],
   },
   {
                      input_url: 'http://openlibrary.org/books/OL8993487M/Harry_Potter_and_the_Philosopher\'s_Stone',
              input_entity_type: 'release',
     expected_relationship_type: 'otherdatabases',
-            expected_clean_url: 'https://openlibrary.org/books/OL8993487M/',
+            expected_clean_url: 'https://openlibrary.org/books/OL8993487M',
+       only_valid_entity_types: ['release'],
   },
   {
-                     input_url: 'https://openlibrary.org/works/OL82592W/',
+                     input_url: 'https://openlibrary.org/works/OL20723256W?edition=',
              input_entity_type: 'work',
     expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://openlibrary.org/works/OL20723256W',
+       only_valid_entity_types: ['work'],
   },
   // Operabase
   {
@@ -5482,6 +5508,13 @@ limited_link_type_combinations: [
              input_entity_type: 'artist',
     expected_relationship_type: 'videochannel',
             expected_clean_url: 'https://www.twitch.tv/pisceze',
+       only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series'],
+  },
+  {
+                     input_url: 'https://m.twitch.tv/marimbamatt913',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'videochannel',
+            expected_clean_url: 'https://www.twitch.tv/marimbamatt913',
        only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series'],
   },
   // Twitter

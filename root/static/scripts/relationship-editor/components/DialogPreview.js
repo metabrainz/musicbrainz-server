@@ -98,6 +98,7 @@ const DialogPreview = (React.memo<PropsT>(({
   ) => (
     <EntityLink
       allowNew
+      className="wrap-anywhere"
       content={
         nonEmpty(content)
           ? content
