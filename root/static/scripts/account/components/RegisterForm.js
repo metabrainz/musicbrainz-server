@@ -61,7 +61,7 @@ export const RegisterForm = ({
       <FormRowText
         autoComplete="username"
         field={nameField}
-        label={l('Username:')}
+        label={addColonText(l('Username'))}
         onChange={handleUsernameChange}
         required
       />

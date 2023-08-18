@@ -54,7 +54,7 @@ const DeleteRecording = ({
       </>
     ) : (
       <p>
-        {l(`This recording recording cannot be removed
+        {l(`This recording cannot be removed
             because it is still used on releases.`)}
       </p>
     )}
