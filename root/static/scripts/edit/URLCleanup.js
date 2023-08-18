@@ -3653,17 +3653,24 @@ const CLEANUPS: CleanupEntries = {
   },
   'livenation': {
     match: [new RegExp(
-      '^(https?://)?(?:(?:concerts|www)\\.)?livenation\\.com',
+      '^(https?://)?(?:(?:concerts|www)\\.)?livenation\\.' +
+      '(?:[a-z]{2,3}?\\.)?[a-z]{2,4}/',
       'i',
     )],
     restrict: [LINK_TYPES.ticketing],
     clean: function (url) {
       url = url.replace(/^(?:https?:\/\/)?concerts\.livenation\.com\/(?:[\w\d-]+\/)?event\/([0-9A-F]+).*$/, 'https://concerts.livenation.com/event/$1');
       url = url.replace(/^(?:https?:\/\/)?(?:www\.)?livenation\.com\/(artist|event|venue)\/([0-9a-zA-Z]+).*$/, 'https://www.livenation.com/$1/$2');
+      // International sites use somewhat different formats
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?livenation\.((?:[a-z]{2,3}?\.)?[a-z]{2,4})\/(show|venue)\/([0-9a-zA-Z]+).*$/, 'https://www.livenation.$1/$2/$3');
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?livenation\.((?:[a-z]{2,3}?\.)?[a-z]{2,4})\/artist-[\w\d-]+-([0-9]+).*$/, 'https://www.livenation.$1/artist-$2');
       return url;
     },
     validate: function (url, id) {
-      const m = /^https:\/\/(concerts|www)\.livenation\.com\/(artist|event|venue)\/[0-9a-zA-Z]+$/.exec(url);
+      let m = /^https:\/\/(concerts|www)\.livenation\.(?:[a-z]{2,3}?\.)?[a-z]{2,4}\/(artist|event|show|venue)\/[0-9a-zA-Z]+$/.exec(url);
+      if (!m) {
+        m = /^https:\/\/(www)\.livenation\.(?:[a-z]{2,3}?\.)?[a-z]{2,4}\/(artist)-[0-9]+$/.exec(url);
+      }
       if (m) {
         const subdomain = m[1];
         const prefix = m[2];
@@ -3674,7 +3681,7 @@ const CLEANUPS: CleanupEntries = {
             }
             return {result: false, target: ERROR_TARGETS.ENTITY};
           case LINK_TYPES.ticketing.event:
-            if (prefix === 'event') {
+            if (prefix === 'event' || prefix === 'show') {
               return {result: true};
             }
             return {result: false, target: ERROR_TARGETS.ENTITY};

@@ -3456,6 +3456,13 @@ limited_link_type_combinations: [
        only_valid_entity_types: ['artist'],
   },
   {
+                     input_url: 'https://www.livenation.asia/artist-tech-n9ne-332374?omq=tech-n9ne',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'ticketing',
+            expected_clean_url: 'https://www.livenation.asia/artist-332374',
+       only_valid_entity_types: ['artist'],
+  },
+  {
                      input_url: 'https://concerts.livenation.com/the-smashing-pumpkins-the-world-is-dallas-texas-08-15-2023/event/0C005E791B3255BB',
              input_entity_type: 'event',
     expected_relationship_type: 'ticketing',
@@ -3470,10 +3477,24 @@ limited_link_type_combinations: [
        only_valid_entity_types: ['event'],
   },
   {
+                     input_url: 'https://www.livenation.co.nz/show/1431241/anna-of-the-north/wellington/2023-09-14/en',
+             input_entity_type: 'event',
+    expected_relationship_type: 'ticketing',
+            expected_clean_url: 'https://www.livenation.co.nz/show/1431241',
+       only_valid_entity_types: ['event'],
+  },
+  {
                      input_url: 'https://www.livenation.com/venue/KovZpZAEAFeA/dos-equis-pavilion-events#seat-map',
              input_entity_type: 'place',
     expected_relationship_type: 'ticketing',
             expected_clean_url: 'https://www.livenation.com/venue/KovZpZAEAFeA',
+       only_valid_entity_types: ['place'],
+  },
+  {
+                     input_url: 'https://www.livenation.ee/venue/953330/alexela-kontserdimaja-tickets#venueinfo',
+             input_entity_type: 'place',
+    expected_relationship_type: 'ticketing',
+            expected_clean_url: 'https://www.livenation.ee/venue/953330',
        only_valid_entity_types: ['place'],
   },
   // Loudr
