@@ -249,6 +249,13 @@ export const LINK_TYPES: LinkTypeMap = {
     recording: 'b5f3058a-666c-406f-aafb-f9249fc7b122',
     release: '320adf26-96fa-4183-9045-1f5f32f833cb',
   },
+  ticketing: {
+    artist: '34beaf28-cbdd-4bf7-bc41-e7de18135245',
+    event: 'bf0f91b9-d97e-4a7b-9114-f1db1e0b61de',
+    label: '705f4b36-b12e-41e4-a5f2-57e2de83ca6a',
+    place: '914021c7-01f9-4578-b3e3-1a4b0f6453a7',
+    series: 'bb8ad711-4667-4395-9bfa-453b1299a79b',
+  },
   vgmdb: {
     artist: '0af15ab3-c615-46d6-b95b-a5fcd2a92ed9',
     event: '5d3e0348-71a8-3dc1-b847-3a8f1d5de688',
@@ -3644,6 +3651,51 @@ const CLEANUPS: CleanupEntries = {
       return {result: false, target: ERROR_TARGETS.URL};
     },
   },
+  'livenation': {
+    match: [new RegExp(
+      '^(https?://)?(?:(?:concerts|www)\\.)?livenation\\.' +
+      '(?:[a-z]{2,3}?\\.)?[a-z]{2,4}/',
+      'i',
+    )],
+    restrict: [LINK_TYPES.ticketing],
+    clean: function (url) {
+      url = url.replace(/^(?:https?:\/\/)?concerts\.livenation\.com\/(?:[\w\d-]+\/)?event\/([0-9A-F]+).*$/, 'https://concerts.livenation.com/event/$1');
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?livenation\.com\/(artist|event|venue)\/([0-9a-zA-Z]+).*$/, 'https://www.livenation.com/$1/$2');
+      // International sites use somewhat different formats
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?livenation\.((?:[a-z]{2,3}?\.)?[a-z]{2,4})\/(show|venue)\/([0-9a-zA-Z]+).*$/, 'https://www.livenation.$1/$2/$3');
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?livenation\.((?:[a-z]{2,3}?\.)?[a-z]{2,4})\/artist-[\w\d-]+-([0-9]+).*$/, 'https://www.livenation.$1/artist-$2');
+      return url;
+    },
+    validate: function (url, id) {
+      let m = /^https:\/\/(concerts|www)\.livenation\.(?:[a-z]{2,3}?\.)?[a-z]{2,4}\/(artist|event|show|venue)\/[0-9a-zA-Z]+$/.exec(url);
+      if (!m) {
+        m = /^https:\/\/(www)\.livenation\.(?:[a-z]{2,3}?\.)?[a-z]{2,4}\/(artist)-[0-9]+$/.exec(url);
+      }
+      if (m) {
+        const subdomain = m[1];
+        const prefix = m[2];
+        switch (id) {
+          case LINK_TYPES.ticketing.artist:
+            if (prefix === 'artist' && subdomain === 'www') {
+              return {result: true};
+            }
+            return {result: false, target: ERROR_TARGETS.ENTITY};
+          case LINK_TYPES.ticketing.event:
+            if (prefix === 'event' || prefix === 'show') {
+              return {result: true};
+            }
+            return {result: false, target: ERROR_TARGETS.ENTITY};
+          case LINK_TYPES.ticketing.place:
+            if (prefix === 'venue' && subdomain === 'www') {
+              return {result: true};
+            }
+            return {result: false, target: ERROR_TARGETS.ENTITY};
+        }
+        return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
   'loudr': {
     match: [new RegExp('^(https?://)?loudr\.fm/', 'i')],
     restrict: [LINK_TYPES.downloadpurchase],
@@ -5325,6 +5377,42 @@ const CLEANUPS: CleanupEntries = {
         };
       }
       return {result: isAProfile, target: ERROR_TARGETS.URL};
+    },
+  },
+  'ticketmaster': {
+    match: [new RegExp(
+      '^(https?://)?(www\\.)?ticketmaster\\.(?:[a-z]{2,3}?\\.)?[a-z]{2,4}',
+      'i',
+    )],
+    restrict: [LINK_TYPES.ticketing],
+    clean: function (url) {
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?ticketmaster\.((?:[a-z]{2,3}?\.)?[a-z]{2,4})\/(?:[\w-]+\/)?(artist|event|venue)\/(?:[\w-]+\/)?([0-9A-F]+).*$/, 'https://www.ticketmaster.$1/$2/$3');
+      return url;
+    },
+    validate: function (url, id) {
+      const m = /^https:\/\/www\.ticketmaster\.(?:[a-z]{2,3}?\.)?[a-z]{2,4}\/(artist|event|venue)\/[0-9A-F]+$/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.ticketing.artist:
+            if (prefix === 'artist') {
+              return {result: true};
+            }
+            return {result: false, target: ERROR_TARGETS.ENTITY};
+          case LINK_TYPES.ticketing.event:
+            if (prefix === 'event') {
+              return {result: true};
+            }
+            return {result: false, target: ERROR_TARGETS.ENTITY};
+          case LINK_TYPES.ticketing.place:
+            if (prefix === 'venue') {
+              return {result: true};
+            }
+            return {result: false, target: ERROR_TARGETS.ENTITY};
+        }
+        return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
     },
   },
   'tidal': {

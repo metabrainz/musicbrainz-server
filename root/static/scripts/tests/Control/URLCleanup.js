@@ -3447,6 +3447,56 @@ limited_link_type_combinations: [
             expected_clean_url: 'https://www.livefans.jp/venues/4853',
        only_valid_entity_types: ['place'],
   },
+  // Live Nation
+  {
+                     input_url: 'https://www.livenation.com/artist/K8vZ9171ulV/alice-cooper-events#artist-info',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'ticketing',
+            expected_clean_url: 'https://www.livenation.com/artist/K8vZ9171ulV',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://www.livenation.asia/artist-tech-n9ne-332374?omq=tech-n9ne',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'ticketing',
+            expected_clean_url: 'https://www.livenation.asia/artist-332374',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://concerts.livenation.com/the-smashing-pumpkins-the-world-is-dallas-texas-08-15-2023/event/0C005E791B3255BB',
+             input_entity_type: 'event',
+    expected_relationship_type: 'ticketing',
+            expected_clean_url: 'https://concerts.livenation.com/event/0C005E791B3255BB',
+       only_valid_entity_types: ['event'],
+  },
+  {
+                     input_url: 'https://www.livenation.com/event/vvG1YZ9E0hGPpD/the-smashing-pumpkins-the-world-is-a-vampire-tour',
+             input_entity_type: 'event',
+    expected_relationship_type: 'ticketing',
+            expected_clean_url: 'https://www.livenation.com/event/vvG1YZ9E0hGPpD',
+       only_valid_entity_types: ['event'],
+  },
+  {
+                     input_url: 'https://www.livenation.co.nz/show/1431241/anna-of-the-north/wellington/2023-09-14/en',
+             input_entity_type: 'event',
+    expected_relationship_type: 'ticketing',
+            expected_clean_url: 'https://www.livenation.co.nz/show/1431241',
+       only_valid_entity_types: ['event'],
+  },
+  {
+                     input_url: 'https://www.livenation.com/venue/KovZpZAEAFeA/dos-equis-pavilion-events#seat-map',
+             input_entity_type: 'place',
+    expected_relationship_type: 'ticketing',
+            expected_clean_url: 'https://www.livenation.com/venue/KovZpZAEAFeA',
+       only_valid_entity_types: ['place'],
+  },
+  {
+                     input_url: 'https://www.livenation.ee/venue/953330/alexela-kontserdimaja-tickets#venueinfo',
+             input_entity_type: 'place',
+    expected_relationship_type: 'ticketing',
+            expected_clean_url: 'https://www.livenation.ee/venue/953330',
+       only_valid_entity_types: ['place'],
+  },
   // Loudr
   {
                      input_url: 'https://loudr.fm/artist/kyle-landry/Z77SM?test',
@@ -5235,6 +5285,49 @@ limited_link_type_combinations: [
     expected_relationship_type: 'streamingfree',
             expected_clean_url: 'https://www.threads.net/t/CucwR6erBPo',
        only_valid_entity_types: ['recording'],
+  },
+  // Ticketmaster
+  {
+                     input_url: 'http://ticketmaster.com/depeche-mode-tickets/artist/734907#about',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'ticketing',
+            expected_clean_url: 'https://www.ticketmaster.com/artist/734907',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://www.ticketmaster.nl/artist/underworld-tickets/4368?int_cmp_name=Underworld&int_cmp_id=NL-Home-611&int_cmp_creative=Home-main-5&tm_link=tm_ccp_Home_main_Underworld',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'ticketing',
+            expected_clean_url: 'https://www.ticketmaster.nl/artist/4368',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://www.ticketmaster.com/seongjin-cho-englewood-new-jersey-10-03-2023/event/00005ED3057A881F',
+             input_entity_type: 'event',
+    expected_relationship_type: 'ticketing',
+            expected_clean_url: 'https://www.ticketmaster.com/event/00005ED3057A881F',
+       only_valid_entity_types: ['event'],
+  },
+  {
+                     input_url: 'https://www.ticketmaster.co.uk/pendulum-premium-package-suites-leeds-24-03-2024/event/1F005F0AFB9A3A6F',
+             input_entity_type: 'event',
+    expected_relationship_type: 'ticketing',
+            expected_clean_url: 'https://www.ticketmaster.co.uk/event/1F005F0AFB9A3A6F',
+       only_valid_entity_types: ['event'],
+  },
+  {
+                     input_url: 'https://www.ticketmaster.com/fenway-park-tickets-boston/venue/8839?tab=seatingCharts',
+             input_entity_type: 'place',
+    expected_relationship_type: 'ticketing',
+            expected_clean_url: 'https://www.ticketmaster.com/venue/8839',
+       only_valid_entity_types: ['place'],
+  },
+  {
+                     input_url: 'https://www.ticketmaster.co.nz/anderson-park-tickets-wellington/venue/295852',
+             input_entity_type: 'place',
+    expected_relationship_type: 'ticketing',
+            expected_clean_url: 'https://www.ticketmaster.co.nz/venue/295852',
+       only_valid_entity_types: ['place'],
   },
   // Tidal
   {
