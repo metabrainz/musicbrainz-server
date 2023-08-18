@@ -12228,7 +12228,7 @@ msgstr ""
 msgid "Hungana"
 msgstr ""
 
-#. frequency:2 iso_code_3:hun 
+#. frequency:1 iso_code_3:hun 
 #: DB:language/name:176
 msgid "Hungarian"
 msgstr ""
@@ -19053,7 +19053,7 @@ msgstr ""
 msgid "Lou"
 msgstr ""
 
-#. frequency:0 iso_code_3:lou 
+#. frequency:1 iso_code_3:lou 
 #: DB:language/name:3958
 msgid "Louisiana Creole French"
 msgstr ""
@@ -24708,11 +24708,6 @@ msgstr ""
 msgid "Nnam"
 msgstr ""
 
-#. frequency:1 iso_code_3:zxx 
-#: DB:language/name:486
-msgid "No linguistic content"
-msgstr ""
-
 #. frequency:0 iso_code_3:fia 
 #: DB:language/name:2285
 msgid "Nobiin"
@@ -25333,7 +25328,7 @@ msgstr ""
 msgid "Northwestern Tamang"
 msgstr ""
 
-#. frequency:1 iso_code_3:nor 
+#. frequency:2 iso_code_3:nor 
 #: DB:language/name:309
 msgid "Norwegian"
 msgstr ""
@@ -30098,7 +30093,7 @@ msgstr ""
 msgid "Scythian"
 msgstr ""
 
-#. frequency:0 iso_code_3:gul 
+#. frequency:1 iso_code_3:gul 
 #: DB:language/name:2586
 msgid "Sea Island Creole English"
 msgstr ""
@@ -39196,6 +39191,11 @@ msgstr ""
 #. frequency:2 iso_code_3:mul 
 #: DB:language/name:284
 msgid "[Multiple languages]"
+msgstr ""
+
+#. frequency:1 iso_code_3:zxx 
+#: DB:language/name:486
+msgid "[No linguistic content]"
 msgstr ""
 
 #. frequency:0 iso_code_3:jih 
