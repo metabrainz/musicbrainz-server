@@ -41,7 +41,7 @@ const LostPassword = (props: Props): React$Element<typeof Layout> => (
       <FormCsrfToken form={props.form} />
       <FormRowText
         field={props.form.field.username}
-        label={l('Username:')}
+        label={addColonText(l('Username'))}
         required
         uncontrolled
       />
