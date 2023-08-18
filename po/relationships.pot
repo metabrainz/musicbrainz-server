@@ -2321,6 +2321,11 @@ msgid ""
 "patronage, such as Flattr or PayPal.me."
 msgstr ""
 
+#: DB:link_type/description:1194
+msgid ""
+"This links a label to a site where tickets can be purchased for their events."
+msgstr ""
+
 #: DB:link_type/description:1130
 msgid "This links a label to its page at Apple Music."
 msgstr ""
@@ -2368,6 +2373,11 @@ msgstr ""
 msgid ""
 "This links a place to a site where the place or the organisation behind it "
 "can receive donations/patronage, such as Flattr or PayPal.me."
+msgstr ""
+
+#: DB:link_type/description:1195
+msgid ""
+"This links a place to a site where tickets can be purchased for its events."
 msgstr ""
 
 #: DB:link_type/description:940
@@ -2533,6 +2543,12 @@ msgstr ""
 msgid "This links a series to a fan-created website."
 msgstr ""
 
+#: DB:link_type/description:1196
+msgid ""
+"This links a series to a site where tickets can be purchased for events in "
+"it."
+msgstr ""
+
 #: DB:link_type/description:910
 msgid ""
 "This links a series to its profile (e.g. for a festival) or project (e.g. "
@@ -2652,6 +2668,12 @@ msgstr ""
 msgid ""
 "This links an artist to a site where the artist can receive donations/"
 "patronage, such as Flattr or PayPal.me."
+msgstr ""
+
+#: DB:link_type/description:1193
+msgid ""
+"This links an artist to a site where tickets can be purchased for their "
+"events."
 msgstr ""
 
 #: DB:link_type/description:707
@@ -2774,6 +2796,10 @@ msgstr ""
 msgid ""
 "This links an event to a site where the event organisers can receive "
 "donations/patronage, such as Flattr or PayPal.me."
+msgstr ""
+
+#: DB:link_type/description:1197
+msgid "This links an event to a site where tickets can be purchased for it."
 msgstr ""
 
 #: DB:link_type/description:904
@@ -4949,6 +4975,12 @@ msgstr ""
 msgid "has a standalone website at"
 msgstr ""
 
+#: DB:link_type/long_link_phrase:1193 DB:link_type/long_link_phrase:1194
+#: DB:link_type/long_link_phrase:1195 DB:link_type/long_link_phrase:1196
+#: DB:link_type/long_link_phrase:1197
+msgid "has a ticketing page at"
+msgstr ""
+
 #: DB:link_type/long_link_phrase:755 DB:link_type/long_link_phrase:284
 #: DB:link_type/long_link_phrase:283 DB:link_type/long_link_phrase:285
 #: DB:link_type/long_link_phrase:1093
@@ -7084,6 +7116,23 @@ msgstr ""
 
 #: DB:link_attribute_type/description:11 DB:link_attribute_type/name:11
 msgid "tenor vocals"
+msgstr ""
+
+#: DB:link_type/name:1193 DB:link_type/name:1194 DB:link_type/name:1195
+#: DB:link_type/name:1196 DB:link_type/name:1197
+msgid "ticketing"
+msgstr ""
+
+#: DB:link_type/link_phrase:1193 DB:link_type/link_phrase:1194
+#: DB:link_type/link_phrase:1195 DB:link_type/link_phrase:1196
+#: DB:link_type/link_phrase:1197
+msgid "ticketing page"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:1193 DB:link_type/reverse_link_phrase:1194
+#: DB:link_type/reverse_link_phrase:1195 DB:link_type/reverse_link_phrase:1196
+#: DB:link_type/reverse_link_phrase:1197
+msgid "ticketing page for"
 msgstr ""
 
 #: DB:link_attribute_type/name:830
