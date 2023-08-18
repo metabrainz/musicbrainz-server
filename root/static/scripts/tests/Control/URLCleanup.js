@@ -5295,6 +5295,13 @@ limited_link_type_combinations: [
        only_valid_entity_types: ['artist'],
   },
   {
+                     input_url: 'https://www.ticketmaster.nl/artist/underworld-tickets/4368?int_cmp_name=Underworld&int_cmp_id=NL-Home-611&int_cmp_creative=Home-main-5&tm_link=tm_ccp_Home_main_Underworld',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'ticketing',
+            expected_clean_url: 'https://www.ticketmaster.nl/artist/4368',
+       only_valid_entity_types: ['artist'],
+  },
+  {
                      input_url: 'https://www.ticketmaster.com/seongjin-cho-englewood-new-jersey-10-03-2023/event/00005ED3057A881F',
              input_entity_type: 'event',
     expected_relationship_type: 'ticketing',
@@ -5302,10 +5309,24 @@ limited_link_type_combinations: [
        only_valid_entity_types: ['event'],
   },
   {
+                     input_url: 'https://www.ticketmaster.co.uk/pendulum-premium-package-suites-leeds-24-03-2024/event/1F005F0AFB9A3A6F',
+             input_entity_type: 'event',
+    expected_relationship_type: 'ticketing',
+            expected_clean_url: 'https://www.ticketmaster.co.uk/event/1F005F0AFB9A3A6F',
+       only_valid_entity_types: ['event'],
+  },
+  {
                      input_url: 'https://www.ticketmaster.com/fenway-park-tickets-boston/venue/8839?tab=seatingCharts',
              input_entity_type: 'place',
     expected_relationship_type: 'ticketing',
             expected_clean_url: 'https://www.ticketmaster.com/venue/8839',
+       only_valid_entity_types: ['place'],
+  },
+  {
+                     input_url: 'https://www.ticketmaster.co.nz/anderson-park-tickets-wellington/venue/295852',
+             input_entity_type: 'place',
+    expected_relationship_type: 'ticketing',
+            expected_clean_url: 'https://www.ticketmaster.co.nz/venue/295852',
        only_valid_entity_types: ['place'],
   },
   // Tidal

@@ -5,7 +5,17 @@ use Moose;
 extends 'MusicBrainz::Server::Entity::URL';
 with 'MusicBrainz::Server::Entity::URL::Sidebar';
 
-sub sidebar_name { 'Ticketmaster' }
+sub sidebar_name {
+    my $self = shift;
+
+    if (my ($country) = $self->url->host =~ /ticketmaster.(?:[a-z]{2,3}.)?([a-z]{2,4})$/) {
+        $country = 'US' if $country eq 'com';
+        $country =~ tr/a-z/A-Z/;
+        return "Ticketmaster $country";
+    } else {
+        return 'Ticketmaster';
+    }
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

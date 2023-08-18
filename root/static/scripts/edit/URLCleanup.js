@@ -5380,14 +5380,17 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'ticketmaster': {
-    match: [new RegExp('^(https?://)?(www\\.)?ticketmaster\\.com', 'i')],
+    match: [new RegExp(
+      '^(https?://)?(www\\.)?ticketmaster\\.(?:[a-z]{2,3}?\\.)?[a-z]{2,4}',
+      'i',
+    )],
     restrict: [LINK_TYPES.ticketing],
     clean: function (url) {
-      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?ticketmaster\.com\/(?:[\w-]+\/)?(artist|event|venue)\/([0-9A-F]+).*$/, 'https://www.ticketmaster.com/$1/$2');
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?ticketmaster\.((?:[a-z]{2,3}?\.)?[a-z]{2,4})\/(?:[\w-]+\/)?(artist|event|venue)\/(?:[\w-]+\/)?([0-9A-F]+).*$/, 'https://www.ticketmaster.$1/$2/$3');
       return url;
     },
     validate: function (url, id) {
-      const m = /^https:\/\/www\.ticketmaster\.com\/(artist|event|venue)\/[0-9A-F]+$/.exec(url);
+      const m = /^https:\/\/www\.ticketmaster\.(?:[a-z]{2,3}?\.)?[a-z]{2,4}\/(artist|event|venue)\/[0-9A-F]+$/.exec(url);
       if (m) {
         const prefix = m[1];
         switch (id) {
