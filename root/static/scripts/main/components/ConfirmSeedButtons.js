@@ -23,7 +23,7 @@ const ConfirmSeedButtons = ({
     if (autoSubmit) {
       submitRef.current?.click();
     }
-  });
+  }, [autoSubmit, submitRef]);
 
   return (
     <>
