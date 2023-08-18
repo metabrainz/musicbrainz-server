@@ -39,7 +39,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-14 15:30+0000\n"
+"POT-Creation-Date: 2023-08-18 12:17+0000\n"
 "PO-Revision-Date: 2023-08-14 15:04+0000\n"
 "Last-Translator: Anonymous <noreply@weblate.org>\n"
 "Language-Team: Japanese <https://translations.metabrainz.org/projects/"
@@ -3905,7 +3905,7 @@ msgid "{doc|Disc ID}:"
 msgstr "{doc|ディスクID}:"
 
 #: ../root/components/common-macros.tt:199 ../root/main/index.js:268
-#: ../root/static/scripts/common/components/DescriptiveLink.js:71
+#: ../root/static/scripts/common/components/DescriptiveLink.js:74
 #: ../root/static/scripts/release-editor/dialogs.js:150
 msgid "{entity} by {artist}"
 msgstr "{artist}の{entity}"
@@ -3929,7 +3929,7 @@ msgid_plural "{num} releases found matching your query."
 msgstr[0] "検索条件に一致した {num} 件のリリースがあります"
 
 #: ../root/components/common-macros.tt:199
-#: ../root/static/scripts/common/components/DescriptiveLink.js:84
+#: ../root/static/scripts/common/components/DescriptiveLink.js:87
 msgid "{place} in {area}"
 msgstr "{area}の{place}"
 
@@ -4361,8 +4361,8 @@ msgstr "新旧の注釈 ID は、ユニークな正の整数でなければな�
 #: ../lib/MusicBrainz/Server/Controller/Role/EditRelationships.pm:222
 #: ../root/layout/components/sidebar/SidebarEndDate.js:38
 #: ../root/static/scripts/common/utility/formatEndDate.js:18
-#: ../root/static/scripts/relationship-editor/components/DialogPreview.js:107
-#: ../root/static/scripts/relationship-editor/components/DialogSourceEntity.js:116
+#: ../root/static/scripts/relationship-editor/components/DialogPreview.js:108
+#: ../root/static/scripts/relationship-editor/components/DialogSourceEntity.js:117
 msgid "[unknown]"
 msgstr "［不明］"
 
@@ -5762,7 +5762,7 @@ msgid "invalid date"
 msgstr "無効な日付"
 
 #: ../lib/MusicBrainz/Server/Form/Field/Relationship.pm:95
-#: ../root/static/scripts/relationship-editor/components/RelationshipItem.js:333
+#: ../root/static/scripts/relationship-editor/components/RelationshipItem.js:334
 msgid ""
 "You must select a relationship type and target entity for every relationship."
 msgstr "すべての関係の関係タイプと項目ターゲットを選択する必要があります。"
@@ -7117,7 +7117,7 @@ msgstr "更新履歴:"
 
 #: ../root/annotation/EditAnnotation.js:93
 #: ../root/static/scripts/artist/components/ArtistCreditRenamer.js:278
-#: ../root/static/scripts/relationship-editor/components/DialogPreview.js:171
+#: ../root/static/scripts/relationship-editor/components/DialogPreview.js:172
 msgid "Preview"
 msgstr "プレビュー"
 
@@ -9216,7 +9216,7 @@ msgstr "アーティストクレジット:"
 #: ../root/edit/details/AddRelationship.js:22
 #: ../root/edit/details/RemoveRelationship.js:20
 #: ../root/static/scripts/edit/components/edit/RelationshipDiff.js:198
-#: ../root/static/scripts/relationship-editor/components/DialogPreview.js:132
+#: ../root/static/scripts/relationship-editor/components/DialogPreview.js:133
 msgid "Relationship:"
 msgstr "関係:"
 
@@ -11239,13 +11239,13 @@ msgstr "誕生日おめでとう、そしてMusicBrainzに貢献してくれて�
 msgid "Confirm Form Submission"
 msgstr "フォーム送信の確認"
 
-#: ../root/main/ConfirmSeed.js:37
+#: ../root/main/ConfirmSeed.js:48
 msgid ""
 "You are about to submit a request to {action} originating from {origin}. "
 "Continue?"
 msgstr ""
 
-#: ../root/main/ConfirmSeed.js:46
+#: ../root/main/ConfirmSeed.js:57
 msgid ""
 "This confirmation is important to ensure that no malicious actor can use "
 "your account to modify data without your knowledge. Below this line, you can "
@@ -14547,7 +14547,7 @@ msgid "{start_track}–{end_track}"
 msgstr ""
 
 #: ../root/static/scripts/common/components/StaticRelationshipsDisplay.js:93
-#: ../root/static/scripts/relationship-editor/components/RelationshipItem.js:281
+#: ../root/static/scripts/relationship-editor/components/RelationshipItem.js:282
 msgid "{num}. {relationship}"
 msgstr "{num}. {relationship}"
 
@@ -14845,7 +14845,7 @@ msgstr ""
 #: ../root/static/scripts/edit/URLCleanup.js:651
 #: ../root/static/scripts/edit/URLCleanup.js:878
 #: ../root/static/scripts/edit/URLCleanup.js:4162
-#: ../root/static/scripts/edit/URLCleanup.js:5132
+#: ../root/static/scripts/edit/URLCleanup.js:5166
 msgid ""
 "This is a redirect link. Please follow {redirect_url|your link} and add the "
 "link it redirects to instead."
@@ -14942,106 +14942,106 @@ msgid ""
 "adding Musixmatch links to the relevant artists and works instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:4649
+#: ../root/static/scripts/edit/URLCleanup.js:4683
 msgid "Only RYM music videos can be linked to recordings."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:4711
+#: ../root/static/scripts/edit/URLCleanup.js:4745
 msgid ""
 "This is a link to the old Resident Advisor domain. Please follow {ra_url|"
 "your link}, make sure the link it redirects to is still the correct one and, "
 "if so, add that link instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:5288
+#: ../root/static/scripts/edit/URLCleanup.js:5322
 msgid "Please link to Threads profiles, not threads."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:5639
+#: ../root/static/scripts/edit/URLCleanup.js:5673
 msgid "This is not a profile, but a Twitter documentation page."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:5653
+#: ../root/static/scripts/edit/URLCleanup.js:5687
 msgid "Please link to Twitter profiles, not tweets."
 msgstr "ツイートではなくTwitterプロフィールにリンクしてください。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:5671
+#: ../root/static/scripts/edit/URLCleanup.js:5705
 msgid "This site does not allow direct links to their images."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:5877
+#: ../root/static/scripts/edit/URLCleanup.js:5911
 msgid ""
 "Please link to the “{allowed_url_pattern}” page rather than this "
 "“{current_url_pattern}” link."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:5960
+#: ../root/static/scripts/edit/URLCleanup.js:5994
 msgid ""
 "There is an unencoded “?” or “#” character in this URL. Please check whether "
 "it is useless and should be removed, or whether it is an error and the URL "
 "is misencoded."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:5980
+#: ../root/static/scripts/edit/URLCleanup.js:6014
 msgid ""
 "Please do not link directly to WhoSampled “{unwanted_url_pattern}” pages. "
 "Link to the appropriate WhoSampled artist, track or album page instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6001
+#: ../root/static/scripts/edit/URLCleanup.js:6035
 msgid "Please link WhoSampled “{album_url_pattern}” pages to release groups."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6019
+#: ../root/static/scripts/edit/URLCleanup.js:6053
 msgid "Please link WhoSampled artist pages to artists."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6031
+#: ../root/static/scripts/edit/URLCleanup.js:6065
 msgid "Please link WhoSampled track pages to recordings."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6098
+#: ../root/static/scripts/edit/URLCleanup.js:6132
 msgid ""
 "Links to specific sections of Wikipedia articles are not allowed. Please "
 "remove “{fragment}” if still appropriate. See the {url|guidelines}."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6123
+#: ../root/static/scripts/edit/URLCleanup.js:6157
 msgid ""
 "Links to Wikipedia user pages are not allowed. Please link only to actual "
 "Wikipedia articles."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6243
+#: ../root/static/scripts/edit/URLCleanup.js:6277
 msgid ""
 "This is a playlist link, which isn’t a video channel and is not guaranteed "
 "to be officially approved. Please link to the official channel for this "
 "entity, if it exists, instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6283
+#: ../root/static/scripts/edit/URLCleanup.js:6317
 msgid "Only video and playlist links are allowed on releases."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6315
+#: ../root/static/scripts/edit/URLCleanup.js:6349
 msgid ""
 "Wikipedia normally has no entries for specific releases, so adding Wikipedia "
 "links to a release is currently blocked. Please add this Wikipedia link to "
 "the release group instead, if appropriate."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6327
+#: ../root/static/scripts/edit/URLCleanup.js:6361
 msgid ""
 "Wikidata normally has no entries for specific releases, so adding Wikidata "
 "links to a release is currently blocked. Please add this Wikidata link to "
 "the release group instead, if appropriate."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6532
+#: ../root/static/scripts/edit/URLCleanup.js:6566
 msgid "Some relationship types are missing for this URL."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6549
+#: ../root/static/scripts/edit/URLCleanup.js:6583
 #: ../root/static/scripts/edit/externalLinks.js:1006
 msgid "This relationship type combination is invalid."
 msgstr ""
@@ -15434,11 +15434,11 @@ msgid ""
 "language guidelines}."
 msgstr ""
 
-#: ../root/static/scripts/main/components/ConfirmSeedButtons.js:15
+#: ../root/static/scripts/main/components/ConfirmSeedButtons.js:31
 msgid "Continue"
 msgstr "続ける"
 
-#: ../root/static/scripts/main/components/ConfirmSeedButtons.js:31
+#: ../root/static/scripts/main/components/ConfirmSeedButtons.js:47
 msgid "Leave"
 msgstr "中止する"
 
@@ -15537,19 +15537,19 @@ msgstr ""
 msgid "Please select a relationship type. ({url|more documentation})"
 msgstr ""
 
-#: ../root/static/scripts/relationship-editor/components/DialogPreview.js:156
+#: ../root/static/scripts/relationship-editor/components/DialogPreview.js:157
 msgid "Old order"
 msgstr ""
 
-#: ../root/static/scripts/relationship-editor/components/DialogPreview.js:160
+#: ../root/static/scripts/relationship-editor/components/DialogPreview.js:161
 msgid "New order"
 msgstr ""
 
-#: ../root/static/scripts/relationship-editor/components/DialogPreview.js:223
+#: ../root/static/scripts/relationship-editor/components/DialogPreview.js:224
 msgid "Please fill out all required fields."
 msgstr ""
 
-#: ../root/static/scripts/relationship-editor/components/DialogPreview.js:235
+#: ../root/static/scripts/relationship-editor/components/DialogPreview.js:236
 msgid "Change direction"
 msgstr "向きを入れ替える"
 
@@ -15599,39 +15599,39 @@ msgstr "選択されたレコーディングすべてに関係を追加します
 msgid "This will add a relationship to all checked works."
 msgstr "選択した作品すべてに関係を追加します。"
 
-#: ../root/static/scripts/relationship-editor/components/RelationshipItem.js:116
+#: ../root/static/scripts/relationship-editor/components/RelationshipItem.js:117
 msgid "no entity"
 msgstr ""
 
-#: ../root/static/scripts/relationship-editor/components/RelationshipItem.js:122
+#: ../root/static/scripts/relationship-editor/components/RelationshipItem.js:123
 msgid "{target} (as {credited_name})"
 msgstr ""
 
-#: ../root/static/scripts/relationship-editor/components/RelationshipItem.js:193
+#: ../root/static/scripts/relationship-editor/components/RelationshipItem.js:194
 msgid "Edit Relationship"
 msgstr ""
 
-#: ../root/static/scripts/relationship-editor/components/RelationshipItem.js:259
+#: ../root/static/scripts/relationship-editor/components/RelationshipItem.js:260
 msgid "Move entity down"
 msgstr "項目を下に移動"
 
-#: ../root/static/scripts/relationship-editor/components/RelationshipItem.js:266
+#: ../root/static/scripts/relationship-editor/components/RelationshipItem.js:267
 msgid "Move entity up"
 msgstr "項目を上に移動"
 
-#: ../root/static/scripts/relationship-editor/components/RelationshipItem.js:292
+#: ../root/static/scripts/relationship-editor/components/RelationshipItem.js:293
 msgid "This entity has {edits_link|pending edits}."
 msgstr ""
 
-#: ../root/static/scripts/relationship-editor/components/RelationshipItem.js:297
+#: ../root/static/scripts/relationship-editor/components/RelationshipItem.js:298
 msgid "This entity has pending edits."
 msgstr ""
 
-#: ../root/static/scripts/relationship-editor/components/RelationshipItem.js:312
+#: ../root/static/scripts/relationship-editor/components/RelationshipItem.js:313
 msgid "This relationship has {edit_search|pending edits}."
 msgstr ""
 
-#: ../root/static/scripts/relationship-editor/components/RelationshipItem.js:317
+#: ../root/static/scripts/relationship-editor/components/RelationshipItem.js:318
 msgid "This relationship has pending edits."
 msgstr ""
 
@@ -15686,7 +15686,7 @@ msgstr "別の作品を追加"
 #: ../root/static/scripts/relationship-editor/components/RelationshipPhraseGroup.js:170
 #: ../root/static/scripts/relationship-editor/components/RelationshipTargetTypeGroups.js:54
 #: ../root/static/scripts/release/components/RelationshipEditorBatchTools.js:70
-#: ../root/static/scripts/release/components/TrackRelationshipEditor.js:401
+#: ../root/static/scripts/release/components/TrackRelationshipEditor.js:408
 msgid "Add Relationship"
 msgstr ""
 
@@ -15909,11 +15909,11 @@ msgstr "リリースの関連"
 msgid "Release Group Relationships"
 msgstr "リリースグループの関連"
 
-#: ../root/static/scripts/release/components/TrackRelationshipEditor.js:336
+#: ../root/static/scripts/release/components/TrackRelationshipEditor.js:343
 msgid "Error loading work relationships: {error}"
 msgstr ""
 
-#: ../root/static/scripts/release/components/TrackRelationshipEditor.js:421
+#: ../root/static/scripts/release/components/TrackRelationshipEditor.js:428
 msgid "Add related work"
 msgstr "関係する作品を追加"
 
