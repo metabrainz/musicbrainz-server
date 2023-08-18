@@ -21,6 +21,7 @@
 # nikki, 2012-2013
 # nikki, 2013
 # Paul Tremberth <email address hidden>, 2013
+# PolyvalentWorker 75, 2023
 # Raphaël Fery <email address hidden>, 2017
 # Paul Tremberth <email address hidden>, 2013
 # R. G. <email address hidden>, 2015
@@ -38,7 +39,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "PO-Revision-Date: 2012-05-24 18:50+0000\n"
-"Last-Translator: yvanz, 2016-2023\n"
+"Last-Translator: PolyvalentWorker 75, 2023\n"
 "Language-Team: French (http://app.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -111,11 +112,11 @@ msgstr "Page Allmusic pour"
 
 #: DB:link_type/link_phrase:1131 DB:link_type/link_phrase:1130
 msgid "Apple Music"
-msgstr ""
+msgstr "Apple Music"
 
 #: DB:link_type/reverse_link_phrase:1131 DB:link_type/reverse_link_phrase:1130
 msgid "Apple Music page for"
-msgstr ""
+msgstr "Page Apple Music pour"
 
 #: DB:link_type/link_phrase:190
 msgid "BBC Music"
@@ -337,7 +338,7 @@ msgstr "Indique un musicien apportant un soutien vocal à long terme à un autre
 
 #: DB:link_type/description:1083
 msgid "Indicates a page with an official schedule for an event series."
-msgstr ""
+msgstr "Indique une page qui propose le programme officiel d'une série d'évènements."
 
 #: DB:link_type/description:109
 msgid "Indicates a parent-child relationship."
@@ -517,7 +518,7 @@ msgstr "Indique le lieu de la première présentation de l’œuvre."
 msgid ""
 "Indicates the artist(s) who gave the first performance of the work; this is "
 "usually mostly relevant for classical music"
-msgstr ""
+msgstr "Indique l'artiste ayant présenté l'œuvre pour la première fois; habituellement pertinent pour la musique classique."
 
 #: DB:link_type/description:55
 msgid ""
@@ -687,7 +688,7 @@ msgstr "Relie un enregistrement à l’événement durant lequel il a été enre
 msgid ""
 "Links a recording to the event series (tour, residency, etc.) it was "
 "recorded during."
-msgstr ""
+msgstr "Relie un enregistrement à la série d'évènements (tournée, résidence, etc.) pendant laquelle il a été enregistré."
 
 #: DB:link_type/description:866
 msgid "Links a recording to the place it was arranged at."
@@ -721,13 +722,13 @@ msgstr "Relie un enregistrement au lieu où il a été remixé."
 msgid ""
 "Links a recording, release or release group series to the event series "
 "(tour, residency, etc.) it was recorded during."
-msgstr ""
+msgstr "Relie une série d'enregistrements, de parutions ou de groupes de parution à la série d'évènements (tournée, résidence, etc.) pendant laquelle elle a été enregistrée."
 
 #: DB:link_type/description:1007
 msgid ""
 "Links a release group to the event series (tour, residency, etc.) it was "
 "recorded during."
-msgstr ""
+msgstr "Relie un groupe de parution à la série d'évènements (tournée, résidence, etc.) pendant laquelle il a été enregistré."
 
 #: DB:link_type/description:797
 msgid "Links a release group with a launch event for it."
@@ -904,7 +905,7 @@ msgstr "Relie un événement à un artiste qui y était chef d’orchestre."
 
 #: DB:link_type/description:1084
 msgid "Links an event to an engineer or sound technician who worked on it."
-msgstr ""
+msgstr "Relie un évènement à un ingénieur ou technicien sonore y ayant travaillé."
 
 #: DB:link_type/description:807
 msgid "Links an event to an orchestra that performed in it."
@@ -1317,7 +1318,7 @@ msgstr "Ceci décrit la situation d’un label ayant changé de nom, soit pour r
 msgid ""
 "This describes a situation where an artist (generally a group) changed its "
 "name, leading to the start of a new project."
-msgstr ""
+msgstr "Décrit une situation où un artiste (généralement un groupe) change son nom, amenant au début d'un nouveau projet."
 
 #: DB:link_type/description:200
 msgid ""
@@ -1453,13 +1454,13 @@ msgstr "Ceci indique un label d’édition personnel pour un artiste. Un label d
 msgid ""
 "This indicates a recording engineer that recorded field recordings for the "
 "recording."
-msgstr ""
+msgstr "Indique l'ingénieur du son responsable des enregistrements de terrain pour cet enregistrement."
 
 #: DB:link_type/description:1012
 msgid ""
 "This indicates a recording engineer that recorded field recordings for the "
 "release."
-msgstr ""
+msgstr "Indique l'ingénieur du son responsable des enregistrements de terrain pour cette parution."
 
 #: DB:link_type/description:895
 msgid ""
@@ -1470,7 +1471,7 @@ msgstr "Cet attribut indique qu’un artiste était un membre fondateur d’un g
 msgid ""
 "This indicates an artist (generally a person) was the founder of an event "
 "series (generally a festival)."
-msgstr ""
+msgstr "Cet attribut indique qu’un artiste le fondateur d’une série d'évènements (généralement un festival)."
 
 #: DB:link_attribute_type/description:921
 msgid "This indicates an artist cancelled their appearance at an event."

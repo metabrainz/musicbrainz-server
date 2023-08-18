@@ -1,0 +1,2380 @@
+# Translations template for PROJECT.
+# Copyright (C) 2022 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# 
+# Translators:
+# Jaakko Perttilä <email address hidden>, 2014,2018-2019
+# Jaakko Perttilä <email address hidden>, 2023
+# Juhana Uuttu <email address hidden>, 2023
+msgid ""
+msgstr ""
+"Project-Id-Version: CritiqueBrainz\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2022-05-31 09:54+0000\n"
+"PO-Revision-Date: 2014-06-02 09:40+0000\n"
+"Last-Translator: Juhana Uuttu <rexroom@sci.fi>, 2023\n"
+"Language-Team: Finnish (http://app.transifex.com/musicbrainz/critiquebrainz/language/fi/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.10.1\n"
+"Language: fi\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: critiquebrainz/frontend/external/mbspotify.py:53
+msgid ""
+"Spotify mapping server is unavailable. You will not see an embedded player."
+msgstr "Spotifyn kartoituspalvelimeen ei saatu yhteyttä. Upotettua soitinta ei näytetä."
+
+#: critiquebrainz/frontend/external/relationships/artist.py:32
+#: critiquebrainz/frontend/external/relationships/label.py:19
+#: critiquebrainz/frontend/external/relationships/place.py:27
+#: critiquebrainz/frontend/external/relationships/release_group.py:19
+msgid "Wikidata"
+msgstr "Wikidata"
+
+#: critiquebrainz/frontend/external/relationships/artist.py:33
+#: critiquebrainz/frontend/external/relationships/label.py:20
+#: critiquebrainz/frontend/external/relationships/place.py:30
+#: critiquebrainz/frontend/external/relationships/release_group.py:20
+msgid "Discogs"
+msgstr "Discogs"
+
+#: critiquebrainz/frontend/external/relationships/artist.py:34
+#: critiquebrainz/frontend/external/relationships/label.py:21
+#: critiquebrainz/frontend/external/relationships/release_group.py:21
+msgid "Allmusic"
+msgstr "Allmusic"
+
+#: critiquebrainz/frontend/external/relationships/artist.py:35
+#: critiquebrainz/frontend/external/relationships/label.py:22
+msgid "Bandcamp"
+msgstr "Bandcamp"
+
+#: critiquebrainz/frontend/external/relationships/artist.py:36
+#: critiquebrainz/frontend/external/relationships/label.py:23
+#: critiquebrainz/frontend/external/relationships/place.py:36
+#: critiquebrainz/frontend/external/relationships/release_group.py:22
+msgid "Official homepage"
+msgstr "Virallinen kotisivu"
+
+#: critiquebrainz/frontend/external/relationships/artist.py:37
+#: critiquebrainz/frontend/external/relationships/label.py:24
+msgid "BBC Music"
+msgstr "BBC Music"
+
+#: critiquebrainz/frontend/external/relationships/artist.py:49
+#: critiquebrainz/frontend/external/relationships/label.py:36
+#: critiquebrainz/frontend/external/relationships/release_group.py:35
+msgid "Lyrics"
+msgstr "Sanoitus"
+
+#: critiquebrainz/frontend/external/relationships/artist.py:55
+#: critiquebrainz/frontend/external/relationships/label.py:42
+#: critiquebrainz/frontend/external/relationships/release_group.py:41
+msgid "Wikipedia"
+msgstr "Wikipedia"
+
+#: critiquebrainz/frontend/external/relationships/artist.py:71
+#: critiquebrainz/frontend/external/relationships/label.py:58
+msgid "YouTube"
+msgstr "YouTube"
+
+#: critiquebrainz/frontend/external/relationships/artist.py:79
+#: critiquebrainz/frontend/external/relationships/label.py:66
+msgid "Twitter"
+msgstr "Twitter"
+
+#: critiquebrainz/frontend/external/relationships/place.py:33
+msgid "Last.fm"
+msgstr "Last.fm"
+
+#: critiquebrainz/frontend/external/relationships/release_group.py:23
+msgid "Recording studio"
+msgstr "Äänitysstudio"
+
+#: critiquebrainz/frontend/forms/comment.py:11
+msgid "Add a comment..."
+msgstr "Lisää kommentti..."
+
+#: critiquebrainz/frontend/forms/comment.py:12
+#: critiquebrainz/frontend/views/comment.py:62
+#: critiquebrainz/frontend/views/comment.py:105
+msgid "Comment must not be empty!"
+msgstr "Kommentti ei voi olla tyhjänä!"
+
+#: critiquebrainz/frontend/forms/log.py:8
+msgid "You need to specify a reason for taking this action."
+msgstr "Määritä perustelut miksi olet tekemässä näin."
+
+#: critiquebrainz/frontend/forms/profile.py:8
+msgid "Display name"
+msgstr "Näytetty nimi"
+
+#: critiquebrainz/frontend/forms/profile.py:9
+msgid "Display name field is empty."
+msgstr "Näytetyn nimen tietue on tyhjä."
+
+#: critiquebrainz/frontend/forms/profile.py:10
+msgid "Display name needs to be at least 3 characters long."
+msgstr "Näytetyn nimen tulee olla vähintään kolme merkkiä pitkä."
+
+#: critiquebrainz/frontend/forms/profile.py:11
+msgid "Display name needs to be at most 64 characters long."
+msgstr "Näytetty nimi saa olla korkeintaan 64 merkkiä pitkä."
+
+#: critiquebrainz/frontend/forms/profile.py:12
+#: critiquebrainz/frontend/templates/user/info.html:22
+msgid "Email"
+msgstr "Sähköpostiosoite"
+
+#: critiquebrainz/frontend/forms/profile.py:14
+msgid "Email field is not a valid email address."
+msgstr "Sähköpostiosoite ei ole kelvollinen."
+
+#: critiquebrainz/frontend/forms/profile.py:15
+msgid "Preferred License Choice"
+msgstr "Oletusvalinta julkaisulisenssille"
+
+#: critiquebrainz/frontend/forms/profile.py:16
+msgid ""
+"Allow commercial use of my reviews (<a "
+"href=\"https://creativecommons.org/licenses/by-sa/3.0/\" "
+"target=\"_blank\">CC BY-SA 3.0 license</a>)"
+msgstr "Salli arvostelujeni kaupallinen käyttö (<a href=\"https://creativecommons.org/licenses/by-sa/3.0/\" target=\"_blank\">CC BY-SA 3.0 -lisenssi</a>)"
+
+#: critiquebrainz/frontend/forms/profile.py:17
+msgid ""
+"Do not allow commercial use of my reviews, unless approved by MetaBrainz "
+"Foundation (<a href=\"https://creativecommons.org/licenses/by-nc-sa/3.0/\" "
+"target=\"_blank\">CC BY-NC-SA 3.0 license</a>)"
+msgstr "Älä salli arvostelujeni kaupallista käyttöä, ellei MetaBrainz-säätiö hyväksy (<a href=\"https://creativecommons.org/licenses/by-nc-sa/3.0/\" target=\"_blank\">CC BY-NC-SA 3.0 -lisenssi</a>)"
+
+#: critiquebrainz/frontend/forms/profile_apps.py:7
+msgid "Application name"
+msgstr "Sovelluksen nimi"
+
+#: critiquebrainz/frontend/forms/profile_apps.py:8
+msgid "Application name field is empty."
+msgstr "Sovelluksen nimen tietue on tyhjä."
+
+#: critiquebrainz/frontend/forms/profile_apps.py:9
+msgid "Application name needs to be at least 3 characters long."
+msgstr "Sovelluksen nimen tulee olla vähintään kolme merkkiä pitkä."
+
+#: critiquebrainz/frontend/forms/profile_apps.py:10
+msgid "Application name needs to be at most 64 characters long."
+msgstr "Sovelluksen nimi saa olla korkeintaan 64 merkkiä pitkä."
+
+#: critiquebrainz/frontend/forms/profile_apps.py:11
+#: critiquebrainz/frontend/templates/index/index.html:27
+#: critiquebrainz/frontend/templates/oauth/prompt.html:18
+msgid "Description"
+msgstr "Kuvaus"
+
+#: critiquebrainz/frontend/forms/profile_apps.py:12
+msgid "Client description field is empty."
+msgstr "Asiakasohjelman kuvauksen tietue on tyhjä."
+
+#: critiquebrainz/frontend/forms/profile_apps.py:13
+msgid "Client description needs to be at least 3 characters long."
+msgstr "Asiakasohjelman kuvauksen tulee olla vähintään kolme merkkiä pitkä."
+
+#: critiquebrainz/frontend/forms/profile_apps.py:14
+msgid "Client description needs to be at most 512 characters long."
+msgstr "Asiakasohjelman kuvaus saa olla korkeintaan 512 merkkiä pitkä."
+
+#: critiquebrainz/frontend/forms/profile_apps.py:15
+msgid "Homepage"
+msgstr "Kotisivu"
+
+#: critiquebrainz/frontend/forms/profile_apps.py:16
+msgid "Homepage field is empty."
+msgstr "Kotisivun tietue on tyhjä."
+
+#: critiquebrainz/frontend/forms/profile_apps.py:17
+msgid "Homepage is not a valid URI."
+msgstr "Kotisivu ei ole kelvollinen URI."
+
+#: critiquebrainz/frontend/forms/profile_apps.py:18
+msgid "Authorization callback URL"
+msgstr "Tunnistautumisen palautteen URL"
+
+#: critiquebrainz/frontend/forms/profile_apps.py:19
+msgid "Authorization callback URL field is empty."
+msgstr "Tunnistautumisen palautteen URL on tyhjä."
+
+#: critiquebrainz/frontend/forms/profile_apps.py:20
+msgid "Authorization callback URL is invalid."
+msgstr "Tunnistautumisen palautteen URL ei ole kelvollinen."
+
+#: critiquebrainz/frontend/forms/profile_apps.py:24
+msgid "Authorization callback URL must use http or https"
+msgstr "Tunnistautumisen palautteen URL tulee olla http tai https"
+
+#: critiquebrainz/frontend/forms/profile_apps.py:28
+msgid "Homepage URL must use http or https"
+msgstr "Kotisivun URL tulee olla http tai https"
+
+#: critiquebrainz/frontend/forms/rate.py:26
+#: critiquebrainz/frontend/forms/review.py:43
+#: critiquebrainz/frontend/templates/user/reviews.html:19
+msgid "Rating"
+msgstr "Arvostelu"
+
+#: critiquebrainz/frontend/forms/review.py:30
+msgid "Text"
+msgstr "Teksti"
+
+#: critiquebrainz/frontend/forms/review.py:33
+#, python-format
+msgid "Text length needs to be between %(min)d and %(max)d characters."
+msgstr "Tekstin pituuden tulee olla välillä %(min)d–%(max)d kirjainta."
+
+#: critiquebrainz/frontend/forms/review.py:37
+msgid ""
+"Allow commercial use of this review(<a "
+"href=\"https://creativecommons.org/licenses/by-sa/3.0/\" "
+"target=\"_blank\">CC BY-SA 3.0 license</a>)"
+msgstr "Salli tämän arvostelun kaupallinen käyttö (<a href=\"https://creativecommons.org/licenses/by-sa/3.0/\" target=\"_blank\">CC BY-SA 3.0 lisenssi</a>)"
+
+#: critiquebrainz/frontend/forms/review.py:38
+msgid ""
+"Do not allow commercial use of this review, unless approved by MetaBrainz "
+"Foundation (<a href=\"https://creativecommons.org/licenses/by-nc-sa/3.0/\" "
+"target=\"_blank\">CC BY-NC-SA 3.0 license</a>)"
+msgstr "Älä salli tämän arvostelun kaupallista käyttöä, ellei MetaBrainz-säätiö hyväksy (<a href=\"https://creativecommons.org/licenses/by-nc-sa/3.0/\" target=\"_blank\">CC BY-NC-SA 3.0 -lisenssi</a>)"
+
+#: critiquebrainz/frontend/forms/review.py:40
+msgid "You need to choose a license"
+msgstr "Lisenssi tulee valita"
+
+#: critiquebrainz/frontend/forms/review.py:41
+msgid "Remember this license choice for further preference"
+msgstr "Käytä tätä julkaisulisenssin valintaa oletuksena"
+
+#: critiquebrainz/frontend/forms/review.py:42
+#: critiquebrainz/frontend/forms/review.py:61
+msgid "You need to accept the license agreement!"
+msgstr "Lisensointisopimus tulee hyväksyä!"
+
+#: critiquebrainz/frontend/login/__init__.py:21
+msgid "Please sign in to access this page."
+msgstr "Kirjaudu sisään päästäksesi tälle sivulle."
+
+#: critiquebrainz/frontend/login/__init__.py:48
+msgid "You must be an administrator to view this page."
+msgstr "Vain ylläpitäjät voivat nähdä tämän sivun."
+
+#: critiquebrainz/frontend/templates/entity_review.html:3
+#: critiquebrainz/frontend/templates/recording/entity.html:13
+msgid "by"
+msgstr "artistilta"
+
+#: critiquebrainz/frontend/templates/entity_review.html:3
+#: critiquebrainz/frontend/templates/review/entity/artist.html:7
+#: critiquebrainz/frontend/templates/review/entity/artist.html:16
+#: critiquebrainz/frontend/templates/user/reviews.html:37
+#: critiquebrainz/frontend/templates/user/reviews.html:67
+#: critiquebrainz/frontend/templates/user/reviews.html:70
+msgid "[Unknown artist]"
+msgstr "[Tuntematon artisti]"
+
+#: critiquebrainz/frontend/templates/footer.html:5
+msgid "Admin zone:"
+msgstr "Ylläpitäjien alue:"
+
+#: critiquebrainz/frontend/templates/footer.html:6
+msgid "Reports"
+msgstr "Raportit"
+
+#: critiquebrainz/frontend/templates/footer.html:7
+#: critiquebrainz/frontend/templates/footer.html:33
+#: critiquebrainz/frontend/templates/log/browse.html:3
+#: critiquebrainz/frontend/templates/log/browse.html:6
+msgid "Moderation log"
+msgstr "Moderointiloki"
+
+#: critiquebrainz/frontend/templates/artist/entity.html:70
+#: critiquebrainz/frontend/templates/event/entity.html:63
+#: critiquebrainz/frontend/templates/footer.html:15
+#: critiquebrainz/frontend/templates/label/entity.html:31
+#: critiquebrainz/frontend/templates/macros.html:28
+#: critiquebrainz/frontend/templates/navbar.html:58
+#: critiquebrainz/frontend/templates/place/entity.html:54
+#: critiquebrainz/frontend/templates/recording/entity.html:39
+#: critiquebrainz/frontend/templates/review/browse.html:4
+#: critiquebrainz/frontend/templates/review/browse.html:7
+#: critiquebrainz/frontend/templates/statistics/stats.html:22
+#: critiquebrainz/frontend/templates/user/base.html:26
+#: critiquebrainz/frontend/templates/user/info.html:36
+#: critiquebrainz/frontend/templates/user/reviews.html:3
+#: critiquebrainz/frontend/templates/work/entity.html:31
+msgid "Reviews"
+msgstr "Arvostelut"
+
+#: critiquebrainz/frontend/templates/artist/entity.html:58
+#: critiquebrainz/frontend/templates/event/entity.html:21
+#: critiquebrainz/frontend/templates/footer.html:17
+#: critiquebrainz/frontend/templates/label/entity.html:19
+#: critiquebrainz/frontend/templates/macros.html:3
+#: critiquebrainz/frontend/templates/navbar.html:68
+#: critiquebrainz/frontend/templates/place/entity.html:21
+#: critiquebrainz/frontend/templates/recording/entity.html:25
+#: critiquebrainz/frontend/templates/search/index.html:57
+#: critiquebrainz/frontend/templates/search/index.html:64
+#: critiquebrainz/frontend/templates/search/index.html:71
+#: critiquebrainz/frontend/templates/search/index.html:78
+#: critiquebrainz/frontend/templates/search/index.html:85
+#: critiquebrainz/frontend/templates/search/index.html:93
+#: critiquebrainz/frontend/templates/search/index.html:101
+#: critiquebrainz/frontend/templates/work/entity.html:19
+msgid "Write a review"
+msgstr "Kirjoita arvostelu"
+
+#: critiquebrainz/frontend/templates/footer.html:21
+msgid "Developers"
+msgstr "Kehittäjät"
+
+#: critiquebrainz/frontend/templates/footer.html:23
+msgid "Web API"
+msgstr "Web API"
+
+#: critiquebrainz/frontend/templates/footer.html:24
+msgid "Source code"
+msgstr "Lähdekoodi"
+
+#: critiquebrainz/frontend/templates/footer.html:25
+msgid "Data dumps"
+msgstr "Vedostustiedostot"
+
+#: critiquebrainz/frontend/templates/footer.html:29
+#: critiquebrainz/frontend/templates/index/about.html:3
+#: critiquebrainz/frontend/templates/index/about.html:6
+msgid "About the project"
+msgstr "Tietoja projektista"
+
+#: critiquebrainz/frontend/templates/footer.html:31
+msgid "Blog"
+msgstr "Blogi"
+
+#: critiquebrainz/frontend/templates/footer.html:32
+#: critiquebrainz/frontend/templates/moderators/moderators.html:3
+#: critiquebrainz/frontend/templates/moderators/moderators.html:7
+msgid "Moderators"
+msgstr "Moderaattorit"
+
+#: critiquebrainz/frontend/templates/footer.html:40
+#: critiquebrainz/frontend/templates/navbar.html:82
+#: critiquebrainz/frontend/templates/search/index.html:92
+msgid "Language"
+msgstr "Kieli"
+
+#: critiquebrainz/frontend/templates/footer.html:51
+#, python-format
+msgid "Project of the %(metabrainz_fdn)s"
+msgstr "Projektista vastaa %(metabrainz_fdn)s"
+
+#: critiquebrainz/frontend/templates/macros.html:4
+#: critiquebrainz/frontend/templates/reports/reports.html:28
+msgid "Review"
+msgstr "Arvostelu"
+
+#: critiquebrainz/frontend/templates/macros.html:25
+msgid "Modify profile info and delete your profile."
+msgstr "Muokkaa profiilin tietoja tai poista profiilisi."
+
+#: critiquebrainz/frontend/templates/macros.html:25
+msgid "Profile data"
+msgstr "Profiilin tiedot"
+
+#: critiquebrainz/frontend/templates/macros.html:28
+msgid "Create and modify your reviews."
+msgstr "Luo ja muokkaa arvostelujasi."
+
+#: critiquebrainz/frontend/templates/macros.html:30
+msgid "Modify your applications (create, edit, delete)."
+msgstr "Muokkaa sovelluksiasi (luo, muokkaa, poista)."
+
+#: critiquebrainz/frontend/templates/macros.html:30
+#: critiquebrainz/frontend/templates/navbar.html:35
+#: critiquebrainz/frontend/templates/profile/applications/index.html:3
+#: critiquebrainz/frontend/templates/profile/applications/index.html:6
+msgid "Applications"
+msgstr "Sovellukset"
+
+#: critiquebrainz/frontend/templates/macros.html:33
+msgid ""
+"Manage access to your profile for other apps (can allow complete access to "
+"your profile and remove existing access authorizations)."
+msgstr "Hallinnoi pääsyä profiiliisi muista ohjelmista (saattaa mahdollistaa täyden pääsyn profiiliisi, sekä poistaa olemassa olevia tunnistautumisia)."
+
+#: critiquebrainz/frontend/templates/macros.html:33
+msgid "Authorization"
+msgstr "Tunnistautuminen"
+
+#: critiquebrainz/frontend/templates/macros.html:36
+msgid "Submit and delete your votes."
+msgstr "Lähetä ja poista äänestyksiäsi."
+
+#: critiquebrainz/frontend/templates/macros.html:36
+msgid "Review votes"
+msgstr "Arvostelun äänet"
+
+#: critiquebrainz/frontend/templates/macros.html:46
+#: critiquebrainz/frontend/templates/navbar.html:100
+#: critiquebrainz/frontend/templates/review/browse.html:21
+#: critiquebrainz/frontend/templates/review/modify/event.html:5
+#: critiquebrainz/frontend/templates/search/index.html:29
+msgid "Event"
+msgstr "Tapahtuma"
+
+#: critiquebrainz/frontend/templates/macros.html:53
+#: critiquebrainz/frontend/templates/navbar.html:101
+#: critiquebrainz/frontend/templates/review/browse.html:23
+#: critiquebrainz/frontend/templates/review/modify/event.html:12
+#: critiquebrainz/frontend/templates/review/modify/place.html:5
+#: critiquebrainz/frontend/templates/search/index.html:30
+msgid "Place"
+msgstr "Paikka"
+
+#: critiquebrainz/frontend/templates/macros.html:60
+#: critiquebrainz/frontend/templates/navbar.html:98
+#: critiquebrainz/frontend/templates/review/browse.html:25
+#: critiquebrainz/frontend/templates/review/modify/work.html:5
+#: critiquebrainz/frontend/templates/search/index.html:27
+msgid "Work"
+msgstr "Teos"
+
+#: critiquebrainz/frontend/templates/macros.html:67
+#: critiquebrainz/frontend/templates/navbar.html:97
+#: critiquebrainz/frontend/templates/review/browse.html:15
+#: critiquebrainz/frontend/templates/review/modify/artist.html:5
+#: critiquebrainz/frontend/templates/review/modify/recording.html:18
+#: critiquebrainz/frontend/templates/review/modify/release_group.html:5
+#: critiquebrainz/frontend/templates/search/index.html:26
+#: critiquebrainz/frontend/templates/search/index.html:62
+#: critiquebrainz/frontend/templates/search/index.html:76
+#: critiquebrainz/frontend/templates/search/index.html:99
+msgid "Artist"
+msgstr "Artisti"
+
+#: critiquebrainz/frontend/templates/macros.html:74
+#: critiquebrainz/frontend/templates/navbar.html:99
+#: critiquebrainz/frontend/templates/review/browse.html:17
+#: critiquebrainz/frontend/templates/review/modify/label.html:5
+#: critiquebrainz/frontend/templates/search/index.html:28
+msgid "Label"
+msgstr "Levymerkki"
+
+#: critiquebrainz/frontend/templates/macros.html:81
+#: critiquebrainz/frontend/templates/navbar.html:103
+#: critiquebrainz/frontend/templates/review/browse.html:19
+#: critiquebrainz/frontend/templates/review/modify/recording.html:6
+#: critiquebrainz/frontend/templates/search/index.html:32
+msgid "Recording"
+msgstr "Äänite"
+
+#: critiquebrainz/frontend/templates/macros.html:88
+msgid "Release Group"
+msgstr "Julkaisuryhmä"
+
+#: critiquebrainz/frontend/templates/macros.html:93
+msgid "We don't have cover art for this release group."
+msgstr "Tälle julkaisuryhmälle ei löydy kansitaidetta."
+
+#: critiquebrainz/frontend/templates/macros.html:97
+msgid "See how to add cover art!"
+msgstr "Katso miten lisäät kansitaiteen!"
+
+#: critiquebrainz/frontend/templates/macros.html:117
+#, python-format
+msgid "Review by %(user)s"
+msgstr "Arvostelu käyttäjältä %(user)s"
+
+#: critiquebrainz/frontend/templates/macros.html:127
+msgid "View Spotify mapping information"
+msgstr "Tarkastele Spotifyn kartoitustietoja"
+
+#: critiquebrainz/frontend/templates/macros.html:133
+msgid ""
+"We don't have a mapping between this release group and Spotify. Please help "
+"us find the right album."
+msgstr "Tälle julkaisuryhmälle ei ole Spotifyn kartoitusta. Auta löytämään oikea julkaisu."
+
+#: critiquebrainz/frontend/templates/macros.html:137
+msgid "Match this!"
+msgstr "Etsi kartoitus!"
+
+#: critiquebrainz/frontend/templates/macros.html:163
+msgid "(none)"
+msgstr "(ei yhtään)"
+
+#: critiquebrainz/frontend/templates/macros.html:187
+#, python-format
+msgid "based on %(num)s rating"
+msgid_plural "based on %(num)s ratings"
+msgstr[0] "perustuen %(num)s arvosteluun"
+msgstr[1] "perustuen %(num)s arvosteluihin"
+
+#: critiquebrainz/frontend/templates/macros.html:192
+#, python-format
+msgid "%(user)s"
+msgstr "%(user)s"
+
+#: critiquebrainz/frontend/templates/macros.html:209
+#, python-format
+msgid "<h4><a href=\"%(link)s\">Sign in</a> to rate!</h4>"
+msgstr "<h4><a href=\"%(link)s\">Kirjaudu</a> ja arvioi!</h4>"
+
+#: critiquebrainz/frontend/templates/macros.html:220
+#: critiquebrainz/frontend/templates/review/modify/work.html:20
+#: critiquebrainz/frontend/templates/user/reviews.html:46
+#: critiquebrainz/frontend/templates/user/reviews.html:60
+msgid "more"
+msgstr "lisää"
+
+#: critiquebrainz/frontend/templates/macros.html:231
+msgid "Page Navigation"
+msgstr "Sivunavigointi"
+
+#: critiquebrainz/frontend/templates/macros.html:234
+msgid "Previous"
+msgstr "Edellinen"
+
+#: critiquebrainz/frontend/templates/macros.html:260
+msgid "Next"
+msgstr "Seuraava"
+
+#: critiquebrainz/frontend/templates/navbar.html:6
+msgid "Toggle navigation"
+msgstr "Vaihda navigointi"
+
+#: critiquebrainz/frontend/templates/login/index.html:3
+#: critiquebrainz/frontend/templates/login/index.html:6
+#: critiquebrainz/frontend/templates/navbar.html:21
+#: critiquebrainz/frontend/templates/navbar.html:51
+msgid "Sign in"
+msgstr "Kirjaudu"
+
+#: critiquebrainz/frontend/templates/navbar.html:30
+msgid "Profile"
+msgstr "Profiili"
+
+#: critiquebrainz/frontend/templates/navbar.html:41
+msgid "Sign out"
+msgstr "Kirjaudu ulos"
+
+#: critiquebrainz/frontend/templates/navbar.html:63
+msgid "Browse reviews"
+msgstr "Selaa arvosteluita"
+
+#: critiquebrainz/frontend/templates/index/index.html:22
+#: critiquebrainz/frontend/templates/navbar.html:76
+#: critiquebrainz/frontend/templates/user/info.html:35
+msgid "Statistics"
+msgstr "Tilastot"
+
+#: critiquebrainz/frontend/templates/navbar.html:93
+#: critiquebrainz/frontend/templates/search/index.html:7
+#: critiquebrainz/frontend/templates/search/index.html:13
+#: critiquebrainz/frontend/templates/search/index.html:38
+msgid "Search"
+msgstr "Etsi"
+
+#: critiquebrainz/frontend/templates/navbar.html:102
+#: critiquebrainz/frontend/templates/review/browse.html:13
+#: critiquebrainz/frontend/templates/review/modify/release_group.html:6
+#: critiquebrainz/frontend/templates/search/index.html:31
+#: critiquebrainz/frontend/templates/search/index.html:75
+#: critiquebrainz/frontend/templates/search/index.html:100
+msgid "Release group"
+msgstr "Julkaisuryhmä"
+
+#: critiquebrainz/frontend/templates/artist/entity.html:63
+#: critiquebrainz/frontend/templates/event/entity.html:26
+#: critiquebrainz/frontend/templates/label/entity.html:24
+#: critiquebrainz/frontend/templates/place/entity.html:26
+#: critiquebrainz/frontend/templates/recording/entity.html:30
+#: critiquebrainz/frontend/templates/work/entity.html:24
+msgid "Edit my review"
+msgstr "Muokkaa arvosteluani"
+
+#: critiquebrainz/frontend/templates/artist/entity.html:72
+#: critiquebrainz/frontend/templates/event/entity.html:65
+#: critiquebrainz/frontend/templates/index/index.html:52
+#: critiquebrainz/frontend/templates/index/index.html:79
+#: critiquebrainz/frontend/templates/label/entity.html:33
+#: critiquebrainz/frontend/templates/place/entity.html:56
+#: critiquebrainz/frontend/templates/recording/entity.html:41
+#: critiquebrainz/frontend/templates/review/browse.html:43
+#: critiquebrainz/frontend/templates/user/reviews.html:7
+#: critiquebrainz/frontend/templates/work/entity.html:33
+msgid "No reviews found"
+msgstr "Ei arvosteluja"
+
+#: critiquebrainz/frontend/templates/artist/entity.html:78
+#: critiquebrainz/frontend/templates/event/entity.html:71
+#: critiquebrainz/frontend/templates/label/entity.html:39
+#: critiquebrainz/frontend/templates/place/entity.html:62
+#: critiquebrainz/frontend/templates/recording/entity.html:47
+#: critiquebrainz/frontend/templates/user/reviews.html:17
+#: critiquebrainz/frontend/templates/work/entity.html:39
+msgid "Published on"
+msgstr "Julkaistu"
+
+#: critiquebrainz/frontend/templates/artist/entity.html:79
+#: critiquebrainz/frontend/templates/event/entity.html:72
+#: critiquebrainz/frontend/templates/label/entity.html:40
+#: critiquebrainz/frontend/templates/place/entity.html:63
+#: critiquebrainz/frontend/templates/recording/entity.html:48
+#: critiquebrainz/frontend/templates/review/modify/edit.html:14
+#: critiquebrainz/frontend/templates/review/revisions.html:25
+#: critiquebrainz/frontend/templates/user/reviews.html:18
+#: critiquebrainz/frontend/templates/work/entity.html:40
+msgid "Votes (+/-)"
+msgstr "Äänet (+/-)"
+
+#: critiquebrainz/frontend/templates/artist/entity.html:87
+#: critiquebrainz/frontend/templates/event/entity.html:80
+#: critiquebrainz/frontend/templates/label/entity.html:48
+#: critiquebrainz/frontend/templates/place/entity.html:71
+#: critiquebrainz/frontend/templates/recording/entity.html:56
+#: critiquebrainz/frontend/templates/work/entity.html:48
+#, python-format
+msgid "by %(reviewer)s"
+msgstr "arvostelijalta %(reviewer)s"
+
+#: critiquebrainz/frontend/templates/artist/entity.html:99
+#: critiquebrainz/frontend/templates/label/entity.html:60
+#: critiquebrainz/frontend/templates/place/entity.html:82
+#: critiquebrainz/frontend/templates/work/entity.html:60
+msgid "Hide reviews"
+msgstr "Piilota arvostelut"
+
+#: critiquebrainz/frontend/templates/artist/entity.html:101
+#: critiquebrainz/frontend/templates/label/entity.html:62
+#: critiquebrainz/frontend/templates/place/entity.html:84
+#: critiquebrainz/frontend/templates/work/entity.html:62
+msgid "Show all reviews"
+msgstr "Näytä kaikki arvostelut"
+
+#: critiquebrainz/frontend/templates/artist/entity.html:107
+msgid "Discography"
+msgstr "Diskografia"
+
+#: critiquebrainz/frontend/templates/artist/entity.html:110
+#: critiquebrainz/frontend/templates/label/entity.html:71
+msgid "Albums"
+msgstr "Julkaisut"
+
+#: critiquebrainz/frontend/templates/artist/entity.html:113
+#: critiquebrainz/frontend/templates/label/entity.html:74
+msgid "Singles"
+msgstr "Singlet"
+
+#: critiquebrainz/frontend/templates/artist/entity.html:116
+#: critiquebrainz/frontend/templates/label/entity.html:77
+msgid "EPs"
+msgstr "EP:t"
+
+#: critiquebrainz/frontend/templates/artist/entity.html:119
+#: critiquebrainz/frontend/templates/label/entity.html:80
+msgid "Broadcasts"
+msgstr "Lähetykset"
+
+#: critiquebrainz/frontend/templates/artist/entity.html:122
+#: critiquebrainz/frontend/templates/label/entity.html:83
+msgid "Other releases"
+msgstr "Muut julkaisut"
+
+#: critiquebrainz/frontend/templates/artist/entity.html:126
+#: critiquebrainz/frontend/templates/label/entity.html:87
+msgid "No releases found"
+msgstr "Ei julkaisuja"
+
+#: critiquebrainz/frontend/templates/artist/entity.html:135
+#: critiquebrainz/frontend/templates/label/entity.html:96
+#, python-format
+msgid "%(num)d review"
+msgid_plural "%(num)d reviews"
+msgstr[0] "%(num)d arvostelu"
+msgstr[1] "%(num)d arvostelua"
+
+#: critiquebrainz/frontend/templates/artist/entity.html:161
+msgid "Artist information"
+msgstr "Tietoja artistista"
+
+#: critiquebrainz/frontend/templates/artist/entity.html:167
+msgid "Member of"
+msgstr "Jäsenenä"
+
+#: critiquebrainz/frontend/templates/artist/entity.html:169
+msgid "Members"
+msgstr "Jäsenet"
+
+#: critiquebrainz/frontend/templates/artist/entity.html:178
+#: critiquebrainz/frontend/templates/artist/entity.html:198
+msgid "View all..."
+msgstr "Näytä kaikki..."
+
+#: critiquebrainz/frontend/templates/artist/entity.html:186
+msgid "Former member of"
+msgstr "Ennen jäsenenä"
+
+#: critiquebrainz/frontend/templates/artist/entity.html:188
+msgid "Former members"
+msgstr "Entiset jäsenet"
+
+#: critiquebrainz/frontend/templates/artist/entity.html:205
+#: critiquebrainz/frontend/templates/label/entity.html:126
+#: critiquebrainz/frontend/templates/place/entity.html:98
+#: critiquebrainz/frontend/templates/recording/entity.html:96
+#: critiquebrainz/frontend/templates/work/entity.html:110
+msgid "External links"
+msgstr "Ulkoiset linkit"
+
+#: critiquebrainz/frontend/templates/artist/entity.html:225
+#: critiquebrainz/frontend/templates/event/entity.html:142
+#: critiquebrainz/frontend/templates/label/entity.html:145
+#: critiquebrainz/frontend/templates/place/entity.html:138
+#: critiquebrainz/frontend/templates/recording/entity.html:116
+#: critiquebrainz/frontend/templates/work/entity.html:130
+msgid "Edit on MusicBrainz"
+msgstr "Muokkaa MusicBrainzissa"
+
+#: critiquebrainz/frontend/templates/errors/400.html:2
+msgid "Invalid request"
+msgstr "Epäkelpo pyyntö"
+
+#: critiquebrainz/frontend/templates/errors/401.html:2
+msgid "Unauthorized"
+msgstr "Ei valtuuksia"
+
+#: critiquebrainz/frontend/templates/errors/403.html:2
+msgid "Access denied"
+msgstr "Pääsy evätty"
+
+#: critiquebrainz/frontend/templates/errors/404.html:2
+msgid "Page not found"
+msgstr "Sivua ei löydy"
+
+#: critiquebrainz/frontend/templates/errors/500.html:2
+msgid "Internal server error"
+msgstr "Sisäinen palvelinvirhe"
+
+#: critiquebrainz/frontend/templates/errors/503.html:2
+msgid "Service unavailable"
+msgstr "Palvelu estynyt"
+
+#: critiquebrainz/frontend/templates/errors/base.html:9
+msgid "Back to home page"
+msgstr "Takaisin kotisivulle"
+
+#: critiquebrainz/frontend/templates/event/entity.html:51
+#: critiquebrainz/frontend/templates/review/entity/event.html:48
+msgid "Held at"
+msgstr "Paikassa"
+
+#: critiquebrainz/frontend/templates/event/entity.html:107
+msgid "Event information"
+msgstr "Tapahtuman tiedot"
+
+#: critiquebrainz/frontend/templates/event/entity.html:133
+#: critiquebrainz/frontend/templates/recording/entity.html:90
+msgid "External reviews"
+msgstr "Ulkoiset arvostelut"
+
+#: critiquebrainz/frontend/templates/index/about.html:8
+msgid "What is CritiqueBrainz?"
+msgstr "Mikä CritiqueBrainz on?"
+
+#: critiquebrainz/frontend/templates/index/about.html:10
+msgid ""
+"<strong>CritiqueBrainz is a repository for Creative Commons licensed music reviews.</strong>\n"
+"  Here you can read what others have written about an album or event and write your own review!\n"
+"  It is based on data from MusicBrainz - open music encyclopedia."
+msgstr "<strong>CritiqueBrainz on tietokanta Creative Commons lisenssillä julkaistuille musiikkiarvosteluille.</strong>\n  Täällä voit lukea mitä muut ovat kirjoittaneet albumeista sekä tapahtumista ja voit kirjoittaa omat arvostelusi!\n  Tiedot pohjaavat MusicBrainz - avoimen musiikkitietokannan tietoihin."
+
+#: critiquebrainz/frontend/templates/index/about.html:15
+msgid "What is it for?"
+msgstr "Mitä hyötyä siitä on?"
+
+#: critiquebrainz/frontend/templates/index/about.html:17
+msgid ""
+"Projects like Wikipedia and MusicBrainz are good at aggregating information about\n"
+"  music, but not suited for expressing opinions about it. That's not their purpose.\n"
+"  CritiqueBrainz fills the gap between music critics and raw data."
+msgstr "Projektit, kuten Wikipedia ja MusicBrainz ovat hyviä keräämään tietoa musiikista,\n  mutta eivät ole sopivia ilmaisemaan mielipiteitä siitä. Se ei ole niiden tarkoitus.\n  CritiqueBrainz täyttää musiikkiarvostelijoiden ja tietoaineiston välisen aukon."
+
+#: critiquebrainz/frontend/templates/index/about.html:22
+msgid ""
+"This is an open platform. That means everyone - including you - can participate\n"
+"  and contribute. If you are good at writing and want to share your thoughts about\n"
+"  an album - feel free to write a new review. If that's not your thing and you just\n"
+"  want to read opinions - that's fine too."
+msgstr "Tämä on avoin alusta. Se tarkoittaa, että kuka tahansa voi osallistua ja luoda sisältöä.\n  Jos olet hyvä kirjoittamaan ja haluat jakaa ajatuksiasi julkaisuista, voit vapaasti kirjoittaa\n  uusia arvosteluja. Voit myös ihan vapaasti vain lukea muiden mielipiteitä."
+
+#: critiquebrainz/frontend/templates/index/about.html:28
+msgid ""
+"After reading a review you can mark it as useful or not. That will help other\n"
+"  music enthusiasts like you find good reviews."
+msgstr "Luettuasi arvostelun, voit arvioida sen hyödylliseksi tai epähyödylliseksi.\n  Se auttaa muita musiikinystäviä löytämään hyviä arvosteluja."
+
+#: critiquebrainz/frontend/templates/index/guidelines.html:3
+#: critiquebrainz/frontend/templates/index/guidelines.html:7
+msgid "Review guidelines"
+msgstr "Arvostelujen ohjeistus"
+
+#: critiquebrainz/frontend/templates/index/guidelines.html:9
+msgid ""
+"\n"
+"      <strong>Please note that this is an early version of the guidelines page.</strong>\n"
+"      Feel free to suggest improvements to this page and report any issues that you find. Thanks!\n"
+"  "
+msgstr "\n      <strong>Tämä on varhaisia versioita ohjesivusta.</strong>\n      Ehdota sivulle parannuksia ja ilmoita virheistä joihin törmäät. Kiitos!\n  "
+
+#: critiquebrainz/frontend/templates/index/guidelines.html:14
+msgid "General tips"
+msgstr "Yleisiä vihjeitä"
+
+#: critiquebrainz/frontend/templates/index/guidelines.html:16
+msgid "Read some good reviews"
+msgstr "Lue hyviä arvosteluja"
+
+#: critiquebrainz/frontend/templates/index/guidelines.html:17
+msgid ""
+"You can find a lot of great reviews on CritiqueBrainz and other websites. "
+"Use them for inspiration."
+msgstr "Löydät monia mahtavia arvosteluja CritiqueBrainzistä ja muilta websivustoilta. Käytä niitä inspiraationa."
+
+#: critiquebrainz/frontend/templates/index/guidelines.html:20
+msgid "Write in a comfortable voice"
+msgstr "Kirjoita sopivaan äänensävyyn"
+
+#: critiquebrainz/frontend/templates/index/guidelines.html:21
+msgid ""
+"A good review probably won't sound like an academic paper, and probably won't sound like a YouTube\n"
+"                comment, but it should sound like <em>you</em>."
+msgstr "Hyvä arvostelu tuskin kuulostaa akateemiselta paperilta eikä YouTube-kommentilta,\n                vaan sen tulisi kuulostaa <em>sinulta</em>."
+
+#: critiquebrainz/frontend/templates/index/guidelines.html:25
+msgid "Reviews on CritiqueBrainz don't have to be in English"
+msgstr "Arvostelujen ei tarvitse olla kirjoitettuna englanniksi CritiqueBrainz-sivustolla"
+
+#: critiquebrainz/frontend/templates/index/guidelines.html:26
+msgid ""
+"You are more than welcome to write review in a language that you prefer to use. Choose a language in\n"
+"                which you can express your emotions/thoughts freely."
+msgstr "Olet täysin tervetullut kirjoittamaan kielellä jolla haluat. Valitse kieli, jolla\n                voit ilmaista tunteesi ja ajatuksesi vapaasti."
+
+#: critiquebrainz/frontend/templates/index/guidelines.html:30
+msgid "Formatting"
+msgstr "Muotoilu"
+
+#: critiquebrainz/frontend/templates/index/guidelines.html:32
+msgid ""
+"Reviews can use the <a href=\"https://en.wikipedia.org/wiki/Markdown\">Markdown</a> markup language. This should\n"
+"          make it easier to write reviews and format them well. Use it to emphasize parts of your review, add links to\n"
+"          additional information, insert images when necessary."
+msgstr "Arvosteluissa voi käyttää <a href=\"https://en.wikipedia.org/wiki/Markdown\">Markdown</a>-muotokieltä. Sen avulla voit\n          helpottaa arvostelujen kirjoittamista ja muotoilemista. Käytä sitä korostamaan osia arvostelustasi,\n          lisäämään tietoa ja kuvia mikäli näet sille tarvetta."
+
+#: critiquebrainz/frontend/templates/index/guidelines.html:37
+msgid "Properly formatted review is easier to read and understand."
+msgstr "Hyvin muotoiltu arvostelu on helpompi lukea ja ymmärtää."
+
+#: critiquebrainz/frontend/templates/index/guidelines.html:40
+msgid "Content tips"
+msgstr "Sisältövihjeitä"
+
+#: critiquebrainz/frontend/templates/index/guidelines.html:43
+msgid "Write a short description."
+msgstr "Kirjoita lyhyt kuvaus."
+
+#: critiquebrainz/frontend/templates/index/guidelines.html:44
+msgid "Provide a context for the thing that you are reviewing."
+msgstr "Anna konteksti arvostelemallesi asialle."
+
+#: critiquebrainz/frontend/templates/index/guidelines.html:47
+msgid "Follow your thinking and feelings."
+msgstr "Seuraa ajatteluasi ja tunteitasi."
+
+#: critiquebrainz/frontend/templates/index/guidelines.html:48
+msgid ""
+"A good reviewer is one who reviews a something based on what <em>they</em> "
+"feel rather than others."
+msgstr "Hyvä arvostelija arvostelee <em>omien</em> tunteidensa mukaan eikä muiden."
+
+#: critiquebrainz/frontend/templates/index/guidelines.html:51
+msgid "Good reviews are neither too short nor too long"
+msgstr "Hyvät arvostelut eivät ole liian lyhyitä eivätkä liian pitkiä"
+
+#: critiquebrainz/frontend/templates/index/guidelines.html:52
+msgid ""
+"It's better to make your reviews neither too short nor too long. Try to write something which gives readers\n"
+"            a clear image as to what something is like while not being too boring."
+msgstr "On parempi olla kirjoittamatta arvosteluista liian lyhyitä tai pitkiä. Yritä kirjoittaa niin, että lukija saa selvän\n            kuvan siitä mitä mikin on olematta liian pitkäveteinen."
+
+#: critiquebrainz/frontend/templates/index/guidelines.html:56
+msgid "Don't mention just the factual data."
+msgstr "Älä pelkästään luettele faktoja."
+
+#: critiquebrainz/frontend/templates/index/guidelines.html:57
+msgid ""
+"Sometimes people mention only factual data in their reviews which makes a "
+"review look more like a press release."
+msgstr "Pelkkiä faktoja sisältävä arvostelu näyttää enemmän lehdistötiedotukselta."
+
+#: critiquebrainz/frontend/templates/index/guidelines.html:61
+msgid "Specific review types"
+msgstr "Erilliset arvostelukohteet"
+
+#: critiquebrainz/frontend/templates/index/guidelines.html:62
+msgid ""
+"In addition to the general tips given above, here are some specific tips for each review type which might\n"
+"           help you to strengthen your review."
+msgstr "Yleisten vihjeiden lisäksi, tässä eri arvostelukohteille kohdennettuja vihjeitä, jotka saattavat auttaa vahvistamaan arvosteluasi."
+
+#: critiquebrainz/frontend/templates/index/guidelines.html:65
+msgid "Albums (Release Groups)"
+msgstr "Albumit (Julkaisuryhmät)"
+
+#: critiquebrainz/frontend/templates/index/guidelines.html:68
+msgid ""
+"Describing the instrumental arrangement - Mentioning about the rhythmic effects, describing the variety of\n"
+"      instruments used in the song and how were the digital effects etc."
+msgstr "Sovitusten ja soitinten kuvailu - mainitse rytmivaihteluista, soitinten vaihtelevuudesta, digitaalisista efekteistä jne."
+
+#: critiquebrainz/frontend/templates/index/guidelines.html:72
+msgid "You may tell about lyrics and the recording quality -"
+msgstr "Voit kertoa sanoituksista ja nauhoituslaadusta -"
+
+#: critiquebrainz/frontend/templates/index/guidelines.html:75
+msgid ""
+"Lyrics is what makes a song/album meaningful. You can always right about how were the lyrics? Was it\n"
+"          meaningful? Did it match the music?"
+msgstr "Sanoitus tekee laulusta/albumista merkityksellisen. Voit aina kirjoittaa miten sanoituksen merkityksellisyydestä ja kuinka ne sopivat musiikkiin."
+
+#: critiquebrainz/frontend/templates/index/guidelines.html:79
+msgid ""
+"Recording quality matters a lot. If it's good it's good but if it's bad it will flop the whole album. It's\n"
+"          always better to note these things and mention about it in your review."
+msgstr "Äänityslaatu merkitsee paljon. Jos laatu on hyvä, se on hyvä. Huonolaatuinen nauhoitus taas pilaa koko albumin.\n          On aina parempi huomioida äänityksen laatu ja mainita sekin arvostelussa."
+
+#: critiquebrainz/frontend/templates/index/guidelines.html:85
+msgid ""
+"Be clear with your conclusion - If it's a must hear album give it some direction. It's always good to mention\n"
+"      the genre of the music. You may try to compare it with some other album which has been already released having the\n"
+"      same genre which will give the readers an idea as to what they can expect."
+msgstr "Ole selväsanainen johtopäätöksessäsi - jos albumi on pakko kuulla, sano se. On myös hyvä mainita aina musiikin tyylilaji. Voit yrittää verrata sitä johonkin jo julkaistuun albumiin, niin lukijat tietävät mitä odottaa."
+
+#: critiquebrainz/frontend/templates/index/guidelines.html:91
+#: critiquebrainz/frontend/templates/place/entity.html:144
+msgid "Events"
+msgstr "Tapahtumat"
+
+#: critiquebrainz/frontend/templates/index/guidelines.html:94
+msgid ""
+"Describe the event place - Event reviews are enhanced by description of the event venue as to how big was it?\n"
+"      Was it sufficient for the crowd? or How well the band/artist sound in it?"
+msgstr "Kuvaile tapahtumapaikka - Tapahtumien arvostelut hyötyvät siitä että kerrotaan tapahtuman koko. Oliko tila tarpeeksi suuri yleisölle? Kuinka hyvin yhtyeen/artistin ääni toistui ja miltä kuulosti siellä."
+
+#: critiquebrainz/frontend/templates/index/guidelines.html:98
+msgid ""
+"Writing about the music played there - You may describe which songs were played in the event. Which were your\n"
+"      favourite songs played, you can write about the staging of the band. Were there any things which you didn't like?\n"
+"      If yes, then why?"
+msgstr "Kirjoita soitetusta musiikista - voit kertoa kappaleista, joita soitettiin tapahtumassa. Mitkä olivat lempikappaleesi, millainen oli lavashow. Oliko jotain mistä et pitänyt? Jos oli, niin miksi?"
+
+#: critiquebrainz/frontend/templates/index/guidelines.html:103
+msgid ""
+"Special moments, effects and surprises - Often there are special moments in every event, you may describe such\n"
+"      moments that took place. You may also write about special guests(if any) also any special effects in the event\n"
+"      which caught everyone's attention."
+msgstr "Erityiset hetket, tehosteet ja yllätykset - Yleensä tapahtumissa on erityisiä hetkiä, voit kuvailla niitä. Voit myös kertoa vierailevista tähdistä, jos oli, tai erikoisefekteistä, jotka veivät kaikkien huomion."
+
+#: critiquebrainz/frontend/templates/index/guidelines.html:108
+msgid ""
+"Writing about Event atmosphere - You may always describe about the crowd, how well the artists/band were able to\n"
+"      entertain the crowd? Was the crowd exciting or was it a monotonous atmosphere?"
+msgstr "Kirjoita tapahtuman ilmapiiristä - Aina voi kuvailla yleisöä, kuinka hyvin artistit/yhtye otti yleisön mukaan. Oliko yleisö innostunutta vai oliko vaisu ilmapiiri."
+
+#: critiquebrainz/frontend/templates/index/guidelines.html:113
+msgid "Places"
+msgstr "Paikat"
+
+#: critiquebrainz/frontend/templates/index/guidelines.html:116
+msgid ""
+"Description about the location - You may describe where the place is located, whether it's located in the heart\n"
+"      of the city or is it located on the periphery."
+msgstr "Kuvaus paikasta - Voit kuvailla missä paikka on, kaupungin ytimessä vai jossain muualla."
+
+#: critiquebrainz/frontend/templates/index/guidelines.html:120
+msgid ""
+"Writing about the architecture - If it's a musical stadium people want to know about how many people can the\n"
+"      place occupy, how well the artist sounds in each corner of the place etc."
+msgstr "Arkkitehtuurista kirjoittaminen - Jos paikka on esimerkiksi stadioni, ihmiset haluavat tietää paljonko sinne mahtuu väkeä, miltä eri paikoissa aluetta kuulostaa ja niin edespäin."
+
+#: critiquebrainz/frontend/templates/index/guidelines.html:126
+msgid "💡 Note:"
+msgstr "💡 Huomio:"
+
+#: critiquebrainz/frontend/templates/index/guidelines.html:127
+msgid ""
+"Try to be <strong>honest</strong> while reviewing, simply don't follow the trend. Review the album as to what\n"
+"    you felt. And try to follow active voice."
+msgstr "Yritä olla <strong>rehellinen</strong> arvostellessasi, älä seuraa trendejä. Arvostele albumi niin kuin itse tunsit. Ja yritä olla aktiivinen kertoja."
+
+#: critiquebrainz/frontend/templates/index/guidelines.html:131
+msgid "Common mistakes"
+msgstr "Yleisiä virheitä"
+
+#: critiquebrainz/frontend/templates/index/guidelines.html:133
+msgid "Writing long reviews that lack specific details."
+msgstr "Pitkien arvostelujen kirjoittaminen, joista puuttuu tiettyjä yksityiskohtia."
+
+#: critiquebrainz/frontend/templates/index/guidelines.html:134
+msgid ""
+"Forgetting to check the factual information in the review after completing "
+"the writing process."
+msgstr "Arvostelun sisältämien faktojen tarkistuksen unohtaminen ennen julkaisua."
+
+#: critiquebrainz/frontend/templates/index/guidelines.html:135
+msgid "Overlooking proofreading</strong> the review after finishing it."
+msgstr "Jättämättä arvostelun <strong>oikolukemisen</strong> tekemättä."
+
+#: critiquebrainz/frontend/templates/index/guidelines.html:136
+msgid "Mistakes such as punctuation, typo errors, capitalization etc."
+msgstr "Kirjoitusvirheet, kuten välimerkit, isot kirjaimet, yhdyssanat jne."
+
+#: critiquebrainz/frontend/templates/index/guidelines.html:137
+msgid ""
+"Writing in slangs - Try to write in proper English (or whatever language you prefer).\n"
+"              It's better not to write reviews in slangs."
+msgstr "Puhekielen käyttö - Yritä kirjoittaa kirjakielellä. Arvostelut toimivat paremmin niin ja ovat selvempiä."
+
+#: critiquebrainz/frontend/templates/index/guidelines.html:141
+msgid "Additional material"
+msgstr "Lisämateriaalia"
+
+#: critiquebrainz/frontend/templates/index/guidelines.html:142
+msgid "Some good review websites:"
+msgstr "Hyviä arvostelusivustoja:"
+
+#: critiquebrainz/frontend/templates/index/index.html:10
+msgid "Welcome to CritiqueBrainz!"
+msgstr "Tervetuloa CritiqueBrainziin!"
+
+#: critiquebrainz/frontend/templates/index/index.html:12
+msgid ""
+"CritiqueBrainz is a repository for Creative Commons licensed music reviews.\n"
+"        Here you can read what other people have written about an album or event and write your own review!"
+msgstr "CritiqueBrainz on tietokanta Creative Commons lisenssillä julkaistuille musiikkiarvosteluille.\n  Täällä voit lukea mitä muut ovat kirjoittaneet albumeista sekä tapahtumista ja voit kirjoittaa omat arvostelusi!"
+
+#: critiquebrainz/frontend/templates/index/index.html:16
+msgid ""
+"CritiqueBrainz is based on data from MusicBrainz - open music encyclopedia.\n"
+"        <br/>Everyone - including you - can participate and contribute."
+msgstr "CritiqueBrainz pohjautuu MusicBrainziin, avoimeen musiikkitietokantaan.\n        <br/>Kuka tahansa voi osallistua ja luoda sisältöä."
+
+#: critiquebrainz/frontend/templates/index/index.html:28
+msgid "Number"
+msgstr "Numero"
+
+#: critiquebrainz/frontend/templates/index/index.html:33
+msgid "Number of Reviews"
+msgstr "Arvosteluja"
+
+#: critiquebrainz/frontend/templates/index/index.html:34
+#, python-format
+msgid "%(review_count)s"
+msgstr "%(review_count)s"
+
+#: critiquebrainz/frontend/templates/index/index.html:37
+msgid "Number of Users"
+msgstr "Käyttäjiä"
+
+#: critiquebrainz/frontend/templates/index/index.html:38
+#, python-format
+msgid "%(user_count)s"
+msgstr "%(user_count)s"
+
+#: critiquebrainz/frontend/templates/index/index.html:50
+msgid "Popular reviews"
+msgstr "Suositut arvostelut"
+
+#: critiquebrainz/frontend/templates/index/index.html:77
+msgid "Recent reviews"
+msgstr "Viimeaikaisia arvosteluja"
+
+#: critiquebrainz/frontend/templates/index/index.html:101
+msgid "View all reviews..."
+msgstr "Näytä kaikki arvostelut..."
+
+#: critiquebrainz/frontend/templates/label/entity.html:68
+msgid "Releases"
+msgstr "Julkaisuja"
+
+#: critiquebrainz/frontend/templates/label/entity.html:122
+msgid "Label information"
+msgstr "Levymerkin tiedot"
+
+#: critiquebrainz/frontend/templates/log/action.html:5
+#: critiquebrainz/frontend/templates/user/reviews.html:33
+msgid "[Unknown release group]"
+msgstr "[Tuntematon julkaisuryhmä]"
+
+#: critiquebrainz/frontend/templates/log/action.html:12
+#, python-format
+msgid "Hide %(user)s's review of \"%(rg)s\""
+msgstr "Piilota käyttäjän %(user)s arvostelu \"%(rg)s\""
+
+#: critiquebrainz/frontend/templates/log/action.html:14
+#, python-format
+msgid "Unhide %(user)s's review of \"%(rg)s\""
+msgstr "Näytä käyttäjän %(user)s arvostelu \"%(rg)s\""
+
+#: critiquebrainz/frontend/templates/log/action.html:16
+#, python-format
+msgid "Block %(user)s"
+msgstr "Estä käyttäjätunnus %(user)s"
+
+#: critiquebrainz/frontend/templates/log/action.html:18
+#, python-format
+msgid "Unblock %(user)s"
+msgstr "Poista käyttäjätunnuksen %(user)s esto"
+
+#: critiquebrainz/frontend/templates/log/action.html:39
+msgid "Please provide a reason for taking this action (required)"
+msgstr "Määritä perustelut miksi olet tekemässä näin (vaadittu)"
+
+#: critiquebrainz/frontend/templates/log/action.html:43
+#: critiquebrainz/frontend/templates/mapping/confirm.html:27
+#: critiquebrainz/frontend/templates/mapping/report.html:27
+#: critiquebrainz/frontend/templates/review/delete.html:24
+#: critiquebrainz/frontend/templates/review/delete_comment.html:26
+#: critiquebrainz/frontend/templates/review/report.html:33
+msgid "Cancel"
+msgstr "Peruuta"
+
+#: critiquebrainz/frontend/templates/log/browse.html:11
+msgid "Load older logs"
+msgstr "Lataa vanhempia lokitietoja"
+
+#: critiquebrainz/frontend/templates/log/browse.html:13
+msgid "Loading older logs..."
+msgstr "Ladataan vanhempia lokitietoja..."
+
+#: critiquebrainz/frontend/templates/log/browse.html:38
+msgid "Failed to load older logs!"
+msgstr "Vanhempien lokitietojen lataaminen epäonnistui!"
+
+#: critiquebrainz/frontend/templates/log/log_results.html:6
+msgid "review"
+msgstr "arvostelu"
+
+#: critiquebrainz/frontend/templates/log/log_results.html:18
+#, python-format
+msgid "%(admin)s hid a %(review)s written by %(user)s"
+msgstr "%(admin)s piilotti käyttäjän %(user)s arvostelun %(review)s"
+
+#: critiquebrainz/frontend/templates/log/log_results.html:23
+#, python-format
+msgid "%(admin)s unhid a %(review)s written by %(user)s"
+msgstr "%(admin)s poisti piilotuksen käyttäjän %(user)s arvostelulta %(review)s"
+
+#: critiquebrainz/frontend/templates/log/log_results.html:28
+#, python-format
+msgid "%(admin)s blocked %(user)s"
+msgstr "%(admin)s esti käyttäjätunnuksen %(user)s"
+
+#: critiquebrainz/frontend/templates/log/log_results.html:33
+#, python-format
+msgid "%(admin)s unblocked %(user)s"
+msgstr "%(admin)s poisti eston käyttäjätunnukselta %(user)s"
+
+#: critiquebrainz/frontend/templates/log/log_results.html:37
+msgid "Reason:"
+msgstr "Syy:"
+
+#: critiquebrainz/frontend/templates/login/index.html:7
+msgid ""
+"To sign in, use your MusicBrainz account, and authorize CritiqueBrainz to "
+"access your profile data."
+msgstr "Kirjaudu MusicBrainzin käyttäjätililläsi, ja salli CritiqueBrainzin pääsy profiiliisi."
+
+#: critiquebrainz/frontend/templates/login/index.html:11
+msgid "Sign in with MusicBrainz"
+msgstr "Kirjaudu MusicBrainzilla"
+
+#: critiquebrainz/frontend/templates/mapping/confirm.html:4
+msgid "New Spotify mapping confirmation"
+msgstr "Uuden Spotifyn kartoituksen varmistaminen"
+
+#: critiquebrainz/frontend/templates/mapping/confirm.html:7
+msgid "Spotify album mapping confirmation"
+msgstr "Spotifyn julkaisun kartoituksen varmistaminen"
+
+#: critiquebrainz/frontend/templates/mapping/confirm.html:9
+msgid "Are you sure you want to create this mapping?"
+msgstr "Haluatko luoda tämän kartoituksen?"
+
+#: critiquebrainz/frontend/templates/mapping/confirm.html:14
+#: critiquebrainz/frontend/templates/mapping/report.html:14
+#, python-format
+msgid "%(album)s by %(artist)s"
+msgstr "Julkaisu %(album)s artistilta %(artist)s"
+
+#: critiquebrainz/frontend/templates/mapping/confirm.html:18
+#: critiquebrainz/frontend/templates/mapping/report.html:18
+msgid "Spotify"
+msgstr "Spotify"
+
+#: critiquebrainz/frontend/templates/mapping/confirm.html:19
+#: critiquebrainz/frontend/templates/mapping/report.html:19
+msgid "URI:"
+msgstr "URI:"
+
+#: critiquebrainz/frontend/templates/mapping/confirm.html:26
+msgid "Create"
+msgstr "Luo"
+
+#: critiquebrainz/frontend/templates/mapping/report.html:4
+#: critiquebrainz/frontend/templates/mapping/report.html:7
+msgid "Incorrect mapping reporting"
+msgstr "Virheellisestä kartoituksesta ilmoittaminen"
+
+#: critiquebrainz/frontend/templates/mapping/report.html:9
+msgid "Are you sure you want to report incorrect mapping?"
+msgstr "Haluatko ilmoittaa virheellisestä kartoituksesta?"
+
+#: critiquebrainz/frontend/templates/mapping/report.html:26
+msgid "Report incorrect mapping"
+msgstr "Ilmoita virheellisestä kartoituksesta"
+
+#: critiquebrainz/frontend/templates/moderators/moderators.html:8
+msgid "These users respond to reports and make sure that spammers don't spam."
+msgstr "Nämä käyttäjät vastaavat ilmoituksiin ja pitävät roskapostit kurissa."
+
+#: critiquebrainz/frontend/templates/oauth/prompt.html:4
+msgid "OAuth authorization"
+msgstr "OAuth tunnistautuminen"
+
+#: critiquebrainz/frontend/templates/oauth/prompt.html:7
+#, python-format
+msgid "Do you want to give access to your account to %(name)s?"
+msgstr "Haluatko antaa %(name)s pääsyn tiliisi?"
+
+#: critiquebrainz/frontend/templates/oauth/prompt.html:9
+msgid "You can revoke access at any time in your profile settings."
+msgstr "Voit poistaa pääsyoikeuden koska tahansa profiiliasetuksistasi."
+
+#: critiquebrainz/frontend/templates/oauth/prompt.html:15
+#: critiquebrainz/frontend/templates/profile/applications/index.html:20
+#: critiquebrainz/frontend/templates/profile/applications/index.html:54
+#: critiquebrainz/frontend/templates/search/index.html:53
+#: critiquebrainz/frontend/templates/search/index.html:61
+#: critiquebrainz/frontend/templates/search/index.html:68
+#: critiquebrainz/frontend/templates/search/index.html:82
+msgid "Name"
+msgstr "Nimi"
+
+#: critiquebrainz/frontend/templates/oauth/prompt.html:16
+#: critiquebrainz/frontend/templates/profile/applications/index.html:21
+#: critiquebrainz/frontend/templates/profile/applications/index.html:55
+msgid "Website"
+msgstr "Verkkosivu"
+
+#: critiquebrainz/frontend/templates/oauth/prompt.html:24
+#, python-format
+msgid ""
+"%(client)s is requesting permission to access the following parts of your "
+"profile:"
+msgstr "%(client)s pyytää pääsyä seuraaviin profiilisi tietoihin:"
+
+#: critiquebrainz/frontend/templates/oauth/prompt.html:31
+#, python-format
+msgid "%(client)s does not require any special permissions."
+msgstr "%(client)s ei vaadi mitään erityisiä oikeuksia."
+
+#: critiquebrainz/frontend/templates/oauth/prompt.html:37
+msgid "Allow access"
+msgstr "Salli pääsy"
+
+#: critiquebrainz/frontend/templates/oauth/prompt.html:38
+msgid "No thanks"
+msgstr "Ei kiitos"
+
+#: critiquebrainz/frontend/templates/place/entity.html:91
+msgid "Place information"
+msgstr "Tietoja paikasta"
+
+#: critiquebrainz/frontend/templates/place/entity.html:116
+msgid "Part of"
+msgstr "Kuuluu osana"
+
+#: critiquebrainz/frontend/templates/place/entity.html:126
+msgid "Parts"
+msgstr "Osia"
+
+#: critiquebrainz/frontend/templates/place/entity.html:147
+msgid "Concerts"
+msgstr "Konsertit"
+
+#: critiquebrainz/frontend/templates/place/entity.html:150
+msgid "Festivals"
+msgstr "Festivaalit"
+
+#: critiquebrainz/frontend/templates/place/entity.html:153
+msgid "Other Events"
+msgstr "Muut tapahtumat"
+
+#: critiquebrainz/frontend/templates/place/entity.html:157
+msgid "No events found"
+msgstr "Ei tapahtumia"
+
+#: critiquebrainz/frontend/templates/place/entity.html:162
+#: critiquebrainz/frontend/templates/search/index.html:89
+#: critiquebrainz/frontend/templates/search/index.html:97
+msgid "Title"
+msgstr "Nimi"
+
+#: critiquebrainz/frontend/templates/place/entity.html:163
+msgid "Date"
+msgstr "Päivämäärä"
+
+#: critiquebrainz/frontend/templates/profile/delete.html:3
+#: critiquebrainz/frontend/templates/profile/delete.html:6
+msgid "Delete account"
+msgstr "Poista tilini"
+
+#: critiquebrainz/frontend/templates/profile/delete.html:10
+msgid "Are you sure you want to delete your account?"
+msgstr "Haluatko varmasti poistaa tilisi?"
+
+#: critiquebrainz/frontend/templates/profile/delete.html:11
+msgid ""
+"All your data (i.e. reviews, votes, reports) will be purged. You "
+"<strong>cannot</strong> undo this action."
+msgstr "Kaikki tietosi poistetaan (arvostelut, äänestykset, raportit). Tätä toimintoa <strong>ei voi kumota</strong>."
+
+#: critiquebrainz/frontend/templates/profile/delete.html:14
+msgid "Yes, I want to delete my account"
+msgstr "Kyllä, haluan poistaa tilini"
+
+#: critiquebrainz/frontend/templates/profile/delete.html:15
+#: critiquebrainz/frontend/templates/review/entity/base.html:101
+msgid "No"
+msgstr "Ei"
+
+#: critiquebrainz/frontend/templates/profile/edit.html:3
+#: critiquebrainz/frontend/templates/profile/edit.html:6
+#: critiquebrainz/frontend/templates/user/base.html:13
+msgid "Edit profile"
+msgstr "Muokkaa profiilia"
+
+#: critiquebrainz/frontend/templates/profile/edit.html:39
+msgid "Save"
+msgstr "Tallenna"
+
+#: critiquebrainz/frontend/templates/profile/edit.html:44
+msgid "Delete my account"
+msgstr "Poista tilini"
+
+#: critiquebrainz/frontend/templates/profile/applications/create.html:3
+#: critiquebrainz/frontend/templates/profile/applications/create.html:6
+#: critiquebrainz/frontend/templates/profile/applications/index.html:11
+msgid "Create new application"
+msgstr "Luo uusi sovellus"
+
+#: critiquebrainz/frontend/templates/profile/applications/create.html:37
+msgid "Create application"
+msgstr "Luo sovellus"
+
+#: critiquebrainz/frontend/templates/profile/applications/edit.html:3
+#: critiquebrainz/frontend/templates/profile/applications/edit.html:6
+#, python-format
+msgid "Edit application %(name)s"
+msgstr "Muokkaa sovellusta %(name)s"
+
+#: critiquebrainz/frontend/templates/profile/applications/edit.html:37
+msgid "Save changes"
+msgstr "Tallenna muutokset"
+
+#: critiquebrainz/frontend/templates/profile/applications/index.html:9
+msgid "Your applications"
+msgstr "Sovelluksesi"
+
+#: critiquebrainz/frontend/templates/profile/applications/index.html:15
+msgid "No applications found"
+msgstr "Ei sovelluksia"
+
+#: critiquebrainz/frontend/templates/profile/applications/index.html:22
+msgid "Client ID"
+msgstr "Asiakasohjelman tunnus"
+
+#: critiquebrainz/frontend/templates/profile/applications/index.html:23
+msgid "Client secret"
+msgstr "Asiakasohjelman salaisuus"
+
+#: critiquebrainz/frontend/templates/profile/applications/index.html:35
+msgid "Modify"
+msgstr "Muokkaa"
+
+#: critiquebrainz/frontend/templates/profile/applications/index.html:36
+#: critiquebrainz/frontend/templates/user/reviews.html:119
+msgid "Delete"
+msgstr "Poista"
+
+#: critiquebrainz/frontend/templates/profile/applications/index.html:43
+#, python-format
+msgid "Developer documentation is available at %(link)s."
+msgstr "Kehittäjäin ohjeistus löytyy osoitteesta %(link)s."
+
+#: critiquebrainz/frontend/templates/profile/applications/index.html:47
+msgid "Authorized applications"
+msgstr "Valtuutetut sovellukset"
+
+#: critiquebrainz/frontend/templates/profile/applications/index.html:49
+msgid "No authorized applications found"
+msgstr "Ei valtuutettuja sovelluksia"
+
+#: critiquebrainz/frontend/templates/profile/applications/index.html:56
+msgid "Access"
+msgstr "Pääsyoikeudet"
+
+#: critiquebrainz/frontend/templates/profile/applications/index.html:75
+msgid "No special requirements"
+msgstr "Ei mitään eritystä"
+
+#: critiquebrainz/frontend/templates/profile/applications/index.html:79
+msgid "Revoke access"
+msgstr "Poista oikeudet"
+
+#: critiquebrainz/frontend/templates/recording/entity.html:6
+#, python-format
+msgid "Recording \"%(name)s\" by %(artist)s"
+msgstr "Äänite \"%(name)s\" tekijältä %(artist)s"
+
+#: critiquebrainz/frontend/templates/recording/entity.html:83
+msgid "Recording information"
+msgstr "Äänitteen tiedot"
+
+#: critiquebrainz/frontend/templates/reports/reports.html:3
+#: critiquebrainz/frontend/templates/reports/reports.html:6
+msgid "Recent reports"
+msgstr "Viimeaikaiset ilmoitukset"
+
+#: critiquebrainz/frontend/templates/reports/reports.html:25
+msgid "Reported on"
+msgstr "Ilmoitettu"
+
+#: critiquebrainz/frontend/templates/reports/reports.html:26
+msgid "Reported by"
+msgstr "Imoituksen tekijä"
+
+#: critiquebrainz/frontend/templates/reports/reports.html:27
+msgid "Reason"
+msgstr "Syy"
+
+#: critiquebrainz/frontend/templates/reports/reports.html:29
+msgid "Author"
+msgstr "Kirjoittaja"
+
+#: critiquebrainz/frontend/templates/reports/reports.html:30
+msgid "Actions"
+msgstr "Toiminnot"
+
+#: critiquebrainz/frontend/templates/reports/reports.html:38
+msgid "Load older reports"
+msgstr "Lataa vanhempia ilmoituksia"
+
+#: critiquebrainz/frontend/templates/reports/reports.html:40
+msgid "Loading older reports..."
+msgstr "Ladataan vanhempia ilmoituksia..."
+
+#: critiquebrainz/frontend/templates/reports/reports.html:65
+msgid "Failed to load older reports!"
+msgstr "Vanhempien ilmoitusten lataaminen epäonnistui!"
+
+#: critiquebrainz/frontend/templates/reports/reports_results.html:44
+msgid "Read latest revision"
+msgstr "Lue uusin versio"
+
+#: critiquebrainz/frontend/templates/review/browse.html:8
+msgid "Ordered by"
+msgstr "Järjestetty"
+
+#: critiquebrainz/frontend/templates/review/browse.html:11
+msgid "All"
+msgstr "Kaikki"
+
+#: critiquebrainz/frontend/templates/review/browse.html:29
+msgid "Sort by"
+msgstr "Lajittele"
+
+#: critiquebrainz/frontend/templates/review/compare.html:3
+msgid "Difference between revisions"
+msgstr "Vanhempien versioiden eroavaisuudet"
+
+#: critiquebrainz/frontend/templates/review/compare.html:9
+#: critiquebrainz/frontend/templates/review/compare.html:19
+msgid "Revision"
+msgstr "Versio"
+
+#: critiquebrainz/frontend/templates/review/compare.html:10
+#: critiquebrainz/frontend/templates/review/compare.html:20
+msgid "as of"
+msgstr "tallennettu"
+
+#: critiquebrainz/frontend/templates/review/delete.html:11
+#, python-format
+msgid "Delete review of \"%(entity)s\""
+msgstr "Poista arvostelu entiteetistä \"%(entity)s\""
+
+#: critiquebrainz/frontend/templates/review/delete.html:15
+msgid "Deleting review"
+msgstr "Poistetaan arvostelu"
+
+#: critiquebrainz/frontend/templates/review/delete.html:19
+#, python-format
+msgid "Are you sure you want to delete your review of \"%(entity)s\"?"
+msgstr "Haluatko varmasti poistaa arvostelusi entiteetistä \"%(entity)s\"?"
+
+#: critiquebrainz/frontend/templates/review/delete.html:20
+#: critiquebrainz/frontend/templates/review/delete_comment.html:22
+msgid "There is no way to undo this action!"
+msgstr "Tätä toimintoa ei voida kumota!"
+
+#: critiquebrainz/frontend/templates/review/delete.html:23
+msgid "Delete review"
+msgstr "Poista arvostelu"
+
+#: critiquebrainz/frontend/templates/review/delete_comment.html:11
+#, python-format
+msgid "Edit comment on %(user)s's review of \"%(entity)s\""
+msgstr "Muokkaa käyttäjän %(user)s kommenttia arvosteluun entiteetistä \"%(entity)s\""
+
+#: critiquebrainz/frontend/templates/review/delete_comment.html:15
+msgid "Deleting comment!"
+msgstr "Poistetaan kommentti!"
+
+#: critiquebrainz/frontend/templates/review/delete_comment.html:19
+#, python-format
+msgid ""
+"Are you sure you want to delete your comment on %(user)s's review of "
+"\"%(entity)s\"?"
+msgstr "Haluatko varmasti poistaa kommenttisi käyttäjän %(user)s arvostelusta entiteetille \"%(entity)s\"?"
+
+#: critiquebrainz/frontend/templates/review/delete_comment.html:25
+msgid "Delete comment"
+msgstr "Poista kommentti"
+
+#: critiquebrainz/frontend/templates/review/report.html:9
+msgid "Unknown entity"
+msgstr "Tuntematon entiteetti"
+
+#: critiquebrainz/frontend/templates/review/report.html:12
+#: critiquebrainz/frontend/templates/review/report.html:15
+#, python-format
+msgid "Report %(user)s's review of \"%(title)s\""
+msgstr "Ilmoita käyttäjän %(user)s arvostelu kohteesta \"%(title)s\""
+
+#: critiquebrainz/frontend/templates/review/report.html:29
+msgid "Please provide a description of the violation (required)"
+msgstr "Kirjoita kuvaus väärinkäytöksestä (vaadittu)"
+
+#: critiquebrainz/frontend/templates/review/report.html:32
+msgid "Report review"
+msgstr "Ilmoita arvostelusta"
+
+#: critiquebrainz/frontend/templates/review/revision_results.html:3
+#, python-format
+msgid "Revision %(number)s"
+msgstr "Versio %(number)s"
+
+#: critiquebrainz/frontend/templates/review/revisions.html:12
+#, python-format
+msgid "Revisions of Review of \"%(entity)s\" by %(user)s"
+msgstr "Arvostelun versiot entiteetistä \"%(entity)s\" käyttäjältä %(user)s"
+
+#: critiquebrainz/frontend/templates/review/revisions.html:16
+#, python-format
+msgid "Revisions of Review by %(user)s"
+msgstr "Arvostelu versiot käyttäjältä %(user)s"
+
+#: critiquebrainz/frontend/templates/review/modify/edit.html:12
+#: critiquebrainz/frontend/templates/review/revisions.html:24
+#: critiquebrainz/frontend/templates/user/reviews.html:16
+msgid "Created on"
+msgstr "Luotu"
+
+#: critiquebrainz/frontend/templates/review/revisions.html:27
+msgid "Compare"
+msgstr "Vertaile"
+
+#: critiquebrainz/frontend/templates/review/revisions.html:34
+msgid "Load older revisions"
+msgstr "Lataa vanhempia versioita"
+
+#: critiquebrainz/frontend/templates/review/revisions.html:35
+msgid "Loading older revisions..."
+msgstr "Ladataan vanhempia versioita..."
+
+#: critiquebrainz/frontend/templates/review/revisions.html:61
+msgid "Failed to load older revisions!"
+msgstr "Vanhempien versioiden lataaminen epäonnistui!"
+
+#: critiquebrainz/frontend/templates/review/revisions.html:74
+msgid "Select two different revisions."
+msgstr "Valitse kaksi eri versiota."
+
+#: critiquebrainz/frontend/templates/review/entity/artist.html:8
+#, python-format
+msgid "Review of \"%(artist)s\" by %(user)s"
+msgstr "Arvostelu artistista \"%(artist)s\" käyttäjältä %(user)s"
+
+#: critiquebrainz/frontend/templates/review/entity/artist.html:19
+#, python-format
+msgid "%(artist)s"
+msgstr "%(artist)s"
+
+#: critiquebrainz/frontend/templates/review/entity/base.html:18
+msgid "<b>This review has not been published yet!</b> Only you can see it."
+msgstr "<b>Tätä arvostelua ei ole julkaistu vielä!</b> Väin sinä voit nähdä sen."
+
+#: critiquebrainz/frontend/templates/review/entity/base.html:20
+#, python-format
+msgid "Published on %(date)s"
+msgstr "Julkaistu %(date)s"
+
+#: critiquebrainz/frontend/templates/review/entity/base.html:22
+#, python-format
+msgid "Written in %(language)s"
+msgstr "Kirjoitettu kielellä %(language)s"
+
+#: critiquebrainz/frontend/templates/review/entity/base.html:28
+msgid "This review has not yet been rated"
+msgstr "Tätä arvostelua ei ole arvioitu vielä"
+
+#: critiquebrainz/frontend/templates/review/entity/base.html:72
+#, python-format
+msgid "This review is licensed under a %(name)s license."
+msgstr "Tämä arvostelu on julkaistu %(name)s lisenssillä."
+
+#: critiquebrainz/frontend/templates/review/entity/base.html:74
+#, python-format
+msgid "It was imported from %(source)s."
+msgstr "Tuotu kohteesta %(source)s."
+
+#: critiquebrainz/frontend/templates/review/entity/base.html:82
+#, python-format
+msgid "<a href=\"%(link)s\">Sign in</a> to rate this review"
+msgstr "<a href=\"%(link)s\">Kirjaudu</a> arvioidaksesi tämän arvostelun"
+
+#: critiquebrainz/frontend/templates/review/entity/base.html:86
+msgid "View older revisions"
+msgstr "Tarkastele vanhempia versioita"
+
+#: critiquebrainz/frontend/templates/review/entity/base.html:99
+msgid "Did you find this review useful?"
+msgstr "Oliko tästä arvostelusta hyötyä?"
+
+#: critiquebrainz/frontend/templates/review/entity/base.html:100
+msgid "Yes"
+msgstr "Kyllä"
+
+#: critiquebrainz/frontend/templates/review/entity/base.html:104
+msgid "You found this review useful."
+msgstr "Pidit tätä arvostelua hyödyllisenä"
+
+#: critiquebrainz/frontend/templates/review/entity/base.html:106
+msgid "You didn't find this review useful."
+msgstr "Et pitänyt tätä arvostelua hyödyllisenä"
+
+#: critiquebrainz/frontend/templates/review/entity/base.html:108
+msgid "Delete your vote"
+msgstr "Poista äänestyksesi"
+
+#: critiquebrainz/frontend/templates/review/entity/base.html:114
+msgid "Report abuse"
+msgstr "Ilmoita väärinkäytöksestä"
+
+#: critiquebrainz/frontend/templates/review/entity/base.html:120
+msgid "Edit this review"
+msgstr "Muokkaa tätä arvostelua"
+
+#: critiquebrainz/frontend/templates/review/entity/base.html:124
+#: critiquebrainz/frontend/templates/review/modify/edit.html:34
+msgid "Delete this review"
+msgstr "Poista tämä arvostelu"
+
+#: critiquebrainz/frontend/templates/review/entity/comments.html:11
+msgid "Delete this comment"
+msgstr "Poista tämä kommentti"
+
+#: critiquebrainz/frontend/templates/review/entity/comments.html:15
+msgid "Edit this comment"
+msgstr "Muokkaa tätä kommenttia"
+
+#: critiquebrainz/frontend/templates/review/entity/comments.html:43
+msgid "Add comment"
+msgstr "Lisää kommentti"
+
+#: critiquebrainz/frontend/templates/review/entity/comments.html:78
+msgid "Update comment"
+msgstr "Päivitä kommenttia"
+
+#: critiquebrainz/frontend/templates/review/entity/event.html:7
+#: critiquebrainz/frontend/templates/review/entity/event.html:16
+#: critiquebrainz/frontend/templates/user/reviews.html:40
+msgid "[Unknown event]"
+msgstr "[Tuntematon tapahtuma]"
+
+#: critiquebrainz/frontend/templates/review/entity/event.html:8
+#, python-format
+msgid "Review of \"%(event)s\" by %(user)s"
+msgstr "Arvostelu tapahtumasta \"%(event)s\" käyttäjältä %(user)s"
+
+#: critiquebrainz/frontend/templates/review/entity/event.html:19
+#, python-format
+msgid "%(event)s"
+msgstr "%(event)s"
+
+#: critiquebrainz/frontend/templates/review/entity/label.html:7
+#: critiquebrainz/frontend/templates/review/entity/label.html:16
+#: critiquebrainz/frontend/templates/user/reviews.html:76
+msgid "[Unknown label]"
+msgstr "[Tuntematon levymerkki]"
+
+#: critiquebrainz/frontend/templates/review/entity/label.html:8
+#, python-format
+msgid "Review of \"%(label)s\" by %(user)s"
+msgstr "Arvostelu levymerkistä \"%(label)s\" käyttäjältä %(user)s"
+
+#: critiquebrainz/frontend/templates/review/entity/label.html:19
+#, python-format
+msgid "%(label)s"
+msgstr "%(label)s"
+
+#: critiquebrainz/frontend/templates/review/entity/place.html:12
+#: critiquebrainz/frontend/templates/review/entity/place.html:21
+#: critiquebrainz/frontend/templates/user/reviews.html:51
+msgid "[Unknown place]"
+msgstr "[Tuntematon paikka]"
+
+#: critiquebrainz/frontend/templates/review/entity/place.html:13
+#, python-format
+msgid "Review of \"%(place)s\" by %(user)s"
+msgstr "Arvostelu paikasta \"%(place)s\" käyttäjältä %(user)s"
+
+#: critiquebrainz/frontend/templates/review/entity/place.html:24
+#, python-format
+msgid "%(place)s"
+msgstr "%(place)s"
+
+#: critiquebrainz/frontend/templates/review/entity/recording.html:6
+#: critiquebrainz/frontend/templates/review/entity/recording.html:15
+#: critiquebrainz/frontend/templates/user/reviews.html:66
+msgid "[Unknown recording]"
+msgstr "[Tuntematon äänite]"
+
+#: critiquebrainz/frontend/templates/review/entity/recording.html:7
+#, python-format
+msgid "Review of \"%(recording)s\" by %(user)s"
+msgstr "Arvostelu äänitteestä \"%(recording)s\" käyttäjältä %(user)s"
+
+#: critiquebrainz/frontend/templates/review/entity/work.html:7
+#: critiquebrainz/frontend/templates/review/entity/work.html:16
+#: critiquebrainz/frontend/templates/user/reviews.html:54
+msgid "[Unknown work]"
+msgstr "[Tuntematon teos]"
+
+#: critiquebrainz/frontend/templates/review/entity/work.html:8
+#, python-format
+msgid "Review of \"%(work)s\" by %(user)s"
+msgstr "Arvostelu teoksesta \"%(work)s\" käyttäjältä %(user)s"
+
+#: critiquebrainz/frontend/templates/review/entity/work.html:19
+#, python-format
+msgid "%(work)s"
+msgstr "%(work)s"
+
+#: critiquebrainz/frontend/templates/review/modify/artist.html:12
+#: critiquebrainz/frontend/templates/review/modify/label.html:12
+#: critiquebrainz/frontend/templates/review/modify/work.html:12
+#: critiquebrainz/frontend/templates/search/index.html:23
+#: critiquebrainz/frontend/templates/search/index.html:55
+#: critiquebrainz/frontend/templates/search/index.html:69
+#: critiquebrainz/frontend/templates/search/index.html:77
+#: critiquebrainz/frontend/templates/search/index.html:83
+#: critiquebrainz/frontend/templates/search/index.html:91
+#: critiquebrainz/frontend/templates/work/entity.html:76
+msgid "Type"
+msgstr "Muoto"
+
+#: critiquebrainz/frontend/templates/review/modify/base.html:21
+msgid "Rating:"
+msgstr "Arvostelu:"
+
+#: critiquebrainz/frontend/templates/review/modify/base.html:26
+#, python-format
+msgid ""
+"You can read the <a href=\"%(style_guide_url)s\" target=\"_blank\">style guide</a> for writing good CritiqueBrainz reviews!<br/>\n"
+"                Furthermore, you can use <a href=\"%(markdown_url)s\" target=\"_blank\">Markdown</a> syntax to apply custom formatting."
+msgstr "Kirjoittaaksesi hyviä arvosteluja CritiqueBrainziin, perehdy <a href=\"%(style_guide_url)s\" target=\"_blank\">tyylioppaaseen</a>!<br/>\n                Voit käyttää <a href=\"%(markdown_url)s\" target=\"_blank\">Markdown</a>-syntaksia muotoiluun."
+
+#: critiquebrainz/frontend/templates/review/modify/base.html:34
+msgid "Please, specify language of this review:"
+msgstr "Määritä arvostelun kieli:"
+
+#: critiquebrainz/frontend/templates/review/modify/base.html:46
+msgid "You cannot change the license after the review is published."
+msgstr "Et voi vaihtaa lisenssiä sen jälkeen kun arvostelu on julkaistu."
+
+#: critiquebrainz/frontend/templates/review/modify/edit.html:4
+#, python-format
+msgid "Edit review of \"%(entity)s\""
+msgstr "Muokkaa arvostelua entiteetistä \"%(entity)s\""
+
+#: critiquebrainz/frontend/templates/review/modify/edit.html:8
+msgid "Editing review"
+msgstr "Arvostelun muokkaaminen"
+
+#: critiquebrainz/frontend/templates/review/modify/edit.html:16
+#: critiquebrainz/frontend/templates/user/reviews.html:14
+msgid "Status"
+msgstr "Tila"
+
+#: critiquebrainz/frontend/templates/review/modify/edit.html:19
+#: critiquebrainz/frontend/templates/user/reviews.html:91
+msgid "Draft"
+msgstr "Vedos"
+
+#: critiquebrainz/frontend/templates/review/modify/edit.html:21
+#: critiquebrainz/frontend/templates/user/reviews.html:93
+msgid "Published"
+msgstr "Julkaistu"
+
+#: critiquebrainz/frontend/templates/review/modify/edit.html:28
+#: critiquebrainz/frontend/templates/review/modify/write.html:31
+msgid "Publish"
+msgstr "Julkaise"
+
+#: critiquebrainz/frontend/templates/review/modify/edit.html:29
+#: critiquebrainz/frontend/templates/review/modify/write.html:32
+msgid "Save draft"
+msgstr "Tallenna vedos"
+
+#: critiquebrainz/frontend/templates/review/modify/edit.html:31
+msgid "Update"
+msgstr "Päivitä"
+
+#: critiquebrainz/frontend/templates/review/modify/edit.html:33
+msgid "Discard changes"
+msgstr "Hylkää muutokset"
+
+#: critiquebrainz/frontend/templates/review/modify/event.html:14
+msgid "Unknown place"
+msgstr "Tuntematon paikka"
+
+#: critiquebrainz/frontend/templates/review/modify/label.html:14
+#: critiquebrainz/frontend/templates/search/index.html:56
+#: critiquebrainz/frontend/templates/search/index.html:84
+msgid "Country"
+msgstr "Maa"
+
+#: critiquebrainz/frontend/templates/review/modify/place.html:12
+#: critiquebrainz/frontend/templates/search/index.html:63
+#: critiquebrainz/frontend/templates/search/index.html:70
+msgid "Location"
+msgstr "Sijainti"
+
+#: critiquebrainz/frontend/templates/review/modify/recording.html:10
+#: critiquebrainz/frontend/templates/search/index.html:98
+#: critiquebrainz/frontend/templates/work/entity.html:77
+msgid "Length"
+msgstr "Kesto"
+
+#: critiquebrainz/frontend/templates/review/modify/work.html:14
+#: critiquebrainz/frontend/templates/search/index.html:90
+msgid "Artists"
+msgstr "Artistit"
+
+#: critiquebrainz/frontend/templates/review/modify/write.html:4
+#, python-format
+msgid "Write review of \"%(entity)s\""
+msgstr "Kirjoita arvostelu entiteetille \"%(entity)s\""
+
+#: critiquebrainz/frontend/templates/review/modify/write.html:8
+msgid "Write review"
+msgstr "Kirjoita arvostelu"
+
+#: critiquebrainz/frontend/templates/review/modify/write.html:17
+msgid ""
+"You acknowledge and agree that your contributed reviews to CritiqueBrainz are licensed under a\n"
+"            Creative Commons Attribution-ShareAlike 3.0 Unported or Creative Commons Attribution-ShareAlike-NonCommercial\n"
+"            license as per your choice above. You agree to license your work under this license.\n"
+"            You represent and warrant that you own or control all rights in and to the work, that nothing in the work\n"
+"            infringes the rights of any third-party, and that you have the permission to use and to license the work\n"
+"            under the selected Creative Commons license. Finally, you give the MetaBrainz Foundation permission to license\n"
+"            this content for commercial use outside of Creative Commons licenses in order to support the operations of the organization."
+msgstr "Tiedostat ja hyväksyt luomiesi arvostelujen julkaisun CritiqueBrainzissä jomman kumman lisenssin alla\nCreative Commons Attribution-ShareAlike 3.0 Unported tai Creative Commons Attribution-ShareAlike-NonCommercial \n valintasi mukaan. Suostut lisensoimaan teoksesi tällä lisenssillä.\nEdustat ja takaat omaavasi tai hallinnoivasi kaikkia oikeuksia teokseen ja sen sisällä, eikä mikään teoksessa\nloukkaa kolmansien osapuolien oikeuksia, ja sinulla on oikeudet käyttää ja julkaista teos valitun Creative Commons lisenssin alla.\nTämän lisäksi, annat MetaBrainz-säätiölle oikeuden julkaista tämän sisällön kaupallisin tarkoituksin Creative Commons lisensin ulkopuolella, jotta säätiö voi tukea toimintaansa."
+
+#: critiquebrainz/frontend/templates/search/index.html:5
+msgid "Search results"
+msgstr "Hakutulokset"
+
+#: critiquebrainz/frontend/templates/search/index.html:17
+msgid "Query"
+msgstr "Kysely"
+
+#: critiquebrainz/frontend/templates/search/index.html:46
+msgid "No results found"
+msgstr "Ei tuloksia"
+
+#: critiquebrainz/frontend/templates/search/index.html:54
+msgid "Sort name"
+msgstr "Lajittelunimi"
+
+#: critiquebrainz/frontend/templates/search/index.html:110
+msgid "Load more results"
+msgstr "Lataa lisää tuloksia"
+
+#: critiquebrainz/frontend/templates/search/index.html:111
+msgid "Loading more results..."
+msgstr "Ladataan lisää tuloksia..."
+
+#: critiquebrainz/frontend/templates/search/index.html:140
+msgid "Failed to load more search results!"
+msgstr "Epäonnistui lataamaan lisää hakutuloksia!"
+
+#: critiquebrainz/frontend/templates/statistics/stats.html:14
+msgid "Top 10 Contributors Overall"
+msgstr "Top 10 arvostelijaa"
+
+#: critiquebrainz/frontend/templates/statistics/stats.html:21
+msgid "User"
+msgstr "Käyttäjä"
+
+#: critiquebrainz/frontend/templates/statistics/stats.html:23
+#: critiquebrainz/frontend/templates/user/info.html:48
+msgid "Comments"
+msgstr "Kommentit"
+
+#: critiquebrainz/frontend/templates/statistics/stats.html:24
+#: critiquebrainz/frontend/templates/user/info.html:42
+msgid "Votes"
+msgstr "Äänestykset"
+
+#: critiquebrainz/frontend/templates/statistics/stats.html:25
+msgid "Total Score"
+msgstr "Yhteispisteet"
+
+#: critiquebrainz/frontend/templates/user/base.html:27
+#: critiquebrainz/frontend/templates/user/info.html:3
+msgid "Info"
+msgstr "Tiedot"
+
+#: critiquebrainz/frontend/templates/user/info.html:16
+msgid "General information"
+msgstr "Yleistä tietoa"
+
+#: critiquebrainz/frontend/templates/user/info.html:18
+msgid "Member since"
+msgstr "Jäsenenä"
+
+#: critiquebrainz/frontend/templates/user/info.html:19
+msgid "User type"
+msgstr "Käyttäjän tyyppi"
+
+#: critiquebrainz/frontend/templates/user/info.html:20
+msgid "Karma"
+msgstr "Karma"
+
+#: critiquebrainz/frontend/templates/user/info.html:26
+msgid "Limits"
+msgstr "Rajoitukset"
+
+#: critiquebrainz/frontend/templates/user/info.html:28
+msgid "Reviews/day"
+msgstr "Arvosteluja/päivä"
+
+#: critiquebrainz/frontend/templates/user/info.html:29
+msgid "Votes/day"
+msgstr "Ääniä/päivä"
+
+#: critiquebrainz/frontend/templates/user/info.html:38
+#: critiquebrainz/frontend/templates/user/info.html:44
+#: critiquebrainz/frontend/templates/user/info.html:50
+msgid "Today"
+msgstr "Tänään"
+
+#: critiquebrainz/frontend/templates/user/info.html:39
+#: critiquebrainz/frontend/templates/user/info.html:45
+#: critiquebrainz/frontend/templates/user/info.html:51
+msgid "Last 7 days"
+msgstr "Viimeiset seitsemän päivää"
+
+#: critiquebrainz/frontend/templates/user/info.html:40
+#: critiquebrainz/frontend/templates/user/info.html:46
+#: critiquebrainz/frontend/templates/user/info.html:52
+msgid "This month"
+msgstr "Tässä kuussa"
+
+#: critiquebrainz/frontend/templates/user/reviews.html:99
+msgid "Hidden"
+msgstr "Piilotettu"
+
+#: critiquebrainz/frontend/templates/user/reviews.html:118
+msgid "Edit"
+msgstr "Muokkaa"
+
+#: critiquebrainz/frontend/templates/work/entity.html:68
+msgid "Recordings"
+msgstr "Äänitteet"
+
+#: critiquebrainz/frontend/templates/work/entity.html:70
+msgid "No recordings found"
+msgstr "Ei äänitteitä"
+
+#: critiquebrainz/frontend/templates/work/entity.html:107
+msgid "Work information"
+msgstr "Teoksen tiedot"
+
+#: critiquebrainz/frontend/views/artist.py:26
+msgid "Sorry, we couldn't find an artist with that MusicBrainz ID."
+msgstr "Annetulla MusicBrainz tunnisteella ei löydy artistia."
+
+#: critiquebrainz/frontend/views/comment.py:39
+#, python-format
+msgid "Can't find a comment with ID: %(comment_id)s"
+msgstr "Annetulla tunnisteella %(comment_id)s ei löydy kommenttia"
+
+#: critiquebrainz/frontend/views/comment.py:50
+msgid ""
+"You are not allowed to write new comments because your account has been "
+"blocked by a moderator."
+msgstr "Et voi kirjoittaa uusia kommentteja, sillä moderaattori on estänyt tilisi."
+
+#: critiquebrainz/frontend/views/comment.py:59
+msgid "Comment has been saved!"
+msgstr "Kommentti tallennettu!"
+
+#: critiquebrainz/frontend/views/comment.py:73
+msgid "Only the author can delete this comment."
+msgstr "Vain kirjoittaja voi poistaa tämän kommentin."
+
+#: critiquebrainz/frontend/views/comment.py:76
+msgid "Comment has been deleted."
+msgstr "Kommentti poistettu."
+
+#: critiquebrainz/frontend/views/comment.py:88
+msgid "Only the author can edit this comment."
+msgstr "Vain kirjoittaja voi muokata tätä kommenttia."
+
+#: critiquebrainz/frontend/views/comment.py:90
+msgid ""
+"You are not allowed to edit comments because your account has been blocked "
+"by a moderator."
+msgstr "Et voi muokata kommentteja, sillä moderaattori on estänyt tilisi."
+
+#: critiquebrainz/frontend/views/comment.py:100
+msgid "Comment has been updated."
+msgstr "Kommentti päivitetty."
+
+#: critiquebrainz/frontend/views/comment.py:102
+msgid "You must change some content of the comment to update it!"
+msgstr "Kommentin sisältöä tulee muokata sen päivittämiseksi!"
+
+#: critiquebrainz/frontend/views/event.py:40
+msgid "Sorry, we couldn't find an event with that MusicBrainz ID."
+msgstr "Annetulla MusicBrainz tunnisteella ei löydy tapahtumaa."
+
+#: critiquebrainz/frontend/views/label.py:20
+msgid "Sorry, we couldn't find a label with that MusicBrainz ID."
+msgstr "Annetulla MusicBrainz tunnisteella ei löydy levymerkkiä."
+
+#: critiquebrainz/frontend/views/log.py:19
+msgid "No logs to display."
+msgstr "Ei näytettävissä olevia lokitietoja."
+
+#: critiquebrainz/frontend/views/login.py:36
+#: critiquebrainz/frontend/views/login.py:38
+msgid "Login failed."
+msgstr "Kirjautuminen epäonnistui."
+
+#: critiquebrainz/frontend/views/mapping.py:57
+#: critiquebrainz/frontend/views/mapping.py:103
+msgid "Only existing release groups can be mapped to Spotify!"
+msgstr "Vain olemassa olevia julkaisuryhmiä voidaan kartoittaa Spotifyyn!"
+
+#: critiquebrainz/frontend/views/mapping.py:108
+msgid "You need to select an album from Spotify!"
+msgstr "Valitse albumi Spotifystä!"
+
+#: critiquebrainz/frontend/views/mapping.py:114
+msgid "You need to specify a correct link to this album on Spotify!"
+msgstr "Määritä oikea linkki tähän albumiin Spotifyssa!"
+
+#: critiquebrainz/frontend/views/mapping.py:122
+#: critiquebrainz/frontend/views/mapping.py:178
+msgid "You need to specify existing album from Spotify!"
+msgstr "Määritä olemassa oleva albumi Spotifystä!"
+
+#: critiquebrainz/frontend/views/mapping.py:129
+msgid "Spotify mapping has been added!"
+msgstr "Spotify-määrittely lisätty!"
+
+#: critiquebrainz/frontend/views/mapping.py:131
+msgid "Could not add Spotify mapping!"
+msgstr "Spotify-määrittely epäonnistui!"
+
+#: critiquebrainz/frontend/views/mapping.py:163
+msgid "This album is not mapped to Spotify yet!"
+msgstr "Tätä julkaisua ei ole kartoitettu vielä Spotifyyn!"
+
+#: critiquebrainz/frontend/views/mapping.py:169
+msgid "Incorrect Spotify mapping has been reported. Thank you!"
+msgstr "Virheellinen Spotifyn kartoitus on ilmoitettu. Kiitos!"
+
+#: critiquebrainz/frontend/views/mapping.py:171
+msgid "Could not report incorrect Spotify mapping!"
+msgstr "Virheellisen Spotify-määrittelyn ilmoittaminen epäonnistui!"
+
+#: critiquebrainz/frontend/views/place.py:45
+msgid "Sorry, we couldn't find a place with that MusicBrainz ID."
+msgstr "Annetulla MusicBrainz tunnisteella ei löydy paikkaa."
+
+#: critiquebrainz/frontend/views/profile.py:22
+msgid "Profile updated."
+msgstr "Profiili päivitetty."
+
+#: critiquebrainz/frontend/views/profile_apps.py:37
+msgid "You have created an application!"
+msgstr "Loit sovelluksen."
+
+#: critiquebrainz/frontend/views/profile_apps.py:60
+msgid "You have updated an application!"
+msgstr "Päivitit sovelluksen."
+
+#: critiquebrainz/frontend/views/profile_apps.py:81
+msgid "You have deleted an application."
+msgstr "Poistit sovelluksen."
+
+#: critiquebrainz/frontend/views/rate.py:37
+msgid ""
+"You are not allowed to rate any entity because your account has been blocked"
+" by a moderator."
+msgstr "Et voi arvioida yhtäkään entiteettiä, sillä moderaattori on estänyt tilisi."
+
+#: critiquebrainz/frontend/views/recording.py:19
+msgid "Sorry, we couldn't find a recording with that MusicBrainz ID."
+msgstr "Annetulla MusicBrainz tunnisteella ei löydy äänitettä."
+
+#: critiquebrainz/frontend/views/release.py:19
+msgid "Sorry, we couldn't find a release with that MusicBrainz ID."
+msgstr "Annetulla MusicBrainz tunnisteella ei löydy julkaisua."
+
+#: critiquebrainz/frontend/views/release_group.py:39
+msgid "Sorry, we couldn't find a release group with that MusicBrainz ID."
+msgstr "Annetulla MusicBrainz tunnisteella ei löydy julkaisuryhmää."
+
+#: critiquebrainz/frontend/views/reports.py:46
+msgid "Report has been archived."
+msgstr "Ilmoitus on arkistoitu."
+
+#: critiquebrainz/frontend/views/review.py:38
+#: critiquebrainz/frontend/views/review.py:132
+#, python-format
+msgid "Can't find a review with ID: %(review_id)s!"
+msgstr "Annetulla tunnisteella %(review_id)s ei löydy arvostelua!"
+
+#: critiquebrainz/frontend/views/review.py:55
+msgid "Least Popular"
+msgstr "Epäsuosituin"
+
+#: critiquebrainz/frontend/views/review.py:56
+msgid "Most Popular"
+msgstr "Suosituin"
+
+#: critiquebrainz/frontend/views/review.py:57
+msgid "Newest"
+msgstr "Uusin"
+
+#: critiquebrainz/frontend/views/review.py:58
+msgid "Oldest"
+msgstr "Vanhin"
+
+#: critiquebrainz/frontend/views/review.py:85
+msgid "No reviews to display."
+msgstr "Ei näytettävissä olevia arvosteluja."
+
+#: critiquebrainz/frontend/views/review.py:120
+#: critiquebrainz/frontend/views/review.py:205
+#: critiquebrainz/frontend/views/review.py:373
+msgid "Can't find a review with the specified ID."
+msgstr "Annetulla tunnisteella ei löydy arvostelua."
+
+#: critiquebrainz/frontend/views/review.py:125
+#: critiquebrainz/frontend/views/review.py:207
+#: critiquebrainz/frontend/views/review.py:243
+#: critiquebrainz/frontend/views/review.py:267
+#: critiquebrainz/frontend/views/review.py:377
+#: critiquebrainz/frontend/views/review.py:469
+#: critiquebrainz/frontend/views/review.py:496
+#: critiquebrainz/frontend/views/review.py:511
+msgid "Review has been hidden."
+msgstr "Arvostelu on piilotettu."
+
+#: critiquebrainz/frontend/views/review.py:128
+msgid "Review has been hidden. You need to be an administrator to view it."
+msgstr "Arvostelu on piilotettu. Vain ylläpitäjät voivat nähdä sen."
+
+#: critiquebrainz/frontend/views/review.py:148
+msgid ""
+"You are viewing an old revision, the review has been updated since then."
+msgstr "Tarkastelet vanhaa versiota, arvostelu on päivitetty tämän jälkeen."
+
+#: critiquebrainz/frontend/views/review.py:150
+#: critiquebrainz/frontend/views/review.py:192
+msgid "The revision you are looking for does not exist."
+msgstr "Hakemaasi versiota ei löydy."
+
+#: critiquebrainz/frontend/views/review.py:221
+#: critiquebrainz/frontend/views/review.py:248
+#: critiquebrainz/frontend/views/review.py:279
+msgid "The revision(s) you are looking for does not exist."
+msgstr "Hakemiasi versioita ei löydy."
+
+#: critiquebrainz/frontend/views/review.py:301
+msgid "Please choose an entity to review."
+msgstr "Valitse entiteetti arvosteltavaksi."
+
+#: critiquebrainz/frontend/views/review.py:308
+msgid ""
+"You are not allowed to write new reviews because your account has been "
+"blocked by a moderator."
+msgstr "Et voi kirjoittaa uusia arvosteluja, sillä moderaattori on estänyt tilisi."
+
+#: critiquebrainz/frontend/views/review.py:322
+msgid "You have already published a review for this entity"
+msgstr "Olet jo julkaissut arvostelun tälle entiteetille"
+
+#: critiquebrainz/frontend/views/review.py:326
+msgid "You have exceeded your limit of reviews per day."
+msgstr "Olet kirjoittanut sallitun määrän arvosteluja tälle päivälle."
+
+#: critiquebrainz/frontend/views/review.py:343
+msgid "Review has been saved!"
+msgstr "Arvostelu tallennettu!"
+
+#: critiquebrainz/frontend/views/review.py:345
+msgid "Review has been published!"
+msgstr "Arvostelu julkaistu!"
+
+#: critiquebrainz/frontend/views/review.py:355
+msgid "You can only write a review for an entity that exists on MusicBrainz!"
+msgstr "Arvosteluja voidaan kirjoittaa vain entiteeteille, jotka ovat MusicBrainzin tietokannassa."
+
+#: critiquebrainz/frontend/views/review.py:364
+msgid "Please provide some text or a rating for this review."
+msgstr "Kirjoita tästä arvostelusta, tai anna pisteytys."
+
+#: critiquebrainz/frontend/views/review.py:375
+msgid "Only author can edit this review."
+msgstr "Vain kirjoittaja voi muokata tätä arvostelua."
+
+#: critiquebrainz/frontend/views/review.py:417
+msgid ""
+"Changing license of a published review                or converting a "
+"published review back to drafts is not allowed."
+msgstr "Julkaistun arvostelun lisenssiä ei voi muuttaa, eikä sitä voi muuntaa takaisin vedokseksi."
+
+#: critiquebrainz/frontend/views/review.py:420
+msgid "Review has been updated."
+msgstr "Arvostelu päivitetty."
+
+#: critiquebrainz/frontend/views/review.py:448
+msgid "Only the author or an admin can delete this review."
+msgstr "Vain kirjoittaja tai ylläpitäjä voi poistaa tämän arvostelun."
+
+#: critiquebrainz/frontend/views/review.py:451
+msgid "Review has been deleted."
+msgstr "Arvostelu poistettu."
+
+#: critiquebrainz/frontend/views/review.py:471
+msgid "You cannot rate your own review."
+msgstr "Et voi arvioida omaa arvosteluasi."
+
+#: critiquebrainz/frontend/views/review.py:474
+msgid "You have exceeded your limit of votes per day."
+msgstr "Olet äänestänyt sallitun määrän tälle päivälle."
+
+#: critiquebrainz/frontend/views/review.py:477
+msgid ""
+"You are not allowed to rate this review because your account has been "
+"blocked by a moderator."
+msgstr "Et voi arvioida tätä arvostelua, sillä moderaattori on estänyt tilisi."
+
+#: critiquebrainz/frontend/views/review.py:487
+msgid "You have rated this review!"
+msgstr "Olet arvioinut tämän arvostelun!"
+
+#: critiquebrainz/frontend/views/review.py:499
+msgid "You have deleted your vote for this review!"
+msgstr "Poistit äänesi tältä arvostelulta!"
+
+#: critiquebrainz/frontend/views/review.py:502
+msgid "This review is not rated yet."
+msgstr "Tätä arvostelua ei ole arvioitu vielä."
+
+#: critiquebrainz/frontend/views/review.py:513
+msgid "You cannot report your own review."
+msgstr "Et voi ilmoittaa omasta arvostelustasi."
+
+#: critiquebrainz/frontend/views/review.py:517
+msgid ""
+"You are not allowed to report this review because your account has been "
+"blocked by a moderator."
+msgstr "Et voi ilmoittaa tästä arvostelusta, sillä moderaattori on estänyt tilisi."
+
+#: critiquebrainz/frontend/views/review.py:524
+msgid "You have already reported this review."
+msgstr "Olet jo ilmoittanut tästä arvostelusta."
+
+#: critiquebrainz/frontend/views/review.py:535
+msgid "Review has been reported."
+msgstr "Arvostelusta on ilmoitettu."
+
+#: critiquebrainz/frontend/views/review.py:547
+msgid "Review is already hidden."
+msgstr "Arvostelu on jo piilotettu."
+
+#: critiquebrainz/frontend/views/review.py:569
+msgid "Review is not hidden."
+msgstr "Arvostelu ei ole piilotettu."
+
+#: critiquebrainz/frontend/views/review.py:577
+msgid "Review is not hidden anymore."
+msgstr "Arvostelu ei ole enää piilotettu."
+
+#: critiquebrainz/frontend/views/user.py:76
+msgid "This account is already blocked."
+msgstr "Tämä tili on jo estetty."
+
+#: critiquebrainz/frontend/views/user.py:84
+msgid "This user account has been blocked."
+msgstr "Tämä tili on estetty."
+
+#: critiquebrainz/frontend/views/user.py:99
+msgid "This account is not blocked."
+msgstr "Tämä tili ei ole estetty."
+
+#: critiquebrainz/frontend/views/user.py:107
+msgid "This user account has been unblocked."
+msgstr "Tämän käyttäjätilin esto on poistettu."
+
+#: critiquebrainz/frontend/views/work.py:19
+msgid "Sorry, we couldn't find a work with that MusicBrainz ID."
+msgstr "Annetulla MusicBrainz tunnisteella ei löydy teosta."
