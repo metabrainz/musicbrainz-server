@@ -635,6 +635,7 @@ async function handleCommand({command, target, value}, t) {
 /* eslint-disable sort-keys */
 const seleniumTests = [
   {name: 'Create_Account.json5'},
+  {name: 'MBS-2604.json5', login: true},
   {name: 'MBS-5387.json5', login: true},
   {name: 'MBS-7456.json5', login: true},
   {name: 'MBS-9548.json5'},

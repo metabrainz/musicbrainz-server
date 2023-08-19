@@ -1,0 +1,59 @@
+{
+  title: 'MBS-2604: Infer link direction between people and groups',
+  commands: [
+    // Link a person from a group's page and check that the relationship
+    // direction defaults to person being the member of the group.
+    {
+      command: 'open',
+      target: '/artist/b7ffd2af-418f-4be2-bdd1-22f8b48613da/edit',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'css=#relationship-editor button.add-item',
+      value: '',
+    },
+    {
+      command: 'sendKeys',
+      target: 'css=#add-relationship-dialog input.relationship-type',
+      value: 'member${KEY_ENTER}',
+    },
+    {
+      command: 'sendKeys',
+      target: 'css=#add-relationship-dialog input.relationship-target',
+      value: '5441c29d-3602-4898-b1a1-b77fa23b8e50',
+    },
+    {
+      command: 'assertText',
+      target: 'css=#add-relationship-dialog table.preview td',
+      value: 'David Bowie is/was a member of Nine Inch Nails',
+    },
+    // Link a group from a person's page and check that the relationship
+    // still defaults to person being the member of the group.
+    {
+      command: 'open',
+      target: '/artist/5441c29d-3602-4898-b1a1-b77fa23b8e50/edit',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'css=#relationship-editor button.add-item',
+      value: '',
+    },
+    {
+      command: 'sendKeys',
+      target: 'css=#add-relationship-dialog input.relationship-type',
+      value: 'member${KEY_ENTER}',
+    },
+    {
+      command: 'sendKeys',
+      target: 'css=#add-relationship-dialog input.relationship-target',
+      value: 'b7ffd2af-418f-4be2-bdd1-22f8b48613da',
+    },
+    {
+      command: 'assertText',
+      target: 'css=#add-relationship-dialog table.preview td',
+      value: 'David Bowie is/was a member of Nine Inch Nails',
+    },
+  ],
+}
