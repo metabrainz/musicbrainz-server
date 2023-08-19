@@ -54,6 +54,15 @@ export const VOCAL_ROOT_ID = 3;
 export const AREA_TYPE_COUNTRY = 1;
 
 export const ARTIST_TYPE_PERSON = 1;
+export const ARTIST_TYPE_GROUP = 2;
+export const ARTIST_TYPE_ORCHESTRA = 5;
+export const ARTIST_TYPE_CHOIR = 6;
+
+export const ARTIST_GROUP_TYPES: Set<number> = new Set([
+  ARTIST_TYPE_CHOIR,
+  ARTIST_TYPE_GROUP,
+  ARTIST_TYPE_ORCHESTRA,
+]);
 
 export const CONTACT_URL = 'https://metabrainz.org/contact';
 
