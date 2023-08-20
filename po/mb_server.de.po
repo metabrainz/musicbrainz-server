@@ -71,7 +71,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-08-19 08:52+0000\n"
-"PO-Revision-Date: 2023-08-19 08:54+0000\n"
+"PO-Revision-Date: 2023-08-20 10:27+0000\n"
 "Last-Translator: chaban <chaban@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: German <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/de/>\n"
@@ -3846,7 +3846,7 @@ msgstr "abgesagt"
 
 #: ../root/edit/search_macros.tt:350
 msgid "do not include"
-msgstr ""
+msgstr "enthält nicht"
 
 #: ../root/edit/search_macros.tt:350
 msgid "do not include editors in my subscriptions"
@@ -3862,7 +3862,7 @@ msgstr "nicht zutrifft"
 
 #: ../root/edit/search_macros.tt:378
 msgid "does not include"
-msgstr ""
+msgstr "enthält nicht"
 
 #: ../root/edit/search_macros.tt:25
 msgid "earliest closed first"
@@ -3906,7 +3906,7 @@ msgstr ""
 
 #: ../root/edit/search_macros.tt:350
 msgid "include"
-msgstr ""
+msgstr "enthält"
 
 #: ../root/edit/search_macros.tt:350
 msgid "include a beginner editor"
@@ -3918,7 +3918,7 @@ msgstr ""
 
 #: ../root/edit/search_macros.tt:350
 msgid "include me"
-msgstr ""
+msgstr "enthält mich"
 
 #: ../root/edit/search_macros.tt:350
 msgid "include someone other than the edit author"
@@ -4682,7 +4682,7 @@ msgid ""
 "submitting your edits again."
 msgstr ""
 "Zum Bearbeiten musst du angemeldet sein. {url|Melde dich zunächst an} und "
-"versuche dann, deine Bearbeitungen erneut abzuschicken. "
+"versuche dann, deine Bearbeitungen erneut abzuschicken."
 
 #: ../lib/MusicBrainz/Server/ControllerUtils/Delete.pm:25
 msgid ""
@@ -4928,7 +4928,7 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Genre/Create.pm:21
 msgid "Add genre"
-msgstr ""
+msgstr "Genre hinzufügen"
 
 #: ../lib/MusicBrainz/Server/Edit/Genre/Delete.pm:10
 #: ../root/genre/DeleteGenre.js:31 ../root/genre/DeleteGenre.js:33
@@ -6498,7 +6498,7 @@ msgstr "Bitte gib unten dein altes Passwort an und dann dein neues."
 #: ../root/static/scripts/account/components/RegisterForm.js:64
 #: ../root/user/Login.js:100
 msgid "Username"
-msgstr ""
+msgstr "Benutzername"
 
 #: ../root/account/ChangePassword.js:77
 msgid "Old password:"
@@ -7362,11 +7362,11 @@ msgstr "Vergleich der Anmerkungen"
 
 #: ../root/annotation/AnnotationComparison.js:49
 msgid "Old annotation"
-msgstr ""
+msgstr "Alte Anmerkung"
 
 #: ../root/annotation/AnnotationComparison.js:58
 msgid "New annotation"
-msgstr ""
+msgstr "Neue Anmerkung"
 
 #: ../root/annotation/AnnotationComparison.js:71
 msgid ""
@@ -8019,7 +8019,7 @@ msgstr[1] ""
 #: ../root/artist_credit/ArtistCreditLayout.js:47
 #: ../root/artist_credit/ArtistCreditLayout.js:57
 msgid "Artist credit “{artist_credit}”"
-msgstr ""
+msgstr "Künstlernennung „{artist_credit}“"
 
 #: ../root/artist_credit/EntityList.js:22 ../root/tag/EntityList.js:76
 msgid "{num} recording found"
@@ -8278,7 +8278,7 @@ msgstr "Öffentliche Sammlung von {owner}"
 
 #: ../root/collection/CollectionHeader.js:40
 msgid "Private collection by {owner}"
-msgstr ""
+msgstr "Private Sammlung von {owner}"
 
 #: ../root/collection/CollectionHeader.js:55
 msgid "See all of your collections"
@@ -9260,7 +9260,7 @@ msgstr "Abstimmung"
 
 #: ../root/edit/components/EditHeader.js:149
 msgid "Approved"
-msgstr ""
+msgstr "Abgesegnet"
 
 #: ../root/edit/components/EditHeader.js:177
 #: ../root/edit/components/EditSummary.js:67
@@ -9697,7 +9697,7 @@ msgstr "Status:"
 #: ../root/edit/details/AddRelease.js:105
 #: ../root/edit/details/EditRelease.js:137
 msgid "Packaging"
-msgstr ""
+msgstr "Verpackung"
 
 #: ../root/edit/details/AddRelease.js:119
 #: ../root/edit/details/EditReleaseLabel.js:92
@@ -11088,11 +11088,11 @@ msgstr "Live-Datenfeed"
 
 #: ../root/layout/components/BottomMenu.js:222
 msgid "Advanced Search"
-msgstr ""
+msgstr "Erweiterte Suche"
 
 #: ../root/layout/components/BottomMenu.js:225
 msgid "Edit Search"
-msgstr ""
+msgstr "Bearbeitungssuche"
 
 #: ../root/layout/components/BottomMenu.js:228
 msgid "Tag Cloud"
@@ -11564,7 +11564,7 @@ msgstr ""
 
 #: ../root/layout/components/sidebar/PlayOnListenBrainzButton.js:64
 msgid "Play on ListenBrainz"
-msgstr ""
+msgstr "Spiele auf ListenBrainz"
 
 #: ../root/layout/components/sidebar/RecordingSidebar.js:45
 msgid "Recording information"
@@ -13239,7 +13239,7 @@ msgstr "Möglicherweise doppelte Veröffentlichungsgruppen"
 #: ../root/report/DuplicateReleaseGroups.js:100
 #: ../root/report/components/ReleaseGroupUrlList.js:83
 msgid "This release group no longer exists."
-msgstr ""
+msgstr "Diese Veröffentlichungsgruppe ist nicht mehr vorhanden."
 
 #: ../root/report/EventSequenceNotInSeries.js:24
 msgid ""
@@ -13350,7 +13350,7 @@ msgstr "ISRCs mit mehreren Aufnahmen"
 #: ../root/report/IsrcsWithManyRecordings.js:98
 #: ../root/report/RecordingsSameNameDifferentArtistsSameName.js:82
 msgid "This recording no longer exists."
-msgstr ""
+msgstr "Diese Aufnahme ist nicht mehr vorhanden."
 
 #: ../root/report/IswcsWithManyWorks.js:34
 msgid ""
@@ -13367,7 +13367,7 @@ msgstr "ISWCs mit mehreren Werken"
 
 #: ../root/report/IswcsWithManyWorks.js:83
 msgid "This work no longer exists."
-msgstr ""
+msgstr "Dieses Werk ist nicht mehr vorhanden."
 
 #: ../root/report/LabelsDisambiguationSameName.js:24
 msgid ""
@@ -13576,7 +13576,7 @@ msgstr "Nach Koordinaten suchen"
 
 #: ../root/report/PlacesWithoutCoordinates.js:123
 msgid "This place no longer exists."
-msgstr ""
+msgstr "Diese Örtlichkeit ist nicht mehr vorhanden."
 
 #: ../root/report/PossibleCollaborations.js:24
 msgid ""
@@ -13873,7 +13873,7 @@ msgstr ""
 #: ../root/report/ReleasesWithEmptyMediums.js:31
 #: ../root/report/ReportsIndex.js:409
 msgid "Releases with empty mediums"
-msgstr ""
+msgstr "Veröffentlichungen mit leeren Medien"
 
 #: ../root/report/ReleasesWithMailOrderRelationships.js:24
 msgid ""
@@ -14296,7 +14296,7 @@ msgstr ""
 
 #: ../root/report/components/ArtistCreditList.js:46
 msgid "This artist credit no longer exists."
-msgstr ""
+msgstr "Diese Künstlernennung ist nicht mehr vorhanden."
 
 #: ../root/report/components/LabelUrlList.js:75
 msgid "This label no longer exists."
@@ -14585,8 +14585,7 @@ msgstr ""
 
 #: ../root/static/scripts/account/components/EditProfileForm.js:193
 msgid "If you change your email address, you will be required to verify it."
-msgstr ""
-"Wenn du deine E-Mail-Adresse änderst, musst du sie nochmals bestätigen. "
+msgstr "Wenn du deine E-Mail-Adresse änderst, musst du sie nochmals bestätigen."
 
 #: ../root/static/scripts/account/components/EditProfileForm.js:215
 #: ../root/user/UserProfile.js:271
@@ -14807,7 +14806,7 @@ msgstr ""
 
 #: ../root/static/scripts/artist/components/ArtistCreditRenamer.js:255
 msgid "Show less artist credits"
-msgstr ""
+msgstr "Zeige weniger Künstlernennungen"
 
 #: ../root/static/scripts/artist/components/ArtistCreditRenamer.js:257
 #: ../root/static/scripts/common/components/Collapsible.js:76
@@ -14816,7 +14815,7 @@ msgstr "Zeige weniger …"
 
 #: ../root/static/scripts/artist/components/ArtistCreditRenamer.js:269
 msgid "Show more artist credits"
-msgstr ""
+msgstr "Zeige mehr Künstlernennungen"
 
 #: ../root/static/scripts/artist/components/ArtistCreditRenamer.js:271
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:475
@@ -15828,7 +15827,7 @@ msgstr "Erforderliches Feld"
 
 #: ../root/static/scripts/edit/components/AddEntityDialog.js:15
 msgid "Add a new area"
-msgstr ""
+msgstr "Ein neues Gebiet hinzufügen"
 
 #: ../root/static/scripts/edit/components/AddEntityDialog.js:16
 msgid "Add a new artist"
@@ -17799,7 +17798,7 @@ msgstr "Keine Abonnements."
 
 #: ../root/user/UserSubscriptions.js:257
 msgid "Private collections"
-msgstr ""
+msgstr "Private Sammlungen"
 
 #: ../root/user/UserSubscriptions.js:271
 msgid "{editor} is also subscribed to {n} other private collection."
