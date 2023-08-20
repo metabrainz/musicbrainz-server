@@ -33,7 +33,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-08-19 08:52+0000\n"
-"PO-Revision-Date: 2023-08-19 08:54+0000\n"
+"PO-Revision-Date: 2023-08-20 10:27+0000\n"
 "Last-Translator: RandomMushroom128 <RandomMushroom128@users.noreply."
 "translations.metabrainz.org>\n"
 "Language-Team: Dutch <https://translations.metabrainz.org/projects/"
@@ -1693,7 +1693,7 @@ msgstr ""
 
 #: ../root/components/common-macros.tt:60 ../root/components/Artwork.js:50
 msgid "Image not available, please try again later."
-msgstr ""
+msgstr "Afbeelding niet beschikbaar, probeer het later nog eens."
 
 #: ../root/cdtoc/lookup.tt:29 ../root/cdstub/ImportCDStub.js:36
 msgid "Import CD Stub"
@@ -3727,6 +3727,12 @@ msgid ""
 "by selecting “{add_a_new_artist}” from the bottom of the search results drop-"
 "down."
 msgstr ""
+"Je moet een artiest voor de uitgave selecteren (de achtergrondkleur van het "
+"artiest veld moet groen zijn). Als je een artiest hebt ingevoerd maar de "
+"achtergrond blijft ongekleurd, klik het vergrootglas om de naam met een "
+"MusicBrainz artiest te matchen. Als de artiest nog niet bestaat, kan je het "
+"maken door \"{add_a_new_artist}\" te selecteren aan de onderkant van het "
+"zoekresultaat uitklapmenu."
 
 #: ../root/release/edit/information.tt:56
 msgid "You must select an existing release group."
@@ -3778,6 +3784,10 @@ msgid ""
 "has revoked your privileges. If you haven’t already been contacted about "
 "why, please {uri|send us a message}."
 msgstr ""
+"Je hebt op dit moment geen toestemming om bewerkingsnotities achter te laten "
+"of te veranderen omdat een administrator je privileges heeft ingetrokken. "
+"Als er nog geen contact met je is opgenomen over waarom, stuur ons dan "
+"alsjeblieft {uri|een bericht}."
 
 #: ../root/release/edit/tracklist.tt:289
 msgid ""
@@ -4301,7 +4311,7 @@ msgstr "Er is geen gebruiker met dit e-mailadres"
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:420
 msgid "Your profile has been updated."
-msgstr "Je profiel is bijgewerkt"
+msgstr "Je profiel is bijgewerkt."
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:424
 #, perl-brace-format
@@ -4496,11 +4506,11 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/EditNote.pm:50
 msgid "You can’t change other users’ edit notes."
-msgstr ""
+msgstr "Je kan niet de bewerkingsnotities van andere gebruikers aanpassen."
 
 #: ../lib/MusicBrainz/Server/Controller/EditNote.pm:80
 msgid "This note has already been removed."
-msgstr ""
+msgstr "Deze notitie is al verwijderd."
 
 #: ../lib/MusicBrainz/Server/Controller/EditNote.pm:107
 msgid ""
@@ -4508,6 +4518,10 @@ msgid ""
 "If there’s an important reason why it should be changed (for example, it "
 "contains private data), please {contact_url|contact us}."
 msgstr ""
+"Je kan deze notitie niet veranderen omdat iemand anders er al op gereageerd "
+"heeft. Als er een belangrijke reden is dat het veranderd moet worden (als "
+"het privé gegevens bevat bijvoorbeeld), {contact_url|neem dan graag contact "
+"met ons op}."
 
 #: ../lib/MusicBrainz/Server/Controller/EditNote.pm:125
 msgid ""
@@ -4515,6 +4529,10 @@ msgid ""
 "important reason why it should be changed (for example, it contains private "
 "data), please {contact_url|contact us}."
 msgstr ""
+"Je kan deze notitie niet veranderen omdat het te lang geleden gemaakt is. "
+"Als er een belangrijke reden is dat het veranderd moet worden (als het privé "
+"gegevens bevat bijvoorbeeld), {contact_url|neem dan graag contact met ons "
+"op}."
 
 #: ../lib/MusicBrainz/Server/Controller/Label.pm:250
 msgid "You cannot merge a special purpose label into another label."

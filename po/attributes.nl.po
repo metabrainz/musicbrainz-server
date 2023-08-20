@@ -12,7 +12,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-08-19 08:54+0000\n"
+"PO-Revision-Date: 2023-08-20 10:27+0000\n"
 "Last-Translator: RandomMushroom128 <RandomMushroom128@users.noreply."
 "translations.metabrainz.org>\n"
 "Language-Team: Dutch <https://translations.metabrainz.org/projects/"
@@ -7281,6 +7281,8 @@ msgid ""
 "The DVD (video) layer of a DVDplus. The CD layer should be added as a "
 "separate medium."
 msgstr ""
+"De dvd-video-laag van een DVDplus. De cd-laag moet als een apart medium "
+"worden toegevoegd."
 
 #: DB:medium_format/description:66
 msgctxt "medium_format"
@@ -7296,6 +7298,9 @@ msgid ""
 "Audio or DVD-Video (or it includes both). The CD layer should be added as a "
 "separate medium."
 msgstr ""
+"De dvd-laag van een DualDisc, wanneer het niet duidelijk is of het een dvd-"
+"audio of dvd-video is (of beiden). De cd-laag moet als een apart medium "
+"worden toegevoegd."
 
 #: DB:medium_format/description:80
 msgctxt "medium_format"
