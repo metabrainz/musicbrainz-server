@@ -16,7 +16,7 @@
 # Dirk Hoffmann <email address hidden>, 2019
 # Eckhard Henkel <email address hidden>, 2018
 # <email address hidden>, 2012
-#   <email address hidden>, 2012
+# <email address hidden>, 2012
 # Ettore Atalan <email address hidden>, 2014
 # Ettore Atalan <email address hidden>, 2014
 # Felix Kugler <email address hidden>, 2016
@@ -65,13 +65,14 @@
 # c8ba6e46576070595b2ba64068f9a431_0cfbcb2, 2012
 # c8ba6e46576070595b2ba64068f9a431_0cfbcb2, 2012
 # yvanz, 2018
+# chaban <chaban@users.noreply.translations.metabrainz.org>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-08-18 19:03+0000\n"
-"PO-Revision-Date: 2023-08-18 12:53+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"PO-Revision-Date: 2023-08-19 08:54+0000\n"
+"Last-Translator: chaban <chaban@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: German <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/de/>\n"
 "Language: de\n"
@@ -13762,9 +13763,9 @@ msgid ""
 "applied to the wrong medium or the wrong release."
 msgstr ""
 "Dieser Report zeigt Veröffentlichungen, die in Konflikt stehende Disc-IDs "
-"mit signifikanten Unterschieden in der Dauer für das selbe Medium haben. "
-"Das  bedeutetet üblicherweise, dass eine Disc-ID auf das falsche Medium oder "
-"die falsche Veröffentlichung angewandt wurde."
+"mit signifikanten Unterschieden in der Dauer für das selbe Medium haben. Das "
+"bedeutetet üblicherweise, dass eine Disc-ID auf das falsche Medium oder die "
+"falsche Veröffentlichung angewandt wurde."
 
 #: ../root/report/ReleasesConflictingDiscIds.js:31
 #: ../root/report/ReportsIndex.js:429
@@ -17370,7 +17371,7 @@ msgstr "Du bist an keiner gemeinsamen Sammlung beteiligt."
 
 #: ../root/user/UserCollections.js:220
 msgid "{user} isn’t collaborating in any public collections."
-msgstr ""
+msgstr "{user} beteiligt sich an keiner öffentlichen Sammlung."
 
 #: ../root/user/UserEdits.js:42 ../root/user/UserEdits.js:43
 msgid "Votes by {name}"
@@ -17402,7 +17403,7 @@ msgstr "Automatische Bearbeitungen von {name}"
 
 #: ../root/user/UserEdits.js:70 ../root/user/UserEdits.js:71
 msgid "Applied edits by {name}"
-msgstr ""
+msgstr "Angewandte Bearbeitungen von {name}"
 
 #: ../root/user/UserEdits.js:74 ../root/user/UserEdits.js:75
 msgid "Edits by {name}"

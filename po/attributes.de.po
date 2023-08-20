@@ -50,7 +50,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-08-18 19:05+0000\n"
+"PO-Revision-Date: 2023-08-19 08:54+0000\n"
 "Last-Translator: chaban <chaban@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: German <https://translations.metabrainz.org/projects/"
 "musicbrainz/attributes/de/>\n"
@@ -272,7 +272,8 @@ msgstr ""
 msgctxt "work_type"
 msgid ""
 "A concerto is a musical work for soloist(s) accompanied by an orchestra."
-msgstr "Concerto beschreibt eine Komposition für Solisten mit Orchesterbegleitung"
+msgstr ""
+"Concerto beschreibt eine Komposition für Solisten mit Orchesterbegleitung."
 
 #: DB:event_type/description:4
 msgctxt "event_type"
@@ -403,7 +404,9 @@ msgctxt "place_type"
 msgid ""
 "A place that has live artistic performances as one of its primary functions,"
 " such as a concert hall."
-msgstr "Ein Ort, wie z. B. eine Konzerthalle, dessen wesentliche Funktion die Aufführung von künstlerischen Live-Auftritten ist. "
+msgstr ""
+"Ein Ort, wie z. B. eine Konzerthalle, dessen wesentliche Funktion die "
+"Aufführung von künstlerischen Live-Auftritten ist."
 
 #: DB:place_type/description:6
 msgctxt "place_type"
@@ -411,7 +414,10 @@ msgid ""
 "A place that has worship or religious studies as its main function. "
 "Religious buildings often host concerts and serve as recording locations, "
 "especially for classical music."
-msgstr "Ein Ort, der im Wesentlichen religiösen Gottesdiensten oder Studien vorbehalten ist. Religiöse Einrichtungen beherbergen oft Konzerte oder dienen als Aufnahmeorte, insbesonder für klassische Musik. "
+msgstr ""
+"Ein Ort, der im Wesentlichen religiösen Gottesdiensten oder Studien "
+"vorbehalten ist. Religiöse Einrichtungen beherbergen oft Konzerte oder "
+"dienen als Aufnahmeorte, insbesonder für klassische Musik."
 
 #: DB:place_type/description:4
 msgctxt "place_type"
@@ -419,7 +425,11 @@ msgid ""
 "A place whose main purpose is to host outdoor sport events, typically "
 "consisting of a pitch surrounded by a structure for spectators with no roof,"
 " or a roof which can be retracted."
-msgstr "Ein Ort, dessen wesentliche Bestimmung die Durchführung von outdoor Sportereignissen ist. Typischerweise bestehend aus einem Sportfeld umgeben von einer Infrastruktur für Zuschauer ohne Dach, oder einem Dach, das eingezogen werden kann. "
+msgstr ""
+"Ein Ort, dessen wesentliche Bestimmung die Durchführung von outdoor "
+"Sportereignissen ist. Typischerweise bestehend aus einem Sportfeld umgeben "
+"von einer Infrastruktur für Zuschauer ohne Dach, oder einem Dach, das "
+"eingezogen werden kann."
 
 #: DB:release_status/description:6
 msgctxt "release_status"
@@ -435,7 +445,9 @@ msgid ""
 "A play is a form of literature usually consisting of scripted dialogue "
 "between characters, and intended for theatrical performance rather than just"
 " reading."
-msgstr "Ein Bühnenwerk, auch Bühnenstück oder Theaterstück genannt, ist eine Dichtung, die auf der Bühne zur Aufführung gebracht wird. "
+msgstr ""
+"Ein Bühnenwerk, auch Bühnenstück oder Theaterstück genannt, ist eine "
+"Dichtung, die auf der Bühne zur Aufführung gebracht wird."
 
 #: DB:work_type/description:21
 msgctxt "work_type"
@@ -499,7 +511,7 @@ msgstr ""
 #: DB:series_type/description:13
 msgctxt "series_type"
 msgid "A series of artists."
-msgstr ""
+msgstr "Eine Reihe von Künstlern."
 
 #: DB:series_type/description:15
 msgctxt "series_type"
@@ -916,7 +928,10 @@ msgid ""
 "An alternate version of a release where the titles have been changed. These "
 "don't correspond to any real release and should be linked to the original "
 "release using the transl(iter)ation relationship."
-msgstr "Eine alternative Version der Veröffentlichung, bei der die Titel verändert wurden. Diese entsprechen keiner echten Veröffentlichung und sollten mittel der Transl(iter)ationsbeziehung mit dem Original verknüpft werden. "
+msgstr ""
+"Eine alternative Version der Veröffentlichung, bei der die Titel verändert "
+"wurden. Diese entsprechen keiner echten Veröffentlichung und sollten mittel "
+"der Transl(iter)ationsbeziehung mit dem Original verknüpft werden."
 
 #: DB:work_type/description:1
 msgctxt "work_type"
@@ -931,7 +946,9 @@ msgctxt "work_type"
 msgid ""
 "An audio drama is a dramatized, purely acoustic performance, broadcast on "
 "radio or published on an audio medium (tape, CD, etc.)."
-msgstr "Ein Hörspiel ist eine dramatisierte, rein akkustische Aufführung, Radioübertragung oder Veröffentlichung auf einem Medium (Kassette, CD, etc.). "
+msgstr ""
+"Ein Hörspiel ist eine dramatisierte, rein akustische Aufführung, "
+"Radioübertragung oder Veröffentlichung auf einem Medium (Kassette, CD, etc.)."
 
 #: DB:release_group_secondary_type/description:11
 msgctxt "release_group_secondary_type"
@@ -990,7 +1007,7 @@ msgstr ""
 #: DB:release_packaging/description:54
 msgctxt "release_packaging"
 msgid "An often decorated metal tin containing one or more CDs."
-msgstr ""
+msgstr "Eine oftmals verzierte Metalldose für eine oder mehrere CDs."
 
 #: DB:work_type/description:10
 msgctxt "work_type"
@@ -1105,7 +1122,7 @@ msgstr ""
 #: DB:editor_collection_type/name:7
 msgctxt "collection_type"
 msgid "Area collection"
-msgstr ""
+msgstr "Gebietssammlung"
 
 #: DB:area_alias_type/name:1
 msgctxt "alias_type"
@@ -1125,7 +1142,7 @@ msgstr ""
 #: DB:editor_collection_type/name:8
 msgctxt "collection_type"
 msgid "Artist collection"
-msgstr ""
+msgstr "Künstlersammlung"
 
 #: DB:artist_alias_type/name:1
 msgctxt "alias_type"
@@ -1180,12 +1197,12 @@ msgstr "Automatisch"
 #: DB:event_type/name:7
 msgctxt "event_type"
 msgid "Award ceremony"
-msgstr ""
+msgstr "Preisverleihung"
 
 #: DB:series_type/name:15
 msgctxt "series_type"
 msgid "Award ceremony"
-msgstr ""
+msgstr "Preisverleihung"
 
 #: DB:work_attribute_type_allowed_value/value:694
 msgctxt "work_attribute_type_allowed_value"
@@ -1996,7 +2013,7 @@ msgstr "Konzert"
 #: DB:place_type/name:44
 msgctxt "place_type"
 msgid "Concert hall / Theatre"
-msgstr ""
+msgstr "Konzerthaus / Theater"
 
 #: DB:work_type/name:4
 msgctxt "work_type"
@@ -2709,7 +2726,7 @@ msgstr ""
 #: DB:editor_collection_type/name:4
 msgctxt "collection_type"
 msgid "Event collection"
-msgstr ""
+msgstr "Veranstaltungssammlung"
 
 #: DB:event_alias_type/name:1
 msgctxt "alias_type"
@@ -2931,7 +2948,7 @@ msgstr "Flache Scheiben mit Rillen für Phonographen/Grammophone. Für Schellack
 #: DB:medium_format/name:51
 msgctxt "medium_format"
 msgid "Flexi-disc"
-msgstr "Flexible Disc (Flexidisc, Schallfolie oder Flexi) "
+msgstr "Flexible Disc (Flexidisc, Schallfolie oder Flexi)"
 
 #: DB:medium_format/description:51
 msgctxt "medium_format"
@@ -3537,7 +3554,7 @@ msgstr "Hybrid SACD (SACD-Schicht, 2-Kanal)"
 #: DB:medium_format/name:86
 msgctxt "medium_format"
 msgid "Hybrid SACD (SACD layer, multichannel)"
-msgstr "Hybrid SACD (SACD-Schicht, Mehrkanal)    "
+msgstr "Hybrid SACD (SACD-Schicht, Mehrkanal)"
 
 #: DB:work_attribute_type_allowed_value/value:418
 msgctxt "work_attribute_type_allowed_value"
@@ -5613,7 +5630,7 @@ msgstr "Nişabureyn"
 #: DB:gender/name:5
 msgctxt "gender"
 msgid "Non-binary"
-msgstr ""
+msgstr "nichtbinär"
 
 #: DB:release_group_secondary_type/description:3
 msgctxt "release_group_secondary_type"
@@ -5838,7 +5855,7 @@ msgstr "Paras"
 #: DB:place_type/name:9
 msgctxt "place_type"
 msgid "Park"
-msgstr ""
+msgstr "Park"
 
 #: DB:work_type/name:13
 msgctxt "work_type"
@@ -6202,7 +6219,7 @@ msgstr ""
 #: DB:editor_collection_type/name:12
 msgctxt "collection_type"
 msgid "Recording collection"
-msgstr ""
+msgstr "Aufnahmensammlung"
 
 #: DB:recording_alias_type/name:1
 msgctxt "alias_type"
