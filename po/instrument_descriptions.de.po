@@ -1,4 +1,4 @@
-# 
+#
 # Translators:
 # nikki, 2014
 # David <email address hidden>, 2015
@@ -10,17 +10,20 @@
 # Shepard, 2014
 # TL, 2014-2016
 # Ulrich Klauer <email address hidden>, 2015
+# chaban <chaban@users.noreply.translations.metabrainz.org>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2012-05-24 19:17+0000\n"
-"Last-Translator: Mark Spike, 2019\n"
-"Language-Team: German (http://app.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
+"PO-Revision-Date: 2023-08-19 08:54+0000\n"
+"Last-Translator: chaban <chaban@users.noreply.translations.metabrainz.org>\n"
+"Language-Team: German <https://translations.metabrainz.org/projects/"
+"musicbrainz/instrument-descriptions/de/>\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: de\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.18.2\n"
 
 #. name:rebab
 #: DB:instrument/description:239
@@ -161,7 +164,9 @@ msgstr "Eine Wölbbrett-Zither mit 17 statt 13 Seiden-Saiten bespannt, wird auch
 msgid ""
 "A larger version of tef, used to indicate the rhythmic structures (usul) in "
 "makam music."
-msgstr "Eine Rahmentrommel mit oder ohne Schellen die in Südosteuropa  eher zur Volksmusik der Frauen gehört."
+msgstr ""
+"Eine Rahmentrommel mit oder ohne Schellen die in Südosteuropa eher zur "
+"Volksmusik der Frauen gehört."
 
 #. name:laser harp
 #: DB:instrument/description:515
@@ -224,7 +229,9 @@ msgstr "Beim präparierten Klavier werden an bestimmten Stellen der Saitenchöre
 msgid ""
 "A pūtātara with a long wooden mouth piece, it has a deeper timbre than the "
 "pūtātara"
-msgstr "Ein Pūtātara mit einem längeren Mundstück, das dadurch eine tiefere Klangfarbe als ein Pūtātara besitzt. "
+msgstr ""
+"Ein Pūtātara mit einem längeren Mundstück, das dadurch eine tiefere "
+"Klangfarbe als ein Pūtātara besitzt."
 
 #. name:spinet
 #: DB:instrument/description:797
@@ -474,7 +481,7 @@ msgstr "Vorläufer der modernen Trompete. Sie ist ventillos mit einem Mundstück
 #. name:xiao
 #: DB:instrument/description:484
 msgid "Ancient Chinese vertical, end-blown flute made of bamboo"
-msgstr "Altertümliche chinesische Längsflöte aus Bambus "
+msgstr "Altertümliche chinesische Längsflöte aus Bambus"
 
 #. name:gusli
 #: DB:instrument/description:423
@@ -513,7 +520,9 @@ msgstr "Altertümliche längs geblasene Kernspaltflöte aus Bambus."
 #. name:membranophone
 #: DB:instrument/description:100
 msgid "Any kind of instrument with membranes, usually variously sized drums."
-msgstr "Jede Art von Instrument mit Membranen, normalerweise Trommeln verschiedener Größen. "
+msgstr ""
+"Jede Art von Instrument mit Membranen, normalerweise Trommeln verschiedener "
+"Größen."
 
 #. name:flumpet
 #: DB:instrument/description:742
@@ -865,7 +874,10 @@ msgstr ""
 #. name:crumhorn
 #: DB:instrument/description:348
 msgid "Crumhorn used in the 14th to 17th centuries in Europe"
-msgstr "Das Krummhorn ist ein Holzblasinstrument mit Doppelrohrblatt, zylindrisch gebohrter Röhre und Windkapsel. Es besitzt sieben vorderständige Grifflöcher und ein Daumenloch für den linken Daumen. "
+msgstr ""
+"Das Krummhorn ist ein Holzblasinstrument mit Doppelrohrblatt, zylindrisch "
+"gebohrter Röhre und Windkapsel. Es besitzt sieben vorderständige Grifflöcher "
+"und ein Daumenloch für den linken Daumen."
 
 #. name:bell
 #: DB:instrument/description:116
@@ -2099,7 +2111,9 @@ msgstr ""
 #. name:Mexican vihuela
 #: DB:instrument/description:92
 msgid "Mexican vihuela, used by mariachi bands"
-msgstr "Die in Mexiko gebräuchliche Vihuela ist ein Saiteninstrument mit fünf Saiten, das vor allem von Mariachi-Gruppen verwendet wird. "
+msgstr ""
+"Die in Mexiko gebräuchliche Vihuela ist ein Saiteninstrument mit fünf "
+"Saiten, das vor allem von Mariachi-Gruppen verwendet wird."
 
 #. name:fundeh
 #: DB:instrument/description:881
@@ -3016,7 +3030,10 @@ msgstr "Die Kretische Lyra ist eine birnenförmige, mit dem Bogen gestrichene Ku
 #. name:E-flat clarinet
 #: DB:instrument/description:574
 msgid "The E♭ clarinet is a member of the clarinet family."
-msgstr "Die Es-Klarinette gehört zur Familie der hohen Klarinetten.  Als solistisches Instrument eignet sie deren harter und schriller Klang besonders für parodistische, burleske Effekte."
+msgstr ""
+"Die Es-Klarinette gehört zur Familie der hohen Klarinetten. Als solistisches "
+"Instrument eignet sie deren harter und schriller Klang besonders für "
+"parodistische, burleske Effekte."
 
 #. name:viola da gamba
 #: DB:instrument/description:93
@@ -3065,7 +3082,11 @@ msgstr "Die vietnamesische Gitarre ähnelt einer normalen Gitarre, aber mit gewe
 msgid ""
 "The Wurlitzer electric piano is an electric piano where flat steel reeds are"
 " struck by felt hammers."
-msgstr "Das Wurlitzer Electric Piano ist ein Tasteninstrument mit 64 Tasten. Der Tonumfang entspricht einem 88-Tasten Flügel ohne die obere und untere Oktave. Der typische Klang wird durch das Anschlagen einer Metallzunge (Reed) mit einem befilzten Hammerkopf erzeugt. "
+msgstr ""
+"Das Wurlitzer Electric Piano ist ein Tasteninstrument mit 64 Tasten. Der "
+"Tonumfang entspricht einem 88-Tasten Flügel ohne die obere und untere "
+"Oktave. Der typische Klang wird durch das Anschlagen einer Metallzunge (Reed)"
+" mit einem befilzten Hammerkopf erzeugt."
 
 #. name:Xaphoon
 #: DB:instrument/description:563
@@ -3130,7 +3151,10 @@ msgstr "Erzlaute ist der Oberbegriff für historische westeuropäische Lautenins
 msgid ""
 "The arghul is a traditional Egyptian double-pipe, single-reed woodwind "
 "instrument."
-msgstr "Der Arghul ist ein Einfachrohrblattinstrument, genauer eine gedoppelte Rohrpfeife mit ideoglotten Rohrblättern. Er hat zwei parallele Schallrohre, die mit gewachsten Fäden verbunden werden. "
+msgstr ""
+"Der Arghul ist ein Einfachrohrblattinstrument, genauer eine gedoppelte "
+"Rohrpfeife mit ideoglotten Rohrblättern. Er hat zwei parallele Schallrohre, "
+"die mit gewachsten Fäden verbunden werden."
 
 #. name:atabaque
 #: DB:instrument/description:719
@@ -3243,7 +3267,10 @@ msgstr "Die Biwa ist ein klassisches japanisches Musikinstrument, eine vier- ode
 #: DB:instrument/description:745
 msgid ""
 "The bolon is a traditional harp-lute played in several African countries."
-msgstr "Die 3 saitige Bolon, auch als afrikanische Bogenharfe bekannt, besteht aus einem starken Riesenkürbis mit Ziegenhaut bespannt und mit einem gebogenen Hals. Die Saiten werden aus gedrehten Ziegenhaut Streifen hergestellt. "
+msgstr ""
+"Die 3 saitige Bolon, auch als afrikanische Bogenharfe bekannt, besteht aus "
+"einem starken Riesenkürbis mit Ziegenhaut bespannt und mit einem gebogenen "
+"Hals. Die Saiten werden aus gedrehten Ziegenhaut Streifen hergestellt."
 
 #. name:buisine
 #: DB:instrument/description:762
@@ -3291,7 +3318,9 @@ msgstr "Das Chalumeau ist ein Holzblasinstrument mit einfachem Rohrblatt. Es ist
 msgid ""
 "The chande is a drum used in the traditional and classical music of South "
 "India."
-msgstr "Chande bezeichnet eine zylindrische Doppelfelltrommel, die in einigen Regionen in der südindischen Volksmusik gespielt wird. "
+msgstr ""
+"Chande bezeichnet eine zylindrische Doppelfelltrommel, die in einigen "
+"Regionen in der südindischen Volksmusik gespielt wird."
 
 #. name:chanzy
 #: DB:instrument/description:713
@@ -3383,7 +3412,9 @@ msgstr "Der Diddley bow ist eine Art Monochord, wobei eine einzige Saite mit ein
 msgid ""
 "The dilruba is a bowed string instrument from Northern India, mostly used in"
 " religious music and light classical songs"
-msgstr "Dilruba ist ein mit der Sarangi vergleichbares nordindisches Streichinstrument. "
+msgstr ""
+"Dilruba ist ein mit der Sarangi vergleichbares nordindisches "
+"Streichinstrument."
 
 #. name:ding tac ta
 #: DB:instrument/description:317
@@ -3417,7 +3448,11 @@ msgstr "Die Dohol ist eine paschtunische Doppelmembrantrommel die mit einem Band
 #. name:dombra
 #: DB:instrument/description:598
 msgid "The dombra is a long-necked lute from central Asia."
-msgstr "Dombra ist ein weit verbreitetes Zupfinstrument in mehreren mittelasiatischen Staaten. Die zweisaitigen Langhalslauten mit birnenförmigem Korpus besitzen mit Ausnahme des kasachischen Instruments und im Unterschied zur in derselben Region gespielten dotār keine Bünde. "
+msgstr ""
+"Dombra ist ein weit verbreitetes Zupfinstrument in mehreren "
+"mittelasiatischen Staaten. Die zweisaitigen Langhalslauten mit "
+"birnenförmigem Korpus besitzen mit Ausnahme des kasachischen Instruments und "
+"im Unterschied zur in derselben Region gespielten dotār keine Bünde."
 
 #. name:domra
 #: DB:instrument/description:485
@@ -3548,7 +3583,11 @@ msgid ""
 "The guitarrón mexicano is a very large and deep-bodied Mexican guitar-like "
 "instrument with six strings which is traditionally played in mariachi "
 "groups."
-msgstr "Das Guitarrón ist ein mexikanisches Bassinstrument aus der Familie der Gitarren. Es hat üblicherweise sechs Saiten. Auffällig ist der sehr grosse Resonanzkörper, welcher auf der Rückseite bauchig gewölbt ist. Das Guitarrón hat in der Regel keine Bünde. "
+msgstr ""
+"Das Guitarrón ist ein mexikanisches Bassinstrument aus der Familie der "
+"Gitarren. Es hat üblicherweise sechs Saiten. Auffällig ist der sehr grosse "
+"Resonanzkörper, welcher auf der Rückseite bauchig gewölbt ist. Das Guitarrón "
+"hat in der Regel keine Bünde."
 
 #. name:guqin
 #: DB:instrument/description:506
@@ -4032,7 +4071,10 @@ msgstr "Die Sanshin ist ein Musikinstrument aus Okinawa und Vorläufer des japan
 #. name:sanxian
 #: DB:instrument/description:244
 msgid "The sanxian is a Chinese lute with three strings."
-msgstr "Die Sanxian ist eine dreisaitige, bundlose Laute mit langem Griffbrett, der Resonanzkörper wird üblicherweise mit Schlangenhaut bespannt. Sie ist ein Instrument der traditionellen chinesischen Musik. "
+msgstr ""
+"Die Sanxian ist eine dreisaitige, bundlose Laute mit langem Griffbrett, der "
+"Resonanzkörper wird üblicherweise mit Schlangenhaut bespannt. Sie ist ein "
+"Instrument der traditionellen chinesischen Musik."
 
 #. name:sarangi
 #: DB:instrument/description:459
@@ -4371,7 +4413,11 @@ msgstr "Die Zarb (auch Tombak genannt) ist eine mit den Händen geschlagene höl
 #. name:zhaleika
 #: DB:instrument/description:692
 msgid "The zhaleika is a single reed hornpipe from Russia."
-msgstr "Die Schaleika ist ein Blasinstrument aus der russischen Folklore. Das Schallrohr aus Schilfrohr, Weide oder Holunder ist 10–20 cm lang. An seinem unteren Ende ist ein Schalltrichter aus Kuhhorn oder Birkenrinde angebracht. Somit gehört die Schaleika zu den Hornpfeifen. "
+msgstr ""
+"Die Schaleika ist ein Blasinstrument aus der russischen Folklore. Das "
+"Schallrohr aus Schilfrohr, Weide oder Holunder ist 10–20 cm lang. An seinem "
+"unteren Ende ist ein Schalltrichter aus Kuhhorn oder Birkenrinde angebracht. "
+"Somit gehört die Schaleika zu den Hornpfeifen."
 
 #. name:zhonghu
 #: DB:instrument/description:217
@@ -4423,7 +4469,10 @@ msgid ""
 "The đàn tranh is a a long Vietnamese zither with sixteen strings and high, "
 "movable bridges. The strings are plucked with plectrums, while the left hand"
 " is used for ornamenting the notes by pressing the strings."
-msgstr "The đàn tranh ist eine gezupfter Zither aus Vietnam, ähnlich der chinesischen Gguzheng, der japanischen Koto, der koreanischen  Kayagum und der mongolischen Yatga."
+msgstr ""
+"The đàn tranh ist eine gezupfter Zither aus Vietnam, ähnlich der "
+"chinesischen Gguzheng, der japanischen Koto, der koreanischen Kayagum und "
+"der mongolischen Yatga."
 
 #. name:đàn tứ
 #: DB:instrument/description:608
