@@ -66,7 +66,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-08-18 12:17+0000\n"
-"PO-Revision-Date: 2023-08-18 12:53+0000\n"
+"PO-Revision-Date: 2023-08-18 19:05+0000\n"
 "Last-Translator: yvanzo <yvanzo@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: French <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/fr/>\n"
@@ -3870,6 +3870,9 @@ msgid ""
 "has revoked your privileges. If you haven’t already been contacted about "
 "why, please {uri|send us a message}."
 msgstr ""
+"Vous n’êtes actuellement pas autorisé à entrer ou changer des notes de "
+"modification car l’administrateur a révoqué vos privilèges. Si vous n’avez "
+"pas déjà été contacté à ce sujet, merci de {uri|nous écrire}."
 
 #: ../root/release/edit/tracklist.tt:289
 msgid ""
@@ -4601,15 +4604,16 @@ msgstr "Valeur par défaut"
 #: ../lib/MusicBrainz/Server/Controller/EditNote.pm:105
 #: ../lib/MusicBrainz/Server/Controller/EditNote.pm:123
 msgid "Can’t change edit note"
-msgstr ""
+msgstr "Impossible de changer la note de modification"
 
 #: ../lib/MusicBrainz/Server/Controller/EditNote.pm:50
 msgid "You can’t change other users’ edit notes."
 msgstr ""
+"Vous ne pouvez pas changer les notes de modification des autres éditeurs."
 
 #: ../lib/MusicBrainz/Server/Controller/EditNote.pm:80
 msgid "This note has already been removed."
-msgstr ""
+msgstr "Cette note a déjà été enlevée."
 
 #: ../lib/MusicBrainz/Server/Controller/EditNote.pm:107
 msgid ""
@@ -4617,6 +4621,10 @@ msgid ""
 "If there’s an important reason why it should be changed (for example, it "
 "contains private data), please {contact_url|contact us}."
 msgstr ""
+"Vous ne pouvez pas changer cette note, car quelqu’un d’autre y a déjà "
+"répondu. Si cette note doit absolument être changée pour une raison majeure ("
+"par exemple, si elle contient des données personnelles), merci de "
+"{contact_url|nous contacter}."
 
 #: ../lib/MusicBrainz/Server/Controller/EditNote.pm:125
 msgid ""
@@ -4624,6 +4632,10 @@ msgid ""
 "important reason why it should be changed (for example, it contains private "
 "data), please {contact_url|contact us}."
 msgstr ""
+"Vous ne pouvez pas changer cette note, car elle a été entrée il y a trop "
+"longtemps. Si cette note doit absolument être changée pour une raison "
+"majeure (par exemple, si elle contient des données personnelles), merci de "
+"{contact_url|nous contacter}."
 
 #: ../lib/MusicBrainz/Server/Controller/Label.pm:250
 msgid "You cannot merge a special purpose label into another label."
@@ -5904,7 +5916,7 @@ msgstr "Niconico"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/RateYourMusic.pm:13
 msgid "Interview at Rate Your Music"
-msgstr ""
+msgstr "Interview sur Rate Your Music"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Runeberg.pm:9
 msgid "Project Runeberg"
@@ -6085,6 +6097,8 @@ msgid ""
 "You must provide an edit note. If you want to blank the note, please remove "
 "it instead."
 msgstr ""
+"Vous devez fournir une note de modification. Si vous voulez effacer cette "
+"note, merci de l’enlever à la place."
 
 #: ../lib/MusicBrainz/Server/Form/Field/ArtistCredit.pm:50
 #, perl-brace-format
@@ -6993,7 +7007,7 @@ msgstr "Accès"
 
 #: ../root/account/applications/ApplicationList.js:117
 msgid "Last granted token"
-msgstr ""
+msgstr "Dernier jeton attribué"
 
 #: ../root/account/applications/ApplicationList.js:118
 #: ../root/account/applications/ApplicationList.js:158
@@ -7070,11 +7084,12 @@ msgstr "Enlever l’application"
 
 #: ../root/account/applications/RevokeApplicationAccess.js:30
 msgid "You’re about to revoke {app}’s permissions to:"
-msgstr ""
+msgstr "Vous êtes sur le point de révoquer les permissions de {app} à :"
 
 #: ../root/account/applications/RevokeApplicationAccess.js:42
 msgid "Are you sure you want to revoke this application’s access?"
 msgstr ""
+"Êtes-vous sûr de vouloir révoquer les permissions de cette application ?"
 
 #: ../root/account/applications/RevokeApplicationAccess.js:46
 msgid "Revoke Application Access"
@@ -7256,7 +7271,7 @@ msgstr "Modifier le profil"
 
 #: ../root/admin/EditUser.js:155
 msgid "Username"
-msgstr ""
+msgstr "Nom d’utilisateur"
 
 #: ../root/admin/EditUser.js:166
 msgid "Skip verification"
@@ -7943,7 +7958,7 @@ msgstr "Affichage des groupes de parution officielle par cet artiste"
 
 #: ../root/artist/ArtistIndex.js:239
 msgid "Performance name of"
-msgstr ""
+msgstr "Nom d’interprète de"
 
 #: ../root/artist/ArtistIndex.js:247
 msgid "Legal name"
@@ -9307,11 +9322,11 @@ msgstr ""
 #: ../root/edit/DeleteNote.js:32 ../root/edit/DeleteNote.js:33
 #: ../root/edit/components/EditNote.js:147
 msgid "Remove edit note"
-msgstr ""
+msgstr "Enlever la note de modification"
 
 #: ../root/edit/DeleteNote.js:35
 msgid "Are you sure you want to remove the following edit note?"
-msgstr ""
+msgstr "Êtes-vous sûr de vouloir enlever la note de modification suivante ?"
 
 #: ../root/edit/DeleteNote.js:47
 msgid ""
@@ -9319,6 +9334,9 @@ msgid ""
 "things clearer for other editors checking the editing history in the future. "
 "Otherwise it can be omitted."
 msgstr ""
+"Fournir une raison pour cette suppression est recommandé si vous pensez que "
+"cela peut aider les autres éditeurs consultant l’historique de modification "
+"à l’avenir. Sinon elle peut être omise."
 
 #: ../root/edit/DeleteNote.js:54 ../root/edit/ModifyNote.js:71
 #: ../root/user/ReportUser.js:139
@@ -9408,21 +9426,24 @@ msgstr "Vous devez être connecté pour voir les notes de modification"
 #: ../root/edit/ModifyNote.js:36 ../root/edit/ModifyNote.js:37
 #: ../root/edit/components/EditNote.js:142
 msgid "Modify edit note"
-msgstr ""
+msgstr "Amender la note de modification"
 
 #: ../root/edit/ModifyNote.js:39
 msgid "You are modifying the following edit note:"
-msgstr ""
+msgstr "Vous êtes en train d’amender la note de modification suivante :"
 
 #: ../root/edit/ModifyNote.js:52
 msgid "New edit note"
-msgstr ""
+msgstr "Nouvelle note de modification"
 
 #: ../root/edit/ModifyNote.js:58
 msgid ""
 "Keep in mind modification of edit notes is mostly intended to correct small "
 "mistakes. Editors won’t be notified of your changes via email."
 msgstr ""
+"Gardez à l’esprit que l’amendement des notes de modification est prévu pour "
+"corriger de petites erreurs. Les éditeurs ne seront pas notifiés de ces "
+"changements par courriel."
 
 #: ../root/edit/ModifyNote.js:65
 msgid ""
@@ -9430,6 +9451,9 @@ msgid ""
 "checking this edit in the future. Keep in mind the reason will be displayed "
 "to other editors."
 msgstr ""
+"Fournir une raison est optionnel mais peut aider les éditeurs consultant "
+"cette modification à l’avenir. Gardez à l’esprit que cette raison sera "
+"montrée aux autres éditeurs."
 
 #: ../root/edit/NoteIsRequired.js:25
 msgid ""
@@ -9564,40 +9588,52 @@ msgstr "[heure manquante]"
 #: ../root/edit/components/EditNote.js:168
 msgid "This edit note was removed by its author. Reason given: “{reason}”."
 msgstr ""
+"Cette note de modification a été enlevée par son auteur. Raison donnée : « "
+"{reason} »."
 
 #: ../root/edit/components/EditNote.js:173
 msgid "This edit note was removed by its author. No reason was provided."
 msgstr ""
+"Cette note de modification a été enlevée par son auteur. Aucune raison n’a "
+"été donnée."
 
 #: ../root/edit/components/EditNote.js:179
 msgid "This edit note was removed by an admin. Reason given: “{reason}”."
 msgstr ""
+"Cette note de modification a été enlevée par un administrateur. Raison "
+"donnée : « {reason} »."
 
 #: ../root/edit/components/EditNote.js:184
 msgid "This edit note was removed by an admin. No reason was provided."
 msgstr ""
+"Cette note de modification a été enlevée par un administrateur. Aucune "
+"raison n’a été donnée."
 
 #: ../root/edit/components/EditNote.js:194
 #: ../root/edit/components/EditNote.js:250
 msgctxt "edit note"
 msgid "see all changes"
-msgstr ""
+msgstr "voir tous les changements"
 
 #: ../root/edit/components/EditNote.js:211
 msgid "Last modified by the note author ({time}). Reason given: “{reason}”."
 msgstr ""
+"Dernièrement changé par l’auteur de la note ({time}). Raison donnée : « "
+"{reason} »."
 
 #: ../root/edit/components/EditNote.js:221
 msgid "Last modified by the note author ({time})."
-msgstr ""
+msgstr "Dernièrement changé par l’auteur de la note ({time})."
 
 #: ../root/edit/components/EditNote.js:229
 msgid "Last modified by an admin ({time}). Reason given: “{reason}”."
 msgstr ""
+"Dernièrement changé par un administrateur ({time}). Raison donnée : « "
+"{reason} »."
 
 #: ../root/edit/components/EditNote.js:239
 msgid "Last modified by an admin ({time})."
-msgstr ""
+msgstr "Dernièrement changé par un administrateur ({time})."
 
 #: ../root/edit/components/EditNoteHelp.js:20
 msgid ""
@@ -10499,7 +10535,7 @@ msgstr "2ème appuyeur :"
 
 #: ../root/elections/ElectionDetails.js:59
 msgid "Total votes"
-msgstr ""
+msgstr "Total des votes"
 
 #: ../root/elections/ElectionDetails.js:63
 msgid "Votes for:"
@@ -10511,7 +10547,7 @@ msgstr "Votes contre :"
 
 #: ../root/elections/ElectionDetails.js:71
 msgid "Abstentions"
-msgstr ""
+msgstr "Abstentions"
 
 #: ../root/elections/ElectionDetails.js:79
 msgid "Votes for/against:"
@@ -10612,7 +10648,7 @@ msgstr "Appuyer ce candidat"
 
 #: ../root/elections/ElectionVoting.js:80
 msgid "Your current vote: {vote}"
-msgstr ""
+msgstr "Votre vote actuel : {vote}"
 
 #: ../root/elections/ElectionVoting.js:88
 msgid "Vote YES"
@@ -10663,7 +10699,7 @@ msgstr "Émettre des votes"
 
 #: ../root/elections/Show.js:37
 msgid "The list of voters will only be shown when the election is complete."
-msgstr ""
+msgstr "La liste des votants ne sera montrée qu’à la fin de l’élection."
 
 #: ../root/entity/Collections.js:40
 msgid "{entity} has been added to {num} collection:"
@@ -12837,6 +12873,10 @@ msgid ""
 "is. It is not a mark of how good or bad the music itself is — for that, use "
 "{ratings_doc|ratings}."
 msgstr ""
+"La {data_quality_doc|qualité des données} indique à quel point les données "
+"pour cette parution sont complètes. Cela n’a aucun rapport avec la qualité "
+"de la musique en elle-même — à cet effet, utilisez les "
+"{ratings_doc|évaluations} à la place."
 
 #: ../root/release/CoverArt.js:32
 msgid "250px"
@@ -16355,7 +16395,7 @@ msgstr ""
 
 #: ../root/static/scripts/edit/URLCleanup.js:5322
 msgid "Please link to Threads profiles, not threads."
-msgstr ""
+msgstr "Merci de lier à un profil Threads, pas à un fil."
 
 #: ../root/static/scripts/edit/URLCleanup.js:5673
 msgid "This is not a profile, but a Twitter documentation page."
@@ -17131,11 +17171,11 @@ msgstr "Déplacer l’entité vers le haut"
 
 #: ../root/static/scripts/relationship-editor/components/RelationshipItem.js:293
 msgid "This entity has {edits_link|pending edits}."
-msgstr ""
+msgstr "Cette entité a des {edits_link|modifications en attente}."
 
 #: ../root/static/scripts/relationship-editor/components/RelationshipItem.js:298
 msgid "This entity has pending edits."
-msgstr ""
+msgstr "Cette entité a des modifications en attente."
 
 #: ../root/static/scripts/relationship-editor/components/RelationshipItem.js:313
 msgid "This relationship has {edit_search|pending edits}."
@@ -18053,7 +18093,7 @@ msgstr ""
 
 #: ../root/user/ReportUser.js:167
 msgid "Receive email updates about this report"
-msgstr ""
+msgstr "Recevoir des notifications par courriel à propos de ce signalement"
 
 #: ../root/user/UserCollections.js:42
 msgid "Area Collections"
