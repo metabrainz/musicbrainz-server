@@ -134,7 +134,7 @@ m4_define(
     `install_translations',
     `m4_dnl
 copy_mb(``po/ po/'')
-RUN apt_install(``gettext language-pack-de language-pack-el language-pack-es language-pack-et language-pack-fi language-pack-fr language-pack-it language-pack-ja language-pack-nl language-pack-sq make'') && \
+RUN apt_install(``gettext language-pack-de language-pack-el language-pack-es language-pack-et language-pack-fi language-pack-fr language-pack-he language-pack-it language-pack-ja language-pack-nl language-pack-sq make'') && \
     sudo_mb(``make -C po all_quiet'') && \
     sudo_mb(``make -C po deploy'')')
 
