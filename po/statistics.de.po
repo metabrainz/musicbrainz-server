@@ -23,7 +23,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-08-20 10:27+0000\n"
+"PO-Revision-Date: 2023-08-22 10:27+0000\n"
 "Last-Translator: chaban <chaban@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: German <https://translations.metabrainz.org/projects/"
 "musicbrainz/statistics/de/>\n"
@@ -366,7 +366,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2003-06-07
 msgid "Email verification"
-msgstr ""
+msgstr "E-Mail-Verifizierung"
 
 #: DB:statistics.statistic_event/description:2012-06-25
 msgid ""
@@ -1631,7 +1631,7 @@ msgstr "Weiblich:"
 
 #: ../root/statistics/Index.js:327
 msgid "Non-binary"
-msgstr ""
+msgstr "nichtbinär"
 
 #: ../root/statistics/Index.js:338
 msgid "Other gender:"
@@ -2302,15 +2302,15 @@ msgstr "Private Sammlungen"
 
 #: ../root/statistics/stats.js:188
 msgid "Public collections"
-msgstr ""
+msgstr "Öffentliche Sammlungen"
 
 #: ../root/statistics/stats.js:193
 msgid "Area collections"
-msgstr ""
+msgstr "Gebietssammlungen"
 
 #: ../root/statistics/stats.js:198
 msgid "Artist collections"
-msgstr ""
+msgstr "Künstlersammlungen"
 
 #: ../root/statistics/stats.js:203
 msgid "Collections of type Attending"
@@ -2342,7 +2342,7 @@ msgstr ""
 
 #: ../root/statistics/stats.js:238
 msgid "Place collections"
-msgstr ""
+msgstr "Örtlichkeitensammlungen"
 
 #: ../root/statistics/stats.js:243
 msgid "Recording collections"
@@ -2358,7 +2358,7 @@ msgstr ""
 
 #: ../root/statistics/stats.js:258
 msgid "Release group collections"
-msgstr ""
+msgstr "Veröffentlichungsgruppensammlungen"
 
 #: ../root/statistics/stats.js:263
 msgid "Series collections"
@@ -2578,7 +2578,7 @@ msgstr "Unbekannte Datenqualität"
 
 #: ../root/statistics/stats.js:579
 msgid "Entities with ratings"
-msgstr ""
+msgstr "Objekte mit Bewertungen"
 
 #: ../root/statistics/stats.js:584
 msgid "Artists with ratings"
@@ -2626,11 +2626,11 @@ msgstr ""
 
 #: ../root/statistics/stats.js:639
 msgid "Release groups with ratings"
-msgstr ""
+msgstr "Veröffentlichungsgruppen mit Bewertungen"
 
 #: ../root/statistics/stats.js:644
 msgid "Works with ratings"
-msgstr ""
+msgstr "Werke mit Bewertungen"
 
 #: ../root/statistics/stats.js:654
 msgid "Recordings with ISRCs"
@@ -2766,7 +2766,7 @@ msgstr "URLs"
 
 #: ../root/statistics/stats.js:834
 msgid "Videos"
-msgstr ""
+msgstr "Videos"
 
 #: ../root/statistics/stats.js:845
 msgid "Abstentions"
@@ -2774,7 +2774,7 @@ msgstr "Enthaltungen"
 
 #: ../root/statistics/stats.js:850
 msgid "Approvals"
-msgstr ""
+msgstr "Absegnungen"
 
 #: ../root/statistics/stats.js:855
 msgid "No Votes"
@@ -2838,7 +2838,7 @@ msgstr[1] "Veröffentlichungsgruppen mit {n} Veröffentlichungen"
 
 #: ../root/statistics/stats.js:994
 msgid "{type} areas"
-msgstr ""
+msgstr "{type} Gebiete"
 
 #: ../root/statistics/stats.js:1006
 msgid "{country} artists"
@@ -2854,11 +2854,11 @@ msgstr "{country} Veröffentlichungen"
 
 #: ../root/statistics/stats.js:1029
 msgid "{type} edits"
-msgstr ""
+msgstr "{type} Bearbeitungen"
 
 #: ../root/statistics/stats.js:1040
 msgid "{type} events"
-msgstr ""
+msgstr "{type} Veranstaltungen"
 
 #: ../root/statistics/stats.js:1051
 msgid "{name} releases"
@@ -2874,7 +2874,7 @@ msgstr ""
 
 #: ../root/statistics/stats.js:1077
 msgid "{type} instruments"
-msgstr ""
+msgstr "{type} Instrumente"
 
 #: ../root/statistics/stats.js:1088
 msgid "{type} labels"
