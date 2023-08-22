@@ -47,11 +47,12 @@
 # Ulrich Klauer <email address hidden>, 2015-2016
 # Wieland Hoffmann <email address hidden>, 2011
 # chaban <chaban@users.noreply.translations.metabrainz.org>, 2023.
+# Philipp Wolfer <ph.wolfer@gmail.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-08-20 10:27+0000\n"
-"Last-Translator: chaban <chaban@users.noreply.translations.metabrainz.org>\n"
+"PO-Revision-Date: 2023-08-22 17:14+0000\n"
+"Last-Translator: Philipp Wolfer <ph.wolfer@gmail.com>\n"
 "Language-Team: German <https://translations.metabrainz.org/projects/"
 "musicbrainz/attributes/de/>\n"
 "Language: de\n"
@@ -671,6 +672,9 @@ msgid ""
 "portable listening. It did not find commercial success, but a few albums "
 "were released in the format in the early 00s."
 msgstr ""
+"EIne sehr kleine optische Disc in einer Schutzhülle, die für mobile "
+"Abspielgeräte vorgesehen war. Sie hatte keinen kommerziellen Erfolg, aber in "
+"den frühen 00er Jahren wurden einige Alben in diesem Format veröffentlicht."
 
 #: DB:medium_format/description:131
 msgctxt "medium_format"
@@ -678,6 +682,8 @@ msgid ""
 "A video format used in the 1980s and 90s for professional work, including "
 "television and video archival."
 msgstr ""
+"Ein Videoformat, das in den 1980er und 90er Jahren für die professionelle "
+"Arbeit, einschließlich Fernsehen und Videoarchivierung, verwendet wurde."
 
 #: DB:work_type/description:19
 msgctxt "work_type"
@@ -735,7 +741,7 @@ msgstr "AGADU-ID"
 #: DB:work_attribute_type/name:63
 msgctxt "work_attribute_type"
 msgid "AKKA/LAA ID"
-msgstr ""
+msgstr "AKKA-/LAA-ID"
 
 #: DB:work_attribute_type/name:23
 msgctxt "work_attribute_type"
@@ -1044,7 +1050,10 @@ msgid ""
 "An unofficial/underground release that was not sanctioned by the artist "
 "and/or the record company. This includes unofficial live recordings and "
 "pirated releases."
-msgstr "Eine inoffizielle bzw. Szene-Veröffentlichung, die nicht vom Künstler und/oder dem Label abgesegnet wurde. (Trifft auf inoffizielle Liveaufnahmen und raubkopierte Veröffentlichungen zu.)"
+msgstr ""
+"Eine inoffizielle bzw. Szene-Veröffentlichung, die nicht vom Künstler und/"
+"oder dem Label abgesegnet wurde. Trifft auf inoffizielle Liveaufnahmen und "
+"raubkopierte Veröffentlichungen zu."
 
 #: DB:work_type/description:20
 msgctxt "work_type"
@@ -1064,7 +1073,9 @@ msgctxt "release_status"
 msgid ""
 "Any release officially sanctioned by the artist and/or their record company."
 " Most releases will fit into this category."
-msgstr "Jegliche vom Künstler und/oder dem Label offiziell abgesegnete Veröffentlichung. (Trifft auf die meisten Veröffentlichungen zu.)"
+msgstr ""
+"Jegliche vom Künstler und/oder dem Label offiziell abgesegnete "
+"Veröffentlichung. Trifft auf die meisten Veröffentlichungen zu."
 
 #: DB:release_group_primary_type/description:11
 msgctxt "release_group_primary_type"
