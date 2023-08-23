@@ -1,4 +1,4 @@
-# 
+#
 # Translators:
 # AO <email address hidden>, 2013
 # AO <email address hidden>, 2013,2015
@@ -8,7 +8,7 @@
 # Benjamin Sonntag <email address hidden>, 2011
 # Dibou <email address hidden>, 2012
 # Dibou  <email address hidden>, 2012
-#   <email address hidden>, 2012
+# <email address hidden>, 2012
 # AO <email address hidden>, 2013,2015
 # homersimpsons <email address hidden>, 2023
 # kmartin <email address hidden>, 2013
@@ -27,17 +27,21 @@
 # yvanz, 2016-2021,2023
 # yvanz, 2016,2018
 # yvanz, 2018
+# Zas <Zas@users.noreply.translations.metabrainz.org>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2012-05-24 18:52+0000\n"
-"Last-Translator: yvanz, 2016-2021,2023\n"
-"Language-Team: French (http://app.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
+"PO-Revision-Date: 2023-08-23 00:27+0000\n"
+"Last-Translator: Zas <Zas@users.noreply.translations.metabrainz.org>\n"
+"Language-Team: French <https://translations.metabrainz.org/projects/"
+"musicbrainz/attributes/fr/>\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: fr\n"
-"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : ((n != 0 && n % "
+"1000000 == 0) ? 1 : 2);\n"
+"X-Generator: Weblate 4.18.2\n"
 
 #: DB:work_type/description:9
 msgctxt "work_type"
@@ -273,7 +277,10 @@ msgctxt "artist_type"
 msgid ""
 "A grouping of multiple musicians who perform together (in some cases, some "
 "or all of the members might differ in different performances or recordings)."
-msgstr "Un groupe de plusieurs musiciens qui jouent ensemble. (Dans  certains cas, une partie ou tous les membres peuvent changer selon les représentations ou enregistrements.)"
+msgstr ""
+"Un groupe de plusieurs musiciens qui jouent ensemble. (Dans certains cas, "
+"une partie ou tous les membres peuvent changer selon les représentations ou "
+"enregistrements)."
 
 #: DB:instrument_type/description:7
 msgctxt "instrument_type"
@@ -344,7 +351,7 @@ msgstr "Une fête, une réception ou autre événement tenu spécialement pour l
 #: DB:release_packaging/description:17
 msgctxt "release_packaging"
 msgid "A perfect bound book with a sleeve at the end to hold a CD"
-msgstr "Un livre parfaitement relié avec une pochette à la fin pour tenir un CD "
+msgstr "Un livre parfaitement relié avec une pochette à la fin pour tenir un CD"
 
 #: DB:event_type/description:6
 msgctxt "event_type"
@@ -413,7 +420,10 @@ msgid ""
 "A play is a form of literature usually consisting of scripted dialogue "
 "between characters, and intended for theatrical performance rather than just"
 " reading."
-msgstr "Une pièce de théâtre est une forme de littérature consistant habituellement d’un dialogue préparé entre des personnages et destinée à l’interprétation théâtrale plutôt qu’à la lecture. "
+msgstr ""
+"Une pièce de théâtre est une forme de littérature consistant habituellement "
+"d’un dialogue préparé entre des personnages et destinée à l’interprétation "
+"théâtrale plutôt qu’à la lecture."
 
 #: DB:work_type/description:21
 msgctxt "work_type"
@@ -467,7 +477,9 @@ msgctxt "place_type"
 msgid ""
 "A school, university or other similar educational institution (especially, "
 "but not only, one where music is taught)"
-msgstr "Une école, université, ou tout autre type d’établissement scolaire (en particulier, mais pas uniquement, un où la musique est enseignée)."
+msgstr ""
+"Une école, université, ou tout autre type d’établissement scolaire (en "
+"particulier, mais pas uniquement, un où la musique est enseignée)"
 
 #: DB:series_type/description:14
 msgctxt "series_type"
@@ -647,7 +659,10 @@ msgid ""
 "A zarzuela is a Spanish lyric-dramatic work that alternates between spoken "
 "and sung scenes, the latter incorporating operatic and popular song, as well"
 " as dance."
-msgstr "Une zarzuela est une œuvre théâtrale lyrique qui alterne entre des scènes parlées et chantées, ces dernières incluant des chants lyriques et des chansons populaires, ainsi que de la danse. "
+msgstr ""
+"Une zarzuela est une œuvre théâtrale lyrique qui alterne entre des scènes "
+"parlées et chantées, ces dernières incluant des chants lyriques et des "
+"chansons populaires, ainsi que de la danse."
 
 #: DB:work_attribute_type_allowed_value/value:26
 msgctxt "work_attribute_type_allowed_value"
@@ -968,7 +983,7 @@ msgstr "Une parution d'entrevue contient une entrevue, généralement avec un ar
 #: DB:release_packaging/description:54
 msgctxt "release_packaging"
 msgid "An often decorated metal tin containing one or more CDs."
-msgstr "Une boîte métallique, souvent décorée, contenant un ou plusieurs CD"
+msgstr "Une boîte métallique, souvent décorée, contenant un ou plusieurs CD(s)."
 
 #: DB:work_type/description:10
 msgctxt "work_type"
@@ -976,7 +991,11 @@ msgid ""
 "An opera is a dramatised work (text + musical score) for singers and "
 "orchestra/ensemble. In true operas all dialog is sung, through arias and "
 "recitatives, but some styles of opera include spoken dialogue."
-msgstr "Un opéra est une œuvre théâtrale (texte + musique) pour chanteurs et orchestre/ensemble. Dans les vrais opéras, tous les dialogues sont chantés en arias et récitatifs, mais certains styles d’opéras comprennent des dialogues parlés. "
+msgstr ""
+"Un opéra est une œuvre théâtrale (texte + musique) pour chanteurs et "
+"orchestre/ensemble. Dans les vrais opéras, tous les dialogues sont chantés "
+"en arias et récitatifs, mais certains styles d’opéras comprennent des "
+"dialogues parlés."
 
 #: DB:work_type/description:11
 msgctxt "work_type"
@@ -1009,7 +1028,10 @@ msgid ""
 "An étude is an instrumental musical composition, most commonly of "
 "considerable difficulty, usually designed to provide practice material for "
 "perfecting a particular technical skill."
-msgstr "Une étude est une composition musicale instrumentale, très généralement d’une grande difficulté, conçue habituellement pour fournir un matériel d’exercice afin de perfectionner une compétence technique particulière. "
+msgstr ""
+"Une étude est une composition musicale instrumentale, très généralement d’"
+"une grande difficulté, conçue habituellement pour fournir un matériel d’"
+"exercice afin de perfectionner une compétence technique particulière."
 
 #: DB:work_attribute_type_allowed_value/value:310
 msgctxt "work_attribute_type_allowed_value"
@@ -2426,7 +2448,9 @@ msgstr "Arrondissement"
 #: DB:area_type/description:5
 msgctxt "area_type"
 msgid "District is used for a division of a large city, e.g. Queens."
-msgstr "Arrondissement est utilisé pour une subdivision d’une grande ville, p. ex. Cap-Rouge"
+msgstr ""
+"Arrondissement est utilisé pour une subdivision d’une grande ville, p. ex. "
+"Cap-Rouge."
 
 #: DB:work_attribute_type_allowed_value/value:611
 msgctxt "work_attribute_type_allowed_value"
@@ -2917,7 +2941,10 @@ msgid ""
 "Flexi-discs are phonograph records made of a thin, flexible vinyl sheet with"
 " a molded-in groove, designed to be playable on a normal phonograph "
 "turntable."
-msgstr "Les flexi-disques sont des disques pour électrophone fabriqués dans une fine feuille souple de vinyle avec un sillon moulé et conçus pour être lus sur un électrophone traditionnel.\n "
+msgstr ""
+"Les flexi-disques sont des disques pour électrophone fabriqués dans une fine "
+"feuille souple de vinyle avec un sillon moulé et conçus pour être lus sur un "
+"électrophone traditionnel."
 
 #: DB:medium_format/name:76
 msgctxt "medium_format"
@@ -3987,7 +4014,7 @@ msgstr "Entrevue"
 #: DB:work_attribute_type_allowed_value/value:427
 msgctxt "work_attribute_type_allowed_value"
 msgid "Irak"
-msgstr "Irak"
+msgstr "Iraq"
 
 #: DB:work_attribute_type_allowed_value/value:428
 msgctxt "work_attribute_type_allowed_value"
@@ -6820,7 +6847,7 @@ msgstr "Slidepack"
 #: DB:release_packaging/name:2
 msgctxt "release_packaging"
 msgid "Slim Jewel Case"
-msgstr "Boîtier cristal extra-plat "
+msgstr "Boîtier cristal extra-plat"
 
 #: DB:release_packaging/name:11
 msgctxt "release_packaging"
@@ -7737,7 +7764,9 @@ msgctxt "medium_format"
 msgid ""
 "Video High Density (VHD) was a videodisc format which was marketed "
 "predominantly in Japan by JVC."
-msgstr "Le Video High Density (VHD) était un format de disque vidéo principalement commercialisé au Japon par JVC"
+msgstr ""
+"Le Video High Density (VHD) était un format de disque vidéo principalement "
+"commercialisé au Japon par JVC."
 
 #: DB:work_attribute_type_allowed_value/value:273
 msgctxt "work_attribute_type_allowed_value"
@@ -7986,7 +8015,7 @@ msgstr "Zirefkend"
 #: DB:work_attribute_type_allowed_value/value:681
 msgctxt "work_attribute_type_allowed_value"
 msgid "ambiguous"
-msgstr " ambigu"
+msgstr "ambigu"
 
 #: DB:medium_format/name:27
 msgctxt "medium_format"
