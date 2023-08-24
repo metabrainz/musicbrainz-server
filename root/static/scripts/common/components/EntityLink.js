@@ -53,10 +53,10 @@ export const DeletedLink = ({
 const iconClassPicker = {
   area: 'arealink',
   artist: 'artistlink',
-  collection: null,
+  collection: 'collectionlink',
   editor: null,
   event: 'eventlink',
-  genre: null,
+  genre: 'genrelink',
   instrument: 'instrumentlink',
   label: 'labellink',
   link_type: null,
