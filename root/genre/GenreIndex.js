@@ -37,7 +37,7 @@ const GenreIndex = ({
     <table className="details">
       <tr>
         <th>{addColonText(l('Primary tag'))}</th>
-        <td><TagLink tag={genre.name} /></td>
+        <td><TagLink showIcon tag={genre.name} /></td>
       </tr>
     </table>
     <WikipediaExtract
