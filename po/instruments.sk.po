@@ -1,16 +1,18 @@
-# 
+#
 # Translators:
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "PO-Revision-Date: 2012-05-24 18:57+0000\n"
 "Last-Translator: FULL NAME <email address hidden>\n"
-"Language-Team: Slovak (http://app.transifex.com/musicbrainz/musicbrainz/language/sk/)\n"
+"Language-Team: Slovak (http://app.transifex.com/musicbrainz/musicbrainz/"
+"language/sk/)\n"
+"Language: sk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: sk\n"
-"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n >= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n "
+">= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);\n"
 
 #: DB:instrument/name:438
 msgid "12 string guitar"
@@ -182,7 +184,7 @@ msgid "Paraguayan harp"
 msgstr ""
 
 #: DB:instrument/name:793
-msgctxt "an electromechanical piano"
+msgctxt "electromechanical piano"
 msgid "Pianet"
 msgstr ""
 
@@ -419,6 +421,7 @@ msgid "atarigane"
 msgstr ""
 
 #: DB:instrument/name:409
+msgctxt "Damper bar box zither"
 msgid "autoharp"
 msgstr ""
 
@@ -3415,6 +3418,7 @@ msgid "shamisen"
 msgstr ""
 
 #: DB:instrument/name:408
+msgctxt "12th century to present double reed woodwind"
 msgid "shawm"
 msgstr ""
 

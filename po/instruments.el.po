@@ -1,4 +1,4 @@
-# 
+#
 # Translators:
 # Panos Bouklis <email address hidden>, 2012
 # Dimitris <email address hidden>, 2013
@@ -9,11 +9,12 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "PO-Revision-Date: 2012-05-24 18:57+0000\n"
 "Last-Translator: Marios Pizinas <speardog98@outlook.com>, 2020\n"
-"Language-Team: Greek (http://app.transifex.com/musicbrainz/musicbrainz/language/el/)\n"
+"Language-Team: Greek (http://app.transifex.com/musicbrainz/musicbrainz/"
+"language/el/)\n"
+"Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: el\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: DB:instrument/name:438
@@ -186,9 +187,9 @@ msgid "Paraguayan harp"
 msgstr ""
 
 #: DB:instrument/name:793
-msgctxt "an electromechanical piano"
+msgctxt "electromechanical piano"
 msgid "Pianet"
-msgstr "Πιανέτ"
+msgstr ""
 
 #: DB:instrument/name:1023
 msgctxt "ensemble flute, clarinet, violin, cello and piano"
@@ -423,8 +424,9 @@ msgid "atarigane"
 msgstr "αταριγκάν"
 
 #: DB:instrument/name:409
+msgctxt "Damper bar box zither"
 msgid "autoharp"
-msgstr "αυτόματη άρπα"
+msgstr ""
 
 #: DB:instrument/name:880
 msgctxt "Nyabinghi bass drum"
@@ -3419,6 +3421,7 @@ msgid "shamisen"
 msgstr ""
 
 #: DB:instrument/name:408
+msgctxt "12th century to present double reed woodwind"
 msgid "shawm"
 msgstr ""
 
@@ -4557,3 +4560,10 @@ msgstr ""
 msgctxt "Maltese mirliton"
 msgid "żummara"
 msgstr ""
+
+#~ msgctxt "an electromechanical piano"
+#~ msgid "Pianet"
+#~ msgstr "Πιανέτ"
+
+#~ msgid "autoharp"
+#~ msgstr "αυτόματη άρπα"

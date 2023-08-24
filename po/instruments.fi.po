@@ -1,4 +1,4 @@
-# 
+#
 # Translators:
 # Jaakko Perttilä <email address hidden>, 2014,2018
 # phonebox, 2013
@@ -15,11 +15,12 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "PO-Revision-Date: 2012-05-24 18:57+0000\n"
 "Last-Translator: Juhana Uuttu <rexroom@sci.fi>, 2023\n"
-"Language-Team: Finnish (http://app.transifex.com/musicbrainz/musicbrainz/language/fi/)\n"
+"Language-Team: Finnish (http://app.transifex.com/musicbrainz/musicbrainz/"
+"language/fi/)\n"
+"Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: fi\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: DB:instrument/name:438
@@ -192,9 +193,9 @@ msgid "Paraguayan harp"
 msgstr "Paraguaylainen harppu"
 
 #: DB:instrument/name:793
-msgctxt "an electromechanical piano"
+msgctxt "electromechanical piano"
 msgid "Pianet"
-msgstr "Pianet"
+msgstr ""
 
 #: DB:instrument/name:1023
 msgctxt "ensemble flute, clarinet, violin, cello and piano"
@@ -429,8 +430,9 @@ msgid "atarigane"
 msgstr "atarigane"
 
 #: DB:instrument/name:409
+msgctxt "Damper bar box zither"
 msgid "autoharp"
-msgstr "sointusitra"
+msgstr ""
 
 #: DB:instrument/name:880
 msgctxt "Nyabinghi bass drum"
@@ -3425,8 +3427,9 @@ msgid "shamisen"
 msgstr "shamisen"
 
 #: DB:instrument/name:408
+msgctxt "12th century to present double reed woodwind"
 msgid "shawm"
-msgstr "skalmeija"
+msgstr ""
 
 #: DB:instrument/name:494
 msgid "shehnai"
@@ -4563,3 +4566,13 @@ msgstr ""
 msgctxt "Maltese mirliton"
 msgid "żummara"
 msgstr ""
+
+#~ msgctxt "an electromechanical piano"
+#~ msgid "Pianet"
+#~ msgstr "Pianet"
+
+#~ msgid "autoharp"
+#~ msgstr "sointusitra"
+
+#~ msgid "shawm"
+#~ msgstr "skalmeija"

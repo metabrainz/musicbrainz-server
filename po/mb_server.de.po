@@ -14585,7 +14585,8 @@ msgstr ""
 
 #: ../root/static/scripts/account/components/EditProfileForm.js:193
 msgid "If you change your email address, you will be required to verify it."
-msgstr "Wenn du deine E-Mail-Adresse änderst, musst du sie nochmals bestätigen."
+msgstr ""
+"Wenn du deine E-Mail-Adresse änderst, musst du sie nochmals bestätigen."
 
 #: ../root/static/scripts/account/components/EditProfileForm.js:215
 #: ../root/user/UserProfile.js:271

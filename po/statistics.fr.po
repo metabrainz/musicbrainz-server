@@ -1,4 +1,4 @@
-# 
+#
 # Translators:
 # AO <email address hidden>, 2013
 # Benjamin Sonntag <email address hidden>, 2011-2012
@@ -42,16 +42,16 @@ msgstr ""
 
 #: DB:statistics.statistic_event/description:2021-04-19
 msgid ""
-"1200px thumbnails are added to the Cover Art Archive, providing users with a"
-" very large image with a consistent size that avoids having to use the "
+"1200px thumbnails are added to the Cover Art Archive, providing users with a "
+"very large image with a consistent size that avoids having to use the "
 "original uploads directly."
 msgstr ""
 
 #: DB:statistics.statistic_event/description:2016-03-01
 msgid ""
 "A Discourse forum platform is added to replace both the old-school forums "
-"and the (by now dead) mailing lists and unify community communication in one"
-" place."
+"and the (by now dead) mailing lists and unify community communication in one "
+"place."
 msgstr ""
 
 #: DB:statistics.statistic_event/description:2015-06-29
@@ -77,13 +77,17 @@ msgstr ""
 msgid ""
 "A new AJAX coverart uploader is released, making it easier to add cover art "
 "to releases."
-msgstr "Un nouveau téléverseur d’illustrations AJAX est sorti, facilitant l’ajout d’illustrations aux parutions."
+msgstr ""
+"Un nouveau téléverseur d’illustrations AJAX est sorti, facilitant l’ajout "
+"d’illustrations aux parutions."
 
 #: DB:statistics.statistic_event/description:2015-12-28
 msgid ""
 "A new banner message now notifies users whenever they receive a new edit "
 "note."
-msgstr "Un nouveau message de bannière alerte les utilisateurs lorsqu’ils reçoivent une nouvelle note de modification."
+msgstr ""
+"Un nouveau message de bannière alerte les utilisateurs lorsqu’ils reçoivent "
+"une nouvelle note de modification."
 
 #: DB:statistics.statistic_event/description:2003-04-05
 msgid "A new, much faster search mechanism is added."
@@ -91,7 +95,8 @@ msgstr ""
 
 #: DB:statistics.statistic_event/description:2006-08-15
 msgid "A rift in the MusicBrainz community leads to a Great Dispute."
-msgstr "Un clivage dans la communauté MusicBrainz mène vers une grande dispute."
+msgstr ""
+"Un clivage dans la communauté MusicBrainz mène vers une grande dispute."
 
 #: DB:statistics.statistic_event/description:2013-05-15
 msgid ""
@@ -110,7 +115,10 @@ msgid ""
 "AcousticBrainz, which aims to crowd source acoustic information for music, "
 "is announced in cooperation with the Music Technology Group at Universitat "
 "Pompeu Fabra."
-msgstr "AcousticBrainz, qui vise à créer de façon participative de l’information acoustique sur la musique, est annoncé en coopération avec le Music Technology Group de l’Université Pompeu Fabra."
+msgstr ""
+"AcousticBrainz, qui vise à créer de façon participative de l’information "
+"acoustique sur la musique, est annoncé en coopération avec le Music "
+"Technology Group de l’Université Pompeu Fabra."
 
 #: DB:statistics.statistic_event/title:2005-04-10
 msgid "Advanced relationships"
@@ -121,7 +129,11 @@ msgid ""
 "Advanced relationships that allow users to connect basic data entities is "
 "relased and unused TRMs pruned from the database. Inline editing is turned "
 "off by default, causing a drop in voting activity."
-msgstr "Sorties : relations approfondies qui permettent aux utilisateurs de connecter des entités simples de données, et les TRM inutilisés sont enlevés de la base de données. L’édition en ligne est désactivée par défaut, ce qui cause une baisse de l’activité de vote."
+msgstr ""
+"Sorties : relations approfondies qui permettent aux utilisateurs de "
+"connecter des entités simples de données, et les TRM inutilisés sont enlevés "
+"de la base de données. L’édition en ligne est désactivée par défaut, ce qui "
+"cause une baisse de l’activité de vote."
 
 #: DB:statistics.statistic_event/description:2019-06-25
 msgid ""
@@ -145,8 +157,8 @@ msgstr ""
 
 #: DB:statistics.statistic_event/description:2016-11-08
 msgid ""
-"After many years at Digital West in California, the MetaBrainz project moves"
-" all servers to a much larger dedicated provider in Germany, Hetzner."
+"After many years at Digital West in California, the MetaBrainz project moves "
+"all servers to a much larger dedicated provider in Germany, Hetzner."
 msgstr ""
 
 #: DB:statistics.statistic_event/description:2018-09-10
@@ -169,7 +181,9 @@ msgstr "Langues des albums"
 #: DB:statistics.statistic_event/description:2005-05-22
 msgid ""
 "Album languages, guess case improvements and revamps edit forms released."
-msgstr "Sortie : amélioration de la découverte des langues des albums et de la casse ainsi que des formulaires de modification revampés."
+msgstr ""
+"Sortie : amélioration de la découverte des langues des albums et de la casse "
+"ainsi que des formulaires de modification revampés."
 
 #: DB:statistics.statistic_event/description:2015-05-19
 msgid ""
@@ -188,9 +202,9 @@ msgstr "Illustrations provenant d’Amazon"
 
 #: DB:statistics.statistic_event/description:2008-09-01
 msgid ""
-"Amazon betas <a "
-"href=\"http://web.archive.org/web/20210123164029/https://www.wired.com/2008/09/amazon-"
-"takes-on/\">SoundUnwound</a> with data from MusicBrainz."
+"Amazon betas <a href=\"http://web.archive.org/web/20210123164029/https://www."
+"wired.com/2008/09/amazon-takes-on/\">SoundUnwound</a> with data from "
+"MusicBrainz."
 msgstr ""
 
 #: DB:statistics.statistic_event/title:2008-09-01
@@ -203,7 +217,9 @@ msgstr "Sortie : prise en charge des illustration provenant d’Amazon"
 
 #: DB:statistics.statistic_event/description:2006-07-12
 msgid "An improved release editor and a new site design are released."
-msgstr "Sortie : éditeur de parution amélioré ainsi qu’une nouvelle conception pour le site. "
+msgstr ""
+"Sortie : éditeur de parution amélioré ainsi qu’une nouvelle conception pour "
+"le site. "
 
 #: DB:statistics.statistic_event/description:2015-06-02
 msgid ""
@@ -231,7 +247,9 @@ msgstr "Abonnements aux artistes"
 msgid ""
 "Artist subscriptions made public and various smaller user centric "
 "improvements are released."
-msgstr "Sortie : les abonnements aux artistes sont rendus publics, et petites améliorations pour les utilisateurs."
+msgstr ""
+"Sortie : les abonnements aux artistes sont rendus publics, et petites "
+"améliorations pour les utilisateurs."
 
 #: DB:statistics.statistic_event/description:2003-06-22
 msgid "Artist subscriptions."
@@ -250,7 +268,9 @@ msgstr "Pages dynamiques des artistes provenant de la BBC"
 
 #: DB:statistics.statistic_event/description:2008-07-30
 msgid "BBC launches the dynamic artist pages based on MusicBrainz data."
-msgstr "La BBC lance les pages dynamiques des artistes basées sur les données de MusicBrainz."
+msgstr ""
+"La BBC lance les pages dynamiques des artistes basées sur les données de "
+"MusicBrainz."
 
 #: DB:statistics.statistic_event/title:2007-06-28
 msgid "BBC partners with MetaBrainz"
@@ -274,8 +294,8 @@ msgstr ""
 
 #: DB:statistics.statistic_event/description:2016-06-20
 msgid ""
-"CatQuest officially takes over from reosarevok as the main person for adding"
-" new instruments to MusicBrainz, with the newly created Instrument Inserter "
+"CatQuest officially takes over from reosarevok as the main person for adding "
+"new instruments to MusicBrainz, with the newly created Instrument Inserter "
 "position."
 msgstr ""
 
@@ -287,7 +307,10 @@ msgstr "Collection collaboratives"
 msgid ""
 "Collection owners are now able to allow other editors to also add/remove "
 "entities from any of their collections."
-msgstr "Les propriétaires de collection ont maintenant la possibilité de permettre aux autres éditeurs d’ajouter et de supprimer des entités de leurs collections."
+msgstr ""
+"Les propriétaires de collection ont maintenant la possibilité de permettre "
+"aux autres éditeurs d’ajouter et de supprimer des entités de leurs "
+"collections."
 
 #: DB:statistics.statistic_event/title:2008-11-24
 msgid "Collection, Ratings, CDStubs"
@@ -295,7 +318,8 @@ msgstr "Collections, évaluations, ébauches de CD"
 
 #: DB:statistics.statistic_event/description:2008-11-24
 msgid "Collection, Ratings, CDStubs, LastUpdate released."
-msgstr "Sortie : collections, évaluations, ébauches de CD, dernières mise à jour."
+msgstr ""
+"Sortie : collections, évaluations, ébauches de CD, dernières mise à jour."
 
 #: DB:statistics.statistic_event/description:2021-05-18
 msgid ""
@@ -303,7 +327,11 @@ msgid ""
 "several of their collections into one. Additionally, it is now possible to "
 "create series of artists, and to rate places (the only entity that could be "
 "reviewed on CritiqueBrainz but not rated on MusicBrainz)."
-msgstr "Les collections peuvent maintenant être fusionnées par leur propriétaire. De plus, il est maintenant possible de créer des séries d’artistes, et d’évaluer des lieux. (C’était les seuls à pouvoir être évalués sur CritiqueBrainz mais pas sur MusicBrainz.)"
+msgstr ""
+"Les collections peuvent maintenant être fusionnées par leur propriétaire. De "
+"plus, il est maintenant possible de créer des séries d’artistes, et "
+"d’évaluer des lieux. (C’était les seuls à pouvoir être évalués sur "
+"CritiqueBrainz mais pas sur MusicBrainz.)"
 
 #: DB:statistics.statistic_event/title:2013-08-05
 msgid "Cover Art Uploader"
@@ -325,7 +353,9 @@ msgstr ""
 msgid ""
 "Edit display improvements, turned off RDF dumps, new install scripts "
 "released."
-msgstr "Sortie : améliorations de l’affichage des modifications, arrêt des vidages « RDF », nouveaux scripts d’installation."
+msgstr ""
+"Sortie : améliorations de l’affichage des modifications, arrêt des vidages "
+"« RDF », nouveaux scripts d’installation."
 
 #: DB:statistics.statistic_event/title:2020-02-18
 msgid "Edit history visible without logging in"
@@ -337,8 +367,8 @@ msgstr "Alertes de note de modification"
 
 #: DB:statistics.statistic_event/description:2003-07-25
 msgid ""
-"Edit notes can now be added when creating an edit, making it much easier for"
-" editors to explain their changes."
+"Edit notes can now be added when creating an edit, making it much easier for "
+"editors to explain their changes."
 msgstr ""
 
 #: DB:statistics.statistic_event/title:2003-11-10
@@ -349,14 +379,19 @@ msgstr "Recherche des modifications"
 msgid ""
 "Editor ojnkpjg runs a script setting track times from DiscID values, "
 "creating a huge spike in edits."
-msgstr "L’éditeur ojnkpjg fait tourner un script ajustant les durées de piste à partir des valeurs d’ID de disque créant un énorme pic dans les modifications."
+msgstr ""
+"L’éditeur ojnkpjg fait tourner un script ajustant les durées de piste à "
+"partir des valeurs d’ID de disque créant un énorme pic dans les "
+"modifications."
 
 #: DB:statistics.statistic_event/description:2015-11-30
 msgid ""
-"Edits made by editors to their own release additions within 1 hour of adding"
-" them are now auto-edits, as are \"Add recording\" and \"Remove alias\" "
-"edits."
-msgstr "Les modifications faites par les éditeurs aux parutions qu’ils ont eux-mêmes ajouté moins d’1 heure avant sont maintenant automatiques, comme par exemple celles du type « Ajouter un enregistrement » et « Enlever un alias »."
+"Edits made by editors to their own release additions within 1 hour of adding "
+"them are now auto-edits, as are \"Add recording\" and \"Remove alias\" edits."
+msgstr ""
+"Les modifications faites par les éditeurs aux parutions qu’ils ont eux-mêmes "
+"ajouté moins d’1 heure avant sont maintenant automatiques, comme par exemple "
+"celles du type « Ajouter un enregistrement » et « Enlever un alias »."
 
 #: DB:statistics.statistic_event/title:2003-06-07
 msgid "Email verification"
@@ -386,14 +421,16 @@ msgstr ""
 
 #: DB:statistics.statistic_event/description:2007-10-17
 msgid ""
-"Folksonomy tagging and editor subscriptions are released. Additionally, it's"
-" now possible to batch-add relationships to multiple tracks on a release."
+"Folksonomy tagging and editor subscriptions are released. Additionally, it's "
+"now possible to batch-add relationships to multiple tracks on a release."
 msgstr ""
 
 #: DB:statistics.statistic_event/description:2015-09-04
 msgid ""
 "Former GSoC student Roman Tsukanov begins working for MetaBrainz part-time."
-msgstr "L’ancien étudiant du GSoC Roman Tsukanov commence à travailler à temps partiel pour MetaBrainz."
+msgstr ""
+"L’ancien étudiant du GSoC Roman Tsukanov commence à travailler à temps "
+"partiel pour MetaBrainz."
 
 #: DB:statistics.statistic_event/title:2015-08-06
 msgid "Frederik \"Freso\" S. Olesen becomes MetaBrainz Community Manager"
@@ -403,7 +440,9 @@ msgstr ""
 msgid ""
 "FreeDB auto import feature turned off and autoeditor elections released. "
 "Unused TRMs pruned from the database."
-msgstr "Sortie : fonction d’auto-importation de FreeDB est désactivée et élections des auto-éditeurs. Les TRM inutilisés sont enlevés de la base de données."
+msgstr ""
+"Sortie : fonction d’auto-importation de FreeDB est désactivée et élections "
+"des auto-éditeurs. Les TRM inutilisés sont enlevés de la base de données."
 
 #: DB:statistics.statistic_event/title:2004-10-10
 msgid "FreeDB off/Autoeditors"
@@ -423,7 +462,9 @@ msgstr "Le genre a été ajouté comme nouvelle entité"
 msgid ""
 "Genres are added as a new entity, although still tightly tied to folksonomy "
 "tags."
-msgstr "Les genres ont été ajoutés comme une nouvelle entité, tout en restant liés aux étiquettes folksonomiques."
+msgstr ""
+"Les genres ont été ajoutés comme une nouvelle entité, tout en restant liés "
+"aux étiquettes folksonomiques."
 
 #: DB:statistics.statistic_event/title:2006-08-15
 msgid "Great Dispute"
@@ -456,7 +497,9 @@ msgstr "Catalogue CD baby importé comme ébauches de CD"
 #: DB:statistics.statistic_event/description:2009-06-17
 msgid ""
 "Imported the metadata from the CD Baby catalog into our CD Stubs collection."
-msgstr "Métadonnées du catalogue de CD Baby importé dans notre collection d’ébauches de CD"
+msgstr ""
+"Métadonnées du catalogue de CD Baby importé dans notre collection d’ébauches "
+"de CD"
 
 #: DB:statistics.statistic_event/title:2004-07-24
 msgid "Improve voting"
@@ -469,9 +512,12 @@ msgstr "Amélioration de la recherche"
 #: DB:statistics.statistic_event/description:2013-02-11
 msgid ""
 "In an effort to reduce the size of the open edit queue and force less "
-"waiting for changes, the length of time edits stay open before expiration is"
-" reduced from 14 to 7 days."
-msgstr "Afin de réduire la taille de la file d’attente des modifications ouvertes et forcer une attente moindre pour les changements, la durée d’ouverture des modifications avant expiration est réduite de 14 à 7 jours."
+"waiting for changes, the length of time edits stay open before expiration is "
+"reduced from 14 to 7 days."
+msgstr ""
+"Afin de réduire la taille de la file d’attente des modifications ouvertes et "
+"forcer une attente moindre pour les changements, la durée d’ouverture des "
+"modifications avant expiration est réduite de 14 à 7 jours."
 
 #: DB:statistics.statistic_event/description:2015-04-27
 msgid ""
@@ -482,13 +528,17 @@ msgstr ""
 
 #: DB:statistics.statistic_event/description:2011-05-12
 msgid "In preparation for NGS, editing is turned off until release."
-msgstr "En préparation pour NGS, les modifications sont désactivées jusqu’à la sortie."
+msgstr ""
+"En préparation pour NGS, les modifications sont désactivées jusqu’à la "
+"sortie."
 
 #: DB:statistics.statistic_event/description:2011-05-02
 msgid ""
 "In preparation for NGS, editors are encouraged to avoid editing until "
 "release unless entirely necessary."
-msgstr "En préparation pour NGS, les éditeurs sont encouragés à éviter de modifier jusqu’à la sortie sauf si vraiment nécessaire."
+msgstr ""
+"En préparation pour NGS, les éditeurs sont encouragés à éviter de modifier "
+"jusqu’à la sortie sauf si vraiment nécessaire."
 
 #: DB:statistics.statistic_event/title:2006-03-05
 msgid "Indexed search/XML WS"
@@ -504,7 +554,9 @@ msgstr "Modifications en ligne"
 
 #: DB:statistics.statistic_event/description:2004-01-17
 msgid "Inline edits, new reports, improved data import scripts."
-msgstr "Sortie : modifications en ligne, nouveau rapports, scripts améliorés d’importation de données. "
+msgstr ""
+"Sortie : modifications en ligne, nouveau rapports, scripts améliorés "
+"d’importation de données. "
 
 #: DB:statistics.statistic_event/title:2004-05-09
 msgid "Install scripts"
@@ -551,7 +603,9 @@ msgstr "Last.fm"
 
 #: DB:statistics.statistic_event/description:2007-11-07
 msgid "Last.fm signs up with MetaBrainz and starts using MusicBrainz data."
-msgstr "Last.fm signe avec MusicBrainz et commence a utiliser les données de MusicBrainz."
+msgstr ""
+"Last.fm signe avec MusicBrainz et commence a utiliser les données de "
+"MusicBrainz."
 
 #: DB:statistics.statistic_event/title:2015-09-28
 msgid "Laurent \"zas\" Monin becomes sysadmin"
@@ -567,7 +621,9 @@ msgstr ""
 #: DB:statistics.statistic_event/description:2003-12-28
 msgid ""
 "Link to MusicBrainz feature, release events and edit suggestions released."
-msgstr "Sortie : fonction de lien vers MusicBrainz, événements de parution et suggestions de modification. "
+msgstr ""
+"Sortie : fonction de lien vers MusicBrainz, événements de parution et "
+"suggestions de modification. "
 
 #: DB:statistics.statistic_event/description:2007-01-20
 msgid "Linkara Musica becomes first commercial customer of MetaBrainz."
@@ -579,8 +635,8 @@ msgstr "Liaison"
 
 #: DB:statistics.statistic_event/description:2020-10-07
 msgid ""
-"MBBE_Bot is created to make fixes that are too time-consuming to do by hand,"
-" but should still leave a trace in edit history. This usually involves "
+"MBBE_Bot is created to make fixes that are too time-consuming to do by hand, "
+"but should still leave a trace in edit history. This usually involves "
 "removing URLs from problematic domains, marking URLs from domains that have "
 "been closed as ended, and other similar batch-editing jobs."
 msgstr ""
@@ -637,9 +693,14 @@ msgstr "Davantage de modifications automatiques."
 msgid ""
 "More edit types are made auto-edits for everyone: \"Add relationship\" and "
 "\"Add release\"; and \"Add\", \"Edit\" and \"Remove release label\". "
-"Additionally, the German, French and Dutch translations are available on the"
-" main server."
-msgstr "Plus de types de modification sont automatiques pour tout le monde : « Ajouter une relation » et « Ajouter une parution » ; ainsi que « Ajouter », « Modifier » et « Enlever un label à la parution ». Par ailleurs, les traductions allemandes, françaises et néerlandaises sont disponibles sur le serveur principal."
+"Additionally, the German, French and Dutch translations are available on the "
+"main server."
+msgstr ""
+"Plus de types de modification sont automatiques pour tout le monde : "
+"« Ajouter une relation » et « Ajouter une parution » ; ainsi que "
+"« Ajouter », « Modifier » et « Enlever un label à la parution ». Par "
+"ailleurs, les traductions allemandes, françaises et néerlandaises sont "
+"disponibles sur le serveur principal."
 
 #: DB:statistics.statistic_event/title:2006-02-27
 msgid "MusicBrainz Move"
@@ -647,7 +708,8 @@ msgstr "Déménagement de MusicBrainz"
 
 #: DB:statistics.statistic_event/description:2010-02-08
 msgid "MusicBrainz Server source code moved to Git from Subversion."
-msgstr "Le code source du serveur MusicBrainz est déplacé de Subversion vers Git."
+msgstr ""
+"Le code source du serveur MusicBrainz est déplacé de Subversion vers Git."
 
 #: DB:statistics.statistic_event/title:2012-01-12
 msgid "MusicBrainz adds AcoustID support"
@@ -659,9 +721,11 @@ msgstr "MusicBrainz obtient son premier serveur de base de données dédié."
 
 #: DB:statistics.statistic_event/description:2016-02-22
 msgid ""
-"MusicBrainz itself gets a new design to better match the rest of the *Brainz"
-" family."
-msgstr "MusicBrainz s’est doté d’un nouvel habillage graphique qui correspond davantage au reste de la famille *Brainz."
+"MusicBrainz itself gets a new design to better match the rest of the *Brainz "
+"family."
+msgstr ""
+"MusicBrainz s’est doté d’un nouvel habillage graphique qui correspond "
+"davantage au reste de la famille *Brainz."
 
 #: DB:statistics.statistic_event/description:2006-02-27
 msgid "MusicBrainz moved to Digital West Networks in San Luis Obispo."
@@ -672,7 +736,11 @@ msgid ""
 "MusicBrainz partners with MusicIP and starts using MusicDNS's PUID acoustic "
 "fingerprints. Picard becomes the official MusicBrainz tagger with PUID "
 "support, which causes edit activity to decrease."
-msgstr "MusicBrainz devient partenaire avec MusicIP et commence à utiliser les empreintes acoustiques PUID de MusicDNS. Picard devient le baliseur officiel de MusicBrainz avec prise en charge des PUID, ce qui entraîne une naisse de l’activité de modification."
+msgstr ""
+"MusicBrainz devient partenaire avec MusicIP et commence à utiliser les "
+"empreintes acoustiques PUID de MusicDNS. Picard devient le baliseur officiel "
+"de MusicBrainz avec prise en charge des PUID, ce qui entraîne une naisse de "
+"l’activité de modification."
 
 #: DB:statistics.statistic_event/title:2006-03-12
 msgid "MusicIP PUID"
@@ -732,7 +800,9 @@ msgstr "Oliver Charles rejoint MusicBrainz à plein temps"
 msgid ""
 "Our old search server gets a significant upgrade with its move to SOLR, "
 "including almost-instant index updates."
-msgstr "Notre vieux serveur de recherche a été grandement amélioré en passant à Solr, notamment capable de mettre à jour les index quasi-instantanément."
+msgstr ""
+"Notre vieux serveur de recherche a été grandement amélioré en passant à "
+"Solr, notamment capable de mettre à jour les index quasi-instantanément."
 
 #: DB:statistics.statistic_event/title:2013-10-14
 msgid "PUID support is removed"
@@ -758,8 +828,8 @@ msgstr ""
 
 #: DB:statistics.statistic_event/description:2017-10-31
 msgid ""
-"Rather than having to notice any errors during a fairly brief 1 hour period,"
-" editors now have 24 hours to correct errors in the data they have added "
+"Rather than having to notice any errors during a fairly brief 1 hour period, "
+"editors now have 24 hours to correct errors in the data they have added "
 "without needing a vote."
 msgstr ""
 
@@ -795,7 +865,9 @@ msgstr "Sortie : éditeur de parution et deviner la casse."
 #: DB:statistics.statistic_event/description:2009-05-24
 msgid ""
 "Release groups, ISRC support, CDStub searching and search fixes released."
-msgstr "Sortie : groupes de parution, prise en charge des ISRC, recherche d’ébauches de CD et correctifs de recherche."
+msgstr ""
+"Sortie : groupes de parution, prise en charge des ISRC, recherche d’ébauches "
+"de CD et correctifs de recherche."
 
 #: DB:statistics.statistic_event/description:2015-04-06
 msgid ""
@@ -847,13 +919,15 @@ msgstr "Améliorations de la recherche"
 
 #: DB:statistics.statistic_event/title:2015-11-16
 msgid "Several new auto-edit types and translations"
-msgstr "Plusieurs nouveaux types de modification automatique et nouvelles traductions."
+msgstr ""
+"Plusieurs nouveaux types de modification automatique et nouvelles "
+"traductions."
 
 #: DB:statistics.statistic_event/description:2020-05-16
 msgid ""
-"Since the Virtual Machine project tended to just lag way behind current data"
-" because of the time required to always push new versions, it is dropped and"
-" users are suggested to just run their own Docker setup for MusicBrainz "
+"Since the Virtual Machine project tended to just lag way behind current data "
+"because of the time required to always push new versions, it is dropped and "
+"users are suggested to just run their own Docker setup for MusicBrainz "
 "(which the Virtual Machine already did behind the scenes)."
 msgstr ""
 
@@ -864,15 +938,17 @@ msgstr "Soc 2008"
 #: DB:statistics.statistic_event/description:2020-12-31
 msgid ""
 "Some instrument pages start displaying instrument illustrations by IROM. "
-"Additionally, a first release date starts being calculated and displayed for"
-" recordings based on the releases they appear on."
+"Additionally, a first release date starts being calculated and displayed for "
+"recordings based on the releases they appear on."
 msgstr ""
 
 #: DB:statistics.statistic_event/description:2006-01-08
 msgid ""
 "Style Guideline 5 workaround introduced and unused TRMs pruned from the "
 "database."
-msgstr "Implantation des directives de style 5, et les TRM inutilisés sont enlevés de la base de données"
+msgstr ""
+"Implantation des directives de style 5, et les TRM inutilisés sont enlevés "
+"de la base de données"
 
 #: DB:statistics.statistic_event/title:2014-10-17
 msgid "Style process updated again, reosarevok \"promoted\" to Style BDFL"
@@ -905,15 +981,20 @@ msgstr ""
 #: DB:statistics.statistic_event/description:2007-06-28
 msgid ""
 "The BBC becomes a MetaBrainz customer and starts using MusicBrainz data."
-msgstr "La BBC devient un client de MusicBrainz et commence a utiliser les données de MusicBrainz."
+msgstr ""
+"La BBC devient un client de MusicBrainz et commence a utiliser les données "
+"de MusicBrainz."
 
 #: DB:statistics.statistic_event/description:2012-04-30
 msgid "The Cover Art Archive becomes initially available"
-msgstr "L’archive des illustrations « Cover Art Archive » est proposée pour la première fois."
+msgstr ""
+"L’archive des illustrations « Cover Art Archive » est proposée pour la "
+"première fois."
 
 #: DB:statistics.statistic_event/description:2012-10-10
 msgid "The Cover Art Archive is officially released"
-msgstr "L’archive des illustrations « Cover Art Archive » est officiellement lancée"
+msgstr ""
+"L’archive des illustrations « Cover Art Archive » est officiellement lancée"
 
 #: DB:statistics.statistic_event/title:2014-05-19
 msgid "The CritiqueBrainz project goes live"
@@ -934,7 +1015,9 @@ msgstr "Le projet ListenBrainz prend vie"
 msgid ""
 "The MetaBrainz Foundation, the legal home for MusicBrainz is announced to "
 "the public."
-msgstr "La Fondation MusicBrainz, le siège social de MusicBrainz, est annoncée au public."
+msgstr ""
+"La Fondation MusicBrainz, le siège social de MusicBrainz, est annoncée au "
+"public."
 
 #: DB:statistics.statistic_event/title:2020-05-16
 msgid "The MusicBrainz Virtual Machine is replaced by MusicBrainz Docker"
@@ -944,7 +1027,9 @@ msgstr ""
 msgid ""
 "The alpha version of ListenBrainz, an open source and open data alternative "
 "to Last.fm®, goes live."
-msgstr "La version alpha de ListenBrainz, une alternative open source et open data à Last.fm®, prend vie."
+msgstr ""
+"La version alpha de ListenBrainz, une alternative open source et open data à "
+"Last.fm®, prend vie."
 
 #: DB:statistics.statistic_event/description:2014-05-19
 msgid "The beta version of CritiqueBrainz is launched."
@@ -952,9 +1037,9 @@ msgstr "La version bêta de CritiqueBrainz est lancée."
 
 #: DB:statistics.statistic_event/description:2013-10-14
 msgid ""
-"The diminishing quality of the PUID fingerprinting service and the continued"
-" availability of an open source alternative in AcoustID leads to the "
-"decision of dropping PUIDs from MusicBrainz and supporting only AcoustID."
+"The diminishing quality of the PUID fingerprinting service and the continued "
+"availability of an open source alternative in AcoustID leads to the decision "
+"of dropping PUIDs from MusicBrainz and supporting only AcoustID."
 msgstr ""
 
 #: DB:statistics.statistic_event/description:2020-02-18
@@ -966,8 +1051,8 @@ msgstr ""
 
 #: DB:statistics.statistic_event/description:2012-06-02
 msgid ""
-"The first full-version release of the Picard tagger comes out, with a lot of"
-" changes and improvements."
+"The first full-version release of the Picard tagger comes out, with a lot of "
+"changes and improvements."
 msgstr ""
 
 #: DB:statistics.statistic_event/description:2011-08-03
@@ -993,7 +1078,10 @@ msgid ""
 "The new MetaBrainz website, featuring an all-new design and online sign-up "
 "for commercial users, is launched, replacing the one designed in the year "
 "2000!"
-msgstr "Le nouveau site Web de MetaBrainz, incluant une refonte complète et une inscription en ligne pour les utilisateurs commerciaux, est lancé, remplaçant celui conçu en l’an 2000 !"
+msgstr ""
+"Le nouveau site Web de MetaBrainz, incluant une refonte complète et une "
+"inscription en ligne pour les utilisateurs commerciaux, est lancé, "
+"remplaçant celui conçu en l’an 2000 !"
 
 #: DB:statistics.statistic_event/description:2012-01-12
 msgid ""
@@ -1006,7 +1094,9 @@ msgstr ""
 msgid ""
 "The relationship editor, for bulk-editing relationships for a release, is "
 "released to production."
-msgstr "L’éditeur de relations permettant les modifications par lot des relations pour une parution est mise en production."
+msgstr ""
+"L’éditeur de relations permettant les modifications par lot des relations "
+"pour une parution est mise en production."
 
 #: DB:statistics.statistic_event/description:2006-12-17
 msgid "The search features and web service improvements are released."
@@ -1017,21 +1107,25 @@ msgid ""
 "The style process is updated again. Rather than requiring long, often angry "
 "community debate until something is passed by community consensus without a "
 "veto, decisions are taken by a BDFL who consults the community when needed. "
-"Nicolás Tamargo (reosarevok) is \"promoted\" from style leader to style "
-"BDFL."
+"Nicolás Tamargo (reosarevok) is \"promoted\" from style leader to style BDFL."
 msgstr ""
 
 #: DB:statistics.statistic_event/description:2013-06-24
 msgid ""
 "The voting period for edits that get a No vote is extended to give users "
 "more time to react to the issues."
-msgstr "La période de vote pour les modifications qui ont reçues un vote « Non » est étendue pour donner le temps aux utilisateurs de régler les problèmes."
+msgstr ""
+"La période de vote pour les modifications qui ont reçues un vote « Non » est "
+"étendue pour donner le temps aux utilisateurs de régler les problèmes."
 
 #: DB:statistics.statistic_event/description:2005-10-23
 msgid ""
 "Top menu navigation improved, duplicate artists, album edit all, track time "
 "editing features released."
-msgstr "Sorties : amélioration de la navigation du menu d’en haut, recherche d’artistes en double, tout modifier dans l’album, modification de la durée de pistes."
+msgstr ""
+"Sorties : amélioration de la navigation du menu d’en haut, recherche "
+"d’artistes en double, tout modifier dans l’album, modification de la durée "
+"de pistes."
 
 #: DB:statistics.statistic_event/title:2007-12-07
 msgid "Track times set from DiscIDs"
@@ -1056,11 +1150,16 @@ msgid ""
 "Version 1 of the web service (already deprecated since 2011) is finally "
 "taken down for good (more than a year after announcing it would happen in "
 "six months!)."
-msgstr "La version 1 du service web (voué à disparaître depuis 2011 déjà) a finalement été fermée pour de bon (plus d’un an après l’annonce de sa fermeture dans six mois !)"
+msgstr ""
+"La version 1 du service web (voué à disparaître depuis 2011 déjà) a "
+"finalement été fermée pour de bon (plus d’un an après l’annonce de sa "
+"fermeture dans six mois !)"
 
 #: DB:statistics.statistic_event/description:2004-07-24
 msgid "Voting logic was improved, web based autoeditor elections released."
-msgstr "Sortie : amélioration de la logique de vote, élections des auto-éditeurs basées sur le Web."
+msgstr ""
+"Sortie : amélioration de la logique de vote, élections des auto-éditeurs "
+"basées sur le Web."
 
 #: DB:statistics.statistic_event/title:2013-06-24
 msgid "Voting period for contested edits extended"
@@ -1104,7 +1203,9 @@ msgstr "Yvanzo rejoint MusicBrainz comme développeur"
 msgid ""
 "Yvanzo joins the development team as a second dedicated MusicBrainz "
 "developer."
-msgstr "Yvanzo rejoint l’équipe de développement comme second développeur se consacrant à MusicBrainz."
+msgstr ""
+"Yvanzo rejoint l’équipe de développement comme second développeur se "
+"consacrant à MusicBrainz."
 
 #: DB:statistics.statistic_event/title:2010-02-08
 msgid "mb_server now hosted on Git"
@@ -1155,14 +1256,14 @@ msgid "Draw a rectangle on either graph"
 msgstr "Dessinez un rectangle sur l’un des graphiques"
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/Editors.js:98
-#: ../root/statistics/Editors.js:109 ../root/statistics/Index.js:1084
+#: ../root/statistics/Editors.js:109 ../root/statistics/Index.js:1096
 #: ../root/statistics/StatisticsLayout.js:80
 msgid "Editors"
 msgstr "Éditeurs"
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/Edits.js:38
 #: ../root/statistics/Edits.js:42 ../root/statistics/Edits.js:51
-#: ../root/statistics/Index.js:1208 ../root/statistics/StatisticsLayout.js:70
+#: ../root/statistics/Index.js:1220 ../root/statistics/StatisticsLayout.js:70
 #: ../root/statistics/stats.js:289
 msgid "Edits"
 msgstr "Modifications"
@@ -1262,8 +1363,8 @@ msgstr "Artistes"
 msgid "Releases"
 msgstr "Parutions"
 
-#: ../root/statistics/Countries.js:62 ../root/statistics/Index.js:699
-#: ../root/statistics/Index.js:706 ../root/statistics/stats.js:509
+#: ../root/statistics/Countries.js:62 ../root/statistics/Index.js:711
+#: ../root/statistics/Index.js:718 ../root/statistics/stats.js:509
 msgid "Labels"
 msgstr "Labels"
 
@@ -1364,9 +1465,11 @@ msgstr "Il n’y a pas de donnée à afficher ici."
 
 #: ../root/statistics/Editors.js:103
 msgid ""
-"For the vote statistics, only yes or no votes are counted, abstain votes are"
-" not counted."
-msgstr "Pour les statistiques des votes, seuls les votes oui et non sont comptés, les abstentions ne le sont pas."
+"For the vote statistics, only yes or no votes are counted, abstain votes are "
+"not counted."
+msgstr ""
+"Pour les statistiques des votes, seuls les votes oui et non sont comptés, "
+"les abstentions ne le sont pas."
 
 #: ../root/statistics/Editors.js:111
 msgid "Open and applied edits in past week"
@@ -1453,7 +1556,7 @@ msgid "Artists:"
 msgstr "Artistes : "
 
 #: ../root/statistics/Index.js:98 ../root/statistics/Index.js:619
-#: ../root/statistics/Index.js:645
+#: ../root/statistics/Index.js:651
 msgid "Release Groups:"
 msgstr "Groupes de parution :"
 
@@ -1468,7 +1571,7 @@ msgstr "Parutions :"
 msgid "Mediums:"
 msgstr "Supports :"
 
-#: ../root/statistics/Index.js:110 ../root/statistics/Index.js:677
+#: ../root/statistics/Index.js:110 ../root/statistics/Index.js:689
 msgid "Recordings:"
 msgstr "Enregistrements : "
 
@@ -1480,8 +1583,8 @@ msgstr "Pistes :"
 msgid "Labels:"
 msgstr "Labels :"
 
-#: ../root/statistics/Index.js:122 ../root/statistics/Index.js:734
-#: ../root/statistics/Index.js:766
+#: ../root/statistics/Index.js:122 ../root/statistics/Index.js:746
+#: ../root/statistics/Index.js:778
 msgid "Works:"
 msgstr "Œuvres :"
 
@@ -1489,24 +1592,24 @@ msgstr "Œuvres :"
 msgid "URLs:"
 msgstr "URLs :"
 
-#: ../root/statistics/Index.js:130 ../root/statistics/Index.js:796
+#: ../root/statistics/Index.js:130 ../root/statistics/Index.js:808
 msgid "Areas:"
 msgstr "Régions :"
 
-#: ../root/statistics/Index.js:134 ../root/statistics/Index.js:824
+#: ../root/statistics/Index.js:134 ../root/statistics/Index.js:836
 msgid "Places:"
 msgstr "Lieux :"
 
-#: ../root/statistics/Index.js:138 ../root/statistics/Index.js:852
+#: ../root/statistics/Index.js:138 ../root/statistics/Index.js:864
 msgctxt "plural"
 msgid "Series:"
 msgstr "Séries :"
 
-#: ../root/statistics/Index.js:142 ../root/statistics/Index.js:874
+#: ../root/statistics/Index.js:142 ../root/statistics/Index.js:886
 msgid "Instruments:"
 msgstr "Instruments :"
 
-#: ../root/statistics/Index.js:146 ../root/statistics/Index.js:904
+#: ../root/statistics/Index.js:146 ../root/statistics/Index.js:916
 msgid "Events:"
 msgstr "Événements :"
 
@@ -1526,8 +1629,8 @@ msgstr "Éditeurs (valides / supprimés) :"
 msgid "Relationships:"
 msgstr "Relations : "
 
-#: ../root/statistics/Index.js:169 ../root/statistics/Index.js:925
-#: ../root/statistics/Index.js:929 ../root/statistics/Index.js:932
+#: ../root/statistics/Index.js:169 ../root/statistics/Index.js:937
+#: ../root/statistics/Index.js:941 ../root/statistics/Index.js:944
 #: ../root/statistics/stats.js:19 ../root/statistics/stats.js:173
 msgid "Collections"
 msgstr "Collections"
@@ -1743,284 +1846,286 @@ msgstr "Groupes de parution :"
 msgid "Primary Types"
 msgstr "Types principaux"
 
-#: ../root/statistics/Index.js:642
+#: ../root/statistics/Index.js:643 ../root/statistics/Index.js:675
+#: ../root/statistics/Index.js:732 ../root/statistics/Index.js:760
+#: ../root/statistics/Index.js:794 ../root/statistics/Index.js:822
+#: ../root/statistics/Index.js:850 ../root/statistics/Index.js:902
+#: ../root/statistics/Index.js:930
+msgid "None"
+msgstr "Aucun"
+
+#: ../root/statistics/Index.js:648
 msgid "Secondary Types"
 msgstr "Types secondaires"
 
-#: ../root/statistics/Index.js:670 ../root/statistics/Index.js:674
+#: ../root/statistics/Index.js:682 ../root/statistics/Index.js:686
 #: ../root/statistics/stats.js:649
 msgid "Recordings"
 msgstr "Enregistrements"
 
-#: ../root/statistics/Index.js:682
+#: ../root/statistics/Index.js:694
 msgid "Videos:"
 msgstr "Vidéos :"
 
-#: ../root/statistics/Index.js:687
+#: ../root/statistics/Index.js:699
 msgctxt "recording"
 msgid "Standalone"
 msgstr "Isolé"
 
-#: ../root/statistics/Index.js:692
+#: ../root/statistics/Index.js:704
 msgid "With ISRCs"
 msgstr "Avec ISRC"
 
-#: ../root/statistics/Index.js:703 ../root/statistics/Index.js:731
-#: ../root/statistics/Index.js:793 ../root/statistics/Index.js:821
-#: ../root/statistics/Index.js:849 ../root/statistics/Index.js:871
-#: ../root/statistics/Index.js:901
+#: ../root/statistics/Index.js:715 ../root/statistics/Index.js:743
+#: ../root/statistics/Index.js:805 ../root/statistics/Index.js:833
+#: ../root/statistics/Index.js:861 ../root/statistics/Index.js:883
+#: ../root/statistics/Index.js:913
 msgid "Types"
 msgstr "Types"
 
-#: ../root/statistics/Index.js:720 ../root/statistics/Index.js:748
-#: ../root/statistics/Index.js:782 ../root/statistics/Index.js:810
-#: ../root/statistics/Index.js:838 ../root/statistics/Index.js:890
-#: ../root/statistics/Index.js:918
-msgid "None"
-msgstr "Aucun"
-
-#: ../root/statistics/Index.js:727 ../root/statistics/LanguagesScripts.js:76
-#: ../root/statistics/stats.js:876
+#: ../root/statistics/Index.js:739 ../root/statistics/LanguagesScripts.js:76
+#: ../root/statistics/stats.js:886
 msgid "Works"
 msgstr "Œuvres"
 
-#: ../root/statistics/Index.js:753
+#: ../root/statistics/Index.js:765
 msgid "With ISWCs"
 msgstr "Avec ISWC"
 
-#: ../root/statistics/Index.js:763
+#: ../root/statistics/Index.js:775
 msgid "Attributes"
 msgstr "Attributs"
 
-#: ../root/statistics/Index.js:789 ../root/statistics/stats.js:53
+#: ../root/statistics/Index.js:801 ../root/statistics/stats.js:53
 msgid "Areas"
 msgstr "Régions"
 
-#: ../root/statistics/Index.js:817 ../root/statistics/stats.js:544
+#: ../root/statistics/Index.js:829 ../root/statistics/stats.js:544
 msgid "Places"
 msgstr "Lieux"
 
-#: ../root/statistics/Index.js:845 ../root/statistics/stats.js:759
+#: ../root/statistics/Index.js:857 ../root/statistics/stats.js:769
 msgctxt "plural"
 msgid "Series"
 msgstr "Séries"
 
-#: ../root/statistics/Index.js:867 ../root/statistics/stats.js:449
+#: ../root/statistics/Index.js:879 ../root/statistics/stats.js:449
 msgid "Instruments"
 msgstr "Instruments"
 
-#: ../root/statistics/Index.js:897 ../root/statistics/stats.js:434
+#: ../root/statistics/Index.js:909 ../root/statistics/stats.js:434
 msgid "Events"
 msgstr "Événements"
 
-#: ../root/statistics/Index.js:938
+#: ../root/statistics/Index.js:950
 msgid "Of releases"
 msgstr "De parutions"
 
-#: ../root/statistics/Index.js:945 ../root/statistics/Index.js:978
+#: ../root/statistics/Index.js:957 ../root/statistics/Index.js:990
 msgid "Generic"
 msgstr "Génériques"
 
-#: ../root/statistics/Index.js:954
+#: ../root/statistics/Index.js:966
 msgid "Owned music"
 msgstr "Musique possédée"
 
-#: ../root/statistics/Index.js:963
+#: ../root/statistics/Index.js:975
 msgid "Wishlist"
 msgstr "Liste de souhaits"
 
-#: ../root/statistics/Index.js:971
+#: ../root/statistics/Index.js:983
 msgid "Of events"
 msgstr "D’événements"
 
-#: ../root/statistics/Index.js:987
+#: ../root/statistics/Index.js:999
 msgid "Of type Attending"
 msgstr "De type « Présent »"
 
-#: ../root/statistics/Index.js:996
+#: ../root/statistics/Index.js:1008
 msgid "Of type Maybe attending"
 msgstr "De type « Peut-être présent »"
 
-#: ../root/statistics/Index.js:1007
+#: ../root/statistics/Index.js:1019
 msgid "Of areas"
 msgstr "De régions"
 
-#: ../root/statistics/Index.js:1013
+#: ../root/statistics/Index.js:1025
 msgid "Of artists"
 msgstr "D’artistes"
 
-#: ../root/statistics/Index.js:1019
+#: ../root/statistics/Index.js:1031
 msgid "Of instruments"
 msgstr "D’instruments"
 
-#: ../root/statistics/Index.js:1025
+#: ../root/statistics/Index.js:1037
 msgid "Of labels"
 msgstr "De labels"
 
-#: ../root/statistics/Index.js:1031
+#: ../root/statistics/Index.js:1043
 msgid "Of places"
 msgstr "De lieux"
 
-#: ../root/statistics/Index.js:1037
+#: ../root/statistics/Index.js:1049
 msgid "Of recordings"
 msgstr "D’enregistrements"
 
-#: ../root/statistics/Index.js:1043
+#: ../root/statistics/Index.js:1055
 msgid "Of release groups"
 msgstr "De groupes de parution"
 
-#: ../root/statistics/Index.js:1049
+#: ../root/statistics/Index.js:1061
 msgid "Of series"
 msgstr "De séries"
 
-#: ../root/statistics/Index.js:1055
+#: ../root/statistics/Index.js:1067
 msgid "Of works"
 msgstr "D’œuvres"
 
-#: ../root/statistics/Index.js:1061
+#: ../root/statistics/Index.js:1073
 msgid "Public"
 msgstr "Public"
 
-#: ../root/statistics/Index.js:1067
+#: ../root/statistics/Index.js:1079
 msgid "Private"
 msgstr "Privé"
 
-#: ../root/statistics/Index.js:1073
+#: ../root/statistics/Index.js:1085
 msgid "With collaborators"
 msgstr "Avec collaborateurs"
 
-#: ../root/statistics/Index.js:1080
+#: ../root/statistics/Index.js:1092
 msgid "Editors, Edits, and Votes"
 msgstr "Éditeurs, modifications et votes"
 
-#: ../root/statistics/Index.js:1087
+#: ../root/statistics/Index.js:1099
 msgid "Editors (valid):"
 msgstr "Éditeurs (valides) :"
 
-#: ../root/statistics/Index.js:1093
+#: ../root/statistics/Index.js:1105
 msgid "active ever:"
 msgstr "actif à ce jour :"
 
-#: ../root/statistics/Index.js:1101
+#: ../root/statistics/Index.js:1113
 msgid "who edited and/or voted in the last 7 days:"
-msgstr "qui a effectué des modifications et/ou voté durant les 7 derniers jours :"
+msgstr ""
+"qui a effectué des modifications et/ou voté durant les 7 derniers jours :"
 
-#: ../root/statistics/Index.js:1110
+#: ../root/statistics/Index.js:1122
 msgid "who edited in the last 7 days:"
 msgstr "qui a effectué des modifications durant les 7 derniers jours :"
 
-#: ../root/statistics/Index.js:1118
+#: ../root/statistics/Index.js:1130
 msgid "who voted in the last 7 days:"
 msgstr "qui a voté durant les 7 derniers jours :"
 
-#: ../root/statistics/Index.js:1125
+#: ../root/statistics/Index.js:1137
 msgid "who edit:"
 msgstr "qui effectue des modifications :"
 
-#: ../root/statistics/Index.js:1132
+#: ../root/statistics/Index.js:1144
 msgid "who vote:"
 msgstr "qui votent :"
 
-#: ../root/statistics/Index.js:1139
+#: ../root/statistics/Index.js:1151
 msgid "who leave edit notes:"
 msgstr "qui ont laissé des notes de modification :"
 
-#: ../root/statistics/Index.js:1146
+#: ../root/statistics/Index.js:1158
 msgid "who use tags:"
 msgstr "qui utilisent des balises :"
 
-#: ../root/statistics/Index.js:1153
+#: ../root/statistics/Index.js:1165
 msgid "who use ratings:"
 msgstr "qui utilisent des évaluations :"
 
-#: ../root/statistics/Index.js:1162
+#: ../root/statistics/Index.js:1174
 msgid "who use subscriptions:"
 msgstr "qui utilisent des abonnements :"
 
-#: ../root/statistics/Index.js:1171
+#: ../root/statistics/Index.js:1183
 msgid "who use collections:"
 msgstr "qui utilisent des collections :"
 
-#: ../root/statistics/Index.js:1181
+#: ../root/statistics/Index.js:1193
 msgid "who have registered applications:"
 msgstr "qui ont enregistré des applications :"
 
-#: ../root/statistics/Index.js:1190
+#: ../root/statistics/Index.js:1202
 msgid "validated email only:"
 msgstr "courriels validés seulement :"
 
-#: ../root/statistics/Index.js:1196
+#: ../root/statistics/Index.js:1208
 msgid "inactive:"
 msgstr "inactif :"
 
-#: ../root/statistics/Index.js:1201
+#: ../root/statistics/Index.js:1213
 msgid "Editors (deleted):"
 msgstr "Éditeurs (supprimés) :"
 
-#: ../root/statistics/Index.js:1211 ../root/statistics/Index.js:1258
+#: ../root/statistics/Index.js:1223 ../root/statistics/Index.js:1270
 msgid "Edits:"
 msgstr "Modifications :"
 
-#: ../root/statistics/Index.js:1217
+#: ../root/statistics/Index.js:1229
 msgid "Open:"
 msgstr "Ouvertes : "
 
-#: ../root/statistics/Index.js:1223
+#: ../root/statistics/Index.js:1235
 msgid "Applied:"
 msgstr "Appliquées :"
 
-#: ../root/statistics/Index.js:1229
+#: ../root/statistics/Index.js:1241
 msgid "Voted down:"
 msgstr "Rejetées par vote :"
 
-#: ../root/statistics/Index.js:1235
+#: ../root/statistics/Index.js:1247
 msgid "Failed (dependency):"
 msgstr "Échec (dépendance) :"
 
-#: ../root/statistics/Index.js:1241
+#: ../root/statistics/Index.js:1253
 msgid "Failed (prerequisite):"
 msgstr "Échec (pré-requis) :"
 
-#: ../root/statistics/Index.js:1247
+#: ../root/statistics/Index.js:1259
 msgid "Failed (internal error):"
 msgstr "Échec (erreur interne) :"
 
-#: ../root/statistics/Index.js:1253
+#: ../root/statistics/Index.js:1265
 msgid "Cancelled:"
 msgstr "Annulées :"
 
-#: ../root/statistics/Index.js:1264 ../root/statistics/Index.js:1316
+#: ../root/statistics/Index.js:1276 ../root/statistics/Index.js:1328
 msgid "Last 7 days:"
 msgstr "7 derniers jours :"
 
-#: ../root/statistics/Index.js:1271 ../root/statistics/Index.js:1323
+#: ../root/statistics/Index.js:1283 ../root/statistics/Index.js:1335
 msgid "Yesterday:"
 msgstr "Hier :"
 
-#: ../root/statistics/Index.js:1278 ../root/statistics/stats.js:840
+#: ../root/statistics/Index.js:1290 ../root/statistics/stats.js:850
 msgid "Votes"
 msgstr "Votes"
 
-#: ../root/statistics/Index.js:1281 ../root/statistics/Index.js:1310
+#: ../root/statistics/Index.js:1293 ../root/statistics/Index.js:1322
 msgid "Votes:"
 msgstr "Votes :"
 
-#: ../root/statistics/Index.js:1287
+#: ../root/statistics/Index.js:1299
 msgctxt "vote"
 msgid "Approve"
 msgstr "Approuver"
 
-#: ../root/statistics/Index.js:1293
+#: ../root/statistics/Index.js:1305
 msgctxt "vote"
 msgid "Yes"
 msgstr "Oui"
 
-#: ../root/statistics/Index.js:1299
+#: ../root/statistics/Index.js:1311
 msgctxt "vote"
 msgid "No"
 msgstr "Non"
 
-#: ../root/statistics/Index.js:1305
+#: ../root/statistics/Index.js:1317
 msgctxt "vote"
 msgid "Abstain"
 msgstr "S’abstenir"
@@ -2031,7 +2136,9 @@ msgstr "Langues et systèmes d’écriture"
 
 #: ../root/statistics/LanguagesScripts.js:56
 msgid "All other available languages and scripts have 0 releases and works."
-msgstr "Toutes les autres langues et systèmes d’écriture n’ont aucune parution et œuvre."
+msgstr ""
+"Toutes les autres langues et systèmes d’écriture n’ont aucune parution et "
+"œuvre."
 
 #: ../root/statistics/LanguagesScripts.js:62
 #: ../root/statistics/LanguagesScripts.js:68
@@ -2077,10 +2184,12 @@ msgstr "Pas de statistiques"
 #: ../root/statistics/NoStatistics.js:19
 msgid ""
 "Statistics have never been collected for this server. If you are the "
-"administrator for this server, you should run "
-"<code>./admin/CollectStats.pl</code> or import <code>mbdump-"
-"stats.tar.bz2</code>."
-msgstr "Aucune statistique n’a jamais été colligée pour ce serveur. Si vous en êtes l’administrateur, vous devriez faire tourner <code>./admin/CollectStats.pl</code> ou importer <code>mbdump-stats.tar.bz2</code>."
+"administrator for this server, you should run <code>./admin/CollectStats.pl</"
+"code> or import <code>mbdump-stats.tar.bz2</code>."
+msgstr ""
+"Aucune statistique n’a jamais été colligée pour ce serveur. Si vous en êtes "
+"l’administrateur, vous devriez faire tourner <code>./admin/CollectStats.pl</"
+"code> ou importer <code>mbdump-stats.tar.bz2</code>."
 
 #: ../root/statistics/Relationships.js:113
 msgid "No relationship statistics available."
@@ -2701,243 +2810,251 @@ msgstr ""
 msgid "Release groups with user-selected cover art"
 msgstr ""
 
-#: ../root/statistics/stats.js:764
-msgid "Series with no type set"
+#: ../root/statistics/stats.js:759
+msgid "Release groups with no primary type set"
 msgstr ""
 
-#: ../root/statistics/stats.js:769
-msgid "Unique tag names"
+#: ../root/statistics/stats.js:764
+msgid "Release groups with no secondary type set"
 msgstr ""
 
 #: ../root/statistics/stats.js:774
-msgid "Votes for/against tags"
+msgid "Series with no type set"
 msgstr ""
 
 #: ../root/statistics/stats.js:779
-msgid "Votes for/against area tags"
+msgid "Unique tag names"
 msgstr ""
 
 #: ../root/statistics/stats.js:784
-msgid "Votes for/against artist tags"
+msgid "Votes for/against tags"
 msgstr ""
 
 #: ../root/statistics/stats.js:789
-msgid "Votes for/against instrument tags"
+msgid "Votes for/against area tags"
 msgstr ""
 
 #: ../root/statistics/stats.js:794
-msgid "Votes for/against label tags"
+msgid "Votes for/against artist tags"
 msgstr ""
 
 #: ../root/statistics/stats.js:799
-msgid "Votes for/against recording tags"
+msgid "Votes for/against instrument tags"
 msgstr ""
 
 #: ../root/statistics/stats.js:804
-msgid "Votes for/against release tags"
+msgid "Votes for/against label tags"
 msgstr ""
 
 #: ../root/statistics/stats.js:809
-msgid "Votes for/against release group tags"
+msgid "Votes for/against recording tags"
 msgstr ""
 
 #: ../root/statistics/stats.js:814
-msgid "Votes for/against series tags"
+msgid "Votes for/against release tags"
 msgstr ""
 
 #: ../root/statistics/stats.js:819
-msgid "Votes for/against work tags"
+msgid "Votes for/against release group tags"
 msgstr ""
 
 #: ../root/statistics/stats.js:824
+msgid "Votes for/against series tags"
+msgstr ""
+
+#: ../root/statistics/stats.js:829
+msgid "Votes for/against work tags"
+msgstr ""
+
+#: ../root/statistics/stats.js:834
 msgid "Tracks"
 msgstr "Pistes"
 
-#: ../root/statistics/stats.js:829
+#: ../root/statistics/stats.js:839
 msgid "URLs"
 msgstr "URLs"
 
-#: ../root/statistics/stats.js:834
+#: ../root/statistics/stats.js:844
 msgid "Videos"
 msgstr ""
 
-#: ../root/statistics/stats.js:845
+#: ../root/statistics/stats.js:855
 msgid "Abstentions"
 msgstr "Abstentions"
 
-#: ../root/statistics/stats.js:850
+#: ../root/statistics/stats.js:860
 msgid "Approvals"
 msgstr "Approbations"
 
-#: ../root/statistics/stats.js:855
+#: ../root/statistics/stats.js:865
 msgid "No Votes"
 msgstr "Pas de vote"
 
-#: ../root/statistics/stats.js:861
+#: ../root/statistics/stats.js:871
 msgid "Votes per day"
 msgstr "Votes par jour"
 
-#: ../root/statistics/stats.js:866
+#: ../root/statistics/stats.js:876
 msgid "Votes per week"
 msgstr "Votes par semaine"
 
-#: ../root/statistics/stats.js:871
+#: ../root/statistics/stats.js:881
 msgid "Yes Votes"
 msgstr "Votes oui"
 
-#: ../root/statistics/stats.js:881
+#: ../root/statistics/stats.js:891
 msgid "Works with no attributes"
 msgstr ""
 
-#: ../root/statistics/stats.js:886
+#: ../root/statistics/stats.js:896
 msgid "Works with ISWCs"
 msgstr "Œuvres avec ISWC"
 
-#: ../root/statistics/stats.js:891
+#: ../root/statistics/stats.js:901
 msgid "Works with no language set"
 msgstr ""
 
-#: ../root/statistics/stats.js:896
+#: ../root/statistics/stats.js:906
 msgid "Works with no type set"
 msgstr ""
 
-#: ../root/statistics/stats.js:898
+#: ../root/statistics/stats.js:908
 msgid "/day"
 msgstr "/jour"
 
-#: ../root/statistics/stats.js:908
+#: ../root/statistics/stats.js:918
 msgid "Releases with 1 Disc ID"
 msgid_plural "Releases with {n} Disc IDs"
 msgstr[0] "Parutions avec 1 ID de disque"
 msgstr[1] "Parutions avec {n} ID de disque"
 msgstr[2] "Parutions avec {n} ID de disque"
 
-#: ../root/statistics/stats.js:919
+#: ../root/statistics/stats.js:929
 msgid "Mediums with 1 Disc ID"
 msgid_plural "Mediums with {n} Disc IDs"
 msgstr[0] "Support avec 1 ID de disque"
 msgstr[1] "Support avec {n} ID de disque"
 msgstr[2] "Support avec {n} ID de disque"
 
-#: ../root/statistics/stats.js:930
+#: ../root/statistics/stats.js:940
 msgid "Recordings with 1 Release"
 msgid_plural "Recordings with {n} Releases"
 msgstr[0] "Enregistrements avec 1 parution"
 msgstr[1] "Enregistrements avec {n} parutions"
 msgstr[2] "Enregistrements avec {n} parutions"
 
-#: ../root/statistics/stats.js:941
+#: ../root/statistics/stats.js:951
 msgid "Release Groups with 1 Release"
 msgid_plural "Release Groups with {n} Releases"
 msgstr[0] "Groupes de parution avec 1 parution"
 msgstr[1] "Groupes de parution avec {n} parution"
 msgstr[2] "Groupes de parution avec {n} parution"
 
-#: ../root/statistics/stats.js:994
+#: ../root/statistics/stats.js:1004
 msgid "{type} areas"
 msgstr ""
 
-#: ../root/statistics/stats.js:1006
+#: ../root/statistics/stats.js:1016
 msgid "{country} artists"
 msgstr "{country} artistes"
 
-#: ../root/statistics/stats.js:1012
+#: ../root/statistics/stats.js:1022
 msgid "{country} labels"
 msgstr "{country} labels"
 
-#: ../root/statistics/stats.js:1018
+#: ../root/statistics/stats.js:1028
 msgid "{country} releases"
 msgstr "Parutions de {country}"
 
-#: ../root/statistics/stats.js:1029
+#: ../root/statistics/stats.js:1039
 msgid "{type} edits"
 msgstr ""
 
-#: ../root/statistics/stats.js:1040
+#: ../root/statistics/stats.js:1050
 msgid "{type} events"
 msgstr ""
 
-#: ../root/statistics/stats.js:1051
+#: ../root/statistics/stats.js:1061
 msgid "{name} releases"
 msgstr "Parutions {name}"
 
-#: ../root/statistics/stats.js:1057
+#: ../root/statistics/stats.js:1067
 msgid "{name} mediums"
 msgstr "Supports {name}"
 
-#: ../root/statistics/stats.js:1064
+#: ../root/statistics/stats.js:1074
 msgid "Releases with a medium of format “{format}” that have cover art"
 msgstr ""
 
-#: ../root/statistics/stats.js:1077
+#: ../root/statistics/stats.js:1087
 msgid "{type} instruments"
 msgstr ""
 
-#: ../root/statistics/stats.js:1088
+#: ../root/statistics/stats.js:1098
 msgid "{type} labels"
 msgstr ""
 
-#: ../root/statistics/stats.js:1099
+#: ../root/statistics/stats.js:1109
 msgid "{language} releases"
 msgstr "Parutions de {language}"
 
-#: ../root/statistics/stats.js:1105
+#: ../root/statistics/stats.js:1115
 msgid "{language} works"
 msgstr ""
 
-#: ../root/statistics/stats.js:1117
+#: ../root/statistics/stats.js:1127
 msgid "Releases with packaging “{packaging}”"
 msgstr ""
 
-#: ../root/statistics/stats.js:1130
+#: ../root/statistics/stats.js:1140
 msgid "{type} places"
 msgstr ""
 
-#: ../root/statistics/stats.js:1138
+#: ../root/statistics/stats.js:1148
 msgid "{first_entity_type}-{second_entity_type} Relationships"
 msgstr ""
 
-#: ../root/statistics/stats.js:1157
+#: ../root/statistics/stats.js:1167
 msgid ""
 "{first_entity_type_name}-{second_entity_type_name} "
 "“{relationship_type_name}” relationships"
 msgstr ""
 
-#: ../root/statistics/stats.js:1173
+#: ../root/statistics/stats.js:1183
 msgid ""
 "{first_entity_type_name}-{second_entity_type_name} "
 "“{relationship_type_name}” relationships including child relationship types"
 msgstr ""
 
-#: ../root/statistics/stats.js:1196 ../root/statistics/stats.js:1216
+#: ../root/statistics/stats.js:1206 ../root/statistics/stats.js:1226
 msgid "{type} release groups"
 msgstr ""
 
-#: ../root/statistics/stats.js:1203
+#: ../root/statistics/stats.js:1213
 msgid "Releases in groups of type “{type}” with cover art"
 msgstr ""
 
-#: ../root/statistics/stats.js:1227
+#: ../root/statistics/stats.js:1237
 msgid "{script} releases"
 msgstr "Parutions {script}"
 
-#: ../root/statistics/stats.js:1238
+#: ../root/statistics/stats.js:1248
 msgid "{type} series"
 msgstr ""
 
-#: ../root/statistics/stats.js:1249
+#: ../root/statistics/stats.js:1259
 msgid "{status} releases"
 msgstr ""
 
-#: ../root/statistics/stats.js:1256
+#: ../root/statistics/stats.js:1266
 msgid "Releases of status “{status}” with cover art"
 msgstr ""
 
-#: ../root/statistics/stats.js:1273
+#: ../root/statistics/stats.js:1283
 msgid "Works with attribute “{attribute}”"
 msgstr ""
 
-#: ../root/statistics/stats.js:1286
+#: ../root/statistics/stats.js:1296
 msgid "{type} works"
 msgstr ""
 

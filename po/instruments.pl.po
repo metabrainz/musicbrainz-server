@@ -1,4 +1,4 @@
-# 
+#
 # Translators:
 # Formbi Chiss <email address hidden>, 2017
 # Debeat <email address hidden>, 2015
@@ -8,12 +8,15 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "PO-Revision-Date: 2012-05-24 18:57+0000\n"
 "Last-Translator: Formbi Chiss <formbi@interia.pl>, 2017\n"
-"Language-Team: Polish (http://app.transifex.com/musicbrainz/musicbrainz/language/pl/)\n"
+"Language-Team: Polish (http://app.transifex.com/musicbrainz/musicbrainz/"
+"language/pl/)\n"
+"Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: pl\n"
-"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n"
+"%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n"
+"%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
 
 #: DB:instrument/name:438
 msgid "12 string guitar"
@@ -185,7 +188,7 @@ msgid "Paraguayan harp"
 msgstr ""
 
 #: DB:instrument/name:793
-msgctxt "an electromechanical piano"
+msgctxt "electromechanical piano"
 msgid "Pianet"
 msgstr ""
 
@@ -422,6 +425,7 @@ msgid "atarigane"
 msgstr ""
 
 #: DB:instrument/name:409
+msgctxt "Damper bar box zither"
 msgid "autoharp"
 msgstr ""
 
@@ -3418,6 +3422,7 @@ msgid "shamisen"
 msgstr ""
 
 #: DB:instrument/name:408
+msgctxt "12th century to present double reed woodwind"
 msgid "shawm"
 msgstr ""
 
