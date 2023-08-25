@@ -193,9 +193,9 @@ msgid "Paraguayan harp"
 msgstr "Paraguayaanse harp"
 
 #: DB:instrument/name:793
-msgctxt "an electromechanical piano"
+msgctxt "electromechanical piano"
 msgid "Pianet"
-msgstr "Pianet"
+msgstr ""
 
 #: DB:instrument/name:1023
 msgctxt "ensemble flute, clarinet, violin, cello and piano"
@@ -430,8 +430,9 @@ msgid "atarigane"
 msgstr "atarigane"
 
 #: DB:instrument/name:409
+msgctxt "Damper bar box zither"
 msgid "autoharp"
-msgstr "autoharp"
+msgstr ""
 
 #: DB:instrument/name:880
 msgctxt "Nyabinghi bass drum"
@@ -3426,8 +3427,9 @@ msgid "shamisen"
 msgstr "shamisen"
 
 #: DB:instrument/name:408
+msgctxt "12th century to present double reed woodwind"
 msgid "shawm"
-msgstr "schalmei"
+msgstr ""
 
 #: DB:instrument/name:494
 msgid "shehnai"
@@ -4564,3 +4566,13 @@ msgstr ""
 msgctxt "Maltese mirliton"
 msgid "żummara"
 msgstr "zummara"
+
+#~ msgctxt "an electromechanical piano"
+#~ msgid "Pianet"
+#~ msgstr "Pianet"
+
+#~ msgid "autoharp"
+#~ msgstr "autoharp"
+
+#~ msgid "shawm"
+#~ msgstr "schalmei"

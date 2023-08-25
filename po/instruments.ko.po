@@ -1,4 +1,4 @@
-# 
+#
 # Translators:
 # Elysia Root L.C., 2023
 msgid ""
@@ -6,11 +6,12 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "PO-Revision-Date: 2012-05-24 18:57+0000\n"
 "Last-Translator: Elysia Root L.C., 2023\n"
-"Language-Team: Korean (http://app.transifex.com/musicbrainz/musicbrainz/language/ko/)\n"
+"Language-Team: Korean (http://app.transifex.com/musicbrainz/musicbrainz/"
+"language/ko/)\n"
+"Language: ko\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ko\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: DB:instrument/name:438
@@ -183,7 +184,7 @@ msgid "Paraguayan harp"
 msgstr ""
 
 #: DB:instrument/name:793
-msgctxt "an electromechanical piano"
+msgctxt "electromechanical piano"
 msgid "Pianet"
 msgstr ""
 
@@ -420,6 +421,7 @@ msgid "atarigane"
 msgstr ""
 
 #: DB:instrument/name:409
+msgctxt "Damper bar box zither"
 msgid "autoharp"
 msgstr ""
 
@@ -3416,6 +3418,7 @@ msgid "shamisen"
 msgstr ""
 
 #: DB:instrument/name:408
+msgctxt "12th century to present double reed woodwind"
 msgid "shawm"
 msgstr ""
 
