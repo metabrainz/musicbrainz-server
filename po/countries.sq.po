@@ -1,17 +1,19 @@
 #
 # Translators:
+# Philipp Wolfer <ph.wolfer@gmail.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2012-05-24 19:20+0000\n"
-"Last-Translator: FULL NAME <email address hidden>\n"
-"Language-Team: Albanian (http://app.transifex.com/musicbrainz/musicbrainz/"
-"language/sq/)\n"
+"PO-Revision-Date: 2023-08-24 09:59+0000\n"
+"Last-Translator: Philipp Wolfer <ph.wolfer@gmail.com>\n"
+"Language-Team: Albanian <https://translations.metabrainz.org/projects/"
+"musicbrainz/countries/sq/>\n"
 "Language: sq\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.18.2\n"
 
 #. iso.code:AF 
 #: DB:area JOIN iso_3166_1 iso ON iso.area = area.id/area.name:1
@@ -476,7 +478,7 @@ msgstr "Groenlandë"
 #. iso.code:GD 
 #: DB:area JOIN iso_3166_1 iso ON iso.area = area.id/area.name:86
 msgid "Grenada"
-msgstr "Grenada "
+msgstr "Grenada"
 
 #. iso.code:GP 
 #: DB:area JOIN iso_3166_1 iso ON iso.area = area.id/area.name:87

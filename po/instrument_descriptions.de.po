@@ -11,11 +11,12 @@
 # TL, 2014-2016
 # Ulrich Klauer <email address hidden>, 2015
 # chaban <chaban@users.noreply.translations.metabrainz.org>, 2023.
+# Philipp Wolfer <ph.wolfer@gmail.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-08-19 08:54+0000\n"
-"Last-Translator: chaban <chaban@users.noreply.translations.metabrainz.org>\n"
+"PO-Revision-Date: 2023-08-28 08:34+0000\n"
+"Last-Translator: Philipp Wolfer <ph.wolfer@gmail.com>\n"
 "Language-Team: German <https://translations.metabrainz.org/projects/"
 "musicbrainz/instrument-descriptions/de/>\n"
 "Language: de\n"
@@ -4553,8 +4554,9 @@ msgid ""
 "forms one part of <a href=\"http://en.wikipedia.org/wiki/Thon_and_rammana"
 "\">thon and rammana</a>."
 msgstr ""
-"Die Rammana ist eine thailändische Rahmentrommel. Sie wird meistens zusammen "
-"mit einer Thon gespielt."
+"Die Rammana ist eine thailändische Rahmentrommel. Sie wird meistens <a href="
+"\"http://en.wikipedia.org/wiki/Thon_and_rammana\">zusammen mit einer Thon</"
+"a> gespielt."
 
 #. name:ranat ek 
 #: DB:instrument/description:614

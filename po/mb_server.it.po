@@ -5,7 +5,7 @@
 #
 # Translators:
 # <email address hidden>, 2012
-#   <email address hidden>, 2012
+# <email address hidden>, 2012
 # Gioele <email address hidden>, 2012
 # Gioele  <email address hidden>, 2012
 # Gioele <email address hidden>, 2012
@@ -25,21 +25,23 @@
 # salo.rock, 2012
 # salo.rock, 2022-2023
 # yvanz, 2018
+# Philipp Wolfer <ph.wolfer@gmail.com>, 2023.
+# "salo.rock" <salo.rock+musicbrainz@gmail.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-08-19 08:52+0000\n"
-"PO-Revision-Date: 2023-08-18 12:54+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"PO-Revision-Date: 2023-08-27 21:27+0000\n"
+"Last-Translator: \"salo.rock\" <salo.rock+musicbrainz@gmail.com>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
 "X-Generator: Weblate 4.18.2\n"
 
 #: ../root/components/common-macros.tt:12
@@ -580,10 +582,10 @@ msgid ""
 "{login_url|login}."
 msgstr ""
 "Unisciti a MusicBrainz creando un account e documentati su {how|come inviare "
-"informazioni a MusicBrainz}. Scopri come i nostri dati sono sottoposti ad "
-"una revisione paritaria per creare il database musicale più accurato "
-"disponibile in rete. Se tutto ciò ti attira, {reg|crea un account} o "
-"{login_url|effettua l'accesso}."
+"informazioni a MusicBrainz}. Scopri come i nostri dati sono sottoposti a una "
+"revisione paritaria per creare il database musicale più accurato disponibile "
+"in rete. Se tutto ciò ti attira, {reg|crea un account} o {login_url|effettua "
+"l'accesso}."
 
 #: ../root/artist/edit_form.tt:42
 msgid "Begin Area:"
@@ -1049,7 +1051,7 @@ msgstr "Modifica attributo"
 
 #: ../root/release/edit_cover_art.tt:1 ../root/release/edit_cover_art.tt:4
 msgid "Edit Cover Art"
-msgstr "Modifica copertina:"
+msgstr "Modifica copertina"
 
 #: ../root/forms/edit-note.tt:2 ../root/release/edit/editnote.tt:27
 #: ../root/release/edit/layout.tt:18
@@ -1339,7 +1341,7 @@ msgstr "TOC completo:"
 #: ../root/static/scripts/account/components/EditProfileForm.js:207
 #: ../root/user/UserProfile.js:265
 msgid "Gender:"
-msgstr "Sesso:"
+msgstr "Genere:"
 
 #: ../root/edit/search_macros.tt:423 ../lib/MusicBrainz/Server/Edit/Genre.pm:7
 #: ../root/edit/details/AddGenre.js:24 ../root/edit/details/EditGenre.js:28
@@ -2962,7 +2964,7 @@ msgid ""
 msgstr ""
 "Al momento su MusicBrainz non ci sono dischi associati alle informazioni che "
 "hai fornito. Puoi fare una ricerca utilizzando il modulo qui sotto per "
-"collegare questo disco ad un'altra pubblicazione su MusicBrainz o per "
+"collegare questo disco a un'altra pubblicazione su MusicBrainz o per "
 "aggiungerne una nuova se la tua ricerca mostra che non è presente nel "
 "database."
 
@@ -3059,8 +3061,7 @@ msgstr "Questo disco ha una traccia pregap nascosta prima della traccia 1"
 #: ../root/components/common-macros.tt:186
 #: ../root/static/scripts/common/components/EntityLink.js:37
 msgid "This entity has been removed, and cannot be displayed correctly."
-msgstr ""
-"Questa entità è stata rimossa e non può essere visualizzata correttamente."
+msgstr "L'entità è stata rimossa e non può essere visualizzata correttamente."
 
 #: ../root/components/common-macros.tt:186
 #: ../root/static/scripts/common/components/EntityLink.js:36
@@ -3584,7 +3585,7 @@ msgstr ""
 "Abbiamo trovato dei dischi che corrispondono alle informazioni che hai "
 "richiesto: sono elencati qui sotto. Se nessuno di questi è la pubblicazione "
 "che stavi cercando, puoi fare una ricerca utilizzando il modulo qui sotto "
-"per collegare questo disco ad un'altra pubblicazione su MusicBrainz o per "
+"per collegare questo disco a un'altra pubblicazione su MusicBrainz o per "
 "aggiungerne una nuova se la tua ricerca mostra che non è presente nel "
 "database."
 
@@ -3601,9 +3602,9 @@ msgid ""
 "still add more to this merge queue by simply browsing to the entities page "
 "and following the merge link."
 msgstr ""
-"Quando sei pronto ad unire queste entità, clicca il pulsante \"Unisci\". "
-"Puoi ancora aggiungere altre entità a questa coda di unione semplicemente "
-"andando sulla loro pagina e cliccando su \"Unisci\"."
+"Quando sei pronto a unire queste entità, clicca il pulsante \"Unisci\". Puoi "
+"ancora aggiungere altre entità a questa coda di unione semplicemente andando "
+"sulla loro pagina e cliccando su \"Unisci\"."
 
 #: ../root/layout.tt:112 ../root/layout/components/Footer.js:27
 msgid "Wiki"
@@ -4393,7 +4394,7 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:785
 msgid "There is no OAuth token with these parameters."
-msgstr ""
+msgstr "Non c'è nessun token OAuth con questi parametri."
 
 #: ../lib/MusicBrainz/Server/Controller/Account/Subscriptions/Collection.pm:22
 msgid "The provided collection ID doesn’t exist."
@@ -5428,7 +5429,7 @@ msgstr "Modifica etichetta della pubblicazione"
 #: ../root/static/scripts/release-editor/duplicates.js:193
 msgctxt "medium format"
 msgid "(unknown)"
-msgstr "(unknown)"
+msgstr "(sconosciuto)"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/Merge.pm:337
 #, perl-brace-format
@@ -5856,7 +5857,7 @@ msgstr "Niconico"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/RateYourMusic.pm:13
 msgid "Interview at Rate Your Music"
-msgstr ""
+msgstr "Intervista su Rate Your Music"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Runeberg.pm:9
 msgid "Project Runeberg"
@@ -5979,15 +5980,15 @@ msgstr "Esiste già un'area con questo codice ISO"
 
 #: ../lib/MusicBrainz/Server/Form/Artist.pm:75
 msgid "Group artists cannot have a gender."
-msgstr "I gruppi non possono avere un sesso."
+msgstr "I gruppi non possono avere un genere."
 
 #: ../lib/MusicBrainz/Server/Form/Artist.pm:82
 msgid "Orchestras cannot have a gender."
-msgstr "Le orchestre non possono avere un sesso."
+msgstr "Le orchestre non possono avere un genere."
 
 #: ../lib/MusicBrainz/Server/Form/Artist.pm:89
 msgid "Choirs cannot have a gender."
-msgstr "I cori non possono avere un sesso."
+msgstr "I cori non possono avere un genere."
 
 #: ../lib/MusicBrainz/Server/Form/CDStub.pm:42
 msgid "You must provide at least one track"
@@ -6440,7 +6441,7 @@ msgid ""
 "This username contains invalid characters. (Check for consecutive spaces.)"
 msgstr ""
 "Questo nome utente contiene caratteri non validi. (Controlla se ci sono "
-"spazi consecutivi)."
+"spazi consecutivi.)"
 
 #: ../lib/MusicBrainz/Server/Form/Utils.pm:217
 msgid "This username is reserved for internal use."
@@ -6569,8 +6570,8 @@ msgid ""
 "(Most releases will fit into this category.)"
 msgstr ""
 "Qualsiasi pubblicazione autorizzata ufficialmente dall'artista e/o dalla sua "
-"etichetta (la maggior parte delle pubblicazioni ricadono in questa "
-"categoria)."
+"etichetta. (La maggior parte delle pubblicazioni ricadono in questa "
+"categoria.)"
 
 #: ../lib/MusicBrainz/Server/Release.pm:44
 msgid ""
@@ -6649,7 +6650,7 @@ msgstr "Inserisci qui sotto la tua vecchia password e poi quella nuova."
 #: ../root/static/scripts/account/components/RegisterForm.js:64
 #: ../root/user/Login.js:100
 msgid "Username"
-msgstr ""
+msgstr "Nome utente"
 
 #: ../root/account/ChangePassword.js:77
 msgid "Old password:"
@@ -6946,7 +6947,7 @@ msgstr "Accesso"
 
 #: ../root/account/applications/ApplicationList.js:117
 msgid "Last granted token"
-msgstr ""
+msgstr "Ultimo token concesso"
 
 #: ../root/account/applications/ApplicationList.js:118
 #: ../root/account/applications/ApplicationList.js:158
@@ -6977,8 +6978,8 @@ msgid ""
 "tokens. See our {oauth2_doc_url|OAuth documentation} for more details."
 msgstr ""
 "Vuoi sviluppare un'applicazione che utilizza le {mb_api_doc_url|API di "
-"MusicBrainz}? {register|Registra un'applicazione} per generare token OAuth. "
-"Consulta la nostra {oauth2_doc_url|documentazione OAuth} per maggiori "
+"MusicBrainz}? {register_url|Registra un'applicazione} per generare token "
+"OAuth. Consulta la nostra {oauth2_doc_url|documentazione OAuth} per maggiori "
 "informazioni."
 
 #: ../root/account/applications/ApplicationList.js:156
@@ -7023,15 +7024,15 @@ msgstr "Rimuovi applicazione"
 
 #: ../root/account/applications/RevokeApplicationAccess.js:30
 msgid "You’re about to revoke {app}’s permissions to:"
-msgstr ""
+msgstr "Stai per revocare i permessi di {app} di:"
 
 #: ../root/account/applications/RevokeApplicationAccess.js:42
 msgid "Are you sure you want to revoke this application’s access?"
-msgstr ""
+msgstr "Sei sicuro di voler revocare l'accesso di questa applicazione?"
 
 #: ../root/account/applications/RevokeApplicationAccess.js:46
 msgid "Revoke Application Access"
-msgstr "Revoca l'accesso all'applicazione"
+msgstr "Revoca l'accesso dell'applicazione"
 
 #: ../root/account/sso/DiscourseRegistered.js:19
 #: ../root/account/sso/DiscourseRegistered.js:20
@@ -7546,7 +7547,7 @@ msgstr "Confronta versioni"
 
 #: ../root/annotation/AnnotationHistory.js:62
 msgid "This entity has no annotation history."
-msgstr "Questa entità non ha una cronologia dell'annotazione."
+msgstr "L'entità non ha una cronologia dell'annotazione."
 
 #: ../root/annotation/EditAnnotation.js:47
 #: ../root/annotation/EditAnnotation.js:49
@@ -7733,7 +7734,7 @@ msgid ""
 "this server."
 msgstr ""
 "Impossibile visualizzare una cartina poiché su questo server non è stato "
-"impostato alcun token di accesso ad un servizio mappe."
+"impostato alcun token di accesso a un servizio mappe."
 
 #: ../root/area/AreaPlaces.js:69
 msgid "Add selected places for merging"
@@ -7893,7 +7894,7 @@ msgstr "Sono visualizzati i gruppi di pubblicazioni ufficiali di quest'artista"
 
 #: ../root/artist/ArtistIndex.js:239
 msgid "Performance name of"
-msgstr ""
+msgstr "Nome d'arte di"
 
 #: ../root/artist/ArtistIndex.js:247
 msgid "Legal name"
@@ -9056,7 +9057,7 @@ msgstr "Nome di ordinamento"
 #: ../root/edit/details/AddArtist.js:76 ../root/edit/details/EditArtist.js:95
 #: ../root/search/components/ArtistResults.js:55
 msgid "Gender"
-msgstr "Sesso"
+msgstr "Genere"
 
 #: ../root/components/list/ArtistList.js:102
 #: ../root/search/components/ArtistResults.js:58
@@ -9546,7 +9547,7 @@ msgstr ""
 #: ../root/edit/components/EditNote.js:250
 msgctxt "edit note"
 msgid "see all changes"
-msgstr ""
+msgstr "visualizza tutti i cambiamenti"
 
 #: ../root/edit/components/EditNote.js:211
 msgid "Last modified by the note author ({time}). Reason given: “{reason}”."
@@ -9829,7 +9830,7 @@ msgstr "Nome file:"
 
 #: ../root/edit/details/AddDiscId.js:27 ../root/edit/details/RemoveDiscId.js:25
 msgid "Medium:"
-msgstr "Supporto: "
+msgstr "Supporto:"
 
 #: ../root/edit/details/AddEvent.js:84 ../root/edit/details/EditEvent.js:95
 #: ../root/event/EventIndex.js:54
@@ -9843,7 +9844,7 @@ msgstr "Client:"
 #: ../root/edit/details/AddIsrcs.js:28
 msgctxt "isrc client"
 msgid "(unknown)"
-msgstr "(unknown)"
+msgstr "(sconosciuto)"
 
 #: ../root/edit/details/AddIsrcs.js:33 ../root/edit/details/AddIswcs.js:25
 msgid "Additions:"
@@ -10361,7 +10362,7 @@ msgstr "Numero di traccia"
 
 #: ../root/edit/details/historic/AddTrackOld.js:28
 msgid "Artist name:"
-msgstr "Nome artista"
+msgstr "Nome artista:"
 
 #: ../root/edit/details/historic/ChangeReleaseGroup.js:25
 #: ../root/edit/details/historic/MoveReleaseToReleaseGroup.js:28
@@ -10471,7 +10472,7 @@ msgstr "2º sostenitore:"
 
 #: ../root/elections/ElectionDetails.js:59
 msgid "Total votes"
-msgstr ""
+msgstr "Voti totali"
 
 #: ../root/elections/ElectionDetails.js:63
 msgid "Votes for:"
@@ -10483,7 +10484,7 @@ msgstr "Voti contro:"
 
 #: ../root/elections/ElectionDetails.js:71
 msgid "Abstentions"
-msgstr ""
+msgstr "Astenuti"
 
 #: ../root/elections/ElectionDetails.js:79
 msgid "Votes for/against:"
@@ -10581,7 +10582,7 @@ msgstr "Sostieni questo candidato"
 
 #: ../root/elections/ElectionVoting.js:80
 msgid "Your current vote: {vote}"
-msgstr ""
+msgstr "Il tuo voto attuale: {vote}"
 
 #: ../root/elections/ElectionVoting.js:88
 msgid "Vote YES"
@@ -10632,7 +10633,7 @@ msgstr "Voti espressi"
 
 #: ../root/elections/Show.js:37
 msgid "The list of voters will only be shown when the election is complete."
-msgstr ""
+msgstr "L'elenco dei votanti sarà mostrato solo al termine dell'elezione."
 
 #: ../root/entity/Collections.js:40
 msgid "{entity} has been added to {num} collection:"
@@ -10674,11 +10675,11 @@ msgstr "Ultimo aggiornamento"
 #: ../root/entity/Details.js:113
 msgctxt "last updated"
 msgid "(unknown)"
-msgstr "(unknown)"
+msgstr "(sconosciuto)"
 
 #: ../root/entity/Details.js:117
 msgid "Permanent link:"
-msgstr "Collegamento permanente"
+msgstr "Collegamento permanente:"
 
 #: ../root/entity/Details.js:125
 msgid "{xml_ws_docs|XML}"
@@ -10835,7 +10836,7 @@ msgid ""
 "This ISWC is not associated with any works. If you wish to associate it with "
 "a work, please {search_url|search for the work} and add it."
 msgstr ""
-"Questo ISWC non è associato ad alcuna opera. Se desideri associarlo ad "
+"Questo ISWC non è associato ad alcuna opera. Se desideri associarlo a "
 "un'opera, {search_url|cercala} e aggiungilo."
 
 #: ../root/entity/NotFound.js:118
@@ -10953,7 +10954,7 @@ msgid ""
 "MusicBrainz ID. You may wish to try and {search_url|search for it} instead."
 msgstr ""
 "Spiacenti, non è stato possibile trovare né una registrazione né una traccia "
-"con quell'ID di MusicBrainz. Potresti provare a  {search_url|usare la "
+"con quell'ID di MusicBrainz. Potresti provare a {search_url|usare la "
 "ricerca}."
 
 #: ../root/entity/NotFound.js:209
@@ -11071,7 +11072,7 @@ msgstr "Al momento sei iscritto. Vuoi {unsub|annullare l'iscrizione}?"
 
 #: ../root/entity/Subscribers.js:156
 msgid "Be the first! {sub|Subscribe}?"
-msgstr "Vuoi essere il primo? {sub|Iscriviti!}"
+msgstr "Vuoi essere il primo? {sub|Iscriviti}!"
 
 #: ../root/entity/Subscribers.js:159
 msgid "You are not currently subscribed. {sub|Subscribe}?"
@@ -11143,7 +11144,7 @@ msgstr ""
 msgid ""
 "To associate a genre with an entity, tag the entity with the genre name."
 msgstr ""
-"Per associare un genere ad un'entità, tagga l'entità con il nome del genere."
+"Per associare un genere a un'entità, tagga l'entità con il nome del genere."
 
 #: ../root/genre/GenreListPage.js:42
 msgid ""
@@ -11705,7 +11706,7 @@ msgstr "Non hai nessuna collezione di opere!"
 
 #: ../root/layout/components/sidebar/CollectionLinks.js:46
 msgid "Add to a new collection"
-msgstr "Aggiungi ad una nuova collezione"
+msgstr "Aggiungi a una nuova collezione"
 
 #: ../root/layout/components/sidebar/CollectionLinks.js:48
 #: ../root/user/UserCollections.js:203
@@ -12361,7 +12362,7 @@ msgid ""
 "{rel_type_table|relationship type})."
 msgstr ""
 "Nessun'{entity_doc|entità} di MusicBrainz corrisponde all'{mbid_doc|MBID} "
-"{mbid}. L'MBID potrebbe non essere corretto, appartenere ad un'entità che è "
+"{mbid}. L'MBID potrebbe non essere corretto, appartenere a un'entità che è "
 "stata eliminata o essere l'ID per qualcosa che non è un'entità (per es. un "
 "{rel_type_table|tipo di relazione})."
 
@@ -12503,6 +12504,8 @@ msgstr ""
 #: ../root/recording/DeleteRecording.js:57
 msgid "This recording cannot be removed because it is still used on releases."
 msgstr ""
+"La registrazione non può essere rimossa perché è ancora utilizzata su "
+"qualche pubblicazione."
 
 #: ../root/recording/RecordingFingerprints.js:27
 msgid "Associated AcoustIDs"
@@ -12536,7 +12539,7 @@ msgstr "Tipo del gruppo di pubblicazioni"
 #: ../root/release_group/ReleaseGroupIndex.js:60
 msgctxt "release status"
 msgid "(unknown)"
-msgstr "(unknown)"
+msgstr "(sconosciuto)"
 
 #: ../root/recording/RecordingIndex.js:94
 msgid "Medium {medium_num}, track {track_num}"
@@ -13117,7 +13120,7 @@ msgid ""
 msgstr ""
 "Questo rapporto mostra gli URL di Amazon che sono collegati a più "
 "pubblicazioni. Nella maggior parte dei casi un ASIN di Amazon dovrebbe "
-"corrispondere ad una sola pubblicazione di MusicBrainz, quindi solo uno dei "
+"corrispondere a una sola pubblicazione di MusicBrainz, quindi solo uno dei "
 "link sarà corretto. Controlla quale pubblicazione di MusicBrainz corrisponde "
 "a quella di Amazon (per formato, tracce, ecc.). Se la pubblicazione ha un "
 "codice a barre, puoi anche cercarlo su Amazon e vedere a quale ASIN "
@@ -13221,7 +13224,7 @@ msgstr ""
 "pubblicazioni aggiunte a MusicBrainz da artisti o etichette. Gli ISRC sono "
 "codici assegnati alle registrazioni e dovrebbero essere collegati alla "
 "registrazione appropriata. Detto questo, assicurati che non si tratti di un "
-"numero di catalogo valido che assomiglia per caso ad un ISRC!"
+"numero di catalogo valido che assomiglia per caso a un ISRC!"
 
 #: ../root/report/CatNoLooksLikeIsrc.js:40 ../root/report/ReportsIndex.js:327
 msgid "Releases with catalog numbers that look like ISRCs"
@@ -13238,7 +13241,7 @@ msgstr ""
 "Questo rapporto mostra le pubblicazioni che hanno numeri di catalogo che "
 "sembrano {doc_link|Label Code}. Spesso questo è un errore, visto che è "
 "facile confondere le due cose: i label code si riferiscono all'etichetta, "
-"non ad una pubblicazione specifica. Se puoi confermare che un numero di "
+"non a una pubblicazione specifica. Se puoi confermare che un numero di "
 "catalogo è in realtà un label code (per esempio, controllando la pagina "
 "dell'etichetta per vedere se corrispondono) rimuovilo o, ancora meglio, "
 "cerca di trovare il vero numero di catalogo."
@@ -13428,7 +13431,7 @@ msgid ""
 msgstr ""
 "Questo rapporto mostra gli URL di Discogs che sono collegati a più "
 "pubblicazioni. Nella maggior parte dei casi una pubblicazione di Discogs "
-"dovrebbe corrispondere ad una sola pubblicazione di MusicBrainz, quindi solo "
+"dovrebbe corrispondere a una sola pubblicazione di MusicBrainz, quindi solo "
 "uno dei link sarà corretto. Controlla quale pubblicazione di MusicBrainz "
 "corrisponde a quella di Discogs (per formato, tracce, Paese, ecc.). Potresti "
 "anche trovare qualche URL di Discogs collegato a diversi dischi di una "
@@ -13877,7 +13880,7 @@ msgid ""
 "search Amazon for it and see which ASIN matches."
 msgstr ""
 "Questo rapporto mostra le pubblicazioni che hanno più di un ASIN di Amazon. "
-"Nella maggior parte dei casi un ASIN dovrebbe corrispondere ad una sola "
+"Nella maggior parte dei casi un ASIN dovrebbe corrispondere a una sola "
 "pubblicazione di MusicBrainz, quindi solo uno di loro sarà corretto. "
 "Controlla quali non corrispondono alla pubblicazione (per formato, numero di "
 "tracce, ecc.) e rimuovili. Se la pubblicazione ha un codice a barre, puoi "
@@ -13898,11 +13901,11 @@ msgid ""
 msgstr ""
 "Questo rapporto mostra le pubblicazioni che hanno più di un link di Discogs. "
 "Nella maggior parte dei casi una pubblicazione di MusicBrainz dovrebbe "
-"corrispondere ad una sola pubblicazione di Discogs, quindi solo uno dei link "
+"corrispondere a una sola pubblicazione di Discogs, quindi solo uno dei link "
 "sarà corretto. Controlla quali non corrispondono alla pubblicazione (per "
 "formato, numero di tracce, ecc.) e rimuovile. Le pagine \"master\" di "
 "Discogs devono essere associate al {release_group|gruppo di pubblicazioni}, "
-"non ad una specifica pubblicazione, quindi rimuovi anche quelle dalle "
+"non a una specifica pubblicazione, quindi rimuovi anche quelle dalle "
 "pubblicazioni."
 
 #: ../root/report/MultipleDiscogsLinks.js:36
@@ -13950,7 +13953,7 @@ msgstr ""
 "tipo \"produzione di bootleg\" nel loro elenco di etichette, ma non hanno lo "
 "status impostato su \"bootleg\". Queste etichette non pubblicano "
 "praticamente mai pubblicazioni non-bootleg, quindi è probabile che o "
-"l'etichetta o lo status siano sbagliati. "
+"l'etichetta o lo status siano sbagliati."
 
 #: ../root/report/NonBootlegsOnBootlegLabels.js:32
 #: ../root/report/ReportsIndex.js:456
@@ -14026,7 +14029,7 @@ msgid ""
 "different name than the track. This might mean one of the two needs to be "
 "renamed to match the other."
 msgstr ""
-"Questo rapporto mostra le registrazioni che sono collegate ad una sola "
+"Questo rapporto mostra le registrazioni che sono collegate a una sola "
 "traccia, ma hanno un nome diverso da quello della traccia. Questo potrebbe "
 "indicare che uno dei due deve essere rinominato per corrispondere all'altro."
 
@@ -14213,7 +14216,7 @@ msgid ""
 msgstr ""
 "Questo rapporto mostra le pubblicazioni che hanno ID disco discordanti (cioè "
 "con differenze significative di durata) sullo stesso supporto. Solitamente "
-"questo vuol dire che un ID disco è stato associato ad un supporto o ad una "
+"questo vuol dire che un ID disco è stato associato a un supporto o a una "
 "pubblicazione errata."
 
 #: ../root/report/ReleasesConflictingDiscIds.js:31
@@ -16114,7 +16117,7 @@ msgid ""
 "Please link to a channel, not a specific video. Videos should be linked to "
 "the appropriate recordings or releases instead."
 msgstr ""
-"Aggiungi un collegamento ad un canale, non ad uno specifico video. I video "
+"Aggiungi un collegamento a un canale, non a uno specifico video. I video "
 "vanno collegati piuttosto alle registrazioni o alle pubblicazioni attinenti."
 
 #: ../root/static/scripts/edit/URLCleanup.js:389
@@ -16122,7 +16125,7 @@ msgid ""
 "This is a link to a search result. Please link to any page in the results "
 "that is relevant to this entity instead, if available."
 msgstr ""
-"Questo è un collegamento ad un risultato di ricerca. Aggiungi piuttosto "
+"Questo è un collegamento a un risultato di ricerca. Aggiungi piuttosto "
 "collegamenti a pagine attinenti a quest'entità, se disponibili tra i "
 "risultati."
 
@@ -16131,7 +16134,7 @@ msgid ""
 "Please link to a specific video. Add channel pages to the relevant artist, "
 "label, etc. instead."
 msgstr ""
-"Aggiungi un collegamento ad uno specifico video. I canali vanno collegati "
+"Aggiungi un collegamento a uno specifico video. I canali vanno collegati "
 "piuttosto all'artista, etichetta, ecc. attinenti."
 
 #: ../root/static/scripts/edit/URLCleanup.js:399
@@ -16171,8 +16174,8 @@ msgid ""
 "This is a link to a user video and should not be added. Please add the "
 "product link instead, if relevant."
 msgstr ""
-"Questo è un collegamento ad un video caricato da un utente e non va "
-"aggiunto. Aggiungi piuttosto il collegamento al prodotto, se pertinente."
+"Questo è un collegamento a un video caricato da un utente e non va aggiunto. "
+"Aggiungi piuttosto il collegamento al prodotto, se pertinente."
 
 #: ../root/static/scripts/edit/URLCleanup.js:845
 msgid ""
@@ -16187,15 +16190,15 @@ msgid ""
 "Please link to the main page for the artist, not to a specific album or "
 "track."
 msgstr ""
-"Aggiungi un collegamento alla pagina principale dell'artista, non ad un "
-"album o ad una traccia specifici."
+"Aggiungi un collegamento alla pagina principale dell'artista, non a un album "
+"o a una traccia specifici."
 
 #: ../root/static/scripts/edit/URLCleanup.js:1111
 msgid ""
 "Please link to the main page for the label, not to a specific album or track."
 msgstr ""
-"Aggiungi un collegamento alla pagina principale dell'etichetta, non ad un "
-"album o ad una traccia specifici."
+"Aggiungi un collegamento alla pagina principale dell'etichetta, non a un "
+"album o a una traccia specifici."
 
 #: ../root/static/scripts/edit/URLCleanup.js:1133
 msgid ""
@@ -16230,13 +16233,13 @@ msgstr ""
 #: ../root/static/scripts/edit/URLCleanup.js:1469
 msgid "Please link to the main page for the artist, not a specific product."
 msgstr ""
-"Aggiungi un collegamento alla pagina principale dell'artista, non ad un "
+"Aggiungi un collegamento alla pagina principale dell'artista, non a un "
 "prodotto specifico."
 
 #: ../root/static/scripts/edit/URLCleanup.js:1471
 msgid "Please link to the main page for the label, not a specific product."
 msgstr ""
-"Aggiungi un collegamento alla pagina principale dell'etichetta, non ad un "
+"Aggiungi un collegamento alla pagina principale dell'etichetta, non a un "
 "prodotto specifico."
 
 #: ../root/static/scripts/edit/URLCleanup.js:2241
@@ -16316,7 +16319,7 @@ msgstr ""
 
 #: ../root/static/scripts/edit/URLCleanup.js:5374
 msgid "Please link to Threads profiles, not threads."
-msgstr ""
+msgstr "Inserisci collegamenti a profili Thread, non a post."
 
 #: ../root/static/scripts/edit/URLCleanup.js:5761
 msgid "This is not a profile, but a Twitter documentation page."
@@ -16394,7 +16397,7 @@ msgid ""
 "to be officially approved. Please link to the official channel for this "
 "entity, if it exists, instead."
 msgstr ""
-"Questo è un collegamento ad una playlist, che non è un canale di video e non "
+"Questo è un collegamento a una playlist, che non è un canale di video e non "
 "è detto che sia autorizzata in modo ufficiale. Aggiungi piuttosto un "
 "collegamento al canale ufficiale di questa entità, se esiste."
 
@@ -16410,7 +16413,7 @@ msgid ""
 "the release group instead, if appropriate."
 msgstr ""
 "Wikipedia non ha solitamente voci su pubblicazioni specifiche, perciò al "
-"momento non è consentito aggiungere collegamenti a Wikipedia ad una "
+"momento non è consentito aggiungere collegamenti a Wikipedia a una "
 "pubblicazione. Aggiungi piuttosto questo collegamento a Wikipedia al gruppo "
 "di pubblicazioni, se pertinente."
 
@@ -16421,7 +16424,7 @@ msgid ""
 "the release group instead, if appropriate."
 msgstr ""
 "Wikidata non ha solitamente voci su pubblicazioni specifiche, perciò al "
-"momento non è consentito aggiungere collegamenti a Wikidata ad una "
+"momento non è consentito aggiungere collegamenti a Wikidata a una "
 "pubblicazione. Aggiungi piuttosto questo collegamento a Wikidata al gruppo "
 "di pubblicazioni, se pertinente."
 
@@ -16728,7 +16731,7 @@ msgid ""
 "through your search that seem useful, do enter those instead."
 msgstr ""
 "Non inserire collegamenti a risultati di ricerca. Se tramite la tua ricerca "
-"hai trovato collegamenti che sembrano utili, inserisci quelli. "
+"hai trovato collegamenti che sembrano utili, inserisci quelli."
 
 #: ../root/static/scripts/edit/externalLinks.js:748
 msgid "Please select a link type for the URL you’ve entered."
@@ -17089,11 +17092,11 @@ msgstr "Sposta entità verso l'alto"
 
 #: ../root/static/scripts/relationship-editor/components/RelationshipItem.js:293
 msgid "This entity has {edits_link|pending edits}."
-msgstr ""
+msgstr "Questa entità ha {edits_link|modifiche in corso}."
 
 #: ../root/static/scripts/relationship-editor/components/RelationshipItem.js:298
 msgid "This entity has pending edits."
-msgstr ""
+msgstr "Questa entità ha modifiche in corso."
 
 #: ../root/static/scripts/relationship-editor/components/RelationshipItem.js:313
 msgid "This relationship has {edit_search|pending edits}."
@@ -18706,7 +18709,7 @@ msgid ""
 "comfortable with the edit search you can refine them further or just create "
 "your own personal searches and bookmark them for your own use!"
 msgstr ""
-"Se vuoi aiutarci a controllare che i cambiamenti fatti ai dati di \n"
+"Se vuoi aiutarci a controllare che i cambiamenti fatti ai dati di "
 "MusicBrainz siano corretti, ma non sai da dove iniziare, i suggerimenti qui "
 "sotto dovrebbero aiutarti. Sono {edit_search|ricerche di modifiche} "
 "predefinite; una volta presa dimestichezza con la ricerca di modifiche, puoi "

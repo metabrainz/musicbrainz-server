@@ -6,19 +6,21 @@
 # salo.rock, 2013-2015
 # salo.rock, 2012
 # salo.rock, 2023
+# "salo.rock" <salo.rock+musicbrainz@gmail.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2012-05-24 19:23+0000\n"
-"Last-Translator: salo.rock, 2023\n"
-"Language-Team: Italian (http://app.transifex.com/musicbrainz/musicbrainz/"
-"language/it/)\n"
+"PO-Revision-Date: 2023-08-25 21:27+0000\n"
+"Last-Translator: \"salo.rock\" <salo.rock+musicbrainz@gmail.com>\n"
+"Language-Team: Italian <https://translations.metabrainz.org/projects/"
+"musicbrainz/languages/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? "
-"1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
+"X-Generator: Weblate 4.18.2\n"
 
 #. frequency:1 iso_code_3:abk 
 #: DB:language/name:2
@@ -333,7 +335,7 @@ msgstr "Bilen"
 #. frequency:0 iso_code_3:zbl 
 #: DB:language/name:482
 msgid "Blissymbols"
-msgstr "Linguaggio grafico Bliss"
+msgstr "Bliss"
 
 #. frequency:1 iso_code_3:brx 
 #: DB:language/name:1394
@@ -1453,7 +1455,7 @@ msgstr "Lojban"
 #. frequency:1 iso_code_3:lou 
 #: DB:language/name:3958
 msgid "Louisiana Creole French"
-msgstr ""
+msgstr "Francese creolo della Louisiana"
 
 #. frequency:1 iso_code_3:loz 
 #: DB:language/name:245
@@ -2128,7 +2130,7 @@ msgstr "Gaelico scozzese"
 #. frequency:1 iso_code_3:gul 
 #: DB:language/name:2586
 msgid "Sea Island Creole English"
-msgstr ""
+msgstr "Inglese creolo delle Sea Islands"
 
 #. frequency:1 iso_code_3:sel 
 #: DB:language/name:367
@@ -2638,7 +2640,7 @@ msgstr "Arrernte occidentale"
 #. frequency:1 iso_code_3:wal 
 #: DB:language/name:452
 msgid "Wolaitta"
-msgstr "Wolaitta"
+msgstr "Wolaytta"
 
 #. frequency:1 iso_code_3:wol 
 #: DB:language/name:458
@@ -2758,7 +2760,7 @@ msgstr "[Più lingue]"
 #. frequency:1 iso_code_3:zxx 
 #: DB:language/name:486
 msgid "[No linguistic content]"
-msgstr ""
+msgstr "[Nessun contenuto linguistico]"
 
 #~ msgid "No linguistic content"
 #~ msgstr "Nessun contenuto linguistico"

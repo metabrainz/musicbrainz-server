@@ -7,13 +7,14 @@
 # Avi Markovitz <email address hidden>, 2018-2022
 # Avi Markovitz <email address hidden>, 2018
 # Nicolás Tamargo <email address hidden>, 2021
+# Philipp Wolfer <ph.wolfer@gmail.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-08-19 08:52+0000\n"
-"PO-Revision-Date: 2023-08-18 12:56+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"PO-Revision-Date: 2023-08-24 14:27+0000\n"
+"Last-Translator: Philipp Wolfer <ph.wolfer@gmail.com>\n"
 "Language-Team: Hebrew <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/he/>\n"
 "Language: he\n"
@@ -26,7 +27,7 @@ msgstr ""
 
 #: ../root/components/common-macros.tt:12
 msgid " ({text})"
-msgstr "({מלל})"
+msgstr " ({text})"
 
 #: ../root/components/forms.tt:313
 msgid "\"C\" is a single check digit."
@@ -6339,10 +6340,10 @@ msgid ""
 "license this data for commercial use. Please read our {doc|license page} for "
 "more details.</strong>"
 msgstr ""
-"לתשומת לב, כל תרומה שתעובר ל־ מוזיקבריינז תשוחרר לרשות הציבור ו/או תורשה תחת "
-"רישיון Creative Commons by-nc-sa. יתר על כן, אתם נותנים לקרן מוזיקבריינז את "
-"הזכות להעניק רישיון לנתונים אלה לשימוש מסחרי. נא קראו את {doc | דף הרישיון} "
-"שלנו לפרטים נוספים."
+"<strong>לתשומת לב, כל תרומה שתעובר ל־ מוזיקבריינז תשוחרר לרשות הציבור ו/או "
+"תורשה תחת רישיון Creative Commons by-nc-sa. יתר על כן, אתם נותנים לקרן "
+"מוזיקבריינז את הזכות להעניק רישיון לנתונים אלה לשימוש מסחרי. נא קראו את {doc|"
+"דף הרישיון} שלנו לפרטים נוספים.</strong>"
 
 #: ../root/account/Register.js:51
 msgid ""
@@ -7699,7 +7700,7 @@ msgid ""
 "Sorry, <code>{discid}</code> does not match a CD stub. You can try "
 "{search_url|searching for it} instead."
 msgstr ""
-"למרבה הצער, </code>{discid}</code> אינו תואם לספח תקליטור. יתכן ובמקום זאת "
+"למרבה הצער, <code>{discid}</code> אינו תואם לספח תקליטור. יתכן ובמקום זאת "
 "ותרצו לנסות {search_url|search for it}."
 
 #: ../root/cdstub/DiscIdNotValid.js:19

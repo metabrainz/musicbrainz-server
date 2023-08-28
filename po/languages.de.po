@@ -16,18 +16,20 @@
 # Shepard, 2012-2013
 # TL, 2015
 # Tobias Quathamer <email address hidden>, 2007
+# Philipp Wolfer <ph.wolfer@gmail.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2012-05-24 19:23+0000\n"
-"Last-Translator: Philipp Wolfer <ph.wolfer@gmail.com>, 2018,2022\n"
-"Language-Team: German (http://app.transifex.com/musicbrainz/musicbrainz/"
-"language/de/)\n"
+"PO-Revision-Date: 2023-08-24 14:27+0000\n"
+"Last-Translator: Philipp Wolfer <ph.wolfer@gmail.com>\n"
+"Language-Team: German <https://translations.metabrainz.org/projects/"
+"musicbrainz/languages/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.18.2\n"
 
 #. frequency:1 iso_code_3:abk 
 #: DB:language/name:2
@@ -107,7 +109,7 @@ msgstr "Algonkin-Sprachen"
 #. frequency:1 iso_code_3:alq 
 #: DB:language/name:709
 msgid "Algonquin"
-msgstr ""
+msgstr "Algonkin"
 
 #. frequency:0 iso_code_3:null 
 #: DB:language/name:434
@@ -152,7 +154,7 @@ msgstr "Arawak-Sprachen"
 #. frequency:1 iso_code_3:pka 
 #: DB:language/name:5403
 msgid "Ardhamāgadhī Prākrit"
-msgstr ""
+msgstr "Ardhamāgadhī-Prākrit"
 
 #. frequency:1 iso_code_3:hye 
 #: DB:language/name:21
@@ -182,7 +184,7 @@ msgstr "Athapaskische Sprachen"
 #. frequency:1 iso_code_3:atj 
 #: DB:language/name:866
 msgid "Atikamekw"
-msgstr ""
+msgstr "Atikamekw"
 
 #. frequency:0 iso_code_3:null 
 #: DB:language/name:29
@@ -222,7 +224,7 @@ msgstr "Aserbeidschanisch"
 #. frequency:1 iso_code_3:bvd 
 #: DB:language/name:1470
 msgid "Baeggu"
-msgstr ""
+msgstr "Baeggu"
 
 #. frequency:1 iso_code_3:ban 
 #: DB:language/name:40
@@ -367,7 +369,7 @@ msgstr "Bretonisch"
 #. frequency:1 iso_code_3:box 
 #: DB:language/name:1322
 msgid "Buamu"
-msgstr ""
+msgstr "Bwamu"
 
 #. frequency:1 iso_code_3:bug 
 #: DB:language/name:61
@@ -392,7 +394,7 @@ msgstr "Birmanisch"
 #. frequency:1 iso_code_3:bsk 
 #: DB:language/name:1406
 msgid "Burushaski"
-msgstr ""
+msgstr "Burushaski"
 
 #. frequency:1 iso_code_3:cad 
 #: DB:language/name:65
@@ -442,7 +444,7 @@ msgstr "Okinawanisch"
 #. frequency:1 iso_code_3:esu 
 #: DB:language/name:2243
 msgid "Central Yupik"
-msgstr ""
+msgstr "Zentral-Yupik"
 
 #. frequency:1 iso_code_3:chg 
 #: DB:language/name:75
@@ -937,7 +939,7 @@ msgstr "Gronings"
 #. frequency:1 iso_code_3:gcf 
 #: DB:language/name:2386
 msgid "Guadeloupean Creole French"
-msgstr ""
+msgstr "Guadeloupe-Kreolisch"
 
 #. frequency:1 iso_code_3:grn 
 #: DB:language/name:160
@@ -962,7 +964,7 @@ msgstr "Gupapuyngu"
 #. frequency:1 iso_code_3:gyn 
 #: DB:language/name:2638
 msgid "Guyanese Creole English"
-msgstr ""
+msgstr "Guyanisch-Kreolisch"
 
 #. frequency:1 iso_code_3:gwi 
 #: DB:language/name:162
@@ -1357,7 +1359,7 @@ msgstr "Kumükisch"
 #. frequency:1 iso_code_3:xug 
 #: DB:language/name:7421
 msgid "Kunigami"
-msgstr ""
+msgstr "Kunigami"
 
 #. frequency:1 iso_code_3:kur 
 #: DB:language/name:232
@@ -1462,7 +1464,7 @@ msgstr "Lojban"
 #. frequency:1 iso_code_3:lou 
 #: DB:language/name:3958
 msgid "Louisiana Creole French"
-msgstr ""
+msgstr "Louisiana-Kreolisch"
 
 #. frequency:1 iso_code_3:loz 
 #: DB:language/name:245
@@ -1667,7 +1669,7 @@ msgstr "Mirandesisch"
 #. frequency:1 iso_code_3:mvi 
 #: DB:language/name:4538
 msgid "Miyako"
-msgstr ""
+msgstr "Miyako"
 
 #. frequency:1 iso_code_3:moh 
 #: DB:language/name:280
@@ -2042,7 +2044,7 @@ msgstr "Russisch"
 #. frequency:1 iso_code_3:rue 
 #: DB:language/name:5790
 msgid "Rusyn"
-msgstr ""
+msgstr "Russinisch"
 
 #. frequency:1 iso_code_3:rcf 
 #: DB:language/name:5690
@@ -2137,7 +2139,7 @@ msgstr "Gälisch-Schottisch"
 #. frequency:1 iso_code_3:gul 
 #: DB:language/name:2586
 msgid "Sea Island Creole English"
-msgstr ""
+msgstr "Gullah"
 
 #. frequency:1 iso_code_3:sel 
 #: DB:language/name:367
@@ -2332,7 +2334,7 @@ msgstr "Susu"
 #. frequency:1 iso_code_3:sva 
 #: DB:language/name:6216
 msgid "Svan"
-msgstr ""
+msgstr "Swanisch"
 
 #. frequency:1 iso_code_3:swa 
 #: DB:language/name:402
@@ -2452,7 +2454,7 @@ msgstr "Tokelau"
 #. frequency:1 iso_code_3:tok 
 #: DB:language/name:7845
 msgid "Toki Pona"
-msgstr ""
+msgstr "Toki Pona"
 
 #. frequency:1 iso_code_3:tog 
 #: DB:language/name:424
@@ -2692,7 +2694,7 @@ msgstr "Jiddisch"
 #. frequency:1 iso_code_3:yox 
 #: DB:language/name:7602
 msgid "Yoron"
-msgstr ""
+msgstr "Yoron"
 
 #. frequency:1 iso_code_3:yor 
 #: DB:language/name:464
@@ -2767,7 +2769,7 @@ msgstr "[Mehrere Sprachen]"
 #. frequency:1 iso_code_3:zxx 
 #: DB:language/name:486
 msgid "[No linguistic content]"
-msgstr ""
+msgstr "[Ohne sprachlichen Inhalt]"
 
 #~ msgid "No linguistic content"
 #~ msgstr "Kein linguistischer Inhalt"
