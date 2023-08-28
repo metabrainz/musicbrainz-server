@@ -12,21 +12,23 @@
 # Sami Korkalainen, 2017,2019
 # Timo Martikainen <>, 2012
 # Timo Martikainen <email address hidden>, 2012-2014
-#   Tommi Vainikainen <email address hidden>, 2008
+# Tommi Vainikainen <email address hidden>, 2008
 # Tommi Vainikainen <email address hidden>, 2005
 # Tukea <email address hidden>, 2016
+# Philipp Wolfer <ph.wolfer@gmail.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2012-05-24 19:23+0000\n"
-"Last-Translator: Tommi Vainikainen <Tommi.Vainikainen@iki.fi>, 2005\n"
-"Language-Team: Finnish (http://app.transifex.com/musicbrainz/musicbrainz/"
-"language/fi/)\n"
+"PO-Revision-Date: 2023-08-24 14:27+0000\n"
+"Last-Translator: Philipp Wolfer <ph.wolfer@gmail.com>\n"
+"Language-Team: Finnish <https://translations.metabrainz.org/projects/"
+"musicbrainz/languages/fi/>\n"
 "Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.18.2\n"
 
 #. frequency:1 iso_code_3:abk 
 #: DB:language/name:2
@@ -2066,12 +2068,12 @@ msgstr "saamelaiskielet"
 #. frequency:1 iso_code_3:smn 
 #: DB:language/name:383
 msgid "Sami, Inari"
-msgstr "saame, inarinsaame "
+msgstr "saame, inarinsaame"
 
 #. frequency:1 iso_code_3:smj 
 #: DB:language/name:382
 msgid "Sami, Lule"
-msgstr "saame, luulajansaame "
+msgstr "saame, luulajansaame"
 
 #. frequency:1 iso_code_3:sme 
 #: DB:language/name:380
@@ -2081,7 +2083,7 @@ msgstr "saame, pohjoissaame"
 #. frequency:1 iso_code_3:sms 
 #: DB:language/name:385
 msgid "Sami, Skolt"
-msgstr "saame, koltansaame "
+msgstr "saame, koltansaame"
 
 #. frequency:1 iso_code_3:sma 
 #: DB:language/name:379
@@ -2666,7 +2668,7 @@ msgstr "xhosa"
 #. frequency:1 iso_code_3:rys 
 #: DB:language/name:5808
 msgid "Yaeyama"
-msgstr "yaeyama "
+msgstr "yaeyama"
 
 #. frequency:1 iso_code_3:sah 
 #: DB:language/name:356

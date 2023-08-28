@@ -15,21 +15,23 @@
 # Peter Cuevas <email address hidden>, 2017
 # Pier Jose Gotta Perez <email address hidden>, 2017
 # Kevin López Brante <email address hidden>, 2012
-#   Tobias Quathamer <email address hidden>, 2007
+# Tobias Quathamer <email address hidden>, 2007
 # t0n3t <email address hidden>, 2012
+# Philipp Wolfer <ph.wolfer@gmail.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2012-05-24 19:23+0000\n"
-"Last-Translator: Carlos Ernesto Lugo Mejia <Carlostrewher@gmail.com>, 2022\n"
-"Language-Team: Spanish (http://app.transifex.com/musicbrainz/musicbrainz/"
-"language/es/)\n"
+"PO-Revision-Date: 2023-08-24 14:27+0000\n"
+"Last-Translator: Philipp Wolfer <ph.wolfer@gmail.com>\n"
+"Language-Team: Spanish <https://translations.metabrainz.org/projects/"
+"musicbrainz/languages/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? "
-"1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
+"X-Generator: Weblate 4.18.2\n"
 
 #. frequency:1 iso_code_3:abk 
 #: DB:language/name:2
@@ -1479,7 +1481,7 @@ msgstr "Chiluba"
 #. frequency:1 iso_code_3:lua 
 #: DB:language/name:247
 msgid "Luba-Lulua"
-msgstr "chiluba "
+msgstr "chiluba"
 
 #. frequency:1 iso_code_3:lui 
 #: DB:language/name:250

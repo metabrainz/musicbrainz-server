@@ -4,13 +4,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Philipp Wolfer <ph.wolfer@gmail.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-08-19 08:52+0000\n"
-"PO-Revision-Date: 2023-08-18 12:54+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"PO-Revision-Date: 2023-08-24 14:27+0000\n"
+"Last-Translator: Philipp Wolfer <ph.wolfer@gmail.com>\n"
 "Language-Team: Bengali <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/bn/>\n"
 "Language: bn\n"
@@ -1053,7 +1054,7 @@ msgstr ""
 #: ../root/components/forms.tt:258 ../root/components/forms.tt:283
 #: ../root/static/scripts/edit/components/GuessCaseOptions.js:113
 msgid "English"
-msgstr "ইংরেজি "
+msgstr "ইংরেজি"
 
 #: ../root/release/edit/tracklist.tt:3
 msgid "Enter a tracklist below:"
@@ -3069,7 +3070,7 @@ msgstr ""
 #: ../root/components/forms.tt:261 ../root/components/forms.tt:286
 #: ../root/static/scripts/edit/components/GuessCaseOptions.js:116
 msgid "Turkish"
-msgstr "তুর্কী "
+msgstr "তুর্কী"
 
 #: ../root/layout.tt:117 ../root/layout/components/Footer.js:34
 msgid "Twitter"

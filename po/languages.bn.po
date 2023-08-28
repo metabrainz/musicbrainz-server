@@ -2,18 +2,20 @@
 # Translators:
 # জয়শ্রীরাম সরকার <email address hidden>, 2022
 # জয়শ্রীরাম সরকার <email address hidden>, 2022
+# Philipp Wolfer <ph.wolfer@gmail.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2012-05-24 19:23+0000\n"
-"Last-Translator: জয়শ্রীরাম সরকার <joysriram.sarkar.56@gmail.com>, 2022\n"
-"Language-Team: Bengali (http://app.transifex.com/musicbrainz/musicbrainz/"
-"language/bn/)\n"
+"PO-Revision-Date: 2023-08-24 14:27+0000\n"
+"Last-Translator: Philipp Wolfer <ph.wolfer@gmail.com>\n"
+"Language-Team: Bengali <https://translations.metabrainz.org/projects/"
+"musicbrainz/languages/bn/>\n"
 "Language: bn\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Weblate 4.18.2\n"
 
 #. frequency:1 iso_code_3:abk 
 #: DB:language/name:2
@@ -193,7 +195,7 @@ msgstr "আবেস্তা"
 #. frequency:1 iso_code_3:awa 
 #: DB:language/name:32
 msgid "Awadhi"
-msgstr "অবধি "
+msgstr "অবধি"
 
 #. frequency:1 iso_code_3:aym 
 #: DB:language/name:33
@@ -298,12 +300,12 @@ msgstr ""
 #. frequency:1 iso_code_3:bho 
 #: DB:language/name:49
 msgid "Bhojpuri"
-msgstr "ভোজপুরী "
+msgstr "ভোজপুরী"
 
 #. frequency:0 iso_code_3:null 
 #: DB:language/name:50
 msgid "Bihari languages"
-msgstr "বিহার "
+msgstr "বিহার"
 
 #. frequency:1 iso_code_3:bik 
 #: DB:language/name:51
@@ -683,7 +685,7 @@ msgstr ""
 #. frequency:2 iso_code_3:eng 
 #: DB:language/name:120
 msgid "English"
-msgstr "ইংরেজি "
+msgstr "ইংরেজি"
 
 #. frequency:1 iso_code_3:enm 
 #: DB:language/name:121
@@ -978,7 +980,7 @@ msgstr ""
 #. frequency:1 iso_code_3:heb 
 #: DB:language/name:167
 msgid "Hebrew"
-msgstr "হিব্রু "
+msgstr "হিব্রু"
 
 #. frequency:1 iso_code_3:her 
 #: DB:language/name:168
@@ -1743,7 +1745,7 @@ msgstr "নেপাল ভাষা"
 #. frequency:1 iso_code_3:nep 
 #: DB:language/name:300
 msgid "Nepali"
-msgstr "নেপালী "
+msgstr "নেপালী"
 
 #. frequency:1 iso_code_3:yrl 
 #: DB:language/name:7618
@@ -1943,7 +1945,7 @@ msgstr ""
 #. frequency:2 iso_code_3:por 
 #: DB:language/name:340
 msgid "Portuguese"
-msgstr "পর্তুগিজ "
+msgstr "পর্তুগিজ"
 
 #. frequency:0 iso_code_3:null 
 #: DB:language/name:341
@@ -2288,7 +2290,7 @@ msgstr ""
 #. frequency:2 iso_code_3:spa 
 #: DB:language/name:393
 msgid "Spanish"
-msgstr "স্প্যানিশ "
+msgstr "স্প্যানিশ"
 
 #. frequency:1 iso_code_3:srn 
 #: DB:language/name:480
@@ -2378,7 +2380,7 @@ msgstr ""
 #. frequency:1 iso_code_3:tel 
 #: DB:language/name:409
 msgid "Telugu"
-msgstr "তেলেগু "
+msgstr "তেলেগু"
 
 #. frequency:1 iso_code_3:ter 
 #: DB:language/name:411
@@ -2398,7 +2400,7 @@ msgstr ""
 #. frequency:1 iso_code_3:bod 
 #: DB:language/name:416
 msgid "Tibetan"
-msgstr "তিব্বতি "
+msgstr "তিব্বতি"
 
 #. frequency:1 iso_code_3:tig 
 #: DB:language/name:417
@@ -2478,12 +2480,12 @@ msgstr ""
 #. frequency:2 iso_code_3:tur 
 #: DB:language/name:433
 msgid "Turkish"
-msgstr "তুর্কী "
+msgstr "তুর্কী"
 
 #. frequency:1 iso_code_3:ota 
 #: DB:language/name:324
 msgid "Turkish, Ottoman"
-msgstr "অটোমান তুর্কী "
+msgstr "অটোমান তুর্কী"
 
 #. frequency:1 iso_code_3:tuk 
 #: DB:language/name:430
@@ -2548,7 +2550,7 @@ msgstr ""
 #. frequency:1 iso_code_3:urd 
 #: DB:language/name:444
 msgid "Urdu"
-msgstr "উর্দু "
+msgstr "উর্দু"
 
 #. frequency:1 iso_code_3:uzb 
 #: DB:language/name:445

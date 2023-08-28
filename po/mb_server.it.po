@@ -5,7 +5,7 @@
 #
 # Translators:
 # <email address hidden>, 2012
-#   <email address hidden>, 2012
+# <email address hidden>, 2012
 # Gioele <email address hidden>, 2012
 # Gioele  <email address hidden>, 2012
 # Gioele <email address hidden>, 2012
@@ -25,21 +25,22 @@
 # salo.rock, 2012
 # salo.rock, 2022-2023
 # yvanz, 2018
+# Philipp Wolfer <ph.wolfer@gmail.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-08-19 08:52+0000\n"
-"PO-Revision-Date: 2023-08-18 12:54+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"PO-Revision-Date: 2023-08-24 14:27+0000\n"
+"Last-Translator: Philipp Wolfer <ph.wolfer@gmail.com>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
 "X-Generator: Weblate 4.18.2\n"
 
 #: ../root/components/common-macros.tt:12
@@ -6977,8 +6978,8 @@ msgid ""
 "tokens. See our {oauth2_doc_url|OAuth documentation} for more details."
 msgstr ""
 "Vuoi sviluppare un'applicazione che utilizza le {mb_api_doc_url|API di "
-"MusicBrainz}? {register|Registra un'applicazione} per generare token OAuth. "
-"Consulta la nostra {oauth2_doc_url|documentazione OAuth} per maggiori "
+"MusicBrainz}? {register_url|Registra un'applicazione} per generare token "
+"OAuth. Consulta la nostra {oauth2_doc_url|documentazione OAuth} per maggiori "
 "informazioni."
 
 #: ../root/account/applications/ApplicationList.js:156

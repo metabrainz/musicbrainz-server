@@ -1,19 +1,21 @@
 #
 # Translators:
 # Chris_Kay_083, 2014
+# Philipp Wolfer <ph.wolfer@gmail.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2012-05-24 19:23+0000\n"
-"Last-Translator: Chris_Kay_083, 2014\n"
-"Language-Team: Croatian (http://app.transifex.com/musicbrainz/musicbrainz/"
-"language/hr/)\n"
+"PO-Revision-Date: 2023-08-24 14:27+0000\n"
+"Last-Translator: Philipp Wolfer <ph.wolfer@gmail.com>\n"
+"Language-Team: Croatian <https://translations.metabrainz.org/projects/"
+"musicbrainz/languages/hr/>\n"
 "Language: hr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 4.18.2\n"
 
 #. frequency:1 iso_code_3:abk 
 #: DB:language/name:2
@@ -23,7 +25,7 @@ msgstr "Abhazijski"
 #. frequency:1 iso_code_3:ace 
 #: DB:language/name:3
 msgid "Achinese"
-msgstr "Ačehski "
+msgstr "Ačehski"
 
 #. frequency:1 iso_code_3:ach 
 #: DB:language/name:4
@@ -73,7 +75,7 @@ msgstr "Akan jezik"
 #. frequency:1 iso_code_3:akk 
 #: DB:language/name:11
 msgid "Akkadian"
-msgstr "Akadski "
+msgstr "Akadski"
 
 #. frequency:1 iso_code_3:sqi 
 #: DB:language/name:12
@@ -178,7 +180,7 @@ msgstr "Australijski jezici"
 #. frequency:0 iso_code_3:null 
 #: DB:language/name:263
 msgid "Austronesian languages"
-msgstr "Austronezijski jezici "
+msgstr "Austronezijski jezici"
 
 #. frequency:1 iso_code_3:ava 
 #: DB:language/name:30
@@ -233,7 +235,7 @@ msgstr "Bamanankan jezik"
 #. frequency:0 iso_code_3:null 
 #: DB:language/name:36
 msgid "Bamileke languages"
-msgstr "Bamileke jezici "
+msgstr "Bamileke jezici"
 
 #. frequency:0 iso_code_3:null 
 #: DB:language/name:35
@@ -458,7 +460,7 @@ msgstr "Cherokee"
 #. frequency:1 iso_code_3:chy 
 #: DB:language/name:85
 msgid "Cheyenne"
-msgstr "Šajenski jezik "
+msgstr "Šajenski jezik"
 
 #. frequency:1 iso_code_3:chb 
 #: DB:language/name:73
@@ -468,7 +470,7 @@ msgstr "Čibča"
 #. frequency:1 iso_code_3:nya 
 #: DB:language/name:313
 msgid "Chichewa"
-msgstr "Chichewa "
+msgstr "Chichewa"
 
 #. frequency:2 iso_code_3:zho 
 #: DB:language/name:76
@@ -1108,7 +1110,7 @@ msgstr "Inupiaq"
 #. frequency:0 iso_code_3:null 
 #: DB:language/name:193
 msgid "Iranian languages"
-msgstr "Iranski jezici "
+msgstr "Iranski jezici"
 
 #. frequency:1 iso_code_3:gle 
 #: DB:language/name:149
@@ -1133,7 +1135,7 @@ msgstr "Iroquoian jezici"
 #. frequency:2 iso_code_3:ita 
 #: DB:language/name:195
 msgid "Italian"
-msgstr "Talijanski "
+msgstr "Talijanski"
 
 #. frequency:1 iso_code_3:jam 
 #: DB:language/name:2980
@@ -1148,7 +1150,7 @@ msgstr "Japanski"
 #. frequency:1 iso_code_3:jav 
 #: DB:language/name:196
 msgid "Javanese"
-msgstr "Javanski jezik "
+msgstr "Javanski jezik"
 
 #. frequency:1 iso_code_3:tmr 
 #: DB:language/name:6526
@@ -1468,7 +1470,7 @@ msgstr "Luba-Lulua"
 #. frequency:1 iso_code_3:lui 
 #: DB:language/name:250
 msgid "Luiseno"
-msgstr "Luiseño "
+msgstr "Luiseño"
 
 #. frequency:1 iso_code_3:lun 
 #: DB:language/name:251
@@ -1783,7 +1785,7 @@ msgstr ""
 #. frequency:1 iso_code_3:non 
 #: DB:language/name:308
 msgid "Norse, Old"
-msgstr "Staronorveški "
+msgstr "Staronorveški"
 
 #. frequency:0 iso_code_3:null 
 #: DB:language/name:292
@@ -1833,7 +1835,7 @@ msgstr "N’zima"
 #. frequency:1 iso_code_3:oci 
 #: DB:language/name:318
 msgid "Occitan"
-msgstr "Gaskonjski jezik ili dijalekt "
+msgstr "Gaskonjski jezik ili dijalekt"
 
 #. frequency:0 iso_code_3:arc 
 #: DB:language/name:19
@@ -2133,7 +2135,7 @@ msgstr "Selkup"
 #. frequency:0 iso_code_3:null 
 #: DB:language/name:368
 msgid "Semitic languages"
-msgstr "Semitski jezici "
+msgstr "Semitski jezici"
 
 #. frequency:1 iso_code_3:srp 
 #: DB:language/name:363
@@ -2278,7 +2280,7 @@ msgstr " Jezici južnoameričkih Indijanaca"
 #. frequency:1 iso_code_3:alt 
 #: DB:language/name:474
 msgid "Southern Altai"
-msgstr "Južni Altajski "
+msgstr "Južni Altajski"
 
 #. frequency:1 iso_code_3:kjd 
 #: DB:language/name:3309
@@ -2413,7 +2415,7 @@ msgstr "Tigrinja jezik"
 #. frequency:1 iso_code_3:tem 
 #: DB:language/name:410
 msgid "Timne"
-msgstr "Timna "
+msgstr "Timna"
 
 #. frequency:1 iso_code_3:tiv 
 #: DB:language/name:419
@@ -2483,7 +2485,7 @@ msgstr "Turski"
 #. frequency:1 iso_code_3:ota 
 #: DB:language/name:324
 msgid "Turkish, Ottoman"
-msgstr "Osmanski turski "
+msgstr "Osmanski turski"
 
 #. frequency:1 iso_code_3:tuk 
 #: DB:language/name:430

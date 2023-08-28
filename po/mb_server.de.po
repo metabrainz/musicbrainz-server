@@ -66,13 +66,14 @@
 # c8ba6e46576070595b2ba64068f9a431_0cfbcb2, 2012
 # yvanz, 2018
 # chaban <chaban@users.noreply.translations.metabrainz.org>, 2023.
+# Philipp Wolfer <ph.wolfer@gmail.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-08-19 08:52+0000\n"
-"PO-Revision-Date: 2023-08-20 10:27+0000\n"
-"Last-Translator: chaban <chaban@users.noreply.translations.metabrainz.org>\n"
+"PO-Revision-Date: 2023-08-28 08:34+0000\n"
+"Last-Translator: Philipp Wolfer <ph.wolfer@gmail.com>\n"
 "Language-Team: German <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/de/>\n"
 "Language: de\n"
@@ -13969,7 +13970,7 @@ msgstr "Künstler mit Anmerkungen"
 
 #: ../root/report/ReportsIndex.js:127
 msgid "Editors"
-msgstr ""
+msgstr "Bearbeiter"
 
 #: ../root/report/ReportsIndex.js:142
 msgid "Events with annotations"
@@ -16174,7 +16175,7 @@ msgstr ""
 #: ../root/static/scripts/edit/externalLinks.js:1129
 #: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:322
 msgid "{description} ({url|more documentation})"
-msgstr "{description} ({url|more documentation})"
+msgstr "{description} ({url|weitere Dokumentation})"
 
 #: ../root/static/scripts/edit/externalLinks.js:1178
 msgid "Remove Relationship"
