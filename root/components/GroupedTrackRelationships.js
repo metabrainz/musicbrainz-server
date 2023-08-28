@@ -69,7 +69,12 @@ const renderWorkRelationship = (relationship: RelationshipT) => {
     <React.Fragment key={relationship.id}>
       <dt>{addColon(title)}</dt>
       <dd>
-        <EntityLink content={targetCredit} entity={work} showIcon />
+        <EntityLink
+          className="wrap-anywhere"
+          content={targetCredit}
+          entity={work}
+          showIcon
+        />
         {' '}
         {bracketedText(relationshipDateText(
           relationship,
@@ -108,6 +113,8 @@ const irrelevantLinkTypes: {
     [315, false], // revisions
     [316, false], // orchestrations
     [350, false], // arrangements
+    [1046, true], // works quoting music from this
+    [1047, true], // works quoting lyrics from this
   ]),
 };
 

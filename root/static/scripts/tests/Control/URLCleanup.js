@@ -491,6 +491,35 @@ const testData = [
     expected_relationship_type: 'blog',
             expected_clean_url: 'https://ameblo.jp/murataayumi/',
   },
+  // AniDB
+  {
+                     input_url: 'https://anidb.net/creator/176',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://anidb.net/creator/176',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://anidb.net/character/8968',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://anidb.net/character/8968',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://anidb.net/song/18557',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://anidb.net/song/18557',
+       only_valid_entity_types: ['recording'],
+  },
+  {
+                     input_url: 'https://anidb.net/collection/4451',
+             input_entity_type: 'release',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://anidb.net/collection/4451',
+       only_valid_entity_types: ['release'],
+  },
   // Anime News Network
   {
                      input_url: 'https://animenewsnetwork.com/encyclopedia/people.php?id=59062',
@@ -645,6 +674,20 @@ limited_link_type_combinations: [
   {
                      input_url: 'https://archive.org/details/NormRejection-MaltaNotForSaleEp-Dtm020/',
             expected_clean_url: 'https://archive.org/details/NormRejection-MaltaNotForSaleEp-Dtm020',
+  },
+  // Artstation
+  {
+                     input_url: 'http://artstation.com/bysau/profile',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'artgallery',
+            expected_clean_url: 'https://www.artstation.com/bysau',
+  },
+  {
+                     input_url: 'https://www.artstation.com/search?sort_by=relevance&query=a',
+             input_entity_type: 'artist',
+    expected_relationship_type: undefined,
+       input_relationship_type: 'artgallery',
+       only_valid_entity_types: [],
   },
   // Audiojelly
   {
@@ -1033,6 +1076,20 @@ limited_link_type_combinations: [
     expected_relationship_type: 'downloadpurchase',
             expected_clean_url: 'https://www.beatport.com/label/mouseville/1421',
        only_valid_entity_types: ['label'],
+  },
+  // Behance
+  {
+                     input_url: 'http://behance.net/tristan-gion/appreciated',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'artgallery',
+            expected_clean_url: 'https://www.behance.net/tristan-gion',
+  },
+  {
+                     input_url: 'https://www.behance.net/assets?tracking_source=nav20',
+             input_entity_type: 'artist',
+    expected_relationship_type: undefined,
+       input_relationship_type: 'artgallery',
+       only_valid_entity_types: [],
   },
   // Biblioteka Polskiej Piosenki
   {
@@ -1770,6 +1827,26 @@ limited_link_type_combinations: [
        input_relationship_type: 'streamingfree',
        only_valid_entity_types: [],
   },
+  // DeviantArt
+  {
+                     input_url: 'https://www.deviantart.com/user/about#about',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'artgallery',
+            expected_clean_url: 'https://www.deviantart.com/user',
+  },
+  {
+                     input_url: 'https://www.deviantart.com/albertourra/art/Seoul-68-968315856',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'artgallery',
+            expected_clean_url: 'https://www.deviantart.com/albertourra',
+  },
+  {
+                     input_url: 'https://www.deviantart.com/shop',
+             input_entity_type: 'artist',
+    expected_relationship_type: undefined,
+       input_relationship_type: 'artgallery',
+       only_valid_entity_types: [],
+  },
   // DHHU
   {
                      input_url: 'http://www.dhhu.dk/w/%C3%98stkyst_Hustlers',
@@ -2159,6 +2236,20 @@ limited_link_type_combinations: [
             expected_clean_url: 'https://www.dramonline.org/instruments/brass/natural-horn',
        only_valid_entity_types: ['instrument'],
   },
+  // Dribbble
+  {
+                     input_url: 'http://www.dribbble.com/zuttoworld/collections',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'artgallery',
+            expected_clean_url: 'https://dribbble.com/zuttoworld',
+  },
+  {
+                     input_url: 'https://dribbble.com/shots/17988655-Pandora',
+             input_entity_type: 'artist',
+    expected_relationship_type: undefined,
+       input_relationship_type: 'artgallery',
+       only_valid_entity_types: [],
+  },
   // Drip
   {
                      input_url: 'https://d.rip/ehaidle/posts/RHJvcFBvc3QtMzQ4',
@@ -2487,6 +2578,28 @@ limited_link_type_combinations: [
             expected_clean_url: 'http://sws.geonames.org/6698548/',
        only_valid_entity_types: ['area', 'place'],
   },
+  // Goodreads
+  {
+                     input_url: 'http://goodreads.com/author/list/22650322.Joe_Hill',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.goodreads.com/author/show/22650322',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://www.goodreads.com/book/show/28462158-short-poetry-collection-013',
+             input_entity_type: 'release',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.goodreads.com/book/show/28462158',
+       only_valid_entity_types: ['release'],
+  },
+  {
+                     input_url: 'https://www.goodreads.com/series/40650-discworld',
+             input_entity_type: 'series',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.goodreads.com/series/show/40650',
+       only_valid_entity_types: ['series'],
+  },
   // Google
   {
                      input_url: 'https://play.google.com/store/music/artist/Daylight?id=Ab34l5k2zbtfv2uwitbfwrwyufy',
@@ -2581,6 +2694,13 @@ limited_link_type_combinations: [
              input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'https://www.idref.fr/172248248',
+       only_valid_entity_types: ['artist', 'genre', 'instrument', 'label', 'place', 'series', 'work'],
+  },
+  {
+                     input_url: 'http://idref.fr/11762442X',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.idref.fr/11762442X',
        only_valid_entity_types: ['artist', 'genre', 'instrument', 'label', 'place', 'series', 'work'],
   },
   // IMDb (Internet Movie Database)
@@ -2850,6 +2970,46 @@ limited_link_type_combinations: [
     expected_relationship_type: ['downloadfree', 'streamingfree'],
             expected_clean_url: 'http://www.jamendo.com/album/56372',
   },
+  // Jaxsta
+  {
+                     input_url: 'http://www.jaxsta.com/profile/8a9bd5c6-1ce2-4f1d-bfdc-1a2383129c79/catalogue?role_group=Featured%20Artist&view=tile',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://jaxsta.com/profile/8a9bd5c6-1ce2-4f1d-bfdc-1a2383129c79',
+       only_valid_entity_types: ['artist', 'label'],
+  },
+  {
+                     input_url: 'https://jaxsta.com/profile/5a50b1be-7473-4e51-ae4b-bb8d9ac13407/catalogue?view=tile',
+             input_entity_type: 'label',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://jaxsta.com/profile/5a50b1be-7473-4e51-ae4b-bb8d9ac13407',
+       only_valid_entity_types: ['artist', 'label'],
+  },
+  {
+                     input_url: 'https://jaxsta.com/recording/5b01140a-a82f-5f5c-aa81-93d61de00f94/releases',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://jaxsta.com/recording/5b01140a-a82f-5f5c-aa81-93d61de00f94',
+       only_valid_entity_types: ['recording'],
+  },
+  {
+                     input_url: 'https://jaxsta.com/release/66512305-5fb7-5d43-a194-d5ed56c16cab/7c5528fe-96f7-5c0c-9af2-9b756b909436/variants',
+             input_entity_type: 'release',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://jaxsta.com/release/66512305-5fb7-5d43-a194-d5ed56c16cab/7c5528fe-96f7-5c0c-9af2-9b756b909436',
+       only_valid_entity_types: ['release'],
+  },
+  {
+                     input_url: 'https://jaxsta.com/work/2aa4e869-85d4-5099-92fb-5a8aa1494d32/overview',
+             input_entity_type: 'work',
+    expected_relationship_type: 'otherdatabases',
+limited_link_type_combinations: [
+                                  'otherdatabases',
+                                  ['lyrics', 'otherdatabases'],
+                                ],
+            expected_clean_url: 'https://jaxsta.com/work/2aa4e869-85d4-5099-92fb-5a8aa1494d32',
+       only_valid_entity_types: ['work'],
+  },
   // Jazz Music Archives
   {
                      input_url: 'http://www.jazzmusicarchives.com/artist/ron-carter#discography',
@@ -2907,9 +3067,57 @@ limited_link_type_combinations: [
   },
   // Juno Download
   {
-                     input_url: 'http://www.junodownload.com/products/caspa-subscape-geordie-racer-notixx-remix/2141988-02/',
+                     input_url: 'http://junodownload.com/products/caspa-subscape-geordie-racer-notixx-remix/2141988-02/',
              input_entity_type: 'release',
     expected_relationship_type: 'downloadpurchase',
+            expected_clean_url: 'https://www.junodownload.com/products/2141988-02/',
+       only_valid_entity_types: ['release'],
+  },
+  {
+                     input_url: 'http://junodownload.com/products/2141988-02/',
+             input_entity_type: 'release',
+    expected_relationship_type: 'downloadpurchase',
+            expected_clean_url: 'https://www.junodownload.com/products/2141988-02/',
+       only_valid_entity_types: ['release'],
+  },
+  {
+                     input_url: 'http://junodownload.com/products/2141988-02.htm',
+             input_entity_type: 'release',
+    expected_relationship_type: 'downloadpurchase',
+            expected_clean_url: 'https://www.junodownload.com/products/2141988-02/',
+       only_valid_entity_types: ['release'],
+  },
+  {
+                     input_url: 'https://www.junodownload.com/products/raito-krampf-deeper/5665004-02/?c=2032482&utm_campaign=alert_auto_email&utm_source=auto_email_jd&utm_medium=label&utm_content=alert_title',
+             input_entity_type: 'release',
+    expected_relationship_type: 'downloadpurchase',
+            expected_clean_url: 'https://www.junodownload.com/products/5665004-02/',
+       only_valid_entity_types: ['release'],
+  },
+  {
+                     input_url: 'https://www.junodownload.com/labels/Mau5trap/releases/?music_product_type=single',
+             input_entity_type: 'label',
+    expected_relationship_type: 'downloadpurchase',
+            expected_clean_url: 'https://www.junodownload.com/labels/Mau5trap/',
+       only_valid_entity_types: ['label'],
+  },
+  {
+                     input_url: 'https://www.junodownload.com/artists/Raito/?facet%5Bsubgenre_id%5D%5B0%5D=12%7C%7C3',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'downloadpurchase',
+            expected_clean_url: 'https://www.junodownload.com/artists/Raito/',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://www.junodownload.com/search/?q%5Ball%5D%5B%5D=Orchestral+Manoeuvres+in+the+Dark',
+             input_entity_type: 'artist',
+       input_relationship_type: 'downloadpurchase',
+    expected_relationship_type: undefined,
+                expected_error: {
+                                  error: 'a link to a search result',
+                                  target: 'url',
+                                },
+       only_valid_entity_types: [],
   },
   // JVC Music
   {
@@ -3111,6 +3319,68 @@ limited_link_type_combinations: [
             expected_clean_url: 'http://id.loc.gov/authorities/names/n86864540',
        only_valid_entity_types: ['artist', 'label', 'place', 'series', 'work'],
   },
+  // LibraryThing
+  {
+                     input_url: 'http://librarything.com/author/rovicsdavid/stats',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.librarything.com/author/rovicsdavid',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://www.librarything.com/work/7940036/reviews',
+             input_entity_type: 'work',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.librarything.com/work/7940036',
+       only_valid_entity_types: ['release_group', 'work'],
+  },
+  {
+                     input_url: 'https://www.librarything.com/work/477914/workdetails',
+             input_entity_type: 'release_group',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.librarything.com/work/477914',
+       only_valid_entity_types: ['release_group', 'work'],
+  },
+  {
+                     input_url: 'https://www.librarything.com/nseries/34968/The-Locked-Tomb',
+             input_entity_type: 'series',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.librarything.com/nseries/34968',
+       only_valid_entity_types: ['series'],
+  },
+  // LibriVox
+  {
+                     input_url: 'http://www.librivox.org/author/3133?primary_key=3133&search_category=author&search_page=1&search_form=get_results',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'downloadfree',
+            expected_clean_url: 'https://librivox.org/author/3133',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://librivox.org/reader/8713?primary_key=8713&search_category=reader&search_page=1&search_form=get_results',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'downloadfree',
+            expected_clean_url: 'https://librivox.org/reader/8713',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://librivox.org/anarchism-and-other-essays-by-emma-goldman-2/',
+             input_entity_type: 'release',
+    expected_relationship_type: 'downloadfree',
+            expected_clean_url: 'https://librivox.org/anarchism-and-other-essays-by-emma-goldman-2',
+       only_valid_entity_types: ['release'],
+  },
+  {
+                     input_url: 'https://librivox.org/search?q=artist&search_form=advanced',
+             input_entity_type: 'artist',
+       input_relationship_type: 'downloadfree',
+    expected_relationship_type: undefined,
+       only_valid_entity_types: [],
+                expected_error: {
+                                  error: 'a link to a search result',
+                                  target: 'url',
+                                },
+  },
   // LiederNet Archive
   {
                      input_url: 'http://www.lieder.net/lieder/get_text.html?TextId=6448',
@@ -3175,6 +3445,56 @@ limited_link_type_combinations: [
              input_entity_type: 'place',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'https://www.livefans.jp/venues/4853',
+       only_valid_entity_types: ['place'],
+  },
+  // Live Nation
+  {
+                     input_url: 'https://www.livenation.com/artist/K8vZ9171ulV/alice-cooper-events#artist-info',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'ticketing',
+            expected_clean_url: 'https://www.livenation.com/artist/K8vZ9171ulV',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://www.livenation.asia/artist-tech-n9ne-332374?omq=tech-n9ne',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'ticketing',
+            expected_clean_url: 'https://www.livenation.asia/artist-332374',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://concerts.livenation.com/the-smashing-pumpkins-the-world-is-dallas-texas-08-15-2023/event/0C005E791B3255BB',
+             input_entity_type: 'event',
+    expected_relationship_type: 'ticketing',
+            expected_clean_url: 'https://concerts.livenation.com/event/0C005E791B3255BB',
+       only_valid_entity_types: ['event'],
+  },
+  {
+                     input_url: 'https://www.livenation.com/event/vvG1YZ9E0hGPpD/the-smashing-pumpkins-the-world-is-a-vampire-tour',
+             input_entity_type: 'event',
+    expected_relationship_type: 'ticketing',
+            expected_clean_url: 'https://www.livenation.com/event/vvG1YZ9E0hGPpD',
+       only_valid_entity_types: ['event'],
+  },
+  {
+                     input_url: 'https://www.livenation.co.nz/show/1431241/anna-of-the-north/wellington/2023-09-14/en',
+             input_entity_type: 'event',
+    expected_relationship_type: 'ticketing',
+            expected_clean_url: 'https://www.livenation.co.nz/show/1431241',
+       only_valid_entity_types: ['event'],
+  },
+  {
+                     input_url: 'https://www.livenation.com/venue/KovZpZAEAFeA/dos-equis-pavilion-events#seat-map',
+             input_entity_type: 'place',
+    expected_relationship_type: 'ticketing',
+            expected_clean_url: 'https://www.livenation.com/venue/KovZpZAEAFeA',
+       only_valid_entity_types: ['place'],
+  },
+  {
+                     input_url: 'https://www.livenation.ee/venue/953330/alexela-kontserdimaja-tickets#venueinfo',
+             input_entity_type: 'place',
+    expected_relationship_type: 'ticketing',
+            expected_clean_url: 'https://www.livenation.ee/venue/953330',
        only_valid_entity_types: ['place'],
   },
   // Loudr
@@ -3453,6 +3773,27 @@ limited_link_type_combinations: [
                      input_url: 'https://www.musa24.fi/albumi/Matti-ja-Teppo/Nostalgiaa/a1481d06-ee36-844b-bf7f-e8c4f714591b/',
              input_entity_type: 'release',
     expected_relationship_type: 'downloadpurchase',
+  },
+  // MobyGames
+  {
+                     input_url: 'http://mobygames.com/person/408750/pierre-gerwig-langer/credits/',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.mobygames.com/person/408750',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://www.mobygames.com/company/10/microprose-software-inc/games/',
+             input_entity_type: 'label',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.mobygames.com/company/10',
+       only_valid_entity_types: ['label'],
+  },
+  {
+                     input_url: 'https://www.mobygames.com/game/1143/worms-2/',
+             input_entity_type: 'release',
+    expected_relationship_type: 'otherdatabases',
+       only_valid_entity_types: [],
   },
   // MusicaPopular.cl
   {
@@ -3878,17 +4219,36 @@ limited_link_type_combinations: [
                      input_url: 'https://openlibrary.org/authors/OL23919A/',
              input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://openlibrary.org/authors/OL23919A',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'http://openlibrary.org/publishers/Penguin_Books,_Limited',
+             input_entity_type: 'label',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://openlibrary.org/publishers/Penguin_Books,_Limited',
+       only_valid_entity_types: ['label'],
+  },
+  {
+                     input_url: 'https://openlibrary.org/publishers/McGraw-Hill',
+             input_entity_type: 'label',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://openlibrary.org/publishers/McGraw-Hill',
+       only_valid_entity_types: ['label'],
   },
   {
                      input_url: 'http://openlibrary.org/books/OL8993487M/Harry_Potter_and_the_Philosopher\'s_Stone',
              input_entity_type: 'release',
     expected_relationship_type: 'otherdatabases',
-            expected_clean_url: 'https://openlibrary.org/books/OL8993487M/',
+            expected_clean_url: 'https://openlibrary.org/books/OL8993487M',
+       only_valid_entity_types: ['release'],
   },
   {
-                     input_url: 'https://openlibrary.org/works/OL82592W/',
+                     input_url: 'https://openlibrary.org/works/OL20723256W?edition=',
              input_entity_type: 'work',
     expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://openlibrary.org/works/OL20723256W',
+       only_valid_entity_types: ['work'],
   },
   // Operabase
   {
@@ -4298,6 +4658,13 @@ limited_link_type_combinations: [
              input_entity_type: 'artist',
     expected_relationship_type: 'socialnetwork',
             expected_clean_url: 'https://www.reverbnation.com/tomorrowsyesterdayband',
+  },
+  // pixiv
+  {
+                     input_url: 'https://www.pixiv.net/en/users/23610071/illustrations',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'artgallery',
+            expected_clean_url: 'https://www.pixiv.net/users/23610071',
   },
   // Prog Archives
   {
@@ -4919,6 +5286,49 @@ limited_link_type_combinations: [
             expected_clean_url: 'https://www.threads.net/t/CucwR6erBPo',
        only_valid_entity_types: ['recording'],
   },
+  // Ticketmaster
+  {
+                     input_url: 'http://ticketmaster.com/depeche-mode-tickets/artist/734907#about',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'ticketing',
+            expected_clean_url: 'https://www.ticketmaster.com/artist/734907',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://www.ticketmaster.nl/artist/underworld-tickets/4368?int_cmp_name=Underworld&int_cmp_id=NL-Home-611&int_cmp_creative=Home-main-5&tm_link=tm_ccp_Home_main_Underworld',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'ticketing',
+            expected_clean_url: 'https://www.ticketmaster.nl/artist/4368',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://www.ticketmaster.com/seongjin-cho-englewood-new-jersey-10-03-2023/event/00005ED3057A881F',
+             input_entity_type: 'event',
+    expected_relationship_type: 'ticketing',
+            expected_clean_url: 'https://www.ticketmaster.com/event/00005ED3057A881F',
+       only_valid_entity_types: ['event'],
+  },
+  {
+                     input_url: 'https://www.ticketmaster.co.uk/pendulum-premium-package-suites-leeds-24-03-2024/event/1F005F0AFB9A3A6F',
+             input_entity_type: 'event',
+    expected_relationship_type: 'ticketing',
+            expected_clean_url: 'https://www.ticketmaster.co.uk/event/1F005F0AFB9A3A6F',
+       only_valid_entity_types: ['event'],
+  },
+  {
+                     input_url: 'https://www.ticketmaster.com/fenway-park-tickets-boston/venue/8839?tab=seatingCharts',
+             input_entity_type: 'place',
+    expected_relationship_type: 'ticketing',
+            expected_clean_url: 'https://www.ticketmaster.com/venue/8839',
+       only_valid_entity_types: ['place'],
+  },
+  {
+                     input_url: 'https://www.ticketmaster.co.nz/anderson-park-tickets-wellington/venue/295852',
+             input_entity_type: 'place',
+    expected_relationship_type: 'ticketing',
+            expected_clean_url: 'https://www.ticketmaster.co.nz/venue/295852',
+       only_valid_entity_types: ['place'],
+  },
   // Tidal
   {
                      input_url: 'http://desktop.tidal.com/artist/8140105',
@@ -5191,6 +5601,13 @@ limited_link_type_combinations: [
              input_entity_type: 'artist',
     expected_relationship_type: 'videochannel',
             expected_clean_url: 'https://www.twitch.tv/pisceze',
+       only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series'],
+  },
+  {
+                     input_url: 'https://m.twitch.tv/marimbamatt913',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'videochannel',
+            expected_clean_url: 'https://www.twitch.tv/marimbamatt913',
        only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series'],
   },
   // Twitter
@@ -5535,6 +5952,28 @@ limited_link_type_combinations: [
              input_entity_type: 'artist',
     expected_relationship_type: 'socialnetwork',
             expected_clean_url: 'https://vk.com/tin_sontsya',
+  },
+  // VNDB
+  {
+                     input_url: 'http://www.vndb.org/s5406/hist',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://vndb.org/s5406',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://vndb.org/c49805/hist',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://vndb.org/c49805',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://vndb.org/p149/rg',
+             input_entity_type: 'label',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://vndb.org/p149',
+       only_valid_entity_types: ['label'],
   },
   // Weibo
   {

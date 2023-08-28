@@ -120,8 +120,8 @@ BubbleBase.prototype.activeBubbles = {};
  * input to the left of it.
  */
 class BubbleDoc extends BubbleBase {
-  show(control) {
-    super.show(control);
+  show(control, stealFocus) {
+    super.show(control, stealFocus);
 
     const $bubble = this.$bubble;
     const $parent = $bubble.parent();

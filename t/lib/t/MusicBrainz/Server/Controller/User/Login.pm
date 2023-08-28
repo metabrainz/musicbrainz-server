@@ -157,6 +157,29 @@ test 'Spammer editors cannot log in' => sub {
     $enable_ssl->DESTROY;
 };
 
+test 'MBS-12720: remember_login cookie is HttpOnly' => sub {
+    my $test = shift;
+    my $mech = $test->mech;
+    my $c = $test->c;
+    my $enable_ssl = enable_ssl();
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+editor');
+
+    $mech->get_ok('https://localhost/login');
+    $mech->submit_form(
+        with_fields => {
+            username => 'new_editor',
+            password => 'password',
+            remember_me => '1',
+        },
+    );
+    is($mech->uri->path, '/user/new_editor');
+    my $cookies = $mech->cookie_jar->{COOKIES}{'localhost.local'}{'/'};
+    ok(exists $cookies->{remember_login}->[7]->{HttpOnly});
+
+    $enable_ssl->DESTROY;
+};
+
 sub enable_ssl {
     my $dbdefs = ref(*DBDefs::SSL_REDIRECTS_ENABLED) ? 'DBDefs' : 'DBDefs::Default';
     my $wrapper = wrap "${dbdefs}::SSL_REDIRECTS_ENABLED",

@@ -66,7 +66,7 @@ const ChangePasswordPageContent = ({
         <FormRowText
           autoComplete="username"
           field={form.field.username}
-          label={l('Username:')}
+          label={addColonText(l('Username'))}
           required
           uncontrolled
         />

@@ -54,6 +54,15 @@ export const VOCAL_ROOT_ID = 3;
 export const AREA_TYPE_COUNTRY = 1;
 
 export const ARTIST_TYPE_PERSON = 1;
+export const ARTIST_TYPE_GROUP = 2;
+export const ARTIST_TYPE_ORCHESTRA = 5;
+export const ARTIST_TYPE_CHOIR = 6;
+
+export const ARTIST_GROUP_TYPES: Set<number> = new Set([
+  ARTIST_TYPE_CHOIR,
+  ARTIST_TYPE_GROUP,
+  ARTIST_TYPE_ORCHESTRA,
+]);
 
 export const CONTACT_URL = 'https://metabrainz.org/contact';
 
@@ -67,6 +76,7 @@ export const FAVICON_CLASSES = {
   'abc.net.au/triplejunearthed': 'triplejunearthed',
   'adp.library.ucsb.edu': 'dahr',
   'allmusic.com': 'allmusic',
+  'anidb.net': 'anidb',
   'animenewsnetwork.com': 'animenewsnetwork',
   'anison.info': 'anisongeneration',
   'archive.org': 'archive',
@@ -91,10 +101,12 @@ export const FAVICON_CLASSES = {
   'changetip.com': 'changetip',
   'ci.nii.ac.jp': 'cinii',
   'classicalarchives.com': 'classicalarchives',
+  'concerts.livenation.com': 'livenation',
   'cpdl.org': 'cpdl',
   'd-nb.info': 'dnb',
   'dailymotion.com': 'dailymotion',
   'deezer.com': 'deezer',
+  'deviantart.com': 'deviantart',
   'dhhu.dk': 'dhhu',
   'directlyrics.com': 'directlyrics',
   'discogs.com': 'discogs',
@@ -110,6 +122,7 @@ export const FAVICON_CLASSES = {
   'generasia.com/wiki': 'generasia',
   'genius.com': 'genius',
   'geonames.org': 'geonames',
+  'goodreads.com': 'goodreads',
   'gutenberg.org': 'gutenberg',
   'hoick.jp': 'hoick',
   'ibdb.com': 'ibdb',
@@ -124,6 +137,7 @@ export const FAVICON_CLASSES = {
   'iss.ndl.go.jp': 'ndl',
   'itunes.apple.com': 'itunes',
   'j-lyric.net': 'jlyric',
+  'jaxsta.com': 'jaxsta',
   'jazzmusicarchives.com': 'jazzmusicarchives',
   'joysound.com': 'joysound',
   'junodownload.com': 'junodownload',
@@ -134,6 +148,8 @@ export const FAVICON_CLASSES = {
   'laboiteauxparoles.com': 'laboiteauxparoles',
   'lantis.jp': 'lantis',
   'last.fm': 'lastfm',
+  'librarything.com': 'librarything',
+  'librivox.org': 'librivox',
   'lieder.net': 'lieder',
   'linkedin.com': 'linkedin',
   'livefans.jp': 'livefans',
@@ -144,6 +160,7 @@ export const FAVICON_CLASSES = {
   'melon.com': 'melon',
   'metal-archives.com': 'metalarchives',
   'mixcloud.com': 'mixcloud',
+  'mobygames.com': 'mobygames',
   'mora.jp': 'mora',
   'music.amazon': 'amazonmusic',
   'music.apple.com': 'applemusic',
@@ -172,6 +189,7 @@ export const FAVICON_CLASSES = {
   'paypal.me': 'paypal',
   'petitlyrics.com': 'petitlyrics',
   'pinterest.com': 'pinterest',
+  'pixiv.net': 'pixiv',
   'progarchives.com': 'progarchives',
   'psydb.net': 'psydb',
   'qim.com': 'quebecinfomusique',
@@ -230,6 +248,7 @@ export const FAVICON_CLASSES = {
   'vimeo.com': 'vimeo',
   'vk.com': 'vk',
   'vkdb.jp': 'vkdb',
+  'vndb.org': 'vndb',
   'vocadb.net': 'vocadb',
   'weibo.com': 'weibo',
   'whosampled.com': 'whosampled',
@@ -238,6 +257,8 @@ export const FAVICON_CLASSES = {
   'wikisource.org': 'wikisource',
   'worldcat.org': 'worldcat',
   'www.amazon': 'amazon',
+  'www.livenation.': 'livenation',
+  'www.ticketmaster.': 'ticketmaster',
   'www.youtube.com': 'youtube',
   'www5.atwiki.jp/hmiku/': 'hmikuwiki',
   'yesasia.com': 'yesasia',

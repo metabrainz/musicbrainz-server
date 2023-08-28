@@ -7,33 +7,50 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import * as React from 'react';
+
 import DBDefs from '../../common/DBDefs-client.mjs';
 
-const ConfirmSeedButtons = (): React$MixedElement => (
-  <>
-    <button type="submit">
-      {l('Continue')}
-    </button>
-    <button
-      className="negative"
-      onClick={() => {
-        if (history.length > 1) {
-          history.back();
-        } else {
-          window.location.replace(
-            window.location.protocol + '//' +
-            DBDefs.WEB_SERVER,
-          );
-        }
-      }}
-      type="button"
-    >
-      {l('Leave')}
-    </button>
-  </>
-);
+type PropsT = {
+  +autoSubmit: boolean,
+};
+
+const ConfirmSeedButtons = ({
+  autoSubmit,
+}: PropsT): React$MixedElement => {
+  const submitRef = React.useRef<HTMLButtonElement | null>(null);
+  React.useEffect(() => {
+    if (autoSubmit) {
+      submitRef.current?.click();
+    }
+  }, [autoSubmit, submitRef]);
+
+  return (
+    <>
+      <button ref={submitRef} type="submit">
+        {l('Continue')}
+      </button>
+      <button
+        className="negative"
+        onClick={() => {
+          if (history.length > 1) {
+            history.back();
+          } else {
+            window.location.replace(
+              window.location.protocol + '//' +
+              DBDefs.WEB_SERVER,
+            );
+          }
+        }}
+        type="button"
+      >
+        {l('Leave')}
+      </button>
+    </>
+  );
+};
 
 export default (hydrate(
   'span.buttons.confirm-seed',
   ConfirmSeedButtons,
-): React$AbstractComponent<{}, void>);
+): React$AbstractComponent<PropsT, void>);

@@ -46,7 +46,7 @@ const MediumTrackRow = (React.memo<PropsT>(({
         <a href={'/track/' + track.gid}>{track.number}</a>
       </td>
 
-      <td className="title">
+      <td className="title wrap-anywhere">
         <EntityLink
           content={track.name}
           entity={track.recording}
@@ -75,7 +75,7 @@ const MediumTrackRow = (React.memo<PropsT>(({
       </td>
 
       {showArtists ? (
-        <td>
+        <td className="wrap-anywhere">
           <ArtistCreditLink artistCredit={track.artistCredit} />
         </td>
       ) : null}

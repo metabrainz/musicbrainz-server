@@ -7,6 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import SubHeader from '../components/SubHeader.js';
 import Tabs from '../components/Tabs.js';
 import Layout from '../layout/index.js';
 import TagLink from '../static/scripts/common/components/TagLink.js';
@@ -48,9 +49,12 @@ const TagLayout = ({
     }
   >
     <div id="content">
-      <h1>
-        {exp.l('Tag “{tag}”', {tag: <TagLink tag={tag.name} />})}
-      </h1>
+      <div className="tagheader">
+        <h1>
+          {exp.l('Tag “{tag}”', {tag: <TagLink tag={tag.name} />})}
+        </h1>
+        <SubHeader subHeading={l('Tag')} />
+      </div>
       <Tabs>
         {tabLinks.map(link => (
           <li className={page === link[0] ? 'sel' : ''} key={link[0]}>

@@ -197,7 +197,7 @@ div.changes div.warning { margin: 1em auto; }
         td {
             &.position {
                 text-align: right;
-                padding: 0 0.5em;
+                padding: 0.5em 0.5em 0 0.5em;
                 font-size: @extremely-large-text;
                 width: 1em;
             }
@@ -212,6 +212,7 @@ div.changes div.warning { margin: 1em auto; }
             }
 
             &.buttons {
+                padding-top: 1em;
                 width: 7em;
                 button { width: 6em; }
             }
@@ -233,10 +234,16 @@ div.changes div.warning { margin: 1em auto; }
 }
 
 #recording-assoc-bubble {
+    tr { vertical-align: top; }
+
     td.suggested-recording { padding: 1em; }
     td.appears-on { padding-bottom: 1em; }
 
     span.autocomplete input { width: 22em; }
+}
+
+#track-recording-assignation {
+    tr { vertical-align: top; }
 }
 
 /* __________________________________

@@ -1,7 +1,8 @@
 .blankheader,
 .areaheader, .artistheader, .releaseheader, .rgheader,
 .recordingheader, .labelheader, .placeheader, .eventheader,
-.workheader, .collectionheader, .seriesheader, .instrumentheader {
+.workheader, .collectionheader, .seriesheader, .instrumentheader,
+.genreheader, .tagheader {
     padding-left: 38px;
     background: 0 0px no-repeat;
     background-size: 32px;
@@ -25,11 +26,14 @@
 .seriesheader     { background-image: data-uri('../images/entity/series.svg') }
 .instrumentheader { background-image: data-uri('../images/entity/instrument.svg') }
 .eventheader      { background-image: data-uri('../images/entity/event.svg') }
-.collectionheader { background-image: data-uri('../images/entity/blank.svg') }
+.collectionheader { background-image: data-uri('../images/entity/collection.svg') }
+.genreheader      { background-image: data-uri('../images/entity/genre.svg') }
+.tagheader        { background-image: data-uri('../images/entity/tag.svg') }
 
 .arealink, .artistlink, .releaselink, .rglink,
 .recordinglink, .labellink, .placelink, .eventlink,
-.worklink, .serieslink, .instrumentlink {
+.worklink, .serieslink, .instrumentlink,
+.collectionlink, .genrelink, .taglink {
     padding-left: 16px;
     background: 0 0px no-repeat;
     background-size: 14px;
@@ -46,3 +50,6 @@
 .serieslink     { background-image: data-uri('../images/entity/series-inverted.svg') }
 .instrumentlink { background-image: data-uri('../images/entity/instrument-inverted.svg') }
 .eventlink      { background-image: data-uri('../images/entity/event-inverted.svg') }
+.collectionlink { background-image: data-uri('../images/entity/collection-inverted.svg') }
+.genrelink      { background-image: data-uri('../images/entity/genre-inverted.svg') }
+.taglink        { background-image: data-uri('../images/entity/tag-inverted.svg') }

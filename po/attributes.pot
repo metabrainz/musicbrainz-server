@@ -93,6 +93,11 @@ msgctxt "medium_format"
 msgid "8cm CD+G"
 msgstr ""
 
+#: DB:medium_format/description:166
+msgctxt "medium_format"
+msgid "8cm DVD disc, often used for video singles."
+msgstr ""
+
 #: DB:medium_format/description:58
 msgctxt "medium_format"
 msgid ""
@@ -352,9 +357,9 @@ msgstr ""
 msgctxt "event_type"
 msgid ""
 "A performance of one or more plays, musicals, operas, ballets or other "
-"similar works for the stage in their staged form (as opposed to a <a "
-"href=\"https://en.wikipedia.org/wiki/Concert_performance\">concert "
-"performance</a> without staging)."
+"similar works for the stage in their staged form (as opposed to a <a href="
+"\"https://en.wikipedia.org/wiki/Concert_performance\">concert performance</"
+"a> without staging)."
 msgstr ""
 
 #: DB:place_type/description:8
@@ -449,6 +454,13 @@ msgstr ""
 #: DB:series_type/description:8
 msgctxt "series_type"
 msgid "A recurring festival, usually happening annually in the same location."
+msgstr ""
+
+#: DB:release_group_secondary_type/description:12
+msgctxt "release_group_secondary_type"
+msgid ""
+"A release mostly consisting of field recordings (such as nature sounds or "
+"city/industrial noise)."
 msgstr ""
 
 #: DB:release_group_secondary_type/description:7
@@ -590,6 +602,20 @@ msgctxt "instrument_type"
 msgid ""
 "A standard grouping of instruments often played together, like a string "
 "quartet"
+msgstr ""
+
+#: DB:medium_format/description:165
+msgctxt "medium_format"
+msgid ""
+"A standard size CD with the playing/data area of a 8cm CD; the remaining "
+"area is empty clear/translucent plastic, sometimes printed."
+msgstr ""
+
+#: DB:medium_format/description:167
+msgctxt "medium_format"
+msgid ""
+"A standard size DVD with the playing/data area of a 8cm MiniDVD; the "
+"remaining area is empty clear/translucent plastic, sometimes printed."
 msgstr ""
 
 #: DB:work_type/description:6
@@ -2894,6 +2920,11 @@ msgctxt "work_attribute_type_allowed_value"
 msgid "Feth-i Hicaz"
 msgstr ""
 
+#: DB:release_group_secondary_type/name:12
+msgctxt "release_group_secondary_type"
+msgid "Field recording"
+msgstr ""
+
 #: DB:work_attribute_type_allowed_value/value:734
 msgctxt "work_attribute_type_allowed_value"
 msgid "Fireng-i Fer"
@@ -3639,6 +3670,11 @@ msgstr ""
 #: DB:work_attribute_type/description:53
 msgctxt "work_attribute_type"
 msgid "ID for the Canadian rights society SODRAC"
+msgstr ""
+
+#: DB:work_attribute_type/description:173
+msgctxt "work_attribute_type"
+msgid "ID for the Chilean rights society SCD"
 msgstr ""
 
 #: DB:work_attribute_type/description:71
@@ -4966,9 +5002,44 @@ msgctxt "area_type"
 msgid "Military base"
 msgstr ""
 
+#: DB:medium_format/name:166
+msgctxt "medium_format"
+msgid "MiniDVD"
+msgstr ""
+
+#: DB:medium_format/name:168
+msgctxt "medium_format"
+msgid "MiniDVD-Audio"
+msgstr ""
+
+#: DB:medium_format/name:169
+msgctxt "medium_format"
+msgid "MiniDVD-Video"
+msgstr ""
+
 #: DB:medium_format/name:6
 msgctxt "medium_format"
 msgid "MiniDisc"
+msgstr ""
+
+#: DB:medium_format/name:165
+msgctxt "medium_format"
+msgid "Minimax CD"
+msgstr ""
+
+#: DB:medium_format/name:167
+msgctxt "medium_format"
+msgid "Minimax DVD"
+msgstr ""
+
+#: DB:medium_format/name:170
+msgctxt "medium_format"
+msgid "Minimax DVD-Audio"
+msgstr ""
+
+#: DB:medium_format/name:171
+msgctxt "medium_format"
+msgid "Minimax DVD-Video"
 msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:644
@@ -6464,6 +6535,11 @@ msgstr ""
 #: DB:work_attribute_type/name:140
 msgctxt "work_attribute_type"
 msgid "SAZAS ID"
+msgstr ""
+
+#: DB:work_attribute_type/name:173
+msgctxt "work_attribute_type"
+msgid "SCD ID"
 msgstr ""
 
 #: DB:medium_format/name:62
@@ -7984,6 +8060,11 @@ msgstr ""
 #: DB:work_attribute_type_allowed_value/value:681
 msgctxt "work_attribute_type_allowed_value"
 msgid "ambiguous"
+msgstr ""
+
+#: DB:medium_format/name:164
+msgctxt "medium_format"
+msgid "microSD"
 msgstr ""
 
 #: DB:medium_format/name:27

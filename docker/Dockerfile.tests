@@ -40,6 +40,7 @@ RUN apt-get update && \
         language-pack-et \
         language-pack-fi \
         language-pack-fr \
+        language-pack-he \
         language-pack-it \
         language-pack-ja \
         language-pack-nl \

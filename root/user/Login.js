@@ -97,7 +97,7 @@ const Login = ({
 
         <FormRowText
           field={loginForm.field.username}
-          label={l('Username:')}
+          label={addColonText(l('Username'))}
           required
           uncontrolled
         />
