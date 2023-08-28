@@ -1,4 +1,4 @@
-# 
+#
 # Translators:
 # nikki, 2013-2014
 # David Kellner <email address hidden>, 2020-2021
@@ -15,17 +15,20 @@
 # Steve Marbs <email address hidden>, 2016
 # TL, 2015-2016
 # Tobias Sarner <email address hidden>, 2020
+# Philipp Wolfer <ph.wolfer@gmail.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2012-05-24 18:57+0000\n"
-"Last-Translator: David Kellner <kellnerd@gmx.net>, 2020-2021\n"
-"Language-Team: German (http://app.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
+"PO-Revision-Date: 2023-08-28 08:34+0000\n"
+"Last-Translator: Philipp Wolfer <ph.wolfer@gmail.com>\n"
+"Language-Team: German <https://translations.metabrainz.org/projects/"
+"musicbrainz/instruments/de/>\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: de\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.18.2\n"
 
 #: DB:instrument/name:438
 msgid "12 string guitar"
@@ -197,9 +200,9 @@ msgid "Paraguayan harp"
 msgstr "Paraguay-Harfe"
 
 #: DB:instrument/name:793
-msgctxt "an electromechanical piano"
+msgctxt "electromechanical piano"
 msgid "Pianet"
-msgstr "Pianet"
+msgstr ""
 
 #: DB:instrument/name:1023
 msgctxt "ensemble flute, clarinet, violin, cello and piano"
@@ -434,8 +437,9 @@ msgid "atarigane"
 msgstr "Atarigane"
 
 #: DB:instrument/name:409
+msgctxt "Damper bar box zither"
 msgid "autoharp"
-msgstr "Autoharp"
+msgstr ""
 
 #: DB:instrument/name:880
 msgctxt "Nyabinghi bass drum"
@@ -1271,7 +1275,7 @@ msgstr ""
 
 #: DB:instrument/name:635
 msgid "diddley bow"
-msgstr " Diddley Bow"
+msgstr "Diddley Bow"
 
 #: DB:instrument/name:155
 msgid "didgeridoo"
@@ -2464,7 +2468,7 @@ msgstr "Laserharfe"
 
 #: DB:instrument/name:144
 msgid "lasso d'amore"
-msgstr "Das Lasso d'Amore, \"whirly tube\", Corrugaphone oder Heulschlauch ist ein quergeriffeltes Kunststoffrohr. Hält man es an einem Ende fest und wirbelt es im Kreis herum, so entstehen ab einer bestimmten Drehgeschwindigkeit schaurig heulende oder pfeifende Töne."
+msgstr "Lasso d'Amore"
 
 #: DB:instrument/name:518
 msgid "launeddas"
@@ -3430,8 +3434,9 @@ msgid "shamisen"
 msgstr "Shamisen"
 
 #: DB:instrument/name:408
+msgctxt "12th century to present double reed woodwind"
 msgid "shawm"
-msgstr "Schalmei"
+msgstr ""
 
 #: DB:instrument/name:494
 msgid "shehnai"
@@ -4031,7 +4036,8 @@ msgstr ""
 
 #: DB:instrument/name:698
 msgid "tromba marina"
-msgstr "Trumscheit (auch Marientrompete, Nonnengeige, Nonnentrompete, Trompetengeige)"
+msgstr ""
+"Trumscheit (auch Marientrompete, Nonnengeige, Nonnentrompete, Trompetengeige)"
 
 #: DB:instrument/name:32
 msgid "trombone"
@@ -4568,3 +4574,13 @@ msgstr ""
 msgctxt "Maltese mirliton"
 msgid "żummara"
 msgstr ""
+
+#~ msgctxt "an electromechanical piano"
+#~ msgid "Pianet"
+#~ msgstr "Pianet"
+
+#~ msgid "autoharp"
+#~ msgstr "Autoharp"
+
+#~ msgid "shawm"
+#~ msgstr "Schalmei"

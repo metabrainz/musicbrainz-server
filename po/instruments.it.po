@@ -1,4 +1,4 @@
-# 
+#
 # Translators:
 # Alex DM <email address hidden>, 2016
 # Andrea Borio <email address hidden>, 2016
@@ -12,17 +12,21 @@
 # salo.rock, 2012
 # salo.rock, 2022-2023
 # Valentina Menale <email address hidden>, 2016
+# "salo.rock" <salo.rock+musicbrainz@gmail.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2012-05-24 18:57+0000\n"
-"Last-Translator: salo.rock, 2022-2023\n"
-"Language-Team: Italian (http://app.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
+"PO-Revision-Date: 2023-08-25 21:27+0000\n"
+"Last-Translator: \"salo.rock\" <salo.rock+musicbrainz@gmail.com>\n"
+"Language-Team: Italian <https://translations.metabrainz.org/projects/"
+"musicbrainz/instruments/it/>\n"
+"Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: it\n"
-"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
+"X-Generator: Weblate 4.18.2\n"
 
 #: DB:instrument/name:438
 msgid "12 string guitar"
@@ -194,7 +198,7 @@ msgid "Paraguayan harp"
 msgstr "arpa paraguaiana"
 
 #: DB:instrument/name:793
-msgctxt "an electromechanical piano"
+msgctxt "electromechanical piano"
 msgid "Pianet"
 msgstr "Pianet"
 
@@ -431,6 +435,7 @@ msgid "atarigane"
 msgstr "atarigane"
 
 #: DB:instrument/name:409
+msgctxt "Damper bar box zither"
 msgid "autoharp"
 msgstr "autoharp"
 
@@ -1105,7 +1110,7 @@ msgstr "claviorgano"
 
 #: DB:instrument/name:414
 msgid "concert flute"
-msgstr "flauto traverso"
+msgstr "flauto traverso (flauto da concerto)"
 
 #: DB:instrument/name:351
 msgid "concert harp"
@@ -3427,6 +3432,7 @@ msgid "shamisen"
 msgstr "shamisen"
 
 #: DB:instrument/name:408
+msgctxt "12th century to present double reed woodwind"
 msgid "shawm"
 msgstr "ciaramella"
 
@@ -3982,7 +3988,7 @@ msgstr "ensemble tradizionale basca"
 
 #: DB:instrument/name:345
 msgid "transverse flute"
-msgstr "flauto traverso"
+msgstr "flauto a imboccatura laterale"
 
 #: DB:instrument/name:808
 msgctxt "monophonic electric instrument from 1930's"
@@ -4565,3 +4571,13 @@ msgstr "żaqq"
 msgctxt "Maltese mirliton"
 msgid "żummara"
 msgstr "żummara"
+
+#~ msgctxt "an electromechanical piano"
+#~ msgid "Pianet"
+#~ msgstr "Pianet"
+
+#~ msgid "autoharp"
+#~ msgstr "autoharp"
+
+#~ msgid "shawm"
+#~ msgstr "ciaramella"

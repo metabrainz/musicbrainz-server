@@ -1,0 +1,4565 @@
+#
+# Translators:
+# nikki, 2014
+# Chris_Kay_083, 2014
+# 6fd7e0289e0c30343ba3ef95fad1ee4c_fa6ad96, 2017
+msgid ""
+msgstr ""
+"Project-Id-Version: MusicBrainz\n"
+"PO-Revision-Date: 2012-05-24 18:57+0000\n"
+"Last-Translator: 6fd7e0289e0c30343ba3ef95fad1ee4c_fa6ad96, 2017\n"
+"Language-Team: Croatian (http://app.transifex.com/musicbrainz/musicbrainz/"
+"language/hr/)\n"
+"Language: hr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+
+#: DB:instrument/name:438
+msgid "12 string guitar"
+msgstr "Gitara s 12 žica"
+
+#: DB:instrument/name:516
+msgid "17-string bass koto"
+msgstr ""
+
+#: DB:instrument/name:839
+msgctxt "Historical hybrid between English and German style concertinas"
+msgid "Anglo concertina"
+msgstr ""
+
+#: DB:instrument/name:66
+msgctxt "Folk drone zither from N. America"
+msgid "Appalachian dulcimer"
+msgstr "Apalaška citra"
+
+#: DB:instrument/name:421
+msgctxt "Family of Baltic box-zithers"
+msgid "Baltic psalteries"
+msgstr "Baltički Psaltiri"
+
+#: DB:instrument/name:457
+msgctxt "Double headed hourglass Nigerian drums"
+msgid "Batá drum"
+msgstr "Batá-bubanj"
+
+#: DB:instrument/name:852
+msgctxt "long metal bar with strings"
+msgid "Blaster Beam"
+msgstr ""
+
+#: DB:instrument/name:794
+msgctxt "electric piano with reeds"
+msgid "Cembalet"
+msgstr "Cembalet"
+
+#: DB:instrument/name:183
+msgid "Chapman stick"
+msgstr "Chapman stick"
+
+#: DB:instrument/name:482
+msgid "Cretan lyra"
+msgstr "Kretska lira"
+
+#: DB:instrument/name:736
+msgid "Cristal Baschet"
+msgstr ""
+
+#: DB:instrument/name:118
+msgid "Denis d'or"
+msgstr "Denis d'or"
+
+#: DB:instrument/name:119
+msgid "Dubreq Stylophone"
+msgstr "Dubreq Stilofone"
+
+#: DB:instrument/name:574
+msgid "E-flat clarinet"
+msgstr ""
+
+#: DB:instrument/name:441
+msgid "EWI"
+msgstr "EWI"
+
+#: DB:instrument/name:837
+msgctxt "Unisonoric concertina"
+msgid "English concertina"
+msgstr ""
+
+#: DB:instrument/name:844
+msgctxt "English \"improved\" flageolet"
+msgid "English flageolet"
+msgstr ""
+
+#: DB:instrument/name:30
+msgid "French horn"
+msgstr "Francuski rog"
+
+#: DB:instrument/name:838
+msgctxt "Bisonoric concertina"
+msgid "German concertina"
+msgstr ""
+
+#: DB:instrument/name:356
+msgid "German harp"
+msgstr ""
+
+#: DB:instrument/name:901
+msgctxt "Modern 24-stringed stainless steel kora"
+msgid "Gravikord"
+msgstr ""
+
+#: DB:instrument/name:1073
+msgctxt "Large Scottish bagpipe"
+msgid "Great Highland bagpipe"
+msgstr ""
+
+#: DB:instrument/name:795
+msgctxt "electric lamellophone"
+msgid "Guitaret"
+msgstr ""
+
+#: DB:instrument/name:134
+msgid "Hammond organ"
+msgstr "Hammond orgulje"
+
+#: DB:instrument/name:323
+msgid "Hawaiian guitar"
+msgstr "Havajska gitara"
+
+#: DB:instrument/name:1011
+msgctxt "Indonesian spike-fiddle used in gamelan"
+msgid "Indonesian rebab"
+msgstr ""
+
+#: DB:instrument/name:406
+msgid "Irish bouzouki"
+msgstr "Irski buzuki"
+
+#: DB:instrument/name:878
+msgctxt "19th century transverse flute"
+msgid "Irish flute"
+msgstr ""
+
+#: DB:instrument/name:355
+msgid "Irish harp / clàrsach"
+msgstr "Irska harfa / clàrsach"
+
+#: DB:instrument/name:561
+msgid "Lyricon"
+msgstr ""
+
+#: DB:instrument/name:637
+msgctxt "Mark Stevens' bar chime"
+msgid "Mark tree"
+msgstr ""
+
+#: DB:instrument/name:442
+msgid "Marxophone"
+msgstr ""
+
+#: DB:instrument/name:92
+msgid "Mexican vihuela"
+msgstr "Meksička vihuela"
+
+#: DB:instrument/name:278
+msgid "Minimoog"
+msgstr "Minimoog"
+
+#: DB:instrument/name:277
+msgid "Moog"
+msgstr "Moog"
+
+#: DB:instrument/name:358
+msgctxt "Small north east England bagpipes"
+msgid "Northumbrian pipes"
+msgstr "Northumbrijske gajde"
+
+#: DB:instrument/name:890
+msgctxt "Toy synthesizer"
+msgid "Otamatone"
+msgstr ""
+
+#: DB:instrument/name:664
+msgid "Paraguayan harp"
+msgstr ""
+
+#: DB:instrument/name:793
+msgctxt "electromechanical piano"
+msgid "Pianet"
+msgstr ""
+
+#: DB:instrument/name:1023
+msgctxt "ensemble flute, clarinet, violin, cello and piano"
+msgid "Pierrot ensemble"
+msgstr ""
+
+#: DB:instrument/name:647
+msgctxt "Portugese plucked lute"
+msgid "Portuguese guitar"
+msgstr ""
+
+#: DB:instrument/name:576
+msgid "Reactable"
+msgstr ""
+
+#: DB:instrument/name:139
+msgctxt "Electric keyboard tuning fork idiophone"
+msgid "Rhodes piano"
+msgstr "Rhodes klavijature"
+
+#: DB:instrument/name:476
+msgctxt "Ancient Carnatic veena lute"
+msgid "Saraswati veena"
+msgstr "Saraswati vina"
+
+#: DB:instrument/name:679
+msgid "Schwyzerörgeli"
+msgstr ""
+
+#: DB:instrument/name:427
+msgctxt "Small Scottish bagpipe"
+msgid "Scottish smallpipes"
+msgstr "Škotske male gajde"
+
+#: DB:instrument/name:910
+msgid "Serbo-Croatian tamburica orchestra"
+msgstr ""
+
+#: DB:instrument/name:451
+msgctxt "Horn-amplified violin"
+msgid "Stroh violin"
+msgstr "Strohova violina"
+
+#: DB:instrument/name:934
+msgctxt "electrically actuated lithophone"
+msgid "The Great Stalacpipe Organ"
+msgstr ""
+
+#: DB:instrument/name:279
+msgid "Tibetan water drum"
+msgstr "Tibetanski vodeni bubanj"
+
+#: DB:instrument/name:846
+msgctxt "plastic fipple flute"
+msgid "Tonette"
+msgstr ""
+
+#: DB:instrument/name:322
+msgid "Vietnamese guitar"
+msgstr "Vijetnamska gitara"
+
+#: DB:instrument/name:152
+msgid "Wagner tuba"
+msgstr "Wagnerova tuba"
+
+#: DB:instrument/name:253
+msgid "Warr guitar"
+msgstr "Warr gitara"
+
+#: DB:instrument/name:562
+msgid "Wiener Horn"
+msgstr ""
+
+#: DB:instrument/name:468
+msgid "Wurlitzer electric piano"
+msgstr "Wurlitzer električne klavijature"
+
+#: DB:instrument/name:563
+msgid "Xaphoon"
+msgstr ""
+
+#: DB:instrument/name:778
+msgctxt "harmonica/accordion hybrid"
+msgid "accordina"
+msgstr ""
+
+#: DB:instrument/name:41
+msgctxt "Commonly used bellowed free reed with keys/buttons"
+msgid "accordion"
+msgstr "harmonika"
+
+#: DB:instrument/name:50
+msgid "acoustic bass guitar"
+msgstr "akustična bas gitara"
+
+#: DB:instrument/name:539
+msgid "acoustic fretless guitar"
+msgstr ""
+
+#: DB:instrument/name:53
+msgid "acoustic guitar"
+msgstr "akustična gitara"
+
+#: DB:instrument/name:65
+msgid "aeolian harp"
+msgstr "eolska harfa"
+
+#: DB:instrument/name:717
+msgctxt "Brazillian rattle-gourd"
+msgid "afoxé"
+msgstr ""
+
+#: DB:instrument/name:487
+msgid "agogô"
+msgstr "agogô"
+
+#: DB:instrument/name:642
+msgid "ajaeng"
+msgstr ""
+
+#: DB:instrument/name:747
+msgctxt "set of Nyabinghi drums"
+msgid "akete"
+msgstr ""
+
+#: DB:instrument/name:1029
+msgctxt "German keyed box zither"
+msgid "akkordolia"
+msgstr ""
+
+#: DB:instrument/name:718
+msgid "alfaia"
+msgstr ""
+
+#: DB:instrument/name:508
+msgid "algozey"
+msgstr ""
+
+#: DB:instrument/name:27
+msgid "alphorn"
+msgstr "alpski rog"
+
+#: DB:instrument/name:10
+msgid "alto clarinet"
+msgstr "alto klarinet"
+
+#: DB:instrument/name:346
+msgid "alto flute"
+msgstr "alto flauta"
+
+#: DB:instrument/name:21
+msgctxt "Middle member of the saxophone family"
+msgid "alto saxophone"
+msgstr "alto saksofon"
+
+#: DB:instrument/name:923
+msgctxt "Alto member of the viol family"
+msgid "alto viol"
+msgstr ""
+
+#: DB:instrument/name:174
+msgctxt "Alto or vertical violin, for French \"alto\" credits, choose viola"
+msgid "alto violin"
+msgstr "alto violina"
+
+#: DB:instrument/name:363
+msgid "amadinda"
+msgstr "amadinda"
+
+#: DB:instrument/name:809
+msgctxt "mongolian mouth harp"
+msgid "aman khuur"
+msgstr ""
+
+#: DB:instrument/name:813
+msgctxt "uses analogue circuits to produce sound"
+msgid "analog synthesizer"
+msgstr ""
+
+#: DB:instrument/name:371
+msgctxt "Single pitch bamboo rattle xylophone used in Sundanese gamelan"
+msgid "angklung"
+msgstr ""
+
+#: DB:instrument/name:373
+msgid "ankle rattlers"
+msgstr "gležanj zvečke"
+
+#: DB:instrument/name:1068
+msgctxt "Andean single row panpipe"
+msgid "antara"
+msgstr ""
+
+#: DB:instrument/name:720
+msgctxt "Tuned metal shape."
+msgid "anvil"
+msgstr ""
+
+#: DB:instrument/name:507
+msgid "archlute"
+msgstr ""
+
+#: DB:instrument/name:654
+msgid "archtop guitar"
+msgstr ""
+
+#: DB:instrument/name:634
+msgid "arghul"
+msgstr ""
+
+#: DB:instrument/name:823
+msgctxt "bass viol with guitar frets and tuning"
+msgid "arpeggione"
+msgstr ""
+
+#: DB:instrument/name:960
+msgctxt "Spanish bone scraper"
+msgid "arrabel"
+msgstr ""
+
+#: DB:instrument/name:812
+msgctxt "cone shaped west african frame-drum"
+msgid "ashiko"
+msgstr ""
+
+#: DB:instrument/name:719
+msgid "atabaque"
+msgstr ""
+
+#: DB:instrument/name:565
+msgid "atarigane"
+msgstr ""
+
+#: DB:instrument/name:409
+msgctxt "Damper bar box zither"
+msgid "autoharp"
+msgstr ""
+
+#: DB:instrument/name:880
+msgctxt "Nyabinghi bass drum"
+msgid "baandu"
+msgstr ""
+
+#: DB:instrument/name:236
+msgctxt "Treble bouzouki"
+msgid "baglamas"
+msgstr ""
+
+#: DB:instrument/name:4
+msgid "bagpipe"
+msgstr "gajde"
+
+#: DB:instrument/name:728
+msgid "bajo sexto"
+msgstr ""
+
+#: DB:instrument/name:364
+msgid "balafon"
+msgstr "balafon"
+
+#: DB:instrument/name:67
+msgid "balalaika"
+msgstr "balalajka"
+
+#: DB:instrument/name:193
+msgid "bandoneón"
+msgstr "bandoneón"
+
+#: DB:instrument/name:488
+msgid "bandora"
+msgstr "bandora"
+
+#: DB:instrument/name:394
+msgctxt "Ukraininan lute-zither"
+msgid "bandura"
+msgstr "bandura"
+
+#: DB:instrument/name:771
+msgid "bandurria"
+msgstr ""
+
+#: DB:instrument/name:581
+msgctxt "Traditional Chinese frame drum"
+msgid "bangu"
+msgstr ""
+
+#: DB:instrument/name:221
+msgctxt "northern coconut huqin"
+msgid "banhu"
+msgstr ""
+
+#: DB:instrument/name:396
+msgid "banjitar"
+msgstr "banjitar"
+
+#: DB:instrument/name:68
+msgid "banjo"
+msgstr "bendžo"
+
+#: DB:instrument/name:832
+msgctxt "banjo ukulele hybrid"
+msgid "banjo-ukulele"
+msgstr ""
+
+#: DB:instrument/name:831
+msgctxt "banjo and mandolin/violin hybrid"
+msgid "banjolin"
+msgstr ""
+
+#: DB:instrument/name:190
+msgid "bansuri"
+msgstr "bansuri"
+
+#: DB:instrument/name:819
+msgctxt "ancient asian/persian lute"
+msgid "barbat"
+msgstr ""
+
+#: DB:instrument/name:301
+msgid "baritone guitar"
+msgstr "bariton gitara"
+
+#: DB:instrument/name:28
+msgid "baritone horn"
+msgstr "bariton rog"
+
+#: DB:instrument/name:23
+msgctxt "Middle-Low member of the saxophone family"
+msgid "baritone saxophone"
+msgstr "bariton saksofon"
+
+#: DB:instrument/name:917
+msgctxt "Baroque gut string guitar"
+msgid "baroque guitar"
+msgstr ""
+
+#: DB:instrument/name:897
+msgctxt "Conical bored compact double reed"
+msgid "baroque rackett"
+msgstr ""
+
+#: DB:instrument/name:521
+msgctxt "20th century reinvented natural trumpet"
+msgid "baroque trumpet"
+msgstr ""
+
+#: DB:instrument/name:587
+msgid "barrel drum"
+msgstr ""
+
+#: DB:instrument/name:490
+msgid "barrel organ"
+msgstr "mehaničke orguljice"
+
+#: DB:instrument/name:605
+msgctxt "Bowed with pluckable strings"
+msgid "baryton"
+msgstr ""
+
+#: DB:instrument/name:47
+msgid "bass"
+msgstr "bas"
+
+#: DB:instrument/name:11
+msgid "bass clarinet"
+msgstr "bas klarinet"
+
+#: DB:instrument/name:430
+msgid "bass drum"
+msgstr "bas bubanj"
+
+#: DB:instrument/name:416
+msgid "bass flute"
+msgstr "bas flauta"
+
+#: DB:instrument/name:207
+msgid "bass guitar"
+msgstr "bas gitara"
+
+#: DB:instrument/name:465
+msgid "bass harmonica"
+msgstr "bas harmonika"
+
+#: DB:instrument/name:732
+msgid "bass oboe"
+msgstr ""
+
+#: DB:instrument/name:400
+msgid "bass pedals"
+msgstr "bas pedale"
+
+#: DB:instrument/name:293
+msgid "bass recorder"
+msgstr ""
+
+#: DB:instrument/name:444
+msgctxt "Second lowest member of the saxophone family"
+msgid "bass saxophone"
+msgstr "bas saksofon"
+
+#: DB:instrument/name:456
+msgid "bass synthesizer"
+msgstr "bas sintisajzer"
+
+#: DB:instrument/name:176
+msgid "bass trombone"
+msgstr "bas trombon"
+
+#: DB:instrument/name:727
+msgid "bass trumpet"
+msgstr ""
+
+#: DB:instrument/name:916
+msgctxt "Bass member of the viol family"
+msgid "bass viol"
+msgstr ""
+
+#: DB:instrument/name:900
+msgctxt "Sixteenth century precursor of the (violon)cello"
+msgid "bass violin"
+msgstr ""
+
+#: DB:instrument/name:404
+msgid "basset clarinet"
+msgstr "basset klarinet"
+
+#: DB:instrument/name:405
+msgid "basset horn"
+msgstr "basset rog"
+
+#: DB:instrument/name:5
+msgid "bassoon"
+msgstr "fagot"
+
+#: DB:instrument/name:483
+msgid "bawu"
+msgstr "bawu"
+
+#: DB:instrument/name:432
+msgid "bayan"
+msgstr "bayan"
+
+#: DB:instrument/name:741
+msgctxt "telescoping brass tube"
+msgid "bazooka"
+msgstr ""
+
+#: DB:instrument/name:235
+msgctxt "Turkish long-necked bowl lute"
+msgid "bağlama"
+msgstr ""
+
+#: DB:instrument/name:426
+msgid "bağlama (saz) family"
+msgstr ""
+
+#: DB:instrument/name:968
+msgctxt "Very large suspended Javanese barrel drum"
+msgid "bedug"
+msgstr ""
+
+#: DB:instrument/name:116
+msgctxt "Tuned metal cups"
+msgid "bell"
+msgstr ""
+
+#: DB:instrument/name:1072
+msgctxt "Set of tuned metal plates used in western orchestra"
+msgid "bell plate"
+msgstr ""
+
+#: DB:instrument/name:479
+msgid "bell tree"
+msgstr "drvo zvono"
+
+#: DB:instrument/name:983
+msgid "bellowed reed"
+msgstr ""
+
+#: DB:instrument/name:343
+msgid "bendir"
+msgstr "bendir bubanj"
+
+#: DB:instrument/name:828
+msgctxt "begeš, large bass serbo-croatian plucked stringinstrument"
+msgid "berda"
+msgstr ""
+
+#: DB:instrument/name:69
+msgid "berimbau"
+msgstr "berimbau"
+
+#: DB:instrument/name:920
+msgctxt "Rajasthani string membranophone"
+msgid "bhapang"
+msgstr ""
+
+#: DB:instrument/name:743
+msgid "bicycle bell"
+msgstr ""
+
+#: DB:instrument/name:380
+msgid "bin-sasara"
+msgstr "bin-sasara"
+
+#: DB:instrument/name:1013
+msgctxt "Hybrid fretted stick-zither"
+msgid "bin-sitar"
+msgstr ""
+
+#: DB:instrument/name:1117
+msgctxt "Small Breton bagpipe"
+msgid "biniou"
+msgstr ""
+
+#: DB:instrument/name:884
+msgid "birbynė"
+msgstr ""
+
+#: DB:instrument/name:801
+msgctxt "Wooden natural brass"
+msgid "birch lur"
+msgstr ""
+
+#: DB:instrument/name:824
+msgctxt "prim, small serbo-croatian plucked stringinstrument"
+msgid "bisernica"
+msgstr ""
+
+#: DB:instrument/name:70
+msgid "biwa"
+msgstr "biwa"
+
+#: DB:instrument/name:419
+msgid "boatswain's pipe"
+msgstr "noštromova zviždaljka"
+
+#: DB:instrument/name:188
+msgid "bodhrán"
+msgstr "bodhrán"
+
+#: DB:instrument/name:500
+msgid "body percussion"
+msgstr "stvaranje perkusijskih zvukova tijelom"
+
+#: DB:instrument/name:745
+msgid "bolon"
+msgstr ""
+
+#: DB:instrument/name:431
+msgid "bombarde"
+msgstr "bombarde"
+
+#: DB:instrument/name:1071
+msgctxt "Andean bass-drum"
+msgid "bombo legüero"
+msgstr ""
+
+#: DB:instrument/name:969
+msgctxt "Family of bronze gong-chime sets used in Javanese gamelan"
+msgid "bonang"
+msgstr ""
+
+#: DB:instrument/name:970
+msgctxt "Medium pitched gong-chime set in Javanese gamelan"
+msgid "bonang barung"
+msgstr ""
+
+#: DB:instrument/name:972
+msgctxt "Lowest pitched gong-chime set in Javanese gamelan"
+msgid "bonang panembung"
+msgstr ""
+
+#: DB:instrument/name:971
+msgctxt "Highest pitched gong-chime set in Javanese gamelan"
+msgid "bonang panerus"
+msgstr ""
+
+#: DB:instrument/name:357
+msgctxt "Folk music idiophone"
+msgid "bones"
+msgstr "kosti"
+
+#: DB:instrument/name:103
+msgid "bongos"
+msgstr "bongo bubanj"
+
+#: DB:instrument/name:874
+msgctxt "arrangement of bamboo tube-drums"
+msgid "boobam"
+msgstr ""
+
+#: DB:instrument/name:948
+msgctxt "Tuned hollow plastic tubes"
+msgid "boomwhacker"
+msgstr ""
+
+#: DB:instrument/name:833
+msgctxt "hybrid of bouzouki and guitar"
+msgid "bouzar / gouzouki"
+msgstr ""
+
+#: DB:instrument/name:71
+msgid "bouzouki"
+msgstr "buzuki"
+
+#: DB:instrument/name:1017
+msgid "bowed lute"
+msgstr ""
+
+#: DB:instrument/name:1018
+msgid "bowed lyre"
+msgstr ""
+
+#: DB:instrument/name:504
+msgid "bowed piano"
+msgstr "žičani piano"
+
+#: DB:instrument/name:229
+msgid "bowed psaltery"
+msgstr "žičani psalitar"
+
+#: DB:instrument/name:205
+msgid "bowed string instruments"
+msgstr "gudački žičani instrumenti"
+
+#: DB:instrument/name:24
+msgid "brass"
+msgstr "limena glazba"
+
+#: DB:instrument/name:825
+msgctxt "basprim, serbo-croatian plucked stringinstrument"
+msgid "brač"
+msgstr ""
+
+#: DB:instrument/name:800
+msgctxt "Bronze age natural brass"
+msgid "bronze lur"
+msgstr ""
+
+#: DB:instrument/name:320
+msgid "brushes"
+msgstr "četkice"
+
+#: DB:instrument/name:826
+msgctxt "kontra, serbo-croatian plucked stringinstrument"
+msgid "bugarija"
+msgstr ""
+
+#: DB:instrument/name:36
+msgid "bugle"
+msgstr "lovački rog"
+
+#: DB:instrument/name:762
+msgid "buisine"
+msgstr ""
+
+#: DB:instrument/name:577
+msgid "buk"
+msgstr ""
+
+#: DB:instrument/name:528
+msgctxt "Indian keyed box zither"
+msgid "bulbul tarang"
+msgstr ""
+
+#: DB:instrument/name:153
+msgid "bullroarer"
+msgstr ""
+
+#: DB:instrument/name:360
+msgid "button accordion"
+msgstr "harmonika s gumbovima"
+
+#: DB:instrument/name:655
+msgid "buzuq"
+msgstr ""
+
+#: DB:instrument/name:1012
+msgctxt "Family of ancient Indian stick zither chordophones"
+msgid "bīn"
+msgstr ""
+
+#: DB:instrument/name:108
+msgctxt "Modern wood and metal-bead shaker"
+msgid "cabasa"
+msgstr ""
+
+#: DB:instrument/name:903
+msgctxt "Brazilian Samba snare-drum"
+msgid "caixa"
+msgstr ""
+
+#: DB:instrument/name:336
+msgid "cajón"
+msgstr "cajón"
+
+#: DB:instrument/name:777
+msgid "calabash"
+msgstr ""
+
+#: DB:instrument/name:127
+msgid "calliope"
+msgstr "parne orgulje"
+
+#: DB:instrument/name:974
+msgctxt "Bamboo xylophone used in Sundanese gamelan"
+msgid "calung"
+msgstr ""
+
+#: DB:instrument/name:128
+msgctxt "belfry tower bell set"
+msgid "carillon"
+msgstr "zvona za sviranje melodije"
+
+#: DB:instrument/name:109
+msgctxt "Pair of concave shells"
+msgid "castanets"
+msgstr "kastanjete"
+
+#: DB:instrument/name:524
+msgctxt "Small four-stringed Portugesian lute"
+msgid "cavaquinho"
+msgstr ""
+
+#: DB:instrument/name:489
+msgid "caxixi"
+msgstr "caxixi"
+
+#: DB:instrument/name:129
+msgctxt "Struck metal plate keyboard instrument"
+msgid "celesta"
+msgstr "celesta"
+
+#: DB:instrument/name:60
+msgctxt "Small bass of modern violin family"
+msgid "cello"
+msgstr "čelo"
+
+#: DB:instrument/name:335
+msgid "chacha"
+msgstr "chacha"
+
+#: DB:instrument/name:627
+msgid "chakhe"
+msgstr ""
+
+#: DB:instrument/name:436
+msgid "chalumeau"
+msgstr "Chalumeau"
+
+#: DB:instrument/name:471
+msgid "chamber organ"
+msgstr "komorne orgulje"
+
+#: DB:instrument/name:260
+msgctxt "electromechanical piano"
+msgid "chamberlin"
+msgstr ""
+
+#: DB:instrument/name:536
+msgid "chande"
+msgstr ""
+
+#: DB:instrument/name:713
+msgid "chanzy"
+msgstr ""
+
+#: DB:instrument/name:619
+msgid "chap"
+msgstr ""
+
+#: DB:instrument/name:466
+msgctxt "Small Andean lute"
+msgid "charango"
+msgstr "Charango"
+
+#: DB:instrument/name:640
+msgid "chau gong"
+msgstr ""
+
+#: DB:instrument/name:578
+msgid "chikuzen biwa"
+msgstr ""
+
+#: DB:instrument/name:638
+msgctxt "Individual percussion plates."
+msgid "chime bar"
+msgstr ""
+
+#: DB:instrument/name:338
+msgctxt "Arrangement of hanging struck tuned metal rods."
+msgid "chimes"
+msgstr "zvonca"
+
+#: DB:instrument/name:618
+msgid "ching"
+msgstr ""
+
+#: DB:instrument/name:821
+msgctxt "oboe-like double-reed from South-America"
+msgid "chirimía"
+msgstr ""
+
+#: DB:instrument/name:822
+msgctxt "pair of double-reed and drum. from South America."
+msgid "chirimía and drum"
+msgstr ""
+
+#: DB:instrument/name:939
+msgctxt "Italian strumming 17th century guitar"
+msgid "chitarra battente"
+msgstr ""
+
+#: DB:instrument/name:744
+msgctxt "Large South Indian fretless Carnatic slide lute"
+msgid "chitra veena"
+msgstr ""
+
+#: DB:instrument/name:433
+msgctxt "Accordion with buttons arranged chromatically"
+msgid "chromatic button accordion"
+msgstr "kromatska harmonika s gumbovima"
+
+#: DB:instrument/name:300
+msgid "chromatic harmonica"
+msgstr "kromatska harmonika"
+
+#: DB:instrument/name:906
+msgctxt "ancient predecessor of the Morin khuur"
+msgid "chuurqin"
+msgstr ""
+
+#: DB:instrument/name:256
+msgctxt "European hammered dulcimer"
+msgid "cimbalom"
+msgstr ""
+
+#: DB:instrument/name:929
+msgctxt "19th century bass trombone"
+msgid "cimbasso"
+msgstr ""
+
+#: DB:instrument/name:761
+msgid "citole"
+msgstr ""
+
+#: DB:instrument/name:237
+msgid "cittern"
+msgstr "citra"
+
+#: DB:instrument/name:218
+msgctxt "large huqin"
+msgid "cizhonghu"
+msgstr "cizhonghu"
+
+#: DB:instrument/name:904
+msgctxt "egyptian ancient clappers"
+msgid "clapper"
+msgstr ""
+
+#: DB:instrument/name:955
+msgctxt "Ancient Aboriginal rhythm stick"
+msgid "clapstick"
+msgstr ""
+
+#: DB:instrument/name:9
+msgid "clarinet"
+msgstr "klarinet"
+
+#: DB:instrument/name:54
+msgctxt "Modern acoustic gut/nylon string guitar"
+msgid "classical guitar"
+msgstr "klasična gitara"
+
+#: DB:instrument/name:542
+msgid "classical kemençe"
+msgstr ""
+
+#: DB:instrument/name:110
+msgid "claves"
+msgstr "claves"
+
+#: DB:instrument/name:130
+msgid "clavichord"
+msgstr "klavikord"
+
+#: DB:instrument/name:175
+msgctxt "Electro-mechanical amplified clavichord"
+msgid "clavinet"
+msgstr "clavinet"
+
+#: DB:instrument/name:780
+msgctxt "free reed aerophone with pitching pipes."
+msgid "claviola"
+msgstr ""
+
+#: DB:instrument/name:815
+msgctxt "electronic keyboard, forerunner to analogue synthesizers"
+msgid "clavioline"
+msgstr ""
+
+#: DB:instrument/name:912
+msgctxt "Fifteenth century organ harpsichord hybrid"
+msgid "claviorganum"
+msgstr ""
+
+#: DB:instrument/name:414
+msgid "concert flute"
+msgstr "koncertna flauta"
+
+#: DB:instrument/name:351
+msgid "concert harp"
+msgstr "koncertna harfa"
+
+#: DB:instrument/name:42
+msgid "concertina"
+msgstr "koncertina"
+
+#: DB:instrument/name:156
+msgid "conch"
+msgstr "conch"
+
+#: DB:instrument/name:958
+msgid "concussion idiophone"
+msgstr ""
+
+#: DB:instrument/name:102
+msgid "congas"
+msgstr "congas"
+
+#: DB:instrument/name:390
+msgid "continuum"
+msgstr "continuum"
+
+#: DB:instrument/name:12
+msgid "contrabass clarinet"
+msgstr "kontrabas klarinet"
+
+#: DB:instrument/name:820
+msgid "contrabass flute"
+msgstr ""
+
+#: DB:instrument/name:295
+msgid "contrabass recorder"
+msgstr ""
+
+#: DB:instrument/name:446
+msgctxt "Largest member of the saxophone family"
+msgid "contrabass saxophone"
+msgstr ""
+
+#: DB:instrument/name:6
+msgid "contrabassoon"
+msgstr ""
+
+#: DB:instrument/name:7
+msgctxt "Curved bulb belled transposing oboe"
+msgid "cor anglais"
+msgstr ""
+
+#: DB:instrument/name:510
+msgid "cornamuse"
+msgstr ""
+
+#: DB:instrument/name:25
+msgctxt "19th century brass trumpet-like"
+msgid "cornet"
+msgstr ""
+
+#: DB:instrument/name:203
+msgctxt "Wooden medieval wind instrument"
+msgid "cornett"
+msgstr ""
+
+#: DB:instrument/name:158
+msgctxt "Tuned metal bell"
+msgid "cowbell"
+msgstr ""
+
+#: DB:instrument/name:779
+msgctxt "guitar/Viola caipira like plucked string instrument"
+msgid "craviola"
+msgstr ""
+
+#: DB:instrument/name:164
+msgid "crotales"
+msgstr ""
+
+#: DB:instrument/name:348
+msgid "crumhorn"
+msgstr ""
+
+#: DB:instrument/name:74
+msgid "crwth"
+msgstr ""
+
+#: DB:instrument/name:439
+msgid "cuatro"
+msgstr ""
+
+#: DB:instrument/name:491
+msgctxt "Brazilian friction-drum"
+msgid "cuíca"
+msgstr ""
+
+#: DB:instrument/name:658
+msgid "cylindrical drum"
+msgstr ""
+
+#: DB:instrument/name:271
+msgid "cymbal"
+msgstr ""
+
+#: DB:instrument/name:309
+msgid "cò ke"
+msgstr ""
+
+#: DB:instrument/name:410
+msgctxt "Turkish oud like"
+msgid "cümbüş"
+msgstr ""
+
+#: DB:instrument/name:492
+msgid "daegeum"
+msgstr ""
+
+#: DB:instrument/name:326
+msgid "daf"
+msgstr ""
+
+#: DB:instrument/name:532
+msgid "daire"
+msgstr ""
+
+#: DB:instrument/name:551
+msgid "daluo"
+msgstr ""
+
+#: DB:instrument/name:927
+msgctxt "Korean educational end-blown bamboo flute"
+msgid "danso"
+msgstr ""
+
+#: DB:instrument/name:342
+msgid "darbuka"
+msgstr ""
+
+#: DB:instrument/name:546
+msgctxt "Bass ruan"
+msgid "daruan"
+msgstr ""
+
+#: DB:instrument/name:411
+msgid "davul"
+msgstr ""
+
+#: DB:instrument/name:535
+msgid "dhol"
+msgstr ""
+
+#: DB:instrument/name:382
+msgid "dholak"
+msgstr ""
+
+#: DB:instrument/name:361
+msgctxt "Accordion with buttons arranged diatonically"
+msgid "diatonic button accordion"
+msgstr ""
+
+#: DB:instrument/name:635
+msgid "diddley bow"
+msgstr ""
+
+#: DB:instrument/name:155
+msgid "didgeridoo"
+msgstr ""
+
+#: DB:instrument/name:530
+msgid "dilruba"
+msgstr ""
+
+#: DB:instrument/name:317
+msgid "ding tac ta"
+msgstr ""
+
+#: DB:instrument/name:602
+msgid "disk drive"
+msgstr ""
+
+#: DB:instrument/name:220
+msgctxt "bass gehu (huqin)"
+msgid "diyingehu"
+msgstr ""
+
+#: DB:instrument/name:460
+msgid "dizi"
+msgstr ""
+
+#: DB:instrument/name:265
+msgid "djembe"
+msgstr ""
+
+#: DB:instrument/name:850
+msgctxt "ancient Iraqi bowed string instrument"
+msgid "djoza"
+msgstr ""
+
+#: DB:instrument/name:399
+msgid "dohol"
+msgstr ""
+
+#: DB:instrument/name:750
+msgid "dolceola"
+msgstr ""
+
+#: DB:instrument/name:598
+msgid "dombra"
+msgstr ""
+
+#: DB:instrument/name:485
+msgid "domra"
+msgstr ""
+
+#: DB:instrument/name:776
+msgctxt "West African calabash lute-harp"
+msgid "donso ngɔni"
+msgstr ""
+
+#: DB:instrument/name:706
+msgid "doshpuluur"
+msgstr ""
+
+#: DB:instrument/name:48
+msgctxt "Contrabass of modern violin family"
+msgid "double bass"
+msgstr ""
+
+#: DB:instrument/name:3
+msgid "double reed"
+msgstr ""
+
+#: DB:instrument/name:111
+msgid "doyra"
+msgstr ""
+
+#: DB:instrument/name:689
+msgid "dramyin"
+msgstr ""
+
+#: DB:instrument/name:120
+msgctxt "drum programming"
+msgid "drum machine"
+msgstr ""
+
+#: DB:instrument/name:101
+msgctxt "Set of drums in modern music"
+msgid "drums (drum set)"
+msgstr ""
+
+#: DB:instrument/name:649
+msgid "duck call"
+msgstr ""
+
+#: DB:instrument/name:397
+msgid "duduk"
+msgstr ""
+
+#: DB:instrument/name:851
+msgctxt "indian clay kettle drum"
+msgid "duggi"
+msgstr ""
+
+#: DB:instrument/name:773
+msgid "dulce melos"
+msgstr ""
+
+#: DB:instrument/name:496
+msgid "dulcian"
+msgstr ""
+
+#: DB:instrument/name:841
+msgctxt "Acoustic keyboard tuning fork idiophone"
+msgid "dulcitone"
+msgstr ""
+
+#: DB:instrument/name:770
+msgid "dulzaina"
+msgstr ""
+
+#: DB:instrument/name:659
+msgid "dunun"
+msgstr ""
+
+#: DB:instrument/name:629
+msgid "dutar"
+msgstr ""
+
+#: DB:instrument/name:596
+msgid "duxianqin"
+msgstr ""
+
+#: DB:instrument/name:327
+msgid "ebow"
+msgstr ""
+
+#: DB:instrument/name:677
+msgid "effects"
+msgstr ""
+
+#: DB:instrument/name:51
+msgid "electric bass guitar"
+msgstr ""
+
+#: DB:instrument/name:208
+msgid "electric cello"
+msgstr ""
+
+#: DB:instrument/name:538
+msgid "electric fretless guitar"
+msgstr ""
+
+#: DB:instrument/name:682
+msgid "electric grand piano"
+msgstr ""
+
+#: DB:instrument/name:55
+msgid "electric guitar"
+msgstr ""
+
+#: DB:instrument/name:352
+msgid "electric harp"
+msgstr ""
+
+#: DB:instrument/name:389
+msgid "electric lap steel guitar"
+msgstr ""
+
+#: DB:instrument/name:259
+msgid "electric piano"
+msgstr ""
+
+#: DB:instrument/name:246
+msgctxt "electric guitar variant of sitar"
+msgid "electric sitar"
+msgstr ""
+
+#: DB:instrument/name:49
+msgid "electric upright bass"
+msgstr ""
+
+#: DB:instrument/name:648
+msgid "electric viola"
+msgstr ""
+
+#: DB:instrument/name:212
+msgid "electric violin"
+msgstr ""
+
+#: DB:instrument/name:402
+msgid "electronic drum set"
+msgstr ""
+
+#: DB:instrument/name:117
+msgid "electronic instruments"
+msgstr ""
+
+#: DB:instrument/name:447
+msgid "electronic organ"
+msgstr ""
+
+#: DB:instrument/name:848
+msgctxt "electronic keyboard accordion"
+msgid "elektronium"
+msgstr ""
+
+#: DB:instrument/name:14
+msgid "end-blown flute"
+msgstr ""
+
+#: DB:instrument/name:215
+msgctxt "Middle range huqin"
+msgid "erhu"
+msgstr ""
+
+#: DB:instrument/name:529
+msgid "esraj"
+msgstr ""
+
+#: DB:instrument/name:150
+msgid "euphonium"
+msgstr ""
+
+#: DB:instrument/name:448
+msgid "farfisa"
+msgstr ""
+
+#: DB:instrument/name:61
+msgid "fiddle"
+msgstr ""
+
+#: DB:instrument/name:514
+msgid "fife"
+msgstr ""
+
+#: DB:instrument/name:461
+msgid "finger cymbals"
+msgstr ""
+
+#: DB:instrument/name:449
+msgid "finger snaps"
+msgstr ""
+
+#: DB:instrument/name:194
+msgid "fipple flute"
+msgstr ""
+
+#: DB:instrument/name:523
+msgid "five-string banjo"
+msgstr ""
+
+#: DB:instrument/name:845
+msgctxt "Small Catalan fipple flute"
+msgid "flabiol"
+msgstr ""
+
+#: DB:instrument/name:843
+msgctxt "french 16th century fipple flute"
+msgid "flageolet"
+msgstr ""
+
+#: DB:instrument/name:938
+msgctxt "Guitar used in flamenco"
+msgid "flamenco guitar"
+msgstr ""
+
+#: DB:instrument/name:604
+msgid "floppy disk drive"
+msgstr ""
+
+#: DB:instrument/name:29
+msgid "flugelhorn"
+msgstr ""
+
+#: DB:instrument/name:742
+msgctxt "Hybrid between trumpet and flugelhorn"
+msgid "flumpet"
+msgstr ""
+
+#: DB:instrument/name:13
+msgctxt "Reedless aerophone"
+msgid "flute"
+msgstr ""
+
+#: DB:instrument/name:1074
+msgid "flutina"
+msgstr ""
+
+#: DB:instrument/name:415
+msgid "flûte d'amour"
+msgstr ""
+
+#: DB:instrument/name:353
+msgid "folk harp"
+msgstr ""
+
+#: DB:instrument/name:478
+msgid "foot stomps"
+msgstr ""
+
+#: DB:instrument/name:1020
+msgctxt "Foot operated bass bellows"
+msgid "footbass"
+msgstr ""
+
+#: DB:instrument/name:384
+msgid "fortepiano"
+msgstr ""
+
+#: DB:instrument/name:656
+msgid "four-string banjo"
+msgstr ""
+
+#: DB:instrument/name:344
+msgid "frame drum"
+msgstr ""
+
+#: DB:instrument/name:40
+msgid "free reed"
+msgstr ""
+
+#: DB:instrument/name:435
+msgid "fretless bass"
+msgstr ""
+
+#: DB:instrument/name:586
+msgid "friction drum"
+msgstr ""
+
+#: DB:instrument/name:701
+msgid "friction idiophone"
+msgstr ""
+
+#: DB:instrument/name:368
+msgctxt "Zydeco vest scraper"
+msgid "frottoir"
+msgstr ""
+
+#: DB:instrument/name:571
+msgid "fujara"
+msgstr ""
+
+#: DB:instrument/name:881
+msgctxt "Nyabinghi middle pitch drum"
+msgid "fundeh"
+msgstr ""
+
+#: DB:instrument/name:231
+msgid "gadulka"
+msgstr ""
+
+#: DB:instrument/name:1077
+msgctxt "Southeastern Europe and Balkan bagpipe"
+msgid "gaida"
+msgstr ""
+
+#: DB:instrument/name:1080
+msgctxt "Larger Asturian bagpipe"
+msgid "gaita asturiana"
+msgstr ""
+
+#: DB:instrument/name:1081
+msgctxt "Cloth covered Aragonese bagpipe"
+msgid "gaita de boto"
+msgstr ""
+
+#: DB:instrument/name:1079
+msgctxt "Two to three drone Galician bagpipe"
+msgid "gaita gallega"
+msgstr ""
+
+#: DB:instrument/name:1078
+msgctxt "Small single drone Sanabrian bagpipe"
+msgid "gaita sanabresa"
+msgstr ""
+
+#: DB:instrument/name:1114
+msgctxt "Large Silesian bellow-blown bagpipe"
+msgid "gajdy"
+msgstr ""
+
+#: DB:instrument/name:977
+msgctxt "Indonesian wood box-resonated xylophone"
+msgid "gambang"
+msgstr ""
+
+#: DB:instrument/name:853
+msgctxt "sound chip from gaming consoles"
+msgid "game console sound chip"
+msgstr ""
+
+#: DB:instrument/name:365
+msgctxt "Indonesian traditional ensemble"
+msgid "gamelan"
+msgstr ""
+
+#: DB:instrument/name:383
+msgid "gankogui"
+msgstr ""
+
+#: DB:instrument/name:644
+msgctxt "Brazilian samba shaker"
+msgid "ganzá"
+msgstr ""
+
+#: DB:instrument/name:216
+msgctxt "High pitched huqin"
+msgid "gaohu"
+msgstr ""
+
+#: DB:instrument/name:756
+msgid "garifuna drum"
+msgstr ""
+
+#: DB:instrument/name:289
+msgid "garklein recorder"
+msgstr ""
+
+#: DB:instrument/name:1075
+msgctxt "Russian diatonic folk accordion"
+msgid "garmon"
+msgstr ""
+
+#: DB:instrument/name:75
+msgid "gayageum"
+msgstr ""
+
+#: DB:instrument/name:219
+msgctxt "cello huqin"
+msgid "gehu"
+msgstr ""
+
+#: DB:instrument/name:868
+msgctxt "Medieval chamois or goat horn"
+msgid "gemshorn"
+msgstr ""
+
+#: DB:instrument/name:961
+msgctxt "Family of Indonesian metallophones"
+msgid "gendèr"
+msgstr ""
+
+#: DB:instrument/name:1004
+msgctxt "Middle pitch metallophone used in Javanese gamelan"
+msgid "gendèr barung"
+msgstr ""
+
+#: DB:instrument/name:1003
+msgctxt "Higest pitch metallophone used in Javanese gamelan"
+msgid "gendèr panerus"
+msgstr ""
+
+#: DB:instrument/name:1005
+msgctxt "Ten key metallophone used in Bali wayang."
+msgid "gendèr wayang"
+msgstr ""
+
+#: DB:instrument/name:76
+msgid "geomungo"
+msgstr ""
+
+#: DB:instrument/name:331
+msgctxt "South Indian Carnatic percussion"
+msgid "ghatam"
+msgstr ""
+
+#: DB:instrument/name:931
+msgctxt "Persian double-chambered bowl lute"
+msgid "ghaychak"
+msgstr ""
+
+#: DB:instrument/name:932
+msgctxt "Uyghur spike fiddle"
+msgid "ghijak"
+msgstr ""
+
+#: DB:instrument/name:802
+msgctxt "Medieval lute-like guitar forerunner"
+msgid "gittern"
+msgstr ""
+
+#: DB:instrument/name:796
+msgctxt "Elguitar/bass effect device"
+msgid "gizmo"
+msgstr ""
+
+#: DB:instrument/name:285
+msgctxt "Glass bowls mounted on spindle"
+msgid "glass harmonica"
+msgstr ""
+
+#: DB:instrument/name:765
+msgctxt "Musical Glasses"
+msgid "glass harp"
+msgstr ""
+
+#: DB:instrument/name:165
+msgid "glockenspiel"
+msgstr ""
+
+#: DB:instrument/name:268
+msgid "goblet drum"
+msgstr ""
+
+#: DB:instrument/name:270
+msgctxt "Tuned metal discs"
+msgid "gong"
+msgstr ""
+
+#: DB:instrument/name:639
+msgid "gong bass drum"
+msgstr ""
+
+#: DB:instrument/name:981
+msgctxt "Arrangement of kettle shaped gongs"
+msgid "gong-chime"
+msgstr ""
+
+#: DB:instrument/name:643
+msgctxt "Indian drum-zither"
+msgid "gopichant"
+msgstr ""
+
+#: DB:instrument/name:582
+msgid "gralla"
+msgstr ""
+
+#: DB:instrument/name:748
+msgid "gramorimba"
+msgstr ""
+
+#: DB:instrument/name:138
+msgid "grand piano"
+msgstr ""
+
+#: DB:instrument/name:294
+msgid "great bass recorder / c-bass recorder"
+msgstr ""
+
+#: DB:instrument/name:683
+msgid "guan"
+msgstr ""
+
+#: DB:instrument/name:956
+msgctxt "Traditional chinese drum and clapper."
+msgid "guban"
+msgstr ""
+
+#: DB:instrument/name:230
+msgid "gudok"
+msgstr ""
+
+#: DB:instrument/name:645
+msgid "guitalele"
+msgstr ""
+
+#: DB:instrument/name:177
+msgid "guitar"
+msgstr ""
+
+#: DB:instrument/name:52
+msgctxt "DO NOT USE"
+msgid "guitar family"
+msgstr ""
+
+#: DB:instrument/name:763
+msgid "guitar synthesizer"
+msgstr ""
+
+#: DB:instrument/name:688
+msgid "guitarrón chileno"
+msgstr ""
+
+#: DB:instrument/name:687
+msgid "guitarrón mexicano"
+msgstr ""
+
+#: DB:instrument/name:835
+msgctxt "el guitar / el organ hybrid"
+msgid "guitorgan"
+msgstr ""
+
+#: DB:instrument/name:325
+msgctxt "3-stringed plucked bass-lute"
+msgid "gumbri"
+msgstr ""
+
+#: DB:instrument/name:506
+msgid "guqin"
+msgstr ""
+
+#: DB:instrument/name:423
+msgctxt "Traditional Russian plucked psaltery"
+msgid "gusli"
+msgstr ""
+
+#: DB:instrument/name:452
+msgid "guzheng"
+msgstr ""
+
+#: DB:instrument/name:937
+msgctxt "Dominican metal scraper"
+msgid "güira"
+msgstr ""
+
+#: DB:instrument/name:112
+msgctxt "Latin American gourd scraper"
+msgid "güiro"
+msgstr ""
+
+#: DB:instrument/name:486
+msgctxt "Korean silk-string fiddle"
+msgid "haegeum"
+msgstr ""
+
+#: DB:instrument/name:77
+msgid "hammered dulcimer"
+msgstr ""
+
+#: DB:instrument/name:275
+msgctxt "Open hand-rung bell"
+msgid "handbell"
+msgstr ""
+
+#: DB:instrument/name:321
+msgid "handclaps"
+msgstr ""
+
+#: DB:instrument/name:512
+msgctxt "Tuned metal ufo"
+msgid "handpan"
+msgstr ""
+
+#: DB:instrument/name:603
+msgid "hard disk drive"
+msgstr ""
+
+#: DB:instrument/name:78
+msgid "hardingfele"
+msgstr ""
+
+#: DB:instrument/name:43
+msgctxt "mouth organ"
+msgid "harmonica"
+msgstr ""
+
+#: DB:instrument/name:135
+msgctxt "Portable Indian reed organ"
+msgid "harmonium"
+msgstr ""
+
+#: DB:instrument/name:58
+msgid "harp"
+msgstr ""
+
+#: DB:instrument/name:681
+msgid "harp guitar"
+msgstr ""
+
+#: DB:instrument/name:894
+msgctxt "Electric guitar-piano tapping instrument"
+msgid "harpejji"
+msgstr ""
+
+#: DB:instrument/name:131
+msgid "harpsichord"
+msgstr ""
+
+#: DB:instrument/name:191
+msgid "heckelphone"
+msgstr ""
+
+#: DB:instrument/name:579
+msgid "heike biwa"
+msgstr ""
+
+#: DB:instrument/name:678
+msgid "helicon"
+msgstr ""
+
+#: DB:instrument/name:454
+msgid "hi-hat"
+msgstr ""
+
+#: DB:instrument/name:616
+msgctxt "Japanese double reed flute"
+msgid "hichiriki"
+msgstr ""
+
+#: DB:instrument/name:312
+msgid "hmông flute"
+msgstr ""
+
+#: DB:instrument/name:26
+msgid "horn"
+msgstr ""
+
+#: DB:instrument/name:709
+msgid "hotchiku"
+msgstr ""
+
+#: DB:instrument/name:585
+msgid "hourglass drum"
+msgstr ""
+
+#: DB:instrument/name:858
+msgctxt "Māori taonga pūoro large bass gourd"
+msgid "hue puruhau"
+msgstr ""
+
+#: DB:instrument/name:857
+msgctxt "Māori taonga pūoro shaking gourd"
+msgid "hue puruwai"
+msgstr ""
+
+#: DB:instrument/name:547
+msgid "hulusi"
+msgstr ""
+
+#: DB:instrument/name:1030
+msgctxt "Medieval pear-shaped drone zither"
+msgid "hummel"
+msgstr ""
+
+#: DB:instrument/name:213
+msgid "huqin"
+msgstr ""
+
+#: DB:instrument/name:79
+msgid "hurdy gurdy"
+msgstr ""
+
+#: DB:instrument/name:889
+msgctxt "\"woodwater\" flute made with hydraulics"
+msgid "hydraulophone"
+msgstr ""
+
+#: DB:instrument/name:905
+msgctxt "Japanese concussion idiophone"
+msgid "hyoshigi"
+msgstr ""
+
+#: DB:instrument/name:818
+msgctxt "fipple flute from Härjedalen, Sweden"
+msgid "härjedalspipa"
+msgstr ""
+
+#: DB:instrument/name:674
+msgid "idiophone"
+msgstr ""
+
+#: DB:instrument/name:707
+msgid "igil"
+msgstr ""
+
+#: DB:instrument/name:495
+msgid "janggu"
+msgstr ""
+
+#: DB:instrument/name:1032
+msgctxt "Rajasthani stick zither"
+msgid "jantar"
+msgstr ""
+
+#: DB:instrument/name:979
+msgctxt "Deepest pitch gangsa used in Balinese gamelan"
+msgid "jegogan"
+msgstr ""
+
+#: DB:instrument/name:854
+msgctxt "West African four-stringed grigot lute"
+msgid "jeli ngɔni"
+msgstr ""
+
+#: DB:instrument/name:552
+msgid "jing"
+msgstr ""
+
+#: DB:instrument/name:549
+msgctxt "Beijing opera supporting erhu (huqin)"
+msgid "jing'erhu"
+msgstr ""
+
+#: DB:instrument/name:214
+msgctxt "Beijing opera upmost small & high pitch huqin"
+msgid "jinghu"
+msgstr ""
+
+#: DB:instrument/name:695
+msgid "jouhikko"
+msgstr ""
+
+#: DB:instrument/name:980
+msgctxt "Second deepest pitch gangsa used in Balinese gamelan"
+msgid "jublag"
+msgstr ""
+
+#: DB:instrument/name:505
+msgid "jug"
+msgstr ""
+
+#: DB:instrument/name:892
+msgctxt "Sacred royal Serer war drum"
+msgid "junjung"
+msgstr ""
+
+#: DB:instrument/name:283
+msgctxt "Vietnamese Air Xylophone"
+msgid "k'lông pút"
+msgstr ""
+
+#: DB:instrument/name:999
+msgctxt "Family of Sundanese string zithers"
+msgid "kacapi"
+msgstr ""
+
+#: DB:instrument/name:1001
+msgctxt "Boat shaped zither used in Sundanese gamelan"
+msgid "kacapi indung"
+msgstr ""
+
+#: DB:instrument/name:1002
+msgctxt "Small boat shaped zither used in Sundanese gamelan"
+msgid "kacapi rincik"
+msgstr ""
+
+#: DB:instrument/name:1000
+msgctxt "Box zither used in Sundanese gamelan"
+msgid "kacapi siter"
+msgstr ""
+
+#: DB:instrument/name:947
+msgctxt "Flat-cut gourd sitar"
+msgid "kachva sitar"
+msgstr ""
+
+#: DB:instrument/name:849
+msgctxt "Japanese transverse bamboo flute"
+msgid "kagurabue"
+msgstr ""
+
+#: DB:instrument/name:817
+msgctxt "Modern ngoni made of calabash with more strings"
+msgid "kamale ngɔni"
+msgstr ""
+
+#: DB:instrument/name:503
+msgctxt "Persian spike-fiddle"
+msgid "kamancheh"
+msgstr ""
+
+#: DB:instrument/name:474
+msgctxt "South Indian frame drum."
+msgid "kanjira"
+msgstr ""
+
+#: DB:instrument/name:422
+msgctxt "Traditional Lithuanian plucked psaltery"
+msgid "kanklės"
+msgstr ""
+
+#: DB:instrument/name:872
+msgctxt "Traditional Estonian plucked psaltery"
+msgid "kannel"
+msgstr ""
+
+#: DB:instrument/name:424
+msgctxt "Traditional Finnish plucked psaltery"
+msgid "kantele"
+msgstr ""
+
+#: DB:instrument/name:975
+msgctxt "High pitch gangsa used in Balinese gamelan"
+msgid "kantilan"
+msgstr ""
+
+#: DB:instrument/name:288
+msgid "kanun"
+msgstr ""
+
+#: DB:instrument/name:534
+msgid "kartal"
+msgstr ""
+
+#: DB:instrument/name:458
+msgid "kaval"
+msgstr ""
+
+#: DB:instrument/name:143
+msgid "kazoo"
+msgstr ""
+
+#: DB:instrument/name:978
+msgctxt "Indonesian racked cymbals"
+msgid "kecer"
+msgstr ""
+
+#: DB:instrument/name:988
+msgctxt "Banana shaped bronze slit-drum used in javanese gamelan"
+msgid "kemanak"
+msgstr ""
+
+#: DB:instrument/name:211
+msgctxt "Eastern Mediterranean bowed lute"
+msgid "kemenche"
+msgstr ""
+
+#: DB:instrument/name:541
+msgid "kemençe of the Black Sea"
+msgstr ""
+
+#: DB:instrument/name:982
+msgctxt "Singular metal timekeeping gong-chime used in Balinese gamelan"
+msgid "kempli"
+msgstr ""
+
+#: DB:instrument/name:984
+msgctxt "Javanese hanging gong-set"
+msgid "kempul"
+msgstr ""
+
+#: DB:instrument/name:987
+msgctxt "Small boxed double gong-chime used in Javanese gamelan"
+msgid "kempyang"
+msgstr ""
+
+#: DB:instrument/name:989
+msgctxt "Family of two sided laced drums used in various gamelan"
+msgid "kendang"
+msgstr ""
+
+#: DB:instrument/name:994
+msgctxt "High pitched cylindrical kendang used in Bali gamelan."
+msgid "kendang lanang"
+msgstr ""
+
+#: DB:instrument/name:995
+msgctxt "Low pitched cylindrical kendang used in Bali gamelan."
+msgid "kendang wadon"
+msgstr ""
+
+#: DB:instrument/name:992
+msgctxt "Middle conical kendang used in both Javanese/Sundanese gamelan"
+msgid "kendhang batangan"
+msgstr ""
+
+#: DB:instrument/name:990
+msgctxt "Largest conical kendang used in both Javanese/Sundanese gamelan"
+msgid "kendhang gendhing"
+msgstr ""
+
+#: DB:instrument/name:996
+msgctxt "King-Size truncated cone kendang used in Sundanese gamelan"
+msgid "kendhang indung"
+msgstr ""
+
+#: DB:instrument/name:991
+msgctxt "Smallest conical kendang used in both Javanese/Sundanese gamelan"
+msgid "kendhang ketipung"
+msgstr ""
+
+#: DB:instrument/name:997
+msgctxt "Paired truncated cone kendang used in Sundanese gamelan"
+msgid "kendhang kulanter"
+msgstr ""
+
+#: DB:instrument/name:993
+msgctxt "Middle conical kendang used in javanese gamelan"
+msgid "kendhang wayangan"
+msgstr ""
+
+#: DB:instrument/name:985
+msgctxt "Large high-pitch gong-chime used in Indonesian Gamelan"
+msgid "kenong"
+msgstr ""
+
+#: DB:instrument/name:998
+msgctxt "Metal plate percussion used in Javanese gamelan"
+msgid "kepyak"
+msgstr ""
+
+#: DB:instrument/name:986
+msgctxt "Small boxed gong-chime used in Javanese gamelan"
+msgid "kethuk"
+msgstr ""
+
+#: DB:instrument/name:367
+msgid "kettle drum"
+msgstr ""
+
+#: DB:instrument/name:178
+msgctxt "electronic or digital keyboard"
+msgid "keyboard"
+msgstr ""
+
+#: DB:instrument/name:362
+msgid "keyboard bass"
+msgstr ""
+
+#: DB:instrument/name:1028
+msgctxt "Composite chordophone"
+msgid "keyed box zither"
+msgstr ""
+
+#: DB:instrument/name:154
+msgid "keyed brass instruments"
+msgstr ""
+
+#: DB:instrument/name:774
+msgctxt "Shoulder-strapped electric keyboard"
+msgid "keytar"
+msgstr ""
+
+#: DB:instrument/name:611
+msgctxt "Traditional bamboo mouth organ"
+msgid "khene"
+msgstr ""
+
+#: DB:instrument/name:287
+msgctxt "Thai and Cambodian hammered dulcimer"
+msgid "khim"
+msgstr ""
+
+#: DB:instrument/name:666
+msgctxt "Vertical bamboo duct flute"
+msgid "khlui"
+msgstr ""
+
+#: DB:instrument/name:621
+msgid "khong wong"
+msgstr ""
+
+#: DB:instrument/name:622
+msgid "khong wong lek"
+msgstr ""
+
+#: DB:instrument/name:623
+msgid "khong wong yai"
+msgstr ""
+
+#: DB:instrument/name:811
+msgctxt "bamboo mongolian jew's harp"
+msgid "khulsan khuur"
+msgstr ""
+
+#: DB:instrument/name:318
+msgid "khèn Mèo"
+msgstr ""
+
+#: DB:instrument/name:307
+msgid "ki pah"
+msgstr ""
+
+#: DB:instrument/name:247
+msgid "kinnor"
+msgstr ""
+
+#: DB:instrument/name:248
+msgid "kithara"
+msgstr ""
+
+#: DB:instrument/name:498
+msgid "kkwaenggwari"
+msgstr ""
+
+#: DB:instrument/name:671
+msgid "klong khaek"
+msgstr ""
+
+#: DB:instrument/name:672
+msgid "klong song na"
+msgstr ""
+
+#: DB:instrument/name:673
+msgid "klong that"
+msgstr ""
+
+#: DB:instrument/name:670
+msgid "klong yao"
+msgstr ""
+
+#: DB:instrument/name:893
+msgctxt "Traditional Latvian plucked psaltery"
+msgid "kokle"
+msgstr ""
+
+#: DB:instrument/name:223
+msgctxt "Traditional Japanese bowed spikefiddle."
+msgid "kokyu"
+msgstr ""
+
+#: DB:instrument/name:543
+msgctxt "Ancient Kyrgys fretless string"
+msgid "komuz"
+msgstr ""
+
+#: DB:instrument/name:81
+msgid "kora"
+msgstr ""
+
+#: DB:instrument/name:264
+msgid "kortholt"
+msgstr ""
+
+#: DB:instrument/name:82
+msgid "koto"
+msgstr ""
+
+#: DB:instrument/name:557
+msgid "kotsuzumi"
+msgstr ""
+
+#: DB:instrument/name:652
+msgid "krakebs"
+msgstr ""
+
+#: DB:instrument/name:949
+msgctxt "Group of thai concussion idiophones"
+msgid "krap"
+msgstr ""
+
+#: DB:instrument/name:950
+msgctxt "Thai bamboo concussion sticks"
+msgid "krap khū"
+msgstr ""
+
+#: DB:instrument/name:951
+msgctxt "Thai wood/brass clappers"
+msgid "krap phuang"
+msgstr ""
+
+#: DB:instrument/name:952
+msgctxt "Thai bevelled wood rhythm-sticks"
+msgid "krap sēphā"
+msgstr ""
+
+#: DB:instrument/name:734
+msgid "krar"
+msgstr ""
+
+#: DB:instrument/name:525
+msgid "kudüm"
+msgstr ""
+
+#: DB:instrument/name:303
+msgctxt "Vietnamese double reed"
+msgid "kèn bầu"
+msgstr ""
+
+#: DB:instrument/name:311
+msgid "kèn lá"
+msgstr ""
+
+#: DB:instrument/name:739
+msgid "kös"
+msgstr ""
+
+#: DB:instrument/name:782
+msgctxt "Māori taonga pūoro small cross-blown flute"
+msgid "kōauau"
+msgstr ""
+
+#: DB:instrument/name:856
+msgctxt "Māori taonga pūoro tiny gourd nose flute"
+msgid "kōauau ponga ihu"
+msgstr ""
+
+#: DB:instrument/name:632
+msgid "lamellaphone"
+msgstr ""
+
+#: DB:instrument/name:249
+msgid "langeleik"
+msgstr ""
+
+#: DB:instrument/name:704
+msgctxt "Greek long-neck lute"
+msgid "laouto"
+msgstr ""
+
+#: DB:instrument/name:886
+msgctxt "simplified zither"
+msgid "lap harp"
+msgstr ""
+
+#: DB:instrument/name:385
+msgid "lap steel guitar"
+msgstr ""
+
+#: DB:instrument/name:515
+msgid "laser harp"
+msgstr ""
+
+#: DB:instrument/name:144
+msgid "lasso d'amore"
+msgstr ""
+
+#: DB:instrument/name:518
+msgid "launeddas"
+msgstr ""
+
+#: DB:instrument/name:764
+msgid "lautenwerck"
+msgstr ""
+
+#: DB:instrument/name:705
+msgid "lavta"
+msgstr ""
+
+#: DB:instrument/name:803
+msgctxt "spanish plucked chordophone"
+msgid "laúd"
+msgstr ""
+
+#: DB:instrument/name:573
+msgid "limbe"
+msgstr ""
+
+#: DB:instrument/name:1016
+msgctxt "Renaissance violin"
+msgid "lira da braccio"
+msgstr ""
+
+#: DB:instrument/name:697
+msgctxt "Bass renaissance violin"
+msgid "lirone"
+msgstr ""
+
+#: DB:instrument/name:963
+msgctxt "Arrangement of struck tuned stone bars."
+msgid "lithophone"
+msgstr ""
+
+#: DB:instrument/name:609
+msgctxt "Small pearshaped chinese lute"
+msgid "liuqin"
+msgstr ""
+
+#: DB:instrument/name:398
+msgctxt "Low pitch fipple flute"
+msgid "low whistle"
+msgstr ""
+
+#: DB:instrument/name:83
+msgid "lute"
+msgstr ""
+
+#: DB:instrument/name:1015
+msgid "lute family"
+msgstr ""
+
+#: DB:instrument/name:737
+msgid "luthéal"
+msgstr ""
+
+#: DB:instrument/name:925
+msgctxt "Small bass viol"
+msgid "lyra viol"
+msgstr ""
+
+#: DB:instrument/name:84
+msgid "lyre"
+msgstr ""
+
+#: DB:instrument/name:186
+msgid "madal"
+msgstr ""
+
+#: DB:instrument/name:537
+msgid "maddale"
+msgstr ""
+
+#: DB:instrument/name:600
+msgid "mandocello"
+msgstr ""
+
+#: DB:instrument/name:836
+msgctxt "electric guitar / mandolin hybrid"
+msgid "mandoguitar"
+msgstr ""
+
+#: DB:instrument/name:238
+msgid "mandola"
+msgstr ""
+
+#: DB:instrument/name:72
+msgid "mandolin"
+msgstr ""
+
+#: DB:instrument/name:766
+msgid "mandolute"
+msgstr ""
+
+#: DB:instrument/name:895
+msgctxt "18th century bass lute"
+msgid "mandora / gallichon"
+msgstr ""
+
+#: DB:instrument/name:113
+msgid "maracas"
+msgstr ""
+
+#: DB:instrument/name:166
+msgid "marimba"
+msgstr ""
+
+#: DB:instrument/name:767
+msgid "marimba lumina"
+msgstr ""
+
+#: DB:instrument/name:633
+msgid "marímbula"
+msgstr ""
+
+#: DB:instrument/name:85
+msgid "mbira"
+msgstr ""
+
+#: DB:instrument/name:37
+msgctxt "Middle-range valved brass"
+msgid "mellophone"
+msgstr ""
+
+#: DB:instrument/name:132
+msgctxt "An electromechanical piano"
+msgid "mellotron"
+msgstr ""
+
+#: DB:instrument/name:44
+msgctxt "Free-reed keyboard mouth-organ"
+msgid "melodica"
+msgstr ""
+
+#: DB:instrument/name:1022
+msgctxt "Bellowed free reed in a lute-like casing"
+msgid "melophone"
+msgstr ""
+
+#: DB:instrument/name:100
+msgid "membranophone"
+msgstr ""
+
+#: DB:instrument/name:349
+msgctxt "Arrangement of struck tuned metal bars."
+msgid "metallophone"
+msgstr ""
+
+#: DB:instrument/name:876
+msgctxt "twin bamboo single reed pipe"
+msgid "mijwiz"
+msgstr ""
+
+#: DB:instrument/name:752
+msgid "minipiano"
+msgstr ""
+
+#: DB:instrument/name:591
+msgid "mirliton"
+msgstr ""
+
+#: DB:instrument/name:114
+msgctxt "Traditional English percussion stick"
+msgid "monkey stick"
+msgstr ""
+
+#: DB:instrument/name:224
+msgctxt "traditional bowed Mongol fiddle"
+msgid "morin khuur"
+msgstr ""
+
+#: DB:instrument/name:533
+msgctxt "Indian mouth harp"
+msgid "morsing"
+msgstr ""
+
+#: DB:instrument/name:80
+msgctxt "Family of mouth plucked idiophones"
+msgid "mouth harp"
+msgstr ""
+
+#: DB:instrument/name:610
+msgid "mouth organ"
+msgstr ""
+
+#: DB:instrument/name:475
+msgid "mridangam"
+msgstr ""
+
+#: DB:instrument/name:710
+msgctxt "Ainu mouth harp"
+msgid "mukkuri"
+msgstr ""
+
+#: DB:instrument/name:735
+msgctxt "French baroque bagpipe"
+msgid "musette de cour"
+msgstr ""
+
+#: DB:instrument/name:73
+msgid "musical bow"
+msgstr ""
+
+#: DB:instrument/name:464
+msgid "musical box"
+msgstr ""
+
+#: DB:instrument/name:145
+msgctxt "Bowed metal plaque idiophone"
+msgid "musical saw"
+msgstr ""
+
+#: DB:instrument/name:684
+msgid "nabal"
+msgstr ""
+
+#: DB:instrument/name:738
+msgctxt "South Indian large double reed"
+msgid "nadaswaram"
+msgstr ""
+
+#: DB:instrument/name:553
+msgid "nagadou-daiko"
+msgstr ""
+
+#: DB:instrument/name:686
+msgid "nagak"
+msgstr ""
+
+#: DB:instrument/name:297
+msgctxt "Romanian diatonic pan flute"
+msgid "nai"
+msgstr ""
+
+#: DB:instrument/name:599
+msgid "naobo"
+msgstr ""
+
+#: DB:instrument/name:35
+msgid "natural brass instruments"
+msgstr ""
+
+#: DB:instrument/name:522
+msgctxt "Brass valveless and keyless ancestor of the modern horn"
+msgid "natural horn"
+msgstr ""
+
+#: DB:instrument/name:913
+msgctxt "Brass valveless ancestor of the modern trumpet"
+msgid "natural trumpet"
+msgstr ""
+
+#: DB:instrument/name:540
+msgid "ney"
+msgstr ""
+
+#: DB:instrument/name:783
+msgctxt "Māori taonga pūoro small vessel flute"
+msgid "nguru"
+msgstr ""
+
+#: DB:instrument/name:729
+msgctxt "West African gourd-lute"
+msgid "ngɔni"
+msgstr ""
+
+#: DB:instrument/name:936
+msgctxt "Malian single string gourd-fiddle"
+msgid "njarka"
+msgstr ""
+
+#: DB:instrument/name:493
+msgid "nohkan"
+msgstr ""
+
+#: DB:instrument/name:200
+msgid "nose flute"
+msgstr ""
+
+#: DB:instrument/name:594
+msgid "nose whistle"
+msgstr ""
+
+#: DB:instrument/name:714
+msgid "nyatiti"
+msgstr ""
+
+#: DB:instrument/name:228
+msgid "nyckelharpa"
+msgstr ""
+
+#: DB:instrument/name:8
+msgid "oboe"
+msgstr ""
+
+#: DB:instrument/name:473
+msgid "oboe d'amore"
+msgstr ""
+
+#: DB:instrument/name:572
+msgctxt "Baroque curved flared bell transposing oboe"
+msgid "oboe da caccia"
+msgstr ""
+
+#: DB:instrument/name:15
+msgid "ocarina"
+msgstr ""
+
+#: DB:instrument/name:376
+msgid "ocean drum"
+msgstr ""
+
+#: DB:instrument/name:601
+msgid "octave mandolin"
+msgstr ""
+
+#: DB:instrument/name:940
+msgctxt "Spanish melody & strumming guitar"
+msgid "octavilla"
+msgstr ""
+
+#: DB:instrument/name:941
+msgctxt "Filipino rondalla guitar"
+msgid "octavina"
+msgstr ""
+
+#: DB:instrument/name:875
+msgctxt "racked 4 or 8 tom-toms"
+msgid "octoban"
+msgstr ""
+
+#: DB:instrument/name:935
+msgctxt "Extralarge 3-string Bass"
+msgid "octobass"
+msgstr ""
+
+#: DB:instrument/name:759
+msgid "oktawka"
+msgstr ""
+
+#: DB:instrument/name:888
+msgctxt "Ivory natural brass hunting horn"
+msgid "olifant"
+msgstr ""
+
+#: DB:instrument/name:281
+msgid "omnichord"
+msgstr ""
+
+#: DB:instrument/name:121
+msgid "ondes Martenot"
+msgstr ""
+
+#: DB:instrument/name:814
+msgctxt "early analogue synth with various sounds and \"vibrato\" keyboard"
+msgid "ondioline"
+msgstr ""
+
+#: DB:instrument/name:38
+msgid "ophicleide"
+msgstr ""
+
+#: DB:instrument/name:133
+msgid "organ"
+msgstr ""
+
+#: DB:instrument/name:519
+msgctxt "Metal stringed renaissance lute."
+msgid "orpharion"
+msgstr ""
+
+#: DB:instrument/name:842
+msgctxt "late 18th century portable piano with shoulder strap"
+msgid "orphica"
+msgstr ""
+
+#: DB:instrument/name:141
+msgid "other instruments"
+msgstr ""
+
+#: DB:instrument/name:234
+msgid "oud"
+msgstr ""
+
+#: DB:instrument/name:879
+msgctxt "late 17th century oval harpsichord"
+msgid "oval spinet"
+msgstr ""
+
+#: DB:instrument/name:864
+msgctxt "Māori taonga pūoro large signalling drum"
+msgid "pahū"
+msgstr ""
+
+#: DB:instrument/name:790
+msgctxt "Māori taonga pūoro gong made of jade and bone"
+msgid "pahū pounamu"
+msgstr ""
+
+#: DB:instrument/name:957
+msgctxt "Ancient Chinese clapper"
+msgid "paiban"
+msgstr ""
+
+#: DB:instrument/name:502
+msgctxt "Dhrupad wooden two-headed barrel-drum"
+msgid "pakhawaj"
+msgstr ""
+
+#: DB:instrument/name:16
+msgctxt "Collection of end-blown pipes"
+msgid "pan flute"
+msgstr ""
+
+#: DB:instrument/name:315
+msgid "pang gu ly hu hmông"
+msgstr ""
+
+#: DB:instrument/name:924
+msgctxt "Smallest member of the viol family"
+msgid "pardessus de viole"
+msgstr ""
+
+#: DB:instrument/name:1076
+msgctxt "Polish foot-pedal accordion"
+msgid "pedal accordion"
+msgstr ""
+
+#: DB:instrument/name:606
+msgid "pedal piano"
+msgstr ""
+
+#: DB:instrument/name:388
+msgid "pedal steel guitar"
+msgstr ""
+
+#: DB:instrument/name:976
+msgctxt "Lower pitch gangsa used in Balinese gamelan"
+msgid "pemade"
+msgstr ""
+
+#: DB:instrument/name:99
+msgid "percussion"
+msgstr ""
+
+#: DB:instrument/name:959
+msgid "percussion idiophone"
+msgstr ""
+
+#: DB:instrument/name:302
+msgid "phách"
+msgstr ""
+
+#: DB:instrument/name:667
+msgid "pi"
+msgstr ""
+
+#: DB:instrument/name:668
+msgid "pi nai"
+msgstr ""
+
+#: DB:instrument/name:137
+msgid "piano"
+msgstr ""
+
+#: DB:instrument/name:359
+msgid "piano accordion"
+msgstr ""
+
+#: DB:instrument/name:1024
+msgctxt "ensemble of two pianists playing on separate pianos"
+msgid "piano duo"
+msgstr ""
+
+#: DB:instrument/name:1025
+msgctxt "ensemble of two pianists playing on one piano"
+msgid "piano four hands"
+msgstr ""
+
+#: DB:instrument/name:965
+msgctxt "ensemble of piano, violin, viola and cello"
+msgid "piano quartet"
+msgstr ""
+
+#: DB:instrument/name:798
+msgctxt "small drop action piano"
+msgid "piano spinet"
+msgstr ""
+
+#: DB:instrument/name:911
+msgctxt "ensemble of violin, cello and piano"
+msgid "piano trio"
+msgstr ""
+
+#: DB:instrument/name:17
+msgid "piccolo"
+msgstr ""
+
+#: DB:instrument/name:733
+msgid "piccolo oboe"
+msgstr ""
+
+#: DB:instrument/name:401
+msgid "piccolo trumpet"
+msgstr ""
+
+#: DB:instrument/name:350
+msgctxt "Pearshaped chinese lute"
+msgid "pipa"
+msgstr ""
+
+#: DB:instrument/name:807
+msgctxt "pair of flute and drum, each played by one hand"
+msgid "pipe and tabor"
+msgstr ""
+
+#: DB:instrument/name:136
+msgid "pipe organ"
+msgstr ""
+
+#: DB:instrument/name:499
+msgid "piri"
+msgstr ""
+
+#: DB:instrument/name:700
+msgid "pkhachich"
+msgstr ""
+
+#: DB:instrument/name:930
+msgid "plucked idiophone"
+msgstr ""
+
+#: DB:instrument/name:232
+msgid "plucked string instruments"
+msgstr ""
+
+#: DB:instrument/name:1026
+msgctxt "bow lute from West Africa"
+msgid "pluriarc"
+msgstr ""
+
+#: DB:instrument/name:690
+msgid "pocket trumpet"
+msgstr ""
+
+#: DB:instrument/name:866
+msgctxt "Māori taonga pūoro flax leaf balls used in dancing"
+msgid "poi"
+msgstr ""
+
+#: DB:instrument/name:792
+msgctxt "Māori taonga pūoro swung whistling gourd"
+msgid "poi āwhiowhio"
+msgstr ""
+
+#: DB:instrument/name:862
+msgctxt "Māori taonga pūoro humming discs"
+msgid "porotiti"
+msgstr ""
+
+#: DB:instrument/name:1021
+msgctxt "Very small bellows operated pipe organ"
+msgid "portative"
+msgstr ""
+
+#: DB:instrument/name:626
+msgctxt "Post-signalling valveless coiled brass"
+msgid "post horn"
+msgstr ""
+
+#: DB:instrument/name:429
+msgid "practice chanter"
+msgstr ""
+
+#: DB:instrument/name:481
+msgid "prepared piano"
+msgstr ""
+
+#: DB:instrument/name:758
+msgctxt "Tenor garifuna drum"
+msgid "primero"
+msgstr ""
+
+#: DB:instrument/name:86
+msgid "psaltery"
+msgstr ""
+
+#: DB:instrument/name:339
+msgid "pí thiu"
+msgstr ""
+
+#: DB:instrument/name:867
+msgctxt "Māori taonga pūoro tapping sticks"
+msgid "pākuru"
+msgstr ""
+
+#: DB:instrument/name:726
+msgid "pātē"
+msgstr ""
+
+#: DB:instrument/name:787
+msgctxt "Māori taonga pūoro two harmonic flute"
+msgid "pōrutu"
+msgstr ""
+
+#: DB:instrument/name:788
+msgctxt "Māori taonga pūoro wooden announcement trumpet"
+msgid "pūkaea"
+msgstr ""
+
+#: DB:instrument/name:785
+msgctxt "Māori taonga pūoro long one-holed flute"
+msgid "pūmotomoto"
+msgstr ""
+
+#: DB:instrument/name:861
+msgctxt "Māori taonga pūoro long necked conch trumpet"
+msgid "pūpakapaka"
+msgstr ""
+
+#: DB:instrument/name:791
+msgctxt "Māori taonga pūoro bullroarer"
+msgid "pūrerehua"
+msgstr ""
+
+#: DB:instrument/name:789
+msgctxt "Māori taonga pūoro conch shell trumpet"
+msgid "pūtātara"
+msgstr ""
+
+#: DB:instrument/name:786
+msgctxt "Māori taonga pūoro wooden dual-voiced flute"
+msgid "pūtōrino"
+msgstr ""
+
+#: DB:instrument/name:613
+msgid "qilaut"
+msgstr ""
+
+#: DB:instrument/name:902
+msgid "quadruple reed"
+msgstr ""
+
+#: DB:instrument/name:437
+msgctxt "Small Andean end-blown flute"
+msgid "quena"
+msgstr ""
+
+#: DB:instrument/name:755
+msgctxt "Jawbone rattle"
+msgid "quijada"
+msgstr ""
+
+#: DB:instrument/name:753
+msgid "quinto"
+msgstr ""
+
+#: DB:instrument/name:375
+msgid "rainstick"
+msgstr ""
+
+#: DB:instrument/name:628
+msgid "rammana"
+msgstr ""
+
+#: DB:instrument/name:614
+msgid "ranat ek"
+msgstr ""
+
+#: DB:instrument/name:665
+msgid "ranat kaeo"
+msgstr ""
+
+#: DB:instrument/name:620
+msgid "ranat thum"
+msgstr ""
+
+#: DB:instrument/name:161
+msgid "ratchet"
+msgstr ""
+
+#: DB:instrument/name:595
+msgid "rauschpfeife"
+msgstr ""
+
+#: DB:instrument/name:754
+msgid "ravanahatha"
+msgstr ""
+
+#: DB:instrument/name:239
+msgctxt "Generic rebab catch-all"
+msgid "rebab"
+msgstr ""
+
+#: DB:instrument/name:206
+msgctxt "Medieval bowed lute"
+msgid "rebec"
+msgstr ""
+
+#: DB:instrument/name:721
+msgctxt "Brazilian metal scraper"
+msgid "reco-reco"
+msgstr ""
+
+#: DB:instrument/name:18
+msgctxt "Family of end-blown fipple flutes"
+msgid "recorder"
+msgstr ""
+
+#: DB:instrument/name:204
+msgctxt "Organ with free reeds"
+msgid "reed organ"
+msgstr ""
+
+#: DB:instrument/name:179
+msgid "reeds"
+msgstr ""
+
+#: DB:instrument/name:918
+msgctxt "Portable bellowed reed organ"
+msgid "regal"
+msgstr ""
+
+#: DB:instrument/name:784
+msgctxt "Māori taonga pūoro long flute"
+msgid "rehu"
+msgstr ""
+
+#: DB:instrument/name:896
+msgctxt "Renaissance era compact double reed"
+msgid "renaissance rackett"
+msgstr ""
+
+#: DB:instrument/name:882
+msgctxt "Nyabinghi smaller pitch drum"
+msgid "repeater"
+msgstr ""
+
+#: DB:instrument/name:722
+msgid "repinique"
+msgstr ""
+
+#: DB:instrument/name:386
+msgid "resonator guitar"
+msgstr ""
+
+#: DB:instrument/name:973
+msgctxt "Gong-chime used in Balinese gamelan"
+msgid "reyong"
+msgstr ""
+
+#: DB:instrument/name:369
+msgid "rhythm sticks"
+msgstr ""
+
+#: DB:instrument/name:329
+msgid "riq"
+msgstr ""
+
+#: DB:instrument/name:568
+msgctxt "Ecuadorean panpipes"
+msgid "rondador"
+msgstr ""
+
+#: DB:instrument/name:1070
+msgctxt "South American square charango"
+msgid "ronroco"
+msgstr ""
+
+#: DB:instrument/name:731
+msgid "rototom"
+msgstr ""
+
+#: DB:instrument/name:545
+msgid "ruan"
+msgstr ""
+
+#: DB:instrument/name:883
+msgctxt "Ancient Afghan plucked lute member of the bowed rebab family"
+msgid "rubab"
+msgstr ""
+
+#: DB:instrument/name:501
+msgctxt "Ancient large North Indian tube zither"
+msgid "rudra veena"
+msgstr ""
+
+#: DB:instrument/name:617
+msgctxt "Japanese transverse flute"
+msgid "ryuteki"
+msgstr ""
+
+#: DB:instrument/name:859
+msgctxt "Māori taonga pūoro mouth harp"
+msgid "rōria"
+msgstr ""
+
+#: DB:instrument/name:646
+msgid "sabar"
+msgstr ""
+
+#: DB:instrument/name:149
+msgid "sackbut"
+msgstr ""
+
+#: DB:instrument/name:804
+msgid "saduk"
+msgstr ""
+
+#: DB:instrument/name:966
+msgctxt "West Sumatran end-blown flute."
+msgid "saluang"
+msgstr ""
+
+#: DB:instrument/name:583
+msgid "samba whistle"
+msgstr ""
+
+#: DB:instrument/name:830
+msgctxt "solo serbo-croatian plucked lute"
+msgid "samica"
+msgstr ""
+
+#: DB:instrument/name:122
+msgid "sampler"
+msgstr ""
+
+#: DB:instrument/name:245
+msgid "sanshin"
+msgstr ""
+
+#: DB:instrument/name:286
+msgctxt "Traditional Indian dulcimer"
+msgid "santoor"
+msgstr ""
+
+#: DB:instrument/name:255
+msgctxt "Persian/Iran hammered dulcimer"
+msgid "santur"
+msgstr ""
+
+#: DB:instrument/name:244
+msgid "sanxian"
+msgstr ""
+
+#: DB:instrument/name:459
+msgid "sarangi"
+msgstr ""
+
+#: DB:instrument/name:189
+msgid "sarod"
+msgstr ""
+
+#: DB:instrument/name:1007
+msgctxt "Middle pitch saron-family member used in Sundanese gamelan."
+msgid "saron barung"
+msgstr ""
+
+#: DB:instrument/name:1006
+msgctxt "Penultimate pitch saron-family member used in Sundanese gamelan."
+msgid "saron demung"
+msgstr ""
+
+#: DB:instrument/name:597
+msgctxt "Family of Sundanese metallophones"
+msgid "saron family"
+msgstr ""
+
+#: DB:instrument/name:1008
+msgctxt "Highest pitch saron-family member used in Sundanese gamelan."
+msgid "saron panerus"
+msgstr ""
+
+#: DB:instrument/name:1009
+msgctxt "Highest pitch saron-family member."
+msgid "saron peking"
+msgstr ""
+
+#: DB:instrument/name:1010
+msgctxt "Special saron used for Wayang puppetry"
+msgid "saron wayang"
+msgstr ""
+
+#: DB:instrument/name:749
+msgid "sarrusophone"
+msgstr ""
+
+#: DB:instrument/name:928
+msgctxt "Indonesian tube zither"
+msgid "sasando"
+msgstr ""
+
+#: DB:instrument/name:580
+msgid "satsuma biwa"
+msgstr ""
+
+#: DB:instrument/name:624
+msgid "saw duang"
+msgstr ""
+
+#: DB:instrument/name:712
+msgid "saw sam sai"
+msgstr ""
+
+#: DB:instrument/name:625
+msgid "saw u"
+msgstr ""
+
+#: DB:instrument/name:19
+msgid "saxophone"
+msgstr ""
+
+#: DB:instrument/name:942
+msgid "saxophone quartet"
+msgstr ""
+
+#: DB:instrument/name:472
+msgid "saz"
+msgstr ""
+
+#: DB:instrument/name:953
+msgid "scraped idiophone"
+msgstr ""
+
+#: DB:instrument/name:757
+msgctxt "Bass garifuna drum"
+msgid "segunda"
+msgstr ""
+
+#: DB:instrument/name:1014
+msgctxt "Medieval Indian evolution of the Afghan (kabuli) rabab"
+msgid "seni rebab"
+msgstr ""
+
+#: DB:instrument/name:148
+msgid "serpent"
+msgstr ""
+
+#: DB:instrument/name:630
+msgctxt "Persian three-stringed long-necked lute"
+msgid "setar"
+msgstr ""
+
+#: DB:instrument/name:954
+msgid "shaken idiophone"
+msgstr ""
+
+#: DB:instrument/name:340
+msgctxt "Latin-American tube rattle"
+msgid "shakers"
+msgstr ""
+
+#: DB:instrument/name:173
+msgctxt "Japanese end-blown flute"
+msgid "shakuhachi"
+msgstr ""
+
+#: DB:instrument/name:87
+msgid "shamisen"
+msgstr ""
+
+#: DB:instrument/name:408
+msgctxt "12th century to present double reed woodwind"
+msgid "shawm"
+msgstr ""
+
+#: DB:instrument/name:494
+msgid "shehnai"
+msgstr ""
+
+#: DB:instrument/name:381
+msgctxt "Large West African gourd-shaker"
+msgid "shekere"
+msgstr ""
+
+#: DB:instrument/name:45
+msgid "sheng"
+msgstr ""
+
+#: DB:instrument/name:699
+msgid "shichepshin"
+msgstr ""
+
+#: DB:instrument/name:554
+msgid "shime-daiko"
+msgstr ""
+
+#: DB:instrument/name:470
+msgctxt "Japanese high-pitched transverse flute"
+msgid "shinobue"
+msgstr ""
+
+#: DB:instrument/name:192
+msgctxt "Japanese free reed flute"
+msgid "sho"
+msgstr ""
+
+#: DB:instrument/name:39
+msgctxt "Ram's horn natural brass"
+msgid "shofar"
+msgstr ""
+
+#: DB:instrument/name:443
+msgid "shruti box"
+msgstr ""
+
+#: DB:instrument/name:593
+msgid "shudraga"
+msgstr ""
+
+#: DB:instrument/name:569
+msgctxt "Andean double row panpipe"
+msgid "siku"
+msgstr ""
+
+#: DB:instrument/name:146
+msgid "singing bowl"
+msgstr ""
+
+#: DB:instrument/name:180
+msgid "single reed"
+msgstr ""
+
+#: DB:instrument/name:370
+msgctxt "Ancient Egyptian rattle"
+msgid "sistrum"
+msgstr ""
+
+#: DB:instrument/name:88
+msgctxt "Indian long-necked fretted gourdlute"
+msgid "sitar"
+msgstr ""
+
+#: DB:instrument/name:107
+msgctxt "Hinged percussion"
+msgid "slapstick"
+msgstr ""
+
+#: DB:instrument/name:962
+msgctxt "Deepest pitch single octave metallophone used in Javanese gamelan"
+msgid "slenthem"
+msgstr ""
+
+#: DB:instrument/name:964
+msgctxt "Obsolete deepest saron-family member used in Sundanese gamelan."
+msgid "slentho"
+msgstr ""
+
+#: DB:instrument/name:202
+msgid "slide brass instruments"
+msgstr ""
+
+#: DB:instrument/name:56
+msgid "slide guitar"
+msgstr ""
+
+#: DB:instrument/name:198
+msgid "slide whistle"
+msgstr ""
+
+#: DB:instrument/name:366
+msgctxt "Hollow wooden idiophone"
+msgid "slit drum"
+msgstr ""
+
+#: DB:instrument/name:104
+msgid "snare drum"
+msgstr ""
+
+#: DB:instrument/name:284
+msgid "song loan"
+msgstr ""
+
+#: DB:instrument/name:760
+msgid "sopilka"
+msgstr ""
+
+#: DB:instrument/name:290
+msgid "sopranino recorder"
+msgstr ""
+
+#: DB:instrument/name:445
+msgid "sopranino saxophone"
+msgstr ""
+
+#: DB:instrument/name:403
+msgid "soprano clarinet"
+msgstr ""
+
+#: DB:instrument/name:413
+msgid "soprano flute"
+msgstr ""
+
+#: DB:instrument/name:469
+msgctxt "Middle member of the end-blown fipple flute recorder family"
+msgid "soprano recorder"
+msgstr ""
+
+#: DB:instrument/name:20
+msgid "soprano saxophone"
+msgstr ""
+
+#: DB:instrument/name:210
+msgid "soprano violin"
+msgstr ""
+
+#: DB:instrument/name:151
+msgid "sousaphone"
+msgstr ""
+
+#: DB:instrument/name:1019
+msgid "spike-fiddle"
+msgstr ""
+
+#: DB:instrument/name:513
+msgid "spilåpipa"
+msgstr ""
+
+#: DB:instrument/name:797
+msgctxt "A smaller harpsichord, strings at an angle"
+msgid "spinet"
+msgstr ""
+
+#: DB:instrument/name:799
+msgctxt "extralong spinet with deep bass register"
+msgid "spinettone"
+msgstr ""
+
+#: DB:instrument/name:160
+msgid "spoons"
+msgstr ""
+
+#: DB:instrument/name:57
+msgid "steel guitar"
+msgstr ""
+
+#: DB:instrument/name:653
+msgctxt "Modern acoustic steel string guitar"
+msgid "steel-string acoustic guitar"
+msgstr ""
+
+#: DB:instrument/name:273
+msgid "steelpan"
+msgstr ""
+
+#: DB:instrument/name:1031
+msgid "stick zither"
+msgstr ""
+
+#: DB:instrument/name:908
+msgctxt "ensemble of 1st violin, 2nd violin, viola and cello"
+msgid "string quartet"
+msgstr ""
+
+#: DB:instrument/name:1033
+msgctxt "ensemble of 2 violins, viola, cello and a fifth string instrument"
+msgid "string quintet"
+msgstr ""
+
+#: DB:instrument/name:1034
+msgctxt "60-80's electronic string-ensemble emulator"
+msgid "string synthesizer"
+msgstr ""
+
+#: DB:instrument/name:915
+msgctxt "ensemble of violin, viola and cello"
+msgid "string trio"
+msgstr ""
+
+#: DB:instrument/name:46
+msgid "strings"
+msgstr ""
+
+#: DB:instrument/name:675
+msgid "struck idiophone"
+msgstr ""
+
+#: DB:instrument/name:252
+msgid "struck string instruments"
+msgstr ""
+
+#: DB:instrument/name:296
+msgid "subcontrabass recorder"
+msgstr ""
+
+#: DB:instrument/name:147
+msgid "suikinkutsu"
+msgstr ""
+
+#: DB:instrument/name:730
+msgid "suka"
+msgstr ""
+
+#: DB:instrument/name:725
+msgctxt "Southeast asian bamboo fipple flute"
+msgid "suling"
+msgstr ""
+
+#: DB:instrument/name:548
+msgctxt "Chinese double reed"
+msgid "suona"
+msgstr ""
+
+#: DB:instrument/name:946
+msgctxt "Bass sitar"
+msgid "surbahar"
+msgstr ""
+
+#: DB:instrument/name:379
+msgid "surdo"
+msgstr ""
+
+#: DB:instrument/name:816
+msgctxt "19th century large North-Indian dhrupad bass-sarod"
+msgid "sursingar"
+msgstr ""
+
+#: DB:instrument/name:716
+msgctxt "North Indian trapezoid board zither"
+msgid "swarmandal"
+msgstr ""
+
+#: DB:instrument/name:123
+msgid "synclavier"
+msgstr ""
+
+#: DB:instrument/name:124
+msgid "synthesizer"
+msgstr ""
+
+#: DB:instrument/name:298
+msgctxt "Ancient Greek pan flute"
+msgid "syrinx"
+msgstr ""
+
+#: DB:instrument/name:316
+msgid "sáo meò"
+msgstr ""
+
+#: DB:instrument/name:199
+msgid "sáo trúc"
+msgstr ""
+
+#: DB:instrument/name:691
+msgctxt "Historical Swedish bagpipes"
+msgid "säckpipa"
+msgstr ""
+
+#: DB:instrument/name:276
+msgid "sênh tiền"
+msgstr ""
+
+#: DB:instrument/name:304
+msgid "t'rưng"
+msgstr ""
+
+#: DB:instrument/name:185
+msgid "tabla"
+msgstr ""
+
+#: DB:instrument/name:387
+msgid "table steel guitar"
+msgstr ""
+
+#: DB:instrument/name:806
+msgctxt "one-handed sidedrum"
+msgid "tabor"
+msgstr ""
+
+#: DB:instrument/name:636
+msgid "tack piano"
+msgstr ""
+
+#: DB:instrument/name:641
+msgid "taepyeongso"
+msgstr ""
+
+#: DB:instrument/name:378
+msgid "taiko"
+msgstr ""
+
+#: DB:instrument/name:555
+msgctxt "Japanese keyed box zither"
+msgid "taishogoto"
+msgstr ""
+
+#: DB:instrument/name:544
+msgid "talharpa"
+msgstr ""
+
+#: DB:instrument/name:453
+msgid "talkbox"
+msgstr ""
+
+#: DB:instrument/name:377
+msgid "talking drum"
+msgstr ""
+
+#: DB:instrument/name:723
+msgid "tamborim"
+msgstr ""
+
+#: DB:instrument/name:263
+msgid "tambourine"
+msgstr ""
+
+#: DB:instrument/name:391
+msgctxt "Macedonian/Bulgarian long-necked lute"
+msgid "tambura"
+msgstr ""
+
+#: DB:instrument/name:333
+msgid "tanbou ka"
+msgstr ""
+
+#: DB:instrument/name:477
+msgctxt "Persian/Turkish ancient long-necked lute"
+msgid "tanbur"
+msgstr ""
+
+#: DB:instrument/name:425
+msgid "tangent piano"
+msgstr ""
+
+#: DB:instrument/name:829
+msgctxt "Indian drone long-necked frettless gourdlute"
+msgid "tanpura"
+msgstr ""
+
+#: DB:instrument/name:781
+msgctxt "Māori traditional instrument ensemble"
+msgid "taonga pūoro"
+msgstr ""
+
+#: DB:instrument/name:559
+msgid "tap dance"
+msgstr ""
+
+#: DB:instrument/name:520
+msgid "tape"
+msgstr ""
+
+#: DB:instrument/name:669
+msgid "taphon"
+msgstr ""
+
+#: DB:instrument/name:607
+msgctxt "drum"
+msgid "tar"
+msgstr ""
+
+#: DB:instrument/name:467
+msgctxt "lute"
+msgid "tar"
+msgstr ""
+
+#: DB:instrument/name:440
+msgid "taragot"
+msgstr ""
+
+#: DB:instrument/name:870
+msgctxt "Wooden keyless shawm from Catalonia"
+msgid "tarota"
+msgstr ""
+
+#: DB:instrument/name:860
+msgctxt "Māori taonga pūoro single string bow"
+msgid "te kū"
+msgstr ""
+
+#: DB:instrument/name:531
+msgid "tef"
+msgstr ""
+
+#: DB:instrument/name:125
+msgctxt "gigantic electronic organ transmitted through telephone wires."
+msgid "telharmonium"
+msgstr ""
+
+#: DB:instrument/name:172
+msgid "temple blocks"
+msgstr ""
+
+#: DB:instrument/name:810
+msgctxt "steel mongolian jew's harp"
+msgid "temür khuur"
+msgstr ""
+
+#: DB:instrument/name:657
+msgctxt "4 string tenor banjo"
+msgid "tenor banjo"
+msgstr ""
+
+#: DB:instrument/name:434
+msgid "tenor guitar"
+msgstr ""
+
+#: DB:instrument/name:31
+msgid "tenor horn / alto horn"
+msgstr ""
+
+#: DB:instrument/name:292
+msgid "tenor recorder"
+msgstr ""
+
+#: DB:instrument/name:22
+msgid "tenor saxophone"
+msgstr ""
+
+#: DB:instrument/name:662
+msgid "tenor trombone"
+msgstr ""
+
+#: DB:instrument/name:922
+msgctxt "Tenor member of the viol family"
+msgid "tenor viol"
+msgstr ""
+
+#: DB:instrument/name:615
+msgid "tenor violin"
+msgstr ""
+
+#: DB:instrument/name:869
+msgctxt "Catalonian double reed descendant of shawm"
+msgid "tenora"
+msgstr ""
+
+#: DB:instrument/name:480
+msgid "thavil"
+msgstr ""
+
+#: DB:instrument/name:347
+msgid "theatre organ"
+msgstr ""
+
+#: DB:instrument/name:395
+msgctxt "Extended necked many-stringed lute"
+msgid "theorbo"
+msgstr ""
+
+#: DB:instrument/name:126
+msgid "theremin"
+msgstr ""
+
+#: DB:instrument/name:584
+msgid "thon"
+msgstr ""
+
+#: DB:instrument/name:805
+msgctxt "european 11th century pipe"
+msgid "three-hole pipe"
+msgstr ""
+
+#: DB:instrument/name:332
+msgid "ti bwa"
+msgstr ""
+
+#: DB:instrument/name:871
+msgctxt "Catalan valved shawm used in cobla"
+msgid "tible"
+msgstr ""
+
+#: DB:instrument/name:105
+msgid "timbales"
+msgstr ""
+
+#: DB:instrument/name:167
+msgid "timpani"
+msgstr ""
+
+#: DB:instrument/name:197
+msgctxt "Simple fipple flute"
+msgid "tin whistle"
+msgstr ""
+
+#: DB:instrument/name:724
+msgid "tinya"
+msgstr ""
+
+#: DB:instrument/name:261
+msgid "tiple"
+msgstr ""
+
+#: DB:instrument/name:324
+msgid "tiêu"
+msgstr ""
+
+#: DB:instrument/name:746
+msgid "tololoche"
+msgstr ""
+
+#: DB:instrument/name:462
+msgid "tom-tom"
+msgstr ""
+
+#: DB:instrument/name:575
+msgid "tonkori"
+msgstr ""
+
+#: DB:instrument/name:708
+msgid "topshuur"
+msgstr ""
+
+#: DB:instrument/name:1115
+msgctxt "Estonian folk bagpipe"
+msgid "torupill"
+msgstr ""
+
+#: DB:instrument/name:258
+msgid "toy piano"
+msgstr ""
+
+#: DB:instrument/name:909
+msgid "traditional basque ensemble"
+msgstr ""
+
+#: DB:instrument/name:345
+msgid "transverse flute"
+msgstr ""
+
+#: DB:instrument/name:808
+msgctxt "monophonic electric instrument from 1930's"
+msgid "trautonium"
+msgstr ""
+
+#: DB:instrument/name:412
+msgid "treble flute"
+msgstr ""
+
+#: DB:instrument/name:291
+msgid "treble recorder / alto recorder"
+msgstr ""
+
+#: DB:instrument/name:921
+msgctxt "Treble/soprano member of the viol family"
+msgid "treble viol"
+msgstr ""
+
+#: DB:instrument/name:209
+msgctxt "Smallest member of the new violin family"
+msgid "treble violin"
+msgstr ""
+
+#: DB:instrument/name:90
+msgid "tres"
+msgstr ""
+
+#: DB:instrument/name:106
+msgctxt "Tuned metal shape"
+msgid "triangle"
+msgstr ""
+
+#: DB:instrument/name:847
+msgctxt "Basque button accordion"
+msgid "trikiti"
+msgstr ""
+
+#: DB:instrument/name:945
+msgctxt "Indian medieval three-stringed stick zither"
+msgid "tritantri veena"
+msgstr ""
+
+#: DB:instrument/name:698
+msgid "tromba marina"
+msgstr ""
+
+#: DB:instrument/name:32
+msgid "trombone"
+msgstr ""
+
+#: DB:instrument/name:33
+msgid "trumpet"
+msgstr ""
+
+#: DB:instrument/name:914
+msgctxt "Family of the brass instrument trumpet"
+msgid "trumpet family"
+msgstr ""
+
+#: DB:instrument/name:308
+msgid "tràm plè"
+msgstr ""
+
+#: DB:instrument/name:314
+msgid "trắng jâu"
+msgstr ""
+
+#: DB:instrument/name:313
+msgid "trắng lu"
+msgstr ""
+
+#: DB:instrument/name:305
+msgid "trống bông"
+msgstr ""
+
+#: DB:instrument/name:34
+msgid "tuba"
+msgstr ""
+
+#: DB:instrument/name:694
+msgid "tubax"
+msgstr ""
+
+#: DB:instrument/name:944
+msgid "tube zither"
+msgstr ""
+
+#: DB:instrument/name:775
+msgctxt "analogue electronic monophonic Organ"
+msgid "tubon"
+msgstr ""
+
+#: DB:instrument/name:168
+msgctxt "Orchestral chimes"
+msgid "tubular bells"
+msgstr ""
+
+#: DB:instrument/name:873
+msgctxt "PVC pipe instrument"
+msgid "tubulum"
+msgstr ""
+
+#: DB:instrument/name:1116
+msgctxt "Droneless Turkish bagpipe"
+msgid "tulum"
+msgstr ""
+
+#: DB:instrument/name:511
+msgid "tumbi"
+msgstr ""
+
+#: DB:instrument/name:863
+msgctxt "Māori taonga pūoro ancient struck idiophone"
+msgid "tumutumu"
+msgstr ""
+
+#: DB:instrument/name:887
+msgctxt "Korean notched end-blown bamboo flute"
+msgid "tungso"
+msgstr ""
+
+#: DB:instrument/name:181
+msgid "turntable"
+msgstr ""
+
+#: DB:instrument/name:772
+msgctxt "Traditional Basque idiophone"
+msgid "txalaparta"
+msgstr ""
+
+#: DB:instrument/name:855
+msgctxt "Basque fipple flute"
+msgid "txistu"
+msgstr ""
+
+#: DB:instrument/name:526
+msgid "typewriter"
+msgstr ""
+
+#: DB:instrument/name:463
+msgid "tzoura"
+msgstr ""
+
+#: DB:instrument/name:865
+msgctxt "Māori taonga pūoro castanets"
+msgid "tōkere"
+msgstr ""
+
+#: DB:instrument/name:330
+msgctxt "Nigerian clay jug idiophone"
+msgid "udu"
+msgstr ""
+
+#: DB:instrument/name:967
+msgctxt "Deep pitch gangsa used in Balinese gamelan"
+msgid "ugal"
+msgstr ""
+
+#: DB:instrument/name:187
+msgctxt "Irish bellow-blown bagpipe"
+msgid "uilleann pipes"
+msgstr ""
+
+#: DB:instrument/name:631
+msgid "ukeke"
+msgstr ""
+
+#: DB:instrument/name:89
+msgid "ukulele"
+msgstr ""
+
+#: DB:instrument/name:140
+msgid "upright piano"
+msgstr ""
+
+#: DB:instrument/name:299
+msgid "vacuum cleaner"
+msgstr ""
+
+#: DB:instrument/name:517
+msgid "valiha"
+msgstr ""
+
+#: DB:instrument/name:182
+msgid "valve trombone"
+msgstr ""
+
+#: DB:instrument/name:201
+msgid "valved brass instruments"
+msgstr ""
+
+#: DB:instrument/name:943
+msgctxt "Family of ancient Indian lute-like chordophones"
+msgid "veena"
+msgstr ""
+
+#: DB:instrument/name:418
+msgctxt "South Indian transverse bamboo flute"
+msgid "venu"
+msgstr ""
+
+#: DB:instrument/name:650
+msgid "vessel flute"
+msgstr ""
+
+#: DB:instrument/name:840
+msgctxt "accordina with piano keys"
+msgid "vibrandoneon"
+msgstr ""
+
+#: DB:instrument/name:169
+msgid "vibraphone"
+msgstr ""
+
+#: DB:instrument/name:162
+msgid "vibraslap"
+msgstr ""
+
+#: DB:instrument/name:612
+msgctxt "Large North Indian fretless sliding tube zither"
+msgid "vichitra veena"
+msgstr ""
+
+#: DB:instrument/name:91
+msgctxt "Medieval violin"
+msgid "vielle"
+msgstr ""
+
+#: DB:instrument/name:262
+msgctxt "Spanish string instrument."
+msgid "vihuela"
+msgstr ""
+
+#: DB:instrument/name:1027
+msgctxt "ensemble of multiple viols"
+msgid "viol consort"
+msgstr ""
+
+#: DB:instrument/name:899
+msgctxt "Viola de gamba family"
+msgid "viol family"
+msgstr ""
+
+#: DB:instrument/name:63
+msgctxt "Alto of modern violin family"
+msgid "viola"
+msgstr ""
+
+#: DB:instrument/name:660
+msgctxt "Brazilian música caipira guitar"
+msgid "viola caipira"
+msgstr ""
+
+#: DB:instrument/name:94
+msgctxt "Baroque fretless similar to both viols and violins."
+msgid "viola d'amore"
+msgstr ""
+
+#: DB:instrument/name:93
+msgctxt "Generic member of the viol family, Use for \"Viol\" Credits"
+msgid "viola da gamba"
+msgstr ""
+
+#: DB:instrument/name:227
+msgid "viola organista"
+msgstr ""
+
+#: DB:instrument/name:62
+msgctxt "Soprano of modern violin family"
+msgid "violin"
+msgstr ""
+
+#: DB:instrument/name:59
+msgctxt "Modern violin family"
+msgid "violin family"
+msgstr ""
+
+#: DB:instrument/name:898
+msgctxt "New modern streamlined family of violins"
+msgid "violin octet"
+msgstr ""
+
+#: DB:instrument/name:661
+msgid "violino piccolo"
+msgstr ""
+
+#: DB:instrument/name:834
+msgctxt "cretan lyra / violin hybrid"
+msgid "viololyra"
+msgstr ""
+
+#: DB:instrument/name:693
+msgctxt "for violoncello use \"cello\""
+msgid "violoncello piccolo"
+msgstr ""
+
+#: DB:instrument/name:420
+msgctxt "Contra/double-bass member of the viol family"
+msgid "violone"
+msgstr ""
+
+#: DB:instrument/name:95
+msgid "violotta"
+msgstr ""
+
+#: DB:instrument/name:509
+msgid "virginal"
+msgstr ""
+
+#: DB:instrument/name:282
+msgid "vocoder"
+msgstr ""
+
+#: DB:instrument/name:450
+msgid "voice synthesizer"
+msgstr ""
+
+#: DB:instrument/name:877
+msgctxt "plastic horn"
+msgid "vuvuzela"
+msgstr ""
+
+#: DB:instrument/name:1069
+msgctxt "Smallest member of charango family"
+msgid "walaycho"
+msgstr ""
+
+#: DB:instrument/name:159
+msgctxt "American scraped idiophone"
+msgid "washboard"
+msgstr ""
+
+#: DB:instrument/name:96
+msgctxt "Improvised monochord"
+msgid "washtub bass"
+msgstr ""
+
+#: DB:instrument/name:280
+msgid "waterphone"
+msgstr ""
+
+#: DB:instrument/name:374
+msgid "wavedrum"
+msgstr ""
+
+#: DB:instrument/name:274
+msgctxt "Small simple single-toned flute"
+msgid "whistle"
+msgstr ""
+
+#: DB:instrument/name:196
+msgid "willow flute"
+msgstr ""
+
+#: DB:instrument/name:497
+msgctxt "Wind played chimes"
+msgid "wind chime"
+msgstr ""
+
+#: DB:instrument/name:1
+msgid "wind instruments"
+msgstr ""
+
+#: DB:instrument/name:560
+msgctxt "synthesizer played like a wind instrument"
+msgid "wind synthesizer"
+msgstr ""
+
+#: DB:instrument/name:354
+msgid "wire-strung harp"
+msgstr ""
+
+#: DB:instrument/name:163
+msgid "wood block"
+msgstr ""
+
+#: DB:instrument/name:267
+msgctxt "wooden bell used in temples"
+msgid "wooden fish"
+msgstr ""
+
+#: DB:instrument/name:2
+msgid "woodwind"
+msgstr ""
+
+#: DB:instrument/name:711
+msgctxt "Round Southeast Asian traditional pan-flute"
+msgid "wot"
+msgstr ""
+
+#: DB:instrument/name:97
+msgid "xalam"
+msgstr ""
+
+#: DB:instrument/name:484
+msgctxt "Chinese end-blown flute"
+msgid "xiao"
+msgstr ""
+
+#: DB:instrument/name:550
+msgid "xiaoluo"
+msgstr ""
+
+#: DB:instrument/name:651
+msgid "xun"
+msgstr ""
+
+#: DB:instrument/name:170
+msgctxt "Arrangement of struck tuned wooden bars."
+msgid "xylophone"
+msgstr ""
+
+#: DB:instrument/name:703
+msgctxt "Extended range xylophone"
+msgid "xylorimba"
+msgstr ""
+
+#: DB:instrument/name:254
+msgctxt "Chinese hammered dulcimer"
+msgid "yangqin"
+msgstr ""
+
+#: DB:instrument/name:564
+msgid "yatga"
+msgstr ""
+
+#: DB:instrument/name:527
+msgctxt "Turkish bowed lute"
+msgid "yaylı tanbur"
+msgstr ""
+
+#: DB:instrument/name:222
+msgctxt "southern coconut huqin"
+msgid "yehu"
+msgstr ""
+
+#: DB:instrument/name:685
+msgctxt "Korean traditional dragon-painted barrel drum"
+msgid "yonggo"
+msgstr ""
+
+#: DB:instrument/name:885
+msgctxt "Mongolian wire-stringed hammered dulcimer"
+msgid "yoochin"
+msgstr ""
+
+#: DB:instrument/name:891
+msgctxt "wooden tiger scraped with bamboo whisk"
+msgid "yu"
+msgstr ""
+
+#: DB:instrument/name:240
+msgctxt "Traditional Chinese lute"
+msgid "yueqin"
+msgstr ""
+
+#: DB:instrument/name:715
+msgid "zabumba"
+msgstr ""
+
+#: DB:instrument/name:328
+msgid "zarb"
+msgstr ""
+
+#: DB:instrument/name:692
+msgid "zhaleika"
+msgstr ""
+
+#: DB:instrument/name:217
+msgctxt "Alto huqin"
+msgid "zhonghu"
+msgstr ""
+
+#: DB:instrument/name:241
+msgid "zhongruan"
+msgstr ""
+
+#: DB:instrument/name:907
+msgctxt "Wooden huqin"
+msgid "zhuihu"
+msgstr ""
+
+#: DB:instrument/name:455
+msgctxt "Eastern Mediterranean finger cymbals"
+msgid "zill"
+msgstr ""
+
+#: DB:instrument/name:98
+msgid "zither"
+msgstr ""
+
+#: DB:instrument/name:407
+msgid "zurna"
+msgstr ""
+
+#: DB:instrument/name:740
+msgctxt "Ceremonial Ottoman jangle-staff"
+msgid "çevgen"
+msgstr ""
+
+#: DB:instrument/name:768
+msgctxt "Hungarian percussion-viol"
+msgid "ütőgardon"
+msgstr ""
+
+#: DB:instrument/name:827
+msgctxt "čelović or csello, counter serbo-croatian plucked stringinstrument"
+msgid "čelo"
+msgstr ""
+
+#: DB:instrument/name:306
+msgid "đing buốt"
+msgstr ""
+
+#: DB:instrument/name:319
+msgid "đing năm"
+msgstr ""
+
+#: DB:instrument/name:251
+msgctxt "One-string Vietnamese tube zither"
+msgid "đàn bầu"
+msgstr ""
+
+#: DB:instrument/name:242
+msgid "đàn nguyệt"
+msgstr ""
+
+#: DB:instrument/name:225
+msgid "đàn nhị"
+msgstr ""
+
+#: DB:instrument/name:337
+msgid "đàn tam"
+msgstr ""
+
+#: DB:instrument/name:257
+msgctxt "Vietnamese hammered dulcimer"
+msgid "đàn tam thập lục"
+msgstr ""
+
+#: DB:instrument/name:250
+msgid "đàn tranh"
+msgstr ""
+
+#: DB:instrument/name:608
+msgid "đàn tứ"
+msgstr ""
+
+#: DB:instrument/name:233
+msgid "đàn tứ dây"
+msgstr ""
+
+#: DB:instrument/name:243
+msgid "đàn tỳ bà"
+msgstr ""
+
+#: DB:instrument/name:696
+msgid "ģīga"
+msgstr ""
+
+#: DB:instrument/name:558
+msgid "ōtsuzumi"
+msgstr ""
+
+#: DB:instrument/name:680
+msgid "šargija"
+msgstr ""
+
+#: DB:instrument/name:589
+msgid "żafżafa"
+msgstr ""
+
+#: DB:instrument/name:590
+msgctxt "Maltese mouth-blown bagpipe"
+msgid "żaqq"
+msgstr ""
+
+#: DB:instrument/name:592
+msgctxt "Maltese mirliton"
+msgid "żummara"
+msgstr ""
+
+#~ msgid "autoharp"
+#~ msgstr "autoharfa"
