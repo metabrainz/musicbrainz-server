@@ -12,19 +12,21 @@
 # salo.rock, 2012
 # salo.rock, 2022-2023
 # Valentina Menale <email address hidden>, 2016
+# "salo.rock" <salo.rock+musicbrainz@gmail.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2012-05-24 19:17+0000\n"
-"Last-Translator: salo.rock, 2022-2023\n"
-"Language-Team: Italian (http://app.transifex.com/musicbrainz/musicbrainz/"
-"language/it/)\n"
+"PO-Revision-Date: 2023-08-27 21:27+0000\n"
+"Last-Translator: \"salo.rock\" <salo.rock+musicbrainz@gmail.com>\n"
+"Language-Team: Italian <https://translations.metabrainz.org/projects/"
+"musicbrainz/instrument-descriptions/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? "
-"1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
+"X-Generator: Weblate 4.18.2\n"
 
 #. name:rebab 
 #: DB:instrument/description:239
@@ -116,7 +118,7 @@ msgid ""
 "person turning a crank which turns a barrel which has music encoded onto it."
 msgstr ""
 "Strumento musicale meccanico, in genere fatto funzionare girando una "
-"manovella collegata ad un cilindro, che ha la musica codificata su di esso."
+"manovella collegata a un cilindro, che ha la musica codificata su di esso."
 
 #. name:bass synthesizer 
 #: DB:instrument/description:456
@@ -167,7 +169,7 @@ msgstr ""
 #. name:gong bass drum 
 #: DB:instrument/description:639
 msgid "A gong bass drum is a large single drumhead which resembles a gong."
-msgstr "Grande membrana di tamburo che assomiglia ad un gong."
+msgstr "Grande membrana di tamburo che assomiglia a un gong."
 
 #. name:guitar synthesizer 
 #: DB:instrument/description:763
@@ -175,8 +177,8 @@ msgid ""
 "A guitar synthesizer is any one of a number of systems that allow a guitar "
 "player to play synthesizer sound."
 msgstr ""
-"Uno qualsiasi tra i sistemi che permettono ad un chitarrista di riprodurre "
-"il suono di un sintetizzatore."
+"Uno qualsiasi tra i sistemi che permettono a un chitarrista di riprodurre il "
+"suono di un sintetizzatore."
 
 #. name:hi-hat 
 #: DB:instrument/description:454
@@ -321,7 +323,7 @@ msgid ""
 "A talkbox is an effects device which enables a musician to modify the sound "
 "of an instrument."
 msgstr ""
-"Dispositivo per effetti che permette ad un musicista di modificare il suono "
+"Dispositivo per effetti che permette a un musicista di modificare il suono "
 "di uno strumento."
 
 #. name:tar 
@@ -349,7 +351,7 @@ msgid ""
 "truncated cone resting on a triangular base."
 msgstr ""
 "Strumento triangolare a corda strofinata usato nella musica europea "
-"medievale e rinascimentale, è composta da una cassa ed un manico a forma di "
+"medievale e rinascimentale, è composta da una cassa e un manico a forma di "
 "cono tronco su una base triangolare."
 
 #. name:Marxophone 
@@ -482,7 +484,7 @@ msgid ""
 "Alt, alto or contralto member of the viol family. Not to be confused with "
 "the Viola of the violin family, known as \"Alto\" in French."
 msgstr ""
-"Membro contralto della famiglia delle viole da gamba. Da non confondersi con "
+"Membro contralto della famiglia delle viole da gamba. Da non confondere con "
 "la viola della famiglia dei violini, chiamata \"alto\" in francese."
 
 #. name:bandora 
@@ -570,7 +572,7 @@ msgid ""
 "An effects device to be clamped on the bridge, it produces \"synthesizer-like"
 "\" sounds"
 msgstr ""
-"Dispositivo per effetti da fissare sul ponte, produce suoni simili ad un "
+"Dispositivo per effetti da fissare sul ponte, produce suoni simili a un "
 "sintetizzatore."
 
 #. name:ronroco 
@@ -613,9 +615,9 @@ msgid ""
 "festivities."
 msgstr ""
 "Antico salterio a cassa russo con dalle 4 alle 36 corde in metallo, può "
-"essere suonato in più modi a seconda della variante (vedi annotazione). "
-"Originariamente simile ad un'arpa piatta, era suonato in occasione di "
-"cerimonie e altre festività."
+"essere suonato in più modi a seconda della variante (vedi annotazione). In "
+"origine simile a un'arpa piatta, era suonato in occasione di cerimonie e "
+"altre festività."
 
 #. name:ravanahatha 
 #: DB:instrument/description:754
@@ -768,7 +770,7 @@ msgid ""
 "not unlike alarm-clock."
 msgstr ""
 "Campanello che si trova sulle biciclette; il suono è prodotto da un "
-"martelletto interno caricato a molla, in modo simile ad una sveglia."
+"martelletto interno caricato a molla, in modo simile a una sveglia."
 
 #. name:bendir 
 #: DB:instrument/description:343
@@ -1216,8 +1218,7 @@ msgstr ""
 "Sviluppato a partire dagli anni 1960 e utilizzato principalmente negli anni "
 "1970-80, era una versione semplificata, più economica e più portatile del "
 "mellotron che imitava le ensemble d'archi. Il suo successivo sviluppo ibrido "
-"con l'organo elettronico portò ai sintetizzatori di \"ensemble polifoniche"
-"\". "
+"con l'organo elettronico portò ai sintetizzatori di \"ensemble polifoniche\"."
 
 #. name:cabasa 
 #: DB:instrument/description:108
@@ -1304,7 +1305,7 @@ msgid ""
 "Cretan Lyra"
 msgstr ""
 "Si differenzia dagli altri liuti per la tensione maggiore delle sue corde, "
-"che lo fa suonare in modo più simile ad un oud. Originario dell'antica "
+"che lo fa suonare in modo più simile a un oud. Originario dell'antica "
 "Grecia, era usato come accompagnamento alla lira cretese."
 
 #. name:frottoir 
@@ -1409,8 +1410,8 @@ msgid ""
 "Effects refers to devices which enable a musician to modify the sound of an "
 "instrument."
 msgstr ""
-"Con effetti si intendono i dispositivi che permettono ad un musicista di "
-"modificare il suono di uno strumento. "
+"Con effetti si intendono i dispositivi che permettono a un musicista di "
+"modificare il suono di uno strumento."
 
 #. name:electric fretless guitar 
 #: DB:instrument/description:538
@@ -1423,7 +1424,7 @@ msgid ""
 "Electric instrument from the 1930's with a resistor wire and moving metal "
 "plate."
 msgstr ""
-"Strumento elettrico degli anni 1930 con un resistore ed una placca metallica "
+"Strumento elettrico degli anni 1930 con un resistore e una placca metallica "
 "mobile."
 
 #. name:Pianet 
@@ -1432,6 +1433,9 @@ msgid ""
 "Electromechanical piano (not to be confused with <em>electronic</em> piano) "
 "designed and produced by Hohner in the 1960 and 70s."
 msgstr ""
+"Pianoforte elettromeccanico (da non confondere con un pianoforte "
+"<em>elettronico</em>) progettato e prodotto dalla Hohner negli anni 1960 e "
+"'70."
 
 #. name:Cembalet 
 #: DB:instrument/description:794
@@ -1440,6 +1444,9 @@ msgid ""
 "not to be confused with \"cembalo\" which is another name for <a href=\"/"
 "instrument/bfe379dc-1d65-4862-acd8-60d53bb963a2\">Harpsichord</a>"
 msgstr ""
+"Pianoforte elettromeccanico con ance in acciaio inossidabile e un pick-up "
+"amplificato. Da non confondere con il <a href=\"/instrument/bfe379dc-"
+"1d65-4862-acd8-60d53bb963a2\">clavicembalo</a>, detto anche \"cembalo\"."
 
 #. name:viol consort 
 #: DB:instrument/description:1027
@@ -1489,7 +1496,7 @@ msgid ""
 "for religious signalling purposes in mosques."
 msgstr ""
 "Tamburo a barile a due punte molto grande in pelle di bufalo d'acqua. Appeso "
-"ad un telaio e percosso con una mazzuola, è usato nel gamelan di Giava "
+"a un telaio e percosso con una mazzuola, è usato nel gamelan di Giava "
 "Centrale e ai fini di segnale religioso nelle moschee."
 
 #. name:recorder 
@@ -1504,7 +1511,7 @@ msgid ""
 "li> <li>subcontrabass recorder</li> </ul> <br /> Not to be confused with the "
 "transverse (side-blown) Western concert flute."
 msgstr ""
-"Famiglia di legni con imboccatura ad un'estremità, un foro per il pollice e "
+"Famiglia di legni con imboccatura a un'estremità, un foro per il pollice e "
 "sette fori di diteggiatura, è il flauto più comune nella tradizione classica "
 "occidentale. <br /> La famiglia è composta da un vasto assortimento di "
 "taglie:<br /> <ul> <li>flauto dolce sopranino in do (garklein)</li> "
@@ -1541,7 +1548,7 @@ msgstr ""
 #. name:trumpet family 
 #: DB:instrument/description:914
 msgid "Family of the brass instrument trumpet"
-msgstr "Famiglia degli strumenti ad ottone chiamati tromba."
+msgstr "Famiglia degli strumenti in ottone chiamati tromba."
 
 #. name:txistu 
 #: DB:instrument/description:855
@@ -1969,8 +1976,7 @@ msgid ""
 msgstr ""
 "Importante per i mongoli, ha forma di trapezio con due corde, "
 "tradizionalmente in crine di cavallo, ma ora spesso in nylon, fissate a "
-"piroli in legno ad un'estremità, che è intagliata a forma di testa di "
-"cavallo."
+"piroli in legno a un'estremità, che è intagliata a forma di testa di cavallo."
 
 #. name:suona 
 #: DB:instrument/description:548
@@ -2026,6 +2032,10 @@ msgid ""
 "Zimmerman in America and became popular in the 1910 and onward. Wooden box "
 "zither has spring mounted bars used to mute strings for chords."
 msgstr ""
+"Inizialmente sviluppato negli anni 1880 da Gütter, fu prodotto e venduto da "
+"Zimmermann negli Stati Uniti e divenne popolare a partire dagli anni 1910. "
+"Cetra (zither) con cassa in legno e sbarre montate su molle utilizzate per "
+"silenziare le corde e produrre gli accordi."
 
 #. name:viololyra 
 #: DB:instrument/description:834
@@ -2088,8 +2098,8 @@ msgid ""
 "other."
 msgstr ""
 "Inventata e sviluppata da più persone nei primi anni del XIX secolo, ha un "
-"mantice azionato con le braccia con tasti o bottoni ad un'estremità e "
-"bottoni dei bassi all'altra."
+"mantice azionato con le braccia con tasti o bottoni a un'estremità e bottoni "
+"dei bassi all'altra."
 
 #. name:bandoneón 
 #: DB:instrument/description:193
@@ -2110,7 +2120,7 @@ msgid ""
 "sharp or shallow angled pegbox."
 msgstr ""
 "Inventata da liutai europei nella prima metà del XVIII secolo, aveva 6 o 7 "
-"ordini di corde singole o doppie in budello ed un manico allungato con un "
+"ordini di corde singole o doppie in budello e un manico allungato con un "
 "cavigliere ad angolo retto o acuto."
 
 #. name:orpharion 
@@ -2128,8 +2138,8 @@ msgid ""
 "Invented in 1823, it had a body like a medieval fiddle, but had frets and "
 "tuning like the guitar."
 msgstr ""
-"Inventato nel 1823, aveva una cassa simile ad un violino folk medievale, ma "
-"i tasti e l'accordatura di una chitarra."
+"Inventato nel 1823, aveva una cassa simile a un violino folk medievale, ma i "
+"tasti e l'accordatura di una chitarra."
 
 #. name:guitorgan 
 #: DB:instrument/description:835
@@ -2332,7 +2342,7 @@ msgid ""
 "vibrate."
 msgstr ""
 "Famiglia di strumenti musicali dotati di una o più lamelle lunghe e sottili, "
-"fissate ad un'estremità e libere a quella opposta. L'estremità libera è "
+"fissate a un'estremità e libere a quella opposta. L'estremità libera è "
 "pizzicata, facendo così vibrare la lamella."
 
 #. name:bandura 
@@ -2505,9 +2515,9 @@ msgid ""
 "Mostly used to learn how to play the pipes, but are occasionally played in "
 "their own right."
 msgstr ""
-"Assomiglia ad un flauto dolce, ma ha ance doppie e il sistema di "
-"diteggiatura della cornamusa. È usato principalmente per imparare a suonare "
-"la cornamusa, ma talvolta è suonato anche come strumento a sé stante."
+"Assomiglia a un flauto dolce, ma ha ance doppie e il sistema di diteggiatura "
+"della cornamusa. È usato principalmente per imparare a suonare la cornamusa, "
+"ma talvolta è suonato anche come strumento a sé stante."
 
 #. name:gumbri 
 #: DB:instrument/description:325
@@ -2793,7 +2803,7 @@ msgstr "Membro della famiglia degli xilofoni, ha 5 ottave."
 #: DB:instrument/description:158
 msgid "Metal bell used in various genres, it is often attached to drum kit"
 msgstr ""
-"Campana in metallo usata in vari generi, è spesso attaccata ad una batteria."
+"Campana in metallo usata in vari generi, è spesso attaccata a una batteria."
 
 #. name:Mexican vihuela 
 #: DB:instrument/description:92
@@ -2979,6 +2989,20 @@ msgid ""
 "instruments and one from bagpipe chanters. A combination of both where used "
 "to develop the modern oboe."
 msgstr ""
+"Da non confondere con la zummara o con altri oboi ad ancia doppia dal nome "
+"simile.<br /> Per lo strumento a più canne e ad ancia libera creato nel "
+"1880, utilizza Martinshorn.<br /> Per lo strumento ad ancia singola della "
+"famiglia dei legni dal nome simile, utilizza <a href=\"/instrument/"
+"e3511ed1-3d73-4340-880f-c8ccc8eda11c\">salmoè</a>.<br /> Per il suo erede "
+"giapponese battezzato a partire dal portoghese, utilizza charumera.<br /> "
+"Per la ciaramella catalana, utilizza <a href=\"/instrument/"
+"dffe56f5-cd75-4392-ad31-1c3abf2b8e37\">tible</a>.<br /> Per la ciaramella "
+"italiana, utilizza piffero.<br /> Per la cornamusa, utilizza xeremia.<br /"
+"><br /> Strumento medievale e rinascimentale europeo della famiglia dei "
+"legni, a sezione conica e ad ancia doppia, si evolvette in due tipi: uno a "
+"partire dagli strumenti mediorientali e l'altro a partire dalle canne del "
+"canto delle cornamuse. Una combinazione di entrambi i tipi fu usata per "
+"sviluppare l'oboe moderno."
 
 #. name:oboe 
 #: DB:instrument/description:8
@@ -3122,9 +3146,9 @@ msgid ""
 "clad metal tines that tapped metal strings and two electric pickups. Its "
 "sound has been recreated in many modern synths."
 msgstr ""
-"Prodotto in origine dalla Hohner tra il 1964 e il 1982, aveva tasti con "
+"In origine prodotto dalla Hohner tra il 1964 e il 1982, aveva tasti con "
 "rebbi in metallo rivestiti di gomma che percuotevano corde in metallo e due "
-"pickup elettrici. Il suo suono è stato riprodotto in molti sintetizzatori "
+"pick-up elettrici. Il suo suono è stato riprodotto in molti sintetizzatori "
 "moderni."
 
 #. name:anvil 
@@ -3219,7 +3243,7 @@ msgid ""
 "strings and a short neck with 16 to 20 frets. It is played with its close "
 "relative, the laúd."
 msgstr ""
-"Con origine nell'influenza spagnola sulla cultura filippina, ha 14 corde ed "
+"Con origine nell'influenza spagnola sulla cultura filippina, ha 14 corde e "
 "un manico corto con dai 16 ai 20 tasti. È suonata insieme al suo parente "
 "stretto, il laúd."
 
@@ -3279,7 +3303,7 @@ msgid ""
 "rather small soundbox, it has a spike at the end."
 msgstr ""
 "Tipo particolare di violino folk, a manico lungo, ha spesso poche corde e "
-"solitamente una cassa di risonanza piccola, con uno spiedo ad un'estremità."
+"solitamente una cassa di risonanza piccola, con uno spiedo a un'estremità."
 
 #. name:body percussion 
 #: DB:instrument/description:500
@@ -3446,6 +3470,10 @@ msgid ""
 "instrument, see <a href=\"/"
 "instrument/257dad59-02e6-47d9-958a-659843737827\">cornet</a>."
 msgstr ""
+"Popolare dal 1500 al 1650 e conosciuto anche come zink, aveva forma "
+"ottagonale con sette fori come un flauto, ma con un bocchino come una "
+"tromba.<br /> Per lo strumento moderno in ottone, utilizza <a href=\"/"
+"instrument/257dad59-02e6-47d9-958a-659843737827\">cornetta</a>."
 
 #. name:claviorganum 
 #: DB:instrument/description:912
@@ -3473,6 +3501,8 @@ msgid ""
 "Popular late 16th to early 17th, it is the bass member of the lira family "
 "with between 9 and 16 strings and a fretted neck"
 msgstr ""
+"Popolare dal tardo XVI al primo XVII secolo, è il membro basso della "
+"famiglia delle lire e ha dalle 9 alle 16 corde e un manico dotato di tasti."
 
 #. name:đàn bầu 
 #: DB:instrument/description:251
@@ -3782,7 +3812,7 @@ msgid ""
 "penny, giving it the alternate name “penny whistle”."
 msgstr ""
 "Flauto dritto semplice con sei fori, originariamente realizzato in metallo; "
-"una volta costava un penny, da cui il nome alternativo di \"penny whistle\". "
+"una volta costava un penny, da cui il nome alternativo di \"penny whistle\"."
 
 #. name:whistle 
 #: DB:instrument/description:274
@@ -3961,7 +3991,7 @@ msgid ""
 "Solid metal (often aluminium) rods hanging on a bar, set at an inharmonic "
 "pitch."
 msgstr ""
-"Barrette di metallo solido (spesso alluminio) appese ad una sbarra e "
+"Barrette di metallo solido (spesso alluminio) appese a una sbarra e "
 "predisposte su un tono inarmonico."
 
 #. name:sopilka 
@@ -4132,8 +4162,8 @@ msgid ""
 "The Vietnamese guitar is similar to a normal guitar, but with scalloped "
 "fingerboard resulting in elevated frets similar to the đàn nguyệt."
 msgstr ""
-"Simile ad una normale chitarra, ma con una tastiera dentellata che risulta "
-"in tasti sporgenti, simili a quelli del đàn nguyệt."
+"Simile a una normale chitarra, ma con una tastiera dentellata che risulta in "
+"tasti sporgenti, simili a quelli del đàn nguyệt."
 
 #. name:Wurlitzer electric piano 
 #: DB:instrument/description:468
@@ -4560,7 +4590,7 @@ msgid ""
 msgstr ""
 "Flauto traverso cinese solitamente realizzato in bambù. In cinese è chiamato "
 "a volte solo 笛 (di), ma in giapponese 笛 (fue) è un termine generico che si "
-"riferisce ad un'intera classe di flauti anziché a questo strumento in "
+"riferisce a un'intera classe di flauti anziché a questo strumento in "
 "particolare."
 
 #. name:dohol 
@@ -4666,7 +4696,7 @@ msgid ""
 "The gayageum is a traditional Korean zither-like string instrument which "
 "normally has 12 strings."
 msgstr ""
-"Strumento tradizionale coreano a corda, simile ad una cetra (zither), che di "
+"Strumento tradizionale coreano a corda, simile a una cetra (zither), che di "
 "solito ha 12 corde."
 
 #. name:gehu 
@@ -5178,7 +5208,7 @@ msgstr ""
 #. name:pi nai 
 #: DB:instrument/description:668
 msgid "The pi nai is a type of pi normally used in the piphat ensemble."
-msgstr "Tipo di pi usato solitamente nell'ensemble piphat. "
+msgstr "Tipo di pi usato solitamente nell'ensemble piphat."
 
 #. name:piccolo oboe 
 #: DB:instrument/description:733
@@ -5394,15 +5424,15 @@ msgid ""
 "The shime-daiko is a small Japanese drum with a short but wide body which "
 "has a higher pitch than a normal taiko."
 msgstr ""
-"Piccolo tamburo giapponese con una cassa bassa e larga ed un tono più acuto "
-"rispetto ad un normale taiko."
+"Piccolo tamburo giapponese con una cassa bassa e larga e un tono più acuto "
+"rispetto a un normale taiko."
 
 #. name:shruti box 
 #: DB:instrument/description:443
 msgid ""
 "The shruti box is similar to a harmonium and is used to provide a drone "
 "accompaniment."
-msgstr "Simile ad un armonium, è usato come accompagnamento di bordone."
+msgstr "Simile a un armonium, è usato come accompagnamento di bordone."
 
 #. name:shudraga 
 #: DB:instrument/description:593
@@ -5426,7 +5456,7 @@ msgid ""
 "wooden ball on the other end and played with the foot."
 msgstr ""
 "Strumento tradizionale vietnamita suonato con i piedi e composto da un corpo "
-"in legno cavo (di circa 7 cm di diametro) attaccato ad una molla flessibile "
+"in legno cavo (di circa 7 cm di diametro) attaccato a una molla flessibile "
 "con una sfera in legno all'altra estremità."
 
 #. name:spilåpipa 
@@ -5661,7 +5691,7 @@ msgid ""
 "or a fourth higher."
 msgstr ""
 "Strumento a corda del periodo barocco. La maggior parte degli esemplari è "
-"simile per dimensioni ad un violino per bambini ed è accordata una terza o "
+"simile per dimensioni a un violino per bambini ed è accordata una terza o "
 "una quarta più in alto rispetto al violino."
 
 #. name:virginal 
@@ -6419,8 +6449,8 @@ msgid ""
 msgstr ""
 "Usato in occasione di cerimonie reali e suonato sbattendolo contro il palmo "
 "della mano, è composto da diversi pezzi di legno, avorio e fogli di ottone "
-"tra due pezzi di legno più grandi, tenuti insieme da una corda ad "
-"un'estremità. "
+"tra due pezzi di legno più grandi, tenuti insieme da una corda a "
+"un'estremità."
 
 #. name:sistrum 
 #: DB:instrument/description:370
@@ -6608,7 +6638,7 @@ msgid ""
 "bamboo frame that is shook. It has been in use since ancient times by "
 "Sundanese peoples."
 msgstr ""
-"Solitamente composto da 2-3 canne intagliate in bambù appese ad un telaio in "
+"Solitamente composto da 2-3 canne intagliate in bambù appese a un telaio in "
 "legno o bambù che viene agitato. È usato dai sundanesi sin dall'antichità."
 
 #. name:valved brass instruments 
@@ -6768,6 +6798,8 @@ msgid ""
 "Without strings or membranes, sound is created by the whole instrument "
 "vibrating."
 msgstr ""
+"Senza corde o membrane, produce suono attraverso la vibrazione dell'intero "
+"strumento."
 
 #. name:pang gu ly hu hmông 
 #: DB:instrument/description:315
@@ -7051,7 +7083,7 @@ msgid ""
 "made of wood, bone or stone it has a long string attached, when spun around "
 "it produces a deep, loud whizzing sound that can be heard from far away."
 msgstr ""
-"In legno, osso o pietra, è attaccato ad una lunga corda e quando è fatto "
+"In legno, osso o pietra, è attaccato a una lunga corda e quando è fatto "
 "roteare produce un suono forte, profondo e ronzante che può essere sentito "
 "anche da lontano."
 
@@ -7208,7 +7240,7 @@ msgstr ""
 #: DB:instrument/description:859
 msgid "thin quiet mouth harp like instrument made of wood or bone."
 msgstr ""
-"Strumento sottile e dal suono moderato simile ad un'arpa a bocca, realizzato "
+"Strumento sottile e dal suono moderato simile a un'arpa a bocca, realizzato "
 "in legno o osso."
 
 #. name:ti bwa 
@@ -7266,7 +7298,7 @@ msgid ""
 "wind synthesizer or wind controller, it is connected to a midi controller "
 "and is played like a wind instrument."
 msgstr ""
-"Un sintetizzatore a fiato o controller a fiato è collegato ad un controller "
+"Un sintetizzatore a fiato o controller a fiato è collegato a un controller "
 "midi ed è suonato come uno strumento a fiato."
 
 #. name:vibrandoneon 

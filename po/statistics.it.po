@@ -7,20 +7,22 @@
 # salo.rock, 2013-2015
 # salo.rock, 2012
 # salo.rock, 2021,2023
+# "salo.rock" <salo.rock+musicbrainz@gmail.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2012-05-24 18:54+0000\n"
-"Last-Translator: salo.rock, 2021,2023\n"
-"Language-Team: Italian (http://app.transifex.com/musicbrainz/musicbrainz/"
-"language/it/)\n"
+"PO-Revision-Date: 2023-08-27 21:27+0000\n"
+"Last-Translator: \"salo.rock\" <salo.rock+musicbrainz@gmail.com>\n"
+"Language-Team: Italian <https://translations.metabrainz.org/projects/"
+"musicbrainz/statistics/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? "
-"1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
+"X-Generator: Weblate 4.18.2\n"
 
 #: DB:statistics.statistic_event/title:2015-09-08
 msgid "\"Do Not Cluster\" guideline dropped"
@@ -103,7 +105,7 @@ msgstr "Viene aggiunto un nuovo meccanismo di ricerca molto più veloce."
 #: DB:statistics.statistic_event/description:2006-08-15
 msgid "A rift in the MusicBrainz community leads to a Great Dispute."
 msgstr ""
-"Una frattura nella comunità di MusicBrainz porta ad una Grande Discussione."
+"Una frattura nella comunità di MusicBrainz porta a una Grande Discussione."
 
 #: DB:statistics.statistic_event/description:2013-05-15
 msgid ""
@@ -145,7 +147,7 @@ msgid ""
 msgstr ""
 "Rilascio delle relazioni avanzate, che permettono agli utenti di collegare "
 "entità di dati di base, ed eliminazione dal database dei TRM inutilizzati. "
-"Disattivazione di default delle modifiche in linea, che porta ad una "
+"Disattivazione di default delle modifiche in linea, che porta a una "
 "diminuzione dell'attività di voto."
 
 #: DB:statistics.statistic_event/description:2019-06-25
@@ -591,7 +593,7 @@ msgstr ""
 "Per semplificare la correzione dei molti casi in cui gli artisti feat. sono "
 "ancora presenti nel titolo di tracce e pubblicazioni anziché nel campo "
 "artista, vengono aggiunti i pulsanti Ritocca artisti feat., rendendo il "
-"processo molto più semplice. "
+"processo molto più semplice."
 
 #: DB:statistics.statistic_event/description:2011-05-12
 msgid "In preparation for NGS, editing is turned off until release."
@@ -688,7 +690,7 @@ msgid ""
 msgstr ""
 "Laurent Monin, più conosciuto come Zas, si unisce al team come "
 "amministratore di sistema, per assicurarsi che i server funzionino "
-"correttamente e per supportare la transizione ad un nuovo sistema di "
+"correttamente e per supportare la transizione a un nuovo sistema di "
 "discussione per la comunità."
 
 #: DB:statistics.statistic_event/description:2003-12-28
@@ -1121,8 +1123,8 @@ msgid ""
 "autoedit, unless the same code is already in use for another."
 msgstr ""
 "La traduzione italiana, realizzata perlopiù da salo.rock, è rilasciata "
-"ufficialmente. Aggiungere il primo codice IPI e/o ISNI ad un'entità diventa "
-"un'auto-modifica, a meno che lo stesso codice non sia già utilizzato da "
+"ufficialmente. Aggiungere il primo codice IPI e/o ISNI a un'entità diventa un"
+"'auto-modifica, a meno che lo stesso codice non sia già utilizzato da "
 "un'altra entità."
 
 #: DB:statistics.statistic_event/title:2015-09-17
@@ -1792,15 +1794,15 @@ msgstr "Collezioni"
 
 #: ../root/statistics/Index.js:173
 msgid "CD Stubs (all time / current):"
-msgstr "Bozze CD (da sempre/attualmente)"
+msgstr "Bozze CD (da sempre/attualmente):"
 
 #: ../root/statistics/Index.js:182
 msgid "Tags (raw / aggregated):"
-msgstr "Tag (grezzi/aggregati)"
+msgstr "Tag (grezzi/aggregati):"
 
 #: ../root/statistics/Index.js:188
 msgid "Ratings (raw / aggregated):"
-msgstr "Valutazioni (grezze/aggregate)"
+msgstr "Valutazioni (grezze/aggregate):"
 
 #: ../root/statistics/Index.js:196
 msgid "Identifiers"
@@ -1888,15 +1890,15 @@ msgstr "Non binario"
 
 #: ../root/statistics/Index.js:338
 msgid "Other gender:"
-msgstr "Altro sesso:"
+msgstr "Altro genere:"
 
 #: ../root/statistics/Index.js:349
 msgid "Gender not applicable:"
-msgstr "Sesso non applicabile:"
+msgstr "Genere non applicabile:"
 
 #: ../root/statistics/Index.js:360
 msgid "with no gender set:"
-msgstr "senza un sesso impostato:"
+msgstr "senza un genere impostato:"
 
 #: ../root/statistics/Index.js:372
 msgid "Releases, Data Quality, and Disc IDs"
@@ -2377,7 +2379,7 @@ msgstr "Paesi degli artisti"
 
 #: ../root/statistics/stats.js:18
 msgid "Artist Types and Genders"
-msgstr "Tipo e sesso degli artisti"
+msgstr "Tipo e genere degli artisti"
 
 #: ../root/statistics/stats.js:22
 msgid "Edit Information"
@@ -2486,15 +2488,15 @@ msgstr "Artisti non binari"
 
 #: ../root/statistics/stats.js:93
 msgid "Gender Not Applicable"
-msgstr "Sesso non applicabile"
+msgstr "Genere non applicabile"
 
 #: ../root/statistics/stats.js:98
 msgid "Artists with no gender set (non-group artists)"
-msgstr "Artisti senza un sesso impostato (solo artisti non di tipo gruppo)"
+msgstr "Artisti senza un genere impostato (solo artisti non di tipo gruppo)"
 
 #: ../root/statistics/stats.js:103
 msgid "Artists with gender set to Other"
-msgstr "Artisti con sesso Altro"
+msgstr "Artisti con genere Altro"
 
 #: ../root/statistics/stats.js:108
 msgid "Artists with at least one artist credit appearance"
@@ -2966,11 +2968,11 @@ msgstr "Gruppi di pubblicazioni che hanno copertine selezionate dagli utenti"
 
 #: ../root/statistics/stats.js:759
 msgid "Release groups with no primary type set"
-msgstr ""
+msgstr "Gruppi di pubblicazioni senza un tipo primario impostato"
 
 #: ../root/statistics/stats.js:764
 msgid "Release groups with no secondary type set"
-msgstr ""
+msgstr "Gruppi di pubblicazioni senza un tipo secondario impostato"
 
 #: ../root/statistics/stats.js:774
 msgid "Series with no type set"
@@ -3034,7 +3036,7 @@ msgstr "Video"
 
 #: ../root/statistics/stats.js:855
 msgid "Abstentions"
-msgstr "Astensioni"
+msgstr "Astenuti"
 
 #: ../root/statistics/stats.js:860
 msgid "Approvals"

@@ -2,7 +2,7 @@
 # Translators:
 # Andrea Borio <email address hidden>, 2016
 # Dario Castellarin <email address hidden>, 2018
-#   <email address hidden>, 2012
+# <email address hidden>, 2012
 # Gioele  <email address hidden>, 2012
 # Gioele <email address hidden>, 2012
 # leofiore <email address hidden>, 2012
@@ -10,19 +10,21 @@
 # salo.rock, 2013-2015
 # salo.rock, 2012
 # salo.rock, 2022-2023
+# "salo.rock" <salo.rock+musicbrainz@gmail.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2012-05-24 18:52+0000\n"
-"Last-Translator: salo.rock, 2022-2023\n"
-"Language-Team: Italian (http://app.transifex.com/musicbrainz/musicbrainz/"
-"language/it/)\n"
+"PO-Revision-Date: 2023-08-27 21:27+0000\n"
+"Last-Translator: \"salo.rock\" <salo.rock+musicbrainz@gmail.com>\n"
+"Language-Team: Italian <https://translations.metabrainz.org/projects/"
+"musicbrainz/attributes/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? "
-"1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
+"X-Generator: Weblate 4.18.2\n"
 
 #: DB:work_type/description:9
 msgctxt "work_type"
@@ -118,7 +120,7 @@ msgstr "CD+G 8cm"
 #: DB:medium_format/description:166
 msgctxt "medium_format"
 msgid "8cm DVD disc, often used for video singles."
-msgstr ""
+msgstr "Disco DVD di 8 cm, usato spesso per singoli video."
 
 #: DB:medium_format/description:58
 msgctxt "medium_format"
@@ -270,9 +272,9 @@ msgid ""
 "for listening in a companion app for a limited period of time."
 msgstr ""
 "Un dispositivo digitale collezionabile, utilizzato soprattutto per la musica "
-"K-pop, che è collegato ad un telefono via Bluetooth o spinotto delle cuffie "
-"e sblocca la pubblicazione per l'ascolto in un'app integrativa per un "
-"periodo di tempo limitato."
+"K-pop, che è collegato a un telefono via Bluetooth o spinotto delle cuffie e "
+"sblocca la pubblicazione per l'ascolto in un'app integrativa per un periodo "
+"di tempo limitato."
 
 #: DB:place_type/description:9
 msgctxt "place_type"
@@ -323,12 +325,12 @@ msgstr ""
 #: DB:work_attribute_type_allowed_value/value:794
 msgctxt "work_attribute_type_allowed_value"
 msgid "A Dorian"
-msgstr "A Dorian"
+msgstr "la dorico"
 
 #: DB:work_attribute_type_allowed_value/value:806
 msgctxt "work_attribute_type_allowed_value"
 msgid "A Mixolydian"
-msgstr "La misolidio"
+msgstr "la misolidio"
 
 #: DB:work_type/description:2
 msgctxt "work_type"
@@ -435,7 +437,7 @@ msgstr ""
 #: DB:work_attribute_type_allowed_value/value:28
 msgctxt "work_attribute_type_allowed_value"
 msgid "A major"
-msgstr "La maggiore"
+msgstr "la maggiore"
 
 #: DB:work_type/description:8
 msgctxt "work_type"
@@ -473,7 +475,7 @@ msgstr ""
 #: DB:work_attribute_type_allowed_value/value:29
 msgctxt "work_attribute_type_allowed_value"
 msgid "A minor"
-msgstr "La minore"
+msgstr "la minore"
 
 #: DB:work_type/description:13
 msgctxt "work_type"
@@ -649,6 +651,8 @@ msgid ""
 "A release mostly consisting of field recordings (such as nature sounds or "
 "city/industrial noise)."
 msgstr ""
+"Una pubblicazione composta perlopiù da field recording (come per esempio "
+"suoni della natura o rumori urbani/industriali)."
 
 #: DB:release_group_secondary_type/description:7
 msgctxt "release_group_secondary_type"
@@ -824,6 +828,9 @@ msgid ""
 "A standard size CD with the playing/data area of a 8cm CD; the remaining "
 "area is empty clear/translucent plastic, sometimes printed."
 msgstr ""
+"Un CD di dimensioni standard con l'area di riproduzione/dati di un CD da 8 "
+"cm; l'area restante è in plastica vuota trasparente o traslucida, talvolta "
+"stampata."
 
 #: DB:medium_format/description:167
 msgctxt "medium_format"
@@ -831,6 +838,9 @@ msgid ""
 "A standard size DVD with the playing/data area of a 8cm MiniDVD; the "
 "remaining area is empty clear/translucent plastic, sometimes printed."
 msgstr ""
+"Un DVD di dimensioni standard con l'area di riproduzione/dati di un MiniDVD "
+"da 8 cm; l'area restante è in plastica vuota trasparente o traslucida, "
+"talvolta stampata."
 
 #: DB:work_type/description:6
 msgctxt "work_type"
@@ -911,22 +921,22 @@ msgstr ""
 #: DB:work_attribute_type_allowed_value/value:26
 msgctxt "work_attribute_type_allowed_value"
 msgid "A-flat major"
-msgstr "La bemolle maggiore"
+msgstr "la bemolle maggiore"
 
 #: DB:work_attribute_type_allowed_value/value:27
 msgctxt "work_attribute_type_allowed_value"
 msgid "A-flat minor"
-msgstr "La bemolle minore"
+msgstr "la bemolle minore"
 
 #: DB:work_attribute_type_allowed_value/value:817
 msgctxt "work_attribute_type_allowed_value"
 msgid "A-sharp major"
-msgstr "La diesis maggiore"
+msgstr "la diesis maggiore"
 
 #: DB:work_attribute_type_allowed_value/value:30
 msgctxt "work_attribute_type_allowed_value"
 msgid "A-sharp minor"
-msgstr "La diesis minore"
+msgstr "la diesis minore"
 
 #: DB:work_attribute_type/name:57
 msgctxt "work_attribute_type"
@@ -1580,42 +1590,42 @@ msgstr "Aṭṭa"
 #: DB:work_attribute_type_allowed_value/value:795
 msgctxt "work_attribute_type_allowed_value"
 msgid "B Dorian"
-msgstr "B Dorian"
+msgstr "si dorico"
 
 #: DB:work_attribute_type_allowed_value/value:807
 msgctxt "work_attribute_type_allowed_value"
 msgid "B Mixolydian"
-msgstr "Si misolidio"
+msgstr "si misolidio"
 
 #: DB:work_attribute_type_allowed_value/value:33
 msgctxt "work_attribute_type_allowed_value"
 msgid "B major"
-msgstr "Si maggiore"
+msgstr "si maggiore"
 
 #: DB:work_attribute_type_allowed_value/value:34
 msgctxt "work_attribute_type_allowed_value"
 msgid "B minor"
-msgstr "Si minore"
+msgstr "si minore"
 
 #: DB:work_attribute_type_allowed_value/value:31
 msgctxt "work_attribute_type_allowed_value"
 msgid "B-flat major"
-msgstr "Si bemolle maggiore"
+msgstr "si bemolle maggiore"
 
 #: DB:work_attribute_type_allowed_value/value:32
 msgctxt "work_attribute_type_allowed_value"
 msgid "B-flat minor"
-msgstr "Si bemolle minore"
+msgstr "si bemolle minore"
 
 #: DB:work_attribute_type_allowed_value/value:818
 msgctxt "work_attribute_type_allowed_value"
 msgid "B-sharp major"
-msgstr "Si diesis maggiore"
+msgstr "si diesis maggiore"
 
 #: DB:work_attribute_type_allowed_value/value:819
 msgctxt "work_attribute_type_allowed_value"
 msgid "B-sharp minor"
-msgstr "Si diesis minore"
+msgstr "si diesis minore"
 
 #: DB:work_attribute_type/name:7
 msgctxt "work_attribute_type"
@@ -2046,42 +2056,42 @@ msgstr "Bṛndāvani"
 #: DB:work_attribute_type_allowed_value/value:789
 msgctxt "work_attribute_type_allowed_value"
 msgid "C Dorian"
-msgstr "C Dorian"
+msgstr "do dorico"
 
 #: DB:work_attribute_type_allowed_value/value:801
 msgctxt "work_attribute_type_allowed_value"
 msgid "C Mixolydian"
-msgstr "Do misolidio"
+msgstr "do misolidio"
 
 #: DB:work_attribute_type_allowed_value/value:2
 msgctxt "work_attribute_type_allowed_value"
 msgid "C major"
-msgstr "Do maggiore"
+msgstr "do maggiore"
 
 #: DB:work_attribute_type_allowed_value/value:3
 msgctxt "work_attribute_type_allowed_value"
 msgid "C minor"
-msgstr "Do minore"
+msgstr "do minore"
 
 #: DB:work_attribute_type_allowed_value/value:1
 msgctxt "work_attribute_type_allowed_value"
 msgid "C-flat major"
-msgstr "Do bemolle maggiore"
+msgstr "do bemolle maggiore"
 
 #: DB:work_attribute_type_allowed_value/value:812
 msgctxt "work_attribute_type_allowed_value"
 msgid "C-flat minor"
-msgstr "Do bemolle minore"
+msgstr "do bemolle minore"
 
 #: DB:work_attribute_type_allowed_value/value:4
 msgctxt "work_attribute_type_allowed_value"
 msgid "C-sharp major"
-msgstr "Do diesis maggiore"
+msgstr "do diesis maggiore"
 
 #: DB:work_attribute_type_allowed_value/value:5
 msgctxt "work_attribute_type_allowed_value"
 msgid "C-sharp minor"
-msgstr "Do diesis minore"
+msgstr "do diesis minore"
 
 #: DB:work_attribute_type/name:19
 msgctxt "work_attribute_type"
@@ -2400,42 +2410,42 @@ msgstr "Cāyātarangiṇi"
 #: DB:work_attribute_type_allowed_value/value:790
 msgctxt "work_attribute_type_allowed_value"
 msgid "D Dorian"
-msgstr "D Dorian"
+msgstr "re dorico"
 
 #: DB:work_attribute_type_allowed_value/value:802
 msgctxt "work_attribute_type_allowed_value"
 msgid "D Mixolydian"
-msgstr "Re misolidio"
+msgstr "re misolidio"
 
 #: DB:work_attribute_type_allowed_value/value:8
 msgctxt "work_attribute_type_allowed_value"
 msgid "D major"
-msgstr "Re maggiore"
+msgstr "re maggiore"
 
 #: DB:work_attribute_type_allowed_value/value:9
 msgctxt "work_attribute_type_allowed_value"
 msgid "D minor"
-msgstr "Re minore"
+msgstr "re minore"
 
 #: DB:work_attribute_type_allowed_value/value:6
 msgctxt "work_attribute_type_allowed_value"
 msgid "D-flat major"
-msgstr "Re bemolle maggiore"
+msgstr "re bemolle maggiore"
 
 #: DB:work_attribute_type_allowed_value/value:7
 msgctxt "work_attribute_type_allowed_value"
 msgid "D-flat minor"
-msgstr "Re bemolle minore"
+msgstr "re bemolle minore"
 
 #: DB:work_attribute_type_allowed_value/value:813
 msgctxt "work_attribute_type_allowed_value"
 msgid "D-sharp major"
-msgstr "Re diesis maggiore"
+msgstr "re diesis maggiore"
 
 #: DB:work_attribute_type_allowed_value/value:10
 msgctxt "work_attribute_type_allowed_value"
 msgid "D-sharp minor"
-msgstr "Re diesis minore"
+msgstr "re diesis minore"
 
 #: DB:medium_format/name:11
 msgctxt "medium_format"
@@ -2929,42 +2939,42 @@ msgstr "Dīpāḷi"
 #: DB:work_attribute_type_allowed_value/value:791
 msgctxt "work_attribute_type_allowed_value"
 msgid "E Dorian"
-msgstr "E Dorian"
+msgstr "mi dorico"
 
 #: DB:work_attribute_type_allowed_value/value:803
 msgctxt "work_attribute_type_allowed_value"
 msgid "E Mixolydian"
-msgstr "Mi misolidio"
+msgstr "mi misolidio"
 
 #: DB:work_attribute_type_allowed_value/value:13
 msgctxt "work_attribute_type_allowed_value"
 msgid "E major"
-msgstr "Mi maggiore"
+msgstr "mi maggiore"
 
 #: DB:work_attribute_type_allowed_value/value:14
 msgctxt "work_attribute_type_allowed_value"
 msgid "E minor"
-msgstr "Mi minore"
+msgstr "mi minore"
 
 #: DB:work_attribute_type_allowed_value/value:11
 msgctxt "work_attribute_type_allowed_value"
 msgid "E-flat major"
-msgstr "Mi bemolle maggiore"
+msgstr "mi bemolle maggiore"
 
 #: DB:work_attribute_type_allowed_value/value:12
 msgctxt "work_attribute_type_allowed_value"
 msgid "E-flat minor"
-msgstr "Mi bemolle minore"
+msgstr "mi bemolle minore"
 
 #: DB:work_attribute_type_allowed_value/value:814
 msgctxt "work_attribute_type_allowed_value"
 msgid "E-sharp major"
-msgstr "Mi diesis maggiore"
+msgstr "mi diesis maggiore"
 
 #: DB:work_attribute_type_allowed_value/value:15
 msgctxt "work_attribute_type_allowed_value"
 msgid "E-sharp minor"
-msgstr "Mi diesis minore"
+msgstr "mi diesis minore"
 
 #: DB:work_attribute_type/name:37
 msgctxt "work_attribute_type"
@@ -3094,42 +3104,42 @@ msgstr "Ezan"
 #: DB:work_attribute_type_allowed_value/value:792
 msgctxt "work_attribute_type_allowed_value"
 msgid "F Dorian"
-msgstr "F Dorian"
+msgstr "fa dorico"
 
 #: DB:work_attribute_type_allowed_value/value:804
 msgctxt "work_attribute_type_allowed_value"
 msgid "F Mixolydian"
-msgstr "Fa misolidio"
+msgstr "fa misolidio"
 
 #: DB:work_attribute_type_allowed_value/value:17
 msgctxt "work_attribute_type_allowed_value"
 msgid "F major"
-msgstr "Fa maggiore"
+msgstr "fa maggiore"
 
 #: DB:work_attribute_type_allowed_value/value:18
 msgctxt "work_attribute_type_allowed_value"
 msgid "F minor"
-msgstr "Fa minore"
+msgstr "fa minore"
 
 #: DB:work_attribute_type_allowed_value/value:16
 msgctxt "work_attribute_type_allowed_value"
 msgid "F-flat major"
-msgstr "Fa bemolle maggiore"
+msgstr "fa bemolle maggiore"
 
 #: DB:work_attribute_type_allowed_value/value:815
 msgctxt "work_attribute_type_allowed_value"
 msgid "F-flat minor"
-msgstr "Fa bemolle minore"
+msgstr "fa bemolle minore"
 
 #: DB:work_attribute_type_allowed_value/value:19
 msgctxt "work_attribute_type_allowed_value"
 msgid "F-sharp major"
-msgstr "Fa diesis maggiore"
+msgstr "fa diesis maggiore"
 
 #: DB:work_attribute_type_allowed_value/value:20
 msgctxt "work_attribute_type_allowed_value"
 msgid "F-sharp minor"
-msgstr "Fa diesis minore"
+msgstr "fa diesis minore"
 
 #: DB:work_attribute_type_allowed_value/value:731
 msgctxt "work_attribute_type_allowed_value"
@@ -3229,7 +3239,7 @@ msgstr "Feth-i Hicaz"
 #: DB:release_group_secondary_type/name:12
 msgctxt "release_group_secondary_type"
 msgid "Field recording"
-msgstr ""
+msgstr "Field recording"
 
 #: DB:work_attribute_type_allowed_value/value:734
 msgctxt "work_attribute_type_allowed_value"
@@ -3297,42 +3307,42 @@ msgstr "Fronte"
 #: DB:work_attribute_type_allowed_value/value:793
 msgctxt "work_attribute_type_allowed_value"
 msgid "G Dorian"
-msgstr "G Dorian"
+msgstr "sol dorico"
 
 #: DB:work_attribute_type_allowed_value/value:805
 msgctxt "work_attribute_type_allowed_value"
 msgid "G Mixolydian"
-msgstr "Sol misolidio"
+msgstr "sol misolidio"
 
 #: DB:work_attribute_type_allowed_value/value:22
 msgctxt "work_attribute_type_allowed_value"
 msgid "G major"
-msgstr "Sol maggiore"
+msgstr "sol maggiore"
 
 #: DB:work_attribute_type_allowed_value/value:23
 msgctxt "work_attribute_type_allowed_value"
 msgid "G minor"
-msgstr "Sol minore"
+msgstr "sol minore"
 
 #: DB:work_attribute_type_allowed_value/value:21
 msgctxt "work_attribute_type_allowed_value"
 msgid "G-flat major"
-msgstr "Sol bemolle maggiore"
+msgstr "sol bemolle maggiore"
 
 #: DB:work_attribute_type_allowed_value/value:816
 msgctxt "work_attribute_type_allowed_value"
 msgid "G-flat minor"
-msgstr "Sol bemolle minore"
+msgstr "sol bemolle minore"
 
 #: DB:work_attribute_type_allowed_value/value:24
 msgctxt "work_attribute_type_allowed_value"
 msgid "G-sharp major"
-msgstr "Sol diesis maggiore"
+msgstr "sol diesis maggiore"
 
 #: DB:work_attribute_type_allowed_value/value:25
 msgctxt "work_attribute_type_allowed_value"
 msgid "G-sharp minor"
-msgstr "Sol diesis minore"
+msgstr "sol diesis minore"
 
 #: DB:work_attribute_type/name:9
 msgctxt "work_attribute_type"
@@ -3990,7 +4000,7 @@ msgstr "ID per la società di diritti canadese SODRAC"
 #: DB:work_attribute_type/description:173
 msgctxt "work_attribute_type"
 msgid "ID for the Chilean rights society SCD"
-msgstr ""
+msgstr "ID per la società di diritti cilena SCD"
 
 #: DB:work_attribute_type/description:71
 msgctxt "work_attribute_type"
@@ -5064,7 +5074,7 @@ msgstr "Fodera"
 #: DB:release_group_secondary_type/name:6
 msgctxt "release_group_secondary_type"
 msgid "Live"
-msgstr "Live"
+msgstr "Dal vivo"
 
 #: DB:work_attribute_type_allowed_value/value:636
 msgctxt "work_attribute_type_allowed_value"
@@ -5329,17 +5339,17 @@ msgstr "Base militare"
 #: DB:medium_format/name:166
 msgctxt "medium_format"
 msgid "MiniDVD"
-msgstr ""
+msgstr "MiniDVD"
 
 #: DB:medium_format/name:168
 msgctxt "medium_format"
 msgid "MiniDVD-Audio"
-msgstr ""
+msgstr "MiniDVD-Audio"
 
 #: DB:medium_format/name:169
 msgctxt "medium_format"
 msgid "MiniDVD-Video"
-msgstr ""
+msgstr "MiniDVD-Video"
 
 #: DB:medium_format/name:6
 msgctxt "medium_format"
@@ -5349,22 +5359,22 @@ msgstr "MiniDisc"
 #: DB:medium_format/name:165
 msgctxt "medium_format"
 msgid "Minimax CD"
-msgstr ""
+msgstr "CD Minimax"
 
 #: DB:medium_format/name:167
 msgctxt "medium_format"
 msgid "Minimax DVD"
-msgstr ""
+msgstr "DVD Minimax"
 
 #: DB:medium_format/name:170
 msgctxt "medium_format"
 msgid "Minimax DVD-Audio"
-msgstr ""
+msgstr "DVD-Audio Minimax"
 
 #: DB:medium_format/name:171
 msgctxt "medium_format"
 msgid "Minimax DVD-Video"
-msgstr ""
+msgstr "DVD-Video Minimax"
 
 #: DB:work_attribute_type_allowed_value/value:644
 msgctxt "work_attribute_type_allowed_value"
@@ -6883,7 +6893,7 @@ msgstr "ID SAZAS"
 #: DB:work_attribute_type/name:173
 msgctxt "work_attribute_type"
 msgid "SCD ID"
-msgstr ""
+msgstr "ID SCD"
 
 #: DB:medium_format/name:62
 msgctxt "medium_format"
@@ -8483,7 +8493,7 @@ msgstr "ambiguo"
 #: DB:medium_format/name:164
 msgctxt "medium_format"
 msgid "microSD"
-msgstr ""
+msgstr "microSD"
 
 #: DB:medium_format/name:27
 msgctxt "medium_format"

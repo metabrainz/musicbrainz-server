@@ -5,19 +5,21 @@
 # salo.rock, 2021-2022
 # salo.rock, 2012
 # salo.rock, 2023
+# "salo.rock" <salo.rock+musicbrainz@gmail.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2012-05-24 19:21+0000\n"
-"Last-Translator: salo.rock, 2023\n"
-"Language-Team: Italian (http://app.transifex.com/musicbrainz/musicbrainz/"
-"language/it/)\n"
+"PO-Revision-Date: 2023-08-25 21:27+0000\n"
+"Last-Translator: \"salo.rock\" <salo.rock+musicbrainz@gmail.com>\n"
+"Language-Team: Italian <https://translations.metabrainz.org/projects/"
+"musicbrainz/scripts/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? "
-"1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
+"X-Generator: Weblate 4.18.2\n"
 
 #. frequency:1 iso_code:Afak 
 #: DB:script/name:133
@@ -67,7 +69,7 @@ msgstr "Bengalese"
 #. frequency:1 iso_code:Blis 
 #: DB:script/name:95
 msgid "Blissymbols"
-msgstr "Blissymbols"
+msgstr "Bliss"
 
 #. frequency:1 iso_code:Phlv 
 #: DB:script/name:123
