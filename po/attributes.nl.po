@@ -9,12 +9,12 @@
 # Niko Strijbol <email address hidden>, 2018
 # Remko de Keijzer <email address hidden>, 2021
 # RandomMushroom128 <RandomMushroom128@users.noreply.translations.metabrainz.org>, 2023.
+# mfmeulenbelt <mfmeulenbelt@gmail.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-08-20 10:27+0000\n"
-"Last-Translator: RandomMushroom128 <RandomMushroom128@users.noreply."
-"translations.metabrainz.org>\n"
+"PO-Revision-Date: 2023-08-29 13:27+0000\n"
+"Last-Translator: mfmeulenbelt <mfmeulenbelt@gmail.com>\n"
 "Language-Team: Dutch <https://translations.metabrainz.org/projects/"
 "musicbrainz/attributes/nl/>\n"
 "Language: nl\n"
@@ -118,7 +118,7 @@ msgstr "8cm-cd+g"
 #: DB:medium_format/description:166
 msgctxt "medium_format"
 msgid "8cm DVD disc, often used for video singles."
-msgstr ""
+msgstr "8cm-dvd, vaak gebruikt voor videosingles."
 
 #: DB:medium_format/description:58
 msgctxt "medium_format"
@@ -165,11 +165,11 @@ msgstr ""
 "\n"
 "<ul>\n"
 "<li>Een verzameling opnamen afkomstig uit verschillende oude bronnen (die "
-"hoeven niet per se eerder te zijn uitgebracht). Bijvoorbeeld iemands "
-"‘grootste hits’, een terugblik of verzameling zeldzame opnames.</li>\n"
+"hoeven niet per se eerder te zijn uitgebracht). Bijvoorbeeld iemands ‘"
+"grootste hits’, een terugblik of verzameling zeldzame opnamen.</li>\n"
 "<li>Een verzameling nummers van verschillende artiesten, meestal rond een "
-"bepaald thema (“Songs for Lovers”), een bepaalde periode (“De hits van "
-"1998”) of een bepaalde serie (“Café del Mar”).\n"
+"bepaald thema (“Songs for Lovers”), een bepaalde periode (“De hits van 1998”)"
+" of een bepaalde serie (“Café del Mar”).\n"
 "</li>\n"
 "</ul>\n"
 "\n"
@@ -178,14 +178,14 @@ msgstr ""
 "<ul>\n"
 "<li>Een heruitgave, zelfs als er bonusnummers op staan.</li>\n"
 "<li>Een hommage-uitgave met covers door een andere artiest.</li>\n"
-"<li>Een klassieke uitgave met nieuwe opnames van composities een componist.</"
-"li>\n"
-"<li>Een gedeelde uitgave met nieuwe muziek van verschillende artiesten.</"
-"li>\n"
+"<li>Een klassieke uitgave met nieuwe opnamen van composities een "
+"componist.</li>\n"
+"<li>Een gedeelde uitgave met nieuwe muziek van verschillende artiesten.</li>"
+"\n"
 "</ul>\n"
 "\n"
 "<p>Compilatie kan samen met andere types worden gebruikt. Een soundtrack met "
-"eerder uitgebrachte opnames van verschillende artiesten moet zowel het type "
+"eerder uitgebrachte opnamen van verschillende artiesten moet zowel het type "
 "‘compilatie’ als het type ‘soundtrack’ hebben.</p>"
 
 #: DB:release_group_primary_type/description:2
@@ -305,10 +305,10 @@ msgid ""
 "manner, and the DJ who does this modification is usually (although not "
 "always) credited in a fairly prominent way."
 msgstr ""
-"Een dj-mix bestaat uit een aantal opnames die zijn aangepast om in elkaar "
+"Een dj-mix bestaat uit een aantal opnamen die zijn aangepast om in elkaar "
 "over te vloeien, zodat ze als één continu stuk muziek klinken. Voor een dj-"
-"mix moeten de opnamen worden aangepast, en de dj die dit doet wordt meestal "
-"(maar niet altijd) prominent op de uitgave genoemd."
+"mix moeten de opnamen worden aangepast, en de dj die dit doet wordt meestal ("
+"maar niet altijd) prominent op de uitgave genoemd."
 
 #: DB:work_attribute_type_allowed_value/value:794
 msgctxt "work_attribute_type_allowed_value"
@@ -391,7 +391,7 @@ msgid ""
 "or all of the members might differ in different performances or recordings)."
 msgstr ""
 "Een groep van meerdere muzikanten die samen optreden (in sommige gevallen "
-"heeft de groep tijdens verschillende optredens of opnames verschillende "
+"heeft de groep tijdens verschillende optredens of opnamen verschillende "
 "leden)."
 
 #: DB:instrument_type/description:7
@@ -416,7 +416,7 @@ msgstr ""
 #: DB:place_type/description:43
 msgctxt "place_type"
 msgid "A large, permanent outdoor stage, typically with a fixed seating area."
-msgstr "Een groot, permanent openlucht podium, meestal met vaste zitplekken."
+msgstr "Een groot, permanent openluchtpodium, meestal met vaste zitplekken."
 
 #: DB:work_attribute_type_allowed_value/value:28
 msgctxt "work_attribute_type_allowed_value"
@@ -430,9 +430,9 @@ msgid ""
 "Christian Eucharistic liturgy (Kyrie - Gloria - Credo - Sanctus - Benedictus "
 "- Agnus Dei, with other portions sometimes added) to music."
 msgstr ""
-"Een mis is een compositie voor koor die de onveranderlijke delen van de "
+"Een mis is een compositie voor koor waarin de onveranderlijke delen van de "
 "christelijke eucharistische liturgie (Kyrie – Gloria – Credo – Sanctus – "
-"Bedendictus – Agnus Dei, soms met toegevoegde delen) op muziek zet."
+"Benedictus – Agnus Dei, soms met toegevoegde delen) op muziek zijn gezet."
 
 #: DB:event_type/description:5
 msgctxt "event_type"
@@ -538,7 +538,7 @@ msgid ""
 "especially for classical music."
 msgstr ""
 "Een plaats die als belangrijkste functie religieuze verering of studie "
-"heeft. Religieuze gebouwen worden vaak gebruikt voor concerten en opnames, "
+"heeft. Religieuze gebouwen worden vaak gebruikt voor concerten en opnamen, "
 "vooral voor klassieke muziek."
 
 #: DB:place_type/description:4
@@ -572,7 +572,7 @@ msgid ""
 msgstr ""
 "Een toneelstuk is een vorm van literatuur en bestaat meestal uit "
 "uitgeschreven dialogen tussen personages. Toneelstukken zijn bedoeld voor "
-"theatervoorstellingen in plaats van om te lezen."
+"theatervoorstellingen in plaats van gelezen te worden."
 
 #: DB:work_type/description:21
 msgctxt "work_type"
@@ -629,6 +629,8 @@ msgid ""
 "A release mostly consisting of field recordings (such as nature sounds or "
 "city/industrial noise)."
 msgstr ""
+"Een uitgave die vooral uit veldopnamen bestaat (zoals natuurgeluiden of "
+"stads-/industrielawaai)."
 
 #: DB:release_group_secondary_type/description:7
 msgctxt "release_group_secondary_type"
@@ -662,7 +664,7 @@ msgstr "Een serie artiesten die dezelfde prijs hebben gewonnen."
 #: DB:series_type/description:13
 msgctxt "series_type"
 msgid "A series of artists."
-msgstr "Een serie artiesten"
+msgstr "Een serie artiesten."
 
 #: DB:series_type/description:15
 msgctxt "series_type"
@@ -687,7 +689,7 @@ msgstr "Een serie van opnamen geëerd met dezelfde prijs."
 #: DB:series_type/description:3
 msgctxt "series_type"
 msgid "A series of recordings."
-msgstr "Een serie opnames."
+msgstr "Een serie opnamen."
 
 #: DB:series_type/description:7
 msgctxt "series_type"
@@ -737,6 +739,9 @@ msgid ""
 "A small venue (such as a jazz club, nightclub or pub) that hosts concerts "
 "and social events. May or may not have a dedicated stage or seating."
 msgstr ""
+"Een kleine locatie (zoals een jazzclub, nachtclub of café) waar concerten en "
+"sociale gelegenheden worden gehouden. Soms hebben ze een podium of vaste "
+"zitplaatsen."
 
 #: DB:work_type/description:15
 msgctxt "work_type"
@@ -747,7 +752,7 @@ msgid ""
 msgstr ""
 "Een liedcyclus is een groep liederen die bedoeld is om in een reeks of als "
 "één stuk te worden opgevoerd. Meestal zijn alle liederen geschreven door "
-"dezelfde componist en er worden vaak teksten gebruikt van dezelfde dichter "
+"dezelfde componist en vaak worden er teksten gebruikt van dezelfde dichter "
 "of tekstschrijver."
 
 #: DB:work_type/description:17
@@ -800,6 +805,8 @@ msgid ""
 "A standard size CD with the playing/data area of a 8cm CD; the remaining "
 "area is empty clear/translucent plastic, sometimes printed."
 msgstr ""
+"Een cd met de standaarddiameter, waarvan alleen de binnenste 8 cm "
+"afspeelbaar is. De buitenrand is van doorzichtig plastic, soms met opdruk."
 
 #: DB:medium_format/description:167
 msgctxt "medium_format"
@@ -807,6 +814,8 @@ msgid ""
 "A standard size DVD with the playing/data area of a 8cm MiniDVD; the "
 "remaining area is empty clear/translucent plastic, sometimes printed."
 msgstr ""
+"Een dvd met de standaarddiameter, waarvan alleen de binnenste 8 cm "
+"afspeelbaar is. De buitenrand is van doorzichtig plastic, soms met opdruk."
 
 #: DB:work_type/description:6
 msgctxt "work_type"
@@ -845,8 +854,8 @@ msgid ""
 "A temporary outdoor stage erected for a music festival or other similar "
 "event."
 msgstr ""
-"Een tijdelijk openlucht podium opgericht voor een muziekfestival of een "
-"ander vergelijkbaar evenement."
+"Een tijdelijk openluchtpodium opgericht voor een muziekfestival of een ander "
+"vergelijkbaar evenement."
 
 #: DB:release_packaging/description:2
 msgctxt "release_packaging"
@@ -870,6 +879,8 @@ msgid ""
 "A video format used in the 1980s and 90s for professional work, including "
 "television and video archival."
 msgstr ""
+"Een soort video dat in de jaren 1980 en 1990 professioneel werd gebruikt, "
+"waaronder voor televisie- en videoarchivering."
 
 #: DB:work_type/description:19
 msgctxt "work_type"
@@ -878,9 +889,9 @@ msgid ""
 "and sung scenes, the latter incorporating operatic and popular song, as well "
 "as dance."
 msgstr ""
-"Een zarzuela is een Spaanse lyrisch-dramatische compositie die gesproken en "
-"gezongen scenes afwisselt. De gezongen scenes bevatten opera en populaire "
-"liederen en dansen."
+"Een zarzuela is een Spaanse lyrisch-dramatische compositie waarin gesproken "
+"en gezongen scènes worden afgewisseld. De gezongen scenes bevatten opera en "
+"populaire liederen en dansen."
 
 #: DB:work_attribute_type_allowed_value/value:26
 msgctxt "work_attribute_type_allowed_value"
@@ -1120,7 +1131,7 @@ msgstr ""
 "eerder uitgebracht (in tegenstelling tot een single, die meestal van een "
 "album afkomstig is). Wat een EP is, is vaak moeilijk vast te stellen; "
 "meestal kan je er alleen vanuit gaan dat een uitgave een EP is als de "
-"artiest het een EP noemt."
+"artiest haar een EP noemt."
 
 #: DB:release_group_primary_type/description:1
 msgctxt "release_group_primary_type"
@@ -1161,7 +1172,7 @@ msgid ""
 "An audio drama is a dramatized, purely acoustic performance, broadcast on "
 "radio or published on an audio medium (tape, CD, etc.)."
 msgstr ""
-"Een hoorspel is een gedramatiseerde, puur akoestieke voorstelling die op de "
+"Een hoorspel is een gedramatiseerde, puur akoestische voorstelling die op de "
 "radio wordt uitgezonden of op een audiomedium (cassette, cd, etc.) wordt "
 "uitgebracht."
 
@@ -1219,7 +1230,7 @@ msgid ""
 "supporting artists who perform before the main act."
 msgstr ""
 "Een individueel concert van een enkele artiest of samenwerkende artiesten, "
-"vaak met ondersteundende artiesten die voor de hoofdartiest optreden."
+"vaak met ondersteunende artiesten die voor de hoofdartiest optreden."
 
 #: DB:place_type/description:44
 msgctxt "place_type"
@@ -1227,6 +1238,8 @@ msgid ""
 "An indoor performance facility with fixed seating, whether for music "
 "(usually, but not always, classical music) or theatre."
 msgstr ""
+"Een zaal met vaste plaatsen, zowel voor muziek (meestal, maar niet altijd "
+"klassiek) als voor theater."
 
 #: DB:release_group_secondary_type/description:4
 msgctxt "release_group_secondary_type"
@@ -1283,7 +1296,7 @@ msgid ""
 msgstr ""
 "Een onofficiële of underground uitgave waar geen toestemming voor is gegeven "
 "door de artiest en/of de platenmaatschappij. Hieronder vallen ook "
-"onofficiële liveopnames en illegaal verspreide uitgaven."
+"onofficiële liveopnamen en illegaal verspreide uitgaven."
 
 #: DB:work_type/description:20
 msgctxt "work_type"
@@ -1307,8 +1320,8 @@ msgid ""
 "Any release officially sanctioned by the artist and/or their record company. "
 "Most releases will fit into this category."
 msgstr ""
-"Elke uitgave waar officieel toestemming voor is gegeven door de artiest en/"
-"of de platenmaatschappij. De meeste uitgaven vallen in deze categorie."
+"Elke uitgave waar de artiest en/of de platenmaatschappij officieel "
+"toestemming heeft gegeven. De meeste uitgaven vallen in deze categorie."
 
 #: DB:release_group_primary_type/description:11
 msgctxt "release_group_primary_type"
@@ -1680,8 +1693,9 @@ msgid ""
 "Beijing opera is a form of traditional Chinese theatre which combines music, "
 "vocal performance, mime, dance, and acrobatics."
 msgstr ""
-"Jing-opera of Peking-opera is een vorm van traditioneel Chinees theater die "
-"muziek, vocale optredens, mime, dans en acrobatiek combineert."
+"Jing-opera of Peking-opera is een vorm van traditioneel Chinees theater "
+"waarin muziek, vocale optredens, mime, dans en acrobatiek worden "
+"gecombineerd."
 
 #: DB:work_attribute_type_allowed_value/value:697
 msgctxt "work_attribute_type_allowed_value"
@@ -1746,7 +1760,7 @@ msgstr "Bestenigar"
 #: DB:medium_format/name:131
 msgctxt "medium_format"
 msgid "Betacam SP"
-msgstr ""
+msgstr "Betacam SP"
 
 #: DB:medium_format/name:24
 msgctxt "medium_format"
@@ -2249,7 +2263,7 @@ msgstr "Clamshell Case"
 #: DB:place_type/name:42
 msgctxt "place_type"
 msgid "Club"
-msgstr ""
+msgstr "Club"
 
 #: DB:release_group_secondary_type/name:1
 msgctxt "release_group_secondary_type"
@@ -2290,7 +2304,7 @@ msgid ""
 "Macrovision's Cactus Data Shield (CDS) and SunnComm's MediaMax."
 msgstr ""
 "Kopieerbeveiliging is een algemene term voor software die moet voorkomen dat "
-"de inhoud van een cd kan worden gekopieerd. Het werd vooral tussen 2001 en "
+"de inhoud van een cd kan worden gekopieerd. Dit werd vooral tussen 2001 en "
 "2006 toegepast. Voorbeelden van dit soort software zijn Cactus Data Shield "
 "(CDS) van Macrovision en MediaMax van SunnComm."
 
@@ -2651,7 +2665,7 @@ msgstr "Digibook"
 #: DB:release_packaging/name:89
 msgctxt "release_packaging"
 msgid "Digifile"
-msgstr ""
+msgstr "Digifile"
 
 #: DB:release_packaging/name:3
 msgctxt "release_packaging"
@@ -2758,7 +2772,7 @@ msgstr "DualDisc (cd-kant)"
 #: DB:medium_format/name:130
 msgctxt "medium_format"
 msgid "DualDisc (DVD side)"
-msgstr ""
+msgstr "DualDisc (dvd-kant)"
 
 #: DB:medium_format/name:65
 msgctxt "medium_format"
@@ -3174,7 +3188,7 @@ msgstr "Festival"
 #: DB:place_type/name:45
 msgctxt "place_type"
 msgid "Festival stage"
-msgstr ""
+msgstr "Festivalpodium"
 
 #: DB:work_attribute_type_allowed_value/value:372
 msgctxt "work_attribute_type_allowed_value"
@@ -3199,7 +3213,7 @@ msgstr "Feth-i Hicaz"
 #: DB:release_group_secondary_type/name:12
 msgctxt "release_group_secondary_type"
 msgid "Field recording"
-msgstr ""
+msgstr "Veldopname"
 
 #: DB:work_attribute_type_allowed_value/value:734
 msgctxt "work_attribute_type_allowed_value"
@@ -3313,7 +3327,7 @@ msgstr "GEMA-ID"
 #: DB:work_attribute_type/name:106
 msgctxt "work_attribute_type"
 msgid "GMR ID"
-msgstr ""
+msgstr "GMR-ID"
 
 #: DB:work_attribute_type_allowed_value/value:88
 msgctxt "work_attribute_type_allowed_value"
@@ -3827,12 +3841,12 @@ msgstr "hybride sacd (sacd-laag)"
 #: DB:medium_format/name:87
 msgctxt "medium_format"
 msgid "Hybrid SACD (SACD layer, 2 channels)"
-msgstr "Hybride SACD (SACD-laag, twee kanalen)"
+msgstr "hybride sacd (SACD-laag, twee kanalen)"
 
 #: DB:medium_format/name:86
 msgctxt "medium_format"
 msgid "Hybrid SACD (SACD layer, multichannel)"
-msgstr "Hybride SACD (SACD-laag, meerkanaals)"
+msgstr "hybride sacd (SACD-laag, meerkanaals)"
 
 #: DB:work_attribute_type_allowed_value/value:418
 msgctxt "work_attribute_type_allowed_value"
@@ -3917,7 +3931,7 @@ msgstr "Een ID van de Argentijnse auteursrechtenorganisatie SADAIC"
 #: DB:work_attribute_type/description:13
 msgctxt "work_attribute_type"
 msgid "ID for the Australasian rights society APRA"
-msgstr "Een ID van de Australaziatische auteursrechtenorganisatie APRA"
+msgstr "Een ID van de Australisch-Aziatische auteursrechtenorganisatie APRA"
 
 #: DB:work_attribute_type/description:23
 msgctxt "work_attribute_type"
@@ -3962,7 +3976,7 @@ msgstr "Een ID van de Canadese auteursrechtenorganisatie SODRAC"
 #: DB:work_attribute_type/description:173
 msgctxt "work_attribute_type"
 msgid "ID for the Chilean rights society SCD"
-msgstr ""
+msgstr "Een ID van de Chileense auteursrechtenorganisatie SCD"
 
 #: DB:work_attribute_type/description:71
 msgctxt "work_attribute_type"
@@ -4002,7 +4016,7 @@ msgstr "Een ID van de Dominicaanse auteursrechtenorganisatie SGACEDOM"
 #: DB:work_attribute_type/description:26
 msgctxt "work_attribute_type"
 msgid "ID for the Dutch rights society BUMA/STEMRA"
-msgstr "Een ID van de Nederlandse auteursrechtenorganisatie  BUMA/STEMRA"
+msgstr "Een ID van de Nederlandse auteursrechtenorganisatie BUMA/STEMRA"
 
 #: DB:work_attribute_type/description:40
 msgctxt "work_attribute_type"
@@ -4152,7 +4166,7 @@ msgstr "Een ID van de Singaporese auteursrechtenorganisatie COMPASS"
 #: DB:work_attribute_type/description:140
 msgctxt "work_attribute_type"
 msgid "ID for the Slovenian rights society SAZAS"
-msgstr ""
+msgstr "Een ID van de Sloveense auteursrechtenorganisatie SAZAS"
 
 #: DB:work_attribute_type/description:68
 msgctxt "work_attribute_type"
@@ -4202,7 +4216,7 @@ msgstr "Een ID van de Amerikaanse auteursrechtenorganisatie BMI"
 #: DB:work_attribute_type/description:106
 msgctxt "work_attribute_type"
 msgid "ID for the US rights society GMR"
-msgstr ""
+msgstr "Een ID van de Amerikaanse auteursrechtenorganisatie GMR"
 
 #: DB:work_attribute_type/description:8
 msgctxt "work_attribute_type"
@@ -4222,7 +4236,7 @@ msgstr "Een ID van de Venezolaanse auteursrechtenorganisatie SACVEN"
 #: DB:work_attribute_type/description:107
 msgctxt "work_attribute_type"
 msgid "ID for the Vietnamese rights society VCPMC"
-msgstr ""
+msgstr "Een ID van de Vietnamese auteursrechtenorganisatie VCPMC"
 
 #: DB:work_attribute_type/description:38
 msgctxt "work_attribute_type"
@@ -5301,17 +5315,17 @@ msgstr "Militaire basis"
 #: DB:medium_format/name:166
 msgctxt "medium_format"
 msgid "MiniDVD"
-msgstr ""
+msgstr "MiniDVD"
 
 #: DB:medium_format/name:168
 msgctxt "medium_format"
 msgid "MiniDVD-Audio"
-msgstr ""
+msgstr "MiniDVD-audio"
 
 #: DB:medium_format/name:169
 msgctxt "medium_format"
 msgid "MiniDVD-Video"
-msgstr ""
+msgstr "MiniDVD-Video"
 
 #: DB:medium_format/name:6
 msgctxt "medium_format"
@@ -5321,22 +5335,22 @@ msgstr "minidisc"
 #: DB:medium_format/name:165
 msgctxt "medium_format"
 msgid "Minimax CD"
-msgstr ""
+msgstr "minimax-cd"
 
 #: DB:medium_format/name:167
 msgctxt "medium_format"
 msgid "Minimax DVD"
-msgstr ""
+msgstr "minimax-dvd"
 
 #: DB:medium_format/name:170
 msgctxt "medium_format"
 msgid "Minimax DVD-Audio"
-msgstr ""
+msgstr "minimax-dvd-audio"
 
 #: DB:medium_format/name:171
 msgctxt "medium_format"
 msgid "Minimax DVD-Video"
-msgstr ""
+msgstr "minimax-dvd-video"
 
 #: DB:work_attribute_type_allowed_value/value:644
 msgctxt "work_attribute_type_allowed_value"
@@ -6136,12 +6150,12 @@ msgstr "Ouverture"
 #: DB:editor_collection_type/name:2
 msgctxt "collection_type"
 msgid "Owned music"
-msgstr "Heb ik"
+msgstr "Muziek die ik heb"
 
 #: DB:editor_collection_type/name:17
 msgctxt "collection_type"
 msgid "Owned recordings"
-msgstr ""
+msgstr "Opnamen die ik heb"
 
 #: DB:work_attribute_type_allowed_value/value:762
 msgctxt "work_attribute_type_allowed_value"
@@ -6559,12 +6573,12 @@ msgstr "onbewerkt"
 #: DB:series_type/name:48
 msgctxt "series_type"
 msgid "Recording award"
-msgstr ""
+msgstr "Bekroonde opnamen"
 
 #: DB:editor_collection_type/name:12
 msgctxt "collection_type"
 msgid "Recording collection"
-msgstr "Collectie van opnames"
+msgstr "Collectie van opnamen"
 
 #: DB:recording_alias_type/name:1
 msgctxt "alias_type"
@@ -6574,7 +6588,7 @@ msgstr "Naam van de opname"
 #: DB:series_type/name:3
 msgctxt "series_type"
 msgid "Recording series"
-msgstr "Serie opnames"
+msgstr "Serie opnamen"
 
 #: DB:medium_format/name:10
 msgctxt "medium_format"
@@ -6604,7 +6618,7 @@ msgstr "Collectie van uitgaven"
 #: DB:series_type/name:47
 msgctxt "series_type"
 msgid "Release group award"
-msgstr ""
+msgstr "Bekroonde uitgavegroepen"
 
 #: DB:editor_collection_type/name:13
 msgctxt "collection_type"
@@ -6850,12 +6864,12 @@ msgstr "SAYCO-ID"
 #: DB:work_attribute_type/name:140
 msgctxt "work_attribute_type"
 msgid "SAZAS ID"
-msgstr ""
+msgstr "SAZAS-ID"
 
 #: DB:work_attribute_type/name:173
 msgctxt "work_attribute_type"
 msgid "SCD ID"
-msgstr ""
+msgstr "SCD-ID"
 
 #: DB:medium_format/name:62
 msgctxt "medium_format"
@@ -8117,7 +8131,7 @@ msgstr "video-cd"
 #: DB:work_attribute_type/name:107
 msgctxt "work_attribute_type"
 msgid "VCPMC ID"
-msgstr ""
+msgstr "VCPMC-ID"
 
 #: DB:medium_format/name:59
 msgctxt "medium_format"
@@ -8307,7 +8321,7 @@ msgstr "Teruggetrokken"
 #: DB:series_type/name:46
 msgctxt "series_type"
 msgid "Work award"
-msgstr ""
+msgstr "Bekroonde composities"
 
 #: DB:editor_collection_type/name:15
 msgctxt "collection_type"
@@ -8460,7 +8474,7 @@ msgstr "ambigu"
 #: DB:medium_format/name:164
 msgctxt "medium_format"
 msgid "microSD"
-msgstr ""
+msgstr "microSD"
 
 #: DB:medium_format/name:27
 msgctxt "medium_format"
