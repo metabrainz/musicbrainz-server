@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-08-29 13:27+0000\n"
-"Last-Translator: Philipp Wolfer <ph.wolfer@gmail.com>\n"
+"PO-Revision-Date: 2023-08-30 01:27+0000\n"
+"Last-Translator: Anonymous <noreply@weblate.org>\n"
 "Language-Team: Romanian <https://translations.metabrainz.org/projects/"
 "musicbrainz/scripts/ro/>\n"
 "Language: ro\n"
@@ -30,7 +30,7 @@ msgstr "Arabă"
 #. frequency:3 iso_code:Armn 
 #: DB:script/name:35
 msgid "Armenian"
-msgstr ""
+msgstr "Armeană"
 
 #. frequency:1 iso_code:Avst 
 #: DB:script/name:114
@@ -385,7 +385,7 @@ msgstr ""
 #. frequency:4 iso_code:Latn 
 #: DB:script/name:28
 msgid "Latin"
-msgstr ""
+msgstr "Latină"
 
 #. frequency:1 iso_code:Latf 
 #: DB:script/name:30
@@ -760,12 +760,12 @@ msgstr ""
 #. frequency:4 iso_code:Thai 
 #: DB:script/name:65
 msgid "Thai"
-msgstr ""
+msgstr "Thailandeză"
 
 #. frequency:3 iso_code:Tibt 
 #: DB:script/name:55
 msgid "Tibetan"
-msgstr ""
+msgstr "Tibetană"
 
 #. frequency:3 iso_code:Tfng 
 #: DB:script/name:10
