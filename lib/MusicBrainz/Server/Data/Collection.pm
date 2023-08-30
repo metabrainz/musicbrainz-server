@@ -374,10 +374,10 @@ sub delete {
     $self->remove_gid_redirects(@collection_ids);
 
     # Remove all entities associated with the collection(s)
-    map {
+    for (entities_with('collections')) {
         $self->sql->do("DELETE FROM editor_collection_$_
             WHERE collection IN (" . placeholders(@collection_ids) . ')', @collection_ids);
-    } entities_with('collections');
+    }
 
     # Remove all collaborators associated with the collection(s)
     $self->sql->do('DELETE FROM editor_collection_collaborator
