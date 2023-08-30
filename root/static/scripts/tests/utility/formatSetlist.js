@@ -19,6 +19,7 @@ test('formatSetlist', function (t) {
     '@ pre-text [e1af2f0d-c685-4e83-a27d-b27e79787aab|artist 1] mid-text ' +
       '[0eda70b7-c77b-4775-b1db-5b0e5a3ca4c1|artist 2 (:v&#93;&#x5d;&rsqb;&rbrack;] post-text\n\r\n' +
     '* e [b831b5a4-e1a9-4516-bb50-b6eed446fc9b|work 1] [not a link]\r' +
+    '* e [b831b5a4-e1a9-4516-bb50-b6eed446fc9c]\r' +
     '@ plain text artist &lbrack;&lsqb;&#x5b;&#91;v:)\n' +
     '# comment [b831b5a4-e1a9-4516-bb50-b6eed446fc9b|not a link]\r\n' +
     '# comment <a href="#">also not a link</a> &#38;amp; &amp;rsqb;\r\n' +
@@ -38,6 +39,7 @@ test('formatSetlist', function (t) {
     '</strong> post-text<br/><br/>' +
     'e <a href="/work/b831b5a4-e1a9-4516-bb50-b6eed446fc9b">work 1</a> ' +
       '[not a link]<br/>' +
+    'e <a href="/work/b831b5a4-e1a9-4516-bb50-b6eed446fc9c">work:b831b5a4-e1a9-4516-bb50-b6eed446fc9c</a><br/>' +
     '<strong>Artist: ' +
     'plain text artist [[[[v:)' +
     '</strong><br/>' +
