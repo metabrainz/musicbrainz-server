@@ -5,15 +5,16 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2012-05-24 19:23+0000\n"
-"Last-Translator: CatQuest, The Endeavouring Cat, 2015\n"
-"Language-Team: Norwegian Bokmål (http://app.transifex.com/musicbrainz/"
-"musicbrainz/language/nb/)\n"
+"PO-Revision-Date: 2023-08-30 01:27+0000\n"
+"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"Language-Team: Norwegian Bokmål <https://translations.metabrainz.org/"
+"projects/musicbrainz/languages/nb_NO/>\n"
 "Language: nb\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.18.2\n"
 
 #. frequency:1 iso_code_3:abk 
 #: DB:language/name:2
@@ -43,7 +44,7 @@ msgstr ""
 #. frequency:1 iso_code_3:aar 
 #: DB:language/name:1
 msgid "Afar"
-msgstr ""
+msgstr "Afar"
 
 #. frequency:1 iso_code_3:afh 
 #: DB:language/name:8
@@ -68,7 +69,7 @@ msgstr ""
 #. frequency:1 iso_code_3:aka 
 #: DB:language/name:10
 msgid "Akan"
-msgstr ""
+msgstr "Akan"
 
 #. frequency:1 iso_code_3:akk 
 #: DB:language/name:11
@@ -153,7 +154,7 @@ msgstr ""
 #. frequency:1 iso_code_3:asm 
 #: DB:language/name:26
 msgid "Assamese"
-msgstr ""
+msgstr "Assamesisk"
 
 #. frequency:1 iso_code_3:ast 
 #: DB:language/name:27
@@ -258,7 +259,7 @@ msgstr ""
 #. frequency:1 iso_code_3:eus 
 #: DB:language/name:41
 msgid "Basque"
-msgstr ""
+msgstr "Baskisk"
 
 #. frequency:0 iso_code_3:null 
 #: DB:language/name:59
@@ -323,7 +324,7 @@ msgstr ""
 #. frequency:1 iso_code_3:byn 
 #: DB:language/name:64
 msgid "Blin"
-msgstr ""
+msgstr "Blin"
 
 #. frequency:0 iso_code_3:zbl 
 #: DB:language/name:482
@@ -523,7 +524,7 @@ msgstr ""
 #. frequency:1 iso_code_3:cor 
 #: DB:language/name:88
 msgid "Cornish"
-msgstr ""
+msgstr "Kornisk"
 
 #. frequency:1 iso_code_3:cos 
 #: DB:language/name:89
@@ -613,7 +614,7 @@ msgstr ""
 #. frequency:1 iso_code_3:div 
 #: DB:language/name:107
 msgid "Divehi"
-msgstr ""
+msgstr "Divehi"
 
 #. frequency:1 iso_code_3:doi 
 #: DB:language/name:108
@@ -653,7 +654,7 @@ msgstr ""
 #. frequency:1 iso_code_3:dzo 
 #: DB:language/name:115
 msgid "Dzongkha"
-msgstr ""
+msgstr "Dzongkha"
 
 #. frequency:1 iso_code_3:aer 
 #: DB:language/name:584
@@ -713,7 +714,7 @@ msgstr "Estisk"
 #. frequency:1 iso_code_3:ewe 
 #: DB:language/name:124
 msgid "Ewe"
-msgstr ""
+msgstr "Ewe"
 
 #. frequency:1 iso_code_3:ewo 
 #: DB:language/name:125
@@ -793,7 +794,7 @@ msgstr ""
 #. frequency:1 iso_code_3:fur 
 #: DB:language/name:139
 msgid "Friulian"
-msgstr ""
+msgstr "Friulisk"
 
 #. frequency:1 iso_code_3:ful 
 #: DB:language/name:138
@@ -803,7 +804,7 @@ msgstr ""
 #. frequency:1 iso_code_3:gaa 
 #: DB:language/name:140
 msgid "Ga"
-msgstr ""
+msgstr "Ga"
 
 #. frequency:1 iso_code_3:car 
 #: DB:language/name:67
@@ -813,7 +814,7 @@ msgstr ""
 #. frequency:1 iso_code_3:glg 
 #: DB:language/name:150
 msgid "Galician"
-msgstr ""
+msgstr "Gælisk"
 
 #. frequency:1 iso_code_3:lug 
 #: DB:language/name:249
@@ -838,7 +839,7 @@ msgstr ""
 #. frequency:1 iso_code_3:gez 
 #: DB:language/name:146
 msgid "Geez"
-msgstr ""
+msgstr "Ge'ez"
 
 #. frequency:1 iso_code_3:kat 
 #: DB:language/name:144
@@ -933,7 +934,7 @@ msgstr ""
 #. frequency:1 iso_code_3:guj 
 #: DB:language/name:161
 msgid "Gujarati"
-msgstr ""
+msgstr "Gujarati"
 
 #. frequency:1 iso_code_3:gnn 
 #: DB:language/name:2511
@@ -1198,7 +1199,7 @@ msgstr ""
 #. frequency:1 iso_code_3:kan 
 #: DB:language/name:206
 msgid "Kannada"
-msgstr ""
+msgstr "Kannada"
 
 #. frequency:1 iso_code_3:kau 
 #: DB:language/name:209
@@ -1833,7 +1834,7 @@ msgstr ""
 #. frequency:1 iso_code_3:oci 
 #: DB:language/name:318
 msgid "Occitan"
-msgstr ""
+msgstr "Occitansk"
 
 #. frequency:0 iso_code_3:arc 
 #: DB:language/name:19

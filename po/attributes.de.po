@@ -51,7 +51,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-08-22 17:14+0000\n"
+"PO-Revision-Date: 2023-08-30 01:27+0000\n"
 "Last-Translator: Philipp Wolfer <ph.wolfer@gmail.com>\n"
 "Language-Team: German <https://translations.metabrainz.org/projects/"
 "musicbrainz/attributes/de/>\n"
@@ -155,7 +155,7 @@ msgstr "8-cm-CD+G"
 #: DB:medium_format/description:166
 msgctxt "medium_format"
 msgid "8cm DVD disc, often used for video singles."
-msgstr ""
+msgstr "8cm-DVD, häufig für Video-Singles verwendet."
 
 #: DB:medium_format/description:58
 msgctxt "medium_format"

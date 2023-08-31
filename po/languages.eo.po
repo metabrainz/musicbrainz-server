@@ -6,15 +6,16 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2012-05-24 19:23+0000\n"
-"Last-Translator: Alex Mauer <hawke@hawkesnest.net>, 2016\n"
-"Language-Team: Esperanto (http://app.transifex.com/musicbrainz/musicbrainz/"
-"language/eo/)\n"
+"PO-Revision-Date: 2023-08-30 01:27+0000\n"
+"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"Language-Team: Esperanto <https://translations.metabrainz.org/projects/"
+"musicbrainz/languages/eo/>\n"
 "Language: eo\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.18.2\n"
 
 #. frequency:1 iso_code_3:abk 
 #: DB:language/name:2
@@ -744,7 +745,7 @@ msgstr "Fiĝia"
 #. frequency:1 iso_code_3:fil 
 #: DB:language/name:130
 msgid "Filipino"
-msgstr ""
+msgstr "Filipina"
 
 #. frequency:2 iso_code_3:fin 
 #: DB:language/name:131
@@ -1089,7 +1090,7 @@ msgstr ""
 #. frequency:1 iso_code_3:ina 
 #: DB:language/name:187
 msgid "Interlingua"
-msgstr ""
+msgstr "Interlingvao"
 
 #. frequency:1 iso_code_3:ile 
 #: DB:language/name:185
@@ -1529,7 +1530,7 @@ msgstr "Malagasa"
 #. frequency:1 iso_code_3:msa 
 #: DB:language/name:266
 msgid "Malay"
-msgstr ""
+msgstr "Malaja"
 
 #. frequency:1 iso_code_3:mal 
 #: DB:language/name:260
@@ -1594,7 +1595,7 @@ msgstr ""
 #. frequency:1 iso_code_3:mar 
 #: DB:language/name:264
 msgid "Marathi"
-msgstr ""
+msgstr "Marata"
 
 #. frequency:1 iso_code_3:chm 
 #: DB:language/name:78
@@ -1959,7 +1960,7 @@ msgstr ""
 #. frequency:1 iso_code_3:pan 
 #: DB:language/name:330
 msgid "Punjabi"
-msgstr ""
+msgstr "Panĝaba"
 
 #. frequency:1 iso_code_3:pus 
 #: DB:language/name:343

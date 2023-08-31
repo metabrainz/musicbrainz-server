@@ -3,15 +3,16 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2012-05-24 19:21+0000\n"
-"Last-Translator: FULL NAME <email address hidden>\n"
-"Language-Team: Chinese (http://app.transifex.com/musicbrainz/musicbrainz/"
-"language/zh/)\n"
+"PO-Revision-Date: 2023-08-30 01:27+0000\n"
+"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"Language-Team: Chinese (Simplified) <https://translations.metabrainz.org/"
+"projects/musicbrainz/scripts/zh_Hans/>\n"
 "Language: zh\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 4.18.2\n"
 
 #. frequency:1 iso_code:Afak 
 #: DB:script/name:133
@@ -106,7 +107,7 @@ msgstr ""
 #. frequency:1 iso_code:Cakm 
 #: DB:script/name:115
 msgid "Chakma"
-msgstr ""
+msgstr "查克玛文"
 
 #. frequency:2 iso_code:Cham 
 #: DB:script/name:71
@@ -161,7 +162,7 @@ msgstr ""
 #. frequency:4 iso_code:Cyrl 
 #: DB:script/name:31
 msgid "Cyrillic"
-msgstr ""
+msgstr "西里尔语"
 
 #. frequency:1 iso_code:Cyrs 
 #: DB:script/name:32
@@ -261,7 +262,7 @@ msgstr ""
 #. frequency:3 iso_code:Hang 
 #: DB:script/name:101
 msgid "Hangul"
-msgstr ""
+msgstr "谚文"
 
 #. frequency:2 iso_code:Hano 
 #: DB:script/name:77
@@ -276,7 +277,7 @@ msgstr "希伯来语"
 #. frequency:3 iso_code:Hira 
 #: DB:script/name:83
 msgid "Hiragana"
-msgstr ""
+msgstr "平假名"
 
 #. frequency:1 iso_code:Armi 
 #: DB:script/name:113
@@ -331,7 +332,7 @@ msgstr "卡纳达语"
 #. frequency:4 iso_code:Kana 
 #: DB:script/name:84
 msgid "Katakana"
-msgstr ""
+msgstr "片假名"
 
 #. frequency:2 iso_code:Kali 
 #: DB:script/name:70
