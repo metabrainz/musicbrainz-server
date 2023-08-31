@@ -74,7 +74,7 @@ Prerequisites
     If you plan on accessing musicbrainz-server inside a web browser, you should
     install Node and the package manager Yarn.
 
-    We currently run Node.js v16.16.0 in production.  While we try to support
+    We currently run Node.js v18.17.1 in production.  While we try to support
     all 16.x versions of Node, it's recommended to install one greater than or
     equal to v16.13.0, as this is when the LTS line started and better matches
     what we use and know works.  If your release of Ubuntu doesn't have such a

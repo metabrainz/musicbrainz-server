@@ -3,6 +3,12 @@ version: 2.1
 executors:
   musicbrainz-tests:
     docker:
+      - image: metabrainz/musicbrainz-tests:v-2023-08
+        user: root
+    working_directory: /home/musicbrainz/musicbrainz-server
+
+  musicbrainz-tests-node-v16:
+    docker:
       - image: metabrainz/musicbrainz-tests:v-2022-10
         user: root
     working_directory: /home/musicbrainz/musicbrainz-server
@@ -87,8 +93,88 @@ jobs:
       - store_test_results:
           path: ./junit_output
 
+  js-perl-and-pgtap-node-v16:
+    executor: musicbrainz-tests-node-v16
+    steps:
+      - restore_cache:
+          keys:
+            - v1-source-{{ .Branch }}-{{ .Revision }}
+            - v1-source-{{ .Branch }}-
+            - v1-source-
+      - checkout
+      - run: |
+          chown -R musicbrainz:musicbrainz .
+          # The checkout step configures git to skip gc, so we run it
+          # here to reduce .git's size before saving it to cache.
+          sudo -E -H -u musicbrainz git gc
+      - save_cache:
+          key: v1-source-{{ .Branch }}-{{ .Revision }}
+          paths:
+            - ".git"
+
+      - restore_cache:
+          keys:
+            - v2-node-v16-{{ checksum "yarn.lock" }}
+            - v2-node-v16-
+      - run: |
+          chown -R musicbrainz:musicbrainz .
+          sudo -E -H -u musicbrainz yarn
+      - save_cache:
+          key: v2-node-v16-{{ checksum "yarn.lock" }}
+          paths:
+            - "node_modules"
+
+      - run: |
+          sudo -E -H -u musicbrainz mkdir -p junit_output
+          sudo -E -H -u musicbrainz cp docker/musicbrainz-tests/DBDefs.pm lib/
+          rm /etc/service/{postgresql,redis}/down && sv start postgresql redis
+          sudo -E -H -u musicbrainz carton exec -- ./script/create_test_db.sh
+          sudo -E -H -u musicbrainz make -C po all_quiet deploy
+          MUSICBRAINZ_RUNNING_TESTS=1 NODE_ENV=test WEBPACK_MODE=development NO_PROGRESS=1 sudo -E -H -u musicbrainz carton exec -- \
+              ./script/compile_resources.sh client server web-tests
+          sudo -E -H -u musicbrainz ./node_modules/.bin/flow --quiet
+          sudo -E -H -u musicbrainz ./node_modules/.bin/eslint --max-warnings 0 .
+          rm /etc/service/chrome/down && sv start chrome
+          sudo -E -H -u musicbrainz carton exec -- node \
+              t/web.js \
+              | tee >(./node_modules/.bin/tap-junit > ./junit_output/js_web.xml) \
+              | ./node_modules/.bin/tap-difflet
+          sv kill chrome
+          ./docker/musicbrainz-tests/add_mbtest_alias.sh
+          sudo -u postgres createdb -O musicbrainz -T musicbrainz_test -U postgres musicbrainz_test_json_dump
+          sudo -u postgres createdb -O musicbrainz -T musicbrainz_test -U postgres musicbrainz_test_full_export
+          sudo -u postgres createdb -O musicbrainz -T musicbrainz_test -U postgres musicbrainz_test_sitemaps
+          rm /etc/service/{template-renderer,vnu,website}/down && sv start template-renderer vnu website
+          export MMD_SCHEMA_ROOT=/home/musicbrainz/mb-solr/mmd-schema
+          export JUNIT_OUTPUT_FILE=junit_output/perl_and_pgtap.xml
+          sudo -E -H -u musicbrainz carton exec -- prove \
+              --pgtap-option dbname=musicbrainz_test \
+              --pgtap-option host=localhost \
+              --pgtap-option port=5432 \
+              --pgtap-option username=musicbrainz \
+              --source pgTAP \
+              --source Perl \
+              -I lib \
+              t/author/* \
+              t/critic.t \
+              t/hydration_i18n.t \
+              t/pgtap/* \
+              t/pgtap/unused-tags/* \
+              t/script/MergeDuplicateArtistCredits.t \
+              t/script/BuildSitemaps.t \
+              t/script/DumpJSON.t \
+              t/script/ExportAllTables.t \
+              t/script/dbmirror2.t \
+              t/tests.t \
+              --harness=TAP::Harness::JUnit \
+              -v
+
+      - store_test_results:
+          path: ./junit_output
+
 workflows:
   version: 2.1
   build-and-test:
     jobs:
       - js-perl-and-pgtap
+      - js-perl-and-pgtap-node-v16
