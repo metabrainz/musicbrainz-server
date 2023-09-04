@@ -34,10 +34,6 @@
 
    For updating translations, also part of `production` server features in `cpanfile`.
 
-2. Transifex client
-
-   See the section “[Translations](INSTALL.md#translations)” of the installation documentation.
-
 See the private system administration wiki for additional prerequisites.
 
 ## Release production
@@ -47,8 +43,9 @@ See the private system administration wiki for additional prerequisites.
 Assuming the source messages were updated when releasing beta (if not, see that under the beta
 process below first!), you need to start by updating the translated messages:
 
-1. Run `./po/update_translations.sh --commit` to download the latest .po files
-   from Transifex and commit them to the `beta` branch.
+1. Merge `translations` to `beta` (`git merge --log=876423 --no-ff translations`) and push.
+   Wait until [CircleCI](https://circleci.com/gh/metabrainz/musicbrainz-server) is happy
+   with this merge as some unmatching translations can break building Docker images.
 
 ### Merge Git branches
 
@@ -158,8 +155,7 @@ It has some differences with the production release process; follow these steps:
 1. On the translations update step, do not just update translated messages,
    also update source messages for translation. This involves four steps:
 
-   1. Run `./po/update_translations.sh --commit` to download the latest .po files
-      from Transifex and commit them to the `master` branch
+   1. Merge `translations` to `beta` (`git merge --log=876423 --no-ff translations`) and push.
 
    2. Run `./po/update_pot.sh` to generate new .pot files from the
       database and templates. It's often a good idea to manually check
@@ -169,18 +165,7 @@ It has some differences with the production release process; follow these steps:
       If you find any of these, you might want to correct the issues and
       generate the files again. Once you're done, commit the changes.
 
-   3. Push the `.pot` files generated in step 2 to Transifex. To push only the
-      ones that changed, give a comma-separated list:
-
-      ```sh
-      cd po/
-      tx push -s -r musicbrainz.server,musicbrainz.instruments
-      ```
-
-      If you want to push languages, keep in mind you need to push
-      `musicbrainz.languages-9` (not `musicbrainz.languages`).
-
-   4. Push the commits from steps 1 & 2 to `master`.
+   3. Push your commits, Weblate is following `*.pot` files from the `beta` branch.
 
 2. On the git branches merge step, to update the `beta` branch with the changes from the `master` branch,
    merge `master` into `beta` (with `git merge --log=876423 --no-ff master`) and push to `beta`.

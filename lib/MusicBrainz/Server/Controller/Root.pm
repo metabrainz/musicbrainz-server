@@ -94,7 +94,7 @@ sub set_language : Path('set-language') Args(1)
             Translation->instance->set_language($lang);
             $flash .= '<br/>' . l(
                 'If you find any problems with the translation, please {url|help us improve it}!',
-                {url => {href => 'https://www.transifex.com/musicbrainz/musicbrainz/', target => '_blank'}});
+                {url => {href => 'https://translations.metabrainz.org/projects/musicbrainz/', target => '_blank'}});
         }
         $c->flash->{message} = $flash;
     }
