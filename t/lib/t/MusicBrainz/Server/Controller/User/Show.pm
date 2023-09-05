@@ -3,6 +3,7 @@ use strict;
 use warnings;
 
 use Test::Routine;
+use Test::More;
 
 with 't::Mechanize', 't::Context';
 
@@ -52,6 +53,75 @@ test 'Private tabs only appear where allowed' => sub {
     $mech->content_contains(
         '/user/Alice/tags">Tags',
         'Tags tab appears on own profile, even if marked private',
+    );
+};
+
+test 'User restrictions display' => sub {
+    my $test = shift;
+    my $mech = $test->mech;
+    my $c    = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+editor');
+
+    $mech->get('/login');
+    $mech->submit_form(
+        with_fields => { username => 'kuno', password => 'byld' },
+    );
+
+    $mech->get('/user/Alice');
+    $mech->text_lacks(
+        'Active restrictions',
+        'No restriction info shown if none applies',
+    );
+
+    note('We remove the editor’s edit note privileges and set Untrusted');
+    $test->c->sql->do(<<~'SQL');
+        UPDATE editor
+           SET privs = 4+2048
+         WHERE name = 'Alice'
+        SQL
+
+    $mech->get('/user/Alice');
+    $mech->text_contains(
+        'Active restrictions:Edit notes disabled',
+        'Restriction info shown when logged in as other (but not Untrusted)',
+    );
+
+    $mech->get('/logout');
+
+    $mech->get('/user/Alice');
+    $mech->text_lacks(
+        'Active restrictions',
+        'No restriction info shown when logged out',
+    );
+
+    $mech->get('/login');
+    $mech->submit_form(
+        with_fields => { username => 'Alice', password => 'secret1' },
+    );
+
+    $mech->get('/user/Alice');
+    $mech->text_contains(
+        'Active restrictions:Edit notes disabled',
+        'Restriction info shown when logged in as self (but not Untrusted)',
+    );
+
+    $test->c->sql->do(<<~'SQL');
+        UPDATE editor
+           SET privs = 128
+         WHERE name = 'kuno'
+        SQL
+
+    $mech->get('/logout');
+    $mech->get('/login');
+    $mech->submit_form(
+        with_fields => { username => 'kuno', password => 'byld' },
+    );
+
+    $mech->get('/user/Alice');
+    $mech->text_contains(
+        'Active restrictions:Edit notes disabled, Untrusted',
+        'Restriction info including Untrusted shown when logged in as admin',
     );
 };
 
