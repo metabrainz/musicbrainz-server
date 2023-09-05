@@ -6,23 +6,53 @@ use Test::Routine;
 
 with 't::Mechanize', 't::Context';
 
-test all => sub {
+test 'Private tabs only appear where allowed' => sub {
+    my $test = shift;
+    my $mech = $test->mech;
+    my $c    = $test->c;
 
-my $test = shift;
-my $mech = $test->mech;
-my $c    = $test->c;
+    MusicBrainz::Server::Test->prepare_test_database($c, '+editor');
 
-MusicBrainz::Server::Test->prepare_test_database($c, '+editor');
+    $mech->get('/user/new_editor');
+    $mech->content_contains(
+        '/user/new_editor/tags">Tags',
+        'Tags tab appears on profile of user when viewing logged out',
+    );
 
-$mech->get('/user/new_editor');
-$mech->content_contains('Collection', 'Collection tab appears on profile of user');
+    $mech->get('/user/Alice');
+    $mech->content_lacks(
+        '/user/Alice/tags">Tags',
+        'Tags tab does not appear when logged out if tag data marked private',
+    );
 
-$mech->get('/login');
-$mech->submit_form( with_fields => { username => 'alice', password => 'secret1' } );
+    $mech->get('/login');
+    $mech->submit_form(
+        with_fields => { username => 'kuno', password => 'byld' },
+    );
 
-$mech->get('/user/alice');
-$mech->content_contains('Collection', 'Collection tab appears on own profile, even if marked private');
+    $mech->get('/user/new_editor');
+    $mech->content_contains(
+        '/user/new_editor/tags">Tags',
+        'Tags tab appears on profile of user when viewing logged in',
+    );
 
+    $mech->get('/user/Alice');
+    $mech->content_lacks(
+        '/user/Alice/tags">Tags',
+        'Tags tab does not appear when logged in if tag data marked private',
+    );
+
+    $mech->get('/logout');
+    $mech->get('/login');
+    $mech->submit_form(
+        with_fields => { username => 'Alice', password => 'secret1' },
+    );
+
+    $mech->get('/user/Alice');
+    $mech->content_contains(
+        '/user/Alice/tags">Tags',
+        'Tags tab appears on own profile, even if marked private',
+    );
 };
 
 test 'Spammer editors are hidden, except for admins' => sub {
