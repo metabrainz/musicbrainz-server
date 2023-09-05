@@ -21,7 +21,8 @@ import * as TYPES from '../static/scripts/common/constants/editTypes.js';
 import {compare} from '../static/scripts/common/i18n.js';
 import commaList, {commaListText}
   from '../static/scripts/common/i18n/commaList.js';
-import commaOnlyList from '../static/scripts/common/i18n/commaOnlyList.js';
+import commaOnlyList, {commaOnlyListText}
+  from '../static/scripts/common/i18n/commaOnlyList.js';
 import expand2react from '../static/scripts/common/i18n/expand2react.js';
 import bracketed, {bracketedText}
   from '../static/scripts/common/utility/bracketed.js';
@@ -131,6 +132,7 @@ const UserProfileProperty = ({
 type UserProfileInformationProps = {
   +applicationCount: number,
   +ipHashes: $ReadOnlyArray<string>,
+  +restrictions: $ReadOnlyArray<string>,
   +subscribed: boolean,
   +subscriberCount: number,
   +tokenCount: number,
@@ -141,6 +143,7 @@ type UserProfileInformationProps = {
 const UserProfileInformation = ({
   applicationCount,
   ipHashes,
+  restrictions,
   subscribed,
   subscriberCount,
   tokenCount,
@@ -276,6 +279,13 @@ const UserProfileInformation = ({
         <UserProfileProperty name={l('Member since:')}>
           {memberSince}
         </UserProfileProperty>
+
+        {/* Only relevant to logged in users, avoid more public shame */}
+        {viewingUser && restrictions.length ? (
+          <UserProfileProperty name={l(addColonText('Active restrictions'))}>
+            {commaOnlyListText(restrictions)}
+          </UserProfileProperty>
+        ) : null}
 
         {(viewingOwnProfile || isAccountAdmin(viewingUser)) ? (
           <>
@@ -882,16 +892,15 @@ const UserProfile = ({
   const adminViewing = $c.user != null && isAccountAdmin($c.user);
   const encodedName = encodeURIComponent(user.name);
   const restrictions = [];
-  if (adminViewing) {
-    if (isEditingDisabled(user)) {
-      restrictions.push(l('Editing/voting disabled'));
-    }
-    if (isAddingNotesDisabled(user)) {
-      restrictions.push(l('Edit notes disabled'));
-    }
-    if (isUntrusted(user)) {
-      restrictions.push(l('Untrusted'));
-    }
+  if (isEditingDisabled(user)) {
+    restrictions.push(l('Editing/voting disabled'));
+  }
+  if (isAddingNotesDisabled(user)) {
+    restrictions.push(l('Edit notes disabled'));
+  }
+  // We specifically never show "untrusted" to non-admin users
+  if (adminViewing && isUntrusted(user)) {
+    restrictions.push(l('Untrusted'));
   }
 
   return (
@@ -920,6 +929,7 @@ const UserProfile = ({
             />
           ) : null}
 
+          {/* Shown prominently to admins for ease of admining */}
           {restrictions.length && adminViewing ? (
             <Warning
               message={
@@ -937,6 +947,7 @@ const UserProfile = ({
           <UserProfileInformation
             applicationCount={applicationCount}
             ipHashes={ipHashes}
+            restrictions={restrictions}
             subscribed={subscribed}
             subscriberCount={subscriberCount}
             tokenCount={tokenCount}
