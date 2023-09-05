@@ -57,6 +57,12 @@ command_full_path=$(which "$1")
 command_verbatim=$1
 shift
 
+if [[ "$(id -u -n)" != 'musicbrainz' ]]
+then
+  exec sudo --preserve-env --set-home -u musicbrainz -- \
+    "${BASH_SOURCE[0]}" "$command_verbatim" "$@"
+fi
+
 if [[ $command_full_path =~ admin/cron/.*\.sh$ ]]
 then
   log_dir_name=$(echo "$command_full_path" | sed 's_^.*admin/cron/\(.*\)\.sh$_\1_')
@@ -74,11 +80,6 @@ log_timestamp=$(date --utc +%FT%TZ)
 log_file_path="$log_dir_path/$log_timestamp.log"
 
 pre_command='carton exec --'
-if [[ "$(id -u -n)" != 'musicbrainz' ]]
-then
-  pre_command="sudo --preserve-env --set-home -u musicbrainz -- $pre_command"
-fi
-
 echo "Running '$command_verbatim $*' and logging at '$log_file_path'..."
 if [[ -t 1 ]]
 then
