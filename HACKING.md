@@ -211,7 +211,8 @@ These are a bit more involved to set up:
 
  * Set USE_SET_DATABASE_HEADER to 1 in lib/DBDefs.pm.
 
- * Run ./script/create_test_db.sh SELENIUM and run ./script/compile_resources.sh again.
+ * Run `./script/create_test_db.sh SELENIUM` and
+   `env MUSICBRAINZ_RUNNING_TESTS=1 ./script/compile_resources.sh` again.
 
 With the above prerequisites out of the way, the tests can be run from the
 command line like so:
