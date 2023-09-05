@@ -56,7 +56,7 @@ then
 else
   log_dir_name='occasionally'
 fi
-log_dir_path="$HOME/log/$log_dir_name"
+log_dir_path="/home/musicbrainz/log/$log_dir_name"
 if ! [[ -d "$log_dir_path" ]]
 then
   echo >&2 "$SCRIPT_NAME: '$log_dir_path' doesn't exist"
