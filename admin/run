@@ -43,6 +43,13 @@ then
   exit 64 # EX_USAGE
 fi
 
+if ! id -u 'musicbrainz' &>/dev/null
+then
+  echo >&2 "$SCRIPT_NAME: user 'musicbrainz' doesn't exist"
+  echo >&2 "Make sure to run in a production container."
+  exit 67 # EX_NOUSER
+fi
+
 export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 export PERL_CARTON_PATH=/home/musicbrainz/carton-local
 
@@ -67,7 +74,7 @@ log_timestamp=$(date --utc +%FT%TZ)
 log_file_path="$log_dir_path/$log_timestamp.log"
 
 pre_command='carton exec --'
-if id -u 'musicbrainz' &>/dev/null && [[ "$(id -u -n)" != 'musicbrainz' ]]
+if [[ "$(id -u -n)" != 'musicbrainz' ]]
 then
   pre_command="sudo --preserve-env --set-home -u musicbrainz -- $pre_command"
 fi
