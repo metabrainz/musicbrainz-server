@@ -65,6 +65,7 @@ fi
 
 if [[ $command_full_path =~ admin/cron/.*\.sh$ ]]
 then
+  # shellcheck disable=SC2001,SC2016
   log_dir_name=$(echo "$command_full_path" | sed 's_^.*admin/cron/\(.*\)\.sh$_\1_')
 else
   log_dir_name='occasionally'
