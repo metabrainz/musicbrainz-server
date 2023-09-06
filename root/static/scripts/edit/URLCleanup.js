@@ -744,6 +744,42 @@ const CLEANUPS: CleanupEntries = {
       return {result: false, target: ERROR_TARGETS.URL};
     },
   },
+  'anghami': {
+    match: [new RegExp(
+      '^(?:https?://)?(?:(?:play|www)\\.)?anghami\\.com/',
+      'i',
+    )],
+    restrict: [LINK_TYPES.streamingfree],
+    clean: function (url) {
+      url = url.replace(/^(?:https?:\/\/)?(?:(?:play|www)\.)?anghami\.com\/(album|artist|song|video)\/([0-9]+).*$/, 'https://play.anghami.com/$1/$2');
+      return url;
+    },
+    validate: function (url, id) {
+      const m = /^https:\/\/play\.anghami\.com\/(album|artist|song|video)\/[0-9]+$/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.streamingfree.artist:
+            return {
+              result: prefix === 'artist',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.streamingfree.release:
+            return {
+              result: prefix === 'album',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.streamingfree.recording:
+            return {
+              result: prefix === 'song' || prefix === 'video',
+              target: ERROR_TARGETS.ENTITY,
+            };
+        }
+        return {result: false, target: ERROR_TARGETS.ENTITY};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
   'anidb': {
     match: [new RegExp('^(?:https?://)?(?:www\\.)?anidb\\.net/', 'i')],
     restrict: [LINK_TYPES.otherdatabases],
