@@ -70,7 +70,7 @@ test 'User restrictions display' => sub {
 
     $mech->get('/user/Alice');
     $mech->text_lacks(
-        'Active restrictions',
+        'Restrictions',
         'No restriction info shown if none applies',
     );
 
@@ -83,7 +83,7 @@ test 'User restrictions display' => sub {
 
     $mech->get('/user/Alice');
     $mech->text_contains(
-        'Active restrictions:Edit notes disabled',
+        'Restrictions:Edit notes disabled',
         'Restriction info shown when logged in as other (but not Untrusted)',
     );
 
@@ -91,7 +91,7 @@ test 'User restrictions display' => sub {
 
     $mech->get('/user/Alice');
     $mech->text_lacks(
-        'Active restrictions',
+        'Restrictions',
         'No restriction info shown when logged out',
     );
 
@@ -102,7 +102,7 @@ test 'User restrictions display' => sub {
 
     $mech->get('/user/Alice');
     $mech->text_contains(
-        'Active restrictions:Edit notes disabled',
+        'Restrictions:Edit notes disabled',
         'Restriction info shown when logged in as self (but not Untrusted)',
     );
 
@@ -120,7 +120,7 @@ test 'User restrictions display' => sub {
 
     $mech->get('/user/Alice');
     $mech->text_contains(
-        'Active restrictions:Edit notes disabled, Untrusted',
+        'Restrictions:Edit notes disabled, Untrusted',
         'Restriction info including Untrusted shown when logged in as admin',
     );
 };

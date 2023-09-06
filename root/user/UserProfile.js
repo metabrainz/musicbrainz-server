@@ -282,7 +282,7 @@ const UserProfileInformation = ({
 
         {/* Only relevant to logged in users, avoid more public shame */}
         {viewingUser && restrictions.length ? (
-          <UserProfileProperty name={l(addColonText('Active restrictions'))}>
+          <UserProfileProperty name={l(addColonText('Restrictions'))}>
             {commaOnlyListText(restrictions)}
           </UserProfileProperty>
         ) : null}
