@@ -27,13 +27,15 @@
 # yvanz, 2018
 # Philipp Wolfer <ph.wolfer@gmail.com>, 2023.
 # "salo.rock" <salo.rock+musicbrainz@gmail.com>, 2023.
+# "salo.rock" <salo.rock@users.noreply.translations.metabrainz.org>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-08-19 08:52+0000\n"
-"PO-Revision-Date: 2023-08-27 21:27+0000\n"
-"Last-Translator: \"salo.rock\" <salo.rock+musicbrainz@gmail.com>\n"
+"PO-Revision-Date: 2023-09-01 15:27+0000\n"
+"Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
+"metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/it/>\n"
 "Language: it\n"
@@ -15100,7 +15102,7 @@ msgstr ""
 
 #: ../root/static/scripts/account/components/ApplicationForm.js:95
 msgid "Callback URL"
-msgstr "URL di richiamo"
+msgstr "URL di callback"
 
 #: ../root/static/scripts/account/components/ApplicationForm.js:103
 msgid ""
@@ -15108,7 +15110,7 @@ msgid ""
 "be a custom reverse-DNS string, as in <code>org.example.app://auth</code>, "
 "for installed applications."
 msgstr ""
-"L'URI di richiamo è facoltativo per le applicazioni installate. Se "
+"L'URI di callback è facoltativo per le applicazioni installate. Se "
 "impostato, il suo schema deve essere una stringa DNS inversa personalizzata, "
 "come in <code>org.example.app://auth</code>, per le applicazioni installate."
 
