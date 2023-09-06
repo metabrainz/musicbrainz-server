@@ -6747,7 +6747,7 @@ msgstr ""
 msgid "remixed in"
 msgstr ""
 
-#: DB:link_type/name:47 DB:link_type/name:153
+#: DB:link_type/name:153 DB:link_type/name:47
 msgid "remixer"
 msgstr ""
 
@@ -7603,11 +7603,6 @@ msgstr ""
 msgid "{additional:additionally} recorded in"
 msgstr ""
 
-#: DB:link_type/link_phrase:47 DB:link_type/link_phrase:153
-#: DB:link_type/long_link_phrase:47 DB:link_type/long_link_phrase:153
-msgid "{additional:additionally} remixed"
-msgstr ""
-
 #: DB:link_type/reverse_link_phrase:829 DB:link_type/reverse_link_phrase:828
 msgid "{additional:additionally} remixed at"
 msgstr ""
@@ -7668,6 +7663,11 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:56 DB:link_type/long_link_phrase:165
 msgid "{additional:additionally} wrote the lyrics for"
+msgstr ""
+
+#: DB:link_type/link_phrase:153 DB:link_type/link_phrase:47
+#: DB:link_type/long_link_phrase:153 DB:link_type/long_link_phrase:47
+msgid "{additional:additionally} {assistant} remixed"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:37 DB:link_type/long_link_phrase:132
@@ -7911,10 +7911,6 @@ msgstr ""
 msgid "{additional} recording location for"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:47 DB:link_type/reverse_link_phrase:153
-msgid "{additional} remixer"
-msgstr ""
-
 #: DB:link_type/link_phrase:831 DB:link_type/link_phrase:830
 #: DB:link_type/link_phrase:829 DB:link_type/link_phrase:828
 msgid "{additional} remixing location for"
@@ -7950,6 +7946,10 @@ msgstr ""
 
 #: DB:link_type/link_phrase:873 DB:link_type/link_phrase:874
 msgid "{additional} writing location for"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:153 DB:link_type/reverse_link_phrase:47
+msgid "{additional} {assistant} remixer"
 msgstr ""
 
 #: DB:link_type/reverse_link_phrase:140 DB:link_type/reverse_link_phrase:31

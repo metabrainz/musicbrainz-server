@@ -1368,8 +1368,9 @@ msgid "dulce melos"
 msgstr "דולצ'ה־מלוס"
 
 #: DB:instrument/name:496
+msgctxt "Renaissance predecessor of the bassoon"
 msgid "dulcian"
-msgstr "דולציאן"
+msgstr ""
 
 #: DB:instrument/name:841
 msgctxt "Acoustic keyboard tuning fork idiophone"
@@ -1377,8 +1378,9 @@ msgid "dulcitone"
 msgstr "דולציטון"
 
 #: DB:instrument/name:770
+msgctxt "Spanish traditional oboe"
 msgid "dulzaina"
-msgstr "דולציאנה"
+msgstr ""
 
 #: DB:instrument/name:659
 msgid "dunun"
@@ -2470,9 +2472,9 @@ msgid "lavta"
 msgstr "לבטה"
 
 #: DB:instrument/name:803
-msgctxt "spanish plucked chordophone"
+msgctxt "Spanish plucked chordophone"
 msgid "laúd"
-msgstr "לאוד"
+msgstr ""
 
 #: DB:instrument/name:573
 msgid "limbe"
@@ -4560,6 +4562,16 @@ msgstr "זאק"
 msgctxt "Maltese mirliton"
 msgid "żummara"
 msgstr "זומארה"
+
+#~ msgid "dulcian"
+#~ msgstr "דולציאן"
+
+#~ msgid "dulzaina"
+#~ msgstr "דולציאנה"
+
+#~ msgctxt "spanish plucked chordophone"
+#~ msgid "laúd"
+#~ msgstr "לאוד"
 
 #~ msgctxt "an electromechanical piano"
 #~ msgid "Pianet"
