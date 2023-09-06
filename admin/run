@@ -50,28 +50,27 @@ command_full_path=$(which "$1")
 command_verbatim=$1
 shift
 
-pre_command='carton exec --'
-username="$(id -u -n)"
-if id -u 'musicbrainz' &>/dev/null && [[ "$username" != 'musicbrainz' ]]
-then
-  pre_command="sudo --preserve-env --set-home -u musicbrainz -- $pre_command"
-  username='musicbrainz'
-fi
-
 if [[ $command_full_path =~ admin/cron/.*\.sh$ ]]
 then
   log_dir_name=$(echo "$command_full_path" | sed 's_^.*admin/cron/\(.*\)\.sh$_\1_')
 else
   log_dir_name='occasionally'
 fi
-
-log_dir_path="$(eval echo ~"$username/log/$log_dir_name")"
-$pre_command mkdir -p "$log_dir_path"
-
+log_dir_path="$HOME/log/$log_dir_name"
+if ! [[ -d "$log_dir_path" ]]
+then
+  echo >&2 "$SCRIPT_NAME: '$log_dir_path' doesn't exist"
+  echo >&2 "Make sure to run in the appropriate container."
+  exit 73 # EX_CANTCREAT
+fi
 log_timestamp=$(date --utc +%FT%TZ)
 log_file_path="$log_dir_path/$log_timestamp.log"
-# ensure log is owned by $username
-$pre_command touch "$log_file_path"
+
+pre_command='carton exec --'
+if id -u 'musicbrainz' &>/dev/null && [[ "$(id -u -n)" != 'musicbrainz' ]]
+then
+  pre_command="sudo --preserve-env --set-home -u musicbrainz -- $pre_command"
+fi
 
 echo "Running '$command_verbatim $*' and logging at '$log_file_path'..."
 if [[ -t 1 ]]
