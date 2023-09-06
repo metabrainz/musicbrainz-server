@@ -4,13 +4,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-08-19 08:52+0000\n"
-"PO-Revision-Date: 2023-08-18 12:54+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"PO-Revision-Date: 2023-09-05 14:27+0000\n"
+"Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
+".org>\n"
 "Language-Team: Albanian <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/sq/>\n"
 "Language: sq\n"
@@ -8758,7 +8760,7 @@ msgstr "Përpunimi #{id} - {name}"
 
 #: ../root/edit/components/EditHeader.js:78
 msgid "Edit by {editor}"
-msgstr "Përpuni nga editor}"
+msgstr "Përpuni nga {editor}"
 
 #: ../root/edit/components/EditHeader.js:86
 msgid "Editor hidden"
@@ -16503,7 +16505,7 @@ msgstr "(fshehur)"
 
 #: ../root/user/UserProfile.js:192
 msgid "(verified at {date})"
-msgstr "(verifikuar më {datë})"
+msgstr "(verifikuar më {date})"
 
 #: ../root/user/UserProfile.js:197
 msgid "(<strong>unverified!</strong>)"

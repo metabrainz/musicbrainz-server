@@ -8,13 +8,15 @@
 # Avi Markovitz <email address hidden>, 2018
 # Nicolás Tamargo <email address hidden>, 2021
 # Philipp Wolfer <ph.wolfer@gmail.com>, 2023.
+# reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-08-19 08:52+0000\n"
-"PO-Revision-Date: 2023-08-24 14:27+0000\n"
-"Last-Translator: Philipp Wolfer <ph.wolfer@gmail.com>\n"
+"PO-Revision-Date: 2023-09-05 14:27+0000\n"
+"Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
+".org>\n"
 "Language-Team: Hebrew <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/he/>\n"
 "Language: he\n"
@@ -8055,8 +8057,7 @@ msgid ""
 "results. View the {doc|alias documentation} for more details."
 msgstr ""
 "כינוי הוא שם חלופי לישות. הם לרוב מכילים שגיאות כתיב נפוצות או חלופות של השם "
-"ומשמשים גם לשיפור תוצאות החיפוש. לפרטים נוספים נא לעיין ב־ {doc | תיעוד "
-"כינוי}."
+"ומשמשים גם לשיפור תוצאות החיפוש. לפרטים נוספים נא לעיין ב־ {doc|תיעוד כינוי}."
 
 #: ../root/components/Aliases/index.js:67
 msgid "{entity} has no aliases."
@@ -10050,12 +10051,13 @@ msgid "Edit Not Found"
 msgstr "לא נמצאה עריכה"
 
 #: ../root/entity/NotFound.js:59
+#, fuzzy
 msgid ""
 "Sorry, we could not find an edit with that edit ID. You may wish to try and "
 "perform an {search_url|edit search} instead."
 msgstr ""
 "למרבה הצער, לא הצלחנו למצוא עריכה באמצעות מזהה העריכה. מומלץ לנסות לבצע "
-"{חיפוש search_url|edit} במקום זאת."
+"{search_url|חיפוש edit} במקום זאת."
 
 #: ../root/entity/NotFound.js:66
 msgid "Election Not Found"

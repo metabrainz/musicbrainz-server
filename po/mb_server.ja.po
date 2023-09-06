@@ -35,13 +35,15 @@
 # yvanz, 2018
 # 和田篤 <email address hidden>, 2019
 # 工藤零大 <email address hidden>, 2021
+# reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-08-19 08:52+0000\n"
-"PO-Revision-Date: 2023-08-18 12:54+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"PO-Revision-Date: 2023-09-05 14:27+0000\n"
+"Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
+".org>\n"
 "Language-Team: Japanese <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/ja/>\n"
 "Language: ja\n"
@@ -588,12 +590,13 @@ msgid "Begin date:"
 msgstr "開始日:"
 
 #: ../root/release/add_cover_art.tt:95 ../root/search/error/InternalError.js:29
+#, fuzzy
 msgid ""
 "Below is the error information. If you wish to file a bug report, you may do "
 "so at {bugs|our bug tracker}. The information below will help, so please be "
 "sure to include it!"
 msgstr ""
-"エラー情報はこちらです。バグレポートをする場合、{Bugslour bug tracker}でして"
+"エラー情報はこちらです。バグレポートをする場合、{bugs|our bug tracker}でして"
 "ください。エラー情報はバグの解決の手助けになります。バグレポートの際には、エ"
 "ラー情報も一緒に送信してください。"
 
