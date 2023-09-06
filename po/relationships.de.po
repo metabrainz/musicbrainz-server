@@ -574,8 +574,8 @@ msgid ""
 "Indicates the composer for this work, i.e. the artist who wrote the music "
 "(not necessarily the lyrics)."
 msgstr ""
-"Gibt den Komponisten für dieses Werk an, z. B. den Künstler der die Musik ("
-"nicht unbedingt die Texte) geschrieben hat."
+"Gibt den Komponisten für dieses Werk an, z. B. den Künstler der die Musik "
+"(nicht unbedingt die Texte) geschrieben hat."
 
 #: DB:link_type/description:845
 msgid "Indicates the event where the work had its first performance"
@@ -3506,8 +3506,8 @@ msgstr ""
 "zu verlinken, von der sie gegen eine Abo-Gebühr legal gestreamt werden kann, "
 "z. B. Tidal.\n"
 "\n"
-"Wenn die Seite kostenloses Streamen erlaubt, verwende stattdessen „"
-"kostenloses Streamen“."
+"Wenn die Seite kostenloses Streamen erlaubt, verwende stattdessen "
+"„kostenloses Streamen“."
 
 #: DB:link_type/description:85
 msgid ""
@@ -3526,11 +3526,11 @@ msgid ""
 "If the site allows free streaming, use \"free streaming\" instead."
 msgstr ""
 "Dieser Beziehungstyp wird benutzt, um einen Titel zu einer Seite zu "
-"verlinken, von der er gegen eine Abo-Gebühr legal gestreamt werden kann, z. "
-"B. Tidal.\n"
+"verlinken, von der er gegen eine Abo-Gebühr legal gestreamt werden kann, "
+"z. B. Tidal.\n"
 "\n"
-"Wenn die Seite kostenloses Streamen erlaubt, verwende stattdessen „"
-"kostenloses Streamen“."
+"Wenn die Seite kostenloses Streamen erlaubt, verwende stattdessen "
+"„kostenloses Streamen“."
 
 #: DB:link_type/description:268
 msgid ""
@@ -3553,8 +3553,8 @@ msgstr ""
 "verlinken, von der Musik gegen eine Abo-Gebühr legal gestreamt werden kann, "
 "z. B. Tidal.\n"
 "\n"
-"Wenn die Seite kostenloses Streamen erlaubt, verwende stattdessen „"
-"kostenloses Streamen“."
+"Wenn die Seite kostenloses Streamen erlaubt, verwende stattdessen "
+"„kostenloses Streamen“."
 
 #: DB:link_type/description:194
 msgid ""
@@ -6992,7 +6992,7 @@ msgstr ""
 msgid "remixed in"
 msgstr "remixed in"
 
-#: DB:link_type/name:47 DB:link_type/name:153
+#: DB:link_type/name:153 DB:link_type/name:47
 msgid "remixer"
 msgstr "Remixer"
 
@@ -7848,11 +7848,6 @@ msgstr "{additional:zusätzlich} aufgenommen bei"
 msgid "{additional:additionally} recorded in"
 msgstr ""
 
-#: DB:link_type/link_phrase:47 DB:link_type/link_phrase:153
-#: DB:link_type/long_link_phrase:47 DB:link_type/long_link_phrase:153
-msgid "{additional:additionally} remixed"
-msgstr "remixte {additional:zusätzliche}"
-
 #: DB:link_type/reverse_link_phrase:829 DB:link_type/reverse_link_phrase:828
 msgid "{additional:additionally} remixed at"
 msgstr ""
@@ -7914,6 +7909,11 @@ msgstr "{additional:additionally} schrieb das Libretto für"
 #: DB:link_type/long_link_phrase:56 DB:link_type/long_link_phrase:165
 msgid "{additional:additionally} wrote the lyrics for"
 msgstr "{additional:additionally} schrieb den Liedtext für"
+
+#: DB:link_type/link_phrase:153 DB:link_type/link_phrase:47
+#: DB:link_type/long_link_phrase:153 DB:link_type/long_link_phrase:47
+msgid "{additional:additionally} {assistant} remixed"
+msgstr ""
 
 #: DB:link_type/long_link_phrase:37 DB:link_type/long_link_phrase:132
 msgid ""
@@ -8174,10 +8174,6 @@ msgstr ""
 msgid "{additional} recording location for"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:47 DB:link_type/reverse_link_phrase:153
-msgid "{additional} remixer"
-msgstr "{additional:zusätzlicher} Remix"
-
 #: DB:link_type/link_phrase:831 DB:link_type/link_phrase:830
 #: DB:link_type/link_phrase:829 DB:link_type/link_phrase:828
 msgid "{additional} remixing location for"
@@ -8213,6 +8209,10 @@ msgstr "{additional:zusätzliche(r)} Verfasser(in)"
 
 #: DB:link_type/link_phrase:873 DB:link_type/link_phrase:874
 msgid "{additional} writing location for"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:153 DB:link_type/reverse_link_phrase:47
+msgid "{additional} {assistant} remixer"
 msgstr ""
 
 #: DB:link_type/reverse_link_phrase:140 DB:link_type/reverse_link_phrase:31
@@ -8836,6 +8836,12 @@ msgstr "{vocal:%|vocals} Unterstützung von"
 #: DB:link_type/link_phrase:107
 msgid "{vocal:%|vocals} support for"
 msgstr "{vocal:%|vocals} Unterstützung für"
+
+#~ msgid "{additional:additionally} remixed"
+#~ msgstr "remixte {additional:zusätzliche}"
+
+#~ msgid "{additional} remixer"
+#~ msgstr "{additional:zusätzlicher} Remix"
 
 #~ msgid ""
 #~ "This credits a person or agency whose photographs are included as part of "

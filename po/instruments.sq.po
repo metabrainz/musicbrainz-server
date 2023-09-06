@@ -1364,6 +1364,7 @@ msgid "dulce melos"
 msgstr ""
 
 #: DB:instrument/name:496
+msgctxt "Renaissance predecessor of the bassoon"
 msgid "dulcian"
 msgstr ""
 
@@ -1373,6 +1374,7 @@ msgid "dulcitone"
 msgstr "dulçiton"
 
 #: DB:instrument/name:770
+msgctxt "Spanish traditional oboe"
 msgid "dulzaina"
 msgstr ""
 
@@ -2466,9 +2468,9 @@ msgid "lavta"
 msgstr ""
 
 #: DB:instrument/name:803
-msgctxt "spanish plucked chordophone"
+msgctxt "Spanish plucked chordophone"
 msgid "laúd"
-msgstr "laud"
+msgstr ""
 
 #: DB:instrument/name:573
 msgid "limbe"
@@ -4556,3 +4558,7 @@ msgstr ""
 msgctxt "Maltese mirliton"
 msgid "żummara"
 msgstr ""
+
+#~ msgctxt "spanish plucked chordophone"
+#~ msgid "laúd"
+#~ msgstr "laud"

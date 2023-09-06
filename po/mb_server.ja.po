@@ -40,10 +40,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-19 08:52+0000\n"
+"POT-Creation-Date: 2023-09-06 11:02+0000\n"
 "PO-Revision-Date: 2023-09-05 14:27+0000\n"
-"Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
-".org>\n"
+"Last-Translator: reosarevok <reosarevok@users.noreply.translations."
+"metabrainz.org>\n"
 "Language-Team: Japanese <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/ja/>\n"
 "Language: ja\n"
@@ -395,7 +395,7 @@ msgstr "承認"
 #: ../root/search/components/SearchForm.js:43
 #: ../root/static/scripts/common/constants.js:35
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:48
-#: ../root/user/UserProfile.js:48
+#: ../root/user/UserProfile.js:49
 msgid "Area"
 msgstr "地域"
 
@@ -461,9 +461,9 @@ msgstr "地域:"
 #: ../root/search/components/SearchForm.js:37
 #: ../root/static/scripts/common/constants.js:36
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:50
-#: ../root/static/scripts/common/utility/formatSetlist.js:49
+#: ../root/static/scripts/common/utility/formatSetlist.js:52
 #: ../root/static/scripts/release/components/MediumTable.js:86
-#: ../root/taglookup/Form.js:25 ../root/user/UserProfile.js:49
+#: ../root/taglookup/Form.js:25 ../root/user/UserProfile.js:50
 msgid "Artist"
 msgstr "アーティスト"
 
@@ -809,7 +809,7 @@ msgstr "国:"
 
 #: ../root/release_group/set_cover_art.tt:67
 #: ../root/components/EntityTabs.js:114 ../root/release/CoverArt.js:57
-#: ../root/user/UserProfile.js:50
+#: ../root/user/UserProfile.js:51
 msgid "Cover Art"
 msgstr "カバーアート"
 
@@ -1173,7 +1173,7 @@ msgstr ""
 #: ../root/search/components/SearchForm.js:51
 #: ../root/static/scripts/common/constants.js:37
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:54
-#: ../root/user/UserProfile.js:51
+#: ../root/user/UserProfile.js:52
 msgid "Event"
 msgstr "イベント"
 
@@ -1312,7 +1312,7 @@ msgstr "完全TOC:"
 #: ../root/artist/edit_form.tt:17
 #: ../root/layout/components/sidebar/ArtistSidebar.js:84
 #: ../root/static/scripts/account/components/EditProfileForm.js:207
-#: ../root/user/UserProfile.js:265
+#: ../root/user/UserProfile.js:268
 msgid "Gender:"
 msgstr "性別:"
 
@@ -1668,7 +1668,7 @@ msgstr "CDスタブをインポート"
 #: ../root/search/components/SearchForm.js:49
 #: ../root/static/scripts/common/constants.js:39
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:58
-#: ../root/user/UserProfile.js:52
+#: ../root/user/UserProfile.js:53
 msgid "Instrument"
 msgstr "楽器"
 
@@ -1731,7 +1731,7 @@ msgstr ""
 #: ../root/search/components/SearchForm.js:42
 #: ../root/static/scripts/common/constants.js:40
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:60
-#: ../root/user/UserProfile.js:53 ../root/utility/tableColumns.js:533
+#: ../root/user/UserProfile.js:54 ../root/utility/tableColumns.js:533
 #: ../root/utility/tableColumns.js:538
 msgid "Label"
 msgstr "レーベル"
@@ -1964,7 +1964,7 @@ msgstr "MusicBrainzにはこのTOCを持つCDが登録されていません:"
 #: ../root/static/scripts/common/components/FilterForm.js:127
 #: ../root/static/scripts/edit/components/FormRowNameWithGuessCase.js:112
 #: ../root/static/scripts/genre/components/GenreEditForm.js:147
-#: ../root/user/UserSubscriptions.js:44
+#: ../root/user/UserSubscriptions.js:48
 msgid "Name"
 msgstr "名前"
 
@@ -2131,7 +2131,7 @@ msgstr "並べ替えタイプ:"
 
 #: ../root/cdstub/header.tt:9 ../root/artist_credit/ArtistCreditLayout.js:25
 #: ../root/cdstub/CDStubHeader.js:42 ../root/collection/CollectionHeader.js:77
-#: ../root/components/EntityTabs.js:79 ../root/tag/TagLayout.js:22
+#: ../root/components/EntityTabs.js:79 ../root/tag/TagLayout.js:23
 msgid "Overview"
 msgstr "概要"
 
@@ -2169,7 +2169,7 @@ msgstr "トラックを解析"
 #: ../root/search/components/SearchForm.js:44
 #: ../root/static/scripts/common/constants.js:41
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:62
-#: ../root/user/UserProfile.js:54
+#: ../root/user/UserProfile.js:55
 msgid "Place"
 msgstr "場所"
 
@@ -2269,7 +2269,7 @@ msgstr[0] "評価: {rating}つ星"
 #: ../root/static/scripts/common/constants.js:42
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:64
 #: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1573
-#: ../root/user/UserProfile.js:55
+#: ../root/user/UserProfile.js:56
 msgid "Recording"
 msgstr "レコーディング"
 
@@ -2293,7 +2293,7 @@ msgstr "{artist}のレコーディング「{name}」"
 #: ../root/instrument/InstrumentRecordings.js:39
 #: ../root/report/ReportsIndex.js:462
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:29
-#: ../root/tag/TagLayout.js:26 ../root/work/WorkIndex.js:55
+#: ../root/tag/TagLayout.js:27 ../root/work/WorkIndex.js:55
 msgid "Recordings"
 msgstr "レコーディング"
 
@@ -2340,7 +2340,7 @@ msgstr "関係タイプ"
 #: ../root/static/scripts/common/constants.js:43
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:66
 #: ../root/static/scripts/release/components/TracklistAndCredits.js:397
-#: ../root/taglookup/Form.js:30 ../root/user/UserProfile.js:56
+#: ../root/taglookup/Form.js:30 ../root/user/UserProfile.js:57
 msgid "Release"
 msgstr "リリース"
 
@@ -2639,7 +2639,7 @@ msgstr "文"
 #: ../root/search/components/SearchForm.js:50
 #: ../root/static/scripts/common/constants.js:45
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:70
-#: ../root/user/UserProfile.js:58
+#: ../root/user/UserProfile.js:59
 msgctxt "singular"
 msgid "Series"
 msgstr "シリーズ"
@@ -3284,7 +3284,7 @@ msgid "Unable to parse the tracklist you entered."
 msgstr ""
 
 #: ../root/edit/search_macros.tt:397 ../root/admin/EditUser.js:121
-#: ../root/admin/PrivilegeSearch.js:112 ../root/user/UserProfile.js:893
+#: ../root/admin/PrivilegeSearch.js:112 ../root/user/UserProfile.js:903
 msgid "Untrusted"
 msgstr "信頼されない"
 
@@ -3361,7 +3361,7 @@ msgid "Voter"
 msgstr "投票者"
 
 #: ../root/doc/edit_type.tt:35 ../root/edit/EditIndex.js:65
-#: ../root/user/UserProfile.js:683
+#: ../root/user/UserProfile.js:693
 msgid "Votes"
 msgstr "投票数"
 
@@ -3442,7 +3442,7 @@ msgstr "Wikiトランスクルーダー"
 #: ../root/search/components/SearchForm.js:41
 #: ../root/static/scripts/common/constants.js:47
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:74
-#: ../root/user/UserProfile.js:59 ../root/work/WorkLayout.js:33
+#: ../root/user/UserProfile.js:60 ../root/work/WorkLayout.js:33
 msgid "Work"
 msgstr "作品"
 
@@ -4261,20 +4261,20 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:294
 #: ../lib/MusicBrainz/Server/Form/ChangeReleaseQuality.pm:24
-#: ../root/static/scripts/common/constants.js:355
+#: ../root/static/scripts/common/constants.js:356
 msgid "Low"
 msgstr "低"
 
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:294
 #: ../lib/MusicBrainz/Server/Form/ChangeReleaseQuality.pm:25
-#: ../root/static/scripts/common/constants.js:356
 #: ../root/static/scripts/common/constants.js:357
+#: ../root/static/scripts/common/constants.js:358
 msgid "Normal"
 msgstr "中"
 
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:294
 #: ../lib/MusicBrainz/Server/Form/ChangeReleaseQuality.pm:26
-#: ../root/static/scripts/common/constants.js:358
+#: ../root/static/scripts/common/constants.js:359
 msgid "High"
 msgstr "高"
 
@@ -5131,7 +5131,7 @@ msgstr "メディアを並べ替え"
 #: ../root/edit/details/EditRelease.js:81
 #: ../root/edit/details/EditReleaseGroup.js:36
 #: ../root/edit/details/SetCoverArt.js:30
-#: ../root/static/scripts/common/constants.js:44 ../root/user/UserProfile.js:57
+#: ../root/static/scripts/common/constants.js:44 ../root/user/UserProfile.js:58
 msgid "Release group"
 msgstr "リリースグループ"
 
@@ -5261,7 +5261,7 @@ msgstr "シリーズをマージ"
 msgid "URL"
 msgstr "URL"
 
-#: ../lib/MusicBrainz/Server/Edit/Utils.pm:271 ../root/user/UserProfile.js:642
+#: ../lib/MusicBrainz/Server/Edit/Utils.pm:271 ../root/user/UserProfile.js:652
 #: ../root/utility/edit.js:47
 msgid "Open"
 msgstr "未確定"
@@ -5294,7 +5294,7 @@ msgstr "投票なし"
 
 #: ../lib/MusicBrainz/Server/Edit/Utils.pm:278
 #: ../root/edit/details/AddEvent.js:50 ../root/edit/details/EditEvent.js:54
-#: ../root/user/UserProfile.js:632 ../root/utility/edit.js:41
+#: ../root/user/UserProfile.js:642 ../root/utility/edit.js:41
 msgid "Cancelled"
 msgstr "キャンセル済"
 
@@ -5463,6 +5463,10 @@ msgstr "{begindate} &#x301C;"
 #, perl-brace-format
 msgid "{role} (as {credited_name})"
 msgstr "{role} ({credited_name} として)"
+
+#: ../lib/MusicBrainz/Server/Entity/URL/Anghami.pm:10
+msgid "Stream at Anghami"
+msgstr ""
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Audiomack.pm:10
 msgid "Stream at Audiomack"
@@ -5878,22 +5882,22 @@ msgid "A fluency level is required."
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:79
-#: ../root/static/scripts/common/constants.js:366
+#: ../root/static/scripts/common/constants.js:367
 msgid "Basic"
 msgstr "基礎的"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:80
-#: ../root/static/scripts/common/constants.js:367
+#: ../root/static/scripts/common/constants.js:368
 msgid "Intermediate"
 msgstr "中級"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:81
-#: ../root/static/scripts/common/constants.js:365
+#: ../root/static/scripts/common/constants.js:366
 msgid "Advanced"
 msgstr "上級"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:82
-#: ../root/static/scripts/common/constants.js:368
+#: ../root/static/scripts/common/constants.js:369
 msgid "Native"
 msgstr "母語"
 
@@ -6725,12 +6729,12 @@ msgid "Spammer"
 msgstr ""
 
 #: ../root/admin/EditUser.js:111 ../root/admin/PrivilegeSearch.js:102
-#: ../root/user/UserProfile.js:887
+#: ../root/user/UserProfile.js:896
 msgid "Editing/voting disabled"
 msgstr "編集・投票が無効です"
 
 #: ../root/admin/EditUser.js:116 ../root/admin/PrivilegeSearch.js:107
-#: ../root/user/UserProfile.js:890
+#: ../root/user/UserProfile.js:899
 msgid "Edit notes disabled"
 msgstr "編集ノートは無効化されています"
 
@@ -6770,7 +6774,7 @@ msgstr "ウェブサイト"
 
 #: ../root/admin/EditUser.js:177
 #: ../root/static/scripts/account/components/EditProfileForm.js:259
-#: ../root/user/UserProfile.js:383
+#: ../root/user/UserProfile.js:393
 msgid "Bio:"
 msgstr "プロフィール:"
 
@@ -6787,7 +6791,7 @@ msgid "Enter a {link|POSIX regular expression}."
 msgstr ""
 
 #: ../root/admin/IpLookup.js:26 ../root/admin/IpLookup.js:28
-#: ../root/user/UserProfile.js:413
+#: ../root/user/UserProfile.js:423
 msgid "IP lookup"
 msgstr "IP検索"
 
@@ -7186,7 +7190,7 @@ msgstr ""
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:892
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:552
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:15
-#: ../root/tag/TagLayout.js:23 ../root/utility/tableColumns.js:797
+#: ../root/tag/TagLayout.js:24 ../root/utility/tableColumns.js:797
 msgid "Artists"
 msgstr "アーティスト"
 
@@ -7205,7 +7209,7 @@ msgstr "この地域はアーティストとの関係がありません。"
 #: ../root/components/TagEntitiesList.js:166 ../root/place/PlaceEvents.js:32
 #: ../root/place/PlaceEvents.js:33 ../root/report/ReportsIndex.js:138
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:19
-#: ../root/tag/TagLayout.js:33
+#: ../root/tag/TagLayout.js:34
 msgid "Events"
 msgstr "イベント"
 
@@ -7228,7 +7232,7 @@ msgstr "{parent_areas}の{area_type}"
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:203
 #: ../root/report/ReportsIndex.js:174
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:25
-#: ../root/tag/TagLayout.js:28
+#: ../root/tag/TagLayout.js:29
 msgid "Labels"
 msgstr "レーベル"
 
@@ -7250,7 +7254,7 @@ msgstr ""
 #: ../root/components/EntityTabs.js:29
 #: ../root/components/TagEntitiesList.js:178 ../root/report/ReportsIndex.js:532
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:27
-#: ../root/tag/TagLayout.js:29
+#: ../root/tag/TagLayout.js:30
 msgid "Places"
 msgstr "場所"
 
@@ -7293,7 +7297,7 @@ msgstr "関係一覧"
 #: ../root/instrument/InstrumentReleases.js:39 ../root/label/LabelIndex.js:81
 #: ../root/report/ReportsIndex.js:250
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:31
-#: ../root/tag/TagLayout.js:25
+#: ../root/tag/TagLayout.js:26
 msgid "Releases"
 msgstr "リリース"
 
@@ -7329,7 +7333,7 @@ msgstr ""
 #: ../root/artist/ArtistWorks.js:42 ../root/components/EntityTabs.js:33
 #: ../root/components/TagEntitiesList.js:198 ../root/report/ReportsIndex.js:558
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:39
-#: ../root/tag/TagLayout.js:27
+#: ../root/tag/TagLayout.js:28
 msgid "Works"
 msgstr "作品"
 
@@ -7661,7 +7665,7 @@ msgstr " 使用例"
 #: ../root/components/TagEntitiesList.js:182
 #: ../root/components/list/RecordingList.js:62
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:33
-#: ../root/tag/TagLayout.js:24
+#: ../root/tag/TagLayout.js:25
 msgid "Release Groups"
 msgstr "リリースグループ"
 
@@ -7942,8 +7946,8 @@ msgstr "自分のすべてのコレクションを表示"
 msgid "See all of {editor}'s public collections"
 msgstr "{editor}の公開コレクションをすべて表示"
 
-#: ../root/collection/CollectionIndex.js:194 ../root/user/UserProfile.js:331
-#: ../root/user/UserProfile.js:389
+#: ../root/collection/CollectionIndex.js:194 ../root/user/UserProfile.js:341
+#: ../root/user/UserProfile.js:399
 msgid ""
 "This content is hidden to prevent spam. To view it, please {url|log in}."
 msgstr ""
@@ -8261,7 +8265,7 @@ msgstr ""
 
 #: ../root/components/EntityTabs.js:141
 #: ../root/components/UserAccountTabs.js:68 ../root/entity/Ratings.js:50
-#: ../root/user/UserProfile.js:829 ../root/user/UserRatingList.js:48
+#: ../root/user/UserProfile.js:839 ../root/user/UserRatingList.js:48
 #: ../root/user/UserRatingList.js:82
 msgid "Ratings"
 msgstr "評価"
@@ -8331,7 +8335,7 @@ msgstr[0] "{num} 件の項目があります"
 
 #: ../root/components/TagEntitiesList.js:158
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:13
-#: ../root/tag/TagLayout.js:30
+#: ../root/tag/TagLayout.js:31
 msgid "Areas"
 msgstr "地域\t"
 
@@ -8352,7 +8356,7 @@ msgstr[0] "全{num}件のイベントを表示"
 
 #: ../root/components/TagEntitiesList.js:170 ../root/report/ReportsIndex.js:159
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:23
-#: ../root/tag/TagLayout.js:31
+#: ../root/tag/TagLayout.js:32
 msgid "Instruments"
 msgstr "楽器"
 
@@ -8991,7 +8995,7 @@ msgstr "編集の際によくある質問"
 msgid "Add Note"
 msgstr "メモを追加"
 
-#: ../root/edit/components/EditorTypeInfo.js:29 ../root/user/UserProfile.js:100
+#: ../root/edit/components/EditorTypeInfo.js:29 ../root/user/UserProfile.js:101
 msgid "This user is new to MusicBrainz."
 msgstr "MusicBrainzの初心者です。"
 
@@ -10559,7 +10563,7 @@ msgstr "自動編集者選挙"
 msgid "Privileged User Accounts"
 msgstr "特権ユーザーアカウント"
 
-#: ../root/layout/components/BottomMenu.js:159 ../root/user/UserProfile.js:560
+#: ../root/layout/components/BottomMenu.js:159 ../root/user/UserProfile.js:570
 msgid "Statistics"
 msgstr "統計"
 
@@ -11008,7 +11012,7 @@ msgstr "編集履歴"
 
 #: ../root/layout/components/sidebar/CollectionSidebar.js:107
 #: ../root/layout/components/sidebar/SubscriptionLinks.js:42
-#: ../root/user/UserSubscriptions.js:87
+#: ../root/user/UserSubscriptions.js:91
 msgid "Unsubscribe"
 msgstr "購読解除"
 
@@ -13872,7 +13876,7 @@ msgid "If you change your email address, you will be required to verify it."
 msgstr "メールアドレスを変更する場合、確認が必要です。"
 
 #: ../root/static/scripts/account/components/EditProfileForm.js:215
-#: ../root/user/UserProfile.js:271
+#: ../root/user/UserProfile.js:274
 msgid "Location:"
 msgstr "地域:"
 
@@ -14735,7 +14739,7 @@ msgid "{begin_date} –"
 msgstr "{begin_date} –"
 
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:35
-#: ../root/tag/TagLayout.js:32
+#: ../root/tag/TagLayout.js:33
 msgctxt "plural"
 msgid "Series"
 msgstr "シリーズ"
@@ -14841,9 +14845,9 @@ msgid ""
 msgstr ""
 
 #: ../root/static/scripts/edit/URLCleanup.js:658
-#: ../root/static/scripts/edit/URLCleanup.js:885
-#: ../root/static/scripts/edit/URLCleanup.js:4214
-#: ../root/static/scripts/edit/URLCleanup.js:5218
+#: ../root/static/scripts/edit/URLCleanup.js:921
+#: ../root/static/scripts/edit/URLCleanup.js:4250
+#: ../root/static/scripts/edit/URLCleanup.js:5254
 msgid ""
 "This is a redirect link. Please follow {redirect_url|your link} and add the "
 "link it redirects to instead."
@@ -14855,24 +14859,24 @@ msgid ""
 "product link instead, if relevant."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:845
+#: ../root/static/scripts/edit/URLCleanup.js:881
 msgid ""
 "Only Apple Books audiobooks can be added to MusicBrainz. Consider adding "
 "books to {bookbrainz_url|BookBrainz} instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:1094
+#: ../root/static/scripts/edit/URLCleanup.js:1130
 msgid ""
 "Please link to the main page for the artist, not to a specific album or "
 "track."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:1111
+#: ../root/static/scripts/edit/URLCleanup.js:1147
 msgid ""
 "Please link to the main page for the label, not to a specific album or track."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:1133
+#: ../root/static/scripts/edit/URLCleanup.js:1169
 msgid ""
 "This is a Bandcamp profile, not a page for a specific recording. Even if it "
 "shows a single recording right now, that can change when the artist releases "
@@ -14881,7 +14885,7 @@ msgid ""
 "the appropriate artist or label."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:1161
+#: ../root/static/scripts/edit/URLCleanup.js:1197
 msgid ""
 "This is a Bandcamp profile, not a page for a specific release. Even if it "
 "shows this release right now, that can change when the artist releases "
@@ -14890,156 +14894,156 @@ msgid ""
 "add this profile link to the appropriate artist or label."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:1469
+#: ../root/static/scripts/edit/URLCleanup.js:1505
 msgid "Please link to the main page for the artist, not a specific product."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:1471
+#: ../root/static/scripts/edit/URLCleanup.js:1507
 msgid "Please link to the main page for the label, not a specific product."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:2241
+#: ../root/static/scripts/edit/URLCleanup.js:2277
 msgid ""
 "Discogs “{master_url_pattern}” links group several releases, so this should "
 "be added to the release group instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:2919
+#: ../root/static/scripts/edit/URLCleanup.js:2955
 msgid ""
 "Only IMSLP “{category_url_pattern}” links are allowed for artists. Please "
 "link work pages to the specific work in question."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:2937
+#: ../root/static/scripts/edit/URLCleanup.js:2973
 msgid ""
 "IMSLP “{category_url_pattern}” links are only allowed for artists. Please "
 "link the specific work page to this work instead, if available."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:2982
+#: ../root/static/scripts/edit/URLCleanup.js:3018
 msgid ""
 "Instagram “{explore_url_pattern}” links are not allowed. Please link to a "
 "profile instead, if there is one."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:3010
+#: ../root/static/scripts/edit/URLCleanup.js:3046
 msgid ""
 "Please do not link directly to images, link to the appropriate Instagram "
 "profile page instead. If you want to link to a video, {url|add a standalone "
 "recording} for it instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:3035
+#: ../root/static/scripts/edit/URLCleanup.js:3071
 msgid "This is an internal Instagram page and should not be added."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:4111
+#: ../root/static/scripts/edit/URLCleanup.js:4147
 msgid ""
 "Musixmatch “{album_url_pattern}” pages are a bad match for MusicBrainz "
 "release groups, and linking to them is currently disallowed. Please consider "
 "adding Musixmatch links to the relevant artists and works instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:4735
+#: ../root/static/scripts/edit/URLCleanup.js:4771
 msgid "Only RYM music videos can be linked to recordings."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:4797
+#: ../root/static/scripts/edit/URLCleanup.js:4833
 msgid ""
 "This is a link to the old Resident Advisor domain. Please follow {ra_url|"
 "your link}, make sure the link it redirects to is still the correct one and, "
 "if so, add that link instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:5374
+#: ../root/static/scripts/edit/URLCleanup.js:5410
 msgid "Please link to Threads profiles, not threads."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:5761
+#: ../root/static/scripts/edit/URLCleanup.js:5797
 msgid "This is not a profile, but a Twitter documentation page."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:5775
+#: ../root/static/scripts/edit/URLCleanup.js:5811
 msgid "Please link to Twitter profiles, not tweets."
 msgstr "ツイートではなくTwitterプロフィールにリンクしてください。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:5793
+#: ../root/static/scripts/edit/URLCleanup.js:5829
 msgid "This site does not allow direct links to their images."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:5999
+#: ../root/static/scripts/edit/URLCleanup.js:6035
 msgid ""
 "Please link to the “{allowed_url_pattern}” page rather than this "
 "“{current_url_pattern}” link."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6082
+#: ../root/static/scripts/edit/URLCleanup.js:6118
 msgid ""
 "There is an unencoded “?” or “#” character in this URL. Please check whether "
 "it is useless and should be removed, or whether it is an error and the URL "
 "is misencoded."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6102
+#: ../root/static/scripts/edit/URLCleanup.js:6138
 msgid ""
 "Please do not link directly to WhoSampled “{unwanted_url_pattern}” pages. "
 "Link to the appropriate WhoSampled artist, track or album page instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6123
+#: ../root/static/scripts/edit/URLCleanup.js:6159
 msgid "Please link WhoSampled “{album_url_pattern}” pages to release groups."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6141
+#: ../root/static/scripts/edit/URLCleanup.js:6177
 msgid "Please link WhoSampled artist pages to artists."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6153
+#: ../root/static/scripts/edit/URLCleanup.js:6189
 msgid "Please link WhoSampled track pages to recordings."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6220
+#: ../root/static/scripts/edit/URLCleanup.js:6256
 msgid ""
 "Links to specific sections of Wikipedia articles are not allowed. Please "
 "remove “{fragment}” if still appropriate. See the {url|guidelines}."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6245
+#: ../root/static/scripts/edit/URLCleanup.js:6281
 msgid ""
 "Links to Wikipedia user pages are not allowed. Please link only to actual "
 "Wikipedia articles."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6365
+#: ../root/static/scripts/edit/URLCleanup.js:6401
 msgid ""
 "This is a playlist link, which isn’t a video channel and is not guaranteed "
 "to be officially approved. Please link to the official channel for this "
 "entity, if it exists, instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6405
+#: ../root/static/scripts/edit/URLCleanup.js:6441
 msgid "Only video and playlist links are allowed on releases."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6437
+#: ../root/static/scripts/edit/URLCleanup.js:6473
 msgid ""
 "Wikipedia normally has no entries for specific releases, so adding Wikipedia "
 "links to a release is currently blocked. Please add this Wikipedia link to "
 "the release group instead, if appropriate."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6449
+#: ../root/static/scripts/edit/URLCleanup.js:6485
 msgid ""
 "Wikidata normally has no entries for specific releases, so adding Wikidata "
 "links to a release is currently blocked. Please add this Wikidata link to "
 "the release group instead, if appropriate."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6654
+#: ../root/static/scripts/edit/URLCleanup.js:6690
 msgid "Some relationship types are missing for this URL."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6671
+#: ../root/static/scripts/edit/URLCleanup.js:6707
 #: ../root/static/scripts/edit/externalLinks.js:1006
 msgid "This relationship type combination is invalid."
 msgstr ""
@@ -16158,10 +16162,14 @@ msgstr ""
 msgid "This tag is associated with the genre {genre}."
 msgstr "このタグはジャンル {genre} と関連付けられています。"
 
-#: ../root/tag/TagLayout.js:46 ../root/tag/TagLayout.js:47
-#: ../root/tag/TagLayout.js:52
+#: ../root/tag/TagLayout.js:47 ../root/tag/TagLayout.js:48
+#: ../root/tag/TagLayout.js:54
 msgid "Tag “{tag}”"
 msgstr "「{tag}」タグ"
+
+#: ../root/tag/TagLayout.js:56
+msgid "Tag"
+msgstr ""
 
 #: ../root/taglookup/Form.js:45
 msgid "Duration"
@@ -16531,286 +16539,286 @@ msgstr ""
 msgid "Edits by {name}"
 msgstr "{name}の編集"
 
-#: ../root/user/UserProfile.js:67
+#: ../root/user/UserProfile.js:68
 msgid "Deleted User"
 msgstr "削除されたユーザー"
 
-#: ../root/user/UserProfile.js:71
+#: ../root/user/UserProfile.js:72
 msgid "{doc|Auto-Editor}"
 msgstr "{doc|自動編集者}"
 
-#: ../root/user/UserProfile.js:76
+#: ../root/user/UserProfile.js:77
 msgid "Internal/Bot"
 msgstr "内部・ボット"
 
-#: ../root/user/UserProfile.js:80
+#: ../root/user/UserProfile.js:81
 msgid "{doc|Relationship Editor}"
 msgstr "{doc|関連編集者}"
 
-#: ../root/user/UserProfile.js:86
+#: ../root/user/UserProfile.js:87
 msgid "{doc|Transclusion Editor}"
 msgstr "{doc|トランスクルージョン編集者}"
 
-#: ../root/user/UserProfile.js:92
+#: ../root/user/UserProfile.js:93
 msgid "{doc|Location Editor}"
 msgstr "{doc|場所編集者}"
 
-#: ../root/user/UserProfile.js:102
+#: ../root/user/UserProfile.js:103
 msgid "Beginner"
 msgstr "初心者"
 
-#: ../root/user/UserProfile.js:108
+#: ../root/user/UserProfile.js:109
 msgid "Normal User"
 msgstr "一般ユーザー"
 
-#: ../root/user/UserProfile.js:154
+#: ../root/user/UserProfile.js:157
 msgid "The Dawn of the Project"
 msgstr ""
 
-#: ../root/user/UserProfile.js:156
+#: ../root/user/UserProfile.js:159
 msgid "The early days of the project"
 msgstr "プロジェクトの初期"
 
-#: ../root/user/UserProfile.js:164
+#: ../root/user/UserProfile.js:167
 msgid ""
 "Your homepage and biography will not show until you have completed the email "
 "verification process."
 msgstr ""
 
-#: ../root/user/UserProfile.js:183
+#: ../root/user/UserProfile.js:186
 msgid "General Information"
 msgstr "一般情報"
 
-#: ../root/user/UserProfile.js:186
+#: ../root/user/UserProfile.js:189
 msgid "Email:"
 msgstr "メール:"
 
-#: ../root/user/UserProfile.js:189
+#: ../root/user/UserProfile.js:192
 msgid "(hidden)"
 msgstr "(非公開)"
 
-#: ../root/user/UserProfile.js:192
+#: ../root/user/UserProfile.js:195
 msgid "(verified at {date})"
 msgstr "({date} 確認済)"
 
-#: ../root/user/UserProfile.js:197
+#: ../root/user/UserProfile.js:200
 msgid "(<strong>unverified!</strong>)"
 msgstr "(<strong>未確認!</strong>)"
 
-#: ../root/user/UserProfile.js:206
+#: ../root/user/UserProfile.js:209
 msgid "resend verification email"
 msgstr "確認メールを再送信"
 
-#: ../root/user/UserProfile.js:214
+#: ../root/user/UserProfile.js:217
 msgid "send email"
 msgstr "メール送信"
 
-#: ../root/user/UserProfile.js:229
+#: ../root/user/UserProfile.js:232
 msgid "find all users of this email"
 msgstr ""
 
-#: ../root/user/UserProfile.js:239
+#: ../root/user/UserProfile.js:242
 msgctxt "email"
 msgid "(none)"
 msgstr "(なし)"
 
-#: ../root/user/UserProfile.js:246
+#: ../root/user/UserProfile.js:249
 msgid "User type:"
 msgstr "ユーザータイプ:"
 
-#: ../root/user/UserProfile.js:252
+#: ../root/user/UserProfile.js:255
 msgid "nominate for auto-editor"
 msgstr "自動編集者として推薦します"
 
-#: ../root/user/UserProfile.js:259
+#: ../root/user/UserProfile.js:262
 msgid "Age:"
 msgstr "年齢:"
 
-#: ../root/user/UserProfile.js:276
+#: ../root/user/UserProfile.js:279
 msgid "Member since:"
 msgstr "登録日:"
 
-#: ../root/user/UserProfile.js:282
+#: ../root/user/UserProfile.js:292
 msgid "Last login:"
 msgstr "最終ログイン:"
 
-#: ../root/user/UserProfile.js:285
+#: ../root/user/UserProfile.js:295
 msgid "Hasn't logged in yet"
 msgstr "未ログイン"
 
-#: ../root/user/UserProfile.js:290
+#: ../root/user/UserProfile.js:300
 msgid "Authorized applications"
 msgstr "許可されたアプリケーション"
 
-#: ../root/user/UserProfile.js:297 ../root/user/UserProfile.js:313
+#: ../root/user/UserProfile.js:307 ../root/user/UserProfile.js:323
 msgid "see list"
 msgstr "リストを表示"
 
-#: ../root/user/UserProfile.js:306
+#: ../root/user/UserProfile.js:316
 msgid "Developer applications"
 msgstr ""
 
-#: ../root/user/UserProfile.js:323
+#: ../root/user/UserProfile.js:333
 msgid "Homepage:"
 msgstr "ホームページ:"
 
-#: ../root/user/UserProfile.js:341
+#: ../root/user/UserProfile.js:351
 msgid "Subscribers:"
 msgstr "購読者:"
 
-#: ../root/user/UserProfile.js:344
+#: ../root/user/UserProfile.js:354
 msgid "{count} ({url|view list})"
 msgstr "{count} ({url|リスト表示})"
 
-#: ../root/user/UserProfile.js:351
+#: ../root/user/UserProfile.js:361
 msgid "0"
 msgstr "0"
 
-#: ../root/user/UserProfile.js:364
+#: ../root/user/UserProfile.js:374
 msgid "unsubscribe"
 msgstr "購読を解除"
 
-#: ../root/user/UserProfile.js:373
+#: ../root/user/UserProfile.js:383
 msgid "subscribe"
 msgstr "購読"
 
-#: ../root/user/UserProfile.js:399
+#: ../root/user/UserProfile.js:409
 msgid "Languages:"
 msgstr "言語:"
 
-#: ../root/user/UserProfile.js:474 ../root/user/UserProfile.js:574
-#: ../root/user/UserProfile.js:584 ../root/user/UserProfile.js:594
-#: ../root/user/UserProfile.js:604 ../root/user/UserProfile.js:614
-#: ../root/user/UserProfile.js:624 ../root/user/UserProfile.js:634
-#: ../root/user/UserProfile.js:644 ../root/user/UserProfile.js:653
-#: ../root/user/UserProfile.js:803 ../root/user/UserProfile.js:819
-#: ../root/user/UserProfile.js:840
+#: ../root/user/UserProfile.js:484 ../root/user/UserProfile.js:584
+#: ../root/user/UserProfile.js:594 ../root/user/UserProfile.js:604
+#: ../root/user/UserProfile.js:614 ../root/user/UserProfile.js:624
+#: ../root/user/UserProfile.js:634 ../root/user/UserProfile.js:644
+#: ../root/user/UserProfile.js:654 ../root/user/UserProfile.js:663
+#: ../root/user/UserProfile.js:813 ../root/user/UserProfile.js:829
+#: ../root/user/UserProfile.js:850
 msgid "{count} ({view_url|view})"
 msgstr "{count} ({view_url|表示})"
 
-#: ../root/user/UserProfile.js:566
+#: ../root/user/UserProfile.js:576
 msgid "Edits"
 msgstr "編集"
 
-#: ../root/user/UserProfile.js:572
+#: ../root/user/UserProfile.js:582
 msgctxt "edit descriptor"
 msgid "Total"
 msgstr "合計"
 
-#: ../root/user/UserProfile.js:582
+#: ../root/user/UserProfile.js:592
 msgctxt "edit descriptor"
 msgid "Accepted"
 msgstr "承認済"
 
-#: ../root/user/UserProfile.js:592
+#: ../root/user/UserProfile.js:602
 msgid "Auto-edits"
 msgstr "自動編集"
 
-#: ../root/user/UserProfile.js:602
+#: ../root/user/UserProfile.js:612
 msgid "Total applied"
 msgstr "合計適用"
 
-#: ../root/user/UserProfile.js:612
+#: ../root/user/UserProfile.js:622
 msgid "Voted down"
 msgstr "否決"
 
-#: ../root/user/UserProfile.js:622
+#: ../root/user/UserProfile.js:632
 msgid "Failed"
 msgstr "失敗"
 
-#: ../root/user/UserProfile.js:652
+#: ../root/user/UserProfile.js:662
 msgid "Last 24 hours"
 msgstr "最近24時間"
 
-#: ../root/user/UserProfile.js:676
+#: ../root/user/UserProfile.js:686
 msgid "This table shows a summary of votes cast by this editor."
 msgstr "この表はこの編集者が行った投票の概要を表示しています。"
 
-#: ../root/user/UserProfile.js:681
+#: ../root/user/UserProfile.js:691
 msgid "Votes ({view_url|view})"
 msgstr "投票（{view_url|表示}）"
 
-#: ../root/user/UserProfile.js:689
+#: ../root/user/UserProfile.js:699
 msgid "Last 28 days"
 msgstr "最近28日間"
 
-#: ../root/user/UserProfile.js:692
+#: ../root/user/UserProfile.js:702
 msgid "Overall"
 msgstr "合計"
 
-#: ../root/user/UserProfile.js:740
+#: ../root/user/UserProfile.js:750
 msgid "This table shows a summary of entities added by this editor."
 msgstr "この表はこの編集者により追加された項目の概要を表示しています。"
 
-#: ../root/user/UserProfile.js:746
+#: ../root/user/UserProfile.js:756
 msgid "Newly applied edits may need 24 hours to appear"
 msgstr ""
 
-#: ../root/user/UserProfile.js:749
+#: ../root/user/UserProfile.js:759
 msgid "Added entities"
 msgstr "追加した項目"
 
-#: ../root/user/UserProfile.js:772
+#: ../root/user/UserProfile.js:782
 msgid "This user has not created any entities."
 msgstr ""
 
-#: ../root/user/UserProfile.js:782
+#: ../root/user/UserProfile.js:792
 msgid "This table shows a summary of secondary data added by this editor."
 msgstr ""
 
-#: ../root/user/UserProfile.js:788
+#: ../root/user/UserProfile.js:798
 msgid "Tags and ratings"
 msgstr "タグと評価"
 
-#: ../root/user/UserProfile.js:795
+#: ../root/user/UserProfile.js:805
 msgid "Tags upvoted"
 msgstr "賛成投票したタグ"
 
-#: ../root/user/UserProfile.js:798 ../root/user/UserProfile.js:814
+#: ../root/user/UserProfile.js:808 ../root/user/UserProfile.js:824
 msgid "Tags are removed when an editor is deleted."
 msgstr ""
 
-#: ../root/user/UserProfile.js:800 ../root/user/UserProfile.js:816
+#: ../root/user/UserProfile.js:810 ../root/user/UserProfile.js:826
 msgctxt "tags"
 msgid "Deleted"
 msgstr ""
 
-#: ../root/user/UserProfile.js:811
+#: ../root/user/UserProfile.js:821
 msgid "Tags downvoted"
 msgstr "反対投票したタグ"
 
-#: ../root/user/UserProfile.js:833
+#: ../root/user/UserProfile.js:843
 msgid "Ratings are removed when an editor is deleted."
 msgstr ""
 
-#: ../root/user/UserProfile.js:836
+#: ../root/user/UserProfile.js:846
 msgctxt "ratings"
 msgid "Deleted"
 msgstr ""
 
-#: ../root/user/UserProfile.js:904
+#: ../root/user/UserProfile.js:913
 msgid "Blocked Spam Account"
 msgstr ""
 
-#: ../root/user/UserProfile.js:906
+#: ../root/user/UserProfile.js:915
 msgid ""
 "This user was blocked and their profile is hidden because they were deemed "
 "to be spamming. If you see spam in MusicBrainz, please do let us know by "
 "reporting the spammer from their user page."
 msgstr ""
 
-#: ../root/user/UserProfile.js:917
+#: ../root/user/UserProfile.js:926
 msgid ""
 "This user is marked as a spammer and is blocked for all non-admin users."
 msgstr ""
 
-#: ../root/user/UserProfile.js:927
+#: ../root/user/UserProfile.js:937
 msgid ""
 "This user’s editing rights have been restricted. Active restrictions: "
 "{restrictions}."
 msgstr ""
 
-#: ../root/user/UserProfile.js:958
+#: ../root/user/UserProfile.js:969
 msgid "Report this user for bad behavior"
 msgstr "このユーザーの悪い行動を報告"
 
@@ -16874,53 +16882,53 @@ msgstr "購読中のレーベル"
 msgid "Series Subscriptions"
 msgstr "購読中のシリーズ"
 
-#: ../root/user/UserSubscriptions.js:179
+#: ../root/user/UserSubscriptions.js:183
 msgid "{editor} is subscribed to:"
 msgstr "{editor} は以下を購読しています:"
 
-#: ../root/user/UserSubscriptions.js:187
+#: ../root/user/UserSubscriptions.js:191
 msgid "{num} artist"
 msgid_plural "{num} artists"
 msgstr[0] "{num}名のアーティスト"
 
-#: ../root/user/UserSubscriptions.js:198
+#: ../root/user/UserSubscriptions.js:202
 msgid "{num} collection"
 msgid_plural "{num} collections"
 msgstr[0] "{num}件のコレクション"
 
-#: ../root/user/UserSubscriptions.js:209
+#: ../root/user/UserSubscriptions.js:213
 msgid "{num} editor"
 msgid_plural "{num} editors"
 msgstr[0] "{num}名の編集者"
 
-#: ../root/user/UserSubscriptions.js:220
+#: ../root/user/UserSubscriptions.js:224
 msgid "{num} label"
 msgid_plural "{num} labels"
 msgstr[0] "{num}件のレーベル"
 
-#: ../root/user/UserSubscriptions.js:231
+#: ../root/user/UserSubscriptions.js:235
 msgid "{num} series"
 msgid_plural "{num} series"
 msgstr[0] "{num}件のシリーズ"
 
-#: ../root/user/UserSubscriptions.js:252
+#: ../root/user/UserSubscriptions.js:256
 msgid "No public subscriptions."
 msgstr ""
 
-#: ../root/user/UserSubscriptions.js:253
+#: ../root/user/UserSubscriptions.js:257
 msgid "No subscriptions."
 msgstr "購読はありません。"
 
-#: ../root/user/UserSubscriptions.js:257
+#: ../root/user/UserSubscriptions.js:261
 msgid "Private collections"
 msgstr ""
 
-#: ../root/user/UserSubscriptions.js:271
+#: ../root/user/UserSubscriptions.js:275
 msgid "{editor} is also subscribed to {n} other private collection."
 msgid_plural "{editor} is also subscribed to {n} other private collections."
 msgstr[0] ""
 
-#: ../root/user/UserSubscriptions.js:281
+#: ../root/user/UserSubscriptions.js:285
 msgid "{editor} is subscribed to {n} private collection."
 msgid_plural "{editor} is subscribed to {n} private collections."
 msgstr[0] "{editor}は{n}件の非公開コレクションを購読しています。"
