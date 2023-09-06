@@ -18,11 +18,12 @@
 # Tobias Sarner <email address hidden>, 2020
 # Ulrich Klauer <email address hidden>, 2016
 # chaban <chaban@users.noreply.translations.metabrainz.org>, 2023.
+# Philipp Wolfer <ph.wolfer@gmail.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-08-19 08:54+0000\n"
-"Last-Translator: chaban <chaban@users.noreply.translations.metabrainz.org>\n"
+"PO-Revision-Date: 2023-08-31 20:27+0000\n"
+"Last-Translator: Philipp Wolfer <ph.wolfer@gmail.com>\n"
 "Language-Team: German <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/de/>\n"
 "Language: de\n"
@@ -565,7 +566,7 @@ msgid ""
 "Indicates the composer for this release, i.e. the artist who wrote the music "
 "(not necessarily the lyrics)."
 msgstr ""
-"Gibt den Komponisten für diese Veröffentlichung an, z.B. den Künstler der "
+"Gibt den Komponisten für diese Veröffentlichung an, z. B. den Künstler der "
 "die Musik (nicht unbedingt die Texte) geschrieben hat."
 
 #: DB:link_type/description:168
@@ -573,8 +574,8 @@ msgid ""
 "Indicates the composer for this work, i.e. the artist who wrote the music "
 "(not necessarily the lyrics)."
 msgstr ""
-"Gibt den Komponisten für dieses Werk an, z.B. den Künstler der die Musik "
-"(nicht unbedingt die Texte) geschrieben hat."
+"Gibt den Komponisten für dieses Werk an, z. B. den Künstler der die Musik ("
+"nicht unbedingt die Texte) geschrieben hat."
 
 #: DB:link_type/description:845
 msgid "Indicates the event where the work had its first performance"
@@ -586,7 +587,7 @@ msgid ""
 "tuner\" credits and other similar ones."
 msgstr ""
 "Gibt den Instrument-Techniker für diese Aufnahme an. Auch für "
-"\"Klavierstimmer\" Nennungen und ähnliche verwenden."
+"„Klavierstimmer“ Nennungen und ähnliche verwenden."
 
 #: DB:link_type/description:987
 msgid ""
@@ -594,7 +595,7 @@ msgid ""
 "tuner\" credits and other similar ones."
 msgstr ""
 "Gibt den Instrument-Techniker für diese Veröffentlichung an. Auch für "
-"\"Klavierstimmer\" Nennungen und ähnliche verwenden."
+"„Klavierstimmer“ Nennungen und ähnliche verwenden."
 
 #: DB:link_type/description:57
 msgid "Indicates the librettist for this release."
@@ -1319,7 +1320,7 @@ msgid ""
 "it wouldn't exist (e.g. Miles Davis -&gt; Miles Davis Sextet)"
 msgstr ""
 "Dieses Attribut kennzeichnet ein Mitglied, nach dem die Band benannt ist und "
-"ohne das sie nicht existieren würde (z.B. Miles Davis -&gt; Miles Davis "
+"ohne das sie nicht existieren würde (z. B. Miles Davis -&gt; Miles Davis "
 "Sextett)"
 
 #: DB:link_attribute_type/description:511
@@ -1885,7 +1886,7 @@ msgid ""
 "This indicates that the recording is not of the entire work, e.g. excerpts "
 "from, conclusion of, etc."
 msgstr ""
-"Dies gibt an, dass die Aufnahme nicht das ganze Werk umfasst, z. B. Auszüge "
+"Dies gibt an, dass die Aufnahme nicht das ganze Werk umfasst, z. B. Auszüge "
 "des Werks, die Coda etc."
 
 #: DB:link_attribute_type/description:578
@@ -2964,7 +2965,7 @@ msgid ""
 "respect the <a href=\"/doc/Other_Databases_Relationship_Type/Whitelist"
 "\">whitelist</a>."
 msgstr ""
-"Dies verlinkt ein Ebjekt zum äquivalenten Eintarg in einer anderen "
+"Dies verlinkt ein Objekt zum äquivalenten Eintrag in einer anderen "
 "Datenbank. Respektiere bitte die <a href=\"/doc/"
 "Other_Databases_Relationship_Type/Whitelist\">Whitelist</a>."
 
@@ -3503,10 +3504,10 @@ msgid ""
 msgstr ""
 "Dieser Beziehungstyp wird benutzt, um eine Veröffentlichung zu einer Seite "
 "zu verlinken, von der sie gegen eine Abo-Gebühr legal gestreamt werden kann, "
-"z.B. Tidal.\n"
+"z. B. Tidal.\n"
 "\n"
-"Wenn die Seite kostenloses Streamen erlaubt, verwende stattdessen "
-"\"kostenloses Streamen\"."
+"Wenn die Seite kostenloses Streamen erlaubt, verwende stattdessen „"
+"kostenloses Streamen“."
 
 #: DB:link_type/description:85
 msgid ""
@@ -3514,7 +3515,7 @@ msgid ""
 "can be legally streamed for free, e.g. Spotify."
 msgstr ""
 "Dieser Beziehungstyp wird benutzt, um eine Veröffentlichung zu einer Seite "
-"zu verlinken, von der sie legal kostenlos gestreamt werden kann, z.B. "
+"zu verlinken, von der sie legal kostenlos gestreamt werden kann, z. B. "
 "Spotify."
 
 #: DB:link_type/description:979
@@ -3525,11 +3526,11 @@ msgid ""
 "If the site allows free streaming, use \"free streaming\" instead."
 msgstr ""
 "Dieser Beziehungstyp wird benutzt, um einen Titel zu einer Seite zu "
-"verlinken, von der er gegen eine Abo-Gebühr legal gestreamt werden kann, z."
+"verlinken, von der er gegen eine Abo-Gebühr legal gestreamt werden kann, z. "
 "B. Tidal.\n"
 "\n"
-"Wenn die Seite kostenloses Streamen erlaubt, verwende stattdessen "
-"\"kostenloses Streamen\"."
+"Wenn die Seite kostenloses Streamen erlaubt, verwende stattdessen „"
+"kostenloses Streamen“."
 
 #: DB:link_type/description:268
 msgid ""
@@ -3550,10 +3551,10 @@ msgid ""
 msgstr ""
 "Dieser Beziehungstyp wird benutzt, um einen Künstler zu einer Seite zu "
 "verlinken, von der Musik gegen eine Abo-Gebühr legal gestreamt werden kann, "
-"z.B. Tidal.\n"
+"z. B. Tidal.\n"
 "\n"
-"Wenn die Seite kostenloses Streamen erlaubt, verwende stattdessen "
-"\"kostenloses Streamen\"."
+"Wenn die Seite kostenloses Streamen erlaubt, verwende stattdessen „"
+"kostenloses Streamen“."
 
 #: DB:link_type/description:194
 msgid ""
@@ -3561,7 +3562,8 @@ msgid ""
 "be legally streamed for free, e.g. Spotify."
 msgstr ""
 "Dieser Beziehungstyp wird benutzt, um einen Künstler zu einer Seite zu "
-"verlinken, von der Musik legal kostenlos gestreamt werden kann, z.B. Spotify."
+"verlinken, von der Musik legal kostenlos gestreamt werden kann, z. B. "
+"Spotify."
 
 #: DB:link_type/description:199
 msgid "This relationship type is used to link an artist to their blog."

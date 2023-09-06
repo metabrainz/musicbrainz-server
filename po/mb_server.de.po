@@ -72,7 +72,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-08-19 08:52+0000\n"
-"PO-Revision-Date: 2023-08-28 20:27+0000\n"
+"PO-Revision-Date: 2023-08-31 20:27+0000\n"
 "Last-Translator: Philipp Wolfer <ph.wolfer@gmail.com>\n"
 "Language-Team: German <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/de/>\n"
@@ -382,9 +382,9 @@ msgid ""
 "recording for each track. Choose “Add a new recording” if an appropriate one "
 "doesn’t exist yet."
 msgstr ""
-"Alle Tracks benötigen eine zugehörige Aufnahme. Klicken Sie auf „Bearbeiten"
-"\", um eine Aufnahme für jeden Track auszuwählen. Wählen Sie „Neue Aufnahme "
-"hinzufügen\", wenn keine passende Aufnahme vorhanden ist."
+"Alle Tracks benötigen eine zugehörige Aufnahme. Klicken Sie auf „Bearbeiten“"
+", um eine Aufnahme für jeden Track auszuwählen. Wählen Sie „Neue Aufnahme "
+"hinzufügen“, wenn keine passende Aufnahme vorhanden ist."
 
 #: ../root/components/common-macros.tt:577
 msgid ""
@@ -862,7 +862,7 @@ msgstr "Erstellt"
 
 #: ../root/release/add_cover_art.tt:85
 msgid "Creating edit..."
-msgstr "Erstelle Bearbeitung ..."
+msgstr "Erstelle Bearbeitung …"
 
 #: ../root/release/edit/tracklist.tt:81
 msgid "Custom delimiter"
@@ -2576,7 +2576,7 @@ msgstr "Cover-Art umsortieren"
 
 #: ../root/release/add_cover_art.tt:83
 msgid "Request signature..."
-msgstr "Anfragesignatur ..."
+msgstr "Anfragesignatur …"
 
 #: ../root/release/edit/tracklist.tt:525
 msgid "Reset track numbers"
@@ -2705,7 +2705,7 @@ msgstr ""
 
 #: ../root/release/add_cover_art.tt:31
 msgid "Select images..."
-msgstr "Bilder auswählen ..."
+msgstr "Bilder auswählen …"
 
 #: ../root/components/forms.tt:259 ../root/components/forms.tt:284
 #: ../root/static/scripts/edit/components/GuessCaseOptions.js:114
@@ -3210,7 +3210,7 @@ msgid ""
 "This should never be correct. Make sure that, say, your release set to CD "
 "isn’t meant to be a vinyl, or your vinyl isn’t actually a shellac disc."
 msgstr ""
-"Dies sollte eigentlich niemals korrekt sein. Stelle sicher, dass z.B. deine "
+"Dies sollte eigentlich niemals korrekt sein. Stelle sicher, dass z. B. deine "
 "als CD eingegebene Veröffentlichung nicht als Vinyl gedacht ist, oder dass "
 "dein Vinyl nicht in Wirklichkeit eine Schellackplatte ist."
 
@@ -3317,7 +3317,7 @@ msgid ""
 "information about this release’s media, remove all media."
 msgstr ""
 "Titel sind erforderlich. Wenn du sie nicht kennst, aber einige Informationen "
-"hast (wie z.B. das Format oder die Anzahl der Medien), setze oben das "
+"hast (wie z. B. das Format oder die Anzahl der Medien), setze oben das "
 "Häkchen bei „Ich kenne die Titelliste für dieses Medium nicht” und gib die "
 "verfügbaren Informationen ein. Wenn du keine Informationen über die Medien "
 "dieser Veröffentlichung hast, entferne alle Medien."
@@ -3432,7 +3432,7 @@ msgstr "Passe den Aufnahmenamen an den Titelnamen an."
 
 #: ../root/release/add_cover_art.tt:84
 msgid "Uploading image..."
-msgstr "Bild wird hochgeladen ..."
+msgstr "Bild wird hochgeladen …"
 
 #: ../root/components/forms.tt:272 ../root/components/forms.tt:297
 #: ../root/static/scripts/edit/components/GuessCaseOptions.js:142
@@ -6034,8 +6034,8 @@ msgid ""
 "Must be a valid date or partial date. Examples: 2006-05-25, "
 "1990-01, ????-01, ..."
 msgstr ""
-"Muss ein gültiges Datum oder Teil-Datum sein. Beispiele: 2006-05-25, "
-"1990-01, ????-01, ..."
+"Muss ein gültiges Datum oder Teil-Datum sein. Beispiele: 2006-05-25, 1990-"
+"01, ????-01, …"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/ReleaseGroup.pm:54
 #: ../lib/MusicBrainz/Server/Form/Filter/ReleaseGroup.pm:63
@@ -12906,7 +12906,7 @@ msgstr ""
 "{doc_link|Label-Codes} aussehen. Das ist oft falsch, da die beiden häufig "
 "verwechselt werden: Label-Codes gelten für das Label, nicht für eine "
 "bestimmte Veröffentlichung. Wenn du bestätigst, dass es sich um einen Label-"
-"Code handelt (überprüfe z.B. die Label-Seite, um zu sehen, ob sie "
+"Code handelt (überprüfe z. B. die Label-Seite, um zu sehen, ob sie "
 "übereinstimmen), entferne ihn oder, noch besser, versuche, die tatsächliche "
 "Katalognummer zu finden."
 
@@ -13441,8 +13441,8 @@ msgid ""
 "is a medium 1 and 3 but no medium 2)."
 msgstr ""
 "Dieser Report listet alle Veröffentlichungen auf, bei denen die Medien nicht "
-"durchgehend nummeriert sind (z.&nbsp;B. wenn es ein \"Medium 1\" und "
-"\"Medium 3\" gibt, aber kein „Medium 2“)"
+"durchgehend nummeriert sind (z. B. wenn es ein „Medium 1“ und „Medium 3“ "
+"gibt, aber kein „Medium 2“)"
 
 #: ../root/report/MediumsWithSequenceIssues.js:30
 msgid "Releases with medium number issues"
@@ -13658,7 +13658,7 @@ msgid ""
 "Those are probably typos (e.g. 2109 instead of 2019)."
 msgstr ""
 "Dieser Report zeigt Aufnahmen mit Beziehungen, die ein zukünftiges Datum "
-"verwenden. Das sind vermutlich Tippfehler (z.B. 2109 statt 2019)."
+"verwenden. Das sind vermutlich Tippfehler (z. B. 2109 statt 2019)."
 
 #: ../root/report/RecordingsWithFutureDates.js:62
 msgid "Recordings with relationships having dates in the future"
@@ -15401,7 +15401,7 @@ msgstr "Wikipedia"
 
 #: ../root/static/scripts/common/components/WikipediaExtract.js:70
 msgid "Continue reading at Wikipedia..."
-msgstr "Auf Wikipedia weiterlesen ..."
+msgstr "Auf Wikipedia weiterlesen …"
 
 #: ../root/static/scripts/common/components/WikipediaExtract.js:75
 msgid ""
