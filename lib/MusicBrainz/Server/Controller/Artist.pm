@@ -445,14 +445,14 @@ sub recordings : Chained('load')
     if ($c->req->query_params->{standalone}) {
         $recordings = $self->_load_paged($c, sub {
             return ([], 0) unless $has_standalone;
-            return $c->model('Recording')->find_standalone($artist->id, shift, shift);
+            return $c->model('Recording')->find_by_artist($artist->id, shift, shift, standalone => 1);
         });
         $standalone_only = 1;
     }
     elsif ($c->req->query_params->{video}) {
         $recordings = $self->_load_paged($c, sub {
             return ([], 0) unless $has_video;
-            return $c->model('Recording')->find_video($artist->id, shift, shift);
+            return $c->model('Recording')->find_by_artist($artist->id, shift, shift, video => 1);
         });
         $video_only = 1;
     }
