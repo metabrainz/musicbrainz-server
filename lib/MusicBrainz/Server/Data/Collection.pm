@@ -274,10 +274,13 @@ sub find_by {
         push @args, $editor_id, $editor_id;
     } elsif ($editor_id = $opts->{show_private_only}) {
         push @conditions, 'editor_collection.public = false';
-        push @conditions, 'editor_collection.editor != ?';
-        push @conditions, 'NOT EXISTS (SELECT 1 FROM editor_collection_collaborator ecc
-                            WHERE ecc.collection = editor_collection.id AND ecc.editor = ?)';
-        push @args, $editor_id, $editor_id;
+        # We skip this if there's no logged in editor
+        unless ($editor_id eq 'none') {
+            push @conditions, 'editor_collection.editor != ?';
+            push @conditions, 'NOT EXISTS (SELECT 1 FROM editor_collection_collaborator ecc
+                                WHERE ecc.collection = editor_collection.id AND ecc.editor = ?)';
+            push @args, $editor_id, $editor_id;
+        }
     } else {
         push @conditions, 'editor_collection.public = true';
     }

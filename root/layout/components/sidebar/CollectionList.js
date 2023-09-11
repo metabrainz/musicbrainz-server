@@ -65,6 +65,7 @@ type CollectionListProps = {
   +ownCollectionsHeader: string,
   +ownCollectionsNoneText: string,
   +sectionClass: string,
+  +userExists: boolean,
   +usersLink: React$Element<EntityLink>,
   +usersLinkHeader: string,
 };
@@ -141,6 +142,7 @@ const CollectionList = ({
   ownCollectionsHeader,
   ownCollectionsNoneText,
   sectionClass,
+  userExists,
   usersLink,
   usersLinkHeader,
 }: CollectionListProps): React$MixedElement => (
@@ -148,29 +150,33 @@ const CollectionList = ({
     <h2 className={sectionClass}>
       {header}
     </h2>
-    <h3>
-      {ownCollectionsHeader}
-    </h3>
-    <OwnCollectionList
-      addText={addCollectionText}
-      collections={ownCollections}
-      entity={entity}
-      noneText={ownCollectionsNoneText}
-    />
-    {collaborativeCollections?.length ? (
+    {userExists ? (
       <>
         <h3>
-          {collaborativeCollectionsHeader}
+          {ownCollectionsHeader}
         </h3>
-        <CollaborativeCollectionList
-          collections={collaborativeCollections}
+        <OwnCollectionList
+          addText={addCollectionText}
+          collections={ownCollections}
           entity={entity}
+          noneText={ownCollectionsNoneText}
         />
+        {collaborativeCollections?.length ? (
+          <>
+            <h3>
+              {collaborativeCollectionsHeader}
+            </h3>
+            <CollaborativeCollectionList
+              collections={collaborativeCollections}
+              entity={entity}
+            />
+          </>
+        ) : null}
+        <h3>
+          {usersLinkHeader}
+        </h3>
       </>
     ) : null}
-    <h3>
-      {usersLinkHeader}
-    </h3>
     <ul className="links">
       <li>{usersLink}</li>
     </ul>

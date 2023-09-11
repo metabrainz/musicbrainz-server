@@ -29,7 +29,7 @@ role
 
     $extra{consumer}->name->config(
         action => {
-            $method_name => { Chained => 'load', RequireAuth => undef }
+            $method_name => { Chained => 'load' }
         }
     );
 
@@ -49,7 +49,7 @@ role
         my ($collections) = $c->model('Collection')->find_by({
             entity_id => $c->stash->{$entity_name}->id,
             entity_type => $entity_type,
-            show_private_only => $c->user_exists ? $c->user->id : undef,
+            show_private_only => $c->user_exists ? $c->user->id : 'none',
         });
         $collections;
     };
