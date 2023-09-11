@@ -5872,6 +5872,13 @@ limited_link_type_combinations: [
             expected_clean_url: 'https://vgmdb.net/product/8301',
        only_valid_entity_types: ['work'],
   },
+  {
+                     input_url: 'https://vgmdb.net/product/8302/',
+             input_entity_type: 'release_group',
+    expected_relationship_type: undefined,
+       input_relationship_type: 'review',
+       only_valid_entity_types: [],
+  },
   // VIAF (Virtual International Authority File)
   {
                      input_url: 'http://viaf.org/viaf/109231256',
