@@ -297,6 +297,7 @@ export default {
   'report/SeparateDiscs': (): Promise<mixed> => import('../report/SeparateDiscs.js'),
   'report/SetInDifferentRg': (): Promise<mixed> => import('../report/SetInDifferentRg.js'),
   'report/ShouldNotHaveDiscIds': (): Promise<mixed> => import('../report/ShouldNotHaveDiscIds.js'),
+  'report/ShowNotesButNotBroadcast': (): Promise<mixed> => import('../report/ShowNotesButNotBroadcast.js'),
   'report/SingleMediumReleasesWithMediumTitles': (): Promise<mixed> => import('../report/SingleMediumReleasesWithMediumTitles.js'),
   'report/SomeFormatsUnset': (): Promise<mixed> => import('../report/SomeFormatsUnset.js'),
   'report/SuperfluousDataTracks': (): Promise<mixed> => import('../report/SuperfluousDataTracks.js'),
