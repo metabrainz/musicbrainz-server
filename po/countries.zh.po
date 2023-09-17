@@ -1,30 +1,32 @@
 #
 # Translators:
-#  <>, 2002, 2001, Inc, 2003, 2007, 2008, 2009, 2010, 2011, 2000,�s�, 2012
-#   Alastair McKinstry <email address hidden>, 2002
+# <>, 2002, 2001, Inc, 2003, 2007, 2008, 2009, 2010, 2011, 2000,�s�, 2012
+# Alastair McKinstry <email address hidden>, 2002
 # Alastair McKinstry <email address hidden>, 2001
 # Dian Li <email address hidden>, 2009-2019
-#   Free Software Foundation, Inc., 2002-2003,2007-2008
+# Free Software Foundation, Inc., 2002-2003,2007-2008
 # LI Daobing <email address hidden>, 2007-2011
 # LI Daobing <email address hidden>, 2007-2010
 # Maureen <email address hidden>, 2014
 # RedHotHeat <email address hidden>, 2012
 # taxigps <email address hidden>, 2018
-#   Tobias Toedter <email address hidden>, 2007
-#   - Wang Jian <email address hidden>, 2000
+# Tobias Toedter <email address hidden>, 2007
+# - Wang Jian <email address hidden>, 2000
 # YunQiang Su <email address hidden>, 2011
+# claybiockiller <clay0305@hotmail.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2012-05-24 19:20+0000\n"
-"Last-Translator: Dian Li <xslidian@gmail.com>, 2009-2019\n"
-"Language-Team: Chinese (http://app.transifex.com/musicbrainz/musicbrainz/"
-"language/zh/)\n"
+"PO-Revision-Date: 2023-09-11 18:27+0000\n"
+"Last-Translator: claybiockiller <clay0305@hotmail.com>\n"
+"Language-Team: Chinese (Simplified) <https://translations.metabrainz.org/"
+"projects/musicbrainz/countries/zh_Hans/>\n"
 "Language: zh\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 5.0.1\n"
 
 #. iso.code:AF 
 #: DB:area JOIN iso_3166_1 iso ON iso.area = area.id/area.name:1
@@ -314,7 +316,7 @@ msgstr "塞浦路斯"
 #. iso.code:CZ 
 #: DB:area JOIN iso_3166_1 iso ON iso.area = area.id/area.name:56
 msgid "Czechia"
-msgstr ""
+msgstr "捷克"
 
 #. iso.code:XC 
 #: DB:area JOIN iso_3166_1 iso ON iso.area = area.id/area.name:245
@@ -389,7 +391,7 @@ msgstr "爱沙尼亚"
 #. iso.code:SZ 
 #: DB:area JOIN iso_3166_1 iso ON iso.area = area.id/area.name:201
 msgid "Eswatini"
-msgstr ""
+msgstr "斯威士兰"
 
 #. iso.code:ET 
 #: DB:area JOIN iso_3166_1 iso ON iso.area = area.id/area.name:68
@@ -864,7 +866,7 @@ msgstr "朝鲜"
 #. iso.code:MK 
 #: DB:area JOIN iso_3166_1 iso ON iso.area = area.id/area.name:126
 msgid "North Macedonia"
-msgstr ""
+msgstr "北马其顿"
 
 #. iso.code:MP 
 #: DB:area JOIN iso_3166_1 iso ON iso.area = area.id/area.name:159
@@ -1209,7 +1211,7 @@ msgstr "图瓦卢"
 #. iso.code:TR 
 #: DB:area JOIN iso_3166_1 iso ON iso.area = area.id/area.name:214
 msgid "Türkiye"
-msgstr ""
+msgstr "土耳其"
 
 #. iso.code:VI 
 #: DB:area JOIN iso_3166_1 iso ON iso.area = area.id/area.name:231
