@@ -16,6 +16,11 @@ sub l_name {
     return lp($self->name, 'label_type')
 }
 
+sub l_description {
+    my $self = shift;
+    return lp($self->description, 'label_type');
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
