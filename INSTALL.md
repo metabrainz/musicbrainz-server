@@ -74,7 +74,7 @@ Prerequisites
     If you plan on accessing musicbrainz-server inside a web browser, you should
     install Node and the package manager Yarn.
 
-    We currently run Node.js v16.16.0 in production.  While we try to support
+    We currently run Node.js v18.17.1 in production.  While we try to support
     all 16.x versions of Node, it's recommended to install one greater than or
     equal to v16.13.0, as this is when the LTS line started and better matches
     what we use and know works.  If your release of Ubuntu doesn't have such a
@@ -410,47 +410,31 @@ If you intend to run a server with translations, there are a few steps to follow
     This will enable you to compile and install the translations that are in
     the source repository.
     
-    If you want to get the latest translation files or partial work-in-progress
-    translations, or wish to work on translations yourself, you will need to
-    create a [Transifex](https://www.transifex.com/) account and install its
-    client software (`tx`):
+    If you want to work on translations yourself, you will need to create a
+    [MetaBrainz Weblate](https://translations.metabrainz.org/) account.
 
-        sudo apt-get install transifex-client
-
-    More information (and alternative ways to install the client) can be found
-    [here](https://docs.transifex.com/client/introduction/).
-
-    Next, [create an API token](https://www.transifex.com/user/settings/api/)
-    and use it to configure your credentials in
-    [`~/.transifexrc`](https://docs.transifex.com/client/client-configuration#-transifexrc).
-    
-    Finally, you will need to join the
-    [MetaBrainz Foundation organization](https://www.transifex.com/musicbrainz/public/)
-    on Transifex to get access to the translations. If you wish to work on
-    translations, you will also need to
-    [join a language team](https://www.transifex.com/musicbrainz/musicbrainz/dashboard/).
-    More information on how to get started can be found on
-    [the MusicBrainz site](https://musicbrainz.org/doc/Server_Internationalisation).
+    More information on how to get started with translations and beyond
+    is available at
+    [MusicBrainz Server internationalization](https://musicbrainz.org/doc/MusicBrainz_Server/Internationalization).
 
 2.  Change to the po directory
 
         cd po/
 
-3.  Get translations
+3.  Optionally, get the latest “bleeding edge” translations
 
-        tx pull -l {a list of languages you want to pull}
+    Weblate is configured to follow the `*.pot` files from the branch `beta`
+    and to push its updated `*.po` files to to the branch `translations`.
+    Branches are regularly merged into each other, so translations will
+    be from the latest production release at least if not more recent.
 
-    This will download the .po files for your language(s) of choice to the po/
-    folder with the correct filenames. Languages are written as an ISO language
-    code, optionally followed by an underscore and an ISO country code (e.g. `fr`
-    for French, `fr_CA` for Canadian French).
+    If you absolutely want the latest “bleeding edge” translations, then
+    either switch to the branch `translations` or merge it to your own branch.
 
-    Or, if you want to get _all_ translations instead:
-
-        tx pull -a
-
-    If you get `Forbidden` errors from `tx pull`, you will need to make sure
-    you have joined the MusicBrainz organization and/or project (see point 1).
+    The `.po` files for all language(s) open to translation are
+    in the `po/` folder with filenames ending with ISO language code,
+    optionally followed by an underscore and an ISO country code
+    (e.g. `fr` for French, `fr_CA` for Canadian French).
 
 4.  Install translations
 

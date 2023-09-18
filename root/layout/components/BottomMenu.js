@@ -100,7 +100,7 @@ const LanguageMenu = ({
           </a>
         </li>
         <li className="separator">
-          <a href="https://www.transifex.com/musicbrainz/musicbrainz/">
+          <a href="https://translations.metabrainz.org/projects/musicbrainz/">
             {l('Help Translate')}
           </a>
         </li>

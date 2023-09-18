@@ -75,9 +75,9 @@ sub foreign_keys {
 
     my %fk = ( Release => { $self->data->{release}{id} => [ ] } );
 
-    map {
-        $fk{Medium}->{ $_->{medium_id} } = []
-    } @{ $self->data->{medium_positions} };
+    for (@{ $self->data->{medium_positions} }) {
+        $fk{Medium}->{ $_->{medium_id} } = [];
+    }
 
     return \%fk;
 }

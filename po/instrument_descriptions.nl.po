@@ -2856,6 +2856,14 @@ msgstr ""
 "op de standaardviool en zijn akoestische eigenschappen, zodat ze een "
 "homogener geluid hebben."
 
+#. name:dulzaina 
+#: DB:instrument/description:770
+msgid ""
+"Not to be confused by the European renaissance bassoon <a href=\"/instrument/"
+"a0b1ba6b-6ea7-4489-a4af-c9e23d6e24da\">dulcian</a>.<br /> Widely used in "
+"Spanish communities it has many different names and a conical shape."
+msgstr ""
+
 #. name:melophone 
 #: DB:instrument/description:1022
 msgid ""
@@ -2898,6 +2906,14 @@ msgid ""
 msgstr ""
 "Moet niet worden verward met de Perzische luit <a href=\"/instrument/"
 "d50ba107-4930-4e0b-8b3f-ffbea4a1ade1\">qeychak</a>."
+
+#. name:dulcian 
+#: DB:instrument/description:496
+msgid ""
+"Not to be confused with the Spanish double-reed <a href=\"/instrument/"
+"bd57c6a6-616b-4c00-bcde-f0f34e8d6eb0\">dulzaina</a>.<br /> Used in the "
+"renaissance, it is made of maple wood with a folded bore and conical bell."
+msgstr ""
 
 #. name:shawm 
 #: DB:instrument/description:408
@@ -4563,15 +4579,6 @@ msgstr ""
 #: DB:instrument/description:397
 msgid "The duduk is a traditional Armenian double reed woodwind instrument."
 msgstr "Een doedoek is een traditionele Armeense dubbelriethoutblazer."
-
-#. name:dulcian 
-#: DB:instrument/description:496
-msgid ""
-"The dulcian is a double reed bass woodwind instrument which is a 16th "
-"century ancestor of the bassoon."
-msgstr ""
-"Een dulciaan (of curtal) is een dubbelrietinstrument en een zestiende-eeuwse "
-"voorloper van de fagot."
 
 #. name:dutar 
 #: DB:instrument/description:629
@@ -6759,6 +6766,11 @@ msgid ""
 "vibrating."
 msgstr ""
 
+#. name:laúd 
+#: DB:instrument/description:803
+msgid "a Spanish plucked cittern, it is also played in the Spanish diaspora."
+msgstr ""
+
 #. name:pang gu ly hu hmông 
 #: DB:instrument/description:315
 msgid "a kind of a \"slide whistle\" form. Hmông flute"
@@ -6773,13 +6785,6 @@ msgid ""
 msgstr ""
 "De chirimía is gerelateerd aan de schalmei en werd in de 16e en 17e eeuw "
 "door de Spanjaarden in Centraal- en Zuid-Amerika geïntroduceerd."
-
-#. name:laúd 
-#: DB:instrument/description:803
-msgid "a spanish plucked cittern, it is also played in the spanish diaspora."
-msgstr ""
-"De laúd is een Spaanse getokkelde cister die ook in het Spaanse diaspora "
-"wordt bespeeld."
 
 #. name:tràm plè 
 #: DB:instrument/description:308
@@ -7293,6 +7298,19 @@ msgid "zither with a hollow or vaulted body, it can have several resonators"
 msgstr ""
 "Een buisciter is een citer met een holle of gebogen klankkast en kan "
 "meerdere resonatoren hebben."
+
+#~ msgid ""
+#~ "The dulcian is a double reed bass woodwind instrument which is a 16th "
+#~ "century ancestor of the bassoon."
+#~ msgstr ""
+#~ "Een dulciaan (of curtal) is een dubbelrietinstrument en een zestiende-"
+#~ "eeuwse voorloper van de fagot."
+
+#~ msgid ""
+#~ "a spanish plucked cittern, it is also played in the spanish diaspora."
+#~ msgstr ""
+#~ "De laúd is een Spaanse getokkelde cister die ook in het Spaanse diaspora "
+#~ "wordt bespeeld."
 
 #~ msgid ""
 #~ "An electromechanical piano (not to be confused with electronic piano) "

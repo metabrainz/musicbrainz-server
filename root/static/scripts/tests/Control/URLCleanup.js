@@ -491,6 +491,35 @@ const testData = [
     expected_relationship_type: 'blog',
             expected_clean_url: 'https://ameblo.jp/murataayumi/',
   },
+  // Anghami
+  {
+                     input_url: 'http://www.anghami.com/artist/225',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://play.anghami.com/artist/225',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://play.anghami.com/song/1026503881?adj_t=dgl0aa8_64v1dnl&adj_campaign=web&adj_group=song&adj_creative=107139766',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://play.anghami.com/song/1026503881',
+       only_valid_entity_types: ['recording'],
+  },
+  {
+                     input_url: 'https://anghami.com/video/1119829251',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://play.anghami.com/video/1119829251',
+       only_valid_entity_types: ['recording'],
+  },
+  {
+                     input_url: 'https://play.anghami.com/album/1008557207?songid=58541227',
+             input_entity_type: 'release',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://play.anghami.com/album/1008557207',
+       only_valid_entity_types: ['release'],
+  },
   // AniDB
   {
                      input_url: 'https://anidb.net/creator/176',

@@ -40,7 +40,11 @@ const UserSubscriptionsTable = ({
   <table className="tbl">
     <thead>
       <tr>
-        {viewingOwnProfile ? <th style={{width: '1em'}} /> : null}
+        {viewingOwnProfile ? (
+          <th className="checkbox-cell">
+            <input type="checkbox" />
+          </th>
+        ) : null}
         <th>{l('Name')}</th>
       </tr>
     </thead>

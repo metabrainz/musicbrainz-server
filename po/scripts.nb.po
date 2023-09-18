@@ -4,15 +4,16 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2012-05-24 19:21+0000\n"
-"Last-Translator: Kurt-Håkon Eilertsen <kurt@kheds.com>, 2014\n"
-"Language-Team: Norwegian Bokmål (http://app.transifex.com/musicbrainz/"
-"musicbrainz/language/nb/)\n"
+"PO-Revision-Date: 2023-08-30 01:27+0000\n"
+"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"Language-Team: Norwegian Bokmål <https://translations.metabrainz.org/"
+"projects/musicbrainz/scripts/nb_NO/>\n"
 "Language: nb\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.18.2\n"
 
 #. frequency:1 iso_code:Afak 
 #: DB:script/name:133
@@ -237,7 +238,7 @@ msgstr "Gresk"
 #. frequency:3 iso_code:Gujr 
 #: DB:script/name:52
 msgid "Gujarati"
-msgstr ""
+msgstr "Gujarati"
 
 #. frequency:3 iso_code:Guru 
 #: DB:script/name:49
@@ -327,7 +328,7 @@ msgstr ""
 #. frequency:3 iso_code:Knda 
 #: DB:script/name:60
 msgid "Kannada"
-msgstr ""
+msgstr "Kannada"
 
 #. frequency:4 iso_code:Kana 
 #: DB:script/name:84

@@ -36,7 +36,10 @@ const linkRegExp =
  * all equivalent syntaxes are supported and documented for convenience.
  * https://en.wikipedia.org/wiki/List_of_XML_and_HTML_character_entity_references
  */
-function decodeSomeHTMLEntities(content: string) {
+function decodeSomeHTMLEntities(content: ?string) {
+  if (content == null) {
+    return '';
+  }
   return content
     .replace(/&#91;|&#x5b;|&lsqb;|&lbrack;/gi, '[')
     .replace(/&#93;|&#x5d;|&rsqb;|&rbrack;/gi, ']')

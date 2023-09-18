@@ -7181,7 +7181,7 @@ msgstr ""
 msgid "remixed in"
 msgstr "ערבול־מחודש ב־"
 
-#: DB:link_type/name:47 DB:link_type/name:153
+#: DB:link_type/name:153 DB:link_type/name:47
 msgid "remixer"
 msgstr "מערבל־מחודש"
 
@@ -8037,11 +8037,6 @@ msgstr "{additional:additionally} הוקלט ב־"
 msgid "{additional:additionally} recorded in"
 msgstr "{additional:additionally} הוקלט ב־"
 
-#: DB:link_type/link_phrase:47 DB:link_type/link_phrase:153
-#: DB:link_type/long_link_phrase:47 DB:link_type/long_link_phrase:153
-msgid "{additional:additionally} remixed"
-msgstr "{additional:additionally} ערבול־מחודש"
-
 #: DB:link_type/reverse_link_phrase:829 DB:link_type/reverse_link_phrase:828
 msgid "{additional:additionally} remixed at"
 msgstr "{additional:additionally} עורבל־מחדש ב־"
@@ -8103,6 +8098,11 @@ msgstr "{additional:additionally} כתב(ה) ליברטו עבור"
 #: DB:link_type/long_link_phrase:56 DB:link_type/long_link_phrase:165
 msgid "{additional:additionally} wrote the lyrics for"
 msgstr "{additional:additionally} כתב(ה) תַּמְלִיל עבור"
+
+#: DB:link_type/link_phrase:153 DB:link_type/link_phrase:47
+#: DB:link_type/long_link_phrase:153 DB:link_type/long_link_phrase:47
+msgid "{additional:additionally} {assistant} remixed"
+msgstr ""
 
 #: DB:link_type/long_link_phrase:37 DB:link_type/long_link_phrase:132
 msgid ""
@@ -8352,10 +8352,6 @@ msgstr "{additional} אתר הפקה ל־"
 msgid "{additional} recording location for"
 msgstr "{additional} אתר הקלטה ל־"
 
-#: DB:link_type/reverse_link_phrase:47 DB:link_type/reverse_link_phrase:153
-msgid "{additional} remixer"
-msgstr "{additional} ערבול־מחודש"
-
 #: DB:link_type/link_phrase:831 DB:link_type/link_phrase:830
 #: DB:link_type/link_phrase:829 DB:link_type/link_phrase:828
 msgid "{additional} remixing location for"
@@ -8392,6 +8388,10 @@ msgstr "{additional} כותב"
 #: DB:link_type/link_phrase:873 DB:link_type/link_phrase:874
 msgid "{additional} writing location for"
 msgstr "{additional} אתר כתיבה ל־"
+
+#: DB:link_type/reverse_link_phrase:153 DB:link_type/reverse_link_phrase:47
+msgid "{additional} {assistant} remixer"
+msgstr ""
 
 #: DB:link_type/reverse_link_phrase:140 DB:link_type/reverse_link_phrase:31
 msgid "{additional} {assistant} {associate} {co:co-}audio engineer"
@@ -8995,6 +8995,12 @@ msgstr "תמיכה על־ידי {vocal:%|vocals}"
 #: DB:link_type/link_phrase:107
 msgid "{vocal:%|vocals} support for"
 msgstr "תמיכה עבור {vocal:%|vocals}"
+
+#~ msgid "{additional:additionally} remixed"
+#~ msgstr "{additional:additionally} ערבול־מחודש"
+
+#~ msgid "{additional} remixer"
+#~ msgstr "{additional} ערבול־מחודש"
 
 #~ msgid ""
 #~ "This credits a person or agency whose photographs are included as part of "
