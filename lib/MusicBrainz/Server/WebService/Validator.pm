@@ -206,7 +206,7 @@ sub validate_inc
     my ($c, $version, $resource, $inc, $def) = @_;
 
     if (ref($inc)) {
-        $c->stash->{error} = 'Inc arguments must be combined with a space, but you provided multiple parameters';
+        $c->stash->{error} = 'Inc arguments must be combined with a space (+ or %20), but you provided multiple parameters';
         return;
     }
 
