@@ -13,19 +13,21 @@
 # salo.rock, 2022-2023
 # Valentina Menale <email address hidden>, 2016
 # "salo.rock" <salo.rock+musicbrainz@gmail.com>, 2023.
+# "salo.rock" <salo.rock@users.noreply.translations.metabrainz.org>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-08-27 21:27+0000\n"
-"Last-Translator: \"salo.rock\" <salo.rock+musicbrainz@gmail.com>\n"
+"PO-Revision-Date: 2023-09-09 04:27+0000\n"
+"Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
+"metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
 "musicbrainz/instrument-descriptions/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
 "X-Generator: Weblate 4.18.2\n"
 
 #. name:rebab 
@@ -2928,6 +2930,9 @@ msgid ""
 "a0b1ba6b-6ea7-4489-a4af-c9e23d6e24da\">dulcian</a>.<br /> Widely used in "
 "Spanish communities it has many different names and a conical shape."
 msgstr ""
+"Da non confondere con il fagotto rinascimentale europeo <a href=\"/"
+"instrument/a0b1ba6b-6ea7-4489-a4af-c9e23d6e24da\">dulcian</a>.<br /> Di "
+"ampio uso nelle comunità spagnole, ha molti nomi diversi e una forma conica."
 
 #. name:melophone 
 #: DB:instrument/description:1022
@@ -2990,6 +2995,10 @@ msgid ""
 "bd57c6a6-616b-4c00-bcde-f0f34e8d6eb0\">dulzaina</a>.<br /> Used in the "
 "renaissance, it is made of maple wood with a folded bore and conical bell."
 msgstr ""
+"Da non confondere con la <a href=\"/instrument/bd57c6a6-616b-4c00-bcde-"
+"f0f34e8d6eb0\">dolzaina</a> spagnola ad ancia doppia.<br /> Usato nel "
+"Rinascimento, è realizzato in legno d'acero con una sezione ripiegata e un "
+"padiglione conico."
 
 #. name:shawm 
 #: DB:instrument/description:408
@@ -6812,7 +6821,7 @@ msgstr ""
 #. name:laúd 
 #: DB:instrument/description:803
 msgid "a Spanish plucked cittern, it is also played in the Spanish diaspora."
-msgstr ""
+msgstr "Cetera spagnola a pizzico, è suonata anche nella diaspora spagnola."
 
 #. name:pang gu ly hu hmông 
 #: DB:instrument/description:315
