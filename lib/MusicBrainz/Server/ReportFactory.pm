@@ -101,6 +101,7 @@ my @all = qw(
     SeparateDiscs
     SetInDifferentRG
     ShouldNotHaveDiscIDs
+    ShowNotesButNotBroadcast
     SingleMediumReleasesWithMediumTitles
     SomeFormatsUnset
     SuperfluousDataTracks
@@ -201,6 +202,7 @@ use MusicBrainz::Server::Report::ReleasesConflictingDiscIDs;
 use MusicBrainz::Server::Report::SeparateDiscs;
 use MusicBrainz::Server::Report::SetInDifferentRG;
 use MusicBrainz::Server::Report::ShouldNotHaveDiscIDs;
+use MusicBrainz::Server::Report::ShowNotesButNotBroadcast;
 use MusicBrainz::Server::Report::SingleMediumReleasesWithMediumTitles;
 use MusicBrainz::Server::Report::SomeFormatsUnset;
 use MusicBrainz::Server::Report::SuperfluousDataTracks;
