@@ -333,7 +333,7 @@ const ArtistIndex = ({
           )}
         </p>
       ) : (!existingReleaseGroups && hasFilter) ? (
-        <p>{l('No release groups found that match this search.')}</p>
+        <p>{l('No results found that match this search.')}</p>
       ) : (
         <FooterSwitch
           artist={artist}

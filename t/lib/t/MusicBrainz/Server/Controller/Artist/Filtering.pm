@@ -154,7 +154,7 @@ test 'Overview (release group) filtering' => sub {
     );
 
     $mech->content_contains(
-        'No release groups found that match this search.',
+        'No results found that match this search.',
         'The "no results" message is shown',
     );
 };
