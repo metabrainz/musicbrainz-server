@@ -6509,6 +6509,12 @@ entitySpecificRules.release_group = function (url) {
       target: ERROR_TARGETS.ENTITY,
     };
   }
+  if (/^(https?:\/\/)?vgmdb\.(?:net|com)/.test(url)) {
+    return {
+      result: false,
+      target: ERROR_TARGETS.ENTITY,
+    };
+  }
   return {result: true};
 };
 
