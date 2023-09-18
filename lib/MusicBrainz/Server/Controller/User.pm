@@ -811,7 +811,11 @@ sub report : Chained('load') RequireAuth HiddenOnMirrors SecureForm {
             $c->flash->{message} = l('Your report has been sent.');
         }
 
-        $c->detach('/user/profile', [$reported_user->name]);
+        $c->response->redirect($c->uri_for_action(
+            '/user/profile',
+            [ $reported_user->name ],
+        ));
+        $c->detach;
     }
 }
 
