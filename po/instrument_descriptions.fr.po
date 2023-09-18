@@ -2300,6 +2300,14 @@ msgid ""
 "the two middle open strings.\""
 msgstr ""
 
+#. name:dulzaina 
+#: DB:instrument/description:770
+msgid ""
+"Not to be confused by the European renaissance bassoon <a href=\"/instrument/"
+"a0b1ba6b-6ea7-4489-a4af-c9e23d6e24da\">dulcian</a>.<br /> Widely used in "
+"Spanish communities it has many different names and a conical shape."
+msgstr ""
+
 #. name:melophone 
 #: DB:instrument/description:1022
 msgid ""
@@ -2334,6 +2342,14 @@ msgstr ""
 msgid ""
 "Not to be confused with the Persian lute <a href=\"/instrument/"
 "d50ba107-4930-4e0b-8b3f-ffbea4a1ade1\">ghaychak</a>."
+msgstr ""
+
+#. name:dulcian 
+#: DB:instrument/description:496
+msgid ""
+"Not to be confused with the Spanish double-reed <a href=\"/instrument/"
+"bd57c6a6-616b-4c00-bcde-f0f34e8d6eb0\">dulzaina</a>.<br /> Used in the "
+"renaissance, it is made of maple wood with a folded bore and conical bell."
 msgstr ""
 
 #. name:shawm 
@@ -3706,15 +3722,6 @@ msgid "The duduk is a traditional Armenian double reed woodwind instrument."
 msgstr ""
 "Le duduk est un instrument à vent en bois traditionnel arménien à anche "
 "double."
-
-#. name:dulcian 
-#: DB:instrument/description:496
-msgid ""
-"The dulcian is a double reed bass woodwind instrument which is a 16th "
-"century ancestor of the bassoon."
-msgstr ""
-"La douçaine (ou doulciane) est un instrument à vent en bois à anche double "
-"qui est un ancêtre du basson datant du 16e siècle."
 
 #. name:dutar 
 #: DB:instrument/description:629
@@ -5680,6 +5687,11 @@ msgid ""
 "vibrating."
 msgstr ""
 
+#. name:laúd 
+#: DB:instrument/description:803
+msgid "a Spanish plucked cittern, it is also played in the Spanish diaspora."
+msgstr ""
+
 #. name:pang gu ly hu hmông 
 #: DB:instrument/description:315
 msgid "a kind of a \"slide whistle\" form. Hmông flute"
@@ -5693,11 +5705,6 @@ msgid ""
 msgstr ""
 "Cousin de la chamélie, introduit en Amérique latine par les espagnols au "
 "XVIe et XVIIe siècles."
-
-#. name:laúd 
-#: DB:instrument/description:803
-msgid "a spanish plucked cittern, it is also played in the spanish diaspora."
-msgstr "Cistre espagnol à cordes pincées, diffusé par la diaspora espagnole."
 
 #. name:tràm plè 
 #: DB:instrument/description:308
@@ -6155,6 +6162,18 @@ msgstr ""
 #: DB:instrument/description:944
 msgid "zither with a hollow or vaulted body, it can have several resonators"
 msgstr ""
+
+#~ msgid ""
+#~ "The dulcian is a double reed bass woodwind instrument which is a 16th "
+#~ "century ancestor of the bassoon."
+#~ msgstr ""
+#~ "La douçaine (ou doulciane) est un instrument à vent en bois à anche "
+#~ "double qui est un ancêtre du basson datant du 16e siècle."
+
+#~ msgid ""
+#~ "a spanish plucked cittern, it is also played in the spanish diaspora."
+#~ msgstr ""
+#~ "Cistre espagnol à cordes pincées, diffusé par la diaspora espagnole."
 
 #~ msgid ""
 #~ "An electromechanical piano (not to be confused with electronic piano) "

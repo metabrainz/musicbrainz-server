@@ -4010,8 +4010,9 @@ msgstr ""
 "pris d’un film, spectacle ou jeu, qui a une page IMDb à l’URL donnée.\n"
 "<br/><br/>\n"
 "Pour signifier que l’enregistrement fait partie d’une bande originale, "
-"veuillez utiliser le <a href=\"/relationship/85b0a010-3237-47c7-8476-"
-"6fcefd4761af\">type de relation IMDb pour les groupes de parution</a>."
+"veuillez utiliser le <a href=\"/"
+"relationship/85b0a010-3237-47c7-8476-6fcefd4761af\">type de relation IMDb "
+"pour les groupes de parution</a>."
 
 #: DB:link_type/description:236
 msgid ""
@@ -7675,7 +7676,7 @@ msgstr ""
 msgid "remixed in"
 msgstr "remixé à"
 
-#: DB:link_type/name:47 DB:link_type/name:153
+#: DB:link_type/name:153 DB:link_type/name:47
 msgid "remixer"
 msgstr "remixeur"
 
@@ -8533,11 +8534,6 @@ msgstr "enregistré {additional:supplémentairement} à"
 msgid "{additional:additionally} recorded in"
 msgstr "enregistré {additional:supplémentairement} en"
 
-#: DB:link_type/link_phrase:47 DB:link_type/link_phrase:153
-#: DB:link_type/long_link_phrase:47 DB:link_type/long_link_phrase:153
-msgid "{additional:additionally} remixed"
-msgstr "{additional:aussi} remixé"
-
 #: DB:link_type/reverse_link_phrase:829 DB:link_type/reverse_link_phrase:828
 msgid "{additional:additionally} remixed at"
 msgstr "remixé {additional:supplémentairement} à"
@@ -8599,6 +8595,11 @@ msgstr "a {additional:de plus} écrit le livret de"
 #: DB:link_type/long_link_phrase:56 DB:link_type/long_link_phrase:165
 msgid "{additional:additionally} wrote the lyrics for"
 msgstr "{additional:aussi} écrit les paroles pour"
+
+#: DB:link_type/link_phrase:153 DB:link_type/link_phrase:47
+#: DB:link_type/long_link_phrase:153 DB:link_type/long_link_phrase:47
+msgid "{additional:additionally} {assistant} remixed"
+msgstr ""
 
 #: DB:link_type/long_link_phrase:37 DB:link_type/long_link_phrase:132
 msgid ""
@@ -8862,10 +8863,6 @@ msgstr "lieu {additional:supplémentaire} de production de"
 msgid "{additional} recording location for"
 msgstr "lieu {additional:supplémentaire} d’enregistrement de"
 
-#: DB:link_type/reverse_link_phrase:47 DB:link_type/reverse_link_phrase:153
-msgid "{additional} remixer"
-msgstr "remixeur {additional:supplémentaire}"
-
 #: DB:link_type/link_phrase:831 DB:link_type/link_phrase:830
 #: DB:link_type/link_phrase:829 DB:link_type/link_phrase:828
 msgid "{additional} remixing location for"
@@ -8902,6 +8899,10 @@ msgstr "auteur {additional:supplémentaire}"
 #: DB:link_type/link_phrase:873 DB:link_type/link_phrase:874
 msgid "{additional} writing location for"
 msgstr "lieu {additional:supplémentaire} d’écriture de"
+
+#: DB:link_type/reverse_link_phrase:153 DB:link_type/reverse_link_phrase:47
+msgid "{additional} {assistant} remixer"
+msgstr ""
 
 #: DB:link_type/reverse_link_phrase:140 DB:link_type/reverse_link_phrase:31
 msgid "{additional} {assistant} {associate} {co:co-}audio engineer"
@@ -9544,6 +9545,12 @@ msgstr "{vocal:%|voix} de soutien par"
 #: DB:link_type/link_phrase:107
 msgid "{vocal:%|vocals} support for"
 msgstr "{vocal:%|voix} de soutien pour"
+
+#~ msgid "{additional:additionally} remixed"
+#~ msgstr "{additional:aussi} remixé"
+
+#~ msgid "{additional} remixer"
+#~ msgstr "remixeur {additional:supplémentaire}"
 
 #~ msgid ""
 #~ "This credits a person or agency whose photographs are included as part of "

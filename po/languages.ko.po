@@ -5,15 +5,16 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2012-05-24 19:23+0000\n"
-"Last-Translator: 6 0, 2022\n"
-"Language-Team: Korean (http://app.transifex.com/musicbrainz/musicbrainz/"
-"language/ko/)\n"
+"PO-Revision-Date: 2023-08-30 01:27+0000\n"
+"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"Language-Team: Korean <https://translations.metabrainz.org/projects/"
+"musicbrainz/languages/ko/>\n"
 "Language: ko\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 4.18.2\n"
 
 #. frequency:1 iso_code_3:abk 
 #: DB:language/name:2
@@ -1018,7 +1019,7 @@ msgstr ""
 #. frequency:1 iso_code_3:hun 
 #: DB:language/name:176
 msgid "Hungarian"
-msgstr ""
+msgstr "헝가리어"
 
 #. frequency:1 iso_code_3:hup 
 #: DB:language/name:177
@@ -1033,7 +1034,7 @@ msgstr ""
 #. frequency:1 iso_code_3:isl 
 #: DB:language/name:180
 msgid "Icelandic"
-msgstr ""
+msgstr "아이슬란드어"
 
 #. frequency:1 iso_code_3:ido 
 #: DB:language/name:181
@@ -1133,7 +1134,7 @@ msgstr ""
 #. frequency:2 iso_code_3:ita 
 #: DB:language/name:195
 msgid "Italian"
-msgstr ""
+msgstr "이탈리아어"
 
 #. frequency:1 iso_code_3:jam 
 #: DB:language/name:2980
@@ -1433,7 +1434,7 @@ msgstr ""
 #. frequency:1 iso_code_3:lit 
 #: DB:language/name:243
 msgid "Lithuanian"
-msgstr ""
+msgstr "리투아니아어"
 
 #. frequency:1 iso_code_3:liv 
 #: DB:language/name:3858
@@ -2003,7 +2004,7 @@ msgstr ""
 #. frequency:1 iso_code_3:ron 
 #: DB:language/name:351
 msgid "Romanian"
-msgstr ""
+msgstr "루마니아어"
 
 #. frequency:1 iso_code_3:roh 
 #: DB:language/name:349
@@ -2288,7 +2289,7 @@ msgstr ""
 #. frequency:2 iso_code_3:spa 
 #: DB:language/name:393
 msgid "Spanish"
-msgstr ""
+msgstr "스페인어"
 
 #. frequency:1 iso_code_3:srn 
 #: DB:language/name:480
@@ -2333,7 +2334,7 @@ msgstr ""
 #. frequency:2 iso_code_3:swe 
 #: DB:language/name:403
 msgid "Swedish"
-msgstr ""
+msgstr "스웨덴어"
 
 #. frequency:1 iso_code_3:syr 
 #: DB:language/name:404

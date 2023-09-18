@@ -15,11 +15,13 @@
 # salo.rock, 2012
 # salo.rock, 2022-2023
 # "salo.rock" <salo.rock+musicbrainz@gmail.com>, 2023.
+# "salo.rock" <salo.rock@users.noreply.translations.metabrainz.org>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-08-27 21:27+0000\n"
-"Last-Translator: \"salo.rock\" <salo.rock+musicbrainz@gmail.com>\n"
+"PO-Revision-Date: 2023-09-08 23:27+0000\n"
+"Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
+"metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/it/>\n"
 "Language: it\n"
@@ -2265,8 +2267,8 @@ msgid ""
 "project (such as an audio drama or audiobook), which is usually based on a "
 "written template and involves the performance of voice actors."
 msgstr ""
-"Indica che l'artista è stato il direttore del suono per questa registrazione."
-"\n"
+"Indica che l'artista è stato il direttore del suono per questa "
+"registrazione.\n"
 "\n"
 "Questo è l'artista responsabile per la realizzazione creativa di un progetto "
 "sonoro (come un audiodramma o un audiolibro), che si basa solitamente su un "
@@ -2280,8 +2282,8 @@ msgid ""
 "project (such as an audio drama or audiobook), which is usually based on a "
 "written template and involves the performance of voice actors."
 msgstr ""
-"Indica che l'artista è stato il direttore del suono per questa pubblicazione."
-"\n"
+"Indica che l'artista è stato il direttore del suono per questa "
+"pubblicazione.\n"
 "\n"
 "Questo è l'artista responsabile per la realizzazione creativa di un progetto "
 "sonoro (come un audiodramma o un audiolibro), che si basa solitamente su un "
@@ -3276,9 +3278,9 @@ msgid ""
 "series) to a site where the organisers/creators can receive donations/"
 "patronage, such as Flattr or PayPal.me."
 msgstr ""
-"Collega una serie (solitamente una serie di festival o concerti, ma non solo)"
-" a un sito tramite cui gli organizzatori/creatori possono ricevere donazioni/"
-"patrocinio, come Flattr o PayPal.me."
+"Collega una serie (solitamente una serie di festival o concerti, ma non "
+"solo) a un sito tramite cui gli organizzatori/creatori possono ricevere "
+"donazioni/patrocinio, come Flattr o PayPal.me."
 
 #: DB:link_type/description:805
 msgid ""
@@ -4321,8 +4323,8 @@ msgid ""
 "If the site allows free streaming, use \"free streaming\" instead."
 msgstr ""
 "Questo tipo di relazione serve a collegare una traccia a un sito su cui la "
-"traccia è disponibile in streaming a pagamento in modo legale, per es. Tidal."
-"\n"
+"traccia è disponibile in streaming a pagamento in modo legale, per es. "
+"Tidal.\n"
 "\n"
 "Se il sito permette lo streaming gratuito, utilizza la relazione \"streaming "
 "gratuito\"."
@@ -7898,7 +7900,7 @@ msgstr "remixata per"
 msgid "remixed in"
 msgstr "remixata a"
 
-#: DB:link_type/name:47 DB:link_type/name:153
+#: DB:link_type/name:153 DB:link_type/name:47
 msgid "remixer"
 msgstr "remixer"
 
@@ -8756,11 +8758,6 @@ msgstr "registrata {additional:in aggiunta} presso"
 msgid "{additional:additionally} recorded in"
 msgstr "registrata {additional:in aggiunta} a"
 
-#: DB:link_type/link_phrase:47 DB:link_type/link_phrase:153
-#: DB:link_type/long_link_phrase:47 DB:link_type/long_link_phrase:153
-msgid "{additional:additionally} remixed"
-msgstr "ha remixato {additional:in aggiunta}"
-
 #: DB:link_type/reverse_link_phrase:829 DB:link_type/reverse_link_phrase:828
 msgid "{additional:additionally} remixed at"
 msgstr "remixata {additional:in aggiunta} presso"
@@ -8822,6 +8819,11 @@ msgstr "ha scritto {additional:in aggiunta} il libretto di"
 #: DB:link_type/long_link_phrase:56 DB:link_type/long_link_phrase:165
 msgid "{additional:additionally} wrote the lyrics for"
 msgstr "ha scritto il testo {additional:in aggiunta} per"
+
+#: DB:link_type/link_phrase:153 DB:link_type/link_phrase:47
+#: DB:link_type/long_link_phrase:153 DB:link_type/long_link_phrase:47
+msgid "{additional:additionally} {assistant} remixed"
+msgstr "è stato {assistant:assistente} remixer {additional:aggiunto} su"
 
 #: DB:link_type/long_link_phrase:37 DB:link_type/long_link_phrase:132
 msgid ""
@@ -9089,10 +9091,6 @@ msgstr "luogo {additional:aggiuntivo} di produzione per"
 msgid "{additional} recording location for"
 msgstr "luogo {additional:aggiuntivo} di registrazione per"
 
-#: DB:link_type/reverse_link_phrase:47 DB:link_type/reverse_link_phrase:153
-msgid "{additional} remixer"
-msgstr "remixer {additional:aggiunto}"
-
 #: DB:link_type/link_phrase:831 DB:link_type/link_phrase:830
 #: DB:link_type/link_phrase:829 DB:link_type/link_phrase:828
 msgid "{additional} remixing location for"
@@ -9129,6 +9127,10 @@ msgstr "autore {additional:aggiunto}"
 #: DB:link_type/link_phrase:873 DB:link_type/link_phrase:874
 msgid "{additional} writing location for"
 msgstr "luogo {additional:aggiuntivo} di scrittura per"
+
+#: DB:link_type/reverse_link_phrase:153 DB:link_type/reverse_link_phrase:47
+msgid "{additional} {assistant} remixer"
+msgstr "{assistant:assistente} remixer {additional:aggiunto}"
 
 #: DB:link_type/reverse_link_phrase:140 DB:link_type/reverse_link_phrase:31
 msgid "{additional} {assistant} {associate} {co:co-}audio engineer"
@@ -9187,8 +9189,8 @@ msgstr ""
 #: DB:link_type/reverse_link_phrase:1179
 msgid "{additional} {assistant} {associate} {co:co-}transferrer"
 msgstr ""
-"{assistant:assistente} {co:co-}tecnico di trasferimento {associate:associato}"
-" {additional:aggiunto}"
+"{assistant:assistente} {co:co-}tecnico di trasferimento {associate:"
+"associato} {additional:aggiunto}"
 
 #: DB:link_type/reverse_link_phrase:138 DB:link_type/reverse_link_phrase:28
 msgid ""
@@ -9207,8 +9209,8 @@ msgstr ""
 #: DB:link_type/link_phrase:42 DB:link_type/reverse_link_phrase:42
 msgid "{additional} {assistant} {associate} {co:co-}{pre:pre-}{re}mastering"
 msgstr ""
-"{assistant:assistente} {co:co-}tecnico di {pre:pre-}{re}mastering "
-"{associate:associato} {additional:aggiunto}"
+"{assistant:assistente} {co:co-}tecnico di {pre:pre-}{re}mastering {associate:"
+"associato} {additional:aggiunto}"
 
 #: DB:link_type/link_phrase:37 DB:link_type/link_phrase:132
 #: DB:link_type/reverse_link_phrase:37 DB:link_type/reverse_link_phrase:132
@@ -9782,6 +9784,12 @@ msgstr "supporto {vocal:%|vocali} da parte di"
 #: DB:link_type/link_phrase:107
 msgid "{vocal:%|vocals} support for"
 msgstr "supporto {vocal:%|vocali} per"
+
+#~ msgid "{additional:additionally} remixed"
+#~ msgstr "ha remixato {additional:in aggiunta}"
+
+#~ msgid "{additional} remixer"
+#~ msgstr "remixer {additional:aggiunto}"
 
 #~ msgid ""
 #~ "This credits a person or agency whose photographs are included as part of "

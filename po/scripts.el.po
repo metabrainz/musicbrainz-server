@@ -6,15 +6,16 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2012-05-24 19:21+0000\n"
-"Last-Translator: Dimitris <dimpole@gmail.com>, 2013\n"
-"Language-Team: Greek (http://app.transifex.com/musicbrainz/musicbrainz/"
-"language/el/)\n"
+"PO-Revision-Date: 2023-08-30 01:27+0000\n"
+"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"Language-Team: Greek <https://translations.metabrainz.org/projects/"
+"musicbrainz/scripts/el/>\n"
 "Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.18.2\n"
 
 #. frequency:1 iso_code:Afak 
 #: DB:script/name:133
@@ -669,7 +670,7 @@ msgstr ""
 #. frequency:2 iso_code:Sund 
 #: DB:script/name:107
 msgid "Sundanese"
-msgstr ""
+msgstr "Σουνδανέζικα"
 
 #. frequency:2 iso_code:Sylo 
 #: DB:script/name:51

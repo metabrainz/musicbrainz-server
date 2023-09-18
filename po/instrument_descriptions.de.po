@@ -15,7 +15,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-08-28 08:34+0000\n"
+"PO-Revision-Date: 2023-08-31 20:27+0000\n"
 "Last-Translator: Philipp Wolfer <ph.wolfer@gmail.com>\n"
 "Language-Team: German <https://translations.metabrainz.org/projects/"
 "musicbrainz/instrument-descriptions/de/>\n"
@@ -647,7 +647,7 @@ msgid ""
 msgstr ""
 "Als „Bass“ wird ein Musikinstrument bezeichnet, wenn es\n"
 "allgemein in einer tiefen Lage klingt und in einem musikalischen Geschehen "
-"die Basslinie übernimmt (z. B. Violoncello, E-Bass, Kontrabass, Fagott, "
+"die Basslinie übernimmt (z. B. Violoncello, E-Bass, Kontrabass, Fagott, "
 "Tuba) oder wenn es das tiefste Exemplar einer Instrumentenfamilie darstellt, "
 "zum Beispiel Bassposaune, Bassgitarre, Bassflöte, große Bassgeige "
 "(Kontrabass). Bitte das richtige Instrument verwenden, wenn bekannt ist, "
@@ -2335,6 +2335,14 @@ msgid ""
 "the two middle open strings.\""
 msgstr ""
 
+#. name:dulzaina 
+#: DB:instrument/description:770
+msgid ""
+"Not to be confused by the European renaissance bassoon <a href=\"/instrument/"
+"a0b1ba6b-6ea7-4489-a4af-c9e23d6e24da\">dulcian</a>.<br /> Widely used in "
+"Spanish communities it has many different names and a conical shape."
+msgstr ""
+
 #. name:melophone 
 #: DB:instrument/description:1022
 msgid ""
@@ -2369,6 +2377,14 @@ msgstr ""
 msgid ""
 "Not to be confused with the Persian lute <a href=\"/instrument/"
 "d50ba107-4930-4e0b-8b3f-ffbea4a1ade1\">ghaychak</a>."
+msgstr ""
+
+#. name:dulcian 
+#: DB:instrument/description:496
+msgid ""
+"Not to be confused with the Spanish double-reed <a href=\"/instrument/"
+"bd57c6a6-616b-4c00-bcde-f0f34e8d6eb0\">dulzaina</a>.<br /> Used in the "
+"renaissance, it is made of maple wood with a folded bore and conical bell."
 msgstr ""
 
 #. name:shawm 
@@ -3562,7 +3578,7 @@ msgstr ""
 "Die Buisine ist eine lange, gerade, mittelalterliche Trompete, üblicherweise "
 "aus Metall. Sie wird oft zusammen mit Engeln abgebildet und gilt als "
 "Vorgängerin der heutigen Posaune. (Der Name Posaune entwickelte sich aus dem "
-"altfranzösischen Namen \"buisine\" und der deutschen Abwandlung \"busaune\".)"
+"altfranzösischen Namen „buisine“ und der deutschen Abwandlung …busaune“.)"
 
 #. name:buk 
 #: DB:instrument/description:577
@@ -3602,11 +3618,11 @@ msgstr ""
 msgid ""
 "The chakhe is a three stringed crocodile shaped plucked zither from Thailand."
 msgstr ""
-"In Thailand heisst diese Krokodilzither \"Chakhe\". Sie ist ein "
-"Zupfinstrument und gehört zur Familie der Kastenzithern, deren Form einem "
-"Lauteninstrument ähnelt. Gespielt wird die Krokodilzither vor dem Spieler "
-"liegend. Die typische Form der Röhre ist hier etwas verfremdet, da die "
-"Zither liegend sonst nicht zu spielen wäre."
+"In Thailand heißt diese Krokodilzither „Chakhe“. Sie ist ein Zupfinstrument "
+"und gehört zur Familie der Kastenzithern, deren Form einem Lauteninstrument "
+"ähnelt. Gespielt wird die Krokodilzither vor dem Spieler liegend. Die "
+"typische Form der Röhre ist hier etwas verfremdet, da die Zither liegend "
+"sonst nicht zu spielen wäre."
 
 #. name:chalumeau 
 #: DB:instrument/description:436
@@ -3721,8 +3737,8 @@ msgid ""
 "The daluo is a Chinese large flat gong whose pitch drops when struck with a "
 "padded mallet."
 msgstr ""
-"Der Daluo ist ein Schlaginstrument aus Metall, ein \"Grosser Gong\", dünn "
-"und flach, an einer Schnur aufgehängt."
+"Der Daluo ist ein Schlaginstrument aus Metall, ein „Grosser Gong“, dünn und "
+"flach, an einer Schnur aufgehängt."
 
 #. name:darbuka 
 #: DB:instrument/description:342
@@ -3836,16 +3852,6 @@ msgstr ""
 "Doppelrohrblatt, das bis zu zehn Zentimeter lang und bis zu drei Zentimeter "
 "breit ist. Sie gilt als armenisches Nationalinstrument und ist auch als "
 "„armenische Flöte“ bekannt."
-
-#. name:dulcian 
-#: DB:instrument/description:496
-msgid ""
-"The dulcian is a double reed bass woodwind instrument which is a 16th "
-"century ancestor of the bassoon."
-msgstr ""
-"Der Dulzian ist ein Holzblasinstrument mit direkt angeblasenem "
-"Doppelrohrblatt und konischer Bohrung. Das Barockfagott wurde aus dem "
-"Dulzian entwickelt."
 
 #. name:dutar 
 #: DB:instrument/description:629
@@ -4275,7 +4281,7 @@ msgid ""
 "The lasso d'amore, whirly tube or corrugaphone is a corrugated plastic tube "
 "which is spun in a circle."
 msgstr ""
-"Das Lasso d'Amore, \"whirly tube\", Corrugaphone oder Heulschlauch ist ein "
+"Das Lasso d'Amore, „whirly tube“, Corrugaphone oder Heulschlauch ist ein "
 "quergeriffeltes Kunststoffrohr. Hält man es an einem Ende fest und wirbelt "
 "es im Kreis herum, so entstehen ab einer bestimmten Drehgeschwindigkeit "
 "schaurig heulende oder pfeifende Töne."
@@ -4442,7 +4448,7 @@ msgstr ""
 #: DB:instrument/description:228
 msgid "The nyckelharpa is a traditional Swedish string instrument."
 msgstr ""
-"Die Nyckelharpa (Wörtlich aus dem Schwedischen: \"Schlüssel-Harfe\", Plural "
+"Die Nyckelharpa (Wörtlich aus dem Schwedischen: „Schlüssel-Harfe“, Plural "
 "Nyckelharpor), im Deutschen auch Schlüsselfiedel, seltener Schlüsselfidel, "
 "Schlüsselgeige, Tastenfidel, ist ein Streichinstrument, dessen Saiten "
 "mechanisch über Tasten verkürzt werden."
@@ -4814,7 +4820,7 @@ msgstr ""
 #: DB:instrument/description:199
 msgid "The sáo trúc is a Vietnamese transverse flute made of bamboo."
 msgstr ""
-"Die sáo (auch sáo trúc or \"sow trook\") ist eine kleine vietnamische Bambus-"
+"Die sáo (auch sáo trúc or „sow trook“) ist eine kleine vietnamesische Bambus-"
 "Flöte."
 
 #. name:sênh tiền 
@@ -5103,8 +5109,8 @@ msgid ""
 "The yehu is a Chinese bowed string instrument in the huqin family, made from "
 "a coconut shell."
 msgstr ""
-"Die Yehu ist ein chinesisches Streichinstrument aus der Huqin Familie. \"Ye"
-"\" bedeutet Kokosnuss und \"hu\" ist die Abkürzung für Huqin."
+"Die Yehu ist ein chinesisches Streichinstrument aus der Huqin Familie. „Ye“ "
+"bedeutet Kokosnuss und „hu“ ist die Abkürzung für Huqin."
 
 #. name:zabumba 
 #: DB:instrument/description:715
@@ -5198,9 +5204,9 @@ msgid ""
 "The đàn tứ or đàn đoản is a traditional Vietnamese moon-shaped lute with a "
 "short neck."
 msgstr ""
-"Die đàn tứ (tứ bedeutet \"vier\" auf Vietnamesisch, entspricht der Anzahl "
-"der Saiten), auch đàn Đoàn genannt (Đoàn bedeutet \"kurz\", bezogen auf den "
-"Hals des Instruments), ist ein traditionelles vietnamesisches "
+"Die đàn tứ (tứ bedeutet „vier“ auf Vietnamesisch, entspricht der Anzahl der "
+"Saiten), auch đàn Đoàn genannt (Đoàn bedeutet „kurz“, bezogen auf den Hals "
+"des Instruments), ist ein traditionelles vietnamesisches "
 "Saitenmusikinstrument, eine mondförmige Laute mit kurzem Hals, ähnlich wie "
 "die chinesische Yueqin."
 
@@ -5953,6 +5959,11 @@ msgid ""
 "vibrating."
 msgstr ""
 
+#. name:laúd 
+#: DB:instrument/description:803
+msgid "a Spanish plucked cittern, it is also played in the Spanish diaspora."
+msgstr ""
+
 #. name:pang gu ly hu hmông 
 #: DB:instrument/description:315
 msgid "a kind of a \"slide whistle\" form. Hmông flute"
@@ -5963,11 +5974,6 @@ msgstr ""
 msgid ""
 "a relative of the shawm, it was introduced to central and south-america by "
 "the spanish in the sixteenth and seventeenth century."
-msgstr ""
-
-#. name:laúd 
-#: DB:instrument/description:803
-msgid "a spanish plucked cittern, it is also played in the spanish diaspora."
 msgstr ""
 
 #. name:tràm plè 
@@ -6393,6 +6399,14 @@ msgstr ""
 #: DB:instrument/description:944
 msgid "zither with a hollow or vaulted body, it can have several resonators"
 msgstr ""
+
+#~ msgid ""
+#~ "The dulcian is a double reed bass woodwind instrument which is a 16th "
+#~ "century ancestor of the bassoon."
+#~ msgstr ""
+#~ "Der Dulzian ist ein Holzblasinstrument mit direkt angeblasenem "
+#~ "Doppelrohrblatt und konischer Bohrung. Das Barockfagott wurde aus dem "
+#~ "Dulzian entwickelt."
 
 #~ msgid ""
 #~ "An electromechanical piano (not to be confused with electronic piano) "

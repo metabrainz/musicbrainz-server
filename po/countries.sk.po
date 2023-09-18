@@ -2,19 +2,21 @@
 # Translators:
 # Lukáš Lalinský <email address hidden>, 2012
 # Pavol Babinčák <email address hidden>, 2012
+# Philipp Wolfer <ph.wolfer@gmail.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2012-05-24 19:20+0000\n"
-"Last-Translator: Pavol Babinčák <scroolik@gmail.com>, 2012\n"
-"Language-Team: Slovak (http://app.transifex.com/musicbrainz/musicbrainz/"
-"language/sk/)\n"
+"PO-Revision-Date: 2023-08-29 13:27+0000\n"
+"Last-Translator: Philipp Wolfer <ph.wolfer@gmail.com>\n"
+"Language-Team: Slovak <https://translations.metabrainz.org/projects/"
+"musicbrainz/countries/sk/>\n"
 "Language: sk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n "
 ">= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);\n"
+"X-Generator: Weblate 4.18.2\n"
 
 #. iso.code:AF 
 #: DB:area JOIN iso_3166_1 iso ON iso.area = area.id/area.name:1
@@ -524,9 +526,7 @@ msgstr "Haiti"
 #. iso.code:HM 
 #: DB:area JOIN iso_3166_1 iso ON iso.area = area.id/area.name:94
 msgid "Heard Island and McDonald Islands"
-msgstr ""
-"Heardov ostrov a Macdonaldove\n"
-"ostrovy"
+msgstr "Heardov ostrov a Macdonaldove ostrovy"
 
 #. iso.code:HN 
 #: DB:area JOIN iso_3166_1 iso ON iso.area = area.id/area.name:95

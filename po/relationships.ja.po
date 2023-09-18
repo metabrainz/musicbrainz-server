@@ -7465,7 +7465,7 @@ msgstr ""
 msgid "remixed in"
 msgstr "リミックス作業地域"
 
-#: DB:link_type/name:47 DB:link_type/name:153
+#: DB:link_type/name:153 DB:link_type/name:47
 msgid "remixer"
 msgstr "リミキサー"
 
@@ -8321,11 +8321,6 @@ msgstr ""
 msgid "{additional:additionally} recorded in"
 msgstr ""
 
-#: DB:link_type/link_phrase:47 DB:link_type/link_phrase:153
-#: DB:link_type/long_link_phrase:47 DB:link_type/long_link_phrase:153
-msgid "{additional:additionally} remixed"
-msgstr ""
-
 #: DB:link_type/reverse_link_phrase:829 DB:link_type/reverse_link_phrase:828
 msgid "{additional:additionally} remixed at"
 msgstr ""
@@ -8387,6 +8382,11 @@ msgstr "が{additional:補助的に}台本を書いた作品は"
 #: DB:link_type/long_link_phrase:56 DB:link_type/long_link_phrase:165
 msgid "{additional:additionally} wrote the lyrics for"
 msgstr "が{additional:補助的に}作詞した作品は"
+
+#: DB:link_type/link_phrase:153 DB:link_type/link_phrase:47
+#: DB:link_type/long_link_phrase:153 DB:link_type/long_link_phrase:47
+msgid "{additional:additionally} {assistant} remixed"
+msgstr ""
 
 #: DB:link_type/long_link_phrase:37 DB:link_type/long_link_phrase:132
 msgid ""
@@ -8642,10 +8642,6 @@ msgstr "ここで{additional:補助的に}製作されたレコーディング�
 msgid "{additional} recording location for"
 msgstr "ここで{additional:補助的に}録音されたレコーディングまたはリリース"
 
-#: DB:link_type/reverse_link_phrase:47 DB:link_type/reverse_link_phrase:153
-msgid "{additional} remixer"
-msgstr "{additional:補助的な}リミキサー"
-
 #: DB:link_type/link_phrase:831 DB:link_type/link_phrase:830
 #: DB:link_type/link_phrase:829 DB:link_type/link_phrase:828
 msgid "{additional} remixing location for"
@@ -8683,6 +8679,10 @@ msgstr "{additional:補助的な}作者"
 #: DB:link_type/link_phrase:873 DB:link_type/link_phrase:874
 msgid "{additional} writing location for"
 msgstr "ここで{additional:補助的に}制作された作品"
+
+#: DB:link_type/reverse_link_phrase:153 DB:link_type/reverse_link_phrase:47
+msgid "{additional} {assistant} remixer"
+msgstr ""
 
 #: DB:link_type/reverse_link_phrase:140 DB:link_type/reverse_link_phrase:31
 msgid "{additional} {assistant} {associate} {co:co-}audio engineer"
@@ -9293,6 +9293,9 @@ msgstr ""
 #: DB:link_type/link_phrase:107
 msgid "{vocal:%|vocals} support for"
 msgstr ""
+
+#~ msgid "{additional} remixer"
+#~ msgstr "{additional:補助的な}リミキサー"
 
 #~ msgid ""
 #~ "This credits a person or agency whose photographs are included as part of "

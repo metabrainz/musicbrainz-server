@@ -13,11 +13,13 @@
 # salo.rock, 2022-2023
 # Valentina Menale <email address hidden>, 2016
 # "salo.rock" <salo.rock+musicbrainz@gmail.com>, 2023.
+# "salo.rock" <salo.rock@users.noreply.translations.metabrainz.org>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-08-25 21:27+0000\n"
-"Last-Translator: \"salo.rock\" <salo.rock+musicbrainz@gmail.com>\n"
+"PO-Revision-Date: 2023-09-08 23:27+0000\n"
+"Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
+"metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
 "musicbrainz/instruments/it/>\n"
 "Language: it\n"
@@ -1379,6 +1381,7 @@ msgid "dulce melos"
 msgstr "dulce melos"
 
 #: DB:instrument/name:496
+msgctxt "Renaissance predecessor of the bassoon"
 msgid "dulcian"
 msgstr "dulciana"
 
@@ -1388,6 +1391,7 @@ msgid "dulcitone"
 msgstr "dulcitone"
 
 #: DB:instrument/name:770
+msgctxt "Spanish traditional oboe"
 msgid "dulzaina"
 msgstr "dolzaina"
 
@@ -2481,9 +2485,9 @@ msgid "lavta"
 msgstr "lavta"
 
 #: DB:instrument/name:803
-msgctxt "spanish plucked chordophone"
+msgctxt "Spanish plucked chordophone"
 msgid "laúd"
-msgstr "laúd"
+msgstr "laud"
 
 #: DB:instrument/name:573
 msgid "limbe"
@@ -4571,6 +4575,16 @@ msgstr "żaqq"
 msgctxt "Maltese mirliton"
 msgid "żummara"
 msgstr "żummara"
+
+#~ msgid "dulcian"
+#~ msgstr "dulciana"
+
+#~ msgid "dulzaina"
+#~ msgstr "dolzaina"
+
+#~ msgctxt "spanish plucked chordophone"
+#~ msgid "laúd"
+#~ msgstr "laúd"
 
 #~ msgctxt "an electromechanical piano"
 #~ msgid "Pianet"

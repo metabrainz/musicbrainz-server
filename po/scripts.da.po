@@ -3,15 +3,16 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2012-05-24 19:21+0000\n"
-"Last-Translator: FULL NAME <email address hidden>\n"
-"Language-Team: Danish (http://app.transifex.com/musicbrainz/musicbrainz/"
-"language/da/)\n"
+"PO-Revision-Date: 2023-08-30 01:27+0000\n"
+"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"Language-Team: Danish <https://translations.metabrainz.org/projects/"
+"musicbrainz/scripts/da/>\n"
 "Language: da\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.18.2\n"
 
 #. frequency:1 iso_code:Afak 
 #: DB:script/name:133
@@ -116,7 +117,7 @@ msgstr ""
 #. frequency:2 iso_code:Cher 
 #: DB:script/name:88
 msgid "Cherokee"
-msgstr ""
+msgstr "Cherokee"
 
 #. frequency:1 iso_code:Cirt 
 #: DB:script/name:45
@@ -211,7 +212,7 @@ msgstr ""
 #. frequency:3 iso_code:Geor 
 #: DB:script/name:36
 msgid "Georgian"
-msgstr ""
+msgstr "Georgisk"
 
 #. frequency:2 iso_code:Glag 
 #: DB:script/name:33
@@ -236,7 +237,7 @@ msgstr "Græsk"
 #. frequency:3 iso_code:Gujr 
 #: DB:script/name:52
 msgid "Gujarati"
-msgstr ""
+msgstr "Gujarati"
 
 #. frequency:3 iso_code:Guru 
 #: DB:script/name:49
@@ -311,7 +312,7 @@ msgstr ""
 #. frequency:1 iso_code:Java 
 #: DB:script/name:73
 msgid "Javanese"
-msgstr ""
+msgstr "Javanesisk"
 
 #. frequency:1 iso_code:Jurc 
 #: DB:script/name:134
@@ -326,7 +327,7 @@ msgstr ""
 #. frequency:3 iso_code:Knda 
 #: DB:script/name:60
 msgid "Kannada"
-msgstr ""
+msgstr "Kannaresisk"
 
 #. frequency:4 iso_code:Kana 
 #: DB:script/name:84
@@ -371,17 +372,17 @@ msgstr "Koreansk"
 #. frequency:1 iso_code:Kpel 
 #: DB:script/name:146
 msgid "Kpelle"
-msgstr ""
+msgstr "Kpelle"
 
 #. frequency:3 iso_code:Laoo 
 #: DB:script/name:69
 msgid "Lao"
-msgstr ""
+msgstr "Laotisk"
 
 #. frequency:4 iso_code:Latn 
 #: DB:script/name:28
 msgid "Latin"
-msgstr ""
+msgstr "Latin"
 
 #. frequency:1 iso_code:Latf 
 #: DB:script/name:30
@@ -436,7 +437,7 @@ msgstr ""
 #. frequency:3 iso_code:Mlym 
 #: DB:script/name:62
 msgid "Malayalam"
-msgstr ""
+msgstr "Malayalam"
 
 #. frequency:1 iso_code:Mand 
 #: DB:script/name:16
@@ -486,7 +487,7 @@ msgstr ""
 #. frequency:3 iso_code:Mong 
 #: DB:script/name:17
 msgid "Mongolian"
-msgstr ""
+msgstr "Mongolsk"
 
 #. frequency:1 iso_code:Moon 
 #: DB:script/name:119
@@ -666,7 +667,7 @@ msgstr ""
 #. frequency:2 iso_code:Sund 
 #: DB:script/name:107
 msgid "Sundanese"
-msgstr ""
+msgstr "Sundanesisk"
 
 #. frequency:2 iso_code:Sylo 
 #: DB:script/name:51
@@ -681,7 +682,7 @@ msgstr ""
 #. frequency:2 iso_code:Syrc 
 #: DB:script/name:12
 msgid "Syriac"
-msgstr ""
+msgstr "Syrisk"
 
 #. frequency:1 iso_code:Syrn 
 #: DB:script/name:13
@@ -731,7 +732,7 @@ msgstr ""
 #. frequency:3 iso_code:Taml 
 #: DB:script/name:61
 msgid "Tamil"
-msgstr ""
+msgstr "Tamilsk"
 
 #. frequency:1 iso_code:Tang 
 #: DB:script/name:140
@@ -741,7 +742,7 @@ msgstr ""
 #. frequency:3 iso_code:Telu 
 #: DB:script/name:59
 msgid "Telugu"
-msgstr ""
+msgstr "Telugu"
 
 #. frequency:1 iso_code:Teng 
 #: DB:script/name:44
@@ -756,12 +757,12 @@ msgstr ""
 #. frequency:4 iso_code:Thai 
 #: DB:script/name:65
 msgid "Thai"
-msgstr ""
+msgstr "Thai"
 
 #. frequency:3 iso_code:Tibt 
 #: DB:script/name:55
 msgid "Tibetan"
-msgstr ""
+msgstr "Tibetansk"
 
 #. frequency:3 iso_code:Tfng 
 #: DB:script/name:10
@@ -781,7 +782,7 @@ msgstr ""
 #. frequency:2 iso_code:Vaii 
 #: DB:script/name:91
 msgid "Vai"
-msgstr ""
+msgstr "Vai"
 
 #. frequency:1 iso_code:Visp 
 #: DB:script/name:39

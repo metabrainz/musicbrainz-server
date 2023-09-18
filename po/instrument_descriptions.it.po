@@ -13,11 +13,13 @@
 # salo.rock, 2022-2023
 # Valentina Menale <email address hidden>, 2016
 # "salo.rock" <salo.rock+musicbrainz@gmail.com>, 2023.
+# "salo.rock" <salo.rock@users.noreply.translations.metabrainz.org>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-08-27 21:27+0000\n"
-"Last-Translator: \"salo.rock\" <salo.rock+musicbrainz@gmail.com>\n"
+"PO-Revision-Date: 2023-09-09 04:27+0000\n"
+"Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
+"metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
 "musicbrainz/instrument-descriptions/it/>\n"
 "Language: it\n"
@@ -1445,8 +1447,9 @@ msgid ""
 "instrument/bfe379dc-1d65-4862-acd8-60d53bb963a2\">Harpsichord</a>"
 msgstr ""
 "Pianoforte elettromeccanico con ance in acciaio inossidabile e un pick-up "
-"amplificato. Da non confondere con il <a href=\"/instrument/bfe379dc-"
-"1d65-4862-acd8-60d53bb963a2\">clavicembalo</a>, detto anche \"cembalo\"."
+"amplificato. Da non confondere con il <a href=\"/instrument/"
+"bfe379dc-1d65-4862-acd8-60d53bb963a2\">clavicembalo</a>, detto anche "
+"\"cembalo\"."
 
 #. name:viol consort 
 #: DB:instrument/description:1027
@@ -2920,6 +2923,17 @@ msgstr ""
 "acustiche, e di conseguenza il loro suono ha un'intonazione più omogenea "
 "\"prossima alle due corde vuote centrali\"."
 
+#. name:dulzaina 
+#: DB:instrument/description:770
+msgid ""
+"Not to be confused by the European renaissance bassoon <a href=\"/instrument/"
+"a0b1ba6b-6ea7-4489-a4af-c9e23d6e24da\">dulcian</a>.<br /> Widely used in "
+"Spanish communities it has many different names and a conical shape."
+msgstr ""
+"Da non confondere con il fagotto rinascimentale europeo <a href=\"/"
+"instrument/a0b1ba6b-6ea7-4489-a4af-c9e23d6e24da\">dulcian</a>.<br /> Di "
+"ampio uso nelle comunità spagnole, ha molti nomi diversi e una forma conica."
+
 #. name:melophone 
 #: DB:instrument/description:1022
 msgid ""
@@ -2974,6 +2988,18 @@ msgstr ""
 "Da non confondere con il <a href=\"/instrument/d50ba107-4930-4e0b-8b3f-"
 "ffbea4a1ade1\">ghaychak</a>, un liuto persiano."
 
+#. name:dulcian 
+#: DB:instrument/description:496
+msgid ""
+"Not to be confused with the Spanish double-reed <a href=\"/instrument/"
+"bd57c6a6-616b-4c00-bcde-f0f34e8d6eb0\">dulzaina</a>.<br /> Used in the "
+"renaissance, it is made of maple wood with a folded bore and conical bell."
+msgstr ""
+"Da non confondere con la <a href=\"/instrument/bd57c6a6-616b-4c00-bcde-"
+"f0f34e8d6eb0\">dolzaina</a> spagnola ad ancia doppia.<br /> Usato nel "
+"Rinascimento, è realizzato in legno d'acero con una sezione ripiegata e un "
+"padiglione conico."
+
 #. name:shawm 
 #: DB:instrument/description:408
 msgid ""
@@ -2995,14 +3021,14 @@ msgstr ""
 "famiglia dei legni dal nome simile, utilizza <a href=\"/instrument/"
 "e3511ed1-3d73-4340-880f-c8ccc8eda11c\">salmoè</a>.<br /> Per il suo erede "
 "giapponese battezzato a partire dal portoghese, utilizza charumera.<br /> "
-"Per la ciaramella catalana, utilizza <a href=\"/instrument/"
-"dffe56f5-cd75-4392-ad31-1c3abf2b8e37\">tible</a>.<br /> Per la ciaramella "
-"italiana, utilizza piffero.<br /> Per la cornamusa, utilizza xeremia.<br /"
-"><br /> Strumento medievale e rinascimentale europeo della famiglia dei "
-"legni, a sezione conica e ad ancia doppia, si evolvette in due tipi: uno a "
-"partire dagli strumenti mediorientali e l'altro a partire dalle canne del "
-"canto delle cornamuse. Una combinazione di entrambi i tipi fu usata per "
-"sviluppare l'oboe moderno."
+"Per la ciaramella catalana, utilizza <a href=\"/instrument/dffe56f5-"
+"cd75-4392-ad31-1c3abf2b8e37\">tible</a>.<br /> Per la ciaramella italiana, "
+"utilizza piffero.<br /> Per la cornamusa, utilizza xeremia.<br /><br /> "
+"Strumento medievale e rinascimentale europeo della famiglia dei legni, a "
+"sezione conica e ad ancia doppia, si evolvette in due tipi: uno a partire "
+"dagli strumenti mediorientali e l'altro a partire dalle canne del canto "
+"delle cornamuse. Una combinazione di entrambi i tipi fu usata per sviluppare "
+"l'oboe moderno."
 
 #. name:oboe 
 #: DB:instrument/description:8
@@ -3471,8 +3497,8 @@ msgid ""
 "instrument/257dad59-02e6-47d9-958a-659843737827\">cornet</a>."
 msgstr ""
 "Popolare dal 1500 al 1650 e conosciuto anche come zink, aveva forma "
-"ottagonale con sette fori come un flauto, ma con un bocchino come una "
-"tromba.<br /> Per lo strumento moderno in ottone, utilizza <a href=\"/"
+"ottagonale con sette fori come un flauto, ma con un bocchino come una tromba."
+"<br /> Per lo strumento moderno in ottone, utilizza <a href=\"/"
 "instrument/257dad59-02e6-47d9-958a-659843737827\">cornetta</a>."
 
 #. name:claviorganum 
@@ -4629,15 +4655,6 @@ msgid "The duduk is a traditional Armenian double reed woodwind instrument."
 msgstr ""
 "Strumento ad ancia doppia della famiglia dei legni, tradizionale "
 "dell'Armenia."
-
-#. name:dulcian 
-#: DB:instrument/description:496
-msgid ""
-"The dulcian is a double reed bass woodwind instrument which is a 16th "
-"century ancestor of the bassoon."
-msgstr ""
-"Strumento basso e ad ancia doppia della famiglia dei legni, è un antenato "
-"del XVI secolo del fagotto."
 
 #. name:dutar 
 #: DB:instrument/description:629
@@ -6801,6 +6818,11 @@ msgstr ""
 "Senza corde o membrane, produce suono attraverso la vibrazione dell'intero "
 "strumento."
 
+#. name:laúd 
+#: DB:instrument/description:803
+msgid "a Spanish plucked cittern, it is also played in the Spanish diaspora."
+msgstr "Cetera spagnola a pizzico, è suonata anche nella diaspora spagnola."
+
 #. name:pang gu ly hu hmông 
 #: DB:instrument/description:315
 msgid "a kind of a \"slide whistle\" form. Hmông flute"
@@ -6814,11 +6836,6 @@ msgid ""
 msgstr ""
 "Imparentata con la ciaramella, fu portata in Centroamerica e Sudamerica "
 "dagli spagnoli durante il XVI e XVII secolo."
-
-#. name:laúd 
-#: DB:instrument/description:803
-msgid "a spanish plucked cittern, it is also played in the spanish diaspora."
-msgstr "Cetera spagnola a pizzico, è suonata anche nella diaspora spagnola."
 
 #. name:tràm plè 
 #: DB:instrument/description:308
@@ -7327,6 +7344,17 @@ msgstr ""
 msgid "zither with a hollow or vaulted body, it can have several resonators"
 msgstr ""
 "Cetra (zither) con una cassa cava o a volta, può avere più risuonatori."
+
+#~ msgid ""
+#~ "The dulcian is a double reed bass woodwind instrument which is a 16th "
+#~ "century ancestor of the bassoon."
+#~ msgstr ""
+#~ "Strumento basso e ad ancia doppia della famiglia dei legni, è un antenato "
+#~ "del XVI secolo del fagotto."
+
+#~ msgid ""
+#~ "a spanish plucked cittern, it is also played in the spanish diaspora."
+#~ msgstr "Cetera spagnola a pizzico, è suonata anche nella diaspora spagnola."
 
 #~ msgid ""
 #~ "An electromechanical piano (not to be confused with electronic piano) "

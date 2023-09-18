@@ -19,12 +19,13 @@
 # Tobias Quathamer <email address hidden>, 2007
 # Ulrich Klauer <email address hidden>, 2015-2016
 # Wieland Hoffmann <email address hidden>, 2013-2014
+# Philipp Wolfer <ph.wolfer@gmail.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-08-22 10:27+0000\n"
-"Last-Translator: chaban <chaban@users.noreply.translations.metabrainz.org>\n"
+"PO-Revision-Date: 2023-08-31 20:27+0000\n"
+"Last-Translator: Philipp Wolfer <ph.wolfer@gmail.com>\n"
 "Language-Team: German <https://translations.metabrainz.org/projects/"
 "musicbrainz/statistics/de/>\n"
 "Language: de\n"
@@ -685,11 +686,11 @@ msgid ""
 "Additionally, the German, French and Dutch translations are available on the "
 "main server."
 msgstr ""
-"Mehr Bearbeitungstypen werden zu automatischen Bearbeitungen für jeden: "
-"\"Beziehung hinzufügen\", \"Veröffentlichung hinzufügen\" sowie "
-"\"Veröffentlichungslabel hinzufügen\", \"bearbeiten\" und \"entfernen\". "
-"Ausserdem stehen die deutsche, französische und niederländische Übersetzung "
-"auf dem Haupt-Server bereit."
+"Mehr Bearbeitungstypen werden zu automatischen Bearbeitungen für jeden: „"
+"Beziehung hinzufügen“, „Veröffentlichung hinzufügen“ sowie „"
+"Veröffentlichungslabel hinzufügen“, „bearbeiten“ und „entfernen“. Außerdem "
+"stehen die deutsche, französische und niederländische Übersetzung auf dem "
+"Haupt-Server bereit."
 
 #: DB:statistics.statistic_event/title:2006-02-27
 msgid "MusicBrainz Move"
