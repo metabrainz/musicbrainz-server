@@ -1,0 +1,115 @@
+{
+  title: 'MBS-8952',
+  commands: [
+    {
+      command: 'open',
+      target: '/release/add',
+      value: '',
+    },
+    {
+      command: 'type',
+      target: 'id=name',
+      value: 'Travelling Man',
+    },
+    {
+      command: 'type',
+      target: "css=td.release-artist span.autocomplete input.name",
+      value: 'Nine Inch Nails',
+    },
+    {
+      command: 'click',
+      target: "css=td.release-artist span.autocomplete img.search",
+      value: '',
+    },
+    {
+      command: 'pause',
+      target: '1000',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: "xpath=//li[contains(@class, 'ui-menu-item')][contains(., 'Nine Inch Nails')]",
+      value: '',
+    },
+    {
+      command: 'click',
+      target: "xpath=//a[@href='#tracklist']",
+      value: '',
+    },
+    {
+      command: 'uncheck',
+      target: "xpath=//div[@id='add-medium-parser']//input[@name='lines-have-artists']",
+      value: '',
+    },
+    {
+      command: 'check',
+      target: "xpath=//div[@id='add-medium-parser']//input[@name='use-titles']",
+      value: '',
+    },
+    {
+      command: 'type',
+      target: "xpath=//div[@id='add-medium-parser']//textarea[contains(@class, 'tracklist')]",
+      value: '1. Travelling Man',
+    },
+    {
+      command: 'click',
+      target: "xpath=//div[@id='add-medium-dialog']//button[contains(text(), 'Add Medium')]",
+      value: '',
+    },
+    {
+      command: 'select',
+      target: "xpath=(//select[contains(@id, 'medium-format-')])[1]",
+      value: 'label=Vinyl',
+    },
+    {
+      command: 'click',
+      target: "xpath=//a[@href='#recordings']",
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'css=#recordings tr.track button.edit-track-recording',
+      value: '',
+    },
+    {
+      command: 'check',
+      target: 'css=#recording-assoc-bubble input[value="0f42ab32-22cd-4dcf-927b-a8d9a183d68b"]',
+      value: '',
+    },
+    {
+      command: 'type',
+      target: 'css=#recording-assoc-bubble input.name.lookup-performed',
+      value: 'asdf',
+    },
+    {
+      command: 'assertEval',
+      target: 'document.querySelector("#recording-assoc-bubble input.name").classList.contains("lookup-performed")',
+      value: 'false',
+    },
+    {
+      command: 'click',
+      target: "xpath=//a[@href='#edit-note']",
+      value: '',
+    },
+    {
+      command: 'assertEval',
+      target: 'document.querySelector("#enter-edit").disabled',
+      value: 'true',
+    },
+    {
+      command: 'open',
+      target: '/',
+      value: '',
+    },
+    {
+      command: 'handleAlert',
+      target: 'accept',
+      value: '',
+    },
+    {
+      command: 'waitUntilUrlIs',
+      target: '/',
+      value: '',
+    },
+  ],
+}

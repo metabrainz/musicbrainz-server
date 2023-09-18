@@ -184,10 +184,14 @@ releaseEditor.edits = {
           if (oldRecording) {
             if (track.updateRecordingTitle() && !isBlank(trackData.name)) {
               newRecording.name = trackData.name;
+            } else {
+              newRecording.name = oldRecording.name;
             }
 
             if (track.updateRecordingArtist()) {
               newRecording.artist_credit = trackData.artist_credit;
+            } else {
+              newRecording.artist_credit = oldRecording.artist_credit;
             }
 
             if (!deepEqual(newRecording, oldRecording)) {
