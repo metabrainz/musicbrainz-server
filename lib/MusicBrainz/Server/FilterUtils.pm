@@ -46,6 +46,9 @@ sub create_artist_releases_form {
     $form_args{artist_credits} =
         $c->model('Release')->find_artist_credits_by_artist($artist_id);
     $form_args{countries} = [$c->model('CountryArea')->get_all];
+    $form_args{labels} =
+        $c->model('Release')->find_labels_by_artist($artist_id);
+    $form_args{statuses} = [$c->model('ReleaseStatus')->get_all];
 
     return $c->form(filter_form => 'Filter::Release', %form_args);
 }
