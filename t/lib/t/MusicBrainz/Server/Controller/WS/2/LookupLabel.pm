@@ -135,7 +135,7 @@ ws_test 'label lookup with releases, inc=media',
             </release>
             <release id="3b3d130a-87a8-4a47-b9fb-920f2530d134">
                 <title>Repercussions</title>
-                <status id="4e304316-386d-3409-af2e-78857eec5cfe">Official</status>
+                <status id="1156806e-d06a-38bd-83f0-cf2284a808b9">Bootleg</status>
                 <quality>normal</quality>
                 <text-representation>
                     <language>eng</language>
