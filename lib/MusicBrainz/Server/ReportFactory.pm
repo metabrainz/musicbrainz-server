@@ -62,6 +62,7 @@ my @all = qw(
     LabelsDisambiguationSameName
     LimitedEditors
     LinksWithMultipleEntities
+    LowQualityReleases
     MediumsWithOrderInTitle
     MediumsWithSequenceIssues
     MislinkedPseudoReleases
@@ -100,6 +101,7 @@ my @all = qw(
     SeparateDiscs
     SetInDifferentRG
     ShouldNotHaveDiscIDs
+    ShowNotesButNotBroadcast
     SingleMediumReleasesWithMediumTitles
     SomeFormatsUnset
     SuperfluousDataTracks
@@ -160,6 +162,7 @@ use MusicBrainz::Server::Report::ISWCsWithManyWorks;
 use MusicBrainz::Server::Report::LabelsDisambiguationSameName;
 use MusicBrainz::Server::Report::LimitedEditors;
 use MusicBrainz::Server::Report::LinksWithMultipleEntities;
+use MusicBrainz::Server::Report::LowQualityReleases;
 use MusicBrainz::Server::Report::MediumsWithOrderInTitle;
 use MusicBrainz::Server::Report::MediumsWithSequenceIssues;
 use MusicBrainz::Server::Report::MislinkedPseudoReleases;
@@ -199,6 +202,7 @@ use MusicBrainz::Server::Report::ReleasesConflictingDiscIDs;
 use MusicBrainz::Server::Report::SeparateDiscs;
 use MusicBrainz::Server::Report::SetInDifferentRG;
 use MusicBrainz::Server::Report::ShouldNotHaveDiscIDs;
+use MusicBrainz::Server::Report::ShowNotesButNotBroadcast;
 use MusicBrainz::Server::Report::SingleMediumReleasesWithMediumTitles;
 use MusicBrainz::Server::Report::SomeFormatsUnset;
 use MusicBrainz::Server::Report::SuperfluousDataTracks;

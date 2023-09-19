@@ -1,5 +1,5 @@
 package MusicBrainz::Server::WebService::Validator;
-use List::AllUtils qw( uniq );
+use List::AllUtils qw( any uniq );
 use MooseX::Role::Parameterized;
 use namespace::autoclean;
 use aliased 'MusicBrainz::Server::WebService::WebServiceInc';
@@ -172,6 +172,26 @@ sub validate_status
     return \@ret;
 }
 
+sub validate_release_group_status
+{
+    my ($c, $resource, $release_group_status, $inc) = @_;
+
+    return unless $release_group_status;
+
+    unless ($resource eq 'release-group' && exists $c->req->params->{artist})
+    {
+        $c->stash->{error} = 'release-group-status is not a valid parameter unless release groups are browsed by artist.';
+        $c->detach('bad_req');
+    }
+
+    unless (any { $_ =~ /^$release_group_status$/ } qw/ website-default all /) {
+        $c->stash->{error} = "$release_group_status is not a valid value for the release-group-status parameter.";
+        $c->detach('bad_req');
+    }
+
+    return $release_group_status;
+}
+
 sub validate_linked
 {
     my ($c, $resource, $def) = @_;
@@ -206,7 +226,7 @@ sub validate_inc
     my ($c, $version, $resource, $inc, $def) = @_;
 
     if (ref($inc)) {
-        $c->stash->{error} = 'Inc arguments must be combined with a space, but you provided multiple parameters';
+        $c->stash->{error} = 'Inc arguments must be combined with a space (+ or %20), but you provided multiple parameters';
         return;
     }
 
@@ -341,6 +361,7 @@ role {
             if ($inc && $version eq '2') {
                 $c->stash->{type} = validate_type($c, $resource, $c->req->params->{type}, $inc);
                 $c->stash->{status} = validate_status($c, $resource, $c->req->params->{status}, $inc);
+                $c->stash->{release_group_status} = validate_release_group_status($c, $resource, $c->req->params->{'release-group-status'}, $inc);
             }
 
             # Check if authorization is required.

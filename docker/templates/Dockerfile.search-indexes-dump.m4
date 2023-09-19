@@ -12,4 +12,10 @@ COPY docker/musicbrainz-search-indexes-dump/crontab /var/spool/cron/crontabs/mus
 RUN chown musicbrainz:musicbrainz /var/spool/cron/crontabs/musicbrainz && \
     chmod 600 /var/spool/cron/crontabs/musicbrainz
 
+ENV MB_CONTAINER_TYPE search-indexes-dump
+
+COPY \
+    docker/scripts/create_log_directories.sh \
+    /etc/my_init.d/90_create_log_directories.sh
+
 git_info

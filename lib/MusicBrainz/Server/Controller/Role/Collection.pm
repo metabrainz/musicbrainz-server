@@ -29,7 +29,7 @@ role
 
     $extra{consumer}->name->config(
         action => {
-            $method_name => { Chained => 'load', RequireAuth => undef }
+            $method_name => { Chained => 'load' }
         }
     );
 
@@ -44,14 +44,14 @@ role
         $collections;
     };
 
-    method _all_non_visible_collections => sub {
+    method _non_visible_collection_count => sub {
         my ($self, $c) = @_;
-        my ($collections) = $c->model('Collection')->find_by({
+        my $count = $c->model('Collection')->get_hidden_collection_count({
             entity_id => $c->stash->{$entity_name}->id,
             entity_type => $entity_type,
-            show_private_only => $c->user_exists ? $c->user->id : undef,
+            editor_id => $c->user_exists ? $c->user->id : undef,
         });
-        $collections;
+        $count;
     };
 
     # Stuff that has the side bar and thus needs to display collection information
@@ -65,7 +65,7 @@ role
         my %entity_collections_map = map { $_->id => 1 } @$entity_collections;
 
         my $number_of_visible_collections = @$entity_collections;
-        my $number_of_non_visible_collections = @{$self->_all_non_visible_collections($c)};
+        my $number_of_non_visible_collections = $self->_non_visible_collection_count($c);
 
         if ($c->user_exists) {
             # Make a list of collections and whether this entity is contained in them
@@ -105,8 +105,7 @@ View a list of collections that this work has been added to.
         my ($self, $c) = @_;
 
         my @public_collections = @{$self->_all_visible_collections($c)};
-        # For private collections we just want the number, so we just read the results in scalar context
-        my $private_collections = @{$self->_all_non_visible_collections($c)};
+        my $private_collections = $self->_non_visible_collection_count($c);
 
         $c->model('Editor')->load(@public_collections);
 

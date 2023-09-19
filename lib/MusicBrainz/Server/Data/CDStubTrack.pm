@@ -57,12 +57,6 @@ sub load_for_cdstub
     }
 }
 
-sub update
-{
-    my ($self, $track_id, $hash) = @_;
-    $self->sql->update_row('track_raw', $hash, { id => $track_id });
-}
-
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

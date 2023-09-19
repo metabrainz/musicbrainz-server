@@ -43,6 +43,13 @@ then
   exit 64 # EX_USAGE
 fi
 
+if ! id -u 'musicbrainz' &>/dev/null
+then
+  echo >&2 "$SCRIPT_NAME: user 'musicbrainz' doesn't exist"
+  echo >&2 "Make sure to run in a production container."
+  exit 67 # EX_NOUSER
+fi
+
 export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 export PERL_CARTON_PATH=/home/musicbrainz/carton-local
 
@@ -50,13 +57,20 @@ command_full_path=$(which "$1")
 command_verbatim=$1
 shift
 
+if [[ "$(id -u -n)" != 'musicbrainz' ]]
+then
+  exec sudo --preserve-env --set-home -u musicbrainz -- \
+    "${BASH_SOURCE[0]}" "$command_verbatim" "$@"
+fi
+
 if [[ $command_full_path =~ admin/cron/.*\.sh$ ]]
 then
+  # shellcheck disable=SC2001,SC2016
   log_dir_name=$(echo "$command_full_path" | sed 's_^.*admin/cron/\(.*\)\.sh$_\1_')
 else
   log_dir_name='occasionally'
 fi
-log_dir_path="$HOME/log/$log_dir_name"
+log_dir_path="/home/musicbrainz/log/$log_dir_name"
 if ! [[ -d "$log_dir_path" ]]
 then
   echo >&2 "$SCRIPT_NAME: '$log_dir_path' doesn't exist"
@@ -67,11 +81,6 @@ log_timestamp=$(date --utc +%FT%TZ)
 log_file_path="$log_dir_path/$log_timestamp.log"
 
 pre_command='carton exec --'
-if id -u 'musicbrainz' &>/dev/null && [[ "$(id -u -n)" != 'musicbrainz' ]]
-then
-  pre_command="sudo --preserve-env --set-home -u musicbrainz -- $pre_command"
-fi
-
 echo "Running '$command_verbatim $*' and logging at '$log_file_path'..."
 if [[ -t 1 ]]
 then

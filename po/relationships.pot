@@ -8,6 +8,10 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#: DB:link_attribute_type/description:1355
+msgid "A performance-centered, usually one to three year postgraduate program."
+msgstr ""
+
 #: DB:link_type/description:218
 msgid ""
 "A social network page is a label's own page on a <a href=\"https://en."
@@ -748,8 +752,8 @@ msgstr ""
 
 #: DB:link_type/description:1181
 msgid ""
-"Links a release to the area it was transferred in. Use only when the place "
-"is unknown!"
+"Links a release to the area it was transferred in (for example from an old "
+"tape to digital). Use only when the place is unknown!"
 msgstr ""
 
 #: DB:link_type/description:967
@@ -809,7 +813,9 @@ msgid "Links a release to the place it was remixed at."
 msgstr ""
 
 #: DB:link_type/description:1182
-msgid "Links a release to the place it was transferred at."
+msgid ""
+"Links a release to the place it was transferred at (for example from an old "
+"tape to digital)."
 msgstr ""
 
 #: DB:link_type/description:954
@@ -1058,8 +1064,8 @@ msgstr ""
 #: DB:link_type/description:127
 msgid ""
 "Publishers should be added on works instead. Keep in mind this is "
-"<strong>not</strong> the same concept as the <a href=\"/doc/Label\" target="
-"\"_blank\">record label</a>."
+"<strong>not</strong> the same concept as the <a href=\"/doc/Label\" "
+"target=\"_blank\">record label</a>."
 msgstr ""
 
 #: DB:link_type/link_phrase:174
@@ -1387,7 +1393,7 @@ msgid ""
 "target=\"_blank\">remixer</a>."
 msgstr ""
 
-#: DB:link_type/description:138 DB:link_type/description:28
+#: DB:link_type/description:28 DB:link_type/description:138
 msgid "This describes an engineer who performed a general engineering role."
 msgstr ""
 
@@ -1713,8 +1719,8 @@ msgid ""
 "This indicates that the group had multiple conductors or multiple players of "
 "the selected instrument who were led by this artist. This is often indicated "
 "by the title of \"principal conductor\" or \"first conductor\" for "
-"conductors, and by the title of \"principal [instrument]\" or \"concertmaster"
-"\" (principal violin) for instruments."
+"conductors, and by the title of \"principal [instrument]\" or "
+"\"concertmaster\" (principal violin) for instruments."
 msgstr ""
 
 #: DB:link_type/description:998 DB:link_type/description:999
@@ -1816,11 +1822,11 @@ msgid ""
 "sometimes also a venue)."
 msgstr ""
 
-#: DB:link_type/description:297 DB:link_type/description:298
-#: DB:link_type/description:296 DB:link_type/description:295
-#: DB:link_type/description:158 DB:link_type/description:41
-#: DB:link_type/description:294 DB:link_type/description:293
-#: DB:link_type/description:282
+#: DB:link_type/description:295 DB:link_type/description:41
+#: DB:link_type/description:296 DB:link_type/description:297
+#: DB:link_type/description:298 DB:link_type/description:158
+#: DB:link_type/description:294 DB:link_type/description:282
+#: DB:link_type/description:293
 msgid ""
 "This indicates the artist who arranged a tune into a form suitable for "
 "performance. 'Arrangement' is used as a catch-all term for all processes "
@@ -1863,16 +1869,16 @@ msgid ""
 "This indicates the organization that distributes (or contracts out "
 "distribution). \n"
 "\n"
-"This is <strong>not</strong> the same concept as the <a href=\"/doc/Label"
-"\">record label</a>."
+"This is <strong>not</strong> the same concept as the <a href=\"/doc/"
+"Label\">record label</a>."
 msgstr ""
 
 #: DB:link_type/description:360
 msgid ""
 "This indicates the organization that manufactures (or contracts out "
 "manufacturing). \n"
-"This is <strong>not</strong> the same concept as the <a href=\"/doc/Label"
-"\">record label</a>."
+"This is <strong>not</strong> the same concept as the <a href=\"/doc/"
+"Label\">record label</a>."
 msgstr ""
 
 #: DB:link_type/description:848
@@ -1890,8 +1896,8 @@ msgstr ""
 #: DB:link_type/description:359
 msgid ""
 "This indicates the organization that promotes (or contracts out promotion) "
-"for a release. This is <strong>not</strong> the same concept as the <a href="
-"\"/doc/Label\">record label</a>."
+"for a release. This is <strong>not</strong> the same concept as the <a "
+"href=\"/doc/Label\">record label</a>."
 msgstr ""
 
 #: DB:link_type/description:362
@@ -2218,9 +2224,9 @@ msgstr ""
 
 #: DB:link_type/description:102
 msgid ""
-"This is used to specify that an <a href=\"/doc/Artist\" title=\"Artist"
-"\">artist</a> collaborated on a short-term project, for cases where artist "
-"credits can't be used."
+"This is used to specify that an <a href=\"/doc/Artist\" "
+"title=\"Artist\">artist</a> collaborated on a short-term project, for cases "
+"where artist credits can't be used."
 msgstr ""
 
 #: DB:link_type/description:1047
@@ -2453,18 +2459,18 @@ msgid ""
 "This links a release group to an artist it is dedicated to. This is for "
 "dedications such as \"This album is dedicated to the memory of Artist\" - "
 "for tribute albums consisting of covers of the artist, use the <a href=\"/"
-"relationship/5e2907db-49ec-4a48-9f11-dfb99d2603ff\" target=\"_blank"
-"\">tribute relationship</a>."
+"relationship/5e2907db-49ec-4a48-9f11-dfb99d2603ff\" "
+"target=\"_blank\">tribute relationship</a>."
 msgstr ""
 
 #: DB:link_type/description:65
 msgid ""
 "This links a release group to an artist, to indicate that it is a tribute "
-"album. Tribute albums often have a title in the form \"A Tribute to Artist"
-"\", and they consist of covers of songs by the target artist, played by "
-"other (sometimes very unknown) bands, to honor the target artist. Often they "
-"are various artist compilations, but a single artist can perform the entire "
-"tribute album."
+"album. Tribute albums often have a title in the form \"A Tribute to "
+"Artist\", and they consist of covers of songs by the target artist, played "
+"by other (sometimes very unknown) bands, to honor the target artist. Often "
+"they are various artist compilations, but a single artist can perform the "
+"entire tribute album."
 msgstr ""
 
 #: DB:link_type/description:1176
@@ -2782,8 +2788,8 @@ msgstr ""
 #: DB:link_type/description:96 DB:link_type/description:803
 msgid ""
 "This links an entity to the equivalent entry in another database. Please "
-"respect the <a href=\"/doc/Other_Databases_Relationship_Type/Whitelist"
-"\">whitelist</a>."
+"respect the <a href=\"/doc/Other_Databases_Relationship_Type/"
+"Whitelist\">whitelist</a>."
 msgstr ""
 
 #: DB:link_type/description:804
@@ -2822,8 +2828,8 @@ msgstr ""
 
 #: DB:link_type/description:315
 msgid ""
-"This links different revisions of the same <a href=\"/doc/Work\" title=\"Work"
-"\">work</a>."
+"This links different revisions of the same <a href=\"/doc/Work\" "
+"title=\"Work\">work</a>."
 msgstr ""
 
 #: DB:link_type/description:212
@@ -2929,8 +2935,8 @@ msgstr ""
 #: DB:link_type/description:197
 msgid ""
 "This relationship describes a URL where lyrics for the artist can be found. "
-"Only sites on the <a href=\"/doc/Style/Relationships/URLs/Lyrics_whitelist"
-"\">whitelist</a> are permitted."
+"Only sites on the <a href=\"/doc/Style/Relationships/URLs/"
+"Lyrics_whitelist\">whitelist</a> are permitted."
 msgstr ""
 
 #: DB:link_type/description:982
@@ -2950,8 +2956,8 @@ msgstr ""
 #: DB:link_type/description:271
 msgid ""
 "This relationship describes a URL where lyrics for the work can be found. "
-"Only sites on the <a href=\"/doc/Style/Relationships/URLs/Lyrics_whitelist"
-"\">whitelist</a> are permitted."
+"Only sites on the <a href=\"/doc/Style/Relationships/URLs/"
+"Lyrics_whitelist\">whitelist</a> are permitted."
 msgstr ""
 
 #: DB:link_type/description:929
@@ -3364,9 +3370,9 @@ msgstr ""
 
 #: DB:link_type/description:210
 msgid ""
-"This relationship type links a label to its corresponding page at <a href="
-"\"http://vgmdb.net/\">VGMdb</a>. VGMdb is a community project dedicated to "
-"cataloguing the music of video games and anime."
+"This relationship type links a label to its corresponding page at <a "
+"href=\"http://vgmdb.net/\">VGMdb</a>. VGMdb is a community project dedicated "
+"to cataloguing the music of video games and anime."
 msgstr ""
 
 #: DB:link_type/description:838
@@ -3404,9 +3410,9 @@ msgstr ""
 
 #: DB:link_type/description:86
 msgid ""
-"This relationship type links a release to its corresponding page <a href="
-"\"http://vgmdb.net/\">VGMdb</a>. VGMdb is a community project dedicated to "
-"cataloguing the music of video games and anime."
+"This relationship type links a release to its corresponding page <a "
+"href=\"http://vgmdb.net/\">VGMdb</a>. VGMdb is a community project dedicated "
+"to cataloguing the music of video games and anime."
 msgstr ""
 
 #: DB:link_type/description:938
@@ -3423,9 +3429,9 @@ msgstr ""
 
 #: DB:link_type/description:191
 msgid ""
-"This relationship type links an artist to its corresponding page at <a href="
-"\"http://vgmdb.net/\">VGMdb</a>. VGMdb is a community project dedicated to "
-"cataloguing the music of video games and anime."
+"This relationship type links an artist to its corresponding page at <a "
+"href=\"http://vgmdb.net/\">VGMdb</a>. VGMdb is a community project dedicated "
+"to cataloguing the music of video games and anime."
 msgstr ""
 
 #: DB:link_type/description:862
@@ -3470,9 +3476,9 @@ msgstr ""
 
 #: DB:link_type/description:788
 msgid ""
-"This relationship type links an event to its corresponding page at <a href="
-"\"http://vgmdb.net/\">VGMdb</a>. VGMdb is a community project dedicated to "
-"cataloguing the music of video games and anime."
+"This relationship type links an event to its corresponding page at <a "
+"href=\"http://vgmdb.net/\">VGMdb</a>. VGMdb is a community project dedicated "
+"to cataloguing the music of video games and anime."
 msgstr ""
 
 #: DB:link_type/description:860
@@ -3592,14 +3598,14 @@ msgstr ""
 
 #: DB:link_type/description:1178
 msgid ""
-"Use this relationship for credits like \"Recording was remixed by X for Label"
-"\""
+"Use this relationship for credits like \"Recording was remixed by X for "
+"Label\""
 msgstr ""
 
 #: DB:link_type/description:948
 msgid ""
-"Use this relationship for credits like \"Release was arranged by X for Label"
-"\""
+"Use this relationship for credits like \"Release was arranged by X for "
+"Label\""
 msgstr ""
 
 #: DB:link_type/description:952
@@ -3610,8 +3616,8 @@ msgstr ""
 
 #: DB:link_type/description:1183
 msgid ""
-"Use this relationship for credits like \"Release was mastered by X for Label"
-"\""
+"Use this relationship for credits like \"Release was mastered by X for "
+"Label\""
 msgstr ""
 
 #: DB:link_type/description:947
@@ -3621,8 +3627,8 @@ msgstr ""
 
 #: DB:link_type/description:951
 msgid ""
-"Use this relationship for credits like \"Release was produced by X for Label"
-"\""
+"Use this relationship for credits like \"Release was produced by X for "
+"Label\""
 msgstr ""
 
 #: DB:link_attribute_type/description:1353
@@ -3834,7 +3840,7 @@ msgstr ""
 msgid "arrangements"
 msgstr ""
 
-#: DB:link_type/name:297 DB:link_type/name:295 DB:link_type/name:293
+#: DB:link_type/name:295 DB:link_type/name:297 DB:link_type/name:293
 msgid "arranger"
 msgstr ""
 
@@ -3866,6 +3872,10 @@ msgstr ""
 #: DB:link_type/link_phrase:135 DB:link_type/link_phrase:62
 #: DB:link_type/reverse_link_phrase:135 DB:link_type/reverse_link_phrase:62
 msgid "artist & repertoire support"
+msgstr ""
+
+#: DB:link_attribute_type/name:1355
+msgid "artist diploma"
 msgstr ""
 
 #: DB:link_type/name:1079
@@ -4549,7 +4559,7 @@ msgstr ""
 msgid "emeritus"
 msgstr ""
 
-#: DB:link_type/name:1084 DB:link_type/name:138 DB:link_type/name:28
+#: DB:link_type/name:1084 DB:link_type/name:28 DB:link_type/name:138
 msgid "engineer"
 msgstr ""
 
@@ -5254,7 +5264,7 @@ msgstr ""
 msgid "instrument"
 msgstr ""
 
-#: DB:link_type/name:158 DB:link_type/name:41 DB:link_type/name:282
+#: DB:link_type/name:41 DB:link_type/name:158 DB:link_type/name:282
 msgid "instrument arranger"
 msgstr ""
 
@@ -7298,7 +7308,7 @@ msgstr ""
 msgid "vocal"
 msgstr ""
 
-#: DB:link_type/name:298 DB:link_type/name:296 DB:link_type/name:294
+#: DB:link_type/name:296 DB:link_type/name:298 DB:link_type/name:294
 msgid "vocal arranger"
 msgstr ""
 
@@ -7679,8 +7689,8 @@ msgstr ""
 msgid "{additional:additionally} {assistant} {associate} {co:co-}transferred"
 msgstr ""
 
-#: DB:link_type/link_phrase:138 DB:link_type/link_phrase:28
-#: DB:link_type/long_link_phrase:138 DB:link_type/long_link_phrase:28
+#: DB:link_type/link_phrase:28 DB:link_type/link_phrase:138
+#: DB:link_type/long_link_phrase:28 DB:link_type/long_link_phrase:138
 msgid ""
 "{additional:additionally} {assistant} {associate} {co:co-}{executive:"
 "executive }engineered"
@@ -7699,31 +7709,40 @@ msgid ""
 "mastered"
 msgstr ""
 
-#: DB:link_type/link_phrase:297 DB:link_type/link_phrase:295
-#: DB:link_type/link_phrase:293 DB:link_type/long_link_phrase:297
-#: DB:link_type/long_link_phrase:295 DB:link_type/long_link_phrase:293
-msgid "{additional:additionally} {co:co-}arranged"
+#: DB:link_type/link_phrase:295 DB:link_type/link_phrase:297
+#: DB:link_type/link_phrase:293 DB:link_type/long_link_phrase:295
+#: DB:link_type/long_link_phrase:297 DB:link_type/long_link_phrase:293
+msgid "{additional:additionally} {associate} {co:co-}arranged"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:158 DB:link_type/long_link_phrase:41
+#: DB:link_type/long_link_phrase:41 DB:link_type/long_link_phrase:158
 #: DB:link_type/long_link_phrase:282
 msgid ""
-"{additional:additionally} {co:co-}arranged {instrument:%|instruments} on"
+"{additional:additionally} {associate} {co:co-}arranged {instrument:%|"
+"instruments} on"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:298 DB:link_type/long_link_phrase:296
+#: DB:link_type/long_link_phrase:296 DB:link_type/long_link_phrase:298
 #: DB:link_type/long_link_phrase:294
-msgid "{additional:additionally} {co:co-}arranged {vocal:%|vocals} on"
+msgid ""
+"{additional:additionally} {associate} {co:co-}arranged {vocal:%|vocals} on"
+msgstr ""
+
+#: DB:link_type/link_phrase:41 DB:link_type/link_phrase:158
+#: DB:link_type/link_phrase:282
+msgid ""
+"{additional:additionally} {associate} {instrument:%|instruments} {co:co-}"
+"arranged"
+msgstr ""
+
+#: DB:link_type/link_phrase:296 DB:link_type/link_phrase:298
+#: DB:link_type/link_phrase:294
+msgid "{additional:additionally} {associate} {vocal:%|vocals} {co:co-}arranged"
 msgstr ""
 
 #: DB:link_type/link_phrase:51 DB:link_type/link_phrase:156
 #: DB:link_type/long_link_phrase:51 DB:link_type/long_link_phrase:156
 msgid "{additional:additionally} {guest} {solo} performed"
-msgstr ""
-
-#: DB:link_type/link_phrase:158 DB:link_type/link_phrase:41
-#: DB:link_type/link_phrase:282
-msgid "{additional:additionally} {instrument:%|instruments} {co:co-}arranged"
 msgstr ""
 
 #: DB:link_type/reverse_link_phrase:697
@@ -7732,11 +7751,6 @@ msgstr ""
 
 #: DB:link_type/reverse_link_phrase:756
 msgid "{additional:additionally} {pre:pre-}{re}mastered in"
-msgstr ""
-
-#: DB:link_type/link_phrase:298 DB:link_type/link_phrase:296
-#: DB:link_type/link_phrase:294
-msgid "{additional:additionally} {vocal:%|vocals} {co:co-}arranged"
 msgstr ""
 
 #: DB:link_type/link_phrase:885 DB:link_type/link_phrase:886
@@ -7959,7 +7973,7 @@ msgstr ""
 msgid "{additional} {assistant} {associate} {co:co-}transferrer"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:138 DB:link_type/reverse_link_phrase:28
+#: DB:link_type/reverse_link_phrase:28 DB:link_type/reverse_link_phrase:138
 msgid ""
 "{additional} {assistant} {associate} {co:co-}{executive:executive }engineer"
 msgstr ""
@@ -7978,9 +7992,19 @@ msgstr ""
 msgid "{additional} {assistant} {associate} {instrument} programming"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:297 DB:link_type/reverse_link_phrase:295
+#: DB:link_type/reverse_link_phrase:295 DB:link_type/reverse_link_phrase:297
 #: DB:link_type/reverse_link_phrase:293
-msgid "{additional} {co:co-}arranger"
+msgid "{additional} {associate} {co:co-}arranger"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:41 DB:link_type/reverse_link_phrase:158
+#: DB:link_type/reverse_link_phrase:282
+msgid "{additional} {associate} {instrument:%|instruments} {co:co-}arranger"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:296 DB:link_type/reverse_link_phrase:298
+#: DB:link_type/reverse_link_phrase:294
+msgid "{additional} {associate} {vocal:%|vocals} {co:co-}arranger"
 msgstr ""
 
 #: DB:link_type/reverse_link_phrase:51 DB:link_type/reverse_link_phrase:156
@@ -7995,11 +8019,6 @@ msgstr ""
 #: DB:link_type/link_phrase:60 DB:link_type/link_phrase:149
 #: DB:link_type/reverse_link_phrase:60 DB:link_type/reverse_link_phrase:149
 msgid "{additional} {guest} {solo} {vocal:%|vocals}"
-msgstr ""
-
-#: DB:link_type/reverse_link_phrase:158 DB:link_type/reverse_link_phrase:41
-#: DB:link_type/reverse_link_phrase:282
-msgid "{additional} {instrument:%|instruments} {co:co-}arranger"
 msgstr ""
 
 #: DB:link_type/link_phrase:102
@@ -8020,11 +8039,6 @@ msgstr ""
 
 #: DB:link_type/link_phrase:756 DB:link_type/link_phrase:697
 msgid "{additional} {pre:pre-}{re}mastering location for"
-msgstr ""
-
-#: DB:link_type/reverse_link_phrase:298 DB:link_type/reverse_link_phrase:296
-#: DB:link_type/reverse_link_phrase:294
-msgid "{additional} {vocal:%|vocals} {co:co-}arranger"
 msgstr ""
 
 #: DB:link_type/reverse_link_phrase:888

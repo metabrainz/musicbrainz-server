@@ -32,7 +32,7 @@ const ImportCDStub = ({
   form,
   pager,
 }: Props): React$Element<typeof CDStubLayout> => (
-  <CDStubLayout entity={cdstub} page="import">
+  <CDStubLayout entity={cdstub}>
     <h2>{l('Import CD Stub')}</h2>
     <p>
       {l(`Please search for the artist you wish

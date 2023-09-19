@@ -51,11 +51,13 @@
     [%- area_bubble() -%]
     [%- ipi_bubble() -%]
     [%- isni_bubble() -%]
+    [%- type_bubble(form.field('type_id'), label_types) -%]
   </div>
 
 </form>
 
 [%- guesscase_options() -%]
+[% script_manifest('label/edit.js') %]
 
 <script type="text/javascript">
   (function () {

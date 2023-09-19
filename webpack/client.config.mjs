@@ -67,6 +67,7 @@ const entries = [
   'genre/index',
   'instrument/index',
   'jed-data.mjs',
+  'label/edit',
   'label/index',
   'place/edit',
   'place/index',
