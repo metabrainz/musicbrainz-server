@@ -16,14 +16,12 @@ type Props = {
   +children: React$Node,
   +entity: CDStubT,
   +fullWidth?: boolean,
-  +page: string,
 };
 
 const CDStubLayout = ({
   children,
   entity: cdstub,
   fullWidth = false,
-  page,
 }: Props): React$Element<typeof Layout> => {
   const title = texp.l(
     'CD stub “{title}” by {artist}',
@@ -36,7 +34,7 @@ const CDStubLayout = ({
   return (
     <Layout title={title}>
       <div id="content">
-        <CDStubHeader cdstub={cdstub} page={page} />
+        <CDStubHeader cdstub={cdstub} />
         {children}
       </div>
       {fullWidth ? null : <CDStubSidebar cdstub={cdstub} />}
