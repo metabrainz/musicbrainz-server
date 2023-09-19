@@ -38,9 +38,7 @@ const CollectionLinks = ({
 }: Props): React$Element<typeof CollectionList> | null => {
   const $c = React.useContext(CatalystContext);
   const numberOfCollections = $c.stash.number_of_collections || 0;
-  if (!$c.user) {
-    return null;
-  }
+  const userExists = Boolean($c.user);
   return (
     <CollectionList
       addCollectionText={l('Add to a new collection')}
@@ -52,6 +50,7 @@ const CollectionLinks = ({
       ownCollectionsHeader={l('My collections')}
       ownCollectionsNoneText={noCollectionsStrings[entity.entityType]()}
       sectionClass="collections"
+      userExists={userExists}
       usersLink={
         <EntityLink
           content={texp.ln(
