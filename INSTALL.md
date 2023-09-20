@@ -227,7 +227,6 @@ With the translation files, you are ready to run the following command to build 
 
     ./script/compile_resources.sh
 
-
 This command takes care of installing Node.js dependencies for you, including
 development dependencies. If you're just setting up a mirror and don't plan
 to hack on any code, you can save a bit of time and space by excluding the
