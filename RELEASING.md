@@ -157,15 +157,17 @@ It has some differences with the production release process; follow these steps:
 
    1. Merge `translations` to `beta` (`git merge --log=876423 --no-ff translations`) and push.
 
-   2. Run `./po/update_pot.sh` to generate new .pot files from the
+   2. On `master` (or `beta` if changes have been pushed directly there),
+      run `./po/update_pot.sh` to generate new .pot files from the
       database and templates. It's often a good idea to manually check
       the changes to the .pot files: this is a good moment to find typos
       that were missed during code review, or small changes to lines that
       don't seem useful enough to justify breaking the existing translations.
       If you find any of these, you might want to correct the issues and
-      generate the files again. Once you're done, commit the changes.
-
-   3. Push your commits, Weblate is following `*.pot` files from the `beta` branch.
+      generate the files again. Once you're done, commit the changes and push.
+      Keep in mind Weblate is following `*.pot` files from the `beta` branch;
+      if you updated `master` here then `beta` will be updated
+      in the next step.
 
 2. On the git branches merge step, to update the `beta` branch with the changes from the `master` branch,
    merge `master` into `beta` (with `git merge --log=876423 --no-ff master`) and push to `beta`.
