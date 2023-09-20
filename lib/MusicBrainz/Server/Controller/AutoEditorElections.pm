@@ -34,7 +34,7 @@ sub nominate : Path('nominate') Args(1) RequireAuth(auto_editor) SecureForm
     my ($self, $c, $editor) = @_;
 
     my $candidate = $c->model('Editor')->get_by_name($editor);
-    $c->detach('/error_404')
+    $c->detach('/error_403')
         unless $c->user->can_nominate($candidate);
 
     my $form = $c->form( form => 'SecureConfirm' );
