@@ -221,9 +221,12 @@ Building static web resources
 -------------------------------
 
 To build everything necessary to access the server in a web browser (CSS,
-JavaScript), run the following command:
+JavaScript), follow this section [Translations](https://github.com/metabrainz/musicbrainz-server/blob/master/INSTALL.md#translations) first to generate files for translation.
+
+With the translation files, you are ready to run the following command to build static web resources:
 
     ./script/compile_resources.sh
+
 
 This command takes care of installing Node.js dependencies for you, including
 development dependencies. If you're just setting up a mirror and don't plan
