@@ -26,8 +26,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
-" ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
+"0) ? 1 : 2);\n"
 "X-Generator: Weblate 4.18.2\n"
 
 #. name:rebab 
@@ -1342,6 +1342,11 @@ msgstr "Chitarra resofonica"
 msgid "Double headed drum from India."
 msgstr "Tamburo a due punte indiano."
 
+#. name:gralla 
+#: DB:instrument/description:582
+msgid "Dulzaina specifically from Catalonia."
+msgstr ""
+
 #. name:dunun 
 #: DB:instrument/description:659
 msgid "Dunun is a family of West African cylindrical drums."
@@ -1618,6 +1623,13 @@ msgstr ""
 "4 o 5 corde bordone, è riccamente decorato ed è utilizzato nella musica e "
 "danza tradizionale \"halling\"."
 
+#. name:tambourine 
+#: DB:instrument/description:263
+msgid ""
+"For the Brazilian frame-drum hit with a whisk see <a href=\"/instrument/"
+"a96bbbd1-7e44-4e79-b12e-a03ac232db98\">tamborim</a>.<br />"
+msgstr ""
+
 #. name:siku 
 #: DB:instrument/description:569
 msgid ""
@@ -1628,6 +1640,16 @@ msgstr ""
 "Per la cornamusa italiana, utilizza <a href=\"/\">zampogna</a>.<br /> "
 "Conosciuto anche come zampoña, è un flauto di Pan tradizionale andino con "
 "due file di canne tenute insieme da fasce colorate."
+
+#. name:chalumeau 
+#: DB:instrument/description:436
+msgid ""
+"For the Japanese descendant named from Portuguese, see charumera.<br /> For "
+"the medieval double-reed woodwind see <a href=\"/instrument/b4f112c3-"
+"d666-47f2-bb85-bae28572ca13\">shawm</a>.<br /> Predecessor of the modern "
+"clarinet, 7-regular 1-thumb holed single-reed woodwind was in use during "
+"baroque and classical era."
+msgstr ""
 
 #. name:reed organ 
 #: DB:instrument/description:204
@@ -1666,6 +1688,17 @@ msgstr ""
 "utilizza <a href=\"/instrument/8ab40df2-106b-4b9b-a50c-0798ee95da8f"
 "\">melodica</a>.<br /> Conosciuta anche come melodeon o organetto, ha una o "
 "due file di bottoni ognuno dei quali produce due toni (bitonico)."
+
+#. name:charumera 
+#: DB:instrument/description:1150
+msgid ""
+"For the similarly named single-reed woodwind see <a href=\"/instrument/"
+"e3511ed1-3d73-4340-880f-c8ccc8eda11c\">chalumeau</a>.<br /> For the European "
+"instrument, see <a href=\"/instrument/b4f112c3-d666-47f2-bb85-"
+"bae28572ca13\">shawm</a>.<br /> Name derived from the Portuguese name of "
+"shawm, it was imported by Portuguese or Iberian traders. It is used in "
+"kabuki theatre and by ramen street vendors"
+msgstr ""
 
 #. name:lira da braccio 
 #: DB:instrument/description:1016
@@ -2783,6 +2816,13 @@ msgstr ""
 "Resa trasportabile con una tracolla come una chitarra, è una tastiera "
 "elettrica con controlli sonori posizionati sul manico."
 
+#. name:English flageolet 
+#: DB:instrument/description:844
+msgid ""
+"Meant as an improvement on the flageolet design, the English flageolet had 6 "
+"finger holes in front and one thumb hole in the back."
+msgstr ""
+
 #. name:gemshorn 
 #: DB:instrument/description:868
 msgid ""
@@ -2927,12 +2967,10 @@ msgstr ""
 #: DB:instrument/description:770
 msgid ""
 "Not to be confused by the European renaissance bassoon <a href=\"/instrument/"
-"a0b1ba6b-6ea7-4489-a4af-c9e23d6e24da\">dulcian</a>.<br /> Widely used in "
+"a0b1ba6b-6ea7-4489-a4af-c9e23d6e24da\">dulcian</a>.<br /> Not to be confused "
+"with several Spanish bagpipes also called \"gaita\".<br /> Widely used in "
 "Spanish communities it has many different names and a conical shape."
 msgstr ""
-"Da non confondere con il fagotto rinascimentale europeo <a href=\"/"
-"instrument/a0b1ba6b-6ea7-4489-a4af-c9e23d6e24da\">dulcian</a>.<br /> Di "
-"ampio uso nelle comunità spagnole, ha molti nomi diversi e una forma conica."
 
 #. name:melophone 
 #: DB:instrument/description:1022
@@ -2979,6 +3017,17 @@ msgstr ""
 "retro; entrambi sono azionati dallo stesso musicista, che spesso è anche un "
 "cantante. Ne esistono anche versioni verticali, seppur rare."
 
+#. name:tabor 
+#: DB:instrument/description:806
+msgid ""
+"Not to be confused with the <a href=\"/instrument/4431f7b0-69a4-49ee-"
+"b84f-15dda19fb70c\">tambourine</a>.<br /> For the Brazilian frame-drum hit "
+"with a whisk see <a href=\"/instrument/a96bbbd1-7e44-4e79-b12e-"
+"a03ac232db98\">tamborim</a>.<br /> Side drum, often with one or more snares, "
+"worn by one person and beaten by one hand, it is often combined with tabor "
+"pipes."
+msgstr ""
+
 #. name:ghijak 
 #: DB:instrument/description:932
 msgid ""
@@ -3007,28 +3056,15 @@ msgid ""
 "<br /> For the multiple bore free reed created in 1880 see Martinshorn.<br /"
 "> For the similarly named single-reed woodwind see <a href=\"/instrument/"
 "e3511ed1-3d73-4340-880f-c8ccc8eda11c\">chalumeau</a>.<br /> For the Japanese "
-"descendant named from Portuguese, see charumera.<br /> For the Catalan "
-"shawm, see <a href=\"/instrument/dffe56f5-cd75-4392-ad31-1c3abf2b8e37\"> "
-"tible </a>.<br /> For the Italian ciaramella see piffero.<br /> For the "
-"bagpipe, see xeremia.<br /><br /> European medieval and renaissance conical "
-"bore double-reed woodwind, two types evolved; one from Middle-eastern "
-"instruments and one from bagpipe chanters. A combination of both where used "
-"to develop the modern oboe."
+"descendant named from Portuguese, see <a href=\"/instrument/07b91470-"
+"b63e-41e4-88e6-11c4acac064f\">charumera</a>.<br /> For the Catalan shawm, "
+"see <a href=\"/instrument/dffe56f5-cd75-4392-ad31-1c3abf2b8e37\"> tible</a>."
+"<br /> For the Italian ciaramella see piffero.<br /> For the bagpipe, see "
+"xeremia.<br /><br /> European medieval and renaissance conical bore double-"
+"reed woodwind, two types evolved; one from Middle-eastern instruments and "
+"one from bagpipe chanters. A combination of both where used to develop the "
+"modern oboe."
 msgstr ""
-"Da non confondere con la zummara o con altri oboi ad ancia doppia dal nome "
-"simile.<br /> Per lo strumento a più canne e ad ancia libera creato nel "
-"1880, utilizza Martinshorn.<br /> Per lo strumento ad ancia singola della "
-"famiglia dei legni dal nome simile, utilizza <a href=\"/instrument/"
-"e3511ed1-3d73-4340-880f-c8ccc8eda11c\">salmoè</a>.<br /> Per il suo erede "
-"giapponese battezzato a partire dal portoghese, utilizza charumera.<br /> "
-"Per la ciaramella catalana, utilizza <a href=\"/instrument/dffe56f5-"
-"cd75-4392-ad31-1c3abf2b8e37\">tible</a>.<br /> Per la ciaramella italiana, "
-"utilizza piffero.<br /> Per la cornamusa, utilizza xeremia.<br /><br /> "
-"Strumento medievale e rinascimentale europeo della famiglia dei legni, a "
-"sezione conica e ad ancia doppia, si evolvette in due tipi: uno a partire "
-"dagli strumenti mediorientali e l'altro a partire dalle canne del canto "
-"delle cornamuse. Una combinazione di entrambi i tipi fu usata per sviluppare "
-"l'oboe moderno."
 
 #. name:oboe 
 #: DB:instrument/description:8
@@ -3777,15 +3813,6 @@ msgstr ""
 "Piccolo flauto (o fischietto) in legno usato per imitare il verso delle "
 "anatre."
 
-#. name:tabor 
-#: DB:instrument/description:806
-msgid ""
-"Side drum, often with one or more snares, worn by one person and beaten by "
-"one hand, it is often combined with tabor pipes."
-msgstr ""
-"Tipo di rullante, spesso con una o più corde, portato a tracolla e suonato a "
-"una mano; compare spesso in combinazione con il flauto a tre fori."
-
 #. name:celesta 
 #: DB:instrument/description:129
 msgid ""
@@ -4451,15 +4478,6 @@ msgstr ""
 "Cetra (zither) thailandese a corda pizzicata, a tre corde e a forma di "
 "coccodrillo."
 
-#. name:chalumeau 
-#: DB:instrument/description:436
-msgid ""
-"The chalumeau is a single-reed woodwind instrument of the late baroque and "
-"early classical era."
-msgstr ""
-"Strumento ad ancia singola della famiglia dei legni della tarda età barocca "
-"e prima età classicista."
-
 #. name:chande 
 #: DB:instrument/description:536
 msgid ""
@@ -4733,14 +4751,6 @@ msgid ""
 msgstr ""
 "Cetra (zither) tradizionale coreana basata sul guqin cinese, solitamente a 6 "
 "corde."
-
-#. name:gralla 
-#: DB:instrument/description:582
-msgid ""
-"The gralla is a traditional Catalan double reed instrument in the oboe "
-"family."
-msgstr ""
-"Strumento tradizionale catalano ad ancia doppia della famiglia degli oboi."
 
 #. name:guan 
 #: DB:instrument/description:683
@@ -6745,6 +6755,13 @@ msgstr ""
 "piatto, fori di risonanza a c e spalle spioventi come una viola da gamba. "
 "Risale al periodo barocco e ha fino a 14 corde."
 
+#. name:flageolet 
+#: DB:instrument/description:843
+msgid ""
+"While today it is obscure, it was developed and improved for 400 years. The "
+"French flageolet has 4 holes in front and two thumb holes in the back."
+msgstr ""
+
 #. name:porotiti 
 #: DB:instrument/description:862
 msgid ""
@@ -7300,15 +7317,6 @@ msgstr ""
 msgid "variety of bass guitars without frets"
 msgstr "Tipo di chitarra basso senza tasti"
 
-#. name:flageolet 
-#: DB:instrument/description:843
-msgid ""
-"while today it is obscure, it was developed and improved for 400 years, the "
-"French flageolet has 4 holes in front and two thumb holes in the back"
-msgstr ""
-"Oggi poco conosciuto, ma sviluppato e migliorato nel corso di 400 anni, il "
-"flagioletto francese ha 4 fori anteriori e 2 fori posteriori per i pollici."
-
 #. name:wind synthesizer 
 #: DB:instrument/description:560
 msgid ""
@@ -7330,20 +7338,86 @@ msgstr ""
 "Flauto in legno di tipo vecchio sistema (o sistema semplice), popolare nella "
 "musica tradizionale irlandese."
 
-#. name:English flageolet 
-#: DB:instrument/description:844
-msgid ""
-"working to improve on its design, the English flageolet had 6 finger holes "
-"in front and one thumb hole in the back."
-msgstr ""
-"Progettato come miglioramento del flagioletto, aveva 6 fori di diteggiatura "
-"anteriori e uno posteriore per il pollice."
-
 #. name:tube zither 
 #: DB:instrument/description:944
 msgid "zither with a hollow or vaulted body, it can have several resonators"
 msgstr ""
 "Cetra (zither) con una cassa cava o a volta, può avere più risuonatori."
+
+#~ msgid ""
+#~ "Not to be confused by the European renaissance bassoon <a href=\"/"
+#~ "instrument/a0b1ba6b-6ea7-4489-a4af-c9e23d6e24da\">dulcian</a>.<br /> "
+#~ "Widely used in Spanish communities it has many different names and a "
+#~ "conical shape."
+#~ msgstr ""
+#~ "Da non confondere con il fagotto rinascimentale europeo <a href=\"/"
+#~ "instrument/a0b1ba6b-6ea7-4489-a4af-c9e23d6e24da\">dulcian</a>.<br /> Di "
+#~ "ampio uso nelle comunità spagnole, ha molti nomi diversi e una forma "
+#~ "conica."
+
+#~ msgid ""
+#~ "Not to be confused with zummara or other double clarinets with similar "
+#~ "names.<br /> For the multiple bore free reed created in 1880 see "
+#~ "Martinshorn.<br /> For the similarly named single-reed woodwind see <a "
+#~ "href=\"/instrument/e3511ed1-3d73-4340-880f-c8ccc8eda11c\">chalumeau</a>."
+#~ "<br /> For the Japanese descendant named from Portuguese, see charumera."
+#~ "<br /> For the Catalan shawm, see <a href=\"/instrument/dffe56f5-"
+#~ "cd75-4392-ad31-1c3abf2b8e37\"> tible </a>.<br /> For the Italian "
+#~ "ciaramella see piffero.<br /> For the bagpipe, see xeremia.<br /><br /> "
+#~ "European medieval and renaissance conical bore double-reed woodwind, two "
+#~ "types evolved; one from Middle-eastern instruments and one from bagpipe "
+#~ "chanters. A combination of both where used to develop the modern oboe."
+#~ msgstr ""
+#~ "Da non confondere con la zummara o con altri oboi ad ancia doppia dal "
+#~ "nome simile.<br /> Per lo strumento a più canne e ad ancia libera creato "
+#~ "nel 1880, utilizza Martinshorn.<br /> Per lo strumento ad ancia singola "
+#~ "della famiglia dei legni dal nome simile, utilizza <a href=\"/instrument/"
+#~ "e3511ed1-3d73-4340-880f-c8ccc8eda11c\">salmoè</a>.<br /> Per il suo erede "
+#~ "giapponese battezzato a partire dal portoghese, utilizza charumera.<br /> "
+#~ "Per la ciaramella catalana, utilizza <a href=\"/instrument/dffe56f5-"
+#~ "cd75-4392-ad31-1c3abf2b8e37\">tible</a>.<br /> Per la ciaramella "
+#~ "italiana, utilizza piffero.<br /> Per la cornamusa, utilizza xeremia.<br /"
+#~ "><br /> Strumento medievale e rinascimentale europeo della famiglia dei "
+#~ "legni, a sezione conica e ad ancia doppia, si evolvette in due tipi: uno "
+#~ "a partire dagli strumenti mediorientali e l'altro a partire dalle canne "
+#~ "del canto delle cornamuse. Una combinazione di entrambi i tipi fu usata "
+#~ "per sviluppare l'oboe moderno."
+
+#~ msgid ""
+#~ "Side drum, often with one or more snares, worn by one person and beaten "
+#~ "by one hand, it is often combined with tabor pipes."
+#~ msgstr ""
+#~ "Tipo di rullante, spesso con una o più corde, portato a tracolla e "
+#~ "suonato a una mano; compare spesso in combinazione con il flauto a tre "
+#~ "fori."
+
+#~ msgid ""
+#~ "The chalumeau is a single-reed woodwind instrument of the late baroque "
+#~ "and early classical era."
+#~ msgstr ""
+#~ "Strumento ad ancia singola della famiglia dei legni della tarda età "
+#~ "barocca e prima età classicista."
+
+#~ msgid ""
+#~ "The gralla is a traditional Catalan double reed instrument in the oboe "
+#~ "family."
+#~ msgstr ""
+#~ "Strumento tradizionale catalano ad ancia doppia della famiglia degli oboi."
+
+#~ msgid ""
+#~ "while today it is obscure, it was developed and improved for 400 years, "
+#~ "the French flageolet has 4 holes in front and two thumb holes in the back"
+#~ msgstr ""
+#~ "Oggi poco conosciuto, ma sviluppato e migliorato nel corso di 400 anni, "
+#~ "il flagioletto francese ha 4 fori anteriori e 2 fori posteriori per i "
+#~ "pollici."
+
+#~ msgid ""
+#~ "working to improve on its design, the English flageolet had 6 finger "
+#~ "holes in front and one thumb hole in the back."
+#~ msgstr ""
+#~ "Progettato come miglioramento del flagioletto, aveva 6 fori di "
+#~ "diteggiatura anteriori e uno posteriore per il pollice."
 
 #~ msgid ""
 #~ "The dulcian is a double reed bass woodwind instrument which is a 16th "

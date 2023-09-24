@@ -26,8 +26,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
-" ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
+"0) ? 1 : 2);\n"
 "X-Generator: Weblate 4.18.2\n"
 
 #: DB:instrument/name:438
@@ -102,9 +102,9 @@ msgid "English concertina"
 msgstr "concertina inglese"
 
 #: DB:instrument/name:844
-msgctxt "English \"improved\" flageolet"
+msgctxt "1800's improved flageolet"
 msgid "English flageolet"
-msgstr "flagioletto inglese"
+msgstr ""
 
 #: DB:instrument/name:30
 msgid "French horn"
@@ -951,8 +951,9 @@ msgid "chakhe"
 msgstr "chakhe"
 
 #: DB:instrument/name:436
+msgctxt "Baroque/classical predecessor of the clarinet"
 msgid "chalumeau"
-msgstr "salmoè"
+msgstr ""
 
 #: DB:instrument/name:471
 msgid "chamber organ"
@@ -979,6 +980,11 @@ msgstr "chap"
 msgctxt "Small Andean lute"
 msgid "charango"
 msgstr "charango"
+
+#: DB:instrument/name:1150
+msgctxt "Japanese double-reed"
+msgid "charumera"
+msgstr ""
 
 #: DB:instrument/name:640
 msgid "chau gong"
@@ -1532,9 +1538,9 @@ msgid "flabiol"
 msgstr "flabiol"
 
 #: DB:instrument/name:843
-msgctxt "french 16th century fipple flute"
+msgctxt "French 16th century fipple flute"
 msgid "flageolet"
-msgstr "flagioletto"
+msgstr ""
 
 #: DB:instrument/name:938
 msgctxt "Guitar used in flamenco"
@@ -1799,8 +1805,9 @@ msgid "gopichant"
 msgstr "gopichand"
 
 #: DB:instrument/name:582
+msgctxt "Catalan dulzaina"
 msgid "gralla"
-msgstr "gralla"
+msgstr ""
 
 #: DB:instrument/name:748
 msgid "gramorimba"
@@ -2127,9 +2134,9 @@ msgid "kamancheh"
 msgstr "kamancheh"
 
 #: DB:instrument/name:474
-msgctxt "South Indian frame drum."
+msgctxt "South Indian frame drum"
 msgid "kanjira"
-msgstr "kanjira"
+msgstr ""
 
 #: DB:instrument/name:422
 msgctxt "Traditional Lithuanian plucked psaltery"
@@ -4575,6 +4582,24 @@ msgstr "żaqq"
 msgctxt "Maltese mirliton"
 msgid "żummara"
 msgstr "żummara"
+
+#~ msgctxt "English \"improved\" flageolet"
+#~ msgid "English flageolet"
+#~ msgstr "flagioletto inglese"
+
+#~ msgid "chalumeau"
+#~ msgstr "salmoè"
+
+#~ msgctxt "french 16th century fipple flute"
+#~ msgid "flageolet"
+#~ msgstr "flagioletto"
+
+#~ msgid "gralla"
+#~ msgstr "gralla"
+
+#~ msgctxt "South Indian frame drum."
+#~ msgid "kanjira"
+#~ msgstr "kanjira"
 
 #~ msgid "dulcian"
 #~ msgstr "dulciana"

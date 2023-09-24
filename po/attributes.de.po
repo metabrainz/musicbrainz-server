@@ -658,6 +658,12 @@ msgstr ""
 "Eine Reihe von zusammengehörigen Konzerten des selben Künstlers am selben "
 "Ort."
 
+#: DB:series_type/description:80
+msgctxt "series_type"
+msgid ""
+"A series of release groups containing episodes of the same podcast series."
+msgstr ""
+
 #: DB:series_type/description:47
 msgctxt "series_type"
 msgid "A series of release groups honoured by the same award."
@@ -1210,6 +1216,11 @@ msgstr ""
 "Gegensatz zur Oper ausschließlich konzertant aufgeführt, die Handlung findet "
 "also nur in den Texten und in der Musik - ohne Kostüme oder Requisiten - "
 "statt."
+
+#: DB:label_type/description:8
+msgctxt "label_type"
+msgid "An organization which collects royalties on behalf of artists."
+msgstr ""
 
 #: DB:work_type/description:12
 msgctxt "work_type"
@@ -6251,6 +6262,11 @@ msgstr ""
 msgctxt "medium_format"
 msgid "Playbutton"
 msgstr "Playbutton"
+
+#: DB:series_type/name:80
+msgctxt "series_type"
+msgid "Podcast"
+msgstr ""
 
 #: DB:work_type/name:21
 msgctxt "work_type"

@@ -28,9 +28,13 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
-" ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
+"0) ? 1 : 2);\n"
 "X-Generator: Weblate 4.18.2\n"
+
+#: DB:link_attribute_type/description:1355
+msgid "A performance-centered, usually one to three year postgraduate program."
+msgstr ""
 
 #: DB:link_type/description:218
 msgid ""
@@ -909,11 +913,9 @@ msgstr ""
 
 #: DB:link_type/description:1181
 msgid ""
-"Links a release to the area it was transferred in. Use only when the place "
-"is unknown!"
+"Links a release to the area it was transferred in (for example from an old "
+"tape to digital). Use only when the place is unknown!"
 msgstr ""
-"Collega una pubblicazione all'area in cui è stata trasferita. Da usare solo "
-"quando il luogo è sconosciuto!"
 
 #: DB:link_type/description:967
 msgid ""
@@ -977,8 +979,10 @@ msgid "Links a release to the place it was remixed at."
 msgstr "Collega una pubblicazione al luogo in cui è stata remixata."
 
 #: DB:link_type/description:1182
-msgid "Links a release to the place it was transferred at."
-msgstr "Collega una pubblicazione al luogo in cui è stata trasferita."
+msgid ""
+"Links a release to the place it was transferred at (for example from an old "
+"tape to digital)."
+msgstr ""
 
 #: DB:link_type/description:954
 msgid ""
@@ -1731,7 +1735,7 @@ msgstr ""
 "pubblicazione. Per il remissaggio, utilizza <a href=\"/relationship/ac6a86db-"
 "f757-4815-a07e-744428d2382b\" target=\"_blank\">remixer</a>."
 
-#: DB:link_type/description:138 DB:link_type/description:28
+#: DB:link_type/description:28 DB:link_type/description:138
 msgid "This describes an engineer who performed a general engineering role."
 msgstr "Indica un tecnico che ha eseguito un ruolo tecnico generico."
 
@@ -2305,11 +2309,11 @@ msgstr ""
 "Indica che l'artista è stato il proprietario di questo luogo (spesso uno "
 "studio, ma talvolta un locale)."
 
-#: DB:link_type/description:297 DB:link_type/description:298
-#: DB:link_type/description:296 DB:link_type/description:295
-#: DB:link_type/description:158 DB:link_type/description:41
-#: DB:link_type/description:294 DB:link_type/description:293
-#: DB:link_type/description:282
+#: DB:link_type/description:295 DB:link_type/description:41
+#: DB:link_type/description:296 DB:link_type/description:297
+#: DB:link_type/description:298 DB:link_type/description:158
+#: DB:link_type/description:294 DB:link_type/description:282
+#: DB:link_type/description:293
 msgid ""
 "This indicates the artist who arranged a tune into a form suitable for "
 "performance. 'Arrangement' is used as a catch-all term for all processes "
@@ -5007,7 +5011,7 @@ msgstr "arrangiamento di"
 msgid "arrangements"
 msgstr "arrangiamenti"
 
-#: DB:link_type/name:297 DB:link_type/name:295 DB:link_type/name:293
+#: DB:link_type/name:295 DB:link_type/name:297 DB:link_type/name:293
 msgid "arranger"
 msgstr "arrangiatore"
 
@@ -5040,6 +5044,10 @@ msgstr "galleria d'arte per"
 #: DB:link_type/reverse_link_phrase:135 DB:link_type/reverse_link_phrase:62
 msgid "artist & repertoire support"
 msgstr "supporto artisti & repertorio (A&R)"
+
+#: DB:link_attribute_type/name:1355
+msgid "artist diploma"
+msgstr ""
 
 #: DB:link_type/name:1079
 msgid "artist rename"
@@ -5723,7 +5731,7 @@ msgstr "musica elettronica"
 msgid "emeritus"
 msgstr "emerito"
 
-#: DB:link_type/name:1084 DB:link_type/name:138 DB:link_type/name:28
+#: DB:link_type/name:1084 DB:link_type/name:28 DB:link_type/name:138
 msgid "engineer"
 msgstr "tecnico"
 
@@ -6429,7 +6437,7 @@ msgstr "ha ispirato il nome di"
 msgid "instrument"
 msgstr "strumento"
 
-#: DB:link_type/name:158 DB:link_type/name:41 DB:link_type/name:282
+#: DB:link_type/name:41 DB:link_type/name:158 DB:link_type/name:282
 msgid "instrument arranger"
 msgstr "arrangiatore strumentale"
 
@@ -8484,7 +8492,7 @@ msgstr "partecipazioni in video"
 msgid "vocal"
 msgstr "vocale"
 
-#: DB:link_type/name:298 DB:link_type/name:296 DB:link_type/name:294
+#: DB:link_type/name:296 DB:link_type/name:298 DB:link_type/name:294
 msgid "vocal arranger"
 msgstr "arrangiatore vocale"
 
@@ -8883,8 +8891,8 @@ msgstr ""
 "è stato un {assistant:assistente} {co:co-}tecnico di trasferimento "
 "{associate:associato} {additional:aggiunto} su"
 
-#: DB:link_type/link_phrase:138 DB:link_type/link_phrase:28
-#: DB:link_type/long_link_phrase:138 DB:link_type/long_link_phrase:28
+#: DB:link_type/link_phrase:28 DB:link_type/link_phrase:138
+#: DB:link_type/long_link_phrase:28 DB:link_type/long_link_phrase:138
 msgid ""
 "{additional:additionally} {assistant} {associate} {co:co-}{executive:"
 "executive }engineered"
@@ -8909,35 +8917,42 @@ msgstr ""
 "è stato un {assistant:assistente} {co:co-}tecnico di {pre:pre-}{re}mastering "
 "{associate:associato} {additional:aggiunto} su"
 
-#: DB:link_type/link_phrase:297 DB:link_type/link_phrase:295
-#: DB:link_type/link_phrase:293 DB:link_type/long_link_phrase:297
-#: DB:link_type/long_link_phrase:295 DB:link_type/long_link_phrase:293
-msgid "{additional:additionally} {co:co-}arranged"
-msgstr "ha {co:co-}arrangiato {additional:in aggiunta}"
+#: DB:link_type/link_phrase:295 DB:link_type/link_phrase:297
+#: DB:link_type/link_phrase:293 DB:link_type/long_link_phrase:295
+#: DB:link_type/long_link_phrase:297 DB:link_type/long_link_phrase:293
+msgid "{additional:additionally} {associate} {co:co-}arranged"
+msgstr ""
 
-#: DB:link_type/long_link_phrase:158 DB:link_type/long_link_phrase:41
+#: DB:link_type/long_link_phrase:41 DB:link_type/long_link_phrase:158
 #: DB:link_type/long_link_phrase:282
 msgid ""
-"{additional:additionally} {co:co-}arranged {instrument:%|instruments} on"
+"{additional:additionally} {associate} {co:co-}arranged {instrument:%|"
+"instruments} on"
 msgstr ""
-"ha {co:co-}arrangiato {additional:in aggiunta} {instrument:%|strumenti} su"
 
-#: DB:link_type/long_link_phrase:298 DB:link_type/long_link_phrase:296
+#: DB:link_type/long_link_phrase:296 DB:link_type/long_link_phrase:298
 #: DB:link_type/long_link_phrase:294
-msgid "{additional:additionally} {co:co-}arranged {vocal:%|vocals} on"
-msgstr "ha {co:co-}arrangiato {additional:in aggiunta} {vocal:%|vocali} su"
+msgid ""
+"{additional:additionally} {associate} {co:co-}arranged {vocal:%|vocals} on"
+msgstr ""
+
+#: DB:link_type/link_phrase:41 DB:link_type/link_phrase:158
+#: DB:link_type/link_phrase:282
+msgid ""
+"{additional:additionally} {associate} {instrument:%|instruments} {co:co-}"
+"arranged"
+msgstr ""
+
+#: DB:link_type/link_phrase:296 DB:link_type/link_phrase:298
+#: DB:link_type/link_phrase:294
+msgid "{additional:additionally} {associate} {vocal:%|vocals} {co:co-}arranged"
+msgstr ""
 
 #: DB:link_type/link_phrase:51 DB:link_type/link_phrase:156
 #: DB:link_type/long_link_phrase:51 DB:link_type/long_link_phrase:156
 msgid "{additional:additionally} {guest} {solo} performed"
 msgstr ""
 "ha eseguito {solo:da solista} {guest:da ospite} {additional:in aggiunta}"
-
-#: DB:link_type/link_phrase:158 DB:link_type/link_phrase:41
-#: DB:link_type/link_phrase:282
-msgid "{additional:additionally} {instrument:%|instruments} {co:co-}arranged"
-msgstr ""
-"ha {co:co-}arrangiato {additional:in aggiunta} {instrument:%|strumenti}"
 
 #: DB:link_type/reverse_link_phrase:697
 msgid "{additional:additionally} {pre:pre-}{re}mastered at"
@@ -8946,11 +8961,6 @@ msgstr "{pre:pre-}{re}mastering effettuato {additional:in aggiunta} presso"
 #: DB:link_type/reverse_link_phrase:756
 msgid "{additional:additionally} {pre:pre-}{re}mastered in"
 msgstr "{pre:pre-}{re}mastering effettuato {additional:in aggiunta} a"
-
-#: DB:link_type/link_phrase:298 DB:link_type/link_phrase:296
-#: DB:link_type/link_phrase:294
-msgid "{additional:additionally} {vocal:%|vocals} {co:co-}arranged"
-msgstr "ha {co:co-}arrangiato {additional:in aggiunta} {vocal:%|vocali}"
 
 #: DB:link_type/link_phrase:885 DB:link_type/link_phrase:886
 msgid "{additional} arranging location for"
@@ -9192,7 +9202,7 @@ msgstr ""
 "{assistant:assistente} {co:co-}tecnico di trasferimento {associate:"
 "associato} {additional:aggiunto}"
 
-#: DB:link_type/reverse_link_phrase:138 DB:link_type/reverse_link_phrase:28
+#: DB:link_type/reverse_link_phrase:28 DB:link_type/reverse_link_phrase:138
 msgid ""
 "{additional} {assistant} {associate} {co:co-}{executive:executive }engineer"
 msgstr ""
@@ -9219,10 +9229,20 @@ msgstr ""
 "{assistant:assistente alla} programmazione {instrument:degli strumenti} "
 "{associate:associata} {additional:aggiuntiva}"
 
-#: DB:link_type/reverse_link_phrase:297 DB:link_type/reverse_link_phrase:295
+#: DB:link_type/reverse_link_phrase:295 DB:link_type/reverse_link_phrase:297
 #: DB:link_type/reverse_link_phrase:293
-msgid "{additional} {co:co-}arranger"
-msgstr "{co:co-}arrangiatore {additional:aggiunto}"
+msgid "{additional} {associate} {co:co-}arranger"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:41 DB:link_type/reverse_link_phrase:158
+#: DB:link_type/reverse_link_phrase:282
+msgid "{additional} {associate} {instrument:%|instruments} {co:co-}arranger"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:296 DB:link_type/reverse_link_phrase:298
+#: DB:link_type/reverse_link_phrase:294
+msgid "{additional} {associate} {vocal:%|vocals} {co:co-}arranger"
+msgstr ""
 
 #: DB:link_type/reverse_link_phrase:51 DB:link_type/reverse_link_phrase:156
 msgid "{additional} {guest} {solo} performer"
@@ -9238,11 +9258,6 @@ msgstr ""
 #: DB:link_type/reverse_link_phrase:60 DB:link_type/reverse_link_phrase:149
 msgid "{additional} {guest} {solo} {vocal:%|vocals}"
 msgstr "{vocal:%|vocali} {solo:solista} {guest:ospite} {additional:aggiunto}"
-
-#: DB:link_type/reverse_link_phrase:158 DB:link_type/reverse_link_phrase:41
-#: DB:link_type/reverse_link_phrase:282
-msgid "{additional} {instrument:%|instruments} {co:co-}arranger"
-msgstr "{co:co-}arrangiatore {instrument:%|strumenti} {additional:aggiunto}"
 
 #: DB:link_type/link_phrase:102
 msgid "{additional} {minor} collaborator on"
@@ -9264,11 +9279,6 @@ msgstr "membri {eponymous:eponimi} {original:originari} {additional:aggiunti}"
 #: DB:link_type/link_phrase:756 DB:link_type/link_phrase:697
 msgid "{additional} {pre:pre-}{re}mastering location for"
 msgstr "luogo {additional:aggiuntivo} di {pre:pre-}{re}mastering per"
-
-#: DB:link_type/reverse_link_phrase:298 DB:link_type/reverse_link_phrase:296
-#: DB:link_type/reverse_link_phrase:294
-msgid "{additional} {vocal:%|vocals} {co:co-}arranger"
-msgstr "{co:co-}arrangiatore {vocal:%|vocali} {additional:aggiunto}"
 
 #: DB:link_type/reverse_link_phrase:888
 msgid "{anniversary:anniversary tour for|tour in support of}"
@@ -9784,6 +9794,44 @@ msgstr "supporto {vocal:%|vocali} da parte di"
 #: DB:link_type/link_phrase:107
 msgid "{vocal:%|vocals} support for"
 msgstr "supporto {vocal:%|vocali} per"
+
+#~ msgid ""
+#~ "Links a release to the area it was transferred in. Use only when the "
+#~ "place is unknown!"
+#~ msgstr ""
+#~ "Collega una pubblicazione all'area in cui è stata trasferita. Da usare "
+#~ "solo quando il luogo è sconosciuto!"
+
+#~ msgid "Links a release to the place it was transferred at."
+#~ msgstr "Collega una pubblicazione al luogo in cui è stata trasferita."
+
+#~ msgid "{additional:additionally} {co:co-}arranged"
+#~ msgstr "ha {co:co-}arrangiato {additional:in aggiunta}"
+
+#~ msgid ""
+#~ "{additional:additionally} {co:co-}arranged {instrument:%|instruments} on"
+#~ msgstr ""
+#~ "ha {co:co-}arrangiato {additional:in aggiunta} {instrument:%|strumenti} su"
+
+#~ msgid "{additional:additionally} {co:co-}arranged {vocal:%|vocals} on"
+#~ msgstr "ha {co:co-}arrangiato {additional:in aggiunta} {vocal:%|vocali} su"
+
+#~ msgid ""
+#~ "{additional:additionally} {instrument:%|instruments} {co:co-}arranged"
+#~ msgstr ""
+#~ "ha {co:co-}arrangiato {additional:in aggiunta} {instrument:%|strumenti}"
+
+#~ msgid "{additional:additionally} {vocal:%|vocals} {co:co-}arranged"
+#~ msgstr "ha {co:co-}arrangiato {additional:in aggiunta} {vocal:%|vocali}"
+
+#~ msgid "{additional} {co:co-}arranger"
+#~ msgstr "{co:co-}arrangiatore {additional:aggiunto}"
+
+#~ msgid "{additional} {instrument:%|instruments} {co:co-}arranger"
+#~ msgstr "{co:co-}arrangiatore {instrument:%|strumenti} {additional:aggiunto}"
+
+#~ msgid "{additional} {vocal:%|vocals} {co:co-}arranger"
+#~ msgstr "{co:co-}arrangiatore {vocal:%|vocali} {additional:aggiunto}"
 
 #~ msgid "{additional:additionally} remixed"
 #~ msgstr "ha remixato {additional:in aggiunta}"

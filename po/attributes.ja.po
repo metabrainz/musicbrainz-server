@@ -601,6 +601,12 @@ msgctxt "series_type"
 msgid "A series of related concerts by an artist in the same location."
 msgstr "同じ場所でのアーティストによる一連の関連コンサート。"
 
+#: DB:series_type/description:80
+msgctxt "series_type"
+msgid ""
+"A series of release groups containing episodes of the same podcast series."
+msgstr ""
+
 #: DB:series_type/description:47
 msgctxt "series_type"
 msgid "A series of release groups honoured by the same award."
@@ -1123,6 +1129,11 @@ msgstr ""
 "オラトリオは、オーケストラ、合唱団、ソリストを含む大規模な（通常は神聖な）楽"
 "曲のことである。 キャラクターとプロットを持っていますが、通常劇場で上演されな"
 "い（それは衣装、小道具、そして強いキャラクターの相互作用を欠いている）。"
+
+#: DB:label_type/description:8
+msgctxt "label_type"
+msgid "An organization which collects royalties on behalf of artists."
+msgstr ""
 
 #: DB:work_type/description:12
 msgctxt "work_type"
@@ -6155,6 +6166,11 @@ msgstr ""
 msgctxt "medium_format"
 msgid "Playbutton"
 msgstr "PLAYBUTTON"
+
+#: DB:series_type/name:80
+msgctxt "series_type"
+msgid "Podcast"
+msgstr ""
 
 #: DB:work_type/name:21
 msgctxt "work_type"
