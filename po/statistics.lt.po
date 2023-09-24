@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-09-17 12:27+0000\n"
+"PO-Revision-Date: 2023-09-24 15:27+0000\n"
 "Last-Translator: \"Vac31.\" <gateway_31@protonmail.com>\n"
 "Language-Team: Lithuanian <https://translations.metabrainz.org/projects/"
 "musicbrainz/statistics/lt/>\n"
@@ -55,12 +55,16 @@ msgid ""
 "A change is introduced that allows voting for and against existing "
 "folksonomy tags, rather than only adding your own."
 msgstr ""
+"Įvestas pakeitimas, leidžiantis balsuoti už ir prieš esamas folksonomijos "
+"žymas, o ne tik pridėti savo."
 
 #: DB:statistics.statistic_event/description:2018-07-19
 msgid ""
 "A major update for the Picard tagger is released, with a huge amount of "
 "bugfixes and improvements."
 msgstr ""
+"Išleistas didelis Picard žymeklio atnaujinimas, kuriame ištaisyta daugybė "
+"klaidų ir patobulinimų."
 
 #: DB:statistics.statistic_event/description:2019-11-12
 msgid ""
@@ -77,20 +81,24 @@ msgid ""
 "A new AJAX coverart uploader is released, making it easier to add cover art "
 "to releases."
 msgstr ""
+"Išleistas naujas AJAX viršelių įkėlėjas, kuris palengvina leidinių viršelių "
+"pridėjimą."
 
 #: DB:statistics.statistic_event/description:2015-12-28
 msgid ""
 "A new banner message now notifies users whenever they receive a new edit "
 "note."
 msgstr ""
+"Nauja banerio žinutė dabar informuoja naudotojus, kai jie gauna naują "
+"redagavimo užrašą."
 
 #: DB:statistics.statistic_event/description:2003-04-05
 msgid "A new, much faster search mechanism is added."
-msgstr ""
+msgstr "Pridėtas naujas, daug greitesnis paieškos mechanizmas."
 
 #: DB:statistics.statistic_event/description:2006-08-15
 msgid "A rift in the MusicBrainz community leads to a Great Dispute."
-msgstr ""
+msgstr "Dėl nesutarimų MusicBrainz bendruomenėje kilo Didysis Ginčas."
 
 #: DB:statistics.statistic_event/description:2013-05-15
 msgid ""
@@ -98,11 +106,14 @@ msgid ""
 "support for ISNI codes for artists and labels, and the possibility to have "
 "more than one release event on one release."
 msgstr ""
+"Labai svarbus schemos pakeitimo leidimas pridėta naujo subjekto tipą "
+"(vietovės), palaikomi atlikėjų ir leidyklų ISNI kodai, taip pat suteikiama "
+"galimybė viename leidinyje turėti daugiau nei vieną leidimo įvykį."
 
 #: DB:statistics.statistic_event/description:2003-11-10
 msgid ""
 "A way to search for edits based on several different criteria is released."
-msgstr ""
+msgstr "Išleista galimybė ieškoti redagavimų pagal kelis skirtingus kriterijus."
 
 #: DB:statistics.statistic_event/description:2014-11-19
 msgid ""
@@ -110,10 +121,13 @@ msgid ""
 "is announced in cooperation with the Music Technology Group at Universitat "
 "Pompeu Fabra."
 msgstr ""
+"AcousticBrainz, kurios tikslas – sutelktinai kaupti akustinę informaciją "
+"apie muziką, paskelbta bendradarbiaujant su Muzikos technologijų grupe "
+"Pompeu Fabra universitete."
 
 #: DB:statistics.statistic_event/title:2005-04-10
 msgid "Advanced relationships"
-msgstr ""
+msgstr "Išplėstiniai ryšiai"
 
 #: DB:statistics.statistic_event/description:2005-04-10
 msgid ""
@@ -121,6 +135,10 @@ msgid ""
 "relased and unused TRMs pruned from the database. Inline editing is turned "
 "off by default, causing a drop in voting activity."
 msgstr ""
+"Išplėstiniai ryšiai, leidžiantys naudotojams sujungti pagrindines duomenų "
+"subjektus, yra išleisti, o nenaudojami TRM pašalinami iš duomenų bazės. "
+"Pagal numatytuosius nustatymus išjungiamas vidinis redagavimas, dėl to "
+"sumažėja balsavimo aktyvumas."
 
 #: DB:statistics.statistic_event/description:2019-06-25
 msgid ""
@@ -130,17 +148,26 @@ msgid ""
 "avoid further issues until Wikimedia makes changes that make image reuse "
 "more safe."
 msgstr ""
+"Po daugybės užkulisinių dramų MetaBrainz laimi teisinį mūšį prieš autorių "
+"teisių trolius, kurie bandė pateikti ieškinį dėl Vikitekos paveikslėlių "
+"naudojimo. Paveikslėliai vis dar atsisakomi MetaBrainz svetainėse, kad būtų "
+"išvengta tolesnių problemų, kol Vikiteka atliks pakeitimus, kurie padidins "
+"pakartotinio paveikslėlių naudojimo saugumą."
 
 #: DB:statistics.statistic_event/description:2011-11-23
 msgid ""
 "After a lot of debate, relationship data starts being displayed on release "
 "pages, making it a lot more visible."
 msgstr ""
+"Po ilgų diskusijų santykių rūšių duomenys pradedami rodyti leidinio "
+"puslapiuose, todėl jie tampa daug labiau matomi."
 
 #: DB:statistics.statistic_event/description:2012-09-01
 msgid ""
 "After a successful Summer of Code, Ian McEwen joins the MusicBrainz team"
 msgstr ""
+"Po sėkmingos Summer of Code prie MusicBrainz komandos prisijungė Ianas "
+"Makevenas"
 
 #: DB:statistics.statistic_event/description:2016-11-08
 msgid ""
@@ -1135,7 +1162,7 @@ msgstr ""
 #: ../root/statistics/layout.tt:4 ../root/statistics/CoverArt.js:67
 #: ../root/statistics/StatisticsLayout.js:60 ../root/statistics/stats.js:21
 msgid "Cover Art"
-msgstr "Viršelio paveikslėlis"
+msgstr "Viršelis"
 
 #: ../root/statistics/layout.tt:23 ../root/statistics/layout.tt:34
 #: ../root/statistics/StatisticsLayout.js:96
@@ -1704,7 +1731,7 @@ msgstr ""
 
 #: ../root/statistics/Index.js:516 ../root/statistics/stats.js:283
 msgid "Disc IDs"
-msgstr ""
+msgstr "Diskų ID"
 
 #: ../root/statistics/Index.js:530
 msgid "Releases with no disc IDs:"
@@ -2121,7 +2148,7 @@ msgstr ""
 
 #: ../root/statistics/stats.js:23
 msgid "Edit Types"
-msgstr ""
+msgstr "Redaguoti tipus"
 
 #: ../root/statistics/stats.js:24
 msgid "Event Types"
@@ -2954,4 +2981,4 @@ msgstr ""
 
 #: ../root/statistics/utilities.js:40
 msgid "See on timeline"
-msgstr ""
+msgstr "Žiūrėti laiko juostoje"

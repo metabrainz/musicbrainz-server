@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-09-19 19:05+0300\n"
-"PO-Revision-Date: 2023-09-17 12:27+0000\n"
+"PO-Revision-Date: 2023-09-24 15:27+0000\n"
 "Last-Translator: \"Vac31.\" <gateway_31@protonmail.com>\n"
 "Language-Team: Lithuanian <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/lt/>\n"
@@ -21,8 +21,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
-"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
-"1 : n % 1 != 0 ? 2: 3);\n"
+"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 :"
+" n % 1 != 0 ? 2: 3);\n"
 "X-Generator: Weblate 5.0.2\n"
 
 #: ../root/components/common-macros.tt:12
@@ -149,7 +149,7 @@ msgid ""
 "tracklist appears correct, you may use it as a starting point as a new "
 "MusicBrainz release"
 msgstr ""
-"Buvo rastas CD šaknelė, atitinkanti tavo pateiktą disko ID. Jei toliau "
+"Buvo rastas CD atplaiša, atitinkanti tavo pateiktą disko ID. Jei toliau "
 "pateiktas takelių sąrašas atrodo teisingas, gali naudoti jį kaip pradinį "
 "tašką naujai MusicBrainz leidiniui"
 
@@ -348,11 +348,11 @@ msgstr "Įvyko klaida: "
 
 #: ../root/release/edit/information.tt:249
 msgid "Annotation:"
-msgstr ""
+msgstr "Anotacija:"
 
 #: ../root/edit/search_macros.tt:423
 msgid "Applied Edit Count of Editor"
-msgstr ""
+msgstr "Taikomas redaktoriaus (-ės) redagavimo skaičius"
 
 #: ../root/edit/search_macros.tt:291 ../root/edit/search_macros.tt:307
 #: ../lib/MusicBrainz/Server/Data/Vote.pm:178
@@ -379,11 +379,11 @@ msgstr ""
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:48
 #: ../root/user/UserProfile.js:49
 msgid "Area"
-msgstr "Vieta"
+msgstr "Vietovė"
 
 #: ../root/area/edit_form.tt:8
 msgid "Area Details"
-msgstr ""
+msgstr "Duomenys apie vietovę"
 
 #: ../root/artist/edit_form.tt:20 ../root/label/edit_form.tt:18
 #: ../root/place/edit_form.tt:19
@@ -391,7 +391,7 @@ msgstr ""
 #: ../root/layout/components/sidebar/LabelSidebar.js:87
 #: ../root/layout/components/sidebar/PlaceSidebar.js:88
 msgid "Area:"
-msgstr ""
+msgstr "Vietovė:"
 
 #: ../root/cdstub/cdstub.tt:7 ../root/cdtoc/attach_filter_release.tt:29
 #: ../root/cdtoc/list.tt:8 ../root/cdtoc/lookup.tt:42
@@ -451,11 +451,11 @@ msgstr "Atlikėjas (-a)"
 
 #: ../root/edit/search_macros.tt:423
 msgid "Artist Area"
-msgstr ""
+msgstr "Atlikėjo vietovė"
 
 #: ../root/artist/edit_form.tt:10
 msgid "Artist Details"
-msgstr ""
+msgstr "Duomenys apie atlikėją"
 
 #: ../root/cdtoc/lookup.tt:75 ../root/release/edit/information.tt:26
 #: ../root/release/edit/tracklist.tt:110
@@ -474,7 +474,7 @@ msgstr "Atlikėjas (-a):"
 #: ../root/cdtoc/attach_filter_release.tt:54
 msgctxt "button/menu"
 msgid "Attach CD TOC"
-msgstr ""
+msgstr "Pridėti CD TOC"
 
 #: ../root/cdtoc/attach_artist_releases.tt:3
 #: ../root/cdtoc/attach_artist_releases.tt:4
@@ -485,19 +485,19 @@ msgstr ""
 #: ../root/cdtoc/SelectArtistForCDToc.js:32
 msgctxt "header"
 msgid "Attach CD TOC"
-msgstr ""
+msgstr "Pridėti CD TOC"
 
 #: ../root/cdtoc/lookup.tt:66 ../root/release/edit/tracklist.tt:478
 msgid "Attach Disc ID"
-msgstr ""
+msgstr "Pridėti disko ID"
 
 #: ../root/cdtoc/index.tt:8
 msgid "Attached to releases"
-msgstr ""
+msgstr "Pridėta prie leidinių"
 
 #: ../root/relationship/linktype/form.tt:52
 msgid "Attributes:"
-msgstr ""
+msgstr "Atributai:"
 
 #: ../root/edit/search_macros.tt:397
 msgid "Auto-Editor"
@@ -534,6 +534,8 @@ msgid ""
 "Based on the above CD stub, we also found the following releases in "
 "MusicBrainz that may be related:"
 msgstr ""
+"Remiantis aukščiau pateikta CD atplaiša, MusicBrainz taip pat radome šiuos "
+"leidinius, kurie gali būti susiję:"
 
 #: ../root/release/edit/duplicates.tt:4
 msgid ""
@@ -541,13 +543,13 @@ msgid ""
 "similar release to already exist in MusicBrainz. If you wish to base your "
 "release on an existing release, select it below."
 msgstr ""
-"Remdamiesi (-asi) tavo pateikta informacija, nustatėme, kad MusicBrainz jau "
+"Remiantis tavo pateikta informacija, nustatėme, kad MusicBrainz jau "
 "egzistuoja šis panašus leidinys. Jei nori, kad tavo leidinys būtų paremtas "
 "jau egzistuojančiu leidiniu, pasirink jį toliau."
 
 #: ../root/artist/edit_form.tt:42
 msgid "Begin Area:"
-msgstr "Pradžios vieta:"
+msgstr "Pradžios vietovę:"
 
 #: ../root/artist/edit_form.tt:38 ../root/components/forms.tt:212
 #: ../root/event/edit_form.tt:36 ../root/artist/utils.js:34
@@ -588,8 +590,8 @@ msgid ""
 "Brought to you by {MeB|MetaBrainz Foundation} and our {spon|sponsors} and "
 "{supp|supporters}. Cover Art provided by the {caa|Cover Art Archive}."
 msgstr ""
-"Pateikia {MeB|MetaBrainz fondas} ir mūsų {spon|rėmėjai} bei {supp|"
-"palaikytojai}. Viršelio paveikslėlį pateikė {caa|Cover Art Archive}."
+"Pateikia {MeB|MetaBrainz fondas} ir mūsų {spon|rėmėjai} bei "
+"{supp|palaikytojai}. Viršelį pateikė {caa|Cover Art Archive}."
 
 #: ../root/layout.tt:115 ../root/layout/components/Footer.js:32
 #: ../root/main/index.js:209
@@ -602,23 +604,23 @@ msgstr "Pagal numatytuosius nustatymus parseris tikisi tokio formato:"
 
 #: ../root/cdtoc/lookup.tt:21
 msgid "CD Stub found"
-msgstr ""
+msgstr "Rasta CD atplaiša"
 
 #: ../root/cdstub/header.tt:5 ../root/cdstub/CDStubHeader.js:21
 msgid "CD stub by {artist}"
-msgstr ""
+msgstr "CD atplaiša pagal atlikėją"
 
 #: ../root/release/edit/tracklist.tt:248
 msgid "CD stub import"
-msgstr ""
+msgstr "CD atplaišo importas"
 
 #: ../root/cdstub/layout.tt:2 ../root/cdstub/CDStubLayout.js:27
 msgid "CD stub “{title}” by {artist}"
-msgstr ""
+msgstr "CD atplaišas „{title}“, sukūrė {artist}"
 
 #: ../root/doc/edit_type.tt:42
 msgid "Can be approved"
-msgstr ""
+msgstr "Gali būti patvirtintas"
 
 #: ../root/layout/merge-helper.tt:34 ../root/release/edit/layout.tt:59
 #: ../root/release/edit/tracklist.tt:117 ../root/area/AreaMerge.js:51
@@ -687,11 +689,11 @@ msgstr ""
 
 #: ../root/release/edit/recordings.tt:114
 msgid "Click Edit to edit the recording associations for this disc."
-msgstr ""
+msgstr "Spausk Redaguoti, kad redaguotum šio disko įrašymo asociacijas."
 
 #: ../root/release/edit/tracklist.tt:237 ../root/release/edit/tracklist.tt:266
 msgid "Close"
-msgstr ""
+msgstr "Uždaryti"
 
 #: ../root/edit/search_macros.tt:423 ../root/edit/components/EditHeader.js:155
 msgid "Closed"
@@ -699,15 +701,15 @@ msgstr "Uždaryta"
 
 #: ../root/artist/split.tt:36
 msgid "Collaborators on this artist"
-msgstr ""
+msgstr "Bendradarbiai šiame atlikėjui"
 
 #: ../root/release/edit/tracklist.tt:301
 msgid "Collapse medium"
-msgstr ""
+msgstr "Suskleisti laikmeną"
 
 #: ../root/cdstub/index.tt:3 ../root/cdstub/CDStubIndex.js:36
 msgid "Comment"
-msgstr ""
+msgstr "Komentaras"
 
 #: ../root/release/add_cover_art.tt:69 ../root/release/add_cover_art.tt:137
 #: ../root/release/reorder_cover_art.tt:19
@@ -735,7 +737,7 @@ msgstr ""
 #: ../root/components/forms.tt:242
 #: ../root/static/scripts/edit/components/FormRowSortNameWithGuessCase.js:122
 msgid "Copy name"
-msgstr ""
+msgstr "Kopijuoti pavadinimą"
 
 #: ../root/release/edit/information.tt:83
 msgid "Copy the release artist credit to the release group"
@@ -769,31 +771,31 @@ msgstr "Šalis:"
 #: ../root/components/EntityTabs.js:114 ../root/release/CoverArt.js:57
 #: ../root/user/UserProfile.js:51
 msgid "Cover Art"
-msgstr "Viršelio paveikslėlis"
+msgstr "Viršelis"
 
 #: ../root/edit/search_macros.tt:423
 msgid "Created"
-msgstr ""
+msgstr "Sukurta"
 
 #: ../root/release/add_cover_art.tt:85
 msgid "Creating edit..."
-msgstr ""
+msgstr "Kuriamas redagavimas..."
 
 #: ../root/release/edit/tracklist.tt:81
 msgid "Custom delimiter"
-msgstr ""
+msgstr "Pasirinktinis riboženklis"
 
 #: ../root/release/edit/information.tt:146
 #: ../lib/MusicBrainz/Server/Plugin/FormRenderer.pm:253
 #: ../root/static/scripts/edit/components/PartialDateInput.js:186
 msgid "DD"
-msgstr ""
+msgstr "DD"
 
 #: ../root/medium/tracklist.tt:37 ../root/release/edit/tracklist.tt:466
 #: ../root/medium/MediumTracklist.js:53
 #: ../root/static/scripts/release/components/MediumTable.js:128
 msgid "Data Tracks"
-msgstr ""
+msgstr "Duomenų takeliai"
 
 #: ../root/cdtoc/attach_artist_releases.tt:16
 #: ../root/cdtoc/attach_filter_release.tt:30 ../root/cdtoc/list.tt:10
@@ -815,19 +817,19 @@ msgstr ""
 #: ../root/utility/tableColumns.js:279 ../root/utility/tableColumns.js:284
 #: ../root/utility/tableColumns.js:510 ../root/utility/tableColumns.js:516
 msgid "Date"
-msgstr "Datą"
+msgstr "Data"
 
 #: ../root/artist/edit_form.tt:34 ../root/components/forms.tt:208
 #: ../root/event/edit_form.tt:32
 #: ../root/static/scripts/edit/components/DateRangeFieldset.js:184
 msgid "Date Period"
-msgstr ""
+msgstr "Datos laikotarpis"
 
 #: ../root/release/edit/information.tt:128
 #: ../root/release_group/set_cover_art.tt:37
 #: ../root/layout/components/sidebar/EventSidebar.js:59
 msgid "Date:"
-msgstr ""
+msgstr "Data:"
 
 #: ../root/artist/edit_form.tt:36 ../root/components/forms.tt:210
 #: ../root/event/edit_form.tt:34
@@ -880,7 +882,7 @@ msgstr "Aprašymas:"
 #: ../root/elections/ElectionDetails.js:29 ../root/entity/Details.js:91
 #: ../root/entity/Details.js:93
 msgid "Details"
-msgstr ""
+msgstr "Išsami informacija"
 
 #: ../root/area/edit_form.tt:10 ../root/artist/edit_form.tt:14
 #: ../root/event/edit_form.tt:13 ../root/instrument/edit_form.tt:10
@@ -906,7 +908,7 @@ msgstr ""
 #: ../root/edit/details/EditSeries.js:48 ../root/edit/details/EditWork.js:59
 #: ../root/static/scripts/genre/components/GenreEditForm.js:151
 msgid "Disambiguation"
-msgstr ""
+msgstr "Išskyrimas"
 
 #: ../root/release/discids.tt:8 ../root/edit/details/SetTrackLengths.js:54
 #: ../root/otherlookup/OtherLookupForm.js:112
@@ -920,28 +922,28 @@ msgstr "Disko ID informacija"
 
 #: ../root/cdtoc/index.tt:3
 msgid "Disc ID “<code>{discid}</code>”"
-msgstr ""
+msgstr "Disko ID „<code>{discid}</code>“"
 
 #: ../root/cdtoc/index.tt:1
 msgid "Disc ID “{discid}”"
-msgstr ""
+msgstr "Disko ID „{discid}“"
 
 #: ../root/release/discids.tt:1 ../root/release/discids.tt:3
 #: ../root/components/EntityTabs.js:104 ../root/report/ReportsIndex.js:624
 msgid "Disc IDs"
-msgstr ""
+msgstr "Diskų ID"
 
 #: ../root/release/edit/duplicates.tt:40
 msgid "Do not use any of the above releases as a starting point"
-msgstr ""
+msgstr "Nenaudoti nė vieno iš pirmiau minėtų leidinių kaip pradinio taško"
 
 #: ../root/relationship/linktype/form.tt:65
 msgid "Documentation:"
-msgstr ""
+msgstr "Dokumentacija:"
 
 #: ../root/layout.tt:111 ../root/layout/components/Footer.js:26
 msgid "Donate"
-msgstr "Paaukoti"
+msgstr "Aukoti"
 
 #: ../root/release/edit/macros.tt:54
 #: ../root/static/scripts/edit/components/ArtistCreditBubble.js:166
@@ -990,11 +992,11 @@ msgstr "Redaguoti atlikėjo kreditą"
 
 #: ../root/admin/attributes/edit.tt:1 ../root/admin/attributes/edit.tt:3
 msgid "Edit Attribute"
-msgstr ""
+msgstr "Redaguoti atributą"
 
 #: ../root/release/edit_cover_art.tt:1 ../root/release/edit_cover_art.tt:4
 msgid "Edit Cover Art"
-msgstr "Redaguoti viršelio paveikslėlį"
+msgstr "Redaguoti viršelį"
 
 #: ../root/forms/edit-note.tt:2 ../root/release/edit/editnote.tt:27
 #: ../root/release/edit/layout.tt:18
@@ -1004,27 +1006,27 @@ msgstr "Redaguoti užrašą"
 
 #: ../root/edit/search_macros.tt:423
 msgid "Edit Note Authors"
-msgstr ""
+msgstr "Redaguoti užrašų autorių"
 
 #: ../root/edit/search_macros.tt:423
 msgid "Edit Note Content"
-msgstr ""
+msgstr "Redaguoti užrašo turinį"
 
 #: ../root/relationship/linkattributetype/edit.tt:1
 #: ../root/relationship/linkattributetype/edit.tt:3
 msgid "Edit Relationship Attribute"
-msgstr ""
+msgstr "Redaguoti sąsajos atributą"
 
 #: ../root/relationship/linktype/edit.tt:1
 #: ../root/relationship/linktype/edit.tt:3
 msgid "Edit Relationship Type"
-msgstr ""
+msgstr "Redaguoti sąsajos tipą"
 
 #: ../root/doc/edit_type.tt:18 ../root/doc/edit_types.tt:1
 #: ../root/doc/edit_types.tt:3 ../root/edit/components/EditSidebar.js:96
 #: ../root/layout/components/BottomMenu.js:315
 msgid "Edit Types"
-msgstr ""
+msgstr "Redaguoti tipus"
 
 #: ../root/url/edit_form.tt:3 ../lib/MusicBrainz/Server/Edit/URL/Edit.pm:28
 #: ../root/static/scripts/edit/components/URLInputPopover.js:146
@@ -1038,7 +1040,7 @@ msgstr "Redagavimo užrašas:"
 
 #: ../root/edit/search_macros.tt:423
 msgid "Edited entity"
-msgstr ""
+msgstr "Redaguotas subjektas"
 
 #: ../root/edit/search_macros.tt:423
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:48
@@ -1052,30 +1054,30 @@ msgstr "Redaktorius (-ė)"
 
 #: ../root/edit/search_macros.tt:423
 msgid "Editor Flag"
-msgstr ""
+msgstr "Redaktoriaus (-ės) vardynas"
 
 #: ../root/release/edit/tracklist.tt:45
 msgid "Enable vinyl track numbers"
-msgstr ""
+msgstr "Įjungti vinilo takelių numerius"
 
 #: ../root/artist/edit_form.tt:56
 msgid "End Area:"
-msgstr ""
+msgstr "Pabaigos vietovė:"
 
 #: ../root/artist/edit_form.tt:51 ../root/components/forms.tt:214
 #: ../root/event/edit_form.tt:38 ../root/artist/utils.js:65
 #: ../root/layout/components/sidebar/AreaSidebar.js:64
 msgid "End date:"
-msgstr ""
+msgstr "Pabaigos data:"
 
 #: ../root/relationship/linktype/form.tt:112
 msgid "Endpoint:"
-msgstr ""
+msgstr "Galutinis taškas:"
 
 #: ../root/components/forms.tt:258 ../root/components/forms.tt:283
 #: ../root/static/scripts/edit/components/GuessCaseOptions.js:113
 msgid "English"
-msgstr "Anglų"
+msgstr "Anglų k."
 
 #: ../root/release/edit/tracklist.tt:3
 msgid "Enter a tracklist below:"
@@ -1157,7 +1159,7 @@ msgstr "Egzistuojanti laikmena"
 
 #: ../root/release/edit/tracklist.tt:151
 msgid "Expand"
-msgstr ""
+msgstr "Išplėsti"
 
 #: ../root/release/edit/tracklist.tt:301
 msgid "Expand medium"
@@ -2727,6 +2729,8 @@ msgid ""
 "The disambiguation field is used to help users distinguish between "
 "identically named releases."
 msgstr ""
+"Išskyrimo laukas naudojamas siekiant padėti naudotojams atskirti vienodus "
+"pavadinimus turinčius leidinius."
 
 #: ../root/edit/search_macros.tt:9
 msgid ""
@@ -3413,7 +3417,7 @@ msgstr ""
 
 #: ../root/components/common-macros.tt:576
 msgid "You must enter a disambiguation comment for this entity."
-msgstr ""
+msgstr "Turi įvesti šio subjekto išskyrimo pastabą."
 
 #: ../root/release/edit/tracklist.tt:436
 msgid ""
@@ -11948,11 +11952,13 @@ msgid ""
 "This report lists artists that may have disambiguation comments in their "
 "name, rather than the actual disambiguation comment field."
 msgstr ""
+"Šioje ataskaitoje išvardyti atlikėjai, kurių pavadinime gali būti išskyrimo "
+"pastabų, o ne tikrasis išskyrimo pastabų laukas."
 
 #: ../root/report/ArtistsContainingDisambiguationComments.js:30
 #: ../root/report/ReportsIndex.js:84
 msgid "Artists containing disambiguation comments in their name"
-msgstr ""
+msgstr "Atlikėjai, kurių pavadinime yra išsiskyrimo pastabų"
 
 #: ../root/report/ArtistsDisambiguationSameName.js:24
 msgid ""
@@ -11960,11 +11966,14 @@ msgid ""
 "as their name. The disambiguation should be removed or, if it is needed, "
 "improved."
 msgstr ""
+"Šioje ataskaitoje išvardyti atlikėjai, kurių išskyrimas nustatytas taip, kad "
+"sutaptų su jų pavadinimu. Išsiskyrimas turėtų būti pašalintas arba, jei "
+"reikia, patobulintas."
 
 #: ../root/report/ArtistsDisambiguationSameName.js:31
 #: ../root/report/ReportsIndex.js:111
 msgid "Artists with disambiguation the same as the name"
-msgstr ""
+msgstr "Atlikėjai, kurių išskyrimas toks pat kaip ir pavadinimas"
 
 #: ../root/report/ArtistsThatMayBeGroups.js:24
 msgid ""
@@ -12289,6 +12298,12 @@ msgid ""
 "them (and once a group of similarly named artists have disambiguation "
 "comments, they will stop appearing here)."
 msgstr ""
+"Šia ataskaita siekia nustatyti atlikėjus, turinčius labai panašius vardus. "
+"Jei du atlikėjai iš tikrųjų yra tie patys, prašome juos sujungti (nepamiršk "
+"{how_to_write_edit_notes|užrašyti redagavimo užrašą} ir pateikti įrodymą). "
+"Jei jie skiriasi, pridėk {disambiguation_comment|išskyrimo pastabas} (ir kai "
+"tik panašių vardų atlikėjų grupė turės išskyrimo pastabas, jie čia nustos "
+"rodytis)."
 
 #: ../root/report/DuplicateArtists.js:55 ../root/report/ReportsIndex.js:71
 msgid "Possibly duplicate artists"
@@ -12396,6 +12411,13 @@ msgid ""
 "has an album and single with the same name, then there is usually no need to "
 "change anything. In other cases, a disambiguation comment may be helpful."
 msgstr ""
+"Šioje ataskaitoje išvardytos leidinių grupės, kurių pavadinimai ir atlikėjai "
+"labai panašūs. Jei leidinių grupėse esantys leidiniai turėtų būti sugrupuoti "
+"(pamatyk {url|gaires}), juos galima sujungti. Jei jie neturėtų būti "
+"sugrupuoti, bet juos galima atskirti pagal leidinių grupių tipus, pvz., kai "
+"atlikėjas (-a) turi albumą ir singlą tuo pačiu pavadinimu, paprastai nieko "
+"keisti nereikia. Kitais atvejais gali būti naudinga pateikti išskyrimo "
+"paaiškinimą."
 
 #: ../root/report/DuplicateReleaseGroups.js:52
 #: ../root/report/ReportsIndex.js:227
@@ -12529,11 +12551,14 @@ msgid ""
 "as their name. The disambiguation should be removed or, if it is needed, "
 "improved."
 msgstr ""
+"Šioje ataskaitoje pateikiamos leidyklos, kurių išskyrimas nustatytas taip, "
+"kad sutaptų su jų pavadinimu. Išskyrimą reikėtų pašalinti arba, jei reikia, "
+"patobulinti."
 
 #: ../root/report/LabelsDisambiguationSameName.js:31
 #: ../root/report/ReportsIndex.js:194
 msgid "Labels with disambiguation the same as the name"
-msgstr ""
+msgstr "Leidyklos, kurių išskyrimas sutampa su pavadinimu"
 
 #: ../root/report/LimitedEditors.js:31
 msgid "This report lists {url|beginner/limited editors}."
@@ -14173,7 +14198,7 @@ msgid ""
 "art with liner info that proves it"
 msgstr ""
 "Aukšta kokybė: Pridėti visi turimi duomenys, jei įmanoma, įskaitant viršelio "
-"paveikslėlį ir jį patvirtinančią informaciją."
+"paveikslėlį ir jį patvirtinančią informaciją"
 
 #: ../root/static/scripts/common/components/EntityLink.js:380
 msgid ""
@@ -14960,6 +14985,8 @@ msgid ""
 "Please enter a {doc_disambiguation|disambiguation} to help distinguish this "
 "entity from the others."
 msgstr ""
+"Įvesk {doc_disambiguation|išskyrimą}, kad padėtum šį subjektą atskirti nuo "
+"kitų."
 
 #: ../root/static/scripts/edit/components/RelationshipPendingEditsWarning.js:40
 msgid "This relationship has {edit_search|pending edits}."
@@ -17000,14 +17027,21 @@ msgid ""
 "them to one side or the other. As always, remember to be polite, even if you "
 "disagree with a voter!"
 msgstr ""
+"Redagavimai, už kuriuos jau buvo balsuota „Ne“, taip pat gali būti naudingi, "
+"jei į juos būtų atkreiptas didesnis dėmesys, kad būtų patvirtinta, jog "
+"redagavimas iš tiesų yra neteisingas, arba kad būtų pridėta kitokia nuomonė "
+"prie esamo balsavimo „Ne“. Panašiai ir redagavimams, už kuriuos balsuota ir "
+"„Taip“, ir „Ne“, gali būti naudinga daugiau nuomonių, kurios juos pakreiptų "
+"į vieną ar kitą pusę. Kaip visada, nepamiršk būti mandagūs (-i), net jei "
+"nesutinki su balsuojančiuoju!"
 
 #: ../root/vote/VotingIndex.js:208
 msgid "Open edits with at least 1 “No” vote"
-msgstr ""
+msgstr "Atviri redagavimai su bent 1 balsu „Ne“"
 
 #: ../root/vote/VotingIndex.js:217
 msgid "Open edits with both “Yes” and “No” votes (controversial edits)"
-msgstr ""
+msgstr "Atviri redagavimai su balsais „Taip“ ir „Ne“ (prieštaringi redagavimai)"
 
 #: ../root/vote/VotingIndex.js:229
 msgid "Edits by beginners"
@@ -17061,6 +17095,11 @@ msgid ""
 "amount of edits that auto-apply might still be worth reviewing when entered "
 "by beginners, so consider checking those too!"
 msgstr ""
+"Toliau esančiuose redagavimų, už kuriuos dar nebalsavai, filtruose bus "
+"rodomi tik atviri redagavimai (nes vis tiek negali balsuoti už uždarytus "
+"redagavimus). Vis dėlto nemažai automatiškai pritaikomų redagavimų gali būti "
+"verta peržiūrėti, kai juos įveda pradedantieji, todėl apsvarstyk galimybę "
+"patikrinti ir juos!"
 
 #: ../root/vote/VotingIndex.js:268
 msgid ""
@@ -17069,6 +17108,10 @@ msgid ""
 "for edits adding artists, which might include artists trying to add their "
 "own data and not doing a great job of it."
 msgstr ""
+"Specifinės paieškos atliekamos leidinių ir (arba) terpių, kurios yra bene "
+"sudėtingiausios ir dėl to gali kelti problemų, redagavimui, taip pat "
+"pridedamų atlikėjų redagavimui, kai atlikėjai gali bandyti pridėti savo "
+"duomenis ir tai padaryti ne itin gerai."
 
 #: ../root/vote/VotingIndex.js:279
 msgid "All edits from beginner editors"
@@ -17090,22 +17133,27 @@ msgid ""
 "All \"Add release/medium\" edits by beginner editors made less than 2 weeks "
 "ago"
 msgstr ""
+"Visi pradedančiųjų redaktorių redagavimai „Pridėti leidinį/laikmeną“, "
+"padaryti mažiau nei prieš 2 savaites"
 
 #: ../root/vote/VotingIndex.js:311
 msgid "All \"Add artist\" edits by beginner editors"
-msgstr ""
+msgstr "Visi pradedančiųjų redaktorių redagavimai „Pridėti atlikėją“"
 
 #: ../root/vote/VotingIndex.js:317
 msgid "All \"Add artist\" edits by beginner editors made less than 2 weeks ago"
 msgstr ""
+"Visi pradedančiųjų redaktorių redagavimai „Pridėti atlikėją“, atlikti mažiau "
+"nei prieš 2 savaites"
 
 #: ../root/vote/VotingIndex.js:324
 msgid "All open destructive edits by beginner editors"
-msgstr ""
+msgstr "Visi atviri destruktyvūs redagavimai pradedantiesiems redaktoriams"
 
 #: ../root/vote/VotingIndex.js:333
 msgid "All open unreviewed edits (0 votes) by beginner editors"
 msgstr ""
+"Visi atviri ir neperžiūrėti redagavimai (0 balsų) pradedančiųjų redaktorių"
 
 #: ../root/vote/VotingIndex.js:345 ../root/vote/VotingIndex.js:367
 msgid "All edits"

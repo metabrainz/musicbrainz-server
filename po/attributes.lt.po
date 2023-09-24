@@ -1,20 +1,22 @@
 #
 # Translators:
 # Vaclovas lntas (Vac.) <email address hidden>, 2023
+# "Vac31." <gateway_31@protonmail.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2012-05-24 18:52+0000\n"
-"Last-Translator: Vaclovas lntas (Vac.) <vaclovas1999@gmail.com>, 2023\n"
-"Language-Team: Lithuanian (http://app.transifex.com/musicbrainz/musicbrainz/"
-"language/lt/)\n"
+"PO-Revision-Date: 2023-09-24 15:27+0000\n"
+"Last-Translator: \"Vac31.\" <gateway_31@protonmail.com>\n"
+"Language-Team: Lithuanian <https://translations.metabrainz.org/projects/"
+"musicbrainz/attributes/lt/>\n"
 "Language: lt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
-"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
-"1 : n % 1 != 0 ? 2: 3);\n"
+"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 :"
+" n % 1 != 0 ? 2: 3);\n"
+"X-Generator: Weblate 5.0.2\n"
 
 #: DB:work_type/description:9
 msgctxt "work_type"
@@ -50,67 +52,67 @@ msgstr "10 colių vinilas"
 #: DB:medium_format/name:72
 msgctxt "medium_format"
 msgid "12\" LaserDisc"
-msgstr ""
+msgstr "12 colių LaserDisc"
 
 #: DB:medium_format/name:55
 msgctxt "medium_format"
 msgid "12\" Shellac"
-msgstr ""
+msgstr "12 colių šelakas"
 
 #: DB:medium_format/name:31
 msgctxt "medium_format"
 msgid "12\" Vinyl"
-msgstr ""
+msgstr "12 colių vinilas"
 
 #: DB:medium_format/name:49
 msgctxt "medium_format"
 msgid "3.5\" Floppy Disk"
-msgstr ""
+msgstr "3,5 colio diskelis"
 
 #: DB:medium_format/name:91
 msgctxt "medium_format"
 msgid "5.25\" Floppy Disk"
-msgstr ""
+msgstr "5,25 colio diskelis"
 
 #: DB:medium_format/name:52
 msgctxt "medium_format"
 msgid "7\" Flexi-disc"
-msgstr ""
+msgstr "7 colių lankstusis diskas"
 
 #: DB:medium_format/name:56
 msgctxt "medium_format"
 msgid "7\" Shellac"
-msgstr ""
+msgstr "7 colių šelakas"
 
 #: DB:medium_format/name:29
 msgctxt "medium_format"
 msgid "7\" Vinyl"
-msgstr ""
+msgstr "7 colių vinilas"
 
 #: DB:medium_format/name:71
 msgctxt "medium_format"
 msgid "8\" LaserDisc"
-msgstr ""
+msgstr "8 colių LaserDisc"
 
 #: DB:medium_format/name:78
 msgctxt "medium_format"
 msgid "8-Track Cartridge"
-msgstr ""
+msgstr "8 takelių kasetė"
 
 #: DB:medium_format/name:34
 msgctxt "medium_format"
 msgid "8cm CD"
-msgstr ""
+msgstr "8 cm CD"
 
 #: DB:medium_format/name:40
 msgctxt "medium_format"
 msgid "8cm CD+G"
-msgstr ""
+msgstr "8 cm CD+G"
 
 #: DB:medium_format/description:166
 msgctxt "medium_format"
 msgid "8cm DVD disc, often used for video singles."
-msgstr ""
+msgstr "8 cm DVD diskas, dažnai naudojamas vaizdo įrašų singlams."
 
 #: DB:medium_format/description:58
 msgctxt "medium_format"
@@ -150,6 +152,30 @@ msgid ""
 "for example, a various artists soundtrack using pre-released music should be "
 "marked as both a soundtrack and a compilation.</p>"
 msgstr ""
+"<p>Rinkinys MusicBrainz duomenų bazėje apima tokius leidinių tipus:</p>\n"
+"\n"
+"<ul>\n"
+"<li>iš įvairių senų šaltinių surinktų (nebūtinai išleistų) įrašų kolekcija. "
+"Pavyzdžiui, „geriausių“, retrospektyvos ar raritetų tipo leidinys.</li>\n"
+"<li>įvairių atlikėjų dainų kolekcija, paprastai paremta bendra tema („Dainos "
+"įsimylėjėliams“), konkrečiu laikotarpiu („1998 m. hitai“) arba kitokiu "
+"grupavimu („Dainos iš filmų“, serija „Café del Mar“ ir t. t.).</li>\n"
+"</ul>\n"
+"\n"
+"<p>Projektas MusicBrainz paprastai nelaiko toliau išvardytų rinkinių:</p>\n"
+"\n"
+"<ul>\n"
+"<li>albumo pakartotinio leidimo, net jei jame yra papildomų kūrinių.</li>\n"
+"<li>pagerbimo leidinys, kuriame yra kito atlikėjo muzikos koverių.</li>\n"
+"<li>klasikinis leidinys, apimantis naujus klasikinės muzikos atlikėjo "
+"kūrinių įrašus.</li>\n"
+"<li>padalintas leidinys, turintis naują kelių atlikėjų muziką</li>\n"
+"</ul>\n"
+"\n"
+"<p>Rinkinys turėtų būti naudojama kartu su kitais tipais, o ne vietoj jų: "
+"pavyzdžiui, įvairių atlikėjų garso takelis, kuriame naudojantis iš anksto "
+"išleista muzika, turėtų būti pažymėtas ir kaip garso takelis, ir kaip "
+"kompiliacija.</p>"
 
 #: DB:release_group_primary_type/description:2
 msgctxt "release_group_primary_type"
@@ -226,6 +252,9 @@ msgid ""
 "connected to a phone via Bluetooth or headphone jack and unlocks the release "
 "for listening in a companion app for a limited period of time."
 msgstr ""
+"„Skaitmeninis kolekcinis“ įrenginys, dažniausiai naudojamas kpopo muzikai, "
+"kuris prijungiamas prie telefono per Bluetooth arba ausinių lizdą ir ribotą "
+"laiką atrakina leidinį, kad būtų galima klausytis jį lydinčioje programėlėje."
 
 #: DB:place_type/description:9
 msgctxt "place_type"
@@ -320,6 +349,9 @@ msgid ""
 "release (e.g. pre-release versions, releases included with a magazine, "
 "versions supplied to radio DJs for air-play)."
 msgstr ""
+"Dovanojamas leidinys arba leidinys, skirtas būsimam oficialiam leidiniui "
+"reklamuoti (pvz., išankstinės versijos leidinys, leidiniai, pridedami prie "
+"žurnalo, versijos, pateikiamos radijo didžėjams, kad šie grotų eteryje)."
 
 #: DB:artist_type/description:2
 msgctxt "artist_type"
@@ -341,6 +373,8 @@ msgid ""
 "A large cardboard box often used until the mid-1990s to sell CDs in North "
 "America, so that they would fit existing vinyl racks in stores."
 msgstr ""
+"Didelė kartoninė dėžė, iki 1990-ųjų vidurio dažnai naudota Šiaurės Amerikoje "
+"CD pardavinėti, kad jie tilptų į parduotuvėse esančias vinilų lentynas."
 
 #: DB:place_type/description:43
 msgctxt "place_type"
@@ -450,6 +484,9 @@ msgid ""
 "consisting of a pitch surrounded by a structure for spectators with no roof, "
 "or a roof which can be retracted."
 msgstr ""
+"Vieta, kurios pagrindinė paskirtis – rengti sporto renginius po atviru "
+"dangumi ir kurią paprastai sudaro aikštelė, apsupta žiūrovams skirto "
+"statinio be stogo arba su atitraukiamu stogu."
 
 #: DB:release_status/description:6
 msgctxt "release_status"
@@ -458,6 +495,9 @@ msgid ""
 "which enough info is known to still confidently list it (e.g. it was "
 "available for preorder)."
 msgstr ""
+"Planuotas oficialus leidimas, kuris buvo atšauktas prieš jį išleidžiant, bet "
+"apie kurį žinoma pakankamai informacijos, kad jį būtų galima drąsiai įrašyti "
+"į sąrašą (pvz., buvo galima iš anksto užsisakyti)."
 
 #: DB:work_type/description:28
 msgctxt "work_type"
@@ -466,6 +506,8 @@ msgid ""
 "between characters, and intended for theatrical performance rather than just "
 "reading."
 msgstr ""
+"Pjesė – tai literatūros kūrinys, paprastai sudarytas iš veikėjų dialogų, "
+"skirtas ne tik skaityti, bet ir vaidinti teatre."
 
 #: DB:work_type/description:21
 msgctxt "work_type"
@@ -482,6 +524,10 @@ msgid ""
 "replace it with a new version with some changes or to just retire it "
 "altogether (e.g. because of legal issues)."
 msgstr ""
+"Anksčiau oficialus leidinys, kurį atlikėjas (-a) ir (arba) jo įrašų "
+"kompanija po išleidimo aktyviai išėmė iš apyvartos, kad jį pakeistų nauja "
+"versija su tam tikrais pakeitimais arba apskritai pašalintų iš apyvartos ("
+"pvz., dėl teisinių problemų)."
 
 #: DB:release_group_secondary_type/description:10
 msgctxt "release_group_secondary_type"
@@ -520,6 +566,8 @@ msgid ""
 "A release that was recorded live. Generally this means \"with an audience\", "
 "be it in person, through the radio or in another similar way."
 msgstr ""
+"Leidinys, kuris buvo įrašytas gyvai. Paprastai tai reiškia su „klausytojais“ "
+"– asmeniškai, per radiją ar kitu panašiu būdu."
 
 #: DB:place_type/description:7
 msgctxt "place_type"
@@ -592,7 +640,7 @@ msgstr ""
 #: DB:series_type/description:2
 msgctxt "series_type"
 msgid "A series of releases."
-msgstr ""
+msgstr "Leidinių serija."
 
 #: DB:series_type/description:46
 msgctxt "series_type"
@@ -703,7 +751,7 @@ msgstr ""
 #: DB:release_packaging/description:2
 msgctxt "release_packaging"
 msgid "A thinner jewel case, commonly used for CD singles."
-msgstr ""
+msgstr "Plonesnis brangakmenio dėklas, paprastai naudojamas CD singlams."
 
 #: DB:medium_format/description:128
 msgctxt "medium_format"
@@ -791,7 +839,7 @@ msgstr ""
 #: DB:work_attribute_type/name:46
 msgctxt "work_attribute_type"
 msgid "APA ID"
-msgstr ""
+msgstr "APA ID"
 
 #: DB:work_attribute_type/name:41
 msgctxt "work_attribute_type"
@@ -921,7 +969,7 @@ msgstr "Albumas"
 #: DB:series_ordering_type/description:2
 msgctxt "series_ordering_type"
 msgid "Allows for manually setting the position of each item in the series."
-msgstr ""
+msgstr "Leidžia rankiniu būdu nustatyti kiekvieno serijos elemento poziciją."
 
 #: DB:work_attribute_type_allowed_value/value:854
 msgctxt "work_attribute_type_allowed_value"
@@ -958,6 +1006,12 @@ msgid ""
 "EP is fairly difficult to define; usually it should only be assumed that a "
 "release is an EP if the artist defines it as such."
 msgstr ""
+"Mini albumas – tai taip vadinamas „Extended Play“, kurio pavadinime dažnai "
+"būna raidės EP. Paprastai mini albumas būna trumpesnis už pilnos apimties "
+"leidinį (LP arba „Long Play“), o takeliai paprastai būna išskirtiniai, "
+"kitaip tariant, jie nėra iš anksčiau išleisto leidinio. Mini albumą "
+"apibrėžti gana sunku; paprastai reikėtų manyti, kad leidinys yra mini "
+"albumas, jei atlikėjas (-a) pats (-i) jį taip apibrėžia."
 
 #: DB:release_group_primary_type/description:1
 msgctxt "release_group_primary_type"
@@ -966,6 +1020,9 @@ msgid ""
 "consists of previously unreleased material (unless this type is combined "
 "with secondary types which change that, such as \"Compilation\")."
 msgstr ""
+"Albumą, kurį galbūt geriau apibrėžti kaip „Long Play“ (LP) leidinį, "
+"paprastai sudaro anksčiau neišleista medžiaga (nebent šis tipas yra "
+"sujungtas su antriniais tipais, kurie tai keičia, pvz., „Rinkinys“)."
 
 #: DB:release_status/description:4
 msgctxt "release_status"
@@ -974,6 +1031,9 @@ msgid ""
 "don't correspond to any real release and should be linked to the original "
 "release using the transl(iter)ation relationship."
 msgstr ""
+"Alternatyvi leidinio versija, kurioje pakeisti pavadinimai. Jos neatitinka "
+"jokio tikrojo leidimo ir turėtų būti susietos su originaliu leidimu "
+"naudojant vertimo/transliteravimo sąsają."
 
 #: DB:work_type/description:1
 msgctxt "work_type"
@@ -1086,6 +1146,8 @@ msgid ""
 "or the record company. This includes unofficial live recordings and pirated "
 "releases."
 msgstr ""
+"Neoficialus/nelegalus leidinys, kurio nesankcionavo atlikėjas (-a) ir (arba) "
+"įrašų kompanija. Tai apima neoficialius gyvus įrašus ir piratinius leidinius."
 
 #: DB:work_type/description:20
 msgctxt "work_type"
@@ -1113,6 +1175,8 @@ msgid ""
 "Any release that does not fit or can't decisively be placed in any of the "
 "other categories."
 msgstr ""
+"Bet koks leidinys, kuris netinka arba kurio negalima priskirti nė vienai iš "
+"kitų kategorijų."
 
 #: DB:work_attribute_type_allowed_value/value:311
 msgctxt "work_attribute_type_allowed_value"

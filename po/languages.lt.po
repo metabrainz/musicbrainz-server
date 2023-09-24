@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-09-17 12:27+0000\n"
+"PO-Revision-Date: 2023-09-24 15:27+0000\n"
 "Last-Translator: \"Vac31.\" <gateway_31@protonmail.com>\n"
 "Language-Team: Lithuanian <https://translations.metabrainz.org/projects/"
 "musicbrainz/languages/lt/>\n"
@@ -686,7 +686,7 @@ msgstr ""
 #. frequency:2 iso_code_3:eng 
 #: DB:language/name:120
 msgid "English"
-msgstr "Anglų"
+msgstr "Anglų k."
 
 #. frequency:1 iso_code_3:enm 
 #: DB:language/name:121
