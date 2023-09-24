@@ -17,7 +17,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-09-09 04:27+0000\n"
+"PO-Revision-Date: 2023-09-23 15:27+0000\n"
 "Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
 "metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -26,9 +26,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
-"X-Generator: Weblate 4.18.2\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
+"X-Generator: Weblate 5.0.2\n"
 
 #. name:rebab 
 #: DB:instrument/description:239
@@ -63,19 +63,19 @@ msgstr ""
 "e lunghezza del manico varie, per es. i liuti ad arco</li> </ul> <br /> <br /"
 "> Dati i nomi molto simili, la maggior parte delle fonti li confonde. "
 "Curiosamente, la confusione si estende anche a strumenti imparentati dai "
-"nomi simili o distinti, per esempio il <a href=\"/"
-"instrument/0d766870-3021-47ce-bd51-78d2d2484e1b\">ghijak</a> (una fidula) e "
-"il <a href=\"/instrument/d50ba107-4930-4e0b-8b3f-ffbea4a1ade1\">ghaychak</a> "
-"(a forma di barca).<br /> Per il momento non si sa come questi 3 sottotipi "
-"siano imparentati, se lo sono.<br /> <br /> Per la fidula usata nel gamelan, "
-"utilizza <a href=\"/instrument/3dbbb5ff-103b-4260-8cf6-679a73a7c552\">rebab "
-"indonesiano</a>.<br /> Per lo strumento afghano a corda pizzicata e a forma "
-"di barca, conosciuto anche come kabuli rabab, utilizza <a href=\"/"
-"instrument/7e42e637-c7b4-422c-ad56-f7fafbd961bb\">rubab</a>.<br /> Per il "
-"liuto medievale indiano a corda pizzicata, utilizza <a href=\"/"
-"instrument/9869ff82-9ba5-41a7-b2b2-e19f4e4a1083\">seni rebab</a>.<br /> Per "
-"il violino (folk) medievale europeo a forma di pera, utilizza <a href=\"/"
-"instrument/3f7302e4-f10f-4905-8d71-ef61141da383\">ribeca</a>."
+"nomi simili o distinti, per esempio il <a href=\"/instrument/0d766870-3021"
+"-47ce-bd51-78d2d2484e1b\">ghijak</a> (una fidula) e il <a href=\"/instrument/"
+"d50ba107-4930-4e0b-8b3f-ffbea4a1ade1\">ghaychak</a> (a forma di barca).<br /"
+"> Per il momento non si sa come questi 3 sottotipi siano imparentati, se lo "
+"sono.<br /> <br /> Per la fidula usata nel gamelan, vedi <a href=\"/"
+"instrument/3dbbb5ff-103b-4260-8cf6-679a73a7c552\">rebab indonesiano</a>.<br /"
+"> Per lo strumento afghano a corda pizzicata e a forma di barca, conosciuto "
+"anche come kabuli rabab, vedi <a href=\"/instrument/7e42e637-c7b4-422c-ad56-"
+"f7fafbd961bb\">rubab</a>.<br /> Per il liuto medievale indiano a corda "
+"pizzicata, vedi <a href=\"/instrument/9869ff82-9ba5-41a7-b2b2-e19f4e4a1083\""
+">seni rebab</a>.<br /> Per il violino (folk) medievale europeo a forma di "
+"pera, vedi <a href=\"/instrument/3f7302e4-f10f-4905-8d71-ef61141da383\""
+">ribeca</a>."
 
 #. name:chitra veena 
 #: DB:instrument/description:744
@@ -431,10 +431,10 @@ msgid ""
 msgstr ""
 "Conosciuta anche come musette o musette barocca, era una piccola cornamusa "
 "usata principalmente dalla corte e dalla nobiltà francese nel XVII e XVIII "
-"secolo.<br /> Per lo strumento conosciuto come \"musette cinese\", utilizza "
-"<a href=\"/instrument/15cd573d-15a8-4f9f-a48f-f73218d85e14/\">suona</a><br /"
-"> Per l'oboe conosciuto anche come musette, utilizza <a href=\"/"
-"instrument/77b29599-96c7-4571-9fae-09e7e42b8175/\">oboe musette</a>."
+"secolo.<br /> Per lo strumento conosciuto come \"musette cinese\", vedi <a "
+"href=\"/instrument/15cd573d-15a8-4f9f-a48f-f73218d85e14/\">suona</a><br /> "
+"Per l'oboe conosciuto anche come musette, vedi <a href=\"/instrument/"
+"77b29599-96c7-4571-9fae-09e7e42b8175/\">oboe musette</a>."
 
 #. name:gopichant 
 #: DB:instrument/description:643
@@ -448,8 +448,8 @@ msgstr ""
 "Conosciuto anche come ektara, ha una cassa in legno o in cocco con una "
 "membrana sul fondo. Fissato ai lati della cassa ha un manico in sezione di "
 "bambù, su cui è sospesa una sola corda, attaccata alla membrana. <br /> Per "
-"il liuto a una corda chiamato anche \"ektar\", utilizza <a href=\"/"
-"instrument/b0edfd1a-e728-4b93-802e-96c1c2f9d84a\">tumbi</a><br />."
+"il liuto a una corda chiamato anche \"ektar\", vedi <a href=\"/instrument/"
+"b0edfd1a-e728-4b93-802e-96c1c2f9d84a\">tumbi</a><br />."
 
 #. name:repeater 
 #: DB:instrument/description:882
@@ -687,10 +687,10 @@ msgid ""
 msgstr ""
 "Chimes a forma di sbarra o di palo, solitamente disposti in fila o in "
 "cerchio, sospesi dall'alto o percossi con mazzuole. <br /> Per lo strumento "
-"usato spesso nei campanili, utilizza <a href=\"/"
-"instrument/0d14d4e0-9ac9-4a96-a595-4145d7794082\">carillon (batteria di "
-"campane)</a>.<br /> Per lo strumento usato nelle orchestre, utilizza <a href="
-"\"/instrument/7d6964ff-b1f5-472b-bdd7-b53de3739ad3\">campane tubolari</a>."
+"usato spesso nei campanili, vedi <a href=\"/instrument/"
+"0d14d4e0-9ac9-4a96-a595-4145d7794082\">carillon (batteria di campane)</"
+"a>.<br /> Per lo strumento usato nelle orchestre, vedi <a href=\"/instrument/"
+"7d6964ff-b1f5-472b-bdd7-b53de3739ad3\">campane tubolari</a>."
 
 #. name:violoncello piccolo 
 #: DB:instrument/description:693
@@ -762,8 +762,8 @@ msgid ""
 msgstr ""
 "Membro basso della famiglia delle chitarre. Per la variante elettrica, "
 "utilizza <a href=\"/instrument/0b9d87fa-93fa-4956-8b6a-a419566cc915\">basso "
-"elettrico</a>. Per quella acustica, utilizza <a href=\"/"
-"instrument/15861569-249d-4b24-8ce4-d0b001b1f978\">basso acustico</a>"
+"elettrico</a>. Per quella acustica, utilizza <a href=\"/instrument/15861569"
+"-249d-4b24-8ce4-d0b001b1f978\">basso acustico</a>"
 
 #. name:bicycle bell 
 #: DB:instrument/description:743
@@ -994,10 +994,10 @@ msgid ""
 msgstr ""
 "Metallofono comune e popolare, solitamente composto da una serie di barrette "
 "in metallo disposte su una cassetta in legno che funge da risuonatore. <br /"
-"> Per lo strumento usato spesso nei campanili, utilizza <a href=\"/"
-"instrument/0d14d4e0-9ac9-4a96-a595-4145d7794082\">carillon (batteria di "
-"campane)</a>.<br /> Per lo strumento che in alcune lingue è chiamato campana "
-"da orchestra/chime, utilizza <a href=\"/instrument/7d6964ff-b1f5-472b-bdd7-"
+"> Per lo strumento usato spesso nei campanili, vedi <a href=\"/instrument/"
+"0d14d4e0-9ac9-4a96-a595-4145d7794082\">carillon (batteria di campane)</"
+"a>.<br /> Per lo strumento che in alcune lingue è chiamato campana da "
+"orchestra/chime, vedi <a href=\"/instrument/7d6964ff-b1f5-472b-bdd7-"
 "b53de3739ad3\">campane tubolari</a>."
 
 #. name:keyed box zither 
@@ -1054,9 +1054,8 @@ msgid ""
 msgstr ""
 "Composto da sbarre, lastre o tasti intonati e in metallo, percossi con "
 "mazzuole e disposti in varie scale (spesso su risuonatori in materiale "
-"sonoro). Utilizza <a href=\"/instrument/"
-"db95a035-6a3d-44b4-8694-74ff71b61768\">xilofono</a> per lo strumento "
-"equivalente con sbarre in legno."
+"sonoro). Vedi <a href=\"/instrument/db95a035-6a3d-44b4-8694-74ff71b61768\""
+">xilofono</a> per lo strumento equivalente con sbarre in legno."
 
 #. name:gambang 
 #: DB:instrument/description:977
@@ -1173,8 +1172,8 @@ msgstr ""
 "Malgrado il nome, non è un carillon bensì è composta da sbarre di metallo "
 "intonate, ognuna delle quali poggia su una cassetta che funge da risuonatore "
 "individuale. <br /> Assomiglia al glockenspiel. <br /> Per lo strumento "
-"chiamato <em>bar chimes</em>, utilizza <a href=\"/instrument/3b8cd68b-"
-"aadc-4e43-a13f-e575202d67ea\">chimes</a>."
+"chiamato <em>bar chimes</em>, vedi <a href=\"/instrument/3b8cd68b-aadc-4e43"
+"-a13f-e575202d67ea\">chimes</a>."
 
 #. name:theorbo 
 #: DB:instrument/description:395
@@ -1345,7 +1344,7 @@ msgstr "Tamburo a due punte indiano."
 #. name:gralla 
 #: DB:instrument/description:582
 msgid "Dulzaina specifically from Catalonia."
-msgstr ""
+msgstr "Dolzaina proveniente dalla Catalogna."
 
 #. name:dunun 
 #: DB:instrument/description:659
@@ -1629,6 +1628,8 @@ msgid ""
 "For the Brazilian frame-drum hit with a whisk see <a href=\"/instrument/"
 "a96bbbd1-7e44-4e79-b12e-a03ac232db98\">tamborim</a>.<br />"
 msgstr ""
+"Per il tamburo a cornice brasiliano colpito con una frusta, vedi <a href=\"/"
+"instrument/a96bbbd1-7e44-4e79-b12e-a03ac232db98\">tamborim</a>.<br />"
 
 #. name:siku 
 #: DB:instrument/description:569
@@ -1637,9 +1638,9 @@ msgid ""
 "as zampona, traditional Andean panpipe has two rows of pipes tied together "
 "with colourful bands."
 msgstr ""
-"Per la cornamusa italiana, utilizza <a href=\"/\">zampogna</a>.<br /> "
-"Conosciuto anche come zampoña, è un flauto di Pan tradizionale andino con "
-"due file di canne tenute insieme da fasce colorate."
+"Per la cornamusa italiana, vedi <a href=\"/\">zampogna</a>.<br /> Conosciuto "
+"anche come zampoña, è un flauto di Pan tradizionale andino con due file di "
+"canne tenute insieme da fasce colorate."
 
 #. name:chalumeau 
 #: DB:instrument/description:436
@@ -1650,6 +1651,12 @@ msgid ""
 "clarinet, 7-regular 1-thumb holed single-reed woodwind was in use during "
 "baroque and classical era."
 msgstr ""
+"Per il discendente giapponese che prende il nome dal portoghese, vedi "
+"charumera.<br /> Per lo strumento medievale ad ancia doppia della famiglia "
+"dei legni, vedi <a href=\"/instrument/b4f112c3-d666-47f2-bb85-bae28572ca13\""
+">ciaramella</a>.<br /> Predecessore del clarinetto moderno, è uno strumento "
+"ad ancia singola della famiglia dei legni con 7 fori regolari e 1 foro per "
+"il pollice, in uso durante le epoche barocca e classica."
 
 #. name:reed organ 
 #: DB:instrument/description:204
@@ -1663,15 +1670,15 @@ msgid ""
 "large, looks like an upright piano and has pedals attached to bellows with "
 "reeds. Sound is produced by playing the keyboard."
 msgstr ""
-"Per la fisarmonica conosciuta anche come melodeon, utilizza <a href=\"/"
+"Per la fisarmonica conosciuta anche come melodeon, vedi <a href=\"/"
 "instrument/842d3d24-f638-47e6-a239-8578723db09c\">fisarmonica diatonica a "
 "bottoni</a>.<br /> Per l'aerofono ad ancia dotato di tastiera conosciuto "
-"anche come melodion, utilizza <a href=\"/instrument/8ab40df2-106b-4b9b-"
-"a50c-0798ee95da8f\">melodica</a>.<br /> Per l'organo a pompa portatile usato "
-"in India, utilizza <a href=\"/instrument/c43c7647-077d-4d60-"
-"a01b-769de71b82f2\">armonium</a>.<br /> Conosciuto anche come organo ad "
-"ance, è grande, simile a un pianoforte verticale e ha pedali collegati a un "
-"mantice con ance. Il suono è prodotto suonando la tastiera."
+"anche come melodion, vedi <a href=\"/instrument/8ab40df2-106b-4b9b-a50c-"
+"0798ee95da8f\">melodica</a>.<br /> Per l'organo a pompa portatile usato in "
+"India, vedi <a href=\"/instrument/c43c7647-077d-4d60-a01b-769de71b82f2\""
+">armonium</a>.<br /> Conosciuto anche come organo ad ance, è grande, simile "
+"a un pianoforte verticale e ha pedali collegati a un mantice con ance. Il "
+"suono è prodotto suonando la tastiera."
 
 #. name:diatonic button accordion 
 #: DB:instrument/description:361
@@ -1682,12 +1689,12 @@ msgid ""
 "a50c-0798ee95da8f\">melodica</a>.<br /> Also known as Melodeon, it has 1 to "
 "2 rows of buttons that each produce two tones (bisonoric)."
 msgstr ""
-"Per l'organo conosciuto anche come melodeon, utilizza <a href=\"/"
-"instrument/20443ce3-cde1-4968-b7cc-65e45bb9714f\">organo a pompa</a>.<br /> "
-"Per l'aerofono ad ancia dotato di tastiera conosciuto anche come melodion, "
-"utilizza <a href=\"/instrument/8ab40df2-106b-4b9b-a50c-0798ee95da8f"
-"\">melodica</a>.<br /> Conosciuta anche come melodeon o organetto, ha una o "
-"due file di bottoni ognuno dei quali produce due toni (bitonico)."
+"Per l'organo conosciuto anche come melodeon, vedi <a href=\"/instrument/"
+"20443ce3-cde1-4968-b7cc-65e45bb9714f\">organo a pompa</a>.<br /> Per "
+"l'aerofono ad ancia dotato di tastiera conosciuto anche come melodion, vedi "
+"<a href=\"/instrument/8ab40df2-106b-4b9b-a50c-0798ee95da8f\">melodica</"
+"a>.<br /> Conosciuta anche come melodeon o organetto, ha una o due file di "
+"bottoni ognuno dei quali produce due toni (bitonico)."
 
 #. name:charumera 
 #: DB:instrument/description:1150
@@ -1699,6 +1706,13 @@ msgid ""
 "shawm, it was imported by Portuguese or Iberian traders. It is used in "
 "kabuki theatre and by ramen street vendors"
 msgstr ""
+"Per lo strumento ad ancia singola della famiglia dei legni dal nome simile, "
+"vedi <a href=\"/instrument/e3511ed1-3d73-4340-880f-c8ccc8eda11c\">salmoè</"
+"a>.<br /> Per lo strumento europeo, vedi <a href=\"/instrument/"
+"b4f112c3-d666-47f2-bb85-bae28572ca13\">ciaramella</a>.<br /> Il suo nome "
+"deriva dal termine portoghese per ciaramella e fu importata da mercanti "
+"portoghesi o iberici. È utilizzata nel teatro kabuki e dai venditori di "
+"strada di ramen."
 
 #. name:lira da braccio 
 #: DB:instrument/description:1016
@@ -1710,11 +1724,11 @@ msgid ""
 "instrument/4fe225a3-6939-4fab-a416-d0cd38c96cb9\">lyra</a>"
 msgstr ""
 "Per lo strumento a corde strofinate da una ruota, talvolta chiamato anche "
-"\"lira\", utilizza <a href=\"/instrument/303d4f1a-f799-4c42-9bac-"
-"dbedd9139e91\">ghironda</a>.<br /> Per lo strumento simile a un'arpa, "
-"utilizza <a href=\"/instrument/21bd4d63-a75a-4022-abd3-52ba7487c2de\">lira</"
-"a>.<br /> Per il liuto ad arco, utilizza <a href=\"/"
-"instrument/4fe225a3-6939-4fab-a416-d0cd38c96cb9\">lira cretese</a>."
+"\"lira\", vedi <a href=\"/instrument/303d4f1a-f799-4c42-9bac-dbedd9139e91\""
+">ghironda</a>.<br /> Per lo strumento simile a un'arpa, vedi <a href=\"/"
+"instrument/21bd4d63-a75a-4022-abd3-52ba7487c2de\">lira</a>.<br /> Per il "
+"liuto ad arco, vedi <a href=\"/instrument/4fe225a3-6939-4fab-a416-"
+"d0cd38c96cb9\">lira cretese</a>."
 
 #. name:jeli ngɔni 
 #: DB:instrument/description:854
@@ -2822,6 +2836,8 @@ msgid ""
 "Meant as an improvement on the flageolet design, the English flageolet had 6 "
 "finger holes in front and one thumb hole in the back."
 msgstr ""
+"Progettato come un miglioramento al design del flagioletto, aveva sei fori "
+"di diteggiatura e un foro posteriore per il pollice."
 
 #. name:gemshorn 
 #: DB:instrument/description:868
@@ -2971,6 +2987,11 @@ msgid ""
 "with several Spanish bagpipes also called \"gaita\".<br /> Widely used in "
 "Spanish communities it has many different names and a conical shape."
 msgstr ""
+"Da non confondere con il fagotto rinascimentale europeo <a href=\"/"
+"instrument/a0b1ba6b-6ea7-4489-a4af-c9e23d6e24da\">dulciana</a>.<br /> Da non "
+"confondere con diverse cornamuse spagnole chiamate anche \"gaita\".<br /> Di "
+"largo uso nelle comunità spagnole, possiede molti nomi diversi e ha una "
+"forma conica."
 
 #. name:melophone 
 #: DB:instrument/description:1022
@@ -3027,6 +3048,12 @@ msgid ""
 "worn by one person and beaten by one hand, it is often combined with tabor "
 "pipes."
 msgstr ""
+"Da non confondere con il <a href=\"/instrument/4431f7b0-69a4-49ee-b84f-"
+"15dda19fb70c\">tamburello</a>.<br /> Per il tamburo a cornice brasiliano "
+"colpito con una frusta, vedi <a href=\"/instrument/a96bbbd1-7e44-4e79-b12e-"
+"a03ac232db98\">tamborim</a>.<br /> Rullante, spesso con uno o più fili, "
+"imbracciato da una persona e percosso con una mano, si accompagna spesso con "
+"flauti."
 
 #. name:ghijak 
 #: DB:instrument/description:932
@@ -3065,6 +3092,20 @@ msgid ""
 "one from bagpipe chanters. A combination of both where used to develop the "
 "modern oboe."
 msgstr ""
+"Da non confondere con la zummara o con altri clarinetti doppi dai nomi "
+"simili.<br /> Per lo strumento a più canne e ad ancia libera creato nel "
+"1880, vedi Martinshorn.<br /> Per lo strumento ad ancia singola della "
+"famiglia dei legni dal nome simile, vedi <a href=\"/instrument/"
+"e3511ed1-3d73-4340-880f-c8ccc8eda11c\">salmoè</a>.<br /> Per il discendente "
+"giapponese che prende il nome dal portoghese, vedi <a href=\"/instrument/"
+"07b91470-b63e-41e4-88e6-11c4acac064f\">charumera</a>.<br /> Per la "
+"ciaramella catalana, vedi <a href=\"/instrument/dffe56f5-cd75-4392-ad31-"
+"1c3abf2b8e37\">tible</a>.<br /> Per la ciaramella italiana, vedi piffero.<br "
+"/> Per la cornamusa, vedi xeremia.<br /><br /> Strumento medievale e "
+"rinascimentale europeo della famiglia dei legni, a sezione conica e ad ancia "
+"doppia, si evolvette in due tipi: uno a partire dagli strumenti "
+"mediorientali e l'altro a partire dalle canne del canto delle cornamuse. Una "
+"combinazione dei due tipi fu usata per sviluppare l'oboe moderno."
 
 #. name:oboe 
 #: DB:instrument/description:8
@@ -3533,9 +3574,9 @@ msgid ""
 "instrument/257dad59-02e6-47d9-958a-659843737827\">cornet</a>."
 msgstr ""
 "Popolare dal 1500 al 1650 e conosciuto anche come zink, aveva forma "
-"ottagonale con sette fori come un flauto, ma con un bocchino come una tromba."
-"<br /> Per lo strumento moderno in ottone, utilizza <a href=\"/"
-"instrument/257dad59-02e6-47d9-958a-659843737827\">cornetta</a>."
+"ottagonale con sette fori come un flauto, ma con un bocchino come una "
+"tromba.<br /> Per lo strumento moderno in ottone, vedi <a href=\"/instrument/"
+"257dad59-02e6-47d9-958a-659843737827\">cornetta</a>."
 
 #. name:claviorganum 
 #: DB:instrument/description:912
@@ -3734,8 +3775,8 @@ msgid ""
 msgstr ""
 "Secondo più grave tra i gangsa, ha dalle 4 alle 7 barre in bronzo sospese "
 "sopra lunghi risuonatori in bambù. <br /> Per lo xilofono sundanese in bambù "
-"usato anche nel gamelan, utilizza <a href=\"/"
-"instrument/6e180df5-6df9-46bb-8ebf-c576a010fb5a\">calung</a>."
+"usato anche nel gamelan, vedi <a href=\"/instrument/6e180df5-6df9-46bb-8ebf-"
+"c576a010fb5a\">calung</a>."
 
 #. name:reyong 
 #: DB:instrument/description:973
@@ -3780,11 +3821,10 @@ msgstr ""
 "Batteria di più campane in bronzo, spesso meccanizzate e azionate da una "
 "tastiera, posizionate sulla torre campanaria (campanile) di edifici "
 "importanti. <br /> Per il metallofono con barre in metallo dai molteplici "
-"usi, dal giocattolo all'orchestra, utilizza <a href=\"/instrument/340b8043-"
-"e3c4-443e-afb8-7fce24fe0ce4\">glockenspiel</a>. <br /> Per l'idiofono a "
-"pizzico azionato da una manovella e basato su un cilindro o disco girevole, "
-"utilizza <a href=\"/"
-"instrument/2f5f6a67-2b2b-4857-92b0-5b25d485f632\">carillon (scatola "
+"usi, dal giocattolo all'orchestra, vedi <a href=\"/instrument/340b8043-e3c4"
+"-443e-afb8-7fce24fe0ce4\">glockenspiel</a>. <br /> Per l'idiofono a pizzico "
+"azionato da una manovella e basato su un cilindro o disco girevole, vedi <a "
+"href=\"/instrument/2f5f6a67-2b2b-4857-92b0-5b25d485f632\">carillon (scatola "
 "musicale)</a>."
 
 #. name:shaken idiophone 
@@ -5934,9 +5974,9 @@ msgid ""
 "This is the specific instrument, for other, \"lute-like\" instruments, see "
 "<a href=\"/instrument/1a28f232-38ee-4293-9f4c-e0daed92b926\">lute-family</a>"
 msgstr ""
-"Questo è lo strumento specifico. Per altri strumenti simili al liuto, "
-"utilizza <a href=\"/instrument/1a28f232-38ee-4293-9f4c-"
-"e0daed92b926\">famiglia dei liuti</a>."
+"Questo è lo strumento specifico. Per altri strumenti simili al liuto, vedi "
+"<a href=\"/instrument/1a28f232-38ee-4293-9f4c-e0daed92b926\">famiglia dei "
+"liuti</a>."
 
 #. name:akete 
 #: DB:instrument/description:747
@@ -6313,8 +6353,8 @@ msgid ""
 msgstr ""
 "Usata in India durante il periodo medievale, ha il corpo di una cetra a "
 "bastone con 3 corde. <br /> Per il liuto a manico lungo chiamato \"tritantri "
-"vina\" durante il XIX secolo, utilizza \"<a href=\"/"
-"instrument/9290b2c1-97c3-4355-a26f-c6dba89cf8ff\">sitar</a>\"."
+"vina\" durante il XIX secolo, vedi \"<a href=\"/instrument/9290b2c1-97c3-4355"
+"-a26f-c6dba89cf8ff\">sitar</a>\"."
 
 #. name:slenthem 
 #: DB:instrument/description:962
@@ -6761,6 +6801,9 @@ msgid ""
 "While today it is obscure, it was developed and improved for 400 years. The "
 "French flageolet has 4 holes in front and two thumb holes in the back."
 msgstr ""
+"Benché oggi sia poco noto, fu sviluppato e migliorato per 400 anni. Il "
+"flagioletto francese ha quattro fori frontali e due fori posteriori per i "
+"pollici."
 
 #. name:porotiti 
 #: DB:instrument/description:862
@@ -6788,7 +6831,7 @@ msgid ""
 "Widely used in Korea, it has a wood soundbox and a rod neck with two silk-"
 "strings, heldt on the knee while played with a bow"
 msgstr ""
-"Di ampio uso in Corea, ha una cassa di risonanza in legno e un manico a "
+"Di largo uso in Corea, ha una cassa di risonanza in legno e un manico a "
 "bastone con due corde in seta; è tenuto sulle ginocchia e suonato con un "
 "archetto."
 
@@ -6799,7 +6842,7 @@ msgid ""
 "cone-shaped with cow/pigskin nailed to the larger convex end which has a "
 "small hole (guxin)."
 msgstr ""
-"Di ampio uso nella musica tradizionale, nell'opera e nelle ensemble "
+"Di largo uso nella musica tradizionale, nell'opera e nelle ensemble "
 "musicali, può avere forma rotonda o conica, con pelle di vacca/maiale "
 "inchiodata all'estremità convessa più grande, che ha un piccolo foro (guxin)."
 

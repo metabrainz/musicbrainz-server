@@ -33,7 +33,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-09-19 19:05+0300\n"
-"PO-Revision-Date: 2023-09-08 23:27+0000\n"
+"PO-Revision-Date: 2023-09-23 15:27+0000\n"
 "Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
 "metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -42,9 +42,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
-"X-Generator: Weblate 4.18.2\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
+"X-Generator: Weblate 5.0.2\n"
 
 #: ../root/components/common-macros.tt:12
 msgid " ({text})"
@@ -7768,7 +7768,7 @@ msgstr ""
 
 #: ../root/artist/ArtistIndex.js:336
 msgid "No results found that match this search."
-msgstr ""
+msgstr "Non è stato trovato nessun risultato corrispondente a questa ricerca."
 
 #: ../root/artist/ArtistMerge.js:34
 msgid ""
@@ -13662,10 +13662,17 @@ msgid ""
 "the quality wasn’t changed accordingly, just enter a data quality change to "
 "remove it from this report."
 msgstr ""
+"Questo rapporto mostra le pubblicazioni che sono state contrassegnate come "
+"di bassa qualità. Se hai un po' di tempo, puoi rivederle e cercare di "
+"migliorare il più possibile i dati prima di impostare la qualità come "
+"Normale (o come Alta, se hai aggiunto tutti i dati possibili!). Se una "
+"pubblicazione è già stata migliorata ma la sua qualità non è stata cambiata "
+"di conseguenza, inserisci semplicemente una modifica che cambia la qualità "
+"dei dati per rimuoverla da questo rapporto."
 
 #: ../root/report/LowQualityReleases.js:36 ../root/report/ReportsIndex.js:467
 msgid "Releases marked as low quality"
-msgstr ""
+msgstr "Pubblicazioni contrassegnate come di bassa qualità"
 
 #: ../root/report/MediumsWithOrderInTitle.js:24
 msgid ""
@@ -14406,7 +14413,7 @@ msgstr "Pubblicazioni che hanno ID disco ma non dovrebbero"
 #: ../root/report/ReportsIndex.js:462
 #: ../root/report/ShowNotesButNotBroadcast.js:37
 msgid "Non-broadcast releases with linked show notes"
-msgstr ""
+msgstr "Pubblicazioni non di tipo trasmissione con note all'episodio collegate"
 
 #: ../root/report/ReportsIndex.js:496
 msgid "Recordings with annotations"
@@ -14522,6 +14529,14 @@ msgid ""
 "a better type or removed if nothing is a good fit. If the release is indeed "
 "a podcast, the release group type should be set to Broadcast."
 msgstr ""
+"Questo rapporto mostra le pubblicazioni che hanno una {doc|relazione di note "
+"all'episodio}, ma non sono in un gruppo di pubblicazioni di tipo "
+"Trasmissione. Le note all'episodio sono realizzate per podcast e spettacoli "
+"simili e non vanno utilizzate per collegare note a caso su un tipo di "
+"pubblicazione qualsiasi, ma purtroppo la relazione viene spesso utilizzata "
+"in quel modo. Se è quello il caso, la relazione va cambiata in un tipo più "
+"adatto o rimossa se non ce n'è una adatta. Se invece la pubblicazione è un "
+"podcast, il tipo del gruppo di pubblicazioni va impostato su Trasmissione."
 
 #: ../root/report/SingleMediumReleasesWithMediumTitles.js:24
 msgid ""
