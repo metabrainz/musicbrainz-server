@@ -242,7 +242,8 @@ sub age {
 sub can_nominate {
     my ($self, $candidate) = @_;
     return unless $candidate;
-    return $self->is_auto_editor && !$candidate->is_auto_editor && !$candidate->deleted;
+    return $self->is_auto_editor && !$candidate->is_auto_editor
+        && !$candidate->deleted && $candidate->has_confirmed_email_address;
 }
 
 has languages => (
