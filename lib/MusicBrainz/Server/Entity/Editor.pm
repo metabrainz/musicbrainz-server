@@ -6,7 +6,11 @@ use Authen::Passphrase;
 use DateTime;
 use Encode;
 use MusicBrainz::Server::Constants qw( $PASSPHRASE_BCRYPT_COST );
-use MusicBrainz::Server::Data::Utils qw( boolean_to_json datetime_to_iso8601 );
+use MusicBrainz::Server::Data::Utils qw(
+    boolean_to_json
+    datetime_to_iso8601
+    non_empty
+);
 use MusicBrainz::Server::Entity::Preferences;
 use MusicBrainz::Server::Entity::Types qw( Area ); ## no critic 'ProhibitUnusedImport'
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array to_json_object );
@@ -128,8 +132,13 @@ sub public_privileges {
 has 'email' => (
     is        => 'rw',
     isa       => 'Str',
-    predicate => 'has_email_address',
 );
+
+sub has_email_address
+{
+    my $self = shift;
+    return non_empty($self->email);
+}
 
 sub has_confirmed_email_address
 {
