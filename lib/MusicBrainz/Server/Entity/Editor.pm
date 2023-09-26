@@ -202,10 +202,7 @@ sub is_limited
     return
         !($self->id == $EDITOR_MODBOT) &&
         !$self->deleted &&
-        ( !$self->email_confirmation_date ||
-          $self->is_newbie ||
-          !$self->has_ten_accepted_edits
-        );
+        ($self->is_newbie || !$self->has_ten_accepted_edits);
 }
 
 has birth_date => (
