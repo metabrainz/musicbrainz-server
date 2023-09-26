@@ -28,6 +28,8 @@ const EditRecording = ({edit}: Props): React$Element<'table'> => {
   const name = display.name;
   const comment = display.comment;
   const length = display.length;
+  const areLengthsAlmostSame = Boolean(length &&
+    formatTrackLength(length.new) === formatTrackLength(length.old));
   const video = display.video;
   const artistCredit = display.artist_credit;
   return (
@@ -54,11 +56,21 @@ const EditRecording = ({edit}: Props): React$Element<'table'> => {
           />
         ) : null}
         {length ? (
-          <Diff
-            label={addColonText(l('Length'))}
-            newText={formatTrackLength(length.new)}
-            oldText={formatTrackLength(length.old)}
-          />
+          areLengthsAlmostSame ? (
+            <tr>
+              <th>{addColonText(l('Length'))}</th>
+              <td colSpan="2">
+                {l(`This edit makes subsecond changes
+                    to the recording length`)}
+              </td>
+            </tr>
+          ) : (
+            <Diff
+              label={addColonText(l('Length'))}
+              newText={formatTrackLength(length.new)}
+              oldText={formatTrackLength(length.old)}
+            />
+          )
         ) : null}
         {video ? (
           <FullChangeDiff
