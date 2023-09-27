@@ -10,7 +10,7 @@ msgstr ""
 "#-#-#-#-#  mb_server.pot (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-19 19:05+0300\n"
+"POT-Creation-Date: 2023-09-27 17:01+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -396,7 +396,7 @@ msgstr ""
 #: ../root/edit/details/AddStandaloneRecording.js:46
 #: ../root/edit/details/EditArtist.js:56 ../root/edit/details/EditMedium.js:316
 #: ../root/edit/details/EditMedium.js:320
-#: ../root/edit/details/EditRecording.js:72
+#: ../root/edit/details/EditRecording.js:84
 #: ../root/edit/details/EditRelease.js:65
 #: ../root/edit/details/EditReleaseGroup.js:87
 #: ../root/edit/details/MergeReleases.js:236
@@ -541,7 +541,7 @@ msgid ""
 "sure to include it!"
 msgstr ""
 
-#: ../root/layout.tt:116 ../root/layout/components/ExternalLinks.js:132
+#: ../root/layout.tt:117 ../root/layout/components/ExternalLinks.js:132
 #: ../root/layout/components/Footer.js:33
 msgid "Blog"
 msgstr ""
@@ -557,13 +557,13 @@ msgid ""
 "should be used for scripts in Unicode which are unlikely to be used."
 msgstr ""
 
-#: ../root/layout.tt:124 ../root/layout/components/Footer.js:52
+#: ../root/layout.tt:125 ../root/layout/components/Footer.js:52
 msgid ""
 "Brought to you by {MeB|MetaBrainz Foundation} and our {spon|sponsors} and "
 "{supp|supporters}. Cover Art provided by the {caa|Cover Art Archive}."
 msgstr ""
 
-#: ../root/layout.tt:115 ../root/layout/components/Footer.js:32
+#: ../root/layout.tt:116 ../root/layout/components/Footer.js:32
 #: ../root/main/index.js:209
 msgid "Bug Tracker"
 msgstr ""
@@ -870,7 +870,7 @@ msgstr ""
 #: ../root/edit/details/EditGenre.js:44
 #: ../root/edit/details/EditInstrument.js:51
 #: ../root/edit/details/EditLabel.js:65 ../root/edit/details/EditPlace.js:52
-#: ../root/edit/details/EditRecording.js:51
+#: ../root/edit/details/EditRecording.js:53
 #: ../root/edit/details/EditRelease.js:93
 #: ../root/edit/details/EditReleaseGroup.js:50
 #: ../root/edit/details/EditSeries.js:48 ../root/edit/details/EditWork.js:59
@@ -909,7 +909,7 @@ msgstr ""
 msgid "Documentation:"
 msgstr ""
 
-#: ../root/layout.tt:111 ../root/layout/components/Footer.js:26
+#: ../root/layout.tt:112 ../root/layout/components/Footer.js:26
 msgid "Donate"
 msgstr ""
 
@@ -1185,7 +1185,7 @@ msgstr ""
 msgid "Format:"
 msgstr ""
 
-#: ../root/layout.tt:113 ../root/layout/components/Footer.js:28
+#: ../root/layout.tt:114 ../root/layout/components/Footer.js:28
 #: ../root/main/index.js:212
 msgid "Forums"
 msgstr ""
@@ -1364,7 +1364,7 @@ msgstr ""
 msgid "IPI codes:"
 msgstr ""
 
-#: ../root/layout.tt:114
+#: ../root/layout.tt:115
 msgid "IRC"
 msgstr ""
 
@@ -1661,7 +1661,7 @@ msgstr ""
 msgid "Language:"
 msgstr ""
 
-#: ../root/layout.tt:138 ../root/layout/components/Footer.js:85
+#: ../root/layout.tt:139 ../root/layout/components/Footer.js:85
 msgid "Last replication packet received at {datetime}"
 msgstr ""
 
@@ -1673,7 +1673,8 @@ msgstr ""
 #: ../root/edit/details/AddStandaloneRecording.js:59
 #: ../root/edit/details/EditMedium.js:317
 #: ../root/edit/details/EditMedium.js:321
-#: ../root/edit/details/EditRecording.js:58
+#: ../root/edit/details/EditRecording.js:61
+#: ../root/edit/details/EditRecording.js:69
 #: ../root/edit/details/historic/AddRelease.js:91
 #: ../root/edit/details/historic/AddTrackKV.js:54 ../root/isrc/Index.js:68
 #: ../root/recording/RecordingIndex.js:55
@@ -1827,7 +1828,7 @@ msgstr ""
 #: ../root/edit/details/EditInstrument.js:44
 #: ../root/edit/details/EditLabel.js:49 ../root/edit/details/EditMedium.js:477
 #: ../root/edit/details/EditPlace.js:45
-#: ../root/edit/details/EditRecording.js:44
+#: ../root/edit/details/EditRecording.js:46
 #: ../root/edit/details/EditRelationshipAttribute.js:51
 #: ../root/edit/details/EditRelationshipAttribute.js:60
 #: ../root/edit/details/EditRelationshipType.js:186
@@ -2063,8 +2064,8 @@ msgstr ""
 
 #: ../root/release/edit/information.tt:312
 msgid ""
-"Please enter the barcode of the release you are entering, see <a "
-"href=\"{url}\" target=\"_blank\">Barcode</a> for more information."
+"Please enter the barcode of the release you are entering, see <a href="
+"\"{url}\" target=\"_blank\">Barcode</a> for more information."
 msgstr ""
 
 #: ../root/layout/merge-helper.tt:24
@@ -2130,7 +2131,7 @@ msgstr[1] ""
 #: ../lib/MusicBrainz/Server/Edit/Recording.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:41
 #: ../root/edit/details/AddStandaloneRecording.js:32
-#: ../root/edit/details/EditRecording.js:37
+#: ../root/edit/details/EditRecording.js:39
 #: ../root/edit/details/MergeReleases.js:305
 #: ../root/edit/details/RemoveIsrc.js:31
 #: ../root/edit/details/historic/EditTrack.js:27
@@ -2411,7 +2412,7 @@ msgid ""
 "data is formatted correctly."
 msgstr ""
 
-#: ../root/layout.tt:131
+#: ../root/layout.tt:132
 msgid ""
 "Running: <span class=\"tooltip\" title=\"{msg}\">{branch} ({sha})</span>"
 msgstr ""
@@ -2589,7 +2590,7 @@ msgstr ""
 msgid "Status:"
 msgstr ""
 
-#: ../root/layout.tt:119 ../root/layout/components/Footer.js:44
+#: ../root/layout.tt:120 ../root/layout/components/Footer.js:44
 msgid "Stop using beta site"
 msgstr ""
 
@@ -2631,7 +2632,7 @@ msgstr ""
 msgid "The catalog number you have entered looks like an Amazon ASIN."
 msgstr ""
 
-#: ../root/layout.tt:90 ../root/layout/index.js:284
+#: ../root/layout.tt:91 ../root/layout/index.js:285
 msgid ""
 "The data you have submitted does not make any changes to the data already "
 "present."
@@ -2665,7 +2666,7 @@ msgid ""
 "information in itself has to be free-text)."
 msgstr ""
 
-#: ../root/layout.tt:71 ../root/layout/index.js:244
+#: ../root/layout.tt:71 ../root/layout/index.js:245
 msgid "The server is temporarily in read-only mode for database maintenance."
 msgstr ""
 
@@ -3022,7 +3023,7 @@ msgstr ""
 msgid "Turkish"
 msgstr ""
 
-#: ../root/layout.tt:117 ../root/layout/components/Footer.js:34
+#: ../root/layout.tt:118 ../root/layout/components/Footer.js:34
 msgid "Twitter"
 msgstr ""
 
@@ -3128,7 +3129,7 @@ msgstr ""
 msgid "Uppercase Roman numerals"
 msgstr ""
 
-#: ../root/layout.tt:119 ../root/layout/components/Footer.js:45
+#: ../root/layout.tt:120 ../root/layout/components/Footer.js:45
 msgid "Use beta site"
 msgstr ""
 
@@ -3166,7 +3167,7 @@ msgstr ""
 
 #: ../root/recording/edit_form.tt:44
 #: ../root/edit/details/AddStandaloneRecording.js:64
-#: ../root/edit/details/EditRecording.js:65
+#: ../root/edit/details/EditRecording.js:77
 msgid "Video"
 msgstr ""
 
@@ -3237,7 +3238,7 @@ msgid ""
 "and following the merge link."
 msgstr ""
 
-#: ../root/layout.tt:112 ../root/layout/components/Footer.js:27
+#: ../root/layout.tt:113 ../root/layout/components/Footer.js:27
 msgid "Wiki"
 msgstr ""
 
@@ -3386,14 +3387,14 @@ msgid ""
 "specific, or to try again."
 msgstr ""
 
-#: ../root/layout.tt:21 ../root/layout/index.js:209
+#: ../root/layout.tt:21 ../root/layout/index.js:210
 msgid ""
 "You’re currently not allowed to edit or vote because an admin has revoked "
 "your privileges. If you haven’t already been contacted about why, please "
 "{uri|send us a message}."
 msgstr ""
 
-#: ../root/layout.tt:17 ../root/layout/index.js:201
+#: ../root/layout.tt:17 ../root/layout/index.js:202
 msgid ""
 "You’re currently not allowed to edit, vote or leave edit notes because an "
 "admin has revoked your privileges. If you haven’t already been contacted "
@@ -3401,7 +3402,7 @@ msgid ""
 msgstr ""
 
 #: ../root/layout.tt:25 ../lib/MusicBrainz/Server/Controller/EditNote.pm:63
-#: ../root/layout/index.js:218
+#: ../root/layout/index.js:219
 msgid ""
 "You’re currently not allowed to leave or change edit notes because an admin "
 "has revoked your privileges. If you haven’t already been contacted about "
@@ -3706,7 +3707,7 @@ msgstr ""
 msgid "{entity} by {artist}"
 msgstr ""
 
-#: ../root/layout.tt:81 ../root/layout/index.js:271
+#: ../root/layout.tt:82 ../root/layout/index.js:272
 msgid ""
 "{link|New notes} have been left on some of your edits. Please make sure to "
 "read them and respond if necessary."
@@ -9054,6 +9055,10 @@ msgstr ""
 msgid "New Artist"
 msgstr ""
 
+#: ../root/edit/details/EditRecording.js:63
+msgid "This edit makes subsecond changes to the recording length"
+msgstr ""
+
 #: ../root/edit/details/EditRelationshipType.js:146
 #: ../root/edit/details/historic/EditRelationship.js:44
 msgid ""
@@ -9251,8 +9256,8 @@ msgstr ""
 
 #: ../root/edit/details/ReorderMediums.js:61
 msgid ""
-"Medium <span class=\"new\">{new}</span> (moved from position <span "
-"class=\"old\">{old}</span>)"
+"Medium <span class=\"new\">{new}</span> (moved from position <span class="
+"\"old\">{old}</span>)"
 msgstr ""
 
 #: ../root/edit/details/ReorderRelationships.js:21
@@ -10846,7 +10851,7 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../root/layout/index.js:256
+#: ../root/layout/index.js:257
 msgid "Happy birthday, and thanks for contributing to MusicBrainz!"
 msgstr ""
 
