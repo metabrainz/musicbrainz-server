@@ -575,6 +575,12 @@ msgctxt "series_type"
 msgid "A series of related concerts by an artist in the same location."
 msgstr "סדרה של קונצרטים קשורים לאמן באותו אתר."
 
+#: DB:series_type/description:80
+msgctxt "series_type"
+msgid ""
+"A series of release groups containing episodes of the same podcast series."
+msgstr ""
+
 #: DB:series_type/description:47
 msgctxt "series_type"
 msgid "A series of release groups honoured by the same award."
@@ -1092,6 +1098,11 @@ msgstr ""
 "אורטוריה היא יצירה מוזיקלית גדולה (מקודשת), כולל תזמורת, מקהלה וסולנים. "
 "למרות שקיימות דמויות ועלילה, המופע בדרך כלל לא יהיה תיאטרלי (ללא תלבושות, "
 "אביזרים או אינטראקציה חזקה בין הדמויות)."
+
+#: DB:label_type/description:8
+msgctxt "label_type"
+msgid "An organization which collects royalties on behalf of artists."
+msgstr ""
 
 #: DB:work_type/description:12
 msgctxt "work_type"
@@ -6113,6 +6124,11 @@ msgstr "רשם קול"
 msgctxt "medium_format"
 msgid "Playbutton"
 msgstr "לחצן השמעה"
+
+#: DB:series_type/name:80
+msgctxt "series_type"
+msgid "Podcast"
+msgstr ""
 
 #: DB:work_type/name:21
 msgctxt "work_type"

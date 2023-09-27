@@ -89,9 +89,9 @@ msgid "English concertina"
 msgstr "קונצ'רטינה אנגלית"
 
 #: DB:instrument/name:844
-msgctxt "English \"improved\" flageolet"
+msgctxt "1800's improved flageolet"
 msgid "English flageolet"
-msgstr "פְלָגוֹלֵט אנגלי"
+msgstr ""
 
 #: DB:instrument/name:30
 msgid "French horn"
@@ -938,8 +938,9 @@ msgid "chakhe"
 msgstr "חקה"
 
 #: DB:instrument/name:436
+msgctxt "Baroque/classical predecessor of the clarinet"
 msgid "chalumeau"
-msgstr "צ'לומאו"
+msgstr ""
 
 #: DB:instrument/name:471
 msgid "chamber organ"
@@ -966,6 +967,11 @@ msgstr "צ'אפ"
 msgctxt "Small Andean lute"
 msgid "charango"
 msgstr "צ'רנגו"
+
+#: DB:instrument/name:1150
+msgctxt "Japanese double-reed"
+msgid "charumera"
+msgstr ""
 
 #: DB:instrument/name:640
 msgid "chau gong"
@@ -1519,9 +1525,9 @@ msgid "flabiol"
 msgstr "פלביול"
 
 #: DB:instrument/name:843
-msgctxt "french 16th century fipple flute"
+msgctxt "French 16th century fipple flute"
 msgid "flageolet"
-msgstr "פְלָגוֹלֵט"
+msgstr ""
 
 #: DB:instrument/name:938
 msgctxt "Guitar used in flamenco"
@@ -1786,8 +1792,9 @@ msgid "gopichant"
 msgstr "גופיצ'נט"
 
 #: DB:instrument/name:582
+msgctxt "Catalan dulzaina"
 msgid "gralla"
-msgstr "גרללה"
+msgstr ""
 
 #: DB:instrument/name:748
 msgid "gramorimba"
@@ -2114,9 +2121,9 @@ msgid "kamancheh"
 msgstr "קמנצ'ה"
 
 #: DB:instrument/name:474
-msgctxt "South Indian frame drum."
+msgctxt "South Indian frame drum"
 msgid "kanjira"
-msgstr "קאניירא"
+msgstr ""
 
 #: DB:instrument/name:422
 msgctxt "Traditional Lithuanian plucked psaltery"
@@ -4562,6 +4569,24 @@ msgstr "זאק"
 msgctxt "Maltese mirliton"
 msgid "żummara"
 msgstr "זומארה"
+
+#~ msgctxt "English \"improved\" flageolet"
+#~ msgid "English flageolet"
+#~ msgstr "פְלָגוֹלֵט אנגלי"
+
+#~ msgid "chalumeau"
+#~ msgstr "צ'לומאו"
+
+#~ msgctxt "french 16th century fipple flute"
+#~ msgid "flageolet"
+#~ msgstr "פְלָגוֹלֵט"
+
+#~ msgid "gralla"
+#~ msgstr "גרללה"
+
+#~ msgctxt "South Indian frame drum."
+#~ msgid "kanjira"
+#~ msgstr "קאניירא"
 
 #~ msgid "dulcian"
 #~ msgstr "דולציאן"

@@ -15,7 +15,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-09-01 02:27+0000\n"
+"PO-Revision-Date: 2023-09-23 15:27+0000\n"
 "Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
 "metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -26,7 +26,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
 " ? 1 : 2);\n"
-"X-Generator: Weblate 4.18.2\n"
+"X-Generator: Weblate 5.0.2\n"
 
 #: DB:work_type/description:9
 msgctxt "work_type"
@@ -727,6 +727,14 @@ msgstr ""
 "Una serie di concerti collegati tenuti dallo stesso artista nella stessa "
 "location."
 
+#: DB:series_type/description:80
+msgctxt "series_type"
+msgid ""
+"A series of release groups containing episodes of the same podcast series."
+msgstr ""
+"Una serie di gruppi di pubblicazioni che contengono episodi della stessa "
+"serie podcast."
+
 #: DB:series_type/description:47
 msgctxt "series_type"
 msgid "A series of release groups honoured by the same award."
@@ -1302,6 +1310,12 @@ msgstr ""
 "orchestra, coro e solisti. Pur avendo dei personaggi e una trama, non è "
 "solitamente rappresentata in scena (non ha costumi, scenografia né forte "
 "interazione tra i personaggi)."
+
+#: DB:label_type/description:8
+msgctxt "label_type"
+msgid "An organization which collects royalties on behalf of artists."
+msgstr ""
+"Un'organizzazione che riscuote i diritti d'autore per conto degli artisti."
 
 #: DB:work_type/description:12
 msgctxt "work_type"
@@ -6348,6 +6362,11 @@ msgstr "PlayTape"
 msgctxt "medium_format"
 msgid "Playbutton"
 msgstr "Playbutton"
+
+#: DB:series_type/name:80
+msgctxt "series_type"
+msgid "Podcast"
+msgstr "Podcast"
 
 #: DB:work_type/name:21
 msgctxt "work_type"

@@ -105,9 +105,9 @@ msgid "English concertina"
 msgstr "concertina inglesa"
 
 #: DB:instrument/name:844
-msgctxt "English \"improved\" flageolet"
+msgctxt "1800's improved flageolet"
 msgid "English flageolet"
-msgstr "flageolet inglés"
+msgstr ""
 
 #: DB:instrument/name:30
 msgid "French horn"
@@ -955,8 +955,9 @@ msgid "chakhe"
 msgstr ""
 
 #: DB:instrument/name:436
+msgctxt "Baroque/classical predecessor of the clarinet"
 msgid "chalumeau"
-msgstr "salmoé"
+msgstr ""
 
 #: DB:instrument/name:471
 msgid "chamber organ"
@@ -983,6 +984,11 @@ msgstr ""
 msgctxt "Small Andean lute"
 msgid "charango"
 msgstr "charango"
+
+#: DB:instrument/name:1150
+msgctxt "Japanese double-reed"
+msgid "charumera"
+msgstr ""
 
 #: DB:instrument/name:640
 msgid "chau gong"
@@ -1536,7 +1542,7 @@ msgid "flabiol"
 msgstr ""
 
 #: DB:instrument/name:843
-msgctxt "french 16th century fipple flute"
+msgctxt "French 16th century fipple flute"
 msgid "flageolet"
 msgstr ""
 
@@ -1803,8 +1809,9 @@ msgid "gopichant"
 msgstr ""
 
 #: DB:instrument/name:582
+msgctxt "Catalan dulzaina"
 msgid "gralla"
-msgstr "gralla"
+msgstr ""
 
 #: DB:instrument/name:748
 msgid "gramorimba"
@@ -2131,7 +2138,7 @@ msgid "kamancheh"
 msgstr ""
 
 #: DB:instrument/name:474
-msgctxt "South Indian frame drum."
+msgctxt "South Indian frame drum"
 msgid "kanjira"
 msgstr ""
 
@@ -4579,6 +4586,16 @@ msgstr ""
 msgctxt "Maltese mirliton"
 msgid "żummara"
 msgstr ""
+
+#~ msgctxt "English \"improved\" flageolet"
+#~ msgid "English flageolet"
+#~ msgstr "flageolet inglés"
+
+#~ msgid "chalumeau"
+#~ msgstr "salmoé"
+
+#~ msgid "gralla"
+#~ msgstr "gralla"
 
 #~ msgid "dulcian"
 #~ msgstr "bajón"
