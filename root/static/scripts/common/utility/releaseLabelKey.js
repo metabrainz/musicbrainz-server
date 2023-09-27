@@ -15,7 +15,9 @@ export default function releaseLabelKey(releaseLabel: ReleaseLabelT): string {
   let result = '';
   const label = ko.unwrap(releaseLabel.label);
   if (label) {
-    result += (label.id || '');
+    result += (
+      label.id || (nonEmpty(label.name) ? 'name-' + label.name : '')
+    );
   }
   result += '\0';
   result += clean(ko.unwrap(releaseLabel.catalogNumber));

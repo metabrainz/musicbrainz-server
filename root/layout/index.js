@@ -177,7 +177,8 @@ const Layout = ({
   const showNewEditNotesBanner = $c.stash.new_edit_notes /*:: === true */ &&
     ($c.stash.new_edit_notes_mtime ?? Infinity) > Number(
       getRequestCookie($c.req, 'new_edit_notes_dismissed_mtime', '0'),
-    ) && ($c.user?.is_limited ||
+    ) && (($c.user &&
+      ($c.user.is_limited || !$c.user.has_confirmed_email_address)) ||
       getRequestCookie($c.req, 'alert_new_edit_notes', 'true') !== 'false');
 
   return (

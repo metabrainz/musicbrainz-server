@@ -60,5 +60,6 @@ export function canNominate(
   nominee: ?UnsanitizedEditorT,
 ): boolean {
   return (!!nominator && !!nominee && isAutoEditor(nominator) &&
-    !isAutoEditor(nominee) && !nominee.deleted);
+    !isAutoEditor(nominee) && !nominee.deleted &&
+    nominee.has_confirmed_email_address);
 }

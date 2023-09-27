@@ -13,9 +13,10 @@ SELECT id,
   FROM editor eor
  WHERE id != $EDITOR_MODBOT
    AND NOT deleted
-   AND   ( email_confirm_date IS NULL
-        OR member_since < NOW() - INTERVAL '2 weeks'
-        OR (SELECT COUNT(*) FROM edit WHERE eor.id = edit.editor AND edit.status = 2 AND edit.autoedit = 0) < 10
+   AND   ( 
+            member_since < NOW() - INTERVAL '2 weeks'
+          OR
+            (SELECT COUNT(*) FROM edit WHERE eor.id = edit.editor AND edit.status = 2 AND edit.autoedit = 0) < 10
          )";
 }
 

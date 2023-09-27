@@ -206,6 +206,16 @@ subtest 'Find editors with subscriptions' => sub {
 
     @editors = $editor_data->editors_with_subscriptions(2, 1000);
     is(@editors => 0, 'found no editor');
+
+    note('We mark editor #2 as a spammer (plus block edits and notes privs)');
+    $test->c->sql->do(<<~'SQL');
+        UPDATE editor
+           SET privs = 7168
+         WHERE id = 2
+        SQL
+
+    @editors = $editor_data->editors_with_subscriptions(0, 1000);
+    is(@editors => 0, 'now-spammer editor #2 is no longer returned');
 };
 
 };

@@ -83,17 +83,23 @@ validationTest((
 validationTest((
   'duplicate label/catalog number pairs are rejected (MBS-8137)'
 ), function (t) {
-  t.plan(9);
+  t.plan(14);
 
   releaseEditor.action = 'edit';
 
   var label1 = {name: 'Foo', id: 123};
   var label2 = {name: 'Bar', id: 456};
+  var label3 = {name: 'Foo', id: 789};
 
   releaseEditor.releaseLoaded({
     labels: [
       {label: label1, catalogNumber: 'ABC-123'},
       {label: label1, catalogNumber: 'ABC-123'},
+      {label: label1, catalogNumber: 'ABC-456'},
+      {label: label3, catalogNumber: 'ABC-123'},
+      {label: {name: 'A'}, catalogNumber: 'ABC-456'},
+      {label: {name: 'A'}, catalogNumber: 'ABC-456'},
+      {label: {name: 'B'}, catalogNumber: 'ABC-456'},
       {label: null, catalogNumber: 'ABC-456'},
       {label: null, catalogNumber: 'ABC-456'},
       {label: label2, catalogNumber: null},
@@ -105,16 +111,35 @@ validationTest((
 
   var labels = releaseEditor.rootField.release().labels();
 
-  t.ok(labels[0].isDuplicate());
-  t.ok(labels[1].isDuplicate());
-  t.ok(labels[2].isDuplicate());
-  t.ok(labels[3].isDuplicate());
-  t.ok(labels[4].isDuplicate());
-  t.ok(labels[5].isDuplicate());
+  t.ok(labels[0].isDuplicate(), 'Same label and catno is a dupe');
+  t.ok(labels[1].isDuplicate(), 'Same label and catno is a dupe');
+  t.ok(
+    !labels[2].isDuplicate(),
+    'Same label and different catno is not a dupe',
+  );
+  t.ok(
+    !labels[3].isDuplicate(),
+    'Different label with same label name and same catno is not a dupe',
+  );
+  t.ok(labels[4].isDuplicate(), 'Same label name and catno is a dupe');
+  t.ok(labels[5].isDuplicate(), 'Same label name and catno is a dupe');
+  t.ok(
+    !labels[6].isDuplicate(),
+    'Different label name and same catno is not a dupe',
+  );
+  t.ok(labels[7].isDuplicate(), 'No label and same catno is a dupe');
+  t.ok(labels[8].isDuplicate(), 'No label and same catno is a dupe');
+  t.ok(labels[9].isDuplicate(), 'Same label and no catno is a dupe');
+  t.ok(labels[10].isDuplicate(), 'Same label and no catno is a dupe');
 
-  // Empty release labels aren't duplicates of each other, they're ignored
-  t.ok(!labels[6].isDuplicate());
-  t.ok(!labels[7].isDuplicate());
+  t.ok(
+    !labels[11].isDuplicate(),
+    'No label and no catno does not trigger error',
+  );
+  t.ok(
+    !labels[12].isDuplicate(),
+    'No label and no catno does not trigger error',
+  );
 
   t.ok(validation.errorsExist());
 });
