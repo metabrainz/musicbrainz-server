@@ -224,7 +224,7 @@ To build everything necessary to access the server in a web browser (CSS, JavaSc
 
     ./script/compile_resources.sh
 
-If you encounter an error running the command above, follow this section [Translations](https://github.com/metabrainz/musicbrainz-server/blob/master/INSTALL.md#translations) until **4. install translations**.
+If you encounter an error running the command above, follow this section [Translations](#translations) until **4. install translations**.
 It will generate the necessary files for the build to succeed.
 
 This command below takes care of installing Node.js dependencies for you, including
