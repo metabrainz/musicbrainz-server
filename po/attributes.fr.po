@@ -390,6 +390,13 @@ msgstr ""
 "numériquement. Souvent fournie avec des versions physiques mais parfois "
 "vendue comme un article indépendant (surtout en Asie)."
 
+#: DB:label_type/description:10
+msgctxt "label_type"
+msgid ""
+"A company that manufactures physical releases (such as pressing CDs or vinyl "
+"records)."
+msgstr ""
+
 #: DB:work_type/description:4
 msgctxt "work_type"
 msgid ""
@@ -437,6 +444,11 @@ msgid ""
 "like instruments"
 msgstr ""
 "Un groupe d’instruments par similarité, par exemple la famille des violons"
+
+#: DB:label_type/description:5
+msgctxt "label_type"
+msgid "A label that primarily puts out unsanctioned (bootleg) releases."
+msgstr ""
 
 #: DB:release_packaging/description:55
 msgctxt "release_packaging"

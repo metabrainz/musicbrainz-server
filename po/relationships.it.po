@@ -28,8 +28,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
-" ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
+"0) ? 1 : 2);\n"
 "X-Generator: Weblate 5.0.2\n"
 
 #: DB:link_attribute_type/description:1355
@@ -5392,7 +5392,7 @@ msgstr "primo violino"
 msgid "conducting"
 msgstr "direzione d'orchestra"
 
-#: DB:link_type/name:806 DB:link_type/name:151 DB:link_type/name:46
+#: DB:link_type/name:806 DB:link_type/name:46 DB:link_type/name:151
 msgid "conductor"
 msgstr "direttore d'orchestra"
 
@@ -7430,8 +7430,8 @@ msgid "performed the voice of"
 msgstr "si è esibito come doppiatore di"
 
 #: DB:link_type/long_link_phrase:152 DB:link_type/long_link_phrase:53
-msgid "performed {additional} chorus master on"
-msgstr "si è esibito come maestro del coro {additional:aggiunto} su"
+msgid "performed {additional} {assistant} chorus master on"
+msgstr ""
 
 #: DB:link_type/long_link_phrase:44 DB:link_type/long_link_phrase:148
 msgid "performed {additional} {guest} {solo} {instrument:%|instruments} on"
@@ -8719,11 +8719,6 @@ msgstr "ha composto {additional:in aggiunta} presso"
 msgid "{additional:additionally} composed in"
 msgstr "ha composto {additional:in aggiunta} a"
 
-#: DB:link_type/link_phrase:151 DB:link_type/link_phrase:46
-#: DB:link_type/long_link_phrase:151 DB:link_type/long_link_phrase:46
-msgid "{additional:additionally} conducted"
-msgstr "ha diretto {additional:in aggiunta} l'orchestra"
-
 #: DB:link_type/reverse_link_phrase:819 DB:link_type/reverse_link_phrase:820
 msgid "{additional:additionally} edited at"
 msgstr "editing effettuato {additional:in aggiunta} presso"
@@ -8835,6 +8830,11 @@ msgstr "ha scritto {additional:in aggiunta} il libretto di"
 #: DB:link_type/long_link_phrase:56 DB:link_type/long_link_phrase:165
 msgid "{additional:additionally} wrote the lyrics for"
 msgstr "ha scritto il testo {additional:in aggiunta} per"
+
+#: DB:link_type/link_phrase:46 DB:link_type/link_phrase:151
+#: DB:link_type/long_link_phrase:46 DB:link_type/long_link_phrase:151
+msgid "{additional:additionally} {assistant} conducted"
+msgstr ""
 
 #: DB:link_type/link_phrase:153 DB:link_type/link_phrase:47
 #: DB:link_type/long_link_phrase:153 DB:link_type/long_link_phrase:47
@@ -8994,11 +8994,6 @@ msgstr "direzione artistica {additional:aggiuntiva}"
 msgid "{additional} artwork"
 msgstr "copertine {additional:aggiuntive}"
 
-#: DB:link_type/link_phrase:152 DB:link_type/link_phrase:53
-#: DB:link_type/reverse_link_phrase:152 DB:link_type/reverse_link_phrase:53
-msgid "{additional} chorus master"
-msgstr "maestro del coro {additional:aggiunto}"
-
 #: DB:link_type/reverse_link_phrase:55 DB:link_type/reverse_link_phrase:168
 msgid "{additional} composer"
 msgstr "compositore {additional:aggiunto}"
@@ -9006,10 +9001,6 @@ msgstr "compositore {additional:aggiunto}"
 #: DB:link_type/link_phrase:875 DB:link_type/link_phrase:876
 msgid "{additional} composing location for"
 msgstr "luogo {additional:aggiuntivo} di composizione per"
-
-#: DB:link_type/reverse_link_phrase:151 DB:link_type/reverse_link_phrase:46
-msgid "{additional} conductor"
-msgstr "direttore d'orchestra {additional:aggiunto}"
 
 #: DB:link_type/link_phrase:63 DB:link_type/link_phrase:146
 #: DB:link_type/reverse_link_phrase:63 DB:link_type/reverse_link_phrase:146
@@ -9155,6 +9146,15 @@ msgstr "autore {additional:aggiunto}"
 msgid "{additional} writing location for"
 msgstr "luogo {additional:aggiuntivo} di scrittura per"
 
+#: DB:link_type/link_phrase:152 DB:link_type/link_phrase:53
+#: DB:link_type/reverse_link_phrase:152 DB:link_type/reverse_link_phrase:53
+msgid "{additional} {assistant} chorus master"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:46 DB:link_type/reverse_link_phrase:151
+msgid "{additional} {assistant} conductor"
+msgstr ""
+
 #: DB:link_type/reverse_link_phrase:153 DB:link_type/reverse_link_phrase:47
 msgid "{additional} {assistant} remixer"
 msgstr "{assistant:assistente} remixer {additional:aggiunto}"
@@ -9262,8 +9262,8 @@ msgstr ""
 #: DB:link_type/reverse_link_phrase:294
 msgid "{additional} {associate} {vocal:%|vocals} {co:co-}arranger"
 msgstr ""
-"{co:co-}arrangiatore {vocal:%|vocali} {associate:associato} "
-"{additional:aggiunto}"
+"{co:co-}arrangiatore {vocal:%|vocali} {associate:associato} {additional:"
+"aggiunto}"
 
 #: DB:link_type/reverse_link_phrase:51 DB:link_type/reverse_link_phrase:156
 msgid "{additional} {guest} {solo} performer"
@@ -9815,6 +9815,18 @@ msgstr "supporto {vocal:%|vocali} da parte di"
 #: DB:link_type/link_phrase:107
 msgid "{vocal:%|vocals} support for"
 msgstr "supporto {vocal:%|vocali} per"
+
+#~ msgid "performed {additional} chorus master on"
+#~ msgstr "si è esibito come maestro del coro {additional:aggiunto} su"
+
+#~ msgid "{additional:additionally} conducted"
+#~ msgstr "ha diretto {additional:in aggiunta} l'orchestra"
+
+#~ msgid "{additional} chorus master"
+#~ msgstr "maestro del coro {additional:aggiunto}"
+
+#~ msgid "{additional} conductor"
+#~ msgstr "direttore d'orchestra {additional:aggiunto}"
 
 #~ msgid ""
 #~ "Links a release to the area it was transferred in. Use only when the "

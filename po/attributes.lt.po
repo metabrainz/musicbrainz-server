@@ -14,8 +14,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
-"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 :"
-" n % 1 != 0 ? 2: 3);\n"
+"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
+"1 : n % 1 != 0 ? 2: 3);\n"
 "X-Generator: Weblate 5.0.2\n"
 
 #: DB:work_type/description:9
@@ -328,6 +328,13 @@ msgid ""
 "in Asia)."
 msgstr ""
 
+#: DB:label_type/description:10
+msgctxt "label_type"
+msgid ""
+"A company that manufactures physical releases (such as pressing CDs or vinyl "
+"records)."
+msgstr ""
+
 #: DB:work_type/description:4
 msgctxt "work_type"
 msgid ""
@@ -365,6 +372,11 @@ msgctxt "instrument_type"
 msgid ""
 "A grouping of related but different instruments, like the different violin-"
 "like instruments"
+msgstr ""
+
+#: DB:label_type/description:5
+msgctxt "label_type"
+msgid "A label that primarily puts out unsanctioned (bootleg) releases."
 msgstr ""
 
 #: DB:release_packaging/description:55
@@ -526,8 +538,8 @@ msgid ""
 msgstr ""
 "Anksčiau oficialus leidinys, kurį atlikėjas (-a) ir (arba) jo įrašų "
 "kompanija po išleidimo aktyviai išėmė iš apyvartos, kad jį pakeistų nauja "
-"versija su tam tikrais pakeitimais arba apskritai pašalintų iš apyvartos ("
-"pvz., dėl teisinių problemų)."
+"versija su tam tikrais pakeitimais arba apskritai pašalintų iš apyvartos "
+"(pvz., dėl teisinių problemų)."
 
 #: DB:release_group_secondary_type/description:10
 msgctxt "release_group_secondary_type"

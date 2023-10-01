@@ -4218,7 +4218,7 @@ msgstr ""
 msgid "conducting"
 msgstr ""
 
-#: DB:link_type/name:806 DB:link_type/name:151 DB:link_type/name:46
+#: DB:link_type/name:806 DB:link_type/name:46 DB:link_type/name:151
 msgid "conductor"
 msgstr ""
 
@@ -6248,7 +6248,7 @@ msgid "performed the voice of"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:152 DB:link_type/long_link_phrase:53
-msgid "performed {additional} chorus master on"
+msgid "performed {additional} {assistant} chorus master on"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:44 DB:link_type/long_link_phrase:148
@@ -7530,11 +7530,6 @@ msgstr ""
 msgid "{additional:additionally} composed in"
 msgstr ""
 
-#: DB:link_type/link_phrase:151 DB:link_type/link_phrase:46
-#: DB:link_type/long_link_phrase:151 DB:link_type/long_link_phrase:46
-msgid "{additional:additionally} conducted"
-msgstr ""
-
 #: DB:link_type/reverse_link_phrase:819 DB:link_type/reverse_link_phrase:820
 msgid "{additional:additionally} edited at"
 msgstr ""
@@ -7645,6 +7640,11 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:56 DB:link_type/long_link_phrase:165
 msgid "{additional:additionally} wrote the lyrics for"
+msgstr ""
+
+#: DB:link_type/link_phrase:46 DB:link_type/link_phrase:151
+#: DB:link_type/long_link_phrase:46 DB:link_type/long_link_phrase:151
+msgid "{additional:additionally} {assistant} conducted"
 msgstr ""
 
 #: DB:link_type/link_phrase:153 DB:link_type/link_phrase:47
@@ -7773,21 +7773,12 @@ msgstr ""
 msgid "{additional} artwork"
 msgstr ""
 
-#: DB:link_type/link_phrase:152 DB:link_type/link_phrase:53
-#: DB:link_type/reverse_link_phrase:152 DB:link_type/reverse_link_phrase:53
-msgid "{additional} chorus master"
-msgstr ""
-
 #: DB:link_type/reverse_link_phrase:55 DB:link_type/reverse_link_phrase:168
 msgid "{additional} composer"
 msgstr ""
 
 #: DB:link_type/link_phrase:875 DB:link_type/link_phrase:876
 msgid "{additional} composing location for"
-msgstr ""
-
-#: DB:link_type/reverse_link_phrase:151 DB:link_type/reverse_link_phrase:46
-msgid "{additional} conductor"
 msgstr ""
 
 #: DB:link_type/link_phrase:63 DB:link_type/link_phrase:146
@@ -7932,6 +7923,15 @@ msgstr ""
 
 #: DB:link_type/link_phrase:873 DB:link_type/link_phrase:874
 msgid "{additional} writing location for"
+msgstr ""
+
+#: DB:link_type/link_phrase:152 DB:link_type/link_phrase:53
+#: DB:link_type/reverse_link_phrase:152 DB:link_type/reverse_link_phrase:53
+msgid "{additional} {assistant} chorus master"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:46 DB:link_type/reverse_link_phrase:151
+msgid "{additional} {assistant} conductor"
 msgstr ""
 
 #: DB:link_type/reverse_link_phrase:153 DB:link_type/reverse_link_phrase:47
