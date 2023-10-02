@@ -141,7 +141,6 @@ test 'Paths that allow browsing without a confirmed email address' => sub {
   'Controller::AutoEditorElections::index',
   'Controller::AutoEditorElections::nominate',
   'Controller::AutoEditorElections::show',
-  'Controller::CDStub::add',
   'Controller::CDStub::base',
   'Controller::CDStub::browse',
   'Controller::CDStub::show',

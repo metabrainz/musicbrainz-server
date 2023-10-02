@@ -323,9 +323,6 @@ test 'collection lookup errors' => sub {
     ws2_test_xml_invalid_mbid 'lookup 400s if mbid is invalid',
         '/collection/29611d8b-b3ad-4ffb-acb5-xxxxxxxxxxxx';
 
-    ws2_test_xml_invalid_mbid 'lookup 400s if mbid is invalid',
-        '/collection/29611d8b-b3ad-4ffb-acb5-xxxxxxxxxxxx';
-
     my $bad_entity_response = sub {
         my ($entity_type) = @_;
 

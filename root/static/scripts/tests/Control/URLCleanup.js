@@ -1539,14 +1539,6 @@ limited_link_type_combinations: [
                      input_url: 'www.cdbaby.name/artist/Johnn%c3%afDoe1#',
              input_entity_type: 'artist',
     expected_relationship_type: 'cdbaby',
-            expected_clean_url: 'https://store.cdbaby.com/Artist/Johnn%c3%afDoe1',
-       only_valid_entity_types: ['artist'],
-  },
-  {
-                     input_url: 'http://cdbaby.com/cd/Johnn%c3%af003',
-             input_entity_type: 'release',
-    expected_relationship_type: undefined,
-            expected_clean_url: 'https://store.cdbaby.com/cd/johnn%c3%af003',
   },
   // CB (Cape Breton) Fiddle Recordings
   {
@@ -5871,6 +5863,13 @@ limited_link_type_combinations: [
     expected_relationship_type: 'vgmdb',
             expected_clean_url: 'https://vgmdb.net/product/8301',
        only_valid_entity_types: ['work'],
+  },
+  {
+                     input_url: 'https://vgmdb.net/product/8302/',
+             input_entity_type: 'release_group',
+    expected_relationship_type: undefined,
+       input_relationship_type: 'review',
+       only_valid_entity_types: [],
   },
   // VIAF (Virtual International Authority File)
   {

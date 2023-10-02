@@ -11,7 +11,7 @@ with 't::Mechanize', 't::Context';
 =head2 Test description
 
 This test checks whether filtering works for different entity lists
-in artist pages (RGs, recordings, works).
+in artist pages (events, RGs, recordings, releases, works).
 
 =cut
 
@@ -154,8 +154,147 @@ test 'Overview (release group) filtering' => sub {
     );
 
     $mech->content_contains(
-        'No release groups found that match this search.',
+        'No results found that match this search.',
         'The "no results" message is shown',
+    );
+};
+
+test 'Release page filtering' => sub {
+    my $test = shift;
+    my $mech = $test->mech;
+    my $c    = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+filtering');
+
+    $mech->get_ok(
+        '/artist/af4c43d3-c0e0-421e-ac64-000329af0435/releases',
+        'Fetched artist releases page',
+    );
+
+    my $tx = test_xpath_html($mech->content);
+    $tx->is(
+        'count(//table[@class="tbl"]/tbody/tr)',
+        '6',
+        'There are six entries in the unfiltered release table',
+    );
+
+    $mech->get_ok(
+        '/artist/af4c43d3-c0e0-421e-ac64-000329af0435/releases?filter.name=Symphony',
+        'Fetched artist releases page with name filter "Symphony"',
+    );
+
+    $tx = test_xpath_html($mech->content);
+    $tx->is(
+        'count(//table[@class="tbl"]/tbody/tr)',
+        '2',
+        'There are two entries in the release table after filtering by name',
+    );
+    $tx->is(
+        '//table[@class="tbl"]/tbody/tr[1]/td[1]',
+        'Concerto for Orchestra / Symphony no. 3',
+        'The first entry is named "Concerto for Orchestra / Symphony no. 3"',
+    );
+
+    $mech->get_ok(
+        '/artist/af4c43d3-c0e0-421e-ac64-000329af0435/releases?filter.artist_credit_id=3401',
+        'Fetched artist releases page with artist credit filter',
+    );
+
+    $tx = test_xpath_html($mech->content);
+    $tx->is(
+        'count(//table[@class="tbl"]/tbody/tr)',
+        '1',
+        'There is one entry in the release table after filtering by credit',
+    );
+    $tx->is(
+        '//table[@class="tbl"]/tbody/tr[1]/td[1]',
+        'Piano Concerto / Symphony no. 2',
+        'The entry is named "Piano Concerto / Symphony no. 2"',
+    );
+
+    $mech->get_ok(
+        '/artist/af4c43d3-c0e0-421e-ac64-000329af0435/releases?filter.status_id=5',
+        'Fetched artist releases page with status filter "Withdrawn"',
+    );
+
+    $tx = test_xpath_html($mech->content);
+    $tx->is(
+        'count(//table[@class="tbl"]/tbody/tr)',
+        '1',
+        'There is one entry in the release table after filtering by "Withdrawn" status',
+    );
+    $tx->is(
+        '//table[@class="tbl"]/tbody/tr[1]/td[1]',
+        'Jeux vénetiens',
+        'The entry is named "Jeux vénetiens"',
+    );
+
+    $mech->get_ok(
+        '/artist/af4c43d3-c0e0-421e-ac64-000329af0435/releases?filter.date=2010',
+        'Fetched artist releases page with date filter',
+    );
+
+    $tx = test_xpath_html($mech->content);
+    $tx->is(
+        'count(//table[@class="tbl"]/tbody/tr)',
+        '3',
+        'There are three entries in the release table after filtering by date',
+    );
+    $tx->is(
+        '//table[@class="tbl"]/tbody/tr[1]/td[1]',
+        'Piano Concerto / Symphony no. 2',
+        'The first entry is named "Piano Concerto / Symphony no. 2"',
+    );
+
+    $mech->get_ok(
+        '/artist/af4c43d3-c0e0-421e-ac64-000329af0435/releases?filter.label_id=3403',
+        'Fetched artist releases page with label filter',
+    );
+
+    $tx = test_xpath_html($mech->content);
+    $tx->is(
+        'count(//table[@class="tbl"]/tbody/tr)',
+        '2',
+        'There are two entries in the release table after filtering by label',
+    );
+    $tx->is(
+        '//table[@class="tbl"]/tbody/tr[1]/td[1]',
+        'Lutosławski',
+        'The first entry is named "Lutosławski"',
+    );
+
+    $mech->get_ok(
+        '/artist/af4c43d3-c0e0-421e-ac64-000329af0435/releases?filter.country_id=221',
+        'Fetched artist releases page with country filter',
+    );
+
+    $tx = test_xpath_html($mech->content);
+    $tx->is(
+        'count(//table[@class="tbl"]/tbody/tr)',
+        '2',
+        'There are two entries in the release table after filtering by country',
+    );
+    $tx->is(
+        '//table[@class="tbl"]/tbody/tr[1]/td[1]',
+        'Concerto for Orchestra / Symphony no. 3',
+        'The first entry is named "Concerto for Orchestra / Symphony no. 3"',
+    );
+
+    $mech->get_ok(
+        '/artist/af4c43d3-c0e0-421e-ac64-000329af0435/releases?filter.country_id=221&filter.label_id=3401',
+        'Fetched artist releases page with both label and country filter',
+    );
+
+    $tx = test_xpath_html($mech->content);
+    $tx->is(
+        'count(//table[@class="tbl"]/tbody/tr)',
+        '1',
+        'There is one entry in the release table after filtering by country and label',
+    );
+    $tx->is(
+        '//table[@class="tbl"]/tbody/tr[1]/td[1]',
+        'Piano Concerto / Symphony no. 2',
+        'The entry is named "Piano Concerto / Symphony no. 2"',
     );
 };
 

@@ -112,12 +112,20 @@ sub _where_filter
             push @query, 'release.artist_credit = ?';
             push @params, $filter->{artist_credit_id};
         }
+        if (exists $filter->{label_id}) {
+            push @query, 'EXISTS (SELECT 1 FROM release_label rl WHERE rl.release = release.id AND rl.label = ?)';
+            push @params, $filter->{label_id};
+        }
         if (exists $filter->{status} && $filter->{status}) {
             my @statuses = ref($filter->{status}) ? @{ $filter->{status} } : ( $filter->{status} );
             if (@statuses) {
                 push @query, 'release.status IN (' . placeholders(@statuses) . ')';
                 push @params, @statuses;
             }
+        }
+        if (exists $filter->{status_id}) {
+            push @query, 'release.status = ?';
+            push @params, $filter->{status_id};
         }
         if (exists $filter->{type} && $filter->{type}) {
             my @types = ref($filter->{type}) ? @{ $filter->{type} } : ( $filter->{type} );
@@ -189,6 +197,20 @@ sub find_artist_credits_by_artist
                  WHERE acn.artist = ?';
     my $ids = $self->sql->select_single_column_array($query, $artist_id);
     return $self->c->model('ArtistCredit')->find_by_ids($ids);
+}
+
+sub find_labels_by_artist
+{
+    my ($self, $artist_id) = @_;
+
+    my $query = 'SELECT DISTINCT rl.label
+                 FROM release_label rl
+                 JOIN release rel ON rl.release = rel.id
+                 JOIN artist_credit_name acn
+                     ON acn.artist_credit = rel.artist_credit
+                 WHERE acn.artist = ?';
+    my $ids = $self->sql->select_single_column_array($query, $artist_id);
+    return $self->c->model('Label')->get_by_ids_sorted_by_name(@$ids);
 }
 
 sub find_by_area {

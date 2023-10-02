@@ -33,6 +33,46 @@ INSERT INTO release_group (id, gid, name, artist_credit, type)
 INSERT INTO release_group_secondary_type_join (release_group, secondary_type)
     VALUES (3403, 6), (3405, 6);
 
+-- Releases (and countries, labels)
+
+INSERT INTO release (id, gid, name, artist_credit, status, release_group)
+    VALUES (3400, 'bee95816-da7d-3902-9038-3e8f9b3ebe9a', 'Concerto for Orchestra / Symphony no. 3', 3400, 1, 3400),
+           (3401, '6dfcff0b-9434-48b9-bf14-ed674dd626fa', 'Piano Concerto / Symphony no. 2', 3401, 1, 3401),
+           (3402, '98b72608-a824-40c5-b5df-81cf981faf7a', 'Symphonies / Concertos / Choral and Vocal Works', 3400, 1, 3402),
+           (3403, '33d71de2-d3c6-4906-908e-df59d70b283a', 'Lutosławski', 3400, 1, 3403),
+           (3404, 'fc9b775a-6c06-3828-b6a4-220b65cfef6a', 'String Quartet', 3400, NULL, 3404),
+           (3405, '5a52075e-f5eb-3de5-8236-aa21cc05cb1a', 'Jeux vénetiens', 3400, 5, 3405);
+
+INSERT INTO label (id, gid, name)
+    VALUES (3400, 'ed65f6e2-5454-45a7-8607-e1106d209734', 'Erato'),
+           (3401, '5a584032-dcef-41bb-9f8b-19540116fb1c', 'Deutsche Grammophon'),
+           (3402, '615fa478-3901-42b8-80bc-bf58b1ff0e03', 'Naxos'),
+           (3403, '157afde4-4bf5-4039-8ad2-5a15acc85176', '[no label]');
+
+INSERT INTO release_label (release, label, catalog_number)
+    VALUES (3400, 3400, '4509-91711-2'),
+           (3401, 3401, '0289 479 4518'),
+           (3402, 3402, '8.501066'),
+           (3403, 3403, NULL),
+           (3404, 3401, NULL),
+           (3405, 3403, '[none]');
+
+INSERT INTO area (id, gid, name, type)
+    VALUES (221, '8a754a16-0027-3a29-b6d7-2b40ea0481ed', 'United Kingdom', 1),
+           (222, '489ce91b-6658-3307-9877-795b68554c98', 'United States', 1);
+
+INSERT INTO country_area (area) VALUES (221), (222);
+
+INSERT INTO release_country (release, country, date_year, date_month, date_day)
+    VALUES (3400, 221, 1993, NULL, NULL),
+           (3401, 221, 2010, 12, 12),
+           (3405, 222, NULL, NULL, NULL);
+
+INSERT INTO release_unknown_country (release, date_year, date_month, date_day)
+    VALUES (3402, 1993, NULL, NULL),
+           (3403, 2010, NULL, NULL),
+           (3404, 2010, NULL, NULL);
+
 -- Events
 
 INSERT INTO event (id, gid, name, type, setlist)

@@ -70,13 +70,16 @@ sub get_by_refresh_token
 sub find_granted_by_editor
 {
     my ($self, $editor_id, $limit, $offset) = @_;
-    my $query = 'SELECT application, scope, max(granted) as granted
-                 FROM ' . $self->_table . '
+    my $query = 'SELECT token.application,
+                        token.scope,
+                        max(token.granted) as granted
+                 FROM ' . $self->_table . ' token
+                 JOIN application ON token.application = application.id
                  WHERE
-                    editor = ? AND
-                    access_token IS NOT NULL
-                 GROUP BY application, scope
-                 ORDER BY application, scope';
+                    token.editor = ? AND
+                    token.access_token IS NOT NULL
+                 GROUP BY application.name, token.application, token.scope
+                 ORDER BY application.name, granted DESC, token.scope';
     $self->query_to_list_limited($query, [$editor_id], $limit, $offset);
 }
 

@@ -178,10 +178,8 @@ sub show : PathPart('') Chained('load')
     my $artist = $c->stash->{artist};
     my $release_groups;
     my $recordings;
-    my %filter = %{ $self->process_filter($c, sub {
-        return create_artist_release_groups_form($c, $artist->id);
-    }) };
-    my $has_filter = %filter ? 1 : 0;
+    my %filter;
+    my $filter_url;
 
     my $has_default = $c->model('ReleaseGroup')->has_by_artist($artist->id, 0);
     my $has_extra = $c->model('ReleaseGroup')->has_by_artist($artist->id, 1);
@@ -194,7 +192,7 @@ sub show : PathPart('') Chained('load')
     my $showing_va_only;
 
     my $has_release_groups = $has_default || $has_extra || $has_va || $has_va_extra;
-    my $force_release_groups = $want_va_only || $want_all_statuses || %filter;
+    my $force_release_groups = $want_va_only || $want_all_statuses;
 
     my $make_attempt = sub {
         my ($all, $va) = @_;
@@ -216,6 +214,14 @@ sub show : PathPart('') Chained('load')
     if ($has_release_groups || $force_release_groups) {
         # Attempt from official non-va, to all non-va, to official va, to all va;
         # filter out any attempt that contradicts a preference from a query param
+        $filter_url = $c->uri_for_action(
+            '/ajax/filter_artist_release_groups_form',
+            { artist_id => $artist->id },
+        );
+        %filter = %{ $self->process_filter($c, sub {
+            return create_artist_release_groups_form($c, $artist->id);
+        }) };
+
         my @attempts = grep {
             ($_->[0] || !$want_all_statuses) &&
             ($_->[1] || !$want_va_only)
@@ -235,8 +241,17 @@ sub show : PathPart('') Chained('load')
         }
     } else {
         # If there is no expressed preference (va, filter) and no RGs, find recordings
+        $filter_url = $c->uri_for_action(
+            '/ajax/filter_artist_recordings_form',
+            { artist_id => $artist->id },
+        );
+        %filter = %{ $self->process_filter($c, sub {
+            return create_artist_recordings_form($c, $artist->id);
+        }) };
         $recordings = $self->_load_paged($c, sub {
-            $c->model('Recording')->find_standalone($artist->id, shift, shift);
+            $c->model('Recording')->find_by_artist(
+                $artist->id, shift, shift, (standalone => 1, filter => \%filter),
+            );
         });
         $c->model('ArtistCredit')->load(@$recordings);
         $c->model('Recording')->load_meta(@$recordings);
@@ -325,11 +340,13 @@ sub show : PathPart('') Chained('load')
     $c->stash(other_identities => \@other_identities,
               identities => \@identities);
 
+    my $has_filter = %filter ? 1 : 0;
+
     $c->stash(
         current_view => 'Node',
         component_path => 'artist/ArtistIndex',
         component_props => {
-            ajaxFilterFormUrl => '' . $c->uri_for_action('/ajax/filter_artist_release_groups_form', { artist_id => $artist->id }),
+            ajaxFilterFormUrl => '' . $filter_url,
             artist => $artist->TO_JSON,
             filterForm => to_json_object($c->stash->{filter_form}),
             hasDefault => boolean_to_json($has_default),
@@ -445,14 +462,14 @@ sub recordings : Chained('load')
     if ($c->req->query_params->{standalone}) {
         $recordings = $self->_load_paged($c, sub {
             return ([], 0) unless $has_standalone;
-            return $c->model('Recording')->find_standalone($artist->id, shift, shift);
+            return $c->model('Recording')->find_by_artist($artist->id, shift, shift, standalone => 1);
         });
         $standalone_only = 1;
     }
     elsif ($c->req->query_params->{video}) {
         $recordings = $self->_load_paged($c, sub {
             return ([], 0) unless $has_video;
-            return $c->model('Recording')->find_video($artist->id, shift, shift);
+            return $c->model('Recording')->find_by_artist($artist->id, shift, shift, video => 1);
         });
         $video_only = 1;
     }

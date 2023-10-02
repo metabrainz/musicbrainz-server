@@ -77,7 +77,7 @@ sub find_by_artist
 {
     my ($self, $artist_id, $limit, $offset, %args) = @_;
 
-    my (@where_query, @where_args);
+    my (@where_query, @where_args, @extra_joins);
 
     push @where_query, 'acn.artist = ?';
     push @where_args, $artist_id;
@@ -94,10 +94,19 @@ sub find_by_artist
         }
     }
 
+    if (exists $args{standalone}) {
+        push @extra_joins, 'LEFT JOIN track t ON t.recording = recording.id';
+        push @where_query, 't.id IS NULL';
+    }
+
+    if (exists $args{video}) {
+        push @where_query, 'video IS TRUE';
+    }
+
     my $query = 'SELECT DISTINCT ' . $self->_columns . ',
                         recording.name COLLATE musicbrainz AS name_collate,
                         comment COLLATE musicbrainz AS comment_collate
-                 FROM ' . $self->_table . '
+                 FROM ' . $self->_table . ' ' . join(' ', @extra_joins) . '
                      JOIN artist_credit_name acn
                          ON acn.artist_credit = recording.artist_credit
                  WHERE ' . join(' AND ', @where_query) . '
@@ -327,21 +336,6 @@ sub has_standalone
     $self->sql->select_single_value($query, $artist_id);
 }
 
-sub find_standalone
-{
-    my ($self, $artist_id, $limit, $offset) = @_;
-    my $query ='
-        SELECT DISTINCT ' . $self->_columns . ',
-            recording.name COLLATE musicbrainz
-          FROM ' . $self->_table . '
-     LEFT JOIN track t ON t.recording = recording.id
-          JOIN artist_credit_name acn
-            ON acn.artist_credit = recording.artist_credit
-         WHERE t.id IS NULL
-           AND acn.artist = ?
-      ORDER BY recording.name COLLATE musicbrainz';
-    $self->query_to_list_limited($query, [$artist_id], $limit, $offset);
-}
 
 sub has_video
 {
@@ -358,20 +352,6 @@ sub has_video
     $self->sql->select_single_value($query, $artist_id);
 }
 
-sub find_video
-{
-    my ($self, $artist_id, $limit, $offset) = @_;
-    my $query ='
-        SELECT DISTINCT ' . $self->_columns . ',
-            recording.name COLLATE musicbrainz
-          FROM ' . $self->_table . '
-          JOIN artist_credit_name acn
-            ON acn.artist_credit = recording.artist_credit
-         WHERE video IS TRUE
-           AND acn.artist = ?
-      ORDER BY recording.name COLLATE musicbrainz';
-    $self->query_to_list_limited($query, [$artist_id], $limit, $offset);
-}
 =method appears_on
 
 This method will return a list of release groups the recordings appear

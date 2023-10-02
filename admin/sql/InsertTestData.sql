@@ -253,6 +253,9 @@ INSERT INTO artist (id, gid, name, sort_name)
 INSERT INTO artist (id, gid, name, sort_name, comment) VALUES
     (9, '2fed031c-0e89-406e-b9f0-3d192637907a', 'Test Alias', 'Kate Bush', 'Second');
 
+INSERT INTO event (id, gid, name, begin_date_year, begin_date_month, begin_date_day, end_date_year, end_date_month, end_date_day, time, type, cancelled, setlist, comment, ended)
+    VALUES (59357, 'ca1d24c1-1999-46fd-8a95-3d4108df5cb2', 'BBC Open Music Prom', 2022, 9, 1, 2022, 9, 1, '19:30:00', 1, 'f', NULL, '2022, Prom 60', 't');
+
 INSERT INTO l_artist_recording (id, link, entity0, entity1) VALUES (1, 1, 8, 2);
 INSERT INTO l_artist_recording (id, link, entity0, entity1, edits_pending) VALUES (2, 1, 9, 2, 1);
 INSERT INTO l_artist_recording (id, link, entity0, entity1) VALUES (3, 2, 8, 3);

@@ -219,6 +219,12 @@ with 'MusicBrainz::Server::Controller::Role::Edit' => {
     edit_type      => $EDIT_LABEL_EDIT,
 };
 
+before qw( create edit ) => sub {
+    my ($self, $c) = @_;
+    my %label_types = map {$_->id => $_} $c->model('LabelType')->get_all();
+    $c->stash->{label_types} = \%label_types;
+};
+
 around edit => sub {
     my $orig = shift;
     my ($self, $c) = @_;

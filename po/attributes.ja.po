@@ -292,6 +292,13 @@ msgid ""
 "in Asia)."
 msgstr ""
 
+#: DB:label_type/description:10
+msgctxt "label_type"
+msgid ""
+"A company that manufactures physical releases (such as pressing CDs or vinyl "
+"records)."
+msgstr ""
+
 #: DB:work_type/description:4
 msgctxt "work_type"
 msgid ""
@@ -334,6 +341,11 @@ msgid ""
 "A grouping of related but different instruments, like the different violin-"
 "like instruments"
 msgstr "別々のバイオリン風楽器のように、関連しているが異なる楽器のグループ"
+
+#: DB:label_type/description:5
+msgctxt "label_type"
+msgid "A label that primarily puts out unsanctioned (bootleg) releases."
+msgstr ""
 
 #: DB:release_packaging/description:55
 msgctxt "release_packaging"
@@ -600,6 +612,12 @@ msgstr "アーティストによる異なる場所で開催された関連コン
 msgctxt "series_type"
 msgid "A series of related concerts by an artist in the same location."
 msgstr "同じ場所でのアーティストによる一連の関連コンサート。"
+
+#: DB:series_type/description:80
+msgctxt "series_type"
+msgid ""
+"A series of release groups containing episodes of the same podcast series."
+msgstr ""
 
 #: DB:series_type/description:47
 msgctxt "series_type"
@@ -1123,6 +1141,11 @@ msgstr ""
 "オラトリオは、オーケストラ、合唱団、ソリストを含む大規模な（通常は神聖な）楽"
 "曲のことである。 キャラクターとプロットを持っていますが、通常劇場で上演されな"
 "い（それは衣装、小道具、そして強いキャラクターの相互作用を欠いている）。"
+
+#: DB:label_type/description:8
+msgctxt "label_type"
+msgid "An organization which collects royalties on behalf of artists."
+msgstr ""
 
 #: DB:work_type/description:12
 msgctxt "work_type"
@@ -6155,6 +6178,11 @@ msgstr ""
 msgctxt "medium_format"
 msgid "Playbutton"
 msgstr "PLAYBUTTON"
+
+#: DB:series_type/name:80
+msgctxt "series_type"
+msgid "Podcast"
+msgstr ""
 
 #: DB:work_type/name:21
 msgctxt "work_type"

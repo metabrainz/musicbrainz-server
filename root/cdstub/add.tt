@@ -1,5 +1,0 @@
-[% WRAPPER 'layout.tt' full_width=1 %]
-  <div id="content">
-    [% INCLUDE 'cdstub/edit_form.tt' new=1 %]
-  </div>
-[% END %]

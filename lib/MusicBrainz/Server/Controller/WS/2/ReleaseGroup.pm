@@ -18,7 +18,9 @@ my $ws_defs = Data::OptList::mkopt([
                          method   => 'GET',
                          linked   => [ qw(artist release collection) ],
                          inc      => [ qw(aliases artist-credits annotation
-                                          _relations tags user-tags genres user-genres ratings user-ratings) ],
+                                          _relations release-group-status
+                                          tags user-tags genres user-genres
+                                          ratings user-ratings) ],
                          optional => [ qw(fmt limit offset) ],
      },
      'release-group' => {
@@ -106,7 +108,10 @@ sub release_group_browse : Private
         my $artist = $c->model('Artist')->get_by_gid($id);
         $c->detach('not_found') unless ($artist);
 
-        my $show_all = 1;
+        # Allows requesting only "official" releases with 'website-default'
+        my $show_all = $c->stash->{release_group_status} eq 'website-default'
+                       ? 0
+                       : 1;
         my @tmp = $c->model('ReleaseGroup')->find_by_artist(
             $artist->id, $show_all, $limit, $offset, filter => { type => $c->stash->{type} });
         $rgs = $self->make_list(@tmp, $offset);

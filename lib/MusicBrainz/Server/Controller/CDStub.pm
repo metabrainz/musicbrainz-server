@@ -8,7 +8,6 @@ use aliased 'MusicBrainz::Server::Entity::CDTOC';
 
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
-use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::ControllerUtils::CDTOC qw( add_dash );
 use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
 
@@ -52,61 +51,6 @@ sub _load
     $c->stash->{cdstub} = $cdstub;
 }
 
-sub add : Path('add') DenyWhenReadonly
-{
-    my ($self, $c) = @_;
-
-    my $passed_toc = $c->req->query_params->{toc};
-    my $toc = CDTOC->new_from_toc($passed_toc);
-
-    if (!$toc) {
-        $c->stash( message => l('The required TOC parameter was invalid or not present') );
-        $c->detach('/error_400');
-    }
-
-    if ($c->model('CDStub')->get_by_discid($toc->discid)) {
-        $c->response->redirect(
-            $c->uri_for_action('/cdstub/show', [ $toc->discid ]));
-        $c->detach;
-    }
-
-    if ($c->model('CDTOC')->get_by_discid($toc->discid)) {
-        $c->response->redirect(
-            $c->uri_for_action('/cdtoc/show', [ $toc->discid ]));
-        $c->detach;
-    }
-
-    if ($c->user_exists) {
-        $c->res->code(403);
-
-        $c->stash(
-            current_view => 'Node',
-            component_path => 'cdstub/CDStubAddWhileLoggedIn.js',
-            component_props => { cdToc => $passed_toc },
-        );
-        $c->detach;
-    }
-
-    my $form = $c->form(
-        form => 'CDStub',
-        init_object => {
-            tracks => [ map +{}, (1..$toc->track_count) ]
-        }
-    );
-    $c->stash( template => 'cdstub/add.tt' );
-    if ($c->form_posted_and_valid($form)) {
-        my $form_val = $form->value;
-        $c->model('CDStub')->insert({
-            %$form_val,
-            toc => $toc->toc,
-            discid => $toc->discid
-        });
-
-        $c->response->redirect($c->uri_for_action('/cdstub/show', [ $toc->discid ]));
-        $c->detach;
-    }
-}
-
 sub show : Chained('load') PathPart('')
 {
     my ($self, $c) = @_;
@@ -143,21 +87,6 @@ sub browse : Path('browse')
         component_path => 'cdstub/BrowseCDStubs.js',
         component_props => \%props,
     );
-}
-
-sub edit : Chained('load') DenyWhenReadonly
-{
-    my ($self, $c) = @_;
-    my $cdstub = $c->stash->{cdstub};
-
-    my $form = $c->form(form => 'CDStub', init_object => $cdstub);
-    if ($c->form_posted_and_valid($form)) {
-        $c->model('CDStub')->update($cdstub, $form->value);
-
-        $c->res->redirect(
-            $c->uri_for_action($self->action_for('show'), [ $cdstub->discid ])
-        );
-    }
 }
 
 sub import : Chained('load') RequireAuth

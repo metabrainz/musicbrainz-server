@@ -30,7 +30,7 @@ const CDStubIndex = ({
   );
 
   return (
-    <CDStubLayout entity={cdstub} page="index">
+    <CDStubLayout entity={cdstub}>
       {nonEmpty(cdstub.comment) ? (
         <>
           <h2>{l('Comment')}</h2>

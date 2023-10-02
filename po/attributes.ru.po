@@ -293,6 +293,13 @@ msgid ""
 "in Asia)."
 msgstr ""
 
+#: DB:label_type/description:10
+msgctxt "label_type"
+msgid ""
+"A company that manufactures physical releases (such as pressing CDs or vinyl "
+"records)."
+msgstr ""
+
 #: DB:work_type/description:4
 msgctxt "work_type"
 msgid ""
@@ -341,6 +348,11 @@ msgid ""
 msgstr ""
 "Группировка связанных, но разных инструментов, таких как различные скрипка-"
 "подобные инструменты"
+
+#: DB:label_type/description:5
+msgctxt "label_type"
+msgid "A label that primarily puts out unsanctioned (bootleg) releases."
+msgstr ""
 
 #: DB:release_packaging/description:55
 msgctxt "release_packaging"
@@ -625,6 +637,12 @@ msgstr "Серия связанных концертов исполнителя 
 msgctxt "series_type"
 msgid "A series of related concerts by an artist in the same location."
 msgstr "Серия связанных концертов исполнителя в одном и том же месте."
+
+#: DB:series_type/description:80
+msgctxt "series_type"
+msgid ""
+"A series of release groups containing episodes of the same podcast series."
+msgstr ""
 
 #: DB:series_type/description:47
 msgctxt "series_type"
@@ -1162,6 +1180,11 @@ msgstr ""
 "оркестр, хор и солисты. Хотя у него есть символы и сюжет, он обычно не "
 "выполняется театрально (в нем нет костюмов, реквизита и сильного "
 "взаимодействия с персонажем)."
+
+#: DB:label_type/description:8
+msgctxt "label_type"
+msgid "An organization which collects royalties on behalf of artists."
+msgstr ""
 
 #: DB:work_type/description:12
 msgctxt "work_type"
@@ -6192,6 +6215,11 @@ msgstr "Тип воспроизведения"
 msgctxt "medium_format"
 msgid "Playbutton"
 msgstr "Кнопка воспроизведения"
+
+#: DB:series_type/name:80
+msgctxt "series_type"
+msgid "Podcast"
+msgstr ""
 
 #: DB:work_type/name:21
 msgctxt "work_type"

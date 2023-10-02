@@ -336,6 +336,13 @@ msgid ""
 "in Asia)."
 msgstr ""
 
+#: DB:label_type/description:10
+msgctxt "label_type"
+msgid ""
+"A company that manufactures physical releases (such as pressing CDs or vinyl "
+"records)."
+msgstr ""
+
 #: DB:work_type/description:4
 msgctxt "work_type"
 msgid ""
@@ -383,6 +390,11 @@ msgid ""
 "like instruments"
 msgstr ""
 "Pengelompokan instrumen terkait tetapi berbeda, seperti instrumen mirip biola"
+
+#: DB:label_type/description:5
+msgctxt "label_type"
+msgid "A label that primarily puts out unsanctioned (bootleg) releases."
+msgstr ""
 
 #: DB:release_packaging/description:55
 msgctxt "release_packaging"
@@ -672,6 +684,12 @@ msgstr "Serangkaian konser terkait oleh artis di lokasi yang berbeda."
 msgctxt "series_type"
 msgid "A series of related concerts by an artist in the same location."
 msgstr "Serangkaian konser terkait oleh artis di lokasi yang sama."
+
+#: DB:series_type/description:80
+msgctxt "series_type"
+msgid ""
+"A series of release groups containing episodes of the same podcast series."
+msgstr ""
 
 #: DB:series_type/description:47
 msgctxt "series_type"
@@ -1224,6 +1242,11 @@ msgstr ""
 "paduan suara, dan solois. Meskipun memiliki karakter dan plot, biasanya "
 "tidak ditampilkan secara teatrikal (tidak memiliki kostum, alat peraga, dan "
 "interaksi karakter yang kuat)."
+
+#: DB:label_type/description:8
+msgctxt "label_type"
+msgid "An organization which collects royalties on behalf of artists."
+msgstr ""
 
 #: DB:work_type/description:12
 msgctxt "work_type"
@@ -6243,6 +6266,11 @@ msgstr ""
 #: DB:medium_format/name:45
 msgctxt "medium_format"
 msgid "Playbutton"
+msgstr ""
+
+#: DB:series_type/name:80
+msgctxt "series_type"
+msgid "Podcast"
 msgstr ""
 
 #: DB:work_type/name:21

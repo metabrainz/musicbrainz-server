@@ -272,12 +272,6 @@ sub find_by {
                             EXISTS (SELECT 1 FROM editor_collection_collaborator ecc
                             WHERE ecc.collection = editor_collection.id AND ecc.editor = ?))';
         push @args, $editor_id, $editor_id;
-    } elsif ($editor_id = $opts->{show_private_only}) {
-        push @conditions, 'editor_collection.public = false';
-        push @conditions, 'editor_collection.editor != ?';
-        push @conditions, 'NOT EXISTS (SELECT 1 FROM editor_collection_collaborator ecc
-                            WHERE ecc.collection = editor_collection.id AND ecc.editor = ?)';
-        push @args, $editor_id, $editor_id;
     } else {
         push @conditions, 'editor_collection.public = true';
     }
@@ -294,6 +288,56 @@ sub find_by {
         my @result = $self->query_to_list($query, \@args);
         return (\@result, scalar @result);
     }
+}
+
+sub get_hidden_collection_count {
+    my ($self, $opts) = @_;
+
+    my (@conditions, @args);
+
+    push @conditions, 'editor_collection.public = false';
+    my $entity_type = $opts->{entity_type};
+    push @conditions, <<~'SQL';
+        EXISTS (
+                SELECT 1
+                  FROM editor_collection_type ct
+                 WHERE ct.id = editor_collection.type
+                   AND ct.entity_type = ?
+               )
+        SQL
+    push @args, $entity_type;
+
+    my $entity_id = $opts->{entity_id};
+    push @conditions, <<~"SQL";
+        EXISTS (
+                SELECT 1
+                  FROM editor_collection_$entity_type ce
+                 WHERE editor_collection.id = ce.collection
+                   AND ce.$entity_type = ?
+               )
+        SQL
+    push @args, $entity_id;
+
+    if (my $editor_id = $opts->{editor_id}) {
+        push @conditions, 'editor_collection.editor != ?';
+        push @conditions, <<~'SQL';
+            NOT EXISTS (
+                        SELECT 1
+                          FROM editor_collection_collaborator ecc
+                         WHERE ecc.collection = editor_collection.id
+                           AND ecc.editor = ?
+                       )
+            SQL
+        push @args, $editor_id, $editor_id;
+    }
+
+    my $query =
+        'SELECT count(*) ' .
+        '  FROM ' . $self->_table . ' ' .
+        ' WHERE ' . join(' AND ', @conditions);
+
+    return $self->sql->select_single_value($query, @args);
+
 }
 
 sub load {

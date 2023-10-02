@@ -75,7 +75,8 @@
 
         [%- IF new_edit_notes &&
                new_edit_notes_mtime > (c.req.cookies.new_edit_notes_dismissed_mtime.value || 0) &&
-               (c.user.is_limited || (c.req.cookies.alert_new_edit_notes.value || 'true') != 'false') -%]
+               ((c.user && (c.user.is_limited || !c.user.has_confirmed_email_address)) ||
+                (c.req.cookies.alert_new_edit_notes.value || 'true') != 'false') -%]
             <div class="banner new-edit-notes">
                 <p>
                     [% l('{link|New notes} have been left on some of your edits. Please make sure to read them and respond if necessary.',

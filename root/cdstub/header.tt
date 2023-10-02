@@ -5,10 +5,3 @@
         [%= l('CD stub by {artist}', { artist => cdstub.artist || l('Various Artists') }) -%]
     </p>
 </div>
-
-[%- info_links = [
-    ['index', link_cdstub(cdstub, 'show', l('Overview')) ]
-    ['edit', link_cdstub(cdstub, 'edit', l('Edit')) ]
-] -%]
-
-[% INCLUDE 'components/tabs.tt' list=info_links %]

@@ -1,3 +1,0 @@
-[% WRAPPER 'cdstub/layout.tt' full_width=1 page='edit' %]
-  [% INCLUDE 'cdstub/edit_form.tt' %]
-[% END %]

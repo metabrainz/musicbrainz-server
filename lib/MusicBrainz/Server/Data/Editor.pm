@@ -513,6 +513,7 @@ sub editors_with_subscriptions {
                         ep.name = 'subscriptions_email_period'
                   WHERE editor.id > ?
                     AND editor.id IN ($ids)
+                    AND (editor.privs & $SPAMMER_FLAG) = 0
                ORDER BY editor.id ASC
                   LIMIT ?";
 
