@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-09-24 15:27+0000\n"
+"PO-Revision-Date: 2023-10-01 20:27+0000\n"
 "Last-Translator: \"Vac31.\" <gateway_31@protonmail.com>\n"
 "Language-Team: Lithuanian <https://translations.metabrainz.org/projects/"
 "musicbrainz/languages/lt/>\n"
@@ -936,7 +936,7 @@ msgstr ""
 #. frequency:1 iso_code_3:guj 
 #: DB:language/name:161
 msgid "Gujarati"
-msgstr ""
+msgstr "Gudžaratų"
 
 #. frequency:1 iso_code_3:gnn 
 #: DB:language/name:2511
@@ -981,7 +981,7 @@ msgstr ""
 #. frequency:1 iso_code_3:heb 
 #: DB:language/name:167
 msgid "Hebrew"
-msgstr ""
+msgstr "Hebrajų"
 
 #. frequency:1 iso_code_3:her 
 #: DB:language/name:168
@@ -1201,7 +1201,7 @@ msgstr ""
 #. frequency:1 iso_code_3:kan 
 #: DB:language/name:206
 msgid "Kannada"
-msgstr ""
+msgstr "Kanadų"
 
 #. frequency:1 iso_code_3:kau 
 #: DB:language/name:209
@@ -1316,7 +1316,7 @@ msgstr ""
 #. frequency:2 iso_code_3:kor 
 #: DB:language/name:224
 msgid "Korean"
-msgstr ""
+msgstr "Korėjietiškas"
 
 #. frequency:1 iso_code_3:kos 
 #: DB:language/name:225
@@ -1326,7 +1326,7 @@ msgstr ""
 #. frequency:1 iso_code_3:kpe 
 #: DB:language/name:226
 msgid "Kpelle"
-msgstr ""
+msgstr "Kpelių"
 
 #. frequency:0 iso_code_3:null 
 #: DB:language/name:228
@@ -1536,7 +1536,7 @@ msgstr ""
 #. frequency:1 iso_code_3:mal 
 #: DB:language/name:260
 msgid "Malayalam"
-msgstr ""
+msgstr "Malajalamų"
 
 #. frequency:1 iso_code_3:mlt 
 #: DB:language/name:276
@@ -1851,7 +1851,7 @@ msgstr ""
 #. frequency:1 iso_code_3:ori 
 #: DB:language/name:320
 msgid "Oriya"
-msgstr ""
+msgstr "Orijos"
 
 #. frequency:1 iso_code_3:orm 
 #: DB:language/name:321
@@ -1926,7 +1926,7 @@ msgstr ""
 #. frequency:0 iso_code_3:phn 
 #: DB:language/name:336
 msgid "Phoenician"
-msgstr ""
+msgstr "Finikiečių"
 
 #. frequency:1 iso_code_3:pjt 
 #: DB:language/name:5402
@@ -2196,7 +2196,7 @@ msgstr ""
 #. frequency:1 iso_code_3:sin 
 #: DB:language/name:373
 msgid "Sinhala"
-msgstr ""
+msgstr "Sinhalų"
 
 #. frequency:0 iso_code_3:null 
 #: DB:language/name:375
@@ -2311,7 +2311,7 @@ msgstr ""
 #. frequency:1 iso_code_3:sun 
 #: DB:language/name:399
 msgid "Sundanese"
-msgstr ""
+msgstr "Sundaniečių"
 
 #. frequency:1 iso_code_3:sus 
 #: DB:language/name:400
@@ -2341,12 +2341,12 @@ msgstr "Švedų kalba"
 #. frequency:1 iso_code_3:syr 
 #: DB:language/name:404
 msgid "Syriac"
-msgstr ""
+msgstr "Siriškas"
 
 #. frequency:1 iso_code_3:tgl 
 #: DB:language/name:414
 msgid "Tagalog"
-msgstr ""
+msgstr "Tagalų"
 
 #. frequency:1 iso_code_3:tah 
 #: DB:language/name:405
@@ -2371,7 +2371,7 @@ msgstr ""
 #. frequency:1 iso_code_3:tam 
 #: DB:language/name:407
 msgid "Tamil"
-msgstr ""
+msgstr "Tamlių"
 
 #. frequency:1 iso_code_3:tat 
 #: DB:language/name:408
@@ -2381,7 +2381,7 @@ msgstr ""
 #. frequency:1 iso_code_3:tel 
 #: DB:language/name:409
 msgid "Telugu"
-msgstr ""
+msgstr "Telugų"
 
 #. frequency:1 iso_code_3:ter 
 #: DB:language/name:411
@@ -2396,12 +2396,12 @@ msgstr ""
 #. frequency:1 iso_code_3:tha 
 #: DB:language/name:415
 msgid "Thai"
-msgstr ""
+msgstr "Tajų"
 
 #. frequency:1 iso_code_3:bod 
 #: DB:language/name:416
 msgid "Tibetan"
-msgstr ""
+msgstr "Tibeto"
 
 #. frequency:1 iso_code_3:tig 
 #: DB:language/name:417
@@ -2516,7 +2516,7 @@ msgstr ""
 #. frequency:0 iso_code_3:uga 
 #: DB:language/name:439
 msgid "Ugaritic"
-msgstr ""
+msgstr "Ugaritų"
 
 #. frequency:1 iso_code_3:uig 
 #: DB:language/name:440
@@ -2561,7 +2561,7 @@ msgstr ""
 #. frequency:1 iso_code_3:vai 
 #: DB:language/name:446
 msgid "Vai"
-msgstr ""
+msgstr "Vai"
 
 #. frequency:1 iso_code_3:ven 
 #: DB:language/name:447

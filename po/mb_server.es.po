@@ -46,22 +46,23 @@
 # Victor reaven <email address hidden>, 2016
 # yvanz, 2018
 # reosarevok <reosarevok@gmail.com>, 2023.
+# Yllelder <yllelder@gmail.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-19 19:05+0300\n"
-"PO-Revision-Date: 2023-08-20 10:27+0000\n"
-"Last-Translator: reosarevok <reosarevok@gmail.com>\n"
+"POT-Creation-Date: 2023-09-27 17:01+0000\n"
+"PO-Revision-Date: 2023-10-01 20:27+0000\n"
+"Last-Translator: Yllelder <yllelder@gmail.com>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
-"X-Generator: Weblate 4.18.2\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
+"X-Generator: Weblate 5.0.2\n"
 
 #: ../root/components/common-macros.tt:12
 msgid " ({text})"
@@ -455,7 +456,7 @@ msgstr "Área:"
 #: ../root/edit/details/AddStandaloneRecording.js:46
 #: ../root/edit/details/EditArtist.js:56 ../root/edit/details/EditMedium.js:316
 #: ../root/edit/details/EditMedium.js:320
-#: ../root/edit/details/EditRecording.js:72
+#: ../root/edit/details/EditRecording.js:84
 #: ../root/edit/details/EditRelease.js:65
 #: ../root/edit/details/EditReleaseGroup.js:87
 #: ../root/edit/details/MergeReleases.js:236
@@ -609,7 +610,7 @@ msgstr ""
 "encontrarás más abajo, ya que nos podría ayudar a entender cuál fue el "
 "problema."
 
-#: ../root/layout.tt:116 ../root/layout/components/ExternalLinks.js:132
+#: ../root/layout.tt:117 ../root/layout/components/ExternalLinks.js:132
 #: ../root/layout/components/Footer.js:33
 msgid "Blog"
 msgstr "Blog"
@@ -625,7 +626,7 @@ msgid ""
 "should be used for scripts in Unicode which are unlikely to be used."
 msgstr ""
 
-#: ../root/layout.tt:124 ../root/layout/components/Footer.js:52
+#: ../root/layout.tt:125 ../root/layout/components/Footer.js:52
 msgid ""
 "Brought to you by {MeB|MetaBrainz Foundation} and our {spon|sponsors} and "
 "{supp|supporters}. Cover Art provided by the {caa|Cover Art Archive}."
@@ -634,14 +635,14 @@ msgstr ""
 "patrocinadores} y {supp|simpatizantes}. Imágenes proporcionadas por el {caa|"
 "Cover Art Archive}."
 
-#: ../root/layout.tt:115 ../root/layout/components/Footer.js:32
+#: ../root/layout.tt:116 ../root/layout/components/Footer.js:32
 #: ../root/main/index.js:209
 msgid "Bug Tracker"
 msgstr "Seg. de fallos"
 
 #: ../root/release/edit/tracklist.tt:6
 msgid "By default, the parser expects the following format:"
-msgstr ""
+msgstr "Por defecto, el analizador espera el siguiente formato:"
 
 #: ../root/cdtoc/lookup.tt:21
 msgid "CD Stub found"
@@ -692,7 +693,7 @@ msgstr "Cancelar"
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:94
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:103
 msgid "Cardinality of {entity_placeholder}"
-msgstr ""
+msgstr "Cardinalidad de {entity_placeholder}"
 
 #: ../root/release/edit/information.tt:192
 msgid "Cat. No:"
@@ -711,7 +712,7 @@ msgstr "Nº de catálogo"
 
 #: ../root/release_group/set_cover_art.tt:56
 msgid "Catalog#:"
-msgstr ""
+msgstr "Catálogo#:"
 
 #: ../root/admin/attributes/form.tt:53 ../root/admin/attributes/Attribute.js:82
 #: ../root/edit/details/AddRelationshipAttribute.js:50
@@ -744,7 +745,7 @@ msgstr "Cerrada"
 
 #: ../root/artist/split.tt:36
 msgid "Collaborators on this artist"
-msgstr ""
+msgstr "Colaboradores de este artista"
 
 #: ../root/release/edit/tracklist.tt:301
 msgid "Collapse medium"
@@ -826,7 +827,7 @@ msgstr "Creando edición..."
 
 #: ../root/release/edit/tracklist.tt:81
 msgid "Custom delimiter"
-msgstr ""
+msgstr "Delimitador personalizado"
 
 #: ../root/release/edit/information.tt:146
 #: ../lib/MusicBrainz/Server/Plugin/FormRenderer.pm:253
@@ -945,7 +946,7 @@ msgstr "Detalles"
 #: ../root/edit/details/EditGenre.js:44
 #: ../root/edit/details/EditInstrument.js:51
 #: ../root/edit/details/EditLabel.js:65 ../root/edit/details/EditPlace.js:52
-#: ../root/edit/details/EditRecording.js:51
+#: ../root/edit/details/EditRecording.js:53
 #: ../root/edit/details/EditRelease.js:93
 #: ../root/edit/details/EditReleaseGroup.js:50
 #: ../root/edit/details/EditSeries.js:48 ../root/edit/details/EditWork.js:59
@@ -984,7 +985,7 @@ msgstr "No usar ninguna de estas publicaciones como punto de partida."
 msgid "Documentation:"
 msgstr "Documentación:"
 
-#: ../root/layout.tt:111 ../root/layout/components/Footer.js:26
+#: ../root/layout.tt:112 ../root/layout/components/Footer.js:26
 msgid "Donate"
 msgstr "Donaciones"
 
@@ -1083,7 +1084,7 @@ msgstr "Nota:"
 
 #: ../root/edit/search_macros.tt:423
 msgid "Edited entity"
-msgstr ""
+msgstr "Entidad editada"
 
 #: ../root/edit/search_macros.tt:423
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:48
@@ -1131,6 +1132,8 @@ msgid ""
 "Enter coordinates manually or click the map to get coordinates from the "
 "marker. If you’re too far out, clicking will zoom instead."
 msgstr ""
+"Introduce las coordenadas manualmente o haz clic en el mapa para obtener las "
+"coordenadas del marcador. Si estás demasiado lejos, haz clic para hacer zoom."
 
 #: ../root/components/forms.tt:51 ../root/release/add_cover_art.tt:170
 #: ../root/release/edit/layout.tt:58
@@ -1143,6 +1146,8 @@ msgid ""
 "Enter the delimiter that separates the track name from the artist name "
 "(valid {url|regular expressions} are accepted)."
 msgstr ""
+"Introduce el delimitador que separa el nombre de la pista del nombre del "
+"artista (se aceptan {url|expresiones regulares} válidas)."
 
 #: ../root/components/forms.tt:30
 msgid ""
@@ -1166,6 +1171,8 @@ msgid ""
 "Even just providing a URL or two is helpful! For more suggestions, see "
 "{doc_how_to|our guide for writing good edit notes}."
 msgstr ""
+"Incluso una o dos URL son útiles. Para más sugerencias, consulta {doc_how_to|"
+"nuestra guía para escribir buenas notas de edición}."
 
 #: ../root/edit/search_macros.tt:423 ../lib/MusicBrainz/Server/Edit/Event.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:52
@@ -1241,12 +1248,14 @@ msgid ""
 "For more information, check the {doc_doc|documentation} and {doc_styleguide|"
 "style guidelines}."
 msgstr ""
+"Para más información, consulta la {doc_doc|documentación} y las "
+"{doc_styleguide|guías de estilo}."
 
 #: ../root/event/edit_form.tt:3 ../root/label/edit_form.tt:3
 #: ../root/place/edit_form.tt:3 ../root/work/edit_form.tt:4
 #: ../root/search/components/SearchForm.js:106
 msgid "For more information, check the {doc_doc|documentation}."
-msgstr ""
+msgstr "Para más información, consulta la {doc_doc|documentación}."
 
 #: ../root/cdtoc/list.tt:9 ../root/release/edit/duplicates.tt:11
 #: ../root/components/list/ReleaseList.js:98
@@ -1268,7 +1277,7 @@ msgstr "Formato"
 msgid "Format:"
 msgstr "Formato:"
 
-#: ../root/layout.tt:113 ../root/layout/components/Footer.js:28
+#: ../root/layout.tt:114 ../root/layout/components/Footer.js:28
 #: ../root/main/index.js:212
 msgid "Forums"
 msgstr "Foros"
@@ -1327,7 +1336,7 @@ msgstr "Género:"
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:56
 #: ../root/tag/TagIndex.js:36
 msgid "Genre"
-msgstr ""
+msgstr "Género"
 
 #: ../root/components/forms.tt:228 ../root/release/edit/information.tt:14
 #: ../root/release/edit/tracklist.tt:527
@@ -1387,16 +1396,20 @@ msgid ""
 "Hidden is used by default for ancient languages and languages only in ISO "
 "639-3 (until requested by a user)."
 msgstr ""
+"Oculto se utiliza por defecto para las lenguas antiguas y las lenguas solo "
+"en ISO 639-3 (hasta que lo solicite un usuario)."
 
 #: ../root/admin/attributes/form.tt:31
 msgid "Hidden should be used for scripts not in Unicode."
-msgstr ""
+msgstr "Oculto debe utilizarse para scripts que no estén en Unicode."
 
 #: ../root/admin/attributes/form.tt:16
 msgid ""
 "Hidden should be used for sign languages and languages with no ISO 639-3 "
 "code."
 msgstr ""
+"Oculto debe utilizarse para las lenguas de signos y las lenguas sin código "
+"ISO 639-3."
 
 #: ../root/doc/edit_types.tt:5 ../root/doc/edit_types.tt:19
 #: ../root/doc/edit_types.tt:21 ../lib/MusicBrainz/Server/Edit/Historic.pm:10
@@ -1410,10 +1423,14 @@ msgstr "Este es el código de barras tal y como aparece en la publicación."
 #: ../root/release/edit/tracklist.tt:390
 msgid "I confirm this is a correct medium format/packaging combination."
 msgstr ""
+"Confirmo que se trata de una combinación correcta de formato medio y "
+"embalaje."
 
 #: ../root/release/edit/tracklist.tt:413
 msgid "I confirm this is an intentional use of Various Artists on tracks."
 msgstr ""
+"Confirmo que se trata de un uso intencionado de Varios Artistas en las "
+"pistas."
 
 #: ../root/release/edit/tracklist.tt:314
 msgid "I don’t know"
@@ -1421,11 +1438,13 @@ msgstr "No lo sé"
 
 #: ../root/release/edit/tracklist.tt:426
 msgid "I don’t know the tracklist for this medium."
-msgstr ""
+msgstr "No conozco la lista de canciones de este medio."
 
 #: ../root/release/edit/tracklist.tt:280
 msgid "I have no information about this release’s media and tracklist."
 msgstr ""
+"No tengo información sobre los soportes y la lista de canciones de este "
+"lanzamiento."
 
 #: ../root/edit/search_macros.tt:423 ../root/admin/attributes/Attribute.js:78
 #: ../root/admin/attributes/Language.js:39
@@ -1443,13 +1462,16 @@ msgid ""
 "IPI codes are assigned by CISAC to “interested parties” in musical rights "
 "management. Check {ipi_doc|the documentation} for more info."
 msgstr ""
+"Los códigos IPI son asignados por la CISAC a las \"partes interesadas\" en "
+"la gestión de derechos musicales. Consulta {ipi_doc|la documentación} para "
+"más información."
 
 #: ../root/artist/edit_form.tt:29 ../root/label/edit_form.tt:32
 #: ../root/edit/details/EditArtist.js:162
 msgid "IPI codes:"
 msgstr "Códigos IPI:"
 
-#: ../root/layout.tt:114
+#: ../root/layout.tt:115
 msgid "IRC"
 msgstr ""
 
@@ -1463,6 +1485,9 @@ msgid ""
 "ISNI codes are an ISO standard used to uniquely identify persons and "
 "organizations. Check {isni_doc|the documentation} for more info."
 msgstr ""
+"Los códigos ISNI son una norma ISO utilizada para identificar de forma "
+"unívoca a personas y organizaciones. Consulta {isni_doc|la documentación} "
+"para más información."
 
 #: ../root/artist/edit_form.tt:30 ../root/label/edit_form.tt:33
 #: ../root/edit/details/EditArtist.js:170
@@ -1553,6 +1578,9 @@ msgid ""
 "If needed, the characters \"[\", \"]\", and \"&\" can be escaped using the "
 "HTML entities \"&lsqb;\", \"&rsqb;\", and \"&amp;\" respectively."
 msgstr ""
+"En caso necesario, los caracteres \"[\", \"]\" y \"&\" pueden escaparse "
+"utilizando las entidades HTML \"&lsqb;\", \"&rsqb;\" y \"&amp;\" "
+"respectivamente."
 
 #: ../root/release/edit/recordings.tt:134
 msgid ""
@@ -1560,6 +1588,9 @@ msgid ""
 "you can check the boxes below to replace them with the track titles/artists "
 "for this release."
 msgstr ""
+"Si los {recording_doc|títulos de las grabaciones/artistas} que aparecen "
+"arriba son incorrectos, puedes marcar las casillas de abajo para "
+"sustituirlos por los títulos de las pistas/artistas de este lanzamiento."
 
 #: ../root/release/edit/information.tt:298
 msgid ""
@@ -1600,7 +1631,7 @@ msgstr ""
 
 #: ../root/components/forms.tt:336 ../root/components/forms.tt:345
 msgid "If you don’t know the code for this entity, just leave the field blank."
-msgstr ""
+msgstr "Si no conoces el código de esta entidad, deja el campo en blanco."
 
 #: ../root/release/edit/information.tt:54
 msgid ""
@@ -1611,23 +1642,32 @@ msgstr ""
 #: ../root/release/edit/tracklist.tt:5
 msgid "If you have a tracklist you can copy and paste, you can input it here."
 msgstr ""
+"Si tienes una lista de canciones que puedas copiar y pegar, puedes "
+"introducirla aquí."
 
 #: ../root/release/edit/tracklist.tt:15
 msgid ""
 "If you select “{enable_vinyl_numbers}”, the parser will also accept strings "
 "such as “A1” as track numbers."
 msgstr ""
+"Si seleccionas \"{enable_vinyl_numbers}\", el analizador también aceptará "
+"cadenas como \"A1\" como números de pista."
 
 #: ../root/edit/search_macros.tt:10
 msgid ""
 "If you want to save an edit search for future use, you can just bookmark it!"
 msgstr ""
+"Si quieres guardar una búsqueda editada para utilizarla en el futuro, puedes "
+"marcarla como favorita."
 
 #: ../root/release/edit/tracklist.tt:393
 msgid ""
 "If you’re sure the combination of “Digital Media” and the selected packaging "
 "is correct, confirm it above. Otherwise, please fix the data."
 msgstr ""
+"Si estás seguro de que la combinación de \"archivos digitales\" y el "
+"embalaje seleccionado es correcta, confírmalo arriba. En caso contrario, "
+"corrige los datos."
 
 #: ../root/release/edit/tracklist.tt:353
 msgid ""
@@ -1643,7 +1683,7 @@ msgstr ""
 
 #: ../root/components/common-macros.tt:60 ../root/components/Artwork.js:50
 msgid "Image not available, please try again later."
-msgstr ""
+msgstr "Imagen no disponible, por favor inténtalo más tarde."
 
 #: ../root/cdtoc/lookup.tt:28 ../root/cdstub/ImportCDStub.js:36
 msgid "Import CD Stub"
@@ -1687,6 +1727,13 @@ msgid ""
 "elsewhere and the durations are significantly different, consider creating a "
 "new recording instead."
 msgstr ""
+"Ten en cuenta que las duraciones de las grabaciones se {doc_link|recalculan "
+"a partir de las pistas} una vez que cambia la duración de una pista. Por lo "
+"tanto, si corriges la duración de una pista cuya grabación solo se utiliza "
+"en esta versión, reutiliza la grabación antigua, no crees una nueva. Si la "
+"grabación también se utiliza en otros lugares y las duraciones son "
+"significativamente diferentes, considera la posibilidad de crear una nueva "
+"grabación en su lugar."
 
 #: ../root/release/edit/tracklist.tt:502
 msgid ""
@@ -1755,9 +1802,9 @@ msgstr "Discográfica:"
 msgid "Language:"
 msgstr "Idioma:"
 
-#: ../root/layout.tt:138 ../root/layout/components/Footer.js:85
+#: ../root/layout.tt:139 ../root/layout/components/Footer.js:85
 msgid "Last replication packet received at {datetime}"
-msgstr ""
+msgstr "Último paquete de replicación recibido en {datetime}"
 
 #: ../root/cdstub/cdstub.tt:9 ../root/release/discids.tt:10
 #: ../root/release/edit/tracklist.tt:164 ../root/release/edit/tracklist.tt:454
@@ -1767,7 +1814,8 @@ msgstr ""
 #: ../root/edit/details/AddStandaloneRecording.js:59
 #: ../root/edit/details/EditMedium.js:317
 #: ../root/edit/details/EditMedium.js:321
-#: ../root/edit/details/EditRecording.js:58
+#: ../root/edit/details/EditRecording.js:61
+#: ../root/edit/details/EditRecording.js:69
 #: ../root/edit/details/historic/AddRelease.js:91
 #: ../root/edit/details/historic/AddTrackKV.js:54 ../root/isrc/Index.js:68
 #: ../root/recording/RecordingIndex.js:55
@@ -1816,7 +1864,7 @@ msgstr "Frase de enlace larga:"
 
 #: ../root/release/edit/recordings.tt:175
 msgid "Looking for suggested recordings..."
-msgstr ""
+msgstr "Buscando grabaciones sugeridas..."
 
 #: ../root/cdtoc/lookup.tt:3 ../root/cdtoc/lookup.tt:4
 msgid "Lookup CD"
@@ -1921,7 +1969,7 @@ msgstr "Mover pista hacia arriba"
 #: ../root/edit/details/EditInstrument.js:44
 #: ../root/edit/details/EditLabel.js:49 ../root/edit/details/EditMedium.js:477
 #: ../root/edit/details/EditPlace.js:45
-#: ../root/edit/details/EditRecording.js:44
+#: ../root/edit/details/EditRecording.js:46
 #: ../root/edit/details/EditRelationshipAttribute.js:51
 #: ../root/edit/details/EditRelationshipAttribute.js:60
 #: ../root/edit/details/EditRelationshipType.js:186
@@ -2011,7 +2059,7 @@ msgstr "No"
 
 #: ../root/components/forms.tt:369
 msgid "No description available."
-msgstr ""
+msgstr "No hay descripción disponible."
 
 #: ../root/release_group/set_cover_art.tt:96
 msgid "No releases have cover art marked as \"Front\", cannot set cover art."
@@ -2072,6 +2120,9 @@ msgid ""
 "2011-05-16; or which remove relationships, created after 2013-07-08; or "
 "which reorder relationships."
 msgstr ""
+"Nota: solo busca ediciones que: añadan o editen relaciones, creadas después "
+"del 16-05-2011; o que eliminen relaciones, creadas después del 08-07-2013; o "
+"que reordenen relaciones."
 
 #: ../root/release/edit/recordings.tt:120
 msgid "Now loading recording associations..."
@@ -2238,7 +2289,7 @@ msgstr[2] "Val.: {rating} estrellas"
 #: ../lib/MusicBrainz/Server/Edit/Recording.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:41
 #: ../root/edit/details/AddStandaloneRecording.js:32
-#: ../root/edit/details/EditRecording.js:37
+#: ../root/edit/details/EditRecording.js:39
 #: ../root/edit/details/MergeReleases.js:305
 #: ../root/edit/details/RemoveIsrc.js:31
 #: ../root/edit/details/historic/EditTrack.js:27
@@ -2392,7 +2443,7 @@ msgstr "Información de la publicación"
 #: ../root/cdtoc/attach_filter_release.tt:9 ../root/cdtoc/lookup.tt:85
 #: ../root/cdtoc/move_search.tt:15
 msgid "Release title or MBID"
-msgstr ""
+msgstr "Título de la versión o MBID"
 
 #: ../root/release/layout.tt:1 ../root/release/ReleaseLayout.js:32
 msgid "Release “{name}” by {artist}"
@@ -2439,7 +2490,7 @@ msgstr "Eliminar discográfica"
 
 #: ../root/release/edit/information.tt:157
 msgid "Remove Release Event"
-msgstr ""
+msgstr "Eliminar evento de lanzamiento"
 
 #: ../root/work/edit_form.tt:60
 msgid "Remove attribute"
@@ -2484,7 +2535,7 @@ msgstr "Ordenar imágenes"
 
 #: ../root/release/add_cover_art.tt:83
 msgid "Request signature..."
-msgstr ""
+msgstr "Solicitar firma..."
 
 #: ../root/release/edit/tracklist.tt:525
 msgid "Reset track numbers"
@@ -2511,7 +2562,7 @@ msgstr "Frase de enlace inversa:"
 
 #: ../root/release/edit/information.tt:305
 msgid "Review the {packaging|list of packaging types} for help."
-msgstr ""
+msgstr "Revisa la {packaging|lista de tipos de empaquetado} para obtener ayuda."
 
 #: ../root/release/edit/layout.tt:27
 msgid ""
@@ -2519,7 +2570,7 @@ msgid ""
 "data is formatted correctly."
 msgstr ""
 
-#: ../root/layout.tt:131
+#: ../root/layout.tt:132
 msgid ""
 "Running: <span class=\"tooltip\" title=\"{msg}\">{branch} ({sha})</span>"
 msgstr ""
@@ -2605,6 +2656,8 @@ msgid ""
 "Select any type from the list to see its description. If the work doesn’t "
 "seem to match any type, just leave this blank."
 msgstr ""
+"Selecciona cualquier tipo de la lista para ver su descripción. Si la obra no "
+"parece corresponder a ningún tipo, déjalo en blanco."
 
 #: ../root/release/add_cover_art.tt:31
 msgid "Select images..."
@@ -2629,7 +2682,7 @@ msgstr "Series"
 
 #: ../root/series/edit_form.tt:10
 msgid "Series Details"
-msgstr ""
+msgstr "Detalles de la serie"
 
 #: ../root/release_group/set_cover_art.tt:1
 msgid "Set Release Group Cover Art"
@@ -2666,6 +2719,9 @@ msgid ""
 "Some discs contain a hidden track in the pregap section that precedes track "
 "1. Use this to add (or remove) the special pregap track section."
 msgstr ""
+"Algunos discos contienen una pista oculta en la sección de precapítulo que "
+"precede a la pista 1. Utilízalo para añadir (o eliminar) la sección especial "
+"de pista de precaptura."
 
 #: ../root/release/edit/tracklist.tt:514
 msgid ""
@@ -2673,12 +2729,18 @@ msgid ""
 "to add (or remove) the special data tracks section. You should only add data "
 "tracks that contain audio or video ({info|more info})"
 msgstr ""
+"Algunos discos contienen una o más pistas de datos después de todas las "
+"pistas de audio. Utilízalo para añadir (o eliminar) la sección de pistas de "
+"datos especiales. Solo debes añadir pistas de datos que contengan audio o "
+"vídeo ({info|más info})"
 
 #: ../root/release/edit/editnote.tt:4
 msgid ""
 "Some errors were detected in the data you’ve entered. Click on the "
 "highlighted tabs and correct any visible errors."
 msgstr ""
+"Se han detectado algunos errores en los datos que has introducido. Haz clic "
+"en las pestañas resaltadas y corrige los errores visibles."
 
 #: ../root/components/forms.tt:239
 #: ../root/layout/components/sidebar/ArtistSidebar.js:76
@@ -2702,7 +2764,7 @@ msgstr "Estatus"
 msgid "Status:"
 msgstr "Estatus:"
 
-#: ../root/layout.tt:119 ../root/layout/components/Footer.js:44
+#: ../root/layout.tt:120 ../root/layout/components/Footer.js:44
 msgid "Stop using beta site"
 msgstr "Dejar de usar la versión beta"
 
@@ -2744,7 +2806,7 @@ msgstr "La anotación funciona como una pequeña wiki."
 msgid "The catalog number you have entered looks like an Amazon ASIN."
 msgstr "El número de catálogo introducido parece una ASIN de Amazon."
 
-#: ../root/layout.tt:90 ../root/layout/index.js:284
+#: ../root/layout.tt:91 ../root/layout/index.js:285
 msgid ""
 "The data you have submitted does not make any changes to the data already "
 "present."
@@ -2764,12 +2826,18 @@ msgid ""
 "The disambiguation field is used to help users distinguish between "
 "identically named releases."
 msgstr ""
+"El campo de desambiguación se utiliza para ayudar a los usuarios a "
+"distinguir entre versiones con nombres idénticos."
 
 #: ../root/edit/search_macros.tt:9
 msgid ""
 "The filters below allow you to find only edits fulfilling specific criteria. "
 "See the {doc_link|documentation} for more info about using the filters."
 msgstr ""
+"Los filtros que aparecen a continuación te permiten encontrar solo las "
+"ediciones que cumplen criterios específicos. Consulta la "
+"{doc_link|documentación} para obtener más información sobre el uso de los "
+"filtros."
 
 #: ../root/release/edit/information.tt:337
 msgid ""
@@ -2783,9 +2851,11 @@ msgstr ""
 "técnicas que quizás sean arregladas más adelante, o porque la información en "
 "si misma tiene que ser un texto libre)."
 
-#: ../root/layout.tt:71 ../root/layout/index.js:244
+#: ../root/layout.tt:71 ../root/layout/index.js:245
 msgid "The server is temporarily in read-only mode for database maintenance."
 msgstr ""
+"El servidor está temporalmente en modo de solo lectura para el mantenimiento "
+"de la base de datos."
 
 #: ../root/release/edit/tracklist.tt:124
 msgid ""
@@ -2807,6 +2877,8 @@ msgid ""
 "The year should have four digits. If you want to enter a year earlier than "
 "1000 CE, please pad with zeros, such as “0123”."
 msgstr ""
+"El año debe tener cuatro dígitos. Si quieres introducir un año anterior a "
+"1000 AC, rellénalo con ceros, por ejemplo \"0123\"."
 
 #: ../root/cdtoc/lookup.tt:14
 msgid ""
@@ -2815,6 +2887,10 @@ msgid ""
 "disc to another MusicBrainz release, or to add a new one if the search shows "
 "it is missing from the database."
 msgstr ""
+"Actualmente no hay discos en MusicBrainz asociados a la información que nos "
+"has proporcionado. Puedes buscar utilizando el formulario que aparece a "
+"continuación para asociar este disco a otra publicación de MusicBrainz, o "
+"para añadir uno nuevo si la búsqueda muestra que falta en la base de datos."
 
 #: ../root/release/discids.tt:56
 msgid ""
@@ -3156,7 +3232,7 @@ msgstr "Pistas"
 msgid "Turkish"
 msgstr "Turco"
 
-#: ../root/layout.tt:117 ../root/layout/components/Footer.js:34
+#: ../root/layout.tt:118 ../root/layout/components/Footer.js:34
 msgid "Twitter"
 msgstr "Twitter"
 
@@ -3262,7 +3338,7 @@ msgstr "Subiendo imagen..."
 msgid "Uppercase Roman numerals"
 msgstr ""
 
-#: ../root/layout.tt:119 ../root/layout/components/Footer.js:45
+#: ../root/layout.tt:120 ../root/layout/components/Footer.js:45
 msgid "Use beta site"
 msgstr "Usar la versión beta"
 
@@ -3300,7 +3376,7 @@ msgstr "Validando archivo..."
 
 #: ../root/recording/edit_form.tt:44
 #: ../root/edit/details/AddStandaloneRecording.js:64
-#: ../root/edit/details/EditRecording.js:65
+#: ../root/edit/details/EditRecording.js:77
 msgid "Video"
 msgstr "Video"
 
@@ -3375,7 +3451,7 @@ msgstr ""
 "Puedes añadir más elementos a la cola de unión accediendo a las páginas de "
 "las entidades y haciendo click en el enlace de unir."
 
-#: ../root/layout.tt:112 ../root/layout/components/Footer.js:27
+#: ../root/layout.tt:113 ../root/layout/components/Footer.js:27
 msgid "Wiki"
 msgstr "Wiki"
 
@@ -3526,14 +3602,14 @@ msgid ""
 "specific, or to try again."
 msgstr ""
 
-#: ../root/layout.tt:21 ../root/layout/index.js:209
+#: ../root/layout.tt:21 ../root/layout/index.js:210
 msgid ""
 "You’re currently not allowed to edit or vote because an admin has revoked "
 "your privileges. If you haven’t already been contacted about why, please "
 "{uri|send us a message}."
 msgstr ""
 
-#: ../root/layout.tt:17 ../root/layout/index.js:201
+#: ../root/layout.tt:17 ../root/layout/index.js:202
 msgid ""
 "You’re currently not allowed to edit, vote or leave edit notes because an "
 "admin has revoked your privileges. If you haven’t already been contacted "
@@ -3541,7 +3617,7 @@ msgid ""
 msgstr ""
 
 #: ../root/layout.tt:25 ../lib/MusicBrainz/Server/Controller/EditNote.pm:63
-#: ../root/layout/index.js:218
+#: ../root/layout/index.js:219
 msgid ""
 "You’re currently not allowed to leave or change edit notes because an admin "
 "has revoked your privileges. If you haven’t already been contacted about "
@@ -3847,7 +3923,7 @@ msgstr "{doc|ID de disco}:"
 msgid "{entity} by {artist}"
 msgstr "{entity} de {artist}"
 
-#: ../root/layout.tt:81 ../root/layout/index.js:271
+#: ../root/layout.tt:82 ../root/layout/index.js:272
 msgid ""
 "{link|New notes} have been left on some of your edits. Please make sure to "
 "read them and respond if necessary."
@@ -9375,6 +9451,10 @@ msgstr "Artista anterior"
 msgid "New Artist"
 msgstr "Nuevo artista"
 
+#: ../root/edit/details/EditRecording.js:63
+msgid "This edit makes subsecond changes to the recording length"
+msgstr ""
+
 #: ../root/edit/details/EditRelationshipType.js:146
 #: ../root/edit/details/historic/EditRelationship.js:44
 msgid ""
@@ -11212,7 +11292,7 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: ../root/layout/index.js:256
+#: ../root/layout/index.js:257
 msgid "Happy birthday, and thanks for contributing to MusicBrainz!"
 msgstr ""
 

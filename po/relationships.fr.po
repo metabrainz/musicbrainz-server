@@ -36,11 +36,12 @@
 # yvanz, 2016
 # yvanz, 2018
 # Philipp Wolfer <ph.wolfer@gmail.com>, 2023.
+# yvanzo <yvanzo@users.noreply.translations.metabrainz.org>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-08-24 14:27+0000\n"
-"Last-Translator: Philipp Wolfer <ph.wolfer@gmail.com>\n"
+"PO-Revision-Date: 2023-09-28 12:27+0000\n"
+"Last-Translator: yvanzo <yvanzo@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: French <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/fr/>\n"
 "Language: fr\n"
@@ -49,11 +50,13 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : ((n != 0 && n % "
 "1000000 == 0) ? 1 : 2);\n"
-"X-Generator: Weblate 4.18.2\n"
+"X-Generator: Weblate 5.0.2\n"
 
 #: DB:link_attribute_type/description:1355
 msgid "A performance-centered, usually one to three year postgraduate program."
 msgstr ""
+"Un programme de troisième cycle centré sur la performance, généralement d'un "
+"à trois ans."
 
 #: DB:link_type/description:218
 msgid ""
@@ -596,7 +599,7 @@ msgstr ""
 
 #: DB:link_type/description:1085
 msgid "Indicates the area an event series was held at."
-msgstr ""
+msgstr "Indique la région où une série d’événements s’est déroulée."
 
 #: DB:link_type/description:715
 msgid "Indicates the area where the work had its first performance"
@@ -713,12 +716,18 @@ msgid ""
 "same concept as the <a href=\"/doc/Label\" target=\"_blank\">record label</"
 "a>."
 msgstr ""
+"Indique le label d’édition de cette parution. Ce n’est <strong>pas</strong> "
+"le même concept que la <a href=\"/doc/Label\" target=\"_blank\">maison de "
+"disques</a>."
 
 #: DB:link_type/description:161
 msgid ""
 "Indicates the publisher of this work. This is <strong>not</strong> the same "
 "concept as the <a href=\"/doc/Label\" target=\"_blank\">record label</a>."
 msgstr ""
+"Indique le label d’édition de cette œuvre. Ce n’est <strong>pas</strong> le "
+"même concept que la <a href=\"/doc/Label\" target=\"_blank\">maison de "
+"disques</a>."
 
 #: DB:link_type/description:208
 msgid ""
@@ -5164,7 +5173,7 @@ msgstr "premier violon"
 msgid "conducting"
 msgstr "direction d’orchestre"
 
-#: DB:link_type/name:806 DB:link_type/name:151 DB:link_type/name:46
+#: DB:link_type/name:806 DB:link_type/name:46 DB:link_type/name:151
 msgid "conductor"
 msgstr "chef d’orchestre"
 
@@ -7201,8 +7210,8 @@ msgid "performed the voice of"
 msgstr "a interprété la voix de"
 
 #: DB:link_type/long_link_phrase:152 DB:link_type/long_link_phrase:53
-msgid "performed {additional} chorus master on"
-msgstr "était chef de chœur {additional:supplémentaire} sur"
+msgid "performed {additional} {assistant} chorus master on"
+msgstr ""
 
 #: DB:link_type/long_link_phrase:44 DB:link_type/long_link_phrase:148
 msgid "performed {additional} {guest} {solo} {instrument:%|instruments} on"
@@ -8489,11 +8498,6 @@ msgstr "{additional:aussi} composé à"
 msgid "{additional:additionally} composed in"
 msgstr "{additional:aussi} composé en"
 
-#: DB:link_type/link_phrase:151 DB:link_type/link_phrase:46
-#: DB:link_type/long_link_phrase:151 DB:link_type/long_link_phrase:46
-msgid "{additional:additionally} conducted"
-msgstr "{additional:aussi} dirigé"
-
 #: DB:link_type/reverse_link_phrase:819 DB:link_type/reverse_link_phrase:820
 msgid "{additional:additionally} edited at"
 msgstr "monté {additional:supplémentairement} à"
@@ -8605,6 +8609,11 @@ msgstr "a {additional:de plus} écrit le livret de"
 #: DB:link_type/long_link_phrase:56 DB:link_type/long_link_phrase:165
 msgid "{additional:additionally} wrote the lyrics for"
 msgstr "{additional:aussi} écrit les paroles pour"
+
+#: DB:link_type/link_phrase:46 DB:link_type/link_phrase:151
+#: DB:link_type/long_link_phrase:46 DB:link_type/long_link_phrase:151
+msgid "{additional:additionally} {assistant} conducted"
+msgstr ""
 
 #: DB:link_type/link_phrase:153 DB:link_type/link_phrase:47
 #: DB:link_type/long_link_phrase:153 DB:link_type/long_link_phrase:47
@@ -8748,11 +8757,6 @@ msgstr "direction artistique {additional:supplémentaire}"
 msgid "{additional} artwork"
 msgstr ""
 
-#: DB:link_type/link_phrase:152 DB:link_type/link_phrase:53
-#: DB:link_type/reverse_link_phrase:152 DB:link_type/reverse_link_phrase:53
-msgid "{additional} chorus master"
-msgstr "chef de chœur {additional:supplémentaire}"
-
 #: DB:link_type/reverse_link_phrase:55 DB:link_type/reverse_link_phrase:168
 msgid "{additional} composer"
 msgstr "compositeur {additional:supplémentaire}"
@@ -8760,10 +8764,6 @@ msgstr "compositeur {additional:supplémentaire}"
 #: DB:link_type/link_phrase:875 DB:link_type/link_phrase:876
 msgid "{additional} composing location for"
 msgstr "lieu {additional:supplémentaire} de composition de"
-
-#: DB:link_type/reverse_link_phrase:151 DB:link_type/reverse_link_phrase:46
-msgid "{additional} conductor"
-msgstr "chef d’orchestre {additional:supplémentaire}"
 
 #: DB:link_type/link_phrase:63 DB:link_type/link_phrase:146
 #: DB:link_type/reverse_link_phrase:63 DB:link_type/reverse_link_phrase:146
@@ -8909,6 +8909,15 @@ msgstr "auteur {additional:supplémentaire}"
 #: DB:link_type/link_phrase:873 DB:link_type/link_phrase:874
 msgid "{additional} writing location for"
 msgstr "lieu {additional:supplémentaire} d’écriture de"
+
+#: DB:link_type/link_phrase:152 DB:link_type/link_phrase:53
+#: DB:link_type/reverse_link_phrase:152 DB:link_type/reverse_link_phrase:53
+msgid "{additional} {assistant} chorus master"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:46 DB:link_type/reverse_link_phrase:151
+msgid "{additional} {assistant} conductor"
+msgstr ""
 
 #: DB:link_type/reverse_link_phrase:153 DB:link_type/reverse_link_phrase:47
 msgid "{additional} {assistant} remixer"
@@ -9555,6 +9564,18 @@ msgstr "{vocal:%|voix} de soutien par"
 #: DB:link_type/link_phrase:107
 msgid "{vocal:%|vocals} support for"
 msgstr "{vocal:%|voix} de soutien pour"
+
+#~ msgid "performed {additional} chorus master on"
+#~ msgstr "était chef de chœur {additional:supplémentaire} sur"
+
+#~ msgid "{additional:additionally} conducted"
+#~ msgstr "{additional:aussi} dirigé"
+
+#~ msgid "{additional} chorus master"
+#~ msgstr "chef de chœur {additional:supplémentaire}"
+
+#~ msgid "{additional} conductor"
+#~ msgstr "chef d’orchestre {additional:supplémentaire}"
 
 #~ msgid "{additional:additionally} {co:co-}arranged"
 #~ msgstr "a {co:co-}arrangé {additional:supplémentairement}"

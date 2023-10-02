@@ -5262,7 +5262,7 @@ msgstr "concertmeester"
 msgid "conducting"
 msgstr "dirigeren"
 
-#: DB:link_type/name:806 DB:link_type/name:151 DB:link_type/name:46
+#: DB:link_type/name:806 DB:link_type/name:46 DB:link_type/name:151
 msgid "conductor"
 msgstr "dirigent"
 
@@ -7299,8 +7299,8 @@ msgid "performed the voice of"
 msgstr "sprak de stem in van"
 
 #: DB:link_type/long_link_phrase:152 DB:link_type/long_link_phrase:53
-msgid "performed {additional} chorus master on"
-msgstr "treedt op als {additional:aanvullend} koorleider op"
+msgid "performed {additional} {assistant} chorus master on"
+msgstr ""
 
 #: DB:link_type/long_link_phrase:44 DB:link_type/long_link_phrase:148
 msgid "performed {additional} {guest} {solo} {instrument:%|instruments} on"
@@ -8586,11 +8586,6 @@ msgstr "{additional:aanvullend} gecomponeerd bij"
 msgid "{additional:additionally} composed in"
 msgstr "{additional:aanvullend} gecomponeerd in"
 
-#: DB:link_type/link_phrase:151 DB:link_type/link_phrase:46
-#: DB:link_type/long_link_phrase:151 DB:link_type/long_link_phrase:46
-msgid "{additional:additionally} conducted"
-msgstr "dirigeerde {additional:aanvullend}"
-
 #: DB:link_type/reverse_link_phrase:819 DB:link_type/reverse_link_phrase:820
 msgid "{additional:additionally} edited at"
 msgstr "{additional:aanvullend} geëdit bij"
@@ -8702,6 +8697,11 @@ msgstr "schreef {additional:aanvullingen aan} het libretto van"
 #: DB:link_type/long_link_phrase:56 DB:link_type/long_link_phrase:165
 msgid "{additional:additionally} wrote the lyrics for"
 msgstr "schreef {additional:aanvullingen aan} de tekst van"
+
+#: DB:link_type/link_phrase:46 DB:link_type/link_phrase:151
+#: DB:link_type/long_link_phrase:46 DB:link_type/long_link_phrase:151
+msgid "{additional:additionally} {assistant} conducted"
+msgstr ""
 
 #: DB:link_type/link_phrase:153 DB:link_type/link_phrase:47
 #: DB:link_type/long_link_phrase:153 DB:link_type/long_link_phrase:47
@@ -8847,11 +8847,6 @@ msgstr "{additional:aanvullende} artistieke leiding"
 msgid "{additional} artwork"
 msgstr "{additional:aanvullende} kunst"
 
-#: DB:link_type/link_phrase:152 DB:link_type/link_phrase:53
-#: DB:link_type/reverse_link_phrase:152 DB:link_type/reverse_link_phrase:53
-msgid "{additional} chorus master"
-msgstr "{additional:aanvullend} koorleider"
-
 #: DB:link_type/reverse_link_phrase:55 DB:link_type/reverse_link_phrase:168
 msgid "{additional} composer"
 msgstr "{additional:aanvullend} componist"
@@ -8859,10 +8854,6 @@ msgstr "{additional:aanvullend} componist"
 #: DB:link_type/link_phrase:875 DB:link_type/link_phrase:876
 msgid "{additional} composing location for"
 msgstr "hier {additional:aanvullend }gecomponeerd"
-
-#: DB:link_type/reverse_link_phrase:151 DB:link_type/reverse_link_phrase:46
-msgid "{additional} conductor"
-msgstr "{additional:aanvullend} dirigent"
 
 #: DB:link_type/link_phrase:63 DB:link_type/link_phrase:146
 #: DB:link_type/reverse_link_phrase:63 DB:link_type/reverse_link_phrase:146
@@ -9011,6 +9002,15 @@ msgstr "{additional:aanvullend} schrijver"
 #: DB:link_type/link_phrase:873 DB:link_type/link_phrase:874
 msgid "{additional} writing location for"
 msgstr "hier {additional:aanvullend }geschreven"
+
+#: DB:link_type/link_phrase:152 DB:link_type/link_phrase:53
+#: DB:link_type/reverse_link_phrase:152 DB:link_type/reverse_link_phrase:53
+msgid "{additional} {assistant} chorus master"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:46 DB:link_type/reverse_link_phrase:151
+msgid "{additional} {assistant} conductor"
+msgstr ""
 
 #: DB:link_type/reverse_link_phrase:153 DB:link_type/reverse_link_phrase:47
 msgid "{additional} {assistant} remixer"
@@ -9661,6 +9661,18 @@ msgstr "{vocal:%|vocale} ondersteuning door"
 #: DB:link_type/link_phrase:107
 msgid "{vocal:%|vocals} support for"
 msgstr "{vocal:%|vocale} ondersteuning voor"
+
+#~ msgid "performed {additional} chorus master on"
+#~ msgstr "treedt op als {additional:aanvullend} koorleider op"
+
+#~ msgid "{additional:additionally} conducted"
+#~ msgstr "dirigeerde {additional:aanvullend}"
+
+#~ msgid "{additional} chorus master"
+#~ msgstr "{additional:aanvullend} koorleider"
+
+#~ msgid "{additional} conductor"
+#~ msgstr "{additional:aanvullend} dirigent"
 
 #~ msgid "{additional:additionally} {co:co-}arranged"
 #~ msgstr "{co:co-}arrangeerde {additional:aanvullend}"
