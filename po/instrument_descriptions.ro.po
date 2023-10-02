@@ -997,6 +997,11 @@ msgstr ""
 msgid "Double headed drum from India."
 msgstr ""
 
+#. name:gralla 
+#: DB:instrument/description:582
+msgid "Dulzaina specifically from Catalonia."
+msgstr ""
+
 #. name:dunun 
 #: DB:instrument/description:659
 msgid "Dunun is a family of West African cylindrical drums."
@@ -1199,12 +1204,29 @@ msgid ""
 "and dance."
 msgstr ""
 
+#. name:tambourine 
+#: DB:instrument/description:263
+msgid ""
+"For the Brazilian frame-drum hit with a whisk see <a href=\"/instrument/"
+"a96bbbd1-7e44-4e79-b12e-a03ac232db98\">tamborim</a>.<br />"
+msgstr ""
+
 #. name:siku 
 #: DB:instrument/description:569
 msgid ""
 "For the Italian bag-pipe, see <a href=\"/\">zampogna</a>.<br /> Also known "
 "as zampona, traditional Andean panpipe has two rows of pipes tied together "
 "with colourful bands."
+msgstr ""
+
+#. name:chalumeau 
+#: DB:instrument/description:436
+msgid ""
+"For the Japanese descendant named from Portuguese, see charumera.<br /> For "
+"the medieval double-reed woodwind see <a href=\"/instrument/b4f112c3-"
+"d666-47f2-bb85-bae28572ca13\">shawm</a>.<br /> Predecessor of the modern "
+"clarinet, 7-regular 1-thumb holed single-reed woodwind was in use during "
+"baroque and classical era."
 msgstr ""
 
 #. name:reed organ 
@@ -1228,6 +1250,17 @@ msgid ""
 "keyed MELODION, see <a href=\"/instrument/8ab40df2-106b-4b9b-"
 "a50c-0798ee95da8f\">melodica</a>.<br /> Also known as Melodeon, it has 1 to "
 "2 rows of buttons that each produce two tones (bisonoric)."
+msgstr ""
+
+#. name:charumera 
+#: DB:instrument/description:1150
+msgid ""
+"For the similarly named single-reed woodwind see <a href=\"/instrument/"
+"e3511ed1-3d73-4340-880f-c8ccc8eda11c\">chalumeau</a>.<br /> For the European "
+"instrument, see <a href=\"/instrument/b4f112c3-d666-47f2-bb85-"
+"bae28572ca13\">shawm</a>.<br /> Name derived from the Portuguese name of "
+"shawm, it was imported by Portuguese or Iberian traders. It is used in "
+"kabuki theatre and by ramen street vendors"
 msgstr ""
 
 #. name:lira da braccio 
@@ -2050,6 +2083,13 @@ msgid ""
 "soundcontrols on the neck"
 msgstr ""
 
+#. name:English flageolet 
+#: DB:instrument/description:844
+msgid ""
+"Meant as an improvement on the flageolet design, the English flageolet had 6 "
+"finger holes in front and one thumb hole in the back."
+msgstr ""
+
 #. name:gemshorn 
 #: DB:instrument/description:868
 msgid ""
@@ -2157,7 +2197,8 @@ msgstr ""
 #: DB:instrument/description:770
 msgid ""
 "Not to be confused by the European renaissance bassoon <a href=\"/instrument/"
-"a0b1ba6b-6ea7-4489-a4af-c9e23d6e24da\">dulcian</a>.<br /> Widely used in "
+"a0b1ba6b-6ea7-4489-a4af-c9e23d6e24da\">dulcian</a>.<br /> Not to be confused "
+"with several Spanish bagpipes also called \"gaita\".<br /> Widely used in "
 "Spanish communities it has many different names and a conical shape."
 msgstr ""
 
@@ -2190,6 +2231,17 @@ msgid ""
 "singer. While upright versions exist, they are rare."
 msgstr ""
 
+#. name:tabor 
+#: DB:instrument/description:806
+msgid ""
+"Not to be confused with the <a href=\"/instrument/4431f7b0-69a4-49ee-"
+"b84f-15dda19fb70c\">tambourine</a>.<br /> For the Brazilian frame-drum hit "
+"with a whisk see <a href=\"/instrument/a96bbbd1-7e44-4e79-b12e-"
+"a03ac232db98\">tamborim</a>.<br /> Side drum, often with one or more snares, "
+"worn by one person and beaten by one hand, it is often combined with tabor "
+"pipes."
+msgstr ""
+
 #. name:ghijak 
 #: DB:instrument/description:932
 msgid ""
@@ -2212,13 +2264,14 @@ msgid ""
 "<br /> For the multiple bore free reed created in 1880 see Martinshorn.<br /"
 "> For the similarly named single-reed woodwind see <a href=\"/instrument/"
 "e3511ed1-3d73-4340-880f-c8ccc8eda11c\">chalumeau</a>.<br /> For the Japanese "
-"descendant named from Portuguese, see charumera.<br /> For the Catalan "
-"shawm, see <a href=\"/instrument/dffe56f5-cd75-4392-ad31-1c3abf2b8e37\"> "
-"tible </a>.<br /> For the Italian ciaramella see piffero.<br /> For the "
-"bagpipe, see xeremia.<br /><br /> European medieval and renaissance conical "
-"bore double-reed woodwind, two types evolved; one from Middle-eastern "
-"instruments and one from bagpipe chanters. A combination of both where used "
-"to develop the modern oboe."
+"descendant named from Portuguese, see <a href=\"/instrument/07b91470-"
+"b63e-41e4-88e6-11c4acac064f\">charumera</a>.<br /> For the Catalan shawm, "
+"see <a href=\"/instrument/dffe56f5-cd75-4392-ad31-1c3abf2b8e37\"> tible</a>."
+"<br /> For the Italian ciaramella see piffero.<br /> For the bagpipe, see "
+"xeremia.<br /><br /> European medieval and renaissance conical bore double-"
+"reed woodwind, two types evolved; one from Middle-eastern instruments and "
+"one from bagpipe chanters. A combination of both where used to develop the "
+"modern oboe."
 msgstr ""
 
 #. name:oboe 
@@ -2758,13 +2811,6 @@ msgstr ""
 msgid "Short wooden flute used to imitate the sound of ducks"
 msgstr ""
 
-#. name:tabor 
-#: DB:instrument/description:806
-msgid ""
-"Side drum, often with one or more snares, worn by one person and beaten by "
-"one hand, it is often combined with tabor pipes."
-msgstr ""
-
 #. name:celesta 
 #: DB:instrument/description:129
 msgid ""
@@ -3286,13 +3332,6 @@ msgid ""
 "The chakhe is a three stringed crocodile shaped plucked zither from Thailand."
 msgstr ""
 
-#. name:chalumeau 
-#: DB:instrument/description:436
-msgid ""
-"The chalumeau is a single-reed woodwind instrument of the late baroque and "
-"early classical era."
-msgstr ""
-
 #. name:chande 
 #: DB:instrument/description:536
 msgid ""
@@ -3512,13 +3551,6 @@ msgstr ""
 msgid ""
 "The geomungo is a traditional Korean zither, based on the Chinese guqin, "
 "which typically has 6 strings."
-msgstr ""
-
-#. name:gralla 
-#: DB:instrument/description:582
-msgid ""
-"The gralla is a traditional Catalan double reed instrument in the oboe "
-"family."
 msgstr ""
 
 #. name:guan 
@@ -5087,6 +5119,13 @@ msgid ""
 "period, it has up to 14 strings."
 msgstr ""
 
+#. name:flageolet 
+#: DB:instrument/description:843
+msgid ""
+"While today it is obscure, it was developed and improved for 400 years. The "
+"French flageolet has 4 holes in front and two thumb holes in the back."
+msgstr ""
+
 #. name:porotiti 
 #: DB:instrument/description:862
 msgid ""
@@ -5519,13 +5558,6 @@ msgstr ""
 msgid "variety of bass guitars without frets"
 msgstr ""
 
-#. name:flageolet 
-#: DB:instrument/description:843
-msgid ""
-"while today it is obscure, it was developed and improved for 400 years, the "
-"French flageolet has 4 holes in front and two thumb holes in the back"
-msgstr ""
-
 #. name:wind synthesizer 
 #: DB:instrument/description:560
 msgid ""
@@ -5541,13 +5573,6 @@ msgstr ""
 #. name:Irish flute 
 #: DB:instrument/description:878
 msgid "wooden flute of the simple-system type, popular in Irish folk music"
-msgstr ""
-
-#. name:English flageolet 
-#: DB:instrument/description:844
-msgid ""
-"working to improve on its design, the English flageolet had 6 finger holes "
-"in front and one thumb hole in the back."
 msgstr ""
 
 #. name:tube zither 
