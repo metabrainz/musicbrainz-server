@@ -3,8 +3,6 @@ use 5.10.0;
 use MooseX::Role::Parameterized;
 use namespace::autoclean;
 
-no if $] >= 5.018, warnings => 'experimental::smartmatch';
-
 parameter type => (
     isa => 'Str',
     required => 1

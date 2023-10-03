@@ -17,8 +17,6 @@ use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 
 use aliased 'MusicBrainz::Server::Entity::PartialDate';
 
-no if $] >= 5.018, warnings => 'experimental::smartmatch';
-
 extends 'MusicBrainz::Server::Edit::WithDifferences';
 with 'MusicBrainz::Server::Edit::Alias';
 with 'MusicBrainz::Server::Edit::CheckForConflicts';

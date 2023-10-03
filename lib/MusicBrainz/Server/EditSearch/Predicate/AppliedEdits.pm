@@ -5,8 +5,6 @@ use feature 'switch';
 
 use MusicBrainz::Server::Constants qw( :edit_status );
 
-no if $] >= 5.018, warnings => 'experimental::smartmatch';
-
 extends 'MusicBrainz::Server::EditSearch::Predicate::ID';
 
 sub combine_with_query {

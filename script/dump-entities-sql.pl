@@ -14,8 +14,6 @@ use Encode qw( encode );
 use MusicBrainz::Script::EntityDump qw( edits get_core_entities_by_gids );
 use MusicBrainz::Server::Context;
 
-no warnings 'experimental::smartmatch';
-
 my $database = 'READWRITE';
 my $aliases = 0;
 my $annotations = 0;

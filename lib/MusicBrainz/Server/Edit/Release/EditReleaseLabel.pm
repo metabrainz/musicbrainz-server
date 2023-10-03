@@ -17,8 +17,6 @@ use MusicBrainz::Server::Translation qw( N_l lp );
 use MusicBrainz::Server::Entity::Util::MediumFormat qw( combined_medium_format_name );
 use Scalar::Util qw( looks_like_number );
 
-no if $] >= 5.018, warnings => 'experimental::smartmatch';
-
 extends 'MusicBrainz::Server::Edit::WithDifferences';
 with 'MusicBrainz::Server::Edit::Role::Preview';
 with 'MusicBrainz::Server::Edit::Release::RelatedEntities';

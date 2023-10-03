@@ -4,8 +4,6 @@ use MusicBrainz::Server::Validation qw( is_database_row_id is_integer );
 use namespace::autoclean;
 use feature 'switch';
 
-no if $] >= 5.018, warnings => 'experimental::smartmatch';
-
 with 'MusicBrainz::Server::EditSearch::Predicate';
 
 sub operator_cardinality_map {

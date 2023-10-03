@@ -56,15 +56,14 @@ use MusicBrainz::Server::Data::Release;
 use MusicBrainz::Server::Data::ReleaseGroup;
 use MusicBrainz::Server::Data::Series;
 use MusicBrainz::Server::Data::Tag;
-use MusicBrainz::Server::Data::Utils qw( ref_to_type );
+use MusicBrainz::Server::Data::Utils qw( contains_string ref_to_type );
 use MusicBrainz::Server::Data::Work;
 use MusicBrainz::Server::Constants qw( entities_with $DARTIST_ID $DLABEL_ID );
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
 use MusicBrainz::Server::ExternalUtils qw( get_chunked_with_retry );
 use DateTime::Format::ISO8601;
+use Readonly;
 use feature 'switch';
-
-no if $] >= 5.018, warnings => 'experimental::smartmatch';
 
 extends 'MusicBrainz::Server::Data::Entity';
 
@@ -134,7 +133,7 @@ sub search
             SQL
 
         $hard_search_limit = $offset * 2;
-    } elsif ($type ~~ [qw(recording release release_group)]) {
+    } elsif ($type =~ /^(recording|release|release_group)$/) {
         if ($type eq 'release_group') {
             $extra_columns = 'entity.type AS primary_type_id,';
         } elsif ($type eq 'recording') {
@@ -201,7 +200,7 @@ sub search
             SQL
 
         $hard_search_limit = int($offset * 1.2);
-    } elsif ($type ~~ [qw(area event instrument label place series work)]) {
+    } elsif ($type =~ /^(area|event|instrument|label|place|series|work)$/) {
         my $where_deleted = 'WHERE entity.id != ?';
         if ($type eq 'label') {
             $deleted_entity = $DLABEL_ID;
@@ -398,9 +397,11 @@ my %mapping = (
     'label-code'     => 'label_code',
 );
 
+Readonly our @ENTITIES_WITH_SIMPLE_TYPES => entities_with(['type', 'simple']);
+
 sub schema_fixup_type {
     my ($self, $data, $type) = @_;
-    if (defined $data->{type} && $type ~~ [ entities_with(['type', 'simple']) ]) {
+    if (defined $data->{type} && contains_string(\@ENTITIES_WITH_SIMPLE_TYPES, $type)) {
         my $model = 'MusicBrainz::Server::Entity::' . type_to_model($type) . 'Type';
         $data->{type} = $model->new( name => $data->{type} );
     }
@@ -438,7 +439,7 @@ sub schema_fixup
     {
         $data->{coordinates} = MusicBrainz::Server::Entity::Coordinates->new( $data->{coordinates} );
     }
-    if (($type ~~ [qw(artist event label area place)]) && defined $data->{'life-span'})
+    if (($type =~ /^(artist|event|label|area|place)$/) && defined $data->{'life-span'})
     {
         $data->{begin_date} = MusicBrainz::Server::Entity::PartialDate->new($data->{'life-span'}->{begin})
             if (defined $data->{'life-span'}->{begin});
@@ -893,7 +894,7 @@ sub external_search
             undef;
 
         # Use types as provided by jsonnew format
-        if ($type ~~ [qw(area artist event instrument label place recording release release-group work annotation cdstub editor)]) {
+        if ($type =~ /^(area|artist|event|instrument|label|place|recording|release|release-group|work|annotation|cdstub|editor)$/) {
             $xmltype .= 's';
         }
 
