@@ -155,17 +155,14 @@ sub _edit_hash {
 around extract_property => sub {
     my ($orig, $self) = splice(@_, 0, 2);
     my ($property, $ancestor, $current, $new) = @_;
-    given ($property) {
-        when ('begin_date') {
-            return merge_partial_date('begin_date' => $ancestor, $current, $new);
-        }
-
-        when ('end_date') {
-            return merge_partial_date('end_date' => $ancestor, $current, $new);
-        }
-        default {
-            return ($self->$orig(@_));
-        }
+    if ($property eq 'begin_date') {
+        return merge_partial_date('begin_date' => $ancestor, $current, $new);
+    }
+    elsif ($property eq 'end_date') {
+        return merge_partial_date('end_date' => $ancestor, $current, $new);
+    }
+    else {
+        return ($self->$orig(@_));
     }
 };
 

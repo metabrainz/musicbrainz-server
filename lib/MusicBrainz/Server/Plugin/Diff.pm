@@ -3,8 +3,6 @@ package MusicBrainz::Server::Plugin::Diff;
 use strict;
 use warnings;
 
-use feature 'switch';
-
 use base 'Template::Plugin';
 
 use Algorithm::Diff qw( sdiff traverse_sequences );
@@ -144,42 +142,37 @@ sub diff_artist_credits {
     for my $diff (@diffs) {
         my ($change_type, $old_name, $new_name) = @$diff;
 
-        given ($change_type) {
-            when ('u') {
-                my $html = $self->_link_joined($old_name);
-                $sides{old} .= $html;
-                $sides{new} .= $html;
-            };
+        if ($change_type eq 'u') {
+            my $html = $self->_link_joined($old_name);
+            $sides{old} .= $html;
+            $sides{new} .= $html;
+        }
+        elsif ($change_type eq 'c') {
+            # Diff the credited names
+            $sides{old} .= $self->_link_artist_credit_name(
+                $old_name,
+                $self->diff_side(encode_entities($old_name->name), encode_entities($new_name->name), '-','\s+')
+            );
+            $sides{new} .= $self->_link_artist_credit_name(
+                $new_name,
+                $self->diff_side(encode_entities($old_name->name), encode_entities($new_name->name), '+', '\s+')
+            );
 
-            when ('c') {
-                # Diff the credited names
-                $sides{old} .= $self->_link_artist_credit_name(
-                    $old_name,
-                    $self->diff_side(encode_entities($old_name->name), encode_entities($new_name->name), '-','\s+')
-                );
-                $sides{new} .= $self->_link_artist_credit_name(
-                    $new_name,
-                    $self->diff_side(encode_entities($old_name->name), encode_entities($new_name->name), '+', '\s+')
-                );
-
-                # Diff the join phrases
-                $sides{old} .= $self->diff_side(encode_entities($old_name->join_phrase), encode_entities($new_name->join_phrase), '-', '\s+');
-                $sides{new} .= $self->diff_side(encode_entities($old_name->join_phrase), encode_entities($new_name->join_phrase), '+', '\s+');
-            }
-
-            when ('-') {
-                $sides{old} .= $h->span(
-                    { class => $class_map{'-'} },
-                    $self->_link_joined($old_name)
-                );
-            }
-
-            when ('+') {
-                $sides{new} .= $h->span(
-                    { class => $class_map{'+'} },
-                    $self->_link_joined($new_name)
-                );
-            }
+            # Diff the join phrases
+            $sides{old} .= $self->diff_side(encode_entities($old_name->join_phrase), encode_entities($new_name->join_phrase), '-', '\s+');
+            $sides{new} .= $self->diff_side(encode_entities($old_name->join_phrase), encode_entities($new_name->join_phrase), '+', '\s+');
+        }
+        elsif ($change_type eq '-') {
+            $sides{old} .= $h->span(
+                { class => $class_map{'-'} },
+                $self->_link_joined($old_name)
+            );
+        }
+        elsif ($change_type eq '+') {
+            $sides{new} .= $h->span(
+                { class => $class_map{'+'} },
+                $self->_link_joined($new_name)
+            );
         }
     }
 

@@ -1,7 +1,6 @@
 #!/usr/bin/env perl
 use strict;
 use warnings;
-use feature "switch";
 
 # Sufficiently Sophisticated Simple Storage Service Simulator is a
 # drop-in replacement for the archive.org S3 service.  It mimics just
@@ -283,14 +282,13 @@ sub {
     my $request = Plack::Request->new(shift);
 
     my $response;
+    my $method = $request->method;
 
-    given ($request->method) {
-        when ("PUT")     { $response = handle_put($request) }
-        when ("POST")    { $response = handle_post($request) }
-        when ("OPTIONS") { $response = handle_options($request) }
-        when ("GET")     { $response = handle_get($request) }
-        when ("DELETE")  { $response = handle_delete($request) }
-    }
+    if ($method eq 'PUT') { $response = handle_put($request) }
+    elsif ($method eq 'POST') { $response = handle_post($request) }
+    elsif ($method eq 'OPTIONS') { $response = handle_options($request) }
+    elsif ($method eq 'GET') { $response = handle_get($request) }
+    elsif ($method eq 'DELETE') { $response = handle_delete($request) }
 
     $response->header("Access-Control-Allow-Origin" => "*");
     return $response->finalize;

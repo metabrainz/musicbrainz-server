@@ -2,8 +2,6 @@
 use strict;
 use warnings;
 
-use feature 'switch';
-
 use Moose;
 use namespace::autoclean;
 use FindBin;
@@ -46,14 +44,12 @@ sub quote_column {
 
     my $ret;
 
-    given ($type) {
-        when (/^integer\[\]/) { $ret = q('{) . join(',', @$data) . q(}'); }
-        when (/^integer/) { $ret = $data; }
-        when (/^smallint/) { $ret = $data; }
-        default {
-            $data =~ s/'/''/g;
-            $ret = "'$data'";
-        }
+    if ($type =~ /^integer\[\]/) { $ret = q('{) . join(',', @$data) . q(}'); }
+    elsif ($type =~ /^integer/) { $ret = $data; }
+    elsif ($type =~ /^smallint/) { $ret = $data; }
+    else {
+        $data =~ s/'/''/g;
+        $ret = "'$data'";
     }
 
     return $ret;

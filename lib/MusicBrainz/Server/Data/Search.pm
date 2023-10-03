@@ -63,7 +63,6 @@ use MusicBrainz::Server::Data::Utils qw( type_to_model );
 use MusicBrainz::Server::ExternalUtils qw( get_chunked_with_retry );
 use DateTime::Format::ISO8601;
 use Readonly;
-use feature 'switch';
 
 extends 'MusicBrainz::Server::Data::Entity';
 

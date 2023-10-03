@@ -42,37 +42,33 @@ role {
     around combine_with_query => sub {
         my ($orig, $self) = splice(@_, 0, 2);
         my ($query) = @_;
+        my $operator = $self->operator;
+        if ($operator eq 'subscribed') {
+            my $subscribed_clause = "IN (
+                SELECT $subscribed_column
+                    FROM editor_subscribe_$type
+                    WHERE editor = ?
+            )";
 
-        given ($self->operator) {
-            when ('subscribed') {
-                my $subscribed_clause = "IN (
-                    SELECT $subscribed_column
-                      FROM editor_subscribe_$type
-                     WHERE editor = ?
-                )";
+            $query->add_where([
+                $template_clause =~ s/ROLE_CLAUSE\(([^)]*)\)/$1 $subscribed_clause/r,
+                [ $self->user->id ]
+            ]);
+        }
+        elsif ($operator eq 'not_subscribed') {
+            my $subscribed_clause = "NOT IN (
+                SELECT $subscribed_column
+                    FROM editor_subscribe_$type
+                    WHERE editor = ?
+            )";
 
-                $query->add_where([
-                    $template_clause =~ s/ROLE_CLAUSE\(([^)]*)\)/$1 $subscribed_clause/r,
-                    [ $self->user->id ]
-                ]);
-            }
-
-            when ('not_subscribed') {
-                my $subscribed_clause = "NOT IN (
-                    SELECT $subscribed_column
-                      FROM editor_subscribe_$type
-                     WHERE editor = ?
-                )";
-
-                $query->add_where([
-                    $template_clause =~ s/ROLE_CLAUSE\(([^)]*)\)/$1 $subscribed_clause/r,
-                    [ $self->user->id ]
-                ]);
-            }
-
-            default {
-                $self->$orig(@_);
-            }
+            $query->add_where([
+                $template_clause =~ s/ROLE_CLAUSE\(([^)]*)\)/$1 $subscribed_clause/r,
+                [ $self->user->id ]
+            ]);
+        }
+        else {
+            $self->$orig(@_);
         }
     };
 

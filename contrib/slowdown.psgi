@@ -1,7 +1,6 @@
 #!/usr/bin/env perl
 use strict;
 use warnings;
-use feature "switch";
 
 # Sufficiently Sophisticated Simple Storage Service Slow Down Simulator.
 
@@ -87,12 +86,12 @@ sub {
     my $request = Plack::Request->new(shift);
 
     my $response;
+    my $method = $request->method;
 
-    given ($request->method) {
-        when ("PUT")     { $response = handle_other($request) }
-        when ("POST")    { $response = handle_other($request) }
-        when ("OPTIONS") { $response = handle_options($request) }
-    }
+
+    if ($method eq 'PUT') { $response = handle_other($request) }
+    elsif ($method eq 'POST') { $response = handle_other($request) }
+    elsif ($method eq 'OPTIONS') { $response = handle_options($request) }
 
     $response->header("Access-Control-Allow-Origin" => "*");
     return $response->finalize;

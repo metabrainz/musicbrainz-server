@@ -145,18 +145,15 @@ sub current_instance {
 around extract_property => sub {
     my ($orig, $self) = splice(@_, 0, 2);
     my ($property, $ancestor, $current, $new) = @_;
-    given ($property) {
-        when ('url') {
-            return (
-                [ $ancestor->{url}, $ancestor->{url} ],
-                [ $current->url->as_string, $current->url->as_string ],
-                [ $new->{url}, $new->{url} ]
-            );
-        }
-
-        default {
-            return ($self->$orig(@_));
-        }
+    if ($property eq 'url') {
+        return (
+            [ $ancestor->{url}, $ancestor->{url} ],
+            [ $current->url->as_string, $current->url->as_string ],
+            [ $new->{url}, $new->{url} ]
+        );
+    }
+    else {
+        return ($self->$orig(@_));
     }
 };
 

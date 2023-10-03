@@ -204,14 +204,11 @@ before accept => sub {
 around extract_property => sub {
     my ($orig, $self) = splice(@_, 0, 2);
     my ($property, $ancestor, $current, $new) = @_;
-    given ($property) {
-        when ('artist_credit') {
-            return merge_artist_credit($self->c, $ancestor, $current, $new);
-        }
-
-        default {
-            return ($self->$orig(@_));
-        }
+    if ($property eq 'artist_credit') {
+        return merge_artist_credit($self->c, $ancestor, $current, $new);
+    }
+    else {
+        return ($self->$orig(@_));
     }
 };
 

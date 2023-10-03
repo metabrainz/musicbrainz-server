@@ -178,31 +178,29 @@ around initialize => sub
 around extract_property => sub {
     my ($orig, $self) = splice(@_, 0, 2);
     my ($property, $ancestor, $current, $new) = @_;
-    given ($property) {
-        when ('artist_credit') {
-            return merge_artist_credit($self->c, $ancestor, $current, $new);
-        }
-        when ('type_id') {
-            return (
-                merge_value($ancestor->{type_id}),
-                merge_value($current->primary_type_id),
-                merge_value($new->{type_id})
-            )
-        }
-        when ('secondary_type_ids') {
-            my $type_list_gen = sub {
-                my $type = shift;
-                return [ join(q(,), sort @$type), $type ];
-            };
-            return (
-                $type_list_gen->( $ancestor->{secondary_type_ids} ),
-                $type_list_gen->( [ map { $_->id } $current->all_secondary_types ] ),
-                $type_list_gen->( $new->{secondary_type_ids} ),
-            )
-        }
-        default {
-            return $self->$orig(@_);
-        }
+    if ($property eq 'artist_credit') {
+        return merge_artist_credit($self->c, $ancestor, $current, $new);
+    }
+    elsif ($property eq 'type_id') {
+        return (
+            merge_value($ancestor->{type_id}),
+            merge_value($current->primary_type_id),
+            merge_value($new->{type_id})
+        )
+    }
+    elsif ($property eq 'secondary_type_ids') {
+        my $type_list_gen = sub {
+            my $type = shift;
+            return [ join(q(,), sort @$type), $type ];
+        };
+        return (
+            $type_list_gen->( $ancestor->{secondary_type_ids} ),
+            $type_list_gen->( [ map { $_->id } $current->all_secondary_types ] ),
+            $type_list_gen->( $new->{secondary_type_ids} ),
+        )
+    }
+    else {
+        return $self->$orig(@_);
     }
 };
 

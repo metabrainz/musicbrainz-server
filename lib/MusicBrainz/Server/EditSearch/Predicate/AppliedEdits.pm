@@ -1,7 +1,6 @@
 package MusicBrainz::Server::EditSearch::Predicate::AppliedEdits;
 use Moose;
 use namespace::autoclean;
-use feature 'switch';
 
 use MusicBrainz::Server::Constants qw( :edit_status );
 
@@ -13,13 +12,12 @@ sub combine_with_query {
     my $subquery = '(SELECT COUNT(*) FROM edit H WHERE H.editor = edit.editor AND H.status = ?)';
 
     my $sql;
-    given ($self->operator) {
-        when ('BETWEEN') {
-            $sql = $subquery . ' BETWEEN SYMMETRIC ? AND ?';
-        }
-        default {
-           $sql = join(' ', $subquery, $self->operator, '?');
-       }
+    my $operator = $self->operator;
+    if ($operator eq 'BETWEEN') {
+        $sql = $subquery . ' BETWEEN SYMMETRIC ? AND ?';
+    }
+    else {
+        $sql = join(' ', $subquery, $operator, '?');
     }
 
     $query->add_where([ $sql, [ $STATUS_APPLIED, @{ $self->sql_arguments } ] ]);

@@ -332,18 +332,15 @@ sub current_instance {
 around extract_property => sub {
     my ($orig, $self) = splice(@_, 0, 2);
     my ($property, $ancestor, $current, $new) = @_;
-    given ($property) {
-        when ('label') {
-            return (
-                merge_value($ancestor->{label}),
-                merge_value(_serialize_label($current->label)),
-                merge_value($new->{label}),
-            );
-        }
-
-        default {
-            return ($self->$orig(@_));
-        }
+    if ($property eq 'label') {
+        return (
+            merge_value($ancestor->{label}),
+            merge_value(_serialize_label($current->label)),
+            merge_value($new->{label}),
+        );
+    }
+    else {
+        return ($self->$orig(@_));
     }
 };
 
