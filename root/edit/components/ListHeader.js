@@ -22,13 +22,13 @@ type Props = {
   +username?: string,
 };
 
-const QuickLinksSection = ({
+const QuickLinks = ({
   entity,
   isSearch = false,
   page,
   refineUrlArgs,
   username,
-}: Props): React$Element<'td'> => {
+}: Props): React$Element<React$FragmentType> => {
   const $c = React.useContext(CatalystContext);
   const isSecureConnection = $c.req.secure;
   const protocol = isSecureConnection ? 'https://' : 'http://';
@@ -173,16 +173,14 @@ const QuickLinksSection = ({
       </a>,
     );
   }
-  return (
-    <td>
-      {quickLinks.reduce((accum: Array<React$Node>, link, index) => {
-        accum.push(link);
-        if (index < (quickLinks.length - 1)) {
-          accum.push(' | ');
-        }
-        return accum;
-      }, [])}
-    </td>
+  return React.createElement(React.Fragment, null, ...quickLinks.reduce(
+    (accum: Array<React$Node>, link, index) => {
+      accum.push(link);
+      if (index < (quickLinks.length - 1)) {
+        accum.push(' | ');
+      }
+      return accum;
+    }, [])
   );
 };
 
@@ -198,13 +196,15 @@ const ListHeader = ({
       <th>
         {l('Quick links:')}
       </th>
-      <QuickLinksSection
-        entity={entity}
-        isSearch={isSearch}
-        page={page}
-        refineUrlArgs={refineUrlArgs}
-        username={username}
-      />
+      <td>
+        <QuickLinks
+          entity={entity}
+          isSearch={isSearch}
+          page={page}
+          refineUrlArgs={refineUrlArgs}
+          username={username}
+        />
+      </td>
     </tr>
     <tr>
       <th>
