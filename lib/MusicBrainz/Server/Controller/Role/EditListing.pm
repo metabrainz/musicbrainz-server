@@ -42,7 +42,6 @@ sub edits : Chained('load') PathPart
         current_view => 'Node',
         component_path => 'entity/Edits',
         component_props => {
-            editCountLimit => $c->stash->{edit_count_limit},
             edits => to_json_array($c->stash->{edits}),
             entity => to_json_object($c->stash->{ $self->{entity_name} }),
             pager => serialize_pager($c->stash->{pager}),
@@ -82,7 +81,6 @@ sub open_edits : Chained('load') PathPart
         current_view => 'Node',
         component_path => 'entity/Edits',
         component_props => {
-            editCountLimit => $c->stash->{edit_count_limit},
             edits => to_json_array($c->stash->{edits}),
             entity => to_json_object($c->stash->{ $self->{entity_name} }),
             pager => serialize_pager($c->stash->{pager}),

@@ -12,14 +12,12 @@ import Layout from '../layout/index.js';
 import EditList from './components/EditList.js';
 
 type Props = {
-  +editCountLimit: number,
   +edits: $ReadOnlyArray<$ReadOnly<{...EditT, +id: number}>>,
   +pager: PagerT,
   +refineUrlArgs: {+[argument: string]: string},
 };
 
 const OpenEdits = ({
-  editCountLimit,
   edits,
   pager,
   refineUrlArgs,
@@ -28,9 +26,7 @@ const OpenEdits = ({
     <div id="content">
       <h1>{l('Open Edits')}</h1>
       <EditList
-        editCountLimit={editCountLimit}
         edits={edits}
-        guessSearch
         page="open"
         pager={pager}
         refineUrlArgs={refineUrlArgs}

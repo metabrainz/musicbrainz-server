@@ -66,7 +66,6 @@ our @EXPORT_OK = (
         $INSTRUMENT_ROOT_ID $VOCAL_ROOT_ID
         $REQUIRED_VOTES $OPEN_EDIT_DURATION
         $MINIMUM_RESPONSE_PERIOD $MINIMUM_VOTING_PERIOD
-        $LIMIT_FOR_EDIT_LISTING
         $ARTIST_ARTIST_COLLABORATION
         $AMAZON_ASIN_LINK_TYPE_ID
         %PART_OF_SERIES $PART_OF_AREA_LINK_TYPE $PART_OF_AREA_LINK_TYPE_ID
@@ -387,7 +386,6 @@ Readonly our $REQUIRED_VOTES => 3;
 Readonly our $OPEN_EDIT_DURATION => DateTime::Duration->new(days => 7);
 Readonly our $MINIMUM_RESPONSE_PERIOD => DateTime::Duration->new(hours => 72);
 Readonly our $MINIMUM_VOTING_PERIOD => DateTime::Duration->new(hours => 48);
-Readonly our $LIMIT_FOR_EDIT_LISTING => 500;
 
 Readonly our $ACCESS_SCOPE_PROFILE        => 1;
 Readonly our $ACCESS_SCOPE_EMAIL          => 2;

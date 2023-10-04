@@ -23,7 +23,6 @@ use MusicBrainz::Server::Constants qw(
     $AUTO_EDITOR_FLAG
     $UNTRUSTED_FLAG
     $MINIMUM_RESPONSE_PERIOD
-    $LIMIT_FOR_EDIT_LISTING
     $OPEN_EDIT_DURATION
     $EDITOR_MODBOT
     entities_with
@@ -164,7 +163,7 @@ sub find
 
     my $query = 'SELECT ' . $self->_columns . ' FROM ' . $self->_table;
     $query .= ' WHERE ' . join ' AND ', map { "($_)" } @pred if @pred;
-    $query .= ' ORDER BY id DESC LIMIT ' . $LIMIT_FOR_EDIT_LISTING;
+    $query .= ' ORDER BY id DESC';
 
     $self->query_to_list_limited($query, \@args, $limit, $offset);
 }
@@ -181,8 +180,7 @@ sub find_by_collection
                       JOIN ($EDIT_IDS_FOR_COLLECTION_SQL) relevant_edits
                         ON relevant_edits.edit = edit.id
                   $status_cond
-                  ORDER BY edit.id DESC
-                  LIMIT $LIMIT_FOR_EDIT_LISTING";
+                  ORDER BY edit.id DESC";
         # XXX Do not rewrite this query without extensive performance tests
         # on both small and large collections!
         # Various other forms have been tried (IN, EXISTS clauses both
@@ -269,8 +267,7 @@ sub find_by_voter
            FROM ' . $self->_table . '
            JOIN vote ON vote.edit = edit.id
           WHERE vote.editor = ? AND vote.superseded = FALSE
-       ORDER BY vote_time DESC
-          LIMIT ' . $LIMIT_FOR_EDIT_LISTING;
+       ORDER BY vote_time DESC';
 
     $self->query_to_list_limited(
         $query,
@@ -287,8 +284,7 @@ sub find_all_open
         'SELECT ' . $self->_columns . '
            FROM ' . $self->_table . '
           WHERE status = ?
-       ORDER BY id ASC
-          LIMIT ' . $LIMIT_FOR_EDIT_LISTING;
+       ORDER BY id ASC';
 
     $self->query_to_list_limited(
         $query,
@@ -312,8 +308,7 @@ sub find_open_for_editor
                    AND vote.editor = ?
                    AND vote.superseded = FALSE
                 )
-       ORDER BY id ASC
-          LIMIT ' . $LIMIT_FOR_EDIT_LISTING;
+       ORDER BY id ASC';
 
     $self->query_to_list_limited(
         $query,
@@ -422,7 +417,6 @@ sub subscribed_entity_edits {
             AND vote.editor = \$1
         )
         ORDER BY id ASC
-        LIMIT $LIMIT_FOR_EDIT_LISTING
         SQL
 
     $self->query_to_list_limited($query, \@args, $limit, $offset, undef,
@@ -453,8 +447,7 @@ sub subscribed_editor_edits {
                    AND vote.superseded = FALSE
                 )
             $status_sql
-       ORDER BY id ASC
-          LIMIT " . $LIMIT_FOR_EDIT_LISTING;
+       ORDER BY id ASC";
 
     $self->query_to_list_limited($query, \@args, $limit, $offset);
 }

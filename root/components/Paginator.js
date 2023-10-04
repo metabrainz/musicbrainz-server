@@ -17,7 +17,6 @@ type PageQueryParam = 'apps_page' | 'page' | 'tokens_page';
 type PageQueryObject = {[pageVar: PageQueryParam]: number, ...};
 
 type Props = {
-  +guessSearch?: boolean,
   +hash?: string,
   +pager: PagerT,
   +pageVar?: PageQueryParam,
@@ -40,7 +39,6 @@ function uriPage(
 }
 
 const Paginator = ({
-  guessSearch = false,
   hash,
   pager,
   pageVar = 'page',
@@ -125,12 +123,6 @@ const Paginator = ({
             <a href={uriPage(reqUri, pageVar, lastPage, hash)}>
               {lastPage}
             </a>
-          </li>
-        ) : null}
-
-        {guessSearch ? (
-          <li key="guess">
-            <span>{l('…')}</span>
           </li>
         ) : null}
 

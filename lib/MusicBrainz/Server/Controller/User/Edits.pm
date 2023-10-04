@@ -55,7 +55,6 @@ sub open : Chained('/user/load') PathPart('edits/open') RequireAuth HiddenOnMirr
         current_view => 'Node',
         component_path => 'user/UserEdits',
         component_props => {
-            editCountLimit => $c->stash->{edit_count_limit},
             edits => to_json_array($edits),
             pager => serialize_pager($c->stash->{pager}),
             refineUrlArgs => $refine_url_args,
@@ -93,7 +92,6 @@ sub cancelled : Chained('/user/load') PathPart('edits/cancelled') RequireAuth Hi
         current_view => 'Node',
         component_path => 'user/UserEdits',
         component_props => {
-            editCountLimit => $c->stash->{edit_count_limit},
             edits => to_json_array($edits),
             pager => serialize_pager($c->stash->{pager}),
             refineUrlArgs => $refine_url_args,
@@ -132,7 +130,6 @@ sub accepted : Chained('/user/load') PathPart('edits/accepted') RequireAuth Hidd
         current_view => 'Node',
         component_path => 'user/UserEdits',
         component_props => {
-            editCountLimit => $c->stash->{edit_count_limit},
             edits => to_json_array($edits),
             pager => serialize_pager($c->stash->{pager}),
             refineUrlArgs => $refine_url_args,
@@ -174,7 +171,6 @@ sub failed : Chained('/user/load') PathPart('edits/failed') RequireAuth HiddenOn
         current_view => 'Node',
         component_path => 'user/UserEdits',
         component_props => {
-            editCountLimit => $c->stash->{edit_count_limit},
             edits => to_json_array($edits),
             pager => serialize_pager($c->stash->{pager}),
             refineUrlArgs => $refine_url_args,
@@ -212,7 +208,6 @@ sub rejected : Chained('/user/load') PathPart('edits/rejected') RequireAuth Hidd
         current_view => 'Node',
         component_path => 'user/UserEdits',
         component_props => {
-            editCountLimit => $c->stash->{edit_count_limit},
             edits => to_json_array($edits),
             pager => serialize_pager($c->stash->{pager}),
             refineUrlArgs => $refine_url_args,
@@ -247,7 +242,6 @@ sub autoedits : Chained('/user/load') PathPart('edits/autoedits') RequireAuth Hi
         current_view => 'Node',
         component_path => 'user/UserEdits',
         component_props => {
-            editCountLimit => $c->stash->{edit_count_limit},
             edits => to_json_array($edits),
             pager => serialize_pager($c->stash->{pager}),
             refineUrlArgs => $refine_url_args,
@@ -285,7 +279,6 @@ sub applied : Chained('/user/load') PathPart('edits/applied') RequireAuth Hidden
         current_view => 'Node',
         component_path => 'user/UserEdits',
         component_props => {
-            editCountLimit => $c->stash->{edit_count_limit},
             edits => to_json_array($edits),
             pager => serialize_pager($c->stash->{pager}),
             refineUrlArgs => $refine_url_args,
@@ -319,7 +312,6 @@ sub all : Chained('/user/load') PathPart('edits') RequireAuth HiddenOnMirrors {
         current_view => 'Node',
         component_path => 'user/UserEdits',
         component_props => {
-            editCountLimit => $c->stash->{edit_count_limit},
             edits => to_json_array($edits),
             pager => serialize_pager($c->stash->{pager}),
             refineUrlArgs => $refine_url_args,
@@ -340,7 +332,6 @@ sub votes : Chained('/user/load') PathPart('votes') RequireAuth HiddenOnMirrors 
         current_view => 'Node',
         component_path => 'user/UserEdits',
         component_props => {
-            editCountLimit => $c->stash->{edit_count_limit},
             edits => to_json_array($edits),
             pager => serialize_pager($c->stash->{pager}),
             user => $user,

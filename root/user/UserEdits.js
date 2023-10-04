@@ -15,7 +15,6 @@ import Layout from '../layout/index.js';
 import EditorLink from '../static/scripts/common/components/EditorLink.js';
 
 type Props = {
-  +editCountLimit: number,
   +edits: $ReadOnlyArray<$ReadOnly<{...EditT, +id: number}>>,
   +pager: PagerT,
   +refineUrlArgs?: {+[argument: string]: string},
@@ -24,7 +23,6 @@ type Props = {
 };
 
 const UserEdits = ({
-  editCountLimit,
   edits,
   pager,
   refineUrlArgs,
@@ -81,9 +79,7 @@ const UserEdits = ({
       <div id="content">
         <h2>{pageHeading}</h2>
         <EditList
-          editCountLimit={editCountLimit}
           edits={edits}
-          guessSearch
           page={'user_' + $c.action.name}
           pager={pager}
           refineUrlArgs={refineUrlArgs}

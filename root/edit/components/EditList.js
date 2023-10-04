@@ -19,10 +19,8 @@ import ListEdit from '../components/ListEdit.js';
 import ListHeader from '../components/ListHeader.js';
 
 type Props = {
-  +editCountLimit: number,
   +edits: $ReadOnlyArray<$ReadOnly<{...EditT, +id: number}>>,
   +entity?: EditableEntityT | CollectionT,
-  +guessSearch?: boolean,
   +isSearch?: boolean,
   +page: string,
   +pager: PagerT,
@@ -32,10 +30,8 @@ type Props = {
 };
 
 const EditList = ({
-  editCountLimit,
   edits,
   entity,
-  guessSearch = false,
   isSearch = false,
   page,
   pager,
@@ -44,25 +40,6 @@ const EditList = ({
   voter,
 }: Props): React$Element<typeof React.Fragment> => {
   const $c = React.useContext(SanitizedCatalystContext);
-
-  /*
-   * guessSearch is used when we don't necessarily know the total
-   * number of entries on the first page (and usually a few after), due
-   * to there being more than the SQL LIMIT to start.
-   *
-   * We only use the 'at least' wording, even when guessSearch is on, in the
-   * case where it's truly unclear. That is, where the total number found is
-   * the exact number that would have been found in any case with that
-   * many edits or more. That is: when there are exactly editCountLimit
-   * edits more than the sum of all previous pages.
-   *
-   * In the case where this is not true, we unset guessSearch so the
-   * paginator also knows this is an exact number of pages.
-   */
-  const totalVisibleEdits =
-    pager.entries_per_page * (pager.current_page - 1) + editCountLimit;
-  const isDubiousNumberOfEdits = pager.total_entries === totalVisibleEdits;
-  const mightBeMoreEdits = guessSearch && isDubiousNumberOfEdits;
 
   return (
     <>
@@ -77,20 +54,11 @@ const EditList = ({
       <div className="search-toggle c">
         <p>
           <strong>
-            {guessSearch && mightBeMoreEdits ? (
-              exp.ln(
-                'Found at least {n} edit',
-                'Found at least {n} edits',
-                pager.total_entries,
-                {n: Number(pager.total_entries).toLocaleString()},
-              )
-            ) : (
-              exp.ln(
-                'Found {n} edit',
-                'Found {n} edits',
-                pager.total_entries,
-                {n: Number(pager.total_entries).toLocaleString()},
-              )
+            {exp.ln(
+              'Found {n} edit',
+              'Found {n} edits',
+              pager.total_entries,
+              {n: Number(pager.total_entries).toLocaleString()},
             )}
           </strong>
         </p>
@@ -98,7 +66,7 @@ const EditList = ({
 
       {edits.length ? (
         <div id="edits">
-          <PaginatedResults guessSearch={mightBeMoreEdits} pager={pager}>
+          <PaginatedResults pager={pager}>
             <form action="/edit/enter_votes" method="post">
               {edits.map((edit, index) => (
                 <ListEdit

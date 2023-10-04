@@ -12,14 +12,12 @@ import Layout from '../layout/index.js';
 import EditList from './components/EditList.js';
 
 type Props = {
-  +editCountLimit: number,
   +edits: $ReadOnlyArray<$ReadOnly<{...EditT, +id: number}>>,
   +pager: PagerT,
   +refineUrlArgs?: {+[argument: string]: string},
 };
 
 const SubscribedEdits = ({
-  editCountLimit,
   edits,
   pager,
   refineUrlArgs,
@@ -35,9 +33,7 @@ const SubscribedEdits = ({
       </p>
 
       <EditList
-        editCountLimit={editCountLimit}
         edits={edits}
-        guessSearch
         page="subscribed"
         pager={pager}
         refineUrlArgs={refineUrlArgs}

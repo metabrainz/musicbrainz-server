@@ -17,7 +17,6 @@ import localizeTypeNameForEntity
   from '../static/scripts/common/i18n/localizeTypeNameForEntity.js';
 
 type Props = {
-  +editCountLimit: number,
   +edits: $ReadOnlyArray<$ReadOnly<{...EditT, +id: number}>>,
   +entity: EditableEntityT | CollectionT,
   +pager: PagerT,
@@ -27,7 +26,6 @@ type Props = {
 };
 
 const Edits = ({
-  editCountLimit,
   edits,
   entity,
   pager,
@@ -83,10 +81,8 @@ const Edits = ({
           <SubHeader subHeading={pageSubHeading} />
         </div>
         <EditList
-          editCountLimit={editCountLimit}
           edits={edits}
           entity={entity}
-          guessSearch
           page={entity.entityType + '_' + (showingOpenOnly ? 'open' : 'all')}
           pager={pager}
           refineUrlArgs={refineUrlArgs}

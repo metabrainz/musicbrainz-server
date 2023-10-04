@@ -9,10 +9,8 @@
         [% END %]
 
         [%~ React.embed(c, 'edit/components/EditList', {
-            editCountLimit => edit_count_limit,
             edits => React.to_json_array(edits),
             isSearch => 1,
-            guessSearch => 1,
             pager => React.serialize_pager(pager),
         }) ~%]
     </div>

@@ -223,7 +223,6 @@ sub _list_edits {
         current_view => 'Node',
         component_path => 'entity/Edits',
         component_props => {
-            editCountLimit => $c->stash->{edit_count_limit},
             edits => to_json_array($edits),
             entity => to_json_object($collection),
             pager => serialize_pager($c->stash->{pager}),

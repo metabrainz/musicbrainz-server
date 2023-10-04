@@ -271,7 +271,6 @@ sub open : Local
         current_view => 'Node',
         component_path => 'edit/OpenEdits',
         component_props => {
-            editCountLimit => $c->stash->{edit_count_limit},
             edits => to_json_array($edits),
             pager => serialize_pager($c->stash->{pager}),
             refineUrlArgs => $refine_url_args,
@@ -369,7 +368,6 @@ sub subscribed : Local RequireAuth {
         current_view => 'Node',
         component_path => 'edit/SubscribedEdits',
         component_props => {
-            editCountLimit => $c->stash->{edit_count_limit},
             edits => to_json_array($edits),
             pager => serialize_pager($c->stash->{pager}),
             refineUrlArgs => $refine_url_args,
@@ -414,7 +412,6 @@ sub subscribed_editors : Local RequireAuth {
         current_view => 'Node',
         component_path => 'edit/SubscribedEditorEdits',
         component_props => {
-            editCountLimit => $c->stash->{edit_count_limit},
             edits => to_json_array($edits),
             pager => serialize_pager($c->stash->{pager}),
             refineUrlArgs => $refine_url_args,

@@ -6,7 +6,7 @@ use MusicBrainz::Server::CGI::Expand qw( expand_hash );
 use MooseX::Types::Moose qw( Any ArrayRef Bool Maybe Str );
 use MooseX::Types::Structured qw( Tuple );
 use Moose::Util::TypeConstraints qw( enum role_type );
-use MusicBrainz::Server::Constants qw( $LIMIT_FOR_EDIT_LISTING entities_with );
+use MusicBrainz::Server::Constants qw( entities_with );
 use MusicBrainz::Server::EditSearch::Predicate::Date;
 use MusicBrainz::Server::EditSearch::Predicate::ID;
 use MusicBrainz::Server::EditSearch::Predicate::EditIDSet;
@@ -190,8 +190,7 @@ sub as_string {
             join(" $comb ", map { '(' . $_->[0] . ')' } $self->where) .
         ")
          $extra_conditions
-         $order
-         LIMIT $LIMIT_FOR_EDIT_LISTING";
+         $order";
 }
 
 sub arguments {
