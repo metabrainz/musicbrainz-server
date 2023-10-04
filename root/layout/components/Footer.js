@@ -20,7 +20,6 @@ import {returnToCurrentPage} from '../../utility/returnUri.js';
 import type {
   Channel,
   LinkAndIconProps,
-  LinkAndImgProps,
   LinkProps,
 } from './FooterData.js';
 import {footerData} from './FooterData.js';
@@ -195,9 +194,8 @@ const UsefulLinksList = (): React.Element<'ul'> => {
 };
 
 const FellowProjectListElement = ({
-  img,
-  link,
-}: LinkAndImgProps): React.Element<'li'> => {
+  href, text,
+}: LinkProps): React.Element<'li'> => {
   return (
     <li>
       <FontAwesomeIcon
@@ -205,19 +203,12 @@ const FellowProjectListElement = ({
         icon={faChevronRight}
         size="sm"
       />
-      <img
-        alt={img.alt}
-        className="me-1"
-        height="24"
-        src={img.src}
-        width="24"
-      />
       <a
-        href={link.href}
+        href={href}
         rel="noopener noreferrer"
         target="_blank"
       >
-        {l(link.text)}
+        {l(text)}
       </a>
     </li>
   );

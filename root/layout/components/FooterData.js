@@ -16,14 +16,6 @@ import {
   faTwitter,
 } from '@fortawesome/free-brands-svg-icons';
 
-import bookbrainzLogo from '../../static/images/meb-icons/BookBrainz.svg';
-import caaLogo from '../../static/images/meb-icons/CoverArtArchive.svg';
-import critiquebrainzLogo
-  from '../../static/images/meb-icons/CritiqueBrainz.svg';
-import listenbrainzLogo from '../../static/images/meb-icons/ListenBrainz.svg';
-import metabrainzLogo from '../../static/images/meb-icons/MetaBrainz.svg';
-import picardLogo from '../../static/images/meb-icons/Picard.svg';
-
 export type LinkProps = {
   +href: string,
   +text: string,
@@ -39,11 +31,6 @@ export type LinkAndIconProps = {
   +link: LinkProps,
 };
 
-export type LinkAndImgProps = {
-  +img: ImgProps,
-  +link: LinkProps,
-};
-
 export type Channel = {
   +href: string,
   +isNoOpener: boolean,
@@ -53,7 +40,7 @@ export type Channel = {
 
 export type FooterData = {
   +channels: $ReadOnlyArray<Channel>,
-  +fellowProjects: $ReadOnlyArray<LinkAndImgProps>,
+  +fellowProjects: $ReadOnlyArray<LinkProps>,
   +joinUsLinks: $ReadOnlyArray<LinkProps>,
   +socialNetworks: $ReadOnlyArray<LinkAndIconProps>,
   +usefulLinks: $ReadOnlyArray<LinkProps>,
@@ -83,64 +70,28 @@ export const footerData: FooterData = {
   ],
   fellowProjects: [
     {
-      img: {
-        alt: 'ListenBrainz',
-        src: listenbrainzLogo,
-      },
-      link: {
-        href: 'https://listenbrainz.org/',
-        text: 'ListenBrainz',
-      },
+      href: 'https://listenbrainz.org/',
+      text: 'ListenBrainz',
     },
     {
-      img: {
-        alt: 'CritiqueBrainz',
-        src: critiquebrainzLogo,
-      },
-      link: {
-        href: 'https://critiquebrainz.org/',
-        text: 'CritiqueBrainz',
-      },
+      href: 'https://critiquebrainz.org/',
+      text: 'CritiqueBrainz',
     },
     {
-      img: {
-        alt: 'Picard',
-        src: picardLogo,
-      },
-      link: {
-        href: 'https://picard.musicbrainz.org/',
-        text: 'Picard',
-      },
+      href: 'https://picard.musicbrainz.org/',
+      text: 'Picard',
     },
     {
-      img: {
-        alt: 'BookBrainz',
-        src: bookbrainzLogo,
-      },
-      link: {
-        href: 'https://bookbrainz.org/',
-        text: 'BookBrainz',
-      },
+      href: 'https://bookbrainz.org/',
+      text: 'BookBrainz',
     },
     {
-      img: {
-        alt: 'CoverArtArchive',
-        src: caaLogo,
-      },
-      link: {
-        href: 'https://coverartarchive.org',
-        text: 'Cover Art Archive',
-      },
+      href: 'https://coverartarchive.org',
+      text: 'Cover Art Archive',
     },
     {
-      img: {
-        alt: 'MetaBrainz',
-        src: metabrainzLogo,
-      },
-      link: {
-        href: 'https://metabrainz.org/',
-        text: 'MetaBrainz',
-      },
+      href: 'https://metabrainz.org/',
+      text: 'MetaBrainz',
     },
   ],
   joinUsLinks: [
