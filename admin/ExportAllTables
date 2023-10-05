@@ -27,6 +27,7 @@ use MusicBrainz::Server::Constants qw(
     @WIKIDOCS_TABLE_LIST
     @DOCUMENTATION_TABLE_LIST
 );
+use MusicBrainz::Server::Data::Utils qw( contains_string );
 use MusicBrainz::Server::Log qw( log_info );
 
 use Getopt::Long;
@@ -154,7 +155,7 @@ my $mbdump = MusicBrainz::Script::DatabaseDump->new(
 @tables = () if not $fDoFullExport;
 
 # Sanitise various things for public consumption
-if (any { $_ eq 'editor_sanitised' } @tables)
+if (contains_string(\@tables, 'editor_sanitised'))
 {
     $sql->do("SELECT $EDITOR_SANITISED_COLUMNS
               INTO TEMPORARY editor_sanitised
@@ -295,7 +296,7 @@ if ($fDoReplication)
 
 # Dump this /after/ we've possibly updated the current_replication_sequence
 # Dump this table only if we're dumping everything (i.e., @tablelist is empty) or if it's explicitly requested.
-$mbdump->dump_table('replication_control') if (scalar @tablelist == 0 || any { $_ eq 'replication_control' } @tablelist);
+$mbdump->dump_table('replication_control') if (scalar @tablelist == 0 || contains_string(\@tablelist, 'replication_control'));
 
 $mbdump->end_dump;
 

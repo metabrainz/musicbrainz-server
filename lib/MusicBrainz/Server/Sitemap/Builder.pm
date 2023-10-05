@@ -13,6 +13,7 @@ use List::AllUtils qw( any natatime );
 use Moose;
 use MusicBrainz::Server::Constants qw( %ENTITIES );
 use MusicBrainz::Server::Context;
+use MusicBrainz::Server::Data::Utils qw( contains_string );
 use MusicBrainz::Server::Log qw( log_info );
 use MusicBrainz::Server::Sitemap::Constants qw( $MAX_SITEMAP_SIZE );
 use MusicBrainz::Server::Sitemap::Utils qw(
@@ -131,7 +132,6 @@ has sitemap_files => (
     traits => ['Array', 'NoGetopt'],
     handles => {
         add_sitemap_file => 'push',
-        all_sitemap_files => 'elements',
     },
 );
 
@@ -432,7 +432,7 @@ cleanup, after writing the index file.
 sub do_not_delete {
     my ($self, $file) = @_;
 
-    any { $_ eq $file } $self->all_sitemap_files;
+    contains_string($self->sitemap_files, $file);
 }
 
 __PACKAGE__->meta->make_immutable;

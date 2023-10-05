@@ -4,6 +4,7 @@ use warnings;
 
 use Date::Calc;
 use List::AllUtils qw( any );
+use Readonly;
 
 require Exporter;
 {
@@ -52,6 +53,7 @@ use Encode qw( decode encode );
 use Scalar::Util qw( looks_like_number );
 use Text::Unaccent::PurePerl qw( unac_string_utf16 );
 use MusicBrainz::Server::Constants qw( $MAX_POSTGRES_INT $MAX_POSTGRES_BIGINT );
+use MusicBrainz::Server::Data::Utils qw( contains_number );
 use utf8;
 
 sub unaccent_utf16 ($)
@@ -260,6 +262,8 @@ sub is_valid_iso_3166_3
     return $iso_3166_3 =~ /^[A-Z]{4}$/;
 }
 
+Readonly my @MONTHS_WITH_30_DAYS => (4, 6, 9, 11);
+
 sub is_valid_partial_date
 {
     my ($year, $month, $day) = @_;
@@ -274,7 +278,8 @@ sub is_valid_partial_date
 
     if (defined $month && $day) {
         return 0 if $day > 29 && $month == 2;
-        return 0 if $day > 30 && any { $_ == $month } (4, 6, 9, 11);
+        return 0 if $day > 30 &&
+                    contains_number(\@MONTHS_WITH_30_DAYS, $month);
     }
 
     if (defined $year) {
