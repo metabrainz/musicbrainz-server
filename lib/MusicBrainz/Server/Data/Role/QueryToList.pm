@@ -5,6 +5,7 @@ use warnings;
 
 use Digest::MD5 qw( md5 );
 use Moose::Role;
+use POSIX qw( ceil );
 use Readonly;
 
 Readonly my $HITS_CACHE_TIMEOUT => 60 * 30; # 30 minutes
@@ -42,6 +43,20 @@ sub query_to_list_limited {
                 $query,
                 map { ref($_) eq 'ARRAY' ? (@$_) : $_ } @args);
         $hits = $self->c->cache->get($hits_cache_key);
+
+        # Always re-calculate the number of hits if we're on the last
+        # page, in case more pages have been added.
+        if (
+            defined $hits &&
+            (defined $limit && $limit > 0) &&
+            defined $offset
+        ) {
+            my $cached_total_pages = ceil($hits / $limit);
+            my $current_page = ceil($offset / $limit) + 1;
+            if ($current_page >= $cached_total_pages) {
+                $hits = undef;
+            }
+        }
     }
 
     $builder //= $self->can('_new_from_row');
@@ -78,6 +93,10 @@ sub query_to_list_limited {
         $total_row_count = delete $row->{total_row_count};
         $builder->($self, $row);
     } @{$self->c->sql->select_list_of_hashes($query, @args)};
+
+    if (defined $limit && scalar(@rows) < $limit) {
+        $hits = ($offset // 0) + scalar(@rows);
+    }
 
     if (!defined $hits) {
         $hits = ($total_row_count // 0) + ($offset // 0);
