@@ -26,36 +26,32 @@ sub query_to_list_limited {
     my @args = @$args;
     my $arg_count = @args;
 
-    my $hits;
-    my $hits_cache_key;
-    if ($opts{cache_hits}) {
-        # Running count(*) over the entire query for every page is
-        # expensive, so we cache the number of hits for 30 minutes if
-        # the option is specified. The count doesn't have to be exact,
-        # just close enough that we can estimate the number of pages.
-        # In all likelihood, the number of pages isn't going to change
-        # that often for certain lists unless a large number of
-        # entities are added or removed. Other lists, like for voting
-        # on edits, are likely to change more frequently.
-        $hits_cache_key =
-            'query_to_list_limited:' .
-            md5(join "\0",
-                $query,
-                map { ref($_) eq 'ARRAY' ? (@$_) : $_ } @args);
-        $hits = $self->c->cache->get($hits_cache_key);
+    # Running count(*) over the entire query for every page is
+    # expensive, so we cache the number of hits for 30 minutes if
+    # the option is specified. The count doesn't have to be exact,
+    # just close enough that we can estimate the number of pages.
+    # In all likelihood, the number of pages isn't going to change
+    # that often for certain lists unless a large number of
+    # entities are added or removed. Other lists, like for voting
+    # on edits, are likely to change more frequently.
+    my $hits_cache_key =
+        'query_to_list_limited:' .
+        md5(join "\0",
+            $query,
+            map { ref($_) eq 'ARRAY' ? (@$_) : $_ } @args);
+    my $hits = $self->c->cache->get($hits_cache_key);
 
-        # Always re-calculate the number of hits if we're on the last
-        # page, in case more pages have been added.
-        if (
-            defined $hits &&
-            (defined $limit && $limit > 0) &&
-            defined $offset
-        ) {
-            my $cached_total_pages = ceil($hits / $limit);
-            my $current_page = ceil($offset / $limit) + 1;
-            if ($current_page >= $cached_total_pages) {
-                $hits = undef;
-            }
+    # Always re-calculate the number of hits if we're on the last
+    # page, in case more pages have been added.
+    if (
+        defined $hits &&
+        (defined $limit && $limit > 0) &&
+        defined $offset
+    ) {
+        my $cached_total_pages = ceil($hits / $limit);
+        my $current_page = ceil($offset / $limit) + 1;
+        if ($current_page >= $cached_total_pages) {
+            $hits = undef;
         }
     }
 
@@ -100,9 +96,7 @@ sub query_to_list_limited {
 
     if (!defined $hits) {
         $hits = ($total_row_count // 0) + ($offset // 0);
-        if ($opts{cache_hits}) {
-            $self->c->cache->set($hits_cache_key, $hits, $HITS_CACHE_TIMEOUT);
-        }
+        $self->c->cache->set($hits_cache_key, $hits, $HITS_CACHE_TIMEOUT);
     }
 
     (\@rows, ($hits // 0));

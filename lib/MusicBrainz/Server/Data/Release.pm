@@ -277,7 +277,7 @@ sub _find_by_artist_slow
             ORDER BY date_year, date_month, date_day,
               country_name, barcode, name COLLATE musicbrainz';
     }
-    $self->query_to_list_limited($query, $params, $limit, $offset, undef, cache_hits => 1);
+    $self->query_to_list_limited($query, $params, $limit, $offset);
 }
 
 sub _find_by_artist_fast {
@@ -420,7 +420,7 @@ sub find_by_label
       ORDER BY date_year, date_month, date_day, catalog_number,
         name COLLATE musicbrainz, country_name,
         barcode';
-    $self->query_to_list_limited($query, $params, $limit, $offset, undef, cache_hits => 1);
+    $self->query_to_list_limited($query, $params, $limit, $offset);
 }
 
 sub find_by_disc_id
