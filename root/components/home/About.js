@@ -7,14 +7,13 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-// eslint-disable-next-line import/no-unresolved
 import {faCheckCircle} from '@fortawesome/free-solid-svg-icons';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import * as React from 'react';
 
 const About = (): React.Element<'section'> => (
   <section className="p-4">
-    <div className="container">
+    <div className="container-fluid">
       <div className="row">
         <div className="col-lg-6 fs-4">
           <h3 className="fs-1 fw-bolder">

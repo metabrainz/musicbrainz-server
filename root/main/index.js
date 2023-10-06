@@ -10,14 +10,14 @@
 import he from 'he';
 
 import {ArtworkImage} from '../components/Artwork.js';
+import About from '../components/home/About.js';
+import AppDownload from '../components/home/AppDownload.js';
+import Explore from '../components/home/Explore.js';
+import Facts from '../components/home/Facts.js';
 import Layout from '../layout/index.js';
 import {reduceArtistCredit}
   from '../static/scripts/common/immutable-entities.js';
 import entityHref from '../static/scripts/common/utility/entityHref.js';
-import AppDownload from '../components/home/AppDownload.js';
-import About from '../components/home/About.js';
-import Facts from '../components/home/Facts.js';
-import Explore from '../components/home/Explore.js';
 
 type BlogEntryT = {
   +title: string,
