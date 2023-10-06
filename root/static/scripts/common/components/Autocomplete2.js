@@ -715,8 +715,7 @@ const Autocomplete2 = (React.memo(<+T: EntityItemT>(
           item.type === 'option' &&
           item.entity.id === selectedItem.id
         )}
-        // XXX Until Flow supports https://github.com/facebook/flow/issues/7672
-        // $FlowIssue[incompatible-type-arg]
+        // $FlowIssue[incompatible-type-arg] until Flow supports https://github.com/facebook/flow/issues/7672
         item={item}
         key={item.id}
         selectItem={selectItem}

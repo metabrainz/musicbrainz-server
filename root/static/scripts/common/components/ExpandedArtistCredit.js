@@ -26,9 +26,9 @@ export const ExpandedArtistCreditList = ({
   let artistList: Array<Expand2ReactOutput> = [];
 
   if (names.some(x => x.artist.name !== x.name || x.artist.comment)) {
-    artistList = names.map(name => {
+    artistList = names.map((name, index) => {
       if (name.artist.name === name.name) {
-        return <DescriptiveLink entity={name.artist} />;
+        return <DescriptiveLink entity={name.artist} key={index} />;
       }
       return exp.l(
         '{artist} as {name}',

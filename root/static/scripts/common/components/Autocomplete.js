@@ -16,7 +16,7 @@ import SearchIcon from './SearchIcon.js';
 class Autocomplete extends React.Component {
   componentDidMount() {
     const $ = require('jquery');
-    require('../MB/Control/Autocomplete');
+    require('../MB/Control/Autocomplete.js');
 
     const currentSelection = ko.observable();
     const options = {...this.props};
@@ -34,7 +34,7 @@ class Autocomplete extends React.Component {
 
   componentWillUnmount() {
     const $ = require('jquery');
-    require('../MB/Control/Autocomplete');
+    require('../MB/Control/Autocomplete.js');
 
     this._subscription.dispose();
     this._subscription = null;

@@ -28,7 +28,7 @@ export function createCompoundFieldFromObject<
     Object.entries(fieldValues).map(([key, value]) => [
       key,
       createField(name + '.' + key, value),
-    ])
+    ]),
   );
   return {
     errors: [],
