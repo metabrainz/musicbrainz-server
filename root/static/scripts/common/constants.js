@@ -143,7 +143,6 @@ export const FAVICON_CLASSES = {
   'joysound.com': 'joysound',
   'junodownload.com': 'junodownload',
   'kashinavi.com': 'kashinavi',
-  'kget.jp': 'kget',
   'kickstarter.com': 'kickstarter',
   'ko-fi.com': 'kofi',
   'laboiteauxparoles.com': 'laboiteauxparoles',
