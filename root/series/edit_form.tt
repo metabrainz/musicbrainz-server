@@ -48,6 +48,7 @@
 $(function () {
   [%- USE JSON.Escape -%]
   MB.orderingTypesByID = [% series_ordering_types.json %];
+  MB.installFormUnloadWarning();
 });
 </script>
 

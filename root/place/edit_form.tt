@@ -59,3 +59,9 @@
 
 [%- guesscase_options() -%]
 [% script_manifest('place/edit.js') %]
+
+<script type="text/javascript">
+  (function () {
+    MB.installFormUnloadWarning();
+  }());
+</script>
