@@ -474,6 +474,12 @@
       target: '/release/24d4159a-99d9-425d-a7b8-1b9ec0261a33/edit',
       value: '',
     },
+    // dismiss the beforeunload alert (shown since inputs were changed)
+    {
+      command: 'handleAlert',
+      target: 'accept',
+      value: '',
+    },
     {
       command: 'pause',
       target: '1500',
