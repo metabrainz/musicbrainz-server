@@ -80,6 +80,11 @@
       target: 'document.getElementById("id-edit-artist.comment").getAttribute("required")',
       value: 'required',
     },
+    {
+      command: 'open',
+      target: '/',
+      value: '',
+    },
     // dismiss the beforeunload alert (shown since inputs were changed)
     {
       command: 'handleAlert',
