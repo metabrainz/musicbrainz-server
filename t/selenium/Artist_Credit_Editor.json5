@@ -294,15 +294,20 @@
       target: "window.document.getElementById('ac-source-artist-0').classList.contains('lookup-performed')",
       value: 'false',
     },
+    // creating a new artist from the track AC bubble should not close it (MBS-7251)
+    {
+      command: 'open',
+      target: '/release/add',
+      value: '',
+    },
     // dismiss the beforeunload alert (shown since inputs were changed)
     {
       command: 'handleAlert',
       target: 'accept',
       value: '',
     },
-    // creating a new artist from the track AC bubble should not close it (MBS-7251)
     {
-      command: 'open',
+      command: 'waitUntilUrlIs',
       target: '/release/add',
       value: '',
     },
