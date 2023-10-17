@@ -111,9 +111,11 @@
       [% table_row_select('status', l('Status:'), 2,
           'value: statusID, controlsBubble: $root.statusBubble', statuses) %]
 
-      [% table_row_select('language', l('Language:'), 2, 'value: languageID', languages) %]
+      [% table_row_select('language', l('Language:'), 2,
+          'value: languageID, controlsBubble: $root.languageBubble', languages) %]
 
-      [% table_row_select('script', l('Script:'), 2, 'value: scriptID', scripts) %]
+      [% table_row_select('script', l('Script:'), 2,
+          'value: scriptID, controlsBubble: $root.scriptBubble', scripts) %]
     </tbody>
     </table>
   </fieldset>
@@ -304,6 +306,18 @@
     <p>
       [% l('Review the {packaging|list of packaging types} for help.',
            { packaging => { href => doc_link('Release/Packaging'), target => '_blank' } }) %]
+    </p>
+  </div>
+
+  <div class="bubble" data-bind="bubble: $root.languageBubble">
+    <p>
+      [% l('The language attribute should be set to the language used for the release title and track titles. It should not be set to the language the lyrics are written in, nor to the language used for other extra information on the cover.') %]
+    </p>
+  </div>
+
+  <div class="bubble" data-bind="bubble: $root.scriptBubble">
+    <p>
+      [% l('The script attribute should be set to the script used for the release title and track titles.') %]
     </p>
   </div>
 

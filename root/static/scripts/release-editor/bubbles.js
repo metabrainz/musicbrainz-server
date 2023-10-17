@@ -37,6 +37,10 @@ releaseEditor.dateBubble = bubbleDoc({
   },
 });
 
+releaseEditor.languageBubble = bubbleDoc();
+
+releaseEditor.scriptBubble = bubbleDoc();
+
 releaseEditor.packagingBubble = bubbleDoc();
 
 releaseEditor.labelBubble = bubbleDoc({
