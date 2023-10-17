@@ -32,6 +32,17 @@
       target: '/artist/create',
       value: '',
     },
+    // dismiss the beforeunload alert (shown since inputs were changed)
+    {
+      command: 'handleAlert',
+      target: 'accept',
+      value: '',
+    },
+    {
+      command: 'waitUntilUrlIs',
+      target: '/artist/create',
+      value: '',
+    },
     // automatic link type detection for URL
     {
       command: 'click',
