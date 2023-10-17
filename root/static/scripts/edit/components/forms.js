@@ -69,8 +69,10 @@ MB.installFormUnloadWarning = function () {
 
   const form = document.querySelector('#page form');
 
-  // This is somewhat heavy-handed, in that it will still warn even if the
-  // user changes an input back to its original value.
+  /*
+   * This is somewhat heavy-handed, in that it will still warn even if the
+   * user changes an input back to its original value.
+   */
   form.addEventListener('change', () => {
     modified = true;
   });
