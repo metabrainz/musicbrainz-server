@@ -31,6 +31,7 @@ use MusicBrainz::Server::Constants qw(
 use MusicBrainz::Server::ControllerUtils::Relationship qw( merge_link_attributes );
 use MusicBrainz::Server::Data::Utils qw(
     boolean_from_json
+    contains_number
     type_to_model
     model_to_type
     partial_date_to_hash
@@ -61,8 +62,6 @@ use aliased 'MusicBrainz::Server::Entity::ArtistCredit';
 use aliased 'MusicBrainz::Server::Entity::Track';
 use aliased 'MusicBrainz::Server::WebService::JSONSerializer';
 BEGIN { extends 'MusicBrainz::Server::Controller' }
-
-no if $] >= 5.018, warnings => 'experimental::smartmatch';
 
 Readonly our $ERROR_NOT_LOGGED_IN => 1;
 Readonly our $ERROR_NON_EXISTENT_ENTITIES => 2;
@@ -506,7 +505,7 @@ sub process_edits {
     for my $edit (@$edits) {
         my $edit_type = $edit->{edit_type};
 
-        if ($edit_type ~~ $RELATIONSHIP_EDIT_TYPES) {
+        if (contains_number($RELATIONSHIP_EDIT_TYPES, $edit_type)) {
             push @link_types_to_load, $edit->{linkTypeID};
             push @relationship_edits, $edit;
         }
@@ -530,11 +529,16 @@ sub process_edits {
 
         $edit->{link_type} = $link_type;
 
-        if ($edit->{edit_type} ~~ [$EDIT_RELATIONSHIP_EDIT, $EDIT_RELATIONSHIP_DELETE]) {
+        my $edit_type = $edit->{edit_type};
+
+        if (
+            $edit_type == $EDIT_RELATIONSHIP_EDIT ||
+            $edit_type == $EDIT_RELATIONSHIP_DELETE
+        ) {
             my $id = $edit->{id} or
                 $c->forward('/ws/js/detach_with_error', ['missing relationship id']);
             $add_relationship_to_load->($link_type, $id, $edit);
-        } elsif ($edit->{edit_type} == $EDIT_RELATIONSHIPS_REORDER) {
+        } elsif ($edit_type == $EDIT_RELATIONSHIPS_REORDER) {
             my $relationship_order = $edit->{relationship_order};
             if (ref $relationship_order eq 'ARRAY') {
                 for my $ordering (@$relationship_order) {
@@ -736,7 +740,7 @@ sub submit_edits {
             $c->forward('/ws/js/detach_with_error', ['editNote invalid']);
         }
 
-        unless ($edit_type ~~ $ALLOWED_EDIT_TYPES) {
+        unless (contains_number($ALLOWED_EDIT_TYPES, $edit_type)) {
             $c->forward('/ws/js/detach_with_error', ["edit_type $edit_type is not supported"]);
         }
     }

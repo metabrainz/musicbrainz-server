@@ -30,8 +30,6 @@ use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array to_json_object );
 use MusicBrainz::Server::Translation qw( N_l );
 
-no if $] >= 5.018, warnings => 'experimental::smartmatch';
-
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
 with 'MusicBrainz::Server::Edit::Role::EditArtistCredit';
 with 'MusicBrainz::Server::Edit::Role::Preview';
@@ -254,18 +252,14 @@ around 'initialize' => sub
 around extract_property => sub {
     my ($orig, $self) = splice(@_, 0, 2);
     my ($property, $ancestor, $current, $new) = @_;
-    given ($property) {
-        when ('artist_credit') {
-            return merge_artist_credit($self->c, $ancestor, $current, $new);
-        }
-
-        when ('barcode') {
-            return merge_barcode($ancestor, $current, $new);
-        }
-
-        default {
-            return ($self->$orig(@_));
-        }
+    if ($property eq 'artist_credit') {
+        return merge_artist_credit($self->c, $ancestor, $current, $new);
+    }
+    elsif ($property eq 'barcode') {
+        return merge_barcode($ancestor, $current, $new);
+    }
+    else {
+        return ($self->$orig(@_));
     }
 };
 

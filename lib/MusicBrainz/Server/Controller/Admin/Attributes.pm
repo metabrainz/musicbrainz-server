@@ -3,11 +3,10 @@ use Moose;
 use namespace::autoclean;
 use utf8;
 
+use MusicBrainz::Server::Data::Utils qw( contains_string );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 
 use MusicBrainz::Server::Translation qw( l );
-
-no if $] >= 5.018, warnings => 'experimental::smartmatch';
 
 BEGIN { extends 'MusicBrainz::Server::Controller' };
 
@@ -47,7 +46,7 @@ sub index : Path('/admin/attributes') Args(0) RequireAuth(account_admin) {
 sub attribute_base : Chained('/') PathPart('admin/attributes') CaptureArgs(1) RequireAuth(account_admin) {
     my ($self, $c, $model) = @_;
 
-    $c->detach('/error_404') unless $model ~~ @models;
+    $c->detach('/error_404') unless contains_string(\@models, $model);
 
     $c->stash->{model} = $model;
 }

@@ -17,8 +17,6 @@ use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 
 use aliased 'MusicBrainz::Server::Entity::PartialDate';
 
-no if $] >= 5.018, warnings => 'experimental::smartmatch';
-
 extends 'MusicBrainz::Server::Edit::WithDifferences';
 with 'MusicBrainz::Server::Edit::Alias';
 with 'MusicBrainz::Server::Edit::CheckForConflicts';
@@ -133,18 +131,14 @@ sub _mapping
 around extract_property => sub {
     my ($orig, $self) = splice(@_, 0, 2);
     my ($property, $ancestor, $current, $new) = @_;
-    given ($property) {
-        when ('begin_date') {
-            return merge_partial_date('begin_date' => $ancestor, $current, $new);
-        }
-
-        when ('end_date') {
-            return merge_partial_date('end_date' => $ancestor, $current, $new);
-        }
-
-        default {
-            return ($self->$orig(@_));
-        }
+    if ($property eq 'begin_date') {
+        return merge_partial_date('begin_date' => $ancestor, $current, $new);
+    }
+    elsif ($property eq 'end_date') {
+        return merge_partial_date('end_date' => $ancestor, $current, $new);
+    }
+    else {
+        return ($self->$orig(@_));
     }
 };
 

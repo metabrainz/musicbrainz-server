@@ -17,8 +17,6 @@ use MusicBrainz::Server::Translation qw( N_l lp );
 use MusicBrainz::Server::Entity::Util::MediumFormat qw( combined_medium_format_name );
 use Scalar::Util qw( looks_like_number );
 
-no if $] >= 5.018, warnings => 'experimental::smartmatch';
-
 extends 'MusicBrainz::Server::Edit::WithDifferences';
 with 'MusicBrainz::Server::Edit::Role::Preview';
 with 'MusicBrainz::Server::Edit::Release::RelatedEntities';
@@ -334,18 +332,15 @@ sub current_instance {
 around extract_property => sub {
     my ($orig, $self) = splice(@_, 0, 2);
     my ($property, $ancestor, $current, $new) = @_;
-    given ($property) {
-        when ('label') {
-            return (
-                merge_value($ancestor->{label}),
-                merge_value(_serialize_label($current->label)),
-                merge_value($new->{label}),
-            );
-        }
-
-        default {
-            return ($self->$orig(@_));
-        }
+    if ($property eq 'label') {
+        return (
+            merge_value($ancestor->{label}),
+            merge_value(_serialize_label($current->label)),
+            merge_value($new->{label}),
+        );
+    }
+    else {
+        return ($self->$orig(@_));
     }
 };
 

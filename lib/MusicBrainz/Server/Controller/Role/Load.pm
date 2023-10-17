@@ -3,13 +3,11 @@ package MusicBrainz::Server::Controller::Role::Load;
 use MooseX::MethodAttributes::Role;
 use MooseX::Role::Parameterized;
 use namespace::autoclean;
-use MusicBrainz::Server::Data::Utils qw( model_to_type );
+use MusicBrainz::Server::Data::Utils qw( contains_string model_to_type );
 use MusicBrainz::Server::Validation qw( is_guid is_positive_integer );
 use MusicBrainz::Server::Constants qw( :direction %ENTITIES );
 use Readonly;
 use aliased 'MusicBrainz::Server::Entity::RelationshipLinkTypeGroup';
-
-no if $] >= 5.018, warnings => 'experimental::smartmatch';
 
 parameter 'model' => (
     isa => 'Str',
@@ -74,10 +72,10 @@ role
             my $relationships = $params->relationships;
             my $loaded = 0;
 
-            if ($action ~~ $relationships->{all}) {
+            if (contains_string($relationships->{all}, $action)) {
                 $c->model('Relationship')->load($entity);
                 $loaded = 1;
-            } elsif ($action ~~ $relationships->{cardinal}) {
+            } elsif (contains_string($relationships->{cardinal}, $action)) {
                 $c->model('Relationship')->load_cardinal($entity);
                 $loaded = 1;
             }
