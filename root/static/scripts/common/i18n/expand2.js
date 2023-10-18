@@ -34,14 +34,14 @@ export interface VarArgsClass<+T> {
   has(name: string): boolean,
 }
 
-export class VarArgs<+T, +U = T> implements VarArgsClass<T | U> {
+export class VarArgs<+T> implements VarArgsClass<T> {
   +data: VarArgsObject<T>;
 
   constructor(data: VarArgsObject<T>) {
     this.data = data;
   }
 
-  get(name: string): T | U {
+  get(name: string): T {
     return this.data[name];
   }
 
@@ -53,7 +53,6 @@ export class VarArgs<+T, +U = T> implements VarArgsClass<T | U> {
 export type Parser<+T, -V> = (VarArgsClass<V>) => T;
 
 const EMPTY_OBJECT = Object.freeze({});
-const EMPTY_VARARGS = new VarArgs<empty, empty>(EMPTY_OBJECT);
 
 type State = {
   /*
@@ -187,7 +186,7 @@ export function parseContinuousString<V>(
   );
 }
 
-export const createTextContentParser = <+T, V>(
+export const createTextContentParser = <T, V>(
   textPattern: RegExp,
   mapValue: (string) => T,
 ): Parser<T | string | NO_MATCH, V> => () => {
@@ -276,7 +275,7 @@ export const createCondSubstParser = <T, V>(
  * Thus these signatures provide type safety on both the return value
  * and input arg values.
  */
-export default function expand<+T, V>(
+export default function expand<T, V>(
   rootParser: (VarArgsClass<V>) => T,
   source: ?string,
   args: ?VarArgsClass<V>,
@@ -300,7 +299,7 @@ export default function expand<+T, V>(
 
   let result;
   try {
-    result = rootParser(args ?? EMPTY_VARARGS);
+    result = rootParser(args ?? (new VarArgs(EMPTY_OBJECT)));
 
     if (state.remainder) {
       throw error('unexpected token');

@@ -11,7 +11,6 @@ import commaList, {commaListText} from '../../common/i18n/commaList.js';
 import {
   type VarArgsClass,
   type VarArgsObject,
-  VarArgs,
 } from '../../common/i18n/expand2.js';
 import {
   expand2reactWithVarArgsInstance,
@@ -39,14 +38,14 @@ export type LinkPhraseProp =
   | 'long_link_phrase'
   | 'reverse_link_phrase';
 
-class PhraseVarArgs<T>
-  extends VarArgs<LinkAttrs, T | string>
-  implements VarArgsClass<T | string> {
+class PhraseVarArgs<T> implements VarArgsClass<T> {
+  +data: VarArgsObject<LinkAttrs>;
+
   +i18n: LinkPhraseI18n<T>;
 
-  +entity0: T | string;
+  +entity0: T;
 
-  +entity1: T | string;
+  +entity1: T;
 
   /*
    * Contains attributes that appear in the text of the given link
@@ -62,14 +61,14 @@ class PhraseVarArgs<T>
     entity0: ?T,
     entity1: ?T,
   ) {
-    super(args || EMPTY_OBJECT);
+    this.data = args || EMPTY_OBJECT;
     this.i18n = i18n;
-    this.entity0 = nonEmpty(entity0) ? entity0 : '';
-    this.entity1 = nonEmpty(entity1) ? entity1 : '';
+    this.entity0 = nonEmpty(entity0) ? entity0 : i18n.defaultValue;
+    this.entity1 = nonEmpty(entity1) ? entity1 : i18n.defaultValue;
     this.usedPhraseAttributes = [];
   }
 
-  get(name: string): T | string {
+  get(name: string): T {
     if (name === 'entity0') {
       return this.entity0;
     }
@@ -78,7 +77,7 @@ class PhraseVarArgs<T>
     }
     const attributes = this.data[name];
     if (attributes == null) {
-      return '';
+      return this.i18n.defaultValue;
     }
     if (Array.isArray(attributes)) {
       return this.i18n.commaList(
@@ -96,24 +95,26 @@ class PhraseVarArgs<T>
 
 export type LinkPhraseI18n<T> = {
   commaList: ($ReadOnlyArray<T>) => T,
+  defaultValue: T,
   displayLinkAttribute: (LinkAttrT) => T,
   expand: (string, VarArgsClass<T>) => T,
 };
 
 const reactI18n: LinkPhraseI18n<Expand2ReactOutput> = {
   commaList,
+  defaultValue: '',
   displayLinkAttribute,
   expand: expand2reactWithVarArgsInstance,
 };
 
 const textI18n: LinkPhraseI18n<string> = {
   commaList: commaListText,
+  defaultValue: '',
   displayLinkAttribute: displayLinkAttributeText,
   expand: expand2textWithVarArgsClass,
 };
 
-function _getAttributesByRootName<T>(
-  i18n: LinkPhraseI18n<T | string>,
+function _getAttributesByRootName(
   linkType: LinkTypeT,
   attributes: $ReadOnlyArray<LinkAttrT>,
 ): LinkAttrsByRootName {
@@ -218,8 +219,7 @@ export function getPhraseAndExtraAttributes<T>(
     return ['', []];
   }
 
-  const attributesByRootName = _getAttributesByRootName<T | string>(
-    i18n,
+  const attributesByRootName = _getAttributesByRootName(
     linkType,
     attributes,
   );

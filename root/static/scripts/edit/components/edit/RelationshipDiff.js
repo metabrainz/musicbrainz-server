@@ -72,6 +72,7 @@ const RelationshipDiff = (React.memo(({
 
   const i18nConfig: LinkPhraseI18n<Expand2ReactOutput> = {
     commaList,
+    defaultValue: '',
     displayLinkAttribute: function (attr: LinkAttrT) {
       const typeId = String(attr.typeID);
       const display = displayLinkAttribute(attr);

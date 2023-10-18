@@ -19,7 +19,7 @@ import coerceToError from '../../common/utility/coerceToError.js';
  */
 export default function reducerWithErrorHandling<
   S: {+reducerError: Error | null, ...},
-  -A,
+  A,
 >(
   reducer: (S, A) => S,
 ): (S, A) => S {

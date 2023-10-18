@@ -65,7 +65,7 @@ function showExtraInfoLine(
   );
 }
 
-function formatName<+T: EntityItemT>(entity: T): string {
+function formatName<T: EntityItemT>(entity: T): string {
   return unwrapNl<string>(entity.name);
 }
 
@@ -560,7 +560,7 @@ export type FormatOptionsT = {
   +showDescriptions?: boolean,
 };
 
-export default function formatItem<+T: EntityItemT>(
+export default function formatItem<T: EntityItemT>(
   item: ItemT<T>,
   options?: ?FormatOptionsT,
 ): Expand2ReactOutput {

@@ -40,7 +40,7 @@ export function createCompoundFieldFromObject<
   };
 }
 
-export function createCompoundField<+T>(
+export function createCompoundField<T>(
   name: string,
   fieldValues: T,
 ): ReadOnlyCompoundFieldT<T> {
