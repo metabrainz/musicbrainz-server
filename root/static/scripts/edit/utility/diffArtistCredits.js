@@ -40,7 +40,7 @@ type ArtistLinkProps = {
 const ArtistLink = ({content, credit, nameVariation}: ArtistLinkProps) => (
   credit.artist ? (
     <EntityLink
-      content={nonEmpty(content) ? content : credit.name}
+      content={empty(content) ? credit.name : content}
       entity={credit.artist}
       nameVariation={nameVariation}
     />

@@ -26,7 +26,7 @@ export function pushField<V>(
 }
 
 export function pushCompoundField<F: {...}>(
-  repeatable: RepeatableFieldT<CompoundFieldT<MapFields<$ReadOnly<F>>>>,
+  repeatable: RepeatableFieldT<CompoundFieldT<MapFields<F>>>,
   fieldValues: F,
 ) {
   const name = repeatable.html_name + '.' + String(++repeatable.last_index);

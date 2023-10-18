@@ -38,7 +38,7 @@ const LabelUrlList = ({
         <tbody>
           {items.map((item, index) => {
             if (!item.url) {
-              return <RemovedUrlRow colSpan="2" index={index} />;
+              return <RemovedUrlRow colSpan="2" index={index} key={index} />;
             }
 
             lastGID = currentGID;

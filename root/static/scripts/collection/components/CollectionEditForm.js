@@ -93,7 +93,10 @@ function addCollaborator(
     collaborators,
     (copy: WritableCollaboratorsStateT) => {
       const name = copy.html_name + '.' + String(++copy.last_index);
-      const field = createCompoundFieldFromObject(name, {
+      const field = createCompoundFieldFromObject<{
+        id: ?number,
+        name: string,
+      }>(name, {
         id: null,
         name: '',
       });

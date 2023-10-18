@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-/* eslint-disable flowtype/sort-keys */
+/* eslint-disable ft-flow/sort-keys */
 
 declare module 'pg' {
   declare export type ClientConfig = {
@@ -18,6 +18,7 @@ declare module 'pg' {
     +host?: string,
   };
 
+  // eslint-disable-next-line no-unused-vars
   declare export type QueryConfig<+V = mixed> = {
     +name?: string,
     +text: string,

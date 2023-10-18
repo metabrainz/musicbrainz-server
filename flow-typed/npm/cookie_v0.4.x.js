@@ -18,7 +18,7 @@ declare module 'cookie' {
     parse: (
       str: string,
       options?: CookeParseOptions,
-    ) => {[string]: string, ...},
+    ) => {[cookieName: string]: string, ...},
     serialize: (
       name: string,
       value: string,

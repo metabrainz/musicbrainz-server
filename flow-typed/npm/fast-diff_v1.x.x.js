@@ -14,8 +14,9 @@ declare module 'fast-diff' {
    * EQUAL = 0
    * DELETE = -1
    */
-  declare type FastEditDiff = [-1 | 0 | 1, string];
+  declare type FastEditDiff = [1 | 0 | -1, string];
 
+  // eslint-disable-next-line no-unused-vars
   declare function diff<T>(
       a: string,
       b: string,

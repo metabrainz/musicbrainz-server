@@ -7,6 +7,8 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+/* eslint-disable no-unused-vars */
+
 declare type EDIT_ARTIST_CREATE_T = 1;
 declare type EDIT_ARTIST_EDIT_T = 2;
 declare type EDIT_ARTIST_DELETE_T = 3;

@@ -1,27 +1,27 @@
 /* eslint-disable import/no-commonjs */
 
-require('./common');
+require('./common.js');
 
-require('../lib/knockout/knockout-delegatedEvents');
+require('../lib/knockout/knockout-delegatedEvents.js');
 
-require('./edit/common');
-require('./edit/confirmNavigationFallback');
-require('./edit/ExampleRelationships');
-require('./edit/forms');
-require('./edit/validation');
-require('./edit/externalLinks');
-require('./edit/utility/guessFeat');
-require('./edit/utility/toggleEnded');
-require('./edit/MB/Control/Area');
-require('./edit/components/ArtistCreditEditor');
-require('./edit/components/ReleaseMergeStrategy');
-require('./edit/components/forms');
-require('./edit/MB/Control/ArtistEdit');
-require('./edit/MB/Control/Bubble');
-require('./edit/URLCleanup');
-require('./edit/MB/edit');
-require('./edit/MB/reltypeslist');
-require('./edit/MB/TextList');
-require('./edit/check-duplicates');
+require('./edit/common.js');
+require('./edit/confirmNavigationFallback.js');
+require('./edit/ExampleRelationships.js');
+require('./edit/forms.js');
+require('./edit/validation.js');
+require('./edit/externalLinks.js');
+require('./edit/utility/guessFeat.js');
+require('./edit/utility/toggleEnded.js');
+require('./edit/MB/Control/Area.js');
+require('./edit/components/ArtistCreditEditor.js');
+require('./edit/components/ReleaseMergeStrategy.js');
+require('./edit/components/forms.js');
+require('./edit/MB/Control/ArtistEdit.js');
+require('./edit/MB/Control/Bubble.js');
+require('./edit/URLCleanup.js');
+require('./edit/MB/edit.js');
+require('./edit/MB/reltypeslist.js');
+require('./edit/MB/TextList.js');
+require('./edit/check-duplicates.js');
 
-require('./guess-case/MB/Control/GuessCase');
+require('./guess-case/MB/Control/GuessCase.js');

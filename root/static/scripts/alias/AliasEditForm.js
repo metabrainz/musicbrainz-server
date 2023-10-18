@@ -56,7 +56,7 @@ type Props = {
   +searchHintType: number,
 };
 
-/* eslint-disable flowtype/sort-keys */
+/* eslint-disable ft-flow/sort-keys */
 type ActionT =
   | {+type: 'set-locale', +locale: string}
   | {+type: 'set-primary-for-locale', +enabled: boolean}
@@ -65,7 +65,7 @@ type ActionT =
   | {+type: 'update-date-range', +action: DateRangeFieldsetActionT}
   | {+type: 'update-name', +action: NameActionT}
   | {+type: 'update-sortname', +action: SortNameActionT};
-/* eslint-enable flowtype/sort-keys */
+/* eslint-enable ft-flow/sort-keys */
 
 type StateT = {
   +form: AliasEditFormT,
