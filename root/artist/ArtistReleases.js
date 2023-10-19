@@ -88,9 +88,9 @@ const ArtistReleases = ({
          */
         <p>
           {hasFilter ? (
-            l('This search only found releases by various artists.')
+            l('This search only found releases by Various Artists.')
           ) : (
-            l('This artist only has releases by various artists.')
+            l('This artist only has releases by Various Artists.')
           )}
         </p>
       ) : (

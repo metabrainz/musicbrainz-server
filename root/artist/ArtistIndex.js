@@ -103,14 +103,14 @@ const FooterSwitch = ({
     if (showVA) {
       links.push(
         <a href={`${artistLink}?va=1`} key="show-va">
-          {l('Show official various artists release groups')}
+          {l('Show official Various Artists release groups')}
         </a>,
       );
     }
     if (showAllVA) {
       links.push(
         <a href={`${artistLink}?all=1&va=1`} key="show-all-va">
-          {l('Show all various artists release groups')}
+          {l('Show all Various Artists release groups')}
         </a>,
       );
     }
@@ -140,13 +140,13 @@ const FooterSwitch = ({
         {(!hasDefault && !hasExtra && !hasVariousArtists) ? (
           <p>
             {l(`This artist only has unofficial release groups by
-                various artists.`)}
+                Various Artists.`)}
           </p>
         ) : null}
         <p>
           {(hasVariousArtists || hasVariousArtistsExtra)
-            ? l('Showing all release groups for various artists')
-            : l(`This artist does not have any various artists
+            ? l('Showing all release groups for Various Artists')
+            : l(`This artist does not have any Various Artists
                  release groups`)}
           {buildLinks(hasDefault, hasExtra, hasVariousArtists, false)}
         </p>
@@ -155,11 +155,11 @@ const FooterSwitch = ({
       <>
         {(!hasDefault && !hasExtra) ? (
           <p>
-            {l('This artist only has release groups by various artists.')}
+            {l('This artist only has release groups by Various Artists.')}
           </p>
         ) : null}
         <p>
-          {l('Showing official release groups for various artists')}
+          {l('Showing official release groups for Various Artists')}
           {buildLinks(hasDefault, hasExtra, false, hasVariousArtistsExtra)}
         </p>
       </>

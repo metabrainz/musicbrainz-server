@@ -382,7 +382,7 @@ const Index = ({
           </tr>
           <tr>
             <th />
-            <th colSpan="2">{l('by various artists:')}</th>
+            <th colSpan="2">{l('by Various Artists:')}</th>
             <td>{fc('release.various')}</td>
             <td>{fp('release.various', 'release')}</td>
           </tr>
