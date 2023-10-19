@@ -33,7 +33,7 @@
                       [%- IF !medium_cdtoc.is_perfect_match %]
                         <a href="[% c.uri_for_action('/cdtoc/set_durations',
                                         [ medium_cdtoc.cdtoc.discid ], { medium => medium.id }) %]">
-                          [% l('Set track durations') %]
+                          [% l('Set track lengths') %]
                         </a> |
                       [%- END %]
                       <a href="[% c.uri_for_action('cdtoc/remove',

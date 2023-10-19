@@ -64,7 +64,7 @@ parserTest('track numbers', function (t) {
 });
 
 parserTest((
-  'parsing track durations with trailing whitespace (MBS-1284)'
+  'parsing track lengths with trailing whitespace (MBS-1284)'
 ), function (t) {
   t.plan(1);
 
