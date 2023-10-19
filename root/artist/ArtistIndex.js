@@ -103,14 +103,14 @@ const FooterSwitch = ({
     if (showVA) {
       links.push(
         <a href={`${artistLink}?va=1`} key="show-va">
-          {l('Show official various artist release groups')}
+          {l('Show official various artists release groups')}
         </a>,
       );
     }
     if (showAllVA) {
       links.push(
         <a href={`${artistLink}?all=1&va=1`} key="show-all-va">
-          {l('Show all various artist release groups')}
+          {l('Show all various artists release groups')}
         </a>,
       );
     }

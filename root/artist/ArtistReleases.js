@@ -77,7 +77,7 @@ const ArtistReleases = ({
 
       {wantVariousArtistsOnly ? (
         exp.l(
-          `Showing Various Artist releases.
+          `Showing Various Artists releases.
            {show_subset|Show releases by this artist instead}.`,
           {show_subset: `/artist/${artist.gid}/releases?va=0`},
         )
@@ -96,7 +96,7 @@ const ArtistReleases = ({
       ) : (
         exp.l(
           `Showing releases by this artist.
-           {show_all|Show Various Artist releases instead}.`,
+           {show_all|Show Various Artists releases instead}.`,
           {show_all: `/artist/${artist.gid}/releases?va=1`},
         )
       )}
