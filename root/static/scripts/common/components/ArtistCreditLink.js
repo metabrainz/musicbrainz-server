@@ -46,12 +46,12 @@ export const MpIcon = (hydrate<MpIconProps>('span.ac-mp', (
   return (
     <Tooltip
       content={exp.l(
-        'This artist credit has {edit_search|pending edits}.',
+        'This artist credit has {edit_search|open edits}.',
         {edit_search: editSearch},
       )}
       target={
         <img
-          alt={l('This artist credit has pending edits.')}
+          alt={l('This artist credit has open edits.')}
           className="info"
           src={informationIconUrl}
         />
