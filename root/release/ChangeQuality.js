@@ -13,6 +13,7 @@ import EnterEditNote
   from '../static/scripts/edit/components/EnterEditNote.js';
 import FormRowSelect
   from '../static/scripts/edit/components/FormRowSelect.js';
+import {expect} from '../utility/invariant.js';
 
 import ReleaseLayout from './ReleaseLayout.js';
 
@@ -37,9 +38,9 @@ const ChangeQuality = ({
   const qualityOptions = {
     grouped: false,
     options: [
-      {label: QUALITY_NAMES.get(0), value: 0},
-      {label: QUALITY_NAMES.get(1), value: 1},
-      {label: QUALITY_NAMES.get(2), value: 2},
+      {label: expect(QUALITY_NAMES.get(0)), value: 0},
+      {label: expect(QUALITY_NAMES.get(1)), value: 1},
+      {label: expect(QUALITY_NAMES.get(2)), value: 2},
     ],
   };
 
@@ -64,7 +65,6 @@ const ChangeQuality = ({
         <FormRowSelect
           field={form.field.quality}
           label={addColonText(l('Data Quality'))}
-          // $FlowIgnore[incompatible-type] we know these .get return a string
           options={qualityOptions}
           uncontrolled
         />
