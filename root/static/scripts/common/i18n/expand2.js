@@ -167,11 +167,11 @@ export function parseContinuous<T, U, V>(
 
 function concatStringMatch(
   accum: string | NO_MATCH,
-  match: string | NO_MATCH,
+  match: string,
 ): string {
   return (
     (gotMatch(accum) ? accum : '') +
-    (gotMatch(match) ? match : '')
+    match
   );
 }
 
