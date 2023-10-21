@@ -18,7 +18,7 @@ function timestamp(date: PartialDateT) {
   );
 }
 
-export function hasAge<+T: $ReadOnly<{...DatePeriodRoleT, ...}>>(
+export function hasAge<T: $ReadOnly<{...DatePeriodRoleT, ...}>>(
   entity: T,
 ): boolean {
   const begin = entity.begin_date;
@@ -79,7 +79,7 @@ export function hasAge<+T: $ReadOnly<{...DatePeriodRoleT, ...}>>(
   return false;
 }
 
-export function age<+T: $ReadOnly<{...DatePeriodRoleT, ...}>>(
+export function age<T: $ReadOnly<{...DatePeriodRoleT, ...}>>(
   entity: T,
 ): [number, number, number] | null {
   const begin = entity.begin_date;

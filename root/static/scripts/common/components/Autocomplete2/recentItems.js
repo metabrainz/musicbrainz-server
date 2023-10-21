@@ -33,7 +33,7 @@ import type {
  */
 type RecentEntitiesT = {[entityTypeKey: string]: mixed};
 
-type WsJsEntitiesDataT<+T: EntityItemT> = {
+type WsJsEntitiesDataT<T: EntityItemT> = {
   +results: {+[id: string]: ?T},
 };
 
@@ -156,7 +156,7 @@ export function clearRecentItems(
 const _recentItemsCache =
   new Map<string, $ReadOnlyArray<OptionItemT<EntityItemT>>>();
 
-export function getRecentItems<+T: EntityItemT>(
+export function getRecentItems<T: EntityItemT>(
   key: string,
 ): $ReadOnlyArray<OptionItemT<T>> {
   // $FlowIgnore[incompatible-return]
@@ -180,7 +180,7 @@ function getEntityName(
   }
 }
 
-export async function getOrFetchRecentItems<+T: EntityItemT>(
+export async function getOrFetchRecentItems<T: EntityItemT>(
   entityType: string,
   key?: string = entityType,
 ): Promise<$ReadOnlyArray<OptionItemT<T>>> {
@@ -253,7 +253,7 @@ export async function getOrFetchRecentItems<+T: EntityItemT>(
   return Promise.resolve(cachedList);
 }
 
-export function pushRecentItem<+T: EntityItemT>(
+export function pushRecentItem<T: EntityItemT>(
   item: OptionItemT<T>,
   key?: string = item.entity.entityType,
 ): $ReadOnlyArray<OptionItemT<T>> {

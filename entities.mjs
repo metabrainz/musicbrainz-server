@@ -21,10 +21,6 @@ type AutomaticRemovalPropsT = {
   ...
 };
 
-type $MakeReadOnly =
-  & (<T: {...}>(T) => $ReadOnly<$ObjMap<T, $MakeReadOnly>>)
-  & (<T: mixed>(T) => T);
-
 const ENTITIES = {
   annotation: {
     model: 'Annotation',
@@ -895,4 +891,4 @@ const ENTITIES = {
 
 deepFreeze(ENTITIES);
 
-export default (ENTITIES: $Call<$MakeReadOnly, typeof ENTITIES>);
+export default (ENTITIES: DeepReadOnly<typeof ENTITIES>);

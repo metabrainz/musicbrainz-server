@@ -37,21 +37,18 @@ declare type EntityWithAliasesTypeT =
   | 'series'
   | 'work';
 
-declare type EntityWithSeriesT =
-  | ArtistT
-  | EventT
-  | RecordingT
-  | ReleaseT
-  | ReleaseGroupT
-  | WorkT;
+declare type EntityWithSeriesMapT = {
+  'artist': ArtistT,
+  'event': EventT,
+  'recording': RecordingWithArtistCreditT,
+  'release': ReleaseT,
+  'release_group': ReleaseGroupT,
+  'work': WorkT,
+};
 
-declare type EntityWithSeriesTypeT =
-  | 'artist'
-  | 'event'
-  | 'recording'
-  | 'release'
-  | 'release_group'
-  | 'work';
+declare type EntityWithSeriesT = $Values<EntityWithSeriesMapT>;
+
+declare type EntityWithSeriesTypeT = $Keys<EntityWithSeriesMapT>;
 
 declare type AppearancesT<T> = {
   +hits: number,

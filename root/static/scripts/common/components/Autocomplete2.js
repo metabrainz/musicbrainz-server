@@ -167,7 +167,7 @@ type InitialStateT<T: EntityItemT> = {
 
 const EMPTY_ITEMS: $ReadOnlyArray<ItemT<empty>> = Object.freeze([]);
 
-export function createInitialState<+T: EntityItemT>(
+export function createInitialState<T: EntityItemT>(
   initialState: InitialStateT<T>,
 ): {...StateT<T>} {
   const {
@@ -238,7 +238,7 @@ type AutocompleteItemPropsT<T: EntityItemT> = {
   selectItem: (ItemT<T>) => boolean,
 };
 
-const AutocompleteItem = React.memo(<+T: EntityItemT>({
+const AutocompleteItem = React.memo(<T: EntityItemT>({
   autocompleteId,
   dispatch,
   formatOptions,
@@ -308,7 +308,7 @@ const AutocompleteItem = React.memo(<+T: EntityItemT>({
   );
 });
 
-const Autocomplete2 = (React.memo(<+T: EntityItemT>(
+const Autocomplete2 = (React.memo(<T: EntityItemT>(
   props: PropsT<T>,
 ): React$Element<'div'> => {
   const {dispatch, state} = props;

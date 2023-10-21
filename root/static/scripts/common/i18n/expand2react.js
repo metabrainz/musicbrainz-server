@@ -131,7 +131,7 @@ const parseLinkSubst: Parser<
     if (typeof props === 'string') {
       props = ({href: props}: AnchorProps);
     }
-    if (!props || typeof props === 'number' || empty(props.href)) {
+    if (props == null || typeof props !== 'object' || empty(props.href)) {
       throw error('bad link props');
     }
     return React.createElement('a', props, ...children);

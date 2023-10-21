@@ -24,7 +24,7 @@ export function exportLinkTypeInfo(
     [entityTypes: string]: Array<LinkTypeT>,
   } = {};
 
-  function mapItems<-T: LinkTypeT>(
+  function mapItems<T: LinkTypeT>(
     result: {-[idOrGid: StrOrNum]: T},
     item: T,
   ) {
@@ -78,7 +78,7 @@ export function exportLinkAttributeTypeInfo(
   const linkAttributeTypeChildren =
     groupBy(allLinkAttributeTypes, x => String(x.parent_id));
 
-  function mapItems<-T: LinkAttrTypeT>(
+  function mapItems<T: LinkAttrTypeT>(
     result: {-[idOrGid: StrOrNum]: T},
     item: T,
   ) {
