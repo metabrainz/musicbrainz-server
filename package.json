@@ -84,7 +84,7 @@
     "eslint-plugin-react": "7.33.1",
     "eslint-plugin-react-hooks": "4.6.0",
     "file-url": "2.0.2",
-    "flow-bin": "0.219.2",
+    "flow-bin": "0.219.3",
     "gettext-parser": "3.1.0",
     "hermes-eslint": "0.16.0",
     "http-proxy": "1.18.1",
