@@ -40,7 +40,7 @@ React$Element<typeof ReportLayout> => {
         artists. If the releases in the release groups should be grouped
         together (see the {url|guidelines}), they can be merged. If they
         shouldn\'t be grouped together but they can be distinguished by
-        the release group types, e.g. when an artist has an album and
+        the release group types, such as when an artist has an album and
         single with the same name, then there is usually no need to
         change anything. In other cases, a disambiguation comment may be
         helpful.`,

@@ -22,8 +22,8 @@ const TracksWithSequenceIssues = ({
     canBeFiltered={canBeFiltered}
     description={l(
       `This report lists all releases where the track numbers are not
-       continuous (e.g. there is no "track 2"), or with duplicated
-       track numbers (e.g. there are two "track 4"s).`,
+       continuous (for example, there is no "track 2"), or with duplicated
+       track numbers (for example, there are two "track 4"s).`,
     )}
     entityType="release"
     filtered={filtered}

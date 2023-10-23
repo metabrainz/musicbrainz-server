@@ -54,7 +54,7 @@ React$Element<typeof ReportLayout> => {
       canBeFiltered={canBeFiltered}
       description={l(
         `This report shows recordings with relationships using dates in
-        the future. Those are probably typos (e.g. 2109 instead of 2019).`,
+        the future. Those are probably typos (such as 2109 instead of 2019).`,
       )}
       entityType="relationship"
       filtered={filtered}

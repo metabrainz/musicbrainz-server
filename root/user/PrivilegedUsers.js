@@ -106,7 +106,7 @@ const PrivilegedUsers = ({
       <h2>{l('Banner message editors')}</h2>
       <p>
         {l(`Banner message editors are users who can set a message that
-            is shown in a banner on all pages, e.g. to warn users about
+            is shown in a banner on all pages, for example to warn users about
             upcoming site maintenance.`)}
       </p>
       <p>

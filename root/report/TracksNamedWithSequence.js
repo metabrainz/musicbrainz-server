@@ -22,7 +22,7 @@ const TracksNamedWithSequence = ({
     canBeFiltered={canBeFiltered}
     description={l(
       `This report aims to identify releases where track names include
-       their own track number, e.g. "1) Some Name" (instead of just
+       their own track number, such as "1) Some Name" (instead of just
        "Some Name"). Notice that sometimes this is justified and correct,
        don't automatically assume it is a mistake! If you confirm it
        is a mistake, please correct it.`,

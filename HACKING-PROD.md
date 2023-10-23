@@ -52,7 +52,8 @@ CircleCI supports debugging in their containers with SSH for this case. See
 [their documentation](https://circleci.com/docs/2.0/ssh-access-jobs/).
 
 Basically, you'll want to expand the "Rerun" menu and select "Rerun job with SSH".
-Then, under "Enable SSH", you'll be told how to SSH into the container, e.g.
+Then, under "Enable SSH", you'll be told how to SSH into the container,
+with a command like
 
     $ ssh -p port ip
 
