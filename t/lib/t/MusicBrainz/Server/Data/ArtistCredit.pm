@@ -187,7 +187,10 @@ test 'Merging clears the cache' => sub {
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+artistcredit');
 
+    $c->sql->begin;
     $artist_credit_data->get_by_ids(1);
+    $c->sql->commit;
+
     ok($cache->get('artist_credit:1'), 'cache contains artist credit #1');
 
     $c->sql->begin;

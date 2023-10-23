@@ -121,6 +121,14 @@ sub create_script_context
     return MusicBrainz::Server::Context->new(cache_manager => $cache_manager, database => 'MAINTENANCE', %args);
 }
 
+# `DBDefs::DETERMINE_MAX_REQUEST_TIME` must be called with a Catalyst request
+# object. This attribute stores the result of that call so it can be accessed
+# in the data layer.
+has 'max_request_time' => (
+    is => 'rw',
+    isa => 'Maybe[Int]',
+);
+
 1;
 
 =head1 COPYRIGHT AND LICENSE

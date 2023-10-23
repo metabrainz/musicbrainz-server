@@ -27,7 +27,6 @@ use Test::More;
     extends 'MyEntityData';
     with 'MusicBrainz::Server::Data::Role::EntityCache';
     has 'get_called' => ( is => 'rw', isa => 'Bool', default => 0 );
-    sub _cache_id { 1 }
 
     package MockCache;
     use Moose;
@@ -73,10 +72,13 @@ sub _build_context {
 test all => sub {
 
 my $test = shift;
+my $c = $test->c;
+my $sql = $c->sql;
+my $entity_data = MyCachedEntityData->new(c => $c);
 
-my $entity_data = MyCachedEntityData->new(c => $test->c);
-
+$sql->begin;
 my $entity = $entity_data->get_by_id(1);
+$sql->commit;
 is ( $entity, 'data' );
 is ( $entity_data->get_called, 1 );
 is ( $test->c->cache->_orig->get_called, 1 );
@@ -88,7 +90,9 @@ $entity_data->get_called(0);
 $test->c->cache->_orig->get_called(0);
 $test->c->cache->_orig->set_called(0);
 
+$sql->begin;
 $entity = $entity_data->get_by_id(1);
+$sql->commit;
 is ( $entity, 'data' );
 is ( $entity_data->get_called, 0 );
 is ( $test->c->cache->_orig->get_called, 1 );
@@ -96,7 +100,9 @@ is ( $test->c->cache->_orig->set_called, 0 );
 
 
 delete $test->c->cache->_orig->data->{'my_entity_data:1'};
+$sql->begin;
 $entity = $entity_data->get_by_id(1);
+$sql->commit;
 is ( $entity, 'data' );
 is ( $entity_data->get_called, 1 );
 is ( $test->c->cache->_orig->get_called, 1 );

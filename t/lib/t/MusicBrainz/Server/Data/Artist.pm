@@ -301,21 +301,21 @@ test 'Merging with a cache' => sub {
     MusicBrainz::Server::Test->prepare_test_database($c, '+data_artist');
 
     $c->sql->begin;
-
     my $artist1 = $c->model('Artist')->get_by_gid('745c079d-374e-4436-9448-da92dedef3ce');
     my $artist2 = $c->model('Artist')->get_by_gid('945c079d-374e-4436-9448-da92dedef3cf');
+    $c->sql->commit;
 
     for my $artist ($artist1, $artist2) {
         ok($cache->get('artist:' . $artist->gid), 'caches artist via GID');
         ok($cache->get('artist:' . $artist->id), 'caches artist via ID');
     }
 
+    $c->sql->begin;
     $c->model('Artist')->merge($artist1->id, $artist2->id);
+    $c->sql->commit;
 
     ok(!$cache->get('artist:' . $artist2->gid), 'artist 2 no longer in cache (by gid)');
     ok(!$cache->get('artist:' . $artist2->id), 'artist 2 no longer in cache (by id)');
-
-    $c->sql->commit;
 };
 
 test 'Deny delete "Various Artists" trigger' => sub {

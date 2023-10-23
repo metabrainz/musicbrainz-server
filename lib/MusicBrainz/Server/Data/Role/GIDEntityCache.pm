@@ -32,9 +32,6 @@ around _create_cache_entries => sub {
     my $prefix = $self->_cache_prefix;
     my @orig_entries = $self->$orig($data, $ids);
     my @entries = @orig_entries;
-    # Only add gid entries for entities returned from $self->$orig, which
-    # may be a subset of $data if any are being deleted in a concurrent
-    # transaction.
     for my $entry (@orig_entries) {
         my $entity = $entry->[1];
         push @entries, [$prefix . $entity->gid, $entity->id];

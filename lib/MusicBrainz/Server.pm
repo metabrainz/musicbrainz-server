@@ -6,6 +6,7 @@ use namespace::autoclean;
 extends 'Catalyst';
 
 use Class::Load qw( load_class );
+use Data::Dumper;
 use DBDefs;
 use Digest::SHA qw( sha256 );
 use HTML::Entities ();
@@ -23,7 +24,7 @@ use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array to_json_object );
 use MusicBrainz::Server::Log qw( logger );
 use MusicBrainz::Server::Validation qw( is_positive_integer );
 use POSIX qw(SIGALRM);
-use Scalar::Util qw( refaddr );
+use Scalar::Util qw( looks_like_number refaddr );
 use Sys::Hostname;
 use Time::HiRes qw( clock_gettime CLOCK_REALTIME CLOCK_MONOTONIC );
 use Try::Tiny;
@@ -476,6 +477,17 @@ around dispatch => sub {
 
     my $max_request_time = DBDefs->DETERMINE_MAX_REQUEST_TIME($c->req);
 
+    if (
+        defined($max_request_time) &&
+        (!looks_like_number($max_request_time) || $max_request_time < 0)
+     ) {
+        $c->log->warn(
+            'DETERMINE_MAX_REQUEST_TIME did not return a valid number: ' .
+            Dumper($max_request_time),
+        );
+        $max_request_time = undef;
+    }
+
     if (defined($max_request_time) && $max_request_time > 0) {
         alarm($max_request_time);
 
@@ -492,6 +504,8 @@ around dispatch => sub {
         $action->safe(1);
         POSIX::sigaction(SIGALRM, $action);
     }
+
+    $c->model('MB')->context->max_request_time($max_request_time);
 
     $c->$orig(@args);
 
