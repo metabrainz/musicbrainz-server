@@ -18,7 +18,7 @@ To accomplish that we'd need a two step solution:
 1. Prepare the code base for localization.
 
 This means writing localization routines and bringing our strings into
-shape for translation (i.e. marking them appropriately). No
+shape for translation (that is, marking them appropriately). No
 translations would be prepared at this step, the system would still
 work in English, but introducing translations would be a matter of
 including some .po files. This is currently implemented as
@@ -84,7 +84,7 @@ Plurals are done with an ln()-function:
 
 (proper syntax: ln(english_singular, english_plural, number, parameter_hash))
 
-**Warning**: Plural forms only apply to enumerable entities, i.e. "I
+**Warning**: Plural forms only apply to enumerable entities, that is, "I
   have X apples" should be localized with ln(), but "I have apples"
   should use l().
 

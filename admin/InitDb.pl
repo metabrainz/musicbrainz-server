@@ -426,7 +426,7 @@ sub SanityCheck
     {
         (defined($path_to_pending_so) || $dbmirror2) or die <<EOF;
 Error: this is a master replication server, but you did not specify
-the path to "pending.so" (i.e. --with-pending=PATH) while specifying
+the path to "pending.so" (using --with-pending=PATH) while specifying
 --nodbmirror2.
 EOF
 
