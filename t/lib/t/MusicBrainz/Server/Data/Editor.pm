@@ -144,11 +144,44 @@ test 'Creating a new editor' => sub {
         $editor->match_password('password2'),
         'The new editor has the expected new password',
     );
+};
+
+test 'find_by_email and is_email_used_elsewhere' => sub {
+    my $test = shift;
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+editor');
+    my $editor_data = MusicBrainz::Server::Data::Editor->new(c => $test->c);
+
+    note('We create a new editor with just name / password');
+    my $new_editor_2 = $editor_data->insert({
+        name => 'new_editor_2',
+        password => 'password',
+    });
+    # For testing is_email_used_elsewhere
+    my $future_editor_id = $new_editor_2->id + 1;
+
+    note('We set an email for the new editor with update_email');
+    $editor_data->update_email($new_editor_2, 'editor@example.com');
 
     note('We search for the new editor email with find_by_email');
     my @editors = $editor_data->find_by_email('editor@example.com');
     is(scalar(@editors), 1, 'An editor was found with the exact email');
     is($editors[0]->id, $new_editor_2->id, 'The right editor was found');
+
+    note('We check is_email_used_elsewhere shows the email as being in use');
+    ok(
+        $editor_data->is_email_used_elsewhere(
+            'editor@example.com',
+            $future_editor_id,
+        ),
+        'The exact email is shown to be in use if another editor wants it',
+    );
+    ok(
+        $editor_data->is_email_used_elsewhere(
+            'EDITOR@example.com',
+            $future_editor_id,
+        ),
+        'The email is shown to be in use even if searching with all caps',
+    );
 };
 
 test all => sub {
