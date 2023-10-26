@@ -231,11 +231,6 @@ is($editor->id, 1, 'id');
 is($editor->name, 'new_editor', 'name');
 ok($editor->match_password('password'));
 is($editor->privileges, 1+8+32+512, 'privileges');
-my $edit_counts = $editor_data->various_edit_counts($editor->id);
-is($edit_counts->{accepted_count}, 0, 'accepted edits');
-is($edit_counts->{rejected_count}, 0, 'rejected edits');
-is($edit_counts->{failed_count}, 0, 'failed edits');
-is($edit_counts->{accepted_auto_count}, 0, 'auto edits');
 
 is_deeply($editor->last_login_date, DateTime->new(year => 2013, month => 4, day => 5),
     'last login date');
@@ -254,29 +249,45 @@ is_deeply($editor, $editor2);
 $editor2 = $editor_data->get_by_name('nEw_EdItOr');
 is_deeply($editor, $editor2, 'fetching by name is case insensitive');
 
-$test->c->sql->do(<<~"SQL", $editor->id);
-    INSERT INTO edit (id, editor, type, status, expire_time, autoedit)
-        VALUES (1, \$1, 1, $STATUS_APPLIED, now(), 0),
-               (2, \$1, 1, $STATUS_APPLIED, now(), 1),
-               (3, \$1, 1, $STATUS_FAILEDVOTE, now(), 0),
-               (4, \$1, 1, $STATUS_FAILEDDEP, now(), 0);
-    INSERT INTO edit_data (edit, data)
-        SELECT x, '{}' FROM generate_series(1, 4) x;
-    SQL
-
-$editor = $editor_data->get_by_id($editor->id);
-$edit_counts = $editor_data->various_edit_counts($editor->id);
-is($edit_counts->{accepted_count}, 1, 'accepted edits');
-is($edit_counts->{rejected_count}, 1, 'rejected edits');
-is($edit_counts->{failed_count}, 1, 'failed edits');
-is($edit_counts->{accepted_auto_count}, 1, 'auto edits');
-
 my $alice = $editor_data->get_by_name('alice');
 # Test preferences
 $editor_data->load_preferences($alice);
 is($alice->preferences->public_ratings, 0, 'load preferences');
 is($alice->preferences->datetime_format, '%m/%d/%Y %H:%M:%S', 'datetime_format loaded');
 is($alice->preferences->timezone, 'UTC', 'timezone loaded');
+};
+
+test 'various_edit_counts' => sub {
+    my $test = shift;
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+editor');
+    my $editor_data = MusicBrainz::Server::Data::Editor->new(c => $test->c);
+
+    my $editor = $editor_data->get_by_id(1);
+    note('We load various_edit_counts for editor 1 (should be empty)');
+    my $edit_counts = $editor_data->various_edit_counts(1);
+    is($edit_counts->{accepted_count}, 0, 'There are no accepted edits');
+    is($edit_counts->{rejected_count}, 0, 'There are no rejected edits');
+    is($edit_counts->{failed_count}, 0, 'There are no failed edits');
+    is($edit_counts->{accepted_auto_count}, 0, 'There are no auto edits');
+
+    note('We insert a bunch of edits for editor 1');
+    $test->c->sql->do(<<~"SQL", $editor->id);
+        INSERT INTO edit (id, editor, type, status, expire_time, autoedit)
+            VALUES (1, \$1, 1, $STATUS_APPLIED, now(), 0),
+                (2, \$1, 1, $STATUS_APPLIED, now(), 1),
+                (3, \$1, 1, $STATUS_FAILEDVOTE, now(), 0),
+                (4, \$1, 1, $STATUS_FAILEDDEP, now(), 0);
+        INSERT INTO edit_data (edit, data)
+            SELECT x, '{}' FROM generate_series(1, 4) x;
+        SQL
+
+    $editor = $editor_data->get_by_id(1);
+    note('We load various_edit_counts for editor 1 again');
+    $edit_counts = $editor_data->various_edit_counts($editor->id);
+    is($edit_counts->{accepted_count}, 1, 'There is 1 accepted edit');
+    is($edit_counts->{rejected_count}, 1, 'There is 1 rejected edit');
+    is($edit_counts->{failed_count}, 1, 'There is 1 failed edit');
+    is($edit_counts->{accepted_auto_count}, 1, 'There is 1 auto edit');
 };
 
 test 'Editor subscription methods' => sub {
