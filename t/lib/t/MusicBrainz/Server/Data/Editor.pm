@@ -82,6 +82,75 @@ test 'Remember me tokens' => sub {
        'Allocating tokens for unknown users returns undefined');
 };
 
+test 'Creating a new editor' => sub {
+    my $test = shift;
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+editor');
+    my $editor_data = MusicBrainz::Server::Data::Editor->new(c => $test->c);
+
+    note('We create a new editor with just name / password');
+    my $new_editor_2 = $editor_data->insert({
+        name => 'new_editor_2',
+        password => 'password',
+    });
+    is(
+        $new_editor_2->name,
+        'new_editor_2',
+        'The new editor has the expected name',
+    );
+    ok(
+        $new_editor_2->match_password('password'),
+        'The new editor has the expected password',
+    );
+    is(
+        $editor_data->various_edit_counts($new_editor_2->id)->{accepted_count},
+        0,
+        'The new editor has no accepted edits',
+    );
+
+    my $editor = $editor_data->get_by_id($new_editor_2->id);
+    is($editor->email, undef, 'The new editor has no stored email');
+    is(
+        $editor->email_confirmation_date,
+        undef,
+        'The new editor has no email confirmation date',
+    );
+    is(
+        $editor->ha1,
+        md5_hex(join(':', $editor->name, 'musicbrainz.org', 'password')),
+        'The ha1 for the new editor was generated correctly',
+    );
+
+    my $now = DateTime::Format::Pg->parse_datetime(
+        $test->c->sql->select_single_value('SELECT now()'));
+    note('We set an email for the new editor with update_email');
+    $editor_data->update_email($new_editor_2, 'editor@example.com');
+
+    $editor = $editor_data->get_by_id($new_editor_2->id);
+    is(
+        $editor->email,
+        'editor@example.com',
+        'The new editor has the correct e-mail address',
+    );
+    ok(
+        $now <= $editor->email_confirmation_date,
+        'The email confirmation date was updated correctly',
+    );
+
+    note('We set a new password for the new editor with update_password');
+    $editor_data->update_password($new_editor_2->name, 'password2');
+
+    $editor = $editor_data->get_by_id($new_editor_2->id);
+    ok(
+        $editor->match_password('password2'),
+        'The new editor has the expected new password',
+    );
+
+    note('We search for the new editor email with find_by_email');
+    my @editors = $editor_data->find_by_email('editor@example.com');
+    is(scalar(@editors), 1, 'An editor was found with the exact email');
+    is($editors[0]->id, $new_editor_2->id, 'The right editor was found');
+};
+
 test all => sub {
 
 my $test = shift;
@@ -144,42 +213,7 @@ is($alice->preferences->public_ratings, 0, 'load preferences');
 is($alice->preferences->datetime_format, '%m/%d/%Y %H:%M:%S', 'datetime_format loaded');
 is($alice->preferences->timezone, 'UTC', 'timezone loaded');
 
-
-my $new_editor_2 = $editor_data->insert({
-    name => 'new_editor_2',
-    password => 'password',
-});
-ok($new_editor_2->id > $editor->id);
-is($new_editor_2->name, 'new_editor_2', 'new editor 2 has name new_editor_2');
-ok($new_editor_2->match_password('password'), 'new editor 2 has correct password');
-is($editor_data->various_edit_counts($new_editor_2->id)->{accepted_count}, 0, 'new editor 2 has no accepted edits');
-
-
-$editor = $editor_data->get_by_id($new_editor_2->id);
-is($editor->email, undef);
-is($editor->email_confirmation_date, undef);
-is($editor->ha1, md5_hex(join(':', $editor->name, 'musicbrainz.org', 'password')), 'ha1 was generated correctly');
-
-my $now = DateTime::Format::Pg->parse_datetime(
-    $test->c->sql->select_single_value('SELECT now()'));
-$editor_data->update_email($new_editor_2, 'editor@example.com');
-
-$editor = $editor_data->get_by_id($new_editor_2->id);
-is($editor->email, 'editor@example.com', 'editor has correct e-mail address');
-ok($now <= $editor->email_confirmation_date, 'email confirmation date updated correctly');
-is($new_editor_2->email_confirmation_date, $editor->email_confirmation_date);
-
-$editor_data->update_password($new_editor_2->name, 'password2');
-
-$editor = $editor_data->get_by_id($new_editor_2->id);
-ok($editor->match_password('password2'));
-
-my @editors = $editor_data->find_by_email('editor@example.com');
-is(scalar(@editors), 1);
-is($editors[0]->id, $new_editor_2->id);
-
-
-@editors = $editor_data->find_by_subscribed_editor(2, 10, 0);
+my @editors = $editor_data->find_by_subscribed_editor(2, 10, 0);
 is($editors[1], 1, 'alice is subscribed to one person ...');
 is($editors[0][0]->id, 1, '          ... that person is new_editor');
 
