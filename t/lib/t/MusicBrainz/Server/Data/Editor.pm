@@ -216,45 +216,78 @@ test 'find_by_email and is_email_used_elsewhere' => sub {
     );
 };
 
-test all => sub {
+test 'Getting/loading existing editors' => sub {
+    my $test = shift;
 
-my $test = shift;
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+editor');
 
-MusicBrainz::Server::Test->prepare_test_database($test->c, '+editor');
+    my $editor_data = MusicBrainz::Server::Data::Editor->new(c => $test->c);
 
-my $editor_data = MusicBrainz::Server::Data::Editor->new(c => $test->c);
+    note('We get the editor with id 1 using get_by_id');
+    my $editor = $editor_data->get_by_id(1);
+    ok(defined $editor, 'An editor was returned');
+    isa_ok($editor, 'MusicBrainz::Server::Entity::Editor');
+    is($editor->id, 1, 'The editor has the expected id');
+    is($editor->name, 'new_editor', 'The editor has the expected name');
+    ok(
+        $editor->match_password('password'),
+        'The editor has the expected password',
+    );
+    is(
+        $editor->privileges,
+        1+8+32+512,
+        'The editor has the expected privileges',
+    );
 
-my $editor = $editor_data->get_by_id(1);
-ok(defined $editor, 'no editor returned');
-isa_ok($editor, 'MusicBrainz::Server::Entity::Editor', 'not a editor');
-is($editor->id, 1, 'id');
-is($editor->name, 'new_editor', 'name');
-ok($editor->match_password('password'));
-is($editor->privileges, 1+8+32+512, 'privileges');
+    is_deeply(
+        $editor->last_login_date,
+        DateTime->new(year => 2013, month => 4, day => 5),
+        'The editor has the expected last login date',
+    );
 
-is_deeply($editor->last_login_date, DateTime->new(year => 2013, month => 4, day => 5),
-    'last login date');
+    is_deeply(
+        $editor->email_confirmation_date,
+        DateTime->new(year => 2005, month => 10, day => 20),
+        'The editor has the expected email confirmation date',
+    );
 
-is_deeply($editor->email_confirmation_date, DateTime->new(year => 2005, month => 10, day => 20),
-    'email confirm');
+    is_deeply(
+        $editor->registration_date,
+        DateTime->new(year => 1989, month => 7, day => 23),
+        'The editor has the expected registration date',
+    );
 
-is_deeply($editor->registration_date, DateTime->new(year => 1989, month => 7, day => 23),
-    'registration date');
+    my $editor2 = $editor_data->get_by_name('new_editor');
+    is_deeply(
+        $editor,
+        $editor2,
+        'Fetching the editor by name with get_by_name returns the same data',
+    );
 
+    $editor2 = $editor_data->get_by_name('nEw_EdItOr');
+    is_deeply(
+        $editor,
+        $editor2,
+        'Fetching the editor by name with get_by_name is case-insensitive',
+    );
 
-my $editor2 = $editor_data->get_by_name('new_editor');
-is_deeply($editor, $editor2);
-
-
-$editor2 = $editor_data->get_by_name('nEw_EdItOr');
-is_deeply($editor, $editor2, 'fetching by name is case insensitive');
-
-my $alice = $editor_data->get_by_name('alice');
-# Test preferences
-$editor_data->load_preferences($alice);
-is($alice->preferences->public_ratings, 0, 'load preferences');
-is($alice->preferences->datetime_format, '%m/%d/%Y %H:%M:%S', 'datetime_format loaded');
-is($alice->preferences->timezone, 'UTC', 'timezone loaded');
+    note('We load editor "alice" and their preferences');
+    my $alice = $editor_data->get_by_name('alice');
+    $editor_data->load_preferences($alice);
+    is(
+        $alice->preferences->public_ratings,
+        0,
+        'The preference to make ratings private is loaded',
+    );
+    is(
+        $alice->preferences->datetime_format,
+        '%m/%d/%Y %H:%M:%S',
+        'The datetime_format preference is loaded');
+    is(
+        $alice->preferences->timezone,
+        'UTC',
+        'The preferred timezone is loaded',
+    );
 };
 
 test 'various_edit_counts' => sub {
