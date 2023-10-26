@@ -277,46 +277,56 @@ $editor_data->load_preferences($alice);
 is($alice->preferences->public_ratings, 0, 'load preferences');
 is($alice->preferences->datetime_format, '%m/%d/%Y %H:%M:%S', 'datetime_format loaded');
 is($alice->preferences->timezone, 'UTC', 'timezone loaded');
-
-my @editors = $editor_data->find_by_subscribed_editor(2, 10, 0);
-is($editors[1], 1, 'alice is subscribed to one person ...');
-is($editors[0][0]->id, 1, '          ... that person is new_editor');
-
-
-@editors = $editor_data->find_subscribers(1, 10, 0);
-is($editors[1], 1, 'new_editor has one subscriber ...');
-is($editors[0][0]->id, 2, '          ... that subscriber is alice');
-
-
-@editors = $editor_data->find_by_subscribed_editor(1, 10, 0);
-is($editors[1], 0, 'new_editor has not subscribed to anyone');
-
-@editors = $editor_data->find_subscribers(2, 10, 0);
-is($editors[1], 0, 'alice has no subscribers');
-
-subtest 'Find editors with subscriptions' => sub {
-    my @editors = $editor_data->editors_with_subscriptions(0, 1000);
-    is(@editors => 1, 'found 1 editor');
-    is($editors[0]->id => 2, 'is editor #2');
-
-    @editors = $editor_data->editors_with_subscriptions(1, 1000);
-    is(@editors => 1, 'found 1 editor');
-    is($editors[0]->id => 2, 'is editor #2');
-
-    @editors = $editor_data->editors_with_subscriptions(2, 1000);
-    is(@editors => 0, 'found no editor');
-
-    note('We mark editor #2 as a spammer (plus block edits and notes privs)');
-    $test->c->sql->do(<<~'SQL');
-        UPDATE editor
-           SET privs = 7168
-         WHERE id = 2
-        SQL
-
-    @editors = $editor_data->editors_with_subscriptions(0, 1000);
-    is(@editors => 0, 'now-spammer editor #2 is no longer returned');
 };
 
+test 'Editor subscription methods' => sub {
+    my $test = shift;
+
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+editor');
+
+    my $editor_data = MusicBrainz::Server::Data::Editor->new(c => $test->c);
+
+    subtest 'find_by_subscribed_editor' => sub {
+        my @editors = $editor_data->find_by_subscribed_editor(2, 10, 0);
+        is($editors[1], 1, 'alice is subscribed to one person ...');
+        is($editors[0][0]->id, 1, '          ... that person is new_editor');
+
+        @editors = $editor_data->find_by_subscribed_editor(1, 10, 0);
+        is($editors[1], 0, 'new_editor has not subscribed to anyone');
+    };
+
+    subtest 'find_subscribers' => sub {
+        my @editors = $editor_data->find_subscribers(1, 10, 0);
+        is($editors[1], 1, 'new_editor has one subscriber ...');
+        is($editors[0][0]->id, 2, '          ... that subscriber is alice');
+
+
+        @editors = $editor_data->find_subscribers(2, 10, 0);
+        is($editors[1], 0, 'alice has no subscribers');
+    };
+
+    subtest 'editors_with_subscriptions' => sub {
+        my @editors = $editor_data->editors_with_subscriptions(0, 1000);
+        is(@editors => 1, 'Found 1 editor searching with no offset');
+        is($editors[0]->id => 2, 'The editor is editor #2');
+
+        @editors = $editor_data->editors_with_subscriptions(1, 1000);
+        is(@editors => 1, 'Found 1 editor searching with offset 1');
+        is($editors[0]->id => 2, 'The editor is editor #2');
+
+        @editors = $editor_data->editors_with_subscriptions(2, 1000);
+        is(@editors => 0, 'Found no editors searching with offset 2');
+
+        note('We mark editor #2 as a spammer (+ block edit & notes privs)');
+        $test->c->sql->do(<<~'SQL');
+            UPDATE editor
+            SET privs = 7168
+            WHERE id = 2
+            SQL
+
+        @editors = $editor_data->editors_with_subscriptions(0, 1000);
+        is(@editors => 0, 'Found no editors since spammer is not returned');
+    };
 };
 
 test 'Deleting editors without data fully deletes them' => sub {
