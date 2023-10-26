@@ -70,5 +70,6 @@
     );
     MB.Control.initGuessFeatButton('edit-recording');
     MB.Control.initializeBubble("#isrcs-bubble", "input[name=edit-recording\\.isrcs\\.0]");
+    MB.installFormUnloadWarning();
   });
 </script>

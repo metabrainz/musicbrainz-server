@@ -40,5 +40,6 @@
     );
     MB.Control.initializeGuessCase("release_group", "id-edit-release-group");
     MB.Control.initGuessFeatButton('edit-release-group');
+    MB.installFormUnloadWarning();
   });
 </script>

@@ -109,3 +109,9 @@
 [%- USE JSON.Escape;
     script_manifest('work/edit.js', {'data-args' => work_form_json.json})
 -%]
+
+<script type="text/javascript">
+  (function () {
+    MB.installFormUnloadWarning();
+  }());
+</script>
