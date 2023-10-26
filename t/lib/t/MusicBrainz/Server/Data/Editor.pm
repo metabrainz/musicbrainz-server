@@ -167,6 +167,10 @@ test 'find_by_email and is_email_used_elsewhere' => sub {
     is(scalar(@editors), 1, 'An editor was found with the exact email');
     is($editors[0]->id, $new_editor_2->id, 'The right editor was found');
 
+    @editors = $editor_data->find_by_email('EDITOR@EXAMPLE.COM');
+    is(scalar(@editors), 1, 'An editor was found searching with all caps');
+    is($editors[0]->id, $new_editor_2->id, 'The right editor was found');
+
     note('We check is_email_used_elsewhere shows the email as being in use');
     ok(
         $editor_data->is_email_used_elsewhere(
@@ -177,10 +181,38 @@ test 'find_by_email and is_email_used_elsewhere' => sub {
     );
     ok(
         $editor_data->is_email_used_elsewhere(
-            'EDITOR@example.com',
+            'EDITOR@EXAMPLE.COM',
             $future_editor_id,
         ),
         'The email is shown to be in use even if searching with all caps',
+    );
+
+    note('We set an all caps email for the new editor with update_email');
+    $editor_data->update_email($new_editor_2, 'EDITOR@EXAMPLE.COM');
+
+    note('We search for the new editor email with find_by_email');
+    my @editors = $editor_data->find_by_email('EDITOR@EXAMPLE.COM');
+    is(scalar(@editors), 1, 'An editor was found with the exact email');
+    is($editors[0]->id, $new_editor_2->id, 'The right editor was found');
+
+    @editors = $editor_data->find_by_email('editor@example.com');
+    is(scalar(@editors), 1, 'An editor was found searching with normal caps');
+    is($editors[0]->id, $new_editor_2->id, 'The right editor was found');
+
+    note('We check is_email_used_elsewhere shows the email as being in use');
+    ok(
+        $editor_data->is_email_used_elsewhere(
+            'EDITOR@EXAMPLE.COM',
+            $future_editor_id,
+        ),
+        'The exact email is shown to be in use if another editor wants it',
+    );
+    ok(
+        $editor_data->is_email_used_elsewhere(
+            'editor@example.com',
+            $future_editor_id,
+        ),
+        'The email is shown to be in use even if searching with normal caps',
     );
 };
 
