@@ -1,6 +1,7 @@
 package t::MusicBrainz::Server::Data::Editor;
 use strict;
 use warnings;
+use utf8;
 
 use Test::Fatal;
 use Test::Routine;
@@ -424,20 +425,47 @@ test 'Deleting editors removes most information' => sub {
     $model->delete(1);
     my $bob = $model->get_by_id(1);
 
-    is($bob->name, 'Deleted Editor #' . $bob->id);
-    is($bob->password, Authen::Passphrase::RejectAll->new->as_rfc2307);
-    is($bob->privileges, 0);
+    is(
+        $bob->name,
+        'Deleted Editor #' . $bob->id,
+        'The editor name is now "Deleted Editor" plus an ID',
+    );
+    is(
+        $bob->password,
+        Authen::Passphrase::RejectAll->new->as_rfc2307,
+        'The password has been deleted',
+    );
+    is($bob->privileges, 0, 'The editor privileges have been blanked');
     my $edit_counts = $model->various_edit_counts($bob->id);
-    is($edit_counts->{accepted_count}, 1);
-    is($edit_counts->{rejected_count}, 1);
-    is($edit_counts->{accepted_auto_count}, 0);
-    is($edit_counts->{failed_count}, 1);
-    is($bob->deleted, 1);
+    is(
+        $edit_counts->{accepted_count},
+        1,
+        'The editor’s accepted edit count is unchanged',
+    );
+    is(
+        $edit_counts->{rejected_count},
+        1,
+        'The editor’s rejected edit count is unchanged',
+    );
+    is(
+        $edit_counts->{accepted_auto_count},
+        0,
+        'The editor’s auto-accepted edit count is unchanged',
+    );
+    is(
+        $edit_counts->{failed_count},
+        1,
+        'The editor’s failed edit count is unchanged',
+    );
+    is($bob->deleted, 1, 'The editor is marked as deleted');
 
     # The name should be prevented from being reused by default (MBS-9271).
-    ok($c->sql->select_single_value(
-        'SELECT 1 FROM old_editor_name WHERE name = ?', 'Bob'
-    ));
+    ok(
+        $c->sql->select_single_value(
+            'SELECT 1 FROM old_editor_name WHERE name = ?', 'Bob'
+        ),
+        'The editor name is listed in old_editor_name as not reusable',
+    );
 
     # Ensure all other attributes are cleared
     my $exclusions = Set::Scalar->new(
@@ -448,12 +476,12 @@ test 'Deleting editors removes most information' => sub {
     for my $attribute (grep { !$exclusions->contains($_->name) }
                            object_attributes($bob)) {
         attribute_value_is($attribute, $bob, undef,
-                           $attribute->name . ' is now undef');
+                           $attribute->name . ' has been blanked');
     }
 
     # Ensure all languages have been cleared
     $c->model('EditorLanguage')->load_for_editor($bob);
-    is(@{ $bob->languages }, 0);
+    is(@{ $bob->languages }, 0, 'The editor languages have been blanked');
 
     # Ensure all preferences are cleared
     my $prefs = $bob->preferences;
@@ -464,7 +492,7 @@ test 'Deleting editors removes most information' => sub {
         else {
             attribute_value_is(
                 $attribute, $prefs, $attribute->default($prefs),
-                'Preference ' . $attribute->name . ' was cleared');
+                'Preference ' . $attribute->name . ' has been blanked');
         }
     }
 
@@ -472,7 +500,7 @@ test 'Deleting editors removes most information' => sub {
     my $tags = $c->sql->select_single_column_array(
         'SELECT tag FROM area_tag_raw WHERE editor = ?', 1
     );
-    is(@$tags, 0);
+    is(@$tags, 0, 'All tags by the editor have been blanked');
 };
 
 test 'Deleting an editor cancels all open edits' => sub {
@@ -481,6 +509,7 @@ test 'Deleting an editor cancels all open edits' => sub {
 
     MusicBrainz::Server::Test->prepare_test_database($test->c, '+editor');
 
+    note('We enter an autoedit for the editor');
     my $applied_edit = $c->model('Edit')->create(
         edit_type => $EDIT_ARTIST_EDIT,
         editor_id => 1,
@@ -490,8 +519,13 @@ test 'Deleting an editor cancels all open edits' => sub {
         isni_codes => [],
     );
 
-    is($applied_edit->status, $STATUS_APPLIED);
+    is(
+        $applied_edit->status,
+        $STATUS_APPLIED,
+        'The edit is marked as applied',
+    );
 
+    note('We enter a normal edit for the editor');
     my $open_edit = $c->model('Edit')->create(
         edit_type => $EDIT_ARTIST_EDIT,
         editor_id => 1,
@@ -502,12 +536,21 @@ test 'Deleting an editor cancels all open edits' => sub {
         privileges => $UNTRUSTED_FLAG,
     );
 
-    is($open_edit->status, $STATUS_OPEN);
+    is($open_edit->status, $STATUS_OPEN, 'The edit is marked as open');
 
+    note('We delete the editor');
     $c->model('Editor')->delete(1);
 
-    is($c->model('Edit')->get_by_id($applied_edit->id)->status, $STATUS_APPLIED);
-    is($c->model('Edit')->get_by_id($open_edit->id)->status, $STATUS_DELETED);
+    is(
+        $c->model('Edit')->get_by_id($applied_edit->id)->status,
+        $STATUS_APPLIED,
+        'The autoedit is still marked as applied',
+    );
+    is(
+        $c->model('Edit')->get_by_id($open_edit->id)->status,
+        $STATUS_DELETED,
+        'The open edit is now marked as cancelled',
+    );
 };
 
 test 'Deleting an editor changes all Yes/No votes on open edits to Abstain' => sub {
@@ -614,7 +657,11 @@ test 'Deleting an editor unsubscribes anyone who was subscribed to them' => sub 
         SQL
 
     $c->model('Editor')->delete(1);
-    is(scalar($c->model('Editor')->subscription->get_subscriptions(2)), 0);
+    is(
+        scalar($c->model('Editor')->subscription->get_subscriptions(2)),
+        0,
+        'The editor has no subscribers anymore',
+    );
 };
 
 test 'Open edit and last-24-hour counts' => sub {
@@ -623,6 +670,7 @@ test 'Open edit and last-24-hour counts' => sub {
 
     MusicBrainz::Server::Test->prepare_test_database($test->c, '+editor');
 
+    note('We enter an autoedit for the editor');
     $c->model('Edit')->create(
         edit_type => $EDIT_ARTIST_EDIT,
         editor_id => 1,
@@ -632,7 +680,8 @@ test 'Open edit and last-24-hour counts' => sub {
         isni_codes => []
     );
 
-    my $open_edit = $c->model('Edit')->create(
+    note('We enter a normal for the editor');
+    $c->model('Edit')->create(
         edit_type => $EDIT_ARTIST_EDIT,
         editor_id => 1,
         to_edit => $c->model('Artist')->get_by_id(1),
@@ -642,10 +691,16 @@ test 'Open edit and last-24-hour counts' => sub {
         privileges => $UNTRUSTED_FLAG,
     );
 
-    is($open_edit->status, $STATUS_OPEN);
-
-    is($c->model('Editor')->various_edit_counts(1)->{open_count}, 1, 'Open edit count is 1');
-    is($c->model('Editor')->last_24h_edit_count(1), 2, 'Last 24h count is 2');
+    is(
+        $c->model('Editor')->various_edit_counts(1)->{open_count},
+        1,
+        'The editor’s open edit count is 1',
+    );
+    is(
+        $c->model('Editor')->last_24h_edit_count(1),
+        2,
+        'The editor’s last 24h edit count is 2',
+    );
 };
 
 test 'subscription_summary' => sub {
@@ -681,19 +736,29 @@ test 'subscription_summary' => sub {
         INSERT INTO editor_subscribe_series (id, editor, series, last_edit_sent) VALUES (1, 1, 1, 1);
         SQL
 
-    is_deeply($test->c->model('Editor')->subscription_summary(1),
-              { artist => 1,
-                collection => 1,
-                label => 1,
-                editor => 1,
-                series => 1 });
+    is_deeply(
+        $test->c->model('Editor')->subscription_summary(1),
+        {
+            artist => 1,
+            collection => 1,
+            label => 1,
+            editor => 1,
+            series => 1,
+        },
+        'The subscription summary for editor 1 has the expected counts',
+    );
 
-    is_deeply($test->c->model('Editor')->subscription_summary(2),
-              { artist => 0,
-                collection => 0,
-                label => 1,
-                editor => 0,
-                series => 0 });
+    is_deeply(
+        $test->c->model('Editor')->subscription_summary(2),
+        {
+            artist => 0,
+            collection => 0,
+            label => 1,
+            editor => 0,
+            series => 0,
+        },
+        'The subscription summary for editor 2 has the expected counts',
+    );
 };
 
 
@@ -713,45 +778,45 @@ test 'Searching editor by email (for admin only)' => sub {
 
     diag('Bounded search with trimmed user info and escaped host name (recommended)');
     my ($editors, $hits) = $editor_data->search_by_email('^abc@f\.g\.h$');
-    is($hits => 2, 'found 2 editors');
-    is(@$editors[0]->id => 1, 'is editor #1');
-    is(@$editors[1]->id => 2, 'is editor #2');
+    is($hits => 2, 'Found 2 editors');
+    is(@$editors[0]->id => 1, 'First is editor #1');
+    is(@$editors[1]->id => 2, 'Second is editor #2');
 
     diag('Bounded search with trimmed user info and escaped host name (ALL CAPS)');
     ($editors, $hits) = $editor_data->search_by_email('^ABC@F\.G\.H$');
-    is($hits => 2, 'found 2 editors');
-    is(@$editors[0]->id => 1, 'is editor #1');
-    is(@$editors[1]->id => 2, 'is editor #2');
+    is($hits => 2, 'Found 2 editors');
+    is(@$editors[0]->id => 1, 'First is editor #1');
+    is(@$editors[1]->id => 2, 'Second is editor #2');
 
     diag('Search with trimmed user info suffix and escaped host name prefix');
     ($editors, $hits) = $editor_data->search_by_email('bc@f\.g');
-    is($hits => 2, 'found 2 editors');
-    is(@$editors[0]->id => 1, 'is editor #1');
-    is(@$editors[1]->id => 2, 'is editor #2');
+    is($hits => 2, 'Found 2 editors');
+    is(@$editors[0]->id => 1, 'First is editor #1');
+    is(@$editors[1]->id => 2, 'Second is editor #2');
 
     diag('Search with trimmed user info and unescaped host name');
     ($editors, $hits) = $editor_data->search_by_email('abc@f.g.h');
-    is($hits => 3, 'found 3 editors');
-    is(@$editors[0]->id => 1, 'is editor #1');
-    is(@$editors[1]->id => 2, 'is editor #2');
+    is($hits => 3, 'Found 3 editors');
+    is(@$editors[0]->id => 1, 'First is editor #1');
+    is(@$editors[1]->id => 2, 'Second is editor #2');
     # Special character '.' matches '-'
-    is(@$editors[2]->id => 3, 'is editor #3');
+    is(@$editors[2]->id => 3, 'Third is editor #3');
 
     diag('Search with trimmed user info only');
     ($editors, $hits) = $editor_data->search_by_email('abc@');
-    is($hits => 4, 'found 4 editors');
-    is(@$editors[0]->id => 1, 'is editor #1');
-    is(@$editors[1]->id => 2, 'is editor #2');
-    is(@$editors[2]->id => 3, 'is editor #3');
-    is(@$editors[3]->id => 5, 'is editor #5');
+    is($hits => 4, 'Found 4 editors');
+    is(@$editors[0]->id => 1, 'First is editor #1');
+    is(@$editors[1]->id => 2, 'Second is editor #2');
+    is(@$editors[2]->id => 3, 'Third is editor #3');
+    is(@$editors[3]->id => 5, 'Fourth is editor #5');
 
     diag('Search with untrimmed unescaped user info only');
     ($editors, $hits) = $editor_data->search_by_email('a.b.c+d.e@');
-    is($hits => 0, 'found 0 editors');
+    is($hits => 0, 'Found 0 editors');
 
     diag('Search with untrimmed escaped user info only');
     ($editors, $hits) = $editor_data->search_by_email('a\.b\.c\+d\.e@');
-    is($hits => 0, 'found 0 editors');
+    is($hits => 0, 'Found 0 editors');
 };
 
 1;
