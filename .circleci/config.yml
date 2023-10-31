@@ -9,7 +9,7 @@ executors:
 
   musicbrainz-tests-perl-5-dot-30:
     docker:
-      - image: metabrainz/musicbrainz-tests:v-2023-08
+      - image: metabrainz/musicbrainz-tests:v-2023-11-perl5.30
         user: root
     working_directory: /home/musicbrainz/musicbrainz-server
 
