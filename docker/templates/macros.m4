@@ -3,10 +3,8 @@ m4_divert(-1)
 m4_define(
     `apt_install',
     `m4_dnl
-apt-get update && ( \
-    apt-get install --no-install-suggests --no-install-recommends -y $1 || ( \
-        apt-key adv --keyserver keyserver.ubuntu.com --refresh-keys && \
-        apt-get install --no-install-suggests --no-install-recommends -y $1 ) ) && \
+apt-get update && \
+    apt-get install --no-install-suggests --no-install-recommends -y $1 && \
     rm -rf /var/lib/apt/lists/*')
 
 m4_define(`apt_purge', `apt-get purge --auto-remove -y $1')
@@ -20,9 +18,9 @@ m4_define(
     `m4_dnl
 COPY docker/yarn_pubkey.txt /tmp/
 copy_mb(``package.json yarn.lock ./'')
-RUN apt-key add /tmp/yarn_pubkey.txt && \
+RUN cp /tmp/yarn_pubkey.txt /etc/apt/keyrings/yarn.asc && \
     rm /tmp/yarn_pubkey.txt && \
-    echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
+    echo "deb [signed-by=/etc/apt/keyrings/yarn.asc] https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
     apt_install(``git python3-minimal yarn'') && \
     cd /tmp && \
     curl -sLO https://deb.nodesource.com/node_18.x/pool/main/n/nodejs/NODEJS_DEB && \
@@ -99,9 +97,9 @@ ENV PERL_CARTON_PATH /home/musicbrainz/carton-local
 ENV PERL_CPANM_OPT --notest --no-interactive
 
 COPY docker/pgdg_pubkey.txt /tmp/
-RUN apt-key add /tmp/pgdg_pubkey.txt && \
+RUN cp /tmp/pgdg_pubkey.txt /etc/apt/keyrings/pgdg.asc && \
     rm /tmp/pgdg_pubkey.txt && \
-    echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
+    echo "deb [signed-by=/etc/apt/keyrings/pgdg.asc] http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
     apt_install(`mbs_build_deps mbs_run_deps') && \
     wget -q -O - https://cpanmin.us | perl - App::cpanminus && \
     cpanm Carton JSON::XS && \

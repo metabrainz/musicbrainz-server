@@ -14,12 +14,11 @@ RUN apt-get update && \
         ca-certificates \
         curl \
         gnupg && \
-    apt-key add pgdg_pubkey.txt && \
-    apt-key add yarn_pubkey.txt && \
+    cp pgdg_pubkey.txt /etc/apt/keyrings/pgdg.asc && \
+    cp yarn_pubkey.txt /etc/apt/keyrings/yarn.asc && \
     rm pgdg_pubkey.txt yarn_pubkey.txt && \
-    apt-key adv --keyserver keyserver.ubuntu.com --refresh-keys 'Yarn' && \
-    echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
-    echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
+    echo "deb [signed-by=/etc/apt/keyrings/pgdg.asc] http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
+    echo "deb [signed-by=/etc/apt/keyrings/yarn.asc] https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
     curl -sLO https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
     curl -sLO https://deb.nodesource.com/node_18.x/pool/main/n/nodejs/nodejs_18.17.1-deb-1nodesource1_amd64.deb && \
     apt-get update && \
