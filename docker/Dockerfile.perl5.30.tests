@@ -185,17 +185,20 @@ RUN curl -sLO https://github.com/validator/validator/releases/download/18.11.5/v
 RUN echo 'en_US.UTF-8 UTF-8' > /etc/locale.gen && \
     locale-gen
 
-ENV PGDATA /home/musicbrainz/pgdata
+ENV PGHOME /var/lib/postgresql
+ENV PGDATA "$PGHOME"/data
 
 RUN mkdir -p "$PGDATA" && \
-    chown postgres:postgres "$PGDATA" && \
+    chown -R postgres:postgres "$PGHOME" && \
+    cd "$PGHOME" && \
     chmod 700 "$PGDATA" && \
     sudo -u postgres /usr/lib/postgresql/12/bin/initdb \
         --data-checksums \
         --encoding utf8 \
         --locale en_US.UTF8 \
         --username postgres \
-        --pgdata "$PGDATA"
+        --pgdata "$PGDATA" && \
+    cd -
 
 COPY --chown=postgres:postgres \
     docker/musicbrainz-tests/pg_hba.conf \
