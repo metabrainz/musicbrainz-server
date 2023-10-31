@@ -2,11 +2,12 @@
 # Translators:
 # Nozomu KURASAWA <email address hidden>, 2012
 # "joysriram.sarkar.56" <joysriram.sarkar.56@gmail.com>, 2023.
+# julian45 <techieboy45@gmail.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-10-10 13:27+0000\n"
-"Last-Translator: \"joysriram.sarkar.56\" <joysriram.sarkar.56@gmail.com>\n"
+"PO-Revision-Date: 2023-10-27 01:27+0000\n"
+"Last-Translator: julian45 <techieboy45@gmail.com>\n"
 "Language-Team: Japanese <https://translations.metabrainz.org/projects/"
 "musicbrainz/scripts/ja/>\n"
 "Language: ja\n"
@@ -14,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.0.2\n"
+"X-Generator: Weblate 5.1\n"
 
 #. frequency:1 iso_code:Afak 
 #: DB:script/name:133
@@ -34,7 +35,7 @@ msgstr "アルメニア文字"
 #. frequency:1 iso_code:Avst 
 #: DB:script/name:114
 msgid "Avestan"
-msgstr "アヴェスター文字"
+msgstr "アベスタ語"
 
 #. frequency:2 iso_code:Bali 
 #: DB:script/name:72
@@ -89,7 +90,7 @@ msgstr "ブライユ点字"
 #. frequency:2 iso_code:Bugi 
 #: DB:script/name:75
 msgid "Buginese"
-msgstr "ブギス文字"
+msgstr "ブギス語"
 
 #. frequency:2 iso_code:Buhd 
 #: DB:script/name:78
@@ -239,7 +240,7 @@ msgstr "ギリシア文字"
 #. frequency:3 iso_code:Gujr 
 #: DB:script/name:52
 msgid "Gujarati"
-msgstr "グジャラーティー文字"
+msgstr "グジャラート語"
 
 #. frequency:3 iso_code:Guru 
 #: DB:script/name:49
@@ -274,7 +275,7 @@ msgstr "ハヌノオ文字"
 #. frequency:4 iso_code:Hebr 
 #: DB:script/name:11
 msgid "Hebrew"
-msgstr "ヘブライ文字"
+msgstr "ヘブライ語"
 
 #. frequency:3 iso_code:Hira 
 #: DB:script/name:83
@@ -379,7 +380,7 @@ msgstr "クペレ文字"
 #. frequency:3 iso_code:Laoo 
 #: DB:script/name:69
 msgid "Lao"
-msgstr "ラーオ文字"
+msgstr "ラーオ語"
 
 #. frequency:4 iso_code:Latn 
 #: DB:script/name:28
@@ -684,7 +685,7 @@ msgstr "シンボル"
 #. frequency:2 iso_code:Syrc 
 #: DB:script/name:12
 msgid "Syriac"
-msgstr "シリア文字"
+msgstr "シリア語"
 
 #. frequency:1 iso_code:Syrn 
 #: DB:script/name:13
@@ -704,7 +705,7 @@ msgstr "シリア文字（セルトー体。西方書体とも）"
 #. frequency:2 iso_code:Tglg 
 #: DB:script/name:76
 msgid "Tagalog"
-msgstr "タガログ文字"
+msgstr "タガログ語"
 
 #. frequency:2 iso_code:Tagb 
 #: DB:script/name:79

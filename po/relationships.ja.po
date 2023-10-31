@@ -13,18 +13,20 @@
 # Shunsuke Shimizu <email address hidden>, 2016,2019
 # 和田篤 <email address hidden>, 2019
 # 和田篤 <email address hidden>, 2019
+# julian45 <techieboy45@gmail.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2012-05-24 18:50+0000\n"
-"Last-Translator: David Papenburg, 2022\n"
-"Language-Team: Japanese (http://app.transifex.com/musicbrainz/musicbrainz/"
-"language/ja/)\n"
+"PO-Revision-Date: 2023-10-27 01:27+0000\n"
+"Last-Translator: julian45 <techieboy45@gmail.com>\n"
+"Language-Team: Japanese <https://translations.metabrainz.org/projects/"
+"musicbrainz/relationship-types/ja/>\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 5.1\n"
 
 #: DB:link_attribute_type/description:1355
 msgid "A performance-centered, usually one to three year postgraduate program."
@@ -3354,7 +3356,7 @@ msgstr "既婚のアーティストをリンクする。"
 msgid ""
 "This links different revisions of the same <a href=\"/doc/Work\" title=\"Work"
 "\">work</a>."
-msgstr "同一作品の別リビジョンをリンクする。"
+msgstr "同一<a href=\"/doc/Work\" title=\"作品\">作品</a>の別リビジョンをリンクする。"
 
 #: DB:link_type/description:212
 msgid "This links to a catalog or list of records published by the label."
@@ -4301,7 +4303,7 @@ msgid ""
 msgstr ""
 "これは、誰かが共同[役割]（共同プロデューサー、共同エンジニアなど）- 一般的に"
 "特定の活動に依存する特定の意味を持っていますが、単に「何人かの人々が協力して"
-"いた」とは異なる - としてクレジットされている場合にのみ使用のこと。 "
+"いた」とは異なる - としてクレジットされている場合にのみ使用のこと。"
 
 #: DB:link_type/description:949
 msgid ""
