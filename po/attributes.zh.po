@@ -2,18 +2,20 @@
 # Translators:
 # Dian Li <email address hidden>, 2009-2019
 # Gary Liu, 2022
+# suming <331874545@qq.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2012-05-24 18:52+0000\n"
-"Last-Translator: Gary Liu, 2022\n"
-"Language-Team: Chinese (http://app.transifex.com/musicbrainz/musicbrainz/"
-"language/zh/)\n"
+"PO-Revision-Date: 2023-10-15 18:27+0000\n"
+"Last-Translator: suming <331874545@qq.com>\n"
+"Language-Team: Chinese (Simplified) <https://translations.metabrainz.org/"
+"projects/musicbrainz/attributes/zh_Hans/>\n"
 "Language: zh\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 5.0.2\n"
 
 #: DB:work_type/description:9
 msgctxt "work_type"
@@ -21,14 +23,16 @@ msgid ""
 "\"Motet\" is a term that applies to different types of (usually "
 "unaccompanied) choral works. What exactly is a motet depends quite a bit on "
 "the period."
-msgstr ""
+msgstr "“颂歌”是一个术语，适用于不同类型的(通常是无伴奏的)合唱作品。什么是颂歌，在很"
+"大程度上取决于那个时期。"
 
 #: DB:work_type/description:5
 msgctxt "work_type"
 msgid ""
 "\"Sonata\" is a general term used to describe small scale (very often solo "
 "or solo + keyboard) instrumental works, initially in baroque music."
-msgstr ""
+msgstr "“奏鸣曲”是用来描述小型(通常是独奏或独奏+键盘)器乐作品的总称，最初出现在巴洛克"
+"音乐中。"
 
 #: DB:medium_format/name:54
 msgctxt "medium_format"
@@ -63,7 +67,7 @@ msgstr "3.5\" 软盘"
 #: DB:medium_format/name:91
 msgctxt "medium_format"
 msgid "5.25\" Floppy Disk"
-msgstr ""
+msgstr "5.25寸软盘"
 
 #: DB:medium_format/name:52
 msgctxt "medium_format"
@@ -103,14 +107,14 @@ msgstr "8cm CD+G"
 #: DB:medium_format/description:166
 msgctxt "medium_format"
 msgid "8cm DVD disc, often used for video singles."
-msgstr ""
+msgstr "8厘米的DVD光盘，常用于视频单曲。"
 
 #: DB:medium_format/description:58
 msgctxt "medium_format"
 msgid ""
 "90 rpm, vertical-cut shellac discs, produced by the Pathé label from 1906 to "
 "1932."
-msgstr ""
+msgstr "90转/分，垂直切割紫胶光盘，由Pathé标签公司于1906年至1932年生产。"
 
 #: DB:release_group_secondary_type/description:1
 msgctxt "release_group_secondary_type"
@@ -143,6 +147,27 @@ msgid ""
 "for example, a various artists soundtrack using pre-released music should be "
 "marked as both a soundtrack and a compilation.</p>"
 msgstr ""
+"<p>为了MusicBrainz数据库的目的，汇编包括以下类型的发行版：</p>\n"
+"\n"
+"<ul>\n"
+"<li>从不同的旧来源(不一定是发行的)组合在一起的录音的合辑。例如，“最好的”、回"
+"顾性的或稀有类型的发布。</li>\n"
+"<li>一个不同艺术家的歌曲合辑，通常基于一个普遍的主题(“情人之歌”)，一个特定的"
+"时期(“1998年的金曲”)，或一些其他类型的分组(“电影歌曲”，“咖啡馆del "
+"Mar”系列等)。</li>\n"
+"</ul>\n"
+"\n"
+"<p>MusicBrainz项目一般不认为以下内容是合辑:</p>\n"
+"\n"
+"<ul>\n"
+"<li>重新发行的专辑，即使它包含额外的曲目。</li>\n"
+"<li>一份包含另一位艺术家音乐翻唱的致敬专辑。</li>\n"
+"<li>古典音乐唱片:包含古典艺术家作品新录音的古典音乐唱片</li>\n"
+"<li>包含几位艺术家的新音乐的分次发行</li>\n"
+"</ul>\n"
+"\n"
+"<p>合辑应该是对其他类型的补充，而不是替代:例如，使用预发行音乐的各种艺术家的"
+"原声带应该同时标记为原声带和合辑。</p>"
 
 #: DB:release_group_primary_type/description:2
 msgctxt "release_group_primary_type"
@@ -180,6 +205,26 @@ msgid ""
 "songs by two different artists are released on the one disc, typically vinyl."
 "</p>"
 msgstr ""
+"<p>单曲根据发行市场的不同有不同的定义。</p>\n"
+"\n"
+"<ul>\n"
+"<li>在美国市场，一首单曲通常有一首主歌，可能还有几首额外的曲目或主歌的混音;单"
+"曲通常以主歌命名;这首单曲的发布主要是为了获得电台播放和促进发行销售。</li>\n"
+"<li>英国市场(也包括澳大利亚和欧洲)与美国市场类似，但单曲通常以两张唱片的形式"
+"发行，每张唱片单独销售。他们有时也会有一个较长的单曲版本(通常是将两张唱片版本"
+"的歌曲组合在一起)，这与美国风格的单曲非常相似，这被称为“最大单曲”。(在某些情"
+"况下，最大单曲比单曲的发行时间还要长!)</li>\n"
+"<li>日本市场的驱动因素要单一得多。决定因素通常是单曲的长度和售价。直到1995年"
+"，这些单曲都普遍使用迷你CD格式发行，基本上就是一张直径通常为8厘米的小CD。大约"
+"在1995年，8厘米的单曲被淘汰，而标准的12厘米CD单曲现在更常见;一般来说，1995年"
+"以前发行的单曲，即使最初发行的是8cm格式，重新发行时也会采用12cm格式。日本的单"
+"曲通常会有这些歌曲的器乐版本，也有像英国这样的混合版本的最大单曲。有时候一张"
+"超级单曲会比一张EP包含更多的曲目，但因为它是由相同的2-3首歌的交替版本组成的，"
+"所以它仍然被归类为单曲。</li>\n"
+"</ul>\n"
+"\n"
+"<p>这首单曲还有其他的变体，称为“分裂单曲”，即由两个不同的艺术家的歌曲在一张唱"
+"片中发布，通常是黑胶唱片。</p>"
 
 #: DB:medium_format/description:95
 msgctxt "medium_format"
@@ -187,14 +232,15 @@ msgid ""
 "A \"digital collectible\" device, mostly used for k-pop music, that is "
 "connected to a phone via Bluetooth or headphone jack and unlocks the release "
 "for listening in a companion app for a limited period of time."
-msgstr ""
+msgstr "这是一种“数字收藏”设备，主要用于韩国流行音乐，通过蓝牙或耳机接口连接到手机，"
+"并在有限的时间内解锁，可以在配套的应用程序中收听。"
 
 #: DB:place_type/description:9
 msgctxt "place_type"
 msgid ""
 "A (usually green) space kept available for recreation in an otherwise built "
 "and populated area."
-msgstr ""
+msgstr "一种(通常是绿色的)可供娱乐的空间，在其他建筑和人口稠密的地区。"
 
 #: DB:medium_format/description:129
 msgctxt "medium_format"
@@ -202,7 +248,8 @@ msgid ""
 "A CD that contains both audio and data in the same session. The data is "
 "often in the first track, that will have to be skipped in many audio "
 "players. Relatively common in old video game CDs."
-msgstr ""
+msgstr "在同一个会话中同时包含音频和数据的CD。数据通常位于首音轨中，这在许多音频播放"
+"器中必须跳过。在老式的电子游戏光盘中比较常见。"
 
 #: DB:medium_format/description:42
 msgctxt "medium_format"
@@ -210,7 +257,8 @@ msgid ""
 "A CD that contains two sessions, one with audio and one with data. Since "
 "they are properly separated, audio players will not try to play the data "
 "session and it won't be part of the disc ID for the CD."
-msgstr ""
+msgstr "包含两个会话的CD，一个是音频会话，一个是数据会话。因为它们被正确地分开了，音"
+"频播放机不会尝试播放数据会话，它也不会成为CD光盘ID的一部分。"
 
 #: DB:release_group_secondary_type/description:8
 msgctxt "release_group_secondary_type"
@@ -221,6 +269,9 @@ msgid ""
 "manner, and the DJ who does this modification is usually (although not "
 "always) credited in a fairly prominent way."
 msgstr ""
+"dj混音是一个接一个播放的一系列录音，每一个都经过修改，使它们融合在一起成为连"
+"续的音乐流。一个DJ的混音版本要求以某种方式修改录音，而做这种修改的DJ通常(尽管"
+"不是总是)以一种相当显著的方式被记录下来。"
 
 #: DB:work_attribute_type_allowed_value/value:794
 msgctxt "work_attribute_type_allowed_value"
@@ -237,19 +288,19 @@ msgctxt "work_type"
 msgid ""
 "A ballet is music composed to be used, together with a choreography, for a "
 "ballet dance production."
-msgstr ""
+msgstr "芭蕾舞剧是为芭蕾舞剧创作的音乐，与舞蹈编排一起使用。"
 
 #: DB:release_packaging/description:19
 msgctxt "release_packaging"
 msgid "A box usually containing multiple discs as part of a boxed set."
-msgstr ""
+msgstr "盒装碟通常装有多张碟片，作为盒装套装的一部分。"
 
 #: DB:work_type/description:3
 msgctxt "work_type"
 msgid ""
 "A cantata is a vocal (often choral) composition with an instrumental "
 "(usually orchestral) accompaniment, typically in several movements."
-msgstr ""
+msgstr "康塔塔是一种声乐(通常是合唱)与器乐(通常是管弦乐)伴奏的作品，通常有几个乐章。"
 
 #: DB:medium_format/description:46
 msgctxt "medium_format"
@@ -258,20 +309,21 @@ msgid ""
 "itself directly, but provides a code to download it digitally. Often bundled "
 "with physical releases but sometimes sold as a standalone item (especially "
 "in Asia)."
-msgstr ""
+msgstr "一张卡片(或其他类似的物理支持)，它不直接包含音乐本身，但提供了一个数字下载的"
+"代码。通常与实体发行捆绑销售，但有时单独出售(特别是在亚洲)。"
 
 #: DB:label_type/description:10
 msgctxt "label_type"
 msgid ""
 "A company that manufactures physical releases (such as pressing CDs or vinyl "
 "records)."
-msgstr ""
+msgstr "生产实体发行(如压制cd或黑胶唱片)的公司。"
 
 #: DB:work_type/description:4
 msgctxt "work_type"
 msgid ""
 "A concerto is a musical work for soloist(s) accompanied by an orchestra."
-msgstr ""
+msgstr "协奏曲是在管弦乐队伴奏下为独奏者演奏的音乐作品。"
 
 #: DB:event_type/description:4
 msgctxt "event_type"
@@ -279,7 +331,8 @@ msgid ""
 "A convention, expo or trade fair is an event which is not typically "
 "orientated around music performances, but can include them as side "
 "activities."
-msgstr ""
+msgstr "会议、博览会或贸易博览会是一种通常不以音乐表演为中心的活动，但可以将其作为附"
+"带活动。"
 
 #: DB:release_status/description:2
 msgctxt "release_status"
@@ -287,43 +340,46 @@ msgid ""
 "A give-away release or a release intended to promote an upcoming official "
 "release (e.g. pre-release versions, releases included with a magazine, "
 "versions supplied to radio DJs for air-play)."
-msgstr ""
+msgstr "免费发行或为宣传即将发布的正式版本而发行的版本(例如，预发行版本，杂志中包含的"
+"版本，提供给电台dj播放的版本)。"
 
 #: DB:artist_type/description:2
 msgctxt "artist_type"
 msgid ""
 "A grouping of multiple musicians who perform together (in some cases, some "
 "or all of the members might differ in different performances or recordings)."
-msgstr ""
+msgstr "一个由多名音乐家组成的团体，他们一起表演(在某些情况下，一些或所有的成员可能在"
+"不同的表演或录音中有所不同)。"
 
 #: DB:instrument_type/description:7
 msgctxt "instrument_type"
 msgid ""
 "A grouping of related but different instruments, like the different violin-"
 "like instruments"
-msgstr ""
+msgstr "一组相关但不同的乐器，就像类似小提琴的不同的乐器"
 
 #: DB:label_type/description:5
 msgctxt "label_type"
 msgid "A label that primarily puts out unsanctioned (bootleg) releases."
-msgstr ""
+msgstr "主要发行未经授权(盗版)作品的唱片公司。"
 
 #: DB:release_packaging/description:55
 msgctxt "release_packaging"
 msgid ""
 "A large cardboard box often used until the mid-1990s to sell CDs in North "
 "America, so that they would fit existing vinyl racks in stores."
-msgstr ""
+msgstr "一种大型纸板箱，直到20世纪90年代中期，常用于在北美销售cd，以便它们能装进商店"
+"里现有的黑胶货架。"
 
 #: DB:place_type/description:43
 msgctxt "place_type"
 msgid "A large, permanent outdoor stage, typically with a fixed seating area."
-msgstr ""
+msgstr "一个大型的、永久性的户外舞台，通常有固定的座位区。"
 
 #: DB:work_attribute_type_allowed_value/value:28
 msgctxt "work_attribute_type_allowed_value"
 msgid "A major"
-msgstr ""
+msgstr "主要的"
 
 #: DB:work_type/description:8
 msgctxt "work_type"
@@ -332,6 +388,8 @@ msgid ""
 "Christian Eucharistic liturgy (Kyrie - Gloria - Credo - Sanctus - Benedictus "
 "- Agnus Dei, with other portions sometimes added) to music."
 msgstr ""
+"mass是一种合唱作品，它将基督教圣体礼拜仪式的不变部分(Kyrie - Gloria - Credo -"
+" Sanctus - Benedictus - Agnus Dei，有时添加其他部分)设置为音乐。"
 
 #: DB:event_type/description:5
 msgctxt "event_type"
@@ -339,38 +397,39 @@ msgid ""
 "A masterclass or clinic is an event where an artist meets with a small to "
 "medium-sized audience and instructs them individually and/or takes questions "
 "intended to improve the audience members' playing skills."
-msgstr ""
+msgstr "大师班或诊所是艺术家与中小观众见面并单独指导他们和/或回答旨在提高观众演奏技巧"
+"的问题的活动。"
 
 #: DB:release_packaging/description:56
 msgctxt "release_packaging"
 msgid ""
 "A minimalistic plastic case where the back and front are kept together by a "
 "small hinge. Most commonly used for cheap promotion / DIY releases."
-msgstr ""
+msgstr "一个极简的塑料盒子，前后由一个小铰链保持在一起。最常用的廉价促销/ DIY版本。"
 
 #: DB:work_attribute_type_allowed_value/value:29
 msgctxt "work_attribute_type_allowed_value"
 msgid "A minor"
-msgstr ""
+msgstr "A小调"
 
 #: DB:work_type/description:13
 msgctxt "work_type"
 msgid ""
 "A partita is an instrumental piece composed of a series of variations, and "
 "it's by its current definition very similar to a suite."
-msgstr ""
+msgstr "partita是由一系列变奏曲组成的器乐作品，按照目前的定义，它与组曲非常相似。"
 
 #: DB:event_type/description:3
 msgctxt "event_type"
 msgid ""
 "A party, reception or other event held specifically for the launch of a "
 "release."
-msgstr ""
+msgstr "发布会:为发布某一产品而举行的聚会、招待会或其他活动。"
 
 #: DB:release_packaging/description:17
 msgctxt "release_packaging"
 msgid "A perfect bound book with a sleeve at the end to hold a CD"
-msgstr ""
+msgstr "一本精装的书，尾部有一个套筒，可以装一张CD"
 
 #: DB:event_type/description:6
 msgctxt "event_type"
@@ -380,11 +439,14 @@ msgid ""
 "\"https://en.wikipedia.org/wiki/Concert_performance\">concert performance</"
 "a> without staging)."
 msgstr ""
+"以舞台形式在舞台上演出一部或多部戏剧、音乐剧、歌剧、芭蕾或其他类似作品("
+"与不演出的<a href=\"https://en.wikipedia.org/wiki/Concert_performance\""
+">音乐会演出</a>相反)。"
 
 #: DB:place_type/description:8
 msgctxt "place_type"
 msgid "A place (generally a factory) at which physical media are manufactured."
-msgstr ""
+msgstr "制造物理介质的地方(通常是工厂)。"
 
 #: DB:place_type/description:5
 msgctxt "place_type"
@@ -392,7 +454,8 @@ msgid ""
 "A place consisting of a large enclosed area with a central event space "
 "surrounded by tiered seating for spectators, which can be used for indoor "
 "sports, concerts and other entertainment events."
-msgstr ""
+msgstr "一个由大型封闭区域组成的中心活动空间，周围环绕着观众的阶梯座位，可以用于室内"
+"运动、音乐会和其他娱乐活动。"
 
 #: DB:place_type/description:1
 msgctxt "place_type"
