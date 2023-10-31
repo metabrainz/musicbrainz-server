@@ -66,5 +66,16 @@
       target: 'document.activeElement === document.querySelector("#add-relationship-dialog select.entity-type")',
       value: 'true',
     },
+    {
+      command: 'open',
+      target: '/',
+      value: '',
+    },
+    // Dismiss the beforeunload alert (shown since relationships were changed).
+    {
+      command: 'handleAlert',
+      target: 'accept',
+      value: '',
+    },
   ],
 }

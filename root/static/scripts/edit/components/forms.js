@@ -65,7 +65,8 @@ MB.initializeArtistCredit = function (form, initialArtistCredit) {
  * the user if any of the page's form inputs have been changed.
  */
 MB.installFormUnloadWarning = function () {
-  let modified = false;
+  let inputsChanged = false;
+  let submittingForm = false;
 
   const form = document.querySelector('#page form');
 
@@ -74,18 +75,31 @@ MB.installFormUnloadWarning = function () {
    * user changes an input back to its original value.
    */
   form.addEventListener('change', () => {
-    modified = true;
+    inputsChanged = true;
   });
 
   // Disarm the warning when the form is being submitted.
   form.addEventListener('submit', () => {
-    modified = false;
+    submittingForm = true;
   });
 
   window.addEventListener('beforeunload', event => {
-    if (!modified) {
+    if (submittingForm) {
       return false;
     }
+
+    // Check if there are pending relationship or URL changes.
+    if (!inputsChanged && !form.querySelector([
+      '#relationship-editor .rel-add',
+      '#relationship-editor .rel-edit',
+      '#relationship-editor .rel-remove',
+      '#external-links-editor .rel-add',
+      '#external-links-editor .rel-edit',
+      '#external-links-editor .rel-remove',
+    ].join(', '))) {
+      return false;
+    }
+
     event.returnValue = l(
       'All of your changes will be lost if you leave this page.',
     );
