@@ -47,13 +47,15 @@
 # yvanz, 2018
 # reosarevok <reosarevok@gmail.com>, 2023.
 # Yllelder <yllelder@gmail.com>, 2023.
+# reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-09-27 17:01+0000\n"
-"PO-Revision-Date: 2023-10-01 20:27+0000\n"
-"Last-Translator: Yllelder <yllelder@gmail.com>\n"
+"PO-Revision-Date: 2023-10-20 16:27+0000\n"
+"Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
+".org>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/es/>\n"
 "Language: es\n"
@@ -516,7 +518,7 @@ msgstr "Artista:"
 #: ../root/cdtoc/attach_filter_release.tt:54
 msgctxt "button/menu"
 msgid "Attach CD TOC"
-msgstr "Asociar CD TOC"
+msgstr "Asociar TOC de CD"
 
 #: ../root/cdtoc/attach_artist_releases.tt:3
 #: ../root/cdtoc/attach_artist_releases.tt:4
@@ -527,7 +529,7 @@ msgstr "Asociar CD TOC"
 #: ../root/cdtoc/SelectArtistForCDToc.js:32
 msgctxt "header"
 msgid "Attach CD TOC"
-msgstr "Asociar CD TOC"
+msgstr "Asociar TOC de CD"
 
 #: ../root/cdtoc/lookup.tt:66 ../root/release/edit/tracklist.tt:478
 msgid "Attach Disc ID"
@@ -1249,7 +1251,7 @@ msgid ""
 "style guidelines}."
 msgstr ""
 "Para más información, consulta la {doc_doc|documentación} y las "
-"{doc_styleguide|guías de estilo}."
+"{doc_styleguide|directrices de estilo}."
 
 #: ../root/event/edit_form.tt:3 ../root/label/edit_form.tt:3
 #: ../root/place/edit_form.tt:3 ../root/work/edit_form.tt:4
@@ -1627,7 +1629,7 @@ msgid ""
 "one, using this CD TOC:"
 msgstr ""
 "Si no encuentras la publicación que estás buscando, puedes añadir una nueva "
-"a partir de este CD TOC:"
+"a partir de esta TOC de CD:"
 
 #: ../root/components/forms.tt:336 ../root/components/forms.tt:345
 msgid "If you don’t know the code for this entity, just leave the field blank."
@@ -2099,6 +2101,8 @@ msgid ""
 "None of the mediums on this release can have the given CD TOC attached, "
 "because they have the wrong number of tracks."
 msgstr ""
+"No puedes asociar esta TOC de CD a ninguno de los medios de esta "
+"publicación, ya que no tienen el mismo número de pistas."
 
 #: ../root/release/edit/information.tt:283
 msgid ""
@@ -2240,7 +2244,7 @@ msgstr ""
 
 #: ../root/cdtoc/attach_artist_releases.tt:7
 msgid "Please select the medium you wish to attach this CD TOC to."
-msgstr "Elige el medio al que quieres asociar este CD TOC."
+msgstr "Elige el medio al que quieres asociar esta TOC de CD."
 
 #: ../root/cdtoc/list.tt:6 ../root/release/reorder_cover_art.tt:10
 #: ../root/edit/details/EditMedium.js:469
@@ -4194,11 +4198,11 @@ msgstr "'{id}' no es una ID de elección válida"
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:78
 msgid "Please provide a CD TOC ID."
-msgstr ""
+msgstr "Debes indicar una ID para la TOC de CD."
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:82
 msgid "The provided CD TOC ID is not valid."
-msgstr ""
+msgstr "La ID de TOC de CD suministrada no es válida."
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:88
 msgid "Please provide a medium ID."
@@ -4219,6 +4223,8 @@ msgid ""
 "The provided CD TOC ID doesn’t exist or is not connected to the provided "
 "medium."
 msgstr ""
+"La ID de TOC de CD suministrada no existe o no está asociada al medio "
+"suministrado."
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:153
 msgid "Please provide a medium ID"
@@ -4235,6 +4241,10 @@ msgid ""
 "your software maker if it persists, including the technical information "
 "below."
 msgstr ""
+"La TOC de CD suministrada no es válida, probablemente debido a un problema "
+"con el programa que hayas utilizado para generarla. Inténtalo de nuevo, y si "
+"sigue sin funcionar házselo saber a los desarrolladores de tu programa ("
+"junto con la información técnica que encontrarás más abajo)."
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:213
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:435
@@ -4252,7 +4262,7 @@ msgstr "La ID de artista indicada no es válida"
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:421
 msgid "The provided CD TOC ID doesn’t exist."
-msgstr ""
+msgstr "La ID de TOC de CD suministrada no existe."
 
 #: ../lib/MusicBrainz/Server/Controller/Collection.pm:77
 #, perl-brace-format
@@ -4901,6 +4911,8 @@ msgid ""
 "The CD TOC the track times were being set from has been removed since this "
 "edit was entered."
 msgstr ""
+"La TOC de CD que esta edición intentaba usar para actualizar las duraciones "
+"de las pistas ha sido eliminada tras la creación de la edición."
 
 #: ../lib/MusicBrainz/Server/Edit/Place/AddAlias.pm:11
 msgid "Add place alias"
@@ -6083,7 +6095,7 @@ msgid ""
 "A compilation is a collection of previously released tracks by one or more "
 "artists."
 msgstr ""
-"Un recopilatorio es una colección de canciones ya publicadas, de uno o más "
+"Una recopilación es una colección de canciones ya publicadas de uno o más "
 "artistas."
 
 #: ../lib/MusicBrainz/Server/Release.pm:35
@@ -6715,7 +6727,7 @@ msgstr "Flags de administración"
 
 #: ../root/admin/EditUser.js:141
 msgid "<abbr title=\"MusicBrainz Identifier\">MBID</abbr> submitter"
-msgstr "<abbr title=\"Identificador de MusicBrainz\">MBID</abbr> remitente"
+msgstr "Emisor de <abbr title=\"Identificador de MusicBrainz\">MBID</abbr>s"
 
 #: ../root/admin/EditUser.js:148 ../root/admin/PrivilegeSearch.js:140
 msgid "Account admin"
@@ -6779,7 +6791,7 @@ msgstr ""
 
 #: ../root/admin/PrivilegeSearch.js:135
 msgid "MBID submitter"
-msgstr ""
+msgstr "Emisor de MBIDs"
 
 #: ../root/admin/attributes/Attribute.js:30
 msgid "Disc IDs allowed"
@@ -7806,7 +7818,7 @@ msgstr ""
 
 #: ../root/cdtoc/AttachCDTocConfirmation.js:88
 msgid "CD TOC track lengths"
-msgstr ""
+msgstr "Duración de las pistas en esta TOC de CD"
 
 #: ../root/cdtoc/AttachCDTocConfirmation.js:90
 msgid "Medium track lengths"
@@ -7814,7 +7826,7 @@ msgstr ""
 
 #: ../root/cdtoc/CDTocInfo.js:23
 msgid "CD TOC details"
-msgstr "Detalles del CD TOC"
+msgstr "Detalles de la TOC de CD"
 
 #: ../root/cdtoc/CDTocInfo.js:32 ../root/edit/details/AddDiscId.js:34
 #: ../root/edit/details/MoveDiscId.js:26
@@ -9140,7 +9152,7 @@ msgstr ""
 
 #: ../root/edit/components/ListHeader.js:222 ../root/main/index.js:180
 msgid "Style guidelines"
-msgstr "Convenciones de estilo"
+msgstr "Directrices de estilo"
 
 #: ../root/edit/components/VoteTally.js:31
 msgid "automatically applied"
@@ -9699,7 +9711,7 @@ msgstr ""
 
 #: ../root/edit/details/historic/AddDiscId.js:23
 msgid "CD TOC:"
-msgstr "CD TOC:"
+msgstr "TOC de CD:"
 
 #: ../root/edit/details/historic/AddRelationship.js:20
 #: ../root/edit/details/historic/RemoveRelationship.js:22
@@ -10089,11 +10101,11 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:43
 msgid "CD TOC Not Found"
-msgstr "No se ha encontrado un CD TOC"
+msgstr "No se ha encontrado una TOC de CD"
 
 #: ../root/entity/NotFound.js:44
 msgid "Sorry, we could not find the CD TOC you specified."
-msgstr "No hemos encontrado el CD TOC que has indicado."
+msgstr "No hemos encontrado la TOC de CD que has indicado."
 
 #: ../root/entity/NotFound.js:49
 msgid "Collection Not Found"
@@ -10750,7 +10762,7 @@ msgstr "Guía para principiantes"
 
 #: ../root/layout/components/BottomMenu.js:301
 msgid "Style Guidelines"
-msgstr "Convenciones de estilo"
+msgstr "Directrices de estilo"
 
 #: ../root/layout/components/BottomMenu.js:304
 msgid "How Tos"
@@ -12262,13 +12274,13 @@ msgid ""
 "name, rather than the actual disambiguation comment field."
 msgstr ""
 "Este informe muestra artistas que parecen tener comentarios de "
-"disambiguación como parte del nombre, en vez de en el campo de "
-"disambiguación."
+"desambiguación como parte del nombre, en vez de en el campo de "
+"desambiguación."
 
 #: ../root/report/ArtistsContainingDisambiguationComments.js:30
 #: ../root/report/ReportsIndex.js:84
 msgid "Artists containing disambiguation comments in their name"
-msgstr "Artistas cuyo nombre contiene disambiguación"
+msgstr "Artistas cuyo nombre contiene desambiguación"
 
 #: ../root/report/ArtistsDisambiguationSameName.js:24
 msgid ""
@@ -12642,8 +12654,8 @@ msgstr ""
 "Este informe muestra artistas con nombres muy similares. Si dos de ellos son "
 "realmente el mismo, fusiónalos (no olvides {how_to_write_edit_notes|dejar "
 "una nota} con las pruebas que tengas). Si son diferentes, añade "
-"{disambiguation_comment|comentarios de disambiguación}; cuando todos los "
-"artistas con el mismo nombre tengan comentarios de disambiguación, dejarán "
+"{disambiguation_comment|comentarios de desambiguación}; cuando todos los "
+"artistas con el mismo nombre tengan comentarios de desambiguación, dejarán "
 "de aparecer en este informe."
 
 #: ../root/report/DuplicateArtists.js:55 ../root/report/ReportsIndex.js:71
@@ -13435,7 +13447,7 @@ msgstr ""
 "Si te gustaría editar MusicBrainz, pero no sabes por dónde empezar, estos "
 "informes pueden resultar útiles. Para crearlos se analiza la base de datos "
 "en busca de información que quizá deba ser modificada, ya sea para seguir "
-"las {style|convenciones de estilo} o por otras razones de organización."
+"las {style|directrices de estilo} o por otras razones de organización."
 
 #: ../root/report/ReportsIndex.js:75
 msgid "Artists which have collaboration relationships"
