@@ -1,11 +1,12 @@
 #
 # Translators:
 # Водка665 <edmondpayne@protonmail.com>, 2023.
+# yurirhsilva <yurirhsilva@gmail.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-10-09 17:27+0000\n"
-"Last-Translator: Водка665 <edmondpayne@protonmail.com>\n"
+"PO-Revision-Date: 2023-10-17 02:27+0000\n"
+"Last-Translator: yurirhsilva <yurirhsilva@gmail.com>\n"
 "Language-Team: Portuguese <https://translations.metabrainz.org/projects/"
 "musicbrainz/attributes/pt/>\n"
 "Language: pt\n"
@@ -5255,7 +5256,7 @@ msgstr ""
 #: DB:work_type/name:29
 msgctxt "work_type"
 msgid "Musical"
-msgstr ""
+msgstr "Musical"
 
 #: DB:work_type/description:29
 msgctxt "work_type"
@@ -5263,6 +5264,8 @@ msgid ""
 "Musical theatre is a form of theatrical performance that combines songs, "
 "spoken dialogue, acting, and dance."
 msgstr ""
+"O teatro musical é uma forma de apresentação teatral que combina canções, "
+"diálogo falado, atuação e dança."
 
 #: DB:work_attribute_type_allowed_value/value:748
 msgctxt "work_attribute_type_allowed_value"
@@ -5832,37 +5835,37 @@ msgstr ""
 #: DB:cover_art_archive.art_type/name:8
 msgctxt "cover_art_type"
 msgid "Other"
-msgstr ""
+msgstr "Outro"
 
 #: DB:gender/name:3
 msgctxt "gender"
 msgid "Other"
-msgstr ""
+msgstr "Outro"
 
 #: DB:medium_format/name:13
 msgctxt "medium_format"
 msgid "Other"
-msgstr ""
+msgstr "Outro"
 
 #: DB:place_type/name:3
 msgctxt "place_type"
 msgid "Other"
-msgstr ""
+msgstr "Outro"
 
 #: DB:release_group_primary_type/name:11
 msgctxt "release_group_primary_type"
 msgid "Other"
-msgstr ""
+msgstr "Outro"
 
 #: DB:release_packaging/name:5
 msgctxt "release_packaging"
 msgid "Other"
-msgstr ""
+msgstr "Outro"
 
 #: DB:instrument_type/name:5
 msgctxt "instrument_type"
 msgid "Other instrument"
-msgstr ""
+msgstr "Outro instrumento"
 
 #: DB:work_type/name:12
 msgctxt "work_type"
