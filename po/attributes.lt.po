@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-09-24 15:27+0000\n"
+"PO-Revision-Date: 2023-10-08 19:27+0000\n"
 "Last-Translator: \"Vac31.\" <gateway_31@protonmail.com>\n"
 "Language-Team: Lithuanian <https://translations.metabrainz.org/projects/"
 "musicbrainz/attributes/lt/>\n"
@@ -14,8 +14,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
-"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
-"1 : n % 1 != 0 ? 2: 3);\n"
+"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 :"
+" n % 1 != 0 ? 2: 3);\n"
 "X-Generator: Weblate 5.0.2\n"
 
 #: DB:work_type/description:9
@@ -120,6 +120,8 @@ msgid ""
 "90 rpm, vertical-cut shellac discs, produced by the Pathé label from 1906 to "
 "1932."
 msgstr ""
+"90 apsukų per minutę, vertikaliai pjaustyti šelako diskai, kuriuos leidykla "
+"Pathé gamino nuo 1906 iki 1932 m."
 
 #: DB:release_group_secondary_type/description:1
 msgctxt "release_group_secondary_type"
@@ -271,6 +273,9 @@ msgid ""
 "often in the first track, that will have to be skipped in many audio "
 "players. Relatively common in old video game CDs."
 msgstr ""
+"CD, kuriame yra ir garsas, ir duomenys tame pačiame seanse. Duomenys dažnai "
+"būna pirmajame takelyje, kurį daugelyje garso grotuvų tenka praleisti. "
+"Santykinai dažnai sutinkamas senuose vaizdo žaidimų CD."
 
 #: DB:medium_format/description:42
 msgctxt "medium_format"
@@ -279,6 +284,9 @@ msgid ""
 "they are properly separated, audio players will not try to play the data "
 "session and it won't be part of the disc ID for the CD."
 msgstr ""
+"CD, kuriame yra dvi sesijos – viena su garsu, kita su duomenimis. Kadangi "
+"jos tinkamai atskirtos, garso grotuvai nebandys groti duomenų sesijos ir ji "
+"nebus įtraukta į CD disko ID."
 
 #: DB:release_group_secondary_type/description:8
 msgctxt "release_group_secondary_type"
@@ -289,6 +297,11 @@ msgid ""
 "manner, and the DJ who does this modification is usually (although not "
 "always) credited in a fairly prominent way."
 msgstr ""
+"DJ miksas – tai kelių įrašų, grojantys vienas po kito, seka, kiekvienas "
+"modifikuotas taip, kad susilietų į vientisą muzikos srautą. DJ mikso "
+"leidinys reikalauja, kad įrašai būtų kaip nors modifikuoti, o šį "
+"modifikavimą atlikęs (-usi) DJ paprastai (nors ne visada) būna įrašytas (-a) "
+"gana ryškiai."
 
 #: DB:work_attribute_type_allowed_value/value:794
 msgctxt "work_attribute_type_allowed_value"
@@ -366,6 +379,9 @@ msgid ""
 "A grouping of multiple musicians who perform together (in some cases, some "
 "or all of the members might differ in different performances or recordings)."
 msgstr ""
+"Grupė, susidedanti iš kelių muzikantų, kurie muzikuoja kartu (kai kuriais "
+"atvejais, kai kurie ar visi nariai gali skirtis skirtinguose pasirodymuose "
+"arba įrašuose)."
 
 #: DB:instrument_type/description:7
 msgctxt "instrument_type"
@@ -373,11 +389,14 @@ msgid ""
 "A grouping of related but different instruments, like the different violin-"
 "like instruments"
 msgstr ""
+"Susijusių, bet skirtingų instrumentų grupė, kaip skirtingi į smuiką panašūs "
+"instrumentai"
 
 #: DB:label_type/description:5
 msgctxt "label_type"
 msgid "A label that primarily puts out unsanctioned (bootleg) releases."
 msgstr ""
+"Leidykla, kuri daugiausia išleidžia nesankcionuotus (neoficialus) leidinius."
 
 #: DB:release_packaging/description:55
 msgctxt "release_packaging"
@@ -391,7 +410,7 @@ msgstr ""
 #: DB:place_type/description:43
 msgctxt "place_type"
 msgid "A large, permanent outdoor stage, typically with a fixed seating area."
-msgstr ""
+msgstr "Didelė nuolatinė lauko scena, paprastai su stacionaria sėdimų vieta."
 
 #: DB:work_attribute_type_allowed_value/value:28
 msgctxt "work_attribute_type_allowed_value"
@@ -488,6 +507,9 @@ msgid ""
 "Religious buildings often host concerts and serve as recording locations, "
 "especially for classical music."
 msgstr ""
+"Vieta, kurioje atliekama pagrindinė garbinimo ar religijos studijų funkcija. "
+"Religiniuose pastatuose dažnai rengiami koncertai ir naudojamos kaip įrašų "
+"vietos, ypač klasikinės muzikos."
 
 #: DB:place_type/description:4
 msgctxt "place_type"
@@ -587,31 +609,33 @@ msgid ""
 "A school, university or other similar educational institution (especially, "
 "but not only, one where music is taught)"
 msgstr ""
+"Mokykla, universitetas ar kita panaši švietimo įstaiga (ypač, bet ne tik ta, "
+"kurioje mokoma muzikos)"
 
 #: DB:series_type/description:14
 msgctxt "series_type"
 msgid "A series of artists honoured by the same award."
-msgstr ""
+msgstr "Serija atlikėjų, pagerbtų tuo pačiu apdovanojimu."
 
 #: DB:series_type/description:13
 msgctxt "series_type"
 msgid "A series of artists."
-msgstr ""
+msgstr "Atlikėjų serija."
 
 #: DB:series_type/description:15
 msgctxt "series_type"
 msgid "A series of award ceremonies, usually one per year."
-msgstr ""
+msgstr "Apdovanojimų ceremonijų serija, paprastai viena per metus."
 
 #: DB:series_type/description:6
 msgctxt "series_type"
 msgid "A series of events."
-msgstr ""
+msgstr "Renginių serija."
 
 #: DB:series_type/description:9
 msgctxt "series_type"
 msgid "A series of performances of the same show at the same venue."
-msgstr ""
+msgstr "Pasirodymų serija to paties šou toje pačioje vietoje."
 
 #: DB:series_type/description:48
 msgctxt "series_type"
@@ -708,6 +732,10 @@ msgid ""
 "as soundtracks because the musical properties of the CDs are more "
 "interesting to MusicBrainz than their data properties."
 msgstr ""
+"Garso takelis – filmo, televizijos serialo, scenos šou, vaizdo žaidimo ar "
+"kitos medijos muzikinė partitūra. Vaizdo žaidimų CD su garso takeliais "
+"turėtų būti klasifikuojami kaip garso takeliai, nes MusicBrainz labiau "
+"domina muzikinės CD ypatybės nei jų duomenų ypatybės."
 
 #: DB:instrument_type/description:6
 msgctxt "instrument_type"
@@ -787,6 +815,9 @@ msgid ""
 "and sung scenes, the latter incorporating operatic and popular song, as well "
 "as dance."
 msgstr ""
+"Zarzuela – ispanų lyrinis dramos kūrinys, kuriame kaitaliojamos kalbamos ir "
+"dainuojamos scenos, į pastarąsias įtraukiamos operinės ir populiarios "
+"dainos, taip pat šokiai."
 
 #: DB:work_attribute_type_allowed_value/value:26
 msgctxt "work_attribute_type_allowed_value"
@@ -811,42 +842,42 @@ msgstr ""
 #: DB:work_attribute_type/name:57
 msgctxt "work_attribute_type"
 msgid "AACIMH ID"
-msgstr ""
+msgstr "AACIMH ID"
 
 #: DB:work_attribute_type/name:44
 msgctxt "work_attribute_type"
 msgid "ACAM ID"
-msgstr ""
+msgstr "ACAM ID"
 
 #: DB:work_attribute_type/name:47
 msgctxt "work_attribute_type"
 msgid "ACDAM ID"
-msgstr ""
+msgstr "ACDAM ID"
 
 #: DB:work_attribute_type/name:58
 msgctxt "work_attribute_type"
 msgid "AEI ID"
-msgstr ""
+msgstr "AEI ID"
 
 #: DB:work_attribute_type/name:43
 msgctxt "work_attribute_type"
 msgid "AGADU ID"
-msgstr ""
+msgstr "AGADU ID"
 
 #: DB:work_attribute_type/name:63
 msgctxt "work_attribute_type"
 msgid "AKKA/LAA ID"
-msgstr ""
+msgstr "AKKA/LAA ID"
 
 #: DB:work_attribute_type/name:23
 msgctxt "work_attribute_type"
 msgid "AKM ID"
-msgstr ""
+msgstr "AKM ID"
 
 #: DB:work_attribute_type/name:38
 msgctxt "work_attribute_type"
 msgid "AMRA ID"
-msgstr ""
+msgstr "AMRA ID"
 
 #: DB:work_attribute_type/name:46
 msgctxt "work_attribute_type"
@@ -856,22 +887,22 @@ msgstr "APA ID"
 #: DB:work_attribute_type/name:41
 msgctxt "work_attribute_type"
 msgid "APDAYC ID"
-msgstr ""
+msgstr "APDAYC ID"
 
 #: DB:work_attribute_type/name:13
 msgctxt "work_attribute_type"
 msgid "APRA ID"
-msgstr ""
+msgstr "APRA ID"
 
 #: DB:work_attribute_type/name:48
 msgctxt "work_attribute_type"
 msgid "ARTISJUS ID"
-msgstr ""
+msgstr "ARTISJUS ID"
 
 #: DB:work_attribute_type/name:6
 msgctxt "work_attribute_type"
 msgid "ASCAP ID"
-msgstr ""
+msgstr "ASCAP ID"
 
 #: DB:work_attribute_type_allowed_value/value:299
 msgctxt "work_attribute_type_allowed_value"
@@ -1054,6 +1085,9 @@ msgid ""
 "accompaniment. They are most common inside operas, but also appear in "
 "cantatas, oratorios and even on their own (concert arias)."
 msgstr ""
+"Arija – tai savarankiškas kūrinys vienam balsui, paprastai su orkestro "
+"akompanimentu. Dažniausiai jos būna operose, tačiau taip pat skamba "
+"kantatose, oratorijose ir netgi atskirai (koncertinės arijos)."
 
 #: DB:work_type/description:25
 msgctxt "work_type"
@@ -1061,6 +1095,8 @@ msgid ""
 "An audio drama is a dramatized, purely acoustic performance, broadcast on "
 "radio or published on an audio medium (tape, CD, etc.)."
 msgstr ""
+"Garso drama – dramatizuotas grynai akustinis spektaklis, transliuotas per "
+"radiją arba išleistas garso laikmenoje (kasetėje, CD ir pan.)."
 
 #: DB:release_group_secondary_type/description:11
 msgctxt "release_group_secondary_type"
@@ -1069,11 +1105,14 @@ msgid ""
 "always, meant for radio). Unlike audiobooks, it usually has multiple "
 "performers rather than a main narrator."
 msgstr ""
+"Garso drama – tai tik garsinis pjesės atlikimas (dažnai, bet ne visada, "
+"skirtas radijui). Skirtingai nei garso knygose, paprastai ją atlieka keli "
+"atlikėjai, o ne pagrindinis pasakotojas (-a)."
 
 #: DB:release_group_secondary_type/description:5
 msgctxt "release_group_secondary_type"
 msgid "An audiobook is a book read by a narrator without music."
-msgstr ""
+msgstr "Garso knyga – knyga, kurią skaito pasakotojas (-a) be muzikos."
 
 #: DB:event_type/description:7
 msgctxt "event_type"
@@ -1082,6 +1121,9 @@ msgid ""
 "but often includes musical performances in between the awarding of said "
 "prizes, especially for musical awards."
 msgstr ""
+"Apdovanojimų ceremonija – tai renginys, kuriame daugiausia dėmesio skiriama "
+"apdovanojimams įteikti, tačiau dažnai tarp apdovanojimų įteikimo vyksta "
+"muzikiniai pasirodymai, ypač muzikinių apdovanojimai."
 
 #: DB:release_group_primary_type/description:12
 msgctxt "release_group_primary_type"
@@ -1089,6 +1131,8 @@ msgid ""
 "An episodic release that was originally broadcast via radio, television, or "
 "the Internet, including podcasts."
 msgstr ""
+"Epizodinis leidinys, kuris iš pradžių buvo transliuojamas per radiją, "
+"televiziją ar internetą, įskaitant tinklalaides."
 
 #: DB:event_type/description:2
 msgctxt "event_type"
