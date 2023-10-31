@@ -9,7 +9,7 @@
 
 /* eslint-disable no-unused-vars */
 
-declare type CompT<T> = {
+declare type CompT<+T> = {
   +new: T,
   +old: T,
 };
