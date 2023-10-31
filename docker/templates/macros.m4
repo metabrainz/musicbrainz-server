@@ -11,21 +11,17 @@ m4_define(`apt_purge', `apt-get purge --auto-remove -y $1')
 
 m4_define(`sudo_mb', `sudo -E -H -u musicbrainz $1')
 
-m4_define(`NODEJS_DEB', `nodejs_18.17.1-deb-1nodesource1_amd64.deb')
-
 m4_define(
     `install_javascript',
     `m4_dnl
-COPY docker/yarn_pubkey.txt /tmp/
+COPY docker/nodesource_pubkey.txt docker/yarn_pubkey.txt /tmp/
 copy_mb(``package.json yarn.lock ./'')
-RUN cp /tmp/yarn_pubkey.txt /etc/apt/keyrings/yarn.asc && \
-    rm /tmp/yarn_pubkey.txt && \
+RUN cp /tmp/nodesource_pubkey.txt /etc/apt/keyrings/nodesource.asc && \
+    cp /tmp/yarn_pubkey.txt /etc/apt/keyrings/yarn.asc && \
+    rm /tmp/nodesource_pubkey.txt /tmp/yarn_pubkey.txt && \
+    echo "deb [signed-by=/etc/apt/keyrings/nodesource.asc] https://deb.nodesource.com/node_20.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list && \
     echo "deb [signed-by=/etc/apt/keyrings/yarn.asc] https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
-    apt_install(``git python3-minimal yarn'') && \
-    cd /tmp && \
-    curl -sLO https://deb.nodesource.com/node_18.x/pool/main/n/nodejs/NODEJS_DEB && \
-    dpkg -i NODEJS_DEB && \
-    cd - && \
+    apt_install(``git nodejs python3-minimal yarn'') && \
     sudo_mb(``yarn install$1'')
 copy_mb(``babel.config.cjs ./'')')
 

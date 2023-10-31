@@ -3,13 +3,13 @@ version: 2.1
 executors:
   musicbrainz-tests:
     docker:
-      - image: metabrainz/musicbrainz-tests:v-2023-08
+      - image: metabrainz/musicbrainz-tests:v-2023-11
         user: root
     working_directory: /home/musicbrainz/musicbrainz-server
 
-  musicbrainz-tests-node-v16:
+  musicbrainz-tests-perl-5-dot-30:
     docker:
-      - image: metabrainz/musicbrainz-tests:v-2022-10
+      - image: metabrainz/musicbrainz-tests:v-2023-08
         user: root
     working_directory: /home/musicbrainz/musicbrainz-server
 
@@ -51,8 +51,8 @@ jobs:
       - store_test_results:
           path: ./junit_output
 
-  js-perl-and-pgtap-node-v16:
-    executor: musicbrainz-tests-node-v16
+  js-perl-and-pgtap-perl-5-dot-30:
+    executor: musicbrainz-tests-perl-5-dot-30
     steps:
       - restore_cache:
           keys:
@@ -72,13 +72,13 @@ jobs:
 
       - restore_cache:
           keys:
-            - v2-node-v16-{{ checksum "yarn.lock" }}
-            - v2-node-v16-
+            - v2-perl-5-dot-30-{{ checksum "yarn.lock" }}
+            - v2-perl-5-dot-30-
       - run: |
           chown -R musicbrainz:musicbrainz .
           sudo -E -H -u musicbrainz yarn
       - save_cache:
-          key: v2-node-v16-{{ checksum "yarn.lock" }}
+          key: v2-perl-5-dot-30-{{ checksum "yarn.lock" }}
           paths:
             - "node_modules"
 
@@ -93,4 +93,4 @@ workflows:
   build-and-test:
     jobs:
       - js-perl-and-pgtap
-      - js-perl-and-pgtap-node-v16
+      - js-perl-and-pgtap-perl-5-dot-30
