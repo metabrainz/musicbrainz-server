@@ -106,7 +106,8 @@ RUN wget -q -O - https://cpanmin.us | perl - App::cpanminus && \
 ENV PERL_CARTON_PATH="/home/musicbrainz/carton-local" \
     PERL_CPANM_OPT="--notest --no-interactive"
 
-COPY --chown=musicbrainz:musicbrainz cpanfile cpanfile.snapshot ./
+COPY --chown=musicbrainz:musicbrainz cpanfile ./
+COPY --chown=musicbrainz:musicbrainz cpanfile.perl5.30.snapshot ./cpanfile.snapshot
 RUN sudo -E -H -u musicbrainz carton install --deployment && \
     rm cpanfile cpanfile.snapshot
 
