@@ -19,11 +19,13 @@
 # Ulrich Klauer <email address hidden>, 2016
 # chaban <chaban@users.noreply.translations.metabrainz.org>, 2023.
 # Philipp Wolfer <ph.wolfer@gmail.com>, 2023.
+# kellnerd <kellnerd@users.noreply.translations.metabrainz.org>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-08-31 20:27+0000\n"
-"Last-Translator: Philipp Wolfer <ph.wolfer@gmail.com>\n"
+"PO-Revision-Date: 2023-10-31 00:27+0000\n"
+"Last-Translator: kellnerd <kellnerd@users.noreply.translations.metabrainz."
+"org>\n"
 "Language-Team: German <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/de/>\n"
 "Language: de\n"
@@ -31,7 +33,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.18.2\n"
+"X-Generator: Weblate 5.1\n"
 
 #: DB:link_attribute_type/description:1355
 msgid "A performance-centered, usually one to three year postgraduate program."
@@ -4577,7 +4579,7 @@ msgstr "Copyright"
 
 #: DB:link_type/reverse_link_phrase:708 DB:link_type/reverse_link_phrase:709
 msgid "copyrighted (©) by"
-msgstr ""
+msgstr "urheberrechtlich geschützt (©) von"
 
 #: DB:link_attribute_type/name:1349
 msgid "counterpoint"
@@ -5646,6 +5648,9 @@ msgid ""
 "is a {live} {medley:medley including a} {partial} {instrumental} {cover} "
 "{karaoke} recording of"
 msgstr ""
+"ist {medley:ein|eine} {live} {medley:Medley inklusive einer} "
+"{partial:teilweise} "
+"{instrumental:Instrumental-}{cover:Cover-}{karaoke:Karaoke-}Aufnahme von"
 
 #: DB:link_type/long_link_phrase:15
 msgid "is a {translated} {parody} cover of"
@@ -6573,7 +6578,7 @@ msgstr "phonographisches Urheberrecht"
 #: DB:link_type/reverse_link_phrase:867 DB:link_type/reverse_link_phrase:711
 #: DB:link_type/reverse_link_phrase:710 DB:link_type/reverse_link_phrase:869
 msgid "phonographic copyright (℗) by"
-msgstr ""
+msgstr "phonographisches Urheberrecht (℗) von"
 
 #: DB:link_type/name:123 DB:link_type/name:1175 DB:link_type/name:20
 msgid "photography"
@@ -8353,23 +8358,23 @@ msgstr ""
 
 #: DB:link_type/link_phrase:756 DB:link_type/link_phrase:697
 msgid "{additional} {pre:pre-}{re}mastering location for"
-msgstr ""
+msgstr "{additional:zusätzlicher} {pre:Pre-}{re:Remastering|Mastering}-Ort für"
 
 #: DB:link_type/reverse_link_phrase:888
 msgid "{anniversary:anniversary tour for|tour in support of}"
-msgstr ""
+msgstr "{anniversary:Jubiläumstour für|Tour zur Unterstützung von}"
 
 #: DB:link_type/link_phrase:888
 msgid "{anniversary:anniversary tours|supporting tours}"
-msgstr ""
+msgstr "{anniversary:Jubiläumstouren|Unterstützungstouren}"
 
 #: DB:link_type/reverse_link_phrase:1186 DB:link_type/reverse_link_phrase:1187
 msgid "{assistant} audio director"
-msgstr ""
+msgstr "{assistant:assistierender} Audio‐Regisseur"
 
 #: DB:link_type/link_phrase:1186 DB:link_type/link_phrase:1187
 msgid "{assistant} audio director for"
-msgstr ""
+msgstr "{assistant:assistierender} Audio‐Regisseur für"
 
 #: DB:link_type/reverse_link_phrase:1165
 msgid "{assistant} carillonneur"
@@ -8389,11 +8394,11 @@ msgstr "{assistant:assistierende} Organisten"
 
 #: DB:link_type/reverse_link_phrase:962 DB:link_type/reverse_link_phrase:1185
 msgid "{assistant} video director"
-msgstr ""
+msgstr "{assistant:assistierender} Video‐Regisseur"
 
 #: DB:link_type/link_phrase:962 DB:link_type/link_phrase:1185
 msgid "{assistant} video director for"
-msgstr ""
+msgstr "{assistant:assistierender} Video‐Regisseur für"
 
 #: DB:link_type/reverse_link_phrase:305
 msgid "{assistant} {principal} {guest} conductor {emeritus}"
@@ -8434,39 +8439,39 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:854
 msgid "{entity1} has a BookBrainz page at {entity0}"
-msgstr ""
+msgstr "{entity1} hat eine BookBrainz‐Seite unter {entity0}"
 
 #: DB:link_type/long_link_phrase:971
 msgid "{entity1} has a Discogs page at {entity0}"
-msgstr ""
+msgstr "{entity1} hat eine Discogs‐Seite unter {entity0}"
 
 #: DB:link_type/long_link_phrase:280
 msgid "{entity1} has a SecondHandSongs page at {entity0}"
-msgstr ""
+msgstr "{entity1} hat eine SecondHandSongs‐Seite unter {entity0}"
 
 #: DB:link_type/long_link_phrase:289
 msgid "{entity1} has a Songfacts page at {entity0}"
-msgstr ""
+msgstr "{entity1} hat eine Songfacts‐Seite unter {entity0}"
 
 #: DB:link_type/long_link_phrase:992
 msgid "{entity1} has a VGMdb page at {entity0}"
-msgstr ""
+msgstr "{entity1} hat eine VGMdb‐Seite unter {entity0}"
 
 #: DB:link_type/long_link_phrase:351
 msgid "{entity1} has a Wikidata page at {entity0}"
-msgstr ""
+msgstr "{entity1} hat eine Wikidata‐Seite unter {entity0}"
 
 #: DB:link_type/long_link_phrase:279
 msgid "{entity1} has a Wikipedia page at {entity0}"
-msgstr ""
+msgstr "{entity1} hat eine Wikipedia‐Seite unter {entity0}"
 
 #: DB:link_type/long_link_phrase:908
 msgid "{entity1} has a crowdfunding page at {entity0}"
-msgstr ""
+msgstr "{entity1} hat eine Crowdfunding‐Seite unter {entity0}"
 
 #: DB:link_type/long_link_phrase:1188
 msgid "{entity1} has a fan page at {entity0}"
-msgstr ""
+msgstr "{entity1} hat eine Fanseite unter {entity0}"
 
 #: DB:link_type/long_link_phrase:273
 msgid "{entity1} has a page in a database at {entity0}"
@@ -8796,12 +8801,16 @@ msgid ""
 "{live} {medley:medley including a} {partial} {instrumental} {cover} "
 "{karaoke} recording of"
 msgstr ""
+"{live} {medley:Medley inklusive einer} {partial:teilweise} "
+"{instrumental:Instrumental-}{cover:Cover-}{karaoke:Karaoke-}Aufnahme von"
 
 #: DB:link_type/reverse_link_phrase:278
 msgid ""
 "{live} {medley:medleys including} {partial} {instrumental} {cover} {karaoke} "
 "recordings"
 msgstr ""
+"{live} {medley:Medleys inklusive} {partial:teilweiser} "
+"{instrumental:Instrumental-}{cover:Cover-}{karaoke:Karaoke-}Aufnahmen von"
 
 #: DB:link_type/link_phrase:109
 msgid "{step}children"

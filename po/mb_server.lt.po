@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-09-27 17:01+0000\n"
-"PO-Revision-Date: 2023-09-24 15:27+0000\n"
+"PO-Revision-Date: 2023-10-09 22:27+0000\n"
 "Last-Translator: \"Vac31.\" <gateway_31@protonmail.com>\n"
 "Language-Team: Lithuanian <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/lt/>\n"
@@ -21,8 +21,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
-"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
-"1 : n % 1 != 0 ? 2: 3);\n"
+"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 :"
+" n % 1 != 0 ? 2: 3);\n"
 "X-Generator: Weblate 5.0.2\n"
 
 #: ../root/components/common-macros.tt:12
@@ -1077,7 +1077,7 @@ msgstr "Galutinis taškas:"
 #: ../root/components/forms.tt:258 ../root/components/forms.tt:283
 #: ../root/static/scripts/edit/components/GuessCaseOptions.js:113
 msgid "English"
-msgstr "Anglų k."
+msgstr "Anglų"
 
 #: ../root/release/edit/tracklist.tt:3
 msgid "Enter a tracklist below:"
@@ -3102,7 +3102,7 @@ msgstr ""
 #: ../root/components/forms.tt:261 ../root/components/forms.tt:286
 #: ../root/static/scripts/edit/components/GuessCaseOptions.js:116
 msgid "Turkish"
-msgstr ""
+msgstr "Turkų"
 
 #: ../root/layout.tt:118 ../root/layout/components/Footer.js:34
 msgid "Twitter"
@@ -6329,7 +6329,7 @@ msgstr ""
 #: ../root/admin/EditBanner.js:39 ../root/admin/wikidoc/EditWikiDoc.js:51
 #: ../root/admin/wikidoc/WikiDocIndex.js:102
 msgid "Update"
-msgstr ""
+msgstr "Atnaujinti"
 
 #: ../root/account/applications/RegisterApplication.js:22
 #: ../root/account/applications/RegisterApplication.js:23
@@ -6400,7 +6400,7 @@ msgstr ""
 
 #: ../root/admin/DeleteUser.js:75
 msgid "Delete {e}"
-msgstr ""
+msgstr "Ištrinti {e}"
 
 #: ../root/admin/DeleteUser.js:84
 msgid ""
@@ -6456,7 +6456,7 @@ msgstr ""
 
 #: ../root/admin/EditUser.js:79 ../root/admin/PrivilegeSearch.js:67
 msgid "Auto-editor"
-msgstr ""
+msgstr "Autoredaktorius (-ė)"
 
 #: ../root/admin/EditUser.js:84 ../root/admin/PrivilegeSearch.js:72
 msgid "Transclusion editor"

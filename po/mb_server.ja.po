@@ -36,14 +36,14 @@
 # 和田篤 <email address hidden>, 2019
 # 工藤零大 <email address hidden>, 2021
 # reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2023.
+# julian45 <techieboy45@gmail.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-09-27 17:01+0000\n"
-"PO-Revision-Date: 2023-09-05 14:27+0000\n"
-"Last-Translator: reosarevok <reosarevok@users.noreply.translations."
-"metabrainz.org>\n"
+"PO-Revision-Date: 2023-10-27 01:27+0000\n"
+"Last-Translator: julian45 <techieboy45@gmail.com>\n"
 "Language-Team: Japanese <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/ja/>\n"
 "Language: ja\n"
@@ -51,7 +51,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.18.2\n"
+"X-Generator: Weblate 5.1\n"
 
 #: ../root/components/common-macros.tt:12
 msgid " ({text})"
@@ -580,7 +580,7 @@ msgid ""
 "so at {bugs|our bug tracker}. The information below will help, so please be "
 "sure to include it!"
 msgstr ""
-"エラー情報はこちらです。バグレポートをする場合、{bugs|our bug tracker}でして"
+"エラー情報はこちらです。バグレポートをする場合、{bugs|バグ管理システム}でして"
 "ください。エラー情報はバグの解決の手助けになります。バグレポートの際には、エ"
 "ラー情報も一緒に送信してください。"
 
@@ -701,7 +701,7 @@ msgstr "子順序"
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:162
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:58
 msgid "Child order:"
-msgstr " 子順序:"
+msgstr "子順序:"
 
 #: ../root/release/edit/recordings.tt:114
 msgid "Click Edit to edit the recording associations for this disc."
@@ -6164,7 +6164,7 @@ msgstr "プロフィールを編集"
 #: ../root/account/EditProfile.js:39
 msgid ""
 "See also your {uri|user preferences}, which include your privacy settings."
-msgstr "プライバシー設定が含まれる{uri|ユーザー設定}もご覧ください。 "
+msgstr "プライバシー設定が含まれる{uri|ユーザー設定}もご覧ください。"
 
 #: ../root/account/EmailVerificationStatus.js:19
 msgid "Email Verification"
@@ -7509,7 +7509,7 @@ msgstr "「{credit}」としてクレジット"
 
 #: ../root/artist_credit/ArtistCreditIndex.js:111
 msgid "Uses"
-msgstr " 使用例"
+msgstr "使用例"
 
 #: ../root/artist_credit/ArtistCreditIndex.js:124
 #: ../root/artist_credit/ArtistCreditLayout.js:26
@@ -7646,7 +7646,7 @@ msgid ""
 "{format} {pos} of {release} by {artist}?"
 msgstr ""
 "本当に {artist} {release} の {format} {pos} にディスクID <code>{discid}</"
-"code>  を付与してもよろしいですか？"
+"code> を付与してもよろしいですか？"
 
 #: ../root/cdtoc/AttachCDTocConfirmation.js:80
 msgid "Track duration comparison"
@@ -10752,7 +10752,7 @@ msgstr "最終変更:"
 
 #: ../root/layout/components/sidebar/CDStubSidebar.js:54
 msgid "Lookup count:"
-msgstr "検索件数: "
+msgstr "検索件数:"
 
 #: ../root/layout/components/sidebar/CDStubSidebar.js:58
 msgid "Modify count:"
@@ -14049,7 +14049,7 @@ msgstr ""
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:710
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:404
 msgid "standalone recording"
-msgstr " スタンドアロンレコーディング"
+msgstr "スタンドアロンレコーディング"
 
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:804
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:496
@@ -14458,7 +14458,7 @@ msgstr "賛成投票"
 
 #: ../root/static/scripts/common/components/TagEditor.js:141
 msgid "You’ve downvoted this tag"
-msgstr " あなたはこのタグに反対投票をしました"
+msgstr "あなたはこのタグに反対投票をしました"
 
 #: ../root/static/scripts/common/components/TagEditor.js:145
 msgid "Downvote"
@@ -16173,7 +16173,7 @@ msgstr "{link1|ユーザー名}あるいは{link2|パスワード}を忘れた�
 
 #: ../root/user/PrivilegedUsers.js:33 ../root/user/PrivilegedUsers.js:35
 msgid "Privileged user accounts"
-msgstr " 特権ユーザーアカウント"
+msgstr "特権ユーザーアカウント"
 
 #: ../root/user/PrivilegedUsers.js:37
 msgid "Auto-editors"

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-10-01 20:27+0000\n"
+"PO-Revision-Date: 2023-10-09 17:27+0000\n"
 "Last-Translator: \"Vac31.\" <gateway_31@protonmail.com>\n"
 "Language-Team: Lithuanian <https://translations.metabrainz.org/projects/"
 "musicbrainz/scripts/lt/>\n"
@@ -21,7 +21,7 @@ msgstr ""
 #. frequency:1 iso_code:Afak 
 #: DB:script/name:133
 msgid "Afaka"
-msgstr "Afakų"
+msgstr "Afaka"
 
 #. frequency:4 iso_code:Arab 
 #: DB:script/name:18
@@ -76,12 +76,12 @@ msgstr "Knyga Pahlavų"
 #. frequency:3 iso_code:Bopo 
 #: DB:script/name:42
 msgid "Bopomofo"
-msgstr "Bopomofotų"
+msgstr "Bopomofo"
 
 #. frequency:1 iso_code:Brah 
 #: DB:script/name:47
 msgid "Brahmi"
-msgstr "Brahmų"
+msgstr "Brahmi"
 
 #. frequency:2 iso_code:Brai 
 #: DB:script/name:96
@@ -216,27 +216,27 @@ msgstr "Etiopų"
 #. frequency:3 iso_code:Geor 
 #: DB:script/name:36
 msgid "Georgian"
-msgstr "Gruziniškas"
+msgstr "Gruzinų"
 
 #. frequency:2 iso_code:Glag 
 #: DB:script/name:33
 msgid "Glagolitic"
-msgstr "Glagolinis"
+msgstr "Glagolų"
 
 #. frequency:2 iso_code:Goth 
 #: DB:script/name:24
 msgid "Gothic"
-msgstr "Gotikinis"
+msgstr "Gotų"
 
 #. frequency:1 iso_code:Gran 
 #: DB:script/name:152
 msgid "Grantha"
-msgstr "Granthos"
+msgstr "Grantha"
 
 #. frequency:4 iso_code:Grek 
 #: DB:script/name:22
 msgid "Greek"
-msgstr "Graikiškas"
+msgstr "Graikų"
 
 #. frequency:3 iso_code:Gujr 
 #: DB:script/name:52
@@ -246,7 +246,7 @@ msgstr "Gudžaratų"
 #. frequency:3 iso_code:Guru 
 #: DB:script/name:49
 msgid "Gurmukhi"
-msgstr "Gurmuchų"
+msgstr "Gurmuchi"
 
 #. frequency:4 iso_code:Hani 
 #: DB:script/name:92
@@ -266,7 +266,7 @@ msgstr "Hanų (tradicinis variantas)"
 #. frequency:3 iso_code:Hang 
 #: DB:script/name:101
 msgid "Hangul"
-msgstr "Hangulo"
+msgstr "Hangul"
 
 #. frequency:2 iso_code:Hano 
 #: DB:script/name:77
@@ -371,7 +371,7 @@ msgstr "Chutsurų"
 #. frequency:4 iso_code:Kore 
 #: DB:script/name:43
 msgid "Korean"
-msgstr "Korėjietiškas"
+msgstr "Korėjiečių"
 
 #. frequency:1 iso_code:Kpel 
 #: DB:script/name:146
@@ -381,7 +381,7 @@ msgstr "Kpelių"
 #. frequency:3 iso_code:Laoo 
 #: DB:script/name:69
 msgid "Lao"
-msgstr "Laoso"
+msgstr "Laosų"
 
 #. frequency:4 iso_code:Latn 
 #: DB:script/name:28
@@ -471,32 +471,32 @@ msgstr "Meitei Majekų"
 #. frequency:1 iso_code:Mend 
 #: DB:script/name:148
 msgid "Mende"
-msgstr ""
+msgstr "Mendų"
 
 #. frequency:1 iso_code:Merc 
 #: DB:script/name:153
 msgid "Meroitic Cursive"
-msgstr ""
+msgstr "Meroitų kursyvas"
 
 #. frequency:1 iso_code:Mero 
 #: DB:script/name:8
 msgid "Meroitic Hieroglyphs"
-msgstr ""
+msgstr "Meroitų hieroglifai"
 
 #. frequency:1 iso_code:Plrd 
 #: DB:script/name:41
 msgid "Miao"
-msgstr ""
+msgstr "Miao"
 
 #. frequency:3 iso_code:Mong 
 #: DB:script/name:17
 msgid "Mongolian"
-msgstr ""
+msgstr "Mongolų"
 
 #. frequency:1 iso_code:Moon 
 #: DB:script/name:119
 msgid "Moon"
-msgstr ""
+msgstr "Mėnulis"
 
 #. frequency:1 iso_code:Mroo 
 #: DB:script/name:135
@@ -686,7 +686,7 @@ msgstr "Simbolių"
 #. frequency:2 iso_code:Syrc 
 #: DB:script/name:12
 msgid "Syriac"
-msgstr "Siriškas"
+msgstr "Sirų"
 
 #. frequency:1 iso_code:Syrn 
 #: DB:script/name:13
