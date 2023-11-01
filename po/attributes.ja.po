@@ -24,18 +24,20 @@
 # 和田篤 <email address hidden>, 2019
 # 和田篤 <email address hidden>, 2019
 # 和田篤 <email address hidden>, 2018
+# Jaken264 <korosuke0836@gmail.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2012-05-24 18:52+0000\n"
-"Last-Translator: Masuda Sunatomo <sunatomo@gmail.com>, 2021\n"
-"Language-Team: Japanese (http://app.transifex.com/musicbrainz/musicbrainz/"
-"language/ja/)\n"
+"PO-Revision-Date: 2023-10-24 14:27+0000\n"
+"Last-Translator: Jaken264 <korosuke0836@gmail.com>\n"
+"Language-Team: Japanese <https://translations.metabrainz.org/projects/"
+"musicbrainz/attributes/ja/>\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 5.0.2\n"
 
 #: DB:work_type/description:9
 msgctxt "work_type"
@@ -129,7 +131,7 @@ msgstr "8cm CD+G"
 #: DB:medium_format/description:166
 msgctxt "medium_format"
 msgid "8cm DVD disc, often used for video singles."
-msgstr ""
+msgstr "8cmDVDは、しばしばビデオシングルで使用されます。"
 
 #: DB:medium_format/description:58
 msgctxt "medium_format"
@@ -216,6 +218,9 @@ msgid ""
 "connected to a phone via Bluetooth or headphone jack and unlocks the release "
 "for listening in a companion app for a limited period of time."
 msgstr ""
+"「デジタルコレクティブル」端末は、大抵の場合K-POP音楽で使われるが、Bluetooth"
+"やヘッドフォンジャックを通じて携帯に接続され、コンパニオンアプリで聴けるリリ"
+"ースを期間限定で開放する。"
 
 #: DB:place_type/description:9
 msgctxt "place_type"
