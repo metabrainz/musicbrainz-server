@@ -72,7 +72,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-09-27 17:01+0000\n"
-"PO-Revision-Date: 2023-08-31 20:27+0000\n"
+"PO-Revision-Date: 2023-10-12 13:27+0000\n"
 "Last-Translator: Philipp Wolfer <ph.wolfer@gmail.com>\n"
 "Language-Team: German <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/de/>\n"
@@ -81,7 +81,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.18.2\n"
+"X-Generator: Weblate 5.0.2\n"
 
 #: ../root/components/common-macros.tt:12
 msgid " ({text})"
@@ -6108,7 +6108,7 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Form/User/Report.pm:40
 #: ../root/user/ReportUser.js:69
 msgid "Editor has violated some other part of our Code of Conduct"
-msgstr "Bearbeiter verletzte einen anderen Teil unserer Verhaltensregeln"
+msgstr "Bearbeiter verletzte einen anderen Teil unseres Verhaltenskodex"
 
 #: ../lib/MusicBrainz/Server/Form/Utils.pm:46
 #: ../root/static/scripts/common/i18n/localizeLanguageName.js:19
@@ -9174,8 +9174,8 @@ msgid ""
 "writing edit notes!"
 msgstr ""
 "Bearbeitungsbemerkungen unterstützen {doc_formatting|eine begrenzte Anzahl "
-"von Wiki-Formatierungsoptionen}. Bitte beachte immer die {doc_coc|"
-"Verhaltensregeln}, wenn du Bemerkungen schreibst!"
+"von Wiki-Formatierungsoptionen}. Bitte beachte immer den "
+"{doc_coc|Verhaltenskodex}, wenn du Bemerkungen schreibst!"
 
 #: ../root/edit/components/EditNotes.js:55
 msgid "No edit notes have been added."
@@ -10854,7 +10854,7 @@ msgstr "Gesellschaftsvertrag"
 
 #: ../root/layout/components/BottomMenu.js:141
 msgid "Code of Conduct"
-msgstr "Verhaltensregeln"
+msgstr "Verhaltenskodex"
 
 #: ../root/layout/components/BottomMenu.js:144
 msgid "Privacy Policy"
@@ -11406,7 +11406,7 @@ msgstr "Koordinaten:"
 
 #: ../root/layout/components/sidebar/PlayOnListenBrainzButton.js:59
 msgid "ListenBrainz"
-msgstr ""
+msgstr "ListenBrainz"
 
 #: ../root/layout/components/sidebar/PlayOnListenBrainzButton.js:64
 msgid "Play on ListenBrainz"
@@ -17149,8 +17149,7 @@ msgstr ""
 
 #: ../root/user/ReportUser.js:101
 msgid "Please review our {uri|Code of Conduct} before sending a report."
-msgstr ""
-"Bitte lies unseren {uri|Code of Conduct}, bevor du eine Meldung machst."
+msgstr "Bitte lies unseren {uri|Verhaltenskodex}, bevor du eine Meldung machst."
 
 #: ../root/user/ReportUser.js:109
 msgid ""
