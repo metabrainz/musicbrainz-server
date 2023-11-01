@@ -98,7 +98,7 @@
     "tap-junit": "3.1.0",
     "tape": "4.7.0",
     "utf8": "2.1.2",
-    "xgettext-js": "3.0.0"
+    "xgettext-js": "https://github.com/metabrainz/xgettext-js#0301681a479c1796ff6850c9bd2a169074386d92"
   },
   "private": true
 }
