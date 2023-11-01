@@ -148,11 +148,11 @@ RUN sudo -E -H -u musicbrainz git clone --branch $MB_SOLR_TAG --depth 1 --recurs
     chown -R solr:solr /opt/solr/ && \
     cd /home/musicbrainz
 
-ENV SIR_TAG v3.0.0
+ENV SIR_TAG v3.0.1
 
 RUN sudo -E -H -u musicbrainz git clone --branch $SIR_TAG https://github.com/metabrainz/sir.git && \
     cd sir && \
-    sudo -E -H -u musicbrainz sh -c 'virtualenv --python=python2 venv; . venv/bin/activate; pip install --upgrade pip; pip install -r requirements.txt; pip install typing git+https://github.com/esnme/ultrajson.git@7d0f4fb7e911120fd09075049233b587936b0a65' && \
+    sudo -E -H -u musicbrainz sh -c 'virtualenv --python=python2 venv; . venv/bin/activate; pip install --upgrade pip; pip install -r requirements.txt; pip install git+https://github.com/esnme/ultrajson.git@7d0f4fb7e911120fd09075049233b587936b0a65' && \
     cd /home/musicbrainz
 
 ENV ARTWORK_INDEXER_COMMIT c8731b5
