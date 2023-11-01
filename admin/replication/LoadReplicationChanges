@@ -158,6 +158,14 @@ if ($dbmirror2) {
 my %known_broken_sequences = (
     # MBS-9366
     '104949' => 1,
+    # MBS-13333
+    '162718' => 1,
+    '162719' => 1,
+    '162720' => 1,
+    '162721' => 1,
+    '162722' => 1,
+    '162723' => 1,
+    '162724' => 1,
 );
 my $aborted_sequence;
 
@@ -175,6 +183,12 @@ if (
         $sql->do('TRUNCATE dbmirror_pending CASCADE');
         $sql->auto_commit(1);
         $sql->do('TRUNCATE dbmirror_pendingdata CASCADE');
+        $sql->auto_commit(1);
+        $sql->do('TRUNCATE dbmirror2.pending_data CASCADE');
+        $sql->auto_commit(1);
+        $sql->do('TRUNCATE dbmirror2.pending_keys CASCADE');
+        $sql->auto_commit(1);
+        $sql->do('TRUNCATE dbmirror2.pending_ts CASCADE');
     } else {
         print localtime() . " : Continuing a previously aborted load\n";
         goto APPLY_CHANGES;
@@ -334,6 +348,11 @@ rmtree($mydir);
 
 # If we had some data leftover in the tables, we jump straight in here:
 APPLY_CHANGES:
+
+if (defined $aborted_sequence && $known_broken_sequences{$aborted_sequence}) {
+    push @process_opts, '--ignore-conflicts';
+}
+
 # Apply the changes (ProcessReplicationChanges)
 system "$FindBin::Bin/ProcessReplicationChanges", @process_opts,
     ($dbmirror2 ? '--dbmirror2' : '--nodbmirror2');
