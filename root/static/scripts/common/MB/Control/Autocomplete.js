@@ -288,7 +288,11 @@ $.widget('mb.entitylookup', $.ui.autocomplete, {
      * entity (like release group types).
      */
 
-    if (currentSelection.id) {
+    if (
+      // entities from the search server will not have a numeric id
+      currentSelection.id ||
+      currentSelection.gid
+    ) {
       this.currentSelection(this._dataToEntity({name: name}));
     } else if (currentSelection.name !== name) {
       currentSelection.name = name;

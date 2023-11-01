@@ -154,6 +154,7 @@ class GuessCase {
         // if it was not a special case, start guessing
         // eslint-disable-next-line multiline-comment-style
         // $FlowIgnore[prop-missing]
+        // $FlowIgnore[method-unbinding]
         : handler[method].apply(handler, arguments);
 
       return output;

@@ -1,21 +1,21 @@
 /* eslint-disable import/no-commonjs */
 
-require('./edit');
+require('./edit.js');
 
-require('./edit/confirmNavigationFallback');
+require('./edit/confirmNavigationFallback.js');
 
 // The order here is important!
-require('./release-editor/viewModel');
-require('./release-editor/utils');
-require('./release-editor/actions');
-require('./release-editor/bubbles');
-require('./release-editor/dialogs');
-require('./release-editor/duplicates');
-require('./release-editor/edits');
-require('./release-editor/fields');
-require('./release-editor/bindingHandlers');
-require('./release-editor/init');
-require('./release-editor/recordingAssociation');
-require('./release-editor/seeding');
-require('./release-editor/trackParser');
-require('./release-editor/validation');
+require('./release-editor/viewModel.js');
+require('./release-editor/utils.js');
+require('./release-editor/actions.js');
+require('./release-editor/bubbles.js');
+require('./release-editor/dialogs.js');
+require('./release-editor/duplicates.js');
+require('./release-editor/edits.js');
+require('./release-editor/fields.js');
+require('./release-editor/bindingHandlers.js');
+require('./release-editor/init.js');
+require('./release-editor/recordingAssociation.js');
+require('./release-editor/seeding.js');
+require('./release-editor/trackParser.js');
+require('./release-editor/validation.js');

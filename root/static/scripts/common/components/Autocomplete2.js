@@ -167,7 +167,7 @@ type InitialStateT<T: EntityItemT> = {
 
 const EMPTY_ITEMS: $ReadOnlyArray<ItemT<empty>> = Object.freeze([]);
 
-export function createInitialState<+T: EntityItemT>(
+export function createInitialState<T: EntityItemT>(
   initialState: InitialStateT<T>,
 ): {...StateT<T>} {
   const {
@@ -238,7 +238,7 @@ type AutocompleteItemPropsT<T: EntityItemT> = {
   selectItem: (ItemT<T>) => boolean,
 };
 
-const AutocompleteItem = React.memo(<+T: EntityItemT>({
+const AutocompleteItem = React.memo(<T: EntityItemT>({
   autocompleteId,
   dispatch,
   formatOptions,
@@ -308,7 +308,7 @@ const AutocompleteItem = React.memo(<+T: EntityItemT>({
   );
 });
 
-const Autocomplete2 = (React.memo(<+T: EntityItemT>(
+const Autocomplete2 = (React.memo(<T: EntityItemT>(
   props: PropsT<T>,
 ): React$Element<'div'> => {
   const {dispatch, state} = props;
@@ -695,17 +695,9 @@ const Autocomplete2 = (React.memo(<+T: EntityItemT>(
     }
   });
 
-  type AutocompleteItemComponent<T> =
-    React$AbstractComponent<AutocompleteItemPropsT<T>, void>;
-
-  // XXX Until Flow supports https://github.com/facebook/flow/issues/7672
-  const AutocompleteItemWithType: AutocompleteItemComponent<T> =
-    // $FlowIssue[unclear-type]
-    (AutocompleteItem: any);
-
   const menuItemElements = React.useMemo(
     () => items.map((item, index) => (
-      <AutocompleteItemWithType
+      <AutocompleteItem
         autocompleteId={id}
         dispatch={dispatch}
         formatOptions={
@@ -723,6 +715,7 @@ const Autocomplete2 = (React.memo(<+T: EntityItemT>(
           item.type === 'option' &&
           item.entity.id === selectedItem.id
         )}
+        // $FlowIssue[incompatible-type-arg] until Flow supports https://github.com/facebook/flow/issues/7672
         item={item}
         key={item.id}
         selectItem={selectItem}

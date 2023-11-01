@@ -14,7 +14,11 @@ use Encode qw( decode );
 use Try::Tiny;
 use List::AllUtils qw( any uniq zip );
 use MusicBrainz::Server::Data::Editor;
-use MusicBrainz::Server::Data::Utils qw( non_empty type_to_model );
+use MusicBrainz::Server::Data::Utils qw(
+    contains_string
+    non_empty
+    type_to_model
+);
 use MusicBrainz::Server::EditRegistry;
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Constants qw(
@@ -649,7 +653,10 @@ sub load_all
                     } else {
                         for my $extra_model (@$extra_models) {
                             push @{ $post_load_models->{$model}->{$object_id} }, $extra_model
-                              unless (any { $_ eq $extra_model } @{ $post_load_models->{$model}->{$object_id} });
+                              unless (contains_string(
+                                $post_load_models->{$model}->{$object_id},
+                                $extra_model,
+                              ));
                         }
                     }
                 }

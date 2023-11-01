@@ -143,7 +143,7 @@ const NoInfoURL = ({allowNew, url}: {+allowNew: boolean, +url: string}) => (
   </>
 );
 
-/* eslint-disable sort-keys, flowtype/sort-keys */
+/* eslint-disable sort-keys, ft-flow/sort-keys */
 type EntityLinkProps = {
   +allowNew?: boolean,
   +content?: ?Expand2ReactOutput,
@@ -166,7 +166,7 @@ type EntityLinkProps = {
   title?: string,
   +target?: '_blank',
 };
-/* eslint-enable sort-keys, flowtype/sort-keys */
+/* eslint-enable sort-keys, ft-flow/sort-keys */
 
 const EntityLink = ({
   allowNew = false,
@@ -217,14 +217,14 @@ $ReadOnlyArray<Expand2ReactOutput> | Expand2ReactOutput | null => {
   }
 
   if (entity.entityType === 'area') {
-    content = nonEmpty(content) ? content : localizeAreaName(entity);
+    content = empty(content) ? localizeAreaName(entity) : content;
   } else if (entity.entityType === 'instrument') {
-    content = nonEmpty(content) ? content : localizeInstrumentName(entity);
+    content = empty(content) ? localizeInstrumentName(entity) : content;
   } else if (entity.entityType === 'link_type') {
-    content = nonEmpty(content) ? content : l_relationships(entity.name);
+    content = empty(content) ? l_relationships(entity.name) : content;
   }
 
-  content = nonEmpty(content) ? content : ko.unwrap(entity.name);
+  content = empty(content) ? ko.unwrap(entity.name) : content;
 
   if (!ko.unwrap(entity.gid)) {
     if (entity.entityType === 'url') {

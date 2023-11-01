@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-function _cloneDeep<+T>(
+function _cloneDeep<T>(
   value: T,
   seen: WeakMap<any, any>,
 ): any {
@@ -24,7 +24,7 @@ function _cloneDeep<+T>(
   return value;
 }
 
-function _cloneArrayDeep<+T>(
+function _cloneArrayDeep<T>(
   array: $ReadOnlyArray<T>,
   seen: WeakMap<any, any>,
 ): $ReadOnlyArray<T> {
@@ -37,7 +37,7 @@ function _cloneArrayDeep<+T>(
   return clone;
 }
 
-export function cloneArrayDeep<+T>(
+export function cloneArrayDeep<T>(
   array: $ReadOnlyArray<T>,
 ): $ReadOnlyArray<T> {
   return _cloneArrayDeep<T>(array, new WeakMap());
@@ -50,7 +50,7 @@ export function cloneArrayDeep<+T>(
 // $FlowIgnore[method-unbinding]
 const hasOwnProperty = Object.prototype.hasOwnProperty;
 
-function _cloneObjectDeep<+T: {...}>(
+function _cloneObjectDeep<T: {...}>(
   object: T,
   seen: WeakMap<any, any>,
 ): T {
@@ -64,7 +64,7 @@ function _cloneObjectDeep<+T: {...}>(
   return clone;
 }
 
-export function cloneObjectDeep<+T: {...}>(
+export function cloneObjectDeep<T: {...}>(
   object: T,
 ): T {
   return _cloneObjectDeep<T>(object, new WeakMap());

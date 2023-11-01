@@ -300,6 +300,17 @@
       target: '/release/add',
       value: '',
     },
+    // dismiss the beforeunload alert (shown since inputs were changed)
+    {
+      command: 'handleAlert',
+      target: 'accept',
+      value: '',
+    },
+    {
+      command: 'waitUntilUrlIs',
+      target: '/release/add',
+      value: '',
+    },
     {
       command: 'click',
       target: 'css=a[href="#tracklist"]',

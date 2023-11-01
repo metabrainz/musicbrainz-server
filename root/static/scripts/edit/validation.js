@@ -40,7 +40,7 @@ MB.validation = {
 if (typeof document !== 'undefined') {
   const $ = require('jquery');
 
-  const clean = require('../common/utility/clean').default;
+  const clean = require('../common/utility/clean.js').default;
 
   errorsExist.subscribe(function (value) {
     $('#page form button[type=submit]').prop('disabled', value);

@@ -11,7 +11,7 @@ declare module 'redux' {
 
   declare export type DispatchAPI<A> = (action: A) => A;
 
-  declare export type Dispatch<A: { type: *, ... }> = DispatchAPI<A>;
+  declare export type Dispatch<A: { type: mixed, ... }> = DispatchAPI<A>;
 
   declare export type MiddlewareAPI<S, A, D = Dispatch<A>> = {
     dispatch: D,
@@ -31,7 +31,7 @@ declare module 'redux' {
   declare export type Reducer<S, A> = (state: S, action: A) => S;
 
   declare export type CombinedReducer<S, A> = (
-    state: ($Shape<S> & {...}) | void,
+    state: (Partial<S> & {...}) | void,
     action: A
   ) => S;
 

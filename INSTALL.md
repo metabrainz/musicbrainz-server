@@ -220,12 +220,14 @@ Below outlines how to setup MusicBrainz server with local::lib.
 Building static web resources
 -------------------------------
 
-To build everything necessary to access the server in a web browser (CSS,
-JavaScript), run the following command:
+To build everything necessary to access the server in a web browser (CSS, JavaScript), run the following command:
 
     ./script/compile_resources.sh
 
-This command takes care of installing Node.js dependencies for you, including
+If you encounter an error running the command above, follow this section [Translations](#translations) until **4. install translations**.
+It will generate the necessary files for the build to succeed.
+
+This command below takes care of installing Node.js dependencies for you, including
 development dependencies. If you're just setting up a mirror and don't plan
 to hack on any code, you can save a bit of time and space by excluding the
 devDependencies (listed in package.json):

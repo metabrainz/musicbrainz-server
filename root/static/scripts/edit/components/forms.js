@@ -59,3 +59,50 @@ MB.initializeArtistCredit = function (form, initialArtistCredit) {
     );
   });
 };
+
+/*
+ * Registers a beforeunload event listener on the window that prompts
+ * the user if any of the page's form inputs have been changed.
+ */
+MB.installFormUnloadWarning = function () {
+  let inputsChanged = false;
+  let submittingForm = false;
+
+  const form = document.querySelector('#page form');
+
+  /*
+   * This is somewhat heavy-handed, in that it will still warn even if the
+   * user changes an input back to its original value.
+   */
+  form.addEventListener('change', () => {
+    inputsChanged = true;
+  });
+
+  // Disarm the warning when the form is being submitted.
+  form.addEventListener('submit', () => {
+    submittingForm = true;
+  });
+
+  window.addEventListener('beforeunload', event => {
+    if (submittingForm) {
+      return false;
+    }
+
+    // Check if there are pending relationship or URL changes.
+    if (!inputsChanged && !form.querySelector([
+      '#relationship-editor .rel-add',
+      '#relationship-editor .rel-edit',
+      '#relationship-editor .rel-remove',
+      '#external-links-editor .rel-add',
+      '#external-links-editor .rel-edit',
+      '#external-links-editor .rel-remove',
+    ].join(', '))) {
+      return false;
+    }
+
+    event.returnValue = l(
+      'All of your changes will be lost if you leave this page.',
+    );
+    return event.returnValue;
+  });
+};

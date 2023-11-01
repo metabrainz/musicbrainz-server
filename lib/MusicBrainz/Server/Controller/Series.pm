@@ -109,11 +109,14 @@ sub show : PathPart('') Chained('load') {
     }
 
     my %props = (
-        entities          => to_json_array(\@entities),
+        listProps  => {
+            entities => to_json_array(\@entities),
+            seriesEntityType => $series->type->item_entity_type,
+            seriesItemNumbers => \@item_numbers,
+        },
         numberOfRevisions => $c->stash->{number_of_revisions},
         pager             => serialize_pager($c->stash->{pager}),
         series            => $series->TO_JSON,
-        seriesItemNumbers => \@item_numbers,
         wikipediaExtract  => to_json_object($c->stash->{wikipedia_extract}),
     );
 

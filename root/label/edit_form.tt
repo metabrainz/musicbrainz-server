@@ -69,5 +69,7 @@
 
     MB.Control.initializeBubble("#ipi-bubble", "input[name=edit-label\\.ipi_codes\\.0]");
     MB.Control.initializeBubble("#isni-bubble", "input[name=edit-label\\.isni_codes\\.0]");
+
+    MB.installFormUnloadWarning();
   }());
 </script>

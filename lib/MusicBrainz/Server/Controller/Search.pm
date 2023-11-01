@@ -10,9 +10,6 @@ use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 use MusicBrainz::Server::Form::Search::Query;
 use MusicBrainz::Server::Form::Search::Search;
 use Scalar::Util qw( looks_like_number );
-use feature 'switch';
-
-no if $] >= 5.018, warnings => 'experimental::smartmatch';
 
 sub search : Path('')
 {
@@ -124,79 +121,77 @@ sub direct : Private
 
     my @entities = map { $_->entity } @$results;
 
-    given ($type) {
-        when ('artist') {
-            $c->model('ArtistType')->load(@entities);
-            $c->model('Area')->load(@entities);
-            $c->model('Gender')->load(@entities);
-        }
-        when ('editor') {
-            $c->model('Editor')->load_preferences(@entities);
-        }
-        when ('release_group') {
-            $c->model('ReleaseGroupType')->load(@entities);
-            $c->model('ReleaseGroup')->load_has_cover_art(@entities);
-        }
-        when ('release') {
-            $c->model('Language')->load(@entities);
-            $c->model('Release')->load_related_info(@entities);
-            $c->model('Release')->load_meta(@entities);
-            $c->model('Script')->load(@entities);
-            $c->model('ReleaseStatus')->load(@entities);
-            $c->model('ReleaseGroup')->load(@entities);
-            $c->model('ReleaseGroupType')->load(map { $_->release_group }
-                @entities);
-        }
-        when ('label') {
-            $c->model('LabelType')->load(@entities);
-            $c->model('Area')->load(@entities);
-        }
-        when ('recording') {
-            my %recording_releases_map = $c->model('Release')->find_by_recordings(map {
-                $_->entity->id
-            } @$results);
-            my %result_map = map { $_->entity->id => $_ } @$results;
+    if ($type eq 'artist') {
+        $c->model('ArtistType')->load(@entities);
+        $c->model('Area')->load(@entities);
+        $c->model('Gender')->load(@entities);
+    }
+    elsif ($type eq 'editor') {
+        $c->model('Editor')->load_preferences(@entities);
+    }
+    elsif ($type eq 'release_group') {
+        $c->model('ReleaseGroupType')->load(@entities);
+        $c->model('ReleaseGroup')->load_has_cover_art(@entities);
+    }
+    elsif ($type eq 'release') {
+        $c->model('Language')->load(@entities);
+        $c->model('Release')->load_related_info(@entities);
+        $c->model('Release')->load_meta(@entities);
+        $c->model('Script')->load(@entities);
+        $c->model('ReleaseStatus')->load(@entities);
+        $c->model('ReleaseGroup')->load(@entities);
+        $c->model('ReleaseGroupType')->load(map { $_->release_group }
+            @entities);
+    }
+    elsif ($type eq 'label') {
+        $c->model('LabelType')->load(@entities);
+        $c->model('Area')->load(@entities);
+    }
+    elsif ($type eq 'recording') {
+        my %recording_releases_map = $c->model('Release')->find_by_recordings(map {
+            $_->entity->id
+        } @$results);
+        my %result_map = map { $_->entity->id => $_ } @$results;
 
-            $result_map{$_}->extra($recording_releases_map{$_}) for keys %recording_releases_map;
+        $result_map{$_}->extra($recording_releases_map{$_}) for keys %recording_releases_map;
 
-            my @releases = map { $_->{release} } map { @{ $_->extra } } @$results;
-            $c->model('ReleaseGroup')->load(@releases);
-            $c->model('ReleaseGroupType')->load(map { $_->release_group } @releases);
-            $c->model('Medium')->load_for_releases(@releases);
-            $c->model('Track')->load_for_mediums(map { $_->all_mediums } @releases);
-            $c->model('Recording')->load(
-                map { $_->all_tracks } map { $_->all_mediums } @releases);
-            $c->model('ISRC')->load_for_recordings(map { $_->entity } @$results);
-        }
-        when ('work') {
-            $c->model('Work')->load_writers(@entities);
-            $c->model('Work')->load_recording_artists(@entities);
-            $c->model('ISWC')->load_for_works(@entities);
-            $c->model('Language')->load_for_works(@entities);
-            $c->model('WorkType')->load(@entities);
-        }
-        when ('area') {
-            $c->model('AreaType')->load(@entities);
-            $c->model('Area')->load_containment(@entities);
-        }
-        when ('place') {
-            $c->model('PlaceType')->load(@entities);
-            $c->model('Area')->load(@entities);
-        }
-        when ('instrument') {
-            $c->model('InstrumentType')->load(@entities);
-        }
-        when ('series') {
-            $c->model('SeriesType')->load(@entities);
-            $c->model('SeriesOrderingType')->load(@entities);
-        }
-        when ('event') {
-            $c->model('Event')->load_related_info(@entities);
-            $c->model('Event')->load_areas(@entities);
-        }
-        when ('tag') {
-            $c->model('Genre')->load(@entities);
-        }
+        my @releases = map { $_->{release} } map { @{ $_->extra } } @$results;
+        $c->model('ReleaseGroup')->load(@releases);
+        $c->model('ReleaseGroupType')->load(map { $_->release_group } @releases);
+        $c->model('Medium')->load_for_releases(@releases);
+        $c->model('Track')->load_for_mediums(map { $_->all_mediums } @releases);
+        $c->model('Recording')->load(
+            map { $_->all_tracks } map { $_->all_mediums } @releases);
+        $c->model('ISRC')->load_for_recordings(map { $_->entity } @$results);
+    }
+    elsif ($type eq 'work') {
+        $c->model('Work')->load_writers(@entities);
+        $c->model('Work')->load_recording_artists(@entities);
+        $c->model('ISWC')->load_for_works(@entities);
+        $c->model('Language')->load_for_works(@entities);
+        $c->model('WorkType')->load(@entities);
+    }
+    elsif ($type eq 'area') {
+        $c->model('AreaType')->load(@entities);
+        $c->model('Area')->load_containment(@entities);
+    }
+    elsif ($type eq 'place') {
+        $c->model('PlaceType')->load(@entities);
+        $c->model('Area')->load(@entities);
+    }
+    elsif ($type eq 'instrument') {
+        $c->model('InstrumentType')->load(@entities);
+    }
+    elsif ($type eq 'series') {
+        $c->model('SeriesType')->load(@entities);
+        $c->model('SeriesOrderingType')->load(@entities);
+    }
+    elsif ($type eq 'event') {
+        $c->model('Event')->load_related_info(@entities);
+        $c->model('Event')->load_areas(@entities);
+    }
+    elsif ($type eq 'tag') {
+        $c->model('Genre')->load(@entities);
     }
 
     if ($type =~ /(recording|release|release_group)/)
@@ -260,17 +255,14 @@ sub do_external_search {
         my $template = 'search/error/';
 
         # Switch on the response code to decide which template to provide
-        given ($ret->{code})
-        {
-            when (404) { $template .= 'NoResults'; }
-            when (403) { $template .= 'NoInfo'; };
-            when (414) { $template .= 'UriTooLarge'; };
-            when (500) { $template .= 'InternalError'; }
-            when (400) { $template .= 'Invalid'; }
-            when (503) { $template .= 'RateLimited'; }
-
-            default { $template .= 'General'; }
-        }
+        my $code = $ret->{code};
+        if ($code == 404) { $template .= 'NoResults'; }
+        elsif ($code == 403) { $template .= 'NoInfo'; }
+        elsif ($code == 414) { $template .= 'UriTooLarge'; }
+        elsif ($code == 500) { $template .= 'InternalError'; }
+        elsif ($code == 400) { $template .= 'Invalid'; }
+        elsif ($code == 503) { $template .= 'RateLimited'; }
+        else { $template .= 'General'; }
 
         my %props = (
             form => $c->stash->{form}->TO_JSON,

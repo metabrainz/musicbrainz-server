@@ -29,7 +29,7 @@ const XGettext = require('xgettext-js');
 const argv = require('yargs').argv;
 
 const cleanMsgid =
-  require('../root/static/scripts/common/i18n/cleanMsgid').default;
+  require('../root/static/scripts/common/i18n/cleanMsgid.js').default;
 
 const PO_DIR = path.resolve(__dirname, '../po');
 

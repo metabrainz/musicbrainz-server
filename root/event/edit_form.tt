@@ -68,5 +68,7 @@
     MB.Control.initializeGuessCase("event", "id-edit-event");
 
     MB.initializeTooShortYearChecks('event');
+
+    MB.installFormUnloadWarning();
   }());
 </script>

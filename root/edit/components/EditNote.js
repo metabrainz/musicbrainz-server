@@ -87,7 +87,7 @@ const EditNote = ({
   const changeReason = editNote.latest_change?.reason;
   const changeTime = editNote.latest_change?.change_time
     ? formatUserDate($c, editNote.latest_change.change_time)
-    : null;
+    : '';
 
   /*
    * We only want to show the controls for modifying/removing a note
@@ -212,14 +212,12 @@ const EditNote = ({
                      Reason given: “{reason}”.`,
                     {
                       reason: changeReason,
-                      // $FlowIgnore[incompatible-call]
                       time: changeTime,
                     },
                   )
                 ) : (
                   texp.l(
                     'Last modified by the note author ({time}).',
-                    // $FlowIgnore[incompatible-call]
                     {time: changeTime},
                   )
                 )
@@ -230,14 +228,12 @@ const EditNote = ({
                      Reason given: “{reason}”.`,
                     {
                       reason: changeReason,
-                      // $FlowIgnore[incompatible-call]
                       time: changeTime,
                     },
                   )
                 ) : (
                   texp.l(
                     'Last modified by an admin ({time}).',
-                    // $FlowIgnore[incompatible-call]
                     {time: changeTime},
                   )
                 )

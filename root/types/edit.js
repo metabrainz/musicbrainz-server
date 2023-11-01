@@ -7,7 +7,9 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-declare type CompT<T> = {
+/* eslint-disable no-unused-vars */
+
+declare type CompT<+T> = {
   +new: T,
   +old: T,
 };

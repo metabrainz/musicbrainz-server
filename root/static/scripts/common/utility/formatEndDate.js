@@ -9,7 +9,7 @@
 
 import formatDate from './formatDate.js';
 
-export default function formatEndDate<+T: $ReadOnly<{
+export default function formatEndDate<T: $ReadOnly<{
   ...DatePeriodRoleT,
   ...
 }>>(entity: T): null | string {

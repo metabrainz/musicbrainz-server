@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2019 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -26,25 +26,25 @@ import {formatPluralEntityTypeName}
 
 import SeriesLayout from './SeriesLayout.js';
 
-type ListPickerProps = {
-  ...SeriesItemNumbersRoleT,
-  +entities: $ReadOnlyArray<EntityWithSeriesT>,
-  +seriesEntityType: EntityWithSeriesTypeT,
-};
+type ListPickerProps = $Values<{
+  +[EntityType in keyof EntityWithSeriesMapT]: {
+    ...SeriesItemNumbersRoleT,
+    +entities: $ReadOnlyArray<EntityWithSeriesMapT[EntityType]>,
+    +seriesEntityType: EntityType,
+  },
+}>;
 
-const listPicker = ({
-  entities,
-  seriesEntityType,
-  seriesItemNumbers,
-}: ListPickerProps) => {
+const listPicker = (
+  props: ListPickerProps,
+): React$MixedElement => {
   const sharedProps = {
-    seriesItemNumbers: seriesItemNumbers,
+    seriesItemNumbers: props.seriesItemNumbers,
   };
-  switch (seriesEntityType) {
+  switch (props.seriesEntityType) {
     case 'artist':
       return (
         <ArtistList
-          artists={((entities: any): $ReadOnlyArray<ArtistT>)}
+          artists={props.entities}
           showBeginEnd
           showRatings
           {...sharedProps}
@@ -53,7 +53,7 @@ const listPicker = ({
     case 'event':
       return (
         <EventList
-          events={((entities: any): $ReadOnlyArray<EventT>)}
+          events={props.entities}
           showArtists
           showLocation
           showRatings
@@ -63,9 +63,7 @@ const listPicker = ({
     case 'recording':
       return (
         <RecordingList
-          recordings={
-            ((entities: any): $ReadOnlyArray<RecordingWithArtistCreditT>)
-          }
+          recordings={props.entities}
           showRatings
           {...sharedProps}
         />
@@ -73,14 +71,14 @@ const listPicker = ({
     case 'release':
       return (
         <ReleaseList
-          releases={((entities: any): $ReadOnlyArray<ReleaseT>)}
+          releases={props.entities}
           {...sharedProps}
         />
       );
     case 'release_group':
       return (
         <ReleaseGroupListTable
-          releaseGroups={((entities: any): $ReadOnlyArray<ReleaseGroupT>)}
+          releaseGroups={props.entities}
           showRatings
           {...sharedProps}
         />
@@ -89,19 +87,19 @@ const listPicker = ({
       return (
         <WorkList
           showRatings
-          works={((entities: any): $ReadOnlyArray<WorkT>)}
+          works={props.entities}
           {...sharedProps}
         />
       );
     default:
-      throw `Unsupported entity type value: ${seriesEntityType}`;
+      throw `Unsupported entity type value: ${props.seriesEntityType}`;
   }
 };
 
 type SeriesIndexProps = {
   ...SeriesItemNumbersRoleT,
   +eligibleForCleanup: boolean,
-  +entities: ?$ReadOnlyArray<EntityWithSeriesT>,
+  +listProps: ListPickerProps,
   +numberOfRevisions: number,
   +pager: PagerT,
   +series: $ReadOnly<{...SeriesT, +type: SeriesTypeT}>,
@@ -110,15 +108,13 @@ type SeriesIndexProps = {
 
 const SeriesIndex = ({
   eligibleForCleanup,
-  entities,
+  listProps,
   numberOfRevisions,
   pager,
   series,
-  seriesItemNumbers,
   wikipediaExtract,
 }: SeriesIndexProps): React$Element<typeof SeriesLayout> => {
   const seriesEntityType = series.type.item_entity_type;
-  const existingEntities = entities?.length ? entities : null;
   return (
     <SeriesLayout entity={series} page="index">
       {eligibleForCleanup ? (
@@ -137,13 +133,9 @@ const SeriesIndex = ({
 
       <h2>{formatPluralEntityTypeName(seriesEntityType)}</h2>
 
-      {existingEntities ? (
+      {listProps.entities?.length ? (
         <PaginatedResults pager={pager}>
-          {listPicker({
-            entities: existingEntities,
-            seriesEntityType,
-            seriesItemNumbers,
-          })}
+          {listPicker(listProps)}
         </PaginatedResults>
       ) : (
         <p>

@@ -111,5 +111,7 @@
 
     MB.Control.initializeBubble("#ipi-bubble", "input[name=edit-artist\\.ipi_codes\\.0]");
     MB.Control.initializeBubble("#isni-bubble", "input[name=edit-artist\\.isni_codes\\.0]");
+
+    MB.installFormUnloadWarning();
   }());
 </script>

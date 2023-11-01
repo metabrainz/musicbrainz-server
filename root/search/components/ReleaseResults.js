@@ -100,8 +100,7 @@ export const ReleaseResultsInline = ({
   pager,
   query,
   results,
-}: InlineResultsPropsT<ReleaseT>):
-React$Element<typeof PaginatedSearchResults> => {
+}: InlineResultsPropsT<ReleaseT>): React$MixedElement => {
   const $c = React.useContext(CatalystContext);
 
   return (

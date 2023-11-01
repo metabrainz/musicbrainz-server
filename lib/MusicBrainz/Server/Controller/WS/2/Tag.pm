@@ -11,8 +11,6 @@ use MusicBrainz::Server::Data::Utils qw( non_empty trim type_to_model );
 use MusicBrainz::Server::Validation qw( is_guid );
 use MusicBrainz::Server::WebService::XML::XPath;
 
-no if $] >= 5.018, warnings => 'experimental::smartmatch';
-
 my $ws_defs = Data::OptList::mkopt([
      tag => {
                          method   => 'GET',
@@ -109,7 +107,7 @@ sub tag_submit : Private
                 $has_votes = 1;
 
                 $vote = $xp->find('@mb:vote', $_)->string_value;
-                unless ($vote ~~ [qw(upvote downvote withdraw)]) {
+                unless ($vote =~ /^(upvote|downvote|withdraw)$/) {
                     $self->_error($c, 'Unrecognized vote type: ' . $vote);
                 }
             }

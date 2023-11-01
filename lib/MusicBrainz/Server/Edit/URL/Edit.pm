@@ -16,8 +16,6 @@ use MusicBrainz::Server::Edit::Utils qw( changed_display_data );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Translation qw( N_l );
 
-no if $] >= 5.018, warnings => 'experimental::smartmatch';
-
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
 with 'MusicBrainz::Server::Edit::URL';
 with 'MusicBrainz::Server::Edit::URL::RelatedEntities';
@@ -147,18 +145,15 @@ sub current_instance {
 around extract_property => sub {
     my ($orig, $self) = splice(@_, 0, 2);
     my ($property, $ancestor, $current, $new) = @_;
-    given ($property) {
-        when ('url') {
-            return (
-                [ $ancestor->{url}, $ancestor->{url} ],
-                [ $current->url->as_string, $current->url->as_string ],
-                [ $new->{url}, $new->{url} ]
-            );
-        }
-
-        default {
-            return ($self->$orig(@_));
-        }
+    if ($property eq 'url') {
+        return (
+            [ $ancestor->{url}, $ancestor->{url} ],
+            [ $current->url->as_string, $current->url->as_string ],
+            [ $new->{url}, $new->{url} ]
+        );
+    }
+    else {
+        return ($self->$orig(@_));
     }
 };
 

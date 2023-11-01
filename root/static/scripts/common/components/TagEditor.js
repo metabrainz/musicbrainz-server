@@ -295,7 +295,7 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
         args: {+url: string},
       ) => $.ajax({...args, dataType: 'json'});
     } else {
-      doRequest = require('../utility/request').default;
+      doRequest = require('../utility/request.js').default;
     }
 
     for (const [action, items] of Object.entries(actions)) {
@@ -313,7 +313,7 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
   }
 
   componentDidMount() {
-    require('../../../lib/jquery-ui');
+    require('../../../lib/jquery-ui.js');
     window.addEventListener('beforeunload', this.onBeforeUnloadBound);
   }
 

@@ -21,7 +21,7 @@ type ObjectType = interface {} | $ReadOnlyArray<mixed>;
 const createWeakMap =
   <K: ObjectType, V>(): WeakMap<K, V> => new WeakMap<K, V>();
 
-function memoizeGeneric<-T, +U>(
+function memoizeGeneric<T, U>(
   func: (T) => U,
   createCache: () => MapInterface<T, U>,
 ): (T) => U {
@@ -37,13 +37,13 @@ function memoizeGeneric<-T, +U>(
   };
 }
 
-export default function memoize<-T: interface {}, +U>(
+export default function memoize<T: interface {}, U>(
   func: (T) => U,
 ): (T) => U {
   return memoizeGeneric(func, createWeakMap);
 }
 
-export function memoizeWithDefault<-T: interface {}, +U>(
+export function memoizeWithDefault<T: interface {}, U>(
   func: (T) => U,
   defaultValue: U,
 ): (?T) => U {

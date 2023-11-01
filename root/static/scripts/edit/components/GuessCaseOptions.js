@@ -14,12 +14,12 @@ import setCookie from '../../common/utility/setCookie.js';
 import gc from '../../guess-case/MB/GuessCase/Main.js';
 import * as modes from '../../guess-case/modes.js';
 
-/* eslint-disable flowtype/sort-keys */
+/* eslint-disable ft-flow/sort-keys */
 export type ActionT =
   | {+type: 'set-mode', +modeName: string}
   | {+type: 'set-keep-upper-case', +enabled: boolean}
   | {+type: 'set-upper-case-roman', +enabled: boolean};
-/* eslint-enable flowtype/sort-keys */
+/* eslint-enable ft-flow/sort-keys */
 
 export type DispatchT = (ActionT) => void;
 

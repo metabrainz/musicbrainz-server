@@ -15,7 +15,7 @@ import {groupBy} from './arrays.js';
  * Unlike MB.forms.buildOptionsTree, this builds from a flat list.
  * TODO: These should probably be combined at some point?
  */
-export default function buildOptionList<+T>(
+export default function buildOptionList<T>(
   options: $ReadOnlyArray<OptionTreeT<T>>,
   localizeName: (string) => string,
 ): OptionListT {

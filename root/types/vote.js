@@ -8,6 +8,8 @@
  */
 
 /* eslint-disable no-multi-spaces */
+/* eslint-disable no-unused-vars */
+
 declare type VoteOptionT =
   | -2   // None
   | -1   // Abstain

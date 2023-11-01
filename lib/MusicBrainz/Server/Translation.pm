@@ -13,6 +13,7 @@ use POSIX qw( setlocale );
 use Text::Balanced qw( extract_bracketed );
 use Unicode::ICU::Collator qw( UCOL_NUMERIC_COLLATION UCOL_ON );
 
+use MusicBrainz::Server::Data::Utils qw( contains_string );
 use MusicBrainz::Server::Validation qw( encode_entities );
 
 with 'MusicBrainz::Server::Role::Translation' => { domain => 'mb_server' };
@@ -141,7 +142,7 @@ sub set_language
         return $set_lang;
     }
     # Check if the language without country code is in MB_LANGUAGES
-    elsif (any { $set_lang_nocountry eq $_ } DBDefs->MB_LANGUAGES) {
+    elsif (contains_string([ DBDefs->MB_LANGUAGES ], $set_lang_nocountry)) {
         return $set_lang_nocountry;
     }
     # Give up, return the full language even though it looks wrong
@@ -176,7 +177,7 @@ sub language_from_cookie
         any { $cookie->value eq $_ || $cookie_munge eq $_ } DBDefs->MB_LANGUAGES) {
         return $cookie->value;
     } elsif (defined $cookie &&
-             any { $cookie_nocountry eq $_ } DBDefs->MB_LANGUAGES) {
+             contains_string([ DBDefs->MB_LANGUAGES ], $cookie_nocountry)) {
         return $cookie_nocountry;
     } else {
         return undef;

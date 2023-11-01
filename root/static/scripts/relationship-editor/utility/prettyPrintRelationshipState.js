@@ -25,7 +25,7 @@ const _displayLinkType = (linkType: LinkTypeT | null): string => {
   return linkType ? linkType.name : 'none';
 };
 
-const _displayAttribute = (attribute: LinkAttrT): string => {
+const _displayAttribute = (attribute: LinkAttrT): StrOrNum => {
   return displayLinkAttributeCustom(
     attribute,
     (x) => x.name,
