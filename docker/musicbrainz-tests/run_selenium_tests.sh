@@ -13,8 +13,10 @@ sudo -E -H -u musicbrainz cp docker/musicbrainz-tests/DBDefs.pm lib/
 
 # Create the musicbrainz_test and musicbrainz_selenium DBs.
 sudo -E -H -u musicbrainz carton exec -- ./script/create_test_db.sh
+pushd /var/lib/postgresql
 sudo -u postgres createdb -O musicbrainz -T musicbrainz_test -U postgres \
      musicbrainz_selenium
+popd
 
 # Set the open file limit Solr requests on startup, then start Solr.
 ulimit -n 65000
@@ -30,17 +32,17 @@ rabbitmqctl set_permissions -p /sir-test sir '.*' '.*' '.*'
 export SIR_DIR=/home/musicbrainz/sir
 cd "$SIR_DIR"
 sudo -E -H -u musicbrainz sh -c '. venv/bin/activate; python -m sir amqp_setup; python -m sir extension; python -m sir triggers --broker-id=1'
-sudo -u postgres psql -U postgres -f sql/CreateExtension.sql musicbrainz_selenium
-sudo -u postgres psql -U musicbrainz -f sql/CreateFunctions.sql musicbrainz_selenium
-sudo -u postgres psql -U musicbrainz -f sql/CreateTriggers.sql musicbrainz_selenium
+psql -U postgres -f sql/CreateExtension.sql musicbrainz_selenium
+psql -U musicbrainz -f sql/CreateFunctions.sql musicbrainz_selenium
+psql -U musicbrainz -f sql/CreateTriggers.sql musicbrainz_selenium
 
 # Install the artwork_indexer schema into musicbrainz_selenium.
 cd /home/musicbrainz/artwork-indexer
-sudo -u postgres psql -U musicbrainz -f sql/create.sql musicbrainz_selenium
-sudo -u postgres psql -U musicbrainz -f sql/caa_functions.sql musicbrainz_selenium
-sudo -u postgres psql -U musicbrainz -f sql/caa_triggers.sql musicbrainz_selenium
-sudo -u postgres psql -U musicbrainz -f sql/eaa_functions.sql musicbrainz_selenium
-sudo -u postgres psql -U musicbrainz -f sql/eaa_triggers.sql musicbrainz_selenium
+psql -U musicbrainz -f sql/create.sql musicbrainz_selenium
+psql -U musicbrainz -f sql/caa_functions.sql musicbrainz_selenium
+psql -U musicbrainz -f sql/caa_triggers.sql musicbrainz_selenium
+psql -U musicbrainz -f sql/eaa_functions.sql musicbrainz_selenium
+psql -U musicbrainz -f sql/eaa_triggers.sql musicbrainz_selenium
 
 cd /home/musicbrainz/musicbrainz-server
 
