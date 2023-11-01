@@ -33,7 +33,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-09-27 17:01+0000\n"
-"PO-Revision-Date: 2023-09-23 15:27+0000\n"
+"PO-Revision-Date: 2023-10-15 13:27+0000\n"
 "Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
 "metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -42,8 +42,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
 "X-Generator: Weblate 5.0.2\n"
 
 #: ../root/components/common-macros.tt:12
@@ -1735,7 +1735,7 @@ msgid ""
 "disc ID! If you unselect it by mistake, please readd the pregap track before "
 "submitting."
 msgstr ""
-"Tieni presente che deselezionare questa opzione eliminerà la traccia se il "
+"Tieni presente che deselezionare quest'opzione eliminerà la traccia se il "
 "supporto ha un ID disco! Se la deselezioni per errore, ricordati di "
 "riaggiungere la traccia pregap prima di cliccare su Invia."
 
@@ -1745,7 +1745,7 @@ msgid ""
 "a disc ID! If you unselect it by mistake, please readd the data tracks "
 "before submitting."
 msgstr ""
-"Tieni presente che deselezionare questa opzione eliminerà le tracce se il "
+"Tieni presente che deselezionare quest'opzione eliminerà le tracce se il "
 "supporto ha un ID disco! Se la deselezioni per errore, ricordati di "
 "riaggiungere le tracce dati prima di cliccare su Invia."
 
@@ -2735,7 +2735,7 @@ msgid ""
 "1. Use this to add (or remove) the special pregap track section."
 msgstr ""
 "Alcuni dischi contengono una traccia nascosta nella sezione pregap che "
-"precede la traccia 1. Usa questa opzione per aggiungere (o rimuovere) la "
+"precede la traccia 1. Usa quest'opzione per aggiungere (o rimuovere) la "
 "sezione speciale per traccia pregap."
 
 #: ../root/release/edit/tracklist.tt:514
@@ -2745,7 +2745,7 @@ msgid ""
 "tracks that contain audio or video ({info|more info})"
 msgstr ""
 "Alcuni dischi contengono una o più tracce dati dopo tutte le tracce audio. "
-"Usa questa opzione per aggiungere (o rimuovere) la sezione speciale per "
+"Usa quest'opzione per aggiungere (o rimuovere) la sezione speciale per "
 "tracce dati. Aggiungi solo tracce dati che contengono audio o video ({info|"
 "maggiori informazioni})."
 
@@ -3489,8 +3489,8 @@ msgid ""
 "if you're certain this date is correct!</strong>"
 msgstr ""
 "Attenzione! \"1990-10-25\" è la data fasulla che Amazon assegna a tutte le "
-"pubblicazioni di cui non conosce la data reale. <strong>Utilizza questa data "
-"solo se sei sicuro che sia corretta!</strong>"
+"pubblicazioni di cui non conosce la data reale. <strong>Usa questa data solo "
+"se sei sicuro che sia corretta!</strong>"
 
 #: ../root/release/edit/tracklist.tt:345 ../root/release/edit/tracklist.tt:408
 msgid "Warning:"
@@ -3637,7 +3637,7 @@ msgstr "Non hai effettuato nessuna modifica!"
 
 #: ../root/edit/search_macros.tt:414
 msgid "You must be logged in to use this option."
-msgstr "Devi effettuare l'accesso per utilizzare questa opzione."
+msgstr "Devi effettuare l'accesso per utilizzare quest'opzione."
 
 #: ../root/components/common-macros.tt:576
 msgid "You must enter a disambiguation comment for this entity."
@@ -9909,6 +9909,8 @@ msgstr "Nuovo artista"
 #: ../root/edit/details/EditRecording.js:63
 msgid "This edit makes subsecond changes to the recording length"
 msgstr ""
+"Questa modifica apporta cambiamenti inferiori al secondo alla durata della "
+"registrazione"
 
 #: ../root/edit/details/EditRelationshipType.js:146
 #: ../root/edit/details/historic/EditRelationship.js:44
@@ -15216,10 +15218,9 @@ msgid ""
 "new name. Only use this if you are sure the existing credits are incorrect "
 "(e.g. for typos)."
 msgstr ""
-"Questa opzione inserirà modifiche aggiuntive per cambiare ogni "
-"accreditamento secondo il nuovo nome. Utilizza questa opzione solo se sei "
-"sicuro che gli accreditamenti esistenti sono errati (per es. a causa di "
-"refusi)."
+"Quest'opzione inserirà modifiche aggiuntive per cambiare ogni accreditamento "
+"secondo il nuovo nome. Usa quest'opzione solo se sei sicuro che gli "
+"accreditamenti esistenti sono errati (per es. a causa di refusi)."
 
 #: ../root/static/scripts/artist/components/ArtistCreditRenamer.js:231
 msgid ""
@@ -16839,9 +16840,9 @@ msgid ""
 "Some tracks/mediums haven’t been loaded yet. If you want to use this option, "
 "please close this dialog and load all tracks/mediums beforehand."
 msgstr ""
-"Alcune tracce/alcuni supporti non sono ancora stati caricati. Se vuoi usare "
-"questa opzione, chiudi questa finestra di dialogo e carica prima tutte le "
-"tracce/i supporti."
+"Alcune tracce/alcuni supporti non sono ancora stati caricati. Se vuoi "
+"utilizzare quest'opzione, chiudi questa finestra di dialogo e carica prima "
+"tutte le tracce/i supporti."
 
 #: ../root/static/scripts/relationship-editor/components/DialogEntityCredit.js:149
 msgid "All of these relationships."
@@ -17194,8 +17195,8 @@ msgid ""
 "Only use this option after you’ve tried searching for the work(s) you want "
 "to create, and are certain they do not already exist on MusicBrainz."
 msgstr ""
-"Usa questa opzione solo dopo aver cercato l'opera/e che intendi creare e se "
-"sei certo che essa non esiste già su MusicBrainz."
+"Usa quest'opzione solo dopo aver cercato l'opera/e che intendi creare ed "
+"esserti assicurato che non esista(no) già su MusicBrainz."
 
 #: ../root/static/scripts/release/components/BatchCreateWorksDialog.js:323
 #: ../root/static/scripts/release/components/RelationshipEditorBatchTools.js:94
