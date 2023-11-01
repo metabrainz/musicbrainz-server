@@ -67,13 +67,15 @@
 # yvanz, 2018
 # chaban <chaban@users.noreply.translations.metabrainz.org>, 2023.
 # Philipp Wolfer <ph.wolfer@gmail.com>, 2023.
+# kellnerd <kellnerd@users.noreply.translations.metabrainz.org>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-09-27 17:01+0000\n"
-"PO-Revision-Date: 2023-10-12 13:27+0000\n"
-"Last-Translator: Philipp Wolfer <ph.wolfer@gmail.com>\n"
+"PO-Revision-Date: 2023-10-31 22:27+0000\n"
+"Last-Translator: kellnerd <kellnerd@users.noreply.translations.metabrainz."
+"org>\n"
 "Language-Team: German <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/de/>\n"
 "Language: de\n"
@@ -81,7 +83,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.0.2\n"
+"X-Generator: Weblate 5.1\n"
 
 #: ../root/components/common-macros.tt:12
 msgid " ({text})"
@@ -7243,7 +7245,7 @@ msgstr ""
 #: ../root/layout/components/sidebar/AnnotationLinks.js:37
 #: ../root/static/scripts/common/components/Annotation.js:97
 msgid "Edit annotation"
-msgstr "Anmerkungen bearbeiten"
+msgstr "Anmerkung bearbeiten"
 
 #: ../root/annotation/EditAnnotation.js:53
 msgid ""
@@ -8517,17 +8519,17 @@ msgstr ""
 
 #: ../root/components/TagEntitiesList.js:129
 msgid "Entities {user} tagged as “{tag}”"
-msgstr ""
+msgstr "Objekte, die {user} als „{tag}“ getaggt hat"
 
 #: ../root/components/TagEntitiesList.js:133
 msgid "Entities tagged as “{tag}”"
-msgstr ""
+msgstr "Objekte, die als „{tag}“ getaggt sind"
 
 #: ../root/components/TagEntitiesList.js:144
 msgid "{num} entity found"
 msgid_plural "{num} entities found"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "{num} Objekt gefunden"
+msgstr[1] "{num} Objekte gefunden"
 
 #: ../root/components/TagEntitiesList.js:158
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:13
@@ -13692,6 +13694,10 @@ msgid ""
 "since the 16th of May 2022, so these releases have no front cover anymore "
 "until one is added to the Cover Art Archive."
 msgstr ""
+"Dieser Bericht zeigt Veröffentlichungen, die Cover‐Art auf Amazon, aber kein "
+"Front‐Cover im Cover Art Archive haben. Die Nutzung von Amazon‐Covern wurde "
+"am 16. Mai 2022 eingestellt, daher haben diese Veröffentlichungen kein Front‐"
+"Cover mehr bis eines zum Cover Art Archive hinzugefügt wird."
 
 #: ../root/report/ReleasesWithAmazonCoverArt.js:33
 #: ../root/report/ReportsIndex.js:352
@@ -14817,8 +14823,8 @@ msgid ""
 "This is an {history|old revision} of this annotation, as edited by {user} on "
 "{date}. {current|View current revision}."
 msgstr ""
-"Dies ist eine {history|alte Revision} dieser Anmerkungen, bearbeitet von "
-"{user} am {date}. {current|Aktuelle Revision anzeigen.}"
+"Dies ist eine {history|alte Revision} dieser Anmerkung, bearbeitet von {user}"
+" am {date}. {current|Aktuelle Revision anzeigen.}"
 
 #: ../root/static/scripts/common/components/Annotation.js:114
 msgid "Annotation last modified on {date}."
@@ -15367,7 +15373,7 @@ msgstr "in {date}"
 
 #: ../root/static/scripts/common/utility/relationshipDateText.js:28
 msgid "from {begin_date} until {end_date}"
-msgstr "vom {begin_date} bis {end_date}"
+msgstr "von {begin_date} bis {end_date}"
 
 #: ../root/static/scripts/common/utility/relationshipDateText.js:33
 msgid "from {date} to ????"
@@ -16664,93 +16670,93 @@ msgstr "Sprache entfernen"
 
 #: ../root/tag/EntityList.js:26
 msgid "Areas tagged as “{tag}”"
-msgstr ""
+msgstr "Gebiete, die als „{tag}“ getaggt sind"
 
 #: ../root/tag/EntityList.js:27
 msgid "Artists tagged as “{tag}”"
-msgstr ""
+msgstr "Künstler, die als „{tag}“ getaggt sind"
 
 #: ../root/tag/EntityList.js:28
 msgid "Events tagged as “{tag}”"
-msgstr ""
+msgstr "Veranstaltungen, die als „{tag}“ getaggt sind"
 
 #: ../root/tag/EntityList.js:29
 msgid "Instruments tagged as “{tag}”"
-msgstr ""
+msgstr "Instrumente, die als „{tag}“ getaggt sind"
 
 #: ../root/tag/EntityList.js:30
 msgid "Labels tagged as “{tag}”"
-msgstr ""
+msgstr "Label, die als „{tag}“ getaggt sind"
 
 #: ../root/tag/EntityList.js:31
 msgid "Places tagged as “{tag}”"
-msgstr ""
+msgstr "Örtlichkeiten, die als „{tag}“ getaggt sind"
 
 #: ../root/tag/EntityList.js:32
 msgid "Recordings tagged as “{tag}”"
-msgstr ""
+msgstr "Aufnahmen, die als „{tag}“ getaggt sind"
 
 #: ../root/tag/EntityList.js:33
 msgid "Releases tagged as “{tag}”"
-msgstr ""
+msgstr "Veröffentlichungen, die als „{tag}“ getaggt sind"
 
 #: ../root/tag/EntityList.js:34
 msgid "Release groups tagged as “{tag}”"
-msgstr ""
+msgstr "Veröffentlichungsgruppen, die als „{tag}“ getaggt sind"
 
 #: ../root/tag/EntityList.js:35
 msgctxt "plural series"
 msgid "Series tagged as “{tag}”"
-msgstr ""
+msgstr "Serien, die als „{tag}“ getaggt sind"
 
 #: ../root/tag/EntityList.js:36
 msgid "Works tagged as “{tag}”"
-msgstr ""
+msgstr "Werke, die als „{tag}“ getaggt sind"
 
 #: ../root/tag/EntityList.js:40
 msgid "Areas {user} tagged as “{tag}”"
-msgstr ""
+msgstr "Gebiete, die {user} als „{tag}“ getaggt hat"
 
 #: ../root/tag/EntityList.js:41
 msgid "Artists {user} tagged as “{tag}”"
-msgstr ""
+msgstr "Künstler, die {user} als „{tag}“ getaggt hat"
 
 #: ../root/tag/EntityList.js:42
 msgid "Events {user} tagged as “{tag}”"
-msgstr ""
+msgstr "Veranstaltungen, die {user} als „{tag}“ getaggt hat"
 
 #: ../root/tag/EntityList.js:43
 msgid "Instruments {user} tagged as “{tag}”"
-msgstr ""
+msgstr "Instrumente, die {user} als „{tag}“ getaggt hat"
 
 #: ../root/tag/EntityList.js:44
 msgid "Labels {user} tagged as “{tag}”"
-msgstr ""
+msgstr "Labels, die {user} als „{tag}“ getaggt hat"
 
 #: ../root/tag/EntityList.js:45
 msgid "Places {user} tagged as “{tag}”"
-msgstr ""
+msgstr "Örtlichkeiten, die {user} als „{tag}“ getaggt hat"
 
 #: ../root/tag/EntityList.js:46
 msgid "Recordings {user} tagged as “{tag}”"
-msgstr ""
+msgstr "Aufnahmen, die {user} als „{tag}“ getaggt hat"
 
 #: ../root/tag/EntityList.js:47
 msgid "Releases {user} tagged as “{tag}”"
-msgstr ""
+msgstr "Veröffentlichungen, die {user} als „{tag}“ getaggt hat"
 
 #: ../root/tag/EntityList.js:48
 msgid "Release groups {user} tagged as “{tag}”"
-msgstr ""
+msgstr "Veröffentlichungsgruppen, die {user} als „{tag}“ getaggt hat"
 
 #: ../root/tag/EntityList.js:49
 msgctxt "plural series"
 msgid "Series {user} tagged as “{tag}”"
-msgstr ""
+msgstr "Serien, die {user} als „{tag}“ getaggt hat"
 
 #: ../root/tag/EntityList.js:50
 msgid "Works {user} tagged as “{tag}”"
-msgstr ""
+msgstr "Werke, die {user} als „{tag}“ getaggt hat"
 
 #: ../root/tag/EntityList.js:54
 msgid "Areas where {user} downvoted “{tag}”"
