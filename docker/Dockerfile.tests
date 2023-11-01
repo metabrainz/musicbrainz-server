@@ -19,17 +19,16 @@ RUN apt-get update && \
         gnupg && \
     cp nodesource_pubkey.txt /etc/apt/keyrings/nodesource.asc && \
     cp pgdg_pubkey.txt /etc/apt/keyrings/pgdg.asc && \
-    cp yarn_pubkey.txt /etc/apt/keyrings/yarn.asc && \    rm nodesource_pubkey.txt pgdg_pubkey.txt yarn_pubkey.txt && \
+    cp yarn_pubkey.txt /etc/apt/keyrings/yarn.asc && \
+    rm nodesource_pubkey.txt pgdg_pubkey.txt yarn_pubkey.txt && \
     echo "deb [signed-by=/etc/apt/keyrings/nodesource.asc] https://deb.nodesource.com/node_20.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list && \
     echo "deb [signed-by=/etc/apt/keyrings/pgdg.asc] http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
     echo "deb [signed-by=/etc/apt/keyrings/yarn.asc] https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
-    curl -sLO https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
     apt-get update && \
     apt-get install \
         --no-install-recommends \
         --no-install-suggests \
         -y \
-        ./google-chrome-stable_current_amd64.deb \
         build-essential \
         bzip2 \
         gcc \
@@ -51,6 +50,7 @@ RUN apt-get update && \
         libdb5.3 \
         libexpat1 \
         libexpat1-dev \
+        libgbm1 \
         libicu-dev \
         libicu70 \
         libperl-dev \
@@ -58,6 +58,7 @@ RUN apt-get update && \
         libpq5 \
         libssl-dev \
         libssl3 \
+        libxkbcommon0 \
         libxml2 \
         libxml2-dev \
         locales \
@@ -91,7 +92,6 @@ RUN apt-get update && \
         yarn \
         zlib1g-dev && \
     rm -rf /var/lib/apt/lists/* && \
-    rm google-chrome-stable_current_amd64.deb && \
     update-java-alternatives -s java-1.8.0-openjdk-amd64 && \
     systemctl disable rabbitmq-server
 
@@ -163,6 +163,10 @@ RUN sudo -E -H -u musicbrainz git clone https://github.com/metabrainz/artwork-re
     sudo -E -H -u musicbrainz git reset --hard $ARTWORK_REDIRECT_COMMIT && \
     sudo -E -H -u musicbrainz sh -c 'python3 -m venv venv; . venv/bin/activate; pip install -r requirements.txt' && \
     cd /home/musicbrainz
+
+RUN curl -sLO https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/119.0.6045.105/linux64/chrome-linux64.zip && \
+    unzip chrome-linux64.zip -d /opt && \
+    rm chrome-linux64.zip
 
 RUN curl -sLO https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/119.0.6045.105/linux64/chromedriver-linux64.zip && \
     unzip chromedriver-linux64.zip -d /tmp && \
