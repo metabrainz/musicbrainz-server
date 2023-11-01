@@ -2,19 +2,21 @@
 # Translators:
 # Dian Li <email address hidden>, 2009-2019
 # Gary Liu, 2022
+# suming <331874545@qq.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2012-05-24 18:54+0000\n"
-"Last-Translator: Gary Liu, 2022\n"
-"Language-Team: Chinese (http://app.transifex.com/musicbrainz/musicbrainz/"
-"language/zh/)\n"
+"PO-Revision-Date: 2023-10-16 21:27+0000\n"
+"Last-Translator: suming <331874545@qq.com>\n"
+"Language-Team: Chinese (Simplified) <https://translations.metabrainz.org/"
+"projects/musicbrainz/statistics/zh_Hans/>\n"
 "Language: zh\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 5.0.2\n"
 
 #: DB:statistics.statistic_event/title:2015-09-08
 msgid "\"Do Not Cluster\" guideline dropped"
@@ -1200,7 +1202,7 @@ msgstr ""
 #: ../root/statistics/StatisticsLayout.js:65 ../root/statistics/stats.js:32
 #: ../root/statistics/stats.js:48
 msgid "Relationships"
-msgstr ""
+msgstr "关系"
 
 #: ../root/statistics/timeline.tt:17
 msgid "Reset:"
@@ -1358,7 +1360,7 @@ msgstr ""
 
 #: ../root/statistics/Editors.js:113 ../root/statistics/Editors.js:119
 msgid "Editor"
-msgstr ""
+msgstr "编辑"
 
 #: ../root/statistics/Editors.js:114
 msgid "Most active editors in the past week"
@@ -2006,7 +2008,7 @@ msgstr "否"
 #: ../root/statistics/Index.js:1317
 msgctxt "vote"
 msgid "Abstain"
-msgstr ""
+msgstr "弃权"
 
 #: ../root/statistics/LanguagesScripts.js:50
 msgid "Languages and Scripts"
@@ -2104,7 +2106,7 @@ msgstr ""
 
 #: ../root/statistics/stats.js:23
 msgid "Edit Types"
-msgstr ""
+msgstr "编辑类型"
 
 #: ../root/statistics/stats.js:24
 msgid "Event Types"
