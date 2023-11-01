@@ -20,6 +20,7 @@ use Types::Serialiser;
 
 my $show_long_sql = 0;
 my $show_short_sql = 0;
+my $ignore_conflicts = 0;
 my $dbmirror2 = 1;
 my $debug_xact = 0;
 my $skip_seqid;
@@ -30,22 +31,24 @@ my $help = <<EOF;
 Usage: ProcessReplicationChanges [OPTIONS]
 
 Options are:
-        --short-sql     Show a summary of each "write" statement executed
-        --long-sql      Show the full text of each "write" statement executed
-        --debug-xact    Show when each transaction starts / ends
-    -s, --skip-seqid=N  Ignore SeqId's up to and including SeqId N
-        --limit=N       Update, insert, or delete at most N rows at a time
-                        This option is useful if you have a system with a small
-                        amount of memory - a setting of 10,000 works well for
-                        machines with 64MB RAM. The default is $limit.
-        --database      Database to connect to (default: READWRITE)
-    -h, --help          Show this help
+        --short-sql         Show a summary of each "write" statement executed
+        --long-sql          Show the full text of each "write" statement executed
+        --ignore-conflicts  Ignore any sequences that conflict with existing rows
+        --debug-xact        Show when each transaction starts / ends
+    -s, --skip-seqid=N      Ignore SeqId's up to and including SeqId N
+        --limit=N           Update, insert, or delete at most N rows at a time
+                            This option is useful if you have a system with a small
+                            amount of memory - a setting of 10,000 works well for
+                            machines with 64MB RAM. The default is $limit.
+        --database          Database to connect to (default: READWRITE)
+    -h, --help              Show this help
 
 EOF
 
 GetOptions(
     'short-sql'         => \$show_short_sql,
     'long-sql'          => \$show_long_sql,
+    'ignore-conflicts'  => \$ignore_conflicts,
     'dbmirror2!'        => \$dbmirror2,
     'debug-xact'        => \$debug_xact,
     'skip-seqid|s=i'    => \$skip_seqid,
@@ -359,6 +362,10 @@ sub mirrorInsert
 
     my ($statement, $args) = MusicBrainz::Server::dbmirror::prepare_insert($tableName, $valuepairs);
 
+    if ($ignore_conflicts) {
+        $statement .= ' ON CONFLICT DO NOTHING';
+    }
+
     print localtime() . " : INSERT INTO $tableName\n" if $show_short_sql;
     show_long_sql($statement, $args) if $show_long_sql;
     $applying_change_sql->do($statement, @$args);
@@ -509,6 +516,10 @@ sub dbmirror2_insert {
     my $placholders = join q(, ), (('?') x @$columns);
     my $statement = "INSERT INTO $table ($columns_string) VALUES ($placholders)";
 
+    if ($ignore_conflicts) {
+        $statement .= ' ON CONFLICT DO NOTHING';
+    }
+
     print localtime() . " : INSERT INTO $table\n" if $show_short_sql;
     show_long_sql($statement, $values) if $show_long_sql;
 
@@ -548,7 +559,7 @@ sub dbmirror2_delete {
     warn_if_existing_data_differs(
         $applying_change_sql, $table, $olddata,
         $keys, $conditions, \@key_data,
-    );
+    ) unless $ignore_conflicts;
 
     my $statement = "DELETE FROM $table WHERE $conditions";
 
@@ -599,7 +610,7 @@ sub dbmirror2_update {
     warn_if_existing_data_differs(
         $applying_change_sql, $table, $olddata,
         $keys, $conditions, \@key_data,
-    );
+    ) unless $ignore_conflicts;
 
     my (@changed_columns, @changed_values);
 
