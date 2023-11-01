@@ -47,13 +47,15 @@
 # yvanz, 2018
 # reosarevok <reosarevok@gmail.com>, 2023.
 # Yllelder <yllelder@gmail.com>, 2023.
+# reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-09-27 17:01+0000\n"
-"PO-Revision-Date: 2023-10-01 20:27+0000\n"
-"Last-Translator: Yllelder <yllelder@gmail.com>\n"
+"PO-Revision-Date: 2023-11-01 16:27+0000\n"
+"Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
+".org>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/es/>\n"
 "Language: es\n"
@@ -62,7 +64,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
 " ? 1 : 2);\n"
-"X-Generator: Weblate 5.0.2\n"
+"X-Generator: Weblate 5.1\n"
 
 #: ../root/components/common-macros.tt:12
 msgid " ({text})"
@@ -516,7 +518,7 @@ msgstr "Artista:"
 #: ../root/cdtoc/attach_filter_release.tt:54
 msgctxt "button/menu"
 msgid "Attach CD TOC"
-msgstr "Asociar CD TOC"
+msgstr "Asociar TOC de CD"
 
 #: ../root/cdtoc/attach_artist_releases.tt:3
 #: ../root/cdtoc/attach_artist_releases.tt:4
@@ -527,7 +529,7 @@ msgstr "Asociar CD TOC"
 #: ../root/cdtoc/SelectArtistForCDToc.js:32
 msgctxt "header"
 msgid "Attach CD TOC"
-msgstr "Asociar CD TOC"
+msgstr "Asociar TOC de CD"
 
 #: ../root/cdtoc/lookup.tt:66 ../root/release/edit/tracklist.tt:478
 msgid "Attach Disc ID"
@@ -1249,7 +1251,7 @@ msgid ""
 "style guidelines}."
 msgstr ""
 "Para más información, consulta la {doc_doc|documentación} y las "
-"{doc_styleguide|guías de estilo}."
+"{doc_styleguide|directrices de estilo}."
 
 #: ../root/event/edit_form.tt:3 ../root/label/edit_form.tt:3
 #: ../root/place/edit_form.tt:3 ../root/work/edit_form.tt:4
@@ -1627,7 +1629,7 @@ msgid ""
 "one, using this CD TOC:"
 msgstr ""
 "Si no encuentras la publicación que estás buscando, puedes añadir una nueva "
-"a partir de este CD TOC:"
+"a partir de esta TOC de CD:"
 
 #: ../root/components/forms.tt:336 ../root/components/forms.tt:345
 msgid "If you don’t know the code for this entity, just leave the field blank."
@@ -2099,6 +2101,8 @@ msgid ""
 "None of the mediums on this release can have the given CD TOC attached, "
 "because they have the wrong number of tracks."
 msgstr ""
+"No puedes asociar esta TOC de CD a ninguno de los medios de esta "
+"publicación, ya que no tienen el mismo número de pistas."
 
 #: ../root/release/edit/information.tt:283
 msgid ""
@@ -2240,7 +2244,7 @@ msgstr ""
 
 #: ../root/cdtoc/attach_artist_releases.tt:7
 msgid "Please select the medium you wish to attach this CD TOC to."
-msgstr "Elige el medio al que quieres asociar este CD TOC."
+msgstr "Elige el medio al que quieres asociar esta TOC de CD."
 
 #: ../root/cdtoc/list.tt:6 ../root/release/reorder_cover_art.tt:10
 #: ../root/edit/details/EditMedium.js:469
@@ -4194,11 +4198,11 @@ msgstr "'{id}' no es una ID de elección válida"
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:78
 msgid "Please provide a CD TOC ID."
-msgstr ""
+msgstr "Debes indicar una ID para la TOC de CD."
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:82
 msgid "The provided CD TOC ID is not valid."
-msgstr ""
+msgstr "La ID de TOC de CD suministrada no es válida."
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:88
 msgid "Please provide a medium ID."
@@ -4219,6 +4223,8 @@ msgid ""
 "The provided CD TOC ID doesn’t exist or is not connected to the provided "
 "medium."
 msgstr ""
+"La ID de TOC de CD suministrada no existe o no está asociada al medio "
+"suministrado."
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:153
 msgid "Please provide a medium ID"
@@ -4235,6 +4241,10 @@ msgid ""
 "your software maker if it persists, including the technical information "
 "below."
 msgstr ""
+"La TOC de CD suministrada no es válida, probablemente debido a un problema "
+"con el programa que hayas utilizado para generarla. Inténtalo de nuevo, y si "
+"sigue sin funcionar házselo saber a los desarrolladores de tu programa ("
+"junto con la información técnica que encontrarás más abajo)."
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:213
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:435
@@ -4252,7 +4262,7 @@ msgstr "La ID de artista indicada no es válida"
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:421
 msgid "The provided CD TOC ID doesn’t exist."
-msgstr ""
+msgstr "La ID de TOC de CD suministrada no existe."
 
 #: ../lib/MusicBrainz/Server/Controller/Collection.pm:77
 #, perl-brace-format
@@ -4563,7 +4573,7 @@ msgstr "Eliminar área"
 
 #: ../lib/MusicBrainz/Server/Edit/Area/DeleteAlias.pm:15
 msgid "Remove area alias"
-msgstr ""
+msgstr "Eliminar alias de área"
 
 #: ../lib/MusicBrainz/Server/Edit/Area/Edit.pm:33
 msgid "Edit area"
@@ -4651,7 +4661,7 @@ msgstr "Eliminar evento"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/DeleteAlias.pm:16
 msgid "Remove event alias"
-msgstr ""
+msgstr "Eliminar alias de evento"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/Edit.pm:42
 msgid "Edit event"
@@ -4681,11 +4691,11 @@ msgstr "Añadir genero"
 #: ../lib/MusicBrainz/Server/Edit/Genre/Delete.pm:10
 #: ../root/genre/DeleteGenre.js:31 ../root/genre/DeleteGenre.js:33
 msgid "Remove genre"
-msgstr ""
+msgstr "Eliminar género"
 
 #: ../lib/MusicBrainz/Server/Edit/Genre/DeleteAlias.pm:16
 msgid "Remove genre alias"
-msgstr "Eliminar alias de genero"
+msgstr "Eliminar alias de género"
 
 #: ../lib/MusicBrainz/Server/Edit/Genre/Edit.pm:24
 #: ../root/genre/EditGenre.js:30
@@ -4795,7 +4805,7 @@ msgstr "Eliminar ID de disco"
 #: ../lib/MusicBrainz/Server/Edit/Historic/RemoveLabelAlias.pm:12
 #: ../lib/MusicBrainz/Server/Edit/Label/DeleteAlias.pm:16
 msgid "Remove label alias"
-msgstr "Eliminar alias de la discográfica"
+msgstr "Eliminar alias de discográfica"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/RemoveLink.pm:11
 #: ../lib/MusicBrainz/Server/Edit/Relationship/Delete.pm:36
@@ -4809,7 +4819,7 @@ msgstr "Eliminar publicación"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/RemoveReleaseEvents.pm:12
 msgid "Remove release events (historic)"
-msgstr "Eliminar eventos de publicación (histórico)"
+msgstr "Eliminar lanzamientos de publicación (histórico)"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/RemoveReleases.pm:12
 msgid "Remove releases (historic)"
@@ -4843,7 +4853,7 @@ msgstr "Eliminar instrumento"
 
 #: ../lib/MusicBrainz/Server/Edit/Instrument/DeleteAlias.pm:16
 msgid "Remove instrument alias"
-msgstr ""
+msgstr "Eliminar alias de instrumento"
 
 #: ../lib/MusicBrainz/Server/Edit/Instrument/Edit.pm:26
 msgid "Edit instrument"
@@ -4901,6 +4911,8 @@ msgid ""
 "The CD TOC the track times were being set from has been removed since this "
 "edit was entered."
 msgstr ""
+"La TOC de CD que esta edición intentaba usar para actualizar las duraciones "
+"de las pistas ha sido eliminada tras la creación de la edición."
 
 #: ../lib/MusicBrainz/Server/Edit/Place/AddAlias.pm:11
 msgid "Add place alias"
@@ -4920,7 +4932,7 @@ msgstr "Eliminar lugar"
 
 #: ../lib/MusicBrainz/Server/Edit/Place/DeleteAlias.pm:15
 msgid "Remove place alias"
-msgstr ""
+msgstr "Eliminar alias de lugar"
 
 #: ../lib/MusicBrainz/Server/Edit/Place/Edit.pm:45
 msgid "Edit place"
@@ -4957,7 +4969,7 @@ msgstr "Eliminar grabación"
 
 #: ../lib/MusicBrainz/Server/Edit/Recording/DeleteAlias.pm:15
 msgid "Remove recording alias"
-msgstr ""
+msgstr "Eliminar alias de grabación"
 
 #: ../lib/MusicBrainz/Server/Edit/Recording/EditAlias.pm:12
 msgid "Edit recording alias"
@@ -5035,7 +5047,7 @@ msgstr "Añadir discográfica a la publicación"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/DeleteAlias.pm:15
 msgid "Remove release alias"
-msgstr ""
+msgstr "Eliminar alias de publicación"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/DeleteReleaseLabel.pm:21
 msgid "Remove release label"
@@ -5110,7 +5122,7 @@ msgstr "Eliminar grupo de publicaciones"
 
 #: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/DeleteAlias.pm:15
 msgid "Remove release group alias"
-msgstr ""
+msgstr "Eliminar alias de grupo de publicación"
 
 #: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/Edit.pm:44
 msgid "Edit release group"
@@ -5189,11 +5201,11 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Series/Delete.pm:12
 msgid "Remove series"
-msgstr ""
+msgstr "Eliminar serie"
 
 #: ../lib/MusicBrainz/Server/Edit/Series/DeleteAlias.pm:16
 msgid "Remove series alias"
-msgstr ""
+msgstr "Eliminar alias de serie"
 
 #: ../lib/MusicBrainz/Server/Edit/Series/Edit.pm:32
 msgid "Edit series"
@@ -5616,6 +5628,8 @@ msgid ""
 "You must provide an edit note. If you want to blank the note, please remove "
 "it instead."
 msgstr ""
+"Debes suministrar una nota de edición. Si quieres que la nota no tenga "
+"contenido, elimínala."
 
 #: ../lib/MusicBrainz/Server/Form/Field/ArtistCredit.pm:50
 #, perl-brace-format
@@ -6083,7 +6097,7 @@ msgid ""
 "A compilation is a collection of previously released tracks by one or more "
 "artists."
 msgstr ""
-"Un recopilatorio es una colección de canciones ya publicadas, de uno o más "
+"Una recopilación es una colección de canciones ya publicadas de uno o más "
 "artistas."
 
 #: ../lib/MusicBrainz/Server/Release.pm:35
@@ -6715,7 +6729,7 @@ msgstr "Flags de administración"
 
 #: ../root/admin/EditUser.js:141
 msgid "<abbr title=\"MusicBrainz Identifier\">MBID</abbr> submitter"
-msgstr "<abbr title=\"Identificador de MusicBrainz\">MBID</abbr> remitente"
+msgstr "Emisor de <abbr title=\"Identificador de MusicBrainz\">MBID</abbr>s"
 
 #: ../root/admin/EditUser.js:148 ../root/admin/PrivilegeSearch.js:140
 msgid "Account admin"
@@ -6779,7 +6793,7 @@ msgstr ""
 
 #: ../root/admin/PrivilegeSearch.js:135
 msgid "MBID submitter"
-msgstr ""
+msgstr "Emisor de MBIDs"
 
 #: ../root/admin/attributes/Attribute.js:30
 msgid "Disc IDs allowed"
@@ -6823,12 +6837,11 @@ msgstr "Agregar nuevo atributo"
 #: ../root/admin/attributes/CannotRemoveAttribute.js:19
 #: ../root/admin/attributes/CannotRemoveAttribute.js:20
 msgid "Cannot Remove Attribute"
-msgstr "No se puede Eliminar el Atributo"
+msgstr "No se puede eliminar el atributo"
 
 #: ../root/admin/attributes/DeleteAttribute.js:26
 msgid "Are you sure you wish to remove the <strong>{name}</strong> attribute?"
-msgstr ""
-"¿Está seguro de que desea eliminar el atributo <strong>{nombre} </strong>?"
+msgstr "¿Seguro que quieres eliminar el atributo <strong>{nombre}</strong>?"
 
 #: ../root/admin/attributes/DeleteAttribute.js:30
 msgid "Remove Attribute"
@@ -6884,7 +6897,7 @@ msgstr ""
 #: ../root/admin/statistics-events/DeleteStatisticsEvent.js:22
 #: ../root/admin/statistics-events/DeleteStatisticsEvent.js:45
 msgid "Remove statistics event"
-msgstr ""
+msgstr "Eliminar suceso histórico"
 
 #: ../root/admin/statistics-events/DeleteStatisticsEvent.js:37
 #: ../root/admin/statistics-events/StatisticsEventEditForm.js:47
@@ -6895,7 +6908,7 @@ msgstr "Enlace"
 
 #: ../root/admin/statistics-events/DeleteStatisticsEvent.js:42
 msgid "Are you sure you want to remove this statistics event?"
-msgstr ""
+msgstr "¿Seguro que quieres eliminar este suceso histórico?"
 
 #: ../root/admin/statistics-events/EditStatisticsEvent.js:21
 msgid "Edit statistics event"
@@ -6950,6 +6963,8 @@ msgid ""
 "Are you sure you wish to remove the page “{page_uri|{page_name}}” from the "
 "transclusion table?"
 msgstr ""
+"¿Seguro que quieres eliminar la página “{page_uri|{page_name}}” de la tabla "
+"de transclusión?"
 
 #: ../root/admin/wikidoc/DeleteWikiDoc.js:38
 #: ../root/components/ConfirmLayout.js:38 ../root/edit/DeleteNote.js:64
@@ -7333,12 +7348,16 @@ msgid ""
 "This area cannot be removed because it is one of the areas that can be used "
 "as a release country."
 msgstr ""
+"Este área no puede ser eliminada porque puede ser seleccionada como país "
+"para publicaciones."
 
 #: ../root/area/DeleteArea.js:55
 msgid ""
 "This area cannot be removed because it is still in use (in artists, labels, "
 "places, relationships or open edits)."
 msgstr ""
+"Este área no puede ser eliminada porque aún está en uso (en artistas, "
+"discográficas, lugares o relaciones) o tiene ediciones pendientes."
 
 #: ../root/artist/ArtistEvents.js:78
 msgid "No events found that match this search."
@@ -7551,8 +7570,8 @@ msgid ""
 "relationships}."
 msgstr ""
 "Este artista tiene otras relaciones además de relaciones de colaboración, y "
-"no puede separarse hasta que sean eliminadas. {relationships|Ver todas las "
-"relacciones}."
+"no puede ser separado hasta que estas sean eliminadas. {relationships|Ver "
+"todas las relaciones}."
 
 #: ../root/artist/SpecialPurpose.js:23 ../root/label/SpecialPurpose.js:23
 msgid "Cannot edit"
@@ -7806,7 +7825,7 @@ msgstr ""
 
 #: ../root/cdtoc/AttachCDTocConfirmation.js:88
 msgid "CD TOC track lengths"
-msgstr ""
+msgstr "Duración de las pistas en esta TOC de CD"
 
 #: ../root/cdtoc/AttachCDTocConfirmation.js:90
 msgid "Medium track lengths"
@@ -7814,7 +7833,7 @@ msgstr ""
 
 #: ../root/cdtoc/CDTocInfo.js:23
 msgid "CD TOC details"
-msgstr "Detalles del CD TOC"
+msgstr "Detalles de la TOC de CD"
 
 #: ../root/cdtoc/CDTocInfo.js:32 ../root/edit/details/AddDiscId.js:34
 #: ../root/edit/details/MoveDiscId.js:26
@@ -7960,7 +7979,7 @@ msgstr "Colaboradores"
 
 #: ../root/collection/CollectionIndex.js:219
 msgid "Remove selected items from collection"
-msgstr ""
+msgstr "Eliminar las entidades seleccionadas de la colección"
 
 #: ../root/collection/CollectionIndex.js:224
 msgid "This collection is empty."
@@ -8149,6 +8168,8 @@ msgid ""
 "This event has no relationships and will be removed automatically in the "
 "next few days. If this is not intended, please add more data to this event."
 msgstr ""
+"Este evento no tiene relaciones y será eliminado automáticamente en unos "
+"días. Si deseas evitarlo, añade más información."
 
 #: ../root/components/CleanupBanner.js:23
 msgid ""
@@ -8164,6 +8185,8 @@ msgid ""
 "This place has no relationships and will be removed automatically in the "
 "next few days. If this is not intended, please add more data to this place."
 msgstr ""
+"Este lugar no tiene relaciones y será eliminado automáticamente en unos "
+"días. Si deseas evitarlo, añade más información."
 
 #: ../root/components/CleanupBanner.js:33
 msgid ""
@@ -8171,20 +8194,25 @@ msgid ""
 "removed automatically in the next few days. If this is not intended, please "
 "add more data to this release group."
 msgstr ""
+"Este grupo de publicaciones no tiene relaciones ni publicaciones y será "
+"eliminado automáticamente en unos días. Si deseas evitarlo, añade más "
+"información."
 
 #: ../root/components/CleanupBanner.js:38
 msgid ""
 "This series has no relationships and will be removed automatically in the "
 "next few days. If this is not intended, please add more data to this series."
 msgstr ""
+"Esta serie no tiene relaciones y será eliminada automáticamente en unos "
+"días. Si deseas evitarlo, añade más información."
 
 #: ../root/components/CleanupBanner.js:43
 msgid ""
 "This work has no relationships and will be removed automatically in the next "
 "few days. If this is not intended, please add relationships to this work."
 msgstr ""
-"Esta obra no tiene relaciones, y será eliminada automáticamente en unos "
-"días. Si deseas evitarlo, añade algunas relaciones."
+"Esta obra no tiene relaciones y será eliminada automáticamente en unos días. "
+"Si deseas evitarlo, añade más información."
 
 #: ../root/components/CritiqueBrainzLinks.js:43
 msgid "An error occurred when loading reviews."
@@ -8675,11 +8703,11 @@ msgstr ""
 #: ../root/edit/DeleteNote.js:32 ../root/edit/DeleteNote.js:33
 #: ../root/edit/components/EditNote.js:147
 msgid "Remove edit note"
-msgstr ""
+msgstr "Eliminar nota de edición"
 
 #: ../root/edit/DeleteNote.js:35
 msgid "Are you sure you want to remove the following edit note?"
-msgstr ""
+msgstr "¿Seguro que quieres eliminar la siguiente nota de edición?"
 
 #: ../root/edit/DeleteNote.js:47
 msgid ""
@@ -8923,19 +8951,19 @@ msgstr ""
 
 #: ../root/edit/components/EditNote.js:168
 msgid "This edit note was removed by its author. Reason given: “{reason}”."
-msgstr ""
+msgstr "Nota de edición eliminada por su autor. Motivo: “{reason}”."
 
 #: ../root/edit/components/EditNote.js:173
 msgid "This edit note was removed by its author. No reason was provided."
-msgstr ""
+msgstr "Nota de edición eliminada por su autor, sin presentar motivos."
 
 #: ../root/edit/components/EditNote.js:179
 msgid "This edit note was removed by an admin. Reason given: “{reason}”."
-msgstr ""
+msgstr "Nota de edición eliminada por un administrador. Motivo: “{reason}”."
 
 #: ../root/edit/components/EditNote.js:184
 msgid "This edit note was removed by an admin. No reason was provided."
-msgstr ""
+msgstr "Nota de edición eliminada por un administrador, sin presentar motivos."
 
 #: ../root/edit/components/EditNote.js:194
 #: ../root/edit/components/EditNote.js:250
@@ -9140,7 +9168,7 @@ msgstr ""
 
 #: ../root/edit/components/ListHeader.js:222 ../root/main/index.js:180
 msgid "Style guidelines"
-msgstr "Convenciones de estilo"
+msgstr "Directrices de estilo"
 
 #: ../root/edit/components/VoteTally.js:31
 msgid "automatically applied"
@@ -9699,7 +9727,7 @@ msgstr ""
 
 #: ../root/edit/details/historic/AddDiscId.js:23
 msgid "CD TOC:"
-msgstr "CD TOC:"
+msgstr "TOC de CD:"
 
 #: ../root/edit/details/historic/AddRelationship.js:20
 #: ../root/edit/details/historic/RemoveRelationship.js:22
@@ -10089,11 +10117,11 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:43
 msgid "CD TOC Not Found"
-msgstr "No se ha encontrado un CD TOC"
+msgstr "No se ha encontrado una TOC de CD"
 
 #: ../root/entity/NotFound.js:44
 msgid "Sorry, we could not find the CD TOC you specified."
-msgstr "No hemos encontrado el CD TOC que has indicado."
+msgstr "No hemos encontrado la TOC de CD que has indicado."
 
 #: ../root/entity/NotFound.js:49
 msgid "Collection Not Found"
@@ -10750,7 +10778,7 @@ msgstr "Guía para principiantes"
 
 #: ../root/layout/components/BottomMenu.js:301
 msgid "Style Guidelines"
-msgstr "Convenciones de estilo"
+msgstr "Directrices de estilo"
 
 #: ../root/layout/components/BottomMenu.js:304
 msgid "How Tos"
@@ -12262,13 +12290,13 @@ msgid ""
 "name, rather than the actual disambiguation comment field."
 msgstr ""
 "Este informe muestra artistas que parecen tener comentarios de "
-"disambiguación como parte del nombre, en vez de en el campo de "
-"disambiguación."
+"desambiguación como parte del nombre, en vez de en el campo de "
+"desambiguación."
 
 #: ../root/report/ArtistsContainingDisambiguationComments.js:30
 #: ../root/report/ReportsIndex.js:84
 msgid "Artists containing disambiguation comments in their name"
-msgstr "Artistas cuyo nombre contiene disambiguación"
+msgstr "Artistas cuyo nombre contiene desambiguación"
 
 #: ../root/report/ArtistsDisambiguationSameName.js:24
 msgid ""
@@ -12642,8 +12670,8 @@ msgstr ""
 "Este informe muestra artistas con nombres muy similares. Si dos de ellos son "
 "realmente el mismo, fusiónalos (no olvides {how_to_write_edit_notes|dejar "
 "una nota} con las pruebas que tengas). Si son diferentes, añade "
-"{disambiguation_comment|comentarios de disambiguación}; cuando todos los "
-"artistas con el mismo nombre tengan comentarios de disambiguación, dejarán "
+"{disambiguation_comment|comentarios de desambiguación}; cuando todos los "
+"artistas con el mismo nombre tengan comentarios de desambiguación, dejarán "
 "de aparecer en este informe."
 
 #: ../root/report/DuplicateArtists.js:55 ../root/report/ReportsIndex.js:71
@@ -13435,7 +13463,7 @@ msgstr ""
 "Si te gustaría editar MusicBrainz, pero no sabes por dónde empezar, estos "
 "informes pueden resultar útiles. Para crearlos se analiza la base de datos "
 "en busca de información que quizá deba ser modificada, ya sea para seguir "
-"las {style|convenciones de estilo} o por otras razones de organización."
+"las {style|directrices de estilo} o por otras razones de organización."
 
 #: ../root/report/ReportsIndex.js:75
 msgid "Artists which have collaboration relationships"
