@@ -13,18 +13,20 @@
 # Suzuki Manabu, 2022
 # th1rtyf0ur, 2013
 # 和田篤 <email address hidden>, 2019
+# julian45 <techieboy45@gmail.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2012-05-24 18:57+0000\n"
-"Last-Translator: Suzuki Manabu, 2022\n"
-"Language-Team: Japanese (http://app.transifex.com/musicbrainz/musicbrainz/"
-"language/ja/)\n"
+"PO-Revision-Date: 2023-10-27 01:27+0000\n"
+"Last-Translator: julian45 <techieboy45@gmail.com>\n"
+"Language-Team: Japanese <https://translations.metabrainz.org/projects/"
+"musicbrainz/instruments/ja/>\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 5.1\n"
 
 #: DB:instrument/name:438
 msgid "12 string guitar"
@@ -42,7 +44,7 @@ msgstr "アングロ コンサー ティーナ"
 #: DB:instrument/name:66
 msgctxt "Folk drone zither from N. America"
 msgid "Appalachian dulcimer"
-msgstr ""
+msgstr "アパラチアン・ダルシマー"
 
 #: DB:instrument/name:421
 msgctxt "Family of Baltic box-zithers"
@@ -975,12 +977,12 @@ msgstr "チャープ"
 #: DB:instrument/name:466
 msgctxt "Small Andean lute"
 msgid "charango"
-msgstr ""
+msgstr "チャランゴ"
 
 #: DB:instrument/name:1150
 msgctxt "Japanese double-reed"
 msgid "charumera"
-msgstr ""
+msgstr "チャルメラ"
 
 #: DB:instrument/name:640
 msgid "chau gong"
@@ -1183,7 +1185,7 @@ msgstr "ツィンク"
 #: DB:instrument/name:158
 msgctxt "Tuned metal bell"
 msgid "cowbell"
-msgstr ""
+msgstr "カウベル"
 
 #: DB:instrument/name:779
 msgctxt "guitar/Viola caipira like plucked string instrument"
@@ -3262,7 +3264,7 @@ msgstr "ルバーブ"
 #: DB:instrument/name:501
 msgctxt "Ancient large North Indian tube zither"
 msgid "rudra veena"
-msgstr " ルドラ・ヴィーナ"
+msgstr "ルドラ・ヴィーナ"
 
 #: DB:instrument/name:617
 msgctxt "Japanese transverse flute"
@@ -3375,7 +3377,7 @@ msgstr "薩摩琵琶"
 
 #: DB:instrument/name:624
 msgid "saw duang"
-msgstr " ソー・ドゥワン"
+msgstr "ソー・ドゥワン"
 
 #: DB:instrument/name:712
 msgid "saw sam sai"
@@ -4451,7 +4453,7 @@ msgstr "yu"
 #: DB:instrument/name:240
 msgctxt "Traditional Chinese lute"
 msgid "yueqin"
-msgstr " 月琴（ユエチン）"
+msgstr "月琴（ユエチン）"
 
 #: DB:instrument/name:715
 msgid "zabumba"
