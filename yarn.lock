@@ -3367,16 +3367,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-ft-flow@npm:3.0.0":
-  version: 3.0.0
-  resolution: "eslint-plugin-ft-flow@npm:3.0.0"
+"eslint-plugin-ft-flow@npm:3.0.1":
+  version: 3.0.1
+  resolution: "eslint-plugin-ft-flow@npm:3.0.1"
   dependencies:
     lodash: "npm:^4.17.21"
     string-natural-compare: "npm:^3.0.1"
   peerDependencies:
     eslint: ^8.1.0
-    hermes-eslint: ^0.15.0
-  checksum: 4a039c43c789571cae28f24b3bb95d9f7f90f5dec775ac09bbec1a0dd3d7c3bac2309b10da31d742009a6c1934782c3aa9d92f8280eb3d66c8c0aa32692a14ee
+    hermes-eslint: ^0.15.0 || ^0.16.0
+  checksum: ce1cc084e5c842f4553bda3ce9f989c26b7a212c0ac9417ac2f416addc409de79f5affaabb0ae75bd4dd0c6e2e3ba04a4b3f3b19e17e6c0095a83402e42c1041
   languageName: node
   linkType: hard
 
@@ -5606,7 +5606,7 @@ __metadata:
     detect-node: "npm:2.0.3"
     eslint: "npm:8.46.0"
     eslint-plugin-fb-flow: "npm:0.0.4"
-    eslint-plugin-ft-flow: "npm:3.0.0"
+    eslint-plugin-ft-flow: "npm:3.0.1"
     eslint-plugin-import: "npm:2.28.0"
     eslint-plugin-react: "npm:7.33.1"
     eslint-plugin-react-hooks: "npm:4.6.0"
