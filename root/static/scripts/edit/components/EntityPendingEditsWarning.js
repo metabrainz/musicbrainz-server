@@ -30,12 +30,12 @@ const EntityPendingEditsWarning = ({
       {' '}
       <Tooltip
         content={exp.l(
-          'This entity has {edits_link|pending edits}.',
+          'This entity has {edits_link|open edits}.',
           {edits_link: openEditsLink},
         )}
         target={
           <img
-            alt={l('This entity has pending edits.')}
+            alt={l('This entity has open edits.')}
             className="info"
             height={16}
             src={openEditsForEntityIconUrl}

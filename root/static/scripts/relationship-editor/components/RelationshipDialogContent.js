@@ -899,7 +899,7 @@ const RelationshipDialogContent = (React.memo<PropsT>((
       {openEditsLink == null ? null : (
         <p className="msg warning">
           {exp.l(
-            `Warning: This relationship has pending edits. {show|Click here}
+            `Warning: This relationship has open edits. {show|Click here}
              to view these edits and make sure they do not conflict with
              your own.`,
             {
