@@ -51,13 +51,13 @@ Important folders are documented here, in alphabetical order.
          [HTML::FormHandler](http://search.cpan.org/dist/HTML-FormHandler/)
          classes, where most forms rendered by Template Toolkit get handled.
          The controller will create an instance of the corresponding class
-         here, and pass the request data to it. (See e.g.
+         here, and pass the request data to it. (See for example
          `MusicBrainz::Server::Controller::edit_action`). The form acts to
          validate the request data and return any errors.
 
          We have some forms that are mostly rendered client-side and submit
          JSON directly to some controller endpoint, which then performs its own
-         validation. (See e.g. `/ws/js/edit`.) Those have nothing to do with
+         validation. (See `/ws/js/edit`.) Those have nothing to do with
          the code here.
 
  * **root/**

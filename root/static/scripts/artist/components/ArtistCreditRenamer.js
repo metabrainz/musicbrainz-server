@@ -225,7 +225,7 @@ const ArtistCreditRenamer = ({
       <p>
         {l(`This will enter additional edits to change each specific
             credit to use the new name. Only use this if you are sure
-            the existing credits are incorrect (e.g. for typos).`)}
+            the existing credits are incorrect (such as for typos).`)}
       </p>
       <p>
         {l(`Keep in mind artist credits should generally follow what is

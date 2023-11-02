@@ -436,7 +436,7 @@ If you intend to run a server with translations, there are a few steps to follow
     The `.po` files for all language(s) open to translation are
     in the `po/` folder with filenames ending with ISO language code,
     optionally followed by an underscore and an ISO country code
-    (e.g. `fr` for French, `fr_CA` for Canadian French).
+    (such as `fr` for French, `fr_CA` for Canadian French).
 
 4.  Install translations
 
@@ -446,7 +446,7 @@ If you intend to run a server with translations, there are a few steps to follow
     `lib/LocaleData/{language}/LC_MESSAGES/{domain}.mo`.
 
 5.  Add the languages to `MB_LANGUAGES` in DBDefs.pm. These should be formatted
-    {lang}-{country}, e.g. 'es', or 'fr-ca', in a space-separated list.
+    {lang}-{country}, such as 'es', or 'fr-ca', in a space-separated list.
 
 6.  Ensure you have a system locale for any languages you want to use. For many
     languages, this will suffice:
