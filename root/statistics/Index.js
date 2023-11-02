@@ -1262,7 +1262,7 @@ const Index = ({
           </tr>
           <tr>
             <th />
-            <th colSpan="3">{l('Cancelled:')}</th>
+            <th colSpan="3">{addColonText(lp('Cancelled', 'edit'))}</th>
             <td>{fc('edit.deleted')}</td>
             <td>{fp('edit.deleted', 'edit')}</td>
           </tr>

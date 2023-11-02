@@ -641,7 +641,7 @@ const UserProfileStatistics = ({
             ) : formatCount($c, editStats.failed_count)}
           </UserProfileProperty>
 
-          <UserProfileProperty name={l('Cancelled')}>
+          <UserProfileProperty name={lp('Cancelled', 'edit')}>
             {$c.user ? exp.l(
               '{count} ({view_url|view})',
               {

@@ -38,7 +38,7 @@ const EXPIRE_ACTIONS = {
 
 const STATUS_NAMES = {
   [EDIT_STATUS_APPLIED]:        N_l('Applied'),
-  [EDIT_STATUS_DELETED]:        N_l('Cancelled'),
+  [EDIT_STATUS_DELETED]:        N_lp('Cancelled', 'edit'),
   [EDIT_STATUS_ERROR]:          N_l('Error'),
   [EDIT_STATUS_FAILEDDEP]:      N_l('Failed dependency'),
   [EDIT_STATUS_FAILEDPREREQ]:   N_l('Failed prerequisite'),
