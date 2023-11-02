@@ -81,7 +81,7 @@ const AddPlace = ({edit}: Props): React$MixedElement => {
             </tr>
           )}
           <tr>
-            <th>{addColonText(l('Ended'))}</th>
+            <th>{addColonText(lp('Ended', 'place ended boolean'))}</th>
             <td>{yesNo(display.ended)}</td>
           </tr>
         </tbody>

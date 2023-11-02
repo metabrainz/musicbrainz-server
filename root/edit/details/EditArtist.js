@@ -152,7 +152,7 @@ const EditArtist = ({edit}: Props): React$MixedElement => {
           ) : null}
           {ended ? (
             <FullChangeDiff
-              label={addColonText(l('Ended'))}
+              label={addColonText(lp('Ended', 'artist ended boolean'))}
               newContent={yesNo(ended.new)}
               oldContent={yesNo(ended.old)}
             />
