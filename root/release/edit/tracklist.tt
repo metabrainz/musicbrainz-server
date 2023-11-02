@@ -499,7 +499,7 @@
                 [% l('Some discs contain a hidden track in the pregap section that precedes track 1. Use this to add (or remove) the special pregap track section.') %]
               </p>
               <p>
-                [% l('Keep in mind that unselecting this will delete the track if the medium has a disc ID! If you unselect it by mistake, please readd the pregap track before submitting.') %]
+                [% l('Keep in mind that unselecting this will remove the track if the medium has a disc ID! If you unselect it by mistake, please readd the pregap track before submitting.') %]
               </p>
             </div>
           </p>
@@ -514,7 +514,7 @@
                 [% l('Some discs contain one or more data tracks after all audio tracks. Use this to add (or remove) the special data tracks section. You should only add data tracks that contain audio or video ({info|more info})', { info => { href => doc_link('Data_Track'), target => '_blank' } }) %]
               </p>
               <p>
-                [% l('Keep in mind that unselecting this will delete the tracks if the medium has a disc ID! If you unselect it by mistake, please readd the data tracks before submitting.') %]
+                [% l('Keep in mind that unselecting this will remove the tracks if the medium has a disc ID! If you unselect it by mistake, please readd the data tracks before submitting.') %]
               </p>
             </div>
           </p>

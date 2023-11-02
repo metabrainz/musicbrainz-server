@@ -807,7 +807,7 @@ const UserProfileStatistics = ({
                     <abbr
                       title={l('Tags are removed when an editor is deleted.')}
                     >
-                      {lp('Deleted', 'tags')}
+                      {lp('Removed', 'tags')}
                     </abbr>
                   ) : $c.user && upvotedTagCount > 0 ? exp.l(
                     '{count} ({view_url|view})',
@@ -823,7 +823,7 @@ const UserProfileStatistics = ({
                     <abbr
                       title={l('Tags are removed when an editor is deleted.')}
                     >
-                      {lp('Deleted', 'tags')}
+                      {lp('Removed', 'tags')}
                     </abbr>
                   ) : $c.user && downvotedTagCount > 0 ? exp.l(
                     '{count} ({view_url|view})',
@@ -843,7 +843,7 @@ const UserProfileStatistics = ({
                       l('Ratings are removed when an editor is deleted.')
                     }
                   >
-                    {lp('Deleted', 'ratings')}
+                    {lp('Removed', 'ratings')}
                   </abbr>
 
                 ) : $c.user && ratingCount > 0 ? exp.l(
