@@ -281,7 +281,7 @@
     chalk "^2.4.2"
     js-tokens "^4.0.0"
 
-"@babel/parser@^7.22.10", "@babel/parser@^7.22.15", "@babel/parser@^7.23.0", "@babel/parser@^7.4.3", "@babel/parser@^7.5.5":
+"@babel/parser@^7.22.10", "@babel/parser@^7.22.15", "@babel/parser@^7.23.0", "@babel/parser@^7.4.3":
   version "7.23.0"
   resolved "https://registry.yarnpkg.com/@babel/parser/-/parser-7.23.0.tgz#da950e622420bf96ca0d0f2909cdddac3acd8719"
   integrity sha512-vvPKKdMemU85V9WE/l5wZEmImpCtLqbnTvqDS2U1fJ96KrxoW7KrXhNsNCblQlg8Ck4b85yxdTyelsMUgFUXiw==
@@ -2954,6 +2954,11 @@ hermes-estree@0.16.0:
   resolved "https://registry.yarnpkg.com/hermes-estree/-/hermes-estree-0.16.0.tgz#e2c76a1e9d5a4d620790b9fe05fb01f2d53da07d"
   integrity sha512-XCoTuBU8S+Jg8nFzaqgy6pNEYo0WYkbMmuJldb3svzpJ2SNUYJDg28b1ltoDMo7k3YlJwPRg7ZS3JTWV3DkDZA==
 
+hermes-estree@0.17.0:
+  version "0.17.0"
+  resolved "https://registry.yarnpkg.com/hermes-estree/-/hermes-estree-0.17.0.tgz#4b1b0d8131826178f0af79a317ceaca3723e9012"
+  integrity sha512-bW9+bMZqnro+0+l6dUqTJW0VaNUvs4HRHh/J7VotTGnMmhBFRIcJz6ZxrRE7xIXmK7S5bJE9qrEooSiig4N70g==
+
 hermes-parser@0.15.1:
   version "0.15.1"
   resolved "https://registry.yarnpkg.com/hermes-parser/-/hermes-parser-0.15.1.tgz#f02587be85228b22841d50f6839ae42a308e5100"
@@ -2967,6 +2972,13 @@ hermes-parser@0.16.0:
   integrity sha512-tdJJntb45DUpv8j7ybHfq8NfIQgz8AgaD+PVFyfjK+O+v2N5zbsSDtlvQN2uxCghoTkQL86BEs9oi8IPrUE9Pg==
   dependencies:
     hermes-estree "0.16.0"
+
+hermes-parser@0.17.0:
+  version "0.17.0"
+  resolved "https://registry.yarnpkg.com/hermes-parser/-/hermes-parser-0.17.0.tgz#722bb8079b9081a0de4902b770d5d45dbeb380bd"
+  integrity sha512-2fmppmZheY1UU071EMKAzXfuUCiDXF3fmzKLuN1XmE3+njIFs3CAeKP88+FtNBUpS6pEMJv6lPXCaJGqGsrURQ==
+  dependencies:
+    hermes-estree "0.17.0"
 
 hirestime@^0.2.4:
   version "0.2.4"
@@ -5622,13 +5634,12 @@ ws@^7.2.0:
   resolved "https://registry.yarnpkg.com/ws/-/ws-7.5.9.tgz#54fa7db29f4c7cec68b1ddd3a89de099942bb591"
   integrity sha512-F+P9Jil7UiSKSkppIiD94dN07AwvFixvLIj1Og1Rl9GGMuNipJnV9JzjD6XuqmAeiswGvUmNLjr5cFuXwNS77Q==
 
-xgettext-js@3.0.0:
+"xgettext-js@https://github.com/metabrainz/xgettext-js#0301681a479c1796ff6850c9bd2a169074386d92":
   version "3.0.0"
-  resolved "https://registry.yarnpkg.com/xgettext-js/-/xgettext-js-3.0.0.tgz#d32fb434db20e96ac826cb3b4b53f0ffaa94b05e"
-  integrity sha512-htBdz05sG37ulma47azvkIaS1R02ecsp1QmhS7N0qmHffi5pbsd+34W7hg+Eb7bgbUZQQd4vO0Z1j5X9CjKXQg==
+  resolved "https://github.com/metabrainz/xgettext-js#0301681a479c1796ff6850c9bd2a169074386d92"
   dependencies:
-    "@babel/parser" "^7.5.5"
     estree-walker "^0.6.1"
+    hermes-parser "0.17.0"
     lodash "^4.17.15"
 
 xml2js@^0.4.19:
