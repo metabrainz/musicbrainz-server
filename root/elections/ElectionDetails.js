@@ -29,15 +29,15 @@ const ElectionDetails = ({election}: PropsT): React$MixedElement => {
       <h2>{l('Details')}</h2>
       <table className="properties">
         <tr>
-          <th>{l('Candidate:')}</th>
+          <th>{addColonText(l('Candidate'))}</th>
           <td><EditorLink editor={election.candidate} /></td>
         </tr>
         <tr>
-          <th>{l('Proposer:')}</th>
+          <th>{addColonText(l('Proposer'))}</th>
           <td><EditorLink editor={election.proposer} /></td>
         </tr>
         <tr>
-          <th>{l('1st seconder:')}</th>
+          <th>{addColonText(l('1st seconder'))}</th>
           <td>
             {election.seconder_1
               ? <EditorLink editor={election.seconder_1} />
@@ -45,7 +45,7 @@ const ElectionDetails = ({election}: PropsT): React$MixedElement => {
           </td>
         </tr>
         <tr>
-          <th>{l('2nd seconder:')}</th>
+          <th>{addColonText(l('2nd seconder'))}</th>
           <td>
             {election.seconder_2
               ? <EditorLink editor={election.seconder_2} />
@@ -60,11 +60,11 @@ const ElectionDetails = ({election}: PropsT): React$MixedElement => {
                 <td>{voteCount}</td>
               </tr>
               <tr>
-                <th>{l('Votes for:')}</th>
+                <th>{addColonText(l('Votes for'))}</th>
                 <td>{election.yes_votes}</td>
               </tr>
               <tr>
-                <th>{l('Votes against:')}</th>
+                <th>{addColonText(l('Votes against'))}</th>
                 <td>{election.no_votes}</td>
               </tr>
               <tr>

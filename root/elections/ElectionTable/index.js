@@ -24,8 +24,8 @@ const ElectionTable = ({
         <th>{l('Start date')}</th>
         <th>{l('End date')}</th>
         <th>{l('Proposer')}</th>
-        <th>{l('Seconder 1')}</th>
-        <th>{l('Seconder 2')}</th>
+        <th>{l('1st seconder')}</th>
+        <th>{l('2nd seconder')}</th>
         <th>{l('Votes for')}</th>
         <th>{l('Votes against')}</th>
         <th>{'\u00A0'}</th>
