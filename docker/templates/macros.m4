@@ -14,21 +14,20 @@ m4_define(`sudo_mb', `sudo -E -H -u musicbrainz $1')
 m4_define(
     `install_javascript',
     `m4_dnl
-COPY docker/nodesource_pubkey.txt docker/yarn_pubkey.txt /tmp/
-copy_mb(``package.json yarn.lock ./'')
+COPY docker/nodesource_pubkey.txt /tmp/
+copy_mb(``package.json yarn.lock .yarnrc.yml ./'')
 RUN cp /tmp/nodesource_pubkey.txt /etc/apt/keyrings/nodesource.asc && \
-    cp /tmp/yarn_pubkey.txt /etc/apt/keyrings/yarn.asc && \
-    rm /tmp/nodesource_pubkey.txt /tmp/yarn_pubkey.txt && \
+    rm /tmp/nodesource_pubkey.txt && \
     echo "deb [signed-by=/etc/apt/keyrings/nodesource.asc] https://deb.nodesource.com/node_20.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list && \
-    echo "deb [signed-by=/etc/apt/keyrings/yarn.asc] https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
-    apt_install(``git nodejs python3-minimal yarn'') && \
-    sudo_mb(``yarn install$1'')
+    apt_install(``git nodejs python3-minimal'') && \
+    corepack enable && \
+    sudo_mb(``yarn'')
 copy_mb(``babel.config.cjs ./'')')
 
 m4_define(
     `install_javascript_and_templates',
     `m4_dnl
-install_javascript(`$1')
+install_javascript
 
 copy_mb(``docker/scripts/compile_resources_for_image.sh docker/scripts/'')
 copy_mb(``root/ root/'')

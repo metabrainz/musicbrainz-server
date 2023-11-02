@@ -39,6 +39,7 @@ jobs:
             - v2-node-
       - run: |
           chown -R musicbrainz:musicbrainz .
+          corepack enable
           sudo -E -H -u musicbrainz yarn
       - save_cache:
           key: v2-node-{{ checksum "yarn.lock" }}
@@ -76,6 +77,7 @@ jobs:
             - v2-perl-5-dot-30-
       - run: |
           chown -R musicbrainz:musicbrainz .
+          corepack enable
           sudo -E -H -u musicbrainz yarn
       - save_cache:
           key: v2-perl-5-dot-30-{{ checksum "yarn.lock" }}

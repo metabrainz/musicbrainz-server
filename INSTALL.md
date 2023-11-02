@@ -92,9 +92,24 @@ Prerequisites
     This is only needed where it exists, so a warning about the package not being
     found is not a problem.
 
-    Next you need Yarn to install the JS dependencies. There are a variety of
-    installation methods described on their website, located here:
-    https://yarnpkg.com/en/docs/install
+    Next you need a modern version of Yarn to install the JS dependencies.
+    Yarn can be installed using the `corepack` command, which is bundled with
+    Node.js. By default, corepack will install `yarn` to /usr/local/bin,
+    so `sudo` may be required. Alternatively, you can specify where to
+    install `yarn` via the `--install-directory` flag. The specified
+    directory should be in your `$PATH`.
+
+    Note that if you have Yarn 1 (Classic) installed on your system via `npm`
+    or `apt`, this may override it depending on the installation directory.
+    If Yarn 1 (Classic) isn't required by any other project on your system,
+    this likely won't cause any issues, but in that case it's recommended
+    to uninstall it first.
+
+        # installs yarn to /usr/local/bin
+        sudo corepack enable
+
+        # alternate example: installs yarn to ~/bin without sudo
+        corepack enable --install-directory=~/bin
 
 7.  Standard Development Tools
 

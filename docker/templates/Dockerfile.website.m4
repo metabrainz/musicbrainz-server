@@ -10,7 +10,7 @@ git_info
 
 install_translations()
 
-install_javascript_and_templates(` --only=production')
+install_javascript_and_templates
 
 COPY \
     docker/musicbrainz-website/template-renderer.service \

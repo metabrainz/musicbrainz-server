@@ -51,6 +51,7 @@ rm /etc/service/{artwork-indexer,artwork-redirect,ssssss}/down
 sv start artwork-indexer artwork-redirect ssssss
 
 # Compile static resources.
+corepack enable
 sudo -E -H -u musicbrainz yarn
 sudo -E -H -u musicbrainz make -C po all_quiet deploy
 NODE_ENV=test \

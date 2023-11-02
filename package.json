@@ -38,10 +38,10 @@
     "generic-diff": "1.0.1",
     "he": "1.1.1",
     "imports-loader": "3.0.0",
-    "jed": "https://github.com/mwiencek/Jed.git#cd3f71b",
+    "jed": "https://github.com/mwiencek/Jed.git#cd3f71b7479b9c587990a0fa27ae9fdafbd9d9d9",
     "jquery": "1.11.2",
-    "knockout": "https://github.com/mwiencek/knockout.git#a09f077",
-    "knockout-arraytransforms": "https://github.com/mwiencek/knockout-arraytransforms.git#9673e91",
+    "knockout": "https://github.com/mwiencek/knockout.git#a09f0778844130a89af438971ad6229ab81e26b3",
+    "knockout-arraytransforms": "https://github.com/mwiencek/knockout-arraytransforms.git#9673e91a4755b92ba4eea5ca03067790dbbd997b",
     "leaflet": "1.6.0",
     "leaflet.markercluster": "1.4.1",
     "less": "4.1.1",
@@ -100,5 +100,6 @@
     "utf8": "2.1.2",
     "xgettext-js": "https://github.com/metabrainz/xgettext-js#0301681a479c1796ff6850c9bd2a169074386d92"
   },
-  "private": true
+  "private": true,
+  "packageManager": "yarn@4.0.1"
 }

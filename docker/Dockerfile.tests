@@ -4,10 +4,7 @@ RUN useradd --create-home --shell /bin/bash musicbrainz
 
 WORKDIR /home/musicbrainz
 
-COPY docker/nodesource_pubkey.txt \
-    docker/pgdg_pubkey.txt \
-    docker/yarn_pubkey.txt \
-    ./
+COPY docker/nodesource_pubkey.txt docker/pgdg_pubkey.txt ./
 
 RUN apt-get update && \
     apt-get install \
@@ -19,11 +16,9 @@ RUN apt-get update && \
         gnupg && \
     cp nodesource_pubkey.txt /etc/apt/keyrings/nodesource.asc && \
     cp pgdg_pubkey.txt /etc/apt/keyrings/pgdg.asc && \
-    cp yarn_pubkey.txt /etc/apt/keyrings/yarn.asc && \
-    rm nodesource_pubkey.txt pgdg_pubkey.txt yarn_pubkey.txt && \
+    rm nodesource_pubkey.txt pgdg_pubkey.txt && \
     echo "deb [signed-by=/etc/apt/keyrings/nodesource.asc] https://deb.nodesource.com/node_20.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list && \
     echo "deb [signed-by=/etc/apt/keyrings/pgdg.asc] http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
-    echo "deb [signed-by=/etc/apt/keyrings/yarn.asc] https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
     apt-get update && \
     apt-get install \
         --no-install-recommends \
@@ -89,7 +84,6 @@ RUN apt-get update && \
         unzip \
         virtualenv \
         wget \
-        yarn \
         zlib1g-dev && \
     rm -rf /var/lib/apt/lists/* && \
     update-java-alternatives -s java-1.8.0-openjdk-amd64 && \
