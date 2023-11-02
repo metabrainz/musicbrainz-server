@@ -98,8 +98,8 @@ const AnnotationHistoryTable = ({
         <tr>
           {canCompare ? (
             <>
-              <th className="pos">{l('Old')}</th>
-              <th className="pos">{l('New')}</th>
+              <th className="pos">{lp('Old', 'annotation')}</th>
+              <th className="pos">{lp('New', 'annotation')}</th>
             </>
           ) : null}
           <th>{l('Editor')}</th>
