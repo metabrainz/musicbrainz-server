@@ -225,7 +225,7 @@ const CollectionEditForm = ({
 
           <div className="row no-label">
             {$c.action.name === 'create' ? (
-              <FormSubmit label={l('Create collection')} />
+              <FormSubmit label={l('Add collection')} />
             ) : (
               <FormSubmit label={l('Update collection')} />
             )}

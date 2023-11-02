@@ -45,7 +45,7 @@ const CreateWikiDoc = ({
           uncontrolled
         />
         <div className="row no-label">
-          <FormSubmit label={l('Create')} />
+          <FormSubmit label={l('Add Page')} />
         </div>
       </form>
     </div>

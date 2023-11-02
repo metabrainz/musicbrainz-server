@@ -223,7 +223,7 @@ const UserCollections = ({
         </p>
       )}
       {viewingOwnProfile ? (
-        <p><a href="/collection/create">{l('Create a new collection')}</a></p>
+        <p><a href="/collection/create">{l('Ad a new collection')}</a></p>
       ) : null}
     </UserAccountLayout>
   );

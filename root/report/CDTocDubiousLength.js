@@ -23,7 +23,7 @@ const CDTocDubiousLength = ({
     description={l(
       `This report shows disc IDs indicating a total duration much longer
        than what a standard CD allows (at least 88 minutes for a CD, or 30
-       minutes for a mini-CD). This usually means a disc ID was created for
+       minutes for a mini-CD). This usually means a disc ID was generated for
        the wrong format (SACD) or with a buggy tool.`,
     )}
     entityType="discId"

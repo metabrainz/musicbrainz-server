@@ -196,7 +196,7 @@ const RelationshipTypePairTree = ({
           <p>
             <a href={'/relationships/' + type0 + '-' + type1 + '/create'}>
               {texp.l(
-                'Create a new {type0}-{type1} relationship',
+                'Add a new {type0}-{type1} relationship type',
                 {type0: formattedType0, type1: formattedType1},
               )}
             </a>

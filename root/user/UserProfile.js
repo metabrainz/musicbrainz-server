@@ -779,7 +779,7 @@ const UserProfileStatistics = ({
           ) : (
             <tr>
               <td>
-                {l('This user has not created any entities.')}
+                {l('This user has not added any entities.')}
               </td>
             </tr>
           )}

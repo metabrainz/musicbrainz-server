@@ -181,7 +181,7 @@ const RelationshipAttributeTypesList = ({
         {isRelationshipEditor($c.user) ? (
           <p>
             <a href="/relationship-attributes/create">
-              {l('Create a new relationship attribute')}
+              {l('Add a new relationship attribute')}
             </a>
           </p>
         ) : null}

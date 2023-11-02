@@ -26,7 +26,7 @@ const ReleasesWithDownloadRelationships = ({
        but have media whose format is not “Digital Media”.
        Generally, these should be moved to the appropriate
        digital media release. If one doesn’t exist yet,
-       feel free to create it.`,
+       feel free to add it.`,
     )}
     entityType="release"
     filtered={filtered}

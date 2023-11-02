@@ -25,7 +25,7 @@ const ReleasesWithMailOrderRelationships = ({
        (which by definition only apply to physical media releases),
        but only have media whose format is “Digital Media”.
        Generally, these should be moved to the appropriate physical release.
-       If one doesn’t exist yet, feel free to create it.`,
+       If one doesn’t exist yet, feel free to add it.`,
     )}
     entityType="release"
     filtered={filtered}

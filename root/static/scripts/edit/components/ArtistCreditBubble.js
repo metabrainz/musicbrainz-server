@@ -77,7 +77,7 @@ const ArtistCreditBubble = ({
                       : null}
                     deletedCaption={entity.name() === ''
                       ? l('You haven’t entered a track name yet.')
-                      : l('This track hasn’t been created yet.')}
+                      : l('This track hasn’t been added yet.')}
                     entity={Object.assign(
                       Object.create(entity), {artistCredit: artistCredit},
                     )}
