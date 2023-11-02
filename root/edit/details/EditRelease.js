@@ -43,7 +43,7 @@ const EditRelease = ({edit}: Props): React$MixedElement => {
     <table className="details edit-release">
       {edit.preview /*:: === true */ ? null : (
         <tr>
-          <th>{l('Release:')}</th>
+          <th>{addColonText(l('Release'))}</th>
           <td colSpan="2">
             {display.release
               ? <DescriptiveLink entity={display.release} />

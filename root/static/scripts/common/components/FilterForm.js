@@ -115,7 +115,7 @@ const FilterForm = ({form}: Props): React$Element<'div'> => {
             {artistCreditIdField && artistCreditIdOptions ? (
               <tr>
                 <td>
-                  {l('Artist credit:')}
+                  {addColonText(l('Artist credit'))}
                 </td>
                 <td>
                   <SelectField

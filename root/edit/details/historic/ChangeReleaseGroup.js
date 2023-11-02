@@ -22,7 +22,7 @@ const ChangeReleaseGroup = ({edit}: Props): React$Element<'table'> => (
       releases={edit.display_data.releases}
     />
     <tr>
-      <th>{l('Release group:')}</th>
+      <th>{addColonText(l('Release group'))}</th>
       <td className="old">
         <DescriptiveLink entity={edit.display_data.release_group.old} />
       </td>

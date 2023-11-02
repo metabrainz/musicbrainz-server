@@ -102,12 +102,12 @@
 <script type="text/html" id="template.medium-search">
   <table>
     <tr>
-      <td><label for="import-release">[% l('Release:') %]</label></td>
+      <td><label for="import-release">[% add_colon(l('Release')) %]</label></td>
       <td><input id="import-release" type="text" data-bind="value: releaseName, valueUpdate: 'afterkeydown'" data-keydown="keydownEvent" /></td>
       <td rowspan="2"></td>
     </tr>
     <tr>
-      <td><label for="import-artist">[% l('Artist:') %]</label></td>
+      <td><label for="import-artist">[% add_colon(l('Artist')) %]</label></td>
       <td><input id="import-artist" type="text" data-bind="value: artistName, valueUpdate: 'afterkeydown'" data-keydown="keydownEvent" /></td>
     </tr>
     <tr>
@@ -302,7 +302,7 @@
         </td>
 
         <td class="format">
-          <label data-bind="attr: { for: 'medium-format-' + uniqueID }">[% l('Format:') %]</label>
+          <label data-bind="attr: { for: 'medium-format-' + uniqueID }">[% add_colon(l('Format')) %]</label>
           <select data-bind="value: formatID, attr: { id: 'medium-format-' + uniqueID }">
             <option value="" selected="selected">—</option>
             [%- FOR format=formats %]
@@ -342,7 +342,7 @@
       <div class="medium-title warning">
         [%- warning_icon %]
         <p>
-          <strong>[% l('Warning:') | html_entity %]</strong>
+          <strong>[% add_colon(l('Warning')) | html_entity %]</strong>
           <span id="useless-medium-title-warning" data-bind='html: uselessMediumTitleWarning()' />
         </p>
         <label>
@@ -405,7 +405,7 @@
       <div class="various-artists warning">
         [%- warning_icon %]
         <p>
-          <strong>[% l('Warning:') | html_entity %]</strong>
+          <strong>[% add_colon(l('Warning')) | html_entity %]</strong>
           [% l('You’ve used the {valink|Various Artists} special purpose artist on some tracks below. {valink|Various Artists} should very rarely be used on tracks; please make sure the artists have been entered correctly.', { valink => va_doc_link }) %]
         </p>
         <label>

@@ -24,14 +24,14 @@ const AddDiscId = ({allowNew, edit}: Props): React$Element<'table'> => {
     <table className="details add-disc-id">
       {medium ? (
         <tr>
-          <th>{l('Medium:')}</th>
+          <th>{addColonText(l('Medium'))}</th>
           <td colSpan="2">
             <MediumLink allowNew={allowNew} medium={medium} />
           </td>
         </tr>
       ) : null}
       <tr>
-        <th>{l('Disc ID:')}</th>
+        <th>{addColonText(l('Disc ID'))}</th>
         <td>
           <CDTocLink cdToc={cdToc} />
         </td>

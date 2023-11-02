@@ -20,7 +20,7 @@ const RemoveDiscId = ({edit}: Props): React$Element<'table'> => (
   <table className="details remove-discid">
     <HistoricReleaseList releases={edit.display_data.releases} />
     <tr>
-      <th>{l('Disc ID:')}</th>
+      <th>{addColonText(l('Disc ID'))}</th>
       <td>
         <CDTocLink cdToc={edit.display_data.cdtoc} />
       </td>

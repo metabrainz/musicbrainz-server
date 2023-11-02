@@ -10,7 +10,7 @@
       [%- form_row_text_long(r, 'comment', add_colon(l('Disambiguation'))) -%]
       [%- form_row_select(r, 'type_id', l('Type:')) -%]
       [% WRAPPER form_row %]
-          [%- r.label('description', l('Description:')) -%]
+          [%- r.label('description', add_colon(l('Description'))) -%]
           [%- r.textarea('description', { rows => 5 }) -%]
           [%- field_errors(form, 'description') -%]
       [%- END -%]

@@ -56,7 +56,10 @@ const EventSidebar = ({event}: Props): React$Element<'div'> => {
 
         {hasBegin || hasEnd ? (
           areDatesEqual(event.begin_date, event.end_date) ? (
-            <SidebarBeginDate entity={event} label={l('Date:')} />
+            <SidebarBeginDate
+              entity={event}
+              label={addColonText(l('Date'))}
+            />
           ) : (
             <>
               <SidebarBeginDate entity={event} label={l('Start Date:')} />
@@ -66,7 +69,7 @@ const EventSidebar = ({event}: Props): React$Element<'div'> => {
         ) : null}
 
         {event.time ? (
-          <SidebarProperty className="time" label={l('Time:')}>
+          <SidebarProperty className="time" label={addColonText(l('Time'))}>
             {event.time}
           </SidebarProperty>
         ) : null}

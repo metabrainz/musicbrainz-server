@@ -14,7 +14,7 @@
         [%- disambiguation_error() -%]
         [%# When porting this, remember no_default is equivalent to allowEmpty %]
         [%- form_row_select(r, 'type_id', l('Type:'), undef, {no_default => 1}) -%]
-        [%- form_row_select(r, 'ordering_type_id', l('Ordering Type:')) -%]
+        [%- form_row_select(r, 'ordering_type_id', add_colon(l('Ordering Type'))) -%]
       </fieldset>
 
       [% React.embed(c, 'static/scripts/series/components/SeriesRelationshipEditor', {

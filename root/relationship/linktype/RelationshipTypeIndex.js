@@ -153,13 +153,13 @@ const RelationshipTypeIndex = ({
                 * with the MBID (MBS-11175), this should be hidden
                 * if the user is not a relationship editor.
                 */}
-              <strong>{l('ID:')}</strong>
+              <strong>{addColonText(l('ID'))}</strong>
               {' '}
               {relType.id}
               <br />
               {isRelationshipEditor($c.user) ? (
                 <>
-                  <strong>{l('Child order:')}</strong>
+                  <strong>{addColonText(l('Child order'))}</strong>
                   {' '}
                   {relType.child_order}
                   <br />

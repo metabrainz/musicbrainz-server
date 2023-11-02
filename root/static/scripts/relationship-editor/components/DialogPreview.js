@@ -130,7 +130,7 @@ const DialogPreview = (React.memo<PropsT>(({
       <table className={fullClassName}>
         <tbody>
           <tr>
-            <th>{l('Relationship:')}</th>
+            <th>{addColonText(l('Relationship'))}</th>
             <td>
               <Relationship
                 makeEntityLink={makeEntityLink}

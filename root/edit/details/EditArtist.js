@@ -159,7 +159,7 @@ const EditArtist = ({edit}: Props): React$MixedElement => {
           ) : null}
           {ipiCodes ? (
             <Diff
-              label={l('IPI codes:')}
+              label={addColonText(l('IPI codes'))}
               newText={ipiCodes.new ? commaOnlyListText(ipiCodes.new) : ''}
               oldText={ipiCodes.old ? commaOnlyListText(ipiCodes.old) : ''}
               split=", "
@@ -167,7 +167,7 @@ const EditArtist = ({edit}: Props): React$MixedElement => {
           ) : null}
           {isniCodes ? (
             <Diff
-              label={l('ISNI codes:')}
+              label={addColonText(l('ISNI codes'))}
               newText={isniCodes.new ? commaOnlyListText(isniCodes.new) : ''}
               oldText={isniCodes.old ? commaOnlyListText(isniCodes.old) : ''}
               split=", "

@@ -1,18 +1,18 @@
 <form action="[% c.req.uri %]" method="post">
     [%- USE r = FormRenderer(form) -%]
 
-    [% form_row_select(r, 'parent_id', l('Parent:')) %]
+    [% form_row_select(r, 'parent_id', add_colon(l('Parent'))) %]
 
     [% WRAPPER form_row %]
-        [% r.label('child_order', l('Child order:')) %]
+        [% r.label('child_order', add_colon(l('Child order'))) %]
         [% r.number('child_order') %]
         [% field_errors(form, 'child_order') %]
     [% END %]
 
-    [% form_row_text(r, 'name', l('Name:')) %]
+    [% form_row_text(r, 'name', add_colon(l('Name'))) %]
 
     [% WRAPPER form_row %]
-        [% r.label('description', l('Description:')) %]
+        [% r.label('description', add_colon(l('Description'))) %]
         [% r.textarea('description', { cols => 80, rows => 6 }) %]
         [% field_errors(form, 'description') %]
     [% END %]

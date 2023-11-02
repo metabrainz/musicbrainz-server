@@ -14,7 +14,7 @@ type Props = {
 const RemoveLabelAlias = ({edit}: Props): React$Element<'table'> => (
   <table className="details remove-label-alias">
     <tr>
-      <th>{l('Alias:')}</th>
+      <th>{addColonText(l('Alias'))}</th>
       <td>{edit.display_data.alias}</td>
     </tr>
   </table>

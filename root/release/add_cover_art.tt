@@ -66,7 +66,7 @@
               <p style="margin-left: 162px;">[%- l('Please see the {doc|Cover Art Types} documentation for a description of these types.', { doc => { href => doc_link('Cover_Art/Types'), target => '_blank' } }) -%]</p>
             </div>
             <div class="comment row" data-bind="visible: status() == 'waiting'">
-              <label>[%- l('Comment:') -%]</label>
+              <label>[%- add_colon(l('Comment')) -%]</label>
               <input class="comment" type="text" size="47" data-bind="value: comment" />
             </div>
           </td>
@@ -122,7 +122,7 @@
     </div>
 
     <div class="row" id="cover-art-position-row">
-      <label id="cover-art-position-label" class="required">[% l('Position:') %]</label>
+      <label id="cover-art-position-label" class="required">[% add_colon(l('Position')) %]</label>
 
       [%- IF images.size == 0 -%]
         <div class="image-position-only">
@@ -137,7 +137,7 @@
               [% React.embed(c, 'static/scripts/edit/components/InformationIcon', {
                 style => {'align-self' => 'flex-start'},
                 title => l('Types:') _ ' ' _ (comma_only_list(image.l_types) || '-') _ 
-                        (image.comment ? (' / ' _ l('Comment:') _ ' ' _ image.comment) : '')}) %]
+                        (image.comment ? (' / ' _ add_colon(l('Comment')) _ ' ' _ image.comment) : '')}) %]
             </div>
           </div>
         [%- END -%]

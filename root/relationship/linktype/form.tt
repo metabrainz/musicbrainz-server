@@ -1,15 +1,15 @@
 <form action="[% c.req.uri %]" method="post" class="edit-relationship">
     [%- USE r = FormRenderer(form) -%]
 
-    [% form_row_select(r, 'parent_id', l('Parent:')) %]
+    [% form_row_select(r, 'parent_id', add_colon(l('Parent'))) %]
 
     [% WRAPPER form_row %]
-        [% r.label('child_order', l('Child order:')) %]
+        [% r.label('child_order', add_colon(l('Child order'))) %]
         [% r.number('child_order') %]
         [% field_errors(form, 'child_order') %]
     [% END %]
 
-    [% form_row_text_long(r, 'name', l('Name:')) %]
+    [% form_row_text_long(r, 'name', add_colon(l('Name'))) %]
     [% form_row_text_long(r, 'link_phrase', l('Forward link phrase:')) %]
     [% form_row_text_long(r, 'reverse_link_phrase', l('Reverse link phrase:')) %]
     [% form_row_text_long(r, 'long_link_phrase', l('Long link phrase:')) %]
@@ -17,7 +17,7 @@
     [% form_row_checkbox(r, 'has_dates', l('This relationship allows setting dates')) %]
 
     [% WRAPPER form_row %]
-        [% r.label('description', l('Description:')) %]
+        [% r.label('description', add_colon(l('Description'))) %]
         [% r.textarea('description', { cols => 80, rows => 6 }) %]
         [% field_errors(form, 'description') %]
     [% END %]
@@ -49,7 +49,7 @@
     [% END %]
 
     [% WRAPPER form_row %]
-        <label>[% l('Attributes:') %]</label>
+        <label>[% add_colon(l('Attributes')) %]</label>
         [% FOR field IN form.field('attributes').fields %]
             <div class="no-label">
                     [% r.hidden(field.field('type')) %]
@@ -62,7 +62,7 @@
     [% END %]
 
     [% WRAPPER form_row %]
-      [% r.label('documentation', l('Documentation:')) %]
+      [% r.label('documentation', add_colon(l('Documentation'))) %]
       [% r.textarea('documentation', { cols => 80, rows => 10 }) %]
     [% END %]
 
@@ -74,7 +74,7 @@
                 [% WRAPPER form_row %]
                     <label class="required"
                            data-bind="attr: { for: examplePrefix($index(), 'name') }">
-                        [%- l('Name:') -%]
+                        [%- add_colon(l('Name')) -%]
                     </label>
                     <input type="text" data-bind="attr: { name: examplePrefix($index(), 'name') }, value: name" />
                     <button type="button" data-bind="click: removeExample">
@@ -104,7 +104,7 @@
 
         <h3>[% l('Add a New Example') %]</h3>
         [% WRAPPER form_row %]
-            <label>[% l('Name:') %]</label>
+            <label>[% add_colon(l('Name')) %]</label>
             <input type="text" data-bind="value: currentExample.name" />
         [% END %]
 

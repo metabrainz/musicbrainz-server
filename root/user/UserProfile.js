@@ -186,7 +186,7 @@ const UserProfileInformation = ({
       <h2>{l('General Information')}</h2>
 
       <table className="profileinfo" role="presentation">
-        <UserProfileProperty name={l('Email:')}>
+        <UserProfileProperty name={addColonText(l('Email'))}>
           {user.has_email_address ? (
             <>
               {viewingOwnProfile ? email : l('(hidden)')}
@@ -265,7 +265,7 @@ const UserProfileInformation = ({
         ) : null}
 
         {gender ? (
-          <UserProfileProperty name={l('Gender:')}>
+          <UserProfileProperty name={addColonText(l('Gender'))}>
             {lp_attributes(gender.name, 'gender')}
           </UserProfileProperty>
         ) : null}
@@ -278,7 +278,7 @@ const UserProfileInformation = ({
           </UserProfileProperty>
         ) : null}
 
-        <UserProfileProperty name={l('Member since:')}>
+        <UserProfileProperty name={addColonText(l('Member since'))}>
           {memberSince}
         </UserProfileProperty>
 
@@ -291,7 +291,7 @@ const UserProfileInformation = ({
 
         {(viewingOwnProfile || isAccountAdmin(viewingUser)) ? (
           <>
-            <UserProfileProperty name={l('Last login:')}>
+            <UserProfileProperty name={addColonText(l('Last login'))}>
               {nonEmpty(user.last_login_date)
                 ? formatUserDate($c, user.last_login_date)
                 : l("Hasn't logged in yet")}
@@ -350,7 +350,7 @@ const UserProfileInformation = ({
         ) : null}
 
         {user.deleted ? null : (
-          <UserProfileProperty name={l('Subscribers:')}>
+          <UserProfileProperty name={addColonText(l('Subscribers'))}>
             {subscriberCount ? (
               exp.l(
                 '{count} ({url|view list})',
@@ -392,7 +392,10 @@ const UserProfileInformation = ({
         )}
 
         {nonEmpty(biography) ? (
-          <UserProfileProperty className="biography" name={l('Bio:')}>
+          <UserProfileProperty
+            className="biography"
+            name={addColonText(l('Bio'))}
+          >
             {showBioAndURL ? (
               expand2react(biography)
             ) : (
@@ -408,7 +411,7 @@ const UserProfileInformation = ({
         ) : null}
 
         {languages?.length ? (
-          <UserProfileProperty name={l('Languages:')}>
+          <UserProfileProperty name={addColonText(l('Languages'))}>
             <ul className="inline">
               {languages.map(language => (
                 <li key={language.language.id}>

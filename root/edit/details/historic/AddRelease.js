@@ -113,7 +113,7 @@ const AddRelease = ({edit}: Props): React$Element<'table'> => {
       </tr>
 
       <tr>
-        <th>{l('Release Events:')}</th>
+        <th>{addColonText(l('Release events'))}</th>
         <td>
           <table className="tbl">
             <thead>
@@ -121,7 +121,7 @@ const AddRelease = ({edit}: Props): React$Element<'table'> => {
                 <th>{l('Date')}</th>
                 <th>{l('Country')}</th>
                 <th>{l('Label')}</th>
-                <th>{l('Catalog Number')}</th>
+                <th>{l('Catalog number')}</th>
                 <th>{l('Barcode')}</th>
                 <th>{l('Format')}</th>
               </tr>

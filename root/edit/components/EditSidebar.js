@@ -56,7 +56,7 @@ const EditSidebar = ({
             </div>
           </SidebarProperty>
         ) : (
-          <SidebarProperty className="" label={l('Closed:')}>
+          <SidebarProperty className="" label={addColonText(l('Closed'))}>
             <div className="edit-expiration">
               {formatUserDate($c, edit.close_time)}
             </div>

@@ -24,7 +24,7 @@ const ErrorEnvironment = ({
   return (
     <>
       <p>
-        <strong>{l('Time:')}</strong>
+        <strong>{addColonText(l('Time'))}</strong>
         {' '}
         {new Date().toISOString()}
       </p>
@@ -46,7 +46,7 @@ const ErrorEnvironment = ({
       ) : null}
 
       <p>
-        <strong>{l('URL:')}</strong>
+        <strong>{addColonText(l('URL'))}</strong>
         {' '}
         <code>{$c.req.uri}</code>
       </p>

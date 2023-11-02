@@ -20,7 +20,7 @@ const RemoveTrack = ({edit}: Props): React$Element<'table'> => (
   <table className="details remove-track">
     <HistoricReleaseList releases={edit.display_data.releases} />
     <tr>
-      <th>{l('Track:')}</th>
+      <th>{addColonText(l('Track'))}</th>
       <td>
         <DescriptiveLink
           content={edit.display_data.name}
