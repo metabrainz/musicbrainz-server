@@ -164,7 +164,7 @@ const ReleaseSidebar = ({release}: Props): React$Element<'div'> | null => {
         {statusId == null ? null : (
           <SidebarProperty
             className="status"
-            label={lp('Status:', 'release status')}
+            label={addColonText(lp('Status', 'release status'))}
           >
             {lp_attributes(
               linkedEntities.release_status[statusId].name,

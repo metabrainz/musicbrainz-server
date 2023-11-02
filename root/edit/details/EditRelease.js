@@ -98,7 +98,7 @@ const EditRelease = ({edit}: Props): React$MixedElement => {
 
       {status ? (
         <FullChangeDiff
-          label={lp('Status:', 'release status')}
+          label={addColonText(lp('Status', 'release status'))}
           newContent={status.new?.name
             ? lp_attributes(status.new.name, 'release_status')
             : ''}

@@ -86,7 +86,7 @@ const ElectionDetails = ({election}: PropsT): React$MixedElement => {
           )
         }
         <tr>
-          <th>{lp('Status:', 'election status')}</th>
+          <th>{addColonText(lp('Status', 'election status'))}</th>
           <td>
             {election.is_open && nonEmpty(election.open_time)
               ? (

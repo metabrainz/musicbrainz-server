@@ -53,7 +53,7 @@ const AddRelease = ({edit}: Props): React$Element<'table'> => {
       </tr>
 
       <tr>
-        <th>{lp('Status:', 'release status')}</th>
+        <th>{addColonText(lp('Status', 'release status'))}</th>
         <td>
           {display.status
             ? lp_attributes(display.status.name, 'release_status')

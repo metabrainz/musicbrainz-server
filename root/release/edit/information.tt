@@ -108,7 +108,7 @@
       </tr>
       [% END %]
 
-      [% table_row_select('status', l('Status:'), 2,
+      [% table_row_select('status', add_colon(lp('Status', 'release status')), 2,
           'value: statusID, controlsBubble: $root.statusBubble', statuses) %]
 
       [% table_row_select('language', l('Language:'), 2,

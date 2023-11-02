@@ -34,7 +34,10 @@ const EditSidebar = ({
   return (
     <div id="sidebar">
       <SidebarProperties className="edit-status">
-        <SidebarProperty className="" label={lp('Status:', 'edit status')}>
+        <SidebarProperty
+          className=""
+          label={addColonText(lp('Status', 'edit status'))}
+        >
           {getEditStatusName(edit)}
         </SidebarProperty>
       </SidebarProperties>
