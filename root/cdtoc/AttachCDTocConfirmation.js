@@ -77,7 +77,7 @@ const AttachCDTocConfirmation = ({
         </tbody>
       </table>
 
-      <h2>{l('Track duration comparison')}</h2>
+      <h2>{l('Track length comparison')}</h2>
 
       {areFormattedLengthsEqual ? (
         <p>

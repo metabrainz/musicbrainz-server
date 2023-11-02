@@ -22,10 +22,10 @@ const CDTocNotApplied = ({
     canBeFiltered={canBeFiltered}
     description={l(
       `This report shows disc IDs attached to a release but obviously not
-       applied because at least one track duration is unknown on the release.
+       applied because at least one track length is unknown on the release.
        The report is also restricted to mediums where only one disc ID is
        attached, so it is highly likely that the disc ID can be applied
-       without any worries. Do make sure though that no existing durations
+       without any worries. Do make sure though that no existing lengths
        clash with the disc ID, or that any clashes are clear mistakes.`,
     )}
     entityType="discId"

@@ -9,7 +9,7 @@
       <li>2. P.S. I Love You - The Beatles (2:03)</li>
     </ul>
     <p>
-      [% l('You can use the checkboxes under the parser to deactivate some sections. For example, you can deactivate “{lines_have_artists}” if your data has no track artists, or “{use_track_lengths}” if you have track durations but want the parser to ignore them.', {lines_have_artists => l('Lines contain track artists'), use_track_lengths => l('Use track lengths')}) %]
+      [% l('You can use the checkboxes under the parser to deactivate some sections. For example, you can deactivate “{lines_have_artists}” if your data has no track artists, or “{use_track_lengths}” if you have track lengths but want the parser to ignore them.', {lines_have_artists => l('Lines contain track artists'), use_track_lengths => l('Use track lengths')}) %]
     </p>
     <p>
       [% l('If you select “{enable_vinyl_numbers}”, the parser will also accept strings such as “A1” as track numbers.', {enable_vinyl_numbers => l('Enable vinyl track numbers')}) %]
