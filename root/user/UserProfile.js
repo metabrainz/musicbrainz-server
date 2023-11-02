@@ -271,7 +271,9 @@ const UserProfileInformation = ({
         ) : null}
 
         {area ? (
-          <UserProfileProperty name={l('Location:')}>
+          <UserProfileProperty
+            name={addColonText(lp('Location', 'user area'))}
+          >
             <DescriptiveLink entity={area} />
           </UserProfileProperty>
         ) : null}

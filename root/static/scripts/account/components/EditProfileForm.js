@@ -242,7 +242,7 @@ class EditProfileForm extends React.Component<Props, State> {
         <FormRow>
           <FormLabel
             forField={areaField.name}
-            label={l('Location:')}
+            label={addColonText(lp('Location', 'user area'))}
           />
           <Autocomplete
             currentSelection={{

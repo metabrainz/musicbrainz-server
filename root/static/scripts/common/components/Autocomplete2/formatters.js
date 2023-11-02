@@ -217,7 +217,10 @@ function formatEvent(event: EventT) {
         l('Performers'),
         event.related_entities?.performers,
       )}
-      {showRelatedEntities(l('Location'), event.related_entities?.places)}
+      {showRelatedEntities(
+        lp('Location', 'event location'),
+        event.related_entities?.places,
+      )}
     </>
   );
 }
