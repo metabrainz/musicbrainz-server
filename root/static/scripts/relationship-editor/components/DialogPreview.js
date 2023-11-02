@@ -169,7 +169,7 @@ const DialogPreview = (React.memo<PropsT>(({
       <h2>
         <div className="heading-line" />
         <span className="heading-text">
-          {l('Preview')}
+          {lp('Preview', 'header')}
         </span>
       </h2>
       {(oldRelationship && newRelationship) ? (

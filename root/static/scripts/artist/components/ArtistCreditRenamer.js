@@ -275,7 +275,7 @@ const ArtistCreditRenamer = ({
       ) : null}
       {state.selection.length ? (
         <>
-          <h2>{l('Preview')}</h2>
+          <h2>{lp('Preview', 'header')}</h2>
           <table
             className="details split-artist"
             style={MARGIN_1EM}

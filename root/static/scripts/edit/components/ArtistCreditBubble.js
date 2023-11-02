@@ -67,7 +67,7 @@ const ArtistCreditBubble = ({
         {clean(reduceArtistCredit(artistCredit)) ? (
           <tr>
             <td colSpan="4" style={{paddingBottom: '1em'}}>
-              {l('Preview:') + ' '}
+              {addColonText(lp('Preview', 'header')) + ' '}
               {entity.entityType === 'track'
                 ? (
                   <DescriptiveLink
