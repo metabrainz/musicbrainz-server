@@ -4189,14 +4189,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hermes-eslint@npm:0.16.0":
-  version: 0.16.0
-  resolution: "hermes-eslint@npm:0.16.0"
+"hermes-eslint@npm:0.17.1":
+  version: 0.17.1
+  resolution: "hermes-eslint@npm:0.17.1"
   dependencies:
     esrecurse: "npm:^4.3.0"
-    hermes-estree: "npm:0.16.0"
-    hermes-parser: "npm:0.16.0"
-  checksum: 3e92ea8bc297b3a3e2c9921b0efa90f987cc446b58da9408d9ae7b257fd735a5f64d3e3bb08823a1020222f9f30be5ef085c72b94652ef087bbf1674ec3fbae2
+    hermes-estree: "npm:0.17.1"
+    hermes-parser: "npm:0.17.1"
+  checksum: b9bf05add861ed7d98682dfec1931d83b32f5058ab0933e84e9e8c5ae46385475313cc9de4683c967650db0aecba7828a071fdfe5875d5713bf54d95712db67c
   languageName: node
   linkType: hard
 
@@ -4207,17 +4207,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hermes-estree@npm:0.16.0":
-  version: 0.16.0
-  resolution: "hermes-estree@npm:0.16.0"
-  checksum: c0e37ad5308d1632d3195fc238893c285f29d828c4719aa0c4fa92b448e454771d4fd898beae8c7c22cc628cf92db7f51de8c184621e9d78d2125f5735746b47
-  languageName: node
-  linkType: hard
-
 "hermes-estree@npm:0.17.0":
   version: 0.17.0
   resolution: "hermes-estree@npm:0.17.0"
   checksum: a81476b7cc5f3e7de12b266cd14d84f3804243afc7a8001f95d55f74c8779c25a4e526902ca1586ef1b6aa73782ff4b235792ecbe400d0db0e9a0cc790fcd9da
+  languageName: node
+  linkType: hard
+
+"hermes-estree@npm:0.17.1":
+  version: 0.17.1
+  resolution: "hermes-estree@npm:0.17.1"
+  checksum: a1eec061b2244fd3c61cef5326318ce6f9fa0baf250e797993f59ff47789b02ea3239ae122ba00a58a7c004cc8858271668037e615ea94d2122c4ab8222f95fc
   languageName: node
   linkType: hard
 
@@ -4230,21 +4230,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hermes-parser@npm:0.16.0":
-  version: 0.16.0
-  resolution: "hermes-parser@npm:0.16.0"
-  dependencies:
-    hermes-estree: "npm:0.16.0"
-  checksum: 9d4c95f0ba93df764dcd15fe9ac277df0147d1d6e2271748539ffe637a6543c32ded9b850d26a0c9f7c57420b18f0ea9eec8bad3e6d4c0eff449240b6edd6a6b
-  languageName: node
-  linkType: hard
-
 "hermes-parser@npm:0.17.0":
   version: 0.17.0
   resolution: "hermes-parser@npm:0.17.0"
   dependencies:
     hermes-estree: "npm:0.17.0"
   checksum: 24bb6964eb820085f8034728cf08ebc23ecc3f4d375e8859b9053790e42a3a5fd0de186ffd37564c3d697051b18dc62021a9f79f38557d0b34d030aa8dd3af53
+  languageName: node
+  linkType: hard
+
+"hermes-parser@npm:0.17.1":
+  version: 0.17.1
+  resolution: "hermes-parser@npm:0.17.1"
+  dependencies:
+    hermes-estree: "npm:0.17.1"
+  checksum: 5d9119f67e13eb84e06d14735e300763f3e3cafe00ddd0acdf0a58b4365fd78e2aa8efc463658f7b4a26f89541651ef9619bd1c47e93dcbe34e6d840a1a5c9c4
   languageName: node
   linkType: hard
 
@@ -5618,7 +5618,7 @@ __metadata:
     generic-diff: "npm:1.0.1"
     gettext-parser: "npm:3.1.0"
     he: "npm:1.1.1"
-    hermes-eslint: "npm:0.16.0"
+    hermes-eslint: "npm:0.17.1"
     http-proxy: "npm:1.18.1"
     imports-loader: "npm:3.0.0"
     jed: "https://github.com/mwiencek/Jed.git#cd3f71b7479b9c587990a0fa27ae9fdafbd9d9d9"
