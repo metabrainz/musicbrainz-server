@@ -31,7 +31,7 @@ const MergeLink = ({entity}: Props): React$Element<'li'> => {
   return (
     <li>
       <a href={mergeUrl($c, entity)}>
-        {l('Merge')}
+        {lp('Merge', 'button/link')}
       </a>
     </li>
   );

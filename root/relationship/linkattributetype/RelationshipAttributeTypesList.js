@@ -147,7 +147,7 @@ const AttributesList = ({root}: AttributesListProps) => {
                 <>
                   <br />
                   <br />
-                  {l('Possible values:')}
+                  {addColonText(l('Possible values'))}
                   <ul>
                     {childrenAttrs
                       .slice(0)

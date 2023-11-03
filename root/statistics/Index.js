@@ -91,59 +91,59 @@ const Index = ({
             <th colSpan="4">{l('Core Entities')}</th>
           </tr>
           <tr>
-            <th>{l('Artists:')}</th>
+            <th>{addColonText(l('Artists'))}</th>
             <td colSpan="3">{fc('artist')}</td>
           </tr>
           <tr>
-            <th>{l('Release Groups:')}</th>
+            <th>{addColonText(l('Release Groups'))}</th>
             <td colSpan="3">{fc('releasegroup')}</td>
           </tr>
           <tr>
-            <th>{l('Releases:')}</th>
+            <th>{addColonText(l('Releases'))}</th>
             <td colSpan="3">{fc('release')}</td>
           </tr>
           <tr>
-            <th>{l('Mediums:')}</th>
+            <th>{addColonText(l('Mediums'))}</th>
             <td colSpan="3">{fc('medium')}</td>
           </tr>
           <tr>
-            <th>{l('Recordings:')}</th>
+            <th>{addColonText(l('Recordings'))}</th>
             <td colSpan="3">{fc('recording')}</td>
           </tr>
           <tr>
-            <th>{l('Tracks:')}</th>
+            <th>{addColonText(l('Tracks)'))}</th>
             <td colSpan="3">{fc('track')}</td>
           </tr>
           <tr>
-            <th>{l('Labels:')}</th>
+            <th>{addColonText(l('Labels'))}</th>
             <td colSpan="3">{fc('label')}</td>
           </tr>
           <tr>
-            <th>{l('Works:')}</th>
+            <th>{addColonText(l('Works'))}</th>
             <td colSpan="3">{fc('work')}</td>
           </tr>
           <tr>
-            <th>{l('URLs:')}</th>
+            <th>{addColonText(l('URLs'))}</th>
             <td colSpan="3">{fc('url')}</td>
           </tr>
           <tr>
-            <th>{l('Areas:')}</th>
+            <th>{addColonText(l('Areas'))}</th>
             <td colSpan="3">{fc('area')}</td>
           </tr>
           <tr>
-            <th>{l('Places:')}</th>
+            <th>{addColonText(l('Places'))}</th>
             <td colSpan="3">{fc('place')}</td>
           </tr>
           <tr>
-            <th>{lp('Series:', 'plural')}</th>
+            <th>{addColonText(lp('Series', 'plural'))}</th>
             <td colSpan="3">{fc('series')}</td>
           </tr>
           <tr>
-            <th>{l('Instruments:')}</th>
+            <th>{addColonText(l('Instruments'))}</th>
             <td colSpan="3">{fc('instrument')}</td>
           </tr>
           <tr>
-            <th>{l('Events:')}</th>
+            <th>{addColonText(l('Events'))}</th>
             <td colSpan="3">{fc('event')}</td>
           </tr>
           <tr>
@@ -162,7 +162,7 @@ const Index = ({
             <td>{fc('editor.deleted')}</td>
           </tr>
           <tr>
-            <th>{l('Relationships:')}</th>
+            <th>{addColonText(l('Relationships'))}</th>
             <td colSpan="3">{fc('ar.links')}</td>
           </tr>
           <tr>
@@ -196,7 +196,7 @@ const Index = ({
             <th colSpan="4">{l('Identifiers')}</th>
           </tr>
           <tr>
-            <th>{l('MBIDs:')}</th>
+            <th>{addColonText(l('MBIDs'))}</th>
             <td colSpan="3">{fc('mbid')}</td>
           </tr>
           <tr>
@@ -212,19 +212,19 @@ const Index = ({
             <td>{fc('iswc')}</td>
           </tr>
           <tr>
-            <th>{l('Disc IDs:')}</th>
+            <th>{addColonText(l('Disc IDs'))}</th>
             <td colSpan="3">{fc('discid')}</td>
           </tr>
           <tr>
-            <th>{l('Barcodes:')}</th>
+            <th>{addColonText(l('Barcodes'))}</th>
             <td colSpan="3">{fc('barcode')}</td>
           </tr>
           <tr>
-            <th>{l('IPIs:')}</th>
+            <th>{addColonText(l('IPIs'))}</th>
             <td colSpan="3">{fc('ipi')}</td>
           </tr>
           <tr>
-            <th>{l('ISNIs:')}</th>
+            <th>{addColonText(l('ISNIs'))}</th>
             <td colSpan="3">{fc('isni')}</td>
           </tr>
         </tbody>
@@ -237,7 +237,7 @@ const Index = ({
             <th colSpan="4">{l('Artists')}</th>
           </tr>
           <tr>
-            <th colSpan="2">{l('Artists:')}</th>
+            <th colSpan="2">{addColonText(l('Artists'))}</th>
             <td>{fc('artist')}</td>
             <td />
           </tr>
@@ -376,7 +376,7 @@ const Index = ({
             <th colSpan="5">{l('Releases')}</th>
           </tr>
           <tr>
-            <th colSpan="3">{l('Releases:')}</th>
+            <th colSpan="3">{addColonText(l('Releases'))}</th>
             <td>{fc('release')}</td>
             <td />
           </tr>
@@ -398,7 +398,7 @@ const Index = ({
             <th colSpan="5">{l('Release Status')}</th>
           </tr>
           <tr>
-            <th colSpan="3">{l('Releases:')}</th>
+            <th colSpan="3">{addColonText(l('Releases'))}</th>
             <td>{fc('release')}</td>
             <td />
           </tr>
@@ -424,7 +424,7 @@ const Index = ({
             <th colSpan="5">{l('Release Packaging')}</th>
           </tr>
           <tr>
-            <th colSpan="3">{l('Releases:')}</th>
+            <th colSpan="3">{addColonText(l('Releases'))}</th>
             <td>{fc('release')}</td>
             <td />
           </tr>
@@ -450,7 +450,7 @@ const Index = ({
             <th colSpan="5">{l('Cover Art Sources')}</th>
           </tr>
           <tr>
-            <th colSpan="3">{l('Releases:')}</th>
+            <th colSpan="3">{addColonText(l('Releases'))}</th>
             <td>{fc('release')}</td>
             <td />
           </tr>
@@ -472,33 +472,33 @@ const Index = ({
             <th colSpan="5">{l('Data Quality')}</th>
           </tr>
           <tr>
-            <th colSpan="3">{l('Releases:')}</th>
+            <th colSpan="3">{addColonText(l('Releases'))}</th>
             <td>{fc('release')}</td>
             <td />
           </tr>
           <tr>
             <th />
-            <th colSpan="2">{l('High Data Quality:')}</th>
+            <th colSpan="2">{addColonText(l('High Data Quality'))}</th>
             <td>{fc('quality.release.high')}</td>
             <td>{fp('quality.release.high', 'release')}</td>
           </tr>
           <tr>
             <th />
-            <th colSpan="2">{l('Default Data Quality:')}</th>
+            <th colSpan="2">{addColonText(l('Default Data Quality'))}</th>
             <td>{fc('quality.release.default')}</td>
             <td>{fp('quality.release.default', 'release')}</td>
           </tr>
           <tr>
             <th />
             <th />
-            <th>{l('Normal Data Quality:')}</th>
+            <th>{addColonText(l('Normal Data Quality'))}</th>
             <td>{fc('quality.release.normal')}</td>
             <td>{fp('quality.release.normal', 'quality.release.default')}</td>
           </tr>
           <tr>
             <th />
             <th />
-            <th>{l('Unknown Data Quality:')}</th>
+            <th>{addColonText(l('Unknown Data Quality'))}</th>
             <td>{fc('quality.release.unknown')}</td>
             <td>
               {fp('quality.release.unknown', 'quality.release.default')}
@@ -506,7 +506,7 @@ const Index = ({
           </tr>
           <tr>
             <th />
-            <th colSpan="2">{l('Low Data Quality:')}</th>
+            <th colSpan="2">{addColonText(l('Low Data Quality'))}</th>
             <td>{fc('quality.release.low')}</td>
             <td>{fp('quality.release.low', 'release')}</td>
           </tr>
@@ -516,12 +516,12 @@ const Index = ({
             <th colSpan="5">{l('Disc IDs')}</th>
           </tr>
           <tr>
-            <th colSpan="3">{l('Disc IDs:')}</th>
+            <th colSpan="3">{addColonText(l('Disc IDs'))}</th>
             <td>{fc('discid')}</td>
             <td />
           </tr>
           <tr>
-            <th colSpan="3">{l('Releases:')}</th>
+            <th colSpan="3">{addColonText(l('Releases'))}</th>
             <td>{fc('release')}</td>
             <td />
           </tr>
@@ -565,7 +565,7 @@ const Index = ({
             <td>{fp('release.10discids', 'release.has_discid')}</td>
           </tr>
           <tr>
-            <th colSpan="3">{l('Mediums:')}</th>
+            <th colSpan="3">{addColonText(l('Mediums'))}</th>
             <td>{fc('medium')}</td>
             <td />
           </tr>
@@ -616,7 +616,7 @@ const Index = ({
             <th colSpan="4">{l('Primary Types')}</th>
           </tr>
           <tr>
-            <th colSpan="2">{l('Release Groups:')}</th>
+            <th colSpan="2">{addColonText(l('Release Groups'))}</th>
             <td>{fc('releasegroup')}</td>
             <td />
           </tr>
@@ -648,7 +648,7 @@ const Index = ({
             <th colSpan="4">{l('Secondary Types')}</th>
           </tr>
           <tr>
-            <th colSpan="2">{l('Release Groups:')}</th>
+            <th colSpan="2">{addColonText(l('Release Groups'))}</th>
             <td>{fc('releasegroup')}</td>
             <td />
           </tr>
@@ -686,12 +686,12 @@ const Index = ({
             <th colSpan="3">{l('Recordings')}</th>
           </tr>
           <tr>
-            <th>{l('Recordings:')}</th>
+            <th>{addColonText(l('Recordings'))}</th>
             <td>{fc('recording')}</td>
             <td />
           </tr>
           <tr>
-            <th>{l('Videos:')}</th>
+            <th>{addColonText(l('Videos'))}</th>
             <td>{fc('video')}</td>
             <td>{fp('video', 'recording')}</td>
           </tr>
@@ -743,7 +743,7 @@ const Index = ({
             <th colSpan="4">{l('Types')}</th>
           </tr>
           <tr>
-            <th colSpan="2">{l('Works:')}</th>
+            <th colSpan="2">{addColonText(l('Works'))}</th>
             <td>{fc('work')}</td>
             <td />
           </tr>
@@ -775,7 +775,7 @@ const Index = ({
             <th colSpan="4">{l('Attributes')}</th>
           </tr>
           <tr>
-            <th colSpan="2">{l('Works:')}</th>
+            <th colSpan="2">{addColonText(l('Works'))}</th>
             <td>{fc('work')}</td>
             <td />
           </tr>
@@ -805,7 +805,7 @@ const Index = ({
             <th colSpan="4">{l('Types')}</th>
           </tr>
           <tr>
-            <th colSpan="2">{l('Areas:')}</th>
+            <th colSpan="2">{addColonText(l('Areas'))}</th>
             <td>{fc('area')}</td>
             <td />
           </tr>
@@ -833,7 +833,7 @@ const Index = ({
             <th colSpan="4">{l('Types')}</th>
           </tr>
           <tr>
-            <th colSpan="2">{l('Places:')}</th>
+            <th colSpan="2">{addColonText(l('Places'))}</th>
             <td>{fc('place')}</td>
             <td />
           </tr>
@@ -861,7 +861,7 @@ const Index = ({
             <th colSpan="4">{l('Types')}</th>
           </tr>
           <tr>
-            <th colSpan="2">{lp('Series:', 'plural')}</th>
+            <th colSpan="2">{addColonText(lp('Series', 'plural'))}</th>
             <td>{fc('series')}</td>
             <td />
           </tr>
@@ -883,7 +883,7 @@ const Index = ({
             <th colSpan="4">{l('Types')}</th>
           </tr>
           <tr>
-            <th colSpan="2">{l('Instruments:')}</th>
+            <th colSpan="2">{addColonText(l('Instruments'))}</th>
             <td>{fc('instrument')}</td>
             <td />
           </tr>
@@ -913,7 +913,7 @@ const Index = ({
             <th colSpan="4">{l('Types')}</th>
           </tr>
           <tr>
-            <th colSpan="2">{l('Events:')}</th>
+            <th colSpan="2">{addColonText(('Events'))}</th>
             <td>{fc('event')}</td>
             <td />
           </tr>
@@ -1220,25 +1220,25 @@ const Index = ({
             <th colSpan="6">{l('Edits')}</th>
           </tr>
           <tr>
-            <th colSpan="4">{l('Edits:')}</th>
+            <th colSpan="4">{addColonText(l('Edits'))}</th>
             <td>{fc('edit')}</td>
             <td />
           </tr>
           <tr>
             <th />
-            <th colSpan="3">{l('Open:')}</th>
+            <th colSpan="3">{addColonText(l('Open'))}</th>
             <td>{fc('edit.open')}</td>
             <td>{fp('edit.open', 'edit')}</td>
           </tr>
           <tr>
             <th />
-            <th colSpan="3">{l('Applied:')}</th>
+            <th colSpan="3">{addColonText(l('Applied'))}</th>
             <td>{fc('edit.applied')}</td>
             <td>{fp('edit.applied', 'edit')}</td>
           </tr>
           <tr>
             <th />
-            <th colSpan="3">{l('Voted down:')}</th>
+            <th colSpan="3">{addColonText(l('Voted down'))}</th>
             <td>{fc('edit.failedvote')}</td>
             <td>{fp('edit.failedvote', 'edit')}</td>
           </tr>
@@ -1262,12 +1262,12 @@ const Index = ({
           </tr>
           <tr>
             <th />
-            <th colSpan="3">{l('Cancelled:')}</th>
+            <th colSpan="3">{addColonText(lp('Cancelled', 'edit'))}</th>
             <td>{fc('edit.deleted')}</td>
             <td>{fp('edit.deleted', 'edit')}</td>
           </tr>
           <tr>
-            <th colSpan="4">{l('Edits:')}</th>
+            <th colSpan="4">{addColonText(l('Edits'))}</th>
             <td>{fc('edit')}</td>
             <td />
           </tr>
@@ -1290,7 +1290,7 @@ const Index = ({
             <th colSpan="6">{l('Votes')}</th>
           </tr>
           <tr>
-            <th colSpan="4">{l('Votes:')}</th>
+            <th colSpan="4">{addColonText(l('Votes'))}</th>
             <td>{fc('vote')}</td>
             <td />
           </tr>
@@ -1319,7 +1319,7 @@ const Index = ({
             <td>{fp('vote.abstain', 'vote')}</td>
           </tr>
           <tr>
-            <th colSpan="4">{l('Votes:')}</th>
+            <th colSpan="4">{addColonText(l('Votes'))}</th>
             <td>{fc('vote')}</td>
             <td />
           </tr>

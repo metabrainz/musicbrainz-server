@@ -24,7 +24,7 @@ const AddDiscId = ({edit}: Props): React$Element<'table'> => (
       <td>{edit.display_data.full_toc}</td>
     </tr>
     <tr>
-      <th>{l('Disc ID:')}</th>
+      <th>{addColonText(l('Disc ID'))}</th>
       <td>
         <CDTocLink cdToc={edit.display_data.cdtoc} />
       </td>

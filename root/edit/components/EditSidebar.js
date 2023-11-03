@@ -34,7 +34,10 @@ const EditSidebar = ({
   return (
     <div id="sidebar">
       <SidebarProperties className="edit-status">
-        <SidebarProperty className="" label={lp('Status:', 'edit status')}>
+        <SidebarProperty
+          className=""
+          label={addColonText(lp('Status', 'edit status'))}
+        >
           {getEditStatusName(edit)}
         </SidebarProperty>
       </SidebarProperties>
@@ -53,7 +56,7 @@ const EditSidebar = ({
             </div>
           </SidebarProperty>
         ) : (
-          <SidebarProperty className="" label={l('Closed:')}>
+          <SidebarProperty className="" label={addColonText(l('Closed'))}>
             <div className="edit-expiration">
               {formatUserDate($c, edit.close_time)}
             </div>

@@ -29,7 +29,7 @@ const CDTocInfo = ({cdToc}: Props): React$Element<typeof React.Fragment> => (
       </tr>
 
       <tr>
-        <th>{l('Disc ID:')}</th>
+        <th>{addColonText(l('Disc ID'))}</th>
         <td><code>{cdToc.discid}</code></td>
       </tr>
       <tr>

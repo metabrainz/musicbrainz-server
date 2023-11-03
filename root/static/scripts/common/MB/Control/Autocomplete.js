@@ -1045,7 +1045,10 @@ MB.Control.autocomplete_formatters = {
 
     if (item.related_entities) {
       entityRenderer(l('Performers'), item.related_entities.performers);
-      entityRenderer(l('Location'), item.related_entities.places);
+      entityRenderer(
+        lp('Location', 'event location'),
+        item.related_entities.places,
+      );
     }
 
     return $('<li>').append(a).appendTo(ul);

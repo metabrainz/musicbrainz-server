@@ -234,7 +234,7 @@ class EditProfileForm extends React.Component<Props, State> {
         <FormRowSelect
           allowEmpty
           field={field.gender_id}
-          label={l('Gender:')}
+          label={addColonText(l('Gender'))}
           onChange={this.handleGenderChangeBound}
           options={genderOptions}
         />
@@ -242,7 +242,7 @@ class EditProfileForm extends React.Component<Props, State> {
         <FormRow>
           <FormLabel
             forField={areaField.name}
-            label={l('Location:')}
+            label={addColonText(lp('Location', 'user area'))}
           />
           <Autocomplete
             currentSelection={{
@@ -286,7 +286,7 @@ class EditProfileForm extends React.Component<Props, State> {
 
         <FormRowTextArea
           field={field.biography}
-          label={l('Bio:')}
+          label={addColonText(l('Bio'))}
         />
 
         <FormRow>

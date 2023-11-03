@@ -41,7 +41,7 @@ const AddCoverArt = ({edit}: Props): React$Element<'table'> => {
       </tr>
 
       <tr>
-        <th>{l('Filename:')}</th>
+        <th>{addColonText(l('Filename'))}</th>
         <td>
           <code>
             {display.artwork.filename}

@@ -19,7 +19,7 @@ const RemoveRelationship = ({edit}: Props): React$Element<'table'> => (
     <tr>
       {edit.display_data.relationships.length ? (
         <>
-          <th>{l('Relationships:')}</th>
+          <th>{addColonText(l('Relationships'))}</th>
           <td>
             <ul>
               {edit.display_data.relationships.map(relationship => (

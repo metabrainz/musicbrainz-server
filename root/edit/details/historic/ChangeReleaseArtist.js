@@ -22,7 +22,7 @@ const ChangeReleaseArtist = ({edit}: Props): React$Element<'table'> => (
       releases={edit.display_data.releases}
     />
     <tr>
-      <th>{l('Artist:')}</th>
+      <th>{addColonText(l('Artist'))}</th>
       <td className="old">
         <DescriptiveLink entity={edit.display_data.artist.old} />
       </td>

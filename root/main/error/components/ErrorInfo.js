@@ -18,7 +18,9 @@ const ErrorInfo = ({
 }: Props): (React$Element<'p'>) => (
   formattedErrors ? (
     <p id="errors">
-      <strong>{ln('Error:', 'Errors:', formattedErrors.length)}</strong>
+      <strong>
+        {addColonText(ln('Error', 'Errors', formattedErrors.length))}
+      </strong>
       {formattedErrors.map((error, index) => <pre key={index}>{error}</pre>)}
     </p>
   ) : (

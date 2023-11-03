@@ -73,7 +73,10 @@ const ArtistSidebar = ({artist}: Props): React$Element<'div'> => {
 
       <SidebarProperties>
         {artist.name === artist.sort_name ? null : (
-          <SidebarProperty className="sort-name" label={l('Sort name:')}>
+          <SidebarProperty
+            className="sort-name"
+            label={addColonText(l('Sort name'))}
+          >
             {artist.sort_name}
           </SidebarProperty>
         )}
@@ -81,7 +84,10 @@ const ArtistSidebar = ({artist}: Props): React$Element<'div'> => {
         <SidebarType entity={artist} typeType="artist_type" />
 
         {gender ? (
-          <SidebarProperty className="gender" label={l('Gender:')}>
+          <SidebarProperty
+            className="gender"
+            label={addColonText(l('Gender'))}
+          >
             {lp_attributes(gender.name, 'gender')}
           </SidebarProperty>
         ) : null}
@@ -117,7 +123,7 @@ const ArtistSidebar = ({artist}: Props): React$Element<'div'> => {
         ) : null}
 
         {area ? (
-          <SidebarProperty className="area" label={l('Area:')}>
+          <SidebarProperty className="area" label={addColonText(l('Area'))}>
             <DescriptiveLink entity={area} />
           </SidebarProperty>
         ) : null}

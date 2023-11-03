@@ -115,11 +115,11 @@ const RelationshipAttributeTypeIndex = ({
         <p>
           {isRelationshipEditor($c.user) ? (
             <>
-              <strong>{l('ID:')}</strong>
+              <strong>{addColonText(l('ID'))}</strong>
               {' '}
               {attribute.id}
               <br />
-              <strong>{l('Child order:')}</strong>
+              <strong>{addColonText(l('Child order'))}</strong>
               {' '}
               {attribute.child_order}
               <br />

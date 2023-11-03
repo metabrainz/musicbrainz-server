@@ -120,20 +120,20 @@ const AddMedium = ({allowNew, edit}: Props): React$MixedElement => {
       )}
 
       <tr>
-        <th>{l('Position:')}</th>
+        <th>{addColonText(l('Position'))}</th>
         <td>{display.position}</td>
       </tr>
 
       {nonEmpty(display.name) ? (
         <tr>
-          <th>{l('Name:')}</th>
+          <th>{addColonText(l('Name'))}</th>
           <td>{display.name}</td>
         </tr>
       ) : null}
 
       {format ? (
         <tr>
-          <th>{l('Format:')}</th>
+          <th>{addColonText(l('Format'))}</th>
           <td>
             {lp_attributes(format.name, 'medium_format')}
           </td>
@@ -159,7 +159,7 @@ const AddMedium = ({allowNew, edit}: Props): React$MixedElement => {
 
       {display.tracks?.length ? (
         <tr>
-          <th>{l('Artist Credits:')}</th>
+          <th>{addColonText(l('Artist Credits'))}</th>
           <td>
             <table className="tbl">
               <thead>

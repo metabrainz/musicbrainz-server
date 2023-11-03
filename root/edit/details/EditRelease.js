@@ -43,7 +43,7 @@ const EditRelease = ({edit}: Props): React$MixedElement => {
     <table className="details edit-release">
       {edit.preview /*:: === true */ ? null : (
         <tr>
-          <th>{l('Release:')}</th>
+          <th>{addColonText(l('Release'))}</th>
           <td colSpan="2">
             {display.release
               ? <DescriptiveLink entity={display.release} />
@@ -98,7 +98,7 @@ const EditRelease = ({edit}: Props): React$MixedElement => {
 
       {status ? (
         <FullChangeDiff
-          label={lp('Status:', 'release status')}
+          label={addColonText(lp('Status', 'release status'))}
           newContent={status.new?.name
             ? lp_attributes(status.new.name, 'release_status')
             : ''}

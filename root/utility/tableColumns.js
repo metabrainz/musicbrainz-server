@@ -380,7 +380,7 @@ export function defineLocationColumn<D>(
       const entity = props.getEntity(original);
       return entity ? <EventLocations event={entity} /> : null;
     },
-    Header: N_l('Location'),
+    Header: N_lp('Location', 'event location'),
     id: 'location',
   };
 }

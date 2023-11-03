@@ -27,7 +27,7 @@ const MoveRelease = ({edit}: Props): React$Element<'table'> => (
       <td colSpan="2">{yesNo(edit.display_data.move_tracks)}</td>
     </tr>
     <tr>
-      <th>{l('Artist:')}</th>
+      <th>{addColonText(l('Artist'))}</th>
       <td className="old">
         <DescriptiveLink entity={edit.display_data.artist.old} />
       </td>

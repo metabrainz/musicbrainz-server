@@ -49,7 +49,7 @@ MB.Control.ArtistEdit = function () {
       case '0':
         self.changeDateText(
           l('Began:'),
-          l('Ended:'),
+          addColonText(lp('Ended', 'artist end date')),
           l('This artist has ended.'),
         );
         self.changeAreaText(l('Begin area:'), l('End area:'));

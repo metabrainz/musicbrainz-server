@@ -17,7 +17,7 @@ type Props = {
 const RemoveReleases = ({edit}: Props): React$Element<'table'> => (
   <table className="details remove-releases">
     <tr>
-      <th>{l('Releases:')}</th>
+      <th>{addColonText(l('Releases'))}</th>
       <td colSpan="2">
         <ul>
           {edit.display_data.releases.map((release, index) => (

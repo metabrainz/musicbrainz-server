@@ -16,7 +16,7 @@ type Props = {
 const MergePlaces = ({edit}: Props): React$Element<'table'> => (
   <table className="details merge-place">
     <tr>
-      <th>{l('Merge:')}</th>
+      <th>{addColonText(lp('Merge', 'merge X into Y heading'))}</th>
       <td>
         <PlaceList places={edit.display_data.old} />
       </td>

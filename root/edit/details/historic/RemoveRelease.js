@@ -23,7 +23,7 @@ const RemoveRelease = ({edit}: Props): React$Element<'table'> => {
       <HistoricReleaseList releases={edit.display_data.releases} />
       {artistCredit ? (
         <tr>
-          <th>{l('Artist:')}</th>
+          <th>{addColonText(l('Artist'))}</th>
           <td>
             <ArtistCreditLink artistCredit={artistCredit} />
           </td>

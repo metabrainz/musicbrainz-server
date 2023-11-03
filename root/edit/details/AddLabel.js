@@ -71,7 +71,7 @@ const AddLabel = ({allowNew, edit}: Props): React$MixedElement => {
           )}
 
           <tr>
-            <th>{addColonText(l('Ended'))}</th>
+            <th>{addColonText(lp('Ended', 'label ended boolean'))}</th>
             <td>{yesNo(display.ended)}</td>
           </tr>
 
