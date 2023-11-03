@@ -23,7 +23,6 @@ import FormRowTextLong
   from '../static/scripts/edit/components/FormRowTextLong.js';
 import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
 
-
 type Props = {
   +form: FormT<{
     +body: FieldT<string>,

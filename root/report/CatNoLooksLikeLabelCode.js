@@ -12,7 +12,6 @@ import ReportLayout from './components/ReportLayout.js';
 import useCatNoColumn from './hooks/useCatNoColumn.js';
 import type {ReportDataT, ReportReleaseCatNoT} from './types.js';
 
-
 const CatNoLooksLikeLabelCode = ({
   canBeFiltered,
   filtered,

@@ -232,7 +232,9 @@ rules:
   import/export: error
   import/extensions: [error, ignorePackages]
   import/first: warn
-  import/newline-after-import: [warn, {count: 1}]
+  import/newline-after-import: [warn, {count: 1,
+                                       exactCount: true,
+                                       considerComments: true}]
   import/no-commonjs: error
   import/no-duplicates: warn
   import/no-dynamic-require: error
