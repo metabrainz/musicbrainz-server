@@ -1,4 +1,4 @@
-FROM phusion/baseimage:jammy-1.0.1
+FROM phusion/baseimage:focal-1.2.0
 
 RUN useradd --create-home --shell /bin/bash musicbrainz
 
@@ -14,6 +14,7 @@ RUN apt-get update && \
         ca-certificates \
         curl \
         gnupg && \
+    mkdir -p /etc/apt/keyrings && \
     cp nodesource_pubkey.txt /etc/apt/keyrings/nodesource.asc && \
     cp pgdg_pubkey.txt /etc/apt/keyrings/pgdg.asc && \
     rm nodesource_pubkey.txt pgdg_pubkey.txt && \
@@ -47,12 +48,12 @@ RUN apt-get update && \
         libexpat1-dev \
         libgbm1 \
         libicu-dev \
-        libicu70 \
+        libicu66 \
         libperl-dev \
         libpq-dev \
         libpq5 \
         libssl-dev \
-        libssl3 \
+        libssl1.1 \
         libxkbcommon0 \
         libxml2 \
         libxml2-dev \
@@ -71,10 +72,6 @@ RUN apt-get update && \
         postgresql-server-dev-12 \
         python2 \
         python2-dev \
-        python3 \
-        python3-dev \
-        python3-distutils \
-        python3-venv \
         rabbitmq-server \
         redis-server \
         runit \
@@ -85,6 +82,15 @@ RUN apt-get update && \
         virtualenv \
         wget \
         zlib1g-dev && \
+    add-apt-repository -y ppa:deadsnakes/ppa && \
+    apt install \
+        --no-install-recommends \
+        --no-install-suggests \
+        -y \
+        python3.9 \
+        python3.9-dev \
+        python3.9-distutils \
+        python3.9-venv && \
     rm -rf /var/lib/apt/lists/* && \
     update-java-alternatives -s java-1.8.0-openjdk-amd64 && \
     systemctl disable rabbitmq-server
@@ -96,7 +102,8 @@ RUN wget -q -O - https://cpanmin.us | perl - App::cpanminus && \
 ENV PERL_CARTON_PATH="/home/musicbrainz/carton-local" \
     PERL_CPANM_OPT="--notest --no-interactive"
 
-COPY --chown=musicbrainz:musicbrainz cpanfile cpanfile.snapshot ./
+COPY --chown=musicbrainz:musicbrainz cpanfile ./
+COPY --chown=musicbrainz:musicbrainz cpanfile.perl5.30.snapshot ./cpanfile.snapshot
 RUN sudo -E -H -u musicbrainz carton install --deployment && \
     rm cpanfile cpanfile.snapshot
 
@@ -147,7 +154,7 @@ ENV ARTWORK_INDEXER_COMMIT c8731b5
 RUN sudo -E -H -u musicbrainz git clone https://github.com/metabrainz/artwork-indexer.git && \
     cd artwork-indexer && \
     sudo -E -H -u musicbrainz git reset --hard $ARTWORK_INDEXER_COMMIT && \
-    sudo -E -H -u musicbrainz sh -c 'python3 -m venv venv; . venv/bin/activate; pip install -r requirements.txt' && \
+    sudo -E -H -u musicbrainz sh -c 'python3.9 -m venv venv; . venv/bin/activate; pip install -r requirements.txt' && \
     cd /home/musicbrainz
 
 ENV ARTWORK_REDIRECT_COMMIT c632ecf
@@ -155,7 +162,7 @@ ENV ARTWORK_REDIRECT_COMMIT c632ecf
 RUN sudo -E -H -u musicbrainz git clone https://github.com/metabrainz/artwork-redirect.git && \
     cd artwork-redirect && \
     sudo -E -H -u musicbrainz git reset --hard $ARTWORK_REDIRECT_COMMIT && \
-    sudo -E -H -u musicbrainz sh -c 'python3 -m venv venv; . venv/bin/activate; pip install -r requirements.txt' && \
+    sudo -E -H -u musicbrainz sh -c 'python3.9 -m venv venv; . venv/bin/activate; pip install -r requirements.txt' && \
     cd /home/musicbrainz
 
 RUN curl -sLO https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/119.0.6045.105/linux64/chrome-linux64.zip && \
