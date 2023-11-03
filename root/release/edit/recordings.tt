@@ -169,9 +169,20 @@
 
       <table data-bind="with: target">
         <tbody>
+          <tr>
+            <td>
+              <input name="recording-selection" value="" type="radio" id="add-new-recording" data-bind="checked: hasNewRecording, checkedValue: true" />
+            </td>
+            <td colspan="3">
+              <label for="add-new-recording">
+                [% l('Add a new recording') %]
+              </label>
+            </td>
+          </tr>
+
           <!-- ko if: loadingSuggestedRecordings -->
           <tr>
-            <td colspan="4" style="padding-bottom: 1em; vertical-align: top;" class="loading-message">
+            <td colspan="4" style="background-position: left 1em; padding-bottom: 1em; padding-top: 1em; vertical-align: top;" class="loading-message">
               [% l('Looking for suggested recordings...') %]
             </td>
           </tr>
@@ -202,17 +213,6 @@
           </tr>
           <!-- /ko -->
           <!-- /ko -->
-
-          <tr>
-            <td>
-              <input name="recording-selection" value="" type="radio" id="add-new-recording" data-bind="checked: hasNewRecording, checkedValue: true" />
-            </td>
-            <td colspan="3">
-              <label for="add-new-recording">
-                [% l('Add a new recording') %]
-              </label>
-            </td>
-          </tr>
         </tbody>
       </table>
 
