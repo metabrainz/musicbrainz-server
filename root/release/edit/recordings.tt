@@ -5,7 +5,7 @@
     <div data-bind="if: tracksWithUnsetPreviousRecordings().length">
       <p>
         [% l(
-          'Keep in mind that recording durations are {doc_link|recalculated from tracks} once the duration of a track changes. As such, if you correct the duration of a track whose recording is only used in this release, just reuse the old recording, don’t create a new one. If the recording is also used elsewhere and the durations are significantly different, consider creating a new recording instead.',
+          'Keep in mind that recording durations are {doc_link|recalculated from tracks} once the duration of a track changes. As such, if you correct the duration of a track whose recording is only used in this release, just reuse the old recording, don’t add a new one. If the recording is also used elsewhere and the durations are significantly different, consider adding a new recording instead.',
           { doc_link => doc_link('Recording') }
         ) %]
       </p>

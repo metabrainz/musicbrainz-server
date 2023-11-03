@@ -122,7 +122,7 @@ sub accept
     my $model = $self->c->model( $self->_merge_model );
     if (!$model->get_by_id($self->new_entity->{id})) {
         MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
-            'The target has been removed since this edit was created'
+            'The target has been removed since this edit was entered'
         );
     }
     if (!values %{ $model->get_by_ids($self->_old_ids) }) {

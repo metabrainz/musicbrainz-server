@@ -240,7 +240,7 @@
 </div>
 
 <div id="add-medium-dialog" style="display: none;" data-bind="with: $root.addMediumDialog, delegatedHandler: ['click', 'keydown']">
-  <p>[% l('To create a new tracklist, use an existing medium or import a disc from a CD stub, select the appropriate tab.') %]</p>
+  <p>[% l('To enter a new tracklist, use an existing medium or import a disc from a CD stub, select the appropriate tab.') %]</p>
 
   <ul>
     <li><a href="#add-medium-parser">[% l('Manual entry') %]</a></li>
@@ -437,7 +437,7 @@
       </p>
 
       <p class="error field-error" style="padding: 1em" data-bind="showErrorWhenTabIsSwitched: needsTrackArtists">
-        [%~ l('You must select an artist for every track (the background color of every artist field should be green). If you’ve entered an artist but the background remains uncolored, click the magnifying glass to match the name to a MusicBrainz artist. If the artist doesn’t exist yet, you can create it by selecting “{add_a_new_artist}” from the bottom of the search results drop-down.', { add_a_new_artist => l('Add a new artist') }) ~%]
+        [%~ l('You must select an artist for every track (the background color of every artist field should be green). If you’ve entered an artist but the background remains uncolored, click the magnifying glass to match the name to a MusicBrainz artist. If the artist doesn’t exist yet, you can add it by selecting “{add_a_new_artist}” from the bottom of the search results drop-down.', { add_a_new_artist => l('Add a new artist') }) ~%]
       </p>
 
       <p class="error field-error" style="padding: 1em" data-bind="showErrorWhenTabIsSwitched: hasInvalidPregapLength">

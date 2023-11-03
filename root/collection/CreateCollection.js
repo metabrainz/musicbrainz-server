@@ -25,10 +25,10 @@ const CreateCollection = ({
 }: Props): React$Element<typeof Layout> => (
   <Layout
     fullWidth
-    title={l('Create a new collection')}
+    title={l('Add a new collection')}
   >
     <div id="content">
-      <h1>{l('Create a new collection')}</h1>
+      <h1>{l('Add a new collection')}</h1>
       <CollectionEditForm collectionTypes={collectionTypes} form={form} />
       {manifest.js('collection/edit')}
     </div>

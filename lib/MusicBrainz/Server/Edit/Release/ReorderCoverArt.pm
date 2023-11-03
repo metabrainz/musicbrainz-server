@@ -80,7 +80,7 @@ sub accept {
     if (join(q(,), @current_ids) ne join (q(,), @edit_ids))
     {
         MusicBrainz::Server::Edit::Exceptions::FailedDependency
-            ->throw('Cover art has been added or removed since this edit was created, which conflicts ' .
+            ->throw('Cover art has been added or removed since this edit was entered, which conflicts ' .
                     'with changes made in this edit.');
     }
 

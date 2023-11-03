@@ -78,7 +78,7 @@ export function getEditStatusDescription(edit: GenericEditWithIdT): string {
     case EDIT_STATUS_FAILEDPREREQ:
       return l(
         `This edit failed because the data it was changing was modified 
-         after this edit was created. This may happen when the same edit 
+         after this edit was entered. This may happen when the same edit 
          is entered in twice; one will pass but the other will fail.`,
       );
     case EDIT_STATUS_NOVOTES:

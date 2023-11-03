@@ -30,7 +30,7 @@
       [% table_row_error(
         2,
         'showErrorWhenTabIsSwitched: needsArtistCredit',
-        l('You must select an artist for the release (the background color of the artist field should be green). If you’ve entered an artist but the background remains uncolored, click the magnifying glass to match the name to a MusicBrainz artist. If the artist doesn’t exist yet, you can create it by selecting “{add_a_new_artist}” from the bottom of the search results drop-down.', { add_a_new_artist => l('Add a new artist') }),
+        l('You must select an artist for the release (the background color of the artist field should be green). If you’ve entered an artist but the background remains uncolored, click the magnifying glass to match the name to a MusicBrainz artist. If the artist doesn’t exist yet, you can add it by selecting “{add_a_new_artist}” from the bottom of the search results drop-down.', { add_a_new_artist => l('Add a new artist') }),
       ) %]
 
       <tr>
@@ -51,7 +51,7 @@
         </td>
       </tr>
 
-      [% table_row_help_message(2, 'showMessageRightAway: willCreateReleaseGroup', l('If you don’t select an existing release group, a new one will be created with the types selected below.')) %]
+      [% table_row_help_message(2, 'showMessageRightAway: willCreateReleaseGroup', l('If you don’t select an existing release group, a new one will be added with the types selected below.')) %]
 
       [% table_row_error(2, 'showErrorWhenTabIsSwitched: needsReleaseGroup', l('You must select an existing release group.')) %]
 

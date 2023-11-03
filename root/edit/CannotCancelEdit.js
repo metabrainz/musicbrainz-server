@@ -30,7 +30,7 @@ const CannotCancelEdit = ({edit}: Props): React$Element<typeof Layout> => {
       <p>
         {editIsClosed
           ? l('The edit has already been closed.')
-          : l('Only the editor who created an edit can cancel it.')}
+          : l('Only the editor who entered an edit can cancel it.')}
       </p>
     </Layout>
   );

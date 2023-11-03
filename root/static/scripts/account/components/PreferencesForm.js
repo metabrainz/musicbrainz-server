@@ -242,17 +242,17 @@ class PreferencesForm extends React.Component<Props, State> {
           <legend>{l('Editing')}</legend>
           <FormRowCheckbox
             field={field.subscribe_to_created_artists}
-            label={l('Automatically subscribe me to artists I create.')}
+            label={l('Automatically subscribe me to artists I add.')}
             uncontrolled
           />
           <FormRowCheckbox
             field={field.subscribe_to_created_labels}
-            label={l('Automatically subscribe me to labels I create.')}
+            label={l('Automatically subscribe me to labels I add.')}
             uncontrolled
           />
           <FormRowCheckbox
             field={field.subscribe_to_created_series}
-            label={l('Automatically subscribe me to series I create.')}
+            label={l('Automatically subscribe me to series I add.')}
             uncontrolled
           />
         </fieldset>

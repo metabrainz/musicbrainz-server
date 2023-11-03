@@ -112,7 +112,7 @@ const SelectArtistForCDToc = ({
         {l(
           `If you don't see the artist you are looking for,
            you can still add a new release. This will allow you
-           to create this artist and a release at the same time`,
+           to add this artist and a release at the same time`,
         )}
       </p>
 
