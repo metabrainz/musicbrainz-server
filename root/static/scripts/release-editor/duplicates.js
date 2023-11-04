@@ -19,7 +19,6 @@ import request from '../common/utility/request.js';
 import utils from './utils.js';
 import releaseEditor from './viewModel.js';
 
-
 var releaseGroupReleases = ko.observableArray([]);
 
 

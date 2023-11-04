@@ -18,7 +18,6 @@ import RecordingList from './components/RecordingList.js';
 import ReportLayout from './components/ReportLayout.js';
 import type {ReportDataT, ReportRecordingRelationshipT} from './types.js';
 
-
 const RecordingsWithFutureDates = ({
   canBeFiltered,
   filtered,

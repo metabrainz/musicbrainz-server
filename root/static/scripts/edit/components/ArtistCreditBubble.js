@@ -15,7 +15,6 @@ import clean from '../../common/utility/clean.js';
 
 import ArtistCreditNameEditor from './ArtistCreditNameEditor.js';
 
-
 function onBubbleKeyDown(done, hide, event) {
   if (event.isDefaultPrevented()) {
     return;
