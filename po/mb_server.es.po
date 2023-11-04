@@ -53,7 +53,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-09-27 17:01+0000\n"
-"PO-Revision-Date: 2023-10-20 16:27+0000\n"
+"PO-Revision-Date: 2023-11-01 16:27+0000\n"
 "Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
 ".org>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
@@ -64,7 +64,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
 " ? 1 : 2);\n"
-"X-Generator: Weblate 5.0.2\n"
+"X-Generator: Weblate 5.1\n"
 
 #: ../root/components/common-macros.tt:12
 msgid " ({text})"
@@ -4573,7 +4573,7 @@ msgstr "Eliminar área"
 
 #: ../lib/MusicBrainz/Server/Edit/Area/DeleteAlias.pm:15
 msgid "Remove area alias"
-msgstr ""
+msgstr "Eliminar alias de área"
 
 #: ../lib/MusicBrainz/Server/Edit/Area/Edit.pm:33
 msgid "Edit area"
@@ -4661,7 +4661,7 @@ msgstr "Eliminar evento"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/DeleteAlias.pm:16
 msgid "Remove event alias"
-msgstr ""
+msgstr "Eliminar alias de evento"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/Edit.pm:42
 msgid "Edit event"
@@ -4691,11 +4691,11 @@ msgstr "Añadir genero"
 #: ../lib/MusicBrainz/Server/Edit/Genre/Delete.pm:10
 #: ../root/genre/DeleteGenre.js:31 ../root/genre/DeleteGenre.js:33
 msgid "Remove genre"
-msgstr ""
+msgstr "Eliminar género"
 
 #: ../lib/MusicBrainz/Server/Edit/Genre/DeleteAlias.pm:16
 msgid "Remove genre alias"
-msgstr "Eliminar alias de genero"
+msgstr "Eliminar alias de género"
 
 #: ../lib/MusicBrainz/Server/Edit/Genre/Edit.pm:24
 #: ../root/genre/EditGenre.js:30
@@ -4805,7 +4805,7 @@ msgstr "Eliminar ID de disco"
 #: ../lib/MusicBrainz/Server/Edit/Historic/RemoveLabelAlias.pm:12
 #: ../lib/MusicBrainz/Server/Edit/Label/DeleteAlias.pm:16
 msgid "Remove label alias"
-msgstr "Eliminar alias de la discográfica"
+msgstr "Eliminar alias de discográfica"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/RemoveLink.pm:11
 #: ../lib/MusicBrainz/Server/Edit/Relationship/Delete.pm:36
@@ -4819,7 +4819,7 @@ msgstr "Eliminar publicación"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/RemoveReleaseEvents.pm:12
 msgid "Remove release events (historic)"
-msgstr "Eliminar eventos de publicación (histórico)"
+msgstr "Eliminar lanzamientos de publicación (histórico)"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/RemoveReleases.pm:12
 msgid "Remove releases (historic)"
@@ -4853,7 +4853,7 @@ msgstr "Eliminar instrumento"
 
 #: ../lib/MusicBrainz/Server/Edit/Instrument/DeleteAlias.pm:16
 msgid "Remove instrument alias"
-msgstr ""
+msgstr "Eliminar alias de instrumento"
 
 #: ../lib/MusicBrainz/Server/Edit/Instrument/Edit.pm:26
 msgid "Edit instrument"
@@ -4932,7 +4932,7 @@ msgstr "Eliminar lugar"
 
 #: ../lib/MusicBrainz/Server/Edit/Place/DeleteAlias.pm:15
 msgid "Remove place alias"
-msgstr ""
+msgstr "Eliminar alias de lugar"
 
 #: ../lib/MusicBrainz/Server/Edit/Place/Edit.pm:45
 msgid "Edit place"
@@ -4969,7 +4969,7 @@ msgstr "Eliminar grabación"
 
 #: ../lib/MusicBrainz/Server/Edit/Recording/DeleteAlias.pm:15
 msgid "Remove recording alias"
-msgstr ""
+msgstr "Eliminar alias de grabación"
 
 #: ../lib/MusicBrainz/Server/Edit/Recording/EditAlias.pm:12
 msgid "Edit recording alias"
@@ -5047,7 +5047,7 @@ msgstr "Añadir discográfica a la publicación"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/DeleteAlias.pm:15
 msgid "Remove release alias"
-msgstr ""
+msgstr "Eliminar alias de publicación"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/DeleteReleaseLabel.pm:21
 msgid "Remove release label"
@@ -5122,7 +5122,7 @@ msgstr "Eliminar grupo de publicaciones"
 
 #: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/DeleteAlias.pm:15
 msgid "Remove release group alias"
-msgstr ""
+msgstr "Eliminar alias de grupo de publicación"
 
 #: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/Edit.pm:44
 msgid "Edit release group"
@@ -5201,11 +5201,11 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Series/Delete.pm:12
 msgid "Remove series"
-msgstr ""
+msgstr "Eliminar serie"
 
 #: ../lib/MusicBrainz/Server/Edit/Series/DeleteAlias.pm:16
 msgid "Remove series alias"
-msgstr ""
+msgstr "Eliminar alias de serie"
 
 #: ../lib/MusicBrainz/Server/Edit/Series/Edit.pm:32
 msgid "Edit series"
@@ -5628,6 +5628,8 @@ msgid ""
 "You must provide an edit note. If you want to blank the note, please remove "
 "it instead."
 msgstr ""
+"Debes suministrar una nota de edición. Si quieres que la nota no tenga "
+"contenido, elimínala."
 
 #: ../lib/MusicBrainz/Server/Form/Field/ArtistCredit.pm:50
 #, perl-brace-format
@@ -6835,12 +6837,11 @@ msgstr "Agregar nuevo atributo"
 #: ../root/admin/attributes/CannotRemoveAttribute.js:19
 #: ../root/admin/attributes/CannotRemoveAttribute.js:20
 msgid "Cannot Remove Attribute"
-msgstr "No se puede Eliminar el Atributo"
+msgstr "No se puede eliminar el atributo"
 
 #: ../root/admin/attributes/DeleteAttribute.js:26
 msgid "Are you sure you wish to remove the <strong>{name}</strong> attribute?"
-msgstr ""
-"¿Está seguro de que desea eliminar el atributo <strong>{nombre} </strong>?"
+msgstr "¿Seguro que quieres eliminar el atributo <strong>{nombre}</strong>?"
 
 #: ../root/admin/attributes/DeleteAttribute.js:30
 msgid "Remove Attribute"
@@ -6896,7 +6897,7 @@ msgstr ""
 #: ../root/admin/statistics-events/DeleteStatisticsEvent.js:22
 #: ../root/admin/statistics-events/DeleteStatisticsEvent.js:45
 msgid "Remove statistics event"
-msgstr ""
+msgstr "Eliminar suceso histórico"
 
 #: ../root/admin/statistics-events/DeleteStatisticsEvent.js:37
 #: ../root/admin/statistics-events/StatisticsEventEditForm.js:47
@@ -6907,7 +6908,7 @@ msgstr "Enlace"
 
 #: ../root/admin/statistics-events/DeleteStatisticsEvent.js:42
 msgid "Are you sure you want to remove this statistics event?"
-msgstr ""
+msgstr "¿Seguro que quieres eliminar este suceso histórico?"
 
 #: ../root/admin/statistics-events/EditStatisticsEvent.js:21
 msgid "Edit statistics event"
@@ -6962,6 +6963,8 @@ msgid ""
 "Are you sure you wish to remove the page “{page_uri|{page_name}}” from the "
 "transclusion table?"
 msgstr ""
+"¿Seguro que quieres eliminar la página “{page_uri|{page_name}}” de la tabla "
+"de transclusión?"
 
 #: ../root/admin/wikidoc/DeleteWikiDoc.js:38
 #: ../root/components/ConfirmLayout.js:38 ../root/edit/DeleteNote.js:64
@@ -7345,12 +7348,16 @@ msgid ""
 "This area cannot be removed because it is one of the areas that can be used "
 "as a release country."
 msgstr ""
+"Este área no puede ser eliminada porque puede ser seleccionada como país "
+"para publicaciones."
 
 #: ../root/area/DeleteArea.js:55
 msgid ""
 "This area cannot be removed because it is still in use (in artists, labels, "
 "places, relationships or open edits)."
 msgstr ""
+"Este área no puede ser eliminada porque aún está en uso (en artistas, "
+"discográficas, lugares o relaciones) o tiene ediciones pendientes."
 
 #: ../root/artist/ArtistEvents.js:78
 msgid "No events found that match this search."
@@ -7563,8 +7570,8 @@ msgid ""
 "relationships}."
 msgstr ""
 "Este artista tiene otras relaciones además de relaciones de colaboración, y "
-"no puede separarse hasta que sean eliminadas. {relationships|Ver todas las "
-"relacciones}."
+"no puede ser separado hasta que estas sean eliminadas. {relationships|Ver "
+"todas las relaciones}."
 
 #: ../root/artist/SpecialPurpose.js:23 ../root/label/SpecialPurpose.js:23
 msgid "Cannot edit"
@@ -7972,7 +7979,7 @@ msgstr "Colaboradores"
 
 #: ../root/collection/CollectionIndex.js:219
 msgid "Remove selected items from collection"
-msgstr ""
+msgstr "Eliminar las entidades seleccionadas de la colección"
 
 #: ../root/collection/CollectionIndex.js:224
 msgid "This collection is empty."
@@ -8161,6 +8168,8 @@ msgid ""
 "This event has no relationships and will be removed automatically in the "
 "next few days. If this is not intended, please add more data to this event."
 msgstr ""
+"Este evento no tiene relaciones y será eliminado automáticamente en unos "
+"días. Si deseas evitarlo, añade más información."
 
 #: ../root/components/CleanupBanner.js:23
 msgid ""
@@ -8176,6 +8185,8 @@ msgid ""
 "This place has no relationships and will be removed automatically in the "
 "next few days. If this is not intended, please add more data to this place."
 msgstr ""
+"Este lugar no tiene relaciones y será eliminado automáticamente en unos "
+"días. Si deseas evitarlo, añade más información."
 
 #: ../root/components/CleanupBanner.js:33
 msgid ""
@@ -8183,20 +8194,25 @@ msgid ""
 "removed automatically in the next few days. If this is not intended, please "
 "add more data to this release group."
 msgstr ""
+"Este grupo de publicaciones no tiene relaciones ni publicaciones y será "
+"eliminado automáticamente en unos días. Si deseas evitarlo, añade más "
+"información."
 
 #: ../root/components/CleanupBanner.js:38
 msgid ""
 "This series has no relationships and will be removed automatically in the "
 "next few days. If this is not intended, please add more data to this series."
 msgstr ""
+"Esta serie no tiene relaciones y será eliminada automáticamente en unos "
+"días. Si deseas evitarlo, añade más información."
 
 #: ../root/components/CleanupBanner.js:43
 msgid ""
 "This work has no relationships and will be removed automatically in the next "
 "few days. If this is not intended, please add relationships to this work."
 msgstr ""
-"Esta obra no tiene relaciones, y será eliminada automáticamente en unos "
-"días. Si deseas evitarlo, añade algunas relaciones."
+"Esta obra no tiene relaciones y será eliminada automáticamente en unos días. "
+"Si deseas evitarlo, añade más información."
 
 #: ../root/components/CritiqueBrainzLinks.js:43
 msgid "An error occurred when loading reviews."
@@ -8687,11 +8703,11 @@ msgstr ""
 #: ../root/edit/DeleteNote.js:32 ../root/edit/DeleteNote.js:33
 #: ../root/edit/components/EditNote.js:147
 msgid "Remove edit note"
-msgstr ""
+msgstr "Eliminar nota de edición"
 
 #: ../root/edit/DeleteNote.js:35
 msgid "Are you sure you want to remove the following edit note?"
-msgstr ""
+msgstr "¿Seguro que quieres eliminar la siguiente nota de edición?"
 
 #: ../root/edit/DeleteNote.js:47
 msgid ""
@@ -8935,19 +8951,19 @@ msgstr ""
 
 #: ../root/edit/components/EditNote.js:168
 msgid "This edit note was removed by its author. Reason given: “{reason}”."
-msgstr ""
+msgstr "Nota de edición eliminada por su autor. Motivo: “{reason}”."
 
 #: ../root/edit/components/EditNote.js:173
 msgid "This edit note was removed by its author. No reason was provided."
-msgstr ""
+msgstr "Nota de edición eliminada por su autor, sin presentar motivos."
 
 #: ../root/edit/components/EditNote.js:179
 msgid "This edit note was removed by an admin. Reason given: “{reason}”."
-msgstr ""
+msgstr "Nota de edición eliminada por un administrador. Motivo: “{reason}”."
 
 #: ../root/edit/components/EditNote.js:184
 msgid "This edit note was removed by an admin. No reason was provided."
-msgstr ""
+msgstr "Nota de edición eliminada por un administrador, sin presentar motivos."
 
 #: ../root/edit/components/EditNote.js:194
 #: ../root/edit/components/EditNote.js:250
