@@ -7,10 +7,10 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as ReactDOMServer from 'react-dom/server';
 import test from 'tape';
 
 import formatSetlist from '../../common/utility/formatSetlist.js';
+import renderToStaticMarkup from '../renderToStaticMarkup.js';
 
 test('formatSetlist', function (t) {
   t.plan(1);
@@ -28,8 +28,7 @@ test('formatSetlist', function (t) {
     'ignored!\r\n';
 
   t.equal(
-    ReactDOMServer.renderToStaticMarkup(formatSetlist(setlist)),
-    '<!-- -->' + // empty comment added by React
+    renderToStaticMarkup(formatSetlist(setlist)),
     'pre-text <strong>' +
       'Artist: ' +
       '<a href="/artist/e1af2f0d-c685-4e83-a27d-b27e79787aab">artist 1</a>' +

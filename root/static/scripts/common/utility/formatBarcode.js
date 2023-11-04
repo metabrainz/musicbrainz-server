@@ -8,7 +8,7 @@
  */
 
 function formatBarcode(code: string | null): string {
-  if (code == null) {
+  if (code === null) {
     return '';
   }
   if (code === '') {

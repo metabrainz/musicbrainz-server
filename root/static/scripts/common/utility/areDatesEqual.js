@@ -7,14 +7,11 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import isDateEmpty from './isDateEmpty.js';
+import compareDates from './compareDates.js';
 
 export default function areDatesEqual(
   a: PartialDateT | null,
   b: PartialDateT | null,
 ): boolean %checks {
-  return (isDateEmpty(a) && isDateEmpty(b)) || (
-    a !== null && b !== null &&
-    a.year === b.year && a.month === b.month && a.day === b.day
-  );
+  return (compareDates(a, b) === 0);
 }
