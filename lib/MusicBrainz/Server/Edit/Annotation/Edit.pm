@@ -116,7 +116,7 @@ role {
 
         if (!$self->c->model($model)->get_by_id($self->data->{entity}{id})) {
             MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
-                'The relevant entity has been removed since this edit was created.'
+                'The relevant entity has been removed since this edit was entered.'
             );
         }
 

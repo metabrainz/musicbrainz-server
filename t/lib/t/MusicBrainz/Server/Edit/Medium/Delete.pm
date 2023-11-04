@@ -96,7 +96,7 @@ test 'Warning is shown if data has changed (MBS-11558)' => sub {
 
     $mech->get_ok(
         '/edit/' . $edit->id,
-        'Fetched the edit page after adding track duration',
+        'Fetched the edit page after adding track length',
     );
     $mech->text_contains('Warning:', 'Warning is present');
     $mech->text_contains('Original tracklist:', 'Old tracklist shown');

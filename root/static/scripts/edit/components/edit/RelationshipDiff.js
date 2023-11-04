@@ -196,7 +196,7 @@ const RelationshipDiff = (React.memo(({
   return (
     <>
       <tr>
-        <th rowSpan="2">{l('Relationship:')}</th>
+        <th rowSpan="2">{addColonText(l('Relationship'))}</th>
         <td className="old">
           {oldPhrase}
           {' '}

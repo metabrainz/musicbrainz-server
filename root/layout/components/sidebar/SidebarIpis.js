@@ -15,7 +15,7 @@ const buildSidebarIpi = (ipi: IpiCodeT) => (
   <SidebarProperty
     className="ipi-code"
     key={'ipi-code-' + ipi.ipi}
-    label={l('IPI code:')}
+    label={addColonText(l('IPI code'))}
   >
     {ipi.ipi}
   </SidebarProperty>

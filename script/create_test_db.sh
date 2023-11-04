@@ -101,7 +101,7 @@ OUTPUT=`./admin/psql $DATABASE <./admin/sql/ReplicationSetup.sql 2>&1` || ( echo
 OUTPUT=`./admin/psql $DATABASE <./admin/sql/dbmirror2/ReplicationSetup.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
 
 echo `date` : Set up pgtap extension
-OUTPUT=`echo "CREATE EXTENSION pgtap WITH SCHEMA public;" | ./admin/psql $DATABASE 2>&1` || ( echo "$OUTPUT" && exit 1 )
+OUTPUT=`echo "CREATE EXTENSION pgtap WITH SCHEMA public;" | ./admin/psql --system $DATABASE 2>&1` || ( echo "$OUTPUT" && exit 1 )
 
 echo `date` : Inserting initial data
 OUTPUT=`./admin/psql $DATABASE < ./t/sql/initial.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )

@@ -79,7 +79,7 @@ const AddRelease = ({allowNew, edit}: Props): React$MixedElement => {
 
           {status ? (
             <tr>
-              <th>{lp('Status:', 'release status')}</th>
+              <th>{addColonText(lp('Status', 'release status'))}</th>
               <td>
                 {lp_attributes(status.name, 'release_status')}
               </td>

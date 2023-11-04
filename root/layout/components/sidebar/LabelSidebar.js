@@ -78,13 +78,16 @@ const LabelSidebar = ({label}: Props): React$Element<'div'> => {
         <SidebarIsnis entity={label} />
 
         {label.label_code ? (
-          <SidebarProperty className="label-code" label={l('Label code:')}>
+          <SidebarProperty
+            className="label-code"
+            label={addColonText(l('Label code'))}
+          >
             {formatLabelCode(label.label_code)}
           </SidebarProperty>
         ) : null}
 
         {area ? (
-          <SidebarProperty className="area" label={l('Area:')}>
+          <SidebarProperty className="area" label={addColonText(l('Area'))}>
             <DescriptiveLink entity={area} />
           </SidebarProperty>
         ) : null}

@@ -24,7 +24,7 @@ const MbidNotFound = ({
         exp.l(
           `No MusicBrainz {entity_doc|entities} match the {mbid_doc|MBID}
            {mbid}. Either it’s incorrect, it was for an entity that has since
-           been deleted, or it is an ID for something else than an entity
+           been removed, or it is an ID for something else than an entity
            (for example, a {rel_type_table|relationship type}).`,
           {
             entity_doc: '/doc/MusicBrainz_Entity',

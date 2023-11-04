@@ -16,7 +16,7 @@ type Props = {
 const MergeEvents = ({edit}: Props): React$Element<'table'> => (
   <table className="details merge-events">
     <tr>
-      <th>{l('Merge:')}</th>
+      <th>{addColonText(lp('Merge', 'merge X into Y heading'))}</th>
       <td>
         <EventList
           events={edit.display_data.old}

@@ -453,7 +453,7 @@ sub accept {
         }
         catch {
             MusicBrainz::Server::Edit::Exceptions::FailedDependency
-                  ->throw('The tracklist has changed since this edit was created, and conflicts ' .
+                  ->throw('The tracklist has changed since this edit was entered, and conflicts ' .
                       'with changes made in this edit');
         };
 

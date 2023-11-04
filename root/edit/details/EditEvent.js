@@ -51,7 +51,7 @@ const EditEvent = ({edit}: Props): React$Element<'table'> => {
       ) : null}
       {cancelled ? (
         <FullChangeDiff
-          label={addColonText(l('Cancelled'))}
+          label={addColonText(lp('Cancelled', 'event'))}
           newContent={yesNo(cancelled.new)}
           oldContent={yesNo(cancelled.old)}
         />

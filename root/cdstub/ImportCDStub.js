@@ -36,7 +36,7 @@ const ImportCDStub = ({
     <h2>{l('Import CD Stub')}</h2>
     <p>
       {l(`Please search for the artist you wish
-          to create a new release for:`)}
+          to add a new release for:`)}
     </p>
 
     <form method="post">

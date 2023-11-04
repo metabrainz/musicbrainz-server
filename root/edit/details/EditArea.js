@@ -116,7 +116,7 @@ const EditArea = ({edit}: Props): React$MixedElement => {
           ) : null}
           {ended ? (
             <FullChangeDiff
-              label={addColonText(l('Ended'))}
+              label={addColonText(lp('Ended', 'area ended boolean'))}
               newContent={yesNo(ended.new)}
               oldContent={yesNo(ended.old)}
             />

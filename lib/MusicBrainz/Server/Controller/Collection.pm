@@ -74,7 +74,7 @@ sub _do_add_or_remove {
         my $entity = $c->model(type_to_model($entity_type))->get_by_id($entity_id);
 
         unless ($entity) {
-            $c->stash->{message} = l('“{id}” is not a valid row ID; the entity might have been merged or deleted.', { id => $entity_id });
+            $c->stash->{message} = l('“{id}” is not a valid row ID; the entity might have been merged or removed.', { id => $entity_id });
             $c->detach('/error_400');
         }
 

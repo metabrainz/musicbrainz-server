@@ -122,7 +122,7 @@ const EditAlias = ({edit}: Props): React$Element<'table'> => {
         />
 
         <FullChangeDiff
-          label={addColonText(l('Ended'))}
+          label={addColonText(lp('Ended', 'alias ended boolean'))}
           newContent={yesNo(display.ended.new)}
           oldContent={yesNo(display.ended.old)}
         />

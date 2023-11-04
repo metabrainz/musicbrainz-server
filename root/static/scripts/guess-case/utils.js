@@ -17,7 +17,6 @@ import * as flags from './flags.js';
 import * as modes from './modes.js';
 import type {GuessCaseModeT} from './types.js';
 
-
 /*
  * Words which are turned to lowercase if in brackets, but
  * are *not* put in brackets if they're found at the end of the sentence.

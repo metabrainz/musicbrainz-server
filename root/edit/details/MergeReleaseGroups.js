@@ -17,7 +17,7 @@ type Props = {
 const MergeReleaseGroups = ({edit}: Props): React$Element<'table'> => (
   <table className="details merge-release-groups">
     <tr>
-      <th>{l('Merge:')}</th>
+      <th>{addColonText(lp('Merge', 'merge X into Y heading'))}</th>
       <td>
         <ReleaseGroupListTable releaseGroups={edit.display_data.old} />
       </td>

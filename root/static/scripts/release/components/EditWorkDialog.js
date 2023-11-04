@@ -163,7 +163,7 @@ const EditWorkDialog: React$AbstractComponent<
       <table className="work-details">
         <tbody>
           <tr>
-            <td className="section">{l('Name:')}</td>
+            <td className="section">{addColonText(l('Name'))}</td>
             <td>
               <input
                 onChange={handleNameChange}

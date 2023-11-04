@@ -7,7 +7,15 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-export default function calculateFullToc(cdtoc: CDStubT | CDTocT): string {
+type TocDetails = {
+  +leadout_offset: number | null,
+  +track_count: number,
+  +track_offset: $ReadOnlyArray<number> | null,
+};
+
+export default function calculateFullToc(
+  cdtoc: $ReadOnly<{...TocDetails, ...}>,
+): string {
   const trackOffset = cdtoc.track_offset;
   invariant(trackOffset != null, 'Expected a defined track offset');
 

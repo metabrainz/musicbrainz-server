@@ -37,12 +37,12 @@ const RelationshipPendingEditsWarning = ({
       {' '}
       <Tooltip
         content={exp.l(
-          'This relationship has {edit_search|pending edits}.',
+          'This relationship has {edit_search|open edits}.',
           {edit_search: openEditsLink},
         )}
         target={
           <img
-            alt={l('This relationship has pending edits.')}
+            alt={l('This relationship has open edits.')}
             className="info"
             height={16}
             src={openEditsForRelIconUrl}

@@ -101,7 +101,7 @@ const AddRemoveAlias = ({edit}: Props): React$Element<'table'> => {
 
         {ended == null ? null : (
           <tr>
-            <th>{addColonText(l('Ended'))}</th>
+            <th>{addColonText(lp('Ended', 'alias ended boolean'))}</th>
             <td>{yesNo(ended)}</td>
           </tr>
         )}

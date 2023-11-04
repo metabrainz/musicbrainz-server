@@ -130,7 +130,7 @@ const DialogPreview = (React.memo<PropsT>(({
       <table className={fullClassName}>
         <tbody>
           <tr>
-            <th>{l('Relationship:')}</th>
+            <th>{addColonText(l('Relationship'))}</th>
             <td>
               <Relationship
                 makeEntityLink={makeEntityLink}
@@ -169,7 +169,7 @@ const DialogPreview = (React.memo<PropsT>(({
       <h2>
         <div className="heading-line" />
         <span className="heading-text">
-          {l('Preview')}
+          {lp('Preview', 'header')}
         </span>
       </h2>
       {(oldRelationship && newRelationship) ? (

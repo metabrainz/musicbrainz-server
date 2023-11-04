@@ -26,7 +26,7 @@ export const FormRowArtistCredit = ({
 }) => (
   <FormRow>
     <label className="required" htmlFor="entity-artist">
-      {l('Artist:')}
+      {addColonText(l('Artist'))}
     </label>
     <ArtistCreditEditor
       entity={entity}

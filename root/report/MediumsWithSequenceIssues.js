@@ -22,7 +22,7 @@ const MediumsWithSequenceIssues = ({
     canBeFiltered={canBeFiltered}
     description={l(
       `This report lists all releases with gaps in the medium numbers
-       (e.g. there is a medium 1 and 3 but no medium 2).`,
+       (for example, there is a medium 1 and 3 but no medium 2).`,
     )}
     entityType="release"
     filtered={filtered}

@@ -117,7 +117,7 @@
 [% END %]
 
 [% BLOCK remove %]
-<button type="button" class="remove-item icon" title="[% l('Delete') %]"></button>
+<button type="button" class="remove-item icon" title="[% l('Remove') %]"></button>
 [% END %]
 
 [%- MACRO operators(operators, field_contents) BLOCK %]
@@ -240,7 +240,7 @@
   </select>
 
   <br />
-  <p>[% l('Note: only searches edits that: add or edit relationships, created after 2011-05-16; or which remove relationships, created after 2013-07-08; or which reorder relationships.') %]</p>
+  <p>[% l('Note: only searches edits that: add or edit relationships, entered after 2011-05-16; or which remove relationships, entered after 2013-07-08; or which reorder relationships.') %]</p>
 [% END %]
 
 [% MACRO predicate_link(field, field_contents, autocomplete_name) WRAPPER wfield predicate="set" %]
@@ -421,7 +421,7 @@
       <option>[% l('Please choose a condition') %]</option>
     [% END %]
     [% FOR field=[ [ 'id', l('ID') ],
-                   [ 'open_time', l('Created') ],
+                   [ 'open_time', l('Entered') ],
                    [ 'expire_time', l('Voting closed') ],
                    [ 'close_time', l('Closed') ],
                    [ 'status', lp('Status', 'edit status') ],

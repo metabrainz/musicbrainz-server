@@ -10,7 +10,7 @@ use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref coordinates_to_has
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Entity::ArtistCredit;
 use MusicBrainz::Server::Entity::ArtistCreditName;
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_l N_lp );
 use Scalar::Util qw( blessed );
 use Set::Scalar;
 
@@ -275,7 +275,7 @@ our @STATUS_MAP = (
     [ $STATUS_ERROR        => N_l('Error') ],
     [ $STATUS_FAILEDPREREQ => N_l('Failed prerequisite') ],
     [ $STATUS_NOVOTES      => N_l('No votes') ],
-    [ $STATUS_DELETED      => N_l('Cancelled') ],
+    [ $STATUS_DELETED      => N_lp('Cancelled', 'edit') ],
 );
 our %STATUS_NAMES = map { @$_ } @STATUS_MAP;
 

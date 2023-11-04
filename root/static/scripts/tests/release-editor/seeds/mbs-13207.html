@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <form action="/release/add" method="POST">
+      <input type="hidden" name="name" value="MBS-13207" />
+      <input type="hidden" name="artist_credit.names.0.artist.name" value="Nine Inch Nails" />
+      <input type="hidden" name="artist_credit.names.0.mbid" value="b7ffd2af-418f-4be2-bdd1-22f8b48613da" />
+      <input type="hidden" name="mediums.0.format" value="Digital Media" />
+      <input type="hidden" name="mediums.0.track.0.name" value="Piggy" />
+      <input type="hidden" name="mediums.0.track.0.length" value="264000" />
+      <input type="hidden" name="edit_note" value="Testing MBS-13207" />
+      <button type="submit">Submit</button>
+    </form>
+  </body>
+</html>

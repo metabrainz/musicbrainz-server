@@ -16,7 +16,7 @@ type Props = {
 const MergeInstruments = ({edit}: Props): React$Element<'table'> => (
   <table className="details merge-instruments">
     <tr>
-      <th>{l('Merge:')}</th>
+      <th>{addColonText(lp('Merge', 'merge X into Y heading'))}</th>
       <td>
         <InstrumentList instruments={edit.display_data.old} />
       </td>

@@ -59,7 +59,7 @@ const EditAnnotation = ({
 
       {showPreview ? (
         <>
-          <h3>{l('Preview:')}</h3>
+          <h3>{addColonText(lp('Preview', 'header'))}</h3>
           <div
             className="annotation-preview"
             dangerouslySetInnerHTML={{__html: preview}}
@@ -90,7 +90,7 @@ const EditAnnotation = ({
             type="submit"
             value="preview"
           >
-            {l('Preview')}
+            {lp('Preview', 'button')}
           </button>
         </EnterEdit>
       </form>

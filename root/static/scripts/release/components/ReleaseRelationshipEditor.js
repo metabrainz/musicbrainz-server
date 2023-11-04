@@ -7,6 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+/* eslint-disable import/newline-after-import -- the FlowIgnore triggers it */
 import {captureException} from '@sentry/browser';
 import deepFreeze from 'deep-freeze-strict';
 import * as React from 'react';

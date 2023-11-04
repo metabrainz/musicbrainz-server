@@ -25,7 +25,7 @@ const ChangeReleaseQuality = ({edit}: Props): React$Element<'table'> => (
       return (
         <React.Fragment key={index}>
           <tr>
-            <th>{l('Releases:')}</th>
+            <th>{addColonText(l('Releases'))}</th>
             <td colSpan="2">
               <ul>
                 {change.releases.map(release => (

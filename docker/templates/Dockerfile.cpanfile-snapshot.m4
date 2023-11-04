@@ -1,5 +1,5 @@
 m4_include(`macros.m4')m4_dnl
-FROM metabrainz/base-image:focal-1.0.0-alpha1
+FROM metabrainz/base-image:jammy-1.0.1-v0.4
 
 ARG DEBIAN_FRONTEND=noninteractive
 

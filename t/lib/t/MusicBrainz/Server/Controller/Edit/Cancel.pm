@@ -165,7 +165,7 @@ test q(Cannot cancel someone else's edit) => sub {
         'The "cannot cancel edit" page is displayed',
     );
     $mech->content_contains(
-        'Only the editor who created an edit can cancel it',
+        'Only the editor who entered an edit can cancel it',
         'The reason the edit cannot be cancelled is displayed',
     );
     ok(

@@ -337,6 +337,45 @@ my %stats = (
         DESC => 'Count of all events',
         SQL => 'SELECT COUNT(*) FROM event',
     },
+    'count.event.country' => {
+        DESC => 'Distribution of events per country',
+        CALC => sub {
+            my ($self, $sql) = @_;
+
+            my $area_containment_join = get_area_containment_join($sql);
+
+            my $data = $sql->select_list_of_lists(qq{
+                SELECT COALESCE(iso.code::text, 'null'), COUNT(e.id)
+                FROM event e
+                JOIN (
+                    SELECT lae.entity1 AS event, lae.entity0 AS area
+                    FROM l_area_event lae
+                    UNION
+                    SELECT lep.entity0 AS event, p.area
+                    FROM l_event_place lep
+                    JOIN place p ON lep.entity1 = p.id
+                ) event_area ON event_area.event = e.id
+                LEFT JOIN $area_containment_join ac
+                    ON event_area.area = ac.descendant
+                    AND ac.parent IN (SELECT area FROM country_area)
+                FULL OUTER JOIN iso_3166_1 iso
+                    ON iso.area = COALESCE(
+                        (SELECT area FROM country_area WHERE area = ac.descendant),
+                        ac.parent,
+                        event_area.area
+                    )
+                GROUP BY iso.code
+            });
+
+            my %dist = map { @$_ } @$data;
+
+            +{
+                map {
+                    'count.event.country.'.$_ => $dist{$_}
+                } keys %dist
+            };
+        },
+    },
     'count.event.type' => {
         DESC => 'Distribution of events by type',
         CALC => sub {
@@ -392,6 +431,37 @@ my %stats = (
     'count.place' => {
         DESC => 'Count of all places',
         SQL => 'SELECT COUNT(*) FROM place',
+    },
+    'count.place.country' => {
+        DESC => 'Distribution of places per country',
+        CALC => sub {
+            my ($self, $sql) = @_;
+
+            my $area_containment_join = get_area_containment_join($sql);
+
+            my $data = $sql->select_list_of_lists(qq{
+                SELECT COALESCE(iso.code::text, 'null'), COUNT(p.id)
+                FROM place p
+                LEFT JOIN $area_containment_join ac
+                    ON p.area = ac.descendant
+                    AND ac.parent IN (SELECT area FROM country_area)
+                FULL OUTER JOIN iso_3166_1 iso
+                    ON iso.area = COALESCE(
+                        (SELECT area FROM country_area WHERE area = ac.descendant),
+                        ac.parent,
+                        p.area
+                    )
+                GROUP BY iso.code
+            });
+
+            my %dist = map { @$_ } @$data;
+
+            +{
+                map {
+                    'count.place.country.'.$_ => $dist{$_}
+                } keys %dist
+            };
+        },
     },
     'count.place.type' => {
         DESC => 'Distribution of places by type',
@@ -941,7 +1011,7 @@ my %stats = (
                 FROM release r
                 LEFT JOIN release_country rc ON r.id = rc.release
                 FULL OUTER JOIN country_area c ON rc.country = c.area
-                LEFT JOIN iso_3166_1 iso ON c.area = iso.area
+                FULL OUTER JOIN iso_3166_1 iso ON c.area = iso.area
                 GROUP BY iso.code},
             );
 

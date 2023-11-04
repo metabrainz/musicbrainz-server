@@ -55,7 +55,7 @@ const RelationshipTypeDetails = ({
       >
         {isRelationshipEditor($c.user) ? (
           <>
-            <strong>{l('Child order:')}</strong>
+            <strong>{addColonText(l('Child order'))}</strong>
             {' '}
             {relType.child_order}
             <br />
@@ -83,7 +83,7 @@ const RelationshipTypeDetails = ({
           : lp('(none)', 'link phrase')}
         <br />
 
-        <strong>{l('Description:')}</strong>
+        <strong>{addColonText(l('Description'))}</strong>
         {' '}
         {relType.description
           ? expand2react(l_relationships(relType.description))
@@ -196,7 +196,7 @@ const RelationshipTypePairTree = ({
           <p>
             <a href={'/relationships/' + type0 + '-' + type1 + '/create'}>
               {texp.l(
-                'Create a new {type0}-{type1} relationship',
+                'Add a new {type0}-{type1} relationship type',
                 {type0: formattedType0, type1: formattedType1},
               )}
             </a>

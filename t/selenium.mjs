@@ -57,6 +57,12 @@ const argv = yargs
     describe: 'run Chrome in headless mode',
     type: 'boolean',
   })
+  .option('p', {
+    alias: 'browser-binary-path',
+    default: '',
+    describe: 'path to the browser binary, in case it cannot be auto-detected',
+    type: 'string',
+  })
   .option('s', {
     alias: 'stay-open',
     default: false,
@@ -195,6 +201,9 @@ const driver = (x => {
         'no-sandbox',
         'proxy-server=http://localhost:5051',
       );
+      if (argv.browserBinaryPath) {
+        options.setChromeBinaryPath(argv.browserBinaryPath);
+      }
       x.setChromeOptions(options);
       break;
 
@@ -203,6 +212,9 @@ const driver = (x => {
       options = new firefox.Options();
       options.setPreference('dom.disable_beforeunload', false);
       options.setPreference('network.proxy.allow_hijacking_localhost', true);
+      if (argv.browserBinaryPath) {
+        options.setBinary(argv.browserBinaryPath);
+      }
       x.setFirefoxOptions(options);
       break;
 
@@ -694,6 +706,7 @@ const seleniumTests = [
     name: 'release-editor/MBS-12077.json5',
     sql: 'vision_creation_newsun.sql',
   },
+  {name: 'release-editor/MBS-13207.json5', login: true},
   {
     name: 'Check_Duplicates.json5',
     login: true,

@@ -3,38 +3,31 @@ m4_divert(-1)
 m4_define(
     `apt_install',
     `m4_dnl
-apt-get update && ( \
-    apt-get install --no-install-suggests --no-install-recommends -y $1 || ( \
-        apt-key adv --keyserver keyserver.ubuntu.com --refresh-keys && \
-        apt-get install --no-install-suggests --no-install-recommends -y $1 ) ) && \
+apt-get update && \
+    apt-get install --no-install-suggests --no-install-recommends -y $1 && \
     rm -rf /var/lib/apt/lists/*')
 
 m4_define(`apt_purge', `apt-get purge --auto-remove -y $1')
 
 m4_define(`sudo_mb', `sudo -E -H -u musicbrainz $1')
 
-m4_define(`NODEJS_DEB', `nodejs_18.17.1-deb-1nodesource1_amd64.deb')
-
 m4_define(
     `install_javascript',
     `m4_dnl
-COPY docker/yarn_pubkey.txt /tmp/
-copy_mb(``package.json yarn.lock ./'')
-RUN apt-key add /tmp/yarn_pubkey.txt && \
-    rm /tmp/yarn_pubkey.txt && \
-    echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
-    apt_install(``git python3-minimal yarn'') && \
-    cd /tmp && \
-    curl -sLO https://deb.nodesource.com/node_18.x/pool/main/n/nodejs/NODEJS_DEB && \
-    dpkg -i NODEJS_DEB && \
-    cd - && \
-    sudo_mb(``yarn install$1'')
+COPY docker/nodesource_pubkey.txt /tmp/
+copy_mb(``package.json yarn.lock .yarnrc.yml ./'')
+RUN cp /tmp/nodesource_pubkey.txt /etc/apt/keyrings/nodesource.asc && \
+    rm /tmp/nodesource_pubkey.txt && \
+    echo "deb [signed-by=/etc/apt/keyrings/nodesource.asc] https://deb.nodesource.com/node_20.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list && \
+    apt_install(``git nodejs python3-minimal'') && \
+    corepack enable && \
+    sudo_mb(``yarn'')
 copy_mb(``babel.config.cjs ./'')')
 
 m4_define(
     `install_javascript_and_templates',
     `m4_dnl
-install_javascript(`$1')
+install_javascript
 
 copy_mb(``docker/scripts/compile_resources_for_image.sh docker/scripts/'')
 copy_mb(``root/ root/'')
@@ -68,9 +61,9 @@ bzip2 m4_dnl
 ca-certificates m4_dnl
 libdb5.3 m4_dnl
 libexpat1 m4_dnl
-libicu66 m4_dnl
+libicu70 m4_dnl
 libpq5 m4_dnl
-libssl1.1 m4_dnl
+libssl3 m4_dnl
 libxml2 m4_dnl
 moreutils m4_dnl
 perl m4_dnl
@@ -99,9 +92,9 @@ ENV PERL_CARTON_PATH /home/musicbrainz/carton-local
 ENV PERL_CPANM_OPT --notest --no-interactive
 
 COPY docker/pgdg_pubkey.txt /tmp/
-RUN apt-key add /tmp/pgdg_pubkey.txt && \
+RUN cp /tmp/pgdg_pubkey.txt /etc/apt/keyrings/pgdg.asc && \
     rm /tmp/pgdg_pubkey.txt && \
-    echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
+    echo "deb [signed-by=/etc/apt/keyrings/pgdg.asc] http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
     apt_install(`mbs_build_deps mbs_run_deps') && \
     wget -q -O - https://cpanmin.us | perl - App::cpanminus && \
     cpanm Carton JSON::XS && \

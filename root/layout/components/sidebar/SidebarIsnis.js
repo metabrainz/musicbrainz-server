@@ -19,7 +19,7 @@ const buildSidebarIsni = (isni: IsniCodeT) => (
   <SidebarProperty
     className="isni-code"
     key={'isni-code-' + isni.isni}
-    label={l('ISNI code:')}
+    label={addColonText(l('ISNI code'))}
   >
     <a href={isniUrl + isni.isni}>
       {formatIsni(isni.isni)}

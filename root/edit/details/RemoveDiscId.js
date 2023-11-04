@@ -22,13 +22,13 @@ const RemoveDiscId = ({edit}: Props): React$Element<'table'> => {
   return (
     <table className="details remove-disc-id">
       <tr>
-        <th>{l('Medium:')}</th>
+        <th>{addColonText(l('Medium'))}</th>
         <td colSpan="2">
           <MediumLink medium={medium} />
         </td>
       </tr>
       <tr>
-        <th>{l('Disc ID:')}</th>
+        <th>{addColonText(l('Disc ID'))}</th>
         <td>
           <CDTocLink cdToc={cdToc} />
         </td>

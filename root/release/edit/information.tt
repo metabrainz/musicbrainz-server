@@ -5,7 +5,7 @@
     <table class="row-form">
     <tbody>
       <tr>
-        <td><label for="title" class="required">[% l('Title:') %]</label></td>
+        <td><label for="title" class="required">[% add_colon(l('Title')) %]</label></td>
         <td colspan="2">
           <table>
             <tr>
@@ -23,18 +23,18 @@
       [% table_row_error(2, 'showErrorWhenTabIsSwitched: needsName', l('A release title is required.')) %]
 
       <tr>
-        <td><label for="release-artist" class="required">[% l('Artist:') %]</label></td>
+        <td><label for="release-artist" class="required">[% add_colon(l('Artist')) %]</label></td>
         <td class="release-artist" data-bind="artistCreditEditor: $data"></td>
       </tr>
 
       [% table_row_error(
         2,
         'showErrorWhenTabIsSwitched: needsArtistCredit',
-        l('You must select an artist for the release (the background color of the artist field should be green). If you’ve entered an artist but the background remains uncolored, click the magnifying glass to match the name to a MusicBrainz artist. If the artist doesn’t exist yet, you can create it by selecting “{add_a_new_artist}” from the bottom of the search results drop-down.', { add_a_new_artist => l('Add a new artist') }),
+        l('You must select an artist for the release (the background color of the artist field should be green). If you’ve entered an artist but the background remains uncolored, click the magnifying glass to match the name to a MusicBrainz artist. If the artist doesn’t exist yet, you can add it by selecting “{add_a_new_artist}” from the bottom of the search results drop-down.', { add_a_new_artist => l('Add a new artist') }),
       ) %]
 
       <tr>
-        <td><label for="release-group">[% l('Release Group:') %]</label></td>
+        <td><label for="release-group">[% add_colon(l('Release Group')) %]</label></td>
         <td colspan="2">
           <span class="autocomplete">
             <input id="release-group" type="text"
@@ -51,7 +51,7 @@
         </td>
       </tr>
 
-      [% table_row_help_message(2, 'showMessageRightAway: willCreateReleaseGroup', l('If you don’t select an existing release group, a new one will be created with the types selected below.')) %]
+      [% table_row_help_message(2, 'showMessageRightAway: willCreateReleaseGroup', l('If you don’t select an existing release group, a new one will be added with the types selected below.')) %]
 
       [% table_row_error(2, 'showErrorWhenTabIsSwitched: needsReleaseGroup', l('You must select an existing release group.')) %]
 
@@ -108,13 +108,13 @@
       </tr>
       [% END %]
 
-      [% table_row_select('status', l('Status:'), 2,
+      [% table_row_select('status', add_colon(lp('Status', 'release status')), 2,
           'value: statusID, controlsBubble: $root.statusBubble', statuses) %]
 
-      [% table_row_select('language', l('Language:'), 2,
+      [% table_row_select('language', add_colon(l('Language')), 2,
           'value: languageID, controlsBubble: $root.languageBubble', languages) %]
 
-      [% table_row_select('script', l('Script:'), 2,
+      [% table_row_select('script', add_colon(l('Script')), 2,
           'value: scriptID, controlsBubble: $root.scriptBubble', scripts) %]
     </tbody>
     </table>
@@ -127,7 +127,7 @@
     <tbody>
     <!-- ko foreach: events -->
       <tr>
-        <td><label>[% l('Date:') %]</label></td>
+        <td><label>[% add_colon(l('Date')) %]</label></td>
         <td class="partial-date">
           <span class="partial-date">
             <input type="text" maxlength="4" placeholder="[% l('YYYY') %]" size="4"
@@ -153,7 +153,7 @@
                   controlsBubble: $root.dateBubble" />
           </span>
         </td>
-        [% table_cells_select('country', l('Country:'), 1,
+        [% table_cells_select('country', add_colon(l('Country')), 1,
             "value: countryID, withLabel: 'country'", countries) %]
         <td>
           <button type="button" class="icon remove-item remove-release-event" title="[% l('Remove Release Event') %]" data-click="removeReleaseEvent"></button>
@@ -176,7 +176,7 @@
 
     <!-- ko foreach: labels -->
       <tr>
-        <td><label>[% l('Label:') %]</label></td>
+        <td><label>[% add_colon(l('Label')) %]</label></td>
         <td>
           <span class="autocomplete">
             <input type="text" class="name"
@@ -219,7 +219,7 @@
       </tr>
 
       <tr>
-        <td><label for="barcode">[% l('Barcode:') %]</label></td>
+        <td><label for="barcode">[% add_colon(l('Barcode')) %]</label></td>
         <td colspan="4">
           <input id="barcode" type="text" pattern="[0-9]*" data-bind="value: barcode.value, valueUpdate: 'input', disable: barcode.none, controlsBubble: $root.barcodeBubble" />
         </td>
@@ -237,7 +237,7 @@
         </td>
       </tr>
 
-      [% table_row_select('packaging', l('Packaging:'), 4,
+      [% table_row_select('packaging', add_colon(l('Packaging')), 4,
           'value: packagingID, controlsBubble: $root.packagingBubble', packagings) %]
     </tbody>
     </table>
@@ -248,7 +248,7 @@
     <table class="row-form">
     <tbody>
       <tr>
-        <td><label for="annotation">[% l('Annotation:') %]</label></td>
+        <td><label for="annotation">[% add_colon(l('Annotation')) %]</label></td>
         <td>
           <textarea id="annotation" data-bind="value: annotation, controlsBubble: $root.annotationBubble"></textarea>
         </td>

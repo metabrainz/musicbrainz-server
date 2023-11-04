@@ -136,7 +136,7 @@ for my $medium (@mediums)
             if ($bad == 0) {
                 # All track lengths are wrong, so we change them with a
                 # SetTrackLengths edit
-                log_info { sprintf 'Set track durations from CDTOC #%d for medium #%d',
+                log_info { sprintf 'Set track lengths from CDTOC #%d for medium #%d',
                     $cdtoc->id, $medium->id
                 } if $verbose;
 

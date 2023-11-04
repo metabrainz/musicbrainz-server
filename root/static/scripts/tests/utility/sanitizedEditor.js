@@ -11,47 +11,7 @@ import test from 'tape';
 
 import sanitizedEditor from '../../../../utility/sanitizedEditor.mjs';
 
-const genericEditor = {
-  age: 20,
-  area: null,
-  avatar: '',
-  biography: '',
-  birth_date: {day: 1, month: 1, year: 1111},
-  email: 'example@example.com',
-  email_confirmation_date: '2013-11-25T13:54:19Z',
-  entityType: 'editor',
-  gender: null,
-  has_confirmed_email_address: true,
-  has_email_address: true,
-  is_charter: false,
-  languages: [],
-  last_login_date: '2023-05-16T00:20:43Z',
-  preferences: {
-    datetime_format: '%Y-%m-%d %H:%M %Z',
-    email_on_no_vote: true,
-    email_on_notes: true,
-    email_on_vote: true,
-    public_ratings: true,
-    public_subscriptions: true,
-    public_tags: true,
-    subscribe_to_created_artists: true,
-    subscribe_to_created_labels: true,
-    subscribe_to_created_series: true,
-    subscriptions_email_period: 'daily',
-    timezone: 'UTC',
-  },
-  registration_date: '2007-05-31T16:05:32Z',
-  website: 'http://example.com',
-};
-
-const normalEditor = {
-  ...genericEditor,
-  deleted: false,
-  id: 1,
-  is_limited: false,
-  name: 'editor1',
-  privileges: 0,
-};
+import {genericEditor} from './constants.js';
 
 const sanitizedNormalEditor = {
   avatar: '',
@@ -143,7 +103,7 @@ test('sanitizedEditor', function (t) {
   t.plan(5);
 
   t.deepEqual(
-    sanitizedEditor(normalEditor),
+    sanitizedEditor(genericEditor),
     sanitizedNormalEditor,
     'Standard editor is sanitized as expected',
   );
