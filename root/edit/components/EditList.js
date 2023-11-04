@@ -98,8 +98,13 @@ const EditList = ({
 
       {edits.length ? (
         <div id="edits">
-          <PaginatedResults guessSearch={mightBeMoreEdits} pager={pager}>
-            <form action="/edit/enter_votes" method="post">
+          <form action="/edit/enter_votes" method="post">
+            <PaginatedResults guessSearch={mightBeMoreEdits} pager={pager}>
+              {$c.user ? (
+                <div className="align-right clear-both row no-label">
+                  <FormSubmit label={l('Submit votes & edit notes')} />
+                </div>
+              ) : null}
               {edits.map((edit, index) => (
                 <ListEdit
                   edit={edit}
@@ -116,8 +121,8 @@ const EditList = ({
                   <FormSubmit label={l('Submit votes & edit notes')} />
                 </div>
               ) : null}
-            </form>
-          </PaginatedResults>
+            </PaginatedResults>
+          </form>
         </div>
       ) : null}
 
