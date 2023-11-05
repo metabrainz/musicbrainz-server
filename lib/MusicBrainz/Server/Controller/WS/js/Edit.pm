@@ -713,6 +713,9 @@ sub edit : Chained('/') PathPart('ws/js/edit') CaptureArgs(0) Edit {
     if ($c->user->is_editing_disabled) {
         $c->forward('/ws/js/detach_with_error', ['you are not allowed to enter edits']);
     }
+    if ($c->is_cross_origin && !$c->user->is_bot) {
+        $c->forward('/ws/js/detach_with_error', ['cross-origin requests are allowed only for bot accounts', 403]);
+    }
 }
 
 sub create : Chained('edit') PathPart('create') Edit {
