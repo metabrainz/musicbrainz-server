@@ -218,5 +218,10 @@
     "master_and_standalone": [
       "20211203-mbs-11312-standalone.sql"
     ]
+  },
+  "29": {
+    "all": [
+      "20231005-edit-data-idx-link-type.sql"
+    ]
   }
 }

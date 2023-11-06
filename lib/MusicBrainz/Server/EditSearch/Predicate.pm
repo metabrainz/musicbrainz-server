@@ -98,4 +98,6 @@ sub valid {
     return 1;
 }
 
+sub disable_limit_for_edit_listing { 0 }
+
 1;

@@ -3493,11 +3493,11 @@ const CLEANUPS: CleanupEntries = {
     match: [new RegExp('^(https?://)?(www\\.)?librarything\\.com', 'i')],
     restrict: [LINK_TYPES.otherdatabases],
     clean: function (url) {
-      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?librarything\.com\/(author|nseries|work)\/([0-9a-z]+)(?:[/?#].*)?$/, 'https://www.librarything.com/$1/$2');
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?librarything\.com\/(author|nseries|work)\/([0-9a-z-]+)(?:[/?#].*)?$/, 'https://www.librarything.com/$1/$2');
       return url;
     },
     validate: function (url, id) {
-      const m = /^https:\/\/www\.librarything\.com\/([a-z]+)\/[0-9a-z]+$/.exec(url);
+      const m = /^https:\/\/www\.librarything\.com\/([a-z]+)\/[0-9a-z-]+$/.exec(url);
       if (m) {
         const prefix = m[1];
         switch (id) {
