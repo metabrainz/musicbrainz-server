@@ -1515,6 +1515,11 @@ msgstr "הכאה באצבע צְרֵדָה"
 msgid "fipple flute"
 msgstr "חליל מתקע-פיה"
 
+#: DB:instrument/name:1184
+msgctxt "Bass Flugelhorn used in cobla"
+msgid "fiscorn"
+msgstr ""
+
 #: DB:instrument/name:523
 msgid "five-string banjo"
 msgstr "בנג'ו חמישה מיתרים"
@@ -2974,6 +2979,11 @@ msgstr "אבוב פיקולו"
 msgid "piccolo trumpet"
 msgstr "חצוצרת פיקולו"
 
+#: DB:instrument/name:1183
+msgctxt "Italian double reed with conical bore"
+msgid "piffero"
+msgstr ""
+
 #: DB:instrument/name:350
 msgctxt "Pearshaped chinese lute"
 msgid "pipa"
@@ -3150,8 +3160,9 @@ msgid "ratchet"
 msgstr "רעשן"
 
 #: DB:instrument/name:595
+msgctxt "German double-reed with cap"
 msgid "rauschpfeife"
-msgstr "ראושפייף"
+msgstr ""
 
 #: DB:instrument/name:754
 msgid "ravanahatha"
@@ -4569,6 +4580,9 @@ msgstr "זאק"
 msgctxt "Maltese mirliton"
 msgid "żummara"
 msgstr "זומארה"
+
+#~ msgid "rauschpfeife"
+#~ msgstr "ראושפייף"
 
 #~ msgctxt "English \"improved\" flageolet"
 #~ msgid "English flageolet"

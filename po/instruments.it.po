@@ -17,7 +17,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-09-23 15:27+0000\n"
+"PO-Revision-Date: 2023-11-04 15:27+0000\n"
 "Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
 "metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -28,7 +28,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
 " ? 1 : 2);\n"
-"X-Generator: Weblate 5.0.2\n"
+"X-Generator: Weblate 5.1\n"
 
 #: DB:instrument/name:438
 msgid "12 string guitar"
@@ -1528,6 +1528,11 @@ msgstr "schiocchi di dita"
 msgid "fipple flute"
 msgstr "flauto dritto"
 
+#: DB:instrument/name:1184
+msgctxt "Bass Flugelhorn used in cobla"
+msgid "fiscorn"
+msgstr "fiscorno"
+
 #: DB:instrument/name:523
 msgid "five-string banjo"
 msgstr "banjo a cinque corde"
@@ -2987,6 +2992,11 @@ msgstr "oboe musette"
 msgid "piccolo trumpet"
 msgstr "trombino"
 
+#: DB:instrument/name:1183
+msgctxt "Italian double reed with conical bore"
+msgid "piffero"
+msgstr "piffero"
+
 #: DB:instrument/name:350
 msgctxt "Pearshaped chinese lute"
 msgid "pipa"
@@ -3163,6 +3173,7 @@ msgid "ratchet"
 msgstr "raganella"
 
 #: DB:instrument/name:595
+msgctxt "German double-reed with cap"
 msgid "rauschpfeife"
 msgstr "rauschpfeife"
 
@@ -4582,6 +4593,9 @@ msgstr "żaqq"
 msgctxt "Maltese mirliton"
 msgid "żummara"
 msgstr "żummara"
+
+#~ msgid "rauschpfeife"
+#~ msgstr "rauschpfeife"
 
 #~ msgctxt "English \"improved\" flageolet"
 #~ msgid "English flageolet"
