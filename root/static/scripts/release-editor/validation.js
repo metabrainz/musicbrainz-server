@@ -190,7 +190,7 @@ utils.withRelease(function (release) {
       ),
     );
   } else if (barcode.length === 12) {
-    if (field.validateCheckDigit('0' + barcode)) {
+    if (field.validateCheckDigit('00' + barcode)) {
       field.message(l('The barcode you entered is a valid UPC code.'));
       searchExistingBarcode(field, barcode, release.gid());
     } else {
@@ -209,7 +209,7 @@ utils.withRelease(function (release) {
       );
     }
   } else if (barcode.length === 13) {
-    if (field.validateCheckDigit(barcode)) {
+    if (field.validateCheckDigit('0' + barcode)) {
       field.message(l('The barcode you entered is a valid EAN code.'));
       searchExistingBarcode(field, barcode, release.gid());
     } else {
@@ -219,9 +219,20 @@ utils.withRelease(function (release) {
         doubleCheckText,
       );
     }
+  } else if (barcode.length === 14) {
+    if (field.validateCheckDigit(barcode)) {
+      field.message(l('The barcode you entered is a valid GTIN code.'));
+      searchExistingBarcode(field, barcode, release.gid());
+    } else {
+      field.error(
+        l('The barcode you entered is not a valid GTIN code.') +
+        ' ' +
+        doubleCheckText,
+      );
+    }
   } else {
     field.error(
-      l('The barcode you entered is not a valid UPC or EAN code.') +
+      l('The barcode you entered is not a valid UPC, EAN or GTIN code.') +
       ' ' +
       doubleCheckText,
     );
