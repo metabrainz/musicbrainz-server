@@ -127,7 +127,7 @@ $(function () {
 
 // Search releases with the same barcode
 function searchExistingBarcode(field, barcode, releaseId) {
-  utils.search('release', `barcode:${barcode}`, 1).done(data => {
+  utils.search('release', `barcode:${barcode}`).done(data => {
     const releases = data.releases;
     const hasBarcodeInUse = releases.length > 1 ||
       (releases.length === 1 && releases[0].id !== releaseId);
