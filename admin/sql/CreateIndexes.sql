@@ -147,7 +147,7 @@ CREATE INDEX edit_data_idx_link_type ON edit_data USING GIN (
                      (data#>>'{link,link_type,id}')::int,
                      (data#>>'{old,link_type,id}')::int,
                      (data#>>'{new,link_type,id}')::int,
-                     (data#>>'{relationship,link_type,id}')::int
+                     (data#>>'{relationship,link,type,id}')::int
                  ], NULL)
 );
 
