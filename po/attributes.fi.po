@@ -458,9 +458,9 @@ msgstr "Sidottu kirja, jossa tasku CD:tä varten"
 msgctxt "event_type"
 msgid ""
 "A performance of one or more plays, musicals, operas, ballets or other "
-"similar works for the stage in their staged form (as opposed to a <a href="
-"\"https://en.wikipedia.org/wiki/Concert_performance\">concert performance</"
-"a> without staging)."
+"similar works for the stage in their staged form (as opposed to a <a "
+"href=\"https://en.wikipedia.org/wiki/Concert_performance\">concert "
+"performance</a> without staging)."
 msgstr ""
 
 #: DB:place_type/description:8
@@ -598,8 +598,8 @@ msgid ""
 "A release that was recorded live. Generally this means \"with an audience\", "
 "be it in person, through the radio or in another similar way."
 msgstr ""
-"Julkaisu, joka äänitettiin suorana. Yleensä tämä tarkoittaa \"yleisön edessä"
-"\", oli se sitten paikan päällä, radion kautta tai muulla tavalla."
+"Julkaisu, joka äänitettiin suorana. Yleensä tämä tarkoittaa \"yleisön "
+"edessä\", oli se sitten paikan päällä, radion kautta tai muulla tavalla."
 
 #: DB:place_type/description:7
 msgctxt "place_type"

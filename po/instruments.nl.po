@@ -1521,6 +1521,11 @@ msgstr "knippen met de vinger"
 msgid "fipple flute"
 msgstr "bekfluiten"
 
+#: DB:instrument/name:1184
+msgctxt "Bass Flugelhorn used in cobla"
+msgid "fiscorn"
+msgstr ""
+
 #: DB:instrument/name:523
 msgid "five-string banjo"
 msgstr "vijfsnarige banjo"
@@ -2980,6 +2985,11 @@ msgstr "piccolohobo"
 msgid "piccolo trumpet"
 msgstr "piccolotrompet"
 
+#: DB:instrument/name:1183
+msgctxt "Italian double reed with conical bore"
+msgid "piffero"
+msgstr ""
+
 #: DB:instrument/name:350
 msgctxt "Pearshaped chinese lute"
 msgid "pipa"
@@ -3156,8 +3166,9 @@ msgid "ratchet"
 msgstr "ratel"
 
 #: DB:instrument/name:595
+msgctxt "German double-reed with cap"
 msgid "rauschpfeife"
-msgstr "rauschpfeife"
+msgstr ""
 
 #: DB:instrument/name:754
 msgid "ravanahatha"
@@ -4575,6 +4586,9 @@ msgstr ""
 msgctxt "Maltese mirliton"
 msgid "żummara"
 msgstr "zummara"
+
+#~ msgid "rauschpfeife"
+#~ msgstr "rauschpfeife"
 
 #~ msgctxt "English \"improved\" flageolet"
 #~ msgid "English flageolet"

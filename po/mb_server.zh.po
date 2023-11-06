@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-27 17:01+0000\n"
+"POT-Creation-Date: 2023-11-01 18:53+0200\n"
 "PO-Revision-Date: 2023-10-17 18:27+0000\n"
 "Last-Translator: suming <331874545@qq.com>\n"
 "Language-Team: Chinese (Simplified) <https://translations.metabrainz.org/"
@@ -116,7 +116,7 @@ msgstr "(无其他封面)"
 #: ../root/edit/details/MergeReleases.js:239
 #: ../root/recording/RecordingIndex.js:60
 #: ../root/release_group/ReleaseGroupIndex.js:171
-#: ../root/search/components/ReleaseResults.js:116
+#: ../root/search/components/ReleaseResults.js:115
 #: ../root/utility/tableColumns.js:508 ../root/utility/tableColumns.js:516
 msgctxt "and"
 msgid "/"
@@ -129,9 +129,9 @@ msgid ""
 "artists}, so don’t use the “copy artist credits” option while editing a "
 "classical release unless you’re very sure it’s a good idea!"
 msgstr ""
-"<strong>注意:</strong>在古典音乐中，{csg_recording_artist|recording "
-"artists}应该几乎总是与{csg_track_artist|track artists}不同，所以在编辑古典音"
-"乐版本时不要使用“复制歌手名单”选项，除非你非常确定这是一个好主意!"
+"<strong>注意:</strong>在古典音乐中，{csg_recording_artist|recording artists}"
+"应该几乎总是与{csg_track_artist|track artists}不同，所以在编辑古典音乐版本时"
+"不要使用“复制歌手名单”选项，除非你非常确定这是一个好主意!"
 
 #: ../root/components/common-macros.tt:480 ../root/recording/edit_form.tt:6
 msgid "<strong>Warning</strong>:"
@@ -142,8 +142,9 @@ msgid ""
 "A CD Stub was found that matches the disc ID you provided. If the below "
 "tracklist appears correct, you may use it as a starting point as a new "
 "MusicBrainz release"
-msgstr "找到与您提供的光盘ID匹配的CD存根。如果下面的曲目列表显示正确，您可以将其作为M"
-"usicBrainz新版本发布的起点"
+msgstr ""
+"找到与您提供的光盘ID匹配的CD存根。如果下面的曲目列表显示正确，您可以将其作为"
+"MusicBrainz新版本发布的起点"
 
 #: ../root/release/edit/tracklist.tt:323
 msgid ""
@@ -177,8 +178,9 @@ msgid ""
 "Add \"@ \" at line start to indicate artists, \"* \" for a work/song, \"# \" "
 "for additional info (such as \"Encore\"). [mbid|name] allows linking to "
 "artists and works."
-msgstr "在行首添加“@”表示歌手，“*”表示作品/歌曲，“#”表示附加信息(如“Encore”)。[mbid|n"
-"ame]允许链接到歌手和作品。"
+msgstr ""
+"在行首添加“@”表示歌手，“*”表示作品/歌曲，“#”表示附加信息(如“Encore”)。[mbid|"
+"name]允许链接到歌手和作品。"
 
 #: ../root/area/create.tt:1 ../root/area/create.tt:3
 msgid "Add Area"
@@ -209,8 +211,8 @@ msgstr "添加乐器"
 msgid "Add Label"
 msgstr "添加厂商"
 
-#: ../root/release/edit/information.tt:213
-#: ../root/release/edit/information.tt:214
+#: ../root/release/edit/information.tt:215
+#: ../root/release/edit/information.tt:216
 #: ../root/layout/components/BottomMenu.js:248
 msgctxt "button/menu"
 msgid "Add Label"
@@ -230,8 +232,8 @@ msgctxt "header"
 msgid "Add Release"
 msgstr "添加专辑"
 
-#: ../root/release/edit/information.tt:169
-#: ../root/release/edit/information.tt:170
+#: ../root/release/edit/information.tt:171
+#: ../root/release/edit/information.tt:172
 msgctxt "button/menu"
 msgid "Add Release Event"
 msgstr "添加专辑事件"
@@ -299,7 +301,7 @@ msgstr "添加 {item}"
 msgid "Add {num} track(s)"
 msgstr "添加 {num} 条音轨"
 
-#: ../root/release/edit/information.tt:245
+#: ../root/release/edit/information.tt:247
 msgid "Additional information"
 msgstr "附加信息"
 
@@ -313,7 +315,8 @@ msgid ""
 "All tracks require an associated recording. Click “Edit” to select a "
 "recording for each track. Choose “Add a new recording” if an appropriate one "
 "doesn’t exist yet."
-msgstr "所有的音轨都需要一个相关联的录音。点击“编辑”，为每个音轨选择一段录音。如果不"
+msgstr ""
+"所有的音轨都需要一个相关联的录音。点击“编辑”，为每个音轨选择一段录音。如果不"
 "存在合适的录音，选择“添加新录音”。"
 
 #: ../root/components/common-macros.tt:577
@@ -326,7 +329,7 @@ msgstr "具有该名称和消除歧义的实体已经存在。您必须输入唯
 msgid "An error occurred: "
 msgstr "发生错误: "
 
-#: ../root/release/edit/information.tt:249
+#: ../root/release/edit/information.tt:251
 msgid "Annotation:"
 msgstr "注释:"
 
@@ -351,7 +354,7 @@ msgstr "赞同"
 #: ../root/edit/details/EditArtist.js:108 ../root/edit/details/EditLabel.js:119
 #: ../root/edit/details/EditPlace.js:75 ../root/layout/components/Search.js:35
 #: ../root/report/PlacesWithoutCoordinates.js:42
-#: ../root/search/components/ArtistResults.js:56
+#: ../root/search/components/ArtistResults.js:55
 #: ../root/search/components/LabelResults.js:69
 #: ../root/search/components/PlaceResults.js:66
 #: ../root/search/components/SearchForm.js:43
@@ -419,7 +422,7 @@ msgstr "区域:"
 #: ../root/search/components/CDStubResults.js:45
 #: ../root/search/components/RecordingResults.js:143
 #: ../root/search/components/ReleaseGroupResults.js:64
-#: ../root/search/components/ReleaseResults.js:113
+#: ../root/search/components/ReleaseResults.js:112
 #: ../root/search/components/SearchForm.js:37
 #: ../root/static/scripts/common/constants.js:36
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:50
@@ -498,11 +501,11 @@ msgstr "自动编辑器"
 #: ../root/otherlookup/OtherLookupForm.js:62
 #: ../root/release_group/ReleaseGroupIndex.js:174
 #: ../root/report/ReleasesSameBarcode.js:40
-#: ../root/search/components/ReleaseResults.js:119
+#: ../root/search/components/ReleaseResults.js:118
 msgid "Barcode"
 msgstr "条码"
 
-#: ../root/release/edit/information.tt:220
+#: ../root/release/edit/information.tt:222
 #: ../root/release_group/set_cover_art.tt:62
 #: ../root/layout/components/sidebar/CDStubSidebar.js:63
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:126
@@ -520,7 +523,8 @@ msgid ""
 "Based on the information you have provided, we have found the following "
 "similar release to already exist in MusicBrainz. If you wish to base your "
 "release on an existing release, select it below."
-msgstr "根据您提供的信息，我们在MusicBrainz中发现了以下类似的专辑。如果您希望您的专辑"
+msgstr ""
+"根据您提供的信息，我们在MusicBrainz中发现了以下类似的专辑。如果您希望您的专辑"
 "基于一个现有的专辑，请在下面选择它。"
 
 #: ../root/artist/edit_form.tt:42
@@ -538,8 +542,9 @@ msgid ""
 "Below is the error information. If you wish to file a bug report, you may do "
 "so at {bugs|our bug tracker}. The information below will help, so please be "
 "sure to include it!"
-msgstr "下面是错误信息。如果您想提交bug报告，您可以在{bugs|our bug "
-"tracker}上这样做。下面的信息将有所帮助，所以请务必包括它!"
+msgstr ""
+"下面是错误信息。如果您想提交bug报告，您可以在{bugs|our bug tracker}上这样做。"
+"下面的信息将有所帮助，所以请务必包括它!"
 
 #: ../root/layout.tt:117 ../root/layout/components/ExternalLinks.js:132
 #: ../root/layout/components/Footer.js:33
@@ -623,7 +628,7 @@ msgstr "取消"
 msgid "Cardinality of {entity_placeholder}"
 msgstr ""
 
-#: ../root/release/edit/information.tt:192
+#: ../root/release/edit/information.tt:194
 msgid "Cat. No:"
 msgstr ""
 
@@ -633,7 +638,7 @@ msgstr ""
 #: ../root/edit/details/MergeReleases.js:241
 #: ../root/recording/RecordingIndex.js:62
 #: ../root/release_group/ReleaseGroupIndex.js:173
-#: ../root/search/components/ReleaseResults.js:118
+#: ../root/search/components/ReleaseResults.js:117
 #: ../root/utility/tableColumns.js:482 ../root/utility/tableColumns.js:487
 msgid "Catalog#"
 msgstr ""
@@ -726,13 +731,13 @@ msgstr "将发布标题复制到发布组"
 #: ../root/edit/details/historic/EditReleaseEvents.js:110
 #: ../root/recording/RecordingIndex.js:60
 #: ../root/release_group/ReleaseGroupIndex.js:171
-#: ../root/search/components/ReleaseResults.js:116
+#: ../root/search/components/ReleaseResults.js:115
 #: ../root/static/scripts/common/components/FilterForm.js:187
 #: ../root/utility/tableColumns.js:504 ../root/utility/tableColumns.js:516
 msgid "Country"
 msgstr "地区"
 
-#: ../root/release/edit/information.tt:154
+#: ../root/release/edit/information.tt:156
 #: ../root/release_group/set_cover_art.tt:41
 msgid "Country:"
 msgstr "国家:"
@@ -755,7 +760,7 @@ msgstr "创建编辑……"
 msgid "Custom delimiter"
 msgstr "自定义分隔符"
 
-#: ../root/release/edit/information.tt:146
+#: ../root/release/edit/information.tt:148
 #: ../lib/MusicBrainz/Server/Plugin/FormRenderer.pm:253
 #: ../root/static/scripts/edit/components/PartialDateInput.js:186
 msgid "DD"
@@ -781,7 +786,7 @@ msgstr "数据跟踪"
 #: ../root/elections/ElectionVotes.js:28 ../root/recording/RecordingIndex.js:60
 #: ../root/release_group/ReleaseGroupIndex.js:171
 #: ../root/search/components/EventResults.js:74
-#: ../root/search/components/ReleaseResults.js:116
+#: ../root/search/components/ReleaseResults.js:115
 #: ../root/static/scripts/annotation/AnnotationHistoryTable.js:106
 #: ../root/static/scripts/common/components/FilterForm.js:225
 #: ../root/utility/tableColumns.js:279 ../root/utility/tableColumns.js:284
@@ -795,7 +800,7 @@ msgstr "日期"
 msgid "Date Period"
 msgstr ""
 
-#: ../root/release/edit/information.tt:128
+#: ../root/release/edit/information.tt:130
 #: ../root/release_group/set_cover_art.tt:37
 #: ../root/layout/components/sidebar/EventSidebar.js:59
 msgid "Date:"
@@ -807,8 +812,9 @@ msgstr ""
 msgid ""
 "Dates are in the format YYYY-MM-DD. Partial dates such as YYYY-MM or just "
 "YYYY are OK, or you can omit the date entirely."
-msgstr "日期的格式为YYYY-MM-DD。部分日期如YYYY- "
-"mm或只有YYYY都可以，也可以完全省略日期。"
+msgstr ""
+"日期的格式为YYYY-MM-DD。部分日期如YYYY- mm或只有YYYY都可以，也可以完全省略日"
+"期。"
 
 #: ../root/edit/search_macros.tt:120
 msgid "Delete"
@@ -835,7 +841,7 @@ msgstr "删除"
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:110
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:146
 #: ../root/search/components/InstrumentResults.js:55
-#: ../root/static/scripts/collection/components/CollectionEditForm.js:206
+#: ../root/static/scripts/collection/components/CollectionEditForm.js:209
 #: ../root/utility/tableColumns.js:676
 msgid "Description"
 msgstr "描述"
@@ -856,7 +862,7 @@ msgstr "详细信息"
 #: ../root/area/edit_form.tt:10 ../root/artist/edit_form.tt:14
 #: ../root/event/edit_form.tt:13 ../root/instrument/edit_form.tt:10
 #: ../root/label/edit_form.tt:13 ../root/place/edit_form.tt:13
-#: ../root/recording/edit_form.tt:33 ../root/release/edit/information.tt:256
+#: ../root/recording/edit_form.tt:33 ../root/release/edit/information.tt:258
 #: ../root/release_group/edit_form.tt:15 ../root/series/edit_form.tt:13
 #: ../root/work/edit_form.tt:13 ../root/edit/details/AddArea.js:54
 #: ../root/edit/details/AddArtist.js:62 ../root/edit/details/AddEvent.js:44
@@ -927,7 +933,8 @@ msgstr "完成"
 msgid ""
 "Each track in the MusicBrainz database has to be linked to a recording, "
 "choose the appropriate recording or look for it in the database."
-msgstr "MusicBrainz数据库中的每首曲目都必须链接到一段录音，选择合适的录音或在数据库中"
+msgstr ""
+"MusicBrainz数据库中的每首曲目都必须链接到一段录音，选择合适的录音或在数据库中"
 "查找。"
 
 #: ../root/cdtoc/list.tt:18 ../root/entity/edit.tt:1
@@ -996,7 +1003,7 @@ msgstr "编辑关系类型"
 msgid "Edit Types"
 msgstr "编辑类型"
 
-#: ../root/url/edit_form.tt:3 ../lib/MusicBrainz/Server/Edit/URL/Edit.pm:28
+#: ../root/url/edit_form.tt:3 ../lib/MusicBrainz/Server/Edit/URL/Edit.pm:26
 #: ../root/static/scripts/edit/components/URLInputPopover.js:146
 msgid "Edit URL"
 msgstr "编辑地址"
@@ -1055,7 +1062,8 @@ msgstr "输入曲目列表如下:"
 msgid ""
 "Enter coordinates manually or click the map to get coordinates from the "
 "marker. If you’re too far out, clicking will zoom instead."
-msgstr "手动输入坐标或单击地图以从标记处获得坐标。如果你离得太远，点击就会变焦。"
+msgstr ""
+"手动输入坐标或单击地图以从标记处获得坐标。如果你离得太远，点击就会变焦。"
 
 #: ../root/components/forms.tt:51 ../root/release/add_cover_art.tt:170
 #: ../root/release/edit/layout.tt:58
@@ -1089,7 +1097,8 @@ msgstr "实体类型"
 msgid ""
 "Even just providing a URL or two is helpful! For more suggestions, see "
 "{doc_how_to|our guide for writing good edit notes}."
-msgstr "即使只是提供一两个URL也是有帮助的!有关更多建议，请参阅{doc_how_to|我们编写好"
+msgstr ""
+"即使只是提供一两个URL也是有帮助的!有关更多建议，请参阅{doc_how_to|我们编写好"
 "的编辑笔记的指南}。"
 
 #: ../root/edit/search_macros.tt:423 ../lib/MusicBrainz/Server/Edit/Event.pm:7
@@ -1133,7 +1142,7 @@ msgstr ""
 #: ../root/area/edit_form.tt:22 ../root/artist/edit_form.tt:70
 #: ../root/event/edit_form.tt:46 ../root/instrument/edit_form.tt:32
 #: ../root/label/edit_form.tt:41 ../root/place/edit_form.tt:37
-#: ../root/recording/edit_form.tt:51 ../root/release/edit/information.tt:266
+#: ../root/recording/edit_form.tt:51 ../root/release/edit/information.tt:268
 #: ../root/release_group/edit_form.tt:23 ../root/series/edit_form.tt:26
 #: ../root/work/edit_form.tt:90
 #: ../root/static/scripts/genre/components/GenreEditForm.js:160
@@ -1180,7 +1189,7 @@ msgstr "有关更多信息，请查看{doc_doc|文档}。"
 #: ../root/edit/details/historic/EditReleaseEvents.js:114
 #: ../root/release_group/ReleaseGroupIndex.js:169
 #: ../root/report/components/CDTocList.js:49
-#: ../root/search/components/ReleaseResults.js:114
+#: ../root/search/components/ReleaseResults.js:113
 msgid "Format"
 msgstr "格式"
 
@@ -1234,7 +1243,7 @@ msgstr "完整目录："
 
 #: ../root/artist/edit_form.tt:17
 #: ../root/layout/components/sidebar/ArtistSidebar.js:84
-#: ../root/static/scripts/account/components/EditProfileForm.js:207
+#: ../root/static/scripts/account/components/EditProfileForm.js:237
 #: ../root/user/UserProfile.js:268
 msgid "Gender:"
 msgstr "性别:"
@@ -1322,7 +1331,7 @@ msgstr "隐藏应该用于手语和没有ISO 639-3代码的语言。"
 msgid "Historic"
 msgstr "历史"
 
-#: ../root/release/edit/information.tt:325
+#: ../root/release/edit/information.tt:339
 msgid "I confirm that this is the barcode as it appears on the release."
 msgstr "我确认这是在发行版上出现的条形码。"
 
@@ -1361,8 +1370,9 @@ msgstr "IPI 代码"
 msgid ""
 "IPI codes are assigned by CISAC to “interested parties” in musical rights "
 "management. Check {ipi_doc|the documentation} for more info."
-msgstr "IPI代码由CISAC分配给音乐版权管理中的“相关方”。查看{ipi_doc|文档}获取更多信息"
-"。"
+msgstr ""
+"IPI代码由CISAC分配给音乐版权管理中的“相关方”。查看{ipi_doc|文档}获取更多信"
+"息。"
 
 #: ../root/artist/edit_form.tt:29 ../root/label/edit_form.tt:32
 #: ../root/edit/details/EditArtist.js:162
@@ -1382,7 +1392,8 @@ msgstr "ISNI代码"
 msgid ""
 "ISNI codes are an ISO standard used to uniquely identify persons and "
 "organizations. Check {isni_doc|the documentation} for more info."
-msgstr "ISNI代码是用于唯一标识个人和组织的ISO标准。查看{isni_doc|文档}获取更多信息。"
+msgstr ""
+"ISNI代码是用于唯一标识个人和组织的ISO标准。查看{isni_doc|文档}获取更多信息。"
 
 #: ../root/artist/edit_form.tt:30 ../root/label/edit_form.tt:33
 #: ../root/edit/details/EditArtist.js:170
@@ -1479,15 +1490,17 @@ msgid ""
 "If the {recording_doc|recording titles/artists} listed above are incorrect, "
 "you can check the boxes below to replace them with the track titles/artists "
 "for this release."
-msgstr "如果上面列出的{recording_doc|录音标题/艺术家}不正确，您可以勾选下面的方框，将"
+msgstr ""
+"如果上面列出的{recording_doc|录音标题/艺术家}不正确，您可以勾选下面的方框，将"
 "它们替换为此版本的曲目标题/艺术家。"
 
-#: ../root/release/edit/information.tt:298
+#: ../root/release/edit/information.tt:300
 msgid ""
 "If this is an Amazon ASIN, please do not enter it in the catalog number "
 "field, but add it as a URL relationship later."
-msgstr "如果这是一个Amazon "
-"ASIN，请不要在目录编号字段中输入它，而是稍后作为URL关系添加它。"
+msgstr ""
+"如果这是一个Amazon ASIN，请不要在目录编号字段中输入它，而是稍后作为URL关系添"
+"加它。"
 
 #: ../root/release/edit/recordings.tt:160
 msgid ""
@@ -1499,7 +1512,7 @@ msgstr "如果我们的数据库中还没有此曲目的录音，请选择下面
 msgid "If you can't find what you're looking for, you can add a new release:"
 msgstr "如果你找不到你想要的，你可以添加一个新专辑:"
 
-#: ../root/release/edit/information.tt:316
+#: ../root/release/edit/information.tt:330
 msgid ""
 "If you do not know whether the release has a barcode or not, just leave this "
 "blank."
@@ -1509,7 +1522,8 @@ msgstr "如果您不知道专辑是否有条形码，请将此留空。"
 msgid ""
 "If you don't see the release you are looking for, you can still add a new "
 "one, using this CD TOC:"
-msgstr "如果您没有看到您正在寻找的专辑，您仍然可以使用这个CD 目录添加一个新的专辑:"
+msgstr ""
+"如果您没有看到您正在寻找的专辑，您仍然可以使用这个CD 目录添加一个新的专辑:"
 
 #: ../root/components/forms.tt:336 ../root/components/forms.tt:345
 msgid "If you don’t know the code for this entity, just leave the field blank."
@@ -1519,7 +1533,8 @@ msgstr "如果您不知道该实体的代码，只需将该字段留空。"
 msgid ""
 "If you don’t select an existing release group, a new one will be created "
 "with the types selected below."
-msgstr "如果你没有选择一个已经存在的专辑组，一个新的专辑组将会被创建，它的类型如下所"
+msgstr ""
+"如果你没有选择一个已经存在的专辑组，一个新的专辑组将会被创建，它的类型如下所"
 "选。"
 
 #: ../root/release/edit/tracklist.tt:5
@@ -1530,7 +1545,8 @@ msgstr "如果你有一个可以复制粘贴的曲目列表，你可以在这里
 msgid ""
 "If you select “{enable_vinyl_numbers}”, the parser will also accept strings "
 "such as “A1” as track numbers."
-msgstr "如果您选择“{enable_vinyl_numbers}”，解析器还将接受诸如“A1”这样的字符串作为曲"
+msgstr ""
+"如果您选择“{enable_vinyl_numbers}”，解析器还将接受诸如“A1”这样的字符串作为曲"
 "目编号。"
 
 #: ../root/edit/search_macros.tt:10
@@ -1542,8 +1558,9 @@ msgstr "如果你想保存一个编辑搜索以备将来使用，你可以把它
 msgid ""
 "If you’re sure the combination of “Digital Media” and the selected packaging "
 "is correct, confirm it above. Otherwise, please fix the data."
-msgstr "如果你确定“数字媒体”和所选包装的组合是正确的，请在上面确认。否则，请修改数据"
-"。"
+msgstr ""
+"如果你确定“数字媒体”和所选包装的组合是正确的，请在上面确认。否则，请修改数"
+"据。"
 
 #: ../root/release/edit/tracklist.tt:353
 msgid ""
@@ -1613,7 +1630,8 @@ msgid ""
 "Keep in mind that unselecting this will delete the track if the medium has a "
 "disc ID! If you unselect it by mistake, please readd the pregap track before "
 "submitting."
-msgstr "请记住，如果介质有光盘ID，取消此选项将删除音轨!如果您错误地取消了它，请在提交"
+msgstr ""
+"请记住，如果介质有光盘ID，取消此选项将删除音轨!如果您错误地取消了它，请在提交"
 "之前阅读预间隙轨道。"
 
 #: ../root/release/edit/tracklist.tt:517
@@ -1621,7 +1639,8 @@ msgid ""
 "Keep in mind that unselecting this will delete the tracks if the medium has "
 "a disc ID! If you unselect it by mistake, please readd the data tracks "
 "before submitting."
-msgstr "请记住，如果介质有光盘ID，取消此选项将删除音轨!如果您错误地取消了它，请在提交"
+msgstr ""
+"请记住，如果介质有光盘ID，取消此选项将删除音轨!如果您错误地取消了它，请在提交"
 "之前阅读数据轨道。"
 
 #: ../root/cdtoc/attach_artist_releases.tt:17
@@ -1642,7 +1661,7 @@ msgstr "请记住，如果介质有光盘ID，取消此选项将删除音轨!如
 #: ../root/report/ReleaseLabelSameArtist.js:31
 #: ../root/report/components/LabelList.js:47
 #: ../root/report/components/LabelUrlList.js:35
-#: ../root/search/components/ReleaseResults.js:117
+#: ../root/search/components/ReleaseResults.js:116
 #: ../root/search/components/SearchForm.js:42
 #: ../root/static/scripts/common/components/FilterForm.js:168
 #: ../root/static/scripts/common/constants.js:40
@@ -1665,7 +1684,7 @@ msgstr "标签详情"
 msgid "Label code:"
 msgstr "标签代码："
 
-#: ../root/release/edit/information.tt:177
+#: ../root/release/edit/information.tt:179
 #: ../root/release_group/set_cover_art.tt:52
 #: ../root/edit/details/AddReleaseLabel.js:35
 #: ../root/edit/details/RemoveReleaseLabel.js:31
@@ -1745,7 +1764,7 @@ msgstr "寻找建议的录音…"
 msgid "Lookup CD"
 msgstr "查找CD"
 
-#: ../root/release/edit/information.tt:139
+#: ../root/release/edit/information.tt:141
 #: ../lib/MusicBrainz/Server/Plugin/FormRenderer.pm:252
 #: ../root/static/scripts/edit/components/PartialDateInput.js:174
 msgid "MM"
@@ -1861,19 +1880,19 @@ msgstr "向上移动跟踪"
 #: ../root/entity/Details.js:96
 #: ../root/search/components/AnnotationResults.js:55
 #: ../root/search/components/AreaResults.js:63
-#: ../root/search/components/ArtistResults.js:52
+#: ../root/search/components/ArtistResults.js:51
 #: ../root/search/components/EditorResults.js:42
 #: ../root/search/components/EventResults.js:73
 #: ../root/search/components/InstrumentResults.js:53
 #: ../root/search/components/LabelResults.js:66
 #: ../root/search/components/PlaceResults.js:63
 #: ../root/search/components/RecordingResults.js:141
-#: ../root/search/components/ReleaseResults.js:112
+#: ../root/search/components/ReleaseResults.js:111
 #: ../root/search/components/SeriesResults.js:57
 #: ../root/search/components/TagResults.js:51
 #: ../root/search/components/WorkResults.js:54
 #: ../root/static/scripts/account/components/ApplicationForm.js:81
-#: ../root/static/scripts/collection/components/CollectionEditForm.js:194
+#: ../root/static/scripts/collection/components/CollectionEditForm.js:197
 #: ../root/static/scripts/common/components/FilterForm.js:135
 #: ../root/static/scripts/edit/components/FormRowNameWithGuessCase.js:112
 #: ../root/static/scripts/genre/components/GenreEditForm.js:147
@@ -1941,7 +1960,7 @@ msgid "No releases have cover art marked as \"Front\", cannot set cover art."
 msgstr ""
 
 #: ../root/release/edit/tracklist.tt:140 ../root/admin/IpLookup.js:38
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:468
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:472
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:88
 msgid "No results"
 msgstr "没有结果"
@@ -1973,12 +1992,13 @@ msgid ""
 "because they have the wrong number of tracks."
 msgstr "这个版本的所有介质都不能附带获取的CD目录，因为它们有错误的音轨数。"
 
-#: ../root/release/edit/information.tt:283
+#: ../root/release/edit/information.tt:285
 msgid ""
 "Note! If you do not know the month or day of release, please leave them "
 "empty.  January 1st is not often the actual release date, please double "
 "check that you have entered the release date correctly."
-msgstr "注意!如果您不知道发布的月份或日期，请将其留空。1月1日通常不是实际发布日期，请"
+msgstr ""
+"注意!如果您不知道发布的月份或日期，请将其留空。1月1日通常不是实际发布日期，请"
 "仔细检查您输入的发布日期是否正确。"
 
 #: ../root/release/edit/recordings.tt:3
@@ -1990,7 +2010,8 @@ msgid ""
 "Note: only searches edits that: add or edit relationships, created after "
 "2011-05-16; or which remove relationships, created after 2013-07-08; or "
 "which reorder relationships."
-msgstr "注:仅搜索编辑以下内容:添加或编辑2011-05-16之后创建的关系;或删除在2013-07-08之"
+msgstr ""
+"注:仅搜索编辑以下内容:添加或编辑2011-05-16之后创建的关系;或删除在2013-07-08之"
 "后创建的关系;或重新排序关系。"
 
 #: ../root/release/edit/recordings.tt:120
@@ -2038,7 +2059,7 @@ msgstr "订单类型:"
 msgid "PDF file"
 msgstr "PDF文件"
 
-#: ../root/release/edit/information.tt:238
+#: ../root/release/edit/information.tt:240
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:156
 msgid "Packaging:"
 msgstr "包装:"
@@ -2080,12 +2101,13 @@ msgstr "地点信息"
 msgid "Please choose a condition"
 msgstr "请选择一个条件"
 
-#: ../root/release/edit/information.tt:312
+#: ../root/release/edit/information.tt:326
 msgid ""
-"Please enter the barcode of the release you are entering, see <a href="
-"\"{url}\" target=\"_blank\">Barcode</a> for more information."
-msgstr "请输入您正在输入的发布版本的条形码，请参阅<a href=\"{url}\" target=\"_blank\""
-"> 条码</a>了解更多信息。"
+"Please enter the barcode of the release you are entering, see <a "
+"href=\"{url}\" target=\"_blank\">Barcode</a> for more information."
+msgstr ""
+"请输入您正在输入的发布版本的条形码，请参阅<a href=\"{url}\" "
+"target=\"_blank\"> 条码</a>了解更多信息。"
 
 #: ../root/layout/merge-helper.tt:24
 #: ../root/layout/components/MergeHelper.js:58
@@ -2285,7 +2307,7 @@ msgstr ""
 msgid "Release Quality"
 msgstr ""
 
-#: ../root/release/edit/information.tt:122
+#: ../root/release/edit/information.tt:124
 #: ../root/static/scripts/common/components/ReleaseEvents.js:34
 msgid "Release event"
 msgstr ""
@@ -2334,7 +2356,7 @@ msgstr "专辑："
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:136
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:124
 #: ../root/release/CoverArt.js:116
-#: ../root/static/scripts/account/components/EditProfileForm.js:285
+#: ../root/static/scripts/account/components/EditProfileForm.js:315
 #: ../root/static/scripts/edit/components/Multiselect.js:210
 #: ../root/user/UserCollections.js:135
 msgid "Remove"
@@ -2344,11 +2366,11 @@ msgstr "移除"
 msgid "Remove Example"
 msgstr "删除示例"
 
-#: ../root/release/edit/information.tt:197
+#: ../root/release/edit/information.tt:199
 msgid "Remove Label"
 msgstr "删除标签"
 
-#: ../root/release/edit/information.tt:157
+#: ../root/release/edit/information.tt:159
 msgid "Remove Release Event"
 msgstr "删除发布事件"
 
@@ -2420,7 +2442,7 @@ msgstr ""
 msgid "Reverse link phrase:"
 msgstr ""
 
-#: ../root/release/edit/information.tt:305
+#: ../root/release/edit/information.tt:307
 msgid "Review the {packaging|list of packaging types} for help."
 msgstr "请查看{packaging|包装类型列表}以获取帮助。"
 
@@ -2438,12 +2460,12 @@ msgstr ""
 #: ../root/admin/attributes/form.tt:82
 #: ../root/relationship/linkattributetype/form.tt:24
 #: ../root/relationship/linktype/form.tt:200
-#: ../root/static/scripts/account/components/EditProfileForm.js:307
+#: ../root/static/scripts/account/components/EditProfileForm.js:337
 #: ../root/static/scripts/account/components/PreferencesForm.js:260
 msgid "Save"
 msgstr "保存"
 
-#: ../root/release/edit/information.tt:116
+#: ../root/release/edit/information.tt:117
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:186
 msgid "Script:"
 msgstr ""
@@ -2459,8 +2481,8 @@ msgstr ""
 #: ../root/layout/components/Search.js:94
 #: ../root/otherlookup/OtherLookupForm.js:44 ../root/search/SearchIndex.js:28
 #: ../root/search/SearchIndex.js:30 ../root/search/components/SearchForm.js:100
-#: ../root/static/scripts/common/components/Autocomplete2.js:817
-#: ../root/static/scripts/common/components/Autocomplete2.js:837
+#: ../root/static/scripts/common/components/Autocomplete2.js:810
+#: ../root/static/scripts/common/components/Autocomplete2.js:830
 #: ../root/static/scripts/common/components/SearchIcon.js:14
 #: ../root/taglookup/Form.js:54
 msgid "Search"
@@ -2512,7 +2534,8 @@ msgstr ""
 msgid ""
 "Select any type from the list to see its description. If the work doesn’t "
 "seem to match any type, just leave this blank."
-msgstr "从列表中选择任意类型以查看其描述。如果作品似乎不符合任何类型，只需要留空。"
+msgstr ""
+"从列表中选择任意类型以查看其描述。如果作品似乎不符合任何类型，只需要留空。"
 
 #: ../root/release/add_cover_art.tt:31
 msgid "Select images..."
@@ -2573,7 +2596,8 @@ msgstr "类似的版本"
 msgid ""
 "Some discs contain a hidden track in the pregap section that precedes track "
 "1. Use this to add (or remove) the special pregap track section."
-msgstr "有些光盘在磁道1之前的预间隙部分包含一个隐藏磁道。使用它来添加(或删除)特殊的预"
+msgstr ""
+"有些光盘在磁道1之前的预间隙部分包含一个隐藏磁道。使用它来添加(或删除)特殊的预"
 "间隙轨道部分。"
 
 #: ../root/release/edit/tracklist.tt:514
@@ -2589,7 +2613,8 @@ msgstr ""
 msgid ""
 "Some errors were detected in the data you’ve entered. Click on the "
 "highlighted tabs and correct any visible errors."
-msgstr "在您输入的数据中检测到一些错误。单击突出显示的选项卡并纠正任何可见的错误。"
+msgstr ""
+"在您输入的数据中检测到一些错误。单击突出显示的选项卡并纠正任何可见的错误。"
 
 #: ../root/components/forms.tt:239
 #: ../root/layout/components/sidebar/ArtistSidebar.js:76
@@ -2635,7 +2660,7 @@ msgstr "将歌曲名称与艺人名称互换"
 #: ../root/recording/RecordingIndex.js:65
 #: ../root/release_group/ReleaseGroupIndex.js:177
 #: ../root/search/components/RecordingResults.js:146
-#: ../root/search/components/ReleaseResults.js:125
+#: ../root/search/components/ReleaseResults.js:124
 #: ../root/static/scripts/common/components/TaggerIcon.js:82
 #: ../root/utility/tableColumns.js:777
 msgid "Tagger"
@@ -2647,11 +2672,11 @@ msgid ""
 "for this release is unlikely to work at the moment."
 msgstr "封面档案目前遇到了问题，为这个版本添加图像应该不会起作用。"
 
-#: ../root/release/edit/information.tt:334
+#: ../root/release/edit/information.tt:348
 msgid "The annotation field functions like a miniature wiki."
 msgstr "注释字段的功能类似于一个微型wiki。"
 
-#: ../root/release/edit/information.tt:295
+#: ../root/release/edit/information.tt:297
 msgid "The catalog number you have entered looks like an Amazon ASIN."
 msgstr "您输入的目录编号看起来像Amazon ASIN。"
 
@@ -2665,11 +2690,11 @@ msgstr "您提交的数据不会对已经存在的数据进行任何更改。"
 msgid "The data you’ve seeded contained the following errors:"
 msgstr ""
 
-#: ../root/release/edit/information.tt:161
+#: ../root/release/edit/information.tt:163
 msgid "The date you've entered is not valid."
 msgstr ""
 
-#: ../root/release/edit/information.tt:347
+#: ../root/release/edit/information.tt:361
 msgid ""
 "The disambiguation field is used to help users distinguish between "
 "identically named releases."
@@ -2681,12 +2706,26 @@ msgid ""
 "See the {doc_link|documentation} for more info about using the filters."
 msgstr ""
 
-#: ../root/release/edit/information.tt:337
+#: ../root/release/edit/information.tt:314
+msgid ""
+"The language attribute should be set to the language used for the release "
+"title and track titles. It should not be set to the language the lyrics are "
+"written in, nor to the language used for other extra information on the "
+"cover."
+msgstr ""
+
+#: ../root/release/edit/information.tt:351
 msgid ""
 "The purpose of this field is to add information that usually doesn't fit "
 "into the strict structural data schema of MusicBrainz (be it due to "
 "technical limitations that may be addressed later, or because the "
 "information in itself has to be free-text)."
+msgstr ""
+
+#: ../root/release/edit/information.tt:320
+msgid ""
+"The script attribute should be set to the script used for the release title "
+"and track titles."
 msgstr ""
 
 #: ../root/layout.tt:71 ../root/layout/index.js:245
@@ -2698,7 +2737,8 @@ msgid ""
 "The tracklist for the medium (including the track/recording associations, "
 "but not other data such as medium format) will be loaded as a medium on this "
 "release."
-msgstr "此版本将加载介质的曲目列表(包括曲目/录音关联，但不包括其他数据，如介质格式)。"
+msgstr ""
+"此版本将加载介质的曲目列表(包括曲目/录音关联，但不包括其他数据，如介质格式)。"
 
 #: ../root/release/edit/recordings.tt:30 ../root/edit/details/AddMedium.js:154
 #: ../root/edit/details/RemoveMedium.js:91
@@ -2707,7 +2747,7 @@ msgstr "此版本将加载介质的曲目列表(包括曲目/录音关联，但�
 msgid "The tracklist for this medium is unknown."
 msgstr ""
 
-#: ../root/components/forms.tt:201 ../root/release/edit/information.tt:162
+#: ../root/components/forms.tt:201 ../root/release/edit/information.tt:164
 #: ../root/static/scripts/edit/components/PartialDateInput.js:52
 msgid ""
 "The year should have four digits. If you want to enter a year earlier than "
@@ -2739,9 +2779,9 @@ msgid ""
 "{rel_uri|relationships} instead, which will allow ModBot to automatically "
 "remove this artist in the upcoming days."
 msgstr ""
-"没有录音，专辑组，专辑或歌曲只记入{name}。如果您试图删除{name}，请在{alias_ur"
-"i|别名}选项卡底部编辑所有歌手的成员，并删除所有现有的{rel_uri|关系}，这将允许"
-"ModBot在未来几天自动删除该歌手。"
+"没有录音，专辑组，专辑或歌曲只记入{name}。如果您试图删除{name}，请在"
+"{alias_uri|别名}选项卡底部编辑所有歌手的成员，并删除所有现有的{rel_uri|关"
+"系}，这将允许ModBot在未来几天自动删除该歌手。"
 
 #: ../root/place/edit_form.tt:29
 msgid "These coordinates could not be parsed."
@@ -2751,7 +2791,7 @@ msgstr ""
 msgid "This CDTOC is already attached to this medium."
 msgstr ""
 
-#: ../root/release/edit/information.tt:340
+#: ../root/release/edit/information.tt:354
 msgid ""
 "This annotation will be published under an open license (<a href=\"{url}\" "
 "target=\"_blank\">CC BY-NC-SA 3.0</a>) and as such, it should not contain "
@@ -2810,7 +2850,7 @@ msgstr ""
 msgid "This event was cancelled."
 msgstr "此事件被取消。"
 
-#: ../root/release/edit/information.tt:350
+#: ../root/release/edit/information.tt:364
 msgid ""
 "This field is not a place to store general background information about the "
 "release: that kind of information should go in the annotation field."
@@ -2828,7 +2868,8 @@ msgid ""
 "This form allows you to split {artist} into separate artists. When the edit "
 "is accepted, existing artist credits will be updated, and collaboration "
 "relationships will be removed"
-msgstr "此表单允许您将{artist}拆分为单独的歌手。当编辑被接受时，现有的歌手名单将被更"
+msgstr ""
+"此表单允许您将{artist}拆分为单独的歌手。当编辑被接受时，现有的歌手名单将被更"
 "新，合作关系将被删除"
 
 #: ../root/admin/attributes/form.tt:73
@@ -2870,7 +2911,7 @@ msgstr "这是当前的专辑组图像"
 msgid "This label has ended."
 msgstr ""
 
-#: ../root/release/edit/information.tt:207
+#: ../root/release/edit/information.tt:209
 msgid "This label/catalog number pair already exists."
 msgstr ""
 
@@ -2909,7 +2950,7 @@ msgid ""
 msgstr ""
 
 #: ../root/components/common-macros.tt:229
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:685
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:689
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:383
 #: ../root/static/scripts/common/components/EntityLink.js:323
 msgid "This recording is a video"
@@ -2927,7 +2968,7 @@ msgstr ""
 msgid "This relationship type does not have any examples."
 msgstr ""
 
-#: ../root/release/edit/information.tt:233
+#: ../root/release/edit/information.tt:235
 msgid "This release does not have a barcode"
 msgstr ""
 
@@ -2935,7 +2976,7 @@ msgstr ""
 msgid "This release has no mediums that can have disc IDs."
 msgstr ""
 
-#: ../root/release/edit/information.tt:356
+#: ../root/release/edit/information.tt:370
 msgid ""
 "This release status should be used for unofficial translations and "
 "transliterations of tracklists and release titles, and does not denote a "
@@ -3032,7 +3073,7 @@ msgstr ""
 #: ../root/edit/details/historic/AddRelease.js:83
 #: ../root/release_group/ReleaseGroupIndex.js:170
 #: ../root/search/components/CDStubResults.js:46
-#: ../root/search/components/ReleaseResults.js:115
+#: ../root/search/components/ReleaseResults.js:114
 msgid "Tracks"
 msgstr "音轨"
 
@@ -3085,20 +3126,20 @@ msgstr ""
 #: ../root/report/components/WorkList.js:66
 #: ../root/search/components/AnnotationResults.js:54
 #: ../root/search/components/AreaResults.js:64
-#: ../root/search/components/ArtistResults.js:54
+#: ../root/search/components/ArtistResults.js:53
 #: ../root/search/components/EventResults.js:76
 #: ../root/search/components/InstrumentResults.js:54
 #: ../root/search/components/LabelResults.js:67
 #: ../root/search/components/PlaceResults.js:64
 #: ../root/search/components/RecordingResults.js:149
 #: ../root/search/components/ReleaseGroupResults.js:65
-#: ../root/search/components/ReleaseResults.js:121
+#: ../root/search/components/ReleaseResults.js:120
 #: ../root/search/components/SeriesResults.js:58
 #: ../root/search/components/WorkResults.js:58
 #: ../root/static/scripts/account/components/ApplicationForm.js:88
 #: ../root/static/scripts/alias/AliasEditForm.js:331
-#: ../root/static/scripts/collection/components/CollectionEditForm.js:200
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:871
+#: ../root/static/scripts/collection/components/CollectionEditForm.js:203
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:875
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:544
 #: ../root/static/scripts/common/components/FilterForm.js:83
 #: ../root/static/scripts/edit/externalLinks.js:1207
@@ -3233,7 +3274,7 @@ msgstr ""
 msgid "Warning"
 msgstr ""
 
-#: ../root/release/edit/information.tt:280
+#: ../root/release/edit/information.tt:282
 msgid ""
 "Warning! \"1990-10-25\" is the bogus date that Amazon gives to all releases "
 "for which they don't know the actual date. <strong>Please use this date only "
@@ -3255,9 +3296,9 @@ msgid ""
 "below in order to attach this disc to another MusicBrainz release, or to add "
 "a new one if the search shows it is missing from the database."
 msgstr ""
-"我们找到了与您要求的信息相匹配的光盘，如下所示。如果这些都不是你想要的发行版"
-"，你可以使用下面的表单进行搜索，以便将此光盘附加到MusicBrainz的另一个发行版中"
-"，或者如果搜索结果显示数据库中缺少该光盘，则添加一个新光盘。"
+"我们找到了与您要求的信息相匹配的光盘，如下所示。如果这些都不是你想要的发行"
+"版，你可以使用下面的表单进行搜索，以便将此光盘附加到MusicBrainz的另一个发行版"
+"中，或者如果搜索结果显示数据库中缺少该光盘，则添加一个新光盘。"
 
 #: ../root/cdtoc/lookup.tt:12
 msgid "We used DiscID <code>{discid}</code> to look up this information."
@@ -3269,7 +3310,8 @@ msgid ""
 "When you are ready to merge these, just click the Merge button. You may "
 "still add more to this merge queue by simply browsing to the entities page "
 "and following the merge link."
-msgstr "当您准备合并这些时，只需单击“合并”按钮。您仍然可以通过简单地浏览实体页面并点"
+msgstr ""
+"当您准备合并这些时，只需单击“合并”按钮。您仍然可以通过简单地浏览实体页面并点"
 "击合并链接向该合并队列添加更多内容。"
 
 #: ../root/layout.tt:113 ../root/layout/components/Footer.js:27
@@ -3303,7 +3345,7 @@ msgstr ""
 msgid "Work Details"
 msgstr ""
 
-#: ../root/release/edit/information.tt:131
+#: ../root/release/edit/information.tt:133
 #: ../lib/MusicBrainz/Server/Plugin/FormRenderer.pm:251
 #: ../root/static/scripts/edit/components/PartialDateInput.js:161
 msgid "YYYY"
@@ -3345,7 +3387,7 @@ msgid ""
 "parser to ignore them."
 msgstr ""
 
-#: ../root/release/edit/information.tt:163
+#: ../root/release/edit/information.tt:165
 msgid "You cannot use the same country more than once."
 msgstr ""
 
@@ -3433,15 +3475,17 @@ msgid ""
 "You’re currently not allowed to edit or vote because an admin has revoked "
 "your privileges. If you haven’t already been contacted about why, please "
 "{uri|send us a message}."
-msgstr "您目前不允许编辑或投票，因为管理员已经撤销了您的权限。如果您还没有被告知原因"
-"，请{uri|发送消息}。"
+msgstr ""
+"您目前不允许编辑或投票，因为管理员已经撤销了您的权限。如果您还没有被告知原"
+"因，请{uri|发送消息}。"
 
 #: ../root/layout.tt:17 ../root/layout/index.js:202
 msgid ""
 "You’re currently not allowed to edit, vote or leave edit notes because an "
 "admin has revoked your privileges. If you haven’t already been contacted "
 "about why, please {uri|send us a message}."
-msgstr "您目前不允许编辑，投票或留下编辑笔记，因为管理员已经撤销了您的权限。如果您还"
+msgstr ""
+"您目前不允许编辑，投票或留下编辑笔记，因为管理员已经撤销了您的权限。如果您还"
 "没有被告知原因，请给我们{uri|发送消息}。"
 
 #: ../root/layout.tt:25 ../lib/MusicBrainz/Server/Controller/EditNote.pm:63
@@ -3450,7 +3494,8 @@ msgid ""
 "You’re currently not allowed to leave or change edit notes because an admin "
 "has revoked your privileges. If you haven’t already been contacted about "
 "why, please {uri|send us a message}."
-msgstr "您目前不允许离开或更改编辑笔记，因为管理员已经撤销了您的权限。如果您还没有被"
+msgstr ""
+"您目前不允许离开或更改编辑笔记，因为管理员已经撤销了您的权限。如果您还没有被"
 "告知原因，请给我们{uri|发送消息}。"
 
 #: ../root/release/edit/tracklist.tt:289
@@ -3754,7 +3799,8 @@ msgstr "{entity} 来自 {artist}"
 msgid ""
 "{link|New notes} have been left on some of your edits. Please make sure to "
 "read them and respond if necessary."
-msgstr "{link|新笔记}已经在你的一些编辑中留下了。请务必阅读它们并在必要时作出回应。"
+msgstr ""
+"{link|新笔记}已经在你的一些编辑中留下了。请务必阅读它们并在必要时作出回应。"
 
 #: ../root/components/common-macros.tt:260
 #: ../root/static/scripts/common/components/EntityLink.js:262
@@ -3825,9 +3871,9 @@ msgid ""
 "avoid another automatic removal."
 msgstr ""
 "这个实体被自动删除，因为它是空的:它没有与它相关联的关系，也没有(如果与问题中"
-"的实体类型相关)任何录音、专辑或专辑组。如果您认为这是一个有效的、不重复的条目"
-"，并且确实属于MusicBrainz，可以再次添加它，但请确保这次添加了足够的数据，以避"
-"免再次被自动删除。"
+"的实体类型相关)任何录音、专辑或专辑组。如果您认为这是一个有效的、不重复的条"
+"目，并且确实属于MusicBrainz，可以再次添加它，但请确保这次添加了足够的数据，以"
+"避免再次被自动删除。"
 
 #: ../lib/MusicBrainz/Server/Controller.pm:34
 #, perl-brace-format
@@ -3904,8 +3950,9 @@ msgid ""
 "We were unable to send login information to your email address.  Please try "
 "again, however if you continue to experience difficulty contact us at "
 "support@musicbrainz.org."
-msgstr "我们无法将登录信息发送到您的电子邮件地址。请再试一次，但是如果您仍然遇到困难"
-"，请通过support@musicbrainz.org与我们联系。"
+msgstr ""
+"我们无法将登录信息发送到您的电子邮件地址。请再试一次，但是如果您仍然遇到困"
+"难，请通过support@musicbrainz.org与我们联系。"
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:199
 msgid "There is no user with this username"
@@ -3947,7 +3994,8 @@ msgid ""
 "We have sent you a verification email to <code>{email}</code>. Please check "
 "your mailbox and click on the link in the email to verify the new email "
 "address."
-msgstr "我们已经向<code>{email}</code>发送了验证邮件。请检查您的邮箱，点击邮件中的链"
+msgstr ""
+"我们已经向<code>{email}</code>发送了验证邮件。请检查您的邮箱，点击邮件中的链"
 "接验证新的邮箱地址。"
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:463
@@ -3962,8 +4010,8 @@ msgid ""
 "us at {mail|support@musicbrainz.org}."
 msgstr ""
 "<strong>我们无法向您发送验证电子邮件。</strong><br/>请通过编辑您的 {settings|"
-"账户设置}，确认您输入了一个有效的地址。如果问题仍然存在，请通过{mail|support@"
-"musicbrainz.org}与我们联系。"
+"账户设置}，确认您输入了一个有效的地址。如果问题仍然存在，请通过{mail|"
+"support@musicbrainz.org}与我们联系。"
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:785
 msgid "There is no OAuth token with these parameters."
@@ -3988,12 +4036,12 @@ msgstr "横幅更新。记住，每个服务都有自己独立的横幅。"
 msgid "Invalid regular expression."
 msgstr "无效的正则表达式。"
 
-#: ../lib/MusicBrainz/Server/Controller/Admin/Attributes.pm:131
+#: ../lib/MusicBrainz/Server/Controller/Admin/Attributes.pm:130
 #, perl-brace-format
 msgid "You cannot remove the attribute \"{name}\" because it is still in use."
 msgstr "您无法删除属性“{name}”，因为它仍在使用中。"
 
-#: ../lib/MusicBrainz/Server/Controller/Admin/Attributes.pm:143
+#: ../lib/MusicBrainz/Server/Controller/Admin/Attributes.pm:142
 #, perl-brace-format
 msgid ""
 "You cannot remove the attribute “{name}” because it is the parent of other "
@@ -4083,20 +4131,20 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:294
 #: ../lib/MusicBrainz/Server/Form/ChangeReleaseQuality.pm:24
-#: ../root/static/scripts/common/constants.js:356
+#: ../root/static/scripts/common/constants.js:355
 msgid "Low"
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:294
 #: ../lib/MusicBrainz/Server/Form/ChangeReleaseQuality.pm:25
+#: ../root/static/scripts/common/constants.js:356
 #: ../root/static/scripts/common/constants.js:357
-#: ../root/static/scripts/common/constants.js:358
 msgid "Normal"
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:294
 #: ../lib/MusicBrainz/Server/Form/ChangeReleaseQuality.pm:26
-#: ../root/static/scripts/common/constants.js:359
+#: ../root/static/scripts/common/constants.js:358
 msgid "High"
 msgstr ""
 
@@ -4209,7 +4257,7 @@ msgid ""
 "or expected."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Series.pm:153
+#: ../lib/MusicBrainz/Server/Controller/Series.pm:156
 msgid "Series that have different entity types cannot be merged."
 msgstr ""
 
@@ -4295,7 +4343,7 @@ msgid ""
 "so we can resolve this."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/WS/js/Edit.pm:701
+#: ../lib/MusicBrainz/Server/Controller/WS/js/Edit.pm:705
 msgid ""
 "You must be logged in to submit edits. {url|Log in} first, and then try "
 "submitting your edits again."
@@ -4305,7 +4353,8 @@ msgstr ""
 msgid ""
 "Since your edit adding this object was still open, that edit has been "
 "cancelled instead of opening a new edit."
-msgstr "由于添加此对象的编辑仍处于打开状态，因此该编辑已被取消，而不是打开新的编辑。"
+msgstr ""
+"由于添加此对象的编辑仍处于打开状态，因此该编辑已被取消，而不是打开新的编辑。"
 
 #: ../lib/MusicBrainz/Server/Data/LinkType.pm:214
 #, perl-brace-format
@@ -4378,7 +4427,7 @@ msgstr ""
 msgid "Remove area alias"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Edit/Area/Edit.pm:33
+#: ../lib/MusicBrainz/Server/Edit/Area/Edit.pm:31
 msgid "Edit area"
 msgstr ""
 
@@ -4411,7 +4460,7 @@ msgstr ""
 msgid "Remove artist alias"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Edit/Artist/Edit.pm:44
+#: ../lib/MusicBrainz/Server/Edit/Artist/Edit.pm:42
 msgid "Edit artist"
 msgstr ""
 
@@ -4466,7 +4515,7 @@ msgstr ""
 msgid "Remove event alias"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Edit/Event/Edit.pm:42
+#: ../lib/MusicBrainz/Server/Edit/Event/Edit.pm:40
 msgid "Edit event"
 msgstr ""
 
@@ -4500,7 +4549,7 @@ msgstr ""
 msgid "Remove genre alias"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Edit/Genre/Edit.pm:24
+#: ../lib/MusicBrainz/Server/Edit/Genre/Edit.pm:22
 #: ../root/genre/EditGenre.js:30
 msgid "Edit genre"
 msgstr ""
@@ -4552,14 +4601,14 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Edit/Historic/EditReleaseName.pm:11
 #: ../lib/MusicBrainz/Server/Edit/Historic/MoveRelease.pm:14
 #: ../lib/MusicBrainz/Server/Edit/Historic/MoveReleaseToRG.pm:18
-#: ../lib/MusicBrainz/Server/Edit/Release/Edit.pm:49
+#: ../lib/MusicBrainz/Server/Edit/Release/Edit.pm:47
 #: ../lib/MusicBrainz/Server/Edit/Release/EditArtist.pm:31
 msgid "Edit release"
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/ChangeReleaseQuality.pm:13
 #: ../lib/MusicBrainz/Server/Edit/Release/ChangeQuality.pm:26
-#: ../root/release/ChangeQuality.js:36
+#: ../root/release/ChangeQuality.js:37
 msgid "Change release data quality"
 msgstr ""
 
@@ -4580,7 +4629,7 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/EditTrackLength.pm:13
 #: ../lib/MusicBrainz/Server/Edit/Historic/EditTrackName.pm:23
-#: ../lib/MusicBrainz/Server/Edit/Recording/Edit.pm:45
+#: ../lib/MusicBrainz/Server/Edit/Recording/Edit.pm:43
 msgid "Edit recording"
 msgstr ""
 
@@ -4688,7 +4737,7 @@ msgstr ""
 msgid "Remove label"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Edit/Label/Edit.pm:44
+#: ../lib/MusicBrainz/Server/Edit/Label/Edit.pm:42
 msgid "Edit label"
 msgstr ""
 
@@ -4735,7 +4784,7 @@ msgstr ""
 msgid "Remove place alias"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Edit/Place/Edit.pm:45
+#: ../lib/MusicBrainz/Server/Edit/Place/Edit.pm:43
 msgid "Edit place"
 msgstr ""
 
@@ -4786,7 +4835,7 @@ msgstr ""
 msgid "Remove ISRC"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Edit/Relationship.pm:18
+#: ../lib/MusicBrainz/Server/Edit/Relationship.pm:16
 #: ../root/edit/details/ReorderRelationships.js:20
 #: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:937
 msgid "Relationship"
@@ -4866,11 +4915,11 @@ msgstr ""
 msgid "Edit cover art"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Edit/Release/EditReleaseLabel.pm:29
+#: ../lib/MusicBrainz/Server/Edit/Release/EditReleaseLabel.pm:27
 msgid "Edit release label"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Edit/Release/EditReleaseLabel.pm:100
+#: ../lib/MusicBrainz/Server/Edit/Release/EditReleaseLabel.pm:98
 #: ../lib/MusicBrainz/Server/Entity/Release.pm:183
 #: ../root/static/scripts/release-editor/duplicates.js:193
 msgctxt "medium format"
@@ -4925,7 +4974,7 @@ msgstr ""
 msgid "Remove release group alias"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/Edit.pm:44
+#: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/Edit.pm:42
 msgid "Edit release group"
 msgstr ""
 
@@ -5000,7 +5049,7 @@ msgstr ""
 msgid "Remove series alias"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Edit/Series/Edit.pm:32
+#: ../lib/MusicBrainz/Server/Edit/Series/Edit.pm:30
 msgid "Edit series"
 msgstr ""
 
@@ -5430,7 +5479,8 @@ msgstr ""
 msgid ""
 "Artist \"{artist}\" is unlinked, please select an existing artist. You may "
 "need to add a new artist to MusicBrainz first."
-msgstr "歌手“{Artist}”未关联，请选择一个现有的歌手。你可能需要先向MusicBrainz添加一个"
+msgstr ""
+"歌手“{Artist}”未关联，请选择一个现有的歌手。你可能需要先向MusicBrainz添加一个"
 "新的歌手。"
 
 #: ../lib/MusicBrainz/Server/Form/Field/ArtistCredit.pm:63
@@ -5627,22 +5677,22 @@ msgid "A fluency level is required."
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:79
-#: ../root/static/scripts/common/constants.js:367
+#: ../root/static/scripts/common/constants.js:366
 msgid "Basic"
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:80
-#: ../root/static/scripts/common/constants.js:368
+#: ../root/static/scripts/common/constants.js:367
 msgid "Intermediate"
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:81
-#: ../root/static/scripts/common/constants.js:366
+#: ../root/static/scripts/common/constants.js:365
 msgid "Advanced"
 msgstr "高级"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:82
-#: ../root/static/scripts/common/constants.js:369
+#: ../root/static/scripts/common/constants.js:368
 msgid "Native"
 msgstr ""
 
@@ -5929,19 +5979,19 @@ msgid ""
 "purposes."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Translation.pm:253
+#: ../lib/MusicBrainz/Server/Translation.pm:254
 #: ../root/static/scripts/common/i18n/commaList.js:24
 #, perl-brace-format
 msgid "{almost_last_list_item} and {last_list_item}"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Translation.pm:259
+#: ../lib/MusicBrainz/Server/Translation.pm:260
 #: ../root/static/scripts/common/i18n/commaList.js:30
 #, perl-brace-format
 msgid "{list_item}, {rest}"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Translation.pm:270
+#: ../lib/MusicBrainz/Server/Translation.pm:271
 #: ../root/static/scripts/common/i18n/commaList.js:21
 #: ../root/static/scripts/common/i18n/commaOnlyList.js:20
 #: ../root/static/scripts/common/i18n/semicolonOnlyList.js:20
@@ -5949,7 +5999,7 @@ msgstr ""
 msgid "{last_list_item}"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Translation.pm:273
+#: ../lib/MusicBrainz/Server/Translation.pm:274
 #: ../root/static/scripts/common/i18n/commaOnlyList.js:25
 #, perl-brace-format
 msgid "{commas_only_list_item}, {rest}"
@@ -5964,9 +6014,9 @@ msgid ""
 "change their passwords. Sorry for the inconvenience. For more information "
 "see {blog|the recent blog post}."
 msgstr ""
-"请修改密码。不幸的是，我们发现安全哈希用户的密码暂时可以在我们的FTP网站上下载"
-"。虽然任何人都不太可能从这次事故中获得原始密码，但我们要求所有用户更改密码。"
-"很抱歉给您带来不便。有关更多信息，请参阅{blog|最近的博客文章}。"
+"请修改密码。不幸的是，我们发现安全哈希用户的密码暂时可以在我们的FTP网站上下"
+"载。虽然任何人都不太可能从这次事故中获得原始密码，但我们要求所有用户更改密"
+"码。很抱歉给您带来不便。有关更多信息，请参阅{blog|最近的博客文章}。"
 
 #: ../root/account/ChangePassword.js:58
 msgid "Please enter your old password below, and then your new password."
@@ -6071,7 +6121,7 @@ msgstr ""
 #: ../root/admin/EditUser.js:161 ../root/admin/EmailSearch.js:68
 #: ../root/admin/components/UserList.js:32
 #: ../root/report/components/EditorList.js:79
-#: ../root/static/scripts/account/components/EditProfileForm.js:188
+#: ../root/static/scripts/account/components/EditProfileForm.js:218
 #: ../root/static/scripts/account/components/PreferencesForm.js:208
 #: ../root/static/scripts/account/components/RegisterForm.js:107
 msgid "Email"
@@ -6153,7 +6203,8 @@ msgid ""
 "You may remove your personal information from our services anytime by "
 "deleting your account. For more details, see our {doc|GDPR compliance "
 "statement}."
-msgstr "您可以随时通过删除您的帐户从我们的服务中删除您的个人信息。有关更多细节，请参"
+msgstr ""
+"您可以随时通过删除您的帐户从我们的服务中删除您的个人信息。有关更多细节，请参"
 "阅我们的{doc|GDPR合规声明}。"
 
 #: ../root/account/Register.js:73
@@ -6319,7 +6370,8 @@ msgstr ""
 msgid ""
 "You must verify your email address before you can log in to {discourse|"
 "MetaBrainz Community Discourse}."
-msgstr "您必须验证您的电子邮件地址之后才能登录{discourse|MetaBrainz Community "
+msgstr ""
+"您必须验证您的电子邮件地址之后才能登录{discourse|MetaBrainz Community "
 "discourse}。"
 
 #: ../root/account/sso/DiscourseRegistered.js:30
@@ -6472,12 +6524,12 @@ msgstr ""
 
 #: ../root/admin/EditUser.js:171 ../root/admin/components/UserList.js:31
 #: ../root/report/components/EditorList.js:74
-#: ../root/static/scripts/account/components/EditProfileForm.js:200
+#: ../root/static/scripts/account/components/EditProfileForm.js:230
 msgid "Website"
 msgstr ""
 
 #: ../root/admin/EditUser.js:177
-#: ../root/static/scripts/account/components/EditProfileForm.js:259
+#: ../root/static/scripts/account/components/EditProfileForm.js:289
 #: ../root/user/UserProfile.js:393
 msgid "Bio:"
 msgstr ""
@@ -6580,7 +6632,7 @@ msgstr ""
 #: ../root/edit/details/EditRelease.js:113
 #: ../root/edit/details/historic/AddRelease.js:74 ../root/iswc/Index.js:61
 #: ../root/report/IswcsWithManyWorks.js:54
-#: ../root/search/components/ReleaseResults.js:120
+#: ../root/search/components/ReleaseResults.js:119
 #: ../root/utility/tableColumns.js:554
 msgid "Language"
 msgstr "语言"
@@ -6893,7 +6945,7 @@ msgstr ""
 #: ../root/report/components/EventList.js:69
 #: ../root/search/components/EventResults.js:77
 #: ../root/search/components/WorkResults.js:56
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:892
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:896
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:552
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:15
 #: ../root/tag/TagLayout.js:24 ../root/utility/tableColumns.js:797
@@ -7061,7 +7113,8 @@ msgstr ""
 msgid ""
 "This area cannot be removed because it is still in use (in artists, labels, "
 "places, relationships or open edits)."
-msgstr "这个区域无法移除，因为它仍然在使用中(在歌手、标签、位置、关系或打开编辑中)。"
+msgstr ""
+"这个区域无法移除，因为它仍然在使用中(在歌手、标签、位置、关系或打开编辑中)。"
 
 #: ../root/artist/ArtistEvents.js:78
 msgid "No events found that match this search."
@@ -7268,8 +7321,9 @@ msgid ""
 "This artist has relationships other than collaboration relationships, and "
 "cannot be split until these are removed. {relationships|View all "
 "relationships}."
-msgstr "除了合作关系之外，歌手还有其他关系，除非这些关系被删除，否则不能拆分。{relati"
-"onships|查看所有关系}。"
+msgstr ""
+"除了合作关系之外，歌手还有其他关系，除非这些关系被删除，否则不能拆分。"
+"{relationships|查看所有关系}。"
 
 #: ../root/artist/SpecialPurpose.js:23 ../root/label/SpecialPurpose.js:23
 msgid "Cannot edit"
@@ -7541,7 +7595,7 @@ msgid "Start"
 msgstr ""
 
 #: ../root/cdtoc/CDTocInfo.js:55 ../root/search/components/AreaResults.js:67
-#: ../root/search/components/ArtistResults.js:59
+#: ../root/search/components/ArtistResults.js:58
 #: ../root/search/components/LabelResults.js:71
 #: ../root/search/components/PlaceResults.js:68
 #: ../root/utility/tableColumns.js:299 ../root/utility/tableColumns.js:304
@@ -7643,7 +7697,7 @@ msgstr ""
 
 #: ../root/collection/CollectionIndex.js:205
 #: ../root/collection/CollectionMerge.js:70
-#: ../root/static/scripts/collection/components/CollectionEditForm.js:217
+#: ../root/static/scripts/collection/components/CollectionEditForm.js:220
 #: ../root/user/UserCollections.js:117
 msgid "Collaborators"
 msgstr ""
@@ -7826,14 +7880,16 @@ msgid ""
 "This artist has no relationships, recordings, releases or release groups, "
 "and will be removed automatically in the next few days. If this is not "
 "intended, please add more data to this artist."
-msgstr "这位歌手没有任何关系，没有录音，没有专辑作品，也没有专辑组，他将在未来几天内"
+msgstr ""
+"这位歌手没有任何关系，没有录音，没有专辑作品，也没有专辑组，他将在未来几天内"
 "被自动删除。如果您不希望这样做，请添加这个歌手更多的数据。"
 
 #: ../root/components/CleanupBanner.js:18
 msgid ""
 "This event has no relationships and will be removed automatically in the "
 "next few days. If this is not intended, please add more data to this event."
-msgstr "此事件没有任何关系，将在未来几天内自动删除。如果您不希望这样做，请在此事件中"
+msgstr ""
+"此事件没有任何关系，将在未来几天内自动删除。如果您不希望这样做，请在此事件中"
 "添加更多数据。"
 
 #: ../root/components/CleanupBanner.js:23
@@ -7841,14 +7897,16 @@ msgid ""
 "This label has no relationships or releases and will be removed "
 "automatically in the next few days. If this is not intended, please add more "
 "data to this label."
-msgstr "此标签没有关系或专辑，并将在未来几天内自动删除。如果您不希望这样做，请在这个"
+msgstr ""
+"此标签没有关系或专辑，并将在未来几天内自动删除。如果您不希望这样做，请在这个"
 "标签上添加更多的数据。"
 
 #: ../root/components/CleanupBanner.js:28
 msgid ""
 "This place has no relationships and will be removed automatically in the "
 "next few days. If this is not intended, please add more data to this place."
-msgstr "这个地方没有任何关系，将在未来几天内自动删除。如果您不希望这样做，请添加更多"
+msgstr ""
+"这个地方没有任何关系，将在未来几天内自动删除。如果您不希望这样做，请添加更多"
 "的数据到这个地方。"
 
 #: ../root/components/CleanupBanner.js:33
@@ -7862,7 +7920,8 @@ msgstr ""
 msgid ""
 "This series has no relationships and will be removed automatically in the "
 "next few days. If this is not intended, please add more data to this series."
-msgstr "此专辑组没有关联的关系或专辑，并且将在接下来的几天内自动删除。如果您不希望这"
+msgstr ""
+"此专辑组没有关联的关系或专辑，并且将在接下来的几天内自动删除。如果您不希望这"
 "样做，请向此专辑组添加更多数据。"
 
 #: ../root/components/CleanupBanner.js:43
@@ -8128,23 +8187,23 @@ msgid "About to close"
 msgstr ""
 
 #: ../root/components/list/ArtistList.js:73
-#: ../root/search/components/ArtistResults.js:53
+#: ../root/search/components/ArtistResults.js:52
 msgid "Sort Name"
 msgstr ""
 
 #: ../root/components/list/ArtistList.js:87
 #: ../root/edit/details/AddArtist.js:76 ../root/edit/details/EditArtist.js:95
-#: ../root/search/components/ArtistResults.js:55
+#: ../root/search/components/ArtistResults.js:54
 msgid "Gender"
 msgstr "性别"
 
 #: ../root/components/list/ArtistList.js:102
-#: ../root/search/components/ArtistResults.js:58
+#: ../root/search/components/ArtistResults.js:57
 msgid "Begin Area"
 msgstr "出生地"
 
 #: ../root/components/list/ArtistList.js:112
-#: ../root/search/components/ArtistResults.js:60
+#: ../root/search/components/ArtistResults.js:59
 msgid "End Area"
 msgstr "过世地"
 
@@ -8179,7 +8238,7 @@ msgid "[missing media]"
 msgstr ""
 
 #: ../root/components/list/ReleaseList.js:164
-#: ../root/search/components/ReleaseResults.js:122
+#: ../root/search/components/ReleaseResults.js:121
 #: ../root/static/scripts/common/components/FilterForm.js:206
 msgid "Status"
 msgstr "状态"
@@ -8188,7 +8247,7 @@ msgstr "状态"
 #: ../root/report/IswcsWithManyWorks.js:51
 #: ../root/report/components/WorkList.js:55
 #: ../root/search/components/WorkResults.js:55
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:891
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:895
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:551
 msgid "Writers"
 msgstr ""
@@ -8438,8 +8497,9 @@ msgstr "新编辑笔记"
 msgid ""
 "Keep in mind modification of edit notes is mostly intended to correct small "
 "mistakes. Editors won’t be notified of your changes via email."
-msgstr "记住，修改编辑笔记主要是为了纠正小错误。编辑者不会通过电子邮件通知您更改内容"
-"。"
+msgstr ""
+"记住，修改编辑笔记主要是为了纠正小错误。编辑者不会通过电子邮件通知您更改内"
+"容。"
 
 #: ../root/edit/ModifyNote.js:65
 msgid ""
@@ -8581,7 +8641,7 @@ msgid "This edit note was removed by an admin. No reason was provided."
 msgstr "此编辑笔记已被管理员删除。没有提供任何理由。"
 
 #: ../root/edit/components/EditNote.js:194
-#: ../root/edit/components/EditNote.js:250
+#: ../root/edit/components/EditNote.js:246
 msgctxt "edit note"
 msgid "see all changes"
 msgstr "查看所有更改"
@@ -8590,15 +8650,15 @@ msgstr "查看所有更改"
 msgid "Last modified by the note author ({time}). Reason given: “{reason}”."
 msgstr ""
 
-#: ../root/edit/components/EditNote.js:221
+#: ../root/edit/components/EditNote.js:220
 msgid "Last modified by the note author ({time})."
 msgstr ""
 
-#: ../root/edit/components/EditNote.js:229
+#: ../root/edit/components/EditNote.js:227
 msgid "Last modified by an admin ({time}). Reason given: “{reason}”."
 msgstr ""
 
-#: ../root/edit/components/EditNote.js:239
+#: ../root/edit/components/EditNote.js:236
 msgid "Last modified by an admin ({time})."
 msgstr ""
 
@@ -8607,7 +8667,8 @@ msgid ""
 "Edit notes support {doc_formatting|a limited set of wiki formatting "
 "options}. Please do always keep the {doc_coc|Code of Conduct} in mind when "
 "writing edit notes!"
-msgstr "编辑笔记支持{doc_formatting|一组有限的wiki格式选项}。请在编写编辑笔记时始终牢"
+msgstr ""
+"编辑笔记支持{doc_formatting|一组有限的wiki格式选项}。请在编写编辑笔记时始终牢"
 "记{doc_coc|行为准则}!"
 
 #: ../root/edit/components/EditNotes.js:55
@@ -8893,7 +8954,7 @@ msgstr ""
 
 #: ../root/edit/details/AddRelationship.js:22
 #: ../root/edit/details/RemoveRelationship.js:20
-#: ../root/static/scripts/edit/components/edit/RelationshipDiff.js:198
+#: ../root/static/scripts/edit/components/edit/RelationshipDiff.js:199
 #: ../root/static/scripts/relationship-editor/components/DialogPreview.js:133
 msgid "Relationship:"
 msgstr ""
@@ -8999,7 +9060,7 @@ msgstr ""
 #: ../root/layout/components/sidebar/WorkSidebar.js:69
 #: ../root/search/components/WorkResults.js:59
 #: ../root/static/scripts/release/components/WorkLanguageMultiselect.js:143
-#: ../root/static/scripts/work/edit.js:342 ../root/utility/tableColumns.js:816
+#: ../root/static/scripts/work/edit.js:345 ../root/utility/tableColumns.js:816
 msgid "Lyrics Languages"
 msgstr ""
 
@@ -9007,7 +9068,7 @@ msgstr ""
 #: ../root/edit/details/historic/ChangeArtistQuality.js:30
 #: ../root/edit/details/historic/ChangeReleaseQuality.js:40
 #: ../root/layout/components/sidebar/SidebarDataQuality.js:36
-#: ../root/release/ChangeQuality.js:66
+#: ../root/release/ChangeQuality.js:67
 msgid "Data Quality"
 msgstr ""
 
@@ -9293,8 +9354,8 @@ msgstr ""
 
 #: ../root/edit/details/ReorderMediums.js:61
 msgid ""
-"Medium <span class=\"new\">{new}</span> (moved from position <span class="
-"\"old\">{old}</span>)"
+"Medium <span class=\"new\">{new}</span> (moved from position <span "
+"class=\"old\">{old}</span>)"
 msgstr ""
 
 #: ../root/edit/details/ReorderRelationships.js:21
@@ -11018,8 +11079,9 @@ msgstr ""
 msgid ""
 "In order to log in or make changes to the database you must visit the main "
 "server at {mb|https://musicbrainz.org/}."
-msgstr "为了登录或对数据库进行更改，您必须访问位于{mb|https://musicbrainz.org/"
-"}的主服务器。"
+msgstr ""
+"为了登录或对数据库进行更改，您必须访问位于{mb|https://musicbrainz.org/}的主服"
+"务器。"
 
 #: ../root/main/error/MirrorError404.js:16
 msgid "Sorry, the page you're looking for is not available on a mirror server."
@@ -11086,15 +11148,17 @@ msgstr "MusicBrainz的目标是:"
 msgid ""
 "<strong>The ultimate source of music information</strong> by allowing anyone "
 "to contribute and releasing the {doc|data} under {doc2|open licenses}."
-msgstr "<strong>音乐信息的最终来源</strong>，允许任何人在{doc2|开放许可}下贡献和发布{"
-"doc|数据}。"
+msgstr ""
+"<strong>音乐信息的最终来源</strong>，允许任何人在{doc2|开放许可}下贡献和发布"
+"{doc|数据}。"
 
 #: ../root/main/index.js:67
 msgid ""
 "<strong>The universal lingua franca for music</strong> by providing a "
 "reliable and unambiguous form of {doc|music identification}, enabling both "
 "people and machines to have meaningful conversations about music."
-msgstr "<strong>音乐的通用语言</strong>通过提供可靠且明确的{doc|音乐识别}形式，使人和"
+msgstr ""
+"<strong>音乐的通用语言</strong>通过提供可靠且明确的{doc|音乐识别}形式，使人和"
 "机器都能就音乐进行有意义的对话。"
 
 #: ../root/main/index.js:80
@@ -11102,7 +11166,8 @@ msgid ""
 "Like Wikipedia, MusicBrainz is maintained by a global community of users and "
 "we want everyone &#x2014; including you &#x2014; to {doc|participate and "
 "contribute}."
-msgstr "像维基百科一样，MusicBrainz是由全球用户社区维护的，我们希望每个人&#x2014;包括"
+msgstr ""
+"像维基百科一样，MusicBrainz是由全球用户社区维护的，我们希望每个人&#x2014;包括"
 "你&#x2014;{doc|参与和贡献}。"
 
 #: ../root/main/index.js:91
@@ -11171,8 +11236,8 @@ msgid ""
 "released into the <strong>Public Domain</strong> and can be downloaded and "
 "used <strong>for free</strong>."
 msgstr ""
-"<strong>MusicBrainz数据库</strong>中的大部分数据被发布到<strong>公共域</stron"
-"g>，可以<strong>免费</strong>下载和使用 。"
+"<strong>MusicBrainz数据库</strong>中的大部分数据被发布到<strong>公共域</"
+"strong>，可以<strong>免费</strong>下载和使用 。"
 
 #: ../root/main/index.js:232
 msgid "Developers"
@@ -11388,7 +11453,8 @@ msgid ""
 "<strong>Warning:</strong> Some of the recordings you're merging have "
 "different ISRCs. Please make sure they are indeed the same recordings and "
 "you wish to continue with the merge."
-msgstr "<strong>警告:</strong>正在合并的某些录音具有不同的isrc。请确保它们确实是相同"
+msgstr ""
+"<strong>警告:</strong>正在合并的某些录音具有不同的isrc。请确保它们确实是相同"
 "的录音，并且您希望继续合并。"
 
 #: ../root/relationship/RelationshipsHeader.js:23
@@ -11593,7 +11659,7 @@ msgstr ""
 msgid "{type0}-{type1}"
 msgstr ""
 
-#: ../root/release/ChangeQuality.js:51
+#: ../root/release/ChangeQuality.js:52
 msgid ""
 "{data_quality_doc|Data quality} indicates how good the data for a release "
 "is. It is not a mark of how good or bad the music itself is — for that, use "
@@ -11628,7 +11694,8 @@ msgstr "所有尺寸:"
 msgid ""
 "These images provided by the {caa|Cover Art Archive}. You can also see them "
 "at the {ia|Internet Archive}."
-msgstr "这些图片由{caa|封面艺术档案馆}提供。你也可以在{ia|互联网档案}看到它们。"
+msgstr ""
+"这些图片由{caa|封面艺术档案馆}提供。你也可以在{ia|互联网档案}看到它们。"
 
 #: ../root/release/CoverArt.js:137
 msgid "We do not currently have any cover art for {release}."
@@ -11701,7 +11768,7 @@ msgid ""
 msgstr ""
 
 #: ../root/release_group/ReleaseGroupHeader.js:28
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:810
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:814
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:501
 msgid "Release group by {artist}"
 msgstr ""
@@ -11800,8 +11867,9 @@ msgstr ""
 msgid ""
 "This report lists artists that may have disambiguation comments in their "
 "name, rather than the actual disambiguation comment field."
-msgstr "此报告列出了在其名称中可能有消除歧义注释的歌手，而不是实际的消除歧义注释字段"
-"。"
+msgstr ""
+"此报告列出了在其名称中可能有消除歧义注释的歌手，而不是实际的消除歧义注释字"
+"段。"
 
 #: ../root/report/ArtistsContainingDisambiguationComments.js:30
 #: ../root/report/ReportsIndex.js:84
@@ -11813,7 +11881,8 @@ msgid ""
 "This report lists artists that have their disambiguation set to be the same "
 "as their name. The disambiguation should be removed or, if it is needed, "
 "improved."
-msgstr "此报告列出了将消除歧义设置为与其姓名相同的歌手。消除歧义应该被删除，或者如果"
+msgstr ""
+"此报告列出了将消除歧义设置为与其姓名相同的歌手。消除歧义应该被删除，或者如果"
 "需要的话，加以改进。"
 
 #: ../root/report/ArtistsDisambiguationSameName.js:31
@@ -12259,10 +12328,10 @@ msgid ""
 "has an album and single with the same name, then there is usually no need to "
 "change anything. In other cases, a disambiguation comment may be helpful."
 msgstr ""
-"这份报告列出了名字和歌手非常相似的专辑组。如果专辑组组中的专辑应该分组在一起("
-"参见{url|指南})，则可以合并它们。如果它们不应该被组合在一起，但可以通过专辑组"
-"合类型来区分，例如当一个歌手有一张同名专辑和一首单曲时，那么通常不需要更改任"
-"何内容。在其他情况下，消除歧义的注释可能会有所帮助。"
+"这份报告列出了名字和歌手非常相似的专辑组。如果专辑组组中的专辑应该分组在一起"
+"(参见{url|指南})，则可以合并它们。如果它们不应该被组合在一起，但可以通过专辑"
+"组合类型来区分，例如当一个歌手有一张同名专辑和一首单曲时，那么通常不需要更改"
+"任何内容。在其他情况下，消除歧义的注释可能会有所帮助。"
 
 #: ../root/report/DuplicateReleaseGroups.js:52
 #: ../root/report/ReportsIndex.js:227
@@ -12395,7 +12464,8 @@ msgid ""
 "This report lists labels that have their disambiguation set to be the same "
 "as their name. The disambiguation should be removed or, if it is needed, "
 "improved."
-msgstr "此报告列出了将消除歧义设置为与其名称相同的标签。消除歧义应该被删除，或者如果"
+msgstr ""
+"此报告列出了将消除歧义设置为与其名称相同的标签。消除歧义应该被删除，或者如果"
 "需要的话，加以改进。"
 
 #: ../root/report/LabelsDisambiguationSameName.js:31
@@ -13072,7 +13142,7 @@ msgstr ""
 
 #: ../root/report/ReportsIndex.js:606
 #: ../root/search/components/RecordingResults.js:144
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:717
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:721
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:408
 #: ../root/static/scripts/common/components/IsrcList.js:44
 #: ../root/utility/tableColumns.js:689
@@ -13159,9 +13229,9 @@ msgid ""
 "See the {data_track_guidelines|data track guidelines}."
 msgstr ""
 "该报告列出了没有任何磁盘id的发行版本，这些版本可能在媒体的末尾包含数据音轨(如"
-"视频)，但没有标记为数据音轨。如果数据轨道是CD的最后一个轨道并且包含音频或视频"
-"，则应这样标记。否则，它应该被删除。参见{data_track_guidelines|数据跟踪指南}"
-"。"
+"视频)，但没有标记为数据音轨。如果数据轨道是CD的最后一个轨道并且包含音频或视"
+"频，则应这样标记。否则，它应该被删除。参见{data_track_guidelines|数据跟踪指"
+"南}。"
 
 #: ../root/report/TracksNamedWithSequence.js:24
 msgid ""
@@ -13219,10 +13289,10 @@ msgid ""
 "should always be separate. If you split the recordings, consider whether it "
 "makes sense to link them with a {doc_link|music video relationship}."
 msgstr ""
-"这里主要有两种可能:一种是标记为视频的录音正确，但格式不对(例如，CD应该是VCD)"
-"，另一种是同时用于视频和只用于音频的录音，在这种情况下，两者应该分开，因为视"
-"频录音总是分开的。如果你拆分录音，考虑是否有意义的链接它们与{doc_link|音乐视"
-"频关系}。"
+"这里主要有两种可能:一种是标记为视频的录音正确，但格式不对(例如，CD应该是"
+"VCD)，另一种是同时用于视频和只用于音频的录音，在这种情况下，两者应该分开，因"
+"为视频录音总是分开的。如果你拆分录音，考虑是否有意义的链接它们与{doc_link|音"
+"乐视频关系}。"
 
 #: ../root/report/WikidataLinksWithMultipleEntities.js:40
 msgid ""
@@ -13347,7 +13417,7 @@ msgid "Other lookups"
 msgstr ""
 
 #: ../root/search/components/AreaResults.js:66
-#: ../root/search/components/ArtistResults.js:57
+#: ../root/search/components/ArtistResults.js:56
 #: ../root/search/components/LabelResults.js:70
 #: ../root/search/components/PlaceResults.js:67
 #: ../root/utility/tableColumns.js:164 ../root/utility/tableColumns.js:169
@@ -13358,7 +13428,7 @@ msgstr "生日"
 msgid "Alternatively, you may {uri|add a new area}."
 msgstr ""
 
-#: ../root/search/components/ArtistResults.js:86
+#: ../root/search/components/ArtistResults.js:85
 msgid "Alternatively, you may {uri|add a new artist}."
 msgstr ""
 
@@ -13368,7 +13438,7 @@ msgid "Documentation Search"
 msgstr ""
 
 #: ../root/search/components/EventResults.js:78
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:1044
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:1048
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:220
 #: ../root/utility/tableColumns.js:383
 msgid "Location"
@@ -13406,7 +13476,7 @@ msgstr ""
 msgid "Alternatively, you may {uri|add a new release group}."
 msgstr ""
 
-#: ../root/search/components/ReleaseResults.js:152
+#: ../root/search/components/ReleaseResults.js:151
 msgid "Alternatively, you may {uri|add a new release}."
 msgstr ""
 
@@ -13490,7 +13560,7 @@ msgstr ""
 msgid "Sorry, your query was too large."
 msgstr ""
 
-#: ../root/series/SeriesIndex.js:150
+#: ../root/series/SeriesIndex.js:142
 msgid "This series is currently empty."
 msgstr ""
 
@@ -13511,42 +13581,42 @@ msgid ""
 "for installed applications."
 msgstr ""
 
-#: ../root/static/scripts/account/components/EditProfileForm.js:180
+#: ../root/static/scripts/account/components/EditProfileForm.js:210
 msgid ""
 "This is a development server. Your email address is not private or secure. "
 "Proceed with caution!"
 msgstr ""
 
-#: ../root/static/scripts/account/components/EditProfileForm.js:193
+#: ../root/static/scripts/account/components/EditProfileForm.js:223
 msgid "If you change your email address, you will be required to verify it."
 msgstr ""
 
-#: ../root/static/scripts/account/components/EditProfileForm.js:215
+#: ../root/static/scripts/account/components/EditProfileForm.js:245
 #: ../root/user/UserProfile.js:274
 msgid "Location:"
 msgstr ""
 
-#: ../root/static/scripts/account/components/EditProfileForm.js:240
+#: ../root/static/scripts/account/components/EditProfileForm.js:270
 msgid ""
 "You can pick the level you prefer here: your country, region or city. Be as "
 "specific as you want to!"
 msgstr ""
 
-#: ../root/static/scripts/account/components/EditProfileForm.js:247
+#: ../root/static/scripts/account/components/EditProfileForm.js:277
 msgid "Birth date:"
 msgstr ""
 
-#: ../root/static/scripts/account/components/EditProfileForm.js:252
+#: ../root/static/scripts/account/components/EditProfileForm.js:282
 msgid ""
 "We will use your birth date to display your age in years on your profile "
 "page."
 msgstr ""
 
-#: ../root/static/scripts/account/components/EditProfileForm.js:263
+#: ../root/static/scripts/account/components/EditProfileForm.js:293
 msgid "Languages Known:"
 msgstr ""
 
-#: ../root/static/scripts/account/components/EditProfileForm.js:299
+#: ../root/static/scripts/account/components/EditProfileForm.js:329
 msgid "Add a language"
 msgstr ""
 
@@ -13582,8 +13652,9 @@ msgstr ""
 msgid ""
 "Mail me when one of my edits gets a \"no\" vote. (Note: the email is only "
 "sent for the first \"no\" vote, not each one)"
-msgstr "如果我的编辑有人投了反对票就给我发邮件。(注:此邮件仅针对第一次投“反对”票发送"
-"，而非每一次)"
+msgstr ""
+"如果我的编辑有人投了反对票就给我发邮件。(注:此邮件仅针对第一次投“反对”票发"
+"送，而非每一次)"
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:221
 msgid "When I add a note to an edit, mail me all future notes for that edit."
@@ -13733,33 +13804,33 @@ msgid "Show more artist credits"
 msgstr ""
 
 #: ../root/static/scripts/artist/components/ArtistCreditRenamer.js:271
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:475
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:479
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:101
 #: ../root/static/scripts/common/components/Collapsible.js:76
 msgid "Show more..."
 msgstr ""
 
-#: ../root/static/scripts/collection/components/CollectionEditForm.js:191
+#: ../root/static/scripts/collection/components/CollectionEditForm.js:194
 msgid "Collection details"
 msgstr ""
 
-#: ../root/static/scripts/collection/components/CollectionEditForm.js:210
+#: ../root/static/scripts/collection/components/CollectionEditForm.js:213
 msgid "Allow other users to see this collection"
 msgstr ""
 
-#: ../root/static/scripts/collection/components/CollectionEditForm.js:225
+#: ../root/static/scripts/collection/components/CollectionEditForm.js:228
 msgid "Create collection"
 msgstr ""
 
-#: ../root/static/scripts/collection/components/CollectionEditForm.js:227
+#: ../root/static/scripts/collection/components/CollectionEditForm.js:230
 msgid "Update collection"
 msgstr ""
 
-#: ../root/static/scripts/collection/components/CollectionEditForm.js:285
+#: ../root/static/scripts/collection/components/CollectionEditForm.js:288
 msgid "Add collaborator"
 msgstr ""
 
-#: ../root/static/scripts/collection/components/CollectionEditForm.js:327
+#: ../root/static/scripts/collection/components/CollectionEditForm.js:330
 msgid "Remove collaborator"
 msgstr ""
 
@@ -13777,7 +13848,7 @@ msgid "Try with indexed search instead."
 msgstr ""
 
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:126
-#: ../root/static/scripts/common/components/Autocomplete2.js:807
+#: ../root/static/scripts/common/components/Autocomplete2.js:800
 msgid "Type to search, or paste an MBID"
 msgstr "输入以进行搜索或粘贴MBID"
 
@@ -13786,32 +13857,32 @@ msgstr "输入以进行搜索或粘贴MBID"
 msgid "Clear recent items"
 msgstr ""
 
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:482
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:486
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:108
 msgid "Not found? Try again with direct search."
 msgstr ""
 
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:483
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:487
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:115
 msgid "Slow? Switch back to indexed search."
 msgstr ""
 
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:704
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:708
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:400
 msgid "appears on"
 msgstr ""
 
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:710
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:714
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:404
 msgid "standalone recording"
 msgstr ""
 
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:804
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:808
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:496
 msgid "{release_group_type} by {artist}"
 msgstr ""
 
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:1043
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:1047
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:217
 msgid "Performers"
 msgstr ""
@@ -14375,31 +14446,31 @@ msgctxt "plural"
 msgid "Series"
 msgstr "系列"
 
-#: ../root/static/scripts/common/utility/relationshipDateText.js:24
+#: ../root/static/scripts/common/utility/relationshipDateText.js:25
 msgid "on {date}"
 msgstr ""
 
-#: ../root/static/scripts/common/utility/relationshipDateText.js:26
+#: ../root/static/scripts/common/utility/relationshipDateText.js:27
 msgid "in {date}"
 msgstr ""
 
-#: ../root/static/scripts/common/utility/relationshipDateText.js:28
+#: ../root/static/scripts/common/utility/relationshipDateText.js:29
 msgid "from {begin_date} until {end_date}"
 msgstr ""
 
-#: ../root/static/scripts/common/utility/relationshipDateText.js:33
+#: ../root/static/scripts/common/utility/relationshipDateText.js:34
 msgid "from {date} to ????"
 msgstr ""
 
-#: ../root/static/scripts/common/utility/relationshipDateText.js:35
+#: ../root/static/scripts/common/utility/relationshipDateText.js:36
 msgid "from {date} to present"
 msgstr ""
 
-#: ../root/static/scripts/common/utility/relationshipDateText.js:37
+#: ../root/static/scripts/common/utility/relationshipDateText.js:38
 msgid "until {date}"
 msgstr ""
 
-#: ../root/static/scripts/common/utility/relationshipDateText.js:39
+#: ../root/static/scripts/common/utility/relationshipDateText.js:40
 msgid "ended"
 msgstr ""
 
@@ -14447,7 +14518,8 @@ msgstr ""
 msgid ""
 "Please link to a channel, not a specific video. Videos should be linked to "
 "the appropriate recordings or releases instead."
-msgstr "请链接到某个频道，而不是某个特定的视频。视频应该链接到适当的录音或专辑。"
+msgstr ""
+"请链接到某个频道，而不是某个特定的视频。视频应该链接到适当的录音或专辑。"
 
 #: ../root/static/scripts/edit/URLCleanup.js:389
 msgid ""
@@ -14466,7 +14538,8 @@ msgid ""
 "This is a lyrics site. As such, links to the site should be added at the "
 "release group level with the “lyrics” relationship, rather than directly to "
 "any specific release."
-msgstr "这是一个歌词网站。因此，网站的链接应该在专辑组级别添加“歌词”关系，而不是直接"
+msgstr ""
+"这是一个歌词网站。因此，网站的链接应该在专辑组级别添加“歌词”关系，而不是直接"
 "添加到任何特定的专辑。"
 
 #: ../root/static/scripts/edit/URLCleanup.js:571
@@ -14480,12 +14553,13 @@ msgstr ""
 
 #: ../root/static/scripts/edit/URLCleanup.js:658
 #: ../root/static/scripts/edit/URLCleanup.js:921
-#: ../root/static/scripts/edit/URLCleanup.js:4224
-#: ../root/static/scripts/edit/URLCleanup.js:5228
+#: ../root/static/scripts/edit/URLCleanup.js:4190
+#: ../root/static/scripts/edit/URLCleanup.js:5194
 msgid ""
 "This is a redirect link. Please follow {redirect_url|your link} and add the "
 "link it redirects to instead."
-msgstr "这是一个重定向链接。请关注{redirect_url|您的链接}并添加它重定向后的链接。"
+msgstr ""
+"这是一个重定向链接。请关注{redirect_url|您的链接}并添加它重定向后的链接。"
 
 #: ../root/static/scripts/edit/URLCleanup.js:676
 msgid ""
@@ -14565,121 +14639,123 @@ msgid ""
 "Please do not link directly to images, link to the appropriate Instagram "
 "profile page instead. If you want to link to a video, {url|add a standalone "
 "recording} for it instead."
-msgstr "请不要直接链接到图片，而是链接到适当的Instagram主页。如果你想链接到一个视频，"
+msgstr ""
+"请不要直接链接到图片，而是链接到适当的Instagram主页。如果你想链接到一个视频，"
 "{url|添加一个独立的录音}。"
 
 #: ../root/static/scripts/edit/URLCleanup.js:3045
 msgid "This is an internal Instagram page and should not be added."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:4121
+#: ../root/static/scripts/edit/URLCleanup.js:4087
 msgid ""
 "Musixmatch “{album_url_pattern}” pages are a bad match for MusicBrainz "
 "release groups, and linking to them is currently disallowed. Please consider "
 "adding Musixmatch links to the relevant artists and works instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:4745
+#: ../root/static/scripts/edit/URLCleanup.js:4711
 msgid "Only RYM music videos can be linked to recordings."
 msgstr "只有RYM的音乐视频可以链接到录音。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:4807
+#: ../root/static/scripts/edit/URLCleanup.js:4773
 msgid ""
 "This is a link to the old Resident Advisor domain. Please follow {ra_url|"
 "your link}, make sure the link it redirects to is still the correct one and, "
 "if so, add that link instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:5384
+#: ../root/static/scripts/edit/URLCleanup.js:5350
 msgid "Please link to Threads profiles, not threads."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:5771
+#: ../root/static/scripts/edit/URLCleanup.js:5737
 msgid "This is not a profile, but a Twitter documentation page."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:5785
+#: ../root/static/scripts/edit/URLCleanup.js:5751
 msgid "Please link to Twitter profiles, not tweets."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:5803
+#: ../root/static/scripts/edit/URLCleanup.js:5769
 msgid "This site does not allow direct links to their images."
 msgstr "此网站上的图片不支持外链。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:6009
+#: ../root/static/scripts/edit/URLCleanup.js:5975
 msgid ""
 "Please link to the “{allowed_url_pattern}” page rather than this "
 "“{current_url_pattern}” link."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6092
+#: ../root/static/scripts/edit/URLCleanup.js:6058
 msgid ""
 "There is an unencoded “?” or “#” character in this URL. Please check whether "
 "it is useless and should be removed, or whether it is an error and the URL "
 "is misencoded."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6112
+#: ../root/static/scripts/edit/URLCleanup.js:6078
 msgid ""
 "Please do not link directly to WhoSampled “{unwanted_url_pattern}” pages. "
 "Link to the appropriate WhoSampled artist, track or album page instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6133
+#: ../root/static/scripts/edit/URLCleanup.js:6099
 msgid "Please link WhoSampled “{album_url_pattern}” pages to release groups."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6151
+#: ../root/static/scripts/edit/URLCleanup.js:6117
 msgid "Please link WhoSampled artist pages to artists."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6163
+#: ../root/static/scripts/edit/URLCleanup.js:6129
 msgid "Please link WhoSampled track pages to recordings."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6230
+#: ../root/static/scripts/edit/URLCleanup.js:6196
 msgid ""
 "Links to specific sections of Wikipedia articles are not allowed. Please "
 "remove “{fragment}” if still appropriate. See the {url|guidelines}."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6255
+#: ../root/static/scripts/edit/URLCleanup.js:6221
 msgid ""
 "Links to Wikipedia user pages are not allowed. Please link only to actual "
 "Wikipedia articles."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6375
+#: ../root/static/scripts/edit/URLCleanup.js:6341
 msgid ""
 "This is a playlist link, which isn’t a video channel and is not guaranteed "
 "to be officially approved. Please link to the official channel for this "
 "entity, if it exists, instead."
-msgstr "这是一个播放列表链接，不是视频频道，也不能保证得到官方批准。如果该实体存在，"
+msgstr ""
+"这是一个播放列表链接，不是视频频道，也不能保证得到官方批准。如果该实体存在，"
 "请链接到该实体的官方频道。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:6415
+#: ../root/static/scripts/edit/URLCleanup.js:6381
 msgid "Only video and playlist links are allowed on releases."
 msgstr "只有视频和播放列表链接是允许发布的。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:6447
+#: ../root/static/scripts/edit/URLCleanup.js:6413
 msgid ""
 "Wikipedia normally has no entries for specific releases, so adding Wikipedia "
 "links to a release is currently blocked. Please add this Wikipedia link to "
 "the release group instead, if appropriate."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6459
+#: ../root/static/scripts/edit/URLCleanup.js:6425
 msgid ""
 "Wikidata normally has no entries for specific releases, so adding Wikidata "
 "links to a release is currently blocked. Please add this Wikidata link to "
 "the release group instead, if appropriate."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6670
+#: ../root/static/scripts/edit/URLCleanup.js:6636
 msgid "Some relationship types are missing for this URL."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6687
+#: ../root/static/scripts/edit/URLCleanup.js:6653
 #: ../root/static/scripts/edit/externalLinks.js:1022
 msgid "This relationship type combination is invalid."
 msgstr ""
@@ -14906,6 +14982,7 @@ msgstr ""
 msgid "Release events:"
 msgstr ""
 
+#: ../root/static/scripts/edit/components/forms.js:104
 #: ../root/static/scripts/edit/confirmNavigationFallback.js:44
 #: ../root/static/scripts/release-editor/init.js:271
 msgid "All of your changes will be lost if you leave this page."
@@ -15406,7 +15483,8 @@ msgid ""
 "The following releases with that barcode are already in the MusicBrainz "
 "database. Please make sure you are not adding an exact duplicate of any of "
 "these:"
-msgstr "在MusicBrainz数据库中已经存在以下带有该条形码的版本。请确保你没有添加这些完全"
+msgstr ""
+"在MusicBrainz数据库中已经存在以下带有该条形码的版本。请确保你没有添加这些完全"
 "相同的内容:"
 
 #: ../root/static/scripts/release-editor/validation.js:178
@@ -15572,11 +15650,11 @@ msgstr ""
 msgid "Work Type:"
 msgstr ""
 
-#: ../root/static/scripts/work/edit.js:336
+#: ../root/static/scripts/work/edit.js:339
 msgid "Add Language"
 msgstr ""
 
-#: ../root/static/scripts/work/edit.js:348
+#: ../root/static/scripts/work/edit.js:351
 msgid "Remove Language"
 msgstr ""
 
@@ -16851,12 +16929,12 @@ msgstr ""
 "编辑者的笔记，以便他们在未来做得更好。一定要链接到适当的指南，或相关的正确输"
 "入数据的示例，最重要的是记住要友好。如果这些用户搞得一团糟，他们可能不是故意"
 "的，而是出于困惑:MusicBrainz可能会让新手望而生畏!如果可能的话，修复错误(并让"
-"编辑者知道你已经这样做了，并且他们可以检查你所做的编辑，看看它应该是什么样子)"
-"，而不是对编辑投“反对”票，因为“反对”票是相当令人沮丧的，特别是作为一个新编辑"
-"者。如果某些内容糟糕到无法修复，并且会使现有数据变得更糟，请投票反对编辑，但"
-"请确保清楚地解释为什么需要这样做，而不是默默地投“反对”票。关于我们所希望的态"
-"度的更长的概述，请参阅{voting_blog|关于投票的博客文章}。此外，如果一个初学者"
-"做出了特别好的编辑，你可能想让他们知道，这样他们会感觉很好!"
+"编辑者知道你已经这样做了，并且他们可以检查你所做的编辑，看看它应该是什么样"
+"子)，而不是对编辑投“反对”票，因为“反对”票是相当令人沮丧的，特别是作为一个新编"
+"辑者。如果某些内容糟糕到无法修复，并且会使现有数据变得更糟，请投票反对编辑，"
+"但请确保清楚地解释为什么需要这样做，而不是默默地投“反对”票。关于我们所希望的"
+"态度的更长的概述，请参阅{voting_blog|关于投票的博客文章}。此外，如果一个初学"
+"者做出了特别好的编辑，你可能想让他们知道，这样他们会感觉很好!"
 
 #: ../root/vote/VotingIndex.js:259
 msgid ""
@@ -16936,7 +17014,8 @@ msgid ""
 "<strong>Warning:</strong> Some of the works you’re merging have different "
 "ISWCs. Please make sure they are indeed the same works and you wish to "
 "continue with the merge."
-msgstr "<strong>警告:</strong>您正在合并的某些作品具有不同的iswc。请确保它们确实是相"
+msgstr ""
+"<strong>警告:</strong>您正在合并的某些作品具有不同的iswc。请确保它们确实是相"
 "同的作品，并且您希望继续合并。"
 
 #~ msgid "Username:"

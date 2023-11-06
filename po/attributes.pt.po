@@ -24,8 +24,8 @@ msgid ""
 "unaccompanied) choral works. What exactly is a motet depends quite a bit on "
 "the period."
 msgstr ""
-"«Motete» é um termo que se aplica a diferentes tipos de obras corais ("
-"geralmente sem acompanhamento). O que é exatamente um motete depende "
+"«Motete» é um termo que se aplica a diferentes tipos de obras corais "
+"(geralmente sem acompanhamento). O que é exatamente um motete depende "
 "bastante do período."
 
 #: DB:work_type/description:5
@@ -384,9 +384,9 @@ msgstr ""
 msgctxt "event_type"
 msgid ""
 "A performance of one or more plays, musicals, operas, ballets or other "
-"similar works for the stage in their staged form (as opposed to a <a href="
-"\"https://en.wikipedia.org/wiki/Concert_performance\">concert performance</"
-"a> without staging)."
+"similar works for the stage in their staged form (as opposed to a <a "
+"href=\"https://en.wikipedia.org/wiki/Concert_performance\">concert "
+"performance</a> without staging)."
 msgstr ""
 
 #: DB:place_type/description:8
