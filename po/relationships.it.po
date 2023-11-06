@@ -19,7 +19,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-10-04 03:27+0000\n"
+"PO-Revision-Date: 2023-11-06 02:27+0000\n"
 "Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
 "metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -28,9 +28,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.0.2\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
+"X-Generator: Weblate 5.1\n"
 
 #: DB:link_attribute_type/description:1355
 msgid "A performance-centered, usually one to three year postgraduate program."
@@ -86,6 +86,13 @@ msgid ""
 "post. Examples include Facebook pages and profiles, Last.fm users and "
 "accounts on Twitter, Instagram and Flickr."
 msgstr ""
+"Una pagina di social network è la pagina di artista su un <a href=\"https"
+"://it.wikipedia.org/wiki/Social_network\" target=\"_blank\">social network</"
+"a>, dove solo l'artista (o chi lo gestisce) può postare contenuti. Altre "
+"persone possono creare i loro profili e interagire con l'artista, ad esempio "
+"aggiungendoli come amici o commentando le cose che posta. Alcuni esempi sono "
+"pagine e profili Facebook, utenti Last.fm e account su Twitter, Instagram e "
+"Flickr."
 
 #: DB:link_type/description:783
 msgid ""
@@ -368,6 +375,8 @@ msgid ""
 "Indicates a page that reviews the release (group) in question, whether it be "
 "in text, audio or video form."
 msgstr ""
+"Indica una pagina che recensisce il gruppo di pubblicazioni o la "
+"pubblicazione in questione, che sia in forma testuale, audio o video."
 
 #: DB:link_type/description:1083
 msgid "Indicates a page with an official schedule for an event series."
@@ -588,12 +597,16 @@ msgid ""
 "Indicates the composer for this release, that is, the artist who wrote the "
 "music (not necessarily the lyrics)."
 msgstr ""
+"Indica il compositore di questa pubblicazione, cioè l'artista che ha scritto "
+"la musica (non necessariamente i testi)."
 
 #: DB:link_type/description:168
 msgid ""
 "Indicates the composer for this work, that is, the artist who wrote the "
 "music (not necessarily the lyrics)."
 msgstr ""
+"Indica il compositore di quest'opera, cioè l'artista che ha scritto la "
+"musica (non necessariamente i testi)."
 
 #: DB:link_type/description:845
 msgid "Indicates the event where the work had its first performance"
@@ -1042,6 +1055,9 @@ msgid ""
 "Links an event to a DJ that appeared in a supporting role (such as DJing "
 "between artists, or closing the night after a concert)."
 msgstr ""
+"Collega un evento a un DJ che ha partecipato in un ruolo di supporto (per "
+"esempio esibendosi nell'intermezzo tra artisti o chiudendo la serata dopo un "
+"concerto)."
 
 #: DB:link_type/description:800
 msgid ""
@@ -1444,6 +1460,8 @@ msgid ""
 "This attribute indicates a member the band is named after and without which "
 "it wouldn't exist (such as Miles Davis -&gt; Miles Davis Sextet)"
 msgstr ""
+"Questo attributo indica un membro che dà il nome alla band e senza il quale "
+"essa non esisterebbe (per esempio Miles Davis -&gt; Miles Davis Sextet)."
 
 #: DB:link_attribute_type/description:511
 msgid ""
@@ -1474,6 +1492,7 @@ msgstr ""
 msgid ""
 "This attribute indicates that the content is not audio (or text) but video."
 msgstr ""
+"Questo attributo indica che il contenuto non è audio (o testuale) ma video."
 
 #: DB:link_attribute_type/description:788
 msgid "This attribute indicates the number of an entity in a series."
@@ -1964,6 +1983,8 @@ msgid ""
 "This indicates that a person is, or was, the artistic director of a group "
 "(such as a ballet/opera company)."
 msgstr ""
+"Indica che una persona è, o è stata, il direttore artistico di un gruppo ("
+"per esempio una compagnia di balletto/d'opera)."
 
 #: DB:link_type/description:137
 msgid ""
@@ -2055,6 +2076,8 @@ msgid ""
 "This indicates that a work is made up of multiple parts (such as an "
 "orchestral suite broken into movements)"
 msgstr ""
+"Indica che un'opera è composta di più parti (per esempio una suite per "
+"orchestra divisa in movimenti)."
 
 #: DB:link_type/description:858
 msgid ""
@@ -2194,6 +2217,8 @@ msgid ""
 "This indicates that the recording is not of the entire work, such as "
 "excerpts from, conclusion of, etc."
 msgstr ""
+"Indica che la registrazione non è dell'intera opera, per esempio brani da, "
+"conclusione di, ecc."
 
 #: DB:link_attribute_type/description:578
 msgid "This indicates that the recording is of a live performance."
@@ -3299,6 +3324,10 @@ msgid ""
 "page (such as for a specific tour, or for compiling a classical catalogue) "
 "at a crowdfunding site like Kickstarter or Indiegogo."
 msgstr ""
+"Collega una serie alla sua pagina di profilo (per esempio, nel caso di un "
+"festival) o alla sua pagina di progetto (per esempio, nel caso di uno "
+"specifico tour o della compilazione di un catalogo di musica classica) su un "
+"sito di crowdfunding come Kickstarter o Indiegogo."
 
 #: DB:link_type/description:97
 msgid ""
@@ -3543,14 +3572,14 @@ msgid ""
 "href=\"/relationship/40dff87a-e475-4aa6-b615-9935b564d756\">editor "
 "relationship type</a>."
 msgstr ""
-"Collega un edit (ovvero una versione rivista) alla sua registrazione "
+"Collega un edit (cioè una versione rivista) alla sua registrazione "
 "originale. Per questa relazione, un \"edit\" può essere una versione "
 "radiofonica (\"radio edit\", cioè una versione di circa 3 minuti che rende "
 "una traccia più lunga adatta ad essere riprodotta radiofonicamente), o una "
 "versione accorciata, censurata o modificata in altro modo dello stesso "
 "materiale. La persona che ha curato l'editing della registrazione può essere "
-"collegata utilizzando il <a href=\"/relationship/40dff87a-e475-4aa6-"
-"b615-9935b564d756\">tipo di relazione editor</a>."
+"collegata utilizzando il <a href=\"/relationship/40dff87a-e475-4aa6-b615-"
+"9935b564d756\">tipo di relazione editor</a>."
 
 #: DB:link_type/description:289
 msgid ""
@@ -3826,6 +3855,8 @@ msgid ""
 "This relationship indicates that a person was a teacher at an event (such as "
 "a masterclass)."
 msgstr ""
+"Questa relazione indica che una persona ha insegnato a un evento (per "
+"esempio un corso di perfezionamento)."
 
 #: DB:link_type/description:847
 msgid ""
@@ -4235,6 +4266,12 @@ msgid ""
 "For individual songs, see the <a href=\"/relationship/a3005666-a872-32c3-"
 "ad06-98af558e99b0\">recording-work performance relationship type</a>."
 msgstr ""
+"Questo tipo di relazione serve a indicare che un gruppo di pubblicazioni è "
+"una cover di un altro gruppo di pubblicazioni, cioè che un artista ha "
+"eseguito una nuova interpretazione dell'album di un altro artista.<br/>\n"
+"Per canzoni singole, utilizza il <a href=\"/relationship/"
+"a3005666-a872-32c3-ad06-98af558e99b0\">tipo di relazione esecuzione "
+"registrazione-opera</a>."
 
 #: DB:link_type/description:1005
 msgid ""
@@ -4243,12 +4280,21 @@ msgid ""
 "\n"
 "If the site allows free streaming, use \"free streaming\" instead."
 msgstr ""
+"Questo tipo di relazione serve a collegare un'etichetta a un sito su cui la "
+"sua musica è disponibile in streaming in modo legale dietro pagamento di un "
+"abbonamento, per esempio Apple Music.\n"
+"\n"
+"Se il sito permette lo streaming gratuito, utilizza la relazione \"streaming "
+"gratuito\"."
 
 #: DB:link_type/description:997
 msgid ""
 "This relationship type is used to link a label to a site where music can be "
 "legally streamed for free, such as Spotify."
 msgstr ""
+"Questo tipo di relazione serve a collegare un'etichetta a un sito su cui la "
+"sua musica è disponibile in streaming gratuito in modo legale, per esempio "
+"Spotify."
 
 #: DB:link_type/description:224
 msgid "This relationship type is used to link a label to its blog."
@@ -4263,6 +4309,12 @@ msgid ""
 "\n"
 "If the site allows free streaming, use \"free streaming\" instead."
 msgstr ""
+"Questo tipo di relazione serve a collegare una registrazione a un sito su "
+"cui è disponibile in streaming in modo legale dietro pagamento di un "
+"abbonamento, per esempio Tidal.\n"
+"\n"
+"Se il sito permette lo streaming gratuito, utilizza la relazione \"streaming "
+"gratuito\"."
 
 #: DB:link_type/description:268
 msgid ""
@@ -4270,6 +4322,9 @@ msgid ""
 "legally streamed for free, such as Spotify for audio tracks or YouTube for "
 "videos."
 msgstr ""
+"Questo tipo di relazione serve a collegare una registrazione a un sito su "
+"cui è disponibile in streaming gratuito in modo legale, come Spotify per le "
+"tracce audio o YouTube per i video."
 
 #: DB:link_type/description:287
 msgid ""
@@ -4286,12 +4341,21 @@ msgid ""
 "\n"
 "If the site allows free streaming, use \"free streaming\" instead."
 msgstr ""
+"Questo tipo di relazione serve a collegare una pubblicazione a un sito su "
+"cui le tracce sono disponibili in streaming in modo legale dietro pagamento "
+"di un abbonamento, per esempio Tidal.\n"
+"\n"
+"Se il sito permette lo streaming gratuito, utilizza la relazione \"streaming "
+"gratuito\"."
 
 #: DB:link_type/description:85
 msgid ""
 "This relationship type is used to link a release to a site where the tracks "
 "can be legally streamed for free, such as Spotify."
 msgstr ""
+"Questo tipo di relazione serve a collegare una pubblicazione a un sito su "
+"cui le tracce sono disponibili in streaming gratuito in modo legale, per "
+"esempio Spotify."
 
 #: DB:link_type/description:978
 msgid ""
@@ -4300,12 +4364,21 @@ msgid ""
 "\n"
 "If the site allows free streaming, use \"free streaming\" instead."
 msgstr ""
+"Questo tipo di relazione serve a collegare un artista a un sito su cui la "
+"sua musica è disponibile in streaming in modo legale dietro pagamento di un "
+"abbonamento, per esempio Tidal.\n"
+"\n"
+"Se il sito permette lo streaming gratuito, utilizza la relazione \"streaming "
+"gratuito\"."
 
 #: DB:link_type/description:194
 msgid ""
 "This relationship type is used to link an artist to a site where music can "
 "be legally streamed for free, such as Spotify."
 msgstr ""
+"Questo tipo di relazione serve a collegare un artista a un sito su cui la "
+"sua musica è disponibile in streaming gratuito in modo legale, per esempio "
+"Spotify."
 
 #: DB:link_type/description:199
 msgid "This relationship type is used to link an artist to their blog."
@@ -7657,6 +7730,8 @@ msgstr "ha fornito rappresentanza legale {additional:aggiuntiva} per"
 #: DB:link_type/long_link_phrase:18
 msgid "provided {additional} {assistant} art direction on"
 msgstr ""
+"ha fornito {assistant:assistenza alla} direzione artistica "
+"{additional:aggiuntiva} su"
 
 #: DB:link_type/long_link_phrase:928
 msgid "provided {additional} {assistant} design on"
@@ -9089,7 +9164,7 @@ msgstr "luogo {additional:aggiuntivo} di scrittura per"
 
 #: DB:link_type/link_phrase:18 DB:link_type/reverse_link_phrase:18
 msgid "{additional} {assistant} art direction"
-msgstr ""
+msgstr "{assistant:assistenza alla} direzione artistica {additional:aggiuntiva}"
 
 #: DB:link_type/link_phrase:152 DB:link_type/link_phrase:53
 #: DB:link_type/reverse_link_phrase:152 DB:link_type/reverse_link_phrase:53
