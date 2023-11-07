@@ -11,7 +11,9 @@ import StatusPage from '../components/StatusPage.js';
 import {CONTACT_URL} from '../constants.js';
 
 const LostPasswordSent = (): React$Element<typeof StatusPage> => (
-  <StatusPage title={hyphenateTitle(l('Lost Password'), l('Email Sent!'))}>
+  <StatusPage
+    title={hyphenateTitle(l('Lost password'), lp('Email sent', 'header'))}
+  >
     <p>
       {exp.l(
         `We've sent you instructions on how to reset your password.

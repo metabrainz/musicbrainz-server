@@ -301,7 +301,7 @@ sub _check_for_confirmed_email {
         $c->stash(
             component_path  => 'user/UserMessage',
             component_props => {
-                title    => l('Send Email'),
+                title    => lp('Send email', 'header'),
                 message  => l('You cannot contact other users because you have not {url|verified your email address}.',
                             {url => $c->uri_for_action('/account/resend_verification')}),
             },
@@ -327,7 +327,7 @@ sub contact : Chained('load') RequireAuth HiddenOnMirrors SecureForm
         $c->stash(
             component_path  => 'user/UserMessage',
             component_props => {
-                title    => l('Send Email'),
+                title    => lp('Send email', 'header'),
                 message  => l(
                     'You are not allowed to send messages to editors.',
                 ),
@@ -342,7 +342,7 @@ sub contact : Chained('load') RequireAuth HiddenOnMirrors SecureForm
         $c->stash(
             component_path  => 'user/UserMessage',
             component_props => {
-                title    => l('Send Email'),
+                title    => lp('Send email', 'header'),
                 message  => l('The editor {name} has no email address attached to their account.',
                             { name => $editor->name }),
             },
@@ -357,7 +357,7 @@ sub contact : Chained('load') RequireAuth HiddenOnMirrors SecureForm
         $c->stash(
             component_path  => 'user/UserMessage',
             component_props => {
-                title    => l('Email Sent'),
+                title    => lp('Email sent', 'header'),
                 message  => l(q(Your email has been successfully sent! Click {link|here} to continue to {user}'s profile.),
                             {
                                 link => $c->uri_for_action('/user/profile', [ $editor->name ]),

@@ -26,8 +26,8 @@ type Props = {
 const ResetPassword = ({
   form,
 }: Props): React$Element<typeof Layout> => (
-  <Layout fullWidth title={l('Reset Password')}>
-    <h1>{l('Reset Password')}</h1>
+  <Layout fullWidth title={lp('Reset password', 'header')}>
+    <h1>{lp('Reset password', 'header')}</h1>
 
     <p>
       {l('Set a new password for your MusicBrainz account.')}
@@ -52,7 +52,7 @@ const ResetPassword = ({
         uncontrolled
       />
       <FormRow hasNoLabel>
-        <FormSubmit label={l('Reset Password')} />
+        <FormSubmit label={lp('Reset password', 'button/menu')} />
       </FormRow>
     </form>
   </Layout>

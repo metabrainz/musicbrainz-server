@@ -33,7 +33,7 @@ const EditLinks = ({
         {$c.user ? children : requiresPrivileges ? null : (
           <>
             <li>
-              <RequestLogin text={l('Log in to edit')} />
+              <RequestLogin text={lp('Log in to edit', 'button/menu')} />
             </li>
             <li className="separator" role="separator" />
           </>

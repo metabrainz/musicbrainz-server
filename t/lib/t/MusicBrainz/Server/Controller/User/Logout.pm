@@ -28,7 +28,7 @@ $mech->content_contains('You need to be logged in to view this page');
 $mech->get_ok('/logout?returnto=/login');
 html_ok($mech->content);
 is($mech->uri->path, '/login', 'Redirected to /login');
-$mech->content_contains('Log In');
+$mech->content_contains('Log in');
 
 };
 

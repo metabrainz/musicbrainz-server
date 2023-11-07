@@ -61,7 +61,7 @@ $mech->submit_form(
 
 $mech->get('/user/alice/subscriptions');
 $mech->content_contains(
-  'Artist Subscriptions',
+  'Artist subscriptions',
   'directs to artist subscriptions',
 );
 $mech->content_contains('Kate Bush', 'subscription to Kate Bush is listed');
@@ -86,7 +86,7 @@ $mech->submit_form(
 $mech->get('/user/alice/subscriptions');
 is ($mech->status(), HTTP_OK, 'alice can still view their own subs');
 $mech->content_contains(
-  'Artist Subscriptions',
+  'Artist subscriptions',
   'directs to artist subscriptions',
 );
 $mech->content_contains('Kate Bush', 'subscription to Kate Bush is listed');
@@ -100,7 +100,7 @@ $mech->submit_form(
 $mech->get('/user/alice/subscriptions');
 is ($mech->status(), HTTP_OK, q(account admins can view alice's subs));
 $mech->content_contains(
-  'Editor Subscriptions',
+  'Editor subscriptions',
   'directs to editor subscriptions',
 );
 $mech->content_contains('new_editor', 'subscription to new_editor is listed');

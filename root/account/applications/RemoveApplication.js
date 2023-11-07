@@ -19,7 +19,7 @@ const RemoveApplication = ({
   <ConfirmLayout
     form={form}
     question={l('Are you sure you want to remove this application?')}
-    title={l('Remove Application')}
+    title={lp('Remove application', 'header')}
   />
 );
 

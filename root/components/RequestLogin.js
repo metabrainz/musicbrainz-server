@@ -20,7 +20,7 @@ const RequestLogin = ({text}: Props): React$Element<'a'> => {
   const $c = React.useContext(CatalystContext);
   return (
     <a href={returnUri($c, '/login')}>
-      {nonEmpty(text) ? text : l('Log in')}
+      {nonEmpty(text) ? text : lp('Log in', 'button/menu')}
     </a>
   );
 };

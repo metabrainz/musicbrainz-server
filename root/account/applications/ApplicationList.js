@@ -31,8 +31,8 @@ const buildApplicationRow = (application: ApplicationT, index: number) => (
     <td>{application.name}</td>
     <td>
       {application.is_server
-        ? l('Web Application')
-        : l('Installed Application')}
+        ? l('Web application')
+        : l('Installed application')}
     </td>
     <td><code>{application.oauth_id}</code></td>
     <td><code>{application.oauth_secret}</code></td>
@@ -62,7 +62,7 @@ const buildTokenRow = (
         href={'/account/applications/revoke-access/' +
           token.application.id + '/' + token.scope}
       >
-        {l('Revoke Access')}
+        {l('Revoke access')}
       </a>
     </td>
   </tr>
@@ -74,7 +74,7 @@ function formatScopes(token: EditorOAuthTokenT) {
   );
 
   if (token.is_offline) {
-    lScopes.push(l('Offline Access'));
+    lScopes.push(l('Offline access'));
   }
 
   lScopes.sort(compare);
@@ -94,7 +94,7 @@ const ApplicationList = ({
     <Layout fullWidth title={l('Applications')}>
       <h1>{l('Applications')}</h1>
 
-      <h2>{l('Authorized Applications')}</h2>
+      <h2>{l('Authorized applications')}</h2>
 
       <p>
         {l(
@@ -129,7 +129,7 @@ const ApplicationList = ({
           <p>{l('You have not authorized any applications.')}</p>
         )}
 
-      <h2>{l('Developer Applications')}</h2>
+      <h2>{l('Developer applications')}</h2>
 
       <p>
         {exp.l(
@@ -153,8 +153,8 @@ const ApplicationList = ({
                 <tr>
                   <th>{l('Application')}</th>
                   <th>{l('Type')}</th>
-                  <th>{l('OAuth Client ID')}</th>
-                  <th>{l('OAuth Client Secret')}</th>
+                  <th>{l('OAuth client ID')}</th>
+                  <th>{l('OAuth client secret')}</th>
                   <th>{l('Actions')}</th>
                 </tr>
               </thead>

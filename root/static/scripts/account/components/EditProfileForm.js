@@ -290,7 +290,7 @@ class EditProfileForm extends React.Component<Props, State> {
         />
 
         <FormRow>
-          <FormLabel label={l('Languages Known:')} />
+          <FormLabel label={l('Languages known:')} />
           <ul className="inline">
             {field.languages.field.map((languageField, index) => (
               <li className="language" key={index}>
@@ -334,7 +334,7 @@ class EditProfileForm extends React.Component<Props, State> {
         </FormRow>
 
         <FormRow hasNoLabel>
-          <FormSubmit label={l('Save')} />
+          <FormSubmit label={lp('Save', 'button/menu')} />
         </FormRow>
       </form>
     );

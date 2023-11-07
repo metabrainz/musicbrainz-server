@@ -159,7 +159,7 @@ const UserProfileInformation = ({
   const showBioAndURL = !!(!user.is_limited || $c.user);
   let memberSince;
   if (user.name === 'rob') {
-    memberSince = l('The Dawn of the Project');
+    memberSince = l('The dawn of the project');
   } else if (user.is_charter) {
     memberSince = l('The early days of the project');
   } else {
@@ -188,7 +188,7 @@ const UserProfileInformation = ({
 
   return (
     <>
-      <h2>{l('General Information')}</h2>
+      <h2>{l('General information')}</h2>
 
       <table className="profileinfo" role="presentation">
         <UserProfileProperty name={addColonText(l('Email'))}>
@@ -920,7 +920,7 @@ const UserProfile = ({
     >
       {isSpammer(user) && !adminViewing ? (
         <>
-          <h2>{l('Blocked Spam Account')}</h2>
+          <h2>{l('Blocked spam account')}</h2>
           <p>
             {l(`This user was blocked and their profile is hidden
                 because they were deemed to be spamming.

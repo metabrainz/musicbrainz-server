@@ -158,7 +158,9 @@ const CoverArt = ({
           </div>
         ) : (
           <p>
-            <RequestLogin text={l('Log in to upload cover art')} />
+            <RequestLogin
+              text={lp('Log in to upload cover art', 'button/menu')}
+            />
           </p>
         )
       ) : null}

@@ -19,12 +19,12 @@ type Props = {
 };
 
 const RegisterApplication = (props: Props): React$Element<typeof Layout> => (
-  <Layout fullWidth title={l('Register Application')}>
-    <h1>{l('Register Application')}</h1>
+  <Layout fullWidth title={lp('Register application', 'header')}>
+    <h1>{lp('Register application', 'header')}</h1>
     <ApplicationForm
       action="register"
       form={props.form}
-      submitLabel={l('Register')}
+      submitLabel={lp('Register application', 'button/menu')}
     />
     {manifest.js('account/applications/register', {async: 'async'})}
   </Layout>

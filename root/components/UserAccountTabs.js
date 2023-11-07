@@ -84,7 +84,7 @@ function buildTabs(
     ));
     tabs.push(buildTab(
       page,
-      l('Change Password'),
+      lp('Change password', 'header'),
       '/account/change-password',
       'change_password',
     ));

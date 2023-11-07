@@ -25,14 +25,14 @@ const Register = ({
   form,
   invalidCaptchaResponse,
 }: Props): React$Element<typeof Layout> => (
-  <Layout fullWidth title={l('Create an Account')}>
+  <Layout fullWidth title={lp('Create an account', 'header')}>
     {invalidCaptchaResponse ? (
       <Warning
         message={l('Captcha incorrect. Try again.')}
       />
     ) : null}
 
-    <h1>{l('Create an Account')}</h1>
+    <h1>{lp('Create an account', 'header')}</h1>
 
     <p>
       {exp.l(

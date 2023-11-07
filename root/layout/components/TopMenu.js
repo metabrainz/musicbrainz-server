@@ -198,11 +198,11 @@ const UserMenu = () => {
       ) : (
         <>
           <li>
-            <RequestLogin text={l('Log in')} />
+            <RequestLogin text={lp('Log in', 'button/menu')} />
           </li>
           <li>
             <a href={returnUri($c, '/register')}>
-              {l('Create account')}
+              {lp('Create account', 'button/menu')}
             </a>
           </li>
         </>
