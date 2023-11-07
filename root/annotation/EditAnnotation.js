@@ -44,9 +44,9 @@ const EditAnnotation = ({
       entity={entity}
       fullWidth
       page="edit-annotation"
-      title={l('Edit annotation')}
+      title={lp('Edit annotation', 'header')}
     >
-      <h2>{l('Edit annotation')}</h2>
+      <h2>{lp('Edit annotation', 'header')}</h2>
 
       <p>
         {exp.l(
@@ -95,7 +95,7 @@ const EditAnnotation = ({
         </EnterEdit>
       </form>
 
-      <h3>{l('Annotation Formatting')}</h3>
+      <h3>{l('Annotation formatting')}</h3>
       <p>
         {l('Annotations support a limited set of wiki formatting options:')}
       </p>

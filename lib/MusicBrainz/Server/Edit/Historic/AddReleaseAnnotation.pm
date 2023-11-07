@@ -5,13 +5,13 @@ use warnings;
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_ADD_RELEASE_ANNOTATION );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Filters qw( format_wikitext );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 
 use aliased 'MusicBrainz::Server::Entity::Release';
 
 use MusicBrainz::Server::Edit::Historic::Base;
 
-sub edit_name { N_l('Add release annotation') }
+sub edit_name { N_lp('Add release annotation', 'edit name') }
 sub edit_kind { 'add' }
 sub historic_type { 31 }
 sub edit_type { $EDIT_HISTORIC_ADD_RELEASE_ANNOTATION }

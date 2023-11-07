@@ -94,7 +94,7 @@ const Annotation = ({
                     </>
                   ) : null}
                   <a href={entityHref(entity, 'edit_annotation')}>
-                    {l('Edit annotation')}
+                    {lp('Edit annotation', 'button/menu')}
                   </a>
                 </>
               ) : (

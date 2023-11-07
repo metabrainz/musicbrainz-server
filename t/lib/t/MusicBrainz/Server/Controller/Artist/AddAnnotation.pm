@@ -170,7 +170,7 @@ test 'MBS-12302: Test large annotation diffing' => sub {
     # (fast) character diffing.
 
     my $interval = tv_interval($t0);
-    ok($interval < 1, 'Large Add Annotation diff took less than 1 second to load');
+    ok($interval < 1, 'Large Add annotation diff took less than 1 second to load');
 
     $mech->content_contains(
         '<th>Annotation comparison:</th>' .
