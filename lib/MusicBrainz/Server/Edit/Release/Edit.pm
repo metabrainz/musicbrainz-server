@@ -28,7 +28,7 @@ use MusicBrainz::Server::Edit::Utils qw(
 );
 use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array to_json_object );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
 with 'MusicBrainz::Server::Edit::Role::EditArtistCredit',
@@ -44,7 +44,7 @@ with 'MusicBrainz::Server::Edit::Role::EditArtistCredit',
 use aliased 'MusicBrainz::Server::Entity::Release';
 
 sub edit_type { $EDIT_RELEASE_EDIT }
-sub edit_name { N_l('Edit release') }
+sub edit_name { N_lp('Edit release', 'edit name') }
 sub _edit_model { 'Release' }
 sub release_id { shift->data->{entity}{id} }
 sub edit_template { 'EditRelease' }

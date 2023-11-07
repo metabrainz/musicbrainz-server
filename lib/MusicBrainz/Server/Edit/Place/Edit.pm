@@ -19,7 +19,7 @@ use MusicBrainz::Server::Edit::Utils qw(
 );
 use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 use MusicBrainz::Server::Validation qw( normalise_strings );
 
 use MooseX::Types::Moose qw( Bool Int Str );
@@ -40,7 +40,7 @@ with 'MusicBrainz::Server::Edit::CheckForConflicts',
      },
      'MusicBrainz::Server::Edit::Role::CheckDuplicates';
 
-sub edit_name { N_l('Edit place') }
+sub edit_name { N_lp('Edit place', 'edit name') }
 sub edit_type { $EDIT_PLACE_EDIT }
 
 sub _edit_model { 'Place' }

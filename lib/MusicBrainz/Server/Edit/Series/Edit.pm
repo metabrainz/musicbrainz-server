@@ -10,7 +10,7 @@ use MusicBrainz::Server::Data::Series;
 use MusicBrainz::Server::Edit::Utils qw( changed_display_data changed_relations );
 use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
-use MusicBrainz::Server::Translation qw ( N_l );
+use MusicBrainz::Server::Translation qw ( N_lp );
 
 use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict Optional );
@@ -27,7 +27,7 @@ with 'MusicBrainz::Server::Edit::Series',
      'MusicBrainz::Server::Edit::Role::CheckDuplicates';
 
 sub edit_type { $EDIT_SERIES_EDIT }
-sub edit_name { N_l('Edit series') }
+sub edit_name { N_lp('Edit series', 'edit name') }
 sub _edit_model { 'Series' }
 sub series_id { shift->entity_id }
 

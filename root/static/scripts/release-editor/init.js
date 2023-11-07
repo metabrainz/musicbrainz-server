@@ -262,8 +262,8 @@ releaseEditor.init = function (options) {
         : lp('Add release', 'header');
     } else {
       document.title = name
-        ? hyphenateTitle(name, l('Edit Release'))
-        : l('Edit Release');
+        ? hyphenateTitle(name, lp('Edit release', 'header'))
+        : lp('Edit release', 'header');
     }
   });
 

@@ -14,7 +14,7 @@ use MusicBrainz::Server::Edit::Utils qw(
 );
 use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 
 use MooseX::Types::Moose qw( ArrayRef Bool Int Str );
 use MooseX::Types::Structured qw( Dict Optional );
@@ -28,7 +28,7 @@ with 'MusicBrainz::Server::Edit::CheckForConflicts',
      'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit',
      'MusicBrainz::Server::Edit::Role::DatePeriod';
 
-sub edit_name { N_l('Edit area') }
+sub edit_name { N_lp('Edit area', 'edit name') }
 sub edit_type { $EDIT_AREA_EDIT }
 
 sub _edit_model { 'Area' }

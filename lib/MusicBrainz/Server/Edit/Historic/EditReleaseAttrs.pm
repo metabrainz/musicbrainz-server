@@ -10,11 +10,11 @@ use MusicBrainz::Server::Constants qw(
 );
 use MusicBrainz::Server::Edit::Historic::Utils qw( get_historic_type upgrade_type_and_status );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 
 use aliased 'MusicBrainz::Server::Entity::Release';
 
-sub edit_name     { N_l('Edit release') }
+sub edit_name     { N_lp('Edit release', 'edit name') }
 sub edit_kind     { 'edit' }
 sub edit_type     { $EDIT_HISTORIC_EDIT_RELEASE_ATTRS }
 sub historic_type { 26 }

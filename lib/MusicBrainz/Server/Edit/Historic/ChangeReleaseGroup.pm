@@ -4,13 +4,13 @@ use warnings;
 
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_CHANGE_RELEASE_GROUP );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 
 use MusicBrainz::Server::Edit::Historic::Base;
 
 use aliased 'MusicBrainz::Server::Entity::ReleaseGroup';
 
-sub edit_name     { N_l('Edit release') }
+sub edit_name     { N_lp('Edit release', 'edit name') }
 sub edit_kind     { 'edit' }
 sub historic_type { 73 }
 sub edit_type     { $EDIT_HISTORIC_CHANGE_RELEASE_GROUP }

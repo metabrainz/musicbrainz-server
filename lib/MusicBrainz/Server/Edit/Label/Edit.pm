@@ -18,7 +18,7 @@ use MusicBrainz::Server::Edit::Utils qw(
 use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Validation qw( normalise_strings );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 
 use MooseX::Types::Moose qw( ArrayRef Bool Int Str );
 use MooseX::Types::Structured qw( Dict Optional );
@@ -39,7 +39,7 @@ with 'MusicBrainz::Server::Edit::Label',
      };
 
 sub edit_type { $EDIT_LABEL_EDIT }
-sub edit_name { N_l('Edit label') }
+sub edit_name { N_lp('Edit label', 'edit name') }
 sub edit_template { 'EditLabel' }
 sub _edit_model { 'Label' }
 sub label_id { shift->entity_id }
