@@ -707,6 +707,7 @@ const seleniumTests = [
     sql: 'vision_creation_newsun.sql',
   },
   {name: 'release-editor/MBS-13207.json5', login: true},
+  {name: 'release-editor/MBS-13273.json5', login: true},
   {
     name: 'Check_Duplicates.json5',
     login: true,

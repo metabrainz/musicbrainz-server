@@ -1,0 +1,105 @@
+{
+  title: 'MBS-13273',
+  commands: [
+    // Add a release that's initially credited to Nine Inch Nails and David Bowie.
+    {
+      command: 'open',
+      target: '/static/scripts/tests/release-editor/seeds/mbs-13273.html',
+      value: '',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'css=button[type=submit]',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'css=a[href="#edit-note"]',
+      value: '',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'id=enter-edit',
+      value: '',
+    },
+    // Change the first release artist to Lethal Bizzle and the second to Super Furry Animals.
+    {
+      command: 'clickAndWait',
+      target: 'css=.tabs a[href$="/edit"]',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'css=#information button.open-ac',
+      value: '',
+    },
+    {
+      command: 'type',
+      target: 'css=#artist-credit-bubble tbody tr:nth-child(1) input.name',
+      value: '1155431a-d35e-4863-9ae0-e3c24eb61aa9',
+    },
+    {
+      command: 'type',
+      target: 'css=#artist-credit-bubble tbody tr:nth-child(2) input.name',
+      value: 'c5f5dc27-3059-49c0-ae45-5009a01bb9ec',
+    },
+    {
+      command: 'pause',
+      target: '500',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'css=#artist-credit-bubble .buttons button.positive',
+      value: '',
+    },
+    // After switching to the tracklist tab, the first two tracks' artist credits should be updated
+    // since they began with the original release credits, but the remaining tracks' credits should
+    // be unchanged.
+    {
+      command: 'click',
+      target: 'css=a[href="#tracklist"]',
+      value: '',
+    },
+    {
+      command: 'assertEval',
+      target: "document.querySelectorAll('#tracklist span.artist.autocomplete input.name')[0].value",
+      value: 'Lethal Bizzle & Super Furry Animals',
+    },
+    {
+      command: 'assertEval',
+      target: "document.querySelectorAll('#tracklist span.artist.autocomplete input.name')[1].value",
+      value: 'Lethal Bizzle & Super Furry Animals feat. Bing Crosby',
+    },
+    {
+      command: 'assertEval',
+      target: "document.querySelectorAll('#tracklist span.artist.autocomplete input.name')[2].value",
+      value: 'Nine Inch Nails',
+    },
+    {
+      command: 'assertEval',
+      target: "document.querySelectorAll('#tracklist span.artist.autocomplete input.name')[3].value",
+      value: 'David Bowie',
+    },
+    {
+      command: 'assertEval',
+      target: "document.querySelectorAll('#tracklist span.artist.autocomplete input.name')[4].value",
+      value: 'Bing Crosby',
+    },
+    {
+      command: 'open',
+      target: '/',
+      value: '',
+    },
+    {
+      command: 'handleAlert',
+      target: 'accept',
+      value: '',
+    },
+    {
+      command: 'waitUntilUrlIs',
+      target: '/',
+      value: '',
+    },
+  ],
+}
