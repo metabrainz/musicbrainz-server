@@ -357,7 +357,7 @@
     },
     {
       command: 'clickAndWait',
-      target: "xpath=//a[contains(., 'Reorder Cover Art')]",
+      target: "xpath=//a[contains(., 'Reorder cover art')]",
       value: '',
     },
     {

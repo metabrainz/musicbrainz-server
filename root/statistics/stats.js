@@ -18,7 +18,7 @@ const stats = {
     'artist-other': {label: l('Artist Types and Genders')},
     'collection': {label: l('Collections')},
     'core-entities': {label: l('Core Entities')},
-    'cover-art': {hide: true, label: l('Cover Art')},
+    'cover-art': {hide: true, label: lp('Cover art', 'plural')},
     'edit-information': {hide: true, label: l('Edit Information')},
     'edit-types': {label: l('Edit Types')},
     'event-types': {label: l('Event Types')},
@@ -275,7 +275,7 @@ const stats = {
   'count.coverart': {
     category: 'cover-art',
     color: '#0022dd',
-    label: l('Pieces of Cover Art'),
+    label: l('Pieces of cover art'),
   },
   'count.discid': {
     category: 'other',
@@ -681,12 +681,12 @@ const stats = {
   'count.release.coverart.caa': {
     category: 'cover-art',
     color: '#dd0022',
-    label: l('Releases with CAA Cover Art'),
+    label: l('Releases with CAA cover art'),
   },
   'count.release.coverart.none': {
     category: 'cover-art',
     color: '#00dd22',
-    label: l('Releases with No Cover Art'),
+    label: l('Releases with no cover art'),
   },
   'count.release.format.null': {
     category: 'formats',
@@ -701,7 +701,7 @@ const stats = {
   'count.release.has_caa': {
     category: 'cover-art',
     color: '#22eedd',
-    label: l('Releases with Cover Art'),
+    label: l('Releases with cover art'),
   },
   'count.release.has_discid': {
     category: 'other',

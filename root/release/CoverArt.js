@@ -54,7 +54,7 @@ const CoverArt = ({
   release,
 }: Props): React$Element<typeof ReleaseLayout> => {
   const $c = React.useContext(SanitizedCatalystContext);
-  const title = l('Cover Art');
+  const title = lp('Cover art', 'plural');
 
   return (
     <ReleaseLayout entity={release} page="cover-art" title={title}>
@@ -144,13 +144,13 @@ const CoverArt = ({
         $c.user ? (
           <div className="buttons ui-helper-clearfix">
             <EntityLink
-              content={lp('Add Cover Art', 'button/menu')}
+              content={lp('Add cover art', 'button/menu')}
               entity={release}
               subPath="add-cover-art"
             />
             {coverArt.length > 1 ? (
               <EntityLink
-                content={lp('Reorder Cover Art', 'button/menu')}
+                content={lp('Reorder cover art', 'button/menu')}
                 entity={release}
                 subPath="reorder-cover-art"
               />

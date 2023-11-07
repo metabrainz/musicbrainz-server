@@ -16,7 +16,7 @@ type Props = {
 const CoverArtDarkened = ({
   release,
 }: Props): React$Element<typeof ReleaseLayout> => {
-  const title = l('Cannot Add Cover Art');
+  const title = l('Cannot add cover art');
 
   return (
     <ReleaseLayout entity={release} page="cover-art" title={title}>

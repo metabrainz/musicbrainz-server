@@ -50,7 +50,7 @@ const Footer = (): React$Element<'div'> => {
       <p className="right">
         {exp.l(
           `Brought to you by {MeB|MetaBrainz Foundation} and our
-           {spon|sponsors} and {supp|supporters}. Cover Art provided
+           {spon|sponsors} and {supp|supporters}. Cover art provided
            by the {caa|Cover Art Archive}.`,
           {
             caa: '//coverartarchive.org/',

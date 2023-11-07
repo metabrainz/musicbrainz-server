@@ -57,7 +57,7 @@ const infoLinks = [
   {
     link: '/statistics/coverart',
     page: 'coverart',
-    title: N_l('Cover Art'),
+    title: N_lp('Cover art', 'plural'),
   },
   {
     link: '/statistics/relationships',

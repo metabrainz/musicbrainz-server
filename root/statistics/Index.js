@@ -447,7 +447,7 @@ const Index = ({
         </tbody>
         <tbody>
           <tr className="thead">
-            <th colSpan="5">{l('Cover Art Sources')}</th>
+            <th colSpan="5">{l('Cover art sources')}</th>
           </tr>
           <tr>
             <th colSpan="3">{addColonText(l('Releases'))}</th>

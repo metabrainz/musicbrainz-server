@@ -49,7 +49,7 @@ import {canNominate} from '../utility/voting.js';
 const ADDED_ENTITIES_TYPES = {
   area:         N_l('Area'),
   artist:       N_l('Artist'),
-  cover_art:    N_l('Cover Art'),
+  cover_art:    N_lp('Cover art', 'plural'),
   event:        N_l('Event'),
   instrument:   N_l('Instrument'),
   label:        N_l('Label'),

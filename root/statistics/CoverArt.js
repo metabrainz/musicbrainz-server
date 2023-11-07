@@ -64,7 +64,11 @@ const CoverArt = ({
 }: CoverArtStatsT): React$Element<typeof StatisticsLayout> => {
   const $c = React.useContext(CatalystContext);
   return (
-    <StatisticsLayout fullWidth page="coverart" title={l('Cover Art')}>
+    <StatisticsLayout
+      fullWidth
+      page="coverart"
+      title={lp('Cover art', 'plural')}
+    >
       <p>
         {texp.l('Last updated: {date}', {date: dateCollected})}
       </p>
@@ -286,7 +290,7 @@ const CoverArt = ({
         <table className="database-statistics">
           <tbody>
             <tr className="thead">
-              <th colSpan="4">{l('By Cover Art Type')}</th>
+              <th colSpan="4">{l('By cover art type')}</th>
             </tr>
             <tr>
               <th colSpan="2">{l('Pieces of cover art:')}</th>

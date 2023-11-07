@@ -7,7 +7,7 @@ use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_REMOVE_COVER_ART );
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 
 use aliased 'MusicBrainz::Server::Entity::Release';
 use aliased 'MusicBrainz::Server::Entity::Artwork';
@@ -18,7 +18,7 @@ with 'MusicBrainz::Server::Edit::Release',
      'MusicBrainz::Server::Edit::Role::CoverArt',
      'MusicBrainz::Server::Edit::Role::NeverAutoEdit';
 
-sub edit_name { N_l('Remove cover art') }
+sub edit_name { N_lp('Remove cover art', 'edit name') }
 sub edit_kind { 'remove' }
 sub edit_type { $EDIT_RELEASE_REMOVE_COVER_ART }
 sub release_ids { shift->data->{entity}{id} }

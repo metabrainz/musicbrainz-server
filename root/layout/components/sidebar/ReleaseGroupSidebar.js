@@ -85,7 +85,7 @@ const ReleaseGroupSidebar = ({
 
         <li>
           <a href={entityHref(releaseGroup, 'set-cover-art')}>
-            {l('Set cover art')}
+            {lp('Set cover art', 'button/menu')}
           </a>
         </li>
 
