@@ -66,34 +66,38 @@ function generateUserTypesList(
 ): $ReadOnlyArray<VarSubstArg> {
   const typesList: Array<VarSubstArg> = [];
   if (user.deleted) {
-    typesList.push(l('Deleted User'));
+    typesList.push(lp('Deleted user', 'user type'));
   }
   if (isAutoEditor(user)) {
-    typesList.push(exp.l(
-      '{doc|Auto-Editor}',
-      {doc: '/doc/Editor#Auto-editors'},
-    ));
+    typesList.push(
+      <a href="/doc/Editor#Auto-editors">
+        {lp('Auto-editor', 'user type')}
+      </a>,
+    );
   }
   if (isBot(user)) {
-    typesList.push(l('Internal/Bot'));
+    typesList.push(lp('Internal/Bot', 'user type'));
   }
   if (isRelationshipEditor(user)) {
-    typesList.push(exp.l(
-      '{doc|Relationship Editor}',
-      {doc: '/doc/Editor#Relationship_editors'},
-    ));
+    typesList.push(
+      <a href="/doc/Editor#Relationship_editors">
+        {lp('Relationship editor', 'user type')}
+      </a>,
+    );
   }
   if (isWikiTranscluder(user)) {
-    typesList.push(exp.l(
-      '{doc|Transclusion Editor}',
-      {doc: '/doc/Editor#Transclusion_editors'},
-    ));
+    typesList.push(
+      <a href="/doc/Editor#Transclusion_editors">
+        {lp('Transclusion editor', 'user type')}
+      </a>,
+    );
   }
   if (isLocationEditor(user)) {
-    typesList.push(exp.l(
-      '{doc|Location Editor}',
-      {doc: '/doc/Editor#Location_editors'},
-    ));
+    typesList.push(
+      <a href="/doc/Editor#Location_editors">
+        {lp('Location editor', 'user type')}
+      </a>,
+    );
   }
   if (user.is_limited) {
     typesList.push(
@@ -101,13 +105,13 @@ function generateUserTypesList(
         className="tooltip"
         title={l('This user is new to MusicBrainz.')}
       >
-        {l('Beginner')}
+        {lp('Beginner', 'user type')}
       </span>,
     );
   }
   // If no other types apply, then this is a normal user
   if (typesList.length === 0) {
-    typesList.push(l('Normal User'));
+    typesList.push(lp('Normal user', 'user type'));
   }
 
   return typesList;

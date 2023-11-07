@@ -137,9 +137,7 @@ const EditUser = ({
         <h2>{'Administration flags'}</h2>
         <FormRowCheckbox
           field={form.field.mbid_submitter}
-          label={exp.l_admin(
-            '<abbr title="MusicBrainz Identifier">MBID</abbr> submitter',
-          )}
+          label="MBID submitter"
           uncontrolled
         />
         <FormRowCheckbox
