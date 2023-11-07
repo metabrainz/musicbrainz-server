@@ -101,7 +101,7 @@ const LanguageMenu = ({
         </li>
         <li className="separator">
           <a href="https://translations.metabrainz.org/projects/musicbrainz/">
-            {l('Help Translate')}
+            {l('Help translate')}
           </a>
         </li>
       </ul>
@@ -129,40 +129,40 @@ const AboutMenu = () => (
         <a href="https://www.redbubble.com/people/metabrainz/shop">{l('Shop')}</a>
       </li>
       <li>
-        <a href="https://metabrainz.org/contact">{l('Contact Us')}</a>
+        <a href="https://metabrainz.org/contact">{l('Contact us')}</a>
       </li>
       <li className="separator">
-        <a href="/doc/About/Data_License">{l('Data Licenses')}</a>
+        <a href="/doc/About/Data_License">{l('Data licenses')}</a>
       </li>
       <li>
-        <a href="https://metabrainz.org/social-contract">{l('Social Contract')}</a>
+        <a href="https://metabrainz.org/social-contract">{l('Social contract')}</a>
       </li>
       <li>
-        <a href="/doc/Code_of_Conduct">{l('Code of Conduct')}</a>
+        <a href="/doc/Code_of_Conduct">{l('Code of conduct')}</a>
       </li>
       <li>
-        <a href="https://metabrainz.org/privacy">{l('Privacy Policy')}</a>
+        <a href="https://metabrainz.org/privacy">{l('Privacy policy')}</a>
       </li>
       <li>
-        <a href="https://metabrainz.org/gdpr">{l('GDPR Compliance')}</a>
+        <a href="https://metabrainz.org/gdpr">{l('GDPR compliance')}</a>
       </li>
       <li>
-        <a href="/doc/Data_Removal_Policy">{l('Data Removal Policy')}</a>
+        <a href="/doc/Data_Removal_Policy">{l('Data removal policy')}</a>
       </li>
       <li className="separator">
-        <a href="/elections">{l('Auto-editor Elections')}</a>
+        <a href="/elections">{l('Auto-editor elections')}</a>
       </li>
       <li>
-        <a href="/privileged">{l('Privileged User Accounts')}</a>
+        <a href="/privileged">{l('Privileged user accounts')}</a>
       </li>
       <li>
         <a href="/statistics">{l('Statistics')}</a>
       </li>
       <li>
-        <a href="/statistics/timeline">{l('Timeline Graph')}</a>
+        <a href="/statistics/timeline">{l('Timeline graph')}</a>
       </li>
       <li>
-        <a href="/history">{l('MusicBrainz History')}</a>
+        <a href="/history">{l('MusicBrainz history')}</a>
       </li>
     </ul>
   </li>
@@ -196,10 +196,10 @@ const ProductsMenu = () => (
         <a href="/doc/MusicBrainz_Server">{l('MusicBrainz Server')}</a>
       </li>
       <li>
-        <a href="/doc/MusicBrainz_Database">{l('MusicBrainz Database')}</a>
+        <a href="/doc/MusicBrainz_Database">{l('MusicBrainz database')}</a>
       </li>
       <li className="separator">
-        <a href="/doc/Developer_Resources">{l('Developer Resources')}</a>
+        <a href="/doc/Developer_Resources">{l('Developer resources')}</a>
       </li>
       <li>
         <a href="/doc/MusicBrainz_API">{l('MusicBrainz API')}</a>
@@ -219,16 +219,16 @@ const SearchMenu = () => (
     </span>
     <ul>
       <li>
-        <a href="/search">{l('Advanced Search')}</a>
+        <a href="/search">{l('Advanced search')}</a>
       </li>
       <li>
-        <a href="/search/edits">{l('Edit Search')}</a>
+        <a href="/search/edits">{l('Edit search')}</a>
       </li>
       <li>
-        <a href="/tags">{l('Tag Cloud')}</a>
+        <a href="/tags">{l('Tag cloud')}</a>
       </li>
       <li>
-        <a href="/cdstub/browse">{l('Top CD Stubs')}</a>
+        <a href="/cdstub/browse">{l('Top CD stubs')}</a>
       </li>
     </ul>
   </li>
@@ -280,7 +280,7 @@ const EditingMenu = () => (
         <a href="/event/create">{lp('Add event', 'button/menu')}</a>
       </li>
       <li className="separator">
-        <a href="/vote">{l('Vote on Edits')}</a>
+        <a href="/vote">{l('Vote on edits')}</a>
       </li>
       <li>
         <a href="/reports">{l('Reports')}</a>
@@ -297,33 +297,33 @@ const DocumentationMenu = () => (
     </span>
     <ul>
       <li>
-        <a href="/doc/Beginners_Guide">{l('Beginners Guide')}</a>
+        <a href="/doc/Beginners_Guide">{l('Beginners guide')}</a>
       </li>
       <li>
-        <a href="/doc/Style">{l('Style Guidelines')}</a>
+        <a href="/doc/Style">{l('Style guidelines')}</a>
       </li>
       <li>
-        <a href="/doc/How_To">{l('How Tos')}</a>
+        <a href="/doc/How_To">{l('How tos')}</a>
       </li>
       <li>
         <a href="/doc/Frequently_Asked_Questions">{l('FAQs')}</a>
       </li>
       <li>
         <a href="/doc/MusicBrainz_Documentation">
-          {l('Documentation Index')}
+          {l('Documentation index')}
         </a>
       </li>
       <li className="separator">
-        <a href="/doc/Edit_Types">{l('Edit Types')}</a>
+        <a href="/doc/Edit_Types">{l('Edit types')}</a>
       </li>
       <li>
-        <a href="/relationships">{l('Relationship Types')}</a>
+        <a href="/relationships">{l('Relationship types')}</a>
       </li>
       <li>
-        <a href="/instruments">{l('Instrument List')}</a>
+        <a href="/instruments">{l('Instrument list')}</a>
       </li>
       <li>
-        <a href="/genres">{l('Genre List')}</a>
+        <a href="/genres">{l('Genre list')}</a>
       </li>
       <li className="separator">
         <a href="/doc/Development">{l('Development')}</a>
