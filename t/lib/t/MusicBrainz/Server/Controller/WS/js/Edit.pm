@@ -1427,4 +1427,31 @@ test 'Empty artist credit name defaults to the artist name' => sub {
     is($response->{edits}->[0]->{response}, $WS_EDIT_RESPONSE_OK, 'ws response says OK');
 };
 
+test 'MBS-13309: Cross-origin requests are limited to bot accounts' => sub {
+    my $test = shift;
+    my ($c, $mech) = ($test->c, $test->mech);
+
+    MusicBrainz::Server::Test->prepare_test_database($c);
+    MusicBrainz::Server::Test->prepare_test_database($c, <<~SQL);
+        INSERT INTO editor (id, name, password, privs, email, email_confirm_date, member_since, ha1)
+        VALUES (2, 'bot_editor', '{CLEARTEXT}password', 2, 'bot\@editor.org', '2023-11-04', '2023-11-04', '');
+        SQL
+
+    $mech->get_ok('/login');
+    $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
+    $mech->add_header('Origin' => 'https://bot.example.com');
+    note('We try to enter a cross-origin edit as a non-bot editor');
+    post_json($mech, '/ws/js/edit/create', encode_json({ edits => [] }));
+    is($mech->status, 403, 'The edit attempt was rejected');
+    $mech->get_ok('/logout');
+    $mech->delete_header('Origin');
+
+    $mech->get_ok('/login');
+    $mech->submit_form( with_fields => { username => 'bot_editor', password => 'password' } );
+    $mech->add_header('Origin' => 'https://bot.example.com');
+    note('We try to enter the same cross-origin edit as a bot editor');
+    post_json($mech, '/ws/js/edit/create', encode_json({ edits => [] }));
+    is($mech->status, 200, 'The edit attempt was accepted');
+};
+
 1;
