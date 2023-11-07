@@ -17,13 +17,13 @@ use MusicBrainz::Server::Edit::Utils qw(
     verify_artist_credits
 );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Artist',
      'MusicBrainz::Server::Edit::Role::NeverAutoEdit';
 
-sub edit_name { N_l('Edit artist credit') }
+sub edit_name { N_lp('Edit artist credit', 'edit name') }
 sub edit_kind { 'edit' }
 sub edit_type { $EDIT_ARTIST_EDITCREDIT }
 sub edit_template { 'EditArtistCredit' }

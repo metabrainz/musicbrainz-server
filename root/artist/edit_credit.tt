@@ -1,9 +1,9 @@
-[% WRAPPER 'artist/layout.tt' full_width=1 title=l('Edit Artist Credit') %]
+[% WRAPPER 'artist/layout.tt' full_width=1 title=lp('Edit artist credit', 'header') %]
   [% script_manifest('edit.js') %]
 
    [%~ javascript_required() ~%]
 
-   <h2>[% l('Edit Artist Credit') %]</h2>
+   <h2>[% lp('Edit artist credit', 'header') %]</h2>
 
    <form action="[% c.req.uri %]" method="post">
      [%- USE r = FormRenderer(form) -%]
@@ -15,7 +15,7 @@
                { ac => artist_credit(ac) } ) %]
        </p>
        <fieldset>
-         <legend>[% l('New Artist Credit') %]</legend>
+         <legend>[% l('New artist credit') %]</legend>
          <div id="artist-credit-editor"></div>
        </fieldset>
 

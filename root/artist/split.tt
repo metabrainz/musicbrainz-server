@@ -42,7 +42,7 @@
        [% END %]
 
        <fieldset>
-         <legend>[% l('New Artist Credit') %]</legend>
+         <legend>[% l('New artist credit') %]</legend>
          <div id="artist-credit-editor"></div>
        </fieldset>
 
