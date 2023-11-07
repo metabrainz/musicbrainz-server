@@ -467,6 +467,13 @@ If you intend to run a server with translations, there are a few steps to follow
         sudo apt-get install language-pack-{language code}
 
 
+Server maintenance
+------------------
+
+For maintenance operations that may be necessary over time while running
+MusicBrainz Server, see [MAINTENANCE.md].
+
+
 Troubleshooting
 ---------------
 

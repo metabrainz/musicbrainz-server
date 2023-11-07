@@ -3,10 +3,35 @@ use strict;
 use warnings;
 
 use FindBin;
+use Getopt::Long qw( GetOptions );
 use lib "$FindBin::Bin/../lib";
 use MusicBrainz::Server::Context;
+use aliased 'MusicBrainz::Server::DatabaseConnectionFactory' => 'Databases';
 
-my $c = MusicBrainz::Server::Context->create_script_context(database => 'MAINTENANCE');
+my $database = 'MAINTENANCE';
+my $concurrently = 1;
+my $show_help = 0;
+
+sub usage {
+    print <<~EOF;
+        Usage: RebuildIndexesUsingCollations.pl [options]
+
+            --database          database to connect to (default: MAINTENANCE)
+            --[no]concurrently  enable or disable concurrent reindexing
+                                (default: enabled)
+            --help              show this help
+        EOF
+}
+
+GetOptions(
+    'database=s'    => \$database,
+    'concurrently!' => \$concurrently,
+    'help'          => \$show_help,
+) or usage(), exit 2;
+
+usage(), exit if $show_help;
+
+my $c = MusicBrainz::Server::Context->create_script_context(database => $database);
 my $dbh = $c->dbh;
 
 my $indexes = $c->sql->select_list_of_hashes(<<~SQL);
@@ -24,8 +49,16 @@ my $indexes = $c->sql->select_list_of_hashes(<<~SQL);
 for my $index (@$indexes) {
     my $schema_name = $dbh->quote_identifier($index->{schema_name});
     my $index_name = $dbh->quote_identifier($index->{index_name});
-    my $reindex_cmd = "REINDEX INDEX CONCURRENTLY $schema_name.$index_name;";
+
+    my $reindex_cmd = 'REINDEX INDEX ' .
+        ($concurrently ? 'CONCURRENTLY ' : '') .
+        "$schema_name.$index_name;";
+
     print "$reindex_cmd\n";
+
     $c->sql->auto_commit(1);
     $c->sql->do($reindex_cmd);
 }
+
+$c->sql->auto_commit;
+$c->sql->do('ALTER COLLATION musicbrainz.musicbrainz REFRESH VERSION');
