@@ -423,6 +423,9 @@ before dispatch => sub {
 
     my $ctx = $self->model('MB')->context;
 
+    # Provide access to the Catalyst context in the data layer.
+    $ctx->catalyst_context($self);
+
     # The mb-set-database header is added by:
     #  1) the http proxy in t/selenium.mjs
     #  2) make_jsonld_request in
@@ -435,6 +438,8 @@ before dispatch => sub {
         no warnings 'redefine';
         $ctx->database($database);
         $ctx->clear_connector;
+        $ctx->ro_database('READONLY_' . $database);
+        $ctx->clear_ro_connector;
         my $cache_namespace = DBDefs->CACHE_NAMESPACE;
         *DBDefs::CACHE_NAMESPACE = sub { $cache_namespace . $database . ':' };
         *DBDefs::ENTITY_CACHE_TTL = sub { 1 };
@@ -449,6 +454,8 @@ before dispatch => sub {
         # Use a fresh database connection for every request, and
         # remember to disconnect at the end.
         $ctx->connector->refresh if $ctx->has_connector;
+        $ctx->ro_connector->refresh
+            if $ctx->has_ro_connector && defined $ctx->ro_connector;
     }
 
     # Any time `TO_JSON` is called on an Entity, it may add other
@@ -463,7 +470,10 @@ after dispatch => sub {
 
     my $ctx = $self->model('MB')->context;
 
+    $ctx->catalyst_context(undef);
     $ctx->connector->disconnect if $ctx->has_connector;
+    $ctx->ro_connector->disconnect
+        if $ctx->has_ro_connector && defined $ctx->ro_connector;
     $ctx->store->disconnect;
     $ctx->cache->disconnect;
 
@@ -474,6 +484,8 @@ after dispatch => sub {
         # back to the default (READWRITE, or READONLY for mirrors).
         $ctx->clear_connector;
         $ctx->clear_database;
+        $ctx->clear_ro_connector;
+        $ctx->clear_ro_database;
         $ctx->clear_cache_manager;
         $ctx->clear_store;
         *DBDefs::CACHE_NAMESPACE = $ORIG_CACHE_NAMESPACE;
