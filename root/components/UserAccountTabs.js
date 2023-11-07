@@ -100,7 +100,7 @@ function buildTabs(
     DBDefs.DB_STAGING_TESTING_FEATURES && $c.user) {
     tabs.push(buildTab(
       page,
-      l_admin('Edit User'),
+      l_admin('Edit user'),
       '/admin/user/edit/' + userName,
       'edit_user',
     ));
