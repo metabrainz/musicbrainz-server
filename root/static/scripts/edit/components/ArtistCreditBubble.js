@@ -120,7 +120,7 @@ const ArtistCreditBubble = ({
               onClick={addName}
               type="button"
             >
-              {l('Add Artist Credit')}
+              {lp('Add artist credit', 'button/menu')}
             </button>
           </td>
         </tr>
@@ -147,14 +147,14 @@ const ArtistCreditBubble = ({
         style={{float: 'left'}}
         type="button"
       >
-        {l('Copy Credits')}
+        {l('Copy credits')}
       </button>
       <button
         onClick={pasteArtistCredit}
         style={{float: 'left'}}
         type="button"
       >
-        {l('Paste Credits')}
+        {l('Paste credits')}
       </button>
       <button
         className="positive"

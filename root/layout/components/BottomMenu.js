@@ -242,40 +242,42 @@ const EditingMenu = () => (
     </span>
     <ul>
       <li>
-        <a href="/artist/create">{lp('Add Artist', 'button/menu')}</a>
+        <a href="/artist/create">{lp('Add artist', 'button/menu')}</a>
       </li>
       <li>
-        <a href="/label/create">{lp('Add Label', 'button/menu')}</a>
+        <a href="/label/create">{lp('Add label', 'button/menu')}</a>
       </li>
       <li>
         <a href="/release-group/create">
-          {lp('Add Release Group', 'button/menu')}
+          {lp('Add release group', 'button/menu')}
         </a>
       </li>
       <li>
-        <a href="/release/add">{lp('Add Release', 'button/menu')}</a>
+        <a href="/release/add">{lp('Add release', 'button/menu')}</a>
       </li>
       <li>
         <a href={'/release/add?artist=' + encodeURIComponent(VARTIST_GID)}>
-          {l('Add Various Artists Release')}
+          {lp('Add Various Artists release', 'button/menu')}
         </a>
       </li>
       <li>
         <a href="/recording/create">
-          {lp('Add Standalone Recording', 'button/menu')}
+          {lp('Add standalone recording', 'button/menu')}
         </a>
       </li>
       <li>
-        <a href="/work/create">{lp('Add Work', 'button/menu')}</a>
+        <a href="/work/create">{lp('Add work', 'button/menu')}</a>
       </li>
       <li>
-        <a href="/place/create">{lp('Add Place', 'button/menu')}</a>
+        <a href="/place/create">{lp('Add place', 'button/menu')}</a>
       </li>
       <li>
-        <a href="/series/create">{lp('Add Series', 'button/menu')}</a>
+        <a href="/series/create">
+          {lp('Add series', 'button/menu, singular')}
+        </a>
       </li>
       <li>
-        <a href="/event/create">{lp('Add Event', 'button/menu')}</a>
+        <a href="/event/create">{lp('Add event', 'button/menu')}</a>
       </li>
       <li className="separator">
         <a href="/vote">{l('Vote on Edits')}</a>

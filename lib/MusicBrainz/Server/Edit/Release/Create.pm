@@ -16,7 +16,7 @@ use MusicBrainz::Server::Edit::Utils qw(
 );
 use MusicBrainz::Server::Entity::ReleaseEvent;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array to_json_object );
-use MusicBrainz::Server::Translation qw( l N_l );
+use MusicBrainz::Server::Translation qw( l N_lp );
 
 extends 'MusicBrainz::Server::Edit::Generic::Create';
 with 'MusicBrainz::Server::Edit::Role::Preview',
@@ -28,7 +28,7 @@ use aliased 'MusicBrainz::Server::Entity::PartialDate';
 use aliased 'MusicBrainz::Server::Entity::Release';
 use aliased 'MusicBrainz::Server::Entity::ReleaseGroup';
 
-sub edit_name { N_l('Add release') }
+sub edit_name { N_lp('Add release', 'edit name') }
 sub edit_type { $EDIT_RELEASE_CREATE }
 sub _create_model { 'Release' }
 sub release_id { shift->entity_id }

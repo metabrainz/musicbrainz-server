@@ -258,8 +258,8 @@ releaseEditor.init = function (options) {
 
     if (self.action === 'add') {
       document.title = name
-        ? hyphenateTitle(name, l('Add Release'))
-        : l('Add Release');
+        ? hyphenateTitle(name, lp('Add release', 'header'))
+        : lp('Add release', 'header');
     } else {
       document.title = name
         ? hyphenateTitle(name, l('Edit Release'))

@@ -3,7 +3,7 @@ use Moose;
 
 use MusicBrainz::Server::Constants qw( $EDIT_SERIES_CREATE );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
-use MusicBrainz::Server::Translation qw ( N_l );
+use MusicBrainz::Server::Translation qw ( N_lp );
 use MooseX::Types::Moose qw( Str Int );
 use MooseX::Types::Structured qw( Dict );
 
@@ -21,7 +21,7 @@ with 'MusicBrainz::Server::Edit::Role::Preview',
      'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit',
      'MusicBrainz::Server::Edit::Role::CheckDuplicates';
 
-sub edit_name { N_l('Add series') }
+sub edit_name { N_lp('Add series', 'edit name') }
 sub edit_type { $EDIT_SERIES_CREATE }
 sub _create_model { 'Series' }
 sub series_id { shift->entity_id }

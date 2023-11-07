@@ -6,7 +6,7 @@ use MusicBrainz::Server::Constants qw( $EDIT_EVENT_CREATE );
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use MusicBrainz::Server::Edit::Types qw( Nullable PartialDateHash );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 use aliased 'MusicBrainz::Server::Entity::PartialDate';
 use Moose::Util::TypeConstraints;
 use MooseX::Types::Moose qw( Bool Str Int );
@@ -20,7 +20,7 @@ with 'MusicBrainz::Server::Edit::Role::Preview',
      'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit',
      'MusicBrainz::Server::Edit::Role::DatePeriod';
 
-sub edit_name { N_l('Add event') }
+sub edit_name { N_lp('Add event', 'edit name') }
 sub edit_type { $EDIT_EVENT_CREATE }
 sub _create_model { 'Event' }
 sub event_id { shift->entity_id }

@@ -120,7 +120,7 @@
   </table>
 
   <!-- ko if: searchResults() && searchResults().length > 0 -->
-  <p>[% l('Select a medium from the search results below and then click "Add Medium".') %]</p>
+  <p>[% l('Select a medium from the search results below and then click "Add medium".') %]</p>
   <p>[% l('The tracklist for the medium (including the track/recording associations, but not other data such as medium format) will be loaded as a medium on this release.') %]</p>
   <!-- /ko -->
 
@@ -264,13 +264,13 @@
 
   <div class="buttons">
     <button type="button" class="negative" id="close-add-medium" data-click="close">[% l('Close') %]</button>
-    <button type="button" style="float: right" class="positive" data-click="addMedium" data-bind="enable: currentTab().result()">[% l('Add Medium') %]</button>
+    <button type="button" style="float: right" class="positive" data-click="addMedium" data-bind="enable: currentTab().result()">[% lp('Add medium', 'button/menu') %]</button>
   </div>
 </div>
 
 <div data-bind="with: rootField.release">
   <p class="error field-error" data-bind="showErrorRightAway: needsMediums">
-    [%~ l('Add a medium by clicking “Add Medium” below, or tick the box confirming the tracklist is unknown.') ~%]
+    [%~ l('Add a medium by clicking “Add medium” below, or tick the box confirming the tracklist is unknown.') ~%]
   </p>
 
   <!-- ko if: !mediums().length -->

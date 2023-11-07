@@ -150,7 +150,7 @@
     // Add the second, with just a label, this time searching for it.
     {
       command: 'click',
-      target: "xpath=//button[contains(text(), 'Add Label')]",
+      target: "xpath=//button[contains(text(), 'Add label')]",
       value: '',
     },
     {
@@ -181,7 +181,7 @@
     // Add the third release-label, with just a catalog number.
     {
       command: 'click',
-      target: "xpath=//button[contains(text(), 'Add Label')]",
+      target: "xpath=//button[contains(text(), 'Add label')]",
       value: '',
     },
     {
@@ -259,7 +259,7 @@
     },
     {
       command: 'click',
-      target: "xpath=//div[@id='add-medium-dialog']//button[contains(text(), 'Add Medium')]",
+      target: "xpath=//div[@id='add-medium-dialog']//button[contains(text(), 'Add medium')]",
       value: '',
     },
     // Fill in the track artists.

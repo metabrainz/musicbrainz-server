@@ -212,8 +212,8 @@
       <tr>
         <td></td>
         <td colspan="4" class="add-item">
-          <button type="button" class="with-label add-item" title="[% lp('Add Label', 'button/menu') %]" data-click="addReleaseLabel">
-            [% lp('Add Label', 'button/menu') %]
+          <button type="button" class="with-label add-item" title="[% lp('Add label', 'button/menu') %]" data-click="addReleaseLabel">
+            [% lp('Add label', 'button/menu') %]
           </button>
         </td>
       </tr>

@@ -5,7 +5,7 @@ use namespace::autoclean;
 use MusicBrainz::Server::Constants qw( $EDIT_GENRE_CREATE );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 use aliased 'MusicBrainz::Server::Entity::PartialDate';
 use Moose::Util::TypeConstraints;
 use MooseX::Types::Moose qw( Str );
@@ -18,7 +18,7 @@ with 'MusicBrainz::Server::Edit::Role::Preview',
      'MusicBrainz::Server::Edit::Genre',
      'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
-sub edit_name { N_l('Add genre') }
+sub edit_name { N_lp('Add genre', 'edit name') }
 sub edit_type { $EDIT_GENRE_CREATE }
 sub _create_model { 'Genre' }
 sub genre_id { shift->entity_id }

@@ -4,7 +4,7 @@ use namespace::autoclean;
 
 use MusicBrainz::Server::Constants qw( $EDIT_PLACE_CREATE );
 use MusicBrainz::Server::Edit::Types qw( CoordinateHash Nullable PartialDateHash );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use aliased 'MusicBrainz::Server::Entity::PartialDate';
@@ -23,7 +23,7 @@ with 'MusicBrainz::Server::Edit::Role::Preview',
      'MusicBrainz::Server::Edit::Role::DatePeriod',
      'MusicBrainz::Server::Edit::Role::CheckDuplicates';
 
-sub edit_name { N_l('Add place') }
+sub edit_name { N_lp('Add place', 'edit name') }
 sub edit_type { $EDIT_PLACE_CREATE }
 sub _create_model { 'Place' }
 sub place_id { shift->entity_id }

@@ -306,7 +306,7 @@ export const addMediumDialog = releaseEditor.addMediumDialog = new Dialog();
 
 Object.assign(addMediumDialog, {
   element: '#add-medium-dialog',
-  title: l('Add Medium'),
+  title: lp('Add medium', 'header'),
 
   trackParser: trackParserDialog,
   mediumSearch: mediumSearchTab,

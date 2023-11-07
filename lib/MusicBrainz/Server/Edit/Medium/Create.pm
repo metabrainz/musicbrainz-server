@@ -14,7 +14,7 @@ use MusicBrainz::Server::Edit::Types qw( NullableOnPreview );
 use MusicBrainz::Server::Edit::Utils qw( verify_artist_credits );
 use MusicBrainz::Server::Entity::Medium;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array to_json_object );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 
 extends 'MusicBrainz::Server::Edit::Generic::Create';
 with 'MusicBrainz::Server::Edit::Role::Preview',
@@ -28,7 +28,7 @@ with 'MusicBrainz::Server::Edit::Role::Preview',
 use aliased 'MusicBrainz::Server::Entity::Release';
 
 sub edit_type { $EDIT_MEDIUM_CREATE }
-sub edit_name { N_l('Add medium') }
+sub edit_name { N_lp('Add medium', 'edit name') }
 sub _create_model { 'Medium' }
 sub medium_id { shift->entity_id }
 sub release_id { shift->data->{release}->{id} }

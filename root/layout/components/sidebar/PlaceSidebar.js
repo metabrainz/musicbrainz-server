@@ -118,7 +118,7 @@ const PlaceSidebar = ({place}: Props): React$Element<'div'> => {
               `/event/create?rels.0.target=${gid}&rels.0.type=${heldAtRelGid}`
             }
           >
-            {l('Add event')}
+            {lp('Add event', 'button/menu')}
           </a>
         </li>
 
