@@ -5,11 +5,11 @@ use namespace::autoclean;
 
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_REMOVE_LABEL_ALIAS );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 
 use MusicBrainz::Server::Edit::Historic::Base;
 
-sub edit_name { N_l('Remove label alias') }
+sub edit_name { N_lp('Remove label alias', 'edit name') }
 sub edit_kind { 'remove' }
 sub historic_type { 62 }
 sub edit_type { $EDIT_HISTORIC_REMOVE_LABEL_ALIAS }

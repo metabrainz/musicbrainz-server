@@ -34,8 +34,8 @@ const AddOrEditAlias = ({
 }: Props): React$MixedElement => {
   const LayoutComponent = chooseLayoutComponent(type);
   const header = formType === 'add'
-    ? l('Add alias')
-    : l('Edit alias');
+    ? lp('Add alias', 'header')
+    : lp('Edit alias', 'header');
   const entityProperties = ENTITIES[type];
   const searchHintType = entityProperties.aliases.search_hint_type;
 
