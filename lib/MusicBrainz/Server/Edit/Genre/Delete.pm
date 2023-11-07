@@ -2,12 +2,12 @@ package MusicBrainz::Server::Edit::Genre::Delete;
 use Moose;
 
 use MusicBrainz::Server::Constants qw( $EDIT_GENRE_DELETE );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 
 extends 'MusicBrainz::Server::Edit::Generic::Delete';
 with 'MusicBrainz::Server::Edit::Genre';
 
-sub edit_name { N_l('Remove genre') }
+sub edit_name { N_lp('Remove genre', 'edit name') }
 sub edit_type { $EDIT_GENRE_DELETE }
 
 sub _delete_model { 'Genre' }

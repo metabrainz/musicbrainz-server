@@ -2,12 +2,12 @@ package MusicBrainz::Server::Edit::Area::Delete;
 use Moose;
 
 use MusicBrainz::Server::Constants qw( $EDIT_AREA_DELETE );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 
 extends 'MusicBrainz::Server::Edit::Generic::Delete';
 with 'MusicBrainz::Server::Edit::Area';
 
-sub edit_name { N_l('Remove area') }
+sub edit_name { N_lp('Remove area', 'edit name') }
 sub edit_type { $EDIT_AREA_DELETE }
 
 sub _delete_model { 'Area' }

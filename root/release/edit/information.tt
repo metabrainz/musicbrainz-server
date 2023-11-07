@@ -196,7 +196,7 @@
           <input type="text" data-bind="withLabel: 'catno', value: catalogNumber, valueUpdate: 'input', controlsBubble: $root.labelBubble" />
         </td>
         <td>
-          <button type="button" class="remove-item icon remove-release-label" title="[% l('Remove Label') %]" data-click="removeReleaseLabel"></button>
+          <button type="button" class="remove-item icon remove-release-label" title="[% lp('Remove label', 'button/menu') %]" data-click="removeReleaseLabel"></button>
         </td>
       </tr>
 

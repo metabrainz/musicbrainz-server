@@ -3,12 +3,12 @@ use Moose;
 use namespace::autoclean;
 
 use MusicBrainz::Server::Constants qw( $EDIT_WORK_DELETE );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 
 extends 'MusicBrainz::Server::Edit::Generic::Delete';
 with 'MusicBrainz::Server::Edit::Work';
 
-sub edit_name { N_l('Remove work') }
+sub edit_name { N_lp('Remove work', 'edit name') }
 sub edit_type { $EDIT_WORK_DELETE }
 sub _delete_model { 'Work' }
 sub work_id { shift->entity_id }

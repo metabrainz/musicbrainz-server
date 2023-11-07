@@ -31,9 +31,9 @@ const DeleteRecording = ({
     entity={recording}
     fullWidth
     page="delete"
-    title={l('Remove Recording')}
+    title={lp('Remove recording', 'header')}
   >
-    <h2>{l('Remove Recording')}</h2>
+    <h2>{lp('Remove recording', 'header')}</h2>
 
     {canDelete ? (
       <>

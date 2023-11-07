@@ -28,9 +28,9 @@ const DeleteRelease = ({
     entity={release}
     fullWidth
     page="delete"
-    title={l('Remove Release')}
+    title={lp('Remove release', 'header')}
   >
-    <h2>{l('Remove Release')}</h2>
+    <h2>{lp('Remove release', 'header')}</h2>
 
     <EntityDeletionHelp entity={release} />
 

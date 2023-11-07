@@ -2,14 +2,14 @@ package MusicBrainz::Server::Edit::Recording::Delete;
 use Moose;
 
 use MusicBrainz::Server::Constants qw( $EDIT_RECORDING_DELETE );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 
 extends 'MusicBrainz::Server::Edit::Generic::Delete';
 with 'MusicBrainz::Server::Edit::Recording',
      'MusicBrainz::Server::Edit::Recording::RelatedEntities';
 
 sub edit_type { $EDIT_RECORDING_DELETE }
-sub edit_name { N_l('Remove recording') }
+sub edit_name { N_lp('Remove recording', 'edit name') }
 sub _delete_model { 'Recording' }
 sub recording_id { shift->entity_id }
 
