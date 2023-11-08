@@ -65,6 +65,11 @@ msgstr ""
 "instrumentales (très souvent solo ou solo + clavier), initialement en "
 "musique baroque."
 
+#: DB:medium_format/name:205
+msgctxt "medium_format"
+msgid "10\" Acetate"
+msgstr ""
+
 #: DB:medium_format/name:54
 msgctxt "medium_format"
 msgid "10\" Shellac"
@@ -74,6 +79,11 @@ msgstr "Shellac 25 cm (10 po)"
 msgctxt "medium_format"
 msgid "10\" Vinyl"
 msgstr "Vinyle 25 cm (10 po)"
+
+#: DB:medium_format/name:206
+msgctxt "medium_format"
+msgid "12\" Acetate"
+msgstr ""
 
 #: DB:medium_format/name:72
 msgctxt "medium_format"
@@ -99,6 +109,11 @@ msgstr "Disquette 3,5 po (90 mm)"
 msgctxt "medium_format"
 msgid "5.25\" Floppy Disk"
 msgstr "Disquette 5,25 po (133,4 mm)"
+
+#: DB:medium_format/name:204
+msgctxt "medium_format"
+msgid "7\" Acetate"
+msgstr ""
 
 #: DB:medium_format/name:52
 msgctxt "medium_format"
@@ -1087,6 +1102,11 @@ msgstr "Acemli Yegah"
 msgctxt "work_attribute_type_allowed_value"
 msgid "Acemtarab"
 msgstr "Acemtarab"
+
+#: DB:medium_format/name:203
+msgctxt "medium_format"
+msgid "Acetate"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:848
 msgctxt "work_attribute_type_allowed_value"

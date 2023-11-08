@@ -28,8 +28,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
-" ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
+"0) ? 1 : 2);\n"
 "X-Generator: Weblate 5.1\n"
 
 #: DB:link_attribute_type/description:1355
@@ -86,10 +86,10 @@ msgid ""
 "post. Examples include Facebook pages and profiles, Last.fm users and "
 "accounts on Twitter, Instagram and Flickr."
 msgstr ""
-"Una pagina di social network è la pagina di artista su un <a href=\"https"
-"://it.wikipedia.org/wiki/Social_network\" target=\"_blank\">social network</"
-"a>, dove solo l'artista (o chi lo gestisce) può postare contenuti. Altre "
-"persone possono creare i loro profili e interagire con l'artista, ad esempio "
+"Una pagina di social network è la pagina di artista su un <a href=\"https://"
+"it.wikipedia.org/wiki/Social_network\" target=\"_blank\">social network</a>, "
+"dove solo l'artista (o chi lo gestisce) può postare contenuti. Altre persone "
+"possono creare i loro profili e interagire con l'artista, ad esempio "
 "aggiungendoli come amici o commentando le cose che posta. Alcuni esempi sono "
 "pagine e profili Facebook, utenti Last.fm e account su Twitter, Instagram e "
 "Flickr."
@@ -1983,8 +1983,8 @@ msgid ""
 "This indicates that a person is, or was, the artistic director of a group "
 "(such as a ballet/opera company)."
 msgstr ""
-"Indica che una persona è, o è stata, il direttore artistico di un gruppo ("
-"per esempio una compagnia di balletto/d'opera)."
+"Indica che una persona è, o è stata, il direttore artistico di un gruppo "
+"(per esempio una compagnia di balletto/d'opera)."
 
 #: DB:link_type/description:137
 msgid ""
@@ -3578,8 +3578,8 @@ msgstr ""
 "una traccia più lunga adatta ad essere riprodotta radiofonicamente), o una "
 "versione accorciata, censurata o modificata in altro modo dello stesso "
 "materiale. La persona che ha curato l'editing della registrazione può essere "
-"collegata utilizzando il <a href=\"/relationship/40dff87a-e475-4aa6-b615-"
-"9935b564d756\">tipo di relazione editor</a>."
+"collegata utilizzando il <a href=\"/relationship/40dff87a-e475-4aa6-"
+"b615-9935b564d756\">tipo di relazione editor</a>."
 
 #: DB:link_type/description:289
 msgid ""
@@ -4269,9 +4269,8 @@ msgstr ""
 "Questo tipo di relazione serve a indicare che un gruppo di pubblicazioni è "
 "una cover di un altro gruppo di pubblicazioni, cioè che un artista ha "
 "eseguito una nuova interpretazione dell'album di un altro artista.<br/>\n"
-"Per canzoni singole, utilizza il <a href=\"/relationship/"
-"a3005666-a872-32c3-ad06-98af558e99b0\">tipo di relazione esecuzione "
-"registrazione-opera</a>."
+"Per canzoni singole, utilizza il <a href=\"/relationship/a3005666-a872-32c3-"
+"ad06-98af558e99b0\">tipo di relazione esecuzione registrazione-opera</a>."
 
 #: DB:link_type/description:1005
 msgid ""
@@ -7730,8 +7729,8 @@ msgstr "ha fornito rappresentanza legale {additional:aggiuntiva} per"
 #: DB:link_type/long_link_phrase:18
 msgid "provided {additional} {assistant} art direction on"
 msgstr ""
-"ha fornito {assistant:assistenza alla} direzione artistica "
-"{additional:aggiuntiva} su"
+"ha fornito {assistant:assistenza alla} direzione artistica {additional:"
+"aggiuntiva} su"
 
 #: DB:link_type/long_link_phrase:928
 msgid "provided {additional} {assistant} design on"
@@ -9164,7 +9163,8 @@ msgstr "luogo {additional:aggiuntivo} di scrittura per"
 
 #: DB:link_type/link_phrase:18 DB:link_type/reverse_link_phrase:18
 msgid "{additional} {assistant} art direction"
-msgstr "{assistant:assistenza alla} direzione artistica {additional:aggiuntiva}"
+msgstr ""
+"{assistant:assistenza alla} direzione artistica {additional:aggiuntiva}"
 
 #: DB:link_type/link_phrase:152 DB:link_type/link_phrase:53
 #: DB:link_type/reverse_link_phrase:152 DB:link_type/reverse_link_phrase:53
