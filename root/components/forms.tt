@@ -205,7 +205,7 @@
 
 [%- MACRO date_range_fieldset(r, type, ended_label) BLOCK # Converted to React at root/static/scripts/edit/components/DateRangeFieldset.js -%]
     <fieldset>
-      <legend>[% l('Date Period') %]</legend>
+      <legend>[% l('Date period') %]</legend>
       <p>
         [%- l('Dates are in the format YYYY-MM-DD. Partial dates such as YYYY-MM or just YYYY are OK, or you can omit the date entirely.') -%]
       </p>

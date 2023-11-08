@@ -179,7 +179,7 @@ const TagEntitiesList = ({
         'See all {num} places',
         'See all {num} places',
       ), showDownvoted)}
-      {buildTagEntitiesListSection('release_group', l('Release Groups'), N_ln(
+      {buildTagEntitiesListSection('release_group', l('Release groups'), N_ln(
         'See all {num} release groups',
         'See all {num} release groups',
       ), showDownvoted)}

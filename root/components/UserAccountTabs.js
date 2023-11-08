@@ -72,7 +72,7 @@ function buildTabs(
   if (viewingOwnProfile) {
     tabs.push(buildTab(
       page,
-      l('Edit Profile'),
+      l('Edit profile'),
       '/account/edit',
       'edit_profile',
     ));
@@ -90,7 +90,7 @@ function buildTabs(
     ));
     tabs.push(buildTab(
       page,
-      l('Donation Check'),
+      l('Donation check'),
       '/account/donation',
       'donation',
     ));
@@ -110,14 +110,14 @@ function buildTabs(
     if (viewingOwnProfile) {
       tabs.push(buildTab(
         page,
-        l('Delete Account'),
+        l('Delete account'),
         '/account/delete',
         'delete',
       ));
     } else if (showAdmin) {
       tabs.push(buildTab(
         page,
-        l('Delete Account'),
+        l('Delete account'),
         '/admin/user/delete/' + userName,
         'delete',
       ));

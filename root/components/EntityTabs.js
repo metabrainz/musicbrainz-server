@@ -157,7 +157,7 @@ function buildLinks(
 
   if (entity.entityType === 'release') {
     links.push(buildLink(
-      l('Edit Relationships'),
+      l('Edit relationships'),
       entity,
       'edit-relationships',
       page,

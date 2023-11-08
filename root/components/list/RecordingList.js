@@ -59,7 +59,7 @@ function defineReleaseGroupAppearancesColumn(
           appearances={releaseGroupAppearances[original.id]}
         />
       ) : null,
-    Header: l('Release Groups'),
+    Header: l('Release groups'),
     id: 'appearances',
   };
 }
