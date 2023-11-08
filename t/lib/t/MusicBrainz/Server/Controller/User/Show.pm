@@ -1,6 +1,7 @@
 package t::MusicBrainz::Server::Controller::User::Show;
 use strict;
 use warnings;
+use utf8;
 
 use Test::Routine;
 use Test::More;
