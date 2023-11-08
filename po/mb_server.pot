@@ -10,7 +10,7 @@ msgstr ""
 "#-#-#-#-#  mb_server.pot (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-07 07:03+0000\n"
+"POT-Creation-Date: 2023-11-08 17:34+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -6703,6 +6703,7 @@ msgstr ""
 
 #: ../root/annotation/AnnotationComparison.js:43
 #: ../root/annotation/AnnotationComparison.js:45
+#: ../root/edit/details/AddAnnotation.js:64
 msgid "Annotation comparison"
 msgstr ""
 
@@ -15993,6 +15994,10 @@ msgstr ""
 
 #: ../root/user/UserProfile.js:262
 msgid "Age:"
+msgstr ""
+
+#: ../root/user/UserProfile.js:287
+msgid "Restrictions"
 msgstr ""
 
 #: ../root/user/UserProfile.js:297
