@@ -1,6 +1,6 @@
-[% WRAPPER "layout.tt" full_width=1 title=l('Edit Types') no_icons=1 -%]
+[% WRAPPER "layout.tt" full_width=1 title=l('Edit types') no_icons=1 -%]
     <div id="content" class="wikicontent">
-        <h1>[%- l('Edit Types') -%]</h1>
+        <h1>[%- l('Edit types') -%]</h1>
           [% FOR category=by_category.pairs %]
             [% NEXT IF category.key == l('Historic') %]
             <h2>[% category.key %]</h2>
