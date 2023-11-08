@@ -33,7 +33,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-07 07:03+0000\n"
-"PO-Revision-Date: 2023-11-05 19:27+0000\n"
+"PO-Revision-Date: 2023-11-08 05:27+0000\n"
 "Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
 "metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -42,8 +42,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
 "X-Generator: Weblate 5.1\n"
 
 #: ../root/components/common-macros.tt:12
@@ -5490,7 +5490,7 @@ msgstr "In corso"
 
 #: ../lib/MusicBrainz/Server/Edit/Utils.pm:272 ../root/utility/edit.js:40
 msgid "Applied"
-msgstr "Applicata"
+msgstr "Applicate"
 
 #: ../lib/MusicBrainz/Server/Edit/Utils.pm:273 ../root/utility/edit.js:45
 msgid "Failed vote"
@@ -5519,7 +5519,7 @@ msgstr "Nessun voto"
 #: ../root/utility/edit.js:41
 msgctxt "edit"
 msgid "Cancelled"
-msgstr ""
+msgstr "Annullate"
 
 #: ../lib/MusicBrainz/Server/Edit/WikiDoc.pm:7
 msgid "Wiki documentation"

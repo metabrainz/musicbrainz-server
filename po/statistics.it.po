@@ -8,21 +8,23 @@
 # salo.rock, 2012
 # salo.rock, 2021,2023
 # "salo.rock" <salo.rock+musicbrainz@gmail.com>, 2023.
+# "salo.rock" <salo.rock@users.noreply.translations.metabrainz.org>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-08-27 21:27+0000\n"
-"Last-Translator: \"salo.rock\" <salo.rock+musicbrainz@gmail.com>\n"
+"PO-Revision-Date: 2023-11-08 05:27+0000\n"
+"Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
+"metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
 "musicbrainz/statistics/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
-"X-Generator: Weblate 4.18.2\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
+"X-Generator: Weblate 5.1\n"
 
 #: DB:statistics.statistic_event/title:2015-09-08
 msgid "\"Do Not Cluster\" guideline dropped"
@@ -1943,7 +1945,7 @@ msgstr "Qualità dati alta"
 
 #: ../root/statistics/Index.js:487
 msgid "Default Data Quality"
-msgstr ""
+msgstr "Qualità dati default"
 
 #: ../root/statistics/Index.js:494 ../root/statistics/stats.js:579
 msgid "Normal Data Quality"
@@ -2174,15 +2176,15 @@ msgstr "Editor (eliminati):"
 
 #: ../root/statistics/Index.js:1229
 msgid "Open"
-msgstr ""
+msgstr "In corso"
 
 #: ../root/statistics/Index.js:1235
 msgid "Applied"
-msgstr ""
+msgstr "Applicate"
 
 #: ../root/statistics/Index.js:1241
 msgid "Voted down"
-msgstr ""
+msgstr "Rifiutate"
 
 #: ../root/statistics/Index.js:1247
 msgid "Failed (dependency):"
@@ -2199,7 +2201,7 @@ msgstr "Fallite (errore interno):"
 #: ../root/statistics/Index.js:1265
 msgctxt "edit"
 msgid "Cancelled"
-msgstr ""
+msgstr "Annullate"
 
 #: ../root/statistics/Index.js:1276 ../root/statistics/Index.js:1328
 msgid "Last 7 days:"
@@ -2688,7 +2690,7 @@ msgstr "Editor che hanno votato nell'ultima settimana"
 
 #: ../root/statistics/stats.js:439
 msgid "Events with no country set"
-msgstr ""
+msgstr "Eventi senza un Paese impostato"
 
 #: ../root/statistics/stats.js:444
 msgid "Events with no type set"
@@ -2748,7 +2750,7 @@ msgstr "Supporti con ID disco"
 
 #: ../root/statistics/stats.js:554
 msgid "Places with no country set"
-msgstr ""
+msgstr "Luoghi senza un Paese impostato"
 
 #: ../root/statistics/stats.js:559
 msgid "Places with no type set"
@@ -3028,23 +3030,23 @@ msgstr "Aree {type}"
 
 #: ../root/statistics/stats.js:1026
 msgid "{country} artists"
-msgstr "{country} artisti"
+msgstr "Artisti da: {country}"
 
 #: ../root/statistics/stats.js:1032
 msgid "{country} events"
-msgstr ""
+msgstr "Eventi in: {country}"
 
 #: ../root/statistics/stats.js:1038
 msgid "{country} labels"
-msgstr "{country} etichette"
+msgstr "Etichette da: {country}"
 
 #: ../root/statistics/stats.js:1044
 msgid "{country} places"
-msgstr ""
+msgstr "Luoghi in: {country}"
 
 #: ../root/statistics/stats.js:1050
 msgid "{country} releases"
-msgstr "{country} pubblicazioni"
+msgstr "Pubblicazioni da: {country}"
 
 #: ../root/statistics/stats.js:1061
 msgid "{type} edits"
