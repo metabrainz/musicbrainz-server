@@ -146,9 +146,9 @@ const WikiDocTable = ({
 const WikiDocIndex = (props: PropsT): React$Element<typeof Layout> => {
   const $c = React.useContext(SanitizedCatalystContext);
   return (
-    <Layout fullWidth title="Transclusion Table">
+    <Layout fullWidth title="Transclusion table">
       <div className="content">
-        <h1>{'Transclusion Table'}</h1>
+        <h1>{'Transclusion table'}</h1>
         <p>
           {exp.l_admin(
             `Read the {doc|WikiDocs} documentation for an overview of how

@@ -16,8 +16,8 @@ type Props = {
 const CannotRemoveAttribute = ({
   message,
 }: Props): React$Element<typeof Layout> => (
-  <Layout fullWidth title="Cannot Remove Attribute">
-    <h1>{'Cannot Remove Attribute'}</h1>
+  <Layout fullWidth title="Cannot remove attribute">
+    <h1>{'Cannot remove attribute'}</h1>
     <p>
       {message}
     </p>

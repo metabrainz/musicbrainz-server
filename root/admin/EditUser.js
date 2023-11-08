@@ -66,7 +66,7 @@ const EditUser = ({
     <UserAccountLayout
       entity={user}
       page="edit_user"
-      title="Adjust User Account Flags"
+      title="Adjust user account flags"
     >
       <form method="post">
         <FormCsrfToken form={form} />

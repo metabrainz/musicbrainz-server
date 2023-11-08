@@ -26,9 +26,9 @@ type Props = {
 const CreateWikiDoc = ({
   form,
 }: Props): React$Element<typeof Layout> => (
-  <Layout fullWidth title="Add Page">
+  <Layout fullWidth title="Add page">
     <div id="content">
-      <h1>{'Add Page'}</h1>
+      <h1>{'Add page'}</h1>
       <form method="post">
         <FormCsrfToken form={form} />
         <FormRowTextLong
@@ -45,7 +45,7 @@ const CreateWikiDoc = ({
           uncontrolled
         />
         <div className="row no-label">
-          <FormSubmit label="Add Page" />
+          <FormSubmit label="Add page" />
         </div>
       </form>
     </div>
