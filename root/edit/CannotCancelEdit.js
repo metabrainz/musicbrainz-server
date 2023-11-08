@@ -19,8 +19,8 @@ const CannotCancelEdit = ({edit}: Props): React$Element<typeof Layout> => {
   const editIsClosed = !edit.is_open;
   const editLink = <EditLink content={editDisplay} edit={edit} />;
   return (
-    <Layout fullWidth title={l('Error Cancelling Edit')}>
-      <h1>{l('Error Cancelling Edit')}</h1>
+    <Layout fullWidth title={l('Error cancelling edit')}>
+      <h1>{l('Error cancelling edit')}</h1>
       <p>
         {exp.l(
           'There was a problem cancelling {edit}.',

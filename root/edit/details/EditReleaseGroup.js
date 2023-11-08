@@ -57,7 +57,7 @@ const EditReleaseGroup = ({edit}: Props): React$Element<'table'> => {
           label={
             (newType?.historic || oldType?.historic)
               ? addColonText(l('Type'))
-              : l('Primary Type:')}
+              : addColonText(l('Primary type'))}
           newContent={newType?.name
             ? (
               newType?.historic
@@ -76,7 +76,7 @@ const EditReleaseGroup = ({edit}: Props): React$Element<'table'> => {
       ) : null}
       {secondaryTypes ? (
         <Diff
-          label={l('Secondary Types:')}
+          label={addColonText(l('Secondary types'))}
           newText={secondaryTypes.new}
           oldText={secondaryTypes.old}
           split=" \+"

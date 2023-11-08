@@ -10,8 +10,8 @@
 import Layout from '../layout/index.js';
 
 const CannotVote = (): React$Element<typeof Layout> => (
-  <Layout fullWidth title={l('Error Voting on Edits')}>
-    <h1>{l('Error Voting on Edits')}</h1>
+  <Layout fullWidth title={l('Error voting on edits')}>
+    <h1>{l('Error voting on edits')}</h1>
     <p>
       {l('You’re not currently allowed to vote, please read the banner.')}
     </p>

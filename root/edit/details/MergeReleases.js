@@ -298,7 +298,7 @@ const MergeReleases = ({
           <table className="tbl">
             <thead>
               <tr>
-                <th colSpan="5">{l('Recording Merges')}</th>
+                <th colSpan="5">{l('Recording merges')}</th>
               </tr>
               <tr>
                 <th>{l('Track #')}</th>

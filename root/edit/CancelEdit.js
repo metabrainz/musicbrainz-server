@@ -25,8 +25,8 @@ const CancelEdit = ({
   const detailsElement = getEditDetailsElement(edit);
 
   return (
-    <Layout fullWidth title={l('Cancel Edit')}>
-      <h2>{l('Cancel Edit')}</h2>
+    <Layout fullWidth title={lp('Cancel edit', 'header')}>
+      <h2>{lp('Cancel edit', 'header')}</h2>
       <p>
         {texp.l(
           'Are you sure you wish to cancel edit #{n}? This cannot be undone!',
@@ -53,7 +53,7 @@ const CancelEdit = ({
 
         <div className="row no-label buttons">
           <button className="submit positive" type="submit">
-            {l('Cancel edit')}
+            {lp('Cancel edit', 'button/menu')}
           </button>
         </div>
       </form>

@@ -24,9 +24,9 @@ const SubscribedEditorEdits = ({
   pager,
   refineUrlArgs,
 }: Props): React$Element<typeof Layout> => (
-  <Layout fullWidth title={l('Edits by Your Subscribed Editors')}>
+  <Layout fullWidth title={l('Edits by your subscribed editors')}>
     <div id="content">
-      <h1>{l('Edits by Your Subscribed Editors')}</h1>
+      <h1>{l('Edits by your subscribed editors')}</h1>
       <EditList
         editCountLimit={editCountLimit}
         edits={edits}

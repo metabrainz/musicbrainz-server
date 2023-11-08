@@ -49,7 +49,7 @@ const AddSeries = ({edit}: Props): React$MixedElement => {
           ) : null}
           {orderingType ? (
             <tr>
-              <th>{addColonText(l('Ordering Type'))}</th>
+              <th>{addColonText(l('Ordering type'))}</th>
               <td>
                 {lp_attributes(orderingType.name, 'series_ordering_type')}
               </td>

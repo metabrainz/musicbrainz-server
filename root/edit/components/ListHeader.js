@@ -212,11 +212,11 @@ const ListHeader = ({
       </th>
       <td>
         <a href="/doc/Introduction_to_Voting">
-          {l('Introduction to Voting')}
+          {l('Introduction to voting')}
         </a>
         {' | '}
         <a href="/doc/Introduction_to_Editing">
-          {l('Introduction to Editing')}
+          {l('Introduction to editing')}
         </a>
         {' | '}
         <a href="/doc/Style">{l('Style guidelines')}</a>

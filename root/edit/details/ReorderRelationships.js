@@ -18,8 +18,8 @@ const ReorderRelationships = ({edit}: Props): React$MixedElement => (
   <table className="details reorder-relationships">
     <tr>
       <th className="align-left wide">{l('Relationship')}</th>
-      <th className="narrow">{l('Old Order')}</th>
-      <th className="narrow">{l('New Order')}</th>
+      <th className="narrow">{l('Old order')}</th>
+      <th className="narrow">{l('New order')}</th>
     </tr>
     {edit.display_data.relationships.map((reorder, index) => (
       <tr key={index}>
