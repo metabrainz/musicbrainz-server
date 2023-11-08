@@ -37,6 +37,11 @@ msgstr ""
 "“奏鸣曲”是用来描述小型(通常是独奏或独奏+键盘)器乐作品的总称，最初出现在巴洛克"
 "音乐中。"
 
+#: DB:medium_format/name:205
+msgctxt "medium_format"
+msgid "10\" Acetate"
+msgstr ""
+
 #: DB:medium_format/name:54
 msgctxt "medium_format"
 msgid "10\" Shellac"
@@ -46,6 +51,11 @@ msgstr "10\" 胶木唱片"
 msgctxt "medium_format"
 msgid "10\" Vinyl"
 msgstr "10\" 唱片"
+
+#: DB:medium_format/name:206
+msgctxt "medium_format"
+msgid "12\" Acetate"
+msgstr ""
 
 #: DB:medium_format/name:72
 msgctxt "medium_format"
@@ -71,6 +81,11 @@ msgstr "3.5\" 软盘"
 msgctxt "medium_format"
 msgid "5.25\" Floppy Disk"
 msgstr "5.25寸软盘"
+
+#: DB:medium_format/name:204
+msgctxt "medium_format"
+msgid "7\" Acetate"
+msgstr ""
 
 #: DB:medium_format/name:52
 msgctxt "medium_format"
@@ -493,7 +508,8 @@ msgid ""
 "A place that has worship or religious studies as its main function. "
 "Religious buildings often host concerts and serve as recording locations, "
 "especially for classical music."
-msgstr "以礼拜或宗教修习为主要功能的场所。宗教建筑可用于举办音乐会及用作录音场所，尤"
+msgstr ""
+"以礼拜或宗教修习为主要功能的场所。宗教建筑可用于举办音乐会及用作录音场所，尤"
 "其用于古典音乐。"
 
 #: DB:place_type/description:4
@@ -502,7 +518,8 @@ msgid ""
 "A place whose main purpose is to host outdoor sport events, typically "
 "consisting of a pitch surrounded by a structure for spectators with no roof, "
 "or a roof which can be retracted."
-msgstr "主要功能为举办室外体育运动的场所，一般包含由看台包围的场地，没有屋顶或者具有"
+msgstr ""
+"主要功能为举办室外体育运动的场所，一般包含由看台包围的场地，没有屋顶或者具有"
 "可收回屋顶。"
 
 #: DB:release_status/description:6
@@ -519,7 +536,8 @@ msgid ""
 "A play is a form of literature usually consisting of scripted dialogue "
 "between characters, and intended for theatrical performance rather than just "
 "reading."
-msgstr "话剧是一种通常由角色间对话脚本构成的文学体裁，一般用于戏剧表演而非阅读。"
+msgstr ""
+"话剧是一种通常由角色间对话脚本构成的文学体裁，一般用于戏剧表演而非阅读。"
 
 #: DB:work_type/description:21
 msgctxt "work_type"
@@ -535,7 +553,8 @@ msgid ""
 "by the artist and/or their record company after being released, whether to "
 "replace it with a new version with some changes or to just retire it "
 "altogether (e.g. because of legal issues)."
-msgstr "被艺术家和/或唱片公司在发行后中止流通的正式专辑，不管是改为新版本还是彻底绝版"
+msgstr ""
+"被艺术家和/或唱片公司在发行后中止流通的正式专辑，不管是改为新版本还是彻底绝版"
 "(如因为法律诉讼问题)。"
 
 #: DB:release_group_secondary_type/description:10
@@ -544,7 +563,8 @@ msgid ""
 "A promotional release mostly meant to have limited circulation and "
 "demonstrate the sound of an artist to record labels, publishers and other "
 "artists."
-msgstr "推广专辑更多意味着有限流通，用于向厂牌，词曲版权方以及其他艺术家演示某艺术家"
+msgstr ""
+"推广专辑更多意味着有限流通，用于向厂牌，词曲版权方以及其他艺术家演示某艺术家"
 "的声音。"
 
 #: DB:work_type/description:14
@@ -575,8 +595,9 @@ msgctxt "release_group_secondary_type"
 msgid ""
 "A release that was recorded live. Generally this means \"with an audience\", "
 "be it in person, through the radio or in another similar way."
-msgstr "现场录制专辑。一般上这代表“有收听者”，可以是亲自，使用广播或其他类似手段收听"
-"。"
+msgstr ""
+"现场录制专辑。一般上这代表“有收听者”，可以是亲自，使用广播或其他类似手段收"
+"听。"
 
 #: DB:place_type/description:7
 msgctxt "place_type"
@@ -679,7 +700,8 @@ msgid ""
 "A song cycle is a group of songs designed to be performed in a sequence as a "
 "single entity. In most cases, all of the songs are by the same composer, and "
 "often use words from the same poet or lyricist."
-msgstr "声乐套曲是一系列用于按一定次序演唱作为统一体的歌曲。多数情况下所有歌曲由同一"
+msgstr ""
+"声乐套曲是一系列用于按一定次序演唱作为统一体的歌曲。多数情况下所有歌曲由同一"
 "作曲家谱曲，同一诗人或作词家填词。"
 
 #: DB:work_type/description:17
@@ -689,7 +711,8 @@ msgid ""
 "with or without instruments, performed by singing. This is the most common "
 "form by far in folk and popular music, but also fairly common in a classical "
 "context (\"art songs\")."
-msgstr "歌曲最初（多数情况下仍然）指用于演唱的声乐作品，可带或不带伴奏。这是流行音乐"
+msgstr ""
+"歌曲最初（多数情况下仍然）指用于演唱的声乐作品，可带或不带伴奏。这是流行音乐"
 "和民间音乐的最广泛形式，但也广泛用于古典乐领域（艺术歌曲）。"
 
 #: DB:work_type/description:22
@@ -708,8 +731,8 @@ msgid ""
 "interesting to MusicBrainz than their data properties."
 msgstr ""
 "原声音乐指的是电影，电视剧，舞台剧，电子游戏或其他媒体作品的音乐部分。带有音"
-"轨的游戏CD应视为原声音乐，因为这些CD的音乐性对MusicBrainz来说比数据性更有意义"
-"。"
+"轨的游戏CD应视为原声音乐，因为这些CD的音乐性对MusicBrainz来说比数据性更有意"
+"义。"
 
 #: DB:instrument_type/description:6
 msgctxt "instrument_type"
@@ -738,7 +761,8 @@ msgid ""
 "A suite is an ordered set of instrumental or orchestral pieces normally "
 "performed in a concert setting. They may be extracts from a ballet or opera, "
 "or entirely original movements."
-msgstr "组曲指按一定顺序编排的通常在音乐会演奏的一系列器乐或管弦乐曲。它们可能由芭蕾"
+msgstr ""
+"组曲指按一定顺序编排的通常在音乐会演奏的一系列器乐或管弦乐曲。它们可能由芭蕾"
 "舞曲或歌剧的选段，或者完全原创的乐章构成。"
 
 #: DB:work_type/description:18
@@ -747,7 +771,8 @@ msgid ""
 "A symphonic poem is a piece of programmatic orchestral music, usually in a "
 "single movement, that evokes a painting, a landscape, the content of a poem, "
 "a story or novel, or other non-musical source."
-msgstr "交响诗是一个程式化的管弦乐作品，通常为单一乐章，令人联想起绘画，风光，诗歌内"
+msgstr ""
+"交响诗是一个程式化的管弦乐作品，通常为单一乐章，令人联想起绘画，风光，诗歌内"
 "容，小说情节或其他非音乐素材。"
 
 #: DB:work_type/description:16
@@ -775,7 +800,8 @@ msgid ""
 "A very small optical disc in a protective case that was intended for "
 "portable listening. It did not find commercial success, but a few albums "
 "were released in the format in the early 00s."
-msgstr "原本用于移动聆听的带保护壳的超小型光碟。商业上不成功，但是00年代早期少数专辑"
+msgstr ""
+"原本用于移动聆听的带保护壳的超小型光碟。商业上不成功，但是00年代早期少数专辑"
 "以此格式发行。"
 
 #: DB:medium_format/description:131
@@ -791,7 +817,8 @@ msgid ""
 "A zarzuela is a Spanish lyric-dramatic work that alternates between spoken "
 "and sung scenes, the latter incorporating operatic and popular song, as well "
 "as dance."
-msgstr "查瑞拉歌剧是对白和演唱穿插演出的西班牙音乐戏剧作品，演唱场景包括歌剧音乐和通"
+msgstr ""
+"查瑞拉歌剧是对白和演唱穿插演出的西班牙音乐戏剧作品，演唱场景包括歌剧音乐和通"
 "俗音乐，以及舞蹈。"
 
 #: DB:work_attribute_type_allowed_value/value:26
@@ -924,6 +951,11 @@ msgctxt "work_attribute_type_allowed_value"
 msgid "Acemtarab"
 msgstr "Acemtarab"
 
+#: DB:medium_format/name:203
+msgctxt "medium_format"
+msgid "Acetate"
+msgstr ""
+
 #: DB:work_attribute_type_allowed_value/value:848
 msgctxt "work_attribute_type_allowed_value"
 msgid "Adānā"
@@ -1024,9 +1056,9 @@ msgid ""
 "EP is fairly difficult to define; usually it should only be assumed that a "
 "release is an EP if the artist defines it as such."
 msgstr ""
-"EP，即迷你专辑，在标题中常有“EP”字样。一般而言EP比全长专辑(常规专辑或LP)要短"
-"，而音轨则为EP专属，意味着不会来自过往专辑。EP相当难以定义；一般只会在艺术家"
-"将专辑定义为EP时才是EP。"
+"EP，即迷你专辑，在标题中常有“EP”字样。一般而言EP比全长专辑(常规专辑或LP)要"
+"短，而音轨则为EP专属，意味着不会来自过往专辑。EP相当难以定义；一般只会在艺术"
+"家将专辑定义为EP时才是EP。"
 
 #: DB:release_group_primary_type/description:1
 msgctxt "release_group_primary_type"
@@ -1034,7 +1066,8 @@ msgid ""
 "An album, perhaps better defined as a \"Long Play\" (LP) release, generally "
 "consists of previously unreleased material (unless this type is combined "
 "with secondary types which change that, such as \"Compilation\")."
-msgstr "专辑，更确切的称呼是常规专辑(LP)，一般包含从未发布的素材(除非此类型与会改变性"
+msgstr ""
+"专辑，更确切的称呼是常规专辑(LP)，一般包含从未发布的素材(除非此类型与会改变性"
 "质的此类并用，如\"合辑\")。"
 
 #: DB:release_status/description:4
@@ -1043,8 +1076,9 @@ msgid ""
 "An alternate version of a release where the titles have been changed. These "
 "don't correspond to any real release and should be linked to the original "
 "release using the transl(iter)ation relationship."
-msgstr "某专辑变更标题后的版本。它们并不对应任何正式专辑，与原专辑间关联为翻译（转写"
-"）。"
+msgstr ""
+"某专辑变更标题后的版本。它们并不对应任何正式专辑，与原专辑间关联为翻译（转"
+"写）。"
 
 #: DB:work_type/description:1
 msgctxt "work_type"
@@ -1052,7 +1086,8 @@ msgid ""
 "An aria is a self-contained piece for one voice usually with orchestral "
 "accompaniment. They are most common inside operas, but also appear in "
 "cantatas, oratorios and even on their own (concert arias)."
-msgstr "咏叹调是通常具有管弦乐队伴奏的单一人声作品。在歌剧中最常见，但也在康塔塔中，"
+msgstr ""
+"咏叹调是通常具有管弦乐队伴奏的单一人声作品。在歌剧中最常见，但也在康塔塔中，"
 "清唱剧中出现，甚至单独出现（音乐会咏叹调）。"
 
 #: DB:work_type/description:25
@@ -1060,7 +1095,8 @@ msgctxt "work_type"
 msgid ""
 "An audio drama is a dramatized, purely acoustic performance, broadcast on "
 "radio or published on an audio medium (tape, CD, etc.)."
-msgstr "音频剧是戏剧化的纯声音表演，通过电台广播或者以音频媒介（磁带，CD等）出版。"
+msgstr ""
+"音频剧是戏剧化的纯声音表演，通过电台广播或者以音频媒介（磁带，CD等）出版。"
 
 #: DB:release_group_secondary_type/description:11
 msgctxt "release_group_secondary_type"
@@ -1068,7 +1104,8 @@ msgid ""
 "An audio drama is an audio-only performance of a play (often, but not "
 "always, meant for radio). Unlike audiobooks, it usually has multiple "
 "performers rather than a main narrator."
-msgstr "音频剧是只有音频的话剧(通常，但不总是，在广播上播出)。与有声读物不同，它常有"
+msgstr ""
+"音频剧是只有音频的话剧(通常，但不总是，在广播上播出)。与有声读物不同，它常有"
 "多位表演者而非单一叙述者。"
 
 #: DB:release_group_secondary_type/description:5
@@ -1082,7 +1119,8 @@ msgid ""
 "An award ceremony is an event which is focused on the granting of prizes, "
 "but often includes musical performances in between the awarding of said "
 "prizes, especially for musical awards."
-msgstr "颁奖典礼是主要进行颁奖流程的活动，但在奖项之间常包括音乐表演，尤其是音乐类奖"
+msgstr ""
+"颁奖典礼是主要进行颁奖流程的活动，但在奖项之间常包括音乐表演，尤其是音乐类奖"
 "项。"
 
 #: DB:release_group_primary_type/description:12
@@ -1104,7 +1142,8 @@ msgctxt "event_type"
 msgid ""
 "An individual concert by a single artist or collaboration, often with "
 "supporting artists who perform before the main act."
-msgstr "由单一艺术家或协作团体举办的独立音乐会，通常在主要演出前有协助艺术家表演。"
+msgstr ""
+"由单一艺术家或协作团体举办的独立音乐会，通常在主要演出前有协助艺术家表演。"
 
 #: DB:place_type/description:44
 msgctxt "place_type"
@@ -1129,7 +1168,8 @@ msgid ""
 "An opera is a dramatised work (text + musical score) for singers and "
 "orchestra/ensemble. In true operas all dialog is sung, through arias and "
 "recitatives, but some styles of opera include spoken dialogue."
-msgstr "歌剧是由歌唱家和管弦乐队/歌舞团表演的戏剧作品（文本+音乐部分）。真正的歌剧所"
+msgstr ""
+"歌剧是由歌唱家和管弦乐队/歌舞团表演的戏剧作品（文本+音乐部分）。真正的歌剧所"
 "有对话由咏叹调和宣叙调演唱，但部分体裁的歌剧包含口白。"
 
 #: DB:work_type/description:11
@@ -1154,7 +1194,8 @@ msgid ""
 "An overture is, generally, the instrumental introduction to an opera. "
 "Independent (\"concert\") overtures also exist, which are generally "
 "programmatic works shorter than a symphonic poem."
-msgstr "序曲通常指歌剧开场时的器乐曲。也存在独立（音乐会）序曲，一般是比交响诗短的程"
+msgstr ""
+"序曲通常指歌剧开场时的器乐曲。也存在独立（音乐会）序曲，一般是比交响诗短的程"
 "式化作品。"
 
 #: DB:release_status/description:3
@@ -1163,7 +1204,8 @@ msgid ""
 "An unofficial/underground release that was not sanctioned by the artist and/"
 "or the record company. This includes unofficial live recordings and pirated "
 "releases."
-msgstr "非官方/地下专辑是未经艺术家和/或唱片公司许可的专辑。它包括非官方现场表演录音"
+msgstr ""
+"非官方/地下专辑是未经艺术家和/或唱片公司许可的专辑。它包括非官方现场表演录音"
 "和盗版专辑。"
 
 #: DB:work_type/description:20
@@ -1172,7 +1214,8 @@ msgid ""
 "An étude is an instrumental musical composition, most commonly of "
 "considerable difficulty, usually designed to provide practice material for "
 "perfecting a particular technical skill."
-msgstr "练习曲是一种器乐曲，常有可观的难度，一般用作某种特定演奏技巧的练习素材。"
+msgstr ""
+"练习曲是一种器乐曲，常有可观的难度，一般用作某种特定演奏技巧的练习素材。"
 
 #: DB:work_attribute_type_allowed_value/value:310
 msgctxt "work_attribute_type_allowed_value"
@@ -2189,7 +2232,8 @@ msgid ""
 "not the main administrative divisions but are also not municipalities, e.g. "
 "counties in the USA. These are not considered when displaying the parent "
 "areas for a given area."
-msgstr "县指一国内更小的不是一级行政区也不是地方自治体的行政区划，如美国的县。在显示"
+msgstr ""
+"县指一国内更小的不是一级行政区也不是地方自治体的行政区划，如美国的县。在显示"
 "某区域的上级区域时不考虑。"
 
 #: DB:work_attribute_type_allowed_value/value:608
@@ -3087,7 +3131,8 @@ msgctxt "medium_format"
 msgid ""
 "Flexi-discs are phonograph records made of a thin, flexible vinyl sheet with "
 "a molded-in groove, designed to be playable on a normal phonograph turntable."
-msgstr "软唱片是由较薄，可弯曲塑胶片通过模压刻上音轨的留声机唱片，可使用常规留声机播"
+msgstr ""
+"软唱片是由较薄，可弯曲塑胶片通过模压刻上音轨的留声机唱片，可使用常规留声机播"
 "放。"
 
 #: DB:medium_format/name:76
@@ -4220,7 +4265,8 @@ msgid ""
 "Island is used for islands and atolls which don't form subdivisions of their "
 "own, e.g. Skye. These are not considered when displaying the parent areas "
 "for a given area."
-msgstr "岛屿指不下辖任何行政区划的岛屿和环礁，如斯凯岛。在显示某区域的上级区域时不考"
+msgstr ""
+"岛屿指不下辖任何行政区划的岛屿和环礁，如斯凯岛。在显示某区域的上级区域时不考"
 "虑。"
 
 #: DB:work_attribute_type/name:69
@@ -5345,7 +5391,8 @@ msgid ""
 "Municipality is used for small administrative divisions which, for urban "
 "municipalities, often contain a single city and a few surrounding villages. "
 "Rural municipalities typically group several villages together."
-msgstr "自治体指较小的行政区划，城镇自治体包含一座城市和附近的村庄。农村自治体一般有"
+msgstr ""
+"自治体指较小的行政区划，城镇自治体包含一座城市和附近的村庄。农村自治体一般有"
 "多个村庄组合而成。"
 
 #: DB:work_attribute_type_allowed_value/value:645
@@ -7143,7 +7190,8 @@ msgid ""
 "Subdivision is used for the main administrative divisions of a country, e.g. "
 "California, Ontario, Okinawa. These are considered when displaying the "
 "parent areas for a given area."
-msgstr "行政区指一个国家的主要行政区划，如加利福尼亚州，安大略省，冲绳县。在显示某区"
+msgstr ""
+"行政区指一个国家的主要行政区划，如加利福尼亚州，安大略省，冲绳县。在显示某区"
 "域上级区域时会考虑到。"
 
 #: DB:work_attribute_type_allowed_value/value:244
@@ -7501,7 +7549,8 @@ msgid ""
 "system developed by RCA, in which video and audio could be played back on a "
 "TV set using a special needle and high-density groove system similar to "
 "phonograph records."
-msgstr "高容量电子碟片（CED）是一种由RCA公司研发的影碟重放系统，使用特殊的唱针和类似"
+msgstr ""
+"高容量电子碟片（CED）是一种由RCA公司研发的影碟重放系统，使用特殊的唱针和类似"
 "于留声机的高密度音轨在电视机重放音视频信号。"
 
 #: DB:medium_format/description:68
@@ -7538,8 +7587,9 @@ msgid ""
 "The DVD layer of a DualDisc, when it's unclear whether it should be DVD-"
 "Audio or DVD-Video (or it includes both). The CD layer should be added as a "
 "separate medium."
-msgstr "双面光盘的DVD层，当不清楚它应该是DVD-"
-"音频还是DVD-视频（或者两者都有）时。CD层应该作为单独的媒介添加。"
+msgstr ""
+"双面光盘的DVD层，当不清楚它应该是DVD-音频还是DVD-视频（或者两者都有）时。CD层"
+"应该作为单独的媒介添加。"
 
 #: DB:medium_format/description:80
 msgctxt "medium_format"
@@ -7561,7 +7611,8 @@ msgid ""
 "The bottom of a box or other similar packaging (for most common six sided "
 "packaging options, the one perpendicular to and below front, back and "
 "spines)."
-msgstr "盒子或类似包装的底面(对于最常见的六面体包装选项而言，指垂直于正面，背面和侧面"
+msgstr ""
+"盒子或类似包装的底面(对于最常见的六面体包装选项而言，指垂直于正面，背面和侧面"
 "且位于下方的面)。"
 
 #: DB:work_type/description:7
@@ -7570,14 +7621,16 @@ msgid ""
 "The madrigal is a type of secular vocal music composition. In its original "
 "form, it had no instrumental accompaniment, although accompaniment is much "
 "more common in later madrigals."
-msgstr "牧歌是一种世俗声乐体裁。最初没有器乐伴奏，然而后期牧歌更多地有器乐伴奏。"
+msgstr ""
+"牧歌是一种世俗声乐体裁。最初没有器乐伴奏，然而后期牧歌更多地有器乐伴奏。"
 
 #: DB:work_type/description:24
 msgctxt "work_type"
 msgid ""
 "The operetta is a genre of light opera, in terms both of music and subject "
 "matter. Operettas are generally short and include spoken parts."
-msgstr "轻歌剧是一种轻型歌剧，在音乐和主题方面都是如此。轻歌剧一般较短且包括口白。"
+msgstr ""
+"轻歌剧是一种轻型歌剧，在音乐和主题方面都是如此。轻歌剧一般较短且包括口白。"
 
 #: DB:cover_art_archive.art_type/description:15
 msgctxt "cover_art_type"
@@ -7585,8 +7638,9 @@ msgid ""
 "The section on a CD, record or other media containing such data as matrix "
 "numbers. Usually found in the hub of a CD or the dead wax area of a vinyl "
 "record."
-msgstr "CD，唱片或其他媒介含有原版号的部分。通常可以在CD的内圈或黑胶唱片的蜡封区找到"
-"。"
+msgstr ""
+"CD，唱片或其他媒介含有原版号的部分。通常可以在CD的内圈或黑胶唱片的蜡封区找"
+"到。"
 
 #: DB:cover_art_archive.art_type/description:48
 msgctxt "cover_art_type"
@@ -7594,7 +7648,8 @@ msgid ""
 "The top of a box or other similar packaging (for most common six sided "
 "packaging options, the one perpendicular to and above front, back and "
 "spines)."
-msgstr "盒子或类似包装的顶面(对于最常见的六面体包装选项而言，指垂直于正面，背面和侧面"
+msgstr ""
+"盒子或类似包装的顶面(对于最常见的六面体包装选项而言，指垂直于正面，背面和侧面"
 "且位于上方的面)。"
 
 #: DB:release_packaging/description:1
@@ -7615,8 +7670,9 @@ msgid ""
 "This indicates a choir/chorus (an organized, usually large group of "
 "singers). Smaller vocal ensembles and groupings that do not generally call "
 "themselves choirs are better entered as “Group”."
-msgstr "这表示合唱团/合唱团（一种有组织的、通常人数很多的歌手组织）。 "
-"较小的声乐乐团和通常不自称为合唱团的团队最好输入“Group”。"
+msgstr ""
+"这表示合唱团/合唱团（一种有组织的、通常人数很多的歌手组织）。 较小的声乐乐团"
+"和通常不自称为合唱团的团队最好输入“Group”。"
 
 #: DB:artist_type/description:4
 msgctxt "artist_type"
@@ -7640,8 +7696,8 @@ msgid ""
 "groupings that do not generally call themselves orchestras are better "
 "entered as “Group”."
 msgstr ""
-"这表示一个乐团（一种有组织的、通常人数很多的乐器演奏者组织）。 "
-"较小的乐团（如三重奏和四重奏）和通常不称自己为乐团的乐队最好输入“ Group”。"
+"这表示一个乐团（一种有组织的、通常人数很多的乐器演奏者组织）。 较小的乐团（如"
+"三重奏和四重奏）和通常不称自己为乐团的乐队最好输入“ Group”。"
 
 #: DB:work_type/description:23
 msgctxt "work_type"
@@ -7847,7 +7903,8 @@ msgid ""
 "Used for semi-autonomous territories governed by indigenous peoples, such as "
 "Indian reserves/reservations in North America and indigenous territories in "
 "Central and South America."
-msgstr "用于原住民统治的半自治领土，如北美洲的印第安人保留地/保护区以及中美洲和南美洲"
+msgstr ""
+"用于原住民统治的半自治领土，如北美洲的印第安人保留地/保护区以及中美洲和南美洲"
 "的土著领地。"
 
 #: DB:work_attribute_type/name:17

@@ -8785,8 +8785,8 @@ msgid ""
 "{live} {medley:medleys including} {partial} {instrumental} {cover} {karaoke} "
 "recordings"
 msgstr ""
-"{live} {medley:Medleys inklusive} {partial:teilweiser} "
-"{instrumental:Instrumental-}{cover:Cover-}{karaoke:Karaoke-}Aufnahmen"
+"{live} {medley:Medleys inklusive} {partial:teilweiser} {instrumental:"
+"Instrumental-}{cover:Cover-}{karaoke:Karaoke-}Aufnahmen"
 
 #: DB:link_type/link_phrase:109
 msgid "{step}children"
