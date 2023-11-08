@@ -43,7 +43,7 @@
                 [% release=result.entity %]
                 [%- IF release.release_group.gid != current_rg -%]
                     [% current_rg = release.release_group.gid %]
-                    <tr class="subh"><th colspan=[% IF c.try_get_session('tport'); '9'; ELSE; '8'; END %]>[% l('Release Group: {release_group_link}', { release_group_link => link_entity(release.release_group) }) %]</th></tr>
+                    <tr class="subh"><th colspan=[% IF c.try_get_session('tport'); '9'; ELSE; '8'; END %]>[% l('Release group: {release_group_link}', { release_group_link => link_entity(release.release_group) }) %]</th></tr>
                 [%- END -%]
                 [% zebra = zebra + 1 %]
                 [% attach_list_row(release, 1) %]
