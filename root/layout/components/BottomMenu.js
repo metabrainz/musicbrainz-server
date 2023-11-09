@@ -112,7 +112,7 @@ const LanguageMenu = ({
 const AboutMenu = () => (
   <li className="about" tabIndex="-1">
     <span className="menu-header">
-      {l('About Us')}
+      {l('About us')}
       {'\xA0\u25BE'}
     </span>
     <ul>

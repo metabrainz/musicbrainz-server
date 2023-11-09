@@ -62,8 +62,14 @@ const EventSidebar = ({event}: Props): React$Element<'div'> => {
             />
           ) : (
             <>
-              <SidebarBeginDate entity={event} label={l('Start Date:')} />
-              <SidebarEndDate entity={event} label={l('End Date:')} />
+              <SidebarBeginDate
+                entity={event}
+                label={addColonText(l('Start date'))}
+              />
+              <SidebarEndDate
+                entity={event}
+                label={addColonText(l('End date'))}
+              />
             </>
           )
         ) : null}

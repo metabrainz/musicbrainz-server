@@ -29,7 +29,7 @@ const Footer = (): React$Element<'div'> => {
         <a className="internal" href="/doc/Communication/IRC">
           {l('Chat (IRC)')}
         </a>
-        <a className="internal" href="http://tickets.metabrainz.org/">{l('Bug Tracker')}</a>
+        <a className="internal" href="http://tickets.metabrainz.org/">{l('Bug tracker')}</a>
         <a className="internal" href="https://blog.metabrainz.org/">{l('Blog')}</a>
         <a className="internal" href="https://twitter.com/MusicBrainz">{l('Twitter')}</a>
 

@@ -1,6 +1,6 @@
 <div id="current-editing">
   <form action="[% merge_link %]?[% c.returnto_relative_uri %]" method="post">
-    <h2>[% l('Merge Process') %]</h2>
+    <h2>[% l('Merge process') %]</h2>
     <p>[% l('You currently have the following entities selected
       for merging:') %]</p>
     <ul>

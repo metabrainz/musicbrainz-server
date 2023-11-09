@@ -27,7 +27,7 @@ const TYPE_OPTION_GROUPS: $ReadOnlyArray<SearchOptionGroupT> = [
     event:         N_l('Event'),
     recording:     N_l('Recording'),
     release:       N_l('Release'),
-    release_group: N_l('Release Group'),
+    release_group: N_l('Release group'),
     series:        N_lp('Series', 'singular'),
     work:          N_l('Work'),
   },
@@ -42,7 +42,7 @@ const TYPE_OPTION_GROUPS: $ReadOnlyArray<SearchOptionGroupT> = [
     tag:           N_lp('Tag', 'noun'),
   },
   {
-    cdstub:        N_l('CD Stub'),
+    cdstub:        N_l('CD stub'),
   },
   {
     editor:        N_l('Editor'),

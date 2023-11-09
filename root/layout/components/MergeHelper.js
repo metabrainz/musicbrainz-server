@@ -27,7 +27,7 @@ const MergeHelper = ({merger}: Props): React$Element<'div'> => {
         action={`/${merger.type}/merge?` + returnToCurrentPage($c)}
         method="post"
       >
-        <h2>{l('Merge Process')}</h2>
+        <h2>{l('Merge process')}</h2>
         <p>
           {l(`You currently have the following entities
               selected for merging:`)}
