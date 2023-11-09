@@ -288,6 +288,7 @@ export default {
   'report/ReleasesWithEmptyMediums': (): Promise<mixed> => import('../report/ReleasesWithEmptyMediums.js'),
   'report/ReleasesWithMailOrderRelationships': (): Promise<mixed> => import('../report/ReleasesWithMailOrderRelationships.js'),
   'report/ReleasesWithNoMediums': (): Promise<mixed> => import('../report/ReleasesWithNoMediums.js'),
+  'report/ReleasesWithoutCaa': (): Promise<mixed> => import('../report/ReleasesWithoutCaa.js'),
   'report/ReleasesWithoutVaCredit': (): Promise<mixed> => import('../report/ReleasesWithoutVaCredit.js'),
   'report/ReleasesWithoutVaLink': (): Promise<mixed> => import('../report/ReleasesWithoutVaLink.js'),
   'report/ReleasesWithUnlikelyLanguageScript': (): Promise<mixed> => import('../report/ReleasesWithUnlikelyLanguageScript.js'),

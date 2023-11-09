@@ -362,6 +362,10 @@ const ReportsIndex = (): React$Element<typeof Layout> => {
             reportName="ReleasesWithCAANoTypes"
           />
           <ReportsIndexEntry
+            content={l('Releases without any art in the Cover Art Archive')}
+            reportName="ReleasesWithoutCAA"
+          />
+          <ReportsIndexEntry
             content={l('Releases with mediums named after their position')}
             reportName="MediumsWithOrderInTitle"
           />
