@@ -19,8 +19,8 @@ type Props = {
 const OtherLookupReleaseResults = ({
   results,
 }: Props): React$Element<typeof Layout> => (
-  <Layout fullWidth title={l('Search Results')}>
-    <h1>{l('Search Results')}</h1>
+  <Layout fullWidth title={l('Search results')}>
+    <h1>{l('Search results')}</h1>
     {results.length ? (
       <ReleaseList
         releases={results}
