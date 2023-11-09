@@ -36,7 +36,7 @@ sub options_type
 {
     my @options = (
         'artist'        => l('Artist'),
-        'release_group' => l('Release Group'),
+        'release_group' => l('Release group'),
         'release'       => l('Release'),
         'recording'     => l('Recording'),
         'work'          => l('Work'),
@@ -44,7 +44,7 @@ sub options_type
         'area'          => l('Area'),
         'place'         => l('Place'),
         'annotation'    => l('Annotation'),
-        'cdstub'        => l('CD Stub'),
+        'cdstub'        => l('CD stub'),
         'editor'        => l('Editor'),
         'tag'           => lp('Tag', 'noun'),
         'instrument'    => l('Instrument'),
