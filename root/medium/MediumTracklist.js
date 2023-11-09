@@ -50,7 +50,7 @@ const MediumTracklist = ({
           <td colSpan="6">
             <DataTrackIcon />
             {' '}
-            {l('Data Tracks')}
+            {l('Data tracks')}
           </td>
         </tr>,
       );

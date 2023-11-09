@@ -34,7 +34,7 @@ dl.ars dt {
 <tr class="subh">
     <td colspan="6">
       [% data_track_icon %]
-      [% l('Data Tracks') %]
+      [% l('Data tracks') %]
     </td>
 </tr>
 [% END %]
