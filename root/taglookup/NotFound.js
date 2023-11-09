@@ -10,7 +10,7 @@
 import NotFound from '../components/NotFound.js';
 
 const TagLookupNotFound = (): React$Element<typeof NotFound> => (
-  <NotFound title={l('Tag Lookup Error')}>
+  <NotFound title={l('Tag lookup error')}>
     <p>
       {l(
         `That search can't be performed, because you must provide at least one
