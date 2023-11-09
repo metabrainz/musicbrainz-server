@@ -235,7 +235,7 @@
 
   <div class="buttons">
     <button type="button" class="negative" id="close-track-parser" data-bind="click: close">[% l('Close') %]</button>
-    <button type="button" id="parse-tracks" style="float: right" data-bind="click: parse">[% l('Parse Tracks') %]</button>
+    <button type="button" id="parse-tracks" style="float: right" data-bind="click: parse">[% l('Parse tracks') %]</button>
   </div>
 </div>
 
@@ -463,7 +463,7 @@
             <tr class="subh">
               <td colspan="7">
                 [% data_track_icon %]
-                [% l('Data Tracks') %]
+                [% l('Data tracks') %]
               </td>
             </tr>
             <!-- ko loop: { items: dataTracks, id: 'uniqueID' } -->
@@ -521,7 +521,7 @@
         <!-- /ko -->
 
         <div class="buttons">
-          <button type="button" class="open-track-parser" data-click="openTrackParser">[% l('Track Parser') %]</button>
+          <button type="button" class="open-track-parser" data-click="openTrackParser">[% l('Track parser') %]</button>
           <button type="button" class="reset-track-numbers" data-click="resetTrackNumbers">[%- l('Reset track numbers') -%]</button>
           <button type="button" data-click="swapTitlesWithArtists">[%- l('Swap track titles with artist credits') -%]</button>
           <button type="button" data-click="guessMediumCase">[%- l('Guess case') -%]</button>

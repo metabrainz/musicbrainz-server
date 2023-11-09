@@ -95,7 +95,7 @@
     // Add an event with just a date.
     {
       command: 'click',
-      target: "xpath=//button[contains(text(), 'Add Release Event')]",
+      target: "xpath=//button[contains(text(), 'Add release event')]",
       value: '',
     },
     {
@@ -106,7 +106,7 @@
     // Add an event with just a country.
     {
       command: 'click',
-      target: "xpath=//button[contains(text(), 'Add Release Event')]",
+      target: "xpath=//button[contains(text(), 'Add release event')]",
       value: '',
     },
     {
@@ -468,7 +468,7 @@
     {
       command: 'assertEval',
       target: "Array.from(document.querySelectorAll('table.medium > tbody > tr')).slice(1).map(x => Array.from(x.querySelectorAll('td')).filter(x => !x.classList.contains('rating')).map(x => x.textContent.trim().replace(/\\s*(Recording artist:)\\s*([^\\n]+)/, '\\t$1 $2')).join('\\t')).join('\\n')",
-      value: '0\tPregap\tNine Inch Nails\t?:??\nA1\tMr Self Destruct\tRecording artist: Nine Inch Nails\tnin\t4:31\nA2\tPiggy\tRecording artist: Nine Inch Nails\tnin\t4:24\nA3\tHeresy\tnin\t3:54\nA4\tMarch of the Pigs\tnin\t2:58\nA5\tCloser\tnin\t6:13\nA6\tRuiner\tnin\t4:59\nA7\tThe Becoming\tnin\t5:32\n8\tBig Man With a Gun\tNine Inch Nails\t?:??\n9\tI Do Not Want This\tNine Inch Nails\t?:??\n10\tA Warm Place\tNine Inch Nails\t?:??\n11\tEraser\tNine Inch Nails\t?:??\n12\tReptile\tNine Inch Nails\t?:??\n13\tThe Downward Spiral\tNine Inch Nails\t?:??\n14\tHurt\tNine Inch Nails\t?:??\nData Tracks\n15\t[data track]\tNine Inch Nails\t?:??',
+      value: '0\tPregap\tNine Inch Nails\t?:??\nA1\tMr Self Destruct\tRecording artist: Nine Inch Nails\tnin\t4:31\nA2\tPiggy\tRecording artist: Nine Inch Nails\tnin\t4:24\nA3\tHeresy\tnin\t3:54\nA4\tMarch of the Pigs\tnin\t2:58\nA5\tCloser\tnin\t6:13\nA6\tRuiner\tnin\t4:59\nA7\tThe Becoming\tnin\t5:32\n8\tBig Man With a Gun\tNine Inch Nails\t?:??\n9\tI Do Not Want This\tNine Inch Nails\t?:??\n10\tA Warm Place\tNine Inch Nails\t?:??\n11\tEraser\tNine Inch Nails\t?:??\n12\tReptile\tNine Inch Nails\t?:??\n13\tThe Downward Spiral\tNine Inch Nails\t?:??\n14\tHurt\tNine Inch Nails\t?:??\nData tracks\n15\t[data track]\tNine Inch Nails\t?:??',
     },
     {
       command: 'assertEval',
@@ -478,7 +478,7 @@
     {
       command: 'assertEval',
       target: "Array.from(document.querySelector('h2.additional-details + dl.properties').children).map(function (node) { return node.textContent }).join('\\n')",
-      value: 'Type:\nSingle\nPackaging:\nDigipak\nStatus:\nBootleg\nLanguage:\nGerman\nScript:\nSymbols\nData Quality:\nNormal',
+      value: 'Type:\nSingle\nPackaging:\nDigipak\nStatus:\nBootleg\nLanguage:\nGerman\nScript:\nSymbols\nData quality:\nNormal',
     },
     {
       command: 'assertEval',
@@ -1242,7 +1242,7 @@
     },
     {
       command: 'click',
-      target: "xpath=//div[@id='track-parser-dialog']//button[contains(text(), 'Parse Tracks')]",
+      target: "xpath=//div[@id='track-parser-dialog']//button[contains(text(), 'Parse tracks')]",
       value: '',
     },
     {
@@ -1354,7 +1354,7 @@
     {
       command: 'assertEval',
       target: "Array.from(document.querySelector('h2.additional-details + dl.properties').children).map(function (node) { return node.textContent }).join('\\n')",
-      value: 'Type:\nSingle\nPackaging:\nJewel Case\nStatus:\nOfficial\nLanguage:\nEnglish\nScript:\nLatin\nData Quality:\nNormal',
+      value: 'Type:\nSingle\nPackaging:\nJewel Case\nStatus:\nOfficial\nLanguage:\nEnglish\nScript:\nLatin\nData quality:\nNormal',
     },
     {
       command: 'assertEval',

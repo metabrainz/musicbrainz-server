@@ -34,7 +34,7 @@
       ) %]
 
       <tr>
-        <td><label for="release-group">[% add_colon(l('Release Group')) %]</label></td>
+        <td><label for="release-group">[% add_colon(l('Release group')) %]</label></td>
         <td colspan="2">
           <span class="autocomplete">
             <input id="release-group" type="text"
@@ -92,10 +92,10 @@
 
       [% IF NOT release.gid %]
         <!-- ko with: releaseGroup -->
-        [% table_row_select('primary-type', l('Primary Type:'), 2,
+        [% table_row_select('primary-type', add_colon(l('Primary type')), 2,
             'value: typeID, disable: !!$data.gid', primary_types) %]
 
-        [% table_row_select('secondary-types', l('Secondary Types:'), 2,
+        [% table_row_select('secondary-types', add_colon(l('Secondary types')), 2,
             'selectedOptions: secondaryTypeIDs, disable: !!$data.gid', secondary_types, 1) %]
         <!-- /ko -->
       [% ELSE %]
@@ -156,7 +156,7 @@
         [% table_cells_select('country', add_colon(l('Country')), 1,
             "value: countryID, withLabel: 'country'", countries) %]
         <td>
-          <button type="button" class="icon remove-item remove-release-event" title="[% l('Remove Release Event') %]" data-click="removeReleaseEvent"></button>
+          <button type="button" class="icon remove-item remove-release-event" title="[% l('Remove release event') %]" data-click="removeReleaseEvent"></button>
         </td>
       </tr>
 
@@ -168,8 +168,8 @@
       <tr>
         <td></td>
         <td colspan="4" class="add-item">
-          <button type="button" class="with-label add-item" title="[% lp('Add Release Event', 'button/menu') %]" data-click="addReleaseEvent">
-            [% lp('Add Release Event', 'button/menu') %]
+          <button type="button" class="with-label add-item" title="[% lp('Add release event', 'button/menu') %]" data-click="addReleaseEvent">
+            [% lp('Add release event', 'button/menu') %]
           </button>
         </td>
       </tr>
@@ -265,7 +265,7 @@
   </fieldset>
 
   <fieldset class="information">
-    <legend>[% l('External Links') %]</legend>
+    <legend>[% l('External links') %]</legend>
     [% external_links_editor() %]
   </fieldset>
 </div>

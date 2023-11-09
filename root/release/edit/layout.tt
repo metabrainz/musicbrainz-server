@@ -9,13 +9,13 @@
 
   <div id="release-editor" style="display: none;" data-bind="delegatedHandler: ['click', 'change', 'keydown']">
     <ul>
-      <li><a href="#information">[% l('Release Information') %]</a></li>
+      <li><a href="#information">[% l('Release information') %]</a></li>
       [% IF NOT release.gid %]
-        <li><a href="#duplicates-tab">[% l('Release Duplicates') %]</a></li>
+        <li><a href="#duplicates-tab">[% l('Release duplicates') %]</a></li>
       [% END %]
       <li><a href="#tracklist">[% l('Tracklist') %]</a></li>
       <li><a href="#recordings" title="[% l('First enter all track information, including titles and artist credits, in order to edit their recordings.') | html_entity %]">[% l('Recordings') %]</a></li>
-      <li><a href="#edit-note">[% l('Edit Note') %]</a></li>
+      <li><a href="#edit-note">[% l('Edit note') %]</a></li>
     </ul>
 
     <!-- ko if: seedErrors -->

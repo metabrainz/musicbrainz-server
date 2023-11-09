@@ -145,7 +145,7 @@
         [%- IF !artwork.id -%]
           <div class="editimage thumb-position">
             <div class="image-placeholder">
-              <p>[% l('New Image Goes Here') %]</p>
+              <p>[% l('New image goes here') %]</p>
             </div>
             <div>
               <button type="button" class="left">&larr;</button>
