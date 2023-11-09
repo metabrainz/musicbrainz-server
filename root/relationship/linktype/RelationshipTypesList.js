@@ -57,7 +57,7 @@ const RelationshipTypesList = ({
   table,
   types,
 }: Props): React$Element<typeof Layout> => (
-  <Layout fullWidth noIcons title={l('Relationship Types')}>
+  <Layout fullWidth noIcons title={l('Relationship types')}>
     <div className="wikicontent" id="content">
       <RelationshipsHeader page="relationships" />
       <TypesTable table={table} types={types} />

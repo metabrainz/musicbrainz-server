@@ -74,7 +74,7 @@ const RelationshipAttributeTypeIndex = ({
 
   const childrenAttrs = attribute.children || [];
   const attrName = upperFirst(l_relationships(attribute.name));
-  const title = l('Relationship Attribute') + ' / ' + attrName;
+  const title = l('Relationship attribute') + ' / ' + attrName;
   const parent = attribute.parent_id == null
     ? null
     : linkedEntities.link_attribute_type[attribute.parent_id];
@@ -84,7 +84,7 @@ const RelationshipAttributeTypeIndex = ({
       <div id="content">
         <h1 className="hierarchy-links">
           <a href="/relationship-attributes">
-            {l('Relationship Attributes')}
+            {l('Relationship attributes')}
           </a>
           {' / '}
           {attrName}
