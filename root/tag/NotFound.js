@@ -14,7 +14,7 @@ type Props = {
 };
 
 const TagNotFound = ({tag}: Props): React$Element<typeof NotFound> => (
-  <NotFound title={l('Tag Not Used')}>
+  <NotFound title={l('Tag not used')}>
     <p>
       {texp.l(
         'No MusicBrainz entities have yet been tagged with "{tag}".',
