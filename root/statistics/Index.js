@@ -88,14 +88,14 @@ const Index = ({
       <table className="database-statistics">
         <tbody>
           <tr className="thead">
-            <th colSpan="4">{l('Core Entities')}</th>
+            <th colSpan="4">{l('Core entities')}</th>
           </tr>
           <tr>
             <th>{addColonText(l('Artists'))}</th>
             <td colSpan="3">{fc('artist')}</td>
           </tr>
           <tr>
-            <th>{addColonText(l('Release Groups'))}</th>
+            <th>{addColonText(l('Release groups'))}</th>
             <td colSpan="3">{fc('releasegroup')}</td>
           </tr>
           <tr>
@@ -153,7 +153,7 @@ const Index = ({
         </tbody>
         <tbody>
           <tr className="thead">
-            <th colSpan="4">{l('Other Entities')}</th>
+            <th colSpan="4">{l('Other entities')}</th>
           </tr>
           <tr>
             <th>{l('Editors (valid / deleted):')}</th>
@@ -170,7 +170,7 @@ const Index = ({
             <td colSpan="3">{fc('collection')}</td>
           </tr>
           <tr>
-            <th>{l('CD Stubs (all time / current):')}</th>
+            <th>{l('CD stubs (all time / current):')}</th>
             <td>{fc('cdstub.submitted')}</td>
             <td>{'/'}</td>
             <td>
@@ -395,7 +395,7 @@ const Index = ({
         </tbody>
         <tbody>
           <tr className="thead">
-            <th colSpan="5">{l('Release Status')}</th>
+            <th colSpan="5">{l('Release status')}</th>
           </tr>
           <tr>
             <th colSpan="3">{addColonText(l('Releases'))}</th>
@@ -421,7 +421,7 @@ const Index = ({
         </tbody>
         <tbody>
           <tr className="thead">
-            <th colSpan="5">{l('Release Packaging')}</th>
+            <th colSpan="5">{l('Release packaging')}</th>
           </tr>
           <tr>
             <th colSpan="3">{addColonText(l('Releases'))}</th>
@@ -469,7 +469,7 @@ const Index = ({
         </tbody>
         <tbody>
           <tr className="thead">
-            <th colSpan="5">{l('Data Quality')}</th>
+            <th colSpan="5">{l('Data quality')}</th>
           </tr>
           <tr>
             <th colSpan="3">{addColonText(l('Releases'))}</th>
@@ -478,27 +478,27 @@ const Index = ({
           </tr>
           <tr>
             <th />
-            <th colSpan="2">{addColonText(l('High Data Quality'))}</th>
+            <th colSpan="2">{addColonText(l('High data quality'))}</th>
             <td>{fc('quality.release.high')}</td>
             <td>{fp('quality.release.high', 'release')}</td>
           </tr>
           <tr>
             <th />
-            <th colSpan="2">{addColonText(l('Default Data Quality'))}</th>
+            <th colSpan="2">{addColonText(l('Default data quality'))}</th>
             <td>{fc('quality.release.default')}</td>
             <td>{fp('quality.release.default', 'release')}</td>
           </tr>
           <tr>
             <th />
             <th />
-            <th>{addColonText(l('Normal Data Quality'))}</th>
+            <th>{addColonText(l('Normal data quality'))}</th>
             <td>{fc('quality.release.normal')}</td>
             <td>{fp('quality.release.normal', 'quality.release.default')}</td>
           </tr>
           <tr>
             <th />
             <th />
-            <th>{addColonText(l('Unknown Data Quality'))}</th>
+            <th>{addColonText(l('Unknown data quality'))}</th>
             <td>{fc('quality.release.unknown')}</td>
             <td>
               {fp('quality.release.unknown', 'quality.release.default')}
@@ -506,7 +506,7 @@ const Index = ({
           </tr>
           <tr>
             <th />
-            <th colSpan="2">{addColonText(l('Low Data Quality'))}</th>
+            <th colSpan="2">{addColonText(l('Low data quality'))}</th>
             <td>{fc('quality.release.low')}</td>
             <td>{fp('quality.release.low', 'release')}</td>
           </tr>
@@ -609,14 +609,14 @@ const Index = ({
         </tbody>
       </table>
 
-      <h2>{l('Release Groups')}</h2>
+      <h2>{l('Release groups')}</h2>
       <table className="database-statistics">
         <tbody>
           <tr className="thead">
-            <th colSpan="4">{l('Primary Types')}</th>
+            <th colSpan="4">{l('Primary types')}</th>
           </tr>
           <tr>
-            <th colSpan="2">{addColonText(l('Release Groups'))}</th>
+            <th colSpan="2">{addColonText(l('Release groups'))}</th>
             <td>{fc('releasegroup')}</td>
             <td />
           </tr>
@@ -645,10 +645,10 @@ const Index = ({
             <td>{fp('releasegroup.primary_type.null', 'releasegroup')}</td>
           </tr>
           <tr className="thead">
-            <th colSpan="4">{l('Secondary Types')}</th>
+            <th colSpan="4">{l('Secondary types')}</th>
           </tr>
           <tr>
-            <th colSpan="2">{addColonText(l('Release Groups'))}</th>
+            <th colSpan="2">{addColonText(l('Release groups'))}</th>
             <td>{fc('releasegroup')}</td>
             <td />
           </tr>
