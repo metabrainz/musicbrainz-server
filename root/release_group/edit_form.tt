@@ -9,18 +9,18 @@
 
   <div class="half-width">
     <fieldset>
-      <legend>[% l('Release Group Details') %]</legend>
+      <legend>[% l('Release group details') %]</legend>
       [%- form_row_name_with_guesscase(r, { guessfeat => 1 }) -%]
       <div id="artist-credit-editor"></div>
       [%- form_row_text_long(r, 'comment', add_colon(l('Disambiguation'))) -%]
-      [%- form_row_select(r, 'primary_type_id', l('Primary Type:')) -%]
-      [%- form_row_select(r, 'secondary_type_ids', l('Secondary Types:')) -%]
+      [%- form_row_select(r, 'primary_type_id', add_colon(l('Primary type'))) -%]
+      [%- form_row_select(r, 'secondary_type_ids', add_colon(l('Secondary types'))) -%]
     </fieldset>
 
     [% PROCESS 'forms/relationship-editor.tt' %]
 
     <fieldset>
-      <legend>[% l('External Links') %]</legend>
+      <legend>[% l('External links') %]</legend>
       [% external_links_editor() %]
     </fieldset>
 
