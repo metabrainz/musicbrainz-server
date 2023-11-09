@@ -18,7 +18,7 @@ const OAuth2Oob = ({
   application,
   code,
 }: Props): React$Element<typeof Layout> => (
-  <Layout fullWidth title={l('OAuth Authorization')}>
+  <Layout fullWidth title={l('OAuth authorization')}>
     <h1>{l('Success!')}</h1>
     <p>
       {texp.l(

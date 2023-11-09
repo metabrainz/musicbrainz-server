@@ -18,7 +18,7 @@ const OAuth2Error = ({
   errorDescription,
   errorMessage,
 }: Props): React$Element<typeof Layout> => (
-  <Layout fullWidth title={l('OAuth Authorization Error')}>
+  <Layout fullWidth title={l('OAuth authorization error')}>
     <h1>{texp.l('Error: {error}', {error: errorMessage})}</h1>
     <p>{errorDescription}</p>
     <p>{exp.l('{doc|Learn more}', {doc: '/doc/Development/OAuth2'})}</p>
