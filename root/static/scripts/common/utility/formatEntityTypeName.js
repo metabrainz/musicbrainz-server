@@ -30,7 +30,7 @@ export function formatPluralEntityTypeName(typeName: string): string {
     case 'release':
       return l('Releases');
     case 'release_group':
-      return l('Release Groups');
+      return l('Release groups');
     case 'series':
       return lp('Series', 'plural');
     case 'url':
@@ -65,7 +65,7 @@ export default function formatEntityTypeName(typeName: string): string {
     case 'release':
       return l('Release');
     case 'release_group':
-      return l('Release Group');
+      return l('Release group');
     case 'series':
       return lp('Series', 'singular');
     case 'url':

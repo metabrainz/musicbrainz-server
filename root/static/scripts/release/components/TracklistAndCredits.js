@@ -401,7 +401,7 @@ const TracklistAndCredits = React.memo<PropsT>((props: PropsT) => {
 
           {(hasReleaseGroupCredits /*:: && releaseGroup */) ? (
             <div id="release-group-relationships">
-              <h3>{l('Release Group')}</h3>
+              <h3>{l('Release group')}</h3>
               <Relationships noRelationshipsHeading source={releaseGroup} />
             </div>
           ) : null}

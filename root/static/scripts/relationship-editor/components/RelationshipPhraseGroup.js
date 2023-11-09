@@ -167,7 +167,7 @@ const RelationshipPhraseGroup = (React.memo<PropsT>(({
     releaseHasUnloadedTracks,
     source,
     targetTypeOptions: null,
-    title: l('Add Relationship'),
+    title: lp('Add relationship', 'header'),
   });
 
   const setAddDialogOpen = React.useCallback((

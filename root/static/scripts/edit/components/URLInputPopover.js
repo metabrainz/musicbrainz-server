@@ -143,7 +143,10 @@ const URLInputPopover = (props: PropsT): React$MixedElement => {
     <ButtonPopover
       buildChildren={buildPopoverChildren}
       buttonContent={null}
-      buttonProps={{className: 'icon edit-item', title: l('Edit URL')}}
+      buttonProps={{
+        className: 'icon edit-item',
+        title: lp('Edit URL', 'interactive'),
+      }}
       buttonRef={popoverButtonRef}
       id="url-input-popover"
       isOpen={isOpen}

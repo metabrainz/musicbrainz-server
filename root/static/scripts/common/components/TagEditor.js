@@ -623,7 +623,7 @@ export const MainTagEditor = (hydrate<TagEditorProps>(
 
                 {$c.user?.has_confirmed_email_address ? (
                   <>
-                    <h2>{l('Add Tags')}</h2>
+                    <h2>{l('Add tags')}</h2>
                     <p>
                       {exp.l(
                         `You can add your own {tagdocs|tags} below.

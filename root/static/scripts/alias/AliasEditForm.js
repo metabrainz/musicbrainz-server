@@ -290,7 +290,7 @@ const AliasEditForm = ({
       >
         <div className="half-width">
           <fieldset>
-            <legend>{l('Alias Details')}</legend>
+            <legend>{l('Alias details')}</legend>
             <FormRowNameWithGuessCase
               dispatch={nameDispatch}
               entity={entity}

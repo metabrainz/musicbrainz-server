@@ -37,7 +37,7 @@ export const trackParserDialog =
 
 Object.assign(trackParserDialog, {
   element: '#track-parser-dialog',
-  title: l('Track Parser'),
+  title: l('Track parser'),
 
   toBeParsed: ko.observable(''),
   result: ko.observable(null),

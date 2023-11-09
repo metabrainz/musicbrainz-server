@@ -45,7 +45,7 @@ React$Element<'fieldset'> => {
   }
   return (
     <fieldset className="editnote">
-      <legend>{l('Edit Note')}</legend>
+      <legend>{l('Edit note')}</legend>
       {hideHelp ? null : (
         <>
           <p>
