@@ -16,7 +16,7 @@ import ErrorLayout from './ErrorLayout.js';
 const Error401 = (): React$Element<typeof ErrorLayout> => {
   const $c = React.useContext(CatalystContext);
   return (
-    <ErrorLayout title={l('Unauthorized Request')}>
+    <ErrorLayout title={l('Unauthorized request')}>
       <p>
         <strong>
           {l('Sorry, you are not authorized to view this page.')}

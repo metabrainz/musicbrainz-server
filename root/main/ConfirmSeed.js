@@ -28,7 +28,7 @@ const ConfirmSeed = ({
   postParameters,
 }: Props): React$Element<typeof Layout> => {
   const $c = React.useContext(SanitizedCatalystContext);
-  const title = l('Confirm Form Submission');
+  const title = l('Confirm form submission');
 
   /*
    * Automatically submit the form if /release/add (where POST requests are

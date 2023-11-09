@@ -10,7 +10,7 @@
 import ErrorLayout from './ErrorLayout.js';
 
 const MirrorError403 = (): React$Element<typeof ErrorLayout> => (
-  <ErrorLayout title={l('Forbidden Request')}>
+  <ErrorLayout title={l('Forbidden request')}>
     <p>
       <strong>
         {l(`Sorry, you are unable to perform that action
