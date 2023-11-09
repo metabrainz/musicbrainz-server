@@ -21,7 +21,7 @@ const SearchError = ({
   children,
   form,
 }: Props): React$Element<typeof StatusPage> => (
-  <StatusPage title={l('Search Error')}>
+  <StatusPage title={l('Search error')}>
     {children}
     <p>
       {exp.l(

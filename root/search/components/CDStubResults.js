@@ -41,7 +41,7 @@ const CDStubResults = ({
       buildResult={buildResult}
       columns={
         <>
-          <th>{l('CD Stub')}</th>
+          <th>{l('CD stub')}</th>
           <th>{l('Artist')}</th>
           <th>{l('Tracks')}</th>
         </>

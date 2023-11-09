@@ -60,7 +60,7 @@ const ReleaseGroupResults = ({
         buildResult={buildResult}
         columns={
           <>
-            <th>{l('Release Group')}</th>
+            <th>{l('Release group')}</th>
             <th>{l('Artist')}</th>
             <th>{l('Type')}</th>
           </>
