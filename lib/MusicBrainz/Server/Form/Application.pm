@@ -1,4 +1,5 @@
 package MusicBrainz::Server::Form::Application;
+use utf8;
 use strict;
 use warnings;
 
