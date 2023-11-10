@@ -5216,7 +5216,7 @@ const CLEANUPS: CleanupEntries = {
             };
           case LINK_TYPES.streamingfree.release:
             return {
-              result: prefix === 'album',
+              result: prefix === 'album' || prefix === 'prerelease',
               target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.streamingfree.recording:
