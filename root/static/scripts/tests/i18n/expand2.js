@@ -1,14 +1,17 @@
 import * as React from 'react';
+import * as ReactDOMServer from 'react-dom/server';
+import * as ReactIs from 'react-is';
 import test from 'tape';
 
 import {VarArgs} from '../../common/i18n/expand2.js';
 import expand2html from '../../common/i18n/expand2html.js';
+import expand2react from '../../common/i18n/expand2react.js';
 import expand2text, {
   expand2textWithVarArgsClass,
 } from '../../common/i18n/expand2text.js';
 
 test('expand2', function (t) {
-  t.plan(64);
+  t.plan(69);
 
   let error = '';
   const consoleError = console.error;
@@ -21,9 +24,9 @@ test('expand2', function (t) {
     t.equal(expand2text(input, args), output);
   }
 
-  function expandHtml(input, args, output) {
+  function expandHtml(input, args, output, msg) {
     error = '';
-    t.equal(expand2html(input, args), output);
+    t.equal(expand2html(input, args), output, msg);
   }
 
   expandText('', null, '');
@@ -231,6 +234,33 @@ test('expand2', function (t) {
     '{&lt;script&gt;alert(&quot;HAx0r&quot;)&lt;/script&gt;}',
   );
   t.ok(/unexpected token/.test(error));
+
+  expandHtml(
+    '{x}',
+    {x: ['a', 'b', 'c', 1, 2, 3]},
+    'abc123',
+    'can use arrays as variable substitutions',
+  );
+
+  const twoSpansHtml = '<span>a</span><span>b</span>';
+
+  const twoSpansArray = expand2react(twoSpansHtml, {__wantArray: 'true'});
+  t.ok(Array.isArray(twoSpansArray),
+       'an array is returned with __wantArray: "true"');
+
+  const twoSpansFragment = expand2react(twoSpansHtml);
+  t.ok(ReactIs.isFragment(twoSpansFragment),
+       'a fragment is returned with __wantArray not specified');
+  t.equal(
+    ReactDOMServer.renderToStaticMarkup(twoSpansArray),
+    twoSpansHtml,
+    'elements returned with _wantArray: "true" are rendered correctly',
+  );
+  t.equal(
+    ReactDOMServer.renderToStaticMarkup(twoSpansFragment),
+    twoSpansHtml,
+    'element returned with __wantArray not specified is rendered correctly',
+  );
 
   // Test nested expand calls
   const CustomArgs = class extends VarArgs {

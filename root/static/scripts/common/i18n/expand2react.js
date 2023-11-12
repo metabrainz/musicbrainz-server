@@ -31,6 +31,7 @@ import expand, {
   createVarSubstParser,
   error,
   getVarSubstArg,
+  getVarSubstScalarArg,
   gotMatch,
   NO_MATCH_VALUE,
   parseContinuous,
@@ -88,11 +89,17 @@ function handleTextContentReact(text: string) {
 
   if (gotMatch(replacement) && percentSign.test(text)) {
     const parts = text.split(percentSign);
-    const result: Array<Output> = [];
+    const result: Array<React$MixedElement | string> = [];
     for (let i = 0; i < parts.length; i++) {
       const part = parts[i];
       if (part === '%') {
-        result.push(replacement);
+        if (Array.isArray(replacement)) {
+          for (let k = 0; k < replacement.length; k++) {
+            result.push(getVarSubstScalarArg(replacement[k]));
+          }
+        } else {
+          result.push(getVarSubstScalarArg(replacement));
+        }
       } else {
         result.push(he.decode(part));
       }
@@ -100,7 +107,7 @@ function handleTextContentReact(text: string) {
     if (typeof replacement === 'string') {
       content = result.join('');
     } else {
-      content = React.createElement(React.Fragment, null, ...result);
+      content = result;
     }
   } else {
     content = he.decode(text);
@@ -135,7 +142,12 @@ const parseLinkSubst: Parser<
     if (typeof props === 'string') {
       props = ({href: props}: AnchorProps);
     }
-    if (props == null || typeof props !== 'object' || empty(props.href)) {
+    if (
+      props == null ||
+      typeof props !== 'object' ||
+      Array.isArray(props) ||
+      empty(props.href)
+    ) {
       throw error('bad link props');
     }
     return React.createElement('a', props, ...children);
@@ -312,7 +324,7 @@ function parseHtmlTag(args: VarArgsClass<Input>) {
   );
 }
 
-const parseCondSubst: Parser<Array<Output> | string | NO_MATCH, Input> =
+const parseCondSubst: Parser<Output | NO_MATCH, Input> =
   createCondSubstParser(
     args => parseContinuousArray(condSubstThenParsers, args),
     args => parseContinuousArray(condSubstElseParsers, args),
@@ -330,7 +342,7 @@ const condSubstThenParsers = [
 ];
 
 const condSubstElseParsers: $ReadOnlyArray<
-  Parser<Output | Array<Output> | string | NO_MATCH, Input>,
+  Parser<Output | NO_MATCH, Input>,
 > = [
   parseRootTextContent,
   parseVarSubst,
@@ -340,7 +352,7 @@ const condSubstElseParsers: $ReadOnlyArray<
 ];
 
 const rootParsers: $ReadOnlyArray<
-  Parser<Output | Array<Output> | string | NO_MATCH, Input>,
+  Parser<Output | NO_MATCH, Input>,
 > = [
   parseRootTextContent,
   parseVarSubst,
@@ -379,19 +391,23 @@ export function expand2reactWithVarArgsInstance(
   source: string,
   args?: ?VarArgsClass<Input>,
 ): Output {
-  const result = expand<$ReadOnlyArray<Output>, Input>(
+  const result = expand<Output, Input>(
     parseRoot,
     source,
     args,
   );
-  if (typeof result === 'string') {
-    return result;
+  if (Array.isArray(result)) {
+    return result.length ? (
+      result.length > 1
+        ? (
+          (args != null && args.get('__wantArray') === 'true')
+            ? result
+            : React.createElement(React.Fragment, null, ...result)
+        )
+        : result[0]
+    ) : '';
   }
-  return result.length ? (
-    result.length > 1
-      ? React.createElement(React.Fragment, null, ...result)
-      : result[0]
-  ) : '';
+  return result;
 }
 
 export const l = (
