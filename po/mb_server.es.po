@@ -52,7 +52,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-07 07:03+0000\n"
+"POT-Creation-Date: 2023-11-08 17:34+0000\n"
 "PO-Revision-Date: 2023-11-01 16:27+0000\n"
 "Last-Translator: reosarevok <reosarevok@users.noreply.translations."
 "metabrainz.org>\n"
@@ -7023,6 +7023,7 @@ msgstr "Hubo un problema al acceder a la API de la wiki."
 
 #: ../root/annotation/AnnotationComparison.js:43
 #: ../root/annotation/AnnotationComparison.js:45
+#: ../root/edit/details/AddAnnotation.js:64
 msgid "Annotation comparison"
 msgstr "Comparación de anotaciones"
 
@@ -16662,6 +16663,12 @@ msgstr "nominar para autoeditor"
 #: ../root/user/UserProfile.js:262
 msgid "Age:"
 msgstr "Edad:"
+
+#: ../root/user/UserProfile.js:287
+#, fuzzy
+#| msgid "Description"
+msgid "Restrictions"
+msgstr "Descripción"
 
 #: ../root/user/UserProfile.js:297
 msgid "Hasn't logged in yet"
