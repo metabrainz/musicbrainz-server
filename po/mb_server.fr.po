@@ -66,7 +66,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-08 17:34+0000\n"
-"PO-Revision-Date: 2023-11-04 15:27+0000\n"
+"PO-Revision-Date: 2023-11-10 20:27+0000\n"
 "Last-Translator: yvanzo <yvanzo@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: French <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/fr/>\n"
@@ -1192,7 +1192,7 @@ msgstr ""
 
 #: ../root/edit/search_macros.tt:423
 msgid "Entered"
-msgstr ""
+msgstr "Entrée"
 
 #: ../root/components/forms.tt:30
 msgid ""
@@ -1681,6 +1681,8 @@ msgid ""
 "If you don’t select an existing release group, a new one will be added with "
 "the types selected below."
 msgstr ""
+"Si vous ne sélectionnez pas un groupe de parution existant, un nouveau sera "
+"ajouté avec les types sélectionnés ci-dessous."
 
 #: ../root/release/edit/tracklist.tt:5
 msgid "If you have a tracklist you can copy and paste, you can input it here."
@@ -1773,6 +1775,13 @@ msgid ""
 "elsewhere and the durations are significantly different, consider adding a "
 "new recording instead."
 msgstr ""
+"Gardez à l’esprit que la durée des enregistrements est {doc_link|recalculée "
+"à partir des pistes} après que la durée d’une piste a changé. Donc si vous "
+"corrigez la durée d’une piste dont l’enregistrement n’est publié que de "
+"cette parution, réutilisez simplement l’enregistrement existant, n’en "
+"ajoutez pas un nouveau. Si au contraire l‘enregistrement est publié sur d’"
+"autres parutions et que les durées sont significativement différentes, alors "
+"envisagez plutôt d’ajouter un nouvel enregistrement."
 
 #: ../root/release/edit/tracklist.tt:502
 msgid ""
@@ -1780,6 +1789,9 @@ msgid ""
 "disc ID! If you unselect it by mistake, please readd the pregap track before "
 "submitting."
 msgstr ""
+"Gardez à l’esprit que désélectionner ceci effacera la piste si le support a "
+"un ID de disque ! Si vous la désélectionnez par erreur, merci d’ajouter à "
+"nouveau la piste de pré-intervalle avant de soumettre."
 
 #: ../root/release/edit/tracklist.tt:517
 msgid ""
@@ -1953,7 +1965,7 @@ msgstr "Titre du support :"
 #: ../root/layout/components/sidebar/MergeLink.js:34
 msgctxt "button/link"
 msgid "Merge"
-msgstr ""
+msgstr "Fusionner"
 
 #: ../root/layout/merge-helper.tt:3 ../root/layout/components/MergeHelper.js:30
 msgid "Merge Process"
@@ -2134,8 +2146,8 @@ msgstr "Aucun vote"
 msgid ""
 "None of the attached disc IDs can fit a pregap track of the given length."
 msgstr ""
-"Aucun des ID de disque joints ne peut correspondre à un silence préliminaire "
-"de la durée donnée."
+"Aucun des ID de disque joints ne peut correspondre à une piste de pré-"
+"intervalle de la durée donnée."
 
 #: ../root/cdtoc/attach_list.tt:78
 msgid ""
@@ -2679,7 +2691,7 @@ msgstr "Recherche en cours..."
 #: ../root/edit/details/AddReleaseGroup.js:80
 #: ../root/edit/details/EditReleaseGroup.js:79
 msgid "Secondary Types:"
-msgstr "Types secondaires :"
+msgstr "Types secondaires :"
 
 #: ../root/cdtoc/move_search.tt:42 ../root/cdtoc/SelectArtistForCDToc.js:94
 msgid "Select"
@@ -2771,9 +2783,9 @@ msgid ""
 "Some discs contain a hidden track in the pregap section that precedes track "
 "1. Use this to add (or remove) the special pregap track section."
 msgstr ""
-"Certains disques contiennent une piste cachée dans la section prégap qui "
-"précède la piste 1. Utilisez ceci pour ajouter (ou enlever) la section "
-"spéciale de piste de prégap."
+"Certains disques contiennent une piste cachée dans la section de pré-"
+"intervalle qui précède la piste 1. Utilisez ceci pour ajouter (ou enlever) "
+"la section spéciale de piste de pré-intervalle."
 
 #: ../root/release/edit/tracklist.tt:514
 msgid ""
@@ -3072,7 +3084,7 @@ msgstr "Ce disque contient des pistes de données à la fin"
 
 #: ../root/release/edit/tracklist.tt:494
 msgid "This disc has a hidden pregap track before track 1"
-msgstr "Ce disque a une piste cachée de prégap avant la piste 1"
+msgstr "Ce disque a une piste cachée de pré-intervalle avant la piste 1"
 
 #: ../root/components/common-macros.tt:186
 #: ../root/static/scripts/common/components/EntityLink.js:37
@@ -3083,7 +3095,7 @@ msgstr ""
 #: ../root/components/common-macros.tt:186
 #: ../root/static/scripts/common/components/EntityLink.js:36
 msgid "This entity will be added by this edit."
-msgstr ""
+msgstr "Cette entité sera ajoutée par cette modification."
 
 #: ../root/event/edit_form.tt:15
 msgid "This event was cancelled."
@@ -3184,8 +3196,8 @@ msgid ""
 "This medium has a disc ID, pregap track, or data track, so you can only "
 "change the format to one that can have disc IDs."
 msgstr ""
-"Ce support a un ID de disque, un silence préliminaire de piste ou une piste "
-"de données, et ainsi vous ne pouvez changer son format que pour un autre "
+"Ce support a un ID de disque, une piste de pré-intervalle ou une piste de "
+"données, et ainsi vous ne pouvez changer son format que pour un autre "
 "pouvant avoir des ID de disque."
 
 #: ../root/release/edit/tracklist.tt:363 ../root/release/edit/tracklist.tt:373
@@ -3272,7 +3284,7 @@ msgstr "Cette piste est une piste de données"
 #: ../root/components/common-macros.tt:555
 #: ../root/static/scripts/common/components/PregapTrackIcon.js:13
 msgid "This track is hidden in the pregap."
-msgstr "Cette piste est cachée dans le prégap."
+msgstr "Cette piste est cachée dans le pré-intervalle."
 
 #: ../root/event/edit_form.tt:40 ../root/cdtoc/CDTocInfo.js:58
 #: ../root/cdtoc/CDTocInfo.js:60 ../root/cdtoc/CDTocInfo.js:62
@@ -4821,8 +4833,8 @@ msgid ""
 "Mediums with a pregap track can only be merged with other mediums with a "
 "pregap track."
 msgstr ""
-"Les supports ayant un silence préliminaire ne peuvent être fusionnés qu’avec "
-"des supports ayant un silence préliminaire."
+"Les supports ayant une piste de pré-intervalle ne peuvent être fusionnés qu’"
+"avec des supports ayant une piste de pré-intervalle."
 
 #: ../lib/MusicBrainz/Server/Data/Release.pm:57
 #, perl-brace-format
@@ -5578,7 +5590,7 @@ msgstr "Pas de vote"
 #: ../root/utility/edit.js:41
 msgctxt "edit"
 msgid "Cancelled"
-msgstr ""
+msgstr "Annulée"
 
 #: ../lib/MusicBrainz/Server/Edit/WikiDoc.pm:7
 msgid "Wiki documentation"
@@ -5637,12 +5649,12 @@ msgstr "L’opérateur n’est pas pris en charge"
 #: ../lib/MusicBrainz/Server/Entity/AutoEditorElection.pm:91
 msgctxt "autoeditor election status"
 msgid "Awaiting 1st seconder"
-msgstr "En attente d’un 1er appuyeur"
+msgstr "En attente d’un 1er appui"
 
 #: ../lib/MusicBrainz/Server/Entity/AutoEditorElection.pm:92
 msgctxt "autoeditor election status"
 msgid "Awaiting 2nd seconder"
-msgstr "En attente d’un 2ème appuyeur"
+msgstr "En attente d’un 2ème appui"
 
 #: ../lib/MusicBrainz/Server/Entity/AutoEditorElection.pm:93
 #, perl-brace-format
@@ -5671,12 +5683,12 @@ msgstr "Annulée le {date}"
 #: ../lib/MusicBrainz/Server/Entity/AutoEditorElection.pm:100
 msgctxt "autoeditor election status (short)"
 msgid "Awaiting 1st seconder"
-msgstr "En attente d’un 1er appuyeur"
+msgstr "En attente d’un 1er appui"
 
 #: ../lib/MusicBrainz/Server/Entity/AutoEditorElection.pm:101
 msgctxt "autoeditor election status (short)"
 msgid "Awaiting 2nd seconder"
-msgstr "En attente d’un 2ème appuyeur"
+msgstr "En attente d’un 2ème appui"
 
 #: ../lib/MusicBrainz/Server/Entity/AutoEditorElection.pm:102
 msgctxt "autoeditor election status (short)"
@@ -7429,7 +7441,7 @@ msgstr ""
 #: ../root/static/scripts/relationship-editor/components/DialogPreview.js:172
 msgctxt "header"
 msgid "Preview"
-msgstr ""
+msgstr "Aperçu"
 
 #: ../root/annotation/EditAnnotation.js:80
 #: ../root/static/scripts/common/components/Annotation.js:71
@@ -7439,7 +7451,7 @@ msgstr "Journal des changements :"
 #: ../root/annotation/EditAnnotation.js:93
 msgctxt "button"
 msgid "Preview"
-msgstr ""
+msgstr "Prévisualiser"
 
 #: ../root/annotation/EditAnnotation.js:98
 msgid "Annotation Formatting"
@@ -7804,6 +7816,8 @@ msgstr ""
 #: ../root/artist/ArtistMerge.js:50
 msgid "You should only use the checkbox above to fix errors (such as typos)."
 msgstr ""
+"N’utilisez la case à cocher ci-dessus que pour corriger des erreurs (telles "
+"que des typos)."
 
 #: ../root/artist/ArtistMerge.js:56
 msgid ""
@@ -8155,6 +8169,8 @@ msgstr "Désolé, <code>{discid}</code> n’est pas un ID de disque valide."
 #: ../root/cdstub/ImportCDStub.js:38
 msgid "Please search for the artist you wish to add a new release for:"
 msgstr ""
+"Veuillez chercher l’artiste pour lequel vous souhaitez créer une nouvelle "
+"parution :"
 
 #: ../root/cdstub/ImportCDStub.js:100
 msgid "Import CD stub"
@@ -8170,7 +8186,7 @@ msgstr ""
 
 #: ../root/cdtoc/AttachCDTocConfirmation.js:80
 msgid "Track length comparison"
-msgstr ""
+msgstr "Comparaison des durée des pistes"
 
 #: ../root/cdtoc/AttachCDTocConfirmation.js:84
 #: ../root/cdtoc/SetTracklistDurations.js:67
@@ -8266,6 +8282,9 @@ msgid ""
 "release. This will allow you to add this artist and a release at the same "
 "time"
 msgstr ""
+"Si vous ne voyez pas l’artiste que vous cherchez, vous pouvez quand même "
+"créer une nouvelle parution. Cela vous permettra de créer l’artiste et la "
+"parution en même temps"
 
 #: ../root/cdtoc/SetTracklistDurations.js:46
 #: ../root/cdtoc/SetTracklistDurations.js:47
@@ -8425,7 +8444,7 @@ msgstr "Confirmer"
 #: ../root/collection/CreateCollection.js:31
 #: ../root/user/UserCollections.js:226
 msgid "Add a new collection"
-msgstr ""
+msgstr "Ajouter une nouvelle collection"
 
 #: ../root/collection/DeleteCollection.js:28
 #: ../root/collection/DeleteCollection.js:34
@@ -10008,7 +10027,7 @@ msgstr "Nouvelles positions : "
 
 #: ../root/edit/details/ReorderMediums.js:42
 msgid "Mediums"
-msgstr ""
+msgstr "Supports"
 
 #: ../root/edit/details/ReorderMediums.js:46
 msgid "Medium <span class=\"new\">{new}</span>: {title} (new medium)"
@@ -10098,7 +10117,7 @@ msgstr "Nouvelles relations : "
 #: ../root/edit/details/historic/EditReleaseAttributes.js:34
 msgctxt "release type and status"
 msgid "Old"
-msgstr ""
+msgstr "Anciennement"
 
 #: ../root/edit/details/historic/EditReleaseAttributes.js:41
 msgid "Type: {type}, status: {status}"
@@ -10115,22 +10134,22 @@ msgstr "Nouveau statut : "
 #: ../root/edit/details/historic/EditReleaseEvents.js:121
 msgctxt "list of added release events"
 msgid "Added"
-msgstr ""
+msgstr "Ajouté"
 
 #: ../root/edit/details/historic/EditReleaseEvents.js:136
 msgctxt "list of removed release events"
 msgid "Removed"
-msgstr ""
+msgstr "Enlevé"
 
 #: ../root/edit/details/historic/EditReleaseEvents.js:152
 msgctxt "list of edited release events"
 msgid "Edited"
-msgstr ""
+msgstr "Modifié"
 
 #: ../root/edit/details/historic/EditReleaseLanguage.js:20
 msgctxt "release language"
 msgid "Old"
-msgstr ""
+msgstr "Ancienne"
 
 #: ../root/edit/details/historic/EditReleaseLanguage.js:27
 msgid "Language: {language}, script: {script}"
@@ -10180,17 +10199,17 @@ msgstr "Candidat"
 #: ../root/elections/ElectionDetails.js:36
 #: ../root/elections/ElectionTable/index.js:26
 msgid "Proposer"
-msgstr "Proposeur"
+msgstr "Proposant"
 
 #: ../root/elections/ElectionDetails.js:40
 #: ../root/elections/ElectionTable/index.js:27
 msgid "1st seconder"
-msgstr ""
+msgstr "1er appui"
 
 #: ../root/elections/ElectionDetails.js:48
 #: ../root/elections/ElectionTable/index.js:28
 msgid "2nd seconder"
-msgstr ""
+msgstr "2ème appui"
 
 #: ../root/elections/ElectionDetails.js:59
 msgid "Total votes"
@@ -10268,8 +10287,8 @@ msgid ""
 msgstr ""
 "Le vote n’est pas encore ouvert. Si vous voulez soutenir ce candidat, vous "
 "pouvez appuyer sa nomination. Si vous ne soutenez pas ce candidat vous ne "
-"pouvez pas voter « Non » (ou vous abstenir) tant que deux personnes "
-"l’appuyant soient trouvées."
+"pouvez pas voter « Non » (ou vous abstenir) avant que deux personnes l’"
+"appuyant ne soient trouvées."
 
 #: ../root/elections/ElectionVoting.js:53
 msgid "Voting is closed."
@@ -11412,7 +11431,7 @@ msgstr "Vous n’avez aucune collection d’œuvres !"
 
 #: ../root/layout/components/sidebar/CollectionLinks.js:44
 msgid "Add to a new collection"
-msgstr "Ajouter une nouvelle collection"
+msgstr "Ajouter à une nouvelle collection"
 
 #: ../root/layout/components/sidebar/CollectionLinks.js:46
 #: ../root/user/UserCollections.js:203
@@ -12051,6 +12070,10 @@ msgid ""
 "it is an ID for something else than an entity (for example, a "
 "{rel_type_table|relationship type})."
 msgstr ""
+"Aucune {entity_doc|entité} MusicBrainz ne correspond au {mbid_doc|MBID} "
+"{mbid}. Soit il est erroné, soit l’entité correspondante a été supprimée, ou "
+"encore c’est un identifiant pour autre chose qu’une entité (par exemple, un "
+"{rel_type_table|type de relation})."
 
 #: ../root/mbid/NotFound.js:39
 msgid "{mbid} is not a valid {mbid_doc|MBID}."
@@ -12252,10 +12275,9 @@ msgid ""
 "different ISRCs. Please make sure they are indeed the same recordings and "
 "you wish to continue with the merge."
 msgstr ""
-"<strong>Avertissement :</strong> Certains enregistrements que vous vous "
-"apprêtez à fusionner ont des ISRC différents. Veuillez vous assurez que ce "
-"sont vraiment les mêmes enregistrements et que vous voulez continuer la "
-"fusion."
+"<strong>Attention :</strong> Certains enregistrements que vous vous apprêtez "
+"à fusionner ont des ISRC différents. Veuillez vous assurez que ce sont "
+"vraiment les mêmes enregistrements et que vous voulez continuer la fusion."
 
 #: ../root/relationship/RelationshipsHeader.js:23
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:87
@@ -14601,7 +14623,7 @@ msgstr "Recherche dans la documentation"
 #: ../root/utility/tableColumns.js:388
 msgctxt "event location"
 msgid "Location"
-msgstr ""
+msgstr "Localisation"
 
 #: ../root/search/components/EventResults.js:87
 msgid "Alternatively, you may {uri|add a new event}."
@@ -14779,7 +14801,7 @@ msgstr ""
 #: ../root/user/UserProfile.js:275
 msgctxt "user area"
 msgid "Location"
-msgstr ""
+msgstr "Localisation"
 
 #: ../root/static/scripts/account/components/EditProfileForm.js:270
 msgid ""
@@ -14866,15 +14888,15 @@ msgstr ""
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:245
 msgid "Automatically subscribe me to artists I add."
-msgstr ""
+msgstr "Abonnez-moi automatiquement aux artistes que j’ajoute."
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:250
 msgid "Automatically subscribe me to labels I add."
-msgstr ""
+msgstr "Abonnez-moi automatiquement aux labels que j’ajoute."
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:255
 msgid "Automatically subscribe me to series I add."
-msgstr ""
+msgstr "Abonnez-moi automatiquement aux séries que j’ajoute."
 
 #: ../root/static/scripts/account/components/RegisterForm.js:70
 msgid "Your username will be publicly visible."
@@ -14936,12 +14958,12 @@ msgstr "L’alias n’est plus à jour."
 #: ../root/static/scripts/annotation/AnnotationHistoryTable.js:101
 msgctxt "annotation"
 msgid "Old"
-msgstr ""
+msgstr "Ancienne"
 
 #: ../root/static/scripts/annotation/AnnotationHistoryTable.js:102
 msgctxt "annotation"
 msgid "New"
-msgstr ""
+msgstr "Nouvelle"
 
 #: ../root/static/scripts/annotation/AnnotationHistoryTable.js:107
 msgid "Version History"
@@ -15034,7 +15056,7 @@ msgstr "Autoriser les autres utilisateurs à voir cette collection"
 
 #: ../root/static/scripts/collection/components/CollectionEditForm.js:228
 msgid "Add collection"
-msgstr ""
+msgstr "Ajouter une collection"
 
 #: ../root/static/scripts/collection/components/CollectionEditForm.js:230
 msgid "Update collection"
@@ -15104,12 +15126,12 @@ msgstr "Voter pour toutes les modifications :"
 #: ../root/static/scripts/common/MB/Control/EditSummary.js:23
 msgctxt "Edit note field toggle"
 msgid "Remove Note"
-msgstr ""
+msgstr "Enlever la note"
 
 #: ../root/static/scripts/common/MB/Control/EditSummary.js:31
 msgctxt "Edit note field toggle"
 msgid "Add Note"
-msgstr ""
+msgstr "Ajouter une note"
 
 #: ../root/static/scripts/common/artworkViewer.js:76
 msgid "Image {current} of {total}"
@@ -15149,11 +15171,11 @@ msgstr "Annotation modifiée en dernier le {date}."
 
 #: ../root/static/scripts/common/components/ArtistCreditLink.js:49
 msgid "This artist credit has {edit_search|open edits}."
-msgstr ""
+msgstr "Ce crédit d’artiste a des {edit_search|modifications ouvertes}."
 
 #: ../root/static/scripts/common/components/ArtistCreditLink.js:54
 msgid "This artist credit has open edits."
-msgstr ""
+msgstr "Ce crédit d’artiste a des modifications ouvertes."
 
 #: ../root/static/scripts/common/components/ArtistRoles.js:29
 msgid "{artist} ({roles})"
@@ -15390,7 +15412,7 @@ msgstr "Type secondaire"
 
 #: ../root/static/scripts/common/components/FilterForm.js:118
 msgid "Artist credit"
-msgstr ""
+msgstr "Crédit d’artiste"
 
 #: ../root/static/scripts/common/components/FilterForm.js:242
 msgid "Setlist contains"
@@ -15744,7 +15766,7 @@ msgstr "A commencé par :"
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:52
 msgctxt "artist end date"
 msgid "Ended"
-msgstr ""
+msgstr "Fin"
 
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:63
 msgid "This person is deceased."
@@ -16146,7 +16168,7 @@ msgstr "Vous n’avez pas encore saisi de nom de piste."
 
 #: ../root/static/scripts/edit/components/ArtistCreditBubble.js:79
 msgid "This track hasn’t been added yet."
-msgstr ""
+msgstr "Cette piste n’a pas encore été ajoutée."
 
 #: ../root/static/scripts/edit/components/ArtistCreditBubble.js:97
 msgid "Artist in MusicBrainz:"
@@ -16208,11 +16230,11 @@ msgstr ""
 
 #: ../root/static/scripts/edit/components/EntityPendingEditsWarning.js:33
 msgid "This entity has {edits_link|open edits}."
-msgstr ""
+msgstr "Cette entité a des {edits_link|modifications ouvertes}."
 
 #: ../root/static/scripts/edit/components/EntityPendingEditsWarning.js:38
 msgid "This entity has open edits."
-msgstr ""
+msgstr "Cette entité a des modifications ouvertes."
 
 #: ../root/static/scripts/edit/components/ExternalLinkAttributeDialog.js:198
 #: ../root/static/scripts/relationship-editor/components/DialogDatePeriod.js:202
@@ -16250,11 +16272,11 @@ msgstr ""
 
 #: ../root/static/scripts/edit/components/RelationshipPendingEditsWarning.js:40
 msgid "This relationship has {edit_search|open edits}."
-msgstr ""
+msgstr "Cette relation a des {edit_search|modifications ouvertes}."
 
 #: ../root/static/scripts/edit/components/RelationshipPendingEditsWarning.js:45
 msgid "This relationship has open edits."
-msgstr ""
+msgstr "Cette relation a des modifications ouvertes."
 
 #: ../root/static/scripts/edit/components/ReleaseMergeStrategy.js:75
 msgid ""
@@ -16340,7 +16362,7 @@ msgstr "Tous vos changements seront perdus si vous quittez cette page."
 
 #: ../root/static/scripts/edit/externalLinks.js:708
 msgid "Please enter a valid URL, such as “{example_url}”."
-msgstr "Veuillez entrer un URL valide, tel que « {example_url} »"
+msgstr "Veuillez entrer un URL valide, tel que « {example_url} »."
 
 #: ../root/static/scripts/edit/externalLinks.js:715
 msgid ""
@@ -16724,6 +16746,9 @@ msgid ""
 "Warning: This relationship has open edits. {show|Click here} to view these "
 "edits and make sure they do not conflict with your own."
 msgstr ""
+"Attention : Cette relation a des modifications en attente. {show|Cliquez ici}"
+" pour voir ces modifications et vous assurez qu’elles n’entrent pas en "
+"conflit avec les vôtres."
 
 #: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:1007
 msgid "This will add a relationship to all checked recordings."
@@ -16951,12 +16976,17 @@ msgid ""
 "This will add a new work for each checked recording that has no work "
 "already. The work names will be the same as their respective recording."
 msgstr ""
+"Ceci ajoutera une nouvelle œuvre pour chaque enregistrement coché qui n’en a "
+"pas déjà. Les noms des œuvres seront identiques à ceux des enregistrements."
 
 #: ../root/static/scripts/release/components/BatchCreateWorksDialog.js:241
 msgid ""
 "Only use this option after you’ve tried searching for the work(s) you want "
 "to add, and are certain they do not already exist on MusicBrainz."
 msgstr ""
+"N’utilisez cette fonction qu’après avoir cherché l’œuvre(s) que vous voulez "
+"ajouter et que vous êtes certain quelle(s) n’existe(nt) pas déjà sur "
+"MusicBrainz."
 
 #: ../root/static/scripts/release/components/BatchCreateWorksDialog.js:323
 #: ../root/static/scripts/release/components/RelationshipEditorBatchTools.js:94
@@ -16967,7 +16997,7 @@ msgstr ""
 
 #: ../root/static/scripts/release/components/BatchCreateWorksDialog.js:334
 msgid "Batch-add new works"
-msgstr ""
+msgstr "Ajouter de nouvelles œuvres par lot"
 
 #: ../root/static/scripts/release/components/EditWorkDialog.js:162
 msgid "Edit Work"
@@ -17558,6 +17588,9 @@ msgid ""
 "banner on all pages, for example to warn users about upcoming site "
 "maintenance."
 msgstr ""
+"Les éditeurs de messages de bannière sont des utilisateurs qui peuvent "
+"définir un message qui est montré en bannière dans toutes les pages, par "
+"exemple pour avertir les utilisateurs d’une maintenance du site à venir."
 
 #: ../root/user/PrivilegedUsers.js:114
 msgid "The following {count} users are banner message editors:"
@@ -17851,10 +17884,8 @@ msgid "Age:"
 msgstr "Âge :"
 
 #: ../root/user/UserProfile.js:287
-#, fuzzy
-#| msgid "Description"
 msgid "Restrictions"
-msgstr "Description"
+msgstr "Restrictions"
 
 #: ../root/user/UserProfile.js:297
 msgid "Hasn't logged in yet"
@@ -17894,7 +17925,7 @@ msgstr "s’abonner"
 
 #: ../root/user/UserProfile.js:414
 msgid "Languages"
-msgstr ""
+msgstr "Langues"
 
 #: ../root/user/UserProfile.js:489 ../root/user/UserProfile.js:589
 #: ../root/user/UserProfile.js:599 ../root/user/UserProfile.js:609
@@ -17971,7 +18002,7 @@ msgstr "Entités ajoutées"
 
 #: ../root/user/UserProfile.js:787
 msgid "This user has not added any entities."
-msgstr ""
+msgstr "Cet utilisateur n’a ajouté aucune entité."
 
 #: ../root/user/UserProfile.js:797
 msgid "This table shows a summary of secondary data added by this editor."
@@ -17994,7 +18025,7 @@ msgstr "Les tags sont supprimés quand un éditeur est supprimé."
 #: ../root/user/UserProfile.js:815 ../root/user/UserProfile.js:831
 msgctxt "tags"
 msgid "Removed"
-msgstr ""
+msgstr "Supprimés"
 
 #: ../root/user/UserProfile.js:826
 msgid "Tags downvoted"
@@ -18007,7 +18038,7 @@ msgstr "Les évaluations sont supprimées quand un éditeur est supprimé."
 #: ../root/user/UserProfile.js:851
 msgctxt "ratings"
 msgid "Removed"
-msgstr ""
+msgstr "Supprimées"
 
 #: ../root/user/UserProfile.js:918
 msgid "Blocked Spam Account"
@@ -18307,6 +18338,9 @@ msgid ""
 "edit was entered. This may happen when the same edit is entered in twice; "
 "one will pass but the other will fail."
 msgstr ""
+"La modification a échoué car les données qu’elle modifiait ont été modifiées "
+"après que cette modification soit entrée. Cela peut arriver si une "
+"modification est entrée deux fois ; une réussira mais la suivante échouera."
 
 #: ../root/utility/edit.js:86
 msgid ""
@@ -18650,9 +18684,9 @@ msgid ""
 "ISWCs. Please make sure they are indeed the same works and you wish to "
 "continue with the merge."
 msgstr ""
-"<strong>Avertissement :</strong> Certaines œuvres vous vous apprêtez à "
-"fusionner ont des ISWC différents. Veuillez vous assurez que ce sont "
-"vraiment les mêmes œuvres et que vous voulez continuer la fusion."
+"<strong>Attention :</strong> Certaines œuvres vous vous apprêtez à fusionner "
+"ont des ISWC différents. Veuillez vous assurez que ce sont vraiment les "
+"mêmes œuvres et que vous voulez continuer la fusion."
 
 #~ msgid "Address:"
 #~ msgstr "Adresse :"

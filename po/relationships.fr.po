@@ -40,7 +40,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-09-28 12:27+0000\n"
+"PO-Revision-Date: 2023-11-10 20:27+0000\n"
 "Last-Translator: yvanzo <yvanzo@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: French <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/fr/>\n"
@@ -50,7 +50,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : ((n != 0 && n % "
 "1000000 == 0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.0.2\n"
+"X-Generator: Weblate 5.1\n"
 
 #: DB:link_attribute_type/description:1355
 msgid "A performance-centered, usually one to three year postgraduate program."
@@ -107,6 +107,14 @@ msgid ""
 "post. Examples include Facebook pages and profiles, Last.fm users and "
 "accounts on Twitter, Instagram and Flickr."
 msgstr ""
+"Une page de réseau social est la page de profil d’un artiste sur un <a href="
+"\"https://fr.wikipedia.org/wiki/R%C3%A9seautage_social\" target=\"_blank\""
+">réseau social</a> dont le contenu ne peut être publié que par les artistes "
+"eux-mêmes (ou par leurs agents). Les autres personnes peuvent créer leur "
+"propre profil et interagir avec les artistes, par exemple en les ajoutant "
+"comme amis ou en commentant les contenus qu’ils ont publié. Exemples de "
+"pages : les pages et profils Facebook, les utilisateurs Last.fm ainsi que "
+"les comptes Twitter/X, Instagram et Flickr."
 
 #: DB:link_type/description:783
 msgid ""
@@ -393,6 +401,8 @@ msgid ""
 "Indicates a page that reviews the release (group) in question, whether it be "
 "in text, audio or video form."
 msgstr ""
+"Indique une page qui passe en revue la parution (ou le groupe de parution) "
+"en question, que ce soit sous forme écrite, audio, ou vidéo."
 
 #: DB:link_type/description:1083
 msgid "Indicates a page with an official schedule for an event series."
@@ -618,12 +628,16 @@ msgid ""
 "Indicates the composer for this release, that is, the artist who wrote the "
 "music (not necessarily the lyrics)."
 msgstr ""
+"Indique le compositeur pour cette parution, c’est-à-dire l’artiste qui a "
+"écrit la musique (mais pas nécessairement les paroles)."
 
 #: DB:link_type/description:168
 msgid ""
 "Indicates the composer for this work, that is, the artist who wrote the "
 "music (not necessarily the lyrics)."
 msgstr ""
+"Indique le compositeur pour cette œuvre, c’est-à-dire l’artiste qui a écrit "
+"la musique (mais pas nécessairement les paroles)."
 
 #: DB:link_type/description:845
 msgid "Indicates the event where the work had its first performance"
@@ -1185,62 +1199,80 @@ msgid ""
 "Points to the Wikidata page for this area, and will be used to fetch "
 "Wikipedia summaries"
 msgstr ""
+"Dirige vers la page Wikidata pour cette région, et sert à récupérer les "
+"extraits de Wikipédia"
 
 #: DB:link_type/description:352
 msgid ""
 "Points to the Wikidata page for this artist, and will be used to fetch "
 "Wikipedia summaries"
 msgstr ""
+"Dirige vers la page Wikidata pour cet artiste, et sert à récupérer les "
+"extraits de Wikipédia"
 
 #: DB:link_type/description:790
 msgid ""
 "Points to the Wikidata page for this event, and will be used to fetch "
 "Wikipedia summaries"
 msgstr ""
+"Dirige vers la page Wikidata pour cet événement, et sert à récupérer les "
+"extraits de Wikipédia"
 
 #: DB:link_type/description:1087
 msgid ""
 "Points to the Wikidata page for this genre, and will be used to fetch "
 "Wikipedia summaries"
 msgstr ""
+"Dirige vers la page Wikidata pour ce genre, et sert à récupérer les extraits "
+"de Wikipédia"
 
 #: DB:link_type/description:733
 msgid ""
 "Points to the Wikidata page for this instrument, and will be used to fetch "
 "Wikipedia summaries"
 msgstr ""
+"Dirige vers la page Wikidata pour cet instrument, et sert à récupérer les "
+"extraits de Wikipédia"
 
 #: DB:link_type/description:354
 msgid ""
 "Points to the Wikidata page for this label, and will be used to fetch "
 "Wikipedia summaries"
 msgstr ""
+"Dirige vers la page Wikidata pour ce label, et sert à récupérer les extraits "
+"de Wikipédia"
 
 #: DB:link_type/description:594
 msgid ""
 "Points to the Wikidata page for this place, and will be used to fetch "
 "Wikipedia summaries"
 msgstr ""
+"Dirige vers la page Wikidata pour ce lieu, et sert à récupérer les extraits "
+"de Wikipédia"
 
 #: DB:link_type/description:353
 msgid ""
 "Points to the Wikidata page for this release group, and will be used to "
 "fetch Wikipedia summaries"
 msgstr ""
-"Dirige vers la page Wikidata pour ce groupe de parution, et sera utilisée "
-"pour afficher les images et les contenus Wikipédia liés."
+"Dirige vers la page Wikidata pour ce groupe de parution, et sert à récupérer "
+"les extraits de Wikipédia"
 
 #: DB:link_type/description:749
 msgid ""
 "Points to the Wikidata page for this series, and will be used to fetch "
 "Wikipedia summaries"
 msgstr ""
+"Dirige vers la page Wikidata pour cette série, et sert à récupérer les "
+"extraits de Wikipédia"
 
 #: DB:link_type/description:351
 msgid ""
 "Points to the Wikidata page for this work, and will be used to fetch "
 "Wikipedia summaries"
 msgstr ""
+"Dirige vers la page Wikidata pour cette œuvre, et sert à récupérer les "
+"extraits de Wikipédia"
 
 #: DB:link_type/description:89
 msgid "Points to the Wikipedia page for this album."
@@ -2832,7 +2864,7 @@ msgstr ""
 
 #: DB:link_type/description:1092
 msgid "This links a genre to its page at Bandcamp."
-msgstr ""
+msgstr "Cecie relie un genre à sa page sur Bandcamp."
 
 #: DB:link_type/description:1095
 msgid "This links a genre to its subgenres."
@@ -2873,7 +2905,7 @@ msgstr ""
 
 #: DB:link_type/description:1130
 msgid "This links a label to its page at Apple Music."
-msgstr ""
+msgstr "Ceci relie un label à sa page sur Apple Music."
 
 #: DB:link_type/description:719
 msgid "This links a label to its page at Bandcamp."
@@ -3328,7 +3360,7 @@ msgstr "Ceci relie un artiste à sa chaîne sur YouTube Music."
 
 #: DB:link_type/description:1131
 msgid "This links an artist to its page at Apple Music."
-msgstr ""
+msgstr "Ceci relie un artiste à sa page sur Apple Music."
 
 #: DB:link_type/description:718
 msgid "This links an artist to its page at Bandcamp."
@@ -3848,6 +3880,8 @@ msgid ""
 "This relationship links a carillonneur to the place(s) (most commonly "
 "religious buildings) at which they are the resident carillonneur."
 msgstr ""
+"Cette relation indique le carillonneur en titre d’un lieu (généralement "
+"religieux), c’est-à-dire la personne qui joue le carillon qui s’y trouve."
 
 #: DB:link_type/description:859
 msgid "This relationship links a concert tour to the artist(s) the tour is by."
@@ -4215,6 +4249,9 @@ msgid ""
 "page at <a href=\"http://vgmdb.net/\">VGMdb</a>. VGMdb is a community "
 "project dedicated to cataloguing the music of video games and anime."
 msgstr ""
+"Ceci relie un lieu (généralement un studio) à sa page sur <a href=\"http"
+"://vgmdb.net/\">VGMdb</a>. VGMdb est un projet communautaire dédié au "
+"catalogage de music de jeux vidéos et d’animés."
 
 #: DB:link_type/description:861
 msgid ""
@@ -4976,7 +5013,7 @@ msgstr "annulée"
 
 #: DB:link_type/name:1165
 msgid "carillonneur"
-msgstr ""
+msgstr "carillonneur"
 
 #: DB:link_type/link_phrase:212 DB:link_type/reverse_link_phrase:212
 msgid "catalog of records"
@@ -5706,7 +5743,7 @@ msgstr "a un ASIN d’Amazon"
 
 #: DB:link_type/long_link_phrase:1131 DB:link_type/long_link_phrase:1130
 msgid "has Apple Music page at"
-msgstr ""
+msgstr "a une page Apple Music à"
 
 #: DB:link_type/long_link_phrase:1092 DB:link_type/long_link_phrase:718
 #: DB:link_type/long_link_phrase:719
@@ -5797,7 +5834,7 @@ msgstr "a une page VGMdb sur"
 #: DB:link_type/long_link_phrase:352 DB:link_type/long_link_phrase:733
 #: DB:link_type/long_link_phrase:358
 msgid "has a Wikidata page at"
-msgstr "a une page Wikidata sur"
+msgstr "a une page Wikidata à"
 
 #: DB:link_type/long_link_phrase:179 DB:link_type/long_link_phrase:595
 #: DB:link_type/long_link_phrase:355 DB:link_type/long_link_phrase:744
@@ -5899,7 +5936,7 @@ msgstr "a un site Web autonome à"
 #: DB:link_type/long_link_phrase:1195 DB:link_type/long_link_phrase:1196
 #: DB:link_type/long_link_phrase:1197
 msgid "has a ticketing page at"
-msgstr ""
+msgstr "a une page de billetterie à"
 
 #: DB:link_type/long_link_phrase:755 DB:link_type/long_link_phrase:284
 #: DB:link_type/long_link_phrase:283 DB:link_type/long_link_phrase:285
@@ -8059,19 +8096,19 @@ msgstr "voix de ténor"
 #: DB:link_type/name:1193 DB:link_type/name:1194 DB:link_type/name:1195
 #: DB:link_type/name:1196 DB:link_type/name:1197
 msgid "ticketing"
-msgstr ""
+msgstr "billetterie"
 
 #: DB:link_type/link_phrase:1193 DB:link_type/link_phrase:1194
 #: DB:link_type/link_phrase:1195 DB:link_type/link_phrase:1196
 #: DB:link_type/link_phrase:1197
 msgid "ticketing page"
-msgstr ""
+msgstr "page de billetterie"
 
 #: DB:link_type/reverse_link_phrase:1193 DB:link_type/reverse_link_phrase:1194
 #: DB:link_type/reverse_link_phrase:1195 DB:link_type/reverse_link_phrase:1196
 #: DB:link_type/reverse_link_phrase:1197
 msgid "ticketing page for"
-msgstr ""
+msgstr "page de billetterie pour"
 
 #: DB:link_attribute_type/name:830
 msgid "time"
@@ -8349,7 +8386,7 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:1165
 msgid "was {assistant} carillonneur at"
-msgstr ""
+msgstr "était {assistant} carillonneur à"
 
 #: DB:link_type/long_link_phrase:856
 msgid "was {assistant} organist at"
@@ -9035,11 +9072,11 @@ msgstr ""
 
 #: DB:link_type/reverse_link_phrase:1165
 msgid "{assistant} carillonneur"
-msgstr ""
+msgstr "{assistant} carillonneur"
 
 #: DB:link_type/link_phrase:1165
 msgid "{assistant} carillonneur at"
-msgstr ""
+msgstr "{assistant} carillonneur à"
 
 #: DB:link_type/link_phrase:856
 msgid "{assistant} organist at"
@@ -9128,7 +9165,7 @@ msgstr "{entity1} a une page de financement participatif à {entity0}"
 
 #: DB:link_type/long_link_phrase:1188
 msgid "{entity1} has a fan page at {entity0}"
-msgstr ""
+msgstr "{entity1} a une page de fan à {entity0}"
 
 #: DB:link_type/long_link_phrase:273
 msgid "{entity1} has a page in a database at {entity0}"
