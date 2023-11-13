@@ -1,4 +1,4 @@
-package MusicBrainz::Server::Report::LowQualityReleases;
+package MusicBrainz::Server::Report::LowDataQualityReleases;
 use Moose;
 
 use MusicBrainz::Server::Constants qw( $QUALITY_LOW );

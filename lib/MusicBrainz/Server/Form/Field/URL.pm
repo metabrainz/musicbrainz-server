@@ -24,7 +24,10 @@ sub validate
     my $url = $self->value;
     $url = URI->new($url)->canonical;
 
-    return $self->add_error(l('Enter a valid URL, such as “http://google.com/”'))
+    return $self->add_error(l(
+            'Please enter a valid URL, such as “{example_url}”.',
+            { example_url => 'http://example.com/' }
+        ))
         unless is_valid_url($url->as_string);
 
     return $self->add_error(l('URL protocol must be HTTP, HTTPS or FTP'))

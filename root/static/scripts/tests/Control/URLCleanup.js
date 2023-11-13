@@ -5138,6 +5138,13 @@ limited_link_type_combinations: [
        only_valid_entity_types: ['release'],
   },
   {
+                     input_url: 'https://open.spotify.com/prerelease/1Kqdup6HEqeP3hHXDELQHl',
+             input_entity_type: 'release',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://open.spotify.com/prerelease/1Kqdup6HEqeP3hHXDELQHl',
+       only_valid_entity_types: ['release'],
+  },
+  {
                      input_url: 'http://open.spotify.com/local/Electrolyze/Single/Belief/265',
              input_entity_type: 'release',
     expected_relationship_type: 'streamingfree',
