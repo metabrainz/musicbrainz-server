@@ -1,4 +1,5 @@
 package MusicBrainz::Server::Form::Application;
+use utf8;
 use strict;
 use warnings;
 
@@ -48,15 +49,16 @@ sub validate
             );
         } elsif ($self->field('oauth_redirect_uri')->value !~ $OAUTH_WEB_APP_REDIRECT_URI_RE) {
             $self->field('oauth_redirect_uri')->add_error(
-                l('Redirect URL scheme must be either <code>http</code> or ' .
-                  '<code>https</code> for web applications.')
+                l('Redirect URL scheme must be either “http” or ' .
+                  '“https” for web applications.')
             );
         }
     } elsif ($self->field('oauth_redirect_uri')->value) {
         if ($self->field('oauth_redirect_uri')->value !~ $OAUTH_INSTALLED_APP_REDIRECT_URI_RE) {
             $self->field('oauth_redirect_uri')->add_error(
                 l('Redirect URL scheme must be a reverse-DNS string, as in ' .
-                  '<code>org.example.app://auth</code>, for installed applications.')
+                  '“{example_url}”, for installed applications.',
+                  { example_url => 'org.example.app://auth' })
             );
         }
     }
