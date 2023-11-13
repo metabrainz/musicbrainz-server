@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-10-14 18:27+0000\n"
+"PO-Revision-Date: 2023-11-12 13:27+0000\n"
 "Last-Translator: \"Vac31.\" <gateway_31@protonmail.com>\n"
 "Language-Team: Lithuanian <https://translations.metabrainz.org/projects/"
 "musicbrainz/languages/lt/>\n"
@@ -14,9 +14,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
-"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
-"1 : n % 1 != 0 ? 2: 3);\n"
-"X-Generator: Weblate 5.0.2\n"
+"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 :"
+" n % 1 != 0 ? 2: 3);\n"
+"X-Generator: Weblate 5.1\n"
 
 #. frequency:1 iso_code_3:abk 
 #: DB:language/name:2
@@ -1711,7 +1711,7 @@ msgstr "Nahuatlų kalbos"
 #. frequency:1 iso_code_3:nau 
 #: DB:language/name:294
 msgid "Nauru"
-msgstr "Naurų"
+msgstr "Nauru"
 
 #. frequency:1 iso_code_3:nav 
 #: DB:language/name:295
@@ -2436,7 +2436,7 @@ msgstr "Tok pisinų"
 #. frequency:1 iso_code_3:tkl 
 #: DB:language/name:420
 msgid "Tokelau"
-msgstr "Tokelavų"
+msgstr "Tokelau"
 
 #. frequency:1 iso_code_3:tok 
 #: DB:language/name:7845
@@ -2496,7 +2496,7 @@ msgstr "Turkmėnų"
 #. frequency:1 iso_code_3:tvl 
 #: DB:language/name:435
 msgid "Tuvalu"
-msgstr "Tuvalų"
+msgstr "Tuvalu"
 
 #. frequency:1 iso_code_3:tyv 
 #: DB:language/name:437
