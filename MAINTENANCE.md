@@ -5,7 +5,7 @@ Indexes and collations
 ----------------------
 
 After upgrading your system running PostgreSQL, you may encounter the
-following kinds of warnings in your database logs:
+following kinds of warnings in the logs of your PostgreSQL database server:
 
     WARNING:  collation "XYZ" has version mismatch
     DETAIL:  The collation in the database was created using version 1.2.3,

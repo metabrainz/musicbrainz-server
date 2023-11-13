@@ -16,8 +16,13 @@ sub usage {
     print <<~EOF;
         Usage: RebuildIndexesUsingCollations.pl [options]
 
+        Rebuild all indexes using collations,
+        as needed in case of a version mismatch after an update of glibc or libicu.
+
+        Options:
             --database          database to connect to (default: MAINTENANCE)
             --[no]concurrently  enable or disable concurrent reindexing
+                                (concurrent is slower but doesn't lock any table)
                                 (default: enabled)
             --help              show this help
         EOF
