@@ -8,7 +8,7 @@
 # Dmitr Y, 2017
 # Edward Pavlenko <email address hidden>, 2019
 # Ekaterina <email address hidden>, 2020-2021
-#   <email address hidden>, 2012
+# <email address hidden>, 2012
 # Gordey Kislov, 2022
 # greycat <email address hidden>, 2016
 # greycat <email address hidden>, 2012
@@ -35,13 +35,14 @@
 # Екатерина Тишина <email address hidden>, 2016
 # Иван Стасюк <email address hidden>, 2016
 # й й <email address hidden>, 2016
+# wileyfoxyx <wileyfoxyx@inbox.ru>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-08 17:34+0000\n"
-"PO-Revision-Date: 2023-08-18 12:58+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"PO-Revision-Date: 2023-11-11 13:27+0000\n"
+"Last-Translator: wileyfoxyx <wileyfoxyx@inbox.ru>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/ru/>\n"
 "Language: ru\n"
@@ -49,9 +50,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 4.18.2\n"
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
+"n%100>=11 && n%100<=14)? 2 : 3);\n"
+"X-Generator: Weblate 5.1\n"
 
 #: ../root/components/common-macros.tt:12
 msgid " ({text})"
@@ -68,7 +69,7 @@ msgstr "\"CC\" это соответствующий двухсимвольны�
 
 #: ../root/components/forms.tt:312
 msgid "\"DDD\" is a nine digit work identifier."
-msgstr "\"DDD\" это девятизначный рабочий идентификационный номер."
+msgstr "\"DDD\" это девятизначный идентификационный номер произведения."
 
 #: ../root/components/forms.tt:326
 msgid ""
@@ -8469,7 +8470,7 @@ msgstr ""
 #: ../root/edit/DeleteNote.js:54 ../root/edit/ModifyNote.js:71
 #: ../root/user/ReportUser.js:139
 msgid "Reason"
-msgstr ""
+msgstr "Причина"
 
 #: ../root/edit/EditData.js:34
 msgid "Edit data for edit #{id}"
@@ -8577,6 +8578,8 @@ msgid ""
 "{edit} has received one or more \"no\" votes, you must leave an edit note "
 "before you can approve it."
 msgstr ""
+"Правка {edit} получила один или более голосов \"нет\", вы должны оставить "
+"комментарий прежде чем её одобрять."
 
 #: ../root/edit/NotesReceived.js:35 ../root/edit/NotesReceived.js:37
 msgid "Recent Notes Left on Your Edits"
@@ -8585,10 +8588,11 @@ msgstr "Последние комментарии к вашим правкам"
 #: ../root/edit/NotesReceived.js:67
 msgid "Nobody has left notes on any of your edits in the past three months."
 msgstr ""
+"За последние три месяца никто не оставлял комментарии к любым вашим правкам."
 
 #: ../root/edit/OpenEdits.js:27 ../root/edit/OpenEdits.js:29
 msgid "Open Edits"
-msgstr ""
+msgstr "Открытые правки"
 
 #: ../root/edit/SubscribedEditorEdits.js:27
 #: ../root/edit/SubscribedEditorEdits.js:29
@@ -8624,15 +8628,15 @@ msgstr "Обложка:"
 #: ../root/edit/components/EditHeader.js:52
 #: ../root/edit/components/EditNoteListEntry.js:27
 msgid "Edit #{id} - {name}"
-msgstr "Править #{id} - {name}"
+msgstr "Правка #{id} - {name}"
 
 #: ../root/edit/components/EditHeader.js:78
 msgid "Edit by {editor}"
-msgstr ""
+msgstr "Правка пользователя {editor}"
 
 #: ../root/edit/components/EditHeader.js:86
 msgid "Editor hidden"
-msgstr ""
+msgstr "Автор правки скрыт"
 
 #: ../root/edit/components/EditHeader.js:92
 msgid "log in to see who"
@@ -8644,7 +8648,7 @@ msgstr ""
 
 #: ../root/edit/components/EditHeader.js:114
 msgid "My vote: "
-msgstr "Мой голос:"
+msgstr "Мой голос: - "
 
 #: ../root/edit/components/EditHeader.js:118
 msgid "N/A"
@@ -8663,7 +8667,7 @@ msgstr "Голосование"
 
 #: ../root/edit/components/EditHeader.js:149
 msgid "Approved"
-msgstr ""
+msgstr "Одобрена"
 
 #: ../root/edit/components/EditHeader.js:177
 #: ../root/edit/components/EditSummary.js:67
@@ -8673,23 +8677,23 @@ msgstr "Одобрить правку"
 #: ../root/edit/components/EditList.js:82
 msgid "Found at least {n} edit"
 msgid_plural "Found at least {n} edits"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "Найдена как минимум {n} правка"
+msgstr[1] "Найдено как минимум {n} правки"
+msgstr[2] "Найдено как минимум {n} правок"
+msgstr[3] "Найдено как минимум правок: {n}"
 
 #: ../root/edit/components/EditList.js:89
 msgid "Found {n} edit"
 msgid_plural "Found {n} edits"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "Найдена {n} правка"
+msgstr[1] "Найдено {n} правки"
+msgstr[2] "Найдено {n} правок"
+msgstr[3] "Найдено правок: {n}"
 
 #: ../root/edit/components/EditList.js:105
 #: ../root/edit/components/EditList.js:121
 msgid "Submit votes & edit notes"
-msgstr ""
+msgstr "Отправить голоса и комментарии к правке"
 
 #: ../root/edit/components/EditNote.js:159
 msgid "[time missing]"
@@ -8742,31 +8746,32 @@ msgstr ""
 
 #: ../root/edit/components/EditNotes.js:55
 msgid "No edit notes have been added."
-msgstr ""
+msgstr "Нет комментариев к правке."
 
 #: ../root/edit/components/EditNotes.js:70
 msgid "Add an edit note"
-msgstr "Добавить отредактированную заметку"
+msgstr "Добавить комментарий к правке"
 
 #: ../root/edit/components/EditNotes.js:78
 msgid "You are not currently able to add notes to this edit. ({url|Details})"
 msgstr ""
+"Сейчас вы не можете добавлять комментарии к этой правке. ({url|Подробнее})"
 
 #: ../root/edit/components/EditSidebar.js:48
 msgid "Opened:"
-msgstr "Открыт:"
+msgstr "Открыта:"
 
 #: ../root/edit/components/EditSidebar.js:68
 msgid "For quicker closing"
-msgstr ""
+msgstr "Для быстрого закрытия"
 
 #: ../root/edit/components/EditSidebar.js:71
 msgid "1 vote"
 msgid_plural "{n} unanimous votes"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "{n} голос"
+msgstr[1] "{n} голоса"
+msgstr[2] "{n} голосов"
+msgstr[3] "Голосов: {n}"
 
 #: ../root/edit/components/EditSidebar.js:80
 msgid "If no votes cast"
@@ -8820,7 +8825,7 @@ msgstr ""
 
 #: ../root/edit/components/ListHeader.js:57
 msgid "All edits for {user}"
-msgstr ""
+msgstr "Все правки пользователя {user}"
 
 #: ../root/edit/components/ListHeader.js:69
 msgid "Open edits for this collection"
@@ -8832,15 +8837,15 @@ msgstr ""
 
 #: ../root/edit/components/ListHeader.js:80
 msgid "All edits for this collection"
-msgstr ""
+msgstr "Все правки для этой коллекции"
 
 #: ../root/edit/components/ListHeader.js:81
 msgid "All edits for this entity"
-msgstr ""
+msgstr "Все правки для этой сущности"
 
 #: ../root/edit/components/ListHeader.js:92
 msgid "All edits for your subscribed entities"
-msgstr ""
+msgstr "Все правки для сущностей, на которые вы подписаны"
 
 #: ../root/edit/components/ListHeader.js:100
 msgid "Open edits for your subscribed entities"
@@ -8848,7 +8853,7 @@ msgstr ""
 
 #: ../root/edit/components/ListHeader.js:111
 msgid "All edits for your subscribed editors"
-msgstr ""
+msgstr "Все правки редакторов, на которые вы подписаны"
 
 #: ../root/edit/components/ListHeader.js:119
 msgid "Open edits for your subscribed editors"
@@ -8856,7 +8861,7 @@ msgstr ""
 
 #: ../root/edit/components/ListHeader.js:134
 msgid "Refine this search"
-msgstr ""
+msgstr "Уточнить этот поиск"
 
 #: ../root/edit/components/ListHeader.js:143
 msgid "Subscribed entities"
