@@ -11,6 +11,8 @@ import test from 'tape';
 import {
   artistCreditsAreEqual,
   isComplexArtistCredit,
+  reduceArtistCredit,
+  reduceArtistCreditNames,
 } from '../../common/immutable-entities.js';
 
 const bowie = {
@@ -23,6 +25,59 @@ const crosby = {
   id: 99,
   name: 'bing crosby',
 };
+
+test('reduceArtistCredit', function (t) {
+  t.plan(4);
+
+  let ac = {names: []};
+  t.equal(reduceArtistCredit(ac), '', 'zero names');
+
+  ac.names = [{artist: bowie}];
+  t.equal(reduceArtistCredit(ac), 'david bowie', 'one name');
+
+  ac.names = [
+    {artist: bowie, joinPhrase: ' feat. '},
+    {artist: crosby},
+  ];
+  t.equal(
+    reduceArtistCredit(ac),
+    'david bowie feat. bing crosby',
+    'two names',
+  );
+
+  ac.names = [
+    {artist: bowie, name: 'dave bowie', joinPhrase: ' & ('},
+    {artist: crosby, joinPhrase: ')'},
+  ];
+  t.equal(
+    reduceArtistCredit(ac),
+    'dave bowie & (bing crosby)',
+    'credited-as and trailing join phrase',
+  );
+});
+
+test('reduceArtistCreditNames', function (t) {
+  t.plan(2);
+
+  /*
+   * This function is already exercised by the reduceArtistCredit test, so
+   * just verify that the dropFinalJoinPhrase parameter is honored.
+   */
+  const names = [
+    {artist: bowie, name: 'dave bowie', joinPhrase: ' feat. '},
+    {artist: crosby, joinPhrase: ' & '},
+  ];
+  t.equal(
+    reduceArtistCreditNames(names, false),
+    'dave bowie feat. bing crosby & ',
+    'keep final join phrase',
+  );
+  t.equal(
+    reduceArtistCreditNames(names, true),
+    'dave bowie feat. bing crosby',
+    'drop final join phrase',
+  );
+});
 
 test('isComplexArtistCredit', function (t) {
   t.plan(4);

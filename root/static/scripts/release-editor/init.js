@@ -13,11 +13,15 @@ import {
   artistCreditsAreEqual,
   hasVariousArtists,
   reduceArtistCredit,
+  reduceArtistCreditNames,
 } from '../common/immutable-entities.js';
 import MB from '../common/MB.js';
 import {getSourceEntityData} from '../common/utility/catalyst.js';
 import clean from '../common/utility/clean.js';
-import {cloneObjectDeep} from '../common/utility/cloneDeep.mjs';
+import {
+  cloneArrayDeep,
+  cloneObjectDeep,
+} from '../common/utility/cloneDeep.mjs';
 import request from '../common/utility/request.js';
 import * as externalLinks from '../edit/externalLinks.js';
 import * as validation from '../edit/validation.js';
@@ -187,21 +191,58 @@ releaseEditor.init = function (options) {
   // Change the track artists to match the release artist if it was changed.
 
   utils.withRelease(function (release) {
-    var tabID = self.activeTabID();
-    var releaseAC = cloneObjectDeep(release.artistCredit());
-    var savedReleaseAC = release.artistCredit.saved;
-    var releaseACChanged = !artistCreditsAreEqual(releaseAC, savedReleaseAC);
+    const tabID = self.activeTabID();
+    const releaseAC = cloneObjectDeep(release.artistCredit());
+    const savedReleaseAC = release.artistCredit.saved;
+    const releaseACChanged =
+      !artistCreditsAreEqual(releaseAC, savedReleaseAC);
 
     if (tabID === '#tracklist' && releaseACChanged) {
       if (!hasVariousArtists(releaseAC)) {
+        const savedReleaseACLength = savedReleaseAC.names.length;
+        const savedReleaseACReduced = reduceArtistCredit(savedReleaseAC);
+
         for (const medium of release.mediums()) {
           for (const track of medium.tracks()) {
-            if (reduceArtistCredit(track.artistCredit()) ===
-                reduceArtistCredit(savedReleaseAC)) {
+            const trackAC = track.artistCredit();
+            if (reduceArtistCredit(trackAC) === savedReleaseACReduced) {
+              /*
+               * If the track credits exactly match the old release credits,
+               * update them to use the new release credits.
+               */
               track.artistCredit(releaseAC);
               track.artistCreditEditorInst?.current?.setState({
                 artistCredit: track.artistCredit.peek(),
               });
+            } else if (
+              savedReleaseACLength > 0 &&
+              releaseAC.names.length > 0 &&
+              trackAC.names.length > savedReleaseACLength
+            ) {
+              /*
+               * If the track credits contain more artists than the old
+               * release credits, also check if the first N (where N is the
+               * length of the release credits) track artists match the
+               * release artists. This handles renaming primary artists on
+               * tracks that also include featured artists (MBS-13273).
+               */
+              const trackPrefix = reduceArtistCreditNames(
+                trackAC.names.slice(0, savedReleaseACLength), true,
+              );
+              if (trackPrefix === savedReleaseACReduced) {
+                /*
+                 * Replace the old release artist(s) with the new one(s) and
+                 * restore the old join phrase following the release artist.
+                 */
+                const names = cloneArrayDeep(releaseAC.names)
+                  .concat(trackAC.names.slice(savedReleaseACLength));
+                names[releaseAC.names.length - 1].joinPhrase =
+                  trackAC.names[savedReleaseACLength - 1].joinPhrase;
+                track.artistCredit({names});
+                track.artistCreditEditorInst?.current?.setState({
+                  artistCredit: track.artistCredit.peek(),
+                });
+              }
             }
           }
         }

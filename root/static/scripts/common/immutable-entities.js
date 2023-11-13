@@ -33,7 +33,26 @@ export const isCompleteArtistCredit =
     ac.names.every(hasArtist);
 
 export const reduceArtistCredit =
-  (ac: ArtistCreditT): string => ac.names.reduce(reduceName, '');
+  (ac: ArtistCreditT): string => reduceArtistCreditNames(ac.names);
+
+/*
+ * Joins the supplied credits into a single string, using credited-as names if
+ * set or artist names otherwise. If dropFinalJoinPhrase is true, the final
+ * join phrase is omitted from the returned string.
+ */
+export function reduceArtistCreditNames(
+  names: $ReadOnlyArray<ArtistCreditNameT>,
+  dropFinalJoinPhrase?: false,
+): string {
+  let s = names.reduce(reduceName, '');
+  if (dropFinalJoinPhrase && names.length > 0) {
+    const finalJoinPhrase = names[names.length - 1].joinPhrase;
+    if (finalJoinPhrase) {
+      s = s.slice(0, s.length - finalJoinPhrase.length);
+    }
+  }
+  return s;
+}
 
 export const isComplexArtistCredit = function (ac: ArtistCreditT): boolean {
   const firstName = ac.names[0];
