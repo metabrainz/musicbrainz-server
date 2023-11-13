@@ -35,6 +35,11 @@ msgstr ""
 "\"סונטה\" היא מונח כללי המשמש לתיאור יצירות אינסטרומנטלית בקנה מידה קטן "
 "(לעתים קרובות סולן או סולן + קלידן) , תחילתו במוזיקת הברוק."
 
+#: DB:medium_format/name:205
+msgctxt "medium_format"
+msgid "10\" Acetate"
+msgstr ""
+
 #: DB:medium_format/name:54
 msgctxt "medium_format"
 msgid "10\" Shellac"
@@ -44,6 +49,11 @@ msgstr "תקליט שלאק \"10"
 msgctxt "medium_format"
 msgid "10\" Vinyl"
 msgstr "תקליט ויניל \"10"
+
+#: DB:medium_format/name:206
+msgctxt "medium_format"
+msgid "12\" Acetate"
+msgstr ""
 
 #: DB:medium_format/name:72
 msgctxt "medium_format"
@@ -69,6 +79,11 @@ msgstr "דיסקט \"3.5"
 msgctxt "medium_format"
 msgid "5.25\" Floppy Disk"
 msgstr "דיסקט 5.25\""
+
+#: DB:medium_format/name:204
+msgctxt "medium_format"
+msgid "7\" Acetate"
+msgstr ""
 
 #: DB:medium_format/name:52
 msgctxt "medium_format"
@@ -399,9 +414,9 @@ msgstr "חיבור מושלם של ספר עם שרוול בקצהו שנועד 
 msgctxt "event_type"
 msgid ""
 "A performance of one or more plays, musicals, operas, ballets or other "
-"similar works for the stage in their staged form (as opposed to a <a href="
-"\"https://en.wikipedia.org/wiki/Concert_performance\">concert performance</"
-"a> without staging)."
+"similar works for the stage in their staged form (as opposed to a <a "
+"href=\"https://en.wikipedia.org/wiki/Concert_performance\">concert "
+"performance</a> without staging)."
 msgstr ""
 "ביצוע של הצגה אחת, או יותר, מחזות זמר, אופרות, בלט או יצירות דומות אחרות "
 "לבמה בצורתם הבימתית (בניגוד למופע <a href=\"https://en.wikipedia.org/wiki/"
@@ -886,6 +901,11 @@ msgctxt "work_attribute_type_allowed_value"
 msgid "Acemtarab"
 msgstr "אסים טאראב"
 
+#: DB:medium_format/name:203
+msgctxt "medium_format"
+msgid "Acetate"
+msgstr ""
+
 #: DB:work_attribute_type_allowed_value/value:848
 msgctxt "work_attribute_type_allowed_value"
 msgid "Adānā"
@@ -1157,8 +1177,8 @@ msgid ""
 "Any release officially sanctioned by the artist and/or their record company. "
 "Most releases will fit into this category."
 msgstr ""
-"כל הוצאה שאושרה רשמית על־ידי האמן ו/או חברת התקליטים. רוב ההוצאות יתאימו לאב־"
-"סוג זה."
+"כל הוצאה שאושרה רשמית על־ידי האמן ו/או חברת התקליטים. רוב ההוצאות יתאימו "
+"לאב־סוג זה."
 
 #: DB:release_group_primary_type/description:11
 msgctxt "release_group_primary_type"
@@ -7596,8 +7616,8 @@ msgid ""
 "themselves choirs are better entered as “Group”."
 msgstr ""
 "ציון מקהלה (קבוצה מאורגנת, בדרך כלל קבוצת זמרים גדולה). הרכבים קוליים קטנים "
-"יותר (כמו שלישיות ורביעיות) והרכבים שלרוב לא מכנים עצמם מקהלה עדיף שיוזנו כ"
-"\"הרכב\"."
+"יותר (כמו שלישיות ורביעיות) והרכבים שלרוב לא מכנים עצמם מקהלה עדיף שיוזנו "
+"כ\"הרכב\"."
 
 #: DB:artist_type/description:4
 msgctxt "artist_type"
@@ -7624,8 +7644,8 @@ msgid ""
 "entered as “Group”."
 msgstr ""
 "ציון תזמורת (קבוצה מאורגנת, בדרך כלל קבוצת נגנים כליים גדולה). הרכבים קטנים "
-"יותר (כמו שלישיות ורביעיות) והרכבים שלרוב לא מכנים עצמם תזמורות עדיף שיוזנו כ"
-"\"הרכב\"."
+"יותר (כמו שלישיות ורביעיות) והרכבים שלרוב לא מכנים עצמם תזמורות עדיף שיוזנו "
+"כ\"הרכב\"."
 
 #: DB:work_type/description:23
 msgctxt "work_type"

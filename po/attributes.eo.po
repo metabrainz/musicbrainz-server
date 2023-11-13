@@ -37,6 +37,11 @@ msgstr ""
 "(tre ofte solajn aŭ solajn + klavarajn) instrumentajn verkojn, komence en "
 "baroka muziko."
 
+#: DB:medium_format/name:205
+msgctxt "medium_format"
+msgid "10\" Acetate"
+msgstr ""
+
 #: DB:medium_format/name:54
 msgctxt "medium_format"
 msgid "10\" Shellac"
@@ -46,6 +51,11 @@ msgstr "10″ ŝelakdisko"
 msgctxt "medium_format"
 msgid "10\" Vinyl"
 msgstr "10″ vinildisko"
+
+#: DB:medium_format/name:206
+msgctxt "medium_format"
+msgid "12\" Acetate"
+msgstr ""
 
 #: DB:medium_format/name:72
 msgctxt "medium_format"
@@ -71,6 +81,11 @@ msgstr "3.5″ disketo"
 msgctxt "medium_format"
 msgid "5.25\" Floppy Disk"
 msgstr "5.25″ disketo"
+
+#: DB:medium_format/name:204
+msgctxt "medium_format"
+msgid "7\" Acetate"
+msgstr ""
 
 #: DB:medium_format/name:52
 msgctxt "medium_format"
@@ -396,9 +411,9 @@ msgstr ""
 msgctxt "event_type"
 msgid ""
 "A performance of one or more plays, musicals, operas, ballets or other "
-"similar works for the stage in their staged form (as opposed to a <a href="
-"\"https://en.wikipedia.org/wiki/Concert_performance\">concert performance</"
-"a> without staging)."
+"similar works for the stage in their staged form (as opposed to a <a "
+"href=\"https://en.wikipedia.org/wiki/Concert_performance\">concert "
+"performance</a> without staging)."
 msgstr ""
 
 #: DB:place_type/description:8
@@ -849,6 +864,11 @@ msgstr ""
 #: DB:work_attribute_type_allowed_value/value:307
 msgctxt "work_attribute_type_allowed_value"
 msgid "Acemtarab"
+msgstr ""
+
+#: DB:medium_format/name:203
+msgctxt "medium_format"
+msgid "Acetate"
 msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:848
