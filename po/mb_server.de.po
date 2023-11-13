@@ -73,7 +73,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-08 17:34+0000\n"
-"PO-Revision-Date: 2023-10-31 22:27+0000\n"
+"PO-Revision-Date: 2023-11-13 15:27+0000\n"
 "Last-Translator: kellnerd <kellnerd@users.noreply.translations.metabrainz."
 "org>\n"
 "Language-Team: German <https://translations.metabrainz.org/projects/"
@@ -14554,7 +14554,7 @@ msgstr ""
 #: ../root/static/scripts/common/MB/Control/EditSummary.js:31
 msgctxt "Edit note field toggle"
 msgid "Add Note"
-msgstr ""
+msgstr "Bemerkung hinzufügen"
 
 #: ../root/static/scripts/common/artworkViewer.js:76
 msgid "Image {current} of {total}"
