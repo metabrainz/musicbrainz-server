@@ -8,12 +8,13 @@
  */
 
 import formatDate from './formatDate.js';
+import isDateEmpty from './isDateEmpty.js';
 
-export default function formatEndDate<+T: $ReadOnly<{
+export default function formatEndDate<T: $ReadOnly<{
   ...DatePeriodRoleT,
   ...
 }>>(entity: T): null | string {
-  return entity.end_date
-    ? formatDate(entity.end_date)
-    : entity.ended ? l('[unknown]') : null;
+  return isDateEmpty(entity.end_date)
+    ? (entity.ended ? l('[unknown]') : null)
+    : formatDate(entity.end_date);
 }

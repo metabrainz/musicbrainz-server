@@ -19,7 +19,7 @@ const AddRelationship = ({edit}: Props): React$MixedElement => {
   return (
     <table className="details add-relationship">
       <tr>
-        <th>{l('Relationship:')}</th>
+        <th>{addColonText(l('Relationship'))}</th>
         <td>
           <Relationship
             allowNewEntity0={relationship.entity0_id === 0}

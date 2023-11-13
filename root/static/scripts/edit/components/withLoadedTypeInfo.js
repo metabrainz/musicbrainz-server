@@ -20,14 +20,14 @@ import {
 const typeInfoPromises = new Map<string, Promise<void>>();
 const loadedTypeInfo = new Set<string>();
 
-export default function withLoadedTypeInfo<-Config, +Instance = mixed>(
+export default function withLoadedTypeInfo<Config, Instance = mixed>(
   WrappedComponent: React$AbstractComponent<Config, Instance>,
   typeInfoToLoad: $ReadOnlySet<string>,
 ): React$AbstractComponent<Config, Instance> {
   const ComponentWrapper = React.forwardRef((
     props: Config,
     ref:
-      | {current: Instance | null, ...}
+      | {-current: Instance | null, ...}
       | ((Instance | null) => mixed),
   ) => {
     const [isLoading, setLoading] = React.useState<boolean>(true);
@@ -154,8 +154,8 @@ export default function withLoadedTypeInfo<-Config, +Instance = mixed>(
 }
 
 export function withLoadedTypeInfoForRelationshipEditor<
-  -Config,
-  +Instance = mixed,
+  Config,
+  Instance = mixed,
 >(
   WrappedComponent: React$AbstractComponent<Config, Instance>,
   extraTypeInfoToLoad?: $ReadOnlyArray<string> = [],

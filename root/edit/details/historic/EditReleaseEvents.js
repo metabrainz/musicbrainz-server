@@ -118,7 +118,7 @@ const EditReleaseEvents = ({edit}: Props): React$Element<'table'> => (
       <>
         <thead>
           <tr>
-            <th colSpan="7">{l('Added')}</th>
+            <th colSpan="7">{lp('Added', 'list of added release events')}</th>
           </tr>
         </thead>
         <tbody>
@@ -132,7 +132,9 @@ const EditReleaseEvents = ({edit}: Props): React$Element<'table'> => (
       <>
         <thead>
           <tr>
-            <th colSpan="7">{l('Removed')}</th>
+            <th colSpan="7">
+              {lp('Removed', 'list of removed release events')}
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -146,7 +148,9 @@ const EditReleaseEvents = ({edit}: Props): React$Element<'table'> => (
       <>
         <thead>
           <tr>
-            <th colSpan="7">{l('Edited')}</th>
+            <th colSpan="7">
+              {lp('Edited', 'list of edited release events')}
+            </th>
           </tr>
         </thead>
         <tbody>

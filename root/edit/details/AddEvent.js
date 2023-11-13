@@ -47,7 +47,7 @@ const AddEvent = ({edit}: Props): React$MixedElement => {
         ) : null}
 
         <tr>
-          <th>{addColonText(l('Cancelled'))}</th>
+          <th>{addColonText(lp('Cancelled', 'event'))}</th>
           <td>{yesNo(display.cancelled)}</td>
         </tr>
 

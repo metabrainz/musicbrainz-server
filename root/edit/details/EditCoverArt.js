@@ -44,7 +44,7 @@ const EditCoverArt = ({edit}: Props): React$Element<'table'> => {
 
       {nonEmpty(display.artwork.filename) ? (
         <tr>
-          <th>{l('Filename:')}</th>
+          <th>{addColonText(l('Filename'))}</th>
           <td colSpan="2">
             <code>
               {display.artwork.filename}

@@ -17,10 +17,9 @@ import {CatalystContext} from '../../../../context.mjs';
 import loopParity from '../../../../utility/loopParity.js';
 import formatDate from '../utility/formatDate.js';
 import formatEndDate from '../utility/formatEndDate.js';
-import renderMergeCheckboxElement
-  from '../utility/renderMergeCheckboxElement.js';
 
 import DescriptiveLink from './DescriptiveLink.js';
+import MergeCheckboxElement from './MergeCheckboxElement.js';
 import RatingStars from './RatingStars.js';
 
 type ArtistListRowProps = {
@@ -69,8 +68,13 @@ const ArtistListRow = ({
       {$c.user && (nonEmpty(checkboxes) || mergeForm) ? (
         <td>
           {mergeForm
-            ? renderMergeCheckboxElement(artist, mergeForm, index)
-            : (
+            ? (
+              <MergeCheckboxElement
+                entity={artist}
+                form={mergeForm}
+                index={index}
+              />
+            ) : (
               <input
                 name={checkboxes}
                 type="checkbox"

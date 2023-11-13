@@ -13,7 +13,7 @@
       [%- form_row_text_long(r, 'comment', add_colon(l('Disambiguation'))) -%]
       [%- form_row_select(r, 'type_id', l('Type:')) -%]
       <div id="work-languages-editor"></div>
-      [%- form_row_text_list(r, 'iswcs', l('ISWCs:'), l('ISWC')) -%]
+      [%- form_row_text_list(r, 'iswcs', add_colon(l('ISWCs')), l('ISWC')) -%]
     </fieldset>
 
     <fieldset>
@@ -109,3 +109,9 @@
 [%- USE JSON.Escape;
     script_manifest('work/edit.js', {'data-args' => work_form_json.json})
 -%]
+
+<script type="text/javascript">
+  (function () {
+    MB.installFormUnloadWarning();
+  }());
+</script>

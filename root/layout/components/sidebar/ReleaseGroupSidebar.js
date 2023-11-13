@@ -57,7 +57,7 @@ const ReleaseGroupSidebar = ({
       </h2>
 
       <SidebarProperties>
-        <SidebarProperty className="artist" label={l('Artist:')}>
+        <SidebarProperty className="artist" label={addColonText(l('Artist'))}>
           <ArtistCreditLink artistCredit={releaseGroup.artistCredit} />
         </SidebarProperty>
 

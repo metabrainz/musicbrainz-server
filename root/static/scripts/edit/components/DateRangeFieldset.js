@@ -23,13 +23,13 @@ import FormRowPartialDate, {
   runReducer as runFormRowPartialDateReducer,
 } from './FormRowPartialDate.js';
 
-/* eslint-disable flowtype/sort-keys */
+/* eslint-disable ft-flow/sort-keys */
 export type ActionT =
   | {+type: 'update-begin-date', +action: FormRowPartialDateActionT}
   | {+type: 'update-end-date', +action: FormRowPartialDateActionT}
   | {+type: 'set-ended', +enabled: boolean}
   | {+type: 'copy-date'};
-/* eslint-enable flowtype/sort-keys */
+/* eslint-enable ft-flow/sort-keys */
 
 type PropsT = {
   +disabled?: boolean,

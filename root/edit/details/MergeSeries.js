@@ -16,7 +16,7 @@ type Props = {
 const MergeSeries = ({edit}: Props): React$Element<'table'> => (
   <table className="details merge-series">
     <tr>
-      <th>{l('Merge:')}</th>
+      <th>{addColonText(lp('Merge', 'merge X into Y heading'))}</th>
       <td>
         <SeriesList series={edit.display_data.old} />
       </td>

@@ -42,7 +42,7 @@ const RemoveCoverArt = ({edit}: Props): React$Element<'table'> => {
 
       {nonEmpty(display.artwork.filename) ? (
         <tr>
-          <th>{l('Filename:')}</th>
+          <th>{addColonText(l('Filename'))}</th>
           <td>
             <code>
               {display.artwork.filename}

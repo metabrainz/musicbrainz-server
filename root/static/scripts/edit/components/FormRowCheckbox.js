@@ -27,6 +27,7 @@ type Props =
     }>
   | $ReadOnly<{
       ...CommonProps,
+      onChange?: void,
       uncontrolled: true,
     }>;
 
@@ -37,7 +38,6 @@ const FormRowCheckbox = ({
   hasNoMargin = false,
   help,
   label,
-  // $FlowIssue[prop-missing]
   onChange,
   uncontrolled,
 }: Props): React$Element<typeof FormRow> => {

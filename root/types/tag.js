@@ -7,6 +7,8 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+/* eslint-disable no-unused-vars */
+
 // MusicBrainz::Server::Entity::AggregatedTag::TO_JSON
 declare type AggregatedTagT = {
   +count: number,

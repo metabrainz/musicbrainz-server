@@ -433,6 +433,11 @@ const stats = {
     color: '#e8ab08',
     label: l('Events'),
   },
+  'count.event.country.null': {
+    category: 'event-countries',
+    color: '#ff0000',
+    label: l('Events with no country set'),
+  },
   'count.event.type.null': {
     category: 'event-types',
     color: '#ff0000',
@@ -542,6 +547,11 @@ const stats = {
     category: 'core-entities',
     color: '#bc0a0a',
     label: l('Places'),
+  },
+  'count.place.country.null': {
+    category: 'place-countries',
+    color: '#ff0000',
+    label: l('Places with no country set'),
   },
   'count.place.type.null': {
     category: 'place-types',
@@ -1016,10 +1026,22 @@ export function buildTypeStats(typeData) {
       label: texp.l('{country} artists', countryArg),
     };
 
+    stats[`count.event.country.${key}`] = {
+      category: 'event-countries',
+      color: '#ff0000',
+      label: texp.l('{country} events', countryArg),
+    };
+
     stats[`count.label.country.${key}`] = {
       category: 'label-countries',
       color: '#ff0000',
       label: texp.l('{country} labels', countryArg),
+    };
+
+    stats[`count.place.country.${key}`] = {
+      category: 'place-countries',
+      color: '#ff0000',
+      label: texp.l('{country} places', countryArg),
     };
 
     stats[`count.release.country.${key}`] = {

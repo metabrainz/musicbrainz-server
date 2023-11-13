@@ -39,7 +39,7 @@ const ReorderMediums = ({edit}: Props): React$Element<'table'> => {
         return (
           <tr key={'medium-change-' + index}>
             <th>
-              {showHeader ? l('Mediums:') : null}
+              {showHeader ? addColonText(l('Mediums')) : null}
             </th>
             <td>
               {nonEmpty(mediumEdit.title) && mediumEdit.old === 'new' ? (

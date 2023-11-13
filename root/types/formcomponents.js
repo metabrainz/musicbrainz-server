@@ -7,6 +7,8 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+/* eslint-disable no-unused-vars */
+
 /*
  * Types should be (mostly) kept in alphabetical order, though you may e.g.
  * keep Foo and WritableFoo or ReadOnlyFoo next to each other for clarity.

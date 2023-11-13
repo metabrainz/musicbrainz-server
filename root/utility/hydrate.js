@@ -7,6 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+/* eslint-disable import/newline-after-import -- the FlowIgnore triggers it */
 import * as Sentry from '@sentry/browser';
 import * as React from 'react';
 // $FlowIgnore[missing-export]

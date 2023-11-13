@@ -43,24 +43,32 @@ const CDStubSidebar = ({cdstub}: Props): React$Element<'div'> => {
   return (
     <div id="sidebar">
       <SidebarProperties>
-        <SidebarProperty className="" label={l('Added:')}>
+        <SidebarProperty
+          className=""
+          label={addColonText(lp('Added', 'CD stub addition time'))}
+        >
           {getCDStubAddedAgeAgo(cdstub)}
         </SidebarProperty>
 
-        <SidebarProperty className="" label={l('Last modified:')}>
+        <SidebarProperty
+          className=""
+          label={addColonText(
+            lp('Last modified', 'CD stub modification time'),
+          )}
+        >
           {getCDStubModifiedAgeAgo(cdstub)}
         </SidebarProperty>
 
-        <SidebarProperty className="" label={l('Lookup count:')}>
+        <SidebarProperty className="" label={addColonText(l('Lookup count'))}>
           {cdstub.lookup_count}
         </SidebarProperty>
 
-        <SidebarProperty className="" label={l('Modify count:')}>
+        <SidebarProperty className="" label={addColonText(l('Modify count'))}>
           {cdstub.modify_count}
         </SidebarProperty>
 
         {cdstub.barcode ? (
-          <SidebarProperty className="" label={l('Barcode:')}>
+          <SidebarProperty className="" label={addColonText(l('Barcode'))}>
             {cdstub.barcode}
           </SidebarProperty>
         ) : null}

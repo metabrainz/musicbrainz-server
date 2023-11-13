@@ -29,7 +29,7 @@ const XGettext = require('xgettext-js');
 const argv = require('yargs').argv;
 
 const cleanMsgid =
-  require('../root/static/scripts/common/i18n/cleanMsgid').default;
+  require('../root/static/scripts/common/i18n/cleanMsgid.js').default;
 
 const PO_DIR = path.resolve(__dirname, '../po');
 
@@ -56,8 +56,11 @@ const potFile = {
 
 function extractStringLiteral(node) {
   switch (node.type) {
-    case 'StringLiteral':
-      return node.value;
+    case 'Literal':
+      if (node.literalType === 'string') {
+        return node.value;
+      }
+      return null;
 
     case 'TemplateLiteral':
       if (node.expressions.length) {
@@ -225,14 +228,6 @@ const keywords = {
 const parser = new XGettext({
   keywords,
   parseOptions: {
-    plugins: [
-      'jsx',
-      'flow',
-      'dynamicImport',
-      'classProperties',
-      'optionalChaining',
-      'nullishCoalescingOperator',
-    ],
     sourceType: 'unambiguous',
   },
 });

@@ -126,7 +126,7 @@ const AddArtist = ({edit}: Props): React$MixedElement => {
         ) : null}
 
         <tr>
-          <th>{addColonText(l('Ended'))}</th>
+          <th>{addColonText(lp('Ended', 'artist ended boolean'))}</th>
           <td>{yesNo(display.ended)}</td>
         </tr>
 

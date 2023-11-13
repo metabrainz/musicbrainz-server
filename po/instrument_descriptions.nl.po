@@ -70,9 +70,9 @@ msgid ""
 "13th century or earlier South Indian fretless slide lute used in Carnatic "
 "music. Hollow body made of jack-fruit with a secondary resonator of hollowed "
 "out gourd, it has 6 main, 3 drone and 11-12 sympathetic strings with a "
-"sliding block of hardwood to vary pitch. Much like the North Indian <a href="
-"\"/instrument/b4d38ac1-7f12-437c-a61a-be2796ffc559\">vichitra veena</a> is "
-"to the <a href=\"/instrument/aea9661c-cbda-4bf3-a61d-d78697472f29\">rudra "
+"sliding block of hardwood to vary pitch. Much like the North Indian <a "
+"href=\"/instrument/b4d38ac1-7f12-437c-a61a-be2796ffc559\">vichitra veena</a> "
+"is to the <a href=\"/instrument/aea9661c-cbda-4bf3-a61d-d78697472f29\">rudra "
 "veena</a>, chitra veena is to the <a href=\"/instrument/41761936-5dbc-433f-"
 "b558-a7ef14fe9b08\">Saraswati veena</a>."
 msgstr ""
@@ -365,15 +365,6 @@ msgstr ""
 "Een vatfluit is een soort fluit waarbij het volume van de fluit bepalend is "
 "voor de toon in plaats van de lengte."
 
-#. name:rauschpfeife 
-#: DB:instrument/description:595
-msgid ""
-"A wooden double-reed instrument with a conical bore from the 16th and 17th "
-"centuries"
-msgstr ""
-"Een houten dubbelrietinstrument met een conische boring uit de 16de en 17de "
-"eeuw."
-
 #. name:acoustic fretless guitar 
 #: DB:instrument/description:539
 msgid "Acoustic guitar without frets."
@@ -561,8 +552,8 @@ msgstr ""
 #. name:gizmo 
 #: DB:instrument/description:796
 msgid ""
-"An effects device to be clamped on the bridge, it produces \"synthesizer-like"
-"\" sounds"
+"An effects device to be clamped on the bridge, it produces \"synthesizer-"
+"like\" sounds"
 msgstr ""
 "Een effectapparaat dat op de brug van een gitaar wordt bevestigd en "
 "synthesizerachtige geluiden produceert."
@@ -1612,7 +1603,8 @@ msgstr ""
 #. name:chalumeau 
 #: DB:instrument/description:436
 msgid ""
-"For the Japanese descendant named from Portuguese, see charumera.<br /> For "
+"For the Japanese descendant named from Portuguese, see <a href=\"/"
+"instrument/07b91470-b63e-41e4-88e6-11c4acac064f\">charumera</a>.<br /> For "
 "the medieval double-reed woodwind see <a href=\"/instrument/b4f112c3-"
 "d666-47f2-bb85-bae28572ca13\">shawm</a>.<br /> Predecessor of the modern "
 "clarinet, 7-regular 1-thumb holed single-reed woodwind was in use during "
@@ -1630,6 +1622,16 @@ msgid ""
 "a01b-769de71b82f2\">harmonium</a>.<br /> Also known as pump organ, it is "
 "large, looks like an upright piano and has pedals attached to bellows with "
 "reeds. Sound is produced by playing the keyboard."
+msgstr ""
+
+#. name:fiscorn 
+#: DB:instrument/description:1184
+msgid ""
+"For the instrument known in italy as flicorno see <a href=\"/instrument/"
+"\">saxhorn</a>.<br /> For the instrument known in spain as fliscorno see <a "
+"href=\"/instrument/fd016966-658e-40db-8fe1-f2235fe1e9a3\">flugelhorn</a>."
+"<br /><br /> Originating in Germanic polka bands, it is used today in "
+"Catalonian cobla."
 msgstr ""
 
 #. name:diatonic button accordion 
@@ -1651,6 +1653,16 @@ msgid ""
 "bae28572ca13\">shawm</a>.<br /> Name derived from the Portuguese name of "
 "shawm, it was imported by Portuguese or Iberian traders. It is used in "
 "kabuki theatre and by ramen street vendors"
+msgstr ""
+
+#. name:piffero 
+#: DB:instrument/description:1183
+msgid ""
+"For the small flute used with drum, see <a href=\"/"
+"instrument/996e6514-37a4-4b22-af71-e968f30913fd\">fife</a>.<br /> Often "
+"accompanied by accordions or bagpipes such as zampogna or müsa, it has 8-9 "
+"holes and a conical bore. in Sicilia there was a larger bass version named "
+"bifora or pifara."
 msgstr ""
 
 #. name:lira da braccio 
@@ -1929,8 +1941,8 @@ msgstr ""
 #. name:guban 
 #: DB:instrument/description:956
 msgid ""
-"Important in Yue, Kunkqu and Peking opera, it consists of the drum <a href="
-"\"/instrument/42349583-c10d-4c6e-b553-28d916113856\">bangu</a> and the "
+"Important in Yue, Kunkqu and Peking opera, it consists of the drum <a "
+"href=\"/instrument/42349583-c10d-4c6e-b553-28d916113856\">bangu</a> and the "
 "clapper <a href=\"/instrument/c641bccc-2060-4871-9c12-e2df2523e53c\">paiban</"
 "a>. Drum is played by one hand and clapper with the other."
 msgstr ""
@@ -1976,9 +1988,9 @@ msgstr ""
 #. name:baroque rackett 
 #: DB:instrument/description:897
 msgid ""
-"Improved by Johann Christoph Denner sometime around 1730, its \"coiled snake"
-"\" bore now is conical, in addition it is played through a removable metal "
-"curled mouth piece."
+"Improved by Johann Christoph Denner sometime around 1730, its \"coiled "
+"snake\" bore now is conical, in addition it is played through a removable "
+"metal curled mouth piece."
 msgstr ""
 "Johann Christoph Denner verbeterde de renaissanceranket rond 1730. De boring "
 "van de barokranket is conisch, en het instrument wordt aangeblazen via een "
@@ -2547,9 +2559,9 @@ msgstr ""
 #. name:żummara 
 #: DB:instrument/description:592
 msgid ""
-"Made of bamboo with one end covered with grease-paper, it is a \"side-blown"
-"\" mirliton.<br /> Not to be confused with the Egyptian/Iraqi zummara which "
-"is an instrument similar to a chalumeau."
+"Made of bamboo with one end covered with grease-paper, it is a \"side-"
+"blown\" mirliton.<br /> Not to be confused with the Egyptian/Iraqi zummara "
+"which is an instrument similar to a chalumeau."
 msgstr ""
 "De żummara is een mirliton van bamboe waarvan één uiteinde is bedekt met "
 "vetvrij papier.<br />Het instrument moet niet worden verward met de "
@@ -2646,8 +2658,8 @@ msgstr ""
 "bamboebuizen die voor de juiste toonhoogte op maat zijn gesneden. Het "
 "instrument kan zowel hangend als op een rek (als een xylofoon) worden "
 "bespeeld. <br />Zie voor de Balinese metallofoon die ook soms tjaloeng wordt "
-"genoemd <a href=\"/instrument/395bab77-bb77-4696-96d6-dfcade201c6d"
-"\">djoeblag</a>."
+"genoemd <a href=\"/instrument/395bab77-bb77-4696-96d6-"
+"dfcade201c6d\">djoeblag</a>."
 
 #. name:sasando 
 #: DB:instrument/description:928
@@ -2848,6 +2860,13 @@ msgstr ""
 "De basgamba is tegenwoordig het meest bespeelde lid uit de viola da gamba-"
 "familie."
 
+#. name:rauschpfeife 
+#: DB:instrument/description:595
+msgid ""
+"Name also used in general for reed pipes from the 16th century, it has a "
+"conical bore and a windcap."
+msgstr ""
+
 #. name:pan flute 
 #: DB:instrument/description:16
 msgid ""
@@ -2977,11 +2996,12 @@ msgid ""
 "descendant named from Portuguese, see <a href=\"/instrument/07b91470-"
 "b63e-41e4-88e6-11c4acac064f\">charumera</a>.<br /> For the Catalan shawm, "
 "see <a href=\"/instrument/dffe56f5-cd75-4392-ad31-1c3abf2b8e37\"> tible</a>."
-"<br /> For the Italian ciaramella see piffero.<br /> For the bagpipe, see "
-"xeremia.<br /><br /> European medieval and renaissance conical bore double-"
-"reed woodwind, two types evolved; one from Middle-eastern instruments and "
-"one from bagpipe chanters. A combination of both where used to develop the "
-"modern oboe."
+"<br /> For the Italian ciaramella see <a href=\"/"
+"instrument/814816db-3368-4889-a8cd-aa34bd1043f0\">piffero.</a>.<br /> For "
+"the bagpipe, see xeremia.<br /><br /> European medieval and renaissance "
+"conical bore double-reed woodwind, two types evolved; one from Middle-"
+"eastern instruments and one from bagpipe chanters. A combination of both "
+"where used to develop the modern oboe."
 msgstr ""
 
 #. name:oboe 
@@ -3059,9 +3079,9 @@ msgid ""
 "One of the two subfamilies of Indian chordophones, the South Indian gourd "
 "lute used in classical Carnatic music has a single gourd music-box "
 "(sometimes a secondary small resonator gourd) with an often hollow neck.<br /"
-"> Commonly called just \"veena\" or \"vina\", the representative is <a href="
-"\"/instrument/41761936-5dbc-433f-b558-a7ef14fe9b08\">Saraswati veena</a>, "
-"and credits to just \"veena\" are usually that."
+"> Commonly called just \"veena\" or \"vina\", the representative is <a "
+"href=\"/instrument/41761936-5dbc-433f-b558-a7ef14fe9b08\">Saraswati veena</"
+"a>, and credits to just \"veena\" are usually that."
 msgstr ""
 "De vina is een van de twee onderfamilies Indiase snaarinstrumenten. Het zijn "
 "Zuid-Indiase kalebasluiten met een enkele kalebas (en soms een kleinere, "
@@ -3237,8 +3257,8 @@ msgid ""
 "Other instruments. If you can't find an instrument, please <a href=\"/doc/"
 "How_to_Add_Instruments\">request it</a>."
 msgstr ""
-"Overige instrumenten. Als je een instrument niet kan vinden, kan je <a href="
-"\"/doc/How_to_Add_Instruments\">het aanvragen</a>."
+"Overige instrumenten. Als je een instrument niet kan vinden, kan je <a "
+"href=\"/doc/How_to_Add_Instruments\">het aanvragen</a>."
 
 #. name:castanets 
 #: DB:instrument/description:109
@@ -3948,8 +3968,8 @@ msgstr ""
 #. name:electric bass guitar 
 #: DB:instrument/description:51
 msgid ""
-"Solid body 4-stringed electric bass guitar. The most common for \"bass guitar"
-"\" and \"bass\" credits in popular (rock) music."
+"Solid body 4-stringed electric bass guitar. The most common for \"bass "
+"guitar\" and \"bass\" credits in popular (rock) music."
 msgstr ""
 "De elektrische basgitaar heeft vier snaren en geen holle klankkast. Als in "
 "de pop- of rockmuziek een ‘basgitaar’ of ‘bas’ wordt vermeld, gaat het "
@@ -4984,8 +5004,8 @@ msgstr ""
 #. name:kendang wadon 
 #: DB:instrument/description:995
 msgid ""
-"The larger and deeper pitched of the Bali kendang, it is the leader \"female"
-"\" drum."
+"The larger and deeper pitched of the Bali kendang, it is the leader "
+"\"female\" drum."
 msgstr ""
 "Van de twee Balinese kendangs is de wadon het grootste en lager klinkende "
 "instrument. Het is de leidende en ‘vrouwelijke’ trommel."
@@ -5096,8 +5116,8 @@ msgstr ""
 #. name:violin 
 #: DB:instrument/description:62
 msgid ""
-"The most famous member of the violin family, it is actually the \"small viol"
-"\". Its register is soprano and it's a principal member of the symphony "
+"The most famous member of the violin family, it is actually the \"small "
+"viol\". Its register is soprano and it's a principal member of the symphony "
 "orchestra."
 msgstr ""
 "De viool is het beroemdste lid van de vioolfamilie. De Italiaanse naam "
@@ -5252,12 +5272,12 @@ msgstr ""
 #: DB:instrument/description:628
 msgid ""
 "The rammana is a frame drum used in classical Thai and Cambodian music which "
-"forms one part of <a href=\"http://en.wikipedia.org/wiki/Thon_and_rammana"
-"\">thon and rammana</a>."
+"forms one part of <a href=\"http://en.wikipedia.org/wiki/"
+"Thon_and_rammana\">thon and rammana</a>."
 msgstr ""
 "Een rammana is een lijsttrommel die wordt gebruikt bij bij traditionele "
-"Thaise en Cambodjaanse muziek. Hij is de helft van de combinatie <a href="
-"\"http://en.wikipedia.org/wiki/Thon_and_rammana\">thon en rammana</a>."
+"Thaise en Cambodjaanse muziek. Hij is de helft van de combinatie <a "
+"href=\"http://en.wikipedia.org/wiki/Thon_and_rammana\">thon en rammana</a>."
 
 #. name:ranat ek 
 #: DB:instrument/description:614
@@ -5452,8 +5472,8 @@ msgstr ""
 #. name:kendang lanang 
 #: DB:instrument/description:994
 msgid ""
-"The smaller and higher pitched of the Bali kendang, it is the follower \"male"
-"\" drum."
+"The smaller and higher pitched of the Bali kendang, it is the follower "
+"\"male\" drum."
 msgstr ""
 "Van de twee Balinese kendangs is de langang het kleinste en hoogst klinkende "
 "instrument. Het instrument is de volgende en ‘mannelijke’ trommel."
@@ -5603,8 +5623,8 @@ msgid ""
 msgstr ""
 "De thon is een vaastrommel met een kast van keramiek of hout en wordt "
 "gebruikt voor traditionele Thaise en Cambodjaanse muziek. Hij is de helft "
-"van de combinatie <a href=\"http://en.wikipedia.org/wiki/Thon_and_rammana"
-"\">thon en rammana</a>."
+"van de combinatie <a href=\"http://en.wikipedia.org/wiki/"
+"Thon_and_rammana\">thon en rammana</a>."
 
 #. name:tinya 
 #: DB:instrument/description:724
@@ -5794,14 +5814,14 @@ msgstr "De zhongruan is een Chinese luit uit de familie van de ruan."
 #. name:đing năm 
 #: DB:instrument/description:319
 msgid ""
-"The đing năm is a <a href=\"https://en.wikipedia.org/wiki/Gourd_mouth_organ"
-"\">gourd mouth organ</a> used by minority ethnic groups in the central "
-"highlands of Vietnam."
+"The đing năm is a <a href=\"https://en.wikipedia.org/wiki/"
+"Gourd_mouth_organ\">gourd mouth organ</a> used by minority ethnic groups in "
+"the central highlands of Vietnam."
 msgstr ""
-"Een đing năm, ook bekend als ku puốt, m’boắt of m’buốt, is een <a href="
-"\"https://en.wikipedia.org/wiki/Gourd_mouth_organ\">van een kalebas gemaakt "
-"mondorgel</a> dat wordt gebruikt door minderheden in de centrale hooglanden "
-"van Vietnam."
+"Een đing năm, ook bekend als ku puốt, m’boắt of m’buốt, is een <a "
+"href=\"https://en.wikipedia.org/wiki/Gourd_mouth_organ\">van een kalebas "
+"gemaakt mondorgel</a> dat wordt gebruikt door minderheden in de centrale "
+"hooglanden van Vietnam."
 
 #. name:đàn nguyệt 
 #: DB:instrument/description:242
@@ -6671,8 +6691,8 @@ msgstr ""
 #: DB:instrument/description:99
 msgid ""
 "Very wide grouping, played by hitting directly aka <a href=\"/"
-"instrument/06266b6a-2fb8-4c71-9894-186edbac5dff\">idiophone</a>s and <a href="
-"\"/instrument/3bccb7eb-cbca-42cd-b0ac-a5e959df7221\">membranophone</a>s "
+"instrument/06266b6a-2fb8-4c71-9894-186edbac5dff\">idiophone</a>s and <a "
+"href=\"/instrument/3bccb7eb-cbca-42cd-b0ac-a5e959df7221\">membranophone</a>s "
 "(from drums to xylophones). Use the closest approximate instrument possible "
 "for credits, use percussion with a credit if no better can be found and <a "
 "href=\"/doc/How_to_Add_Instruments\">create an instrument ticket</a> if "
@@ -6972,8 +6992,8 @@ msgstr "De dholak is een Zuid-Aziatische tweekoppige trommel."
 #: DB:instrument/description:391
 msgid ""
 "do not confuse with: Serb-Croat \"tamburica\" ensemble. Persian/Turkish "
-"ancient things evolved/came from \"tanbur\". unrelated Indian drone \"tanpura"
-"\" related Indian \"pandour\""
+"ancient things evolved/came from \"tanbur\". unrelated Indian drone "
+"\"tanpura\" related Indian \"pandour\""
 msgstr ""
 "De tambura is een luit met een lange hals uit Macedonië en Bulgarije. Niet "
 "verwarren met het Joegoslavische tamburica-ensemble, verschillende antieke "
@@ -7315,6 +7335,13 @@ msgstr ""
 "meerdere resonatoren hebben."
 
 #~ msgid ""
+#~ "A wooden double-reed instrument with a conical bore from the 16th and "
+#~ "17th centuries"
+#~ msgstr ""
+#~ "Een houten dubbelrietinstrument met een conische boring uit de 16de en "
+#~ "17de eeuw."
+
+#~ msgid ""
 #~ "Side drum, often with one or more snares, worn by one person and beaten "
 #~ "by one hand, it is often combined with tabor pipes."
 #~ msgstr ""
@@ -7399,8 +7426,8 @@ msgstr ""
 
 #~ msgid ""
 #~ "electromechanical piano with stainless steel reeds and an amplified pick-"
-#~ "up. not to be confused with \"cembalo\" which is another name for <a href="
-#~ "\"/instrument/bfe379dc-1d65-4862-acd8-60d53bb963a2\">Harpsichord</a>"
+#~ "up. not to be confused with \"cembalo\" which is another name for <a "
+#~ "href=\"/instrument/bfe379dc-1d65-4862-acd8-60d53bb963a2\">Harpsichord</a>"
 #~ msgstr ""
 #~ "Een Cembalet is een electromechanische piano met tongetjes van rvs en een "
 #~ "versterkte opnemer. Dit instrument moet niet met ‘cembalo’ worden "

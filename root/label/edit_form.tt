@@ -15,7 +15,7 @@
         [%- form_row_select(r, 'type_id', l('Type:')) -%]
         [% WRAPPER form_row %]
           [% area_field = form.field('area.name') %]
-          <label for="id-edit-label.area.name">[% l('Area:') %]</label>
+          <label for="id-edit-label.area.name">[% add_colon(l('Area')) %]</label>
           <span class="area autocomplete">
             [% React.embed(c, 'static/scripts/common/components/SearchIcon') %]
             [% r.hidden(form.field('area').field('gid'), { class => 'gid' }) %]
@@ -25,12 +25,12 @@
           [% field_errors(r.form, 'area.name') %]
         [% END %]
         [% WRAPPER form_row %]
-            [%- r.label('label_code', l('Label code:')) %]
+            [%- r.label('label_code', add_colon(l('Label code'))) %]
             LC- [% r.text('label_code', size => 5, class => "label-code", pattern => "[0-9]*") -%]
             [%- field_errors(form, 'label_code') -%]
         [% END %]
-        [%- form_row_text_list(r, 'ipi_codes', l('IPI codes:'), l('IPI code')) -%]
-        [%- form_row_text_list(r, 'isni_codes', l('ISNI codes:'), l('ISNI code')) -%]
+        [%- form_row_text_list(r, 'ipi_codes', add_colon(l('IPI codes')), l('IPI code')) -%]
+        [%- form_row_text_list(r, 'isni_codes', add_colon(l('ISNI codes')), l('ISNI code')) -%]
       </fieldset>
 
       [% date_range_fieldset(r, 'label', l('This label has ended.')) %]
@@ -69,5 +69,7 @@
 
     MB.Control.initializeBubble("#ipi-bubble", "input[name=edit-label\\.ipi_codes\\.0]");
     MB.Control.initializeBubble("#isni-bubble", "input[name=edit-label\\.isni_codes\\.0]");
+
+    MB.installFormUnloadWarning();
   }());
 </script>

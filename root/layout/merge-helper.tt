@@ -27,7 +27,7 @@
     [% END %]
     <div class="buttons" style="display: table-cell">
       [% IF merger.ready_to_merge %]
-        <button type="submit" name="submit" value="merge" class="positive">[% l('Merge') %]</button>
+        <button type="submit" name="submit" value="merge" class="positive">[% lp('Merge', 'button/link') %]</button>
       [% END %]
       <button type="submit" name="submit" value="remove">
         [% l('Remove selected entities') %]</button>

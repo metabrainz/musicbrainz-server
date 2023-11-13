@@ -62,16 +62,16 @@ function* getNGrams(
   }
 }
 
-export function getItemName<+T: EntityItemT>(
+export function getItemName<T: EntityItemT>(
   item: OptionItemT<T>,
 ): Array<string> {
   return [unwrapNl<string>(item.name)];
 }
 
 const createItemSet =
-  <+T: EntityItemT>(): Set<OptionItemT<T>> => new Set();
+  <T: EntityItemT>(): Set<OptionItemT<T>> => new Set();
 
-export function indexItems<+T: EntityItemT>(
+export function indexItems<T: EntityItemT>(
   items: $ReadOnlyArray<ItemT<T>>,
   extractSearchTerms: (OptionItemT<T>) => Array<string>,
 ): void {
@@ -99,7 +99,7 @@ export function indexItems<+T: EntityItemT>(
   itemIndexes.set(items, index);
 }
 
-function getItem<+T: EntityItemT>(
+function getItem<T: EntityItemT>(
   itemAndRank: [OptionItemT<T>, number],
 ): OptionItemT<T> {
   const itemCopy = {...itemAndRank[0]};
@@ -112,14 +112,14 @@ function getItem<+T: EntityItemT>(
   return itemCopy;
 }
 
-function compareItemRanks<+T: EntityItemT>(
+function compareItemRanks<T: EntityItemT>(
   a: [OptionItemT<T>, number],
   b: [OptionItemT<T>, number],
 ): number {
   return b[1] - a[1];
 }
 
-function weightEntry<+T: EntityItemT>(
+function weightEntry<T: EntityItemT>(
   itemAndRank: [OptionItemT<T>, number],
   searchTerm: string,
 ): number {
@@ -146,7 +146,7 @@ function weightEntry<+T: EntityItemT>(
   return rank;
 }
 
-export default function searchItems<+T: EntityItemT>(
+export default function searchItems<T: EntityItemT>(
   items: $ReadOnlyArray<OptionItemT<T>>,
   searchTerm: string,
 ): $ReadOnlyArray<OptionItemT<T>> {

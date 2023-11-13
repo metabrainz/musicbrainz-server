@@ -149,7 +149,14 @@ sub valid {
 
 sub as_string {
     my $self = shift;
-    $_->combine_with_query($self) for $self->fields;
+
+    my $disable_limit_for_edit_listing = 0;
+    for my $field ($self->fields) {
+        $field->combine_with_query($self);
+        $disable_limit_for_edit_listing ||=
+            $field->disable_limit_for_edit_listing;
+    }
+
     my $comb = $self->combinator;
     my $ae_predicate = defined $self->auto_edit_filter ?
         'autoedit = ? AND ' : '';
@@ -190,8 +197,10 @@ sub as_string {
             join(" $comb ", map { '(' . $_->[0] . ')' } $self->where) .
         ")
          $extra_conditions
-         $order
-         LIMIT $LIMIT_FOR_EDIT_LISTING";
+         $order" .
+        ($disable_limit_for_edit_listing
+            ? ''
+            : " LIMIT $LIMIT_FOR_EDIT_LISTING");
 }
 
 sub arguments {

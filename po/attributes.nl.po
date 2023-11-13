@@ -45,6 +45,11 @@ msgstr ""
 "composities (vaak voor een solo-instrument of een solo-instrument samen met "
 "piano). De sonate is ontstaan in de barok."
 
+#: DB:medium_format/name:205
+msgctxt "medium_format"
+msgid "10\" Acetate"
+msgstr ""
+
 #: DB:medium_format/name:54
 msgctxt "medium_format"
 msgid "10\" Shellac"
@@ -54,6 +59,11 @@ msgstr "10″-schellak"
 msgctxt "medium_format"
 msgid "10\" Vinyl"
 msgstr "10″-vinyl"
+
+#: DB:medium_format/name:206
+msgctxt "medium_format"
+msgid "12\" Acetate"
+msgstr ""
 
 #: DB:medium_format/name:72
 msgctxt "medium_format"
@@ -79,6 +89,11 @@ msgstr "3,5″-floppy"
 msgctxt "medium_format"
 msgid "5.25\" Floppy Disk"
 msgstr "5,25″-floppy"
+
+#: DB:medium_format/name:204
+msgctxt "medium_format"
+msgid "7\" Acetate"
+msgstr ""
 
 #: DB:medium_format/name:52
 msgctxt "medium_format"
@@ -499,9 +514,9 @@ msgstr "Een gelijmd gebonden boek met achterin een hoesje voor een cd."
 msgctxt "event_type"
 msgid ""
 "A performance of one or more plays, musicals, operas, ballets or other "
-"similar works for the stage in their staged form (as opposed to a <a href="
-"\"https://en.wikipedia.org/wiki/Concert_performance\">concert performance</"
-"a> without staging)."
+"similar works for the stage in their staged form (as opposed to a <a "
+"href=\"https://en.wikipedia.org/wiki/Concert_performance\">concert "
+"performance</a> without staging)."
 msgstr ""
 "Een uitvoering van een of meer toneelstukken, musicals, opera’s, balletten "
 "of soortgelijke composities met de bijbehorende voorstelling (in "
@@ -1040,6 +1055,11 @@ msgstr "Acemli Yegah"
 msgctxt "work_attribute_type_allowed_value"
 msgid "Acemtarab"
 msgstr "Acemtarab"
+
+#: DB:medium_format/name:203
+msgctxt "medium_format"
+msgid "Acetate"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:848
 msgctxt "work_attribute_type_allowed_value"

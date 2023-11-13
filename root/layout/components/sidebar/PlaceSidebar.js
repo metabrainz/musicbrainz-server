@@ -79,19 +79,25 @@ const PlaceSidebar = ({place}: Props): React$Element<'div'> => {
         />
 
         {place.address ? (
-          <SidebarProperty className="address" label={l('Address:')}>
+          <SidebarProperty
+            className="address"
+            label={addColonText(l('Address'))}
+          >
             {place.address}
           </SidebarProperty>
         ) : null}
 
         {area ? (
-          <SidebarProperty className="area" label={l('Area:')}>
+          <SidebarProperty className="area" label={addColonText(l('Area'))}>
             <DescriptiveLink entity={area} />
           </SidebarProperty>
         ) : null}
 
         {coordinates ? (
-          <SidebarProperty className="coordinates" label={l('Coordinates:')}>
+          <SidebarProperty
+            className="coordinates"
+            label={addColonText(l('Coordinates'))}
+          >
             <a href={osmUrl(coordinates, 16)}>
               {formatCoordinates(coordinates)}
             </a>

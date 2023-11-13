@@ -26,8 +26,6 @@ use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Track;
 use MusicBrainz::Server::Translation qw( N_l );
 
-no if $] >= 5.018, warnings => 'experimental::smartmatch';
-
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
 with 'MusicBrainz::Server::Edit::Recording::RelatedEntities';
 with 'MusicBrainz::Server::Edit::Recording';
@@ -206,14 +204,11 @@ before accept => sub {
 around extract_property => sub {
     my ($orig, $self) = splice(@_, 0, 2);
     my ($property, $ancestor, $current, $new) = @_;
-    given ($property) {
-        when ('artist_credit') {
-            return merge_artist_credit($self->c, $ancestor, $current, $new);
-        }
-
-        default {
-            return ($self->$orig(@_));
-        }
+    if ($property eq 'artist_credit') {
+        return merge_artist_credit($self->c, $ancestor, $current, $new);
+    }
+    else {
+        return ($self->$orig(@_));
     }
 };
 

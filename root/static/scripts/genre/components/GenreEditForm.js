@@ -41,10 +41,10 @@ type Props = {
   +form: GenreFormT,
 };
 
-/* eslint-disable flowtype/sort-keys */
+/* eslint-disable ft-flow/sort-keys */
 type ActionT =
   | {+type: 'update-name', +action: NameActionT};
-/* eslint-enable flowtype/sort-keys */
+/* eslint-enable ft-flow/sort-keys */
 
 type StateT = {
   +form: GenreFormT,

@@ -108,7 +108,7 @@ const EditLabel = ({edit}: Props): React$Element<'table'> => {
 
         {ended ? (
           <FullChangeDiff
-            label={addColonText(l('Ended'))}
+            label={addColonText(lp('Ended', 'label ended boolean'))}
             newContent={yesNo(ended.new)}
             oldContent={yesNo(ended.old)}
           />

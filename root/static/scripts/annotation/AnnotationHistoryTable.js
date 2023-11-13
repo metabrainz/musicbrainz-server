@@ -20,12 +20,12 @@ type Props = {
   +baseUrl: string,
 };
 
-/* eslint-disable flowtype/sort-keys */
+/* eslint-disable ft-flow/sort-keys */
 type ActionT =
   | {+type: 'update-new', +index: number}
   | {+type: 'update-old', +index: number}
 ;
-/* eslint-enable flowtype/sort-keys */
+/* eslint-enable ft-flow/sort-keys */
 
 type StateT = {
   +selectedNew: number,
@@ -98,8 +98,8 @@ const AnnotationHistoryTable = ({
         <tr>
           {canCompare ? (
             <>
-              <th className="pos">{l('Old')}</th>
-              <th className="pos">{l('New')}</th>
+              <th className="pos">{lp('Old', 'annotation')}</th>
+              <th className="pos">{lp('New', 'annotation')}</th>
             </>
           ) : null}
           <th>{l('Editor')}</th>

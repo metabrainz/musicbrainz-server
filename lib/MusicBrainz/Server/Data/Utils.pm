@@ -14,7 +14,7 @@ use Data::UUID::MT;
 use Math::Random::Secure qw( irand );
 use MIME::Base64 qw( encode_base64url );
 use JSON::XS;
-use List::AllUtils qw( natatime sort_by );
+use List::AllUtils qw( any natatime sort_by );
 use MusicBrainz::Server::Constants qw(
     $DARTIST_ID
     $VARTIST_ID
@@ -39,6 +39,8 @@ our @EXPORT_OK = qw(
     boolean_to_json
     check_data
     conditional_merge_column_query
+    contains_number
+    contains_string
     copy_escape
     coordinates_to_hash
     datetime_to_iso8601
@@ -750,6 +752,20 @@ sub localized_note {
         version => 1,
         %opts,
     });
+}
+
+sub contains_number {
+    my ($array_ref, $number) = @_;
+
+    return 0 unless defined $array_ref;
+    return any { $_ == $number } @$array_ref;
+}
+
+sub contains_string {
+    my ($array_ref, $string) = @_;
+
+    return 0 unless defined $array_ref;
+    return any { $_ eq $string } @$array_ref;
 }
 
 1;

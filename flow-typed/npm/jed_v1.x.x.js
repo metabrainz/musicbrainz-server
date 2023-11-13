@@ -2,13 +2,13 @@ declare module 'jed' {
   declare export type JedOptions = {
     domain?: string,
     locale_data: {
-      [string]: {
+      [domain: string]: {
         '': {
           domain: string,
           lang: string,
           plural_forms: string,
         },
-        [string]: Array<string>,
+        [messageId: string]: Array<string>,
         ...
       },
       ...
@@ -17,17 +17,17 @@ declare module 'jed' {
   };
 
   declare class Jed {
-    constructor(options: JedOptions): Jed;
-    locale?: string,
-    options: JedOptions;
-    dgettext(domain: string, key: string): string;
+    constructor(options: JedOptions): Jed,
+    dgettext(domain: string, key: string): string,
     dngettext(
       domain: string,
       singular_key: string,
       plural_key: string,
       value: number,
-    ): string;
-    dpgettext(domain: string, context: string, key: string): string;
+    ): string,
+    dpgettext(domain: string, context: string, key: string): string,
+    locale?: string,
+    options: JedOptions,
   }
 
   declare module.exports: typeof Jed;

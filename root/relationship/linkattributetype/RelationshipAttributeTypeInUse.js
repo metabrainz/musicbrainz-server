@@ -21,7 +21,7 @@ const RelationshipAttributeTypeInUse = ({
       <h1>{l('Relationship attribute in use')}</h1>
       <p>
         {texp.l(
-          `The relationship attribute type “{type}” can’t be deleted
+          `The relationship attribute type “{type}” can’t be removed
            because it’s still in use.`,
           {type: type.name},
         )}

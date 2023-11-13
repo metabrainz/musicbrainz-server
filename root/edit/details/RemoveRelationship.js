@@ -17,7 +17,7 @@ type Props = {
 const RemoveRelationship = ({edit}: Props): React$MixedElement => (
   <table className="details remove-relationship">
     <tr>
-      <th>{l('Relationship:')}</th>
+      <th>{addColonText(l('Relationship'))}</th>
       <td><Relationship relationship={edit.display_data.relationship} /></td>
     </tr>
   </table>

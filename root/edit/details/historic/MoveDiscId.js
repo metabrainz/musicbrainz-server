@@ -18,7 +18,7 @@ type Props = {
 const MoveDiscId = ({edit}: Props): React$Element<'table'> => (
   <table className="details move-discid">
     <tr>
-      <th>{l('Disc ID:')}</th>
+      <th>{addColonText(l('Disc ID'))}</th>
       <td>
         <CDTocLink cdToc={edit.display_data.cdtoc} />
       </td>

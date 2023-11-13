@@ -13,10 +13,10 @@
         [%- form_row_text_long(r, 'comment', add_colon(l('Disambiguation'))) -%]
         [%- disambiguation_error() -%]
         [%- form_row_select(r, 'type_id', l('Type:')) -%]
-        [%- form_row_text_long(r, 'address', l('Address:')) -%]
+        [%- form_row_text_long(r, 'address', add_colon(l('Address'))) -%]
         [% WRAPPER form_row %]
           [% area_field = form.field('area.name') %]
-          <label for="id-edit-place.area.name">[% l('Area:') %]</label>
+          <label for="id-edit-place.area.name">[% add_colon(l('Area')) %]</label>
           <span class="area autocomplete">
             [% React.embed(c, 'static/scripts/common/components/SearchIcon') %]
             [% r.hidden(form.field('area').field('gid'), class => 'gid') %]
@@ -59,3 +59,9 @@
 
 [%- guesscase_options() -%]
 [% script_manifest('place/edit.js') %]
+
+<script type="text/javascript">
+  (function () {
+    MB.installFormUnloadWarning();
+  }());
+</script>

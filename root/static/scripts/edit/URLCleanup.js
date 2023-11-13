@@ -3369,40 +3369,6 @@ const CLEANUPS: CleanupEntries = {
       return {result: false, target: ERROR_TARGETS.URL};
     },
   },
-  'kget': {
-    match: [new RegExp('^(https?://)?([^/]+\\.)?kget\\.jp/', 'i')],
-    restrict: [LINK_TYPES.lyrics],
-    clean: function (url) {
-      const m = /^(?:https?:\/\/)?(?:[^\/]+\.)?kget\.jp\/(.*)$/.exec(url);
-      if (m) {
-        let tail = m[1];
-        tail = tail.replace(/^(lyric\/\d+)(?:\/.*)?$/, '$1/');
-        tail = tail.replace(/^(search\/index.php\?).*(r=[^&#]+).*$/, '$1$2');
-        url = 'http://www.kget.jp/' + tail;
-      }
-      return url;
-    },
-    validate: function (url, id) {
-      const m = /^http:\/\/www\.kget\.jp\/(lyric(?=\/)|search\/index(?=\.))(?:\/\d+\/|\.php\?r=[^&#]+)$/.exec(url);
-      if (m) {
-        const prefix = m[1];
-        switch (id) {
-          case LINK_TYPES.lyrics.artist:
-            return {
-              result: prefix === 'search/index',
-              target: ERROR_TARGETS.ENTITY,
-            };
-          case LINK_TYPES.lyrics.work:
-            return {
-              result: prefix === 'lyric',
-              target: ERROR_TARGETS.ENTITY,
-            };
-        }
-        return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
-      }
-      return {result: false, target: ERROR_TARGETS.URL};
-    },
-  },
   'kickstarter': {
     match: [new RegExp(
       '^(https?://)?(www\\.)?kickstarter\\.com/(profile|projects)/',
@@ -3527,11 +3493,11 @@ const CLEANUPS: CleanupEntries = {
     match: [new RegExp('^(https?://)?(www\\.)?librarything\\.com', 'i')],
     restrict: [LINK_TYPES.otherdatabases],
     clean: function (url) {
-      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?librarything\.com\/(author|nseries|work)\/([0-9a-z]+)(?:[/?#].*)?$/, 'https://www.librarything.com/$1/$2');
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?librarything\.com\/(author|nseries|work)\/([0-9a-z-]+)(?:[/?#].*)?$/, 'https://www.librarything.com/$1/$2');
       return url;
     },
     validate: function (url, id) {
-      const m = /^https:\/\/www\.librarything\.com\/([a-z]+)\/[0-9a-z]+$/.exec(url);
+      const m = /^https:\/\/www\.librarything\.com\/([a-z]+)\/[0-9a-z-]+$/.exec(url);
       if (m) {
         const prefix = m[1];
         switch (id) {

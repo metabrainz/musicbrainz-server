@@ -5,7 +5,7 @@ use Cwd;
 use File::Basename;
 use File::Spec;
 use FindBin qw( $Bin );
-use List::AllUtils qw( any );
+use MusicBrainz::Server::Data::Utils qw( contains_string );
 use String::ShellQuote qw( shell_quote );
 use Test::More;
 
@@ -95,7 +95,7 @@ sub check_imports {
             );
         }
 
-        unless (any { $_ eq $import } @source_path) {
+        unless (contains_string(\@source_path, $import)) {
             check_imports(@source_path, $import);
         }
     }

@@ -265,13 +265,6 @@ msgid ""
 "body."
 msgstr ""
 
-#. name:rauschpfeife 
-#: DB:instrument/description:595
-msgid ""
-"A wooden double-reed instrument with a conical bore from the 16th and 17th "
-"centuries"
-msgstr ""
-
 #. name:acoustic fretless guitar 
 #: DB:instrument/description:539
 msgid "Acoustic guitar without frets."
@@ -1215,7 +1208,8 @@ msgstr ""
 #. name:chalumeau 
 #: DB:instrument/description:436
 msgid ""
-"For the Japanese descendant named from Portuguese, see charumera.<br /> For "
+"For the Japanese descendant named from Portuguese, see <a href=\"/"
+"instrument/07b91470-b63e-41e4-88e6-11c4acac064f\">charumera</a>.<br /> For "
 "the medieval double-reed woodwind see <a href=\"/instrument/b4f112c3-"
 "d666-47f2-bb85-bae28572ca13\">shawm</a>.<br /> Predecessor of the modern "
 "clarinet, 7-regular 1-thumb holed single-reed woodwind was in use during "
@@ -1233,6 +1227,16 @@ msgid ""
 "a01b-769de71b82f2\">harmonium</a>.<br /> Also known as pump organ, it is "
 "large, looks like an upright piano and has pedals attached to bellows with "
 "reeds. Sound is produced by playing the keyboard."
+msgstr ""
+
+#. name:fiscorn 
+#: DB:instrument/description:1184
+msgid ""
+"For the instrument known in italy as flicorno see <a href=\"/instrument/"
+"\">saxhorn</a>.<br /> For the instrument known in spain as fliscorno see <a "
+"href=\"/instrument/fd016966-658e-40db-8fe1-f2235fe1e9a3\">flugelhorn</a>."
+"<br /><br /> Originating in Germanic polka bands, it is used today in "
+"Catalonian cobla."
 msgstr ""
 
 #. name:diatonic button accordion 
@@ -1254,6 +1258,16 @@ msgid ""
 "bae28572ca13\">shawm</a>.<br /> Name derived from the Portuguese name of "
 "shawm, it was imported by Portuguese or Iberian traders. It is used in "
 "kabuki theatre and by ramen street vendors"
+msgstr ""
+
+#. name:piffero 
+#: DB:instrument/description:1183
+msgid ""
+"For the small flute used with drum, see <a href=\"/"
+"instrument/996e6514-37a4-4b22-af71-e968f30913fd\">fife</a>.<br /> Often "
+"accompanied by accordions or bagpipes such as zampogna or müsa, it has 8-9 "
+"holes and a conical bore. in Sicilia there was a larger bass version named "
+"bifora or pifara."
 msgstr ""
 
 #. name:lira da braccio 
@@ -2147,6 +2161,13 @@ msgid ""
 "consort."
 msgstr ""
 
+#. name:rauschpfeife 
+#: DB:instrument/description:595
+msgid ""
+"Name also used in general for reed pipes from the 16th century, it has a "
+"conical bore and a windcap."
+msgstr ""
+
 #. name:pan flute 
 #: DB:instrument/description:16
 msgid ""
@@ -2260,11 +2281,12 @@ msgid ""
 "descendant named from Portuguese, see <a href=\"/instrument/07b91470-"
 "b63e-41e4-88e6-11c4acac064f\">charumera</a>.<br /> For the Catalan shawm, "
 "see <a href=\"/instrument/dffe56f5-cd75-4392-ad31-1c3abf2b8e37\"> tible</a>."
-"<br /> For the Italian ciaramella see piffero.<br /> For the bagpipe, see "
-"xeremia.<br /><br /> European medieval and renaissance conical bore double-"
-"reed woodwind, two types evolved; one from Middle-eastern instruments and "
-"one from bagpipe chanters. A combination of both where used to develop the "
-"modern oboe."
+"<br /> For the Italian ciaramella see <a href=\"/"
+"instrument/814816db-3368-4889-a8cd-aa34bd1043f0\">piffero.</a>.<br /> For "
+"the bagpipe, see xeremia.<br /><br /> European medieval and renaissance "
+"conical bore double-reed woodwind, two types evolved; one from Middle-"
+"eastern instruments and one from bagpipe chanters. A combination of both "
+"where used to develop the modern oboe."
 msgstr ""
 
 #. name:oboe 

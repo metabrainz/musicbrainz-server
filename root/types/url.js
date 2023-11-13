@@ -7,6 +7,8 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+/* eslint-disable no-unused-vars */
+
 // MusicBrainz::Server::Entity::URL::TO_JSON
 declare type UrlT = {
   ...RelatableEntityRoleT<'url'>,

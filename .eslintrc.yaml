@@ -1,11 +1,11 @@
 root: true
 
-parser: "@babel/eslint-parser"
+parser: "hermes-eslint"
 
 plugins:
   - import
   - react
-  - flowtype
+  - ft-flow
   - fb-flow
   - react-hooks
   - simple-import-sort
@@ -125,7 +125,12 @@ rules:
   strict: off
 
   # Variables
-  no-undef: error
+  # no-undef is mostly superfluous as it is checked by Flow; enabling it
+  # actually triggers thousands of false positives because hermes-eslint
+  # doesn't track global types (those defined with `declare type`).
+  # Ideally we could keep no-undef enabled for files that aren't Flow-
+  # typed yet, but we don't maintain a separate config for those.
+  no-undef: off
   no-use-before-define: off
 
   # Stylistic Issues
@@ -227,7 +232,9 @@ rules:
   import/export: error
   import/extensions: [error, ignorePackages]
   import/first: warn
-  import/newline-after-import: [warn, {count: 1}]
+  import/newline-after-import: [warn, {count: 1,
+                                       exactCount: true,
+                                       considerComments: true}]
   import/no-commonjs: error
   import/no-duplicates: warn
   import/no-dynamic-require: error
@@ -280,6 +287,7 @@ rules:
   react/require-render-return: error
   react/self-closing-comp: error
   react/sort-comp: off
+  react/sort-default-props: warn
   react/sort-prop-types: off
   react/style-prop-object: error
   react/void-dom-elements-no-children: error
@@ -305,7 +313,6 @@ rules:
   react/jsx-one-expression-per-line: [warn, {allow: single-child}]
   react/jsx-curly-brace-presence: [error, {props: never, children: ignore}]
   react/jsx-pascal-case: error
-  react/jsx-sort-default-props: warn
   react/jsx-sort-props: warn
   react/jsx-tag-spacing: [error, {beforeClosing: never}]
   # jsx-uses-react is not implied since
@@ -320,31 +327,29 @@ rules:
                                       logical: ignore,
                                       prop: ignore}]
 
-  ##########################
-  # eslint-plugin-flowtype #
-  ##########################
+  #########################
+  # eslint-plugin-ft-flow #
+  #########################
 
-  flowtype/boolean-style: [warn, boolean]
-  flowtype/define-flow-type: warn
-  flowtype/delimiter-dangle: [warn, always-multiline]
-  flowtype/generic-spacing: off
-  flowtype/no-dupe-keys: error
-  flowtype/no-flow-fix-me-comments: off
-  flowtype/no-mutable-array: off
-  flowtype/no-primitive-constructor-types: error
-  flowtype/object-type-delimiter: [warn, comma]
-  flowtype/require-exact-type: off
-  flowtype/require-indexer-name: [warn, always]
-  flowtype/require-parameter-type: off
-  flowtype/require-return-type: off
-  flowtype/require-valid-file-annotation: off
-  flowtype/semi: [warn, always]
-  flowtype/sort-keys: [warn, asc]
-  flowtype/space-after-type-colon: [warn, always, {allowLineBreak: true}]
-  flowtype/space-before-generic-bracket: [warn, never]
-  flowtype/space-before-type-colon: [warn, never]
-  flowtype/union-intersection-spacing: [warn, always]
-  flowtype/use-flow-type: warn
+  ft-flow/boolean-style: [warn, boolean]
+  ft-flow/delimiter-dangle: [warn, always-multiline]
+  ft-flow/generic-spacing: off
+  ft-flow/no-dupe-keys: error
+  ft-flow/no-flow-fix-me-comments: off
+  ft-flow/no-mutable-array: off
+  ft-flow/no-primitive-constructor-types: error
+  ft-flow/object-type-delimiter: [warn, comma]
+  ft-flow/require-exact-type: off
+  ft-flow/require-indexer-name: [warn, always]
+  ft-flow/require-parameter-type: off
+  ft-flow/require-return-type: off
+  ft-flow/require-valid-file-annotation: off
+  ft-flow/semi: [warn, always]
+  ft-flow/sort-keys: [warn, asc]
+  ft-flow/space-after-type-colon: [warn, always, {allowLineBreak: true}]
+  ft-flow/space-before-generic-bracket: [warn, never]
+  ft-flow/space-before-type-colon: [warn, never]
+  ft-flow/union-intersection-spacing: [warn, always]
 
   #########################
   # eslint-plugin-fb-flow #

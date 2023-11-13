@@ -68,18 +68,16 @@ Prerequisites
     in lib/DBDefs.pm.  The defaults should be fine if you don't use
     your redis install for anything else.
 
-6.  Node.js (at least version 16) and Yarn
+6.  Node.js (at least version 20.9.0) and Yarn
 
     Node.js is required to build (and optionally minify) our JavaScript and CSS.
     If you plan on accessing musicbrainz-server inside a web browser, you should
     install Node and the package manager Yarn.
 
-    We currently run Node.js v18.17.1 in production.  While we try to support
-    all 16.x versions of Node, it's recommended to install one greater than or
-    equal to v16.13.0, as this is when the LTS line started and better matches
-    what we use and know works.  If your release of Ubuntu doesn't have such a
-    version of Node.js in its repositories, we can recommended the NodeSource
-    binary distributions, which we also use in production:
+    We currently run Node.js v20 LTS in production. (The first LTS release of
+    v20 was v20.9.0.) If your release of Ubuntu doesn't have such a version
+    of Node.js in its repositories, we can recommended the NodeSource binary
+    distributions, which we also use in production:
 
         https://github.com/nodesource/distributions#installation-instructions
 
@@ -94,9 +92,24 @@ Prerequisites
     This is only needed where it exists, so a warning about the package not being
     found is not a problem.
 
-    Next you need Yarn to install the JS dependencies. There are a variety of
-    installation methods described on their website, located here:
-    https://yarnpkg.com/en/docs/install
+    Next you need a modern version of Yarn to install the JS dependencies.
+    Yarn can be installed using the `corepack` command, which is bundled with
+    Node.js. By default, corepack will install `yarn` to /usr/local/bin,
+    so `sudo` may be required. Alternatively, you can specify where to
+    install `yarn` via the `--install-directory` flag. The specified
+    directory should be in your `$PATH`.
+
+    Note that if you have Yarn 1 (Classic) installed on your system via `npm`
+    or `apt`, this may override it depending on the installation directory.
+    If Yarn 1 (Classic) isn't required by any other project on your system,
+    this likely won't cause any issues, but in that case it's recommended
+    to uninstall it first.
+
+        # installs yarn to /usr/local/bin
+        sudo corepack enable
+
+        # alternate example: installs yarn to ~/bin without sudo
+        corepack enable --install-directory=~/bin
 
 7.  Standard Development Tools
 
@@ -220,12 +233,14 @@ Below outlines how to setup MusicBrainz server with local::lib.
 Building static web resources
 -------------------------------
 
-To build everything necessary to access the server in a web browser (CSS,
-JavaScript), run the following command:
+To build everything necessary to access the server in a web browser (CSS, JavaScript), run the following command:
 
     ./script/compile_resources.sh
 
-This command takes care of installing Node.js dependencies for you, including
+If you encounter an error running the command above, follow this section [Translations](#translations) until **4. install translations**.
+It will generate the necessary files for the build to succeed.
+
+This command below takes care of installing Node.js dependencies for you, including
 development dependencies. If you're just setting up a mirror and don't plan
 to hack on any code, you can save a bit of time and space by excluding the
 devDependencies (listed in package.json):
@@ -434,7 +449,7 @@ If you intend to run a server with translations, there are a few steps to follow
     The `.po` files for all language(s) open to translation are
     in the `po/` folder with filenames ending with ISO language code,
     optionally followed by an underscore and an ISO country code
-    (e.g. `fr` for French, `fr_CA` for Canadian French).
+    (such as `fr` for French, `fr_CA` for Canadian French).
 
 4.  Install translations
 
@@ -444,7 +459,7 @@ If you intend to run a server with translations, there are a few steps to follow
     `lib/LocaleData/{language}/LC_MESSAGES/{domain}.mo`.
 
 5.  Add the languages to `MB_LANGUAGES` in DBDefs.pm. These should be formatted
-    {lang}-{country}, e.g. 'es', or 'fr-ca', in a space-separated list.
+    {lang}-{country}, such as 'es', or 'fr-ca', in a space-separated list.
 
 6.  Ensure you have a system locale for any languages you want to use. For many
     languages, this will suffice:

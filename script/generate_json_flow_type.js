@@ -12,7 +12,7 @@
 
 const readline = require('readline');
 
-const {generateFlowType} = require('../root/utility/generateFlowType');
+const {generateFlowType} = require('../root/utility/generateFlowType.js');
 
 (async function () {
   console.log(

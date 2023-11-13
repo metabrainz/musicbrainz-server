@@ -23,7 +23,7 @@ const AddReleaseLabel = ({edit}: Props): React$Element<'table'> => {
     <table className="details add-release-label">
       {edit.preview /*:: === true */ ? null : (
         <tr>
-          <th>{l('Release:')}</th>
+          <th>{addColonText(l('Release'))}</th>
           <td>
             {display.release
               ? <DescriptiveLink entity={display.release} />
@@ -32,7 +32,7 @@ const AddReleaseLabel = ({edit}: Props): React$Element<'table'> => {
         </tr>
       )}
       <tr>
-        <th>{l('Label:')}</th>
+        <th>{addColonText(l('Label'))}</th>
         <td>
           {display.label
             ? <EntityLink entity={display.label} />
@@ -40,7 +40,7 @@ const AddReleaseLabel = ({edit}: Props): React$Element<'table'> => {
         </td>
       </tr>
       <tr>
-        <th>{l('Catalog number:')}</th>
+        <th>{addColonText(l('Catalog number'))}</th>
         <td>{display.catalog_number}</td>
       </tr>
     </table>

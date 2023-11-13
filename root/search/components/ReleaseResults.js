@@ -100,8 +100,7 @@ export const ReleaseResultsInline = ({
   pager,
   query,
   results,
-}: InlineResultsPropsT<ReleaseT>):
-React$Element<typeof PaginatedSearchResults> => {
+}: InlineResultsPropsT<ReleaseT>): React$MixedElement => {
   const $c = React.useContext(CatalystContext);
 
   return (
@@ -119,7 +118,7 @@ React$Element<typeof PaginatedSearchResults> => {
           <th>{l('Barcode')}</th>
           <th>{l('Language')}</th>
           <th>{l('Type')}</th>
-          <th>{l('Status')}</th>
+          <th>{lp('Status', 'release status')}</th>
           {$c?.session?.tport == null
             ? null
             : <th>{l('Tagger')}</th>}

@@ -75,7 +75,7 @@ const EventResults = ({
             <th>{l('Time')}</th>
             <th>{l('Type')}</th>
             <th>{l('Artists')}</th>
-            <th>{l('Location')}</th>
+            <th>{lp('Location', 'event location')}</th>
           </>
         }
         pager={pager}

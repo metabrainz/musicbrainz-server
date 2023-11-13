@@ -71,6 +71,7 @@ use Cwd qw( realpath );
 use File::Slurp qw( read_file );
 use JSON::XS qw( decode_json );
 use List::AllUtils qw( any );
+use MusicBrainz::Server::Data::Utils qw( contains_string );
 use MusicBrainz::Server::Log qw( log_error log_info log_warning );
 use Readonly;
 
@@ -190,7 +191,7 @@ sub write_dot_files
         my @dfks;
         foreach my $cfk (@cfks) {
             my $ref_table = $cfk->[1];
-            if (any { $_ eq $ref_table } @diagram_tables_names) {
+            if (contains_string(\@diagram_tables_names, $ref_table)) {
                 push @dfks, $cfk;
             }
         }
@@ -199,10 +200,10 @@ sub write_dot_files
 
     my %diagram_columns;
     foreach my $table (@diagram_tables_names) {
-        if (not any { $_ eq $table } @created_tables) {
+        unless (contains_string(\@created_tables, $table)) {
             log_warning { "The table '$table' in '$diagram_id' diagram doesn't exist." };
         }
-        if (any { $_ eq 'shortened' } @{ %$diagram_tables_props{$table} }) {
+        if (contains_string([ %$diagram_tables_props{$table} ], 'shortened')) {
             my $is_any_column_hidden = 0;
             my @columns;
             if (exists $created_primary_keys{$table}) {
@@ -226,7 +227,7 @@ sub write_dot_files
             if (@columns) {
                 my @sorted_columns;
                 foreach my $column (@{ $created_columns{$table} }) {
-                    if (any { $_ eq $column } @columns) {
+                    if (contains_string(\@columns, $column)) {
                       push @sorted_columns, $column;
                     } else {
                       $is_any_column_hidden = 1;
@@ -267,10 +268,10 @@ sub write_dot_files
 
     foreach my $table (@diagram_tables_names) {
         my $bgcolor =
-          (any { $_ eq 'highlighted' } @{ %$diagram_tables_props{$table} })
+          (contains_string([ %$diagram_tables_props{$table} ], 'highlighted'))
           ? "$HI_TABLE_COLOR" : "$TABLE_COLOR";
         my $title =
-          (any { $_ eq 'materialized' } @{ %$diagram_tables_props{$table} })
+          (contains_string([ %$diagram_tables_props{$table} ], 'materialized'))
           ? "$table (m)" : "$table";
         print $graph_fh <<~"EOF";
                 "$table" [
@@ -281,7 +282,7 @@ sub write_dot_files
         if (exists $diagram_columns{$table}) {
             my @column_names = @{ $diagram_columns{$table} };
             foreach my $col (@column_names) {
-                if (any { $_ eq $col } @{ $created_primary_keys{$table} }) {
+                if (contains_string($created_primary_keys{$table}, $col)) {
                     print $graph_fh <<~"EOF";
                                     <tr><td bgcolor="$PK_COLUMN_COLOR" align="left" port="$col"><font point-size="$COLUMN_FONT_SIZE"><u>$col</u></font></td></tr>
                     EOF
@@ -308,7 +309,7 @@ sub write_dot_files
     foreach my $schema (keys %created_schemas) {
         my @schema_tables;
         foreach my $table (@diagram_tables_names) {
-            if (any { $_ eq $table } @{ $created_schemas{$schema} }) {
+            if (contains_string($created_schemas{$schema}, $table)) {
                 push @schema_tables, $table;
             }
         }

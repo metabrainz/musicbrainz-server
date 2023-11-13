@@ -61,7 +61,7 @@ const AddAnnotation = ({edit}: Props): React$Element<'table'> => {
       </tr>
       {oldAnnotation == null ? null : (
         <Diff
-          label={l(addColonText('Annotation comparison'))}
+          label={addColonText(l('Annotation comparison'))}
           newText={display.text}
           oldText={oldAnnotation}
           split="\s+"

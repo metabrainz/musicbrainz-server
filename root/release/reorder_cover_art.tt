@@ -19,7 +19,7 @@
             [% React.embed(c, 'static/scripts/edit/components/InformationIcon', {
               style => {'align-self' => 'flex-start'},
               title => l('Types:') _ ' ' _ (comma_only_list(image.l_types) || '-') _ 
-                       (image.comment ? (' / ' _ l('Comment:') _ ' ' _ image.comment) : '')}) %]
+                       (image.comment ? (' / ' _ add_colon(l('Comment')) _ ' ' _ image.comment) : '')}) %]
             <button type="button" class="right" style="float: right;">&rarr;</button>
           </div>
           <input type="hidden" value="[% image.id %]" class="id"

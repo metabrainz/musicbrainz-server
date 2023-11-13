@@ -15,7 +15,6 @@ import clean from '../../common/utility/clean.js';
 
 import ArtistCreditNameEditor from './ArtistCreditNameEditor.js';
 
-
 function onBubbleKeyDown(done, hide, event) {
   if (event.isDefaultPrevented()) {
     return;
@@ -67,7 +66,7 @@ const ArtistCreditBubble = ({
         {clean(reduceArtistCredit(artistCredit)) ? (
           <tr>
             <td colSpan="4" style={{paddingBottom: '1em'}}>
-              {l('Preview:') + ' '}
+              {addColonText(lp('Preview', 'header')) + ' '}
               {entity.entityType === 'track'
                 ? (
                   <DescriptiveLink
@@ -77,7 +76,7 @@ const ArtistCreditBubble = ({
                       : null}
                     deletedCaption={entity.name() === ''
                       ? l('You haven’t entered a track name yet.')
-                      : l('This track hasn’t been created yet.')}
+                      : l('This track hasn’t been added yet.')}
                     entity={Object.assign(
                       Object.create(entity), {artistCredit: artistCredit},
                     )}

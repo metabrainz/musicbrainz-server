@@ -35,4 +35,7 @@ sub combine_with_query {
     ]);
 }
 
+# MBS-13347
+sub disable_limit_for_edit_listing { 1 }
+
 1;

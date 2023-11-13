@@ -238,7 +238,7 @@ const EditRelationshipType = ({
 
         {childOrder ? (
           <FullChangeDiff
-            label={l('Child order:')}
+            label={addColonText(l('Child order'))}
             newContent={childOrder.new}
             oldContent={childOrder.old}
           />
@@ -314,7 +314,7 @@ const EditRelationshipType = ({
 
         {parent ? (
           <FullChangeDiff
-            label={l('Parent:')}
+            label={addColonText(l('Parent'))}
             newContent={parent.new ? <EntityLink entity={parent.new} /> : ''}
             oldContent={parent.old ? <EntityLink entity={parent.old} /> : ''}
           />

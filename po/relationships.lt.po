@@ -1,13 +1,14 @@
 #
 # Translators:
 # Vaclovas lntas (Vac.) <email address hidden>, 2023
+# "Vac31." <gateway_31@protonmail.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2012-05-24 18:50+0000\n"
-"Last-Translator: Vaclovas lntas (Vac.) <Gateway_31@protonmail.com>, 2023\n"
-"Language-Team: Lithuanian (http://app.transifex.com/musicbrainz/musicbrainz/"
-"language/lt/)\n"
+"PO-Revision-Date: 2023-10-14 18:27+0000\n"
+"Last-Translator: \"Vac31.\" <gateway_31@protonmail.com>\n"
+"Language-Team: Lithuanian <https://translations.metabrainz.org/projects/"
+"musicbrainz/relationship-types/lt/>\n"
 "Language: lt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -15,10 +16,13 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
 "11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
 "1 : n % 1 != 0 ? 2: 3);\n"
+"X-Generator: Weblate 5.0.2\n"
 
 #: DB:link_attribute_type/description:1355
 msgid "A performance-centered, usually one to three year postgraduate program."
 msgstr ""
+"Į atlikimą orientuota, paprastai vienų-trejų metų trukmės antrosios pakopos "
+"studijų programa."
 
 #: DB:link_type/description:218
 msgid ""
@@ -27,10 +31,11 @@ msgid ""
 "people involved with the label can post content to. Examples include "
 "Facebook pages, and accounts on Twitter, Instagram and Flickr."
 msgstr ""
-"Socialinio tinklo puslapis − tai serijos leidyklos puslapis<a href=\"https://"
-"en.wikipedia.org/wiki/Social_networking_service\"> socialiniame tinkle</a>, "
-"kuriame turinį gali skelbti tik su leidykla susiję asmenys. Pavyzdžiui, "
-"„Facebook“ puslapiai, paskyros „Twitter“, „Instagram“ ir „Flickr“."
+"Socialinio tinklo puslapis − tai nuosavas leidyklos puslapis<a "
+"href=\"https://en.wikipedia.org/wiki/Social_networking_service\"> "
+"socialiniame tinkle</a>, kuriame turinį gali skelbti tik su leidykla susiję "
+"asmenys. Pavyzdžiai – Facebook puslapiai, paskyros Twitter, Instagram ir "
+"Flickr."
 
 #: DB:link_type/description:784
 msgid ""
@@ -41,8 +46,8 @@ msgid ""
 msgstr ""
 "Socialinio tinklo puslapis − tai serijos puslapis <a href=\"https://en."
 "wikipedia.org/wiki/Social_networking_service\">socialiniame tinkle</a>, "
-"kuriame turinį gali skelbti tik su serija susiję asmenys. Pavyzdžiui, "
-"„Facebook“ puslapiai, paskyros „Twitter“, „Instagram“ ir „Flickr“."
+"kuriame turinį gali skelbti tik su serija susiję žmonės. Pavyzdžiai – "
+"Facebook puslapiai, paskyros Twitter, Instagram ir Flickr."
 
 #: DB:link_type/description:429
 msgid ""
@@ -51,28 +56,21 @@ msgid ""
 "people involved with the place can post content to. Examples include "
 "Facebook pages, and accounts on Twitter, Instagram and Flickr."
 msgstr ""
-"Socialinio tinklo puslapis − tai serijos puslapis <a href=\"https://en."
+"Socialinio tinklo puslapis − tai vietos puslapis <a href=\"https://en."
 "wikipedia.org/wiki/Social_networking_service\">socialiniame tinkle</a>, "
-"kuriame turinį gali skelbti tik su vieta susiję asmenys. Pavyzdžiui, "
-"„Facebook“ puslapiai, paskyros „Twitter“, „Instagram“ ir „Flickr“."
+"kuriame turinį gali skelbti tik su vieta susiję žmonės. Pavyzdžiui – "
+"Facebook puslapiai, paskyros Twitter, Instagram ir Flickr."
 
 #: DB:link_type/description:192
 msgid ""
 "A social network page is an artist's own profile page on a <a href=\"https://"
 "en.wikipedia.org/wiki/Social_networking_service\" target=\"_blank\">social "
 "network</a> which only they (or their management) can post content to. Other "
-"people can create their own profiles and interact with the artist, e.g. by "
-"adding them as a friend or by commenting on the things that they post. "
-"Examples include Facebook pages and profiles, Last.fm users and accounts on "
-"Twitter, Instagram and Flickr."
+"people can create their own profiles and interact with the artist, for "
+"example by adding them as a friend or by commenting on the things that they "
+"post. Examples include Facebook pages and profiles, Last.fm users and "
+"accounts on Twitter, Instagram and Flickr."
 msgstr ""
-"Socialinio tinklo puslapis – tai atlikėjo profilio puslapis <a href="
-"\"https://en.wikipedia.org/wiki/Social_networking_service\" target=\"_blank"
-"\">socialiniame tinkle</a>, kuriame turinį gali skelbti tik jie (arba jų "
-"vadovybė). Kiti žmonės gali susikurti savo profilius ir bendrauti su "
-"atlikėju, pvz., įtraukti juos į draugus arba komentuoti dalykus, kuriuos jie "
-"skelbia. Pavyzdžiui, „Facebook“ puslapiai ir profiliai, „Last.fm“ naudotojai "
-"ir „Twitter“, „Instagram“, „Flickr“ paskyros."
 
 #: DB:link_type/description:783
 msgid ""
@@ -84,8 +82,8 @@ msgid ""
 msgstr ""
 "Socialinio tinklo puslapis − tai renginio puslapis <a href=\"https://en."
 "wikipedia.org/wiki/Social_networking_service\">socialiniame tinkle</a>, "
-"kuriame turinį gali skelbti tik su renginiu susiję asmenys. Pavyzdžiui, "
-"„Facebook“ puslapiai, paskyros „Twitter“, „Instagram“ ir „Flickr“."
+"kuriame turinį gali skelbti tik su renginiu susiję žmonės. Pavyzdžiai – "
+"Facebook puslapiai, paskyros Twitter, Instagram ir Flickr."
 
 #: DB:link_type/link_phrase:77 DB:link_type/reverse_link_phrase:77
 msgid "ASIN"
@@ -95,53 +93,53 @@ msgstr "ASIN"
 #: DB:link_type/link_phrase:283 DB:link_type/link_phrase:285
 #: DB:link_type/link_phrase:1093 DB:link_type/reverse_link_phrase:286
 msgid "Allmusic"
-msgstr ""
+msgstr "Allmusic"
 
 #: DB:link_type/link_phrase:286 DB:link_type/reverse_link_phrase:755
 #: DB:link_type/reverse_link_phrase:284 DB:link_type/reverse_link_phrase:283
 #: DB:link_type/reverse_link_phrase:285 DB:link_type/reverse_link_phrase:1093
 msgid "Allmusic page for"
-msgstr ""
+msgstr "Allmusic puslapis, skirtas"
 
 #: DB:link_type/link_phrase:1131 DB:link_type/link_phrase:1130
 msgid "Apple Music"
-msgstr ""
+msgstr "Apple Music"
 
 #: DB:link_type/reverse_link_phrase:1131 DB:link_type/reverse_link_phrase:1130
 msgid "Apple Music page for"
-msgstr ""
+msgstr "Apple Music puslapis, skirtas"
 
 #: DB:link_type/link_phrase:190
 msgid "BBC Music"
-msgstr ""
+msgstr "BBC Music"
 
 #: DB:link_type/name:190
 msgid "BBC Music page"
-msgstr ""
+msgstr "BBC Music puslapis"
 
 #: DB:link_type/reverse_link_phrase:190
 msgid "BBC Music page for"
-msgstr ""
+msgstr "BBC Music puslapis, skirtas"
 
 #: DB:link_type/link_phrase:1092 DB:link_type/link_phrase:718
 #: DB:link_type/link_phrase:719
 msgid "Bandcamp"
-msgstr ""
+msgstr "Bandcamp"
 
 #: DB:link_type/reverse_link_phrase:1092 DB:link_type/reverse_link_phrase:718
 #: DB:link_type/reverse_link_phrase:719
 msgid "Bandcamp page for"
-msgstr ""
+msgstr "Bandcamp puslapis, skirtas"
 
 #: DB:link_type/link_phrase:861 DB:link_type/link_phrase:862
 #: DB:link_type/link_phrase:860
 msgid "Bandsintown"
-msgstr ""
+msgstr "Bandsintown"
 
 #: DB:link_type/reverse_link_phrase:861 DB:link_type/reverse_link_phrase:862
 #: DB:link_type/reverse_link_phrase:860
 msgid "Bandsintown page for"
-msgstr ""
+msgstr "Bandsintown puslapis, skirtas"
 
 #: DB:link_type/link_phrase:851 DB:link_type/link_phrase:852
 #: DB:link_type/link_phrase:853 DB:link_type/link_phrase:1167
@@ -149,114 +147,124 @@ msgstr ""
 #: DB:link_type/name:853 DB:link_type/name:1167 DB:link_type/name:854
 #: DB:link_type/name:850 DB:link_type/reverse_link_phrase:854
 msgid "BookBrainz"
-msgstr ""
+msgstr "BookBrainz"
 
 #: DB:link_type/link_phrase:854 DB:link_type/reverse_link_phrase:851
 #: DB:link_type/reverse_link_phrase:852 DB:link_type/reverse_link_phrase:853
 #: DB:link_type/reverse_link_phrase:1167 DB:link_type/reverse_link_phrase:850
 msgid "BookBrainz page for"
-msgstr ""
+msgstr "BookBrainz puslapis, skirtas"
 
 #: DB:link_type/link_phrase:919 DB:link_type/name:919
 msgid "CD Baby"
-msgstr ""
+msgstr "CD Baby"
 
 #: DB:link_type/reverse_link_phrase:919
 msgid "CD Baby page for"
-msgstr ""
+msgstr "CD Baby puslapis, skirtas"
 
 #: DB:link_type/link_phrase:981 DB:link_type/name:981
 msgid "CPDL"
-msgstr ""
+msgstr "CPDL"
 
 #: DB:link_type/reverse_link_phrase:981
 msgid "CPDL page for"
-msgstr ""
+msgstr "CPDL puslapis, skirtas"
 
 #: DB:link_type/name:227 DB:link_type/name:8
 msgid "DJ-mix"
-msgstr ""
+msgstr "DJ miksas"
 
 #: DB:link_type/link_phrase:227 DB:link_type/link_phrase:8
 msgid "DJ-mix of"
-msgstr ""
+msgstr "DJ miksas iš"
 
 #: DB:link_type/link_phrase:155 DB:link_type/long_link_phrase:155
 msgid "DJ-mixed"
-msgstr ""
+msgstr "DJ sumiksuotas"
 
 #: DB:link_type/reverse_link_phrase:8
 msgid "DJ-mixed versions"
-msgstr ""
+msgstr "DJ sumiksuotos versijos"
 
 #: DB:link_type/long_link_phrase:43
 msgid "DJ-mixed {medium:% of}"
-msgstr ""
+msgstr "DJ sumiksuotas {medium:% iš}"
 
 #: DB:link_type/link_phrase:43
 msgid "DJ-mixed {medium}"
-msgstr ""
+msgstr "DJ sumiksuotas {medium}"
 
 #: DB:link_type/reverse_link_phrase:155
 msgid "DJ-mixer"
-msgstr ""
+msgstr "DJ mikseris (-ė)"
 
 #: DB:link_type/reverse_link_phrase:43
 msgid "DJ-mixer {medium}"
-msgstr ""
+msgstr "DJ mikseris (-ė) {laikmena}"
 
 #: DB:link_type/reverse_link_phrase:227
 msgid "DJ-mixes"
-msgstr ""
+msgstr "DJ miksai"
 
 #: DB:link_type/description:704
 msgid ""
 "Describes the fact a person was contracted by a place as a mastering "
 "engineer."
 msgstr ""
+"Apibūdina faktą, kad su asmeniu buvo sudaryta sutartis su vieta kaip "
+"masteringo inžinieriumi."
 
 #: DB:link_type/description:703
 msgid ""
 "Describes the fact a person was contracted by a place as a mixing engineer."
 msgstr ""
+"Apibūdina faktą, kad su asmeniu buvo sudaryta sutartis su vieta kaip "
+"miksavimo inžinieriumi."
 
 #: DB:link_type/description:702
 msgid ""
 "Describes the fact a person was contracted by a place as a recording "
 "engineer."
 msgstr ""
+"Apibūdina faktą, kad su asmeniu buvo sudaryta sutartis su vieta kaip įrašymo "
+"inžinieriumi."
 
 #: DB:link_type/description:701
 msgid "Describes the fact a person was contracted by a place as an engineer."
 msgstr ""
+"Apibūdina faktą, kad su asmeniu buvo sudaryta sutartis su vieta kaip "
+"inžinieriumi."
 
 #: DB:link_type/description:357
 msgid "Designates that a work is or was the anthem for an area"
-msgstr ""
+msgstr "Nurodo, kad kūrinys yra arba buvo vietovės himnas"
 
 #: DB:link_type/description:356
 msgid "Designates that one area is contained by another."
-msgstr ""
+msgstr "Nurodo, kad viena vietovė apima kitą."
 
 #: DB:link_type/link_phrase:1089 DB:link_type/link_phrase:180
 #: DB:link_type/link_phrase:76 DB:link_type/link_phrase:217
 #: DB:link_type/link_phrase:90 DB:link_type/link_phrase:747
 #: DB:link_type/link_phrase:705 DB:link_type/reverse_link_phrase:971
 msgid "Discogs"
-msgstr ""
+msgstr "Discogs"
 
 #: DB:link_type/link_phrase:971 DB:link_type/reverse_link_phrase:1089
 #: DB:link_type/reverse_link_phrase:180 DB:link_type/reverse_link_phrase:76
 #: DB:link_type/reverse_link_phrase:217 DB:link_type/reverse_link_phrase:90
 #: DB:link_type/reverse_link_phrase:747 DB:link_type/reverse_link_phrase:705
 msgid "Discogs page for"
-msgstr ""
+msgstr "Discogs puslapis, skirtas"
 
 #: DB:link_attribute_type/description:1020
 msgid ""
 "For indicating the step-spouse of the artist's parent, or the sibling "
 "relationship with the children of such a spouse"
 msgstr ""
+"Nurodant atlikėjo patėvio sutuoktinį arba brolių ir seserų santykį su tokio "
+"sutuoktinio vaikais"
 
 #: DB:link_attribute_type/description:580
 msgid ""
@@ -264,18 +272,22 @@ msgid ""
 "relevant to this recording. Examples include instrumental arrangements, or "
 "\"beats\" from hip-hop songs which may be reused with different lyrics."
 msgstr ""
+"Kūriniams, kurie turi dainų žodžius, tai reiškia, kad tie dainų žodžiai nėra "
+"susiję su šiuo įrašu. Pavyzdžiai – instrumentinės aranžuotės arba hiphopo "
+"dainų „ritmai“, kurie gali būti pakartotinai naudojami su kitais dainų "
+"žodžiais."
 
 #: DB:link_type/link_phrase:934 DB:link_type/link_phrase:713
 msgid "Geonames"
-msgstr ""
+msgstr "Geonames"
 
 #: DB:link_type/reverse_link_phrase:934 DB:link_type/reverse_link_phrase:713
 msgid "Geonames page for"
-msgstr ""
+msgstr "Geonames puslapis, skirtas"
 
 #: DB:link_type/name:83 DB:link_type/name:258
 msgid "IMDB samples"
-msgstr ""
+msgstr "IMDB mėginiai"
 
 #: DB:link_type/link_phrase:313 DB:link_type/link_phrase:178
 #: DB:link_type/link_phrase:97 DB:link_type/link_phrase:706
@@ -283,35 +295,37 @@ msgstr ""
 #: DB:link_type/name:97 DB:link_type/name:706
 #: DB:link_type/reverse_link_phrase:843
 msgid "IMDb"
-msgstr ""
+msgstr "IMDb"
 
 #: DB:link_type/reverse_link_phrase:83 DB:link_type/reverse_link_phrase:258
 msgid "IMDb entry sampled in"
-msgstr ""
+msgstr "IMDb įrašas, paimtas iš"
 
 #: DB:link_type/link_phrase:843 DB:link_type/reverse_link_phrase:313
 #: DB:link_type/reverse_link_phrase:178 DB:link_type/reverse_link_phrase:97
 #: DB:link_type/reverse_link_phrase:706
 msgid "IMDb page for"
-msgstr ""
+msgstr "IMDb puslapis, skirtas"
 
 #: DB:link_type/link_phrase:754 DB:link_type/name:754
 msgid "IMSLP"
-msgstr ""
+msgstr "IMSLP"
 
 #: DB:link_type/reverse_link_phrase:754
 msgid "IMSLP page for"
-msgstr ""
+msgstr "IMSLP puslapis, skirtas"
 
 #: DB:link_attribute_type/description:516
 msgid "Indicates a bonus disc"
-msgstr ""
+msgstr "Nurodo papildomą diską"
 
 #: DB:link_type/description:162
 msgid ""
 "Indicates a miscellaneous support role. This is usually stated in the liner "
 "notes of an album."
 msgstr ""
+"Nurodo įvairias pagalbines funkcijas. Paprastai tai nurodoma įvadinėse "
+"albumo užrašuose."
 
 #: DB:link_type/description:105
 msgid ""
@@ -320,6 +334,10 @@ msgid ""
 "normally applies to well-known solo artists, although it can sometimes apply "
 "to groups."
 msgstr ""
+"Nurodo muzikantą (-ę), kuris (-i) ilgą laiką daro instrumentinę palaikymą "
+"kitam muzikantui (-ei) albumuose ir (arba) koncertuose. Tai – asmens ir "
+"atlikėjo santykis, kuris paprastai taikomas žinomiems solo atlikėjams, nors "
+"kartais gali būti taikomas ir grupėms."
 
 #: DB:link_type/description:107
 msgid ""
@@ -328,48 +346,60 @@ msgid ""
 "applies to well-known solo artists, although it can sometimes apply to "
 "groups."
 msgstr ""
+"Nurodo muzikantą (-ę), kuris (-i) ilgą laiką daro vokalinį palaikymą kitam "
+"muzikantui (-ei) albumuose ir (arba) koncertuose. Tai – asmens ir atlikėjo "
+"santykis, kuris paprastai taikomas žinomiems solo atlikėjams, nors kartais "
+"gali būti taikomas ir grupėms."
+
+#: DB:link_type/description:94
+msgid ""
+"Indicates a page that reviews the release (group) in question, whether it be "
+"in text, audio or video form."
+msgstr ""
 
 #: DB:link_type/description:1083
 msgid "Indicates a page with an official schedule for an event series."
-msgstr ""
+msgstr "Nurodo puslapį su oficialiu renginių serijos tvarkaraščiu."
 
 #: DB:link_type/description:109
 msgid "Indicates a parent-child relationship."
-msgstr ""
+msgstr "Nurodo tėvo ir vaiko santykį."
 
 #: DB:link_type/description:396
 msgid "Indicates a pictorial image (JPEG, GIF, PNG) of a place"
-msgstr ""
+msgstr "Nurodo vietos (JPEG, GIF, PNG) vaizdą"
 
 #: DB:link_type/description:173
 msgid "Indicates a pictorial image (JPEG, GIF, PNG) of an artist."
-msgstr ""
+msgstr "Nurodo atlikėjo (JPEG, GIF, PNG) paveikslėlį."
 
 #: DB:link_type/description:943
 msgid ""
 "Indicates a place that moved from one location to another, while still being "
 "generally considered the same."
 msgstr ""
+"Nurodo vietą, kuri persikėlė iš vienos vietos į kitą, tačiau iš esmės vis "
+"dar laikoma ta pačia."
 
 #: DB:link_attribute_type/description:1019
 msgid "Indicates a sibling with whom the artist has only one parent in common"
 msgstr ""
+"Nurodo brolį ar seserį, su kuriuo (-ia) atlikėjas (-a) turi tik vieną bendrą "
+"tėvą ar motiną"
 
 #: DB:link_type/description:842
 msgid "Indicates a webpage that reviews the event in question."
-msgstr ""
-
-#: DB:link_type/description:94
-msgid "Indicates a webpage that reviews the release (group) in question."
-msgstr ""
+msgstr "Nurodo tinklalapį, kuriame apžvelgiamas atitinkamas renginys."
 
 #: DB:link_type/description:958
 msgid "Indicates a webpage where you can download a label's releases for free."
 msgstr ""
+"Nurodo tinklalapį, kuriame galima nemokamai atsisiųsti leidyklos leidinius."
 
 #: DB:link_type/description:177
 msgid "Indicates a webpage where you can download an artist's work for free."
 msgstr ""
+"Nurodo tinklalapį, kuriame galima nemokamai atsisiųsti atlikėjo kūrinį."
 
 #: DB:link_type/description:834
 msgid ""
@@ -377,6 +407,9 @@ msgid ""
 "attributed to, but who is currently confirmed (or very strongly suspected) "
 "not to be the real author."
 msgstr ""
+"Nurodo atlikėją (paprastai kompozitorių (-ę)), kuriam (-iai) anksčiau buvo "
+"priskiriamas šis kūrinys, tačiau šiuo metu patvirtinta (arba labai stipriai "
+"įtariama), kad jis (-i) nėra tikrasis autorius (-ė)."
 
 #: DB:link_type/description:104
 msgid ""
@@ -385,73 +418,84 @@ msgid ""
 "relationship that normally applies to well-known solo artists, although it "
 "can sometimes apply to groups."
 msgstr ""
+"Nurodo atlikėją, kuris (-i) ilgą laiką daro instrumentinį ar vokalinį "
+"palaikymą kitam atlikėjui albumuose ir (arba) koncertuose. Tai – asmens ir "
+"atlikėjo santykis, paprastai taikoma žinomiems solo atlikėjams, nors kartais "
+"gali būti taikoma ir grupėms."
 
 #: DB:link_type/description:156
 msgid "Indicates an artist that performed on this recording."
-msgstr ""
+msgstr "Nurodo atlikėją, kuris (-i) atliko šiame įraše."
 
 #: DB:link_type/description:51
 msgid "Indicates an artist that performed on this release."
-msgstr ""
+msgstr "Nurodo atlikėją, kuris (-i) atliko šiame leidinyje."
 
 #: DB:link_type/description:148
 msgid ""
 "Indicates an artist that performed one or more instruments on this recording."
 msgstr ""
+"Nurodo atlikėją, kuris (-i) šiame įraše atliko vieną ar daugiau instrumentų."
 
 #: DB:link_type/description:44
 msgid ""
 "Indicates an artist that performed one or more instruments on this release."
 msgstr ""
+"Nurodo atlikėją, kuris (-i) šiame leidinyje atliko vieną ar daugiau "
+"instrumentų."
 
 #: DB:link_type/description:149
 msgid "Indicates an artist that performed vocals on this recording."
-msgstr ""
+msgstr "Nurodo atlikėją, kuris (-i) šiame įraše atliko vokalus."
 
 #: DB:link_type/description:60
 msgid "Indicates an artist that performed vocals on this release."
-msgstr ""
+msgstr "Nurodo atlikėją, kuris (-i) šiame leidinyje atliko vokalus."
 
 #: DB:link_type/description:150
 msgid "Indicates an orchestra that performed on this recording."
-msgstr ""
+msgstr "Nurodo orkestrą, kuris atliko šiame įraše."
 
 #: DB:link_type/description:45
 msgid "Indicates an orchestra that performed on this release."
-msgstr ""
+msgstr "Nurodo orkestrą, kuris atliko šiame leidinyje."
 
 #: DB:link_attribute_type/description:1080
 msgid ""
 "Indicates how many of a specific instrument an ensemble usually includes."
-msgstr ""
+msgstr "Nurodo, kiek konkretaus instrumento paprastai įtraukia ansamblis."
 
 #: DB:link_type/description:844
 msgid ""
 "Indicates that an artist revised a work. In most cases, this will be the "
 "original composer revising the work at a later date."
 msgstr ""
+"Nurodo, kad atlikėjas (-a) pataisė kūrinį. Dažniausiai tai būna pirminis "
+"kompozitorius (-ė), kuris (-i) kūrinį pataisė vėlesnę datą."
 
 #: DB:link_type/description:887
 msgid ""
 "Indicates that an event was intended as a performance of a specific release "
 "group (usually an album)."
 msgstr ""
+"Nurodo, kad renginys buvo skirtas konkrečios leidinio grupės (paprastai "
+"albumo) pasirodymui."
 
 #: DB:link_attribute_type/description:567
 msgid "Indicates that one entity is a cover of another entity"
-msgstr ""
+msgstr "Nurodo, kad vienas subjektas yra kito subjekto priedanga"
 
 #: DB:link_type/description:996
 msgid "Indicates that the artist is part of a series."
-msgstr ""
+msgstr "Nurodo, kad atlikėjas (-a) yra serijos dalis."
 
 #: DB:link_type/description:802
 msgid "Indicates that the event is part of a series."
-msgstr ""
+msgstr "Nurodo, kad renginys yra serijos dalis."
 
 #: DB:link_type/description:231
 msgid "Indicates that the recording contains samples from another."
-msgstr ""
+msgstr "Nurodo, kad įraše yra kito įrašo pavyzdžių."
 
 #: DB:link_type/description:154
 msgid ""
@@ -459,18 +503,21 @@ msgid ""
 "artist. Use this only if you really cannot figure out the particular "
 "recording that has been sampled."
 msgstr ""
+"Nurodo, kad įraše yra nurodyto atlikėjo iš medžiagos pavyzdžių. Naudok tik "
+"tuo atveju, jei tikrai negali nustatyti šio konkretaus įrašo, iš kurio buvo "
+"paimti pavyzdžiai."
 
 #: DB:link_type/description:69
 msgid "Indicates that the recording contains samples from this release."
-msgstr ""
+msgstr "Nurodo, kad įraše yra šio leidinio pavyzdžių."
 
 #: DB:link_type/description:740
 msgid "Indicates that the recording is part of a series."
-msgstr ""
+msgstr "Nurodo, kad įrašas yra serijos dalis."
 
 #: DB:link_attribute_type/description:1053
 msgid "Indicates that the relationship is optional - doesn't always apply."
-msgstr ""
+msgstr "Nurodo, kad sąsajas pasirinktinis – ne visada taikomas."
 
 #: DB:link_type/description:49
 msgid ""
@@ -478,54 +525,60 @@ msgid ""
 "artist. Use this only if you really cannot figure out the particular "
 "recording that has been sampled."
 msgstr ""
+"Nurodo, kad leidinyje yra nurodyto atlikėjo iš medžiagos pavyzdžių. Naudok "
+"tik tuo atveju, jei tikrai negali nustatyti šio konkretaus įrašo, iš kurio "
+"buvo paimti pavyzdžiai."
 
 #: DB:link_type/description:742
 msgid "Indicates that the release group is part of a series."
-msgstr ""
+msgstr "Nurodo, kad leidinių grupė yra serijos dalis."
 
 #: DB:link_type/description:741
 msgid "Indicates that the release is part of a series."
-msgstr ""
+msgstr "Nurodo, kad leidinys yra serijos dalis."
 
 #: DB:link_type/description:743
 msgid "Indicates that the work is part of a series."
-msgstr ""
+msgstr "Nurodo, kad kūrinys yra serijos dalis."
 
 #: DB:link_type/description:112
 msgid ""
 "Indicates that two persons were romantically involved with each other "
 "without being married."
 msgstr ""
+"Nurodo, kad du asmenys, nesudarę santuokos, buvo susiję romantiškais ryšiais."
 
 #: DB:link_type/description:1085
 msgid "Indicates the area an event series was held at."
-msgstr ""
+msgstr "Nurodo vietovę, kurioje vyko renginių serija."
 
 #: DB:link_type/description:715
 msgid "Indicates the area where the work had its first performance"
-msgstr ""
+msgstr "Nurodo sritį, kurioje kūrinys buvo pristatytas pirmą kartą"
 
 #: DB:link_type/description:956
 msgid ""
 "Indicates the artist(s) who gave the first performance of the work; this is "
 "usually mostly relevant for classical music"
 msgstr ""
+"Nurodo atlikėją (-us), kuris (-ie) pirmą kartą pristatė kūrinį; paprastai "
+"tai dažniausiai aktualu klasikinei muzikai"
 
 #: DB:link_type/description:55
 msgid ""
-"Indicates the composer for this release, i.e. the artist who wrote the music "
-"(not necessarily the lyrics)."
+"Indicates the composer for this release, that is, the artist who wrote the "
+"music (not necessarily the lyrics)."
 msgstr ""
 
 #: DB:link_type/description:168
 msgid ""
-"Indicates the composer for this work, i.e. the artist who wrote the music "
-"(not necessarily the lyrics)."
+"Indicates the composer for this work, that is, the artist who wrote the "
+"music (not necessarily the lyrics)."
 msgstr ""
 
 #: DB:link_type/description:845
 msgid "Indicates the event where the work had its first performance"
-msgstr ""
+msgstr "Nurodo renginį, kuriame kūrinys buvo pristatytas pirmą kartą"
 
 #: DB:link_type/description:986
 msgid ""
@@ -553,15 +606,15 @@ msgstr ""
 
 #: DB:link_type/description:56
 msgid "Indicates the lyricist for this release."
-msgstr ""
+msgstr "Nurodo šio leidinio dainų žodžių autorių (-ę)."
 
 #: DB:link_type/description:165
 msgid "Indicates the lyricist for this work."
-msgstr ""
+msgstr "Nurodo šio kūrinio dainų žodžių autorių (-ę)."
 
 #: DB:link_type/description:42
 msgid "Indicates the mastering engineer for this work."
-msgstr ""
+msgstr "Nurodo šio kūrinio masteringo inžinierių (-ę)."
 
 #: DB:link_type/description:219
 msgid "Indicates the official homepage for a label."
@@ -594,7 +647,7 @@ msgstr ""
 
 #: DB:link_type/description:716
 msgid "Indicates the place where the work had its first performance"
-msgstr ""
+msgstr "Nurodo vietovę, kurioje kūrinys buvo pristatytas pirmą kartą"
 
 #: DB:link_type/description:32
 msgid ""
@@ -602,134 +655,162 @@ msgid ""
 "same concept as the <a href=\"/doc/Label\" target=\"_blank\">record label</"
 "a>."
 msgstr ""
+"Nurodo šio leidinio leidėją. Tai <strong>nėra</strong>ta pati sąvoka kaip <a "
+"href=\"/doc/Label\" target=\"_blank\">įrašų leidykla</a>."
 
 #: DB:link_type/description:161
 msgid ""
 "Indicates the publisher of this work. This is <strong>not</strong> the same "
 "concept as the <a href=\"/doc/Label\" target=\"_blank\">record label</a>."
 msgstr ""
+"Nurodo šio kūrinio leidėją. Tai <strong>nėra</strong>ta pati sąvoka kaip <a "
+"href=\"/doc/Label\" target=\"_blank\">įrašų leidykla</a>."
 
 #: DB:link_type/description:208
 msgid ""
 "Indicates the publisher of this work. This is <strong>not</strong> the same "
 "concept as the <a href=\"/doc/Label\">record label</a>."
 msgstr ""
+"Nurodo šio kūrinio leidėją. Tai <strong>nėra</strong>ta pati sąvoka kaip <a "
+"href=\"/doc/Label\">įrašų leidykla</a>."
 
 #: DB:link_type/link_phrase:840 DB:link_type/link_phrase:837
 #: DB:link_type/link_phrase:839 DB:link_type/link_phrase:838
 msgid "Last.fm"
-msgstr ""
+msgstr "Last.fm"
 
 #: DB:link_type/reverse_link_phrase:840 DB:link_type/reverse_link_phrase:837
 #: DB:link_type/reverse_link_phrase:839 DB:link_type/reverse_link_phrase:838
 msgid "Last.fm page for"
-msgstr ""
+msgstr "Last.fm puslapis, skirtas"
 
 #: DB:link_attribute_type/description:4
 msgid "Lead or solo vocal"
-msgstr ""
+msgstr "Pagrindinis arba solinis vokalas"
 
 #: DB:link_type/description:864
 msgid ""
 "Links a recording to the area it was arranged in. Use only when the place is "
 "unknown!"
 msgstr ""
+"Sujungia įrašą su teritorija, kurioje jis buvo suvestas. Naudok tik tada, "
+"kai vieta nežinoma!"
 
 #: DB:link_type/description:821
 msgid ""
 "Links a recording to the area it was edited in. Use only when the place is "
 "unknown!"
 msgstr ""
+"Sujungia įrašą su teritorija, kurioje jis buvo redaguotas. Naudok tik tada, "
+"kai vieta nežinoma!"
 
 #: DB:link_type/description:814
 msgid ""
 "Links a recording to the area it was engineered in. Use only when the place "
 "is unknown!"
 msgstr ""
+"Sujungia įrašą su teritorija, kurioje jis buvo inžinieriškai sukurtas. "
+"Naudok tik tada, kai vieta nežinoma!"
 
 #: DB:link_type/description:758
 msgid ""
 "Links a recording to the area it was mixed in. Use only when the place is "
 "unknown!"
 msgstr ""
+"Sujungia įrašą su teritorija, kurioje jis buvo sumiksuotas. Naudok tik tada, "
+"kai vieta nežinoma!"
 
 #: DB:link_type/description:827
 msgid ""
 "Links a recording to the area it was produced in. Use only when the place is "
 "unknown!"
 msgstr ""
+"Sujungia įrašą su teritorija, kurioje jis buvo sukurtas. Naudok tik tada, "
+"kai vieta nežinoma!"
 
 #: DB:link_type/description:698
 msgid ""
 "Links a recording to the area it was recorded in. Use only when the place is "
 "unknown!"
 msgstr ""
+"Sujungia įrašą su teritorija, kurioje jis buvo įrašytas. Naudok tik tada, "
+"kai vieta nežinoma!"
 
 #: DB:link_type/description:830
 msgid ""
 "Links a recording to the area it was remixed in. Use only when the place is "
 "unknown!"
 msgstr ""
+"Sujungia įrašą su teritorija, kurioje jis buvo suremiksuotas. Naudok tik "
+"tada, kai vieta nežinoma!"
 
 #: DB:link_type/description:809
 msgid "Links a recording to the event it was recorded at."
-msgstr ""
+msgstr "Sujungia įrašą su renginiu, kurioje jis buvo įrašytas."
 
 #: DB:link_type/description:1006
 msgid ""
 "Links a recording to the event series (tour, residency, etc.) it was "
 "recorded during."
 msgstr ""
+"Sujungia įrašą su renginių serija (turu, rezidencija ir t. t.), kurios metu "
+"jis buvo įrašytas."
 
 #: DB:link_type/description:866
 msgid "Links a recording to the place it was arranged at."
-msgstr ""
+msgstr "Sujungia įrašą su vieta, kurioje jis buvo suvestas."
 
 #: DB:link_type/description:819
 msgid "Links a recording to the place it was edited at."
-msgstr ""
+msgstr "Sujungia įrašą su vieta, kurioje jis buvo redaguotas."
 
 #: DB:link_type/description:813
 msgid "Links a recording to the place it was engineered at."
-msgstr ""
+msgstr "Sujungia įrašą su vieta, kurioje jis buvo inžinieriškai sukurtas."
 
 #: DB:link_type/description:694
 msgid "Links a recording to the place it was mixed at."
-msgstr ""
+msgstr "Sujungia įrašą su vieta, kurioje jis buvo sumiksuotas."
 
 #: DB:link_type/description:825
 msgid "Links a recording to the place it was produced at."
-msgstr ""
+msgstr "Sujungia įrašą su vieta, kurioje jis buvo sukurtas."
 
 #: DB:link_type/description:693
 msgid "Links a recording to the place it was recorded at."
-msgstr ""
+msgstr "Sujungia įrašą su vieta, kurioje jis buvo įrašytas."
 
 #: DB:link_type/description:829
 msgid "Links a recording to the place it was remixed at."
-msgstr ""
+msgstr "Sujungia įrašą su vieta, kurioje jis buvo suremiksuotas."
 
 #: DB:link_type/description:1008
 msgid ""
 "Links a recording, release or release group series to the event series "
 "(tour, residency, etc.) it was recorded during."
 msgstr ""
+"Sujungia įrašo, leidinio ar leidinių grupės seriją su renginių serija (turu, "
+"rezidencija ir pan.), kurios metu jis buvo įrašytas."
 
 #: DB:link_type/description:1007
 msgid ""
 "Links a release group to the event series (tour, residency, etc.) it was "
 "recorded during."
 msgstr ""
+"Sujungia leidinio grupę su renginių serija (turu, rezidencija ir t. t.), "
+"kurios metu jis buvo įrašytas."
 
 #: DB:link_type/description:797
 msgid "Links a release group with a launch event for it."
-msgstr ""
+msgstr "Sujungia leidinio grupę su jos išleidimo renginiu."
 
 #: DB:link_type/description:863
 msgid ""
 "Links a release to the area it was arranged in. Use only when the place is "
 "unknown!"
 msgstr ""
+"Sujungia leidinį su teritorija, kurioje jis buvo suvestas. Naudok tik tada, "
+"kai vieta nežinoma!"
 
 #: DB:link_type/description:822
 msgid ""
@@ -796,18 +877,19 @@ msgstr ""
 #: DB:link_type/description:969
 msgid "Links a release to the engineer who did the lacquer cutting for it."
 msgstr ""
+"Sujungia leidinį su inžinieriumi (-e), kuris (-i) atliko jo lako pjaustymą."
 
 #: DB:link_type/description:810
 msgid "Links a release to the event it was recorded at."
-msgstr ""
+msgstr "Sujungia leidinį su renginiu, kuriame jis buvo įrašytas."
 
 #: DB:link_type/description:865
 msgid "Links a release to the place it was arranged at."
-msgstr ""
+msgstr "Sujungia leidinį su vieta, kurioje jis buvo suvestas."
 
 #: DB:link_type/description:820
 msgid "Links a release to the place it was edited at."
-msgstr ""
+msgstr "Sujungia leidinį su vieta, kurioje jis buvo redaguotas."
 
 #: DB:link_type/description:812
 msgid "Links a release to the place it was engineered at."
@@ -872,7 +954,7 @@ msgstr ""
 
 #: DB:link_type/description:823
 msgid "Links a series to another series that exists within it."
-msgstr ""
+msgstr "Sujungia seriją su kita joje esančia serija."
 
 #: DB:link_type/description:1094
 msgid ""
@@ -892,7 +974,7 @@ msgstr ""
 
 #: DB:link_type/description:932
 msgid ""
-"Links an event to a DJ that appeared in a supporting role (e.g. DJing "
+"Links an event to a DJ that appeared in a supporting role (such as DJing "
 "between artists, or closing the night after a concert)."
 msgstr ""
 
@@ -953,64 +1035,68 @@ msgstr ""
 #: DB:link_type/link_phrase:215 DB:link_type/link_phrase:462
 #: DB:link_type/link_phrase:189
 msgid "Myspace"
-msgstr ""
+msgstr "Myspace"
 
 #: DB:link_type/reverse_link_phrase:215 DB:link_type/reverse_link_phrase:462
 #: DB:link_type/reverse_link_phrase:189
 msgid "Myspace page for"
-msgstr ""
+msgstr "Myspace puslapis, skirtas"
 
 #: DB:link_attribute_type/description:461
 msgid "Other vocalizations"
-msgstr ""
+msgstr "Kiti vokalizavimai"
 
 #: DB:link_type/description:852
 msgid "Points to the BookBrainz page for this artist."
-msgstr ""
+msgstr "Nukreipia į šio atlikėjo BookBrainz puslapį."
 
 #: DB:link_type/description:851
 msgid "Points to the BookBrainz page for this label."
-msgstr ""
+msgstr "Nukreipia į šios leidyklos BookBrainz puslapį."
 
 #: DB:link_type/description:853
 msgid "Points to the BookBrainz page for this release group."
-msgstr ""
+msgstr "Nukreipia į šios leidinio grupės BookBrainz puslapį."
 
 #: DB:link_type/description:850
 msgid "Points to the BookBrainz page for this release."
-msgstr ""
+msgstr "Nukreipia į šio leidinio BookBrainz puslapį."
 
 #: DB:link_type/description:1167
 msgid "Points to the BookBrainz page for this series."
-msgstr ""
+msgstr "Nukreipia į šios serijos BookBrainz puslapį."
 
 #: DB:link_type/description:854
 msgid "Points to the BookBrainz page for this work."
-msgstr ""
+msgstr "Nukreipia į šio kūrinio BookBrainz puslapį."
 
 #: DB:link_type/description:713
 msgid "Points to the Geonames page for this area."
-msgstr ""
+msgstr "Nukreipia į šios srities Geonames puslapį."
 
 #: DB:link_type/description:934
 msgid "Points to the Geonames page for this place."
-msgstr ""
+msgstr "Nukreipia į šios vietos Geonames puslapį."
 
 #: DB:link_type/description:706
 msgid "Points to the Internet Movie Database page for this place."
-msgstr ""
+msgstr "Nukreipia į Internet Movie Database puslapį šiai vietai."
 
 #: DB:link_type/description:358
 msgid ""
 "Points to the Wikidata page for this area, and will be used to fetch "
 "Wikipedia summaries"
 msgstr ""
+"Nukreipia į šios srities Vikiduomenio puslapį, kuris bus naudojamas "
+"Vikipedijos santraukoms gauti"
 
 #: DB:link_type/description:352
 msgid ""
 "Points to the Wikidata page for this artist, and will be used to fetch "
 "Wikipedia summaries"
 msgstr ""
+"Nukreipia į šio atlikėjo Vikiduomenio puslapį, kuris bus naudojamas "
+"Vikipedijos santraukoms gauti"
 
 #: DB:link_type/description:790
 msgid ""
@@ -1062,106 +1148,111 @@ msgstr ""
 
 #: DB:link_type/description:89
 msgid "Points to the Wikipedia page for this album."
-msgstr ""
+msgstr "Nukreipia į šio albumo Vikipedijos puslapį."
 
 #: DB:link_type/description:355
 msgid "Points to the Wikipedia page for this area."
-msgstr ""
+msgstr "Nukreipia į šios srities Vikipedijos puslapį."
 
 #: DB:link_type/description:179
 msgid "Points to the Wikipedia page for this artist."
-msgstr ""
+msgstr "Nukreipia į šio atlikėjo Vikipedijos puslapį."
 
 #: DB:link_type/description:789
 msgid "Points to the Wikipedia page for this event."
-msgstr ""
+msgstr "Nukreipia į šio renginio Vikipedijos puslapį."
 
 #: DB:link_type/description:731
 msgid "Points to the Wikipedia page for this instrument."
-msgstr ""
+msgstr "Nukreipia į šio instrumento Vikipedijos puslapį."
 
 #: DB:link_type/description:595
 msgid "Points to the Wikipedia page for this place"
-msgstr ""
+msgstr "Nukreipia į šios vietos Vikipedijos puslapį"
 
 #: DB:link_type/description:744
 msgid "Points to the Wikipedia page for this series."
-msgstr ""
+msgstr "Nukreipia į šios serijos Vikipedijos puslapį."
 
 #: DB:link_type/description:279
 msgid "Points to the Wikipedia page for this work."
-msgstr ""
+msgstr "Nukreipia į šio kūrinio Vikipedijos puslapį."
 
 #: DB:link_type/description:127
 msgid ""
 "Publishers should be added on works instead. Keep in mind this is "
-"<strong>not</strong> the same concept as the <a href=\"/doc/Label\" target="
-"\"_blank\">record label</a>."
+"<strong>not</strong> the same concept as the <a href=\"/doc/Label\" "
+"target=\"_blank\">record label</a>."
 msgstr ""
+"Vietoj to leidėjai turėtų būti pridėti prie kūrinių. Atmink, kad tai "
+"<strong>nėra</strong> ta pati sąvoka kaip <a href=\"/doc/Label\" "
+"target=\"_blank\">įrašų leidykla</a>."
 
 #: DB:link_type/link_phrase:174
 msgid "PureVolume"
-msgstr ""
+msgstr "PureVolume"
 
 #: DB:link_type/reverse_link_phrase:174
 msgid "PureVolume page for"
-msgstr ""
+msgstr "PureVolume puslapis, skirtas"
 
 #: DB:link_type/link_phrase:308 DB:link_type/link_phrase:976
 #: DB:link_type/link_phrase:977 DB:link_type/link_phrase:307
 #: DB:link_type/reverse_link_phrase:280
 msgid "SecondHandSongs"
-msgstr ""
+msgstr "SecondHandSongs"
 
 #: DB:link_type/link_phrase:280 DB:link_type/reverse_link_phrase:308
 #: DB:link_type/reverse_link_phrase:976 DB:link_type/reverse_link_phrase:977
 #: DB:link_type/reverse_link_phrase:307
 msgid "SecondHandSongs page for"
-msgstr ""
+msgstr "SecondHandSongs puslapis, skirtas"
 
 #: DB:link_type/reverse_link_phrase:289
 msgid "Songfacts"
-msgstr ""
+msgstr "Songfacts"
 
 #: DB:link_type/link_phrase:289
 msgid "Songfacts page for"
-msgstr ""
+msgstr "Songfacts puslapis, skirtas"
 
 #: DB:link_type/link_phrase:786 DB:link_type/link_phrase:785
 #: DB:link_type/link_phrase:787
 msgid "Songkick"
-msgstr ""
+msgstr "Songkick"
 
 #: DB:link_type/reverse_link_phrase:786 DB:link_type/reverse_link_phrase:785
 #: DB:link_type/reverse_link_phrase:787
 msgid "Songkick page for"
-msgstr ""
+msgstr "Songkick puslapis, skirtas"
 
 #: DB:link_type/link_phrase:870 DB:link_type/link_phrase:291
 #: DB:link_type/link_phrase:290 DB:link_type/link_phrase:940
 msgid "SoundCloud"
-msgstr ""
+msgstr "SoundCloud"
 
 #: DB:link_type/reverse_link_phrase:870 DB:link_type/reverse_link_phrase:291
 #: DB:link_type/reverse_link_phrase:290 DB:link_type/reverse_link_phrase:940
 msgid "SoundCloud page for"
-msgstr ""
+msgstr "SoundCloud puslapis, skirtas"
 
 #: DB:link_attribute_type/description:1135
 msgid ""
 "Specifies the level of studies that a student studied towards in an "
 "educational institution."
-msgstr ""
+msgstr "Nurodo studijų lygį, kurį studentas (-ė) studijavo švietimo įstaigoje."
 
 #: DB:link_attribute_type/description:1125
 msgid ""
 "Specifies the subject that was taught by a teacher in an institution and/or "
 "to a student."
 msgstr ""
+"Nurodo objektą, kurį mokytojas (-a) dėstė institucijoje ir (arba) mokiniui (-"
+"ei)."
 
 #: DB:link_attribute_type/description:561
 msgid "Spoken vocals (speech)"
-msgstr ""
+msgstr "Sakytys vokalai (kalba)"
 
 #: DB:link_type/long_link_phrase:880
 msgid ""
@@ -1197,23 +1288,27 @@ msgstr ""
 
 #: DB:link_type/description:933
 msgid "This allows linking a series to the label who publishes it."
-msgstr ""
+msgstr "Tai leidžia sujungti seriją su leidėją, kuris ją išleidžia."
 
 #: DB:link_attribute_type/description:3
 msgid "This attribute describes a type of vocal performance."
-msgstr ""
+msgstr "Šis požymis apibūdina vokalinio atlikimo tipą."
 
 #: DB:link_attribute_type/description:2
 msgid ""
 "This attribute describes if a particular collaboration was considered equal "
 "or minor."
 msgstr ""
+"Šis požymis apibūdina, ar konkretus bendradarbiavimas buvo laikomas "
+"lygiaverčiu, ar antraeiliu."
 
 #: DB:link_attribute_type/description:1
 msgid ""
 "This attribute describes if a particular role was considered normal or "
 "additional."
 msgstr ""
+"Šis požymis apibūdina, ar tam tikras vaidmuo buvo laikomas įprastu, ar "
+"papildomu."
 
 #: DB:link_attribute_type/description:14
 msgid ""
@@ -1223,17 +1318,24 @@ msgid ""
 "Can't find an instrument? <a href=\"https://musicbrainz.org/doc/"
 "How_to_Add_Instruments\" target=\"_blank\">Request it!</a>"
 msgstr ""
+"Šis požymis apibūdina galimus instrumentus, kuriuos galima užfiksuoti kaip "
+"atlikimo dalį.\n"
+"<br/>\n"
+"Negali rasti instrumento? <a href=\"https://musicbrainz.org/doc/"
+"How_to_Add_Instruments\" target=\"_blank\">Paprašyk jo!</a>"
 
 #: DB:link_attribute_type/description:194
 msgid ""
 "This attribute indicates a 'guest' performance where the performer is not "
 "usually part of the band."
 msgstr ""
+"Šis požymis nurodo „kviestinį“ pasirodymą, kai muzikantas (-ė) paprastai "
+"nėra grupės narys (-ė)."
 
 #: DB:link_attribute_type/description:1094
 msgid ""
 "This attribute indicates a member the band is named after and without which "
-"it wouldn't exist (e.g. Miles Davis -&gt; Miles Davis Sextet)"
+"it wouldn't exist (such as Miles Davis -&gt; Miles Davis Sextet)"
 msgstr ""
 
 #: DB:link_attribute_type/description:511
@@ -1241,12 +1343,15 @@ msgid ""
 "This attribute indicates a version with satirical, ironic, or otherwise "
 "humorous intent. Parodies in most cases have altered lyrics."
 msgstr ""
+"Šis požymis nurodo satyrinę, ironišką ar kitaip humoristinę versiją. "
+"Parodijų dainų žodžiai dažniausiai būna pakeisti."
 
 #: DB:link_attribute_type/description:517
 msgid ""
 "This attribute indicates a version with the lyrics in a different language "
 "than the original."
 msgstr ""
+"Šis požymis nurodo versiją su dainų žodžiais kita kalba nei originalo kalba."
 
 #: DB:link_attribute_type/description:525
 msgid ""
@@ -1256,7 +1361,7 @@ msgstr ""
 
 #: DB:link_attribute_type/description:582
 msgid ""
-"This attribute indicates that the streamable content is not audio but video."
+"This attribute indicates that the content is not audio (or text) but video."
 msgstr ""
 
 #: DB:link_attribute_type/description:788
@@ -1335,12 +1440,21 @@ msgid ""
 "into <a href=\"/label/4fb00dfd-7674-44c0-bf67-79daf8c61767\">The Verve Music "
 "Group</a>, as Verve continued its existence thereafter as an imprint."
 msgstr ""
+"Tai apibūdina situaciją, kai leidykla pakeitė savo pavadinimą dėl estetinių "
+"priežasčių arba po išpirkimo, pardavimo, atskyrimo. Reikėtų būti ypač "
+"atsargiems tais atvejais, kai atliekamos sudėtingos susijungimo, padalijimo "
+"ar pertvarkymo finansinės operacijos. Pavyzdžiui, nėra gera idėja pervadinti "
+"leidyklą <a href=\"/label/99a24d71-54c1-4d3f-88cc-00fbcc4fce83\">„Verve“</a> "
+"į <a href=\"/label/4fb00dfd-7674-44c0-bf67-79daf8c61767\">„The Verve Music "
+"Group“</a>, nes vėliau „Verve“ toliau gyvavo kaip atspaudas."
 
 #: DB:link_type/description:1079
 msgid ""
 "This describes a situation where an artist (generally a group) changed its "
 "name, leading to the start of a new project."
 msgstr ""
+"Tai apibūdina situaciją, kai atlikėjas (-a) (paprastai grupė) pakeitė "
+"pavadinimą ir pradėta naują projektą."
 
 #: DB:link_type/description:200
 msgid ""
@@ -1350,12 +1464,18 @@ msgid ""
 "corporate acquisition of the former label, has become a subdivision of "
 "another one."
 msgstr ""
+"Tai apibūdina situaciją, kai viena leidykla tam tikru laikotarpiu yra (arba "
+"buvo) kitos leidyklos dukterinė bendrovė. Šis turėtų būti naudojamas "
+"apibūdinti faktą, kad leidykla yra kitos leidyklos padalinys arba, įmonei "
+"įsigijus ankstesnę leidyklą, tapo kitos leidyklos padaliniu."
 
 #: DB:link_type/description:203
 msgid ""
 "This describes a situation where one label is distributing (part of) another "
 "label's catalog, in a country/region of the world, during a period of time."
 msgstr ""
+"Tai apibūdina situaciją, kai viena leidykla tam tikrą laikotarpį platina "
+"kitos leidyklos katalogą (jo dalį) tam tikroje pasaulio šalyje arba regione."
 
 #: DB:link_type/description:201
 msgid ""
@@ -1369,6 +1489,15 @@ msgid ""
 "<li>A bootleg label reissues another label's catalog.</li>\n"
 "</ul>"
 msgstr ""
+"Tai apibūdina situaciją, kai viena leidykla savo vardu perleidžia kitos "
+"leidyklos katalogo (dalį). Taip gali atsitikti bent trimis atvejais:\n"
+"<ul>\n"
+"<li>Leidykla tam tikram laikotarpiui įsigyja kitos leidyklos katalogo nuomą "
+"tam tikrame pasaulio regione.</li>\n"
+"<li>Leidykla nusiperka teises į nebeegzistuojančios leidyklos katalogą arba "
+"nusiperka leidyklą (su jos katalogu) ir ją išardo.</li>\n"
+"<li>Nelegali leidykla perleidžia kitos leidyklos katalogą.</li>\n"
+"</ul>"
 
 #: DB:link_type/description:140 DB:link_type/description:31
 msgid ""
@@ -1427,10 +1556,11 @@ msgstr ""
 #: DB:link_type/description:28 DB:link_type/description:138
 msgid "This describes an engineer who performed a general engineering role."
 msgstr ""
+"Tai apibūdina inžinierių (-ę), atliekantį bendrąsias inžinerines užduotis."
 
 #: DB:link_type/description:103
 msgid "This indicates a person is a member of a group."
-msgstr ""
+msgstr "Tai nurodo, kad asmuo yra grupės narys (-ė)."
 
 #: DB:link_type/description:135 DB:link_type/description:62
 msgid ""
@@ -1465,30 +1595,37 @@ msgid ""
 "publishing label is a small label (usually a subdivision of a larger one) "
 "that exclusively handles the rights to works by that artist."
 msgstr ""
+"Tai nurodo asmeninę atlikėjo leidėjo leidyklą. Asmeninė leidėjos leidykla – "
+"tai nedidelė leidykla (paprastai didesnės leidyklos padalinys), kuri "
+"išimtinai rūpinasi tik to atlikėjo kūrinių teisėmis."
 
 #: DB:link_type/description:1011
 msgid ""
 "This indicates a recording engineer that recorded field recordings for the "
 "recording."
 msgstr ""
+"Tai nurodo įrašo inžinierių (-ę), kuris (-i) įrašinėjo lauko įrašus šiam "
+"įrašui."
 
 #: DB:link_type/description:1012
 msgid ""
 "This indicates a recording engineer that recorded field recordings for the "
 "release."
 msgstr ""
+"Tai nurodo įrašo inžinierių (-ę), kuris (-i) įrašinėjo lauko įrašus "
+"leidiniui."
 
 #: DB:link_type/description:1174
 msgid "This indicates an agency that did the art direction for the release."
-msgstr ""
+msgstr "Tai nurodo agentūrą, kuri kūrė leidinio meno vadovą."
 
 #: DB:link_type/description:1171
 msgid "This indicates an agency who did design for the release."
-msgstr ""
+msgstr "Tai nurodo agentūrą, kuri kūrė leidinio dizainą."
 
 #: DB:link_type/description:1173
 msgid "This indicates an agency who did illustration for the release."
-msgstr ""
+msgstr "Tai nurodo agentūrą, kuri atliko leidinio iliustraciją."
 
 #: DB:link_type/description:1172
 msgid ""
@@ -1516,17 +1653,19 @@ msgstr ""
 
 #: DB:link_attribute_type/description:921
 msgid "This indicates an artist cancelled their appearance at an event."
-msgstr ""
+msgstr "Tai nurodo, kad atlikėjas (-a) atšaukė savo pasirodymą renginyje."
 
 #: DB:link_type/description:917
 msgid ""
 "This indicates an artist reconstructed a work (usually one where the score "
 "was lost) to make it ready for performance."
 msgstr ""
+"Tai nurodo, kad atlikėjas (-a) rekonstravo kūrinį (paprastai tokį, kurio "
+"partitūra buvo prarasta), kad paruoštų jį atlikimui."
 
 #: DB:link_type/description:18
 msgid "This indicates an artist that did the art direction for the release."
-msgstr ""
+msgstr "Tai nurodo atlikėją, kuris (-i) kūrė leidinio meno vadovą."
 
 #: DB:link_type/description:151
 msgid ""
@@ -1604,15 +1743,15 @@ msgstr ""
 
 #: DB:link_type/description:965
 msgid ""
-"This indicates that a person is, or was, the artistic director of a group (e."
-"g. a ballet/opera company)."
+"This indicates that a person is, or was, the artistic director of a group "
+"(such as a ballet/opera company)."
 msgstr ""
 
 #: DB:link_type/description:137
 msgid ""
 "This indicates that a person or agency did the art direction for the "
 "recording."
-msgstr ""
+msgstr "Tai nurodo, kad įrašo meno vadovavimą kūrė asmuo arba agentūra."
 
 #: DB:link_type/description:142
 msgid ""
@@ -1670,8 +1809,8 @@ msgstr ""
 
 #: DB:link_type/description:281
 msgid ""
-"This indicates that a work is made up of multiple parts (e.g. an orchestral "
-"suite broken into movements)"
+"This indicates that a work is made up of multiple parts (such as an "
+"orchestral suite broken into movements)"
 msgstr ""
 
 #: DB:link_type/description:858
@@ -1750,8 +1889,8 @@ msgid ""
 "This indicates that the group had multiple conductors or multiple players of "
 "the selected instrument who were led by this artist. This is often indicated "
 "by the title of \"principal conductor\" or \"first conductor\" for "
-"conductors, and by the title of \"principal [instrument]\" or \"concertmaster"
-"\" (principal violin) for instruments."
+"conductors, and by the title of \"principal [instrument]\" or "
+"\"concertmaster\" (principal violin) for instruments."
 msgstr ""
 
 #: DB:link_type/description:998 DB:link_type/description:999
@@ -1774,8 +1913,8 @@ msgstr ""
 
 #: DB:link_attribute_type/description:579
 msgid ""
-"This indicates that the recording is not of the entire work, e.g. excerpts "
-"from, conclusion of, etc."
+"This indicates that the recording is not of the entire work, such as "
+"excerpts from, conclusion of, etc."
 msgstr ""
 
 #: DB:link_attribute_type/description:578
@@ -1900,16 +2039,16 @@ msgid ""
 "This indicates the organization that distributes (or contracts out "
 "distribution). \n"
 "\n"
-"This is <strong>not</strong> the same concept as the <a href=\"/doc/Label"
-"\">record label</a>."
+"This is <strong>not</strong> the same concept as the <a href=\"/doc/"
+"Label\">record label</a>."
 msgstr ""
 
 #: DB:link_type/description:360
 msgid ""
 "This indicates the organization that manufactures (or contracts out "
 "manufacturing). \n"
-"This is <strong>not</strong> the same concept as the <a href=\"/doc/Label"
-"\">record label</a>."
+"This is <strong>not</strong> the same concept as the <a href=\"/doc/"
+"Label\">record label</a>."
 msgstr ""
 
 #: DB:link_type/description:848
@@ -1927,8 +2066,8 @@ msgstr ""
 #: DB:link_type/description:359
 msgid ""
 "This indicates the organization that promotes (or contracts out promotion) "
-"for a release. This is <strong>not</strong> the same concept as the <a href="
-"\"/doc/Label\">record label</a>."
+"for a release. This is <strong>not</strong> the same concept as the <a "
+"href=\"/doc/Label\">record label</a>."
 msgstr ""
 
 #: DB:link_type/description:362
@@ -2255,9 +2394,9 @@ msgstr ""
 
 #: DB:link_type/description:102
 msgid ""
-"This is used to specify that an <a href=\"/doc/Artist\" title=\"Artist"
-"\">artist</a> collaborated on a short-term project, for cases where artist "
-"credits can't be used."
+"This is used to specify that an <a href=\"/doc/Artist\" "
+"title=\"Artist\">artist</a> collaborated on a short-term project, for cases "
+"where artist credits can't be used."
 msgstr ""
 
 #: DB:link_type/description:1047
@@ -2490,18 +2629,18 @@ msgid ""
 "This links a release group to an artist it is dedicated to. This is for "
 "dedications such as \"This album is dedicated to the memory of Artist\" - "
 "for tribute albums consisting of covers of the artist, use the <a href=\"/"
-"relationship/5e2907db-49ec-4a48-9f11-dfb99d2603ff\" target=\"_blank"
-"\">tribute relationship</a>."
+"relationship/5e2907db-49ec-4a48-9f11-dfb99d2603ff\" "
+"target=\"_blank\">tribute relationship</a>."
 msgstr ""
 
 #: DB:link_type/description:65
 msgid ""
 "This links a release group to an artist, to indicate that it is a tribute "
-"album. Tribute albums often have a title in the form \"A Tribute to Artist"
-"\", and they consist of covers of songs by the target artist, played by "
-"other (sometimes very unknown) bands, to honor the target artist. Often they "
-"are various artist compilations, but a single artist can perform the entire "
-"tribute album."
+"album. Tribute albums often have a title in the form \"A Tribute to "
+"Artist\", and they consist of covers of songs by the target artist, played "
+"by other (sometimes very unknown) bands, to honor the target artist. Often "
+"they are various artist compilations, but a single artist can perform the "
+"entire tribute album."
 msgstr ""
 
 #: DB:link_type/description:1176
@@ -2588,9 +2727,9 @@ msgstr ""
 
 #: DB:link_type/description:910
 msgid ""
-"This links a series to its profile (e.g. for a festival) or project (e.g. "
-"for a specific tour, or for compiling a classical catalogue) at a "
-"crowdfunding site like Kickstarter or Indiegogo."
+"This links a series to its profile page (such as for a festival) or project "
+"page (such as for a specific tour, or for compiling a classical catalogue) "
+"at a crowdfunding site like Kickstarter or Indiegogo."
 msgstr ""
 
 #: DB:link_type/description:97
@@ -2819,8 +2958,8 @@ msgstr ""
 #: DB:link_type/description:96 DB:link_type/description:803
 msgid ""
 "This links an entity to the equivalent entry in another database. Please "
-"respect the <a href=\"/doc/Other_Databases_Relationship_Type/Whitelist"
-"\">whitelist</a>."
+"respect the <a href=\"/doc/Other_Databases_Relationship_Type/"
+"Whitelist\">whitelist</a>."
 msgstr ""
 
 #: DB:link_type/description:804
@@ -2859,8 +2998,8 @@ msgstr ""
 
 #: DB:link_type/description:315
 msgid ""
-"This links different revisions of the same <a href=\"/doc/Work\" title=\"Work"
-"\">work</a>."
+"This links different revisions of the same <a href=\"/doc/Work\" "
+"title=\"Work\">work</a>."
 msgstr ""
 
 #: DB:link_type/description:212
@@ -2966,8 +3105,8 @@ msgstr ""
 #: DB:link_type/description:197
 msgid ""
 "This relationship describes a URL where lyrics for the artist can be found. "
-"Only sites on the <a href=\"/doc/Style/Relationships/URLs/Lyrics_whitelist"
-"\">whitelist</a> are permitted."
+"Only sites on the <a href=\"/doc/Style/Relationships/URLs/"
+"Lyrics_whitelist\">whitelist</a> are permitted."
 msgstr ""
 
 #: DB:link_type/description:982
@@ -2987,8 +3126,8 @@ msgstr ""
 #: DB:link_type/description:271
 msgid ""
 "This relationship describes a URL where lyrics for the work can be found. "
-"Only sites on the <a href=\"/doc/Style/Relationships/URLs/Lyrics_whitelist"
-"\">whitelist</a> are permitted."
+"Only sites on the <a href=\"/doc/Style/Relationships/URLs/"
+"Lyrics_whitelist\">whitelist</a> are permitted."
 msgstr ""
 
 #: DB:link_type/description:929
@@ -2999,8 +3138,8 @@ msgstr ""
 
 #: DB:link_type/description:893
 msgid ""
-"This relationship indicates that a person was a teacher at an event (e.g. a "
-"masterclass)."
+"This relationship indicates that a person was a teacher at an event (such as "
+"a masterclass)."
 msgstr ""
 
 #: DB:link_type/description:847
@@ -3282,7 +3421,7 @@ msgstr ""
 #: DB:link_type/description:15
 msgid ""
 "This relationship type is used to indicate that a release group is a cover "
-"version of another release group, i.e. when an artist performs a new "
+"version of another release group, that is, when an artist performs a new "
 "rendition of another artist's album.<br/>\n"
 "For individual songs, see the <a href=\"/relationship/a3005666-a872-32c3-"
 "ad06-98af558e99b0\">recording-work performance relationship type</a>."
@@ -3291,7 +3430,7 @@ msgstr ""
 #: DB:link_type/description:1005
 msgid ""
 "This relationship type is used to link a label to a site where music can be "
-"legally streamed for a subscription fee, e.g. Apple Music.\n"
+"legally streamed for a subscription fee, such as Apple Music.\n"
 "\n"
 "If the site allows free streaming, use \"free streaming\" instead."
 msgstr ""
@@ -3299,11 +3438,26 @@ msgstr ""
 #: DB:link_type/description:997
 msgid ""
 "This relationship type is used to link a label to a site where music can be "
-"legally streamed for free, e.g. Spotify."
+"legally streamed for free, such as Spotify."
 msgstr ""
 
 #: DB:link_type/description:224
 msgid "This relationship type is used to link a label to its blog."
+msgstr ""
+
+#: DB:link_type/description:979
+msgid ""
+"This relationship type is used to link a recording to a site where it can be "
+"legally streamed for a subscription fee, such as Tidal.\n"
+"\n"
+"If the site allows free streaming, use \"free streaming\" instead."
+msgstr ""
+
+#: DB:link_type/description:268
+msgid ""
+"This relationship type is used to link a recording to a site where it can be "
+"legally streamed for free, such as Spotify for audio tracks or YouTube for "
+"videos."
 msgstr ""
 
 #: DB:link_type/description:287
@@ -3315,7 +3469,7 @@ msgstr ""
 #: DB:link_type/description:980
 msgid ""
 "This relationship type is used to link a release to a site where the tracks "
-"can be legally streamed for a subscription fee, e.g. Tidal.\n"
+"can be legally streamed for a subscription fee, such as Tidal.\n"
 "\n"
 "If the site allows free streaming, use \"free streaming\" instead."
 msgstr ""
@@ -3323,28 +3477,13 @@ msgstr ""
 #: DB:link_type/description:85
 msgid ""
 "This relationship type is used to link a release to a site where the tracks "
-"can be legally streamed for free, e.g. Spotify."
-msgstr ""
-
-#: DB:link_type/description:979
-msgid ""
-"This relationship type is used to link a track to a site where the track can "
-"be legally streamed for a subscription fee, e.g. Tidal.\n"
-"\n"
-"If the site allows free streaming, use \"free streaming\" instead."
-msgstr ""
-
-#: DB:link_type/description:268
-msgid ""
-"This relationship type is used to link a track to a site where the track can "
-"be legally streamed for free, such as Spotify for audio tracks or YouTube "
-"for videos."
+"can be legally streamed for free, such as Spotify."
 msgstr ""
 
 #: DB:link_type/description:978
 msgid ""
 "This relationship type is used to link an artist to a site where music can "
-"be legally streamed for a subscription fee, e.g. Tidal.\n"
+"be legally streamed for a subscription fee, such as Tidal.\n"
 "\n"
 "If the site allows free streaming, use \"free streaming\" instead."
 msgstr ""
@@ -3352,7 +3491,7 @@ msgstr ""
 #: DB:link_type/description:194
 msgid ""
 "This relationship type is used to link an artist to a site where music can "
-"be legally streamed for free, e.g. Spotify."
+"be legally streamed for free, such as Spotify."
 msgstr ""
 
 #: DB:link_type/description:199
@@ -3401,9 +3540,9 @@ msgstr ""
 
 #: DB:link_type/description:210
 msgid ""
-"This relationship type links a label to its corresponding page at <a href="
-"\"http://vgmdb.net/\">VGMdb</a>. VGMdb is a community project dedicated to "
-"cataloguing the music of video games and anime."
+"This relationship type links a label to its corresponding page at <a "
+"href=\"http://vgmdb.net/\">VGMdb</a>. VGMdb is a community project dedicated "
+"to cataloguing the music of video games and anime."
 msgstr ""
 
 #: DB:link_type/description:838
@@ -3441,9 +3580,9 @@ msgstr ""
 
 #: DB:link_type/description:86
 msgid ""
-"This relationship type links a release to its corresponding page <a href="
-"\"http://vgmdb.net/\">VGMdb</a>. VGMdb is a community project dedicated to "
-"cataloguing the music of video games and anime."
+"This relationship type links a release to its corresponding page <a "
+"href=\"http://vgmdb.net/\">VGMdb</a>. VGMdb is a community project dedicated "
+"to cataloguing the music of video games and anime."
 msgstr ""
 
 #: DB:link_type/description:938
@@ -3460,9 +3599,9 @@ msgstr ""
 
 #: DB:link_type/description:191
 msgid ""
-"This relationship type links an artist to its corresponding page at <a href="
-"\"http://vgmdb.net/\">VGMdb</a>. VGMdb is a community project dedicated to "
-"cataloguing the music of video games and anime."
+"This relationship type links an artist to its corresponding page at <a "
+"href=\"http://vgmdb.net/\">VGMdb</a>. VGMdb is a community project dedicated "
+"to cataloguing the music of video games and anime."
 msgstr ""
 
 #: DB:link_type/description:862
@@ -3507,9 +3646,9 @@ msgstr ""
 
 #: DB:link_type/description:788
 msgid ""
-"This relationship type links an event to its corresponding page at <a href="
-"\"http://vgmdb.net/\">VGMdb</a>. VGMdb is a community project dedicated to "
-"cataloguing the music of video games and anime."
+"This relationship type links an event to its corresponding page at <a "
+"href=\"http://vgmdb.net/\">VGMdb</a>. VGMdb is a community project dedicated "
+"to cataloguing the music of video games and anime."
 msgstr ""
 
 #: DB:link_type/description:860
@@ -3629,14 +3768,14 @@ msgstr ""
 
 #: DB:link_type/description:1178
 msgid ""
-"Use this relationship for credits like \"Recording was remixed by X for Label"
-"\""
+"Use this relationship for credits like \"Recording was remixed by X for "
+"Label\""
 msgstr ""
 
 #: DB:link_type/description:948
 msgid ""
-"Use this relationship for credits like \"Release was arranged by X for Label"
-"\""
+"Use this relationship for credits like \"Release was arranged by X for "
+"Label\""
 msgstr ""
 
 #: DB:link_type/description:952
@@ -3647,8 +3786,8 @@ msgstr ""
 
 #: DB:link_type/description:1183
 msgid ""
-"Use this relationship for credits like \"Release was mastered by X for Label"
-"\""
+"Use this relationship for credits like \"Release was mastered by X for "
+"Label\""
 msgstr ""
 
 #: DB:link_type/description:947
@@ -3658,8 +3797,8 @@ msgstr ""
 
 #: DB:link_type/description:951
 msgid ""
-"Use this relationship for credits like \"Release was produced by X for Label"
-"\""
+"Use this relationship for credits like \"Release was produced by X for "
+"Label\""
 msgstr ""
 
 #: DB:link_attribute_type/description:1353
@@ -3886,7 +4025,7 @@ msgstr ""
 
 #: DB:link_type/name:137 DB:link_type/name:1174 DB:link_type/name:18
 msgid "art direction"
-msgstr ""
+msgstr "meno vadovavimas"
 
 #: DB:link_type/link_phrase:1192
 msgid "art galleries"
@@ -4087,8 +4226,8 @@ msgstr ""
 msgid "can be purchased for mail-order at"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:978 DB:link_type/long_link_phrase:979
-#: DB:link_type/long_link_phrase:980 DB:link_type/long_link_phrase:1005
+#: DB:link_type/long_link_phrase:978 DB:link_type/long_link_phrase:980
+#: DB:link_type/long_link_phrase:1005 DB:link_type/long_link_phrase:979
 msgid "can be streamed at"
 msgstr ""
 
@@ -4383,15 +4522,15 @@ msgid "creative position"
 msgstr ""
 
 #: DB:link_type/name:904 DB:link_type/name:909 DB:link_type/name:903
-#: DB:link_type/name:905 DB:link_type/name:906 DB:link_type/name:910
-#: DB:link_type/name:902 DB:link_type/name:907 DB:link_type/name:908
+#: DB:link_type/name:905 DB:link_type/name:906 DB:link_type/name:902
+#: DB:link_type/name:907 DB:link_type/name:908 DB:link_type/name:910
 msgid "crowdfunding"
 msgstr ""
 
 #: DB:link_type/link_phrase:904 DB:link_type/link_phrase:909
 #: DB:link_type/link_phrase:903 DB:link_type/link_phrase:905
-#: DB:link_type/link_phrase:906 DB:link_type/link_phrase:910
-#: DB:link_type/link_phrase:902 DB:link_type/link_phrase:907
+#: DB:link_type/link_phrase:906 DB:link_type/link_phrase:902
+#: DB:link_type/link_phrase:907 DB:link_type/link_phrase:910
 #: DB:link_type/reverse_link_phrase:908
 msgid "crowdfunding page"
 msgstr ""
@@ -4399,8 +4538,8 @@ msgstr ""
 #: DB:link_type/link_phrase:908 DB:link_type/reverse_link_phrase:904
 #: DB:link_type/reverse_link_phrase:909 DB:link_type/reverse_link_phrase:903
 #: DB:link_type/reverse_link_phrase:905 DB:link_type/reverse_link_phrase:906
-#: DB:link_type/reverse_link_phrase:910 DB:link_type/reverse_link_phrase:902
-#: DB:link_type/reverse_link_phrase:907
+#: DB:link_type/reverse_link_phrase:902 DB:link_type/reverse_link_phrase:907
+#: DB:link_type/reverse_link_phrase:910
 msgid "crowdfunding page for"
 msgstr ""
 
@@ -4655,65 +4794,65 @@ msgstr ""
 
 #: DB:link_type/name:1011 DB:link_type/name:1012
 msgid "field recordist"
-msgstr ""
+msgstr "lauko įrašinėtojas (-a)"
 
 #: DB:link_type/link_phrase:1011 DB:link_type/link_phrase:1012
 msgid "field recordist for"
-msgstr ""
+msgstr "lauko įrašinėtojas (-a)"
 
 #: DB:link_type/name:238
 msgid "first track release"
-msgstr ""
+msgstr "pirmojo takelio išleidimas"
 
 #: DB:link_attribute_type/name:1133
 msgid "folk music"
-msgstr ""
+msgstr "liaudies muzika"
 
 #: DB:link_type/link_phrase:832 DB:link_type/link_phrase:116
 #: DB:link_type/link_phrase:895 DB:link_type/link_phrase:1004
 #: DB:link_type/long_link_phrase:832 DB:link_type/long_link_phrase:116
 #: DB:link_type/long_link_phrase:895 DB:link_type/long_link_phrase:1004
 msgid "founded"
-msgstr ""
+msgstr "įkurta"
 
 #: DB:link_type/reverse_link_phrase:895
 msgid "founded by"
-msgstr ""
+msgstr "įkūrė"
 
 #: DB:link_type/name:832 DB:link_type/name:895 DB:link_type/name:1004
 msgid "founder"
-msgstr ""
+msgstr "įkūrėjas (-a)"
 
 #: DB:link_type/reverse_link_phrase:832 DB:link_type/reverse_link_phrase:116
 #: DB:link_type/reverse_link_phrase:1004
 msgid "founders"
-msgstr ""
+msgstr "įkūrėjai"
 
 #: DB:link_type/reverse_link_phrase:958 DB:link_type/reverse_link_phrase:75
 #: DB:link_type/reverse_link_phrase:177 DB:link_type/reverse_link_phrase:255
 msgid "free download page for"
-msgstr ""
+msgstr "nemokamas atsisiuntimo puslapis"
 
 #: DB:link_type/link_phrase:274
 msgid "free download page for the score of"
-msgstr ""
+msgstr "nemokamas atsisiuntimo partitūros puslapis"
 
 #: DB:link_type/reverse_link_phrase:997 DB:link_type/reverse_link_phrase:194
 msgid "free music streaming page for"
-msgstr ""
+msgstr "nemokamas muzikos srautinės transliacijos puslapis"
 
-#: DB:link_type/reverse_link_phrase:85 DB:link_type/reverse_link_phrase:268
+#: DB:link_type/reverse_link_phrase:268 DB:link_type/reverse_link_phrase:85
 msgid "free music {video} streaming page for"
-msgstr ""
+msgstr "nemokamas muzikos {video} srautinės transliacijos puslapis"
 
-#: DB:link_type/name:997 DB:link_type/name:85 DB:link_type/name:268
+#: DB:link_type/name:997 DB:link_type/name:268 DB:link_type/name:85
 #: DB:link_type/name:194
 msgid "free streaming"
-msgstr ""
+msgstr "nemokamas srautinis transliavimas"
 
 #: DB:link_type/reverse_link_phrase:1088 DB:link_type/reverse_link_phrase:752
 msgid "from"
-msgstr ""
+msgstr "iš"
 
 #: DB:link_type/link_phrase:1096 DB:link_type/name:1096
 msgid "fusion of"
@@ -4721,15 +4860,15 @@ msgstr ""
 
 #: DB:link_type/name:1088
 msgid "genre origin"
-msgstr ""
+msgstr "žanro kilmė"
 
 #: DB:link_type/link_phrase:1088
 msgid "genres"
-msgstr ""
+msgstr "žanrai"
 
 #: DB:link_type/name:934 DB:link_type/name:713
 msgid "geonames"
-msgstr ""
+msgstr "geonames"
 
 #: DB:link_type/link_phrase:957 DB:link_type/link_phrase:257
 #: DB:link_type/link_phrase:73 DB:link_type/link_phrase:1091
@@ -4741,12 +4880,12 @@ msgstr ""
 #: DB:link_type/long_link_phrase:257 DB:link_type/long_link_phrase:73
 #: DB:link_type/long_link_phrase:1091 DB:link_type/long_link_phrase:187
 msgid "get the music"
-msgstr ""
+msgstr "gauti muziką"
 
 #: DB:link_type/link_phrase:911 DB:link_type/name:911
 #: DB:link_type/reverse_link_phrase:911 DB:link_type/long_link_phrase:911
 msgid "get the score"
-msgstr ""
+msgstr "gauti partitūrą"
 
 #: DB:link_type/link_phrase:955 DB:link_type/name:955
 #: DB:link_type/long_link_phrase:955
@@ -4759,19 +4898,19 @@ msgstr ""
 
 #: DB:link_type/reverse_link_phrase:955
 msgid "glass mastered by"
-msgstr ""
+msgstr "stiklo meistravimas padarė"
 
 #: DB:link_type/link_phrase:954
 msgid "glass mastering location for"
-msgstr ""
+msgstr "stiklo meistravimo vieta"
 
 #: DB:link_type/name:1172 DB:link_type/name:125 DB:link_type/name:27
 msgid "graphic design"
-msgstr ""
+msgstr "grafinis dizainas"
 
 #: DB:link_attribute_type/name:194
 msgid "guest"
-msgstr ""
+msgstr "svečias"
 
 #: DB:link_type/name:800
 msgid "guest performer"
@@ -4823,16 +4962,16 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:77
 msgid "has Amazon ASIN"
-msgstr ""
+msgstr "turi Amazon ASIN"
 
 #: DB:link_type/long_link_phrase:1131 DB:link_type/long_link_phrase:1130
 msgid "has Apple Music page at"
-msgstr ""
+msgstr "turi Apple Music puslapį"
 
 #: DB:link_type/long_link_phrase:1092 DB:link_type/long_link_phrase:718
 #: DB:link_type/long_link_phrase:719
 msgid "has Bandcamp page at"
-msgstr ""
+msgstr "turi Bandcamp puslapis"
 
 #: DB:link_type/long_link_phrase:919
 msgid "has CD Baby page at"
@@ -4904,13 +5043,13 @@ msgstr ""
 #: DB:link_type/long_link_phrase:870 DB:link_type/long_link_phrase:291
 #: DB:link_type/long_link_phrase:290 DB:link_type/long_link_phrase:940
 msgid "has a SoundCloud page at"
-msgstr ""
+msgstr "turi SoundCloud puslapį"
 
 #: DB:link_type/long_link_phrase:86 DB:link_type/long_link_phrase:191
 #: DB:link_type/long_link_phrase:210 DB:link_type/long_link_phrase:788
 #: DB:link_type/long_link_phrase:1013
 msgid "has a VGMdb page at"
-msgstr ""
+msgstr "turi VGMdb puslapį"
 
 #: DB:link_type/long_link_phrase:1087 DB:link_type/long_link_phrase:353
 #: DB:link_type/long_link_phrase:749 DB:link_type/long_link_phrase:594
@@ -4942,8 +5081,8 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:904 DB:link_type/long_link_phrase:909
 #: DB:link_type/long_link_phrase:903 DB:link_type/long_link_phrase:905
-#: DB:link_type/long_link_phrase:906 DB:link_type/long_link_phrase:910
-#: DB:link_type/long_link_phrase:902 DB:link_type/long_link_phrase:907
+#: DB:link_type/long_link_phrase:906 DB:link_type/long_link_phrase:902
+#: DB:link_type/long_link_phrase:907 DB:link_type/long_link_phrase:910
 msgid "has a crowdfunding page at"
 msgstr ""
 
@@ -4991,7 +5130,7 @@ msgstr ""
 #: DB:link_type/long_link_phrase:173 DB:link_type/long_link_phrase:396
 #: DB:link_type/long_link_phrase:732
 msgid "has a picture at"
-msgstr ""
+msgstr "turi nuotrauką"
 
 #: DB:link_type/long_link_phrase:842 DB:link_type/long_link_phrase:94
 msgid "has a review page at"
@@ -5085,15 +5224,15 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:735
 msgid "has child"
-msgstr ""
+msgstr "turi vaiką"
 
 #: DB:link_type/long_link_phrase:78
 msgid "has cover art at"
-msgstr ""
+msgstr "turi viršelį"
 
 #: DB:link_type/long_link_phrase:737
 msgid "has derived instrument"
-msgstr ""
+msgstr "išvedė instrumentą"
 
 #: DB:link_type/reverse_link_phrase:1096
 msgid "has fusion genres"
@@ -5105,7 +5244,7 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:725
 msgid "has imprint"
-msgstr ""
+msgstr "turi įspaudą"
 
 #: DB:link_type/long_link_phrase:1097
 msgid "has influences of"
@@ -5166,7 +5305,7 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:1095
 msgid "has subgenre"
-msgstr ""
+msgstr "turi subžanrą"
 
 #: DB:link_type/long_link_phrase:823
 msgid "has subseries"
@@ -5213,14 +5352,14 @@ msgstr ""
 #: DB:link_type/link_phrase:708 DB:link_type/link_phrase:709
 #: DB:link_type/long_link_phrase:708 DB:link_type/long_link_phrase:709
 msgid "holds copyright (©) for"
-msgstr ""
+msgstr "turi autorines teises (©)"
 
 #: DB:link_type/link_phrase:867 DB:link_type/link_phrase:711
 #: DB:link_type/link_phrase:710 DB:link_type/link_phrase:869
 #: DB:link_type/long_link_phrase:867 DB:link_type/long_link_phrase:711
 #: DB:link_type/long_link_phrase:710 DB:link_type/long_link_phrase:869
 msgid "holds phonographic copyright (℗) for"
-msgstr ""
+msgstr "turi fonografijos autorių teises (℗)"
 
 #: DB:link_type/name:801
 msgid "host"
@@ -5249,7 +5388,7 @@ msgstr ""
 
 #: DB:link_type/name:725
 msgid "imprint"
-msgstr ""
+msgstr "įspaudas"
 
 #: DB:link_type/reverse_link_phrase:725
 msgid "imprint of"
@@ -5257,15 +5396,15 @@ msgstr ""
 
 #: DB:link_type/link_phrase:725
 msgid "imprints"
-msgstr ""
+msgstr "įspaudai"
 
 #: DB:link_attribute_type/name:1134
 msgid "improvisation"
-msgstr ""
+msgstr "improvizacija"
 
 #: DB:link_type/link_phrase:894 DB:link_type/name:894
 msgid "included in"
-msgstr ""
+msgstr "įtraukta į"
 
 #: DB:link_type/reverse_link_phrase:894
 msgid "includes"
@@ -5334,7 +5473,7 @@ msgstr ""
 #: DB:link_type/link_phrase:896 DB:link_type/name:896 DB:link_type/name:918
 #: DB:link_type/reverse_link_phrase:918 DB:link_type/long_link_phrase:896
 msgid "invented"
-msgstr ""
+msgstr "išrado"
 
 #: DB:link_type/link_phrase:918 DB:link_type/reverse_link_phrase:896
 msgid "invented by"
@@ -5392,11 +5531,11 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:11
 msgid "is a single/EP which was taken from"
-msgstr ""
+msgstr "yra singlas/mini albumas, kuris buvo paimtas iš"
 
 #: DB:link_type/long_link_phrase:728
 msgid "is a tribute to"
-msgstr ""
+msgstr "yra padėka"
 
 #: DB:link_type/long_link_phrase:278
 msgid ""
@@ -5451,7 +5590,7 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:238
 msgid "is the earliest release of"
-msgstr ""
+msgstr "yra anksčiausias leidinys"
 
 #: DB:link_type/long_link_phrase:241
 msgid "is the earliest version of {translated} {parody}"
@@ -5513,39 +5652,39 @@ msgstr ""
 
 #: DB:link_attribute_type/name:1132
 msgid "jazz"
-msgstr ""
+msgstr "džiazas"
 
 #: DB:link_attribute_type/name:1261 DB:link_type/name:226
 msgid "karaoke"
-msgstr ""
+msgstr "karaokė"
 
 #: DB:link_type/reverse_link_phrase:226
 msgid "karaoke version of"
-msgstr ""
+msgstr "karaokės versija"
 
 #: DB:link_type/link_phrase:226
 msgid "karaoke versions"
-msgstr ""
+msgstr "karaokė versijos"
 
 #: DB:link_type/name:203
 msgid "label distribution"
-msgstr ""
+msgstr "leidyklos platinimas"
 
 #: DB:link_type/name:116
 msgid "label founder"
-msgstr ""
+msgstr "leidyklos įkūrėjas"
 
 #: DB:link_type/name:200
 msgid "label ownership"
-msgstr ""
+msgstr "leidyklos nuosavybė"
 
 #: DB:link_type/name:201
 msgid "label reissue"
-msgstr ""
+msgstr "leidyklos pakartotinis leidimas"
 
 #: DB:link_type/name:202
 msgid "label rename"
-msgstr ""
+msgstr "leidyklos pervadinimas"
 
 #: DB:link_type/link_phrase:969 DB:link_type/name:969
 #: DB:link_type/reverse_link_phrase:969
@@ -5567,15 +5706,15 @@ msgstr ""
 #: DB:link_type/name:840 DB:link_type/name:837 DB:link_type/name:839
 #: DB:link_type/name:838
 msgid "last.fm"
-msgstr ""
+msgstr "last.fm"
 
 #: DB:link_type/link_phrase:238
 msgid "later releases"
-msgstr ""
+msgstr "vėlesni leidiniai"
 
 #: DB:link_type/link_phrase:241
 msgid "later {translated} {parody} versions"
-msgstr ""
+msgstr "vėlesnės {translated} {parody} versijos"
 
 #: DB:link_type/name:796 DB:link_type/name:797
 msgid "launch event"
@@ -5636,15 +5775,15 @@ msgstr ""
 #: DB:link_type/link_phrase:712 DB:link_type/link_phrase:1010
 #: DB:link_type/long_link_phrase:712 DB:link_type/long_link_phrase:1010
 msgid "licensed"
-msgstr ""
+msgstr "licencijuota"
 
 #: DB:link_type/reverse_link_phrase:712 DB:link_type/reverse_link_phrase:1010
 msgid "licensed from"
-msgstr ""
+msgstr "licencijuota iš"
 
 #: DB:link_type/reverse_link_phrase:833
 msgid "licensed to"
-msgstr ""
+msgstr "licencijuota į"
 
 #: DB:link_type/name:833
 msgid "licensee"
@@ -5656,19 +5795,19 @@ msgstr ""
 
 #: DB:link_type/name:712 DB:link_type/name:1010
 msgid "licensor"
-msgstr ""
+msgstr "licencijos davėjas"
 
 #: DB:link_type/name:24
 msgid "liner notes"
-msgstr ""
+msgstr "linijinės užrašai"
 
 #: DB:link_attribute_type/name:578
 msgid "live"
-msgstr ""
+msgstr "gyvai"
 
 #: DB:link_type/name:17
 msgid "live performance"
-msgstr ""
+msgstr "gyvas pasirodymas"
 
 #: DB:link_type/link_phrase:17
 msgid "live performance of"
@@ -5676,15 +5815,15 @@ msgstr ""
 
 #: DB:link_type/reverse_link_phrase:17
 msgid "live performances"
-msgstr ""
+msgstr "gyvi pasirodymai"
 
 #: DB:link_type/link_phrase:995 DB:link_type/link_phrase:1085
 msgid "location for"
-msgstr ""
+msgstr "vieta"
 
 #: DB:link_type/name:213
 msgid "logo"
-msgstr ""
+msgstr "logotipas"
 
 #: DB:link_type/reverse_link_phrase:213
 msgid "logo of"
@@ -5700,17 +5839,17 @@ msgstr ""
 
 #: DB:link_type/name:56 DB:link_type/name:165
 msgid "lyricist"
-msgstr ""
+msgstr "dainų tekstų autorius (-ė)"
 
 #: DB:link_type/name:93 DB:link_type/name:271 DB:link_type/name:197
 #: DB:link_type/name:982
 msgid "lyrics"
-msgstr ""
+msgstr "dainų tekstai"
 
 #: DB:link_type/link_phrase:93 DB:link_type/link_phrase:197
 #: DB:link_type/link_phrase:982 DB:link_type/reverse_link_phrase:271
 msgid "lyrics page"
-msgstr ""
+msgstr "dainų tekstų puslapis"
 
 #: DB:link_type/link_phrase:271 DB:link_type/reverse_link_phrase:93
 #: DB:link_type/reverse_link_phrase:197 DB:link_type/reverse_link_phrase:982
@@ -5753,27 +5892,27 @@ msgstr ""
 #: DB:link_type/link_phrase:360 DB:link_type/name:360
 #: DB:link_type/long_link_phrase:360
 msgid "manufactured"
-msgstr ""
+msgstr "pagamintas"
 
 #: DB:link_type/name:953 DB:link_type/reverse_link_phrase:953
 msgid "manufactured at"
-msgstr ""
+msgstr "pagaminta"
 
 #: DB:link_type/reverse_link_phrase:360
 msgid "manufactured by"
-msgstr ""
+msgstr "pagamino"
 
 #: DB:link_type/name:952 DB:link_type/reverse_link_phrase:952
 msgid "manufactured for"
-msgstr ""
+msgstr "pagaminta"
 
 #: DB:link_type/name:835 DB:link_type/reverse_link_phrase:835
 msgid "manufactured in"
-msgstr ""
+msgstr "pagamintas"
 
 #: DB:link_type/link_phrase:835 DB:link_type/link_phrase:953
 msgid "manufacturing location for"
-msgstr ""
+msgstr "gamybos vieta"
 
 #: DB:link_type/link_phrase:848 DB:link_type/name:848
 #: DB:link_type/long_link_phrase:848
@@ -5815,11 +5954,11 @@ msgstr ""
 
 #: DB:link_type/name:136 DB:link_type/name:42
 msgid "mastering"
-msgstr ""
+msgstr "masteringas"
 
 #: DB:link_type/name:704
 msgid "mastering engineer position"
-msgstr ""
+msgstr "masteringo inžinieriaus (-ės) pozicija"
 
 #: DB:link_type/link_phrase:704
 msgid "mastering engineer position at"
@@ -5843,39 +5982,39 @@ msgstr ""
 
 #: DB:link_attribute_type/name:570
 msgid "medium 1"
-msgstr ""
+msgstr "laikmena 1"
 
 #: DB:link_attribute_type/name:569
 msgid "medium 2"
-msgstr ""
+msgstr "laikmena 2"
 
 #: DB:link_attribute_type/name:571
 msgid "medium 3"
-msgstr ""
+msgstr "laikmena 3"
 
 #: DB:link_attribute_type/name:577
 msgid "medium 4"
-msgstr ""
+msgstr "laikmena 4"
 
 #: DB:link_attribute_type/name:576
 msgid "medium 5"
-msgstr ""
+msgstr "laikmena 5"
 
 #: DB:link_attribute_type/name:575
 msgid "medium 6"
-msgstr ""
+msgstr "laikmena 6"
 
 #: DB:link_attribute_type/name:574
 msgid "medium 7"
-msgstr ""
+msgstr "laikmena 7"
 
 #: DB:link_attribute_type/name:573
 msgid "medium 8"
-msgstr ""
+msgstr "laikmena 8"
 
 #: DB:link_attribute_type/name:572
 msgid "medium 9"
-msgstr ""
+msgstr "laikmena 9"
 
 #: DB:link_attribute_type/name:750 DB:link_type/name:239
 msgid "medley"
@@ -5906,62 +6045,62 @@ msgstr ""
 #: DB:link_type/link_phrase:25 DB:link_type/link_phrase:998
 #: DB:link_type/link_phrase:999
 msgid "miscellaneous roles"
-msgstr ""
+msgstr "įvairūs vaidmenys"
 
 #: DB:link_type/reverse_link_phrase:162 DB:link_type/reverse_link_phrase:129
 #: DB:link_type/reverse_link_phrase:25 DB:link_type/reverse_link_phrase:998
 #: DB:link_type/reverse_link_phrase:999
 msgid "miscellaneous support"
-msgstr ""
+msgstr "įvairi pagalba"
 
 #: DB:link_type/name:26 DB:link_type/name:143
 msgid "mix"
-msgstr ""
+msgstr "miksas"
 
 #: DB:link_type/name:43 DB:link_type/name:155
 msgid "mix-DJ"
-msgstr ""
+msgstr "miksas DJ"
 
 #: DB:link_type/name:694 DB:link_type/name:696
 msgid "mixed at"
-msgstr ""
+msgstr "sumiksuotas"
 
 #: DB:link_type/name:946 DB:link_type/name:947
 #: DB:link_type/reverse_link_phrase:946 DB:link_type/reverse_link_phrase:947
 msgid "mixed for"
-msgstr ""
+msgstr "sumiksuota"
 
 #: DB:link_type/name:757 DB:link_type/name:758
 msgid "mixed in"
-msgstr ""
+msgstr "sumiksuoti"
 
 #: DB:link_type/name:703
 msgid "mixing engineer position"
-msgstr ""
+msgstr "miksavimo inžinieriaus (-ės) pozicija"
 
 #: DB:link_type/link_phrase:703
 msgid "mixing engineer position at"
-msgstr ""
+msgstr "miksavimo inžinieriaus (-ės) pozicija"
 
 #: DB:link_type/reverse_link_phrase:703
 msgid "mixing engineers"
-msgstr ""
+msgstr "miksavimo inžinieriai"
 
 #: DB:link_attribute_type/name:1031
 msgid "movement"
-msgstr ""
+msgstr "judėjimas"
 
 #: DB:link_type/long_link_phrase:958 DB:link_type/long_link_phrase:177
 msgid "music can be downloaded for free at"
-msgstr ""
+msgstr "muziką galima nemokamai atsisiųsti iš"
 
 #: DB:link_type/long_link_phrase:959 DB:link_type/long_link_phrase:176
 msgid "music can be purchased for download at"
-msgstr ""
+msgstr "muziką galima nusipirkti atsisiuntimui iš"
 
 #: DB:link_type/long_link_phrase:960 DB:link_type/long_link_phrase:175
 msgid "music can be purchased for mail-order at"
-msgstr ""
+msgstr "muziką galima nusipirkti užsakant paštu iš"
 
 #: DB:link_type/long_link_phrase:997 DB:link_type/long_link_phrase:194
 msgid "music can be streamed for free at"
@@ -5985,97 +6124,97 @@ msgstr ""
 
 #: DB:link_attribute_type/name:1222
 msgid "music theory"
-msgstr ""
+msgstr "muzikos teorija"
 
 #: DB:link_attribute_type/name:1203
 msgid "music therapy"
-msgstr ""
+msgstr "muzikos terapija"
 
 #: DB:link_type/name:857
 msgid "music video"
-msgstr ""
+msgstr "muzikinis vaizdo įrašas"
 
 #: DB:link_type/reverse_link_phrase:857
 msgid "music video for"
-msgstr ""
+msgstr "muzikinis vaizdo įrašas, skirtas"
 
 #: DB:link_type/link_phrase:857
 msgid "music videos"
-msgstr ""
+msgstr "muzikiniai vaizdo įrašai"
 
 #: DB:link_type/name:1046
 msgid "musical quotation"
-msgstr ""
+msgstr "muzikinė citata"
 
 #: DB:link_type/link_phrase:106 DB:link_type/reverse_link_phrase:106
 #: DB:link_type/long_link_phrase:106
 msgid "musical relationship"
-msgstr ""
+msgstr "muzikinis santykis"
 
 #: DB:link_type/name:106
 msgid "musical relationships"
-msgstr ""
+msgstr "muzikiniai santykiai"
 
 #: DB:link_attribute_type/name:1221
 msgid "musical theatre"
-msgstr ""
+msgstr "muzikinis teatras"
 
 #: DB:link_attribute_type/name:1141
 msgid "musicology"
-msgstr ""
+msgstr "muzikologija"
 
 #: DB:link_type/name:215 DB:link_type/name:462 DB:link_type/name:189
 msgid "myspace"
-msgstr ""
+msgstr "myspace"
 
 #: DB:link_type/link_phrase:973 DB:link_type/link_phrase:972
 #: DB:link_type/link_phrase:974 DB:link_type/name:973 DB:link_type/name:972
 #: DB:link_type/name:975 DB:link_type/name:974 DB:link_type/name:1000
 #: DB:link_type/reverse_link_phrase:975 DB:link_type/reverse_link_phrase:1000
 msgid "named after"
-msgstr ""
+msgstr "pavadintas pagal"
 
 #: DB:link_type/link_phrase:935 DB:link_type/name:935
 #: DB:link_type/reverse_link_phrase:935 DB:link_type/long_link_phrase:935
 msgid "non-performing relationships"
-msgstr ""
+msgstr "neatliekančios santykiai"
 
 #: DB:link_attribute_type/name:788 DB:link_attribute_type/name:1032
 msgid "number"
-msgstr ""
+msgstr "numeris"
 
 #: DB:link_type/name:745 DB:link_type/name:782 DB:link_type/name:183
 #: DB:link_type/name:363 DB:link_type/name:287
 msgid "official homepage"
-msgstr ""
+msgstr "oficialus pagrindinis puslapis"
 
 #: DB:link_type/reverse_link_phrase:745 DB:link_type/reverse_link_phrase:782
 #: DB:link_type/reverse_link_phrase:183 DB:link_type/reverse_link_phrase:219
 #: DB:link_type/reverse_link_phrase:363
 msgid "official homepage for"
-msgstr ""
+msgstr "oficialus pagrindinis puslapis, skirtas"
 
 #: DB:link_type/link_phrase:745 DB:link_type/link_phrase:782
 #: DB:link_type/link_phrase:183 DB:link_type/link_phrase:219
 #: DB:link_type/link_phrase:363
 msgid "official homepages"
-msgstr ""
+msgstr "oficialūs pagrindiniai puslapiai"
 
 #: DB:link_type/name:219
 msgid "official site"
-msgstr ""
+msgstr "oficiali svetainė"
 
 #: DB:link_type/link_phrase:185
 msgid "online communities"
-msgstr ""
+msgstr "interneto bendruomenės"
 
 #: DB:link_type/name:185
 msgid "online community"
-msgstr ""
+msgstr "internetinė bendruomenė"
 
 #: DB:link_type/reverse_link_phrase:185
 msgid "online community page for"
-msgstr ""
+msgstr "internetinis bendruomenės puslapis, skirtas"
 
 #: DB:link_type/link_phrase:841 DB:link_type/link_phrase:221
 #: DB:link_type/link_phrase:660 DB:link_type/name:841 DB:link_type/name:221
@@ -6084,19 +6223,19 @@ msgstr ""
 #: DB:link_type/long_link_phrase:841 DB:link_type/long_link_phrase:221
 #: DB:link_type/long_link_phrase:660
 msgid "online data"
-msgstr ""
+msgstr "internetiniai duomenys"
 
 #: DB:link_attribute_type/name:1220
 msgid "opera"
-msgstr ""
+msgstr "opera"
 
 #: DB:link_attribute_type/name:1053
 msgid "optional"
-msgstr ""
+msgstr "pasirinktinai"
 
 #: DB:link_type/name:807
 msgid "orchestra"
-msgstr ""
+msgstr "orkestras"
 
 #: DB:link_type/link_phrase:807
 msgid "orchestra at"
@@ -6104,15 +6243,15 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:150 DB:link_type/long_link_phrase:45
 msgid "orchestra {additional:additionally} performed"
-msgstr ""
+msgstr "orkestras {additional:papildomai} atliko"
 
 #: DB:link_type/reverse_link_phrase:807
 msgid "orchestras"
-msgstr ""
+msgstr "orkestrai"
 
 #: DB:link_type/name:316
 msgid "orchestration"
-msgstr ""
+msgstr "orkestravimas"
 
 #: DB:link_type/reverse_link_phrase:316
 msgid "orchestration of"
@@ -6140,7 +6279,7 @@ msgstr ""
 
 #: DB:link_attribute_type/name:1225 DB:link_attribute_type/name:1128
 msgid "other"
-msgstr ""
+msgstr "kiti"
 
 #: DB:link_type/link_phrase:1086 DB:link_type/link_phrase:753
 #: DB:link_type/link_phrase:730 DB:link_type/link_phrase:82
@@ -6159,37 +6298,37 @@ msgstr ""
 #: DB:link_type/reverse_link_phrase:561 DB:link_type/reverse_link_phrase:746
 #: DB:link_type/reverse_link_phrase:96 DB:link_type/reverse_link_phrase:803
 msgid "other databases"
-msgstr ""
+msgstr "kitos duomenų bazės"
 
 #: DB:link_type/name:241
 msgid "other version"
-msgstr ""
+msgstr "kita versija"
 
 #: DB:link_type/link_phrase:233 DB:link_type/name:233
 #: DB:link_type/reverse_link_phrase:233 DB:link_type/long_link_phrase:233
 msgid "other versions"
-msgstr ""
+msgstr "kitos versijos"
 
 #: DB:link_attribute_type/name:461
 msgid "other vocals"
-msgstr ""
+msgstr "kiti vokalai"
 
 #: DB:link_type/name:988 DB:link_type/name:989 DB:link_type/name:991
 #: DB:link_type/reverse_link_phrase:988 DB:link_type/reverse_link_phrase:989
 #: DB:link_type/reverse_link_phrase:991
 msgid "owner"
-msgstr ""
+msgstr "savininkas (-ė)"
 
 #: DB:link_type/link_phrase:990 DB:link_type/name:990
 #: DB:link_type/reverse_link_phrase:990 DB:link_type/long_link_phrase:990
 msgid "ownership"
-msgstr ""
+msgstr "nuosavybė"
 
 #: DB:link_type/link_phrase:988 DB:link_type/link_phrase:989
 #: DB:link_type/link_phrase:991 DB:link_type/long_link_phrase:988
 #: DB:link_type/long_link_phrase:989 DB:link_type/long_link_phrase:991
 msgid "owns"
-msgstr ""
+msgstr "priklauso"
 
 #: DB:link_type/name:109
 msgid "parent"
@@ -6236,42 +6375,42 @@ msgstr ""
 #: DB:link_type/name:901 DB:link_type/name:900 DB:link_type/name:898
 #: DB:link_type/name:899 DB:link_type/name:897
 msgid "patronage"
-msgstr ""
+msgstr "mecenatystė"
 
 #: DB:link_type/link_phrase:901 DB:link_type/link_phrase:900
 #: DB:link_type/link_phrase:898 DB:link_type/link_phrase:899
 #: DB:link_type/link_phrase:897
 msgid "patronage page"
-msgstr ""
+msgstr "mecenavimo puslapis"
 
 #: DB:link_type/reverse_link_phrase:901 DB:link_type/reverse_link_phrase:900
 #: DB:link_type/reverse_link_phrase:898 DB:link_type/reverse_link_phrase:899
 #: DB:link_type/reverse_link_phrase:897
 msgid "patronage page for"
-msgstr ""
+msgstr "mecenavimo puslapis, skirtas"
 
 #: DB:link_type/link_phrase:34 DB:link_type/link_phrase:122
 #: DB:link_type/name:34 DB:link_type/name:122 DB:link_type/name:278
 #: DB:link_type/reverse_link_phrase:34 DB:link_type/reverse_link_phrase:122
 #: DB:link_type/long_link_phrase:34 DB:link_type/long_link_phrase:122
 msgid "performance"
-msgstr ""
+msgstr "atlikimas"
 
 #: DB:link_type/reverse_link_phrase:108
 msgid "performance name of"
-msgstr ""
+msgstr "atlikimo pavadinimas"
 
 #: DB:link_type/link_phrase:887 DB:link_type/name:887
 msgid "performance of"
-msgstr ""
+msgstr "atlikimas"
 
 #: DB:link_type/reverse_link_phrase:887
 msgid "performed at"
-msgstr ""
+msgstr "atlikta"
 
 #: DB:link_type/long_link_phrase:292
 msgid "performed the voice of"
-msgstr ""
+msgstr "atliko balsą"
 
 #: DB:link_type/long_link_phrase:152 DB:link_type/long_link_phrase:53
 msgid "performed {additional} {assistant} chorus master on"
@@ -6321,50 +6460,50 @@ msgstr ""
 #: DB:link_type/name:867 DB:link_type/name:711 DB:link_type/name:710
 #: DB:link_type/name:869
 msgid "phonographic copyright"
-msgstr ""
+msgstr "fonografijos autorių teisės"
 
 #: DB:link_type/reverse_link_phrase:867 DB:link_type/reverse_link_phrase:711
 #: DB:link_type/reverse_link_phrase:710 DB:link_type/reverse_link_phrase:869
 msgid "phonographic copyright (℗) by"
-msgstr ""
+msgstr "fonografines autorių teises (℗)"
 
 #: DB:link_type/name:123 DB:link_type/name:1175 DB:link_type/name:20
 msgid "photography"
-msgstr ""
+msgstr "fotografija"
 
 #: DB:link_type/link_phrase:173 DB:link_type/link_phrase:396
 #: DB:link_type/link_phrase:732
 msgid "picture"
-msgstr ""
+msgstr "nuotrauka"
 
 #: DB:link_type/reverse_link_phrase:173 DB:link_type/reverse_link_phrase:396
 #: DB:link_type/reverse_link_phrase:732
 msgid "picture of"
-msgstr ""
+msgstr "nuotrauka"
 
 #: DB:link_type/link_phrase:915 DB:link_type/name:915
 msgid "podcast feed"
-msgstr ""
+msgstr "tinklalaidės kanalas"
 
 #: DB:link_type/reverse_link_phrase:915
 msgid "podcast feed for"
-msgstr ""
+msgstr "tinklalaidės kanalas, skirtas"
 
 #: DB:link_attribute_type/name:1200
 msgid "popular / rock music"
-msgstr ""
+msgstr "populiarioji / roko muzika"
 
 #: DB:link_type/link_phrase:808 DB:link_type/name:808
 msgid "poster"
-msgstr ""
+msgstr "plakatas"
 
 #: DB:link_type/reverse_link_phrase:808
 msgid "poster for"
-msgstr ""
+msgstr "plakatas, skirtas"
 
 #: DB:link_attribute_type/name:1219
 msgid "postgraduate"
-msgstr ""
+msgstr "antrosios pakopos studijos"
 
 #: DB:link_attribute_type/name:1353
 msgid "pre"
@@ -6373,35 +6512,35 @@ msgstr ""
 #: DB:link_type/name:845 DB:link_type/name:716 DB:link_type/name:715
 #: DB:link_type/name:956
 msgid "premiere"
-msgstr ""
+msgstr "premjera"
 
 #: DB:link_type/reverse_link_phrase:845 DB:link_type/reverse_link_phrase:716
 msgid "premiered at"
-msgstr ""
+msgstr "premjeruota"
 
 #: DB:link_type/reverse_link_phrase:956
 msgid "premiered by"
-msgstr ""
+msgstr "premjera atliko"
 
 #: DB:link_type/reverse_link_phrase:715
 msgid "premiered in"
-msgstr ""
+msgstr "premjeruotas"
 
 #: DB:link_type/link_phrase:845
 msgid "premieres"
-msgstr ""
+msgstr "premjeros"
 
 #: DB:link_type/link_phrase:716 DB:link_type/link_phrase:715
 msgid "premieres hosted"
-msgstr ""
+msgstr "premjeros surengtos"
 
 #: DB:link_type/name:1168 DB:link_type/reverse_link_phrase:1168
 msgid "presented"
-msgstr ""
+msgstr "pristatyta"
 
 #: DB:link_type/link_phrase:1168
 msgid "presented by"
-msgstr ""
+msgstr "pristatė"
 
 #: DB:link_type/link_phrase:942 DB:link_type/name:942
 #: DB:link_type/long_link_phrase:942
@@ -6526,9 +6665,8 @@ msgid "provided legal representation for"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:137 DB:link_type/long_link_phrase:1174
-#: DB:link_type/long_link_phrase:18
 msgid "provided {additional} art direction on"
-msgstr ""
+msgstr "pateikė {additional:papildomą} meno vadovavimą"
 
 #: DB:link_type/long_link_phrase:993 DB:link_type/long_link_phrase:1170
 msgid "provided {additional} artwork on"
@@ -6538,7 +6676,7 @@ msgstr ""
 msgid "provided {additional} creative direction on"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:928 DB:link_type/long_link_phrase:1171
+#: DB:link_type/long_link_phrase:1171
 msgid "provided {additional} design on"
 msgstr ""
 
@@ -6557,6 +6695,14 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:22
 msgid "provided {additional} legal representation for"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:18
+msgid "provided {additional} {assistant} art direction on"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:928
+msgid "provided {additional} {assistant} design on"
 msgstr ""
 
 #: DB:link_type/link_phrase:206 DB:link_type/link_phrase:127
@@ -7005,22 +7151,22 @@ msgstr ""
 msgid "stream for free"
 msgstr ""
 
-#: DB:link_type/link_phrase:85 DB:link_type/link_phrase:268
+#: DB:link_type/link_phrase:268 DB:link_type/link_phrase:85
 msgid "stream {video} for free"
 msgstr ""
 
-#: DB:link_type/name:978 DB:link_type/name:979 DB:link_type/name:980
-#: DB:link_type/name:1005
+#: DB:link_type/name:978 DB:link_type/name:980 DB:link_type/name:1005
+#: DB:link_type/name:979
 msgid "streaming"
 msgstr ""
 
-#: DB:link_type/link_phrase:978 DB:link_type/link_phrase:979
-#: DB:link_type/link_phrase:980 DB:link_type/link_phrase:1005
+#: DB:link_type/link_phrase:978 DB:link_type/link_phrase:980
+#: DB:link_type/link_phrase:1005 DB:link_type/link_phrase:979
 msgid "streaming page"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:978 DB:link_type/reverse_link_phrase:979
-#: DB:link_type/reverse_link_phrase:980 DB:link_type/reverse_link_phrase:1005
+#: DB:link_type/reverse_link_phrase:978 DB:link_type/reverse_link_phrase:980
+#: DB:link_type/reverse_link_phrase:1005 DB:link_type/reverse_link_phrase:979
 msgid "streaming page for"
 msgstr ""
 
@@ -7789,10 +7935,9 @@ msgid "{additional} arranging location for"
 msgstr ""
 
 #: DB:link_type/link_phrase:137 DB:link_type/link_phrase:1174
-#: DB:link_type/link_phrase:18 DB:link_type/reverse_link_phrase:137
-#: DB:link_type/reverse_link_phrase:1174 DB:link_type/reverse_link_phrase:18
+#: DB:link_type/reverse_link_phrase:137 DB:link_type/reverse_link_phrase:1174
 msgid "{additional} art direction"
-msgstr ""
+msgstr "{additional:papildomas} meno vadovavimas"
 
 #: DB:link_type/link_phrase:993 DB:link_type/link_phrase:1170
 #: DB:link_type/reverse_link_phrase:993 DB:link_type/reverse_link_phrase:1170
@@ -7812,8 +7957,7 @@ msgstr ""
 msgid "{additional} creative direction"
 msgstr ""
 
-#: DB:link_type/link_phrase:928 DB:link_type/link_phrase:1171
-#: DB:link_type/reverse_link_phrase:928 DB:link_type/reverse_link_phrase:1171
+#: DB:link_type/link_phrase:1171 DB:link_type/reverse_link_phrase:1171
 msgid "{additional} design"
 msgstr ""
 
@@ -7951,6 +8095,10 @@ msgstr ""
 msgid "{additional} writing location for"
 msgstr ""
 
+#: DB:link_type/link_phrase:18 DB:link_type/reverse_link_phrase:18
+msgid "{additional} {assistant} art direction"
+msgstr ""
+
 #: DB:link_type/link_phrase:152 DB:link_type/link_phrase:53
 #: DB:link_type/reverse_link_phrase:152 DB:link_type/reverse_link_phrase:53
 msgid "{additional} {assistant} chorus master"
@@ -7958,6 +8106,10 @@ msgstr ""
 
 #: DB:link_type/reverse_link_phrase:46 DB:link_type/reverse_link_phrase:151
 msgid "{additional} {assistant} conductor"
+msgstr ""
+
+#: DB:link_type/link_phrase:928 DB:link_type/reverse_link_phrase:928
+msgid "{additional} {assistant} design"
 msgstr ""
 
 #: DB:link_type/reverse_link_phrase:153 DB:link_type/reverse_link_phrase:47
@@ -8551,7 +8703,7 @@ msgstr ""
 msgid "{translator:translated|wrote} {additional} liner notes for"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:85 DB:link_type/long_link_phrase:268
+#: DB:link_type/long_link_phrase:268 DB:link_type/long_link_phrase:85
 msgid "{video} can be streamed for free at"
 msgstr ""
 
@@ -8562,3 +8714,45 @@ msgstr ""
 #: DB:link_type/link_phrase:107
 msgid "{vocal:%|vocals} support for"
 msgstr ""
+
+#~ msgid ""
+#~ "A social network page is an artist's own profile page on a <a "
+#~ "href=\"https://en.wikipedia.org/wiki/Social_networking_service\" "
+#~ "target=\"_blank\">social network</a> which only they (or their "
+#~ "management) can post content to. Other people can create their own "
+#~ "profiles and interact with the artist, e.g. by adding them as a friend or "
+#~ "by commenting on the things that they post. Examples include Facebook "
+#~ "pages and profiles, Last.fm users and accounts on Twitter, Instagram and "
+#~ "Flickr."
+#~ msgstr ""
+#~ "Socialinio tinklo puslapis – tai atlikėjo profilio puslapis <a "
+#~ "href=\"https://en.wikipedia.org/wiki/Social_networking_service\" "
+#~ "target=\"_blank\">socialiniame tinkle</a>, kuriame turinį gali skelbti "
+#~ "tik jie (arba jų valdyba). Kiti žmonės gali susikurti savo profilius ir "
+#~ "bendrauti su atlikėju, pvz., pridėti juos į draugus arba komentuoti "
+#~ "dalykus, kuriuos jie skelbia. Pavyzdžiui – Facebook puslapiai ir "
+#~ "profiliai, Last.fm naudotojai ir Twitter, Instagram, Flickr paskyros."
+
+#~ msgid "Indicates a webpage that reviews the release (group) in question."
+#~ msgstr "Nurodo tinklalapį, kuris apžvelgia atitinkamą leidinį (grupę)."
+
+#~ msgid ""
+#~ "Indicates the composer for this release, i.e. the artist who wrote the "
+#~ "music (not necessarily the lyrics)."
+#~ msgstr ""
+#~ "Nurodo šio leidinio kompozitorių (-ę), t. y. atlikėją, kuris (-i) parašė "
+#~ "muziką (nebūtinai dainų žodžius)."
+
+#~ msgid ""
+#~ "Indicates the composer for this work, i.e. the artist who wrote the music "
+#~ "(not necessarily the lyrics)."
+#~ msgstr ""
+#~ "Nurodo šio kūrinio kompozitorių (-ę), t. y. atlikėją, kuris (-i) parašė "
+#~ "muziką (nebūtinai dainų žodžius)."
+
+#~ msgid ""
+#~ "This attribute indicates a member the band is named after and without "
+#~ "which it wouldn't exist (e.g. Miles Davis -&gt; Miles Davis Sextet)"
+#~ msgstr ""
+#~ "Šis požymis nurodo narį, kurio vardu pavadinta grupė ir be kurio ji "
+#~ "neegzistuotų (pvz., Miles Davis -&gt; Miles Davis Sextet)"

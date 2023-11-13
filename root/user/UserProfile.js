@@ -186,7 +186,7 @@ const UserProfileInformation = ({
       <h2>{l('General Information')}</h2>
 
       <table className="profileinfo" role="presentation">
-        <UserProfileProperty name={l('Email:')}>
+        <UserProfileProperty name={addColonText(l('Email'))}>
           {user.has_email_address ? (
             <>
               {viewingOwnProfile ? email : l('(hidden)')}
@@ -265,31 +265,33 @@ const UserProfileInformation = ({
         ) : null}
 
         {gender ? (
-          <UserProfileProperty name={l('Gender:')}>
+          <UserProfileProperty name={addColonText(l('Gender'))}>
             {lp_attributes(gender.name, 'gender')}
           </UserProfileProperty>
         ) : null}
 
         {area ? (
-          <UserProfileProperty name={l('Location:')}>
+          <UserProfileProperty
+            name={addColonText(lp('Location', 'user area'))}
+          >
             <DescriptiveLink entity={area} />
           </UserProfileProperty>
         ) : null}
 
-        <UserProfileProperty name={l('Member since:')}>
+        <UserProfileProperty name={addColonText(l('Member since'))}>
           {memberSince}
         </UserProfileProperty>
 
         {/* Only relevant to logged in users, avoid more public shame */}
         {viewingUser && restrictions.length ? (
-          <UserProfileProperty name={l(addColonText('Restrictions'))}>
+          <UserProfileProperty name={addColonText(l('Restrictions'))}>
             {commaOnlyListText(restrictions)}
           </UserProfileProperty>
         ) : null}
 
         {(viewingOwnProfile || isAccountAdmin(viewingUser)) ? (
           <>
-            <UserProfileProperty name={l('Last login:')}>
+            <UserProfileProperty name={addColonText(l('Last login'))}>
               {nonEmpty(user.last_login_date)
                 ? formatUserDate($c, user.last_login_date)
                 : l("Hasn't logged in yet")}
@@ -348,7 +350,7 @@ const UserProfileInformation = ({
         ) : null}
 
         {user.deleted ? null : (
-          <UserProfileProperty name={l('Subscribers:')}>
+          <UserProfileProperty name={addColonText(l('Subscribers'))}>
             {subscriberCount ? (
               exp.l(
                 '{count} ({url|view list})',
@@ -390,7 +392,10 @@ const UserProfileInformation = ({
         )}
 
         {nonEmpty(biography) ? (
-          <UserProfileProperty className="biography" name={l('Bio:')}>
+          <UserProfileProperty
+            className="biography"
+            name={addColonText(l('Bio'))}
+          >
             {showBioAndURL ? (
               expand2react(biography)
             ) : (
@@ -406,7 +411,7 @@ const UserProfileInformation = ({
         ) : null}
 
         {languages?.length ? (
-          <UserProfileProperty name={l('Languages:')}>
+          <UserProfileProperty name={addColonText(l('Languages'))}>
             <ul className="inline">
               {languages.map(language => (
                 <li key={language.language.id}>
@@ -639,7 +644,7 @@ const UserProfileStatistics = ({
             ) : formatCount($c, editStats.failed_count)}
           </UserProfileProperty>
 
-          <UserProfileProperty name={l('Cancelled')}>
+          <UserProfileProperty name={lp('Cancelled', 'edit')}>
             {$c.user ? exp.l(
               '{count} ({view_url|view})',
               {
@@ -779,7 +784,7 @@ const UserProfileStatistics = ({
           ) : (
             <tr>
               <td>
-                {l('This user has not created any entities.')}
+                {l('This user has not added any entities.')}
               </td>
             </tr>
           )}
@@ -807,7 +812,7 @@ const UserProfileStatistics = ({
                     <abbr
                       title={l('Tags are removed when an editor is deleted.')}
                     >
-                      {lp('Deleted', 'tags')}
+                      {lp('Removed', 'tags')}
                     </abbr>
                   ) : $c.user && upvotedTagCount > 0 ? exp.l(
                     '{count} ({view_url|view})',
@@ -823,7 +828,7 @@ const UserProfileStatistics = ({
                     <abbr
                       title={l('Tags are removed when an editor is deleted.')}
                     >
-                      {lp('Deleted', 'tags')}
+                      {lp('Removed', 'tags')}
                     </abbr>
                   ) : $c.user && downvotedTagCount > 0 ? exp.l(
                     '{count} ({view_url|view})',
@@ -843,7 +848,7 @@ const UserProfileStatistics = ({
                       l('Ratings are removed when an editor is deleted.')
                     }
                   >
-                    {lp('Deleted', 'ratings')}
+                    {lp('Removed', 'ratings')}
                   </abbr>
 
                 ) : $c.user && ratingCount > 0 ? exp.l(

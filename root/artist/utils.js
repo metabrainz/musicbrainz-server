@@ -31,7 +31,7 @@ export function artistBeginLabel(typeId: ?number): string {
     case 4:
       return addColonText(lp('Created', 'character artist'));
     default:
-      return l('Begin date:');
+      return addColonText(l('Begin date'));
   }
 }
 
@@ -62,6 +62,6 @@ export function artistEndLabel(
         ? addColonText(lp('Dissolving', 'group artist'))
         : addColonText(lp('Dissolved', 'group artist'));
     default:
-      return l('End date:');
+      return addColonText(l('End date'));
   }
 }

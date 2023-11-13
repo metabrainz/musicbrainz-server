@@ -18,20 +18,21 @@
 # Tobias Quathamer <email address hidden>, 2007
 # t0n3t <email address hidden>, 2012
 # Philipp Wolfer <ph.wolfer@gmail.com>, 2023.
+# "joysriram.sarkar.56" <joysriram.sarkar.56@gmail.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-08-24 14:27+0000\n"
-"Last-Translator: Philipp Wolfer <ph.wolfer@gmail.com>\n"
+"PO-Revision-Date: 2023-10-10 13:27+0000\n"
+"Last-Translator: \"joysriram.sarkar.56\" <joysriram.sarkar.56@gmail.com>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
 "musicbrainz/languages/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
-" ? 1 : 2);\n"
-"X-Generator: Weblate 4.18.2\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
+"0) ? 1 : 2);\n"
+"X-Generator: Weblate 5.0.2\n"
 
 #. frequency:1 iso_code_3:abk 
 #: DB:language/name:2
@@ -156,7 +157,7 @@ msgstr "Arawak"
 #. frequency:1 iso_code_3:pka 
 #: DB:language/name:5403
 msgid "Ardhamāgadhī Prākrit"
-msgstr ""
+msgstr "Ardhamāgadhī Prākrit"
 
 #. frequency:1 iso_code_3:hye 
 #: DB:language/name:21
@@ -226,7 +227,7 @@ msgstr "Azerí"
 #. frequency:1 iso_code_3:bvd 
 #: DB:language/name:1470
 msgid "Baeggu"
-msgstr ""
+msgstr "Baeggu"
 
 #. frequency:1 iso_code_3:ban 
 #: DB:language/name:40
@@ -371,7 +372,7 @@ msgstr "Bretón"
 #. frequency:1 iso_code_3:box 
 #: DB:language/name:1322
 msgid "Buamu"
-msgstr ""
+msgstr "Buamu"
 
 #. frequency:1 iso_code_3:bug 
 #: DB:language/name:61
@@ -396,7 +397,7 @@ msgstr "Birmano"
 #. frequency:1 iso_code_3:bsk 
 #: DB:language/name:1406
 msgid "Burushaski"
-msgstr ""
+msgstr "Burushaski"
 
 #. frequency:1 iso_code_3:cad 
 #: DB:language/name:65
@@ -941,7 +942,7 @@ msgstr "Groningen"
 #. frequency:1 iso_code_3:gcf 
 #: DB:language/name:2386
 msgid "Guadeloupean Creole French"
-msgstr ""
+msgstr "Francés criollo guadalupeño"
 
 #. frequency:1 iso_code_3:grn 
 #: DB:language/name:160
@@ -1466,7 +1467,7 @@ msgstr "Lojban"
 #. frequency:1 iso_code_3:lou 
 #: DB:language/name:3958
 msgid "Louisiana Creole French"
-msgstr ""
+msgstr "Criollo francés de Luisiana"
 
 #. frequency:1 iso_code_3:loz 
 #: DB:language/name:245
@@ -2141,7 +2142,7 @@ msgstr "Gaélico escocés"
 #. frequency:1 iso_code_3:gul 
 #: DB:language/name:2586
 msgid "Sea Island Creole English"
-msgstr ""
+msgstr "Inglés criollo de Sea Island"
 
 #. frequency:1 iso_code_3:sel 
 #: DB:language/name:367
@@ -2771,7 +2772,7 @@ msgstr "[Varios idiomas]"
 #. frequency:1 iso_code_3:zxx 
 #: DB:language/name:486
 msgid "[No linguistic content]"
-msgstr ""
+msgstr "[Sin contenido lingüístico]"
 
 #~ msgid "No linguistic content"
 #~ msgstr "Sin contenido lingüístico"

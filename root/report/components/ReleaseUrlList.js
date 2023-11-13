@@ -41,7 +41,7 @@ const ReleaseUrlList = ({
         <tbody>
           {items.map((item, index) => {
             if (!item.url) {
-              return <RemovedUrlRow colSpan="3" index={index} />;
+              return <RemovedUrlRow colSpan="3" index={index} key={index} />;
             }
 
             lastGID = currentGID;

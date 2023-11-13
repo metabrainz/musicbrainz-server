@@ -122,7 +122,7 @@ const Relationships = ({
               <th />
             </tr>
             <tr>
-              <th>{l('Relationships:')}</th>
+              <th>{addColonText(l('Relationships'))}</th>
               <td />
               <td>
                 {formatCount($c, stats['count.ar.links'])}

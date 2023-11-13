@@ -119,7 +119,7 @@ const ReleaseEventsDiff = ({
 
   return (
     <tr className="release-events-diff">
-      <th>{l('Release events:')}</th>
+      <th>{addColonText(l('Release events'))}</th>
       <td className="old">
         <ul>
           {React.createElement(React.Fragment, null, ...oldSide)}

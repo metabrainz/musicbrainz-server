@@ -14,7 +14,7 @@ import type {TagLookupResultsPropsT} from './types.js';
 
 const TagLookupReleaseResults = (
   props: TagLookupResultsPropsT<ReleaseT>,
-): React$Element<typeof TagLookupResults> => (
+): React$MixedElement => (
   <TagLookupResults {...props}>
     <ReleaseResultsInline
       pager={props.pager}

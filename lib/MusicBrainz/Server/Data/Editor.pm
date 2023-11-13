@@ -182,7 +182,12 @@ around '_get_by_keys' => sub {
 sub find_by_email
 {
     my ($self, $email) = @_;
-    return $self->_get_by_keys('email', $email);
+
+    my $query = 'SELECT ' . $self->_columns .
+                ' FROM ' . $self->_table .
+                ' WHERE lower(email) = lower(?)';
+
+    $self->query_to_list($query, [$email]);
 }
 
 sub find_by_ip {

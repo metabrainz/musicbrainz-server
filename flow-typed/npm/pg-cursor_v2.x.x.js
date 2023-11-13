@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-/* eslint-disable flowtype/sort-keys */
+/* eslint-disable ft-flow/sort-keys */
 
 declare module 'pg-cursor' {
   import type {Connection, PgResultSet, Submittable} from 'pg';

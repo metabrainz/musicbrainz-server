@@ -48,7 +48,7 @@ export type StringEditDiff = {
   +type: EditType,
 };
 
-function getChangeType<+T>(diff: GenericEditDiff<T>): EditType {
+function getChangeType<T>(diff: GenericEditDiff<T>): EditType {
   if (!diff.added && !diff.removed) {
     return EQUAL;
   }

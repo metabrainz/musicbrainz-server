@@ -174,7 +174,7 @@ const EditUser = ({
         <FormRowTextArea
           cols={80}
           field={form.field.biography}
-          label={l('Bio:')}
+          label={addColonText(l('Bio'))}
           rows={5}
         />
 

@@ -1,6 +1,7 @@
 package t::MusicBrainz::Server::Data::Editor;
 use strict;
 use warnings;
+use utf8;
 
 use Test::Fatal;
 use Test::Routine;
@@ -82,142 +83,295 @@ test 'Remember me tokens' => sub {
        'Allocating tokens for unknown users returns undefined');
 };
 
-test all => sub {
+test 'Creating a new editor' => sub {
+    my $test = shift;
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+editor');
+    my $editor_data = MusicBrainz::Server::Data::Editor->new(c => $test->c);
 
-my $test = shift;
+    note('We create a new editor with just name / password');
+    my $new_editor_2 = $editor_data->insert({
+        name => 'new_editor_2',
+        password => 'password',
+    });
+    is(
+        $new_editor_2->name,
+        'new_editor_2',
+        'The new editor has the expected name',
+    );
+    ok(
+        $new_editor_2->match_password('password'),
+        'The new editor has the expected password',
+    );
+    is(
+        $editor_data->various_edit_counts($new_editor_2->id)->{accepted_count},
+        0,
+        'The new editor has no accepted edits',
+    );
 
-MusicBrainz::Server::Test->prepare_test_database($test->c, '+editor');
+    my $editor = $editor_data->get_by_id($new_editor_2->id);
+    is($editor->email, undef, 'The new editor has no stored email');
+    is(
+        $editor->email_confirmation_date,
+        undef,
+        'The new editor has no email confirmation date',
+    );
+    is(
+        $editor->ha1,
+        md5_hex(join(':', $editor->name, 'musicbrainz.org', 'password')),
+        'The ha1 for the new editor was generated correctly',
+    );
 
-my $editor_data = MusicBrainz::Server::Data::Editor->new(c => $test->c);
+    my $now = DateTime::Format::Pg->parse_datetime(
+        $test->c->sql->select_single_value('SELECT now()'));
+    note('We set an email for the new editor with update_email');
+    $editor_data->update_email($new_editor_2, 'editor@example.com');
 
-my $editor = $editor_data->get_by_id(1);
-ok(defined $editor, 'no editor returned');
-isa_ok($editor, 'MusicBrainz::Server::Entity::Editor', 'not a editor');
-is($editor->id, 1, 'id');
-is($editor->name, 'new_editor', 'name');
-ok($editor->match_password('password'));
-is($editor->privileges, 1+8+32+512, 'privileges');
-my $edit_counts = $editor_data->various_edit_counts($editor->id);
-is($edit_counts->{accepted_count}, 0, 'accepted edits');
-is($edit_counts->{rejected_count}, 0, 'rejected edits');
-is($edit_counts->{failed_count}, 0, 'failed edits');
-is($edit_counts->{accepted_auto_count}, 0, 'auto edits');
+    $editor = $editor_data->get_by_id($new_editor_2->id);
+    is(
+        $editor->email,
+        'editor@example.com',
+        'The new editor has the correct e-mail address',
+    );
+    ok(
+        $now <= $editor->email_confirmation_date,
+        'The email confirmation date was updated correctly',
+    );
 
-is_deeply($editor->last_login_date, DateTime->new(year => 2013, month => 4, day => 5),
-    'last login date');
+    note('We set a new password for the new editor with update_password');
+    $editor_data->update_password($new_editor_2->name, 'password2');
 
-is_deeply($editor->email_confirmation_date, DateTime->new(year => 2005, month => 10, day => 20),
-    'email confirm');
-
-is_deeply($editor->registration_date, DateTime->new(year => 1989, month => 7, day => 23),
-    'registration date');
-
-
-my $editor2 = $editor_data->get_by_name('new_editor');
-is_deeply($editor, $editor2);
-
-
-$editor2 = $editor_data->get_by_name('nEw_EdItOr');
-is_deeply($editor, $editor2, 'fetching by name is case insensitive');
-
-$test->c->sql->do(<<~"SQL", $editor->id);
-    INSERT INTO edit (id, editor, type, status, expire_time, autoedit)
-        VALUES (1, \$1, 1, $STATUS_APPLIED, now(), 0),
-               (2, \$1, 1, $STATUS_APPLIED, now(), 1),
-               (3, \$1, 1, $STATUS_FAILEDVOTE, now(), 0),
-               (4, \$1, 1, $STATUS_FAILEDDEP, now(), 0);
-    INSERT INTO edit_data (edit, data)
-        SELECT x, '{}' FROM generate_series(1, 4) x;
-    SQL
-
-$editor = $editor_data->get_by_id($editor->id);
-$edit_counts = $editor_data->various_edit_counts($editor->id);
-is($edit_counts->{accepted_count}, 1, 'accepted edits');
-is($edit_counts->{rejected_count}, 1, 'rejected edits');
-is($edit_counts->{failed_count}, 1, 'failed edits');
-is($edit_counts->{accepted_auto_count}, 1, 'auto edits');
-
-my $alice = $editor_data->get_by_name('alice');
-# Test preferences
-$editor_data->load_preferences($alice);
-is($alice->preferences->public_ratings, 0, 'load preferences');
-is($alice->preferences->datetime_format, '%m/%d/%Y %H:%M:%S', 'datetime_format loaded');
-is($alice->preferences->timezone, 'UTC', 'timezone loaded');
-
-
-my $new_editor_2 = $editor_data->insert({
-    name => 'new_editor_2',
-    password => 'password',
-});
-ok($new_editor_2->id > $editor->id);
-is($new_editor_2->name, 'new_editor_2', 'new editor 2 has name new_editor_2');
-ok($new_editor_2->match_password('password'), 'new editor 2 has correct password');
-is($editor_data->various_edit_counts($new_editor_2->id)->{accepted_count}, 0, 'new editor 2 has no accepted edits');
-
-
-$editor = $editor_data->get_by_id($new_editor_2->id);
-is($editor->email, undef);
-is($editor->email_confirmation_date, undef);
-is($editor->ha1, md5_hex(join(':', $editor->name, 'musicbrainz.org', 'password')), 'ha1 was generated correctly');
-
-my $now = DateTime::Format::Pg->parse_datetime(
-    $test->c->sql->select_single_value('SELECT now()'));
-$editor_data->update_email($new_editor_2, 'editor@example.com');
-
-$editor = $editor_data->get_by_id($new_editor_2->id);
-is($editor->email, 'editor@example.com', 'editor has correct e-mail address');
-ok($now <= $editor->email_confirmation_date, 'email confirmation date updated correctly');
-is($new_editor_2->email_confirmation_date, $editor->email_confirmation_date);
-
-$editor_data->update_password($new_editor_2->name, 'password2');
-
-$editor = $editor_data->get_by_id($new_editor_2->id);
-ok($editor->match_password('password2'));
-
-my @editors = $editor_data->find_by_email('editor@example.com');
-is(scalar(@editors), 1);
-is($editors[0]->id, $new_editor_2->id);
-
-
-@editors = $editor_data->find_by_subscribed_editor(2, 10, 0);
-is($editors[1], 1, 'alice is subscribed to one person ...');
-is($editors[0][0]->id, 1, '          ... that person is new_editor');
-
-
-@editors = $editor_data->find_subscribers(1, 10, 0);
-is($editors[1], 1, 'new_editor has one subscriber ...');
-is($editors[0][0]->id, 2, '          ... that subscriber is alice');
-
-
-@editors = $editor_data->find_by_subscribed_editor(1, 10, 0);
-is($editors[1], 0, 'new_editor has not subscribed to anyone');
-
-@editors = $editor_data->find_subscribers(2, 10, 0);
-is($editors[1], 0, 'alice has no subscribers');
-
-subtest 'Find editors with subscriptions' => sub {
-    my @editors = $editor_data->editors_with_subscriptions(0, 1000);
-    is(@editors => 1, 'found 1 editor');
-    is($editors[0]->id => 2, 'is editor #2');
-
-    @editors = $editor_data->editors_with_subscriptions(1, 1000);
-    is(@editors => 1, 'found 1 editor');
-    is($editors[0]->id => 2, 'is editor #2');
-
-    @editors = $editor_data->editors_with_subscriptions(2, 1000);
-    is(@editors => 0, 'found no editor');
-
-    note('We mark editor #2 as a spammer (plus block edits and notes privs)');
-    $test->c->sql->do(<<~'SQL');
-        UPDATE editor
-           SET privs = 7168
-         WHERE id = 2
-        SQL
-
-    @editors = $editor_data->editors_with_subscriptions(0, 1000);
-    is(@editors => 0, 'now-spammer editor #2 is no longer returned');
+    $editor = $editor_data->get_by_id($new_editor_2->id);
+    ok(
+        $editor->match_password('password2'),
+        'The new editor has the expected new password',
+    );
 };
 
+test 'find_by_email and is_email_used_elsewhere' => sub {
+    my $test = shift;
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+editor');
+    my $editor_data = MusicBrainz::Server::Data::Editor->new(c => $test->c);
+
+    note('We create a new editor with just name / password');
+    my $new_editor_2 = $editor_data->insert({
+        name => 'new_editor_2',
+        password => 'password',
+    });
+    # For testing is_email_used_elsewhere
+    my $future_editor_id = $new_editor_2->id + 1;
+
+    note('We set an email for the new editor with update_email');
+    $editor_data->update_email($new_editor_2, 'editor@example.com');
+
+    note('We search for the new editor email with find_by_email');
+    my @editors = $editor_data->find_by_email('editor@example.com');
+    is(scalar(@editors), 1, 'An editor was found with the exact email');
+    is($editors[0]->id, $new_editor_2->id, 'The right editor was found');
+
+    @editors = $editor_data->find_by_email('EDITOR@EXAMPLE.COM');
+    is(scalar(@editors), 1, 'An editor was found searching with all caps');
+    is($editors[0]->id, $new_editor_2->id, 'The right editor was found');
+
+    note('We check is_email_used_elsewhere shows the email as being in use');
+    ok(
+        $editor_data->is_email_used_elsewhere(
+            'editor@example.com',
+            $future_editor_id,
+        ),
+        'The exact email is shown to be in use if another editor wants it',
+    );
+    ok(
+        $editor_data->is_email_used_elsewhere(
+            'EDITOR@EXAMPLE.COM',
+            $future_editor_id,
+        ),
+        'The email is shown to be in use even if searching with all caps',
+    );
+
+    note('We set an all caps email for the new editor with update_email');
+    $editor_data->update_email($new_editor_2, 'EDITOR@EXAMPLE.COM');
+
+    note('We search for the new editor email with find_by_email');
+    my @editors = $editor_data->find_by_email('EDITOR@EXAMPLE.COM');
+    is(scalar(@editors), 1, 'An editor was found with the exact email');
+    is($editors[0]->id, $new_editor_2->id, 'The right editor was found');
+
+    @editors = $editor_data->find_by_email('editor@example.com');
+    is(scalar(@editors), 1, 'An editor was found searching with normal caps');
+    is($editors[0]->id, $new_editor_2->id, 'The right editor was found');
+
+    note('We check is_email_used_elsewhere shows the email as being in use');
+    ok(
+        $editor_data->is_email_used_elsewhere(
+            'EDITOR@EXAMPLE.COM',
+            $future_editor_id,
+        ),
+        'The exact email is shown to be in use if another editor wants it',
+    );
+    ok(
+        $editor_data->is_email_used_elsewhere(
+            'editor@example.com',
+            $future_editor_id,
+        ),
+        'The email is shown to be in use even if searching with normal caps',
+    );
+};
+
+test 'Getting/loading existing editors' => sub {
+    my $test = shift;
+
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+editor');
+
+    my $editor_data = MusicBrainz::Server::Data::Editor->new(c => $test->c);
+
+    note('We get the editor with id 1 using get_by_id');
+    my $editor = $editor_data->get_by_id(1);
+    ok(defined $editor, 'An editor was returned');
+    isa_ok($editor, 'MusicBrainz::Server::Entity::Editor');
+    is($editor->id, 1, 'The editor has the expected id');
+    is($editor->name, 'new_editor', 'The editor has the expected name');
+    ok(
+        $editor->match_password('password'),
+        'The editor has the expected password',
+    );
+    is(
+        $editor->privileges,
+        1+8+32+512,
+        'The editor has the expected privileges',
+    );
+
+    is_deeply(
+        $editor->last_login_date,
+        DateTime->new(year => 2013, month => 4, day => 5),
+        'The editor has the expected last login date',
+    );
+
+    is_deeply(
+        $editor->email_confirmation_date,
+        DateTime->new(year => 2005, month => 10, day => 20),
+        'The editor has the expected email confirmation date',
+    );
+
+    is_deeply(
+        $editor->registration_date,
+        DateTime->new(year => 1989, month => 7, day => 23),
+        'The editor has the expected registration date',
+    );
+
+    my $editor2 = $editor_data->get_by_name('new_editor');
+    is_deeply(
+        $editor,
+        $editor2,
+        'Fetching the editor by name with get_by_name returns the same data',
+    );
+
+    $editor2 = $editor_data->get_by_name('nEw_EdItOr');
+    is_deeply(
+        $editor,
+        $editor2,
+        'Fetching the editor by name with get_by_name is case-insensitive',
+    );
+
+    note('We load editor "alice" and their preferences');
+    my $alice = $editor_data->get_by_name('alice');
+    $editor_data->load_preferences($alice);
+    is(
+        $alice->preferences->public_ratings,
+        0,
+        'The preference to make ratings private is loaded',
+    );
+    is(
+        $alice->preferences->datetime_format,
+        '%m/%d/%Y %H:%M:%S',
+        'The datetime_format preference is loaded');
+    is(
+        $alice->preferences->timezone,
+        'UTC',
+        'The preferred timezone is loaded',
+    );
+};
+
+test 'various_edit_counts' => sub {
+    my $test = shift;
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+editor');
+    my $editor_data = MusicBrainz::Server::Data::Editor->new(c => $test->c);
+
+    my $editor = $editor_data->get_by_id(1);
+    note('We load various_edit_counts for editor 1 (should be empty)');
+    my $edit_counts = $editor_data->various_edit_counts(1);
+    is($edit_counts->{accepted_count}, 0, 'There are no accepted edits');
+    is($edit_counts->{rejected_count}, 0, 'There are no rejected edits');
+    is($edit_counts->{failed_count}, 0, 'There are no failed edits');
+    is($edit_counts->{accepted_auto_count}, 0, 'There are no auto edits');
+
+    note('We insert a bunch of edits for editor 1');
+    $test->c->sql->do(<<~"SQL", $editor->id);
+        INSERT INTO edit (id, editor, type, status, expire_time, autoedit)
+            VALUES (1, \$1, 1, $STATUS_APPLIED, now(), 0),
+                (2, \$1, 1, $STATUS_APPLIED, now(), 1),
+                (3, \$1, 1, $STATUS_FAILEDVOTE, now(), 0),
+                (4, \$1, 1, $STATUS_FAILEDDEP, now(), 0);
+        INSERT INTO edit_data (edit, data)
+            SELECT x, '{}' FROM generate_series(1, 4) x;
+        SQL
+
+    $editor = $editor_data->get_by_id(1);
+    note('We load various_edit_counts for editor 1 again');
+    $edit_counts = $editor_data->various_edit_counts($editor->id);
+    is($edit_counts->{accepted_count}, 1, 'There is 1 accepted edit');
+    is($edit_counts->{rejected_count}, 1, 'There is 1 rejected edit');
+    is($edit_counts->{failed_count}, 1, 'There is 1 failed edit');
+    is($edit_counts->{accepted_auto_count}, 1, 'There is 1 auto edit');
+};
+
+test 'Editor subscription methods' => sub {
+    my $test = shift;
+
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+editor');
+
+    my $editor_data = MusicBrainz::Server::Data::Editor->new(c => $test->c);
+
+    subtest 'find_by_subscribed_editor' => sub {
+        my @editors = $editor_data->find_by_subscribed_editor(2, 10, 0);
+        is($editors[1], 1, 'alice is subscribed to one person ...');
+        is($editors[0][0]->id, 1, '          ... that person is new_editor');
+
+        @editors = $editor_data->find_by_subscribed_editor(1, 10, 0);
+        is($editors[1], 0, 'new_editor has not subscribed to anyone');
+    };
+
+    subtest 'find_subscribers' => sub {
+        my @editors = $editor_data->find_subscribers(1, 10, 0);
+        is($editors[1], 1, 'new_editor has one subscriber ...');
+        is($editors[0][0]->id, 2, '          ... that subscriber is alice');
+
+
+        @editors = $editor_data->find_subscribers(2, 10, 0);
+        is($editors[1], 0, 'alice has no subscribers');
+    };
+
+    subtest 'editors_with_subscriptions' => sub {
+        my @editors = $editor_data->editors_with_subscriptions(0, 1000);
+        is(@editors => 1, 'Found 1 editor searching with no offset');
+        is($editors[0]->id => 2, 'The editor is editor #2');
+
+        @editors = $editor_data->editors_with_subscriptions(1, 1000);
+        is(@editors => 1, 'Found 1 editor searching with offset 1');
+        is($editors[0]->id => 2, 'The editor is editor #2');
+
+        @editors = $editor_data->editors_with_subscriptions(2, 1000);
+        is(@editors => 0, 'Found no editors searching with offset 2');
+
+        note('We mark editor #2 as a spammer (+ block edit & notes privs)');
+        $test->c->sql->do(<<~'SQL');
+            UPDATE editor
+            SET privs = 7168
+            WHERE id = 2
+            SQL
+
+        @editors = $editor_data->editors_with_subscriptions(0, 1000);
+        is(@editors => 0, 'Found no editors since spammer is not returned');
+    };
 };
 
 test 'Deleting editors without data fully deletes them' => sub {
@@ -271,20 +425,47 @@ test 'Deleting editors removes most information' => sub {
     $model->delete(1);
     my $bob = $model->get_by_id(1);
 
-    is($bob->name, 'Deleted Editor #' . $bob->id);
-    is($bob->password, Authen::Passphrase::RejectAll->new->as_rfc2307);
-    is($bob->privileges, 0);
+    is(
+        $bob->name,
+        'Deleted Editor #' . $bob->id,
+        'The editor name is now "Deleted Editor" plus an ID',
+    );
+    is(
+        $bob->password,
+        Authen::Passphrase::RejectAll->new->as_rfc2307,
+        'The password has been deleted',
+    );
+    is($bob->privileges, 0, 'The editor privileges have been blanked');
     my $edit_counts = $model->various_edit_counts($bob->id);
-    is($edit_counts->{accepted_count}, 1);
-    is($edit_counts->{rejected_count}, 1);
-    is($edit_counts->{accepted_auto_count}, 0);
-    is($edit_counts->{failed_count}, 1);
-    is($bob->deleted, 1);
+    is(
+        $edit_counts->{accepted_count},
+        1,
+        'The editor’s accepted edit count is unchanged',
+    );
+    is(
+        $edit_counts->{rejected_count},
+        1,
+        'The editor’s rejected edit count is unchanged',
+    );
+    is(
+        $edit_counts->{accepted_auto_count},
+        0,
+        'The editor’s auto-accepted edit count is unchanged',
+    );
+    is(
+        $edit_counts->{failed_count},
+        1,
+        'The editor’s failed edit count is unchanged',
+    );
+    is($bob->deleted, 1, 'The editor is marked as deleted');
 
     # The name should be prevented from being reused by default (MBS-9271).
-    ok($c->sql->select_single_value(
-        'SELECT 1 FROM old_editor_name WHERE name = ?', 'Bob'
-    ));
+    ok(
+        $c->sql->select_single_value(
+            'SELECT 1 FROM old_editor_name WHERE name = ?', 'Bob'
+        ),
+        'The editor name is listed in old_editor_name as not reusable',
+    );
 
     # Ensure all other attributes are cleared
     my $exclusions = Set::Scalar->new(
@@ -295,12 +476,12 @@ test 'Deleting editors removes most information' => sub {
     for my $attribute (grep { !$exclusions->contains($_->name) }
                            object_attributes($bob)) {
         attribute_value_is($attribute, $bob, undef,
-                           $attribute->name . ' is now undef');
+                           $attribute->name . ' has been blanked');
     }
 
     # Ensure all languages have been cleared
     $c->model('EditorLanguage')->load_for_editor($bob);
-    is(@{ $bob->languages }, 0);
+    is(@{ $bob->languages }, 0, 'The editor languages have been blanked');
 
     # Ensure all preferences are cleared
     my $prefs = $bob->preferences;
@@ -311,7 +492,7 @@ test 'Deleting editors removes most information' => sub {
         else {
             attribute_value_is(
                 $attribute, $prefs, $attribute->default($prefs),
-                'Preference ' . $attribute->name . ' was cleared');
+                'Preference ' . $attribute->name . ' has been blanked');
         }
     }
 
@@ -319,7 +500,7 @@ test 'Deleting editors removes most information' => sub {
     my $tags = $c->sql->select_single_column_array(
         'SELECT tag FROM area_tag_raw WHERE editor = ?', 1
     );
-    is(@$tags, 0);
+    is(@$tags, 0, 'All tags by the editor have been blanked');
 };
 
 test 'Deleting an editor cancels all open edits' => sub {
@@ -328,6 +509,7 @@ test 'Deleting an editor cancels all open edits' => sub {
 
     MusicBrainz::Server::Test->prepare_test_database($test->c, '+editor');
 
+    note('We enter an autoedit for the editor');
     my $applied_edit = $c->model('Edit')->create(
         edit_type => $EDIT_ARTIST_EDIT,
         editor_id => 1,
@@ -337,8 +519,13 @@ test 'Deleting an editor cancels all open edits' => sub {
         isni_codes => [],
     );
 
-    is($applied_edit->status, $STATUS_APPLIED);
+    is(
+        $applied_edit->status,
+        $STATUS_APPLIED,
+        'The edit is marked as applied',
+    );
 
+    note('We enter a normal edit for the editor');
     my $open_edit = $c->model('Edit')->create(
         edit_type => $EDIT_ARTIST_EDIT,
         editor_id => 1,
@@ -349,12 +536,21 @@ test 'Deleting an editor cancels all open edits' => sub {
         privileges => $UNTRUSTED_FLAG,
     );
 
-    is($open_edit->status, $STATUS_OPEN);
+    is($open_edit->status, $STATUS_OPEN, 'The edit is marked as open');
 
+    note('We delete the editor');
     $c->model('Editor')->delete(1);
 
-    is($c->model('Edit')->get_by_id($applied_edit->id)->status, $STATUS_APPLIED);
-    is($c->model('Edit')->get_by_id($open_edit->id)->status, $STATUS_DELETED);
+    is(
+        $c->model('Edit')->get_by_id($applied_edit->id)->status,
+        $STATUS_APPLIED,
+        'The autoedit is still marked as applied',
+    );
+    is(
+        $c->model('Edit')->get_by_id($open_edit->id)->status,
+        $STATUS_DELETED,
+        'The open edit is now marked as cancelled',
+    );
 };
 
 test 'Deleting an editor changes all Yes/No votes on open edits to Abstain' => sub {
@@ -461,7 +657,11 @@ test 'Deleting an editor unsubscribes anyone who was subscribed to them' => sub 
         SQL
 
     $c->model('Editor')->delete(1);
-    is(scalar($c->model('Editor')->subscription->get_subscriptions(2)), 0);
+    is(
+        scalar($c->model('Editor')->subscription->get_subscriptions(2)),
+        0,
+        'The editor has no subscribers anymore',
+    );
 };
 
 test 'Open edit and last-24-hour counts' => sub {
@@ -470,6 +670,7 @@ test 'Open edit and last-24-hour counts' => sub {
 
     MusicBrainz::Server::Test->prepare_test_database($test->c, '+editor');
 
+    note('We enter an autoedit for the editor');
     $c->model('Edit')->create(
         edit_type => $EDIT_ARTIST_EDIT,
         editor_id => 1,
@@ -479,7 +680,8 @@ test 'Open edit and last-24-hour counts' => sub {
         isni_codes => []
     );
 
-    my $open_edit = $c->model('Edit')->create(
+    note('We enter a normal for the editor');
+    $c->model('Edit')->create(
         edit_type => $EDIT_ARTIST_EDIT,
         editor_id => 1,
         to_edit => $c->model('Artist')->get_by_id(1),
@@ -489,10 +691,16 @@ test 'Open edit and last-24-hour counts' => sub {
         privileges => $UNTRUSTED_FLAG,
     );
 
-    is($open_edit->status, $STATUS_OPEN);
-
-    is($c->model('Editor')->various_edit_counts(1)->{open_count}, 1, 'Open edit count is 1');
-    is($c->model('Editor')->last_24h_edit_count(1), 2, 'Last 24h count is 2');
+    is(
+        $c->model('Editor')->various_edit_counts(1)->{open_count},
+        1,
+        'The editor’s open edit count is 1',
+    );
+    is(
+        $c->model('Editor')->last_24h_edit_count(1),
+        2,
+        'The editor’s last 24h edit count is 2',
+    );
 };
 
 test 'subscription_summary' => sub {
@@ -528,19 +736,29 @@ test 'subscription_summary' => sub {
         INSERT INTO editor_subscribe_series (id, editor, series, last_edit_sent) VALUES (1, 1, 1, 1);
         SQL
 
-    is_deeply($test->c->model('Editor')->subscription_summary(1),
-              { artist => 1,
-                collection => 1,
-                label => 1,
-                editor => 1,
-                series => 1 });
+    is_deeply(
+        $test->c->model('Editor')->subscription_summary(1),
+        {
+            artist => 1,
+            collection => 1,
+            label => 1,
+            editor => 1,
+            series => 1,
+        },
+        'The subscription summary for editor 1 has the expected counts',
+    );
 
-    is_deeply($test->c->model('Editor')->subscription_summary(2),
-              { artist => 0,
-                collection => 0,
-                label => 1,
-                editor => 0,
-                series => 0 });
+    is_deeply(
+        $test->c->model('Editor')->subscription_summary(2),
+        {
+            artist => 0,
+            collection => 0,
+            label => 1,
+            editor => 0,
+            series => 0,
+        },
+        'The subscription summary for editor 2 has the expected counts',
+    );
 };
 
 
@@ -560,45 +778,45 @@ test 'Searching editor by email (for admin only)' => sub {
 
     diag('Bounded search with trimmed user info and escaped host name (recommended)');
     my ($editors, $hits) = $editor_data->search_by_email('^abc@f\.g\.h$');
-    is($hits => 2, 'found 2 editors');
-    is(@$editors[0]->id => 1, 'is editor #1');
-    is(@$editors[1]->id => 2, 'is editor #2');
+    is($hits => 2, 'Found 2 editors');
+    is(@$editors[0]->id => 1, 'First is editor #1');
+    is(@$editors[1]->id => 2, 'Second is editor #2');
 
     diag('Bounded search with trimmed user info and escaped host name (ALL CAPS)');
     ($editors, $hits) = $editor_data->search_by_email('^ABC@F\.G\.H$');
-    is($hits => 2, 'found 2 editors');
-    is(@$editors[0]->id => 1, 'is editor #1');
-    is(@$editors[1]->id => 2, 'is editor #2');
+    is($hits => 2, 'Found 2 editors');
+    is(@$editors[0]->id => 1, 'First is editor #1');
+    is(@$editors[1]->id => 2, 'Second is editor #2');
 
     diag('Search with trimmed user info suffix and escaped host name prefix');
     ($editors, $hits) = $editor_data->search_by_email('bc@f\.g');
-    is($hits => 2, 'found 2 editors');
-    is(@$editors[0]->id => 1, 'is editor #1');
-    is(@$editors[1]->id => 2, 'is editor #2');
+    is($hits => 2, 'Found 2 editors');
+    is(@$editors[0]->id => 1, 'First is editor #1');
+    is(@$editors[1]->id => 2, 'Second is editor #2');
 
     diag('Search with trimmed user info and unescaped host name');
     ($editors, $hits) = $editor_data->search_by_email('abc@f.g.h');
-    is($hits => 3, 'found 3 editors');
-    is(@$editors[0]->id => 1, 'is editor #1');
-    is(@$editors[1]->id => 2, 'is editor #2');
+    is($hits => 3, 'Found 3 editors');
+    is(@$editors[0]->id => 1, 'First is editor #1');
+    is(@$editors[1]->id => 2, 'Second is editor #2');
     # Special character '.' matches '-'
-    is(@$editors[2]->id => 3, 'is editor #3');
+    is(@$editors[2]->id => 3, 'Third is editor #3');
 
     diag('Search with trimmed user info only');
     ($editors, $hits) = $editor_data->search_by_email('abc@');
-    is($hits => 4, 'found 4 editors');
-    is(@$editors[0]->id => 1, 'is editor #1');
-    is(@$editors[1]->id => 2, 'is editor #2');
-    is(@$editors[2]->id => 3, 'is editor #3');
-    is(@$editors[3]->id => 5, 'is editor #5');
+    is($hits => 4, 'Found 4 editors');
+    is(@$editors[0]->id => 1, 'First is editor #1');
+    is(@$editors[1]->id => 2, 'Second is editor #2');
+    is(@$editors[2]->id => 3, 'Third is editor #3');
+    is(@$editors[3]->id => 5, 'Fourth is editor #5');
 
     diag('Search with untrimmed unescaped user info only');
     ($editors, $hits) = $editor_data->search_by_email('a.b.c+d.e@');
-    is($hits => 0, 'found 0 editors');
+    is($hits => 0, 'Found 0 editors');
 
     diag('Search with untrimmed escaped user info only');
     ($editors, $hits) = $editor_data->search_by_email('a\.b\.c\+d\.e@');
-    is($hits => 0, 'found 0 editors');
+    is($hits => 0, 'Found 0 editors');
 };
 
 1;

@@ -48,7 +48,7 @@ const ArtistMerge = ({
               <p>
                 {l(
                   `You should only use the checkbox above
-                   to fix errors (e.g. typos).`,
+                   to fix errors (such as typos).`,
                 )}
               </p>
               <p>

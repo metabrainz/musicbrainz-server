@@ -55,7 +55,7 @@ const WorkTypeSelect: React$AbstractComponent<
 
   return (
     <tr>
-      <td className="section">{l('Work Type:')}</td>
+      <td className="section">{addColonText(l('Work type'))}</td>
       <td>
         <select
           id="work-type"

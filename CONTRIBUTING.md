@@ -41,21 +41,22 @@ dependency updates, unnoticeable refactoring, and so on.
 
 #### Title
 
-Describe your change with a short imperative title, e.g.
+Describe your change with a short imperative title, such as
 
 > Change small unnoticeable bits
 
 If your change resolves a ticket (see [above](#ticket)), please make sure you
 prefix your pull request title with `MBS-XXX: ` in order for our issue tracker
-to link your pull request to that ticket, e.g.
+to link your pull request to that ticket, such as in
 
 > MBS-1234567: Change things relevant to users
 
-If it **partially resolves** a ticket, use parenthesis, e.g.
+If it **partially resolves** a ticket, use parenthesis, such as in
 
 > MBS-1234567 (I): Make first part of needed changes
 
-If your change relate to **several tickets**, separate these with commas, e.g.
+If your change relate to **several tickets**, separate these with commas,
+such as in
 
 > MBS-1234567, MBS-2345678: Change two related things at once
 
@@ -63,7 +64,8 @@ If your change relate to **several tickets**, separate these with commas, e.g.
 
 Just follow our [pull request template](.github/PULL_REQUEST_TEMPLATE.md).
 
-If your change relates to a ticket, make sure to mention it in the comment, e.g.
+If your change relates to a ticket, make sure to mention it in the comment,
+for example
 
 ```Markdown
 # Summary

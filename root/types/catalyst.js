@@ -7,6 +7,8 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+/* eslint-disable no-unused-vars */
+
 // Most of these types are serialized in the MusicBrainz::Server package.
 
 declare type CatalystActionT = {

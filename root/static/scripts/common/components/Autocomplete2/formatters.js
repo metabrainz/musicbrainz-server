@@ -65,7 +65,7 @@ function showExtraInfoLine(
   );
 }
 
-function formatName<+T: EntityItemT>(entity: T): string {
+function formatName<T: EntityItemT>(entity: T): string {
   return unwrapNl<string>(entity.name);
 }
 
@@ -217,7 +217,10 @@ function formatEvent(event: EventT) {
         l('Performers'),
         event.related_entities?.performers,
       )}
-      {showRelatedEntities(l('Location'), event.related_entities?.places)}
+      {showRelatedEntities(
+        lp('Location', 'event location'),
+        event.related_entities?.places,
+      )}
     </>
   );
 }
@@ -560,7 +563,7 @@ export type FormatOptionsT = {
   +showDescriptions?: boolean,
 };
 
-export default function formatItem<+T: EntityItemT>(
+export default function formatItem<T: EntityItemT>(
   item: ItemT<T>,
   options?: ?FormatOptionsT,
 ): Expand2ReactOutput {

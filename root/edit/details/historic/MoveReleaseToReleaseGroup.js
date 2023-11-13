@@ -19,13 +19,13 @@ const MoveReleaseToReleaseGroup = ({
 }: Props): React$Element<'table'> => (
   <table className="details edit-release">
     <tr>
-      <th>{l('Release:')}</th>
+      <th>{addColonText(l('Release'))}</th>
       <td colSpan="2">
         <DescriptiveLink entity={edit.display_data.release} />
       </td>
     </tr>
     <tr>
-      <th>{l('Release group:')}</th>
+      <th>{addColonText(l('Release group'))}</th>
       <td className="old">
         <DescriptiveLink entity={edit.display_data.release_group.old} />
       </td>

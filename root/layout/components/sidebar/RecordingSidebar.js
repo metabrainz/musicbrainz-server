@@ -46,12 +46,15 @@ const RecordingSidebar = ({recording}: Props): React$Element<'div'> => {
       </h2>
 
       <SidebarProperties>
-        <SidebarProperty className="artist" label={l('Artist:')}>
+        <SidebarProperty className="artist" label={addColonText(l('Artist'))}>
           <ArtistCreditLink artistCredit={recording.artistCredit} />
         </SidebarProperty>
 
         {recording.length ? (
-          <SidebarProperty className="length" label={l('Length:')}>
+          <SidebarProperty
+            className="length"
+            label={addColonText(l('Length'))}
+          >
             {formatTrackLength(recording.length)}
           </SidebarProperty>
         ) : null}

@@ -46,7 +46,7 @@ const HistoricReleaseList = ({
   releases,
 }: HistoricReleaseListProps): React$Element<'tr'> => (
   <tr>
-    <th>{nonEmpty(label) ? label : l('Releases:')}</th>
+    <th>{nonEmpty(label) ? label : addColonText(l('Releases'))}</th>
     <td colSpan={colSpan}>
       <HistoricReleaseListContent releases={releases} />
     </td>

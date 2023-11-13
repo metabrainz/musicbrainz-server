@@ -55,20 +55,20 @@ const AreaSidebar = ({area}: Props): React$Element<'div'> => {
         <SidebarBeginDate
           age={areaAge}
           entity={area}
-          label={l('Begin date:')}
+          label={addColonText(l('Begin date'))}
         />
 
         <SidebarEndDate
           age={areaAge}
           entity={area}
-          label={l('End date:')}
+          label={addColonText(l('End date'))}
         />
 
         {area.iso_3166_1_codes.map(code => (
           <SidebarProperty
             className="iso-3166-1"
             key={'iso-3166-1-' + code}
-            label={l('ISO 3166-1:')}
+            label={addColonText(l('ISO 3166-1'))}
           >
             {code}
           </SidebarProperty>
@@ -78,7 +78,7 @@ const AreaSidebar = ({area}: Props): React$Element<'div'> => {
           <SidebarProperty
             className="iso-3166-2"
             key={'iso-3166-2-' + code}
-            label={l('ISO 3166-2:')}
+            label={addColonText(l('ISO 3166-2'))}
           >
             {code}
           </SidebarProperty>
@@ -88,7 +88,7 @@ const AreaSidebar = ({area}: Props): React$Element<'div'> => {
           <SidebarProperty
             className="iso-3166-3"
             key={'iso-3166-3-' + code}
-            label={l('ISO 3166-3:')}
+            label={addColonText(l('ISO 3166-3'))}
           >
             {code}
           </SidebarProperty>

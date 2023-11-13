@@ -21,7 +21,7 @@ const ChangeArtistQuality = ({edit}: Props): React$Element<'table'> => {
   return (
     <table className="details change-artist-quality">
       <tr>
-        <th>{l('Artist:')}</th>
+        <th>{addColonText(l('Artist'))}</th>
         <td colSpan="2">
           <DescriptiveLink entity={edit.display_data.artist} />
         </td>

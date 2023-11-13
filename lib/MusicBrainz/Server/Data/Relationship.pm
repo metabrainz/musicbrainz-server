@@ -35,8 +35,6 @@ use List::AllUtils qw( any nsort_by part partition_by uniq );
 use aliased 'MusicBrainz::Server::Entity::RelationshipTargetTypeGroup';
 use aliased 'MusicBrainz::Server::Entity::RelationshipLinkTypeGroup';
 
-no if $] >= 5.018, warnings => 'experimental::smartmatch';
-
 extends 'MusicBrainz::Server::Data::Entity';
 
 my %TYPES = map { $_ => 1} @RELATABLE_ENTITIES;

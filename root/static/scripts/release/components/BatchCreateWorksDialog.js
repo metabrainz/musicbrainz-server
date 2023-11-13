@@ -233,13 +233,13 @@ const BatchCreateWorksDialogContent = React.memo<
   return (
     <div className="form" onKeyDown={handleKeyDown}>
       <p className="msg">
-        {l(`This will create a new work for each checked recording that has no
+        {l(`This will add a new work for each checked recording that has no
             work already. The work names will be the same as their respective
             recording.`)}
       </p>
       <p className="msg warning">
         {l(`Only use this option after you’ve tried searching for the work(s)
-            you want to create, and are certain they do not already exist on
+            you want to add, and are certain they do not already exist on
             MusicBrainz.`)}
       </p>
       <table className="relationship-details">
@@ -331,7 +331,7 @@ export const BatchCreateWorksButtonPopover = (React.memo<
       target={
         <ButtonPopover
           buildChildren={buildPopoverContent}
-          buttonContent={l('Batch-create new works')}
+          buttonContent={l('Batch-add new works')}
           buttonProps={{
             className: 'add-item with-label batch-create-works',
           }}

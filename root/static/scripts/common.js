@@ -7,24 +7,24 @@
 
 /* Global polyfills not provided by core-js */
 require('whatwg-fetch');
-require('./common/focusin-focusout-polyfill');
+require('./common/focusin-focusout-polyfill.js');
 /* End of global polyfills */
 
-require('./public-path');
-require('./common/sentry');
+require('./public-path.js');
+require('./common/sentry.js');
 
 window.ko = require('knockout');
 window.$ = window.jQuery = require('jquery');
 
-require('../lib/jquery.ui/ui/jquery-ui.custom');
+require('../lib/jquery.ui/ui/jquery-ui.custom.js');
 
-require('./common/components/Annotation');
-require('./common/components/CommonsImage');
-require('./common/components/FingerprintTable');
-require('./common/components/WikipediaExtract');
-require('./common/MB/Control/Autocomplete');
-require('./common/MB/Control/SelectAll');
-require('./common/components/TagEditor');
+require('./common/components/Annotation.js');
+require('./common/components/CommonsImage.js');
+require('./common/components/FingerprintTable.js');
+require('./common/components/WikipediaExtract.js');
+require('./common/MB/Control/Autocomplete.js');
+require('./common/MB/Control/SelectAll.js');
+require('./common/components/TagEditor.js');
 
 import('./common/artworkViewer.js');
 import('./common/dialogs.js');

@@ -17,7 +17,7 @@ type Props = {
 const EditReleaseLanguage = ({edit}: Props): React$Element<'table'> => (
   <table className="details edit-release">
     <tr>
-      <th>{l('Old:')}</th>
+      <th>{addColonText(lp('Old', 'release language'))}</th>
       <td>
         <table>
           {edit.display_data.old.map((change, index) => (

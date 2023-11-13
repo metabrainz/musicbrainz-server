@@ -22,7 +22,7 @@ const InstrumentsWithoutAnImage = ({
     canBeFiltered={canBeFiltered}
     description={l(
       `This report shows instruments without an image relationship
-       to StaticBrainz (i.e. without an IROMBOOK image).`,
+       to StaticBrainz (that is, without an IROMBOOK image).`,
     )}
     entityType="instrument"
     filtered={filtered}

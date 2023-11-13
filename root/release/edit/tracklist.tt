@@ -9,7 +9,7 @@
       <li>2. P.S. I Love You - The Beatles (2:03)</li>
     </ul>
     <p>
-      [% l('You can use the checkboxes under the parser to deactivate some sections. For example, you can deactivate “{lines_have_artists}” if your data has no track artists, or “{use_track_lengths}” if you have track durations but want the parser to ignore them.', {lines_have_artists => l('Lines contain track artists'), use_track_lengths => l('Use track lengths')}) %]
+      [% l('You can use the checkboxes under the parser to deactivate some sections. For example, you can deactivate “{lines_have_artists}” if your data has no track artists, or “{use_track_lengths}” if you have track lengths but want the parser to ignore them.', {lines_have_artists => l('Lines contain track artists'), use_track_lengths => l('Use track lengths')}) %]
     </p>
     <p>
       [% l('If you select “{enable_vinyl_numbers}”, the parser will also accept strings such as “A1” as track numbers.', {enable_vinyl_numbers => l('Enable vinyl track numbers')}) %]
@@ -102,12 +102,12 @@
 <script type="text/html" id="template.medium-search">
   <table>
     <tr>
-      <td><label for="import-release">[% l('Release:') %]</label></td>
+      <td><label for="import-release">[% add_colon(l('Release')) %]</label></td>
       <td><input id="import-release" type="text" data-bind="value: releaseName, valueUpdate: 'afterkeydown'" data-keydown="keydownEvent" /></td>
       <td rowspan="2"></td>
     </tr>
     <tr>
-      <td><label for="import-artist">[% l('Artist:') %]</label></td>
+      <td><label for="import-artist">[% add_colon(l('Artist')) %]</label></td>
       <td><input id="import-artist" type="text" data-bind="value: artistName, valueUpdate: 'afterkeydown'" data-keydown="keydownEvent" /></td>
     </tr>
     <tr>
@@ -240,7 +240,7 @@
 </div>
 
 <div id="add-medium-dialog" style="display: none;" data-bind="with: $root.addMediumDialog, delegatedHandler: ['click', 'keydown']">
-  <p>[% l('To create a new tracklist, use an existing medium or import a disc from a CD stub, select the appropriate tab.') %]</p>
+  <p>[% l('To enter a new tracklist, use an existing medium or import a disc from a CD stub, select the appropriate tab.') %]</p>
 
   <ul>
     <li><a href="#add-medium-parser">[% l('Manual entry') %]</a></li>
@@ -302,7 +302,7 @@
         </td>
 
         <td class="format">
-          <label data-bind="attr: { for: 'medium-format-' + uniqueID }">[% l('Format:') %]</label>
+          <label data-bind="attr: { for: 'medium-format-' + uniqueID }">[% add_colon(l('Format')) %]</label>
           <select data-bind="value: formatID, attr: { id: 'medium-format-' + uniqueID }">
             <option value="" selected="selected">—</option>
             [%- FOR format=formats %]
@@ -342,7 +342,7 @@
       <div class="medium-title warning">
         [%- warning_icon %]
         <p>
-          <strong>[% l('Warning:') | html_entity %]</strong>
+          <strong>[% add_colon(l('Warning')) | html_entity %]</strong>
           <span id="useless-medium-title-warning" data-bind='html: uselessMediumTitleWarning()' />
         </p>
         <label>
@@ -405,7 +405,7 @@
       <div class="various-artists warning">
         [%- warning_icon %]
         <p>
-          <strong>[% l('Warning:') | html_entity %]</strong>
+          <strong>[% add_colon(l('Warning')) | html_entity %]</strong>
           [% l('You’ve used the {valink|Various Artists} special purpose artist on some tracks below. {valink|Various Artists} should very rarely be used on tracks; please make sure the artists have been entered correctly.', { valink => va_doc_link }) %]
         </p>
         <label>
@@ -437,7 +437,7 @@
       </p>
 
       <p class="error field-error" style="padding: 1em" data-bind="showErrorWhenTabIsSwitched: needsTrackArtists">
-        [%~ l('You must select an artist for every track (the background color of every artist field should be green). If you’ve entered an artist but the background remains uncolored, click the magnifying glass to match the name to a MusicBrainz artist. If the artist doesn’t exist yet, you can create it by selecting “{add_a_new_artist}” from the bottom of the search results drop-down.', { add_a_new_artist => l('Add a new artist') }) ~%]
+        [%~ l('You must select an artist for every track (the background color of every artist field should be green). If you’ve entered an artist but the background remains uncolored, click the magnifying glass to match the name to a MusicBrainz artist. If the artist doesn’t exist yet, you can add it by selecting “{add_a_new_artist}” from the bottom of the search results drop-down.', { add_a_new_artist => l('Add a new artist') }) ~%]
       </p>
 
       <p class="error field-error" style="padding: 1em" data-bind="showErrorWhenTabIsSwitched: hasInvalidPregapLength">
@@ -499,7 +499,7 @@
                 [% l('Some discs contain a hidden track in the pregap section that precedes track 1. Use this to add (or remove) the special pregap track section.') %]
               </p>
               <p>
-                [% l('Keep in mind that unselecting this will delete the track if the medium has a disc ID! If you unselect it by mistake, please readd the pregap track before submitting.') %]
+                [% l('Keep in mind that unselecting this will remove the track if the medium has a disc ID! If you unselect it by mistake, please readd the pregap track before submitting.') %]
               </p>
             </div>
           </p>
@@ -514,7 +514,7 @@
                 [% l('Some discs contain one or more data tracks after all audio tracks. Use this to add (or remove) the special data tracks section. You should only add data tracks that contain audio or video ({info|more info})', { info => { href => doc_link('Data_Track'), target => '_blank' } }) %]
               </p>
               <p>
-                [% l('Keep in mind that unselecting this will delete the tracks if the medium has a disc ID! If you unselect it by mistake, please readd the data tracks before submitting.') %]
+                [% l('Keep in mind that unselecting this will remove the tracks if the medium has a disc ID! If you unselect it by mistake, please readd the data tracks before submitting.') %]
               </p>
             </div>
           </p>

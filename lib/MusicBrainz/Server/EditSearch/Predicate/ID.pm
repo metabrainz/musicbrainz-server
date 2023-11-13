@@ -2,9 +2,6 @@ package MusicBrainz::Server::EditSearch::Predicate::ID;
 use Moose;
 use MusicBrainz::Server::Validation qw( is_database_row_id is_integer );
 use namespace::autoclean;
-use feature 'switch';
-
-no if $] >= 5.018, warnings => 'experimental::smartmatch';
 
 with 'MusicBrainz::Server::EditSearch::Predicate';
 
@@ -19,13 +16,12 @@ sub combine_with_query {
     my ($self, $query) = @_;
 
     my $sql;
-    given ($self->operator) {
-        when ('BETWEEN') {
-            $sql = 'edit.' . $self->field_name . ' BETWEEN SYMMETRIC ? AND ?';
-        }
-        default {
-           $sql = join(' ', 'edit.'.$self->field_name, $self->operator, '?')
-       }
+    my $operator = $self->operator;
+    if ($operator eq 'BETWEEN') {
+        $sql = 'edit.' . $self->field_name . ' BETWEEN SYMMETRIC ? AND ?';
+    }
+    else {
+        $sql = join(' ', 'edit.'.$self->field_name, $operator, '?')
     }
 
     $query->add_where([ $sql, $self->sql_arguments ]);

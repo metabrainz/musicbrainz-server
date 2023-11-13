@@ -14,7 +14,7 @@
         [%- form_row_select(r, 'type_id', l('Type:')) -%]
         [% form_row_checkbox(r, 'cancelled', l('This event was cancelled.')) %]
         [% WRAPPER form_row %]
-          [% r.label('setlist', l('Setlist:')) %]
+          [% r.label('setlist', add_colon(l('Setlist'))) %]
           [% r.textarea('setlist', { cols => 80, rows => 10 }) %]
           [% field_errors(r.form, 'setlist') %]
         [% END %]
@@ -33,11 +33,11 @@
         <p>
             [%- l('Dates are in the format YYYY-MM-DD. Partial dates such as YYYY-MM or just YYYY are OK, or you can omit the date entirely.') -%]
         </p>
-        [% form_row_date(r, 'period.begin_date', l('Begin date:')) %]
+        [% form_row_date(r, 'period.begin_date', add_colon(l('Begin date'))) %]
         [% too_short_year_error('too_short_begin_year') %]
-        [% form_row_date(r, 'period.end_date', l('End date:')) %]
+        [% form_row_date(r, 'period.end_date', add_colon(l('End date'))) %]
         [% too_short_year_error('too_short_end_year') %]
-        [%- form_row_time(r, 'time', l('Time:')) -%]
+        [%- form_row_time(r, 'time', add_colon(l('Time'))) -%]
       </fieldset>
 
       [% PROCESS 'forms/relationship-editor.tt' %]
@@ -68,5 +68,7 @@
     MB.Control.initializeGuessCase("event", "id-edit-event");
 
     MB.initializeTooShortYearChecks('event');
+
+    MB.installFormUnloadWarning();
   }());
 </script>

@@ -3,7 +3,7 @@ parser: "@babel/eslint-parser"
 plugins:
   - import
   - react
-  - flowtype
+  - ft-flow
   - react-hooks
   - simple-import-sort
 
@@ -64,13 +64,13 @@ globals:
   lp_statistics: readonly
 
 settings:
-  flowtype:
+  ft-flow:
     onlyFilesWithFlowAnnotation: true
   react:
     version: detect
     flowVersion: 0.144.0
 
 rules:
-  flowtype/define-flow-type: warn
-  flowtype/use-flow-type: warn
+  ft-flow/define-flow-type: warn
+  ft-flow/use-flow-type: warn
   react/jsx-uses-vars: warn

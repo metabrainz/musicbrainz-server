@@ -123,19 +123,28 @@ const ReleaseSidebar = ({release}: Props): React$Element<'div'> | null => {
 
       <SidebarProperties>
         {barcode ? (
-          <SidebarProperty className="barcode" label={l('Barcode:')}>
+          <SidebarProperty
+            className="barcode"
+            label={addColonText(l('Barcode'))}
+          >
             {barcode}
           </SidebarProperty>
         ) : null}
 
         {nonEmpty(combinedFormatName) ? (
-          <SidebarProperty className="format" label={l('Format:')}>
+          <SidebarProperty
+            className="format"
+            label={addColonText(l('Format'))}
+          >
             {combinedFormatName}
           </SidebarProperty>
         ) : null}
 
         {releaseLength == null ? null : (
-          <SidebarProperty className="length" label={l('Length:')}>
+          <SidebarProperty
+            className="length"
+            label={addColonText(l('Length'))}
+          >
             {formatTrackLength(releaseLength)}
           </SidebarProperty>
         )}
@@ -153,7 +162,10 @@ const ReleaseSidebar = ({release}: Props): React$Element<'div'> | null => {
         ) : null}
 
         {packagingId == null ? null : (
-          <SidebarProperty className="packaging" label={l('Packaging:')}>
+          <SidebarProperty
+            className="packaging"
+            label={addColonText(l('Packaging'))}
+          >
             {lp_attributes(
               linkedEntities.release_packaging[packagingId].name,
               'release_packaging',
@@ -164,7 +176,7 @@ const ReleaseSidebar = ({release}: Props): React$Element<'div'> | null => {
         {statusId == null ? null : (
           <SidebarProperty
             className="status"
-            label={lp('Status:', 'release status')}
+            label={addColonText(lp('Status', 'release status'))}
           >
             {lp_attributes(
               linkedEntities.release_status[statusId].name,
@@ -174,7 +186,10 @@ const ReleaseSidebar = ({release}: Props): React$Element<'div'> | null => {
         )}
 
         {language ? (
-          <SidebarProperty className="language" label={l('Language:')}>
+          <SidebarProperty
+            className="language"
+            label={addColonText(l('Language'))}
+          >
             <LinkSearchableLanguage
               entityType="release"
               language={language}
@@ -183,7 +198,10 @@ const ReleaseSidebar = ({release}: Props): React$Element<'div'> | null => {
         ) : null}
 
         {script ? (
-          <SidebarProperty className="script" label={l('Script:')}>
+          <SidebarProperty
+            className="script"
+            label={addColonText(l('Script'))}
+          >
             <LinkSearchableProperty
               entityType="release"
               searchField="script"

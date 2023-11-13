@@ -144,7 +144,7 @@ sub merge_changes {
     catch {
         if (eval { $_->isa('Conflict') }) {
             MusicBrainz::Server::Edit::Exceptions::FailedDependency
-                  ->throw('Data has changed since this edit was created, and now conflicts ' .
+                  ->throw('Data has changed since this edit was entered, and now conflicts ' .
                               'with changes made in this edit.');
         }
         else {

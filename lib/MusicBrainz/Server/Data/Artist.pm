@@ -13,6 +13,7 @@ use MusicBrainz::Server::Data::Utils qw(
     is_special_artist
     add_partial_date_to_row
     conditional_merge_column_query
+    contains_string
     hash_to_row
     load_subobjects
     merge_table_attributes
@@ -397,12 +398,12 @@ sub merge
 
         my $merged_type_is_group =
             defined $merged_type &&
-            any { $merged_type eq $_ } @$group_types;
+            contains_string($group_types, $merged_type);
 
         if ($merged_type_is_group && $merged_gender) {
             my $target_type_is_group =
                 defined $target_type &&
-                any { $target_type eq $_ } @$group_types;
+                contains_string($group_types, $target_type);
 
             if ($target_type_is_group) {
                 $dropped_columns{gender} = $merged_gender;

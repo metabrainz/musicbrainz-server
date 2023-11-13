@@ -7,6 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+/* eslint-disable import/newline-after-import -- the FlowIgnore triggers it */
 import $ from 'jquery';
 import ko, {
   type Observable as KnockoutObservable,
@@ -279,7 +280,10 @@ function byID(
   const attributes = form.field.attributes;
   if (!attributes.field.length) {
     form = mutate<WritableWorkForm, _>(form, newForm => {
-      pushCompoundField(newForm.field.attributes, {
+      pushCompoundField<{
+        +type_id: ?number,
+        +value: ?StrOrNum,
+      }>(newForm.field.attributes, {
         type_id: null,
         value: null,
       });
