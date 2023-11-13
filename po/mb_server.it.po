@@ -32,7 +32,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-07 07:03+0000\n"
+"POT-Creation-Date: 2023-11-08 17:34+0000\n"
 "PO-Revision-Date: 2023-11-08 05:27+0000\n"
 "Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
 "metabrainz.org>\n"
@@ -42,8 +42,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
-" ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
+"0) ? 1 : 2);\n"
 "X-Generator: Weblate 5.1\n"
 
 #: ../root/components/common-macros.tt:12
@@ -7306,6 +7306,7 @@ msgstr "C'è stato un problema nell'accesso all'API della wiki."
 
 #: ../root/annotation/AnnotationComparison.js:43
 #: ../root/annotation/AnnotationComparison.js:45
+#: ../root/edit/details/AddAnnotation.js:64
 msgid "Annotation comparison"
 msgstr "Confronto annotazioni"
 
@@ -17774,6 +17775,12 @@ msgstr "nomina al ruolo di auto-editor"
 #: ../root/user/UserProfile.js:262
 msgid "Age:"
 msgstr "Età:"
+
+#: ../root/user/UserProfile.js:287
+#, fuzzy
+#| msgid "Description"
+msgid "Restrictions"
+msgstr "Descrizione"
 
 #: ../root/user/UserProfile.js:297
 msgid "Hasn't logged in yet"

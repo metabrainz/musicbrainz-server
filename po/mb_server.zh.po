@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-07 07:03+0000\n"
+"POT-Creation-Date: 2023-11-08 17:34+0000\n"
 "PO-Revision-Date: 2023-11-04 22:28+0000\n"
 "Last-Translator: claybiockiller <clay0305@hotmail.com>\n"
 "Language-Team: Chinese (Simplified) <https://translations.metabrainz.org/"
@@ -6829,6 +6829,7 @@ msgstr "访问 wiki API 时遇到了问题。"
 
 #: ../root/annotation/AnnotationComparison.js:43
 #: ../root/annotation/AnnotationComparison.js:45
+#: ../root/edit/details/AddAnnotation.js:64
 msgid "Annotation comparison"
 msgstr "注释对比"
 
@@ -16215,6 +16216,12 @@ msgstr "提名为自动确认编辑者"
 #: ../root/user/UserProfile.js:262
 msgid "Age:"
 msgstr "年龄:"
+
+#: ../root/user/UserProfile.js:287
+#, fuzzy
+#| msgid "Description"
+msgid "Restrictions"
+msgstr "描述"
 
 #: ../root/user/UserProfile.js:297
 msgid "Hasn't logged in yet"

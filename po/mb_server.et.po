@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-07 07:03+0000\n"
+"POT-Creation-Date: 2023-11-08 17:34+0000\n"
 "PO-Revision-Date: 2023-08-18 12:53+0000\n"
 "Last-Translator: Anonymous <noreply@weblate.org>\n"
 "Language-Team: Estonian <https://translations.metabrainz.org/projects/"
@@ -6937,6 +6937,7 @@ msgstr "Ilmnes viga wiki API-le juurdepääsemisel."
 
 #: ../root/annotation/AnnotationComparison.js:43
 #: ../root/annotation/AnnotationComparison.js:45
+#: ../root/edit/details/AddAnnotation.js:64
 msgid "Annotation comparison"
 msgstr "Annotatsioonide võrdlus"
 
@@ -16697,6 +16698,12 @@ msgstr "esita vanemtoimetaja kandidaadiks"
 #: ../root/user/UserProfile.js:262
 msgid "Age:"
 msgstr "Vanus:"
+
+#: ../root/user/UserProfile.js:287
+#, fuzzy
+#| msgid "Description"
+msgid "Restrictions"
+msgstr "Kirjeldus"
 
 #: ../root/user/UserProfile.js:297
 msgid "Hasn't logged in yet"
