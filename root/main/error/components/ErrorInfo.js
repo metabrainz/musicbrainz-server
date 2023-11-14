@@ -19,7 +19,7 @@ const ErrorInfo = ({
   formattedErrors ? (
     <p id="errors">
       <strong>
-        {addColonText(ln('Error', 'Errors', formattedErrors.length))}
+        {addColonText(l('Error'))}
       </strong>
       {formattedErrors.map((error, index) => <pre key={index}>{error}</pre>)}
     </p>
