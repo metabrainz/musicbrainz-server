@@ -93,7 +93,10 @@ export function createLinkAttributeTypeOptions(
 export function extractLinkAttributeTypeSearchTerms(
   item: OptionItemT<LinkAttrTypeT>,
 ): Array<string> {
-  return [item.entity.l_name ?? ''];
+  return [
+    item.entity.l_name ?? '',
+    ...(item.entity.instrument_aliases ?? []),
+  ];
 }
 
 export function createMultiselectAttributeValue(

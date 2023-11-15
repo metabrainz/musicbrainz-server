@@ -858,6 +858,17 @@ test('MBS-13340: Instrument attribute search should be case-insensitive', functi
   );
 });
 
+test('MBS-13055: Instruments as attributes can be found by alias', function (t) {
+  t.plan(1);
+
+  const result = searchItems(instrumentOptionItems, 'Klavier');
+  t.equal(
+    result[0].name,
+    'piano',
+    'piano is the first result when searching for Klavier',
+  );
+});
+
 function getAddRelationshipAction(
   source: RelatableEntityT,
   relationship: RelationshipStateT,

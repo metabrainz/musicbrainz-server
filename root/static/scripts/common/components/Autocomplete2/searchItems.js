@@ -30,14 +30,10 @@ const itemIndexes:
     >,
   > = new WeakMap();
 
-/*
- * The first search term returned for an item should be the most
- * important (the name).  We cache these for use in `weightEntry`
- * below.
- */
-const itemFirstSearchTerms:
+// The search terms for an item are cached for use in `weightEntry` below.
+const itemSearchTerms:
   // $FlowIgnore[unclear-type]
-  WeakMap<OptionItemT<any>, string> = new WeakMap();
+  WeakMap<OptionItemT<any>, $ReadOnlyArray<string>> = new WeakMap();
 
 function normalize(input: string): string {
   return unaccent(input).toLowerCase();
@@ -97,7 +93,7 @@ export function indexItems<T: EntityItemT>(
         searchTerms.length,
         'No search terms were returned for indexing',
       );
-      itemFirstSearchTerms.set(item, searchTerms[0]);
+      itemSearchTerms.set(item, searchTerms);
       for (const searchTerm of searchTerms) {
         for (const nGram of getNGrams(searchTerm)) {
           setMapDefault(index, nGram, createItemSet).add(item);
@@ -130,30 +126,35 @@ function compareItemRanks<T: EntityItemT>(
 
 function weightEntry<T: EntityItemT>(
   itemAndRank: [OptionItemT<T>, number],
-  searchTerm: string,
+  userSearchTerm: string,
 ): number {
   const item = itemAndRank[0];
-  const itemFirstSearchTerm = itemFirstSearchTerms.get(item);
+  const searchTerms = itemSearchTerms.get(item);
   invariant(
-    itemFirstSearchTerm != null,
+    searchTerms != null,
     'The item to be weighted has not been indexed',
   );
   let rank = itemAndRank[1];
-  const itemFirstSearchTermLength = itemFirstSearchTerm.length;
-  const cleanSearchTerm = cleanAndLowerCase(searchTerm);
-  const searchTermPosition = itemFirstSearchTerm.indexOf(cleanSearchTerm);
-  if (searchTermPosition >= 0) {
-    rank *= (1 + (
-      // Prefer matches earlier in the string
-      (itemFirstSearchTermLength - searchTermPosition) /
-      itemFirstSearchTermLength
-    ));
-    rank *= (1 + ((
-      // Prefer matches closer in length
-      cleanSearchTerm.length / itemFirstSearchTermLength
-    ) * 2));
-  }
-  return rank;
+  return Math.max(
+    ...searchTerms.map((searchTerm) => {
+      const searchTermLength = searchTerm.length;
+      const cleanUserSearchTerm = cleanAndLowerCase(userSearchTerm);
+      const searchTermPosition = searchTerm.indexOf(cleanUserSearchTerm);
+      let newRank = rank;
+      if (searchTermPosition >= 0) {
+        newRank *= (1 + (
+          // Prefer matches earlier in the string
+          (searchTermLength - searchTermPosition) /
+          searchTermLength
+        ));
+        newRank *= (1 + ((
+          // Prefer matches closer in length
+          cleanUserSearchTerm.length / searchTermLength
+        ) * 2));
+      }
+      return newRank;
+    }),
+  );
 }
 
 export default function searchItems<T: EntityItemT>(
