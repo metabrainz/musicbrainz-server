@@ -44,6 +44,10 @@ import {
   compareLinkAttributeIds,
 } from '../relationship-editor/utility/compareRelationships.js';
 import {
+  exportLinkAttributeTypeInfo,
+  exportLinkTypeInfo,
+} from '../relationship-editor/utility/exportTypeInfo.js';
+import {
   mergeRelationshipStates,
 } from '../relationship-editor/utility/mergeRelationship.js';
 import relationshipsAreIdentical
@@ -65,6 +69,10 @@ import {
   recording,
   releaseWithMediumsAndReleaseGroup,
 } from './relationship-editor/constants.js';
+import {linkAttributeTypes, linkTypes} from './typeInfo.js';
+
+exportLinkTypeInfo(linkTypes);
+exportLinkAttributeTypeInfo(linkAttributeTypes);
 
 const initialState = createInitialState({
   formName: 'edit-artist',
