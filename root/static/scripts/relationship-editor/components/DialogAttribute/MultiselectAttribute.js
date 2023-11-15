@@ -48,7 +48,7 @@ type PropsT = {
   +state: DialogMultiselectAttributeStateT,
 };
 
-function _createLinkAttributeTypeOptions(
+export function _createLinkAttributeTypeOptions(
   attr: LinkAttrTypeT,
   level: number = 0,
   result: Array<OptionItemT<LinkAttrTypeT>> = [],
@@ -76,9 +76,9 @@ const linkAttributeTypeOptionsCache = new Map<
   number,
   $ReadOnlyArray<OptionItemT<LinkAttrTypeT>>,
 >();
-const createLinkAttributeTypeOptions = (
+export function createLinkAttributeTypeOptions(
   rootAttributeType: LinkAttrTypeT,
-) => {
+): $ReadOnlyArray<OptionItemT<LinkAttrTypeT>> {
   const rootId = rootAttributeType.id;
   let options = linkAttributeTypeOptionsCache.get(rootId);
   if (options) {
@@ -88,9 +88,9 @@ const createLinkAttributeTypeOptions = (
   _createLinkAttributeTypeOptions(rootAttributeType, -1, options);
   linkAttributeTypeOptionsCache.set(rootId, options);
   return options;
-};
+}
 
-function extractLinkAttributeTypeSearchTerms(
+export function extractLinkAttributeTypeSearchTerms(
   item: OptionItemT<LinkAttrTypeT>,
 ): Array<string> {
   return [item.entity.l_name ?? ''];

@@ -8,6 +8,7 @@
  */
 
 import {unwrapNl} from '../../i18n.js';
+import {maybeGetCatalystContext} from '../../utility/catalyst.js';
 import clean from '../../utility/clean.js';
 import setMapDefault from '../../utility/setMapDefault.js';
 import {unaccent} from '../../utility/strings.js';
@@ -40,6 +41,14 @@ const itemFirstSearchTerms:
 
 function normalize(input: string): string {
   return unaccent(input).toLowerCase();
+}
+
+function cleanAndLowerCase(value: string): string {
+  let $c = maybeGetCatalystContext();
+  const bcp47Language = $c
+    ? $c.stash.current_language.replace('_', '-')
+    : 'en';
+  return clean(value).toLocaleLowerCase(bcp47Language);
 }
 
 const MAX_GRAM_SIZE = 6;
@@ -82,7 +91,7 @@ export function indexItems<T: EntityItemT>(
   for (const item of items) {
     if (item.type === 'option' && item.disabled !== true) {
       const searchTerms = extractSearchTerms(item)
-        .map(clean)
+        .map(cleanAndLowerCase)
         .filter(nonEmpty);
       invariant(
         searchTerms.length,
@@ -131,7 +140,8 @@ function weightEntry<T: EntityItemT>(
   );
   let rank = itemAndRank[1];
   const itemFirstSearchTermLength = itemFirstSearchTerm.length;
-  const searchTermPosition = itemFirstSearchTerm.indexOf(searchTerm);
+  const cleanSearchTerm = cleanAndLowerCase(searchTerm);
+  const searchTermPosition = itemFirstSearchTerm.indexOf(cleanSearchTerm);
   if (searchTermPosition >= 0) {
     rank *= (1 + (
       // Prefer matches earlier in the string
@@ -140,7 +150,7 @@ function weightEntry<T: EntityItemT>(
     ));
     rank *= (1 + ((
       // Prefer matches closer in length
-      searchTerm.length / itemFirstSearchTermLength
+      cleanSearchTerm.length / itemFirstSearchTermLength
     ) * 2));
   }
   return rank;

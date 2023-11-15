@@ -13,11 +13,19 @@ import {
   onConflictUseSecondValue,
 } from 'weight-balanced-tree/union';
 
+import searchItems, {
+  indexItems,
+} from '../common/components/Autocomplete2/searchItems.js';
+import {INSTRUMENT_ROOT_ID} from '../common/constants.js';
 import {
   createWorkObject,
 } from '../common/entity2.js';
 import linkedEntities from '../common/linkedEntities.mjs';
 import {uniqueNegativeId} from '../common/utility/numbers.js';
+import {
+  createLinkAttributeTypeOptions,
+  extractLinkAttributeTypeSearchTerms,
+} from '../relationship-editor/components/DialogAttribute/MultiselectAttribute.js';
 import {
   createInitialState,
   reducer,
@@ -73,6 +81,15 @@ import {linkAttributeTypes, linkTypes} from './typeInfo.js';
 
 exportLinkTypeInfo(linkTypes);
 exportLinkAttributeTypeInfo(linkAttributeTypes);
+
+const instrumentOptionItems = createLinkAttributeTypeOptions(
+  linkedEntities.link_attribute_type[INSTRUMENT_ROOT_ID],
+);
+
+indexItems(
+  instrumentOptionItems,
+  extractLinkAttributeTypeSearchTerms,
+);
 
 const initialState = createInitialState({
   formName: 'edit-artist',
@@ -827,6 +844,17 @@ test('MBS-12976: Changing a work can cause duplication/key errors', function (t)
     relatedWorks,
     [work1, work2],
     'work C was replaced by work B',
+  );
+});
+
+test('MBS-13340: Instrument attribute search should be case-insensitive', function (t) {
+  t.plan(1);
+
+  const result = searchItems(instrumentOptionItems, 'Guitar');
+  t.equal(
+    result[0].name,
+    'guitar',
+    'guitar is the first result when searching for Guitar',
   );
 });
 
