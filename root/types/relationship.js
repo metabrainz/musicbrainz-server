@@ -49,7 +49,7 @@ declare type LinkTypeT = {
   +examples: $ReadOnlyArray<{
     +name: string,
     +relationship: RelationshipT,
-  }>,
+  }> | null,
   +has_dates: boolean,
   +id: number,
   /*
