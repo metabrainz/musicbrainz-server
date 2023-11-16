@@ -354,6 +354,15 @@
     </div>
 [%- END -%]
 
+[%- MACRO sort_name_bubble BLOCK -%]
+    <div class="bubble" id="sort-name-bubble">
+      <p>[% l('The sort name is an artist name variant used when sorting alphabetically.
+               For usage information check the {sort_name_doc|sort name guidelines}.',
+            { sort_name_doc => doc_link('Style/Artist/Sort_Name') }) %]</p>
+      <p>[% l('“Last Name, First Name” and “Group, The” are common examples of sort names.') %]</p>
+    </div>
+[%- END -%]
+
 [%- MACRO type_bubble(form, types) BLOCK -%]
     <div class="bubble" id="type-bubble">
       <span id="type-bubble-default" [% IF form.value %] style="display:none" [% END %]>

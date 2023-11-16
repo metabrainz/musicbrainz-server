@@ -89,6 +89,8 @@
   <div class="documentation">
     [%- area_bubble() -%]
 
+    [%- sort_name_bubble() -%]
+
     [%- type_bubble(form.field('type_id'), artist_types) -%]
 
     [%- ipi_bubble() -%]
@@ -109,6 +111,7 @@
     MB.initializeToggleEnded('id-edit-artist');
     MB.initializeTooShortYearChecks('artist');
 
+    MB.Control.initializeBubble("#sort-name-bubble", "input[name=edit-artist\\.sort_name");
     MB.Control.initializeBubble("#ipi-bubble", "input[name=edit-artist\\.ipi_codes\\.0]");
     MB.Control.initializeBubble("#isni-bubble", "input[name=edit-artist\\.isni_codes\\.0]");
 
