@@ -33,10 +33,11 @@ declare type LinkAttrTypeT = {
   +root_id: number,
 };
 
-declare type LinkTypeAttrTypeT = {
+declare type LinkTypeAttrTypeT = $ReadOnly<{
+  ...TypeRoleT<LinkAttrTypeT>,
   +max: number | null,
   +min: number | null,
-};
+}>;
 
 declare type LinkTypeT = {
   ...OptionTreeT<'link_type'>,
