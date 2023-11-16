@@ -11,6 +11,7 @@ has 'conn' => (
     handles    => [qw( dbh )],
     lazy_build => 1,
     clearer => '_clear_conn',
+    predicate => 'has_conn',
 );
 
 has 'database' => (
@@ -62,8 +63,8 @@ sub _build_conn
 
 sub _disconnect {
     my ($self) = @_;
-    if (my $conn = $self->conn) {
-        $conn->disconnect;
+    if ($self->has_conn) {
+        $self->conn->disconnect;
     }
 
     $self->_clear_conn;
