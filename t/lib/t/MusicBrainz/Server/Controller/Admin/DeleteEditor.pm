@@ -49,7 +49,7 @@ test 'Delete account as a regular user' => sub {
     is($mech->status(), 403, 'Regular user cannot delete other accounts');
 
     $mech->get_ok(
-        '/admin/user/delete/Alice',
+        '/account/delete',
         'Regular user can access their own deletion page',
     );
     html_ok($mech->content);
@@ -57,8 +57,8 @@ test 'Delete account as a regular user' => sub {
 
     is(
         $mech->uri->path,
-        '/user/Deleted%20Editor%20%232',
-        q(Redirected to the deleted editor's profile),
+        '/',
+        q(Redirected to the main page),
     );
     $mech->content_contains('Log In', 'The editor is no longer logged in');
 

@@ -96,18 +96,14 @@ sub edit_user : Path('/admin/user/edit') Args(1) RequireAuth HiddenOnMirrors Sec
     }
 }
 
-sub delete_user : Path('/admin/user/delete') Args(1) RequireAuth HiddenOnMirrors SecureForm {
+sub delete_user : Path('/admin/user/delete') Args(1) RequireAuth(account_admin) HiddenOnMirrors SecureForm {
     my ($self, $c, $name) = @_;
 
     my $editor = $c->model('Editor')->get_by_name($name);
     $c->detach('/user/not_found') if !$editor || $editor->deleted;
 
-    $c->stash->{viewing_own_profile} = $c->user_exists && $c->user->id == $editor->id;
-
     my $id = $editor->id;
-    if ($id != $c->user->id && !$c->user->is_account_admin) {
-        $c->detach('/error_403');
-    }
+    $c->detach('/account/delete') if $c->user_exists && $c->user->id == $id;
 
     $c->stash( user => $editor );
 
@@ -124,16 +120,9 @@ sub delete_user : Path('/admin/user/delete') Args(1) RequireAuth HiddenOnMirrors
 
     if ($c->form_posted_and_valid($form)) {
         my $allow_reuse = 0;
-        if ($id != $c->user->id && $c->user->is_account_admin) {
-            $allow_reuse = 1 if $form->field('allow_reuse')->value;
-        }
+        $allow_reuse = 1 if $form->field('allow_reuse')->value;
 
         $c->model('Editor')->delete($id, $allow_reuse);
-        if ($id == $c->user->id) { # don't log out an admin deleting a different user
-            MusicBrainz::Server::Controller::User->_clear_login_cookie($c);
-            $c->logout;
-            $c->delete_session;
-        }
 
         $editor->name('Deleted Editor #' . $id);
         $editor->email('editor-' . $id . '@musicbrainz.invalid');
