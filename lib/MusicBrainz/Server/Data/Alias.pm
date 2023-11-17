@@ -298,6 +298,14 @@ sub exists {
     );
 }
 
+after qw( insert update delete merge ) => sub {
+    my ($self) = @_;
+
+    if ($self->type eq 'instrument') {
+        $self->c->model('LinkAttributeType')->_delete_all_from_cache;
+    }
+};
+
 no Moose;
 __PACKAGE__->meta->make_immutable;
 1;

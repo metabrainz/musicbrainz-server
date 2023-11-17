@@ -5,6 +5,7 @@ use warnings;
 use Test::Routine;
 use Test::Moose;
 use Test::More;
+use Test::Deep qw( cmp_deeply );
 
 use DateTime;
 use MusicBrainz::Server::Context;
@@ -316,6 +317,66 @@ test 'Exists only checks a single entity' => sub {
 
     ok(!$check_alias->('Old name', 3), 'Old name NOT aliased to artist #3');
     ok(!$check_alias->('Foo name', 3), 'Foo name NOT aliased to artist #3');
+};
+
+test 'Modifying instrument aliases invalidates the link attribute type caches' => sub {
+    my $test = shift;
+    my $c = $test->cache_aware_c;
+
+    my $piano_lat_id = 180;
+    my $piano_via_all;
+
+    # Note: This test only checks that the `get_all` cache is invalidated,
+    # since we only use instrument aliases from that cache. We don't
+    # currently invalidate the `get_by_id` cache.
+
+    my $fetch_piano = sub {
+        ($piano_via_all) = grep {
+            $_->id == $piano_lat_id
+        } $c->model('LinkAttributeType')->get_all;
+    };
+
+    $fetch_piano->();
+    cmp_deeply($piano_via_all->instrument_aliases, ['Klavier']);
+
+    my $foo_alias = $c->model('Instrument')->alias->insert({
+        instrument_id => 137,
+        locale => 'en',
+        primary_for_locale => 1,
+        name => 'Foo',
+        sort_name => 'Foo',
+        type => 1,
+        ended => 1,
+        begin_date => undef,
+        end_date => undef,
+    });
+
+    $fetch_piano->();
+    cmp_deeply(
+        $piano_via_all->instrument_aliases,
+        ['Foo', 'Klavier'],
+        'link_attribute_type:all cache is updated after instrument alias insertion',
+    );
+
+    $c->model('Instrument')->alias->update($foo_alias->id, {
+        name => 'Foo!',
+    });
+
+    $fetch_piano->();
+    cmp_deeply(
+        $piano_via_all->instrument_aliases,
+        ['Foo!', 'Klavier'],
+        'link_attribute_type:all cache is updated after instrument alias update',
+    );
+
+    $c->model('Instrument')->alias->delete($foo_alias->id);
+
+    $fetch_piano->();
+    cmp_deeply(
+        $piano_via_all->instrument_aliases,
+        ['Klavier'],
+        'link_attribute_type:all cache is updated after instrument alias deletion',
+    );
 };
 
 1;
