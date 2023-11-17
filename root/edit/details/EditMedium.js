@@ -455,14 +455,12 @@ const EditMedium = ({edit}: Props): React$MixedElement => {
 
   return (
     <table className="details edit-medium">
-      {edit.preview /*:: === true */ ? null : (
-        <tr>
-          <th>{addColonText(l('Medium'))}</th>
-          <td colSpan="2">
-            <MediumLink medium={display.medium} />
-          </td>
-        </tr>
-      )}
+      <tr>
+        <th>{addColonText(l('Medium'))}</th>
+        <td colSpan="2">
+          <MediumLink medium={display.medium} />
+        </td>
+      </tr>
 
       {position ? (
         <FullChangeDiff
