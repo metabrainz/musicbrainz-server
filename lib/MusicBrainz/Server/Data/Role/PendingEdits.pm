@@ -14,8 +14,6 @@ role {
     my $params = shift;
     my $table = $params->table;
 
-    requires '_dbh';
-
     method 'adjust_edit_pending' => sub
     {
         my ($self, $adjust, @ids) = @_;

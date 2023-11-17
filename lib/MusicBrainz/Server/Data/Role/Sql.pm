@@ -9,9 +9,4 @@ sub sql {
     return $self->c->sql;
 }
 
-sub _dbh
-{
-    shift->c->dbh;
-}
-
 1;
