@@ -3807,7 +3807,7 @@ const CLEANUPS: CleanupEntries = {
       LINK_TYPES.streamingpaid,
     ],
     select: function (url, sourceType) {
-      const m = /^https:\/\/www\.melon\.com\/(album|artist|song)/.exec(url);
+      const m = /^https:\/\/www\.melon\.com\/(album|artist|song|video)/.exec(url);
       if (m) {
         const prefix = m[1];
         switch (prefix) {
@@ -3827,8 +3827,21 @@ const CLEANUPS: CleanupEntries = {
               ];
             }
             break;
-          default: // song
+          case 'song':
             if (sourceType === 'recording') {
+              return [
+                LINK_TYPES.downloadpurchase.recording,
+                LINK_TYPES.streamingpaid.recording,
+              ];
+            }
+            break;
+          default: // video
+            if (sourceType === 'release') {
+              return [
+                LINK_TYPES.downloadpurchase.release,
+                LINK_TYPES.streamingpaid.release,
+              ];
+            } else if (sourceType === 'recording') {
               return [
                 LINK_TYPES.downloadpurchase.recording,
                 LINK_TYPES.streamingpaid.recording,
@@ -3844,6 +3857,7 @@ const CLEANUPS: CleanupEntries = {
       url = url.replace(/^(https:\/\/www\.melon\.com\/album)\/(?:detail|music)\.htm\?(albumId=\d+)(?:[\/#&].*)?$/, '$1/detail.htm?$2');
       url = url.replace(/^(https:\/\/www\.melon\.com\/artist)\/(?:timeline|detail|song|album|video|photo|fan|hifi|song\/all|detail\/info|magazine)\.htm\?(artistId=\d+)(?:[\/#&].*)?$/, '$1/detail.htm?$2');
       url = url.replace(/^(https:\/\/www\.melon\.com\/song\/detail\.htm\?songId=\d+)(?:[\/#&].*)?$/, '$1');
+      url = url.replace(/^(https:\/\/www\.melon\.com\/video)\/detail2?\.htm\?(mvId=\d+)(?:[\/#&].*)?$/, '$1/detail2.htm?$2');
       return url;
     },
     validate: function (url, id) {
@@ -3854,14 +3868,14 @@ const CLEANUPS: CleanupEntries = {
           target: ERROR_TARGETS.URL,
         };
       }
-      const m = /^https:\/\/www\.melon\.com\/(album|artist|song)\/detail.htm\?(?:albumId|artistId|songId)=\d+$/.exec(url);
+      const m = /^https:\/\/www\.melon\.com\/(album|artist|song|video)\/detail.htm\?(?:albumId|artistId|songId|mvId)=\d+$/.exec(url);
       if (m) {
         const prefix = m[1];
         switch (id) {
           case LINK_TYPES.downloadpurchase.release:
           case LINK_TYPES.streamingpaid.release:
             return {
-              result: prefix === 'album',
+              result: prefix === 'album' || prefix === 'video',
               target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.downloadpurchase.artist:
@@ -3873,7 +3887,7 @@ const CLEANUPS: CleanupEntries = {
           case LINK_TYPES.downloadpurchase.recording:
           case LINK_TYPES.streamingpaid.recording:
             return {
-              result: prefix === 'song',
+              result: prefix === 'song' || prefix === 'video',
               target: ERROR_TARGETS.ENTITY,
             };
         }
