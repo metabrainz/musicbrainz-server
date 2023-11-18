@@ -2506,6 +2506,16 @@ limited_link_type_combinations: [
             expected_clean_url: 'https://www.genie.co.kr/detail/albumInfo?axnm=83634218',
   },
   {
+                     input_url: 'https://www.genie.co.kr/detail/mediaInfo?xvnm=241683',
+             input_entity_type: 'release',
+    expected_relationship_type: ['downloadpurchase', 'streamingpaid'],
+limited_link_type_combinations: [
+                                   ['downloadpurchase', 'streamingpaid'],
+                                   'streamingpaid',
+                                ],
+            expected_clean_url: 'https://www.genie.co.kr/detail/mediaInfo?xvnm=241683',
+  },
+  {
                      input_url: 'https://www.genie.co.kr/detail/artistInfo?xxnm=80441335#',
              input_entity_type: 'artist',
     expected_relationship_type: ['downloadpurchase', 'streamingpaid'],
@@ -2536,6 +2546,16 @@ limited_link_type_combinations: [
                                   target: 'url',
                                 },
        only_valid_entity_types: [],
+  },
+  {
+                     input_url: 'https://mw.genie.co.kr/detail/mediaInfo?xvnm=241437',
+             input_entity_type: 'recording',
+    expected_relationship_type: ['downloadpurchase', 'streamingpaid'],
+limited_link_type_combinations: [
+                                   ['downloadpurchase', 'streamingpaid'],
+                                   'streamingpaid',
+                                ],
+            expected_clean_url: 'https://www.genie.co.kr/detail/mediaInfo?xvnm=241437',
   },
   // Genius
   {

@@ -2622,7 +2622,7 @@ const CLEANUPS: CleanupEntries = {
       LINK_TYPES.streamingpaid,
     ],
     select: function (url, sourceType) {
-      const m = /^https:\/\/www\.genie\.co\.kr\/detail\/(albumInfo|artistInfo|songInfo)/.exec(url);
+      const m = /^https:\/\/www\.genie\.co\.kr\/detail\/(albumInfo|artistInfo|songInfo|mediaInfo)/.exec(url);
       if (m) {
         const prefix = m[1];
         switch (prefix) {
@@ -2642,8 +2642,21 @@ const CLEANUPS: CleanupEntries = {
               ];
             }
             break;
-          default: // songInfo
+          case 'songInfo':
             if (sourceType === 'recording') {
+              return [
+                LINK_TYPES.downloadpurchase.recording,
+                LINK_TYPES.streamingpaid.recording,
+              ];
+            }
+            break;
+          default: // mediaInfo
+            if (sourceType === 'release') {
+              return [
+                LINK_TYPES.downloadpurchase.release,
+                LINK_TYPES.streamingpaid.release,
+              ];
+            } else if (sourceType === 'recording') {
               return [
                 LINK_TYPES.downloadpurchase.recording,
                 LINK_TYPES.streamingpaid.recording,
@@ -2656,7 +2669,7 @@ const CLEANUPS: CleanupEntries = {
     },
     clean: function (url) {
       url = url.replace(/^(?:https?:\/\/)?(?:(?:www|mw)\.)?genie\.co\.kr\//, 'https://www.genie.co.kr/');
-      url = url.replace(/^(https:\/\/www\.genie\.co\.kr\/detail\/(?:albumInfo\?ax|artistInfo\?xx|songInfo\?xg)nm=\d+)(?:[&#\/].*)?$/, '$1');
+      url = url.replace(/^(https:\/\/www\.genie\.co\.kr\/detail\/(?:albumInfo\?ax|artistInfo\?xx|songInfo\?xg|mediaInfo\?xv)nm=\d+)(?:[&#\/].*)?$/, '$1');
       return url;
     },
     validate: function (url, id) {
@@ -2667,14 +2680,14 @@ const CLEANUPS: CleanupEntries = {
           target: ERROR_TARGETS.URL,
         };
       }
-      const m = /^https:\/\/www\.genie\.co\.kr\/detail\/(albumInfo|artistInfo|songInfo)\?(?:ax|xx|xg)nm=\d+$/.exec(url);
+      const m = /^https:\/\/www\.genie\.co\.kr\/detail\/(albumInfo|artistInfo|songInfo|mediaInfo)\?(?:ax|xx|xg|xv)nm=\d+$/.exec(url);
       if (m) {
         const prefix = m[1];
         switch (id) {
           case LINK_TYPES.downloadpurchase.release:
           case LINK_TYPES.streamingpaid.release:
             return {
-              result: prefix === 'albumInfo',
+              result: prefix === 'albumInfo' || prefix === 'mediaInfo',
               target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.downloadpurchase.artist:
@@ -2686,7 +2699,7 @@ const CLEANUPS: CleanupEntries = {
           case LINK_TYPES.downloadpurchase.recording:
           case LINK_TYPES.streamingpaid.recording:
             return {
-              result: prefix === 'songInfo',
+              result: prefix === 'songInfo' || prefix === 'mediaInfo',
               target: ERROR_TARGETS.ENTITY,
             };
         }
