@@ -1761,7 +1761,12 @@ const CLEANUPS: CleanupEntries = {
             }
             break;
           default: // mv
-            if (sourceType === 'recording') {
+            if (sourceType === 'release') {
+              return [
+                LINK_TYPES.downloadpurchase.release,
+                LINK_TYPES.streamingpaid.release,
+              ];
+            } else if (sourceType === 'recording') {
               return [
                 LINK_TYPES.downloadpurchase.recording,
                 LINK_TYPES.streamingpaid.recording,
@@ -1792,7 +1797,7 @@ const CLEANUPS: CleanupEntries = {
           case LINK_TYPES.downloadpurchase.release:
           case LINK_TYPES.streamingpaid.release:
             return {
-              result: prefix === 'album',
+              result: prefix === 'album' || prefix === 'mv',
               target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.downloadpurchase.artist:

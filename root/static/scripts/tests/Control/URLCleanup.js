@@ -1460,6 +1460,17 @@ limited_link_type_combinations: [
             expected_clean_url: 'https://music.bugs.co.kr/album/20488834',
   },
   {
+                     input_url: 'https://music.bugs.co.kr/mv/618959',
+             input_entity_type: 'release',
+       input_relationship_type: 'streamingpaid',
+    expected_relationship_type: ['downloadpurchase', 'streamingpaid'],
+limited_link_type_combinations: [
+                                  ['downloadpurchase', 'streamingpaid'],
+                                  'streamingpaid',
+                                ],
+            expected_clean_url: 'https://music.bugs.co.kr/mv/618959',
+  },
+  {
                      input_url: 'https://music.bugs.co.kr/artist/80276288?wl_ref=M_Search_01_01',
              input_entity_type: 'artist',
     expected_relationship_type: ['downloadpurchase', 'streamingpaid'],
