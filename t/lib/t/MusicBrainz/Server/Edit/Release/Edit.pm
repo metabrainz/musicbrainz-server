@@ -175,6 +175,36 @@ test 'A missing comment does not clear an existing one' => sub {
     is($release->comment, 'hello', 'comment is left unchanged');
 };
 
+test 'MBS-13300: Release group cover art is deleted if the release is moved' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+caa');
+    MusicBrainz::Server::Test->prepare_test_database($c, <<~'SQL');
+        INSERT INTO cover_art_archive.release_group_cover_art (release_group, release)
+             VALUES (1, 1);
+
+        INSERT INTO release_group (id, gid, name, artist_credit)
+             VALUES (2, '550f1150-5e5b-47ee-a285-f5941c7331e9', 'RG2', 1);
+        SQL
+
+    my $edit = $c->model('Edit')->create(
+        edit_type => $EDIT_RELEASE_EDIT,
+        editor_id => 1,
+        to_edit => $c->model('Release')->get_by_id(1),
+        release_group_id => 2,
+    );
+
+    $edit->accept;
+
+    my $release_group_cover_art = $c->sql->select_single_value(<<~'SQL');
+        SELECT release
+          FROM cover_art_archive.release_group_cover_art
+         WHERE release_group = 1
+        SQL
+    ok(!defined $release_group_cover_art, 'the RG cover art was unset');
+};
+
 sub is_unchanged {
     my ($release) = @_;
     is($release->packaging_id, undef, 'is_unchanged: packaging is undef');

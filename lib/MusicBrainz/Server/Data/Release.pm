@@ -860,9 +860,17 @@ sub _release_events_from_spec {
 sub update {
     my ($self, $release_id, $update) = @_;
 
-    my $release_group_id = $update->{release_group_id} // $self->sql->select_single_value(
+    my $new_release_group_id = $update->{release_group_id};
+    my $old_release_group_id = $self->sql->select_single_value(
         'SELECT release_group FROM release WHERE id = ?', $release_id
     );
+    if (
+        defined $new_release_group_id &&
+        $new_release_group_id eq $old_release_group_id
+    ) {
+        $new_release_group_id = undef;
+    }
+    my $release_group_id = $new_release_group_id // $old_release_group_id;
 
     $self->set_release_events(
         $release_id, $release_group_id, _release_events_from_spec($update->{events})
@@ -871,11 +879,19 @@ sub update {
     my $row = $self->_hash_to_row($update);
     $self->sql->update_row('release', $row, { id => $release_id }) if %$row;
 
+    if ($new_release_group_id) {
+        $self->sql->do(<<~'SQL', $old_release_group_id, $release_id);
+            DELETE FROM cover_art_archive.release_group_cover_art
+                  WHERE release_group = ?
+                    AND release = ?
+            SQL
+    }
+
     if ($update->{events} || $update->{name}) {
         $self->c->model('Series')->reorder_for_entities('release', $release_id);
     }
 
-    if ($update->{events} || $update->{release_group_id}) {
+    if ($update->{events} || $new_release_group_id) {
         $self->c->model('Series')->reorder_for_entities('release_group', $release_group_id);
     }
 }
