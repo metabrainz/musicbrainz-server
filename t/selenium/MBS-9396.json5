@@ -1,0 +1,20 @@
+{
+  title: "Seeding release group form including URL (MBS-9396)",
+  commands: [
+    {
+      command: 'open',
+      target: '/release-group/create?edit-release-group.name=Testy Test&edit-release-group.url.0.text=http://www.example.com/',
+      value: '',
+    },
+    {
+      command: 'assertValue',
+      target: 'id=id-edit-release-group.name',
+      value: 'Testy Test',
+    },
+    {
+      command: 'assertValue',
+      target: 'css=#external-link-0 td:nth-child(3) input',
+      value: 'http://www.example.com/',
+    },
+  ],
+}

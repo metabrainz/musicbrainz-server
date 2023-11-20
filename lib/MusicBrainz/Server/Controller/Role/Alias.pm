@@ -135,7 +135,6 @@ sub delete_alias : Chained('alias') PathPart('delete') Edit
     cancel_or_action($c, $edit, $self->_aliases_url($c), sub {
         $self->edit_action($c,
             form => 'Confirm',
-            form_args => { requires_edit_note => 1 },
             type => $model_to_edit_type{delete}->{ $self->{model} },
             edit_args => {
                 alias  => $alias,

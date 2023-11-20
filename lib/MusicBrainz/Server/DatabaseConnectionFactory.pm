@@ -67,8 +67,18 @@ sub get {
 
     my $database = $databases{$name};
 
-    if ($name eq 'MAINTENANCE' && !defined($database)) {
-        $database = $databases{READWRITE};
+    unless (defined $database) {
+        if ($name eq 'MAINTENANCE') {
+            $database = $databases{READWRITE};
+        } elsif ($name =~ /^SYSTEM_(.+)$/) {
+            my $base_dbdef_key = $1;
+            my $system = $class->get('SYSTEM');
+            $database = $system->meta->clone_object(
+                $system,
+                database => $class->get($base_dbdef_key)->database,
+            );
+            $class->register_database($name, $database);
+        }
     }
 
     return $database;

@@ -26,15 +26,31 @@ GetOptions(
 
 my $key = shift // 'READWRITE';
 
-if ($help) {
-    die "Usage: psql [database]\n\n  database -- the DBDefs name of the database to connect to. (default is READWRITE)\n";
-}
+die <<EOF if $help;
+Usage: $0 [options] [database]
+
+Arguments:
+
+    database    The name of the database connection definition to use,
+                as registered in DBDefs.
+                (default: READWRITE)
+
+Options:
+
+    --system    Partly overwrite the database connection definition
+                with the properties (usually username/password)
+                of the database connection definition SYSTEM.
+                It allows connecting to any database as superuser.
+             
+Environment:
+
+    PGPASSWORD  If set, it is used as password to connect to the database.
+EOF
 
 my $db = Databases->get($key) or die "No such database '$key'\n";
 
 if ($system) {
-    my $sys_db = Databases->get('SYSTEM');
-    $db = $db->meta->clone_object($sys_db, database => $db->database);
+    $db = Databases->get('SYSTEM_' . $key);
 }
 
 $ENV{'PGPASSWORD'} = $db->password;

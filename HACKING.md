@@ -571,6 +571,38 @@ modern browsers when compiling static resources by specifying the
 env MODERN_BROWSERS=1 ./script/compile_resources.sh
 ```
 
+Sometimes you may want to test how a certain module or function behaves
+locally, in Node.js, without setting up a whole test suite or Webpack
+configuration for it. This can be difficult, because most modules you would
+want to test are using Flow syntax, which can't be executed directly;
+furthermore, they may rely on some auto-imported functions, like `l`, which
+are injected by Webpack.
+
+There are two utilities which can help here:
+
+ 1. ./bin/sucrase-node
+
+    If you'd like to execute an ES module which uses *at most* Flow syntax,
+    and not any magic Webpack imports, then you may do so with
+    ./bin/sucrase-node (the same as you would with just `node`).
+
+ 2. ./webpack/exec.mjs
+
+    If you'd like to execute any kind of script (ESM or CommonJS) which may
+    import modules that make use of magic Webpack imports, then use
+    ./webpack/exec.mjs instead. This tools works by compiling the input
+    script to a temporary file, which is then executed directly and cleaned
+    up once it's finished with.
+
+    ```sh
+    $ cat <<EOF > test.js
+    const commaOnlyList =
+      require('./root/static/scripts/common/i18n/commaOnlyList.js').default;
+    console.log(commaOnlyList([1, 2, 3]));
+    EOF
+    $ ./webpack/exec.mjs test.js
+    ```
+
 Potential issues and fixes
 --------------------------
 
