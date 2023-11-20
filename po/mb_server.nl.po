@@ -32,7 +32,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-08 17:34+0000\n"
+"POT-Creation-Date: 2023-11-13 19:15+0000\n"
 "PO-Revision-Date: 2023-08-20 10:27+0000\n"
 "Last-Translator: RandomMushroom128 <RandomMushroom128@users.noreply."
 "translations.metabrainz.org>\n"
@@ -5764,22 +5764,29 @@ msgstr "Deze alias kan alleen primair zijn als er een plaats is geselecteerd"
 msgid "This alias already exists."
 msgstr "Deze alias bestaat al."
 
-#: ../lib/MusicBrainz/Server/Form/Application.pm:47
+#: ../lib/MusicBrainz/Server/Form/Application.pm:48
 msgid "Redirect URL must be entered for web applications."
 msgstr "Voor web-applicaties moet een omleidings-URL worden opgegeven."
 
-#: ../lib/MusicBrainz/Server/Form/Application.pm:51
+#: ../lib/MusicBrainz/Server/Form/Application.pm:52
+#, fuzzy
+#| msgid ""
+#| "Redirect URL scheme must be either <code>http</code> or <code>https</"
+#| "code> for web applications."
 msgid ""
-"Redirect URL scheme must be either <code>http</code> or <code>https</code> "
-"for web applications."
+"Redirect URL scheme must be either “http” or “https” for web applications."
 msgstr ""
 "De omleidings-URL voor webapplicaties moet <code>http</code> of <code>https</"
 "code> gebruiken."
 
-#: ../lib/MusicBrainz/Server/Form/Application.pm:58
+#: ../lib/MusicBrainz/Server/Form/Application.pm:59
+#, fuzzy, perl-brace-format
+#| msgid ""
+#| "Redirect URL scheme must be a reverse-DNS string, as in <code>org.example."
+#| "app://auth</code>, for installed applications."
 msgid ""
-"Redirect URL scheme must be a reverse-DNS string, as in <code>org.example."
-"app://auth</code>, for installed applications."
+"Redirect URL scheme must be a reverse-DNS string, as in “{example_url}”, for "
+"installed applications."
 msgstr ""
 "De omleidings-URL moet een omgekeerde DNS-reeks zijn, zoals <code>org."
 "example.app://auth</code> voor geïnstalleerde applicaties."
@@ -5940,11 +5947,13 @@ msgstr "De tekens die je hebt ingevoerd, zijn niet geldig of niet toegestaan."
 msgid "This is not a valid time."
 msgstr "Dit is geen geldig tijdstip."
 
-#: ../lib/MusicBrainz/Server/Form/Field/URL.pm:27
-msgid "Enter a valid URL, such as “http://google.com/”"
-msgstr ""
+#: ../lib/MusicBrainz/Server/Form/Field/URL.pm:28
+#: ../root/static/scripts/edit/externalLinks.js:708
+#, perl-brace-format
+msgid "Please enter a valid URL, such as “{example_url}”."
+msgstr "Voer een geldige URL in, zoals “{example_url}”."
 
-#: ../lib/MusicBrainz/Server/Form/Field/URL.pm:30
+#: ../lib/MusicBrainz/Server/Form/Field/URL.pm:33
 msgid "URL protocol must be HTTP, HTTPS or FTP"
 msgstr "Het protocol van de URL moet http, https of ftp zijn."
 
@@ -13215,18 +13224,19 @@ msgstr "URL-object"
 msgid "Usage count"
 msgstr "Aantal keer gebruikt"
 
-#: ../root/report/LowQualityReleases.js:26
+#: ../root/report/LowDataQualityReleases.js:26
 msgid ""
-"This report shows releases that have been marked as low quality. If you have "
-"some time, you can review them and try to improve the data as much as "
-"possible before changing their quality back to Normal (or even to High, if "
-"you add all the possible data!). If a release has already been improved but "
-"the quality wasn’t changed accordingly, just enter a data quality change to "
-"remove it from this report."
+"This report shows releases that have been marked as having low data quality. "
+"If you have some time, you can review them and try to improve the data as "
+"much as possible before changing their data quality back to Normal (or even "
+"to High, if you add all the possible data!). If a release has already been "
+"improved but the data quality wasn’t changed accordingly, just enter a data "
+"quality change to remove it from this report."
 msgstr ""
 
-#: ../root/report/LowQualityReleases.js:36 ../root/report/ReportsIndex.js:467
-msgid "Releases marked as low quality"
+#: ../root/report/LowDataQualityReleases.js:38
+#: ../root/report/ReportsIndex.js:467
+msgid "Releases marked as having low data quality"
 msgstr ""
 
 #: ../root/report/MediumsWithOrderInTitle.js:24
@@ -16047,10 +16057,6 @@ msgstr "Opgeschoond tot"
 #: ../root/static/scripts/release-editor/init.js:271
 msgid "All of your changes will be lost if you leave this page."
 msgstr "Al je veranderingen zullen verloren gaan als je deze pagina verlaat."
-
-#: ../root/static/scripts/edit/externalLinks.js:708
-msgid "Please enter a valid URL, such as “{example_url}”."
-msgstr "Voer een geldige URL in, zoals “{example_url}”."
 
 #: ../root/static/scripts/edit/externalLinks.js:715
 msgid ""

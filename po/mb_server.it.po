@@ -32,8 +32,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-08 17:34+0000\n"
-"PO-Revision-Date: 2023-11-12 21:27+0000\n"
+"POT-Creation-Date: 2023-11-13 19:15+0000\n"
+"PO-Revision-Date: 2023-11-15 01:27+0000\n"
 "Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
 "metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -4516,7 +4516,7 @@ msgstr "Alta"
 
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:294
 msgid "Default"
-msgstr "Default"
+msgstr "Predefinita"
 
 #: ../lib/MusicBrainz/Server/Controller/EditNote.pm:49
 #: ../lib/MusicBrainz/Server/Controller/EditNote.pm:61
@@ -5863,26 +5863,26 @@ msgstr ""
 msgid "This alias already exists."
 msgstr "Questo alias è già esistente."
 
-#: ../lib/MusicBrainz/Server/Form/Application.pm:47
+#: ../lib/MusicBrainz/Server/Form/Application.pm:48
 msgid "Redirect URL must be entered for web applications."
 msgstr ""
 "È necessario inserire l'URL di reindirizzamento per le applicazioni web."
 
-#: ../lib/MusicBrainz/Server/Form/Application.pm:51
+#: ../lib/MusicBrainz/Server/Form/Application.pm:52
 msgid ""
-"Redirect URL scheme must be either <code>http</code> or <code>https</code> "
-"for web applications."
+"Redirect URL scheme must be either “http” or “https” for web applications."
 msgstr ""
-"Lo schema URL di reindirizzamento deve essere <code>http</code> o "
-"<code>https</code> per le applicazioni web."
+"Lo schema URL di reindirizzamento deve essere “http” o “https” per le "
+"applicazioni web."
 
-#: ../lib/MusicBrainz/Server/Form/Application.pm:58
+#: ../lib/MusicBrainz/Server/Form/Application.pm:59
+#, perl-brace-format
 msgid ""
-"Redirect URL scheme must be a reverse-DNS string, as in <code>org.example."
-"app://auth</code>, for installed applications."
+"Redirect URL scheme must be a reverse-DNS string, as in “{example_url}”, for "
+"installed applications."
 msgstr ""
 "Lo schema URL di reindirizzamento deve essere una stringa DNS inversa, come "
-"in <code>org.example.app://auth</code>, per le applicazioni installate."
+"in “{example_url}”, per le applicazioni installate."
 
 #: ../lib/MusicBrainz/Server/Form/Area.pm:88
 msgid "An area already exists with this ISO code"
@@ -6043,11 +6043,13 @@ msgstr "I caratteri che hai inserito non sono validi o non sono consentiti."
 msgid "This is not a valid time."
 msgstr "Questo non è un orario valido."
 
-#: ../lib/MusicBrainz/Server/Form/Field/URL.pm:27
-msgid "Enter a valid URL, such as “http://google.com/”"
-msgstr "Inserisci un URL valido, come “http://google.com/”"
+#: ../lib/MusicBrainz/Server/Form/Field/URL.pm:28
+#: ../root/static/scripts/edit/externalLinks.js:708
+#, perl-brace-format
+msgid "Please enter a valid URL, such as “{example_url}”."
+msgstr "Inserisci un URL valido, come “{example_url}”."
 
-#: ../lib/MusicBrainz/Server/Form/Field/URL.pm:30
+#: ../lib/MusicBrainz/Server/Form/Field/URL.pm:33
 msgid "URL protocol must be HTTP, HTTPS or FTP"
 msgstr "Il protocollo dell'URL deve essere HTTP, HTTPS o FTP"
 
@@ -7782,8 +7784,8 @@ msgstr ""
 #: ../root/artist/ArtistMerge.js:50
 msgid "You should only use the checkbox above to fix errors (such as typos)."
 msgstr ""
-"La casella qui sopra va spuntata solo se intendi correggere degli errori ("
-"come dei refusi)."
+"La casella qui sopra va spuntata solo se intendi correggere degli errori "
+"(come dei refusi)."
 
 #: ../root/artist/ArtistMerge.js:56
 msgid ""
@@ -9725,7 +9727,7 @@ msgstr "Lingue del testo"
 #: ../root/layout/components/sidebar/SidebarDataQuality.js:36
 #: ../root/release/ChangeQuality.js:67
 msgid "Data Quality"
-msgstr "Qualità dati"
+msgstr "Qualità dei dati"
 
 #: ../root/edit/details/ChangeWikiDoc.js:39
 msgid "WikiDoc:"
@@ -13464,26 +13466,27 @@ msgstr "Entità URL"
 msgid "Usage count"
 msgstr "Numero di usi"
 
-#: ../root/report/LowQualityReleases.js:26
+#: ../root/report/LowDataQualityReleases.js:26
 msgid ""
-"This report shows releases that have been marked as low quality. If you have "
-"some time, you can review them and try to improve the data as much as "
-"possible before changing their quality back to Normal (or even to High, if "
-"you add all the possible data!). If a release has already been improved but "
-"the quality wasn’t changed accordingly, just enter a data quality change to "
-"remove it from this report."
+"This report shows releases that have been marked as having low data quality. "
+"If you have some time, you can review them and try to improve the data as "
+"much as possible before changing their data quality back to Normal (or even "
+"to High, if you add all the possible data!). If a release has already been "
+"improved but the data quality wasn’t changed accordingly, just enter a data "
+"quality change to remove it from this report."
 msgstr ""
 "Questo rapporto mostra le pubblicazioni che sono state contrassegnate come "
-"di bassa qualità. Se hai un po' di tempo, puoi rivederle e cercare di "
-"migliorare il più possibile i dati prima di impostare la qualità come "
-"Normale (o come Alta, se hai aggiunto tutti i dati possibili!). Se una "
-"pubblicazione è già stata migliorata ma la sua qualità non è stata cambiata "
-"di conseguenza, inserisci semplicemente una modifica che cambia la qualità "
-"dei dati per rimuoverla da questo rapporto."
+"di bassa qualità dei dati. Se hai un po' di tempo, puoi rivederle e cercare "
+"di migliorare il più possibile i dati prima di impostare la qualità come "
+"normale (o come alta, se hai aggiunto tutti i dati possibili!). Se una "
+"pubblicazione è già stata migliorata ma la sua qualità dei dati non è stata "
+"cambiata di conseguenza, inserisci semplicemente una modifica che cambia la "
+"qualità dei dati per rimuoverla da questo rapporto."
 
-#: ../root/report/LowQualityReleases.js:36 ../root/report/ReportsIndex.js:467
-msgid "Releases marked as low quality"
-msgstr "Pubblicazioni contrassegnate come di bassa qualità"
+#: ../root/report/LowDataQualityReleases.js:38
+#: ../root/report/ReportsIndex.js:467
+msgid "Releases marked as having low data quality"
+msgstr "Pubblicazioni contrassegnate come di bassa qualità dei dati"
 
 #: ../root/report/MediumsWithOrderInTitle.js:24
 msgid ""
@@ -15176,7 +15179,8 @@ msgstr "Annotazione modificata l'ultima volta il {date}."
 
 #: ../root/static/scripts/common/components/ArtistCreditLink.js:49
 msgid "This artist credit has {edit_search|open edits}."
-msgstr "Quest'accreditamento artista ha delle {edit_search|modifiche in corso}."
+msgstr ""
+"Quest'accreditamento artista ha delle {edit_search|modifiche in corso}."
 
 #: ../root/static/scripts/common/components/ArtistCreditLink.js:54
 msgid "This artist credit has open edits."
@@ -16369,10 +16373,6 @@ msgstr "Ripulito in"
 #: ../root/static/scripts/release-editor/init.js:271
 msgid "All of your changes will be lost if you leave this page."
 msgstr "Se lasci questa pagina perderai tutte le tue modifiche."
-
-#: ../root/static/scripts/edit/externalLinks.js:708
-msgid "Please enter a valid URL, such as “{example_url}”."
-msgstr "Inserisci un URL valido, come “{example_url}”."
 
 #: ../root/static/scripts/edit/externalLinks.js:715
 msgid ""
@@ -18672,6 +18672,9 @@ msgstr ""
 "<strong>Attenzione:</strong> alcune delle opere che stai unendo hanno ISWC "
 "diversi. Assicurati che si tratti davvero delle stesse opere prima di "
 "proseguire."
+
+#~ msgid "Enter a valid URL, such as “http://google.com/”"
+#~ msgstr "Inserisci un URL valido, come “http://google.com/”"
 
 #~ msgid "Address:"
 #~ msgstr "Indirizzo:"
