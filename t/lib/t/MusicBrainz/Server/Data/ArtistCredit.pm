@@ -7,6 +7,7 @@ use Test::Routine;
 use Test::Moose;
 use Test::Fatal;
 use Test::More;
+use Test::Deep qw( cmp_deeply ignore );
 
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Data::ArtistCredit;
@@ -286,6 +287,130 @@ test 'related_entities' => sub {
 
     my $ac = $artist_credit_data->get_by_id(135345);
     is_deeply( $artist_credit_data->related_entities($ac), {recording => [], release => [ 59662 ], release_group => [ 403214 ]} );
+};
+
+test 'MBS-13310: Merging artists updates empty artist_credit IDs in unreferenced_row_log' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, <<~'SQL');
+        INSERT INTO artist (id, gid, name, sort_name, edits_pending)
+             VALUES (10, '2de9d329-27e0-4a17-9da6-89a74948904e', 'Recording Artist', 'Recording Artist', 0),
+                    (11, 'c3b87cb3-a1a0-448a-ac8b-0791d645aac4', 'Unused Artist Credit Artist', 'Unused Artist Credit Artist', 0),
+                    (12, 'b4e7fb54-891f-41ce-9e5d-56e75e4753a0', 'Other Artist', 'Other Artist', 0);
+
+        INSERT INTO artist_credit (id, gid, name, artist_count)
+             VALUES (1, 'c58ec8ce-0cbd-497c-93be-5dee8aa0af69', 'Recording Artist', 1),
+                    (2, '5ff2f4db-6ded-443e-a3ec-e87d77770078', 'Unused Artist Credit Artist', 1),
+                    (3, '8763b517-d27c-498c-b73d-62233d35e5d1', 'Unused Artist Credit Artist & Other Artist', 2);
+
+        INSERT INTO artist_credit_name (artist_credit, position, artist, name, join_phrase)
+             VALUES (1, 0, 10, 'Recording Artist', ''),
+                    (2, 0, 11, 'Unused Artist Credit Artist', ''),
+                    (3, 0, 11, 'Unused Artist Credit Artist', ' & '),
+                    (3, 1, 12, 'Other Artist', '');
+
+        INSERT INTO recording (id, gid, name, artist_credit, length)
+             VALUES (1, '961d5b34-747b-4a70-a5ea-c77d9382d481', 'Recording 1', 1, 123456),
+                    (2, '2418c7cb-303c-41ce-9c8c-68daeeb1289d', 'Recording 2', 2, 234567),
+                    (3, 'c303898c-3e7f-4f92-9366-b15e48d931c6', 'Recording 3', 3, 345678);
+        SQL
+
+    $c->model('Recording')->update(2, { artist_credit => 1 });
+    $c->model('Recording')->update(3, { artist_credit => 1 });
+
+    cmp_deeply(
+        $c->sql->select_list_of_hashes('SELECT * FROM unreferenced_row_log'),
+        [
+          {
+            inserted => ignore(),
+            row_id => 2,
+            table_name => 'artist_credit',
+          },
+          {
+            inserted => ignore(),
+            row_id => 3,
+            table_name => 'artist_credit',
+          },
+        ],
+        'unreferenced_row_log table was updated correctly',
+    );
+
+    $c->model('Artist')->merge(10, [11], rename => 1);
+
+    cmp_deeply(
+        $c->sql->select_list_of_hashes('SELECT * FROM artist_credit'),
+        [
+          {
+            artist_count => 1,
+            created => ignore(),
+            edits_pending => 0,
+            gid => 'c58ec8ce-0cbd-497c-93be-5dee8aa0af69',
+            id => 1,
+            name => 'Recording Artist',
+            ref_count => 3,
+          },
+          {
+            artist_count => 2,
+            created => ignore(),
+            edits_pending => 0,
+            gid => ignore(),
+            id => 6,
+            name => 'Recording Artist & Other Artist',
+            ref_count => 0,
+          },
+        ],
+        'artist_credit table was updated correctly',
+    );
+
+    cmp_deeply(
+        $c->sql->select_list_of_hashes('SELECT * FROM artist_credit_name'),
+        [
+          {
+            artist_credit => 1,
+            artist => 10,
+            join_phrase => '',
+            name => 'Recording Artist',
+            position => 0,
+          },
+          {
+            artist_credit => 6,
+            artist => 10,
+            join_phrase => ' & ',
+            name => 'Recording Artist',
+            position => 0,
+          },
+          {
+            artist_credit => 6,
+            artist => 12,
+            join_phrase => '',
+            name => 'Other Artist',
+            position => 1,
+          },
+        ],
+        'artist_credit_name table was updated correctly',
+    );
+
+    my %gid_redirects = map {
+        $_->{gid} => $_->{new_id}
+    } @{ $c->sql->select_list_of_hashes('SELECT * FROM artist_credit_gid_redirect') };
+
+    is($gid_redirects{'5ff2f4db-6ded-443e-a3ec-e87d77770078'}, 1,
+       'AC 2 redirects to AC 1');
+    is($gid_redirects{'8763b517-d27c-498c-b73d-62233d35e5d1'}, 6,
+       'AC 3 redirects to AC 6');
+
+    cmp_deeply(
+        $c->sql->select_list_of_hashes('SELECT * FROM unreferenced_row_log'),
+        [
+          {
+            inserted => ignore(),
+            row_id => 6,
+            table_name => 'artist_credit',
+          },
+        ],
+        'unreferenced_row_log table was updated correctly (post-merge)',
+    );
 };
 
 test all => sub {
