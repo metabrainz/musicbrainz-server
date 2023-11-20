@@ -2674,7 +2674,8 @@ const CLEANUPS: CleanupEntries = {
     },
     clean: function (url) {
       url = url.replace(/^(?:https?:\/\/)?(?:(?:www|mw)\.)?genie\.co\.kr\//, 'https://www.genie.co.kr/');
-      url = url.replace(/^(https:\/\/www\.genie\.co\.kr\/detail\/(?:albumInfo\?ax|artistInfo\?xx|songInfo\?xg|mediaInfo\?xv)nm=\d+)(?:[&#\/].*)?$/, '$1');
+      url = url.replace(/^https:\/\/www\.genie\.co\.kr\/detail\/artist(?:Info|Album|Song|Mv)\?xxnm=(\d+)(?:[&#\/].*)?$/, 'https://www.genie.co.kr/detail/artistInfo?xxnm=$1');
+      url = url.replace(/^(https:\/\/www\.genie\.co\.kr\/detail\/(?:albumInfo\?ax|songInfo\?xg|mediaInfo\?xv)nm=\d+)(?:[&#\/].*)?$/, '$1');
       return url;
     },
     validate: function (url, id) {
