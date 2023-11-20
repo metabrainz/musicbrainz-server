@@ -45,12 +45,6 @@ declare type DatePeriodFieldT = ReadOnlyCompoundFieldT<{
   +ended: ReadOnlyFieldT<boolean>,
 }>;
 
-declare type WritableDatePeriodFieldT = CompoundFieldT<{
-  +begin_date: WritablePartialDateFieldT,
-  +end_date: WritablePartialDateFieldT,
-  +ended: FieldT<boolean>,
-}>;
-
 declare type FieldT<V> = {
   errors: Array<string>,
   has_errors: boolean,
@@ -90,6 +84,36 @@ declare type ReadOnlyFormT<+F, +N: string = ''> = {
   +type: 'form',
 };
 
+declare type SubfieldsT = {
+  +[fieldName: string]: AnyFieldT,
+};
+
+declare type AnyFieldT =
+  | {
+      +errors: $ReadOnlyArray<string>,
+      +field: SubfieldsT,
+      +pendingErrors?: $ReadOnlyArray<string>,
+      +type: 'compound_field',
+      ...
+    }
+  | {
+      +errors: $ReadOnlyArray<string>,
+      +field: $ReadOnlyArray<AnyFieldT>,
+      +pendingErrors?: $ReadOnlyArray<string>,
+      +type: 'repeatable_field',
+      ...
+    }
+  | {
+      +errors: $ReadOnlyArray<string>,
+      +pendingErrors?: $ReadOnlyArray<string>,
+      +type: 'field',
+      ...
+    };
+
+declare type FormOrAnyFieldT =
+  | ReadOnlyFormT<SubfieldsT>
+  | AnyFieldT;
+
 /*
  * See MusicBrainz::Server::Form::Utils::build_grouped_options
  * FIXME(michael): Figure out a way to consolidate GroupedOptionsT,
@@ -125,12 +149,6 @@ declare type PartialDateFieldT = ReadOnlyCompoundFieldT<{
   +year: ReadOnlyFieldT<StrOrNum | null>,
 }>;
 
-declare type WritablePartialDateFieldT = CompoundFieldT<{
-  +day: FieldT<StrOrNum | null>,
-  +month: FieldT<StrOrNum | null>,
-  +year: FieldT<StrOrNum | null>,
-}>;
-
 declare type RepeatableFieldT<F> = {
   errors: Array<string>,
   field: Array<F>,
@@ -148,7 +166,7 @@ declare type ReadOnlyRepeatableFieldT<+F> = {
   +has_errors: boolean,
   +html_name: string,
   +id: number,
-  last_index: number,
+  +last_index: number,
   +pendingErrors?: $ReadOnlyArray<string>,
   +type: 'repeatable_field',
 };

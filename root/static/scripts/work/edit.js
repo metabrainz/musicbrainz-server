@@ -44,16 +44,6 @@ type WorkForm = FormT<{
   +languages: ReadOnlyRepeatableFieldT<ReadOnlyFieldT<?number>>,
 }>;
 
-type WritableWorkAttributeField = CompoundFieldT<{
-  +type_id: FieldT<?number>,
-  +value: FieldT<?StrOrNum>,
-}>;
-
-type WritableWorkForm = FormT<{
-  +attributes: RepeatableFieldT<WritableWorkAttributeField>,
-  +languages: RepeatableFieldT<FieldT<?number>>,
-}>;
-
 type ActionT =
   | {+type: 'ADD_LANGUAGE'}
   | {
@@ -96,10 +86,10 @@ const store = createStore<WorkForm, ActionT, (ActionT) => empty>(function (
       break;
 
     case 'EDIT_LANGUAGE':
-      state = mutate<WritableWorkForm, WorkForm>(state, newState => {
-        newState.field.languages.field[action.index].value =
-          parseIntegerOrNull(action.languageId);
-      });
+      state = mutate(state)
+        .set('field', 'languages', 'field', action.index, 'value',
+             parseIntegerOrNull(action.languageId))
+        .final();
       break;
 
     case 'REMOVE_LANGUAGE':
@@ -115,15 +105,15 @@ const store = createStore<WorkForm, ActionT, (ActionT) => empty>(function (
 });
 
 function addLanguageToState(form: WorkForm): WorkForm {
-  return mutate<WritableWorkForm, _>(form, newForm => {
-    pushField(newForm.field.languages, null);
-  });
+  return mutate(form).update('field', 'languages', (fieldCtx) => {
+    pushField(fieldCtx, null);
+  }).final();
 }
 
 function removeLanguageFromState(form: WorkForm, i: number): WorkForm {
-  return mutate<WritableWorkForm, _>(form, newForm => {
-    newForm.field.languages.field.splice(i, 1);
-  });
+  return mutate(form).update('field', 'languages', 'field', (fieldCtx) => {
+    fieldCtx.write().splice(i, 1);
+  }).final();
 }
 
 class WorkAttribute {
@@ -279,15 +269,15 @@ function byID(
 {
   const attributes = form.field.attributes;
   if (!attributes.field.length) {
-    form = mutate<WritableWorkForm, _>(form, newForm => {
+    form = mutate(form).update('field', 'attributes', (attributesCtx) => {
       pushCompoundField<{
         +type_id: ?number,
         +value: ?StrOrNum,
-      }>(newForm.field.attributes, {
+      }>(attributesCtx, {
         type_id: null,
         value: null,
       });
-    });
+    }).final();
   }
 }
 

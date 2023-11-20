@@ -15,7 +15,6 @@ import type {
   CollaboratorsStateT,
   CollaboratorStateT,
   CollectionEditFormT,
-  WritableCollaboratorsStateT,
 } from '../../../../collection/types.js';
 import {SanitizedCatalystContext} from '../../../../context.mjs';
 import Autocomplete2, {
@@ -89,23 +88,26 @@ function createCollaboratorAutocompleteState(
 function addCollaborator(
   collaborators: CollaboratorsStateT,
 ): CollaboratorsStateT {
-  return mutate(
-    collaborators,
-    (copy: WritableCollaboratorsStateT) => {
-      const name = copy.html_name + '.' + String(++copy.last_index);
-      const field = createCompoundFieldFromObject<{
-        id: ?number,
-        name: string,
-      }>(name, {
-        id: null,
-        name: '',
-      });
-      copy.field.push({
+  const ctx = mutate(collaborators);
+  const nextIndex = collaborators.last_index + 1;
+  const name = collaborators.html_name + '.' +
+    String(nextIndex);
+  const field = createCompoundFieldFromObject<{
+    id: ?number,
+    name: string,
+  }>(name, {
+    id: null,
+    name: '',
+  });
+  return ctx
+    .set('last_index', nextIndex)
+    .update('field', (fieldCtx) => {
+      fieldCtx.write().push({
         ...field,
         autocomplete: createCollaboratorAutocompleteState(field),
       });
-    },
-  );
+    })
+    .final();
 }
 
 function createInitialState(form: CollectionEditFormT): StateT {
@@ -135,12 +137,11 @@ function reducer(state: StateT, action: ActionT): StateT {
         (collaborator) => collaborator.id === action.fieldId,
       );
       invariant(index >= 0);
-      collaborators = mutate(
-        collaborators,
-        (copy: WritableCollaboratorsStateT) => {
-          copy.field.splice(index, 1);
-        },
-      );
+      collaborators = mutate(collaborators)
+        .update('field', (fieldCtx) => {
+          fieldCtx.write().splice(index, 1);
+        })
+        .final();
       break;
     }
     case 'update-collaborator': {
@@ -150,15 +151,14 @@ function reducer(state: StateT, action: ActionT): StateT {
       invariant(index >= 0);
       const oldAutocompleteState = collaborators.field[index].autocomplete;
       const oldEditor = oldAutocompleteState.selectedItem?.entity;
-      collaborators = mutate(
-        collaborators,
-        (copy: WritableCollaboratorsStateT) => {
-          const newAutocompleteState = autocompleteReducer(
-            oldAutocompleteState,
-            action.action,
-          );
-          copy.field[index].autocomplete = newAutocompleteState;
-          const newEditor = newAutocompleteState.selectedItem?.entity;
+      const newAutocompleteState = autocompleteReducer(
+        oldAutocompleteState,
+        action.action,
+      );
+      const newEditor = newAutocompleteState.selectedItem?.entity;
+      collaborators = mutate(collaborators)
+        .update('field', index, (fieldCtx) => {
+          fieldCtx.set('autocomplete', newAutocompleteState);
           if (newEditor !== oldEditor) {
             let id = null;
             let name = '';
@@ -166,11 +166,13 @@ function reducer(state: StateT, action: ActionT): StateT {
               id = newEditor.id;
               name = newEditor.name;
             }
-            copy.field[index].field.id.value = id;
-            copy.field[index].field.name.value = name;
+            fieldCtx
+              .get('field')
+              .set('id', 'value', id)
+              .set('name', 'value', name);
           }
-        },
-      );
+        })
+        .final();
       break;
     }
   }

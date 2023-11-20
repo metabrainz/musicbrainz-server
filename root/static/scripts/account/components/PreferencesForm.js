@@ -99,9 +99,8 @@ class PreferencesForm extends React.Component<Props, State> {
 
   handleTimezoneChange(e: SyntheticEvent<HTMLSelectElement>) {
     const selectedTimezone = e.currentTarget.value;
-    this.setState(prevState => mutate<State, _>(prevState, newState => {
-      newState.form.field.timezone.value = selectedTimezone;
-    }));
+    this.setState(prevState => mutate(prevState)
+      .set('form', 'field', 'timezone', 'value', selectedTimezone).final());
   }
 
   handleTimezoneGuessBound: () => void;
@@ -117,9 +116,8 @@ class PreferencesForm extends React.Component<Props, State> {
     if (nonEmpty(guess)) {
       for (const option of this.state.timezoneOptions.options) {
         if (option.value === guess) {
-          this.setState(prevState => mutate<State, _>(prevState, newState => {
-            newState.form.field.timezone.value = guess;
-          }));
+          this.setState(prevState => mutate(prevState)
+            .set('form', 'field', 'timezone', 'value', guess).final());
           break;
         }
       }
@@ -131,9 +129,10 @@ class PreferencesForm extends React.Component<Props, State> {
 
   handleDateTimeFormatChange(e: SyntheticEvent<HTMLSelectElement>) {
     const selectedDateTimeFormat = e.currentTarget.value;
-    this.setState(prevState => mutate<State, _>(prevState, newState => {
-      newState.form.field.datetime_format.value = selectedDateTimeFormat;
-    }));
+    this.setState(prevState => mutate(prevState)
+      .set('form', 'field', 'datetime_format', 'value',
+           selectedDateTimeFormat)
+      .final());
   }
 
   handleSubscriptionsEmailPeriodChangeBound:
@@ -141,10 +140,10 @@ class PreferencesForm extends React.Component<Props, State> {
 
   handleSubscriptionsEmailPeriodChange(e: SyntheticEvent<HTMLSelectElement>) {
     const selectedSubscriptionsEmailPeriod = e.currentTarget.value;
-    this.setState(prevState => mutate<State, _>(prevState, newState => {
-      newState.form.field.subscriptions_email_period.value =
-        selectedSubscriptionsEmailPeriod;
-    }));
+    this.setState(prevState => mutate(prevState)
+      .set('form', 'field', 'subscriptions_email_period', 'value',
+           selectedSubscriptionsEmailPeriod)
+      .final());
   }
 
   render(): React$Element<'form'> {

@@ -16,26 +16,13 @@ export type CollaboratorFieldT = ReadOnlyCompoundFieldT<{
   +name: ReadOnlyFieldT<string>,
 }>;
 
-export type WritableCollaboratorFieldT = CompoundFieldT<{
-  +id: FieldT<?number>,
-  +name: FieldT<string>,
-}>;
-
 export type CollaboratorStateT = $ReadOnly<{
   ...CollaboratorFieldT,
   +autocomplete: AutocompleteStateT<EditorT>,
 }>;
 
-export type WritableCollaboratorStateT = {
-  ...WritableCollaboratorFieldT,
-  autocomplete: AutocompleteStateT<EditorT>,
-};
-
 export type CollaboratorsStateT =
   ReadOnlyRepeatableFieldT<CollaboratorStateT>;
-
-export type WritableCollaboratorsStateT =
-  RepeatableFieldT<WritableCollaboratorStateT>;
 
 export type CollectionEditFormT = FormT<{
   +collaborators: ReadOnlyRepeatableFieldT<CollaboratorFieldT>,

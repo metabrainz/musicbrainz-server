@@ -22,14 +22,3 @@ export type AliasEditFormT = FormT<{
   +sort_name: ReadOnlyFieldT<string | null>,
   +type_id: ReadOnlyFieldT<string>,
 }>;
-
-export type WritableAliasEditFormT = FormT<{
-  +edit_note: FieldT<string>,
-  +locale: FieldT<string>,
-  +make_votable: FieldT<boolean>,
-  +name: FieldT<string | null>,
-  +period: WritableDatePeriodFieldT,
-  +primary_for_locale: FieldT<boolean>,
-  +sort_name: FieldT<string | null>,
-  +type_id: FieldT<string>,
-}>;

@@ -13,7 +13,6 @@ import * as React from 'react';
 import FormRowNameWithGuessCase, {
   type ActionT as NameActionT,
   type StateT as NameStateT,
-  type WritableStateT as WritableNameStateT,
   createInitialState as createNameState,
   runReducer as runFormRowNameWithGuessCaseReducer,
 } from '../edit/components/FormRowNameWithGuessCase.js';
@@ -30,9 +29,9 @@ function reducer(
   state: NameStateT,
   action: NameActionT,
 ): NameStateT {
-  return mutate<WritableNameStateT, NameStateT>(state, newState => {
-    runFormRowNameWithGuessCaseReducer(newState, action);
-  });
+  const ctx = mutate(state);
+  runFormRowNameWithGuessCaseReducer(ctx, action);
+  return ctx.final();
 }
 
 export const RecordingName = ({
