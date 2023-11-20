@@ -8,7 +8,11 @@ use MusicBrainz::Server::Email;
 use MusicBrainz::Server::Data::Utils qw(
     placeholders
 );
-use MusicBrainz::Server::Constants qw( :vote $LIMIT_FOR_EDIT_LISTING );
+use MusicBrainz::Server::Constants qw(
+    :vote
+    $EDITOR_MODBOT
+    $LIMIT_FOR_EDIT_LISTING
+);
 
 extends 'MusicBrainz::Server::Data::Entity';
 
@@ -73,10 +77,20 @@ sub insert
 sub add_note
 {
     my ($self, $edit_id, $note_hash) = @_;
+
+    my $edit = $self->c->model('Edit')->get_by_id($edit_id)
+               or die "Edit $edit_id does not exist!";
+    my $note_editor_id = $note_hash->{editor_id};
+    unless ($note_editor_id == $EDITOR_MODBOT) {
+        my $note_editor =
+            $self->c->model('Editor')->get_by_id($note_editor_id);
+        $edit->editor_may_add_note($note_editor)
+            or die "Editor $note_editor_id may not add a note to edit $edit_id";
+    }
+
     $self->insert($edit_id, $note_hash);
 
     my $email_data = MusicBrainz::Server::Email->new( c => $self->c );
-    my $edit = $self->c->model('Edit')->get_by_id($edit_id) or die "Edit $edit_id does not exist!";
     $self->c->model('EditNote')->load_for_edits($edit);
     $self->c->model('Vote')->load_for_edits($edit);
     my $editors = $self->c->model('Editor')->get_by_ids($edit->editor_id,
