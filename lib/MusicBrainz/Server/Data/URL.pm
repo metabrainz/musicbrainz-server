@@ -314,6 +314,7 @@ sub update
 
 sub delete {
     my ($self, @ids) = @_;
+    $self->remove_gid_redirects(@ids);
     $self->sql->do('DELETE FROM url WHERE id = any(?)', \@ids);
 }
 

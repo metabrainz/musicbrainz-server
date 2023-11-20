@@ -67,4 +67,18 @@ test find_or_insert => sub {
 
 };
 
+test 'MBS-13372: Unused URL with gid redirect should be deleted' => sub {
+    my $test = shift;
+
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+url');
+    MusicBrainz::Server::Test->prepare_test_database($test->c, <<~'SQL');
+        INSERT INTO url_gid_redirect (gid, new_id)
+             VALUES ('68bab7a6-abcf-4108-922a-b452a20b0a63', 1)
+        SQL
+
+    my $url_data = MusicBrainz::Server::Data::URL->new(c => $test->c);
+    $url_data->delete(1);
+    ok(!defined $url_data->get_by_id(1), 'the URL was deleted');
+};
+
 1;
