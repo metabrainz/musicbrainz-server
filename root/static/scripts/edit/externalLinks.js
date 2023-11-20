@@ -179,8 +179,11 @@ export class _ExternalLinksEditor
           }
         }
       } else {
+        const seededSourceType = sourceType === 'release_group'
+          ? 'release-group'
+          : sourceType;
         const seededLinkRegex = new RegExp(
-          '(?:\\?|&)edit-' + sourceType +
+          '(?:\\?|&)edit-' + seededSourceType +
             '\\.url\\.([0-9]+)\\.(text|link_type_id)=([^&]+)',
           'g',
         );
