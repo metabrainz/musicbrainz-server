@@ -33,7 +33,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-13 19:15+0000\n"
-"PO-Revision-Date: 2023-11-12 21:27+0000\n"
+"PO-Revision-Date: 2023-11-15 01:27+0000\n"
 "Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
 "metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -42,8 +42,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
 "X-Generator: Weblate 5.1\n"
 
 #: ../root/components/common-macros.tt:12
@@ -4516,7 +4516,7 @@ msgstr "Alta"
 
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:294
 msgid "Default"
-msgstr "Default"
+msgstr "Predefinita"
 
 #: ../lib/MusicBrainz/Server/Controller/EditNote.pm:49
 #: ../lib/MusicBrainz/Server/Controller/EditNote.pm:61
@@ -5869,27 +5869,20 @@ msgstr ""
 "È necessario inserire l'URL di reindirizzamento per le applicazioni web."
 
 #: ../lib/MusicBrainz/Server/Form/Application.pm:52
-#, fuzzy
-#| msgid ""
-#| "Redirect URL scheme must be either <code>http</code> or <code>https</"
-#| "code> for web applications."
 msgid ""
 "Redirect URL scheme must be either “http” or “https” for web applications."
 msgstr ""
-"Lo schema URL di reindirizzamento deve essere <code>http</code> o "
-"<code>https</code> per le applicazioni web."
+"Lo schema URL di reindirizzamento deve essere “http” o “https” per le "
+"applicazioni web."
 
 #: ../lib/MusicBrainz/Server/Form/Application.pm:59
-#, fuzzy, perl-brace-format
-#| msgid ""
-#| "Redirect URL scheme must be a reverse-DNS string, as in <code>org.example."
-#| "app://auth</code>, for installed applications."
+#, perl-brace-format
 msgid ""
 "Redirect URL scheme must be a reverse-DNS string, as in “{example_url}”, for "
 "installed applications."
 msgstr ""
 "Lo schema URL di reindirizzamento deve essere una stringa DNS inversa, come "
-"in <code>org.example.app://auth</code>, per le applicazioni installate."
+"in “{example_url}”, per le applicazioni installate."
 
 #: ../lib/MusicBrainz/Server/Form/Area.pm:88
 msgid "An area already exists with this ISO code"
@@ -9734,7 +9727,7 @@ msgstr "Lingue del testo"
 #: ../root/layout/components/sidebar/SidebarDataQuality.js:36
 #: ../root/release/ChangeQuality.js:67
 msgid "Data Quality"
-msgstr "Qualità dati"
+msgstr "Qualità dei dati"
 
 #: ../root/edit/details/ChangeWikiDoc.js:39
 msgid "WikiDoc:"
@@ -13474,14 +13467,6 @@ msgid "Usage count"
 msgstr "Numero di usi"
 
 #: ../root/report/LowDataQualityReleases.js:26
-#, fuzzy
-#| msgid ""
-#| "This report shows releases that have been marked as low quality. If you "
-#| "have some time, you can review them and try to improve the data as much "
-#| "as possible before changing their quality back to Normal (or even to "
-#| "High, if you add all the possible data!). If a release has already been "
-#| "improved but the quality wasn’t changed accordingly, just enter a data "
-#| "quality change to remove it from this report."
 msgid ""
 "This report shows releases that have been marked as having low data quality. "
 "If you have some time, you can review them and try to improve the data as "
@@ -13491,19 +13476,17 @@ msgid ""
 "quality change to remove it from this report."
 msgstr ""
 "Questo rapporto mostra le pubblicazioni che sono state contrassegnate come "
-"di bassa qualità. Se hai un po' di tempo, puoi rivederle e cercare di "
-"migliorare il più possibile i dati prima di impostare la qualità come "
-"Normale (o come Alta, se hai aggiunto tutti i dati possibili!). Se una "
-"pubblicazione è già stata migliorata ma la sua qualità non è stata cambiata "
-"di conseguenza, inserisci semplicemente una modifica che cambia la qualità "
-"dei dati per rimuoverla da questo rapporto."
+"di bassa qualità dei dati. Se hai un po' di tempo, puoi rivederle e cercare "
+"di migliorare il più possibile i dati prima di impostare la qualità come "
+"normale (o come alta, se hai aggiunto tutti i dati possibili!). Se una "
+"pubblicazione è già stata migliorata ma la sua qualità dei dati non è stata "
+"cambiata di conseguenza, inserisci semplicemente una modifica che cambia la "
+"qualità dei dati per rimuoverla da questo rapporto."
 
 #: ../root/report/LowDataQualityReleases.js:38
 #: ../root/report/ReportsIndex.js:467
-#, fuzzy
-#| msgid "Releases marked as low quality"
 msgid "Releases marked as having low data quality"
-msgstr "Pubblicazioni contrassegnate come di bassa qualità"
+msgstr "Pubblicazioni contrassegnate come di bassa qualità dei dati"
 
 #: ../root/report/MediumsWithOrderInTitle.js:24
 msgid ""
