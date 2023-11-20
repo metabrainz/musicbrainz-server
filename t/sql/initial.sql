@@ -84,6 +84,12 @@ INSERT INTO instrument_type VALUES (3, 'Percussion instrument', NULL, 3, NULL, '
 INSERT INTO instrument_type VALUES (4, 'Electronic instrument', NULL, 4, NULL, '98df6cec-95e5-3cbc-9a2d-7ea6c8be6f3c');
 INSERT INTO instrument_type VALUES (5, 'Other instrument', NULL, 5, NULL, '01ba5777-02dd-347d-94a1-73e3db00215d');
 
+ALTER TABLE instrument DISABLE TRIGGER a_ins_instrument;
+INSERT INTO instrument VALUES (137, 'b3eac5f9-7859-4416-ac39-7154e2e8d348', 'piano', 2, 0, '2014-08-22 17:04:47.913121+00', '', '');
+ALTER TABLE instrument ENABLE TRIGGER a_ins_instrument;
+
+INSERT INTO instrument_alias VALUES (996, 137, 'Klavier', 'de', 0, '2014-08-20 17:28:48.384047+00', 1, 'Klavier', NULL, NULL, NULL, NULL, NULL, NULL, 't', 'f');
+
 INSERT INTO label_alias_type VALUES (1, 'Label name', NULL, 0, NULL, '3a1a0c48-d885-3b89-87b2-9e8a483c5675');
 INSERT INTO label_alias_type VALUES (2, 'Search hint', NULL, 0, NULL, '829662f2-a781-3ec8-8b46-fbcea6196f81');
 
@@ -125,6 +131,7 @@ INSERT INTO link_attribute_type VALUES (86, 14, 14, 0, '089f123c-0f7d-4105-a64e-
 INSERT INTO link_attribute_type VALUES (109, 14, 14, 0, '21bd4d63-a75a-4022-abd3-52ba7487c2de', 'lyre', '', '2014-08-22 13:30:28.530344+00');
 INSERT INTO link_attribute_type VALUES (123, 14, 14, 0, 'c6a133d5-c1e0-47d6-bc30-30d102a78893', 'zither', '', '2014-08-22 17:12:46.536577+00');
 INSERT INTO link_attribute_type VALUES (125, 14, 14, 0, '3bccb7eb-cbca-42cd-b0ac-a5e959df7221', 'drums', '', '2014-08-22 17:09:23.855062+00');
+INSERT INTO link_attribute_type VALUES (180, 14, 14, 0, 'b3eac5f9-7859-4416-ac39-7154e2e8d348', 'piano', '', '2014-08-22 17:04:47.913121+00');
 INSERT INTO link_attribute_type VALUES (194, NULL, 194, 0, 'b3045913-62ac-433e-9211-ac683cdf6b5c', 'guest', 'This attribute indicates a ''guest'' performance where the performer is not usually part of the band.', '2011-09-21 18:29:05.11911+00');
 INSERT INTO link_attribute_type VALUES (229, 14, 14, 0, '63021302-86cd-4aee-80df-2270d54f4978', 'guitar', '', '2014-08-22 17:24:01.678862+00');
 INSERT INTO link_attribute_type VALUES (232, 14, 14, 0, '95b0c3d2-9606-4ef5-a019-9b7437f3adda', 'keyboard', '', '2014-08-22 17:03:54.017921+00');

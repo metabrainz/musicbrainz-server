@@ -126,6 +126,11 @@ test 'Sitemap build scripts' => sub {
         {loc => 'https://musicbrainz.org/sitemap-artist-1-va.xml', lastmod => $build_time1},
         {loc => 'https://musicbrainz.org/sitemap-artist-1-works.xml', lastmod => $build_time1},
         {loc => 'https://musicbrainz.org/sitemap-artist-1.xml', lastmod => $build_time1},
+        {loc => 'https://musicbrainz.org/sitemap-instrument-1-aliases.xml', lastmod => $build_time1},
+        {loc => 'https://musicbrainz.org/sitemap-instrument-1-details.xml', lastmod => $build_time1},
+        {loc => 'https://musicbrainz.org/sitemap-instrument-1-recordings.xml', lastmod => $build_time1},
+        {loc => 'https://musicbrainz.org/sitemap-instrument-1-releases.xml', lastmod => $build_time1},
+        {loc => 'https://musicbrainz.org/sitemap-instrument-1.xml', lastmod => $build_time1},
     ]);
 
     $test_sitemap->('sitemap-artist-1.xml', [{
@@ -212,6 +217,36 @@ test 'Sitemap build scripts' => sub {
         lastmod => undef,
     }]);
 
+    $test_sitemap->('sitemap-instrument-1-aliases.xml', [{
+        loc => 'https://musicbrainz.org/instrument/b3eac5f9-7859-4416-ac39-7154e2e8d348/aliases',
+        priority => '0.3',
+        lastmod => undef,
+    }]);
+
+    $test_sitemap->('sitemap-instrument-1-details.xml', [{
+        loc => 'https://musicbrainz.org/instrument/b3eac5f9-7859-4416-ac39-7154e2e8d348/details',
+        priority => '0.1',
+        lastmod => undef,
+    }]);
+
+    $test_sitemap->('sitemap-instrument-1-recordings.xml', [{
+        loc => 'https://musicbrainz.org/instrument/b3eac5f9-7859-4416-ac39-7154e2e8d348/recordings',
+        priority => '0.1',
+        lastmod => undef,
+    }]);
+
+    $test_sitemap->('sitemap-instrument-1-releases.xml', [{
+        loc => 'https://musicbrainz.org/instrument/b3eac5f9-7859-4416-ac39-7154e2e8d348/releases',
+        priority => '0.1',
+        lastmod => undef,
+    }]);
+
+    $test_sitemap->('sitemap-instrument-1.xml', [{
+        loc => 'https://musicbrainz.org/instrument/b3eac5f9-7859-4416-ac39-7154e2e8d348',
+        priority => undef,
+        lastmod => undef,
+    }]);
+
     my $build_packet = sub {
         my ($number, $pending, $pendingdata) = @_;
 
@@ -261,6 +296,11 @@ EOF
         {loc => 'https://musicbrainz.org/sitemap-artist-1-recordings-standalone-incremental.xml', lastmod => $build_time2},
         {loc => 'https://musicbrainz.org/sitemap-artist-1-recordings-video-incremental.xml', lastmod => $build_time2},
         {loc => 'https://musicbrainz.org/sitemap-artist-1-relationships-incremental.xml', lastmod => $build_time2},
+        {loc => 'https://musicbrainz.org/sitemap-instrument-1-aliases.xml', lastmod => $build_time1},
+        {loc => 'https://musicbrainz.org/sitemap-instrument-1-details.xml', lastmod => $build_time1},
+        {loc => 'https://musicbrainz.org/sitemap-instrument-1-recordings.xml', lastmod => $build_time1},
+        {loc => 'https://musicbrainz.org/sitemap-instrument-1-releases.xml', lastmod => $build_time1},
+        {loc => 'https://musicbrainz.org/sitemap-instrument-1.xml', lastmod => $build_time1},
     ]);
 
     $test_sitemap->('sitemap-artist-1-aliases-incremental.xml', [{
@@ -347,6 +387,11 @@ EOF
         {loc => 'https://musicbrainz.org/sitemap-artist-1-recordings-standalone-incremental.xml', lastmod => $build_time2},
         {loc => 'https://musicbrainz.org/sitemap-artist-1-recordings-video-incremental.xml', lastmod => $build_time2},
         {loc => 'https://musicbrainz.org/sitemap-artist-1-relationships-incremental.xml', lastmod => $build_time2},
+        {loc => 'https://musicbrainz.org/sitemap-instrument-1-aliases.xml', lastmod => $build_time1},
+        {loc => 'https://musicbrainz.org/sitemap-instrument-1-details.xml', lastmod => $build_time1},
+        {loc => 'https://musicbrainz.org/sitemap-instrument-1-recordings.xml', lastmod => $build_time1},
+        {loc => 'https://musicbrainz.org/sitemap-instrument-1-releases.xml', lastmod => $build_time1},
+        {loc => 'https://musicbrainz.org/sitemap-instrument-1.xml', lastmod => $build_time1},
         {loc => 'https://musicbrainz.org/sitemap-work-1-aliases-incremental.xml', lastmod => $build_time3},
         {loc => 'https://musicbrainz.org/sitemap-work-1-incremental.xml', lastmod => $build_time3},
     ]);
@@ -480,6 +525,11 @@ EOF
         {loc => 'https://musicbrainz.org/sitemap-artist-1-recordings-standalone-incremental.xml', lastmod => $build_time2},
         {loc => 'https://musicbrainz.org/sitemap-artist-1-recordings-video-incremental.xml', lastmod => $build_time2},
         {loc => 'https://musicbrainz.org/sitemap-artist-1-relationships-incremental.xml', lastmod => $build_time2},
+        {loc => 'https://musicbrainz.org/sitemap-instrument-1-aliases.xml', lastmod => $build_time1},
+        {loc => 'https://musicbrainz.org/sitemap-instrument-1-details.xml', lastmod => $build_time1},
+        {loc => 'https://musicbrainz.org/sitemap-instrument-1-recordings.xml', lastmod => $build_time1},
+        {loc => 'https://musicbrainz.org/sitemap-instrument-1-releases.xml', lastmod => $build_time1},
+        {loc => 'https://musicbrainz.org/sitemap-instrument-1.xml', lastmod => $build_time1},
         {loc => 'https://musicbrainz.org/sitemap-work-1-aliases-incremental.xml', lastmod => $build_time4},
         {loc => 'https://musicbrainz.org/sitemap-work-1-incremental.xml', lastmod => $build_time4},
     ]);
@@ -516,6 +566,11 @@ EOF
         {loc => 'https://musicbrainz.org/sitemap-artist-1-recordings-standalone-incremental.xml', lastmod => $build_time2},
         {loc => 'https://musicbrainz.org/sitemap-artist-1-recordings-video-incremental.xml', lastmod => $build_time2},
         {loc => 'https://musicbrainz.org/sitemap-artist-1-relationships-incremental.xml', lastmod => $build_time2},
+        {loc => 'https://musicbrainz.org/sitemap-instrument-1-aliases.xml', lastmod => $build_time1},
+        {loc => 'https://musicbrainz.org/sitemap-instrument-1-details.xml', lastmod => $build_time1},
+        {loc => 'https://musicbrainz.org/sitemap-instrument-1-recordings.xml', lastmod => $build_time1},
+        {loc => 'https://musicbrainz.org/sitemap-instrument-1-releases.xml', lastmod => $build_time1},
+        {loc => 'https://musicbrainz.org/sitemap-instrument-1.xml', lastmod => $build_time1},
         {loc => 'https://musicbrainz.org/sitemap-work-1-aliases-incremental.xml', lastmod => $build_time4},
         {loc => 'https://musicbrainz.org/sitemap-work-1-incremental.xml', lastmod => $build_time4},
     ]);
@@ -543,6 +598,11 @@ EOF
         {loc => 'https://musicbrainz.org/sitemap-artist-1-va-all.xml', lastmod => $build_time1},
         {loc => 'https://musicbrainz.org/sitemap-artist-1-va.xml', lastmod => $build_time1},
         {loc => 'https://musicbrainz.org/sitemap-artist-1-works.xml', lastmod => $build_time5},
+        {loc => 'https://musicbrainz.org/sitemap-instrument-1-aliases.xml', lastmod => $build_time1},
+        {loc => 'https://musicbrainz.org/sitemap-instrument-1-details.xml', lastmod => $build_time1},
+        {loc => 'https://musicbrainz.org/sitemap-instrument-1-recordings.xml', lastmod => $build_time1},
+        {loc => 'https://musicbrainz.org/sitemap-instrument-1-releases.xml', lastmod => $build_time1},
+        {loc => 'https://musicbrainz.org/sitemap-instrument-1.xml', lastmod => $build_time1},
         {loc => 'https://musicbrainz.org/sitemap-work-1-aliases.xml', lastmod => $build_time5},
         {loc => 'https://musicbrainz.org/sitemap-work-1.xml', lastmod => $build_time5},
         {loc => 'https://musicbrainz.org/sitemap-work-1-details.xml', lastmod => $build_time5},
