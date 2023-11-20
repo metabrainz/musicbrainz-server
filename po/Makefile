@@ -1,5 +1,7 @@
 # Allows passing file names with spaces in the prerequisite lists.
 SED_ESCAPE_SPACES:=sed -e 's/ /\\ /g'
+# Controls the output page width of msgcat and msguniq.
+MSGWRAP:=79
 
 GIT_LS_PERL:=git ls-files -- \
 	':(top,glob)lib/**/*.pm' \
@@ -62,63 +64,63 @@ pot: mb_server.pot statistics.pot countries.pot languages.pot languages_notrim.p
 mb_server.pot: $(POTFILES) $(JSFILES) $(TT) $(wildcard extract_pot_templates)
 	@echo "Rebuilding the mb_server.pot file";
 	@echo "- Update templates .pot";
-	@$(GIT_LS_TT) | ./extract_pot_templates | msguniq -s > mb_server.pot;
+	@$(GIT_LS_TT) | ./extract_pot_templates | msguniq -w $(MSGWRAP) -s > mb_server.pot;
 	@echo "- Update code .pot"
 	@$(GIT_LS_PERL) | xargs xgettext --from-code utf-8 --keyword=__ --keyword=l --keyword=lp:1,2c --keyword=N_lp:1,2c --keyword=N_l --keyword=ln:1,2 --keyword=N_ln:1,2 --keyword=__x --keyword=__nx:1,2 --keyword=__n:1,2 -Lperl -o mb_server.pot --add-comments=translators -j
 	@$(GIT_LS_JS) | xargs ../script/xgettext.js > javascript.pot
-	@msgcat -o mb_server.pot mb_server.pot javascript.pot
+	@msgcat -w $(MSGWRAP) -o mb_server.pot mb_server.pot javascript.pot
 	@rm javascript.pot
 
 statistics.pot: $(STATTT) $(STATJS) $(wildcard extract_pot_db) $(wildcard extract_pot_templates)
 	@echo "Rebuilding the statistics.pot file";
 	@echo "- Update templates .pot";
-	@$(GIT_LS_STATTT) | ./extract_pot_templates | msguniq -s > statistics_tmpl.pot;
+	@$(GIT_LS_STATTT) | ./extract_pot_templates | msguniq -w $(MSGWRAP) -s > statistics_tmpl.pot;
 	@$(GIT_LS_STATJS) | xargs ../script/xgettext.js > statistics_js.pot
 	@echo "- Update database .pot";
-	@./extract_pot_db statistics | msguniq -s > statistics_db.pot
+	@./extract_pot_db statistics | msguniq -w $(MSGWRAP) -s > statistics_db.pot
 	@echo "- Merge";
-	@msgcat -o statistics.pot statistics_db.pot statistics_tmpl.pot statistics_js.pot
+	@msgcat -w $(MSGWRAP) -o statistics.pot statistics_db.pot statistics_tmpl.pot statistics_js.pot
 	@rm statistics_db.pot statistics_tmpl.pot statistics_js.pot
 
 countries.pot: $(wildcard extract_pot_db)
 	@echo "Rebuilding the countries.pot file";
 	@echo "- Update database .pot";
-	@./extract_pot_db countries | msguniq -s > countries.pot
+	@./extract_pot_db countries | msguniq -w $(MSGWRAP) -s > countries.pot
 
 languages.pot: $(wildcard extract_pot_db)
 	@echo "Rebuilding the languages.pot file";
 	@echo "- Update database .pot";
-	@./extract_pot_db languages | msguniq -s > languages.pot
+	@./extract_pot_db languages | msguniq -w $(MSGWRAP) -s > languages.pot
 
 languages_notrim.pot: $(wildcard extract_pot_db)
 	@echo "Rebuilding the languages.pot file (no trimming)";
 	@echo "- Update database .pot";
-	@./extract_pot_db languages_notrim | msguniq -s > languages_notrim.pot
+	@./extract_pot_db languages_notrim | msguniq -w $(MSGWRAP) -s > languages_notrim.pot
 
 scripts.pot: $(wildcard extract_pot_db)
 	@echo "Rebuilding the scripts.pot file";
 	@echo "- Update database .pot";
-	@./extract_pot_db scripts | msguniq -s > scripts.pot
+	@./extract_pot_db scripts | msguniq -w $(MSGWRAP) -s > scripts.pot
 
 relationships.pot: $(wildcard extract_pot_db)
 	@echo "Rebuilding the relationships.pot file";
 	@echo "- Update database .pot";
-	@./extract_pot_db relationships | msguniq -s > relationships.pot
+	@./extract_pot_db relationships | msguniq -w $(MSGWRAP) -s > relationships.pot
 
 attributes.pot: $(wildcard extract_pot_db)
 	@echo "Rebuilding the attributes.pot file";
 	@echo "- Update database .pot";
-	@./extract_pot_db attributes | msguniq -s > attributes.pot
+	@./extract_pot_db attributes | msguniq -w $(MSGWRAP) -s > attributes.pot
 
 instruments.pot: $(wildcard extract_pot_db)
 	@echo "Rebuilding the instruments.pot file";
 	@echo "- Update database .pot";
-	@./extract_pot_db instruments | msguniq -s > instruments.pot
+	@./extract_pot_db instruments | msguniq -w $(MSGWRAP) -s > instruments.pot
 
 instrument_descriptions.pot: $(wildcard extract_pot_db)
 	@echo "Rebuilding the instrument_descriptions.pot file";
 	@echo "- Update database .pot";
-	@./extract_pot_db instrument_descriptions | msguniq -s > instrument_descriptions.pot
+	@./extract_pot_db instrument_descriptions | msguniq -w $(MSGWRAP) -s > instrument_descriptions.pot
 
 clean:
 	rm -f $(MOFILES)
