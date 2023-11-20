@@ -3638,6 +3638,16 @@ limited_link_type_combinations: [
             expected_clean_url: 'https://www.melon.com/album/detail.htm?albumId=11074452',
   },
   {
+                     input_url: 'https://www.melon.com/video/detail2.htm?mvId=50264014&menuId=26020101',
+             input_entity_type: 'release',
+    expected_relationship_type: ['downloadpurchase', 'streamingpaid'],
+limited_link_type_combinations: [
+                                  ['downloadpurchase', 'streamingpaid'],
+                                  'streamingpaid',
+                                ],
+            expected_clean_url: 'https://www.melon.com/video/detail2.htm?mvId=50264014',
+  },
+  {
                      input_url: 'https://www.melon.com/artist/timeline.htm?artistId=1284664#params[listType]=C',
              input_entity_type: 'artist',
     expected_relationship_type: ['downloadpurchase', 'streamingpaid'],
@@ -3668,6 +3678,16 @@ limited_link_type_combinations: [
                                   target: 'url',
                                 },
        only_valid_entity_types: [],
+  },
+  {
+                     input_url: 'https://m2.melon.com/video/detail.htm?mvId=50264300',
+             input_entity_type: 'recording',
+    expected_relationship_type: ['downloadpurchase', 'streamingpaid'],
+limited_link_type_combinations: [
+                                  ['downloadpurchase', 'streamingpaid'],
+                                  'streamingpaid',
+                                ],
+            expected_clean_url: 'https://www.melon.com/video/detail2.htm?mvId=50264300',
   },
   // (The) Metal Archives
   {
