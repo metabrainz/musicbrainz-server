@@ -65,7 +65,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-08 17:34+0000\n"
+"POT-Creation-Date: 2023-11-13 19:15+0000\n"
 "PO-Revision-Date: 2023-11-10 20:27+0000\n"
 "Last-Translator: yvanzo <yvanzo@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: French <https://translations.metabrainz.org/projects/"
@@ -1779,9 +1779,9 @@ msgstr ""
 "à partir des pistes} après que la durée d’une piste a changé. Donc si vous "
 "corrigez la durée d’une piste dont l’enregistrement n’est publié que de "
 "cette parution, réutilisez simplement l’enregistrement existant, n’en "
-"ajoutez pas un nouveau. Si au contraire l‘enregistrement est publié sur d’"
-"autres parutions et que les durées sont significativement différentes, alors "
-"envisagez plutôt d’ajouter un nouvel enregistrement."
+"ajoutez pas un nouveau. Si au contraire l‘enregistrement est publié sur "
+"d’autres parutions et que les durées sont significativement différentes, "
+"alors envisagez plutôt d’ajouter un nouvel enregistrement."
 
 #: ../root/release/edit/tracklist.tt:502
 msgid ""
@@ -4833,8 +4833,8 @@ msgid ""
 "Mediums with a pregap track can only be merged with other mediums with a "
 "pregap track."
 msgstr ""
-"Les supports ayant une piste de pré-intervalle ne peuvent être fusionnés qu’"
-"avec des supports ayant une piste de pré-intervalle."
+"Les supports ayant une piste de pré-intervalle ne peuvent être fusionnés "
+"qu’avec des supports ayant une piste de pré-intervalle."
 
 #: ../lib/MusicBrainz/Server/Data/Release.pm:57
 #, perl-brace-format
@@ -5896,22 +5896,29 @@ msgstr ""
 msgid "This alias already exists."
 msgstr "Cet alias existe déjà."
 
-#: ../lib/MusicBrainz/Server/Form/Application.pm:47
+#: ../lib/MusicBrainz/Server/Form/Application.pm:48
 msgid "Redirect URL must be entered for web applications."
 msgstr "L’URL de rappel doit être entrée pour les applications Web."
 
-#: ../lib/MusicBrainz/Server/Form/Application.pm:51
+#: ../lib/MusicBrainz/Server/Form/Application.pm:52
+#, fuzzy
+#| msgid ""
+#| "Redirect URL scheme must be either <code>http</code> or <code>https</"
+#| "code> for web applications."
 msgid ""
-"Redirect URL scheme must be either <code>http</code> or <code>https</code> "
-"for web applications."
+"Redirect URL scheme must be either “http” or “https” for web applications."
 msgstr ""
 "Le protocole de l’URL de rappel doit être soit <code>http</code> soit "
 "<code>https</code> pour les applications Web."
 
-#: ../lib/MusicBrainz/Server/Form/Application.pm:58
+#: ../lib/MusicBrainz/Server/Form/Application.pm:59
+#, fuzzy, perl-brace-format
+#| msgid ""
+#| "Redirect URL scheme must be a reverse-DNS string, as in <code>org.example."
+#| "app://auth</code>, for installed applications."
 msgid ""
-"Redirect URL scheme must be a reverse-DNS string, as in <code>org.example."
-"app://auth</code>, for installed applications."
+"Redirect URL scheme must be a reverse-DNS string, as in “{example_url}”, for "
+"installed applications."
 msgstr ""
 "Le protocole de l’URL de rappel doit être un nom de domaine inverse, comme "
 "dans <code>org.exemple.app://auth</code> pour les applications installées."
@@ -6076,11 +6083,13 @@ msgstr "Les caractères saisis sont invalides ou non autorisés."
 msgid "This is not a valid time."
 msgstr "Cette heure n’est pas valide."
 
-#: ../lib/MusicBrainz/Server/Form/Field/URL.pm:27
-msgid "Enter a valid URL, such as “http://google.com/”"
-msgstr ""
+#: ../lib/MusicBrainz/Server/Form/Field/URL.pm:28
+#: ../root/static/scripts/edit/externalLinks.js:708
+#, perl-brace-format
+msgid "Please enter a valid URL, such as “{example_url}”."
+msgstr "Veuillez entrer un URL valide, tel que « {example_url} »."
 
-#: ../lib/MusicBrainz/Server/Form/Field/URL.pm:30
+#: ../lib/MusicBrainz/Server/Form/Field/URL.pm:33
 msgid "URL protocol must be HTTP, HTTPS or FTP"
 msgstr "Le protocole de l’URL doit être HTTP, HTTPS ou FTP"
 
@@ -10287,8 +10296,8 @@ msgid ""
 msgstr ""
 "Le vote n’est pas encore ouvert. Si vous voulez soutenir ce candidat, vous "
 "pouvez appuyer sa nomination. Si vous ne soutenez pas ce candidat vous ne "
-"pouvez pas voter « Non » (ou vous abstenir) avant que deux personnes l’"
-"appuyant ne soient trouvées."
+"pouvez pas voter « Non » (ou vous abstenir) avant que deux personnes "
+"l’appuyant ne soient trouvées."
 
 #: ../root/elections/ElectionVoting.js:53
 msgid "Voting is closed."
@@ -13496,18 +13505,19 @@ msgstr "Entité URL"
 msgid "Usage count"
 msgstr "Compteur d’utilisations"
 
-#: ../root/report/LowQualityReleases.js:26
+#: ../root/report/LowDataQualityReleases.js:26
 msgid ""
-"This report shows releases that have been marked as low quality. If you have "
-"some time, you can review them and try to improve the data as much as "
-"possible before changing their quality back to Normal (or even to High, if "
-"you add all the possible data!). If a release has already been improved but "
-"the quality wasn’t changed accordingly, just enter a data quality change to "
-"remove it from this report."
+"This report shows releases that have been marked as having low data quality. "
+"If you have some time, you can review them and try to improve the data as "
+"much as possible before changing their data quality back to Normal (or even "
+"to High, if you add all the possible data!). If a release has already been "
+"improved but the data quality wasn’t changed accordingly, just enter a data "
+"quality change to remove it from this report."
 msgstr ""
 
-#: ../root/report/LowQualityReleases.js:36 ../root/report/ReportsIndex.js:467
-msgid "Releases marked as low quality"
+#: ../root/report/LowDataQualityReleases.js:38
+#: ../root/report/ReportsIndex.js:467
+msgid "Releases marked as having low data quality"
 msgstr ""
 
 #: ../root/report/MediumsWithOrderInTitle.js:24
@@ -16360,10 +16370,6 @@ msgstr "Formatée en"
 msgid "All of your changes will be lost if you leave this page."
 msgstr "Tous vos changements seront perdus si vous quittez cette page."
 
-#: ../root/static/scripts/edit/externalLinks.js:708
-msgid "Please enter a valid URL, such as “{example_url}”."
-msgstr "Veuillez entrer un URL valide, tel que « {example_url} »."
-
 #: ../root/static/scripts/edit/externalLinks.js:715
 msgid ""
 "“{example_url}” is just an example. Please enter the actual link you want to "
@@ -16746,8 +16752,8 @@ msgid ""
 "Warning: This relationship has open edits. {show|Click here} to view these "
 "edits and make sure they do not conflict with your own."
 msgstr ""
-"Attention : Cette relation a des modifications en attente. {show|Cliquez ici}"
-" pour voir ces modifications et vous assurez qu’elles n’entrent pas en "
+"Attention : Cette relation a des modifications en attente. {show|Cliquez "
+"ici} pour voir ces modifications et vous assurez qu’elles n’entrent pas en "
 "conflit avec les vôtres."
 
 #: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:1007
