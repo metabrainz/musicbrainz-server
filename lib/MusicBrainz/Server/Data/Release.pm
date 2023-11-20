@@ -866,7 +866,7 @@ sub update {
     );
     if (
         defined $new_release_group_id &&
-        $new_release_group_id eq $old_release_group_id
+        $new_release_group_id == $old_release_group_id
     ) {
         $new_release_group_id = undef;
     }
