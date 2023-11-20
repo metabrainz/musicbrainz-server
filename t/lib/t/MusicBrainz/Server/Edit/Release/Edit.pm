@@ -175,7 +175,7 @@ test 'A missing comment does not clear an existing one' => sub {
     is($release->comment, 'hello', 'comment is left unchanged');
 };
 
-test 'MBS-13300: Release group cover art is deleted if the release is moved' => sub {
+test 'MBS-13300: Release group cover art is unset if the release is moved' => sub {
     my $test = shift;
     my $c = $test->c;
 
