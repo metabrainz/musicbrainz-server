@@ -27,10 +27,7 @@ test 'Deleting an alias' => sub {
     );
     my @edits = capture_edits {
         $mech->submit_form_ok({
-                with_fields => {
-                    'confirm.edit_note' =>
-                        q(Some edit note since it's required)
-                }
+                with_fields => { 'confirm.edit_note' => '' },
             },
             'The form returned a 2xx response code',
         );
@@ -81,7 +78,7 @@ test 'Deleting an alias' => sub {
     );
 };
 
-test 'Edit note is required' => sub {
+test 'Edit note is not required (MBS-13284)' => sub {
     my $test = shift;
     my $mech = $test->mech;
 
@@ -101,12 +98,7 @@ test 'Edit note is required' => sub {
         );
     } $test->c;
 
-    is(@edits, 0, 'No edit was entered');
-
-    $mech->content_contains(
-        'You must provide an edit note',
-        'Contains warning about edit note being required',
-    );
+    is(@edits, 1, 'The edit was entered');
 };
 
 sub prepare_test {
