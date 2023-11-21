@@ -88,6 +88,11 @@ has 'instrument_type_name' => (
     isa => 'Maybe[Str]',
 );
 
+has 'instrument_aliases' => (
+    is => 'rw',
+    isa => 'ArrayRef[Str]',
+);
+
 around TO_JSON => sub {
     my ($orig, $self) = @_;
 
@@ -114,6 +119,7 @@ around TO_JSON => sub {
         $self->instrument_comment ? (instrument_comment => $self->instrument_comment) : (),
         $self->instrument_type_id ? (instrument_type_id => $self->instrument_type_id) : (),
         $self->instrument_type_name ? (instrument_type_name => $self->instrument_type_name) : (),
+        $self->instrument_aliases ? (instrument_aliases => to_json_array($self->instrument_aliases)) : (),
         (defined $children && @$children) ? (children => $children) : (),
     };
 };
