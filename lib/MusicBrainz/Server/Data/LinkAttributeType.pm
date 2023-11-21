@@ -35,9 +35,16 @@ sub _table
             'SELECT instrument.gid AS instrument_gid, ' .
                 'instrument.comment AS instrument_comment, ' .
                 'instrument_type.id AS instrument_type_id, ' .
-                'instrument_type.name AS instrument_type_name ' .
+                'instrument_type.name AS instrument_type_name, ' .
+                'array_agg(' .
+                    'DISTINCT instrument_alias.name ' .
+                    'ORDER BY instrument_alias.name' .
+                ') FILTER (WHERE instrument_alias.name IS NOT NULL) ' .
+                'AS instrument_aliases ' .
             'FROM instrument ' .
-            'LEFT JOIN instrument_type ON instrument.type = instrument_type.id' .
+            'LEFT JOIN instrument_type ON instrument.type = instrument_type.id ' .
+            'LEFT JOIN instrument_alias ON instrument_alias.instrument = instrument.id ' .
+            'GROUP BY instrument.gid, instrument.comment, instrument_type.id, instrument_type.name' .
         ') AS ins ON ins.instrument_gid = link_attribute_type.gid';
 }
 
@@ -60,7 +67,8 @@ sub _columns
             ) AS creditable, ' .
            q{COALESCE(ins.instrument_comment, '') AS instrument_comment, } .
            'ins.instrument_type_id, ' .
-           q{COALESCE(ins.instrument_type_name, '') AS instrument_type_name};
+           q{COALESCE(ins.instrument_type_name, '') AS instrument_type_name, } .
+           'ins.instrument_aliases';
 }
 
 sub _column_mapping
@@ -101,6 +109,7 @@ sub _column_mapping
         instrument_comment => 'instrument_comment',
         instrument_type_id => 'instrument_type_id',
         instrument_type_name => 'instrument_type_name',
+        instrument_aliases => 'instrument_aliases',
     };
 }
 
