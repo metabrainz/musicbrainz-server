@@ -22,6 +22,7 @@ declare type LinkAttrTypeT = {
   +children?: $ReadOnlyArray<LinkAttrTypeT>,
   +creditable: boolean,
   +free_text: boolean,
+  +instrument_aliases?: $ReadOnlyArray<string>,
   +instrument_comment?: string,
   +instrument_type_id?: number,
   +instrument_type_name?: string,

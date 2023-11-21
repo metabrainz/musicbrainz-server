@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-08 17:34+0000\n"
-"PO-Revision-Date: 2023-10-09 22:27+0000\n"
+"POT-Creation-Date: 2023-11-13 19:15+0000\n"
+"PO-Revision-Date: 2023-11-19 09:27+0000\n"
 "Last-Translator: \"Vac31.\" <gateway_31@protonmail.com>\n"
 "Language-Team: Lithuanian <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/lt/>\n"
@@ -21,9 +21,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
-"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
-"1 : n % 1 != 0 ? 2: 3);\n"
-"X-Generator: Weblate 5.0.2\n"
+"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 :"
+" n % 1 != 0 ? 2: 3);\n"
+"X-Generator: Weblate 5.1\n"
 
 #: ../root/components/common-macros.tt:12
 msgid " ({text})"
@@ -86,23 +86,23 @@ msgstr "&#10005;"
 
 #: ../root/release/add_cover_art.tt:104
 msgid "&#x26a0; Error creating edit"
-msgstr "&#x26a0; Klaida kuriant redagavimą"
+msgstr "&#x26a0; Klaida kuriant redagavimą."
 
 #: ../root/release/add_cover_art.tt:88
 msgid "&#x26a0; Error requesting signature"
-msgstr "&#x26a0; Klaida prašant parašo"
+msgstr "&#x26a0; Klaida prašant parašo."
 
 #: ../root/release/add_cover_art.tt:102
 msgid "&#x26a0; Error uploading image"
-msgstr "&#x26a0; Klaida įkeliant paveikslėlį"
+msgstr "&#x26a0; Klaida įkeliant vaizdą."
 
 #: ../root/release/add_cover_art.tt:103
 msgid "&#x26a0; Server busy, try again later"
-msgstr "&#x26a0; Serveris užimtas, pabandyk vėliau"
+msgstr "&#x26a0; Serveris užimtas, bandyk vėliau."
 
 #: ../root/release/add_cover_art.tt:87
 msgid "&#x26a0; Unrecognized file"
-msgstr "&#x26a0; Neatpažintas failas"
+msgstr "&#x26a0; Neatpažintas failas."
 
 #: ../root/release/add_cover_art.tt:86
 msgid "&#x2713; Success"
@@ -134,10 +134,10 @@ msgid ""
 "artists}, so don’t use the “copy artist credits” option while editing a "
 "classical release unless you’re very sure it’s a good idea!"
 msgstr ""
-"<strong>Pastaba:</strong> Klasikinėje muzikoje {csg_recording_artist|įrašų "
+"<strong>Pastaba:</strong> klasikinėje muzikoje {csg_recording_artist|įrašų "
 "atlikėjai} beveik visada turėtų skirtis nuo {csg_track_artist|takelių "
-"atlikėjų}, todėl redaguojant klasikinės muzikos leidinį nenaudok parinkties "
-"„kopijuoti atlikėjų įrašus“, nebent esi tikras (-a), kad tai gera idėja!"
+"atlikėjų}, todėl redaguojant klasikinės muzikos leidinį nenaudok parinkties „"
+"kopijuoti atlikėjų įrašus“, nebent esi tikras (-a), kad tai gera idėja!"
 
 #: ../root/components/common-macros.tt:480 ../root/recording/edit_form.tt:6
 msgid "<strong>Warning</strong>:"
@@ -151,7 +151,7 @@ msgid ""
 msgstr ""
 "Buvo rastas CD atplaiša, atitinkanti tavo pateiktą disko ID. Jei toliau "
 "pateiktas takelių sąrašas atrodo teisingas, gali naudoti jį kaip pradinį "
-"tašką naujai MusicBrainz leidiniui"
+"tašką naujai MusicBrainz leidiniui."
 
 #: ../root/release/edit/tracklist.tt:323
 msgid ""
@@ -163,7 +163,7 @@ msgstr ""
 
 #: ../root/release/edit/information.tt:23
 msgid "A release title is required."
-msgstr "Būtinas leidimo pavadinimas."
+msgstr "Būtinas leidinio pavadinimas."
 
 #: ../root/relationship/linktype/form.tt:40
 msgid ""
@@ -190,13 +190,13 @@ msgid ""
 "for additional info (such as \"Encore\"). [mbid|name] allows linking to "
 "artists and works."
 msgstr ""
-"Eilutės pradžioje pridėk „@ “, kad pažymėtum atlikėjus, „* “ – kūrinį/dainą, "
-"„# “ – papildomą informaciją (pavyzdžiui, „Bis“). [mbid|pavadinimas] leidžia "
-"nurodyti nuorodas į atlikėjus ir kūrinius."
+"Eilutės pradžioje pridėk „@ “, kad pažymėti atlikėjus, „* “ – kūrinį/dainą, "
+"„# “ – papildomą informaciją (pavyzdžiui, „Encore“). [mbid|pavadinimas] "
+"leidžia nurodyti nuorodas į atlikėjus ir kūrinius."
 
 #: ../root/area/create.tt:1 ../root/area/create.tt:3
 msgid "Add Area"
-msgstr "Pridėti vietovę"
+msgstr "Pridėti teritoriją"
 
 #: ../root/artist/create.tt:1 ../root/artist/create.tt:3
 msgid "Add Artist"
@@ -205,7 +205,7 @@ msgstr "Pridėti atlikėją"
 #: ../root/release/add_cover_art.tt:1 ../root/release/add_cover_art.tt:8
 msgctxt "header"
 msgid "Add Cover Art"
-msgstr "Pridėti viršelio paveikslėlį"
+msgstr "Pridėti viršelį"
 
 #: ../root/event/create.tt:1 ../root/event/create.tt:3
 msgid "Add Event"
@@ -221,14 +221,14 @@ msgstr "Pridėti instrumentą"
 
 #: ../root/label/create.tt:1 ../root/label/create.tt:3
 msgid "Add Label"
-msgstr "Pridėti leidykla"
+msgstr "Pridėti leidyklą"
 
 #: ../root/release/edit/information.tt:215
 #: ../root/release/edit/information.tt:216
 #: ../root/layout/components/BottomMenu.js:248
 msgctxt "button/menu"
 msgid "Add Label"
-msgstr "Pridėti leidykla"
+msgstr "Pridėti leidyklą"
 
 #: ../root/release/edit/layout.tt:67 ../root/release/edit/tracklist.tt:267
 #: ../root/static/scripts/release-editor/dialogs.js:309
@@ -237,27 +237,27 @@ msgstr "Pridėti laikmeną"
 
 #: ../root/place/create.tt:1 ../root/place/create.tt:3
 msgid "Add Place"
-msgstr "Pridėti vietovę"
+msgstr "Pridėti vietą"
 
 #: ../root/release/edit/layout.tt:7
 msgctxt "header"
 msgid "Add Release"
-msgstr "Pridėti leidimą"
+msgstr "Pridėti leidinį"
 
 #: ../root/release/edit/information.tt:171
 #: ../root/release/edit/information.tt:172
 msgctxt "button/menu"
 msgid "Add Release Event"
-msgstr "Pridėti leidimo renginį"
+msgstr "Pridėti leidinio įvykį"
 
 #: ../root/release_group/create.tt:1
 msgid "Add Release Group"
-msgstr "Pridėti leidimo grupę"
+msgstr "Pridėti leidinių grupę"
 
 #: ../root/release_group/create.tt:3
 msgctxt "header"
 msgid "Add Release Group"
-msgstr "Pridėti leidimo grupę"
+msgstr "Pridėti leidinių grupę"
 
 #: ../root/series/create.tt:1 ../root/series/create.tt:3
 msgid "Add Series"
@@ -266,7 +266,7 @@ msgstr "Pridėti seriją"
 #: ../root/recording/create.tt:1 ../root/recording/create.tt:3
 msgctxt "header"
 msgid "Add Standalone Recording"
-msgstr "Pridėti savarankišką įrašą"
+msgstr "Pridėti atskirą įrašą"
 
 #: ../root/work/create.tt:1 ../root/work/create.tt:2
 msgctxt "header"
@@ -287,8 +287,8 @@ msgid ""
 "Add a medium by clicking “Add Medium” below, or tick the box confirming the "
 "tracklist is unknown."
 msgstr ""
-"Pridėk laikmeną spustelėję toliau esantį mygtuką „Pridėti laikmeną“ arba "
-"pažymėk laukelį, patvirtinantį, kad takelių sąrašas nežinomas."
+"Pridėk laikmeną spustelėdamas (-a) toliau esantį mygtuką „Pridėti laikmeną“ "
+"arba pažymėk laukelį, patvirtinantį, kad takelių sąrašas nežinomas."
 
 #: ../root/release/edit/recordings.tt:178
 #: ../root/static/scripts/edit/components/AddEntityDialog.js:21
@@ -325,7 +325,7 @@ msgstr "Papildoma informacija"
 #: ../root/report/PlacesWithoutCoordinates.js:41
 #: ../root/search/components/PlaceResults.js:65
 msgid "Address"
-msgstr ""
+msgstr "Adresas"
 
 #: ../root/release/edit/recordings.tt:3
 msgid ""
@@ -359,7 +359,7 @@ msgstr "Įvyko klaida: "
 #: ../root/search/components/SearchForm.js:45
 #: ../root/static/scripts/common/components/Annotation.js:51
 msgid "Annotation"
-msgstr ""
+msgstr "Anotacija"
 
 #: ../root/edit/search_macros.tt:423
 msgid "Applied Edit Count of Editor"
@@ -369,7 +369,7 @@ msgstr "Taikomas redaktoriaus (-ės) redagavimo skaičius"
 #: ../lib/MusicBrainz/Server/Data/Vote.pm:178
 msgctxt "vote"
 msgid "Approve"
-msgstr ""
+msgstr "Patvirtinti"
 
 #: ../root/artist/edit_form.tt:20 ../root/edit/search_macros.tt:423
 #: ../root/label/edit_form.tt:18 ../root/place/edit_form.tt:19
@@ -395,11 +395,11 @@ msgstr ""
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:48
 #: ../root/user/UserProfile.js:49
 msgid "Area"
-msgstr "Vietovė"
+msgstr "Teritorija"
 
 #: ../root/area/edit_form.tt:8
 msgid "Area Details"
-msgstr "Duomenys apie vietovę"
+msgstr "Išsami informacija apie teritoriją"
 
 #: ../root/cdstub/cdstub.tt:7 ../root/cdtoc/attach_filter_release.tt:29
 #: ../root/cdtoc/list.tt:8 ../root/cdtoc/lookup.tt:42
@@ -468,11 +468,11 @@ msgstr "Atlikėjas (-a)"
 
 #: ../root/edit/search_macros.tt:423
 msgid "Artist Area"
-msgstr "Atlikėjo vietovė"
+msgstr "Atlikėjo teritoriją"
 
 #: ../root/artist/edit_form.tt:10
 msgid "Artist Details"
-msgstr "Duomenys apie atlikėją"
+msgstr "Išsami informacija apie atlikėją"
 
 #: ../root/cdtoc/attach_artist_releases.tt:40
 #: ../root/cdtoc/attach_filter_release.tt:54
@@ -512,7 +512,7 @@ msgstr "Pridėta prie leidinių"
 #: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:532
 #: ../root/utility/tableColumns.js:671
 msgid "Attributes"
-msgstr ""
+msgstr "Požymiai"
 
 #: ../root/edit/search_macros.tt:397
 msgid "Auto-Editor"
@@ -562,7 +562,7 @@ msgstr ""
 #: ../root/artist/edit_form.tt:42 ../root/components/list/ArtistList.js:102
 #: ../root/search/components/ArtistResults.js:57
 msgid "Begin Area"
-msgstr ""
+msgstr "Pradžios teritorija"
 
 #: ../root/artist/edit_form.tt:38 ../root/components/forms.tt:212
 #: ../root/event/edit_form.tt:36 ../root/artist/utils.js:34
@@ -577,7 +577,7 @@ msgstr ""
 #: ../root/static/scripts/edit/components/DateRangeFieldset.js:194
 #: ../root/static/scripts/relationship-editor/components/DialogDatePeriod.js:167
 msgid "Begin date"
-msgstr ""
+msgstr "Pradžios data"
 
 #: ../root/release/add_cover_art.tt:95 ../root/search/error/InternalError.js:29
 msgid ""
@@ -735,15 +735,15 @@ msgstr "Komentaras"
 #: ../root/edit/details/EditPlace.js:86
 #: ../root/layout/components/sidebar/PlaceSidebar.js:99
 msgid "Coordinates"
-msgstr ""
+msgstr "Koordinatės"
 
 #: ../root/release/edit/recordings.tt:149
 msgid "Copy all track artist credits to associated recordings."
-msgstr ""
+msgstr "Kopijuoti visus takelių atlikėjų pavadinimus į susijusius įrašus."
 
 #: ../root/release/edit/recordings.tt:143
 msgid "Copy all track titles to associated recordings."
-msgstr ""
+msgstr "Kopijuoti visus takelių pavadinimus į susijusius įrašus."
 
 #: ../root/components/forms.tt:242
 #: ../root/static/scripts/edit/components/FormRowSortNameWithGuessCase.js:122
@@ -948,7 +948,7 @@ msgstr "Nenaudoti nė vieno iš pirmiau minėtų leidinių kaip pradinio taško"
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:92
 #: ../root/search/components/SearchForm.js:56
 msgid "Documentation"
-msgstr ""
+msgstr "Dokumentacija"
 
 #: ../root/layout.tt:112 ../root/layout/components/Footer.js:26
 msgid "Donate"
@@ -1072,7 +1072,7 @@ msgstr "Įjungti vinilo takelių numerius"
 #: ../root/artist/edit_form.tt:56 ../root/components/list/ArtistList.js:112
 #: ../root/search/components/ArtistResults.js:59
 msgid "End Area"
-msgstr ""
+msgstr "Pabaigos teritorija"
 
 #: ../root/artist/edit_form.tt:51 ../root/components/forms.tt:214
 #: ../root/event/edit_form.tt:38 ../root/artist/utils.js:65
@@ -1088,7 +1088,7 @@ msgstr ""
 #: ../root/static/scripts/edit/components/DateRangeFieldset.js:209
 #: ../root/static/scripts/relationship-editor/components/DialogDatePeriod.js:188
 msgid "End date"
-msgstr ""
+msgstr "Pabaigos data"
 
 #: ../root/relationship/linktype/form.tt:112
 msgid "Endpoint:"
@@ -1137,7 +1137,7 @@ msgid ""
 "information, but it can also encourage other users to vote on your edit "
 "&#x2014; thus making your edit get applied faster."
 msgstr ""
-"Įvesti {note|redagavimo užrašą}, kuriame aprašoma, iš kur gavai informaciją "
+"Įvesti {note|redagavimo pastabą}, kuriame aprašoma, iš kur gavai informaciją "
 "– labai rekomenduojama. Tai ne tik aiškiai nurodo, iš kur gavai informaciją, "
 "bet ir gali paskatinti kitus naudotojus balsuoti už tavo redagavimą &#x2014; "
 "taip tavo redagavimas bus pritaikytas greičiau."
@@ -1169,7 +1169,7 @@ msgstr "Renginys"
 
 #: ../root/event/edit_form.tt:11
 msgid "Event Details"
-msgstr "Renginio informacija"
+msgstr "Išsami informacija apie renginį"
 
 #: ../root/relationship/linktype/form.tt:71
 #: ../root/edit/details/EditRelationshipType.js:335
@@ -1187,7 +1187,7 @@ msgstr "Išplėsti"
 
 #: ../root/release/edit/tracklist.tt:301
 msgid "Expand medium"
-msgstr ""
+msgstr "Išplėsti laikmena"
 
 #: ../root/doc/edit_type.tt:38
 msgid "Expire action"
@@ -1201,15 +1201,15 @@ msgstr ""
 #: ../root/work/edit_form.tt:90
 #: ../root/static/scripts/genre/components/GenreEditForm.js:160
 msgid "External Links"
-msgstr ""
+msgstr "Išorinės nuorodos"
 
 #: ../root/release/add_cover_art.tt:48
 msgid "File:"
-msgstr ""
+msgstr "Failas:"
 
 #: ../root/relationship/linktype/form.tt:126
 msgid "Find Relationships"
-msgstr ""
+msgstr "Rasti santykius"
 
 #: ../root/release/edit/layout.tt:64
 msgid "Finish"
@@ -1308,7 +1308,7 @@ msgstr ""
 #: ../root/static/scripts/account/components/EditProfileForm.js:237
 #: ../root/user/UserProfile.js:268
 msgid "Gender"
-msgstr ""
+msgstr "Lytis"
 
 #: ../root/edit/search_macros.tt:423 ../lib/MusicBrainz/Server/Edit/Genre.pm:7
 #: ../root/edit/details/AddGenre.js:24 ../root/edit/details/EditGenre.js:28
@@ -1370,7 +1370,7 @@ msgstr ""
 
 #: ../root/instrument/edit_form.tt:20
 msgid "HTML tags allowed in the description: {tag_list}."
-msgstr ""
+msgstr "Apraše leidžiamos HTML žymės: {tag_list}."
 
 #: ../root/admin/attributes/form.tt:17
 msgid ""
@@ -1398,8 +1398,9 @@ msgid "I confirm that this is the barcode as it appears on the release."
 msgstr "Patvirtinu, kad šis brūkšninis kodas yra toks, koks nurodytas leidime."
 
 #: ../root/release/edit/tracklist.tt:390
+#, fuzzy
 msgid "I confirm this is a correct medium format/packaging combination."
-msgstr ""
+msgstr "Patvirtinu, kad tai teisingas laikmenos formatas ir pakuotės derinys."
 
 #: ../root/release/edit/tracklist.tt:413
 msgid "I confirm this is an intentional use of Various Artists on tracks."
@@ -1411,11 +1412,13 @@ msgstr "Nežinau"
 
 #: ../root/release/edit/tracklist.tt:426
 msgid "I don’t know the tracklist for this medium."
-msgstr ""
+msgstr "Nežinau šios laikmenos takelių sąrašo."
 
 #: ../root/release/edit/tracklist.tt:280
+#, fuzzy
 msgid "I have no information about this release’s media and tracklist."
 msgstr ""
+"Neturiu jokios informacijos apie šio leidinio laikmenas ir takelių sąrašą."
 
 #: ../root/edit/search_macros.tt:423 ../root/admin/attributes/Attribute.js:78
 #: ../root/admin/attributes/Language.js:39
@@ -1434,7 +1437,7 @@ msgstr "IPI kodas"
 #: ../root/artist/edit_form.tt:29 ../root/label/edit_form.tt:32
 #: ../root/edit/details/EditArtist.js:162 ../root/edit/details/EditLabel.js:131
 msgid "IPI codes"
-msgstr ""
+msgstr "IPI kodai"
 
 #: ../root/components/forms.tt:333
 msgid ""
@@ -1457,7 +1460,7 @@ msgstr "ISNI kodas"
 #: ../root/artist/edit_form.tt:30 ../root/label/edit_form.tt:33
 #: ../root/edit/details/EditArtist.js:170 ../root/edit/details/EditLabel.js:140
 msgid "ISNI codes"
-msgstr ""
+msgstr "ISNI kodai"
 
 #: ../root/components/forms.tt:342
 msgid ""
@@ -1523,7 +1526,7 @@ msgstr "ISRC"
 #: ../root/static/scripts/common/components/IsrcList.js:44
 #: ../root/utility/tableColumns.js:694
 msgid "ISRCs"
-msgstr ""
+msgstr "ISRC"
 
 #: ../root/work/edit_form.tt:16 ../root/edit/details/AddWork.js:47
 #: ../root/edit/details/EditWork.js:66 ../root/edit/details/RemoveIswc.js:27
@@ -1538,13 +1541,15 @@ msgstr "ISWC"
 #: ../root/work/edit_form.tt:16 ../root/report/ReportsIndex.js:615
 #: ../root/static/scripts/common/components/IswcList.js:44
 msgid "ISWCs"
-msgstr ""
+msgstr "ISWC"
 
 #: ../root/event/edit_form.tt:26
 msgid ""
 "If needed, the characters \"[\", \"]\", and \"&\" can be escaped using the "
 "HTML entities \"&lsqb;\", \"&rsqb;\", and \"&amp;\" respectively."
 msgstr ""
+"Jei reikia, simbolius „[“, „]“ ir „&“ galima užbraukti naudojant HTML "
+"struktūras „&lsqb;“, „&rsqb;“ ir „&amp;“."
 
 #: ../root/release/edit/recordings.tt:134
 msgid ""
@@ -1566,10 +1571,12 @@ msgid ""
 "If we do not have a recording for this track in the database yet, please "
 "select \"Add a new recording\" below."
 msgstr ""
+"Jei duomenų bazėje dar neturime šio takelio įrašo, pasirink „Pridėti naują "
+"įrašą“ toliau."
 
 #: ../root/cdtoc/attach_artist_releases.tt:49
 msgid "If you can't find what you're looking for, you can add a new release:"
-msgstr ""
+msgstr "Jei nerandi to, ko ieškojai, gali pridėti naują leidinį:"
 
 #: ../root/release/edit/information.tt:330
 msgid ""
@@ -1590,20 +1597,27 @@ msgid "If you don’t know the code for this entity, just leave the field blank.
 msgstr "Jei nežinai šio subjekto kodo, palik lauką tuščią."
 
 #: ../root/release/edit/information.tt:54
+#, fuzzy
 msgid ""
 "If you don’t select an existing release group, a new one will be added with "
 "the types selected below."
 msgstr ""
+"Jei nepasirinksi esamos leidinio grupės, bus pridėta nauja su toliau "
+"nurodytais tipais."
 
 #: ../root/release/edit/tracklist.tt:5
 msgid "If you have a tracklist you can copy and paste, you can input it here."
 msgstr ""
+"Jei turi takelių sąrašą, kurį gali nukopijuoti ir įklijuoti, gali jį įvesti "
+"čia."
 
 #: ../root/release/edit/tracklist.tt:15
 msgid ""
 "If you select “{enable_vinyl_numbers}”, the parser will also accept strings "
 "such as “A1” as track numbers."
 msgstr ""
+"Jei pasirinksi „{enable_vinyl_numbers}“, analizatorius taip pat priims "
+"tokias eilutes kaip „A1“ kaip takelių numerius."
 
 #: ../root/edit/search_macros.tt:10
 msgid ""
@@ -1623,16 +1637,20 @@ msgid ""
 "If you’re sure the entered medium title is correct, confirm it above. "
 "Otherwise, please fix the data."
 msgstr ""
+"Jei esi tikras (-a), kad įvestas laikmenos pavadinimas yra teisingas, "
+"patvirtink jį pirmiau. Kitaip ištaisyk duomenis."
 
 #: ../root/release/edit/tracklist.tt:416
 msgid ""
 "If you’re sure the use of Various Artists is correct, confirm it above. "
 "Otherwise, please fix the data."
 msgstr ""
+"Jei esi tikras (-a), kad Įvairūs atlikėjai naudojami teisingai, patvirtink "
+"tai pirmiau. Kitaip ištaisyk duomenis."
 
 #: ../root/components/common-macros.tt:60 ../root/components/Artwork.js:50
 msgid "Image not available, please try again later."
-msgstr ""
+msgstr "Vaizdas nepasiekiamas, pabandyk vėliau."
 
 #: ../root/cdtoc/lookup.tt:28 ../root/cdstub/ImportCDStub.js:36
 msgid "Import CD Stub"
@@ -1656,7 +1674,7 @@ msgstr "Instrumentas"
 
 #: ../root/instrument/edit_form.tt:8
 msgid "Instrument Details"
-msgstr ""
+msgstr "Išsami informacija apie instrumentą"
 
 #: ../root/components/common-macros.tt:486
 msgid "Javascript is required for this page to work properly."
@@ -1676,6 +1694,11 @@ msgid ""
 "elsewhere and the durations are significantly different, consider adding a "
 "new recording instead."
 msgstr ""
+"Atmink, kad įrašo trukmė yra {doc_link|perskaičiuojama iš takelių}, kai "
+"pasikeičia takelio trukmė. Todėl, jei taisiai takelio, kurio įrašas "
+"naudojamas tik šiame leidime, trukmę, tiesiog pakartotinai naudok senąjį "
+"įrašą, nepridėk naujo. Jei įrašas naudojamas ir kitur, o trukmės labai "
+"skiriasi, verčiau pridėk naują įrašą."
 
 #: ../root/release/edit/tracklist.tt:502
 msgid ""
@@ -1725,17 +1748,17 @@ msgstr "Leidykla"
 
 #: ../root/edit/search_macros.tt:423
 msgid "Label Area"
-msgstr "Leidyklos vietove"
+msgstr "Leidyklos teritorija"
 
 #: ../root/label/edit_form.tt:10
 msgid "Label Details"
-msgstr ""
+msgstr "Išsami informacija apie leidyklą"
 
 #: ../root/label/edit_form.tt:28 ../root/edit/details/AddLabel.js:94
 #: ../root/edit/details/EditLabel.js:85
 #: ../root/layout/components/sidebar/LabelSidebar.js:83
 msgid "Label code"
-msgstr ""
+msgstr "Leidyklos kodas"
 
 #: ../root/release/edit/information.tt:114
 #: ../root/admin/attributes/Language.js:31
@@ -1748,7 +1771,7 @@ msgstr ""
 #: ../root/search/components/ReleaseResults.js:119
 #: ../root/utility/tableColumns.js:559
 msgid "Language"
-msgstr ""
+msgstr "Kalba"
 
 #: ../root/layout.tt:139 ../root/layout/components/Footer.js:85
 msgid "Last replication packet received at {datetime}"
@@ -1783,20 +1806,20 @@ msgstr ""
 
 #: ../root/release/edit/tracklist.tt:31
 msgid "Lines start with a track number"
-msgstr ""
+msgstr "Eilutės prasideda takelio numeriu"
 
 #: ../root/release/edit/editnote.tt:15
 msgid "Loading edit previews..."
-msgstr ""
+msgstr "Kraunamos redagavimo peržiūros..."
 
 #: ../root/edit/search_macros.tt:397
 msgid "Location Editor"
-msgstr ""
+msgstr "Vietovės redaktorius (-ė)"
 
 #: ../root/components/common-macros.tt:421
 #: ../root/components/RequestLogin.js:23
 msgid "Log in"
-msgstr ""
+msgstr "Prisijungti"
 
 #: ../root/relationship/linktype/form.tt:15
 #: ../root/edit/details/AddRelationshipType.js:121
@@ -2029,7 +2052,7 @@ msgstr ""
 
 #: ../root/edit/search_macros.tt:291
 msgid "No vote"
-msgstr ""
+msgstr "Nėra balso"
 
 #: ../root/release/edit/tracklist.tt:444
 #: ../root/static/scripts/release-editor/fields.js:211
@@ -2153,7 +2176,7 @@ msgstr ""
 
 #: ../root/place/edit_form.tt:10
 msgid "Place Details"
-msgstr ""
+msgstr "Išsami informacija apie vietą"
 
 #: ../root/edit/search_macros.tt:421
 msgid "Please choose a condition"
@@ -2245,7 +2268,7 @@ msgstr "Įrašas"
 
 #: ../root/recording/edit_form.tt:24
 msgid "Recording Details"
-msgstr ""
+msgstr "Išsami informacija apie įrašą"
 
 #: ../root/recording/layout.tt:3 ../root/recording/RecordingLayout.js:40
 msgid "Recording “{name}” by {artist}"
@@ -2273,7 +2296,7 @@ msgstr "Atmesti"
 
 #: ../root/edit/search_macros.tt:397
 msgid "Relationship Editor"
-msgstr ""
+msgstr "Santykių redaktorius"
 
 #: ../root/edit/search_macros.tt:423
 #: ../root/edit/details/AddRelationshipType.js:56
@@ -2345,7 +2368,7 @@ msgstr "Leidinių grupė"
 
 #: ../root/release_group/edit_form.tt:12
 msgid "Release Group Details"
-msgstr ""
+msgstr "Išsami informacija apie leidinių grupę"
 
 #: ../root/cdtoc/attach_artist_releases.tt:31
 #: ../root/cdtoc/attach_filter_release.tt:46
@@ -2608,7 +2631,7 @@ msgstr ""
 
 #: ../root/series/edit_form.tt:10
 msgid "Series Details"
-msgstr ""
+msgstr "Išsami informacija apie seriją"
 
 #: ../root/release_group/set_cover_art.tt:1
 msgid "Set Release Group Cover Art"
@@ -2858,7 +2881,7 @@ msgstr ""
 
 #: ../root/area/edit_form.tt:17
 msgid "This area has ended."
-msgstr ""
+msgstr "Ši teritorija baigėsi."
 
 #: ../root/artist/edit_form.tt:53
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:53
@@ -3315,16 +3338,16 @@ msgstr ""
 #: ../root/edit/search_macros.tt:423 ../root/edit/EditIndex.js:76
 #: ../root/edit/components/EditHeader.js:128
 msgid "Vote tally"
-msgstr ""
+msgstr "Balsų skaičiavimas"
 
 #: ../root/edit/search_macros.tt:423 ../root/elections/ElectionVotes.js:26
 msgid "Voter"
-msgstr ""
+msgstr "Balsuotojas (-a)"
 
 #: ../root/doc/edit_type.tt:35 ../root/edit/EditIndex.js:65
 #: ../root/user/UserProfile.js:698
 msgid "Votes"
-msgstr ""
+msgstr "Balsai"
 
 #: ../root/edit/search_macros.tt:423
 msgid "Voting closed"
@@ -3401,7 +3424,7 @@ msgstr ""
 
 #: ../root/work/edit_form.tt:11
 msgid "Work Details"
-msgstr ""
+msgstr "Išsami informacija apie kūrinį"
 
 #: ../root/release/edit/information.tt:133
 #: ../lib/MusicBrainz/Server/Plugin/FormRenderer.pm:251
@@ -3419,7 +3442,7 @@ msgstr "Metai"
 #: ../root/edit/components/Vote.js:86
 msgctxt "vote"
 msgid "Yes"
-msgstr ""
+msgstr "Taip"
 
 #: ../root/components/forms.tt:320
 msgid ""
@@ -3527,6 +3550,9 @@ msgid ""
 "your privileges. If you haven’t already been contacted about why, please "
 "{uri|send us a message}."
 msgstr ""
+"Šiuo metu negali redaguoti ar balsuoti, nes administratorius (-ė) panaikino "
+"tavo teises. Jei su mumis dar nesusisiekei dėl šios priežasties, {uri|"
+"parašyk mums žinutę}."
 
 #: ../root/layout.tt:17 ../root/layout/index.js:202
 msgid ""
@@ -3534,6 +3560,9 @@ msgid ""
 "admin has revoked your privileges. If you haven’t already been contacted "
 "about why, please {uri|send us a message}."
 msgstr ""
+"Šiuo metu negali redaguoti, balsuoti ar palikti radagavimo pastabų, nes "
+"administratorius (-ė) panaikino tavo teises. Jei su mumis dar nesusisiekei "
+"dėl šios priežasties, {uri|parašyk mums žinutę}."
 
 #: ../root/layout.tt:25 ../lib/MusicBrainz/Server/Controller/EditNote.pm:63
 #: ../root/layout/index.js:219
@@ -3577,7 +3606,7 @@ msgstr ""
 
 #: ../root/edit/search_macros.tt:287
 msgid "and voted"
-msgstr ""
+msgstr "ir balsavo"
 
 #: ../root/edit/search_macros.tt:39
 msgid "any"
@@ -3867,7 +3896,7 @@ msgstr[3] ""
 #: ../root/components/common-macros.tt:199
 #: ../root/static/scripts/common/components/DescriptiveLink.js:87
 msgid "{place} in {area}"
-msgstr ""
+msgstr "{place}, {area}"
 
 #: ../root/recording/edit_form.tt:39
 msgid ""
@@ -4455,40 +4484,40 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Data/Vote.pm:160
 msgid "Total"
-msgstr ""
+msgstr "Iš viso"
 
 #: ../lib/MusicBrainz/Server/Edit/Area/AddAlias.pm:11
 msgid "Add area alias"
-msgstr ""
+msgstr "Pridėti teritorijos slapyvardį"
 
 #: ../lib/MusicBrainz/Server/Edit/Area/AddAnnotation.pm:11
 msgid "Add area annotation"
-msgstr ""
+msgstr "Pridėti teritorijos anotaciją"
 
 #: ../lib/MusicBrainz/Server/Edit/Area/Create.pm:23
 msgid "Add area"
-msgstr ""
+msgstr "Pridėti teritoriją"
 
 #: ../lib/MusicBrainz/Server/Edit/Area/Delete.pm:10
 msgid "Remove area"
-msgstr ""
+msgstr "Pašalinti teritoriją"
 
 #: ../lib/MusicBrainz/Server/Edit/Area/DeleteAlias.pm:15
 msgid "Remove area alias"
-msgstr ""
+msgstr "Pašalinti teritorijos slapyvardį"
 
 #: ../lib/MusicBrainz/Server/Edit/Area/Edit.pm:31
 msgid "Edit area"
-msgstr ""
+msgstr "Redaguoti teritoriją"
 
 #: ../lib/MusicBrainz/Server/Edit/Area/EditAlias.pm:12
 msgid "Edit area alias"
-msgstr ""
+msgstr "Redaguoti teritorijos slapyvardį"
 
 #: ../lib/MusicBrainz/Server/Edit/Area/Merge.pm:11 ../root/area/AreaMerge.js:28
 #: ../root/area/AreaMerge.js:30
 msgid "Merge areas"
-msgstr ""
+msgstr "Sujungti teritorijas"
 
 #: ../lib/MusicBrainz/Server/Edit/Artist/AddAlias.pm:11
 msgid "Add artist alias"
@@ -5136,7 +5165,7 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Utils.pm:273 ../root/utility/edit.js:45
 msgid "Failed vote"
-msgstr ""
+msgstr "Neįvykęs balsavimas"
 
 #: ../lib/MusicBrainz/Server/Edit/Utils.pm:274 ../root/utility/edit.js:43
 msgid "Failed dependency"
@@ -5155,7 +5184,7 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Utils.pm:277 ../root/utility/edit.js:46
 msgid "No votes"
-msgstr ""
+msgstr "Nėra balsų"
 
 #: ../lib/MusicBrainz/Server/Edit/Utils.pm:278 ../root/user/UserProfile.js:647
 #: ../root/utility/edit.js:41
@@ -5463,25 +5492,25 @@ msgstr ""
 msgid "This alias already exists."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Form/Application.pm:47
+#: ../lib/MusicBrainz/Server/Form/Application.pm:48
 msgid "Redirect URL must be entered for web applications."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Form/Application.pm:51
+#: ../lib/MusicBrainz/Server/Form/Application.pm:52
 msgid ""
-"Redirect URL scheme must be either <code>http</code> or <code>https</code> "
-"for web applications."
+"Redirect URL scheme must be either “http” or “https” for web applications."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Form/Application.pm:58
+#: ../lib/MusicBrainz/Server/Form/Application.pm:59
+#, perl-brace-format
 msgid ""
-"Redirect URL scheme must be a reverse-DNS string, as in <code>org.example."
-"app://auth</code>, for installed applications."
+"Redirect URL scheme must be a reverse-DNS string, as in “{example_url}”, for "
+"installed applications."
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/Area.pm:88
 msgid "An area already exists with this ISO code"
-msgstr ""
+msgstr "Jau egzistuoja teritorija su šiuo ISO kodu"
 
 #: ../lib/MusicBrainz/Server/Form/Artist.pm:75
 msgid "Group artists cannot have a gender."
@@ -5627,11 +5656,13 @@ msgstr ""
 msgid "This is not a valid time."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Form/Field/URL.pm:27
-msgid "Enter a valid URL, such as “http://google.com/”"
+#: ../lib/MusicBrainz/Server/Form/Field/URL.pm:28
+#: ../root/static/scripts/edit/externalLinks.js:708
+#, perl-brace-format
+msgid "Please enter a valid URL, such as “{example_url}”."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Form/Field/URL.pm:30
+#: ../lib/MusicBrainz/Server/Form/Field/URL.pm:33
 msgid "URL protocol must be HTTP, HTTPS or FTP"
 msgstr ""
 
@@ -6211,6 +6242,11 @@ msgid ""
 "license this data for commercial use. Please read our {doc|license page} for "
 "more details.</strong>"
 msgstr ""
+"<strong>Atkreipk dėmesį, kad bet koks tavo indėlis į MusicBrainz bus "
+"paskelbtas Public Domain ir (arba) licencijuotas pagal Creative Commons by-"
+"nc-sa licenciją. Be to, tu suteiki teisę MetaBrainz Fondui licencijuoti "
+"šiuos duomenis komerciniam naudojimui. Išsamesnės informacijos rasi mūsų "
+"{doc|licencijų puslapyje}.</strong>"
 
 #: ../root/account/Register.js:51
 msgid ""
@@ -6218,6 +6254,9 @@ msgid ""
 "information you choose to provide will not be sold or shared with anyone "
 "else. For full details, please read our {doc|Privacy Policy}."
 msgstr ""
+"MusicBrainz tvirtai tiki savo naudotojų privatumu! Bet kokia tavo pateikta "
+"asmeninė informacija nebus parduota ar perduota kam nors kitam. Išsamią "
+"informaciją rasi mūsų {doc|privatumo politikoje}."
 
 #: ../root/account/Register.js:61
 msgid ""
@@ -6225,6 +6264,9 @@ msgid ""
 "deleting your account. For more details, see our {doc|GDPR compliance "
 "statement}."
 msgstr ""
+"Savo asmeninę informaciją gali bet kada pašalinti iš mūsų paslaugų "
+"ištrindamas (-a) savo paskyrą. Daugiau informacijos rasi mūsų {doc|GDPR "
+"atitikties pareiškime}."
 
 #: ../root/account/Register.js:73
 msgid ""
@@ -6326,6 +6368,9 @@ msgid ""
 "MusicBrainz API}? {register_url|Register an application} to generate OAuth "
 "tokens. See our {oauth2_doc_url|OAuth documentation} for more details."
 msgstr ""
+"Ar nori sukurti programą, kuri naudoja {mb_api_doc_url|MusicBrainz API}? "
+"{register_url|Registruok programą}, kad būtų generuojami OAuth raktai. "
+"Daugiau informacijos rasi mūsų {oauth2_doc_url|OAuth dokumentacijoje}."
 
 #: ../root/account/applications/ApplicationList.js:156
 msgid "OAuth Client ID"
@@ -6432,6 +6477,8 @@ msgid ""
 "This will also cancel all your open edits and change all of your votes on "
 "any edits currently open to Abstain."
 msgstr ""
+"Tai atšauks visus tavo atvirus redagavimus ir pakeis visus tavo balsavimus "
+"dėl visų šiuo metu atvirų redagavimų į Susilaikyti."
 
 #: ../root/admin/DeleteUser.js:100
 msgid ""
@@ -6676,7 +6723,7 @@ msgstr ""
 
 #: ../root/admin/statistics-events/StatisticsEventEditForm.js:27
 msgid "Statistics event details"
-msgstr ""
+msgstr "Išsami informacija apie statistikos renginį"
 
 #: ../root/admin/statistics-events/StatisticsEventEditForm.js:53
 #: ../root/edit/ModifyNote.js:81 ../root/oauth2/OAuth2FormPost.js:44
@@ -6940,7 +6987,7 @@ msgstr ""
 
 #: ../root/area/AreaArtists.js:60
 msgid "This area is not currently associated with any artists."
-msgstr ""
+msgstr "Ši teritorija šiuo metu nėra susijusi su jokiais atlikėjais."
 
 #: ../root/area/AreaEvents.js:32 ../root/area/AreaEvents.js:33
 #: ../root/artist/ArtistEvents.js:41 ../root/artist/ArtistEvents.js:42
@@ -6959,11 +7006,11 @@ msgstr ""
 
 #: ../root/area/AreaEvents.js:62
 msgid "This area is not currently associated with any events."
-msgstr ""
+msgstr "Ši teritorija šiuo metu nesusijusi su jokiais renginiais."
 
 #: ../root/area/AreaHeader.js:29
 msgid "{area_type} in {parent_areas}"
-msgstr ""
+msgstr "{area_type}, {parent_areas}"
 
 #: ../root/area/AreaLabels.js:32 ../root/area/AreaLabels.js:33
 #: ../root/components/EntityTabs.js:26
@@ -6981,13 +7028,15 @@ msgstr ""
 
 #: ../root/area/AreaLabels.js:59
 msgid "This area is not currently associated with any labels."
-msgstr ""
+msgstr "Ši teritorija šiuo metu nėra susijusi su jokiomis leidyklomis."
 
 #: ../root/area/AreaMerge.js:32
 msgid ""
 "You are about to merge all these areas into a single one. Please select the "
 "area all others should be merged into:"
 msgstr ""
+"Netrukus sujungsi visas šias teritorijas į vieną. Pasirink teritoriją, į "
+"kurią turėtų būti sujungtos visos kitos:"
 
 #: ../root/area/AreaPlaces.js:36 ../root/area/AreaPlaces.js:37
 #: ../root/components/EntityTabs.js:29
@@ -6995,25 +7044,27 @@ msgstr ""
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:27
 #: ../root/tag/TagLayout.js:30
 msgid "Places"
-msgstr ""
+msgstr "Vietos"
 
 #: ../root/area/AreaPlaces.js:49 ../root/place/PlaceMap.js:40
 msgid ""
 "A map cannot be shown because no maps service access token has been set for "
 "this server."
 msgstr ""
+"Žemėlapis negali būti rodomas, nes šiam serveriui nenustatytas žemėlapių "
+"paslaugos prieigos raktas."
 
 #: ../root/area/AreaPlaces.js:69
 msgid "Add selected places for merging"
-msgstr ""
+msgstr "Pridėti pasirinktas vietas sujungimui"
 
 #: ../root/area/AreaPlaces.js:78
 msgid "This area is not currently associated with any places."
-msgstr ""
+msgstr "Ši teritorija šiuo metu nesusijusi su jokiomis vietomis."
 
 #: ../root/area/AreaRecordings.js:29
 msgid "This area has no relationships to any recordings."
-msgstr ""
+msgstr "Ši teritorija neturi jokių santykių su jokiais įrašais."
 
 #: ../root/area/AreaRecordings.js:31 ../root/area/AreaReleases.js:70
 #: ../root/area/AreaWorks.js:31 ../root/artist/ArtistRelationships.js:30
@@ -7054,11 +7105,11 @@ msgstr ""
 
 #: ../root/area/AreaReleases.js:60
 msgid "This area is not currently associated with any releases."
-msgstr ""
+msgstr "Ši teritorija šiuo metu nėra susijusi su jokiais leidiniais."
 
 #: ../root/area/AreaReleases.js:68
 msgid "This area has no relationships to any releases."
-msgstr ""
+msgstr "Ši teritorija neturi jokių santykių su jokiais leidiniais."
 
 #: ../root/area/AreaUsers.js:26 ../root/area/AreaUsers.js:27
 #: ../root/components/EntityTabs.js:32
@@ -7068,14 +7119,14 @@ msgstr ""
 #: ../root/area/AreaUsers.js:31
 msgid "There is currently {num} user in this area."
 msgid_plural "There are currently {num} users in this area."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "Šiuo metu šioje teritorijoje yra {num} naudotojas (-a)."
+msgstr[1] "Šiuo metu šioje teritorijoje yra {num} naudotojai."
+msgstr[2] "Šiuo metu šioje teritorijoje yra {num} naudotojo."
+msgstr[3] "Šiuo metu šioje teritorijoje yra {num} naudotojų."
 
 #: ../root/area/AreaUsers.js:37
 msgid "There are currently no users in this area."
-msgstr ""
+msgstr "Šiuo metu šioje teritorijoje nėra naudotojų."
 
 #: ../root/area/AreaWorks.js:25 ../root/artist/ArtistWorks.js:41
 #: ../root/artist/ArtistWorks.js:42 ../root/components/EntityTabs.js:33
@@ -7087,23 +7138,27 @@ msgstr ""
 
 #: ../root/area/AreaWorks.js:29
 msgid "This area has no relationships to any works."
-msgstr ""
+msgstr "Ši teritorija neturi jokių santykių su jokiais kūriniais."
 
 #: ../root/area/DeleteArea.js:35 ../root/area/DeleteArea.js:37
 msgid "Remove Area"
-msgstr ""
+msgstr "Pašalinti teritoriją"
 
 #: ../root/area/DeleteArea.js:41
 msgid ""
 "This area cannot be removed because it is one of the areas that can be used "
 "as a release country."
 msgstr ""
+"Ši teritorija negali būti pašalinta, nes ji yra viena iš teritorijų, kuri "
+"gali būti naudojama kaip leidinio šalis."
 
 #: ../root/area/DeleteArea.js:55
 msgid ""
 "This area cannot be removed because it is still in use (in artists, labels, "
 "places, relationships or open edits)."
 msgstr ""
+"Šios teritorijos negalima pašalinti, nes ji vis dar naudojama (atlikėjų, "
+"leidyklų, vietų, santykių ar atvirų redagavimų)."
 
 #: ../root/artist/ArtistEvents.js:78
 msgid "No events found that match this search."
@@ -7342,7 +7397,7 @@ msgstr ""
 #: ../root/artist/utils.js:19
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:55
 msgid "Begin area:"
-msgstr ""
+msgstr "Pradžios teritorija:"
 
 #: ../root/artist/utils.js:26
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:61
@@ -7372,7 +7427,7 @@ msgstr ""
 #: ../root/artist/utils.js:47
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:55
 msgid "End area:"
-msgstr ""
+msgstr "Pabaigos teritorija:"
 
 #: ../root/artist/utils.js:57
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:62
@@ -7581,7 +7636,7 @@ msgstr ""
 
 #: ../root/cdtoc/CDTocInfo.js:23
 msgid "CD TOC details"
-msgstr ""
+msgstr "Išsami informacija apie CD TOC"
 
 #: ../root/cdtoc/CDTocInfo.js:36
 msgid "FreeDB:"
@@ -7589,7 +7644,7 @@ msgstr ""
 
 #: ../root/cdtoc/CDTocInfo.js:48
 msgid "Track details:"
-msgstr ""
+msgstr "Išsami informacija apie takelį:"
 
 #: ../root/cdtoc/CDTocInfo.js:52
 #: ../root/edit/details/historic/RemoveTrack.js:23
@@ -7835,6 +7890,9 @@ msgid ""
 "This is a list of all the different ways {artist} is credited in the "
 "database. View the {doc|artist credit documentation} for more details."
 msgstr ""
+"Tai yra sąrašas visų skirtingų būdų, kuriais duomenų bazėje yra įvardijamas "
+"(-a) {artist}. Išsamesnės informacijos rasi {doc|atlikėjo įvardijimo "
+"dokumentacijoje}."
 
 #: ../root/components/Aliases/ArtistCreditList.js:69
 #: ../root/static/scripts/artist/components/ArtistCreditRenamer.js:139
@@ -7853,6 +7911,10 @@ msgid ""
 "misspellings or variations of the name and are also used to improve search "
 "results. View the {doc|alias documentation} for more details."
 msgstr ""
+"Slapyvardis – tai alternatyvus subjekto vardas. Juose paprastai būna "
+"dažniausiai pasitaikančios vardo rašybos klaidos ar variantai, jie taip pat "
+"naudojami siekiant pagerinti paieškos rezultatus. Išsamesnės informacijos "
+"rasi {doc|slapyvardžių dokumentacijoje}."
 
 #: ../root/components/Aliases/index.js:67
 msgid "{entity} has no aliases."
@@ -8031,7 +8093,7 @@ msgstr ""
 
 #: ../root/components/TagEntitiesList.js:125
 msgid "Entities where {user} downvoted “{tag}”"
-msgstr ""
+msgstr "Subjektai, kuriuose {user} pažemino „{tag}“"
 
 #: ../root/components/TagEntitiesList.js:129
 msgid "Entities {user} tagged as “{tag}”"
@@ -8053,15 +8115,15 @@ msgstr[3] ""
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:13
 #: ../root/tag/TagLayout.js:31
 msgid "Areas"
-msgstr ""
+msgstr "Teritorijos"
 
 #: ../root/components/TagEntitiesList.js:159
 msgid "See all {num} areas"
 msgid_plural "See all {num} areas"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "Žiūrėti visas {num} teritoriją"
+msgstr[1] "Žiūrėti visas {num} teritorijas"
+msgstr[2] "Žiūrėti visas {num} teritorijo"
+msgstr[3] "Žiūrėti visas {num} teritorijų"
 
 #: ../root/components/TagEntitiesList.js:163
 msgid "See all {num} artists"
@@ -8370,7 +8432,7 @@ msgstr ""
 
 #: ../root/edit/CannotVote.js:16
 msgid "You’re not currently allowed to vote, please read the banner."
-msgstr ""
+msgstr "Šiuo metu tau neleidžiama balsuoti, perskaityk reklamjuostę."
 
 #: ../root/edit/DeleteNote.js:32 ../root/edit/DeleteNote.js:33
 #: ../root/edit/components/EditNote.js:147
@@ -8424,11 +8486,11 @@ msgstr ""
 
 #: ../root/edit/EditIndex.js:83
 msgid "My vote:"
-msgstr ""
+msgstr "Mano balsas:"
 
 #: ../root/edit/EditIndex.js:122
 msgid "You are not currently able to vote on this edit. ({url|Details})"
-msgstr ""
+msgstr "Šiuo metu negali balsuoti už šį redagavimą. ({url|Išsamiau)"
 
 #: ../root/edit/EditIndex.js:132
 msgid "Testing features"
@@ -8450,7 +8512,7 @@ msgstr ""
 
 #: ../root/edit/EditIndex.js:153
 msgid "You must be logged in to vote on edits."
-msgstr ""
+msgstr "Kad galėtum balsuoti už redagavimus, turi būti prisijungęs (-usi)."
 
 #: ../root/edit/EditIndex.js:159
 msgid "Edit notes"
@@ -8458,7 +8520,7 @@ msgstr ""
 
 #: ../root/edit/EditIndex.js:164 ../root/edit/components/Vote.js:112
 msgid "Submit vote and note"
-msgstr ""
+msgstr "Pateikti balsavimą ir pastabą"
 
 #: ../root/edit/EditIndex.js:166
 msgid "Submit note"
@@ -8499,6 +8561,8 @@ msgid ""
 "{edit} has received one or more \"no\" votes, you must leave an edit note "
 "before you can approve it."
 msgstr ""
+"{edit} gavo vieną ar daugiau balsų „ne“, prieš patvirtindamas (-a) tai turi "
+"palikti redagavimo pastabą."
 
 #: ../root/edit/NotesReceived.js:35 ../root/edit/NotesReceived.js:37
 msgid "Recent Notes Left on Your Edits"
@@ -8562,11 +8626,11 @@ msgstr ""
 
 #: ../root/edit/components/EditHeader.js:107
 msgid "Their vote: "
-msgstr ""
+msgstr "Jų balsas: "
 
 #: ../root/edit/components/EditHeader.js:114
 msgid "My vote: "
-msgstr ""
+msgstr "Mano balsas: "
 
 #: ../root/edit/components/EditHeader.js:118
 msgid "N/A"
@@ -8611,7 +8675,7 @@ msgstr[3] ""
 #: ../root/edit/components/EditList.js:105
 #: ../root/edit/components/EditList.js:121
 msgid "Submit votes & edit notes"
-msgstr ""
+msgstr "Pateikti balsus ir redagavimo pastabas"
 
 #: ../root/edit/components/EditNote.js:159
 msgid "[time missing]"
@@ -8672,7 +8736,7 @@ msgstr ""
 
 #: ../root/edit/components/EditNotes.js:78
 msgid "You are not currently able to add notes to this edit. ({url|Details})"
-msgstr ""
+msgstr "Šiuo metu negali pridėti pastabų prie šio redagavimo. ({url|Išsamiau)"
 
 #: ../root/edit/components/EditSidebar.js:48
 msgid "Opened:"
@@ -8685,14 +8749,14 @@ msgstr ""
 #: ../root/edit/components/EditSidebar.js:71
 msgid "1 vote"
 msgid_plural "{n} unanimous votes"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "1 balsas"
+msgstr[1] "{n} vienbalsiai"
+msgstr[2] "{n} vienbalsio"
+msgstr[3] "{n} vienbalsių"
 
 #: ../root/edit/components/EditSidebar.js:80
 msgid "If no votes cast"
-msgstr ""
+msgstr "Jei nėra paduotų balsų"
 
 #: ../root/edit/components/EditSidebar.js:89
 msgid "Raw edit data for this edit"
@@ -8849,7 +8913,7 @@ msgstr ""
 #: ../root/edit/details/AddArea.js:102 ../root/edit/details/EditArea.js:119
 msgctxt "area ended boolean"
 msgid "Ended"
-msgstr ""
+msgstr "Baigėsi"
 
 #: ../root/edit/details/AddArtist.js:129 ../root/edit/details/EditArtist.js:155
 msgctxt "artist ended boolean"
@@ -9440,17 +9504,17 @@ msgstr ""
 
 #: ../root/elections/ElectionDetails.js:59
 msgid "Total votes"
-msgstr ""
+msgstr "Iš viso balsų"
 
 #: ../root/elections/ElectionDetails.js:63
 #: ../root/elections/ElectionTable/index.js:29
 msgid "Votes for"
-msgstr ""
+msgstr "Balsavo už"
 
 #: ../root/elections/ElectionDetails.js:67
 #: ../root/elections/ElectionTable/index.js:30
 msgid "Votes against"
-msgstr ""
+msgstr "Balsavo prieš"
 
 #: ../root/elections/ElectionDetails.js:71
 msgid "Abstentions"
@@ -9458,12 +9522,12 @@ msgstr ""
 
 #: ../root/elections/ElectionDetails.js:79
 msgid "Votes for/against:"
-msgstr ""
+msgstr "Balsavo už/prieš:"
 
 #: ../root/elections/ElectionDetails.js:81
 msgid ""
 "The tally of votes cast will only be shown when the election is complete."
-msgstr ""
+msgstr "Suskaičiuoti atiduoti balsai bus rodomi tik pasibaigus rinkimams."
 
 #: ../root/elections/ElectionDetails.js:89
 #: ../root/elections/ElectionTable/index.js:23
@@ -9473,7 +9537,7 @@ msgstr ""
 
 #: ../root/elections/ElectionTable/ElectionTableRows.js:60
 msgid "View details"
-msgstr ""
+msgstr "Peržiūrėti išsamią informaciją"
 
 #: ../root/elections/ElectionTable/index.js:24
 msgid "Start date"
@@ -9481,7 +9545,7 @@ msgstr ""
 
 #: ../root/elections/ElectionVotes.js:27
 msgid "Vote"
-msgstr ""
+msgstr "Balsavimas"
 
 #: ../root/elections/ElectionVotes.js:38
 msgid "(private)"
@@ -9490,15 +9554,18 @@ msgstr ""
 #: ../root/elections/ElectionVoting.js:27
 msgid "To find out if you can vote for this candidate, please {url|log in}."
 msgstr ""
+"Norėdamas (-a) sužinoti, ar gali balsuoti už šį kandidatą (-ę), "
+"{url|prisijunk}."
 
 #: ../root/elections/ElectionVoting.js:36
 msgid "You cannot vote for this candidate, because you are not an auto-editor."
-msgstr ""
+msgstr "Negali balsuoti už šį kandidatą (-ę), nes nesi autoredaktorius (-ė)."
 
 #: ../root/elections/ElectionVoting.js:41
 msgid ""
 "You cannot vote for this candidate, because you proposed / seconded them."
 msgstr ""
+"Negali balsuoti už šį kandidatą (-ę), nes pats (-i) tai pasiūlei / parėmei."
 
 #: ../root/elections/ElectionVoting.js:46
 msgid ""
@@ -9507,6 +9574,9 @@ msgid ""
 "that you cannot cast a \"No\" vote (or abstain) until two seconders have "
 "been found."
 msgstr ""
+"Balsavimas dar neatidarytas. Jei nori paremti šį kandidatą, gali paremti jo "
+"(-s) kandidatūrą. Jei neparemsite šio kandidato, atkreipk dėmesį, kad negali "
+"balsuoti Ne (arba susilaikyti), kol neatsirado du antrininkai."
 
 #: ../root/elections/ElectionVoting.js:53
 msgid "Voting is closed."
@@ -9518,15 +9588,15 @@ msgstr ""
 
 #: ../root/elections/ElectionVoting.js:80
 msgid "Your current vote: {vote}"
-msgstr ""
+msgstr "Tavo dabartinis balsavimas: {vote}"
 
 #: ../root/elections/ElectionVoting.js:88
 msgid "Vote YES"
-msgstr ""
+msgstr "Balsuoti TAIP"
 
 #: ../root/elections/ElectionVoting.js:91
 msgid "Vote NO"
-msgstr ""
+msgstr "Balsuoti NE"
 
 #: ../root/elections/ElectionVoting.js:94
 msgid "Abstain"
@@ -9563,11 +9633,11 @@ msgstr ""
 
 #: ../root/elections/Show.js:34
 msgid "Votes cast"
-msgstr ""
+msgstr "Paduoti balsavimai"
 
 #: ../root/elections/Show.js:37
 msgid "The list of voters will only be shown when the election is complete."
-msgstr ""
+msgstr "Balsuotojų sąrašas bus rodomas tik pasibaigus rinkimams."
 
 #: ../root/entity/Collections.js:40
 msgid "{entity} has been added to {num} collection:"
@@ -9640,13 +9710,15 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:19
 msgid "Area Not Found"
-msgstr ""
+msgstr "Teritorija nerasta"
 
 #: ../root/entity/NotFound.js:21
 msgid ""
 "Sorry, we could not find an area with that MusicBrainz ID. You may wish to "
 "try and {search_url|search for it} instead."
 msgstr ""
+"Atsiprašome, nepavyko rasti teritorijos su šiuo MusicBrainz ID. Vietoj to "
+"gali pabandyti ir {search_url|paieškoti jos}."
 
 #: ../root/entity/NotFound.js:28
 msgid "Artist Not Found"
@@ -10305,7 +10377,7 @@ msgstr "Pridėti renginį"
 
 #: ../root/layout/components/BottomMenu.js:281
 msgid "Vote on Edits"
-msgstr ""
+msgstr "Balsuoti dėl redagavimų"
 
 #: ../root/layout/components/BottomMenu.js:284
 #: ../root/report/ReportsIndex.js:39 ../root/report/ReportsIndex.js:41
@@ -10366,7 +10438,7 @@ msgstr ""
 
 #: ../root/layout/components/Footer.js:66
 msgid "Running: {git_details}"
-msgstr ""
+msgstr "Veikia: {git_details}"
 
 #: ../root/layout/components/Head.js:49
 msgid "Page {n}"
@@ -10435,7 +10507,7 @@ msgstr ""
 #: ../root/layout/components/TopMenu.js:128
 msgctxt "button/menu"
 msgid "Add Area"
-msgstr "Pridėti vietovę"
+msgstr "Pridėti teritoriją"
 
 #: ../root/layout/components/TopMenu.js:136
 msgctxt "button/menu"
@@ -10497,7 +10569,7 @@ msgstr ""
 
 #: ../root/layout/components/sidebar/AreaSidebar.js:49
 msgid "Area information"
-msgstr ""
+msgstr "Teritorijos informacija"
 
 #: ../root/layout/components/sidebar/ArtistSidebar.js:71
 msgid "Artist information"
@@ -10535,7 +10607,7 @@ msgstr ""
 
 #: ../root/layout/components/sidebar/CollectionLinks.js:23
 msgid "You have no area collections!"
-msgstr ""
+msgstr "Neturi jokių teritorijų kolekcijų!"
 
 #: ../root/layout/components/sidebar/CollectionLinks.js:24
 msgid "You have no artist collections!"
@@ -10749,7 +10821,7 @@ msgstr ""
 
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:154
 msgid "Additional details"
-msgstr ""
+msgstr "Papildoma išsami informacija"
 
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:259
 msgid "Release group rating"
@@ -11023,7 +11095,7 @@ msgstr ""
 
 #: ../root/main/error/components/ErrorInfo.js:32
 msgid "(No details about this error are available)"
-msgstr ""
+msgstr "(Išsamios informacijos apie šią klaidą nėra)"
 
 #: ../root/main/index.js:36
 msgid "MusicBrainz - The Open Music Encyclopedia"
@@ -12387,18 +12459,19 @@ msgstr ""
 msgid "Usage count"
 msgstr ""
 
-#: ../root/report/LowQualityReleases.js:26
+#: ../root/report/LowDataQualityReleases.js:26
 msgid ""
-"This report shows releases that have been marked as low quality. If you have "
-"some time, you can review them and try to improve the data as much as "
-"possible before changing their quality back to Normal (or even to High, if "
-"you add all the possible data!). If a release has already been improved but "
-"the quality wasn’t changed accordingly, just enter a data quality change to "
-"remove it from this report."
+"This report shows releases that have been marked as having low data quality. "
+"If you have some time, you can review them and try to improve the data as "
+"much as possible before changing their data quality back to Normal (or even "
+"to High, if you add all the possible data!). If a release has already been "
+"improved but the data quality wasn’t changed accordingly, just enter a data "
+"quality change to remove it from this report."
 msgstr ""
 
-#: ../root/report/LowQualityReleases.js:36 ../root/report/ReportsIndex.js:467
-msgid "Releases marked as low quality"
+#: ../root/report/LowDataQualityReleases.js:38
+#: ../root/report/ReportsIndex.js:467
+msgid "Releases marked as having low data quality"
 msgstr ""
 
 #: ../root/report/MediumsWithOrderInTitle.js:24
@@ -12459,6 +12532,13 @@ msgid ""
 "Discogs page belongs at the {release_group|release group level}, not at the "
 "release level, and should be removed from releases too."
 msgstr ""
+"Šioje ataskaitoje rodomi leidiniai, kurie turi daugiau nei vieną nuorodą į "
+"Discogs. Daugeliu atvejų MusicBrainz leidinys turėtų turėti tik vieną "
+"atitikmenį Discogs, todėl tik vienas iš jų bus teisingas. Tiesiog patikrink, "
+"kurie iš jų neatitinka leidinio (dėl formato, skirtingo takelių skaičiaus ir "
+"t. t.). Bet koks „master“ Discogs puslapis priklauso {release_group|leidinio "
+"grupės lygiui}, o ne leidinio lygiui, ir turėtų būti pašalintas ir iš "
+"leidinių."
 
 #: ../root/report/MultipleDiscogsLinks.js:36
 msgid "Releases with multiple Discogs links"
@@ -12873,7 +12953,7 @@ msgstr ""
 
 #: ../root/report/ReportsIndex.js:127
 msgid "Editors"
-msgstr ""
+msgstr "Redaktoriai"
 
 #: ../root/report/ReportsIndex.js:142
 msgid "Events with annotations"
@@ -13283,7 +13363,7 @@ msgstr ""
 
 #: ../root/search/components/AreaResults.js:76
 msgid "Alternatively, you may {uri|add a new area}."
-msgstr ""
+msgstr "Taip pat gali {uri|pridėti naują teritoriją}."
 
 #: ../root/search/components/ArtistResults.js:85
 msgid "Alternatively, you may {uri|add a new artist}."
@@ -13453,7 +13533,7 @@ msgstr ""
 #: ../root/user/UserProfile.js:275
 msgctxt "user area"
 msgid "Location"
-msgstr ""
+msgstr "Vietovė"
 
 #: ../root/static/scripts/account/components/EditProfileForm.js:270
 msgid ""
@@ -13512,6 +13592,8 @@ msgid ""
 "Mail me when one of my edits gets a \"no\" vote. (Note: the email is only "
 "sent for the first \"no\" vote, not each one)"
 msgstr ""
+"Siųsti man laišką, kai už vieną iš mano redagavimų bus balsuota ne. (Pastaba:"
+" el. laiškas siunčiamas tik už pirmą balsavimą ne, o ne už kiekvieną.)"
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:221
 msgid "When I add a note to an edit, mail me all future notes for that edit."
@@ -13520,6 +13602,8 @@ msgstr ""
 #: ../root/static/scripts/account/components/PreferencesForm.js:229
 msgid "When I vote on an edit, mail me all future notes for that edit."
 msgstr ""
+"Kai balsuosiu dėl redagavimo, siųsti man laišką visoms būsimoms to "
+"redagavimo pastaboms."
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:236
 msgid "Send me mails with edits to my subscriptions:"
@@ -13572,7 +13656,7 @@ msgstr ""
 
 #: ../root/static/scripts/alias/AliasEditForm.js:293
 msgid "Alias Details"
-msgstr ""
+msgstr "Išsami informacija apie slapyvardį"
 
 #: ../root/static/scripts/alias/AliasEditForm.js:300
 msgid "Alias name:"
@@ -13674,7 +13758,7 @@ msgstr ""
 
 #: ../root/static/scripts/collection/components/CollectionEditForm.js:194
 msgid "Collection details"
-msgstr ""
+msgstr "Išsami informacija apie kolekciją"
 
 #: ../root/static/scripts/collection/components/CollectionEditForm.js:213
 msgid "Allow other users to see this collection"
@@ -13746,7 +13830,7 @@ msgstr ""
 
 #: ../root/static/scripts/common/MB/Control/EditList.js:45
 msgid "Vote on all edits:"
-msgstr ""
+msgstr "Balsuoti dėl visų redagavimų:"
 
 #: ../root/static/scripts/common/MB/Control/EditSummary.js:23
 msgctxt "Edit note field toggle"
@@ -13848,7 +13932,7 @@ msgstr ""
 
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:127
 msgid "Search for an area"
-msgstr ""
+msgstr "Ieškoti teritorijos"
 
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:129
 msgid "Search for an editor"
@@ -14137,30 +14221,30 @@ msgstr ""
 #: ../root/static/scripts/common/components/StaticRelationshipsDisplay.js:110
 msgid "track {tracks}"
 msgid_plural "tracks {tracks}"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "{tracks} takelis"
+msgstr[1] "{tracks} takeliai"
+msgstr[2] "{tracks} takelio"
+msgstr[3] "{tracks} takelių"
 
 #: ../root/static/scripts/common/components/TagEditor.js:105
 msgid "Withdraw vote"
-msgstr ""
+msgstr "Atšaukti balsą"
 
 #: ../root/static/scripts/common/components/TagEditor.js:127
 msgid "You’ve upvoted this tag"
-msgstr ""
+msgstr "Tu pakėlei šią žymę"
 
 #: ../root/static/scripts/common/components/TagEditor.js:131
 msgid "Upvote"
-msgstr ""
+msgstr "Pakelti"
 
 #: ../root/static/scripts/common/components/TagEditor.js:141
 msgid "You’ve downvoted this tag"
-msgstr ""
+msgstr "Tu sumažinai šią žymę"
 
 #: ../root/static/scripts/common/components/TagEditor.js:145
 msgid "Downvote"
-msgstr ""
+msgstr "Sumažinti"
 
 #: ../root/static/scripts/common/components/TagEditor.js:549
 #: ../root/user/UserTagList.js:94
@@ -14205,60 +14289,64 @@ msgstr ""
 
 #: ../root/static/scripts/common/components/TagEditor.js:626
 msgid "Add Tags"
-msgstr ""
+msgstr "Pridėti žymes"
 
 #: ../root/static/scripts/common/components/TagEditor.js:629
 msgid ""
 "You can add your own {tagdocs|tags} below. Use commas to separate multiple "
 "tags."
 msgstr ""
+"Gali pridėti savo {tagdocs|žymes} žemiau. Kelioms žymėms atskirti naudok "
+"kablelius."
 
 #: ../root/static/scripts/common/components/TagEditor.js:643
 msgid "Submit tags"
-msgstr ""
+msgstr "Pateikti žymes"
 
 #: ../root/static/scripts/common/components/TagEditor.js:689
 msgid "see all tags"
-msgstr ""
+msgstr "žiūrėti visas žymes"
 
 #: ../root/static/scripts/common/components/TagEditor.js:705
 msgctxt "verb"
 msgid "Tag"
-msgstr "Žymė"
+msgstr "Žymėti"
 
 #: ../root/static/scripts/common/components/TaggerIcon.js:79
 msgid "Open in tagger"
-msgstr ""
+msgstr "Atidaryti žymeklyje"
 
 #: ../root/static/scripts/common/components/WikipediaExtract.js:64
 msgid "Wikipedia"
-msgstr ""
+msgstr "Vikipedija"
 
 #: ../root/static/scripts/common/components/WikipediaExtract.js:70
 msgid "Continue reading at Wikipedia..."
-msgstr ""
+msgstr "Toliau skaityti Vikipedijoje..."
 
 #: ../root/static/scripts/common/components/WikipediaExtract.js:75
 msgid ""
 "Wikipedia content provided under the terms of the {license_link|Creative "
 "Commons BY-SA license}"
 msgstr ""
+"Vikipedijos turinys pateiktas pagal {license_link|Creative Commons BY-SA "
+"licenciją}"
 
 #: ../root/static/scripts/common/components/WorkArtists.js:27
 msgid "Work Artists"
-msgstr ""
+msgstr "Kūrinio atlikėjai"
 
 #: ../root/static/scripts/common/entity.js:256
 msgid "You selected {label}."
-msgstr ""
+msgstr "Pasirinkai {label}."
 
 #: ../root/static/scripts/common/entity.js:262
 msgid "Label code: {code}"
-msgstr ""
+msgstr "Leidyklos kodas: {code}"
 
 #: ../root/static/scripts/common/entity.js:289
 msgid "You selected {area}."
-msgstr ""
+msgstr "Pasirinkai {area}."
 
 #: ../root/static/scripts/common/entity.js:382
 msgid "You selected {releasegroup}."
@@ -14484,6 +14572,8 @@ msgid ""
 "Discogs “{master_url_pattern}” links group several releases, so this should "
 "be added to the release group instead."
 msgstr ""
+"Discogs „{master_url_pattern}“ nuorodos grupuoja kelis leidinius, todėl tai "
+"turėtų būti pridėta į leidinių grupę."
 
 #: ../root/static/scripts/edit/URLCleanup.js:2929
 msgid ""
@@ -14633,7 +14723,7 @@ msgstr ""
 
 #: ../root/static/scripts/edit/components/AddEntityDialog.js:15
 msgid "Add a new area"
-msgstr ""
+msgstr "Pridėti naują teritoriją"
 
 #: ../root/static/scripts/edit/components/AddEntityDialog.js:16
 msgid "Add a new artist"
@@ -14848,10 +14938,6 @@ msgstr ""
 msgid "All of your changes will be lost if you leave this page."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:708
-msgid "Please enter a valid URL, such as “{example_url}”."
-msgstr ""
-
 #: ../root/static/scripts/edit/externalLinks.js:715
 msgid ""
 "“{example_url}” is just an example. Please enter the actual link you want to "
@@ -14916,7 +15002,7 @@ msgstr ""
 
 #: ../root/static/scripts/edit/externalLinks.js:807
 msgid "This URL is not allowed for areas."
-msgstr ""
+msgstr "Šis URL neleidžiamas teritorijoms."
 
 #: ../root/static/scripts/edit/externalLinks.js:810
 msgid "This URL is not allowed for artists."
@@ -14989,7 +15075,7 @@ msgstr ""
 
 #: ../root/static/scripts/genre/components/GenreEditForm.js:140
 msgid "Genre details"
-msgstr ""
+msgstr "Išsami informacija apie žanrą"
 
 #: ../root/static/scripts/guess-case/MB/Control/GuessCase.js:25
 msgid "Guess Case Options"
@@ -15211,7 +15297,7 @@ msgstr ""
 
 #: ../root/static/scripts/relationship-editor/components/RelationshipPhraseGroup.js:33
 msgid "Add another area"
-msgstr ""
+msgstr "Pridėti kitą teritoriją"
 
 #: ../root/static/scripts/relationship-editor/components/RelationshipPhraseGroup.js:34
 msgid "Add another artist"
@@ -15520,7 +15606,7 @@ msgstr ""
 
 #: ../root/tag/EntityList.js:26
 msgid "Areas tagged as “{tag}”"
-msgstr ""
+msgstr "Teritorijos, pažymėtos žyme „{tag}“"
 
 #: ../root/tag/EntityList.js:27
 msgid "Artists tagged as “{tag}”"
@@ -15565,7 +15651,7 @@ msgstr ""
 
 #: ../root/tag/EntityList.js:40
 msgid "Areas {user} tagged as “{tag}”"
-msgstr ""
+msgstr "Teritorijos {user} pažymėjo žyme „{tag}“"
 
 #: ../root/tag/EntityList.js:41
 msgid "Artists {user} tagged as “{tag}”"
@@ -15610,7 +15696,7 @@ msgstr ""
 
 #: ../root/tag/EntityList.js:54
 msgid "Areas where {user} downvoted “{tag}”"
-msgstr ""
+msgstr "Teritorijos, kuriose {user} pažemino „{tag}“"
 
 #: ../root/tag/EntityList.js:55
 msgid "Artists where {user} downvoted “{tag}”"
@@ -15655,10 +15741,10 @@ msgstr ""
 #: ../root/tag/EntityList.js:70
 msgid "{num} area found"
 msgid_plural "{num} areas found"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "Rasta {num} teritorija"
+msgstr[1] "Rastos {num} teritorijos"
+msgstr[2] "Rastas {num} teritorijo"
+msgstr[3] "Rasta {num} teritorijų"
 
 #: ../root/tag/EntityList.js:71
 msgid "{num} artist found"
@@ -15830,7 +15916,7 @@ msgstr ""
 
 #: ../root/url/UrlIndex.js:22
 msgid "URL Details"
-msgstr ""
+msgstr "Išsami informacija apie URL"
 
 #: ../root/user/ContactUser.js:53
 msgid "Subject:"
@@ -15938,6 +16024,8 @@ msgstr ""
 #: ../root/user/PrivilegedUsers.js:94
 msgid "Location editors are users who can add or modify {uri|areas}."
 msgstr ""
+"Vietovės redaktoriai – tai naudotojai, kurie gali pridėti arba modifikuoti "
+"{uri|teritorijas}."
 
 #: ../root/user/PrivilegedUsers.js:100
 msgid "The following {count} users are location editors:"
@@ -16025,7 +16113,7 @@ msgstr ""
 
 #: ../root/user/UserCollections.js:42
 msgid "Area Collections"
-msgstr ""
+msgstr "Teritorijos kolekcijos"
 
 #: ../root/user/UserCollections.js:43
 msgid "Artist Collections"
@@ -16263,7 +16351,7 @@ msgstr ""
 
 #: ../root/user/UserProfile.js:414
 msgid "Languages"
-msgstr ""
+msgstr "Kalbos"
 
 #: ../root/user/UserProfile.js:489 ../root/user/UserProfile.js:589
 #: ../root/user/UserProfile.js:599 ../root/user/UserProfile.js:609
@@ -16277,7 +16365,7 @@ msgstr ""
 
 #: ../root/user/UserProfile.js:581
 msgid "Edits"
-msgstr ""
+msgstr "Redagavimai"
 
 #: ../root/user/UserProfile.js:587
 msgctxt "edit descriptor"
@@ -16783,7 +16871,7 @@ msgstr ""
 
 #: ../root/vote/VotingIndex.js:184
 msgid "All open unconfirmed edits (“Abstain” votes only)"
-msgstr ""
+msgstr "Visi nepatvirtinti redagavimai (tik balsai Susilaikyti)"
 
 #: ../root/vote/VotingIndex.js:196
 msgid ""
