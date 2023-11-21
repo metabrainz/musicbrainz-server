@@ -3232,7 +3232,8 @@ const CLEANUPS: CleanupEntries = {
     match: [new RegExp('^(https?://)?(www\\.)?jazzmusicarchives\\.com', 'i')],
     restrict: [LINK_TYPES.otherdatabases],
     clean: function (url) {
-      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?jazzmusicarchives\.com\/([^#]+)(?:#.*)?$/, 'https://www.jazzmusicarchives.com/$1');
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?jazzmusicarchives\.com\/([^#?]+).*$/, 'https://www.jazzmusicarchives.com/$1');
+      url = url.replace(/\/+$/, '');
       return url;
     },
     validate: function (url, id) {
