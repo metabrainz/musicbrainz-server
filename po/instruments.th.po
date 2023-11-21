@@ -6,7 +6,7 @@ msgstr ""
 "Language-Team: none\n"
 "Language: th\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: DB:instrument/name:438
@@ -1093,6 +1093,11 @@ msgstr ""
 #: DB:instrument/name:912
 msgctxt "Fifteenth century organ harpsichord hybrid"
 msgid "claviorganum"
+msgstr ""
+
+#: DB:instrument/name:1185
+msgctxt "Folk/classical Catalonian music ensemble"
+msgid "cobla"
 msgstr ""
 
 #: DB:instrument/name:414

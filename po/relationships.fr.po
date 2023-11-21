@@ -107,14 +107,14 @@ msgid ""
 "post. Examples include Facebook pages and profiles, Last.fm users and "
 "accounts on Twitter, Instagram and Flickr."
 msgstr ""
-"Une page de réseau social est la page de profil d’un artiste sur un <a href="
-"\"https://fr.wikipedia.org/wiki/R%C3%A9seautage_social\" target=\"_blank\""
-">réseau social</a> dont le contenu ne peut être publié que par les artistes "
-"eux-mêmes (ou par leurs agents). Les autres personnes peuvent créer leur "
-"propre profil et interagir avec les artistes, par exemple en les ajoutant "
-"comme amis ou en commentant les contenus qu’ils ont publié. Exemples de "
-"pages : les pages et profils Facebook, les utilisateurs Last.fm ainsi que "
-"les comptes Twitter/X, Instagram et Flickr."
+"Une page de réseau social est la page de profil d’un artiste sur un <a "
+"href=\"https://fr.wikipedia.org/wiki/R%C3%A9seautage_social\" "
+"target=\"_blank\">réseau social</a> dont le contenu ne peut être publié que "
+"par les artistes eux-mêmes (ou par leurs agents). Les autres personnes "
+"peuvent créer leur propre profil et interagir avec les artistes, par exemple "
+"en les ajoutant comme amis ou en commentant les contenus qu’ils ont publié. "
+"Exemples de pages : les pages et profils Facebook, les utilisateurs Last.fm "
+"ainsi que les comptes Twitter/X, Instagram et Flickr."
 
 #: DB:link_type/description:783
 msgid ""
@@ -1470,20 +1470,19 @@ msgstr ""
 "Cet attribut indique une version se voulant satyrique, ironique ou encore "
 "humoristique. Les parodies ont dans la plupart des cas des paroles modifiées."
 
-#: DB:link_attribute_type/description:517
-msgid ""
-"This attribute indicates a version with the lyrics in a different language "
-"than the original."
-msgstr ""
-"Cet attribut indique une version avec des paroles dans une langue différente "
-"de l’originale."
-
 #: DB:link_attribute_type/description:525
 msgid ""
 "This attribute indicates that an artist was an original member of a group "
 "artist."
 msgstr ""
 "Cet attribut indique qu’un artiste était un membre originel d’un groupe."
+
+#: DB:link_attribute_type/description:517
+msgid ""
+"This attribute indicates that lyrics have been translated, literally or "
+"freely, from the original language. This does not apply if an entirely new "
+"set of lyrics have been set to an an existing melody."
+msgstr ""
 
 #: DB:link_attribute_type/description:582
 msgid ""
@@ -1902,6 +1901,18 @@ msgstr ""
 "Ceci indique un artiste qui était le premier violon d’un orchestre sur cette "
 "parution."
 
+#: DB:link_type/description:1228
+#, fuzzy
+#| msgid ""
+#| "This indicates that a person or agency did the art direction for the "
+#| "recording."
+msgid ""
+"This indicates an organization (often a radio station) broadcast the given "
+"recording."
+msgstr ""
+"Ceci indique qu’une personne ou agence a mené la direction artistique pour "
+"cet enregistrement."
+
 #: DB:link_type/description:891
 msgid ""
 "This indicates that (most commonly) a festival commissioned the work. This "
@@ -2126,7 +2137,7 @@ msgid ""
 "\"concertmaster\" (principal violin) for instruments."
 msgstr ""
 
-#: DB:link_type/description:998 DB:link_type/description:999
+#: DB:link_type/description:999 DB:link_type/description:998
 msgid ""
 "This indicates that the label performed a role not covered by other "
 "relationship types."
@@ -4249,8 +4260,8 @@ msgid ""
 "page at <a href=\"http://vgmdb.net/\">VGMdb</a>. VGMdb is a community "
 "project dedicated to cataloguing the music of video games and anime."
 msgstr ""
-"Ceci relie un lieu (généralement un studio) à sa page sur <a href=\"http"
-"://vgmdb.net/\">VGMdb</a>. VGMdb est un projet communautaire dédié au "
+"Ceci relie un lieu (généralement un studio) à sa page sur <a href=\"http://"
+"vgmdb.net/\">VGMdb</a>. VGMdb est un projet communautaire dédié au "
 "catalogage de music de jeux vidéos et d’animés."
 
 #: DB:link_type/description:861
@@ -4979,6 +4990,15 @@ msgstr "éditeur du livret"
 #: DB:link_type/link_phrase:929
 msgid "booklet editor for"
 msgstr "éditeur du livret pour"
+
+#: DB:link_type/link_phrase:1228 DB:link_type/name:1228
+#: DB:link_type/long_link_phrase:1228
+msgid "broadcast"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:1228
+msgid "broadcast by"
+msgstr ""
 
 #: DB:link_type/link_phrase:66 DB:link_type/link_phrase:205
 #: DB:link_type/name:205 DB:link_type/reverse_link_phrase:205
@@ -5886,7 +5906,7 @@ msgid "has a logo at"
 msgstr "a un logo à"
 
 #: DB:link_type/long_link_phrase:129 DB:link_type/long_link_phrase:25
-#: DB:link_type/long_link_phrase:998 DB:link_type/long_link_phrase:999
+#: DB:link_type/long_link_phrase:999 DB:link_type/long_link_phrase:998
 msgid "has a miscellaneous role on"
 msgstr "a un rôle divers sur"
 
@@ -6821,19 +6841,19 @@ msgid "minor"
 msgstr "mineur"
 
 #: DB:link_type/name:162 DB:link_type/name:129 DB:link_type/name:25
-#: DB:link_type/name:998 DB:link_type/name:999
+#: DB:link_type/name:999 DB:link_type/name:998
 msgid "misc"
 msgstr "divers"
 
 #: DB:link_type/link_phrase:162 DB:link_type/link_phrase:129
-#: DB:link_type/link_phrase:25 DB:link_type/link_phrase:998
-#: DB:link_type/link_phrase:999
+#: DB:link_type/link_phrase:25 DB:link_type/link_phrase:999
+#: DB:link_type/link_phrase:998
 msgid "miscellaneous roles"
 msgstr "rôles divers"
 
 #: DB:link_type/reverse_link_phrase:162 DB:link_type/reverse_link_phrase:129
-#: DB:link_type/reverse_link_phrase:25 DB:link_type/reverse_link_phrase:998
-#: DB:link_type/reverse_link_phrase:999
+#: DB:link_type/reverse_link_phrase:25 DB:link_type/reverse_link_phrase:999
+#: DB:link_type/reverse_link_phrase:998
 msgid "miscellaneous support"
 msgstr "soutien divers"
 
@@ -9564,6 +9584,13 @@ msgstr "{vocal:%|voix} de soutien par"
 #: DB:link_type/link_phrase:107
 msgid "{vocal:%|vocals} support for"
 msgstr "{vocal:%|voix} de soutien pour"
+
+#~ msgid ""
+#~ "This attribute indicates a version with the lyrics in a different "
+#~ "language than the original."
+#~ msgstr ""
+#~ "Cet attribut indique une version avec des paroles dans une langue "
+#~ "différente de l’originale."
 
 #~ msgid "Indicates a webpage that reviews the release (group) in question."
 #~ msgstr ""

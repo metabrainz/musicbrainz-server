@@ -1554,6 +1554,13 @@ msgstr ""
 "一般由两根完全相同或略不对称的棍棒，板，壳或类似物体构成，两部分之间相互撞"
 "击。"
 
+#. name:cobla 
+#: DB:instrument/description:1185
+msgid ""
+"Generally used to accompany the traditional Catalan circle folk dance the "
+"sardana."
+msgstr ""
+
 #. name:German harp 
 #: DB:instrument/description:356
 msgid "German/Bohemian harp"

@@ -1472,14 +1472,6 @@ msgstr ""
 "comunque umoristici. Le parodie hanno nella maggior parte dei casi un testo "
 "modificato."
 
-#: DB:link_attribute_type/description:517
-msgid ""
-"This attribute indicates a version with the lyrics in a different language "
-"than the original."
-msgstr ""
-"Questo attributo indica una versione con testi in una lingua diversa "
-"dall'originale."
-
 #: DB:link_attribute_type/description:525
 msgid ""
 "This attribute indicates that an artist was an original member of a group "
@@ -1487,6 +1479,13 @@ msgid ""
 msgstr ""
 "Questo attributo indica che un artista è stato membro di un gruppo dalla sua "
 "origine."
+
+#: DB:link_attribute_type/description:517
+msgid ""
+"This attribute indicates that lyrics have been translated, literally or "
+"freely, from the original language. This does not apply if an entirely new "
+"set of lyrics have been set to an an existing melody."
+msgstr ""
 
 #: DB:link_attribute_type/description:582
 msgid ""
@@ -1947,6 +1946,18 @@ msgstr ""
 "Indica un artista che è stato il primo violino di un'orchestra o di una "
 "banda su questa pubblicazione."
 
+#: DB:link_type/description:1228
+#, fuzzy
+#| msgid ""
+#| "This indicates that a person or agency did the art direction for the "
+#| "recording."
+msgid ""
+"This indicates an organization (often a radio station) broadcast the given "
+"recording."
+msgstr ""
+"Indica che una persona o un'agenzia hanno curato la direzione artistica "
+"della registrazione."
+
 #: DB:link_type/description:891
 msgid ""
 "This indicates that (most commonly) a festival commissioned the work. This "
@@ -2188,7 +2199,7 @@ msgstr ""
 "titolo di \"primo [strumento]\" (per esempio, primo violino) o \"[strumento] "
 "principale\" per gli strumenti."
 
-#: DB:link_type/description:998 DB:link_type/description:999
+#: DB:link_type/description:999 DB:link_type/description:998
 msgid ""
 "This indicates that the label performed a role not covered by other "
 "relationship types."
@@ -5218,6 +5229,15 @@ msgstr "curatore del libretto (booklet)"
 msgid "booklet editor for"
 msgstr "curatore del libretto (booklet) per"
 
+#: DB:link_type/link_phrase:1228 DB:link_type/name:1228
+#: DB:link_type/long_link_phrase:1228
+msgid "broadcast"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:1228
+msgid "broadcast by"
+msgstr ""
+
 #: DB:link_type/link_phrase:66 DB:link_type/link_phrase:205
 #: DB:link_type/name:205 DB:link_type/reverse_link_phrase:205
 #: DB:link_type/long_link_phrase:205
@@ -6124,7 +6144,7 @@ msgid "has a logo at"
 msgstr "ha un logo su"
 
 #: DB:link_type/long_link_phrase:129 DB:link_type/long_link_phrase:25
-#: DB:link_type/long_link_phrase:998 DB:link_type/long_link_phrase:999
+#: DB:link_type/long_link_phrase:999 DB:link_type/long_link_phrase:998
 msgid "has a miscellaneous role on"
 msgstr "ha un ruolo a vario titolo su"
 
@@ -7059,19 +7079,19 @@ msgid "minor"
 msgstr "minore"
 
 #: DB:link_type/name:162 DB:link_type/name:129 DB:link_type/name:25
-#: DB:link_type/name:998 DB:link_type/name:999
+#: DB:link_type/name:999 DB:link_type/name:998
 msgid "misc"
 msgstr "vari"
 
 #: DB:link_type/link_phrase:162 DB:link_type/link_phrase:129
-#: DB:link_type/link_phrase:25 DB:link_type/link_phrase:998
-#: DB:link_type/link_phrase:999
+#: DB:link_type/link_phrase:25 DB:link_type/link_phrase:999
+#: DB:link_type/link_phrase:998
 msgid "miscellaneous roles"
 msgstr "ruoli vari"
 
 #: DB:link_type/reverse_link_phrase:162 DB:link_type/reverse_link_phrase:129
-#: DB:link_type/reverse_link_phrase:25 DB:link_type/reverse_link_phrase:998
-#: DB:link_type/reverse_link_phrase:999
+#: DB:link_type/reverse_link_phrase:25 DB:link_type/reverse_link_phrase:999
+#: DB:link_type/reverse_link_phrase:998
 msgid "miscellaneous support"
 msgstr "supporto a vario titolo"
 
@@ -9839,6 +9859,13 @@ msgstr "supporto {vocal:%|vocali} da parte di"
 #: DB:link_type/link_phrase:107
 msgid "{vocal:%|vocals} support for"
 msgstr "supporto {vocal:%|vocali} per"
+
+#~ msgid ""
+#~ "This attribute indicates a version with the lyrics in a different "
+#~ "language than the original."
+#~ msgstr ""
+#~ "Questo attributo indica una versione con testi in una lingua diversa "
+#~ "dall'originale."
 
 #~ msgid ""
 #~ "A social network page is an artist's own profile page on a <a "

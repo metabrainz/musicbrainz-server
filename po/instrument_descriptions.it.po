@@ -26,8 +26,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
-" ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
+"0) ? 1 : 2);\n"
 "X-Generator: Weblate 5.1\n"
 
 #. name:rebab 
@@ -1647,10 +1647,10 @@ msgstr ""
 "Per il suo discendente giapponese che prende il nome dal portoghese, vedi <a "
 "href=\"/instrument/07b91470-b63e-41e4-88e6-11c4acac064f\">charumera</a>.<br /"
 "> Per lo strumento medievale ad ancia doppia della famiglia dei legni, vedi "
-"<a href=\"/instrument/b4f112c3-d666-47f2-bb85-bae28572ca13\">ciaramella</"
-"a>.<br /> Predecessore del clarinetto moderno, è uno strumento ad ancia "
-"singola della famiglia dei legni con 7 fori regolari e 1 foro per il "
-"pollice, in uso durante le epoche barocca e classica."
+"<a href=\"/instrument/b4f112c3-d666-47f2-bb85-bae28572ca13\">ciaramella</a>."
+"<br /> Predecessore del clarinetto moderno, è uno strumento ad ancia singola "
+"della famiglia dei legni con 7 fori regolari e 1 foro per il pollice, in uso "
+"durante le epoche barocca e classica."
 
 #. name:reed organ 
 #: DB:instrument/description:204
@@ -1683,11 +1683,11 @@ msgid ""
 "<br /><br /> Originating in Germanic polka bands, it is used today in "
 "Catalonian cobla."
 msgstr ""
-"Per lo strumento noto in Italia come flicorno, vedi <a href=\"/instrument/\""
-">flicorno</a>.<br /> Per lo strumento noto in Spagna come fliscorno, vedi <a "
-"href=\"/instrument/fd016966-658e-40db-8fe1-f2235fe1e9a3\">flicorno soprano</"
-"a>.<br /><br /> Ebbe origine nelle bande di polka germaniche e oggi è usato "
-"nella cobla catalana."
+"Per lo strumento noto in Italia come flicorno, vedi <a href=\"/instrument/"
+"\">flicorno</a>.<br /> Per lo strumento noto in Spagna come fliscorno, vedi "
+"<a href=\"/instrument/fd016966-658e-40db-8fe1-f2235fe1e9a3\">flicorno "
+"soprano</a>.<br /><br /> Ebbe origine nelle bande di polka germaniche e oggi "
+"è usato nella cobla catalana."
 
 #. name:diatonic button accordion 
 #: DB:instrument/description:361
@@ -1731,10 +1731,10 @@ msgid ""
 "holes and a conical bore. in Sicilia there was a larger bass version named "
 "bifora or pifara."
 msgstr ""
-"Per il piccolo flauto usato insieme al tamburo, vedi <a href=\"/instrument/"
-"996e6514-37a4-4b22-af71-e968f30913fd\">fiffaro</a>.<br /> Spesso "
-"accompagnato da fisarmoniche o da cornamuse come la zampogna o la müsa, ha 8-"
-"9 fori e una sezione conica. In Sicilia ne esisteva una versione basso più "
+"Per il piccolo flauto usato insieme al tamburo, vedi <a href=\"/"
+"instrument/996e6514-37a4-4b22-af71-e968f30913fd\">fiffaro</a>.<br /> Spesso "
+"accompagnato da fisarmoniche o da cornamuse come la zampogna o la müsa, ha "
+"8-9 fori e una sezione conica. In Sicilia ne esisteva una versione basso più "
 "grande, chiamata bifora o pifara."
 
 #. name:lira da braccio 
@@ -1874,6 +1874,13 @@ msgid ""
 msgstr ""
 "È composto in genere da due sbarre, piatti, conchiglie o simili, identici o "
 "lievemente asimmetrici, che vengono colpiti uno contro l'altro."
+
+#. name:cobla 
+#: DB:instrument/description:1185
+msgid ""
+"Generally used to accompany the traditional Catalan circle folk dance the "
+"sardana."
+msgstr ""
 
 #. name:German harp 
 #: DB:instrument/description:356
@@ -3130,16 +3137,16 @@ msgstr ""
 "1880, vedi Martinshorn.<br /> Per lo strumento ad ancia singola della "
 "famiglia dei legni dal nome simile, vedi <a href=\"/instrument/"
 "e3511ed1-3d73-4340-880f-c8ccc8eda11c\">salmoè</a>.<br /> Per il discendente "
-"giapponese che prende il nome dal portoghese, vedi <a href=\"/instrument/"
-"07b91470-b63e-41e4-88e6-11c4acac064f\">charumera</a>.<br /> Per la "
-"ciaramella catalana, vedi <a href=\"/instrument/dffe56f5-cd75-4392-ad31-"
-"1c3abf2b8e37\">tible</a>.<br /> Per la ciaramella italiana, vedi <a href=\"/"
-"instrument/814816db-3368-4889-a8cd-aa34bd1043f0\">piffero</a>.<br /> Per la "
-"cornamusa, vedi xeremia.<br /><br /> Strumento medievale e rinascimentale "
-"europeo della famiglia dei legni, a sezione conica e ad ancia doppia, si "
-"evolvette in due tipi: uno a partire dagli strumenti mediorientali e l'altro "
-"a partire dalle canne del canto delle cornamuse. Una combinazione dei due "
-"tipi fu usata per sviluppare l'oboe moderno."
+"giapponese che prende il nome dal portoghese, vedi <a href=\"/"
+"instrument/07b91470-b63e-41e4-88e6-11c4acac064f\">charumera</a>.<br /> Per "
+"la ciaramella catalana, vedi <a href=\"/instrument/dffe56f5-cd75-4392-"
+"ad31-1c3abf2b8e37\">tible</a>.<br /> Per la ciaramella italiana, vedi <a "
+"href=\"/instrument/814816db-3368-4889-a8cd-aa34bd1043f0\">piffero</a>.<br /> "
+"Per la cornamusa, vedi xeremia.<br /><br /> Strumento medievale e "
+"rinascimentale europeo della famiglia dei legni, a sezione conica e ad ancia "
+"doppia, si evolvette in due tipi: uno a partire dagli strumenti "
+"mediorientali e l'altro a partire dalle canne del canto delle cornamuse. Una "
+"combinazione dei due tipi fu usata per sviluppare l'oboe moderno."
 
 #. name:oboe 
 #: DB:instrument/description:8
