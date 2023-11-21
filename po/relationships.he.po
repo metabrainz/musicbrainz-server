@@ -1277,17 +1277,18 @@ msgstr ""
 "ציון גרסה עם כוונה סאטירית, אירונית או הומוריסטית. בפרודיות, ברוב המקרים "
 "התַּמְלִיל שונה."
 
-#: DB:link_attribute_type/description:517
-msgid ""
-"This attribute indicates a version with the lyrics in a different language "
-"than the original."
-msgstr "התכונה מצינת גרסה עם תַּמְלִיל בשפה השונה משפת המקור."
-
 #: DB:link_attribute_type/description:525
 msgid ""
 "This attribute indicates that an artist was an original member of a group "
 "artist."
 msgstr "תכונה זו מציינת את עובדת היות האמן חבר מקורי בקבוצת אמנים."
+
+#: DB:link_attribute_type/description:517
+msgid ""
+"This attribute indicates that lyrics have been translated, literally or "
+"freely, from the original language. This does not apply if an entirely new "
+"set of lyrics have been set to an an existing melody."
+msgstr ""
 
 #: DB:link_attribute_type/description:582
 msgid ""
@@ -1662,6 +1663,16 @@ msgid ""
 "or band on this release."
 msgstr "ציון אמן שהיה נצח תזמורת/מנהיג, תזמורת או להקה הוצאה זו."
 
+#: DB:link_type/description:1228
+#, fuzzy
+#| msgid ""
+#| "This indicates that a person or agency did the art direction for the "
+#| "recording."
+msgid ""
+"This indicates an organization (often a radio station) broadcast the given "
+"recording."
+msgstr "ציון אדם או סוכנות שבצעו נהול אמנותי עבור הקלטה."
+
 #: DB:link_type/description:891
 msgid ""
 "This indicates that (most commonly) a festival commissioned the work. This "
@@ -1859,7 +1870,7 @@ msgid ""
 "\"concertmaster\" (principal violin) for instruments."
 msgstr ""
 
-#: DB:link_type/description:998 DB:link_type/description:999
+#: DB:link_type/description:999 DB:link_type/description:998
 msgid ""
 "This indicates that the label performed a role not covered by other "
 "relationship types."
@@ -4469,6 +4480,15 @@ msgstr "עורך חוברת"
 msgid "booklet editor for"
 msgstr "עורך חוברת של"
 
+#: DB:link_type/link_phrase:1228 DB:link_type/name:1228
+#: DB:link_type/long_link_phrase:1228
+msgid "broadcast"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:1228
+msgid "broadcast by"
+msgstr ""
+
 #: DB:link_type/link_phrase:66 DB:link_type/link_phrase:205
 #: DB:link_type/name:205 DB:link_type/reverse_link_phrase:205
 #: DB:link_type/long_link_phrase:205
@@ -5374,7 +5394,7 @@ msgid "has a logo at"
 msgstr "קיים סַמְלִיל ב־"
 
 #: DB:link_type/long_link_phrase:129 DB:link_type/long_link_phrase:25
-#: DB:link_type/long_link_phrase:998 DB:link_type/long_link_phrase:999
+#: DB:link_type/long_link_phrase:999 DB:link_type/long_link_phrase:998
 msgid "has a miscellaneous role on"
 msgstr "קיימת תמונה ב־"
 
@@ -6306,19 +6326,19 @@ msgid "minor"
 msgstr "מינור"
 
 #: DB:link_type/name:162 DB:link_type/name:129 DB:link_type/name:25
-#: DB:link_type/name:998 DB:link_type/name:999
+#: DB:link_type/name:999 DB:link_type/name:998
 msgid "misc"
 msgstr "שונות"
 
 #: DB:link_type/link_phrase:162 DB:link_type/link_phrase:129
-#: DB:link_type/link_phrase:25 DB:link_type/link_phrase:998
-#: DB:link_type/link_phrase:999
+#: DB:link_type/link_phrase:25 DB:link_type/link_phrase:999
+#: DB:link_type/link_phrase:998
 msgid "miscellaneous roles"
 msgstr "תפקידים שונים"
 
 #: DB:link_type/reverse_link_phrase:162 DB:link_type/reverse_link_phrase:129
-#: DB:link_type/reverse_link_phrase:25 DB:link_type/reverse_link_phrase:998
-#: DB:link_type/reverse_link_phrase:999
+#: DB:link_type/reverse_link_phrase:25 DB:link_type/reverse_link_phrase:999
+#: DB:link_type/reverse_link_phrase:998
 msgid "miscellaneous support"
 msgstr "תמיכה כללית"
 
@@ -8994,6 +9014,11 @@ msgstr "תמיכה על־ידי {vocal:%|vocals}"
 #: DB:link_type/link_phrase:107
 msgid "{vocal:%|vocals} support for"
 msgstr "תמיכה עבור {vocal:%|vocals}"
+
+#~ msgid ""
+#~ "This attribute indicates a version with the lyrics in a different "
+#~ "language than the original."
+#~ msgstr "התכונה מצינת גרסה עם תַּמְלִיל בשפה השונה משפת המקור."
 
 #~ msgid "Indicates a webpage that reviews the release (group) in question."
 #~ msgstr "ציון עמוד מרשתת המבקר את ההוצאה (הרכב) המדוברים."

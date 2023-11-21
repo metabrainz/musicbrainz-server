@@ -1437,14 +1437,6 @@ msgstr ""
 "Deze eigenschap geeft een versie met een satirische, ironische of anderszins "
 "humoristische bedoeling aan. Parodieën hebben meestal aangepaste teksten."
 
-#: DB:link_attribute_type/description:517
-msgid ""
-"This attribute indicates a version with the lyrics in a different language "
-"than the original."
-msgstr ""
-"Deze eigenschap geeft een versie met tekst in een andere taal dan het "
-"origineel aan."
-
 #: DB:link_attribute_type/description:525
 msgid ""
 "This attribute indicates that an artist was an original member of a group "
@@ -1452,6 +1444,13 @@ msgid ""
 msgstr ""
 "Deze eigenschap geeft aan dat een artiest een oorspronkelijk lid van een "
 "groep was."
+
+#: DB:link_attribute_type/description:517
+msgid ""
+"This attribute indicates that lyrics have been translated, literally or "
+"freely, from the original language. This does not apply if an entirely new "
+"set of lyrics have been set to an an existing melody."
+msgstr ""
 
 #: DB:link_attribute_type/description:582
 msgid ""
@@ -1880,6 +1879,18 @@ msgstr ""
 "Dit geeft een artiest aan die in dit orkest of deze band concertmeester was "
 "op deze uitgave."
 
+#: DB:link_type/description:1228
+#, fuzzy
+#| msgid ""
+#| "This indicates that a person or agency did the art direction for the "
+#| "recording."
+msgid ""
+"This indicates an organization (often a radio station) broadcast the given "
+"recording."
+msgstr ""
+"Dit geeft aan dat een persoon of agentschap artistieke leiding voor deze "
+"opname verzorgde."
+
 #: DB:link_type/description:891
 msgid ""
 "This indicates that (most commonly) a festival commissioned the work. This "
@@ -2112,7 +2123,7 @@ msgstr ""
 "aangegeven met de titel ‘chefdirigent’ of ‘hoofddirigent’ voor dirigenten of "
 "‘eerste [instrument]’ of ‘concertmeester’ bij instrumenten."
 
-#: DB:link_type/description:998 DB:link_type/description:999
+#: DB:link_type/description:999 DB:link_type/description:998
 msgid ""
 "This indicates that the label performed a role not covered by other "
 "relationship types."
@@ -5025,6 +5036,15 @@ msgstr "redacteur van het boekje"
 msgid "booklet editor for"
 msgstr "redacteur van het boekje van"
 
+#: DB:link_type/link_phrase:1228 DB:link_type/name:1228
+#: DB:link_type/long_link_phrase:1228
+msgid "broadcast"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:1228
+msgid "broadcast by"
+msgstr ""
+
 #: DB:link_type/link_phrase:66 DB:link_type/link_phrase:205
 #: DB:link_type/name:205 DB:link_type/reverse_link_phrase:205
 #: DB:link_type/long_link_phrase:205
@@ -5931,7 +5951,7 @@ msgid "has a logo at"
 msgstr "heeft een logo op"
 
 #: DB:link_type/long_link_phrase:129 DB:link_type/long_link_phrase:25
-#: DB:link_type/long_link_phrase:998 DB:link_type/long_link_phrase:999
+#: DB:link_type/long_link_phrase:999 DB:link_type/long_link_phrase:998
 msgid "has a miscellaneous role on"
 msgstr "heeft een diverse rol op"
 
@@ -6866,19 +6886,19 @@ msgid "minor"
 msgstr "secundair"
 
 #: DB:link_type/name:162 DB:link_type/name:129 DB:link_type/name:25
-#: DB:link_type/name:998 DB:link_type/name:999
+#: DB:link_type/name:999 DB:link_type/name:998
 msgid "misc"
 msgstr "divers"
 
 #: DB:link_type/link_phrase:162 DB:link_type/link_phrase:129
-#: DB:link_type/link_phrase:25 DB:link_type/link_phrase:998
-#: DB:link_type/link_phrase:999
+#: DB:link_type/link_phrase:25 DB:link_type/link_phrase:999
+#: DB:link_type/link_phrase:998
 msgid "miscellaneous roles"
 msgstr "diverse rollen"
 
 #: DB:link_type/reverse_link_phrase:162 DB:link_type/reverse_link_phrase:129
-#: DB:link_type/reverse_link_phrase:25 DB:link_type/reverse_link_phrase:998
-#: DB:link_type/reverse_link_phrase:999
+#: DB:link_type/reverse_link_phrase:25 DB:link_type/reverse_link_phrase:999
+#: DB:link_type/reverse_link_phrase:998
 msgid "miscellaneous support"
 msgstr "diverse ondersteuning"
 
@@ -9617,6 +9637,13 @@ msgstr "{vocal:%|vocale} ondersteuning door"
 #: DB:link_type/link_phrase:107
 msgid "{vocal:%|vocals} support for"
 msgstr "{vocal:%|vocale} ondersteuning voor"
+
+#~ msgid ""
+#~ "This attribute indicates a version with the lyrics in a different "
+#~ "language than the original."
+#~ msgstr ""
+#~ "Deze eigenschap geeft een versie met tekst in een andere taal dan het "
+#~ "origineel aan."
 
 #~ msgid ""
 #~ "A social network page is an artist's own profile page on a <a "

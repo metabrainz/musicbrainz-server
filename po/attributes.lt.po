@@ -14,8 +14,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
-"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 :"
-" n % 1 != 0 ? 2: 3);\n"
+"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
+"1 : n % 1 != 0 ? 2: 3);\n"
 "X-Generator: Weblate 5.1\n"
 
 #: DB:work_type/description:9
@@ -340,7 +340,8 @@ msgstr ""
 #: DB:release_packaging/description:19
 msgctxt "release_packaging"
 msgid "A box usually containing multiple discs as part of a boxed set."
-msgstr "Dėžutė, kurioje paprastai būna keli diskai kaip dėžutės rinkinio dalis."
+msgstr ""
+"Dėžutė, kurioje paprastai būna keli diskai kaip dėžutės rinkinio dalis."
 
 #: DB:work_type/description:3
 msgctxt "work_type"
@@ -348,8 +349,8 @@ msgid ""
 "A cantata is a vocal (often choral) composition with an instrumental "
 "(usually orchestral) accompaniment, typically in several movements."
 msgstr ""
-"Kantata – vokalinis (dažnai chorinis) kompozicija su instrumentiniu ("
-"dažniausiai orkestriniu) akompanimentu, paprastai susidedantis iš kelių "
+"Kantata – vokalinis (dažnai chorinis) kompozicija su instrumentiniu "
+"(dažniausiai orkestriniu) akompanimentu, paprastai susidedantis iš kelių "
 "dalių."
 
 #: DB:medium_format/description:46

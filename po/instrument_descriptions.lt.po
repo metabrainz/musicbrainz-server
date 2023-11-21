@@ -1377,6 +1377,13 @@ msgid ""
 "plates, shells or similar hit together."
 msgstr ""
 
+#. name:cobla 
+#: DB:instrument/description:1185
+msgid ""
+"Generally used to accompany the traditional Catalan circle folk dance the "
+"sardana."
+msgstr ""
+
 #. name:German harp 
 #: DB:instrument/description:356
 msgid "German/Bohemian harp"
