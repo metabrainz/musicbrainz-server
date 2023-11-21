@@ -40,7 +40,7 @@ const EditLinks = ({
         )}
         <li>
           <EntityLink
-            content={l('Open edits')}
+            content={lp('Open edits', 'noun')}
             entity={entity}
             subPath="open_edits"
           />

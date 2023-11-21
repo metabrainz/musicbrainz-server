@@ -314,7 +314,7 @@ const DocumentationMenu = () => (
         </a>
       </li>
       <li className="separator">
-        <a href="/doc/Edit_Types">{l('Edit types')}</a>
+        <a href="/doc/Edit_Types">{lp('Edit types', 'noun')}</a>
       </li>
       <li>
         <a href="/relationships">{l('Relationship types')}</a>

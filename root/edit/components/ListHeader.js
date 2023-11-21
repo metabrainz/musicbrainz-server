@@ -155,7 +155,7 @@ const QuickLinks = ({
   if (page !== 'open') {
     quickLinks.push(
       <a href="/edit/open">
-        {l('Open edits')}
+        {lp('Open edits', 'noun')}
       </a>,
     );
   }

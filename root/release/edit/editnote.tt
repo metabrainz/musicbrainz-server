@@ -24,7 +24,7 @@
 
   <div class="half-width">
     <fieldset class="editnote">
-      <legend>[%- l('Edit note') -%]</legend>
+      <legend>[%- lp('Edit note', 'noun') -%]</legend>
       <!-- ko with: rootField -->
         [% edit_note(0, 1) %]
 

@@ -20,7 +20,7 @@ const stats = {
     'core-entities': {label: l('Core entities')},
     'cover-art': {hide: true, label: lp('Cover art', 'plural')},
     'edit-information': {hide: true, label: l('Edit information')},
-    'edit-types': {label: l('Edit types')},
+    'edit-types': {label: lp('Edit types', 'noun')},
     'event-types': {label: l('Event types')},
     'formats': {label: l('Formats')},
     'instrument-types': {label: l('Instrument types')},
@@ -326,7 +326,7 @@ const stats = {
   'count.edit.open': {
     category: 'edit-information',
     color: '#ffe400',
-    label: l('Open edits'),
+    label: lp('Open edits', 'noun'),
   },
   'count.edit.perday': {
     category: 'edit-information',

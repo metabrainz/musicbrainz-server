@@ -15,7 +15,7 @@
    <h1>[% class.l_edit_name %]</h1>
 
    <p>
-   <a href="[% c.uri_for_action('/edit/edit_types') %]">[% l('Edit types') %]</a> &gt;
+   <a href="[% c.uri_for_action('/edit/edit_types') %]">[% lp('Edit types', 'noun') %]</a> &gt;
    [% class.edit_category %] &gt; [% class.l_edit_name %]
    </p>
 
