@@ -10,7 +10,7 @@ msgstr ""
 "#-#-#-#-#  mb_server.pot (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-20 16:02-0600\n"
+"POT-Creation-Date: 2023-11-21 10:38+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -10175,7 +10175,6 @@ msgstr ""
 #: ../root/relationship/RelationshipsHeader.js:17
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:111
 #: ../root/relationship/linktype/RelationshipTypesList.js:60
-#: ../root/utility/tableColumns.js:373
 msgid "Relationship Types"
 msgstr ""
 
@@ -16438,6 +16437,10 @@ msgstr ""
 
 #: ../root/utility/edit.js:90
 msgid "This edit was cancelled."
+msgstr ""
+
+#: ../root/utility/tableColumns.js:373
+msgid "Relationship types"
 msgstr ""
 
 #: ../root/utility/tableColumns.js:773
