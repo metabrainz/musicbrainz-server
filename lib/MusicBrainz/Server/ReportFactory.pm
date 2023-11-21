@@ -93,6 +93,7 @@ my @all = qw(
     ReleasesWithEmptyMediums
     ReleasesWithMailOrderRelationships
     ReleasesWithNoMediums
+    ReleasesWithoutCAA
     ReleasesWithoutVACredit
     ReleasesWithoutVALink
     ReleasesWithUnlikelyLanguageScript
@@ -194,6 +195,7 @@ use MusicBrainz::Server::Report::ReleasesWithDownloadRelationships;
 use MusicBrainz::Server::Report::ReleasesWithEmptyMediums;
 use MusicBrainz::Server::Report::ReleasesWithMailOrderRelationships;
 use MusicBrainz::Server::Report::ReleasesWithNoMediums;
+use MusicBrainz::Server::Report::ReleasesWithoutCAA;
 use MusicBrainz::Server::Report::ReleasesWithoutVACredit;
 use MusicBrainz::Server::Report::ReleasesWithoutVALink;
 use MusicBrainz::Server::Report::ReleasesWithUnlikelyLanguageScript;
