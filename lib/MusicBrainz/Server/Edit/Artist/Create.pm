@@ -28,7 +28,7 @@ with 'MusicBrainz::Server::Edit::Role::Preview',
      'MusicBrainz::Server::Edit::Role::CheckDuplicates',
      'MusicBrainz::Server::Edit::Role::DatePeriod';
 
-sub edit_name { N_lp('Add artist', 'edit name') }
+sub edit_name { N_lp('Add artist', 'edit type') }
 sub edit_type { $EDIT_ARTIST_CREATE }
 sub _create_model { 'Artist' }
 sub artist_id { shift->entity_id }

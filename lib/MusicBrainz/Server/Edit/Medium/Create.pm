@@ -28,7 +28,7 @@ with 'MusicBrainz::Server::Edit::Role::Preview',
 use aliased 'MusicBrainz::Server::Entity::Release';
 
 sub edit_type { $EDIT_MEDIUM_CREATE }
-sub edit_name { N_lp('Add medium', 'edit name') }
+sub edit_name { N_lp('Add medium', 'edit type') }
 sub _create_model { 'Medium' }
 sub medium_id { shift->entity_id }
 sub release_id { shift->data->{release}->{id} }

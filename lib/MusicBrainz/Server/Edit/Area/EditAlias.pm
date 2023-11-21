@@ -9,7 +9,7 @@ with 'MusicBrainz::Server::Edit::Area';
 
 sub _alias_model { shift->c->model('Area')->alias }
 
-sub edit_name { N_lp('Edit area alias', 'edit name') }
+sub edit_name { N_lp('Edit area alias', 'edit type') }
 sub edit_kind { 'edit' }
 sub edit_type { $EDIT_AREA_EDIT_ALIAS }
 

@@ -9,7 +9,7 @@ use MusicBrainz::Server::Translation qw( N_lp );
 
 use MusicBrainz::Server::Edit::Historic::Base;
 
-sub edit_name     { N_lp('Remove disc ID', 'edit name') }
+sub edit_name     { N_lp('Remove disc ID', 'edit type') }
 sub edit_kind     { 'remove' }
 sub historic_type { 20 }
 sub edit_type     { $EDIT_HISTORIC_REMOVE_DISCID }

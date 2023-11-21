@@ -8,7 +8,7 @@ extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::ReleaseGroup::RelatedEntities',
      'MusicBrainz::Server::Edit::Annotation::Edit' => {
         model => 'ReleaseGroup',
-        edit_name => N_lp('Add release group annotation', 'edit name'),
+        edit_name => N_lp('Add release group annotation', 'edit type'),
         edit_type => $EDIT_RELEASEGROUP_ADD_ANNOTATION,
      };
 

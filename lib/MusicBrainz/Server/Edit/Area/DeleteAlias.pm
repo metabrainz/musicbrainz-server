@@ -12,7 +12,7 @@ use aliased 'MusicBrainz::Server::Entity::Area';
 
 sub _alias_model { shift->c->model('Area')->alias }
 
-sub edit_name { N_lp('Remove area alias', 'edit name') }
+sub edit_name { N_lp('Remove area alias', 'edit type') }
 sub edit_kind { 'remove' }
 sub edit_type { $EDIT_AREA_DELETE_ALIAS }
 

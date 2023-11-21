@@ -17,7 +17,7 @@ with 'MusicBrainz::Server::Edit::Role::Preview',
      'MusicBrainz::Server::Edit::Instrument',
      'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
-sub edit_name { N_lp('Add instrument', 'edit name') }
+sub edit_name { N_lp('Add instrument', 'edit type') }
 sub edit_type { $EDIT_INSTRUMENT_CREATE }
 sub _create_model { 'Instrument' }
 sub instrument_id { shift->entity_id }

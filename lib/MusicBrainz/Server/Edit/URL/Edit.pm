@@ -23,7 +23,7 @@ with 'MusicBrainz::Server::Edit::URL',
 
 use aliased 'MusicBrainz::Server::Entity::URL';
 
-sub edit_name { N_lp('Edit URL', 'edit name') }
+sub edit_name { N_lp('Edit URL', 'edit type') }
 sub edit_type { $EDIT_URL_EDIT }
 sub _edit_model { 'URL' }
 sub edit_template { 'EditUrl' }

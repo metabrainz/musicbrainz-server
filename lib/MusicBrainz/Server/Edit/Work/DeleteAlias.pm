@@ -13,7 +13,7 @@ use aliased 'MusicBrainz::Server::Entity::Work';
 
 sub _alias_model { shift->c->model('Work')->alias }
 
-sub edit_name { N_lp('Remove work alias', 'edit name') }
+sub edit_name { N_lp('Remove work alias', 'edit type') }
 sub edit_kind { 'remove' }
 sub edit_type { $EDIT_WORK_DELETE_ALIAS }
 

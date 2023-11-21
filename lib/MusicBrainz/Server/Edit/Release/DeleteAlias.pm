@@ -12,7 +12,7 @@ use aliased 'MusicBrainz::Server::Entity::Release';
 
 sub _alias_model { shift->c->model('Release')->alias }
 
-sub edit_name { N_lp('Remove release alias', 'edit name') }
+sub edit_name { N_lp('Remove release alias', 'edit type') }
 sub edit_kind { 'remove' }
 sub edit_type { $EDIT_RELEASE_DELETE_ALIAS }
 

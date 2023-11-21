@@ -40,7 +40,7 @@ with 'MusicBrainz::Server::Edit::Recording::RelatedEntities',
 use aliased 'MusicBrainz::Server::Entity::Recording';
 
 sub edit_type { $EDIT_RECORDING_EDIT }
-sub edit_name { N_lp('Edit recording', 'edit name') }
+sub edit_name { N_lp('Edit recording', 'edit type') }
 sub edit_template { 'EditRecording' }
 sub _edit_model { 'Recording' }
 sub recording_id { return shift->entity_id }

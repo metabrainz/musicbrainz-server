@@ -8,7 +8,7 @@ extends 'MusicBrainz::Server::Edit::Generic::Delete';
 with 'MusicBrainz::Server::Edit::Event';
 
 sub edit_type { $EDIT_EVENT_DELETE }
-sub edit_name { N_lp('Remove event', 'edit name') }
+sub edit_name { N_lp('Remove event', 'edit type') }
 sub _delete_model { 'Event' }
 
 __PACKAGE__->meta->make_immutable;

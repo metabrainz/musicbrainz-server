@@ -9,7 +9,7 @@ use MusicBrainz::Server::Translation qw( N_lp );
 
 use MusicBrainz::Server::Edit::Historic::Base;
 
-sub edit_name     { N_lp('Move disc ID', 'edit name') }
+sub edit_name     { N_lp('Move disc ID', 'edit type') }
 sub edit_kind     { 'other' }
 sub historic_type { 21 }
 sub edit_type     { $EDIT_HISTORIC_MOVE_DISCID }

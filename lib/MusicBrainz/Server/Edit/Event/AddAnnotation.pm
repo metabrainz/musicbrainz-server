@@ -8,7 +8,7 @@ extends 'MusicBrainz::Server::Edit';
 
 with 'MusicBrainz::Server::Edit::Annotation::Edit' => {
     model => 'Event',
-    edit_name => N_lp('Add event annotation', 'edit name'),
+    edit_name => N_lp('Add event annotation', 'edit type'),
     edit_type => $EDIT_EVENT_ADD_ANNOTATION,
 };
 

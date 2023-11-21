@@ -9,7 +9,7 @@ with 'MusicBrainz::Server::Edit::Role::DeleteSubscription',
      'MusicBrainz::Server::Edit::Label';
 
 sub edit_type { $EDIT_LABEL_DELETE }
-sub edit_name { N_lp('Remove label', 'edit name') }
+sub edit_name { N_lp('Remove label', 'edit type') }
 sub _delete_model { 'Label' }
 sub subscription_model { shift->c->model('Label')->subscription }
 

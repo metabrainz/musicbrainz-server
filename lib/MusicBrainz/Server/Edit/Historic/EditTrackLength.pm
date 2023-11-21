@@ -10,7 +10,7 @@ use MusicBrainz::Server::Edit::Historic::Base;
 
 use aliased 'MusicBrainz::Server::Entity::Recording';
 
-sub edit_name { N_lp('Edit recording', 'edit name') }
+sub edit_name { N_lp('Edit recording', 'edit type') }
 sub edit_kind { 'edit' }
 sub edit_type { $EDIT_HISTORIC_EDIT_TRACK_LENGTH }
 sub historic_type { 45 }

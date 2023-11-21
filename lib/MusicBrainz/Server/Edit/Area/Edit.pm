@@ -28,7 +28,7 @@ with 'MusicBrainz::Server::Edit::CheckForConflicts',
      'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit',
      'MusicBrainz::Server::Edit::Role::DatePeriod';
 
-sub edit_name { N_lp('Edit area', 'edit name') }
+sub edit_name { N_lp('Edit area', 'edit type') }
 sub edit_type { $EDIT_AREA_EDIT }
 
 sub _edit_model { 'Area' }

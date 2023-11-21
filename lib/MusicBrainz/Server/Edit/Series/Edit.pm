@@ -27,7 +27,7 @@ with 'MusicBrainz::Server::Edit::Series',
      'MusicBrainz::Server::Edit::Role::CheckDuplicates';
 
 sub edit_type { $EDIT_SERIES_EDIT }
-sub edit_name { N_lp('Edit series', 'edit name') }
+sub edit_name { N_lp('Edit series', 'edit type') }
 sub _edit_model { 'Series' }
 sub series_id { shift->entity_id }
 

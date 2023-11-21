@@ -8,7 +8,7 @@ use MusicBrainz::Server::Translation qw( N_lp );
 extends 'MusicBrainz::Server::Edit::Generic::Delete';
 with 'MusicBrainz::Server::Edit::Work';
 
-sub edit_name { N_lp('Remove work', 'edit name') }
+sub edit_name { N_lp('Remove work', 'edit type') }
 sub edit_type { $EDIT_WORK_DELETE }
 sub _delete_model { 'Work' }
 sub work_id { shift->entity_id }

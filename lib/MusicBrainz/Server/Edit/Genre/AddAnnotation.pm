@@ -8,7 +8,7 @@ extends 'MusicBrainz::Server::Edit';
 
 with 'MusicBrainz::Server::Edit::Annotation::Edit' => {
     model => 'Genre',
-    edit_name => N_lp('Add genre annotation', 'edit name'),
+    edit_name => N_lp('Add genre annotation', 'edit type'),
     edit_type => $EDIT_GENRE_ADD_ANNOTATION,
 };
 

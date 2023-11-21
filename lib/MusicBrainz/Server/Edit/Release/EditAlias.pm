@@ -9,7 +9,7 @@ with 'MusicBrainz::Server::Edit::Release';
 
 sub _alias_model { shift->c->model('Release')->alias }
 
-sub edit_name { N_lp('Edit release alias', 'edit name') }
+sub edit_name { N_lp('Edit release alias', 'edit type') }
 sub edit_kind { 'edit' }
 sub edit_type { $EDIT_RELEASE_EDIT_ALIAS }
 

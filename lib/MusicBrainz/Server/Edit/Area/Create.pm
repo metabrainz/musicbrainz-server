@@ -20,7 +20,7 @@ with 'MusicBrainz::Server::Edit::Role::Preview',
      'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit',
      'MusicBrainz::Server::Edit::Role::DatePeriod';
 
-sub edit_name { N_lp('Add area', 'edit name') }
+sub edit_name { N_lp('Add area', 'edit type') }
 sub edit_type { $EDIT_AREA_CREATE }
 sub _create_model { 'Area' }
 sub area_id { shift->entity_id }

@@ -9,7 +9,7 @@ with 'MusicBrainz::Server::Edit::ReleaseGroup::RelatedEntities',
      'MusicBrainz::Server::Edit::ReleaseGroup';
 
 sub edit_type { $EDIT_RELEASEGROUP_DELETE }
-sub edit_name { N_lp('Remove release group', 'edit name') }
+sub edit_name { N_lp('Remove release group', 'edit type') }
 sub _delete_model { 'ReleaseGroup' }
 sub release_group_id { shift->entity_id }
 

@@ -9,7 +9,7 @@ with 'MusicBrainz::Server::Edit::Instrument';
 
 sub _alias_model { shift->c->model('Instrument')->alias }
 
-sub edit_name { N_lp('Edit instrument alias', 'edit name') }
+sub edit_name { N_lp('Edit instrument alias', 'edit type') }
 sub edit_kind { 'edit' }
 sub edit_type { $EDIT_INSTRUMENT_EDIT_ALIAS }
 

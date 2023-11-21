@@ -39,7 +39,7 @@ with 'MusicBrainz::Server::Edit::ReleaseGroup::RelatedEntities',
      'MusicBrainz::Server::Edit::Role::Preview';
 
 sub edit_type { $EDIT_RELEASEGROUP_EDIT }
-sub edit_name { N_lp('Edit release group', 'edit name') }
+sub edit_name { N_lp('Edit release group', 'edit type') }
 sub _edit_model { 'ReleaseGroup' }
 sub release_group_id { shift->data->{entity}{id} }
 

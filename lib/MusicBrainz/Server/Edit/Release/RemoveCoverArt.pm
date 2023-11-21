@@ -18,7 +18,7 @@ with 'MusicBrainz::Server::Edit::Release',
      'MusicBrainz::Server::Edit::Role::CoverArt',
      'MusicBrainz::Server::Edit::Role::NeverAutoEdit';
 
-sub edit_name { N_lp('Remove cover art', 'edit name') }
+sub edit_name { N_lp('Remove cover art', 'edit type') }
 sub edit_kind { 'remove' }
 sub edit_type { $EDIT_RELEASE_REMOVE_COVER_ART }
 sub release_ids { shift->data->{entity}{id} }

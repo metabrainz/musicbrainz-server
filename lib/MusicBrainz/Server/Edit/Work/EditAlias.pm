@@ -10,7 +10,7 @@ with 'MusicBrainz::Server::Edit::Work::RelatedEntities',
 
 sub _alias_model { shift->c->model('Work')->alias }
 
-sub edit_name { N_lp('Edit work alias', 'edit name') }
+sub edit_name { N_lp('Edit work alias', 'edit type') }
 sub edit_kind { 'edit' }
 sub edit_type { $EDIT_WORK_EDIT_ALIAS }
 

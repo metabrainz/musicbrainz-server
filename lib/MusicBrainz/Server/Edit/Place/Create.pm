@@ -23,7 +23,7 @@ with 'MusicBrainz::Server::Edit::Role::Preview',
      'MusicBrainz::Server::Edit::Role::DatePeriod',
      'MusicBrainz::Server::Edit::Role::CheckDuplicates';
 
-sub edit_name { N_lp('Add place', 'edit name') }
+sub edit_name { N_lp('Add place', 'edit type') }
 sub edit_type { $EDIT_PLACE_CREATE }
 sub _create_model { 'Place' }
 sub place_id { shift->entity_id }

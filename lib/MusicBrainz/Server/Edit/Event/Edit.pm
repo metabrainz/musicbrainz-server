@@ -37,7 +37,7 @@ with 'MusicBrainz::Server::Edit::CheckForConflicts',
      },
      'MusicBrainz::Server::Edit::Role::DatePeriod';
 
-sub edit_name { N_lp('Edit event', 'edit name') }
+sub edit_name { N_lp('Edit event', 'edit type') }
 sub edit_type { $EDIT_EVENT_EDIT }
 sub edit_template { 'EditEvent' }
 

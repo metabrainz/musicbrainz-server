@@ -8,7 +8,7 @@ extends 'MusicBrainz::Server::Edit';
 
 with 'MusicBrainz::Server::Edit::Alias::Add' => {
     model => 'Area',
-    edit_name => N_lp('Add area alias', 'edit name'),
+    edit_name => N_lp('Add area alias', 'edit type'),
     edit_type => $EDIT_AREA_ADD_ALIAS,
 };
 

@@ -8,7 +8,7 @@ extends 'MusicBrainz::Server::Edit::Generic::Delete';
 with 'MusicBrainz::Server::Edit::Role::DeleteSubscription',
      'MusicBrainz::Server::Edit::Artist';
 
-sub edit_name { N_lp('Remove artist', 'edit name') }
+sub edit_name { N_lp('Remove artist', 'edit type') }
 sub edit_type { $EDIT_ARTIST_DELETE }
 
 sub _delete_model { 'Artist' }

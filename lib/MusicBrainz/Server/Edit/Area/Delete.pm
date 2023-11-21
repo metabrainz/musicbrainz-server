@@ -7,7 +7,7 @@ use MusicBrainz::Server::Translation qw( N_lp );
 extends 'MusicBrainz::Server::Edit::Generic::Delete';
 with 'MusicBrainz::Server::Edit::Area';
 
-sub edit_name { N_lp('Remove area', 'edit name') }
+sub edit_name { N_lp('Remove area', 'edit type') }
 sub edit_type { $EDIT_AREA_DELETE }
 
 sub _delete_model { 'Area' }

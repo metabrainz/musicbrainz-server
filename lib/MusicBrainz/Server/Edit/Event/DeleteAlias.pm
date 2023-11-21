@@ -13,7 +13,7 @@ use aliased 'MusicBrainz::Server::Entity::Event';
 
 sub _alias_model { shift->c->model('Event')->alias }
 
-sub edit_name { N_lp('Remove event alias', 'edit name') }
+sub edit_name { N_lp('Remove event alias', 'edit type') }
 sub edit_kind { 'remove' }
 sub edit_type { $EDIT_EVENT_DELETE_ALIAS }
 

@@ -12,7 +12,7 @@ use aliased 'MusicBrainz::Server::Entity::Recording';
 
 sub _alias_model { shift->c->model('Recording')->alias }
 
-sub edit_name { N_lp('Remove recording alias', 'edit name') }
+sub edit_name { N_lp('Remove recording alias', 'edit type') }
 sub edit_kind { 'remove' }
 sub edit_type { $EDIT_RECORDING_DELETE_ALIAS }
 

@@ -9,7 +9,7 @@ with 'MusicBrainz::Server::Edit::Label';
 
 sub _alias_model { shift->c->model('Label')->alias }
 
-sub edit_name { N_lp('Edit label alias', 'edit name') }
+sub edit_name { N_lp('Edit label alias', 'edit type') }
 sub edit_kind { 'edit' }
 sub edit_type { $EDIT_LABEL_EDIT_ALIAS }
 

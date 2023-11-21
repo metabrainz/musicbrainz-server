@@ -27,7 +27,7 @@ with 'MusicBrainz::Server::Edit::Role::Preview',
 use aliased 'MusicBrainz::Server::Entity::Label';
 use aliased 'MusicBrainz::Server::Entity::Area';
 
-sub edit_name { N_lp('Add label', 'edit name') }
+sub edit_name { N_lp('Add label', 'edit type') }
 sub edit_type { $EDIT_LABEL_CREATE }
 sub _create_model { 'Label' }
 sub label_id { shift->entity_id }

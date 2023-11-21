@@ -10,7 +10,7 @@ use MusicBrainz::Server::Edit::Historic::Base;
 
 use aliased 'MusicBrainz::Server::Entity::ReleaseGroup';
 
-sub edit_name     { N_lp('Edit release', 'edit name') }
+sub edit_name     { N_lp('Edit release', 'edit type') }
 sub edit_kind     { 'edit' }
 sub historic_type { 73 }
 sub edit_type     { $EDIT_HISTORIC_CHANGE_RELEASE_GROUP }

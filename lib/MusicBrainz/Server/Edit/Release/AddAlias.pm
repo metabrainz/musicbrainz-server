@@ -8,7 +8,7 @@ extends 'MusicBrainz::Server::Edit';
 
 with 'MusicBrainz::Server::Edit::Alias::Add' => {
     model => 'Release',
-    edit_name => N_lp('Add release alias', 'edit name'),
+    edit_name => N_lp('Add release alias', 'edit type'),
     edit_type => $EDIT_RELEASE_ADD_ALIAS,
 };
 

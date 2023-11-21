@@ -8,7 +8,7 @@ use MusicBrainz::Server::Translation qw( N_lp );
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_EDIT_RELEASE_NAME );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 
-sub edit_name     { N_lp('Edit release', 'edit name') }
+sub edit_name     { N_lp('Edit release', 'edit type') }
 sub edit_kind     { 'edit' }
 sub historic_type { 3 }
 sub edit_type     { $EDIT_HISTORIC_EDIT_RELEASE_NAME }

@@ -7,7 +7,7 @@ use MusicBrainz::Server::Constants qw( $EDIT_MEDIUM_REMOVE_DISCID );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Translation qw( N_lp );
 
-sub edit_name { N_lp('Remove disc ID', 'edit name') }
+sub edit_name { N_lp('Remove disc ID', 'edit type') }
 sub edit_type { $EDIT_MEDIUM_REMOVE_DISCID }
 sub edit_kind { 'remove' }
 sub edit_template { 'RemoveDiscId' }

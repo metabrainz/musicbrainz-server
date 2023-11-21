@@ -9,7 +9,7 @@ with 'MusicBrainz::Server::Edit::Recording',
      'MusicBrainz::Server::Edit::Recording::RelatedEntities';
 
 sub edit_type { $EDIT_RECORDING_DELETE }
-sub edit_name { N_lp('Remove recording', 'edit name') }
+sub edit_name { N_lp('Remove recording', 'edit type') }
 sub _delete_model { 'Recording' }
 sub recording_id { shift->entity_id }
 

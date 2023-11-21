@@ -20,7 +20,7 @@ with 'MusicBrainz::Server::Edit::Role::Preview',
      'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit',
      'MusicBrainz::Server::Edit::Role::DatePeriod';
 
-sub edit_name { N_lp('Add event', 'edit name') }
+sub edit_name { N_lp('Add event', 'edit type') }
 sub edit_type { $EDIT_EVENT_CREATE }
 sub _create_model { 'Event' }
 sub event_id { shift->entity_id }

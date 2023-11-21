@@ -8,7 +8,7 @@ extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Work::RelatedEntities',
      'MusicBrainz::Server::Edit::Annotation::Edit' => {
         model => 'Work',
-        edit_name => N_lp('Add work annotation', 'edit name'),
+        edit_name => N_lp('Add work annotation', 'edit type'),
         edit_type => $EDIT_WORK_ADD_ANNOTATION,
      };
 

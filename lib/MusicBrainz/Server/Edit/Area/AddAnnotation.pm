@@ -8,7 +8,7 @@ extends 'MusicBrainz::Server::Edit';
 
 with 'MusicBrainz::Server::Edit::Annotation::Edit' => {
     model => 'Area',
-    edit_name => N_lp('Add area annotation', 'edit name'),
+    edit_name => N_lp('Add area annotation', 'edit type'),
     edit_type => $EDIT_AREA_ADD_ANNOTATION,
 };
 

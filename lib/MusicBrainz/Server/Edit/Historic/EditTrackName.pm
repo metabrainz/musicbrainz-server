@@ -20,7 +20,7 @@ sub deserialize_new_value {
     return $previous;
 }
 
-sub edit_name     { N_lp('Edit recording', 'edit name') }
+sub edit_name     { N_lp('Edit recording', 'edit type') }
 sub edit_kind     { 'edit' }
 sub historic_type { 4 }
 sub edit_type     { $EDIT_HISTORIC_EDIT_TRACKNAME }

@@ -39,7 +39,7 @@ with 'MusicBrainz::Server::Edit::Label',
      };
 
 sub edit_type { $EDIT_LABEL_EDIT }
-sub edit_name { N_lp('Edit label', 'edit name') }
+sub edit_name { N_lp('Edit label', 'edit type') }
 sub edit_template { 'EditLabel' }
 sub _edit_model { 'Label' }
 sub label_id { shift->entity_id }

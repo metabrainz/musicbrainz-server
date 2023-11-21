@@ -25,7 +25,7 @@ with 'MusicBrainz::Server::Edit::Role::Preview',
 
 use aliased 'MusicBrainz::Server::Entity::ReleaseGroup';
 
-sub edit_name { N_lp('Add release group', 'edit name') }
+sub edit_name { N_lp('Add release group', 'edit type') }
 sub edit_type { $EDIT_RELEASEGROUP_CREATE }
 sub _create_model { 'ReleaseGroup' }
 sub release_group_id { shift->entity_id }

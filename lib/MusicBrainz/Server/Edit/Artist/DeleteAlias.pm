@@ -12,7 +12,7 @@ use aliased 'MusicBrainz::Server::Entity::Artist';
 
 sub _alias_model { shift->c->model('Artist')->alias }
 
-sub edit_name { N_lp('Remove artist alias', 'edit name') }
+sub edit_name { N_lp('Remove artist alias', 'edit type') }
 sub edit_kind { 'remove' }
 sub edit_type { $EDIT_ARTIST_DELETE_ALIAS }
 

@@ -18,7 +18,7 @@ with 'MusicBrainz::Server::Edit::Release',
      'MusicBrainz::Server::Edit::Release::RelatedEntities',
      'MusicBrainz::Server::Edit::Role::CoverArt';
 
-sub edit_name { N_lp('Add cover art', 'edit name') }
+sub edit_name { N_lp('Add cover art', 'edit type') }
 sub edit_kind { 'add' }
 sub edit_type { $EDIT_RELEASE_ADD_COVER_ART }
 sub release_ids { shift->data->{entity}{id} }

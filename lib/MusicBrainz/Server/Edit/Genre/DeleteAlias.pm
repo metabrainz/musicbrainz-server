@@ -13,7 +13,7 @@ use aliased 'MusicBrainz::Server::Entity::Genre';
 
 sub _alias_model { shift->c->model('Genre')->alias }
 
-sub edit_name { N_lp('Remove genre alias', 'edit name') }
+sub edit_name { N_lp('Remove genre alias', 'edit type') }
 sub edit_kind { 'remove' }
 sub edit_type { $EDIT_GENRE_DELETE_ALIAS }
 

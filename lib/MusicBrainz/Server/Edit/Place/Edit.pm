@@ -40,7 +40,7 @@ with 'MusicBrainz::Server::Edit::CheckForConflicts',
      },
      'MusicBrainz::Server::Edit::Role::CheckDuplicates';
 
-sub edit_name { N_lp('Edit place', 'edit name') }
+sub edit_name { N_lp('Edit place', 'edit type') }
 sub edit_type { $EDIT_PLACE_EDIT }
 
 sub _edit_model { 'Place' }

@@ -23,7 +23,7 @@ extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Artist',
      'MusicBrainz::Server::Edit::Role::NeverAutoEdit';
 
-sub edit_name { N_lp('Edit artist credit', 'edit name') }
+sub edit_name { N_lp('Edit artist credit', 'edit type') }
 sub edit_kind { 'edit' }
 sub edit_type { $EDIT_ARTIST_EDITCREDIT }
 sub edit_template { 'EditArtistCredit' }

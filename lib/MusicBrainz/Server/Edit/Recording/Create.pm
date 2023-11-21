@@ -23,7 +23,7 @@ with 'MusicBrainz::Server::Edit::Recording::RelatedEntities',
      'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
 sub edit_type { $EDIT_RECORDING_CREATE }
-sub edit_name { N_lp('Add standalone recording', 'edit name') }
+sub edit_name { N_lp('Add standalone recording', 'edit type') }
 sub edit_template { 'AddStandaloneRecording' }
 sub _create_model { 'Recording' }
 sub recording_id { return shift->entity_id }

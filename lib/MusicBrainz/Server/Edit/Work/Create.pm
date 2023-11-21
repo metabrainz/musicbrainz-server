@@ -15,7 +15,7 @@ with 'MusicBrainz::Server::Edit::Work::RelatedEntities',
 
 use aliased 'MusicBrainz::Server::Entity::Work';
 
-sub edit_name { N_lp('Add work', 'edit name') }
+sub edit_name { N_lp('Add work', 'edit type') }
 sub edit_type { $EDIT_WORK_CREATE }
 sub _create_model { 'Work' }
 sub work_id { shift->entity_id }

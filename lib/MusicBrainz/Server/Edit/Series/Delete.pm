@@ -9,7 +9,7 @@ with 'MusicBrainz::Server::Edit::Role::DeleteSubscription',
      'MusicBrainz::Server::Edit::Series';
 
 sub edit_type { $EDIT_SERIES_DELETE }
-sub edit_name { N_lp('Remove series', 'edit name') }
+sub edit_name { N_lp('Remove series', 'edit type') }
 sub _delete_model { 'Series' }
 sub subscription_model { shift->c->model('Series')->subscription }
 

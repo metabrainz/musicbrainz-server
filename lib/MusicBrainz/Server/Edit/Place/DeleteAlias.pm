@@ -12,7 +12,7 @@ use aliased 'MusicBrainz::Server::Entity::Place';
 
 sub _alias_model { shift->c->model('Place')->alias }
 
-sub edit_name { N_lp('Remove place alias', 'edit name') }
+sub edit_name { N_lp('Remove place alias', 'edit type') }
 sub edit_kind { 'remove' }
 sub edit_type { $EDIT_PLACE_DELETE_ALIAS }
 

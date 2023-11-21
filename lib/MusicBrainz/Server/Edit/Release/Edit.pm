@@ -44,7 +44,7 @@ with 'MusicBrainz::Server::Edit::Role::EditArtistCredit',
 use aliased 'MusicBrainz::Server::Entity::Release';
 
 sub edit_type { $EDIT_RELEASE_EDIT }
-sub edit_name { N_lp('Edit release', 'edit name') }
+sub edit_name { N_lp('Edit release', 'edit type') }
 sub _edit_model { 'Release' }
 sub release_id { shift->data->{entity}{id} }
 sub edit_template { 'EditRelease' }

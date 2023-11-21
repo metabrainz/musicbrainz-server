@@ -39,7 +39,7 @@ with 'MusicBrainz::Server::Edit::Artist',
         entity_type => 'artist',
      };
 
-sub edit_name { N_lp('Edit artist', 'edit name') }
+sub edit_name { N_lp('Edit artist', 'edit type') }
 sub edit_type { $EDIT_ARTIST_EDIT }
 
 sub edit_template { 'EditArtist' }

@@ -11,7 +11,7 @@ use aliased 'MusicBrainz::Server::Entity::Artist';
 
 use MusicBrainz::Server::Edit::Historic::Base;
 
-sub edit_name     { N_lp('Edit release', 'edit name') }
+sub edit_name     { N_lp('Edit release', 'edit type') }
 sub edit_kind     { 'edit' }
 sub historic_type { 8 }
 sub edit_type     { $EDIT_HISTORIC_MOVE_RELEASE }

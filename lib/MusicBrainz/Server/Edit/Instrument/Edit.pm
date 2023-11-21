@@ -23,7 +23,7 @@ with 'MusicBrainz::Server::Edit::CheckForConflicts',
      'MusicBrainz::Server::Edit::Instrument',
      'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
-sub edit_name { N_lp('Edit instrument', 'edit name') }
+sub edit_name { N_lp('Edit instrument', 'edit type') }
 sub edit_type { $EDIT_INSTRUMENT_EDIT }
 sub edit_template { 'EditInstrument' }
 

@@ -18,7 +18,7 @@ with 'MusicBrainz::Server::Edit::Role::Preview',
      'MusicBrainz::Server::Edit::Genre',
      'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
-sub edit_name { N_lp('Add genre', 'edit name') }
+sub edit_name { N_lp('Add genre', 'edit type') }
 sub edit_type { $EDIT_GENRE_CREATE }
 sub _create_model { 'Genre' }
 sub genre_id { shift->entity_id }

@@ -11,7 +11,7 @@ use aliased 'MusicBrainz::Server::Entity::Release';
 
 use MusicBrainz::Server::Edit::Historic::Base;
 
-sub edit_name { N_lp('Add release annotation', 'edit name') }
+sub edit_name { N_lp('Add release annotation', 'edit type') }
 sub edit_kind { 'add' }
 sub historic_type { 31 }
 sub edit_type { $EDIT_HISTORIC_ADD_RELEASE_ANNOTATION }

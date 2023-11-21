@@ -13,7 +13,7 @@ use aliased 'MusicBrainz::Server::Entity::Series';
 
 sub _alias_model { shift->c->model('Series')->alias }
 
-sub edit_name { N_lp('Remove series alias', 'edit name') }
+sub edit_name { N_lp('Remove series alias', 'edit type') }
 sub edit_kind { 'remove' }
 sub edit_type { $EDIT_SERIES_DELETE_ALIAS }
 
