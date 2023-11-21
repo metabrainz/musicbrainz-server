@@ -3955,6 +3955,35 @@ const CLEANUPS: CleanupEntries = {
       return {result: false, target: ERROR_TARGETS.URL};
     },
   },
+  'metalmusicarchives': {
+    match: [new RegExp('^(https?://)?(www\\.)?metalmusicarchives\\.com', 'i')],
+    restrict: [LINK_TYPES.otherdatabases],
+    clean: function (url) {
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?metalmusicarchives\.com\/([^#?]+).*$/, 'https://www.metalmusicarchives.com/$1');
+      url = url.replace(/\/+$/, '');
+      return url;
+    },
+    validate: function (url, id) {
+      const m = /^https:\/\/www\.metalmusicarchives\.com\/(\w+)\/(?:[\w%()-]+\/)?[\w%()-]*$/.exec(url);
+      if (m) {
+        const type = m[1];
+        switch (id) {
+          case LINK_TYPES.otherdatabases.artist:
+            return {
+              result: type === 'artist',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.otherdatabases.release_group:
+            return {
+              result: type === 'album',
+              target: ERROR_TARGETS.ENTITY,
+            };
+        }
+        return {result: false, target: ERROR_TARGETS.ENTITY};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
   'migumusic': {
     match: [new RegExp('^(https?://)?[^/]*music\\.migu\\.cn', 'i')],
     restrict: [LINK_TYPES.streamingfree],
