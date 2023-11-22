@@ -105,8 +105,7 @@ sub run {
                         # skip it. Log a message in case the info is useful
                         # for debugging purposes later.
                         log_info {
-                            sprintf "Did not find id=%s in $table_name, skipping.",
-                            $id,
+                            "Did not find id=$id in $table_name, skipping.",
                         };
                     } else {
 
@@ -118,8 +117,7 @@ sub run {
 
                         if (defined $edits_pending && $edits_pending > 0) {
                             log_info {
-                                sprintf "id=%s from $table_name has pending edits, skipping.",
-                                $id,
+                                "id=$id from $table_name has pending edits, skipping.",
                             };
                             return;
                         }
@@ -128,10 +126,7 @@ sub run {
                         my $ref_count = $row->{ref_count};
 
                         if ($ref_count == 0) {
-                            log_info {
-                                sprintf "Will remove id=%s from $table_name.",
-                                $id,
-                            };
+                            log_info {"Will remove id=$id from $table_name."};
 
                             unless ($self->dry_run) {
                                 if ($table_name eq 'artist_credit') {
@@ -150,8 +145,7 @@ sub run {
                             }
                         } else {
                             log_info {
-                                sprintf "Found references for id=%s from $table_name.",
-                                $id,
+                                "Found references for id=$id from $table_name.",
                             };
                         }
                     }
