@@ -368,6 +368,34 @@ test 'The RemoveUnreferencedRows script keeps ACs that have pending edits' => su
     );
 };
 
+
+test 'The RemoveUnreferencedRows script skips and removes non-existent references' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    prepare_test($test);
+
+    $c->sql->do(<<~'SQL');
+        INSERT INTO unreferenced_row_log (table_name, row_id, inserted)
+             VALUES ('artist_credit', 666, now() - interval '3 days');
+        SQL
+
+    my $script = MusicBrainz::Script::RemoveUnreferencedRows->new( c => $c );
+    ok !exception {
+        $script->run()
+    }, 'The script to remove unreferenced rows was ran successfully';
+
+    ok(
+        !defined $c->sql->select_single_value(<<~'SQL'),
+            SELECT 1
+              FROM unreferenced_row_log
+             WHERE table_name = 'artist_credit'
+               AND row_id = 666
+            SQL
+        'The non-existent AC was removed from unreferenced_row_log',
+    );
+};
+
 sub prepare_test {
     my $test = shift;
     my $c = $test->c;
