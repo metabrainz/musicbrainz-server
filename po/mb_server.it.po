@@ -33,7 +33,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-21 20:02+0000\n"
-"PO-Revision-Date: 2023-11-21 21:05+0000\n"
+"PO-Revision-Date: 2023-11-22 04:27+0000\n"
 "Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
 "metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -42,8 +42,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
 "X-Generator: Weblate 5.1\n"
 
 #: ../root/components/common-macros.tt:12
@@ -2933,6 +2933,9 @@ msgid ""
 "The sort name is an artist name variant used when sorting alphabetically. "
 "For usage information check the {sort_name_doc|sort name guidelines}."
 msgstr ""
+"Il nome di ordinamento è una variante del nome dell'artista usata per "
+"ordinare alfabeticamente. Per informazioni su come usarlo, controlla le "
+"{sort_name_doc|linee guida sui nomi di ordinamento}."
 
 #: ../root/release/edit/tracklist.tt:124
 msgid ""
@@ -3031,7 +3034,7 @@ msgstr "Quest'artista non è più in attività."
 #: ../root/relationship/linkattributetype/form.tt:20
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:145
 msgid "This attribute supports free text credits"
-msgstr "Questo attributo supporta accreditamenti a testo libero"
+msgstr "Quest'attributo supporta accreditamenti a testo libero"
 
 #: ../root/work/edit_form.tt:56
 msgid "This attribute type is only used for grouping, please select a subtype"
@@ -3042,7 +3045,7 @@ msgstr ""
 #: ../root/relationship/linkattributetype/form.tt:21
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:151
 msgid "This attribute uses free text values"
-msgstr "Questo attributo utilizza valori a testo libero"
+msgstr "Quest'attributo utilizza valori a testo libero"
 
 #: ../root/layout.tt:37 ../root/layout/index.js:111
 msgid ""
@@ -4187,6 +4190,7 @@ msgstr "« Precedente"
 msgid ""
 "“Last Name, First Name” and “Group, The” are common examples of sort names."
 msgstr ""
+"“Cognome, Nome” e “Gruppo, Il” sono esempi comuni di nomi di ordinamento."
 
 #: ../root/components/paginator.tt:19 ../root/components/paginator.tt:31
 #: ../root/components/paginator.tt:39 ../root/components/Paginator.js:94
@@ -5867,12 +5871,12 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Form/Alias.pm:114
 msgid "This alias can only be a primary alias if a locale is selected"
 msgstr ""
-"Questo alias può essere un alias primario solo in uno specifico ambiente "
+"Quest'alias può essere un alias primario solo in uno specifico ambiente "
 "linguistico"
 
 #: ../lib/MusicBrainz/Server/Form/Alias.pm:126
 msgid "This alias already exists."
-msgstr "Questo alias è già esistente."
+msgstr "Quest'alias è già esistente."
 
 #: ../lib/MusicBrainz/Server/Form/Application.pm:48
 msgid "Redirect URL must be entered for web applications."
@@ -12301,7 +12305,7 @@ msgstr "Uso della relazione"
 
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:186
 msgid "This attribute is being used by the following relationship types:"
-msgstr "Questo attributo è in uso nei seguenti tipi di relazione:"
+msgstr "Quest'attributo è in uso nei seguenti tipi di relazione:"
 
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:200
 msgid "{type0} - {type1}"
@@ -12309,8 +12313,7 @@ msgstr "{type0} - {type1}"
 
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:217
 msgid "This attribute isn’t directly being used by any relationship types."
-msgstr ""
-"Questo attributo non è direttamente in uso in nessun tipo di relazione."
+msgstr "Quest'attributo non è direttamente in uso in nessun tipo di relazione."
 
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:45
 msgid "none"
@@ -14080,18 +14083,26 @@ msgid ""
 "always exactly match the actual art for that specific release (for example, "
 "they should have the same barcode, format, etc.)."
 msgstr ""
+"Questo rapporto mostra le pubblicazioni che non hanno copertine nel Cover "
+"Art Archive. Dato che la maggior parte delle pubblicazioni ha una qualche "
+"forma di copertina, per la grande maggioranza delle pubblicazioni in questo "
+"rapporto andrebbero {caa_how_to|aggiunte copertine nel Cover Art Archive}. "
+"Nota che le copertine aggiunte a una pubblicazione devono sempre "
+"corrispondere esattamente alle copertine reali di quella specifica "
+"pubblicazione (per esempio, devono avere lo stesso codice a barre, formato, "
+"ecc.)."
 
 #: ../root/report/ReleasesWithoutCaa.js:35
 msgid ""
 "We strongly suggest restricting this report to entities in your "
 "subscriptions only for a more manageable list of results."
 msgstr ""
+"È caldamente consigliato limitare il rapporto alle sole entità nelle tue "
+"iscrizioni per ottenere un elenco di risultati più gestibile."
 
 #: ../root/report/ReleasesWithoutCaa.js:40 ../root/report/ReportsIndex.js:365
-#, fuzzy
-#| msgid "This release has artwork in the Cover Art Archive"
 msgid "Releases without any art in the Cover Art Archive"
-msgstr "Questa pubblicazione ha copertine nel Cover Art Archive"
+msgstr "Pubblicazioni senza copertine nel Cover Art Archive"
 
 #: ../root/report/ReleasesWithoutVaCredit.js:24
 msgid ""
@@ -14986,11 +14997,11 @@ msgstr "Nome alias:"
 
 #: ../root/static/scripts/alias/AliasEditForm.js:324
 msgid "This is the primary alias for this locale"
-msgstr "Questo è l'alias primario per questo ambiente linguistico"
+msgstr "Questo è l'alias primario per quest'ambiente linguistico"
 
 #: ../root/static/scripts/alias/AliasEditForm.js:339
 msgid "This alias is no longer current."
-msgstr "Questo alias non è più attuale."
+msgstr "Quest'alias non è più attuale."
 
 #: ../root/static/scripts/annotation/AnnotationHistoryTable.js:101
 msgctxt "annotation"
@@ -15400,7 +15411,7 @@ msgstr ""
 
 #: ../root/static/scripts/common/components/EntityLink.js:337
 msgid "This release has artwork in the Cover Art Archive"
-msgstr "Questa pubblicazione ha copertine nel Cover Art Archive"
+msgstr "Questa pubblicazione ha delle copertine nel Cover Art Archive"
 
 #: ../root/static/scripts/common/components/EntityLink.js:351
 msgid "This release group has artwork in the Cover Art Archive"
@@ -16623,7 +16634,7 @@ msgstr "Aggiungi vocale"
 
 #: ../root/static/scripts/relationship-editor/components/DialogAttribute/MultiselectAttribute.js:164
 msgid "This attribute is required."
-msgstr "Questo attributo è necessario."
+msgstr "Quest'attributo è necessario."
 
 #: ../root/static/scripts/relationship-editor/components/DialogAttribute/MultiselectAttribute.js:200
 #: ../root/static/scripts/relationship-editor/components/DialogAttribute/MultiselectAttribute.js:208
@@ -17520,7 +17531,7 @@ msgstr "Nome utente o password non corretta"
 msgid ""
 "You cannot log in because this account has been marked as a spam account."
 msgstr ""
-"Non puoi effettuare l'accesso perché questo account è stato contrassegnato "
+"Non puoi effettuare l'accesso perché quest'account è stato contrassegnato "
 "come account spam."
 
 #: ../root/user/Login.js:116
@@ -17664,7 +17675,7 @@ msgid ""
 "report it. If you feel there’s a problem that still needs action, please "
 "{link|contact us}."
 msgstr ""
-"Questo account utente è già stato eliminato e di conseguenza non dovrebbe "
+"Quest'account utente è già stato eliminato e di conseguenza non dovrebbe "
 "esserci bisogno di segnalarlo. Se però credi che ci sia un problema che "
 "richiede attenzione, {link|contattaci}."
 

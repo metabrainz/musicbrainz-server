@@ -19,7 +19,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-11-06 02:27+0000\n"
+"PO-Revision-Date: 2023-11-22 04:27+0000\n"
 "Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
 "metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -28,8 +28,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
 "X-Generator: Weblate 5.1\n"
 
 #: DB:link_attribute_type/description:1355
@@ -1415,14 +1415,14 @@ msgstr "Permette di collegare una serie all'etichetta che la pubblica."
 
 #: DB:link_attribute_type/description:3
 msgid "This attribute describes a type of vocal performance."
-msgstr "Questo attributo indica un tipo di esibizione vocale."
+msgstr "Quest'attributo indica un tipo di esibizione vocale."
 
 #: DB:link_attribute_type/description:2
 msgid ""
 "This attribute describes if a particular collaboration was considered equal "
 "or minor."
 msgstr ""
-"Questo attributo indica se una specifica collaborazione era considerata "
+"Quest'attributo indica se una specifica collaborazione era considerata "
 "eguale o minore."
 
 #: DB:link_attribute_type/description:1
@@ -1430,7 +1430,7 @@ msgid ""
 "This attribute describes if a particular role was considered normal or "
 "additional."
 msgstr ""
-"Questo attributo indica se uno specifico ruolo era considerato normale o "
+"Quest'attributo indica se uno specifico ruolo era considerato normale o "
 "aggiuntivo."
 
 #: DB:link_attribute_type/description:14
@@ -1441,7 +1441,7 @@ msgid ""
 "Can't find an instrument? <a href=\"https://musicbrainz.org/doc/"
 "How_to_Add_Instruments\" target=\"_blank\">Request it!</a>"
 msgstr ""
-"Questo attributo indica gli strumenti che possono essere inseriti come parte "
+"Quest'attributo indica gli strumenti che possono essere inseriti come parte "
 "di un'esibizione.\n"
 "<br/>\n"
 "Non riesci a trovare uno strumento? <a href=\"https://musicbrainz.org/doc/"
@@ -1452,15 +1452,15 @@ msgid ""
 "This attribute indicates a 'guest' performance where the performer is not "
 "usually part of the band."
 msgstr ""
-"Questo attributo indica un'esibizione di un \"ospite\" che non fa "
-"solitamente parte della band."
+"Quest'attributo indica un'esibizione di un \"ospite\" che non fa solitamente "
+"parte della band."
 
 #: DB:link_attribute_type/description:1094
 msgid ""
 "This attribute indicates a member the band is named after and without which "
 "it wouldn't exist (such as Miles Davis -&gt; Miles Davis Sextet)"
 msgstr ""
-"Questo attributo indica un membro che dà il nome alla band e senza il quale "
+"Quest'attributo indica un membro che dà il nome alla band e senza il quale "
 "essa non esisterebbe (per esempio Miles Davis -&gt; Miles Davis Sextet)."
 
 #: DB:link_attribute_type/description:511
@@ -1468,8 +1468,8 @@ msgid ""
 "This attribute indicates a version with satirical, ironic, or otherwise "
 "humorous intent. Parodies in most cases have altered lyrics."
 msgstr ""
-"Questo attributo indica una versione con intenti satirici, ironici o "
-"comunque umoristici. Le parodie hanno nella maggior parte dei casi un testo "
+"Quest'attributo indica una versione con intenti satirici, ironici o comunque "
+"umoristici. Le parodie hanno nella maggior parte dei casi un testo "
 "modificato."
 
 #: DB:link_attribute_type/description:525
@@ -1477,7 +1477,7 @@ msgid ""
 "This attribute indicates that an artist was an original member of a group "
 "artist."
 msgstr ""
-"Questo attributo indica che un artista è stato membro di un gruppo dalla sua "
+"Quest'attributo indica che un artista è stato membro di un gruppo dalla sua "
 "origine."
 
 #: DB:link_attribute_type/description:517
@@ -1486,23 +1486,26 @@ msgid ""
 "freely, from the original language. This does not apply if an entirely new "
 "set of lyrics have been set to an existing melody."
 msgstr ""
+"Quest'attributo indica che il testo è stato tradotto, letteralmente o "
+"liberamente, dalla lingua originale. Non si applica se un testo "
+"completamente nuovo è stato aggiunto a una melodia esistente."
 
 #: DB:link_attribute_type/description:582
 msgid ""
 "This attribute indicates that the content is not audio (or text) but video."
 msgstr ""
-"Questo attributo indica che il contenuto non è audio (o testuale) ma video."
+"Quest'attributo indica che il contenuto non è audio (o testuale) ma video."
 
 #: DB:link_attribute_type/description:788
 msgid "This attribute indicates the number of an entity in a series."
-msgstr "Questo attributo indica il numero di un'entità in una serie."
+msgstr "Quest'attributo indica il numero di un'entità in una serie."
 
 #: DB:link_attribute_type/description:425
 msgid ""
 "This attribute is to be used if the role was fulfilled in an executive "
 "capacity."
 msgstr ""
-"Questo attributo va usato se il ruolo è stato svolto in una veste esecutiva."
+"Quest'attributo va usato se il ruolo è stato svolto in una veste esecutiva."
 
 #: DB:link_type/description:146
 msgid ""
@@ -1947,16 +1950,12 @@ msgstr ""
 "banda su questa pubblicazione."
 
 #: DB:link_type/description:1228
-#, fuzzy
-#| msgid ""
-#| "This indicates that a person or agency did the art direction for the "
-#| "recording."
 msgid ""
 "This indicates an organization (often a radio station) broadcast the given "
 "recording."
 msgstr ""
-"Indica che una persona o un'agenzia hanno curato la direzione artistica "
-"della registrazione."
+"Indica che un'organizzazione (spesso una stazione radio) ha trasmesso la "
+"registrazione."
 
 #: DB:link_type/description:891
 msgid ""
@@ -2193,10 +2192,10 @@ msgid ""
 "\"concertmaster\" (principal violin) for instruments."
 msgstr ""
 "Indica che il gruppo ha avuto più direttori d'orchestra o più musicisti "
-"dello strumento selezionato che erano diretti da questo artista. Ciò è "
-"indicato spesso con il titolo di \"primo direttore d'orchestra\" o "
-"\"direttore d'orchestra principale\" per i direttori d'orchestra, e con il "
-"titolo di \"primo [strumento]\" (per esempio, primo violino) o \"[strumento] "
+"dello strumento selezionato che erano diretti da quest'artista. Ciò è spesso "
+"indicato con il titolo di \"primo direttore d'orchestra\" o \"direttore "
+"d'orchestra principale\" per i direttori d'orchestra, e con il titolo di "
+"\"primo [strumento]\" (per esempio, primo violino) o \"[strumento] "
 "principale\" per gli strumenti."
 
 #: DB:link_type/description:999 DB:link_type/description:998
@@ -2269,7 +2268,7 @@ msgstr "Indica che l'artista è stato il regista video su questa pubblicazione."
 
 #: DB:link_type/description:973
 msgid "This indicates the artist that inspired this artist’s name."
-msgstr "Indica l'artista che ha ispirato il nome di questo artista."
+msgstr "Indica l'artista che ha ispirato il nome di quest'artista."
 
 #: DB:link_type/description:975
 msgid "This indicates the artist that inspired this place’s name."
@@ -2555,7 +2554,7 @@ msgstr ""
 #: DB:link_type/description:974
 msgid "This indicates the release group that inspired this artist’s name."
 msgstr ""
-"Indica il gruppo di pubblicazioni che ha ispirato il nome di questo artista."
+"Indica il gruppo di pubblicazioni che ha ispirato il nome di quest'artista."
 
 #: DB:link_type/description:349
 msgid ""
@@ -2615,7 +2614,7 @@ msgstr ""
 
 #: DB:link_type/description:972
 msgid "This indicates the work that inspired this artist’s name."
-msgstr "Indica l'opera che ha ispirato il nome di questo artista."
+msgstr "Indica l'opera che ha ispirato il nome di quest'artista."
 
 #: DB:link_type/description:915
 msgid "This indicates where a feed for this podcast can be found."
@@ -3197,10 +3196,10 @@ msgid ""
 "target=\"_blank\">tribute relationship</a>."
 msgstr ""
 "Collega un gruppo di pubblicazioni all'artista a cui è dedicato. Si "
-"riferisce a dediche come per es. \"Questo album è dedicato alla memoria di "
+"riferisce a dediche come per es. \"Quest'album è dedicato alla memoria di "
 "Artista\". Per album tributo che contengono cover dell'artista, utilizza la "
-"<a href=\"/relationship/5e2907db-49ec-4a48-9f11-dfb99d2603ff\" "
-"target=\"_blank\">relazione tributo</a>."
+"<a href=\"/relationship/5e2907db-49ec-4a48-9f11-dfb99d2603ff\" target="
+"\"_blank\">relazione tributo</a>."
 
 #: DB:link_type/description:65
 msgid ""
@@ -5232,11 +5231,11 @@ msgstr "curatore del libretto (booklet) per"
 #: DB:link_type/link_phrase:1228 DB:link_type/name:1228
 #: DB:link_type/long_link_phrase:1228
 msgid "broadcast"
-msgstr ""
+msgstr "ha trasmesso"
 
 #: DB:link_type/reverse_link_phrase:1228
 msgid "broadcast by"
-msgstr ""
+msgstr "trasmessa da"
 
 #: DB:link_type/link_phrase:66 DB:link_type/link_phrase:205
 #: DB:link_type/name:205 DB:link_type/reverse_link_phrase:205
