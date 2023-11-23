@@ -25,12 +25,12 @@ const DeleteWikiDoc = ({
     <div id="content">
       <h1>{l('Remove Page')}</h1>
       <p>
-        {exp.l(`Are you sure you wish to remove the page
-                “{page_uri|{page_name}}” from the transclusion table?`,
-               {
-                 page_name: page,
-                 page_uri: '/doc/' + encodeURIComponent(page),
-               })}
+        {exp.l_admin(`Are you sure you wish to remove the page
+                      “{page_uri|{page_name}}” from the transclusion table?`,
+                     {
+                       page_name: page,
+                       page_uri: '/doc/' + encodeURIComponent(page),
+                     })}
       </p>
       <form method="post" name="confirm">
         <FormCsrfToken form={form} />

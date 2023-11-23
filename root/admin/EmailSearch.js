@@ -34,7 +34,7 @@ const EmailSearch = ({
 
       <form action="/admin/email-search" method="post">
         <p>
-          {exp.l(
+          {exp.l_admin(
             'Enter a {link|POSIX regular expression}.',
             {
               link: 'https://www.postgresql.org/docs/12/' +

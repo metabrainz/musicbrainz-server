@@ -150,7 +150,7 @@ const WikiDocIndex = (props: PropsT): React$Element<typeof Layout> => {
       <div className="content">
         <h1>{l('Transclusion Table')}</h1>
         <p>
-          {exp.l(
+          {exp.l_admin(
             `Read the {doc|WikiDocs} documentation for an overview of how
              transclusion works.`,
             {doc: '/doc/WikiDocs'},
@@ -171,11 +171,11 @@ const WikiDocIndex = (props: PropsT): React$Element<typeof Layout> => {
               </li>
             </ul>
             <p>
-              {exp.l(`<strong>Note:</strong> MediaWiki does not check to
-                      see if the version number matches the page name,
-                      it will take the version number and provide
-                      whatever page is associated with it. Make sure to
-                      double check your work when updating a page!`)}
+              {exp.l_admin(`<strong>Note:</strong> MediaWiki does not check to
+                            see if the version number matches the page name,
+                            it will take the version number and provide
+                            whatever page is associated with it. Make sure to
+                            double check your work when updating a page!`)}
             </p>
           </>
         ) : null}

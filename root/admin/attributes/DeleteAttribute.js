@@ -22,7 +22,7 @@ const DeleteAttribute = ({
 }: Props): React$Element<typeof ConfirmLayout> => (
   <ConfirmLayout
     form={form}
-    question={exp.l(
+    question={exp.l_admin(
       `Are you sure you wish to remove the
        <strong>{name}</strong> attribute?`,
       {name: attribute.name},
