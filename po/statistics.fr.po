@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-11-09 17:27+0000\n"
+"PO-Revision-Date: 2023-11-23 20:27+0000\n"
 "Last-Translator: yvanzo <yvanzo@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: French <https://translations.metabrainz.org/projects/"
 "musicbrainz/statistics/fr/>\n"
@@ -27,7 +27,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : ((n != 0 && n % "
 "1000000 == 0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.1\n"
+"X-Generator: Weblate 5.2.1\n"
 
 #: DB:statistics.statistic_event/title:2015-09-08
 msgid "\"Do Not Cluster\" guideline dropped"
@@ -1592,7 +1592,7 @@ msgstr "Œuvres"
 
 #: ../root/statistics/Index.js:126 ../root/statistics/stats.js:849
 msgid "URLs"
-msgstr "URLs"
+msgstr "URL"
 
 #: ../root/statistics/Index.js:130 ../root/statistics/Index.js:801
 #: ../root/statistics/Index.js:808 ../root/statistics/stats.js:53
