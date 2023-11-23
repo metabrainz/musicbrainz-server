@@ -6,10 +6,13 @@ MSGWRAP:=79
 GIT_LS_PERL:=git ls-files -- \
 	':(top,glob)lib/**/*.pm' \
 	':(top,glob)lib/**/*.pl' \
+	':(top,glob,exclude)lib/**/*Admin*.pm' \
+	':(top,glob,exclude)lib/**/*Admin*/**/*.pm' \
 	| $(SED_ESCAPE_SPACES)
 
 GIT_LS_JS:=git ls-files -- \
     ':(top,glob)root/**/*.js' \
+    ':(top,glob,exclude)root/admin/**/*.js' \
     ':(top,glob,exclude)root/static/scripts/tests/**/*.js' \
     ':(top,glob,exclude)root/static/build/**/*.js' \
     ':(top,glob,exclude)root/static/lib/**/*.js' \
@@ -18,6 +21,7 @@ GIT_LS_JS:=git ls-files -- \
 
 GIT_LS_TT:=git ls-files -- \
     ':(top,glob)root/**/*.tt' \
+    ':(top,glob,exclude)root/admin/**/*.tt' \
     ':(top,glob,exclude)root/statistics/**/*.tt' \
     | $(SED_ESCAPE_SPACES)
 
