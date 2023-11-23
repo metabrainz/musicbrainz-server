@@ -8,7 +8,6 @@
  */
 
 import Layout from '../../layout/index.js';
-import expand2react from '../../static/scripts/common/i18n/expand2react.js';
 import loopParity from '../../utility/loopParity.js';
 
 type PropsT = {
@@ -36,7 +35,7 @@ const StatisticsEventIndex = ({
             <tr className={loopParity(index)} key={event.date}>
               <td>{event.date}</td>
               <td>{event.title}</td>
-              <td>{expand2react(event.description)}</td>
+              <td>{exp.l_admin(event.description)}</td>
               <td>
                 <a href={event.link}>{event.link}</a>
               </td>

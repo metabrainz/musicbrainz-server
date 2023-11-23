@@ -8,7 +8,6 @@
  */
 
 import Layout from '../layout/index.js';
-import expand2react from '../static/scripts/common/i18n/expand2react.js';
 import bracketed from '../static/scripts/common/utility/bracketed.js';
 import FormRowCheckbox
   from '../static/scripts/edit/components/FormRowCheckbox.js';
@@ -35,7 +34,7 @@ const LockedUsernameSearch = ({
 
       <form action="/admin/locked-usernames/search" method="post">
         <p>
-          {expand2react(
+          {exp.l_admin(
             'Enter a username or a {link|POSIX regular expression}.',
             {
               link: 'https://www.postgresql.org/docs/12/' +

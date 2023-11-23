@@ -10,7 +10,6 @@
 
 import Layout from '../../layout/index.js';
 import {compare} from '../../static/scripts/common/i18n.js';
-import expand2react from '../../static/scripts/common/i18n/expand2react.js';
 import yesNo from '../../static/scripts/common/utility/yesNo.js';
 import loopParity from '../../utility/loopParity.js';
 
@@ -92,7 +91,7 @@ const Attribute = ({
             <tr className={loopParity(index)} key={attribute.id}>
               <td>{attribute.id}</td>
               <td>{attribute.name}</td>
-              <td>{expand2react(attribute.description)}</td>
+              <td>{exp.l_admin(attribute.description)}</td>
               <td>{attribute.gid}</td>
               <td>{attribute.child_order}</td>
               <td>{attribute.parent_id}</td>

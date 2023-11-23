@@ -8,7 +8,6 @@
  */
 
 import Layout from '../layout/index.js';
-import expand2text from '../static/scripts/common/i18n/expand2text.js';
 import FormCsrfToken
   from '../static/scripts/edit/components/FormCsrfToken.js';
 import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
@@ -26,7 +25,7 @@ const LockedUsernameUnlock = ({
     <div id="content">
       <h1>{'Unlock username'}</h1>
       <p>
-        {expand2text(
+        {texp.l_admin(
           `Are you sure you wish to unlock
            the username “{username}” for reuse?`,
           {username: username},

@@ -9,7 +9,6 @@
 
 import PaginatedResults from '../components/PaginatedResults.js';
 import Layout from '../layout/index.js';
-import expand2react from '../static/scripts/common/i18n/expand2react.js';
 import FormRowText from '../static/scripts/edit/components/FormRowText.js';
 import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
 
@@ -43,7 +42,7 @@ const EmailSearch = ({
           )}
         </p>
         <p>
-          {expand2react(
+          {exp.l_admin(
             `Since periods (<code>.</code>) and tags preceded with a
              <code>+</code> sign on the user side of the address (that is,
              before the <code>@</code> sign) are often used as “free aliases”
