@@ -1484,7 +1484,7 @@ msgstr ""
 msgid ""
 "This attribute indicates that lyrics have been translated, literally or "
 "freely, from the original language. This does not apply if an entirely new "
-"set of lyrics have been set to an an existing melody."
+"set of lyrics have been set to an existing melody."
 msgstr ""
 
 #: DB:link_attribute_type/description:582
