@@ -73,7 +73,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-21 10:38+0000\n"
-"PO-Revision-Date: 2023-11-13 15:27+0000\n"
+"PO-Revision-Date: 2023-11-21 16:57+0000\n"
 "Last-Translator: kellnerd <kellnerd@users.noreply.translations.metabrainz."
 "org>\n"
 "Language-Team: German <https://translations.metabrainz.org/projects/"
@@ -17138,10 +17138,8 @@ msgid "Age:"
 msgstr "Alter:"
 
 #: ../root/user/UserProfile.js:287
-#, fuzzy
-#| msgid "Description"
 msgid "Restrictions"
-msgstr "Beschreibung"
+msgstr "Einschränkungen"
 
 #: ../root/user/UserProfile.js:297
 msgid "Hasn't logged in yet"
@@ -17588,8 +17586,6 @@ msgid "This edit was cancelled."
 msgstr "Diese Bearbeitung wurde abgebrochen."
 
 #: ../root/utility/tableColumns.js:373
-#, fuzzy
-#| msgid "Relationship Types"
 msgid "Relationship types"
 msgstr "Beziehungstypen"
 
