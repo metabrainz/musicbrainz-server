@@ -18,16 +18,16 @@ type PropsT = {
 const StatisticsEventIndex = ({
   events,
 }: PropsT): React$Element<typeof Layout> => (
-  <Layout fullWidth title={l('Statistics Events')}>
-    <h1>{l('Statistics Events')}</h1>
+  <Layout fullWidth title="Statistics Events">
+    <h1>{'Statistics Events'}</h1>
     <table className="tbl">
       <thead>
         <tr>
-          <th>{l('Date')}</th>
-          <th>{l('Title')}</th>
-          <th>{l('Description')}</th>
-          <th>{l('Link')}</th>
-          <th>{l('Actions')}</th>
+          <th>{'Date'}</th>
+          <th>{'Title'}</th>
+          <th>{'Description'}</th>
+          <th>{'Link'}</th>
+          <th>{'Actions'}</th>
         </tr>
       </thead>
       <tbody>
@@ -42,11 +42,11 @@ const StatisticsEventIndex = ({
               </td>
               <td>
                 <a href={`/admin/statistics-events/edit/${event.date}`}>
-                  {l('Edit')}
+                  {'Edit'}
                 </a>
                 {' | '}
                 <a href={`/admin/statistics-events/delete/${event.date}`}>
-                  {l('Remove')}
+                  {'Remove'}
                 </a>
               </td>
             </tr>
@@ -56,7 +56,7 @@ const StatisticsEventIndex = ({
     <p>
       <span className="buttons">
         <a href="/admin/statistics-events/create">
-          {lp('Add new event', 'statistics event')}
+          {'Add new event'}
         </a>
       </span>
     </p>

@@ -26,26 +26,26 @@ type Props = {
 const CreateWikiDoc = ({
   form,
 }: Props): React$Element<typeof Layout> => (
-  <Layout fullWidth title={l('Add Page')}>
+  <Layout fullWidth title="Add Page">
     <div id="content">
-      <h1>{l('Add Page')}</h1>
+      <h1>{'Add Page'}</h1>
       <form method="post">
         <FormCsrfToken form={form} />
         <FormRowTextLong
           field={form.field.page}
-          label={l('Page:')}
+          label="Page:"
           required
           uncontrolled
         />
         <FormRowText
           field={form.field.version}
-          label={l('Version:')}
+          label="Version:"
           required
           type="number"
           uncontrolled
         />
         <div className="row no-label">
-          <FormSubmit label={l('Add Page')} />
+          <FormSubmit label="Add Page" />
         </div>
       </form>
     </div>

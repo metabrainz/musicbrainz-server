@@ -6,8 +6,6 @@ use utf8;
 use MusicBrainz::Server::Data::Utils qw( contains_string );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 
-use MusicBrainz::Server::Translation qw( l );
-
 BEGIN { extends 'MusicBrainz::Server::Controller' }
 
 my @models = qw(
@@ -127,7 +125,8 @@ sub delete : Chained('attribute_base') Args(1) RequireAuth(account_admin) Secure
     $c->stash->{attribute} = $attr;
 
     if ($c->model($model)->in_use($id)) {
-        my $error_message = l('You cannot remove the attribute "{name}" because it is still in use.', { name => $attr->name });
+        my $attr_name = $attr->name;
+        my $error_message = "You cannot remove the attribute “$attr_name” because it is still in use.";
 
         $c->stash(
             current_view => 'Node',
@@ -139,7 +138,8 @@ sub delete : Chained('attribute_base') Args(1) RequireAuth(account_admin) Secure
     }
 
     if ($c->model($model)->has_children($id)) {
-        my $error_message = l('You cannot remove the attribute “{name}” because it is the parent of other attributes.', { name => $attr->name });
+        my $attr_name = $attr->name;
+        my $error_message = "You cannot remove the attribute “$attr_name” because it is the parent of other attributes.";
 
         $c->stash(
             current_view => 'Node',

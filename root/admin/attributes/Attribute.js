@@ -26,17 +26,17 @@ const renderAttributesHeaderAccordingToModel = (model: string) => {
     case 'MediumFormat': {
       return (
         <>
-          <th>{l('Year')}</th>
-          <th>{l('Disc IDs allowed')}</th>
+          <th>{'Year'}</th>
+          <th>{'Disc IDs allowed'}</th>
         </>
       );
     }
     case 'SeriesType':
     case 'CollectionType': {
-      return <th>{l('Entity type')}</th>;
+      return <th>{'Entity type'}</th>;
     }
     case 'WorkAttributeType': {
-      return <th>{l('Free text')}</th>;
+      return <th>{'Free text'}</th>;
     }
     default: return null;
   }
@@ -69,20 +69,20 @@ const Attribute = ({
 }: Props): React$Element<typeof Layout> => (
   <Layout fullWidth title={model}>
     <h1>
-      <a href="/admin/attributes">{l('Attributes')}</a>
+      <a href="/admin/attributes">{'Attributes'}</a>
       {' / ' + model}
     </h1>
     <table className="tbl">
       <thead>
         <tr>
-          <th>{l('ID')}</th>
-          <th>{l('Name')}</th>
-          <th>{l('Description')}</th>
-          <th>{l('MBID')}</th>
-          <th>{l('Child order')}</th>
-          <th>{l('Parent ID')}</th>
+          <th>{'ID'}</th>
+          <th>{'Name'}</th>
+          <th>{'Description'}</th>
+          <th>{'MBID'}</th>
+          <th>{'Child order'}</th>
+          <th>{'Parent ID'}</th>
           {renderAttributesHeaderAccordingToModel(model)}
-          <th>{l('Actions')}</th>
+          <th>{'Actions'}</th>
         </tr>
       </thead>
       <tbody>
@@ -99,11 +99,11 @@ const Attribute = ({
               {renderAttributes(attribute)}
               <td>
                 <a href={`/admin/attributes/${model}/edit/${attribute.id}`}>
-                  {l('Edit')}
+                  {'Edit'}
                 </a>
                 {' | '}
                 <a href={`/admin/attributes/${model}/delete/${attribute.id}`}>
-                  {l('Remove')}
+                  {'Remove'}
                 </a>
               </td>
             </tr>
@@ -113,7 +113,7 @@ const Attribute = ({
     <p>
       <span className="buttons">
         <a href={`/admin/attributes/${model}/create`}>
-          {l('Add new attribute')}
+          {'Add new attribute'}
         </a>
       </span>
     </p>

@@ -28,9 +28,9 @@ const EmailSearch = ({
   pager,
   results,
 }: Props): React$Element<typeof Layout> => (
-  <Layout fullWidth title={l('Search users by email')}>
+  <Layout fullWidth title="Search users by email">
     <div id="content">
-      <h1>{l('Search users by email')}</h1>
+      <h1>{'Search users by email'}</h1>
 
       <form action="/admin/email-search" method="post">
         <p>
@@ -65,14 +65,14 @@ const EmailSearch = ({
 
         <FormRowText
           field={form.field.email}
-          label={addColonText(l('Email'))}
+          label="Email:"
           size={50}
           uncontrolled
         />
 
         <div className="row no-label">
           <FormSubmit
-            label={l('Search')}
+            label="Search"
             name="emailsearch.submit"
             value="1"
           />
@@ -84,7 +84,7 @@ const EmailSearch = ({
               <UserList users={results} />
             </PaginatedResults>
           ) : (
-            <p>{l('No results found.')}</p>
+            <p>{'No results found.'}</p>
           )
         ) : null}
       </form>

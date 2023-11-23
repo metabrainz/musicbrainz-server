@@ -1,4 +1,5 @@
 package t::MusicBrainz::Server::Controller::Admin::Attributes::Delete;
+use utf8;
 use strict;
 use warnings;
 
@@ -43,7 +44,7 @@ test 'Delete standard attribute (series type)' => sub {
     $mech->get('/admin/attributes/SeriesType/delete/2');
     html_ok($mech->content);
     $mech->text_contains(
-      'You cannot remove the attribute "Release series" because it is still in use.',
+      'You cannot remove the attribute “Release series” because it is still in use.',
       'Series type in use on a series cannot be deleted',
     );
 
@@ -99,21 +100,21 @@ test 'Delete language' => sub {
     $mech->get_ok('/admin/attributes/Language/delete/120');
     html_ok($mech->content);
     $mech->text_contains(
-      'You cannot remove the attribute "English" because it is still in use.',
+      'You cannot remove the attribute “English” because it is still in use.',
       'Language in use on a release cannot be deleted',
     );
 
     $mech->get_ok('/admin/attributes/Language/delete/27');
     html_ok($mech->content);
     $mech->text_contains(
-      'You cannot remove the attribute "Asturian" because it is still in use.',
+      'You cannot remove the attribute “Asturian” because it is still in use.',
       'Language in use on a work cannot be deleted',
     );
 
     $mech->get_ok('/admin/attributes/Language/delete/123');
     html_ok($mech->content);
     $mech->text_contains(
-      'You cannot remove the attribute "Estonian" because it is still in use.',
+      'You cannot remove the attribute “Estonian” because it is still in use.',
       'Language in use on an editor cannot be deleted',
     );
 
@@ -162,7 +163,7 @@ test 'Delete script' => sub {
     $mech->get_ok('/admin/attributes/Script/delete/28');
     html_ok($mech->content);
     $mech->text_contains(
-      'You cannot remove the attribute "Latin" because it is still in use.',
+      'You cannot remove the attribute “Latin” because it is still in use.',
       'Script in use on a release cannot be deleted',
     );
 

@@ -18,31 +18,31 @@ type PropsT = {
 const DeleteStatisticsEvent = ({
   event,
 }: PropsT): React$Element<typeof Layout> => (
-  <Layout fullWidth title={l('Remove statistics event')}>
-    <h2>{l('Remove statistics event')}</h2>
+  <Layout fullWidth title="Remove statistics event">
+    <h2>{'Remove statistics event'}</h2>
     <table className="details">
       <tr>
-        <th>{addColonText(l('Date'))}</th>
+        <th>{'Date:'}</th>
         <td>{event.date}</td>
       </tr>
       <tr>
-        <th>{addColonText(l('Title'))}</th>
+        <th>{'Title:'}</th>
         <td>{event.title}</td>
       </tr>
       <tr>
-        <th>{addColonText(l('Description'))}</th>
+        <th>{'Description:'}</th>
         <td>{expand2react(event.description)}</td>
       </tr>
       <tr>
-        <th>{addColonText(l('Link'))}</th>
+        <th>{'Link:'}</th>
         <td><a href={event.link}>{event.link}</a></td>
       </tr>
     </table>
     <p>
-      {l('Are you sure you want to remove this statistics event?')}
+      {'Are you sure you want to remove this statistics event?'}
     </p>
     <form method="post">
-      <FormSubmit label={l('Remove statistics event')} />
+      <FormSubmit label="Remove statistics event" />
     </form>
   </Layout>
 );
