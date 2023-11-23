@@ -114,13 +114,17 @@ sub add_note
     }
 
     push(@to_email, grep { $_ != $note_hash->{editor_id} }
-        map { $_->id } grep { $_->preferences->email_on_notes }
-        map { $editors->{$_->editor_id} }
-            @{ $edit->edit_notes },
-            (grep { my $editor = $_->editor_id;
-                    !(grep { $editor == $_ } (53705, 326637, 295208)) || $_->vote != $VOTE_ABSTAIN
-                  } @{ $edit->votes }),
-            $edit);
+                    map { $_->id } grep { $_->preferences->email_on_notes }
+                    map { $editors->{$_->editor_id} }
+                    @{ $edit->edit_notes });
+
+    push(@to_email, grep { $_ != $note_hash->{editor_id} }
+                    map { $_->id } grep { $_->preferences->email_on_vote }
+                    map { $editors->{$_->editor_id} }
+                    grep { my $editor_id = $_->editor_id;
+                        !(grep { $editor_id == $_ } (53705, 326637, 295208)) ||
+                        $_->vote != $VOTE_ABSTAIN
+                    } @{ $edit->votes });
 
     my $from = $editors->{ $note_hash->{editor_id} };
     for my $editor_id (uniq @to_email) {

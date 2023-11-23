@@ -11,6 +11,9 @@ use utf8;
 
 BEGIN { use MusicBrainz::Server::Data::Gender }
 
+use MusicBrainz::Server::Constants qw(
+    :vote
+);
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Data::Edit;
 use MusicBrainz::Server::Data::EditNote;
@@ -83,7 +86,7 @@ test 'Loading existing notes' => sub {
     is(@{ $edit->edit_notes }, 0, 'Edit has no edit notes');
 };
 
-test 'Adding edit notes works and sends emails' => sub {
+test 'Adding edit notes works and sends emails when it should' => sub {
     my $test = shift;
     my $c = $test->c;
 
@@ -94,10 +97,10 @@ test 'Adding edit notes works and sends emails' => sub {
     my $edit = $c->model('Edit')->get_by_id(3);
     my $edit_id = $edit->id;
 
-    # We make editor2 vote so they will receive mail too on an edit note
+    note('editor2 votes Yes');
     $c->model('Vote')->enter_votes(
         $editor2,
-        [{ edit_id => $edit_id, vote => 1 }],
+        [{ edit_id => $edit_id, vote => $VOTE_YES }],
     );
 
     note('editor3 enters a note');
@@ -189,6 +192,48 @@ test 'Adding edit notes works and sends emails' => sub {
         $email2_body,
         qr{This is my note!},
         'Email body has correct edit note text',
+    );
+
+    note('We set no emails on votes for editor2 and on notes for editor3');
+    $test->c->sql->do(<<~'SQL');
+        INSERT INTO editor_preference (editor, name, value)
+             VALUES (3, 'email_on_notes', '0'),
+                    (2, 'email_on_vote', '0')
+        SQL
+
+    note('editor1 (edit creator) enters a note');
+    $c->model('EditNote')->add_note(
+        $edit_id,
+        { text => 'This is my response!', editor_id => 1 },
+    );
+
+    $email_transport = MusicBrainz::Server::Email->get_test_transport;
+    is(
+        $email_transport->delivery_count,
+        0,
+        'No emails were sent because of voter and note adder preferences',
+    );
+
+    note('We set no emails on votes or notes preference for editor1');
+    $test->c->sql->do(<<~'SQL');
+        INSERT INTO editor_preference (editor, name, value)
+             VALUES (1, 'email_on_notes', '0'),
+                    (1, 'email_on_vote', '0')
+        SQL
+
+    note('editor3 enters another note');
+    $c->model('EditNote')->add_note(
+        $edit_id,
+        { text => 'This is my new note!', editor_id => 3 },
+    );
+
+    $email_transport = MusicBrainz::Server::Email->get_test_transport;
+    is($email_transport->delivery_count, 1, 'One email was sent');
+    $email = $email_transport->shift_deliveries->{email};
+    is(
+        $email->get_header('To'),
+        '"editor1" <editor1@example.com>',
+        'Email was sent to edit creator editor1, despite their preferences',
     );
 };
 
