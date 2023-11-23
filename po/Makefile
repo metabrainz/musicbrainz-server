@@ -10,13 +10,13 @@ GIT_LS_PERL:=git ls-files -- \
 	| $(SED_ESCAPE_SPACES)
 
 GIT_LS_JS:=git ls-files -- \
-    ':(top,glob)root/**/*.js' \
-    ':(top,glob,exclude)root/admin/**/*.js' \
-    ':(top,glob,exclude)root/static/scripts/tests/**/*.js' \
-    ':(top,glob,exclude)root/static/build/**/*.js' \
-    ':(top,glob,exclude)root/static/lib/**/*.js' \
-    ':(top,glob,exclude)root/statistics/**/*.js' \
-    | $(SED_ESCAPE_SPACES)
+	':(top,glob)root/**/*.js' \
+	':(top,glob,exclude)root/admin/**/*.js' \
+	':(top,glob,exclude)root/static/scripts/tests/**/*.js' \
+	':(top,glob,exclude)root/static/build/**/*.js' \
+	':(top,glob,exclude)root/static/lib/**/*.js' \
+	':(top,glob,exclude)root/statistics/**/*.js' \
+	| $(SED_ESCAPE_SPACES)
 
 GIT_LS_ADMINPERL:=git ls-files -- \
 	':(top,glob)lib/**/*Admin*.pm' \
@@ -32,10 +32,10 @@ GIT_LS_ADMINJS:=git ls-files -- \
 	| $(SED_ESCAPE_SPACES)
 
 GIT_LS_TT:=git ls-files -- \
-    ':(top,glob)root/**/*.tt' \
-    ':(top,glob,exclude)root/admin/**/*.tt' \
-    ':(top,glob,exclude)root/statistics/**/*.tt' \
-    | $(SED_ESCAPE_SPACES)
+	':(top,glob)root/**/*.tt' \
+	':(top,glob,exclude)root/admin/**/*.tt' \
+	':(top,glob,exclude)root/statistics/**/*.tt' \
+	| $(SED_ESCAPE_SPACES)
 
 GIT_LS_STATTT:=git ls-files -- \
 	':(top,glob)root/statistics/**/*.tt' \
