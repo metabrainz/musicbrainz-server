@@ -120,6 +120,7 @@ export const genericEditor: UnsanitizedEditorT = {
   name: 'editor1',
   preferences: {
     datetime_format: '%Y-%m-%d %H:%M %Z',
+    email_on_abstain: true,
     email_on_no_vote: true,
     email_on_notes: true,
     email_on_vote: true,

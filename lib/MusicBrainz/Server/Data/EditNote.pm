@@ -119,12 +119,24 @@ sub add_note
                     @{ $edit->edit_notes });
 
     push(@to_email, grep { $_ != $note_hash->{editor_id} }
-                    map { $_->id } grep { $_->preferences->email_on_vote }
-                    map { $editors->{$_->editor_id} }
-                    grep { my $editor_id = $_->editor_id;
-                        !(grep { $editor_id == $_ } (53705, 326637, 295208)) ||
-                        $_->vote != $VOTE_ABSTAIN
-                    } @{ $edit->votes });
+                    map { $_->{editor}->id }
+                    # We only want editors who actually want emails on votes
+                    grep {
+                        (
+                            $_->{editor}->preferences->email_on_vote &&
+                            $_->{vote} != $VOTE_ABSTAIN
+                        ) || (
+                            $_->{editor}->preferences->email_on_abstain &&
+                            $_->{vote} == $VOTE_ABSTAIN
+                        )
+                    }
+                    map {{
+                        editor => $editors->{$_->editor_id},
+                        vote => $_->vote,
+                    }}
+                    # We only care about the current votes
+                    grep { !($_->superseded) }
+                    @{ $edit->votes });
 
     my $from = $editors->{ $note_hash->{editor_id} };
     for my $editor_id (uniq @to_email) {

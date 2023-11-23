@@ -235,6 +235,52 @@ test 'Adding edit notes works and sends emails when it should' => sub {
         '"editor1" <editor1@example.com>',
         'Email was sent to edit creator editor1, despite their preferences',
     );
+
+    note('We set emails on votes, but not abstain votes, for editor2');
+    $test->c->sql->do(<<~'SQL');
+        UPDATE editor_preference
+           SET value = 1
+         WHERE name = 'email_on_vote'
+           AND editor = 2
+        SQL
+    $test->c->sql->do(<<~'SQL');
+        INSERT INTO editor_preference (editor, name, value)
+             VALUES (2, 'email_on_abstain', '0')
+        SQL
+
+    note('editor1 (edit creator) enters another note');
+    $c->model('EditNote')->add_note(
+        $edit_id,
+        { text => 'This is my second response!', editor_id => 1 },
+    );
+
+    $email_transport = MusicBrainz::Server::Email->get_test_transport;
+    is($email_transport->delivery_count, 1, 'One email was sent');
+    $email = $email_transport->shift_deliveries->{email};
+    is(
+        $email->get_header('To'),
+        '"editor2" <editor2@example.com>',
+        'Email was sent to voter editor2',
+    );
+
+    note('editor2 changes their vote to Abstain');
+    $c->model('Vote')->enter_votes(
+        $editor2,
+        [{ edit_id => $edit_id, vote => $VOTE_ABSTAIN }],
+    );
+
+    note('editor1 (edit creator) enters a third note');
+    $c->model('EditNote')->add_note(
+        $edit_id,
+        { text => 'This is my third response!', editor_id => 1 },
+    );
+
+    $email_transport = MusicBrainz::Server::Email->get_test_transport;
+    is(
+        $email_transport->delivery_count,
+        0,
+        'No emails were sent because of the abstain note preferences',
+    );
 };
 
 test 'Adding notes is allowed / blocked in the appropriate cases' => sub {

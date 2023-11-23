@@ -21,6 +21,7 @@ import FormSubmit from '../../edit/components/FormSubmit.js';
 type PreferencesFormT = FormT<{
   +csrf_token: FieldT<string>,
   +datetime_format: FieldT<string>,
+  +email_on_abstain: FieldT<boolean>,
   +email_on_no_vote: FieldT<boolean>,
   +email_on_notes: FieldT<boolean>,
   +email_on_vote: FieldT<boolean>,
@@ -227,6 +228,14 @@ class PreferencesForm extends React.Component<Props, State> {
             field={field.email_on_vote}
             label={l(
               `When I vote on an edit,
+               mail me all future notes for that edit.`,
+            )}
+            uncontrolled
+          />
+          <FormRowCheckbox
+            field={field.email_on_abstain}
+            label={l(
+              `When I abstain on an edit,
                mail me all future notes for that edit.`,
             )}
             uncontrolled
