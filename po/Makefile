@@ -5,7 +5,6 @@ MSGWRAP:=79
 
 GIT_LS_PERL:=git ls-files -- \
 	':(top,glob)lib/**/*.pm' \
-	':(top,glob)lib/**/*.pl' \
 	':(top,glob,exclude)lib/**/*Admin*.pm' \
 	':(top,glob,exclude)lib/**/*Admin*/**/*.pm' \
 	| $(SED_ESCAPE_SPACES)
