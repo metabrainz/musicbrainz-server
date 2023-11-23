@@ -191,3 +191,5 @@ test_no_admin: $(ADMINPERL) $(ADMINTT) $(ADMINJS) $(wildcard extract_pot_templat
 	else \
 		echo "OK"; \
 	fi
+
+.PHONY: all all_quiet check check_quiet clean pot test_source test_no_admin
