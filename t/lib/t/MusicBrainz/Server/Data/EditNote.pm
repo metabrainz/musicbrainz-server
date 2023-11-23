@@ -122,8 +122,8 @@ test 'Adding edit notes works and sends emails' => sub {
     my $email_transport = MusicBrainz::Server::Email->get_test_transport;
     is($email_transport->delivery_count, 2, 'Exactly two emails sent');
 
-    my $email2 = $email_transport->shift_deliveries->{email};
     my $email = $email_transport->shift_deliveries->{email};
+    my $email2 = $email_transport->shift_deliveries->{email};
 
     note('Checking email sent to editor1 (edit creator)');
     is(

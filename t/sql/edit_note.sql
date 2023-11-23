@@ -39,4 +39,8 @@ INSERT INTO edit (id, editor, type, status, expire_time)
 INSERT INTO edit_data (edit, data)
     SELECT 3 + x, '{}' FROM generate_series(1, 10) x;
 
+-- editor1 does not want emails on edit notes.
+INSERT INTO editor_preference (editor, name, value)
+     VALUES (1, 'email_on_notes', '0');
+
 ALTER SEQUENCE edit_note_id_seq RESTART 4;
