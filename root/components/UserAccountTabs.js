@@ -9,6 +9,7 @@
 
 import {CatalystContext} from '../context.mjs';
 import DBDefs from '../static/scripts/common/DBDefs.mjs';
+import {l_admin} from '../static/scripts/common/i18n/admin.js';
 import {isAccountAdmin} from '../static/scripts/common/utility/privileges.js';
 import buildTab from '../utility/buildTab.js';
 
@@ -99,7 +100,7 @@ function buildTabs(
     DBDefs.DB_STAGING_TESTING_FEATURES && $c.user) {
     tabs.push(buildTab(
       page,
-      l('Edit User'),
+      l_admin('Edit User'),
       '/admin/user/edit/' + userName,
       'edit_user',
     ));

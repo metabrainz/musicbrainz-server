@@ -11,6 +11,7 @@ import * as React from 'react';
 
 import {SanitizedCatalystContext} from '../context.mjs';
 import Layout from '../layout/index.js';
+import {l_admin} from '../static/scripts/common/i18n/admin.js';
 import {
   isAccountAdmin,
   isRelationshipEditor,
@@ -124,11 +125,11 @@ const ReportsIndex = (): React$Element<typeof Layout> => {
 
         {isAccountAdmin($c.user) ? (
           <>
-            <h2>{l('Editors')}</h2>
+            <h2>{l_admin('Editors')}</h2>
 
             <ul>
               <ReportsIndexEntry
-                content={l('Beginner/limited editors')}
+                content={l_admin('Beginner/limited editors')}
                 reportName="LimitedEditors"
               />
             </ul>
