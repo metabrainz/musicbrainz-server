@@ -4,6 +4,9 @@ rules:
   wrap-iife: warn
   camelcase: [warn, {properties: never,
                      allow: [
+                       "l_admin",
+                       "ln_admin",
+                       "lp_admin",
                        "l_attributes",
                        "ln_attributes",
                        "lp_attributes",

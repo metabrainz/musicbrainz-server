@@ -48,6 +48,10 @@ declare var N_l: (key: string) => () => string;
 declare var N_ln: (skey: string, pkey: string) => (val: number) => string;
 declare var N_lp: (key: string, context: string) => () => string;
 
+declare var l_admin: typeof l;
+declare var ln_admin: typeof ln;
+declare var lp_admin: typeof lp;
+
 declare var l_attributes: typeof l;
 declare var ln_attributes: typeof ln;
 declare var lp_attributes: typeof lp;
@@ -85,13 +89,28 @@ declare var exp: {
     key: string,
     args?: ?{+[arg: string]: Expand2ReactInput, ...},
   ) => Expand2ReactOutput,
+  +l_admin: (
+    key: string,
+    args?: ?{+[arg: string]: Expand2ReactInput, ...},
+  ) => Expand2ReactOutput,
   +ln: (
     skey: string,
     pkey: string,
     val: number,
     args?: ?{+[arg: string]: Expand2ReactInput, ...},
   ) => Expand2ReactOutput,
+  +ln_admin: (
+    skey: string,
+    pkey: string,
+    val: number,
+    args?: ?{+[arg: string]: Expand2ReactInput, ...},
+  ) => Expand2ReactOutput,
   +lp: (
+    key: string,
+    context: string,
+    args?: ?{+[arg: string]: Expand2ReactInput},
+  ) => Expand2ReactOutput,
+  +lp_admin: (
     key: string,
     context: string,
     args?: ?{+[arg: string]: Expand2ReactInput},
@@ -103,13 +122,28 @@ declare var texp: {
     key: string,
     args: {+[arg: string]: StrOrNum, ...},
   ) => string,
+  +l_admin: (
+    key: string,
+    args: {+[arg: string]: StrOrNum, ...},
+  ) => string,
   +ln: (
     skey: string,
     pkey: string,
     val: number,
     args: {+[arg: string]: StrOrNum, ...},
   ) => string,
+  +ln_admin: (
+    skey: string,
+    pkey: string,
+    val: number,
+    args: {+[arg: string]: StrOrNum, ...},
+  ) => string,
   +lp: (
+    key: string,
+    context: string,
+    args: {+[arg: string]: StrOrNum, ...},
+  ) => string,
+  +lp_admin: (
     key: string,
     context: string,
     args: {+[arg: string]: StrOrNum, ...},

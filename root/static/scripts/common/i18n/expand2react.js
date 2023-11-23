@@ -15,6 +15,11 @@ import {
   ln as lnActual,
   lp as lpActual,
 } from '../i18n.js';
+import {
+  l_admin as lAdminActual,
+  ln_admin as lnAdminActual,
+  lp_admin as lpAdminActual,
+} from '../i18n/admin.js';
 
 import expand, {
   type NO_MATCH,
@@ -395,6 +400,11 @@ export const l = (
   args?: ?VarArgsObject<Input>,
 ): Output => expand2react(lActual(key), args);
 
+export const l_admin = (
+  key: string,
+  args?: ?VarArgsObject<Input>,
+): Output => expand2react(lAdminActual(key), args);
+
 export const ln = (
   skey: string,
   pkey: string,
@@ -402,8 +412,21 @@ export const ln = (
   args?: ?VarArgsObject<Input>,
 ): Output => expand2react(lnActual(skey, pkey, val), args);
 
+export const ln_admin = (
+  skey: string,
+  pkey: string,
+  val: number,
+  args?: ?VarArgsObject<Input>,
+): Output => expand2react(lnAdminActual(skey, pkey, val), args);
+
 export const lp = (
   key: string,
   context: string,
   args?: ?VarArgsObject<Input>,
 ): Output => expand2react(lpActual(key, context), args);
+
+export const lp_admin = (
+  key: string,
+  context: string,
+  args?: ?VarArgsObject<Input>,
+): Output => expand2react(lpAdminActual(key, context), args);

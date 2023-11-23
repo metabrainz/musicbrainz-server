@@ -12,6 +12,11 @@ import {
   ln as lnActual,
   lp as lpActual,
 } from '../i18n.js';
+import {
+  l_admin as lAdminActual,
+  ln_admin as lnAdminActual,
+  lp_admin as lpAdminActual,
+} from '../i18n/admin.js';
 
 import expand, {
   type NO_MATCH,
@@ -107,6 +112,11 @@ export const l = (
   args: VarArgsObject<StrOrNum>,
 ): string => expand2text(lActual(key), args);
 
+export const l_admin = (
+  key: string,
+  args: VarArgsObject<StrOrNum>,
+): string => expand2text(lAdminActual(key), args);
+
 export const ln = (
   skey: string,
   pkey: string,
@@ -114,8 +124,21 @@ export const ln = (
   args: VarArgsObject<StrOrNum>,
 ): string => expand2text(lnActual(skey, pkey, val), args);
 
+export const ln_admin = (
+  skey: string,
+  pkey: string,
+  val: number,
+  args: VarArgsObject<StrOrNum>,
+): string => expand2text(lnAdminActual(skey, pkey, val), args);
+
 export const lp = (
   key: string,
   context: string,
   args: VarArgsObject<StrOrNum>,
 ): string => expand2text(lpActual(key, context), args);
+
+export const lp_admin = (
+  key: string,
+  context: string,
+  args: VarArgsObject<StrOrNum>,
+): string => expand2text(lpAdminActual(key, context), args);
