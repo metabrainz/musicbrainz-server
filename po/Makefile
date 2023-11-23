@@ -18,6 +18,19 @@ GIT_LS_JS:=git ls-files -- \
     ':(top,glob,exclude)root/statistics/**/*.js' \
     | $(SED_ESCAPE_SPACES)
 
+GIT_LS_ADMINPERL:=git ls-files -- \
+	':(top,glob)lib/**/*Admin*.pm' \
+	':(top,glob)lib/**/*Admin*/**/*.pm' \
+	| $(SED_ESCAPE_SPACES)
+
+GIT_LS_ADMINTT:=git ls-files -- \
+	':(top,glob)root/admin/**/*.tt' \
+	| $(SED_ESCAPE_SPACES)
+
+GIT_LS_ADMINJS:=git ls-files -- \
+	':(top,glob)root/admin/**/*.js' \
+	| $(SED_ESCAPE_SPACES)
+
 GIT_LS_TT:=git ls-files -- \
     ':(top,glob)root/**/*.tt' \
     ':(top,glob,exclude)root/admin/**/*.tt' \
@@ -35,6 +48,9 @@ GIT_LS_STATJS:=git ls-files -- \
 POTFILES=$(shell $(GIT_LS_PERL))
 JSFILES=$(shell $(GIT_LS_JS))
 TT=$(shell $(GIT_LS_TT))
+ADMINPERL=$(shell $(GIT_LS_ADMINPERL))
+ADMINTT=$(shell $(GIT_LS_ADMINTT))
+ADMINJS=$(shell $(GIT_LS_ADMINJS))
 STATTT=$(shell $(GIT_LS_STATTT))
 STATJS=$(shell $(GIT_LS_STATJS))
 
@@ -142,3 +158,36 @@ check_quiet:
 	@for file in $(POFILES); do \
 		msgfmt -o /dev/null -c $$file;\
 	done
+
+test_source: test_no_admin
+
+test_no_admin: $(ADMINPERL) $(ADMINTT) $(ADMINJS) $(wildcard extract_pot_templates)
+	@echo "Testing that no admin files contain any translatable messages (MBS-13117)";
+	@count=0; \
+	for file in $(ADMINPERL); do \
+		pot=`xgettext --from-code utf-8 --keyword=__ --keyword=l --keyword=lp:1,2c --keyword=N_lp:1,2c --keyword=N_l --keyword=ln:1,2 --keyword=N_ln:1,2 --keyword=__x --keyword=__nx:1,2 --keyword=__n:1,2 -Lperl -o - $$file`; \
+		if [ -n "$$pot" ]; then \
+			printf "$$pot" | grep '^#:'; \
+			count=`expr $$count + 1`; \
+		fi; \
+	done; \
+	for file in $(ADMINTT); do \
+		pot=`./extract_pot_templates $$file`; \
+		if [ -n "$$pot" ]; then \
+			printf "$$pot" | grep '^#:'; \
+			count=`expr $$count + 1`; \
+		fi; \
+	done; \
+	for file in $(ADMINJS); do \
+		pot=`../script/xgettext.js $$file`; \
+		if [ -n "$$pot" ]; then \
+			printf "$$pot" | grep '^#:'; \
+			count=`expr $$count + 1`; \
+		fi; \
+	done; \
+	if [ $$count -gt 0 ]; then \
+		echo "Error: Found $$count admin files wrongly containing translatable messages"; \
+		exit 1; \
+	else \
+		echo "OK"; \
+	fi
