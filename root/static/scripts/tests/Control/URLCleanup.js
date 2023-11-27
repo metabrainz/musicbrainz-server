@@ -1460,6 +1460,17 @@ limited_link_type_combinations: [
             expected_clean_url: 'https://music.bugs.co.kr/album/20488834',
   },
   {
+                     input_url: 'https://music.bugs.co.kr/mv/618959',
+             input_entity_type: 'release',
+       input_relationship_type: 'streamingpaid',
+    expected_relationship_type: ['downloadpurchase', 'streamingpaid'],
+limited_link_type_combinations: [
+                                  ['downloadpurchase', 'streamingpaid'],
+                                  'streamingpaid',
+                                ],
+            expected_clean_url: 'https://music.bugs.co.kr/mv/618959',
+  },
+  {
                      input_url: 'https://music.bugs.co.kr/artist/80276288?wl_ref=M_Search_01_01',
              input_entity_type: 'artist',
     expected_relationship_type: ['downloadpurchase', 'streamingpaid'],
@@ -2506,6 +2517,16 @@ limited_link_type_combinations: [
             expected_clean_url: 'https://www.genie.co.kr/detail/albumInfo?axnm=83634218',
   },
   {
+                     input_url: 'https://www.genie.co.kr/detail/mediaInfo?xvnm=241683',
+             input_entity_type: 'release',
+    expected_relationship_type: ['downloadpurchase', 'streamingpaid'],
+limited_link_type_combinations: [
+                                   ['downloadpurchase', 'streamingpaid'],
+                                   'streamingpaid',
+                                ],
+            expected_clean_url: 'https://www.genie.co.kr/detail/mediaInfo?xvnm=241683',
+  },
+  {
                      input_url: 'https://www.genie.co.kr/detail/artistInfo?xxnm=80441335#',
              input_entity_type: 'artist',
     expected_relationship_type: ['downloadpurchase', 'streamingpaid'],
@@ -2526,6 +2547,16 @@ limited_link_type_combinations: [
             expected_clean_url: 'https://www.genie.co.kr/detail/artistInfo?xxnm=80441335',
   },
   {
+                     input_url: 'https://genie.co.kr/detail/artistAlbum?xxnm=81599561',
+             input_entity_type: 'artist',
+    expected_relationship_type: ['downloadpurchase', 'streamingpaid'],
+limited_link_type_combinations: [
+                                  ['downloadpurchase', 'streamingpaid'],
+                                  'streamingpaid',
+                                ],
+            expected_clean_url: 'https://genie.co.kr/detail/artistInfo?xxnm=81599561',
+  },
+  {
                      input_url: 'https://www.genie.co.kr/search/searchMain?query=Dreamcatcher',
              input_entity_type: 'artist',
        input_relationship_type: 'streamingpaid',
@@ -2536,6 +2567,16 @@ limited_link_type_combinations: [
                                   target: 'url',
                                 },
        only_valid_entity_types: [],
+  },
+  {
+                     input_url: 'https://mw.genie.co.kr/detail/mediaInfo?xvnm=241437',
+             input_entity_type: 'recording',
+    expected_relationship_type: ['downloadpurchase', 'streamingpaid'],
+limited_link_type_combinations: [
+                                   ['downloadpurchase', 'streamingpaid'],
+                                   'streamingpaid',
+                                ],
+            expected_clean_url: 'https://www.genie.co.kr/detail/mediaInfo?xvnm=241437',
   },
   // Genius
   {
@@ -3044,6 +3085,13 @@ limited_link_type_combinations: [
              input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'https://www.jazzmusicarchives.com/artist/peppino-d%E2%80%99agostino',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://www.jazzmusicarchives.com/artist/alice-coltrane/?ac=coltrane',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.jazzmusicarchives.com/artist/alice-coltrane',
        only_valid_entity_types: ['artist'],
   },
   {
@@ -3627,6 +3675,16 @@ limited_link_type_combinations: [
             expected_clean_url: 'https://www.melon.com/album/detail.htm?albumId=11074452',
   },
   {
+                     input_url: 'https://www.melon.com/video/detail2.htm?mvId=50264014&menuId=26020101',
+             input_entity_type: 'release',
+    expected_relationship_type: ['downloadpurchase', 'streamingpaid'],
+limited_link_type_combinations: [
+                                  ['downloadpurchase', 'streamingpaid'],
+                                  'streamingpaid',
+                                ],
+            expected_clean_url: 'https://www.melon.com/video/detail2.htm?mvId=50264014',
+  },
+  {
                      input_url: 'https://www.melon.com/artist/timeline.htm?artistId=1284664#params[listType]=C',
              input_entity_type: 'artist',
     expected_relationship_type: ['downloadpurchase', 'streamingpaid'],
@@ -3657,6 +3715,16 @@ limited_link_type_combinations: [
                                   target: 'url',
                                 },
        only_valid_entity_types: [],
+  },
+  {
+                     input_url: 'https://m2.melon.com/video/detail.htm?mvId=50264300',
+             input_entity_type: 'recording',
+    expected_relationship_type: ['downloadpurchase', 'streamingpaid'],
+limited_link_type_combinations: [
+                                  ['downloadpurchase', 'streamingpaid'],
+                                  'streamingpaid',
+                                ],
+            expected_clean_url: 'https://www.melon.com/video/detail2.htm?mvId=50264300',
   },
   // (The) Metal Archives
   {
@@ -3706,6 +3774,28 @@ limited_link_type_combinations: [
              input_entity_type: 'release_group',
     expected_relationship_type: 'review',
             expected_clean_url: 'https://www.metal-archives.com/reviews/Myrkwid/Part_I/36375',
+       only_valid_entity_types: ['release_group'],
+  },
+  // Metal Music Archives
+  {
+                     input_url: 'http://metalmusicarchives.com/artist/metallica#music-reviews',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.metalmusicarchives.com/artist/metallica',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://www.metalmusicarchives.com/artist/sunn-o/?ac=sunn',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.metalmusicarchives.com/artist/sunn-o',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://www.metalmusicarchives.com/album/sunn-o/lxndxn-subcamden-underworld-halloween-2003(live)#specialists-reviews',
+             input_entity_type: 'release_group',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.metalmusicarchives.com/album/sunn-o/lxndxn-subcamden-underworld-halloween-2003(live)',
        only_valid_entity_types: ['release_group'],
   },
   // Migu Music
@@ -5135,6 +5225,13 @@ limited_link_type_combinations: [
              input_entity_type: 'release',
     expected_relationship_type: 'streamingfree',
             expected_clean_url: 'https://open.spotify.com/album/0tabKG66W34Ms0SsovkP6Q',
+       only_valid_entity_types: ['release'],
+  },
+  {
+                     input_url: 'https://open.spotify.com/prerelease/1Kqdup6HEqeP3hHXDELQHl',
+             input_entity_type: 'release',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://open.spotify.com/prerelease/1Kqdup6HEqeP3hHXDELQHl',
        only_valid_entity_types: ['release'],
   },
   {

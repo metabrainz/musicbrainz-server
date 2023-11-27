@@ -520,12 +520,7 @@ GetOptions(
 my $DB = Databases->get($databaseName);
 # Register a new database connection as the system user, but to the MB
 # database
-my $SYSTEM = Databases->get('SYSTEM');
-my $SYSMB  = $SYSTEM->meta->clone_object(
-    $SYSTEM,
-    database => $DB->database
-);
-Databases->register_database('SYSMB', $SYSMB);
+my $SYSMB = Databases->get('SYSTEM_' . $databaseName);
 
 if ($fInstallExtension)
 {

@@ -340,6 +340,22 @@ sub _swap_artist_credits {
         $old_credit_id
     );
 
+    $self->c->sql->do(<<~'SQL', $new_credit_id, $old_credit_id);
+        UPDATE unreferenced_row_log l
+           SET row_id = $1
+          FROM artist_credit ac
+         WHERE ac.id = $1
+           AND ac.ref_count = 0
+           AND l.table_name = 'artist_credit'
+           AND l.row_id = $2
+        SQL
+
+    $self->c->sql->do(<<~'SQL', $old_credit_id);
+        DELETE FROM unreferenced_row_log
+              WHERE table_name = 'artist_credit'
+                AND row_id = ?
+        SQL
+
     $self->_delete_from_cache($old_credit_id);
 }
 

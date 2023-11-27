@@ -91,7 +91,19 @@ sub run {
                         $id,
                     );
 
-                    if ($ref_count == 0) {
+                    if (!defined $ref_count) {
+                        # The row was deleted by some other means.
+                        # This may be normal; for artist_credit, we do delete
+                        # rows ourselves in `_swap_artist_credits`, at least.
+                        #
+                        # Since there's nothing to remove, we can safely
+                        # skip it. Log a message in case the info is useful
+                        # for debugging purposes later.
+                        log_info {
+                            sprintf "Did not find id=%s in $table_name, skipping.",
+                            $id,
+                        };
+                    } elsif ($ref_count == 0) {
                         log_info {
                             sprintf "Will remove id=%s from $table_name.",
                             $id,

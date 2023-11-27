@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-10-14 18:27+0000\n"
+"PO-Revision-Date: 2023-11-20 17:27+0000\n"
 "Last-Translator: \"Vac31.\" <gateway_31@protonmail.com>\n"
 "Language-Team: Lithuanian <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/lt/>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
 "11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
 "1 : n % 1 != 0 ? 2: 3);\n"
-"X-Generator: Weblate 5.0.2\n"
+"X-Generator: Weblate 5.1\n"
 
 #: DB:link_attribute_type/description:1355
 msgid "A performance-centered, usually one to three year postgraduate program."
@@ -32,10 +32,10 @@ msgid ""
 "Facebook pages, and accounts on Twitter, Instagram and Flickr."
 msgstr ""
 "Socialinio tinklo puslapis − tai nuosavas leidyklos puslapis<a "
-"href=\"https://en.wikipedia.org/wiki/Social_networking_service\"> "
-"socialiniame tinkle</a>, kuriame turinį gali skelbti tik su leidykla susiję "
-"asmenys. Pavyzdžiai – Facebook puslapiai, paskyros Twitter, Instagram ir "
-"Flickr."
+"href=\"https://en.wikipedia.org/wiki/"
+"Social_networking_service\">socialiniame tinkle</a>, kuriame turinį gali "
+"skelbti tik su leidykla susiję asmenys. Pavyzdžiai: Facebook puslapiai, "
+"paskyros Twitter, Instagram ir Flickr."
 
 #: DB:link_type/description:784
 msgid ""
@@ -46,7 +46,7 @@ msgid ""
 msgstr ""
 "Socialinio tinklo puslapis − tai serijos puslapis <a href=\"https://en."
 "wikipedia.org/wiki/Social_networking_service\">socialiniame tinkle</a>, "
-"kuriame turinį gali skelbti tik su serija susiję žmonės. Pavyzdžiai – "
+"kuriame turinį gali skelbti tik su serija susiję žmonės. Pavyzdžiai: "
 "Facebook puslapiai, paskyros Twitter, Instagram ir Flickr."
 
 #: DB:link_type/description:429
@@ -58,8 +58,8 @@ msgid ""
 msgstr ""
 "Socialinio tinklo puslapis − tai vietos puslapis <a href=\"https://en."
 "wikipedia.org/wiki/Social_networking_service\">socialiniame tinkle</a>, "
-"kuriame turinį gali skelbti tik su vieta susiję žmonės. Pavyzdžiui – "
-"Facebook puslapiai, paskyros Twitter, Instagram ir Flickr."
+"kuriame turinį gali skelbti tik su vieta susiję žmonės. Pavyzdžiai: Facebook "
+"puslapiai, paskyros Twitter, Instagram ir Flickr."
 
 #: DB:link_type/description:192
 msgid ""
@@ -71,6 +71,13 @@ msgid ""
 "post. Examples include Facebook pages and profiles, Last.fm users and "
 "accounts on Twitter, Instagram and Flickr."
 msgstr ""
+"Socialinio tinklo puslapis – tai atlikėjo profilio puslapis <a "
+"href=\"https://en.wikipedia.org/wiki/Social_networking_service\" "
+"target=\"_blank\">socialiniame tinkle</a>, kuriame turinį gali skelbti tik "
+"jie (arba jų vadovybė). Kiti žmonės gali susikurti savo profilius ir "
+"bendrauti su atlikėju, pavyzdžiui, pridėti juos į draugus arba komentuoti "
+"tai, ką jie skelbia. Pavyzdžiai: Facebook puslapiai ir profiliai, Last.fm "
+"naudotojai ir paskyros Twitter, Instagram ir Flickr."
 
 #: DB:link_type/description:783
 msgid ""
@@ -82,7 +89,7 @@ msgid ""
 msgstr ""
 "Socialinio tinklo puslapis − tai renginio puslapis <a href=\"https://en."
 "wikipedia.org/wiki/Social_networking_service\">socialiniame tinkle</a>, "
-"kuriame turinį gali skelbti tik su renginiu susiję žmonės. Pavyzdžiai – "
+"kuriame turinį gali skelbti tik su renginiu susiję žmonės. Pavyzdžiai: "
 "Facebook puslapiai, paskyros Twitter, Instagram ir Flickr."
 
 #: DB:link_type/link_phrase:77 DB:link_type/reverse_link_phrase:77
@@ -833,6 +840,8 @@ msgid ""
 "Links a release to the area it was mastered in. Use only when the place is "
 "unknown!"
 msgstr ""
+"Susieja leidinį su teritorija, kurioje jis buvo masterizuotas. Naudoti tik "
+"tada, kai vieta nežinoma!"
 
 #: DB:link_type/description:757
 msgid ""
@@ -1346,17 +1355,17 @@ msgstr ""
 "Šis požymis nurodo satyrinę, ironišką ar kitaip humoristinę versiją. "
 "Parodijų dainų žodžiai dažniausiai būna pakeisti."
 
-#: DB:link_attribute_type/description:517
-msgid ""
-"This attribute indicates a version with the lyrics in a different language "
-"than the original."
-msgstr ""
-"Šis požymis nurodo versiją su dainų žodžiais kita kalba nei originalo kalba."
-
 #: DB:link_attribute_type/description:525
 msgid ""
 "This attribute indicates that an artist was an original member of a group "
 "artist."
+msgstr ""
+
+#: DB:link_attribute_type/description:517
+msgid ""
+"This attribute indicates that lyrics have been translated, literally or "
+"freely, from the original language. This does not apply if an entirely new "
+"set of lyrics have been set to an existing melody."
 msgstr ""
 
 #: DB:link_attribute_type/description:582
@@ -1718,6 +1727,16 @@ msgid ""
 "or band on this release."
 msgstr ""
 
+#: DB:link_type/description:1228
+#, fuzzy
+#| msgid ""
+#| "This indicates that a person or agency did the art direction for the "
+#| "recording."
+msgid ""
+"This indicates an organization (often a radio station) broadcast the given "
+"recording."
+msgstr "Tai nurodo, kad įrašo meno vadovavimą kūrė asmuo arba agentūra."
+
 #: DB:link_type/description:891
 msgid ""
 "This indicates that (most commonly) a festival commissioned the work. This "
@@ -1893,7 +1912,7 @@ msgid ""
 "\"concertmaster\" (principal violin) for instruments."
 msgstr ""
 
-#: DB:link_type/description:998 DB:link_type/description:999
+#: DB:link_type/description:999 DB:link_type/description:998
 msgid ""
 "This indicates that the label performed a role not covered by other "
 "relationship types."
@@ -3497,6 +3516,7 @@ msgstr ""
 #: DB:link_type/description:199
 msgid "This relationship type is used to link an artist to their blog."
 msgstr ""
+"Šis santykių tipas naudojamas atlikėjui susieti su jo (-s) tinklaraščiu."
 
 #: DB:link_type/description:175
 msgid ""
@@ -3904,7 +3924,7 @@ msgstr ""
 #: DB:link_type/link_phrase:89 DB:link_type/link_phrase:789
 #: DB:link_type/reverse_link_phrase:279
 msgid "Wikipedia"
-msgstr ""
+msgstr "Vikipedija"
 
 #: DB:link_type/link_phrase:279 DB:link_type/reverse_link_phrase:179
 #: DB:link_type/reverse_link_phrase:595 DB:link_type/reverse_link_phrase:355
@@ -4202,6 +4222,15 @@ msgstr ""
 
 #: DB:link_type/link_phrase:929
 msgid "booklet editor for"
+msgstr ""
+
+#: DB:link_type/link_phrase:1228 DB:link_type/name:1228
+#: DB:link_type/long_link_phrase:1228
+msgid "broadcast"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:1228
+msgid "broadcast by"
 msgstr ""
 
 #: DB:link_type/link_phrase:66 DB:link_type/link_phrase:205
@@ -5109,7 +5138,7 @@ msgid "has a logo at"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:129 DB:link_type/long_link_phrase:25
-#: DB:link_type/long_link_phrase:998 DB:link_type/long_link_phrase:999
+#: DB:link_type/long_link_phrase:999 DB:link_type/long_link_phrase:998
 msgid "has a miscellaneous role on"
 msgstr ""
 
@@ -5966,7 +5995,7 @@ msgstr ""
 
 #: DB:link_type/reverse_link_phrase:704
 msgid "mastering engineers"
-msgstr ""
+msgstr "masteringo inžinieriai"
 
 #: DB:link_attribute_type/name:1136
 msgid "master’s degree"
@@ -6037,19 +6066,19 @@ msgid "minor"
 msgstr ""
 
 #: DB:link_type/name:162 DB:link_type/name:129 DB:link_type/name:25
-#: DB:link_type/name:998 DB:link_type/name:999
+#: DB:link_type/name:999 DB:link_type/name:998
 msgid "misc"
 msgstr ""
 
 #: DB:link_type/link_phrase:162 DB:link_type/link_phrase:129
-#: DB:link_type/link_phrase:25 DB:link_type/link_phrase:998
-#: DB:link_type/link_phrase:999
+#: DB:link_type/link_phrase:25 DB:link_type/link_phrase:999
+#: DB:link_type/link_phrase:998
 msgid "miscellaneous roles"
 msgstr "įvairūs vaidmenys"
 
 #: DB:link_type/reverse_link_phrase:162 DB:link_type/reverse_link_phrase:129
-#: DB:link_type/reverse_link_phrase:25 DB:link_type/reverse_link_phrase:998
-#: DB:link_type/reverse_link_phrase:999
+#: DB:link_type/reverse_link_phrase:25 DB:link_type/reverse_link_phrase:999
+#: DB:link_type/reverse_link_phrase:998
 msgid "miscellaneous support"
 msgstr "įvairi pagalba"
 
@@ -8714,6 +8743,13 @@ msgstr ""
 #: DB:link_type/link_phrase:107
 msgid "{vocal:%|vocals} support for"
 msgstr ""
+
+#~ msgid ""
+#~ "This attribute indicates a version with the lyrics in a different "
+#~ "language than the original."
+#~ msgstr ""
+#~ "Šis požymis nurodo versiją su dainų žodžiais kita kalba nei originalo "
+#~ "kalba."
 
 #~ msgid ""
 #~ "A social network page is an artist's own profile page on a <a "

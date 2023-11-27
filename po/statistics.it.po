@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-11-08 05:27+0000\n"
+"PO-Revision-Date: 2023-11-15 01:27+0000\n"
 "Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
 "metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -669,7 +669,7 @@ msgstr "Kuno Woudt assunto come sviluppatore a tempo pieno"
 
 #: DB:statistics.statistic_event/title:2007-04-01
 msgid "Labels/data quality"
-msgstr "Etichette/Qualità dati"
+msgstr "Etichette/Qualità dei dati"
 
 #: DB:statistics.statistic_event/title:2007-11-07
 msgid "Last.fm"
@@ -1077,7 +1077,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/description:2007-04-01
 msgid "Support for Labels and data quality are released."
-msgstr "Rilascio del supporto per etichette e qualità dati."
+msgstr "Rilascio del supporto per le etichette e per la qualità dei dati."
 
 #: DB:statistics.statistic_event/title:2015-06-29
 msgid "Tag up/downvoting"
@@ -1897,7 +1897,7 @@ msgstr "senza un genere impostato:"
 
 #: ../root/statistics/Index.js:372
 msgid "Releases, Data Quality, and Disc IDs"
-msgstr "Pubblicazioni, qualità dati e ID disco"
+msgstr "Pubblicazioni, qualità dei dati e ID disco"
 
 #: ../root/statistics/Index.js:385
 msgid "by various artists:"
@@ -1937,27 +1937,27 @@ msgstr "Nessuna copertina frontale:"
 
 #: ../root/statistics/Index.js:472
 msgid "Data Quality"
-msgstr "Qualità dati"
+msgstr "Qualità dei dati"
 
 #: ../root/statistics/Index.js:481 ../root/statistics/stats.js:569
 msgid "High Data Quality"
-msgstr "Qualità dati alta"
+msgstr "Qualità dei dati alta"
 
 #: ../root/statistics/Index.js:487
 msgid "Default Data Quality"
-msgstr "Qualità dati default"
+msgstr "Qualità dei dati predefinita"
 
 #: ../root/statistics/Index.js:494 ../root/statistics/stats.js:579
 msgid "Normal Data Quality"
-msgstr "Qualità dati normale"
+msgstr "Qualità dei dati normale"
 
 #: ../root/statistics/Index.js:501 ../root/statistics/stats.js:584
 msgid "Unknown Data Quality"
-msgstr "Qualità dati sconosciuta"
+msgstr "Qualità dei dati sconosciuta"
 
 #: ../root/statistics/Index.js:509 ../root/statistics/stats.js:574
 msgid "Low Data Quality"
-msgstr "Qualità dati bassa"
+msgstr "Qualità dei dati bassa"
 
 #: ../root/statistics/Index.js:530
 msgid "Releases with no disc IDs:"
@@ -2386,7 +2386,7 @@ msgstr "Confezioni delle pubblicazioni"
 
 #: ../root/statistics/stats.js:37
 msgid "Release Data Quality"
-msgstr "Qualità dati della pubblicazione"
+msgstr "Qualità dei dati della pubblicazione"
 
 #: ../root/statistics/stats.js:38
 msgid "Release Scripts"
@@ -2758,7 +2758,7 @@ msgstr "Luoghi senza un tipo impostato"
 
 #: ../root/statistics/stats.js:564
 msgid "Default (Normal + Unknown) Data Quality"
-msgstr "Qualità dati di default (normale + sconosciuta)"
+msgstr "Qualità dei dati predefinita (normale + sconosciuta)"
 
 #: ../root/statistics/stats.js:589
 msgid "Entities with ratings"

@@ -1,13 +1,17 @@
+# Early6431 <h9i1o36x@anonaddy.me>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2023-11-18 02:27+0000\n"
+"Last-Translator: Early6431 <h9i1o36x@anonaddy.me>\n"
+"Language-Team: Spanish (Latin America) <https://translations.metabrainz.org/"
+"projects/musicbrainz/instrument-descriptions/es_419/>\n"
 "Language: es_419\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.1\n"
 
 #. name:rebab 
 #: DB:instrument/description:239
@@ -34,6 +38,29 @@ msgid ""
 "the medieval European pear-shaped fiddle see <a href=\"/instrument/3f7302e4-"
 "f10f-4905-8d71-ef61141da383\">rebec</a>."
 msgstr ""
+"\"Rebab\" (y otras variantes ortográficas) es el nombre principal para estos "
+"3 tipos de familias de instrumentos de cuerda pulsada/frotada: <br /> <ul> "
+"<li>Grande, cuello corto en forma de barco de tipo \"sarinda\", aquí el "
+"rebab kabuli</li> <li>Pequeño violín de púa de cuello largo de tipo "
+"\"huqyin\", aquí el rebab indonesio</li> <li>varios tamaños, longitud de "
+"cuello variable, con forma de pera de tipo \"Lira de Creta\", aquí los "
+"laúdes de arco propiamente dichos</li> </ul> <br /> <br /> Debido a los "
+"cruces entre los nombres estos son confundidos el uno con el otro en la "
+"mayoría de las fuentes. Curiosamente, esta confusión por el cruce se "
+"extiende a instrumentos llamados de forma similar o separada pero también "
+"relacionada, por ejemplo el <a href=\"/instrument/0d766870-3021-47ce-"
+"bd51-78d2d2484e1b\">Ghijak</a> (un pincho de violín) y el <a href=\"/"
+"instrument/d50ba107-4930-4e0b-8b3f-ffbea4a1ade1\">Ghaychak</a> (uno en forma "
+"de barco).<br /> Se considera, por el momento, desconocido el como, si es "
+"que de alguna forma, estos 3 subtipos están relacionados.<br /> <br /> Para "
+"el violín de púa usado en el gamelán, véase el <a href=\"/"
+"instrument/3dbbb5ff-103b-4260-8cf6-679a73a7c552\">rebab indonesio</a>.<br /> "
+"Para el instrumento afgano pulsado con forma de barco también conocido como "
+"el kabuli rabab, véase el <a href=\"/instrument/7e42e637-c7b4-422c-ad56-"
+"f7fafbd961bb\">rubab</a>.<br /> Para el laúd indio medieval pulsado véase el "
+"<a href=\"/instrument/9869ff82-9ba5-41a7-b2b2-e19f4e4a1083\">Seni rebab</a>."
+"<br /> Para el violín europeo medieval con forma de pera véase el <a href=\"/"
+"instrument/3f7302e4-f10f-4905-8d71-ef61141da383\">rebec</a>."
 
 #. name:chitra veena 
 #: DB:instrument/description:744
@@ -47,11 +74,20 @@ msgid ""
 "veena</a>, chitra veena is to the <a href=\"/instrument/41761936-5dbc-433f-"
 "b558-a7ef14fe9b08\">Saraswati veena</a>."
 msgstr ""
+"Laúd de varas sin trastes de la India meridional del siglo XIII o antes "
+"usado en la música carnática. Cuerpo hueco hecho a partir de árbol de yaca "
+"con un resonador secundario hecho de calabaza ahuecada, tiene 6 cuerdas "
+"principales, 3 bordones y 11-12 cuerdas simpáticas con un bloque deslizante "
+"de madera dura para variar el tono. Al igual que la <a href=\"/instrument/"
+"b4d38ac1-7f12-437c-a61a-be2796ffc559\">vichitra vina</a> del norte de la "
+"India es a la <a href=\"/instrument/aea9661c-cbda-4bf3-a61d-"
+"d78697472f29\">rudra vina</a>, la chitra vina es a la <a href=\"/"
+"instrument/41761936-5dbc-433f-b558-a7ef14fe9b08\">saraswati vina</a>."
 
 #. name:kös 
 #: DB:instrument/description:739
 msgid "A Turkish drum used in the traditional Ottoman military bands"
-msgstr ""
+msgstr "Un tambor turco usado en las bandas militares otomanas tradicionales"
 
 #. name:tef 
 #: DB:instrument/description:531
@@ -59,6 +95,8 @@ msgid ""
 "A Turkish version of tambourine / daf, made from animal skin and played with "
 "the fingers."
 msgstr ""
+"Una versión turca de la pandereta / daf, hecha a partir de piel de animal y "
+"tocada con los dedos."
 
 #. name:barrel organ 
 #: DB:instrument/description:490
@@ -66,11 +104,15 @@ msgid ""
 "A barrel organ is a mechanical musical instrument typically operated by a "
 "person turning a crank which turns a barrel which has music encoded onto it."
 msgstr ""
+"Un organillo es un instrumento musical mecánico generalmente operado por una "
+"persona dando vuelta a una biela la cual gira un cilindro que tiene música "
+"codificada en él."
 
 #. name:bass synthesizer 
 #: DB:instrument/description:456
 msgid "A bass synthesizer is used to create sounds in the bass range."
 msgstr ""
+"Un sintetizador de bajo es usado para crear sonidos en la gama de graves."
 
 #. name:bell tree 
 #: DB:instrument/description:479
@@ -78,16 +120,18 @@ msgid ""
 "A bell tree is a percussion instrument, consisting of vertically nested "
 "inverted metal bowls."
 msgstr ""
+"Un árbol de campanas es un instrumento de percusión, el cual consiste de "
+"cuencos de metal invertidos anidados en forma vertical."
 
 #. name:chamber organ 
 #: DB:instrument/description:471
 msgid "A chamber organ is a small pipe organ."
-msgstr ""
+msgstr "Un órgano de cámara es un pequeño órgano de tubos."
 
 #. name:cuatro 
 #: DB:instrument/description:439
 msgid "A class of South-American guitars"
-msgstr ""
+msgstr "Una clase de guitarras sudamericanas"
 
 #. name:saduk 
 #: DB:instrument/description:804
@@ -95,11 +139,13 @@ msgid ""
 "A cross between a saxophone and a duduk invented and played by Alexander "
 "Berne"
 msgstr ""
+"Una mezcla entre un saxofón y un duduk inventado y tocado por Alexander Berne"
 
 #. name:cylindrical drum 
 #: DB:instrument/description:658
 msgid "A cylindrical drum is a straight-sided and generally two-headed drum."
 msgstr ""
+"Un tambor cilíndrico es un tambor de lados rectos y generalmente bicéfalo."
 
 #. name:dolceola 
 #: DB:instrument/description:750
@@ -107,11 +153,14 @@ msgid ""
 "A dolceola is a musical instrument resembling a miniature piano, but which "
 "is in fact a zither with a keyboard."
 msgstr ""
+"Una dolceola es un instrumento musical que se asemeja a un piano en "
+"miniatura, pero que en realidad es una cítara con un teclado."
 
 #. name:gong bass drum 
 #: DB:instrument/description:639
 msgid "A gong bass drum is a large single drumhead which resembles a gong."
 msgstr ""
+"Un bombo gong es un gran parche de tambor único el cual se asemeja a un gong."
 
 #. name:guitar synthesizer 
 #: DB:instrument/description:763
@@ -119,6 +168,8 @@ msgid ""
 "A guitar synthesizer is any one of a number of systems that allow a guitar "
 "player to play synthesizer sound."
 msgstr ""
+"Un sintetizador de guitarra es cualquiera de un número de sistemas que "
+"permiten a un guitarrista tocar el sonido de un sintetizador."
 
 #. name:hi-hat 
 #: DB:instrument/description:454
@@ -126,6 +177,8 @@ msgid ""
 "A hi-hat is a typical part of a drum kit, consisting of a pair of cymbals "
 "mounted on a stand."
 msgstr ""
+"Un charles, o \"hi hat\", es una parte típica de una batería, la cual "
+"consiste en un par de platillos montados en un soporte."
 
 #. name:poi āwhiowhio 
 #: DB:instrument/description:792
@@ -133,12 +186,15 @@ msgid ""
 "A hollowed out gourd (hue) with one to three holes, swung around creating a "
 "whistling, chattering sound that resembled birds"
 msgstr ""
+"Una calabaza ahuecada (matiz) con uno a tres agujeros, que al oscilar crea "
+"un sonido silbante y parloteante que se asemeja a los pájaros"
 
 #. name:17-string bass koto 
 #: DB:instrument/description:516
 msgid ""
 "A koto with 17 rather than 13 strings, sometimes described as a bass koto."
 msgstr ""
+"Un koto con 17 cuerdas en lugar de 13, a veces descrito como un koto bajo."
 
 #. name:daire 
 #: DB:instrument/description:532
@@ -146,6 +202,8 @@ msgid ""
 "A larger version of tef, used to indicate the rhythmic structures (usul) in "
 "makam music."
 msgstr ""
+"Una versión más grande del tef, usado para indicar las estructuras rítmicas "
+"(usul) en la música makam."
 
 #. name:laser harp 
 #: DB:instrument/description:515
@@ -154,6 +212,9 @@ msgid ""
 "beams to be blocked, in analogy with the plucking of the strings of a harp, "
 "in order to produce sounds."
 msgstr ""
+"Un arpa láser en un instrumento musical electrónico que consiste en varios "
+"rayos láser por bloquearse, en analogía con la pulsación de las cuerdas de "
+"un arpa, para así producir sonidos."
 
 #. name:đàn tứ dây 
 #: DB:instrument/description:233
@@ -161,6 +222,8 @@ msgid ""
 "A latter-day construction in the form of a four-stringed, square-bodied bass "
 "guitar"
 msgstr ""
+"Una construcción de los últimos tiempos en la forma de un bajo de cuatro "
+"cuerdas y cuerpo cuadrado"
 
 #. name:pōrutu 
 #: DB:instrument/description:787
@@ -169,11 +232,14 @@ msgid ""
 "length and often made of bone and hardwoods such as porokaiwhiria, mataī and "
 "tutu."
 msgstr ""
+"Una versión más larga del kōauau, su longitud oscila entre 30-40 cm y 60 cm "
+"y a menudo es hecho a partir de hueso y maderas duras como la porokaiwhiria, "
+"el mataī y el tutu."
 
 #. name:ngɔni 
 #: DB:instrument/description:729
 msgid "A lute from West Africa, made of wood or gourd."
-msgstr ""
+msgstr "Un laúd de África Occidental, hecho de madera o calabaza."
 
 #. name:mandolute 
 #: DB:instrument/description:766
@@ -1369,6 +1435,13 @@ msgstr ""
 msgid ""
 "Generally consists of two completely equal or somewhat unsymmetrical sticks, "
 "plates, shells or similar hit together."
+msgstr ""
+
+#. name:cobla 
+#: DB:instrument/description:1185
+msgid ""
+"Generally used to accompany the traditional Catalan circle folk dance the "
+"sardana."
 msgstr ""
 
 #. name:German harp 

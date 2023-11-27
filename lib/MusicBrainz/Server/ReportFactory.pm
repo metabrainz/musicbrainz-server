@@ -62,7 +62,7 @@ my @all = qw(
     LabelsDisambiguationSameName
     LimitedEditors
     LinksWithMultipleEntities
-    LowQualityReleases
+    LowDataQualityReleases
     MediumsWithOrderInTitle
     MediumsWithSequenceIssues
     MislinkedPseudoReleases
@@ -93,6 +93,7 @@ my @all = qw(
     ReleasesWithEmptyMediums
     ReleasesWithMailOrderRelationships
     ReleasesWithNoMediums
+    ReleasesWithoutCAA
     ReleasesWithoutVACredit
     ReleasesWithoutVALink
     ReleasesWithUnlikelyLanguageScript
@@ -162,7 +163,7 @@ use MusicBrainz::Server::Report::ISWCsWithManyWorks;
 use MusicBrainz::Server::Report::LabelsDisambiguationSameName;
 use MusicBrainz::Server::Report::LimitedEditors;
 use MusicBrainz::Server::Report::LinksWithMultipleEntities;
-use MusicBrainz::Server::Report::LowQualityReleases;
+use MusicBrainz::Server::Report::LowDataQualityReleases;
 use MusicBrainz::Server::Report::MediumsWithOrderInTitle;
 use MusicBrainz::Server::Report::MediumsWithSequenceIssues;
 use MusicBrainz::Server::Report::MislinkedPseudoReleases;
@@ -194,6 +195,7 @@ use MusicBrainz::Server::Report::ReleasesWithDownloadRelationships;
 use MusicBrainz::Server::Report::ReleasesWithEmptyMediums;
 use MusicBrainz::Server::Report::ReleasesWithMailOrderRelationships;
 use MusicBrainz::Server::Report::ReleasesWithNoMediums;
+use MusicBrainz::Server::Report::ReleasesWithoutCAA;
 use MusicBrainz::Server::Report::ReleasesWithoutVACredit;
 use MusicBrainz::Server::Report::ReleasesWithoutVALink;
 use MusicBrainz::Server::Report::ReleasesWithUnlikelyLanguageScript;

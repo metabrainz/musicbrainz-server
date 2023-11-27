@@ -370,7 +370,7 @@ export function defineInstrumentUsageColumn(
         instrumentCreditsAndRelTypes={props.instrumentCreditsAndRelTypes}
       />
     ),
-    Header: l('Relationship Types'),
+    Header: l('Relationship types'),
     id: 'instrument-usage',
   };
 }

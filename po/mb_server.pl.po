@@ -26,7 +26,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-08 17:34+0000\n"
+"POT-Creation-Date: 2023-11-21 20:02+0000\n"
 "PO-Revision-Date: 2023-08-18 12:57+0000\n"
 "Last-Translator: Anonymous <noreply@weblate.org>\n"
 "Language-Team: Polish <https://translations.metabrainz.org/projects/"
@@ -78,8 +78,8 @@ msgstr ""
 #: ../root/cdtoc/AttachCDTocConfirmation.js:69
 #: ../root/edit/details/AddMedium.js:167 ../root/edit/details/EditMedium.js:314
 #: ../root/edit/details/EditMedium.js:318
-#: ../root/edit/details/EditMedium.js:519
-#: ../root/edit/details/EditMedium.js:577
+#: ../root/edit/details/EditMedium.js:517
+#: ../root/edit/details/EditMedium.js:575
 #: ../root/edit/details/historic/AddRelease.js:88
 #: ../root/recording/RecordingIndex.js:53
 #: ../root/static/scripts/release/components/MediumTable.js:83
@@ -912,7 +912,7 @@ msgid "Disc ID “{discid}”"
 msgstr ""
 
 #: ../root/release/discids.tt:1 ../root/release/discids.tt:3
-#: ../root/components/EntityTabs.js:104 ../root/report/ReportsIndex.js:624
+#: ../root/components/EntityTabs.js:104 ../root/report/ReportsIndex.js:628
 msgid "Disc IDs"
 msgstr "Disc IDy"
 
@@ -1207,7 +1207,7 @@ msgstr ""
 #: ../root/release/edit/tracklist.tt:305
 #: ../root/release_group/set_cover_art.tt:46
 #: ../root/components/list/ReleaseList.js:98
-#: ../root/edit/details/AddMedium.js:136 ../root/edit/details/EditMedium.js:485
+#: ../root/edit/details/AddMedium.js:136 ../root/edit/details/EditMedium.js:483
 #: ../root/edit/details/EditReleaseLabel.js:131
 #: ../root/edit/details/MergeReleases.js:237
 #: ../root/edit/details/historic/AddRelease.js:126
@@ -1477,7 +1477,7 @@ msgstr "Numer ISO"
 msgid "ISRC"
 msgstr ""
 
-#: ../root/recording/edit_form.tt:45 ../root/report/ReportsIndex.js:606
+#: ../root/recording/edit_form.tt:45 ../root/report/ReportsIndex.js:610
 #: ../root/search/components/RecordingResults.js:144
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:721
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:411
@@ -1496,7 +1496,7 @@ msgstr ""
 msgid "ISWC"
 msgstr ""
 
-#: ../root/work/edit_form.tt:16 ../root/report/ReportsIndex.js:615
+#: ../root/work/edit_form.tt:16 ../root/report/ReportsIndex.js:619
 #: ../root/static/scripts/common/components/IswcList.js:44
 msgid "ISWCs"
 msgstr ""
@@ -1794,7 +1794,7 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Edit/Medium.pm:8
 #: ../root/cdtoc/AttachCDTocConfirmation.js:65
 #: ../root/cdtoc/SetTracklistDurations.js:56
-#: ../root/edit/details/AddDiscId.js:27 ../root/edit/details/EditMedium.js:460
+#: ../root/edit/details/AddDiscId.js:27 ../root/edit/details/EditMedium.js:459
 #: ../root/edit/details/RemoveDiscId.js:25
 #: ../root/edit/details/RemoveMedium.js:71
 #: ../root/edit/details/SetTrackLengths.js:40
@@ -1875,7 +1875,7 @@ msgstr ""
 #: ../root/edit/details/EditArtist.js:65 ../root/edit/details/EditEvent.js:40
 #: ../root/edit/details/EditGenre.js:37
 #: ../root/edit/details/EditInstrument.js:44
-#: ../root/edit/details/EditLabel.js:49 ../root/edit/details/EditMedium.js:477
+#: ../root/edit/details/EditLabel.js:49 ../root/edit/details/EditMedium.js:475
 #: ../root/edit/details/EditPlace.js:45
 #: ../root/edit/details/EditRecording.js:46
 #: ../root/edit/details/EditRelationshipAttribute.js:51
@@ -1956,7 +1956,7 @@ msgctxt "vote"
 msgid "No"
 msgstr "Nie"
 
-#: ../root/components/forms.tt:369
+#: ../root/components/forms.tt:378
 msgid "No description available."
 msgstr ""
 
@@ -2136,7 +2136,7 @@ msgstr ""
 
 #: ../root/cdtoc/list.tt:6 ../root/release/add_cover_art.tt:125
 #: ../root/release/reorder_cover_art.tt:10
-#: ../root/edit/details/AddMedium.js:123 ../root/edit/details/EditMedium.js:469
+#: ../root/edit/details/AddMedium.js:123 ../root/edit/details/EditMedium.js:467
 msgid "Position"
 msgstr ""
 
@@ -2210,10 +2210,10 @@ msgstr ""
 #: ../root/artist_credit/ArtistCreditLayout.js:28
 #: ../root/components/EntityTabs.js:30
 #: ../root/components/TagEntitiesList.js:190
-#: ../root/edit/details/EditMedium.js:514
+#: ../root/edit/details/EditMedium.js:512
 #: ../root/instrument/InstrumentRecordings.js:37
 #: ../root/instrument/InstrumentRecordings.js:39
-#: ../root/report/ReportsIndex.js:472
+#: ../root/report/ReportsIndex.js:476
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:29
 #: ../root/tag/TagLayout.js:27 ../root/work/WorkIndex.js:55
 msgid "Recordings"
@@ -2532,7 +2532,7 @@ msgid ""
 "to."
 msgstr ""
 
-#: ../root/components/forms.tt:360
+#: ../root/components/forms.tt:369
 msgid ""
 "Select any type from the list to see its description. If the work doesn’t "
 "seem to match any type, just leave this blank."
@@ -2742,6 +2742,12 @@ msgstr ""
 
 #: ../root/layout.tt:71 ../root/layout/index.js:245
 msgid "The server is temporarily in read-only mode for database maintenance."
+msgstr ""
+
+#: ../root/components/forms.tt:359
+msgid ""
+"The sort name is an artist name variant used when sorting alphabetically. "
+"For usage information check the {sort_name_doc|sort name guidelines}."
 msgstr ""
 
 #: ../root/release/edit/tracklist.tt:124
@@ -3064,7 +3070,7 @@ msgstr ""
 
 #: ../root/cdstub/index.tt:7 ../root/release/edit/layout.tt:16
 #: ../root/cdstub/CDStubIndex.js:41 ../root/edit/details/AddMedium.js:144
-#: ../root/edit/details/EditMedium.js:497
+#: ../root/edit/details/EditMedium.js:495
 #: ../root/edit/details/RemoveMedium.js:81
 #: ../root/static/scripts/release-editor/fields.js:768
 #: ../root/static/scripts/release/components/TracklistAndCredits.js:359
@@ -3145,8 +3151,8 @@ msgstr "Twitter"
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:875
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:547
 #: ../root/static/scripts/common/components/FilterForm.js:83
-#: ../root/static/scripts/edit/externalLinks.js:1207
-#: ../root/static/scripts/edit/externalLinks.js:1529
+#: ../root/static/scripts/edit/externalLinks.js:1210
+#: ../root/static/scripts/edit/externalLinks.js:1532
 #: ../root/utility/tableColumns.js:654 ../root/utility/tableColumns.js:659
 msgid "Type"
 msgstr "Typ"
@@ -3856,6 +3862,11 @@ msgstr "{variable}:"
 
 #: ../root/release/edit/layout.tt:61
 msgid "« Previous"
+msgstr ""
+
+#: ../root/components/forms.tt:362
+msgid ""
+"“Last Name, First Name” and “Group, The” are common examples of sort names."
 msgstr ""
 
 #: ../root/components/paginator.tt:19 ../root/components/paginator.tt:31
@@ -5425,20 +5436,20 @@ msgstr ""
 msgid "This alias already exists."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Form/Application.pm:47
+#: ../lib/MusicBrainz/Server/Form/Application.pm:48
 msgid "Redirect URL must be entered for web applications."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Form/Application.pm:51
+#: ../lib/MusicBrainz/Server/Form/Application.pm:52
 msgid ""
-"Redirect URL scheme must be either <code>http</code> or <code>https</code> "
-"for web applications."
+"Redirect URL scheme must be either “http” or “https” for web applications."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Form/Application.pm:58
+#: ../lib/MusicBrainz/Server/Form/Application.pm:59
+#, perl-brace-format
 msgid ""
-"Redirect URL scheme must be a reverse-DNS string, as in <code>org.example."
-"app://auth</code>, for installed applications."
+"Redirect URL scheme must be a reverse-DNS string, as in “{example_url}”, for "
+"installed applications."
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/Area.pm:88
@@ -5589,11 +5600,13 @@ msgstr ""
 msgid "This is not a valid time."
 msgstr "To nie jest prawidłowy czas."
 
-#: ../lib/MusicBrainz/Server/Form/Field/URL.pm:27
-msgid "Enter a valid URL, such as “http://google.com/”"
+#: ../lib/MusicBrainz/Server/Form/Field/URL.pm:28
+#: ../root/static/scripts/edit/externalLinks.js:711
+#, perl-brace-format
+msgid "Please enter a valid URL, such as “{example_url}”."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Form/Field/URL.pm:30
+#: ../lib/MusicBrainz/Server/Form/Field/URL.pm:33
 msgid "URL protocol must be HTTP, HTTPS or FTP"
 msgstr "Protokół URL musi być protokołem HTTP, HTTPS lub FTP"
 
@@ -6979,7 +6992,7 @@ msgstr ""
 
 #: ../root/area/AreaPlaces.js:36 ../root/area/AreaPlaces.js:37
 #: ../root/components/EntityTabs.js:29
-#: ../root/components/TagEntitiesList.js:178 ../root/report/ReportsIndex.js:542
+#: ../root/components/TagEntitiesList.js:178 ../root/report/ReportsIndex.js:546
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:27
 #: ../root/tag/TagLayout.js:30
 msgid "Places"
@@ -7067,7 +7080,7 @@ msgstr ""
 
 #: ../root/area/AreaWorks.js:25 ../root/artist/ArtistWorks.js:41
 #: ../root/artist/ArtistWorks.js:42 ../root/components/EntityTabs.js:33
-#: ../root/components/TagEntitiesList.js:198 ../root/report/ReportsIndex.js:568
+#: ../root/components/TagEntitiesList.js:198 ../root/report/ReportsIndex.js:572
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:39
 #: ../root/tag/TagLayout.js:28
 msgid "Works"
@@ -7964,7 +7977,7 @@ msgstr "Tagi"
 
 #: ../root/components/EntityTabs.js:140 ../root/entity/Ratings.js:46
 #: ../root/entity/Ratings.js:90
-#: ../root/static/scripts/edit/externalLinks.js:732
+#: ../root/static/scripts/edit/externalLinks.js:735
 msgid "Reviews"
 msgstr ""
 
@@ -8103,7 +8116,7 @@ msgstr[3] ""
 
 #: ../root/components/TagEntitiesList.js:194
 #: ../root/edit/details/AddSeries.js:25 ../root/edit/details/EditSeries.js:34
-#: ../root/report/ReportsIndex.js:559
+#: ../root/report/ReportsIndex.js:563
 #: ../root/report/components/SeriesList.js:47
 msgid "Series"
 msgstr "Serie"
@@ -8898,7 +8911,7 @@ msgctxt "label ended boolean"
 msgid "Ended"
 msgstr ""
 
-#: ../root/edit/details/AddMedium.js:162 ../root/edit/details/EditMedium.js:572
+#: ../root/edit/details/AddMedium.js:162 ../root/edit/details/EditMedium.js:570
 #: ../root/static/scripts/artist/components/ArtistCreditRenamer.js:217
 msgid "Artist Credits"
 msgstr ""
@@ -9064,23 +9077,23 @@ msgstr ""
 msgid "New Tracklist"
 msgstr ""
 
-#: ../root/edit/details/EditMedium.js:505
+#: ../root/edit/details/EditMedium.js:503
 msgid "This edit changes which tracks are data tracks."
 msgstr ""
 
-#: ../root/edit/details/EditMedium.js:520
+#: ../root/edit/details/EditMedium.js:518
 msgid "Old recording"
 msgstr ""
 
-#: ../root/edit/details/EditMedium.js:521
+#: ../root/edit/details/EditMedium.js:519
 msgid "New recording"
 msgstr ""
 
-#: ../root/edit/details/EditMedium.js:578
+#: ../root/edit/details/EditMedium.js:576
 msgid "Old Artist"
 msgstr ""
 
-#: ../root/edit/details/EditMedium.js:579
+#: ../root/edit/details/EditMedium.js:577
 msgid "New Artist"
 msgstr ""
 
@@ -10353,7 +10366,6 @@ msgstr ""
 #: ../root/relationship/RelationshipsHeader.js:17
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:111
 #: ../root/relationship/linktype/RelationshipTypesList.js:60
-#: ../root/utility/tableColumns.js:373
 msgid "Relationship Types"
 msgstr "Typy Relacji"
 
@@ -11493,7 +11505,7 @@ msgid "{entity0}-{entity1}"
 msgstr "{entity0}-{entity1}"
 
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:126
-#: ../root/static/scripts/edit/externalLinks.js:774
+#: ../root/static/scripts/edit/externalLinks.js:777
 #: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:72
 msgid "This relationship type is deprecated and should not be used."
 msgstr "Ten typ relacji jest przestarzały i nie powinien być używany."
@@ -11887,7 +11899,7 @@ msgid ""
 "or with a buggy tool."
 msgstr ""
 
-#: ../root/report/CDTocDubiousLength.js:32 ../root/report/ReportsIndex.js:628
+#: ../root/report/CDTocDubiousLength.js:32 ../root/report/ReportsIndex.js:632
 msgid "Disc IDs with dubious duration"
 msgstr ""
 
@@ -11901,7 +11913,7 @@ msgid ""
 "clashes are clear mistakes."
 msgstr ""
 
-#: ../root/report/CDTocNotApplied.js:34 ../root/report/ReportsIndex.js:632
+#: ../root/report/CDTocNotApplied.js:34 ../root/report/ReportsIndex.js:636
 msgid "Disc IDs attached but not applied"
 msgstr ""
 
@@ -12001,7 +12013,7 @@ msgid ""
 msgstr ""
 
 #: ../root/report/DeprecatedRelationshipPlaces.js:35
-#: ../root/report/ReportsIndex.js:546
+#: ../root/report/ReportsIndex.js:550
 msgid "Places with deprecated relationships"
 msgstr "Miejsca z przestarzałymi relacjami"
 
@@ -12012,7 +12024,7 @@ msgid ""
 msgstr ""
 
 #: ../root/report/DeprecatedRelationshipRecordings.js:35
-#: ../root/report/ReportsIndex.js:492
+#: ../root/report/ReportsIndex.js:496
 msgid "Recordings with deprecated relationships"
 msgstr "Nagrania z przestarzałymi relacjami"
 
@@ -12034,7 +12046,7 @@ msgid ""
 msgstr ""
 
 #: ../root/report/DeprecatedRelationshipReleases.js:35
-#: ../root/report/ReportsIndex.js:397
+#: ../root/report/ReportsIndex.js:401
 msgid "Releases with deprecated relationships"
 msgstr "Wydania z przestarzałymi relacjami"
 
@@ -12045,7 +12057,7 @@ msgid ""
 msgstr ""
 
 #: ../root/report/DeprecatedRelationshipUrls.js:35
-#: ../root/report/ReportsIndex.js:593
+#: ../root/report/ReportsIndex.js:597
 msgid "URLs with deprecated relationships"
 msgstr "Adresy URL z przestarzałymi relacjami"
 
@@ -12056,7 +12068,7 @@ msgid ""
 msgstr ""
 
 #: ../root/report/DeprecatedRelationshipWorks.js:35
-#: ../root/report/ReportsIndex.js:576
+#: ../root/report/ReportsIndex.js:580
 msgid "Works with deprecated relationships"
 msgstr "Prace z przestarzałymi relacjami"
 
@@ -12177,7 +12189,7 @@ msgid ""
 msgstr ""
 
 #: ../root/report/DuplicateRelationshipsRecordings.js:30
-#: ../root/report/ReportsIndex.js:484
+#: ../root/report/ReportsIndex.js:488
 msgid "Recordings with possible duplicate relationships"
 msgstr "Nagrania z możliwymi duplikatami relacji"
 
@@ -12199,7 +12211,7 @@ msgid ""
 msgstr ""
 
 #: ../root/report/DuplicateRelationshipsReleases.js:30
-#: ../root/report/ReportsIndex.js:381
+#: ../root/report/ReportsIndex.js:385
 msgid "Releases with possible duplicate relationships"
 msgstr "Wydania z możliwymi duplikatami relacji"
 
@@ -12211,7 +12223,7 @@ msgid ""
 msgstr ""
 
 #: ../root/report/DuplicateRelationshipsWorks.js:32
-#: ../root/report/ReportsIndex.js:572
+#: ../root/report/ReportsIndex.js:576
 msgid "Works with possible duplicate relationships"
 msgstr "Prace z możliwymi duplikatami relacji"
 
@@ -12256,7 +12268,7 @@ msgid ""
 "to know more."
 msgstr ""
 
-#: ../root/report/FeaturingRecordings.js:39 ../root/report/ReportsIndex.js:480
+#: ../root/report/FeaturingRecordings.js:39 ../root/report/ReportsIndex.js:484
 msgid "Recordings with titles containing featuring artists"
 msgstr "Nagrania z tytułami zawierającymi gościnny udział wykonawców"
 
@@ -12328,7 +12340,7 @@ msgid ""
 msgstr ""
 
 #: ../root/report/IsrcsWithManyRecordings.js:51
-#: ../root/report/ReportsIndex.js:610
+#: ../root/report/ReportsIndex.js:614
 msgid "ISRCs with multiple recordings"
 msgstr ""
 
@@ -12343,7 +12355,7 @@ msgid ""
 "the works are the same, this usually means they should be merged."
 msgstr ""
 
-#: ../root/report/IswcsWithManyWorks.js:42 ../root/report/ReportsIndex.js:619
+#: ../root/report/IswcsWithManyWorks.js:42 ../root/report/ReportsIndex.js:623
 msgid "ISWCs with multiple works"
 msgstr ""
 
@@ -12383,7 +12395,7 @@ msgid ""
 msgstr ""
 
 #: ../root/report/LinksWithMultipleEntities.js:53
-#: ../root/report/ReportsIndex.js:597
+#: ../root/report/ReportsIndex.js:601
 msgid "URLs linked to multiple entities"
 msgstr ""
 
@@ -12398,18 +12410,19 @@ msgstr ""
 msgid "Usage count"
 msgstr ""
 
-#: ../root/report/LowQualityReleases.js:26
+#: ../root/report/LowDataQualityReleases.js:26
 msgid ""
-"This report shows releases that have been marked as low quality. If you have "
-"some time, you can review them and try to improve the data as much as "
-"possible before changing their quality back to Normal (or even to High, if "
-"you add all the possible data!). If a release has already been improved but "
-"the quality wasn’t changed accordingly, just enter a data quality change to "
-"remove it from this report."
+"This report shows releases that have been marked as having low data quality. "
+"If you have some time, you can review them and try to improve the data as "
+"much as possible before changing their data quality back to Normal (or even "
+"to High, if you add all the possible data!). If a release has already been "
+"improved but the data quality wasn’t changed accordingly, just enter a data "
+"quality change to remove it from this report."
 msgstr ""
 
-#: ../root/report/LowQualityReleases.js:36 ../root/report/ReportsIndex.js:467
-msgid "Releases marked as low quality"
+#: ../root/report/LowDataQualityReleases.js:38
+#: ../root/report/ReportsIndex.js:471
+msgid "Releases marked as having low data quality"
 msgstr ""
 
 #: ../root/report/MediumsWithOrderInTitle.js:24
@@ -12421,7 +12434,7 @@ msgid ""
 msgstr ""
 
 #: ../root/report/MediumsWithOrderInTitle.js:33
-#: ../root/report/ReportsIndex.js:365
+#: ../root/report/ReportsIndex.js:369
 msgid "Releases with mediums named after their position"
 msgstr ""
 
@@ -12506,7 +12519,7 @@ msgid ""
 msgstr ""
 
 #: ../root/report/NonBootlegsOnBootlegLabels.js:32
-#: ../root/report/ReportsIndex.js:456
+#: ../root/report/ReportsIndex.js:460
 msgid "Releases on bootleg labels not set to bootleg"
 msgstr ""
 
@@ -12529,7 +12542,7 @@ msgid "This report lists places without coordinates."
 msgstr ""
 
 #: ../root/report/PlacesWithoutCoordinates.js:33
-#: ../root/report/ReportsIndex.js:554
+#: ../root/report/ReportsIndex.js:558
 msgid "Places without coordinates"
 msgstr ""
 
@@ -12565,7 +12578,7 @@ msgid ""
 msgstr ""
 
 #: ../root/report/RecordingTrackDifferentName.js:44
-#: ../root/report/ReportsIndex.js:528
+#: ../root/report/ReportsIndex.js:532
 msgid "Recordings with a different name than their only track"
 msgstr ""
 
@@ -12595,7 +12608,7 @@ msgid ""
 msgstr ""
 
 #: ../root/report/RecordingsWithEarliestReleaseRelationships.js:34
-#: ../root/report/ReportsIndex.js:476
+#: ../root/report/ReportsIndex.js:480
 msgid "Recordings with earliest release relationships"
 msgstr ""
 
@@ -12616,7 +12629,7 @@ msgid ""
 msgstr ""
 
 #: ../root/report/RecordingsWithVaryingTrackLengths.js:30
-#: ../root/report/ReportsIndex.js:488
+#: ../root/report/ReportsIndex.js:492
 msgid "Recordings with varying track times"
 msgstr "Nagrania z różną długością ścieżek"
 
@@ -12627,7 +12640,7 @@ msgid ""
 msgstr ""
 
 #: ../root/report/RecordingsWithoutVaCredit.js:30
-#: ../root/report/ReportsIndex.js:501
+#: ../root/report/ReportsIndex.js:505
 msgid "Recordings not credited to \"Various Artists\" but linked to VA"
 msgstr ""
 
@@ -12638,7 +12651,7 @@ msgid ""
 msgstr ""
 
 #: ../root/report/RecordingsWithoutVaLink.js:30
-#: ../root/report/ReportsIndex.js:508
+#: ../root/report/ReportsIndex.js:512
 msgid "Recordings credited to \"Various Artists\" but not linked to VA"
 msgstr ""
 
@@ -12672,7 +12685,7 @@ msgid ""
 msgstr ""
 
 #: ../root/report/ReleaseLabelSameArtist.js:50
-#: ../root/report/ReportsIndex.js:438
+#: ../root/report/ReportsIndex.js:442
 msgid "Releases where artist name and label name are the same"
 msgstr ""
 
@@ -12684,7 +12697,7 @@ msgid ""
 msgstr ""
 
 #: ../root/report/ReleaseRgDifferentName.js:44
-#: ../root/report/ReportsIndex.js:444
+#: ../root/report/ReportsIndex.js:448
 msgid "Releases with a different name than their release group"
 msgstr ""
 
@@ -12708,7 +12721,7 @@ msgid ""
 msgstr ""
 
 #: ../root/report/ReleasesConflictingDiscIds.js:31
-#: ../root/report/ReportsIndex.js:429
+#: ../root/report/ReportsIndex.js:433
 msgid "Releases with conflicting disc IDs"
 msgstr ""
 
@@ -12724,7 +12737,7 @@ msgid ""
 msgstr ""
 
 #: ../root/report/ReleasesMissingDiscIds.js:36
-#: ../root/report/ReportsIndex.js:425
+#: ../root/report/ReportsIndex.js:429
 msgid "Releases missing disc IDs"
 msgstr ""
 
@@ -12736,7 +12749,7 @@ msgid ""
 "merged."
 msgstr ""
 
-#: ../root/report/ReleasesSameBarcode.js:61 ../root/report/ReportsIndex.js:450
+#: ../root/report/ReleasesSameBarcode.js:61 ../root/report/ReportsIndex.js:454
 msgid "Releases with the same barcode in different release groups"
 msgstr ""
 
@@ -12787,7 +12800,7 @@ msgid ""
 msgstr ""
 
 #: ../root/report/ReleasesWithDownloadRelationships.js:34
-#: ../root/report/ReportsIndex.js:389
+#: ../root/report/ReportsIndex.js:393
 msgid "Non-digital releases with digital relationships"
 msgstr ""
 
@@ -12798,7 +12811,7 @@ msgid ""
 msgstr ""
 
 #: ../root/report/ReleasesWithEmptyMediums.js:31
-#: ../root/report/ReportsIndex.js:409
+#: ../root/report/ReportsIndex.js:413
 msgid "Releases with empty mediums"
 msgstr ""
 
@@ -12811,7 +12824,7 @@ msgid ""
 msgstr ""
 
 #: ../root/report/ReleasesWithMailOrderRelationships.js:33
-#: ../root/report/ReportsIndex.js:393
+#: ../root/report/ReportsIndex.js:397
 msgid "Digital releases with mail order relationships"
 msgstr ""
 
@@ -12820,7 +12833,7 @@ msgid "This report shows releases without any mediums (no tracklist)."
 msgstr ""
 
 #: ../root/report/ReleasesWithNoMediums.js:29
-#: ../root/report/ReportsIndex.js:405
+#: ../root/report/ReportsIndex.js:409
 msgid "Releases with no mediums"
 msgstr "Wydania bez mediów"
 
@@ -12831,8 +12844,28 @@ msgid ""
 msgstr ""
 
 #: ../root/report/ReleasesWithUnlikelyLanguageScript.js:34
-#: ../root/report/ReportsIndex.js:373
+#: ../root/report/ReportsIndex.js:377
 msgid "Releases with unlikely language/script pairs"
+msgstr ""
+
+#: ../root/report/ReleasesWithoutCaa.js:24
+msgid ""
+"This report shows releases that have no cover art in the Cover Art Archive. "
+"Given that most releases have some form of cover art, the vast majority of "
+"releases in this report should have artwork {caa_how_to|uploaded to the "
+"Cover Art Archive}. Note that the cover art uploaded for a release must "
+"always exactly match the actual art for that specific release (for example, "
+"they should have the same barcode, format, etc.)."
+msgstr ""
+
+#: ../root/report/ReleasesWithoutCaa.js:35
+msgid ""
+"We strongly suggest restricting this report to entities in your "
+"subscriptions only for a more manageable list of results."
+msgstr ""
+
+#: ../root/report/ReleasesWithoutCaa.js:40 ../root/report/ReportsIndex.js:365
+msgid "Releases without any art in the Cover Art Archive"
 msgstr ""
 
 #: ../root/report/ReleasesWithoutVaCredit.js:24
@@ -12842,7 +12875,7 @@ msgid ""
 msgstr ""
 
 #: ../root/report/ReleasesWithoutVaCredit.js:30
-#: ../root/report/ReportsIndex.js:414
+#: ../root/report/ReportsIndex.js:418
 msgid "Releases not credited to \"Various Artists\" but linked to VA"
 msgstr ""
 
@@ -12853,7 +12886,7 @@ msgid ""
 msgstr ""
 
 #: ../root/report/ReleasesWithoutVaLink.js:30
-#: ../root/report/ReportsIndex.js:420
+#: ../root/report/ReportsIndex.js:424
 msgid "Releases credited to \"Various Artists\" but not linked to VA"
 msgstr ""
 
@@ -12963,67 +12996,67 @@ msgid ""
 "Translated/Transliterated Pseudo-Releases not linked to an original version"
 msgstr ""
 
-#: ../root/report/ReportsIndex.js:369
+#: ../root/report/ReportsIndex.js:373
 msgid "Releases with non-sequential mediums"
 msgstr ""
 
-#: ../root/report/ReportsIndex.js:377 ../root/report/TracksWithoutTimes.js:30
+#: ../root/report/ReportsIndex.js:381 ../root/report/TracksWithoutTimes.js:30
 msgid "Releases with unknown track times"
 msgstr "Wydania z nieznanym czasem ścieżek"
 
-#: ../root/report/ReportsIndex.js:385
+#: ../root/report/ReportsIndex.js:389
 #: ../root/report/SingleMediumReleasesWithMediumTitles.js:31
 msgid "Releases with a single medium that has a name"
 msgstr ""
 
-#: ../root/report/ReportsIndex.js:401
+#: ../root/report/ReportsIndex.js:405
 msgid "Releases with annotations"
 msgstr "Wydania z adnotacjami"
 
-#: ../root/report/ReportsIndex.js:433 ../root/report/ShouldNotHaveDiscIds.js:32
+#: ../root/report/ReportsIndex.js:437 ../root/report/ShouldNotHaveDiscIds.js:32
 msgid "Releases that have disc IDs, but shouldn’t"
 msgstr ""
 
-#: ../root/report/ReportsIndex.js:462
+#: ../root/report/ReportsIndex.js:466
 #: ../root/report/ShowNotesButNotBroadcast.js:37
 msgid "Non-broadcast releases with linked show notes"
 msgstr ""
 
-#: ../root/report/ReportsIndex.js:496
+#: ../root/report/ReportsIndex.js:500
 msgid "Recordings with annotations"
 msgstr "Nagrania z adnotacjami"
 
-#: ../root/report/ReportsIndex.js:533
+#: ../root/report/ReportsIndex.js:537
 msgid "Recordings with dates in the future"
 msgstr ""
 
-#: ../root/report/ReportsIndex.js:537
+#: ../root/report/ReportsIndex.js:541
 #: ../root/report/VideosInNonVideoMediums.js:40
 msgid "Video recordings in non-video mediums"
 msgstr ""
 
-#: ../root/report/ReportsIndex.js:550
+#: ../root/report/ReportsIndex.js:554
 msgid "Places with annotations"
 msgstr "Miejsca z adnotacjami"
 
-#: ../root/report/ReportsIndex.js:563
+#: ../root/report/ReportsIndex.js:567
 msgid "Series with annotations"
 msgstr "Serie z adnotacjami"
 
-#: ../root/report/ReportsIndex.js:580
+#: ../root/report/ReportsIndex.js:584
 msgid "Works with annotations"
 msgstr "Prace z adnotacjami"
 
-#: ../root/report/ReportsIndex.js:584 ../root/report/WorkSameTypeAsParent.js:35
+#: ../root/report/ReportsIndex.js:588 ../root/report/WorkSameTypeAsParent.js:35
 msgid "Works with the same type as their parent"
 msgstr ""
 
-#: ../root/report/ReportsIndex.js:589
+#: ../root/report/ReportsIndex.js:593
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:37
 msgid "URLs"
 msgstr "Adresy URL"
 
-#: ../root/report/ReportsIndex.js:601
+#: ../root/report/ReportsIndex.js:605
 #: ../root/report/WikidataLinksWithMultipleEntities.js:48
 msgid "Wikidata URLs linked to multiple entities"
 msgstr ""
@@ -14441,8 +14474,8 @@ msgstr ""
 
 #: ../root/static/scripts/edit/URLCleanup.js:658
 #: ../root/static/scripts/edit/URLCleanup.js:921
-#: ../root/static/scripts/edit/URLCleanup.js:4190
-#: ../root/static/scripts/edit/URLCleanup.js:5194
+#: ../root/static/scripts/edit/URLCleanup.js:4253
+#: ../root/static/scripts/edit/URLCleanup.js:5257
 msgid ""
 "This is a redirect link. Please follow {redirect_url|your link} and add the "
 "link it redirects to instead."
@@ -14497,154 +14530,154 @@ msgstr ""
 msgid "Please link to the main page for the label, not a specific product."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:2251
+#: ../root/static/scripts/edit/URLCleanup.js:2256
 msgid ""
 "Discogs “{master_url_pattern}” links group several releases, so this should "
 "be added to the release group instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:2929
+#: ../root/static/scripts/edit/URLCleanup.js:2948
 msgid ""
 "Only IMSLP “{category_url_pattern}” links are allowed for artists. Please "
 "link work pages to the specific work in question."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:2947
+#: ../root/static/scripts/edit/URLCleanup.js:2966
 msgid ""
 "IMSLP “{category_url_pattern}” links are only allowed for artists. Please "
 "link the specific work page to this work instead, if available."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:2992
+#: ../root/static/scripts/edit/URLCleanup.js:3011
 msgid ""
 "Instagram “{explore_url_pattern}” links are not allowed. Please link to a "
 "profile instead, if there is one."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:3020
+#: ../root/static/scripts/edit/URLCleanup.js:3039
 msgid ""
 "Please do not link directly to images, link to the appropriate Instagram "
 "profile page instead. If you want to link to a video, {url|add a standalone "
 "recording} for it instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:3045
+#: ../root/static/scripts/edit/URLCleanup.js:3064
 msgid "This is an internal Instagram page and should not be added."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:4087
+#: ../root/static/scripts/edit/URLCleanup.js:4150
 msgid ""
 "Musixmatch “{album_url_pattern}” pages are a bad match for MusicBrainz "
 "release groups, and linking to them is currently disallowed. Please consider "
 "adding Musixmatch links to the relevant artists and works instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:4711
+#: ../root/static/scripts/edit/URLCleanup.js:4774
 msgid "Only RYM music videos can be linked to recordings."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:4773
+#: ../root/static/scripts/edit/URLCleanup.js:4836
 msgid ""
 "This is a link to the old Resident Advisor domain. Please follow {ra_url|"
 "your link}, make sure the link it redirects to is still the correct one and, "
 "if so, add that link instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:5350
+#: ../root/static/scripts/edit/URLCleanup.js:5413
 msgid "Please link to Threads profiles, not threads."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:5737
+#: ../root/static/scripts/edit/URLCleanup.js:5800
 msgid "This is not a profile, but a Twitter documentation page."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:5751
+#: ../root/static/scripts/edit/URLCleanup.js:5814
 msgid "Please link to Twitter profiles, not tweets."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:5769
+#: ../root/static/scripts/edit/URLCleanup.js:5832
 msgid "This site does not allow direct links to their images."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:5975
+#: ../root/static/scripts/edit/URLCleanup.js:6038
 msgid ""
 "Please link to the “{allowed_url_pattern}” page rather than this "
 "“{current_url_pattern}” link."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6058
+#: ../root/static/scripts/edit/URLCleanup.js:6121
 msgid ""
 "There is an unencoded “?” or “#” character in this URL. Please check whether "
 "it is useless and should be removed, or whether it is an error and the URL "
 "is misencoded."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6078
+#: ../root/static/scripts/edit/URLCleanup.js:6141
 msgid ""
 "Please do not link directly to WhoSampled “{unwanted_url_pattern}” pages. "
 "Link to the appropriate WhoSampled artist, track or album page instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6099
+#: ../root/static/scripts/edit/URLCleanup.js:6162
 msgid "Please link WhoSampled “{album_url_pattern}” pages to release groups."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6117
+#: ../root/static/scripts/edit/URLCleanup.js:6180
 msgid "Please link WhoSampled artist pages to artists."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6129
+#: ../root/static/scripts/edit/URLCleanup.js:6192
 msgid "Please link WhoSampled track pages to recordings."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6196
+#: ../root/static/scripts/edit/URLCleanup.js:6259
 msgid ""
 "Links to specific sections of Wikipedia articles are not allowed. Please "
 "remove “{fragment}” if still appropriate. See the {url|guidelines}."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6221
+#: ../root/static/scripts/edit/URLCleanup.js:6284
 msgid ""
 "Links to Wikipedia user pages are not allowed. Please link only to actual "
 "Wikipedia articles."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6341
+#: ../root/static/scripts/edit/URLCleanup.js:6404
 msgid ""
 "This is a playlist link, which isn’t a video channel and is not guaranteed "
 "to be officially approved. Please link to the official channel for this "
 "entity, if it exists, instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6381
+#: ../root/static/scripts/edit/URLCleanup.js:6444
 msgid "Only video and playlist links are allowed on releases."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6413
+#: ../root/static/scripts/edit/URLCleanup.js:6476
 msgid ""
 "Wikipedia normally has no entries for specific releases, so adding Wikipedia "
 "links to a release is currently blocked. Please add this Wikipedia link to "
 "the release group instead, if appropriate."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6425
+#: ../root/static/scripts/edit/URLCleanup.js:6488
 msgid ""
 "Wikidata normally has no entries for specific releases, so adding Wikidata "
 "links to a release is currently blocked. Please add this Wikidata link to "
 "the release group instead, if appropriate."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6636
+#: ../root/static/scripts/edit/URLCleanup.js:6699
 msgid "Some relationship types are missing for this URL."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6653
-#: ../root/static/scripts/edit/externalLinks.js:1022
+#: ../root/static/scripts/edit/URLCleanup.js:6716
+#: ../root/static/scripts/edit/externalLinks.js:1025
 msgid "This relationship type combination is invalid."
 msgstr ""
 
 #: ../root/static/scripts/edit/check-duplicates.js:156
-#: ../root/static/scripts/edit/externalLinks.js:703
+#: ../root/static/scripts/edit/externalLinks.js:706
 #: ../root/static/scripts/release/components/EditWorkDialog.js:175
 msgid "Required field."
 msgstr "Wymagane pole."
@@ -14860,146 +14893,142 @@ msgstr ""
 
 #: ../root/static/scripts/edit/components/forms.js:104
 #: ../root/static/scripts/edit/confirmNavigationFallback.js:44
-#: ../root/static/scripts/release-editor/init.js:271
+#: ../root/static/scripts/release-editor/init.js:312
 msgid "All of your changes will be lost if you leave this page."
 msgstr "Wszystkie twoje zmiany zostaną utracone, jeśli opuścisz tę stronę."
 
-#: ../root/static/scripts/edit/externalLinks.js:708
-msgid "Please enter a valid URL, such as “{example_url}”."
-msgstr ""
-
-#: ../root/static/scripts/edit/externalLinks.js:715
+#: ../root/static/scripts/edit/externalLinks.js:718
 msgid ""
 "“{example_url}” is just an example. Please enter the actual link you want to "
 "add."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:723
+#: ../root/static/scripts/edit/externalLinks.js:726
 msgid ""
 "Links to MusicBrainz URLs are not allowed. Did you mean to paste something "
 "else?"
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:730
+#: ../root/static/scripts/edit/externalLinks.js:733
 msgid ""
 "Please don’t enter CritiqueBrainz links — reviews are automatically linked "
 "from the “{reviews_tab_name}” tab."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:738
+#: ../root/static/scripts/edit/externalLinks.js:741
 msgid ""
 "Links to this website are not allowed because it is known to host malware."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:744
+#: ../root/static/scripts/edit/externalLinks.js:747
 msgid ""
 "Please don’t enter bundled/shortened URLs, enter the destination URL(s) "
 "instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:750
+#: ../root/static/scripts/edit/externalLinks.js:753
 msgid ""
 "Please don’t enter Google AMP links, since they are effectively an extra "
 "redirect. Enter the destination URL instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:757
+#: ../root/static/scripts/edit/externalLinks.js:760
 msgid ""
 "Please don’t enter links to search results. If you’ve found any links "
 "through your search that seem useful, do enter those instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:764
+#: ../root/static/scripts/edit/externalLinks.js:767
 msgid "Please select a link type for the URL you’ve entered."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:784
+#: ../root/static/scripts/edit/externalLinks.js:787
 #: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:987
 #: ../root/static/scripts/relationship-editor/components/RelationshipEditor.js:526
 msgid "This relationship already exists."
 msgstr "Ta relacja już istnieje."
 
-#: ../root/static/scripts/edit/externalLinks.js:796
+#: ../root/static/scripts/edit/externalLinks.js:799
 #: ../root/static/scripts/relationship-editor/components/DialogSourceEntity.js:61
 msgid ""
 "This URL is not allowed for the selected link type, or is incorrectly "
 "formatted."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:801
+#: ../root/static/scripts/edit/externalLinks.js:804
 msgid "This URL is not allowed for the selected link type."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:807
+#: ../root/static/scripts/edit/externalLinks.js:810
 msgid "This URL is not allowed for areas."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:810
+#: ../root/static/scripts/edit/externalLinks.js:813
 msgid "This URL is not allowed for artists."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:813
+#: ../root/static/scripts/edit/externalLinks.js:816
 msgid "This URL is not allowed for events."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:816
+#: ../root/static/scripts/edit/externalLinks.js:819
 msgid "This URL is not allowed for instruments."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:819
+#: ../root/static/scripts/edit/externalLinks.js:822
 msgid "This URL is not allowed for labels."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:822
+#: ../root/static/scripts/edit/externalLinks.js:825
 msgid "This URL is not allowed for places."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:825
+#: ../root/static/scripts/edit/externalLinks.js:828
 msgid "This URL is not allowed for recordings."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:828
+#: ../root/static/scripts/edit/externalLinks.js:831
 msgid "This URL is not allowed for releases."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:831
+#: ../root/static/scripts/edit/externalLinks.js:834
 msgid "This URL is not allowed for release groups."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:835
+#: ../root/static/scripts/edit/externalLinks.js:838
 msgid "This URL is not allowed for series."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:838
+#: ../root/static/scripts/edit/externalLinks.js:841
 msgid "This URL is not allowed for works."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:1146
+#: ../root/static/scripts/edit/externalLinks.js:1149
 #: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:322
 msgid "{description} ({url|more documentation})"
 msgstr "{description} ({url|więcej dokumentacji})"
 
-#: ../root/static/scripts/edit/externalLinks.js:1195
+#: ../root/static/scripts/edit/externalLinks.js:1198
 msgid "Remove Relationship"
 msgstr "Usuń Relację"
 
-#: ../root/static/scripts/edit/externalLinks.js:1282
+#: ../root/static/scripts/edit/externalLinks.js:1285
 msgid "video"
 msgstr "wideo"
 
-#: ../root/static/scripts/edit/externalLinks.js:1413
+#: ../root/static/scripts/edit/externalLinks.js:1416
 msgid "Remove Link"
 msgstr "Usuń link"
 
-#: ../root/static/scripts/edit/externalLinks.js:1443
+#: ../root/static/scripts/edit/externalLinks.js:1446
 msgid "Add link"
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:1446
+#: ../root/static/scripts/edit/externalLinks.js:1449
 msgid "Add another link"
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:1555
+#: ../root/static/scripts/edit/externalLinks.js:1558
 msgid "Add another relationship"
 msgstr ""
 
@@ -15350,17 +15379,17 @@ msgstr ""
 msgid "You haven’t selected a label for “{name}”."
 msgstr ""
 
-#: ../root/static/scripts/release-editor/init.js:36
+#: ../root/static/scripts/release-editor/init.js:40
 msgid "Error loading release: {error}"
 msgstr "Błąd wczytywania wydania: {error}"
 
-#: ../root/static/scripts/release-editor/init.js:220
-#: ../root/static/scripts/release-editor/init.js:221
+#: ../root/static/scripts/release-editor/init.js:261
+#: ../root/static/scripts/release-editor/init.js:262
 msgid "Add Release"
 msgstr "Dodaj wydanie"
 
-#: ../root/static/scripts/release-editor/init.js:224
-#: ../root/static/scripts/release-editor/init.js:225
+#: ../root/static/scripts/release-editor/init.js:265
+#: ../root/static/scripts/release-editor/init.js:266
 msgid "Edit Release"
 msgstr "Edytuj wydanie"
 
@@ -16716,6 +16745,12 @@ msgstr ""
 #: ../root/utility/edit.js:90
 msgid "This edit was cancelled."
 msgstr ""
+
+#: ../root/utility/tableColumns.js:373
+#, fuzzy
+#| msgid "Relationship Types"
+msgid "Relationship types"
+msgstr "Typy Relacji"
 
 #: ../root/utility/tableColumns.js:773
 msgid "Subscribed"

@@ -1103,6 +1103,11 @@ msgctxt "Fifteenth century organ harpsichord hybrid"
 msgid "claviorganum"
 msgstr "弦管风琴"
 
+#: DB:instrument/name:1185
+msgctxt "Folk/classical Catalonian music ensemble"
+msgid "cobla"
+msgstr ""
+
 #: DB:instrument/name:414
 msgid "concert flute"
 msgstr "音乐会长笛"

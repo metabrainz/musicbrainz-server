@@ -28,8 +28,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
-"n%100>=11 && n%100<=14)? 2 : 3);\n"
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
 "X-Generator: Weblate 5.1\n"
 
 #: DB:link_attribute_type/description:1355
@@ -43,11 +43,12 @@ msgid ""
 "people involved with the label can post content to. Examples include "
 "Facebook pages, and accounts on Twitter, Instagram and Flickr."
 msgstr ""
-"Страница в социальной сети — это собственная страница лейбла в <a href="
-"\"https://ru.wikipedia.org/wiki/%D0%A1%D0%BE%D1%86%D0%B8%D0%B0%D0%BB%D1%8C%D0"
-"%BD%D0%B0%D1%8F_%D1%81%D0%B5%D1%82%D1%8C\">социальной сети</a>, на которой "
-"материалы могут быть опубликованы только людьми, связанными с лейблом. "
-"Например, страницы в Facebook, аккаунты в Twitter, Instagram и Flickr."
+"Страница в социальной сети — это собственная страница лейбла в <a "
+"href=\"https://ru.wikipedia.org/wiki/"
+"%D0%A1%D0%BE%D1%86%D0%B8%D0%B0%D0%BB%D1%8C%D0%BD%D0%B0%D1%8F_%D1%81%D0%B5%D1%82%D1%8C\">социальной "
+"сети</a>, на которой материалы могут быть опубликованы только людьми, "
+"связанными с лейблом. Например, страницы в Facebook, аккаунты в Twitter, "
+"Instagram и Flickr."
 
 #: DB:link_type/description:784
 msgid ""
@@ -57,10 +58,11 @@ msgid ""
 "Facebook pages, and accounts on Twitter, Instagram and Flickr."
 msgstr ""
 "Страница в социальной сети - это страница сериала в <a href=\"https://ru."
-"wikipedia.org/wiki/%D0%A1%D0%BE%D1%86%D0%B8%D0%B0%D0%BB%D1%8C%D0%BD%D0%B0%D1%"
-"8F_%D1%81%D0%B5%D1%82%D1%8C\">социальной сети</a>, на которой материалы "
-"могут быть опубликованы только людьми, связанными с сериалом. Например, "
-"страницы в Facebook, аккаунты в Twitter, Instagram и Flickr."
+"wikipedia.org/wiki/"
+"%D0%A1%D0%BE%D1%86%D0%B8%D0%B0%D0%BB%D1%8C%D0%BD%D0%B0%D1%8F_%D1%81%D0%B5%D1%82%D1%8C\">социальной "
+"сети</a>, на которой материалы могут быть опубликованы только людьми, "
+"связанными с сериалом. Например, страницы в Facebook, аккаунты в Twitter, "
+"Instagram и Flickr."
 
 #: DB:link_type/description:429
 msgid ""
@@ -69,11 +71,12 @@ msgid ""
 "people involved with the place can post content to. Examples include "
 "Facebook pages, and accounts on Twitter, Instagram and Flickr."
 msgstr ""
-"Страница в социальной сети — это собственная страница места в <a href=\"https"
-"://ru.wikipedia.org/wiki/%D0%A1%D0%BE%D1%86%D0%B8%D0%B0%D0%BB%D1%8C%D0%BD%D0%"
-"B0%D1%8F_%D1%81%D0%B5%D1%82%D1%8C\">социальной сети</a>, на которой "
-"материалы могут быть опубликованы только людьми, связанными с местом. "
-"Например, страницы в Facebook, аккаунты в Twitter, Instagram и Flickr."
+"Страница в социальной сети — это собственная страница места в <a "
+"href=\"https://ru.wikipedia.org/wiki/"
+"%D0%A1%D0%BE%D1%86%D0%B8%D0%B0%D0%BB%D1%8C%D0%BD%D0%B0%D1%8F_%D1%81%D0%B5%D1%82%D1%8C\">социальной "
+"сети</a>, на которой материалы могут быть опубликованы только людьми, "
+"связанными с местом. Например, страницы в Facebook, аккаунты в Twitter, "
+"Instagram и Flickr."
 
 #: DB:link_type/description:192
 msgid ""
@@ -1297,16 +1300,17 @@ msgid ""
 "humorous intent. Parodies in most cases have altered lyrics."
 msgstr ""
 
-#: DB:link_attribute_type/description:517
-msgid ""
-"This attribute indicates a version with the lyrics in a different language "
-"than the original."
-msgstr ""
-
 #: DB:link_attribute_type/description:525
 msgid ""
 "This attribute indicates that an artist was an original member of a group "
 "artist."
+msgstr ""
+
+#: DB:link_attribute_type/description:517
+msgid ""
+"This attribute indicates that lyrics have been translated, literally or "
+"freely, from the original language. This does not apply if an entirely new "
+"set of lyrics have been set to an existing melody."
 msgstr ""
 
 #: DB:link_attribute_type/description:582
@@ -1634,6 +1638,12 @@ msgid ""
 "or band on this release."
 msgstr ""
 
+#: DB:link_type/description:1228
+msgid ""
+"This indicates an organization (often a radio station) broadcast the given "
+"recording."
+msgstr ""
+
 #: DB:link_type/description:891
 msgid ""
 "This indicates that (most commonly) a festival commissioned the work. This "
@@ -1812,7 +1822,7 @@ msgid ""
 "\"concertmaster\" (principal violin) for instruments."
 msgstr ""
 
-#: DB:link_type/description:998 DB:link_type/description:999
+#: DB:link_type/description:999 DB:link_type/description:998
 msgid ""
 "This indicates that the label performed a role not covered by other "
 "relationship types."
@@ -4124,6 +4134,15 @@ msgstr ""
 msgid "booklet editor for"
 msgstr ""
 
+#: DB:link_type/link_phrase:1228 DB:link_type/name:1228
+#: DB:link_type/long_link_phrase:1228
+msgid "broadcast"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:1228
+msgid "broadcast by"
+msgstr ""
+
 #: DB:link_type/link_phrase:66 DB:link_type/link_phrase:205
 #: DB:link_type/name:205 DB:link_type/reverse_link_phrase:205
 #: DB:link_type/long_link_phrase:205
@@ -5029,7 +5048,7 @@ msgid "has a logo at"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:129 DB:link_type/long_link_phrase:25
-#: DB:link_type/long_link_phrase:998 DB:link_type/long_link_phrase:999
+#: DB:link_type/long_link_phrase:999 DB:link_type/long_link_phrase:998
 msgid "has a miscellaneous role on"
 msgstr ""
 
@@ -5957,19 +5976,19 @@ msgid "minor"
 msgstr ""
 
 #: DB:link_type/name:162 DB:link_type/name:129 DB:link_type/name:25
-#: DB:link_type/name:998 DB:link_type/name:999
+#: DB:link_type/name:999 DB:link_type/name:998
 msgid "misc"
 msgstr "misc"
 
 #: DB:link_type/link_phrase:162 DB:link_type/link_phrase:129
-#: DB:link_type/link_phrase:25 DB:link_type/link_phrase:998
-#: DB:link_type/link_phrase:999
+#: DB:link_type/link_phrase:25 DB:link_type/link_phrase:999
+#: DB:link_type/link_phrase:998
 msgid "miscellaneous roles"
 msgstr ""
 
 #: DB:link_type/reverse_link_phrase:162 DB:link_type/reverse_link_phrase:129
-#: DB:link_type/reverse_link_phrase:25 DB:link_type/reverse_link_phrase:998
-#: DB:link_type/reverse_link_phrase:999
+#: DB:link_type/reverse_link_phrase:25 DB:link_type/reverse_link_phrase:999
+#: DB:link_type/reverse_link_phrase:998
 msgid "miscellaneous support"
 msgstr ""
 

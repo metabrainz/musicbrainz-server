@@ -121,6 +121,7 @@ my %URL_SPECIALIZATIONS = (
     'Maniadb'             => qr{^https?://(?:www\.)?maniadb\.com/}i,
     'Melon'               => qr{^https?://www\.melon\.com/}i,
     'MetalArchives'       => qr{^https?://(?:www\.)?metal-archives\.com/}i,
+    'MetalMusicArchives'  => qr{^https?://(?:www\.)?metalmusicarchives\.com/}i,
     'MiguMusic'           => qr{^https?://music\.migu\.cn/}i,
     'Mixcloud'            => qr{^https?://(?:www\.)?mixcloud\.com/}i,
     'MobyGames'           => qr{^https?://(?:www\.)?mobygames\.com/}i,
@@ -314,6 +315,7 @@ sub update
 
 sub delete {
     my ($self, @ids) = @_;
+    $self->remove_gid_redirects(@ids);
     $self->sql->do('DELETE FROM url WHERE id = any(?)', \@ids);
 }
 
