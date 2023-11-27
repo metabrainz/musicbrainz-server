@@ -88,6 +88,8 @@
                predicate_editor_flag(field.field_name, field);
              CASE 'MusicBrainz::Server::EditSearch::Predicate::AppliedEdits';
                predicate_int(field.field_name, field);
+             CASE 'MusicBrainz::Server::EditSearch::Predicate::URL';
+               predicate_url(field.field_name, field);
            END %]
         [% IF field.does('MusicBrainz::Server::EditSearch::Predicate::Role::User');
              predicate_user(field.field_name, field);
@@ -410,6 +412,15 @@
   </select>
 [% END %]
 
+[% MACRO predicate_url(field, field_contents) WRAPPER wfield predicate="url" %]
+  [% operators([ [ '=', l('is') ]
+                 [ '!=', l('is not') ] ], field_contents) %]
+
+  <span class="arg">
+    <input type="text" size="75" class="name" name="args.0" value="[% html_escape(field_contents.argument(0)) %]" />
+  </span>
+[% END %]
+
 [% BLOCK needs_login %]
   [%~ l('You must be logged in to use this option.') %]
   [% request_login() -%]
@@ -441,6 +452,7 @@
                    [ 'release', l('Release') ],
                    [ 'release_group', l('Release Group') ],
                    [ 'series', lp('Series', 'singular') ],
+                   [ 'url', l('URL') ],
                    [ 'work', l('Work') ],
                    [ 'editor', l('Editor'), {requires_login => 1} ],
                    [ 'voter', l('Voter'), {requires_login => 1} ]
@@ -480,6 +492,8 @@
     [% FOR linked_type=[ 'area', 'event', 'genre', 'instrument', 'place', 'recording', 'release_group', 'release', 'work' ];
          predicate_link(linked_type);
        END %]
+
+    [% predicate_url('url') %]
 
     [% predicate_user('editor') %]
     [% predicate_voter('voter') %]

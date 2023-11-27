@@ -26,6 +26,7 @@ use MusicBrainz::Server::EditSearch::Predicate::RelationshipType;
 use MusicBrainz::Server::EditSearch::Predicate::EditNoteAuthor;
 use MusicBrainz::Server::EditSearch::Predicate::EditNoteContent;
 use MusicBrainz::Server::EditSearch::Predicate::EditSubscription;
+use MusicBrainz::Server::EditSearch::Predicate::URL;
 use MusicBrainz::Server::Log qw( log_warning );
 use Try::Tiny;
 
