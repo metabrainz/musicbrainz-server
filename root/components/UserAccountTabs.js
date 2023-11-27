@@ -105,13 +105,22 @@ function buildTabs(
     ));
   }
 
-  if ((showAdmin || viewingOwnProfile) && !user.deleted) {
-    tabs.push(buildTab(
-      page,
-      l('Delete Account'),
-      '/admin/user/delete/' + userName,
-      'delete',
-    ));
+  if (!user.deleted) {
+    if (viewingOwnProfile) {
+      tabs.push(buildTab(
+        page,
+        l('Delete Account'),
+        '/account/delete',
+        'delete',
+      ));
+    } else if (showAdmin) {
+      tabs.push(buildTab(
+        page,
+        l('Delete Account'),
+        '/admin/user/delete/' + userName,
+        'delete',
+      ));
+    }
   }
 
   return tabs;

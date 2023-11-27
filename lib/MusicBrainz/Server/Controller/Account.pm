@@ -496,6 +496,46 @@ sub change_password : Path('/account/change-password') RequireSSL DenyWhenReadon
     }
 }
 
+=head2 delete
+
+Display a form allowing users to delete their own account.
+
+=cut
+
+sub delete : Local RequireAuth HiddenOnMirrors SecureForm {
+    my ($self, $c) = @_;
+
+    my $id = $c->user->id;
+    my $editor = $c->model('Editor')->get_by_id($id);
+    $c->detach('/user/not_found') if !$editor || $editor->deleted;
+
+    my $form = $c->form(form => 'SecureConfirm');
+
+    if ($c->form_posted_and_valid($form)) {
+        my $allow_reuse = 0;
+        $c->model('Editor')->delete($id, $allow_reuse);
+
+        MusicBrainz::Server::Controller::User->_clear_login_cookie($c);
+        $c->logout;
+        $c->delete_session;
+
+        $editor->name('Deleted Editor #' . $id);
+        $editor->email('editor-' . $id . '@musicbrainz.invalid');
+        $c->forward('/discourse/sync_sso', [$editor]);
+        $c->forward('/discourse/log_out', [$editor]);
+
+        $c->response->redirect('/');
+    } else {
+        $c->stash(
+            current_view => 'Node',
+            component_path => 'account/DeleteOwnAccount',
+            component_props => {
+                form => $form->TO_JSON,
+            },
+        );
+    }
+}
+
 =head2 preferences
 
 Change the users preferences
