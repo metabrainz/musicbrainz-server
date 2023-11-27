@@ -127,6 +127,24 @@ test all => sub {
             File::Spec->catfile($dir, $entity, 'JSON_DUMPS_SCHEMA_NUMBER'));
         chomp $got;
         is($got, '1');
+
+        $got = read_file(
+            File::Spec->catfile($dir, $entity, 'COPYING'));
+        chomp $got;
+        ok(
+            $got =~ 'see COPYING-CCShareAlike',
+            'The COPYING file refers users to the per-license COPYING files',
+        );
+
+        ok(
+            -f File::Spec->catfile($dir, $entity, 'COPYING-PublicDomain'),
+            'The COPYING-PublicDomain file is included in the bundle',
+        );
+
+        ok(
+            -f File::Spec->catfile($dir, $entity, 'COPYING-CCShareAlike'),
+            'The COPYING-CCShareAlike file is included in the bundle',
+        );
     };
 
     my $test_dumps_empty_except = sub {
