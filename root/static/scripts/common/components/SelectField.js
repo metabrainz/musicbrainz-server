@@ -61,13 +61,13 @@ type SharedFieldProps = {
 };
 
 type MultipleSelectFieldProps = {
-  +field: ReadOnlyFieldT<?Array<StrOrNum>>,
+  +field: FieldT<?Array<StrOrNum>>,
   ...SharedFieldProps,
   ...
 };
 
 type SelectFieldProps = {
-  +field: ReadOnlyFieldT<?StrOrNum>,
+  +field: FieldT<?StrOrNum>,
   ...SharedFieldProps,
   ...
 };

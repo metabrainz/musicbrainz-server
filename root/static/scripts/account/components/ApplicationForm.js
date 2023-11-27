@@ -19,7 +19,7 @@ import FormSubmit from '../../edit/components/FormSubmit.js';
 
 export type ApplicationFormT = FormT<{
   +csrf_token: FieldT<string>,
-  +name: ReadOnlyFieldT<string>,
+  +name: FieldT<string>,
   +oauth_redirect_uri: FieldT<string>,
   +oauth_type: FieldT<string>,
 }>;

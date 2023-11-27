@@ -15,7 +15,7 @@ import {
 } from './createField.js';
 
 export function pushField<V>(
-  repeatableCtx: CowContext<ReadOnlyRepeatableFieldT<ReadOnlyFieldT<V>>>,
+  repeatableCtx: CowContext<RepeatableFieldT<FieldT<V>>>,
   value: V,
 ) {
   const repeatable = repeatableCtx.read();
@@ -30,8 +30,8 @@ export function pushField<V>(
 
 export function pushCompoundField<F: {...}>(
   repeatableCtx: CowContext<
-    ReadOnlyRepeatableFieldT<
-      ReadOnlyCompoundFieldT<{+[K in keyof F]: ReadOnlyFieldT<F[K]>}>,
+    RepeatableFieldT<
+      CompoundFieldT<{+[K in keyof F]: FieldT<F[K]>}>,
     >,
   >,
   fieldValues: F,

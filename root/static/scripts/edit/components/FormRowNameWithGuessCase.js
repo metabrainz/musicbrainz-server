@@ -39,7 +39,7 @@ export type ActionT =
 type PropsT = {
   +dispatch: (ActionT) => void,
   +entity: NamedEntityT,
-  +field: ReadOnlyFieldT<string | null>,
+  +field: FieldT<string | null>,
   +guessCaseOptions: GuessCaseOptionsStateT,
   +guessFeat?: boolean,
   +isGuessCaseOptionsOpen: boolean,
@@ -47,13 +47,13 @@ type PropsT = {
 };
 
 export type StateT = {
-  +field: ReadOnlyFieldT<string | null>,
+  +field: FieldT<string | null>,
   +guessCaseOptions: GuessCaseOptionsStateT,
   +isGuessCaseOptionsOpen: boolean,
 };
 
 export function createInitialState(
-  field: ReadOnlyFieldT<string | null>,
+  field: FieldT<string | null>,
 ): StateT {
   return {
     field,

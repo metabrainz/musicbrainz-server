@@ -11,8 +11,8 @@ type CommonProps = {
   +children?: React$Node,
   +childrenFirst?: boolean,
   +disabled?: boolean,
-  +form: ReadOnlyFormT<{
-    +make_votable: ReadOnlyFieldT<boolean>,
+  +form: FormT<{
+    +make_votable: FieldT<boolean>,
     ...
   }>,
 };

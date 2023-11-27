@@ -24,8 +24,8 @@ export function copyFieldErrors(
 }
 
 export default function copyFieldData<T>(
-  sourceField: ReadOnlyFieldT<T>,
-  targetField: CowContext<ReadOnlyFieldT<T>>,
+  sourceField: FieldT<T>,
+  targetField: CowContext<FieldT<T>>,
 ): void {
   targetField.set('value', sourceField.value);
   copyFieldErrors(sourceField, targetField);

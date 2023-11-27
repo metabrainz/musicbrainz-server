@@ -15,8 +15,8 @@ import FormRowText from '../static/scripts/edit/components/FormRowText.js';
 import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
 
 type ResetPasswordFormT = FormT<{
-  +confirm_password: ReadOnlyFieldT<string>,
-  +password: ReadOnlyFieldT<string>,
+  +confirm_password: FieldT<string>,
+  +password: FieldT<string>,
 }>;
 
 type Props = {

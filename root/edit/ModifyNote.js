@@ -16,10 +16,10 @@ import EditNoteHelp from './components/EditNoteHelp.js';
 import EditNoteListEntry from './components/EditNoteListEntry.js';
 
 type ModifyEditNoteFormT = FormT<{
-  +cancel: ReadOnlyFieldT<string>,
-  +reason: ReadOnlyFieldT<string>,
-  +submit: ReadOnlyFieldT<string>,
-  +text: ReadOnlyFieldT<string>,
+  +cancel: FieldT<string>,
+  +reason: FieldT<string>,
+  +submit: FieldT<string>,
+  +text: FieldT<string>,
 }>;
 
 type Props = {

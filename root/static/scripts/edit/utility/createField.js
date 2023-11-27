@@ -43,7 +43,7 @@ export function createCompoundFieldFromObject<
 export function createCompoundField<T>(
   name: string,
   fieldValues: T,
-): ReadOnlyCompoundFieldT<T> {
+): CompoundFieldT<T> {
   return {
     errors: [],
     field: fieldValues,

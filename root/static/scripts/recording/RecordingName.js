@@ -18,7 +18,7 @@ import FormRowNameWithGuessCase, {
 } from '../edit/components/FormRowNameWithGuessCase.js';
 
 type Props = {
-  +field: ReadOnlyFieldT<string>,
+  +field: FieldT<string>,
   +recording: {
     +entityType: 'recording',
     +name: string,

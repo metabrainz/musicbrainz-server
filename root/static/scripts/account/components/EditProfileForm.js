@@ -35,9 +35,9 @@ type AreaClassT = {
   name: string,
 };
 
-type UserLanguageFieldT = ReadOnlyCompoundFieldT<{
-  +fluency: ReadOnlyFieldT<FluencyT | null>,
-  +language_id: ReadOnlyFieldT<number | null>,
+type UserLanguageFieldT = CompoundFieldT<{
+  +fluency: FieldT<FluencyT | null>,
+  +language_id: FieldT<number | null>,
 }>;
 
 type EditProfileFormFieldsT = {

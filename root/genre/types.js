@@ -8,13 +8,13 @@
  */
 
 export type GenreDeleteFormT = FormT<{
-  +edit_note: ReadOnlyFieldT<string>,
-  +make_votable: ReadOnlyFieldT<boolean>,
+  +edit_note: FieldT<string>,
+  +make_votable: FieldT<boolean>,
 }>;
 
 export type GenreFormT = FormT<{
-  +comment: ReadOnlyFieldT<string>,
-  +edit_note: ReadOnlyFieldT<string>,
-  +make_votable: ReadOnlyFieldT<boolean>,
-  +name: ReadOnlyFieldT<string | null>,
+  +comment: FieldT<string>,
+  +edit_note: FieldT<string>,
+  +make_votable: FieldT<boolean>,
+  +name: FieldT<string | null>,
 }>;

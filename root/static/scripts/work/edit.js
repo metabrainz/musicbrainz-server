@@ -34,14 +34,14 @@ import {initializeGuessCase} from '../guess-case/MB/Control/GuessCase.js';
 
 const scriptArgs = getScriptArgs();
 
-type WorkAttributeField = ReadOnlyCompoundFieldT<{
-  +type_id: ReadOnlyFieldT<?number>,
-  +value: ReadOnlyFieldT<?StrOrNum>,
+type WorkAttributeField = CompoundFieldT<{
+  +type_id: FieldT<?number>,
+  +value: FieldT<?StrOrNum>,
 }>;
 
 type WorkForm = FormT<{
-  +attributes: ReadOnlyRepeatableFieldT<WorkAttributeField>,
-  +languages: ReadOnlyRepeatableFieldT<ReadOnlyFieldT<?number>>,
+  +attributes: RepeatableFieldT<WorkAttributeField>,
+  +languages: RepeatableFieldT<FieldT<?number>>,
 }>;
 
 type ActionT =
@@ -311,7 +311,7 @@ function removeLanguage(i: number) {
   });
 }
 
-const getSelectField = (field: ReadOnlyFieldT<?number>) => field;
+const getSelectField = (field: FieldT<?number>) => field;
 
 const workLanguagesNode = document.getElementById('work-languages-editor');
 if (!workLanguagesNode) {

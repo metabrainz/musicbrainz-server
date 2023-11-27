@@ -11,9 +11,9 @@ import type {
   StateT as AutocompleteStateT,
 } from '../static/scripts/common/components/Autocomplete2/types.js';
 
-export type CollaboratorFieldT = ReadOnlyCompoundFieldT<{
-  +id: ReadOnlyFieldT<?number>,
-  +name: ReadOnlyFieldT<string>,
+export type CollaboratorFieldT = CompoundFieldT<{
+  +id: FieldT<?number>,
+  +name: FieldT<string>,
 }>;
 
 export type CollaboratorStateT = $ReadOnly<{
@@ -22,12 +22,12 @@ export type CollaboratorStateT = $ReadOnly<{
 }>;
 
 export type CollaboratorsStateT =
-  ReadOnlyRepeatableFieldT<CollaboratorStateT>;
+  RepeatableFieldT<CollaboratorStateT>;
 
 export type CollectionEditFormT = FormT<{
-  +collaborators: ReadOnlyRepeatableFieldT<CollaboratorFieldT>,
-  +description: ReadOnlyFieldT<string>,
-  +name: ReadOnlyFieldT<string>,
-  +public: ReadOnlyFieldT<boolean>,
-  +type_id: ReadOnlyFieldT<number>,
+  +collaborators: RepeatableFieldT<CollaboratorFieldT>,
+  +description: FieldT<string>,
+  +name: FieldT<string>,
+  +public: FieldT<boolean>,
+  +type_id: FieldT<number>,
 }>;

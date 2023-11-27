@@ -16,11 +16,11 @@ import FormRowTextArea
 import chooseLayoutComponent from '../utility/chooseLayoutComponent.js';
 
 type EditAnnotationFormT = FormT<{
-  +changelog: ReadOnlyFieldT<string>,
-  +edit_note: ReadOnlyFieldT<string>,
-  +make_votable: ReadOnlyFieldT<boolean>,
-  +preview: ReadOnlyFieldT<string>,
-  +text: ReadOnlyFieldT<string>,
+  +changelog: FieldT<string>,
+  +edit_note: FieldT<string>,
+  +make_votable: FieldT<boolean>,
+  +preview: FieldT<string>,
+  +text: FieldT<string>,
 }>;
 
 type EditAnnotationProps = {

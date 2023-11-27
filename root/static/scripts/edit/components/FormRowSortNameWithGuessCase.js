@@ -32,14 +32,14 @@ type PropsT = {
   +disabled?: boolean,
   +dispatch: (ActionT) => void,
   +entity: SortNamedEntityT,
-  +field: ReadOnlyFieldT<string | null>,
+  +field: FieldT<string | null>,
   +label?: React$Node,
   +required?: boolean,
 };
 
 export type StateT = {
-  +nameField: ReadOnlyFieldT<string | null>,
-  +sortNameField: ReadOnlyFieldT<string | null>,
+  +nameField: FieldT<string | null>,
+  +sortNameField: FieldT<string | null>,
 };
 
 export function runReducer(

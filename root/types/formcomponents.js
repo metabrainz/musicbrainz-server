@@ -19,17 +19,7 @@ declare type AreaFieldT = CompoundFieldT<{
   +name: FieldT<string>,
 }>;
 
-declare type CompoundFieldT<F> = {
-  errors: Array<string>,
-  field: F,
-  has_errors: boolean,
-  html_name: string,
-  id: number,
-  pendingErrors?: Array<string>,
-  type: 'compound_field',
-};
-
-declare type ReadOnlyCompoundFieldT<+F> = {
+declare type CompoundFieldT<+F> = {
   +errors: $ReadOnlyArray<string>,
   +field: F,
   +has_errors: boolean,
@@ -39,27 +29,13 @@ declare type ReadOnlyCompoundFieldT<+F> = {
   +type: 'compound_field',
 };
 
-declare type DatePeriodFieldT = ReadOnlyCompoundFieldT<{
+declare type DatePeriodFieldT = CompoundFieldT<{
   +begin_date: PartialDateFieldT,
   +end_date: PartialDateFieldT,
-  +ended: ReadOnlyFieldT<boolean>,
+  +ended: FieldT<boolean>,
 }>;
 
-declare type FieldT<V> = {
-  errors: Array<string>,
-  has_errors: boolean,
-  html_name: string,
-  /*
-   * The field `id` is unique across all fields on the page. It's purpose
-   * is for passing to `key` attributes on React elements.
-   */
-  id: number,
-  pendingErrors?: Array<string>,
-  type: 'field',
-  value: V,
-};
-
-declare type ReadOnlyFieldT<+V> = {
+declare type FieldT<+V> = {
   +errors: $ReadOnlyArray<string>,
   +has_errors: boolean,
   +html_name: string,
@@ -70,14 +46,7 @@ declare type ReadOnlyFieldT<+V> = {
 };
 
 // See lib/MusicBrainz/Server/Form/Role/ToJSON.pm
-declare type FormT<F, N: string = ''> = {
-  field: F,
-  has_errors: boolean,
-  name: N,
-  +type: 'form',
-};
-
-declare type ReadOnlyFormT<+F, +N: string = ''> = {
+declare type FormT<+F, +N: string = ''> = {
   +field: F,
   +has_errors: boolean,
   +name: N,
@@ -111,7 +80,7 @@ declare type AnyFieldT =
     };
 
 declare type FormOrAnyFieldT =
-  | ReadOnlyFormT<SubfieldsT>
+  | FormT<SubfieldsT>
   | AnyFieldT;
 
 /*
@@ -143,24 +112,13 @@ declare type OptionTreeT<+T> = {
   +parent_id: number | null,
 };
 
-declare type PartialDateFieldT = ReadOnlyCompoundFieldT<{
-  +day: ReadOnlyFieldT<StrOrNum | null>,
-  +month: ReadOnlyFieldT<StrOrNum | null>,
-  +year: ReadOnlyFieldT<StrOrNum | null>,
+declare type PartialDateFieldT = CompoundFieldT<{
+  +day: FieldT<StrOrNum | null>,
+  +month: FieldT<StrOrNum | null>,
+  +year: FieldT<StrOrNum | null>,
 }>;
 
-declare type RepeatableFieldT<F> = {
-  errors: Array<string>,
-  field: Array<F>,
-  has_errors: boolean,
-  html_name: string,
-  id: number,
-  last_index: number,
-  pendingErrors?: Array<string>,
-  type: 'repeatable_field',
-};
-
-declare type ReadOnlyRepeatableFieldT<+F> = {
+declare type RepeatableFieldT<+F> = {
   +errors: $ReadOnlyArray<string>,
   +field: $ReadOnlyArray<F>,
   +has_errors: boolean,

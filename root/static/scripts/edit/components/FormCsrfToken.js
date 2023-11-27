@@ -8,9 +8,9 @@
  */
 
 type PropsT = {
-  +form: ReadOnlyFormT<{
-    +csrf_session_key?: ReadOnlyFieldT<string>,
-    +csrf_token?: ReadOnlyFieldT<string>,
+  +form: FormT<{
+    +csrf_session_key?: FieldT<string>,
+    +csrf_token?: FieldT<string>,
     ...
   }>,
 };

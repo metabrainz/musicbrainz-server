@@ -11,7 +11,7 @@ import FieldErrors from './FieldErrors.js';
 import FormRow from './FormRow.js';
 
 type CommonProps = {
-  +field: ReadOnlyFieldT<string>,
+  +field: FieldT<string>,
   +hideHelp?: boolean,
 };
 

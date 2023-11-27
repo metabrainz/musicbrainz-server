@@ -15,9 +15,9 @@ import FormRowTextArea
 import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
 
 type Props = {
-  +form: ReadOnlyFormT<{
-    +csrf_token: ReadOnlyFieldT<string>,
-    +message: ReadOnlyFieldT<string>,
+  +form: FormT<{
+    +csrf_token: FieldT<string>,
+    +message: FieldT<string>,
   }>,
 };
 

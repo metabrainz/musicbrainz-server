@@ -12,7 +12,7 @@ import FormRow from './FormRow.js';
 
 type CommonProps = {
   +disabled?: boolean,
-  +field: ReadOnlyFieldT<boolean>,
+  +field: FieldT<boolean>,
   +hasNoLabel?: boolean,
   +hasNoMargin?: boolean,
   +help?: React$Node,
