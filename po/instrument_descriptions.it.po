@@ -17,7 +17,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-11-13 02:27+0000\n"
+"PO-Revision-Date: 2023-11-22 04:27+0000\n"
 "Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
 "metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -26,8 +26,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
 "X-Generator: Weblate 5.1\n"
 
 #. name:rebab 
@@ -1881,6 +1881,8 @@ msgid ""
 "Generally used to accompany the traditional Catalan circle folk dance the "
 "sardana."
 msgstr ""
+"Generalmente usata come accompagnamento alla sardana, tradizionale danza "
+"circolare catalana."
 
 #. name:German harp 
 #: DB:instrument/description:356
@@ -2769,7 +2771,7 @@ msgid ""
 "hardwood, this ancient instrument was used for rhythm during chanting."
 msgstr ""
 "In pietra risonante, legno o osso con una bacchetta in pietra, osso o legno "
-"duro, questo antico strumento era usato per tenere il ritmo durante il canto "
+"duro, quest'antico strumento era usato per tenere il ritmo durante il canto "
 "corale."
 
 #. name:paiban 
@@ -2842,7 +2844,7 @@ msgid ""
 "Made of wood, bone or metal, this ancient instrument is the forerunner to "
 "many other struck idiophones"
 msgstr ""
-"Di legno, osso o metallo, questo antico strumento è il predecessore di molti "
+"Di legno, osso o metallo, quest'antico strumento è il predecessore di molti "
 "altri idiofoni a percussione."
 
 #. name:kemenche 
