@@ -6,7 +6,6 @@ rules:
                      allow: [
                        "l_admin",
                        "ln_admin",
-                       "lp_admin",
                        "l_attributes",
                        "ln_attributes",
                        "lp_attributes",

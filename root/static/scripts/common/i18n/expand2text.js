@@ -15,7 +15,6 @@ import {
 import {
   l_admin as lAdminActual,
   ln_admin as lnAdminActual,
-  lp_admin as lpAdminActual,
 } from '../i18n/admin.js';
 
 import expand, {
@@ -136,9 +135,3 @@ export const lp = (
   context: string,
   args: VarArgsObject<StrOrNum>,
 ): string => expand2text(lpActual(key, context), args);
-
-export const lp_admin = (
-  key: string,
-  context: string,
-  args: VarArgsObject<StrOrNum>,
-): string => expand2text(lpAdminActual(key, context), args);

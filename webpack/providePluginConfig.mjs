@@ -53,11 +53,9 @@ const providePluginConfig = {
 
   'exp.l_admin': [expandPath, 'l_admin'],
   'exp.ln_admin': [expandPath, 'ln_admin'],
-  'exp.lp_admin': [expandPath, 'lp_admin'],
 
   'texp.l_admin': [expandTextPath, 'l_admin'],
   'texp.ln_admin': [expandTextPath, 'ln_admin'],
-  'texp.lp_admin': [expandTextPath, 'lp_admin'],
   /* eslint-enable sort-keys */
 };
 

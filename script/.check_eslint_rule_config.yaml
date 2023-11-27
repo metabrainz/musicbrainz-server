@@ -40,7 +40,6 @@ globals:
   texp: readonly
   l_admin: readonly
   ln_admin: readonly
-  lp_admin: readonly
   l_attributes: readonly
   ln_attributes: readonly
   lp_attributes: readonly

@@ -15,8 +15,3 @@ export const l_admin: (string) => string =
 export function ln_admin(skey: string, pkey: string, val: number): string {
   return val > 1 ? cleanMsgid(pkey) : cleanMsgid(skey);
 }
-
-// eslint-disable-next-line no-unused-vars -- map context
-export const lp_admin = (key: string, context: string): string => (
-  cleanMsgid(key)
-);

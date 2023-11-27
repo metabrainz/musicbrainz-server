@@ -50,7 +50,6 @@ declare var N_lp: (key: string, context: string) => () => string;
 
 declare var l_admin: typeof l;
 declare var ln_admin: typeof ln;
-declare var lp_admin: typeof lp;
 
 declare var l_attributes: typeof l;
 declare var ln_attributes: typeof ln;
@@ -110,11 +109,6 @@ declare var exp: {
     context: string,
     args?: ?{+[arg: string]: Expand2ReactInput},
   ) => Expand2ReactOutput,
-  +lp_admin: (
-    key: string,
-    context: string,
-    args?: ?{+[arg: string]: Expand2ReactInput},
-  ) => Expand2ReactOutput,
 };
 
 declare var texp: {
@@ -139,11 +133,6 @@ declare var texp: {
     args: {+[arg: string]: StrOrNum, ...},
   ) => string,
   +lp: (
-    key: string,
-    context: string,
-    args: {+[arg: string]: StrOrNum, ...},
-  ) => string,
-  +lp_admin: (
     key: string,
     context: string,
     args: {+[arg: string]: StrOrNum, ...},
