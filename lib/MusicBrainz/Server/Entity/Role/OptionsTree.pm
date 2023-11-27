@@ -92,7 +92,7 @@ role {
             gid         => $self->gid,
             parent_id   => $self->parent_id,
             child_order => +$self->child_order,
-            description => $self->description,
+            description => $self->description // '',
         };
     };
 };

@@ -101,6 +101,7 @@ const RelationshipTypeIndex = ({
     localizeLinkAttributeTypeName(a),
     localizeLinkAttributeTypeName(b),
   ));
+  const examples = relType.examples;
   let lastExampleName = '';
 
   return (
@@ -235,10 +236,10 @@ const RelationshipTypeIndex = ({
                 </>
               ) : null}
 
-            {relType.examples.length ? (
+            {examples?.length ? (
               <>
                 <h2>{l('Examples')}</h2>
-                {relType.examples.map(example => {
+                {examples.map(example => {
                   const isSameName = (lastExampleName === example.name);
                   lastExampleName = example.name;
                   return (
