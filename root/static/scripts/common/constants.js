@@ -159,6 +159,7 @@ export const FAVICON_CLASSES = {
   'mainlynorfolk.info': 'mainlynorfolk',
   'melon.com': 'melon',
   'metal-archives.com': 'metalarchives',
+  'metalmusicarchives.com': 'metalmusicarchives',
   'mixcloud.com': 'mixcloud',
   'mobygames.com': 'mobygames',
   'mora.jp': 'mora',
