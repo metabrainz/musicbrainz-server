@@ -6070,6 +6070,44 @@ limited_link_type_combinations: [
     expected_relationship_type: 'socialnetwork',
             expected_clean_url: 'https://vk.com/tin_sontsya',
   },
+  // vkgy
+  {
+                     input_url: 'http://www.vk.gy/artists/skull/',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://vk.gy/artists/skull/',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://vk.gy/musicians/1199/akira/',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://vk.gy/lives/121191/2023-12-10-shinsaibashi-big-twin-diner-panhead-groove/',
+             input_entity_type: 'event',
+    expected_relationship_type: 'otherdatabases',
+       only_valid_entity_types: ['event'],
+  },
+  {
+                     input_url: 'https://vk.gy/labels/speed-disk/',
+             input_entity_type: 'label',
+    expected_relationship_type: 'otherdatabases',
+       only_valid_entity_types: ['label'],
+  },
+  {
+                     input_url: 'https://vk.gy/livehouses/shinsaibashi-big-twin-diner-panhead-groove/',
+             input_entity_type: 'place',
+    expected_relationship_type: 'otherdatabases',
+       only_valid_entity_types: ['place'],
+  },
+  {
+                     input_url: 'https://vk.gy/releases/skull/9559/hysteric-media-zone/',
+             input_entity_type: 'release',
+    expected_relationship_type: 'otherdatabases',
+       only_valid_entity_types: ['release'],
+  },
   // VNDB
   {
                      input_url: 'http://www.vndb.org/s5406/hist',

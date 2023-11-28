@@ -210,6 +210,7 @@ my %URL_SPECIALIZATIONS = (
     'VimeoOnDemand'       => qr{^https?://(?:www\.)?vimeo\.com/ondemand}i,
     'VK'                  => qr{^https?://(?:www\.)?vk\.com/}i,
     'Vkdb'                => qr{^https?://(?:www\.)?vkdb\.jp/}i,
+    'Vkgy'                => qr{^https?://(?:www\.)?vk\.gy/}i,
     'VNDB'                => qr{^https?://(?:www\.)?vndb\.org/}i,
     'VocaDB'              => qr{^https?://(?:www\.)?vocadb\.net/}i,
     'Weibo'               => qr{^https?://(?:www\.)?weibo\.com/}i,
