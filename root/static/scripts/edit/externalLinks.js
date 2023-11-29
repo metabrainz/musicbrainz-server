@@ -87,7 +87,7 @@ export type LinkStateT = $ReadOnly<{
   ...DatePeriodRoleT,
   +deleted: boolean,
   +editsPending: boolean,
-  +entity0?:
+  +entity0:
     | RelatableEntityT
     | {
         +entityType: RelatableEntityTypeT,
@@ -96,9 +96,10 @@ export type LinkStateT = $ReadOnly<{
         +name?: string,
         +orderingTypeID?: number,
         +relationships?: void,
-      },
-  +entity1?: RelatableEntityT,
-  +pendingTypes?: $ReadOnlyArray<number>,
+      }
+    | null,
+  +entity1: RelatableEntityT | null,
+  +pendingTypes: $ReadOnlyArray<number> | null,
   +rawUrl: string,
   // New relationships will use a unique string ID like "new-1".
   +relationship: StrOrNum | null,
@@ -407,7 +408,7 @@ export class _ExternalLinksEditor
     }
     this.setState(prevState => {
       let newLinks = [...prevState.links];
-      newLinks[index] = {...newLinks[index], pendingTypes: undefined};
+      newLinks[index] = {...newLinks[index], pendingTypes: null};
       const emptyLinkIndex = newLinks.findIndex(link => {
         const isNewLink = !isPositiveInteger(link.relationship);
         return isNewLink && isEmpty(link);
@@ -1336,7 +1337,7 @@ type LinkProps = {
   +relationships: $ReadOnlyArray<LinkRelationshipT>,
   +typeOptions: $ReadOnlyArray<LinkTypeOptionT>,
   +url: string,
-  +urlEntity?: RelatableEntityT,
+  +urlEntity: RelatableEntityT | null,
   +urlMatchesType: boolean,
   +validateLink: (LinkRelationshipT | LinkStateT) => ErrorT | null,
 };
@@ -1593,8 +1594,9 @@ const defaultLinkState: LinkStateT = {
   editsPending: false,
   end_date: EMPTY_PARTIAL_DATE,
   ended: false,
-  entity0: undefined,
-  entity1: undefined,
+  entity0: null,
+  entity1: null,
+  pendingTypes: null,
   rawUrl: '',
   relationship: null,
   submitted: false,
@@ -1675,8 +1677,9 @@ export function parseRelationships(
         editsPending: data.editsPending,
         end_date: data.end_date || EMPTY_PARTIAL_DATE,
         ended: data.ended || false,
-        entity0: sourceData || undefined,
+        entity0: sourceData || null,
         entity1: target,
+        pendingTypes: null,
         rawUrl: target.name,
         relationship: data.id,
         submitted: true,
