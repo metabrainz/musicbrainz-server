@@ -27,7 +27,10 @@ import linkedEntities from '../common/linkedEntities.mjs';
 import MB from '../common/MB.js';
 import {groupBy, keyBy, uniqBy} from '../common/utility/arrays.js';
 import {bracketedText} from '../common/utility/bracketed.js';
-import {getSourceEntityData} from '../common/utility/catalyst.js';
+import {
+  getCatalystContext,
+  getSourceEntityData,
+} from '../common/utility/catalyst.js';
 import {compareDatePeriods} from '../common/utility/compareDates.js';
 import formatDatePeriod from '../common/utility/formatDatePeriod.js';
 import isDateEmpty from '../common/utility/isDateEmpty.js';
@@ -168,17 +171,29 @@ export class _ExternalLinksEditor
     });
 
     if (typeof window !== 'undefined') {
-      // Terribly get seeded URLs
-      if (MB.formWasPosted) {
+      const $c = getCatalystContext();
+      if (
+        $c.req.method === 'POST' &&
+        /*
+         * XXX The release editor submits edits asynchronously,
+         * and does not save `submittedLinks` in `sessionStorage`.
+         */
+        sourceType !== 'release'
+      ) {
         if (hasSessionStorage) {
           const submittedLinks =
             window.sessionStorage.getItem('submittedLinks');
           if (submittedLinks) {
             initialLinks = JSON.parse(submittedLinks)
               .filter(l => !isEmpty(l)).map(newLinkState);
+            window.sessionStorage.removeItem('submittedLinks');
           }
         }
       } else {
+        /*
+         * If the form wasn't posted, extract seeded links from the URL
+         * query parameters instead.
+         */
         const seededSourceType = sourceType === 'release_group'
           ? 'release-group'
           : sourceType;

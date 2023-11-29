@@ -677,6 +677,7 @@ const seleniumTests = [
     login: true,
     sql: 'mbs-13015.sql',
   },
+  {name: 'MBS-13392.json5', login: true},
   {name: 'Artist_Credit_Editor.json5', login: true},
   {name: 'Autocomplete2.json5'},
   {name: 'CAA.json5', login: true},
