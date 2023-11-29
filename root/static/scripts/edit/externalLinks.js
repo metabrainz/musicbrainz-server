@@ -9,11 +9,16 @@
 
 import punycode from 'punycode';
 
+import {captureException} from '@sentry/browser';
 import $ from 'jquery';
 import ko from 'knockout';
 import * as React from 'react';
 import * as ReactDOMClient from 'react-dom/client';
 
+import {
+  compactEntityJson,
+  decompactEntityJson,
+} from '../../../utility/compactEntityJson.js';
 import invariant from '../../../utility/invariant.js';
 import {
   EMPTY_PARTIAL_DATE,
@@ -185,8 +190,9 @@ export class _ExternalLinksEditor
           const submittedLinks =
             window.sessionStorage.getItem('submittedLinks');
           if (submittedLinks) {
-            initialLinks = JSON.parse(submittedLinks)
-              .filter(l => !isEmpty(l)).map(newLinkState);
+            initialLinks = ((
+              decompactEntityJson(JSON.parse(submittedLinks))
+            ): any).filter(l => !isEmpty(l)).map(newLinkState);
             window.sessionStorage.removeItem('submittedLinks');
           }
         }
@@ -1884,10 +1890,14 @@ export function prepareExternalLinksHtmlFormSubmission(
 
       const links = externalLinksEditor.state.links;
       if (hasSessionStorage && links.length) {
-        window.sessionStorage.setItem(
-          'submittedLinks',
-          JSON.stringify(links),
-        );
+        try {
+          window.sessionStorage.setItem(
+            'submittedLinks',
+            JSON.stringify(compactEntityJson(links)),
+          );
+        } catch (error) {
+          captureException(error);
+        }
       }
     },
   );
