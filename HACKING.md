@@ -187,8 +187,9 @@ types based on JSON data:
 We have a set of browser-automated UI tests running with Selenium WebDriver.
 These are a bit more involved to set up:
 
- * Install ChromeDriver:
-   https://github.com/SeleniumHQ/selenium/wiki/ChromeDriver
+ * Install ChromeDriver from
+   https://googlechromelabs.github.io/chrome-for-testing/
+   ensuring that you choose a version compatible with your version of Chrome.
 
  * Install a version of Google Chrome that supports headless mode (versions 59
    and above).
