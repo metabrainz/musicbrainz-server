@@ -6,9 +6,8 @@ use Date::Calc;
 use List::AllUtils qw( any );
 use Readonly;
 
-require Exporter;
+use base 'Exporter';
 {
-    our @ISA = qw( Exporter );
     our @EXPORT_OK = qw(
         unaccent_utf16
         is_integer

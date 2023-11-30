@@ -13,6 +13,10 @@ allow_includes=1
 [BuiltinFunctions::ProhibitVoidMap]
 [BuiltinFunctions::RequireBlockGrep]
 
+[ClassHierarchies::ProhibitAutoloading]
+[ClassHierarchies::ProhibitExplicitISA]
+[ClassHierarchies::ProhibitOneArgBless]
+
 [CodeLayout::ProhibitHardTabs]
 [CodeLayout::ProhibitTrailingWhitespace]
 [CodeLayout::RequireConsistentNewlines]

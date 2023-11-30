@@ -2,8 +2,7 @@ package t::MusicBrainz::Server::Controller::RelationshipEditor;
 use strict;
 use warnings;
 
-require Exporter;
-our @ISA = qw( Exporter );
+use base 'Exporter';
 
 our @EXPORT_OK = qw(
     $additional_attribute
