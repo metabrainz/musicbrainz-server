@@ -215,10 +215,39 @@ These are a bit more involved to set up:
  * Run `./script/create_test_db.sh SELENIUM` and
    `env MUSICBRAINZ_RUNNING_TESTS=1 ./script/compile_resources.sh` again.
 
+Some Selenium tests make search queries and require a working search setup.
+(While not all tests require one, it helps to have one ready.)
+
+ * Set up [mb-solr](https://github.com/metabrainz/mb-solr).
+   It should be fairly easy to get running in the background with
+   `docker-compose up`.
+   As it listens on port 8983 by default, make sure `SEARCH_SERVER` is set to
+   `127.0.0.1:8983/solr` in DBDefs.pm.
+
+ * Set up [sir](https://github.com/metabrainz/sir) with a virtual environment
+   under `./venv` (relative to the sir checkout). You don't have to start it:
+   this is done by script/reset_selenium_env.sh, which is invoked by
+   t/selenium.js before each test. (If you need to inspect the sir logs of
+   each run, they get saved to t/selenium/.sir-reindex.log and
+   t/selenium/.sir-amqp_watch.log for the reindex and amqp_watch commands
+   respectively.)
+
+   Extensions and functions should be installed to the `musicbrainz_selenium`
+   database. (reset_selenium_env.sh takes care of triggers for you.) You can
+   do this manually (from the sir checkout):
+
+   ```sh
+   psql -U postgres -d musicbrainz_selenium -f sql/CreateExtension.sql
+   psql -U musicbrainz -d musicbrainz_selenium -f sql/CreateFunctions.sql
+   ```
+
 With the above prerequisites out of the way, the tests can be run from the
 command line like so:
 
-    $ ./t/selenium.js
+    $ SIR_DIR=~/code/sir ./t/selenium.js
+
+Where `SIR_DIR` is the path to your sir checkout. (You can omit this if the
+tests you're running don't require search.)
 
 If you want to run specific tests under ./t/selenium/, you can specify the
 paths to them as arguments. t/selenium.mjs also accepts some command line flags
