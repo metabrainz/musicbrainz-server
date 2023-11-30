@@ -347,17 +347,13 @@ sub update_profile
         _die_if_username_invalid($update->{username});
     }
 
-    my $row = hash_to_row(
-        $update,
-        {
-            name => 'username',
-            bio => 'biography',
-            area => 'area_id',
-            gender => 'gender_id',
-            website => 'website',
-            birth_date => 'birth_date',
-        }
-    );
+    my $row = hash_to_row($update, {
+        area => 'area_id',
+        bio => 'biography',
+        gender => 'gender_id',
+        name => 'username',
+        map { $_ => $_ } qw( birth_date website )
+    });
 
     if (my $date = delete $row->{birth_date}) {
         if (%$date) { # if date is given but all NULL, it will be an empty hash.

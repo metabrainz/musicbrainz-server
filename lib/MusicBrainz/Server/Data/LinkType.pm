@@ -405,24 +405,28 @@ sub delete
 
 sub _hash_to_row
 {
-    my ($self, $values) = @_;
+    my ($self, $link_type) = @_;
 
-    return hash_to_row($values, {
+    my $row = hash_to_row($link_type, {
+        entity_type0    => 'entity0_type',
+        entity_type1    => 'entity1_type',
         parent          => 'parent_id',
-        entity_type0     => 'entity0_type',
-        entity_type1     => 'entity1_type',
-        child_order      => 'child_order',
-        name            => 'name',
-        description     => 'description',
-        link_phrase      => 'link_phrase',
-        reverse_link_phrase     => 'reverse_link_phrase',
-        long_link_phrase => 'long_link_phrase',
-        priority        => 'priority',
-        is_deprecated => 'is_deprecated',
-        has_dates        => 'has_dates',
-        entity0_cardinality => 'entity0_cardinality',
-        entity1_cardinality => 'entity1_cardinality',
+        map { $_ => $_ } qw(
+            child_order
+            description
+            entity0_cardinality
+            entity1_cardinality
+            has_dates
+            is_deprecated
+            link_phrase
+            long_link_phrase
+            name
+            priority
+            reverse_link_phrase
+        )
     });
+
+    return $row;
 }
 
 sub in_use {

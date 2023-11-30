@@ -117,9 +117,10 @@ sub _merge_impl {
 
 sub _hash_to_row {
     my ($self, $instrument) = @_;
+
     my $row = hash_to_row($instrument, {
         type => 'type_id',
-        map { $_ => $_ } qw( comment name description )
+        map { $_ => $_ } qw( comment description name )
     });
 
     return $row;

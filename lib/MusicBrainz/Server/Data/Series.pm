@@ -65,10 +65,9 @@ sub _hash_to_row {
     my ($self, $series) = @_;
 
     my $row = hash_to_row($series, {
-        type => 'type_id',
         ordering_type => 'ordering_type_id',
-        name => 'name',
-        comment => 'comment',
+        type => 'type_id',
+        map { $_ => $_ } qw( comment name )
     });
 
     return $row;

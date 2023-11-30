@@ -1431,13 +1431,12 @@ sub _hash_to_row
 {
     my ($self, $release) = @_;
     my $row = hash_to_row($release, {
-        artist_credit => 'artist_credit',
-        release_group => 'release_group_id',
-        status => 'status_id',
-        packaging => 'packaging_id',
-        script => 'script_id',
         language => 'language_id',
-        map { $_ => $_ } qw( barcode comment quality name )
+        packaging => 'packaging_id',
+        release_group => 'release_group_id',
+        script => 'script_id',
+        status => 'status_id',
+        map { $_ => $_ } qw( artist_credit barcode comment name quality )
     });
 
     return $row;

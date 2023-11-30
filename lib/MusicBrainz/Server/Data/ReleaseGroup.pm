@@ -764,8 +764,9 @@ sub _merge_impl
 
 sub _hash_to_row
 {
-    my ($self, $group) = @_;
-    my $row = hash_to_row($group, {
+    my ($self, $release_group) = @_;
+
+    my $row = hash_to_row($release_group, {
         type => 'primary_type_id',
         map { $_ => $_ } qw( artist_credit comment edits_pending name )
     });

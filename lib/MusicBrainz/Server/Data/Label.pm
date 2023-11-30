@@ -230,11 +230,11 @@ sub _merge_impl
 sub _hash_to_row
 {
     my ($self, $label) = @_;
+
     my $row = hash_to_row($label, {
         area => 'area_id',
         type => 'type_id',
-        ended => 'ended',
-        map { $_ => $_ } qw( label_code comment name )
+        map { $_ => $_ } qw( comment ended label_code name )
     });
 
     add_partial_date_to_row($row, $label->{begin_date}, 'begin_date');
