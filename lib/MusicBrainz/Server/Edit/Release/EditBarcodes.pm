@@ -27,13 +27,13 @@ has '+data' => (
         submissions => ArrayRef[Dict[
             release => Dict[
                 id => Int,
-                name => Str
+                name => Str,
             ],
             barcode => Str,
-            old_barcode => Nullable[Str]
+            old_barcode => Nullable[Str],
         ]],
-        client_version => Nullable[Str]
-    ]
+        client_version => Nullable[Str],
+    ],
 );
 
 sub release_ids { map { $_->{release}{id} } @{ shift->data->{submissions} } }
@@ -43,7 +43,7 @@ sub alter_edit_pending
     my $self = shift;
     return {
         Release => [ $self->release_ids ],
-    }
+    };
 }
 
 sub foreign_keys
@@ -64,10 +64,10 @@ sub build_display_data
                 release => to_json_object($loaded->{Release}{ $_->{release}{id} } ||
                     Release->new( name => $_->{release}{name} )),
                 new_barcode => $_->{barcode},
-                exists $_->{old_barcode} ? (old_barcode => $_->{old_barcode}) : ()
-            }, @{ $self->data->{submissions} }
-        ]
-    }
+                exists $_->{old_barcode} ? (old_barcode => $_->{old_barcode}) : (),
+            }, @{ $self->data->{submissions} },
+        ],
+    };
 }
 
 sub accept {
@@ -75,7 +75,7 @@ sub accept {
     for my $submission (@{ $self->data->{submissions} }) {
         $self->c->model('Release')->update(
             $submission->{release}{id},
-            { barcode => $submission->{barcode} }
+            { barcode => $submission->{barcode} },
         )
     }
 }
@@ -89,8 +89,8 @@ sub initialize {
                 name => $_->{release}->name,
             },
             barcode => $_->{barcode},
-            old_barcode => $_->{release}->barcode->code
-        }, @{ $opts{submissions} }
+            old_barcode => $_->{release}->barcode->code,
+        }, @{ $opts{submissions} },
     ];
     $self->data(\%opts);
 }

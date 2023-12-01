@@ -220,7 +220,7 @@ sub _hash_to_row
 
     my $row = hash_to_row($link_attribute_type, {
         parent  => 'parent_id',
-        map { $_ => $_ } qw( child_order description name )
+        map { $_ => $_ } qw( child_order description name ),
     });
 
     return $row;
@@ -257,7 +257,7 @@ sub merge_instrument_attributes {
                   JOIN link_attribute_type ON link_attribute_type.gid = instrument.gid
             )
             SELECT attribute_id FROM id_mapping WHERE entity_id = ? OR entity_id = any(?)
-            ORDER BY entity_id = ? DESC', $target_id, \@source_ids, $target_id
+            ORDER BY entity_id = ? DESC', $target_id, \@source_ids, $target_id,
         );
     };
     my $new_links = $self->sql->select_list_of_hashes('
@@ -417,8 +417,8 @@ for my $method (qw( delete update )) {
                 'SELECT id FROM link
                  JOIN link_attribute la ON link.id = la.link
                  WHERE la.attribute_type = ?',
-                $id
-            ) }
+                $id,
+            ) },
         );
     };
 }

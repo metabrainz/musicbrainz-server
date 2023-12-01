@@ -10,7 +10,7 @@ around '_build_related_entities' => sub
     my $self = shift;
 
     my @works = values %{
-        $self->c->model('Work')->get_by_ids($self->work_ids)
+        $self->c->model('Work')->get_by_ids($self->work_ids);
     };
 
     my ($recordings, undef) = $self->c->model('Recording')->find_by_works([$self->work_ids]);
@@ -23,18 +23,18 @@ around '_build_related_entities' => sub
 
     return {
         artist => [
-            map { $_->entity0_id } map { $_->all_relationships } @works
+            map { $_->entity0_id } map { $_->all_relationships } @works,
         ],
         recording => [
-            @recording_ids
+            @recording_ids,
         ],
         release => [
-            map { $_->id } @$releases
+            map { $_->id } @$releases,
         ],
         work => [
-            $self->work_ids
-        ]
-    }
+            $self->work_ids,
+        ],
+    };
 };
 
 sub work_ids { shift->work_id }

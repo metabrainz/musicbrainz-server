@@ -39,7 +39,7 @@ test 'Work alias appears on alias page content and on JSON-LD' => sub {
         'alternateName' => ['WA1', 'WA2'],
         'inLanguage' => 'en',
         'name' => 'W1',
-        '@type' => 'MusicComposition'
+        '@type' => 'MusicComposition',
     };
 };
 

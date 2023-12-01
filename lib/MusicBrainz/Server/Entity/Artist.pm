@@ -22,12 +22,12 @@ sub entity_type { 'artist' }
 
 has 'sort_name' => (
     is => 'rw',
-    isa => 'Str'
+    isa => 'Str',
 );
 
 has 'gender_id' => (
     is => 'rw',
-    isa => 'Int'
+    isa => 'Int',
 );
 
 has 'gender' => (
@@ -49,22 +49,22 @@ sub l_gender_name
 
 has 'begin_area_id' => (
     is => 'rw',
-    isa => 'Int'
+    isa => 'Int',
 );
 
 has 'begin_area' => (
     is => 'rw',
-    isa => 'Area'
+    isa => 'Area',
 );
 
 has 'end_area_id' => (
     is => 'rw',
-    isa => 'Int'
+    isa => 'Int',
 );
 
 has 'end_area' => (
     is => 'rw',
-    isa => 'Area'
+    isa => 'Area',
 );
 
 sub is_special_purpose {

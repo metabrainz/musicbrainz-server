@@ -9,12 +9,12 @@ with 'MusicBrainz::Server::Entity::Role::Name';
 
 has 'genre_id' => (
     is => 'rw',
-    isa => 'Maybe[Int]'
+    isa => 'Maybe[Int]',
 );
 
 has 'genre' => (
     is => 'rw',
-    isa => 'Maybe[Genre]'
+    isa => 'Maybe[Genre]',
 );
 
 around TO_JSON => sub {

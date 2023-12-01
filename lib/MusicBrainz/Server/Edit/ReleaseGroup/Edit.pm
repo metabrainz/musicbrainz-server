@@ -62,7 +62,7 @@ sub change_fields
         type_id => Nullable[Int],
         artist_credit => Optional[ArtistCreditDefinition],
         comment => Nullable[Str],
-        secondary_type_ids => Optional[ArrayRef[Int]]
+        secondary_type_ids => Optional[ArrayRef[Int]],
     ];
 }
 
@@ -71,11 +71,11 @@ has '+data' => (
         entity => Dict[
             id => Int,
             gid => Optional[Str],
-            name => Str
+            name => Str,
         ],
         new => change_fields(),
-        old => change_fields()
-    ]
+        old => change_fields(),
+    ],
 );
 
 sub foreign_keys
@@ -90,16 +90,16 @@ sub foreign_keys
         $relations->{Artist} = {
             map {
                 load_artist_credit_definitions($self->data->{$_}{artist_credit})
-            } qw( new old )
-        }
+            } qw( new old ),
+        };
     }
 
     $relations->{ReleaseGroup} = {
-        $self->data->{entity}{id} => [ 'ArtistCredit' ]
+        $self->data->{entity}{id} => [ 'ArtistCredit' ],
     };
 
     $relations->{ReleaseGroupSecondaryType} = [
-        map { @{ $self->data->{$_}{secondary_type_ids} || [] } } qw( old new )
+        map { @{ $self->data->{$_}{secondary_type_ids} || [] } } qw( old new ),
     ];
 
     return $relations;
@@ -125,14 +125,14 @@ sub build_display_data
 
     $data->{release_group} = to_json_object(
         $loaded->{ReleaseGroup}{$self->data->{entity}{id}} ||
-        ReleaseGroup->new( name => $self->data->{entity}{name} )
+        ReleaseGroup->new( name => $self->data->{entity}{name} ),
     );
 
     $data->{secondary_types} = {
         map {
             $_ => join(' + ', map { $loaded->{ReleaseGroupSecondaryType}{$_}->l_name }
                            @{ $self->data->{$_}{secondary_type_ids} })
-        } qw( old new )
+        } qw( old new ),
     };
 
     if (exists $self->data->{old}{type_id} || exists $self->data->{new}{type_id}) {
@@ -152,9 +152,9 @@ sub _mapping
             return artist_credit_to_ref(shift->artist_credit);
         },
         secondary_type_ids => sub {
-            return [ map { $_->id } shift->all_secondary_types ]
+            return [ map { $_->id } shift->all_secondary_types ];
         },
-        type_id => 'primary_type_id'
+        type_id => 'primary_type_id',
     );
 }
 
@@ -169,7 +169,7 @@ around initialize => sub
     $opts{type_id} = delete $opts{primary_type_id} if exists $opts{primary_type_id};
 
     $opts{secondary_type_ids} = [
-        grep { looks_like_number($_) } @{ $opts{secondary_type_ids} }
+        grep { looks_like_number($_) } @{ $opts{secondary_type_ids} },
     ] if $opts{secondary_type_ids};
 
     $self->$orig(%opts);
@@ -185,8 +185,8 @@ around extract_property => sub {
         return (
             merge_value($ancestor->{type_id}),
             merge_value($current->primary_type_id),
-            merge_value($new->{type_id})
-        )
+            merge_value($new->{type_id}),
+        );
     }
     elsif ($property eq 'secondary_type_ids') {
         my $type_list_gen = sub {
@@ -197,7 +197,7 @@ around extract_property => sub {
             $type_list_gen->( $ancestor->{secondary_type_ids} ),
             $type_list_gen->( [ map { $_->id } $current->all_secondary_types ] ),
             $type_list_gen->( $new->{secondary_type_ids} ),
-        )
+        );
     }
     else {
         return $self->$orig(@_);
@@ -233,7 +233,7 @@ before accept => sub {
     if (my $type_id = $self->data->{new}{type_id}) {
         if (!$self->c->model('ReleaseGroupType')->get_by_id($type_id)) {
             MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
-                q(This edit changes the release group's primary type to a type that no longer exists.)
+                q(This edit changes the release group's primary type to a type that no longer exists.),
             );
         }
     }

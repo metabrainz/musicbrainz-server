@@ -41,7 +41,7 @@ test 'Creating new relationship types under /relationship/artist-artist as admin
                 'linktype.priority' => $priority,
                 'linktype.entity0_cardinality' => $entity0_cardinality,
                 'linktype.entity1_cardinality' => $entity1_cardinality,
-            }
+            },
         );
         ok($mech->success);
     } $test->c;

@@ -16,7 +16,7 @@ has_field 'type' => (
 );
 
 has_field 'status' => (
-    type => 'Multiple'
+    type => 'Multiple',
 );
 
 sub options_type
@@ -27,14 +27,14 @@ sub options_type
         _sort_hash_value(map {
             # edit types => edit name
             join(q(,), map { $_->edit_type } @{ $grouped{$_} }) => $_
-        } keys %grouped)
+        } keys %grouped),
     ];
 }
 
 sub options_status
 {
     return [
-        _sort_hash_value(status_names())
+        _sort_hash_value(status_names()),
     ];
 }
 

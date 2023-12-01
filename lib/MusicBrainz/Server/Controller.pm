@@ -68,7 +68,7 @@ sub _insert_edit {
         $edit = $c->model('Edit')->create(
             editor => $c->user,
             privileges => $privs,
-            %opts
+            %opts,
         );
     } catch {
         if (ref($_) eq 'MusicBrainz::Server::Edit::Exceptions::NoChanges') {
@@ -113,7 +113,7 @@ sub _insert_edit {
                               { 'conditions.0.field'=>'id',
                                 'conditions.0.operator'=>'BETWEEN',
                                 'conditions.0.args.0'=>$first_edit_id,
-                                'conditions.0.args.1'=>$c->stash->{edit_ids}->[-1]
+                                'conditions.0.args.1'=>$c->stash->{edit_ids}->[-1],
                               }));
 
       if ($args{num_open_edits} == 0) {
@@ -171,7 +171,7 @@ sub edit_action
                 $c, $form,
                 edit_type => $opts{type},
                 @options,
-                %extra
+                %extra,
             );
 
             # the on_creation hook is only called when an edit was entered.
@@ -274,8 +274,8 @@ sub error {
         current_view => 'Node',
         component_path => "main/error/Error$status",
         component_props => {
-            message => $args{message}
-        }
+            message => $args{message},
+        },
     );
     $c->detach;
 }

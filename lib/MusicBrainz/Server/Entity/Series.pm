@@ -14,12 +14,12 @@ sub entity_type { 'series' }
 
 has ordering_type_id => (
     is => 'rw',
-    isa => 'Int'
+    isa => 'Int',
 );
 
 has ordering_type => (
     is => 'rw',
-    isa => 'SeriesOrderingType'
+    isa => 'SeriesOrderingType',
 );
 
 around TO_JSON => sub {

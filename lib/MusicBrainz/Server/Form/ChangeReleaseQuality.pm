@@ -15,7 +15,7 @@ has '+name' => ( default => 'change-release-quality' );
 
 has_field 'quality' => (
     type => 'Select',
-    required => 1
+    required => 1,
 );
 
 sub options_quality
@@ -24,7 +24,7 @@ sub options_quality
         $QUALITY_LOW => l('Low'),
         $QUALITY_NORMAL => l('Normal'),
         $QUALITY_HIGH => l('High'),
-    ]
+    ];
 }
 
 no Moose;

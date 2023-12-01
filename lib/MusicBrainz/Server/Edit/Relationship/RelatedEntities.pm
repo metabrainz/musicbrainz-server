@@ -58,8 +58,8 @@ around _build_related_entities => sub {
         map { $_->{type}{id} } (
             @{ $self->data->{attributes} },
             @{ $self->data->{old}->{attributes} },
-            @{ $self->data->{new}->{attributes} }
-        )
+            @{ $self->data->{new}->{attributes} },
+        ),
     );
 
     # Use gids to find matching instrument entities, so that we can show relationship edits in instrument edit histories

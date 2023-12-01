@@ -7,13 +7,13 @@ use MusicBrainz::Server::WebService::Serializer::JSON::LD::Utils qw( serialize_e
 parameter 'property' => (
     isa => 'Str',
     required => 0,
-    default => sub { 'location' }
+    default => sub { 'location' },
 );
 
 parameter 'include_birth_death' => (
     isa => 'CodeRef',
     required => 0,
-    default => sub { sub { 0 } }
+    default => sub { sub { 0 } },
 );
 
 role {

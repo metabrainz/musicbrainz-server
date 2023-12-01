@@ -36,12 +36,12 @@ has 'event_id' => (
     isa => 'Int',
     is => 'rw',
     lazy => 1,
-    default => sub { shift->data->{entity}{id} }
+    default => sub { shift->data->{entity}{id} },
 );
 
 has 'event' => (
     isa => 'Event',
-    is => 'rw'
+    is => 'rw',
 );
 
 sub foreign_keys
@@ -60,7 +60,7 @@ around 'build_display_data' => sub
     my $data = $self->$orig($loaded);
     $data->{event} = to_json_object(
         $loaded->{Event}{ $self->event_id } ||
-        Event->new(name => $self->data->{entity}{name})
+        Event->new(name => $self->data->{entity}{name}),
     );
 
     return $data;

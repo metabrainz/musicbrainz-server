@@ -7,7 +7,7 @@ use Sql;
 
 parameter 'table' => (
     isa => 'Str',
-    required => 1
+    required => 1,
 );
 
 role {

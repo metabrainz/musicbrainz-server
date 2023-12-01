@@ -55,7 +55,7 @@ $mech->content_contains(
 
 $mech->get('/login');
 $mech->submit_form(
-  with_fields => { username => 'new_editor', password => 'password' }
+  with_fields => { username => 'new_editor', password => 'password' },
 );
 
 $mech->get('/user/alice/subscriptions');
@@ -79,7 +79,7 @@ is ($mech->status(), 403, q(alice's subs are now private));
 $mech->get('/logout');
 $mech->get('/login');
 $mech->submit_form(
-  with_fields => { username => 'alice', password => 'secret1' }
+  with_fields => { username => 'alice', password => 'secret1' },
 );
 
 $mech->get('/user/alice/subscriptions');
@@ -93,7 +93,7 @@ $mech->content_contains('Kate Bush', 'subscription to Kate Bush is listed');
 $mech->get('/logout');
 $mech->get('/login');
 $mech->submit_form(
-  with_fields => { username => 'adminymcadmin', password => 'password' }
+  with_fields => { username => 'adminymcadmin', password => 'password' },
 );
 
 $mech->get('/user/alice/subscriptions');

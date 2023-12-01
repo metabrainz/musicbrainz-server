@@ -20,8 +20,8 @@ sub edit_template { 'historic/AddReleaseAnnotation' }
 sub _build_related_entities {
     my $self = shift;
     return {
-        release => $self->data->{release_ids}
-    }
+        release => $self->data->{release_ids},
+    };
 }
 
 sub upgrade
@@ -30,7 +30,7 @@ sub upgrade
     $self->data({
         release_ids => $self->album_release_ids($self->row_id),
         text => $self->new_value->{Text},
-        changelog => $self->new_value->{ChangeLog}
+        changelog => $self->new_value->{ChangeLog},
     });
     return $self;
 };
@@ -39,7 +39,7 @@ sub foreign_keys
 {
     my $self = shift;
     return {
-        Release => { map { $_ => [ 'ArtistCredit' ] } @{ $self->data->{release_ids} } }
+        Release => { map { $_ => [ 'ArtistCredit' ] } @{ $self->data->{release_ids} } },
     };
 }
 
@@ -52,7 +52,7 @@ sub build_display_data
         } @{ $self->data->{release_ids} } ],
         text => $self->data->{text},
         html => format_wikitext($self->data->{text}),
-        changelog => $self->data->{changelog}
+        changelog => $self->data->{changelog},
     };
 }
 

@@ -7,14 +7,14 @@ with 'MusicBrainz::Server::EditSearch::Predicate';
 has user => (
     is => 'ro',
     isa => 'MusicBrainz::Server::Authentication::User',
-    required => 1
+    required => 1,
 );
 
 sub operator_cardinality_map {
   return (
     'subscribed' => undef,
     'not_subscribed' => undef,
-  )
+  );
 }
 
 sub combine_with_query {

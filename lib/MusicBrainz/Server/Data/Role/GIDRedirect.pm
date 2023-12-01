@@ -26,7 +26,7 @@ sub _delete_and_redirect_gids
     if ($self->can('_delete_from_cache')) {
         $self->_delete_from_cache(
             $new_id, @old_ids,
-            @$old_gids
+            @$old_gids,
         );
     }
 }

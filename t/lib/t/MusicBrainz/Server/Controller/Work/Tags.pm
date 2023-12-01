@@ -93,7 +93,7 @@ test 'Cannot tag without a confirmed email address' => sub {
 
     $c->model('Editor')->insert({
         name => 'iwannatag',
-        password => 'password'
+        password => 'password',
     });
 
     $mech->get_ok('/login');

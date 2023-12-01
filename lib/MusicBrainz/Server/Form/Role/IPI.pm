@@ -9,11 +9,11 @@ use List::AllUtils qw( uniq );
 has_field 'ipi_codes'          => (
     type => 'Repeatable',
     num_when_empty => 1,
-    inflate_default_method => \&inflate_ipi_codes
+    inflate_default_method => \&inflate_ipi_codes,
 );
 
 has_field 'ipi_codes.contains' => (
-    type => '+MusicBrainz::Server::Form::Field::IPI'
+    type => '+MusicBrainz::Server::Form::Field::IPI',
 );
 
 after 'validate' => sub {
@@ -23,7 +23,7 @@ after 'validate' => sub {
     {
         my $ipi_codes_field =  $self->field('ipi_codes');
         $ipi_codes_field->value(
-            [ uniq sort grep { $_ } @{ $ipi_codes_field->value } ]
+            [ uniq sort grep { $_ } @{ $ipi_codes_field->value } ],
         );
     };
 };

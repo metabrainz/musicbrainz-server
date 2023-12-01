@@ -32,7 +32,7 @@ sub update_subscriptions
 
     $self->sql->do(
         "UPDATE $_ SET last_edit_sent = ? WHERE editor = ?",
-        $max_id, $editor_id
+        $max_id, $editor_id,
     ) for entities_with('subscriptions', take => sub { 'editor_subscribe_' . (shift) });
     $self->sql->commit;
 }

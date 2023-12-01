@@ -22,7 +22,7 @@ has_field 'type_id' => (
 
 has_field 'setlist' => (
     type => '+MusicBrainz::Server::Form::Field::Setlist',
-    not_nullable => 1
+    not_nullable => 1,
 );
 
 has_field 'comment' => (
@@ -31,7 +31,7 @@ has_field 'comment' => (
 
 has_field 'period' => (
     type => '+MusicBrainz::Server::Form::Field::DatePeriod',
-    not_nullable => 1
+    not_nullable => 1,
 );
 
 has_field 'time' => (
@@ -40,7 +40,7 @@ has_field 'time' => (
 
 has_field 'cancelled' => (
     type => 'Checkbox',
-    default => 0
+    default => 0,
 );
 
 sub edit_field_names

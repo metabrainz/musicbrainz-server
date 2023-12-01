@@ -10,7 +10,7 @@ extends 'HTML::FormHandler::Field::Text';
 has '+fif_from_value' => ( default => 1 );
 
 has '+deflate_method' => (
-    default => sub { \&deflate_length }
+    default => sub { \&deflate_length },
 );
 
 sub deflate_length {

@@ -4,7 +4,7 @@ use warnings;
 use MusicBrainz::Server::Translation qw( l );
 
 use Sub::Exporter -setup => {
-    exports => [qw( cancel_or_action )]
+    exports => [qw( cancel_or_action )],
 };
 
 =head2 cancel_or_action

@@ -21,8 +21,8 @@ sub _build_related_entities
 {
     my $self = shift;
     return {
-        release => $self->data->{release_ids}
-    }
+        release => $self->data->{release_ids},
+    };
 }
 
 sub foreign_keys
@@ -41,12 +41,12 @@ sub build_display_data
             $loaded->{Recording}{ $self->data->{recording_id} } ||
             Recording->new(
                 id => $self->data->{recording_id},
-            )
+            ),
         ),
         position => {
             old => $self->data->{old}{position},
             new => $self->data->{new}{position},
-        }
+        },
     };
 }
 
@@ -64,8 +64,8 @@ sub upgrade
         old          => { position => $self->previous_value },
         new          => { position => $self->new_value },
         release_ids  => $self->album_release_ids(
-            $self->track_to_album( $self->row_id )
-        )
+            $self->track_to_album( $self->row_id ),
+        ),
     });
 
     return $self;

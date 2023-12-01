@@ -12,14 +12,14 @@ around inflate_rows => sub {
     my $items = $self->$orig(@_);
 
     my $series = $self->c->model('Series')->get_by_ids(
-        map { $_->{series_id} } @$items
+        map { $_->{series_id} } @$items,
     );
 
     return [
         map +{
             %$_,
             series => to_json_object($series->{ $_->{series_id} }),
-        }, @$items
+        }, @$items,
     ];
 };
 

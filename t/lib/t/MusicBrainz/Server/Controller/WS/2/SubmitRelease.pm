@@ -12,7 +12,7 @@ use HTTP::Status qw( :constants );
 
 use MusicBrainz::Server::Test qw( xml_ok xml_post capture_edits );
 use MusicBrainz::Server::Test ws_test => {
-    version => 2
+    version => 2,
 };
 
 test all => sub {
@@ -62,13 +62,13 @@ test all => sub {
             {
                 release => {
                     id => 243064,
-                    name => 'For Beginner Piano'
+                    name => 'For Beginner Piano',
                 },
                 barcode => '5021603064126',
-                old_barcode => undef
-            }
+                old_barcode => undef,
+            },
         ],
-        client_version => 'test-1.0'
+        client_version => 'test-1.0',
     });
 
     $content = '<?xml version="1.0" encoding="UTF-8"?>
@@ -107,13 +107,13 @@ test all => sub {
             {
                 release => {
                     id => $rel->id,
-                    name => $rel->name
+                    name => $rel->name,
                 },
                 barcode => '796122009228',
-                old_barcode => '4942463511227'
-            }
+                old_barcode => '4942463511227',
+            },
         ],
-        client_version => 'test-ua'
+        client_version => 'test-ua',
     });
 
     $next_edit->accept;

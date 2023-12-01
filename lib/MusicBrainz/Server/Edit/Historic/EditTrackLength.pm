@@ -20,8 +20,8 @@ sub _build_related_entities
 {
     my $self = shift;
     return {
-        recording => [ $self->data->{recording_id} ]
-    }
+        recording => [ $self->data->{recording_id} ],
+    };
 }
 
 sub foreign_keys
@@ -46,12 +46,12 @@ sub build_display_data
     return {
         recording => to_json_object(
             $loaded->{Recording}{ $self->data->{recording_id} } ||
-            Recording->new( id => $self->data->{recording_id} )
+            Recording->new( id => $self->data->{recording_id} ),
         ),
         length => {
             old => $old_display_length,
             new => $new_display_length,
-        }
+        },
     };
 }
 
@@ -62,7 +62,7 @@ sub upgrade
         track_id     => $self->row_id,
         recording_id => $self->resolve_recording_id( $self->row_id ),
         old          => { length => $self->previous_value },
-        new          => { length => $self->new_value }
+        new          => { length => $self->new_value },
     });
 
     return $self;

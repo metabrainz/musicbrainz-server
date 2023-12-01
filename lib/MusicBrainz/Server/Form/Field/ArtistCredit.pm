@@ -20,7 +20,7 @@ has_field 'names.join_phrase' => (
     # Can't use MusicBrainz::Server::Form::Field::Text as we need whitespace on the left
     # and right.
     type => 'Text',
-    trim => { transform => sub { MusicBrainz::Server::Data::Utils::sanitize(shift) } }
+    trim => { transform => sub { MusicBrainz::Server::Data::Utils::sanitize(shift) } },
 );
 
 around 'validate_field' => sub {

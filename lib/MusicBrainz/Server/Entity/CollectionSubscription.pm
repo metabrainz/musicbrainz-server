@@ -18,12 +18,12 @@ has 'collection' => (
 
 has 'available' => (
     isa => 'Bool',
-    is => 'ro'
+    is => 'ro',
 );
 
 has 'last_seen_name' => (
     isa => 'Str',
-    is => 'ro'
+    is => 'ro',
 );
 
 sub target_id { shift->collection_id }

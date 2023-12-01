@@ -12,8 +12,8 @@ extends 'HTML::FormHandler::Field::Text';
 apply([
     {
         check => sub { is_guid(shift) },
-        message => sub { l('This is not a valid MBID') }
-    }
+        message => sub { l('This is not a valid MBID') },
+    },
 ]);
 
 1;

@@ -73,7 +73,7 @@ test 'Items should be ordered by relationship date' => sub {
     is_deeply(
         [map { $_->{entity}->id } @$items],
         [9, 6, 5, 7, 8],
-        'works are ordered by relationship date'
+        'works are ordered by relationship date',
     );
 };
 
@@ -240,21 +240,21 @@ test 'Releases should be ordered by date, then catalog number, then name (MBS-75
         events => [
             { date => { year => 1993 }, country_id => 1 },
             { date => { year => 1988 }, country_id => 2 },
-        ]
+        ],
     });
 
     $c->model('Release')->update(2, {
         events => [
             { date => { year => 1992 }, country_id => 1 },
             { date => { year => 1989 }, country_id => 2 },
-        ]
+        ],
     });
 
     $c->model('Release')->update(3, {
         events => [
             { date => { year => 1991 }, country_id => 1 },
             { date => { year => 1990 }, country_id => 2 },
-        ]
+        ],
     });
 
     ($items, $count) = $c->model('Series')->get_entities($series, 3, 0);
@@ -328,42 +328,42 @@ test 'Release groups should be ordered by first release date, then name (MBS-755
         events => [
             { date => { year => 2012 }, country_id => 1 },
             { date => { year => 1988 }, country_id => 2 },
-        ]
+        ],
     });
 
     $c->model('Release')->update(2, {
         events => [
             { date => { year => 1986 }, country_id => 1 },
             { date => { year => 2013 }, country_id => 2 },
-        ]
+        ],
     });
 
     $c->model('Release')->update(3, {
         events => [
             { date => { year => 2001 }, country_id => 1 },
             { date => { year => 1977 }, country_id => 2 },
-        ]
+        ],
     });
 
     $c->model('Release')->update(4, {
         events => [
             { date => { year => 2002 }, country_id => 1 },
             { date => { year => 1976 }, country_id => 2 },
-        ]
+        ],
     });
 
     $c->model('Release')->update(5, {
         events => [
             { date => { year => 1991 }, country_id => 1 },
             { date => { year => 1990 }, country_id => 2 },
-        ]
+        ],
     });
 
     $c->model('Release')->update(6, {
         events => [
             { date => { year => 1991 }, country_id => 1 },
             { date => { year => 1990 }, country_id => 2 },
-        ]
+        ],
     });
 
     ($items, $count) = $c->model('Series')->get_entities($series, 3, 0);

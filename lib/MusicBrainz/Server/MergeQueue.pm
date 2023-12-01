@@ -6,7 +6,7 @@ use namespace::autoclean;
 has 'type' => (
     isa => 'Str',
     is => 'ro',
-    required => 1
+    required => 1,
 );
 
 has 'entities' => (
@@ -17,8 +17,8 @@ has 'entities' => (
     handles => {
         _add_entities => 'push',
         entity_count => 'count',
-        all_entities => 'elements'
-    }
+        all_entities => 'elements',
+    },
 );
 
 sub ready_to_merge {
@@ -39,8 +39,8 @@ sub remove_entities {
     my %to_remove = map { $_ => 1 } grep { $_ } @entities;
     my %all_existing = map { $_ => 1 } grep { $_ } $self->all_entities;
     $self->entities([
-        grep { !exists $to_remove{$_} } keys %all_existing
-    ])
+        grep { !exists $to_remove{$_} } keys %all_existing,
+    ]);
 }
 
 sub TO_JSON {

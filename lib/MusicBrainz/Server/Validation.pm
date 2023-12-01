@@ -42,7 +42,7 @@ use base 'Exporter';
         normalise_strings
         is_nat
         validate_coordinates
-    )
+    );
 }
 
 use strict;
@@ -156,7 +156,7 @@ sub format_ipi
     my $ipi = shift;
     return $ipi unless $ipi =~ /^[0-9\s.]{5,}$/;
     $ipi =~ s/[\s.]//g;
-    return sprintf('%011.0f', $ipi)
+    return sprintf('%011.0f', $ipi);
 }
 
 sub is_valid_isni
@@ -167,7 +167,7 @@ sub is_valid_isni
 }
 
 sub format_isni {
-    shift =~ s/[\s\.]//gr
+    shift =~ s/[\s\.]//gr;
 }
 
 sub is_valid_url
@@ -455,7 +455,7 @@ sub validate_coordinates {
         my ($lat, $long) = swap($2, $4, degree($1, $2), degree($3, $4));
         return {
             latitude => $lat,
-            longitude => $long
+            longitude => $long,
         };
     }
 
@@ -467,7 +467,7 @@ sub validate_coordinates {
 
         return {
             latitude  => $lat,
-            longitude => $long
+            longitude => $long,
         };
     }
 

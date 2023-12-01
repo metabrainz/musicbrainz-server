@@ -34,7 +34,7 @@ sub serialize
                 $plural => [
                     map { serialize_entity($_, $inc, $opts, 1) }
                     sort_by { $list_type eq 'genre' ? $_->name : $_->gid }
-                    @{ $entity->{items} }
+                    @{ $entity->{items} },
                 ],
             };
             $ret->{$singular . '-offset'} = number($entity->{offset}) if defined($entity->{offset});
@@ -80,7 +80,7 @@ sub autocomplete_label {
 
     push @$output, {
         pages => $pager->last_page,
-        current => $pager->current_page
+        current => $pager->current_page,
     } if $pager;
 
     return encode_json($output);
@@ -93,7 +93,7 @@ sub autocomplete_release {
 
     push @$output, {
         pages => $pager->last_page,
-        current => $pager->current_page
+        current => $pager->current_page,
     } if $pager;
 
     return encode_json($output);
@@ -106,7 +106,7 @@ sub autocomplete_area {
 
     push @$output, {
         pages => $pager->last_page,
-        current => $pager->current_page
+        current => $pager->current_page,
     } if $pager;
 
     return encode_json($output);
@@ -119,7 +119,7 @@ sub autocomplete_artist {
 
     push @$output, {
         pages => $pager->last_page,
-        current => $pager->current_page
+        current => $pager->current_page,
     } if $pager;
 
     return encode_json($output);
@@ -132,8 +132,8 @@ sub autocomplete_editor {
         (map { $_->TO_JSON } @$output),
         {
             pages => $pager->last_page,
-            current => $pager->current_page
-        }
+            current => $pager->current_page,
+        },
     ]);
 }
 
@@ -161,7 +161,7 @@ sub autocomplete_release_group {
 
     push @$output, {
         pages => $pager->last_page,
-        current => $pager->current_page
+        current => $pager->current_page,
     } if $pager;
 
     return encode_json($output);
@@ -182,12 +182,12 @@ sub autocomplete_recording {
             };
 
             return $out;
-        }
+        },
     );
 
     push @$output, {
         pages => $pager->last_page,
-        current => $pager->current_page
+        current => $pager->current_page,
     } if $pager;
 
     return encode_json($output);
@@ -205,12 +205,12 @@ sub autocomplete_work {
             $out->{related_artists} = $result->{related_artists};
 
             return $out;
-        }
+        },
     );
 
     push @$output, {
         pages => $pager->last_page,
-        current => $pager->current_page
+        current => $pager->current_page,
     } if $pager;
 
     return encode_json($output);
@@ -224,12 +224,12 @@ sub _with_primary_alias {
     my @output;
     if (@$results) {
         my $munge_lang = sub {
-            shift =~ s/_[A-Z]{2}/_/r
+            shift =~ s/_[A-Z]{2}/_/r;
         };
 
         my %alias_preference = (
             en => 2,
-            en_ => 1
+            en_ => 1,
         );
         my $lang = $munge_lang->($results->[0]->{current_language}) =~ s/_$//r;
         $alias_preference{$lang} = 4 if $lang ne 'en';
@@ -268,7 +268,7 @@ sub autocomplete_place {
 
     push @$output, {
         pages => $pager->last_page,
-        current => $pager->current_page
+        current => $pager->current_page,
     } if $pager;
 
     return encode_json($output);
@@ -281,7 +281,7 @@ sub autocomplete_instrument {
 
     push @$output, {
         pages => $pager->last_page,
-        current => $pager->current_page
+        current => $pager->current_page,
     } if $pager;
 
     return encode_json($output);
@@ -299,12 +299,12 @@ sub autocomplete_event {
             $out->{related_entities} = $result->{related_entities};
 
             return $out;
-        }
+        },
     );
 
     push @$output, {
         pages => $pager->last_page,
-        current => $pager->current_page
+        current => $pager->current_page,
     } if $pager;
 
     return encode_json($output);
@@ -317,7 +317,7 @@ sub autocomplete_series {
 
     push @$output, {
         pages => $pager->last_page,
-        current => $pager->current_page
+        current => $pager->current_page,
     } if $pager;
 
     return encode_json($output);
@@ -327,12 +327,12 @@ sub autocomplete_genre {
     my ($self, $results, $pager) = @_;
 
     my $output = _with_primary_alias($results, sub {
-        shift->TO_JSON
+        shift->TO_JSON;
     });
 
     push @$output, {
         pages => $pager->last_page,
-        current => $pager->current_page
+        current => $pager->current_page,
     } if $pager;
 
     return encode_json($output);
@@ -356,7 +356,7 @@ sub user_tag_list {
     return encode_json({
         'user-tags' => [
             sort { $a->{name} cmp $b->{name} }
-            map +{ name => $_->tag->name }, @{ $user_tags }
+            map +{ name => $_->tag->name }, @{ $user_tags },
         ],
     });
 }

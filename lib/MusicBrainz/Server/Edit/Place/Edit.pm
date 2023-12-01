@@ -65,11 +65,11 @@ has '+data' => (
         entity => Dict[
             id => Int,
             gid => Optional[Str],
-            name => Str
+            name => Str,
         ],
         new => change_fields(),
         old => change_fields(),
-    ]
+    ],
 );
 
 sub foreign_keys
@@ -95,14 +95,14 @@ sub build_display_data
         ended      => 'ended',
         comment    => 'comment',
         address    => 'address',
-        area       => [ qw( area_id Area ) ]
+        area       => [ qw( area_id Area ) ],
     );
 
     my $data = changed_display_data($self->data, $loaded, %map);
 
     $data->{place} = to_json_object(
         $loaded->{Place}{ $self->data->{entity}{id} } ||
-        Place->new( name => $self->data->{entity}{name} )
+        Place->new( name => $self->data->{entity}{name} ),
     );
 
     for my $side (qw( old new )) {
@@ -219,7 +219,7 @@ override _is_disambiguation_needed => sub {
     my $duplicate_areas = $self->c->sql->select_single_column_array(
         'SELECT area FROM place
          WHERE id != ? AND lower(musicbrainz_unaccent(name)) = lower(musicbrainz_unaccent(?))',
-        $self->current_instance->id, $name
+        $self->current_instance->id, $name,
     );
 
     return $self->_possible_duplicate_area($area_id, @$duplicate_areas);

@@ -18,7 +18,7 @@ has item_entity_type => (
 
 sub l_name {
     my $self = shift;
-    return lp($self->name, 'collection_type')
+    return lp($self->name, 'collection_type');
 }
 
 around TO_JSON => sub {

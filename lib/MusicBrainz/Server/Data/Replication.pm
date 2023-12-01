@@ -12,8 +12,8 @@ sub last_replication_date {
 
     return to_DateTime(
         $self->sql->select_single_value(
-            'SELECT last_replication_date FROM replication_control'
-        )
+            'SELECT last_replication_date FROM replication_control',
+        ),
     );
 
 }

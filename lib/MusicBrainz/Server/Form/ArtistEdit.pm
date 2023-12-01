@@ -13,14 +13,14 @@ has 'artist_credits' => (
 );
 
 has_field 'rename_artist_credit' => (
-    type => 'Multiple'
+    type => 'Multiple',
 );
 
 sub options_rename_artist_credit {
     my ($self, $field) = @_;
     return [
         map { $_->id => $_->name }
-        @{ $self->artist_credits }
+        @{ $self->artist_credits },
     ];
 }
 

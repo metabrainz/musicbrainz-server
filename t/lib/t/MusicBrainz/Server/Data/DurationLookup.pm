@@ -26,7 +26,7 @@ test 'tracklist used to fit lookup criteria but no longer does' => sub {
         SQL
 
     my $artist_credit = {
-        names => [{ artist => { id => 1 }, name => 'Artist', join_phrase => '' }]
+        names => [{ artist => { id => 1 }, name => 'Artist', join_phrase => '' }],
     };
 
     my $insert_hash = {
@@ -48,8 +48,8 @@ test 'tracklist used to fit lookup criteria but no longer does' => sub {
                 recording_id => 2,
                 length => 262000,
                 artist_credit => $artist_credit,
-            }
-        ]
+            },
+        ],
     };
 
     my $toc = '1 2 44412 0 24762';
@@ -78,7 +78,7 @@ test 'tracklist used to fit lookup criteria but no longer does' => sub {
         editor_id => 1,
         edit_type => $EDIT_MEDIUM_EDIT,
         to_edit => $medium,
-        tracklist => $medium->tracks
+        tracklist => $medium->tracks,
     );
 
     accept_edit($c, $edit);
@@ -97,8 +97,8 @@ test 'TOC lookup for disc with pregap track' => sub {
         names => [{
             artist => { id => 1 },
             name => 'Artist',
-            join_phrase => ''
-        }]
+            join_phrase => '',
+        }],
     };
 
     my $insert_hash = {
@@ -122,8 +122,8 @@ test 'TOC lookup for disc with pregap track' => sub {
                 recording_id => 1,
                 length => 330160,
                 artist_credit => $artist_credit,
-            }
-        ]
+            },
+        ],
     };
 
     my $created = $c->model('Medium')->insert($insert_hash);

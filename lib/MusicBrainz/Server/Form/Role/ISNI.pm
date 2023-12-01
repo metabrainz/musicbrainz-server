@@ -9,11 +9,11 @@ use List::AllUtils qw( uniq );
 has_field 'isni_codes'          => (
     type => 'Repeatable',
     num_when_empty => 1,
-    inflate_default_method => \&inflate_isni_codes
+    inflate_default_method => \&inflate_isni_codes,
 );
 
 has_field 'isni_codes.contains' => (
-    type => '+MusicBrainz::Server::Form::Field::ISNI'
+    type => '+MusicBrainz::Server::Form::Field::ISNI',
 );
 
 after 'validate' => sub {
@@ -23,7 +23,7 @@ after 'validate' => sub {
     {
         my $isni_codes_field =  $self->field('isni_codes');
         $isni_codes_field->value(
-            [ uniq sort grep { $_ } @{ $isni_codes_field->value } ]
+            [ uniq sort grep { $_ } @{ $isni_codes_field->value } ],
         );
     };
 };

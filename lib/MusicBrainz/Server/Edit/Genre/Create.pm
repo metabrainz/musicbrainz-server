@@ -29,7 +29,7 @@ has '+data' => (
         name       => Str,
         gid        => Optional[Str],
         comment    => Nullable[Str],
-    ]
+    ],
 );
 
 sub foreign_keys
@@ -49,7 +49,7 @@ sub build_display_data
         comment => $self->data->{comment},
         genre   => to_json_object((defined($self->entity_id) &&
             $loaded->{Genre}{ $self->entity_id }) ||
-            Genre->new( name => $self->data->{name} )
+            Genre->new( name => $self->data->{name} ),
         ),
     };
 }

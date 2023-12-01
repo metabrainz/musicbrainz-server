@@ -29,7 +29,7 @@ with 'MusicBrainz::Server::Controller::Role::WikipediaExtract';
 with 'MusicBrainz::Server::Controller::Role::CommonsImage';
 with 'MusicBrainz::Server::Controller::Role::EditRelationships';
 with 'MusicBrainz::Server::Controller::Role::Collection' => {
-    entity_type => 'instrument'
+    entity_type => 'instrument',
 };
 
 sub base : Chained('/') PathPart('instrument') CaptureArgs(0) { }
@@ -227,7 +227,7 @@ sub list : Path('/instruments') Args(0) {
             %{$c->stash->{component_props}},
             instruments_by_type => $entities,
             instrument_types => to_json_array(\@types),
-        }
+        },
     );
 }
 

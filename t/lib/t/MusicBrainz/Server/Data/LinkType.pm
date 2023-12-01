@@ -47,7 +47,7 @@ $link_type = $lt_data->insert({
     reverse_link_phrase => 'reverse_link_phrase',
     long_link_phrase => 'long_link_phrase',
     attributes => [
-        { type => 1, min => 0, max => 1 }
+        { type => 1, min => 0, max => 1 },
     ],
 });
 $sql->commit;

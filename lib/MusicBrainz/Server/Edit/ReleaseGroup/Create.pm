@@ -36,8 +36,8 @@ has '+data' => (
         name          => Str,
         artist_credit => ArtistCreditDefinition,
         comment       => Nullable[Str],
-        secondary_type_ids => Optional[ArrayRef[Int]]
-    ]
+        secondary_type_ids => Optional[ArrayRef[Int]],
+    ],
 );
 
 sub foreign_keys
@@ -47,7 +47,7 @@ sub foreign_keys
         Artist           => { load_artist_credit_definitions($self->data->{artist_credit}) },
         ReleaseGroup     => [ $self->entity_id ],
         ReleaseGroupType => [ $self->data->{type_id} ],
-        ReleaseGroupSecondaryType => $self->data->{secondary_type_ids}
+        ReleaseGroupSecondaryType => $self->data->{secondary_type_ids},
     };
 }
 
@@ -67,7 +67,7 @@ sub build_display_data
                               $loaded->{ReleaseGroup}{ $self->entity_id }) ||
                                   ReleaseGroup->new( name => $self->data->{name} )),
         secondary_types => join(' + ', map { $loaded->{ReleaseGroupSecondaryType}{$_}->l_name }
-                                    @{ $self->data->{secondary_type_ids} })
+                                    @{ $self->data->{secondary_type_ids} }),
     };
 }
 

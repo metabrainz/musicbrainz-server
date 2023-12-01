@@ -14,7 +14,7 @@ sub entity_type { 'series_type' }
 
 sub l_name {
     my $self = shift;
-    return lp($self->name, 'series_type')
+    return lp($self->name, 'series_type');
 }
 
 has item_entity_type => (

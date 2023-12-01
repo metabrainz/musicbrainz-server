@@ -49,13 +49,13 @@ test 'Key setting/retrieving' => sub {
     $redis->set('ref', {
         artist => 'J Alvarez feat. Arcángel',
         title => 'Esperándote',
-        duration => 215000
+        duration => 215000,
     });
 
     is_deeply($redis->get('ref'), {
         artist => 'J Alvarez feat. Arcángel',
         title => 'Esperándote',
-        duration => 215000
+        duration => 215000,
     }, 'Retrieved expected data');
 
     ok(!$redis->exists('does-not-exist'), 'exists returns false for non-existent key');

@@ -20,7 +20,7 @@ sub _get
     return [
         map { "\$$_" }
         grep { $_ =~ $re }
-        keys %MusicBrainz::Server::Constants::
+        keys %MusicBrainz::Server::Constants::,
     ];
 }
 
@@ -42,17 +42,17 @@ our %EXPORT_TAGS = (
     script_frequency   => _get(qr/^SCRIPT_FREQUENCY/),
     election_status => [
         qw( $ELECTION_SECONDER_1 $ELECTION_SECONDER_2 $ELECTION_OPEN
-            $ELECTION_ACCEPTED   $ELECTION_REJECTED   $ELECTION_CANCELLED )
+            $ELECTION_ACCEPTED   $ELECTION_REJECTED   $ELECTION_CANCELLED ),
     ],
     election_vote => [
-        qw( $ELECTION_VOTE_YES $ELECTION_VOTE_NO $ELECTION_VOTE_ABSTAIN )
+        qw( $ELECTION_VOTE_YES $ELECTION_VOTE_NO $ELECTION_VOTE_ABSTAIN ),
     ],
     email_addresses => [
         qw( $EMAIL_NOREPLY_ADDR_SPEC $EMAIL_NOREPLY_ADDRESS
-            $EMAIL_SUPPORT_ADDRESS $EMAIL_ACCOUNT_ADMINS_ADDRESS )
+            $EMAIL_SUPPORT_ADDRESS $EMAIL_ACCOUNT_ADMINS_ADDRESS ),
     ],
     oauth_redirect_uri_re => [
-        qw( $OAUTH_INSTALLED_APP_REDIRECT_URI_RE $OAUTH_WEB_APP_REDIRECT_URI_RE )
+        qw( $OAUTH_INSTALLED_APP_REDIRECT_URI_RE $OAUTH_WEB_APP_REDIRECT_URI_RE ),
     ],
 );
 

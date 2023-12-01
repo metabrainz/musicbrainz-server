@@ -95,7 +95,7 @@ sub begin_dump {
 
     my $replication_control = $self->sql->select_single_row_hash(
         'SELECT current_replication_sequence, current_schema_sequence
-           FROM replication_control'
+           FROM replication_control',
     );
     my $replication_sequence = $self->replication_sequence //
         $replication_control->{current_replication_sequence};

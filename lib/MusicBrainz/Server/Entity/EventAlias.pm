@@ -11,12 +11,12 @@ sub entity_type { 'event_alias' }
 
 has event_id => (
     is => 'rw',
-    isa => 'Int'
+    isa => 'Int',
 );
 
 has event => (
     is => 'rw',
-    isa => 'Event'
+    isa => 'Event',
 );
 
 __PACKAGE__->meta->make_immutable;

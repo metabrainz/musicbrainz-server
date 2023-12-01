@@ -23,17 +23,17 @@ sub entity_type { 'recording' }
 
 has 'track_id' => (
     is => 'rw',
-    isa => 'Int'
+    isa => 'Int',
 );
 
 has 'track' => (
     is => 'rw',
-    isa => 'Track'
+    isa => 'Track',
 );
 
 has 'length' => (
     is => 'rw',
-    isa => 'Maybe[Int]'
+    isa => 'Maybe[Int]',
 );
 
 has 'video' => (
@@ -50,7 +50,7 @@ has 'isrcs' => (
         add_isrc => 'push',
         all_isrcs => 'elements',
         clear_isrcs => 'clear',
-    }
+    },
 );
 
 has 'first_release_date' => (

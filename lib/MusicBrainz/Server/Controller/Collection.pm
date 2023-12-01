@@ -47,7 +47,7 @@ after 'load' => sub {
 
     $c->stash(
         is_collection_collaborator => $is_collection_collaborator,
-    )
+    );
 };
 
 sub own_collection : Chained('load') CaptureArgs(0) RequireAuth {
@@ -110,7 +110,7 @@ sub show : Chained('load') PathPart('') {
         $c->model('Collection')->remove_entities_from_collection($entity_type,
             $collection->id,
             grep { looks_like_number($_) }
-                ref($remove_params) ? @$remove_params : ($remove_params)
+                ref($remove_params) ? @$remove_params : ($remove_params),
         );
     }
 
@@ -280,7 +280,7 @@ sub create : Local RequireAuth {
             # Avoid adding the entity if the collection entity type has changed somehow (MBS-11569)
             if ($initial_entity_type->item_entity_type eq $collection->type->item_entity_type) {
                 $c->model('Collection')->add_entities_to_collection(
-                    $initial_entity_type->item_entity_type, $collection->{id}, $initial_entity_id
+                    $initial_entity_type->item_entity_type, $collection->{id}, $initial_entity_id,
                 );
             }
         }

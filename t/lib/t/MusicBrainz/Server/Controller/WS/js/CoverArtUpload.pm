@@ -10,7 +10,7 @@ with 't::Mechanize', 't::Context';
 
 use JSON;
 use MusicBrainz::Server::Test ws_test => {
-    version => 'js'
+    version => 'js',
 };
 
 test 'jpg post fields' => sub {

@@ -11,7 +11,7 @@ use aliased 'MusicBrainz::Server::Entity::RelationshipLinkTypeGroup';
 
 parameter 'model' => (
     isa => 'Str',
-    required => 1
+    required => 1,
 );
 
 parameter 'entity_name' => (
@@ -20,13 +20,13 @@ parameter 'entity_name' => (
 
 parameter 'arg_count' => (
     isa => 'Int',
-    default => 1
+    default => 1,
 );
 
 parameter 'relationships' => (
     isa => 'HashRef',
     required => 0,
-    default => sub { {} }
+    default => sub { {} },
 );
 
 parameter 'allow_integer_ids' => (
@@ -53,7 +53,7 @@ role
 
     $extra{consumer}->name->config(
         action => {
-            load => { Chained => 'base', PathPart => '', CaptureArgs => $params->arg_count }
+            load => { Chained => 'base', PathPart => '', CaptureArgs => $params->arg_count },
         },
         model => $model,
         entity_name => $entity_name,

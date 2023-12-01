@@ -12,7 +12,7 @@ with 't::Mechanize', 't::Context';
 
 use Test::XML::SemanticCompare;
 use MusicBrainz::Server::Test ws_test => {
-    version => 2
+    version => 2,
 };
 
 test all => sub {

@@ -43,7 +43,7 @@ test 'Deleting an alias' => sub {
         {
             entity => {
                 id => 1,
-                name => 'Test Recording Series'
+                name => 'Test Recording Series',
             },
             alias_id  => 1,
             name      => 'Test Series Alias',
@@ -51,12 +51,12 @@ test 'Deleting an alias' => sub {
             begin_date => {
                 year => undef,
                 month => undef,
-                day => undef
+                day => undef,
             },
             end_date => {
                 year => undef,
                 month => undef,
-                day => undef
+                day => undef,
             },
             ended => 0,
             type_id => 1,
@@ -91,8 +91,8 @@ test 'Edit note is not required (MBS-13284)' => sub {
     my @edits = capture_edits {
         $mech->submit_form_ok({
                 with_fields => {
-                    'confirm.edit_note' => ''
-                }
+                    'confirm.edit_note' => '',
+                },
             },
             'The form returned a 2xx response code',
         );

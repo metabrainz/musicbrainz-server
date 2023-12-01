@@ -21,7 +21,7 @@ has work_attribute_type_id => (
 
 sub l_value {
     my $self = shift;
-    return lp($self->value, 'work_attribute_type_allowed_value')
+    return lp($self->value, 'work_attribute_type_allowed_value');
 }
 
 around TO_JSON => sub {

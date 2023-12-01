@@ -30,7 +30,7 @@ sub edit_template { 'ReorderCoverArt' }
 sub alter_edit_pending {
     return {
         Release => [ shift->release_ids ],
-    }
+    };
 }
 
 has '+data' => (
@@ -38,11 +38,11 @@ has '+data' => (
         entity => Dict[
             id   => Int,
             name => Str,
-            mbid => Str
+            mbid => Str,
         ],
         old => ArrayRef[Dict[ id => Int, position => Int ]],
         new => ArrayRef[Dict[ id => Int, position => Int ]],
-    ]
+    ],
 );
 
 sub initialize {
@@ -57,7 +57,7 @@ sub initialize {
         entity => {
             id => $release->id,
             name => $release->name,
-            mbid => $release->gid
+            mbid => $release->gid,
         },
         old => $opts{old},
         new => $opts{new},
@@ -69,7 +69,7 @@ sub accept {
 
     my $release = $self->c->model('Release')->get_by_gid($self->data->{entity}{mbid})
         or MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
-            'This release no longer exists'
+            'This release no longer exists',
         );
 
     my $current = $self->c->model('Artwork')->find_by_release($release);
@@ -95,7 +95,7 @@ sub foreign_keys {
     my %fk;
 
     $fk{Release} = {
-        $self->data->{entity}{id} => [ 'ArtistCredit' ]
+        $self->data->{entity}{id} => [ 'ArtistCredit' ],
     };
 
     return \%fk;

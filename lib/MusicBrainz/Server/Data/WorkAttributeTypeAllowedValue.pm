@@ -52,7 +52,7 @@ sub load_for_work_attribute_types
     my $allowed_values = $self->sql->select_list_of_hashes(
         'SELECT ' . $self->_columns . ' FROM ' . $self->_table . '
           WHERE work_attribute_type = any(?)',
-        \@wat_ids
+        \@wat_ids,
     );
 
     my $mapping = $self->_column_mapping;

@@ -20,12 +20,12 @@ with 'MusicBrainz::Server::Data::Role::Sql';
 has parent => (
     does => 'MusicBrainz::Server::Data::Role::Tag',
     is => 'ro',
-    weak_ref => 1
+    weak_ref => 1,
 );
 
 has [qw( tag_table type )] => (
     isa => 'Str',
-    is => 'ro'
+    is => 'ro',
 );
 
 sub find_tags {
@@ -263,8 +263,8 @@ sub clear {
             "SELECT $entity_type, t.name AS tag FROM $table
              JOIN tag t ON t.id = $table.tag
              WHERE editor = ?",
-            $editor_id
-        )
+            $editor_id,
+        );
     }) {
         $self->withdraw($editor_id, $row->{$entity_type}, $row->{tag});
     }
@@ -299,7 +299,7 @@ sub _vote {
 
         # Get the new vote count from the aggregate tag table.
         $result->{count} = $sql->select_single_value(
-            "SELECT count FROM $assoc_table WHERE $entity_type = ? AND tag = ?", $entity_id, $tag_id
+            "SELECT count FROM $assoc_table WHERE $entity_type = ? AND tag = ?", $entity_id, $tag_id,
         );
     }, $self->c->sql);
 
@@ -335,7 +335,7 @@ sub withdraw {
         # Remove the raw tag association
         my $deleted = $sql->select_single_value(
             "DELETE FROM $assoc_table_raw WHERE $entity_type = ? AND tag = ? AND editor = ? RETURNING 1",
-            $entity_id, $tag_id, $user_id
+            $entity_id, $tag_id, $user_id,
         );
 
         unless ($deleted) {
@@ -345,7 +345,7 @@ sub withdraw {
 
         # Get the new vote count from the aggregate tag table.
         my $new_count = $sql->select_single_value(
-            "SELECT count FROM $assoc_table WHERE $entity_type = ? AND tag = ?", $entity_id, $tag_id
+            "SELECT count FROM $assoc_table WHERE $entity_type = ? AND tag = ?", $entity_id, $tag_id,
         );
 
         if (defined $new_count) {
@@ -380,7 +380,7 @@ sub find_user_tags {
             tag => MusicBrainz::Server::Entity::Tag->new(
                 genre_id => $row->{genre_id},
                 name => $row->{tag_name},
-                id => $row->{tag_id}
+                id => $row->{tag_id},
             ),
             tag_id => $row->{tag_id},
             editor_id => $user_id,

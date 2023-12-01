@@ -18,8 +18,8 @@ has 'attributes' => (
     handles => {
         clear_attributes => 'clear',
         all_attributes   => 'elements',
-        add_attribute    => 'push'
-    }
+        add_attribute    => 'push',
+    },
 );
 
 sub has_attribute

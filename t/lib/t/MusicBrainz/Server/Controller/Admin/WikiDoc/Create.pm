@@ -67,7 +67,7 @@ test 'Create a new transcluded page' => sub {
         $mech->submit_form_ok({
             with_fields => {
                 'wikidoc.page' => 'Transclusion_Testing',
-                'wikidoc.version' => 1
+                'wikidoc.version' => 1,
             },
         },
         'The form returned a 2xx response code')

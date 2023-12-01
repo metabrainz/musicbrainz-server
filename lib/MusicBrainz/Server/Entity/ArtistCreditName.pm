@@ -5,22 +5,22 @@ use MusicBrainz::Server::Entity::Types;
 
 has 'name' => (
     is => 'rw',
-    isa => 'Str'
+    isa => 'Str',
 );
 
 has 'join_phrase' => (
     is => 'rw',
-    isa => 'Str'
+    isa => 'Str',
 );
 
 has 'artist_id' => (
     is => 'rw',
-    isa => 'Int'
+    isa => 'Int',
 );
 
 has 'artist' => (
     is => 'rw',
-    isa => 'Artist'
+    isa => 'Artist',
 );
 
 sub TO_JSON {

@@ -19,7 +19,7 @@ sub _build_related_entities {
     my $self = shift;
     return {
         release => [ map { $_->{id} } @{ $self->data->{releases} } ],
-    }
+    };
 }
 
 sub foreign_keys
@@ -28,7 +28,7 @@ sub foreign_keys
 
     return {
         Release => { map { $_->{id} => [ 'ArtistCredit' ] } @{ $self->data->{releases} } },
-    }
+    };
 }
 
 sub build_display_data
@@ -42,10 +42,10 @@ sub build_display_data
                     MusicBrainz::Server::Entity::Release->new(
                         id => $_->{id},
                         name => $_->{name},
-                    )
+                    ),
                 )
-            } @{ $self->data->{releases} }
-        ]
+            } @{ $self->data->{releases} },
+        ],
     };
 }
 
@@ -60,13 +60,13 @@ sub upgrade
 
         if (my @ids = @{ $self->album_release_ids($id) }) {
             push @releases, map +{
-                id => $_, name => $name
+                id => $_, name => $name,
             }, @ids;
         }
         else {
             # If the release has been removed, we won't be able to resolve the IDs
             push @releases, {
-                id => 0, name => $name
+                id => 0, name => $name,
             }
         }
     }

@@ -39,7 +39,7 @@ sub index : Path('/admin/attributes') Args(0) RequireAuth(account_admin) {
     $c->stash(
         current_view => 'Node',
         component_path => 'admin/attributes/Index',
-        component_props => {models => \@models}
+        component_props => {models => \@models},
     );
 }
 
@@ -58,7 +58,7 @@ sub attribute_index : Chained('attribute_base') PathPart('') RequireAuth(account
 
     my %component_paths = (
         Language => 'admin/attributes/Language',
-        Script => 'admin/attributes/Script'
+        Script => 'admin/attributes/Script',
     );
     my $component_path = $component_paths{$model} // 'admin/attributes/Attribute';
 
@@ -68,7 +68,7 @@ sub attribute_index : Chained('attribute_base') PathPart('') RequireAuth(account
         component_props => {
             attributes => to_json_array(\@attr),
             model => $model,
-        }
+        },
     );
 }
 
@@ -78,7 +78,7 @@ sub create : Chained('attribute_base') RequireAuth(account_admin) SecureForm {
 
     my %forms = (
         Language => 'Admin::Attributes::Language',
-        Script => 'Admin::Attributes::Script'
+        Script => 'Admin::Attributes::Script',
     );
     my $form_name = $forms{$model} // 'Admin::Attributes';
     my $form = $c->form( form => $form_name );
@@ -100,7 +100,7 @@ sub edit : Chained('attribute_base') Args(1) RequireAuth(account_admin) SecureFo
 
     my %forms = (
         Language => 'Admin::Attributes::Language',
-        Script => 'Admin::Attributes::Script'
+        Script => 'Admin::Attributes::Script',
     );
     my $form_name = $forms{$model} // 'Admin::Attributes';
     my $form = $c->form( form => $form_name, init_object => $attr );
@@ -132,7 +132,7 @@ sub delete : Chained('attribute_base') Args(1) RequireAuth(account_admin) Secure
         $c->stash(
             current_view => 'Node',
             component_path => 'admin/attributes/CannotRemoveAttribute',
-            component_props => {message => $error_message}
+            component_props => {message => $error_message},
         );
 
         $c->detach;
@@ -144,7 +144,7 @@ sub delete : Chained('attribute_base') Args(1) RequireAuth(account_admin) Secure
         $c->stash(
             current_view => 'Node',
             component_path => 'admin/attributes/CannotRemoveAttribute',
-            component_props => {message => $error_message}
+            component_props => {message => $error_message},
         );
 
         $c->detach;

@@ -1272,14 +1272,17 @@ DISTRIBUTIONS
     requirements:
       DBI 1.605
       perl 5.008001
-  Data-Clone-0.004
-    pathname: G/GF/GFUJI/Data-Clone-0.004.tar.gz
+  Data-Clone-0.006
+    pathname: I/IS/ISHIGAKI/Data-Clone-0.006.tar.gz
     provides:
-      Data::Clone 0.004
+      Data::Clone 0.006
     requirements:
       Devel::PPPort 3.19
+      ExtUtils::CBuilder 0
       ExtUtils::MakeMaker 6.59
       ExtUtils::ParseXS 3.18
+      Module::Build 0.4005
+      Module::Build::XSUtil 0.19
       Test::More 0.88
       Test::Requires 0.03
       XSLoader 0.02
@@ -1453,19 +1456,19 @@ DISTRIBUTIONS
       Bit::Vector 7.4
       Carp::Clan 6.04
       ExtUtils::MakeMaker 0
-  DateTime-1.63
-    pathname: D/DR/DROLSKY/DateTime-1.63.tar.gz
+  DateTime-1.65
+    pathname: D/DR/DROLSKY/DateTime-1.65.tar.gz
     provides:
-      DateTime 1.63
-      DateTime::Duration 1.63
-      DateTime::Helpers 1.63
-      DateTime::Infinite 1.63
-      DateTime::Infinite::Future 1.63
-      DateTime::Infinite::Past 1.63
-      DateTime::LeapSecond 1.63
-      DateTime::PP 1.63
-      DateTime::PPExtra 1.63
-      DateTime::Types 1.63
+      DateTime 1.65
+      DateTime::Duration 1.65
+      DateTime::Helpers 1.65
+      DateTime::Infinite 1.65
+      DateTime::Infinite::Future 1.65
+      DateTime::Infinite::Past 1.65
+      DateTime::LeapSecond 1.65
+      DateTime::PP 1.65
+      DateTime::PPExtra 1.65
+      DateTime::Types 1.65
     requirements:
       Carp 0
       DateTime::Locale 1.06
@@ -2017,6 +2020,19 @@ DISTRIBUTIONS
       perl 5.008004
       strict 0
       warnings 0
+  Devel-CheckCompiler-0.07
+    pathname: S/SY/SYOHEX/Devel-CheckCompiler-0.07.tar.gz
+    provides:
+      Devel::AssertC99 undef
+      Devel::CheckCompiler 0.07
+    requirements:
+      Exporter 0
+      ExtUtils::CBuilder 0
+      File::Temp 0
+      Module::Build::Tiny 0.035
+      Test::More 0.98
+      parent 0
+      perl 5.008001
   Devel-Cycle-1.12
     pathname: L/LD/LDS/Devel-Cycle-1.12.tar.gz
     provides:
@@ -2664,17 +2680,25 @@ DISTRIBUTIONS
     requirements:
       ExtUtils::MakeMaker 0
       perl 5.008001
-  Getopt-Long-Descriptive-0.111
-    pathname: R/RJ/RJBS/Getopt-Long-Descriptive-0.111.tar.gz
+  Getopt-Long-2.57
+    pathname: J/JV/JV/Getopt-Long-2.57.tar.gz
     provides:
-      Getopt::Long::Descriptive 0.111
-      Getopt::Long::Descriptive::Opts 0.111
-      Getopt::Long::Descriptive::Usage 0.111
+      Getopt::Long 2.57
+      Getopt::Long::Parser 2.57
+    requirements:
+      ExtUtils::MakeMaker 0
+      Pod::Usage 1.14
+  Getopt-Long-Descriptive-0.112
+    pathname: R/RJ/RJBS/Getopt-Long-Descriptive-0.112.tar.gz
+    provides:
+      Getopt::Long::Descriptive 0.112
+      Getopt::Long::Descriptive::Opts 0.112
+      Getopt::Long::Descriptive::Usage 0.112
     requirements:
       Carp 0
       ExtUtils::MakeMaker 6.78
       File::Basename 0
-      Getopt::Long 2.33
+      Getopt::Long 2.55
       List::Util 0
       Params::Validate 0.97
       Scalar::Util 0
@@ -3236,18 +3260,18 @@ DISTRIBUTIONS
       Exporter 5.57
       ExtUtils::MakeMaker 0
       perl 5.008
-  IO-Socket-SSL-2.083
-    pathname: S/SU/SULLR/IO-Socket-SSL-2.083.tar.gz
+  IO-Socket-SSL-2.084
+    pathname: S/SU/SULLR/IO-Socket-SSL-2.084.tar.gz
     provides:
-      IO::Socket::SSL 2.083
+      IO::Socket::SSL 2.084
       IO::Socket::SSL::Intercept 2.056
-      IO::Socket::SSL::OCSP_Cache 2.083
-      IO::Socket::SSL::OCSP_Resolver 2.083
+      IO::Socket::SSL::OCSP_Cache 2.084
+      IO::Socket::SSL::OCSP_Resolver 2.084
       IO::Socket::SSL::PublicSuffix undef
-      IO::Socket::SSL::SSL_Context 2.083
-      IO::Socket::SSL::SSL_HANDLE 2.083
-      IO::Socket::SSL::Session_Cache 2.083
-      IO::Socket::SSL::Trace 2.083
+      IO::Socket::SSL::SSL_Context 2.084
+      IO::Socket::SSL::SSL_HANDLE 2.084
+      IO::Socket::SSL::Session_Cache 2.084
+      IO::Socket::SSL::Trace 2.084
       IO::Socket::SSL::Utils 2.015
     requirements:
       ExtUtils::MakeMaker 0
@@ -3661,6 +3685,21 @@ DISTRIBUTIONS
       perl 5.006
       strict 0
       warnings 0
+  Module-Build-XSUtil-0.19
+    pathname: H/HI/HIDEAKIO/Module-Build-XSUtil-0.19.tar.gz
+    provides:
+      Module::Build::XSUtil 0.19
+    requirements:
+      Devel::CheckCompiler 0
+      Devel::PPPort 0
+      Exporter 0
+      ExtUtils::CBuilder 0
+      File::Basename 0
+      File::Path 0
+      Module::Build 0.4005
+      XSLoader 0
+      parent 0
+      perl 5.008001
   Module-Find-0.16
     pathname: C/CR/CRENZ/Module-Find-0.16.tar.gz
     provides:
@@ -3773,15 +3812,16 @@ DISTRIBUTIONS
       perl 5.006
       strict 0
       warnings 0
-  Module-ScanDeps-1.34
-    pathname: R/RS/RSCHUPP/Module-ScanDeps-1.34.tar.gz
+  Module-ScanDeps-1.35
+    pathname: R/RS/RSCHUPP/Module-ScanDeps-1.35.tar.gz
     provides:
-      Module::ScanDeps 1.34
+      Module::ScanDeps 1.35
     requirements:
       ExtUtils::MakeMaker 0
       File::Spec 0
       File::Temp 0
       Getopt::Long 0
+      List::Util 1.33
       Module::Metadata 0
       Text::ParseWords 0
       perl 5.008009
@@ -4602,10 +4642,10 @@ DISTRIBUTIONS
       Mozilla::CA 20230821
     requirements:
       ExtUtils::MakeMaker 0
-  Net-DNS-1.40
-    pathname: N/NL/NLNETLABS/Net-DNS-1.40.tar.gz
+  Net-DNS-1.41
+    pathname: N/NL/NLNETLABS/Net-DNS-1.41.tar.gz
     provides:
-      Net::DNS 1.40
+      Net::DNS 1.41
       Net::DNS::Domain 1913
       Net::DNS::DomainName 1898
       Net::DNS::DomainName1035 1898
@@ -4614,14 +4654,14 @@ DISTRIBUTIONS
       Net::DNS::Mailbox 1910
       Net::DNS::Mailbox1035 1910
       Net::DNS::Mailbox2535 1910
-      Net::DNS::Nameserver 1925
-      Net::DNS::Packet 1925
-      Net::DNS::Parameters 1921
+      Net::DNS::Nameserver 1949
+      Net::DNS::Packet 1947
+      Net::DNS::Parameters 1945
       Net::DNS::Question 1895
       Net::DNS::RR 1910
       Net::DNS::RR::A 1896
       Net::DNS::RR::AAAA 1896
-      Net::DNS::RR::AFSDB 1898
+      Net::DNS::RR::AFSDB 1945
       Net::DNS::RR::AMTRELAY 1896
       Net::DNS::RR::APL 1896
       Net::DNS::RR::APL::Item 1896
@@ -4640,11 +4680,11 @@ DISTRIBUTIONS
       Net::DNS::RR::GPOS 1910
       Net::DNS::RR::HINFO 1896
       Net::DNS::RR::HIP 1896
-      Net::DNS::RR::HTTPS 1896
+      Net::DNS::RR::HTTPS 1945
       Net::DNS::RR::IPSECKEY 1909
       Net::DNS::RR::ISDN 1896
       Net::DNS::RR::KEY 1896
-      Net::DNS::RR::KX 1898
+      Net::DNS::RR::KX 1945
       Net::DNS::RR::L32 1896
       Net::DNS::RR::L64 1896
       Net::DNS::RR::LOC 1896
@@ -4653,11 +4693,11 @@ DISTRIBUTIONS
       Net::DNS::RR::MG 1910
       Net::DNS::RR::MINFO 1896
       Net::DNS::RR::MR 1910
-      Net::DNS::RR::MX 1896
+      Net::DNS::RR::MX 1945
       Net::DNS::RR::NAPTR 1898
       Net::DNS::RR::NID 1896
       Net::DNS::RR::NS 1896
-      Net::DNS::RR::NSEC 1896
+      Net::DNS::RR::NSEC 1945
       Net::DNS::RR::NSEC3 1910
       Net::DNS::RR::NSEC3PARAM 1896
       Net::DNS::RR::NULL 1896
@@ -4677,17 +4717,17 @@ DISTRIBUTIONS
       Net::DNS::RR::OPT::REPORT_CHANNEL 1934
       Net::DNS::RR::OPT::TCP_KEEPALIVE 1934
       Net::DNS::RR::PTR 1896
-      Net::DNS::RR::PX 1898
-      Net::DNS::RR::RP 1898
+      Net::DNS::RR::PX 1945
+      Net::DNS::RR::RP 1945
       Net::DNS::RR::RRSIG 1896
-      Net::DNS::RR::RT 1898
+      Net::DNS::RR::RT 1945
       Net::DNS::RR::SIG 1908
       Net::DNS::RR::SMIMEA 1896
-      Net::DNS::RR::SOA 1931
+      Net::DNS::RR::SOA 1945
       Net::DNS::RR::SPF 1896
-      Net::DNS::RR::SRV 1898
+      Net::DNS::RR::SRV 1945
       Net::DNS::RR::SSHFP 1896
-      Net::DNS::RR::SVCB 1930
+      Net::DNS::RR::SVCB 1945
       Net::DNS::RR::TKEY 1908
       Net::DNS::RR::TLSA 1896
       Net::DNS::RR::TSIG 1909
@@ -4696,7 +4736,7 @@ DISTRIBUTIONS
       Net::DNS::RR::X25 1896
       Net::DNS::RR::ZONEMD 1896
       Net::DNS::Resolver 1895
-      Net::DNS::Resolver::Base 1930
+      Net::DNS::Resolver::Base 1947
       Net::DNS::Resolver::MSWin32 1856
       Net::DNS::Resolver::Recurse 1930
       Net::DNS::Resolver::UNIX 1856
@@ -4810,10 +4850,10 @@ DISTRIBUTIONS
       perl 5.006
       strict 0
       warnings 0
-  POSIX-strftime-Compiler-0.44
-    pathname: K/KA/KAZEBURO/POSIX-strftime-Compiler-0.44.tar.gz
+  POSIX-strftime-Compiler-0.45
+    pathname: K/KA/KAZEBURO/POSIX-strftime-Compiler-0.45.tar.gz
     provides:
-      POSIX::strftime::Compiler 0.44
+      POSIX::strftime::Compiler 0.45
     requirements:
       Carp 0
       Exporter 0
@@ -5562,6 +5602,86 @@ DISTRIBUTIONS
       perl 5.006001
       strict 0
       warnings 0
+  Perl-Critic-Pulp-99
+    pathname: K/KR/KRYDE/Perl-Critic-Pulp-99.tar.gz
+    provides:
+      Perl::Critic::PodParser::ProhibitVerbatimMarkup 99
+      Perl::Critic::Policy::CodeLayout::ProhibitFatCommaNewline 99
+      Perl::Critic::Policy::CodeLayout::ProhibitIfIfSameLine 99
+      Perl::Critic::Policy::CodeLayout::RequireFinalSemicolon 99
+      Perl::Critic::Policy::CodeLayout::RequireTrailingCommaAtNewline 99
+      Perl::Critic::Policy::Compatibility::ConstantLeadingUnderscore 99
+      Perl::Critic::Policy::Compatibility::ConstantPragmaHash 99
+      Perl::Critic::Policy::Compatibility::Gtk2Constants 99
+      Perl::Critic::Policy::Compatibility::PerlMinimumVersionAndWhy 99
+      Perl::Critic::Policy::Compatibility::PodMinimumVersion 99
+      Perl::Critic::Policy::Compatibility::ProhibitUnixDevNull 99
+      Perl::Critic::Policy::Documentation::ProhibitAdjacentLinks 99
+      Perl::Critic::Policy::Documentation::ProhibitAdjacentLinks::Parser 99
+      Perl::Critic::Policy::Documentation::ProhibitBadAproposMarkup 99
+      Perl::Critic::Policy::Documentation::ProhibitDuplicateHeadings 99
+      Perl::Critic::Policy::Documentation::ProhibitDuplicateSeeAlso 99
+      Perl::Critic::Policy::Documentation::ProhibitLinkToSelf 99
+      Perl::Critic::Policy::Documentation::ProhibitParagraphEndComma 99
+      Perl::Critic::Policy::Documentation::ProhibitParagraphTwoDots 99
+      Perl::Critic::Policy::Documentation::ProhibitUnbalancedParens 99
+      Perl::Critic::Policy::Documentation::ProhibitVerbatimMarkup 99
+      Perl::Critic::Policy::Documentation::RequireEndBeforeLastPod 99
+      Perl::Critic::Policy::Documentation::RequireFilenameMarkup 99
+      Perl::Critic::Policy::Documentation::RequireFinalCut 99
+      Perl::Critic::Policy::Documentation::RequireLinkedURLs 99
+      Perl::Critic::Policy::Miscellanea::TextDomainPlaceholders 99
+      Perl::Critic::Policy::Miscellanea::TextDomainUnused 99
+      Perl::Critic::Policy::Modules::ProhibitModuleShebang 99
+      Perl::Critic::Policy::Modules::ProhibitPOSIXimport 99
+      Perl::Critic::Policy::Modules::ProhibitUseQuotedVersion 99
+      Perl::Critic::Policy::ValuesAndExpressions::ConstantBeforeLt 99
+      Perl::Critic::Policy::ValuesAndExpressions::NotWithCompare 99
+      Perl::Critic::Policy::ValuesAndExpressions::ProhibitArrayAssignAref 99
+      Perl::Critic::Policy::ValuesAndExpressions::ProhibitBarewordDoubleColon 99
+      Perl::Critic::Policy::ValuesAndExpressions::ProhibitDuplicateHashKeys 99
+      Perl::Critic::Policy::ValuesAndExpressions::ProhibitEmptyCommas 99
+      Perl::Critic::Policy::ValuesAndExpressions::ProhibitFiletest_f 99
+      Perl::Critic::Policy::ValuesAndExpressions::ProhibitNullStatements 99
+      Perl::Critic::Policy::ValuesAndExpressions::ProhibitUnknownBackslash 99
+      Perl::Critic::Policy::ValuesAndExpressions::RequireNumericVersion 99
+      Perl::Critic::Policy::ValuesAndExpressions::UnexpandedSpecialLiteral 99
+      Perl::Critic::Pulp 99
+      Perl::Critic::Pulp::PodMinimumVersionViolation 99
+      Perl::Critic::Pulp::PodParser 99
+      Perl::Critic::Pulp::PodParser::ProhibitBadAproposMarkup 99
+      Perl::Critic::Pulp::PodParser::ProhibitDuplicateHeadings 99
+      Perl::Critic::Pulp::PodParser::ProhibitDuplicateSeeAlso 99
+      Perl::Critic::Pulp::PodParser::ProhibitLinkToSelf 99
+      Perl::Critic::Pulp::PodParser::ProhibitParagraphEndComma 99
+      Perl::Critic::Pulp::PodParser::ProhibitParagraphTwoDots 99
+      Perl::Critic::Pulp::PodParser::ProhibitUnbalancedParens 99
+      Perl::Critic::Pulp::PodParser::RequireFilenameMarkup 99
+      Perl::Critic::Pulp::PodParser::RequireFinalCut 99
+      Perl::Critic::Pulp::PodParser::RequireLinkedURLs 99
+      Perl::Critic::Pulp::ProhibitDuplicateHashKeys::Qword 99
+      Perl::Critic::Pulp::Utils 99
+    requirements:
+      ExtUtils::MakeMaker 0
+      IO::String 1.02
+      List::MoreUtils 0.24
+      List::Util 0
+      PPI 1.220
+      PPI::Document 0
+      PPI::Dumper 0
+      Perl::Critic 1.084
+      Perl::Critic::Policy 1.084
+      Perl::Critic::Utils 1.100
+      Perl::Critic::Utils::PPI 0
+      Perl::Critic::Violation 0
+      Pod::Escapes 0
+      Pod::MinimumVersion 50
+      Pod::ParseLink 0
+      Pod::Parser 0
+      Scalar::Util 0
+      Test::More 0
+      perl 5.006
+      version 0
   Perl-Critic-TooMuchCode-0.19
     pathname: G/GU/GUGOD/Perl-Critic-TooMuchCode-0.19.tar.gz
     provides:
@@ -5818,6 +5938,20 @@ DISTRIBUTIONS
       perl 5.006
       strict 0
       warnings 0
+  Pod-MinimumVersion-50
+    pathname: K/KR/KRYDE/Pod-MinimumVersion-50.tar.gz
+    provides:
+      Pod::MinimumVersion 50
+      Pod::MinimumVersion::Parser 50
+      Pod::MinimumVersion::Report 50
+    requirements:
+      ExtUtils::MakeMaker 0
+      IO::String 1.02
+      List::Util 0
+      Pod::Parser 0
+      Test 0
+      perl 5.004
+      version 0
   Pod-Parser-1.66
     pathname: M/MA/MAREKR/Pod-Parser-1.66.tar.gz
     provides:
@@ -6190,18 +6324,18 @@ DISTRIBUTIONS
       Test::More 0.88
       Test::TableDriven 0
       ok 0
-  Sub-Exporter-0.990
-    pathname: R/RJ/RJBS/Sub-Exporter-0.990.tar.gz
+  Sub-Exporter-0.991
+    pathname: R/RJ/RJBS/Sub-Exporter-0.991.tar.gz
     provides:
-      Sub::Exporter 0.990
-      Sub::Exporter::Util 0.990
+      Sub::Exporter 0.991
+      Sub::Exporter::Util 0.991
     requirements:
       Carp 0
       Data::OptList 0.100
       ExtUtils::MakeMaker 6.78
       Params::Util 0.14
       Sub::Install 0.92
-      perl 5.008000
+      perl 5.012
       strict 0
       warnings 0
   Sub-Exporter-ForMethods-0.100055

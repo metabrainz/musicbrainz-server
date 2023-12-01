@@ -40,7 +40,7 @@ test 'Check unserialize(serialize(x)) == x' => sub {
             'form.foo.baz.0.qux' => 'Ambient Intelligence',
             'form.foo.baz.1.qux' => 'Warlords of Destruction',
             'form.foo.baz.2.qux' => 'Boarboyz Attack',
-        }
+        },
     );
 
     my $subfields = $form->field('foo.baz')->fields;

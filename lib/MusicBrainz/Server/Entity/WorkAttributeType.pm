@@ -28,23 +28,23 @@ has allowed_values => (
     handles => {
         all_allowed_values => 'elements',
         add_allowed_value => 'push',
-        clear_allowed_values => 'clear'
-    }
+        clear_allowed_values => 'clear',
+    },
 );
 
 sub l_name {
     my $self = shift;
-    return lp($self->name, 'work_attribute_type')
+    return lp($self->name, 'work_attribute_type');
 }
 
 sub l_comment {
     my $self = shift;
-    return lp($self->name, 'work_attribute_type')
+    return lp($self->name, 'work_attribute_type');
 }
 
 sub l_description {
     my $self = shift;
-    return lp($self->name, 'work_attribute_type')
+    return lp($self->name, 'work_attribute_type');
 }
 
 sub allows_value {

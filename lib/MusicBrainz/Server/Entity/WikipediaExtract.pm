@@ -9,7 +9,7 @@ has 'title' => (
 
 has 'content' => (
     is => 'rw',
-    isa => 'Str'
+    isa => 'Str',
 );
 
 has 'canonical' => (

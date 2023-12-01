@@ -4,7 +4,7 @@ use namespace::autoclean;
 
 parameter model => (
     isa => 'Str',
-    required => 1
+    required => 1,
 );
 
 role {
@@ -15,13 +15,13 @@ role {
     around _format_output => sub {
         my ($orig, $self, $c, @entities) = @_;
         my $aliases = $c->model($params->model)->alias->find_by_entity_ids(
-            map { $_->id } @entities
+            map { $_->id } @entities,
         );
 
         return map +{
             entity => $_,
             aliases => $aliases->{$_->id},
-            current_language => $c->stash->{current_language} // 'en'
+            current_language => $c->stash->{current_language} // 'en',
         }, $self->$orig($c, @entities);
     };
 };

@@ -23,9 +23,9 @@ sub foreign_keys
             } (
                 $self->data->{new_entity}{id},
                 map { $_->{id} } @{ $self->data->{old_entities} },
-            )
-        }
-    }
+            ),
+        },
+    };
 }
 
 before build_display_data => sub {

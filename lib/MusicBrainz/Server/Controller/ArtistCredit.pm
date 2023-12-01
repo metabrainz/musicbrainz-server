@@ -36,7 +36,7 @@ sub show : Chained('load') PathPart('')
     for my $entity_type (entities_with('artist_credits')) {
         my $model = type_to_model($entity_type);
         my ($entities, $total) = $c->model($model)->find_by_artist_credit(
-            $artist_credit->id, 10, 0
+            $artist_credit->id, 10, 0,
         );
 
         $credited_entities{$entity_type} = {

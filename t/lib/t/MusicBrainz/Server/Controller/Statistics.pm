@@ -38,7 +38,7 @@ sub statistics_test {
                 $test->mech->content_like(qr{Last updated: [0-9]+}, "Last updated date is shown on $endpoint");
             }
         }
-    }
+    };
 }
 
 test 'Fetch statistics pages' => statistics_test(

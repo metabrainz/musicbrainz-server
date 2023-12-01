@@ -34,7 +34,7 @@ use aliased 'MusicBrainz::Server::Entity::EditNote';
 
 has 'c' => (
     is => 'rw',
-    isa => 'Object'
+    isa => 'Object',
 );
 
 Readonly our $url_prefix => 'https://' . DBDefs->WEB_SERVER_USED_IN_EMAIL;
@@ -507,7 +507,7 @@ sub send_subscriptions_digest
 
     my $email = MusicBrainz::Server::Email::Subscriptions->new(
         from => $EMAIL_NOREPLY_ADDRESS,
-        %opts
+        %opts,
     );
     return try { $self->_send_email($email->create_email) } catch { warn $_ };
 }
@@ -660,7 +660,7 @@ sub send_editor_report {
 has 'transport' => (
     is => 'rw',
     lazy => 1,
-    builder => '_build_transport'
+    builder => '_build_transport',
 );
 
 sub get_test_transport
@@ -699,8 +699,8 @@ sub _send_email
             grep { defined                   }
             map  { Email::Address->parse($_) }
             map  { $email->header($_)        }
-                qw(to cc bcc)
-        ]
+                qw(to cc bcc),
+        ],
     };
 
     $email->header_set('BCC'); # removes the header

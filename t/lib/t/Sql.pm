@@ -269,7 +269,7 @@ test 'All tests' => sub {
                           {
                               id => 1, name => 'musical' },
                           {
-                              id => 2, name => 'rock' }
+                              id => 2, name => 'rock' },
                       ]);
         }, 'select_list_of_hashes with SQL';
 
@@ -279,7 +279,7 @@ test 'All tests' => sub {
                           {
                               id => 1, name => 'musical' },
                           {
-                              id => 2, name => 'rock' }
+                              id => 2, name => 'rock' },
                       ]);
         }, 'select_list_of_hashes with bind parameters';
     }

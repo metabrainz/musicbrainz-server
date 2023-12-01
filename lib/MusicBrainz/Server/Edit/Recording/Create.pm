@@ -43,8 +43,8 @@ sub foreign_keys
     my $self = shift;
     return {
         Artist    => { load_artist_credit_definitions($self->data->{artist_credit}) },
-        Recording => { $self->entity_id => [ 'ArtistCredit' ] }
-    }
+        Recording => { $self->entity_id => [ 'ArtistCredit' ] },
+    };
 }
 
 sub build_display_data
@@ -59,7 +59,7 @@ sub build_display_data
         video         => boolean_to_json($self->data->{video}),
         recording     => to_json_object((defined($self->entity_id) &&
             $loaded->{Recording}{ $self->entity_id }) ||
-            Recording->new( name => $self->data->{name} )
+            Recording->new( name => $self->data->{name} ),
         ),
     };
 }
@@ -70,7 +70,7 @@ sub _insert_hash
     my ($self, $data) = @_;
     $data->{artist_credit} = $self->c->model('ArtistCredit')->find_or_insert($data->{artist_credit});
     $data->{comment} //= '';
-    return $data
+    return $data;
 }
 
 around reject => sub {

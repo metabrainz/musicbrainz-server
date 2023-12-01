@@ -13,7 +13,7 @@ sub combine_with_query {
         join(' ', 'B.language', $self->operator,
              $self->operator eq '='  ? 'any(?)' :
              $self->operator eq '!=' ? 'all(?)' : die q(Shouldn't get here)) . ')',
-        $self->sql_arguments
+        $self->sql_arguments,
     ]) if $self->arguments > 0;
 }
 

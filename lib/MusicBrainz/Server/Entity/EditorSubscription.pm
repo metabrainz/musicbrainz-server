@@ -8,7 +8,7 @@ with 'MusicBrainz::Server::Entity::Subscription::Active';
 
 has 'subscribed_editor' => (
     isa => 'Editor',
-    is => 'rw'
+    is => 'rw',
 );
 
 has 'subscribed_editor_id' => (

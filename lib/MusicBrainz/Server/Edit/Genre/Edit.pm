@@ -38,11 +38,11 @@ has '+data' => (
         entity => Dict[
             id => Int,
             gid => Optional[Str],
-            name => Str
+            name => Str,
         ],
         new => change_fields(),
         old => change_fields(),
-    ]
+    ],
 );
 
 sub foreign_keys
@@ -67,7 +67,7 @@ sub build_display_data
 
     $data->{genre} = to_json_object(
         $loaded->{Genre}{ $self->data->{entity}{id} }
-        || Genre->new( name => $self->data->{entity}{name} )
+        || Genre->new( name => $self->data->{entity}{name} ),
     );
 
     return $data;

@@ -24,7 +24,7 @@ around '_build_related_entities' => sub
         recording => [ map { $_->id } @recordings ],
         release => [ map { $_->id } @releases ],
         release_group => [ map { $_->release_group_id } @releases ],
-    }
+    };
 };
 
 sub release_ids { shift->release_id }

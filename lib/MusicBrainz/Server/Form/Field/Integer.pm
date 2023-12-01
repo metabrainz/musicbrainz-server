@@ -12,7 +12,7 @@ apply([
             return 0 + $value;
         },
         message => '',
-    }
+    },
 ]);
 
 1;

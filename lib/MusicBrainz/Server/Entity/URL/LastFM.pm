@@ -6,7 +6,7 @@ extends 'MusicBrainz::Server::Entity::URL';
 with 'MusicBrainz::Server::Entity::URL::Sidebar';
 
 sub sidebar_name {
-    shift->decoded_local_part =~ s{^/music/}{}r =~ tr/+/ /r
+    shift->decoded_local_part =~ s{^/music/}{}r =~ tr/+/ /r;
 }
 
 __PACKAGE__->meta->make_immutable;

@@ -21,8 +21,8 @@ sub _build_related_entities {
     my $self = shift;
     return {
         artist    => [ $self->data->{new_artist_id}, $self->data->{old_artist_id} ],
-        recording => [ $self->data->{recording_id} ]
-    }
+        recording => [ $self->data->{recording_id} ],
+    };
 }
 
 sub foreign_keys
@@ -30,8 +30,8 @@ sub foreign_keys
     my $self = shift;
     return {
         Artist    => [ $self->data->{new_artist_id}, $self->data->{old_artist_id} ],
-        Recording => [ $self->data->{recording_id} ]
-    }
+        Recording => [ $self->data->{recording_id} ],
+    };
 }
 
 sub build_display_data
@@ -42,25 +42,25 @@ sub build_display_data
             $loaded->{Recording}{ $self->data->{recording_id} } ||
             Recording->new(
                 id => $self->data->{recording_id},
-            )
+            ),
         ),
         artist => {
             old => to_json_object(
                 $loaded->{Artist}{ $self->data->{old_artist_id} } ||
                 Artist->new(
                     id => $self->data->{old_artist_id},
-                    name => $self->data->{old_artist_name}
-                )
+                    name => $self->data->{old_artist_name},
+                ),
             ),
             new => to_json_object(
                 $loaded->{Artist}{ $self->data->{new_artist_id} } ||
                 Artist->new(
                     id => $self->data->{new_artist_id},
-                    name => $self->data->{new_artist_name}
-                )
+                    name => $self->data->{new_artist_name},
+                ),
             ),
-        }
-    }
+        },
+    };
 }
 
 sub upgrade
@@ -88,8 +88,8 @@ sub deserialize_new_value
     return {
         name      => $name,
         sort_name => $sort_name,
-        artist_id => $id || 0  # Some edits appear to lack this - 1792375
-    }
+        artist_id => $id || 0,  # Some edits appear to lack this - 1792375
+    };
 }
 
 1;

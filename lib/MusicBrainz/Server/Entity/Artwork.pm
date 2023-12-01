@@ -9,7 +9,7 @@ with 'MusicBrainz::Server::Entity::Role::PendingEdits';
 
 has comment => (
     is => 'rw',
-    isa => 'Str'
+    isa => 'Str',
 );
 
 has cover_art_types => (

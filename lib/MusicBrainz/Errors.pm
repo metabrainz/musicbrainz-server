@@ -256,7 +256,7 @@ sub build_request_and_user_context {
         ($body ? (data => $body) : ()),
         headers => {
             map { my $value = $req->headers->header($_); ($_ => $value) }
-                $req->headers->header_field_names
+                $req->headers->header_field_names,
         },
         method => $req->method,
     );

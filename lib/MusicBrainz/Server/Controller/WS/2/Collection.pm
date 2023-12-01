@@ -30,7 +30,7 @@ my $ws_defs = Data::OptList::mkopt([
      },
      collection => {
          method => 'DELETE',
-     }
+     },
 ]);
 
 with 'MusicBrainz::Server::WebService::Validator' =>
@@ -154,7 +154,7 @@ for my $entity_type (entities_with('collections')) {
             $c->model('Collection')->add_entities_to_collection(
                 $entity_type,
                 $collection->id,
-                map { $_->id } grep { defined } map { $entities{$_} } @gids
+                map { $_->id } grep { defined } map { $entities{$_} } @gids,
             );
             $c->detach('success');
         } elsif ($c->req->method eq 'DELETE') {
@@ -162,7 +162,7 @@ for my $entity_type (entities_with('collections')) {
             $c->model('Collection')->remove_entities_from_collection(
                 $entity_type,
                 $collection->id,
-                map { $_->id } grep { defined } map { $entities{$_} } @gids
+                map { $_->id } grep { defined } map { $entities{$_} } @gids,
             );
             $c->detach('success');
         } else {

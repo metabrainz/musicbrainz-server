@@ -98,7 +98,7 @@ sub run_impl {
 
     $self->with_incremental_dump_lock(sub {
         my $control = $c->sql->select_single_row_hash(
-            'SELECT * FROM json_dump.control LIMIT 1'
+            'SELECT * FROM json_dump.control LIMIT 1',
         );
 
         if ($control) {
@@ -110,7 +110,7 @@ sub run_impl {
 
         unless (defined $dump_replication_sequence) {
             my $replication_control = $c->sql->select_single_row_hash(
-                'SELECT * FROM replication_control LIMIT 1'
+                'SELECT * FROM replication_control LIMIT 1',
             );
             $dump_replication_sequence = $replication_control->{current_replication_sequence};
         }

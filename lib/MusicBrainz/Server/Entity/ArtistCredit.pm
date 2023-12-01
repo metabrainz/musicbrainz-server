@@ -28,12 +28,12 @@ has 'names' => (
         clear_names => 'clear',
         all_names => 'elements',
         name_count => 'count',
-    }
+    },
 );
 
 has 'artist_count' => (
     is => 'rw',
-    isa => 'Int'
+    isa => 'Int',
 );
 
 sub is_equal {
@@ -100,9 +100,9 @@ sub from_artist
             ArtistCreditName->new(
                 artist => $artist,
                 artist_id => $artist->id,
-                name      => $artist->name
-            )
-        ]
+                name      => $artist->name,
+            ),
+        ],
     );
 }
 

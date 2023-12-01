@@ -16,7 +16,7 @@ sub query {
     #    E.g. If the tracklist had tracks: 1, 2, 3, 3, 5 then
     #    the following will *not* hold:
     #    1 + 2 + 3 + 3 + 5 = 1 + 2 + 3 + 4 + 5
-    <<~'SQL'
+    <<~'SQL';
     SELECT release.id AS release_id,
       row_number() OVER (ORDER BY release.name COLLATE musicbrainz)
     FROM

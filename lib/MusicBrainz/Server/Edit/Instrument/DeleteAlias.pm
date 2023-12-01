@@ -30,7 +30,7 @@ has 'instrument_id' => (
     isa => 'Int',
     is => 'rw',
     lazy => 1,
-    default => sub { shift->data->{entity}{id} }
+    default => sub { shift->data->{entity}{id} },
 );
 
 sub foreign_keys {
@@ -47,7 +47,7 @@ around 'build_display_data' => sub {
     my $data = $self->$orig($loaded);
     $data->{instrument} = to_json_object(
         $loaded->{Instrument}{ $self->instrument_id } ||
-        Instrument->new(name => $self->data->{entity}{name})
+        Instrument->new(name => $self->data->{entity}{name}),
     );
 
     return $data;

@@ -30,7 +30,7 @@ has '+data' => (
         medium_id => Nullable[Int],
         cdtoc => Dict[
             id => Int,
-            toc => Str
+            toc => Str,
         ],
         affected_releases => ArrayRef[Dict[
             id => Int,
@@ -42,8 +42,8 @@ has '+data' => (
 
             # But new tracks must be set if we have a toc
             new => ArrayRef[Int],
-        ]
-    ]
+        ],
+    ],
 );
 
 sub release_ids {
@@ -56,11 +56,11 @@ sub foreign_keys {
     my $medium_id = $self->data->{medium_id};
     return {
         Release => {
-            map { $_ => [ 'ArtistCredit' ] } $self->release_ids
+            map { $_ => [ 'ArtistCredit' ] } $self->release_ids,
         },
         CDTOC => [ $self->data->{cdtoc}{id} ],
         $medium_id ? (Medium => { $medium_id => [ 'Release ArtistCredit', 'MediumFormat' ] } ) : (),
-    }
+    };
 }
 
 around _build_related_entities => sub {
@@ -104,14 +104,14 @@ sub build_display_data {
     return {
         cdtoc => to_json_object(
             $loaded->{CDTOC}{ $self->data->{cdtoc}{id} }
-            || CDTOC->new_from_toc( $self->data->{cdtoc}{toc} )
+            || CDTOC->new_from_toc( $self->data->{cdtoc}{toc} ),
         ),
         $medium ? (medium => to_json_object($medium)) : (),
         releases => to_json_array(\@releases),
         length => {
-            map { $_ => $self->data->{length}{$_} } qw( old new )
-        }
-    }
+            map { $_ => $self->data->{length}{$_} } qw( old new ),
+        },
+    };
 }
 
 sub initialize {
@@ -138,17 +138,17 @@ sub initialize {
         medium_id => $medium_id,
         cdtoc => {
             id => $cdtoc_id,
-            toc => $cdtoc->toc
+            toc => $cdtoc->toc,
         },
         affected_releases => [ map +{
             id => $_->id,
-            name => $_->name
+            name => $_->name,
         }, $medium->release ] ,
         length => {
             old => [ map { $_->length } @{ $medium->cdtoc_tracks } ],
             new => [ map { $_->{length_time} } @{ $cdtoc->track_details } ],
-        }
-    })
+        },
+    });
 }
 
 sub accept {
@@ -158,7 +158,7 @@ sub accept {
     if (!$self->c->model('Medium')->get_by_id($medium_id)) {
         MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
             'The medium to set track times for no longer exists. It may '.
-            'have been merged or removed since this edit was entered.'
+            'have been merged or removed since this edit was entered.',
         );
     }
 
@@ -167,8 +167,8 @@ sub accept {
         MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
             localized_note(
                 N_l('The CD TOC the track times were being set from ' .
-                    'has been removed since this edit was entered.')
-            )
+                    'has been removed since this edit was entered.'),
+            ),
         );
     }
 

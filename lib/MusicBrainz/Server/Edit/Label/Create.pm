@@ -15,7 +15,7 @@ extends 'MusicBrainz::Server::Edit::Generic::Create';
 with 'MusicBrainz::Server::Edit::Role::Preview';
 with 'MusicBrainz::Server::Edit::Label';
 with 'MusicBrainz::Server::Edit::Role::SubscribeOnCreation' => {
-    editor_subscription_preference => sub { shift->subscribe_to_created_labels }
+    editor_subscription_preference => sub { shift->subscribe_to_created_labels },
 };
 with 'MusicBrainz::Server::Edit::Role::Insert';
 with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
@@ -43,8 +43,8 @@ has '+data' => (
         comment      => Nullable[Str],
         ipi_codes    => Optional[ArrayRef[Str]],
         isni_codes    => Optional[ArrayRef[Str]],
-        ended        => Optional[Bool]
-    ]
+        ended        => Optional[Bool],
+    ],
 );
 
 before initialize => sub {
@@ -71,7 +71,7 @@ sub build_display_data
     {
         label      => to_json_object(($self->entity_id &&
             $loaded->{Label}{ $self->entity_id }) ||
-            Label->new( name => $self->data->{name} )
+            Label->new( name => $self->data->{name} ),
         ),
         name       => $self->data->{name},
         sort_name  => $self->data->{sort_name} // '',
@@ -85,7 +85,7 @@ sub build_display_data
         isni_codes => $self->data->{isni_codes},
         begin_date => to_json_object(MusicBrainz::Server::Entity::PartialDate->new_from_row($self->data->{begin_date})),
         end_date   => to_json_object(MusicBrainz::Server::Entity::PartialDate->new_from_row($self->data->{end_date})),
-        ended      => boolean_to_json($self->data->{ended})
+        ended      => boolean_to_json($self->data->{ended}),
     };
 }
 

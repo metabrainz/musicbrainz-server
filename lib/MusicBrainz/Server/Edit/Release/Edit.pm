@@ -64,7 +64,7 @@ sub change_fields
         events           => Optional[ArrayRef[Dict[
           country_id => Nullable[Int],
           date => Nullable[PartialDateHash],
-        ]]]
+        ]]],
     ];
 }
 
@@ -73,11 +73,11 @@ has '+data' => (
         entity => Dict[
             id => Int,
             gid => Optional[Str],
-            name => Str
+            name => Str,
         ],
         new => change_fields(),
-        old => change_fields()
-    ]
+        old => change_fields(),
+    ],
 );
 
 around _build_related_entities => sub {
@@ -92,7 +92,7 @@ around _build_related_entities => sub {
 
     if ($self->data->{new}{release_group_id}) {
         push @{ $related->{release_group} },
-            map { $self->data->{$_}{release_group_id} } qw( old new )
+            map { $self->data->{$_}{release_group_id} } qw( old new );
     }
 
     return $related;
@@ -113,25 +113,25 @@ sub foreign_keys
         $relations->{Artist} = {
             map {
                 load_artist_credit_definitions($self->data->{$_}{artist_credit})
-            } qw( new old )
-        }
+            } qw( new old ),
+        };
     }
 
     $relations->{Release} = {
-        $self->data->{entity}{id} => [ 'ArtistCredit' ]
+        $self->data->{entity}{id} => [ 'ArtistCredit' ],
     };
 
     if ($self->data->{new}{release_group_id}) {
         $relations->{ReleaseGroup} = {
             $self->data->{new}{release_group_id} => [ 'ArtistCredit' ],
-            $self->data->{old}{release_group_id} => [ 'ArtistCredit' ]
-        }
+            $self->data->{old}{release_group_id} => [ 'ArtistCredit' ],
+        };
     }
 
     $relations->{Area} = [
         map { $_->{country_id} }
         map { @{ $self->data->{$_}{events} // [] } }
-        qw( old new )
+        qw( old new ),
     ];
 
     return $relations;
@@ -156,8 +156,8 @@ sub build_display_data
     if (exists $self->data->{new}{artist_credit}) {
         $data->{artist_credit} = {
             new => to_json_object(artist_credit_from_loaded_definition($loaded, $self->data->{new}{artist_credit})),
-            old => to_json_object(artist_credit_from_loaded_definition($loaded, $self->data->{old}{artist_credit}))
-        }
+            old => to_json_object(artist_credit_from_loaded_definition($loaded, $self->data->{old}{artist_credit})),
+        };
     }
 
     if (exists $self->data->{new}{barcode}) {
@@ -200,21 +200,21 @@ sub build_display_data
                 country_id => $country_id,
                 defined $country_id ? (country => $loaded->{Area}{$country_id}) : (),
                 date => MusicBrainz::Server::Entity::PartialDate->new_from_row($event->{date}),
-            )
+            );
         };
 
         $data->{events} = {
             map {
                 $_ => to_json_array([
-                    map { $inflate_event->($_) } @{ $self->data->{$_}{events} }
+                    map { $inflate_event->($_) } @{ $self->data->{$_}{events} },
                 ])
-            } qw( old new )
+            } qw( old new ),
         };
     }
 
     $data->{release} = to_json_object(
         $loaded->{Release}{ $self->data->{entity}{id} } ||
-        Release->new( name => $self->data->{entity}{name} )
+        Release->new( name => $self->data->{entity}{name} ),
     );
 
     return $data;
@@ -225,7 +225,7 @@ sub _mapping
     my $self = shift;
     return (
         artist_credit => sub {
-            clean_submitted_artist_credits(shift->artist_credit)
+            clean_submitted_artist_credits(shift->artist_credit);
         },
         barcode => sub { shift->barcode->code },
         events => sub {
@@ -233,9 +233,9 @@ sub _mapping
             my $events = $self->c->model('Release')->find_release_events($id);
             return [ map +{
                 date => partial_date_to_hash($_->date),
-                country_id => $_->country_id
+                country_id => $_->country_id,
             }, @{ $events->{$id} } ];
-        }
+        },
     );
 }
 
@@ -291,7 +291,7 @@ sub _edit_hash
                         $_->{date}{month} ||
                         $_->{date}{day}))
             }
-            @{ $data->{events} }
+            @{ $data->{events} },
         ];
     }
 
@@ -309,7 +309,7 @@ before accept => sub {
         $self->data->{new}{release_group_id} != $self->data->{old}{release_group_id} &&
        !$self->c->model('ReleaseGroup')->get_by_id($self->data->{new}{release_group_id})) {
         MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
-            'The new release group does not exist.'
+            'The new release group does not exist.',
         );
     }
 };
@@ -343,7 +343,7 @@ sub restore {
 
                 exists $data->{$_}{country_id}
                     ? (country_id => delete $data->{$_}{country_id}) : ()
-            }
+            },
         ] for qw( old new );
     }
 

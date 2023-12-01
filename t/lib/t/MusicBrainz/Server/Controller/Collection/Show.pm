@@ -32,7 +32,7 @@ test 'Collection view has link back to all collections' => sub {
 
     $mech->get_ok(
         '/collection/f34c079d-374e-4436-9448-da92dedef3cd',
-        'Fetched a collection by the logged in user'
+        'Fetched a collection by the logged in user',
     );
     my $tx = test_xpath_html($mech->content);
 
@@ -48,7 +48,7 @@ test 'Collection view has link back to all collections' => sub {
 
     $mech->get_ok(
         '/collection/f34c079d-374e-4436-9448-da92dedef3cb',
-        'Fetched a collection by a different user'
+        'Fetched a collection by a different user',
     );
 
     $tx = test_xpath_html($mech->content);
@@ -94,7 +94,7 @@ test 'Collection descriptions are shown, but avoid spam risk' => sub {
     );
     $tx->ok(
         '//div[@class="description"]/p[@class="deleted"]',
-        'The description section is marked to be displayed as deleted'
+        'The description section is marked to be displayed as deleted',
     );
 
     $test->c->sql->do(<<~"SQL");

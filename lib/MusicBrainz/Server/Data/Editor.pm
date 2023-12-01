@@ -34,7 +34,7 @@ with 'MusicBrainz::Server::Data::Role::Area';
 with 'MusicBrainz::Server::Data::Role::Subscription' => {
     table => 'editor_subscribe_editor',
     column => 'subscribed_editor',
-    active_class => 'MusicBrainz::Server::Entity::EditorSubscription'
+    active_class => 'MusicBrainz::Server::Entity::EditorSubscription',
 };
 
 sub _table
@@ -104,7 +104,7 @@ sub summarize_ratings
             $self->c->model('ArtistCredit')->load(@$entities);
 
             ($_ => to_json_array($entities));
-        } entities_with('ratings')
+        } entities_with('ratings'),
     };
 }
 
@@ -282,7 +282,7 @@ sub insert
             name => $data->{name},
             password => $data->{password},
             ha1 => $data->{ha1},
-            registration_date => DateTime->now
+            registration_date => DateTime->now,
         );
     }, $self->sql);
 }
@@ -352,12 +352,12 @@ sub update_profile
         bio => 'biography',
         gender => 'gender_id',
         name => 'username',
-        map { $_ => $_ } qw( birth_date website )
+        map { $_ => $_ } qw( birth_date website ),
     });
 
     if (my $date = delete $row->{birth_date}) {
         if (%$date) { # if date is given but all NULL, it will be an empty hash.
-            $row->{birth_date} = sprintf '%d-%d-%d', map { $date->{$_} } qw( year month day )
+            $row->{birth_date} = sprintf '%d-%d-%d', map { $date->{$_} } qw( year month day );
         }
         else {
             $row->{birth_date} = undef;
@@ -467,7 +467,7 @@ sub donation_check
     my $days = 0.0;
     if ($nag) {
         my $response = $self->c->lwp->get(
-            'https://metabrainz.org/donations/nag-check?editor=' . uri_escape_utf8($obj->name)
+            'https://metabrainz.org/donations/nag-check?editor=' . uri_escape_utf8($obj->name),
         );
 
         if ($response->is_success && $response->content =~ /\s*([-01]+),([-0-9.]+)\s*/) {
@@ -554,7 +554,7 @@ sub delete {
                            deleted = TRUE
          WHERE id = ?},
         Authen::Passphrase::RejectAll->new->as_rfc2307,
-        $editor_id
+        $editor_id,
     );
 
     $self->sql->do('DELETE FROM editor_preference WHERE editor = ?', $editor_id);
@@ -605,7 +605,7 @@ sub delete {
             $editor,
             [{
                 vote    => $VOTE_ABSTAIN,
-                edit_id => $edit_id
+                edit_id => $edit_id,
             }],
             (override_privs => 1),
         );
@@ -641,7 +641,7 @@ sub subscription_summary {
                    (SELECT count(*) FROM editor_subscribe_$_ WHERE editor = ?),
                    0) AS $_"
             } entities_with('subscriptions')),
-        ($editor_id) x 5
+        ($editor_id) x 5,
     );
 }
 
@@ -753,7 +753,7 @@ sub secondary_counts {
         );
         my $tag_inner_query = join(
             ' UNION ALL ',
-            map { "SELECT is_upvote FROM $_ WHERE editor = ?" } @tag_tables
+            map { "SELECT is_upvote FROM $_ WHERE editor = ?" } @tag_tables,
         );
 
         my $query = <<~SQL;
@@ -784,7 +784,7 @@ sub secondary_counts {
         );
         my $rating_inner_query = join(
             ' UNION ALL ',
-            map { "SELECT 1 FROM $_ WHERE editor = ?" } @rating_tables
+            map { "SELECT 1 FROM $_ WHERE editor = ?" } @rating_tables,
         );
 
         my $query = "SELECT count(*) FROM ($rating_inner_query) x";
@@ -830,7 +830,7 @@ sub hash_password {
         salt_random => 1,
         cost => $PASSPHRASE_BCRYPT_COST,
         passphrase => encode('utf-8', $password),
-    )->as_rfc2307
+    )->as_rfc2307;
 }
 
 sub ha1_password {
@@ -854,7 +854,7 @@ sub allocate_remember_me_token {
     if (
         my $normalized_name = $self->sql->select_single_value(
             'SELECT name FROM editor WHERE lower(name) = lower(?)',
-            $user_name
+            $user_name,
         )
     ) {
         my $token = generate_token();

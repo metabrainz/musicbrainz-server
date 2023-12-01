@@ -11,12 +11,12 @@ sub entity_type { 'series_alias' }
 
 has series_id => (
     is => 'rw',
-    isa => 'Int'
+    isa => 'Int',
 );
 
 has series => (
     is => 'rw',
-    isa => 'Series'
+    isa => 'Series',
 );
 
 __PACKAGE__->meta->make_immutable;

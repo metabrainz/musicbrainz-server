@@ -32,8 +32,8 @@ has '+data' => (
         tracklist => Optional[ArrayRef[track()]],
         name => Str,
         position => Int,
-        release_id => Int
-    ]
+        release_id => Int,
+    ],
 );
 
 sub alter_edit_pending
@@ -41,8 +41,8 @@ sub alter_edit_pending
     my $self = shift;
     return {
         'Medium' => [ $self->medium_id ],
-        'Release' => [ $self->data->{release_id} ]
-    }
+        'Release' => [ $self->data->{release_id} ],
+    };
 }
 
 sub foreign_keys
@@ -88,7 +88,7 @@ sub build_display_data
     return {
         medium => to_json_object($medium),
         tracks => to_json_array(display_tracklist($loaded, $self->data->{tracklist})),
-    }
+    };
 }
 
 sub initialize

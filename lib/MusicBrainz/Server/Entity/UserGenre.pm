@@ -7,7 +7,7 @@ extends 'MusicBrainz::Server::Entity';
 
 has 'genre_id' => (
     is => 'rw',
-    isa => 'Int'
+    isa => 'Int',
 );
 
 has 'genre' => (

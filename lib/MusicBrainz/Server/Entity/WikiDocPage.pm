@@ -4,7 +4,7 @@ use Moose;
 
 has 'version' => (
     is => 'rw',
-    isa => 'Int'
+    isa => 'Int',
 );
 
 has 'title' => (
@@ -19,7 +19,7 @@ has 'hierarchy' => (
 
 has 'content' => (
     is => 'rw',
-    isa => 'Str'
+    isa => 'Str',
 );
 
 has 'canonical' => (

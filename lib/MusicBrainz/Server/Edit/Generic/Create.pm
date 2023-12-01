@@ -21,10 +21,10 @@ sub alter_edit_pending
     my $model = $self->c->model( $self->_create_model);
     if ($model->does('MusicBrainz::Server::Data::Role::PendingEdits')) {
         return {
-            $self->_create_model => [ $self->entity_id ]
-        }
+            $self->_create_model => [ $self->entity_id ],
+        };
     } else {
-        return { }
+        return { };
     }
 }
 
@@ -34,10 +34,10 @@ sub _build_related_entities
     my $model = $self->c->model( $self->_create_model);
     if ($model->does('MusicBrainz::Server::Data::Role::LinksToEdit')) {
         return {
-            $model->edit_link_table => [ $self->entity_id ]
-        }
+            $model->edit_link_table => [ $self->entity_id ],
+        };
     } else {
-        return { }
+        return { };
     }
 }
 
@@ -78,7 +78,7 @@ sub _is_disambiguation_needed {
         "SELECT 1 FROM $table
          WHERE lower(musicbrainz_unaccent(name)) = lower(musicbrainz_unaccent(?))
          LIMIT 1",
-        $opts{name}
+        $opts{name},
     );
 }
 

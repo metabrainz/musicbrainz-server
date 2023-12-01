@@ -19,7 +19,7 @@ extends 'MusicBrainz::Server::Edit::Generic::Create';
 with 'MusicBrainz::Server::Edit::Role::Preview';
 with 'MusicBrainz::Server::Edit::Artist';
 with 'MusicBrainz::Server::Edit::Role::SubscribeOnCreation' => {
-    editor_subscription_preference => sub { shift->subscribe_to_created_artists }
+    editor_subscription_preference => sub { shift->subscribe_to_created_artists },
 };
 with 'MusicBrainz::Server::Edit::Role::Insert';
 with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
@@ -46,8 +46,8 @@ has '+data' => (
         end_date   => Nullable[PartialDateHash],
         ipi_codes  => Optional[ArrayRef[Str]],
         isni_codes => Optional[ArrayRef[Str]],
-        ended      => Optional[Bool]
-    ]
+        ended      => Optional[Bool],
+    ],
 );
 
 before initialize => sub {
@@ -72,7 +72,7 @@ sub foreign_keys
         ArtistType => [ $self->data->{type_id} ],
         Gender     => [ $self->data->{gender_id} ],
         Area       => [ $self->data->{area_id},
-                        $self->data->{begin_area_id}, $self->data->{end_area_id} ]
+                        $self->data->{begin_area_id}, $self->data->{end_area_id} ],
     };
 }
 
@@ -84,7 +84,7 @@ sub build_display_data
     my $gender = $self->data->{gender_id};
     my $artist = to_json_object((defined($self->entity_id) &&
             $loaded->{Artist}{ $self->entity_id }) ||
-            Artist->new( name => $self->data->{name} )
+            Artist->new( name => $self->data->{name} ),
     );
 
     return {
@@ -97,7 +97,7 @@ sub build_display_data
         artist     => $artist,
         ipi_codes  => $self->data->{ipi_codes},
         isni_codes => $self->data->{isni_codes},
-        ended      => boolean_to_json($self->data->{ended})
+        ended      => boolean_to_json($self->data->{ended}),
     };
 }
 

@@ -42,31 +42,31 @@ my $ws_defs = Data::OptList::mkopt([
     'medium' => {
         method => 'GET',
         inc => [ qw(recordings rels) ],
-        optional => [ qw(q artist tracks limit page timestamp) ]
+        optional => [ qw(q artist tracks limit page timestamp) ],
     },
     'tracks' => {
         method => 'GET',
-        optional => [ qw(q page ) ]
+        optional => [ qw(q page ) ],
     },
     'cdstub' => {
         method => 'GET',
-        optional => [ qw(q artist tracks limit page timestamp) ]
+        optional => [ qw(q artist tracks limit page timestamp) ],
     },
     'cover-art-upload' => {
         method => 'GET',
     },
     'entity' => {
         method => 'GET',
-        inc => [ qw(rels) ]
+        inc => [ qw(rels) ],
     },
     'entities' => {
         method => 'GET',
     },
     'events' => {
-        method => 'GET'
+        method => 'GET',
     },
     'type-info' => {
-        method => 'GET'
+        method => 'GET',
     },
 ]);
 
@@ -140,7 +140,7 @@ sub cdstub : Chained('root') PathPart Args(1) {
     my $cdstub = $c->model('CDStub')->get_by_discid($id);
     my $ret = {
         toc => '',
-        tracks => []
+        tracks => [],
     };
 
     if ($cdstub)
@@ -250,7 +250,7 @@ sub disc_search {
 
         push @output, {
             pages => $pager->last_page,
-            current => $pager->current_page
+            current => $pager->current_page,
         };
     }
     else
@@ -608,11 +608,11 @@ sub entities : Chained('root') PathPart('entities') Args(2)
     my @gids = defined $gids ? @$gids : ();
 
     if (@ids && !$type_model->can('get_by_ids')) {
-        $self->detach_with_error($c, "model does not support numeric ids: $type_name", 400)
+        $self->detach_with_error($c, "model does not support numeric ids: $type_name", 400);
     }
 
     if (@gids && !$type_model->can('get_by_gids')) {
-        $self->detach_with_error($c, "model does not support gids: $type_name", 400)
+        $self->detach_with_error($c, "model does not support gids: $type_name", 400);
     }
 
     my $results = {};

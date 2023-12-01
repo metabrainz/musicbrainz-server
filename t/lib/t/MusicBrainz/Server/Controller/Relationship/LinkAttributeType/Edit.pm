@@ -30,15 +30,15 @@ test 'Editing a relationship attribute /relationship-attribute/edit for a valid 
     html_ok($mech->content);
 
     my ($new_name, $new_description) = (
-        'Additional additional', 'Extra additional'
+        'Additional additional', 'Extra additional',
     );
 
     my @edits = capture_edits {
         my $response = $mech->submit_form(
             with_fields => {
                 'linkattrtype.name' => $new_name,
-                'linkattrtype.description' => $new_description
-            }
+                'linkattrtype.description' => $new_description,
+            },
         );
         ok($mech->success);
 

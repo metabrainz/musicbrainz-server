@@ -12,8 +12,8 @@ my $ws_defs = Data::OptList::mkopt([
     'check_duplicates' => {
         method => 'GET',
         required => [qw(type name)],
-        optional => [qw(mbid)]
-    }
+        optional => [qw(mbid)],
+    },
 ]);
 
 with 'MusicBrainz::Server::WebService::Validator' => {
@@ -52,8 +52,8 @@ sub check_duplicates : Chained('root') PathPart('check_duplicates') Args(0) {
         duplicates => [
             map {JSONSerializer->serialize_internal($c, $_)}
             grep {$_->gid ne ($mbid // '')}
-            @duplicates
-        ]
+            @duplicates,
+        ],
     }));
 };
 

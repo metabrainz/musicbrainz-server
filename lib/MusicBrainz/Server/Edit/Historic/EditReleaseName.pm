@@ -18,16 +18,16 @@ sub _build_related_entities
 {
     my $self = shift;
     return {
-        release => $self->data->{release_ids}
-    }
+        release => $self->data->{release_ids},
+    };
 }
 
 sub foreign_keys
 {
     my $self = shift;
     return {
-        Release => { map { $_ => [ 'ArtistCredit' ] } @{ $self->data->{release_ids} } }
-    }
+        Release => { map { $_ => [ 'ArtistCredit' ] } @{ $self->data->{release_ids} } },
+    };
 }
 
 sub build_display_data
@@ -40,8 +40,8 @@ sub build_display_data
         name => {
             new => $self->data->{new}{name},
             old => $self->data->{old}{name},
-        }
-    }
+        },
+    };
 }
 
 sub upgrade
@@ -53,8 +53,8 @@ sub upgrade
             name => $self->previous_value,
         },
         new      => {
-            name => $self->new_value
-        }
+            name => $self->new_value,
+        },
     });
 
     return $self;

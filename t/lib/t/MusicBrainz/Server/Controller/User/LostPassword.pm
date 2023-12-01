@@ -20,7 +20,7 @@ $mech->get_ok('/lost-password');
 html_ok($mech->content);
 $mech->submit_form( with_fields => {
     'lostpassword.username' => 'new_editor',
-    'lostpassword.email' => 'test@email.com'
+    'lostpassword.email' => 'test@email.com',
 } );
 $mech->content_contains('We&#x27;ve sent you instructions on how to reset your password.');
 
@@ -38,12 +38,12 @@ html_ok($mech->content);
 $mech->content_contains('Set a new password for your MusicBrainz account.');
 $mech->submit_form( with_fields => {
     'resetpassword.password' => 'new_password',
-    'resetpassword.confirm_password' => 'new_password_2'
+    'resetpassword.confirm_password' => 'new_password_2',
 } );
 $mech->content_contains('The password confirmation does not match the password');
 $mech->submit_form( with_fields => {
     'resetpassword.password' => 'new_password',
-    'resetpassword.confirm_password' => 'new_password'
+    'resetpassword.confirm_password' => 'new_password',
 } );
 
 $mech->content_contains('Your password has been reset.');

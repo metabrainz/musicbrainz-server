@@ -30,7 +30,7 @@ has edit => (
     is => 'ro',
     lazy => 1,
     clearer => '_clear_edit',
-    builder => '_build_edit'
+    builder => '_build_edit',
 );
 
 sub create_edit { shift->edit }

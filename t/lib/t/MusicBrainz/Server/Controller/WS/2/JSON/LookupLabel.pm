@@ -6,7 +6,7 @@ use warnings;
 use JSON;
 use Test::Routine;
 use MusicBrainz::Server::Test ws_test_json => {
-    version => 2
+    version => 2,
 };
 
 with 't::Mechanize', 't::Context';
@@ -122,7 +122,7 @@ test 'label lookup, inc=aliases' => sub {
                     begin => JSON::null,
                     end => JSON::null,
                     ended => JSON::false,
-                }
+                },
             ],
             ipis => [],
             isnis => [],
@@ -191,7 +191,7 @@ test 'label lookup with releases, inc=media' => sub {
                             'track-count' => 12,
                             position => 1,
                             title => '',
-                        } ]
+                        } ],
                 },
                 {
                     id => '3b3d130a-87a8-4a47-b9fb-920f2530d134',
@@ -231,7 +231,7 @@ test 'label lookup with releases, inc=media' => sub {
                             'format-id' => '9712d52a-4509-3d4b-a1a2-67c88c643e31',
                             'track-count' => 9,
                             position => 2,
-                            title => 'Chestplate Singles'
+                            title => 'Chestplate Singles',
                         },
                     ],
                 },

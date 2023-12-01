@@ -38,7 +38,7 @@ has 'artists' => (
     handles => {
         add_artist => 'push',
         all_artists => 'elements',
-    }
+    },
 );
 
 has 'writers' => (
@@ -48,14 +48,14 @@ has 'writers' => (
         Dict[
             credit => Str,
             roles => ArrayRef[Str],
-            entity => Object
-        ]
+            entity => Object,
+        ],
     ],
     default => sub { [] },
     handles => {
         add_writer => 'push',
         all_writers => 'elements',
-    }
+    },
 );
 
 has 'iswcs' => (
@@ -65,8 +65,8 @@ has 'iswcs' => (
     default => sub { [] },
     handles => {
         all_iswcs => 'elements',
-        add_iswc => 'push'
-    }
+        add_iswc => 'push',
+    },
 );
 
 has attributes => (
@@ -76,8 +76,8 @@ has attributes => (
     traits => [ 'Array' ],
     handles => {
         all_attributes => 'elements',
-        add_attribute => 'push'
-    }
+        add_attribute => 'push',
+    },
 );
 
 sub sorted_attributes {

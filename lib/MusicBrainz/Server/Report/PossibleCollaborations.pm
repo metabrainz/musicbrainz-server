@@ -22,7 +22,7 @@ sub query {
                     AND link_type.name IN
                       ('collaboration', 'conductor position', 'founder', 'member of band', 'subgroup')            )
         GROUP BY artist.id, artist.name
-    }
+    };
 }
 
 __PACKAGE__->meta->make_immutable;

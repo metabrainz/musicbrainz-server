@@ -12,7 +12,7 @@ sub query {
      JOIN link ON link.id=l_artist_artist.link
      JOIN link_type ON link_type.id=link.link_type
      WHERE (artist.type NOT IN (2, 5, 6) OR artist.type IS NULL)
-       AND link_type.name IN ('collaboration', 'member of band', 'conductor position')}
+       AND link_type.name IN ('collaboration', 'member of band', 'conductor position')};
 }
 
 __PACKAGE__->meta->make_immutable;

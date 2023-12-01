@@ -16,7 +16,7 @@ sub _quality
     my %quality_names = (
         $QUALITY_LOW => 'low',
         $QUALITY_NORMAL => 'normal',
-        $QUALITY_HIGH => 'high'
+        $QUALITY_HIGH => 'high',
     );
 
     return $quality_names{
@@ -50,8 +50,8 @@ sub serialize
         $add_release_event->($earliest_event, \%body, 1);
 
         $body{'release-events'} = [
-            map { $add_release_event->($_, {}) } $entity->all_events
-        ]
+            map { $add_release_event->($_, {}) } $entity->all_events,
+        ];
     }
 
     $body{asin} = $entity->amazon_asin if ($toplevel);
@@ -71,13 +71,13 @@ sub serialize
             # force to number
             count => $coverart->{total} * 1,
             front => boolean($coverart->{front}),
-            back => boolean($coverart->{back})
+            back => boolean($coverart->{back}),
         };
     }
 
     $body{'text-representation'} = {
         script => $entity->script ? $entity->script->iso_code : JSON::null,
-        language => $entity->language ? $entity->language->iso_code_3 : JSON::null
+        language => $entity->language ? $entity->language->iso_code_3 : JSON::null,
     };
 
     $body{collections} = list_of($entity, $inc, $stash, 'collections')

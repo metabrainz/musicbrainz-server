@@ -38,7 +38,7 @@ my $ws_defs = Data::OptList::mkopt([
                          optional => [ qw(fmt) ],
      },
      recording => {
-                         method => 'POST'
+                         method => 'POST',
      },
 ]);
 
@@ -125,7 +125,7 @@ sub recording_toplevel
             $self->linked_artists(
                 $c, $stash,
                 [ map { $_->artist }
-                  map { $_->artist_credit->all_names } @recordings ]
+                  map { $_->artist_credit->all_names } @recordings ],
             );
         }
     }
@@ -251,7 +251,7 @@ sub recording_submit : Private
                         edit_type      => $EDIT_RECORDING_ADD_ISRCS,
                         editor         => $c->user,
                         isrcs          => $contents,
-                        client_version => $client
+                        client_version => $client,
                     );
 
                     if (non_empty($edit_note)) {
@@ -259,8 +259,8 @@ sub recording_submit : Private
                             $edit->id,
                             {
                                 text => $edit_note,
-                                editor_id => $c->user->id
-                            }
+                                editor_id => $c->user->id,
+                            },
                         );
                     }
                 }
@@ -271,7 +271,7 @@ sub recording_submit : Private
                             die $err;
                         }
                     };
-            }
+            },
         );
 
         $buffer->flush_on_complete(sub {
@@ -279,9 +279,9 @@ sub recording_submit : Private
                 $buffer->add_items(map +{
                     recording => {
                         id => $recordings_by_gid{$recording_gid}->id,
-                        name => $recordings_by_gid{$recording_gid}->name
+                        name => $recordings_by_gid{$recording_gid}->name,
                     },
-                    isrc         => $_
+                    isrc         => $_,
                 }, @{ $submit_isrc{$recording_gid} });
             }
         });

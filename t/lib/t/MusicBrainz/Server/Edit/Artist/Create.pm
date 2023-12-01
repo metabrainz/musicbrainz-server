@@ -89,7 +89,7 @@ test 'Uniqueness violations are caught before insertion (MBS-6065)' => sub {
         name => 'I am a dupe without a comment',
         comment => '',
         ipi_codes => [],
-        isni_codes => []
+        isni_codes => [],
     );
 
     is(exception {
@@ -99,7 +99,7 @@ test 'Uniqueness violations are caught before insertion (MBS-6065)' => sub {
             name => 'I am a dupe without a comment',
             comment => '',
             ipi_codes => [],
-            isni_codes => []
+            isni_codes => [],
         );
     }, 'A disambiguation comment is required for this entity.');
 
@@ -109,7 +109,7 @@ test 'Uniqueness violations are caught before insertion (MBS-6065)' => sub {
         name => 'I am a dupe with a comment',
         comment => 'a comment',
         ipi_codes => [],
-        isni_codes => []
+        isni_codes => [],
     );
 
     is(exception {
@@ -119,7 +119,7 @@ test 'Uniqueness violations are caught before insertion (MBS-6065)' => sub {
             name => 'I am a dupe with a comment',
             comment => 'a comment',
             ipi_codes => [],
-            isni_codes => []
+            isni_codes => [],
         );
     }, 'The given values duplicate an existing row.');
 };

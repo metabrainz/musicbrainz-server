@@ -385,7 +385,7 @@ test 'Edits that only change the label still store and display the catalog numbe
     my $edit = create_edit(
         $c,
         $c->model('ReleaseLabel')->get_by_id(2),
-        label => $c->model('Label')->get_by_id(3)
+        label => $c->model('Label')->get_by_id(3),
     );
 
     cmp_deeply($edit->data, {
@@ -411,7 +411,7 @@ sub create_edit {
         edit_type => $EDIT_RELEASE_EDITRELEASELABEL,
         editor_id => 1,
         release_label => $release_label,
-        %args
+        %args,
     );
 }
 

@@ -45,7 +45,7 @@ test 'Editing alias' => sub {
         {
             entity => {
                 id => 3,
-                name => 'Test Artist'
+                name => 'Test Artist',
             },
             alias_id  => 1,
             new => {
@@ -53,7 +53,7 @@ test 'Editing alias' => sub {
             },
             old => {
                 name => 'Test Alias',
-            }
+            },
         },
         'The edit contains the right data',
     );
@@ -115,7 +115,7 @@ sub prepare_test {
 
     $test->mech->get('/login');
     $test->mech->submit_form(
-        with_fields => { username => 'new_editor', password => 'password' }
+        with_fields => { username => 'new_editor', password => 'password' },
     );
 }
 

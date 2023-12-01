@@ -35,7 +35,7 @@ sub language
     return undef if $self->uses_legacy_encoding;
 
     if (my ($language) = $self->url->host =~ /(.*)\.wikipedia/) {
-        return $language
+        return $language;
     } else {
         return undef;
     }

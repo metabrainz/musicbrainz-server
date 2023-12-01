@@ -13,7 +13,7 @@ extends 'MusicBrainz::Server::Edit::Generic::Create';
 with 'MusicBrainz::Server::Edit::Role::Preview';
 with 'MusicBrainz::Server::Edit::Series';
 with 'MusicBrainz::Server::Edit::Role::SubscribeOnCreation' => {
-    editor_subscription_preference => sub { shift->subscribe_to_created_series }
+    editor_subscription_preference => sub { shift->subscribe_to_created_series },
 };
 with 'MusicBrainz::Server::Edit::Role::Insert';
 with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
@@ -30,7 +30,7 @@ has '+data' => (
         comment                 => Str,
         type_id                 => Int,
         ordering_type_id        => Int,
-    ]
+    ],
 );
 
 sub foreign_keys {

@@ -27,7 +27,7 @@ test 'collection lookup' => sub {
             'type-id' => 'c205b6b3-0613-35ff-9cfa-40a299ad812a',
             'editor' => 'the-anti-kuno',
             'name' => 'public event collection',
-            'entity-type' => 'event'
+            'entity-type' => 'event',
         }, { username => 'new_editor', password => 'password' };
 
     ws2_test_json 'collections lookup',
@@ -42,7 +42,7 @@ test 'collection lookup' => sub {
                     'type-id' => 'c205b6b3-0613-35ff-9cfa-40a299ad812a',
                     'editor' => 'the-anti-kuno',
                     'name' => 'public event collection',
-                    'entity-type' => 'event'
+                    'entity-type' => 'event',
                 },
                 {
                     'entity-type' => 'event',
@@ -51,7 +51,7 @@ test 'collection lookup' => sub {
                     'type-id' => 'c205b6b3-0613-35ff-9cfa-40a299ad812a',
                     'editor' => 'the-anti-kuno',
                     'id' => '13b1d199-a79e-40fe-bd7c-0ecc3ca52d73',
-                    'event-count' => 1
+                    'event-count' => 1,
                 },
                 {
                     'editor' => 'the-anti-kuno',
@@ -60,7 +60,7 @@ test 'collection lookup' => sub {
                     'entity-type' => 'release',
                     'name' => 'private release collection',
                     'id' => '1d1e41eb-20a2-4545-b4a7-d76e53d6f2f5',
-                    'release-count' => 1
+                    'release-count' => 1,
                 },
                 {
                     'entity-type' => 'work',
@@ -69,7 +69,7 @@ test 'collection lookup' => sub {
                     'type-id' => '918a5dfb-dc15-3251-b57f-25fbdfe019ca',
                     'editor' => 'the-anti-kuno',
                     'id' => '3529acda-c0c1-4b13-9761-a4a8dedb64be',
-                    'work-count' => 1
+                    'work-count' => 1,
                 },
                 {
                     'type' => 'Recording',
@@ -78,7 +78,7 @@ test 'collection lookup' => sub {
                     'entity-type' => 'recording',
                     'recording-count' => 1,
                     'name' => 'public recording collection',
-                    'id' => '38a6a0ec-f4a9-4424-80fd-bd4f9eb2e880'
+                    'id' => '38a6a0ec-f4a9-4424-80fd-bd4f9eb2e880',
                 },
                 {
                     'id' => '5adf966d-d82f-4ae9-a9a3-e5e187ed2c34',
@@ -96,7 +96,7 @@ test 'collection lookup' => sub {
                     'type-id' => 'b21ef166-d652-3e15-958d-1ff7ad3412ab',
                     'artist-count' => 1,
                     'editor' => 'the-anti-kuno',
-                    'id' => '5f0831af-c84c-44a3-849d-abdf0a18cdd9'
+                    'id' => '5f0831af-c84c-44a3-849d-abdf0a18cdd9',
                 },
                 {
                     'editor' => 'the-anti-kuno',
@@ -105,7 +105,7 @@ test 'collection lookup' => sub {
                     'place-count' => 1,
                     'entity-type' => 'place',
                     'name' => 'private place collection',
-                    'id' => '65e18c7a-0958-4066-9c3e-7c1474c623d1'
+                    'id' => '65e18c7a-0958-4066-9c3e-7c1474c623d1',
                 },
                 {
                     'id' => '7749c811-d77c-4ea5-9a9e-e2a4e7ae0d1f',
@@ -114,7 +114,7 @@ test 'collection lookup' => sub {
                     'type' => 'Instrument',
                     'type-id' => '6929e090-d881-33b1-bbb0-575282633628',
                     'editor' => 'the-anti-kuno',
-                    'instrument-count' => 1
+                    'instrument-count' => 1,
                 },
                 {
                     'id' => '870dbdcf-e047-4da5-9c80-c39e964da96f',
@@ -132,7 +132,7 @@ test 'collection lookup' => sub {
                     'artist-count' => 1,
                     'type' => 'Artist',
                     'type-id' => 'b21ef166-d652-3e15-958d-1ff7ad3412ab',
-                    'id' => '9c782444-f9f4-4a4f-93cb-92d132c79887'
+                    'id' => '9c782444-f9f4-4a4f-93cb-92d132c79887',
                 },
                 {
                     'id' => '9ece2fbd-3f4e-431d-9424-da8af38374e0',
@@ -141,7 +141,7 @@ test 'collection lookup' => sub {
                     'editor' => 'the-anti-kuno',
                     'type' => 'Area',
                     'type-id' => 'ad024f25-ca93-32f5-a7bd-1055dff79f3c',
-                    'area-count' => 1
+                    'area-count' => 1,
                 },
                 {
                     'type' => 'Release group',
@@ -150,7 +150,7 @@ test 'collection lookup' => sub {
                     'name' => 'private release group collection',
                     'entity-type' => 'release_group',
                     'release-group-count' => 1,
-                    'id' => 'b0f09ccf-a777-4c17-a917-28e01b0e66a3'
+                    'id' => 'b0f09ccf-a777-4c17-a917-28e01b0e66a3',
                 },
                 {
                     'type' => 'Label',
@@ -159,7 +159,7 @@ test 'collection lookup' => sub {
                     'entity-type' => 'label',
                     'name' => 'private label collection',
                     'id' => 'b0f57375-7009-47ab-a631-469aaba34885',
-                    'label-count' => 1
+                    'label-count' => 1,
                 },
                 {
                     'editor' => 'the-anti-kuno',
@@ -168,7 +168,7 @@ test 'collection lookup' => sub {
                     'recording-count' => 1,
                     'name' => 'private recording collection',
                     'entity-type' => 'recording',
-                    'id' => 'b5486110-906e-4c0c-a6e6-e16baf4e18e2'
+                    'id' => 'b5486110-906e-4c0c-a6e6-e16baf4e18e2',
                 },
                 {
                     'id' => 'b69030b0-911e-4f7d-aa59-c488b2c8fe8e',
@@ -177,7 +177,7 @@ test 'collection lookup' => sub {
                     'entity-type' => 'work',
                     'type' => 'Work',
                     'type-id' => '918a5dfb-dc15-3251-b57f-25fbdfe019ca',
-                    'editor' => 'the-anti-kuno'
+                    'editor' => 'the-anti-kuno',
                 },
                 {
                     'id' => 'cc8cd8ee-6477-47d5-a16d-adac11ed9f30',
@@ -186,7 +186,7 @@ test 'collection lookup' => sub {
                     'area-count' => 1,
                     'editor' => 'the-anti-kuno',
                     'entity-type' => 'area',
-                    'name' => 'public area collection'
+                    'name' => 'public area collection',
                 },
                 {
                     'id' => 'cdef54c4-2798-4d39-a0c9-5074191f9b6e',
@@ -195,7 +195,7 @@ test 'collection lookup' => sub {
                     'instrument-count' => 1,
                     'editor' => 'the-anti-kuno',
                     'name' => 'private instrument collection',
-                    'entity-type' => 'instrument'
+                    'entity-type' => 'instrument',
                 },
                 {
                     'id' => 'd8c9f799-9255-45ca-93fa-88f7c438d0d8',
@@ -204,7 +204,7 @@ test 'collection lookup' => sub {
                     'type-id' => 'c7ec7b39-c34b-3ab2-9b68-ea42dceff6f5',
                     'editor' => 'the-anti-kuno',
                     'entity-type' => 'label',
-                    'name' => 'public label collection'
+                    'name' => 'public label collection',
                 },
                 {
                     'release-group-count' => 1,
@@ -213,7 +213,7 @@ test 'collection lookup' => sub {
                     'type' => 'Release group',
                     'type-id' => '8b6a6897-2ab8-3e18-84ae-e4b7b3791d65',
                     'entity-type' => 'release_group',
-                    'name' => 'public release group collection'
+                    'name' => 'public release group collection',
                 },
                 {
                     'id' => 'dd07ea8b-0ec3-4b2d-85cf-80e523de4902',
@@ -222,7 +222,7 @@ test 'collection lookup' => sub {
                     'type' => 'Release',
                     'type-id' => 'd94659b2-4ce5-3a98-b4b8-da1131cf33ee',
                     'entity-type' => 'release',
-                    'name' => 'public release collection'
+                    'name' => 'public release collection',
                 },
                 {
                     'id' => 'e6fac30e-28c9-46ed-9cbc-5aabce8170e8',
@@ -231,9 +231,9 @@ test 'collection lookup' => sub {
                     'place-count' => 1,
                     'editor' => 'the-anti-kuno',
                     'entity-type' => 'place',
-                    'name' => 'public place collection'
-                }
-            ]
+                    'name' => 'public place collection',
+                },
+            ],
         }, { username => 'the-anti-kuno', password => 'notreally' };
 
     ws2_test_json 'collection releases lookup',
@@ -275,7 +275,7 @@ test 'collection lookup' => sub {
                         disambiguation => '',
                         packaging => JSON::null,
                         'packaging-id' => JSON::null,
-                    }]
+                    }],
             }, { username => 'the-anti-kuno', password => 'notreally' };
 
     ws2_test_json 'collection release-count (MBS-8776)',
@@ -310,7 +310,7 @@ test 'browsing by area' => sub {
                     'type-id' => 'ad024f25-ca93-32f5-a7bd-1055dff79f3c',
                     'editor' => 'the-anti-kuno',
                     'name' => 'public area collection',
-                    'entity-type' => 'area'
+                    'entity-type' => 'area',
                 },
             ],
         };
@@ -334,7 +334,7 @@ test 'browsing by area' => sub {
                     'type-id' => 'ad024f25-ca93-32f5-a7bd-1055dff79f3c',
                     'editor' => 'the-anti-kuno',
                     'name' => 'private area collection',
-                    'entity-type' => 'area'
+                    'entity-type' => 'area',
                 },
             ],
         }, { username => 'the-anti-kuno', password => 'notreally' };
@@ -365,7 +365,7 @@ test 'browsing by release' => sub {
                     'type-id' => 'd94659b2-4ce5-3a98-b4b8-da1131cf33ee',
                     'editor' => 'the-anti-kuno',
                     'name' => 'public release collection',
-                    'entity-type' => 'release'
+                    'entity-type' => 'release',
                 },
             ],
         };
@@ -389,7 +389,7 @@ test 'browsing by release' => sub {
                     'type-id' => 'd94659b2-4ce5-3a98-b4b8-da1131cf33ee',
                     'editor' => 'the-anti-kuno',
                     'name' => 'private release collection',
-                    'entity-type' => 'release'
+                    'entity-type' => 'release',
                 },
             ],
         }, { username => 'the-anti-kuno', password => 'notreally' };
@@ -420,7 +420,7 @@ test 'browsing by release group' => sub {
                     'type-id' => '8b6a6897-2ab8-3e18-84ae-e4b7b3791d65',
                     'editor' => 'the-anti-kuno',
                     'name' => 'public release group collection',
-                    'entity-type' => 'release_group'
+                    'entity-type' => 'release_group',
                 },
             ],
         };
@@ -444,7 +444,7 @@ test 'browsing by release group' => sub {
                     'type-id' => '8b6a6897-2ab8-3e18-84ae-e4b7b3791d65',
                     'editor' => 'the-anti-kuno',
                     'name' => 'private release group collection',
-                    'entity-type' => 'release_group'
+                    'entity-type' => 'release_group',
                 },
             ],
         }, { username => 'the-anti-kuno', password => 'notreally' };

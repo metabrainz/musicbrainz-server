@@ -11,7 +11,7 @@ with 'MusicBrainz::Server::WebService::Format';
 sub serializers {
     [
         'MusicBrainz::Server::WebService::JSONSerializer',
-    ]
+    ];
 }
 
 sub bad_req : Private

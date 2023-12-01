@@ -12,14 +12,14 @@ around inflate_rows => sub {
     $items = $self->$orig($items);
 
     my $urls = $self->c->model('URL')->get_by_ids(
-        map { $_->{url_id} } @$items
+        map { $_->{url_id} } @$items,
     );
 
     return [
         map +{
             %$_,
             url => to_json_object($urls->{ $_->{url_id} }),
-        }, @$items
+        }, @$items,
     ];
 };
 

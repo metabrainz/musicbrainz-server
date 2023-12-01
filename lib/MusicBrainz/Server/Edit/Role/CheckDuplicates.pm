@@ -36,7 +36,7 @@ after initialize => sub {
 
     if ($self->is_disambiguation_needed(%values)) {
         MusicBrainz::Server::Edit::Exceptions::NeedsDisambiguation->throw(
-            'A disambiguation comment is required for this entity.'
+            'A disambiguation comment is required for this entity.',
         );
     } elsif (!non_empty($values{comment})) {
         # If a disambiguation comment isn't needed despite being empty,
@@ -52,12 +52,12 @@ after initialize => sub {
     my $conditions = join ' AND ', @conditions;
 
     my $duplicate_violation = $self->c->sql->select_single_value(
-        "SELECT 1 FROM $table WHERE $conditions LIMIT 1", @values{@keys}
+        "SELECT 1 FROM $table WHERE $conditions LIMIT 1", @values{@keys},
     );
 
     if ($duplicate_violation) {
         MusicBrainz::Server::Edit::Exceptions::DuplicateViolation->throw(
-            'The given values duplicate an existing row.'
+            'The given values duplicate an existing row.',
         );
     }
 };

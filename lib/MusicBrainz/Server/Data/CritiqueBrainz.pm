@@ -23,7 +23,7 @@ sub load_display_reviews {
         offset => 0,
         limit => 1,
         review_type => 'review', # Get only text reviews, not bare ratings
-        sort => 'published_on'
+        sort => 'published_on',
     );
 
     $url->query_form(%params);

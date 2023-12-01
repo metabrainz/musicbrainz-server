@@ -11,7 +11,7 @@ use Set::Scalar;
 
 has 'reused_ipis' => (
     isa => 'HashRef',
-    is  => 'rw'
+    is  => 'rw',
 );
 
 with 'MusicBrainz::Server::Edit::Role::ValueSet' => {
@@ -21,7 +21,7 @@ with 'MusicBrainz::Server::Edit::Role::ValueSet' => {
         $self->c->model($self->_edit_model)
             ->ipi->find_by_entity_id($self->entity_id);
     },
-    extract_value => sub { shift->ipi }
+    extract_value => sub { shift->ipi },
 };
 
 after initialize => sub {
@@ -66,15 +66,15 @@ after post_insert => sub {
                     artist_count => $artist_dupe_count,
                     artist_search => "/search?query=ipi%3A$ipi&advanced=1&type=artist",
                     ipi => $ipi,
-                }
+                },
             );
 
             $self->c->model('EditNote')->add_note(
                 $self->{id},
                 {
                     editor_id => $EDITOR_MODBOT,
-                    text => $edit_note
-                }
+                    text => $edit_note,
+                },
             );
         }
 
@@ -87,15 +87,15 @@ after post_insert => sub {
                     ipi => $ipi,
                     label_search => "/search?query=ipi%3A$ipi&advanced=1&type=label",
                     label_count => $label_dupe_count,
-                }
+                },
             );
 
             $self->c->model('EditNote')->add_note(
                 $self->{id},
                 {
                     editor_id => $EDITOR_MODBOT,
-                    text => $edit_note
-                }
+                    text => $edit_note,
+                },
             );
         }
     }

@@ -27,8 +27,8 @@ sub alter_edit_pending {
     my $self = shift;
 
     return {
-        ReleaseGroup => [ $self->data->{entity}->{id} ]
-    }
+        ReleaseGroup => [ $self->data->{entity}->{id} ],
+    };
 }
 
 sub change_fields
@@ -43,11 +43,11 @@ has '+data' => (
         entity => Dict[
             id   => Int,
             name => Str,
-            mbid => Str
+            mbid => Str,
         ],
         old => change_fields(),
         new => change_fields(),
-    ]
+    ],
 );
 
 sub initialize {
@@ -68,9 +68,9 @@ sub initialize {
         entity => {
             id => $rg->id,
             name => $rg->name,
-            mbid => $rg->gid
+            mbid => $rg->gid,
         },
-        $self->_change_data(\%old, %new)
+        $self->_change_data(\%old, %new),
     });
 }
 
@@ -79,12 +79,12 @@ sub accept {
 
     my $release = $self->c->model('Release')->get_by_id($self->data->{new}{release_id})
         or MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
-            'This release no longer exists'
+            'This release no longer exists',
         );
 
     my $rg = $self->c->model('ReleaseGroup')->get_by_id($self->data->{entity}{id})
         or MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
-            'This release group no longer exists'
+            'This release group no longer exists',
         );
 
     $self->c->model('ReleaseGroup')->set_cover_art($rg->id, $release->id);
@@ -133,7 +133,7 @@ sub build_display_data {
 
     $data{release_group} = to_json_object(
         $loaded->{ReleaseGroup}{ $self->data->{entity}{id} } ||
-        ReleaseGroup->new( name => $self->data->{entity}{name} )
+        ReleaseGroup->new( name => $self->data->{entity}{name} ),
     );
 
     my $old_id = $self->data->{old}{release_id};

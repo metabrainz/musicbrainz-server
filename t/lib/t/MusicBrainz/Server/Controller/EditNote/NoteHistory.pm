@@ -30,7 +30,7 @@ test 'History page links' => sub {
     # Test as normal editor
     $mech->get_ok('/login');
     $mech->submit_form(
-        with_fields => {username => 'editor1', password => 'pass'}
+        with_fields => {username => 'editor1', password => 'pass'},
     );
 
     note('We get the edit with modified notes as a normal editor');
@@ -49,7 +49,7 @@ test 'History page links' => sub {
     # Test as admin
     $mech->get_ok('/login');
     $mech->submit_form(
-        with_fields => {username => 'admin3', password => 'pass'}
+        with_fields => {username => 'admin3', password => 'pass'},
     );
 
     note('We get the edit with modified notes as an admin');
@@ -76,7 +76,7 @@ test 'History page display' => sub {
     # Test as admin
     $mech->get_ok('/login');
     $mech->submit_form(
-        with_fields => {username => 'admin3', password => 'pass'}
+        with_fields => {username => 'admin3', password => 'pass'},
     );
 
     note('We get the history for a note with two modifications');
@@ -186,7 +186,7 @@ test 'Change page display' => sub {
     # Test as admin
     $mech->get_ok('/login');
     $mech->submit_form(
-        with_fields => {username => 'admin3', password => 'pass'}
+        with_fields => {username => 'admin3', password => 'pass'},
     );
 
     note('We get the first change in the first note');
@@ -298,7 +298,7 @@ test 'Pages are blocked for non-admins' => sub {
     # Test as normal editor
     $mech->get_ok('/login');
     $mech->submit_form(
-        with_fields => {username => 'editor1', password => 'pass'}
+        with_fields => {username => 'editor1', password => 'pass'},
     );
 
     $mech->get('/edit-note/1/changes');

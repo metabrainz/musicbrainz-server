@@ -33,7 +33,7 @@ test 'Editing an artist-artist link type' => sub {
         $mech->submit_form(
             with_fields => {
                 'linktype.name' => $new_name,
-            }
+            },
         );
         ok($mech->success);
     } $test->c;

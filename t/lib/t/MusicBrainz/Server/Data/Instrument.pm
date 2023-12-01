@@ -90,7 +90,7 @@ test 'Create, update, delete instruments' => sub {
             name => 'Updated Instrument',
             type_id => undef,
             comment => 'Updated comment',
-            description => 'Newly-created description'
+            description => 'Newly-created description',
         });
 
 
@@ -139,23 +139,23 @@ test 'Merge instruments' => sub {
         [
             {
                 type_gid => $attributes->[0]->type->gid,
-                credited_as => $attributes->[0]->credited_as
+                credited_as => $attributes->[0]->credited_as,
             },
             {
                 type_gid => $attributes->[1]->type->gid,
-                credited_as => $attributes->[1]->credited_as
-            }
+                credited_as => $attributes->[1]->credited_as,
+            },
         ],
         [
             {
                 type_gid => '745c079d-374e-4436-9448-da92dedef3ce',
-                credited_as => 'blah instrument'
+                credited_as => 'blah instrument',
             },
             # Test that other attribute on the link didn't change.
             {
                 type_gid => 'a56d18ae-485f-5547-a559-eba3efef04d0',
-                credited_as => 'stupid instrument'
-            }
-        ]
+                credited_as => 'stupid instrument',
+            },
+        ],
     );
 }

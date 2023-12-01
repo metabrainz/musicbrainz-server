@@ -48,7 +48,7 @@ test 'Work rating page displays the right data' => sub {
     $tx->is(
         'count(//li//span[@class="inline-rating"])',
         1,
-        'One user rating is shown'
+        'One user rating is shown',
     );
     $tx->is(
         '(//span[@class="current-rating"])[1]',

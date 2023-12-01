@@ -60,7 +60,7 @@ sub _column_mapping
         begin_date => sub { MusicBrainz::Server::Entity::PartialDate->new_from_row(shift, shift() . 'begin_date_') },
         end_date => sub { MusicBrainz::Server::Entity::PartialDate->new_from_row(shift, shift() . 'end_date_') },
         type_id => 'type',
-        map { $_ => $_ } qw( id gid comment setlist time ended name cancelled edits_pending last_updated)
+        map { $_ => $_ } qw( id gid comment setlist time ended name cancelled edits_pending last_updated),
     };
 }
 
@@ -117,7 +117,7 @@ sub _merge_impl
     my @merge_options = ($self->sql => (
                            table => 'event',
                            old_ids => \@old_ids,
-                           new_id => $new_id
+                           new_id => $new_id,
                         ));
 
     merge_table_attributes(@merge_options, columns => [ qw( time type ) ]);
@@ -134,7 +134,7 @@ sub _hash_to_row
 
     my $row = hash_to_row($event, {
         type => 'type_id',
-        map { $_ => $_ } qw( cancelled comment ended name setlist time )
+        map { $_ => $_ } qw( cancelled comment ended name setlist time ),
     });
 
     add_partial_date_to_row($row, $event->{begin_date}, 'begin_date');
@@ -252,13 +252,13 @@ sub _order_by {
 
     my $order_by = order_by($order, 'date', {
         'date' => sub {
-            return 'begin_date_year, begin_date_month, begin_date_day, time, name COLLATE musicbrainz'
+            return 'begin_date_year, begin_date_month, begin_date_day, time, name COLLATE musicbrainz';
         },
         'name' => sub {
-            return 'name COLLATE musicbrainz, begin_date_year, begin_date_month, begin_date_day, time'
+            return 'name COLLATE musicbrainz, begin_date_year, begin_date_month, begin_date_day, time';
         },
         'type' => sub {
-            return 'type, begin_date_year, begin_date_month, begin_date_day, time, name COLLATE musicbrainz'
+            return 'type, begin_date_year, begin_date_month, begin_date_day, time, name COLLATE musicbrainz';
         },
     });
 
@@ -307,8 +307,8 @@ sub find_related_entities
         $_ => {
             performers => { hits => 0, results => [] },
             places => { hits => 0, results => [] },
-            areas => { hits => 0, results => [] }
-        }
+            areas => { hits => 0, results => [] },
+        },
     }, @ids;
 
     for my $event_id (@ids) {
@@ -335,7 +335,7 @@ sub find_related_entities
                     ? [ @performers[ 0 .. ($limit-1) ] ]
                     : \@performers,
             },
-        }
+        };
     }
 
     return %map;
@@ -416,8 +416,8 @@ sub _find_performers
         push @{ $map->{$event_id} }, {
             credit => $credit,
             entity => $artists->{$artist_id},
-            roles => [ uniq @{ $roles } ]
-        }
+            roles => [ uniq @{ $roles } ],
+        };
     }
 }
 
@@ -476,8 +476,8 @@ sub _find_places
         $map->{$event_id} ||= [];
         push @{ $map->{$event_id} }, {
             credit => $credit,
-            entity => $places->{$place_id}
-        }
+            entity => $places->{$place_id},
+        };
     }
 }
 
@@ -507,8 +507,8 @@ sub _find_areas
         $map->{$event_id} ||= [];
         push @{ $map->{$event_id} }, {
             credit => $credit,
-            entity => $areas->{$area_id}
-        }
+            entity => $areas->{$area_id},
+        };
     }
 }
 

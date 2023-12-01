@@ -11,7 +11,7 @@ sub query {
             row_number() OVER (ORDER BY label.name COLLATE musicbrainz, label.id)
         FROM label
         WHERE label.name = label.comment
-    '
+    ';
 }
 
 __PACKAGE__->meta->make_immutable;

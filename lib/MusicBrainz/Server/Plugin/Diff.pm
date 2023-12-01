@@ -24,7 +24,7 @@ sub uri_for_action {
 
 my %class_map = (
     '+' => 'diff-only-b',
-    '-' => 'diff-only-a'
+    '-' => 'diff-only-a',
 );
 
 my $h = HTML::Tiny->new;
@@ -103,8 +103,8 @@ sub _render_side_diff {
             my $text = $_->{str};
             $text = encode_entities($text) if $escape_output;
             $class ? $h->span({ class => $class }, $text) : $text
-        } @stack
-    )
+        } @stack,
+    );
 }
 
 sub _link_artist_credit_name {
@@ -133,9 +133,9 @@ sub diff_artist_credits {
                 '',
                 $name->artist->id || 'deleted',
                 $name->name,
-                $name->join_phrase || ''
+                $name->join_phrase || '',
             );
-        }
+        },
     );
 
     my %sides = map { $_ => '' } qw( old new );
@@ -151,11 +151,11 @@ sub diff_artist_credits {
             # Diff the credited names
             $sides{old} .= $self->_link_artist_credit_name(
                 $old_name,
-                $self->diff_side(encode_entities($old_name->name), encode_entities($new_name->name), '-','\s+')
+                $self->diff_side(encode_entities($old_name->name), encode_entities($new_name->name), '-','\s+'),
             );
             $sides{new} .= $self->_link_artist_credit_name(
                 $new_name,
-                $self->diff_side(encode_entities($old_name->name), encode_entities($new_name->name), '+', '\s+')
+                $self->diff_side(encode_entities($old_name->name), encode_entities($new_name->name), '+', '\s+'),
             );
 
             # Diff the join phrases
@@ -165,13 +165,13 @@ sub diff_artist_credits {
         elsif ($change_type eq '-') {
             $sides{old} .= $h->span(
                 { class => $class_map{'-'} },
-                $self->_link_joined($old_name)
+                $self->_link_joined($old_name),
             );
         }
         elsif ($change_type eq '+') {
             $sides{new} .= $h->span(
                 { class => $class_map{'+'} },
-                $self->_link_joined($new_name)
+                $self->_link_joined($new_name),
             );
         }
     }
@@ -190,7 +190,7 @@ sub diff {
     my %buffers = (
         MATCH     => '',
         DISCARD_A => '',
-        DISCARD_B => ''
+        DISCARD_B => '',
     );
 
     my %classes = (
@@ -224,7 +224,7 @@ sub diff {
                 shift;
                 $buffers{DISCARD_B} .= $b[shift];
             },
-        }
+        },
     );
 
     $flush->('');

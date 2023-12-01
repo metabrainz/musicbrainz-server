@@ -36,7 +36,7 @@ with 'MusicBrainz::Server::Data::Role::Subscription' => {
     table => 'editor_subscribe_label',
     column => 'label',
     active_class => 'MusicBrainz::Server::Entity::Subscription::Label',
-    deleted_class => 'MusicBrainz::Server::Entity::Subscription::DeletedLabel'
+    deleted_class => 'MusicBrainz::Server::Entity::Subscription::DeletedLabel',
 };
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'label' };
 with 'MusicBrainz::Server::Data::Role::Merge';
@@ -72,7 +72,7 @@ sub _column_mapping
         edits_pending => 'edits_pending',
         comment => 'comment',
         last_updated => 'last_updated',
-        ended => 'ended'
+        ended => 'ended',
     };
 }
 
@@ -104,31 +104,31 @@ sub _order_by {
     my ($self, $order) = @_;
     my $order_by = order_by($order, 'name', {
         'name' => sub {
-            return 'name COLLATE musicbrainz'
+            return 'name COLLATE musicbrainz';
         },
         'label_code' => sub {
-            return 'label_code, name COLLATE musicbrainz'
+            return 'label_code, name COLLATE musicbrainz';
         },
         'area' => sub {
-            return 'area, name COLLATE musicbrainz'
+            return 'area, name COLLATE musicbrainz';
         },
         'begin_date' => sub {
-            return 'begin_date_year, begin_date_month, begin_date_day, name COLLATE musicbrainz'
+            return 'begin_date_year, begin_date_month, begin_date_day, name COLLATE musicbrainz';
         },
         'end_date' => sub {
-            return 'end_date_year, end_date_month, end_date_day, name COLLATE musicbrainz'
+            return 'end_date_year, end_date_month, end_date_day, name COLLATE musicbrainz';
         },
         'type' => sub {
-            return 'type, name COLLATE musicbrainz'
-        }
+            return 'type, name COLLATE musicbrainz';
+        },
     });
 
-    return $order_by
+    return $order_by;
 }
 
 sub _area_columns
 {
-    return ['area']
+    return ['area'];
 }
 
 sub load
@@ -209,16 +209,16 @@ sub _merge_impl
                 table => 'label',
                 columns => [ qw( type area label_code ) ],
                 old_ids => \@old_ids,
-                new_id => $new_id
-            )
+                new_id => $new_id,
+            ),
         );
 
         merge_date_period(
             $self->sql => (
                 table => 'label',
                 old_ids => \@old_ids,
-                new_id => $new_id
-            )
+                new_id => $new_id,
+            ),
         );
     }
 
@@ -234,7 +234,7 @@ sub _hash_to_row
     my $row = hash_to_row($label, {
         area => 'area_id',
         type => 'type_id',
-        map { $_ => $_ } qw( comment ended label_code name )
+        map { $_ => $_ } qw( comment ended label_code name ),
     });
 
     add_partial_date_to_row($row, $label->{begin_date}, 'begin_date');

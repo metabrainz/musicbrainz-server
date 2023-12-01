@@ -47,7 +47,7 @@ with 'MusicBrainz::Server::Edit::Role::ValueSet' => {
             attribute_type_id => 0 + $input->{attribute_type_id},
             attribute_value_id => 0 + ($input->{attribute_value_id} // 0),
         });
-    }
+    },
 };
 with 'MusicBrainz::Server::Edit::Role::ValueSet' => {
     prop_name => 'languages',
@@ -65,7 +65,7 @@ sub _mapping {
         attributes => sub {
             my $instance = shift;
             return [
-                map { _work_attribute_to_edit($_) } $instance->all_attributes
+                map { _work_attribute_to_edit($_) } $instance->all_attributes,
             ];
         },
         languages => sub {
@@ -80,7 +80,7 @@ sub _work_attribute_to_edit {
         attribute_text =>
             $work_attribute->value_id ? undef : $work_attribute->value,
         attribute_value_id => $work_attribute->value_id,
-        attribute_type_id => $work_attribute->type->id
+        attribute_type_id => $work_attribute->type->id,
     };
 }
 
@@ -102,8 +102,8 @@ sub change_fields
         attributes    => Optional[ArrayRef[Dict[
             attribute_text => Maybe[Str],
             attribute_value_id => Maybe[Int],
-            attribute_type_id => Int
-        ]]]
+            attribute_type_id => Int,
+        ]]],
     ];
 }
 
@@ -112,10 +112,10 @@ has '+data' => (
         entity => Dict[
             id => Int,
             gid => Optional[Str],
-            name => Str
+            name => Str,
         ],
         new => change_fields(),
-        old => change_fields()
+        old => change_fields(),
     ],
 );
 
@@ -154,7 +154,7 @@ sub build_display_data
 
     $display->{work} = to_json_object(
         $loaded->{Work}{ $self->entity_id } ||
-        Work->new( name => $data->{entity}{name} )
+        Work->new( name => $data->{entity}{name} ),
     );
 
     if (exists $data->{new}{attributes}) {
@@ -178,7 +178,7 @@ sub build_display_data
     if (exists $data->{new}{languages}) {
         for my $side (qw( old new )) {
             $display->{languages}{$side} = to_json_array[
-                map { $loaded->{Language}{$_} } @{ $data->{$side}{languages} // [] }
+                map { $loaded->{Language}{$_} } @{ $data->{$side}{languages} // [] },
             ];
         }
     }

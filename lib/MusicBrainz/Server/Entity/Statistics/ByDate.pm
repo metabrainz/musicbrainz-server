@@ -12,13 +12,13 @@ has data => (
     default => sub { {} },
     handles => {
         statistic => 'get',
-        statistic_names => 'keys'
-    }
+        statistic_names => 'keys',
+    },
 );
 
 has date_collected => (
    is => 'rw',
-   isa => Str
+   isa => Str,
 );
 
 sub summed_statistics {
@@ -31,7 +31,7 @@ sub summed_statistics {
     } else {
         $sum = $self->statistic($stats) || 0;
     }
-    return $sum
+    return $sum;
 }
 
 sub ratio {

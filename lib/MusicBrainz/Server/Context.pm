@@ -13,7 +13,7 @@ use LWP::UserAgent;
 has 'cache_manager' => (
     is => 'ro',
     isa => 'MusicBrainz::Server::CacheManager',
-    handles => [ 'cache' ]
+    handles => [ 'cache' ],
 );
 
 has 'connector' => (
@@ -29,7 +29,7 @@ has 'database' => (
     default => sub {
         DBDefs->DB_READ_ONLY || DBDefs->REPLICATION_TYPE == RT_MIRROR
             ? 'READONLY'
-            : 'READWRITE'
+            : 'READWRITE';
     },
     lazy => 1,
     clearer => 'clear_database',
@@ -60,7 +60,7 @@ sub _build_connector {
 has 'models' => (
     isa     => 'HashRef',
     is      => 'ro',
-    default => sub { {} }
+    default => sub { {} },
 );
 
 has lwp => (
@@ -71,20 +71,20 @@ has lwp => (
         $lwp->timeout(5);
         $lwp->agent(DBDefs->LWP_USER_AGENT);
         return $lwp;
-    }
+    },
 );
 
 has data_prefix => (
     isa => 'Str',
     is => 'ro',
-    default => 'MusicBrainz::Server::Data'
+    default => 'MusicBrainz::Server::Data',
 );
 
 has store => (
     is => 'ro',
     does => 'MusicBrainz::DataStore',
     lazy => 1,
-    default => sub { MusicBrainz::DataStore::RedisMulti->new }
+    default => sub { MusicBrainz::DataStore::RedisMulti->new },
 );
 
 # This is not the Catalyst stash, but it's used by

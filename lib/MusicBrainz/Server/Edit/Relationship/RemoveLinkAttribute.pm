@@ -21,8 +21,8 @@ has '+data' => (
         description => Nullable[Str],
         id          => Int,
         parent_id   => Nullable[Int],
-        child_order => Optional[Str]
-    ]
+        child_order => Optional[Str],
+    ],
 );
 
 sub build_display_data {
@@ -36,7 +36,7 @@ sub build_display_data {
 
 sub accept {
     my $self = shift;
-    $self->c->model('LinkAttributeType')->delete($self->data->{id})
+    $self->c->model('LinkAttributeType')->delete($self->data->{id});
 };
 
 no Moose;

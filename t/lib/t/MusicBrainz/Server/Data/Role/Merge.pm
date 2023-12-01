@@ -22,7 +22,7 @@ has data_object => (
     is => 'ro',
     lazy => 1,
     clearer => '_clear_data_object',
-    default => sub { t::MusicBrainz::Server::Data::Role::Merge::Impl->new }
+    default => sub { t::MusicBrainz::Server::Data::Role::Merge::Impl->new },
 );
 
 before run_test => sub { shift->_clear_data_object };

@@ -11,12 +11,12 @@ sub entity_type { 'release_alias' }
 
 has 'release_id' => (
     is => 'rw',
-    isa => 'Int'
+    isa => 'Int',
 );
 
 has 'release' => (
     is => 'rw',
-    isa => 'Release'
+    isa => 'Release',
 );
 
 __PACKAGE__->meta->make_immutable;

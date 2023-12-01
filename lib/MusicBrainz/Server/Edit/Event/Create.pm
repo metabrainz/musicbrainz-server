@@ -36,7 +36,7 @@ has '+data' => (
         end_date    => Nullable[PartialDateHash],
         ended       => Bool,
         cancelled   => Bool,
-    ]
+    ],
 );
 
 sub foreign_keys
@@ -55,7 +55,7 @@ sub build_display_data
     my $type = $self->data->{type_id};
     my $event = to_json_object((defined($self->entity_id) &&
             $loaded->{Event}{ $self->entity_id }) ||
-            Event->new( name => $self->data->{name} )
+            Event->new( name => $self->data->{name} ),
     );
 
     return {
@@ -68,7 +68,7 @@ sub build_display_data
         cancelled   => boolean_to_json($self->data->{cancelled}),
         comment     => $self->data->{comment},
         time        => $self->data->{time},
-        setlist     => $self->data->{setlist}
+        setlist     => $self->data->{setlist},
     };
 }
 

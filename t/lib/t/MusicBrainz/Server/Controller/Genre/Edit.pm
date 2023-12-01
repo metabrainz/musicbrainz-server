@@ -22,7 +22,7 @@ test 'Editing a genre' => sub {
 
     $mech->get('/login');
     $mech->submit_form(
-        with_fields => { username => 'genre_editor', password => 'pass' }
+        with_fields => { username => 'genre_editor', password => 'pass' },
     );
 
     $mech->get_ok(
@@ -85,7 +85,7 @@ test 'Genre editing is blocked for unprivileged users' => sub {
 
     $mech->get('/login');
     $mech->submit_form(
-        with_fields => { username => 'boring_editor', password => 'pass' }
+        with_fields => { username => 'boring_editor', password => 'pass' },
     );
 
     $mech->get('/genre/ceeaa283-5d7b-4202-8d1d-e25d116b2a18/edit');

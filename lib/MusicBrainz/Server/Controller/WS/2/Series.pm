@@ -24,7 +24,7 @@ my $ws_defs = Data::OptList::mkopt([
                          method   => 'GET',
                          inc      => [ qw(aliases annotation _relations tags user-tags genres user-genres) ],
                          optional => [ qw(fmt) ],
-     }
+     },
 ]);
 
 with 'MusicBrainz::Server::WebService::Validator' => {

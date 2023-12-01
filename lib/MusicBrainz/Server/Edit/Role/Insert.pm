@@ -4,12 +4,12 @@ use namespace::autoclean;
 
 has 'entity_id' => (
     isa => 'Int',
-    is  => 'rw'
+    is  => 'rw',
 );
 
 has 'entity_gid' => (
     isa => 'Str',
-    is  => 'rw'
+    is  => 'rw',
 );
 
 override 'to_hash' => sub

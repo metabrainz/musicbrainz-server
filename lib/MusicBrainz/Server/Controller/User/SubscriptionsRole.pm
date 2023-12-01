@@ -8,7 +8,7 @@ use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 
 parameter 'type' => (
-    required => 1
+    required => 1,
 );
 
 role {
@@ -20,8 +20,8 @@ role {
     $extra{consumer}->name->config(
         action => {
             $type => { Chained => '/user/load', PathPart => "subscriptions/$type",
-                      RequireAuth => undef, HiddenOnMirrors => undef }
-        }
+                      RequireAuth => undef, HiddenOnMirrors => undef },
+        },
     );
 
     method $type => sub {

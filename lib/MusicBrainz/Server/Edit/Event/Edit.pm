@@ -63,11 +63,11 @@ has '+data' => (
         entity => Dict[
             id => Int,
             gid => Str,
-            name => Str
+            name => Str,
         ],
         new => change_fields(),
         old => change_fields(),
-    ]
+    ],
 );
 
 sub foreign_keys
@@ -101,7 +101,7 @@ sub build_display_data
 
     $data->{event} = to_json_object(
         $loaded->{Event}{ $self->data->{entity}{id} } ||
-        Event->new( name => $self->data->{entity}{name} )
+        Event->new( name => $self->data->{entity}{name} ),
     );
 
     for my $date_prop (qw( begin_date end_date )) {

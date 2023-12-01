@@ -299,7 +299,7 @@ sub serialize_tags {
         $into->{tags} = [
             sort { $a->{name} cmp $b->{name} }
             map +{ count => $_->count, name => $_->tag->name },
-                grep { $_->count > 0 } @{ $opts->{tags} }
+                grep { $_->count > 0 } @{ $opts->{tags} },
         ];
     }
 
@@ -307,7 +307,7 @@ sub serialize_tags {
         $into->{genres} = [
             sort { $a->{name} cmp $b->{name} }
             map +{ count => $_->count, disambiguation => $_->genre->comment, id => $_->genre->gid, name => $_->genre->name },
-                grep { $_->count > 0 } @{ $opts->{genres} }
+                grep { $_->count > 0 } @{ $opts->{genres} },
         ];
     }
 
@@ -316,7 +316,7 @@ sub serialize_tags {
             sort { $a->{name} cmp $b->{name} }
             map +{ name => $_->tag->name },
                 grep { $_->is_upvote }
-                @{ $opts->{user_tags} }
+                @{ $opts->{user_tags} },
         ];
     }
 
@@ -325,7 +325,7 @@ sub serialize_tags {
             sort { $a->{name} cmp $b->{name} }
             map +{ disambiguation => $_->genre->comment, id => $_->genre->gid, name => $_->genre->name },
                 grep { $_->is_upvote }
-                @{ $opts->{user_genres} }
+                @{ $opts->{user_genres} },
         ];
     }
 

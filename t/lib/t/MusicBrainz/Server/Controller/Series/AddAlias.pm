@@ -56,12 +56,12 @@ test 'Adding alias with sort name' => sub {
             begin_date => {
                 year => undef,
                 month => undef,
-                day => undef
+                day => undef,
             },
             end_date => {
                 year => undef,
                 month => undef,
-                day => undef
+                day => undef,
             },
             type_id => undef,
             ended => 0,
@@ -105,7 +105,7 @@ test 'MBS-6896: Adding alias without sort name defaults it to name' => sub {
         $mech->submit_form_ok({
             with_fields => {
                 'edit-alias.name' => 'Now that’s what I call another series',
-            }
+            },
         },
         'The form returned a 2xx response code')
     } $test->c;
@@ -129,7 +129,7 @@ sub prepare_test {
 
     $test->mech->get('/login');
     $test->mech->submit_form(
-        with_fields => { username => 'editor', password => 'pass' }
+        with_fields => { username => 'editor', password => 'pass' },
     );
 }
 

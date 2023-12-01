@@ -45,10 +45,10 @@ with 'MusicBrainz::Server::Controller::Role::JSONLD' => {
                                           'top_tags']},
                   recordings => {copy_stash => [{from => 'recordings_jsonld', to => 'recordings'}]},
                   relationships => {},
-                  aliases => {copy_stash => ['aliases']}}
+                  aliases => {copy_stash => ['aliases']}},
 };
 with 'MusicBrainz::Server::Controller::Role::Collection' => {
-    entity_type => 'artist'
+    entity_type => 'artist',
 };
 
 use Data::Page;
@@ -410,7 +410,7 @@ sub works : Chained('load')
             $c->stash->{artist}->id,
             shift,
             shift,
-            filter => $filter
+            filter => $filter,
         );
     });
     $c->model('Work')->load_related_info(@$works);
@@ -420,7 +420,7 @@ sub works : Chained('load')
     my %props = (
         ajaxFilterFormUrl => '' . $c->uri_for_action(
                                  '/ajax/filter_artist_works_form',
-                                 { artist_id => $artist->id }
+                                 { artist_id => $artist->id },
                              ),
         artist            => $c->stash->{artist}->TO_JSON,
         filterForm        => to_json_object($c->stash->{filter_form}),
@@ -542,7 +542,7 @@ sub events : Chained('load')
     my %props = (
         ajaxFilterFormUrl => '' . $c->uri_for_action(
                                  '/ajax/filter_artist_events_form',
-                                 { artist_id => $artist->id }
+                                 { artist_id => $artist->id },
                              ),
         artist       => $artist->TO_JSON,
         events       => to_json_array($events),
@@ -689,8 +689,8 @@ with 'MusicBrainz::Server::Controller::Role::Edit' => {
                             $ac_edit->id,
                             {
                                 text => "This credit is being changed because the main name for the artist \“$artistname\” is being modified by edit #$editid.",
-                                editor_id => $EDITOR_MODBOT
-                            }
+                                editor_id => $EDITOR_MODBOT,
+                            },
                         );
                     }
                 }
@@ -700,7 +700,7 @@ with 'MusicBrainz::Server::Controller::Role::Edit' => {
                     $c->uri_for_action('/artist/show', [ $artist->gid ]));
             },
         );
-    }
+    },
 };
 
 =head2 merge
@@ -711,7 +711,7 @@ Merge 2 artists into a single artist
 
 with 'MusicBrainz::Server::Controller::Role::Merge' => {
     edit_type => $EDIT_ARTIST_MERGE,
-    merge_form => 'Merge::Artist'
+    merge_form => 'Merge::Artist',
 };
 
 before qw( create edit ) => sub {
@@ -793,7 +793,7 @@ sub split : Chained('load') Edit {
     if ($is_empty) {
         my %props = (
             artist => $artist->TO_JSON,
-            isEmpty => \1
+            isEmpty => \1,
         );
         $c->stash(
             component_path => 'artist/CannotSplit',
@@ -840,21 +840,21 @@ sub split : Chained('load') Edit {
                     editor       => $c->user,
                     type0        => 'artist',
                     type1        => 'artist',
-                    relationship => $relationship
+                    relationship => $relationship,
                 );
 
                 $c->model('EditNote')->add_note(
                     $rem->id,
                     {
                         text => "This collaboration has been split in edit #$editid.",
-                        editor_id => $c->user->id
-                    }
+                        editor_id => $c->user->id,
+                    },
                 );
             }
 
             $c->res->redirect(
-                $c->uri_for_action('/artist/show', [ $artist->gid ]))
-        }
+                $c->uri_for_action('/artist/show', [ $artist->gid ]));
+        },
     );
 }
 
@@ -879,7 +879,7 @@ sub edit_credit : Chained('credit') PathPart('edit') Edit {
         on_creation => sub {
             $c->res->redirect(
                 $c->uri_for_action('/artist/aliases', [ $artist->gid ]));
-        }
+        },
     );
 }
 

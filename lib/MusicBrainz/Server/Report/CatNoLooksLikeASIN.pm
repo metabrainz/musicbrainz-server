@@ -18,7 +18,7 @@ sub query {
             JOIN artist_credit ac ON r.artist_credit = ac.id
             -- Please keep in sync with catNoLooksLikeASIN on release-editor/bubbles.js
         WHERE rl.catalog_number ~ '^B0(?=.*[A-Z])([0-9A-Z]{8})$'
-    }
+    };
 }
 
 __PACKAGE__->meta->make_immutable;

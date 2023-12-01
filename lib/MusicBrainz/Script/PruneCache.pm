@@ -47,7 +47,7 @@ sub prune_entity {
     my $entity_properties = $ENTITIES{$entity_type};
     my $data = $self->c->model($entity_properties->{model});
     my $interval = DateTime::Format::Pg->format_interval(
-        DateTime::Duration->new(seconds => $self->interval)
+        DateTime::Duration->new(seconds => $self->interval),
     );
     my $cache_prefix = $data->_type;
 

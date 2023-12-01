@@ -87,7 +87,7 @@ sub CACHE_MANAGER_OPTIONS {
         default_profile => 'external',
     );
 
-    return \%CACHE_MANAGER_OPTIONS
+    return \%CACHE_MANAGER_OPTIONS;
 }
 
 sub CATALYST_DEBUG { 0 }

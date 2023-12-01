@@ -187,7 +187,7 @@ sub create_url_opts($$$$$) {
         );
         if (defined $last_modified) {
             $add_opts{lastmod} = DateTime::Format::W3CDTF->format_datetime(
-                DateTime::Format::Pg->parse_datetime($last_modified)
+                DateTime::Format::Pg->parse_datetime($last_modified),
             );
         }
     }
@@ -407,7 +407,7 @@ sub ping_search_engines($) {
 
     my @sitemap_prefixes = (
         'http://www.google.com/webmasters/tools/ping?sitemap=',
-        'http://www.bing.com/webmaster/ping.aspx?siteMap='
+        'http://www.bing.com/webmaster/ping.aspx?siteMap=',
     );
 
     for my $prefix (@sitemap_prefixes) {

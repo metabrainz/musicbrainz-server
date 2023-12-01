@@ -43,7 +43,7 @@ test 'Deleting an alias' => sub {
         {
             entity => {
                 id => 1,
-                name => 'King of the Mountain'
+                name => 'King of the Mountain',
             },
             alias_id  => 1,
             name      => 'Test Recording Alias',
@@ -51,12 +51,12 @@ test 'Deleting an alias' => sub {
             begin_date => {
                 year => undef,
                 month => undef,
-                day => undef
+                day => undef,
             },
             end_date => {
                 year => undef,
                 month => undef,
-                day => undef
+                day => undef,
             },
             ended => 0,
             type_id => 1,

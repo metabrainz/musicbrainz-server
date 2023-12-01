@@ -12,11 +12,11 @@ around inflate_rows => sub {
     my $items = $self->$orig(@_);
 
     my $cdtocs = $self->c->model('CDTOC')->get_by_ids(
-        map { $_->{cdtoc_id} } @$items
+        map { $_->{cdtoc_id} } @$items,
     );
 
     my $releases = $self->c->model('Release')->get_by_ids(
-        map { $_->{release_id} } @$items
+        map { $_->{release_id} } @$items,
     );
 
     $self->c->model('ArtistCredit')->load(values %$releases);
@@ -26,7 +26,7 @@ around inflate_rows => sub {
             %$_,
             cdtoc => to_json_object($cdtocs->{ $_->{cdtoc_id} }),
             release => to_json_object($releases->{ $_->{release_id} }),
-        }, @$items
+        }, @$items,
     ];
 };
 

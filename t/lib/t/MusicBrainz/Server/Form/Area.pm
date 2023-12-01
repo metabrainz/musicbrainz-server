@@ -29,10 +29,10 @@ for my $config (
             !$form->process(
                 params => {
                     'edit-area.name' => 'Area',
-                    "edit-area.$iso_field.0" => $iso_code
-                }
+                    "edit-area.$iso_field.0" => $iso_code,
+                },
             ),
-            'form did not validate'
+            'form did not validate',
         );
     };
 
@@ -45,16 +45,16 @@ for my $config (
 
         my $form = MusicBrainz::Server::Form::Area->new(
             ctx => form_context($c),
-            init_object => $c->model('Area')->get_by_id(1)
+            init_object => $c->model('Area')->get_by_id(1),
         );
         ok(
             $form->process(
                 params => {
                     'edit-area.name' => 'Renamed',
-                    "edit-area.$iso_field.0" => $iso_code
-                }
+                    "edit-area.$iso_field.0" => $iso_code,
+                },
             ),
-            'form submitted sucessfully'
+            'form submitted sucessfully',
         );
     };
 }
@@ -84,14 +84,14 @@ has user => (
     is => 'ro',
     default => sub {
         MusicBrainz::Server::Entity::Editor->new(
-            privileges => 0
-        )
-    }
+            privileges => 0,
+        );
+    },
 );
 
 has stash => (
     is => 'ro',
-    default => sub { +{} }
+    default => sub { +{} },
 );
 
 sub get_collator { MusicBrainz::Server::Translation::get_collator('en') }

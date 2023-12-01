@@ -42,7 +42,7 @@ subtype 'ReleaseLabelHash'
             gid => Optional[Str],
             name => Str,
         ]],
-        catalog_number => Nullable[Str]
+        catalog_number => Nullable[Str],
     ];
 
 has '+data' => (
@@ -62,11 +62,11 @@ has '+data' => (
                     gid => Optional[Str],
                     name => Optional[Str],
                 ]],
-            ]]]
+            ]]],
         ],
         new => find_type_constraint('ReleaseLabelHash'),
-        old => find_type_constraint('ReleaseLabelHash')
-    ]
+        old => find_type_constraint('ReleaseLabelHash'),
+    ],
 );
 
 sub release_id { shift->data->{release}{id} }
@@ -83,7 +83,7 @@ sub foreign_keys {
 
     $keys->{Area} = [
         grep { $_ } map { gid_or_id($_->{country}) } grep { exists $_->{country} }
-        @{ $data->{release}{events} // [] }
+        @{ $data->{release}{events} // [] },
     ];
 
     return $keys;
@@ -111,7 +111,7 @@ sub build_display_data {
     my $display_data = {
         release => to_json_object(
             $loaded->{Release}{ gid_or_id($data->{release}) } //
-            Release->new(name => $data->{release}{name})
+            Release->new(name => $data->{release}{name}),
         ),
         catalog_number => {
             exists $data->{new}{catalog_number} ? (new => $data->{new}{catalog_number}) : (),
@@ -122,15 +122,15 @@ sub build_display_data {
                 ? (
                     new => defined $data->{new}{label} ? to_json_object(
                         $loaded->{Label}{gid_or_id($data->{new}{label})} //
-                        Label->new(name => $data->{new}{label}{name})
-                    ) : undef
+                        Label->new(name => $data->{new}{label}{name}),
+                    ) : undef,
                 ) : (),
             old => defined $data->{old}{label} ? to_json_object(
                 $loaded->{Label}{gid_or_id($data->{old}{label})} //
-                Label->new(name => $data->{old}{label}{name})
+                Label->new(name => $data->{old}{label}{name}),
             ) : undef,
         },
-        barcode => $data->{release}{barcode}
+        barcode => $data->{release}{barcode},
     };
 
     if ($data->{release}{medium_formats}) {
@@ -146,20 +146,20 @@ sub build_display_data {
                 my $country_gid_or_id = gid_or_id($country);
 
                 $event_display->{country} = to_json_object(
-                    defined $country_gid_or_id && $loaded->{Area}{$country_gid_or_id}
+                    defined $country_gid_or_id && $loaded->{Area}{$country_gid_or_id},
                 );
                 $event_display->{country} //= to_json_object(
-                    defined $country->{name} && MusicBrainz::Server::Entity::Area->new($country)
+                    defined $country->{name} && MusicBrainz::Server::Entity::Area->new($country),
                 );
             }
 
             if ($_->{date}) {
                 $event_display->{date} = to_json_object(
-                    MusicBrainz::Server::Entity::PartialDate->new($_->{date})
+                    MusicBrainz::Server::Entity::PartialDate->new($_->{date}),
                 );
             }
             $event_display;
-        } @{ $data->{release}{events} // [] }
+        } @{ $data->{release}{events} // [] },
     ];
 
     return $display_data;
@@ -192,7 +192,7 @@ sub _serialize_label {
 
 sub _mapping {
     return (
-        label => sub { _serialize_label(shift->label) }
+        label => sub { _serialize_label(shift->label) },
     );
 }
 
@@ -213,7 +213,7 @@ sub initialize
     $self->throw_if_release_label_is_duplicate(
         $release_label->release,
         $opts{label} ? $opts{label}->id : undef,
-        $opts{catalog_number}
+        $opts{catalog_number},
     );
 
     unless ($release_label->label) {
@@ -230,7 +230,7 @@ sub initialize
             id => $release_label->release->id,
             gid => $release_label->release->gid,
             name => $release_label->release->name,
-            medium_formats => [ map { defined $_->format ? $_->format->name : '(unknown)' } $release_label->release->all_mediums ]
+            medium_formats => [ map { defined $_->format ? $_->format->name : '(unknown)' } $release_label->release->all_mediums ],
         },
         $self->_change_data($release_label, %opts),
     };
@@ -250,7 +250,7 @@ sub initialize
                 gid => $_->country->gid,
                 name => $_->country->name,
             } : undef),
-        }, $release->all_events
+        }, $release->all_events,
     ];
 
     $data->{release}{barcode} = $release_label->release->barcode->format
@@ -265,7 +265,7 @@ sub accept {
     my $release_label = $self->release_label;
 
     MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
-        'This release label no longer exists.'
+        'This release label no longer exists.',
     ) unless defined $release_label;
 
     my %args = %{ $self->merge_changes };
@@ -275,7 +275,7 @@ sub accept {
             my $label = $self->c->model('Label')->get_by_any_id(gid_or_id($args{label}));
 
             MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
-                'The new label no longer exists.'
+                'The new label no longer exists.',
             ) unless $label;
 
             $args{label_id} = $label->id;
@@ -306,7 +306,7 @@ has release_label => (
         $self->c->model('Label')->load($release_label);
         return $release_label;
     },
-    lazy => 1
+    lazy => 1,
 );
 
 sub ancestor_data {

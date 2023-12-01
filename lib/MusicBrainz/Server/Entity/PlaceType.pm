@@ -13,7 +13,7 @@ sub entity_type { 'place_type' }
 
 sub l_name {
     my $self = shift;
-    return lp($self->name, 'place_type')
+    return lp($self->name, 'place_type');
 }
 
 sub l_description {

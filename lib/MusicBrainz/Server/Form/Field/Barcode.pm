@@ -9,7 +9,7 @@ use MusicBrainz::Server::Validation;
 extends 'HTML::FormHandler::Field::Text';
 
 has '+maxlength' => (
-    default => 255
+    default => 255,
 );
 
 1;

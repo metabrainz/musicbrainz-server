@@ -18,7 +18,7 @@ after validate => sub {
         # invalid characters. However, text that is only whitespace
         # generally triggers the "Required field" error first.
         return $self->push_errors(
-            l('The characters you’ve entered are invalid or not allowed.')
+            l('The characters you’ve entered are invalid or not allowed.'),
         );
     }
     $self->value($trimmed);

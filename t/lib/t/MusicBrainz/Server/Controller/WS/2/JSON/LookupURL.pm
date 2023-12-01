@@ -6,7 +6,7 @@ use warnings;
 use JSON;
 use Test::Routine;
 use MusicBrainz::Server::Test ws_test_json => {
-    version => 2
+    version => 2,
 };
 
 with 't::Mechanize', 't::Context';
@@ -18,13 +18,13 @@ test 'basic url lookup' => sub {
     ws_test_json 'basic url lookup',
     '/url/e0a79771-e9f0-4127-b58a-f5e6869c8e96' =>
       { id => 'e0a79771-e9f0-4127-b58a-f5e6869c8e96',
-        resource => 'http://www.discogs.com/artist/Paul+Allgood'
+        resource => 'http://www.discogs.com/artist/Paul+Allgood',
       };
 
     ws_test_json 'basic url lookup (by URL)',
     '/url?resource=http://www.discogs.com/artist/Paul%2BAllgood' =>
       { id => 'e0a79771-e9f0-4127-b58a-f5e6869c8e96',
-        resource => 'http://www.discogs.com/artist/Paul+Allgood'
+        resource => 'http://www.discogs.com/artist/Paul+Allgood',
       };
 
     ws_test_json 'basic url lookup (with inc=artist-rels)',
@@ -54,7 +54,7 @@ test 'basic url lookup' => sub {
                     'source-credit' => '',
                     'target-credit' => '',
                     'target-type' => 'artist',
-                }]
+                }],
         };
 };
 

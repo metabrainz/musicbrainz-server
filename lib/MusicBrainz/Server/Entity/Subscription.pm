@@ -4,12 +4,12 @@ use namespace::autoclean;
 
 has 'id' => (
     isa => 'Int',
-    is => 'ro'
+    is => 'ro',
 );
 
 has 'editor_id' => (
     isa => 'Int',
-    is => 'ro'
+    is => 'ro',
 );
 
 1;

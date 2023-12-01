@@ -66,10 +66,10 @@ has '+data' => (
                 relationship => find_type_constraint('ReorderedRelationshipHash'),
                 old_order => Int,
                 new_order => Int,
-            ]
+            ],
         ],
         edit_version => Optional[Int],
-    ]
+    ],
 );
 
 sub link_type { shift->data->{link_type} }
@@ -129,7 +129,7 @@ sub _build_relationship {
                     } else {
                         ();
                     }
-                } @{ $data->{attributes} }
+                } @{ $data->{attributes} },
             ],
         ),
         entity0 => $entity0,
@@ -171,7 +171,7 @@ sub adjust_edit_pending
         $self->data->{link_type}{entity0_type},
         $self->data->{link_type}{entity1_type},
         $adjust,
-        map { $_->{relationship}{id} } @{ $self->data->{relationship_order} }
+        map { $_->{relationship}{id} } @{ $self->data->{relationship_order} },
     );
 }
 
@@ -218,11 +218,11 @@ sub initialize {
             attributes => $self->serialize_link_attributes($link->all_attributes),
             entity0 => {
                 id => $relationship->entity0_id,
-                name => $relationship->entity0->name
+                name => $relationship->entity0->name,
             },
             entity1 => {
                 id => $relationship->entity1_id,
-                name => $relationship->entity1->name
+                name => $relationship->entity1->name,
             },
         };
     }
@@ -255,8 +255,8 @@ sub build_display_data {
                 relationship => $self->_build_relationship($loaded, $_->{relationship}),
             },
             sort { $a->{new_order} <=> $b->{new_order} }
-                @{ $self->data->{relationship_order} }
-        ]
+                @{ $self->data->{relationship_order} },
+        ],
     };
 }
 
@@ -266,7 +266,7 @@ sub accept {
     $self->c->model('Relationship')->reorder(
         $self->data->{link_type}{entity0_type},
         $self->data->{link_type}{entity1_type},
-        map { $_->{relationship}{id} => $_->{new_order} } @{ $self->data->{relationship_order} }
+        map { $_->{relationship}{id} => $_->{new_order} } @{ $self->data->{relationship_order} },
     );
 }
 

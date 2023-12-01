@@ -41,7 +41,7 @@ with 'MusicBrainz::Server::Data::Role::Subscription' => {
     table => 'editor_subscribe_artist',
     column => 'artist',
     active_class => 'MusicBrainz::Server::Entity::Subscription::Artist',
-    deleted_class => 'MusicBrainz::Server::Entity::Subscription::DeletedArtist'
+    deleted_class => 'MusicBrainz::Server::Entity::Subscription::DeletedArtist',
 };
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'artist' };
 with 'MusicBrainz::Server::Data::Role::Area';
@@ -81,7 +81,7 @@ sub _column_mapping
         edits_pending => 'edits_pending',
         comment => 'comment',
         last_updated => 'last_updated',
-        ended => 'ended'
+        ended => 'ended',
     };
 }
 
@@ -211,32 +211,32 @@ sub _order_by {
     my ($self, $order) = @_;
     my $order_by = order_by($order, 'name', {
         'name' => sub {
-            return 'sort_name COLLATE musicbrainz'
+            return 'sort_name COLLATE musicbrainz';
         },
         'area' => sub {
-            return 'area, name COLLATE musicbrainz'
+            return 'area, name COLLATE musicbrainz';
         },
         'gender' => sub {
-            return 'gender, sort_name COLLATE musicbrainz'
+            return 'gender, sort_name COLLATE musicbrainz';
         },
         'begin_date' => sub {
-            return 'begin_date_year, begin_date_month, begin_date_day, name COLLATE musicbrainz'
+            return 'begin_date_year, begin_date_month, begin_date_day, name COLLATE musicbrainz';
         },
         'begin_area' => sub {
-            return 'begin_area, name COLLATE musicbrainz'
+            return 'begin_area, name COLLATE musicbrainz';
         },
         'end_date' => sub {
-            return 'end_date_year, end_date_month, end_date_day, name COLLATE musicbrainz'
+            return 'end_date_year, end_date_month, end_date_day, name COLLATE musicbrainz';
         },
         'end_area' => sub {
-            return 'end_area, name COLLATE musicbrainz'
+            return 'end_area, name COLLATE musicbrainz';
         },
         'type' => sub {
-            return 'type, sort_name COLLATE musicbrainz'
-        }
+            return 'type, sort_name COLLATE musicbrainz';
+        },
     });
 
-    return $order_by
+    return $order_by;
 }
 
 sub _area_columns
@@ -315,7 +315,7 @@ sub can_delete
     my $active_credits = $self->sql->select_single_column_array(
         'SELECT ref_count FROM artist_credit, artist_credit_name name
           WHERE name.artist = ? AND name.artist_credit = id AND ref_count > 0',
-        $artist_id
+        $artist_id,
     );
     return @$active_credits == 0;
 }
@@ -424,16 +424,16 @@ sub merge
                 table => 'artist',
                 columns => $merge_columns,
                 old_ids => $old_ids,
-                new_id => $new_id
-            )
+                new_id => $new_id,
+            ),
         );
 
         merge_date_period(
             $self->sql => (
                 table => 'artist',
                 old_ids => $old_ids,
-                new_id => $new_id
-            )
+                new_id => $new_id,
+            ),
         );
     }
 
@@ -451,7 +451,7 @@ sub _hash_to_row
         end_area => 'end_area_id',
         gender  => 'gender_id',
         type    => 'type_id',
-        map { $_ => $_ } qw( comment ended name sort_name )
+        map { $_ => $_ } qw( comment ended name sort_name ),
     });
 
     if (exists $artist->{begin_date}) {

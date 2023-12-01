@@ -77,8 +77,8 @@ test 'Duplicate release countries are rejected' => sub {
         name => 'Release with duplicate countries',
         artist_credit => {
             names => [
-                { artist => { id => 1, name => 'Foo Foo' }, name => 'Foo Foo' }
-            ]
+                { artist => { id => 1, name => 'Foo Foo' }, name => 'Foo Foo' },
+            ],
         },
         release_group_id => 1,
     );
@@ -89,7 +89,7 @@ test 'Duplicate release countries are rejected' => sub {
             events => [
                 { country_id => 222, date => { year => 1999 } },
                 { country_id => 222, date => { year => 2000 } },
-            ]
+            ],
         );
     }, qr/Duplicate release country: 222/;
 
@@ -99,7 +99,7 @@ test 'Duplicate release countries are rejected' => sub {
             events => [
                 { country_id => undef, date => { year => 1999 } },
                 { country_id => undef, date => { year => 2000 } },
-            ]
+            ],
         );
     }, qr/Duplicate release country: undef/;
 };
@@ -113,7 +113,7 @@ sub create_edit
         name => 'Empty Release',
         artist_credit => {
             names => [
-                { artist => { id => 1, name => 'Foo Foo' }, name => 'Foo Foo' }
+                { artist => { id => 1, name => 'Foo Foo' }, name => 'Foo Foo' },
             ] },
         comment => 'An empty release!',
         status_id => 1,

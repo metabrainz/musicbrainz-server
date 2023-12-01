@@ -8,13 +8,13 @@ use aliased 'MusicBrainz::Server::Entity::PartialDate';
 parameter 'begin_properties' => (
     isa => 'CodeRef',
     required => 0,
-    default => sub { sub { qw( foundingDate ) } }
+    default => sub { sub { qw( foundingDate ) } },
 );
 
 parameter 'end_properties' => (
     isa => 'CodeRef',
     required => 0,
-    default => sub { sub { qw( dissolutionDate ) } }
+    default => sub { sub { qw( dissolutionDate ) } },
 );
 
 role {

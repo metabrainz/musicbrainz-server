@@ -17,7 +17,7 @@ apply ([
     {
         check => sub { is_valid_isni(shift) },
         message => sub { l('This is not a valid ISNI.') },
-    }
+    },
 ]);
 
 1;

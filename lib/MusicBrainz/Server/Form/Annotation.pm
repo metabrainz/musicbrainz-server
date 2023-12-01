@@ -14,28 +14,28 @@ has '+name' => (default => 'edit-annotation');
 
 has_field 'text' => (
     type     => 'Text',
-    trim => { transform => sub { trim_multiline_text(shift) } }
+    trim => { transform => sub { trim_multiline_text(shift) } },
 );
 
 has_field 'changelog' => (
     type      => '+MusicBrainz::Server::Form::Field::Text',
     maxlength => 255,
-    default_over_obj => ''
+    default_over_obj => '',
 );
 
 has 'annotation_model' => (
     is       => 'ro',
-    required => 1
+    required => 1,
 );
 
 has 'entity_id' => (
     is       => 'ro',
-    required => 1
+    required => 1,
 );
 
 has_field 'preview' => (
     type => 'Submit',
-    value => ''
+    value => '',
 );
 
 sub edit_field_names { qw( text changelog ) }

@@ -33,7 +33,7 @@ with 'MusicBrainz::Server::Data::Role::Subscription' => {
     table => 'editor_subscribe_series',
     column => 'series',
     active_class => 'MusicBrainz::Server::Entity::Subscription::Series',
-    deleted_class => 'MusicBrainz::Server::Entity::Subscription::DeletedSeries'
+    deleted_class => 'MusicBrainz::Server::Entity::Subscription::DeletedSeries',
 };
 with 'MusicBrainz::Server::Data::Role::Collection';
 
@@ -67,7 +67,7 @@ sub _hash_to_row {
     my $row = hash_to_row($series, {
         ordering_type => 'ordering_type_id',
         type => 'type_id',
-        map { $_ => $_ } qw( comment name )
+        map { $_ => $_ } qw( comment name ),
     });
 
     return $row;
@@ -77,14 +77,14 @@ sub _order_by {
     my ($self, $order) = @_;
     my $order_by = order_by($order, 'name', {
         'name' => sub {
-            return 'name COLLATE musicbrainz'
+            return 'name COLLATE musicbrainz';
         },
         'type' => sub {
-            return 'type, name COLLATE musicbrainz'
-        }
+            return 'type, name COLLATE musicbrainz';
+        },
     });
 
-    return $order_by
+    return $order_by;
 }
 
 sub _merge_impl {
@@ -102,8 +102,8 @@ sub _merge_impl {
             table => 'series',
             columns => [ qw( type ) ],
             old_ids => \@old_ids,
-            new_id => $new_id
-        )
+            new_id => $new_id,
+        ),
     );
 
     # FIXME: merge duplicate items (relationships) somehow?
@@ -111,7 +111,7 @@ sub _merge_impl {
     $self->_delete_and_redirect_gids('series', $new_id, @old_ids);
 
     my $ordering_type = $self->c->sql->select_single_value(
-        'SELECT ordering_type FROM series WHERE id = ?', $new_id
+        'SELECT ordering_type FROM series WHERE id = ?', $new_id,
     );
 
     if ($ordering_type == $SERIES_ORDERING_TYPE_AUTOMATIC) {
@@ -224,13 +224,13 @@ sub automatically_reorder {
 
     return unless $self->c->sql->select_single_value(
         'SELECT TRUE FROM series WHERE id = ? AND ordering_type = ?',
-        $series_id, $SERIES_ORDERING_TYPE_AUTOMATIC
+        $series_id, $SERIES_ORDERING_TYPE_AUTOMATIC,
     );
 
     my $entity_type = $self->c->sql->select_single_value('
         SELECT entity_type FROM series_type st
         JOIN series s ON s.type = st.id WHERE s.id = ?',
-        $series_id
+        $series_id,
     );
 
     my $type0 = $entity_type lt 'series' ? $entity_type : 'series';
@@ -241,14 +241,14 @@ sub automatically_reorder {
         SELECT relationship, link_order, text_value
           FROM ${entity_type}_series
          WHERE series = ?",
-        $series_id
+        $series_id,
     );
     return unless @$series_items;
 
     my $relationships = $self->c->model('Relationship')->get_by_ids(
         $type0,
         $type1,
-        map { $_->{relationship} } @$series_items
+        map { $_->{relationship} } @$series_items,
     );
     my @relationships = values %$relationships;
     $self->c->model('Link')->load(@relationships);
@@ -300,7 +300,7 @@ sub automatically_reorder {
         $a->link->begin_date <=> $b->link->begin_date ||
         $a->link->end_date <=> $b->link->end_date ||
         $target_ordering->($a, $b) ||
-        $a->$target_prop->name cmp $b->$target_prop->name
+        $a->$target_prop->name cmp $b->$target_prop->name;
     };
 
     for my $text_value (@sorted_values) {
@@ -341,7 +341,7 @@ sub automatically_reorder {
         UPDATE l_${type0}_${type1} SET link_order = x.link_order::integer
         FROM (VALUES " . join(', ', @from_values) . ') AS x (relationship, link_order)
         WHERE id = x.relationship::integer',
-        @from_args
+        @from_args,
     );
 }
 
@@ -349,7 +349,7 @@ sub reorder_for_entities {
     my ($self, $type, @ids) = @_;
 
     my $series = $self->sql->select_single_column_array(
-        "SELECT DISTINCT series FROM ${type}_series WHERE $type = any(?)", \@ids
+        "SELECT DISTINCT series FROM ${type}_series WHERE $type = any(?)", \@ids,
     );
 
     $self->automatically_reorder($_) for @$series;

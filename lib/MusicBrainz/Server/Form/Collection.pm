@@ -85,11 +85,11 @@ sub validate_type_id {
     my $entity_type = $collection->type->item_entity_type;
     if (!$self->ctx->model('Collection')->is_empty($entity_type, $collection->id)) {
         my $new_type = $self->ctx->model('CollectionType')->get_by_id(
-            $self->field('type_id')->value
+            $self->field('type_id')->value,
         );
         if ($entity_type ne $new_type->item_entity_type) {
             return $self->field('type_id')->add_error(
-                l('The collection type must match the type of entities it contains.')
+                l('The collection type must match the type of entities it contains.'),
             );
         }
     }
@@ -108,12 +108,12 @@ sub validate_collaborators {
             if (defined $editor) {
                 $id_field->add_error(
                     l('To add “{editor}” as a collaborator, please select them from the dropdown.',
-                      {editor => $name_field->value})
+                      {editor => $name_field->value}),
                 );
             } else {
                 $id_field->add_error(
                     l('Editor “{editor}” does not exist.',
-                      {editor => $name_field->value})
+                      {editor => $name_field->value}),
                 );
             }
             $is_valid = 0;

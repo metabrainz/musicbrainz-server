@@ -13,7 +13,7 @@ apply ([
     {
         check => sub { is_valid_iso_3166_3(shift) },
         message => sub { l('This is not a valid ISO 3166-3 code') },
-    }
+    },
 ]);
 
 1;

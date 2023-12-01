@@ -17,7 +17,7 @@ apply ([
     {
         check => sub { is_valid_iswc(shift) },
         message => sub { l('This is not a valid ISWC') },
-    }
+    },
 ]);
 
 1;

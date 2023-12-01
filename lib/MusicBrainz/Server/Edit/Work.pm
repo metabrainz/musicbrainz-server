@@ -14,11 +14,11 @@ sub grouped_attributes_by_type {
     return unless @{ $attributes // [] };
 
     my $attribute_types = $self->c->model('WorkAttributeType')->get_by_ids(
-        map { $_->{attribute_type_id} } @$attributes
+        map { $_->{attribute_type_id} } @$attributes,
     );
 
     my $attribute_values = $self->c->model('WorkAttributeTypeAllowedValue')->get_by_ids(
-        grep { $_ } map { $_->{attribute_value_id} } @$attributes
+        grep { $_ } map { $_->{attribute_value_id} } @$attributes,
     );
 
     my %partitioned_attributes = partition_by { $_->type->l_name } map {
@@ -27,7 +27,7 @@ sub grouped_attributes_by_type {
             type_id => $_->{attribute_type_id},
             type => $attribute_types->{$_->{attribute_type_id}},
             value => $_->{attribute_text} // $attribute_values->{$_->{attribute_value_id}}->value,
-            value_id => $_->{attribute_value_id}
+            value_id => $_->{attribute_value_id},
         );
     } @$attributes;
 

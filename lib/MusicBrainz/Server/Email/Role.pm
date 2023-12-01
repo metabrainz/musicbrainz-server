@@ -17,14 +17,14 @@ has 'body' => (
     is => 'ro',
     builder => 'text',
     lazy => 1,
-    required => 1
+    required => 1,
 );
 
 has 'from' => (
     isa => Str,
     is => 'ro',
     required => 1,
-    default => $EMAIL_NOREPLY_ADDRESS
+    default => $EMAIL_NOREPLY_ADDRESS,
 );
 
 has 'server' => (
@@ -47,7 +47,7 @@ around 'text' => sub {
     return join("\n\n", map { strip($_) } grep { $_ }
         $self->header,
         $self->$next(@args),
-        $footer ? '-' x 80 . "\n" . $footer : ''
+        $footer ? '-' x 80 . "\n" . $footer : '',
     );
 };
 
@@ -66,7 +66,7 @@ sub create_email {
             content_type => 'text/plain',
             charset      => 'UTF-8',
             encoding     => 'quoted-printable',
-        }
+        },
     );
 }
 

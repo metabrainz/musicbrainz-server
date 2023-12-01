@@ -15,8 +15,8 @@ test 'operator BETWEEN' => sub {
         'type' =>
         {
             operator => '=',
-            args => [ 1, 2, 3, 4, 5 ]
-        }
+            args => [ 1, 2, 3, 4, 5 ],
+        },
     );
 
     ok(defined $field, 'did construct a field');
@@ -48,8 +48,8 @@ test 'Comma-separated integer arguments are allowed' => sub {
         'type' =>
         {
             operator => '=',
-            args => [ 1, 2, 3, '4,5' ]
-        }
+            args => [ 1, 2, 3, '4,5' ],
+        },
     );
 
     ok(defined $field, 'did construct a field');
@@ -80,8 +80,8 @@ test 'Other non-integer arguments are rejected' => sub {
         'type' =>
         {
             operator => '=',
-            args => [ 1, 2, 3, 'undefined' ]
-        }
+            args => [ 1, 2, 3, 'undefined' ],
+        },
     );
 
     ok(defined $field, 'did construct a field');

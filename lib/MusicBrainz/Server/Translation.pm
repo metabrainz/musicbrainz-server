@@ -21,8 +21,8 @@ with 'MusicBrainz::Server::Role::Translation' => { domain => 'mb_server' };
 use Sub::Exporter -setup => {
     exports => [qw( l lp ln N_l N_ln N_lp get_collator comma_list comma_only_list expand )],
     groups => {
-        default => [qw( l lp ln N_l N_ln N_lp comma_list comma_only_list expand )]
-    }
+        default => [qw( l lp ln N_l N_ln N_lp comma_list comma_only_list expand )],
+    },
 };
 
 has 'languages' => (
@@ -32,13 +32,13 @@ has 'languages' => (
     default => sub { [] },
     handles => {
         all_system_languages => 'elements',
-    }
+    },
 );
 
 has 'bound' => (
     isa => 'Bool',
     is => 'rw',
-    default => 0
+    default => 0,
 );
 
 # N_ functions are no-ops which return their arguments
@@ -98,10 +98,10 @@ sub build_languages_from_header
     $self->languages([
         I18N::LangTags::implicate_supers(
             I18N::LangTags::Detect->http_accept_langs(
-                $headers->header('Accept-Language')
-            )
+                $headers->header('Accept-Language'),
+            ),
         ),
-        'i-default'
+        'i-default',
     ]);
 }
 
@@ -253,7 +253,7 @@ sub comma_list {
 
     my $output = l('{almost_last_list_item} and {last_list_item}', {
         last_list_item => $last,
-        almost_last_list_item => $almost_last
+        almost_last_list_item => $almost_last,
     });
 
     for (@rest) {

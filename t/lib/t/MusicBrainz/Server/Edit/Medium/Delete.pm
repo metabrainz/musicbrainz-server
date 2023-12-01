@@ -122,7 +122,7 @@ sub _create_edit {
     return $c->model('Edit')->create(
         edit_type => $EDIT_MEDIUM_DELETE,
         medium => $medium,
-        editor_id => 1
+        editor_id => 1,
     );
 }
 

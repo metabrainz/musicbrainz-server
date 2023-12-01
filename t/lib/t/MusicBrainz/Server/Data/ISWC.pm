@@ -55,7 +55,7 @@ test 'Test merge_works' => sub {
             'T-000.000.001-0',
             'T-500.000.001-0',
             'T-500.000.002-0',
-            'T-000.000.002-0'
+            'T-000.000.002-0',
         ],
         'Work id=1 has correct ISWCs',
     );
@@ -83,7 +83,7 @@ test 'Test insert' => sub {
 
     $test->c->model('ISWC')->insert({
         iswc => $iswc,
-        work_id => $work_id
+        work_id => $work_id,
     });
 
     my @iswcs = $test->c->model('ISWC')->find_by_works($work_id);

@@ -65,7 +65,7 @@ $track = $track_data->insert({
     artist_credit_id => 1,
     length => 500,
     position => 8,
-    number => 8
+    number => 8,
 });
 
 

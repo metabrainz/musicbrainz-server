@@ -11,8 +11,8 @@ has 'tags' => (
     handles => {
         all_tags => 'elements',
         add_tag => 'push',
-        clear_tags => 'clear'
-    }
+        clear_tags => 'clear',
+    },
 );
 
 has 'user_tags' => (
@@ -22,8 +22,8 @@ has 'user_tags' => (
     handles => {
         all_user_tags => 'elements',
         add_user_tag => 'push',
-        clear_user_tags => 'clear'
-    }
+        clear_user_tags => 'clear',
+    },
 );
 
 1;

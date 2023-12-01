@@ -55,7 +55,7 @@ my %field_map = (
     entities_with(['mbid', 'relatable'],
         take => sub {
             my ($type, $info) = @_;
-            ($type => 'MusicBrainz::Server::EditSearch::Predicate::' . $info->{model})
+            ($type => 'MusicBrainz::Server::EditSearch::Predicate::' . $info->{model});
         },
     ),
 );
@@ -63,27 +63,27 @@ my %field_map = (
 has negate => (
     isa => Bool,
     is => 'ro',
-    default => 0
+    default => 0,
 );
 
 has combinator => (
     isa => enum([qw( or and )]),
     is => 'ro',
     required => 1,
-    default => 'and'
+    default => 'and',
 );
 
 has order => (
     isa => enum([qw( asc desc closed_asc closed_desc vote_closing_asc vote_closing_desc latest_note rand )]),
     is => 'ro',
     required => 1,
-    default => 'desc'
+    default => 'desc',
 );
 
 has auto_edit_filter => (
     isa => Maybe[Bool],
     is => 'ro',
-    default => undef
+    default => undef,
 );
 
 has where => (
@@ -94,7 +94,7 @@ has where => (
     handles => {
         where => 'elements',
         'add_where' => 'push',
-    }
+    },
 );
 
 has fields => (
@@ -104,7 +104,7 @@ has fields => (
     traits => [ 'Array' ],
     handles => {
         fields => 'elements',
-    }
+    },
 );
 
 sub new_from_user_input {
@@ -120,8 +120,8 @@ sub new_from_user_input {
         fields => [
             map {
                 $class->_construct_predicate($_, $user)
-            } grep { defined } @{ $input->{conditions} }
-        ]
+            } grep { defined } @{ $input->{conditions} },
+        ],
     );
 }
 
@@ -133,11 +133,11 @@ sub _construct_predicate {
             $input->{field},
             $input,
             $user,
-        )
+        );
     } catch {
         my $err = $_;
         log_warning { "Unable to construct predicate from input ($err): $_" } $input;
-        return ()
+        return ();
     };
 }
 
@@ -145,7 +145,7 @@ sub valid {
     my $self = shift;
     my $valid = $self->fields > 0;
     $valid &&= $_->valid for $self->fields;
-    return $valid
+    return $valid;
 }
 
 sub as_string {
@@ -188,7 +188,7 @@ sub as_string {
             SELECT edit, MAX(post_time) AS latest_note
             FROM edit_note
             GROUP BY edit
-            ) s ON s.edit = edit.id '
+            ) s ON s.edit = edit.id ';
     }
 
     return 'SELECT edit.*, edit_data.data ' .
@@ -208,7 +208,7 @@ sub arguments {
     my $self = shift;
     return (
         $self->auto_edit_filter // (),
-        map { @{$_->[1]} } $self->where
+        map { @{$_->[1]} } $self->where,
     );
 }
 

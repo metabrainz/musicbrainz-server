@@ -14,7 +14,7 @@ has dry_run => (
     is => 'ro',
     default => 0,
     traits => [ 'Getopt' ],
-    cmd_flag => 'dry-run'
+    cmd_flag => 'dry-run',
 );
 
 has limit => (
@@ -22,7 +22,7 @@ has limit => (
     is => 'ro',
     default => 20,
     traits => [ 'Getopt' ],
-    cmd_flag => 'limit'
+    cmd_flag => 'limit',
 );
 
 has summary => (

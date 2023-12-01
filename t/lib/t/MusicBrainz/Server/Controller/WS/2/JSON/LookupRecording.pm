@@ -6,7 +6,7 @@ use warnings;
 use JSON;
 use Test::Routine;
 use MusicBrainz::Server::Test ws_test_json => {
-    version => 2
+    version => 2,
 };
 
 with 't::Mechanize', 't::Context';
@@ -155,7 +155,7 @@ test 'lookup recording with official singles' => sub {
                     disambiguation => '',
                     packaging => JSON::null,
                     'packaging-id' => JSON::null,
-                }]
+                }],
         };
 };
 
@@ -180,7 +180,7 @@ test 'lookup recording with official singles (+media)' => sub {
                     'status-id' => '4e304316-386d-3409-af2e-78857eec5cfe',
                     quality => 'normal',
                     'text-representation' => {
-                        language => 'jpn', script => 'Jpan'
+                        language => 'jpn', script => 'Jpan',
                     },
                     date => '2001-07-04',
                     country => 'JP',
@@ -215,10 +215,10 @@ test 'lookup recording with official singles (+media)' => sub {
                                     number => '1',
                                     title => 'サマーれげぇ!レインボー',
                                     length => 296026,
-                                }
-                            ]
-                        }]
-                }]
+                                },
+                            ],
+                        }],
+                }],
         };
 };
 
@@ -259,7 +259,7 @@ test 'recording lookup with artists' => sub {
                         'type-id' => 'b6e035f4-3ce9-331c-97df-83397230b0df',
                     },
                     joinphrase => '',
-                }
+                },
                 ],
         };
 };
@@ -339,7 +339,7 @@ test 'recording lookup with release relationships' => sub {
                               disambiguation => '',
                               id => '489ce91b-6658-3307-9877-795b68554c98',
                               'iso-3166-1-codes' => [
-                                'US'
+                                'US',
                               ],
                               name => 'United States',
                               'sort-name' => 'United States',
@@ -357,7 +357,7 @@ test 'recording lookup with release relationships' => sub {
                         'status-id' => JSON::null,
                         'text-representation' => {
                             language => 'eng',
-                            script => 'Latn'
+                            script => 'Latn',
                         },
                         title => 'An Inextricable Tale Audiobook',
                     },
@@ -367,8 +367,8 @@ test 'recording lookup with release relationships' => sub {
                     'source-credit' => '',
                     'target-credit' => '',
                     'target-type' => 'release',
-                }
-            ]
+                },
+            ],
         };
 };
 
@@ -410,7 +410,7 @@ test 'recording lookup with work relationships' => sub {
                     'source-credit' => '',
                     'target-credit' => '',
                     'target-type' => 'work',
-                }
+                },
             ],
         };
 };

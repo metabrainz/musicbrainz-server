@@ -99,8 +99,8 @@ test 'Splitting an artist creates the right edit' => sub {
                     id => 10,
                 },
                 name => 'Bob & David',
-                join_phrase => ''
-            }]
+                join_phrase => '',
+            }],
         },
         'The edit contains the old artist credit',
     );
@@ -115,7 +115,7 @@ test 'Splitting an artist creates the right edit' => sub {
                         id => 11,
                     },
                     name => 'Bob',
-                    join_phrase => ''
+                    join_phrase => '',
                 },
                 {
                     artist => {
@@ -123,9 +123,9 @@ test 'Splitting an artist creates the right edit' => sub {
                         id => 12,
                     },
                     name => 'David',
-                    join_phrase => ''
+                    join_phrase => '',
                 },
-            ]
+            ],
         },
         'The edit contains the new artist credit',
     );

@@ -53,12 +53,12 @@ test 'Place alias appears on alias page content and on JSON-LD' => sub {
         'geo' => {
             'latitude' => '0.323',
             'longitude' => '1.234',
-            '@type' => 'GeoCoordinates'
+            '@type' => 'GeoCoordinates',
         },
         'name' => 'A Test Place',
         '@context' => 'https://schema.org/docs/jsonldcontext.json',
         '@type' => 'Place',
-        '@id' => 'http://musicbrainz.org/place/df9269dd-0470-4ea2-97e8-c11e46080edd'
+        '@id' => 'http://musicbrainz.org/place/df9269dd-0470-4ea2-97e8-c11e46080edd',
     };
 };
 

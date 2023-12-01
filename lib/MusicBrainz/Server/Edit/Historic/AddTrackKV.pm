@@ -23,8 +23,8 @@ sub _build_related_entities
     return {
         artist    => [ $self->data->{artist_id} ],
         release   => $self->data->{release_ids},
-        recording => [ $self->data->{recording_id} ]
-    }
+        recording => [ $self->data->{recording_id} ],
+    };
 }
 
 sub release_ids { @{ shift->data->{release_ids} } }
@@ -34,11 +34,11 @@ sub foreign_keys
     my $self = shift;
     return {
         Release => {
-            map { $_ => [ 'ArtistCredit' ] } $self->release_ids
+            map { $_ => [ 'ArtistCredit' ] } $self->release_ids,
         },
         Artist => [ $self->data->{artist_id} ],
-        Recording => [ $self->data->{recording_id} ]
-    }
+        Recording => [ $self->data->{recording_id} ],
+    };
 }
 
 sub build_display_data
@@ -56,7 +56,7 @@ sub build_display_data
                 to_json_object($_ == -42
                     ? Release->new( name => '[non-album tracks]' )
                     : $loaded->{Release}{$_})
-            } $self->release_ids
+            } $self->release_ids,
         ],
         position  => $self->data->{position},
         name      => $self->data->{name},
@@ -64,9 +64,9 @@ sub build_display_data
         artist    => to_json_object($loaded->{Artist}{ $self->data->{artist_id} }),
         recording => to_json_object(
             $loaded->{Recording}{ $self->data->{recording_id} } ||
-            Recording->new( name => $self->data->{name} )
+            Recording->new( name => $self->data->{name} ),
         ),
-    }
+    };
 }
 
 sub upgrade

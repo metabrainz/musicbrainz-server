@@ -48,7 +48,7 @@ if ($child) {
     my $server_build = 'root/static/build/server.js';
 
     unless (-f $server_build) {
-        die "$server_build not found. (Did you run ./script/compile_resources.sh?)"
+        die "$server_build not found. (Did you run ./script/compile_resources.sh?)";
     }
 
     if (DBDefs->DEVELOPMENT_SERVER) {
@@ -59,13 +59,13 @@ if ($child) {
             '--signal', 'SIGTERM',
             '--delay', '500ms',
             '--exec', 'node',
-            $server_build,
+            $server_build;
     } else {
         eval('use Server::Starter;');
         if ($EVAL_ERROR) {
             die (
                 'The CPAN package Server::Starter must be installed ' .
-                'in production environments.'
+                'in production environments.',
             );
         }
         exec 'start_server', '--path', $socket, 'node', $server_build;

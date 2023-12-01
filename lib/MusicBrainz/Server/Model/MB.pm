@@ -12,7 +12,7 @@ has 'context' => (
     isa        => 'MusicBrainz::Server::Context',
     is         => 'rw',
     lazy_build => 1,
-    handles    => [qw( cache dbh )] # XXX Hack - Model::Feeds should be in Data
+    handles    => [qw( cache dbh )], # XXX Hack - Model::Feeds should be in Data
 );
 
 sub with_transaction {
@@ -29,7 +29,7 @@ sub _build_context {
     } else {
         my $cache_opts = DBDefs->CACHE_MANAGER_OPTIONS;
         my $c = MusicBrainz::Server::Context->new(
-            cache_manager => MusicBrainz::Server::CacheManager->new($cache_opts)
+            cache_manager => MusicBrainz::Server::CacheManager->new($cache_opts),
         );
         return $c;
     }
@@ -48,7 +48,7 @@ sub models {
     );
     my $searcher = Module::Pluggable::Object->new(
         search_path => 'MusicBrainz::Server::Data',
-        except      => [ map { "MusicBrainz::Server::Data::$_" } @exclude ]
+        except      => [ map { "MusicBrainz::Server::Data::$_" } @exclude ],
     );
 
     for my $model (sort $searcher->plugins) {
@@ -72,8 +72,8 @@ sub BUILD {
             $model->[1] =>
                 methods => {
                     ACCEPT_CONTEXT => sub {
-                        return $dao
-                    }
+                        return $dao;
+                    },
                 });
     }
 }

@@ -36,7 +36,7 @@ $annotation->parent( $artist );
 ok( defined $annotation->parent );
 
 $annotation = MusicBrainz::Server::Entity::Annotation->new(
-    text => "This is...\nthe preview!\n\nMore text here"
+    text => "This is...\nthe preview!\n\nMore text here",
 );
 
 like($annotation->summary, qr/This is.../, 'has first line of summary');

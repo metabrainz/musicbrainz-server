@@ -33,7 +33,7 @@ sub process {
         if (DBDefs->REPLICATION_TYPE eq DBDefs->RT_MIRROR && !$c->res->headers->expires) {
             my @today = Today_and_Now(1);
             my $next_hour = Date_to_Time(
-                Add_Delta_DHMS($today[0], $today[1], $today[2], $today[3], 10, 0, 0, 1, 0, 0)
+                Add_Delta_DHMS($today[0], $today[1], $today[2], $today[3], 10, 0, 0, 1, 0, 0),
             );
             my $this_hour = Date_to_Time($today[0], $today[1], $today[2], $today[3], 10, 0);
             $c->res->headers->expires($next_hour);

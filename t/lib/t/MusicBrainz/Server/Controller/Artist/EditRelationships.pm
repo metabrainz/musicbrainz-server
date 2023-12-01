@@ -81,12 +81,12 @@ test 'Adding a relationship' => sub {
 
     cmp_deeply($edits[0]->data,  {
         %edit_data,
-        attributes => [$additional_attribute, $crazy_guitar]
+        attributes => [$additional_attribute, $crazy_guitar],
     }, 'The first edit contains the right data');
 
     cmp_deeply($edits[1]->data,  {
         %edit_data,
-        attributes => [$additional_attribute, $string_instruments_attribute]
+        attributes => [$additional_attribute, $string_instruments_attribute],
     }, 'The second edit contains the right data');
 };
 
@@ -210,11 +210,11 @@ test 'Editing a relationship' => sub {
             relationship_id => 3,
             new => {
                 end_date    => { month => undef, day => undef, year => undef },
-                attributes  => [$additional_attribute, $crazy_guitar]
+                attributes  => [$additional_attribute, $crazy_guitar],
             },
             old => {
                 end_date    => { month => 9, day => 9, year => 2009 },
-                attributes  => [$additional_attribute, $crazy_guitar, $string_instruments_attribute]
+                attributes  => [$additional_attribute, $crazy_guitar, $string_instruments_attribute],
             },
             entity0_credit => '',
             entity1_credit => '',
@@ -372,7 +372,7 @@ test 'Ensure grouping-only types cannot be used for relationships' => sub {
     like(
         $mech->uri,
         qr{/artist/e2a083a9-9942-4d6e-b4d2-8397320b95f7/edit$},
-        q(The page hasn't changed)
+        q(The page hasn't changed),
     );
 
     $mech->content_contains(

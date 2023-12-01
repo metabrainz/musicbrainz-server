@@ -255,7 +255,7 @@ test 'Accepting auto-edits should credit editor auto-edits column' => sub {
     $c->model('Edit')->create(
         edit_type => 123,
         editor_id => 1,
-        privileges => 1
+        privileges => 1,
     );
 
     $edit_counts = $c->model('Editor')->various_edit_counts(1);

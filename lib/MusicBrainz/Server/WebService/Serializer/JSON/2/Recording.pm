@@ -30,7 +30,7 @@ sub serialize
     if ($inc && $inc->isrcs) {
         my $opts = $stash->store($entity);
         $body{isrcs} = [
-            map { $_->isrc } sort_by { $_->isrc } @{ $opts->{isrcs} }
+            map { $_->isrc } sort_by { $_->isrc } @{ $opts->{isrcs} },
         ];
     }
 

@@ -96,7 +96,7 @@ sub data : Chained('load') RequireAuth
     my %entities;
     while (my ($type, $ids) = each %$related) {
         $entities{$type} = to_json_hash(
-            $c->model(type_to_model($type))->get_by_ids(@$ids)
+            $c->model(type_to_model($type))->get_by_ids(@$ids),
          ) if @$ids;
     }
 
@@ -129,7 +129,7 @@ sub enter_votes : Local RequireAuth DenyWhenReadonly
         $c->model('Edit')->insert_votes_and_notes(
             $c->user,
             votes => [ @votes ],
-            notes => [ grep { defined($_->{edit_note}) } @submissions ]
+            notes => [ grep { defined($_->{edit_note}) } @submissions ],
         );
     }
 
@@ -208,8 +208,8 @@ sub cancel : Chained('load') RequireAuth DenyWhenReadonly
                     $edit->id,
                     {
                         editor_id => $c->user->id,
-                        text      => $edit_note
-                    }
+                        text      => $edit_note,
+                    },
                 );
             }
         });
@@ -223,7 +223,7 @@ sub cancel : Chained('load') RequireAuth DenyWhenReadonly
         component_path => 'edit/CancelEdit',
         component_props => {
             edit => $edit->TO_JSON,
-            form => $form->TO_JSON
+            form => $form->TO_JSON,
         },
     );
 }
@@ -287,14 +287,14 @@ sub search : Path('/search/edits')
     $c->stash(
         edit_types => [
             map [
-                join(q(,), sort { $a <=> $b } map { $_->edit_type } @{ $grouped{$_} }) => $_
-            ], sort_by { $coll->getSortKey($_) } keys %grouped
+                join(q(,), sort { $a <=> $b } map { $_->edit_type } @{ $grouped{$_} }) => $_,
+            ], sort_by { $coll->getSortKey($_) } keys %grouped,
         ],
         status => status_names(),
         quality => [ [$QUALITY_LOW => N_l('Low')], [$QUALITY_NORMAL => N_l('Normal')], [$QUALITY_HIGH => N_l('High')], [$QUALITY_UNKNOWN => N_l('Default')] ],
         languages => [ grep { $_->frequency > 0 } $c->model('Language')->get_all ],
         countries => [ $c->model('CountryArea')->get_all ],
-        relationship_type => [ $c->model('LinkType')->get_full_tree(get_deprecated_and_empty => 1) ]
+        relationship_type => [ $c->model('LinkType')->get_full_tree(get_deprecated_and_empty => 1) ],
     );
     return unless %{ $c->req->query_params };
 
@@ -472,13 +472,13 @@ sub edit_types : Path('/doc/Edit_Types')
     for my $category (keys %by_category) {
         $by_category{$category} = [
             sort { $a->l_edit_name cmp $b->l_edit_name }
-                @{ $by_category{$category} }
+                @{ $by_category{$category} },
             ];
     }
 
     $c->stash(
         by_category => \%by_category,
-        template => 'doc/edit_types.tt'
+        template => 'doc/edit_types.tt',
     );
 }
 
@@ -498,7 +498,7 @@ sub edit_type : Path('/doc/Edit_Types') Args(1) {
     $c->stash(
         edit_type => $class,
         template => 'doc/edit_type.tt',
-        page => $page
+        page => $page,
     );
 }
 

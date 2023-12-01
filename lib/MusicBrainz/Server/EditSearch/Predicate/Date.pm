@@ -24,7 +24,7 @@ override combine_with_query => sub {
             'edit.' . $self->field_name . ' BETWEEN '.
             q(date_trunc('day', ? AT TIME ZONE 'UTC') AND ) .
             q(date_trunc('day', ? AT TIME ZONE 'UTC') + interval '1 day'),
-            [ $self->sql_arguments->[0], @{ $self->sql_arguments } ]
+            [ $self->sql_arguments->[0], @{ $self->sql_arguments } ],
         ]);
     }
     else {

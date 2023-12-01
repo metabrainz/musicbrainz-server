@@ -29,16 +29,16 @@ has '+data' => (
     isa => Dict[
         release => Dict[
             id => Int,
-            name => Str
+            name => Str,
         ],
         medium_positions => ArrayRef[
             Dict[
                 medium_id => NullableOnPreview[Int],
                 old => Nullable[Int],
                 new => Int,
-            ]
+            ],
         ],
-    ]
+    ],
 );
 
 sub alter_edit_pending
@@ -46,8 +46,8 @@ sub alter_edit_pending
     my $self = shift;
     return {
         'Release' => [ $self->release_id ],
-        'Medium' => [ map { $_->{medium_id} } @{$self->data->{medium_positions}} ]
-    }
+        'Medium' => [ map { $_->{medium_id} } @{$self->data->{medium_positions}} ],
+    };
 }
 
 sub initialize {
@@ -64,7 +64,7 @@ sub initialize {
             id => $release->id,
             name => $release->name,
         },
-        medium_positions => $medium_positions
+        medium_positions => $medium_positions,
     });
 
     return $self;
@@ -94,7 +94,7 @@ sub build_display_data {
                 old => $_->{old} ? $_->{old} : 'new',
                 # For some reason older edits have old as int but new as string
                 new => $_->{new} + 0,
-                title => $entity ? $entity->name : ''
+                title => $entity ? $entity->name : '',
             }
         }
         sort { $a->{new} <=> $b->{new} }
@@ -107,7 +107,7 @@ sub build_display_data {
     }
 
     $data{release} = to_json_object(
-        $release || Release->new( name => $self->data->{release}{name} )
+        $release || Release->new( name => $self->data->{release}{name} ),
     );
 
 
@@ -132,7 +132,7 @@ sub accept {
     for my $row (@$possible_conflicts) {
         unless (exists $medium_positions{$row->{id}}) {
             MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
-                'Can’t move a medium into position ' . $row->{position} . ', where one already exists.'
+                'Can’t move a medium into position ' . $row->{position} . ', where one already exists.',
             );
         }
     }

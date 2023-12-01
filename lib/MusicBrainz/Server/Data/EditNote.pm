@@ -34,7 +34,7 @@ sub _column_mapping
         edit_id => 'edit',
         text => 'text',
         post_time => 'post_time',
-    }
+    };
 }
 
 sub _entity_class
@@ -154,7 +154,7 @@ sub delete_content {
         $change_editor_id,
         $edit_note_id,
         $reason,
-        $edit_note_id
+        $edit_note_id,
     );
 
     $self->sql->do(<<~"SQL", @args);
@@ -183,7 +183,7 @@ sub modify_content {
         $new_content,
         $reason,
         $new_content,
-        $edit_note_id
+        $edit_note_id,
     );
 
     $self->sql->do(<<~"SQL", @args);

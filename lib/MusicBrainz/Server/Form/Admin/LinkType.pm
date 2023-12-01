@@ -12,7 +12,7 @@ sub edit_field_names {
     qw( parent_id child_order name link_phrase reverse_link_phrase
         long_link_phrase description priority attributes documentation
         is_deprecated has_dates entity0_cardinality entity1_cardinality
-        orderable_direction )
+        orderable_direction );
 }
 
 has '+name' => ( default => 'linktype' );
@@ -24,100 +24,100 @@ has_field 'parent_id' => (
 has_field 'child_order' => (
     type => '+MusicBrainz::Server::Form::Field::Integer',
     required => 1,
-    default => 0
+    default => 0,
 );
 
 has_field 'name' => (
     type      => 'Text',
     required  => 1,
-    maxlength => 255
+    maxlength => 255,
 );
 
 has_field 'link_phrase' => (
     type      => 'Text',
     required  => 1,
-    maxlength => 255
+    maxlength => 255,
 );
 
 has_field 'reverse_link_phrase' => (
     type      => 'Text',
     required  => 1,
-    maxlength => 255
+    maxlength => 255,
 );
 
 has_field 'long_link_phrase' => (
     type      => 'Text',
     required  => 1,
-    maxlength => 255
+    maxlength => 255,
 );
 
 has_field 'description' => (
     type => 'Text',
-    not_nullable => 1
+    not_nullable => 1,
 );
 
 has_field 'priority' => (
     type => '+MusicBrainz::Server::Form::Field::Integer',
     required => 1,
-    default => 0
+    default => 0,
 );
 
 has_field 'attributes' => (
     type => 'Repeatable',
-    num_when_empty => 0
+    num_when_empty => 0,
 );
 
 has_field 'attributes.type' => (
-    type => 'PrimaryKey'
+    type => 'PrimaryKey',
 );
 
 has_field 'attributes.active' => (
-    type => 'Boolean'
+    type => 'Boolean',
 );
 
 has_field 'attributes.min' => (
-    type => '+MusicBrainz::Server::Form::Field::Integer'
+    type => '+MusicBrainz::Server::Form::Field::Integer',
 );
 
 has_field 'attributes.max' => (
-    type => '+MusicBrainz::Server::Form::Field::Integer'
+    type => '+MusicBrainz::Server::Form::Field::Integer',
 );
 
 has_field 'documentation' => (
     type => 'TextArea',
-    not_nullable => 1
+    not_nullable => 1,
 );
 
 has root => (
     is => 'ro',
-    required => 1
+    required => 1,
 );
 
 has_field is_deprecated => (
-    type => 'Boolean'
+    type => 'Boolean',
 );
 
 has_field has_dates => (
-    type => 'Boolean'
+    type => 'Boolean',
 );
 
 has_field 'entity0_cardinality' => (
     type => '+MusicBrainz::Server::Form::Field::Integer',
     required => 1,
-    default => 0
+    default => 0,
 );
 
 has_field 'entity1_cardinality' => (
     type => '+MusicBrainz::Server::Form::Field::Integer',
     required => 1,
-    default => 0
+    default => 0,
 );
 
 has_field orderable_direction => (
     type => '+MusicBrainz::Server::Form::Field::Integer',
     default => 0,
     range_start => 0,
-    range_end => 2
+    range_end => 2,
 );
 
 sub options_parent_id

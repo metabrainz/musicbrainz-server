@@ -36,12 +36,12 @@ has 'series_id' => (
     isa => 'Int',
     is => 'rw',
     lazy => 1,
-    default => sub { shift->data->{entity}{id} }
+    default => sub { shift->data->{entity}{id} },
 );
 
 has 'series' => (
     isa => 'Series',
-    is => 'rw'
+    is => 'rw',
 );
 
 sub foreign_keys
@@ -60,7 +60,7 @@ around 'build_display_data' => sub
     my $data = $self->$orig($loaded);
     $data->{series} = to_json_object(
         $loaded->{Series}{ $self->series_id } ||
-        Series->new(name => $self->data->{entity}{name})
+        Series->new(name => $self->data->{entity}{name}),
     );
 
     return $data;

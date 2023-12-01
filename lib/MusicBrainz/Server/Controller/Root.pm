@@ -30,7 +30,7 @@ Readonly my $IP_STORE_EXPIRES => (60 * 60 * 24 * 30 * 6); # 6 months
 __PACKAGE__->config->{namespace} = '';
 
 with 'MusicBrainz::Server::Controller::Role::Profile' => {
-    threshold => DBDefs->PROFILE_SITE()
+    threshold => DBDefs->PROFILE_SITE(),
 };
 
 =head1 NAME
@@ -425,7 +425,7 @@ sub begin : Private
     if (my $merger = $c->try_get_session('merger')) {
         my $model = $c->model(type_to_model($merger->type));
         my @merge = values %{
-            $model->get_by_ids($merger->all_entities)
+            $model->get_by_ids($merger->all_entities);
         };
         $c->model('ArtistCredit')->load(@merge);
 
@@ -466,7 +466,7 @@ sub end : ActionClass('RenderView')
         is_sanitized               => DBDefs->DB_STAGING_SERVER_SANITIZED,
         development_server         => DBDefs->DEVELOPMENT_SERVER,
         beta_redirect              => DBDefs->BETA_REDIRECT_HOSTNAME,
-        is_beta                    => DBDefs->IS_BETA
+        is_beta                    => DBDefs->IS_BETA,
     };
 
     $c->stash->{various_artist_mbid} = $VARTIST_GID;

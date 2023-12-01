@@ -22,9 +22,9 @@ sub foreign_keys
             } (
                 $self->data->{new_entity}{id},
                 map { $_->{id} } @{ $self->data->{old_entities} },
-            )
-        }
-    }
+            ),
+        },
+    };
 }
 
 sub edit_template { 'MergeAreas' };

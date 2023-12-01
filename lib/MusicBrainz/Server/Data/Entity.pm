@@ -69,7 +69,7 @@ sub _id_column
 
 sub is_valid_id {
     (undef, my $id) = @_;
-    is_database_row_id($id)
+    is_database_row_id($id);
 }
 
 sub get_by_ids {

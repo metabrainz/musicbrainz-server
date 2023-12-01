@@ -6,7 +6,7 @@ use warnings;
 use JSON;
 use Test::Routine;
 use MusicBrainz::Server::Test ws_test_json => {
-    version => 2
+    version => 2,
 };
 
 with 't::Mechanize', 't::Context';
@@ -43,7 +43,7 @@ test 'browse artists via release group' => sub {
                     isnis => [],
                     gender => JSON::null,
                     'gender-id' => JSON::null,
-                }]
+                }],
         };
 };
 
@@ -117,7 +117,7 @@ test 'browse artists via recording' => sub {
                     isnis => [],
                     gender => JSON::null,
                     'gender-id' => JSON::null,
-                }]
+                }],
         };
 };
 
@@ -220,7 +220,7 @@ test 'browse artists via release, inc=tags+genres+ratings' => sub {
                     isnis => [],
                     gender => JSON::null,
                     'gender-id' => JSON::null,
-                }]
+                }],
         };
 };
 

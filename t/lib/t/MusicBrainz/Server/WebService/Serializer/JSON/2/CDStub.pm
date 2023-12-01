@@ -24,9 +24,9 @@ test 'Can serialize CD stubs to JSON' => sub {
             MusicBrainz::Server::Entity::CDStubTrack->new(
                 artist => 'LambdaCat',
                 title => q(Ain't No Type System Gonna Hold Me Back),
-                length => 34871
-            )
-        ]
+                length => 34871,
+            ),
+        ],
     );
 
     is_deeply(
@@ -39,13 +39,13 @@ test 'Can serialize CD stubs to JSON' => sub {
                 map +{
                     artist => $_->artist,
                     title => $_->title,
-                    length => $_->length
-                }, $cdstub->all_tracks
+                    length => $_->length,
+                }, $cdstub->all_tracks,
             ],
             'track-count' => $cdstub->track_count,
             id => $cdstub->discid,
-            barcode => $cdstub->barcode
-        }
+            barcode => $cdstub->barcode,
+        },
     );
 };
 

@@ -33,19 +33,19 @@ role {
             sort_name => Optional[Str],
             entity => Dict[
                 id => Int,
-                name => Str
+                name => Str,
             ],
             locale => Nullable[Str],
             begin_date => Nullable[PartialDateHash],
             end_date => Nullable[PartialDateHash],
             type_id => Nullable[Int],
             primary_for_locale => Nullable[Bool],
-            ended => Optional[Bool]
-        ]
+            ended => Optional[Bool],
+        ],
     );
 
     has alias => (
-        is => 'rw'
+        is => 'rw',
     );
 
     has alias_id => (
@@ -85,8 +85,8 @@ role {
                 end_date => $data{end_date},
                 type_id => $data{type_id},
                 primary_for_locale => $data{primary_for_locale},
-                ended => $data{ended}
-            })->id
+                ended => $data{ended},
+            })->id,
         );
     };
 
@@ -100,7 +100,7 @@ role {
         my $entity = delete $opts{entity} or die 'Missing entity object';
         $opts{entity} = {
             id => $entity->id,
-            name => $entity->name
+            name => $entity->name,
         };
 
         $self->enforce_dependencies(\%opts);
@@ -142,7 +142,7 @@ role {
             $self->c->model($model)->_entity_class->new(
                 id => $entity_id,
                 name => $self->data->{entity}{name},
-            )
+            ),
         );
 
         return {

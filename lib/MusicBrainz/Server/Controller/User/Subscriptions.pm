@@ -36,11 +36,11 @@ sub subscriptions : Chained('/user/load') {
 
     if ($is_admin_viewing_private) {
         $c->response->redirect(
-            $c->uri_for_action('/user/subscriptions/editor', [ $user->name ])
+            $c->uri_for_action('/user/subscriptions/editor', [ $user->name ]),
         );
     } else {
         $c->response->redirect(
-            $c->uri_for_action('/user/subscriptions/artist', [ $user->name ])
+            $c->uri_for_action('/user/subscriptions/artist', [ $user->name ]),
         );
     }
 }

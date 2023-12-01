@@ -14,7 +14,7 @@ sub entity_type { 'series_ordering_type' }
 
 sub l_name {
     my $self = shift;
-    return lp($self->name, 'series_ordering_type')
+    return lp($self->name, 'series_ordering_type');
 }
 
 sub l_description {

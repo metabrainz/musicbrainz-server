@@ -8,7 +8,7 @@ use Storable;
 has '_orig' => (
     is => 'ro',
     isa => duck_type(['get', 'set']),
-    handles => { 'delete' => 'remove', exists => 'exists' }
+    handles => { 'delete' => 'remove', exists => 'exists' },
 );
 
 sub get

@@ -8,7 +8,7 @@ use MusicBrainz::Server::Constants qw( @RELATABLE_ENTITIES );
 has $_ => (
     is  => 'rw',
     isa => 'Int',
-    default => 0
+    default => 0,
 ) for (qw(
           aliases discids isrcs media puids various_artists artist_credits
           artists labels recordings releases release_groups works

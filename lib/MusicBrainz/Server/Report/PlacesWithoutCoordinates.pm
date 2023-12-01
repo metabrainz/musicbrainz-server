@@ -10,7 +10,7 @@ sub query {
         row_number() OVER (ORDER BY name, last_updated)
       FROM place
       WHERE coordinates IS NULL
-    }
+    };
 }
 
 __PACKAGE__->meta->make_immutable;

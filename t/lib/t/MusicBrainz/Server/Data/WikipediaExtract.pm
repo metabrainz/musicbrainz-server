@@ -18,7 +18,7 @@ test 'Get ja page from en' => sub {
     my $c = $test->c;
 
     LWP::UserAgent::Mockable->reset(
-        playback => $Bin.'/lwp-sessions/data_wikipedia.ja-en.lwp-mock'
+        playback => $Bin.'/lwp-sessions/data_wikipedia.ja-en.lwp-mock',
     );
 
     my $entity = Wikipedia->new(url => 'http://en.wikipedia.org/wiki/Perfume (Japanese band)');
@@ -40,7 +40,7 @@ test 'Get en page from en' => sub {
     my $c = $test->c;
 
     LWP::UserAgent::Mockable->reset(
-        playback => $Bin.'/lwp-sessions/data_wikipedia.en-en.lwp-mock'
+        playback => $Bin.'/lwp-sessions/data_wikipedia.en-en.lwp-mock',
     );
 
     my $entity = Wikipedia->new(url => 'http://en.wikipedia.org/wiki/Perfume (Japanese band)');
@@ -62,7 +62,7 @@ test 'Get ast page from en, fallback to en' => sub {
     my $c = $test->c;
 
     LWP::UserAgent::Mockable->reset(
-        playback => $Bin.'/lwp-sessions/data_wikipedia.ast-en-fallback.lwp-mock'
+        playback => $Bin.'/lwp-sessions/data_wikipedia.ast-en-fallback.lwp-mock',
     );
 
     my $entity = Wikipedia->new(url => 'http://en.wikipedia.org/wiki/Perfume (Japanese band)');
@@ -84,7 +84,7 @@ test 'Get en page from wikidata' => sub {
     my $c = $test->c;
 
     LWP::UserAgent::Mockable->reset(
-        playback => $Bin.'/lwp-sessions/data_wikipedia.en-wikidata.lwp-mock'
+        playback => $Bin.'/lwp-sessions/data_wikipedia.en-wikidata.lwp-mock',
     );
 
     # Q494703 is the band Perfume, as with the other tests
@@ -107,7 +107,7 @@ test 'Request ast page via wikidata, fallback to en' => sub {
     my $c = $test->c;
 
     LWP::UserAgent::Mockable->reset(
-        playback => $Bin.'/lwp-sessions/data_wikipedia.ast-en-fallback-wikidata.lwp-mock'
+        playback => $Bin.'/lwp-sessions/data_wikipedia.ast-en-fallback-wikidata.lwp-mock',
     );
 
     # german municipality of schladen-werla
@@ -137,11 +137,11 @@ test 'Request ja page via wikidata, fallback to it (according to browser accepte
         'ja',
         'it-it',
         'it',
-        'i-default'
+        'i-default',
     ]);
 
     LWP::UserAgent::Mockable->reset(
-      playback => $Bin.'/lwp-sessions/data_wikipedia.ja-it-fallback-browser.lwp-mock'
+      playback => $Bin.'/lwp-sessions/data_wikipedia.ja-it-fallback-browser.lwp-mock',
     );
 
     # german municipality of schladen-werla
@@ -168,7 +168,7 @@ test 'Request tr page via wikidata, fallback to it (according to editor known la
     MusicBrainz::Server::Translation->instance->languages([
         'fi-fi',
         'fi',
-        'i-default'
+        'i-default',
     ]);
 
     # Set editor known languages to native Finnish and basic Macedonian
@@ -197,7 +197,7 @@ test 'Request tr page via wikidata, fallback to it (according to editor known la
     $c->model('EditorLanguage')->load_for_editor($bob);
 
     LWP::UserAgent::Mockable->reset(
-      playback => $Bin.'/lwp-sessions/data_wikipedia.fi-mk-fallback-browser.lwp-mock'
+      playback => $Bin.'/lwp-sessions/data_wikipedia.fi-mk-fallback-browser.lwp-mock',
     );
 
     # german municipality of schladen-werla
@@ -220,7 +220,7 @@ test 'Request en page via wikidata, fallback to de (en is redirect)' => sub {
     my $c = $test->c;
 
     LWP::UserAgent::Mockable->reset(
-        playback => $Bin.'/lwp-sessions/data_wikipedia.en-de-fallback-redirect.lwp-mock'
+        playback => $Bin.'/lwp-sessions/data_wikipedia.en-de-fallback-redirect.lwp-mock',
     );
 
     # American actress Clarissa Burt

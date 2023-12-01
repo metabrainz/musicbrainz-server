@@ -31,7 +31,7 @@ with 'MusicBrainz::Server::Controller::Role::Cleanup';
 with 'MusicBrainz::Server::Controller::Role::EditRelationships';
 with 'MusicBrainz::Server::Controller::Role::JSONLD' => {
     endpoints => {show => {copy_stash => [{from => 'releases_jsonld', to => 'releases'}, 'top_tags']},
-                  aliases => {copy_stash => ['aliases']}}
+                  aliases => {copy_stash => ['aliases']}},
 };
 with 'MusicBrainz::Server::Controller::Role::Collection' => {
     entity_name => 'rg',
@@ -111,13 +111,13 @@ with 'MusicBrainz::Server::Controller::Role::Create' => {
         my $artist_gid = $c->req->query_params->{artist};
         if ( my $artist = $c->model('Artist')->get_by_gid($artist_gid) ) {
             my $rg = MusicBrainz::Server::Entity::ReleaseGroup->new(
-                artist_credit => ArtistCredit->from_artist($artist)
+                artist_credit => ArtistCredit->from_artist($artist),
             );
             $c->stash(
                 initial_artist => $artist,
                 # These added so the entity tabs will appear properly
                 entity => $artist,
-                entity_properties => $ENTITIES{artist}
+                entity_properties => $ENTITIES{artist},
             );
             return ( item => $rg );
         }

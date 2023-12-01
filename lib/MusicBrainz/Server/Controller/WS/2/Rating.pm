@@ -60,7 +60,7 @@ sub rating_submit : Private
 
         # postpone any updates until we've made some effort to parse the whole
         # body and report possible errors in it.
-        push @submit, { model => $model,  entity => $entity,  rating => $rating }
+        push @submit, { model => $model,  entity => $entity,  rating => $rating };
     }
 
     for (@submit)

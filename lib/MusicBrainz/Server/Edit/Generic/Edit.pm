@@ -34,10 +34,10 @@ sub alter_edit_pending
     my $model = $self->c->model( $self->_edit_model);
     if ($model->does('MusicBrainz::Server::Data::Role::PendingEdits')) {
         return {
-            $self->_edit_model => [ $self->entity_id ]
-        }
+            $self->_edit_model => [ $self->entity_id ],
+        };
     } else {
-        return { }
+        return { };
     }
 }
 
@@ -47,10 +47,10 @@ sub _build_related_entities
     my $model = $self->c->model( $self->_edit_model);
     if ($model->does('MusicBrainz::Server::Data::Role::LinksToEdit')) {
         return {
-            $model->edit_link_table => [ $self->entity_id ]
-        }
+            $model->edit_link_table => [ $self->entity_id ],
+        };
     } else {
-        return { }
+        return { };
     }
 }
 
@@ -70,9 +70,9 @@ sub initialize {
         entity => {
             id => $entity->id,
             ($entity->can('gid') ? (gid => $entity->gid) : ()),
-            name => $entity->name
+            name => $entity->name,
         },
-        $self->_change_data($entity, %opts)
+        $self->_change_data($entity, %opts),
     });
 };
 
@@ -82,8 +82,8 @@ override 'accept' => sub
 
     if (!$self->c->model($self->_edit_model)->get_by_id($self->entity_id)) {
         MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
-            'This entity no longer exists'
-        )
+            'This entity no longer exists',
+        );
     }
 
     my $data = $self->_edit_hash(clone($self->data->{new}));
@@ -100,8 +100,8 @@ override 'accept' => sub
                     '(//%s%s)',
                     $conflict->name,
                     DBDefs->WEB_SERVER,
-                    $self->_conflicting_entity_path($conflict->gid)
-                )
+                    $self->_conflicting_entity_path($conflict->gid),
+                ),
             );
         } else {
             die $_;
@@ -164,7 +164,7 @@ sub _is_disambiguation_needed {
         "SELECT 1 FROM $table
          WHERE id != ? AND lower(musicbrainz_unaccent(name)) = lower(musicbrainz_unaccent(?))
          LIMIT 1",
-        $entity->id, $opts{name}
+        $entity->id, $opts{name},
     );
 }
 

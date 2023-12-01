@@ -288,7 +288,7 @@ sub get_linked_entities($$$$) {
                     SELECT 1 FROM $dump_schema.tmp_checked_entities ce
                      WHERE ce.entity_type = '$entity_type'
                        AND ce.id = entity_table.id
-                )"
+                )",
         );
 
         my @entity_rows = @{$entity_rows};
@@ -440,7 +440,7 @@ sub get_current_replication_sequence {
 
     my $replication_info = decode_json($response->content);
 
-    $replication_info->{last_packet} =~ s/^replication-([0-9]+)\.tar\.bz2$/$1/r
+    $replication_info->{last_packet} =~ s/^replication-([0-9]+)\.tar\.bz2$/$1/r;
 }
 
 sub run_incremental_dump {
@@ -454,7 +454,7 @@ sub run_incremental_dump {
     $saved_dump_schema = $dump_schema;
 
     my $control_is_empty = !$c->sql->select_single_value(
-        "SELECT 1 FROM $dump_schema.control"
+        "SELECT 1 FROM $dump_schema.control",
     );
 
     if ($control_is_empty) {
@@ -463,7 +463,7 @@ sub run_incremental_dump {
     }
 
     my $last_processed_seq = $c->sql->select_single_value(
-        "SELECT last_processed_replication_sequence FROM $dump_schema.control"
+        "SELECT last_processed_replication_sequence FROM $dump_schema.control",
     );
     my $did_update_anything = 0;
     my $packets_processed = 0;
@@ -484,7 +484,7 @@ sub run_incremental_dump {
 
         if ($did_update_anything == 0) { # only executed on first iteration
             my $checked_entities = $c->sql->select_single_value(
-                "SELECT 1 FROM $dump_schema.tmp_checked_entities"
+                "SELECT 1 FROM $dump_schema.tmp_checked_entities",
             );
 
             # If $dump_schema.tmp_checked_entities is not empty, then another

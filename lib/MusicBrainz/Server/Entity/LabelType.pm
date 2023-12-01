@@ -13,7 +13,7 @@ sub entity_type { 'label_type' }
 
 sub l_name {
     my $self = shift;
-    return lp($self->name, 'label_type')
+    return lp($self->name, 'label_type');
 }
 
 sub l_description {

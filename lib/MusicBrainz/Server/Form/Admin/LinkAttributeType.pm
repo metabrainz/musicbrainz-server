@@ -26,7 +26,7 @@ has_field 'child_order' => (
 has_field 'name' => (
     type      => 'Text',
     required  => 1,
-    maxlength => 255
+    maxlength => 255,
 );
 
 has_field 'description' => (
@@ -34,11 +34,11 @@ has_field 'description' => (
 );
 
 has_field creditable => (
-    type => 'Boolean'
+    type => 'Boolean',
 );
 
 has_field free_text => (
-    type => 'Boolean'
+    type => 'Boolean',
 );
 
 sub options_parent_id

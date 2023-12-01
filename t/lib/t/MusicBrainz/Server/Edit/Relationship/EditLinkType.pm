@@ -25,17 +25,17 @@ test 'Can change relationship documentation by editing' => sub {
         reverse_link_phrase => 'founded',
         long_link_phrase  => 'founded',
         attributes => [],
-        documentation => $old_documentation
+        documentation => $old_documentation,
     });
 
     my $edit = $c->model('Edit')->create(
         edit_type => $EDIT_RELATIONSHIP_EDIT_LINK_TYPE,
         editor_id => 1,
         old => {
-            documentation => $old_documentation
+            documentation => $old_documentation,
         },
         new => {
-            documentation => $new_documentation
+            documentation => $new_documentation,
         },
         link_id => $lt->id,
     );

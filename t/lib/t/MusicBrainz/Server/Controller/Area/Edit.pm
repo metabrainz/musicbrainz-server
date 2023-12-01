@@ -25,7 +25,7 @@ test 'Editing a (non-ended) area' => sub {
 
     $mech->get('/login');
     $mech->submit_form(
-        with_fields => { username => 'area_editor', password => 'pass' }
+        with_fields => { username => 'area_editor', password => 'pass' },
     );
 
     $mech->get_ok(
@@ -88,7 +88,7 @@ test 'Area editing is blocked for unprivileged users' => sub {
 
     $mech->get('/login');
     $mech->submit_form(
-        with_fields => { username => 'boring_editor', password => 'pass' }
+        with_fields => { username => 'boring_editor', password => 'pass' },
     );
 
     $mech->get('/area/29a709d8-0320-493e-8d0c-f2c386662b7f/edit');

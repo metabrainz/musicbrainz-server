@@ -39,15 +39,15 @@ has '+data' => (
         release => NullableOnPreview[Dict[
             id => Int,
             gid => Optional[Str],
-            name => Str
+            name => Str,
         ]],
         label => Nullable[Dict[
             id => Int,
             gid => Optional[Str],
-            name => Str
+            name => Str,
         ]],
-        catalog_number => Nullable[Str]
-    ]
+        catalog_number => Nullable[Str],
+    ],
 );
 
 sub release_id { shift->data->{release}{id} }
@@ -64,20 +64,20 @@ sub initialize {
         $self->throw_if_release_label_is_duplicate(
             $release,
             $opts{label} ? $opts{label}->id : undef,
-            $opts{catalog_number}
+            $opts{catalog_number},
         );
     }
 
     $opts{release} = {
         id => $release->id,
         gid => $release->gid,
-        name => $release->name
+        name => $release->name,
     } if $release;
 
     $opts{label} = {
         id => $opts{label}->id,
         gid => $opts{label}->gid,
-        name => $opts{label}->name
+        name => $opts{label}->name,
     } if $opts{label};
 
     $self->data(\%opts);
@@ -106,14 +106,14 @@ sub build_display_data {
     unless ($self->preview) {
         $display_data->{release} = to_json_object(
             $loaded->{Release}{ gid_or_id($data->{release}) } //
-            Release->new(name => $data->{release}{name})
+            Release->new(name => $data->{release}{name}),
         );
     }
 
     if ($data->{label}) {
         $display_data->{label} = to_json_object(
             $loaded->{Label}{ gid_or_id($data->{label}) } //
-            Label->new(name => $data->{label}{name})
+            Label->new(name => $data->{label}{name}),
         );
     }
 

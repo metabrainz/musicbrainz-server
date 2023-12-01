@@ -62,13 +62,13 @@ sub _column_mapping
         edits_pending => 'edits_pending',
         comment => 'comment',
         last_updated => 'last_updated',
-        ended => 'ended'
+        ended => 'ended',
     };
 }
 
 sub _area_columns
 {
-    return ['area']
+    return ['area'];
 }
 
 sub load
@@ -120,7 +120,7 @@ sub _merge_impl
     my @merge_options = ($self->sql => (
                            table => 'place',
                            old_ids => \@old_ids,
-                           new_id => $new_id
+                           new_id => $new_id,
                         ));
 
     merge_table_attributes(@merge_options, columns => [ qw( type area coordinates ) ]);
@@ -138,7 +138,7 @@ sub _hash_to_row
     my $row = hash_to_row($place, {
         area => 'area_id',
         type => 'type_id',
-        map { $_ => $_ } qw( address comment ended name )
+        map { $_ => $_ } qw( address comment ended name ),
     });
 
     add_partial_date_to_row($row, $place->{begin_date}, 'begin_date');
@@ -175,26 +175,26 @@ sub _order_by {
     my ($self, $order) = @_;
     my $order_by = order_by($order, 'name', {
         'name' => sub {
-            return 'name COLLATE musicbrainz'
+            return 'name COLLATE musicbrainz';
         },
         'area' => sub {
-            return 'area, name COLLATE musicbrainz'
+            return 'area, name COLLATE musicbrainz';
         },
         'address' => sub {
-            return 'address COLLATE musicbrainz, name COLLATE musicbrainz'
+            return 'address COLLATE musicbrainz, name COLLATE musicbrainz';
         },
         'begin_date' => sub {
-            return 'begin_date_year, begin_date_month, begin_date_day, name COLLATE musicbrainz'
+            return 'begin_date_year, begin_date_month, begin_date_day, name COLLATE musicbrainz';
         },
         'end_date' => sub {
-            return 'end_date_year, end_date_month, end_date_day, name COLLATE musicbrainz'
+            return 'end_date_year, end_date_month, end_date_day, name COLLATE musicbrainz';
         },
         'type' => sub {
-            return 'type, name COLLATE musicbrainz'
-        }
+            return 'type, name COLLATE musicbrainz';
+        },
     });
 
-    return $order_by
+    return $order_by;
 }
 
 __PACKAGE__->meta->make_immutable;
