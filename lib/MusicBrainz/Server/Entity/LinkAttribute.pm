@@ -7,7 +7,9 @@ use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::Validation qw( encode_entities );
 
-with 'MusicBrainz::Server::Entity::Role::Type' => { model => 'LinkAttributeType' };
+with 'MusicBrainz::Server::Entity::Role::Type' => {
+    model => 'LinkAttributeType',
+};
 
 has 'credited_as' => (
     is => 'rw',

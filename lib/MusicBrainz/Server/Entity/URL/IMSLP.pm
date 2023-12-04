@@ -4,8 +4,8 @@ use Moose;
 use MusicBrainz::Server::Translation qw( l );
 
 extends 'MusicBrainz::Server::Entity::URL';
-with 'MusicBrainz::Server::Entity::URL::MediaWiki';
-with 'MusicBrainz::Server::Entity::URL::Sidebar';
+with 'MusicBrainz::Server::Entity::URL::MediaWiki',
+     'MusicBrainz::Server::Entity::URL::Sidebar';
 
 =method pretty_name
 

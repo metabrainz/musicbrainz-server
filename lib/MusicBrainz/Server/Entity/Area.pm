@@ -8,12 +8,12 @@ use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 use List::AllUtils qw( first );
 
 extends 'MusicBrainz::Server::Entity';
-with 'MusicBrainz::Server::Entity::Role::Relatable';
-with 'MusicBrainz::Server::Entity::Role::Taggable';
-with 'MusicBrainz::Server::Entity::Role::Annotation';
-with 'MusicBrainz::Server::Entity::Role::DatePeriod';
-with 'MusicBrainz::Server::Entity::Role::Comment';
-with 'MusicBrainz::Server::Entity::Role::Type' => { model => 'AreaType' };
+with 'MusicBrainz::Server::Entity::Role::Annotation',
+     'MusicBrainz::Server::Entity::Role::Comment',
+     'MusicBrainz::Server::Entity::Role::DatePeriod',
+     'MusicBrainz::Server::Entity::Role::Relatable',
+     'MusicBrainz::Server::Entity::Role::Taggable',
+     'MusicBrainz::Server::Entity::Role::Type' => { model => 'AreaType' };
 
 sub entity_type { 'area' }
 

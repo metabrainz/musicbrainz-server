@@ -7,8 +7,8 @@ use MusicBrainz::Server::Translation::Attributes qw( lp );
 
 extends 'MusicBrainz::Server::Entity';
 
-with 'MusicBrainz::Server::Entity::Role::Comment';
-with 'MusicBrainz::Server::Entity::Role::OptionsTree' => {
+with 'MusicBrainz::Server::Entity::Role::Comment',
+     'MusicBrainz::Server::Entity::Role::OptionsTree' => {
     type => 'WorkAttributeType',
 };
 

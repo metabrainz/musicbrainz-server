@@ -7,11 +7,11 @@ use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 use MusicBrainz::Server::Filters qw( format_wikitext );
 
 extends 'MusicBrainz::Server::Entity';
-with 'MusicBrainz::Server::Entity::Role::GID';
-with 'MusicBrainz::Server::Entity::Role::Name';
-
-
-with 'MusicBrainz::Server::Entity::Role::Type' => { model => 'CollectionType' };
+with 'MusicBrainz::Server::Entity::Role::GID',
+     'MusicBrainz::Server::Entity::Role::Name',
+     'MusicBrainz::Server::Entity::Role::Type' => {
+    model => 'CollectionType',
+};
 
 sub entity_type { 'collection' }
 
