@@ -206,7 +206,7 @@ sub search_by_email {
 
     my $query = 'SELECT ' . $self->_columns .
         ' FROM ' . $self->_table .
-        q" WHERE (regexp_replace(regexp_replace(email, '[@+].*', ''), '\.', '', 'g') || regexp_replace(email, '.*@', '@')) ~* ?" .
+        q{ WHERE (regexp_replace(regexp_replace(email, '[@+].*', ''), '\.', '', 'g') || regexp_replace(email, '.*@', '@')) ~* ?} .
         ' ORDER BY member_since DESC';
 
     $self->query_to_list_limited($query, [$email_regexp], $limit, $offset);
@@ -756,7 +756,7 @@ sub secondary_counts {
             map { "SELECT is_upvote FROM $_ WHERE editor = ?" } @tag_tables,
         );
 
-        my $query = <<~SQL;
+        my $query = <<~"SQL";
             SELECT x.is_upvote, count(*)
             FROM ($tag_inner_query) x
             GROUP BY x.is_upvote

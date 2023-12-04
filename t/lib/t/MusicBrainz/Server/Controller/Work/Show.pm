@@ -2,6 +2,7 @@ package t::MusicBrainz::Server::Controller::Work::Show;
 use strict;
 use warnings;
 
+use HTTP::Status qw( :constants );
 use Test::Routine;
 use Test::More;
 use MusicBrainz::Server::Test qw( html_ok page_test_jsonld );
@@ -34,11 +35,11 @@ test all => sub {
 
     # Missing
     $mech->get('/work/dead079d-374e-4436-9448-da92dedef3ce', 'work not found');
-    is($mech->status(), 404);
+    is($mech->status(), HTTP_NOT_FOUND);
 
     # Invalid UUID
     $mech->get('/work/xxxx079d-374e-4436-9448-da92dedef3ce', 'bad request');
-    is($mech->status(), 400);
+    is($mech->status(), HTTP_BAD_REQUEST);
 };
 
 test 'Embedded JSON-LD' => sub {

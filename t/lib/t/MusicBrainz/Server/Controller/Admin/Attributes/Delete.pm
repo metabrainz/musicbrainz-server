@@ -2,6 +2,7 @@ package t::MusicBrainz::Server::Controller::Admin::Attributes::Delete;
 use strict;
 use warnings;
 
+use HTTP::Status qw( :constants );
 use Test::Routine;
 use Test::More;
 use MusicBrainz::Server::Test qw( html_ok );
@@ -22,7 +23,7 @@ test 'Delete standard attribute (series type)' => sub {
     $mech->get('/admin/attributes/SeriesType/delete/1');
     is(
         $mech->status,
-        403,
+        HTTP_FORBIDDEN,
         'Normal user cannot access the remove script page',
     );
 
@@ -85,7 +86,7 @@ test 'Delete language' => sub {
     $mech->get('/admin/attributes/Language/delete/120');
     is(
         $mech->status,
-        403,
+        HTTP_FORBIDDEN,
         'Normal user cannot access the remove language page',
     );
 
@@ -148,7 +149,7 @@ test 'Delete script' => sub {
     $mech->get('/admin/attributes/Script/delete/28');
     is(
         $mech->status,
-        403,
+        HTTP_FORBIDDEN,
         'Normal user cannot access the remove script page',
     );
 

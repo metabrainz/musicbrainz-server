@@ -84,7 +84,7 @@ page_test_jsonld $mech => {
         {
             '@id' => 'http://musicbrainz.org/recording/659f405b-b4ee-4033-868a-0daa27784b89',
             'duration' => 'PT06M10S',
-            'name' => "\x{3c0}",
+            'name' => "\N{GREEK SMALL LETTER PI}",
             '@type' => 'MusicRecording',
             'trackNumber' => '1.2',
             'contributor' => [

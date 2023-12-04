@@ -38,7 +38,7 @@ sub combine_with_query {
         )",
         \@patterns,
     ]);
-};
+}
 
 1;
 

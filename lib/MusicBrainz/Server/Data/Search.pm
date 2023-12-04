@@ -4,6 +4,7 @@ use Carp;
 use Try::Tiny;
 use Moose;
 use Class::Load qw( load_class );
+use HTTP::Status qw( :constants );
 use JSON;
 use Sql;
 use Data::Page;
@@ -859,7 +860,7 @@ sub external_search
     # Dispatch the search request.
     my $response = get_chunked_with_retry($self->c->lwp, $search_url);
     if (!defined $response) {
-        return { code => 500, error => 'We could not fetch the document from the search server. Please try again.' };
+        return { code => HTTP_INTERNAL_SERVER_ERROR, error => 'We could not fetch the document from the search server. Please try again.' };
     }
     elsif (!$response->is_success)
     {
@@ -873,7 +874,7 @@ sub external_search
         }
         else
         {
-            return { code => 500, error => $response->content };
+            return { code => HTTP_INTERNAL_SERVER_ERROR, error => $response->content };
         }
     }
     else

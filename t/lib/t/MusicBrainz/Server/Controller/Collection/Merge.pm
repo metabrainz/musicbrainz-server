@@ -2,6 +2,7 @@ package t::MusicBrainz::Server::Controller::Collection::Merge;
 use strict;
 use warnings;
 
+use HTTP::Status qw( :constants );
 use Test::Routine;
 use Test::More;
 use MusicBrainz::Server::Test qw( html_ok test_xpath_html );
@@ -136,7 +137,7 @@ test 'Can only merge collections of the same type' => sub {
 
     is(
         $mech->status,
-        500,
+        HTTP_INTERNAL_SERVER_ERROR,
         'Attempting to force a merge anyway returns a 500 error',
     );
 
@@ -167,7 +168,7 @@ test 'Can only merge own collections' => sub {
     );
     is(
         $mech->status,
-        403,
+        HTTP_FORBIDDEN,
         q(Adding other editor's collection to merge queue is 403 Forbidden),
     );
 };

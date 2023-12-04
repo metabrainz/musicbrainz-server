@@ -31,7 +31,7 @@ test 'MBS-4091: Test submitting annotation starting with list syntax' => sub {
     my @edits = capture_edits {
         $mech->submit_form_ok({
             with_fields => {
-                'edit-annotation.text' => "    * Test annotation\x{0007} for an artist  \r\n\r\n\t\x{00A0}\r\n    * This anno\x{200B}tation has\ttwo bul\x{00AD}lets  \t\t",
+                'edit-annotation.text' => "    * Test annotation\N{BEL} for an artist  \r\n\r\n\t\N{NO-BREAK SPACE}\r\n    * This anno\N{ZERO WIDTH SPACE}tation has\ttwo bul\N{SOFT HYPHEN}lets  \t\t",
                 'edit-annotation.changelog' => 'Changelog here',
             },
         },
@@ -55,7 +55,7 @@ test 'MBS-4091: Test submitting annotation starting with list syntax' => sub {
                 id => 3,
                 name => 'Test Artist',
             },
-            text => "    * Test annotation for an artist\n\n    * This anno\x{200B}tation has\ttwo bul\x{00AD}lets",
+            text => "    * Test annotation for an artist\n\n    * This anno\N{ZERO WIDTH SPACE}tation has\ttwo bul\N{SOFT HYPHEN}lets",
             changelog => 'Changelog here',
             editor_id => 1,
             old_annotation_id => 1,
@@ -86,7 +86,7 @@ test 'MBS-12161: Test submitting annotation with too long changelog' => sub {
     my @edits = capture_edits {
         $mech->submit_form_ok({
             with_fields => {
-                'edit-annotation.text' => "    * Test annotation\x{0007} for an artist  \r\n\r\n\t\x{00A0}\r\n    * This anno\x{200B}tation has\ttwo bul\x{00AD}lets  \t\t",
+                'edit-annotation.text' => "    * Test annotation\N{BEL} for an artist  \r\n\r\n\t\N{NO-BREAK SPACE}\r\n    * This anno\N{ZERO WIDTH SPACE}tation has\ttwo bul\N{SOFT HYPHEN}lets  \t\t",
                 'edit-annotation.changelog' => 'This is a very long changelog that will indeed exceed the maximum allowed length and should trigger an error, but it did not, leading to MBS-12161. That has hopefully been fixed, so this intentionally ridiculously long changelog should now return an error as it was meant to do.',
             },
         },

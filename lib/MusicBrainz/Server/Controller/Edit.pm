@@ -171,7 +171,7 @@ sub approve : Chained('load') RequireAuth(auto_editor) RequireAuth(editing_enabl
                         component_props => {edit => $edit->TO_JSON},
                     );
                     return;
-                };
+                }
             }
 
             $c->model('Edit')->approve($edit, $c->user);

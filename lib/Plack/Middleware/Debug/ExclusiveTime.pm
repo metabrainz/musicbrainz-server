@@ -56,6 +56,6 @@ sub install_timing {
             $orig->(@_);
         }
     });
-};
+}
 
 1;

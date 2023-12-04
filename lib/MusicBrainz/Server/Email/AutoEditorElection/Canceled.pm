@@ -12,7 +12,7 @@ sub text
 {
     my ($self) = @_;
 
-    return strip tt <<EOF;
+    return strip tt <<"EOF";
 This election has been cancelled by the proposer ([% self.election.proposer.name %]).
 
 Details:

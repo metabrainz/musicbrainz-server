@@ -2,7 +2,7 @@ package MusicBrainz::Server::Controller::Relationship::LinkType;
 use Moose;
 use namespace::autoclean;
 
-BEGIN { extends 'MusicBrainz::Server::Controller' };
+BEGIN { extends 'MusicBrainz::Server::Controller' }
 
 use Sql;
 use List::AllUtils qw( partition_by sort_by );
@@ -122,7 +122,7 @@ sub create : Chained('type_specific') PathPart('create') RequireAuth(relationshi
 {
     my ($self, $c) = @_;
 
-    my $attribs = $c->model('LinkType')->get_attribute_type_list();;
+    my $attribs = $c->model('LinkType')->get_attribute_type_list();
     my %attrib_names = map { $_->{type} => $_->{name} } @$attribs;
     $c->stash( attrib_names => \%attrib_names );
 

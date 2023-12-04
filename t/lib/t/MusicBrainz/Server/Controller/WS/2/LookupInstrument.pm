@@ -3,6 +3,7 @@ use utf8;
 use strict;
 use warnings;
 
+use HTTP::Status qw( :constants );
 use Test::Routine;
 use Test::More;
 
@@ -30,7 +31,7 @@ $c->sql->do(<<~'SQL');
     SQL
 
 $mech->get('/ws/2/instrument/3590521b-8c97-4f4b-b1bb-5f68d3663d8a?inc=coffee');
-is($mech->status, 400);
+is($mech->status, HTTP_BAD_REQUEST);
 is_xml_same($mech->content, q{<?xml version="1.0"?>
 <error>
   <text>coffee is not a valid inc parameter for the instrument resource.</text>

@@ -2,6 +2,7 @@ package t::MusicBrainz::Server::Controller::User::Tags;
 use strict;
 use warnings;
 
+use HTTP::Status qw( :constants );
 use Test::Routine;
 use Test::More;
 
@@ -26,23 +27,23 @@ test all => sub {
     $mech->content_contains('not a musical', q(new_editor has used the tag 'not a musical'));
 
     $mech->get('/user/alice/tags');
-    is($mech->status, 403, q(alice's tag list is private));
+    is($mech->status, HTTP_FORBIDDEN, q(alice's tag list is private));
 
     $mech->get('/user/alice/tag/not%20a%20musical');
-    is($mech->status, 403, q(alice's tag pages are private));
+    is($mech->status, HTTP_FORBIDDEN, q(alice's tag pages are private));
 
     $mech->get('/login');
     $mech->submit_form(with_fields => { username => 'new_editor', password => 'password' });
 
     $mech->get('/user/alice/tags');
-    is($mech->status, 403, q(alice's tags are still private));
+    is($mech->status, HTTP_FORBIDDEN, q(alice's tags are still private));
 
     $mech->get('/logout');
     $mech->get('/login');
     $mech->submit_form(with_fields => { username => 'alice', password => 'secret1' });
 
     $mech->get('/user/alice/tags');
-    is($mech->status, 200, 'alice can view her own tags');
+    is($mech->status, HTTP_OK, 'alice can view her own tags');
     $mech->content_contains('Alice</bdi></a> has not upvoted any tags', 'alice has not tagged anything');
 };
 

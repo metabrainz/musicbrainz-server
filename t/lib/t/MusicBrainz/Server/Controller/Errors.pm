@@ -4,6 +4,7 @@ use warnings;
 
 use Catalyst::Test 'MusicBrainz::Server';
 use HTTP::Request;
+use HTTP::Status qw( :constants );
 use JSON qw( decode_json );
 use Sentry::Raven;
 use Test::Deep qw( cmp_deeply );
@@ -97,7 +98,7 @@ test 'Respond with Bad Request for "invalid session ID"' => sub {
     ]));
     is(
         $mech->response->code,
-        400,
+        HTTP_BAD_REQUEST,
         'bad request is returned for an invalid session ID',
     );
     is(
@@ -113,7 +114,7 @@ test 'Respond with Bad Request for "invalid session ID"' => sub {
     ]));
     is(
         $mech->response->code,
-        400,
+        HTTP_BAD_REQUEST,
         'bad request is returned for an invalid session ID with beta=on',
     );
     is(
@@ -126,6 +127,7 @@ test 'Respond with Bad Request for "invalid session ID"' => sub {
 package SentryUserAgent;
 
 use HTTP::Response;
+use HTTP::Status qw( :constants );
 use IO::Uncompress::Gunzip qw( gunzip $GunzipError );
 
 sub timeout {}
@@ -142,7 +144,7 @@ sub request {
     $self->{posted_error} = $content;
 
     my $res = HTTP::Response->new;
-    $res->code(200);
+    $res->code(HTTP_OK);
     $res->content('{"id":1}');
     return $res;
 }

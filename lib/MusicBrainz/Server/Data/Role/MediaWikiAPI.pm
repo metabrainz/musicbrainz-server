@@ -99,7 +99,7 @@ sub _get_and_process_json
         return {content => $content->{claims}};
     } else {
         return undef;
-    };
+    }
 }
 
 no Moose;

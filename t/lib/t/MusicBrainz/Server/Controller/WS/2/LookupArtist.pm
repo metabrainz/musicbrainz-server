@@ -4,6 +4,7 @@ use strict;
 use warnings;
 
 use HTTP::Request;
+use HTTP::Status qw( :constants );
 use Test::Deep qw( cmp_bag );
 use Test::Routine;
 use Test::More;
@@ -42,7 +43,7 @@ my $req = HTTP::Request->new('OPTIONS', '/ws/2/artist/472bc127-8861-45e8-bc9e-31
 ]);
 
 $mech->request($req);
-is($mech->status, 200);
+is($mech->status, HTTP_OK);
 cmp_bag(
     [split /\s*,\s*/, lc $mech->res->header('Access-Control-Allow-Headers')],
     [qw( authorization content-type user-agent )],
@@ -443,7 +444,7 @@ ws_test 'various artists release lookup',
 </metadata>';
 
 $mech->get('/ws/2/artist/a16d1433-ba89-4f72-a47b-a370add0bb55?inc=coffee');
-is($mech->status, 400);
+is($mech->status, HTTP_BAD_REQUEST);
 is_xml_same($mech->content, q{<?xml version="1.0"?>
 <error>
   <text>coffee is not a valid inc parameter for the artist resource.</text>

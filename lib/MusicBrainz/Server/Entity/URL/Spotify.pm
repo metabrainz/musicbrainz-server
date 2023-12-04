@@ -15,7 +15,7 @@ sub sidebar_name {
     } else {
         return l('Stream at Spotify');
     }
-};
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

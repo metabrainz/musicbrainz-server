@@ -9,7 +9,7 @@ use Test::Fatal;
 with 't::Edit';
 with 't::Context';
 
-BEGIN { use MusicBrainz::Server::Edit::Release::Edit };
+BEGIN { use MusicBrainz::Server::Edit::Release::Edit }
 
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_EDIT );

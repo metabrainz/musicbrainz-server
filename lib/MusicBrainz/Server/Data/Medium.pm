@@ -148,7 +148,7 @@ sub insert
             $track->{artist_credit_id} =
                 $self->c->model('ArtistCredit')->find_or_insert(
                     delete $track->{artist_credit});
-        };
+        }
 
         $self->c->model('Track')->insert(@$tracklist);
 

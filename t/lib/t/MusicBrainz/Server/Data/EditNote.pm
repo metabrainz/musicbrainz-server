@@ -9,7 +9,7 @@ use Test::Exception;
 use Test::Fatal;
 use utf8;
 
-BEGIN { use MusicBrainz::Server::Data::Gender };
+BEGIN { use MusicBrainz::Server::Data::Gender }
 
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Data::Edit;
@@ -28,7 +28,7 @@ BEGIN {
 
     sub edit_type { 111; }
     sub edit_name { 'mock edit' }
-};
+}
 
 use MusicBrainz::Server::EditRegistry;
 MusicBrainz::Server::EditRegistry->register_type('MockEdit');

@@ -400,14 +400,14 @@ sub remove_direction_marks {
                  (
                      \A | [\p{Bidi_Class=Left_To_Right}\p{Bidi_Class=Right_To_Left}\p{Bidi_Class=Arabic_Letter}]
                  )
-                 [\x{200E}\x{200F}]+
+                 [\N{LEFT-TO-RIGHT MARK}\N{RIGHT-TO-LEFT MARK}]+
                  (?= # look-ahead, so that the character is not consumed and can match on the next iteration
                      \z | [\p{Bidi_Class=Left_To_Right}\p{Bidi_Class=Right_To_Left}\p{Bidi_Class=Arabic_Letter}]
                  )
             } {$1}gx;
 
     # Remove LRM/RLM from strings without RTL characters
-    my $stripped = $t =~ s/[\x{200E}\x{200F}]//gr;
+    my $stripped = $t =~ s/[\N{LEFT-TO-RIGHT MARK}\N{RIGHT-TO-LEFT MARK}]//gr;
     unless ($stripped =~ /[\p{Bidi_Class=Right_To_Left}\p{Bidi_Class=Arabic_Letter}]/)
         # The test must be done on $stripped because RLM is in Right_To_Left itself.
     {
@@ -435,7 +435,7 @@ sub remove_invalid_characters {
     # - bom
     # - Supplementary private use areas
     # - Noncharacters
-    =~ s/[\x{FEFF}\x{F0000}-\x{FFFFF}\x{100000}-\x{10FFFF}${noncharacter_pattern}]//gr;
+    =~ s/[\N{ZERO WIDTH NO-BREAK SPACE}\x{F0000}-\x{FFFFF}\x{100000}-\x{10FFFF}${noncharacter_pattern}]//gr;
 }
 
 sub remove_lineformatting_characters {
@@ -444,7 +444,7 @@ sub remove_lineformatting_characters {
     # - zwsp
     # - shy
     # - Other, control (including TAB \x09, LF \x0A, and CR \x0D)
-    =~ s/[\x{200B}\x{00AD}\p{Cc}]//gr;
+    =~ s/[\N{ZERO WIDTH SPACE}\N{SOFT HYPHEN}\p{Cc}]//gr;
 }
 
 sub type_to_model

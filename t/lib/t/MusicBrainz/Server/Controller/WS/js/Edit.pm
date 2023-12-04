@@ -9,6 +9,7 @@ use t::MusicBrainz::Server::Controller::RelationshipEditor qw(
     $guitar_attribute
     $crazy_guitar
 );
+use HTTP::Status qw( :constants );
 use JSON;
 use MusicBrainz::Server::Constants qw(
     $EDIT_RECORDING_EDIT
@@ -672,7 +673,7 @@ test 'previewing/creating/editing a release group and release' => sub {
     my $annotation_edits = [ {
         edit_type       => $EDIT_RELEASE_ADD_ANNOTATION,
         entity          => $release_id,
-        text            => "    * Test annotation\x{0007} in release editor  \r\n\r\n\t\x{00A0}\r\n    * This anno\x{200B}tation has\ttwo bul\x{00AD}lets  \t\t",
+        text            => "    * Test annotation\N{BEL} in release editor  \r\n\r\n\t\N{NO-BREAK SPACE}\r\n    * This anno\N{ZERO WIDTH SPACE}tation has\ttwo bul\N{SOFT HYPHEN}lets  \t\t",
     } ];
 
     @edits = capture_edits {
@@ -687,7 +688,7 @@ test 'previewing/creating/editing a release group and release' => sub {
         editor_id         => 1,
         entity            => { id => $release_id, name => 'Vision Creation Newsun' },
         old_annotation_id => undef,
-        text              => "    * Test annotation in release editor\n\n    * This anno\x{200B}tation has\ttwo bul\x{00AD}lets",
+        text              => "    * Test annotation in release editor\n\n    * This anno\N{ZERO WIDTH SPACE}tation has\ttwo bul\N{SOFT HYPHEN}lets",
     });
 };
 
@@ -1432,9 +1433,9 @@ test 'MBS-13309: Cross-origin requests are limited to bot accounts' => sub {
     my ($c, $mech) = ($test->c, $test->mech);
 
     MusicBrainz::Server::Test->prepare_test_database($c);
-    MusicBrainz::Server::Test->prepare_test_database($c, <<~SQL);
+    MusicBrainz::Server::Test->prepare_test_database($c, <<~'SQL');
         INSERT INTO editor (id, name, password, privs, email, email_confirm_date, member_since, ha1)
-        VALUES (2, 'bot_editor', '{CLEARTEXT}password', 2, 'bot\@editor.org', '2023-11-04', '2023-11-04', '');
+        VALUES (2, 'bot_editor', '{CLEARTEXT}password', 2, 'bot@editor.org', '2023-11-04', '2023-11-04', '');
         SQL
 
     $mech->get_ok('/login');
@@ -1442,7 +1443,7 @@ test 'MBS-13309: Cross-origin requests are limited to bot accounts' => sub {
     $mech->add_header('Origin' => 'https://bot.example.com');
     note('We try to enter a cross-origin edit as a non-bot editor');
     post_json($mech, '/ws/js/edit/create', encode_json({ edits => [] }));
-    is($mech->status, 403, 'The edit attempt was rejected');
+    is($mech->status, HTTP_FORBIDDEN, 'The edit attempt was rejected');
     $mech->get_ok('/logout');
     $mech->delete_header('Origin');
 
@@ -1451,7 +1452,7 @@ test 'MBS-13309: Cross-origin requests are limited to bot accounts' => sub {
     $mech->add_header('Origin' => 'https://bot.example.com');
     note('We try to enter the same cross-origin edit as a bot editor');
     post_json($mech, '/ws/js/edit/create', encode_json({ edits => [] }));
-    is($mech->status, 200, 'The edit attempt was accepted');
+    is($mech->status, HTTP_OK, 'The edit attempt was accepted');
 };
 
 1;

@@ -9,7 +9,7 @@ use Test::Fatal;
 use Clone qw( clone );
 use List::AllUtils qw( pairwise );
 
-BEGIN { use MusicBrainz::Server::Data::Edit };
+BEGIN { use MusicBrainz::Server::Data::Edit }
 
 {
     package t::Edit::MockEdit;
@@ -104,7 +104,7 @@ test all => sub {
         subtest $test_name => sub {
             is_expected_edit_ids($expected_edit_ids, $edit_data->find($query, 10, 0));
         };
-    };
+    }
 
     sub test_number_of_results_returned {
         my ($query, $expected_hits, $expected_array_size, $test_name) = @_;
@@ -113,7 +113,7 @@ test all => sub {
             is($hits, $expected_hits, "Got expected number of hits: $expected_hits");
             is(scalar @$edits, $expected_array_size, "Got expected array size: $expected_array_size");
         };
-    };
+    }
 
     my $test = shift;
     MusicBrainz::Server::Test->prepare_raw_test_database($test->c, '+edit');
@@ -230,7 +230,7 @@ test 'Find edits by subscription' => sub {
             my @edits = $edit_data->find_for_subscription($sub);
             is_expected_edit_ids($expected_edit_ids, \@edits);
         };
-    };
+    }
     test_find_subscription_edits(ArtistSubscription->new(artist_id => 1, last_edit_sent => 0), [1, 4], 'Artist subscription');
     test_find_subscription_edits(ArtistSubscription->new(artist_id => 1, last_edit_sent => 1), [4], 'Artist subscription with offset');
     test_find_subscription_edits(EditorSubscription->new(subscribed_editor_id => 2, last_edit_sent => 0), [2, 4], 'Editor subscription');

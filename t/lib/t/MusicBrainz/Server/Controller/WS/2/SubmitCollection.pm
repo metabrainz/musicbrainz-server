@@ -152,7 +152,7 @@ EOXML
             '89a675c2-3e37-3518-b83c-418bad59a85a?client=test-1.0';
 
         $mech->put($bad_entity_uri);
-        is($mech->status, 405);
+        is($mech->status, HTTP_METHOD_NOT_ALLOWED);
         xml_ok($mech->content);
         is_xml_same($mech->content, <<'EOXML');
 <?xml version="1.0" encoding="UTF-8"?>

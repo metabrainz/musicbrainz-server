@@ -9,7 +9,7 @@ use Test::Fatal;
 with 't::Edit';
 with 't::Context';
 
-BEGIN { use MusicBrainz::Server::Edit::Recording::Edit };
+BEGIN { use MusicBrainz::Server::Edit::Recording::Edit }
 
 use MusicBrainz::Server::Constants qw( $EDIT_RECORDING_EDIT );
 use MusicBrainz::Server::Test qw( accept_edit reject_edit );

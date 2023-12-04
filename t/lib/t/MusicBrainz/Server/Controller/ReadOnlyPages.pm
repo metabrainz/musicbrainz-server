@@ -55,6 +55,6 @@ for my $path (
 
         $wrapped_read_only->DESTROY;
     };
-};
+}
 
 1;

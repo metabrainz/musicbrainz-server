@@ -45,8 +45,8 @@ use base 'Exporter';
     );
 }
 
-use strict;
 use Carp qw( carp );
+use HTTP::Status qw( :constants );
 use List::AllUtils qw( any );
 use Encode qw( decode encode );
 use Scalar::Util qw( looks_like_number );

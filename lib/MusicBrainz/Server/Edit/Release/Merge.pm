@@ -353,7 +353,7 @@ sub do_merge
             data => $json->encode($self->to_hash),
         }, { edit => $self->id });
     }
-};
+}
 
 before restore => sub {
     my ($self, $data) = @_;

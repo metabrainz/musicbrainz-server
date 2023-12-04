@@ -151,7 +151,7 @@ sub _merge_load_entities
     $c->model('ArtistCredit')->load(@rgs);
     $c->model('ReleaseGroup')->load_meta(@rgs);
     $c->model('ReleaseGroupType')->load(@rgs);
-};
+}
 
 sub set_cover_art : Chained('load') PathPart('set-cover-art') Args(0) Edit
 {

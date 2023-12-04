@@ -11,7 +11,7 @@ sub serialize {
     $body{disambiguation} = $entity->comment // '';
 
     return \%body;
-};
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

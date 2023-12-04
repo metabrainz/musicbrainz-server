@@ -214,7 +214,7 @@ sub has_no_tracks
 
     if (any { $_->track_count > 0 } @mediums) {
         return 0;
-    };
+    }
 
     return 1;
 }

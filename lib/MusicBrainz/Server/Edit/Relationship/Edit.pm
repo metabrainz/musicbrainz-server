@@ -495,7 +495,7 @@ sub accept
     # perform further edits as the entire context has changed.
     MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
         'This relationship has changed type since this edit was entered',
-    ) if $data->{link}{link_type}{id} != $relationship->link->type_id;;
+    ) if $data->{link}{link_type}{id} != $relationship->link->type_id;
 
     # Because we're using a "find_or_insert" instead of an update, this link
     # dict should be complete.  If a value isn't defined in $values it doesn't

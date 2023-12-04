@@ -1,14 +1,15 @@
 package MusicBrainz::Server::Controller::WS::2::DiscID;
 use Moose;
 use namespace::autoclean;
-BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::2' };
+BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::2' }
 
 use aliased 'MusicBrainz::Server::WebService::WebServiceStash';
 use MusicBrainz::Server::Validation qw( is_valid_discid );
 use MusicBrainz::Server::Translation qw( l );
+use Readonly;
 
 # A duration lookup has to match within this many milliseconds
-use constant DURATION_LOOKUP_RANGE => 10000;
+Readonly my $DURATION_LOOKUP_RANGE => 10000;
 
 my $ws_defs = Data::OptList::mkopt([
      discid => {
@@ -96,7 +97,7 @@ sub discid : Chained('root') PathPart('discid') {
         }
 
         my ($results, $hits) = $c->model('DurationLookup')->lookup(
-            $toc, DURATION_LOOKUP_RANGE, $all_formats, $limit, $offset);
+            $toc, $DURATION_LOOKUP_RANGE, $all_formats, $limit, $offset);
         if (!defined($results)) {
             $self->_error($c, l('Invalid TOC'));
         }

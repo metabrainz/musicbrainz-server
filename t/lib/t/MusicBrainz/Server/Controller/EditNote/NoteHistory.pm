@@ -3,6 +3,7 @@ use strict;
 use warnings;
 
 use DateTime;
+use HTTP::Status qw( :constants );
 use Test::Routine;
 use Test::More;
 use utf8;
@@ -241,7 +242,7 @@ test 'Change page display' => sub {
     $mech->get('/edit-note/1/change/3');
     is(
         $mech->status,
-        400,
+        HTTP_BAD_REQUEST,
         'Trying to get a change from the wrong note gives a 400 Bad Request error',
     );
     $mech->text_contains(
@@ -304,14 +305,14 @@ test 'Pages are blocked for non-admins' => sub {
     $mech->get('/edit-note/1/changes');
     is(
         $mech->status,
-        403,
+        HTTP_FORBIDDEN,
         'Trying to get the history page as a non-admin gives a 403 Forbidden error',
     );
 
     $mech->get('/edit-note/1/change/1');
     is(
         $mech->status,
-        403,
+        HTTP_FORBIDDEN,
         'Trying to get a specific change page as a non-admin gives a 403 Forbidden error',
     );
 };

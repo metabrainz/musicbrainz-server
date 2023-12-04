@@ -4,14 +4,16 @@ use namespace::autoclean;
 
 use DBDefs;
 use HTTP::Status qw( :constants );
-use MusicBrainz::Server::Release;
 use MusicBrainz::Server::Validation qw(
     is_non_negative_integer
     is_positive_integer
 );
+use Readonly;
 use URI::Escape qw( uri_escape_utf8 );
 
 with 'MusicBrainz::Server::Data::Role::Context';
+
+Readonly my $RELEASE_ATTR_SECTION_STATUS_START => 100;
 
 # Escape special characters in a Lucene search query
 sub escape_query {
@@ -101,7 +103,7 @@ sub xml_search
         }
         if (defined $args->{releasestatus} && $args->{releasestatus} =~ /^\d+$/)
         {
-            $query .= ' AND status:' . ($args->{releasestatus} - MusicBrainz::Server::Release::RELEASE_ATTR_SECTION_STATUS_START + 1) . '^0.0001';
+            $query .= ' AND status:' . ($args->{releasestatus} - $RELEASE_ATTR_SECTION_STATUS_START + 1) . '^0.0001';
         }
         if (is_positive_integer($args->{count}))
         {

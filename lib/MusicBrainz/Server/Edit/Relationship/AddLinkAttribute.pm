@@ -58,7 +58,7 @@ sub insert {
     my $entity = $self->c->model('LinkAttributeType')->insert($self->data);
     $self->entity_id($entity->id);
     $self->entity_gid($entity->gid);
-};
+}
 
 sub reject {
     MusicBrainz::Server::Edit::Exceptions::MustApply->throw(

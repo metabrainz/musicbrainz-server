@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Controller::WS::js::CheckDuplicates;
 use Moose;
 use namespace::autoclean;
+use HTTP::Status qw( :constants );
 use JSON;
 use Try::Tiny;
 use MusicBrainz::Server::Data::Utils qw(type_to_model);
@@ -33,7 +34,7 @@ sub check_duplicates : Chained('root') PathPart('check_duplicates') Args(0) {
     try {
         $model = type_to_model($type);
     } catch {
-        $c->res->status(400);
+        $c->res->status(HTTP_BAD_REQUEST);
         $c->res->body(encode_json({error => $_}));
         $c->detach;
     };
@@ -55,6 +56,6 @@ sub check_duplicates : Chained('root') PathPart('check_duplicates') Args(0) {
             @duplicates,
         ],
     }));
-};
+}
 
 1;

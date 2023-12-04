@@ -2,6 +2,7 @@ package t::MusicBrainz::Server::Controller::Admin::PrivilegeSearch;
 use strict;
 use warnings;
 
+use HTTP::Status qw( :constants );
 use Test::Routine;
 use Test::More;
 use MusicBrainz::Server::Test qw( test_xpath_html );
@@ -27,7 +28,7 @@ test 'Privilege search is blocked for non-admins' => sub {
     $mech->get('/admin/privilege-search');
     is(
         $mech->status,
-        403,
+        HTTP_FORBIDDEN,
         'Normal user cannot access the privilege search page',
     );
 };

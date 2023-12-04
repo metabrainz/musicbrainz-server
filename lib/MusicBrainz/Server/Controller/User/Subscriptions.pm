@@ -2,7 +2,7 @@ package MusicBrainz::Server::Controller::User::Subscriptions;
 use Moose;
 use namespace::autoclean;
 
-BEGIN { extends 'MusicBrainz::Server::Controller' };
+BEGIN { extends 'MusicBrainz::Server::Controller' }
 
 with 'MusicBrainz::Server::Controller::User::SubscriptionsRole' => {
     type => 'artist',

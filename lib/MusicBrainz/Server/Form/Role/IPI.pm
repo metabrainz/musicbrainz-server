@@ -25,13 +25,13 @@ after 'validate' => sub {
         $ipi_codes_field->value(
             [ uniq sort grep { $_ } @{ $ipi_codes_field->value } ],
         );
-    };
+    }
 };
 
 sub inflate_ipi_codes {
     my ($self, $value) = @_;
     return [ map { $_->ipi } @$value ];
-};
+}
 
 1;
 

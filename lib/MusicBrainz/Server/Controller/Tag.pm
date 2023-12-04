@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Controller::Tag;
 use Moose;
 use Moose::Util qw( find_meta );
+use HTTP::Status qw( :constants );
 
 BEGIN { extends 'MusicBrainz::Server::Controller' }
 
@@ -144,7 +145,7 @@ for my $entity_type (entities_with('tags')) {
 sub not_found : Private
 {
     my ($self, $c, $tagname) = @_;
-    $c->response->status(404);
+    $c->response->status(HTTP_NOT_FOUND);
     $c->stash(
         current_view => 'Node',
         component_path => 'tag/NotFound',

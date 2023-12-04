@@ -200,7 +200,7 @@ sub combine_with_query {
            AND edit_work.edit = edit.id
       )
       SQL
-};
+}
 
 1;
 

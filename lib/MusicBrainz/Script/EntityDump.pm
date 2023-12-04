@@ -83,7 +83,7 @@ sub handle_rows {
     if (@new_rows) {
         $handle_inserts->($c, $schema, $table, \@new_rows);
     }
-};
+}
 
 sub get_rows {
     my ($c, $table, $column, $values) = @_;

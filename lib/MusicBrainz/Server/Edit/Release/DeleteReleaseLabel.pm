@@ -126,7 +126,7 @@ sub initialize
             name => $release_label->release->name,
         },
     });
-};
+}
 
 sub accept
 {

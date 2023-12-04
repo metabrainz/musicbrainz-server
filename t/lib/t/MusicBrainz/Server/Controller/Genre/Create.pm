@@ -2,6 +2,7 @@ package t::MusicBrainz::Server::Controller::Genre::Create;
 use strict;
 use warnings;
 
+use HTTP::Status qw( :constants );
 use Test::Routine;
 use Test::More;
 use MusicBrainz::Server::Test qw( capture_edits html_ok );
@@ -94,7 +95,7 @@ test 'Genre creation is blocked for unprivileged users' => sub {
     $mech->get('/genre/create');
     is(
         $mech->status,
-        403,
+        HTTP_FORBIDDEN,
         'Trying to add a genre without the right privileges gives a 403 Forbidden error',
     );
 };

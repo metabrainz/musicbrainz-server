@@ -74,7 +74,7 @@ sub initialize {
         },
         $self->_change_data($entity, %opts),
     });
-};
+}
 
 override 'accept' => sub
 {

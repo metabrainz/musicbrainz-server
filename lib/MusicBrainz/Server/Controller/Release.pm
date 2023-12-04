@@ -27,6 +27,7 @@ with 'MusicBrainz::Server::Controller::Role::Collection' => {
     entity_type => 'release',
 };
 
+use HTTP::Status qw( :constants );
 use List::AllUtils qw( first nsort_by uniq );
 use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::Constants qw(
@@ -360,7 +361,7 @@ sub add_cover_art : Chained('load') PathPart('add-cover-art') Edit {
             $c->detach;
         }
     } elsif ($c->form_posted) {
-        $c->response->status(500);
+        $c->response->status(HTTP_INTERNAL_SERVER_ERROR);
     } elsif (%{ $c->req->query_params }) {
         # Process query parameters to support seeding fields.
         my $merged = { ( %{$form->fif}, %{$c->req->query_params} ) };
@@ -418,7 +419,7 @@ sub reorder_cover_art : Chained('load') PathPart('reorder-cover-art') Edit {
 
         $c->response->redirect($c->uri_for_action('/release/cover_art', [ $entity->gid ]));
         $c->detach;
-    };
+    }
 }
 
 with 'MusicBrainz::Server::Controller::Role::Merge' => {
@@ -612,7 +613,7 @@ sub _merge_load_entities {
     my ($self, $c, @releases) = @_;
     $c->model('ArtistCredit')->load(@releases);
     $c->model('Release')->load_related_info(@releases);
-};
+}
 
 with 'MusicBrainz::Server::Controller::Role::Delete' => {
     edit_type        => $EDIT_RELEASE_DELETE,

@@ -184,7 +184,7 @@ with 'MusicBrainz::Server::Controller::Role::Merge' => {
 sub _merge_load_entities {
     my ($self, $c, @instruments) = @_;
     $c->model('InstrumentType')->load(@instruments);
-};
+}
 
 with 'MusicBrainz::Server::Controller::Role::Create' => {
     form      => 'Instrument',
@@ -203,7 +203,7 @@ for my $method (qw( create edit merge merge_queue delete add_alias edit_alias de
             $c->detach('/error_403');
         }
     };
-};
+}
 
 sub list : Path('/instruments') Args(0) {
     my ($self, $c) = @_;

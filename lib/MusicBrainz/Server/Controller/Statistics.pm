@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Controller::Statistics;
 use Digest::MD5 qw( md5_hex );
+use HTTP::Status qw( :constants );
 use Moose;
 use namespace::autoclean;
 use MusicBrainz::Server::Data::Statistics::ByDate;
@@ -128,7 +129,7 @@ sub timeline : Path('timeline/main')
 sub timeline_redirect : Path('timeline')
 {
     my ($self, $c) = @_;
-    $c->response->redirect($c->uri_for('/statistics/timeline/main'), 303);
+    $c->response->redirect($c->uri_for('/statistics/timeline/main'), HTTP_SEE_OTHER);
 }
 
 sub individual_timeline : Path('timeline') Args(1)

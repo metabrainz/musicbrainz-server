@@ -7,7 +7,7 @@ use Test::More;
 
 with 't::Context';
 
-BEGIN { use MusicBrainz::Server::Edit::Release::Merge };
+BEGIN { use MusicBrainz::Server::Edit::Release::Merge }
 
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_MERGE $STATUS_APPLIED $STATUS_ERROR );

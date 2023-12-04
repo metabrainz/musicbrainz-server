@@ -15,7 +15,7 @@ sub serialize {
         isrc => $isrc->name,
         recordings => [map { serialize_entity($_, $inc, $stash) } @recordings],
     };
-};
+}
 
 __PACKAGE__->meta->make_immutable;
 

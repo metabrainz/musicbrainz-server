@@ -133,7 +133,7 @@ sub insert
     my $class = $self->_entity_class;
 
     push @created, $class->new(id => $self->sql->insert_row('release_label', $row, 'id'));
-;
+
     $self->c->model('Series')->reorder_for_entities('release', $row->{release});
 
     return wantarray ? @created : $created[0];

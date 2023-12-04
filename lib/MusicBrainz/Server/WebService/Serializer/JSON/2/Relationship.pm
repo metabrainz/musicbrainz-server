@@ -55,7 +55,7 @@ sub serialize
     $body->{'target-credit'} = $entity->target_credit // '';
 
     return $body;
-};
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

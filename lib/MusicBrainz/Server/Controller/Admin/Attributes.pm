@@ -8,7 +8,7 @@ use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 
 use MusicBrainz::Server::Translation qw( l );
 
-BEGIN { extends 'MusicBrainz::Server::Controller' };
+BEGIN { extends 'MusicBrainz::Server::Controller' }
 
 my @models = qw(
     AreaType

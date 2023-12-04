@@ -107,15 +107,15 @@ test 'Test trim and sanitize' => sub {
     };
 
     # MBS-4606
-    $run->("The Upper Hand of Christmas C\x{200B}*\x{200B}*\x{200B}* EP",
+    $run->("The Upper Hand of Christmas C\N{ZERO WIDTH SPACE}*\N{ZERO WIDTH SPACE}*\N{ZERO WIDTH SPACE}* EP",
            'The Upper Hand of Christmas C*** EP',
            'removes zero-width space');
 
-    $run->("Soft\x{00AD}Hyphen",
+    $run->("Soft\N{SOFT HYPHEN}Hyphen",
            'SoftHyphen',
            'removes soft hyphens');
 
-    $run->("NAK follows\x15",
+    $run->("NAK follows\N{NEGATIVE ACKNOWLEDGE}",
            'NAK follows',
            'removes control characters (NAK)');
 
@@ -125,73 +125,73 @@ test 'Test trim and sanitize' => sub {
            ' Gutta cauat lapidem ',
            'normalizes whitespace, keeps leading/trailing whitespace');
 
-    $run->("NAK follows after space \x15",
+    $run->("NAK follows after space \N{NEGATIVE ACKNOWLEDGE}",
            'NAK follows after space',
            'removes words of invalid characters (MBS-7604)',
            'NAK follows after space ');
 
-    $run->("\x{30A2}\x{30B7}\x{30BF}\x{30AB}\x{26ED9}\x{8A18}",
-           "\x{30A2}\x{30B7}\x{30BF}\x{30AB}\x{26ED9}\x{8A18}",
+    $run->("\N{KATAKANA LETTER A}\N{KATAKANA LETTER SI}\N{KATAKANA LETTER TA}\N{KATAKANA LETTER KA}\x{26ED9}\x{8A18}", ## no critic (ProhibitEscapedCharacters) - unassigned/unnamed characters
+           "\N{KATAKANA LETTER A}\N{KATAKANA LETTER SI}\N{KATAKANA LETTER TA}\N{KATAKANA LETTER KA}\x{26ED9}\x{8A18}", ## no critic (ProhibitEscapedCharacters) - unassigned/unnamed characters
            'does not touch characters outside the BMP');
 
-    $run->("Le\x{323}\x{302} Quye\x{302}n; Le\x{302}\x{323} Quy\x{EA}n; L\x{EA}\x{323} Q.; L\x{1EC7} Q.",
-           "L\x{1EC7} Quy\x{EA}n; L\x{1EC7} Quy\x{EA}n; L\x{1EC7} Q.; L\x{1EC7} Q.",
+    $run->("Le\N{COMBINING DOT BELOW}\N{COMBINING CIRCUMFLEX ACCENT} Quye\N{COMBINING CIRCUMFLEX ACCENT}n; Le\N{COMBINING CIRCUMFLEX ACCENT}\N{COMBINING DOT BELOW} Quy\N{LATIN SMALL LETTER E WITH CIRCUMFLEX}n; L\N{LATIN SMALL LETTER E WITH CIRCUMFLEX}\N{COMBINING DOT BELOW} Q.; L\N{LATIN SMALL LETTER E WITH CIRCUMFLEX AND DOT BELOW} Q.",
+           "L\N{LATIN SMALL LETTER E WITH CIRCUMFLEX AND DOT BELOW} Quy\N{LATIN SMALL LETTER E WITH CIRCUMFLEX}n; L\N{LATIN SMALL LETTER E WITH CIRCUMFLEX AND DOT BELOW} Quy\N{LATIN SMALL LETTER E WITH CIRCUMFLEX}n; L\N{LATIN SMALL LETTER E WITH CIRCUMFLEX AND DOT BELOW} Q.; L\N{LATIN SMALL LETTER E WITH CIRCUMFLEX AND DOT BELOW} Q.",
            'normalizes to NFC (MBS-6010)');
 
-    $run->("Brilliant Classics \x{200E}",
+    $run->("Brilliant Classics \N{LEFT-TO-RIGHT MARK}",
            'Brilliant Classics',
            'removes LRM from the end of strings containing only LTR characters',
            'Brilliant Classics ');
 
-    $run->("Brilliant Classics.\x{200F}",
+    $run->("Brilliant Classics.\N{RIGHT-TO-LEFT MARK}",
            'Brilliant Classics.',
            'removes RLM from the end of strings containing only LTR characters, even next to a weak character');
 
-    $run->("\x{200F}\x{5DE}\x{5E8}\x{5D8}\x{5D9}\x{5DF} \x{5D1}\x{5D5}\x{5D1}\x{5E8}\x{200E}",
-           "\x{5DE}\x{5E8}\x{5D8}\x{5D9}\x{5DF} \x{5D1}\x{5D5}\x{5D1}\x{5E8}",
+    $run->("\N{RIGHT-TO-LEFT MARK}\N{HEBREW LETTER MEM}\N{HEBREW LETTER RESH}\N{HEBREW LETTER TET}\N{HEBREW LETTER YOD}\N{HEBREW LETTER FINAL NUN} \N{HEBREW LETTER BET}\N{HEBREW LETTER VAV}\N{HEBREW LETTER BET}\N{HEBREW LETTER RESH}\N{LEFT-TO-RIGHT MARK}",
+           "\N{HEBREW LETTER MEM}\N{HEBREW LETTER RESH}\N{HEBREW LETTER TET}\N{HEBREW LETTER YOD}\N{HEBREW LETTER FINAL NUN} \N{HEBREW LETTER BET}\N{HEBREW LETTER VAV}\N{HEBREW LETTER BET}\N{HEBREW LETTER RESH}",
            'removes LRM/RLM from the ends of strings containing Hebrew characters');
 
-    $run->("\x{5DE}\x{5E8}\x{5D8}\x{5D9}\x{5DF} \x{5D1}\x{5D5}\x{5D1}\x{5E8}\x{200E}\x{200F}",
-           "\x{5DE}\x{5E8}\x{5D8}\x{5D9}\x{5DF} \x{5D1}\x{5D5}\x{5D1}\x{5E8}",
+    $run->("\N{HEBREW LETTER MEM}\N{HEBREW LETTER RESH}\N{HEBREW LETTER TET}\N{HEBREW LETTER YOD}\N{HEBREW LETTER FINAL NUN} \N{HEBREW LETTER BET}\N{HEBREW LETTER VAV}\N{HEBREW LETTER BET}\N{HEBREW LETTER RESH}\N{LEFT-TO-RIGHT MARK}\N{RIGHT-TO-LEFT MARK}",
+           "\N{HEBREW LETTER MEM}\N{HEBREW LETTER RESH}\N{HEBREW LETTER TET}\N{HEBREW LETTER YOD}\N{HEBREW LETTER FINAL NUN} \N{HEBREW LETTER BET}\N{HEBREW LETTER VAV}\N{HEBREW LETTER BET}\N{HEBREW LETTER RESH}",
            'removes groups of LRM/RLM');
 
-    $run->("\x{5DE}\x{5E8}\x{5D8}\x{5D9}\x{5DF} \x{5D1}\x{5D5}\x{5D1}\x{5E8}!\x{200E}",
-           "\x{5DE}\x{5E8}\x{5D8}\x{5D9}\x{5DF} \x{5D1}\x{5D5}\x{5D1}\x{5E8}!\x{200E}",
+    $run->("\N{HEBREW LETTER MEM}\N{HEBREW LETTER RESH}\N{HEBREW LETTER TET}\N{HEBREW LETTER YOD}\N{HEBREW LETTER FINAL NUN} \N{HEBREW LETTER BET}\N{HEBREW LETTER VAV}\N{HEBREW LETTER BET}\N{HEBREW LETTER RESH}!\N{LEFT-TO-RIGHT MARK}",
+           "\N{HEBREW LETTER MEM}\N{HEBREW LETTER RESH}\N{HEBREW LETTER TET}\N{HEBREW LETTER YOD}\N{HEBREW LETTER FINAL NUN} \N{HEBREW LETTER BET}\N{HEBREW LETTER VAV}\N{HEBREW LETTER BET}\N{HEBREW LETTER RESH}!\N{LEFT-TO-RIGHT MARK}",
            'does not remove LRM from the end of a string RTL characters, if next to a neutral character');
 
-    $run->("Francisco T\x{E1}rrega\x{200E} - Lagrima",
-           "Francisco T\x{E1}rrega - Lagrima",
+    $run->("Francisco T\N{LATIN SMALL LETTER A WITH ACUTE}rrega\N{LEFT-TO-RIGHT MARK} - Lagrima",
+           "Francisco T\N{LATIN SMALL LETTER A WITH ACUTE}rrega - Lagrima",
            'removes LRM from the interior of strings without RTL characters');
 
-    $run->("Francisco\x{200F} T\x{E1}rrega\x{200F}\x{200E} - Lagrima",
-           "Francisco T\x{E1}rrega - Lagrima",
+    $run->("Francisco\N{RIGHT-TO-LEFT MARK} T\N{LATIN SMALL LETTER A WITH ACUTE}rrega\N{RIGHT-TO-LEFT MARK}\N{LEFT-TO-RIGHT MARK} - Lagrima",
+           "Francisco T\N{LATIN SMALL LETTER A WITH ACUTE}rrega - Lagrima",
            'removes multiple LRM/RLM from strings without RTL characters');
 
-    $run->("\x{5D0}\x{5D5}\x{5BC}\x{5DE}\x{200F}\x{5D9} 2",
-           "\x{5D0}\x{5D5}\x{5BC}\x{5DE}\x{5D9} 2",
+    $run->("\N{HEBREW LETTER ALEF}\N{HEBREW LETTER VAV}\N{HEBREW POINT DAGESH OR MAPIQ}\N{HEBREW LETTER MEM}\N{RIGHT-TO-LEFT MARK}\N{HEBREW LETTER YOD} 2",
+           "\N{HEBREW LETTER ALEF}\N{HEBREW LETTER VAV}\N{HEBREW POINT DAGESH OR MAPIQ}\N{HEBREW LETTER MEM}\N{HEBREW LETTER YOD} 2",
            'removes LRM/RLM from the interior of strings if between strong characters');
 
-    $run->("Dakhma (\x{62F}\x{62E}\x{645}\x{647}\x{200E})",
-           "Dakhma (\x{62F}\x{62E}\x{645}\x{647}\x{200E})",
+    $run->("Dakhma (\N{ARABIC LETTER DAL}\N{ARABIC LETTER KHAH}\N{ARABIC LETTER MEEM}\N{ARABIC LETTER HEH}\N{LEFT-TO-RIGHT MARK})",
+           "Dakhma (\N{ARABIC LETTER DAL}\N{ARABIC LETTER KHAH}\N{ARABIC LETTER MEEM}\N{ARABIC LETTER HEH}\N{LEFT-TO-RIGHT MARK})",
            'retains LRM between strong and neutral character in strings with RTL characters');
 
-    $run->("A\x{200F}\x{62F}\x{200E}B\x{200E}\x{5D1}\x{200F}C",
-           "A\x{62F}B\x{5D1}C",
+    $run->("A\N{RIGHT-TO-LEFT MARK}\N{ARABIC LETTER DAL}\N{LEFT-TO-RIGHT MARK}B\N{LEFT-TO-RIGHT MARK}\N{HEBREW LETTER BET}\N{RIGHT-TO-LEFT MARK}C",
+           "A\N{ARABIC LETTER DAL}B\N{HEBREW LETTER BET}C",
            'removes LRM/RLM from between strong characters of different directionality');
 
-    $run->("A  \x{FDD0}B",
+    $run->("A  \x{FDD0}B", ## no critic (ProhibitEscapedCharacters) - unassigned character
            'A B',
            'collapses spaces before a non-printable character');
 
-    $run->("A \x{FDD0} B",
+    $run->("A \x{FDD0} B", ## no critic (ProhibitEscapedCharacters) - unassigned character
            'A B',
            'collapses spaces surrounding a non-printable character');
 
-    $run->("A\x{FDD0}  B",
+    $run->("A\x{FDD0}  B", ## no critic (ProhibitEscapedCharacters) - unassigned character
            'A B',
            'collapses spaces after a non-printable character');
 
-    $run->("\x{FEFF} A \x{FEFF} B \x{FEFF}",
+    $run->("\N{ZERO WIDTH NO-BREAK SPACE} A \N{ZERO WIDTH NO-BREAK SPACE} B \N{ZERO WIDTH NO-BREAK SPACE}",
            'A B',
            'strips BOM, removes leading/trailing whitespace',
            ' A B ',

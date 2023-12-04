@@ -6,7 +6,7 @@ use Scalar::Util qw( looks_like_number );
 use List::AllUtils qw( first uniq );
 use MusicBrainz::Server::Translation qw( l );
 
-BEGIN { extends 'MusicBrainz::Server::Controller' };
+BEGIN { extends 'MusicBrainz::Server::Controller' }
 
 with 'MusicBrainz::Server::Controller::Role::Load' => {
     entity_name => 'collection',

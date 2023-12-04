@@ -35,7 +35,7 @@ sub serialize
         (@languages > 1 ? 'mul' : $languages[0]) : JSON::null;
 
     return \%body;
-};
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

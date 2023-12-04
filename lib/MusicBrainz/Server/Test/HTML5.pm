@@ -101,7 +101,7 @@ sub save_html
         print $fh encode('utf-8', $content);
         close($fh);
         $Test->diag("failed output written to $filename");
-    };
+    }
 }
 
 =func html5_ok

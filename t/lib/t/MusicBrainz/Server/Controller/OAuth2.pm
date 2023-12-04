@@ -9,6 +9,7 @@ use Test::Deep qw( cmp_set );
 
 use Encode;
 use HTTP::Request;
+use HTTP::Status qw( :constants );
 use URI;
 use URI::QueryParam;
 use JSON;
@@ -22,7 +23,7 @@ sub oauth_redirect_ok
 {
     my ($mech, $host, $path, $state) = @_;
 
-    is($mech->status, 302);
+    is($mech->status, HTTP_FOUND);
     my $uri = URI->new($mech->response->header('Location'));
     is($uri->scheme, 'http');
     is($uri->host, $host);
@@ -39,7 +40,7 @@ sub oauth_redirect_error
 {
     my ($mech, $host, $path, $state, $error, $error_description) = @_;
 
-    is($mech->status, 302);
+    is($mech->status, HTTP_FOUND);
     my $uri = URI->new($mech->response->header('Location'));
     is($uri->scheme, 'http');
     is($uri->host, $host);
@@ -165,7 +166,7 @@ test 'Authorize web workflow online' => sub {
         my $content = ("$uri" =~ s/^\?//r) .
             "&$dupe_param=" . $dupe_test_params{$dupe_param};
         $test->mech->get('/oauth2/authorize?' . $content);
-        is($test->mech->status, 400);
+        is($test->mech->status, HTTP_BAD_REQUEST);
         $test->mech->content_like(qr{invalid_request});
         $test->mech->content_like(qr{Parameter is included more than once in the request: $dupe_param});
         $headers_ok->();
@@ -310,7 +311,7 @@ test 'Exchange authorization code' => sub {
     # CORS preflight
     $test->mech->request(HTTP::Request->new(OPTIONS => '/oauth2/token'));
     $response = $test->mech->response;
-    is($response->code, 200);
+    is($response->code, HTTP_OK);
     is($response->header('allow'), 'POST, OPTIONS');
     is($response->header('access-control-allow-origin'), '*');
 
@@ -330,7 +331,7 @@ test 'Exchange authorization code' => sub {
             "&$dupe_param=" . $dupe_test_params{$dupe_param};
         $test->mech->post('/oauth2/token', content => $content);
         $response = from_json($test->mech->content);
-        is($test->mech->status, 400);
+        is($test->mech->status, HTTP_BAD_REQUEST);
         is($response->{error}, 'invalid_request');
         is(
             $response->{error_description},
@@ -339,7 +340,7 @@ test 'Exchange authorization code' => sub {
     }
 
     # Malformed authorization code
-    $code = qq{'"\x00<script>alert(1);</script>};
+    $code = qq{'"\N{NULL}<script>alert(1);</script>};
     $test->mech->post('/oauth2/token', {
         client_id => 'id-desktop',
         client_secret => 'id-desktop-secret',
@@ -348,7 +349,7 @@ test 'Exchange authorization code' => sub {
         code => $code,
     });
     $response = from_json($test->mech->content);
-    is($test->mech->status, 400);
+    is($test->mech->status, HTTP_BAD_REQUEST);
     is($response->{error}, 'invalid_request');
     is(
         $response->{error_description},
@@ -365,7 +366,7 @@ test 'Exchange authorization code' => sub {
         code => $code,
     });
     $response = from_json($test->mech->content);
-    is($test->mech->status, 400);
+    is($test->mech->status, HTTP_BAD_REQUEST);
     is($response->{error}, 'invalid_grant');
 
     # Expired authorization code
@@ -378,7 +379,7 @@ test 'Exchange authorization code' => sub {
         code => $code,
     });
     $response = from_json($test->mech->content);
-    is($test->mech->status, 400);
+    is($test->mech->status, HTTP_BAD_REQUEST);
     is($response->{error}, 'invalid_grant');
 
     $code = 'liUxgzsg4hGvDxX9W8VIuQ';
@@ -391,7 +392,7 @@ test 'Exchange authorization code' => sub {
         code => $code,
     });
     $response = from_json($test->mech->content);
-    is($test->mech->status, 401);
+    is($test->mech->status, HTTP_UNAUTHORIZED);
     is($response->{error}, 'invalid_client');
 
     # Incorrect client_id
@@ -403,7 +404,7 @@ test 'Exchange authorization code' => sub {
         code => $code,
     });
     $response = from_json($test->mech->content);
-    is($test->mech->status, 401);
+    is($test->mech->status, HTTP_UNAUTHORIZED);
     is($response->{error}, 'invalid_client');
 
     # Missing client_secret
@@ -414,7 +415,7 @@ test 'Exchange authorization code' => sub {
         code => $code,
     });
     $response = from_json($test->mech->content);
-    is($test->mech->status, 401);
+    is($test->mech->status, HTTP_UNAUTHORIZED);
     is($response->{error}, 'invalid_client');
 
     # Incorrect client_secret
@@ -426,7 +427,7 @@ test 'Exchange authorization code' => sub {
         code => $code,
     });
     $response = from_json($test->mech->content);
-    is($test->mech->status, 401);
+    is($test->mech->status, HTTP_UNAUTHORIZED);
     is($response->{error}, 'invalid_client');
 
     # Missing grant_type
@@ -437,7 +438,7 @@ test 'Exchange authorization code' => sub {
         code => $code,
     });
     $response = from_json($test->mech->content);
-    is($test->mech->status, 400);
+    is($test->mech->status, HTTP_BAD_REQUEST);
     is($response->{error}, 'invalid_request');
 
     # Incorrect grant_type
@@ -449,7 +450,7 @@ test 'Exchange authorization code' => sub {
         code => $code,
     });
     $response = from_json($test->mech->content);
-    is($test->mech->status, 400);
+    is($test->mech->status, HTTP_BAD_REQUEST);
     is($response->{error}, 'unsupported_grant_type');
 
     # Missing redirect_uri
@@ -460,7 +461,7 @@ test 'Exchange authorization code' => sub {
         code => $code,
     });
     $response = from_json($test->mech->content);
-    is($test->mech->status, 400);
+    is($test->mech->status, HTTP_BAD_REQUEST);
     is($response->{error}, 'invalid_request');
 
     # Incorect redirect_uri
@@ -472,7 +473,7 @@ test 'Exchange authorization code' => sub {
         code => $code,
     });
     $response = from_json($test->mech->content);
-    is($test->mech->status, 400);
+    is($test->mech->status, HTTP_BAD_REQUEST);
     is($response->{error}, 'invalid_request');
 
     # Missing code
@@ -483,7 +484,7 @@ test 'Exchange authorization code' => sub {
         redirect_uri => 'urn:ietf:wg:oauth:2.0:oob',
     });
     $response = from_json($test->mech->content);
-    is($test->mech->status, 400);
+    is($test->mech->status, HTTP_BAD_REQUEST);
     is($response->{error}, 'invalid_request');
 
     # Correct code, but incorrect application
@@ -495,13 +496,13 @@ test 'Exchange authorization code' => sub {
         code => $code,
     });
     $response = from_json($test->mech->content);
-    is($test->mech->status, 400);
+    is($test->mech->status, HTTP_BAD_REQUEST);
     is($response->{error}, 'invalid_grant');
 
     # Correct parameters, but GET request
     $test->mech->get('/oauth2/token?client_id=id-desktop&client_secret=id-desktop-secret&grant_type=authorization_code&redirect_uri=urn:ietf:wg:oauth:2.0:oob&code=$code');
     $response = from_json($test->mech->content);
-    is($test->mech->status, 400);
+    is($test->mech->status, HTTP_BAD_REQUEST);
     is($response->{error}, 'invalid_request');
 
     # No problems, receives access token
@@ -726,7 +727,7 @@ test 'Exchange refresh code' => sub {
         refresh_token => $code,
     });
     $response = from_json($test->mech->content);
-    is($test->mech->status, 400);
+    is($test->mech->status, HTTP_BAD_REQUEST);
     is($response->{error}, 'invalid_grant');
 
     # Correct token, but incorrect application
@@ -738,7 +739,7 @@ test 'Exchange refresh code' => sub {
         refresh_token => $code,
     });
     $response = from_json($test->mech->content);
-    is($test->mech->status, 400);
+    is($test->mech->status, HTTP_BAD_REQUEST);
     is($response->{error}, 'invalid_grant');
 
     # No problems, receives access token
@@ -763,28 +764,28 @@ test 'Token info' => sub {
     # CORS preflight
     $test->mech->request(HTTP::Request->new(OPTIONS => '/oauth2/tokeninfo'));
     $response = $test->mech->response;
-    is($response->code, 200);
+    is($response->code, HTTP_OK);
     is($response->header('allow'), 'GET, OPTIONS');
     is($response->header('access-control-allow-origin'), '*');
 
     # Unknown token
     $code = 'xxxxxxxxxxxxxxxxxxxxxx';
     $test->mech->get("/oauth2/tokeninfo?access_token=$code");
-    is($test->mech->status, 400);
+    is($test->mech->status, HTTP_BAD_REQUEST);
     $response = from_json($test->mech->content);
     is($response->{error}, 'invalid_token');
 
     # Expired token
     $code = '3fxf40Z5r6K78D9b031xaw';
     $test->mech->get("/oauth2/tokeninfo?access_token=$code");
-    is($test->mech->status, 400);
+    is($test->mech->status, HTTP_BAD_REQUEST);
     $response = from_json($test->mech->content);
     is($response->{error}, 'invalid_token');
 
     # Valid token
     $code = 'Nlaa7v15QHm9g8rUOmT3dQ';
     $test->mech->get("/oauth2/tokeninfo?access_token=$code");
-    is($test->mech->status, 200);
+    is($test->mech->status, HTTP_OK);
     $response = from_json($test->mech->content);
     ok($response->{expires_in});
     delete $response->{expires_in};
@@ -809,7 +810,7 @@ test 'User info' => sub {
     # CORS preflight
     $test->mech->request(HTTP::Request->new(OPTIONS => '/oauth2/userinfo'));
     $response = $test->mech->response;
-    is($response->code, 200);
+    is($response->code, HTTP_OK);
     is($response->header('allow'), 'GET, POST, OPTIONS');
     is($response->header('access-control-allow-headers'), 'authorization');
     is($response->header('access-control-allow-origin'), '*');
@@ -817,17 +818,17 @@ test 'User info' => sub {
     # Unknown token
     $code = 'xxxxxxxxxxxxxxxxxxxxxx';
     $test->mech->get("/oauth2/userinfo?access_token=$code");
-    is($test->mech->status, 401);
+    is($test->mech->status, HTTP_UNAUTHORIZED);
 
     # Expired token
     $code = '3fxf40Z5r6K78D9b031xaw';
     $test->mech->get("/oauth2/userinfo?access_token=$code");
-    is($test->mech->status, 401);
+    is($test->mech->status, HTTP_UNAUTHORIZED);
 
     # Valid token with email
     $code = 'Nlaa7v15QHm9g8rUOmT3dQ';
     $test->mech->get("/oauth2/userinfo?access_token=$code");
-    is($test->mech->status, 200);
+    is($test->mech->status, HTTP_OK);
     $response = from_json(decode('utf8', $test->mech->content(raw => 1)));
     my $editor1_with_email = {
         sub => 'editor1',
@@ -844,7 +845,7 @@ test 'User info' => sub {
 
     # Same test as above, but sending the access_token via POST parameter.
     $test->mech->post('/oauth2/userinfo', {access_token => $code});
-    is($test->mech->status, 200);
+    is($test->mech->status, HTTP_OK);
     $response = from_json(decode('utf8', $test->mech->content(raw => 1)));
     is_deeply($response, $editor1_with_email);
     $test->mech->header_is('access-control-allow-origin', '*');
@@ -852,7 +853,7 @@ test 'User info' => sub {
     # Valid token without email
     $code = '7Fjfp0ZBr1KtDRbnfVdmIw';
     $test->mech->get("/oauth2/userinfo?access_token=$code");
-    is($test->mech->status, 200);
+    is($test->mech->status, HTTP_OK);
     $response = from_json(decode('utf8', $test->mech->content(raw => 1)));
     is_deeply($response, {
         sub => 'editor1',
@@ -866,7 +867,7 @@ test 'User info' => sub {
     # MBS-9744
     $code = 'h_UngEx7VcA6I-XybPS13Q';
     $test->mech->get("/oauth2/userinfo?access_token=$code");
-    is($test->mech->status, 200);
+    is($test->mech->status, HTTP_OK);
     $response = from_json(decode('utf8', $test->mech->content(raw => 1)));
     is_deeply($response, {
         metabrainz_user_id => 14,
@@ -878,9 +879,9 @@ test 'User info' => sub {
     # Deleted users (bearer)
     $test->c->sql->do('UPDATE editor SET deleted = true WHERE id = 14');
     $test->mech->get("/oauth2/userinfo?access_token=$code");
-    is(401, $test->mech->status);
+    is($test->mech->status, HTTP_UNAUTHORIZED);
     $test->mech->get('/oauth2/userinfo', {Authorization => "Bearer $code"});
-    is(401, $test->mech->status);
+    is($test->mech->status, HTTP_UNAUTHORIZED);
 };
 
 test 'Revoke token' => sub {
@@ -892,7 +893,7 @@ test 'Revoke token' => sub {
     # CORS preflight
     $mech->request(HTTP::Request->new(OPTIONS => '/oauth2/revoke'));
     my $response = $mech->response;
-    is($response->code, 200);
+    is($response->code, HTTP_OK);
     is($response->header('allow'), 'POST, OPTIONS');
     is($response->header('access-control-allow-headers'), 'authorization');
     is($response->header('access-control-allow-origin'), '*');
@@ -900,13 +901,13 @@ test 'Revoke token' => sub {
     # Bad Request
     $mech->post('/oauth2/revoke');
     $response = from_json($mech->content);
-    is($mech->status, 400);
+    is($mech->status, HTTP_BAD_REQUEST);
     is($response->{error}, 'invalid_request');
     is($response->{error_description}, 'Required parameter is missing: token');
 
     $mech->post('/oauth2/revoke', {token => 'invalid'});
     $response = from_json($mech->content);
-    is($mech->status, 400);
+    is($mech->status, HTTP_BAD_REQUEST);
     is($response->{error}, 'invalid_request');
     is($response->{error_description}, 'Required parameter is missing: client_id');
 
@@ -915,7 +916,7 @@ test 'Revoke token' => sub {
         client_id => 'id-desktop',
     });
     $response = from_json($mech->content);
-    is($mech->status, 400);
+    is($mech->status, HTTP_BAD_REQUEST);
     is($response->{error}, 'invalid_request');
     is($response->{error_description}, 'Required parameter is missing: client_secret');
 
@@ -926,7 +927,7 @@ test 'Revoke token' => sub {
         client_secret => 'id-desktop-secret',
     });
     $response = from_json($mech->content);
-    is($mech->status, 401);
+    is($mech->status, HTTP_UNAUTHORIZED);
     is($response->{error}, 'invalid_client');
     is($response->{error_description}, 'Client not authentified');
 
@@ -936,7 +937,7 @@ test 'Revoke token' => sub {
         client_secret => 'not-id-desktop-secret',
     });
     $response = from_json($mech->content);
-    is($mech->status, 401);
+    is($mech->status, HTTP_UNAUTHORIZED);
     is($response->{error}, 'invalid_client');
     is($response->{error_description}, 'Client not authentified');
 

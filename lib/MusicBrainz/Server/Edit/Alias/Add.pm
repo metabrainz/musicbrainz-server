@@ -160,6 +160,6 @@ role {
     };
 };
 
-sub edit_template { 'AddRemoveAlias' };
+sub edit_template { 'AddRemoveAlias' }
 
 1;

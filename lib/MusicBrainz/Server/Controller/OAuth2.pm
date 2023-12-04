@@ -6,6 +6,7 @@ BEGIN { extends 'MusicBrainz::Server::Controller'; }
 use DBDefs;
 use DateTime;
 use Digest::SHA qw( sha256 );
+use HTTP::Status qw( :constants );
 use URI;
 use URI::QueryParam;
 use JSON;
@@ -321,13 +322,13 @@ sub _set_error_status {
 
     if ($error eq 'invalid_client') {
         $c->response->headers->www_authenticate('Basic realm="OAuth2-Client"');
-        $c->response->status(401);
+        $c->response->status(HTTP_UNAUTHORIZED);
     }
     elsif ($error eq 'temporarily_unavailable') {
-        $c->response->status(503);
+        $c->response->status(HTTP_SERVICE_UNAVAILABLE);
     }
     else {
-        $c->response->status(400);
+        $c->response->status(HTTP_BAD_REQUEST);
     }
 }
 
@@ -660,7 +661,7 @@ sub revoke : Local {
     $c->response->header('Content-Length' => '0');
     $c->response->headers->remove_header('Content-Type');
     $c->response->body('');
-    $c->response->status(200);
+    $c->response->status(HTTP_OK);
 }
 
 no Moose;

@@ -222,7 +222,7 @@ sub _merge_load_entities {
             isrcs_differ => (any { $get_isrc_set->($_) != $expect } @tail),
         );
     }
-};
+}
 
 with 'MusicBrainz::Server::Controller::Role::Delete' => {
     edit_type => $EDIT_RECORDING_DELETE,

@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Controller::Root;
 use DateTime::Locale;
 use Digest::MD5 qw( md5_hex );
+use HTTP::Status qw( :constants );
 use Moose;
 use namespace::autoclean;
 use Try::Tiny;
@@ -154,7 +155,7 @@ sub error_400 : Private
 {
     my ($self, $c) = @_;
 
-    $c->response->status(400);
+    $c->response->status(HTTP_BAD_REQUEST);
 
     my %props = (
         hostname => $c->stash->{hostname},
@@ -173,7 +174,7 @@ sub error_401 : Private
 {
     my ($self, $c) = @_;
 
-    $c->response->status(401);
+    $c->response->status(HTTP_UNAUTHORIZED);
     $c->stash(
         component_path => 'main/error/Error401',
         current_view => 'Node',
@@ -184,7 +185,7 @@ sub error_403 : Private
 {
     my ($self, $c) = @_;
 
-    $c->response->status(403);
+    $c->response->status(HTTP_FORBIDDEN);
     $c->stash(
         component_path => 'main/error/Error403',
         current_view => 'Node',
@@ -194,7 +195,7 @@ sub error_403 : Private
 sub error_404 : Private {
     my ($self, $c, $message) = @_;
 
-    $c->response->status(404);
+    $c->response->status(HTTP_NOT_FOUND);
     $c->stash(
         component_path => 'main/error/Error404',
         component_props => { message => $message },
@@ -206,7 +207,7 @@ sub error_500 : Private
 {
     my ($self, $c) = @_;
 
-    $c->response->status(500);
+    $c->response->status(HTTP_INTERNAL_SERVER_ERROR);
     $c->stash(
         component_path => 'main/error/Error500',
         component_props => {
@@ -220,7 +221,7 @@ sub error_503 : Private
 {
     my ($self, $c) = @_;
 
-    $c->response->status(503);
+    $c->response->status(HTTP_SERVICE_UNAVAILABLE);
     $c->stash(
         component_path => 'main/error/Error503',
         current_view => 'Node',
@@ -231,7 +232,7 @@ sub error_mirror : Private
 {
     my ($self, $c) = @_;
 
-    $c->response->status(403);
+    $c->response->status(HTTP_FORBIDDEN);
     $c->stash(
         component_path => 'main/error/MirrorError403',
         current_view => 'Node',
@@ -242,7 +243,7 @@ sub error_mirror_404 : Private
 {
     my ($self, $c) = @_;
 
-    $c->response->status(404);
+    $c->response->status(HTTP_NOT_FOUND);
     $c->stash(
         component_path => 'main/error/MirrorError404',
         current_view => 'Node',

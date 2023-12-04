@@ -15,7 +15,7 @@ sub operator_cardinality_map {
         '=' => undef,
         '!=' => undef,
     );
-};
+}
 
 sub valid {
     my $self = shift;

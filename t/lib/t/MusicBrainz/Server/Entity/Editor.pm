@@ -6,7 +6,7 @@ use Test::Routine;
 use Test::Moose;
 use Test::More;
 
-BEGIN { use MusicBrainz::Server::Entity::Editor };
+BEGIN { use MusicBrainz::Server::Entity::Editor }
 
 use DateTime;
 

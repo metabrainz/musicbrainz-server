@@ -32,7 +32,7 @@ sub operator_cardinality_map {
         'subscribed' => undef,
         'not_subscribed' => undef,
     );
-};
+}
 
 sub valid {
     my ($self) = @_;

@@ -54,7 +54,7 @@ sub initialize {
 
     my %old = (
         types => $opts{old_types},
-        comment => $opts{old_comment},,
+        comment => $opts{old_comment},
     );
 
     my %new = (

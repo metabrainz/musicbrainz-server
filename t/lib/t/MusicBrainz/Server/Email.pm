@@ -249,7 +249,7 @@ test all => sub {
     my $close_time = DateTime->now()->add_duration($MINIMUM_RESPONSE_PERIOD)->truncate( to => 'hour' )->add( hours => 1 );
     $close_time = $close_time->strftime('%F %H:%M %Z');
 
-    my $body = <<EOS;
+    my $body = <<"EOS";
 'Editor 2' has voted against your edit #1234.
 -------------------------------------------------------------------------
 To respond, please add your note at:

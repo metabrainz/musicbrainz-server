@@ -164,7 +164,7 @@ sub build_json {
     $out->{children} = [ @children ] if scalar(@children);
 
     return $out;
-};
+}
 
 sub build_type_info {
     my ($c, $types, @link_type_tree) = @_;
@@ -175,7 +175,7 @@ sub build_type_info {
         my $result = $root->TO_JSON;
 
         return $result;
-    };
+    }
 
     my %type_info;
     for my $root (@link_type_tree) {

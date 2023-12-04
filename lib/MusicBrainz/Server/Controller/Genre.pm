@@ -87,7 +87,7 @@ for my $method (qw( create edit delete add_alias edit_alias delete_alias edit_an
             $c->detach('/error_403');
         }
     };
-};
+}
 
 sub list : Path('/genres') Args(0) {
     my ($self, $c) = @_;

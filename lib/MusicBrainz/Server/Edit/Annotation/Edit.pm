@@ -191,6 +191,6 @@ role {
     };
 };
 
-sub edit_template { 'AddAnnotation' };
+sub edit_template { 'AddAnnotation' }
 
 1;

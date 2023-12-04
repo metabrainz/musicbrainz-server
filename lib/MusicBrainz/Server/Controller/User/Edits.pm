@@ -1,7 +1,7 @@
 package MusicBrainz::Server::Controller::User::Edits;
 use Moose;
 
-BEGIN { extends 'MusicBrainz::Server::Controller' };
+BEGIN { extends 'MusicBrainz::Server::Controller' }
 
 use MusicBrainz::Server::Data::Utils qw( load_everything_for_edits );
 use MusicBrainz::Server::Constants qw( :edit_status );

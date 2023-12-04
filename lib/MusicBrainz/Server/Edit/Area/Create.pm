@@ -81,7 +81,7 @@ sub build_display_data
     };
 }
 
-sub edit_template { 'AddArea' };
+sub edit_template { 'AddArea' }
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

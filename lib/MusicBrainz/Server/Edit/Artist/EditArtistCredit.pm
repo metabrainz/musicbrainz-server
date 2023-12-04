@@ -54,7 +54,7 @@ sub _build_related_entities {
     push @{ $related->{artist} }, keys(%new), keys(%old);
 
     return $related;
-};
+}
 
 has '+data' => (
     isa => Dict[

@@ -220,7 +220,7 @@ test 'MBS-10976: No ISE if only invalid characters are submitted' => sub {
         'Fetched the artist creation page',
     );
 
-    my $invalid = "\x{200B}\x{00AD}\x{FEFF}";
+    my $invalid = "\N{ZERO WIDTH SPACE}\N{SOFT HYPHEN}\N{ZERO WIDTH NO-BREAK SPACE}";
 
     my @edits = capture_edits {
         $mech->submit_form_ok({
@@ -256,8 +256,8 @@ test 'MBS-10976: Private use characters U+E000..U+F8FF are allowed' => sub {
         'Fetched the artist creation page',
     );
 
-    my $klingon = "\x{F8D3}\x{F8D4}\x{F8D5}";
-    my $other_private_use = "\x{E000}\x{F8FF}";
+    my $klingon = "\x{F8D3}\x{F8D4}\x{F8D5}"; ## no critic (ProhibitEscapedCharacters) - unassigned/unnamed characters
+    my $other_private_use = "\x{E000}\x{F8FF}"; ## no critic (ProhibitEscapedCharacters) - private use characters
 
     my @edits = capture_edits {
         $mech->submit_form_ok({

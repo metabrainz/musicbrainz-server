@@ -3,6 +3,7 @@ use utf8;
 use strict;
 use warnings;
 
+use HTTP::Status qw( :constants );
 use Test::Routine;
 use Test::More;
 
@@ -74,7 +75,7 @@ test 'Trying to add incorrect ids to collection fails gracefully' => sub {
     );
     is(
         $mech->status,
-        400,
+        HTTP_BAD_REQUEST,
         'Trying to add an invalid id to a collection fails',
     );
     $mech->text_contains(

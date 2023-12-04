@@ -62,6 +62,6 @@ sub _change_data {
           unless keys %$new && keys %$old;
 
     return %data;
-};
+}
 
 1;

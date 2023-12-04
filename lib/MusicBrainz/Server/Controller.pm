@@ -5,6 +5,7 @@ BEGIN { extends 'Catalyst::Controller'; }
 
 use Carp;
 use Data::Page;
+use HTTP::Status qw( :constants );
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Constants qw( $UNTRUSTED_FLAG $LIMIT_FOR_EDIT_LISTING );
 use MusicBrainz::Server::Translation qw( l ln );
@@ -19,7 +20,7 @@ __PACKAGE__->config(
 sub not_found : Private
 {
     my ($self, $c) = @_;
-    $c->response->status(404);
+    $c->response->status(HTTP_NOT_FOUND);
     $c->stash(
         current_view    => 'Node',
         component_path  => 'entity/NotFound',
@@ -268,7 +269,7 @@ sub _load_paged
 
 sub error {
     my ($self, $c, %args) = @_;
-    my $status = $args{status} || 500;
+    my $status = $args{status} || HTTP_INTERNAL_SERVER_ERROR;
     $c->response->status($status);
     $c->stash(
         current_view => 'Node',
@@ -285,7 +286,7 @@ sub ws1_gone : Chained('/') PathPart('ws/1') {
 
     $c->res->content_type('text/plain; charset=utf-8');
     $c->res->body('https://blog.metabrainz.org/2018/02/01/web-service-ver-1-0-ws-1-will-be-removed-in-6-months/');
-    $c->res->status(410);
+    $c->res->status(HTTP_GONE);
 }
 
 1;
