@@ -4,8 +4,8 @@ use Moose;
 use MusicBrainz::Server::Entity::Types;
 
 extends 'MusicBrainz::Server::Entity';
-with 'MusicBrainz::Server::Entity::Role::DatePeriod';
-with 'MusicBrainz::Server::Entity::Role::Type' => { model => 'LinkType' };
+with 'MusicBrainz::Server::Entity::Role::DatePeriod',
+     'MusicBrainz::Server::Entity::Role::Type' => { model => 'LinkType' };
 
 sub entity_type { 'link' }
 

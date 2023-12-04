@@ -4,7 +4,9 @@ use namespace::autoclean;
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Translation::Attributes qw( lp );
 
-with 'MusicBrainz::Server::Entity::Role::Type' => { model => 'WorkAttributeType' };
+with 'MusicBrainz::Server::Entity::Role::Type' => {
+    model => 'WorkAttributeType',
+};
 
 sub entity_type { 'work_attribute' }
 
