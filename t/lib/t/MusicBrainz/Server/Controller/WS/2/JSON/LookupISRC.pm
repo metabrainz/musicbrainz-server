@@ -27,3 +27,5 @@ test 'basic isrc lookup' => sub {
         ],
     };
 };
+
+1;

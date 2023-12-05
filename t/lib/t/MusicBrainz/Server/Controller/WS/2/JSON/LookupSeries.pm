@@ -137,3 +137,5 @@ test 'basic series lookup' => sub {
             ],
         };
 };
+
+1;

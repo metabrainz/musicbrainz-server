@@ -1041,6 +1041,8 @@ Readonly our %ALIAS_LOCALES => map {
     $id => DateTime::Locale->load($_);
 } DateTime::Locale->codes;
 
+1;
+
 =head1 NAME
 
 MusicBrainz::Server::Constant - constants used in the database that

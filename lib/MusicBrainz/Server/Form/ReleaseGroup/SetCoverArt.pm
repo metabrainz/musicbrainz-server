@@ -22,6 +22,8 @@ sub edit_field_names
 no Moose;
 __PACKAGE__->meta->make_immutable;
 
+1;
+
 =head1 COPYRIGHT AND LICENSE
 
 Copyright (C) 2012 MetaBrainz Foundation

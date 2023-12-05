@@ -17,6 +17,7 @@ use MusicBrainz::Server::Data::Utils qw(
     datetime_to_iso8601
     non_empty
 );
+use MusicBrainz::Server::DatabaseConnectionFactory;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array to_json_object );
 use MusicBrainz::Server::Log qw( logger );
 use MusicBrainz::Server::Validation qw( is_positive_integer );
@@ -196,7 +197,6 @@ if (DBDefs->USE_ETAGS) {
 
 if ($ENV{'MUSICBRAINZ_USE_TEST_DATABASE'})
 {
-    use MusicBrainz::Server::DatabaseConnectionFactory;
     MusicBrainz::Server::DatabaseConnectionFactory->connector_class('MusicBrainz::Server::Test::Connector');
     warn "WARNING: Using test database schema\n";
 }

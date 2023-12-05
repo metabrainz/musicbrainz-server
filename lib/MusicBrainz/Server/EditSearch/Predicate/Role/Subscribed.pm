@@ -76,4 +76,6 @@ role {
         my ($orig, $self) = @_;
         return ($self->operator eq 'subscribed' || $self->operator eq 'not_subscribed') || $self->$orig;
     };
-}
+};
+
+1;

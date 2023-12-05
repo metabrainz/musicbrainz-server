@@ -158,4 +158,6 @@ test 'Merge instruments' => sub {
             },
         ],
     );
-}
+};
+
+1;

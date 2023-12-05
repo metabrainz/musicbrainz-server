@@ -17,6 +17,7 @@ sub edit_field_names { qw( artwork ) }
 no Moose;
 __PACKAGE__->meta->make_immutable;
 
+1;
 
 =head1 COPYRIGHT AND LICENSE
 

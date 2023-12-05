@@ -1,9 +1,7 @@
-#!/usr/bin/env perl
+package DBDefs::Default;
 
 use strict;
 use warnings;
-
-package DBDefs::Default;
 
 use File::Spec::Functions qw( splitdir catdir catfile tmpdir );
 use Cwd qw( abs_path );

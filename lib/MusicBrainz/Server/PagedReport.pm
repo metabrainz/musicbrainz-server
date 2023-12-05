@@ -1,9 +1,7 @@
-#!/usr/bin/env perl
+package MusicBrainz::Server::PagedReport;
 
 use warnings;
 use strict;
-
-package MusicBrainz::Server::PagedReport;
 
 use English;
 use Storable qw( freeze thaw );

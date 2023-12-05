@@ -111,3 +111,5 @@ sub allow_auto_edit
 }
 
 __PACKAGE__->meta->make_immutable;
+
+1;

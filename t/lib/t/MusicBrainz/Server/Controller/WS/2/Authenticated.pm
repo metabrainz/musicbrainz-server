@@ -6,7 +6,7 @@ use warnings;
 use HTTP::Status qw( :constants );
 use Test::Routine;
 use Test::More;
-use Test::XML::SemanticCompare;
+use Test::XML::SemanticCompare qw( is_xml_same );
 
 with 't::Mechanize', 't::Context';
 

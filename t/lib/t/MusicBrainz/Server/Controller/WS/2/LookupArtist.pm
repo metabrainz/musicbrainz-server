@@ -11,7 +11,7 @@ use Test::More;
 
 with 't::Mechanize', 't::Context';
 
-use Test::XML::SemanticCompare;
+use Test::XML::SemanticCompare qw( is_xml_same );
 use MusicBrainz::Server::Test ws_test => {
     version => 2,
 };

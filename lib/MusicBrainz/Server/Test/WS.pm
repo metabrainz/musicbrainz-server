@@ -117,3 +117,5 @@ sub ws2_test_xml_invalid_mbid {
 }
 
 sub ws2_test_txt { ws_test_txt(@_) }
+
+1;

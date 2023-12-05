@@ -271,3 +271,5 @@ sub mock_subscriptions
     when($c->model('Editor'))->editors_with_subscriptions(0, anything)
         ->then_return( @{ $args{editors} } );
 }
+
+1;

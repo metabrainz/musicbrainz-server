@@ -39,3 +39,5 @@ sub t_field_ok {
     ok($form->is_valid, 'processed without errors');
     is($form->field('t')->value, $expected);
 }
+
+1;

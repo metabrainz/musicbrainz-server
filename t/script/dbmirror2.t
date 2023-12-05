@@ -249,3 +249,6 @@ test all => sub {
 
 run_me;
 done_testing;
+
+1;
+
