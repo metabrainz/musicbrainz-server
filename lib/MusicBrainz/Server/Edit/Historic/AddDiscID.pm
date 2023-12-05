@@ -5,11 +5,11 @@ use warnings;
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_ADD_DISCID );
 use MusicBrainz::Server::Entity::CDTOC;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 
 use MusicBrainz::Server::Edit::Historic::Base;
 
-sub edit_name     { N_l('Add disc ID') }
+sub edit_name     { N_lp('Add disc ID', 'edit type') }
 sub edit_kind     { 'add' }
 sub historic_type { 32 }
 sub edit_type     { $EDIT_HISTORIC_ADD_DISCID }

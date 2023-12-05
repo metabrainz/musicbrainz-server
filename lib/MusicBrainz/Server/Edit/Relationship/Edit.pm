@@ -23,7 +23,7 @@ use MusicBrainz::Server::Data::Utils qw(
     type_to_model
 );
 use MusicBrainz::Server::Edit::Utils qw( gid_or_id );
-use MusicBrainz::Server::Translation qw( l N_l );
+use MusicBrainz::Server::Translation qw( l N_lp );
 
 use aliased 'MusicBrainz::Server::Entity::Link';
 use aliased 'MusicBrainz::Server::Entity::LinkType';
@@ -37,7 +37,7 @@ with 'MusicBrainz::Server::Edit::Relationship',
      'MusicBrainz::Server::Edit::Role::DatePeriod';
 
 sub edit_type { $EDIT_RELATIONSHIP_EDIT }
-sub edit_name { N_l('Edit relationship') }
+sub edit_name { N_lp('Edit relationship', 'edit type') }
 sub edit_kind { 'edit' }
 sub edit_template { 'EditRelationship' }
 

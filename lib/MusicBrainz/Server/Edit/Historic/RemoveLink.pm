@@ -4,11 +4,11 @@ use namespace::autoclean;
 
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_REMOVE_LINK );
 use MusicBrainz::Server::Edit::Historic::Utils qw( upgrade_date );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 
 extends 'MusicBrainz::Server::Edit::Historic::Relationship';
 
-sub edit_name     { N_l('Remove relationship') }
+sub edit_name     { N_lp('Remove relationship', 'edit type') }
 sub edit_kind     { 'remove' }
 sub historic_type { 35 }
 sub edit_type     { $EDIT_HISTORIC_REMOVE_LINK }

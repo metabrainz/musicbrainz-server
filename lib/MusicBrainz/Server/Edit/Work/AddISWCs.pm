@@ -3,7 +3,7 @@ use Moose;
 use MooseX::Types::Structured qw( Dict );
 use MooseX::Types::Moose qw( ArrayRef Str Int );
 use MusicBrainz::Server::Constants qw( $EDIT_WORK_ADD_ISWCS );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 
@@ -18,7 +18,7 @@ use aliased 'MusicBrainz::Server::Entity::Work';
 use aliased 'MusicBrainz::Server::Entity::ISWC';
 
 sub edit_type { $EDIT_WORK_ADD_ISWCS }
-sub edit_name { N_l('Add ISWCs') }
+sub edit_name { N_lp('Add ISWCs', 'edit type') }
 sub edit_kind { 'add' }
 sub edit_template { 'AddIswcs' }
 

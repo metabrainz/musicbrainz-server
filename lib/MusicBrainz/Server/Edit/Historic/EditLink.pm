@@ -4,7 +4,7 @@ use namespace::autoclean;
 
 use MusicBrainz::Server::Edit::Historic::Utils qw( upgrade_date );
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_EDIT_LINK );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 
 use aliased 'MusicBrainz::Server::Entity::Link';
 use aliased 'MusicBrainz::Server::Entity::LinkType';
@@ -13,7 +13,7 @@ use aliased 'MusicBrainz::Server::Entity::Relationship';
 
 extends 'MusicBrainz::Server::Edit::Historic::Relationship';
 
-sub edit_name     { N_l('Edit relationship') }
+sub edit_name     { N_lp('Edit relationship', 'edit type') }
 sub edit_kind     { 'edit' }
 sub edit_type     { $EDIT_HISTORIC_EDIT_LINK }
 sub historic_type { 34 }

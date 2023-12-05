@@ -8,7 +8,7 @@ use MusicBrainz::Server::Edit::Types qw( Nullable );
 use MusicBrainz::Server::Edit::Medium::Util ':all';
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array to_json_object );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Role::Preview',
@@ -20,7 +20,7 @@ use aliased 'MusicBrainz::Server::Entity::Release';
 use aliased 'MusicBrainz::Server::Entity::Medium';
 
 sub edit_type { $EDIT_MEDIUM_DELETE }
-sub edit_name { N_l('Remove medium') }
+sub edit_name { N_lp('Remove medium', 'edit type') }
 sub edit_kind { 'remove' }
 sub medium_id { shift->data->{medium_id} }
 sub edit_template { 'RemoveMedium' }

@@ -11,11 +11,11 @@ use MusicBrainz::Server::Edit::Historic::Utils qw(
 );
 use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 
 use MusicBrainz::Server::Edit::Historic::Base;
 
-sub edit_name     { N_l('Edit release events (historic)') }
+sub edit_name     { N_lp('Edit release events (historic)', 'edit type') }
 sub edit_kind     { 'edit' }
 sub historic_type { 29 }
 sub edit_type     { $EDIT_HISTORIC_EDIT_RELEASE_EVENTS_OLD }

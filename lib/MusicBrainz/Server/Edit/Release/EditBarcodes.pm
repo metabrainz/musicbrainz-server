@@ -5,7 +5,7 @@ use namespace::autoclean;
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_EDIT_BARCODES );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 use MooseX::Types::Moose qw( ArrayRef Int Str );
 use MooseX::Types::Structured qw( Dict );
 
@@ -17,7 +17,7 @@ with 'MusicBrainz::Server::Edit::Release',
 use aliased 'MusicBrainz::Server::Entity::Barcode';
 use aliased 'MusicBrainz::Server::Entity::Release';
 
-sub edit_name { N_l('Edit barcodes') }
+sub edit_name { N_lp('Edit barcodes', 'edit type') }
 sub edit_kind { 'edit' }
 sub edit_type { $EDIT_RELEASE_EDIT_BARCODES }
 sub edit_template { 'EditBarcodes' }

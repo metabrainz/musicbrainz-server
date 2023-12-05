@@ -3,7 +3,7 @@ use Moose;
 
 use List::AllUtils qw( any );
 use MusicBrainz::Server::Edit::Types qw( LinkAttributesArray PartialDateHash Nullable NullableOnPreview );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 
 extends 'MusicBrainz::Server::Edit::Generic::Create';
 with 'MusicBrainz::Server::Edit::Relationship',
@@ -29,7 +29,7 @@ use aliased 'MusicBrainz::Server::Entity::Relationship';
 use aliased 'MusicBrainz::Server::Entity::PartialDate';
 
 sub edit_type { $EDIT_RELATIONSHIP_CREATE }
-sub edit_name { N_l('Add relationship') }
+sub edit_name { N_lp('Add relationship', 'edit type') }
 sub _create_model { 'Relationship' }
 sub edit_template { 'AddRelationship' }
 

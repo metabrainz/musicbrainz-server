@@ -2,13 +2,13 @@ package MusicBrainz::Server::Edit::Instrument::Merge;
 use Moose;
 
 use MusicBrainz::Server::Constants qw( $EDIT_INSTRUMENT_MERGE );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 
 extends 'MusicBrainz::Server::Edit::Generic::Merge';
 with 'MusicBrainz::Server::Edit::Instrument';
 
 sub edit_type { $EDIT_INSTRUMENT_MERGE }
-sub edit_name { N_l('Merge instruments') }
+sub edit_name { N_lp('Merge instruments', 'edit type') }
 sub instrument_ids { @{ shift->_entity_ids } }
 
 sub _merge_model { 'Instrument' }

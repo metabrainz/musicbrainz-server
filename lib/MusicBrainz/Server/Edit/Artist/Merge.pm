@@ -6,14 +6,14 @@ use MooseX::Types::Moose qw( ArrayRef Bool Int Str );
 use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Constants qw( $EDIT_ARTIST_MERGE $EDITOR_MODBOT );
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json localized_note );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_l N_lp );
 use Hash::Merge qw( merge );
 
 extends 'MusicBrainz::Server::Edit::Generic::Merge';
 with 'MusicBrainz::Server::Edit::Role::MergeSubscription',
      'MusicBrainz::Server::Edit::Artist';
 
-sub edit_name { N_l('Merge artists') }
+sub edit_name { N_lp('Merge artists', 'edit type') }
 sub edit_type { $EDIT_ARTIST_MERGE }
 
 sub _merge_model { 'Artist' }

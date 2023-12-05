@@ -4,13 +4,13 @@ use warnings;
 
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_MERGE_RELEASE );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 
 use MusicBrainz::Server::Edit::Historic::Base;
 
 use aliased 'MusicBrainz::Server::Entity::Release';
 
-sub edit_name     { N_l('Merge releases') }
+sub edit_name     { N_lp('Merge releases', 'edit type') }
 sub edit_kind     { 'merge' }
 sub historic_type { 23 }
 sub edit_type     { $EDIT_HISTORIC_MERGE_RELEASE }

@@ -13,7 +13,7 @@ use MusicBrainz::Server::Data::Utils qw( partial_date_to_hash type_to_model );
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Edit::Types qw( PartialDateHash LinkAttributesArray );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
-use MusicBrainz::Server::Translation qw ( N_l );
+use MusicBrainz::Server::Translation qw ( N_lp );
 use aliased 'MusicBrainz::Server::Entity::Link';
 use aliased 'MusicBrainz::Server::Entity::LinkAttribute';
 use aliased 'MusicBrainz::Server::Entity::Relationship';
@@ -24,7 +24,7 @@ with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit',
      'MusicBrainz::Server::Edit::Relationship',
      'MusicBrainz::Server::Edit::Relationship::RelatedEntities';
 
-sub edit_name { N_l('Reorder relationships') }
+sub edit_name { N_lp('Reorder relationships', 'edit type') }
 sub edit_kind { 'other' }
 sub edit_type { $EDIT_RELATIONSHIPS_REORDER }
 sub edit_template { 'ReorderRelationships' }
