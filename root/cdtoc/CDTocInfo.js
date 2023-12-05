@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import calculateFullToc
   from '../static/scripts/common/utility/calculateFullToc.js';
 import formatTrackLength
@@ -18,7 +16,7 @@ type Props = {
   +cdToc: CDTocT,
 };
 
-const CDTocInfo = ({cdToc}: Props): React$Element<typeof React.Fragment> => (
+const CDTocInfo = ({cdToc}: Props): React$Element<React$FragmentType> => (
   <>
     <h2>{l('CD TOC details')}</h2>
 

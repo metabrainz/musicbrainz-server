@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import {unwrapNl} from '../static/scripts/common/i18n.js';
 import FormRow from '../static/scripts/edit/components/FormRow.js';
 import FormRowTextLong
@@ -28,7 +26,7 @@ type Props = {
 const CoverArtFields = ({
   form,
   typeIdOptions,
-}: Props): React$Element<typeof React.Fragment> => {
+}: Props): React$Element<React$FragmentType> => {
   const typeIdField = form.field.type_id;
   const selectedTypeIds = new Set(typeIdField.value.map(
     value => String(value),

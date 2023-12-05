@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import formatTrackLength
   from '../../static/scripts/common/utility/formatTrackLength.js';
 import DiffSide from '../../static/scripts/edit/components/edit/DiffSide.js';
@@ -26,7 +24,7 @@ const TrackDurationChanges = ({
   newLengths,
   oldLabel,
   oldLengths,
-}: Props): React$Element<typeof React.Fragment> => {
+}: Props): React$Element<React$FragmentType> => {
   const lengthsSize = oldLengths.length;
   const lengthComparisonTables = [];
   for (let i = 0; i < lengthsSize; i++) {

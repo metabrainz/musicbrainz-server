@@ -57,7 +57,7 @@ const EventList = ({
   showRatings = false,
   showType = false,
   sortable,
-}: Props): React$Element<typeof React.Fragment> => {
+}: Props): React$Element<React$FragmentType> => {
   const $c = React.useContext(CatalystContext);
 
   const columns = React.useMemo(

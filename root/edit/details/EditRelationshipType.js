@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import Cardinality
   from '../../static/scripts/common/components/Cardinality.js';
 import DescriptiveLink
@@ -92,7 +90,7 @@ function formatExample(
 
 const EditRelationshipType = ({
   edit,
-}: Props): React$Element<typeof React.Fragment> => {
+}: Props): React$Element<React$FragmentType> => {
   const display = edit.display_data;
   const name = display.name;
   const oldDescription = display.description?.old ?? '';

@@ -7,11 +7,9 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 const ReleaseLanguageScript = ({
   release,
-}: {release: ReleaseT}): React$Element<typeof React.Fragment> => {
+}: {release: ReleaseT}): React$Element<React$FragmentType> => {
   const language = release.language;
   const script = release.script;
 
