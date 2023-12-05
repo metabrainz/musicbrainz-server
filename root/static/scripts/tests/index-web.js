@@ -13,6 +13,7 @@ require('./i18n.js');
 require('./i18n/expand2.js');
 require('./relationship-editor.js');
 require('./relationship-editor/dialog.js');
+require('./relationship-editor/utility/compareRelationships.js');
 require('./release-editor/actions.js');
 require('./release-editor/common.js');
 require('./release-editor/dialogs.js');
