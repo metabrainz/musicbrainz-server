@@ -29,6 +29,7 @@ import request from '../common/utility/request.js';
 import {fixedWidthInteger, uniqueId} from '../common/utility/strings.js';
 import mbEdit from '../edit/MB/edit.js';
 import * as dates from '../edit/utility/dates.js';
+import isUselessMediumTitle from '../edit/utility/isUselessMediumTitle.js';
 import * as validation from '../edit/validation.js';
 
 import recordingAssociation from './recordingAssociation.js';
@@ -466,7 +467,7 @@ class Medium {
       this.hasStrangeDigitalPackaging(),
     );
     this.hasUselessMediumTitle = ko.computed(function () {
-      return /^(Cassette|CD|Dis[ck]|DVD|SACD|Vinyl)\s*\d+/i.test(self.name());
+      return isUselessMediumTitle(self.name());
     });
     this.confirmedMediumTitle = ko.observable(this.hasUselessMediumTitle());
     this.needsTrackArtists = ko.computed(function () {
