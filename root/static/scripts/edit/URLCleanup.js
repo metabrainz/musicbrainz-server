@@ -6074,6 +6074,53 @@ const CLEANUPS: CleanupEntries = {
       return url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?vk\.com/, 'https://vk.com');
     },
   },
+  'vkgy': {
+    match: [new RegExp('^(https?://)?(www\\.)?vk\\.gy', 'i')],
+    restrict: [LINK_TYPES.otherdatabases],
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?(?:www\.)?vk\.gy\/(.*)$/, 'https://vk.gy/$1');
+    },
+    validate: function (url, id) {
+      const m = /^https:\/\/vk\.gy\/(\w+)\/((?:[\w-]+\/){0,2}[\w-]+)\/$/.exec(url);
+      if (m) {
+        const type = m[1];
+        const ending = m[2];
+        switch (id) {
+          case LINK_TYPES.otherdatabases.artist:
+            return {
+              result: (
+                (type === 'artists' && /^[\w-]+$/.test(ending)) ||
+                (type === 'musicians' && /^[\d]+\/[\w-]+$/.test(ending))
+              ),
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.otherdatabases.event:
+            return {
+              result: type === 'lives' && /^[\d]+\/[\w-]+$/.test(ending),
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.otherdatabases.label:
+            return {
+              result: type === 'labels' && /^[\w-]+$/.test(ending),
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.otherdatabases.place:
+            return {
+              result: type === 'livehouses' && /^[\w-]+$/.test(ending),
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.otherdatabases.release:
+            return {
+              result: type === 'releases' &&
+                      /^[\w-]+\/[\d]+\/[\w-]+$/.test(ending),
+              target: ERROR_TARGETS.ENTITY,
+            };
+        }
+        return {result: false, target: ERROR_TARGETS.ENTITY};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
   'vndb': {
     match: [new RegExp('^(https?://)?(www\\.)?vndb\\.org/', 'i')],
     restrict: [LINK_TYPES.otherdatabases],
