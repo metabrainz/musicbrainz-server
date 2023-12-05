@@ -13,10 +13,10 @@ import {compare} from '../../static/scripts/common/i18n.js';
 import loopParity from '../../utility/loopParity.js';
 
 const frequencyLabels = {
-  [1]: N_lp('Hidden', 'script frequency'),
-  [2]: N_lp('Other (Uncommon)', 'script frequency'),
-  [3]: N_lp('Other', 'script frequency'),
-  [4]: N_lp('Frequently used', 'script frequency'),
+  [1]: 'Hidden',
+  [2]: 'Other (Uncommon)',
+  [3]: 'Other',
+  [4]: 'Frequently used',
 };
 
 type Props = {
@@ -28,21 +28,21 @@ const Script = ({
   model,
   attributes,
 }: Props): React$Element<typeof Layout> => (
-  <Layout fullWidth title={model || l('Script')}>
+  <Layout fullWidth title={model || 'Script'}>
     <h1>
-      <a href="/admin/attributes">{l('Attributes')}</a>
-      {' / ' + l('Script')}
+      <a href="/admin/attributes">{'Attributes'}</a>
+      {' / Script'}
     </h1>
 
     <table className="tbl">
       <thead>
         <tr>
-          <th>{l('ID')}</th>
-          <th>{l('Name')}</th>
-          <th>{l('ISO code')}</th>
-          <th>{l('ISO number')}</th>
-          <th>{l('Frequency')}</th>
-          <th>{l('Actions')}</th>
+          <th>{'ID'}</th>
+          <th>{'Name'}</th>
+          <th>{'ISO code'}</th>
+          <th>{'ISO number'}</th>
+          <th>{'Frequency'}</th>
+          <th>{'Actions'}</th>
         </tr>
       </thead>
       {attributes
@@ -55,14 +55,14 @@ const Script = ({
             <td>{attr.name}</td>
             <td>{attr.iso_code}</td>
             <td>{attr.iso_number}</td>
-            <td>{frequencyLabels[attr.frequency]()}</td>
+            <td>{frequencyLabels[attr.frequency]}</td>
             <td>
               <a href={`/admin/attributes/${model}/edit/${attr.id}`}>
-                {l('Edit')}
+                {'Edit'}
               </a>
               {' | '}
               <a href={`/admin/attributes/${model}/delete/${attr.id}`}>
-                {l('Remove')}
+                {'Remove'}
               </a>
             </td>
           </tr>
@@ -72,7 +72,7 @@ const Script = ({
     <p>
       <span className="buttons">
         <a href={`/admin/attributes/${model}/create`}>
-          {l('Add new attribute')}
+          {'Add new attribute'}
         </a>
       </span>
     </p>

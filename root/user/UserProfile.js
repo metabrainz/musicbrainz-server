@@ -19,6 +19,7 @@ import Warning from '../static/scripts/common/components/Warning.js';
 import {FLUENCY_NAMES} from '../static/scripts/common/constants.js';
 import * as TYPES from '../static/scripts/common/constants/editTypes.js';
 import {compare} from '../static/scripts/common/i18n.js';
+import {l_admin} from '../static/scripts/common/i18n/admin.js';
 import commaList, {commaListText}
   from '../static/scripts/common/i18n/commaList.js';
 import commaOnlyList, {commaOnlyListText}
@@ -229,7 +230,7 @@ const UserProfileInformation = ({
                           type="submit"
                           value="1"
                         >
-                          {l('find all users of this email')}
+                          {l_admin('find all users of this email')}
                         </button>
                       </form>
                     ) : null}
@@ -425,7 +426,7 @@ const UserProfileInformation = ({
         ) : null}
 
         {isAccountAdmin($c.user) && ipHashes.length ? (
-          <UserProfileProperty name={addColonText(l('IP lookup'))}>
+          <UserProfileProperty name={addColonText(l_admin('IP lookup'))}>
             <ul className="inline">
               {commaOnlyList(ipHashes.map(ipHash => (
                 <a
@@ -905,7 +906,7 @@ const UserProfile = ({
   }
   // We specifically never show "untrusted" to non-admin users
   if (adminViewing && isUntrusted(user)) {
-    restrictions.push(l('Untrusted'));
+    restrictions.push(l_admin('Untrusted'));
   }
 
   return (
@@ -928,8 +929,8 @@ const UserProfile = ({
           {isSpammer(user) && adminViewing ? (
             <Warning
               message={
-                l(`This user is marked as a spammer and is blocked
-                   for all non-admin users.`)
+                l_admin(`This user is marked as a spammer and is blocked
+                         for all non-admin users.`)
               }
             />
           ) : null}
@@ -938,7 +939,7 @@ const UserProfile = ({
           {restrictions.length && adminViewing ? (
             <Warning
               message={
-                texp.l(
+                texp.l_admin(
                   `This user’s editing rights have been restricted.
                    Active restrictions: {restrictions}.`,
                   {

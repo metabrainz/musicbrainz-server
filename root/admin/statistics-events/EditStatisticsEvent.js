@@ -18,7 +18,7 @@ type PropsT = {
 const EditStatisticsEvent = ({
   form,
 }: PropsT): React$Element<typeof Layout> => (
-  <Layout fullWidth title={l('Edit statistics event')}>
+  <Layout fullWidth title="Edit statistics event">
     <StatisticsEventEditForm form={form} />
   </Layout>
 );

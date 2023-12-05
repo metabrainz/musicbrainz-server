@@ -11,6 +11,7 @@ import * as React from 'react';
 
 import RequestLogin from '../../components/RequestLogin.js';
 import {CatalystContext} from '../../context.mjs';
+import {l_admin} from '../../static/scripts/common/i18n/admin.js';
 import {
   isAccountAdmin,
   isAdmin,
@@ -147,35 +148,37 @@ const AdminMenu = ({user}: UserProp) => (
 
       {isWikiTranscluder(user) ? (
         <li>
-          <a href="/admin/wikidoc">{l('Transclude WikiDocs')}</a>
+          <a href="/admin/wikidoc">{l_admin('Transclude WikiDocs')}</a>
         </li>
       ) : null}
 
       {isBannerEditor(user) ? (
         <li>
-          <a href="/admin/banner/edit">{l('Edit Banner Message')}</a>
+          <a href="/admin/banner/edit">{l_admin('Edit Banner Message')}</a>
         </li>
       ) : null}
 
       {isAccountAdmin(user) ? (
         <>
           <li>
-            <a href="/admin/attributes">{l('Edit Attributes')}</a>
+            <a href="/admin/attributes">{l_admin('Edit Attributes')}</a>
           </li>
           <li>
             <a href="/admin/statistics-events">
-              {l('Edit Statistics Events')}
+              {l_admin('Edit Statistics Events')}
             </a>
           </li>
           <li>
-            <a href="/admin/email-search">{l('Email Search')}</a>
+            <a href="/admin/email-search">{l_admin('Email Search')}</a>
           </li>
           <li>
-            <a href="/admin/privilege-search">{l('Privilege Search')}</a>
+            <a href="/admin/privilege-search">
+              {l_admin('Privilege Search')}
+            </a>
           </li>
           <li>
             <a href="/admin/locked-usernames/search">
-              {l('Locked Username Search')}
+              {l_admin('Locked Username Search')}
             </a>
           </li>
         </>

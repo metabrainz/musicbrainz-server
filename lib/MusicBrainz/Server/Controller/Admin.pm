@@ -6,7 +6,6 @@ use Try::Tiny;
 
 BEGIN { extends 'MusicBrainz::Server::Controller' }
 
-use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::Constants qw( :privileges );
 use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
@@ -89,7 +88,7 @@ sub edit_user : Path('/admin/user/edit') Args(1) RequireAuth HiddenOnMirrors Sec
             }
         }
 
-        $c->flash->{message} = l('User successfully edited.');
+        $c->flash->{message} = 'User successfully edited.';
         $c->response->redirect($c->uri_for_action('/user/profile', [$form->field('username')->value]));
         $c->detach;
     } else {
@@ -151,7 +150,7 @@ sub edit_banner : Path('/admin/banner/edit') Args(0) RequireAuth(banner_editor) 
         $store->set($alert_cache_key, $form->values->{message});
         $store->set($alert_mtime_cache_key, time());
 
-        $c->flash->{message} = l('Banner updated. Remember that each server has its own, independent banner.');
+        $c->flash->{message} = 'Banner updated. Remember that each server has its own, independent banner.';
         $c->response->redirect($c->uri_for('/'));
         $c->detach;
     } else {
@@ -187,7 +186,7 @@ sub email_search : Path('/admin/email-search') Args(0) RequireAuth(account_admin
         } catch {
             my $error = $_;
             if ("$error" =~ m/invalid regular expression/) {
-                $form->field('email')->add_error(l('Invalid regular expression.'));
+                $form->field('email')->add_error('Invalid regular expression.');
                 $c->response->status(HTTP_BAD_REQUEST);
             } else {
                 die $error;
@@ -253,7 +252,7 @@ sub locked_username_search : Path('/admin/locked-usernames/search') Args(0) Requ
         } catch {
             my $error = $_;
             if ("$error" =~ m/invalid regular expression/) {
-                $form->field('username')->add_error(l('Invalid regular expression.'));
+                $form->field('username')->add_error('Invalid regular expression.');
                 $c->response->status(HTTP_BAD_REQUEST);
             } else {
                 die $error;

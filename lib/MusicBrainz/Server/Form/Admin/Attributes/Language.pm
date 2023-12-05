@@ -5,7 +5,6 @@ use warnings;
 use HTML::FormHandler::Moose;
 
 use MusicBrainz::Server::Constants qw( :language_frequency );
-use MusicBrainz::Server::Translation qw( lp );
 
 extends 'MusicBrainz::Server::Form';
 with 'MusicBrainz::Server::Form::Role::Edit';
@@ -48,9 +47,9 @@ has_field 'frequency' => (
 
 sub options_frequency {
     return [
-        $LANGUAGE_FREQUENCY_HIDDEN, lp('Hidden', 'language optgroup'),
-        $LANGUAGE_FREQUENCY_OTHER, lp('Other', 'language optgroup'),
-        $LANGUAGE_FREQUENCY_FREQUENT, lp('Frequently used', 'language optgroup'),
+        $LANGUAGE_FREQUENCY_HIDDEN, 'Hidden',
+        $LANGUAGE_FREQUENCY_OTHER, 'Other',
+        $LANGUAGE_FREQUENCY_FREQUENT, 'Frequently used',
     ];
 }
 

@@ -26,13 +26,13 @@ const UserList = ({users}: Props): React$Element<'table'> => {
     <table className="tbl">
       <thead>
         <tr>
-          <th>{l('Editor')}</th>
-          <th>{l('Member since')}</th>
-          <th>{l('Website')}</th>
-          <th>{l('Email')}</th>
-          <th>{l('Verified on')}</th>
-          <th>{l('Last login')}</th>
-          <th>{l('Bio')}</th>
+          <th>{'Editor'}</th>
+          <th>{'Member since'}</th>
+          <th>{'Website'}</th>
+          <th>{'Email'}</th>
+          <th>{'Verified on'}</th>
+          <th>{'Last login'}</th>
+          <th>{'Bio'}</th>
         </tr>
       </thead>
       <tbody>
@@ -49,7 +49,7 @@ const UserList = ({users}: Props): React$Element<'table'> => {
                         '/admin/user/delete/' + encodeURIComponent(user.name)
                       }
                     >
-                      {l('delete')}
+                      {'delete'}
                     </a>,
                   )}
                 </>

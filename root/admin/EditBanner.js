@@ -8,6 +8,7 @@
  */
 
 import Layout from '../layout/index.js';
+import {l_admin} from '../static/scripts/common/i18n/admin.js';
 import FormCsrfToken
   from '../static/scripts/edit/components/FormCsrfToken.js';
 import FormRowTextArea
@@ -22,21 +23,21 @@ type Props = {
 };
 
 const EditBanner = ({form}: Props): React$Element<typeof Layout> => (
-  <Layout fullWidth title={l('Edit Banner Message')}>
+  <Layout fullWidth title="Edit Banner Message">
     <div id="content">
-      <h1>{l('Edit banner message')}</h1>
+      <h1>{'Edit banner message'}</h1>
       <p>
-        {l(`This will set the banner message that is shown at the top
-            of each page. An empty string removes the banner.`)}
+        {l_admin(`This will set the banner message that is shown at the top
+                  of each page. An empty string removes the banner.`)}
       </p>
       <form action="/admin/banner/edit" method="post">
         <FormCsrfToken form={form} />
         <FormRowTextArea
           field={form.field.message}
-          label={addColonText(l('Banner message'))}
+          label="Banner message:"
         />
         <div className="row no-label">
-          <FormSubmit label={l('Update')} />
+          <FormSubmit label="Update" />
         </div>
       </form>
     </div>

@@ -5,21 +5,24 @@ MSGWRAP:=79
 
 GIT_LS_PERL:=git ls-files -- \
 	':(top,glob)lib/**/*.pm' \
-	':(top,glob)lib/**/*.pl' \
+	':(top,glob,exclude)lib/**/*Admin*.pm' \
+	':(top,glob,exclude)lib/**/*Admin*/**/*.pm' \
 	| $(SED_ESCAPE_SPACES)
 
 GIT_LS_JS:=git ls-files -- \
-    ':(top,glob)root/**/*.js' \
-    ':(top,glob,exclude)root/static/scripts/tests/**/*.js' \
-    ':(top,glob,exclude)root/static/build/**/*.js' \
-    ':(top,glob,exclude)root/static/lib/**/*.js' \
-    ':(top,glob,exclude)root/statistics/**/*.js' \
-    | $(SED_ESCAPE_SPACES)
+	':(top,glob)root/**/*.js' \
+	':(top,glob,exclude)root/admin/**/*.js' \
+	':(top,glob,exclude)root/static/scripts/tests/**/*.js' \
+	':(top,glob,exclude)root/static/build/**/*.js' \
+	':(top,glob,exclude)root/static/lib/**/*.js' \
+	':(top,glob,exclude)root/statistics/**/*.js' \
+	| $(SED_ESCAPE_SPACES)
 
 GIT_LS_TT:=git ls-files -- \
-    ':(top,glob)root/**/*.tt' \
-    ':(top,glob,exclude)root/statistics/**/*.tt' \
-    | $(SED_ESCAPE_SPACES)
+	':(top,glob)root/**/*.tt' \
+	':(top,glob,exclude)root/admin/**/*.tt' \
+	':(top,glob,exclude)root/statistics/**/*.tt' \
+	| $(SED_ESCAPE_SPACES)
 
 GIT_LS_STATTT:=git ls-files -- \
 	':(top,glob)root/statistics/**/*.tt' \
@@ -139,3 +142,8 @@ check_quiet:
 	@for file in $(POFILES); do \
 		msgfmt -o /dev/null -c $$file;\
 	done
+
+test_source:
+	@../t/no_gettext_for_admin.sh
+
+.PHONY: all all_quiet check check_quiet clean pot test_source
