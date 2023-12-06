@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import DBDefs from '../../static/scripts/common/DBDefs.mjs';
 import FormRowRadio
   from '../../static/scripts/edit/components/FormRowRadio.js';
@@ -69,7 +67,7 @@ const methodOptions = [
 
 const SearchForm = ({
   form,
-}: Props): React$Element<typeof React.Fragment> => (
+}: Props): React$Element<React$FragmentType> => (
   <>
     <div className="searchform">
       <form action="/search" method="get">

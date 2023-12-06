@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import EntityLink
   from '../../../static/scripts/common/components/EntityLink.js';
 import RatingStars
@@ -22,7 +20,7 @@ type Props = {
 const SidebarRating = ({
   entity,
   heading,
-}: Props): React$Element<typeof React.Fragment> => (
+}: Props): React$Element<React$FragmentType> => (
   <>
     <h2 className="rating">{nonEmpty(heading) ? heading : l('Rating')}</h2>
     <p>

@@ -37,7 +37,7 @@ const ChangePasswordPageContent = ({
   form,
   isMandatory = false,
   userExists = false,
-}: Props): React$Element<typeof React.Fragment> => (
+}: Props): React$Element<React$FragmentType> => (
   <>
     {isMandatory ? (
       <p>

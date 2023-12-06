@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import Cardinality
   from '../../static/scripts/common/components/Cardinality.js';
 import EntityLink from '../../static/scripts/common/components/EntityLink.js';
@@ -23,7 +21,7 @@ type Props = {
 
 const AddRelationshipType = ({
   edit,
-}: Props): React$Element<typeof React.Fragment> => {
+}: Props): React$Element<React$FragmentType> => {
   const display = edit.display_data;
   const entity0Type = ENTITY_NAMES[display.entity0_type]();
   const entity1Type = ENTITY_NAMES[display.entity1_type]();

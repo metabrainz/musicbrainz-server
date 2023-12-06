@@ -76,7 +76,7 @@ const FooterSwitch = ({
   hasVariousArtistsExtra,
   includingAllStatuses,
   showingVariousArtistsOnly,
-}: FooterSwitchProps): React$Element<'p' | typeof React.Fragment> => {
+}: FooterSwitchProps): React$Element<'p' | React$FragmentType> => {
   const artistLink = entityHref(artist);
 
   function buildLinks(

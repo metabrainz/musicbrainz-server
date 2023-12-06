@@ -25,7 +25,7 @@ type Props = {
 const CollectionHeader = ({
   collection,
   page,
-}: Props): React$Element<typeof React.Fragment> => {
+}: Props): React$Element<React$FragmentType> => {
   const $c = React.useContext(SanitizedCatalystContext);
   const owner = collection.editor;
   const viewingOwnCollection = Boolean(

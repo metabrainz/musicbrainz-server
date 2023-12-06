@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import {
   EDIT_STATUS_OPEN,
 } from '../../constants.js';
@@ -21,7 +19,7 @@ type Props = {
   +edit: EditUrlEditT,
 };
 
-const EditUrl = ({edit}: Props): React$Element<typeof React.Fragment> => {
+const EditUrl = ({edit}: Props): React$Element<React$FragmentType> => {
   const display = edit.display_data;
   const description = display.description;
   const uri = display.uri;

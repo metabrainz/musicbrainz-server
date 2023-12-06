@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 type SidebarPropertyProps = {
   +children: React$Node,
   +className: string,
@@ -19,7 +17,7 @@ export const SidebarProperty = ({
   children,
   className,
   label,
-}: SidebarPropertyProps): React$Element<typeof React.Fragment> => (
+}: SidebarPropertyProps): React$Element<React$FragmentType> => (
   <>
     <dt>{label}</dt>
     <dd className={className}>

@@ -24,7 +24,7 @@ const EditLinks = ({
   children,
   entity,
   requiresPrivileges = false,
-}: Props): React$Element<typeof React.Fragment> => {
+}: Props): React$Element<React$FragmentType> => {
   const $c = React.useContext(CatalystContext);
   return (
     <>

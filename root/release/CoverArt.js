@@ -25,7 +25,7 @@ type Props = {
 
 const CoverArtLinks = ({
   artwork,
-}: {artwork: ArtworkT}): React$Element<typeof React.Fragment> => (
+}: {artwork: ArtworkT}): React$Element<React$FragmentType> => (
   <>
     {artwork.small_thumbnail ? (
       <>

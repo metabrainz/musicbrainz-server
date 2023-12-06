@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import openEditsForEntityIconUrl
   from '../../../images/icons/open_edits_for_entity.svg';
 import entityHref from '../../common/utility/entityHref.js';
@@ -21,7 +19,7 @@ type PropsT = {
 
 const EntityPendingEditsWarning = ({
   entity,
-}: PropsT): React$Element<typeof React.Fragment> | null => {
+}: PropsT): React$Element<React$FragmentType> | null => {
   const hasPendingEdits = Boolean(entity.editsPending);
   const openEditsLink = entityHref(entity, '/open_edits');
 

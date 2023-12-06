@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import EntityLink from '../static/scripts/common/components/EntityLink.js';
 
 import typeof EntityTabLink from './EntityTabLink.js';
@@ -33,7 +31,7 @@ const EntityHeader = ({
   page,
   preHeader,
   subHeading,
-}: Props): React$Element<typeof React.Fragment> => (
+}: Props): React$Element<React$FragmentType> => (
   <>
     <div className={'wrap-anywhere ' + headerClass}>
       {nonEmpty(preHeader) ? preHeader : null}
