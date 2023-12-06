@@ -30,12 +30,12 @@ use MusicBrainz::Server::Constants qw( :vote );
 
 extends 'MusicBrainz::Server::Data::Entity';
 
-with 'MusicBrainz::Server::Data::Role::Area';
-with 'MusicBrainz::Server::Data::Role::Subscription' => {
-    table => 'editor_subscribe_editor',
-    column => 'subscribed_editor',
-    active_class => 'MusicBrainz::Server::Entity::EditorSubscription',
-};
+with 'MusicBrainz::Server::Data::Role::Area',
+     'MusicBrainz::Server::Data::Role::Subscription' => {
+        table => 'editor_subscribe_editor',
+        column => 'subscribed_editor',
+        active_class => 'MusicBrainz::Server::Entity::EditorSubscription',
+     };
 
 sub _table
 {

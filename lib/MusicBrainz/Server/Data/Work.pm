@@ -16,25 +16,25 @@ use MusicBrainz::Server::Entity::WorkAttribute;
 use MusicBrainz::Server::Entity::WorkAttributeType;
 
 extends 'MusicBrainz::Server::Data::Entity';
-with 'MusicBrainz::Server::Data::Role::Relatable';
-with 'MusicBrainz::Server::Data::Role::Name';
-with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'work' };
-with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'work' };
-with 'MusicBrainz::Server::Data::Role::GIDEntityCache';
-with 'MusicBrainz::Server::Data::Role::DeleteAndLog' => { type => 'work' };
-with 'MusicBrainz::Server::Data::Role::Rating' => { type => 'work' };
-with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'work' };
-with 'MusicBrainz::Server::Data::Role::PendingEdits' => { table => 'work' };
-with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'work' };
-with 'MusicBrainz::Server::Data::Role::Merge';
-with 'MusicBrainz::Server::Data::Role::Collection';
-with 'MusicBrainz::Server::Data::Role::ValueSet' => {
-    entity_type         => 'work',
-    plural_value_type   => 'languages',
-    value_attribute     => 'language_id',
-    value_class         => 'WorkLanguage',
-    value_type          => 'language',
-};
+with 'MusicBrainz::Server::Data::Role::Relatable',
+     'MusicBrainz::Server::Data::Role::Name',
+     'MusicBrainz::Server::Data::Role::Annotation' => { type => 'work' },
+     'MusicBrainz::Server::Data::Role::Alias' => { type => 'work' },
+     'MusicBrainz::Server::Data::Role::GIDEntityCache',
+     'MusicBrainz::Server::Data::Role::DeleteAndLog' => { type => 'work' },
+     'MusicBrainz::Server::Data::Role::Rating' => { type => 'work' },
+     'MusicBrainz::Server::Data::Role::Tag' => { type => 'work' },
+     'MusicBrainz::Server::Data::Role::PendingEdits' => { table => 'work' },
+     'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'work' },
+     'MusicBrainz::Server::Data::Role::Merge',
+     'MusicBrainz::Server::Data::Role::Collection',
+     'MusicBrainz::Server::Data::Role::ValueSet' => {
+        entity_type         => 'work',
+        plural_value_type   => 'languages',
+        value_attribute     => 'language_id',
+        value_class         => 'WorkLanguage',
+        value_type          => 'language',
+     };
 
 sub _type { 'work' }
 

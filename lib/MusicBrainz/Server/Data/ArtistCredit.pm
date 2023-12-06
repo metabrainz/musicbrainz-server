@@ -12,11 +12,11 @@ use MusicBrainz::Server::Data::Utils qw( placeholders load_subobjects type_to_mo
 use MusicBrainz::Server::Constants qw( entities_with );
 
 extends 'MusicBrainz::Server::Data::Entity';
-with 'MusicBrainz::Server::Data::Role::EntityCache';
-with 'MusicBrainz::Server::Data::Role::PendingEdits' => {
-    table => 'artist_credit',
-};
-with 'MusicBrainz::Server::Data::Role::GetByGID';
+with 'MusicBrainz::Server::Data::Role::EntityCache',
+     'MusicBrainz::Server::Data::Role::PendingEdits' => {
+        table => 'artist_credit',
+     },
+     'MusicBrainz::Server::Data::Role::GetByGID';
 
 sub _type { 'artist_credit' }
 

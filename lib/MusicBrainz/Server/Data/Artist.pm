@@ -25,27 +25,26 @@ use MusicBrainz::Server::Data::Utils::Uniqueness qw( assert_uniqueness_conserved
 use Scalar::Util qw( looks_like_number );
 
 extends 'MusicBrainz::Server::Data::Entity';
-with 'MusicBrainz::Server::Data::Role::Relatable';
-with 'MusicBrainz::Server::Data::Role::Name';
-with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'artist' };
-with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'artist' };
-with 'MusicBrainz::Server::Data::Role::Area';
-with 'MusicBrainz::Server::Data::Role::DeleteAndLog' => { type => 'artist' };
-with 'MusicBrainz::Server::Data::Role::IPI' => { type => 'artist' };
-with 'MusicBrainz::Server::Data::Role::ISNI' => { type => 'artist' };
-with 'MusicBrainz::Server::Data::Role::GIDEntityCache';
-with 'MusicBrainz::Server::Data::Role::PendingEdits' => { table => 'artist' };
-with 'MusicBrainz::Server::Data::Role::Rating' => { type => 'artist' };
-with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'artist' };
-with 'MusicBrainz::Server::Data::Role::Subscription' => {
-    table => 'editor_subscribe_artist',
-    column => 'artist',
-    active_class => 'MusicBrainz::Server::Entity::Subscription::Artist',
-    deleted_class => 'MusicBrainz::Server::Entity::Subscription::DeletedArtist',
-};
-with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'artist' };
-with 'MusicBrainz::Server::Data::Role::Area';
-with 'MusicBrainz::Server::Data::Role::Collection';
+with 'MusicBrainz::Server::Data::Role::Relatable',
+     'MusicBrainz::Server::Data::Role::Name',
+     'MusicBrainz::Server::Data::Role::Annotation' => { type => 'artist' },
+     'MusicBrainz::Server::Data::Role::Alias' => { type => 'artist' },
+     'MusicBrainz::Server::Data::Role::Area',
+     'MusicBrainz::Server::Data::Role::DeleteAndLog' => { type => 'artist' },
+     'MusicBrainz::Server::Data::Role::IPI' => { type => 'artist' },
+     'MusicBrainz::Server::Data::Role::ISNI' => { type => 'artist' },
+     'MusicBrainz::Server::Data::Role::GIDEntityCache',
+     'MusicBrainz::Server::Data::Role::PendingEdits' => { table => 'artist' },
+     'MusicBrainz::Server::Data::Role::Rating' => { type => 'artist' },
+     'MusicBrainz::Server::Data::Role::Tag' => { type => 'artist' },
+     'MusicBrainz::Server::Data::Role::Subscription' => {
+        table => 'editor_subscribe_artist',
+        column => 'artist',
+        active_class => 'MusicBrainz::Server::Entity::Subscription::Artist',
+        deleted_class => 'MusicBrainz::Server::Entity::Subscription::DeletedArtist',
+     },
+     'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'artist' },
+     'MusicBrainz::Server::Data::Role::Collection';
 
 sub _type { 'artist' }
 

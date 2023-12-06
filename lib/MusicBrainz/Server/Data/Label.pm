@@ -20,28 +20,28 @@ use MusicBrainz::Server::Data::Utils::Cleanup qw( used_in_relationship );
 use MusicBrainz::Server::Data::Utils::Uniqueness qw( assert_uniqueness_conserved );
 
 extends 'MusicBrainz::Server::Data::Entity';
-with 'MusicBrainz::Server::Data::Role::Relatable';
-with 'MusicBrainz::Server::Data::Role::Name';
-with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'label' };
-with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'label' };
-with 'MusicBrainz::Server::Data::Role::Area';
-with 'MusicBrainz::Server::Data::Role::DeleteAndLog' => { type => 'label' };
-with 'MusicBrainz::Server::Data::Role::IPI' => { type => 'label' };
-with 'MusicBrainz::Server::Data::Role::ISNI' => { type => 'label' };
-with 'MusicBrainz::Server::Data::Role::GIDEntityCache';
-with 'MusicBrainz::Server::Data::Role::PendingEdits' => { table => 'label' };
-with 'MusicBrainz::Server::Data::Role::Rating' => { type => 'label' };
-with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'label' };
-with 'MusicBrainz::Server::Data::Role::Subscription' => {
-    table => 'editor_subscribe_label',
-    column => 'label',
-    active_class => 'MusicBrainz::Server::Entity::Subscription::Label',
-    deleted_class => 'MusicBrainz::Server::Entity::Subscription::DeletedLabel',
-};
-with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'label' };
-with 'MusicBrainz::Server::Data::Role::Merge';
-with 'MusicBrainz::Server::Data::Role::Area';
-with 'MusicBrainz::Server::Data::Role::Collection';
+with 'MusicBrainz::Server::Data::Role::Relatable',
+     'MusicBrainz::Server::Data::Role::Name',
+     'MusicBrainz::Server::Data::Role::Annotation' => { type => 'label' },
+     'MusicBrainz::Server::Data::Role::Alias' => { type => 'label' },
+     'MusicBrainz::Server::Data::Role::Area',
+     'MusicBrainz::Server::Data::Role::DeleteAndLog' => { type => 'label' },
+     'MusicBrainz::Server::Data::Role::IPI' => { type => 'label' },
+     'MusicBrainz::Server::Data::Role::ISNI' => { type => 'label' },
+     'MusicBrainz::Server::Data::Role::GIDEntityCache',
+     'MusicBrainz::Server::Data::Role::PendingEdits' => { table => 'label' },
+     'MusicBrainz::Server::Data::Role::Rating' => { type => 'label' },
+     'MusicBrainz::Server::Data::Role::Tag' => { type => 'label' },
+     'MusicBrainz::Server::Data::Role::Subscription' => {
+        table => 'editor_subscribe_label',
+        column => 'label',
+        active_class => 'MusicBrainz::Server::Entity::Subscription::Label',
+        deleted_class => 'MusicBrainz::Server::Entity::Subscription::DeletedLabel',
+     },
+     'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'label' },
+     'MusicBrainz::Server::Data::Role::Merge',
+     'MusicBrainz::Server::Data::Role::Collection';
+
 
 sub _type { 'label' }
 

@@ -14,8 +14,8 @@ use MusicBrainz::Server::Entity::UserGenre;
 use MusicBrainz::Server::Entity::UserTag;
 use Sql;
 
-with 'MusicBrainz::Server::Data::Role::QueryToList';
-with 'MusicBrainz::Server::Data::Role::Sql';
+with 'MusicBrainz::Server::Data::Role::QueryToList',
+     'MusicBrainz::Server::Data::Role::Sql';
 
 has parent => (
     does => 'MusicBrainz::Server::Data::Role::Tag',

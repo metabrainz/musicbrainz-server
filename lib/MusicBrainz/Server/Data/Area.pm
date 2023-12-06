@@ -21,17 +21,17 @@ use MusicBrainz::Server::Data::Utils qw(
 use MusicBrainz::Server::Data::Utils::Cleanup qw( used_in_relationship );
 
 extends 'MusicBrainz::Server::Data::Entity';
-with 'MusicBrainz::Server::Data::Role::Relatable';
-with 'MusicBrainz::Server::Data::Role::Name';
-with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'area' };
-with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'area' };
-with 'MusicBrainz::Server::Data::Role::GIDEntityCache';
-with 'MusicBrainz::Server::Data::Role::DeleteAndLog' => { type => 'area' };
-with 'MusicBrainz::Server::Data::Role::PendingEdits' => { table => 'area' };
-with 'MusicBrainz::Server::Data::Role::Merge';
-with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'area' };
-with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'area' };
-with 'MusicBrainz::Server::Data::Role::Collection';
+with 'MusicBrainz::Server::Data::Role::Relatable',
+     'MusicBrainz::Server::Data::Role::Name',
+     'MusicBrainz::Server::Data::Role::Annotation' => { type => 'area' },
+     'MusicBrainz::Server::Data::Role::Alias' => { type => 'area' },
+     'MusicBrainz::Server::Data::Role::GIDEntityCache',
+     'MusicBrainz::Server::Data::Role::DeleteAndLog' => { type => 'area' },
+     'MusicBrainz::Server::Data::Role::PendingEdits' => { table => 'area' },
+     'MusicBrainz::Server::Data::Role::Merge',
+     'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'area' },
+     'MusicBrainz::Server::Data::Role::Tag' => { type => 'area' },
+     'MusicBrainz::Server::Data::Role::Collection';
 
 Readonly my @CODE_TYPES => qw( iso_3166_1 iso_3166_2 iso_3166_3 );
 

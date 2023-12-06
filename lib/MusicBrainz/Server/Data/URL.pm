@@ -8,11 +8,10 @@ use MusicBrainz::Server::Entity::URL;
 use URI;
 
 extends 'MusicBrainz::Server::Data::Entity';
-with 'MusicBrainz::Server::Data::Role::Relatable';
-with
-    'MusicBrainz::Server::Data::Role::PendingEdits' => { table => 'url' },
-    'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'url' },
-    'MusicBrainz::Server::Data::Role::Merge';
+with 'MusicBrainz::Server::Data::Role::Relatable',
+     'MusicBrainz::Server::Data::Role::PendingEdits' => { table => 'url' },
+     'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'url' },
+     'MusicBrainz::Server::Data::Role::Merge';
 
 sub _type { 'url' }
 

@@ -9,8 +9,8 @@ use URI::Escape qw( uri_escape_utf8 );
 use List::AllUtils qw( first );
 use v5.10.1;
 
-with 'MusicBrainz::Server::Data::Role::Context';
-with 'MusicBrainz::Server::Data::Role::MediaWikiAPI';
+with 'MusicBrainz::Server::Data::Role::Context',
+     'MusicBrainz::Server::Data::Role::MediaWikiAPI';
 
 # We'll assume interlanguage links don't change much
 Readonly my $LANG_CACHE_TIMEOUT => 60 * 60 * 24 * 7; # 1 week

@@ -18,18 +18,24 @@ use MusicBrainz::Server::Entity::Recording;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 
 extends 'MusicBrainz::Server::Data::Entity';
-with 'MusicBrainz::Server::Data::Role::Relatable';
-with 'MusicBrainz::Server::Data::Role::Name';
-with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'recording' };
-with 'MusicBrainz::Server::Data::Role::GIDEntityCache';
-with 'MusicBrainz::Server::Data::Role::DeleteAndLog' => { type => 'recording' };
-with 'MusicBrainz::Server::Data::Role::PendingEdits' => { table => 'recording' };
-with 'MusicBrainz::Server::Data::Role::Rating' => { type => 'recording' };
-with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'recording' };
-with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'recording' };
-with 'MusicBrainz::Server::Data::Role::Merge';
-with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'recording' };
-with 'MusicBrainz::Server::Data::Role::Collection';
+with 'MusicBrainz::Server::Data::Role::Relatable',
+     'MusicBrainz::Server::Data::Role::Name',
+     'MusicBrainz::Server::Data::Role::Annotation' => { type => 'recording' },
+     'MusicBrainz::Server::Data::Role::GIDEntityCache',
+     'MusicBrainz::Server::Data::Role::DeleteAndLog' => {
+        type => 'recording',
+     },
+     'MusicBrainz::Server::Data::Role::PendingEdits' => {
+        table => 'recording',
+     },
+     'MusicBrainz::Server::Data::Role::Rating' => { type => 'recording' },
+     'MusicBrainz::Server::Data::Role::Tag' => { type => 'recording' },
+     'MusicBrainz::Server::Data::Role::LinksToEdit' => {
+        table => 'recording',
+     },
+     'MusicBrainz::Server::Data::Role::Merge',
+     'MusicBrainz::Server::Data::Role::Alias' => { type => 'recording' },
+     'MusicBrainz::Server::Data::Role::Collection';
 
 sub _type { 'recording' }
 

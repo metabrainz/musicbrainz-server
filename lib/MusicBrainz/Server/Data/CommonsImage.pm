@@ -5,8 +5,8 @@ use namespace::autoclean;
 use Readonly;
 use aliased 'MusicBrainz::Server::Entity::CommonsImage';
 
-with 'MusicBrainz::Server::Data::Role::Context';
-with 'MusicBrainz::Server::Data::Role::MediaWikiAPI';
+with 'MusicBrainz::Server::Data::Role::Context',
+     'MusicBrainz::Server::Data::Role::MediaWikiAPI';
 
 Readonly my $COMMONS_CACHE_TIMEOUT => 60 * 60 * 24 * 3; # 3 days
 

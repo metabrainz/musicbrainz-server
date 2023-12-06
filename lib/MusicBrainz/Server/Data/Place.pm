@@ -19,19 +19,19 @@ use MusicBrainz::Server::Data::Utils qw(
 use MusicBrainz::Server::Data::Utils::Cleanup qw( used_in_relationship );
 
 extends 'MusicBrainz::Server::Data::Entity';
-with 'MusicBrainz::Server::Data::Role::Relatable';
-with 'MusicBrainz::Server::Data::Role::Name';
-with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'place' };
-with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'place' };
-with 'MusicBrainz::Server::Data::Role::GIDEntityCache';
-with 'MusicBrainz::Server::Data::Role::DeleteAndLog' => { type => 'place' };
-with 'MusicBrainz::Server::Data::Role::PendingEdits' => { table => 'place' };
-with 'MusicBrainz::Server::Data::Role::Rating' => { type => 'place' };
-with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'place' };
-with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'place' };
-with 'MusicBrainz::Server::Data::Role::Merge';
-with 'MusicBrainz::Server::Data::Role::Area';
-with 'MusicBrainz::Server::Data::Role::Collection';
+with 'MusicBrainz::Server::Data::Role::Relatable',
+     'MusicBrainz::Server::Data::Role::Name',
+     'MusicBrainz::Server::Data::Role::Annotation' => { type => 'place' },
+     'MusicBrainz::Server::Data::Role::Alias' => { type => 'place' },
+     'MusicBrainz::Server::Data::Role::GIDEntityCache',
+     'MusicBrainz::Server::Data::Role::DeleteAndLog' => { type => 'place' },
+     'MusicBrainz::Server::Data::Role::PendingEdits' => { table => 'place' },
+     'MusicBrainz::Server::Data::Role::Rating' => { type => 'place' },
+     'MusicBrainz::Server::Data::Role::Tag' => { type => 'place' },
+     'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'place' },
+     'MusicBrainz::Server::Data::Role::Merge',
+     'MusicBrainz::Server::Data::Role::Area',
+     'MusicBrainz::Server::Data::Role::Collection';
 
 sub _type { 'place' }
 

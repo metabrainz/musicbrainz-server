@@ -32,16 +32,18 @@ use MusicBrainz::Server::Validation qw( encode_entities );
 use aliased 'MusicBrainz::Server::Entity::Artwork';
 
 extends 'MusicBrainz::Server::Data::Entity';
-with 'MusicBrainz::Server::Data::Role::Relatable';
-with 'MusicBrainz::Server::Data::Role::Name';
-with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'release' };
-with 'MusicBrainz::Server::Data::Role::GIDEntityCache';
-with 'MusicBrainz::Server::Data::Role::DeleteAndLog' => { type => 'release' };
-with 'MusicBrainz::Server::Data::Role::PendingEdits' => { table => 'release' };
-with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'release' };
-with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'release' };
-with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'release' };
-with 'MusicBrainz::Server::Data::Role::Collection';
+with 'MusicBrainz::Server::Data::Role::Relatable',
+     'MusicBrainz::Server::Data::Role::Name',
+     'MusicBrainz::Server::Data::Role::Annotation' => { type => 'release' },
+     'MusicBrainz::Server::Data::Role::GIDEntityCache',
+     'MusicBrainz::Server::Data::Role::DeleteAndLog' => { type => 'release' },
+     'MusicBrainz::Server::Data::Role::PendingEdits' => {
+        table => 'release',
+     },
+     'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'release' },
+     'MusicBrainz::Server::Data::Role::Tag' => { type => 'release' },
+     'MusicBrainz::Server::Data::Role::Alias' => { type => 'release' },
+     'MusicBrainz::Server::Data::Role::Collection';
 
 use Readonly;
 Readonly our $MERGE_APPEND => 1;
