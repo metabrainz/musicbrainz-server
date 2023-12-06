@@ -18,9 +18,9 @@ use aliased 'MusicBrainz::Server::Entity::Subscription::Series' => 'SeriesSubscr
 use aliased 'MusicBrainz::Server::Entity::Subscription::Active' => 'ActiveRole';
 use aliased 'MusicBrainz::Server::Entity::Subscription::Deleted' => 'DeleteRole';
 
-with 'MooseX::Runnable';
-with 'MooseX::Getopt';
-with 'MusicBrainz::Script::Role::Context';
+with 'MooseX::Runnable',
+     'MooseX::Getopt',
+     'MusicBrainz::Script::Role::Context';
 
 Readonly our $BATCH_SIZE => 1000;
 

@@ -24,9 +24,9 @@ use Moose;
 use namespace::autoclean;
 use MusicBrainz::Server::Constants qw( %ENTITIES entities_with );
 
-with 'MooseX::Runnable';
-with 'MooseX::Getopt';
-with 'MusicBrainz::Script::Role::Context';
+with 'MooseX::Runnable',
+     'MooseX::Getopt',
+     'MusicBrainz::Script::Role::Context';
 
 has interval => (
     isa => 'Int',
