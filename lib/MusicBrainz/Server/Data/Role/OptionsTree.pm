@@ -13,8 +13,8 @@ role {
     my $p = shift;
     my $order_by = $p->order_by;
 
-    with 'MusicBrainz::Server::Data::Role::Context';
-    with 'MusicBrainz::Server::Data::Role::SelectAll' => {
+    with 'MusicBrainz::Server::Data::Role::Context',
+         'MusicBrainz::Server::Data::Role::SelectAll' => {
             order_by => $order_by,
          };
 

@@ -5,8 +5,8 @@ use namespace::autoclean;
 use aliased 'MusicBrainz::Server::Entity::WorkAttributeTypeAllowedValue';
 
 extends 'MusicBrainz::Server::Data::Entity';
-with 'MusicBrainz::Server::Data::Role::EntityCache';
-with 'MusicBrainz::Server::Data::Role::OptionsTree';
+with 'MusicBrainz::Server::Data::Role::EntityCache',
+     'MusicBrainz::Server::Data::Role::OptionsTree';
 
 sub _type { 'work_attribute_type_allowed_value' }
 

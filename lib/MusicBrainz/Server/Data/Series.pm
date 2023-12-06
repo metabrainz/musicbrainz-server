@@ -19,23 +19,23 @@ use MusicBrainz::Server::Entity::Series;
 use MusicBrainz::Server::Entity::SeriesType;
 
 extends 'MusicBrainz::Server::Data::Entity';
-with 'MusicBrainz::Server::Data::Role::Relatable';
-with 'MusicBrainz::Server::Data::Role::Name';
-with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'series' };
-with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'series' };
-with 'MusicBrainz::Server::Data::Role::GIDEntityCache';
-with 'MusicBrainz::Server::Data::Role::PendingEdits' => { table => 'series' };
-with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'series' };
-with 'MusicBrainz::Server::Data::Role::Merge';
-with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'series' };
-with 'MusicBrainz::Server::Data::Role::DeleteAndLog' => { type => 'series' };
-with 'MusicBrainz::Server::Data::Role::Subscription' => {
-    table => 'editor_subscribe_series',
-    column => 'series',
-    active_class => 'MusicBrainz::Server::Entity::Subscription::Series',
-    deleted_class => 'MusicBrainz::Server::Entity::Subscription::DeletedSeries',
-};
-with 'MusicBrainz::Server::Data::Role::Collection';
+with 'MusicBrainz::Server::Data::Role::Relatable',
+     'MusicBrainz::Server::Data::Role::Name',
+     'MusicBrainz::Server::Data::Role::Annotation' => { type => 'series' },
+     'MusicBrainz::Server::Data::Role::Alias' => { type => 'series' },
+     'MusicBrainz::Server::Data::Role::GIDEntityCache',
+     'MusicBrainz::Server::Data::Role::PendingEdits' => { table => 'series' },
+     'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'series' },
+     'MusicBrainz::Server::Data::Role::Merge',
+     'MusicBrainz::Server::Data::Role::Tag' => { type => 'series' },
+     'MusicBrainz::Server::Data::Role::DeleteAndLog' => { type => 'series' },
+     'MusicBrainz::Server::Data::Role::Subscription' => {
+        table => 'editor_subscribe_series',
+        column => 'series',
+        active_class => 'MusicBrainz::Server::Entity::Subscription::Series',
+        deleted_class => 'MusicBrainz::Server::Entity::Subscription::DeletedSeries',
+     },
+     'MusicBrainz::Server::Data::Role::Collection';
 
 sub _type { 'series' }
 

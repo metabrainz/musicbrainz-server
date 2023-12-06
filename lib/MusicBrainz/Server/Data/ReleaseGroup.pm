@@ -17,18 +17,28 @@ use MusicBrainz::Server::Data::Utils qw(
 use MusicBrainz::Server::Data::Utils::Cleanup qw( used_in_relationship );
 
 extends 'MusicBrainz::Server::Data::Entity';
-with 'MusicBrainz::Server::Data::Role::Relatable';
-with 'MusicBrainz::Server::Data::Role::Name';
-with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'release_group' };
-with 'MusicBrainz::Server::Data::Role::GIDEntityCache';
-with 'MusicBrainz::Server::Data::Role::DeleteAndLog' => { type => 'release_group' };
-with 'MusicBrainz::Server::Data::Role::PendingEdits' => { table => 'release_group' };
-with 'MusicBrainz::Server::Data::Role::Rating' => { type => 'release_group' };
-with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'release_group' };
-with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'release_group' };
-with 'MusicBrainz::Server::Data::Role::Merge';
-with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'release_group' };
-with 'MusicBrainz::Server::Data::Role::Collection';
+with 'MusicBrainz::Server::Data::Role::Relatable',
+     'MusicBrainz::Server::Data::Role::Name',
+     'MusicBrainz::Server::Data::Role::Annotation' => {
+        type => 'release_group',
+     },
+     'MusicBrainz::Server::Data::Role::GIDEntityCache',
+     'MusicBrainz::Server::Data::Role::DeleteAndLog' => {
+        type => 'release_group',
+     },
+     'MusicBrainz::Server::Data::Role::PendingEdits' => {
+        table => 'release_group',
+     },
+     'MusicBrainz::Server::Data::Role::Rating' => {
+        type => 'release_group',
+     },
+     'MusicBrainz::Server::Data::Role::Tag' => { type => 'release_group' },
+     'MusicBrainz::Server::Data::Role::LinksToEdit' => {
+        table => 'release_group',
+     },
+     'MusicBrainz::Server::Data::Role::Merge',
+     'MusicBrainz::Server::Data::Role::Alias' => { type => 'release_group' },
+     'MusicBrainz::Server::Data::Role::Collection';
 
 sub _type { 'release_group' }
 

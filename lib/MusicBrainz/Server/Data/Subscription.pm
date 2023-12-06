@@ -18,9 +18,9 @@ use MusicBrainz::Server::Data::Utils qw(
 );
 use Sql;
 
-with 'MusicBrainz::Server::Data::Role::NewFromRow';
-with 'MusicBrainz::Server::Data::Role::QueryToList';
-with 'MusicBrainz::Server::Data::Role::Sql';
+with 'MusicBrainz::Server::Data::Role::NewFromRow',
+     'MusicBrainz::Server::Data::Role::QueryToList',
+     'MusicBrainz::Server::Data::Role::Sql';
 
 has 'table' => (
     is => 'ro',

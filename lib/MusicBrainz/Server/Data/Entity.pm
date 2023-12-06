@@ -9,9 +9,9 @@ use List::AllUtils qw( part uniq );
 use MusicBrainz::Server::Validation qw( is_guid is_database_row_id );
 use Carp qw( confess );
 
-with 'MusicBrainz::Server::Data::Role::Sql';
-with 'MusicBrainz::Server::Data::Role::NewFromRow';
-with 'MusicBrainz::Server::Data::Role::QueryToList';
+with 'MusicBrainz::Server::Data::Role::Sql',
+     'MusicBrainz::Server::Data::Role::NewFromRow',
+     'MusicBrainz::Server::Data::Role::QueryToList';
 
 sub _columns
 {

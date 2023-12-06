@@ -16,14 +16,13 @@ use MusicBrainz::Server::Data::Utils qw(
 use aliased 'MusicBrainz::Server::Entity::Work';
 
 extends 'MusicBrainz::Server::Data::Entity';
-with 'MusicBrainz::Server::Data::Role::EntityModelClass';
-with 'MusicBrainz::Server::Data::Role::GetByGID';
-with 'MusicBrainz::Server::Data::Role::MainTable';
-with 'MusicBrainz::Server::Data::Role::GID';
-with 'MusicBrainz::Server::Data::Role::GIDRedirect';
-with 'MusicBrainz::Server::Data::Role::Name';
-
-with 'MusicBrainz::Server::Data::Role::PendingEdits' => { table => 'track' };
+with 'MusicBrainz::Server::Data::Role::EntityModelClass',
+     'MusicBrainz::Server::Data::Role::GetByGID',
+     'MusicBrainz::Server::Data::Role::MainTable',
+     'MusicBrainz::Server::Data::Role::GID',
+     'MusicBrainz::Server::Data::Role::GIDRedirect',
+     'MusicBrainz::Server::Data::Role::Name',
+     'MusicBrainz::Server::Data::Role::PendingEdits' => { table => 'track' };
 
 sub _type { 'track' }
 

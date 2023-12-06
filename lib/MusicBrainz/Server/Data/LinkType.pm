@@ -16,9 +16,9 @@ use MusicBrainz::Server::Translation;
 use MusicBrainz::Server::Validation qw( is_positive_integer );
 
 extends 'MusicBrainz::Server::Data::Entity';
-with 'MusicBrainz::Server::Data::Role::GetByGID';
-with 'MusicBrainz::Server::Data::Role::EntityCache';
-with 'MusicBrainz::Server::Data::Role::SelectAll';
+with 'MusicBrainz::Server::Data::Role::GetByGID',
+     'MusicBrainz::Server::Data::Role::EntityCache',
+     'MusicBrainz::Server::Data::Role::SelectAll';
 
 sub _type { 'link_type' }
 

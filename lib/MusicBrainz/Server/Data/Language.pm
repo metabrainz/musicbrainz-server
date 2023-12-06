@@ -7,9 +7,11 @@ use MusicBrainz::Server::Entity::Language;
 use MusicBrainz::Server::Data::Utils qw( load_subobjects );
 
 extends 'MusicBrainz::Server::Data::Entity';
-with 'MusicBrainz::Server::Data::Role::EntityCache';
-with 'MusicBrainz::Server::Data::Role::SelectAll' => { order_by => [ 'name'] };
-with 'MusicBrainz::Server::Data::Role::InsertUpdateDelete';
+with 'MusicBrainz::Server::Data::Role::EntityCache',
+     'MusicBrainz::Server::Data::Role::SelectAll' => {
+        order_by => ['name'],
+     },
+     'MusicBrainz::Server::Data::Role::InsertUpdateDelete';
 
 sub _type { 'language' }
 

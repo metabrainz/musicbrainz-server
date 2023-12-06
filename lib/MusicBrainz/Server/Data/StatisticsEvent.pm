@@ -5,9 +5,9 @@ use namespace::autoclean;
 use MusicBrainz::Server::Entity::StatisticsEvent;
 
 extends 'MusicBrainz::Server::Data::Entity';
-with 'MusicBrainz::Server::Data::Role::EntityCache';
-with 'MusicBrainz::Server::Data::Role::SelectAll';
-with 'MusicBrainz::Server::Data::Role::InsertUpdateDelete';
+with 'MusicBrainz::Server::Data::Role::EntityCache',
+     'MusicBrainz::Server::Data::Role::SelectAll',
+     'MusicBrainz::Server::Data::Role::InsertUpdateDelete';
 
 sub _type { 'statistics_event' }
 

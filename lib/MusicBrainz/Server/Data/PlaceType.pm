@@ -6,9 +6,9 @@ use MusicBrainz::Server::Entity::PlaceType;
 use MusicBrainz::Server::Data::Utils qw( load_subobjects );
 
 extends 'MusicBrainz::Server::Data::Entity';
-with 'MusicBrainz::Server::Data::Role::EntityCache';
-with 'MusicBrainz::Server::Data::Role::OptionsTree';
-with 'MusicBrainz::Server::Data::Role::Attribute';
+with 'MusicBrainz::Server::Data::Role::EntityCache',
+     'MusicBrainz::Server::Data::Role::OptionsTree',
+     'MusicBrainz::Server::Data::Role::Attribute';
 
 sub _type { 'place_type' }
 

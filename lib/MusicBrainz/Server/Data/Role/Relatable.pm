@@ -3,13 +3,11 @@ package MusicBrainz::Server::Data::Role::Relatable;
 use Moose::Role;
 use namespace::autoclean;
 
-with 'MusicBrainz::Server::Data::Role::EntityModelClass';
-with 'MusicBrainz::Server::Data::Role::GetByGID';
-with 'MusicBrainz::Server::Data::Role::MainTable';
-# Follows MainTable as it requires '_main_table';
-with 'MusicBrainz::Server::Data::Role::GID';
-# Follows GetByGID and MainTable as it requires 'get_by_gid' and '_main_table';
-with 'MusicBrainz::Server::Data::Role::GIDRedirect';
+with 'MusicBrainz::Server::Data::Role::EntityModelClass',
+     'MusicBrainz::Server::Data::Role::GetByGID',
+     'MusicBrainz::Server::Data::Role::MainTable',
+     'MusicBrainz::Server::Data::Role::GID',
+     'MusicBrainz::Server::Data::Role::GIDRedirect';
 
 no Moose::Role;
 1;

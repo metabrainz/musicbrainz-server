@@ -15,17 +15,17 @@ use List::AllUtils qw( any uniq uniq_by zip );
 use MusicBrainz::Server::Constants qw( entities_with );
 
 extends 'MusicBrainz::Server::Data::Entity';
-with 'MusicBrainz::Server::Data::Role::EntityModelClass';
-with 'MusicBrainz::Server::Data::Role::GetByGID';
-with 'MusicBrainz::Server::Data::Role::MainTable';
-with 'MusicBrainz::Server::Data::Role::GID';
-with 'MusicBrainz::Server::Data::Role::GIDRedirect';
-with 'MusicBrainz::Server::Data::Role::Name';
-with 'MusicBrainz::Server::Data::Role::Subscription' => {
-    table => 'editor_subscribe_collection',
-    column => 'collection',
-    active_class => 'MusicBrainz::Server::Entity::CollectionSubscription',
-};
+with 'MusicBrainz::Server::Data::Role::EntityModelClass',
+     'MusicBrainz::Server::Data::Role::GetByGID',
+     'MusicBrainz::Server::Data::Role::MainTable',
+     'MusicBrainz::Server::Data::Role::GID',
+     'MusicBrainz::Server::Data::Role::GIDRedirect',
+     'MusicBrainz::Server::Data::Role::Name',
+     'MusicBrainz::Server::Data::Role::Subscription' => {
+        table => 'editor_subscribe_collection',
+        column => 'collection',
+        active_class => 'MusicBrainz::Server::Entity::CollectionSubscription',
+     };
 
 sub _type { 'collection' }
 

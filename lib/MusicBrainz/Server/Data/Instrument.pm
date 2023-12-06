@@ -11,18 +11,26 @@ use MusicBrainz::Server::Data::Utils qw(
 use MusicBrainz::Server::Entity::Instrument;
 
 extends 'MusicBrainz::Server::Data::Entity';
-with 'MusicBrainz::Server::Data::Role::Relatable';
-with 'MusicBrainz::Server::Data::Role::Name';
-with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'instrument' };
-with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'instrument' };
-with 'MusicBrainz::Server::Data::Role::GIDEntityCache';
-with 'MusicBrainz::Server::Data::Role::DeleteAndLog' => { type => 'instrument' };
-with 'MusicBrainz::Server::Data::Role::PendingEdits' => { table => 'instrument' };
-with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'instrument' };
-with 'MusicBrainz::Server::Data::Role::Merge';
-with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'instrument' };
-with 'MusicBrainz::Server::Data::Role::Collection';
-with 'MusicBrainz::Server::Data::Role::SelectAll';
+with 'MusicBrainz::Server::Data::Role::Relatable',
+     'MusicBrainz::Server::Data::Role::Name',
+     'MusicBrainz::Server::Data::Role::Annotation' => {
+        type => 'instrument',
+     },
+     'MusicBrainz::Server::Data::Role::Alias' => { type => 'instrument' },
+     'MusicBrainz::Server::Data::Role::GIDEntityCache',
+     'MusicBrainz::Server::Data::Role::DeleteAndLog' => {
+        type => 'instrument',
+     },
+     'MusicBrainz::Server::Data::Role::PendingEdits' => {
+        table => 'instrument',
+     },
+     'MusicBrainz::Server::Data::Role::LinksToEdit' => {
+        table => 'instrument',
+     },
+     'MusicBrainz::Server::Data::Role::Merge',
+     'MusicBrainz::Server::Data::Role::Tag' => { type => 'instrument' },
+     'MusicBrainz::Server::Data::Role::Collection',
+     'MusicBrainz::Server::Data::Role::SelectAll';
 
 sub _type { 'instrument' }
 
