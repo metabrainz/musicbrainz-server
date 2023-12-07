@@ -15,9 +15,9 @@ use MooseX::Types::Structured qw( Dict Optional );
 use aliased 'MusicBrainz::Server::Entity::Genre';
 
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
-with 'MusicBrainz::Server::Edit::CheckForConflicts';
-with 'MusicBrainz::Server::Edit::Genre';
-with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
+with 'MusicBrainz::Server::Edit::CheckForConflicts',
+     'MusicBrainz::Server::Edit::Genre',
+     'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
 sub edit_name { N_l('Edit genre') }
 sub edit_type { $EDIT_GENRE_EDIT }

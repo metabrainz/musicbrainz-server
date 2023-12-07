@@ -13,9 +13,9 @@ use MooseX::Types::Structured qw( Dict );
 use aliased 'MusicBrainz::Server::Entity::Instrument';
 
 extends 'MusicBrainz::Server::Edit::Generic::Create';
-with 'MusicBrainz::Server::Edit::Role::Preview';
-with 'MusicBrainz::Server::Edit::Instrument';
-with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
+with 'MusicBrainz::Server::Edit::Role::Preview',
+     'MusicBrainz::Server::Edit::Instrument',
+     'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
 sub edit_name { N_l('Add instrument') }
 sub edit_type { $EDIT_INSTRUMENT_CREATE }

@@ -21,11 +21,11 @@ use aliased 'MusicBrainz::Server::Entity::MediumCDTOC';
 use aliased 'MusicBrainz::Server::Entity::Release';
 
 extends 'MusicBrainz::Server::Edit';
-with 'MusicBrainz::Server::Edit::Role::Insert';
-with 'MusicBrainz::Server::Edit::Medium';
-with 'MusicBrainz::Server::Edit::Medium::RelatedEntities';
-with 'MusicBrainz::Server::Edit::Role::Preview';
-with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
+with 'MusicBrainz::Server::Edit::Role::Insert',
+     'MusicBrainz::Server::Edit::Medium',
+     'MusicBrainz::Server::Edit::Medium::RelatedEntities',
+     'MusicBrainz::Server::Edit::Role::Preview',
+     'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
 has '+data' => (
     isa => Dict[

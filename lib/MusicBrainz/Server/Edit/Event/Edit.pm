@@ -29,13 +29,13 @@ use aliased 'MusicBrainz::Server::Entity::Event';
 use aliased 'MusicBrainz::Server::Entity::PartialDate';
 
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
-with 'MusicBrainz::Server::Edit::CheckForConflicts';
-with 'MusicBrainz::Server::Edit::Event';
-with 'MusicBrainz::Server::Edit::Role::AllowAmending' => {
-    create_edit_type => $EDIT_EVENT_CREATE,
-    entity_type => 'event',
-};
-with 'MusicBrainz::Server::Edit::Role::DatePeriod';
+with 'MusicBrainz::Server::Edit::CheckForConflicts',
+     'MusicBrainz::Server::Edit::Event',
+     'MusicBrainz::Server::Edit::Role::AllowAmending' => {
+        create_edit_type => $EDIT_EVENT_CREATE,
+        entity_type => 'event',
+     },
+     'MusicBrainz::Server::Edit::Role::DatePeriod';
 
 sub edit_name { N_l('Edit event') }
 sub edit_type { $EDIT_EVENT_EDIT }

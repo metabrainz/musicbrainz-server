@@ -5,8 +5,8 @@ use MusicBrainz::Server::Constants qw( $EDIT_ARTIST_DELETE );
 use MusicBrainz::Server::Translation qw( N_l );
 
 extends 'MusicBrainz::Server::Edit::Generic::Delete';
-with 'MusicBrainz::Server::Edit::Role::DeleteSubscription';
-with 'MusicBrainz::Server::Edit::Artist';
+with 'MusicBrainz::Server::Edit::Role::DeleteSubscription',
+     'MusicBrainz::Server::Edit::Artist';
 
 sub edit_name { N_l('Remove artist') }
 sub edit_type { $EDIT_ARTIST_DELETE }

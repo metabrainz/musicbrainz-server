@@ -20,8 +20,8 @@ use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Translation qw( N_l );
 
 extends 'MusicBrainz::Server::Edit';
-with 'MusicBrainz::Server::Edit::Artist';
-with 'MusicBrainz::Server::Edit::Role::NeverAutoEdit';
+with 'MusicBrainz::Server::Edit::Artist',
+     'MusicBrainz::Server::Edit::Role::NeverAutoEdit';
 
 sub edit_name { N_l('Edit artist credit') }
 sub edit_kind { 'edit' }

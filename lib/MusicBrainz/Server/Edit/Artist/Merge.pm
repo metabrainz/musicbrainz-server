@@ -10,8 +10,8 @@ use MusicBrainz::Server::Translation qw( N_l );
 use Hash::Merge qw( merge );
 
 extends 'MusicBrainz::Server::Edit::Generic::Merge';
-with 'MusicBrainz::Server::Edit::Role::MergeSubscription';
-with 'MusicBrainz::Server::Edit::Artist';
+with 'MusicBrainz::Server::Edit::Role::MergeSubscription',
+     'MusicBrainz::Server::Edit::Artist';
 
 sub edit_name { N_l('Merge artists') }
 sub edit_type { $EDIT_ARTIST_MERGE }

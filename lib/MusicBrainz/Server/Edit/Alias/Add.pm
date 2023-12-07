@@ -19,10 +19,10 @@ role {
     my $entity_type = model_to_type($model);
     my $entity_id = "${entity_type}_id";
 
-    with 'MusicBrainz::Server::Edit::Alias';
-    with "MusicBrainz::Server::Edit::$model";
-    with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
-    with 'MusicBrainz::Server::Edit::Role::DatePeriod';
+    with 'MusicBrainz::Server::Edit::Alias',
+         "MusicBrainz::Server::Edit::$model",
+         'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit',
+         'MusicBrainz::Server::Edit::Role::DatePeriod';
 
     has data => (
         is => 'rw',

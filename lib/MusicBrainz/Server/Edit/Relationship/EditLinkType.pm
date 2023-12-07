@@ -17,8 +17,8 @@ use Scalar::Util qw( looks_like_number );
 use aliased 'MusicBrainz::Server::Entity::LinkType';
 
 extends 'MusicBrainz::Server::Edit';
-with 'MusicBrainz::Server::Edit::Relationship';
-with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
+with 'MusicBrainz::Server::Edit::Relationship',
+     'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
 sub edit_name { N_l('Edit relationship type') }
 sub edit_kind { 'edit' }

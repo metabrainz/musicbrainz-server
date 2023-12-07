@@ -15,10 +15,10 @@ use MooseX::Types::Structured qw( Dict Optional );
 use aliased 'MusicBrainz::Server::Entity::Area';
 
 extends 'MusicBrainz::Server::Edit::Generic::Create';
-with 'MusicBrainz::Server::Edit::Role::Preview';
-with 'MusicBrainz::Server::Edit::Area';
-with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
-with 'MusicBrainz::Server::Edit::Role::DatePeriod';
+with 'MusicBrainz::Server::Edit::Role::Preview',
+     'MusicBrainz::Server::Edit::Area',
+     'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit',
+     'MusicBrainz::Server::Edit::Role::DatePeriod';
 
 sub edit_name { N_l('Add area') }
 sub edit_type { $EDIT_AREA_CREATE }

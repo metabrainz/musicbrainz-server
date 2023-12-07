@@ -17,9 +17,9 @@ use aliased 'MusicBrainz::Server::Entity::Release';
 use aliased 'MusicBrainz::Server::Entity::Artwork';
 
 extends 'MusicBrainz::Server::Edit::WithDifferences';
-with 'MusicBrainz::Server::Edit::Release';
-with 'MusicBrainz::Server::Edit::Release::RelatedEntities';
-with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
+with 'MusicBrainz::Server::Edit::Release',
+     'MusicBrainz::Server::Edit::Release::RelatedEntities',
+     'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
 sub edit_name { N_l('Reorder cover art') }
 sub edit_kind { 'other' }

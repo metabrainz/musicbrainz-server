@@ -9,9 +9,9 @@ use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array to_json_object );
 use MusicBrainz::Server::Translation qw( N_l );
 
 extends 'MusicBrainz::Server::Edit::Generic::Create';
-with 'MusicBrainz::Server::Edit::Work::RelatedEntities';
-with 'MusicBrainz::Server::Edit::Work';
-with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
+with 'MusicBrainz::Server::Edit::Work::RelatedEntities',
+     'MusicBrainz::Server::Edit::Work',
+     'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
 use aliased 'MusicBrainz::Server::Entity::Work';
 

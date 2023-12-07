@@ -17,11 +17,11 @@ use aliased 'MusicBrainz::Server::Entity::Place';
 use aliased 'MusicBrainz::Server::Entity::Area';
 
 extends 'MusicBrainz::Server::Edit::Generic::Create';
-with 'MusicBrainz::Server::Edit::Role::Preview';
-with 'MusicBrainz::Server::Edit::Place';
-with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
-with 'MusicBrainz::Server::Edit::Role::DatePeriod';
-with 'MusicBrainz::Server::Edit::Role::CheckDuplicates';
+with 'MusicBrainz::Server::Edit::Role::Preview',
+     'MusicBrainz::Server::Edit::Place',
+     'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit',
+     'MusicBrainz::Server::Edit::Role::DatePeriod',
+     'MusicBrainz::Server::Edit::Role::CheckDuplicates';
 
 sub edit_name { N_l('Add place') }
 sub edit_type { $EDIT_PLACE_CREATE }

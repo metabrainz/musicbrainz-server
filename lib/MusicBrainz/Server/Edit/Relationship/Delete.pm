@@ -28,9 +28,9 @@ use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Translation qw( N_l );
 
 extends 'MusicBrainz::Server::Edit';
-with 'MusicBrainz::Server::Edit::Relationship';
-with 'MusicBrainz::Server::Edit::Relationship::RelatedEntities';
-with 'MusicBrainz::Server::Edit::Role::Preview';
+with 'MusicBrainz::Server::Edit::Relationship',
+     'MusicBrainz::Server::Edit::Relationship::RelatedEntities',
+     'MusicBrainz::Server::Edit::Role::Preview';
 
 sub edit_type { $EDIT_RELATIONSHIP_DELETE }
 sub edit_name { N_l('Remove relationship') }

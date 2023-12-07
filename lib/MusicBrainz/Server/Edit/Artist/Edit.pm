@@ -28,16 +28,16 @@ use aliased 'MusicBrainz::Server::Entity::Area';
 use aliased 'MusicBrainz::Server::Entity::PartialDate';
 
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
-with 'MusicBrainz::Server::Edit::Artist';
-with 'MusicBrainz::Server::Edit::CheckForConflicts';
-with 'MusicBrainz::Server::Edit::Role::IPI';
-with 'MusicBrainz::Server::Edit::Role::ISNI';
-with 'MusicBrainz::Server::Edit::Role::DatePeriod';
-with 'MusicBrainz::Server::Edit::Role::CheckDuplicates';
-with 'MusicBrainz::Server::Edit::Role::AllowAmending' => {
-    create_edit_type => $EDIT_ARTIST_CREATE,
-    entity_type => 'artist',
-};
+with 'MusicBrainz::Server::Edit::Artist',
+     'MusicBrainz::Server::Edit::CheckForConflicts',
+     'MusicBrainz::Server::Edit::Role::IPI',
+     'MusicBrainz::Server::Edit::Role::ISNI',
+     'MusicBrainz::Server::Edit::Role::DatePeriod',
+     'MusicBrainz::Server::Edit::Role::CheckDuplicates',
+     'MusicBrainz::Server::Edit::Role::AllowAmending' => {
+        create_edit_type => $EDIT_ARTIST_CREATE,
+        entity_type => 'artist',
+     };
 
 sub edit_name { N_l('Edit artist') }
 sub edit_type { $EDIT_ARTIST_EDIT }

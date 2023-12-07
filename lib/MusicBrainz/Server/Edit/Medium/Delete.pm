@@ -11,10 +11,10 @@ use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array to_json_object );
 use MusicBrainz::Server::Translation qw( N_l );
 
 extends 'MusicBrainz::Server::Edit';
-with 'MusicBrainz::Server::Edit::Role::Preview';
-with 'MusicBrainz::Server::Edit::Medium::RelatedEntities';
-with 'MusicBrainz::Server::Edit::Medium';
-with 'MusicBrainz::Server::Edit::Role::NeverAutoEdit';
+with 'MusicBrainz::Server::Edit::Role::Preview',
+     'MusicBrainz::Server::Edit::Medium::RelatedEntities',
+     'MusicBrainz::Server::Edit::Medium',
+     'MusicBrainz::Server::Edit::Role::NeverAutoEdit';
 
 use aliased 'MusicBrainz::Server::Entity::Release';
 use aliased 'MusicBrainz::Server::Entity::Medium';

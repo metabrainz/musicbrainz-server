@@ -17,13 +17,13 @@ use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array to_json_object );
 use MusicBrainz::Server::Translation qw( N_l );
 
 extends 'MusicBrainz::Server::Edit::Generic::Create';
-with 'MusicBrainz::Server::Edit::Role::Preview';
-with 'MusicBrainz::Server::Edit::Medium::RelatedEntities';
-with 'MusicBrainz::Server::Edit::Medium';
-with 'MusicBrainz::Server::Edit::Role::AllowAmending' => {
-    create_edit_type => $EDIT_RELEASE_CREATE,
-    entity_type => 'release',
-};
+with 'MusicBrainz::Server::Edit::Role::Preview',
+     'MusicBrainz::Server::Edit::Medium::RelatedEntities',
+     'MusicBrainz::Server::Edit::Medium',
+     'MusicBrainz::Server::Edit::Role::AllowAmending' => {
+        create_edit_type => $EDIT_RELEASE_CREATE,
+        entity_type => 'release',
+     };
 
 use aliased 'MusicBrainz::Server::Entity::Release';
 

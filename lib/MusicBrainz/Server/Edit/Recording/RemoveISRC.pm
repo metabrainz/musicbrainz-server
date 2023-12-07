@@ -11,12 +11,12 @@ use aliased 'MusicBrainz::Server::Entity::Recording';
 use aliased 'MusicBrainz::Server::Entity::ISRC';
 
 extends 'MusicBrainz::Server::Edit';
-with 'MusicBrainz::Server::Edit::Recording::RelatedEntities';
-with 'MusicBrainz::Server::Edit::Recording';
-with 'MusicBrainz::Server::Edit::Role::AllowAmending' => {
-    create_edit_type => $EDIT_RECORDING_CREATE,
-    entity_type => 'recording',
-};
+with 'MusicBrainz::Server::Edit::Recording::RelatedEntities',
+     'MusicBrainz::Server::Edit::Recording',
+     'MusicBrainz::Server::Edit::Role::AllowAmending' => {
+        create_edit_type => $EDIT_RECORDING_CREATE,
+        entity_type => 'recording',
+     };
 
 sub edit_name { N_l('Remove ISRC') }
 sub edit_kind { 'remove' }

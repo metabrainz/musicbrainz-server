@@ -19,16 +19,15 @@ use aliased 'MusicBrainz::Server::Entity::LinkAttribute';
 use aliased 'MusicBrainz::Server::Entity::Relationship';
 
 extends 'MusicBrainz::Server::Edit';
+with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit',
+     'MusicBrainz::Server::Edit::Role::Preview',
+     'MusicBrainz::Server::Edit::Relationship',
+     'MusicBrainz::Server::Edit::Relationship::RelatedEntities';
 
 sub edit_name { N_l('Reorder relationships') }
 sub edit_kind { 'other' }
 sub edit_type { $EDIT_RELATIONSHIPS_REORDER }
 sub edit_template { 'ReorderRelationships' }
-
-with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
-with 'MusicBrainz::Server::Edit::Role::Preview';
-with 'MusicBrainz::Server::Edit::Relationship';
-with 'MusicBrainz::Server::Edit::Relationship::RelatedEntities';
 
 subtype 'LinkTypeHash'
     => as Dict[

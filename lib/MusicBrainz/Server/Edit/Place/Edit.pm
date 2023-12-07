@@ -31,14 +31,14 @@ use aliased 'MusicBrainz::Server::Entity::PartialDate';
 use aliased 'MusicBrainz::Server::Entity::Coordinates';
 
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
-with 'MusicBrainz::Server::Edit::CheckForConflicts';
-with 'MusicBrainz::Server::Edit::Place';
-with 'MusicBrainz::Server::Edit::Role::DatePeriod';
-with 'MusicBrainz::Server::Edit::Role::AllowAmending' => {
-    create_edit_type => $EDIT_PLACE_CREATE,
-    entity_type => 'place',
-};
-with 'MusicBrainz::Server::Edit::Role::CheckDuplicates';
+with 'MusicBrainz::Server::Edit::CheckForConflicts',
+     'MusicBrainz::Server::Edit::Place',
+     'MusicBrainz::Server::Edit::Role::DatePeriod',
+     'MusicBrainz::Server::Edit::Role::AllowAmending' => {
+        create_edit_type => $EDIT_PLACE_CREATE,
+        entity_type => 'place',
+     },
+     'MusicBrainz::Server::Edit::Role::CheckDuplicates';
 
 sub edit_name { N_l('Edit place') }
 sub edit_type { $EDIT_PLACE_EDIT }

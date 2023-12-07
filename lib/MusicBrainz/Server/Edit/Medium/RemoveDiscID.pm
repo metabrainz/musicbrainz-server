@@ -13,9 +13,9 @@ sub edit_kind { 'remove' }
 sub edit_template { 'RemoveDiscId' }
 
 extends 'MusicBrainz::Server::Edit';
-with 'MusicBrainz::Server::Edit::Medium::RelatedEntities';
-with 'MusicBrainz::Server::Edit::Medium';
-with 'MusicBrainz::Server::Edit::Role::NeverAutoEdit';
+with 'MusicBrainz::Server::Edit::Medium::RelatedEntities',
+     'MusicBrainz::Server::Edit::Medium',
+     'MusicBrainz::Server::Edit::Role::NeverAutoEdit';
 
 use aliased 'MusicBrainz::Server::Entity::CDTOC';
 use aliased 'MusicBrainz::Server::Entity::Release';

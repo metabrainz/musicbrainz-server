@@ -12,15 +12,17 @@ use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Translation qw( N_l );
 
 extends 'MusicBrainz::Server::Edit::Generic::Create';
-with 'MusicBrainz::Server::Edit::Role::Preview';
-with 'MusicBrainz::Server::Edit::Label';
-with 'MusicBrainz::Server::Edit::Role::SubscribeOnCreation' => {
-    editor_subscription_preference => sub { shift->subscribe_to_created_labels },
-};
-with 'MusicBrainz::Server::Edit::Role::Insert';
-with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
-with 'MusicBrainz::Server::Edit::Role::CheckDuplicates';
-with 'MusicBrainz::Server::Edit::Role::DatePeriod';
+with 'MusicBrainz::Server::Edit::Role::Preview',
+     'MusicBrainz::Server::Edit::Label',
+     'MusicBrainz::Server::Edit::Role::SubscribeOnCreation' => {
+        editor_subscription_preference => sub {
+            shift->subscribe_to_created_labels;
+        },
+     },
+     'MusicBrainz::Server::Edit::Role::Insert',
+     'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit',
+     'MusicBrainz::Server::Edit::Role::CheckDuplicates',
+     'MusicBrainz::Server::Edit::Role::DatePeriod';
 
 use aliased 'MusicBrainz::Server::Entity::Label';
 use aliased 'MusicBrainz::Server::Entity::Area';

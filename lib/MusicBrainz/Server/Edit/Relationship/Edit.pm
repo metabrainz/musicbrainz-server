@@ -31,10 +31,10 @@ use aliased 'MusicBrainz::Server::Entity::Relationship';
 use aliased 'MusicBrainz::Server::Entity::PartialDate';
 
 extends 'MusicBrainz::Server::Edit::WithDifferences';
-with 'MusicBrainz::Server::Edit::Relationship';
-with 'MusicBrainz::Server::Edit::Relationship::RelatedEntities';
-with 'MusicBrainz::Server::Edit::Role::Preview';
-with 'MusicBrainz::Server::Edit::Role::DatePeriod';
+with 'MusicBrainz::Server::Edit::Relationship',
+     'MusicBrainz::Server::Edit::Relationship::RelatedEntities',
+     'MusicBrainz::Server::Edit::Role::Preview',
+     'MusicBrainz::Server::Edit::Role::DatePeriod';
 
 sub edit_type { $EDIT_RELATIONSHIP_EDIT }
 sub edit_name { N_l('Edit relationship') }

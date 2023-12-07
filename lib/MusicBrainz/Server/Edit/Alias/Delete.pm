@@ -8,8 +8,8 @@ use MusicBrainz::Server::Edit::Types qw( Nullable PartialDateHash );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 
 extends 'MusicBrainz::Server::Edit';
-with 'MusicBrainz::Server::Edit::Alias';
-with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
+with 'MusicBrainz::Server::Edit::Alias',
+     'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
 sub _alias_model { die 'Not implemented' }
 

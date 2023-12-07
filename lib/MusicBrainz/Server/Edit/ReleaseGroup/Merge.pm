@@ -6,9 +6,9 @@ use MusicBrainz::Server::Translation qw( N_l );
 
 extends 'MusicBrainz::Server::Edit::Generic::Merge';
 with 'MusicBrainz::Server::Edit::ReleaseGroup::RelatedEntities' => {
-    -excludes => 'release_group_ids',
-};
-with 'MusicBrainz::Server::Edit::ReleaseGroup';
+        -excludes => 'release_group_ids',
+     },
+     'MusicBrainz::Server::Edit::ReleaseGroup';
 
 sub edit_name { N_l('Merge release groups') }
 sub edit_type { $EDIT_RELEASEGROUP_MERGE }
