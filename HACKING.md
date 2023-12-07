@@ -832,13 +832,13 @@ There are two utilities which can help here:
     and not any magic Webpack imports, then you may do so with
     ./bin/sucrase-node (the same as you would with just `node`).
 
- 2. ./webpack/exec.mjs
+ 2. ./webpack/exec
 
     If you'd like to execute any kind of script (ESM or CommonJS) which may
     import modules that make use of magic Webpack imports, then use
-    ./webpack/exec.mjs instead. This tools works by compiling the input
-    script to a temporary file, which is then executed directly and cleaned
-    up once it's finished with.
+    ./webpack/exec instead. This tools works by compiling the input script to
+    a temporary file, which is then executed directly and cleaned up once
+    it's finished with.
 
     ```sh
     $ cat <<EOF > test.js
@@ -846,7 +846,7 @@ There are two utilities which can help here:
       require('./root/static/scripts/common/i18n/commaOnlyList.js').default;
     console.log(commaOnlyList([1, 2, 3]));
     EOF
-    $ ./webpack/exec.mjs test.js
+    $ ./webpack/exec test.js
     ```
 
 Potential issues and fixes
