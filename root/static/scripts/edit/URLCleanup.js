@@ -3249,6 +3249,11 @@ const CLEANUPS: CleanupEntries = {
               result: type === 'artist',
               target: ERROR_TARGETS.ENTITY,
             };
+          case LINK_TYPES.otherdatabases.recording:
+            return {
+              result: type === 'video',
+              target: ERROR_TARGETS.ENTITY,
+            };
           case LINK_TYPES.otherdatabases.release_group:
             return {
               result: type === 'album',
@@ -3977,6 +3982,11 @@ const CLEANUPS: CleanupEntries = {
               result: type === 'artist',
               target: ERROR_TARGETS.ENTITY,
             };
+          case LINK_TYPES.otherdatabases.recording:
+            return {
+              result: type === 'video',
+              target: ERROR_TARGETS.ENTITY,
+            };
           case LINK_TYPES.otherdatabases.release_group:
             return {
               result: type === 'album',
@@ -4666,6 +4676,11 @@ const CLEANUPS: CleanupEntries = {
           case LINK_TYPES.otherdatabases.artist:
             return {
               result: type === 'artist',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.otherdatabases.recording:
+            return {
+              result: type === 'video',
               target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.otherdatabases.release_group:

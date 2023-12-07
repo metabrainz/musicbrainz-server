@@ -3108,6 +3108,12 @@ limited_link_type_combinations: [
             expected_clean_url: 'https://www.jazzmusicarchives.com/album/rita-marcotulli(italy)/summer',
        only_valid_entity_types: ['release_group'],
   },
+  {
+                     input_url: 'https://www.jazzmusicarchives.com/video/gary-wilson/34605',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'otherdatabases',
+       only_valid_entity_types: ['recording'],
+  },
   // JOYSOUND
   {
                      input_url: 'https://www.joysound.com/web/search/artist/5169?startIndex=20#songlist',
@@ -3797,6 +3803,12 @@ limited_link_type_combinations: [
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'https://www.metalmusicarchives.com/album/sunn-o/lxndxn-subcamden-underworld-halloween-2003(live)',
        only_valid_entity_types: ['release_group'],
+  },
+  {
+                     input_url: 'https://www.metalmusicarchives.com/video/humankind/23333',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'otherdatabases',
+       only_valid_entity_types: ['recording'],
   },
   // Migu Music
   {
@@ -4783,6 +4795,12 @@ limited_link_type_combinations: [
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'https://www.progarchives.com/album.asp?id=1823',
        only_valid_entity_types: ['release_group'],
+  },
+  {
+                     input_url: 'https://www.progarchives.com/video.asp?id=7855',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'otherdatabases',
+       only_valid_entity_types: ['recording'],
   },
   {
                      input_url: 'https://www.progarchives.com/Collaborators.asp?id=9702',
