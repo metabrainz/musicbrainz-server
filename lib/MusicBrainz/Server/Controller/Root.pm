@@ -16,7 +16,11 @@ BEGIN { extends 'Catalyst::Controller' }
 use DBDefs;
 use MusicBrainz::Server::Constants qw( $VARTIST_GID $CONTACT_URL );
 use MusicBrainz::Server::ControllerUtils::SSL qw( ensure_ssl );
-use MusicBrainz::Server::Data::Utils qw( boolean_to_json type_to_model );
+use MusicBrainz::Server::Data::Utils qw(
+    boolean_to_json
+    non_empty
+    type_to_model
+);
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 use MusicBrainz::Server::Replication qw( :replication_type );
 use aliased 'MusicBrainz::Server::Translation';
@@ -326,10 +330,25 @@ sub begin : Private
     # For displaying which git branch is active as well as last commit information
     # (only shown on staging servers)
     my %git_info;
+
+    # For redirecting back to the main server from staging server banners
+    my $main_server_url;
+
     if (DBDefs->DB_STAGING_SERVER) {
         $git_info{branch} = DBDefs->GIT_BRANCH;
         $git_info{sha} = DBDefs->GIT_SHA;
         $git_info{msg} = DBDefs->GIT_MSG;
+
+        $main_server_url = $c->req->uri->clone;
+        $main_server_url->port(''); # won't unset it itself when setting host
+        $main_server_url->host_port(
+            non_empty(DBDefs->BETA_REDIRECT_HOSTNAME)
+                ? DBDefs->BETA_REDIRECT_HOSTNAME
+                : 'musicbrainz.org',
+        );
+        if (DBDefs->IS_BETA) {
+            $main_server_url->query_param_append('unset_beta', 1);
+        }
     }
 
     $c->stash(
@@ -347,6 +366,9 @@ sub begin : Private
         new_edit_notes => $new_edit_notes,
         new_edit_notes_mtime => $new_edit_notes_mtime,
         contact_url => $CONTACT_URL,
+        main_server_url => defined $main_server_url
+                               ? $main_server_url->as_string
+                               : undef,
         component_props => {},
     );
 
