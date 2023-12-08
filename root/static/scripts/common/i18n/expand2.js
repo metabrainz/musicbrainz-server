@@ -65,7 +65,7 @@ type State = {
   // Portion of the source string that hasn't been parsed yet.
   remainder: string,
   // The value of % in conditional substitutions, from `args`.
-  replacement: string | React$MixedElement | NO_MATCH,
+  replacement: VarSubstArg | NO_MATCH,
   // Whether expand is currently running. Used to detect nested calls.
   running: boolean,
   // A copy of the source string, used in error messages.
@@ -91,12 +91,21 @@ export function getString(x: mixed): string {
   return '';
 }
 
-export function getVarSubstArg(x: mixed): React$MixedElement | string {
+export function getVarSubstScalarArg(x: Expand2ReactInput):
+  | React$MixedElement
+  | string {
   if (React.isValidElement(x)) {
     // $FlowIgnore[unclear-type] We know this is a valid element
     return ((x: any): React$MixedElement);
   }
   return getString(x);
+}
+
+export function getVarSubstArg(x: Expand2ReactInput): Expand2ReactOutput {
+  if (Array.isArray(x)) {
+    return x.map(getVarSubstScalarArg);
+  }
+  return getVarSubstScalarArg(x);
 }
 
 export function accept(pattern: RegExp): NO_MATCH | string {
@@ -219,7 +228,7 @@ export const parseStringVarSubst: Parser<string | NO_MATCH, mixed> =
 const condSubstStart = /^\{([0-9A-z_]+):/;
 const verticalPipe = /^\|/;
 export const substEnd: RegExp = /^}/;
-export const createCondSubstParser = <T, V>(
+export const createCondSubstParser = <T, V: Expand2ReactInput>(
   thenParser: Parser<T, V>,
   elseParser: Parser<T, V>,
 ): Parser<T | string | NO_MATCH, V> => saveMatch(function (args) {
