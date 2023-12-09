@@ -10,7 +10,6 @@
 import * as React from 'react';
 
 import {
-  detectIfAnchorIsTabbable,
   findFirstTabbableElement,
   handleTabKeyPress,
 } from '../utility/focusManagement.js';
@@ -119,10 +118,6 @@ const Dialog = ({
     if (activeElementRef && eventTarget instanceof HTMLElement) {
       activeElementRef.current = eventTarget;
     }
-    detectIfAnchorIsTabbable(
-      event,
-      tabbableElementRef.current,
-    );
   }, [activeElementRef]);
 
   const handleKeyDown = React.useCallback((

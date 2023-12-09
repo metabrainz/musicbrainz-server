@@ -6381,6 +6381,7 @@ __metadata:
     sliced: "npm:1.0.1"
     stream-browserify: "npm:3.0.0"
     sucrase: "npm:3.23.0"
+    tabbable: "npm:6.2.0"
     tablesorter: "npm:2.31.3"
     tap-difflet: "npm:0.7.2"
     tap-junit: "npm:3.1.0"
@@ -8581,6 +8582,13 @@ __metadata:
   version: 1.0.0
   resolution: "supports-preserve-symlinks-flag@npm:1.0.0"
   checksum: 6c4032340701a9950865f7ae8ef38578d8d7053f5e10518076e6554a9381fa91bd9c6850193695c141f32b21f979c985db07265a758867bac95de05f7d8aeb39
+  languageName: node
+  linkType: hard
+
+"tabbable@npm:6.2.0":
+  version: 6.2.0
+  resolution: "tabbable@npm:6.2.0"
+  checksum: ced8b38f05f2de62cd46836d77c2646c42b8c9713f5bd265daf0e78ff5ac73d3ba48a7ca45f348bafeef29b23da7187c72250742d37627883ef89cbd7fa76898
   languageName: node
   linkType: hard
 

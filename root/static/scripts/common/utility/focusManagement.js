@@ -8,193 +8,17 @@
  */
 
 import {flushSync} from 'react-dom';
-
-function isElementVisible(element: HTMLElement) {
-  let currentElement: ?(Element | HTMLElement) = element;
-  while (currentElement) {
-    const style = currentElement instanceof HTMLElement
-      ? currentElement.style
-      : null;
-    if (style && (
-      style.visibility === 'hidden' ||
-      style.display === 'none'
-    )) {
-      return false;
-    }
-    currentElement = currentElement.parentElement;
-  }
-  return true;
-}
-
-/*
- * The default behavior on Windows/Linux, in most cases, is that the tab
- * key navigates to and focuses on links. Not so on macOS, unless
- * "Use keyboard navigation to move focus between controls" is enabled
- * under System Preferences -> Keyboard.
- */
-let IS_ANCHOR_TABBABLE = true;
-
-export function isElementTabbable(
-  element: HTMLElement,
-  skipAnchors?: ?boolean,
-): boolean {
-  if (!isElementVisible(element)) {
-    return false;
-  }
-  switch (element.nodeName) {
-    case 'A':
-      if (!IS_ANCHOR_TABBABLE || (skipAnchors ?? false)) {
-        return false;
-      }
-      // $FlowIssue[prop-missing]
-      return element.href !== '' || element.tabIndex >= 0;
-    case 'BUTTON':
-    case 'INPUT':
-    case 'SELECT':
-    case 'TEXTAREA':
-      // $FlowIssue[prop-missing]
-      return !element.disabled;
-    default:
-      return element.tabIndex >= 0;
-  }
-}
-
-export function detectIfAnchorIsTabbable(
-  focusEvent: SyntheticKeyboardEvent<HTMLElement>,
-  expectedElement: ?HTMLElement,
-): void {
-  if (expectedElement && expectedElement.nodeName === 'A') {
-    IS_ANCHOR_TABBABLE =
-      (expectedElement === focusEvent.target);
-  }
-}
-
-export function getNextElement(
-  containerElement: HTMLElement,
-  currentElement: Element | null,
-): Element | null {
-  if (!currentElement) {
-    return null;
-  }
-  switch (currentElement.nodeName) {
-    case 'SELECT':
-      break;
-    default: {
-      const children = currentElement.children;
-      if (children.length) {
-        return children[0];
-      }
-    }
-  }
-  let nextElement = currentElement.nextElementSibling;
-  if (nextElement) {
-    return nextElement;
-  }
-  let parent = currentElement.parentElement;
-  while (parent && parent !== containerElement) {
-    nextElement = parent.nextElementSibling;
-    if (nextElement) {
-      break;
-    }
-    parent = parent.parentElement;
-  }
-  return nextElement ?? null;
-}
-
-function findLastElementDepthFirst(
-  element: Element,
-): Element {
-  switch (element.nodeName) {
-    case 'SELECT':
-      return element;
-    default: {
-      let lastElement = element;
-      let children = lastElement.children;
-      while (children.length) {
-        lastElement = children[children.length - 1];
-        children = lastElement.children;
-      }
-      return lastElement;
-    }
-  }
-}
-
-export function getPreviousElement(
-  containerElement: HTMLElement,
-  currentElement: Element | null,
-): Element | null {
-  if (!currentElement) {
-    return null;
-  }
-  const previousElement = currentElement.previousElementSibling;
-  if (previousElement) {
-    return findLastElementDepthFirst(previousElement);
-  }
-  const parentElement = currentElement.parentElement;
-  if (parentElement && parentElement !== containerElement) {
-    return parentElement;
-  }
-  return null;
-}
-
-export function findTabbableElement(
-  containerElement: HTMLElement,
-  startingElement: Element | null,
-  elementGetter: (HTMLElement, Element | null) => Element | null,
-  includeStartingElement?: boolean = false,
-  skipAnchors?: ?boolean,
-): HTMLElement | null {
-  if (startingElement === containerElement) {
-    return null;
-  }
-  /*
-   * We do not respect the tabIndex order here.
-   * Do not make use of tabIndex in any dialog components.
-   */
-  let currentElement = startingElement;
-
-  if (!includeStartingElement) {
-    currentElement = elementGetter(containerElement, currentElement);
-  }
-
-  while (currentElement) {
-    const thisElement = currentElement;
-    if (thisElement instanceof HTMLElement) {
-      if (isElementTabbable(thisElement, skipAnchors)) {
-        return thisElement;
-      }
-    }
-    currentElement = elementGetter(containerElement, thisElement);
-  }
-
-  return null;
-}
+import {tabbable} from 'tabbable';
 
 export function findFirstTabbableElement(
   container: HTMLElement,
   skipAnchors?: ?boolean,
 ): HTMLElement | null {
-  return findTabbableElement(
-    container,
-    container.firstElementChild ?? null,
-    getNextElement,
-    true,
-    skipAnchors,
-  );
-}
-
-export function findLastTabbableElement(
-  container: HTMLElement,
-): HTMLElement | null {
-  const lastElement = container.lastElementChild;
-  return findTabbableElement(
-    container,
-    lastElement
-      ? findLastElementDepthFirst(lastElement)
-      : null,
-    getPreviousElement,
-    true,
-  );
+  const nodes = tabbable(container);
+  if (skipAnchors === true) {
+    return (nodes.find(node => node.nodeName !== 'A')) ?? null;
+  }
+  return nodes.length ? nodes[0] : null;
 }
 
 export function handleTab(
@@ -205,25 +29,45 @@ export function handleTab(
 ): HTMLElement | null {
   if (activeElement && container.contains(activeElement)) {
     const shiftKey = (event?.shiftKey) === true;
-    let tabbableElement = findTabbableElement(
-      container,
-      activeElement,
-      shiftKey ? getPreviousElement : getNextElement,
-    );
-    if (!tabbableElement && trapFocus) {
-      tabbableElement = (
-        shiftKey
-          ? findLastTabbableElement
-          : findFirstTabbableElement
-      )(container);
-      if (tabbableElement) {
-        if (event != null) {
-          event.preventDefault();
-        }
-        tabbableElement.focus();
-      }
+    const tabbableElements = tabbable(container);
+    if (!tabbableElements.length) {
+      return null;
     }
-    return tabbableElement;
+    const activeElementIndex = tabbableElements.indexOf(activeElement);
+    if (activeElementIndex < 0) {
+      return null;
+    }
+    const lastTabbableElementIndex = tabbableElements.length - 1;
+    let nextTabbableElement = null;
+    let focusTrapped = false;
+    if (shiftKey) {
+      if (activeElementIndex === 0) {
+        if (trapFocus) {
+          nextTabbableElement = tabbableElements[lastTabbableElementIndex];
+          focusTrapped = true;
+        }
+      } else {
+        nextTabbableElement = tabbableElements[activeElementIndex - 1];
+      }
+    } else if (activeElementIndex === lastTabbableElementIndex) {
+      if (trapFocus) {
+        nextTabbableElement = tabbableElements[0];
+        focusTrapped = true;
+      }
+    } else {
+      nextTabbableElement = tabbableElements[activeElementIndex + 1];
+    }
+    if (focusTrapped) {
+      if (event != null) {
+        event.preventDefault();
+      }
+      invariant(
+        nextTabbableElement != null,
+        'nextTabbableElement is non-null if the focus was trapped',
+      )
+      nextTabbableElement.focus();
+    }
+    return nextTabbableElement;
   }
   return null;
 }
