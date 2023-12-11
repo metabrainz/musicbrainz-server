@@ -22,7 +22,7 @@
     "@babel/preset-flow": "7.24.1",
     "@babel/register": "7.23.7",
     "@babel/runtime": "7.24.1",
-    "@popperjs/core": "2.5.3",
+    "@floating-ui/react": "0.26.9",
     "@sentry/browser": "5.10.2",
     "@sentry/node": "5.10.2",
     "babel-loader": "9.1.3",

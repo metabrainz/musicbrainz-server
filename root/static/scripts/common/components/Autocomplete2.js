@@ -7,6 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import {useMergeRefs} from '@floating-ui/react';
 import * as Sentry from '@sentry/browser';
 import * as React from 'react';
 
@@ -155,6 +156,7 @@ type InitialStateT<T: EntityItemT> = {
     selectItem: (OptionItemT<T>) => boolean,
   ) => boolean,
   +inputClass?: string,
+  +inputRef?: {-current: HTMLInputElement | null},
   +inputValue?: string,
   +labelStyle?: {...},
   +placeholder?: string,
@@ -321,6 +323,7 @@ const Autocomplete2 = (React.memo(<T: EntityItemT>(
     highlightedIndex,
     id,
     inputChangeHook,
+    inputRef: externalInputRef,
     inputValue,
     isAddEntityDialogOpen = false,
     isOpen,
@@ -334,6 +337,7 @@ const Autocomplete2 = (React.memo(<T: EntityItemT>(
 
   const xhr = React.useRef<XMLHttpRequest | null>(null);
   const inputRef = React.useRef<HTMLInputElement | null>(null);
+  const inputRefCallback = useMergeRefs([inputRef, externalInputRef]);
   const buttonRef = React.useRef<HTMLButtonElement | null>(null);
   const inputTimeout = React.useRef<TimeoutID | null>(null);
   const containerRef = React.useRef<HTMLDivElement | null>(null);
@@ -558,6 +562,7 @@ const Autocomplete2 = (React.memo(<T: EntityItemT>(
         stopRequests();
         if (isOpen) {
           event.preventDefault();
+          event.stopPropagation();
           dispatch(HIDE_MENU);
         }
         break;
@@ -799,7 +804,8 @@ const Autocomplete2 = (React.memo(<T: EntityItemT>(
               ? state.placeholder
               : l('Type to search, or paste an MBID')
           }
-          ref={inputRef}
+          ref={inputRefCallback}
+          type="text"
           value={inputValue}
         />
         <button

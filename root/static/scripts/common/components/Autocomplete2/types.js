@@ -24,6 +24,7 @@ export type StateT<T: EntityItemT> = {
     selectItem: (OptionItemT<T>) => boolean,
   ) => boolean,
   +inputClass?: string,
+  +inputRef?: {-current: HTMLInputElement | null},
   +inputValue: string,
   +isAddEntityDialogOpen?: boolean,
   +isInputFocused: boolean,

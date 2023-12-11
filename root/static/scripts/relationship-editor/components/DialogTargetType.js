@@ -20,7 +20,7 @@ import type {
 
 type PropsT = {
   +dispatch: (DialogActionT) => void,
-  +hasPreselectedTargetType: boolean,
+  +initialFocusRef?: {-current: HTMLElement | null},
   +options: ?TargetTypeOptionsT,
   +source: RelatableEntityT,
   +targetType: RelatableEntityTypeT,
@@ -31,7 +31,7 @@ const DialogTargetType = (React.memo<PropsT>((
 ): React$MixedElement => {
   const {
     dispatch,
-    hasPreselectedTargetType,
+    initialFocusRef,
     options,
     source,
     targetType,
@@ -56,11 +56,9 @@ const DialogTargetType = (React.memo<PropsT>((
           formatEntityTypeName(targetType)
         ) : (
           <select
-            className={
-              'entity-type' +
-              (hasPreselectedTargetType ? '' : ' focus-first')
-            }
+            className="entity-type"
             onChange={handleTargetTypeChange}
+            ref={initialFocusRef}
             value={targetType}
           >
             {options.map((option) => (

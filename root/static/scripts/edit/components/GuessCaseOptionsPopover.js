@@ -34,8 +34,6 @@ const GuessCaseOptionsPopover = (React.memo(({
   toggle,
   upperCaseRoman,
 }: Props): React$Element<typeof ButtonPopover> => {
-  const buttonRef = React.useRef<HTMLButtonElement | null>(null);
-
   const buildChildren = React.useCallback((
     closeAndReturnFocus: () => void,
   ) => (
@@ -78,7 +76,6 @@ const GuessCaseOptionsPopover = (React.memo(({
       buildChildren={buildChildren}
       buttonContent={null}
       buttonProps={buttonProps}
-      buttonRef={buttonRef}
       id="gc-options-dialog"
       isOpen={isOpen}
       toggle={toggle}

@@ -122,11 +122,18 @@ export function getTargetError(
 
 const returnFalse = () => false;
 
-export function createInitialAutocompleteStateForTarget(
-  target: NonUrlRelatableEntityT,
-  relationshipId: number,
+export function createInitialAutocompleteStateForTarget(options: {
   allowedTypes: TargetTypeOptionsT | null,
-): AutocompleteStateT<NonUrlRelatableEntityT> {
+  inputRef?: {-current: HTMLInputElement | null},
+  relationshipId: number,
+  target: NonUrlRelatableEntityT,
+}): AutocompleteStateT<NonUrlRelatableEntityT> {
+  const {
+    allowedTypes,
+    inputRef,
+    relationshipId,
+    target,
+  } = options;
   const selectedEntity = isTargetSelectable(target) ? target : null;
   return createInitialAutocompleteState<NonUrlRelatableEntityT>({
     canChangeType: allowedTypes ? (newType) => (
@@ -136,7 +143,8 @@ export function createInitialAutocompleteStateForTarget(
     entityType: target.entityType,
     id: 'relationship-target-' + String(relationshipId),
     inputChangeHook: selectNewWork,
-    inputClass: 'relationship-target focus-first',
+    inputClass: 'relationship-target',
+    inputRef,
     inputValue: target.name,
     required: true,
     selectedItem: selectedEntity ? {
@@ -148,13 +156,20 @@ export function createInitialAutocompleteStateForTarget(
   });
 }
 
-export function createInitialState(
-  user: ActiveEditorT,
+export function createInitialState(options: {
+  allowedTypes: TargetTypeOptionsT | null,
+  initialFocusRef?: {-current: HTMLElement | null},
+  initialRelationship: RelationshipStateT,
   releaseHasUnloadedTracks: boolean,
   source: RelatableEntityT,
-  initialRelationship: RelationshipStateT,
-  allowedTypes: TargetTypeOptionsT | null,
-): DialogTargetEntityStateT {
+}): DialogTargetEntityStateT {
+  const {
+    allowedTypes,
+    initialFocusRef,
+    initialRelationship,
+    releaseHasUnloadedTracks,
+    source,
+  } = options;
   const backward = isRelationshipBackward(initialRelationship, source);
   const target = backward
     ? initialRelationship.entity0
@@ -162,11 +177,12 @@ export function createInitialState(
 
   let autocomplete = null;
   if (target.entityType !== 'url') {
-    autocomplete = createInitialAutocompleteStateForTarget(
-      target,
-      initialRelationship.id,
+    autocomplete = createInitialAutocompleteStateForTarget({
       allowedTypes,
-    );
+      inputRef: initialFocusRef,
+      relationshipId: initialRelationship.id,
+      target,
+    });
   }
 
   return {

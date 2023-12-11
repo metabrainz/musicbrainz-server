@@ -55,8 +55,6 @@ const BatchAddRelationshipButtonPopover = ({
   releaseHasUnloadedTracks,
   sourceType,
 }: BatchAddRelationshipButtonPopoverPropsT) => {
-  const addButtonRef = React.useRef<HTMLButtonElement | null>(null);
-
   const sourcePlaceholder = createRelatableEntityObject(sourceType, {
     name: entityPlaceholder,
   });
@@ -114,7 +112,6 @@ const BatchAddRelationshipButtonPopover = ({
           buildChildren={buildPopoverContent}
           buttonContent={buttonContent}
           buttonProps={buttonProps}
-          buttonRef={addButtonRef}
           className="relationship-dialog"
           closeOnOutsideClick={false}
           id={popoverId}

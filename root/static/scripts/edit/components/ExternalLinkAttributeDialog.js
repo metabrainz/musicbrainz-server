@@ -140,7 +140,6 @@ const reducer = (state: StateT, action: ActionT): StateT => {
 };
 
 const ExternalLinkAttributeDialog = (props: PropsT): React$MixedElement => {
-  const buttonRef = React.useRef<HTMLButtonElement | null>(null);
   const [open, setOpen] = React.useState(false);
 
   const [state, dispatch] = React.useReducer(
@@ -258,7 +257,6 @@ const ExternalLinkAttributeDialog = (props: PropsT): React$MixedElement => {
         className: 'icon edit-item',
         title: lp('Edit attributes', 'interactive'),
       }}
-      buttonRef={buttonRef}
       id="external-link-attribute-dialog"
       isOpen={open}
       toggle={onToggle}

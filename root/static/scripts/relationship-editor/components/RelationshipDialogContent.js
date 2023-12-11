@@ -111,6 +111,7 @@ export type PropsT = {
   +batchSelectionCount?: number,
   +closeDialog: () => void,
   +hasPreselectedTargetType: boolean,
+  +initialFocusRef: {-current: HTMLElement | null},
   +initialRelationship: RelationshipStateT,
   +releaseHasUnloadedTracks: boolean,
   +source: RelatableEntityT,
@@ -171,6 +172,12 @@ export function createInitialState(props: PropsT): RelationshipDialogStateT {
       ? linkTypeOptions[0].entity
       : null
   ) ?? null;
+  const isTargetTypeInitiallyFocused =
+    props.targetTypeOptions != null && !props.hasPreselectedTargetType;
+  const isLinkTypeInitiallyFocused =
+    !isTargetTypeInitiallyFocused && linkType == null;
+  const isTargetEntityInitiallyFocused =
+    !isTargetTypeInitiallyFocused && !isLinkTypeInitiallyFocused;
 
   return {
     attributes: createDialogAttributesState(
@@ -181,27 +188,30 @@ export function createInitialState(props: PropsT): RelationshipDialogStateT {
     datePeriod: createDialogDatePeriodState(relationship),
     isHelpVisible: false,
     linkOrder: relationship.linkOrder,
-    linkType: createDialogLinkTypeState(
+    linkType: createDialogLinkTypeState({
+      initialFocusRef:
+        isLinkTypeInitiallyFocused ? props.initialFocusRef : undefined,
       linkType,
       source,
       targetType,
       linkTypeOptions,
-      getRelationshipKey(relationship),
-      false,
-    ),
+      id: getRelationshipKey(relationship),
+      disabled: false,
+    }),
     sourceEntity: createDialogSourceEntityState(
       props.releaseHasUnloadedTracks,
       sourceType,
       relationship,
       source,
     ),
-    targetEntity: createDialogTargetEntityState(
-      props.user,
-      props.releaseHasUnloadedTracks,
+    targetEntity: createDialogTargetEntityState({
+      allowedTypes: props.targetTypeOptions,
+      initialFocusRef:
+        isTargetEntityInitiallyFocused ? props.initialFocusRef : undefined,
+      initialRelationship: relationship,
+      releaseHasUnloadedTracks: props.releaseHasUnloadedTracks,
       source,
-      relationship,
-      props.targetTypeOptions,
-    ),
+    }),
   };
 }
 
@@ -414,11 +424,12 @@ export function reducer(
         const newPlaceholderTarget =
           createNonUrlRelatableEntityObject(newTargetType);
 
-        newTargetState.autocomplete = createInitialAutocompleteStateForTarget(
-          newPlaceholderTarget,
-          newTargetState.relationshipId,
-          newTargetState.allowedTypes,
-        );
+        newTargetState.autocomplete =
+          createInitialAutocompleteStateForTarget({
+            allowedTypes: newTargetState.allowedTypes,
+            relationshipId: newTargetState.relationshipId,
+            target: newPlaceholderTarget,
+          });
         newTargetState.target = newPlaceholderTarget;
         newTargetState.error = getTargetError(
           newPlaceholderTarget,
@@ -565,6 +576,7 @@ const RelationshipDialogContent = (React.memo<PropsT>((
     batchSelectionCount,
     closeDialog,
     hasPreselectedTargetType,
+    initialFocusRef,
     initialRelationship,
     sourceDispatch,
     source,
@@ -928,7 +940,11 @@ const RelationshipDialogContent = (React.memo<PropsT>((
           />
           <DialogTargetType
             dispatch={dispatch}
-            hasPreselectedTargetType={hasPreselectedTargetType}
+            initialFocusRef={
+              (targetTypeOptions && !hasPreselectedTargetType)
+                ? initialFocusRef
+                : undefined
+            }
             options={targetTypeOptions}
             source={source}
             targetType={targetEntityState.targetType}

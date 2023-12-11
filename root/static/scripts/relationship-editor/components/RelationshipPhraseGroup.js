@@ -84,8 +84,6 @@ const RelationshipPhraseGroup = (React.memo<PropsT>(({
 
   const [isExpanded, setExpanded] = React.useState(relationshipCount <= 10);
 
-  const addButtonRef = React.useRef<HTMLButtonElement | null>(null);
-
   const canBeOrdered =
     isLinkTypeOrderableByUser(linkTypeId, source, backward);
   const hasOrdering = React.useMemo(() => (
@@ -254,7 +252,6 @@ const RelationshipPhraseGroup = (React.memo<PropsT>(({
           className: 'icon add-item add-another-entity',
           title: addAnotherEntityLabels[targetType](),
         }}
-        buttonRef={addButtonRef}
         className="relationship-dialog"
         closeOnOutsideClick={false}
         id="add-relationship-dialog"

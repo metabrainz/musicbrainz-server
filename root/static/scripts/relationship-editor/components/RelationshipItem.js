@@ -120,8 +120,6 @@ const RelationshipItem = (React.memo<PropsT>(({
     });
   }
 
-  const editButtonRef = React.useRef<HTMLButtonElement | null>(null);
-
   function removeRelationship(): void {
     performReactUpdateAndMaintainFocus(removeButtonId, function () {
       dispatch({
@@ -236,7 +234,6 @@ const RelationshipItem = (React.memo<PropsT>(({
             className: 'icon edit-item',
             id: 'edit-relationship-' + getRelationshipKey(relationship),
           }}
-          buttonRef={editButtonRef}
           className="relationship-dialog"
           closeOnOutsideClick={false}
           id="edit-relationship-dialog"

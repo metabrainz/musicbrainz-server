@@ -62,6 +62,7 @@ export default function useRelationshipDialogContent(
   }>,
 ): (
   closeAndReturnFocus: () => void,
+  initialFocusRef: {current: HTMLElement | null},
 ) => React$MixedElement {
   const {
     batchSelectionCount,
@@ -87,7 +88,7 @@ export default function useRelationshipDialogContent(
     );
   }
 
-  return React.useCallback((closeAndReturnFocus) => {
+  return React.useCallback((closeAndReturnFocus, initialFocusRef) => {
     if (targetTypeOptions != null && !targetTypeOptions.length) {
       /*
        * This string should not be seen by users outside of development
@@ -108,6 +109,7 @@ export default function useRelationshipDialogContent(
         batchSelectionCount={batchSelectionCount}
         closeDialog={closeAndReturnFocus}
         hasPreselectedTargetType={hasPreselectedTargetType}
+        initialFocusRef={initialFocusRef}
         initialRelationship={relationship}
         releaseHasUnloadedTracks={releaseHasUnloadedTracks}
         source={source}
@@ -143,6 +145,7 @@ export function useAddRelationshipDialogContent(
   }>,
 ): (
   closeAndReturnFocus: () => void,
+  initialFocusRef: {current: HTMLElement | null},
 ) => React$MixedElement {
   const {
     backward,
