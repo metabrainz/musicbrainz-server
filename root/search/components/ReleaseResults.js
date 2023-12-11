@@ -118,7 +118,7 @@ export const ReleaseResultsInline = ({
           <th>{l('Barcode')}</th>
           <th>{l('Language')}</th>
           <th>{l('Type')}</th>
-          <th>{lp('Status', 'release status')}</th>
+          <th>{lp('Status', 'release')}</th>
           {$c?.session?.tport == null
             ? null
             : <th>{l('Tagger')}</th>}
