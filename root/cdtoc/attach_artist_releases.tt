@@ -18,7 +18,7 @@
               <th>[% l('Catalog#') %]</th>
               <th>[% l('Barcode') %]</th>
               [%- IF c.try_get_session('tport') -%]
-                <th>[% l('Tagger') %]</th>
+                <th>[% lp('Tagger', 'audio file metadata') %]</th>
               [%- END -%]
             </tr>
           </thead>

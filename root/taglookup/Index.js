@@ -14,9 +14,9 @@ import TagLookupNagSection from './Nag.js';
 import type {TagLookupPropsT} from './types.js';
 
 const TagLookup = (props: TagLookupPropsT): React$Element<typeof Layout> => (
-  <Layout fullWidth title={l('Tag lookup')}>
+  <Layout fullWidth title={lp('Tag lookup', 'audio file metadata')}>
     <div className="content">
-      <h1>{l('Tag lookup')}</h1>
+      <h1>{lp('Tag lookup', 'audio file metadata')}</h1>
       {props.nag ? <TagLookupNagSection /> : null}
       <TagLookupForm form={props.form} />
     </div>

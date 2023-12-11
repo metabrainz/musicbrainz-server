@@ -28,7 +28,7 @@ const stats = {
     'label-types': {label: l('Label types')},
     'other': {label: lp('Other', 'stats category')},
     'place-types': {label: l('Place types')},
-    'ratings-tags': {label: l('Ratings and tags')},
+    'ratings-tags': {label: lp('Ratings and tags', 'folksonomy')},
     'relationships': {hide: true, label: l('Relationships')},
     'release-countries': {label: l('Release countries')},
     'release-group-types': {label: l('Release group types')},
@@ -406,7 +406,7 @@ const stats = {
   'count.editor.valid.active.tags': {
     category: 'edit-information',
     color: '#ff00cc',
-    label: l('Editors who have added tags'),
+    label: lp('Editors who have added tags', 'folksonomy'),
   },
   'count.editor.valid.active.votes': {
     category: 'edit-information',
@@ -786,12 +786,12 @@ const stats = {
   'count.tag': {
     category: 'ratings-tags',
     color: '#ff0000',
-    label: l('Unique tag names'),
+    label: lp('Unique tag names', 'folksonomy'),
   },
   'count.tag.raw': {
     category: 'ratings-tags',
     color: '#ff0000',
-    label: l('Votes for/against tags'),
+    label: lp('Votes for/against tags', 'folksonomy'),
   },
   'count.tag.raw.area': {
     category: 'ratings-tags',

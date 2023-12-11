@@ -179,7 +179,7 @@ const Index = ({
             </td>
           </tr>
           <tr>
-            <th>{l('Tags (raw / aggregated):')}</th>
+            <th>{lp('Tags (raw / aggregated):', 'folksonomy')}</th>
             <td>{fc('tag.raw')}</td>
             <td>{'/'}</td>
             <td>{fc('tag')}</td>
@@ -1155,7 +1155,7 @@ const Index = ({
           <tr>
             <th />
             <th />
-            <th colSpan="2">{l('who use tags:')}</th>
+            <th colSpan="2">{lp('who use tags:', 'folksonomy')}</th>
             <td>{fc('editor.valid.active.tags')}</td>
             <td>{fp('editor.valid.active.tags', 'editor.valid.active')}</td>
           </tr>

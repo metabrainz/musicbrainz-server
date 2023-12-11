@@ -198,7 +198,7 @@ class PreferencesForm extends React.Component<Props, State> {
             />
             <FormRowCheckbox
               field={field.public_tags}
-              label={l('My tags and genres')}
+              label={lp('My tags and genres', 'folksonomy')}
               uncontrolled
             />
             <FormRowCheckbox

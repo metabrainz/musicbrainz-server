@@ -93,7 +93,7 @@ const DataMenu = ({user}: UserProp) => {
           <a href={userLink(userName, '/ratings')}>{l('My ratings')}</a>
         </li>
         <li>
-          <a href={userLink(userName, '/tags')}>{l('My tags')}</a>
+          <a href={userLink(userName, '/tags')}>{lp('My tags', 'folksonomy')}</a>
         </li>
         <li className="separator">
           <a href={userLink(userName, '/edits/open')}>{l('My open edits')}</a>

@@ -39,7 +39,7 @@ const TYPE_OPTION_GROUPS: $ReadOnlyArray<SearchOptionGroupT> = [
   },
   { // derived data
     annotation:    N_l('Annotation'),
-    tag:           N_lp('Tag', 'noun'),
+    tag:           N_lp('Tag', 'noun, folksonomy'),
   },
   {
     cdstub:        N_l('CD stub'),

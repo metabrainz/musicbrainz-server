@@ -35,8 +35,9 @@ const TagIndex = (props: Props): React$Element<typeof TagLayout> => {
         <>
           <h2>{l('Genre')}</h2>
           <p>
-            {exp.l('This tag is associated with the genre {genre}.',
-                   {genre: <EntityLink entity={genre} />})}
+            {exp.lp('This tag is associated with the genre {genre}.',
+                    'folksonomy',
+                    {genre: <EntityLink entity={genre} />})}
           </p>
         </>
       ) : null}

@@ -44,16 +44,16 @@ const TagLayout = ({
     fullWidth
     title={
       nonEmpty(title)
-        ? hyphenateTitle(texp.l('Tag “{tag}”', {tag: tag.name}), title)
-        : texp.l('Tag “{tag}”', {tag: tag.name})
+        ? hyphenateTitle(texp.lp('Tag “{tag}”', 'folksonomy', {tag: tag.name}), title)
+        : texp.lp('Tag “{tag}”', 'folksonomy', {tag: tag.name})
     }
   >
     <div id="content">
       <div className="tagheader">
         <h1>
-          {exp.l('Tag “{tag}”', {tag: <TagLink tag={tag.name} />})}
+          {exp.lp('Tag “{tag}”', 'folksonomy', {tag: <TagLink tag={tag.name} />})}
         </h1>
-        <SubHeader subHeading={l('Tag')} />
+        <SubHeader subHeading={lp('Tag', 'folksonomy')} />
       </div>
       <Tabs>
         {tabLinks.map(link => (

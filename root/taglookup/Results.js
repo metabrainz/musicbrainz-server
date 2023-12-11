@@ -16,9 +16,9 @@ import type {TagLookupResultsPropsT} from './types.js';
 const TagLookupResults = <T>(
   props: TagLookupResultsPropsT<T>,
 ): React$Element<typeof Layout> => (
-  <Layout fullWidth title={l('Tag lookup results')}>
+  <Layout fullWidth title={lp('Tag lookup results', 'audio file metadata')}>
     <div className="content">
-      <h1>{l('Tag lookup results')}</h1>
+      <h1>{lp('Tag lookup results', 'audio file metadata')}</h1>
       {props.nag ? <TagLookupNagSection /> : null}
       {props.children}
       <TagLookupForm form={props.form} />

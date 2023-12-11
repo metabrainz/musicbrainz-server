@@ -48,7 +48,7 @@ const TagList = ({
     return accum;
   }, []) : null;
   if (!links || !links.length) {
-    return isGenreList ? lp('(none)', 'genre') : lp('(none)', 'tag');
+    return isGenreList ? lp('(none)', 'genre') : lp('(none)', 'folksonomy tag');
   }
   return commaOnlyList(links);
 };
@@ -75,7 +75,7 @@ const SidebarTags = ({
             />
           ) : (
             <div id="sidebar-tags">
-              <h2>{l('Tags')}</h2>
+              <h2>{lp('Tags', 'folksonomy')}</h2>
 
               <h3>{l('Genres')}</h3>
               <div className="genre-list">
@@ -88,7 +88,7 @@ const SidebarTags = ({
                 </p>
               </div>
 
-              <h3>{l('Other tags')}</h3>
+              <h3>{lp('Other tags', 'folksonomy')}</h3>
               <div id="sidebar-tag-list">
                 <p>
                   <TagList
@@ -100,7 +100,7 @@ const SidebarTags = ({
 
               <p>
                 <EntityLink
-                  content={l('See all tags')}
+                  content={lp('See all tags', 'folksonomy')}
                   entity={entity}
                   subPath="tags"
                 />

@@ -18,8 +18,8 @@ import loopParity from '../utility/loopParity.js';
 import UserTagFilters from './components/UserTagFilters.js';
 
 const headingsText: {+[vote: string]: () => string} = {
-  down: N_l('Tags {user} downvoted'),
-  up: N_l('Tags {user} upvoted'),
+  down: N_lp('Tags {user} downvoted', 'folksonomy'),
+  up: N_lp('Tags {user} upvoted', 'folksonomy'),
 };
 
 export function getTagListHeading(
@@ -58,7 +58,7 @@ const UserTagList = ({
   tags,
   user,
 }: Props): React$Element<typeof UserAccountLayout> => (
-  <UserAccountLayout entity={user} page="tags" title={l('Tags')}>
+  <UserAccountLayout entity={user} page="tags" title={lp('Tags', 'folksonomy')}>
     <h2>
       {getTagListHeading(user.name, showDownvoted)}
     </h2>
@@ -94,7 +94,7 @@ const UserTagList = ({
             ) : <p>{l('There are no genres to show.')}</p>}
           </div>
 
-          <h3>{l('Other tags')}</h3>
+          <h3>{lp('Other tags', 'folksonomy')}</h3>
 
           <div id="tags">
             {tags.length > 0 ? (
@@ -112,7 +112,7 @@ const UserTagList = ({
                   </li>
                 ))}
               </ul>
-            ) : <p>{l('There are no other tags to show.')}</p>}
+            ) : <p>{lp('There are no other tags to show.', 'folksonomy')}</p>}
           </div>
         </>
       ) : (

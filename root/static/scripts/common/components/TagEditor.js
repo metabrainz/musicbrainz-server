@@ -124,7 +124,7 @@ const UpvoteButton = ({
   currentVote,
 }: GenericVoteButtonPropsT): React$Element<typeof VoteButton> => (
   <VoteButton
-    activeTitle={l('You’ve upvoted this tag')}
+    activeTitle={lp('You’ve upvoted this tag', 'folksonomy')}
     callback={callback}
     currentVote={currentVote}
     text="+"
@@ -138,7 +138,7 @@ const DownvoteButton = ({
   currentVote,
 }: GenericVoteButtonPropsT): React$Element<typeof VoteButton> => (
   <VoteButton
-    activeTitle={l('You’ve downvoted this tag')}
+    activeTitle={lp('You’ve downvoted this tag', 'folksonomy')}
     callback={callback}
     currentVote={currentVote}
     text={'\u2212'}
@@ -549,18 +549,18 @@ export const MainTagEditor = (hydrate<TagEditorProps>(
                 <p>{l('There are no genres to show.')}</p>
               )}
 
-              <h2>{l('Other tags')}</h2>
+              <h2>{lp('Other tags', 'folksonomy')}</h2>
 
               {tagRows.tags.length ? (
                 <ul className="tag-list">
                   {tagRows.tags}
                 </ul>
               ) : (
-                <p>{l('There are no other tags to show.')}</p>
+                <p>{lp('There are no other tags to show.', 'folksonomy')}</p>
               )}
             </>
           ) : (
-            <p>{l('Nobody has tagged this yet.')}</p>
+            <p>{lp('Nobody has tagged this yet.', 'folksonomy')}</p>
           )}
 
           <SanitizedCatalystContext.Consumer>
@@ -570,14 +570,15 @@ export const MainTagEditor = (hydrate<TagEditorProps>(
                   <>
                     {$c.user?.has_confirmed_email_address ? (
                       <p>
-                        {l(
+                        {lp(
                           `Tags with a score of zero or below,
                            and tags that you’ve downvoted are hidden.`,
+                          'folksonomy',
                         )}
                       </p>
                     ) : (
                       <p>
-                        {l('Tags with a score of zero or below are hidden.')}
+                        {lp('Tags with a score of zero or below are hidden.', 'folksonomy')}
                       </p>
                     )}
                     <p>
@@ -585,7 +586,7 @@ export const MainTagEditor = (hydrate<TagEditorProps>(
                         href="#"
                         onClick={(event) => this.showAllTags(event)}
                       >
-                        {l('Show all tags.')}
+                        {lp('Show all tags.', 'folksonomy')}
                       </a>
                     </p>
                   </>
@@ -594,7 +595,7 @@ export const MainTagEditor = (hydrate<TagEditorProps>(
                 {positiveTagsOnly === false ? (
                   <>
                     <p>
-                      {l('All tags are being shown.')}
+                      {lp('All tags are being shown.', 'folksonomy')}
                     </p>
                     {$c.user?.has_confirmed_email_address ? (
                       <p>
@@ -602,9 +603,10 @@ export const MainTagEditor = (hydrate<TagEditorProps>(
                           href="#"
                           onClick={(event) => this.hideNegativeTags(event)}
                         >
-                          {l(
+                          {lp(
                             `Hide tags with a score of zero or below,
                              and tags that you’ve downvoted.`,
+                            'folksonomy',
                           )}
                         </a>
                       </p>
@@ -614,7 +616,7 @@ export const MainTagEditor = (hydrate<TagEditorProps>(
                           href="#"
                           onClick={(event) => this.hideNegativeTags(event)}
                         >
-                          {l('Hide tags with a score of zero or below.')}
+                          {lp('Hide tags with a score of zero or below.', 'folksonomy')}
                         </a>
                       </p>
                     )}
@@ -623,11 +625,12 @@ export const MainTagEditor = (hydrate<TagEditorProps>(
 
                 {$c.user?.has_confirmed_email_address ? (
                   <>
-                    <h2>{l('Add tags')}</h2>
+                    <h2>{lp('Add tags', 'folksonomy')}</h2>
                     <p>
-                      {exp.l(
+                      {exp.lp(
                         `You can add your own {tagdocs|tags} below.
                         Use commas to separate multiple tags.`,
+                        'folksonomy',
                         {tagdocs: '/doc/Folksonomy_Tagging'},
                       )}
                     </p>
@@ -640,7 +643,7 @@ export const MainTagEditor = (hydrate<TagEditorProps>(
                         />
                       </p>
                       <button className="styled-button" type="submit">
-                        {l('Submit tags')}
+                        {lp('Submit tags', 'folksonomy')}
                       </button>
                     </form>
                   </>
@@ -662,7 +665,7 @@ export const SidebarTagEditor = (hydrate<TagEditorProps>(
       const tagRows = this.createTagRows();
       return (
         <>
-          <h2>{l('Tags')}</h2>
+          <h2>{lp('Tags', 'folksonomy')}</h2>
 
           <h3>{l('Genres')}</h3>
           {tagRows.genres.length ? (
@@ -673,20 +676,20 @@ export const SidebarTagEditor = (hydrate<TagEditorProps>(
             <p>{lp('(none)', 'genre')}</p>
           )}
 
-          <h3>{l('Other tags')}</h3>
+          <h3>{lp('Other tags', 'folksonomy')}</h3>
           {tagRows.tags.length ? (
             <ul className="tag-list">
               {tagRows.tags}
             </ul>
           ) : (
-            <p>{lp('(none)', 'tag')}</p>
+            <p>{lp('(none)', 'folksonomy tag')}</p>
           )}
 
           {this.props.more ? (
             <p>
               {bracketed(
                 <a href={getTagsPath(this.props.entity)} key="see-all">
-                  {l('see all tags')}
+                  {lp('see all tags', 'folksonomy')}
                 </a>,
               )}
             </p>
@@ -702,7 +705,7 @@ export const SidebarTagEditor = (hydrate<TagEditorProps>(
                 type="text"
               />
               <button className="styled-button" type="submit">
-                {lp('Tag', 'verb')}
+                {lp('Tag', 'verb, folksonomy')}
               </button>
             </div>
           </form>

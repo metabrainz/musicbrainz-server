@@ -33,10 +33,10 @@ const GenreIndex = ({
     page="index"
     title={l('Genre information')}
   >
-    <h2>{l('Associated tags')}</h2>
+    <h2>{lp('Associated tags', 'folksonomy')}</h2>
     <table className="details">
       <tr>
-        <th>{addColonText(l('Primary tag'))}</th>
+        <th>{addColonText(lp('Primary tag', 'folksonomy'))}</th>
         <td><TagLink showIcon tag={genre.name} /></td>
       </tr>
     </table>

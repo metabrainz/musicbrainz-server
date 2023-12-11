@@ -43,7 +43,7 @@ const typeOptions = {
     {label: N_l('Annotation'), value: 'annotation'},
     {label: N_l('CD stub'), value: 'cdstub'},
     {label: N_l('Editor'), value: 'editor'},
-    {label: N_lp('Tag', 'noun'), value: 'tag'},
+    {label: N_lp('Tag', 'noun, folksonomy'), value: 'tag'},
     {label: N_l('Instrument'), value: 'instrument'},
     {label: N_lp('Series', 'singular'), value: 'series'},
     {label: N_l('Event'), value: 'event'},

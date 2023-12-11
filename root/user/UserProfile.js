@@ -805,19 +805,19 @@ const UserProfileStatistics = ({
           <thead>
             <tr>
               <th colSpan="2">
-                {l('Tags and ratings')}
+                {lp('Tags and ratings', 'folksonomy')}
               </th>
             </tr>
           </thead>
           <tbody>
             {hasPublicTags ? (
               <>
-                <UserProfileProperty name={l('Tags upvoted')}>
+                <UserProfileProperty name={lp('Tags upvoted', 'folksonomy')}>
                   {user.deleted ? (
                     <abbr
-                      title={l('Tags are removed when an editor is deleted.')}
+                      title={lp('Tags are removed when an editor is deleted.', 'folksonomy')}
                     >
-                      {lp('Removed', 'tags')}
+                      {lp('Removed', 'folksonomy tags')}
                     </abbr>
                   ) : $c.user && upvotedTagCount > 0 ? exp.l(
                     '{count} ({view_url|view})',
@@ -828,12 +828,12 @@ const UserProfileStatistics = ({
                   ) : formatCount($c, upvotedTagCount)}
                 </UserProfileProperty>
 
-                <UserProfileProperty name={l('Tags downvoted')}>
+                <UserProfileProperty name={lp('Tags downvoted', 'folksonomy')}>
                   {user.deleted ? (
                     <abbr
-                      title={l('Tags are removed when an editor is deleted.')}
+                      title={lp('Tags are removed when an editor is deleted.', 'folksonomy')}
                     >
-                      {lp('Removed', 'tags')}
+                      {lp('Removed', 'folksonomy tags')}
                     </abbr>
                   ) : $c.user && downvotedTagCount > 0 ? exp.l(
                     '{count} ({view_url|view})',

@@ -121,7 +121,7 @@ export const ReleaseResultsInline = ({
           <th>{lp('Status', 'release')}</th>
           {$c?.session?.tport == null
             ? null
-            : <th>{l('Tagger')}</th>}
+            : <th>{lp('Tagger', 'audio file metadata')}</th>}
         </>
       }
       pager={pager}

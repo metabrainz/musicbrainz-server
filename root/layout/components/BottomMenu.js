@@ -225,7 +225,7 @@ const SearchMenu = () => (
         <a href="/search/edits">{l('Edit search')}</a>
       </li>
       <li>
-        <a href="/tags">{l('Tag cloud')}</a>
+        <a href="/tags">{lp('Tag cloud', 'folksonomy')}</a>
       </li>
       <li>
         <a href="/cdstub/browse">{l('Top CD stubs')}</a>

@@ -46,7 +46,7 @@ sub options_type
         'annotation'    => l('Annotation'),
         'cdstub'        => l('CD stub'),
         'editor'        => l('Editor'),
-        'tag'           => lp('Tag', 'noun'),
+        'tag'           => lp('Tag', 'noun, folksonomy'),
         'instrument'    => l('Instrument'),
         'series'        => lp('Series', 'singular'),
         'event'         => l('Event'),

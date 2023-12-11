@@ -129,7 +129,7 @@ function buildLinks(
   }
 
   if (entityProperties.tags) {
-    links.push(buildLink(l('Tags'), entity, 'tags', page));
+    links.push(buildLink(lp('Tags', 'folksonomy'), entity, 'tags', page));
   }
 
   if (
