@@ -74,7 +74,7 @@
           <tr>
             <td></td>
             <td colspan="2" class="add-item">
-              [% caption = lp('Add work attribute', 'button/menu') %]
+              [% caption = lp('Add work attribute', 'interactive') %]
               <button type="button" id="add-work-attribute" class="with-label add-item" title="[% caption | html %]" data-click="newAttribute">
                 [% caption | html %]
               </button>

@@ -90,7 +90,7 @@ const EditAnnotation = ({
             type="submit"
             value="preview"
           >
-            {lp('Preview', 'button')}
+            {lp('Preview', 'interactive')}
           </button>
         </EnterEdit>
       </form>

@@ -334,7 +334,7 @@ class EditProfileForm extends React.Component<Props, State> {
         </FormRow>
 
         <FormRow hasNoLabel>
-          <FormSubmit label={lp('Save', 'button/menu')} />
+          <FormSubmit label={lp('Save', 'interactive')} />
         </FormRow>
       </form>
     );

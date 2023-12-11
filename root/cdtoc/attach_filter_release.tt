@@ -51,7 +51,7 @@
             </tbody>
           </table>
         [% END %]
-      <p>[% form_submit(lp('Attach CD TOC', 'button/menu')) %]
+      <p>[% form_submit(lp('Attach CD TOC', 'interactive')) %]
       [% attach_list_script() %]
     [%- ELSE -%]
       <div class="row">

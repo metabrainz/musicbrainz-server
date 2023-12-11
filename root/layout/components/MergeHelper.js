@@ -68,7 +68,7 @@ const MergeHelper = ({merger}: Props): React$Element<'div'> => {
               type="submit"
               value="merge"
             >
-              {lp('Merge', 'button/link')}
+              {lp('Merge', 'interactive')}
             </button>
           ) : null}
           <button name="submit" type="submit" value="remove">

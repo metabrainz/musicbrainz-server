@@ -337,7 +337,7 @@ function renderWorkLanguages() {
     workLanguagesRoot.render(
       <FormRowSelectList
         addId="add-language"
-        addLabel={lp('Add language', 'button/menu')}
+        addLabel={lp('Add language', 'interactive')}
         getSelectField={getSelectField}
         hideAddButton={
           selectedLanguageIds.includes(String(LANGUAGE_MUL_ID)) ||
@@ -349,7 +349,7 @@ function renderWorkLanguages() {
         onRemove={removeLanguage}
         options={workLanguageOptions}
         removeClassName="remove-language"
-        removeLabel={lp('Remove language', 'button/menu')}
+        removeLabel={lp('Remove language', 'interactive')}
         repeatable={form.field.languages}
       />,
     );

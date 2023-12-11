@@ -128,7 +128,7 @@ export const RegisterForm = ({
             {coc: '/doc/Code_of_Conduct'},
           )}
         </p>
-        <FormSubmit label={lp('Create account', 'button/menu')} />
+        <FormSubmit label={lp('Create account', 'interactive')} />
       </FormRow>
     </form>
   );

@@ -77,7 +77,7 @@ const ReleaseGroupSidebar = ({
       <EditLinks entity={releaseGroup}>
         <li>
           <a href={`/release/add?release-group=${gid}`}>
-            {lp('Add release', 'button/menu')}
+            {lp('Add release', 'interactive')}
           </a>
         </li>
 
@@ -85,7 +85,7 @@ const ReleaseGroupSidebar = ({
 
         <li>
           <a href={entityHref(releaseGroup, 'set-cover-art')}>
-            {lp('Set cover art', 'button/menu')}
+            {lp('Set cover art', 'interactive')}
           </a>
         </li>
 

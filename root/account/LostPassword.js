@@ -52,7 +52,7 @@ const LostPassword = (props: Props): React$Element<typeof Layout> => (
         uncontrolled
       />
       <FormRow hasNoLabel>
-        <FormSubmit label={lp('Reset password', 'button/menu')} />
+        <FormSubmit label={lp('Reset password', 'interactive')} />
       </FormRow>
     </form>
   </Layout>

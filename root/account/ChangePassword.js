@@ -96,7 +96,7 @@ const ChangePasswordPageContent = ({
         uncontrolled
       />
       <FormRow hasNoLabel>
-        <FormSubmit label={lp('Change password', 'button/menu')} />
+        <FormSubmit label={lp('Change password', 'interactive')} />
       </FormRow>
     </form>
   </>

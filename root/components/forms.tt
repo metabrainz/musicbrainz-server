@@ -251,7 +251,7 @@
       [% React.embed(c, 'static/scripts/edit/components/GuessCaseIcon') %]
     [% END %]
     <div style="float: right; margin: 10px;" class="buttons">
-      <button id="guess-case-button" type="button" data-bind="click: guessCase">[% lp('Guess case', 'button/menu') %]</button>
+      <button id="guess-case-button" type="button" data-bind="click: guessCase">[% lp('Guess case', 'interactive') %]</button>
     </div>
     <p class="guesscase-options">
       <select data-bind="value: modeName">

@@ -37,7 +37,7 @@
         </table>
       [% END %]
       <div style="margin-top: 1em;">
-        [% form_submit(lp('Attach CD TOC', 'button/menu')) %]
+        [% form_submit(lp('Attach CD TOC', 'interactive')) %]
       </div>
       [% attach_list_script() %]
     </form>

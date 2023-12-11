@@ -76,7 +76,7 @@ const ContactUser = ({
       />
 
       <FormRow hasNoLabel>
-        <FormSubmit label={lp('Send email', 'button/menu')} />
+        <FormSubmit label={lp('Send email', 'interactive')} />
       </FormRow>
     </form>
   </UserAccountLayout>

@@ -52,7 +52,7 @@ const ResetPassword = ({
         uncontrolled
       />
       <FormRow hasNoLabel>
-        <FormSubmit label={lp('Reset password', 'button/menu')} />
+        <FormSubmit label={lp('Reset password', 'interactive')} />
       </FormRow>
     </form>
   </Layout>

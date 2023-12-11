@@ -230,7 +230,7 @@ const ExternalLinkAttributeDialog = (props: PropsT): React$MixedElement => {
       buttonContent={null}
       buttonProps={{
         className: 'icon edit-item',
-        title: lp('Edit attributes', 'button/menu'),
+        title: lp('Edit attributes', 'interactive'),
       }}
       buttonRef={buttonRef}
       id="external-link-attribute-dialog"

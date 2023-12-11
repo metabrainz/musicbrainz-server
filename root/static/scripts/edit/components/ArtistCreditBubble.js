@@ -120,7 +120,7 @@ const ArtistCreditBubble = ({
               onClick={addName}
               type="button"
             >
-              {lp('Add artist credit', 'button/menu')}
+              {lp('Add artist credit', 'interactive')}
             </button>
           </td>
         </tr>

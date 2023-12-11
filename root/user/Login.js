@@ -128,7 +128,7 @@ const Login = ({
         {postParameters ? <PostParameters params={postParameters} /> : null}
 
         <div className="row no-label">
-          <FormSubmit className="login" label={lp('Log in', 'button/menu')} />
+          <FormSubmit className="login" label={lp('Log in', 'interactive')} />
         </div>
       </form>
 

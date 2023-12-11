@@ -57,7 +57,7 @@ const EditSummary = ({
         <div className="cancel-edit buttons">
           {mayAddNote ? (
             <a className="positive edit-note-toggle">
-              {lp('Add note', 'button/menu')}
+              {lp('Add note', 'interactive')}
             </a>
           ) : null}
 

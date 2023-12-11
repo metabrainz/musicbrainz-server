@@ -264,7 +264,7 @@ class PreferencesForm extends React.Component<Props, State> {
           </p>
         </fieldset>
         <FormRow hasNoLabel>
-          <FormSubmit label={lp('Save', 'button/menu')} />
+          <FormSubmit label={lp('Save', 'interactive')} />
         </FormRow>
       </form>
     );

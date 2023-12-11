@@ -168,8 +168,8 @@
       <tr>
         <td></td>
         <td colspan="4" class="add-item">
-          <button type="button" class="with-label add-item" title="[% lp('Add release event', 'button/menu') %]" data-click="addReleaseEvent">
-            [% lp('Add release event', 'button/menu') %]
+          <button type="button" class="with-label add-item" title="[% lp('Add release event', 'interactive') %]" data-click="addReleaseEvent">
+            [% lp('Add release event', 'interactive') %]
           </button>
         </td>
       </tr>
@@ -196,7 +196,7 @@
           <input type="text" data-bind="withLabel: 'catno', value: catalogNumber, valueUpdate: 'input', controlsBubble: $root.labelBubble" />
         </td>
         <td>
-          <button type="button" class="remove-item icon remove-release-label" title="[% lp('Remove label', 'button/menu') %]" data-click="removeReleaseLabel"></button>
+          <button type="button" class="remove-item icon remove-release-label" title="[% lp('Remove label', 'interactive') %]" data-click="removeReleaseLabel"></button>
         </td>
       </tr>
 
@@ -212,8 +212,8 @@
       <tr>
         <td></td>
         <td colspan="4" class="add-item">
-          <button type="button" class="with-label add-item" title="[% lp('Add label', 'button/menu') %]" data-click="addReleaseLabel">
-            [% lp('Add label', 'button/menu') %]
+          <button type="button" class="with-label add-item" title="[% lp('Add label', 'interactive') %]" data-click="addReleaseLabel">
+            [% lp('Add label', 'interactive') %]
           </button>
         </td>
       </tr>

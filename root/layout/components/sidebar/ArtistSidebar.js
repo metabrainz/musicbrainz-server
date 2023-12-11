@@ -144,27 +144,27 @@ const ArtistSidebar = ({artist}: Props): React$Element<'div'> => {
           <>
             <li>
               <a href={`/release-group/create?artist=${gid}`}>
-                {lp('Add release group', 'button/menu')}
+                {lp('Add release group', 'interactive')}
               </a>
             </li>
             <li>
               <a href={`/release/add?artist=${gid}`}>
-                {lp('Add release', 'button/menu')}
+                {lp('Add release', 'interactive')}
               </a>
             </li>
             <li>
               <a href={`/recording/create?artist=${gid}`}>
-                {lp('Add recording', 'button/menu')}
+                {lp('Add recording', 'interactive')}
               </a>
             </li>
             <li>
               <a href={`/work/create?rels.0.target=${gid}`}>
-                {lp('Add work', 'button/menu')}
+                {lp('Add work', 'interactive')}
               </a>
             </li>
             <li>
               <a href={`/event/create?rels.0.target=${gid}`}>
-                {lp('Add event', 'button/menu')}
+                {lp('Add event', 'interactive')}
               </a>
             </li>
 

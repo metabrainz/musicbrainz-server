@@ -53,7 +53,7 @@ const CancelEdit = ({
 
         <div className="row no-label buttons">
           <button className="submit positive" type="submit">
-            {lp('Cancel edit', 'button/menu')}
+            {lp('Cancel edit', 'interactive')}
           </button>
         </div>
       </form>

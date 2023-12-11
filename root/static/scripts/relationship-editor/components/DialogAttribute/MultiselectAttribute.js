@@ -36,7 +36,7 @@ import type {
 } from '../../types/actions.js';
 
 const addAttributeLabels = {
-  [INSTRUMENT_ROOT_ID]: N_lp('Add instrument', 'button/menu'),
+  [INSTRUMENT_ROOT_ID]: N_lp('Add instrument', 'interactive'),
   [VOCAL_ROOT_ID]: N_l('Add vocal'),
 };
 

@@ -144,13 +144,13 @@ const CoverArt = ({
         $c.user ? (
           <div className="buttons ui-helper-clearfix">
             <EntityLink
-              content={lp('Add cover art', 'button/menu')}
+              content={lp('Add cover art', 'interactive')}
               entity={release}
               subPath="add-cover-art"
             />
             {coverArt.length > 1 ? (
               <EntityLink
-                content={lp('Reorder cover art', 'button/menu')}
+                content={lp('Reorder cover art', 'interactive')}
                 entity={release}
                 subPath="reorder-cover-art"
               />
@@ -159,7 +159,7 @@ const CoverArt = ({
         ) : (
           <p>
             <RequestLogin
-              text={lp('Log in to upload cover art', 'button/menu')}
+              text={lp('Log in to upload cover art', 'interactive')}
             />
           </p>
         )

@@ -1195,7 +1195,7 @@ const ExternalLinkRelationship =
           {!props.isOnlyRelationship && !props.urlMatchesType ? (
             <RemoveButton
               onClick={() => props.onLinkRemove(link.index)}
-              title={lp('Remove relationship', 'button/menu')}
+              title={lp('Remove relationship', 'interactive')}
             />
           ) : null}
           <ExternalLinkAttributeDialog

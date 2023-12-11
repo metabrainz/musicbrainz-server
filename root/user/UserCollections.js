@@ -225,7 +225,7 @@ const UserCollections = ({
       {viewingOwnProfile ? (
         <p>
           <a href="/collection/create">
-            {lp('Add a new collection', 'button/menu')}
+            {lp('Add a new collection', 'interactive')}
           </a>
         </p>
       ) : null}

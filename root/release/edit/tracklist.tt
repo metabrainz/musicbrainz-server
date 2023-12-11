@@ -264,7 +264,7 @@
 
   <div class="buttons">
     <button type="button" class="negative" id="close-add-medium" data-click="close">[% l('Close') %]</button>
-    <button type="button" style="float: right" class="positive" data-click="addMedium" data-bind="enable: currentTab().result()">[% lp('Add medium', 'button/menu') %]</button>
+    <button type="button" style="float: right" class="positive" data-click="addMedium" data-bind="enable: currentTab().result()">[% lp('Add medium', 'interactive') %]</button>
   </div>
 </div>
 

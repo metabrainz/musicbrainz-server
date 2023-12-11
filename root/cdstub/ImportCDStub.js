@@ -97,7 +97,7 @@ const ImportCDStub = ({
         </ul>
       </PaginatedResults>
 
-      <FormSubmit label={lp('Import CD stub', 'button/menu')} />
+      <FormSubmit label={lp('Import CD stub', 'interactive')} />
     </form>
   </CDStubLayout>
 );
