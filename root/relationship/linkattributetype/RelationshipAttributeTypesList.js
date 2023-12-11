@@ -65,7 +65,7 @@ const AttributeDetails = ({
           </>
         )}
         <a href={'/relationship-attribute/' + attribute.gid + '/edit'}>
-          {l('Edit')}
+          {lp('Edit', 'verb, interactive')}
         </a>
         {childrenAttrs.length ? null : (
           <>

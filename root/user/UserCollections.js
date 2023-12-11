@@ -131,7 +131,7 @@ const CollectionsEntityTypeSection = ({
         };
       const actionsColumn = defineActionsColumn({
         actions: [
-          [l('Edit'), '/own_collection/edit'],
+          [lp('Edit', 'verb, interactive'), '/own_collection/edit'],
           [l('Remove'), '/own_collection/delete'],
         ],
       });

@@ -107,7 +107,7 @@ const CoverArt = ({
                     href={'/release/' + release.gid +
                           '/edit-cover-art/' + artwork.id}
                   >
-                    {l('Edit')}
+                    {lp('Edit', 'verb, interactive')}
                   </a>
                   <a
                     href={'/release/' + release.gid +

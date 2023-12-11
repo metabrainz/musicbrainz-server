@@ -441,7 +441,7 @@ class ArtistCreditEditor extends React.Component {
                   ref={button => this._editButton = button}
                   type="button"
                 >
-                  {l('Edit')}
+                  {lp('Edit', 'verb, interactive')}
                 </button>
               </td>
             </tr>

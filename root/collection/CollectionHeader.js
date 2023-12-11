@@ -83,7 +83,7 @@ const CollectionHeader = ({
         {viewingOwnCollection ? (
           <>
             <EntityTabLink
-              content={l('Edit')}
+              content={lp('Edit', 'verb, header, interactive')}
               entity={collection}
               key="own_collection/edit"
               selected={'edit' === page}

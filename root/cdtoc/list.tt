@@ -15,7 +15,7 @@
               <th>[% lp('Tagger', 'audio file metadata') %]</th>
             [% END %]
             [% IF edit_links AND c.user_exists %]
-              <th>[% l('Edit') %]</th>
+              <th>[% lp('Edit', 'verb, header') %]</th>
             [% END %]
         </tr>
     </thead>

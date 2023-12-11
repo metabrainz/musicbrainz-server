@@ -93,7 +93,7 @@ const RelationshipAttributeTypeIndex = ({
         {isRelationshipEditor($c.user) && !isInstrumentChild ? (
           <span className="buttons" style={{float: 'right'}}>
             <a href={'/relationship-attribute/' + attribute.gid + '/edit'}>
-              {l('Edit')}
+              {lp('Edit', 'verb, interactive')}
             </a>
             {childrenAttrs.length ? null : (
               <a
