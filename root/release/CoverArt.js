@@ -54,13 +54,13 @@ const CoverArt = ({
   release,
 }: Props): React$Element<typeof ReleaseLayout> => {
   const $c = React.useContext(SanitizedCatalystContext);
-  const title = lp('Cover art', 'plural');
+  const title = lp('Cover art', 'plural, header');
 
   return (
     <ReleaseLayout entity={release} page="cover-art" title={title}>
       <h2>
         {release.cover_art_presence === 'darkened'
-          ? l('Cannot show cover art')
+          ? lp('Cannot show cover art', 'header')
           : title}
       </h2>
 
