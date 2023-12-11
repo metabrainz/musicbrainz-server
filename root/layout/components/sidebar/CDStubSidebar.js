@@ -45,7 +45,7 @@ const CDStubSidebar = ({cdstub}: Props): React$Element<'div'> => {
       <SidebarProperties>
         <SidebarProperty
           className=""
-          label={addColonText(lp('Added', 'CD stub addition time'))}
+          label={addColonText(lp('Added', 'CD stub'))}
         >
           {getCDStubAddedAgeAgo(cdstub)}
         </SidebarProperty>
@@ -53,7 +53,7 @@ const CDStubSidebar = ({cdstub}: Props): React$Element<'div'> => {
         <SidebarProperty
           className=""
           label={addColonText(
-            lp('Last modified', 'CD stub modification time'),
+            lp('Last modified', 'CD stub'),
           )}
         >
           {getCDStubModifiedAgeAgo(cdstub)}
