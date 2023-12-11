@@ -99,8 +99,13 @@ sub add_note
         (map { $_->editor_id } @{ $edit->edit_notes }));
     $self->c->model('Editor')->load_preferences(values %$editors);
 
+    my @to_email;
+
     # Inform the edit's author that a note was left, unless this is their own edit.
     if ($note_hash->{editor_id} != $edit->editor_id) {
+        # Send email to the author
+        push(@to_email, $edit->editor_id);
+        # Add notes received notification banner
         my $edit_author = $editors->{$edit->editor_id}->name;
         my $notes_updated_key = "edit_notes_received_last_updated:$edit_author";
         $self->c->store->set($notes_updated_key, time);
@@ -108,14 +113,30 @@ sub add_note
         $self->c->store->expire($notes_updated_key, 60 * 60 * 24 * 30);
     }
 
-    my @to_email = grep { $_ != $note_hash->{editor_id} }
-        map { $_->id } grep { $_->preferences->email_on_notes }
-        map { $editors->{$_->editor_id} }
-            @{ $edit->edit_notes },
-            (grep { my $editor = $_->editor_id;
-                    !(grep { $editor == $_ } (53705, 326637, 295208)) || $_->vote != $VOTE_ABSTAIN
-                  } @{ $edit->votes }),
-            $edit;
+    push(@to_email, grep { $_ != $note_hash->{editor_id} }
+                    map { $_->id } grep { $_->preferences->email_on_notes }
+                    map { $editors->{$_->editor_id} }
+                    @{ $edit->edit_notes });
+
+    push(@to_email, grep { $_ != $note_hash->{editor_id} }
+                    map { $_->{editor}->id }
+                    # We only want editors who actually want emails on votes
+                    grep {
+                        (
+                            $_->{editor}->preferences->email_on_vote &&
+                            $_->{vote} != $VOTE_ABSTAIN
+                        ) || (
+                            $_->{editor}->preferences->email_on_abstain &&
+                            $_->{vote} == $VOTE_ABSTAIN
+                        )
+                    }
+                    map {{
+                        editor => $editors->{$_->editor_id},
+                        vote => $_->vote,
+                    }}
+                    # We only care about the current votes
+                    grep { !($_->superseded) }
+                    @{ $edit->votes });
 
     my $from = $editors->{ $note_hash->{editor_id} };
     for my $editor_id (uniq @to_email) {

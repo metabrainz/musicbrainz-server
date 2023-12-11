@@ -439,9 +439,13 @@ sub save_preferences
     Sql::run_in_transaction(sub {
 
         $self->sql->do('DELETE FROM editor_preference WHERE editor = ?', $editor->id);
+        my $new_preferences = MusicBrainz::Server::Entity::Preferences->new(%$values);
         my $preferences_meta = $editor->preferences->meta;
         foreach my $name (keys %$values) {
             my $default = $preferences_meta->get_attribute($name)->default;
+            if (ref $default eq 'CODE') {
+                $default = $new_preferences->$default;
+            }
             unless ($default eq $values->{$name}) {
                 $self->sql->insert_row('editor_preference', {
                     editor => $editor->id,
@@ -450,7 +454,7 @@ sub save_preferences
                 });
             }
         }
-        $editor->preferences(MusicBrainz::Server::Entity::Preferences->new(%$values));
+        $editor->preferences($new_preferences);
 
     }, $self->sql);
 }
