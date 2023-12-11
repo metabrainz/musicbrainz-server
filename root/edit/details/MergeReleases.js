@@ -268,14 +268,14 @@ const MergeReleases = ({
                 <>
                   {display.old.map(buildReleaseRow)}
                   <tr className="subh">
-                    <th colSpan="9">{l('Into:')}</th>
+                    <th colSpan="9">{addColonText(lp('Into', 'header, paired with Merge'))}</th>
                   </tr>
                   {buildReleaseRow(display.new)}
                 </>
               ) : (
                 <>
                   <tr className="subh">
-                    <th colSpan="9">{l('Into:')}</th>
+                    <th colSpan="9">{addColonText(lp('Into', 'header, paired with Merge'))}</th>
                   </tr>
                   {buildReleaseRow(display.new)}
                 </>
@@ -285,7 +285,7 @@ const MergeReleases = ({
             <>
               {display.old.map(buildReleaseRow)}
               <tr className="subh">
-                <th colSpan="9">{l('Into:')}</th>
+                <th colSpan="9">{addColonText(lp('Into', 'header, paired with Merge'))}</th>
               </tr>
               {buildReleaseRow(display.new)}
             </>
@@ -303,7 +303,7 @@ const MergeReleases = ({
               <tr>
                 <th>{l('Track #')}</th>
                 <th colSpan="2">{l('Recording')}</th>
-                <th colSpan="2">{l('Into:')}</th>
+                <th colSpan="2">{addColonText(lp('Into', 'header, paired with Merge'))}</th>
               </tr>
             </thead>
             <tbody>
