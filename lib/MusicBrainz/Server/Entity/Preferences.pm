@@ -40,14 +40,14 @@ has 'timezone' => (
 has [qw(email_on_no_vote email_on_notes email_on_vote)] => (
     isa => 'Bool',
     default => 1,
-    is =>'rw',
+    is => 'rw',
     lazy => 1,
 );
 
 has 'email_on_abstain' => (
     isa => 'Bool',
     default => sub { shift->email_on_vote },
-    is =>'rw',
+    is => 'rw',
     lazy => 1,
 );
 
@@ -56,7 +56,7 @@ has [qw( subscribe_to_created_artists
          subscribe_to_created_series )] => (
     isa => 'Bool',
     default => 1,
-    is =>'rw',
+    is => 'rw',
     lazy => 1,
 );
 
