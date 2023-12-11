@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-21 20:02+0000\n"
-"PO-Revision-Date: 2023-11-19 09:27+0000\n"
+"PO-Revision-Date: 2023-12-07 14:28+0000\n"
 "Last-Translator: \"Vac31.\" <gateway_31@protonmail.com>\n"
 "Language-Team: Lithuanian <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/lt/>\n"
@@ -21,9 +21,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
-"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
-"1 : n % 1 != 0 ? 2: 3);\n"
-"X-Generator: Weblate 5.1\n"
+"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 :"
+" n % 1 != 0 ? 2: 3);\n"
+"X-Generator: Weblate 5.2.1\n"
 
 #: ../root/components/common-macros.tt:12
 msgid " ({text})"
@@ -702,7 +702,7 @@ msgstr "Katalogo#"
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:162
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:58
 msgid "Child order"
-msgstr ""
+msgstr "Poįsakymas"
 
 #: ../root/release/edit/recordings.tt:114
 msgid "Click Edit to edit the recording associations for this disc."
@@ -1128,7 +1128,7 @@ msgstr ""
 
 #: ../root/edit/search_macros.tt:423
 msgid "Entered"
-msgstr ""
+msgstr "Įvesta"
 
 #: ../root/components/forms.tt:30
 msgid ""
@@ -1191,7 +1191,7 @@ msgstr "Išplėsti laikmena"
 
 #: ../root/doc/edit_type.tt:38
 msgid "Expire action"
-msgstr ""
+msgstr "Galiojimo pabaigos veiksmas"
 
 #: ../root/area/edit_form.tt:22 ../root/artist/edit_form.tt:70
 #: ../root/event/edit_form.tt:46 ../root/instrument/edit_form.tt:32
@@ -1294,12 +1294,12 @@ msgstr "Dažnis"
 
 #: ../root/admin/attributes/form.tt:14 ../root/admin/attributes/form.tt:28
 msgid "Frequency notes:"
-msgstr ""
+msgstr "Dažni pastabai:"
 
 #: ../root/cdstub/index.tt:30 ../root/cdstub/CDStubIndex.js:59
 #: ../root/cdtoc/CDTocInfo.js:27
 msgid "Full TOC:"
-msgstr ""
+msgstr "Visas TOC:"
 
 #: ../root/artist/edit_form.tt:17 ../root/components/list/ArtistList.js:87
 #: ../root/edit/details/AddArtist.js:76 ../root/edit/details/EditArtist.js:95
@@ -12212,7 +12212,7 @@ msgstr ""
 
 #: ../root/report/DuplicateEvents.js:32
 msgid "Possible duplicate events"
-msgstr ""
+msgstr "Galimi besidubliuojantys renginiai"
 
 #: ../root/report/DuplicateRelationshipsArtists.js:24
 msgid ""

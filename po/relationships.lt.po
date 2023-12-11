@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-11-20 17:27+0000\n"
+"PO-Revision-Date: 2023-12-02 04:27+0000\n"
 "Last-Translator: \"Vac31.\" <gateway_31@protonmail.com>\n"
 "Language-Team: Lithuanian <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/lt/>\n"
@@ -14,9 +14,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
-"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
-"1 : n % 1 != 0 ? 2: 3);\n"
-"X-Generator: Weblate 5.1\n"
+"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 :"
+" n % 1 != 0 ? 2: 3);\n"
+"X-Generator: Weblate 5.2.1\n"
 
 #: DB:link_attribute_type/description:1355
 msgid "A performance-centered, usually one to three year postgraduate program."
@@ -363,6 +363,8 @@ msgid ""
 "Indicates a page that reviews the release (group) in question, whether it be "
 "in text, audio or video form."
 msgstr ""
+"Nurodo puslapį, kuriame apžvelgiamas atitinkamas leidinys (grupė) – tekstu, "
+"garso ar vaizdo įrašu forma."
 
 #: DB:link_type/description:1083
 msgid "Indicates a page with an official schedule for an event series."
@@ -576,12 +578,16 @@ msgid ""
 "Indicates the composer for this release, that is, the artist who wrote the "
 "music (not necessarily the lyrics)."
 msgstr ""
+"Nurodo šio leidinio kompozitorius (-ė), tai yra atlikėjas (-a), parašęs "
+"(-usi) muziką (nebūtinai dainų tekstus)."
 
 #: DB:link_type/description:168
 msgid ""
 "Indicates the composer for this work, that is, the artist who wrote the "
 "music (not necessarily the lyrics)."
 msgstr ""
+"Nurodo šio kūrinio kompozitorius (-ė), tai yra atlikėjas (-a), parašęs (-usi)"
+" muziką (nebūtinai dainų tekstus)."
 
 #: DB:link_type/description:845
 msgid "Indicates the event where the work had its first performance"
@@ -601,15 +607,16 @@ msgstr ""
 
 #: DB:link_type/description:57
 msgid "Indicates the librettist for this release."
-msgstr ""
+msgstr "Nurodo šio leidinio libretistą."
 
 #: DB:link_type/description:169
 msgid "Indicates the librettist for this work."
-msgstr ""
+msgstr "Nurodo šio kūrinio libretistą."
 
 #: DB:link_type/description:995
+#, fuzzy
 msgid "Indicates the location a run or residency was held at."
-msgstr ""
+msgstr "Nurodo vieta, kurioje vyko bėgimas ar buvo rezidencija."
 
 #: DB:link_type/description:56
 msgid "Indicates the lyricist for this release."
@@ -625,28 +632,29 @@ msgstr "Nurodo šio kūrinio masteringo inžinierių (-ę)."
 
 #: DB:link_type/description:219
 msgid "Indicates the official homepage for a label."
-msgstr ""
+msgstr "Nurodo oficialų leidyklos pradžios tinklalapį."
 
 #: DB:link_type/description:363
 msgid "Indicates the official homepage for a place."
-msgstr ""
+msgstr "Nurodo oficialų vietos pradžios tinklalapį."
 
 #: DB:link_type/description:745
 msgid "Indicates the official homepage for a series."
-msgstr ""
+msgstr "Nurodo oficialų serijos pradžios tinklalapį."
 
 #: DB:link_type/description:183
 msgid "Indicates the official homepage for an artist."
-msgstr ""
+msgstr "Nurodo oficialų atlikėjo pradžios tinklalapį."
 
 #: DB:link_type/description:782
 msgid "Indicates the official homepage for an event."
-msgstr ""
+msgstr "Nurodo oficialų renginio pradžios tinklalapį."
 
 #: DB:link_type/description:871
 msgid ""
 "Indicates the person who translated the lyrics/libretto for this release."
 msgstr ""
+"Nurodo asmenį, kuris (-i) išvertė šio leidinio tekstus ir (arba) libretą."
 
 #: DB:link_type/description:872
 msgid "Indicates the person who translated the lyrics/libretto for this work."
@@ -824,12 +832,16 @@ msgid ""
 "Links a release to the area it was edited in. Use only when the place is "
 "unknown!"
 msgstr ""
+"Susieja leidinį su teritoriją, kurioje jis buvo redaguotas. Naudoti tik "
+"tada, kai vieta nežinoma!"
 
 #: DB:link_type/description:815
 msgid ""
 "Links a release to the area it was engineered in. Use only when the place is "
 "unknown!"
 msgstr ""
+"Susieja leidinį su teritorija, kurioje jis buvo suinžinieruotas. Naudoti tik "
+"tada, kai vieta nežinoma!"
 
 #: DB:link_type/description:835
 msgid "Links a release to the area it was manufactured (\"made\") in."
@@ -848,10 +860,12 @@ msgid ""
 "Links a release to the area it was mixed in. Use only when the place is "
 "unknown!"
 msgstr ""
+"Susieja leidinį su teritorija, kurioje jis buvo suvestas. Naudoti tik tada, "
+"kai vieta nežinoma!"
 
 #: DB:link_type/description:849
 msgid "Links a release to the area it was printed in."
-msgstr ""
+msgstr "Susieja leidinį su teritorija, kurioje jis buvo išspausdintas."
 
 #: DB:link_type/description:826
 msgid ""
@@ -864,6 +878,8 @@ msgid ""
 "Links a release to the area it was recorded in. Use only when the place is "
 "unknown!"
 msgstr ""
+"Susieja leidinį su teritorija, kurioje jis buvo įrašytas. Naudoti tik tada, "
+"kai vieta nežinoma!"
 
 #: DB:link_type/description:831
 msgid ""
@@ -876,12 +892,15 @@ msgid ""
 "Links a release to the area it was transferred in (for example from an old "
 "tape to digital). Use only when the place is unknown!"
 msgstr ""
+"Susieja leidinį su teritorija, į kurią jis buvo perkeltas (pavyzdžiui, iš "
+"senos juostos į skaitmeninį formatą). Naudoti tik tada, kai vieta nežinoma!"
 
 #: DB:link_type/description:967
 msgid ""
 "Links a release to the area where the lacquer cutting took place. Use only "
 "when the place is unknown!"
 msgstr ""
+"Susieja leidinį su lako pjovimo vieta. Naudoti tik tada, kai vieta nežinoma!"
 
 #: DB:link_type/description:969
 msgid "Links a release to the engineer who did the lacquer cutting for it."
@@ -902,21 +921,24 @@ msgstr "Sujungia leidinį su vieta, kurioje jis buvo redaguotas."
 
 #: DB:link_type/description:812
 msgid "Links a release to the place it was engineered at."
-msgstr ""
+msgstr "Susieja leidinį su vieta, kurioje jis buvo suinžinieruotas."
 
 #: DB:link_type/description:953
+#, fuzzy
 msgid ""
 "Links a release to the place it was manufactured at. Use a more specific "
 "credit if available"
 msgstr ""
+"Susieja leidinį su vieta, kurioje jis buvo pagamintas. Naudoti tikslesnę "
+"informaciją, jei yra."
 
 #: DB:link_type/description:697
 msgid "Links a release to the place it was mastered at."
-msgstr ""
+msgstr "Susieja leidinį su vieta, kurioje jis buvo masterizuotas."
 
 #: DB:link_type/description:696
 msgid "Links a release to the place it was mixed at."
-msgstr ""
+msgstr "Susieja leidinį su vieta, kurioje jis buvo suvestas."
 
 #: DB:link_type/description:941
 msgid "Links a release to the place it was pressed at."
