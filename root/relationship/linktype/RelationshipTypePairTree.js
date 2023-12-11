@@ -116,7 +116,11 @@ const RelationshipTypeDetails = ({
         {'[ '}
         {isRelationshipEditor($c.user) ? (
           <>
-            <EntityLink content={lp('Edit', 'verb, interactive')} entity={relType} subPath="edit" />
+            <EntityLink
+              content={lp('Edit', 'verb, interactive')}
+              entity={relType}
+              subPath="edit"
+            />
             {childrenTypes.length ? null : (
               <>
                 {' | '}

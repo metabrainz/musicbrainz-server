@@ -146,7 +146,9 @@ const Homepage = ({
       <div className="sidebar">
         <div>
           <div className="feature-column" id="taggers">
-            <h2 className="taggers">{lp('Tag your music', 'audio file metadata')}</h2>
+            <h2 className="taggers">
+              {lp('Tag your music', 'audio file metadata')}
+            </h2>
             <ul>
               <li>
                 <a href="//picard.musicbrainz.org">

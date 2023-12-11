@@ -29,7 +29,10 @@ const UserTagFilters = ({
       {showVotesSelect ? (
         <FormRow>
           <label>
-            {addColonText(lp('Show votes', 'folksonomy tag upvotes or downvotes'))}
+            {addColonText(lp(
+              'Show votes',
+              'folksonomy tag upvotes or downvotes',
+            ))}
             {' '}
             <select
               defaultValue={showDownvoted ? '1' : '0'}

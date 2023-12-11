@@ -815,7 +815,10 @@ const UserProfileStatistics = ({
                 <UserProfileProperty name={lp('Tags upvoted', 'folksonomy')}>
                   {user.deleted ? (
                     <abbr
-                      title={lp('Tags are removed when an editor is deleted.', 'folksonomy')}
+                      title={lp(
+                        'Tags are removed when an editor is deleted.',
+                        'folksonomy',
+                      )}
                     >
                       {lp('Removed', 'folksonomy tags')}
                     </abbr>
@@ -828,10 +831,15 @@ const UserProfileStatistics = ({
                   ) : formatCount($c, upvotedTagCount)}
                 </UserProfileProperty>
 
-                <UserProfileProperty name={lp('Tags downvoted', 'folksonomy')}>
+                <UserProfileProperty
+                  name={lp('Tags downvoted', 'folksonomy')}
+                >
                   {user.deleted ? (
                     <abbr
-                      title={lp('Tags are removed when an editor is deleted.', 'folksonomy')}
+                      title={lp(
+                        'Tags are removed when an editor is deleted.',
+                        'folksonomy',
+                      )}
                     >
                       {lp('Removed', 'folksonomy tags')}
                     </abbr>

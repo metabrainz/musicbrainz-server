@@ -151,7 +151,9 @@ function buildLinks(
     if (editTab) {
       links.push(editTab);
     } else {
-      links.push(buildLink(lp('Edit', 'verb, interactive'), entity, 'edit', page));
+      links.push(
+        buildLink(lp('Edit', 'verb, interactive'), entity, 'edit', page),
+      );
     }
   }
 

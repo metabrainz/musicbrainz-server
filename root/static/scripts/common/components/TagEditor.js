@@ -578,7 +578,10 @@ export const MainTagEditor = (hydrate<TagEditorProps>(
                       </p>
                     ) : (
                       <p>
-                        {lp('Tags with a score of zero or below are hidden.', 'folksonomy')}
+                        {lp(
+                          'Tags with a score of zero or below are hidden.',
+                          'folksonomy',
+                        )}
                       </p>
                     )}
                     <p>
@@ -616,7 +619,10 @@ export const MainTagEditor = (hydrate<TagEditorProps>(
                           href="#"
                           onClick={(event) => this.hideNegativeTags(event)}
                         >
-                          {lp('Hide tags with a score of zero or below.', 'folksonomy')}
+                          {lp(
+                            'Hide tags with a score of zero or below.',
+                            'folksonomy',
+                          )}
                         </a>
                       </p>
                     )}

@@ -48,7 +48,9 @@ const TagList = ({
     return accum;
   }, []) : null;
   if (!links || !links.length) {
-    return isGenreList ? lp('(none)', 'genre') : lp('(none)', 'folksonomy tag');
+    return isGenreList
+      ? lp('(none)', 'genre')
+      : lp('(none)', 'folksonomy tag');
   }
   return commaOnlyList(links);
 };

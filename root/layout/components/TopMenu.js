@@ -93,7 +93,9 @@ const DataMenu = ({user}: UserProp) => {
           <a href={userLink(userName, '/ratings')}>{l('My ratings')}</a>
         </li>
         <li>
-          <a href={userLink(userName, '/tags')}>{lp('My tags', 'folksonomy')}</a>
+          <a href={userLink(userName, '/tags')}>
+            {lp('My tags', 'folksonomy')}
+          </a>
         </li>
         <li className="separator">
           <a href={userLink(userName, '/edits/open')}>{l('My open edits')}</a>
@@ -172,7 +174,9 @@ const AdminMenu = ({user}: UserProp) => (
             <a href="/admin/email-search">{l_admin('Email search')}</a>
           </li>
           <li>
-            <a href="/admin/privilege-search">{l_admin('Privilege search')}</a>
+            <a href="/admin/privilege-search">
+              {l_admin('Privilege search')}
+            </a>
           </li>
           <li>
             <a href="/admin/locked-usernames/search">

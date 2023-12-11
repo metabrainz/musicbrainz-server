@@ -62,7 +62,9 @@ function buildTabs(
   }
 
   if (viewingOwnProfile || hasPublicTags) {
-    tabs.push(buildTab(page, lp('Tags', 'folksonomy'), userPath + '/tags', 'tags'));
+    tabs.push(
+      buildTab(page, lp('Tags', 'folksonomy'), userPath + '/tags', 'tags'),
+    );
   }
 
   if (viewingOwnProfile || hasPublicRatings) {

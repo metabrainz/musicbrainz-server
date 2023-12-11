@@ -180,8 +180,8 @@ const QuickLinks = ({
         accum.push(' | ');
       }
       return accum;
-    }, []),
-  );
+    }, [],
+  ));
 };
 
 const ListHeader = ({
