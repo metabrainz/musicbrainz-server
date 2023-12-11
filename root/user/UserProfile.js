@@ -194,15 +194,15 @@ const UserProfileInformation = ({
         <UserProfileProperty name={addColonText(l('Email'))}>
           {user.has_email_address ? (
             <>
-              {viewingOwnProfile ? email : l('(hidden)')}
+              {viewingOwnProfile ? email : lp('(hidden)', 'email address')}
               {' '}
               {nonEmpty(user.email_confirmation_date) ? (
-                texp.l('(verified at {date})', {
+                texp.lp('(verified at {date})', 'email address', {
                   date: formatUserDate($c, user.email_confirmation_date),
                 })
               ) : (
                 <>
-                  {exp.l('(<strong>unverified!</strong>)')}
+                  {exp.lp('(<strong>unverified!</strong>)', 'email address')}
                   {' '}
                   {noEmailWarning}
                 </>
@@ -244,7 +244,7 @@ const UserProfileInformation = ({
             </>
           ) : (
             <>
-              {lp('(none)', 'email')}
+              {lp('(none)', 'email address')}
               {' '}
               {noEmailWarning}
             </>
