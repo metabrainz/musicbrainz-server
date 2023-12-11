@@ -60,7 +60,7 @@ const CoverArt = ({
     <ReleaseLayout entity={release} page="cover-art" title={title}>
       <h2>
         {release.cover_art_presence === 'darkened'
-          ? lp('Cannot show cover art', 'header')
+          ? lp('Cannot show cover art', 'plural, header')
           : title}
       </h2>
 
@@ -144,13 +144,13 @@ const CoverArt = ({
         $c.user ? (
           <div className="buttons ui-helper-clearfix">
             <EntityLink
-              content={lp('Add cover art', 'interactive')}
+              content={lp('Add cover art', 'plural, interactive')}
               entity={release}
               subPath="add-cover-art"
             />
             {coverArt.length > 1 ? (
               <EntityLink
-                content={lp('Reorder cover art', 'interactive')}
+                content={lp('Reorder cover art', 'plural, interactive')}
                 entity={release}
                 subPath="reorder-cover-art"
               />
@@ -159,7 +159,7 @@ const CoverArt = ({
         ) : (
           <p>
             <RequestLogin
-              text={lp('Log in to upload cover art', 'interactive')}
+              text={lp('Log in to upload cover art', 'plural, interactive')}
             />
           </p>
         )

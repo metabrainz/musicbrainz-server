@@ -28,7 +28,7 @@ const RemoveCoverArt = ({
   form,
   release,
 }: Props): React$Element<typeof ReleaseLayout> => {
-  const title = lp('Remove cover art', 'header');
+  const title = lp('Remove cover art', 'singular, header');
 
   return (
     <ReleaseLayout entity={release} fullWidth title={title}>

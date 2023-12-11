@@ -20,7 +20,7 @@ with 'MusicBrainz::Server::Edit::Release',
      'MusicBrainz::Server::Edit::Role::CoverArt',
      'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
-sub edit_name { N_lp('Edit cover art', 'edit type') }
+sub edit_name { N_lp('Edit cover art', 'singular, edit type') }
 sub edit_kind { 'edit' }
 sub edit_type { $EDIT_RELEASE_EDIT_COVER_ART }
 sub release_ids { shift->data->{entity}{id} }
