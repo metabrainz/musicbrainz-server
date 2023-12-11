@@ -23,7 +23,7 @@ const EditApplication = (props: Props): React$Element<typeof Layout> => (
     <ApplicationForm
       action="edit"
       form={props.form}
-      submitLabel={lp('Update', 'application')}
+      submitLabel={lp('Update', 'verb, data, interactive')}
     />
   </Layout>
 );
