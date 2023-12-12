@@ -112,14 +112,14 @@ function buildTabs(
     if (viewingOwnProfile) {
       tabs.push(buildTab(
         page,
-        l('Delete account'),
+        lp('Delete account', 'header'),
         '/account/delete',
         'delete',
       ));
     } else if (showAdmin) {
       tabs.push(buildTab(
         page,
-        l('Delete account'),
+        l_admin('Delete account'),
         '/admin/user/delete/' + userName,
         'delete',
       ));

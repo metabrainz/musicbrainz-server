@@ -38,9 +38,9 @@ const DeleteOwnAccount = ({
     <UserAccountLayout
       entity={sanitizedAccountLayoutUser(user)}
       page="delete"
-      title={l('Delete Account')}
+      title={lp('Delete account', 'header')}
     >
-      <h2>{l('Delete Account')}</h2>
+      <h2>{lp('Delete account', 'header')}</h2>
       <p>
         {exp.l(
           `For information about the account deletion process,
@@ -79,7 +79,7 @@ const DeleteOwnAccount = ({
         <div className="row no-margin">
           <FormSubmit
             inputClassName="negative"
-            label={l('Delete my account')}
+            label={lp('Delete my account', 'interactive')}
           />
         </div>
       </form>
