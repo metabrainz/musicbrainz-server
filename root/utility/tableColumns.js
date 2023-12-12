@@ -747,7 +747,7 @@ export const relTypeColumn:
         {l_relationships(original.link_name)}
       </a>
     ),
-    Header: N_l('Relationship Type'),
+    Header: N_l('Relationship type'),
     id: 'relationship_type',
   };
 
@@ -762,7 +762,7 @@ export const seriesOrderingTypeColumn:
         ? lp_attributes(orderingType.name, 'series_ordering_type')
         : null;
     },
-    Header: N_l('Ordering Type'),
+    Header: N_l('Ordering type'),
     id: 'ordering-type',
   };
 
@@ -818,6 +818,6 @@ export const workLanguagesColumn:
         ))}
       </ul>
     ),
-    Header: N_l('Lyrics Languages'),
+    Header: N_l('Lyrics languages'),
     id: 'lyrics-languages',
   };

@@ -22,7 +22,7 @@ type Props = {
 const tabLinks: $ReadOnlyArray<[string, () => string]> = [
   ['', N_l('Overview')],
   ['/artist', N_l('Artists')],
-  ['/release-group', N_l('Release Groups')],
+  ['/release-group', N_l('Release groups')],
   ['/release', N_l('Releases')],
   ['/recording', N_l('Recordings')],
   ['/work', N_l('Works')],
