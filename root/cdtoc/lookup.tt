@@ -25,7 +25,7 @@
                                   name => cdstub.title }) %]</h3>
   [% INCLUDE 'cdstub/cdstub.tt' %]
   <form action="[% c.uri_for_action('/cdstub/import', [ cdstub.discid ]) %]" method="get">
-    <p>[% form_submit(l('Import CD Stub')) %]</p>
+    <p>[% form_submit(lp('Import CD stub', 'interactive')) %]</p>
   </form>
 
   [% IF possible_mediums.size %]
