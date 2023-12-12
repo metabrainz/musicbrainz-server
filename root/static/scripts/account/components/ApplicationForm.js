@@ -37,8 +37,8 @@ type State = {
 const oauthTypeOptions = {
   grouped: false,
   options: [
-    {label: N_l('Web Application'), value: 'web'},
-    {label: N_l('Installed Application'), value: 'installed'},
+    {label: N_l('Web application'), value: 'web'},
+    {label: N_l('Installed application'), value: 'installed'},
   ],
 };
 
