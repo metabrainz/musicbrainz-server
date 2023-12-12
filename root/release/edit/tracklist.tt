@@ -286,7 +286,7 @@
               mediums().map(function (m) { return m.toc(); }).filter(Boolean).length < ($data.seededTocs ? Object.values($data.seededTocs).length : 0) -->
     <div class="warning">
       <p>
-        [%~ l('You’ve seeded some Disc IDs that aren’t matched to any medium. If this is wrong, use the “Attach Disc ID” options below.') ~%]
+        [%~ l('You’ve seeded some disc IDs that aren’t matched to any medium. If this is wrong, use the “Attach disc ID” options below.') ~%]
       </p>
     </div>
   <!-- /ko -->
@@ -475,7 +475,7 @@
 
       <!-- ko if: $parent.seededTocs && Object.keys($parent.seededTocs).length -->
       <div id="discid-attachment">
-        [% add_colon(l('Attach Disc ID')) %]
+        [% add_colon(l('Attach disc ID')) %]
         <select data-bind="options: Object.values($parent.seededTocs).sort(),
                            optionsText: $root.utils.calculateDiscID,
                            optionsCaption: '',
