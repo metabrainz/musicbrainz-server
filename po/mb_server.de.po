@@ -69,14 +69,14 @@
 # Philipp Wolfer <ph.wolfer@gmail.com>, 2023.
 # kellnerd <kellnerd@users.noreply.translations.metabrainz.org>, 2023.
 # aerozol <aerozol@users.noreply.translations.metabrainz.org>, 2023.
+# yvanzo <yvanzo@users.noreply.translations.metabrainz.org>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-12-12 12:24+0000\n"
-"PO-Revision-Date: 2023-12-07 14:28+0000\n"
-"Last-Translator: aerozol <aerozol@users.noreply.translations.metabrainz."
-"org>\n"
+"PO-Revision-Date: 2023-12-12 12:50+0000\n"
+"Last-Translator: yvanzo <yvanzo@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: German <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/de/>\n"
 "Language: de\n"
@@ -5045,8 +5045,6 @@ msgstr "Disc-ID hinzufügen"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/AddLink.pm:11
 #: ../lib/MusicBrainz/Server/Edit/Relationship/Create.pm:32
-#, fuzzy
-#| msgid "Add relationship"
 msgctxt "edit type"
 msgid "Add relationship"
 msgstr "Beziehung hinzufügen"
@@ -16777,8 +16775,6 @@ msgstr "Noch ein Werk hinzufügen"
 #: ../root/static/scripts/relationship-editor/components/RelationshipTargetTypeGroups.js:54
 #: ../root/static/scripts/release/components/RelationshipEditorBatchTools.js:70
 #: ../root/static/scripts/release/components/TrackRelationshipEditor.js:408
-#, fuzzy
-#| msgid "Add relationship"
 msgctxt "header"
 msgid "Add relationship"
 msgstr "Beziehung hinzufügen"
@@ -16792,8 +16788,6 @@ msgid "These relationships have a specific ordering"
 msgstr "Diese Beziehungen haben eine bestimmte Reihenfolge"
 
 #: ../root/static/scripts/relationship-editor/components/RelationshipTargetTypeGroups.js:109
-#, fuzzy
-#| msgid "Add relationship"
 msgctxt "interactive"
 msgid "Add relationship"
 msgstr "Beziehung hinzufügen"
