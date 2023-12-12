@@ -1,0 +1,126 @@
+{
+  title: 'MBS-13392: External links are preserved upon form reload',
+  commands: [
+    {
+      command: 'open',
+      target: '/artist/create',
+      value: '',
+    },
+    {
+      command: 'sendKeys',
+      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[1]",
+      value: 'https://www.discogs.com/artist/999999999${KEY_TAB}',
+    },
+    // The form is disabled because we didn't enter a name or sort name yet.
+    // Manually submit the form so we can check if external links are
+    // preserved after the form reloads due to an error.
+    {
+      command: 'runScript',
+      target: "document.getElementById('id-edit-artist.name').removeAttribute('required')",
+      value: '',
+    },
+    {
+      command: 'runScript',
+      target: "document.getElementById('id-edit-artist.sort_name').removeAttribute('required')",
+      value: '',
+    },
+    {
+      command: 'runScript',
+      target: "MB.validation.errorFields([])",
+      value: '',
+    },
+    {
+      command: 'runScriptAndWait',
+      target: "document.querySelector('form.edit-artist').requestSubmit()",
+      value: '',
+    },
+    {
+      command: 'assertLocationMatches',
+      target: '\\/artist\\/create',
+      value: '',
+    },
+    {
+      command: 'type',
+      target: 'id=id-edit-artist.name',
+      value: 'realname',
+    },
+    {
+      command: 'type',
+      target: 'id=id-edit-artist.sort_name',
+      value: 'realname',
+    },
+    // Submit the form, this time with a name and sort name entered.
+    // We'll know if the external link was preserved and submitted by
+    // checking the edits below.
+    {
+      command: 'clickAndWait',
+      target: 'css=form.edit-artist button[type=submit]',
+      value: '',
+    },
+    {
+      command: 'assertEditData',
+      target: 1,
+      value: {
+        type: 1,
+        status: 2,
+        data: {
+          area_id: null,
+          begin_area_id: null,
+          begin_date: {
+            day: null,
+            month: null,
+            year: null,
+          },
+          comment: '',
+          end_area_id: null,
+          end_date: {
+            day: null,
+            month: null,
+            year: null,
+          },
+          ended: 0,
+          entity_gid: '$$__IGNORE__$$',
+          entity_id: 3,
+          gender_id: null,
+          ipi_codes: [],
+          isni_codes: [],
+          name: 'realname',
+          sort_name: 'realname',
+          type_id: null,
+        },
+      },
+    },
+    {
+      command: 'assertEditData',
+      target: 2,
+      value: {
+        type: 90,
+        status: 2,
+        data: {
+          edit_version: 2,
+          ended: 0,
+          entity0: {
+            gid: '$$__IGNORE__$$',
+            id: 3,
+            name: 'realname',
+          },
+          entity1: {
+            gid: '$$__IGNORE__$$',
+            id: 1,
+            name: 'https://www.discogs.com/artist/999999999',
+          },
+          entity_id: 1,
+          link_type: {
+            id: 180,
+            link_phrase: 'Discogs',
+            long_link_phrase: 'has a Discogs page at',
+            name: 'discogs',
+            reverse_link_phrase: 'Discogs page for',
+          },
+          type0: 'artist',
+          type1: 'url',
+        },
+      },
+    },
+  ],
+}

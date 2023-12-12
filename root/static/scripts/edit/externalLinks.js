@@ -9,11 +9,16 @@
 
 import punycode from 'punycode';
 
+import {captureException} from '@sentry/browser';
 import $ from 'jquery';
 import ko from 'knockout';
 import * as React from 'react';
 import * as ReactDOMClient from 'react-dom/client';
 
+import {
+  compactEntityJson,
+  decompactEntityJson,
+} from '../../../utility/compactEntityJson.js';
 import invariant from '../../../utility/invariant.js';
 import {
   EMPTY_PARTIAL_DATE,
@@ -27,7 +32,10 @@ import linkedEntities from '../common/linkedEntities.mjs';
 import MB from '../common/MB.js';
 import {groupBy, keyBy, uniqBy} from '../common/utility/arrays.js';
 import {bracketedText} from '../common/utility/bracketed.js';
-import {getSourceEntityData} from '../common/utility/catalyst.js';
+import {
+  getCatalystContext,
+  getSourceEntityData,
+} from '../common/utility/catalyst.js';
 import {compareDatePeriods} from '../common/utility/compareDates.js';
 import formatDatePeriod from '../common/utility/formatDatePeriod.js';
 import isDateEmpty from '../common/utility/isDateEmpty.js';
@@ -84,7 +92,7 @@ export type LinkStateT = $ReadOnly<{
   ...DatePeriodRoleT,
   +deleted: boolean,
   +editsPending: boolean,
-  +entity0?:
+  +entity0:
     | RelatableEntityT
     | {
         +entityType: RelatableEntityTypeT,
@@ -93,9 +101,10 @@ export type LinkStateT = $ReadOnly<{
         +name?: string,
         +orderingTypeID?: number,
         +relationships?: void,
-      },
-  +entity1?: RelatableEntityT,
-  +pendingTypes?: $ReadOnlyArray<number>,
+      }
+    | null,
+  +entity1: RelatableEntityT | null,
+  +pendingTypes: $ReadOnlyArray<number> | null,
   +rawUrl: string,
   // New relationships will use a unique string ID like "new-1".
   +relationship: StrOrNum | null,
@@ -168,17 +177,30 @@ export class _ExternalLinksEditor
     });
 
     if (typeof window !== 'undefined') {
-      // Terribly get seeded URLs
-      if (MB.formWasPosted) {
+      const $c = getCatalystContext();
+      if (
+        $c.req.method === 'POST' &&
+        /*
+         * XXX The release editor submits edits asynchronously,
+         * and does not save `submittedLinks` in `sessionStorage`.
+         */
+        sourceType !== 'release'
+      ) {
         if (hasSessionStorage) {
           const submittedLinks =
             window.sessionStorage.getItem('submittedLinks');
           if (submittedLinks) {
-            initialLinks = JSON.parse(submittedLinks)
-              .filter(l => !isEmpty(l)).map(newLinkState);
+            initialLinks = ((
+              decompactEntityJson(JSON.parse(submittedLinks))
+            ): any).filter(l => !isEmpty(l)).map(newLinkState);
+            window.sessionStorage.removeItem('submittedLinks');
           }
         }
       } else {
+        /*
+         * If the form wasn't posted, extract seeded links from the URL
+         * query parameters instead.
+         */
         const seededSourceType = sourceType === 'release_group'
           ? 'release-group'
           : sourceType;
@@ -392,7 +414,7 @@ export class _ExternalLinksEditor
     }
     this.setState(prevState => {
       let newLinks = [...prevState.links];
-      newLinks[index] = {...newLinks[index], pendingTypes: undefined};
+      newLinks[index] = {...newLinks[index], pendingTypes: null};
       const emptyLinkIndex = newLinks.findIndex(link => {
         const isNewLink = !isPositiveInteger(link.relationship);
         return isNewLink && isEmpty(link);
@@ -1321,7 +1343,7 @@ type LinkProps = {
   +relationships: $ReadOnlyArray<LinkRelationshipT>,
   +typeOptions: $ReadOnlyArray<LinkTypeOptionT>,
   +url: string,
-  +urlEntity?: RelatableEntityT,
+  +urlEntity: RelatableEntityT | null,
   +urlMatchesType: boolean,
   +validateLink: (LinkRelationshipT | LinkStateT) => ErrorT | null,
 };
@@ -1578,8 +1600,9 @@ const defaultLinkState: LinkStateT = {
   editsPending: false,
   end_date: EMPTY_PARTIAL_DATE,
   ended: false,
-  entity0: undefined,
-  entity1: undefined,
+  entity0: null,
+  entity1: null,
+  pendingTypes: null,
   rawUrl: '',
   relationship: null,
   submitted: false,
@@ -1660,8 +1683,9 @@ export function parseRelationships(
         editsPending: data.editsPending,
         end_date: data.end_date || EMPTY_PARTIAL_DATE,
         ended: data.ended || false,
-        entity0: sourceData || undefined,
+        entity0: sourceData || null,
         entity1: target,
+        pendingTypes: null,
         rawUrl: target.name,
         relationship: data.id,
         submitted: true,
@@ -1866,10 +1890,14 @@ export function prepareExternalLinksHtmlFormSubmission(
 
       const links = externalLinksEditor.state.links;
       if (hasSessionStorage && links.length) {
-        window.sessionStorage.setItem(
-          'submittedLinks',
-          JSON.stringify(links),
-        );
+        try {
+          window.sessionStorage.setItem(
+            'submittedLinks',
+            JSON.stringify(compactEntityJson(links)),
+          );
+        } catch (error) {
+          captureException(error);
+        }
       }
     },
   );
