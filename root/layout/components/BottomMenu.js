@@ -196,7 +196,7 @@ const ProductsMenu = () => (
         <a href="/doc/MusicBrainz_Server">{l('MusicBrainz Server')}</a>
       </li>
       <li>
-        <a href="/doc/MusicBrainz_Database">{l('MusicBrainz database')}</a>
+        <a href="/doc/MusicBrainz_Database">{l('MusicBrainz Database')}</a>
       </li>
       <li className="separator">
         <a href="/doc/Developer_Resources">{l('Developer resources')}</a>
