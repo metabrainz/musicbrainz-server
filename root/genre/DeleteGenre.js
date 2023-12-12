@@ -28,12 +28,12 @@ const DeleteGenre = ({
     entity={genre}
     fullWidth
     page="delete"
-    title={lp('Remove genre', 'header')}
+    title="Remove genre"
   >
-    <h2>{lp('Remove genre', 'header')}</h2>
+    <h2>{'Remove genre'}</h2>
     <p>
-      {exp.l('Are you sure you want to remove the genre {genre}?',
-             {genre: <EntityLink entity={genre} />})}
+      {exp.l_admin('Are you sure you want to remove the genre {genre}?',
+                   {genre: <EntityLink entity={genre} />})}
     </p>
 
     <form method="post">

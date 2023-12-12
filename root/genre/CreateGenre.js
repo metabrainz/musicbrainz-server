@@ -21,9 +21,9 @@ type Props = {
 const CreateGenre = ({
   form,
 }: Props): React$Element<typeof Layout> => (
-  <Layout fullWidth title={l('Add a new genre')}>
+  <Layout fullWidth title="Add a new genre">
     <div id="content">
-      <h1>{l('Add a new genre')}</h1>
+      <h1>{'Add a new genre'}</h1>
       <GenreEditForm form={form} />
     </div>
     {manifest.js('genre/components/GenreEditForm', {async: 'async'})}

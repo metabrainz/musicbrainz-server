@@ -133,18 +133,18 @@ const GenreEditForm = ({
     >
       <div className="half-width">
         <fieldset>
-          <legend>{l('Genre details')}</legend>
+          <legend>{'Genre details'}</legend>
           <FormRowNameWithGuessCase
             dispatch={nameDispatch}
             entity={genre}
             field={state.form.field.name}
             guessCaseOptions={state.guessCaseOptions}
             isGuessCaseOptionsOpen={state.isGuessCaseOptionsOpen}
-            label={addColonText(l('Name'))}
+            label="Name:"
           />
           <FormRowTextLong
             field={state.form.field.comment}
-            label={addColonText(l('Disambiguation'))}
+            label="Disambiguation:"
             uncontrolled
           />
         </fieldset>
@@ -153,7 +153,7 @@ const GenreEditForm = ({
           seededRelationships={$c.stash.seeded_relationships}
         />
         <fieldset>
-          <legend>{l('External links')}</legend>
+          <legend>{'External links'}</legend>
           <ExternalLinksEditor
             isNewEntity={!genre.id}
             ref={externalLinksEditorRef}

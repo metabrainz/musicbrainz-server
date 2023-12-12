@@ -397,7 +397,7 @@
 
   <select name="args" multiple="multiple">
     [%~ editor_flags = [[1, lp('Auto-editor', 'user type')], [2, lp('Bot', 'user type')]];
-        IF c.user.is_account_admin; editor_flags.push([4, l('Untrusted')]); END;
+        IF c.user.is_account_admin; editor_flags.push([4, l_admin('Untrusted')]); END;
         editor_flags.push(
           [8, lp('Relationship editor', 'user type')],
           [32, lp('Transclusion editor', 'user type')],
@@ -457,7 +457,7 @@
                    [ 'editor', l('Editor'), {requires_login => 1} ],
                    [ 'voter', l('Voter'), {requires_login => 1} ]
                    [ 'release_language', l('Release language') ],
-                   [ 'release_quality', l('Release quality') ],
+                   [ 'release_quality', l('Release data quality') ],
                    [ 'artist_area', l('Artist area') ],
                    [ 'label_area', l('Label area') ]
                    [ 'release_country', l('Release country') ]

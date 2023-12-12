@@ -257,7 +257,7 @@ class PreferencesForm extends React.Component<Props, State> {
             />
             <FormRowCheckbox
               field={field.subscribe_to_created_series}
-              label={l('Series')}
+              label={lp('Series', 'plural')}
               uncontrolled
             />
           </p>

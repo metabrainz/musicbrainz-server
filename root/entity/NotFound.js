@@ -16,7 +16,7 @@ const defaultSearchArgs = {search_url: '/search'};
 /* eslint-disable sort-keys */
 const notFoundPages = {
   'area': {
-    title: N_l('Area Not Found'),
+    title: N_lp('Area not found', 'header'),
     message: N_l(
       `Sorry, we could not find an area with that MusicBrainz ID.
        You may wish to try and {search_url|search for it} instead.`,
@@ -25,7 +25,7 @@ const notFoundPages = {
     footer: null,
   },
   'artist': {
-    title: N_l('Artist Not Found'),
+    title: N_lp('Artist not found', 'header'),
     message: N_l(
       `Sorry, we could not find an artist with that MusicBrainz ID.
        You may wish to try and {search_url|search for it} instead.`,
@@ -34,19 +34,19 @@ const notFoundPages = {
     footer: null,
   },
   'artist_credit': {
-    title: N_l('Artist Credit Not Found'),
+    title: N_lp('Artist credit not found', 'header'),
     message: N_l('Sorry, we could not find an artist credit with that ID.'),
     args: {},
     footer: null,
   },
   'cdtoc': {
-    title: N_l('CD TOC Not Found'),
+    title: N_lp('CD TOC not found', 'header'),
     message: N_l('Sorry, we could not find the CD TOC you specified.'),
     args: {},
     footer: null,
   },
   'collection': {
-    title: N_l('Collection Not Found'),
+    title: N_lp('Collection not found', 'header'),
     message: N_l(
       'Sorry, we could not find a collection with that MusicBrainz ID.',
     ),
@@ -54,7 +54,7 @@ const notFoundPages = {
     footer: null,
   },
   'edit': {
-    title: N_l('Edit Not Found'),
+    title: N_lp('Edit not found', 'header'),
     message: N_l(
       `Sorry, we could not find an edit with that edit ID.
        You may wish to try and perform an {search_url|edit search} instead.`,
@@ -63,13 +63,13 @@ const notFoundPages = {
     footer: null,
   },
   'elections': {
-    title: N_l('Election Not Found'),
+    title: N_lp('Election not found', 'header'),
     message: N_l('Sorry, we could not find this election.'),
     args: {},
     footer: <p><a href="/elections">{l('Back to all elections.')}</a></p>,
   },
   'event': {
-    title: N_l('Event Not Found'),
+    title: N_lp('Event not found', 'header'),
     message: N_l(
       `Sorry, we could not find an event with that MusicBrainz ID.
        You may wish to try and {search_url|search for it} instead.`,
@@ -78,7 +78,7 @@ const notFoundPages = {
     footer: null,
   },
   'genre': {
-    title: N_l('Genre Not Found'),
+    title: N_lp('Genre not found', 'header'),
     message: N_l(
       `Sorry, we could not find a genre with that MusicBrainz ID.
        You can see all available genres on our {genre_list|genre list}.`,
@@ -87,7 +87,7 @@ const notFoundPages = {
     footer: null,
   },
   'instrument': {
-    title: N_l('Instrument Not Found'),
+    title: N_lp('Instrument not found', 'header'),
     message: N_l(
       `Sorry, we could not find an instrument with that MusicBrainz ID.
        You may wish to try and {search_url|search for it} instead.`,
@@ -96,7 +96,7 @@ const notFoundPages = {
     footer: null,
   },
   'isrc': {
-    title: N_l('ISRC Not Currently Used'),
+    title: N_lp('ISRC not currently used', 'header'),
     message: N_l(
       `This ISRC is not associated with any recordings. If you wish to
        associate it with a recording, please
@@ -106,7 +106,7 @@ const notFoundPages = {
     footer: null,
   },
   'iswc': {
-    title: N_l('ISWC Not Currently Used'),
+    title: N_lp('ISWC not currently used', 'header'),
     message: N_l(
       `This ISWC is not associated with any works. If you wish to associate it
        with a work, please {search_url|search for the work} and add it.`,
@@ -115,7 +115,7 @@ const notFoundPages = {
     footer: null,
   },
   'label': {
-    title: N_l('Label Not Found'),
+    title: N_lp('Label not found', 'header'),
     message: N_l(
       `Sorry, we could not find a label with that MusicBrainz ID.
        You may wish to try and {search_url|search for it} instead.`,
@@ -124,7 +124,7 @@ const notFoundPages = {
     footer: null,
   },
   'otherlookup': {
-    title: N_l('Entity Not Found'),
+    title: N_lp('Entity not found', 'header'),
     message: N_l(
       `Sorry, we could not find a MusicBrainz entity with that ID.
        You may wish to try and {search_url|search for it} instead.`,
@@ -133,7 +133,7 @@ const notFoundPages = {
     footer: null,
   },
   'place': {
-    title: N_l('Place Not Found'),
+    title: N_lp('Place not found', 'header'),
     message: N_l(
       `Sorry, we could not find a place with that MusicBrainz ID.
        You may wish to try and {search_url|search for it} instead.`,
@@ -142,7 +142,7 @@ const notFoundPages = {
     footer: null,
   },
   'recording': {
-    title: N_l('Recording Not Found'),
+    title: N_lp('Recording not found', 'header'),
     message: N_l(
       `Sorry, we could not find a recording with that MusicBrainz ID.
        You may wish to try and {search_url|search for it} instead.`,
@@ -151,7 +151,7 @@ const notFoundPages = {
     footer: null,
   },
   'relationship/linkattributetype': {
-    title: N_l('Relationship Attribute Not Found'),
+    title: N_lp('Relationship attribute not found', 'header'),
     message: N_l(
       `Sorry, we could not find a relationship attribute
        with that MusicBrainz ID.`,
@@ -160,7 +160,7 @@ const notFoundPages = {
     footer: null,
   },
   'relationship/linktype': {
-    title: N_l('Relationship Type Not Found'),
+    title: N_lp('Relationship type not found', 'header'),
     message: N_l(
       `Sorry, we could not find a relationship type
        with that MusicBrainz ID.`,
@@ -169,7 +169,7 @@ const notFoundPages = {
     footer: null,
   },
   'release': {
-    title: N_l('Release Not Found'),
+    title: N_lp('Release not found', 'header'),
     message: N_l(
       `Sorry, we could not find a release with that MusicBrainz ID.
        You may wish to try and {search_url|search for it} instead.`,
@@ -178,7 +178,7 @@ const notFoundPages = {
     footer: null,
   },
   'release_group': {
-    title: N_l('Release Group Not Found'),
+    title: N_lp('Release group not found', 'header'),
     message: N_l(
       `Sorry, we could not find a release group with that MusicBrainz ID.
        You may wish to try and {search_url|search for it} instead.`,
@@ -187,7 +187,7 @@ const notFoundPages = {
     footer: null,
   },
   'series': {
-    title: N_l('Series Not Found'),
+    title: N_lp('Series not found', 'singular, header'),
     message: N_l(
       `Sorry, we could not find a series with that MusicBrainz ID.
        You may wish to try and {search_url|search for it} instead.`,
@@ -196,7 +196,7 @@ const notFoundPages = {
     footer: null,
   },
   'track': {
-    title: N_l('Track Not Found'),
+    title: N_lp('Track not found', 'header'),
     message: N_l(
       `Sorry, we could not find neither a recording nor a track with that
        MusicBrainz ID.
@@ -206,13 +206,13 @@ const notFoundPages = {
     footer: null,
   },
   'url': {
-    title: N_l('URL Not Found'),
+    title: N_lp('URL not found', 'header'),
     message: N_l('Sorry, we could not find a URL with that MusicBrainz ID.'),
     args: {},
     footer: null,
   },
   'user': {
-    title: N_l('Editor Not Found'),
+    title: N_lp('Editor not found', 'header'),
     message: N_l(
       `Sorry, we could not find an editor with that name.
        You may wish to try and {search_url|search for them} instead.`,
@@ -221,7 +221,7 @@ const notFoundPages = {
     footer: null,
   },
   'work': {
-    title: N_l('Work Not Found'),
+    title: N_lp('Work not found', 'header'),
     message: N_l(
       `Sorry, we could not find a work with that MusicBrainz ID.
        You may wish to try and {search_url|search for it} instead.`,
