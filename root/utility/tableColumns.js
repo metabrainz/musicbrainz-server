@@ -818,6 +818,6 @@ export const workLanguagesColumn:
         ))}
       </ul>
     ),
-    Header: N_l('Lyrics languages'),
+    Header: N_lp('Lyrics languages', 'header'),
     id: 'lyrics-languages',
   };
