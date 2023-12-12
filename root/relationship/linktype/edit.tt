@@ -1,6 +1,6 @@
-[% WRAPPER "layout.tt" title=l("Edit Relationship Type") full_width=1 %]
+[% WRAPPER "layout.tt" title="Edit relationship type" full_width=1 %]
     <div id="content">
-        <h1>[% l("Edit Relationship Type") %]</h1>
+        <h1>[% 'Edit relationship type' %]</h1>
         [% INCLUDE "relationship/linktype/form.tt" %]
     </div>
 [% END %]
