@@ -46,7 +46,7 @@ sub deserialize
     for my $line (split /\n/, $serialized) {
         my ($k, $v) = split /=/, $line, 2;
         return undef unless defined $v;
-        $kv{$k} = substr($v, 0, 5) eq "\x1BURI;"
+        $kv{$k} = substr($v, 0, 5) eq "\N{ESCAPE}URI;"
             ? decode_value($v)
             : $v;
     }

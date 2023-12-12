@@ -6,7 +6,7 @@ use warnings;
 use JSON;
 use Test::Routine;
 use MusicBrainz::Server::Test ws_test_json => {
-    version => 2
+    version => 2,
 };
 
 with 't::Mechanize', 't::Context';
@@ -44,7 +44,7 @@ test 'browse recordings via artist (first page)' => sub {
                     disambiguation => '',
                     video => JSON::false,
                     'first-release-date' => '1999-09-13',
-                }]
+                }],
         };
 };
 
@@ -81,7 +81,7 @@ test 'browse recordings via artist (second page)' => sub {
                     disambiguation => '',
                     video => JSON::false,
                     'first-release-date' => '1999-09-13',
-                }]
+                }],
         };
 };
 
@@ -127,7 +127,7 @@ test 'browse recordings via release' => sub {
                     disambiguation => '',
                     video => JSON::false,
                     'first-release-date' => '2007-01-29',
-                }]
+                }],
         };
 };
 

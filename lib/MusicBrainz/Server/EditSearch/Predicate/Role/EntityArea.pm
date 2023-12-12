@@ -4,17 +4,17 @@ use namespace::autoclean;
 
 parameter 'type' => (
     isa => 'Str',
-    required => 1
+    required => 1,
 );
 
 parameter 'column' => (
     isa => 'Str',
-    required => 0
+    required => 0,
 );
 
 parameter 'extra_join' => (
     isa => 'HashRef[Str]',
-    required => 0
+    required => 0,
 );
 
 role {
@@ -47,7 +47,7 @@ role {
             join(' ', "$final_table_alias.$column", $self->operator,
                  $self->operator eq '='  ? 'any(?)' :
                  $self->operator eq '!=' ? 'all(?)' : die q(Shouldn't get here)) . ')',
-            $self->sql_arguments
+            $self->sql_arguments,
         ]) if $self->arguments > 0;
     };
 

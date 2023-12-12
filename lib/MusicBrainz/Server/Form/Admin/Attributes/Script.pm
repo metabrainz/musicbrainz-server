@@ -5,7 +5,6 @@ use warnings;
 use HTML::FormHandler::Moose;
 
 use MusicBrainz::Server::Constants qw( :script_frequency );
-use MusicBrainz::Server::Translation qw( lp );
 
 extends 'MusicBrainz::Server::Form';
 with 'MusicBrainz::Server::Form::Role::Edit';
@@ -17,7 +16,7 @@ has '+name' => ( default => 'attr' );
 has_field 'name' => (
     type      => 'Text',
     required  => 1,
-    maxlength => 255
+    maxlength => 255,
 );
 
 has_field 'iso_code' => (
@@ -34,16 +33,16 @@ has_field 'iso_number' => (
 
 has_field 'frequency' => (
     type => 'Select',
-    required => 1
+    required => 1,
 );
 
 sub options_frequency {
     return [
-        $SCRIPT_FREQUENCY_HIDDEN, lp('Hidden', 'script frequency'),
-        $SCRIPT_FREQUENCY_UNCOMMON, lp('Other (Uncommon)', 'script frequency'),
-        $SCRIPT_FREQUENCY_OTHER, lp('Other', 'script frequency'),
-        $SCRIPT_FREQUENCY_FREQUENT, lp('Frequently used', 'script frequency'),
-    ]
+        $SCRIPT_FREQUENCY_HIDDEN, 'Hidden',
+        $SCRIPT_FREQUENCY_UNCOMMON, 'Other (Uncommon)',
+        $SCRIPT_FREQUENCY_OTHER, 'Other',
+        $SCRIPT_FREQUENCY_FREQUENT, 'Frequently used',
+    ];
 }
 
 1;

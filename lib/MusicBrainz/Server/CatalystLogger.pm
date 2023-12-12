@@ -4,7 +4,7 @@ use namespace::autoclean;
 
 has dispatch => (
     is => 'ro',
-    required => 1
+    required => 1,
 );
 
 has abort => (
@@ -20,8 +20,8 @@ has message_accumulator => (
         clear_message_queue => 'clear',
         add_message => 'push',
         messages => 'elements',
-        message_queue_size => 'count'
-    }
+        message_queue_size => 'count',
+    },
 );
 
 sub has_empty_message_queue { !shift->message_queue_size }
@@ -36,7 +36,7 @@ sub has_empty_message_queue { !shift->message_queue_size }
             "is_${l}" => sub {
                 my $self = shift;
                 return $self->level_is_valid($name);
-            }
+            },
         );
 
         __PACKAGE__->meta->add_method(
@@ -45,7 +45,7 @@ sub has_empty_message_queue { !shift->message_queue_size }
                 my %p = (level => $name, message => "@_");
 
                 $self->add_message(\%p);
-            }
+            },
         );
     }
 }

@@ -72,10 +72,10 @@ test 'Check conflicts (non-conflicting edits)' => sub {
                         id => 1,
                         name => 'Name',
                     },
-                    name => 'New ac name'
-                }
-            ]
-        }
+                    name => 'New ac name',
+                },
+            ],
+        },
     );
 
     ok !exception { $edit_1->accept }, 'accepted edit 1';
@@ -104,10 +104,10 @@ test 'Check conflicts (conflicting edits)' => sub {
                         id => 1,
                         name => 'Name',
                     },
-                    name => 'New ac name'
-                }
-            ]
-        }
+                    name => 'New ac name',
+                },
+            ],
+        },
     );
 
     my $edit_2 = $c->model('Edit')->create(
@@ -122,10 +122,10 @@ test 'Check conflicts (conflicting edits)' => sub {
                         id => 1,
                         name => 'Name',
                     },
-                    name => 'New ac name 2'
-                }
-            ]
-        }
+                    name => 'New ac name 2',
+                },
+            ],
+        },
     );
 
     ok !exception { $edit_1->accept }, 'accepted edit 1';
@@ -167,7 +167,7 @@ test 'Changing the secondary types for a release group is not always an auto-edi
             edit_type => $EDIT_RELEASEGROUP_EDIT,
             editor_id => 1,
             to_edit => $c->model('ReleaseGroup')->get_by_id(1),
-            secondary_type_ids => [ 7 ]
+            secondary_type_ids => [ 7 ],
         );
 
         ok(!$edit->is_open, 'Adding a secondary type should be an auto-edit');
@@ -180,7 +180,7 @@ test 'Changing the secondary types for a release group is not always an auto-edi
             edit_type => $EDIT_RELEASEGROUP_EDIT,
             editor_id => 1,
             to_edit => $rg,
-            secondary_type_ids => [ ]
+            secondary_type_ids => [ ],
         );
 
         ok($edit->is_open, 'Further changes to secondary types should not be a auto-edits');
@@ -197,7 +197,7 @@ test 'Submitting a release group edit with an undef comment' => sub {
         editor_id => 1,
         to_edit => $c->model('ReleaseGroup')->get_by_id(1),
         name => '~foooo~',
-        comment => undef
+        comment => undef,
     );
 
     ok !exception { $edit->accept }, 'accepted edit';
@@ -221,7 +221,7 @@ sub create_edit {
                     artist => { id => 1, name => 'Break' },
                     name => 'Silent Witness',
                     join_phrase => '',
-                }
+                },
             ] },
         name => 'We Know',
         comment => 'EP',

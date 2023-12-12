@@ -6,9 +6,7 @@ use utf8;
 use MusicBrainz::Server::Data::Utils qw( contains_string );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 
-use MusicBrainz::Server::Translation qw( l );
-
-BEGIN { extends 'MusicBrainz::Server::Controller' };
+BEGIN { extends 'MusicBrainz::Server::Controller' }
 
 my @models = qw(
     AreaType
@@ -39,7 +37,7 @@ sub index : Path('/admin/attributes') Args(0) RequireAuth(account_admin) {
     $c->stash(
         current_view => 'Node',
         component_path => 'admin/attributes/Index',
-        component_props => {models => \@models}
+        component_props => {models => \@models},
     );
 }
 
@@ -58,7 +56,7 @@ sub attribute_index : Chained('attribute_base') PathPart('') RequireAuth(account
 
     my %component_paths = (
         Language => 'admin/attributes/Language',
-        Script => 'admin/attributes/Script'
+        Script => 'admin/attributes/Script',
     );
     my $component_path = $component_paths{$model} // 'admin/attributes/Attribute';
 
@@ -68,7 +66,7 @@ sub attribute_index : Chained('attribute_base') PathPart('') RequireAuth(account
         component_props => {
             attributes => to_json_array(\@attr),
             model => $model,
-        }
+        },
     );
 }
 
@@ -78,7 +76,7 @@ sub create : Chained('attribute_base') RequireAuth(account_admin) SecureForm {
 
     my %forms = (
         Language => 'Admin::Attributes::Language',
-        Script => 'Admin::Attributes::Script'
+        Script => 'Admin::Attributes::Script',
     );
     my $form_name = $forms{$model} // 'Admin::Attributes';
     my $form = $c->form( form => $form_name );
@@ -100,7 +98,7 @@ sub edit : Chained('attribute_base') Args(1) RequireAuth(account_admin) SecureFo
 
     my %forms = (
         Language => 'Admin::Attributes::Language',
-        Script => 'Admin::Attributes::Script'
+        Script => 'Admin::Attributes::Script',
     );
     my $form_name = $forms{$model} // 'Admin::Attributes';
     my $form = $c->form( form => $form_name, init_object => $attr );
@@ -127,24 +125,26 @@ sub delete : Chained('attribute_base') Args(1) RequireAuth(account_admin) Secure
     $c->stash->{attribute} = $attr;
 
     if ($c->model($model)->in_use($id)) {
-        my $error_message = l('You cannot remove the attribute "{name}" because it is still in use.', { name => $attr->name });
+        my $attr_name = $attr->name;
+        my $error_message = "You cannot remove the attribute “$attr_name” because it is still in use.";
 
         $c->stash(
             current_view => 'Node',
             component_path => 'admin/attributes/CannotRemoveAttribute',
-            component_props => {message => $error_message}
+            component_props => {message => $error_message},
         );
 
         $c->detach;
     }
 
     if ($c->model($model)->has_children($id)) {
-        my $error_message = l('You cannot remove the attribute “{name}” because it is the parent of other attributes.', { name => $attr->name });
+        my $attr_name = $attr->name;
+        my $error_message = "You cannot remove the attribute “$attr_name” because it is the parent of other attributes.";
 
         $c->stash(
             current_view => 'Node',
             component_path => 'admin/attributes/CannotRemoveAttribute',
-            component_props => {message => $error_message}
+            component_props => {message => $error_message},
         );
 
         $c->detach;

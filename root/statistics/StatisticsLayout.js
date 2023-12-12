@@ -57,7 +57,7 @@ const infoLinks = [
   {
     link: '/statistics/coverart',
     page: 'coverart',
-    title: N_l('Cover Art'),
+    title: N_lp('Cover art', 'plural'),
   },
   {
     link: '/statistics/relationships',
@@ -93,7 +93,7 @@ const StatisticsLayout = ({
   sidebar,
   title,
 }: StatisticsLayoutPropsT): React$Element<typeof Layout> => {
-  const htmlTitle = hyphenateTitle(l('Database Statistics'), title);
+  const htmlTitle = hyphenateTitle(l('Database statistics'), title);
   return (
     <Layout
       fullWidth={fullWidth}
@@ -106,7 +106,7 @@ const StatisticsLayout = ({
       />
       <div id="content">
         <div className="statisticsheader">
-          <h1>{l('Database Statistics')}</h1>
+          <h1>{l('Database statistics')}</h1>
         </div>
         <Tabs>
           {infoLinks.map(props => (

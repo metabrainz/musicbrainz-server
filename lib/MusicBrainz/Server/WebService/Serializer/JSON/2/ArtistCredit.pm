@@ -19,7 +19,7 @@ sub serialize
     } @{ $entity->names };
 
     return \@body;
-};
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

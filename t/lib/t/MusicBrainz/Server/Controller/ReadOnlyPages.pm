@@ -41,7 +41,7 @@ for my $path (
 
         $mech->get_ok('/login');
         $mech->submit_form(
-            with_fields => { username => 'new_editor', password => 'password' }
+            with_fields => { username => 'new_editor', password => 'password' },
         );
 
         my $dbdefs = ref(*DBDefs::DB_READ_ONLY) ? 'DBDefs' : 'DBDefs::Default';
@@ -55,6 +55,6 @@ for my $path (
 
         $wrapped_read_only->DESTROY;
     };
-};
+}
 
 1;

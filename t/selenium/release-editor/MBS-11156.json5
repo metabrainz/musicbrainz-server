@@ -68,7 +68,7 @@
     },
     {
       command: 'click',
-      target: "xpath=//div[@id='add-medium-dialog']//button[contains(text(), 'Add Medium')]",
+      target: "xpath=//div[@id='add-medium-dialog']//button[contains(text(), 'Add medium')]",
       value: '',
     },
     {

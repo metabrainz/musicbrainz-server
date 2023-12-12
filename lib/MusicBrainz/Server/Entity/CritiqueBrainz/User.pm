@@ -5,12 +5,12 @@ use DBDefs;
 
 has id => (
     is => 'ro',
-    isa => 'Str'
+    isa => 'Str',
 );
 
 has name => (
     is => 'ro',
-    isa => 'Str'
+    isa => 'Str',
 );
 
 sub href {

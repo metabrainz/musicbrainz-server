@@ -22,7 +22,7 @@ test 'clean_submitted_artist_credits, copy name to credit' => sub {
             {
                 artist => { name => 'Voltio' },
                 name => 'Julio Voltio',
-            }]
+            }],
     };
 
     my $expected = {
@@ -36,7 +36,7 @@ test 'clean_submitted_artist_credits, copy name to credit' => sub {
                 artist => { name => 'Voltio' },
                 name => 'Julio Voltio',
                 join_phrase => '',
-            }]
+            }],
     };
 
     is_deeply( clean_submitted_artist_credits ($ac),
@@ -55,7 +55,7 @@ test 'clean_submitted_artist_credits, trim and collapse all fields' => sub {
                 artist => { name => '  Voltio  ' },
                 name => '   Julio   Voltio  ',
                 join_phrase => '!!!11~   ',
-            }]
+            }],
     };
 
     my $expected = {
@@ -69,7 +69,7 @@ test 'clean_submitted_artist_credits, trim and collapse all fields' => sub {
                 artist => { name => 'Voltio' },
                 name => 'Julio Voltio',
                 join_phrase => '!!!11~',
-            }]
+            }],
     };
 
     is_deeply( clean_submitted_artist_credits ($ac),
@@ -84,7 +84,7 @@ test 'entering "0" as a credited name/join phrase' => sub {
                 name => '0',
                 join_phrase => '0',
             },
-        ]
+        ],
     };
 
     is_deeply(clean_submitted_artist_credits($input), {
@@ -94,7 +94,7 @@ test 'entering "0" as a credited name/join phrase' => sub {
                 name => '0',
                 join_phrase => '0',
             },
-        ]
+        ],
     });
 
     my %loaded_ac_definitions = load_artist_credit_definitions($input);

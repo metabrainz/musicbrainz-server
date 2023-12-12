@@ -11,14 +11,14 @@ extends 'MusicBrainz::Server::Data::Entity';
 has 'type' => (
     isa      => 'Str',
     is       => 'ro',
-    required => 1
+    required => 1,
 );
 
 has 'parent' => (
     does => 'MusicBrainz::Server::Data::Role::Rating',
     is => 'rw',
     required => 1,
-    weak_ref => 1
+    weak_ref => 1,
 );
 
 sub find_editor_ratings {
@@ -54,7 +54,7 @@ sub find_editor_ratings {
             }
 
             $entity;
-        } @$rows
+        } @$rows,
     ];
 
     return ($results, $hits);
@@ -110,7 +110,7 @@ sub merge
              SELECT editor, max(rating), ?
                FROM delete_ratings(?, ?)
            GROUP BY editor",
-        $new_id, $type, [ $new_id, @old_ids ]
+        $new_id, $type, [ $new_id, @old_ids ],
     );
 
     return 1;

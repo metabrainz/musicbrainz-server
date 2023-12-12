@@ -32,21 +32,21 @@ sub serialize
         map {
             non_empty($_->text_value) ? ($_->type->name => $_->text_value) : ()
         }
-        @attributes
+        @attributes,
     };
 
     $body->{'attribute-ids'} = {
         map {
             $_->type->name => $_->type->gid
         }
-        @attributes
+        @attributes,
     };
 
     $body->{'attribute-credits'} = {
         map {
             non_empty($_->credited_as) ? ($_->type->name => $_->credited_as) : ()
         }
-        @attributes
+        @attributes,
     } if any { $_->type->creditable } @attributes;
 
     $body->{'target-type'} = $entity->target_type;
@@ -55,7 +55,7 @@ sub serialize
     $body->{'target-credit'} = $entity->target_credit // '';
 
     return $body;
-};
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

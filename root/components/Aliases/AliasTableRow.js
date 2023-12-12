@@ -58,7 +58,7 @@ const AliasTableRow = ({
         ? (
           <>
             <a href={entityHref(entity, `/alias/${alias.id}/edit`)}>
-              {l('Edit')}
+              {lp('Edit', 'verb, interactive')}
             </a>
             {' | '}
             <a href={entityHref(entity, `/alias/${alias.id}/delete`)}>

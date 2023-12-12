@@ -306,8 +306,8 @@ const TracklistChangesTable = ({
   <table className="tbl">
     <thead>
       <tr>
-        <th colSpan="4">{l('Old Tracklist')}</th>
-        <th colSpan="4">{l('New Tracklist')}</th>
+        <th colSpan="4">{l('Old tracklist')}</th>
+        <th colSpan="4">{l('New tracklist')}</th>
         {changedMbids ? <th /> : null}
       </tr>
       <tr>
@@ -567,14 +567,14 @@ const EditMedium = ({edit}: Props): React$MixedElement => {
 
       {artistCreditChanges?.length ? (
         <tr>
-          <th>{addColonText(l('Artist Credits'))}</th>
+          <th>{addColonText(l('Artist credits'))}</th>
           <td colSpan="2">
             <table className="tbl">
               <thead>
                 <tr>
                   <th className="pos">{l('#')}</th>
-                  <th>{l('Old Artist')}</th>
-                  <th>{l('New Artist')}</th>
+                  <th>{l('Old artist')}</th>
+                  <th>{l('New artist')}</th>
                 </tr>
               </thead>
               <tbody>

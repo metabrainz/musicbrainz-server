@@ -10,24 +10,24 @@ use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 
 extends 'MusicBrainz::Server::Entity';
-with 'MusicBrainz::Server::Entity::Role::Relatable';
-with 'MusicBrainz::Server::Entity::Role::Taggable';
-with 'MusicBrainz::Server::Entity::Role::Annotation';
-with 'MusicBrainz::Server::Entity::Role::Rating';
-with 'MusicBrainz::Server::Entity::Role::Review';
-with 'MusicBrainz::Server::Entity::Role::Comment';
-with 'MusicBrainz::Server::Entity::Role::ArtistCredit';
+with 'MusicBrainz::Server::Entity::Role::Annotation',
+     'MusicBrainz::Server::Entity::Role::ArtistCredit',
+     'MusicBrainz::Server::Entity::Role::Comment',
+     'MusicBrainz::Server::Entity::Role::Rating',
+     'MusicBrainz::Server::Entity::Role::Relatable',
+     'MusicBrainz::Server::Entity::Role::Review',
+     'MusicBrainz::Server::Entity::Role::Taggable';
 
 sub entity_type { 'release_group' }
 
 has 'primary_type_id' => (
     is => 'rw',
-    isa => 'Int'
+    isa => 'Int',
 );
 
 has 'primary_type' => (
     is => 'rw',
-    isa => 'ReleaseGroupType'
+    isa => 'ReleaseGroupType',
 );
 
 has 'secondary_types' => (
@@ -37,8 +37,8 @@ has 'secondary_types' => (
     traits => [ 'Array' ],
     handles => {
         add_secondary_type => 'push',
-        all_secondary_types => 'elements'
-    }
+        all_secondary_types => 'elements',
+    },
 );
 
 sub type_name
@@ -47,7 +47,7 @@ sub type_name
     return undef unless any { defined } ($self->primary_type, $self->all_secondary_types);
     return join(' + ',
                 ($self->primary_type ? $self->primary_type->name : ()),
-                map { $_->name } $self->all_secondary_types
+                map { $_->name } $self->all_secondary_types,
             );
 }
 
@@ -57,7 +57,7 @@ sub l_type_name
     return undef unless any { defined } ($self->primary_type, $self->all_secondary_types);
     return join(' + ',
                 ($self->primary_type ? $self->primary_type->l_name() : ()),
-                map { $_->l_name() } $self->all_secondary_types
+                map { $_->l_name() } $self->all_secondary_types,
             );
 }
 
@@ -68,7 +68,7 @@ has 'first_release_date' => (
 
 has 'release_count' => (
     is => 'rw',
-    isa => 'Int'
+    isa => 'Int',
 );
 
 has 'cover_art' => (

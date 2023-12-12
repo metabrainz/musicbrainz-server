@@ -11,12 +11,12 @@ sub entity_type { 'artist_alias' }
 
 has 'artist_id' => (
     is => 'rw',
-    isa => 'Int'
+    isa => 'Int',
 );
 
 has 'artist' => (
     is => 'rw',
-    isa => 'Artist'
+    isa => 'Artist',
 );
 
 __PACKAGE__->meta->make_immutable;

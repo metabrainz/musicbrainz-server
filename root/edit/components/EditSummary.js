@@ -33,7 +33,7 @@ type Props = {
 const EditSummary = ({
   edit,
   index,
-}: Props): React$Element<typeof React.Fragment> => {
+}: Props): React$Element<React$FragmentType> => {
   const $c = React.useContext(CatalystContext);
   const user = $c.user;
   const mayAddNote = editorMayAddNote(edit, user);
@@ -56,7 +56,9 @@ const EditSummary = ({
       ) ? (
         <div className="cancel-edit buttons">
           {mayAddNote ? (
-            <a className="positive edit-note-toggle">{l('Add Note')}</a>
+            <a className="positive edit-note-toggle">
+              {lp('Add note', 'interactive')}
+            </a>
           ) : null}
 
           {mayApprove ? (

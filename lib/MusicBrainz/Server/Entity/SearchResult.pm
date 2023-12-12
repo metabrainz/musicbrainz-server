@@ -9,17 +9,17 @@ use MooseX::Types::Moose qw( ArrayRef Int );
 
 has 'position' => (
     is => 'rw',
-    isa => 'Int'
+    isa => 'Int',
 );
 
 has 'score' => (
     is => 'rw',
-    isa => 'Int'
+    isa => 'Int',
 );
 
 has 'entity' => (
     is => 'rw',
-    isa => 'Entity'
+    isa => 'Entity',
 );
 
 has 'extra' => (
@@ -30,7 +30,7 @@ has 'extra' => (
             track_position      => Int,
             medium_position     => Int,
             medium_track_count  => Int,
-        ]
+        ],
     ],
     lazy => 1,
     default => sub { [] },
@@ -47,7 +47,7 @@ sub TO_JSON {
             release             => $_->{release}->TO_JSON,
             track_position      => $_->{track_position},
             medium_position     => $_->{medium_position},
-            medium_track_count  => $_->{medium_track_count}
+            medium_track_count  => $_->{medium_track_count},
         }, @{ $self->extra }],
     };
 }

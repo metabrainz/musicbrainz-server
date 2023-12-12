@@ -6,7 +6,7 @@ use MusicBrainz::Server::Entity::Util::JSON qw( add_linked_entity );
 
 has 'id' => (
     is => 'rw',
-    isa => 'Int'
+    isa => 'Int',
 );
 
 sub link_entity {

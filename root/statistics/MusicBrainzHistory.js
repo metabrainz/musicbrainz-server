@@ -18,7 +18,7 @@ const MusicBrainzHistory = ({
   events,
 }: PropsT): React$Element<typeof Layout> => (
   <Layout fullWidth title={l('History')}>
-    <h1>{l('Our Glorious History')}</h1>
+    <h1>{l('Our glorious history')}</h1>
     {events.length
       ? events.map((event) => {
         const title = exp.l(

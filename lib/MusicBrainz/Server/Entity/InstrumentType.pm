@@ -13,7 +13,7 @@ sub entity_type { 'instrument_type' }
 
 sub l_name {
     my $self = shift;
-    return lp($self->name, 'instrument_type')
+    return lp($self->name, 'instrument_type');
 }
 
 __PACKAGE__->meta->make_immutable;

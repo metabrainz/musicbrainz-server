@@ -32,19 +32,19 @@ page_test_jsonld $mech => {
     'byArtist' => {
         'name' => 'ABBA',
         '@id' => 'http://musicbrainz.org/artist/a45c079d-374e-4436-9448-da92dedef3cf',
-        '@type' => 'MusicGroup'
+        '@type' => 'MusicGroup',
     },
     'albumRelease' => {
         'name' => 'Arrival',
         '@type' => 'MusicRelease',
-        '@id' => 'http://musicbrainz.org/release/f34c079d-374e-4436-9448-da92dedef3ce'
+        '@id' => 'http://musicbrainz.org/release/f34c079d-374e-4436-9448-da92dedef3ce',
     },
     'albumReleaseType' => 'http://schema.org/AlbumRelease',
     'name' => 'Arrival',
     '@id' => 'http://musicbrainz.org/release-group/234c079d-374e-4436-9448-da92dedef3ce',
     'creditedTo' => 'ABBA',
     '@type' => 'MusicAlbum',
-    'sameAs' => 'http://musicbrainz.org/release-group/77637e8c-be66-46ea-87b3-73addc722fc9'
+    'sameAs' => 'http://musicbrainz.org/release-group/77637e8c-be66-46ea-87b3-73addc722fc9',
 };
 
 $mech->get_ok('/release-group/7c3218d7-75e0-4e8c-971f-f097b6c308c5', 'fetch Aerial release group');
@@ -82,20 +82,20 @@ page_test_jsonld $mech => {
             'name' => 'Aerial',
             '@type' => 'MusicRelease',
             'duration' => 'PT1H20M05S',
-        }
+        },
     ],
     'albumProductionType' => 'http://schema.org/StudioAlbum',
     'byArtist' => {
         '@type' => ['Person', 'MusicGroup'],
         '@id' => 'http://musicbrainz.org/artist/4b585938-f271-45e2-b19a-91c634b5e396',
-        'name' => 'Kate Bush'
+        'name' => 'Kate Bush',
     },
     '@context' => 'https://schema.org/docs/jsonldcontext.json',
     'name' => 'Aerial',
     '@id' => 'http://musicbrainz.org/release-group/7c3218d7-75e0-4e8c-971f-f097b6c308c5',
     'albumReleaseType' => 'http://schema.org/AlbumRelease',
     'creditedTo' => 'Kate Bush',
-    '@type' => 'MusicAlbum'
+    '@type' => 'MusicAlbum',
 };
 
 $mech->get_ok('/login');

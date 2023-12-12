@@ -25,7 +25,7 @@ my $c = $test->c;
 
     is(@edits, 1, 'created 1 edit');
     isa_ok($edits[0], 'MusicBrainz::Server::Edit::Medium::SetTrackLengths', 'is a "Set Track Lengths" edit');
-    is($edits[0]->editor_id, 4, 'ModBot is editor')
+    is($edits[0]->editor_id, 4, 'ModBot is editor');
 };
 
 1;

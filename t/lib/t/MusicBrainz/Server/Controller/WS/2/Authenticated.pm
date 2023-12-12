@@ -3,15 +3,16 @@ use utf8;
 use strict;
 use warnings;
 
+use HTTP::Status qw( :constants );
 use Test::Routine;
 use Test::More;
-use Test::XML::SemanticCompare;
+use Test::XML::SemanticCompare qw( is_xml_same );
 
 with 't::Mechanize', 't::Context';
 
 use MusicBrainz::Server::Test qw( xml_ok schema_validator xml_post );
 use MusicBrainz::Server::Test ws_test => {
-    version => 2
+    version => 2,
 };
 
 test all => sub {
@@ -55,7 +56,7 @@ my $content = '<?xml version="1.0" encoding="UTF-8"?>
 </metadata>';
 
 $mech->request(xml_post('/ws/2/tag?client=post.t-0.0.2', $content));
-is ($mech->status, 401, 'Tags rejected without authentication');
+is ($mech->status, HTTP_UNAUTHORIZED, 'Tags rejected without authentication');
 $mech->content_contains('You are not authorized');
 
 $mech->credentials('localhost:80', 'musicbrainz.org', 'new_editor', 'password');
@@ -169,17 +170,17 @@ test 'OAuth bearer' => sub {
     MusicBrainz::Server::Test->prepare_test_database($c, '+oauth');
 
     $mech->get('/ws/2/rating?id=802673f0-9b88-4e8a-bb5c-dd01d68b086f&entity=artist');
-    is($mech->status, 401, 'Rejected without authentication');
+    is($mech->status, HTTP_UNAUTHORIZED, 'Rejected without authentication');
 
     $mech->get('/ws/2/rating?id=802673f0-9b88-4e8a-bb5c-dd01d68b086f&entity=artist&access_token=7Fjfp0ZBr1KtDRbnfVdmIw');
-    is($mech->status, 401, 'Rejected with insufficent scope of the authentication');
+    is($mech->status, HTTP_UNAUTHORIZED, 'Rejected with insufficent scope of the authentication');
 
     $mech->get_ok('/ws/2/rating?id=802673f0-9b88-4e8a-bb5c-dd01d68b086f&entity=artist&access_token=Nlaa7v15QHm9g8rUOmT3dQ');
 
     $mech->delete_header('Authorization');
     $mech->add_header('Authorization', 'Bearer 7Fjfp0ZBr1KtDRbnfVdmIw');
     $mech->get('/ws/2/rating?id=802673f0-9b88-4e8a-bb5c-dd01d68b086f&entity=artist');
-    is($mech->status, 401, 'Rejected with insufficent scope of the authentication');
+    is($mech->status, HTTP_UNAUTHORIZED, 'Rejected with insufficent scope of the authentication');
 
     $mech->delete_header('Authorization');
     $mech->add_header('Authorization', 'Bearer Nlaa7v15QHm9g8rUOmT3dQ');
@@ -199,7 +200,7 @@ test 'Authorization header must be correctly encoded' => sub {
     $mech->add_header('Authorization', pack('H*', 'df27'));
 
     $mech->get('/ws/2/rating?id=802673f0-9b88-4e8a-bb5c-dd01d68b086f&entity=artist');
-    is($mech->status, 400);
+    is($mech->status, HTTP_BAD_REQUEST);
 };
 
 test 'Same tag can be submitted to multiple entities (MBS-8470)' => sub {
@@ -309,11 +310,11 @@ test 'Empty tag names are disallowed' => sub {
     $mech->credentials('localhost:80', 'musicbrainz.org', 'new_editor', 'password');
 
     $mech->request(xml_post('/ws/2/tag?client=post.t-0.0.2', $content =~ s/TAG_NAME//r));
-    is($mech->status, 400);
+    is($mech->status, HTTP_BAD_REQUEST);
     is_xml_same($mech->content, $error_message);
 
     $mech->request(xml_post('/ws/2/tag?client=post.t-0.0.2', $content =~ s/TAG_NAME/ /r));
-    is($mech->status, 400);
+    is($mech->status, HTTP_BAD_REQUEST);
     is_xml_same($mech->content, $error_message);
 };
 

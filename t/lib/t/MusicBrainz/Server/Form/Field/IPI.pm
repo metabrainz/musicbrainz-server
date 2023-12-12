@@ -28,7 +28,7 @@ test 'IPI field validation and transformation' => sub {
 
     $form->process({ 'test-edit' => {
         'ipi_9digit' => '123456789',
-        'ipi_11digit' => '66123456789'
+        'ipi_11digit' => '66123456789',
     }});
 
     ok($form->ran_validation, 'processed form, validation run');

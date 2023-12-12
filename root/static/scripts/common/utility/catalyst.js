@@ -20,9 +20,14 @@ import {
  * use the React context (not to be confused with the Catalyst context) API.
  */
 export function getCatalystContext(): SanitizedCatalystContextT {
-  const $c = window[GLOBAL_JS_NAMESPACE]?.$c;
+  const $c = maybeGetCatalystContext();
   invariant($c, 'Catalyst context not found in GLOBAL_JS_NAMESPACE');
   return $c;
+}
+
+export function maybeGetCatalystContext(): ?SanitizedCatalystContextT {
+  // $FlowIgnore[incompatible-use]
+  return globalThis[GLOBAL_JS_NAMESPACE]?.$c;
 }
 
 export function getSourceEntityData():

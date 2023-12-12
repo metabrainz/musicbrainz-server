@@ -4,16 +4,16 @@ use Moose;
 use DBDefs;
 use MusicBrainz::Server::Constants qw( $EDIT_WIKIDOC_CHANGE );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict );
 
 extends 'MusicBrainz::Server::Edit';
-with 'MusicBrainz::Server::Edit::WikiDoc';
-with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
+with 'MusicBrainz::Server::Edit::WikiDoc',
+     'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
 sub edit_type { $EDIT_WIKIDOC_CHANGE }
-sub edit_name { N_l('Change WikiDoc') }
+sub edit_name { N_lp('Change WikiDoc', 'edit type') }
 sub edit_kind { 'other' }
 sub edit_template { 'ChangeWikiDoc' }
 
@@ -21,8 +21,8 @@ has '+data' => (
     isa => Dict[
         page => Str,
         old_version => Nullable[Int],
-        new_version => Nullable[Int]
-    ]
+        new_version => Nullable[Int],
+    ],
 );
 
 sub initialize
@@ -32,7 +32,7 @@ sub initialize
     $self->data({
         page => $opts{page},
         old_version => $opts{old_version},
-        new_version => $opts{new_version}
+        new_version => $opts{new_version},
     });
 }
 

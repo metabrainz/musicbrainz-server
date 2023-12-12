@@ -35,10 +35,10 @@ with 'MusicBrainz::Server::Controller::Role::CommonsImage';
 with 'MusicBrainz::Server::Controller::Role::EditRelationships';
 with 'MusicBrainz::Server::Controller::Role::JSONLD' => {
     endpoints => {show => {copy_stash => [{from => 'releases_jsonld', to => 'releases'}, 'top_tags']},
-                  aliases => {copy_stash => ['aliases']}}
+                  aliases => {copy_stash => ['aliases']}},
 };
 with 'MusicBrainz::Server::Controller::Role::Collection' => {
-    entity_type => 'label'
+    entity_type => 'label',
 };
 
 use MusicBrainz::Server::Constants qw(
@@ -198,7 +198,7 @@ sub _merge_load_entities
     my ($self, $c, @labels) = @_;
     $c->model('LabelType')->load(@labels);
     $c->model('Area')->load(@labels);
-};
+}
 
 =head2 WRITE METHODS
 

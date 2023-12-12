@@ -46,8 +46,8 @@ test 'Do not rename artist credits' => sub {
         with_fields => {
             'merge.target' => 3,
             'merge.rename' => 0,
-            'merge.edit_note' => 'Some Edit Note'
-        }
+            'merge.edit_note' => 'Some Edit Note',
+        },
     );
     ok(
         $mech->uri =~ qr{/artist/745c079d-374e-4436-9448-da92dedef3ce},
@@ -62,7 +62,7 @@ test 'Do not rename artist credits' => sub {
         {
             old_entities => [ { name => 'Empty Artist', id => 4, } ],
             new_entity => { name => 'Test Artist', id => 3, },
-            rename => 0
+            rename => 0,
         },
         'The edit contains the right data',
     );
@@ -90,8 +90,8 @@ test 'Rename artist credits' => sub {
         with_fields => {
             'merge.target' => 3,
             'merge.rename' => 1,
-            'merge.edit_note' => 'Some Edit Note'
-        }
+            'merge.edit_note' => 'Some Edit Note',
+        },
     );
     ok(
         $mech->uri =~ qr{/artist/745c079d-374e-4436-9448-da92dedef3ce},
@@ -106,7 +106,7 @@ test 'Rename artist credits' => sub {
         {
             old_entities => [ { name => 'Empty Artist', id => 4, } ],
             new_entity => { name => 'Test Artist', id => 3, },
-            rename => 1
+            rename => 1,
         },
         'The edit contains the right data',
     );

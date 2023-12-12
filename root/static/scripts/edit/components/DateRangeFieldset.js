@@ -181,7 +181,7 @@ const DateRangeFieldset = (React.memo<PropsT>(({
   return (
     <>
       <fieldset>
-        <legend>{l('Date Period')}</legend>
+        <legend>{l('Date period')}</legend>
         <p>
           {l(`Dates are in the format YYYY-MM-DD.
               Partial dates such as YYYY-MM or just YYYY are OK,

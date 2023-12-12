@@ -38,7 +38,7 @@ test 'Editing external links for an artist' => sub {
                 'edit-artist.url.2.relationship_id' => '2',
                 'edit-artist.url.2.link_type_id' => '283',
                 'edit-artist.url.2.removed' => '1',
-                'edit-artist.make_votable' => '1'
+                'edit-artist.make_votable' => '1',
             });
     } $test->c;
 
@@ -68,28 +68,28 @@ test 'Editing external links for an artist' => sub {
                 'link_phrase' => 'Wikipedia',
                 'name' => 'wikipedia',
                 'id' => 179,
-                'reverse_link_phrase' => 'Wikipedia page for'
+                'reverse_link_phrase' => 'Wikipedia page for',
             },
             'ended' => '0',
             'entity1' => {
                 'name' => 'http://zh-yue.wikipedia.org/wiki/%E7%8E%8B%E8%8F%B2',
                 'id' => 3,
-                'gid' => '25d6b63a-12dc-41c9-858a-2f42ae610a7d'
+                'gid' => '25d6b63a-12dc-41c9-858a-2f42ae610a7d',
             },
             'end_date' => {
                 'month' => undef,
                 'day' => undef,
-                'year' => undef
+                'year' => undef,
             },
             'entity0' => {
                 'name' => 'Faye Wong',
                 'id' => 100,
-                'gid' => 'acd58926-4243-40bb-a2e5-c7464b3ce577'
+                'gid' => 'acd58926-4243-40bb-a2e5-c7464b3ce577',
             },
             'begin_date' => {
                 'month' => undef,
                 'day' => undef,
-                'year' => undef
+                'year' => undef,
             },
             'attributes' => [],
         },
@@ -99,15 +99,15 @@ test 'Editing external links for an artist' => sub {
             'entity1' => {
                 'name' => 'http://musicbrainz.org/',
                 'id' => 1,
-                'gid' => '9201840b-d810-4e0f-bb75-c791205f5b24'
-            }
+                'gid' => '9201840b-d810-4e0f-bb75-c791205f5b24',
+            },
         },
         'old' => {
             'entity1' => {
                 'name' => 'http://zh-yue.wikipedia.org/wiki/%E7%8E%8B%E8%8F%B2',
                 'id' => 3,
-                'gid' => '25d6b63a-12dc-41c9-858a-2f42ae610a7d'
-            }
+                'gid' => '25d6b63a-12dc-41c9-858a-2f42ae610a7d',
+            },
         },
         'entity0_credit' => '',
         'entity1_credit' => '',
@@ -120,19 +120,19 @@ test 'Editing external links for an artist' => sub {
             'link_phrase' => 'Wikipedia',
             'name' => 'wikipedia',
             'id' => 179,
-            'reverse_link_phrase' => 'Wikipedia page for'
+            'reverse_link_phrase' => 'Wikipedia page for',
         },
         'type1' => 'url',
         'entity1' => {
             'name' => 'http://microsoft.com/',
             'id' => 6,
-            'gid' => ignore()
+            'gid' => ignore(),
         },
         'ended' => 0,
         'entity0' => {
             'name' => 'Faye Wong',
             'id' => 100,
-            'gid' => 'acd58926-4243-40bb-a2e5-c7464b3ce577'
+            'gid' => 'acd58926-4243-40bb-a2e5-c7464b3ce577',
         },
         'type0' => 'artist',
         'edit_version' => 2,
@@ -144,33 +144,33 @@ test 'Editing external links for an artist' => sub {
                 'end_date' => {
                     'month' => undef,
                     'day' => undef,
-                    'year' => undef
+                    'year' => undef,
                 },
                 'begin_date' => {
                     'month' => undef,
                     'day' => undef,
-                    'year' => undef
+                    'year' => undef,
                 },
                 ended => 0,
                 'type' => {
                     'entity0_type' => 'artist',
                     'long_link_phrase' => 'has an Allmusic page at',
                     'entity1_type' => 'url',
-                    'id' => 283
+                    'id' => 283,
                 },
                 'attributes' => [],
             },
             'entity1' => {
                 'name' => 'https://www.allmusic.com/artist/faye-wong-mn0000515659',
                 'id' => 4,
-                'gid' => '7bd45cc7-6189-4712-35e1-cdf3632cf1a9'
+                'gid' => '7bd45cc7-6189-4712-35e1-cdf3632cf1a9',
             },
             'entity0' => {
                 'name' => 'Faye Wong',
                 'id' => 100,
-                'gid' => 'acd58926-4243-40bb-a2e5-c7464b3ce577'
+                'gid' => 'acd58926-4243-40bb-a2e5-c7464b3ce577',
             },
-            'id' => 2
+            'id' => 2,
         },
         'edit_version' => 2,
     }, 'The third edit contains the right data');
@@ -233,7 +233,7 @@ sub prepare_test {
 
     $test->mech->get('/login');
     $test->mech->submit_form(
-        with_fields => { username => 'new_editor', password => 'password' }
+        with_fields => { username => 'new_editor', password => 'password' },
     );
 }
 

@@ -3,8 +3,8 @@ package MusicBrainz::Server::Entity::URL::Wikipedia;
 use Moose;
 
 extends 'MusicBrainz::Server::Entity::URL';
-with 'MusicBrainz::Server::Entity::URL::MediaWiki';
-with 'MusicBrainz::Server::Entity::URL::Sidebar';
+with 'MusicBrainz::Server::Entity::URL::MediaWiki',
+     'MusicBrainz::Server::Entity::URL::Sidebar';
 
 =method pretty_name
 
@@ -35,7 +35,7 @@ sub language
     return undef if $self->uses_legacy_encoding;
 
     if (my ($language) = $self->url->host =~ /(.*)\.wikipedia/) {
-        return $language
+        return $language;
     } else {
         return undef;
     }

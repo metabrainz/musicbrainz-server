@@ -125,6 +125,7 @@ test_requires 'HTML::Selector::XPath';
 test_requires 'LWP::UserAgent::Mockable';
 test_requires 'Perl::Critic';
 test_requires 'Perl::Critic::Moose';
+test_requires 'Perl::Critic::Pulp';
 test_requires 'Perl::Critic::TooMuchCode';
 test_requires 'Perl::Critic::Policy::Variables::ProhibitUnusedVarsStricter';
 test_requires 'TAP::Harness::JUnit';

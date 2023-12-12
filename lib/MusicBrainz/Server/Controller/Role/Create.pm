@@ -7,25 +7,25 @@ use aliased 'MusicBrainz::Server::WebService::JSONSerializer';
 
 parameter 'form' => (
     isa => 'Str',
-    required => 1
+    required => 1,
 );
 
 parameter 'edit_type' => (
     isa => 'Int',
-    required => 1
+    required => 1,
 );
 
 parameter 'edit_arguments' => (
     isa => 'CodeRef',
-    default => sub { sub { } }
+    default => sub { sub { } },
 );
 
 parameter 'path' => (
-    isa => 'Str'
+    isa => 'Str',
 );
 
 parameter 'dialog_template' => (
-    isa => 'Str'
+    isa => 'Str',
 );
 
 role {
@@ -34,7 +34,7 @@ role {
 
     my %attrs = (
         RequireAuth => undef,
-        Edit        => undef
+        Edit        => undef,
     );
     if ($params->path) {
         $attrs{Path}  = $params->path;
@@ -45,9 +45,9 @@ role {
 
     $extra{consumer}->name->config(
         action => {
-            create => \%attrs
+            create => \%attrs,
         },
-        create_edit_type => $params->edit_type
+        create_edit_type => $params->edit_type,
     );
 
     method 'create' => sub {
@@ -93,7 +93,7 @@ role {
             },
             no_redirect => $args{within_dialog},
             edit_rels   => 1,
-            $params->edit_arguments->($self, $c)
+            $params->edit_arguments->($self, $c),
         );
     };
 };

@@ -32,7 +32,7 @@ sub run
                  musicbrainz_unaccent(artist.sort_name) AS sort_name_unac,
                  artist.comment, artist.type, artist.id,
                  (artist.comment != '') AS has_comment
-          FROM artist}
+          FROM artist},
     );
 
     for my $r (@$artists) {
@@ -51,7 +51,7 @@ sub run
                 (artist.comment != '') AS has_comment,
                 artist.type
          FROM artist
-         JOIN artist_alias alias ON alias.artist = artist.id}
+         JOIN artist_alias alias ON alias.artist = artist.id},
     );
 
     for my $r (@$aliases) {
@@ -87,7 +87,7 @@ sub inflate_rows
         map +{
             %$_,
             artist => to_json_object($artists->{ $_->{artist_id} }),
-        }, @$dupes
+        }, @$dupes,
     ];
 }
 

@@ -16,7 +16,7 @@ type Props = {
 const CDStubNotFound = ({
   discId,
 }: Props): React$Element<typeof StatusPage> => (
-  <StatusPage title={l('CD Stub Not Found')}>
+  <StatusPage title={l('CD stub not found')}>
     <p>
       {exp.l(
         `Sorry, <code>{discid}</code> does not match a CD stub.

@@ -23,7 +23,7 @@ has_field 'biography' => (
         # consider trimming again once this uses Markdown 
         $string =~ s/\s+$//;
         return $string;
-    } }
+    } },
 );
 
 has_field 'website' => (
@@ -49,27 +49,27 @@ has_field 'gender_id' => (
 
 has_field 'area_id'   => ( type => 'Hidden' );
 has_field 'area'      => (
-    type => '+MusicBrainz::Server::Form::Field::Area'
+    type => '+MusicBrainz::Server::Form::Field::Area',
 );
 
 has_field 'birth_date' => (
-    type => '+MusicBrainz::Server::Form::Field::PartialDate'
+    type => '+MusicBrainz::Server::Form::Field::PartialDate',
 );
 
 has_field 'languages' => (
-    type => 'Repeatable'
+    type => 'Repeatable',
 );
 
 has_field 'languages.language_id' => (
     type => 'Select',
     messages => { required => N_l('A language is required.') },
-    required => 1
+    required => 1,
 );
 
 has_field 'languages.fluency' => (
     type => 'Select',
     messages => { required => N_l('A fluency level is required.') },
-    required => 1
+    required => 1,
 );
 
 sub options_gender_id { select_options_tree(shift->ctx, 'Gender') }
@@ -79,8 +79,8 @@ sub options_languages_fluency {
         'basic', l('Basic'),
         'intermediate', l('Intermediate'),
         'advanced', l('Advanced'),
-        'native', l('Native')
-    ]
+        'native', l('Native'),
+    ];
 }
 
 sub validate_birth_date {

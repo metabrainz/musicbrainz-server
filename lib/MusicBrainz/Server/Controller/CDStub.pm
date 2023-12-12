@@ -97,7 +97,7 @@ sub import : Chained('load') RequireAuth
     my $search_query = $cdstub->artist || 'Various Artists';
     my $form = $c->form(
         form => 'Search::Query',
-        item => { query => $search_query }
+        item => { query => $search_query },
     );
     if ($c->form_posted_and_valid($form)) {
         $search_query = $form->field('query')->value;

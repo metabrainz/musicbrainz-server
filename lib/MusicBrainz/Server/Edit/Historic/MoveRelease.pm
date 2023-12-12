@@ -5,13 +5,13 @@ use warnings;
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_MOVE_RELEASE );
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 
 use aliased 'MusicBrainz::Server::Entity::Artist';
 
 use MusicBrainz::Server::Edit::Historic::Base;
 
-sub edit_name     { N_l('Edit release') }
+sub edit_name     { N_lp('Edit release', 'edit type') }
 sub edit_kind     { 'edit' }
 sub historic_type { 8 }
 sub edit_type     { $EDIT_HISTORIC_MOVE_RELEASE }
@@ -23,10 +23,10 @@ sub _build_related_entities
     return {
         artist  => [
             $self->data->{old_artist_id},
-            $self->data->{artist_id}
+            $self->data->{artist_id},
         ],
         release => $self->data->{release_ids},
-    }
+    };
 }
 
 sub release_ids { @{ shift->data->{release_ids} } }
@@ -36,13 +36,13 @@ sub foreign_keys
     my $self = shift;
     return {
         Release => {
-            map { $_ => [ 'ArtistCredit' ] } $self->release_ids
+            map { $_ => [ 'ArtistCredit' ] } $self->release_ids,
         },
         Artist => [
             $self->data->{old_artist_id},
             $self->data->{artist_id},
-        ]
-    }
+        ],
+    };
 }
 
 sub build_display_data
@@ -71,14 +71,14 @@ sub build_display_data
         releases => [
             map {
                 to_json_object($loaded->{Release}{$_})
-            } $self->release_ids
+            } $self->release_ids,
         ],
         artist => {
             new => to_json_object($new_artist),
             old => to_json_object($old_artist),
         },
         move_tracks => boolean_to_json($self->data->{move_tracks}),
-    }
+    };
 }
 
 sub upgrade

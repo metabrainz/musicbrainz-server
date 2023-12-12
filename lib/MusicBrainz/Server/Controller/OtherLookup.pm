@@ -29,7 +29,7 @@ sub lookup_handler {
 
     # Add the method
     find_meta(__PACKAGE__)->add_method(
-        $name => $method
+        $name => $method,
     );
 
     # Add the ':Local' attribute
@@ -181,7 +181,7 @@ lookup_handler 'freedbid' => sub {
         current_view => 'Node',
         component_path => 'otherlookup/OtherLookupReleaseResults',
         component_props => {results => to_json_array(\@releases)},
-    )
+    );
 };
 
 sub index : Path('')

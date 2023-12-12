@@ -47,7 +47,7 @@ const LanguagesScripts = ({
     <StatisticsLayout
       fullWidth
       page="languages-scripts"
-      title={l('Languages and Scripts')}
+      title={l('Languages and scripts')}
     >
       <p>
         {texp.l('Last updated: {date}', {date: dateCollected})}

@@ -7,7 +7,9 @@ use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::Validation qw( encode_entities );
 
-with 'MusicBrainz::Server::Entity::Role::Type' => { model => 'LinkAttributeType' };
+with 'MusicBrainz::Server::Entity::Role::Type' => {
+    model => 'LinkAttributeType',
+};
 
 has 'credited_as' => (
     is => 'rw',
@@ -30,7 +32,7 @@ sub html {
     }
 
     if (non_empty($self->credited_as) && $type->l_name ne $self->credited_as) {
-        $value = l('{attribute} [{credited_as}]', { attribute => $value, credited_as => encode_entities($self->credited_as) })
+        $value = l('{attribute} [{credited_as}]', { attribute => $value, credited_as => encode_entities($self->credited_as) });
     }
 
     if (non_empty($self->text_value)) {

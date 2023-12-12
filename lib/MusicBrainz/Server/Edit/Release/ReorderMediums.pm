@@ -7,21 +7,20 @@ use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Edit::Types qw( Nullable NullableOnPreview );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_REORDER_MEDIUMS );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 
 extends 'MusicBrainz::Server::Edit';
+with 'MusicBrainz::Server::Edit::Role::Preview',
+     'MusicBrainz::Server::Edit::Release::RelatedEntities',
+     'MusicBrainz::Server::Edit::Release',
+     'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
-sub edit_name { N_l('Reorder mediums') }
+use aliased 'MusicBrainz::Server::Entity::Release';
+
+sub edit_name { N_lp('Reorder mediums', 'edit type') }
 sub edit_kind { 'other' }
 sub edit_type { $EDIT_RELEASE_REORDER_MEDIUMS }
 sub edit_template { 'ReorderMediums' }
-
-with 'MusicBrainz::Server::Edit::Role::Preview';
-with 'MusicBrainz::Server::Edit::Release::RelatedEntities';
-with 'MusicBrainz::Server::Edit::Release';
-with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
-
-use aliased 'MusicBrainz::Server::Entity::Release';
 
 sub release_id { shift->data->{release}{id} }
 
@@ -29,16 +28,16 @@ has '+data' => (
     isa => Dict[
         release => Dict[
             id => Int,
-            name => Str
+            name => Str,
         ],
         medium_positions => ArrayRef[
             Dict[
                 medium_id => NullableOnPreview[Int],
                 old => Nullable[Int],
                 new => Int,
-            ]
+            ],
         ],
-    ]
+    ],
 );
 
 sub alter_edit_pending
@@ -46,8 +45,8 @@ sub alter_edit_pending
     my $self = shift;
     return {
         'Release' => [ $self->release_id ],
-        'Medium' => [ map { $_->{medium_id} } @{$self->data->{medium_positions}} ]
-    }
+        'Medium' => [ map { $_->{medium_id} } @{$self->data->{medium_positions}} ],
+    };
 }
 
 sub initialize {
@@ -64,7 +63,7 @@ sub initialize {
             id => $release->id,
             name => $release->name,
         },
-        medium_positions => $medium_positions
+        medium_positions => $medium_positions,
     });
 
     return $self;
@@ -94,7 +93,7 @@ sub build_display_data {
                 old => $_->{old} ? $_->{old} : 'new',
                 # For some reason older edits have old as int but new as string
                 new => $_->{new} + 0,
-                title => $entity ? $entity->name : ''
+                title => $entity ? $entity->name : '',
             }
         }
         sort { $a->{new} <=> $b->{new} }
@@ -107,7 +106,7 @@ sub build_display_data {
     }
 
     $data{release} = to_json_object(
-        $release || Release->new( name => $self->data->{release}{name} )
+        $release || Release->new( name => $self->data->{release}{name} ),
     );
 
 
@@ -132,7 +131,7 @@ sub accept {
     for my $row (@$possible_conflicts) {
         unless (exists $medium_positions{$row->{id}}) {
             MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
-                'Can’t move a medium into position ' . $row->{position} . ', where one already exists.'
+                'Can’t move a medium into position ' . $row->{position} . ', where one already exists.',
             );
         }
     }

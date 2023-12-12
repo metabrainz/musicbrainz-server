@@ -22,10 +22,10 @@ is ($url->pretty_name => 'http://www.discogs.com/artist/Земфира');
 test 'pretty name is not decoded if the URL is not UTF-8' => sub {
 
 my $url = MusicBrainz::Server::Entity::URL->new(
-    url => 'http://www.invalid.fail/%FC'
+    url => 'http://www.invalid.fail/%FC',
 );
 
-is ($url->pretty_name => 'http://www.invalid.fail/%FC')
+is ($url->pretty_name => 'http://www.invalid.fail/%FC');
 
 };
 

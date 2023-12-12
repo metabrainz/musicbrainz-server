@@ -8,7 +8,7 @@
 
   <div class="half-width">
     <fieldset>
-      <legend>[%- l('Work Details') -%]</legend>
+      <legend>[%- l('Work details') -%]</legend>
       [%- form_row_name_with_guesscase(r) -%]
       [%- form_row_text_long(r, 'comment', add_colon(l('Disambiguation'))) -%]
       [%- form_row_select(r, 'type_id', l('Type:')) -%]
@@ -17,7 +17,7 @@
     </fieldset>
 
     <fieldset>
-      <legend>[%- l('Work Attributes') -%]</legend>
+      <legend>[%- l('Work attributes') -%]</legend>
       <table id="work-attributes" class="row-form" data-bind="delegatedHandler: 'click'">
         <tbody>
         <!-- ko foreach: attributes -->
@@ -74,7 +74,7 @@
           <tr>
             <td></td>
             <td colspan="2" class="add-item">
-              [% caption = lp('Add Work Attribute', 'button/menu') %]
+              [% caption = lp('Add work attribute', 'interactive') %]
               <button type="button" id="add-work-attribute" class="with-label add-item" title="[% caption | html %]" data-click="newAttribute">
                 [% caption | html %]
               </button>
@@ -87,7 +87,7 @@
     [% PROCESS 'forms/relationship-editor.tt' %]
 
     <fieldset>
-      <legend>[% l('External Links') %]</legend>
+      <legend>[% l('External links') %]</legend>
       [% external_links_editor() %]
     </fieldset>
 

@@ -29,12 +29,12 @@ test all => sub {
     cmp_set(
         [ map +{
             barcode => $_->{barcode},
-            old_barcode => $_->{old_barcode}
+            old_barcode => $_->{old_barcode},
         }, @{ $edit->data->{submissions} } ],
         [
             { barcode => '5099703257021', old_barcode => '731453398122' },
-            { barcode => '5199703257021', old_barcode => undef }
-        ]
+            { barcode => '5199703257021', old_barcode => undef },
+        ],
     );
 
     cmp_set($edit->related_entities->{artist},
@@ -83,9 +83,9 @@ sub _create_edit {
             },
             {
                 release => $new_rel,
-                barcode => '5199703257021'
-            }
-        ]
+                barcode => '5199703257021',
+            },
+        ],
     );
 }
 

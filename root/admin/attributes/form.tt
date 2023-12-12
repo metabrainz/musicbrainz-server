@@ -4,37 +4,37 @@
     [% form_csrf_token(r) %]
 
     [% IF model == "Language" %]
-        [% form_row_text(r, 'name', add_colon(l('Name'))) %]
-        [% form_row_text(r, 'iso_code_1', add_colon(l('ISO 639-1'))) %]
-        [% form_row_text(r, 'iso_code_2b', add_colon(l('ISO 639-2/B'))) %]
-        [% form_row_text(r, 'iso_code_2t', add_colon(l('ISO 639-2/T'))) %]
-        [% form_row_text(r, 'iso_code_3', add_colon(l('ISO 639-3'))) %]
-        [% form_row_select(r, 'frequency', add_colon(l('Frequency'))) %]
+        [% form_row_text(r, 'name', add_colon('Name')) %]
+        [% form_row_text(r, 'iso_code_1', add_colon('ISO 639-1')) %]
+        [% form_row_text(r, 'iso_code_2b', add_colon('ISO 639-2/B')) %]
+        [% form_row_text(r, 'iso_code_2t', add_colon('ISO 639-2/T')) %]
+        [% form_row_text(r, 'iso_code_3', add_colon('ISO 639-3')) %]
+        [% form_row_select(r, 'frequency', add_colon('Frequency')) %]
         <p>
-            [% l('Frequency notes:') %]
+            [% 'Frequency notes:' %]
             <ul>
-                <li>[% l('Hidden should be used for sign languages and languages with no ISO 639-3 code.') %]
-                <li>[% l('Hidden is used by default for ancient languages and languages only in ISO 639-3 (until requested by a user).') %]</li>
+                <li>[% 'Hidden should be used for sign languages and languages with no ISO 639-3 code.' %]
+                <li>[% 'Hidden is used by default for ancient languages and languages only in ISO 639-3 (until requested by a user).' %]</li>
             </ul>
         </p>
 
 
     [% ELSIF model == "Script" %]
-        [% form_row_text(r, 'name', add_colon(l('Name'))) %]
-        [% form_row_text(r, 'iso_code', add_colon(l('ISO code'))) %]
-        [% form_row_text(r, 'iso_number', add_colon(l('ISO number'))) %]
-        [% form_row_select(r, 'frequency', add_colon(l('Frequency'))) %]
+        [% form_row_text(r, 'name', add_colon('Name')) %]
+        [% form_row_text(r, 'iso_code', add_colon('ISO code')) %]
+        [% form_row_text(r, 'iso_number', add_colon('ISO number')) %]
+        [% form_row_select(r, 'frequency', add_colon('Frequency')) %]
         <p>
-            [% l('Frequency notes:') %]
+            [% 'Frequency notes:' %]
             <ul>
-                <li>[% l('Both Other and Uncommon are shown in the "other" section, but Uncommon should be used for scripts in Unicode which are unlikely to be used.') %]</li>
-                <li>[% l('Hidden should be used for scripts not in Unicode.') %]</li>
+                <li>[% 'Both Other and Uncommon are shown in the "other" section, but Uncommon should be used for scripts in Unicode which are unlikely to be used.' %]</li>
+                <li>[% 'Hidden should be used for scripts not in Unicode.' %]</li>
             </ul>
         </p>
 
     [% ELSE %]
         [%~ IF model == "CollectionType" || model == "SeriesType" ~%]
-            [% form_row_select(r, 'item_entity_type', add_colon(l('Entity type'))) %]
+            [% form_row_select(r, 'item_entity_type', add_colon('Entity type')) %]
             [%~ IF c.action.name == "edit" ~%]
                 <script>
                     $(function () {
@@ -47,38 +47,38 @@
             [%~ END ~%]
         [%~ END ~%]
 
-        [% form_row_select(r, 'parent_id', add_colon(l('Parent'))) %]
+        [% form_row_select(r, 'parent_id', add_colon('Parent')) %]
 
         [% WRAPPER form_row %]
-            [% r.label('child_order', add_colon(l('Child order'))) %]
+            [% r.label('child_order', add_colon('Child order')) %]
             [% r.text('child_order', { size => 5 }) %]
             [% field_errors(form, 'child_order') %]
         [% END %]
 
-        [% form_row_text(r, 'name', add_colon(l('Name'))) %]
+        [% form_row_text(r, 'name', add_colon('Name')) %]
 
         [% WRAPPER form_row %]
-            [% r.label('description', add_colon(l('Description'))) %]
+            [% r.label('description', add_colon('Description')) %]
             [% r.textarea('description', { cols => 80, rows => 6 }) %]
             [% field_errors(form, 'description') %]
         [% END %]
 
         [%~ IF model == "MediumFormat" ~%]
             [% WRAPPER form_row %]
-                [% r.label('year', add_colon(l('Year'))) %]
+                [% r.label('year', add_colon('Year')) %]
                 [% r.text('year', { size => 5 }) %]
                 [% field_errors(form, 'year') %]
             [% END %]
 
-            [% form_row_checkbox(r, 'has_discids', l('This format can have disc IDs')) %]
+            [% form_row_checkbox(r, 'has_discids', 'This format can have disc IDs') %]
         [%~ END ~%]
 
         [%~ IF model == "WorkAttributeType" ~%]
-            [% form_row_checkbox(r, 'free_text', l('This is a free text work attribute')) %]
+            [% form_row_checkbox(r, 'free_text', 'This is a free text work attribute') %]
         [%~ END ~%]
     [% END %]
 
     <div class="row no-label">
-        [% form_submit(l('Save')) %]
+        [% form_submit('Save') %]
     </div>
 </form>

@@ -18,18 +18,24 @@ use MusicBrainz::Server::Entity::Recording;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 
 extends 'MusicBrainz::Server::Data::Entity';
-with 'MusicBrainz::Server::Data::Role::Relatable';
-with 'MusicBrainz::Server::Data::Role::Name';
-with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'recording' };
-with 'MusicBrainz::Server::Data::Role::GIDEntityCache';
-with 'MusicBrainz::Server::Data::Role::DeleteAndLog' => { type => 'recording' };
-with 'MusicBrainz::Server::Data::Role::PendingEdits' => { table => 'recording' };
-with 'MusicBrainz::Server::Data::Role::Rating' => { type => 'recording' };
-with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'recording' };
-with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'recording' };
-with 'MusicBrainz::Server::Data::Role::Merge';
-with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'recording' };
-with 'MusicBrainz::Server::Data::Role::Collection';
+with 'MusicBrainz::Server::Data::Role::Relatable',
+     'MusicBrainz::Server::Data::Role::Name',
+     'MusicBrainz::Server::Data::Role::Annotation' => { type => 'recording' },
+     'MusicBrainz::Server::Data::Role::GIDEntityCache',
+     'MusicBrainz::Server::Data::Role::DeleteAndLog' => {
+        type => 'recording',
+     },
+     'MusicBrainz::Server::Data::Role::PendingEdits' => {
+        table => 'recording',
+     },
+     'MusicBrainz::Server::Data::Role::Rating' => { type => 'recording' },
+     'MusicBrainz::Server::Data::Role::Tag' => { type => 'recording' },
+     'MusicBrainz::Server::Data::Role::LinksToEdit' => {
+        table => 'recording',
+     },
+     'MusicBrainz::Server::Data::Role::Merge',
+     'MusicBrainz::Server::Data::Role::Alias' => { type => 'recording' },
+     'MusicBrainz::Server::Data::Role::Collection';
 
 sub _type { 'recording' }
 
@@ -198,7 +204,7 @@ sub _order_by {
 
     my $order_by = order_by($order, 'name', {
         'name' => sub {
-            return 'name COLLATE musicbrainz'
+            return 'name COLLATE musicbrainz';
         },
         'artist' => sub {
             $extra_join = 'JOIN artist_credit ac ON ac.id = recording.artist_credit';
@@ -206,7 +212,7 @@ sub _order_by {
             return 'ac_name COLLATE musicbrainz, recording.name COLLATE musicbrainz';
         },
         'length' => sub {
-            return 'length, name COLLATE musicbrainz'
+            return 'length, name COLLATE musicbrainz';
         },
     });
 
@@ -220,7 +226,7 @@ sub can_delete {
     my ($self, $recording_id) = @_;
     return !$self->sql->select_single_value(
         'SELECT 1 FROM track WHERE recording = ? LIMIT 1',
-        $recording_id
+        $recording_id,
     );
 }
 
@@ -265,8 +271,7 @@ sub _hash_to_row
 {
     my ($self, $recording) = @_;
     my $row = hash_to_row($recording, {
-        video => 'video',
-        map { $_ => $_ } qw( artist_credit length comment name )
+        map { $_ => $_ } qw( artist_credit comment length name video ),
     });
 
     return $row;
@@ -304,8 +309,8 @@ sub _merge_impl
             table => 'recording',
             columns => [ qw( length ) ],
             old_ids => \@old_ids,
-            new_id => $new_id
-        )
+            new_id => $new_id,
+        ),
     );
 
     merge_boolean_attributes(
@@ -313,8 +318,8 @@ sub _merge_impl
             table => 'recording',
             columns => [ qw( video ) ],
             old_ids => \@old_ids,
-            new_id => $new_id
-        )
+            new_id => $new_id,
+        ),
     );
 
     $self->_delete_and_redirect_gids('recording', $new_id, @old_ids);

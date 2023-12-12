@@ -57,7 +57,7 @@ test 'Reordering cover art' => sub {
                 'reorder-cover-art.artwork.0.position' => 1,
                 'reorder-cover-art.artwork.1.id' => 12346,
                 'reorder-cover-art.artwork.1.position' => 2,
-            }
+            },
         );
     } $c;
     is(@edits, 0, 'does not create edit without changes');
@@ -71,7 +71,7 @@ test 'Reordering cover art' => sub {
                 'reorder-cover-art.artwork.0.position' => 2,
                 'reorder-cover-art.artwork.1.id' => 12346,
                 'reorder-cover-art.artwork.1.position' => 1,
-            }
+            },
         );
     } $c;
 

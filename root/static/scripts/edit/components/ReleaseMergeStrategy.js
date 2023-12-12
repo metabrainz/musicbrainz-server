@@ -21,6 +21,7 @@ import {ExpandedArtistCreditList}
 import Warning from '../../common/components/Warning.js';
 import formatTrackLength
   from '../../common/utility/formatTrackLength.js';
+import isUselessMediumTitle from '../utility/isUselessMediumTitle.js';
 
 import FormRowSelect from './FormRowSelect.js';
 
@@ -40,6 +41,28 @@ const mergeStrategyOptions = {
   ],
 };
 
+const UselessMediumTitleWarning = ({name}: {name: string}) => (
+  <tr>
+    <td colSpan="4">
+      <span
+        className="error"
+        style={{margin: '0 12px 0 6px'}}
+      >
+        {exp.l(
+          `“{matched_text}” seems to indicate medium ordering rather than
+           a medium title. If this is the case, please set the appropriate
+           medium position instead of adding a title
+           (see {release_style|the guidelines}).`,
+          {
+            matched_text: name,
+            release_style: '/doc/Style/Release#Medium_title',
+          },
+        )}
+      </span>
+    </td>
+  </tr>
+);
+
 const ReleaseMergeStrategy = ({
   badRecordingMerges,
   form,
@@ -57,6 +80,24 @@ const ReleaseMergeStrategy = ({
   }
 
   const mediumsMap = form.field.medium_positions.field.map;
+
+  const [mediumTitles, setMediumTitles] =
+    React.useState(mediumsMap.field.map(
+      field => field.field.name.value,
+    ));
+
+  function updateTitles(
+    event: SyntheticEvent<HTMLSelectElement>,
+    index: number,
+  ) {
+    const mediumTitle = event.currentTarget.value;
+    setMediumTitles(prevTitles => {
+      const titles = [...prevTitles];
+      titles[index] = mediumTitle;
+      return titles;
+    });
+  }
+
   return (
     <>
       <FormRowSelect
@@ -109,6 +150,7 @@ const ReleaseMergeStrategy = ({
                       <input
                         defaultValue={mediumField.name.value}
                         name={mediumField.name.html_name}
+                        onChange={event => updateTitles(event, index)}
                         type="text"
                       />
                       <input
@@ -151,6 +193,11 @@ const ReleaseMergeStrategy = ({
                       )}
                     </th>
                   </tr>
+                  {isUselessMediumTitle(mediumTitles[index]) ? (
+                    <UselessMediumTitleWarning
+                      name={mediumTitles[index]}
+                    />
+                  ) : null}
                   {medium.tracks ? medium.tracks.map((track, index) => (
                     <tr className={loopParity(index)} key={track.id}>
                       <td className="pos t">

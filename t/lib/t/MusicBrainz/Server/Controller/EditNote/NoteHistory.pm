@@ -3,6 +3,7 @@ use strict;
 use warnings;
 
 use DateTime;
+use HTTP::Status qw( :constants );
 use Test::Routine;
 use Test::More;
 use utf8;
@@ -30,7 +31,7 @@ test 'History page links' => sub {
     # Test as normal editor
     $mech->get_ok('/login');
     $mech->submit_form(
-        with_fields => {username => 'editor1', password => 'pass'}
+        with_fields => {username => 'editor1', password => 'pass'},
     );
 
     note('We get the edit with modified notes as a normal editor');
@@ -49,7 +50,7 @@ test 'History page links' => sub {
     # Test as admin
     $mech->get_ok('/login');
     $mech->submit_form(
-        with_fields => {username => 'admin3', password => 'pass'}
+        with_fields => {username => 'admin3', password => 'pass'},
     );
 
     note('We get the edit with modified notes as an admin');
@@ -76,7 +77,7 @@ test 'History page display' => sub {
     # Test as admin
     $mech->get_ok('/login');
     $mech->submit_form(
-        with_fields => {username => 'admin3', password => 'pass'}
+        with_fields => {username => 'admin3', password => 'pass'},
     );
 
     note('We get the history for a note with two modifications');
@@ -186,7 +187,7 @@ test 'Change page display' => sub {
     # Test as admin
     $mech->get_ok('/login');
     $mech->submit_form(
-        with_fields => {username => 'admin3', password => 'pass'}
+        with_fields => {username => 'admin3', password => 'pass'},
     );
 
     note('We get the first change in the first note');
@@ -241,7 +242,7 @@ test 'Change page display' => sub {
     $mech->get('/edit-note/1/change/3');
     is(
         $mech->status,
-        400,
+        HTTP_BAD_REQUEST,
         'Trying to get a change from the wrong note gives a 400 Bad Request error',
     );
     $mech->text_contains(
@@ -298,20 +299,20 @@ test 'Pages are blocked for non-admins' => sub {
     # Test as normal editor
     $mech->get_ok('/login');
     $mech->submit_form(
-        with_fields => {username => 'editor1', password => 'pass'}
+        with_fields => {username => 'editor1', password => 'pass'},
     );
 
     $mech->get('/edit-note/1/changes');
     is(
         $mech->status,
-        403,
+        HTTP_FORBIDDEN,
         'Trying to get the history page as a non-admin gives a 403 Forbidden error',
     );
 
     $mech->get('/edit-note/1/change/1');
     is(
         $mech->status,
-        403,
+        HTTP_FORBIDDEN,
         'Trying to get a specific change page as a non-admin gives a 403 Forbidden error',
     );
 };

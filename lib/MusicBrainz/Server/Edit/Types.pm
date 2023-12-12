@@ -34,15 +34,15 @@ sub Changeset
     my %fields = @_;
     return (
         old => Dict[%fields],
-        new => Dict[%fields]
-    )
+        new => Dict[%fields],
+    );
 }
 
 subtype PartialDateHash,
     as Dict[
         year => Nullable[Int],
         month => Nullable[Int],
-        day => Nullable[Int]
+        day => Nullable[Int],
     ];
 
 subtype CoordinateHash,
@@ -99,7 +99,7 @@ subtype RecordingMergesArray,
             name => Str,
             length => Nullable[Int],
             artist_credit_id => Optional[Int],
-        ]
+        ],
     ]];
 
 1;

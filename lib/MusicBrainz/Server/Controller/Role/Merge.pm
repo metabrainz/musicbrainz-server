@@ -15,7 +15,7 @@ parameter 'edit_type' => (
 
 parameter 'merge_form' => (
     isa => 'Str',
-    default => 'Merge'
+    default => 'Merge',
 );
 
 role {
@@ -25,8 +25,8 @@ role {
     $extra{consumer}->name->config(
         action => {
             merge => { Local => undef, Edit => undef },
-            merge_queue => { Local => undef, Edit => undef }
-        }
+            merge_queue => { Local => undef, Edit => undef },
+        },
     );
 
     use MusicBrainz::Server::Data::Utils qw( model_to_type );
@@ -129,7 +129,7 @@ role {
             or $c->res->redirect('/'), $c->detach;
 
         my @entities = values %{
-            $c->model($self->{model})->get_by_ids($merger->all_entities)
+            $c->model($self->{model})->get_by_ids($merger->all_entities);
         };
 
         unless ($merger->ready_to_merge) {
@@ -142,7 +142,7 @@ role {
             # Ensure that we use the entities that appeared on the page and the right type,
             # in case the merger has changed since that page loaded (MBS-7057)
             @entities = values %{
-                $c->model($self->{model})->get_by_ids(map { $_->value } $check_form->field('merging')->fields)
+                $c->model($self->{model})->get_by_ids(map { $_->value } $check_form->field('merging')->fields);
             };
 
             my $target = $check_form->field('target')->value;
@@ -156,7 +156,7 @@ role {
 
         my $form = $c->form(
             form => $params->merge_form,
-            $self->_merge_form_arguments($c, @entities)
+            $self->_merge_form_arguments($c, @entities),
         );
 
         # Needs to run before calling $form->TO_JSON, otherwise
@@ -208,21 +208,21 @@ role {
                     new_entity => {
                         id => $new->id,
                         name => $new->name,
-                        $self->_extra_entity_data($c, $form, $new)
+                        $self->_extra_entity_data($c, $form, $new),
                     },
                     old_entities => [ map +{
                         id => $entity_id{$_}->id,
                         name => $entity_id{$_}->name,
-                        $self->_extra_entity_data($c, $form, $entity_id{$_})
+                        $self->_extra_entity_data($c, $form, $entity_id{$_}),
                     }, @old_ids ],
                     (map { $_->name => $_->value } $form->edit_fields),
-                    $self->_merge_parameters($c, $form, $entities)
+                    $self->_merge_parameters($c, $form, $entities),
                 );
             } elsif ($c->namespace eq 'collection') {
                 $c->model('Collection')->merge(
                     $new->id,
                     \@old_ids,
-                    $c->user->id
+                    $c->user->id,
                 );
             }
         });
@@ -230,16 +230,16 @@ role {
         $c->session->{merger} = undef;
 
         $c->response->redirect(
-            $c->uri_for_action($self->action_for('show'), [ $new->gid ])
+            $c->uri_for_action($self->action_for('show'), [ $new->gid ]),
         );
     };
 
     method _merge_parameters => sub {
-        return ()
+        return ();
     };
 
     method _extra_entity_data => sub {
-        return ()
+        return ();
     };
 };
 

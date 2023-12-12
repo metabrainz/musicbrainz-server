@@ -21,7 +21,7 @@ sub query {
         )
         AND les.entity0 IS null
         AND lee.entity0 IS null
-    }
+    };
 }
 
 __PACKAGE__->meta->make_immutable;

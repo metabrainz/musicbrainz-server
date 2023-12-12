@@ -145,7 +145,7 @@ sub get_changed_documents {
                     $extra_args{sitemap_suffix_key},
                     "\\x$new_hash",
                     $last_modified,
-                    $replication_sequence
+                    $replication_sequence,
                 );
 
                 # Indicate a "change" if this is a new entity.
@@ -208,7 +208,7 @@ sub should_follow_table {
 
     return 0 if $table =~ /_type$/;
     return 0 if $table =~ qr'[._](tag_|tag$)';
-    return 0 if $table =~ qw'_(meta|raw|gid_redirect)$';
+    return 0 if $table =~ qr'_(meta|raw|gid_redirect)$';
 
     return 1;
 }
@@ -223,7 +223,7 @@ sub post_replication_sequence {
             "SELECT lm.*
                FROM sitemaps.${entity_type}_lastmod lm
               WHERE lm.replication_sequence > COALESCE(
-                (SELECT overall_sitemaps_replication_sequence FROM sitemaps.control), 0)"
+                (SELECT overall_sitemaps_replication_sequence FROM sitemaps.control), 0)",
         );
 
         my %updates_by_suffix_key = partition_by {

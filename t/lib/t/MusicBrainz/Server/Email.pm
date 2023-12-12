@@ -45,7 +45,7 @@ test all => sub {
         from => $user1,
         to => $user2,
         subject => 'Hey',
-        message => 'Hello!'
+        message => 'Hello!',
         );
 
     is($email->transport->delivery_count, 1);
@@ -249,7 +249,7 @@ test all => sub {
     my $close_time = DateTime->now()->add_duration($MINIMUM_RESPONSE_PERIOD)->truncate( to => 'hour' )->add( hours => 1 );
     $close_time = $close_time->strftime('%F %H:%M %Z');
 
-    my $body = <<EOS;
+    my $body = <<"EOS";
 'Editor 2' has voted against your edit #1234.
 -------------------------------------------------------------------------
 To respond, please add your note at:
@@ -342,7 +342,7 @@ EOS
         from_editor => $user1,
         edit_id => 9000,
         note_text => 'This edit is totally wrong!',
-        own_edit => 1
+        own_edit => 1,
         );
 
     is($email->transport->delivery_count, 1);

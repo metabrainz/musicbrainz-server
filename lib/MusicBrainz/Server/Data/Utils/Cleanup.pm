@@ -2,7 +2,7 @@ package MusicBrainz::Server::Data::Utils::Cleanup;
 use Moose;
 
 use Sub::Exporter -setup => {
-    exports => [qw( used_in_relationship )]
+    exports => [qw( used_in_relationship )],
 };
 
 sub used_in_relationship {
@@ -18,7 +18,7 @@ sub used_in_relationship {
             );
             "EXISTS (SELECT TRUE FROM l_${t0}_${t1} WHERE $predicates)"
         } grep { $_->[0] eq $t || $_->[1] eq $t }
-            $c->model('Relationship')->all_pairs
+            $c->model('Relationship')->all_pairs,
     );
 }
 

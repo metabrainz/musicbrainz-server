@@ -6,17 +6,17 @@ use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 
 parameter 'entity_name' => (
     isa => 'Str',
-    required => 0
+    required => 0,
 );
 
 parameter 'entity_type' => (
     isa => 'Str',
-    required => 1
+    required => 1,
 );
 
 parameter 'method_name' => (
     isa => 'Str',
-    required => 0
+    required => 0,
 );
 
 role
@@ -29,8 +29,8 @@ role
 
     $extra{consumer}->name->config(
         action => {
-            $method_name => { Chained => 'load' }
-        }
+            $method_name => { Chained => 'load' },
+        },
     );
 
     method _all_visible_collections => sub {

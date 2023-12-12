@@ -5,11 +5,11 @@ use warnings;
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_ADD_DISCID );
 use MusicBrainz::Server::Entity::CDTOC;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 
 use MusicBrainz::Server::Edit::Historic::Base;
 
-sub edit_name     { N_l('Add disc ID') }
+sub edit_name     { N_lp('Add disc ID', 'edit type') }
 sub edit_kind     { 'add' }
 sub historic_type { 32 }
 sub edit_type     { $EDIT_HISTORIC_ADD_DISCID }
@@ -20,16 +20,16 @@ sub _build_related_entities
     my $self = shift;
     return {
         artist  => [ $self->artist_id ],
-        release => $self->data->{release_ids}
-    }
+        release => $self->data->{release_ids},
+    };
 }
 
 sub foreign_keys
 {
     my $self = shift;
     return {
-        Release => { map { $_ => [ 'ArtistCredit' ] } @{ $self->data->{release_ids} } }
-    }
+        Release => { map { $_ => [ 'ArtistCredit' ] } @{ $self->data->{release_ids} } },
+    };
 }
 
 sub build_display_data
@@ -38,10 +38,10 @@ sub build_display_data
     return {
         releases => [ map { to_json_object($loaded->{Release}{$_}) } @{ $self->data->{release_ids} } ],
         cdtoc => to_json_object(
-            MusicBrainz::Server::Entity::CDTOC->new_from_toc($self->data->{full_toc})
+            MusicBrainz::Server::Entity::CDTOC->new_from_toc($self->data->{full_toc}),
         ),
         full_toc => $self->data->{full_toc},
-    }
+    };
 }
 
 sub upgrade

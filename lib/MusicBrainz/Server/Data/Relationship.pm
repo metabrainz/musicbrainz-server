@@ -555,7 +555,7 @@ sub merge_entities {
     $self->sql->do(
         "DELETE FROM l_${type}_${type}
          WHERE entity0 = any(\$1) AND entity1 = any(\$1)",
-        \@ids
+        \@ids,
     );
 
     my @credit_fields = qw(entity0_credit entity1_credit);
@@ -586,7 +586,7 @@ sub merge_entities {
                           FROM $target_table merge_target
                          WHERE merge_target.id = ?
                     )",
-                $source_ids, $target_id
+                $source_ids, $target_id,
             );
         }
 
@@ -661,12 +661,12 @@ sub merge_entities {
                   WHERE id = any(\$2)
                     AND NOT EXISTS (SELECT 1 FROM documentation.${table}_example WHERE id = \$1)",
                 $to_keep->{id},
-                $ids_to_delete
+                $ids_to_delete,
             );
 
             $self->sql->do(
                 "DELETE FROM documentation.${table}_example WHERE id = any(?)",
-                $ids_to_delete
+                $ids_to_delete,
             );
         };
 
@@ -734,7 +734,7 @@ sub merge_entities {
         # Move all remaining relationships
         $self->sql->do(
             "UPDATE $table SET $entity0 = ? WHERE $entity0 = any(?)",
-            $target_id, \@ids
+            $target_id, \@ids,
         );
     };
 
@@ -787,7 +787,7 @@ sub exists {
 
     return $self->sql->select_single_value(
         "SELECT id FROM l_${type0}_${type1} WHERE " . join(' AND ', map { "$_ = ?" } @props),
-        @values
+        @values,
     );
 }
 
@@ -857,7 +857,7 @@ sub update
     } qw( link_type_id begin_date end_date attributes ended );
 
     my $old = $self->sql->select_single_row_hash(
-        "SELECT link, entity0, entity1 FROM l_${type0}_${type1} WHERE id = ?", $id
+        "SELECT link, entity0, entity1 FROM l_${type0}_${type1} WHERE id = ?", $id,
     );
 
     my $new = {};
@@ -961,7 +961,7 @@ sub reorder {
          JOIN link_type lt ON lt.id = l.link_type
          JOIN orderable_link_type olt ON olt.link_type = lt.id
          WHERE r.id = any(?)",
-        \@ids
+        \@ids,
     );
 
     die 'Can only reorder one group of relationships' if @$groups != 1;
@@ -972,7 +972,7 @@ sub reorder {
         )
         UPDATE l_${type0}_${type1} SET link_order = pos.link_order
         FROM pos WHERE pos.relationship = id",
-        %ordering
+        %ordering,
     );
 }
 

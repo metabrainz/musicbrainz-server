@@ -9,6 +9,7 @@
 
 import {CatalystContext} from '../context.mjs';
 import DBDefs from '../static/scripts/common/DBDefs.mjs';
+import {l_admin} from '../static/scripts/common/i18n/admin.js';
 import {isAccountAdmin} from '../static/scripts/common/utility/privileges.js';
 import buildTab from '../utility/buildTab.js';
 
@@ -61,7 +62,9 @@ function buildTabs(
   }
 
   if (viewingOwnProfile || hasPublicTags) {
-    tabs.push(buildTab(page, l('Tags'), userPath + '/tags', 'tags'));
+    tabs.push(
+      buildTab(page, lp('Tags', 'folksonomy'), userPath + '/tags', 'tags'),
+    );
   }
 
   if (viewingOwnProfile || hasPublicRatings) {
@@ -71,7 +74,7 @@ function buildTabs(
   if (viewingOwnProfile) {
     tabs.push(buildTab(
       page,
-      l('Edit Profile'),
+      l('Edit profile'),
       '/account/edit',
       'edit_profile',
     ));
@@ -83,13 +86,13 @@ function buildTabs(
     ));
     tabs.push(buildTab(
       page,
-      l('Change Password'),
+      lp('Change password', 'header'),
       '/account/change-password',
       'change_password',
     ));
     tabs.push(buildTab(
       page,
-      l('Donation Check'),
+      l('Donation check'),
       '/account/donation',
       'donation',
     ));
@@ -99,19 +102,28 @@ function buildTabs(
     DBDefs.DB_STAGING_TESTING_FEATURES && $c.user) {
     tabs.push(buildTab(
       page,
-      l('Edit User'),
+      l_admin('Edit user'),
       '/admin/user/edit/' + userName,
       'edit_user',
     ));
   }
 
-  if ((showAdmin || viewingOwnProfile) && !user.deleted) {
-    tabs.push(buildTab(
-      page,
-      l('Delete Account'),
-      '/admin/user/delete/' + userName,
-      'delete',
-    ));
+  if (!user.deleted) {
+    if (viewingOwnProfile) {
+      tabs.push(buildTab(
+        page,
+        l('Delete account'),
+        '/account/delete',
+        'delete',
+      ));
+    } else if (showAdmin) {
+      tabs.push(buildTab(
+        page,
+        l('Delete account'),
+        '/admin/user/delete/' + userName,
+        'delete',
+      ));
+    }
   }
 
   return tabs;

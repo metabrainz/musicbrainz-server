@@ -10,7 +10,7 @@
 import ErrorLayout from './ErrorLayout.js';
 
 const Error503 = (): React$Element<typeof ErrorLayout> => (
-  <ErrorLayout title={l('System Busy')}>
+  <ErrorLayout title={l('System busy')}>
     <p>
       <strong>
         {l('The system is overloaded or you are making requests too fast.')}

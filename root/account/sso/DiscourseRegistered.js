@@ -16,8 +16,8 @@ type Props = {
 const DiscourseRegistered = ({
   emailAddress,
 }: Props): React$Element<typeof Layout> => (
-  <Layout fullWidth title={l('Account Created')}>
-    <h2>{l('Account Created')}</h2>
+  <Layout fullWidth title={lp('Account created', 'header')}>
+    <h2>{lp('Account created', 'header')}</h2>
     <p style={{fontSize: '1.2em'}}>
       {exp.l(
         `You must verify your email address before you can

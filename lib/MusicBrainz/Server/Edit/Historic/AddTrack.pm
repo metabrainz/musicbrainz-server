@@ -4,12 +4,12 @@ use warnings;
 
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_ADD_TRACK );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 use Scalar::Util qw( looks_like_number );
 
 use MusicBrainz::Server::Edit::Historic::Base;
 
-sub edit_name     { N_l('Add track (historic)') }
+sub edit_name     { N_lp('Add track (historic)', 'edit type') }
 sub edit_kind     { 'add' }
 sub historic_type { 7 }
 sub edit_type     { $EDIT_HISTORIC_ADD_TRACK }
@@ -19,8 +19,8 @@ sub _build_related_entities
 {
     my $self = shift;
     return {
-        release => $self->data->{release_ids}
-    }
+        release => $self->data->{release_ids},
+    };
 }
 
 sub release_ids { @{ shift->data->{release_ids} } }
@@ -30,9 +30,9 @@ sub foreign_keys
     my $self = shift;
     return {
         Release => {
-            map { $_ => [ 'ArtistCredit' ] } $self->release_ids
-        }
-    }
+            map { $_ => [ 'ArtistCredit' ] } $self->release_ids,
+        },
+    };
 }
 
 sub build_display_data
@@ -43,12 +43,12 @@ sub build_display_data
         releases => [
             map {
                 to_json_object($loaded->{Release}{$_})
-            } $self->release_ids
+            } $self->release_ids,
         ],
         position    => $self->data->{position},
         name        => $self->data->{name},
-        artist_name => $self->data->{artist_name}
-    }
+        artist_name => $self->data->{artist_name},
+    };
 }
 
 sub upgrade
@@ -75,7 +75,7 @@ sub deserialize_new_value
 
     my %deserialized = (
         name     => $name,
-        position => $position
+        position => $position,
     );
 
     $deserialized{artist_name} = $lines[3] if $lines[3];

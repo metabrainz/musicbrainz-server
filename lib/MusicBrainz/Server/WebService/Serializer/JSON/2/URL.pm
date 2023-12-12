@@ -11,7 +11,7 @@ sub serialize
     $body{resource} = $entity->url->as_string;
 
     return \%body;
-};
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

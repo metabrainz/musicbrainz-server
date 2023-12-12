@@ -5,7 +5,7 @@
 
   <div class="half-width">
     <fieldset>
-      <legend>[%- l('Instrument Details') -%]</legend>
+      <legend>[%- l('Instrument details') -%]</legend>
       [%- form_row_name_with_guesscase(r) -%]
       [%- form_row_text_long(r, 'comment', add_colon(l('Disambiguation'))) -%]
       [%- form_row_select(r, 'type_id', l('Type:')) -%]
@@ -29,7 +29,7 @@
     [% PROCESS 'forms/relationship-editor.tt' %]
 
     <fieldset>
-      <legend>[% l('External Links') %]</legend>
+      <legend>[% l('External links') %]</legend>
       [% external_links_editor() %]
     </fieldset>
 

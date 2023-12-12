@@ -29,8 +29,12 @@ const RemoveDiscId = ({
   mediumCDToc,
   release,
 }: RemoveDiscIdProps): React$Element<typeof ReleaseLayout> => (
-  <ReleaseLayout entity={release} fullWidth title={l('Remove Disc ID')}>
-    <h2>{l('Remove Disc ID')}</h2>
+  <ReleaseLayout
+    entity={release}
+    fullWidth
+    title={lp('Remove disc ID', 'header')}
+  >
+    <h2>{lp('Remove disc ID', 'header')}</h2>
 
     <ul>
       <li>

@@ -7,7 +7,7 @@
 
     <div class="half-width">
       <fieldset>
-        <legend>[% l('Label Details') %]</legend>
+        <legend>[% l('Label details') %]</legend>
         [%- form_row_name_with_guesscase(r) -%]
         [%- duplicate_entities_section() -%]
         [%- form_row_text_long(r, 'comment', add_colon(l('Disambiguation'))) -%]
@@ -38,7 +38,7 @@
       [% PROCESS 'forms/relationship-editor.tt' %]
 
       <fieldset>
-        <legend>[% l('External Links') %]</legend>
+        <legend>[% l('External links') %]</legend>
         [% external_links_editor() %]
       </fieldset>
 

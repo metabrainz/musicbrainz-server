@@ -19,7 +19,7 @@ apply ([
     {
         check => sub { is_valid_isrc(shift) },
         message => sub { l('This is not a valid ISRC.') },
-    }
+    },
 ]);
 
 1;

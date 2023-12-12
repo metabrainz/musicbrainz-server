@@ -47,7 +47,7 @@ test 'Editing alias' => sub {
         {
             entity => {
                 id => 1,
-                name => 'King of the Mountain'
+                name => 'King of the Mountain',
             },
             alias_id  => 1,
             new => {
@@ -55,7 +55,7 @@ test 'Editing alias' => sub {
             },
             old => {
                 name => 'Test Recording Alias',
-            }
+            },
         },
         'The edit contains the right data',
     );
@@ -136,7 +136,7 @@ test 'Changing alias type to search hint overrides sort name' => sub {
         {
             entity => {
                 id => 1,
-                name => 'King of the Mountain'
+                name => 'King of the Mountain',
             },
             alias_id  => 1,
             new => {
@@ -148,7 +148,7 @@ test 'Changing alias type to search hint overrides sort name' => sub {
                 name => 'Test Recording Alias',
                 sort_name => 'Test Recording Alias',
                 type_id => '1',
-            }
+            },
         },
         'The edit contains the right data, including changed sort names',
     );
@@ -162,7 +162,7 @@ sub prepare_test {
 
     $test->mech->get('/login');
     $test->mech->submit_form(
-        with_fields => { username => 'editor', password => 'password' }
+        with_fields => { username => 'editor', password => 'password' },
     );
 }
 

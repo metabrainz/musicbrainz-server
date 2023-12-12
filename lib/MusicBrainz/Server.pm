@@ -8,6 +8,7 @@ use Class::Load qw( load_class );
 use DBDefs;
 use Digest::SHA qw( sha256 );
 use HTML::Entities ();
+use HTTP::Status qw( :constants );
 use JSON;
 use MIME::Base64 qw( encode_base64 );
 use Moose::Util qw( does_role );
@@ -16,6 +17,7 @@ use MusicBrainz::Server::Data::Utils qw(
     datetime_to_iso8601
     non_empty
 );
+use MusicBrainz::Server::DatabaseConnectionFactory;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array to_json_object );
 use MusicBrainz::Server::Log qw( logger );
 use MusicBrainz::Server::Validation qw( is_positive_integer );
@@ -80,15 +82,15 @@ __PACKAGE__->config(
         ENCODING => 'UTF-8',
         EVAL_PERL => 1,
         COMPILE_EXT => '.ttc',
-        COMPILE_DIR => '/tmp/ttc'
+        COMPILE_DIR => '/tmp/ttc',
     },
     'Plugin::Session' => {
-        expires => DBDefs->SESSION_EXPIRE
+        expires => DBDefs->SESSION_EXPIRE,
     },
     stacktrace => {
-        enable => 1
+        enable => 1,
     },
-    use_request_uri_for_path => 1
+    use_request_uri_for_path => 1,
 );
 
 if ($ENV{'MUSICBRAINZ_USE_PROXY'})
@@ -116,8 +118,8 @@ __PACKAGE__->config->{'Plugin::Authentication'} = {
                 class => '+MusicBrainz::Server::Authentication::Credential',
             },
             store => {
-                class => '+MusicBrainz::Server::Authentication::Store'
-            }
+                class => '+MusicBrainz::Server::Authentication::Store',
+            },
         },
         'musicbrainz.org' => {
             use_session => 0,
@@ -125,13 +127,13 @@ __PACKAGE__->config->{'Plugin::Authentication'} = {
                 class => '+MusicBrainz::Server::Authentication::WS::Credential',
                 type => 'digest',
                 password_field => 'ha1',
-                password_type => 'clear'
+                password_type => 'clear',
             },
             store => {
-                class => '+MusicBrainz::Server::Authentication::WS::Store'
-            }
-        }
-    }
+                class => '+MusicBrainz::Server::Authentication::WS::Store',
+            },
+        },
+    },
 };
 
 # This bit is only required to load if we're running under a proxy
@@ -164,8 +166,8 @@ if ($ENV{'MUSICBRAINZ_RUNNING_TESTS'}) {
             json => 'application/json; charset=UTF-8',
         },
         dirs => [ 'static' ],
-        no_logs => 1
-    }
+        no_logs => 1,
+    };
 } else {
     push @args, DBDefs->SESSION_STORE;
     __PACKAGE__->config->{'Plugin::Session'} = DBDefs->SESSION_STORE_ARGS;
@@ -195,7 +197,6 @@ if (DBDefs->USE_ETAGS) {
 
 if ($ENV{'MUSICBRAINZ_USE_TEST_DATABASE'})
 {
-    use MusicBrainz::Server::DatabaseConnectionFactory;
     MusicBrainz::Server::DatabaseConnectionFactory->connector_class('MusicBrainz::Server::Test::Connector');
     warn "WARNING: Using test database schema\n";
 }
@@ -303,7 +304,7 @@ sub get_collator
 {
     my ($self) = @_;
     return MusicBrainz::Server::Translation::get_collator(
-        $self->stash->{current_language} // 'en'
+        $self->stash->{current_language} // 'en',
     );
 }
 
@@ -324,7 +325,7 @@ sub handle_unicode_encoding_exception {
     my $self = shift;
 
     $self->res->body('Sorry, but your request could not be decoded. Please ensure your request is encoded as UTF-8 and try again.');
-    $self->res->status(400);
+    $self->res->status(HTTP_BAD_REQUEST);
 }
 
 # Set and unset translation language
@@ -350,13 +351,13 @@ sub with_translations {
     $c->stash(
         current_language => $lang,
         current_language_html => $html_lang,
-        use_languages => scalar @{ Translation->instance->all_languages() }
+        use_languages => scalar @{ Translation->instance->all_languages() },
     );
 
     $code->();
 
     Translation->instance->unset_language();
-};
+}
 
 around dispatch => sub {
     my ($orig, $c, @args) = @_;
@@ -385,10 +386,10 @@ around dispatch => sub {
             !($c->req->uri =~ /set-beta-preference$/)) {
         my $ws = DBDefs->WEB_SERVER;
         my $new_url = $c->req->uri =~ s/$ws/DBDefs->BETA_REDIRECT_HOSTNAME/er;
-        $c->res->redirect($new_url, 307);
+        $c->res->redirect($new_url, HTTP_TEMPORARY_REDIRECT);
     } else {
         $c->with_translations(sub {
-            $c->$orig(@args)
+            $c->$orig(@args);
         });
     }
 };
@@ -484,7 +485,7 @@ around dispatch => sub {
             }
             MusicBrainz::Server::Exceptions::GenericTimeout->throw(
                 $c->req->method . ' ' . $c->req->uri .
-                " took more than $max_request_time seconds"
+                " took more than $max_request_time seconds",
             );
         });
         $action->safe(1);
@@ -545,7 +546,9 @@ around 'finalize_error' => sub {
                 # [1] https://github.com/perl-catalyst/catalyst-runtime/
                 #     blob/5757858/lib/Catalyst/Engine.pm#L253-L259
                 $c->encoding('UTF-8');
-                $c->res->{status} = $timed_out ? 503 : 500;
+                $c->res->{status} = $timed_out
+                    ? HTTP_SERVICE_UNAVAILABLE
+                    : HTTP_INTERNAL_SERVER_ERROR;
             }
         }
     });
@@ -580,7 +583,7 @@ around get_session_id => sub {
             $sid = HTML::Entities::encode_entities($sid);
             my $err = "Invalid session ID '$sid'";
             $self->log->error($err);
-            $self->res->status(400);
+            $self->res->status(HTTP_BAD_REQUEST);
             $self->res->content_type('text/plain; charset=utf-8');
             $self->res->body($err);
         }
@@ -592,28 +595,28 @@ has json => (
     is => 'ro',
     default => sub {
         return JSON->new->allow_blessed->convert_blessed;
-    }
+    },
 );
 
 has json_canonical => (
     is => 'ro',
     default => sub {
         return JSON->new->allow_blessed->canonical->convert_blessed;
-    }
+    },
 );
 
 has json_canonical_utf8 => (
     is => 'ro',
     default => sub {
         return JSON->new->allow_blessed->canonical->convert_blessed->utf8;
-    }
+    },
 );
 
 has json_utf8 => (
     is => 'ro',
     default => sub {
         return JSON->new->allow_blessed->convert_blessed->utf8;
-    }
+    },
 );
 
 sub form_posted_and_valid {

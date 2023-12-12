@@ -605,12 +605,12 @@
     },
     {
       command: 'click',
-      target: "xpath=//span[contains(@class, 'menu-header')][contains(text(), 'My Data')]",
+      target: "xpath=//span[contains(@class, 'menu-header')][contains(text(), 'My data')]",
       value: '',
     },
     {
       command: 'clickAndWait',
-      target: "xpath=//ul[contains(@class, 'menu')]//a[contains(text(), 'My Open Edits')]",
+      target: "xpath=//ul[contains(@class, 'menu')]//a[contains(text(), 'My open edits')]",
       value: '',
     },
     {
@@ -777,12 +777,12 @@
     // accept the edit and check that the removal succeeded
     {
       command: 'click',
-      target: "xpath=//span[contains(@class, 'menu-header')][contains(text(), 'My Data')]",
+      target: "xpath=//span[contains(@class, 'menu-header')][contains(text(), 'My data')]",
       value: '',
     },
     {
       command: 'clickAndWait',
-      target: "xpath=//ul[contains(@class, 'menu')]//a[contains(text(), 'My Open Edits')]",
+      target: "xpath=//ul[contains(@class, 'menu')]//a[contains(text(), 'My open edits')]",
       value: '',
     },
     {

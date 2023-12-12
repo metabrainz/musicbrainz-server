@@ -11,12 +11,12 @@ sub entity_type { 'area_alias' }
 
 has 'area_id' => (
     is => 'rw',
-    isa => 'Int'
+    isa => 'Int',
 );
 
 has 'area' => (
     is => 'rw',
-    isa => 'Area'
+    isa => 'Area',
 );
 
 __PACKAGE__->meta->make_immutable;

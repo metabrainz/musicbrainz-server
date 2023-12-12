@@ -17,7 +17,7 @@ sub sidebar_name {
     else {
         return 'YouTube';
     }
-};
+}
 
 sub url_is_scheme_independent { 1 }
 

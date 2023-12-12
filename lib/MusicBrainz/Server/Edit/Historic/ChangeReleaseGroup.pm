@@ -4,13 +4,13 @@ use warnings;
 
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_CHANGE_RELEASE_GROUP );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 
 use MusicBrainz::Server::Edit::Historic::Base;
 
 use aliased 'MusicBrainz::Server::Entity::ReleaseGroup';
 
-sub edit_name     { N_l('Edit release') }
+sub edit_name     { N_lp('Edit release', 'edit type') }
 sub edit_kind     { 'edit' }
 sub historic_type { 73 }
 sub edit_type     { $EDIT_HISTORIC_CHANGE_RELEASE_GROUP }
@@ -19,7 +19,7 @@ sub edit_template { 'historic/ChangeReleaseGroup' }
 sub _release_group_ids
 {
     my $self = shift;
-    map { $self->data->{$_}{release_group_id} } qw( old new )
+    map { $self->data->{$_}{release_group_id} } qw( old new );
 }
 
 sub _build_related_entities
@@ -27,10 +27,10 @@ sub _build_related_entities
     my $self = shift;
     return {
         release_group => [
-            $self->_release_group_ids
+            $self->_release_group_ids,
         ],
-        release       => $self->data->{release_ids}
-    }
+        release       => $self->data->{release_ids},
+    };
 }
 
 sub foreign_keys
@@ -39,7 +39,7 @@ sub foreign_keys
     return {
         Release      => $self->data->{release_ids},
         ReleaseGroup => [ $self->_release_group_ids ],
-    }
+    };
 }
 
 sub build_display_data
@@ -50,19 +50,19 @@ sub build_display_data
         releases => [
             map {
                 to_json_object($loaded->{Release}{$_})
-            } @{ $self->data->{release_ids} }
+            } @{ $self->data->{release_ids} },
         ],
         release_group => {
             old => to_json_object(
                 $loaded->{ReleaseGroup}{ $self->data->{old}{release_group_id} } ||
-                ReleaseGroup->new( id => $self->data->{old}{release_group_id} )
+                ReleaseGroup->new( id => $self->data->{old}{release_group_id} ),
             ),
             new => to_json_object(
                 $loaded->{ReleaseGroup}{ $self->data->{new}{release_group_id} } ||
-                ReleaseGroup->new( id => $self->data->{new}{release_group_id} )
+                ReleaseGroup->new( id => $self->data->{new}{release_group_id} ),
             ),
-        }
-    }
+        },
+    };
 }
 
 sub upgrade

@@ -10,7 +10,7 @@ use MusicBrainz::Server::Validation qw( is_database_bigint_id );
 
 extends 'MusicBrainz::Server::Data::Entity';
 with 'MusicBrainz::Server::Data::Role::PendingEdits' => {
-    table => 'cover_art_archive.cover_art'
+    table => 'cover_art_archive.cover_art',
 };
 
 sub _table
@@ -38,7 +38,7 @@ sub _id_column
 
 sub is_valid_id {
     (undef, my $id) = @_;
-    is_database_bigint_id($id)
+    is_database_bigint_id($id);
 }
 
 sub _column_mapping

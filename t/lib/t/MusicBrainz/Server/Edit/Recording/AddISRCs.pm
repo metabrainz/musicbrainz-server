@@ -9,7 +9,7 @@ use Test::Fatal;
 with 't::Edit';
 with 't::Context';
 
-BEGIN { use MusicBrainz::Server::Edit::Recording::AddISRCs };
+BEGIN { use MusicBrainz::Server::Edit::Recording::AddISRCs }
 
 use MusicBrainz::Server::Constants qw( $EDIT_RECORDING_ADD_ISRCS $UNTRUSTED_FLAG $STATUS_OPEN );
 
@@ -74,8 +74,8 @@ sub create_edit {
         editor_id => 1,
         privileges => $privs,
         isrcs => [
-            { recording => { id => 1, name => 'Recording' }, isrc => 'DEE250800232' }
-        ]
+            { recording => { id => 1, name => 'Recording' }, isrc => 'DEE250800232' },
+        ],
     );
 }
 

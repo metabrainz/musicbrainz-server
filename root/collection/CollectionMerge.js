@@ -55,7 +55,7 @@ const CollectionMergeTable = ({
         getText: entity => entity.item_entity_type
           ? ENTITY_NAMES[entity.item_entity_type]()
           : '',
-        title: l('Entity Type'),
+        title: l('Entity type'),
       });
       const sizeColumn:
         ColumnOptions<CollectionT, number> = {

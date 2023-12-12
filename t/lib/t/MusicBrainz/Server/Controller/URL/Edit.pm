@@ -25,7 +25,7 @@ test 'Editing a URL' => sub {
 
     $mech->get('/login');
     $mech->submit_form(
-        with_fields => { username => 'new_editor', password => 'password' }
+        with_fields => { username => 'new_editor', password => 'password' },
     );
 
     $mech->get_ok(
@@ -60,7 +60,7 @@ test 'Editing a URL' => sub {
             entity => {
                 id => 1,
                 gid => '9201840b-d810-4e0f-bb75-c791205f5b24',
-                name => 'http://musicbrainz.org/'
+                name => 'http://musicbrainz.org/',
             },
             new => {
                 url => 'http://link.example/',
@@ -106,7 +106,7 @@ test 'Clearing relationship credits from URL rels (MBS-8590)' => sub {
 
     $mech->get('/login');
     $mech->submit_form(
-        with_fields => { username => 'new_editor', password => 'password' }
+        with_fields => { username => 'new_editor', password => 'password' },
     );
 
     # Submitting without an edit-url.rel.0.entity0_credit field is a noop

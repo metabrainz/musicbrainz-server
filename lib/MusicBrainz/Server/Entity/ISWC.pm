@@ -9,22 +9,22 @@ with 'MusicBrainz::Server::Entity::Role::PendingEdits';
 
 has 'iswc' => (
     is => 'rw',
-    isa => 'Str'
+    isa => 'Str',
 );
 
 has 'work_id' => (
     is => 'rw',
-    isa => 'Int'
+    isa => 'Int',
 );
 
 has 'work' => (
     is => 'rw',
-    isa => 'Work'
+    isa => 'Work',
 );
 
 has 'source_id' => (
     is => 'rw',
-    isa => 'Int'
+    isa => 'Int',
 );
 
 Readonly my $SOURCE_MUSICBRAINZ => 0;

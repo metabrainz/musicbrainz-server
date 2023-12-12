@@ -8,11 +8,10 @@ use MusicBrainz::Server::Entity::URL;
 use URI;
 
 extends 'MusicBrainz::Server::Data::Entity';
-with 'MusicBrainz::Server::Data::Role::Relatable';
-with
-    'MusicBrainz::Server::Data::Role::PendingEdits' => { table => 'url' },
-    'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'url' },
-    'MusicBrainz::Server::Data::Role::Merge';
+with 'MusicBrainz::Server::Data::Role::Relatable',
+     'MusicBrainz::Server::Data::Role::PendingEdits' => { table => 'url' },
+     'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'url' },
+     'MusicBrainz::Server::Data::Role::Merge';
 
 sub _type { 'url' }
 
@@ -210,6 +209,7 @@ my %URL_SPECIALIZATIONS = (
     'VimeoOnDemand'       => qr{^https?://(?:www\.)?vimeo\.com/ondemand}i,
     'VK'                  => qr{^https?://(?:www\.)?vk\.com/}i,
     'Vkdb'                => qr{^https?://(?:www\.)?vkdb\.jp/}i,
+    'Vkgy'                => qr{^https?://(?:www\.)?vk\.gy/}i,
     'VNDB'                => qr{^https?://(?:www\.)?vndb\.org/}i,
     'VocaDB'              => qr{^https?://(?:www\.)?vocadb\.net/}i,
     'Weibo'               => qr{^https?://(?:www\.)?weibo\.com/}i,
@@ -267,8 +267,8 @@ sub _merge_impl
 
     my @old_gids = @{
         $self->c->sql->select_single_column_array(
-            'SELECT gid FROM url WHERE id = any(?)', \@old_ids
-        )
+            'SELECT gid FROM url WHERE id = any(?)', \@old_ids,
+        );
     };
 
     # Update all GID redirects from @old_ids to $new_id
@@ -321,10 +321,13 @@ sub delete {
 
 sub _hash_to_row
 {
-    my ($self, $values) = @_;
-    return hash_to_row($values, {
+    my ($self, $url) = @_;
+
+    my $row = hash_to_row($url, {
         url => 'url',
     });
+
+    return $row;
 }
 
 sub insert { confess 'Should not be used for URLs' }

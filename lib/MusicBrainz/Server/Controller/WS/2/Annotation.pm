@@ -10,7 +10,7 @@ my $ws_defs = Data::OptList::mkopt([
                          method   => 'GET',
                          required => [ qw(query) ],
                          optional => [ qw(fmt limit offset) ],
-     }
+     },
 ]);
 
 with 'MusicBrainz::Server::WebService::Validator' =>
@@ -19,7 +19,7 @@ with 'MusicBrainz::Server::WebService::Validator' =>
 };
 
 with 'MusicBrainz::Server::Controller::Role::Load' => {
-    model => 'Annotation'
+    model => 'Annotation',
 };
 
 sub base : Chained('root') PathPart('annotation') CaptureArgs(0) { }

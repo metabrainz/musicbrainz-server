@@ -4,22 +4,22 @@ use Moose;
 use MusicBrainz::Server::Entity::Types;
 
 extends 'MusicBrainz::Server::Entity';
-with 'MusicBrainz::Server::Entity::Role::Relatable';
-with 'MusicBrainz::Server::Entity::Role::Taggable';
-with 'MusicBrainz::Server::Entity::Role::Annotation';
-with 'MusicBrainz::Server::Entity::Role::Comment';
-with 'MusicBrainz::Server::Entity::Role::Type' => { model => 'SeriesType' };
+with 'MusicBrainz::Server::Entity::Role::Annotation',
+     'MusicBrainz::Server::Entity::Role::Comment',
+     'MusicBrainz::Server::Entity::Role::Relatable',
+     'MusicBrainz::Server::Entity::Role::Taggable',
+     'MusicBrainz::Server::Entity::Role::Type' => { model => 'SeriesType' };
 
 sub entity_type { 'series' }
 
 has ordering_type_id => (
     is => 'rw',
-    isa => 'Int'
+    isa => 'Int',
 );
 
 has ordering_type => (
     is => 'rw',
-    isa => 'SeriesOrderingType'
+    isa => 'SeriesOrderingType',
 );
 
 around TO_JSON => sub {

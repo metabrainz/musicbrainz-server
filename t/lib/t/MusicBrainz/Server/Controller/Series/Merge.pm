@@ -28,7 +28,7 @@ test all => sub {
         with_fields => {
             'merge.target' => 1,
             'merge.edit_note' => 'grrr',
-        }
+        },
     );
 
     my $edit = MusicBrainz::Server::Test->get_latest_edit($c);

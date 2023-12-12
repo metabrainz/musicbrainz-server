@@ -18,7 +18,7 @@ my $ws_defs = Data::OptList::mkopt([
         action   => '/ws/2/genre/lookup',
         method   => 'GET',
         optional => [ qw(fmt) ],
-    }
+    },
 ]);
 
 with 'MusicBrainz::Server::WebService::Validator' => {
@@ -34,7 +34,7 @@ sub serializers {
         'MusicBrainz::Server::WebService::XMLSerializer',
         'MusicBrainz::Server::WebService::JSONSerializer',
         'MusicBrainz::Server::WebService::TXTSerializer',
-    ]
+    ];
 }
 
 sub base : Chained('root') PathPart('genre') CaptureArgs(0) { }
@@ -63,13 +63,13 @@ sub genre_all : Chained('base') PathPart('all') {
     }
 
     $c->res->content_type(
-        $c->stash->{serializer}->mime_type . '; charset=utf-8'
+        $c->stash->{serializer}->mime_type . '; charset=utf-8',
     );
     $c->res->body($c->stash->{serializer}->serialize(
         'genre-list',
         $genre_list,
         $c->stash->{inc},
-        $stash
+        $stash,
     ));
 }
 

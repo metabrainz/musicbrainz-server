@@ -20,28 +20,28 @@ use MusicBrainz::Server::Data::Utils::Cleanup qw( used_in_relationship );
 use MusicBrainz::Server::Data::Utils::Uniqueness qw( assert_uniqueness_conserved );
 
 extends 'MusicBrainz::Server::Data::Entity';
-with 'MusicBrainz::Server::Data::Role::Relatable';
-with 'MusicBrainz::Server::Data::Role::Name';
-with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'label' };
-with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'label' };
-with 'MusicBrainz::Server::Data::Role::Area';
-with 'MusicBrainz::Server::Data::Role::DeleteAndLog' => { type => 'label' };
-with 'MusicBrainz::Server::Data::Role::IPI' => { type => 'label' };
-with 'MusicBrainz::Server::Data::Role::ISNI' => { type => 'label' };
-with 'MusicBrainz::Server::Data::Role::GIDEntityCache';
-with 'MusicBrainz::Server::Data::Role::PendingEdits' => { table => 'label' };
-with 'MusicBrainz::Server::Data::Role::Rating' => { type => 'label' };
-with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'label' };
-with 'MusicBrainz::Server::Data::Role::Subscription' => {
-    table => 'editor_subscribe_label',
-    column => 'label',
-    active_class => 'MusicBrainz::Server::Entity::Subscription::Label',
-    deleted_class => 'MusicBrainz::Server::Entity::Subscription::DeletedLabel'
-};
-with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'label' };
-with 'MusicBrainz::Server::Data::Role::Merge';
-with 'MusicBrainz::Server::Data::Role::Area';
-with 'MusicBrainz::Server::Data::Role::Collection';
+with 'MusicBrainz::Server::Data::Role::Relatable',
+     'MusicBrainz::Server::Data::Role::Name',
+     'MusicBrainz::Server::Data::Role::Annotation' => { type => 'label' },
+     'MusicBrainz::Server::Data::Role::Alias' => { type => 'label' },
+     'MusicBrainz::Server::Data::Role::Area',
+     'MusicBrainz::Server::Data::Role::DeleteAndLog' => { type => 'label' },
+     'MusicBrainz::Server::Data::Role::IPI' => { type => 'label' },
+     'MusicBrainz::Server::Data::Role::ISNI' => { type => 'label' },
+     'MusicBrainz::Server::Data::Role::GIDEntityCache',
+     'MusicBrainz::Server::Data::Role::PendingEdits' => { table => 'label' },
+     'MusicBrainz::Server::Data::Role::Rating' => { type => 'label' },
+     'MusicBrainz::Server::Data::Role::Tag' => { type => 'label' },
+     'MusicBrainz::Server::Data::Role::Subscription' => {
+        table => 'editor_subscribe_label',
+        column => 'label',
+        active_class => 'MusicBrainz::Server::Entity::Subscription::Label',
+        deleted_class => 'MusicBrainz::Server::Entity::Subscription::DeletedLabel',
+     },
+     'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'label' },
+     'MusicBrainz::Server::Data::Role::Merge',
+     'MusicBrainz::Server::Data::Role::Collection';
+
 
 sub _type { 'label' }
 
@@ -72,7 +72,7 @@ sub _column_mapping
         edits_pending => 'edits_pending',
         comment => 'comment',
         last_updated => 'last_updated',
-        ended => 'ended'
+        ended => 'ended',
     };
 }
 
@@ -104,31 +104,31 @@ sub _order_by {
     my ($self, $order) = @_;
     my $order_by = order_by($order, 'name', {
         'name' => sub {
-            return 'name COLLATE musicbrainz'
+            return 'name COLLATE musicbrainz';
         },
         'label_code' => sub {
-            return 'label_code, name COLLATE musicbrainz'
+            return 'label_code, name COLLATE musicbrainz';
         },
         'area' => sub {
-            return 'area, name COLLATE musicbrainz'
+            return 'area, name COLLATE musicbrainz';
         },
         'begin_date' => sub {
-            return 'begin_date_year, begin_date_month, begin_date_day, name COLLATE musicbrainz'
+            return 'begin_date_year, begin_date_month, begin_date_day, name COLLATE musicbrainz';
         },
         'end_date' => sub {
-            return 'end_date_year, end_date_month, end_date_day, name COLLATE musicbrainz'
+            return 'end_date_year, end_date_month, end_date_day, name COLLATE musicbrainz';
         },
         'type' => sub {
-            return 'type, name COLLATE musicbrainz'
-        }
+            return 'type, name COLLATE musicbrainz';
+        },
     });
 
-    return $order_by
+    return $order_by;
 }
 
 sub _area_columns
 {
-    return ['area']
+    return ['area'];
 }
 
 sub load
@@ -209,16 +209,16 @@ sub _merge_impl
                 table => 'label',
                 columns => [ qw( type area label_code ) ],
                 old_ids => \@old_ids,
-                new_id => $new_id
-            )
+                new_id => $new_id,
+            ),
         );
 
         merge_date_period(
             $self->sql => (
                 table => 'label',
                 old_ids => \@old_ids,
-                new_id => $new_id
-            )
+                new_id => $new_id,
+            ),
         );
     }
 
@@ -230,11 +230,11 @@ sub _merge_impl
 sub _hash_to_row
 {
     my ($self, $label) = @_;
+
     my $row = hash_to_row($label, {
         area => 'area_id',
         type => 'type_id',
-        ended => 'ended',
-        map { $_ => $_ } qw( label_code comment name )
+        map { $_ => $_ } qw( comment ended label_code name ),
     });
 
     add_partial_date_to_row($row, $label->{begin_date}, 'begin_date');

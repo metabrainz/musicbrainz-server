@@ -17,18 +17,28 @@ use MusicBrainz::Server::Data::Utils qw(
 use MusicBrainz::Server::Data::Utils::Cleanup qw( used_in_relationship );
 
 extends 'MusicBrainz::Server::Data::Entity';
-with 'MusicBrainz::Server::Data::Role::Relatable';
-with 'MusicBrainz::Server::Data::Role::Name';
-with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'release_group' };
-with 'MusicBrainz::Server::Data::Role::GIDEntityCache';
-with 'MusicBrainz::Server::Data::Role::DeleteAndLog' => { type => 'release_group' };
-with 'MusicBrainz::Server::Data::Role::PendingEdits' => { table => 'release_group' };
-with 'MusicBrainz::Server::Data::Role::Rating' => { type => 'release_group' };
-with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'release_group' };
-with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'release_group' };
-with 'MusicBrainz::Server::Data::Role::Merge';
-with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'release_group' };
-with 'MusicBrainz::Server::Data::Role::Collection';
+with 'MusicBrainz::Server::Data::Role::Relatable',
+     'MusicBrainz::Server::Data::Role::Name',
+     'MusicBrainz::Server::Data::Role::Annotation' => {
+        type => 'release_group',
+     },
+     'MusicBrainz::Server::Data::Role::GIDEntityCache',
+     'MusicBrainz::Server::Data::Role::DeleteAndLog' => {
+        type => 'release_group',
+     },
+     'MusicBrainz::Server::Data::Role::PendingEdits' => {
+        table => 'release_group',
+     },
+     'MusicBrainz::Server::Data::Role::Rating' => {
+        type => 'release_group',
+     },
+     'MusicBrainz::Server::Data::Role::Tag' => { type => 'release_group' },
+     'MusicBrainz::Server::Data::Role::LinksToEdit' => {
+        table => 'release_group',
+     },
+     'MusicBrainz::Server::Data::Role::Merge',
+     'MusicBrainz::Server::Data::Role::Alias' => { type => 'release_group' },
+     'MusicBrainz::Server::Data::Role::Collection';
 
 sub _type { 'release_group' }
 
@@ -59,8 +69,8 @@ sub _column_mapping {
         comment => 'comment',
         edits_pending => 'edits_pending',
         last_updated => 'last_updated',
-        first_release_date => sub { MusicBrainz::Server::Entity::PartialDate->new_from_row(shift, 'first_release_date_') }
-    }
+        first_release_date => sub { MusicBrainz::Server::Entity::PartialDate->new_from_row(shift, 'first_release_date_') },
+    };
 }
 
 sub _id_column
@@ -629,7 +639,7 @@ sub _order_by {
 
     my $order_by = order_by($order, 'name', {
         'name' => sub {
-            return 'name COLLATE musicbrainz'
+            return 'name COLLATE musicbrainz';
         },
         'artist' => sub {
             $extra_join = 'JOIN artist_credit ac ON ac.id = rg.artist_credit';
@@ -637,11 +647,11 @@ sub _order_by {
             return 'ac_name COLLATE musicbrainz, rg_name COLLATE musicbrainz';
         },
         'primary_type' => sub {
-            return 'primary_type_id, name COLLATE musicbrainz'
+            return 'primary_type_id, name COLLATE musicbrainz';
         },
         'year' => sub {
-            return 'first_release_date_year, name COLLATE musicbrainz'
-        }
+            return 'first_release_date_year, name COLLATE musicbrainz';
+        },
     });
 
     my $inner_order_by = $order_by
@@ -723,8 +733,8 @@ sub clear_empty_release_groups {
                UNION ALL
                SELECT TRUE FROM l_release_group_url WHERE entity0 = outer_rg.id
          )',
-            \@group_ids
-        )
+            \@group_ids,
+        );
     };
 
     $self->delete(@group_ids);
@@ -749,8 +759,8 @@ sub _merge_impl
             table => 'release_group',
             columns => [ qw( type ) ],
             old_ids => \@old_ids,
-            new_id => $new_id
-        )
+            new_id => $new_id,
+        ),
     );
 
     # Move releases to the new release group
@@ -764,10 +774,11 @@ sub _merge_impl
 
 sub _hash_to_row
 {
-    my ($self, $group) = @_;
-    my $row = hash_to_row($group, {
+    my ($self, $release_group) = @_;
+
+    my $row = hash_to_row($release_group, {
         type => 'primary_type_id',
-        map { $_ => $_ } qw( artist_credit comment edits_pending name )
+        map { $_ => $_ } qw( artist_credit comment edits_pending name ),
     });
 
     return $row;
@@ -853,7 +864,7 @@ sub merge_releases {
     for my $row (@$rg_ids) {
         $release_rg{$row->{id}} = $row->{release_group};
         $release_group_ids{$row->{release_group}} = 1;
-    };
+    }
 
     my @release_group_ids = keys %release_group_ids;
     my $rg_cover_art = $self->c->sql->select_list_of_hashes(

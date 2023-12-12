@@ -6,28 +6,28 @@ use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Entity::Types;
 
 extends 'MusicBrainz::Server::Entity';
-with 'MusicBrainz::Server::Entity::Role::Relatable';
-with 'MusicBrainz::Server::Entity::Role::Taggable';
-with 'MusicBrainz::Server::Entity::Role::Annotation';
-with 'MusicBrainz::Server::Entity::Role::Rating';
-with 'MusicBrainz::Server::Entity::Role::Review';
-with 'MusicBrainz::Server::Entity::Role::DatePeriod';
-with 'MusicBrainz::Server::Entity::Role::IPI';
-with 'MusicBrainz::Server::Entity::Role::ISNI';
-with 'MusicBrainz::Server::Entity::Role::Comment';
-with 'MusicBrainz::Server::Entity::Role::Area';
-with 'MusicBrainz::Server::Entity::Role::Type' => { model => 'ArtistType' };
+with 'MusicBrainz::Server::Entity::Role::Annotation',
+     'MusicBrainz::Server::Entity::Role::Area',
+     'MusicBrainz::Server::Entity::Role::Comment',
+     'MusicBrainz::Server::Entity::Role::DatePeriod',
+     'MusicBrainz::Server::Entity::Role::IPI',
+     'MusicBrainz::Server::Entity::Role::ISNI',
+     'MusicBrainz::Server::Entity::Role::Rating',
+     'MusicBrainz::Server::Entity::Role::Relatable',
+     'MusicBrainz::Server::Entity::Role::Review',
+     'MusicBrainz::Server::Entity::Role::Taggable',
+     'MusicBrainz::Server::Entity::Role::Type' => { model => 'ArtistType' };
 
 sub entity_type { 'artist' }
 
 has 'sort_name' => (
     is => 'rw',
-    isa => 'Str'
+    isa => 'Str',
 );
 
 has 'gender_id' => (
     is => 'rw',
-    isa => 'Int'
+    isa => 'Int',
 );
 
 has 'gender' => (
@@ -49,22 +49,22 @@ sub l_gender_name
 
 has 'begin_area_id' => (
     is => 'rw',
-    isa => 'Int'
+    isa => 'Int',
 );
 
 has 'begin_area' => (
     is => 'rw',
-    isa => 'Area'
+    isa => 'Area',
 );
 
 has 'end_area_id' => (
     is => 'rw',
-    isa => 'Int'
+    isa => 'Int',
 );
 
 has 'end_area' => (
     is => 'rw',
-    isa => 'Area'
+    isa => 'Area',
 );
 
 sub is_special_purpose {

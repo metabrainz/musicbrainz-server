@@ -1,10 +1,10 @@
 package MusicBrainz::Server::Controller::User::Edits;
 use Moose;
 
-BEGIN { extends 'MusicBrainz::Server::Controller' };
+BEGIN { extends 'MusicBrainz::Server::Controller' }
 
 use MusicBrainz::Server::Data::Utils qw( load_everything_for_edits );
-use MusicBrainz::Server::Constants qw( :edit_status );
+use MusicBrainz::Server::Constants qw( :edit_status :vote );
 use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
 use MusicBrainz::Server::Entity::Util::JSON qw(
     to_json_array
@@ -31,7 +31,7 @@ sub open : Chained('/user/load') PathPart('edits/open') RequireAuth HiddenOnMirr
     my $edits = $self->_edits($c, sub {
         return $c->model('Edit')->find({
             editor => $c->stash->{user}->id,
-            status => $STATUS_OPEN
+            status => $STATUS_OPEN,
         }, shift, shift);
     });
 
@@ -69,7 +69,7 @@ sub cancelled : Chained('/user/load') PathPart('edits/cancelled') RequireAuth Hi
     my $edits = $self->_edits($c, sub {
         return $c->model('Edit')->find({
             editor => $c->stash->{user}->id,
-            status => $STATUS_DELETED
+            status => $STATUS_DELETED,
         }, shift, shift);
     });
 
@@ -108,7 +108,7 @@ sub accepted : Chained('/user/load') PathPart('edits/accepted') RequireAuth Hidd
         return $c->model('Edit')->find({
             editor => $c->stash->{user}->id,
             status => $STATUS_APPLIED,
-            autoedit => 0
+            autoedit => 0,
         }, shift, shift);
     });
 
@@ -147,7 +147,7 @@ sub failed : Chained('/user/load') PathPart('edits/failed') RequireAuth HiddenOn
         return $c->model('Edit')->find({
             editor => $c->stash->{user}->id,
             status => [ $STATUS_FAILEDDEP, $STATUS_FAILEDPREREQ,
-                        $STATUS_ERROR, $STATUS_NOVOTES ]
+                        $STATUS_ERROR, $STATUS_NOVOTES ],
         }, shift, shift);
     });
 
@@ -188,7 +188,7 @@ sub rejected : Chained('/user/load') PathPart('edits/rejected') RequireAuth Hidd
     my $edits = $self->_edits($c, sub {
         return $c->model('Edit')->find({
             editor => $c->stash->{user}->id,
-            status => [ $STATUS_FAILEDVOTE ]
+            status => [ $STATUS_FAILEDVOTE ],
         }, shift, shift);
     });
 
@@ -226,7 +226,7 @@ sub autoedits : Chained('/user/load') PathPart('edits/autoedits') RequireAuth Hi
     my $edits = $self->_edits($c, sub {
         return $c->model('Edit')->find({
             editor => $c->stash->{user}->id,
-            autoedit => 1
+            autoedit => 1,
         }, shift, shift);
     });
 
@@ -298,7 +298,7 @@ sub all : Chained('/user/load') PathPart('edits') RequireAuth HiddenOnMirrors {
     my ($self, $c) = @_;
     my $edits = $self->_edits($c, sub {
         return $c->model('Edit')->find({
-            editor => $c->stash->{user}->id
+            editor => $c->stash->{user}->id,
         }, shift, shift);
     });
 
@@ -335,6 +335,21 @@ sub votes : Chained('/user/load') PathPart('votes') RequireAuth HiddenOnMirrors 
     });
 
     my $user = to_json_object($c->stash->{user});
+    my $refine_url_args = {
+        form_only => 'yes',
+        auto_edit_filter => '',
+        order => 'desc',
+        negation => 0,
+        combinator => 'and',
+        'conditions.0.field' => 'voter',
+        'conditions.0.operator' => '=',
+        'conditions.0.name' => $c->stash->{user}->name,
+        'conditions.0.voter_id' => $c->stash->{user}->id,
+        'conditions.0.args.0' => $VOTE_ABSTAIN,
+        'conditions.0.args.1' => $VOTE_NO,
+        'conditions.0.args.2' => $VOTE_YES,
+        'conditions.0.args.3' => $VOTE_APPROVE,
+    };
 
     $c->stash(
         current_view => 'Node',
@@ -343,6 +358,7 @@ sub votes : Chained('/user/load') PathPart('votes') RequireAuth HiddenOnMirrors 
             editCountLimit => $c->stash->{edit_count_limit},
             edits => to_json_array($edits),
             pager => serialize_pager($c->stash->{pager}),
+            refineUrlArgs => $refine_url_args,
             user => $user,
             voter => $user,
         },

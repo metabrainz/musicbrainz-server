@@ -104,7 +104,7 @@ sub insert
     my $id = $self->sql->insert_row('medium_cdtoc', $hash, 'id');
     my $discid = $self->sql->select_single_value(
         'SELECT discid FROM cdtoc WHERE id = ?',
-        $hash->{cdtoc}
+        $hash->{cdtoc},
     );
     $self->c->model('CDStub')->delete($discid);
 
@@ -114,7 +114,7 @@ sub insert
            FROM track
           WHERE track.medium = ? AND track.position > 0 AND track.is_data_track = false
        GROUP BY track.medium',
-        $hash->{medium}
+        $hash->{medium},
     ) || [ undef, 0 ] };
 
     if ($set_track_lengths) {
@@ -123,15 +123,15 @@ sub insert
             privileges => $AUTO_EDITOR_FLAG,
             edit_type => $EDIT_SET_TRACK_LENGTHS,
             medium_id => $medium_id,
-            cdtoc_id => $hash->{cdtoc}
+            cdtoc_id => $hash->{cdtoc},
         );
 
         $self->c->model('EditNote')->add_note(
             $edit->id,
             {
                 editor_id => $EDITOR_MODBOT,
-                text => "Times set automatically by adding discid $discid"
-            }
+                text => "Times set automatically by adding discid $discid",
+            },
         );
     }
 
@@ -151,7 +151,7 @@ sub delete
     my $cdtoc_id = $self->sql->select_single_value(
         'DELETE FROM ' . $self->_table . ' WHERE id = ?
            RETURNING cdtoc',
-        $medium_cdtoc_id
+        $medium_cdtoc_id,
     );
     # Delete the CDTOC if it is now unused
     $self->sql->do(
@@ -174,12 +174,12 @@ sub merge_mediums
                           WHERE medium IN ('.placeholders(@mediums).')
                      )
                 AND medium IN (' . placeholders(@mediums) . ')',
-        @mediums, @mediums
+        @mediums, @mediums,
     );
 
     $self->sql->do(
         'UPDATE medium_cdtoc SET medium = ? WHERE medium IN ('.placeholders(@mediums).')',
-        $new_medium, @mediums
+        $new_medium, @mediums,
     );
 }
 
@@ -190,7 +190,7 @@ sub medium_has_cdtoc {
          FROM medium_cdtoc
          JOIN cdtoc ON medium_cdtoc.cdtoc = cdtoc.id
          WHERE medium = ? AND cdtoc.discid = ?',
-        $medium_id, $cdtoc->discid
+        $medium_id, $cdtoc->discid,
     ) || 0;
 }
 

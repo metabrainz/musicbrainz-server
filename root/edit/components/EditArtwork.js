@@ -33,7 +33,7 @@ const EditArtwork = ({
 
   return (
     <tr>
-      <th>{l('Cover art:')}</th>
+      <th>{addColonText(lp('Cover art', 'singular'))}</th>
       <td className="edit-cover-art" colSpan={colSpan ?? null}>
         <Artwork artwork={artwork} message={historyMessage} />
       </td>

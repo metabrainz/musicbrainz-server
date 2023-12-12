@@ -22,7 +22,7 @@ const TimeoutError = ({
   hostname,
   useLanguages,
 }: Props): React$Element<typeof ErrorLayout> => (
-  <ErrorLayout title={l('Request Timed Out')}>
+  <ErrorLayout title={l('Request timed out')}>
     <p>
       <strong>
         {l('Processing your request took too long and timed out.')}
@@ -34,7 +34,7 @@ const TimeoutError = ({
     </p>
 
     <div style={{display: 'none'}}>
-      <h2>{l('Technical Information')}</h2>
+      <h2>{l('Technical information')}</h2>
       <ErrorInfo formattedErrors={formattedErrors} />
       <ErrorEnvironment
         hostname={hostname}

@@ -24,7 +24,7 @@ sub _new_from_row {
         editor_id => $row->{editor},
         fluency => $row->{fluency},
         language => $self->c->model('Language')->_new_from_row($row),
-        language_id => $row->{language_id}
+        language_id => $row->{language_id},
     );
 }
 
@@ -67,7 +67,7 @@ sub set_languages {
     my %language_fluencys;
     for my $language (@$languages) {
         $language_fluencys{$language->{language_id}} ||= [];
-        push @{ $language_fluencys{$language->{language_id}} }, $language->{fluency}
+        push @{ $language_fluencys{$language->{language_id}} }, $language->{fluency};
     }
 
     for my $language_id (keys %language_fluencys) {
@@ -78,12 +78,12 @@ sub set_languages {
     $self->c->sql->begin;
     $self->c->sql->do('DELETE FROM editor_language WHERE editor = ?', $editor_id);
     $self->c->sql->do(
-        'DELETE FROM editor_language WHERE editor = ?', $editor_id
+        'DELETE FROM editor_language WHERE editor = ?', $editor_id,
     );
     $self->c->sql->do(
         'INSERT INTO editor_language (editor, language, fluency)
          VALUES ' . join(', ', ('(?, ?, ?)') x scalar(keys %language_fluencys)),
-        map { $editor_id, $_, $language_fluencys{$_} } keys %language_fluencys
+        map { $editor_id, $_, $language_fluencys{$_} } keys %language_fluencys,
     ) if %language_fluencys;
     $self->c->sql->commit;
 }

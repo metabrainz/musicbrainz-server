@@ -133,7 +133,14 @@ $(function () {
     },
     privileges: LOCATION_EDITOR_FLAG | RELATIONSHIP_EDITOR_FLAG,
   };
-  window[GLOBAL_JS_NAMESPACE] = {$c: {user: activeUser}};
+  window[GLOBAL_JS_NAMESPACE] = {
+    $c: {
+      stash: {
+        current_language: 'en',
+      },
+      user: activeUser,
+    },
+  };
 
   function createInitialState() {
     return {

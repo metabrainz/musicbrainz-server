@@ -2,6 +2,7 @@ package t::MusicBrainz::Server::Controller::Relationship::LinkAttributeType::Edi
 use strict;
 use warnings;
 
+use HTTP::Status qw( :constants );
 use Test::Routine;
 use Test::More;
 use MusicBrainz::Server::Test qw( capture_edits html_ok );
@@ -30,15 +31,15 @@ test 'Editing a relationship attribute /relationship-attribute/edit for a valid 
     html_ok($mech->content);
 
     my ($new_name, $new_description) = (
-        'Additional additional', 'Extra additional'
+        'Additional additional', 'Extra additional',
     );
 
     my @edits = capture_edits {
         my $response = $mech->submit_form(
             with_fields => {
                 'linkattrtype.name' => $new_name,
-                'linkattrtype.description' => $new_description
-            }
+                'linkattrtype.description' => $new_description,
+            },
         );
         ok($mech->success);
 
@@ -60,7 +61,7 @@ test 'Editing a relationship attribute /relationship-attribute/edit for a valid 
 
     $mech->get(
         '/relationship-attribute/f6100277-c7b8-4c8d-aa26-d8cd014b6761/edit');
-    is($mech->status, 403);
+    is($mech->status, HTTP_FORBIDDEN);
 };
 
 test 'GET /relationship/attribute/edit for invalid attribute types' => sub {
@@ -70,7 +71,7 @@ test 'GET /relationship/attribute/edit for invalid attribute types' => sub {
     $mech->get(
         '/relationship-attribute/77a0f1d3-beee-4055-a6e7-24d7258c21f7/edit');
 
-    is($mech->status, 404,
+    is($mech->status, HTTP_NOT_FOUND,
        'Returns 404 when trying to edit a non-existent relationship attribute');
 };
 

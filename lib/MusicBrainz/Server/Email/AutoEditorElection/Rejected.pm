@@ -11,7 +11,7 @@ sub text
 {
     my ($self) = @_;
 
-    return strip tt <<EOF;
+    return strip tt <<"EOF";
 Voting in this election is now closed: the proposal to make
 [% self.election.candidate.name %] an auto-editor was declined.
 

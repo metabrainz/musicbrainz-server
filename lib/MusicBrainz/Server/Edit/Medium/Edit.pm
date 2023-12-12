@@ -30,25 +30,25 @@ use MusicBrainz::Server::Edit::Utils qw( verify_artist_credits hash_artist_credi
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array to_json_object );
 use MusicBrainz::Server::Log qw( log_assertion );
 use MusicBrainz::Server::Validation qw( normalise_strings );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 use MusicBrainz::Server::Track qw( format_track_length );
 use JSON::XS;
 use Try::Tiny;
 
 extends 'MusicBrainz::Server::Edit::WithDifferences';
-with 'MusicBrainz::Server::Edit::Role::Preview';
-with 'MusicBrainz::Server::Edit::Medium::RelatedEntities';
-with 'MusicBrainz::Server::Edit::Medium';
-with 'MusicBrainz::Server::Edit::Role::AllowAmending' => {
-    create_edit_type => $EDIT_RELEASE_CREATE,
-    entity_type => 'release',
-};
+with 'MusicBrainz::Server::Edit::Role::Preview',
+     'MusicBrainz::Server::Edit::Medium::RelatedEntities',
+     'MusicBrainz::Server::Edit::Medium',
+     'MusicBrainz::Server::Edit::Role::AllowAmending' => {
+        create_edit_type => $EDIT_RELEASE_CREATE,
+        entity_type => 'release',
+     };
 
 use aliased 'MusicBrainz::Server::Entity::Medium';
 use aliased 'MusicBrainz::Server::Entity::Release';
 
 sub edit_type { $EDIT_MEDIUM_EDIT }
-sub edit_name { N_l('Edit medium') }
+sub edit_name { N_lp('Edit medium', 'edit type') }
 sub edit_kind { 'edit' }
 sub _edit_model { 'Medium' }
 sub edit_template { 'EditMedium' }
@@ -62,13 +62,13 @@ has '+data' => (
         entity_id => NullableOnPreview[Int],
         release => Dict[
             id => Int,
-            name => Str
+            name => Str,
         ],
         separate_tracklists => Optional[Bool],
         current_tracklist => Optional[Int],
         old => change_fields(),
-        new => change_fields()
-    ]
+        new => change_fields(),
+    ],
 );
 
 around _build_related_entities => sub {
@@ -90,9 +90,9 @@ around _build_related_entities => sub {
                          $track->{position},
                          join('', map {
                              $_->{artist}{id}, $_->{name}, $_->{join_phrase} || ''
-                             } @{$track->{artist_credit}{names}})
-                     )
-                })
+                             } @{$track->{artist_credit}{names}}),
+                     );
+                });
            };
 
         push @{ $related->{artist} },
@@ -124,8 +124,8 @@ sub alter_edit_pending
     my $self = shift;
     return {
         'Medium' => [ $self->entity_id ],
-        'Release' => [ $self->data->{release}->{id} ]
-    }
+        'Release' => [ $self->data->{release}->{id} ],
+    };
 }
 
 sub change_fields
@@ -171,9 +171,9 @@ sub initialize
             entity_id => $entity->id,
             release => {
                 id => $entity->release->id,
-                name => $entity->release->name
+                name => $entity->release->name,
             },
-            $self->_changes($entity, %opts)
+            $self->_changes($entity, %opts),
         };
 
         if ($tracklist && @$tracklist) {
@@ -188,7 +188,7 @@ sub initialize
             {
                 check_track_hash($new);
                 my $id_set = sub {
-                    Set::Scalar->new(grep { defined $_ } map { $_->{id} } @_)
+                    Set::Scalar->new(grep { defined $_ } map { $_->{id} } @_);
                 };
                 die 'New tracklist uses track IDs not in the old tracklist'
                     unless $id_set->(@$new) <= $id_set->(@$old);
@@ -254,7 +254,7 @@ sub build_display_data
         Medium->new(
             release_id => $self->data->{release}{id},
             release => $release,
-        )
+        ),
     );
 
     if (exists $self->data->{new}{format_id}) {
@@ -297,13 +297,13 @@ sub build_display_data
                             '',
                             map {
                                 join('', $_->name, $_->join_phrase // '')
-                            } $track->artist_credit->all_names
+                            } $track->artist_credit->all_names,
                         ),
                         $track->is_data_track ? 1 : 0,
                         $track->position ? 1 : 0,
                     );
-                }
-            ) }
+                },
+            ) },
         ];
 
         my $i = 0;
@@ -397,8 +397,8 @@ sub accept {
 
     if (!$self->c->model('Medium')->get_by_id($self->entity_id)) {
         MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
-            'This edit cannot be applied, as the medium being edited no longer exists.'
-        )
+            'This edit cannot be applied, as the medium being edited no longer exists.',
+        );
     }
 
     my $data_new = clone($self->data->{new});
@@ -484,7 +484,7 @@ sub accept {
 
         my @final_tracklist;
         my $existing_recordings = $self->c->sql->select_single_column_array(
-            'SELECT id FROM recording WHERE id = any(?)', \@merged_recordings
+            'SELECT id FROM recording WHERE id = any(?)', \@merged_recordings,
         );
         my %existing_recordings = map { $_ => 1 } @$existing_recordings;
         while (1) {
@@ -516,8 +516,8 @@ sub accept {
                 length => $length eq $UNDEF_MARKER ? undef : $length,
                 recording_id => $recording_id,
                 artist_credit => $hashed_artist_credits{shift(@merged_artist_credits)},
-                is_data_track => $is_data_track
-            }
+                is_data_track => $is_data_track,
+            };
         }
 
         verify_artist_credits($self->c, map {
@@ -599,9 +599,9 @@ sub allow_auto_edit
                         $track->{name},
                         format_track_length($track->{length}),
                         hash_artist_credit($track->{artist_credit}),
-                        $track->{recording_id} // 'new'
+                        $track->{recording_id} // 'new',
                     );
-                }
+                },
             ) };
 
         # If this edit adds or removes tracks, it's not an auto-edit
@@ -632,7 +632,7 @@ sub artist_ids
     return map { $_->{artist} }
         grep { ref($_) } map { @{ $_->{artist_credit} } }
         @{ $self->data->{new}{tracklist} },
-        @{ $self->data->{old}{tracklist} }
+        @{ $self->data->{old}{tracklist} };
 }
 
 sub recording_ids
@@ -641,7 +641,7 @@ sub recording_ids
     grep { defined }
         map { $_->{recording_id} }
         @{ $self->data->{new}{tracklist} },
-        @{ $self->data->{old}{tracklist} }
+        @{ $self->data->{old}{tracklist} };
 }
 
 before restore => sub {

@@ -33,7 +33,7 @@ export default function localizeTypeNameForEntity(
     case 'url':
       return formattedEntityTypeName;
     case 'release_group':
-      return l('Release Group');
+      return l('Release group');
     default:
       throw new Error('Unknown entity type: ' + entity.entityType);
   }

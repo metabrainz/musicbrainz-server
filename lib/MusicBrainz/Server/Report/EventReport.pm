@@ -12,7 +12,7 @@ around inflate_rows => sub {
     my $items = $self->$orig(@_);
 
     my $events = $self->c->model('Event')->get_by_ids(
-        map { $_->{event_id} } @$items
+        map { $_->{event_id} } @$items,
     );
 
     $self->c->model('Event')->load_related_info(values %$events);
@@ -22,7 +22,7 @@ around inflate_rows => sub {
         map +{
             %$_,
             event => to_json_object($events->{ $_->{event_id} }),
-        }, @$items
+        }, @$items,
     ];
 };
 

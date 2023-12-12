@@ -21,13 +21,13 @@ test all => sub {
     my $old_rg = $c->model('ReleaseGroup')->insert({
         name => 'Old RG',
         artist_credit => 1,
-        secondary_type_ids => [8, 6]
+        secondary_type_ids => [8, 6],
     });
 
     my $new_rg = $c->model('ReleaseGroup')->insert({
         name => 'New RG',
         artist_credit => 1,
-        secondary_type_ids => [8, 10]
+        secondary_type_ids => [8, 10],
     });
 
     my $old_rg_id = $old_rg->{id};

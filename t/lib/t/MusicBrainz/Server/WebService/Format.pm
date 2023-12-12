@@ -2,11 +2,12 @@ package t::MusicBrainz::Server::WebService::Format;
 use strict;
 use warnings;
 
+use HTTP::Status qw( :constants );
 use JSON qw( encode_json );
 use Test::JSON import => [qw( is_json )];
 use Test::More;
 use Test::Routine;
-use Test::XML::SemanticCompare;
+use Test::XML::SemanticCompare qw( is_xml_same );
 
 with 't::Mechanize', 't::Context';
 
@@ -118,13 +119,21 @@ test 'webservice request format handling (errors)' => sub {
     $Test->note('Accept: application/something-else');
     $mech->default_header('Accept' => 'application/something-else');
     $mech->get('/ws/2/artist/472bc127-8861-45e8-bc9e-31e8dd32de7a');
-    is($mech->status, 406, 'server reports 406 - Not Acceptable');
+    is(
+        $mech->status,
+        HTTP_NOT_ACCEPTABLE,
+        'server reports 406 - Not Acceptable',
+    );
     is_xml_same($mech->content, $expected);
 
     $Test->note('fmt=unicorn');
     $mech->default_header('Accept' => 'application/json');
     $mech->get('/ws/2/artist/472bc127-8861-45e8-bc9e-31e8dd32de7a?fmt=unicorn');
-    is($mech->status, 406, 'server reports 406 - Not Acceptable');
+    is(
+        $mech->status,
+        HTTP_NOT_ACCEPTABLE,
+        'server reports 406 - Not Acceptable',
+    );
     is_xml_same($mech->content, $expected);
 
 };

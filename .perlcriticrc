@@ -13,12 +13,25 @@ allow_includes=1
 [BuiltinFunctions::ProhibitVoidMap]
 [BuiltinFunctions::RequireBlockGrep]
 
+[ClassHierarchies::ProhibitAutoloading]
+[ClassHierarchies::ProhibitExplicitISA]
+[ClassHierarchies::ProhibitOneArgBless]
+
 [CodeLayout::ProhibitHardTabs]
+allow_leading_tabs = 0
+[CodeLayout::ProhibitIfIfSameLine]
+[CodeLayout::ProhibitQuotedWordLists]
 [CodeLayout::ProhibitTrailingWhitespace]
 [CodeLayout::RequireConsistentNewlines]
+[CodeLayout::RequireFinalSemicolon]
+[CodeLayout::RequireTrailingCommaAtNewline]
 
 [ControlStructures::ProhibitUnreachableCode]
 
+[Modules::ProhibitAutomaticExportation]
+[Modules::ProhibitConditionalUseStatements]
+[Modules::ProhibitModuleShebang]
+[Modules::RequireEndWithOne]
 [Modules::RequireFilenameMatchesPackage]
 
 [Moose::ProhibitNewMethod]
@@ -34,10 +47,17 @@ allow=refs
 [TooMuchCode::ProhibitUnusedImport]
 [TooMuchCode::ProhibitUnusedInclude]
 
+[ValuesAndExpressions::ProhibitConstantPragma]
+[ValuesAndExpressions::ProhibitEmptyCommas]
+[ValuesAndExpressions::ProhibitEscapedCharacters]
 [ValuesAndExpressions::ProhibitInterpolationOfLiterals]
 [ValuesAndExpressions::ProhibitLeadingZeros]
 [ValuesAndExpressions::ProhibitMismatchedOperators]
 [ValuesAndExpressions::ProhibitMixedBooleanOperators]
+[ValuesAndExpressions::ProhibitNullStatements]
+[ValuesAndExpressions::ProhibitQuotesAsQuotelikeOperatorDelimiters]
+[ValuesAndExpressions::RequireQuotedHeredocTerminator]
+[ValuesAndExpressions::RequireUpperCaseHeredocTerminator]
 
 [Variables::ProhibitAugmentedAssignmentInDeclaration]
 [Variables::ProhibitConditionalDeclarations]

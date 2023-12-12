@@ -15,20 +15,20 @@ use MusicBrainz::Server::Edit::Utils qw(
     load_artist_credit_definitions
 );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 
 extends 'MusicBrainz::Server::Edit';
-with 'MusicBrainz::Server::Edit::Role::Preview';
-with 'MusicBrainz::Server::Edit::Release::RelatedEntities';
-with 'MusicBrainz::Server::Edit::Release';
-with 'MusicBrainz::Server::Edit::Role::AllowAmending' => {
-    create_edit_type => $EDIT_RELEASE_CREATE,
-    entity_type => 'release',
-};
+with 'MusicBrainz::Server::Edit::Role::Preview',
+     'MusicBrainz::Server::Edit::Release::RelatedEntities',
+     'MusicBrainz::Server::Edit::Release',
+     'MusicBrainz::Server::Edit::Role::AllowAmending' => {
+        create_edit_type => $EDIT_RELEASE_CREATE,
+        entity_type => 'release',
+     };
 
 use aliased 'MusicBrainz::Server::Entity::Release';
 
-sub edit_name { N_l('Edit release') }
+sub edit_name { N_lp('Edit release', 'edit type') }
 sub edit_kind { 'edit' }
 sub edit_type { $EDIT_RELEASE_ARTIST }
 sub release_id { shift->data->{entity}{id} }
@@ -38,12 +38,12 @@ has '+data' => (
     isa => Dict[
         entity => Dict[
             id => Int,
-            name => Str
+            name => Str,
         ],
         update_tracklists => Bool,
         old_artist_credit => ArtistCreditDefinition,
-        new_artist_credit => ArtistCreditDefinition
-    ]
+        new_artist_credit => ArtistCreditDefinition,
+    ],
 );
 
 around allow_auto_edit => sub {
@@ -76,12 +76,12 @@ sub foreign_keys {
         $relations->{Artist} = {
             map {
                 load_artist_credit_definitions($self->data->{$_})
-            } qw( new_artist_credit old_artist_credit )
+            } qw( new_artist_credit old_artist_credit ),
         };
     }
 
     $relations->{Release} = {
-        $self->data->{entity}{id} => [ 'ArtistCredit' ]
+        $self->data->{entity}{id} => [ 'ArtistCredit' ],
     };
 
     return $relations;
@@ -95,14 +95,14 @@ sub build_display_data {
     if (exists $self->data->{new_artist_credit}) {
         $data->{artist_credit} = {
             new => to_json_object(artist_credit_from_loaded_definition($loaded, $self->data->{new_artist_credit})),
-            old => to_json_object(artist_credit_from_loaded_definition($loaded, $self->data->{old_artist_credit}))
-        }
+            old => to_json_object(artist_credit_from_loaded_definition($loaded, $self->data->{old_artist_credit})),
+        };
     }
 
     $data->{update_tracklists} = $self->data->{update_tracklists};
     $data->{release} = to_json_object(
         $loaded->{Release}{ $self->data->{entity}{id} }
-        || Release->new( id => $self->data->{entity}{id}, name => $self->data->{entity}{name} )
+        || Release->new( id => $self->data->{entity}{id}, name => $self->data->{entity}{name} ),
     );
 
     return $data;

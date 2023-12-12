@@ -12,8 +12,8 @@ my $ws_defs = Data::OptList::mkopt([
     'recording' => {
         method   => 'GET',
         required => [ qw(q) ],
-        optional => [ qw(a r direct limit page timestamp) ]
-    }
+        optional => [ qw(a r direct limit page timestamp) ],
+    },
 ]);
 
 with 'MusicBrainz::Server::WebService::Validator' =>
@@ -53,7 +53,7 @@ around _format_output => sub {
 
     return map +{
         %$_,
-        appearsOn => $appears_on->{$_->{entity}->id}
+        appearsOn => $appears_on->{$_->{entity}->id},
     }, $self->$orig($c, @entities);
 };
 

@@ -2,6 +2,7 @@ package t::MusicBrainz::Server::Controller::Admin::DeleteEditor;
 use strict;
 use warnings;
 
+use HTTP::Status qw( :constants );
 use Test::Routine;
 use Test::More;
 use MusicBrainz::Server::Test qw( html_ok );
@@ -46,10 +47,10 @@ test 'Delete account as a regular user' => sub {
     );
 
     $mech->get('/admin/user/delete/new_editor');
-    is($mech->status(), 403, 'Regular user cannot delete other accounts');
+    is($mech->status(), HTTP_FORBIDDEN, 'Regular user cannot delete other accounts');
 
     $mech->get_ok(
-        '/admin/user/delete/Alice',
+        '/account/delete',
         'Regular user can access their own deletion page',
     );
     html_ok($mech->content);
@@ -57,10 +58,10 @@ test 'Delete account as a regular user' => sub {
 
     is(
         $mech->uri->path,
-        '/user/Deleted%20Editor%20%232',
-        q(Redirected to the deleted editor's profile),
+        '/',
+        q(Redirected to the main page),
     );
-    $mech->content_contains('Log In', 'The editor is no longer logged in');
+    $mech->content_contains('Log in', 'The editor is no longer logged in');
 
     $mech->get_ok('/account/edit');
     html_ok($mech->content);
@@ -72,13 +73,13 @@ test 'Delete account as a regular user' => sub {
     $second_session->get('/');
     is(
         $second_session->status,
-        500,
+        HTTP_INTERNAL_SERVER_ERROR,
         'Restoring the deleted user in the second session fails',
     );
 
     $second_session->get_ok('/');
     $second_session->content_contains(
-        'Log In',
+        'Log in',
         'The deleted user is no longer logged in from the second session',
     );
 };

@@ -16,7 +16,7 @@ type Props = {
 const MergeRecordings = ({edit}: Props): React$Element<'table'> => (
   <table className="details merge-recordings">
     <tr>
-      <th>{addColonText(lp('Merge', 'merge X into Y heading'))}</th>
+      <th>{addColonText(lp('Merge', 'verb, header, paired with Into'))}</th>
       <td>
         <RecordingList
           lengthClass={edit.display_data.large_spread ? 'warn-lengths' : ''}
@@ -26,7 +26,7 @@ const MergeRecordings = ({edit}: Props): React$Element<'table'> => (
       </td>
     </tr>
     <tr>
-      <th>{l('Into:')}</th>
+      <th>{addColonText(lp('Into', 'header, paired with Merge'))}</th>
       <td>
         <RecordingList
           lengthClass={edit.display_data.large_spread ? 'warn-lengths' : ''}

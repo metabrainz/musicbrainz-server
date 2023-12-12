@@ -11,22 +11,22 @@ sub entity_type { 'isrc' }
 
 has 'isrc' => (
     is => 'rw',
-    isa => 'Str'
+    isa => 'Str',
 );
 
 has 'recording_id' => (
     is => 'rw',
-    isa => 'Int'
+    isa => 'Int',
 );
 
 has 'recording' => (
     is => 'rw',
-    isa => 'Recording'
+    isa => 'Recording',
 );
 
 has 'source_id' => (
     is => 'rw',
-    isa => 'Int'
+    isa => 'Int',
 );
 
 Readonly my $SOURCE_MUSICBRAINZ => 0;

@@ -12,7 +12,7 @@ sub serialize {
     $body{description} = $entity->description // '';
 
     return \%body;
-};
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

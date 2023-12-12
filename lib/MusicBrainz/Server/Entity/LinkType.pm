@@ -74,12 +74,12 @@ has 'attributes' => (
     handles => {
         clear_attributes => 'clear',
         all_attributes => 'elements',
-        add_attribute => 'push'
-    }
+        add_attribute => 'push',
+    },
 );
 
 has 'documentation' => (
-    is => 'rw'
+    is => 'rw',
 );
 
 has 'examples' => (
@@ -88,7 +88,7 @@ has 'examples' => (
     traits => [ 'Array' ],
     handles => {
         all_examples => 'elements',
-    }
+    },
 );
 
 sub published_examples {
@@ -98,7 +98,7 @@ sub published_examples {
 
 has 'is_deprecated' => (
     is => 'rw',
-    isa => 'Bool'
+    isa => 'Bool',
 );
 
 has 'has_dates' => (
@@ -108,12 +108,12 @@ has 'has_dates' => (
 
 has 'entity0_cardinality' => (
     is => 'rw',
-    isa => 'Int'
+    isa => 'Int',
 );
 
 has 'entity1_cardinality' => (
     is => 'rw',
-    isa => 'Int'
+    isa => 'Int',
 );
 
 has 'orderable_direction' => (

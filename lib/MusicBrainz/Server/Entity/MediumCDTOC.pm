@@ -11,22 +11,22 @@ sub entity_type { 'medium_cdtoc' }
 
 has 'cdtoc_id' => (
     is => 'rw',
-    isa => 'Int'
+    isa => 'Int',
 );
 
 has 'cdtoc' => (
     is => 'rw',
-    isa => 'CDTOC'
+    isa => 'CDTOC',
 );
 
 has 'medium_id' => (
     is => 'rw',
-    isa => 'Int'
+    isa => 'Int',
 );
 
 has 'medium' => (
     is => 'rw',
-    isa => 'Medium'
+    isa => 'Medium',
 );
 
 sub is_perfect_match {

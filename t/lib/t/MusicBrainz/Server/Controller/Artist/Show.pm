@@ -2,6 +2,7 @@ package t::MusicBrainz::Server::Controller::Artist::Show;
 use strict;
 use warnings;
 
+use HTTP::Status qw( :constants );
 use Test::Routine;
 use Test::More;
 use MusicBrainz::Server::Test qw( html_ok page_test_jsonld );
@@ -84,7 +85,7 @@ test 'Basic artist data appears on the index page' => sub {
     $mech->get('/artist/2775611341');
     is(
         $mech->status(),
-        404,
+        HTTP_NOT_FOUND,
         'Trying to fetch an artist by DB ID with a too-large integer 404s',
     );
 };
@@ -110,7 +111,7 @@ test 'Basic artist data appears on JSON-LD' => sub {
         'deathPlace' => {
             'name' => 'United Kingdom',
             '@type' => 'Country',
-            '@id' => 'http://musicbrainz.org/area/8a754a16-0027-3a29-b6d7-2b40ea0481ed'
+            '@id' => 'http://musicbrainz.org/area/8a754a16-0027-3a29-b6d7-2b40ea0481ed',
         },
         'birthDate' => '2008-01-02',
         'name' => 'Test Artist',
@@ -118,7 +119,7 @@ test 'Basic artist data appears on JSON-LD' => sub {
         'location' => {
             '@type' => 'Country',
             '@id' => 'http://musicbrainz.org/area/8a754a16-0027-3a29-b6d7-2b40ea0481ed',
-            'name' => 'United Kingdom'
+            'name' => 'United Kingdom',
         },
         'alternateName' => ['Seekrit Identity'],
         '@id' => 'http://musicbrainz.org/artist/745c079d-374e-4436-9448-da92dedef3ce',
@@ -126,7 +127,7 @@ test 'Basic artist data appears on JSON-LD' => sub {
         'birthPlace' => {
             '@id' => 'http://musicbrainz.org/area/8a754a16-0027-3a29-b6d7-2b40ea0481ed',
             '@type' => 'Country',
-            'name' => 'United Kingdom'
+            'name' => 'United Kingdom',
         },
         'album' => [
             {
@@ -141,7 +142,7 @@ test 'Basic artist data appears on JSON-LD' => sub {
                     'name' => 'Test Artist',
                     'sameAs' => 'http://musicbrainz.org/artist/089302a3-dda1-4bdf-b996-c2e941b5c41f',
                 },
-                'albumReleaseType' => 'http://schema.org/AlbumRelease'
+                'albumReleaseType' => 'http://schema.org/AlbumRelease',
             },
             {
                 '@type' => 'MusicAlbum',
@@ -155,8 +156,8 @@ test 'Basic artist data appears on JSON-LD' => sub {
                     '@id' => 'http://musicbrainz.org/artist/745c079d-374e-4436-9448-da92dedef3ce',
                     '@type' => ['Person', 'MusicGroup'],
                     'sameAs' => 'http://musicbrainz.org/artist/089302a3-dda1-4bdf-b996-c2e941b5c41f',
-                }
-            }
+                },
+            },
         ],
         'performsAs' => {
             '@id' => 'http://musicbrainz.org/artist/089302a3-dda1-4bdf-b996-c2e941b5c41f',
@@ -207,19 +208,19 @@ test 'Embedded JSON-LD `member` property' => sub {
                 'member' => {
                     'name' => 'Person A',
                     '@type' => ['Person', 'MusicGroup'],
-                    '@id' => 'http://musicbrainz.org/artist/2a62773a-cdbf-44c6-a700-50f931504054'
-                }
+                    '@id' => 'http://musicbrainz.org/artist/2a62773a-cdbf-44c6-a700-50f931504054',
+                },
             },
             {
                 'member' => {
                     '@id' => 'http://musicbrainz.org/artist/efac67ce-33ae-4949-8fc8-3d2aeafcbefb',
                     'name' => 'Person B',
-                    '@type' => ['Person', 'MusicGroup']
+                    '@type' => ['Person', 'MusicGroup'],
                 },
                 'endDate' => '2002',
                 '@type' => 'OrganizationRole',
                 'startDate' => '1999',
-                'roleName' => ['guitar','drums']
+                'roleName' => ['guitar','drums'],
             },
             {
                 'member' => {
@@ -229,10 +230,10 @@ test 'Embedded JSON-LD `member` property' => sub {
                 },
                 '@type' => 'OrganizationRole',
                 'startDate' => '2005',
-                'roleName' => 'guitar'
-            }
+                'roleName' => 'guitar',
+            },
         ],
-        '@context' => 'https://schema.org/docs/jsonldcontext.json'
+        '@context' => 'https://schema.org/docs/jsonldcontext.json',
     };
 
     $mech->get_ok(
@@ -253,11 +254,11 @@ test 'Embedded JSON-LD `member` property' => sub {
                 'memberOf' => {
                     'name' => 'Group',
                     '@type' => 'MusicGroup',
-                    '@id' => 'http://musicbrainz.org/artist/dcb48a49-b17d-49b9-aee5-4f168d8004d9'
-                }
+                    '@id' => 'http://musicbrainz.org/artist/dcb48a49-b17d-49b9-aee5-4f168d8004d9',
+                },
             },
         ],
-        '@context' => 'https://schema.org/docs/jsonldcontext.json'
+        '@context' => 'https://schema.org/docs/jsonldcontext.json',
     };
 };
 
@@ -295,16 +296,16 @@ test 'Embedded JSON-LD `track` property (for artists with only recordings)' => s
                 'duration' => 'PT05M00S',
                 '@id' => 'http://musicbrainz.org/recording/7af3d92f-5ef4-4ed4-bbbb-728928984d9c',
                 'name' => 'R1',
-                '@type' => 'MusicRecording'
+                '@type' => 'MusicRecording',
             },
             {
                 'duration' => 'PT04M10S',
                 '@id' => 'http://musicbrainz.org/recording/67f09ef6-0704-4841-935c-01c5b247574c',
                 'name' => 'R2',
-                '@type' => 'MusicRecording'
-            }
+                '@type' => 'MusicRecording',
+            },
         ],
-        '@context' => 'https://schema.org/docs/jsonldcontext.json'
+        '@context' => 'https://schema.org/docs/jsonldcontext.json',
     };
 };
 
@@ -338,7 +339,7 @@ test 'Embedded JSON-LD `genre` property' => sub {
         '@type' => 'MusicGroup',
         '@id' => 'http://musicbrainz.org/artist/dcb48a49-b17d-49b9-aee5-4f168d8004d9',
         'genre' => 'http://musicbrainz.org/genre/1b50083b-1afa-4778-82c8-548b309af783',
-        '@context' => 'https://schema.org/docs/jsonldcontext.json'
+        '@context' => 'https://schema.org/docs/jsonldcontext.json',
     };
 
     $c->sql->do(<<~'SQL');
@@ -358,7 +359,7 @@ test 'Embedded JSON-LD `genre` property' => sub {
             'http://musicbrainz.org/genre/1b50083b-1afa-4778-82c8-548b309af783',
             'http://musicbrainz.org/genre/2b50083b-1afa-4778-82c8-548b309af783',
         ],
-        '@context' => 'https://schema.org/docs/jsonldcontext.json'
+        '@context' => 'https://schema.org/docs/jsonldcontext.json',
     };
 };
 
@@ -383,12 +384,12 @@ test 'Embedded JSON-LD sameAs & performsAs' => sub {
         'birthPlace' => {
             '@id' => 'http://musicbrainz.org/area/e183ffae-1d35-4c78-b552-957535e40af1',
             '@type' => 'City',
-            'name' => 'Long Beach'
+            'name' => 'Long Beach',
         },
         'location' => {
             '@id' => 'http://musicbrainz.org/area/489ce91b-6658-3307-9877-795b68554c98',
             '@type' => 'Country',
-            'name' => 'United States'
+            'name' => 'United States',
         },
         'name' => 'Snoop Lion',
         'performsAs' => {
@@ -404,7 +405,7 @@ test 'Embedded JSON-LD sameAs & performsAs' => sub {
             'http://www.discogs.com/artist/2859872',
             'http://www.wikidata.org/entity/Q6096',
             'https://www.allmusic.com/artist/mn0002979185',
-        ]
+        ],
     };
 };
 
@@ -495,7 +496,7 @@ test 'Embedded JSON-LD for groups' => sub {
                 'member' => {
                     '@id' => 'http://musicbrainz.org/artist/0d4ab0f9-bbda-4ab1-ae2c-f772ffcfbea9',
                     '@type' => ['Person', 'MusicGroup'],
-                    'name' => 'Pete Best'
+                    'name' => 'Pete Best',
                 },
                 'roleName' => 'drums',
                 'startDate' => '1960-08-12',
@@ -506,7 +507,7 @@ test 'Embedded JSON-LD for groups' => sub {
                 'member' => {
                     '@id' => 'http://musicbrainz.org/artist/300c4c73-33ac-4255-9d57-4e32627f5e13',
                     '@type' => ['Person', 'MusicGroup'],
-                    'name' => 'Ringo Starr'
+                    'name' => 'Ringo Starr',
                 },
                 'roleName' => 'drums',
                 'startDate' => '1962-08',
@@ -553,7 +554,7 @@ test 'Embedded JSON-LD for groups' => sub {
                 },
                 'roleName' => ['bass guitar', 'lead vocals'],
                 'startDate' => '1957-07',
-            }
+            },
         ],
         'name' => 'The Beatles',
         'sameAs' => [
@@ -594,7 +595,7 @@ test 'Embedded JSON-LD for an empty artist' => sub {
         '@context' => 'https://schema.org/docs/jsonldcontext.json',
         '@type' => 'MusicGroup',
         '@id' => 'http://musicbrainz.org/artist/60e5d080-c964-11de-8a39-0800200c9a66',
-        'name' => 'Empty Artist'
+        'name' => 'Empty Artist',
     };
 };
 

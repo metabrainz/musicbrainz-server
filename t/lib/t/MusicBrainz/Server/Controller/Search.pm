@@ -20,7 +20,7 @@ test '/search portal' => sub {
     $tx->ok(selector_to_xpath('.searchform form'),
             sub {
                 $_->not_ok(selector_to_xpath('.error'),
-                           'should not have any field errors')
+                           'should not have any field errors');
             }, 'should have search form');
 };
 

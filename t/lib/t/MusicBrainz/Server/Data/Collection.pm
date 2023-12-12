@@ -2,6 +2,7 @@ package t::MusicBrainz::Server::Data::Collection;
 use strict;
 use warnings;
 
+use HTTP::Status qw( :constants );
 use Test::Routine;
 use Test::Moose;
 use Test::More;
@@ -136,7 +137,7 @@ $mech->get_ok('/account/subscriptions/collection/add?id=2',
               'Subscribe to public collection');
 
 $mech->get('/account/subscriptions/collection/add?id=7');
-is($mech->status, 403,
+is($mech->status, HTTP_FORBIDDEN,
    'Subscription attempt to private collection was rejected');
 
 (undef, $hits) = $coll_data->find_by_subscribed_editor(3, 10, 0);

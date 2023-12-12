@@ -33,7 +33,7 @@ sub get_latest_entries {
             unless (@_) {
                 $entries = [
                     map +{ title => decode('utf-8', $_->{title}), url => decode('utf-8', $_->{url}) },
-                        @{ $entry_parser->{items} }
+                        @{ $entry_parser->{items} },
                 ];
 
                 $cache->set($key => $entries, $BLOG_CACHE_TIMEOUT);

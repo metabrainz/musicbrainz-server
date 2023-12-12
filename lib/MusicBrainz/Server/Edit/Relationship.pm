@@ -91,7 +91,7 @@ sub serialize_link_attributes {
 
     return [
         sort_by { $_->{type}{id} }
-        map { serialize_link_attribute($_) } @attributes
+        map { serialize_link_attribute($_) } @attributes,
     ];
 }
 

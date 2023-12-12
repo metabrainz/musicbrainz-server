@@ -42,7 +42,7 @@ has_field 'comment' => (
 
 has_field 'iswcs' => (
     type => 'Repeatable',
-    inflate_default_method => \&inflate_iswcs
+    inflate_default_method => \&inflate_iswcs,
 );
 
 has_field 'iswcs.contains' => (
@@ -58,14 +58,14 @@ has_field 'attributes.type_id' => (
     type => 'Integer',
     required => 1,
     required_message => N_l('Please select a work attribute type.'),
-    localize_meth => sub { my ($self, @message) = @_; return l(@message); }
+    localize_meth => sub { my ($self, @message) = @_; return l(@message); },
 );
 
 has_field 'attributes.value' => (
     type => '+MusicBrainz::Server::Form::Field::Text',
     required => 1,
     required_message => N_l('Please enter a work attribute value.'),
-    localize_meth => sub { my ($self, @message) = @_; return l(@message); }
+    localize_meth => sub { my ($self, @message) = @_; return l(@message); },
 );
 
 sub is_empty_attribute {
@@ -91,17 +91,17 @@ sub validate_languages {
 
             if ($language_id == 284) {
                 $language_field->push_errors(
-                    l('You cannot select “[Multiple languages]” and specific languages at the same time.')
+                    l('You cannot select “[Multiple languages]” and specific languages at the same time.'),
                 );
                 $is_valid = 0;
             } elsif ($language_id == 486) {
                 $language_field->push_errors(
-                    l('You cannot select “[No lyrics]” and a lyrics language at the same time.')
+                    l('You cannot select “[No lyrics]” and a lyrics language at the same time.'),
                 );
                 $is_valid = 0;
             } elsif ($used_languages{$language_id}) {
                 $language_field->add_error(
-                    l('You cannot select the same language more than once.')
+                    l('You cannot select the same language more than once.'),
                 );
                 $is_valid = 0;
             }
@@ -121,11 +121,11 @@ after 'validate' => sub {
     my $attributes = $self->field('attributes');
 
     my $attribute_types = $self->ctx->model('WorkAttributeType')->get_by_ids(
-        map { $_->{type_id} } @{ $attributes->value }
+        map { $_->{type_id} } @{ $attributes->value },
     );
 
     $self->ctx->model('WorkAttributeTypeAllowedValue')->load_for_work_attribute_types(
-        values %$attribute_types
+        values %$attribute_types,
     );
 
     my %used_attributes;
@@ -143,7 +143,7 @@ after 'validate' => sub {
 
         if (!defined($attribute_type)) {
             $attribute_field->field('type_id')->add_error(
-                l('Unknown work attribute type.')
+                l('Unknown work attribute type.'),
             );
             next;
         }
@@ -152,14 +152,14 @@ after 'validate' => sub {
 
         if (any { $_ =~ /^$value$/ } @$used_attribute_values) {
             $attribute_field->add_error(
-                l('You cannot enter the same attribute and value more than once.')
+                l('You cannot enter the same attribute and value more than once.'),
             );
             next;
         }
 
         unless ($attribute_type->allows_value($value)) {
             $attribute_field->field('value')->add_error(
-                l('This value is not allowed for this work attribute type.')
+                l('This value is not allowed for this work attribute type.'),
             );
         }
 
@@ -179,7 +179,7 @@ after 'validate' => sub {
             $attribute_field->value({
                 attribute_text => $attribute_type->free_text ? $value : undef,
                 attribute_value_id => $attribute_type->free_text ? undef : $value,
-                attribute_type_id => $type_id
+                attribute_type_id => $type_id,
             });
         }
     }
@@ -200,8 +200,8 @@ sub inflate_attributes {
     return [
         map +{
             type_id => $_->type->id,
-            value => $_->value_id // $_->value
-        }, @$value
+            value => $_->value_id // $_->value,
+        }, @$value,
     ];
 }
 

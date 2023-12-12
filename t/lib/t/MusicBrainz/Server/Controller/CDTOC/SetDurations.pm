@@ -47,7 +47,7 @@ test 'Setting track lengths based on disc ID' => sub {
         $mech->submit_form_ok({
             with_fields => {
                 'confirm.edit_note' => 'Update the durations!',
-            }
+            },
         },
         'The form returned a 2xx response code')
     } $c;

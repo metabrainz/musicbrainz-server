@@ -16,14 +16,13 @@ use MusicBrainz::Server::Data::Utils qw(
 use aliased 'MusicBrainz::Server::Entity::Work';
 
 extends 'MusicBrainz::Server::Data::Entity';
-with 'MusicBrainz::Server::Data::Role::EntityModelClass';
-with 'MusicBrainz::Server::Data::Role::GetByGID';
-with 'MusicBrainz::Server::Data::Role::MainTable';
-with 'MusicBrainz::Server::Data::Role::GID';
-with 'MusicBrainz::Server::Data::Role::GIDRedirect';
-with 'MusicBrainz::Server::Data::Role::Name';
-
-with 'MusicBrainz::Server::Data::Role::PendingEdits' => { table => 'track' };
+with 'MusicBrainz::Server::Data::Role::EntityModelClass',
+     'MusicBrainz::Server::Data::Role::GetByGID',
+     'MusicBrainz::Server::Data::Role::MainTable',
+     'MusicBrainz::Server::Data::Role::GID',
+     'MusicBrainz::Server::Data::Role::GIDRedirect',
+     'MusicBrainz::Server::Data::Role::Name',
+     'MusicBrainz::Server::Data::Role::PendingEdits' => { table => 'track' };
 
 sub _type { 'track' }
 
@@ -255,7 +254,7 @@ sub delete
         'WHERE id IN (' . placeholders(@track_ids) . ')';
 
     my $recording_ids = $self->sql->select_single_column_array(
-        $recording_query, @track_ids
+        $recording_query, @track_ids,
     );
 
     $self->remove_gid_redirects(@track_ids);
@@ -285,7 +284,7 @@ sub merge_mediums
               GROUP BY newt.id',
             $new_medium_id,
             \@old_medium_ids,
-        )
+        );
     };
 
     for my $track_merge (@track_merges) {

@@ -43,7 +43,7 @@ const ReleasesSameBarcode = ({
     columnName: 'release_group',
     descriptive: false,
     getEntity: result => result.release_group ?? null,
-    title: l('Release Group'),
+    title: l('Release group'),
   });
 
   return (

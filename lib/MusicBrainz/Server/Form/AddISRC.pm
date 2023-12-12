@@ -19,3 +19,4 @@ has_field 'isrc' => (
 no Moose;
 __PACKAGE__->meta->make_immutable;
 
+1;

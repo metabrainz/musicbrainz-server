@@ -18,10 +18,10 @@ with 'MusicBrainz::Server::Controller::Role::Tag';
 with 'MusicBrainz::Server::Controller::Role::EditListing';
 with 'MusicBrainz::Server::Controller::Role::EditRelationships';
 with 'MusicBrainz::Server::Controller::Role::JSONLD' => {
-    endpoints => {show => {copy_stash => ['top_tags']}, aliases => {copy_stash => ['aliases']}}
+    endpoints => {show => {copy_stash => ['top_tags']}, aliases => {copy_stash => ['aliases']}},
 };
 with 'MusicBrainz::Server::Controller::Role::Collection' => {
-    entity_type => 'recording'
+    entity_type => 'recording',
 };
 
 use MusicBrainz::Server::Constants qw(
@@ -84,14 +84,6 @@ after 'load' => sub
     $c->model('ArtistCredit')->load($recording);
 };
 
-sub _row_id_to_gid
-{
-    my ($self, $c, $track_id) = @_;
-    my $track = $c->model('Track')->get_by_id($track_id) or return;
-    $c->model('Recording')->load($track);
-    return $track->recording->gid;
-}
-
 sub show : Chained('load') PathPart('') {
     my ($self, $c) = @_;
     my $recording = $c->stash->{recording};
@@ -120,7 +112,7 @@ sub show : Chained('load') PathPart('') {
             map { to_json_array($_) }
                 @{ group_by_release_status_nested(
                     sub { shift->medium->release },
-                    @$tracks) }
+                    @$tracks) },
         ],
     );
     $c->stash(
@@ -161,7 +153,7 @@ with 'MusicBrainz::Server::Controller::Role::IdentifierSet' => {
     identifier_type => 'isrc',
     add_edit => $EDIT_RECORDING_ADD_ISRCS,
     remove_edit => $EDIT_RECORDING_REMOVE_ISRC,
-    include_source => 1
+    include_source => 1,
 };
 
 with 'MusicBrainz::Server::Controller::Role::Edit' => {
@@ -171,16 +163,16 @@ with 'MusicBrainz::Server::Controller::Role::Edit' => {
         my ($self, $c, $recording) = @_;
 
         my (undef, $track_count) = $c->model('Track')->find_by_recording(
-            $recording->id, 1, 0
+            $recording->id, 1, 0,
         );
 
         return (
             post_creation => $self->edit_with_identifiers($c, $recording),
             form_args => {
-                used_by_tracks => $track_count > 0
-            }
+                used_by_tracks => $track_count > 0,
+            },
         );
-    }
+    },
 };
 
 with 'MusicBrainz::Server::Controller::Role::Merge' => {
@@ -196,7 +188,7 @@ with 'MusicBrainz::Server::Controller::Role::Create' => {
         my %ret;
         if ( my $artist = $c->model('Artist')->get_by_gid($artist_gid) ) {
             my $rg = MusicBrainz::Server::Entity::Recording->new(
-                artist_credit => ArtistCredit->from_artist($artist)
+                artist_credit => ArtistCredit->from_artist($artist),
             );
             $c->stash( initial_artist => $artist );
             $ret{item} = $rg;
@@ -222,7 +214,7 @@ sub _merge_load_entities {
             isrcs_differ => (any { $get_isrc_set->($_) != $expect } @tail),
         );
     }
-};
+}
 
 with 'MusicBrainz::Server::Controller::Role::Delete' => {
     edit_type => $EDIT_RECORDING_DELETE,

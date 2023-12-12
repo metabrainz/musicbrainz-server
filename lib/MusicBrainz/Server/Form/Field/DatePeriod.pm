@@ -11,12 +11,12 @@ extends 'HTML::FormHandler::Field::Compound';
 
 has_field 'begin_date' => (
     type => '+MusicBrainz::Server::Form::Field::PartialDate',
-    not_nullable => 1
+    not_nullable => 1,
 );
 
 has_field 'end_date' => (
     type => '+MusicBrainz::Server::Form::Field::PartialDate',
-    not_nullable => 1
+    not_nullable => 1,
 );
 
 has_field 'ended' => (

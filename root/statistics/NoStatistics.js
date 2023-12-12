@@ -12,8 +12,8 @@ import {l_statistics as l} from '../static/scripts/common/i18n/statistics.js';
 import StatisticsLayout from './StatisticsLayout.js';
 
 const NoStatistics = (): React$Element<typeof StatisticsLayout> => (
-  <StatisticsLayout fullWidth page="index" title={l('No Statistics')}>
-    <h2>{l('No Statistics')}</h2>
+  <StatisticsLayout fullWidth page="index" title={l('No statistics')}>
+    <h2>{l('No statistics')}</h2>
     <p>
       {exp.l(
         `Statistics have never been collected for this server. If you are the

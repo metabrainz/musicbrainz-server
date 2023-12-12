@@ -11,7 +11,7 @@ use Sub::Exporter -setup => {
         upgrade_release_type
         upgrade_release_status
         upgrade_type_and_status
-    )]
+    )],
 };
 
 use aliased 'MusicBrainz::Server::Entity::PartialDate';
@@ -39,7 +39,7 @@ sub upgrade_id
 
 my %type_map = (
     album => 'release',
-    track => 'recording'
+    track => 'recording',
 );
 
 sub upgrade_type

@@ -9,14 +9,14 @@ use MusicBrainz::Server::Test;
 
 has c => (
     is => 'ro',
-    builder => '_build_context'
+    builder => '_build_context',
 );
 
 has cache_aware_c => (
     is => 'ro',
     builder => '_build_cache_aware_context',
     clearer => '_clear_cache_aware_c',
-    lazy => 1
+    lazy => 1,
 );
 
 sub _build_context {
@@ -32,7 +32,7 @@ sub _build_cache_aware_context {
     return $test->c->meta->clone_object(
         $test->c,
         cache_manager => MusicBrainz::Server::CacheManager->new(%$opts),
-        models => {} # Need to reload models to use this new $c
+        models => {}, # Need to reload models to use this new $c
     );
 }
 

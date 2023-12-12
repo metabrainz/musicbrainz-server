@@ -34,7 +34,7 @@ const SetCoverArt = ({edit}: Props): React$Element<'table'> => {
       </tr>
 
       <tr>
-        <th>{l('Old cover art:')}</th>
+        <th>{lp('Old cover art:', 'singular')}</th>
         <td>
           {oldArt ? (
             <div className="editimage">
@@ -62,7 +62,7 @@ const SetCoverArt = ({edit}: Props): React$Element<'table'> => {
       </tr>
 
       <tr>
-        <th>{l('New cover art:')}</th>
+        <th>{lp('New cover art:', 'singular')}</th>
         <td>
           {newArt ? (
             <div className="editimage">

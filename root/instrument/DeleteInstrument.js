@@ -31,9 +31,9 @@ const DeleteInstrument = ({
     entity={instrument}
     fullWidth
     page="delete"
-    title={l('Remove Instrument')}
+    title={lp('Remove instrument', 'header')}
   >
-    <h2>{l('Remove Instrument')}</h2>
+    <h2>{lp('Remove instrument', 'header')}</h2>
 
     {canDelete ? (
       <>

@@ -10,17 +10,17 @@ with 'MusicBrainz::Server::EditSearch::Predicate';
 
 has name => (
     is => 'ro',
-    isa => 'Str'
+    isa => 'Str',
 );
 
 has user => (
     is => 'ro',
     isa => 'MusicBrainz::Server::Authentication::User',
-    required => 1
+    required => 1,
 );
 
 has voter_id => (
-    is => 'ro'
+    is => 'ro',
 );
 
 sub operator_cardinality_map {
@@ -32,7 +32,7 @@ sub operator_cardinality_map {
         'subscribed' => undef,
         'not_subscribed' => undef,
     );
-};
+}
 
 sub valid {
     my ($self) = @_;
@@ -85,13 +85,13 @@ sub combine_with_query {
         $query->add_where([
             join(' OR ',
                  sprintf($sql, 'vote.vote = any(?)'),
-                 sprintf("NOT $sql", 'TRUE')
+                 sprintf("NOT $sql", 'TRUE'),
             ),
             [
                 $voter_id,
                 \@votes,
-                $voter_id
-            ]
+                $voter_id,
+            ],
         ]);
     } elsif (@votes && !$no_vote_option) {
         $query->add_where([
@@ -99,14 +99,14 @@ sub combine_with_query {
             [
                 $voter_id,
                 \@votes,
-            ]
+            ],
         ]);
     } elsif (!@votes && $no_vote_option) {
         $query->add_where([
             sprintf("NOT $sql", 'TRUE'),
             [
                 $voter_id,
-            ]
+            ],
         ]);
     }
 }

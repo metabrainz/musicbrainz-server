@@ -26,7 +26,7 @@ around serialize => sub {
     if ($toplevel) {
         if ($entity->all_events) {
             $ret->{hasReleaseRegion} = [
-                map { release_event($_, $inc, $stash) } $entity->all_events
+                map { release_event($_, $inc, $stash) } $entity->all_events,
             ];
         }
         if ($entity->all_labels) {
@@ -98,7 +98,7 @@ sub release_event {
         $ret->{releaseDate} = $event->date->format;
     }
     if ($event->country) {
-        $ret->{releaseCountry} = serialize_entity($event->country, $inc, $stash)
+        $ret->{releaseCountry} = serialize_entity($event->country, $inc, $stash);
     }
     return $ret;
 }
@@ -111,7 +111,7 @@ sub medium_format {
         5 => 'LaserDisc',
         7 => 'Vinyl',
         8 => 'Cassette',
-        12 => 'Digital'
+        12 => 'Digital',
     );
     # NOTE: this does not deal with multiple steps in the tree, which as of
     # this writing only applies to 8cm CD+G. It also outputs nothing in the

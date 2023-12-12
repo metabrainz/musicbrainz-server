@@ -23,7 +23,7 @@ use HTTP::Status qw( :constants );
 
 with 'MusicBrainz::Server::Controller::Role::Load' => {
     model => 'CDTOC',
-    entity_name => 'cdtoc'
+    entity_name => 'cdtoc',
 };
 
 sub base : Chained('/') PathPart('cdtoc') CaptureArgs(0) {}
@@ -75,33 +75,33 @@ sub remove : Local Edit
     my $cdtoc_id  = $c->req->query_params->{cdtoc_id}
         or $self->error(
             $c, status => HTTP_BAD_REQUEST,
-            message => l('Please provide a CD TOC ID.')
+            message => l('Please provide a CD TOC ID.'),
         );
 
     $self->error($c, status => HTTP_BAD_REQUEST,
-                 message => l('The provided CD TOC ID is not valid.')
+                 message => l('The provided CD TOC ID is not valid.'),
         ) unless is_database_row_id($cdtoc_id);
 
     my $medium_id = $c->req->query_params->{medium_id}
         or $self->error(
             $c, status => HTTP_BAD_REQUEST,
-            message => l('Please provide a medium ID.')
+            message => l('Please provide a medium ID.'),
         );
 
     $self->error($c, status => HTTP_BAD_REQUEST,
-                 message => l('The provided medium id is not valid.')
+                 message => l('The provided medium id is not valid.'),
         ) unless is_database_row_id($medium_id);
 
     my $medium = $c->model('Medium')->get_by_id($medium_id)
             or $self->error(
             $c, status => HTTP_BAD_REQUEST,
-            message => l('The provided medium ID doesn’t exist.')
+            message => l('The provided medium ID doesn’t exist.'),
         );
 
     my $cdtoc = $c->model('MediumCDTOC')->get_by_medium_cdtoc($medium_id, $cdtoc_id)
             or $self->error(
             $c, status => HTTP_BAD_REQUEST,
-            message => l('The provided CD TOC ID doesn’t exist or is not connected to the provided medium.')
+            message => l('The provided CD TOC ID doesn’t exist or is not connected to the provided medium.'),
         );
 
     $c->model('CDTOC')->load($cdtoc);
@@ -122,11 +122,11 @@ sub remove : Local Edit
         type        => $EDIT_MEDIUM_REMOVE_DISCID,
         edit_args   => {
             medium => $medium,
-            cdtoc  => $cdtoc
+            cdtoc  => $cdtoc,
         },
         on_creation => sub {
             $c->response->redirect($c->uri_for_action('/release/discids', [ $release->gid ]));
-        }
+        },
     );
 
     my %props = (
@@ -150,12 +150,12 @@ sub set_durations : Chained('load') PathPart('set-durations') Edit
     my $medium_id = $c->req->query_params->{medium}
         or $self->error(
             $c, status => HTTP_BAD_REQUEST,
-            message => l('Please provide a medium ID')
+            message => l('Please provide a medium ID'),
         );
     my $medium = $c->model('Medium')->get_by_id($medium_id)
         or $self->error(
             $c, status => HTTP_BAD_REQUEST,
-            message => l('Could not find medium')
+            message => l('Could not find medium'),
         );
 
     $c->model('Medium')->load_track_durations($medium);
@@ -172,12 +172,12 @@ sub set_durations : Chained('load') PathPart('set-durations') Edit
         type => $EDIT_SET_TRACK_LENGTHS,
         edit_args => {
             medium_id => $medium_id,
-            cdtoc_id => $cdtoc->id
+            cdtoc_id => $cdtoc->id,
         },
         on_creation => sub {
             $c->response->redirect(
                 $c->uri_for_action($self->action_for('show'), [ $cdtoc->discid ]));
-        }
+        },
     );
 
     my %props = (
@@ -203,14 +203,14 @@ sub attach : Local DenyWhenReadonly Edit
         or $self->error(
             $c, status => HTTP_BAD_REQUEST,
             message => l(
-                'The provided CD TOC is not valid. This is probably an issue with the software you used to generate it. Try again and please report the error to your software maker if it persists, including the technical information below.')
+                'The provided CD TOC is not valid. This is probably an issue with the software you used to generate it. Try again and please report the error to your software maker if it persists, including the technical information below.'),
         );
 
     $c->stash( cdtoc => $cdtoc );
 
     if (my $medium_id = $c->req->query_params->{medium}) {
         $self->error($c, status => HTTP_BAD_REQUEST,
-                     message => l('The provided medium id is not valid')
+                     message => l('The provided medium id is not valid'),
             ) unless is_database_row_id($medium_id);
 
         if ($c->model('MediumCDTOC')->medium_has_cdtoc($medium_id, $cdtoc)) {
@@ -223,7 +223,7 @@ sub attach : Local DenyWhenReadonly Edit
         my $medium = $c->model('Medium')->get_by_id($medium_id);
 
         $self->error($c, status => HTTP_BAD_REQUEST,
-                     message => l('The provided medium ID doesn’t exist.')
+                     message => l('The provided medium ID doesn’t exist.'),
             ) unless defined $medium;
 
         $c->model('MediumFormat')->load($medium);
@@ -231,7 +231,7 @@ sub attach : Local DenyWhenReadonly Edit
         $self->error(
             $c,
             status => HTTP_BAD_REQUEST,
-            message => l('The selected medium cannot have disc IDs')
+            message => l('The selected medium cannot have disc IDs'),
         ) unless $medium->may_have_discids;
 
         $c->model('Release')->load($medium);
@@ -245,13 +245,13 @@ sub attach : Local DenyWhenReadonly Edit
             edit_args   => {
                 cdtoc      => $toc,
                 medium_id  => $medium_id,
-                release    => $medium->release
+                release    => $medium->release,
             },
             on_creation => sub {
                 $c->response->redirect(
                     $c->uri_for_action(
                         '/release/discids' => [ $medium->release->gid ]));
-            }
+            },
         );
 
         my %props = (
@@ -276,13 +276,13 @@ sub _attach_list {
     if (my $artist_id = $c->req->query_params->{artist}) {
 
         $self->error($c, status => HTTP_BAD_REQUEST,
-                     message => l('The provided artist id is not valid')
+                     message => l('The provided artist id is not valid'),
             ) unless is_database_row_id($artist_id);
 
         # List releases
         my $artist = $c->model('Artist')->get_by_id($artist_id);
         my $releases = $self->_load_paged($c, sub {
-            $c->model('Release')->find_for_cdtoc($artist_id, $cdtoc->track_count, shift, shift)
+            $c->model('Release')->find_for_cdtoc($artist_id, $cdtoc->track_count, shift, shift);
         });
         $c->model('Release')->load_related_info(@$releases);
 
@@ -311,7 +311,7 @@ sub _attach_list {
         # One of these must have been submitted to get here
         if ($c->form_submitted_and_valid($search_artist, $c->req->query_params)) {
             my $artists = $self->_load_paged($c, sub {
-                $c->model('Search')->search('artist', $search_artist->field('query')->value, shift, shift)
+                $c->model('Search')->search('artist', $search_artist->field('query')->value, shift, shift);
             });
             my %props = (
                 form        => $search_artist->TO_JSON,
@@ -368,7 +368,7 @@ sub _attach_list {
             $c->stash(
                 template => 'cdtoc/attach_filter_release.tt',
                 cdtoc_action => 'add',
-                results => [sort_by { $_->entity->release_group ? $_->entity->release_group->gid : '' } @$releases]
+                results => [sort_by { $_->entity->release_group ? $_->entity->release_group->gid : '' } @$releases],
             );
             $c->detach;
         }
@@ -391,7 +391,7 @@ sub _attach_list {
                 $c->model('ArtistCredit')->load(@releases);
                 $c->stash(
                     possible_mediums => [ @mediums  ],
-                    cdstub => $cdstub
+                    cdstub => $cdstub,
                 );
             }
         }
@@ -418,7 +418,7 @@ sub move : Local Edit
     my $medium_cdtoc = $c->model('MediumCDTOC')->get_by_id($medium_cdtoc_id)
         or $self->error(
             $c, status => HTTP_BAD_REQUEST,
-            message => l('The provided CD TOC ID doesn’t exist.')
+            message => l('The provided CD TOC ID doesn’t exist.'),
         );
 
     $c->model('CDTOC')->load($medium_cdtoc);
@@ -427,25 +427,25 @@ sub move : Local Edit
     $c->stash(
         cdtoc => $cdtoc,
         toc => $medium_cdtoc_id,
-        medium_cdtoc => $medium_cdtoc
+        medium_cdtoc => $medium_cdtoc,
     );
 
     if (my $medium_id = $c->req->query_params->{medium}) {
         $self->error($c, status => HTTP_BAD_REQUEST,
-                     message => l('The provided medium id is not valid')
+                     message => l('The provided medium id is not valid'),
             ) unless is_database_row_id($medium_id);
 
         my $medium = $c->model('Medium')->get_by_id($medium_id);
 
         $self->error($c, status => HTTP_BAD_REQUEST,
-                     message => l('The provided medium ID doesn’t exist.')
+                     message => l('The provided medium ID doesn’t exist.'),
             ) unless defined $medium;
 
         $c->model('MediumFormat')->load($medium);
         $self->error(
             $c,
             status => HTTP_BAD_REQUEST,
-            message => l('The selected medium cannot have disc IDs')
+            message => l('The selected medium cannot have disc IDs'),
         ) unless $medium->may_have_discids;
 
         $c->model('Medium')->load($medium_cdtoc);
@@ -464,13 +464,13 @@ sub move : Local Edit
             type        => $EDIT_MEDIUM_MOVE_DISCID,
             edit_args   => {
                 medium_cdtoc => $medium_cdtoc,
-                new_medium   => $medium
+                new_medium   => $medium,
             },
             on_creation => sub {
                 $c->response->redirect(
                     $c->uri_for_action(
                         '/release/discids' => [ $medium->release->gid ]));
-            }
+            },
         );
 
         my %props = (
@@ -529,7 +529,7 @@ sub move : Local Edit
             $c->stash(
                 template => 'cdtoc/attach_filter_release.tt',
                 cdtoc_action => 'move',
-                results => $releases
+                results => $releases,
             );
             $c->detach;
         }

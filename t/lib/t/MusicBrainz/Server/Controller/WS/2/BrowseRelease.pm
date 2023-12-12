@@ -3,13 +3,14 @@ use utf8;
 use strict;
 use warnings;
 
+use HTTP::Status qw( :constants );
 use Test::Routine;
 use Test::More;
 
 with 't::Mechanize', 't::Context';
 
 use MusicBrainz::Server::Test ws_test => {
-    version => 2
+    version => 2,
 };
 
 test all => sub {
@@ -296,7 +297,7 @@ ws_test 'browse releases via release group with inc=tags',
 </metadata>';
 
 my $response = $mech->get('/ws/2/release?recording=7b1f6e95-b523-43b6-a048-810ea5d463a8');
-is ($response->code, 404, 'browse releases via non-existent recording');
+is ($response->code, HTTP_NOT_FOUND, 'browse releases via non-existent recording');
 
 ws_test 'browse releases via recording',
     '/release?inc=labels&status=official&recording=0c0245df-34f0-416b-8c3f-f20f66e116d0' =>

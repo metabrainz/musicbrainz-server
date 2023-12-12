@@ -29,16 +29,16 @@ ok(
         names => [
             ArtistCreditName->new(
                 name => 'Breakage',
-                artist_id => 1
+                artist_id => 1,
             )])
         ==
     ArtistCredit->new(
         names => [
             ArtistCreditName->new(
                 name => 'Breakage',
-                artist_id => 1
+                artist_id => 1,
             )]),
-    'Identical artist credits are =='
+    'Identical artist credits are ==',
 );
 
 ok(
@@ -46,14 +46,14 @@ ok(
         names => [
             ArtistCreditName->new(
                 name => 'Breakage',
-                artist_id => 1
+                artist_id => 1,
             )])
         !=
     ArtistCredit->new(
         names => [
             ArtistCreditName->new(
                 name => 'Break',
-                artist_id => 1
+                artist_id => 1,
             )]),
     'Artist credits with differing names are !=',
 );
@@ -63,16 +63,16 @@ ok(
         names => [
             ArtistCreditName->new(
                 name => 'Breakage',
-                artist_id => 1
+                artist_id => 1,
             )])
         !=
     ArtistCredit->new(
         names => [
             ArtistCreditName->new(
                 name => 'Breakage',
-                artist_id => 2
+                artist_id => 2,
             )]),
-    'Artist credits with differing artists are !='
+    'Artist credits with differing artists are !=',
 );
 
 ok(
@@ -86,9 +86,9 @@ ok(
         names => [
             ArtistCreditName->new(
                 name => 'Breakage',
-                artist_id => 2
+                artist_id => 2,
             )]),
-    'Artist credits with differing name counts are !='
+    'Artist credits with differing name counts are !=',
 );
 
 ok(
@@ -97,7 +97,7 @@ ok(
             ArtistCreditName->new( name => 'Breakage', artist_id => 1, join_phrase => ' & ' ),
             ArtistCreditName->new( name => 'Noisia', artist_id => 5 ),
         ]),
-    'can test artist credits for truth'
+    'can test artist credits for truth',
 );
 
 my $zero_ac = ArtistCredit->from_array([

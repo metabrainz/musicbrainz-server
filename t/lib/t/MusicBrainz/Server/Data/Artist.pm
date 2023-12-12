@@ -208,7 +208,7 @@ is($artist->comment, 'Updated comment');
 
 $artist_data->update($artist->id, {
         type_id => 2,
-        gender_id => undef
+        gender_id => undef,
     });
 $artist = $artist_data->get_by_id($artist->id);
 is($artist->type_id, 2);
@@ -259,7 +259,7 @@ ok($artist_data->can_delete(3));
 
 my $ac = $test->c->model('ArtistCredit')->find_or_insert(
     {
-        names => [ { artist => { id => 3, name => 'Calibre' }, name => 'Calibre' } ]
+        names => [ { artist => { id => 3, name => 'Calibre' }, name => 'Calibre' } ],
     });
 ok($artist_data->can_delete(3));
 
@@ -301,7 +301,7 @@ test 'Merging with a cache' => sub {
     my $c = $test->c->meta->clone_object(
         $test->c,
         cache_manager => MusicBrainz::Server::CacheManager->new(%$opts),
-        models => {} # Need to reload models to use this new $c
+        models => {}, # Need to reload models to use this new $c
     );
 
     my $cache = $c->cache_manager->_get_cache('external');
@@ -448,13 +448,13 @@ test 'Cannot edit an artist into something that would violate uniqueness' => sub
     ok !exception { $c->model('Artist')->update(4, { comment => '' }) };
     $conflicts_exception_ok->(
         exception { $c->model('Artist')->update(3, { name => 'B' }) },
-        4
+        4,
     );
 
     ok !exception { $c->model('Artist')->update(3, { name => 'B', comment => 'Unique' }) };
     $conflicts_exception_ok->(
         exception { $c->model('Artist')->update(3, { comment => '' }) },
-        4
+        4,
     );
 };
 
@@ -510,7 +510,7 @@ test q(Merging an artist that's in a collection) => sub {
     $c->model('Collection')->add_entities_to_collection('artist', $collection->{id}, $artist1->{id});
     $c->model('Artist')->merge($artist2->{id}, [$artist1->{id}]);
 
-    ok($c->sql->select_single_value('SELECT 1 FROM editor_collection_artist WHERE artist = ?', $artist2->{id}))
+    ok($c->sql->select_single_value('SELECT 1 FROM editor_collection_artist WHERE artist = ?', $artist2->{id}));
 };
 
 1;

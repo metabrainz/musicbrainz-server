@@ -25,13 +25,13 @@ html_ok($mech->content);
 $mech->submit_form( with_fields => {
     'changepassword.old_password' => 'wrong password',
     'changepassword.password' => 'password',
-    'changepassword.confirm_password' => 'password'
+    'changepassword.confirm_password' => 'password',
 } );
 $mech->content_contains('The old password is incorrect');
 $mech->submit_form( with_fields => {
     'changepassword.old_password' => 'password',
     'changepassword.password' => 'new_password',
-    'changepassword.confirm_password' => 'new_password'
+    'changepassword.confirm_password' => 'new_password',
 } );
 $mech->content_contains('Your password has been changed');
 $mech->get('/logout');

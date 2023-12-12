@@ -19,7 +19,7 @@ sub to_json_array {
     my $arr = shift;
     my $reftype = reftype $arr;
     if (defined $reftype && $reftype eq 'ARRAY') {
-        return [map { to_json_object($_) } @$arr]
+        return [map { to_json_object($_) } @$arr];
     }
     return undef;
 }

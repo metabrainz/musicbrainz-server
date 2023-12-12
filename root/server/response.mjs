@@ -62,7 +62,7 @@ export async function getResponse(requestBody, context) {
   let Page = componentModule ? (await componentModule()).default : undefined;
   if (Page === undefined) {
     try {
-      Page = (await components['main/error/404']()).default;
+      Page = (await components['main/error/Error404']()).default;
       status = 404;
     } catch (err) {
       Sentry.captureException(err);

@@ -11,11 +11,11 @@ use MusicBrainz::Server::Edit::Historic::Utils qw(
 );
 use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 
 use MusicBrainz::Server::Edit::Historic::Base;
 
-sub edit_name     { N_l('Edit release events (historic)') }
+sub edit_name     { N_lp('Edit release events (historic)', 'edit type') }
 sub edit_kind     { 'edit' }
 sub historic_type { 29 }
 sub edit_type     { $EDIT_HISTORIC_EDIT_RELEASE_EVENTS_OLD }
@@ -45,8 +45,8 @@ sub _build_related_entities
                 map {
                     $_->{old}, $_->{new}
                 } @{ $self->data->{edits} },
-        ]
-    }
+        ],
+    };
 }
 
 sub foreign_keys
@@ -62,7 +62,7 @@ sub foreign_keys
         Label        => [ map { $_->{label_id   } } @everything ],
         MediumFormat => [ map { $_->{format_id  } } @everything ],
         Release      => [ $self->_release_ids ],
-    }
+    };
 }
 
 sub _build_re {
@@ -76,7 +76,7 @@ sub _build_re {
         catalog_number => $re->{catalog_number},
         barcode        => $re->{barcode},
         date           => to_json_object(MusicBrainz::Server::Entity::PartialDate->new_from_row( $re->{date} )),
-    }
+    };
 }
 
 sub build_display_data
@@ -95,11 +95,11 @@ sub build_display_data
                 },
                 label_id => {
                     old => $_->{old}{label_id},
-                    new => $_->{new}{label_id}
+                    new => $_->{new}{label_id},
                 },
                 date    => {
                     old => to_json_object(MusicBrainz::Server::Entity::PartialDate->new_from_row($_->{old}{date})),
-                    new => to_json_object(MusicBrainz::Server::Entity::PartialDate->new_from_row($_->{new}{date}))
+                    new => to_json_object(MusicBrainz::Server::Entity::PartialDate->new_from_row($_->{new}{date})),
                 },
                 country => {
                     old => to_json_object($loaded->{Area}{ $_->{old}{country_id} }),
@@ -117,9 +117,9 @@ sub build_display_data
                     old => $_->{old}{catalog_number},
                     new => $_->{new}{catalog_number},
                 },
-            } } $self->_edits
-        ]
-    }
+            } } $self->_edits,
+        ],
+    };
 }
 
 sub upgrade_re
@@ -143,7 +143,7 @@ sub upgrade_re
         label_id       => upgrade_id($event{"${prefix}l"}),
         catalog_number => _decode($event{"${prefix}n"}),
         barcode        => _decode($event{"${prefix}b"}),
-        format_id      => upgrade_id($event{"${prefix}f"})
+        format_id      => upgrade_id($event{"${prefix}f"}),
     };
 }
 
@@ -174,7 +174,7 @@ sub upgrade
         push @edits, {
             release_id => $id,
             old        => $old,
-            new        => $new
+            new        => $new,
         };
     }
 

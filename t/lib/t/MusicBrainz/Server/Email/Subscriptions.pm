@@ -23,32 +23,32 @@ test all => sub {
     my $editor = Editor->new(
         name => 'ニッキー',
         email => 'somebody@example.com',
-        id => 6666
+        id => 6666,
         );
 
     my $edited_coll = CollectionSubscription->new(
         collection => Collection->new(
             name => 'collection1',
-            gid => 'f34c079d-374e-4436-9448-da92dedef3cd'
-            )
+            gid => 'f34c079d-374e-4436-9448-da92dedef3cd',
+            ),
         );
 
     my %edits;
     push @{ $edits{ collection } }, {
         open => [1],
         applied => [2, 3],
-        subscription => $edited_coll
+        subscription => $edited_coll,
         };
 
     my $deleted_coll = CollectionSubscription->new(
-        last_seen_name => 'collection2'
+        last_seen_name => 'collection2',
         );
 
     my $email = Email->new(
         editor => $editor,
         collator => get_collator('root'),
         edits => \%edits,
-        deletes => [$deleted_coll]
+        deletes => [$deleted_coll],
         );
 
     my $text = $email->text;

@@ -18,7 +18,7 @@ my @classes = (
         Module::Pluggable::Object->new( search_path => $_ )->plugins
     } (
         't::MusicBrainz::Server'
-    )
+    ),
 );
 
 MusicBrainz::Server::Test->prepare_test_server;
@@ -27,3 +27,5 @@ MusicBrainz::Server::Test->prepare_test_server;
 
 plan tests => scalar(@classes);
 run_tests($_ => $_) for @classes;
+
+1;

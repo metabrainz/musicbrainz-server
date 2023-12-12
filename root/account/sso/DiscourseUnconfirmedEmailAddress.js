@@ -10,8 +10,8 @@
 import Layout from '../../layout/index.js';
 
 const DiscourseUnconfirmedEmailAddress = (): React$Element<typeof Layout> => (
-  <Layout fullWidth title={l('Unverified Email Address')}>
-    <h2>{l('Unverified Email Address')}</h2>
+  <Layout fullWidth title={lp('Unverified email address', 'header')}>
+    <h2>{lp('Unverified email address', 'header')}</h2>
     <p>
       {exp.l(
         `You must verify your email address before you can

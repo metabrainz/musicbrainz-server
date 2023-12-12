@@ -52,7 +52,7 @@ around '_set_value' => sub
         map {
             $_ => !defined $value->{$_} || $value->{$_} eq ''
                 ? undef : $value->{$_}
-        } keys %$value
+        } keys %$value,
     });
 };
 

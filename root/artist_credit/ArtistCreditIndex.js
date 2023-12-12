@@ -121,7 +121,7 @@ const ArtistCreditIndex = (
         $c,
         props,
         'release_group',
-        l('Release Groups'),
+        l('Release groups'),
         N_ln(
           'See all {num} release groups',
           'See all {num} release groups',

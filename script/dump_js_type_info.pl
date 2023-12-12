@@ -26,9 +26,10 @@ my $attr_info = $json->encode(\@link_attribute_types);
 print "Writing root/static/scripts/tests/typeInfo.js ...\n";
 
 open(my $fh, '>', $out_file);
-print $fh <<EOF;
+print $fh <<"EOF";
+// \@flow strict
 // Automatically generated, do not edit.
-exports.linkTypes = $type_info;
-exports.linkAttributeTypes = $attr_info;
+exports.linkTypes = ($type_info/*: \$ReadOnlyArray<LinkTypeT> */);
+exports.linkAttributeTypes = ($attr_info/*: \$ReadOnlyArray<LinkAttrTypeT> */);
 EOF
 close $fh;

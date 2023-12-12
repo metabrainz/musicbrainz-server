@@ -14,7 +14,7 @@ sub sidebar_name {
     else {
         return 'Instagram';
     }
-};
+}
 
 
 __PACKAGE__->meta->make_immutable;

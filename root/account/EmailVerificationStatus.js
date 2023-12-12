@@ -16,7 +16,7 @@ type Props = {
 const EmailVerificationStatus = ({
   message,
 }: Props): React$Element<typeof StatusPage> => (
-  <StatusPage title={l('Email Verification')}>
+  <StatusPage title={lp('Email verification', 'header')}>
     <p>
       {nonEmpty(message)
         ? message

@@ -419,7 +419,7 @@ END -%]
 END -%]
 
 [%~ MACRO request_login(text) BLOCK; # Converted to React at root/components/RequestLogin.js
-    simple_link(login_url(), text || l('Log in'));
+    simple_link(login_url(), text || lp('Log in', 'interactive'));
 END -%]
 
 [%~ MACRO tagger_icon(entity) BLOCK -%]

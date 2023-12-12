@@ -1,9 +1,7 @@
-#!/usr/bin/env perl
+package DBDefs::Default;
 
 use strict;
 use warnings;
-
-package DBDefs::Default;
 
 use File::Spec::Functions qw( splitdir catdir catfile tmpdir );
 use Cwd qw( abs_path );
@@ -223,7 +221,7 @@ sub CACHE_MANAGER_OPTIONS {
         default_profile => 'external',
     );
 
-    return \%CACHE_MANAGER_OPTIONS
+    return \%CACHE_MANAGER_OPTIONS;
 }
 
 # Sets the TTL for entities stored in Redis, in seconds. On mirror servers,
@@ -292,7 +290,7 @@ sub DB_READ_ONLY { 0 }
 # Set this value to a message that you'd like to display to users when
 # they attempt to write to your read-only database (not used if DB_READ_ONLY
 # is false)
-sub DB_READ_ONLY_MESSAGE { <<EOF }
+sub DB_READ_ONLY_MESSAGE { <<'EOF' }
 This server is temporarily in read-only mode
 for database maintainance.
 EOF
@@ -343,12 +341,12 @@ sub RECAPTCHA_PUBLIC_KEY { return undef }
 sub RECAPTCHA_PRIVATE_KEY { return undef }
 
 # internet archive private/public keys (for coverartarchive.org).
-sub COVER_ART_ARCHIVE_ACCESS_KEY { };
-sub COVER_ART_ARCHIVE_SECRET_KEY { };
-sub COVER_ART_ARCHIVE_UPLOAD_PREFIXER { shift; sprintf('//%s.s3.us.archive.org/', shift) };
-sub COVER_ART_ARCHIVE_DOWNLOAD_PREFIX { '//coverartarchive.org' };
-sub COVER_ART_ARCHIVE_IA_DOWNLOAD_PREFIX { '//archive.org/download' };
-sub COVER_ART_ARCHIVE_IA_METADATA_PREFIX { 'https://archive.org/metadata' };
+sub COVER_ART_ARCHIVE_ACCESS_KEY { }
+sub COVER_ART_ARCHIVE_SECRET_KEY { }
+sub COVER_ART_ARCHIVE_UPLOAD_PREFIXER { shift; sprintf('//%s.s3.us.archive.org/', shift) }
+sub COVER_ART_ARCHIVE_DOWNLOAD_PREFIX { '//coverartarchive.org' }
+sub COVER_ART_ARCHIVE_IA_DOWNLOAD_PREFIX { '//archive.org/download' }
+sub COVER_ART_ARCHIVE_IA_METADATA_PREFIX { 'https://archive.org/metadata' }
 
 # Mapbox access token must be set to display area/place maps.
 sub MAPBOX_MAP_ID { 'mapbox/streets-v11' }
@@ -402,7 +400,7 @@ sub HTML_VALIDATOR { 'http://validator.w3.org/nu/?out=json' }
 # and don't have the renderer running, as any attempts to communicate with it
 # will just result in socket timeouts.
 sub RENDERER_SOCKET {
-    catfile(tmpdir, 'musicbrainz-template-renderer.socket')
+    catfile(tmpdir, 'musicbrainz-template-renderer.socket');
 }
 # If FORK_RENDERER is set to a true value, MusicBrainz Server will fork and
 # exec root/server.mjs automatically. TERM signals received by plackup will
@@ -507,7 +505,7 @@ sub LOGGER_ARGUMENTS {
         outputs => [
             [ 'Screen', min_level => 'debug', newline => 1 ],
         ],
-    )
+    );
 }
 
 1;

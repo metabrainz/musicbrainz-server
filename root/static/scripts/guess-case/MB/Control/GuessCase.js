@@ -22,7 +22,7 @@ MB.Control.initializeGuessCase = function (type, formPrefix) {
   var $options = $('#guesscase-options');
 
   if ($options.length && !$options.data('ui-dialog')) {
-    $options.dialog({title: l('Guess Case Options'), autoOpen: false});
+    $options.dialog({title: l('Guess case options'), autoOpen: false});
     ko.applyBindingsToNode($options[0], {guessCase: () => undefined});
   }
 

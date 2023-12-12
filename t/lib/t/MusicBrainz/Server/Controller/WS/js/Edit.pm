@@ -9,6 +9,7 @@ use t::MusicBrainz::Server::Controller::RelationshipEditor qw(
     $guitar_attribute
     $crazy_guitar
 );
+use HTTP::Status qw( :constants );
 use JSON;
 use MusicBrainz::Server::Constants qw(
     $EDIT_RECORDING_EDIT
@@ -68,7 +69,7 @@ test 'previewing/creating/editing a release group and release' => sub {
                 name => 'a fake artist',
                 join_phrase => '  and  a  trailing  join  phrase  ',
             },
-        ]
+        ],
     };
 
     my $cleaned_artist_credit = {
@@ -83,7 +84,7 @@ test 'previewing/creating/editing a release group and release' => sub {
                 name => 'a fake artist',
                 join_phrase => ' and a trailing join phrase',
             },
-        ]
+        ],
     };
 
     my $release_edits = [ {
@@ -100,9 +101,9 @@ test 'previewing/creating/editing a release group and release' => sub {
         events => [
             {
                 date => { year => 1999, month => 10, day => 27 },
-                country_id => 107
-            }
-        ]
+                country_id => 107,
+            },
+        ],
     } ];
 
     post_json($mech, '/ws/js/edit/preview', encode_json({ edits => $release_edits }));
@@ -284,7 +285,7 @@ test 'previewing/creating/editing a release group and release' => sub {
                         month => 10,
                         year => 1999,
                     },
-                }
+                },
             ],
             editsPending => JSON::false,
             cover_art_presence => undef,
@@ -381,7 +382,7 @@ test 'previewing/creating/editing a release group and release' => sub {
                     artist_credit   => $artist_credit,
                     recording_gid   => undef,
                 },
-            ]
+            ],
         },
         {
             edit_type   => $EDIT_MEDIUM_CREATE,
@@ -414,7 +415,7 @@ test 'previewing/creating/editing a release group and release' => sub {
                     artist_credit   => $artist_credit,
                     recording_gid   => undef,
                 },
-            ]
+            ],
         },
     ];
 
@@ -444,7 +445,7 @@ test 'previewing/creating/editing a release group and release' => sub {
             edit_type => $EDIT_MEDIUM_CREATE,
             entity => {
                 position => 1,
-                id => $medium2_id - 1
+                id => $medium2_id - 1,
             },
             response => $WS_EDIT_RESPONSE_OK,
         },
@@ -452,10 +453,10 @@ test 'previewing/creating/editing a release group and release' => sub {
             edit_type => $EDIT_MEDIUM_CREATE,
             entity => {
                 position => 2,
-                id => $medium1_id + 1
+                id => $medium1_id + 1,
             },
             response => $WS_EDIT_RESPONSE_OK,
-        }
+        },
     ], 'ws response contains new medium info');
 
 
@@ -545,8 +546,8 @@ test 'previewing/creating/editing a release group and release' => sub {
                     artist_credit   => $artist_credit,
                     recording_gid   => $medium2->tracks->[2]->recording->gid,
                 },
-            ]
-        }
+            ],
+        },
     ];
 
     @edits = capture_edits {
@@ -573,7 +574,7 @@ test 'previewing/creating/editing a release group and release' => sub {
         entity_id => 8,
         release => {
             name => 'Vision Creation Newsun',
-            id => 4
+            id => 4,
         },
         new => {
             position => 1,
@@ -586,7 +587,7 @@ test 'previewing/creating/editing a release group and release' => sub {
                     position => 1,
                     id => 45,
                     artist_credit => $cleaned_artist_credit,
-                    is_data_track => 0
+                    is_data_track => 0,
                 },
                 {
                     length => 2138333,
@@ -596,7 +597,7 @@ test 'previewing/creating/editing a release group and release' => sub {
                     position => 2,
                     id => 46,
                     artist_credit => $cleaned_artist_credit,
-                    is_data_track => 0
+                    is_data_track => 0,
                 },
                 {
                     length => 333826,
@@ -606,9 +607,9 @@ test 'previewing/creating/editing a release group and release' => sub {
                     position => 3,
                     id => 47,
                     artist_credit => $cleaned_artist_credit,
-                    is_data_track => 0
-                }
-            ]
+                    is_data_track => 0,
+                },
+            ],
         },
         old => ignore(),
     });
@@ -672,7 +673,7 @@ test 'previewing/creating/editing a release group and release' => sub {
     my $annotation_edits = [ {
         edit_type       => $EDIT_RELEASE_ADD_ANNOTATION,
         entity          => $release_id,
-        text            => "    * Test annotation\x{0007} in release editor  \r\n\r\n\t\x{00A0}\r\n    * This anno\x{200B}tation has\ttwo bul\x{00AD}lets  \t\t",
+        text            => "    * Test annotation\N{BEL} in release editor  \r\n\r\n\t\N{NO-BREAK SPACE}\r\n    * This anno\N{ZERO WIDTH SPACE}tation has\ttwo bul\N{SOFT HYPHEN}lets  \t\t",
     } ];
 
     @edits = capture_edits {
@@ -687,7 +688,7 @@ test 'previewing/creating/editing a release group and release' => sub {
         editor_id         => 1,
         entity            => { id => $release_id, name => 'Vision Creation Newsun' },
         old_annotation_id => undef,
-        text              => "    * Test annotation in release editor\n\n    * This anno\x{200B}tation has\ttwo bul\x{00AD}lets",
+        text              => "    * Test annotation in release editor\n\n    * This anno\N{ZERO WIDTH SPACE}tation has\ttwo bul\N{SOFT HYPHEN}lets",
     });
 };
 
@@ -710,7 +711,7 @@ test 'adding a relationship' => sub {
         ],
         entities => [
             { gid => '745c079d-374e-4436-9448-da92dedef3ce' },
-            { gid => '54b9d183-7dab-42ba-94a3-7388a66604b8' }
+            { gid => '54b9d183-7dab-42ba-94a3-7388a66604b8' },
         ],
         begin_date   => { year => 1999, month => 1, day => 1 },
         end_date     => { year => 1999, month => 2, day => undef },
@@ -744,12 +745,12 @@ test 'adding a relationship' => sub {
 
     cmp_deeply($edits[0]->data,  {
         %edit_data,
-        attributes => [$additional_attribute, $crazy_guitar]
+        attributes => [$additional_attribute, $crazy_guitar],
     });
 
     cmp_deeply($edits[1]->data,  {
         %edit_data,
-        attributes => [$additional_attribute, $string_instruments_attribute]
+        attributes => [$additional_attribute, $string_instruments_attribute],
     });
 };
 
@@ -768,7 +769,7 @@ test 'adding a relationship with an invalid date' => sub {
         attributes  => [],
         entities => [
             { gid => '745c079d-374e-4436-9448-da92dedef3ce' },
-            { gid => '54b9d183-7dab-42ba-94a3-7388a66604b8' }
+            { gid => '54b9d183-7dab-42ba-94a3-7388a66604b8' },
         ],
         begin_date   => { year => 1994, month => 2, day => 29 },
         end_date     => { year => 1999, month => 2, day => undef },
@@ -789,7 +790,7 @@ test 'adding a relationship with an invalid date' => sub {
         attributes  => [],
         entities => [
             { gid => '745c079d-374e-4436-9448-da92dedef3ce' },
-            { gid => '54b9d183-7dab-42ba-94a3-7388a66604b8' }
+            { gid => '54b9d183-7dab-42ba-94a3-7388a66604b8' },
         ],
         begin_date   => { year => 2000, month => undef, day => undef },
         end_date     => { year => 1999, month => undef, day => undef },
@@ -826,7 +827,7 @@ test 'editing a relationship' => sub {
         ],
         entities => [
             { gid => 'e2a083a9-9942-4d6e-b4d2-8397320b95f7' },
-            { gid => '54b9d183-7dab-42ba-94a3-7388a66604b8' }
+            { gid => '54b9d183-7dab-42ba-94a3-7388a66604b8' },
         ],
         begin_date   => { year => 1999, month => 1, day => 1 },
         end_date     => { year => 2009, month => 9, day => 9 },
@@ -863,13 +864,13 @@ test 'editing a relationship' => sub {
             begin_date  => { month => 1, day => 1, year => 1999 },
             end_date    => { month => 9, day => 9, year => 2009 },
             ended       => 1,
-            attributes  => [$additional_attribute, $crazy_guitar, $string_instruments_attribute]
+            attributes  => [$additional_attribute, $crazy_guitar, $string_instruments_attribute],
         },
         old => {
             begin_date  => { month => undef, day => undef, year => undef },
             end_date    => { month => undef, day => undef, year => undef },
             ended       => 0,
-            attributes  => [$guitar_attribute]
+            attributes  => [$guitar_attribute],
         },
         entity0_credit => '',
         entity1_credit => '',
@@ -893,7 +894,7 @@ test 'editing a relationship with an unchanged attribute' => sub {
         linkTypeID  => 148,
         entities => [
             { gid => 'e2a083a9-9942-4d6e-b4d2-8397320b95f7' },
-            { gid => '54b9d183-7dab-42ba-94a3-7388a66604b8' }
+            { gid => '54b9d183-7dab-42ba-94a3-7388a66604b8' },
         ],
         begin_date   => { year => 1999, month => 1, day => 1 },
         end_date     => { year => 2009, month => 9, day => 9 },
@@ -958,7 +959,7 @@ test 'removing an attribute from a relationship' => sub {
         linkTypeID  => 148,
         entities => [
             { gid => 'e2a083a9-9942-4d6e-b4d2-8397320b95f7' },
-            { gid => '54b9d183-7dab-42ba-94a3-7388a66604b8' }
+            { gid => '54b9d183-7dab-42ba-94a3-7388a66604b8' },
         ],
         attributes  => [{%$guitar_attribute, removed => 1}],
         begin_date   => { year => undef, month => undef, day => undef },
@@ -1020,7 +1021,7 @@ test 'removing a relationship' => sub {
         linkTypeID  => 148,
         entities => [
             { gid => 'e2a083a9-9942-4d6e-b4d2-8397320b95f7' },
-            { gid => '54b9d183-7dab-42ba-94a3-7388a66604b8' }
+            { gid => '54b9d183-7dab-42ba-94a3-7388a66604b8' },
         ],
     } ];
 
@@ -1051,7 +1052,7 @@ test 'MBS-7464: URLs are validated/canonicalized' => sub {
         linkTypeID  => 179,
         entities => [
             { gid => '0798d15b-64e2-499f-9969-70167b1d8617' },
-            { name => 'HAHAHA' }
+            { name => 'HAHAHA' },
         ],
     } ];
 
@@ -1069,7 +1070,7 @@ test 'MBS-7464: URLs are validated/canonicalized' => sub {
         linkTypeID  => 179,
         entities => [
             { gid => '0798d15b-64e2-499f-9969-70167b1d8617' },
-            { name => 'gopher://example.com/' }
+            { name => 'gopher://example.com/' },
         ],
     } ];
 
@@ -1087,7 +1088,7 @@ test 'MBS-7464: URLs are validated/canonicalized' => sub {
         linkTypeID  => 179,
         entities => [
             { gid => '0798d15b-64e2-499f-9969-70167b1d8617' },
-            { name => 'http://en.Wikipedia.org:80/wiki/Boredoms' }
+            { name => 'http://en.Wikipedia.org:80/wiki/Boredoms' },
         ],
     } ];
 
@@ -1111,7 +1112,7 @@ test 'Edits are rejected without a confirmed email address' => sub {
 
     $c->model('Editor')->insert({
         name => 'stupid editor',
-        password => 'password'
+        password => 'password',
     });
 
     $mech->get_ok('/login');
@@ -1141,7 +1142,7 @@ test 'Duplicate relationships are ignored' => sub {
         ],
         entities => [
             { gid => '745c079d-374e-4436-9448-da92dedef3ce' },
-            { gid => '54b9d183-7dab-42ba-94a3-7388a66604b8' }
+            { gid => '54b9d183-7dab-42ba-94a3-7388a66604b8' },
         ],
         begin_date   => { year => 1999, month => 1, day => 1 },
         end_date     => { year => 1999, month => 2, day => undef },
@@ -1176,7 +1177,7 @@ test 'undef relationship begin_date/end_date fields are ignored (MBS-8317)' => s
         attributes  => [{ type => { gid => '63021302-86cd-4aee-80df-2270d54f4978' } }],
         entities => [
             { gid => '745c079d-374e-4436-9448-da92dedef3ce' },
-            { gid => '54b9d183-7dab-42ba-94a3-7388a66604b8' }
+            { gid => '54b9d183-7dab-42ba-94a3-7388a66604b8' },
         ],
         begin_date   => { year => 1999, month => undef, day => undef },
         end_date     => { year => 1999, month => undef, day => undef },
@@ -1190,7 +1191,7 @@ test 'undef relationship begin_date/end_date fields are ignored (MBS-8317)' => s
         edit_type   => $EDIT_RELATIONSHIP_EDIT,
         id          => $edits[0]->entity_id,
         linkTypeID  => 148,
-        begin_date   => undef
+        begin_date   => undef,
         # implied undef end_date
     };
 
@@ -1208,14 +1209,14 @@ test 'Release group types are loaded before creating edits (MBS-8212)' => sub {
 
     my $editor_id = $c->model('Editor')->insert({
         name => 'new_editor',
-        password => 'password'
+        password => 'password',
     });
 
     $c->model('Editor')->update_email($editor_id, 'noreply@example.com');
 
     my $artist = $c->model('Artist')->insert({
         name => 'Test',
-        sort_name => 'Test'
+        sort_name => 'Test',
     });
 
     my $artist_credit_id = $c->model('ArtistCredit')->find_or_insert({
@@ -1223,16 +1224,16 @@ test 'Release group types are loaded before creating edits (MBS-8212)' => sub {
             {
                 name => 'Test',
                 artist => { id => $artist->{id} },
-                join_phrase => ''
-            }
-        ]
+                join_phrase => '',
+            },
+        ],
     });
 
     my $release_group = $c->model('ReleaseGroup')->insert({
         name => 'Test',
         primary_type_id => 1,
         secondary_type_ids => [1],
-        artist_credit => $artist_credit_id
+        artist_credit => $artist_credit_id,
     });
 
     $mech->get_ok('/login');
@@ -1245,8 +1246,8 @@ test 'Release group types are loaded before creating edits (MBS-8212)' => sub {
             name => 'test?',
             # Should be a no-op.
             primary_type_id => 1,
-            secondary_type_ids => [1]
-        }
+            secondary_type_ids => [1],
+        },
     ];
 
     my ($edit) = capture_edits {
@@ -1259,8 +1260,8 @@ test 'Release group types are loaded before creating edits (MBS-8212)' => sub {
         entity => {
             name => 'Test',
             id => ignore(),
-            gid => ignore()
-        }
+            gid => ignore(),
+        },
     });
 };
 
@@ -1283,8 +1284,8 @@ test 'Invalid release event dates are rejected' => sub {
                 artist => { id => 39282, name => 'Boredoms' },
                 name => 'Boredoms',
                 join_phrase => '',
-            }
-        ]
+            },
+        ],
     };
 
     my $release_edits = [
@@ -1294,9 +1295,9 @@ test 'Invalid release event dates are rejected' => sub {
             release_group_id => undef,
             artist_credit => $artist_credit,
             events => [
-                { date => { year => '0000', month => '0', day => '0' } }
-            ]
-        }
+                { date => { year => '0000', month => '0', day => '0' } },
+            ],
+        },
     ];
 
     my $release_group_edits = [
@@ -1304,7 +1305,7 @@ test 'Invalid release event dates are rejected' => sub {
             edit_type => $EDIT_RELEASEGROUP_CREATE,
             name => 'Vision  Creation  Newsun',
             artist_credit => $artist_credit,
-        }
+        },
     ];
 
     @edits = capture_edits {
@@ -1347,8 +1348,8 @@ test 'Releases can be added without any mediums' => sub {
                 artist => { id => 5, name => 'David Bowie' },
                 name => 'David Bowie',
                 join_phrase => '',
-            }
-        ]
+            },
+        ],
     };
 
     my $release_edits = [{
@@ -1406,8 +1407,8 @@ test 'Empty artist credit name defaults to the artist name' => sub {
                 # this should default to the artist name.
                 name => '',
                 join_phrase => '',
-            }
-        ]
+            },
+        ],
     };
 
     my $release_group_edits = [{
@@ -1432,9 +1433,9 @@ test 'MBS-13309: Cross-origin requests are limited to bot accounts' => sub {
     my ($c, $mech) = ($test->c, $test->mech);
 
     MusicBrainz::Server::Test->prepare_test_database($c);
-    MusicBrainz::Server::Test->prepare_test_database($c, <<~SQL);
+    MusicBrainz::Server::Test->prepare_test_database($c, <<~'SQL');
         INSERT INTO editor (id, name, password, privs, email, email_confirm_date, member_since, ha1)
-        VALUES (2, 'bot_editor', '{CLEARTEXT}password', 2, 'bot\@editor.org', '2023-11-04', '2023-11-04', '');
+        VALUES (2, 'bot_editor', '{CLEARTEXT}password', 2, 'bot@editor.org', '2023-11-04', '2023-11-04', '');
         SQL
 
     $mech->get_ok('/login');
@@ -1442,7 +1443,7 @@ test 'MBS-13309: Cross-origin requests are limited to bot accounts' => sub {
     $mech->add_header('Origin' => 'https://bot.example.com');
     note('We try to enter a cross-origin edit as a non-bot editor');
     post_json($mech, '/ws/js/edit/create', encode_json({ edits => [] }));
-    is($mech->status, 403, 'The edit attempt was rejected');
+    is($mech->status, HTTP_FORBIDDEN, 'The edit attempt was rejected');
     $mech->get_ok('/logout');
     $mech->delete_header('Origin');
 
@@ -1451,7 +1452,7 @@ test 'MBS-13309: Cross-origin requests are limited to bot accounts' => sub {
     $mech->add_header('Origin' => 'https://bot.example.com');
     note('We try to enter the same cross-origin edit as a bot editor');
     post_json($mech, '/ws/js/edit/create', encode_json({ edits => [] }));
-    is($mech->status, 200, 'The edit attempt was accepted');
+    is($mech->status, HTTP_OK, 'The edit attempt was accepted');
 };
 
 1;

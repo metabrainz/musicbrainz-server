@@ -11,16 +11,16 @@ use MusicBrainz::Server::Entity::ExampleRelationship;
 use MusicBrainz::Server::Entity::Link;
 use MusicBrainz::Server::Entity::Relationship;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 use Scalar::Util qw( looks_like_number );
 
 use aliased 'MusicBrainz::Server::Entity::LinkType';
 
 extends 'MusicBrainz::Server::Edit';
-with 'MusicBrainz::Server::Edit::Relationship';
-with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
+with 'MusicBrainz::Server::Edit::Relationship',
+     'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
-sub edit_name { N_l('Edit relationship type') }
+sub edit_name { N_lp('Edit relationship type', 'edit type') }
 sub edit_kind { 'edit' }
 sub edit_type { $EDIT_RELATIONSHIP_EDIT_LINK_TYPE }
 sub edit_template { 'EditRelationshipType' }
@@ -55,13 +55,13 @@ sub change_fields
                     id => Int,
                     name => Str,
                     gid => Str,
-                    comment => Str
+                    comment => Str,
                 ],
                 entity1 => Dict[
                     id => Int,
                     name => Str,
                     gid => Str,
-                    comment => Str
+                    comment => Str,
                 ],
                 verbose_phrase => Str,
                 link => Dict[
@@ -69,14 +69,14 @@ sub change_fields
                     end_date => PartialDateHash,
                     link_type => Dict[
                         entity0_type => Str,
-                        entity1_type => Str
-                    ]
-                ]
+                        entity1_type => Str,
+                    ],
+                ],
             ],
             name => Str,
-            published => Bool
-        ]]]
-    ]
+            published => Bool,
+        ]]],
+    ];
 }
 
 has '+data' => (
@@ -85,7 +85,7 @@ has '+data' => (
         old     => change_fields(),
         new     => change_fields(),
         types   => Optional[Tuple[Str, Str]],
-    ]
+    ],
 );
 
 sub foreign_keys {
@@ -95,14 +95,14 @@ sub foreign_keys {
             grep { defined }
             map { $_->{type} }
                 @{ $self->data->{old}{attributes} },
-                @{ $self->data->{new}{attributes} }
+                @{ $self->data->{new}{attributes} },
             ],
         LinkType => [ $self->data->{link_id},
             grep { looks_like_number($_) }
             map { $self->data->{$_}{parent_id} }
-                qw( old new )
-            ]
-    }
+                qw( old new ),
+            ],
+    };
 }
 
 sub _build_attributes {
@@ -114,11 +114,11 @@ sub _build_attributes {
                 max => $_->{max},
                 type => $loaded->{LinkAttributeType}{ $_->{type} } ||
                     MusicBrainz::Server::Entity::LinkAttributeType->new(
-                        name => $_->{name}
-                    )
+                        name => $_->{name},
+                    ),
                   ))
-          } @$list
-    ]
+          } @$list,
+    ];
 }
 
 sub build_display_data {
@@ -174,15 +174,15 @@ sub build_display_data {
                 $_ => looks_like_number($self->data->{$_}{parent_id})
                     ? to_json_object($loaded->{LinkType}{ $self->data->{$_}{parent_id} })
                     : undef;
-            } qw( old new )
-        }
+            } qw( old new ),
+        };
     } elsif ($self->data->{old}{parent_id} && $self->data->{new}{parent_id} &&
         ($self->data->{old}{parent_id} ne $self->data->{new}{parent_id})) {
         $display_data->{parent} = {
             map {
                 $_ => to_json_object(LinkType->new( name => $self->data->{$_}{parent_id} ));
-            } qw( old new )
-        }
+            } qw( old new ),
+        };
     }
 
     my ($old_examples, $new_examples) =
@@ -196,7 +196,7 @@ sub build_display_data {
                         my $data = $_;
                         my ($class0, $class1) = map {
                             $self->c->model(
-                                type_to_model($data->{relationship}{link}{link_type}{$_})
+                                type_to_model($data->{relationship}{link}{link_type}{$_}),
                             )->_entity_class;
                         } qw( entity0_type entity1_type );
 
@@ -218,27 +218,27 @@ sub build_display_data {
                                     link =>
                                         MusicBrainz::Server::Entity::Link->new(
                                             begin_date => MusicBrainz::Server::Entity::PartialDate->new(
-                                                $rel->{link}{begin_date}
+                                                $rel->{link}{begin_date},
                                             ),
                                             end_date => MusicBrainz::Server::Entity::PartialDate->new(
-                                                $rel->{link}{end_date}
+                                                $rel->{link}{end_date},
                                             ),
                                             type => $loaded->{LinkType}{ $self->data->{link_id} } //
                                                     LinkType->new(
                                                         id => $self->data->{link_id},
-                                                        name => $self->data->{new}{name}
+                                                        name => $self->data->{new}{name},
                                                     ),
-                                        )
-                                )
+                                        ),
+                                ),
                         ));
                         # We want to use the verbose phrase stored on the edit
                         $example->{relationship}->{verbosePhrase} =
                             $rel->{verbose_phrase};
                         $example;
-                    } @{ $self->data->{$_}{examples} // [] }
+                    } @{ $self->data->{$_}{examples} // [] },
                 ]
-            } qw( old new )
-        }
+            } qw( old new ),
+        };
     }
 
     return $display_data;
@@ -261,3 +261,4 @@ before restore => sub {
 __PACKAGE__->meta->make_immutable;
 no Moose;
 
+1;

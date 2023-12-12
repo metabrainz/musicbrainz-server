@@ -5,7 +5,7 @@ use warnings;
 use JSON;
 use Test::Routine;
 use MusicBrainz::Server::Test ws_test_json => {
-    version => 2
+    version => 2,
 };
 
 with 't::Mechanize', 't::Context';
@@ -43,7 +43,7 @@ test 'basic series lookup' => sub {
                     begin => JSON::null,
                     end => JSON::null,
                     ended => JSON::false,
-                }
+                },
             ],
         };
 
@@ -76,7 +76,7 @@ test 'basic series lookup' => sub {
                         iswcs => [],
                         language => 'deu',
                         languages => ['deu'],
-                        title => qq(Kantate, BWV 1 "Wie sch\x{f6}n leuchtet der Morgenstern"),
+                        title => qq(Kantate, BWV 1 "Wie sch\N{LATIN SMALL LETTER O WITH DIAERESIS}n leuchtet der Morgenstern"),
                         type => 'Cantata',
                         'type-id' => '0db2f555-15f9-393f-af4c-739db5711146',
                     },
@@ -137,3 +137,5 @@ test 'basic series lookup' => sub {
             ],
         };
 };
+
+1;

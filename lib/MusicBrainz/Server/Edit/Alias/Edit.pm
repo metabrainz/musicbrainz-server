@@ -18,10 +18,10 @@ use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use aliased 'MusicBrainz::Server::Entity::PartialDate';
 
 extends 'MusicBrainz::Server::Edit::WithDifferences';
-with 'MusicBrainz::Server::Edit::Alias';
-with 'MusicBrainz::Server::Edit::CheckForConflicts';
-with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
-with 'MusicBrainz::Server::Edit::Role::DatePeriod';
+with 'MusicBrainz::Server::Edit::Alias',
+     'MusicBrainz::Server::Edit::CheckForConflicts',
+     'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit',
+     'MusicBrainz::Server::Edit::Role::DatePeriod';
 
 sub _alias_model { die 'Not implemented' }
 
@@ -34,7 +34,7 @@ subtype 'AliasHash'
         end_date   => Nullable[PartialDateHash],
         type_id => Nullable[Int],
         primary_for_locale => Nullable[Bool],
-        ended      => Optional[Bool]
+        ended      => Optional[Bool],
     ];
 
 has '+data' => (
@@ -42,17 +42,17 @@ has '+data' => (
         alias_id => Int,
         entity => Dict[
             id   => Int,
-            name => Str
+            name => Str,
         ],
         new => find_type_constraint('AliasHash'),
         old => find_type_constraint('AliasHash'),
-    ]
+    ],
 );
 
 has alias => (
     is => 'ro',
     lazy => 1,
-    builder => '_load_alias'
+    builder => '_load_alias',
 );
 
 sub _load_alias {
@@ -82,20 +82,20 @@ sub build_display_data
         entity_type => $type,
         alias => {
             new => $self->data->{new}{name},
-            old => $self->data->{old}{name}
+            old => $self->data->{old}{name},
         },
         sort_name => {
             new => $self->data->{new}{sort_name},
-            old => $self->data->{old}{sort_name}
+            old => $self->data->{old}{sort_name},
         },
         locale => {
             new => $self->data->{new}{locale},
-            old => $self->data->{old}{locale}
+            old => $self->data->{old}{locale},
         },
         $type => to_json_object(
             $loaded->{$model}{ $self->data->{entity}{id} }
             || $self->c->model($model)->_entity_class->new(
-                name => $self->data->{entity}{name}
+                name => $self->data->{entity}{name},
             )),
         type => {
             new => to_json_object($self->_alias_model->parent->alias_type->get_by_id($self->data->{new}{type_id})),
@@ -115,8 +115,8 @@ sub build_display_data
         },
         ended => {
             new => boolean_to_json($self->data->{new}{ended}),
-            old => boolean_to_json($self->data->{old}{ended})
-        }
+            old => boolean_to_json($self->data->{old}{ended}),
+        },
     };
 }
 
@@ -148,7 +148,7 @@ sub accept
     my $model = $self->_alias_model;
 
     MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
-        'This alias no longer exists'
+        'This alias no longer exists',
     ) unless $self->_load_alias;
 
     $model->update($self->data->{alias_id}, $self->merge_changes);
@@ -167,9 +167,9 @@ sub initialize
         alias_id => $alias->id,
         entity => {
             id => $entity->id,
-            name => $entity->name
+            name => $entity->name,
         },
-        $self->_change_data($alias, %opts)
+        $self->_change_data($alias, %opts),
     });
 }
 
@@ -178,7 +178,7 @@ sub current_instance {
     $self->_load_alias;
 }
 
-sub edit_template { 'EditAlias' };
+sub edit_template { 'EditAlias' }
 
 around TO_JSON => sub {
     my ($orig, $self) = @_;

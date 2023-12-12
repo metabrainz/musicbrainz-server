@@ -29,9 +29,9 @@ sub run {
                      '</tr>'
                      } @$calls).
                      '</table>'
-                 } @output)
+                 } @output),
         );
-    }
+    };
 }
 
 package My::Template::Context;
@@ -73,7 +73,7 @@ sub process {
         [map {
             my @values = @{$totals{$_}};
             [$values[5], @values[0..4], $_]
-        } (sort keys %totals)]
+        } (sort keys %totals)],
     ];
     %totals = ();               # clear out results
   }

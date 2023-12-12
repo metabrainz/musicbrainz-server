@@ -7,7 +7,7 @@ use MusicBrainz::Server::Validation qw( is_database_row_id );
 
 parameter template_clause => (
     isa => 'Str',
-    required => 1
+    required => 1,
 );
 
 role {
@@ -17,12 +17,12 @@ role {
     with 'MusicBrainz::Server::EditSearch::Predicate::Role::Subscribed' => {
         type => 'editor',
         template_clause => "$template_clause",
-        subscribed_column => 'subscribed_editor'
+        subscribed_column => 'subscribed_editor',
     };
 
     has name => (
         is => 'ro',
-        isa => 'Str'
+        isa => 'Str',
     );
 
     method operator_cardinality_map => sub {
@@ -84,7 +84,7 @@ role {
                         WHERE edit_note.edit = edit.id
                         AND edit_note.editor != edit.editor
                 )',
-                [ ]
+                [ ],
             ]);
         } else {
             $query->add_where([ $sql, [ $self->arguments ] ]);
@@ -97,7 +97,7 @@ role {
         return 1 unless $self->operator_cardinality($self->operator);
         my @args = $self->arguments;
         return scalar(@args) == 1 && is_database_row_id($args[0]);
-    }
+    };
 };
 
 1;

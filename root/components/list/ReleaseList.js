@@ -161,7 +161,7 @@ const ReleaseList = ({
           getText: entity => entity.status
             ? lp_attributes(entity.status.name, 'release_status')
             : '',
-          title: lp('Status', 'release status'),
+          title: lp('Status', 'release'),
         })
         : null;
       const ratingsColumn = defineRatingsColumn<ReleaseT>({

@@ -18,7 +18,7 @@
               <th>[% l('Catalog#') %]</th>
               <th>[% l('Barcode') %]</th>
               [%- IF c.try_get_session('tport') -%]
-                <th>[% l('Tagger') %]</th>
+                <th>[% lp('Tagger', 'audio file metadata') %]</th>
               [%- END -%]
             </tr>
           </thead>
@@ -28,7 +28,7 @@
             [% FOR release=releases %]
               [%- IF release.release_group.gid != current_rg -%]
                   [% current_rg = release.release_group.gid %]
-                  <tr class="subh"><th colspan=[% IF c.try_get_session('tport'); '8'; ELSE; '7'; END %]>[% l('Release Group: {release_group_link}', { release_group_link => link_entity(release.release_group) }) %]</th></tr>
+                  <tr class="subh"><th colspan=[% IF c.try_get_session('tport'); '8'; ELSE; '7'; END %]>[% l('Release group: {release_group_link}', { release_group_link => link_entity(release.release_group) }) %]</th></tr>
               [%- END -%]
               [% zebra = zebra + 1 %]
               [% attach_list_row(release) %]
@@ -37,7 +37,7 @@
         </table>
       [% END %]
       <div style="margin-top: 1em;">
-        [% form_submit(lp('Attach CD TOC', 'button/menu')) %]
+        [% form_submit(lp('Attach CD TOC', 'interactive')) %]
       </div>
       [% attach_list_script() %]
     </form>

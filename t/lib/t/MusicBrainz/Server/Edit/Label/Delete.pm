@@ -69,7 +69,7 @@ sub create_edit {
     return $c->model('Edit')->create(
         edit_type => $EDIT_LABEL_DELETE,
         to_delete => $label,
-        editor_id => 1
+        editor_id => 1,
     );
 }
 

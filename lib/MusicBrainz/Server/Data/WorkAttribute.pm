@@ -60,7 +60,7 @@ sub load_for_works {
            ON work_attribute_type_allowed_value.id =
                 work_attribute.work_attribute_type_allowed_value
          WHERE work_attribute.work = any(?)',
-        \@work_ids
+        \@work_ids,
     );
 
     my %work_map;
@@ -77,13 +77,13 @@ sub load_for_works {
                     value => $attribute->{value},
                     value_gid => $attribute->{value_gid},
                     value_id => $attribute->{value_id},
-                )
+                ),
             );
         }
     }
 
     $self->c->model('WorkAttributeType')->load(
-        map { $_->all_attributes } @works
+        map { $_->all_attributes } @works,
     );
 }
 

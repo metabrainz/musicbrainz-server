@@ -24,7 +24,7 @@ const EditLinks = ({
   children,
   entity,
   requiresPrivileges = false,
-}: Props): React$Element<typeof React.Fragment> => {
+}: Props): React$Element<React$FragmentType> => {
   const $c = React.useContext(CatalystContext);
   return (
     <>
@@ -33,14 +33,14 @@ const EditLinks = ({
         {$c.user ? children : requiresPrivileges ? null : (
           <>
             <li>
-              <RequestLogin text={l('Log in to edit')} />
+              <RequestLogin text={lp('Log in to edit', 'interactive')} />
             </li>
             <li className="separator" role="separator" />
           </>
         )}
         <li>
           <EntityLink
-            content={l('Open edits')}
+            content={lp('Open edits', 'noun')}
             entity={entity}
             subPath="open_edits"
           />

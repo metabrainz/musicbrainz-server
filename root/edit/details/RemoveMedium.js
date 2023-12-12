@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import {EDIT_STATUS_OPEN} from '../../constants.js';
 import MediumTracklist
   from '../../medium/MediumTracklist.js';
@@ -33,7 +31,7 @@ const areTracksEqual = (a: TrackT, b: TrackT) => (
 
 const RemoveMedium = ({
   edit,
-}: Props): React$Element<typeof React.Fragment> => {
+}: Props): React$Element<React$FragmentType> => {
   const display = edit.display_data;
   const originalTracklist = display.tracks ?? [];
   const currentTracklist = display.medium.tracks ?? [];

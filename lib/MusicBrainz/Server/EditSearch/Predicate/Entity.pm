@@ -4,12 +4,16 @@ use warnings;
 use MusicBrainz::Server::Constants qw( %ENTITIES @RELATABLE_ENTITIES );
 
 for my $type (@RELATABLE_ENTITIES) {
+    # We search for URL with Predicate::URL instead
+    if ($type eq 'url') {
+        next;
+    }
     my $model = $ENTITIES{$type}{model};
     my $has_subs = $ENTITIES{$type}{subscriptions};
     my $subs_section = '';
 
     if ($has_subs) {
-        $subs_section = <<EOF;
+        $subs_section = <<"EOF";
 use MusicBrainz::Server::EditSearch::Predicate::Role::Subscribed;
 with 'MusicBrainz::Server::EditSearch::Predicate::Role::Subscribed' => {
     type => '$type',
@@ -27,7 +31,7 @@ EOF
     # the 'package' function thinks it's a version number if you pass it a
     # string, and we can't interpolate $model any other way than this (the rest
     # could presumably just be done with a normal block).
-    eval <<EOF; ## no critic 'ProhibitStringyEval'
+    eval <<"EOF"; ## no critic 'ProhibitStringyEval'
 package MusicBrainz::Server::EditSearch::Predicate::$model;
 use Moose;
 use MusicBrainz::Server::EditSearch::Predicate::Role::LinkedEntity;
@@ -35,7 +39,7 @@ with 'MusicBrainz::Server::EditSearch::Predicate::Role::LinkedEntity' => { type 
 $subs_section
 with 'MusicBrainz::Server::EditSearch::Predicate';
 EOF
-};
+}
 
 1;
 

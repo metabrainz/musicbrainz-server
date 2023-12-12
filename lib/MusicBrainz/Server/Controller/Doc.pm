@@ -4,7 +4,7 @@ use Moose;
 BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
 use DBDefs;
-use HTTP::Status qw( HTTP_MOVED_PERMANENTLY );
+use HTTP::Status qw( :constants );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 
 sub show : Path('')
@@ -43,7 +43,7 @@ sub show : Path('')
             current_view    => 'Node',
         );
     }    else {
-        $c->response->status(404);
+        $c->response->status(HTTP_NOT_FOUND);
         $c->stash(
             component_path  => 'doc/DocError',
             component_props => \%props,

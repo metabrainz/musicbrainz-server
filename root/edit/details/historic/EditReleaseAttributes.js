@@ -57,14 +57,14 @@ const EditReleaseAttributes = ({edit}: Props): React$Element<'table'> => (
     </tr>
 
     <tr>
-      <th>{l('New Type:')}</th>
+      <th>{l('New type:')}</th>
       <td className="new" colSpan="2">
         {getTypeName(edit.display_data.type)}
       </td>
     </tr>
 
     <tr>
-      <th>{l('New Status:')}</th>
+      <th>{l('New status:')}</th>
       <td className="new" colSpan="2">
         {edit.display_data.status
           ? lp_attributes(edit.display_data.status.name, 'release_status')

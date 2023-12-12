@@ -4,7 +4,7 @@ use namespace::autoclean;
 
 parameter 'order_by' => (
     isa => 'ArrayRef',
-    default => sub { ['id'] }
+    default => sub { ['id'] },
 );
 
 role

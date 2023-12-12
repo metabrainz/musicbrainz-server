@@ -2,6 +2,7 @@ package t::MusicBrainz::Server::Controller::Collection::Merge;
 use strict;
 use warnings;
 
+use HTTP::Status qw( :constants );
 use Test::Routine;
 use Test::More;
 use MusicBrainz::Server::Test qw( html_ok test_xpath_html );
@@ -75,7 +76,7 @@ test 'Can merge collections' => sub {
     );
 
     my $merged_added = $c->sql->select_single_value(
-        'SELECT added FROM editor_collection_event WHERE collection = 3 AND event = 4'
+        'SELECT added FROM editor_collection_event WHERE collection = 3 AND event = 4',
     );
     ok(
         $merged_added eq '2014-11-05 03:00:13.359654+00',
@@ -83,7 +84,7 @@ test 'Can merge collections' => sub {
     );
 
     my $merged_comment = $c->sql->select_single_value(
-        'SELECT comment FROM editor_collection_event WHERE collection = 3 AND event = 4'
+        'SELECT comment FROM editor_collection_event WHERE collection = 3 AND event = 4',
     );
     like(
         $merged_comment,
@@ -131,12 +132,12 @@ test 'Can only merge collections of the same type' => sub {
     $mech->submit_form(
         with_fields => {
             'merge.target' => 3,
-        }
+        },
     );
 
     is(
         $mech->status,
-        500,
+        HTTP_INTERNAL_SERVER_ERROR,
         'Attempting to force a merge anyway returns a 500 error',
     );
 
@@ -167,8 +168,8 @@ test 'Can only merge own collections' => sub {
     );
     is(
         $mech->status,
-        403,
-        q(Adding other editor's collection to merge queue is 403 Forbidden)
+        HTTP_FORBIDDEN,
+        q(Adding other editor's collection to merge queue is 403 Forbidden),
     );
 };
 

@@ -125,7 +125,7 @@ const MediumTable = (React.memo<PropsT>(({
                 <tr className="subh">
                   <td colSpan="6">
                     <DataTrackIcon />
-                    {l('Data Tracks')}
+                    {l('Data tracks')}
                   </td>
                 </tr>
                 {dataTracks.map((track, index) => (

@@ -7,14 +7,14 @@ use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 
 extends 'MusicBrainz::Server::Entity';
-with 'MusicBrainz::Server::Entity::Role::Name';
-with 'MusicBrainz::Server::Entity::Role::PendingEdits';
+with 'MusicBrainz::Server::Entity::Role::Name',
+     'MusicBrainz::Server::Entity::Role::PendingEdits';
 
 sub entity_type { 'medium' }
 
 has 'position' => (
     is => 'rw',
-    isa => 'Int'
+    isa => 'Int',
 );
 
 has 'track_count' => (
@@ -32,7 +32,7 @@ has 'tracks' => (
         all_tracks => 'elements',
         add_track => 'push',
         clear_tracks => 'clear',
-    }
+    },
 );
 
 has 'tracks_pager' => (
@@ -48,17 +48,17 @@ has has_loaded_tracks => (
 
 has 'release_id' => (
     is => 'rw',
-    isa => 'Int'
+    isa => 'Int',
 );
 
 has 'release' => (
     is => 'rw',
-    isa => 'Release'
+    isa => 'Release',
 );
 
 has 'format_id' => (
     is => 'rw',
-    isa => 'Int'
+    isa => 'Int',
 );
 
 has 'format' => (
@@ -86,8 +86,8 @@ has 'cdtocs' => (
     traits => [ 'Array' ],
     handles => {
         all_cdtocs => 'elements',
-        add_cdtoc => 'push'
-    }
+        add_cdtoc => 'push',
+    },
 );
 
 sub may_have_discids {
@@ -133,17 +133,17 @@ has 'cdtoc_track_count' => (
 
 has 'cdtoc_track_lengths' => (
     is => 'rw',
-    isa => 'Maybe[ArrayRef[Maybe[Int]]]'
+    isa => 'Maybe[ArrayRef[Maybe[Int]]]',
 );
 
 has 'data_track_lengths' => (
     is => 'rw',
-    isa => 'Maybe[ArrayRef[Maybe[Int]]]'
+    isa => 'Maybe[ArrayRef[Maybe[Int]]]',
 );
 
 has 'pregap_length' => (
     is => 'rw',
-    isa => 'Maybe[ArrayRef[Maybe[Int]]]'
+    isa => 'Maybe[ArrayRef[Maybe[Int]]]',
 );
 
 has 'durations_loaded' => (

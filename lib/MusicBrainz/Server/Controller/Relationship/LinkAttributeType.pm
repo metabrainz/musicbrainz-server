@@ -16,7 +16,7 @@ with 'MusicBrainz::Server::Controller::Role::Load' => {
     entity_name => 'link_attr_type',
 };
 
-BEGIN { extends 'MusicBrainz::Server::Controller' };
+BEGIN { extends 'MusicBrainz::Server::Controller' }
 
 sub _load_tree
 {
@@ -40,7 +40,7 @@ sub show : PathPart('') Chained('load')
 
     my $attribute = $c->model('LinkAttributeType')->get_tree(
         undef, # don't filter
-        $c->stash->{link_attr_type}->{id}
+        $c->stash->{link_attr_type}->{id},
     );
     my @relationships = $c->model('LinkType')->find_by_attribute($attribute->{id});
 
@@ -93,7 +93,7 @@ sub create : Path('/relationship-attributes/create') Args(0) RequireAuth(relatio
             $self->_insert_edit(
                 $c, $form,
                 edit_type => $EDIT_RELATIONSHIP_ADD_ATTRIBUTE,
-                map { $_->name => $_->value } $form->edit_fields
+                map { $_->name => $_->value } $form->edit_fields,
             );
         });
 
@@ -144,7 +144,7 @@ sub edit : Chained('load') RequireAuth(relationship_editor)
                     child_order => $link_attr_type->child_order,
                     creditable => $link_attr_type->creditable,
                     free_text => $link_attr_type->free_text,
-                }
+                },
             );
         });
 
@@ -166,7 +166,7 @@ sub delete : Chained('load') RequireAuth(relationship_editor) SecureForm
     $c->detach('/error_403') if $is_instrument_child;
 
     my $form = $c->form(
-        form => 'SecureConfirm'
+        form => 'SecureConfirm',
     );
 
     if ($c->model('LinkAttributeType')->in_use($link_attr_type->id)) {
@@ -199,7 +199,7 @@ sub delete : Chained('load') RequireAuth(relationship_editor) SecureForm
                     description => $link_attr_type->description,
                     parent_id => $link_attr_type->parent_id,
                     child_order => $link_attr_type->child_order,
-                    id => $link_attr_type->id
+                    id => $link_attr_type->id,
                 );
             });
         }

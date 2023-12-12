@@ -5,17 +5,17 @@ use namespace::autoclean;
 
 parameter type => (
     isa => 'Str',
-    required => 1
+    required => 1,
 );
 
 parameter template_clause => (
     isa => 'Str',
-    required => 1
+    required => 1,
 );
 
 parameter subscribed_column => (
     isa => 'Str',
-    required => 1
+    required => 1,
 );
 
 role {
@@ -27,7 +27,7 @@ role {
     has user => (
         is => 'ro',
         isa => 'MusicBrainz::Server::Authentication::User',
-        required => 1
+        required => 1,
     );
 
     around operator_cardinality_map => sub {
@@ -35,7 +35,7 @@ role {
         return (
             $self->$orig,
             'subscribed' => undef,
-            'not_subscribed' => undef
+            'not_subscribed' => undef,
         );
     };
 
@@ -52,7 +52,7 @@ role {
 
             $query->add_where([
                 $template_clause =~ s/ROLE_CLAUSE\(([^)]*)\)/$1 $subscribed_clause/r,
-                [ $self->user->id ]
+                [ $self->user->id ],
             ]);
         }
         elsif ($operator eq 'not_subscribed') {
@@ -64,7 +64,7 @@ role {
 
             $query->add_where([
                 $template_clause =~ s/ROLE_CLAUSE\(([^)]*)\)/$1 $subscribed_clause/r,
-                [ $self->user->id ]
+                [ $self->user->id ],
             ]);
         }
         else {
@@ -76,4 +76,6 @@ role {
         my ($orig, $self) = @_;
         return ($self->operator eq 'subscribed' || $self->operator eq 'not_subscribed') || $self->$orig;
     };
-}
+};
+
+1;

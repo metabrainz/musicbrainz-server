@@ -2,6 +2,7 @@ package t::MusicBrainz::Server::Controller::Instrument::Edit;
 use strict;
 use warnings;
 
+use HTTP::Status qw( :constants );
 use Test::Routine;
 use Test::More;
 use MusicBrainz::Server::Test qw( capture_edits html_ok );
@@ -27,7 +28,7 @@ test 'Editing an instrument' => sub {
 
     $mech->get('/login');
     $mech->submit_form(
-        with_fields => { username => 'instrument_editor', password => 'pass' }
+        with_fields => { username => 'instrument_editor', password => 'pass' },
     );
 
     $mech->get_ok(
@@ -93,13 +94,13 @@ test 'Instrument editing is blocked for unprivileged users' => sub {
 
     $mech->get('/login');
     $mech->submit_form(
-        with_fields => { username => 'boring_editor', password => 'pass' }
+        with_fields => { username => 'boring_editor', password => 'pass' },
     );
 
     $mech->get('/instrument/945c079d-374e-4436-9448-da92dedef3cf/edit');
     is(
         $mech->status,
-        403,
+        HTTP_FORBIDDEN,
         'Trying to edit an instrument without the right privileges gives a 403 Forbidden error',
     );
 };

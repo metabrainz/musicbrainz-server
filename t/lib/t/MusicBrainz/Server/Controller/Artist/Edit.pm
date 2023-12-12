@@ -27,7 +27,7 @@ test 'Editing an artist' => sub {
 
     $mech->get('/login');
     $mech->submit_form(
-        with_fields => { username => 'new_editor', password => 'password' }
+        with_fields => { username => 'new_editor', password => 'password' },
     );
 
     $mech->get_ok(
@@ -53,8 +53,8 @@ test 'Editing an artist' => sub {
                 'edit-artist.period.end_date.day' => '',
                 'edit-artist.end_area_id' => 222,
                 'edit-artist.comment' => 'artist created in controller_artist.t',
-                'edit-artist.rename_artist_credit' => undef
-            }
+                'edit-artist.rename_artist_credit' => undef,
+            },
         },
         'The form returned a 2xx response code');
     } $c;
@@ -116,7 +116,7 @@ test 'Editing an artist' => sub {
                     day => 4,
                 },
                 end_area_id => 221,
-            }
+            },
         },
         'The edit contains the right data',
     );
@@ -191,7 +191,7 @@ test 'Too long disambiguation is rejected without ISE' => sub {
 
     $mech->get('/login');
     $mech->submit_form(
-        with_fields => { username => 'new_editor', password => 'password' }
+        with_fields => { username => 'new_editor', password => 'password' },
     );
 
     $mech->get_ok(
@@ -206,8 +206,8 @@ test 'Too long disambiguation is rejected without ISE' => sub {
                 'edit-artist.name' => 'test artist',
                 'edit-artist.comment' => 'comment ' x 100,
                 'edit-artist.sort_name' => 'artist, test',
-                'edit-artist.rename_artist_credit' => undef
-            }
+                'edit-artist.rename_artist_credit' => undef,
+            },
         },
         'The form returned a 2xx response code');
     } $c;
@@ -244,7 +244,7 @@ test 'Updating artist credits' => sub {
 
     $mech->get('/login');
     $mech->submit_form(
-        with_fields => { username => 'new_editor', password => 'password' }
+        with_fields => { username => 'new_editor', password => 'password' },
     );
 
     $mech->get_ok(
@@ -257,7 +257,7 @@ test 'Updating artist credits' => sub {
         $mech->submit_form_ok({
             with_fields => {
                 'edit-artist.name' => 'test artist',
-                'edit-artist.rename_artist_credit' => [ 1 ]
+                'edit-artist.rename_artist_credit' => [ 1 ],
             },
         },
         'The form returned a 2xx response code');
@@ -285,8 +285,8 @@ test 'Updating artist credits' => sub {
                     id => 10,
                 },
                 name => 'test artist',
-                join_phrase => ''
-            }]
+                join_phrase => '',
+            }],
         },
         'The new artist credit contains the right data',
     );
@@ -300,8 +300,8 @@ test 'Updating artist credits' => sub {
                     id => 10,
                 },
                 name => 'Alternative Name',
-                join_phrase => ''
-            }]
+                join_phrase => '',
+            }],
         },
         'The old artist credit contains the right data',
     );

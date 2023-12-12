@@ -25,27 +25,26 @@ use MusicBrainz::Server::Data::Utils::Uniqueness qw( assert_uniqueness_conserved
 use Scalar::Util qw( looks_like_number );
 
 extends 'MusicBrainz::Server::Data::Entity';
-with 'MusicBrainz::Server::Data::Role::Relatable';
-with 'MusicBrainz::Server::Data::Role::Name';
-with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'artist' };
-with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'artist' };
-with 'MusicBrainz::Server::Data::Role::Area';
-with 'MusicBrainz::Server::Data::Role::DeleteAndLog' => { type => 'artist' };
-with 'MusicBrainz::Server::Data::Role::IPI' => { type => 'artist' };
-with 'MusicBrainz::Server::Data::Role::ISNI' => { type => 'artist' };
-with 'MusicBrainz::Server::Data::Role::GIDEntityCache';
-with 'MusicBrainz::Server::Data::Role::PendingEdits' => { table => 'artist' };
-with 'MusicBrainz::Server::Data::Role::Rating' => { type => 'artist' };
-with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'artist' };
-with 'MusicBrainz::Server::Data::Role::Subscription' => {
-    table => 'editor_subscribe_artist',
-    column => 'artist',
-    active_class => 'MusicBrainz::Server::Entity::Subscription::Artist',
-    deleted_class => 'MusicBrainz::Server::Entity::Subscription::DeletedArtist'
-};
-with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'artist' };
-with 'MusicBrainz::Server::Data::Role::Area';
-with 'MusicBrainz::Server::Data::Role::Collection';
+with 'MusicBrainz::Server::Data::Role::Relatable',
+     'MusicBrainz::Server::Data::Role::Name',
+     'MusicBrainz::Server::Data::Role::Annotation' => { type => 'artist' },
+     'MusicBrainz::Server::Data::Role::Alias' => { type => 'artist' },
+     'MusicBrainz::Server::Data::Role::Area',
+     'MusicBrainz::Server::Data::Role::DeleteAndLog' => { type => 'artist' },
+     'MusicBrainz::Server::Data::Role::IPI' => { type => 'artist' },
+     'MusicBrainz::Server::Data::Role::ISNI' => { type => 'artist' },
+     'MusicBrainz::Server::Data::Role::GIDEntityCache',
+     'MusicBrainz::Server::Data::Role::PendingEdits' => { table => 'artist' },
+     'MusicBrainz::Server::Data::Role::Rating' => { type => 'artist' },
+     'MusicBrainz::Server::Data::Role::Tag' => { type => 'artist' },
+     'MusicBrainz::Server::Data::Role::Subscription' => {
+        table => 'editor_subscribe_artist',
+        column => 'artist',
+        active_class => 'MusicBrainz::Server::Entity::Subscription::Artist',
+        deleted_class => 'MusicBrainz::Server::Entity::Subscription::DeletedArtist',
+     },
+     'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'artist' },
+     'MusicBrainz::Server::Data::Role::Collection';
 
 sub _type { 'artist' }
 
@@ -81,7 +80,7 @@ sub _column_mapping
         edits_pending => 'edits_pending',
         comment => 'comment',
         last_updated => 'last_updated',
-        ended => 'ended'
+        ended => 'ended',
     };
 }
 
@@ -211,32 +210,32 @@ sub _order_by {
     my ($self, $order) = @_;
     my $order_by = order_by($order, 'name', {
         'name' => sub {
-            return 'sort_name COLLATE musicbrainz'
+            return 'sort_name COLLATE musicbrainz';
         },
         'area' => sub {
-            return 'area, name COLLATE musicbrainz'
+            return 'area, name COLLATE musicbrainz';
         },
         'gender' => sub {
-            return 'gender, sort_name COLLATE musicbrainz'
+            return 'gender, sort_name COLLATE musicbrainz';
         },
         'begin_date' => sub {
-            return 'begin_date_year, begin_date_month, begin_date_day, name COLLATE musicbrainz'
+            return 'begin_date_year, begin_date_month, begin_date_day, name COLLATE musicbrainz';
         },
         'begin_area' => sub {
-            return 'begin_area, name COLLATE musicbrainz'
+            return 'begin_area, name COLLATE musicbrainz';
         },
         'end_date' => sub {
-            return 'end_date_year, end_date_month, end_date_day, name COLLATE musicbrainz'
+            return 'end_date_year, end_date_month, end_date_day, name COLLATE musicbrainz';
         },
         'end_area' => sub {
-            return 'end_area, name COLLATE musicbrainz'
+            return 'end_area, name COLLATE musicbrainz';
         },
         'type' => sub {
-            return 'type, sort_name COLLATE musicbrainz'
-        }
+            return 'type, sort_name COLLATE musicbrainz';
+        },
     });
 
-    return $order_by
+    return $order_by;
 }
 
 sub _area_columns
@@ -315,7 +314,7 @@ sub can_delete
     my $active_credits = $self->sql->select_single_column_array(
         'SELECT ref_count FROM artist_credit, artist_credit_name name
           WHERE name.artist = ? AND name.artist_credit = id AND ref_count > 0',
-        $artist_id
+        $artist_id,
     );
     return @$active_credits == 0;
 }
@@ -424,16 +423,16 @@ sub merge
                 table => 'artist',
                 columns => $merge_columns,
                 old_ids => $old_ids,
-                new_id => $new_id
-            )
+                new_id => $new_id,
+            ),
         );
 
         merge_date_period(
             $self->sql => (
                 table => 'artist',
                 old_ids => $old_ids,
-                new_id => $new_id
-            )
+                new_id => $new_id,
+            ),
         );
     }
 
@@ -443,26 +442,23 @@ sub merge
 
 sub _hash_to_row
 {
-    my ($self, $values) = @_;
+    my ($self, $artist) = @_;
 
-    my $row = hash_to_row($values, {
+    my $row = hash_to_row($artist, {
         area => 'area_id',
         begin_area => 'begin_area_id',
         end_area => 'end_area_id',
-        type    => 'type_id',
         gender  => 'gender_id',
-        comment => 'comment',
-        ended => 'ended',
-        name => 'name',
-        sort_name => 'sort_name',
+        type    => 'type_id',
+        map { $_ => $_ } qw( comment ended name sort_name ),
     });
 
-    if (exists $values->{begin_date}) {
-        add_partial_date_to_row($row, $values->{begin_date}, 'begin_date');
+    if (exists $artist->{begin_date}) {
+        add_partial_date_to_row($row, $artist->{begin_date}, 'begin_date');
     }
 
-    if (exists $values->{end_date}) {
-        add_partial_date_to_row($row, $values->{end_date}, 'end_date');
+    if (exists $artist->{end_date}) {
+        add_partial_date_to_row($row, $artist->{end_date}, 'end_date');
     }
 
     return $row;
@@ -511,7 +507,7 @@ sub load_for_artist_credits {
             $artist_name->artist($artists->{$artist_name->artist_id});
         }
     }
-};
+}
 
 sub is_empty {
     my ($self, $artist_id) = @_;

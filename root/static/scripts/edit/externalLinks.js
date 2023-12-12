@@ -1195,7 +1195,7 @@ const ExternalLinkRelationship =
           {!props.isOnlyRelationship && !props.urlMatchesType ? (
             <RemoveButton
               onClick={() => props.onLinkRemove(link.index)}
-              title={l('Remove Relationship')}
+              title={lp('Remove relationship', 'interactive')}
             />
           ) : null}
           <ExternalLinkAttributeDialog
@@ -1351,7 +1351,7 @@ export class ExternalLink extends React.Component<LinkProps> {
     setTimeout(() => target.style.backgroundColor = 'initial', 1000);
   }
 
-  render(): React$Element<typeof React.Fragment> {
+  render(): React$Element<React$FragmentType> {
     const props = this.props;
     const notEmpty = props.relationships.some(link => {
       return !isEmpty(link);
@@ -1413,7 +1413,7 @@ export class ExternalLink extends React.Component<LinkProps> {
               <RemoveButton
                 dataIndex={props.index}
                 onClick={() => props.onUrlRemove()}
-                title={l('Remove Link')}
+                title={l('Remove link')}
               />
             ) : null}
             {isEmpty(props) ? null : (

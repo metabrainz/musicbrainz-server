@@ -53,7 +53,7 @@ has release_to_edit => (
         my $release = $test->c->model('Release')->get_by_id(1);
         $test->c->model('Medium')->load_for_releases($release);
         return $release;
-    }
+    },
 );
 
 has edit => (
@@ -64,9 +64,9 @@ has edit => (
             edit_type => $EDIT_RELEASE_REORDER_MEDIUMS,
             editor_id => 1,
             release   => $test->release_to_edit,
-            medium_positions => $test->medium_positions
+            medium_positions => $test->medium_positions,
         );
-    }
+    },
 );
 
 has medium_positions => (
@@ -79,7 +79,7 @@ has medium_positions => (
             { medium_id => 104, old => 4, new => 2 }, # Disc 4 is now medium #2
             { medium_id => 105, old => 5, new => 5 }, # Disc 5 does not change
         ];
-    }
+    },
 );
 
 test 'Accept edit' => sub {

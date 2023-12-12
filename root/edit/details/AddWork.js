@@ -62,7 +62,7 @@ const AddWork = ({edit}: Props): React$MixedElement => {
         ) : null}
         {languages && languages.length ? (
           <tr>
-            <th>{addColonText(l('Lyrics Languages'))}</th>
+            <th>{addColonText(l('Lyrics languages'))}</th>
             <td>
               {commaOnlyListText(languages.map(
                 language => localizeLanguageName(language, true),

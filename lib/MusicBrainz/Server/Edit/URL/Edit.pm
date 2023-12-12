@@ -14,16 +14,16 @@ use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Edit::Types qw( Nullable );
 use MusicBrainz::Server::Edit::Utils qw( changed_display_data );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
-with 'MusicBrainz::Server::Edit::URL';
-with 'MusicBrainz::Server::Edit::URL::RelatedEntities';
-with 'MusicBrainz::Server::Edit::CheckForConflicts';
+with 'MusicBrainz::Server::Edit::URL',
+     'MusicBrainz::Server::Edit::URL::RelatedEntities',
+     'MusicBrainz::Server::Edit::CheckForConflicts';
 
 use aliased 'MusicBrainz::Server::Entity::URL';
 
-sub edit_name { N_l('Edit URL') }
+sub edit_name { N_lp('Edit URL', 'edit type') }
 sub edit_type { $EDIT_URL_EDIT }
 sub _edit_model { 'URL' }
 sub edit_template { 'EditUrl' }
@@ -42,20 +42,20 @@ has '+data' => (
         entity => Dict[
             id => Int,
             gid => Optional[Str],
-            name => Str
+            name => Str,
         ],
         old => change_fields(),
         new => change_fields(),
         affects => Optional[Int],
         is_merge => Optional[Bool],
-    ]
+    ],
 );
 
 sub foreign_keys
 {
     my $self = shift;
     return {
-        URL => [ $self->url_id ]
+        URL => [ $self->url_id ],
     };
 }
 
@@ -64,14 +64,14 @@ sub build_display_data
     my ($self, $loaded) = @_;
     my $data = changed_display_data($self->data, $loaded,
         uri => 'url',
-        description => 'description'
+        description => 'description',
     );
     $data->{url} = to_json_object(
         $loaded->{URL}{ $self->url_id } ||
         URL->new(
             id => $self->url_id,
             url => $self->data->{entity}{name},
-        )
+        ),
     );
     $data->{isMerge} = boolean_to_json($self->data->{is_merge});
     $data->{affects} = $self->data->{affects};
@@ -96,12 +96,12 @@ around accept => sub {
     my ($orig, $self) = @_;
 
     MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
-        'This URL has already been merged into another URL'
+        'This URL has already been merged into another URL',
     ) unless $self->c->model('URL')->get_by_id($self->url_id);
 
     my $new_id = $self->c->model( $self->_edit_model )->update(
         $self->entity_id,
-        $self->merge_changes
+        $self->merge_changes,
     );
 
     $self->data->{entity}{id} = $new_id;
@@ -117,7 +117,7 @@ around accept => sub {
                 SQL
             $new_id,
             $AMAZON_ASIN_LINK_TYPE_ID,
-        )
+        );
     };
 
     $self->c->model('Release')->update_amazon_asin($_) for @release_ids;
@@ -139,7 +139,7 @@ after insert => sub {
 
 sub current_instance {
     my $self = shift;
-    $self->c->model('URL')->get_by_id($self->url_id),
+    $self->c->model('URL')->get_by_id($self->url_id);
 }
 
 around extract_property => sub {

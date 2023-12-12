@@ -11,7 +11,7 @@ has ipi_codes => (
     handles => {
         add_ipi => 'push',
         all_ipi_codes => 'elements',
-    }
+    },
 );
 
 around TO_JSON => sub {

@@ -55,7 +55,7 @@ test 'Can be entered as an auto-edit' => sub {
         edit_type => $EDIT_WORK_DELETE,
         to_delete => $work,
         editor_id => $EDITOR_MODBOT,
-        privileges => 1
+        privileges => 1,
     );
     isa_ok($edit, 'MusicBrainz::Server::Edit::Work::Delete');
 
@@ -82,7 +82,7 @@ sub create_edit {
     return $c->model('Edit')->create(
         edit_type => $EDIT_WORK_DELETE,
         to_delete => $work,
-        editor_id => 1
+        editor_id => 1,
     );
 }
 

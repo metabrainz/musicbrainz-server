@@ -23,7 +23,7 @@ const EditArtistCredit = ({edit}: Props): React$Element<'table'> => {
     <table className="details split-artist">
       <tbody>
         <tr>
-          <th>{addColonText(l('Artist Credit'))}</th>
+          <th>{addColonText(l('Artist credit'))}</th>
           <td className="old">
             <ExpandedArtistCredit artistCredit={display.artist_credit.old} />
           </td>

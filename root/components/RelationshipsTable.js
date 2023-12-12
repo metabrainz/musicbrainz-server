@@ -332,7 +332,7 @@ const RelationshipsTable = ({
         <tr>
           <th>{l('Date')}</th>
           <th>{l('Title')}</th>
-          {hasCreditColumn ? <th>{l('Credited As')}</th> : null}
+          {hasCreditColumn ? <th>{l('Credited as')}</th> : null}
           {hasAttributeColumn ? <th>{l('Attributes')}</th> : null}
           {hasArtistColumn ? <th>{l('Artist')}</th> : null}
           {hasLengthColumn ? <th>{l('Length')}</th> : null}

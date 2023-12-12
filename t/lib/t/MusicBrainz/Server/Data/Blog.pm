@@ -14,7 +14,7 @@ test 'Accessing the blog when its up does not die' => sub {
     my $test = shift;
 
     LWP::UserAgent::Mockable->reset(
-        playback => $Bin.'/lwp-sessions/data_blog.up.lwp-mock'
+        playback => $Bin.'/lwp-sessions/data_blog.up.lwp-mock',
     );
 
     my $entries = $test->c->model('Blog')->get_latest_entries;
@@ -28,7 +28,7 @@ test 'Accessing the blog when its down returns undef' => sub {
     my $test = shift;
 
     LWP::UserAgent::Mockable->reset(
-        playback => $Bin.'/lwp-sessions/data_blog.down.lwp-mock'
+        playback => $Bin.'/lwp-sessions/data_blog.down.lwp-mock',
     );
 
     my $entries = $test->c->model('Blog')->get_latest_entries;

@@ -7,32 +7,32 @@ extends 'MusicBrainz::Server::Entity';
 
 has 'tag_id' => (
     is => 'rw',
-    isa => 'Int'
+    isa => 'Int',
 );
 
 has 'tag' => (
     is => 'rw',
-    isa => 'Tag'
+    isa => 'Tag',
 );
 
 has 'editor_id' => (
     is => 'rw',
-    isa => 'Int'
+    isa => 'Int',
 );
 
 has 'editor' => (
     is => 'rw',
-    isa => 'Editor'
+    isa => 'Editor',
 );
 
 has 'entity_id' => (
     is => 'rw',
-    isa => 'Int'
+    isa => 'Int',
 );
 
 has 'entity' => (
     is => 'rw',
-    isa => 'Object'
+    isa => 'Object',
 );
 
 has is_upvote => (
@@ -42,7 +42,7 @@ has is_upvote => (
 
 has aggregate_count => (
     is => 'rw',
-    isa => 'Int'
+    isa => 'Int',
 );
 
 sub TO_JSON {

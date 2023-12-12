@@ -18,8 +18,8 @@ const NoteIsRequired = ({edit}: Props): React$Element<typeof Layout> => {
   const editDisplay = 'edit #' + edit.id;
   const editLink = <EditLink content={editDisplay} edit={edit} />;
   return (
-    <Layout fullWidth title={l('Error Approving Edit')}>
-      <h1>{l('Error Approving Edit')}</h1>
+    <Layout fullWidth title={l('Error approving edit')}>
+      <h1>{l('Error approving edit')}</h1>
       <p>
         {exp.l(
           `{edit} has received one or more "no" votes,

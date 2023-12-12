@@ -5,17 +5,17 @@ use MooseX::Types::Structured qw( Dict );
 use MooseX::Types::Moose qw( Int Str );
 use MusicBrainz::Server::Constants qw( $EDIT_MEDIUM_REMOVE_DISCID );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 
-sub edit_name { N_l('Remove disc ID') }
+sub edit_name { N_lp('Remove disc ID', 'edit type') }
 sub edit_type { $EDIT_MEDIUM_REMOVE_DISCID }
 sub edit_kind { 'remove' }
 sub edit_template { 'RemoveDiscId' }
 
 extends 'MusicBrainz::Server::Edit';
-with 'MusicBrainz::Server::Edit::Medium::RelatedEntities';
-with 'MusicBrainz::Server::Edit::Medium';
-with 'MusicBrainz::Server::Edit::Role::NeverAutoEdit';
+with 'MusicBrainz::Server::Edit::Medium::RelatedEntities',
+     'MusicBrainz::Server::Edit::Medium',
+     'MusicBrainz::Server::Edit::Role::NeverAutoEdit';
 
 use aliased 'MusicBrainz::Server::Entity::CDTOC';
 use aliased 'MusicBrainz::Server::Entity::Release';
@@ -31,7 +31,7 @@ has '+data' => (
             release => Dict[
                 id => Int,
                 name => Str,
-            ]
+            ],
         ],
         medium_cdtoc => Dict[
             cdtoc        => Dict[
@@ -39,8 +39,8 @@ has '+data' => (
                 toc => Str,
             ],
             id => Int,
-        ]
-    ]
+        ],
+    ],
 );
 
 method initialize (%opts) {
@@ -55,16 +55,16 @@ method initialize (%opts) {
         id => $medium->id,
         release => {
             id => $medium->release_id,
-            name => $medium->release->name
-        }
+            name => $medium->release->name,
+        },
     };
 
     $opts{medium_cdtoc} = {
         id => $cdtoc->id,
         cdtoc => {
             id => $cdtoc->cdtoc->id,
-            toc => $cdtoc->cdtoc->toc
-        }
+            toc => $cdtoc->cdtoc->toc,
+        },
     };
 
     $self->data(\%opts);
@@ -82,7 +82,7 @@ method foreign_keys
     return {
         Release => { $self->release_id => [ 'ArtistCredit' ] },
         Medium  => { $self->data->{medium}{id} => [ 'MediumFormat', 'Release ArtistCredit' ] },
-        CDTOC   => [ $self->data->{medium_cdtoc}{cdtoc}{id} ]
+        CDTOC   => [ $self->data->{medium_cdtoc}{cdtoc}{id} ],
     }
 }
 
@@ -102,7 +102,7 @@ method build_display_data ($loaded)
         ),
         cdtoc => to_json_object(
             $loaded->{CDTOC}{ $self->data->{medium_cdtoc}{cdtoc}{id} } ||
-            CDTOC->new_from_toc($self->data->{medium_cdtoc}{cdtoc}{toc})
+            CDTOC->new_from_toc($self->data->{medium_cdtoc}{cdtoc}{toc}),
         ),
     }
 }
@@ -110,9 +110,11 @@ method build_display_data ($loaded)
 override 'accept' => sub {
     my ($self) = @_;
     $self->c->model('MediumCDTOC')->delete(
-        $self->data->{medium_cdtoc}{id}
+        $self->data->{medium_cdtoc}{id},
     );
 };
 
 no Moose;
 __PACKAGE__->meta->make_immutable;
+
+1;

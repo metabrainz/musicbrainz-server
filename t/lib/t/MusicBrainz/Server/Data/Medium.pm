@@ -23,8 +23,8 @@ test 'Insert medium' => sub {
         names => [{
             artist => { id => 1 },
             name => 'Artist',
-            join_phrase => ''
-        }]
+            join_phrase => '',
+        }],
     };
 
     my $insert_hash = {
@@ -48,8 +48,8 @@ test 'Insert medium' => sub {
                 recording_id => 2,
                 length => 262000,
                 artist_credit => $artist_credit,
-            }
-        ]
+            },
+        ],
     };
 
     my $created = $c->model('Medium')->insert($insert_hash);
@@ -114,7 +114,7 @@ $medium_data->update(1, {
         release_id => 2,
         position => 5,
         name => 'Edited name',
-        format_id => 2
+        format_id => 2,
     });
 
 

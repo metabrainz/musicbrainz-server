@@ -53,13 +53,13 @@ has_field 'confirm_password' => (
     required       => 1,
     minlength      => 1,
     messages       => { pass_conf_not_matched => N_l('The password confirmation does not match the password') },
-    localize_meth => sub { my ($self, @message) = @_; return l(@message); }
+    localize_meth => sub { my ($self, @message) = @_; return l(@message); },
 );
 
 has_field 'email' => (
     type      => 'Email',
     maxlength => 64,
-    required => 1
+    required => 1,
 );
 
 after validate => sub {

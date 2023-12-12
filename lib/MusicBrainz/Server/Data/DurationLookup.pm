@@ -7,8 +7,8 @@ use MusicBrainz::Server::Entity::DurationLookupResult;
 use MusicBrainz::Server::Entity::Medium;
 use MusicBrainz::Server::Constants qw( $MAX_POSTGRES_INT );
 
-with 'MusicBrainz::Server::Data::Role::Sql';
-with 'MusicBrainz::Server::Data::Role::QueryToList';
+with 'MusicBrainz::Server::Data::Role::Sql',
+     'MusicBrainz::Server::Data::Role::QueryToList';
 
 Readonly our $DIMENSIONS => 6;
 

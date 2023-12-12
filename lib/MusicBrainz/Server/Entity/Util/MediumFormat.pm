@@ -26,7 +26,7 @@ sub combined_medium_format_name
     foreach my $format (@formats_order) {
         my $count = $formats_count{$format};
         if ($count > 1 && $format) {
-            $format = $count . "\x{00D7}" . $format;
+            $format = $count . "\N{MULTIPLICATION SIGN}" . $format;
         }
         push @formats, $format;
     }

@@ -48,10 +48,10 @@ with 'MusicBrainz::Server::Controller::Role::WikipediaExtract';
 with 'MusicBrainz::Server::Controller::Role::CommonsImage';
 with 'MusicBrainz::Server::Controller::Role::EditRelationships';
 with 'MusicBrainz::Server::Controller::Role::JSONLD' => {
-    endpoints => {show => {copy_stash => ['top_tags']}, aliases => {copy_stash => ['aliases']}}
+    endpoints => {show => {copy_stash => ['top_tags']}, aliases => {copy_stash => ['aliases']}},
 };
 with 'MusicBrainz::Server::Controller::Role::Collection' => {
-    entity_type => 'work'
+    entity_type => 'work',
 };
 
 use aliased 'MusicBrainz::Server::Entity::ArtistCredit';
@@ -113,7 +113,7 @@ with 'MusicBrainz::Server::Controller::Role::IdentifierSet' => {
     entity_type => 'work',
     identifier_type => 'iswc',
     add_edit => $EDIT_WORK_ADD_ISWCS,
-    remove_edit => $EDIT_WORK_REMOVE_ISWC
+    remove_edit => $EDIT_WORK_REMOVE_ISWC,
 };
 
 with 'MusicBrainz::Server::Controller::Role::Edit' => {
@@ -126,9 +126,9 @@ with 'MusicBrainz::Server::Controller::Role::Edit' => {
             post_creation => $self->edit_with_identifiers($c, $work),
             edit_args => {
                 to_edit => $work,
-            }
+            },
         );
-    }
+    },
 };
 
 with 'MusicBrainz::Server::Controller::Role::Merge' => {
@@ -189,7 +189,7 @@ sub _merge_load_entities
             iswcs_differ => (any { $get_iswc_set->($_) != $expect } @tail),
         );
     }
-};
+}
 
 with 'MusicBrainz::Server::Controller::Role::Create' => {
     form      => 'Work',
@@ -198,7 +198,7 @@ with 'MusicBrainz::Server::Controller::Role::Create' => {
         my ($self, $c) = @_;
 
         return (
-            post_creation => $self->create_with_identifiers($c)
+            post_creation => $self->create_with_identifiers($c),
         );
     },
     dialog_template => 'work/edit_form.tt',

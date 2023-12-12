@@ -14,7 +14,7 @@ sub sidebar_name {
     else {
         return 'BnF Catalogue';
     }
-};
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

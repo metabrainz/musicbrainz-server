@@ -67,7 +67,7 @@ const BatchAddRelationshipButtonPopover = ({
     preselectedTargetType: null,
     releaseHasUnloadedTracks,
     source: sourcePlaceholder,
-    title: l('Add Relationship'),
+    title: lp('Add relationship', 'header'),
   });
 
   const setOpen = React.useCallback((open: boolean) => {

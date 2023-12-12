@@ -7,7 +7,7 @@ use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_MOVE );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 
 use aliased 'MusicBrainz::Server::Entity::Release';
 use aliased 'MusicBrainz::Server::Entity::ReleaseGroup';
@@ -15,7 +15,7 @@ use aliased 'MusicBrainz::Server::Entity::ReleaseGroup';
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Release';
 
-sub edit_name { N_l('Edit release') }
+sub edit_name { N_lp('Edit release', 'edit type') }
 sub edit_kind { 'edit' }
 sub edit_type { $EDIT_RELEASE_MOVE }
 sub edit_template { 'historic/MoveReleaseToReleaseGroup' }
@@ -27,17 +27,17 @@ has '+data' => (
     isa => Dict[
         release => Dict[
             id => Int,
-            name => Str
+            name => Str,
         ],
         old_release_group => Dict[
             id => Int,
-            name => Str
+            name => Str,
         ],
         new_release_group => Dict[
             id => Int,
-            name => Str
-        ]
-    ]
+            name => Str,
+        ],
+    ],
 );
 
 sub _build_related_entities
@@ -53,11 +53,11 @@ sub _build_related_entities
     return {
         artist => [
             uniq map { $_->artist_id } map { @{ $_->artist_credit->names } }
-                @releases, @groups
+                @releases, @groups,
         ],
         release =>       [ uniq map { $_->id } @releases ],
         release_group => [ uniq map { $_->id } @groups ],
-    }
+    };
 }
 
 sub foreign_keys
@@ -69,7 +69,7 @@ sub foreign_keys
             $self->data->{old_release_group}{id} => [ 'ArtistCredit' ],
             $self->data->{new_release_group}{id} => [ 'ArtistCredit' ],
         },
-    }
+    };
 }
 
 sub build_display_data
@@ -81,7 +81,7 @@ sub build_display_data
             Release->new(
                 id => $self->data->{release}{id},
                 name => $self->data->{release}{name},
-            )
+            ),
         ),
         release_group => {
             old => to_json_object(
@@ -89,16 +89,16 @@ sub build_display_data
                 ReleaseGroup->new(
                     id => $self->data->{old_release_group}{id},
                     name => $self->data->{old_release_group}{name},
-                )
+                ),
             ),
             new => to_json_object(
                 $loaded->{ReleaseGroup}{ $self->data->{new_release_group}{id} } ||
                 ReleaseGroup->new(
                     id => $self->data->{new_release_group}{id},
                     name => $self->data->{new_release_group}{name},
-                )
+                ),
             ),
-        }
+        },
     };
 }
 

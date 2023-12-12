@@ -33,10 +33,10 @@ test 'Area alias appears on alias page content and on JSON-LD' => sub {
 
     page_test_jsonld $mech => {
         '@id' => 'http://musicbrainz.org/area/106e0bec-b638-3b37-b731-f53d507dc00e',
-        'alternateName' => ["\x{30aa}\x{30fc}\x{30b9}\x{30c8}\x{30e9}\x{30ea}\x{30a2}"],
+        'alternateName' => ["\N{KATAKANA LETTER O}\N{KATAKANA-HIRAGANA PROLONGED SOUND MARK}\N{KATAKANA LETTER SU}\N{KATAKANA LETTER TO}\N{KATAKANA LETTER RA}\N{KATAKANA LETTER RI}\N{KATAKANA LETTER A}"],
         '@context' => 'https://schema.org/docs/jsonldcontext.json',
         'name' => 'Australia',
-        '@type' => 'Country'
+        '@type' => 'Country',
     };
 };
 

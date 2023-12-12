@@ -19,7 +19,7 @@ sub query {
             ON r.id = t.recording
         WHERE (SELECT COUNT(*) FROM track WHERE recording = r.id) = 1
           AND r.name != t.name
-    '
+    ';
 }
 
 sub inflate_rows
@@ -27,14 +27,14 @@ sub inflate_rows
     my ($self, $items) = @_;
 
     my $tracks = $self->c->model('Track')->get_by_ids(
-        map { $_->{track_id} } @$items
+        map { $_->{track_id} } @$items,
     );
 
     return [
         map +{
             %$_,
             track => to_json_object($tracks->{ $_->{track_id} }),
-        }, @$items
+        }, @$items,
     ];
 }
 

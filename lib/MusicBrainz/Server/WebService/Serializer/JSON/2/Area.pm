@@ -16,7 +16,7 @@ sub serialize
     $body{'iso-3166-3-codes'} = [$entity->iso_3166_3_codes] if $entity->iso_3166_3_codes;
 
     return \%body;
-};
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

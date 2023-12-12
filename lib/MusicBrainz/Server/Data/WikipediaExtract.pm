@@ -9,8 +9,8 @@ use URI::Escape qw( uri_escape_utf8 );
 use List::AllUtils qw( first );
 use v5.10.1;
 
-with 'MusicBrainz::Server::Data::Role::Context';
-with 'MusicBrainz::Server::Data::Role::MediaWikiAPI';
+with 'MusicBrainz::Server::Data::Role::Context',
+     'MusicBrainz::Server::Data::Role::MediaWikiAPI';
 
 # We'll assume interlanguage links don't change much
 Readonly my $LANG_CACHE_TIMEOUT => 60 * 60 * 24 * 7; # 1 week
@@ -141,7 +141,7 @@ sub get_available_languages
             if ($link->isa('MusicBrainz::Server::Entity::URL::Wikipedia')) {
                 push @$ret, {lang => $link->language, title => $link->page_name};
             }
-            return ($ret, $link)
+            return ($ret, $link);
         }
     }
     return (undef, undef);
@@ -156,7 +156,7 @@ sub _wikidata_languages_callback
             if ($wiki =~ /wiki$/ and $wiki ne 'commonswiki') {
                 my $lang = $wiki =~ s/wiki$//r;
                 my $page = $opts{fetched}{content}{sitelinks}{$wiki}{title};
-                push @langs, {'lang' => $lang, 'title' => $page}
+                push @langs, {'lang' => $lang, 'title' => $page};
             }
         }
         return \@langs;
@@ -180,7 +180,7 @@ sub _extract_by_language_callback
                                       language => $opts{language},
                                       url => sprintf 'https://%s.wikipedia.org/wiki/%s',
                                                      $opts{language},
-                                                     uri_escape_utf8($opts{fetched}{title} =~ tr/ /_/r)
+                                                     uri_escape_utf8($opts{fetched}{title} =~ tr/ /_/r),
         );
     }
 }

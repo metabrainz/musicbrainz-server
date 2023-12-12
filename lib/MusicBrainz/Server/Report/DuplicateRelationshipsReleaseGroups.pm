@@ -72,7 +72,8 @@ GROUP BY q.entity, release_group.name
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
-;
+
+1;
 
 =head1 COPYRIGHT AND LICENSE
 

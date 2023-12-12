@@ -7,16 +7,16 @@ use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_ADDRELEASELABEL );
 use MusicBrainz::Server::Edit::Types qw( Nullable NullableOnPreview );
 use MusicBrainz::Server::Edit::Utils qw( gid_or_id );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 
 extends 'MusicBrainz::Server::Edit';
-with 'MusicBrainz::Server::Edit::Role::Preview';
-with 'MusicBrainz::Server::Edit::Release::RelatedEntities';
-with 'MusicBrainz::Server::Edit::Release';
-with 'MusicBrainz::Server::Edit::Role::Insert';
-with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
+with 'MusicBrainz::Server::Edit::Role::Preview',
+     'MusicBrainz::Server::Edit::Release::RelatedEntities',
+     'MusicBrainz::Server::Edit::Release',
+     'MusicBrainz::Server::Edit::Role::Insert',
+     'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
-sub edit_name { N_l('Add release label') }
+sub edit_name { N_lp('Add release label', 'edit type') }
 sub edit_kind { 'add' }
 sub edit_type { $EDIT_RELEASE_ADDRELEASELABEL }
 sub alter_edit_pending { { Release => [ shift->release_id ] } }
@@ -39,15 +39,15 @@ has '+data' => (
         release => NullableOnPreview[Dict[
             id => Int,
             gid => Optional[Str],
-            name => Str
+            name => Str,
         ]],
         label => Nullable[Dict[
             id => Int,
             gid => Optional[Str],
-            name => Str
+            name => Str,
         ]],
-        catalog_number => Nullable[Str]
-    ]
+        catalog_number => Nullable[Str],
+    ],
 );
 
 sub release_id { shift->data->{release}{id} }
@@ -64,24 +64,24 @@ sub initialize {
         $self->throw_if_release_label_is_duplicate(
             $release,
             $opts{label} ? $opts{label}->id : undef,
-            $opts{catalog_number}
+            $opts{catalog_number},
         );
     }
 
     $opts{release} = {
         id => $release->id,
         gid => $release->gid,
-        name => $release->name
+        name => $release->name,
     } if $release;
 
     $opts{label} = {
         id => $opts{label}->id,
         gid => $opts{label}->gid,
-        name => $opts{label}->name
+        name => $opts{label}->name,
     } if $opts{label};
 
     $self->data(\%opts);
-};
+}
 
 sub foreign_keys {
     my $self = shift;
@@ -93,7 +93,7 @@ sub foreign_keys {
     $fk{Label} = [gid_or_id($data->{label})] if $data->{label};
 
     return \%fk;
-};
+}
 
 sub build_display_data {
     my ($self, $loaded) = @_;
@@ -106,14 +106,14 @@ sub build_display_data {
     unless ($self->preview) {
         $display_data->{release} = to_json_object(
             $loaded->{Release}{ gid_or_id($data->{release}) } //
-            Release->new(name => $data->{release}{name})
+            Release->new(name => $data->{release}{name}),
         );
     }
 
     if ($data->{label}) {
         $display_data->{label} = to_json_object(
             $loaded->{Label}{ gid_or_id($data->{label}) } //
-            Label->new(name => $data->{label}{name})
+            Label->new(name => $data->{label}{name}),
         );
     }
 

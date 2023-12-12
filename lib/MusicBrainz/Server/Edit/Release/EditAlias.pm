@@ -2,14 +2,14 @@ package MusicBrainz::Server::Edit::Release::EditAlias;
 use Moose;
 
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_EDIT_ALIAS );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 
 extends 'MusicBrainz::Server::Edit::Alias::Edit';
 with 'MusicBrainz::Server::Edit::Release';
 
 sub _alias_model { shift->c->model('Release')->alias }
 
-sub edit_name { N_l('Edit release alias') }
+sub edit_name { N_lp('Edit release alias', 'edit type') }
 sub edit_kind { 'edit' }
 sub edit_type { $EDIT_RELEASE_EDIT_ALIAS }
 

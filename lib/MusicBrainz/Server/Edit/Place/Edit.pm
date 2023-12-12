@@ -19,7 +19,7 @@ use MusicBrainz::Server::Edit::Utils qw(
 );
 use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 use MusicBrainz::Server::Validation qw( normalise_strings );
 
 use MooseX::Types::Moose qw( Bool Int Str );
@@ -31,16 +31,16 @@ use aliased 'MusicBrainz::Server::Entity::PartialDate';
 use aliased 'MusicBrainz::Server::Entity::Coordinates';
 
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
-with 'MusicBrainz::Server::Edit::CheckForConflicts';
-with 'MusicBrainz::Server::Edit::Place';
-with 'MusicBrainz::Server::Edit::Role::DatePeriod';
-with 'MusicBrainz::Server::Edit::Role::AllowAmending' => {
-    create_edit_type => $EDIT_PLACE_CREATE,
-    entity_type => 'place',
-};
-with 'MusicBrainz::Server::Edit::Role::CheckDuplicates';
+with 'MusicBrainz::Server::Edit::CheckForConflicts',
+     'MusicBrainz::Server::Edit::Place',
+     'MusicBrainz::Server::Edit::Role::DatePeriod',
+     'MusicBrainz::Server::Edit::Role::AllowAmending' => {
+        create_edit_type => $EDIT_PLACE_CREATE,
+        entity_type => 'place',
+     },
+     'MusicBrainz::Server::Edit::Role::CheckDuplicates';
 
-sub edit_name { N_l('Edit place') }
+sub edit_name { N_lp('Edit place', 'edit type') }
 sub edit_type { $EDIT_PLACE_EDIT }
 
 sub _edit_model { 'Place' }
@@ -65,11 +65,11 @@ has '+data' => (
         entity => Dict[
             id => Int,
             gid => Optional[Str],
-            name => Str
+            name => Str,
         ],
         new => change_fields(),
         old => change_fields(),
-    ]
+    ],
 );
 
 sub foreign_keys
@@ -95,14 +95,14 @@ sub build_display_data
         ended      => 'ended',
         comment    => 'comment',
         address    => 'address',
-        area       => [ qw( area_id Area ) ]
+        area       => [ qw( area_id Area ) ],
     );
 
     my $data = changed_display_data($self->data, $loaded, %map);
 
     $data->{place} = to_json_object(
         $loaded->{Place}{ $self->data->{entity}{id} } ||
-        Place->new( name => $self->data->{entity}{name} )
+        Place->new( name => $self->data->{entity}{name} ),
     );
 
     for my $side (qw( old new )) {
@@ -219,7 +219,7 @@ override _is_disambiguation_needed => sub {
     my $duplicate_areas = $self->c->sql->select_single_column_array(
         'SELECT area FROM place
          WHERE id != ? AND lower(musicbrainz_unaccent(name)) = lower(musicbrainz_unaccent(?))',
-        $self->current_instance->id, $name
+        $self->current_instance->id, $name,
     );
 
     return $self->_possible_duplicate_area($area_id, @$duplicate_areas);

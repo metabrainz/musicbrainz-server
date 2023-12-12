@@ -9,11 +9,11 @@ use Exception::Class ( ## no critic 'ProhibitUnusedImport'
     'MusicBrainz::Server::Edit::Exceptions::MustApply',
     'MusicBrainz::Server::Edit::Exceptions::GeneralError',
     'MusicBrainz::Server::Edit::Exceptions::DuplicateViolation' => {
-        fields => [qw( conflict )]
+        fields => [qw( conflict )],
     },
     'MusicBrainz::Server::Edit::Exceptions::NoLongerApplicable',
     'MusicBrainz::Server::Edit::Exceptions::Forbidden',
-    'MusicBrainz::Server::Edit::Exceptions::NeedsDisambiguation'
+    'MusicBrainz::Server::Edit::Exceptions::NeedsDisambiguation',
 );
 
 1;

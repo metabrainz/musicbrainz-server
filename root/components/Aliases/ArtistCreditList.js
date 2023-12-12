@@ -26,7 +26,7 @@ type Props = {
 const ArtistCreditList = ({
   artistCredits,
   entity,
-}: Props): React$Element<typeof React.Fragment> => {
+}: Props): React$Element<React$FragmentType> => {
   const $c = React.useContext(SanitizedCatalystContext);
   return (
     <>
@@ -75,8 +75,11 @@ const ArtistCreditList = ({
                 <td className="actions">
                   <a href={`/artist/${entity.gid}/credit/${credit.id}/edit`}>
                     {credit.editsPending /*:: === true */
-                      ? <span className="mp">{l('Edit')}</span>
-                      : l('Edit')}
+                      ? (
+                        <span className="mp">
+                          {lp('Edit', 'verb, interactive')}
+                        </span>
+                      ) : lp('Edit', 'verb, interactive')}
                   </a>
                 </td>
               ) : null}

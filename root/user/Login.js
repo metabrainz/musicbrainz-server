@@ -48,8 +48,8 @@ const Login = ({
 }: PropsT): React$Element<typeof Layout> => {
   const $c = React.useContext(CatalystContext);
   return (
-    <Layout fullWidth title={l('Log In')}>
-      <h1>{l('Log In')}</h1>
+    <Layout fullWidth title={lp('Log in', 'header')}>
+      <h1>{lp('Log in', 'header')}</h1>
 
       {isLoginRequired ? (
         <p>
@@ -128,7 +128,7 @@ const Login = ({
         {postParameters ? <PostParameters params={postParameters} /> : null}
 
         <div className="row no-label">
-          <FormSubmit className="login" label={l('Log In')} />
+          <FormSubmit className="login" label={lp('Log in', 'interactive')} />
         </div>
       </form>
 

@@ -64,7 +64,7 @@ const AddReleaseGroup = ({allowNew, edit}: Props): React$MixedElement => {
               <th>
                 {type.historic
                   ? addColonText(l('Type'))
-                  : l('Primary Type:')}
+                  : addColonText(l('Primary type'))}
               </th>
               <td>
                 {type.historic
@@ -77,7 +77,7 @@ const AddReleaseGroup = ({allowNew, edit}: Props): React$MixedElement => {
 
           {secondaryType ? (
             <tr>
-              <th>{l('Secondary Types:')}</th>
+              <th>{addColonText(l('Secondary types'))}</th>
               <td>{secondaryType}</td>
             </tr>
           ) : null}

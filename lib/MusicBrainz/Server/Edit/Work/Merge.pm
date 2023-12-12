@@ -2,14 +2,14 @@ package MusicBrainz::Server::Edit::Work::Merge;
 use Moose;
 
 use MusicBrainz::Server::Constants qw( $EDIT_WORK_MERGE );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 
 extends 'MusicBrainz::Server::Edit::Generic::Merge';
-with 'MusicBrainz::Server::Edit::Work::RelatedEntities';
-with 'MusicBrainz::Server::Edit::Work';
+with 'MusicBrainz::Server::Edit::Work::RelatedEntities',
+     'MusicBrainz::Server::Edit::Work';
 
 sub edit_type { $EDIT_WORK_MERGE }
-sub edit_name { N_l('Merge works') }
+sub edit_name { N_lp('Merge works', 'edit type') }
 sub work_ids { @{ shift->_entity_ids } }
 
 sub _merge_model { 'Work' }
@@ -24,9 +24,9 @@ sub foreign_keys
             } (
                 $self->data->{new_entity}{id},
                 map { $_->{id} } @{ $self->data->{old_entities} },
-            )
-        }
-    }
+            ),
+        },
+    };
 }
 
 before build_display_data => sub {
@@ -40,7 +40,7 @@ before build_display_data => sub {
     $self->c->model('Language')->load_for_works(@works);
 };
 
-sub edit_template { 'MergeWorks' };
+sub edit_template { 'MergeWorks' }
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

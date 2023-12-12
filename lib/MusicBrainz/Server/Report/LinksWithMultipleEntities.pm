@@ -10,7 +10,7 @@ sub query {
 
     my $inner_table = join(
         ' UNION ',
-        map {<<~"SQL"} @tables
+        map {<<~"SQL"} @tables,
             SELECT DISTINCT ON (url, other_entity) -- ignore several rel types between same entity pair
                 link_type.id AS link_type_id, link_type.gid AS link_type_gid,
                 l_table.id AS rel_id, ${\$_->[1]} AS url, ${\$_->[2]} AS other_entity
@@ -34,7 +34,7 @@ sub query {
         HAVING count(*) > 1
         SQL
 
-    return $query
+    return $query;
 }
 
 __PACKAGE__->meta->make_immutable;

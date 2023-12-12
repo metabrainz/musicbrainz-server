@@ -16,7 +16,7 @@ use Try::Tiny;
 with 'MusicBrainz::Server::WebService::Format';
 
 with 'MusicBrainz::Server::Controller::Role::Profile' => {
-    threshold => DBDefs->PROFILE_WEB_SERVICE()
+    threshold => DBDefs->PROFILE_WEB_SERVICE(),
 };
 
 with 'MusicBrainz::Server::Controller::Role::CORS';
@@ -26,14 +26,14 @@ sub serializers {
     [
         'MusicBrainz::Server::WebService::XMLSerializer',
         'MusicBrainz::Server::WebService::JSONSerializer',
-    ]
+    ];
 }
 
 sub bad_req : Private
 {
     my ($self, $c) = @_;
 
-    $c->res->status(400);
+    $c->res->status(HTTP_BAD_REQUEST);
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body($c->stash->{serializer}->output_error($c->stash->{error}));
 }
@@ -42,7 +42,7 @@ sub deny_readonly : Private
 {
     my ($self, $c) = @_;
     if (DBDefs->DB_READ_ONLY) {
-        $c->res->status(503);
+        $c->res->status(HTTP_SERVICE_UNAVAILABLE);
         $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
         $c->res->body($c->stash->{serializer}->output_error('The database is currently in readonly mode and cannot handle your request'));
         $c->detach;
@@ -59,7 +59,7 @@ sub success : Private
 sub forbidden : Private
 {
     my ($self, $c) = @_;
-    $c->res->status(401);
+    $c->res->status(HTTP_UNAUTHORIZED);
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body($c->stash->{serializer}->output_error('You are not authorized to access this resource.'));
     $c->detach;
@@ -68,7 +68,7 @@ sub forbidden : Private
 sub unauthorized : Private
 {
     my ($self, $c) = @_;
-    $c->res->status(401);
+    $c->res->status(HTTP_UNAUTHORIZED);
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body($c->stash->{serializer}->output_error('Your credentials '.
         'could not be verified. Either you supplied the wrong credentials '.
@@ -80,7 +80,7 @@ sub unauthorized : Private
 sub not_found : Private
 {
     my ($self, $c) = @_;
-    $c->res->status(404);
+    $c->res->status(HTTP_NOT_FOUND);
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body($c->stash->{serializer}->output_error('Not Found'));
 }
@@ -95,10 +95,10 @@ sub invalid_mbid : Private
 sub method_not_allowed : Private {
     my ($self, $c) = @_;
 
-    $c->res->status(405);
+    $c->res->status(HTTP_METHOD_NOT_ALLOWED);
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body($c->stash->{serializer}->output_error(
-        $c->req->method . ' is not allowed on this endpoint.'
+        $c->req->method . ' is not allowed on this endpoint.',
     ));
 }
 
@@ -106,7 +106,7 @@ sub not_implemented : Private
 {
     my ($self, $c) = @_;
 
-    $c->res->status(501);
+    $c->res->status(HTTP_NOT_IMPLEMENTED);
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body($c->stash->{serializer}->output_error(q(This hasn't been implemented yet.)));
 }
@@ -184,7 +184,7 @@ sub _search
     my $result = $c->model('WebService')->xml_search($entity, $c->stash->{args});
     if (DBDefs->SEARCH_X_ACCEL_REDIRECT && exists $result->{redirect_url}) {
         $c->res->headers->header(
-            'X-Accel-Redirect' => $result->{redirect_url}
+            'X-Accel-Redirect' => $result->{redirect_url},
         );
     } else {
         $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
@@ -295,7 +295,7 @@ sub _limit_and_offset
 
     if (!(is_nat($limit) && is_nat($offset))) {
         $self->_error(
-            $c, q(The 'limit' and 'offset' parameters must be positive integers)
+            $c, q(The 'limit' and 'offset' parameters must be positive integers),
         );
     }
 
@@ -309,7 +309,7 @@ sub make_list
     return {
         items => $results,
         total => defined $total ? $total : scalar @$results,
-        offset => defined $offset ? $offset : 0
+        offset => defined $offset ? $offset : 0,
     };
 }
 
@@ -398,7 +398,7 @@ sub linked_recordings
         {
             $isrc_per_recording{$_->recording_id} = [] unless $isrc_per_recording{$_->recording_id};
             push @{ $isrc_per_recording{$_->recording_id} }, $_;
-        };
+        }
 
         for (@$recordings)
         {
@@ -524,7 +524,7 @@ sub _validate_post
             $h->content_type_charset eq 'UTF-8') {
         $c->stash->{error} = '/ws/2/ only supports POST in application/xml; charset=UTF-8';
         $c->forward('bad_req');
-        $c->res->status(415);
+        $c->res->status(HTTP_UNSUPPORTED_MEDIA_TYPE);
         $c->detach;
     }
 
@@ -613,7 +613,7 @@ sub load_relationships {
 
         my @load_language_for = (
             @releases,
-            map { $collect_works->($_) } (@rels, map { $_->all_relationships } @works)
+            map { $collect_works->($_) } (@rels, map { $_->all_relationships } @works),
         );
 
         $c->model('Language')->load(@load_language_for);

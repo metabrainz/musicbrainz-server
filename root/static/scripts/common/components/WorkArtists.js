@@ -24,7 +24,7 @@ type WorkArtistsProps = {
 
 const WorkArtists = ({artists}: WorkArtistsProps) => (
   <CollapsibleList
-    ariaLabel={l('Work Artists')}
+    ariaLabel={l('Work artists')}
     buildRow={buildWorkArtistRow}
     className="work-artists"
     rows={artists}

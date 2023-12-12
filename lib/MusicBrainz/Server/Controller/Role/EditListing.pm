@@ -23,7 +23,7 @@ sub edits : Chained('load') PathPart
         return sub {
             my ($limit, $offset) = @_;
             $c->model('Edit')->find({ $type => $entity->id }, $limit, $offset);
-        }
+        };
     });
 
     my $refine_url_args = {
@@ -60,7 +60,7 @@ sub open_edits : Chained('load') PathPart
         return sub {
             my ($limit, $offset) = @_;
             $c->model('Edit')->find({ $type => $entity->id, status => $STATUS_OPEN }, $limit, $offset);
-        }
+        };
     });
 
     my $refine_url_args = {

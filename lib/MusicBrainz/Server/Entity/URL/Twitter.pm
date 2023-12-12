@@ -14,7 +14,7 @@ sub sidebar_name {
     else {
         return 'Twitter';
     }
-};
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

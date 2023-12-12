@@ -4,7 +4,7 @@ use Moose;
 use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_DELETERELEASELABEL );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
 use MusicBrainz::Server::Edit::Utils qw( gid_or_id );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
@@ -13,12 +13,12 @@ use aliased 'MusicBrainz::Server::Entity::Release';
 use aliased 'MusicBrainz::Server::Entity::Label';
 
 extends 'MusicBrainz::Server::Edit';
-with 'MusicBrainz::Server::Edit::Role::Preview';
-with 'MusicBrainz::Server::Edit::Release::RelatedEntities';
-with 'MusicBrainz::Server::Edit::Release';
-with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
+with 'MusicBrainz::Server::Edit::Role::Preview',
+     'MusicBrainz::Server::Edit::Release::RelatedEntities',
+     'MusicBrainz::Server::Edit::Release',
+     'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
-sub edit_name { N_l('Remove release label') }
+sub edit_name { N_lp('Remove release label', 'edit type') }
 sub edit_kind { 'remove' }
 sub edit_type { $EDIT_RELEASE_DELETERELEASELABEL }
 sub edit_template { 'RemoveReleaseLabel' }
@@ -35,15 +35,15 @@ has '+data' => (
         release => Dict[
             id => Int,
             gid => Optional[Str],
-            name => Str
+            name => Str,
         ],
         label => Nullable[Dict[
             id => Int,
             gid => Optional[Str],
-            name => Str
+            name => Str,
         ]],
-        catalog_number => Nullable[Str]
-    ]
+        catalog_number => Nullable[Str],
+    ],
 );
 
 around '_build_related_entities' => sub {
@@ -83,14 +83,14 @@ sub build_display_data {
         catalog_number => $data->{catalog_number},
         release => to_json_object(
             $loaded->{Release}{ gid_or_id($data->{release}) } //
-            Release->new(name => $data->{release}{name})
+            Release->new(name => $data->{release}{name}),
         ),
     };
 
     if ($label) {
         $display_data->{label} = to_json_object(
             $loaded->{Label}{gid_or_id($label)} //
-            Label->new(name => $label->{name})
+            Label->new(name => $label->{name}),
         );
     }
 
@@ -118,15 +118,15 @@ sub initialize
         label => $release_label->label ? {
             id => $release_label->label->id,
             gid => $release_label->label->gid,
-            name => $release_label->label->name
+            name => $release_label->label->name,
         } : undef,
         release => {
             id => $release_label->release->id,
             gid => $release_label->release->gid,
-            name => $release_label->release->name
-        }
+            name => $release_label->release->name,
+        },
     });
-};
+}
 
 sub accept
 {

@@ -89,7 +89,7 @@ test 'Merging release labels' => sub {
         ok((grep { !defined($_->label_id) && $_->catalog_number eq 'MARVIN001' }
                 $release->all_labels),
            'has MARVIN001');
-    }
+    };
 };
 
 test 'Release labels are intelligently merged when one release label has a catalog and the other does not' => sub {

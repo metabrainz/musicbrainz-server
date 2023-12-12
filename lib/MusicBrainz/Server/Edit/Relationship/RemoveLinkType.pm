@@ -5,13 +5,13 @@ use MooseX::Types::Structured qw( Dict  Optional Tuple );
 use MusicBrainz::Server::Constants qw( $EDIT_RELATIONSHIP_REMOVE_LINK_TYPE );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
-use MusicBrainz::Server::Translation qw( l N_l );
+use MusicBrainz::Server::Translation qw( l N_lp );
 
 extends 'MusicBrainz::Server::Edit';
-with 'MusicBrainz::Server::Edit::Relationship';
-with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
+with 'MusicBrainz::Server::Edit::Relationship',
+     'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
-sub edit_name { N_l('Remove relationship type') }
+sub edit_name { N_lp('Remove relationship type', 'edit type') }
 sub edit_kind { 'remove' }
 sub edit_type { $EDIT_RELATIONSHIP_REMOVE_LINK_TYPE }
 sub edit_template { 'RemoveRelationshipType' }
@@ -30,8 +30,8 @@ has '+data' => (
             min  => Int,
             max  => Maybe[Int], # this can be undef, for "no maximum"
             type => Optional[Int], # Used in NGS edits
-        ]]
-    ]
+        ]],
+    ],
 );
 
 sub foreign_keys {
@@ -40,16 +40,16 @@ sub foreign_keys {
         LinkAttributeType => [
             grep { defined }
             map { $_->{type} }
-                @{ $self->data->{attributes} }
-            ]
-    }
+                @{ $self->data->{attributes} },
+            ],
+    };
 }
 
 sub accept {
     my $self = shift;
 
     MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
-        'This relationship type is currently in use'
+        'This relationship type is currently in use',
     ) if $self->c->model('LinkType')->in_use($self->data->{link_type_id});
 
     $self->c->model('LinkType')->delete($self->data->{link_type_id});
@@ -68,10 +68,10 @@ sub build_display_data {
         name => $self->data->{name},
         defined($self->data->{link_type_id}) ? (relationship_type => to_json_object(
             $loaded->{LinkType}{ $self->data->{link_type_id} } ||
-            MusicBrainz::Server::Entity::LinkType->new( name => $self->data->{name} ))
+            MusicBrainz::Server::Entity::LinkType->new( name => $self->data->{name} )),
         ) : (),
         reverse_link_phrase => $self->data->{reverse_link_phrase},
-    }
+    };
 }
 
 sub _build_attributes {
@@ -83,11 +83,11 @@ sub _build_attributes {
                 max => $_->{max},
                 type => $loaded->{LinkAttributeType}{ $_->{type} } ||
                     MusicBrainz::Server::Entity::LinkAttributeType->new(
-                        name => ($_->{name} || l('[removed]'))
-                    )
+                        name => ($_->{name} || l('[removed]')),
+                    ),
                   ))
-          } @$list
-    ]
+          } @$list,
+    ];
 }
 
 before restore => sub {
@@ -98,3 +98,5 @@ before restore => sub {
 
 no Moose;
 __PACKAGE__->meta->make_immutable;
+
+1;

@@ -19,7 +19,7 @@ around inflate_rows => sub {
     my $items = $self->$orig(@_);
 
     my $works = $self->c->model('Work')->get_by_ids(
-        map { $_->{work_id} } @$items
+        map { $_->{work_id} } @$items,
     );
 
     $self->_load_extra_work_info(values %$works);
@@ -28,7 +28,7 @@ around inflate_rows => sub {
         map +{
             %$_,
             work => to_json_object($works->{ $_->{work_id} }),
-        }, @$items
+        }, @$items,
     ];
 };
 

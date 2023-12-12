@@ -27,7 +27,7 @@ has edit => (
     is => 'ro',
     lazy => 1,
     clearer => '_clear_edit',
-    builder => '_build_edit'
+    builder => '_build_edit',
 );
 
 test 'Entering makes no changes' => sub {
@@ -93,7 +93,7 @@ test 'Can edit 2 URLs into a common URL' => sub {
             editor_id => 1,
             privileges => 1,
             to_edit => $test->c->model('URL')->get_by_id($url_to_edit),
-            url => 'http://lalalalala.horse/'
+            url => 'http://lalalalala.horse/',
         );
     };
 

@@ -40,8 +40,15 @@ has 'timezone' => (
 has [qw(email_on_no_vote email_on_notes email_on_vote)] => (
     isa => 'Bool',
     default => 1,
-    is =>'rw',
-    lazy => 1
+    is => 'rw',
+    lazy => 1,
+);
+
+has 'email_on_abstain' => (
+    isa => 'Bool',
+    default => sub { shift->email_on_vote },
+    is => 'rw',
+    lazy => 1,
 );
 
 has [qw( subscribe_to_created_artists
@@ -49,8 +56,8 @@ has [qw( subscribe_to_created_artists
          subscribe_to_created_series )] => (
     isa => 'Bool',
     default => 1,
-    is =>'rw',
-    lazy => 1
+    is => 'rw',
+    lazy => 1,
 );
 
 has 'subscriptions_email_period' => (
@@ -67,6 +74,7 @@ sub TO_JSON {
         datetime_format => $self->datetime_format,
         subscriptions_email_period => $self->subscriptions_email_period,
         timezone => $self->timezone,
+        email_on_abstain => boolean_to_json($self->email_on_abstain),
         email_on_no_vote => boolean_to_json($self->email_on_no_vote),
         email_on_notes => boolean_to_json($self->email_on_notes),
         email_on_vote => boolean_to_json($self->email_on_vote),

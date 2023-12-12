@@ -217,7 +217,7 @@ sub run_impl {
             die (
                 'The next replication sequence to process does not equal ' .
                 'the current_replication_sequence in the ' .
-                'replication_control table.'
+                'replication_control table.',
             ) if ($start_sequence != $current_replication_sequence);
 
             log_info { 'Clearing the entity cache' };

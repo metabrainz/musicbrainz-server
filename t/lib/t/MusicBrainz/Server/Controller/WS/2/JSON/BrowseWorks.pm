@@ -6,7 +6,7 @@ use warnings;
 use JSON;
 use Test::Routine;
 use MusicBrainz::Server::Test ws_test_json => {
-    version => 2
+    version => 2,
 };
 
 with 't::Mechanize', 't::Context';
@@ -75,7 +75,7 @@ test 'browse works via artist (first page)' => sub {
                     languages => [],
                     type => JSON::null,
                     'type-id' => JSON::null,
-                }]
+                }],
         };
 };
 
@@ -144,7 +144,7 @@ test 'browse works via artist (second page)' => sub {
                     languages => [],
                     type => JSON::null,
                     'type-id' => JSON::null,
-                }]
+                }],
         };
 };
 

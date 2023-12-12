@@ -115,7 +115,7 @@ sub create_edit {
         editor_id => 1,
         name => 'Standalone recording',
         artist_credit => {
-            names => [{ artist => { id => 1 }, name => 'Test artist' }]
+            names => [{ artist => { id => 1 }, name => 'Test artist' }],
         },
         length => 12345,
         comment => 'Recording comment',

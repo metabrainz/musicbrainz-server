@@ -11,25 +11,25 @@ use aliased 'MusicBrainz::Server::Entity::Editor';
 has 'c' => (
     is => 'ro',
     isa => 'Object',
-    required => 1
+    required => 1,
 );
 
 has 'log' => (
     is => 'ro',
     isa => 'Object',
-    default => sub { shift->c->log }
+    default => sub { shift->c->log },
 );
 
 has 'dry_run' => (
     is => 'ro',
     isa => 'Bool',
-    default => 0
+    default => 0,
 );
 
 has 'summary' => (
     is => 'ro',
     isa => 'Bool',
-    default => 0
+    default => 0,
 );
 
 my %action_name = (
@@ -40,7 +40,7 @@ my %action_name = (
     $STATUS_FAILEDPREREQ => 'failed prereq',
     $STATUS_NOVOTES => 'no votes',
     $STATUS_DELETED => 'deleted',
-    $STATUS_ERROR => 'error'
+    $STATUS_ERROR => 'error',
 );
 
 sub process_edits
@@ -84,7 +84,7 @@ sub process_edits
         capture_exceptions(sub {
             my $action;
             Sql::run_in_transaction(sub {
-                $action = $self->_process_edit($edit_id) || 'no change'
+                $action = $self->_process_edit($edit_id) || 'no change';
             }, $sql);
             $stats{$action} += 1;
         }, sub {
@@ -164,8 +164,8 @@ sub _process_open_edit
                 $edit->id,
                 {
                     editor_id => $EDITOR_MODBOT,
-                    text => 'This edit failed because it affected high quality data and did not receive any votes.'
-                }
+                    text => 'This edit failed because it affected high quality data and did not receive any votes.',
+                },
             );
             $self->c->model('Edit')->reject($edit, $status);
         }

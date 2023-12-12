@@ -25,7 +25,7 @@ const DeleteRelationshipType = ({
        <strong>{link_type}</strong> relationship type?`,
       {link_type: type.name},
     )}
-    title={l('Remove Relationship Type')}
+    title={l('Remove relationship type')}
   />
 );
 

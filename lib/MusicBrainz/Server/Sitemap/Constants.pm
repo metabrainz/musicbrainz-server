@@ -43,7 +43,7 @@ our Readonly %SITEMAP_SUFFIX_INFO = map {
     my $suffix_info = {
         base => {
             jsonld_markup => ($entity_properties->{sitemaps_lastmod_table} ? 1 : 0),
-        }
+        },
     };
 
     if ($entity_type eq 'artist') {
@@ -56,7 +56,7 @@ our Readonly %SITEMAP_SUFFIX_INFO = map {
             paginated => 'all_rg_count',
             suffix => 'all=1',
             filename_suffix => 'all',
-            suffix_delimiter => '?'
+            suffix_delimiter => '?',
         };
         $suffix_info->{va} = {
             extra_sql => {columns => '(SELECT count(rg) FROM tmp_sitemaps_artist_va_rgs tsavr WHERE tsavr.artist = artist.id AND is_official) official_va_rg_count'},
@@ -142,7 +142,7 @@ our Readonly %SITEMAP_SUFFIX_INFO = map {
 
     if ($entity_type eq 'label') {
         $suffix_info->{base}{extra_sql} = {
-            columns => '(SELECT count(DISTINCT release) FROM release_label WHERE release_label.label = label.id) release_count'
+            columns => '(SELECT count(DISTINCT release) FROM release_label WHERE release_label.label = label.id) release_count',
         };
         $suffix_info->{base}{paginated} = 'release_count';
     }
@@ -217,12 +217,12 @@ our Readonly %SITEMAP_SUFFIX_INFO = map {
                 }
                 return {base => [], paginated => \@paginated_urls};
             },
-        }
+        };
     }
 
     if ($entity_type eq 'release_group') {
         $suffix_info->{base}{extra_sql} = {
-            columns => '(SELECT count(DISTINCT release.id) FROM release WHERE release.release_group = release_group.id) release_count'
+            columns => '(SELECT count(DISTINCT release.id) FROM release WHERE release.release_group = release_group.id) release_count',
         };
         $suffix_info->{base}{paginated} = 'release_count';
     }
@@ -263,7 +263,7 @@ our Readonly %SITEMAP_SUFFIX_INFO = map {
         if ($entity_properties->{mbid}{relatable} eq 'dedicated') {
             my @tables = MusicBrainz::Server::Data::Relationship->generate_table_list(
                 $entity_type,
-                grep { $_ ne 'url' } @RELATABLE_ENTITIES
+                grep { $_ ne 'url' } @RELATABLE_ENTITIES,
             );
 
             my $select = join(' UNION ALL ', map {
@@ -294,7 +294,7 @@ our Readonly %SITEMAP_SUFFIX_INFO = map {
             if ($tabs{$tab} && !$suffix_info->{$tab}) {
                 $suffix_info->{$tab} = {
                     suffix => $tab,
-                    priority => sub { return $SECONDARY_PAGE_PRIORITY }
+                    priority => sub { return $SECONDARY_PAGE_PRIORITY },
                 };
             }
         }

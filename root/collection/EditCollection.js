@@ -29,7 +29,7 @@ const EditCollection = ({
     entity={collection}
     fullWidth
     page="edit"
-    title={l('Edit')}
+    title={lp('Edit', 'verb, header')}
   >
     <CollectionEditForm collectionTypes={collectionTypes} form={form} />
     {manifest.js('collection/edit')}

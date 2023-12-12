@@ -1,7 +1,7 @@
-[% WRAPPER "release/layout.tt" title=lp('Reorder Cover Art', 'header') page='reorder_cover_art' %]
+[% WRAPPER "release/layout.tt" title=lp('Reorder cover art', 'plural, header') page='reorder_cover_art' %]
   [%- script_manifest('release/coverart.js') -%]
 
-  <h2>[%- lp('Reorder Cover Art', 'header') -%]</h2>
+  <h2>[%- lp('Reorder cover art', 'plural, header') -%]</h2>
 
   <form id="reorder-cover-art" class="cover-art" action="[% c.req.uri %]" method="post">
     [%- USE r = FormRenderer(form) -%]

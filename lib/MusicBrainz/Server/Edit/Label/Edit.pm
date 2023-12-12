@@ -18,7 +18,7 @@ use MusicBrainz::Server::Edit::Utils qw(
 use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Validation qw( normalise_strings );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 
 use MooseX::Types::Moose qw( ArrayRef Bool Int Str );
 use MooseX::Types::Structured qw( Dict Optional );
@@ -27,19 +27,19 @@ use aliased 'MusicBrainz::Server::Entity::Label';
 use aliased 'MusicBrainz::Server::Entity::Area';
 
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
-with 'MusicBrainz::Server::Edit::Label';
-with 'MusicBrainz::Server::Edit::CheckForConflicts';
-with 'MusicBrainz::Server::Edit::Role::IPI';
-with 'MusicBrainz::Server::Edit::Role::ISNI';
-with 'MusicBrainz::Server::Edit::Role::DatePeriod';
-with 'MusicBrainz::Server::Edit::Role::CheckDuplicates';
-with 'MusicBrainz::Server::Edit::Role::AllowAmending' => {
-    create_edit_type => $EDIT_LABEL_CREATE,
-    entity_type => 'label',
-};
+with 'MusicBrainz::Server::Edit::Label',
+     'MusicBrainz::Server::Edit::CheckForConflicts',
+     'MusicBrainz::Server::Edit::Role::IPI',
+     'MusicBrainz::Server::Edit::Role::ISNI',
+     'MusicBrainz::Server::Edit::Role::DatePeriod',
+     'MusicBrainz::Server::Edit::Role::CheckDuplicates',
+     'MusicBrainz::Server::Edit::Role::AllowAmending' => {
+        create_edit_type => $EDIT_LABEL_CREATE,
+        entity_type => 'label',
+     };
 
 sub edit_type { $EDIT_LABEL_EDIT }
-sub edit_name { N_l('Edit label') }
+sub edit_name { N_lp('Edit label', 'edit type') }
 sub edit_template { 'EditLabel' }
 sub _edit_model { 'Label' }
 sub label_id { shift->entity_id }
@@ -57,7 +57,7 @@ sub change_fields
         isni_codes  => Optional[ArrayRef[Str]],
         begin_date => Nullable[PartialDateHash],
         end_date   => Nullable[PartialDateHash],
-        ended      => Optional[Bool]
+        ended      => Optional[Bool],
     ];
 }
 
@@ -66,11 +66,11 @@ has '+data' => (
         entity => Dict[
             id => Int,
             gid => Optional[Str],
-            name => Str
+            name => Str,
         ],
         new => change_fields(),
         old => change_fields(),
-    ]
+    ],
 );
 
 sub foreign_keys
@@ -98,7 +98,7 @@ sub build_display_data
         label_code => 'label_code',
         comment    => 'comment',
         area       => [ qw( area_id Area ) ],
-        ended      => 'ended'
+        ended      => 'ended',
     );
 
     my $data = changed_display_data($self->data, $loaded, %map);
@@ -115,7 +115,7 @@ sub build_display_data
 
     $data->{label} = to_json_object(
         $loaded->{Label}{ $self->data->{entity}{id} } ||
-        Label->new( name => $self->data->{entity}{name} )
+        Label->new( name => $self->data->{entity}{name} ),
     );
 
     if (exists $self->data->{new}{ipi_codes}) {
@@ -210,7 +210,7 @@ around allow_auto_edit => sub {
 
 sub current_instance {
     my $self = shift;
-    $self->c->model('Label')->get_by_id($self->entity_id),
+    $self->c->model('Label')->get_by_id($self->entity_id);
 }
 
 sub _edit_hash {

@@ -4,9 +4,9 @@ use Moose;
 use MusicBrainz::Server::Entity::Types;
 
 extends 'MusicBrainz::Server::Entity';
-with 'MusicBrainz::Server::Entity::Role::Relatable';
-with 'MusicBrainz::Server::Entity::Role::Annotation';
-with 'MusicBrainz::Server::Entity::Role::Comment';
+with 'MusicBrainz::Server::Entity::Role::Annotation',
+     'MusicBrainz::Server::Entity::Role::Comment',
+     'MusicBrainz::Server::Entity::Role::Relatable';
 
 sub entity_type { 'genre' }
 

@@ -43,7 +43,7 @@ const ArtistRoles = ({
   relations,
 }: ArtistRolesProps): React$MixedElement => (
   <CollapsibleList
-    ariaLabel={l('Artist Roles')}
+    ariaLabel={l('Artist roles')}
     buildRow={buildArtistRoleRow}
     className="artist-roles"
     rows={relations}

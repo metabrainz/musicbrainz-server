@@ -29,11 +29,11 @@ const DocError = ({
   const useGoogleCustomSearch = !!DBDefs.GOOGLE_CUSTOM_SEARCH;
 
   return (
-    <Layout fullWidth title={l('Page Not Found')}>
+    <Layout fullWidth title={l('Page not found')}>
       <div className="wikicontent" id="content">
         {useGoogleCustomSearch ? <DocSearchBox /> : null}
 
-        <h1>{l('Page Not Found')}</h1>
+        <h1>{l('Page not found')}</h1>
 
         <p>
           <strong>

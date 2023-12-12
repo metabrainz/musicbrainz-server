@@ -11,12 +11,12 @@ sub entity_type { 'place_alias' }
 
 has 'place_id' => (
     is => 'rw',
-    isa => 'Int'
+    isa => 'Int',
 );
 
 has 'place' => (
     is => 'rw',
-    isa => 'Place'
+    isa => 'Place',
 );
 
 __PACKAGE__->meta->make_immutable;

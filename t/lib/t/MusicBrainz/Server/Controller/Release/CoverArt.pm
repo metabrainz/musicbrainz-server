@@ -30,7 +30,7 @@ test all => sub {
             },
             'creditedTo' => 'Artist',
             '@id' => 'http://musicbrainz.org/release-group/54b9d183-7dab-42ba-94a3-7388a66604b8',
-            'name' => 'Release'
+            'name' => 'Release',
         },
         'name' => 'Release',
         'creditedTo' => 'Artist',
@@ -45,20 +45,20 @@ test all => sub {
                 {
                     '@type' => 'ImageObject',
                     'contentUrl' => DBDefs->COVER_ART_ARCHIVE_DOWNLOAD_PREFIX . '/release/14b9d183-7dab-42ba-94a3-7388a66604b8/12345-250.jpg',
-                    'encodingFormat' => 'jpg'
+                    'encodingFormat' => 'jpg',
                 },
                 {
                     'encodingFormat' => 'jpg',
                     'contentUrl' => DBDefs->COVER_ART_ARCHIVE_DOWNLOAD_PREFIX . '/release/14b9d183-7dab-42ba-94a3-7388a66604b8/12345-500.jpg',
-                    '@type' => 'ImageObject'
+                    '@type' => 'ImageObject',
                 },
                 {
                     'encodingFormat' => 'jpg',
                     'contentUrl' => DBDefs->COVER_ART_ARCHIVE_DOWNLOAD_PREFIX . '/release/14b9d183-7dab-42ba-94a3-7388a66604b8/12345-1200.jpg',
-                    '@type' => 'ImageObject'
-                }
-            ]
-        }
+                    '@type' => 'ImageObject',
+                },
+            ],
+        },
     };
 };
 

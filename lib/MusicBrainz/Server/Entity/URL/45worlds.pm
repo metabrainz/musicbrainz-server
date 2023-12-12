@@ -17,7 +17,7 @@ sub sidebar_name {
     else {
         return '45worlds';
     }
-};
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

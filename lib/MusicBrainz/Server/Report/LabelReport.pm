@@ -15,7 +15,7 @@ around inflate_rows => sub {
     my $items = $self->$orig(@_);
 
     my $labels = $self->c->model('Label')->get_by_ids(
-        map { $_->{label_id} } @$items
+        map { $_->{label_id} } @$items,
     );
     $self->c->model('LabelType')->load(values %$labels);
 
@@ -23,7 +23,7 @@ around inflate_rows => sub {
         map +{
             %$_,
             label => to_json_object($labels->{ $_->{label_id} }),
-        }, @$items
+        }, @$items,
     ];
 };
 

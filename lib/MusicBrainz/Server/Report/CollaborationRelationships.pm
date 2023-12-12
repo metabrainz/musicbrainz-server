@@ -29,7 +29,7 @@ sub inflate_rows
 {
     my ($self, $items) = @_;
     my $artists = $self->c->model('Artist')->get_by_ids(
-        map { $_->{id0}, $_->{id1} } @$items
+        map { $_->{id0}, $_->{id1} } @$items,
     );
 
     return [
@@ -37,7 +37,7 @@ sub inflate_rows
             %$_,
             artist0 => to_json_object($artists->{ $_->{id0} }),
             artist1 => to_json_object($artists->{ $_->{id1} }),
-        }, @$items
+        }, @$items,
     ];
 }
 
@@ -50,7 +50,7 @@ sub filter_sql {
            JOIN editor_subscribe_artist esa ON esa.artist = inner_report.id0 OR esa.artist = inner_report.id1
            WHERE esa.editor = ?
          )",
-        $editor_id
+        $editor_id,
     );
 }
 

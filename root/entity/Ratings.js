@@ -94,14 +94,14 @@ const Ratings = ({
             {mostRecentReview ? (
               <CritiqueBrainzReview
                 review={mostRecentReview}
-                title={l('Most Recent')}
+                title={l('Most recent')}
               />
             ) : null}
             {mostPopularReview &&
               mostPopularReview.id !== mostRecentReview.id ? (
                 <CritiqueBrainzReview
                   review={mostPopularReview}
-                  title={l('Most Popular')}
+                  title={l('Most popular')}
                 />
               ) : null}
           </div>

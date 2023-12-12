@@ -9,7 +9,7 @@ sub ngs_class {  }
 sub edit_type {
     my $self = shift;
     return unless $self->ngs_class;
-    $self->ngs_class->edit_type
+    $self->ngs_class->edit_type;
 }
 
 sub _create_edit
@@ -31,7 +31,7 @@ sub _create_edit
         close_time   => $self->close_time,
         data         => $data,
         $self->extra_parameters,
-    )
+    );
 }
 
 sub upgrade

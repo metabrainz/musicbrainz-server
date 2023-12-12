@@ -30,7 +30,7 @@ has '_json' => (
     is => 'ro',
     default => sub {
         JSON->new->allow_nonref->allow_blessed->convert_blessed->ascii;
-    }
+    },
 );
 
 sub _encode_value {

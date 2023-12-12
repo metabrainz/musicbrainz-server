@@ -32,9 +32,9 @@ const DeleteArea = ({
     entity={area}
     fullWidth
     page="delete"
-    title={l('Remove Area')}
+    title={lp('Remove area', 'header')}
   >
-    <h2>{l('Remove Area')}</h2>
+    <h2>{lp('Remove area', 'header')}</h2>
 
     {isReleaseCountry ? (
       <p>

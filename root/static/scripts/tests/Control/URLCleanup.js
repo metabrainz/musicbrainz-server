@@ -3108,6 +3108,12 @@ limited_link_type_combinations: [
             expected_clean_url: 'https://www.jazzmusicarchives.com/album/rita-marcotulli(italy)/summer',
        only_valid_entity_types: ['release_group'],
   },
+  {
+                     input_url: 'https://www.jazzmusicarchives.com/video/gary-wilson/34605',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'otherdatabases',
+       only_valid_entity_types: ['recording'],
+  },
   // JOYSOUND
   {
                      input_url: 'https://www.joysound.com/web/search/artist/5169?startIndex=20#songlist',
@@ -3797,6 +3803,12 @@ limited_link_type_combinations: [
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'https://www.metalmusicarchives.com/album/sunn-o/lxndxn-subcamden-underworld-halloween-2003(live)',
        only_valid_entity_types: ['release_group'],
+  },
+  {
+                     input_url: 'https://www.metalmusicarchives.com/video/humankind/23333',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'otherdatabases',
+       only_valid_entity_types: ['recording'],
   },
   // Migu Music
   {
@@ -4783,6 +4795,12 @@ limited_link_type_combinations: [
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'https://www.progarchives.com/album.asp?id=1823',
        only_valid_entity_types: ['release_group'],
+  },
+  {
+                     input_url: 'https://www.progarchives.com/video.asp?id=7855',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'otherdatabases',
+       only_valid_entity_types: ['recording'],
   },
   {
                      input_url: 'https://www.progarchives.com/Collaborators.asp?id=9702',
@@ -6070,6 +6088,44 @@ limited_link_type_combinations: [
     expected_relationship_type: 'socialnetwork',
             expected_clean_url: 'https://vk.com/tin_sontsya',
   },
+  // vkgy
+  {
+                     input_url: 'http://www.vk.gy/artists/skull/',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://vk.gy/artists/skull/',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://vk.gy/musicians/1199/akira/',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://vk.gy/lives/121191/2023-12-10-shinsaibashi-big-twin-diner-panhead-groove/',
+             input_entity_type: 'event',
+    expected_relationship_type: 'otherdatabases',
+       only_valid_entity_types: ['event'],
+  },
+  {
+                     input_url: 'https://vk.gy/labels/speed-disk/',
+             input_entity_type: 'label',
+    expected_relationship_type: 'otherdatabases',
+       only_valid_entity_types: ['label'],
+  },
+  {
+                     input_url: 'https://vk.gy/livehouses/shinsaibashi-big-twin-diner-panhead-groove/',
+             input_entity_type: 'place',
+    expected_relationship_type: 'otherdatabases',
+       only_valid_entity_types: ['place'],
+  },
+  {
+                     input_url: 'https://vk.gy/releases/skull/9559/hysteric-media-zone/',
+             input_entity_type: 'release',
+    expected_relationship_type: 'otherdatabases',
+       only_valid_entity_types: ['release'],
+  },
   // VNDB
   {
                      input_url: 'http://www.vndb.org/s5406/hist',
@@ -6538,6 +6594,41 @@ limited_link_type_combinations: [
              input_entity_type: 'artist',
     expected_relationship_type: undefined,
        input_relationship_type: 'youtube',
+       only_valid_entity_types: [],
+                expected_error: {
+                                  error: 'a link to a search result',
+                                  target: 'url',
+                                },
+  },
+  // YouTube Music
+  {
+                     input_url: 'http://music.youtube.com/channel/UCj-kjIXQvPmn_rtobjiszEg',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'youtubemusic',
+            expected_clean_url: 'https://music.youtube.com/channel/UCj-kjIXQvPmn_rtobjiszEg',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://music.youtube.com/playlist?list=OLAK5uy_lcx2mROj6Pf7bLJzgYWtl73ILCEKjnrKY&src=Linkfire&lId=c8d7d454-d63c-4bba-a34c-2512e803dadb&cId=d3d58fd7-4c47-11e6-9fd0-066c3e7a8751',
+             input_entity_type: 'release',
+       input_relationship_type: 'streamingfree',
+limited_link_type_combinations: ['streamingfree', 'streamingpaid'],
+            expected_clean_url: 'https://music.youtube.com/playlist?list=OLAK5uy_lcx2mROj6Pf7bLJzgYWtl73ILCEKjnrKY',
+       only_valid_entity_types: ['label', 'release'],
+  },
+  {
+                     input_url: 'https://music.youtube.com/watch?v=fpEC3cj33cA&list=OLAK5uy_kg1hU8SEra2vk_5muDDv7XG9AfTjWXc-8',
+             input_entity_type: 'recording',
+       input_relationship_type: 'streamingfree',
+limited_link_type_combinations: ['streamingfree', 'streamingpaid'],
+            expected_clean_url: 'https://music.youtube.com/watch?v=fpEC3cj33cA',
+       only_valid_entity_types: ['label', 'recording'],
+  },
+  {
+                     input_url: 'https://music.youtube.com/search?q=nublu',
+             input_entity_type: 'artist',
+    expected_relationship_type: undefined,
+       input_relationship_type: 'youtubemusic',
        only_valid_entity_types: [],
                 expected_error: {
                                   error: 'a link to a search result',

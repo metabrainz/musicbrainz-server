@@ -2,6 +2,7 @@ package t::MusicBrainz::Server::Controller::Genre::Edit;
 use strict;
 use warnings;
 
+use HTTP::Status qw( :constants );
 use Test::Routine;
 use Test::More;
 use MusicBrainz::Server::Test qw( capture_edits html_ok );
@@ -22,7 +23,7 @@ test 'Editing a genre' => sub {
 
     $mech->get('/login');
     $mech->submit_form(
-        with_fields => { username => 'genre_editor', password => 'pass' }
+        with_fields => { username => 'genre_editor', password => 'pass' },
     );
 
     $mech->get_ok(
@@ -85,13 +86,13 @@ test 'Genre editing is blocked for unprivileged users' => sub {
 
     $mech->get('/login');
     $mech->submit_form(
-        with_fields => { username => 'boring_editor', password => 'pass' }
+        with_fields => { username => 'boring_editor', password => 'pass' },
     );
 
     $mech->get('/genre/ceeaa283-5d7b-4202-8d1d-e25d116b2a18/edit');
     is(
         $mech->status,
-        403,
+        HTTP_FORBIDDEN,
         'Trying to edit a genre without the right privileges gives a 403 Forbidden error',
     );
 };

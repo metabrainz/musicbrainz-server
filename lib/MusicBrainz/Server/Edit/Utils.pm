@@ -10,7 +10,7 @@ use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref coordinates_to_has
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Entity::ArtistCredit;
 use MusicBrainz::Server::Entity::ArtistCreditName;
-use MusicBrainz::Server::Translation qw( N_l N_lp );
+use MusicBrainz::Server::Translation qw( N_lp );
 use Scalar::Util qw( blessed );
 use Set::Scalar;
 
@@ -58,7 +58,7 @@ sub verify_artist_credits
             push @artist_ids, $_->{artist}->{id};
             if ($_->{name} eq '') {
                 MusicBrainz::Server::Edit::Exceptions::GeneralError->throw(
-                    'The credited-as name in an artist credit cannot be empty'
+                    'The credited-as name in an artist credit cannot be empty',
                 );
             }
         }
@@ -68,8 +68,8 @@ sub verify_artist_credits
 
     if (@artists != uniq @artist_ids) {
         MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
-            'An artist that is used in the new artist credits has been deleted'
-        )
+            'An artist that is used in the new artist credits has been deleted',
+        );
     }
 }
 
@@ -129,7 +129,7 @@ sub artist_credit_from_loaded_definition
         my $ac = MusicBrainz::Server::Entity::ArtistCreditName->new(
             name => $ac_name->{name},
             artist => $loaded->{Artist}->{ $ac_name->{artist}->{id} } ||
-                Artist->new( $ac_name->{artist} )
+                Artist->new( $ac_name->{artist} ),
         );
 
         $ac->join_phrase($ac_name->{join_phrase}) if defined $ac_name->{join_phrase};
@@ -137,7 +137,7 @@ sub artist_credit_from_loaded_definition
     }
 
     return MusicBrainz::Server::Entity::ArtistCredit->new(
-        names => \@names
+        names => \@names,
     );
 }
 
@@ -171,7 +171,7 @@ sub artist_credit_preview
     }
 
     return MusicBrainz::Server::Entity::ArtistCredit->new(
-        names => \@names
+        names => \@names,
     );
 }
 
@@ -261,21 +261,21 @@ sub changed_display_data
         $display->{$tt_field} = {
             new => defined $new ? (defined $model ? $loaded->{$model}->{$new} : $new) : undef,
             old => defined $old ? (defined $model ? $loaded->{$model}->{$old} : $old) : undef,
-        }
+        };
     }
 
     return $display;
 }
 
 our @STATUS_MAP = (
-    [ $STATUS_OPEN         => N_l('Open') ],
-    [ $STATUS_APPLIED      => N_l('Applied') ],
-    [ $STATUS_FAILEDVOTE   => N_l('Failed vote') ],
-    [ $STATUS_FAILEDDEP    => N_l('Failed dependency') ],
-    [ $STATUS_ERROR        => N_l('Error') ],
-    [ $STATUS_FAILEDPREREQ => N_l('Failed prerequisite') ],
-    [ $STATUS_NOVOTES      => N_l('No votes') ],
-    [ $STATUS_DELETED      => N_lp('Cancelled', 'edit') ],
+    [ $STATUS_OPEN         => N_lp('Open', 'adjective, edit status') ],
+    [ $STATUS_APPLIED      => N_lp('Applied', 'edit status') ],
+    [ $STATUS_FAILEDVOTE   => N_lp('Failed vote', 'edit status') ],
+    [ $STATUS_FAILEDDEP    => N_lp('Failed dependency', 'edit status') ],
+    [ $STATUS_ERROR        => N_lp('Error', 'edit status') ],
+    [ $STATUS_FAILEDPREREQ => N_lp('Failed prerequisite', 'edit status') ],
+    [ $STATUS_NOVOTES      => N_lp('No votes', 'edit status') ],
+    [ $STATUS_DELETED      => N_lp('Cancelled', 'edit status') ],
 );
 our %STATUS_NAMES = map { @$_ } @STATUS_MAP;
 
@@ -298,11 +298,11 @@ sub status_names
 }
 
 sub hash_artist_credit {
-    return _hash_artist_credit(shift)
+    return _hash_artist_credit(shift);
 }
 
 sub hash_artist_credit_without_join_phrases {
-    return _hash_artist_credit(shift, 1)
+    return _hash_artist_credit(shift, 1);
 }
 
 sub _hash_artist_credit {

@@ -23,7 +23,7 @@ test 'Editing a label' => sub {
 
     $mech->get('/login');
     $mech->submit_form(
-        with_fields => { username => 'new_editor', password => 'password' }
+        with_fields => { username => 'new_editor', password => 'password' },
     );
 
     $mech->get_ok(

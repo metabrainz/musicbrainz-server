@@ -7,6 +7,7 @@ use Carp;
 use Sql;
 use MusicBrainz::Server::Entity::Collection;
 use MusicBrainz::Server::Data::Utils qw(
+    hash_to_row
     load_subobjects
     placeholders
 );
@@ -14,17 +15,17 @@ use List::AllUtils qw( any uniq uniq_by zip );
 use MusicBrainz::Server::Constants qw( entities_with );
 
 extends 'MusicBrainz::Server::Data::Entity';
-with 'MusicBrainz::Server::Data::Role::EntityModelClass';
-with 'MusicBrainz::Server::Data::Role::GetByGID';
-with 'MusicBrainz::Server::Data::Role::MainTable';
-with 'MusicBrainz::Server::Data::Role::GID';
-with 'MusicBrainz::Server::Data::Role::GIDRedirect';
-with 'MusicBrainz::Server::Data::Role::Name';
-with 'MusicBrainz::Server::Data::Role::Subscription' => {
-    table => 'editor_subscribe_collection',
-    column => 'collection',
-    active_class => 'MusicBrainz::Server::Entity::CollectionSubscription'
-};
+with 'MusicBrainz::Server::Data::Role::EntityModelClass',
+     'MusicBrainz::Server::Data::Role::GetByGID',
+     'MusicBrainz::Server::Data::Role::MainTable',
+     'MusicBrainz::Server::Data::Role::GID',
+     'MusicBrainz::Server::Data::Role::GIDRedirect',
+     'MusicBrainz::Server::Data::Role::Name',
+     'MusicBrainz::Server::Data::Role::Subscription' => {
+        table => 'editor_subscribe_collection',
+        column => 'collection',
+        active_class => 'MusicBrainz::Server::Entity::CollectionSubscription',
+     };
 
 sub _type { 'collection' }
 
@@ -174,7 +175,7 @@ sub merge {
 
     # Move all collaborators to the destination collection
     $self->set_collaborators(
-        $new_id, \@collaborators
+        $new_id, \@collaborators,
     ) if @collaborators;
 
     # Remove all collaborators from the collection(s) being merged
@@ -363,7 +364,7 @@ sub _insert_hook_after_each {
     my ($self, $created, $collection) = @_;
 
     $self->set_collaborators(
-        $created->{id}, $collection->{collaborators}
+        $created->{id}, $collection->{collaborators},
     ) if $collection->{collaborators};
 }
 
@@ -390,7 +391,7 @@ sub update {
     croak '$collection_id must be present and > 0' unless $collection_id > 0;
 
     $self->set_collaborators(
-        $collection_id, $update->{collaborators}
+        $collection_id, $update->{collaborators},
     ) if $update->{collaborators};
 
     my $row = $self->_hash_to_row($update);
@@ -441,8 +442,8 @@ sub delete_editor {
     $self->delete(
         @{ $self->sql->select_single_column_array(
             'SELECT id FROM editor_collection WHERE editor = ?',
-            $editor_id
-        ) }
+            $editor_id,
+        ) },
     );
 }
 
@@ -457,7 +458,7 @@ sub set_collaborators {
         map +{
             collection => $collection_id,
             editor     => $_->{id},
-        }, @$collaborators
+        }, @$collaborators,
     );
 
     # Remove non-owner, no-longer-collaborator subscriptions if collection is private
@@ -480,16 +481,14 @@ sub set_collaborators {
 }
 
 sub _hash_to_row {
-    my ($self, $values) = @_;
+    my ($self, $collection) = @_;
 
-    my %row = (
-        name => $values->{name},
-        public => $values->{public},
-        description => $values->{description},
-        type => $values->{type_id},
-    );
+    my $row = hash_to_row($collection, {
+        type    => 'type_id',
+        map { $_ => $_ } qw( description name public ),
+    });
 
-    return \%row;
+    return $row;
 }
 
 __PACKAGE__->meta->make_immutable;

@@ -6,7 +6,7 @@ with 'MusicBrainz::Server::Report::ReleaseReport',
      'MusicBrainz::Server::Report::FilterForEditor::ReleaseID';
 
 sub query {
-    <<~'SQL'
+    <<~'SQL';
     SELECT
         release.id AS release_id,
         row_number() OVER (ORDER BY ac.name COLLATE musicbrainz, release.name COLLATE musicbrainz)

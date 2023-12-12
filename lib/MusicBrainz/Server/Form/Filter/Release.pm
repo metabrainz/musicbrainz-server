@@ -61,7 +61,7 @@ sub options_artist_credit_id {
     my ($self, $field) = @_;
     return [
         map +{ value => $_->id, label => $_->name },
-        @{ $self->artist_credits }
+        @{ $self->artist_credits },
     ];
 }
 
@@ -69,7 +69,7 @@ sub options_country_id {
     my ($self, $field) = @_;
     return [
         map +{ value => $_->id, label => $_->name },
-        @{ $self->countries }
+        @{ $self->countries },
     ];
 }
 
@@ -77,7 +77,7 @@ sub options_label_id {
     my ($self, $field) = @_;
     return [
         map +{ value => $_->id, label => $_->name },
-        @{ $self->labels }
+        @{ $self->labels },
     ];
 }
 
@@ -85,7 +85,7 @@ sub options_status_id {
     my ($self, $field) = @_;
     return [
         map +{ value => $_->id, label => $_->name },
-        @{ $self->statuses }
+        @{ $self->statuses },
     ];
 }
 

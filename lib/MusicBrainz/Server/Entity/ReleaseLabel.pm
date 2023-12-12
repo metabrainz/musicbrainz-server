@@ -7,27 +7,27 @@ extends 'MusicBrainz::Server::Entity';
 
 has 'label_id' => (
     is => 'rw',
-    isa => 'Int'
+    isa => 'Int',
 );
 
 has 'label' => (
     is => 'rw',
-    isa => 'Maybe[Label]'
+    isa => 'Maybe[Label]',
 );
 
 has 'catalog_number' => (
     is => 'rw',
-    isa => 'Maybe[Str]'
+    isa => 'Maybe[Str]',
 );
 
 has 'release_id' => (
     is => 'rw',
-    isa => 'Int'
+    isa => 'Int',
 );
 
 has 'release' => (
     is => 'rw',
-    isa => 'Release'
+    isa => 'Release',
 );
 
 around TO_JSON => sub {

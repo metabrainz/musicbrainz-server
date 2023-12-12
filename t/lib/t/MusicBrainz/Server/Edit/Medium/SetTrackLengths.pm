@@ -26,7 +26,7 @@ test all => sub {
         edit_type => $EDIT_SET_TRACK_LENGTHS,
         editor_id => 1,
         medium_id => 1,
-        cdtoc_id => 1
+        cdtoc_id => 1,
     );
     isa_ok($edit => 'MusicBrainz::Server::Edit::Medium::SetTrackLengths');
 
@@ -45,7 +45,7 @@ test all => sub {
             edit_type => $EDIT_SET_TRACK_LENGTHS,
             editor_id => 1,
             medium_id => 1,
-            cdtoc_id => 1
+            cdtoc_id => 1,
         )
     }, 'MusicBrainz::Server::Edit::Exceptions::NoChanges';
 };
@@ -64,7 +64,7 @@ test 'Setting track lengths on medium with pregap track' => sub {
             edit_type => $EDIT_SET_TRACK_LENGTHS,
             editor_id => 1,
             medium_id => 4,
-            cdtoc_id => 2
+            cdtoc_id => 2,
         )
     }, 'MusicBrainz::Server::Edit::Exceptions::NoChanges';
 
@@ -72,7 +72,7 @@ test 'Setting track lengths on medium with pregap track' => sub {
         edit_type => $EDIT_SET_TRACK_LENGTHS,
         editor_id => 1,
         medium_id => 5,
-        cdtoc_id => 2
+        cdtoc_id => 2,
     );
     isa_ok($edit => 'MusicBrainz::Server::Edit::Medium::SetTrackLengths');
 

@@ -159,7 +159,7 @@ const AddMedium = ({allowNew, edit}: Props): React$MixedElement => {
 
       {display.tracks?.length ? (
         <tr>
-          <th>{addColonText(l('Artist Credits'))}</th>
+          <th>{addColonText(l('Artist credits'))}</th>
           <td>
             <table className="tbl">
               <thead>

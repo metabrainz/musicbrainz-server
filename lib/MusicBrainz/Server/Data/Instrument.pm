@@ -11,18 +11,26 @@ use MusicBrainz::Server::Data::Utils qw(
 use MusicBrainz::Server::Entity::Instrument;
 
 extends 'MusicBrainz::Server::Data::Entity';
-with 'MusicBrainz::Server::Data::Role::Relatable';
-with 'MusicBrainz::Server::Data::Role::Name';
-with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'instrument' };
-with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'instrument' };
-with 'MusicBrainz::Server::Data::Role::GIDEntityCache';
-with 'MusicBrainz::Server::Data::Role::DeleteAndLog' => { type => 'instrument' };
-with 'MusicBrainz::Server::Data::Role::PendingEdits' => { table => 'instrument' };
-with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'instrument' };
-with 'MusicBrainz::Server::Data::Role::Merge';
-with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'instrument' };
-with 'MusicBrainz::Server::Data::Role::Collection';
-with 'MusicBrainz::Server::Data::Role::SelectAll';
+with 'MusicBrainz::Server::Data::Role::Relatable',
+     'MusicBrainz::Server::Data::Role::Name',
+     'MusicBrainz::Server::Data::Role::Annotation' => {
+        type => 'instrument',
+     },
+     'MusicBrainz::Server::Data::Role::Alias' => { type => 'instrument' },
+     'MusicBrainz::Server::Data::Role::GIDEntityCache',
+     'MusicBrainz::Server::Data::Role::DeleteAndLog' => {
+        type => 'instrument',
+     },
+     'MusicBrainz::Server::Data::Role::PendingEdits' => {
+        table => 'instrument',
+     },
+     'MusicBrainz::Server::Data::Role::LinksToEdit' => {
+        table => 'instrument',
+     },
+     'MusicBrainz::Server::Data::Role::Merge',
+     'MusicBrainz::Server::Data::Role::Tag' => { type => 'instrument' },
+     'MusicBrainz::Server::Data::Role::Collection',
+     'MusicBrainz::Server::Data::Role::SelectAll';
 
 sub _type { 'instrument' }
 
@@ -105,7 +113,7 @@ sub _merge_impl {
     my @merge_options = ($self->sql => (
                            table => 'instrument',
                            old_ids => \@old_ids,
-                           new_id => $new_id
+                           new_id => $new_id,
                         ));
 
     merge_table_attributes(@merge_options, columns => [ qw( type ) ]);
@@ -117,9 +125,10 @@ sub _merge_impl {
 
 sub _hash_to_row {
     my ($self, $instrument) = @_;
+
     my $row = hash_to_row($instrument, {
         type => 'type_id',
-        map { $_ => $_ } qw( comment name description )
+        map { $_ => $_ } qw( comment description name ),
     });
 
     return $row;
@@ -129,14 +138,14 @@ sub _order_by {
     my ($self, $order) = @_;
     my $order_by = order_by($order, 'name', {
         'name' => sub {
-            return 'name COLLATE musicbrainz'
+            return 'name COLLATE musicbrainz';
         },
         'type' => sub {
-            return 'type, name COLLATE musicbrainz'
-        }
+            return 'type, name COLLATE musicbrainz';
+        },
     });
 
-    return $order_by
+    return $order_by;
 }
 
 __PACKAGE__->meta->make_immutable;

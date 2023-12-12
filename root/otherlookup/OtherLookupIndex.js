@@ -19,9 +19,9 @@ type Props = {
 const OtherLookupIndex = ({
   form,
 }: Props): React$Element<typeof Layout> => (
-  <Layout fullWidth title={l('Other Lookups')}>
+  <Layout fullWidth title={l('Other lookups')}>
     <div className="content">
-      <h1>{l('Other Lookups')}</h1>
+      <h1>{l('Other lookups')}</h1>
       <OtherLookupForm form={form} />
     </div>
   </Layout>

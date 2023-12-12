@@ -23,7 +23,7 @@ use MusicBrainz::Server::Data::Utils qw(
     type_to_model
 );
 use MusicBrainz::Server::Edit::Utils qw( gid_or_id );
-use MusicBrainz::Server::Translation qw( l N_l );
+use MusicBrainz::Server::Translation qw( l N_lp );
 
 use aliased 'MusicBrainz::Server::Entity::Link';
 use aliased 'MusicBrainz::Server::Entity::LinkType';
@@ -31,13 +31,13 @@ use aliased 'MusicBrainz::Server::Entity::Relationship';
 use aliased 'MusicBrainz::Server::Entity::PartialDate';
 
 extends 'MusicBrainz::Server::Edit::WithDifferences';
-with 'MusicBrainz::Server::Edit::Relationship';
-with 'MusicBrainz::Server::Edit::Relationship::RelatedEntities';
-with 'MusicBrainz::Server::Edit::Role::Preview';
-with 'MusicBrainz::Server::Edit::Role::DatePeriod';
+with 'MusicBrainz::Server::Edit::Relationship',
+     'MusicBrainz::Server::Edit::Relationship::RelatedEntities',
+     'MusicBrainz::Server::Edit::Role::Preview',
+     'MusicBrainz::Server::Edit::Role::DatePeriod';
 
 sub edit_type { $EDIT_RELATIONSHIP_EDIT }
-sub edit_name { N_l('Edit relationship') }
+sub edit_name { N_lp('Edit relationship', 'edit type') }
 sub edit_kind { 'edit' }
 sub edit_template { 'EditRelationship' }
 
@@ -48,7 +48,7 @@ subtype 'LinkHash'
             name => Str,
             link_phrase => Str,
             reverse_link_phrase => Str,
-            long_link_phrase => Str
+            long_link_phrase => Str,
         ],
         attributes => Nullable[LinkAttributesArray],
         begin_date => Nullable[PartialDateHash],
@@ -73,7 +73,7 @@ subtype 'RelationshipHash'
             name => Str,
             link_phrase => Str,
             reverse_link_phrase => Str,
-            long_link_phrase => Str
+            long_link_phrase => Str,
         ]],
         attributes => Nullable[LinkAttributesArray],
         begin_date => Nullable[PartialDateHash],
@@ -104,12 +104,12 @@ has '+data' => (
         new => find_type_constraint('RelationshipHash'),
         old => find_type_constraint('RelationshipHash'),
         edit_version => Optional[Int],
-    ]
+    ],
 );
 
 has 'relationship' => (
     isa => 'Relationship',
-    is => 'rw'
+    is => 'rw',
 );
 
 sub link_type { shift->data->{link}{link_type} }
@@ -136,7 +136,7 @@ sub foreign_keys
             @{ $link->{attributes} },
             @{ $new->{attributes} || [] },
             @{ $old->{attributes} || [] },
-        )
+        ),
     };
 
     $load{$model0} = {};
@@ -221,7 +221,7 @@ sub _build_relationship {
                     else {
                         ();
                     }
-                } @$attributes
+                } @$attributes,
             ],
         ),
         entity0 => $entity0,
@@ -252,8 +252,8 @@ sub build_display_data {
             grep { !exists $loaded->{LinkAttributeType}{$_->{type}{id}} }
                 @{ $old->{attributes} // [] },
                 @{ $new->{attributes} // [] },
-                @{ $self->data->{link}{attributes} // [] }
-        ))
+                @{ $self->data->{link}{attributes} // [] },
+        )),
     };
 }
 
@@ -388,13 +388,13 @@ sub initialize
     $opts{entity0} = {
         id => $opts{entity0}->id,
         gid => $opts{entity0}->gid,
-        name => $opts{entity0}->name
+        name => $opts{entity0}->name,
     } if $opts{entity0};
 
     $opts{entity1} = {
         id => $opts{entity1}->id,
         gid => $opts{entity1}->gid,
-        name => $opts{entity1}->name
+        name => $opts{entity1}->name,
     } if $opts{entity1};
 
     $opts{link_type} = {
@@ -402,7 +402,7 @@ sub initialize
         name => $opts{link_type}->name,
         link_phrase => $opts{link_type}->link_phrase,
         reverse_link_phrase => $opts{link_type}->reverse_link_phrase,
-        long_link_phrase => $opts{link_type}->long_link_phrase
+        long_link_phrase => $opts{link_type}->long_link_phrase,
     } if $opts{link_type};
 
     my $existent_id = $self->c->model('Relationship')->exists(
@@ -425,8 +425,8 @@ sub initialize
                 entity0 => $new_entity0->name,
                 entity1 => $new_entity1->name,
                 relationship_type => MusicBrainz::Server::Translation::Relationships::l($new_link_type->name),
-              }
-            )
+              },
+            ),
         );
     }
 
@@ -445,23 +445,23 @@ sub initialize
                 name => $link->type->name,
                 link_phrase => $link->type->link_phrase,
                 reverse_link_phrase => $link->type->reverse_link_phrase,
-                long_link_phrase => $link->type->long_link_phrase
+                long_link_phrase => $link->type->long_link_phrase,
             },
             entity0 => {
                 id => $relationship->entity0_id,
                 gid => $relationship->entity0->gid,
-                name => $relationship->entity0->name
+                name => $relationship->entity0->name,
             },
             entity1 => {
                 id => $relationship->entity1_id,
                 gid => $relationship->entity1->gid,
-                name => $relationship->entity1->name
+                name => $relationship->entity1->name,
             },
         },
         entity0_credit => $relationship->entity0_credit,
         entity1_credit => $relationship->entity1_credit,
         edit_version => 2,
-        $self->_change_data($relationship, %opts)
+        $self->_change_data($relationship, %opts),
     });
 }
 
@@ -482,11 +482,11 @@ sub accept
 
     my $relationship = $self->c->model('Relationship')->get_by_id(
         $data->{type0}, $data->{type1},
-        $data->{relationship_id}
+        $data->{relationship_id},
     );
 
     MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
-        'This relationship has already been deleted'
+        'This relationship has already been deleted',
     ) if !$relationship;
 
     $self->c->model('Link')->load($relationship);
@@ -494,8 +494,8 @@ sub accept
     # If the relationship type has changed, then it doesn't make sense to
     # perform further edits as the entire context has changed.
     MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
-        'This relationship has changed type since this edit was entered'
-    ) if $data->{link}{link_type}{id} != $relationship->link->type_id;;
+        'This relationship has changed type since this edit was entered',
+    ) if $data->{link}{link_type}{id} != $relationship->link->type_id;
 
     # Because we're using a "find_or_insert" instead of an update, this link
     # dict should be complete.  If a value isn't defined in $values it doesn't
@@ -516,11 +516,11 @@ sub accept
     my $existent_id = $self->c->model('Relationship')->exists($data->{type0}, $data->{type1}, $values);
 
     MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
-        'This relationship already exists.'
+        'This relationship already exists.',
     ) if $existent_id && $relationship->id != $existent_id;
 
     MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
-        'One of the end points of this relationship no longer exists'
+        'One of the end points of this relationship no longer exists',
     ) if !$self->c->model(type_to_model($data->{type0}))->get_by_id($values->{entity0_id}) ||
          !$self->c->model(type_to_model($data->{type1}))->get_by_id($values->{entity1_id});
 
@@ -528,7 +528,7 @@ sub accept
         $data->{type0},
         $data->{type1},
         $data->{relationship_id},
-        $values
+        $values,
     );
 
     # Determine the old link type ID. It shouldn't be defined if the user
@@ -560,13 +560,13 @@ sub accept
 
         if ($link_type_changed || $release_changed) {
             $self->c->model('Release')->update_amazon_asin(
-                $values->{entity0_id}
+                $values->{entity0_id},
             );
         }
 
         if ($release_changed) {
             $self->c->model('Release')->update_amazon_asin(
-                $data->{old}{entity0}{id}
+                $data->{old}{entity0}{id},
             );
         }
     }

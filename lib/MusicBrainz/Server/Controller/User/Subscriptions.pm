@@ -2,7 +2,7 @@ package MusicBrainz::Server::Controller::User::Subscriptions;
 use Moose;
 use namespace::autoclean;
 
-BEGIN { extends 'MusicBrainz::Server::Controller' };
+BEGIN { extends 'MusicBrainz::Server::Controller' }
 
 with 'MusicBrainz::Server::Controller::User::SubscriptionsRole' => {
     type => 'artist',
@@ -36,11 +36,11 @@ sub subscriptions : Chained('/user/load') {
 
     if ($is_admin_viewing_private) {
         $c->response->redirect(
-            $c->uri_for_action('/user/subscriptions/editor', [ $user->name ])
+            $c->uri_for_action('/user/subscriptions/editor', [ $user->name ]),
         );
     } else {
         $c->response->redirect(
-            $c->uri_for_action('/user/subscriptions/artist', [ $user->name ])
+            $c->uri_for_action('/user/subscriptions/artist', [ $user->name ]),
         );
     }
 }

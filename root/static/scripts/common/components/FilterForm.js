@@ -203,7 +203,7 @@ const FilterForm = ({form}: Props): React$Element<'div'> => {
             {statusIdField && statusIdOptions ? (
               <tr>
                 <td>
-                  {addColonText(lp('Status', 'release status'))}
+                  {addColonText(lp('Status', 'release'))}
                 </td>
                 <td>
                   <SelectField

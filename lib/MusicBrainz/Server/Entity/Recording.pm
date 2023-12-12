@@ -11,29 +11,29 @@ use MusicBrainz::Server::Entity::Util::JSON qw(
 use List::AllUtils qw( uniq_by );
 
 extends 'MusicBrainz::Server::Entity';
-with 'MusicBrainz::Server::Entity::Role::Relatable';
-with 'MusicBrainz::Server::Entity::Role::Taggable';
-with 'MusicBrainz::Server::Entity::Role::Annotation';
-with 'MusicBrainz::Server::Entity::Role::Rating';
-with 'MusicBrainz::Server::Entity::Role::Review';
-with 'MusicBrainz::Server::Entity::Role::Comment';
-with 'MusicBrainz::Server::Entity::Role::ArtistCredit';
+with 'MusicBrainz::Server::Entity::Role::Annotation',
+     'MusicBrainz::Server::Entity::Role::ArtistCredit',
+     'MusicBrainz::Server::Entity::Role::Comment',
+     'MusicBrainz::Server::Entity::Role::Rating',
+     'MusicBrainz::Server::Entity::Role::Relatable',
+     'MusicBrainz::Server::Entity::Role::Review',
+     'MusicBrainz::Server::Entity::Role::Taggable';
 
 sub entity_type { 'recording' }
 
 has 'track_id' => (
     is => 'rw',
-    isa => 'Int'
+    isa => 'Int',
 );
 
 has 'track' => (
     is => 'rw',
-    isa => 'Track'
+    isa => 'Track',
 );
 
 has 'length' => (
     is => 'rw',
-    isa => 'Maybe[Int]'
+    isa => 'Maybe[Int]',
 );
 
 has 'video' => (
@@ -50,7 +50,7 @@ has 'isrcs' => (
         add_isrc => 'push',
         all_isrcs => 'elements',
         clear_isrcs => 'clear',
-    }
+    },
 );
 
 has 'first_release_date' => (

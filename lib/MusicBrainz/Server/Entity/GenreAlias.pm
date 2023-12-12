@@ -11,12 +11,12 @@ sub entity_type { 'genre_alias' }
 
 has genre_id => (
     is => 'rw',
-    isa => 'Int'
+    isa => 'Int',
 );
 
 has genre => (
     is => 'rw',
-    isa => 'Genre'
+    isa => 'Genre',
 );
 
 __PACKAGE__->meta->make_immutable;

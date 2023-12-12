@@ -68,8 +68,8 @@ subtest 'Text attributes of value 0 are supported' => sub {
         attributes => [
             {
                 type => { gid => 'ebd303c3-7f57-452a-aa3b-d780ebad868d' },
-                text_value => 0
-            }
+                text_value => 0,
+            },
         ],
     );
 
@@ -92,10 +92,10 @@ subtest 'Instrument credits can be added with a new relationship' => sub {
         attributes => [
             {
                 type => {
-                    gid => '63021302-86cd-4aee-80df-2270d54f4978'
+                    gid => '63021302-86cd-4aee-80df-2270d54f4978',
                 },
-                credited_as => 'crazy guitar'
-            }
+                credited_as => 'crazy guitar',
+            },
         ],
     );
 

@@ -9,8 +9,6 @@
 
 'use strict';
 
-import global from '../global.js';
-
 import * as constants from './constants.js';
 import linkedEntities from './linkedEntities.mjs';
 
@@ -33,6 +31,6 @@ const MB: {[namespace: string]: {...}, ...} = {
   constants,
 };
 
-global.MB = MB;
+globalThis.MB = MB;
 
 export default MB;

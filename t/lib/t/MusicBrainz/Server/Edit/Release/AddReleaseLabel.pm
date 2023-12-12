@@ -80,7 +80,7 @@ test 'Inserting just a catalog number' => sub {
         $c->model('ReleaseLabel')->load($release);
         is($release->label_count, 1, 'Release has one label after rejecting edit');
         is($release->labels->[0]->id, 1, 'First release label is unchanged');
-    };
+    }
 
     {
         $c->model('Edit')->create(

@@ -13,7 +13,7 @@
     },
     {
       command: 'clickAndWait',
-      target: 'link=Log Out',
+      target: 'link=Log out',
       value: '',
     },
   ],

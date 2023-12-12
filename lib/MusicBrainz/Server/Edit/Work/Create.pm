@@ -6,16 +6,16 @@ use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Constants qw( $EDIT_WORK_CREATE );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array to_json_object );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 
 extends 'MusicBrainz::Server::Edit::Generic::Create';
-with 'MusicBrainz::Server::Edit::Work::RelatedEntities';
-with 'MusicBrainz::Server::Edit::Work';
-with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
+with 'MusicBrainz::Server::Edit::Work::RelatedEntities',
+     'MusicBrainz::Server::Edit::Work',
+     'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
 use aliased 'MusicBrainz::Server::Entity::Work';
 
-sub edit_name { N_l('Add work') }
+sub edit_name { N_lp('Add work', 'edit type') }
 sub edit_type { $EDIT_WORK_CREATE }
 sub _create_model { 'Work' }
 sub work_id { shift->entity_id }
@@ -32,9 +32,9 @@ has '+data' => (
         attributes    => Optional[ArrayRef[Dict[
             attribute_text => Maybe[Str],
             attribute_value_id => Maybe[Int],
-            attribute_type_id => Int
-        ]]]
-    ]
+            attribute_type_id => Int,
+        ]]],
+    ],
 );
 
 sub foreign_keys
@@ -62,7 +62,7 @@ sub build_display_data
         iswc          => $data->{iswc} // '',
         work          => to_json_object((defined($self->entity_id) &&
             $loaded->{Work}{ $self->entity_id }) ||
-            Work->new( name => $self->data->{name} )
+            Work->new( name => $self->data->{name} ),
         ),
         ($data->{attributes} && @{ $data->{attributes} } ?
          ( attributes => { $self->grouped_attributes_by_type($data->{attributes}, 1) } ) : ()
@@ -76,7 +76,7 @@ sub build_display_data
 
     if (defined $data->{languages}) {
         $display->{languages} = to_json_array([
-            map { $loaded->{Language}{$_} } @{ $data->{languages} }
+            map { $loaded->{Language}{$_} } @{ $data->{languages} },
         ]);
     }
 

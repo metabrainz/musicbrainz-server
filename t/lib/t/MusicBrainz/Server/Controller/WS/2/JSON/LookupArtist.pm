@@ -3,11 +3,12 @@ use utf8;
 use strict;
 use warnings;
 
+use HTTP::Status qw( :constants );
 use JSON;
 use Test::Routine;
 use Test::More;
 use MusicBrainz::Server::Test ws_test_json => {
-    version => 2
+    version => 2,
 };
 
 with 't::Mechanize', 't::Context';
@@ -22,7 +23,7 @@ test 'errors' => sub {
     my $mech = $test->mech;
     $mech->default_header('Accept' => 'application/json');
     $mech->get('/ws/2/artist/472bc127-8861-45e8-bc9e-31e8dd32de7a?inc=coffee');
-    is($mech->status, 400);
+    is($mech->status, HTTP_BAD_REQUEST);
 
     is_json($mech->content, encode_json({
         error => 'coffee is not a valid inc parameter for the artist resource.',
@@ -30,7 +31,7 @@ test 'errors' => sub {
     }));
 
     $mech->get('/ws/2/artist/00000000-1111-2222-3333-444444444444');
-    is($mech->status, 404);
+    is($mech->status, HTTP_NOT_FOUND);
     is_json($mech->content, encode_json({
           error => 'Not Found',
           help => 'For usage, please see: https://musicbrainz.org/development/mmd',
@@ -122,7 +123,7 @@ test 'basic artist lookup, inc=aliases' => sub {
             'life-span' => {
                 begin => '1986-11-05',
                 end => JSON::null,
-                ended => JSON::false
+                ended => JSON::false,
             },
             type => 'Person',
             'type-id' => 'b6e035f4-3ce9-331c-97df-83397230b0df',
@@ -172,7 +173,7 @@ test 'basic artist lookup, inc=url-rels' => sub {
                     direction => 'forward',
                     url => {
                         id => '37ad368b-d37d-46d4-be3a-349f78355253',
-                        resource => 'https://www.imdb.com/name/nm4057169/'
+                        resource => 'https://www.imdb.com/name/nm4057169/',
                     },
                     type => 'IMDb',
                     'type-id' => '94c8b0cc-4477-4106-932c-da60e63de61c',
@@ -190,7 +191,7 @@ test 'basic artist lookup, inc=url-rels' => sub {
                     direction => 'forward',
                     url => {
                         id => 'daa73242-f491-4d94-bbd0-b08a03a4a69b',
-                        resource => 'http://www.paulallgood.com/'
+                        resource => 'http://www.paulallgood.com/',
                     },
                     type => 'blog',
                     'type-id' => 'eb535226-f8ca-499d-9b18-6a144df4ae6f',
@@ -208,7 +209,7 @@ test 'basic artist lookup, inc=url-rels' => sub {
                     direction => 'forward',
                     url => {
                         id => 'e0a79771-e9f0-4127-b58a-f5e6869c8e96',
-                        resource => 'http://www.discogs.com/artist/Paul+Allgood'
+                        resource => 'http://www.discogs.com/artist/Paul+Allgood',
                     },
                     type => 'discogs',
                     'type-id' => '04a5b104-a4c2-4bac-99a1-7b837c37d9e4',
@@ -226,7 +227,7 @@ test 'basic artist lookup, inc=url-rels' => sub {
                     direction => 'forward',
                     url => {
                         id => '6f0fce21-abd4-4ef7-a7cf-d9ec9830b350',
-                        resource => 'http://farm4.static.flickr.com/3652/3334818186_6e19173c33_b.jpg'
+                        resource => 'http://farm4.static.flickr.com/3652/3334818186_6e19173c33_b.jpg',
                     },
                     type => 'image',
                     'type-id' => '221132e9-e30e-43f2-a741-15afc4c5fa7c',
@@ -244,7 +245,7 @@ test 'basic artist lookup, inc=url-rels' => sub {
                     direction => 'forward',
                     url => {
                         id => '09ea2bb6-0280-4be1-aa7a-46e641c16451',
-                        resource => 'http://members.boardhost.com/wedlock/'
+                        resource => 'http://members.boardhost.com/wedlock/',
                     },
                     type => 'online community',
                     'type-id' => '35b3a50f-bf0e-4309-a3b4-58eeed8cee6a',
@@ -398,7 +399,7 @@ test 'artist lookup with pseudo-releases' => sub {
                         },
                     }],
                     barcode => '4942463511227',
-                }
+                },
                 ],
             ipis => [],
             isnis => [],
@@ -468,10 +469,10 @@ test 'artist lookup with releases and discids' => sub {
                                         188422,
                                         211757,
                                         232229,
-                                        255810
+                                        255810,
                                     ],
-                                    sectors => 281289
-                                }
+                                    sectors => 281289,
+                                },
                             ],
                             'track-count' => 12,
                         }],
@@ -520,10 +521,10 @@ test 'artist lookup with releases and discids' => sub {
                                         125348,
                                         147548,
                                         172225,
-                                        194409
+                                        194409,
                                     ],
-                                    sectors => 215137
-                                }
+                                    sectors => 215137,
+                                },
                             ],
                             'track-count' => 9,
                         },
@@ -545,10 +546,10 @@ test 'artist lookup with releases and discids' => sub {
                                         114510,
                                         138939,
                                         164009,
-                                        186929
+                                        186929,
                                     ],
-                                    sectors => 208393
-                                }
+                                    sectors => 208393,
+                                },
                             ],
                             'track-count' => 9,
                         }],
@@ -563,7 +564,7 @@ test 'artist lookup with releases and discids' => sub {
                             'type' => JSON::null,
                             'type-id' => JSON::null,
                         },
-                    }]
+                    }],
                 },
             ],
             ipis => [],
@@ -626,8 +627,8 @@ test 'artist lookup with recordings and artist credits' => sub {
                                 'type' => 'Person',
                                 'type-id' => 'b6e035f4-3ce9-331c-97df-83397230b0df',
                             },
-                            joinphrase => ''
-                        }
+                            joinphrase => '',
+                        },
                     ],
                     video => JSON::false,
                 },
@@ -659,8 +660,8 @@ test 'artist lookup with recordings and artist credits' => sub {
                                 'type' => 'Person',
                                 'type-id' => 'b6e035f4-3ce9-331c-97df-83397230b0df',
                             },
-                            joinphrase => ''
-                        }
+                            joinphrase => '',
+                        },
                     ],
                     video => JSON::false,
                 },
@@ -706,7 +707,7 @@ test 'artist lookup with release groups' => sub {
                     'primary-type-id' => 'd6038452-8ee0-3f68-affc-2de9a1ede0b9',
                     'secondary-types' => [],
                     'secondary-type-ids' => [],
-                }
+                },
             ],
             ipis => [],
             isnis => [],
@@ -764,8 +765,8 @@ test 'single artist release lookup' => sub {
                             'type' => JSON::null,
                             'type-id' => JSON::null,
                         },
-                    }]
-                }
+                    }],
+                },
             ],
             ipis => [],
             isnis => [],
@@ -824,7 +825,7 @@ test 'various artists release lookup' => sub {
                     }],
                     barcode => '4988064451180',
                     disambiguation => '',
-                }
+                },
             ],
             ipis => [],
             isnis => [],
@@ -868,7 +869,7 @@ test 'artist lookup with works (using l_artist_work)' => sub {
                     languages => ['jpn'],
                     type => JSON::null,
                     'type-id' => JSON::null,
-                }
+                },
             ],
             ipis => [],
             isnis => [],
@@ -1130,7 +1131,7 @@ test 'artist lookup with artist relations' => sub {
                     end => JSON::null,
                     ended => JSON::false,
                     'target-type' => 'artist',
-                }
+                },
             ],
             ipis => [],
             isnis => [],

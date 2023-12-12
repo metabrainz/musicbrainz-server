@@ -2,6 +2,7 @@ package t::MusicBrainz::Server::Controller::Area::Create;
 use strict;
 use warnings;
 
+use HTTP::Status qw( :constants );
 use Test::Routine;
 use Test::More;
 use MusicBrainz::Server::Test qw( capture_edits html_ok );
@@ -25,7 +26,7 @@ test 'Adding a new (non-ended) area' => sub {
 
     $mech->get('/login');
     $mech->submit_form(
-        with_fields => { username => 'area_editor', password => 'pass' }
+        with_fields => { username => 'area_editor', password => 'pass' },
     );
 
     $mech->get_ok(
@@ -96,7 +97,7 @@ test 'Area creation is blocked for unprivileged users' => sub {
     $mech->get('/area/create');
     is(
         $mech->status,
-        403,
+        HTTP_FORBIDDEN,
         'Trying to add an area without the right privileges gives a 403 Forbidden error',
     );
 };

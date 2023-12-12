@@ -200,7 +200,7 @@ const AliasEditForm = ({
   form: initialForm,
   locales,
   searchHintType,
-}: Props): React$Element<typeof React.Fragment> => {
+}: Props): React$Element<React$FragmentType> => {
   const localeOptions = {
     grouped: false,
     options: locales,
@@ -290,7 +290,7 @@ const AliasEditForm = ({
       >
         <div className="half-width">
           <fieldset>
-            <legend>{l('Alias Details')}</legend>
+            <legend>{l('Alias details')}</legend>
             <FormRowNameWithGuessCase
               dispatch={nameDispatch}
               entity={entity}

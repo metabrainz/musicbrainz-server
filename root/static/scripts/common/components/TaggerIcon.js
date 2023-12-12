@@ -76,10 +76,10 @@ const TaggerIcon = ({
       className="tagger-icon"
       href={buildTaggerLink(entityType, gid, tport)}
       onClick={handleClick}
-      title={l('Open in tagger')}
+      title={lp('Open in tagger', 'audio file metadata')}
     >
       <img
-        alt={l('Tagger')}
+        alt={lp('Tagger', 'audio file metadata')}
         src={taggerIconUrl}
       />
     </a>

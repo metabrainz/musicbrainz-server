@@ -30,12 +30,12 @@ use MusicBrainz::Server::Constants qw( :vote );
 
 extends 'MusicBrainz::Server::Data::Entity';
 
-with 'MusicBrainz::Server::Data::Role::Area';
-with 'MusicBrainz::Server::Data::Role::Subscription' => {
-    table => 'editor_subscribe_editor',
-    column => 'subscribed_editor',
-    active_class => 'MusicBrainz::Server::Entity::EditorSubscription'
-};
+with 'MusicBrainz::Server::Data::Role::Area',
+     'MusicBrainz::Server::Data::Role::Subscription' => {
+        table => 'editor_subscribe_editor',
+        column => 'subscribed_editor',
+        active_class => 'MusicBrainz::Server::Entity::EditorSubscription',
+     };
 
 sub _table
 {
@@ -104,7 +104,7 @@ sub summarize_ratings
             $self->c->model('ArtistCredit')->load(@$entities);
 
             ($_ => to_json_array($entities));
-        } entities_with('ratings')
+        } entities_with('ratings'),
     };
 }
 
@@ -206,7 +206,7 @@ sub search_by_email {
 
     my $query = 'SELECT ' . $self->_columns .
         ' FROM ' . $self->_table .
-        q" WHERE (regexp_replace(regexp_replace(email, '[@+].*', ''), '\.', '', 'g') || regexp_replace(email, '.*@', '@')) ~* ?" .
+        q{ WHERE (regexp_replace(regexp_replace(email, '[@+].*', ''), '\.', '', 'g') || regexp_replace(email, '.*@', '@')) ~* ?} .
         ' ORDER BY member_since DESC';
 
     $self->query_to_list_limited($query, [$email_regexp], $limit, $offset);
@@ -282,7 +282,7 @@ sub insert
             name => $data->{name},
             password => $data->{password},
             ha1 => $data->{ha1},
-            registration_date => DateTime->now
+            registration_date => DateTime->now,
         );
     }, $self->sql);
 }
@@ -347,21 +347,17 @@ sub update_profile
         _die_if_username_invalid($update->{username});
     }
 
-    my $row = hash_to_row(
-        $update,
-        {
-            name => 'username',
-            bio => 'biography',
-            area => 'area_id',
-            gender => 'gender_id',
-            website => 'website',
-            birth_date => 'birth_date',
-        }
-    );
+    my $row = hash_to_row($update, {
+        area => 'area_id',
+        bio => 'biography',
+        gender => 'gender_id',
+        name => 'username',
+        map { $_ => $_ } qw( birth_date website ),
+    });
 
     if (my $date = delete $row->{birth_date}) {
         if (%$date) { # if date is given but all NULL, it will be an empty hash.
-            $row->{birth_date} = sprintf '%d-%d-%d', map { $date->{$_} } qw( year month day )
+            $row->{birth_date} = sprintf '%d-%d-%d', map { $date->{$_} } qw( year month day );
         }
         else {
             $row->{birth_date} = undef;
@@ -443,9 +439,13 @@ sub save_preferences
     Sql::run_in_transaction(sub {
 
         $self->sql->do('DELETE FROM editor_preference WHERE editor = ?', $editor->id);
+        my $new_preferences = MusicBrainz::Server::Entity::Preferences->new(%$values);
         my $preferences_meta = $editor->preferences->meta;
         foreach my $name (keys %$values) {
             my $default = $preferences_meta->get_attribute($name)->default;
+            if (ref $default eq 'CODE') {
+                $default = $new_preferences->$default;
+            }
             unless ($default eq $values->{$name}) {
                 $self->sql->insert_row('editor_preference', {
                     editor => $editor->id,
@@ -454,7 +454,7 @@ sub save_preferences
                 });
             }
         }
-        $editor->preferences(MusicBrainz::Server::Entity::Preferences->new(%$values));
+        $editor->preferences($new_preferences);
 
     }, $self->sql);
 }
@@ -471,7 +471,7 @@ sub donation_check
     my $days = 0.0;
     if ($nag) {
         my $response = $self->c->lwp->get(
-            'https://metabrainz.org/donations/nag-check?editor=' . uri_escape_utf8($obj->name)
+            'https://metabrainz.org/donations/nag-check?editor=' . uri_escape_utf8($obj->name),
         );
 
         if ($response->is_success && $response->content =~ /\s*([-01]+),([-0-9.]+)\s*/) {
@@ -558,7 +558,7 @@ sub delete {
                            deleted = TRUE
          WHERE id = ?},
         Authen::Passphrase::RejectAll->new->as_rfc2307,
-        $editor_id
+        $editor_id,
     );
 
     $self->sql->do('DELETE FROM editor_preference WHERE editor = ?', $editor_id);
@@ -609,7 +609,7 @@ sub delete {
             $editor,
             [{
                 vote    => $VOTE_ABSTAIN,
-                edit_id => $edit_id
+                edit_id => $edit_id,
             }],
             (override_privs => 1),
         );
@@ -645,7 +645,7 @@ sub subscription_summary {
                    (SELECT count(*) FROM editor_subscribe_$_ WHERE editor = ?),
                    0) AS $_"
             } entities_with('subscriptions')),
-        ($editor_id) x 5
+        ($editor_id) x 5,
     );
 }
 
@@ -757,10 +757,10 @@ sub secondary_counts {
         );
         my $tag_inner_query = join(
             ' UNION ALL ',
-            map { "SELECT is_upvote FROM $_ WHERE editor = ?" } @tag_tables
+            map { "SELECT is_upvote FROM $_ WHERE editor = ?" } @tag_tables,
         );
 
-        my $query = <<~SQL;
+        my $query = <<~"SQL";
             SELECT x.is_upvote, count(*)
             FROM ($tag_inner_query) x
             GROUP BY x.is_upvote
@@ -788,7 +788,7 @@ sub secondary_counts {
         );
         my $rating_inner_query = join(
             ' UNION ALL ',
-            map { "SELECT 1 FROM $_ WHERE editor = ?" } @rating_tables
+            map { "SELECT 1 FROM $_ WHERE editor = ?" } @rating_tables,
         );
 
         my $query = "SELECT count(*) FROM ($rating_inner_query) x";
@@ -834,7 +834,7 @@ sub hash_password {
         salt_random => 1,
         cost => $PASSPHRASE_BCRYPT_COST,
         passphrase => encode('utf-8', $password),
-    )->as_rfc2307
+    )->as_rfc2307;
 }
 
 sub ha1_password {
@@ -858,7 +858,7 @@ sub allocate_remember_me_token {
     if (
         my $normalized_name = $self->sql->select_single_value(
             'SELECT name FROM editor WHERE lower(name) = lower(?)',
-            $user_name
+            $user_name,
         )
     ) {
         my $token = generate_token();

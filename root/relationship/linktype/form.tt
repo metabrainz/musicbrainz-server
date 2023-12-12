@@ -78,7 +78,7 @@
                     </label>
                     <input type="text" data-bind="attr: { name: examplePrefix($index(), 'name') }, value: name" />
                     <button type="button" data-bind="click: removeExample">
-                        [% l('Remove Example') %]
+                        [% l('Remove example') %]
                     </button>
                 [% END %]
 
@@ -102,7 +102,7 @@
             [% END %]
         </div>
 
-        <h3>[% l('Add a New Example') %]</h3>
+        <h3>[% l('Add a new example') %]</h3>
         [% WRAPPER form_row %]
             <label>[% add_colon(l('Name')) %]</label>
             <input type="text" data-bind="value: currentExample.name" />
@@ -123,7 +123,7 @@
           </span>
           <button type="button" data-bind="click: currentExample.possibleRelationships.search,
                              enable: currentExample.possibleRelationships.query">
-                [% l('Find Relationships') %]</button>
+                [% l('Find relationships') %]</button>
         [%- END -%]
 
         <div class="row" data-bind="visible: currentExample.possibleRelationships.error">
@@ -151,7 +151,7 @@
         [% WRAPPER form_row %]
             <div class="no-label">
                 <button type="button" data-bind="click: currentExample.add, enable: currentExample.relationship()">
-                    [% l('Add Example') %]
+                    [% l('Add example') %]
                 </button>
             </div>
         [% END %]

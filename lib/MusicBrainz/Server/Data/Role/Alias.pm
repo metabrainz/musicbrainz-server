@@ -14,7 +14,7 @@ parameter 'type' => (
 parameter 'table' => (
     isa => 'Str',
     default => sub { shift->type . '_alias' },
-    lazy => 1
+    lazy => 1,
 );
 
 role
@@ -26,13 +26,13 @@ role
     has 'alias' => (
         is => 'ro',
         builder => '_build_alias',
-        lazy => 1
+        lazy => 1,
     );
 
     has 'alias_type' => (
         is => 'ro',
         builder => '_build_alias_type',
-        lazy => 1
+        lazy => 1,
     );
 
     method '_build_alias' => sub
@@ -43,7 +43,7 @@ role
             type => $params->type,
             table => $params->table,
             entity => $self->_entity_class . 'Alias',
-            parent => $self
+            parent => $self,
         );
         ensure_all_roles($alias, 'MusicBrainz::Server::Data::Role::PendingEdits' => { table => $params->table });
     };

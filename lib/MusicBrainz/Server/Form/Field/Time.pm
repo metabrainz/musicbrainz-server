@@ -10,14 +10,14 @@ use MusicBrainz::Server::Validation qw( is_valid_time );
 extends 'HTML::FormHandler::Field::Text';
 
 has '+deflate_method' => (
-    default => sub { \&format_time }
+    default => sub { \&format_time },
 );
 
 apply ([
     {
         check => sub { is_valid_time(shift) },
         message => sub { l('This is not a valid time.') },
-    }
+    },
 ]);
 
 sub format_time {

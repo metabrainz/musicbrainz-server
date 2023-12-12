@@ -7,7 +7,7 @@ use MusicBrainz::Server::Constants qw( :edit_status );
 use MusicBrainz::Server::Edit::Utils qw( changed_display_data );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 
 use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict Optional );
@@ -15,11 +15,11 @@ use MooseX::Types::Structured qw( Dict Optional );
 use aliased 'MusicBrainz::Server::Entity::Genre';
 
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
-with 'MusicBrainz::Server::Edit::CheckForConflicts';
-with 'MusicBrainz::Server::Edit::Genre';
-with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
+with 'MusicBrainz::Server::Edit::CheckForConflicts',
+     'MusicBrainz::Server::Edit::Genre',
+     'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
-sub edit_name { N_l('Edit genre') }
+sub edit_name { N_lp('Edit genre', 'edit type') }
 sub edit_type { $EDIT_GENRE_EDIT }
 
 sub _edit_model { 'Genre' }
@@ -38,11 +38,11 @@ has '+data' => (
         entity => Dict[
             id => Int,
             gid => Optional[Str],
-            name => Str
+            name => Str,
         ],
         new => change_fields(),
         old => change_fields(),
-    ]
+    ],
 );
 
 sub foreign_keys
@@ -67,7 +67,7 @@ sub build_display_data
 
     $data->{genre} = to_json_object(
         $loaded->{Genre}{ $self->data->{entity}{id} }
-        || Genre->new( name => $self->data->{entity}{name} )
+        || Genre->new( name => $self->data->{entity}{name} ),
     );
 
     return $data;

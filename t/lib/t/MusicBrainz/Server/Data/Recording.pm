@@ -182,7 +182,7 @@ test q(Merging a recording that's in a collection) => sub {
     $c->model('Collection')->add_entities_to_collection('recording', $collection->{id}, $recording1->{id});
     $c->model('Recording')->merge($recording2->{id}, $recording1->{id});
 
-    ok($c->sql->select_single_value('SELECT 1 FROM editor_collection_recording WHERE recording = ?', $recording2->{id}))
+    ok($c->sql->select_single_value('SELECT 1 FROM editor_collection_recording WHERE recording = ?', $recording2->{id}));
 };
 
 1;

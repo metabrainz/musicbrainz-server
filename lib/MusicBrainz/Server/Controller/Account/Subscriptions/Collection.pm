@@ -19,7 +19,7 @@ before add => sub
 
     if (!$entity) {
         $c->stash(
-            message  => l('The provided collection ID doesn’t exist.')
+            message  => l('The provided collection ID doesn’t exist.'),
         );
         $c->detach('/error_400');
     }

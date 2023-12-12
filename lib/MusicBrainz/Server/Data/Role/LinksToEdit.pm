@@ -4,12 +4,12 @@ use namespace::autoclean;
 
 parameter 'table' => (
     isa => 'Str',
-    required => 1
+    required => 1,
 );
 
 role {
     my $params = shift;
-    method 'edit_link_table' => sub { $params->table }
+    method 'edit_link_table' => sub { $params->table };
 };
 
 1;

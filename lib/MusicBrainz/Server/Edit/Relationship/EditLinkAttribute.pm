@@ -8,13 +8,13 @@ use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
 use MusicBrainz::Server::Edit::Utils qw( changed_display_data );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 
 extends 'MusicBrainz::Server::Edit';
-with 'MusicBrainz::Server::Edit::Relationship';
-with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
+with 'MusicBrainz::Server::Edit::Relationship',
+     'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
-sub edit_name { N_l('Edit relationship attribute') }
+sub edit_name { N_lp('Edit relationship attribute', 'edit type') }
 sub edit_kind { 'edit' }
 sub edit_type { $EDIT_RELATIONSHIP_ATTRIBUTE }
 sub edit_template { 'EditRelationshipAttribute' }
@@ -28,7 +28,7 @@ sub change_fields
         child_order => Optional[Int],
         creditable => Optional[Bool],
         free_text => Optional[Bool],
-    ]
+    ];
 }
 
 sub to_hash {
@@ -49,8 +49,8 @@ has '+data' => (
     isa => Dict[
         entity_id => Int,
         old       => change_fields(),
-        new       => change_fields()
-    ]
+        new       => change_fields(),
+    ],
 );
 
 sub foreign_keys
@@ -87,9 +87,10 @@ sub build_display_data
 sub accept {
     my $self = shift;
     $self->c->model('LinkAttributeType')->update($self->data->{entity_id},
-                                                 $self->data->{new})
-};
+                                                 $self->data->{new});
+}
 
 no Moose;
 __PACKAGE__->meta->make_immutable;
 
+1;

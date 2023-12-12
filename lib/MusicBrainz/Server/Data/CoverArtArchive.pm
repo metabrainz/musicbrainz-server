@@ -24,7 +24,7 @@ sub get_stats_for_releases {
         map {
             my $release = delete $_->{release};
             ($release => $_)
-        } @$stats
+        } @$stats,
     };
 }
 
@@ -82,7 +82,7 @@ sub post_fields {
             ['eq', '$key', $filename],
             ['starts-with', '$content-type', $mime_type],
             (map { ['eq', "\$$_", $extra_fields{$_}] } sort keys %extra_fields),
-        ]
+        ],
     };
 
     my $policy_base64 = encode_base64(JSON->new->canonical->utf8->encode($policy), '');
@@ -95,7 +95,7 @@ sub post_fields {
         key => $filename,
         acl => 'public-read',
         'content-type' => $mime_type,
-        %extra_fields
+        %extra_fields,
     };
 
     $ret->{success_action_redirect} = $redirect if $redirect;
@@ -124,7 +124,7 @@ sub insert_cover_art {
         $self->sql->do(
             'INSERT INTO cover_art_archive.cover_art_type (id, type_id) VALUES (?, ?)',
             $cover_art_id, $type_id);
-    };
+    }
 }
 
 sub update_cover_art {
@@ -149,7 +149,7 @@ sub update_cover_art {
             $self->sql->do(
                 'INSERT INTO cover_art_archive.cover_art_type (id, type_id) VALUES (?, ?)',
                 $cover_art_id, $type_id);
-        };
+        }
     }
 }
 
@@ -207,20 +207,20 @@ sub merge_release_groups {
       )',
         $all_ids,
         $all_ids,
-        $new_release_group_id
+        $new_release_group_id,
     );
 
     $self->sql->do('
         UPDATE cover_art_archive.release_group_cover_art SET release_group = ?
         WHERE release_group = any(?)',
-        $new_release_group_id, $all_ids
+        $new_release_group_id, $all_ids,
     );
 }
 
 sub exists {
     my ($self, $id) = @_;
     $self->c->sql->select_single_value(
-        'SELECT TRUE FROM cover_art_archive.cover_art WHERE id = ?', $id
+        'SELECT TRUE FROM cover_art_archive.cover_art WHERE id = ?', $id,
     ) or return undef;
 }
 

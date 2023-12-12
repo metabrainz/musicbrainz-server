@@ -2,6 +2,7 @@ package t::MusicBrainz::Server::Controller::Relationship::LinkType::Index;
 use strict;
 use warnings;
 
+use HTTP::Status qw( :constants );
 use Test::Routine;
 use Test::More;
 use MusicBrainz::Server::Test qw( html_ok test_xpath_html );
@@ -56,7 +57,7 @@ test 'Cannot view impossible relationships' => sub {
     my $mech = $test->mech;
 
     $mech->get('/relationships/fake-fake');
-    is($mech->status, 400);
+    is($mech->status, HTTP_BAD_REQUEST);
 };
 
 1;

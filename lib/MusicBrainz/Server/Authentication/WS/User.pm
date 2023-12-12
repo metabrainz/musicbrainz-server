@@ -7,12 +7,12 @@ extends 'MusicBrainz::Server::Entity::Editor';
 
 has 'auth_realm' => (
     isa => 'Str',
-    is => 'rw'
+    is => 'rw',
 );
 
 has 'oauth_token' => (
     isa => 'EditorOAuthToken',
-    is => 'rw'
+    is => 'rw',
 );
 
 sub supported_features

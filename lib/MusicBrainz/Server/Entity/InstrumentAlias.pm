@@ -11,12 +11,12 @@ sub entity_type { 'instrument_alias' }
 
 has 'instrument_id' => (
     is => 'rw',
-    isa => 'Int'
+    isa => 'Int',
 );
 
 has 'instrument' => (
     is => 'rw',
-    isa => 'Instrument'
+    isa => 'Instrument',
 );
 
 __PACKAGE__->meta->make_immutable;

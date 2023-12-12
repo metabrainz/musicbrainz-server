@@ -15,7 +15,7 @@ use URI;
     has '+name' => ( default => 'test-edit' );
 
     has_field 't' => (
-        type => '+MusicBrainz::Server::Form::Field::Text'
+        type => '+MusicBrainz::Server::Form::Field::Text',
     );
 }
 
@@ -33,9 +33,11 @@ sub t_field_ok {
     my $form = t::MusicBrainz::Server::Form::Field::Text::TestForm->new;
     $form->process({
         'test-edit' => {
-            t => $input
-        }
+            t => $input,
+        },
     });
     ok($form->is_valid, 'processed without errors');
     is($form->field('t')->value, $expected);
 }
+
+1;

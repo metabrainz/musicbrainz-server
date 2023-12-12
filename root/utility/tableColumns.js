@@ -779,7 +779,7 @@ export const taggerColumn:
     Cell: ({row: {original}}) => (
       <TaggerIcon entityType={original.entityType} gid={original.gid} />
     ),
-    Header: N_l('Tagger'),
+    Header: N_lp('Tagger', 'audio file metadata'),
     id: 'tagger',
   };
 

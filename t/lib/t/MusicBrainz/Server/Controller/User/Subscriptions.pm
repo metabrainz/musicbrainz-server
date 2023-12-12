@@ -2,6 +2,7 @@ package t::MusicBrainz::Server::Controller::User::Subscriptions;
 use strict;
 use warnings;
 
+use HTTP::Status qw( :constants );
 use Test::Routine;
 use Test::More;
 
@@ -55,12 +56,12 @@ $mech->content_contains(
 
 $mech->get('/login');
 $mech->submit_form(
-  with_fields => { username => 'new_editor', password => 'password' }
+  with_fields => { username => 'new_editor', password => 'password' },
 );
 
 $mech->get('/user/alice/subscriptions');
 $mech->content_contains(
-  'Artist Subscriptions',
+  'Artist subscriptions',
   'directs to artist subscriptions',
 );
 $mech->content_contains('Kate Bush', 'subscription to Kate Bush is listed');
@@ -74,18 +75,18 @@ MusicBrainz::Server::Test->prepare_test_database($c, <<~'SQL');
     SQL
 
 $mech->get('/user/alice/subscriptions');
-is ($mech->status(), 403, q(alice's subs are now private));
+is ($mech->status(), HTTP_FORBIDDEN, q(alice's subs are now private));
 
 $mech->get('/logout');
 $mech->get('/login');
 $mech->submit_form(
-  with_fields => { username => 'alice', password => 'secret1' }
+  with_fields => { username => 'alice', password => 'secret1' },
 );
 
 $mech->get('/user/alice/subscriptions');
-is ($mech->status(), 200, 'alice can still view their own subs');
+is ($mech->status(), HTTP_OK, 'alice can still view their own subs');
 $mech->content_contains(
-  'Artist Subscriptions',
+  'Artist subscriptions',
   'directs to artist subscriptions',
 );
 $mech->content_contains('Kate Bush', 'subscription to Kate Bush is listed');
@@ -93,19 +94,19 @@ $mech->content_contains('Kate Bush', 'subscription to Kate Bush is listed');
 $mech->get('/logout');
 $mech->get('/login');
 $mech->submit_form(
-  with_fields => { username => 'adminymcadmin', password => 'password' }
+  with_fields => { username => 'adminymcadmin', password => 'password' },
 );
 
 $mech->get('/user/alice/subscriptions');
-is ($mech->status(), 200, q(account admins can view alice's subs));
+is ($mech->status(), HTTP_OK, q(account admins can view alice's subs));
 $mech->content_contains(
-  'Editor Subscriptions',
+  'Editor subscriptions',
   'directs to editor subscriptions',
 );
 $mech->content_contains('new_editor', 'subscription to new_editor is listed');
 
 $mech->get('/user/alice/subscriptions/artist');
-is ($mech->status(), 403, q(alice's artist subs are private to admin));
+is ($mech->status(), HTTP_FORBIDDEN, q(alice's artist subs are private to admin));
 };
 
 1;

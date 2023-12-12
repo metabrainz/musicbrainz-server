@@ -58,7 +58,7 @@ sub sso : Path('/discourse/sso') Args(0) RequireAuth {
     unless ($c->user->has_confirmed_email_address) {
         $c->stash(
           current_view => 'Node',
-          component_path => 'account/sso/DiscourseUnconfirmedEmailAddress'
+          component_path => 'account/sso/DiscourseUnconfirmedEmailAddress',
         );
         $c->detach;
     }

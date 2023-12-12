@@ -7,7 +7,7 @@ extends 'MusicBrainz::Server::Entity';
 
 sub l_name {
     my $self = shift;
-    return lp($self->name, 'alias_type')
+    return lp($self->name, 'alias_type');
 }
 
 __PACKAGE__->meta->make_immutable;

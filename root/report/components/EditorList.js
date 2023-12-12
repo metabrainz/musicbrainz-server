@@ -13,6 +13,7 @@ import type {CellRenderProps} from 'react-table';
 import PaginatedResults from '../../components/PaginatedResults.js';
 import useTable from '../../hooks/useTable.js';
 import EditorLink from '../../static/scripts/common/components/EditorLink.js';
+import {l_admin} from '../../static/scripts/common/i18n/admin.js';
 import bracketed from '../../static/scripts/common/utility/bracketed.js';
 import {
   defineTextColumn,
@@ -54,34 +55,34 @@ const EditorList = ({
                   href={'/admin/user/delete/' +
                   encodeURIComponent(editor.name)}
                 >
-                  {l('delete')}
+                  {l_admin('delete')}
                 </a>,
               )}
             </>
           );
         },
-        Header: l('Editor'),
+        Header: l_admin('Editor'),
         id: 'editor',
       };
       const memberSinceColumn = defineTextColumn<ReportEditorT>({
         columnName: 'registration_date',
         getText: result => result.editor?.registration_date ?? '',
-        title: l('Member since'),
+        title: l_admin('Member since'),
       });
       const websiteColumn = defineTextColumn<ReportEditorT>({
         columnName: 'website',
         getText: result => result.editor?.website ?? '',
-        title: l('Website'),
+        title: l_admin('Website'),
       });
       const emailColumn = defineTextColumn<ReportEditorT>({
         columnName: 'email',
         getText: result => result.editor?.email ?? '',
-        title: l('Email'),
+        title: l_admin('Email'),
       });
       const bioColumn = defineTextColumn<ReportEditorT>({
         columnName: 'biography',
         getText: result => result.editor?.biography ?? '',
-        title: l('Bio'),
+        title: l_admin('Bio'),
       });
 
       return [

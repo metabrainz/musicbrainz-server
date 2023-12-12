@@ -6,7 +6,7 @@ use MusicBrainz::Server::Constants qw( $EDIT_AREA_CREATE );
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use MusicBrainz::Server::Edit::Types qw( Nullable PartialDateHash );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 use aliased 'MusicBrainz::Server::Entity::PartialDate';
 use Moose::Util::TypeConstraints;
 use MooseX::Types::Moose qw( ArrayRef Bool Str Int );
@@ -15,12 +15,12 @@ use MooseX::Types::Structured qw( Dict Optional );
 use aliased 'MusicBrainz::Server::Entity::Area';
 
 extends 'MusicBrainz::Server::Edit::Generic::Create';
-with 'MusicBrainz::Server::Edit::Role::Preview';
-with 'MusicBrainz::Server::Edit::Area';
-with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
-with 'MusicBrainz::Server::Edit::Role::DatePeriod';
+with 'MusicBrainz::Server::Edit::Role::Preview',
+     'MusicBrainz::Server::Edit::Area',
+     'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit',
+     'MusicBrainz::Server::Edit::Role::DatePeriod';
 
-sub edit_name { N_l('Add area') }
+sub edit_name { N_lp('Add area', 'edit type') }
 sub edit_type { $EDIT_AREA_CREATE }
 sub _create_model { 'Area' }
 sub area_id { shift->entity_id }
@@ -39,7 +39,7 @@ has '+data' => (
         iso_3166_1  => Optional[ArrayRef[Str]],
         iso_3166_2  => Optional[ArrayRef[Str]],
         iso_3166_3  => Optional[ArrayRef[Str]],
-    ]
+    ],
 );
 
 sub foreign_keys
@@ -72,7 +72,7 @@ sub build_display_data
         end_date   => to_json_object(PartialDate->new($self->data->{end_date})),
         area       => to_json_object((defined($self->entity_id) &&
             $loaded->{Area}{ $self->entity_id }) ||
-            Area->new( name => $self->data->{name} )
+            Area->new( name => $self->data->{name} ),
         ),
         ended      => boolean_to_json($self->data->{ended}),
         iso_3166_1 => @{ $self->data->{iso_3166_1} } ? $self->data->{iso_3166_1} : undef,
@@ -81,7 +81,7 @@ sub build_display_data
     };
 }
 
-sub edit_template { 'AddArea' };
+sub edit_template { 'AddArea' }
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

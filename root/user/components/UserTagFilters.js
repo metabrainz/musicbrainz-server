@@ -29,14 +29,17 @@ const UserTagFilters = ({
       {showVotesSelect ? (
         <FormRow>
           <label>
-            {addColonText(lp('Show votes', 'tag upvotes or downvotes'))}
+            {addColonText(lp(
+              'Show votes',
+              'folksonomy tag upvotes or downvotes',
+            ))}
             {' '}
             <select
               defaultValue={showDownvoted ? '1' : '0'}
               name="show_downvoted"
             >
-              <option value="0">{lp('upvotes', 'tag')}</option>
-              <option value="1">{lp('downvotes', 'tag')}</option>
+              <option value="0">{lp('upvotes', 'folksonomy tag')}</option>
+              <option value="1">{lp('downvotes', 'folksonomy tag')}</option>
             </select>
           </label>
           {showSortSelect ? null : <InlineSubmitButton />}

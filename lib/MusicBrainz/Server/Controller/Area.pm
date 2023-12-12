@@ -16,7 +16,7 @@ with 'MusicBrainz::Server::Controller::Role::Load' => {
             releases => ['release'],
             works => ['work'],
         },
-        default     => ['url']
+        default     => ['url'],
     },
 };
 with 'MusicBrainz::Server::Controller::Role::LoadWithRowID';
@@ -29,10 +29,10 @@ with 'MusicBrainz::Server::Controller::Role::WikipediaExtract';
 with 'MusicBrainz::Server::Controller::Role::CommonsImage';
 with 'MusicBrainz::Server::Controller::Role::EditRelationships';
 with 'MusicBrainz::Server::Controller::Role::JSONLD' => {
-    endpoints => {show => {copy_stash => ['top_tags']}, aliases => {copy_stash => ['aliases']}}
+    endpoints => {show => {copy_stash => ['top_tags']}, aliases => {copy_stash => ['aliases']}},
 };
 with 'MusicBrainz::Server::Controller::Role::Collection' => {
-    entity_type => 'area'
+    entity_type => 'area',
 };
 
 use Data::Page;
@@ -274,7 +274,7 @@ sub places : Chained('load')
                     # and only increase the page size.
                     delete @{$json}{qw(annotation)};
                     $json;
-                } grep { $_->coordinates } @$places
+                } grep { $_->coordinates } @$places,
             ],
         }),
         places      => to_json_array($places),
@@ -398,7 +398,7 @@ for my $method (qw( create edit merge merge_queue delete add_alias edit_alias de
             $c->detach('/error_403');
         }
     };
-};
+}
 
 before qw( create edit ) => sub {
     my ($self, $c) = @_;
@@ -411,7 +411,7 @@ sub _merge_load_entities
     my ($self, $c, @areas) = @_;
     $c->model('Area')->load_containment(@areas);
     $c->model('AreaType')->load(@areas);
-};
+}
 
 =head1 COPYRIGHT AND LICENSE
 

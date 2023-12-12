@@ -21,7 +21,7 @@ const PossibleDuplicates = ({
   onCheckboxChange,
 }: PropsT): React$Element<'div'> => (
   <div>
-    <h3>{l('Possible Duplicates')}</h3>
+    <h3>{l('Possible duplicates')}</h3>
     <p>{l('We found the following entities with very similar names:')}</p>
     <ul>
       {duplicates.map(dupe => (

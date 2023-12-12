@@ -14,7 +14,7 @@ use MusicBrainz::Server::Edit::Utils qw(
 );
 use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 
 use MooseX::Types::Moose qw( ArrayRef Bool Int Str );
 use MooseX::Types::Structured qw( Dict Optional );
@@ -23,12 +23,12 @@ use aliased 'MusicBrainz::Server::Entity::Area';
 use aliased 'MusicBrainz::Server::Entity::PartialDate';
 
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
-with 'MusicBrainz::Server::Edit::CheckForConflicts';
-with 'MusicBrainz::Server::Edit::Area';
-with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
-with 'MusicBrainz::Server::Edit::Role::DatePeriod';
+with 'MusicBrainz::Server::Edit::CheckForConflicts',
+     'MusicBrainz::Server::Edit::Area',
+     'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit',
+     'MusicBrainz::Server::Edit::Role::DatePeriod';
 
-sub edit_name { N_l('Edit area') }
+sub edit_name { N_lp('Edit area', 'edit type') }
 sub edit_type { $EDIT_AREA_EDIT }
 
 sub _edit_model { 'Area' }
@@ -55,11 +55,11 @@ has '+data' => (
         entity => Dict[
             id => Int,
             gid => Optional[Str],
-            name => Str
+            name => Str,
         ],
         new => change_fields(),
         old => change_fields(),
-    ]
+    ],
 );
 
 sub foreign_keys
@@ -83,14 +83,14 @@ sub build_display_data
         name       => 'name',
         sort_name  => 'sort_name',
         comment    => 'comment',
-        ended      => 'ended'
+        ended      => 'ended',
     );
 
     my $data = changed_display_data($self->data, $loaded, %map);
 
     $data->{area} = to_json_object(
         $loaded->{Area}{ $self->data->{entity}{id} }
-        || Area->new( name => $self->data->{entity}{name} )
+        || Area->new( name => $self->data->{entity}{name} ),
     );
 
     for my $date_prop (qw( begin_date end_date )) {

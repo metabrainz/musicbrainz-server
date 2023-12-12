@@ -91,7 +91,7 @@ sub check_granted_token
                  WHERE editor = ? AND application = ? AND scope = ? AND
                        access_token IS NOT NULL';
     if ($offline) {
-        $query .= ' AND refresh_token IS NOT NULL'
+        $query .= ' AND refresh_token IS NOT NULL';
     }
     return $self->c->sql->select_single_value($query, $editor_id, $application_id, $scope);
 }

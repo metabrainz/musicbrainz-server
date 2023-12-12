@@ -13,7 +13,7 @@ apply ([
     {
         check => sub { is_valid_setlist(shift) },
         message => sub { l('Please ensure all lines start with @, * or #, followed by a space.') },
-    }
+    },
 ]);
 
 1;

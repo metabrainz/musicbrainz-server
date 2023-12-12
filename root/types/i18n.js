@@ -18,17 +18,24 @@ declare type AnchorProps = {
   +title?: string,
 };
 
+declare type VarSubstScalarArg =
+  | StrOrNum
+  | React$MixedElement;
+
+declare type VarSubstArg =
+  | VarSubstScalarArg
+  | $ReadOnlyArray<VarSubstScalarArg>;
+
 declare type Expand2ReactInput = VarSubstArg | AnchorProps;
 
-declare type Expand2ReactOutput = string | React$MixedElement;
+declare type Expand2ReactOutput =
+  | string
+  | React$MixedElement
+  | Array<string | React$MixedElement>;
 
 declare type ExpandLFunc<-Input, Output> = (
   key: string,
-  args: {+[arg: string]: Input | Output, ...},
+  args: {+[arg: string]: Input | Output | string, ...},
 ) => Output;
 
 declare type N_l_T = () => string;
-
-declare type VarSubstArg =
-  | StrOrNum
-  | React$MixedElement;

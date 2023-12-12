@@ -2,6 +2,7 @@ package MusicBrainz::Server::Controller::WS::js::Edit;
 use DBDefs;
 use File::Spec::Functions qw( catdir );
 use HTML::Entities qw( encode_entities );
+use HTTP::Status qw( :constants );
 use JSON qw( encode_json );
 use Moose;
 use MusicBrainz::Server::Constants qw(
@@ -96,7 +97,7 @@ our $TT = Template->new(
         comma_only_list => sub { my $items = shift; comma_only_list(@$items) },
     },
 
-    %{ MusicBrainz::Server->config->{'View::Default'} }
+    %{ MusicBrainz::Server->config->{'View::Default'} },
 );
 
 
@@ -430,7 +431,7 @@ sub process_relationship {
     if (defined $data->{attributes}) {
         $data->{attributes} = merge_link_attributes(
             $data->{attributes},
-            [$data->{relationship} ? $data->{relationship}->link->all_attributes : ()]
+            [$data->{relationship} ? $data->{relationship}->link->all_attributes : ()],
         );
     }
 
@@ -562,7 +563,7 @@ sub process_edits {
         my ($type0, $type1) = split /-/, $types;
 
         my $relationships_by_id = $c->model('Relationship')->get_by_ids(
-           $type0, $type1, keys %$edits_by_relationship_id
+           $type0, $type1, keys %$edits_by_relationship_id,
         );
 
         while (my ($id, $edits) = each %$edits_by_relationship_id) {
@@ -643,7 +644,7 @@ sub process_edits {
     if (@non_existent_entities) {
         $c->forward('/ws/js/detach_with_error', [{
             errorCode => $ERROR_NON_EXISTENT_ENTITIES,
-            entities => \@non_existent_entities
+            entities => \@non_existent_entities,
         }]);
     }
 
@@ -675,7 +676,7 @@ sub create_edits {
             );
         } catch {
             if (ref($_) eq 'MusicBrainz::Server::Edit::Exceptions::Forbidden') {
-                $c->forward('/ws/js/detach_with_error', ['editor is forbidden to enter this edit', 403]);
+                $c->forward('/ws/js/detach_with_error', ['editor is forbidden to enter this edit', HTTP_FORBIDDEN]);
             } elsif (ref($_) eq 'MusicBrainz::Server::Edit::Exceptions::NoChanges') {
                 # The data submitted doesn't change anything. This happens
                 # occasionally when stale search indexes are used as a source
@@ -777,7 +778,7 @@ sub submit_edits {
 
     for my $model (keys %$created_entity_ids) {
         $created_entities->{$model} = $c->model($model)->get_by_ids(
-            @{ $created_entity_ids->{$model} }
+            @{ $created_entity_ids->{$model} },
         );
     }
 

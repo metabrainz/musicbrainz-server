@@ -18,7 +18,7 @@ use MusicBrainz::Server::Edit::Utils qw(
 );
 use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 
 use MooseX::Types::Moose qw( ArrayRef Bool Int Str );
 use MooseX::Types::Structured qw( Dict Optional );
@@ -28,18 +28,18 @@ use aliased 'MusicBrainz::Server::Entity::Area';
 use aliased 'MusicBrainz::Server::Entity::PartialDate';
 
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
-with 'MusicBrainz::Server::Edit::Artist';
-with 'MusicBrainz::Server::Edit::CheckForConflicts';
-with 'MusicBrainz::Server::Edit::Role::IPI';
-with 'MusicBrainz::Server::Edit::Role::ISNI';
-with 'MusicBrainz::Server::Edit::Role::DatePeriod';
-with 'MusicBrainz::Server::Edit::Role::CheckDuplicates';
-with 'MusicBrainz::Server::Edit::Role::AllowAmending' => {
-    create_edit_type => $EDIT_ARTIST_CREATE,
-    entity_type => 'artist',
-};
+with 'MusicBrainz::Server::Edit::Artist',
+     'MusicBrainz::Server::Edit::CheckForConflicts',
+     'MusicBrainz::Server::Edit::Role::IPI',
+     'MusicBrainz::Server::Edit::Role::ISNI',
+     'MusicBrainz::Server::Edit::Role::DatePeriod',
+     'MusicBrainz::Server::Edit::Role::CheckDuplicates',
+     'MusicBrainz::Server::Edit::Role::AllowAmending' => {
+        create_edit_type => $EDIT_ARTIST_CREATE,
+        entity_type => 'artist',
+     };
 
-sub edit_name { N_l('Edit artist') }
+sub edit_name { N_lp('Edit artist', 'edit type') }
 sub edit_type { $EDIT_ARTIST_EDIT }
 
 sub edit_template { 'EditArtist' }
@@ -61,7 +61,7 @@ sub change_fields
         isni_codes  => Optional[ArrayRef[Str]],
         begin_date => Nullable[PartialDateHash],
         end_date   => Nullable[PartialDateHash],
-        ended      => Optional[Bool]
+        ended      => Optional[Bool],
     ];
 }
 
@@ -70,11 +70,11 @@ has '+data' => (
         entity => Dict[
             id => Int,
             gid => Optional[Str],
-            name => Str
+            name => Str,
         ],
         new => change_fields(),
         old => change_fields(),
-    ]
+    ],
 );
 
 around initialize => sub {
@@ -118,14 +118,14 @@ sub build_display_data
         name       => 'name',
         sort_name  => 'sort_name',
         comment    => 'comment',
-        ended      => 'ended'
+        ended      => 'ended',
     );
 
     my $data = changed_display_data($self->data, $loaded, %map);
 
     $data->{artist} = to_json_object(
         $loaded->{Artist}{ $self->data->{entity}{id} } ||
-        Artist->new( name => $self->data->{entity}{name} )
+        Artist->new( name => $self->data->{entity}{name} ),
     );
 
     for my $area (@areas) {
@@ -271,7 +271,7 @@ around merge_changes => sub {
 
     if (defined $gender_id && defined $type_id) {
         MusicBrainz::Server::Edit::Exceptions::GeneralError->throw(
-            'A group of artists cannot have a gender.'
+            'A group of artists cannot have a gender.',
         ) if ($type_id == $ARTIST_TYPE_GROUP) || $self->c->sql->select_single_value(
             'SELECT 1 FROM artist_type WHERE id = ? AND parent = ?',
             $type_id, $ARTIST_TYPE_GROUP,

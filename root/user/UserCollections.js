@@ -39,17 +39,17 @@ type CollectionListT = {
 };
 
 const collectionsListTitles = {
-  area: N_l('Area Collections'),
-  artist: N_l('Artist Collections'),
-  event: N_l('Event Collections'),
-  instrument: N_l('Instrument Collections'),
-  label: N_l('Label Collections'),
-  place: N_l('Place Collections'),
-  recording: N_l('Recording Collections'),
-  release: N_l('Release Collections'),
-  release_group: N_l('Release Group Collections'),
-  series: N_lp('Series Collections', 'plural'),
-  work: N_l('Work Collections'),
+  area: N_l('Area collections'),
+  artist: N_l('Artist collections'),
+  event: N_l('Event collections'),
+  instrument: N_l('Instrument collections'),
+  label: N_l('Label collections'),
+  place: N_l('Place collections'),
+  recording: N_l('Recording collections'),
+  release: N_l('Release collections'),
+  release_group: N_l('Release group collections'),
+  series: N_lp('Series collections', 'plural'),
+  work: N_l('Work collections'),
 };
 
 function formatCollaboratorNumber(
@@ -131,7 +131,7 @@ const CollectionsEntityTypeSection = ({
         };
       const actionsColumn = defineActionsColumn({
         actions: [
-          [l('Edit'), '/own_collection/edit'],
+          [lp('Edit', 'verb, interactive'), '/own_collection/edit'],
           [l('Remove'), '/own_collection/delete'],
         ],
       });
@@ -223,7 +223,11 @@ const UserCollections = ({
         </p>
       )}
       {viewingOwnProfile ? (
-        <p><a href="/collection/create">{l('Add a new collection')}</a></p>
+        <p>
+          <a href="/collection/create">
+            {lp('Add a new collection', 'interactive')}
+          </a>
+        </p>
       ) : null}
     </UserAccountLayout>
   );

@@ -19,8 +19,8 @@ sub _load_index_from_db {
     my $self = shift;
     return {
         map { @$_ } @{
-            $self->sql->select_list_of_lists('SELECT page_name, revision FROM wikidocs.wikidocs_index')
-        }
+            $self->sql->select_list_of_lists('SELECT page_name, revision FROM wikidocs.wikidocs_index');
+        },
     };
 }
 
@@ -113,7 +113,7 @@ sub get_wiki_versions
             $content,
             ForceArray => [ 'page' ],
             KeyAttr => { page => 'title', r => 'from', n => 'to'},
-            GroupTags => { pages => 'page', redirects => 'r', normalized => 'n' }
+            GroupTags => { pages => 'page', redirects => 'r', normalized => 'n' },
         );
 
         my $pages = $xml->{query}->{pages};

@@ -4,11 +4,11 @@ use warnings;
 
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_REMOVE_TRACK );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 
 use MusicBrainz::Server::Edit::Historic::Base;
 
-sub edit_name     { N_l('Remove track') }
+sub edit_name     { N_lp('Remove track', 'edit type') }
 sub edit_kind     { 'remove' }
 sub edit_type     { $EDIT_HISTORIC_REMOVE_TRACK }
 sub historic_type { 11 }
@@ -28,7 +28,7 @@ sub _build_related_entities
     return {
         release   => $self->data->{release_ids},
         recording => [ $self->data->{recording_id} ],
-    }
+    };
 }
 
 sub foreign_keys
@@ -36,8 +36,8 @@ sub foreign_keys
     my $self = shift;
     return {
         Release   => [ map { $_ => ['ArtistCredit'] } $self->_release_ids ],
-        Recording => [ $self->data->{recording_id} ]
-    }
+        Recording => [ $self->data->{recording_id} ],
+    };
 }
 
 sub build_display_data
@@ -47,14 +47,14 @@ sub build_display_data
         name => $self->data->{name},
         recording => to_json_object(
             $loaded->{Recording}{ $self->data->{recording_id} } ||
-            Recording->new( name => $self->data->{name} )
+            Recording->new( name => $self->data->{name} ),
         ),
         releases => [
             map {
                 to_json_object($loaded->{Release}{$_})
-            } $self->_release_ids
-        ]
-    }
+            } $self->_release_ids,
+        ],
+    };
 }
 
 sub upgrade
@@ -80,7 +80,7 @@ sub deserialize_previous_value
     return {
         name     => $name,
         album_id => $album_id,
-    }
+    };
 }
 
 1;
