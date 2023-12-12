@@ -1049,7 +1049,12 @@ msgid "Links an event to the place where it was held."
 msgstr "イベントとその開催場所とを結びつけます。"
 
 #: DB:link_attribute_type/description:830
-msgid "Local time a band's performance is scheduled to start, formatted HH:MM."
+#, fuzzy
+#| msgid ""
+#| "Local time a band's performance is scheduled to start, formatted HH:MM."
+msgid ""
+"Local time a performance was scheduled to start or a program was broadcast, "
+"formatted HH:MM."
 msgstr "バンドの演奏開始予定時刻の現地時間を HH:MM の書式で表したものです。"
 
 #: DB:link_attribute_type/description:1060
@@ -3894,6 +3899,32 @@ msgid ""
 "ad06-98af558e99b0\">recording-work performance relationship type</a>."
 msgstr ""
 
+#: DB:link_type/description:1229
+#, fuzzy
+#| msgid ""
+#| "This relationship type is used to indicate that a release group is a "
+#| "cover version of another release group, i.e. when an artist performs a "
+#| "new rendition of another artist's album.<br/>\n"
+#| "For individual songs, see the <a href=\"/relationship/a3005666-a872-32c3-"
+#| "ad06-98af558e99b0\">recording-work performance relationship type</a>."
+msgid ""
+"This relationship type is used to indicate that a release group is a re‐"
+"recording of another release group, that is, when an artist performs a new "
+"studio rendition of their own album.<br/>\n"
+"For a live performance of the album, see the <a href=\"/"
+"relationship/62beff0a-679c-43f3-8fe6-f6c8ed8581e4\">live performance "
+"relationship type</a>.<br/>\n"
+"For a cover recording of the album by a different artist, see the <a href=\"/"
+"relationship/cf02e524-9d5b-46b7-a88e-329737395818\">cover relationship type</"
+"a>."
+msgstr ""
+"この関係タイプは、リリースグループが別のリリースグループのカバーバージョンで"
+"あることを示すために使用される。つまり、アーティストが別のアーティストのアル"
+"バムの新しいレンディションを実行する場合である。<br/>\n"
+"個々の曲については、<a href=\"/relationship/a3005666-a872-32c3-"
+"ad06-98af558e99b0\">レコーディング作業パフォーマンスの関係タイプ</a>を参照の"
+"こと。"
+
 #: DB:link_type/description:1005
 msgid ""
 "This relationship type is used to link a label to a site where music can be "
@@ -6080,6 +6111,10 @@ msgstr ""
 msgid "is a remix of"
 msgstr ""
 
+#: DB:link_type/long_link_phrase:1229
+msgid "is a re‐recording of"
+msgstr ""
+
 #: DB:link_type/long_link_phrase:11
 msgid "is a single/EP which was taken from"
 msgstr ""
@@ -7547,6 +7582,24 @@ msgstr "ここで改訂された作品"
 #: DB:link_type/name:315 DB:link_type/reverse_link_phrase:315
 msgid "revision of"
 msgstr ""
+
+#: DB:link_type/name:1229
+#, fuzzy
+#| msgid "recording"
+msgid "re‐recording"
+msgstr "レコーディング"
+
+#: DB:link_type/link_phrase:1229
+#, fuzzy
+#| msgid "recording"
+msgid "re‐recording of"
+msgstr "レコーディング"
+
+#: DB:link_type/reverse_link_phrase:1229
+#, fuzzy
+#| msgid "recording"
+msgid "re‐recordings"
+msgstr "レコーディング"
 
 #: DB:link_type/name:349 DB:link_type/reverse_link_phrase:349
 msgid "rights society"
@@ -9373,20 +9426,6 @@ msgstr ""
 #~ msgstr ""
 #~ "この関係は、ある人がイベント（マスタークラスなど）の指導者であったことを示"
 #~ "す。"
-
-#~ msgid ""
-#~ "This relationship type is used to indicate that a release group is a "
-#~ "cover version of another release group, i.e. when an artist performs a "
-#~ "new rendition of another artist's album.<br/>\n"
-#~ "For individual songs, see the <a href=\"/relationship/a3005666-a872-32c3-"
-#~ "ad06-98af558e99b0\">recording-work performance relationship type</a>."
-#~ msgstr ""
-#~ "この関係タイプは、リリースグループが別のリリースグループのカバーバージョン"
-#~ "であることを示すために使用される。つまり、アーティストが別のアーティストの"
-#~ "アルバムの新しいレンディションを実行する場合である。<br/>\n"
-#~ "個々の曲については、<a href=\"/relationship/a3005666-a872-32c3-"
-#~ "ad06-98af558e99b0\">レコーディング作業パフォーマンスの関係タイプ</a>を参照"
-#~ "のこと。"
 
 #~ msgid ""
 #~ "This relationship type is used to link a label to a site where music can "

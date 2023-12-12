@@ -4397,6 +4397,11 @@ msgstr ""
 msgid "xalam"
 msgstr ""
 
+#: DB:instrument/name:1186
+msgctxt "Mallorcan bagpipe"
+msgid "xeremies"
+msgstr ""
+
 #: DB:instrument/name:484
 msgctxt "Chinese end-blown flute"
 msgid "xiao"

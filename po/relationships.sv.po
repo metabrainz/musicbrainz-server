@@ -925,7 +925,9 @@ msgid "Links an event to the place where it was held."
 msgstr ""
 
 #: DB:link_attribute_type/description:830
-msgid "Local time a band's performance is scheduled to start, formatted HH:MM."
+msgid ""
+"Local time a performance was scheduled to start or a program was broadcast, "
+"formatted HH:MM."
 msgstr ""
 
 #: DB:link_attribute_type/description:1060
@@ -3304,6 +3306,19 @@ msgid ""
 "ad06-98af558e99b0\">recording-work performance relationship type</a>."
 msgstr ""
 
+#: DB:link_type/description:1229
+msgid ""
+"This relationship type is used to indicate that a release group is a re‐"
+"recording of another release group, that is, when an artist performs a new "
+"studio rendition of their own album.<br/>\n"
+"For a live performance of the album, see the <a href=\"/"
+"relationship/62beff0a-679c-43f3-8fe6-f6c8ed8581e4\">live performance "
+"relationship type</a>.<br/>\n"
+"For a cover recording of the album by a different artist, see the <a href=\"/"
+"relationship/cf02e524-9d5b-46b7-a88e-329737395818\">cover relationship type</"
+"a>."
+msgstr ""
+
 #: DB:link_type/description:1005
 msgid ""
 "This relationship type is used to link a label to a site where music can be "
@@ -5415,6 +5430,10 @@ msgstr ""
 msgid "is a remix of"
 msgstr ""
 
+#: DB:link_type/long_link_phrase:1229
+msgid "is a re‐recording of"
+msgstr ""
+
 #: DB:link_type/long_link_phrase:11
 msgid "is a single/EP which was taken from"
 msgstr ""
@@ -6877,6 +6896,18 @@ msgstr ""
 
 #: DB:link_type/name:315 DB:link_type/reverse_link_phrase:315
 msgid "revision of"
+msgstr ""
+
+#: DB:link_type/name:1229
+msgid "re‐recording"
+msgstr ""
+
+#: DB:link_type/link_phrase:1229
+msgid "re‐recording of"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:1229
+msgid "re‐recordings"
 msgstr ""
 
 #: DB:link_type/name:349 DB:link_type/reverse_link_phrase:349
