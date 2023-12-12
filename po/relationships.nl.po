@@ -1085,7 +1085,12 @@ msgid "Links an event to the place where it was held."
 msgstr "Koppelt het evenement aan de plaats waar het plaatsvond."
 
 #: DB:link_attribute_type/description:830
-msgid "Local time a band's performance is scheduled to start, formatted HH:MM."
+#, fuzzy
+#| msgid ""
+#| "Local time a band's performance is scheduled to start, formatted HH:MM."
+msgid ""
+"Local time a performance was scheduled to start or a program was broadcast, "
+"formatted HH:MM."
 msgstr ""
 "De lokale tijd waarop een band zou moeten beginnen met optreden, "
 "geformatteerd als UU:MM."
@@ -4168,6 +4173,31 @@ msgid ""
 "ad06-98af558e99b0\">recording-work performance relationship type</a>."
 msgstr ""
 
+#: DB:link_type/description:1229
+#, fuzzy
+#| msgid ""
+#| "This relationship type is used to indicate that a release group is a "
+#| "cover version of another release group, i.e. when an artist performs a "
+#| "new rendition of another artist's album.<br/>\n"
+#| "For individual songs, see the <a href=\"/relationship/a3005666-a872-32c3-"
+#| "ad06-98af558e99b0\">recording-work performance relationship type</a>."
+msgid ""
+"This relationship type is used to indicate that a release group is a re‐"
+"recording of another release group, that is, when an artist performs a new "
+"studio rendition of their own album.<br/>\n"
+"For a live performance of the album, see the <a href=\"/"
+"relationship/62beff0a-679c-43f3-8fe6-f6c8ed8581e4\">live performance "
+"relationship type</a>.<br/>\n"
+"For a cover recording of the album by a different artist, see the <a href=\"/"
+"relationship/cf02e524-9d5b-46b7-a88e-329737395818\">cover relationship type</"
+"a>."
+msgstr ""
+"Deze relatie wordt gebruikt om aan te geven dat een uitgavegroep een "
+"coverversie van een andere uitgavegroep is, bijvoorbeeld als een artiest een "
+"nieuwe versie van het album van een andere artiest maakt.<br/>\n"
+"Zie voor individuele nummers de <a href=\"/relationship/a3005666-a872-32c3-"
+"ad06-98af558e99b0\">relatie voor de uitvoering van een compositie</a>."
+
 #: DB:link_type/description:1005
 msgid ""
 "This relationship type is used to link a label to a site where music can be "
@@ -6371,6 +6401,12 @@ msgstr "is een remaster van"
 msgid "is a remix of"
 msgstr "is een remix van"
 
+#: DB:link_type/long_link_phrase:1229
+#, fuzzy
+#| msgid "is a remaster of"
+msgid "is a re‐recording of"
+msgstr "is een remaster van"
+
 #: DB:link_type/long_link_phrase:11
 msgid "is a single/EP which was taken from"
 msgstr "is een single/EP die afkomstig is van"
@@ -7844,6 +7880,24 @@ msgstr "hier herzien"
 #: DB:link_type/name:315 DB:link_type/reverse_link_phrase:315
 msgid "revision of"
 msgstr "revisie van"
+
+#: DB:link_type/name:1229
+#, fuzzy
+#| msgid "recording"
+msgid "re‐recording"
+msgstr "opname"
+
+#: DB:link_type/link_phrase:1229
+#, fuzzy
+#| msgid "recording"
+msgid "re‐recording of"
+msgstr "opname"
+
+#: DB:link_type/reverse_link_phrase:1229
+#, fuzzy
+#| msgid "recording"
+msgid "re‐recordings"
+msgstr "opname"
 
 #: DB:link_type/name:349 DB:link_type/reverse_link_phrase:349
 msgid "rights society"
@@ -9741,20 +9795,6 @@ msgstr "{vocal:%|vocale} ondersteuning voor"
 #~ msgstr ""
 #~ "Deze relatie geeft aan dat een persoon op een evenement les gaf "
 #~ "(bijvoorbeeld een masterclass)."
-
-#~ msgid ""
-#~ "This relationship type is used to indicate that a release group is a "
-#~ "cover version of another release group, i.e. when an artist performs a "
-#~ "new rendition of another artist's album.<br/>\n"
-#~ "For individual songs, see the <a href=\"/relationship/a3005666-a872-32c3-"
-#~ "ad06-98af558e99b0\">recording-work performance relationship type</a>."
-#~ msgstr ""
-#~ "Deze relatie wordt gebruikt om aan te geven dat een uitgavegroep een "
-#~ "coverversie van een andere uitgavegroep is, bijvoorbeeld als een artiest "
-#~ "een nieuwe versie van het album van een andere artiest maakt.<br/>\n"
-#~ "Zie voor individuele nummers de <a href=\"/relationship/a3005666-"
-#~ "a872-32c3-ad06-98af558e99b0\">relatie voor de uitvoering van een "
-#~ "compositie</a>."
 
 #~ msgid ""
 #~ "This relationship type is used to link a label to a site where music can "

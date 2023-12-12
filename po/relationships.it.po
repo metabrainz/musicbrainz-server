@@ -28,8 +28,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
-" ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
+"0) ? 1 : 2);\n"
 "X-Generator: Weblate 5.1\n"
 
 #: DB:link_attribute_type/description:1355
@@ -1117,7 +1117,12 @@ msgid "Links an event to the place where it was held."
 msgstr "Collega un evento al luogo in cui si è tenuto."
 
 #: DB:link_attribute_type/description:830
-msgid "Local time a band's performance is scheduled to start, formatted HH:MM."
+#, fuzzy
+#| msgid ""
+#| "Local time a band's performance is scheduled to start, formatted HH:MM."
+msgid ""
+"Local time a performance was scheduled to start or a program was broadcast, "
+"formatted HH:MM."
 msgstr ""
 "Ora locale di inizio previsto dell'esibizione di una band, nel formato HH:MM."
 
@@ -3198,8 +3203,8 @@ msgstr ""
 "Collega un gruppo di pubblicazioni all'artista a cui è dedicato. Si "
 "riferisce a dediche come per es. \"Quest'album è dedicato alla memoria di "
 "Artista\". Per album tributo che contengono cover dell'artista, utilizza la "
-"<a href=\"/relationship/5e2907db-49ec-4a48-9f11-dfb99d2603ff\" target="
-"\"_blank\">relazione tributo</a>."
+"<a href=\"/relationship/5e2907db-49ec-4a48-9f11-dfb99d2603ff\" "
+"target=\"_blank\">relazione tributo</a>."
 
 #: DB:link_type/description:65
 msgid ""
@@ -4275,6 +4280,31 @@ msgid ""
 "rendition of another artist's album.<br/>\n"
 "For individual songs, see the <a href=\"/relationship/a3005666-a872-32c3-"
 "ad06-98af558e99b0\">recording-work performance relationship type</a>."
+msgstr ""
+"Questo tipo di relazione serve a indicare che un gruppo di pubblicazioni è "
+"una cover di un altro gruppo di pubblicazioni, cioè che un artista ha "
+"eseguito una nuova interpretazione dell'album di un altro artista.<br/>\n"
+"Per canzoni singole, utilizza il <a href=\"/relationship/a3005666-a872-32c3-"
+"ad06-98af558e99b0\">tipo di relazione esecuzione registrazione-opera</a>."
+
+#: DB:link_type/description:1229
+#, fuzzy
+#| msgid ""
+#| "This relationship type is used to indicate that a release group is a "
+#| "cover version of another release group, that is, when an artist performs "
+#| "a new rendition of another artist's album.<br/>\n"
+#| "For individual songs, see the <a href=\"/relationship/a3005666-a872-32c3-"
+#| "ad06-98af558e99b0\">recording-work performance relationship type</a>."
+msgid ""
+"This relationship type is used to indicate that a release group is a re‐"
+"recording of another release group, that is, when an artist performs a new "
+"studio rendition of their own album.<br/>\n"
+"For a live performance of the album, see the <a href=\"/"
+"relationship/62beff0a-679c-43f3-8fe6-f6c8ed8581e4\">live performance "
+"relationship type</a>.<br/>\n"
+"For a cover recording of the album by a different artist, see the <a href=\"/"
+"relationship/cf02e524-9d5b-46b7-a88e-329737395818\">cover relationship type</"
+"a>."
 msgstr ""
 "Questo tipo di relazione serve a indicare che un gruppo di pubblicazioni è "
 "una cover di un altro gruppo di pubblicazioni, cioè che un artista ha "
@@ -6564,6 +6594,12 @@ msgstr "è un remaster di"
 msgid "is a remix of"
 msgstr "è un remix di"
 
+#: DB:link_type/long_link_phrase:1229
+#, fuzzy
+#| msgid "is a remaster of"
+msgid "is a re‐recording of"
+msgstr "è un remaster di"
+
 #: DB:link_type/long_link_phrase:11
 msgid "is a single/EP which was taken from"
 msgstr "è un singolo/EP tratto da"
@@ -8042,6 +8078,24 @@ msgstr "luogo di revisione per"
 #: DB:link_type/name:315 DB:link_type/reverse_link_phrase:315
 msgid "revision of"
 msgstr "revisione di"
+
+#: DB:link_type/name:1229
+#, fuzzy
+#| msgid "recording"
+msgid "re‐recording"
+msgstr "registrazione"
+
+#: DB:link_type/link_phrase:1229
+#, fuzzy
+#| msgid "recording"
+msgid "re‐recording of"
+msgstr "registrazione"
+
+#: DB:link_type/reverse_link_phrase:1229
+#, fuzzy
+#| msgid "recording"
+msgid "re‐recordings"
+msgstr "registrazione"
 
 #: DB:link_type/name:349 DB:link_type/reverse_link_phrase:349
 msgid "rights society"

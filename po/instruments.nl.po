@@ -4404,6 +4404,13 @@ msgstr "wot"
 msgid "xalam"
 msgstr "xalam"
 
+#: DB:instrument/name:1186
+#, fuzzy
+#| msgid "theremin"
+msgctxt "Mallorcan bagpipe"
+msgid "xeremies"
+msgstr "theremin"
+
 #: DB:instrument/name:484
 msgctxt "Chinese end-blown flute"
 msgid "xiao"

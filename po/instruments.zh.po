@@ -4398,6 +4398,13 @@ msgstr "圆排箫"
 msgid "xalam"
 msgstr "哈兰琴"
 
+#: DB:instrument/name:1186
+#, fuzzy
+#| msgid "theremin"
+msgctxt "Mallorcan bagpipe"
+msgid "xeremies"
+msgstr "特雷门琴"
+
 #: DB:instrument/name:484
 msgctxt "Chinese end-blown flute"
 msgid "xiao"

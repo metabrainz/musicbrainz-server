@@ -1304,6 +1304,19 @@ msgid ""
 "bifora or pifara."
 msgstr ""
 
+#. name:xeremies 
+#: DB:instrument/description:1186
+msgid ""
+"For the two tube bagless used on Ibiza, see <a href=\"/instrument/\">reclam "
+"de xeremies</a>.<br /> For the Latin American oboe, see <a href=\"/"
+"instrument/174e4a7a-dad6-4b3b-95e2-e3010b53a0ca\">chirimía</a>.<br /> For "
+"the mediaeval woodwind, see <a href=\"/instrument/b4f112c3-d666-47f2-bb85-"
+"bae28572ca13\">shawm</a>.<br /> Used historically since the middle ages on "
+"the Iberian islands, its bag is made of skin and it has one chanter with "
+"usually 3 drones, but of these usually one is real and the others are only "
+"decorative."
+msgstr ""
+
 #. name:lira da braccio 
 #: DB:instrument/description:1016
 msgid ""

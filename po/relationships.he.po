@@ -975,7 +975,12 @@ msgid "Links an event to the place where it was held."
 msgstr "קישור ארוע למקום בו הוא התקיים."
 
 #: DB:link_attribute_type/description:830
-msgid "Local time a band's performance is scheduled to start, formatted HH:MM."
+#, fuzzy
+#| msgid ""
+#| "Local time a band's performance is scheduled to start, formatted HH:MM."
+msgid ""
+"Local time a performance was scheduled to start or a program was broadcast, "
+"formatted HH:MM."
 msgstr "הזמן המקומי בו מתוכננת להתחיל הופעת להקה, תבנית HH: MM."
 
 #: DB:link_attribute_type/description:1060
@@ -3658,6 +3663,30 @@ msgid ""
 "ad06-98af558e99b0\">recording-work performance relationship type</a>."
 msgstr ""
 
+#: DB:link_type/description:1229
+#, fuzzy
+#| msgid ""
+#| "This relationship type is used to indicate that a release group is a "
+#| "cover version of another release group, i.e. when an artist performs a "
+#| "new rendition of another artist's album.<br/>\n"
+#| "For individual songs, see the <a href=\"/relationship/a3005666-a872-32c3-"
+#| "ad06-98af558e99b0\">recording-work performance relationship type</a>."
+msgid ""
+"This relationship type is used to indicate that a release group is a re‐"
+"recording of another release group, that is, when an artist performs a new "
+"studio rendition of their own album.<br/>\n"
+"For a live performance of the album, see the <a href=\"/"
+"relationship/62beff0a-679c-43f3-8fe6-f6c8ed8581e4\">live performance "
+"relationship type</a>.<br/>\n"
+"For a cover recording of the album by a different artist, see the <a href=\"/"
+"relationship/cf02e524-9d5b-46b7-a88e-329737395818\">cover relationship type</"
+"a>."
+msgstr ""
+"סוג קשר־גומלין זה משמש לציון שקבוצת הוצאה היא גרסת כיסוי של קבוצת הוצאה "
+"אחרת, לדוגמה. כאשר אמן מבצע ביצוע חדש של אלבום של אמן אחר.<br/>\n"
+"לשירים יְחִידָנִיים, ראו <a href=\"/relationship/a3005666-a872-32c3-"
+"ad06-98af558e99b0\">סוג קשר ביצועה יצירת הקלטה</a>."
+
 #: DB:link_type/description:1005
 msgid ""
 "This relationship type is used to link a label to a site where music can be "
@@ -5814,6 +5843,12 @@ msgstr "שחזור של"
 msgid "is a remix of"
 msgstr "ערבול־מחודש של"
 
+#: DB:link_type/long_link_phrase:1229
+#, fuzzy
+#| msgid "is a remaster of"
+msgid "is a re‐recording of"
+msgstr "שחזור של"
+
 #: DB:link_type/long_link_phrase:11
 msgid "is a single/EP which was taken from"
 msgstr "חַדְשִׁיר/EP שנלקח מ־"
@@ -7281,6 +7316,24 @@ msgstr "אתר הגהה ל־"
 #: DB:link_type/name:315 DB:link_type/reverse_link_phrase:315
 msgid "revision of"
 msgstr "הגהה של"
+
+#: DB:link_type/name:1229
+#, fuzzy
+#| msgid "recording"
+msgid "re‐recording"
+msgstr "הקלטה"
+
+#: DB:link_type/link_phrase:1229
+#, fuzzy
+#| msgid "recording"
+msgid "re‐recording of"
+msgstr "הקלטה"
+
+#: DB:link_type/reverse_link_phrase:1229
+#, fuzzy
+#| msgid "recording"
+msgid "re‐recordings"
+msgstr "הקלטה"
 
 #: DB:link_type/name:349 DB:link_type/reverse_link_phrase:349
 msgid "rights society"
@@ -9082,18 +9135,6 @@ msgstr "תמיכה עבור {vocal:%|vocals}"
 #~ "This relationship indicates that a person was a teacher at an event (e.g. "
 #~ "a masterclass)."
 #~ msgstr "קשר־גומלין זה מציין אדם שהיה מורה/בארוע (כלומר בכיתת אמן)."
-
-#~ msgid ""
-#~ "This relationship type is used to indicate that a release group is a "
-#~ "cover version of another release group, i.e. when an artist performs a "
-#~ "new rendition of another artist's album.<br/>\n"
-#~ "For individual songs, see the <a href=\"/relationship/a3005666-a872-32c3-"
-#~ "ad06-98af558e99b0\">recording-work performance relationship type</a>."
-#~ msgstr ""
-#~ "סוג קשר־גומלין זה משמש לציון שקבוצת הוצאה היא גרסת כיסוי של קבוצת הוצאה "
-#~ "אחרת, לדוגמה. כאשר אמן מבצע ביצוע חדש של אלבום של אמן אחר.<br/>\n"
-#~ "לשירים יְחִידָנִיים, ראו <a href=\"/relationship/a3005666-a872-32c3-"
-#~ "ad06-98af558e99b0\">סוג קשר ביצועה יצירת הקלטה</a>."
 
 #~ msgid ""
 #~ "This relationship type is used to link a label to a site where music can "

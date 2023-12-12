@@ -4398,6 +4398,13 @@ msgstr "ווט"
 msgid "xalam"
 msgstr "קסאלאם"
 
+#: DB:instrument/name:1186
+#, fuzzy
+#| msgid "theremin"
+msgctxt "Mallorcan bagpipe"
+msgid "xeremies"
+msgstr "טרמין"
+
 #: DB:instrument/name:484
 msgctxt "Chinese end-blown flute"
 msgid "xiao"
