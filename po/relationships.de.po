@@ -20,12 +20,13 @@
 # chaban <chaban@users.noreply.translations.metabrainz.org>, 2023.
 # Philipp Wolfer <ph.wolfer@gmail.com>, 2023.
 # kellnerd <kellnerd@users.noreply.translations.metabrainz.org>, 2023.
+# aerozol <aerozol@users.noreply.translations.metabrainz.org>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-11-04 15:27+0000\n"
-"Last-Translator: kellnerd <kellnerd@users.noreply.translations.metabrainz."
-"org>\n"
+"PO-Revision-Date: 2023-12-07 14:28+0000\n"
+"Last-Translator: aerozol <aerozol@users.noreply.translations.metabrainz.org>"
+"\n"
 "Language-Team: German <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/de/>\n"
 "Language: de\n"
@@ -33,7 +34,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.1\n"
+"X-Generator: Weblate 5.2.1\n"
 
 #: DB:link_attribute_type/description:1355
 msgid "A performance-centered, usually one to three year postgraduate program."
@@ -1242,28 +1243,28 @@ msgstr "Gesprochenes"
 msgid ""
 "The libretto for {entity1} was {additional:additionally} written at {entity0}"
 msgstr ""
-"Das Libretto für {entry1} wurde {additional:zusätzlich} bei {entry0} "
+"Das Libretto für {entity1} wurde {additional:zusätzlich} bei {entity0} "
 "geschrieben"
 
 #: DB:link_type/long_link_phrase:879
 msgid ""
 "The libretto for {entity1} was {additional:additionally} written in {entity0}"
 msgstr ""
-"Das Libretto für {entry1} wurde {additional:zusätzlich} in {entry0} "
+"Das Libretto für {entity1} wurde {additional:zusätzlich} in {entity0} "
 "geschrieben"
 
 #: DB:link_type/long_link_phrase:878
 msgid ""
 "The lyrics for {entity1} were {additional:additionally} written at {entity0}"
 msgstr ""
-"Die Liedtext für {entry1} wurde {additional:zusätzlich} bei {entry0} "
+"Die Liedtext für {entity1} wurde {additional:zusätzlich} bei {entity0} "
 "geschrieben"
 
 #: DB:link_type/long_link_phrase:877
 msgid ""
 "The lyrics for {entity1} were {additional:additionally} written in {entity0}"
 msgstr ""
-"Die Liedtext für {entry1} wurde {additional:zusätzlich} in {entry0} "
+"Die Liedtext für {entity1} wurde {additional:zusätzlich} in {entity0} "
 "geschrieben"
 
 #: DB:link_type/long_link_phrase:274

@@ -8,13 +8,14 @@
 # Gary Liu, 2022
 # suming <331874545@qq.com>, 2023.
 # claybiockiller <clay0305@hotmail.com>, 2023.
+# yangmouren <yangmouren5618@163.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-21 20:02+0000\n"
-"PO-Revision-Date: 2023-11-04 22:28+0000\n"
-"Last-Translator: claybiockiller <clay0305@hotmail.com>\n"
+"PO-Revision-Date: 2023-12-03 12:27+0000\n"
+"Last-Translator: yangmouren <yangmouren5618@163.com>\n"
 "Language-Team: Chinese (Simplified) <https://translations.metabrainz.org/"
 "projects/musicbrainz/server/zh_Hans/>\n"
 "Language: zh\n"
@@ -22,7 +23,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.1\n"
+"X-Generator: Weblate 5.2.1\n"
 
 #: ../root/components/common-macros.tt:12
 msgid " ({text})"
@@ -1106,7 +1107,7 @@ msgstr "输入音轨名称和艺术家名称的分隔符（支持有效的 {url|
 
 #: ../root/edit/search_macros.tt:423
 msgid "Entered"
-msgstr ""
+msgstr "进入"
 
 #: ../root/components/forms.tt:30
 msgid ""
@@ -1511,6 +1512,8 @@ msgid ""
 "If needed, the characters \"[\", \"]\", and \"&\" can be escaped using the "
 "HTML entities \"&lsqb;\", \"&rsqb;\", and \"&amp;\" respectively."
 msgstr ""
+"如果有需要，\"[\"，\"]\"，和\"&\"等字符，可以用HTML的\"&lsqb;\"，\"&rsqb;\"，"
+"和 \"&amp;\" 等实体编码符号替换。"
 
 #: ../root/release/edit/recordings.tt:134
 msgid ""
@@ -1559,7 +1562,8 @@ msgstr "如果您不知道此实体的代码，将此栏留空即可。"
 msgid ""
 "If you don’t select an existing release group, a new one will be added with "
 "the types selected below."
-msgstr ""
+msgstr "如果您没有选择现有存在的版本组，则将添加一个新的版本组，其中包含下面选择的类"
+"型。"
 
 #: ../root/release/edit/tracklist.tt:5
 msgid "If you have a tracklist you can copy and paste, you can input it here."
