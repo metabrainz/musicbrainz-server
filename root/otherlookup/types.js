@@ -8,16 +8,16 @@
  */
 
 export type OtherLookupFormT = FormT<{
-  +'artist-ipi': ReadOnlyFieldT<string>,
-  +'artist-isni': ReadOnlyFieldT<string>,
-  +'barcode': ReadOnlyFieldT<string>,
-  +'catno': ReadOnlyFieldT<string>,
-  +'discid': ReadOnlyFieldT<string>,
-  +'freedbid': ReadOnlyFieldT<string>,
-  +'isrc': ReadOnlyFieldT<string>,
-  +'iswc': ReadOnlyFieldT<string>,
-  +'label-ipi': ReadOnlyFieldT<string>,
-  +'label-isni': ReadOnlyFieldT<string>,
-  +'mbid': ReadOnlyFieldT<string>,
-  +'url': ReadOnlyFieldT<string>,
+  +'artist-ipi': FieldT<string>,
+  +'artist-isni': FieldT<string>,
+  +'barcode': FieldT<string>,
+  +'catno': FieldT<string>,
+  +'discid': FieldT<string>,
+  +'freedbid': FieldT<string>,
+  +'isrc': FieldT<string>,
+  +'iswc': FieldT<string>,
+  +'label-ipi': FieldT<string>,
+  +'label-isni': FieldT<string>,
+  +'mbid': FieldT<string>,
+  +'url': FieldT<string>,
 }>;

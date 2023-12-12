@@ -7,28 +7,40 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import type {CowContext} from 'mutate-cow';
+
 import {
-  type MapFields,
   createCompoundFieldFromObject,
   createField,
 } from './createField.js';
 
 export function pushField<V>(
-  repeatable: RepeatableFieldT<FieldT<V>>,
+  repeatableCtx: CowContext<RepeatableFieldT<FieldT<V>>>,
   value: V,
 ) {
-  repeatable.field.push(
-    createField(
-      repeatable.html_name + '.' + String(++repeatable.last_index),
-      value,
-    ),
-  );
+  const repeatable = repeatableCtx.read();
+  const nextIndex = repeatable.last_index + 1;
+  repeatableCtx
+    .set('last_index', nextIndex)
+    .get('field').write()
+    .push(
+      createField(repeatable.html_name + '.' + String(nextIndex), value),
+    );
 }
 
 export function pushCompoundField<F: {...}>(
-  repeatable: RepeatableFieldT<CompoundFieldT<MapFields<F>>>,
+  repeatableCtx: CowContext<
+    RepeatableFieldT<
+      CompoundFieldT<{+[K in keyof F]: FieldT<F[K]>}>,
+    >,
+  >,
   fieldValues: F,
 ) {
-  const name = repeatable.html_name + '.' + String(++repeatable.last_index);
-  repeatable.field.push(createCompoundFieldFromObject(name, fieldValues));
+  const repeatable = repeatableCtx.read();
+  const nextIndex = repeatable.last_index + 1;
+  const name = repeatable.html_name + '.' + String(nextIndex);
+  repeatableCtx
+    .set('last_index', nextIndex)
+    .get('field').write()
+    .push(createCompoundFieldFromObject(name, fieldValues));
 }

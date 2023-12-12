@@ -38,13 +38,7 @@ type PropsT = {
 
 type StateT = {
   +datePeriodField: DatePeriodFieldT,
-  initialDatePeriodField: DatePeriodFieldT,
-};
-
-type WritableStateT = {
-  ...StateT,
-  datePeriodField: WritableDatePeriodFieldT,
-  initialDatePeriodField: WritableDatePeriodFieldT,
+  +initialDatePeriodField: DatePeriodFieldT,
 };
 
 type ActionT =
@@ -98,35 +92,35 @@ const createInitialState = (props: PropsT): StateT => {
 };
 
 const reducer = (state: StateT, action: ActionT): StateT => {
-  return mutate<WritableStateT, StateT>(
-    state, (newState) => {
-      switch (action.type) {
-        case 'update-date-period':
-          runDateRangeFieldsetReducer(
-            newState.datePeriodField,
-            action.action,
-          );
-          break;
-        case 'update-initial-date-period':
-          copyDatePeriodField(
-            createInitialState(action.props).initialDatePeriodField,
-            newState.initialDatePeriodField,
-          );
-          break;
-        case 'reset':
-          copyDatePeriodField(
-            newState.initialDatePeriodField,
-            newState.datePeriodField,
-          );
-          break;
-        case 'show-all-pending-errors':
-          applyAllPendingErrors(newState.datePeriodField);
-          break;
-        default:
-          throw new Error('Unknown action: ' + action.type);
-      }
-    },
-  );
+  const ctx = mutate(state);
+
+  switch (action.type) {
+    case 'update-date-period':
+      runDateRangeFieldsetReducer(
+        ctx.get('datePeriodField'),
+        action.action,
+      );
+      break;
+    case 'update-initial-date-period':
+      copyDatePeriodField(
+        createInitialState(action.props).initialDatePeriodField,
+        ctx.get('initialDatePeriodField'),
+      );
+      break;
+    case 'reset':
+      copyDatePeriodField(
+        ctx.get('initialDatePeriodField').read(),
+        ctx.get('datePeriodField'),
+      );
+      break;
+    case 'show-all-pending-errors':
+      applyAllPendingErrors(ctx.get('datePeriodField'));
+      break;
+    default:
+      throw new Error('Unknown action: ' + action.type);
+  }
+
+  return ctx.final();
 };
 
 const ExternalLinkAttributeDialog = (props: PropsT): React$MixedElement => {

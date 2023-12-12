@@ -39,8 +39,6 @@ type Props =
 
 export type StateT = PartialDateFieldT;
 
-export type WritableStateT = WritablePartialDateFieldT;
-
 export const runReducer = runPartialDateInputReducer;
 
 const FormRowPartialDate = ({

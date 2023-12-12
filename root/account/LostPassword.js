@@ -17,8 +17,8 @@ import FormRowText from '../static/scripts/edit/components/FormRowText.js';
 import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
 
 type LostPasswordFormT = FormT<{
-  +email: ReadOnlyFieldT<string>,
-  +username: ReadOnlyFieldT<string>,
+  +email: FieldT<string>,
+  +username: FieldT<string>,
 }>;
 
 type Props = {

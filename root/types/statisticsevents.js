@@ -10,10 +10,10 @@
 /* eslint-disable no-unused-vars */
 
 export type StatisticsEventFormT = FormT<{
-  +date: ReadOnlyFieldT<string>,
-  +description: ReadOnlyFieldT<string>,
-  +link: ReadOnlyFieldT<string>,
-  +title: ReadOnlyFieldT<string>,
+  +date: FieldT<string>,
+  +description: FieldT<string>,
+  +link: FieldT<string>,
+  +title: FieldT<string>,
 }>;
 
 export type StatisticsEventT = {

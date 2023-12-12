@@ -318,9 +318,9 @@ export type MediumStateTreeT = tree.ImmutableTree<[
 export type ReleaseRelationshipEditorStateT = {
   ...$Exact<LazyReleaseStateT>,
   ...$Exact<RelationshipEditorStateT>,
-  +editNoteField: ReadOnlyFieldT<string>,
-  +enterEditForm: ReadOnlyFormT<{
-    +make_votable: ReadOnlyFieldT<boolean>,
+  +editNoteField: FieldT<string>,
+  +enterEditForm: FormT<{
+    +make_votable: FieldT<boolean>,
   }>,
   +entity: ReleaseWithMediumsAndReleaseGroupT,
   +mediums: MediumStateTreeT,

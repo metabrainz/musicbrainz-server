@@ -7,6 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import type {CowContext} from 'mutate-cow';
 import * as React from 'react';
 
 import GuessCase from '../../guess-case/MB/GuessCase/Main.js';
@@ -15,7 +16,6 @@ import FormRowText from './FormRowText.js';
 import {
   type ActionT as GuessCaseOptionsActionT,
   type StateT as GuessCaseOptionsStateT,
-  type WritableStateT as WritableGuessCaseOptionsStateT,
   createInitialState as createGuessCaseOptionsState,
   runReducer as runGuessCaseOptionsReducer,
 } from './GuessCaseOptions.js';
@@ -39,7 +39,7 @@ export type ActionT =
 type PropsT = {
   +dispatch: (ActionT) => void,
   +entity: NamedEntityT,
-  +field: ReadOnlyFieldT<string | null>,
+  +field: FieldT<string | null>,
   +guessCaseOptions: GuessCaseOptionsStateT,
   +guessFeat?: boolean,
   +isGuessCaseOptionsOpen: boolean,
@@ -47,19 +47,13 @@ type PropsT = {
 };
 
 export type StateT = {
-  +field: ReadOnlyFieldT<string | null>,
+  +field: FieldT<string | null>,
   +guessCaseOptions: GuessCaseOptionsStateT,
   +isGuessCaseOptionsOpen: boolean,
 };
 
-export type WritableStateT = {
-  ...StateT,
-  field: FieldT<string | null>,
-  guessCaseOptions: WritableGuessCaseOptionsStateT,
-};
-
 export function createInitialState(
-  field: ReadOnlyFieldT<string | null>,
+  field: FieldT<string | null>,
 ): StateT {
   return {
     field,
@@ -69,34 +63,36 @@ export function createInitialState(
 }
 
 export function runReducer(
-  newState: WritableStateT,
+  newState: CowContext<StateT>,
   action: ActionT,
 ): void {
   switch (action.type) {
     case 'guess-case': {
-      newState.field.value =
+      newState.set(
+        'field', 'value',
         GuessCase.entities[action.entity.entityType].guess(
-          newState.field.value ?? '',
-        );
+          newState.read().field.value ?? '',
+        ),
+      );
       break;
     }
     case 'open-guess-case-options': {
-      newState.isGuessCaseOptionsOpen = true;
+      newState.set('isGuessCaseOptionsOpen', true);
       break;
     }
     case 'close-guess-case-options': {
-      newState.isGuessCaseOptionsOpen = false;
+      newState.set('isGuessCaseOptionsOpen', false);
       break;
     }
     case 'update-guess-case-options': {
       runGuessCaseOptionsReducer(
-        newState.guessCaseOptions,
+        newState.get('guessCaseOptions'),
         action.action,
       );
       break;
     }
     case 'set-name': {
-      newState.field.value = action.name;
+      newState.set('field', 'value', action.name);
       break;
     }
   }

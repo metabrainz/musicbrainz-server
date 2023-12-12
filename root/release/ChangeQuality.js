@@ -17,11 +17,11 @@ import {expect} from '../utility/invariant.js';
 
 import ReleaseLayout from './ReleaseLayout.js';
 
-type ChangeQualityFormT = ReadOnlyFormT<{
-  +edit_note: ReadOnlyFieldT<string>,
-  +make_votable: ReadOnlyFieldT<boolean>,
-  +quality: ReadOnlyFieldT<'advanced' | 'direct' | 'indexed'>,
-  +submit: ReadOnlyFieldT<string>,
+type ChangeQualityFormT = FormT<{
+  +edit_note: FieldT<string>,
+  +make_votable: FieldT<boolean>,
+  +quality: FieldT<'advanced' | 'direct' | 'indexed'>,
+  +submit: FieldT<string>,
 }>;
 
 type Props = {

@@ -21,7 +21,7 @@ import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
 
 type DeleteUserFormT = FormT<{
   ...SecureConfirmFormT,
-  +allow_reuse: ReadOnlyFieldT<boolean>,
+  +allow_reuse: FieldT<boolean>,
 }>;
 
 type Props = {

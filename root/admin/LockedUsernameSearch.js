@@ -16,8 +16,8 @@ import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
 
 type Props = {
   +form: FormT<{
-    +use_regular_expression: ReadOnlyFieldT<boolean>,
-    +username: ReadOnlyFieldT<string>,
+    +use_regular_expression: FieldT<boolean>,
+    +username: FieldT<string>,
   }>,
   +results?: $ReadOnlyArray<string>,
   +showResults: boolean,

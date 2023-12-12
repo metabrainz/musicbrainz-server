@@ -7,58 +7,56 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import type {CowContext} from 'mutate-cow';
+
 export function copyFieldErrors(
-  sourceField: {
-    +errors: $ReadOnlyArray<string>,
-    +pendingErrors?: $ReadOnlyArray<string>,
-    ...
-  },
-  targetField: {
-    errors: Array<string>,
-    pendingErrors?: Array<string>,
-    ...
-  },
+  sourceField: AnyFieldT,
+  targetField: CowContext<AnyFieldT>,
 ): void {
-  targetField.errors = [...sourceField.errors];
-  targetField.pendingErrors = sourceField.pendingErrors
-    ? [...sourceField.pendingErrors]
-    : undefined;
+  targetField
+    .set('errors', [...sourceField.errors])
+    .set(
+      'pendingErrors',
+      sourceField.pendingErrors
+        ? [...sourceField.pendingErrors]
+        : undefined,
+    );
 }
 
 export default function copyFieldData<T>(
-  sourceField: ReadOnlyFieldT<T>,
-  targetField: FieldT<T>,
+  sourceField: FieldT<T>,
+  targetField: CowContext<FieldT<T>>,
 ): void {
-  targetField.value = sourceField.value;
+  targetField.set('value', sourceField.value);
   copyFieldErrors(sourceField, targetField);
 }
 
 export function copyPartialDateField(
   sourceField: PartialDateFieldT,
-  targetField: WritablePartialDateFieldT,
+  targetField: CowContext<PartialDateFieldT>,
 ): void {
   const sourceSubfields = sourceField.field;
-  const targetSubfields = targetField.field;
-  copyFieldData(sourceSubfields.year, targetSubfields.year);
-  copyFieldData(sourceSubfields.month, targetSubfields.month);
-  copyFieldData(sourceSubfields.day, targetSubfields.day);
+  const targetSubfields = targetField.get('field');
+  copyFieldData(sourceSubfields.year, targetSubfields.get('year'));
+  copyFieldData(sourceSubfields.month, targetSubfields.get('month'));
+  copyFieldData(sourceSubfields.day, targetSubfields.get('day'));
   copyFieldErrors(sourceField, targetField);
 }
 
 export function copyDatePeriodField(
   sourceField: DatePeriodFieldT,
-  targetField: WritableDatePeriodFieldT,
+  targetField: CowContext<DatePeriodFieldT>,
 ): void {
   const sourceSubfields = sourceField.field;
-  const targetSubfields = targetField.field;
+  const targetSubfields = targetField.get('field');
   copyPartialDateField(
     sourceSubfields.begin_date,
-    targetSubfields.begin_date,
+    targetSubfields.get('begin_date'),
   );
   copyPartialDateField(
     sourceSubfields.end_date,
-    targetSubfields.end_date,
+    targetSubfields.get('end_date'),
   );
-  copyFieldData(sourceSubfields.ended, targetSubfields.ended);
+  copyFieldData(sourceSubfields.ended, targetSubfields.get('ended'));
   copyFieldErrors(sourceField, targetField);
 }

@@ -16,7 +16,7 @@ import UserList from './components/UserList.js';
 
 type Props = {
   +form: FormT<{
-    +email: ReadOnlyFieldT<string>,
+    +email: FieldT<string>,
   }>,
   +pager?: PagerT,
   +results?: $ReadOnlyArray<UnsanitizedEditorT>,

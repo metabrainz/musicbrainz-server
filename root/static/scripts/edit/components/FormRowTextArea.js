@@ -13,7 +13,7 @@ import FormRow from './FormRow.js';
 
 type Props = {
   +cols?: number,
-  +field: ReadOnlyFieldT<string>,
+  +field: FieldT<string>,
   +label: React$Node,
   +required?: boolean,
   +rows?: number,
