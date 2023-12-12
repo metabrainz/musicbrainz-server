@@ -747,7 +747,7 @@ export const relTypeColumn:
         {l_relationships(original.link_name)}
       </a>
     ),
-    Header: N_l('Relationship type'),
+    Header: N_lp('Relationship type', 'header'),
     id: 'relationship_type',
   };
 
