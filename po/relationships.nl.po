@@ -1085,7 +1085,12 @@ msgid "Links an event to the place where it was held."
 msgstr "Koppelt het evenement aan de plaats waar het plaatsvond."
 
 #: DB:link_attribute_type/description:830
-msgid "Local time a band's performance is scheduled to start, formatted HH:MM."
+#, fuzzy
+#| msgid ""
+#| "Local time a band's performance is scheduled to start, formatted HH:MM."
+msgid ""
+"Local time a performance was scheduled to start or a program was broadcast, "
+"formatted HH:MM."
 msgstr ""
 "De lokale tijd waarop een band zou moeten beginnen met optreden, "
 "geformatteerd als UU:MM."
@@ -1437,14 +1442,6 @@ msgstr ""
 "Deze eigenschap geeft een versie met een satirische, ironische of anderszins "
 "humoristische bedoeling aan. Parodieën hebben meestal aangepaste teksten."
 
-#: DB:link_attribute_type/description:517
-msgid ""
-"This attribute indicates a version with the lyrics in a different language "
-"than the original."
-msgstr ""
-"Deze eigenschap geeft een versie met tekst in een andere taal dan het "
-"origineel aan."
-
 #: DB:link_attribute_type/description:525
 msgid ""
 "This attribute indicates that an artist was an original member of a group "
@@ -1452,6 +1449,13 @@ msgid ""
 msgstr ""
 "Deze eigenschap geeft aan dat een artiest een oorspronkelijk lid van een "
 "groep was."
+
+#: DB:link_attribute_type/description:517
+msgid ""
+"This attribute indicates that lyrics have been translated, literally or "
+"freely, from the original language. This does not apply if an entirely new "
+"set of lyrics have been set to an existing melody."
+msgstr ""
 
 #: DB:link_attribute_type/description:582
 msgid ""
@@ -1880,6 +1884,18 @@ msgstr ""
 "Dit geeft een artiest aan die in dit orkest of deze band concertmeester was "
 "op deze uitgave."
 
+#: DB:link_type/description:1228
+#, fuzzy
+#| msgid ""
+#| "This indicates that a person or agency did the art direction for the "
+#| "recording."
+msgid ""
+"This indicates an organization (often a radio station) broadcast the given "
+"recording."
+msgstr ""
+"Dit geeft aan dat een persoon of agentschap artistieke leiding voor deze "
+"opname verzorgde."
+
 #: DB:link_type/description:891
 msgid ""
 "This indicates that (most commonly) a festival commissioned the work. This "
@@ -2112,7 +2128,7 @@ msgstr ""
 "aangegeven met de titel ‘chefdirigent’ of ‘hoofddirigent’ voor dirigenten of "
 "‘eerste [instrument]’ of ‘concertmeester’ bij instrumenten."
 
-#: DB:link_type/description:998 DB:link_type/description:999
+#: DB:link_type/description:999 DB:link_type/description:998
 msgid ""
 "This indicates that the label performed a role not covered by other "
 "relationship types."
@@ -4157,6 +4173,31 @@ msgid ""
 "ad06-98af558e99b0\">recording-work performance relationship type</a>."
 msgstr ""
 
+#: DB:link_type/description:1229
+#, fuzzy
+#| msgid ""
+#| "This relationship type is used to indicate that a release group is a "
+#| "cover version of another release group, i.e. when an artist performs a "
+#| "new rendition of another artist's album.<br/>\n"
+#| "For individual songs, see the <a href=\"/relationship/a3005666-a872-32c3-"
+#| "ad06-98af558e99b0\">recording-work performance relationship type</a>."
+msgid ""
+"This relationship type is used to indicate that a release group is a re‐"
+"recording of another release group, that is, when an artist performs a new "
+"studio rendition of their own album.<br/>\n"
+"For a live performance of the album, see the <a href=\"/"
+"relationship/62beff0a-679c-43f3-8fe6-f6c8ed8581e4\">live performance "
+"relationship type</a>.<br/>\n"
+"For a cover recording of the album by a different artist, see the <a href=\"/"
+"relationship/cf02e524-9d5b-46b7-a88e-329737395818\">cover relationship type</"
+"a>."
+msgstr ""
+"Deze relatie wordt gebruikt om aan te geven dat een uitgavegroep een "
+"coverversie van een andere uitgavegroep is, bijvoorbeeld als een artiest een "
+"nieuwe versie van het album van een andere artiest maakt.<br/>\n"
+"Zie voor individuele nummers de <a href=\"/relationship/a3005666-a872-32c3-"
+"ad06-98af558e99b0\">relatie voor de uitvoering van een compositie</a>."
+
 #: DB:link_type/description:1005
 msgid ""
 "This relationship type is used to link a label to a site where music can be "
@@ -5024,6 +5065,15 @@ msgstr "redacteur van het boekje"
 #: DB:link_type/link_phrase:929
 msgid "booklet editor for"
 msgstr "redacteur van het boekje van"
+
+#: DB:link_type/link_phrase:1228 DB:link_type/name:1228
+#: DB:link_type/long_link_phrase:1228
+msgid "broadcast"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:1228
+msgid "broadcast by"
+msgstr ""
 
 #: DB:link_type/link_phrase:66 DB:link_type/link_phrase:205
 #: DB:link_type/name:205 DB:link_type/reverse_link_phrase:205
@@ -5931,7 +5981,7 @@ msgid "has a logo at"
 msgstr "heeft een logo op"
 
 #: DB:link_type/long_link_phrase:129 DB:link_type/long_link_phrase:25
-#: DB:link_type/long_link_phrase:998 DB:link_type/long_link_phrase:999
+#: DB:link_type/long_link_phrase:999 DB:link_type/long_link_phrase:998
 msgid "has a miscellaneous role on"
 msgstr "heeft een diverse rol op"
 
@@ -6350,6 +6400,12 @@ msgstr "is een remaster van"
 #: DB:link_type/long_link_phrase:230 DB:link_type/long_link_phrase:9
 msgid "is a remix of"
 msgstr "is een remix van"
+
+#: DB:link_type/long_link_phrase:1229
+#, fuzzy
+#| msgid "is a remaster of"
+msgid "is a re‐recording of"
+msgstr "is een remaster van"
 
 #: DB:link_type/long_link_phrase:11
 msgid "is a single/EP which was taken from"
@@ -6866,19 +6922,19 @@ msgid "minor"
 msgstr "secundair"
 
 #: DB:link_type/name:162 DB:link_type/name:129 DB:link_type/name:25
-#: DB:link_type/name:998 DB:link_type/name:999
+#: DB:link_type/name:999 DB:link_type/name:998
 msgid "misc"
 msgstr "divers"
 
 #: DB:link_type/link_phrase:162 DB:link_type/link_phrase:129
-#: DB:link_type/link_phrase:25 DB:link_type/link_phrase:998
-#: DB:link_type/link_phrase:999
+#: DB:link_type/link_phrase:25 DB:link_type/link_phrase:999
+#: DB:link_type/link_phrase:998
 msgid "miscellaneous roles"
 msgstr "diverse rollen"
 
 #: DB:link_type/reverse_link_phrase:162 DB:link_type/reverse_link_phrase:129
-#: DB:link_type/reverse_link_phrase:25 DB:link_type/reverse_link_phrase:998
-#: DB:link_type/reverse_link_phrase:999
+#: DB:link_type/reverse_link_phrase:25 DB:link_type/reverse_link_phrase:999
+#: DB:link_type/reverse_link_phrase:998
 msgid "miscellaneous support"
 msgstr "diverse ondersteuning"
 
@@ -7824,6 +7880,24 @@ msgstr "hier herzien"
 #: DB:link_type/name:315 DB:link_type/reverse_link_phrase:315
 msgid "revision of"
 msgstr "revisie van"
+
+#: DB:link_type/name:1229
+#, fuzzy
+#| msgid "recording"
+msgid "re‐recording"
+msgstr "opname"
+
+#: DB:link_type/link_phrase:1229
+#, fuzzy
+#| msgid "recording"
+msgid "re‐recording of"
+msgstr "opname"
+
+#: DB:link_type/reverse_link_phrase:1229
+#, fuzzy
+#| msgid "recording"
+msgid "re‐recordings"
+msgstr "opname"
 
 #: DB:link_type/name:349 DB:link_type/reverse_link_phrase:349
 msgid "rights society"
@@ -9619,6 +9693,13 @@ msgid "{vocal:%|vocals} support for"
 msgstr "{vocal:%|vocale} ondersteuning voor"
 
 #~ msgid ""
+#~ "This attribute indicates a version with the lyrics in a different "
+#~ "language than the original."
+#~ msgstr ""
+#~ "Deze eigenschap geeft een versie met tekst in een andere taal dan het "
+#~ "origineel aan."
+
+#~ msgid ""
 #~ "A social network page is an artist's own profile page on a <a "
 #~ "href=\"https://en.wikipedia.org/wiki/Social_networking_service\" "
 #~ "target=\"_blank\">social network</a> which only they (or their "
@@ -9714,20 +9795,6 @@ msgstr "{vocal:%|vocale} ondersteuning voor"
 #~ msgstr ""
 #~ "Deze relatie geeft aan dat een persoon op een evenement les gaf "
 #~ "(bijvoorbeeld een masterclass)."
-
-#~ msgid ""
-#~ "This relationship type is used to indicate that a release group is a "
-#~ "cover version of another release group, i.e. when an artist performs a "
-#~ "new rendition of another artist's album.<br/>\n"
-#~ "For individual songs, see the <a href=\"/relationship/a3005666-a872-32c3-"
-#~ "ad06-98af558e99b0\">recording-work performance relationship type</a>."
-#~ msgstr ""
-#~ "Deze relatie wordt gebruikt om aan te geven dat een uitgavegroep een "
-#~ "coverversie van een andere uitgavegroep is, bijvoorbeeld als een artiest "
-#~ "een nieuwe versie van het album van een andere artiest maakt.<br/>\n"
-#~ "Zie voor individuele nummers de <a href=\"/relationship/a3005666-"
-#~ "a872-32c3-ad06-98af558e99b0\">relatie voor de uitvoering van een "
-#~ "compositie</a>."
 
 #~ msgid ""
 #~ "This relationship type is used to link a label to a site where music can "

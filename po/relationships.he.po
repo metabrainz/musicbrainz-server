@@ -975,7 +975,12 @@ msgid "Links an event to the place where it was held."
 msgstr "קישור ארוע למקום בו הוא התקיים."
 
 #: DB:link_attribute_type/description:830
-msgid "Local time a band's performance is scheduled to start, formatted HH:MM."
+#, fuzzy
+#| msgid ""
+#| "Local time a band's performance is scheduled to start, formatted HH:MM."
+msgid ""
+"Local time a performance was scheduled to start or a program was broadcast, "
+"formatted HH:MM."
 msgstr "הזמן המקומי בו מתוכננת להתחיל הופעת להקה, תבנית HH: MM."
 
 #: DB:link_attribute_type/description:1060
@@ -1277,17 +1282,18 @@ msgstr ""
 "ציון גרסה עם כוונה סאטירית, אירונית או הומוריסטית. בפרודיות, ברוב המקרים "
 "התַּמְלִיל שונה."
 
-#: DB:link_attribute_type/description:517
-msgid ""
-"This attribute indicates a version with the lyrics in a different language "
-"than the original."
-msgstr "התכונה מצינת גרסה עם תַּמְלִיל בשפה השונה משפת המקור."
-
 #: DB:link_attribute_type/description:525
 msgid ""
 "This attribute indicates that an artist was an original member of a group "
 "artist."
 msgstr "תכונה זו מציינת את עובדת היות האמן חבר מקורי בקבוצת אמנים."
+
+#: DB:link_attribute_type/description:517
+msgid ""
+"This attribute indicates that lyrics have been translated, literally or "
+"freely, from the original language. This does not apply if an entirely new "
+"set of lyrics have been set to an existing melody."
+msgstr ""
 
 #: DB:link_attribute_type/description:582
 msgid ""
@@ -1662,6 +1668,16 @@ msgid ""
 "or band on this release."
 msgstr "ציון אמן שהיה נצח תזמורת/מנהיג, תזמורת או להקה הוצאה זו."
 
+#: DB:link_type/description:1228
+#, fuzzy
+#| msgid ""
+#| "This indicates that a person or agency did the art direction for the "
+#| "recording."
+msgid ""
+"This indicates an organization (often a radio station) broadcast the given "
+"recording."
+msgstr "ציון אדם או סוכנות שבצעו נהול אמנותי עבור הקלטה."
+
 #: DB:link_type/description:891
 msgid ""
 "This indicates that (most commonly) a festival commissioned the work. This "
@@ -1859,7 +1875,7 @@ msgid ""
 "\"concertmaster\" (principal violin) for instruments."
 msgstr ""
 
-#: DB:link_type/description:998 DB:link_type/description:999
+#: DB:link_type/description:999 DB:link_type/description:998
 msgid ""
 "This indicates that the label performed a role not covered by other "
 "relationship types."
@@ -3647,6 +3663,30 @@ msgid ""
 "ad06-98af558e99b0\">recording-work performance relationship type</a>."
 msgstr ""
 
+#: DB:link_type/description:1229
+#, fuzzy
+#| msgid ""
+#| "This relationship type is used to indicate that a release group is a "
+#| "cover version of another release group, i.e. when an artist performs a "
+#| "new rendition of another artist's album.<br/>\n"
+#| "For individual songs, see the <a href=\"/relationship/a3005666-a872-32c3-"
+#| "ad06-98af558e99b0\">recording-work performance relationship type</a>."
+msgid ""
+"This relationship type is used to indicate that a release group is a re‐"
+"recording of another release group, that is, when an artist performs a new "
+"studio rendition of their own album.<br/>\n"
+"For a live performance of the album, see the <a href=\"/"
+"relationship/62beff0a-679c-43f3-8fe6-f6c8ed8581e4\">live performance "
+"relationship type</a>.<br/>\n"
+"For a cover recording of the album by a different artist, see the <a href=\"/"
+"relationship/cf02e524-9d5b-46b7-a88e-329737395818\">cover relationship type</"
+"a>."
+msgstr ""
+"סוג קשר־גומלין זה משמש לציון שקבוצת הוצאה היא גרסת כיסוי של קבוצת הוצאה "
+"אחרת, לדוגמה. כאשר אמן מבצע ביצוע חדש של אלבום של אמן אחר.<br/>\n"
+"לשירים יְחִידָנִיים, ראו <a href=\"/relationship/a3005666-a872-32c3-"
+"ad06-98af558e99b0\">סוג קשר ביצועה יצירת הקלטה</a>."
+
 #: DB:link_type/description:1005
 msgid ""
 "This relationship type is used to link a label to a site where music can be "
@@ -4468,6 +4508,15 @@ msgstr "עורך חוברת"
 #: DB:link_type/link_phrase:929
 msgid "booklet editor for"
 msgstr "עורך חוברת של"
+
+#: DB:link_type/link_phrase:1228 DB:link_type/name:1228
+#: DB:link_type/long_link_phrase:1228
+msgid "broadcast"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:1228
+msgid "broadcast by"
+msgstr ""
 
 #: DB:link_type/link_phrase:66 DB:link_type/link_phrase:205
 #: DB:link_type/name:205 DB:link_type/reverse_link_phrase:205
@@ -5374,7 +5423,7 @@ msgid "has a logo at"
 msgstr "קיים סַמְלִיל ב־"
 
 #: DB:link_type/long_link_phrase:129 DB:link_type/long_link_phrase:25
-#: DB:link_type/long_link_phrase:998 DB:link_type/long_link_phrase:999
+#: DB:link_type/long_link_phrase:999 DB:link_type/long_link_phrase:998
 msgid "has a miscellaneous role on"
 msgstr "קיימת תמונה ב־"
 
@@ -5793,6 +5842,12 @@ msgstr "שחזור של"
 #: DB:link_type/long_link_phrase:230 DB:link_type/long_link_phrase:9
 msgid "is a remix of"
 msgstr "ערבול־מחודש של"
+
+#: DB:link_type/long_link_phrase:1229
+#, fuzzy
+#| msgid "is a remaster of"
+msgid "is a re‐recording of"
+msgstr "שחזור של"
 
 #: DB:link_type/long_link_phrase:11
 msgid "is a single/EP which was taken from"
@@ -6306,19 +6361,19 @@ msgid "minor"
 msgstr "מינור"
 
 #: DB:link_type/name:162 DB:link_type/name:129 DB:link_type/name:25
-#: DB:link_type/name:998 DB:link_type/name:999
+#: DB:link_type/name:999 DB:link_type/name:998
 msgid "misc"
 msgstr "שונות"
 
 #: DB:link_type/link_phrase:162 DB:link_type/link_phrase:129
-#: DB:link_type/link_phrase:25 DB:link_type/link_phrase:998
-#: DB:link_type/link_phrase:999
+#: DB:link_type/link_phrase:25 DB:link_type/link_phrase:999
+#: DB:link_type/link_phrase:998
 msgid "miscellaneous roles"
 msgstr "תפקידים שונים"
 
 #: DB:link_type/reverse_link_phrase:162 DB:link_type/reverse_link_phrase:129
-#: DB:link_type/reverse_link_phrase:25 DB:link_type/reverse_link_phrase:998
-#: DB:link_type/reverse_link_phrase:999
+#: DB:link_type/reverse_link_phrase:25 DB:link_type/reverse_link_phrase:999
+#: DB:link_type/reverse_link_phrase:998
 msgid "miscellaneous support"
 msgstr "תמיכה כללית"
 
@@ -7261,6 +7316,24 @@ msgstr "אתר הגהה ל־"
 #: DB:link_type/name:315 DB:link_type/reverse_link_phrase:315
 msgid "revision of"
 msgstr "הגהה של"
+
+#: DB:link_type/name:1229
+#, fuzzy
+#| msgid "recording"
+msgid "re‐recording"
+msgstr "הקלטה"
+
+#: DB:link_type/link_phrase:1229
+#, fuzzy
+#| msgid "recording"
+msgid "re‐recording of"
+msgstr "הקלטה"
+
+#: DB:link_type/reverse_link_phrase:1229
+#, fuzzy
+#| msgid "recording"
+msgid "re‐recordings"
+msgstr "הקלטה"
 
 #: DB:link_type/name:349 DB:link_type/reverse_link_phrase:349
 msgid "rights society"
@@ -8995,6 +9068,11 @@ msgstr "תמיכה על־ידי {vocal:%|vocals}"
 msgid "{vocal:%|vocals} support for"
 msgstr "תמיכה עבור {vocal:%|vocals}"
 
+#~ msgid ""
+#~ "This attribute indicates a version with the lyrics in a different "
+#~ "language than the original."
+#~ msgstr "התכונה מצינת גרסה עם תַּמְלִיל בשפה השונה משפת המקור."
+
 #~ msgid "Indicates a webpage that reviews the release (group) in question."
 #~ msgstr "ציון עמוד מרשתת המבקר את ההוצאה (הרכב) המדוברים."
 
@@ -9057,18 +9135,6 @@ msgstr "תמיכה עבור {vocal:%|vocals}"
 #~ "This relationship indicates that a person was a teacher at an event (e.g. "
 #~ "a masterclass)."
 #~ msgstr "קשר־גומלין זה מציין אדם שהיה מורה/בארוע (כלומר בכיתת אמן)."
-
-#~ msgid ""
-#~ "This relationship type is used to indicate that a release group is a "
-#~ "cover version of another release group, i.e. when an artist performs a "
-#~ "new rendition of another artist's album.<br/>\n"
-#~ "For individual songs, see the <a href=\"/relationship/a3005666-a872-32c3-"
-#~ "ad06-98af558e99b0\">recording-work performance relationship type</a>."
-#~ msgstr ""
-#~ "סוג קשר־גומלין זה משמש לציון שקבוצת הוצאה היא גרסת כיסוי של קבוצת הוצאה "
-#~ "אחרת, לדוגמה. כאשר אמן מבצע ביצוע חדש של אלבום של אמן אחר.<br/>\n"
-#~ "לשירים יְחִידָנִיים, ראו <a href=\"/relationship/a3005666-a872-32c3-"
-#~ "ad06-98af558e99b0\">סוג קשר ביצועה יצירת הקלטה</a>."
 
 #~ msgid ""
 #~ "This relationship type is used to link a label to a site where music can "

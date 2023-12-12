@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-11-12 13:27+0000\n"
+"PO-Revision-Date: 2023-12-11 19:28+0000\n"
 "Last-Translator: \"Vac31.\" <gateway_31@protonmail.com>\n"
 "Language-Team: Lithuanian <https://translations.metabrainz.org/projects/"
 "musicbrainz/attributes/lt/>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
 "11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 :"
 " n % 1 != 0 ? 2: 3);\n"
-"X-Generator: Weblate 5.1\n"
+"X-Generator: Weblate 5.2.1\n"
 
 #: DB:work_type/description:9
 msgctxt "work_type"
@@ -340,7 +340,8 @@ msgstr ""
 #: DB:release_packaging/description:19
 msgctxt "release_packaging"
 msgid "A box usually containing multiple discs as part of a boxed set."
-msgstr "Dėžutė, kurioje paprastai būna keli diskai kaip dėžutės rinkinio dalis."
+msgstr ""
+"Dėžutė, kurioje paprastai būna keli diskai kaip dėžutės rinkinio dalis."
 
 #: DB:work_type/description:3
 msgctxt "work_type"
@@ -348,8 +349,8 @@ msgid ""
 "A cantata is a vocal (often choral) composition with an instrumental "
 "(usually orchestral) accompaniment, typically in several movements."
 msgstr ""
-"Kantata – vokalinis (dažnai chorinis) kompozicija su instrumentiniu ("
-"dažniausiai orkestriniu) akompanimentu, paprastai susidedantis iš kelių "
+"Kantata – vokalinis (dažnai chorinis) kompozicija su instrumentiniu "
+"(dažniausiai orkestriniu) akompanimentu, paprastai susidedantis iš kelių "
 "dalių."
 
 #: DB:medium_format/description:46
@@ -1554,7 +1555,7 @@ msgstr ""
 #: DB:cover_art_archive.art_type/name:2
 msgctxt "cover_art_type"
 msgid "Back"
-msgstr ""
+msgstr "Galinis"
 
 #: DB:work_attribute_type_allowed_value/value:323
 msgctxt "work_attribute_type_allowed_value"
@@ -1867,7 +1868,7 @@ msgstr ""
 #: DB:cover_art_archive.art_type/name:3
 msgctxt "cover_art_type"
 msgid "Booklet"
-msgstr ""
+msgstr "Knygelė"
 
 #: DB:release_status/name:3
 msgctxt "release_status"

@@ -20,11 +20,12 @@
 # chaban <chaban@users.noreply.translations.metabrainz.org>, 2023.
 # Philipp Wolfer <ph.wolfer@gmail.com>, 2023.
 # kellnerd <kellnerd@users.noreply.translations.metabrainz.org>, 2023.
+# aerozol <aerozol@users.noreply.translations.metabrainz.org>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-11-04 15:27+0000\n"
-"Last-Translator: kellnerd <kellnerd@users.noreply.translations.metabrainz."
+"PO-Revision-Date: 2023-12-07 14:28+0000\n"
+"Last-Translator: aerozol <aerozol@users.noreply.translations.metabrainz."
 "org>\n"
 "Language-Team: German <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/de/>\n"
@@ -33,7 +34,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.1\n"
+"X-Generator: Weblate 5.2.1\n"
 
 #: DB:link_attribute_type/description:1355
 msgid "A performance-centered, usually one to three year postgraduate program."
@@ -1018,7 +1019,9 @@ msgid "Links an event to the place where it was held."
 msgstr ""
 
 #: DB:link_attribute_type/description:830
-msgid "Local time a band's performance is scheduled to start, formatted HH:MM."
+msgid ""
+"Local time a performance was scheduled to start or a program was broadcast, "
+"formatted HH:MM."
 msgstr ""
 
 #: DB:link_attribute_type/description:1060
@@ -1242,28 +1245,28 @@ msgstr "Gesprochenes"
 msgid ""
 "The libretto for {entity1} was {additional:additionally} written at {entity0}"
 msgstr ""
-"Das Libretto für {entry1} wurde {additional:zusätzlich} bei {entry0} "
+"Das Libretto für {entity1} wurde {additional:zusätzlich} bei {entity0} "
 "geschrieben"
 
 #: DB:link_type/long_link_phrase:879
 msgid ""
 "The libretto for {entity1} was {additional:additionally} written in {entity0}"
 msgstr ""
-"Das Libretto für {entry1} wurde {additional:zusätzlich} in {entry0} "
+"Das Libretto für {entity1} wurde {additional:zusätzlich} in {entity0} "
 "geschrieben"
 
 #: DB:link_type/long_link_phrase:878
 msgid ""
 "The lyrics for {entity1} were {additional:additionally} written at {entity0}"
 msgstr ""
-"Die Liedtext für {entry1} wurde {additional:zusätzlich} bei {entry0} "
+"Die Liedtext für {entity1} wurde {additional:zusätzlich} bei {entity0} "
 "geschrieben"
 
 #: DB:link_type/long_link_phrase:877
 msgid ""
 "The lyrics for {entity1} were {additional:additionally} written in {entity0}"
 msgstr ""
-"Die Liedtext für {entry1} wurde {additional:zusätzlich} in {entry0} "
+"Die Liedtext für {entity1} wurde {additional:zusätzlich} in {entity0} "
 "geschrieben"
 
 #: DB:link_type/long_link_phrase:274
@@ -1334,18 +1337,17 @@ msgstr ""
 "sonstwie nicht ernst gemeinter Aussage. Parodien haben in den meisten Fällen "
 "andere oder angepasste Liedtexte."
 
-#: DB:link_attribute_type/description:517
-msgid ""
-"This attribute indicates a version with the lyrics in a different language "
-"than the original."
-msgstr ""
-"Dieses Attribut beschreibt eine Version, bei der der Liedtext in einer "
-"anderen Sprache verfasst ist, als in der Ursprungsversion."
-
 #: DB:link_attribute_type/description:525
 msgid ""
 "This attribute indicates that an artist was an original member of a group "
 "artist."
+msgstr ""
+
+#: DB:link_attribute_type/description:517
+msgid ""
+"This attribute indicates that lyrics have been translated, literally or "
+"freely, from the original language. This does not apply if an entirely new "
+"set of lyrics have been set to an existing melody."
 msgstr ""
 
 #: DB:link_attribute_type/description:582
@@ -1680,6 +1682,18 @@ msgstr ""
 "Gibt einen Künstler an, der der Konzertmeister/Leiter eines Orchesters oder "
 "einer Band auf dieser Veröffentlichung war."
 
+#: DB:link_type/description:1228
+#, fuzzy
+#| msgid ""
+#| "This indicates that a person or firm provided legal representation for "
+#| "the recording."
+msgid ""
+"This indicates an organization (often a radio station) broadcast the given "
+"recording."
+msgstr ""
+"Dies gibt an, dass eine Person oder Firma die rechtliche Vertretung für die "
+"Aufnahme übernommen hat."
+
 #: DB:link_type/description:891
 msgid ""
 "This indicates that (most commonly) a festival commissioned the work. This "
@@ -1863,7 +1877,7 @@ msgid ""
 "\"concertmaster\" (principal violin) for instruments."
 msgstr ""
 
-#: DB:link_type/description:998 DB:link_type/description:999
+#: DB:link_type/description:999 DB:link_type/description:998
 msgid ""
 "This indicates that the label performed a role not covered by other "
 "relationship types."
@@ -3468,6 +3482,19 @@ msgid ""
 "ad06-98af558e99b0\">recording-work performance relationship type</a>."
 msgstr ""
 
+#: DB:link_type/description:1229
+msgid ""
+"This relationship type is used to indicate that a release group is a re‐"
+"recording of another release group, that is, when an artist performs a new "
+"studio rendition of their own album.<br/>\n"
+"For a live performance of the album, see the <a href=\"/"
+"relationship/62beff0a-679c-43f3-8fe6-f6c8ed8581e4\">live performance "
+"relationship type</a>.<br/>\n"
+"For a cover recording of the album by a different artist, see the <a href=\"/"
+"relationship/cf02e524-9d5b-46b7-a88e-329737395818\">cover relationship type</"
+"a>."
+msgstr ""
+
 #: DB:link_type/description:1005
 msgid ""
 "This relationship type is used to link a label to a site where music can be "
@@ -4271,6 +4298,15 @@ msgstr ""
 
 #: DB:link_type/link_phrase:929
 msgid "booklet editor for"
+msgstr ""
+
+#: DB:link_type/link_phrase:1228 DB:link_type/name:1228
+#: DB:link_type/long_link_phrase:1228
+msgid "broadcast"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:1228
+msgid "broadcast by"
 msgstr ""
 
 #: DB:link_type/link_phrase:66 DB:link_type/link_phrase:205
@@ -5178,7 +5214,7 @@ msgid "has a logo at"
 msgstr "hat ein Logo unter"
 
 #: DB:link_type/long_link_phrase:129 DB:link_type/long_link_phrase:25
-#: DB:link_type/long_link_phrase:998 DB:link_type/long_link_phrase:999
+#: DB:link_type/long_link_phrase:999 DB:link_type/long_link_phrase:998
 msgid "has a miscellaneous role on"
 msgstr "hat sonstige Rolle auf"
 
@@ -5597,6 +5633,12 @@ msgstr "ist ein Remaster von"
 #: DB:link_type/long_link_phrase:230 DB:link_type/long_link_phrase:9
 msgid "is a remix of"
 msgstr "ist ein Remix von"
+
+#: DB:link_type/long_link_phrase:1229
+#, fuzzy
+#| msgid "is a remaster of"
+msgid "is a re‐recording of"
+msgstr "ist ein Remaster von"
 
 #: DB:link_type/long_link_phrase:11
 msgid "is a single/EP which was taken from"
@@ -6111,19 +6153,19 @@ msgid "minor"
 msgstr "geringfügig"
 
 #: DB:link_type/name:162 DB:link_type/name:129 DB:link_type/name:25
-#: DB:link_type/name:998 DB:link_type/name:999
+#: DB:link_type/name:999 DB:link_type/name:998
 msgid "misc"
 msgstr "Sonstiges"
 
 #: DB:link_type/link_phrase:162 DB:link_type/link_phrase:129
-#: DB:link_type/link_phrase:25 DB:link_type/link_phrase:998
-#: DB:link_type/link_phrase:999
+#: DB:link_type/link_phrase:25 DB:link_type/link_phrase:999
+#: DB:link_type/link_phrase:998
 msgid "miscellaneous roles"
 msgstr "sonstige Rollen"
 
 #: DB:link_type/reverse_link_phrase:162 DB:link_type/reverse_link_phrase:129
-#: DB:link_type/reverse_link_phrase:25 DB:link_type/reverse_link_phrase:998
-#: DB:link_type/reverse_link_phrase:999
+#: DB:link_type/reverse_link_phrase:25 DB:link_type/reverse_link_phrase:999
+#: DB:link_type/reverse_link_phrase:998
 msgid "miscellaneous support"
 msgstr "sonstige Unterstützung"
 
@@ -7068,6 +7110,24 @@ msgstr "Überarbeitungs-Örtlichkeit für"
 #: DB:link_type/name:315 DB:link_type/reverse_link_phrase:315
 msgid "revision of"
 msgstr "Revision von"
+
+#: DB:link_type/name:1229
+#, fuzzy
+#| msgid "recording"
+msgid "re‐recording"
+msgstr "Aufnahme"
+
+#: DB:link_type/link_phrase:1229
+#, fuzzy
+#| msgid "recording"
+msgid "re‐recording of"
+msgstr "Aufnahme"
+
+#: DB:link_type/reverse_link_phrase:1229
+#, fuzzy
+#| msgid "recording"
+msgid "re‐recordings"
+msgstr "Aufnahme"
 
 #: DB:link_type/name:349 DB:link_type/reverse_link_phrase:349
 msgid "rights society"
@@ -8835,6 +8895,13 @@ msgstr "{vocal:%|vocals} Unterstützung von"
 #: DB:link_type/link_phrase:107
 msgid "{vocal:%|vocals} support for"
 msgstr "{vocal:%|vocals} Unterstützung für"
+
+#~ msgid ""
+#~ "This attribute indicates a version with the lyrics in a different "
+#~ "language than the original."
+#~ msgstr ""
+#~ "Dieses Attribut beschreibt eine Version, bei der der Liedtext in einer "
+#~ "anderen Sprache verfasst ist, als in der Ursprungsversion."
 
 #~ msgid "Indicates a webpage that reviews the release (group) in question."
 #~ msgstr ""

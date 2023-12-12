@@ -17,7 +17,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-11-04 15:27+0000\n"
+"PO-Revision-Date: 2023-11-21 21:05+0000\n"
 "Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
 "metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -1115,6 +1115,11 @@ msgstr "claviolino"
 msgctxt "Fifteenth century organ harpsichord hybrid"
 msgid "claviorganum"
 msgstr "claviorgano"
+
+#: DB:instrument/name:1185
+msgctxt "Folk/classical Catalonian music ensemble"
+msgid "cobla"
+msgstr "cobla"
 
 #: DB:instrument/name:414
 msgid "concert flute"
@@ -4405,6 +4410,13 @@ msgstr "wot"
 #: DB:instrument/name:97
 msgid "xalam"
 msgstr "xalam"
+
+#: DB:instrument/name:1186
+#, fuzzy
+#| msgid "theremin"
+msgctxt "Mallorcan bagpipe"
+msgid "xeremies"
+msgstr "theremin"
 
 #: DB:instrument/name:484
 msgctxt "Chinese end-blown flute"
