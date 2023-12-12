@@ -762,7 +762,7 @@ export const seriesOrderingTypeColumn:
         ? lp_attributes(orderingType.name, 'series_ordering_type')
         : null;
     },
-    Header: N_l('Ordering type'),
+    Header: N_lp('Ordering type', 'header'),
     id: 'ordering-type',
   };
 
