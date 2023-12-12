@@ -52,7 +52,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-12 12:24+0000\n"
+"POT-Creation-Date: 2023-12-12 16:22+0200\n"
 "PO-Revision-Date: 2023-11-01 16:27+0000\n"
 "Last-Translator: reosarevok <reosarevok@users.noreply.translations."
 "metabrainz.org>\n"
@@ -774,7 +774,7 @@ msgstr "Puede ser aprobada"
 #: ../root/release_group/ReleaseGroupMerge.js:52
 #: ../root/series/SeriesMerge.js:51
 #: ../root/static/scripts/common/components/FilterForm.js:269
-#: ../root/static/scripts/edit/components/ExternalLinkAttributeDialog.js:210
+#: ../root/static/scripts/edit/components/ExternalLinkAttributeDialog.js:204
 #: ../root/static/scripts/edit/components/URLInputPopover.js:126
 #: ../root/static/scripts/relationship-editor/components/DialogButtons.js:28
 #: ../root/work/WorkMerge.js:65
@@ -912,7 +912,7 @@ msgstr "Delimitador personalizado"
 
 #: ../root/release/edit/information.tt:148
 #: ../lib/MusicBrainz/Server/Plugin/FormRenderer.pm:253
-#: ../root/static/scripts/edit/components/PartialDateInput.js:186
+#: ../root/static/scripts/edit/components/PartialDateInput.js:188
 msgid "DD"
 msgstr "DD"
 
@@ -985,7 +985,7 @@ msgstr ""
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:151
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:86
 #: ../root/search/components/InstrumentResults.js:55
-#: ../root/static/scripts/collection/components/CollectionEditForm.js:209
+#: ../root/static/scripts/collection/components/CollectionEditForm.js:211
 #: ../root/utility/tableColumns.js:681
 msgid "Description"
 msgstr "Descripción"
@@ -1018,7 +1018,7 @@ msgstr "Detalles"
 #: ../root/edit/details/EditRelease.js:93
 #: ../root/edit/details/EditReleaseGroup.js:50
 #: ../root/edit/details/EditSeries.js:48 ../root/edit/details/EditWork.js:59
-#: ../root/static/scripts/genre/components/GenreEditForm.js:151
+#: ../root/static/scripts/genre/components/GenreEditForm.js:147
 msgid "Disambiguation"
 msgstr "Desambiguación"
 
@@ -1073,7 +1073,7 @@ msgstr "Donaciones"
 
 #: ../root/release/edit/macros.tt:54
 #: ../root/static/scripts/edit/components/ArtistCreditBubble.js:165
-#: ../root/static/scripts/edit/components/ExternalLinkAttributeDialog.js:219
+#: ../root/static/scripts/edit/components/ExternalLinkAttributeDialog.js:213
 #: ../root/static/scripts/edit/components/GuessCaseOptionsPopover.js:64
 #: ../root/static/scripts/edit/components/URLInputPopover.js:134
 #: ../root/static/scripts/relationship-editor/components/DialogButtons.js:37
@@ -1111,7 +1111,7 @@ msgstr "Editar"
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:135
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:120
 #: ../root/release/CoverArt.js:110
-#: ../root/static/scripts/edit/components/ArtistCreditEditor.js:444
+#: ../root/static/scripts/edit/components/ArtistCreditEditor.js:447
 #: ../root/user/UserCollections.js:134
 #, fuzzy
 #| msgid "Edit"
@@ -1237,7 +1237,7 @@ msgid "Endpoint:"
 msgstr "Punto final:"
 
 #: ../root/components/forms.tt:258 ../root/components/forms.tt:283
-#: ../root/static/scripts/edit/components/GuessCaseOptions.js:113
+#: ../root/static/scripts/edit/components/GuessCaseOptions.js:111
 msgid "English"
 msgstr "Inglés"
 
@@ -1338,7 +1338,7 @@ msgstr "Al expirar"
 #: ../root/recording/edit_form.tt:51 ../root/release/edit/information.tt:268
 #: ../root/release_group/edit_form.tt:23 ../root/series/edit_form.tt:26
 #: ../root/work/edit_form.tt:90 ../root/layout/components/ExternalLinks.js:170
-#: ../root/static/scripts/genre/components/GenreEditForm.js:160
+#: ../root/static/scripts/genre/components/GenreEditForm.js:156
 msgid "External links"
 msgstr "Enlaces externos"
 
@@ -1421,7 +1421,7 @@ msgstr[1] "Se encontraron {n} resultados para \"{q}\""
 msgstr[2] "Se encontraron {n} resultados para \"{q}\""
 
 #: ../root/components/forms.tt:260 ../root/components/forms.tt:285
-#: ../root/static/scripts/edit/components/GuessCaseOptions.js:115
+#: ../root/static/scripts/edit/components/GuessCaseOptions.js:113
 msgid "French"
 msgstr "Francés"
 
@@ -1434,7 +1434,7 @@ msgstr "TOC completo:"
 #: ../root/edit/details/AddArtist.js:76 ../root/edit/details/EditArtist.js:95
 #: ../root/layout/components/sidebar/ArtistSidebar.js:89
 #: ../root/search/components/ArtistResults.js:54
-#: ../root/static/scripts/account/components/EditProfileForm.js:237
+#: ../root/static/scripts/account/components/EditProfileForm.js:222
 #: ../root/user/UserProfile.js:273
 msgid "Gender"
 msgstr "Género"
@@ -1450,7 +1450,7 @@ msgstr "Género"
 
 #: ../root/components/forms.tt:228 ../root/release/edit/information.tt:14
 #: ../root/release/edit/tracklist.tt:527
-#: ../root/static/scripts/edit/components/FormRowNameWithGuessCase.js:153
+#: ../root/static/scripts/edit/components/FormRowNameWithGuessCase.js:149
 msgid "Guess case"
 msgstr "Retocar títulos"
 
@@ -1471,7 +1471,7 @@ msgid "Guess case medium title"
 msgstr ""
 
 #: ../root/components/forms.tt:232 ../root/release/edit/information.tt:16
-#: ../root/static/scripts/edit/components/GuessCaseOptions.js:111
+#: ../root/static/scripts/edit/components/GuessCaseOptions.js:109
 #: ../root/static/scripts/edit/components/GuessCaseOptionsPopover.js:26
 #: ../root/static/scripts/guess-case/MB/Control/GuessCase.js:25
 msgid "Guess case options"
@@ -1483,7 +1483,7 @@ msgstr "Retocar título de pista"
 
 #: ../root/components/forms.tt:230 ../root/release/edit/information.tt:15
 #: ../root/release/edit/tracklist.tt:225
-#: ../root/static/scripts/edit/components/FormRowNameWithGuessCase.js:159
+#: ../root/static/scripts/edit/components/FormRowNameWithGuessCase.js:155
 msgid "Guess feat. artists"
 msgstr ""
 
@@ -1782,7 +1782,7 @@ msgid "Javascript is required for this page to work properly."
 msgstr "Se necesita Javascript para que esta página funcione correctamente."
 
 #: ../root/components/forms.tt:267 ../root/components/forms.tt:292
-#: ../root/static/scripts/edit/components/GuessCaseOptions.js:133
+#: ../root/static/scripts/edit/components/GuessCaseOptions.js:131
 msgid "Keep all-uppercase words uppercased"
 msgstr "Mantener todas las palabras mayúsculas, mayúsculas"
 
@@ -1945,7 +1945,7 @@ msgstr "Buscar CD"
 
 #: ../root/release/edit/information.tt:141
 #: ../lib/MusicBrainz/Server/Plugin/FormRenderer.pm:252
-#: ../root/static/scripts/edit/components/PartialDateInput.js:174
+#: ../root/static/scripts/edit/components/PartialDateInput.js:176
 msgid "MM"
 msgstr "MM"
 
@@ -2081,11 +2081,11 @@ msgstr "Mover pista hacia arriba"
 #: ../root/search/components/SeriesResults.js:57
 #: ../root/search/components/TagResults.js:51
 #: ../root/search/components/WorkResults.js:54
-#: ../root/static/scripts/account/components/ApplicationForm.js:81
-#: ../root/static/scripts/collection/components/CollectionEditForm.js:197
+#: ../root/static/scripts/account/components/ApplicationForm.js:82
+#: ../root/static/scripts/collection/components/CollectionEditForm.js:199
 #: ../root/static/scripts/common/components/FilterForm.js:135
-#: ../root/static/scripts/edit/components/FormRowNameWithGuessCase.js:112
-#: ../root/static/scripts/genre/components/GenreEditForm.js:147
+#: ../root/static/scripts/edit/components/FormRowNameWithGuessCase.js:108
+#: ../root/static/scripts/genre/components/GenreEditForm.js:143
 #: ../root/static/scripts/release/components/EditWorkDialog.js:166
 #: ../root/user/UserSubscriptions.js:48
 msgid "Name"
@@ -2570,7 +2570,7 @@ msgstr "Publicación “{name}” de {artist}"
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:141
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:128
 #: ../root/release/CoverArt.js:116
-#: ../root/static/scripts/account/components/EditProfileForm.js:315
+#: ../root/static/scripts/account/components/EditProfileForm.js:300
 #: ../root/static/scripts/edit/components/Multiselect.js:210
 #: ../root/user/UserCollections.js:135
 msgid "Remove"
@@ -2765,7 +2765,7 @@ msgid "Select images..."
 msgstr "Seleccionar imágenes..."
 
 #: ../root/components/forms.tt:259 ../root/components/forms.tt:284
-#: ../root/static/scripts/edit/components/GuessCaseOptions.js:114
+#: ../root/static/scripts/edit/components/GuessCaseOptions.js:112
 msgid "Sentence"
 msgstr "Oración"
 
@@ -3017,7 +3017,7 @@ msgid "The tracklist for this medium is unknown."
 msgstr ""
 
 #: ../root/components/forms.tt:201 ../root/release/edit/information.tt:164
-#: ../root/static/scripts/edit/components/PartialDateInput.js:52
+#: ../root/static/scripts/edit/components/PartialDateInput.js:53
 msgid ""
 "The year should have four digits. If you want to enter a year earlier than "
 "1000 CE, please pad with zeros, such as “0123”."
@@ -3369,7 +3369,7 @@ msgid "Transclusion editor"
 msgstr "Editor de transclusión"
 
 #: ../root/components/forms.tt:261 ../root/components/forms.tt:286
-#: ../root/static/scripts/edit/components/GuessCaseOptions.js:116
+#: ../root/static/scripts/edit/components/GuessCaseOptions.js:114
 msgid "Turkish"
 msgstr "Turco"
 
@@ -3415,9 +3415,9 @@ msgstr "Twitter"
 #: ../root/search/components/ReleaseResults.js:120
 #: ../root/search/components/SeriesResults.js:58
 #: ../root/search/components/WorkResults.js:58
-#: ../root/static/scripts/account/components/ApplicationForm.js:88
-#: ../root/static/scripts/alias/AliasEditForm.js:331
-#: ../root/static/scripts/collection/components/CollectionEditForm.js:203
+#: ../root/static/scripts/account/components/ApplicationForm.js:89
+#: ../root/static/scripts/alias/AliasEditForm.js:332
+#: ../root/static/scripts/collection/components/CollectionEditForm.js:205
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:875
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:547
 #: ../root/static/scripts/common/components/FilterForm.js:83
@@ -3488,7 +3488,7 @@ msgid "Uploading image..."
 msgstr "Subiendo imagen..."
 
 #: ../root/components/forms.tt:272 ../root/components/forms.tt:297
-#: ../root/static/scripts/edit/components/GuessCaseOptions.js:142
+#: ../root/static/scripts/edit/components/GuessCaseOptions.js:140
 msgid "Uppercase Roman numerals"
 msgstr ""
 
@@ -3636,7 +3636,7 @@ msgstr "Detalles de la obra"
 
 #: ../root/release/edit/information.tt:133
 #: ../lib/MusicBrainz/Server/Plugin/FormRenderer.pm:251
-#: ../root/static/scripts/edit/components/PartialDateInput.js:161
+#: ../root/static/scripts/edit/components/PartialDateInput.js:163
 msgid "YYYY"
 msgstr "AAAA"
 
@@ -3870,7 +3870,7 @@ msgstr "ediciones"
 #: ../root/edit/search_macros.tt:190 ../root/release/edit/tracklist.tt:3
 #: ../root/release/edit/tracklist.tt:83 ../root/release/edit/tracklist.tt:316
 #: ../root/release/edit/tracklist.tt:495 ../root/release/edit/tracklist.tt:510
-#: ../root/static/scripts/edit/components/GuessCaseOptions.js:121
+#: ../root/static/scripts/edit/components/GuessCaseOptions.js:119
 #: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:886
 msgid "help"
 msgstr "ayuda"
@@ -6144,7 +6144,7 @@ msgid "These coordinates could not be parsed"
 msgstr "Estas coordenadas no se pueden interpretar."
 
 #: ../lib/MusicBrainz/Server/Form/Field/DatePeriod.pm:42
-#: ../root/static/scripts/edit/components/DateRangeFieldset.js:68
+#: ../root/static/scripts/edit/components/DateRangeFieldset.js:67
 msgid "The end date cannot precede the begin date."
 msgstr "La fecha de fin no puede ser anterior a la de inicio."
 
@@ -6591,7 +6591,7 @@ msgid "Please enter your old password below, and then your new password."
 msgstr "Introduce tu antigua contraseña debajo, y después la nueva contraseña."
 
 #: ../root/account/ChangePassword.js:69 ../root/account/LostPassword.js:44
-#: ../root/static/scripts/account/components/RegisterForm.js:64
+#: ../root/static/scripts/account/components/RegisterForm.js:57
 #: ../root/user/Login.js:100
 msgid "Username"
 msgstr ""
@@ -6605,7 +6605,7 @@ msgid "New password:"
 msgstr "Nueva contraseña:"
 
 #: ../root/account/ChangePassword.js:93 ../root/account/ResetPassword.js:49
-#: ../root/static/scripts/account/components/RegisterForm.js:100
+#: ../root/static/scripts/account/components/RegisterForm.js:93
 msgid "Confirm password:"
 msgstr "Confirmar contraseña:"
 
@@ -6745,9 +6745,9 @@ msgid ""
 msgstr ""
 
 #: ../root/account/LostPassword.js:50 ../root/account/LostUsername.js:37
-#: ../root/static/scripts/account/components/EditProfileForm.js:218
-#: ../root/static/scripts/account/components/PreferencesForm.js:212
-#: ../root/static/scripts/account/components/RegisterForm.js:107
+#: ../root/static/scripts/account/components/EditProfileForm.js:203
+#: ../root/static/scripts/account/components/PreferencesForm.js:211
+#: ../root/static/scripts/account/components/RegisterForm.js:100
 #: ../root/user/UserProfile.js:194
 msgid "Email"
 msgstr "Correo electrónico"
@@ -7221,7 +7221,7 @@ msgstr ""
 #: ../root/report/components/EventList.js:69
 #: ../root/search/components/EventResults.js:77
 #: ../root/search/components/WorkResults.js:56
-#: ../root/static/scripts/account/components/PreferencesForm.js:251
+#: ../root/static/scripts/account/components/PreferencesForm.js:250
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:896
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:555
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:15
@@ -7266,7 +7266,7 @@ msgstr ""
 #: ../root/components/TagEntitiesList.js:174
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:221
 #: ../root/report/ReportsIndex.js:175
-#: ../root/static/scripts/account/components/PreferencesForm.js:256
+#: ../root/static/scripts/account/components/PreferencesForm.js:255
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:25
 #: ../root/tag/TagLayout.js:29
 msgid "Labels"
@@ -8047,7 +8047,7 @@ msgstr ""
 
 #: ../root/collection/CollectionIndex.js:205
 #: ../root/collection/CollectionMerge.js:70
-#: ../root/static/scripts/collection/components/CollectionEditForm.js:220
+#: ../root/static/scripts/collection/components/CollectionEditForm.js:222
 #: ../root/user/UserCollections.js:117
 msgid "Collaborators"
 msgstr "Colaboradores"
@@ -8087,7 +8087,7 @@ msgid "Private"
 msgstr "Privada"
 
 #: ../root/collection/CollectionMerge.js:79
-#: ../root/static/scripts/account/components/PreferencesForm.js:191
+#: ../root/static/scripts/account/components/PreferencesForm.js:190
 #: ../root/user/UserCollections.js:128
 msgid "Privacy"
 msgstr "Privacidad"
@@ -8164,7 +8164,7 @@ msgstr "Alias"
 #: ../root/components/Aliases/AliasTable.js:27
 #: ../root/edit/details/AddRemoveAlias.js:71
 #: ../root/edit/details/EditAlias.js:93
-#: ../root/static/scripts/alias/AliasEditForm.js:312
+#: ../root/static/scripts/alias/AliasEditForm.js:313
 msgid "Locale"
 msgstr "Idioma"
 
@@ -8199,7 +8199,7 @@ msgid "Aliases"
 msgstr "Alias"
 
 #: ../root/components/Aliases/index.js:52
-#: ../root/static/scripts/alias/AliasEditForm.js:277
+#: ../root/static/scripts/alias/AliasEditForm.js:278
 msgid ""
 "An alias is an alternate name for an entity. They typically contain common "
 "misspellings or variations of the name and are also used to improve search "
@@ -8498,7 +8498,7 @@ msgstr[2] ""
 #: ../root/edit/details/AddSeries.js:25 ../root/edit/details/EditSeries.js:34
 #: ../root/report/ReportsIndex.js:564
 #: ../root/report/components/SeriesList.js:47
-#: ../root/static/scripts/account/components/PreferencesForm.js:261
+#: ../root/static/scripts/account/components/PreferencesForm.js:260
 msgid "Series"
 msgstr "Series"
 
@@ -9441,7 +9441,7 @@ msgstr ""
 #: ../root/layout/components/sidebar/WorkSidebar.js:69
 #: ../root/search/components/WorkResults.js:59
 #: ../root/static/scripts/release/components/WorkLanguageMultiselect.js:143
-#: ../root/static/scripts/work/edit.js:346
+#: ../root/static/scripts/work/edit.js:336
 #, fuzzy
 #| msgid "Lyrics Languages"
 msgid "Lyrics languages"
@@ -10861,7 +10861,7 @@ msgstr "Esbozos de CD"
 #: ../root/layout/components/BottomMenu.js:240
 #: ../root/layout/components/sidebar/CollectionSidebar.js:72
 #: ../root/layout/components/sidebar/EditLinks.js:31
-#: ../root/static/scripts/account/components/PreferencesForm.js:246
+#: ../root/static/scripts/account/components/PreferencesForm.js:245
 msgid "Editing"
 msgstr "Editar"
 
@@ -11035,7 +11035,7 @@ msgid "My collections"
 msgstr ""
 
 #: ../root/layout/components/TopMenu.js:93
-#: ../root/static/scripts/account/components/PreferencesForm.js:206
+#: ../root/static/scripts/account/components/PreferencesForm.js:205
 #, fuzzy
 #| msgid "My Ratings"
 msgid "My ratings"
@@ -11109,7 +11109,7 @@ msgid "Edit relationship types"
 msgstr "Editar tipo de relación"
 
 #: ../root/layout/components/TopMenu.js:209
-#: ../root/static/scripts/account/components/RegisterForm.js:131
+#: ../root/static/scripts/account/components/RegisterForm.js:124
 #, fuzzy
 #| msgid "Create Account"
 msgctxt "interactive"
@@ -14327,18 +14327,18 @@ msgstr "Aplicación web"
 msgid "Installed Application"
 msgstr "Aplicación instalada"
 
-#: ../root/static/scripts/account/components/ApplicationForm.js:95
+#: ../root/static/scripts/account/components/ApplicationForm.js:96
 msgid "Callback URL"
 msgstr "Volviendo a llamar URL"
 
-#: ../root/static/scripts/account/components/ApplicationForm.js:103
+#: ../root/static/scripts/account/components/ApplicationForm.js:104
 msgid ""
 "Callback URI is optional for installed applications. If set, its scheme must "
 "be a custom reverse-DNS string, as in <code>org.example.app://auth</code>, "
 "for installed applications."
 msgstr ""
 
-#: ../root/static/scripts/account/components/EditProfileForm.js:210
+#: ../root/static/scripts/account/components/EditProfileForm.js:195
 msgid ""
 "This is a development server. Your email address is not private or secure. "
 "Proceed with caution!"
@@ -14346,130 +14346,130 @@ msgstr ""
 "Este es un servidor de desarrollo. Tu dirección de correo ni es privada, ni "
 "está protegida, ¡ten cuidado!"
 
-#: ../root/static/scripts/account/components/EditProfileForm.js:223
+#: ../root/static/scripts/account/components/EditProfileForm.js:208
 msgid "If you change your email address, you will be required to verify it."
 msgstr "Si cambia su dirección de correo electrónico, tendrá que verificarla."
 
-#: ../root/static/scripts/account/components/EditProfileForm.js:230
+#: ../root/static/scripts/account/components/EditProfileForm.js:215
 msgid "Website"
 msgstr "Página web"
 
-#: ../root/static/scripts/account/components/EditProfileForm.js:245
+#: ../root/static/scripts/account/components/EditProfileForm.js:230
 #: ../root/user/UserProfile.js:280
 msgctxt "user area"
 msgid "Location"
 msgstr ""
 
-#: ../root/static/scripts/account/components/EditProfileForm.js:270
+#: ../root/static/scripts/account/components/EditProfileForm.js:255
 msgid ""
 "You can pick the level you prefer here: your country, region or city. Be as "
 "specific as you want to!"
 msgstr ""
 
-#: ../root/static/scripts/account/components/EditProfileForm.js:277
+#: ../root/static/scripts/account/components/EditProfileForm.js:262
 msgid "Birth date:"
 msgstr "Fecha de nacimiento:"
 
-#: ../root/static/scripts/account/components/EditProfileForm.js:282
+#: ../root/static/scripts/account/components/EditProfileForm.js:267
 msgid ""
 "We will use your birth date to display your age in years on your profile "
 "page."
 msgstr ""
 "Usaremos tu fecha de nacimiento para indicar tu edad (en años) en tu perfil."
 
-#: ../root/static/scripts/account/components/EditProfileForm.js:289
+#: ../root/static/scripts/account/components/EditProfileForm.js:274
 #: ../root/user/UserProfile.js:402
 msgid "Bio"
 msgstr "Biografía"
 
-#: ../root/static/scripts/account/components/EditProfileForm.js:293
+#: ../root/static/scripts/account/components/EditProfileForm.js:278
 #, fuzzy
 #| msgid "Languages Known:"
 msgid "Languages known:"
 msgstr "Idiomas:"
 
-#: ../root/static/scripts/account/components/EditProfileForm.js:329
+#: ../root/static/scripts/account/components/EditProfileForm.js:314
 msgid "Add a language"
 msgstr "Añadir un idioma"
 
-#: ../root/static/scripts/account/components/EditProfileForm.js:337
-#: ../root/static/scripts/account/components/PreferencesForm.js:267
+#: ../root/static/scripts/account/components/EditProfileForm.js:322
+#: ../root/static/scripts/account/components/PreferencesForm.js:266
 #, fuzzy
 #| msgid "Save"
 msgctxt "interactive"
 msgid "Save"
 msgstr "Guardar"
 
-#: ../root/static/scripts/account/components/PreferencesForm.js:158
+#: ../root/static/scripts/account/components/PreferencesForm.js:157
 msgid "Regional settings"
 msgstr "Preferencias regionales"
 
-#: ../root/static/scripts/account/components/PreferencesForm.js:167
+#: ../root/static/scripts/account/components/PreferencesForm.js:166
 msgid "Guess timezone"
 msgstr ""
 
-#: ../root/static/scripts/account/components/PreferencesForm.js:172
+#: ../root/static/scripts/account/components/PreferencesForm.js:171
 msgid "Timezone:"
 msgstr "Zona horaria:"
 
-#: ../root/static/scripts/account/components/PreferencesForm.js:180
+#: ../root/static/scripts/account/components/PreferencesForm.js:179
 msgid "Date/time format:"
 msgstr "Formato de fecha y hora"
 
-#: ../root/static/scripts/account/components/PreferencesForm.js:193
+#: ../root/static/scripts/account/components/PreferencesForm.js:192
 #, fuzzy
 #| msgid "Allow other users to see my tags"
 msgid "Allow other users to see:"
 msgstr "Permitir que otros usuarios vean mis etiquetas"
 
-#: ../root/static/scripts/account/components/PreferencesForm.js:196
+#: ../root/static/scripts/account/components/PreferencesForm.js:195
 #, fuzzy
 #| msgid "No subscriptions."
 msgid "My subscriptions"
 msgstr "No hay suscripciones."
 
-#: ../root/static/scripts/account/components/PreferencesForm.js:201
+#: ../root/static/scripts/account/components/PreferencesForm.js:200
 msgctxt "folksonomy"
 msgid "My tags and genres"
 msgstr ""
 
-#: ../root/static/scripts/account/components/PreferencesForm.js:214
+#: ../root/static/scripts/account/components/PreferencesForm.js:213
 #, fuzzy
 #| msgid "Email Sent"
 msgid "Email me about:"
 msgstr "Correo enviado"
 
-#: ../root/static/scripts/account/components/PreferencesForm.js:217
+#: ../root/static/scripts/account/components/PreferencesForm.js:216
 msgid "The first “no” vote on any of my edits"
 msgstr ""
 
-#: ../root/static/scripts/account/components/PreferencesForm.js:222
+#: ../root/static/scripts/account/components/PreferencesForm.js:221
 msgid "Notes on edits I have left notes on"
 msgstr ""
 
-#: ../root/static/scripts/account/components/PreferencesForm.js:227
+#: ../root/static/scripts/account/components/PreferencesForm.js:226
 msgid "Notes on edits I have voted on"
 msgstr ""
 
-#: ../root/static/scripts/account/components/PreferencesForm.js:232
+#: ../root/static/scripts/account/components/PreferencesForm.js:231
 msgid "Notes on edits I have abstained on"
 msgstr ""
 
-#: ../root/static/scripts/account/components/PreferencesForm.js:239
+#: ../root/static/scripts/account/components/PreferencesForm.js:238
 msgid "Send me mails with edits to my subscriptions:"
 msgstr "Enviadme correos con las ediciones a mis suscripciones:"
 
-#: ../root/static/scripts/account/components/PreferencesForm.js:248
+#: ../root/static/scripts/account/components/PreferencesForm.js:247
 #, fuzzy
 #| msgid "Automatically subscribe me to labels I create."
 msgid "Automatically subscribe me when I add:"
 msgstr "Quiero ser suscrito automáticamente a las discográficas que cree."
 
-#: ../root/static/scripts/account/components/RegisterForm.js:70
+#: ../root/static/scripts/account/components/RegisterForm.js:63
 msgid "Your username will be publicly visible."
 msgstr "Tu nombre de usuario será público."
 
-#: ../root/static/scripts/account/components/RegisterForm.js:81
+#: ../root/static/scripts/account/components/RegisterForm.js:74
 msgid ""
 "The username you have entered looks like an email address. This is allowed, "
 "but please keep in mind that everyone will be able to see it. Only use an "
@@ -14477,12 +14477,12 @@ msgid ""
 "that."
 msgstr ""
 
-#: ../root/static/scripts/account/components/RegisterForm.js:92
+#: ../root/static/scripts/account/components/RegisterForm.js:85
 #: ../root/user/Login.js:107
 msgid "Password:"
 msgstr "Contraseña:"
 
-#: ../root/static/scripts/account/components/RegisterForm.js:113
+#: ../root/static/scripts/account/components/RegisterForm.js:106
 msgid ""
 "You must provide a working email address if you wish to contribute to the "
 "database."
@@ -14490,32 +14490,32 @@ msgstr ""
 "Debes introducir una dirección de correo válida si quieres contribuir a la "
 "base de datos."
 
-#: ../root/static/scripts/account/components/RegisterForm.js:119
+#: ../root/static/scripts/account/components/RegisterForm.js:112
 msgid "Captcha"
 msgstr "Captcha"
 
-#: ../root/static/scripts/account/components/RegisterForm.js:126
+#: ../root/static/scripts/account/components/RegisterForm.js:119
 msgid ""
 "Please review the {coc|MusicBrainz Code of Conduct} before creating an "
 "account."
 msgstr ""
 "Lee el {coc|código de conducta de MusicBrainz} antes de crear una cuenta."
 
-#: ../root/static/scripts/alias/AliasEditForm.js:293
+#: ../root/static/scripts/alias/AliasEditForm.js:294
 #, fuzzy
 #| msgid "Alias Details"
 msgid "Alias details"
 msgstr "Detalles del alias"
 
-#: ../root/static/scripts/alias/AliasEditForm.js:300
+#: ../root/static/scripts/alias/AliasEditForm.js:301
 msgid "Alias name:"
 msgstr "Nombre de alias:"
 
-#: ../root/static/scripts/alias/AliasEditForm.js:324
+#: ../root/static/scripts/alias/AliasEditForm.js:325
 msgid "This is the primary alias for this locale"
 msgstr "Éste es el alias primario para este idioma"
 
-#: ../root/static/scripts/alias/AliasEditForm.js:339
+#: ../root/static/scripts/alias/AliasEditForm.js:340
 msgid "This alias is no longer current."
 msgstr ""
 
@@ -14606,27 +14606,27 @@ msgstr ""
 msgid "Show more..."
 msgstr "Mostrar más..."
 
-#: ../root/static/scripts/collection/components/CollectionEditForm.js:194
+#: ../root/static/scripts/collection/components/CollectionEditForm.js:196
 msgid "Collection details"
 msgstr "Detalles de colección"
 
-#: ../root/static/scripts/collection/components/CollectionEditForm.js:213
+#: ../root/static/scripts/collection/components/CollectionEditForm.js:215
 msgid "Allow other users to see this collection"
 msgstr "Permitir que otros usuarios vean esta colección"
 
-#: ../root/static/scripts/collection/components/CollectionEditForm.js:228
+#: ../root/static/scripts/collection/components/CollectionEditForm.js:230
 msgid "Add collection"
 msgstr ""
 
-#: ../root/static/scripts/collection/components/CollectionEditForm.js:230
+#: ../root/static/scripts/collection/components/CollectionEditForm.js:232
 msgid "Update collection"
 msgstr "Actualizar colección"
 
-#: ../root/static/scripts/collection/components/CollectionEditForm.js:288
+#: ../root/static/scripts/collection/components/CollectionEditForm.js:290
 msgid "Add collaborator"
 msgstr ""
 
-#: ../root/static/scripts/collection/components/CollectionEditForm.js:330
+#: ../root/static/scripts/collection/components/CollectionEditForm.js:332
 msgid "Remove collaborator"
 msgstr ""
 
@@ -15755,12 +15755,12 @@ msgstr ""
 msgid "This entity has open edits."
 msgstr ""
 
-#: ../root/static/scripts/edit/components/ExternalLinkAttributeDialog.js:198
+#: ../root/static/scripts/edit/components/ExternalLinkAttributeDialog.js:192
 #: ../root/static/scripts/relationship-editor/components/DialogDatePeriod.js:202
 msgid "This relationship has ended."
 msgstr "Esta relación ha finalizado."
 
-#: ../root/static/scripts/edit/components/ExternalLinkAttributeDialog.js:233
+#: ../root/static/scripts/edit/components/ExternalLinkAttributeDialog.js:227
 #, fuzzy
 #| msgid "Edit Attributes"
 msgctxt "interactive"
@@ -15771,7 +15771,7 @@ msgstr "Editar Atributos"
 msgid "Show me an alert whenever I receive a new edit note."
 msgstr "Avísame cuando reciba una nueva nota sobre la edición."
 
-#: ../root/static/scripts/edit/components/PartialDateInput.js:56
+#: ../root/static/scripts/edit/components/PartialDateInput.js:57
 msgid "The date you've entered is not valid"
 msgstr ""
 
@@ -16035,7 +16035,7 @@ msgstr ""
 msgid "Add another relationship"
 msgstr ""
 
-#: ../root/static/scripts/genre/components/GenreEditForm.js:140
+#: ../root/static/scripts/genre/components/GenreEditForm.js:136
 msgid "Genre details"
 msgstr ""
 
@@ -16574,14 +16574,14 @@ msgstr ""
 msgid "Add lyrics language"
 msgstr ""
 
-#: ../root/static/scripts/work/edit.js:340
+#: ../root/static/scripts/work/edit.js:330
 #, fuzzy
 #| msgid "Add a language"
 msgctxt "interactive"
 msgid "Add language"
 msgstr "Añadir un idioma"
 
-#: ../root/static/scripts/work/edit.js:352
+#: ../root/static/scripts/work/edit.js:342
 #, fuzzy
 #| msgid "Remove Language"
 msgctxt "interactive"

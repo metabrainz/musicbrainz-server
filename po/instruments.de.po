@@ -3196,6 +3196,13 @@ msgctxt "Medieval bowed lute"
 msgid "rebec"
 msgstr "Rebec"
 
+#: DB:instrument/name:1187
+#, fuzzy
+#| msgid "theremin"
+msgctxt "Ibizan double woodwind"
+msgid "reclam de xeremies"
+msgstr "Theremin"
+
 #: DB:instrument/name:721
 msgctxt "Brazilian metal scraper"
 msgid "reco-reco"
