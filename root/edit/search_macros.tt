@@ -457,7 +457,7 @@
                    [ 'editor', l('Editor'), {requires_login => 1} ],
                    [ 'voter', l('Voter'), {requires_login => 1} ]
                    [ 'release_language', l('Release language') ],
-                   [ 'release_quality', l('Release quality') ],
+                   [ 'release_quality', l('Release data quality') ],
                    [ 'artist_area', l('Artist area') ],
                    [ 'label_area', l('Label area') ]
                    [ 'release_country', l('Release country') ]
