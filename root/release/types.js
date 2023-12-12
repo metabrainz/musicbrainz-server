@@ -8,6 +8,6 @@
  */
 
 export type ReleaseDeleteFormT = FormT<{
-  +edit_note: ReadOnlyFieldT<string>,
-  +make_votable: ReadOnlyFieldT<boolean>,
+  +edit_note: FieldT<string>,
+  +make_votable: FieldT<boolean>,
 }>;

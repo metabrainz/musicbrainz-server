@@ -101,9 +101,11 @@ class ArtistCreditEditor extends React.Component {
     event.stopPropagation();
 
     const ac = this.state.artistCredit;
-    const newState = mutate(this.state, newState => {
-      newState.artistCredit.names.splice(i, 1);
-    });
+    const newState = mutate(this.state)
+      .update('artistCredit', 'names', (namesCtx) => {
+        namesCtx.write().splice(i, 1);
+      })
+      .final();
     setAutoJoinPhrases(newState.artistCredit);
 
     this.setState(newState, () => {
@@ -118,10 +120,11 @@ class ArtistCreditEditor extends React.Component {
   }
 
   handleNameChange(i, update) {
-    this.setState(state => mutate(state, newState => {
-      newState.artistCredit.names[i] =
-        {...state.artistCredit.names[i], ...update};
-    }));
+    this.setState(state => mutate(state)
+      .update('artistCredit', 'names', i, (nameCtx) => {
+        nameCtx.set({...nameCtx.read(), ...update});
+      })
+      .final());
   }
 
   copyArtistCredit() {

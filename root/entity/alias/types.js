@@ -8,27 +8,16 @@
  */
 
 export type AliasDeleteFormT = FormT<{
-  +edit_note: ReadOnlyFieldT<string>,
-  +make_votable: ReadOnlyFieldT<boolean>,
+  +edit_note: FieldT<string>,
+  +make_votable: FieldT<boolean>,
 }>;
 
 export type AliasEditFormT = FormT<{
-  +edit_note: ReadOnlyFieldT<string>,
-  +locale: ReadOnlyFieldT<string>,
-  +make_votable: ReadOnlyFieldT<boolean>,
-  +name: ReadOnlyFieldT<string | null>,
-  +period: DatePeriodFieldT,
-  +primary_for_locale: ReadOnlyFieldT<boolean>,
-  +sort_name: ReadOnlyFieldT<string | null>,
-  +type_id: ReadOnlyFieldT<string>,
-}>;
-
-export type WritableAliasEditFormT = FormT<{
   +edit_note: FieldT<string>,
   +locale: FieldT<string>,
   +make_votable: FieldT<boolean>,
   +name: FieldT<string | null>,
-  +period: WritableDatePeriodFieldT,
+  +period: DatePeriodFieldT,
   +primary_for_locale: FieldT<boolean>,
   +sort_name: FieldT<string | null>,
   +type_id: FieldT<string>,

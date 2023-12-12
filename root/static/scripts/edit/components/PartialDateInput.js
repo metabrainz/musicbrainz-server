@@ -7,6 +7,8 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import type {CowContext} from 'mutate-cow';
+
 import {isDateValid, isYearFourDigits} from '../utility/dates.js';
 import {applyPendingErrors} from '../utility/subfieldErrors.js';
 
@@ -39,9 +41,8 @@ type Props =
 
 export type StateT = PartialDateFieldT;
 
-export type WritableStateT = WritablePartialDateFieldT;
-
-function validateDate(date: WritablePartialDateFieldT) {
+function validateDate(dateCtx: CowContext<StateT>) {
+  const date = dateCtx.read();
   const year = String(date.field.year.value ?? '');
   const month = String(date.field.month.value ?? '');
   const day = String(date.field.day.value ?? '');
@@ -60,12 +61,13 @@ function validateDate(date: WritablePartialDateFieldT) {
    * field is blurred. But if an existing error is resolved, we
    * hide the error right away.
    */
-  date.errors = date.errors.filter(e => pendingErrors.includes(e));
-  date.pendingErrors = pendingErrors;
+  dateCtx
+    .set('errors', date.errors.filter(e => pendingErrors.includes(e)))
+    .set('pendingErrors', pendingErrors);
 }
 
 export function runReducer(
-  state: WritableStateT,
+  state: CowContext<StateT>,
   action: ActionT,
 ): void {
   switch (action.type) {
@@ -78,13 +80,13 @@ export function runReducer(
       const newMonth = action.date.month;
       const newDay = action.date.day;
       if (newYear != null) {
-        state.field.year.value = newYear;
+        state.set('field', 'year', 'value', newYear);
       }
       if (newMonth != null) {
-        state.field.month.value = newMonth;
+        state.set('field', 'month', 'value', newMonth);
       }
       if (newDay != null) {
-        state.field.day.value = newDay;
+        state.set('field', 'day', 'value', newDay);
       }
       validateDate(state);
       break;

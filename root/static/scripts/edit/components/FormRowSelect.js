@@ -18,7 +18,7 @@ type Props = {
   // `allowEmpty` prepends an empty default option to the list.
   +allowEmpty?: boolean,
   +disabled?: boolean,
-  +field: ReadOnlyFieldT<number | string>,
+  +field: FieldT<number | string>,
   +frozen?: boolean,
   +hasHtmlErrors?: boolean,
   +helpers?: React$Node,

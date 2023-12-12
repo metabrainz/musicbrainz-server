@@ -19,7 +19,7 @@ import FormSubmit from '../../edit/components/FormSubmit.js';
 
 export type ApplicationFormT = FormT<{
   +csrf_token: FieldT<string>,
-  +name: ReadOnlyFieldT<string>,
+  +name: FieldT<string>,
   +oauth_redirect_uri: FieldT<string>,
   +oauth_type: FieldT<string>,
 }>;
@@ -57,18 +57,19 @@ class ApplicationForm extends React.Component<Props, State> {
 
   handleOauthRedirectURIChange(e: SyntheticEvent<HTMLInputElement>) {
     const selectedOauthRedirectURI = e.currentTarget.value;
-    this.setState(prevState => mutate<State, _>(prevState, newState => {
-      newState.form.field.oauth_redirect_uri.value = selectedOauthRedirectURI;
-    }));
+    this.setState(prevState => mutate(prevState)
+      .set('form', 'field', 'oauth_redirect_uri', 'value',
+           selectedOauthRedirectURI)
+      .final());
   }
 
   handleOauthTypeChangeBound: (e: SyntheticEvent<HTMLSelectElement>) => void;
 
   handleOauthTypeChange(e: SyntheticEvent<HTMLSelectElement>) {
     const selectedOauthType = e.currentTarget.value;
-    this.setState(prevState => mutate<State, _>(prevState, newState => {
-      newState.form.field.oauth_type.value = selectedOauthType;
-    }));
+    this.setState(prevState => mutate(prevState)
+      .set('form', 'field', 'oauth_type', 'value', selectedOauthType)
+      .final());
   }
 
   render(): React$Element<'form'> {

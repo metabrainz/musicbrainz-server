@@ -29,11 +29,11 @@ type PropsT = {
   +isLoginRequired?: boolean,
   +isSpammer?: boolean,
   +loginAction: string,
-  +loginForm: ReadOnlyFormT<{
-    +csrf_token: ReadOnlyFieldT<string>,
-    +password: ReadOnlyFieldT<string>,
-    +remember_me: ReadOnlyFieldT<boolean>,
-    +username: ReadOnlyFieldT<string>,
+  +loginForm: FormT<{
+    +csrf_token: FieldT<string>,
+    +password: FieldT<string>,
+    +remember_me: FieldT<boolean>,
+    +username: FieldT<string>,
   }>,
   +postParameters: PostParametersT | null,
 };
