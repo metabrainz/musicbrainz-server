@@ -50,7 +50,7 @@ const SeriesSidebar = ({series}: Props): React$Element<'div'> => {
 
         <SidebarProperty
           className="series-code"
-          label={addColonText(l('Ordering Type'))}
+          label={addColonText(l('Ordering type'))}
         >
           {lp_attributes(
             linkedEntities.series_ordering_type[series.orderingTypeID].name,

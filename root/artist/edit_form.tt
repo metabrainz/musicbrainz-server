@@ -7,7 +7,7 @@
 
     <div class="half-width">
       <fieldset>
-        <legend>[% l('Artist Details') %]</legend>
+        <legend>[% l('Artist details') %]</legend>
         [%- form_row_name_with_guesscase(r) -%]
         [%- form_row_sortname_with_guesscase(r) -%]
         [%- duplicate_entities_section() -%]
@@ -31,7 +31,7 @@
       </fieldset>
 
       <fieldset>
-        <legend>[% l('Date Period') %]</legend>
+        <legend>[% l('Date period') %]</legend>
         <p>
             [%- l('Dates are in the format YYYY-MM-DD. Partial dates such as YYYY-MM or just YYYY are OK, or you can omit the date entirely.') -%]
         </p>
@@ -39,7 +39,7 @@
         [% too_short_year_error('too_short_begin_year') %]
         [% WRAPPER form_row %]
           [% begin_area_field = form.field('begin_area.name') %]
-          <label id="label-id-edit-artist.begin_area.name" for="id-edit-artist.begin_area.name">[% add_colon(l('Begin Area')) %]</label>
+          <label id="label-id-edit-artist.begin_area.name" for="id-edit-artist.begin_area.name">[% add_colon(l('Begin area')) %]</label>
           <span id="begin_area" class="area autocomplete">
             [% React.embed(c, 'static/scripts/common/components/SearchIcon') %]
             [% r.hidden(form.field('begin_area').field('gid'), { class => 'gid' }) %]
@@ -53,7 +53,7 @@
         [% form_row_checkbox(r, 'period.ended', l('This artist has ended.')) %]
         [% WRAPPER form_row %]
           [% end_area_field = form.field('end_area.name') %]
-          <label id="label-id-edit-artist.end_area.name" for="id-edit-artist.end_area.name">[% add_colon(l('End Area')) %]</label>
+          <label id="label-id-edit-artist.end_area.name" for="id-edit-artist.end_area.name">[% add_colon(l('End area')) %]</label>
           <span id="end_area" class="area autocomplete">
             [% React.embed(c, 'static/scripts/common/components/SearchIcon') %]
             [% r.hidden(form.field('end_area').field('gid'), { class => 'gid' }) %]
@@ -67,7 +67,7 @@
       [% PROCESS 'forms/relationship-editor.tt' %]
 
       <fieldset>
-        <legend>[% l('External Links') %]</legend>
+        <legend>[% l('External links') %]</legend>
         [% external_links_editor() %]
       </fieldset>
 

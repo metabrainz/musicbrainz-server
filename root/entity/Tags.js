@@ -32,7 +32,11 @@ const Tags = ({
   const LayoutComponent = chooseLayoutComponent(entityType);
 
   return (
-    <LayoutComponent entity={entity} page="tags" title={l('Tags')}>
+    <LayoutComponent
+      entity={entity}
+      page="tags"
+      title={lp('Tags', 'folksonomy')}
+    >
       <MainTagEditor
         aggregatedTags={allTags}
         entity={entity}

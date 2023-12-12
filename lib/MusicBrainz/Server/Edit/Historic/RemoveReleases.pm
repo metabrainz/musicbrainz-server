@@ -5,11 +5,11 @@ use warnings;
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_REMOVE_RELEASES );
 use MusicBrainz::Server::Data::Release;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 
 use MusicBrainz::Server::Edit::Historic::Base;
 
-sub edit_name     { N_l('Remove releases (historic)') }
+sub edit_name     { N_lp('Remove releases (historic)', 'edit type') }
 sub edit_kind     { 'remove' }
 sub historic_type { 24 }
 sub edit_type     { $EDIT_HISTORIC_REMOVE_RELEASES }

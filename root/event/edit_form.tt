@@ -8,7 +8,7 @@
     <div class="half-width">
 
       <fieldset>
-        <legend>[% l('Event Details') %]</legend>
+        <legend>[% l('Event details') %]</legend>
         [%- form_row_name_with_guesscase(r) -%]
         [%- form_row_text_long(r, 'comment', add_colon(l('Disambiguation'))) -%]
         [%- form_row_select(r, 'type_id', l('Type:')) -%]
@@ -29,7 +29,7 @@
 
 
       <fieldset>
-        <legend>[% l('Date Period') %]</legend>
+        <legend>[% l('Date period') %]</legend>
         <p>
             [%- l('Dates are in the format YYYY-MM-DD. Partial dates such as YYYY-MM or just YYYY are OK, or you can omit the date entirely.') -%]
         </p>
@@ -43,7 +43,7 @@
       [% PROCESS 'forms/relationship-editor.tt' %]
 
       <fieldset>
-        <legend>[% l('External Links') %]</legend>
+        <legend>[% l('External links') %]</legend>
         [% external_links_editor() %]
       </fieldset>
 

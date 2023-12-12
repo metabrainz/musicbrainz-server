@@ -43,7 +43,7 @@ const RevokeApplicationAccess = ({
         </p>
       </>
     }
-    title={l('Revoke Application Access')}
+    title={lp('Revoke application access', 'header')}
   />
 );
 

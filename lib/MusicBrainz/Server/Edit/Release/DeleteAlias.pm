@@ -3,7 +3,7 @@ use Moose;
 
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_DELETE_ALIAS );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 
 extends 'MusicBrainz::Server::Edit::Alias::Delete';
 with 'MusicBrainz::Server::Edit::Release';
@@ -12,7 +12,7 @@ use aliased 'MusicBrainz::Server::Entity::Release';
 
 sub _alias_model { shift->c->model('Release')->alias }
 
-sub edit_name { N_l('Remove release alias') }
+sub edit_name { N_lp('Remove release alias', 'edit type') }
 sub edit_kind { 'remove' }
 sub edit_type { $EDIT_RELEASE_DELETE_ALIAS }
 

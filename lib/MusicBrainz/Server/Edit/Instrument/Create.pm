@@ -5,7 +5,7 @@ use namespace::autoclean;
 use MusicBrainz::Server::Constants qw( $EDIT_INSTRUMENT_CREATE );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 use Moose::Util::TypeConstraints;
 use MooseX::Types::Moose qw( Str Int );
 use MooseX::Types::Structured qw( Dict );
@@ -17,7 +17,7 @@ with 'MusicBrainz::Server::Edit::Role::Preview',
      'MusicBrainz::Server::Edit::Instrument',
      'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
-sub edit_name { N_l('Add instrument') }
+sub edit_name { N_lp('Add instrument', 'edit type') }
 sub edit_type { $EDIT_INSTRUMENT_CREATE }
 sub _create_model { 'Instrument' }
 sub instrument_id { shift->entity_id }

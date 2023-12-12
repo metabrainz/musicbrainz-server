@@ -29,7 +29,7 @@ const Error404 = ({
 }: Props): React$Element<typeof ErrorLayout> => {
   const $c = React.useContext(CatalystContext);
   return (
-    <ErrorLayout title={l('Page Not Found')}>
+    <ErrorLayout title={l('Page not found')}>
       <p>
         <strong>
           {l(`Sorry, the page you're looking for does not exist.`)}

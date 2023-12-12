@@ -143,7 +143,9 @@ React$MixedElement => {
           <th>{l('Artist')}</th>
           <th>{l('ISRCs')}</th>
           <th>{l('Release')}</th>
-          {$c?.session?.tport == null ? null : <th>{l('Tagger')}</th>}
+          {$c?.session?.tport == null
+            ? null
+            : <th>{lp('Tagger', 'audio file metadata')}</th>}
           <th className="t pos">{l('Track')}</th>
           <th>{l('Medium')}</th>
           <th>{l('Type')}</th>

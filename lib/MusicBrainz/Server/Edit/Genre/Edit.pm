@@ -7,7 +7,7 @@ use MusicBrainz::Server::Constants qw( :edit_status );
 use MusicBrainz::Server::Edit::Utils qw( changed_display_data );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 
 use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict Optional );
@@ -19,7 +19,7 @@ with 'MusicBrainz::Server::Edit::CheckForConflicts',
      'MusicBrainz::Server::Edit::Genre',
      'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
-sub edit_name { N_l('Edit genre') }
+sub edit_name { N_lp('Edit genre', 'edit type') }
 sub edit_type { $EDIT_GENRE_EDIT }
 
 sub _edit_model { 'Genre' }

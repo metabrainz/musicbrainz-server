@@ -51,7 +51,7 @@ const AddRelationshipType = ({
       {relType ? (
         <table className="details">
           <tr>
-            <th>{addColonText(l('Relationship Type'))}</th>
+            <th>{addColonText(l('Relationship type'))}</th>
             <td>
               <EntityLink entity={relType} />
             </td>

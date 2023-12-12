@@ -66,7 +66,7 @@ const EditUser = ({
     <UserAccountLayout
       entity={user}
       page="edit_user"
-      title="Adjust User Account Flags"
+      title="Adjust user account flags"
     >
       <form method="post">
         <FormCsrfToken form={form} />
@@ -137,9 +137,7 @@ const EditUser = ({
         <h2>{'Administration flags'}</h2>
         <FormRowCheckbox
           field={form.field.mbid_submitter}
-          label={exp.l_admin(
-            '<abbr title="MusicBrainz Identifier">MBID</abbr> submitter',
-          )}
+          label="MBID submitter"
           uncontrolled
         />
         <FormRowCheckbox

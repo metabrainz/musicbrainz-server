@@ -33,14 +33,14 @@ const EditLinks = ({
         {$c.user ? children : requiresPrivileges ? null : (
           <>
             <li>
-              <RequestLogin text={l('Log in to edit')} />
+              <RequestLogin text={lp('Log in to edit', 'interactive')} />
             </li>
             <li className="separator" role="separator" />
           </>
         )}
         <li>
           <EntityLink
-            content={l('Open edits')}
+            content={lp('Open edits', 'noun')}
             entity={entity}
             subPath="open_edits"
           />

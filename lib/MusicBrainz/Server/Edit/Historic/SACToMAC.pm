@@ -7,13 +7,13 @@ use MusicBrainz::Server::Constants qw(
     $VARTIST_ID
 );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 
 use aliased 'MusicBrainz::Server::Entity::Artist';
 
 use MusicBrainz::Server::Edit::Historic::Base;
 
-sub edit_name     { N_l('Convert release to multiple artists (historic)') }
+sub edit_name     { N_lp('Convert release to multiple artists (historic)', 'edit type') }
 sub edit_kind     { 'other' }
 sub historic_type { 9 }
 sub edit_type     { $EDIT_HISTORIC_SAC_TO_MAC }

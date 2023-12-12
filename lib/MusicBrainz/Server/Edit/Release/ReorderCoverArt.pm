@@ -8,7 +8,7 @@ use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_REORDER_COVER_ART );
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 
 use List::AllUtils qw( nsort_by );
 use Data::Compare;
@@ -21,7 +21,7 @@ with 'MusicBrainz::Server::Edit::Release',
      'MusicBrainz::Server::Edit::Release::RelatedEntities',
      'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
-sub edit_name { N_l('Reorder cover art') }
+sub edit_name { N_lp('Reorder cover art', 'plural, edit type') }
 sub edit_kind { 'other' }
 sub edit_type { $EDIT_RELEASE_REORDER_COVER_ART }
 sub release_ids { shift->data->{entity}{id} }

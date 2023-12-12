@@ -65,7 +65,7 @@ const AttributeDetails = ({
           </>
         )}
         <a href={'/relationship-attribute/' + attribute.gid + '/edit'}>
-          {l('Edit')}
+          {lp('Edit', 'verb, interactive')}
         </a>
         {childrenAttrs.length ? null : (
           <>
@@ -175,7 +175,7 @@ const RelationshipAttributeTypesList = ({
 }: AttributesListProps): React$Element<typeof Layout> => {
   const $c = React.useContext(SanitizedCatalystContext);
   return (
-    <Layout fullWidth noIcons title={l('Relationship Attributes')}>
+    <Layout fullWidth noIcons title={l('Relationship attributes')}>
       <div id="content">
         <RelationshipsHeader page="attributes" />
         {isRelationshipEditor($c.user) ? (

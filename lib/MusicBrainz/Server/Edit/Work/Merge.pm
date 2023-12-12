@@ -2,14 +2,14 @@ package MusicBrainz::Server::Edit::Work::Merge;
 use Moose;
 
 use MusicBrainz::Server::Constants qw( $EDIT_WORK_MERGE );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 
 extends 'MusicBrainz::Server::Edit::Generic::Merge';
 with 'MusicBrainz::Server::Edit::Work::RelatedEntities',
      'MusicBrainz::Server::Edit::Work';
 
 sub edit_type { $EDIT_WORK_MERGE }
-sub edit_name { N_l('Merge works') }
+sub edit_name { N_lp('Merge works', 'edit type') }
 sub work_ids { @{ shift->_entity_ids } }
 
 sub _merge_model { 'Work' }

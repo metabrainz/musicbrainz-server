@@ -18,12 +18,12 @@ type Props = {
 };
 
 const EditApplication = (props: Props): React$Element<typeof Layout> => (
-  <Layout fullWidth title={l('Edit Application')}>
-    <h1>{l('Edit Application')}</h1>
+  <Layout fullWidth title={lp('Edit application', 'header')}>
+    <h1>{lp('Edit application', 'header')}</h1>
     <ApplicationForm
       action="edit"
       form={props.form}
-      submitLabel={l('Update')}
+      submitLabel={lp('Update', 'verb, data, interactive')}
     />
   </Layout>
 );

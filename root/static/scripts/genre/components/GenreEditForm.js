@@ -157,7 +157,7 @@ const GenreEditForm = ({
           seededRelationships={$c.stash.seeded_relationships}
         />
         <fieldset>
-          <legend>{l('External Links')}</legend>
+          <legend>{l('External links')}</legend>
           <ExternalLinksEditor
             isNewEntity={!genre.id}
             ref={externalLinksEditorRef}

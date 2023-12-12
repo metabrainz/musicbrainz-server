@@ -66,7 +66,7 @@ const AccountMenu = ({
               )
             }
           >
-            {l('Log Out')}
+            {l('Log out')}
           </a>
         </li>
       </ul>
@@ -80,37 +80,39 @@ const DataMenu = ({user}: UserProp) => {
   return (
     <li className="data" tabIndex="-1">
       <span className="menu-header">
-        {l('My Data')}
+        {l('My data')}
         {'\xA0\u25BE'}
       </span>
       <ul>
         <li>
           <a href={userLink(userName, '/collections')}>
-            {l('My Collections')}
+            {l('My collections')}
           </a>
         </li>
         <li>
-          <a href={userLink(userName, '/ratings')}>{l('My Ratings')}</a>
+          <a href={userLink(userName, '/ratings')}>{l('My ratings')}</a>
         </li>
         <li>
-          <a href={userLink(userName, '/tags')}>{l('My Tags')}</a>
+          <a href={userLink(userName, '/tags')}>
+            {lp('My tags', 'folksonomy')}
+          </a>
         </li>
         <li className="separator">
-          <a href={userLink(userName, '/edits/open')}>{l('My Open Edits')}</a>
+          <a href={userLink(userName, '/edits/open')}>{l('My open edits')}</a>
         </li>
         <li>
-          <a href={userLink(userName, '/edits')}>{l('All My Edits')}</a>
+          <a href={userLink(userName, '/edits')}>{l('All my edits')}</a>
         </li>
         <li>
-          <a href="/edit/subscribed">{l('Edits for Subscribed Entities')}</a>
+          <a href="/edit/subscribed">{l('Edits for subscribed entities')}</a>
         </li>
         <li>
           <a href="/edit/subscribed_editors">
-            {l('Edits by Subscribed Editors')}
+            {l('Edits by subscribed editors')}
           </a>
         </li>
         <li>
-          <a href="/edit/notes-received">{l('Notes Left on My Edits')}</a>
+          <a href="/edit/notes-received">{l('Notes left on my edits')}</a>
         </li>
       </ul>
     </li>
@@ -126,7 +128,7 @@ const AdminMenu = ({user}: UserProp) => (
     <ul>
       {isLocationEditor(user) ? (
         <li>
-          <a href="/area/create">{lp('Add Area', 'button/menu')}</a>
+          <a href="/area/create">{lp('Add area', 'interactive')}</a>
         </li>
       ) : null}
 
@@ -134,14 +136,14 @@ const AdminMenu = ({user}: UserProp) => (
         <>
           <li>
             <a href="/instrument/create">
-              {lp('Add Instrument', 'button/menu')}
+              {lp('Add instrument', 'interactive')}
             </a>
           </li>
           <li>
-            <a href="/genre/create">{lp('Add Genre', 'button/menu')}</a>
+            <a href="/genre/create">{lp('Add genre', 'interactive')}</a>
           </li>
           <li>
-            <a href="/relationships">{l('Edit Relationship Types')}</a>
+            <a href="/relationships">{l('Edit relationship types')}</a>
           </li>
         </>
       ) : null}
@@ -154,31 +156,31 @@ const AdminMenu = ({user}: UserProp) => (
 
       {isBannerEditor(user) ? (
         <li>
-          <a href="/admin/banner/edit">{l_admin('Edit Banner Message')}</a>
+          <a href="/admin/banner/edit">{l_admin('Edit banner message')}</a>
         </li>
       ) : null}
 
       {isAccountAdmin(user) ? (
         <>
           <li>
-            <a href="/admin/attributes">{l_admin('Edit Attributes')}</a>
+            <a href="/admin/attributes">{l_admin('Edit attributes')}</a>
           </li>
           <li>
             <a href="/admin/statistics-events">
-              {l_admin('Edit Statistics Events')}
+              {l_admin('Edit statistics events')}
             </a>
           </li>
           <li>
-            <a href="/admin/email-search">{l_admin('Email Search')}</a>
+            <a href="/admin/email-search">{l_admin('Email search')}</a>
           </li>
           <li>
             <a href="/admin/privilege-search">
-              {l_admin('Privilege Search')}
+              {l_admin('Privilege search')}
             </a>
           </li>
           <li>
             <a href="/admin/locked-usernames/search">
-              {l_admin('Locked Username Search')}
+              {l_admin('Locked username search')}
             </a>
           </li>
         </>
@@ -200,11 +202,11 @@ const UserMenu = () => {
       ) : (
         <>
           <li>
-            <RequestLogin text={l('Log In')} />
+            <RequestLogin text={lp('Log in', 'interactive')} />
           </li>
           <li>
             <a href={returnUri($c, '/register')}>
-              {l('Create Account')}
+              {lp('Create account', 'interactive')}
             </a>
           </li>
         </>

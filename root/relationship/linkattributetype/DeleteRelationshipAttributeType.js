@@ -25,7 +25,7 @@ const DeleteRelationshipAttributeType = ({
        <strong>{link_attr_type}</strong> relationship attribute?`,
       {link_attr_type: type.name},
     )}
-    title={l('Remove Relationship Attribute')}
+    title={l('Remove relationship attribute')}
   />
 );
 

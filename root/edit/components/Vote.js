@@ -104,7 +104,7 @@ const Vote = ({
       </div>
       <div className="vote">
         <VoteCheckbox
-          label={l('None')}
+          label={lp('None', 'vote')}
           value={EDIT_VOTE_NONE}
           {...props}
         />

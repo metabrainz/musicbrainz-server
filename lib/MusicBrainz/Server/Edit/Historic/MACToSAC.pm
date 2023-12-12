@@ -6,11 +6,11 @@ use MusicBrainz::Server::Edit::Historic::Base;
 
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_MAC_TO_SAC );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 
 use aliased 'MusicBrainz::Server::Entity::Artist';
 
-sub edit_name     { N_l('Convert release to single artist (historic)') }
+sub edit_name     { N_lp('Convert release to single artist (historic)', 'edit type') }
 sub edit_kind     { 'other' }
 sub historic_type { 13 }
 sub edit_type     { $EDIT_HISTORIC_MAC_TO_SAC }

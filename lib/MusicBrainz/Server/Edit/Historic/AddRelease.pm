@@ -17,9 +17,9 @@ use MusicBrainz::Server::Edit::Historic::Utils qw(
 );
 use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 
-sub edit_name     { N_l('Add release') }
+sub edit_name     { N_lp('Add release', 'edit type') }
 sub edit_kind     { 'add' }
 sub historic_type { 16 }
 sub edit_type     { $EDIT_HISTORIC_ADD_RELEASE }

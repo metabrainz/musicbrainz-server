@@ -41,9 +41,9 @@ const ContactUser = ({
   <UserAccountLayout
     entity={user}
     page="report"
-    title={l('Send Email')}
+    title={lp('Send email', 'header')}
   >
-    <h2>{l('Send Email')}</h2>
+    <h2>{lp('Send email', 'header')}</h2>
 
     <form className="contact-form" method="post">
       <FormCsrfToken form={form} />
@@ -76,7 +76,7 @@ const ContactUser = ({
       />
 
       <FormRow hasNoLabel>
-        <FormSubmit label={l('Send')} />
+        <FormSubmit label={lp('Send email', 'interactive')} />
       </FormRow>
     </form>
   </UserAccountLayout>

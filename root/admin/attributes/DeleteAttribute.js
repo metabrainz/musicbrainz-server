@@ -27,7 +27,7 @@ const DeleteAttribute = ({
        <strong>{name}</strong> attribute?`,
       {name: attribute.name},
     )}
-    title="Remove Attribute"
+    title="Remove attribute"
   />
 );
 

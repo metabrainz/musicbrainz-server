@@ -7,7 +7,7 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_WORK_REMOVE_ISWC
 );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 
 use aliased 'MusicBrainz::Server::Entity::Work';
 use aliased 'MusicBrainz::Server::Entity::ISWC';
@@ -20,7 +20,7 @@ with 'MusicBrainz::Server::Edit::Work::RelatedEntities',
         entity_type => 'work',
      };
 
-sub edit_name { N_l('Remove ISWC') }
+sub edit_name { N_lp('Remove ISWC', 'edit type') }
 sub edit_kind { 'remove' }
 sub edit_type { $EDIT_WORK_REMOVE_ISWC }
 sub edit_template { 'RemoveIswc' }

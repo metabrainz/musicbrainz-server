@@ -24,7 +24,7 @@ use MusicBrainz::Server::Edit::Utils qw(
 );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Track;
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
 with 'MusicBrainz::Server::Edit::Recording::RelatedEntities',
@@ -40,7 +40,7 @@ with 'MusicBrainz::Server::Edit::Recording::RelatedEntities',
 use aliased 'MusicBrainz::Server::Entity::Recording';
 
 sub edit_type { $EDIT_RECORDING_EDIT }
-sub edit_name { N_l('Edit recording') }
+sub edit_name { N_lp('Edit recording', 'edit type') }
 sub edit_template { 'EditRecording' }
 sub _edit_model { 'Recording' }
 sub recording_id { return shift->entity_id }

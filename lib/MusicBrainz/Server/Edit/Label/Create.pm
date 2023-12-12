@@ -9,7 +9,7 @@ use MusicBrainz::Server::Edit::Types qw( Nullable PartialDateHash );
 use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 
 extends 'MusicBrainz::Server::Edit::Generic::Create';
 with 'MusicBrainz::Server::Edit::Role::Preview',
@@ -27,7 +27,7 @@ with 'MusicBrainz::Server::Edit::Role::Preview',
 use aliased 'MusicBrainz::Server::Entity::Label';
 use aliased 'MusicBrainz::Server::Entity::Area';
 
-sub edit_name { N_l('Add label') }
+sub edit_name { N_lp('Add label', 'edit type') }
 sub edit_type { $EDIT_LABEL_CREATE }
 sub _create_model { 'Label' }
 sub label_id { shift->entity_id }

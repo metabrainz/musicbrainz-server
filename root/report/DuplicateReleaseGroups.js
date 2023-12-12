@@ -57,7 +57,7 @@ React$Element<typeof ReportLayout> => {
           <thead>
             <tr>
               <th>{l('Artist')}</th>
-              <th>{l('Release Group')}</th>
+              <th>{l('Release group')}</th>
               <th>{l('Type')}</th>
             </tr>
           </thead>

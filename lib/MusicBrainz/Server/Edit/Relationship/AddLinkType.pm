@@ -5,14 +5,14 @@ use MooseX::Types::Structured qw( Dict  Optional );
 use MusicBrainz::Server::Constants qw( $EDIT_RELATIONSHIP_ADD_TYPE );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Relationship',
      'MusicBrainz::Server::Edit::Role::Insert',
      'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
-sub edit_name { N_l('Add relationship type') }
+sub edit_name { N_lp('Add relationship type', 'edit type') }
 sub edit_kind { 'add' }
 sub edit_type { $EDIT_RELATIONSHIP_ADD_TYPE }
 sub edit_template { 'AddRelationshipType' }

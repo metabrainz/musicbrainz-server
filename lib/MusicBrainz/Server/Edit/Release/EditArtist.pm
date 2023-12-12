@@ -15,7 +15,7 @@ use MusicBrainz::Server::Edit::Utils qw(
     load_artist_credit_definitions
 );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Role::Preview',
@@ -28,7 +28,7 @@ with 'MusicBrainz::Server::Edit::Role::Preview',
 
 use aliased 'MusicBrainz::Server::Entity::Release';
 
-sub edit_name { N_l('Edit release') }
+sub edit_name { N_lp('Edit release', 'edit type') }
 sub edit_kind { 'edit' }
 sub edit_type { $EDIT_RELEASE_ARTIST }
 sub release_id { shift->data->{entity}{id} }

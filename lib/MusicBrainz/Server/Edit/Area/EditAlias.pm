@@ -2,14 +2,14 @@ package MusicBrainz::Server::Edit::Area::EditAlias;
 use Moose;
 
 use MusicBrainz::Server::Constants qw( $EDIT_AREA_EDIT_ALIAS );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 
 extends 'MusicBrainz::Server::Edit::Alias::Edit';
 with 'MusicBrainz::Server::Edit::Area';
 
 sub _alias_model { shift->c->model('Area')->alias }
 
-sub edit_name { N_l('Edit area alias') }
+sub edit_name { N_lp('Edit area alias', 'edit type') }
 sub edit_kind { 'edit' }
 sub edit_type { $EDIT_AREA_EDIT_ALIAS }
 

@@ -31,9 +31,9 @@ const EditProfile = (
     <UserAccountLayout
       entity={sanitizedAccountLayoutUser(user)}
       page="edit_profile"
-      title={l('Edit Profile')}
+      title={lp('Edit profile', 'header')}
     >
-      <h2>{l('Edit Profile')}</h2>
+      <h2>{lp('Edit profile', 'header')}</h2>
       <p>
         {exp.l(
           `See also your {uri|user preferences}, which include

@@ -5,13 +5,13 @@ use warnings;
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_EDIT_TRACKNUM );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use Scalar::Util qw( looks_like_number );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 
 use MusicBrainz::Server::Edit::Historic::Base;
 
 use aliased 'MusicBrainz::Server::Entity::Recording';
 
-sub edit_name     { N_l('Edit track (historic)') }
+sub edit_name     { N_lp('Edit track (historic)', 'edit type') }
 sub edit_kind     { 'edit' }
 sub historic_type { 5 }
 sub edit_type     { $EDIT_HISTORIC_EDIT_TRACKNUM }

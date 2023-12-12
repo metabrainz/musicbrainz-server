@@ -17,9 +17,9 @@ type PropsT = {
 const GenreListPage = ({
   genres,
 }: PropsT): React$Element<typeof Layout> => (
-  <Layout fullWidth title={l('Genre List')}>
+  <Layout fullWidth title={l('Genre list')}>
     <div id="content">
-      <h1>{l('Genre List')}</h1>
+      <h1>{l('Genre list')}</h1>
       <p>
         {exp.l(
           `These are all the {genre_url|genres} 

@@ -4,14 +4,14 @@ use warnings;
 
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_SET_TRACK_LENGTHS_FROM_CDTOC );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array to_json_object );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 use MusicBrainz::Server::Track;
 use MusicBrainz::Server::Edit::Historic::Base;
 
 use aliased 'MusicBrainz::Server::Entity::Medium';
 use aliased 'MusicBrainz::Server::Entity::Release';
 
-sub edit_name     { N_l('Set track lengths') }
+sub edit_name     { N_lp('Set track lengths', 'edit type') }
 sub edit_kind     { 'other' }
 sub historic_type { 53 }
 sub edit_type     { $EDIT_HISTORIC_SET_TRACK_LENGTHS_FROM_CDTOC }

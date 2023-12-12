@@ -24,9 +24,9 @@ const SubscribedEdits = ({
   pager,
   refineUrlArgs,
 }: Props): React$Element<typeof Layout> => (
-  <Layout fullWidth title={l('Edits for Your Subscribed Entities')}>
+  <Layout fullWidth title={l('Edits for your subscribed entities')}>
     <div id="content">
-      <h1>{l('Edits for Your Subscribed Entities')}</h1>
+      <h1>{l('Edits for your subscribed entities')}</h1>
 
       <p>
         {l(`This page lists edits linked to entities you are directly

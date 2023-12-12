@@ -8,7 +8,7 @@ use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASEGROUP_SET_COVER_ART );
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 
 use aliased 'MusicBrainz::Server::Entity::ReleaseGroup';
 
@@ -17,7 +17,7 @@ with 'MusicBrainz::Server::Edit::ReleaseGroup',
      'MusicBrainz::Server::Edit::ReleaseGroup::RelatedEntities',
      'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
-sub edit_name { N_l('Set cover art') }
+sub edit_name { N_lp('Set cover art', 'singular, edit type') }
 sub edit_kind { 'other' }
 sub edit_type { $EDIT_RELEASEGROUP_SET_COVER_ART }
 sub release_group_ids { shift->data->{entity}->{id} }

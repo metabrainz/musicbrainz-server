@@ -29,7 +29,7 @@ const SearchIndex = ({
     <div id="content">
       <h1>{l('Search')}</h1>
       <SearchForm form={searchForm} />
-      <h2>{l('Tag lookup')}</h2>
+      <h2>{lp('Tag lookup', 'audio file metadata')}</h2>
       <TagLookupForm form={tagLookupForm} />
       <h2>{l('Other lookups')}</h2>
       <OtherLookupForm form={otherLookupForm} />

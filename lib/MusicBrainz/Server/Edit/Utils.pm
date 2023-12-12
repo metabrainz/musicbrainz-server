@@ -10,7 +10,7 @@ use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref coordinates_to_has
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Entity::ArtistCredit;
 use MusicBrainz::Server::Entity::ArtistCreditName;
-use MusicBrainz::Server::Translation qw( N_l N_lp );
+use MusicBrainz::Server::Translation qw( N_lp );
 use Scalar::Util qw( blessed );
 use Set::Scalar;
 
@@ -268,14 +268,14 @@ sub changed_display_data
 }
 
 our @STATUS_MAP = (
-    [ $STATUS_OPEN         => N_l('Open') ],
-    [ $STATUS_APPLIED      => N_l('Applied') ],
-    [ $STATUS_FAILEDVOTE   => N_l('Failed vote') ],
-    [ $STATUS_FAILEDDEP    => N_l('Failed dependency') ],
-    [ $STATUS_ERROR        => N_l('Error') ],
-    [ $STATUS_FAILEDPREREQ => N_l('Failed prerequisite') ],
-    [ $STATUS_NOVOTES      => N_l('No votes') ],
-    [ $STATUS_DELETED      => N_lp('Cancelled', 'edit') ],
+    [ $STATUS_OPEN         => N_lp('Open', 'adjective, edit status') ],
+    [ $STATUS_APPLIED      => N_lp('Applied', 'edit status') ],
+    [ $STATUS_FAILEDVOTE   => N_lp('Failed vote', 'edit status') ],
+    [ $STATUS_FAILEDDEP    => N_lp('Failed dependency', 'edit status') ],
+    [ $STATUS_ERROR        => N_lp('Error', 'edit status') ],
+    [ $STATUS_FAILEDPREREQ => N_lp('Failed prerequisite', 'edit status') ],
+    [ $STATUS_NOVOTES      => N_lp('No votes', 'edit status') ],
+    [ $STATUS_DELETED      => N_lp('Cancelled', 'edit status') ],
 );
 our %STATUS_NAMES = map { @$_ } @STATUS_MAP;
 

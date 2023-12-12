@@ -14,7 +14,7 @@ use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Edit::Types qw( Nullable );
 use MusicBrainz::Server::Edit::Utils qw( changed_display_data );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
 with 'MusicBrainz::Server::Edit::URL',
@@ -23,7 +23,7 @@ with 'MusicBrainz::Server::Edit::URL',
 
 use aliased 'MusicBrainz::Server::Entity::URL';
 
-sub edit_name { N_l('Edit URL') }
+sub edit_name { N_lp('Edit URL', 'edit type') }
 sub edit_type { $EDIT_URL_EDIT }
 sub _edit_model { 'URL' }
 sub edit_template { 'EditUrl' }

@@ -36,7 +36,7 @@ const CatNoLooksLikeLabelCode = ({
       entityType="release"
       filtered={filtered}
       generated={generated}
-      title={l('Releases with catalog numbers that look like Label Codes')}
+      title={l('Releases with catalog numbers that look like label codes')}
       totalEntries={pager.total_entries}
     >
       <ReleaseList

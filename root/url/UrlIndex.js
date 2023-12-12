@@ -18,8 +18,8 @@ type Props = {
 };
 
 const UrlIndex = ({url}: Props): React$Element<typeof UrlLayout> => (
-  <UrlLayout entity={url} page="index" title={l('URL Information')}>
-    <h2 className="url-details">{l('URL Details')}</h2>
+  <UrlLayout entity={url} page="index" title={l('URL information')}>
+    <h2 className="url-details">{l('URL details')}</h2>
     <table className="details">
       <tr>
         <th>{addColonText(l('URL'))}</th>

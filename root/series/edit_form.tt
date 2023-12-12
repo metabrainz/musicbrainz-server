@@ -7,14 +7,14 @@
 
     <div class="half-width">
       <fieldset>
-        <legend>[% l('Series Details') %]</legend>
+        <legend>[% l('Series details') %]</legend>
         [%- form_row_name_with_guesscase(r) -%]
         [%- duplicate_entities_section() -%]
         [%- form_row_text_long(r, 'comment', add_colon(l('Disambiguation'))) -%]
         [%- disambiguation_error() -%]
         [%# When porting this, remember no_default is equivalent to allowEmpty %]
         [%- form_row_select(r, 'type_id', l('Type:'), undef, {no_default => 1}) -%]
-        [%- form_row_select(r, 'ordering_type_id', add_colon(l('Ordering Type'))) -%]
+        [%- form_row_select(r, 'ordering_type_id', add_colon(l('Ordering type'))) -%]
       </fieldset>
 
       [% React.embed(c, 'static/scripts/series/components/SeriesRelationshipEditor', {
@@ -23,7 +23,7 @@
       }) %]
 
       <fieldset>
-        <legend>[% l('External Links') %]</legend>
+        <legend>[% l('External links') %]</legend>
         [% external_links_editor() %]
       </fieldset>
 

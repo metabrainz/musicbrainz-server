@@ -6,7 +6,7 @@ use List::AllUtils qw( any uniq );
 use MusicBrainz::Server::Constants qw( $EDIT_RECORDING_ADD_ISRCS );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 use MusicBrainz::Server::Edit::Exceptions;
 
 extends 'MusicBrainz::Server::Edit';
@@ -20,7 +20,7 @@ use aliased 'MusicBrainz::Server::Entity::Recording';
 use aliased 'MusicBrainz::Server::Entity::ISRC';
 
 sub edit_type { $EDIT_RECORDING_ADD_ISRCS }
-sub edit_name { N_l('Add ISRCs') }
+sub edit_name { N_lp('Add ISRCs', 'edit type') }
 sub edit_kind { 'add' }
 sub edit_template { 'AddIsrcs' }
 

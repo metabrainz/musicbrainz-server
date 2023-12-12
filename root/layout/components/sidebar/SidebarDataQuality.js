@@ -33,7 +33,7 @@ const SidebarDataQuality = ({quality}: Props): React$MixedElement | null => {
   return name ? (
     <SidebarProperty
       className="data-quality"
-      label={addColonText(l('Data Quality'))}
+      label={addColonText(l('Data quality'))}
     >
       <span className={qualityClass} />
       {name()}

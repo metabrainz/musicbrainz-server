@@ -3,11 +3,11 @@ use Moose;
 use namespace::autoclean;
 
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_MERGE_RELEASE_MAC );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 
 extends 'MusicBrainz::Server::Edit::Historic::MergeRelease';
 
-sub edit_name     { N_l('Merge releases') }
+sub edit_name     { N_lp('Merge releases', 'edit type') }
 sub edit_kind     { 'merge' }
 sub historic_type { 25 }
 sub edit_type     { $EDIT_HISTORIC_MERGE_RELEASE_MAC }

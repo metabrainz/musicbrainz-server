@@ -21,9 +21,9 @@ const DeleteWikiDoc = ({
   form,
   page,
 }: Props): React$Element<typeof Layout> => (
-  <Layout fullWidth title="Remove Page">
+  <Layout fullWidth title="Remove page">
     <div id="content">
-      <h1>{'Remove Page'}</h1>
+      <h1>{'Remove page'}</h1>
       <p>
         {exp.l_admin(`Are you sure you wish to remove the page
                       “{page_uri|{page_name}}” from the transclusion table?`,

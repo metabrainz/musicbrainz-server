@@ -2,14 +2,14 @@ package MusicBrainz::Server::Edit::Label::Merge;
 use Moose;
 
 use MusicBrainz::Server::Constants qw( $EDIT_LABEL_MERGE );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 
 extends 'MusicBrainz::Server::Edit::Generic::Merge';
 with 'MusicBrainz::Server::Edit::Role::MergeSubscription',
      'MusicBrainz::Server::Edit::Label';
 
 sub edit_type { $EDIT_LABEL_MERGE }
-sub edit_name { N_l('Merge labels') }
+sub edit_name { N_lp('Merge labels', 'edit type') }
 
 sub _merge_model { 'Label' }
 sub subscription_model { shift->c->model('Label')->subscription }

@@ -13,34 +13,34 @@ import {fixedWidthInteger} from '../static/scripts/common/utility/strings.js';
 
 const stats = {
   'category': {
-    'area-types': {label: l('Area Types')},
-    'artist-countries': {label: l('Artist Countries')},
-    'artist-other': {label: l('Artist Types and Genders')},
+    'area-types': {label: l('Area types')},
+    'artist-countries': {label: l('Artist countries')},
+    'artist-other': {label: l('Artist types and genders')},
     'collection': {label: l('Collections')},
-    'core-entities': {label: l('Core Entities')},
-    'cover-art': {hide: true, label: l('Cover Art')},
-    'edit-information': {hide: true, label: l('Edit Information')},
-    'edit-types': {label: l('Edit Types')},
-    'event-types': {label: l('Event Types')},
+    'core-entities': {label: l('Core entities')},
+    'cover-art': {hide: true, label: lp('Cover art', 'plural')},
+    'edit-information': {hide: true, label: l('Edit information')},
+    'edit-types': {label: lp('Edit types', 'noun')},
+    'event-types': {label: l('Event types')},
     'formats': {label: l('Formats')},
-    'instrument-types': {label: l('Instrument Types')},
-    'label-countries': {label: l('Label Countries')},
-    'label-types': {label: l('Label Types')},
+    'instrument-types': {label: l('Instrument types')},
+    'label-countries': {label: l('Label countries')},
+    'label-types': {label: l('Label types')},
     'other': {label: lp('Other', 'stats category')},
-    'place-types': {label: l('Place Types')},
-    'ratings-tags': {label: l('Ratings and Tags')},
+    'place-types': {label: l('Place types')},
+    'ratings-tags': {label: lp('Ratings and tags', 'folksonomy')},
     'relationships': {hide: true, label: l('Relationships')},
-    'release-countries': {label: l('Release Countries')},
-    'release-group-types': {label: l('Release Group Types')},
-    'release-languages': {label: l('Release Languages')},
-    'release-packagings': {label: l('Release Packagings')},
-    'release-quality': {label: l('Release Data Quality')},
-    'release-scripts': {label: l('Release Scripts')},
-    'release-statuses': {label: l('Release Statuses')},
-    'series-types': {label: l('Series Types')},
-    'work-attributes': {label: l('Work Attributes')},
-    'work-languages': {label: l('Work Languages')},
-    'work-types': {label: l('Work Types')},
+    'release-countries': {label: l('Release countries')},
+    'release-group-types': {label: l('Release group types')},
+    'release-languages': {label: l('Release languages')},
+    'release-packagings': {label: l('Release packagings')},
+    'release-quality': {label: l('Release data quality')},
+    'release-scripts': {label: l('Release scripts')},
+    'release-statuses': {label: l('Release statuses')},
+    'series-types': {label: l('Series types')},
+    'work-attributes': {label: l('Work attributes')},
+    'work-languages': {label: l('Work languages')},
+    'work-types': {label: l('Work types')},
   },
   'count.ar.links': {
     category: 'relationships',
@@ -75,12 +75,12 @@ const stats = {
   'count.artist.gender.female': {
     category: 'artist-other',
     color: '#ff0000',
-    label: l('Female Artists'),
+    label: l('Female artists'),
   },
   'count.artist.gender.male': {
     category: 'artist-other',
     color: '#ff0000',
-    label: l('Male Artists'),
+    label: l('Male artists'),
   },
   'count.artist.gender.nonbinary': {
     category: 'artist-other',
@@ -90,7 +90,7 @@ const stats = {
   'count.artist.gender.not_applicable': {
     category: 'artist-other',
     color: '#ff0000',
-    label: l('Gender Not Applicable'),
+    label: l('Gender not applicable'),
   },
   'count.artist.gender.null': {
     category: 'artist-other',
@@ -145,7 +145,7 @@ const stats = {
   'count.artistcredit': {
     category: 'other',
     color: '#ff0000',
-    label: l('Artist Credits'),
+    label: l('Artist credits'),
   },
   'count.barcode': {
     category: 'other',
@@ -155,17 +155,17 @@ const stats = {
   'count.cdstub': {
     category: 'other',
     color: '#ff0000',
-    label: l('CDStubs (current)'),
+    label: l('CD stubs (current)'),
   },
   'count.cdstub.submitted': {
     category: 'other',
     color: '#ff0000',
-    label: l('CDStubs (ever submitted)'),
+    label: l('CD stubs (ever submitted)'),
   },
   'count.cdstub.track': {
     category: 'other',
     color: '#ff0000',
-    label: l('CDStub tracks'),
+    label: l('CD stub tracks'),
   },
   'count.collection': {
     category: 'collection',
@@ -275,7 +275,7 @@ const stats = {
   'count.coverart': {
     category: 'cover-art',
     color: '#0022dd',
-    label: l('Pieces of Cover Art'),
+    label: l('Pieces of cover art'),
   },
   'count.discid': {
     category: 'other',
@@ -306,7 +306,7 @@ const stats = {
   'count.edit.evalnochange': {
     category: 'edit-information',
     color: '#ff0000',
-    label: l('Evalnochange Edits'),
+    label: l('Evalnochange edits'),
   },
   'count.edit.faileddep': {
     category: 'edit-information',
@@ -326,7 +326,7 @@ const stats = {
   'count.edit.open': {
     category: 'edit-information',
     color: '#ffe400',
-    label: l('Open Edits'),
+    label: lp('Open edits', 'noun'),
   },
   'count.edit.perday': {
     category: 'edit-information',
@@ -406,7 +406,7 @@ const stats = {
   'count.editor.valid.active.tags': {
     category: 'edit-information',
     color: '#ff00cc',
-    label: l('Editors who have added tags'),
+    label: lp('Editors who have added tags', 'folksonomy'),
   },
   'count.editor.valid.active.votes': {
     category: 'edit-information',
@@ -541,7 +541,7 @@ const stats = {
   'count.medium.has_discid': {
     category: 'other',
     color: '#ff0000',
-    label: l('Mediums with Disc IDs'),
+    label: l('Mediums with disc IDs'),
   },
   'count.place': {
     category: 'core-entities',
@@ -566,22 +566,22 @@ const stats = {
   'count.quality.release.high': {
     category: 'release-quality',
     color: '#ff0000',
-    label: l('High Data Quality'),
+    label: l('High data quality'),
   },
   'count.quality.release.low': {
     category: 'release-quality',
     color: '#ff0000',
-    label: l('Low Data Quality'),
+    label: l('Low data quality'),
   },
   'count.quality.release.normal': {
     category: 'release-quality',
     color: '#ff0000',
-    label: l('Normal Data Quality'),
+    label: l('Normal data quality'),
   },
   'count.quality.release.unknown': {
     category: 'release-quality',
     color: '#ff0000',
-    label: l('Unknown Data Quality'),
+    label: l('Unknown data quality'),
   },
   'count.rating': {
     category: 'ratings-tags',
@@ -681,12 +681,12 @@ const stats = {
   'count.release.coverart.caa': {
     category: 'cover-art',
     color: '#dd0022',
-    label: l('Releases with CAA Cover Art'),
+    label: l('Releases with CAA cover art'),
   },
   'count.release.coverart.none': {
     category: 'cover-art',
     color: '#00dd22',
-    label: l('Releases with No Cover Art'),
+    label: l('Releases with no cover art'),
   },
   'count.release.format.null': {
     category: 'formats',
@@ -701,12 +701,12 @@ const stats = {
   'count.release.has_caa': {
     category: 'cover-art',
     color: '#22eedd',
-    label: l('Releases with Cover Art'),
+    label: l('Releases with cover art'),
   },
   'count.release.has_discid': {
     category: 'other',
     color: '#ff0000',
-    label: l('Releases with Disc IDs'),
+    label: l('Releases with disc IDs'),
   },
   'count.release.language.null': {
     category: 'release-languages',
@@ -751,7 +751,7 @@ const stats = {
   'count.releasegroup': {
     category: 'core-entities',
     color: '#ae00ff',
-    label: l('Release Groups'),
+    label: l('Release groups'),
   },
   'count.releasegroup.caa.inferred': {
     category: 'cover-art',
@@ -786,12 +786,12 @@ const stats = {
   'count.tag': {
     category: 'ratings-tags',
     color: '#ff0000',
-    label: l('Unique tag names'),
+    label: lp('Unique tag names', 'folksonomy'),
   },
   'count.tag.raw': {
     category: 'ratings-tags',
     color: '#ff0000',
-    label: l('Votes for/against tags'),
+    label: lp('Votes for/against tags', 'folksonomy'),
   },
   'count.tag.raw.area': {
     category: 'ratings-tags',
@@ -872,7 +872,7 @@ const stats = {
   'count.vote.no': {
     category: 'edit-information',
     color: '#00ffff',
-    label: l('No Votes'),
+    label: l('No votes'),
   },
   'count.vote.perday': {
     category: 'edit-information',
@@ -888,7 +888,7 @@ const stats = {
   'count.vote.yes': {
     category: 'edit-information',
     color: '#00ffff',
-    label: l('Yes Votes'),
+    label: l('Yes votes'),
   },
   'count.work': {
     category: 'core-entities',

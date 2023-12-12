@@ -30,7 +30,7 @@ use MusicBrainz::Server::Edit::Utils qw( verify_artist_credits hash_artist_credi
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array to_json_object );
 use MusicBrainz::Server::Log qw( log_assertion );
 use MusicBrainz::Server::Validation qw( normalise_strings );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 use MusicBrainz::Server::Track qw( format_track_length );
 use JSON::XS;
 use Try::Tiny;
@@ -48,7 +48,7 @@ use aliased 'MusicBrainz::Server::Entity::Medium';
 use aliased 'MusicBrainz::Server::Entity::Release';
 
 sub edit_type { $EDIT_MEDIUM_EDIT }
-sub edit_name { N_l('Edit medium') }
+sub edit_name { N_lp('Edit medium', 'edit type') }
 sub edit_kind { 'edit' }
 sub _edit_model { 'Medium' }
 sub edit_template { 'EditMedium' }

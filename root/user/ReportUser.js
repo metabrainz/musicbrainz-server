@@ -80,9 +80,9 @@ const ReportUser = ({
   <UserAccountLayout
     entity={user}
     page="report"
-    title={l('Report User')}
+    title={lp('Report user', 'header')}
   >
-    <h2>{l('Report User')}</h2>
+    <h2>{lp('Report user', 'header')}</h2>
 
     {user.deleted ? (
       <p>

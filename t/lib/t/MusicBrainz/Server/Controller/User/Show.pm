@@ -1,6 +1,7 @@
 package t::MusicBrainz::Server::Controller::User::Show;
 use strict;
 use warnings;
+use utf8;
 
 use Test::Routine;
 use Test::More;
@@ -154,7 +155,7 @@ test 'Spammer editors are hidden, except for admins' => sub {
 
     $mech->get_ok('/user/SPAMVIKING', 'Fetched spammer page while logged out');
     $mech->content_contains(
-        'Blocked Spam Account',
+        'Blocked spam account',
         'Spammer user page is blocked for logged out users',
     );
     $mech->content_lacks(
@@ -169,7 +170,7 @@ test 'Spammer editors are hidden, except for admins' => sub {
 
     $mech->get_ok('/user/SPAMVIKING', 'Fetched spammer page as normal user');
     $mech->content_contains(
-        'Blocked Spam Account',
+        'Blocked spam account',
         'Spammer user page is blocked for normal users',
     );
     $mech->content_lacks(

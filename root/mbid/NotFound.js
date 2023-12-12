@@ -18,7 +18,7 @@ const MbidNotFound = ({
   isGuid,
   mbid,
 }: Props): React$Element<typeof NotFound> => (
-  <NotFound title={isGuid ? l('MBID Not Found') : l('Invalid MBID')}>
+  <NotFound title={isGuid ? l('MBID not found') : l('Invalid MBID')}>
     <p>
       {nonEmpty(mbid) && isGuid ? (
         exp.l(

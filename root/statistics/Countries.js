@@ -95,7 +95,7 @@ const Countries = ({
                 <td>
                   {hasCountryCode
                     ? <EntityLink entity={country} />
-                    : l('Unknown Country')}
+                    : l('Unknown country')}
                 </td>
                 <td className="t">
                   {hasCountryCode ? (

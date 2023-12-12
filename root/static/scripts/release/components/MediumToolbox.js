@@ -89,8 +89,8 @@ const MediumToolbox = (React.memo<MediumToolboxPropsT>(({
       type="button"
     >
       {creditsMode === 'bottom'
-        ? l('Display Credits Inline')
-        : l('Display Credits at Bottom')}
+        ? l('Display credits inline')
+        : l('Display credits at bottom')}
     </button>
   </span>
 )): React$AbstractComponent<MediumToolboxPropsT, mixed>);

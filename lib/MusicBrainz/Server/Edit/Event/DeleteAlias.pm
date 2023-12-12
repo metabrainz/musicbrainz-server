@@ -4,7 +4,7 @@ use Moose;
 use MusicBrainz::Server::Constants qw( $EDIT_EVENT_DELETE_ALIAS );
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 
 extends 'MusicBrainz::Server::Edit::Alias::Delete';
 with 'MusicBrainz::Server::Edit::Event';
@@ -13,7 +13,7 @@ use aliased 'MusicBrainz::Server::Entity::Event';
 
 sub _alias_model { shift->c->model('Event')->alias }
 
-sub edit_name { N_l('Remove event alias') }
+sub edit_name { N_lp('Remove event alias', 'edit type') }
 sub edit_kind { 'remove' }
 sub edit_type { $EDIT_EVENT_DELETE_ALIAS }
 

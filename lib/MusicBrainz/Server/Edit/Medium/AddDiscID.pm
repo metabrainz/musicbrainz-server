@@ -6,9 +6,9 @@ use MooseX::Types::Moose qw( Int Str );
 use MusicBrainz::Server::Constants qw( $EDIT_MEDIUM_ADD_DISCID );
 use MusicBrainz::Server::Edit::Types qw( NullableOnPreview );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 
-sub edit_name { N_l('Add disc ID') }
+sub edit_name { N_lp('Add disc ID', 'edit type') }
 sub edit_kind { 'add' }
 sub edit_type { $EDIT_MEDIUM_ADD_DISCID }
 sub edit_template { 'AddDiscId' }

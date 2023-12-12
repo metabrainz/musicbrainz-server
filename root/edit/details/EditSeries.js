@@ -63,7 +63,7 @@ const EditSeries = ({edit}: Props): React$Element<'table'> => {
         ) : null}
         {orderingType ? (
           <FullChangeDiff
-            label={addColonText(l('Ordering Type'))}
+            label={addColonText(l('Ordering type'))}
             newContent={
               newOrderingTypeName
                 ? lp_attributes(newOrderingTypeName, 'series_ordering_type')

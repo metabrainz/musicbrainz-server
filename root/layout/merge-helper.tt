@@ -1,6 +1,6 @@
 <div id="current-editing">
   <form action="[% merge_link %]?[% c.returnto_relative_uri %]" method="post">
-    <h2>[% l('Merge Process') %]</h2>
+    <h2>[% l('Merge process') %]</h2>
     <p>[% l('You currently have the following entities selected
       for merging:') %]</p>
     <ul>
@@ -27,7 +27,7 @@
     [% END %]
     <div class="buttons" style="display: table-cell">
       [% IF merger.ready_to_merge %]
-        <button type="submit" name="submit" value="merge" class="positive">[% lp('Merge', 'button/link') %]</button>
+        <button type="submit" name="submit" value="merge" class="positive">[% lp('Merge', 'interactive') %]</button>
       [% END %]
       <button type="submit" name="submit" value="remove">
         [% l('Remove selected entities') %]</button>

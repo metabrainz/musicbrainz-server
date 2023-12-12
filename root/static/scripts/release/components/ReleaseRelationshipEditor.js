@@ -1522,7 +1522,7 @@ const TrackRelationshipsSection = React.memo(({
 
   return (
     <>
-      <h2>{l('Track Relationships')}</h2>
+      <h2>{l('Track relationships')}</h2>
       {mediums?.size ? (
         <>
           <RelationshipEditorBatchTools
@@ -1584,7 +1584,7 @@ const TrackRelationshipsSection = React.memo(({
                     type="checkbox"
                   />
                   {' '}
-                  {l('Related Works')}
+                  {l('Related works')}
                   {' '}
                   {getBatchSelectionMessage('work', workCount)}
                 </th>
@@ -1645,7 +1645,7 @@ const ReleaseRelationshipSection = React.memo(({
 
   return (
     <>
-      <h2>{l('Release Relationships')}</h2>
+      <h2>{l('Release relationships')}</h2>
       <div className="ars" id="release-rels">
         <RelationshipTargetTypeGroups
           dialogLocation={dialogLocation}
@@ -1688,7 +1688,7 @@ const ReleaseGroupRelationshipSection = React.memo(({
 
   return (
     <>
-      <h2>{l('Release Group Relationships')}</h2>
+      <h2>{l('Release group relationships')}</h2>
       <div className="ars" id="release-group-rels">
         <RelationshipTargetTypeGroups
           dialogLocation={dialogLocation}

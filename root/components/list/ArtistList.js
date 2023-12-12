@@ -70,7 +70,7 @@ const ArtistList = ({
       const sortNameColumn = showSortName ? defineTextColumn<ArtistT>({
         columnName: 'sort_name',
         getText: entity => entity.sort_name,
-        title: l('Sort Name'),
+        title: l('Sort name'),
       }) : null;
       const typeColumn = defineTypeColumn({
         order: order,
@@ -99,7 +99,7 @@ const ArtistList = ({
         getEntity: entity => entity.begin_area,
         order: order,
         sortable: sortable,
-        title: l('Begin Area'),
+        title: l('Begin area'),
       }) : null;
       const endDateColumn = showBeginEnd
         ? defineEndDateColumn({order: order, sortable: sortable})
@@ -109,7 +109,7 @@ const ArtistList = ({
         getEntity: entity => entity.end_area,
         order: order,
         sortable: sortable,
-        title: l('End Area'),
+        title: l('End area'),
       }) : null;
       const instrumentUsageColumn = showInstrumentCreditsAndRelTypes
         ? defineInstrumentUsageColumn({

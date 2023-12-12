@@ -54,13 +54,13 @@ const CoverArt = ({
   release,
 }: Props): React$Element<typeof ReleaseLayout> => {
   const $c = React.useContext(SanitizedCatalystContext);
-  const title = l('Cover Art');
+  const title = lp('Cover art', 'plural, header');
 
   return (
     <ReleaseLayout entity={release} page="cover-art" title={title}>
       <h2>
         {release.cover_art_presence === 'darkened'
-          ? l('Cannot show cover art')
+          ? lp('Cannot show cover art', 'plural, header')
           : title}
       </h2>
 
@@ -107,7 +107,7 @@ const CoverArt = ({
                     href={'/release/' + release.gid +
                           '/edit-cover-art/' + artwork.id}
                   >
-                    {l('Edit')}
+                    {lp('Edit', 'verb, interactive')}
                   </a>
                   <a
                     href={'/release/' + release.gid +
@@ -144,13 +144,13 @@ const CoverArt = ({
         $c.user ? (
           <div className="buttons ui-helper-clearfix">
             <EntityLink
-              content={lp('Add Cover Art', 'button/menu')}
+              content={lp('Add cover art', 'plural, interactive')}
               entity={release}
               subPath="add-cover-art"
             />
             {coverArt.length > 1 ? (
               <EntityLink
-                content={lp('Reorder Cover Art', 'button/menu')}
+                content={lp('Reorder cover art', 'plural, interactive')}
                 entity={release}
                 subPath="reorder-cover-art"
               />
@@ -158,7 +158,9 @@ const CoverArt = ({
           </div>
         ) : (
           <p>
-            <RequestLogin text={l('Log in to upload cover art')} />
+            <RequestLogin
+              text={lp('Log in to upload cover art', 'plural, interactive')}
+            />
           </p>
         )
       ) : null}

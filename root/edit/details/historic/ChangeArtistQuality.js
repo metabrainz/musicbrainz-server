@@ -27,7 +27,7 @@ const ChangeArtistQuality = ({edit}: Props): React$Element<'table'> => {
         </td>
       </tr>
       <tr>
-        <th>{addColonText(l('Data Quality'))}</th>
+        <th>{addColonText(l('Data quality'))}</th>
         <td className="old">{oldQuality ? oldQuality() : ''}</td>
         <td className="new">{newQuality ? newQuality() : ''}</td>
       </tr>

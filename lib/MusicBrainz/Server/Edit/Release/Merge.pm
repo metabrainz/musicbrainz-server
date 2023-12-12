@@ -14,7 +14,7 @@ use MusicBrainz::Server::Edit::Types qw(
 );
 use MusicBrainz::Server::Edit::Utils qw( large_spread );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array to_json_object );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_l N_lp );
 
 use MooseX::Types::Moose qw( ArrayRef Int Str );
 use MooseX::Types::Structured qw( Dict Optional );
@@ -136,7 +136,7 @@ sub _build_recording_merges {
     return $self->data->{recording_merges};
 }
 
-sub edit_name { N_l('Merge releases') }
+sub edit_name { N_lp('Merge releases', 'edit type') }
 sub edit_type { $EDIT_RELEASE_MERGE }
 sub _merge_model { 'Release' }
 sub edit_template { 'MergeReleases' }

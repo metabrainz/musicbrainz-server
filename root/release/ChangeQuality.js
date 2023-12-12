@@ -64,7 +64,7 @@ const ChangeQuality = ({
       <form method="post">
         <FormRowSelect
           field={form.field.quality}
-          label={addColonText(l('Data Quality'))}
+          label={addColonText(l('Data quality'))}
           options={qualityOptions}
           uncontrolled
         />

@@ -66,7 +66,7 @@ const WorkSidebar = ({work}: Props): React$Element<'div'> => {
             {languages.length ? (
               <SidebarProperty
                 className="lyrics-language"
-                label={addColonText(l('Lyrics Languages'))}
+                label={addColonText(l('Lyrics languages'))}
               >
                 {commaOnlyList(
                   languages.map((wl) => (

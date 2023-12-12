@@ -4,12 +4,12 @@ use warnings;
 
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_ADD_TRACK );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 use Scalar::Util qw( looks_like_number );
 
 use MusicBrainz::Server::Edit::Historic::Base;
 
-sub edit_name     { N_l('Add track (historic)') }
+sub edit_name     { N_lp('Add track (historic)', 'edit type') }
 sub edit_kind     { 'add' }
 sub historic_type { 7 }
 sub edit_type     { $EDIT_HISTORIC_ADD_TRACK }

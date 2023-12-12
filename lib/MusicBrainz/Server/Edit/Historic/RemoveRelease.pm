@@ -8,11 +8,11 @@ use aliased 'MusicBrainz::Server::Entity::Release';
 
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_REMOVE_RELEASE );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 
 use MusicBrainz::Server::Edit::Historic::Base;
 
-sub edit_name     { N_l('Remove release') }
+sub edit_name     { N_lp('Remove release', 'edit type') }
 sub edit_kind     { 'remove' }
 sub historic_type { 12 }
 sub edit_type     { $EDIT_HISTORIC_REMOVE_RELEASE }

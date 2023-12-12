@@ -11,7 +11,7 @@ use MusicBrainz::Server::Edit::Utils qw(
 );
 use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 
 use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict Optional );
@@ -23,7 +23,7 @@ with 'MusicBrainz::Server::Edit::CheckForConflicts',
      'MusicBrainz::Server::Edit::Instrument',
      'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
-sub edit_name { N_l('Edit instrument') }
+sub edit_name { N_lp('Edit instrument', 'edit type') }
 sub edit_type { $EDIT_INSTRUMENT_EDIT }
 sub edit_template { 'EditInstrument' }
 

@@ -17,13 +17,13 @@ type Props = {
 const MergeArtists = ({edit}: Props): React$Element<'table'> => (
   <table className="details merge-artists">
     <tr>
-      <th>{addColonText(lp('Merge', 'merge X into Y heading'))}</th>
+      <th>{addColonText(lp('Merge', 'verb, header, paired with Into'))}</th>
       <td>
         <ArtistList artists={edit.display_data.old} showBeginEnd />
       </td>
     </tr>
     <tr>
-      <th>{l('Into:')}</th>
+      <th>{addColonText(lp('Into', 'header, paired with Merge'))}</th>
       <td>
         <ArtistList artists={[edit.display_data.new]} showBeginEnd />
       </td>

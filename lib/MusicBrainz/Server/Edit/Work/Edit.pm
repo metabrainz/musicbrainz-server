@@ -17,7 +17,7 @@ use MusicBrainz::Server::Edit::Utils qw(
 );
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array to_json_object );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 use Set::Scalar;
 
 use aliased 'MusicBrainz::Server::Entity::Work';
@@ -87,7 +87,7 @@ sub _work_attribute_to_edit {
 }
 
 sub edit_type { $EDIT_WORK_EDIT }
-sub edit_name { N_l('Edit work') }
+sub edit_name { N_lp('Edit work', 'edit type') }
 sub edit_template { 'EditWork' }
 sub _edit_model { 'Work' }
 sub work_id { shift->entity_id }

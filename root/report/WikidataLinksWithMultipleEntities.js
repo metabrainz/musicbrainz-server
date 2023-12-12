@@ -53,7 +53,7 @@ const WikidataLinksWithMultipleEntities = ({
           <thead>
             <tr>
               <th>{l('URL')}</th>
-              <th>{l('URL Entity')}</th>
+              <th>{l('URL entity')}</th>
               <th>{l('Usage count')}</th>
             </tr>
           </thead>

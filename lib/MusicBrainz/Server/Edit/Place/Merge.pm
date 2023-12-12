@@ -2,13 +2,13 @@ package MusicBrainz::Server::Edit::Place::Merge;
 use Moose;
 
 use MusicBrainz::Server::Constants qw( $EDIT_PLACE_MERGE );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 
 extends 'MusicBrainz::Server::Edit::Generic::Merge';
 with 'MusicBrainz::Server::Edit::Place';
 
 sub edit_type { $EDIT_PLACE_MERGE }
-sub edit_name { N_l('Merge places') }
+sub edit_name { N_lp('Merge places', 'edit type') }
 sub place_ids { @{ shift->_entity_ids } }
 
 sub _merge_model { 'Place' }

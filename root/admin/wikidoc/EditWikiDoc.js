@@ -27,9 +27,9 @@ const EditWikiDoc = ({
   form,
   page,
 }: Props): React$Element<typeof Layout> => (
-  <Layout fullWidth title="Update Page">
+  <Layout fullWidth title="Update page">
     <div id="content">
-      <h1>{'Update Page'}</h1>
+      <h1>{'Update page'}</h1>
       <form method="post">
         <FormCsrfToken form={form} />
         <div className="row">

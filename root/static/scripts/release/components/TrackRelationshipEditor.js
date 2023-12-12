@@ -405,7 +405,7 @@ const RelatedWorksRelationshipEditor = React.memo<
     preselectedTargetType: 'work',
     releaseHasUnloadedTracks,
     source: recording,
-    title: l('Add Relationship'),
+    title: lp('Add relationship', 'header'),
   });
 
   const setAddRelatedWorkDialogOpen = React.useCallback((

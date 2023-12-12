@@ -13,7 +13,7 @@ use MusicBrainz::Server::Edit::Utils qw(
 );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Track;
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 
 use aliased 'MusicBrainz::Server::Entity::Recording';
 
@@ -23,7 +23,7 @@ with 'MusicBrainz::Server::Edit::Recording::RelatedEntities',
      'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
 sub edit_type { $EDIT_RECORDING_CREATE }
-sub edit_name { N_l('Add standalone recording') }
+sub edit_name { N_lp('Add standalone recording', 'edit type') }
 sub edit_template { 'AddStandaloneRecording' }
 sub _create_model { 'Recording' }
 sub recording_id { return shift->entity_id }

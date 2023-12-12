@@ -159,7 +159,7 @@ const EditWorkDialog: React$AbstractComponent<
 
   return (
     <div className="form" onKeyDown={handleKeyDown}>
-      <h1>{l('Edit Work')}</h1>
+      <h1>{lp('Edit work', 'header')}</h1>
       <table className="work-details">
         <tbody>
           <tr>

@@ -4,13 +4,13 @@ use warnings;
 
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_CHANGE_RELEASE_QUALITY );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 
 use aliased 'MusicBrainz::Server::Entity::Release';
 
 use MusicBrainz::Server::Edit::Historic::Base;
 
-sub edit_name     { N_l('Change release data quality') }
+sub edit_name     { N_lp('Change release data quality', 'edit type') }
 sub edit_kind     { 'other' }
 sub historic_type { 63 }
 sub edit_type     { $EDIT_HISTORIC_CHANGE_RELEASE_QUALITY }

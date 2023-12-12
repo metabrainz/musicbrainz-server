@@ -88,7 +88,7 @@ const RelationshipTypeIndex = ({
   const $c = React.useContext(SanitizedCatalystContext);
   const childrenTypes = relType.children || [];
   const typeName = upperFirst(l_relationships(relType.name));
-  const title = l('Relationship Type') + ' / ' + typeName;
+  const title = l('Relationship type') + ' / ' + typeName;
   const type0 = relType.type0;
   const type1 = relType.type1;
   const formattedType0 = formatEntityTypeName(type0);
@@ -109,7 +109,7 @@ const RelationshipTypeIndex = ({
       <div id="content">
         <h1 className="hierarchy-links">
           <a href="/relationships">
-            {l('Relationship Types')}
+            {l('Relationship types')}
           </a>
           {' / '}
           <a href={'/relationships/' + type0 + '-' + type1}>
@@ -131,7 +131,11 @@ const RelationshipTypeIndex = ({
 
         {isRelationshipEditor($c.user) ? (
           <span className="buttons" style={{float: 'right'}}>
-            <EntityLink content={l('Edit')} entity={relType} subPath="edit" />
+            <EntityLink
+              content={lp('Edit', 'verb, interactive')}
+              entity={relType}
+              subPath="edit"
+            />
             {childrenTypes.length ? null : (
               <EntityLink
                 content={l('Remove')}

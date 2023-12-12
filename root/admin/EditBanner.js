@@ -23,7 +23,7 @@ type Props = {
 };
 
 const EditBanner = ({form}: Props): React$Element<typeof Layout> => (
-  <Layout fullWidth title="Edit Banner Message">
+  <Layout fullWidth title="Edit banner message">
     <div id="content">
       <h1>{'Edit banner message'}</h1>
       <p>

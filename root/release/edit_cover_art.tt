@@ -1,7 +1,7 @@
-[%- WRAPPER "release/layout.tt" title=l('Edit Cover Art') page='edit_cover_art' -%]
+[%- WRAPPER "release/layout.tt" title=lp('Edit cover art', 'singular, header') page='edit_cover_art' -%]
   [%- script_manifest('edit.js') -%]
 
-  <h2>[%- l('Edit Cover Art') -%]</h2>
+  <h2>[%- lp('Edit cover art', 'singular, header') -%]</h2>
 
   <form id="edit-cover-art" class="cover-art" action="[% c.req.uri %]" method="post">
     [%- USE r = FormRenderer(form) -%]

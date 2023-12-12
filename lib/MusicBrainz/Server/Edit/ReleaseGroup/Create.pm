@@ -14,7 +14,7 @@ use MusicBrainz::Server::Edit::Utils qw(
     clean_submitted_artist_credits
 );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 use Scalar::Util qw( looks_like_number );
 
 extends 'MusicBrainz::Server::Edit::Generic::Create';
@@ -25,7 +25,7 @@ with 'MusicBrainz::Server::Edit::Role::Preview',
 
 use aliased 'MusicBrainz::Server::Entity::ReleaseGroup';
 
-sub edit_name { N_l('Add release group') }
+sub edit_name { N_lp('Add release group', 'edit type') }
 sub edit_type { $EDIT_RELEASEGROUP_CREATE }
 sub _create_model { 'ReleaseGroup' }
 sub release_group_id { shift->entity_id }

@@ -2,14 +2,14 @@ package MusicBrainz::Server::Edit::Genre::EditAlias;
 use Moose;
 
 use MusicBrainz::Server::Constants qw( $EDIT_GENRE_EDIT_ALIAS );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 
 extends 'MusicBrainz::Server::Edit::Alias::Edit';
 with 'MusicBrainz::Server::Edit::Genre';
 
 sub _alias_model { shift->c->model('Genre')->alias }
 
-sub edit_name { N_l('Edit genre alias') }
+sub edit_name { N_lp('Edit genre alias', 'edit type') }
 sub edit_kind { 'edit' }
 sub edit_type { $EDIT_GENRE_EDIT_ALIAS }
 

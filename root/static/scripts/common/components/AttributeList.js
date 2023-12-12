@@ -62,7 +62,7 @@ const AttributeList = ({
   <CollapsibleList
     ContainerElement={isSidebar ? 'dl' : 'ul'}
     InnerElement={isSidebar ? 'p' : 'li'}
-    ariaLabel={l('Work Attributes')}
+    ariaLabel={l('Work attributes')}
     buildRow={isSidebar ? buildAttributeSidebarRow : buildAttributeListRow}
     className={isSidebar ? 'properties work-attributes' : 'work-attributes'}
     rows={attributes}

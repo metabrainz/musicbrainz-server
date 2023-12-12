@@ -337,19 +337,19 @@ function renderWorkLanguages() {
     workLanguagesRoot.render(
       <FormRowSelectList
         addId="add-language"
-        addLabel={l('Add Language')}
+        addLabel={lp('Add language', 'interactive')}
         getSelectField={getSelectField}
         hideAddButton={
           selectedLanguageIds.includes(String(LANGUAGE_MUL_ID)) ||
           selectedLanguageIds.includes(String(LANGUAGE_ZXX_ID))
         }
-        label={addColonText(l('Lyrics Languages'))}
+        label={addColonText(l('Lyrics languages'))}
         onAdd={addLanguage}
         onEdit={editLanguage}
         onRemove={removeLanguage}
         options={workLanguageOptions}
         removeClassName="remove-language"
-        removeLabel={l('Remove Language')}
+        removeLabel={lp('Remove language', 'interactive')}
         repeatable={form.field.languages}
       />,
     );

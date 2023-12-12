@@ -34,7 +34,7 @@ const ReleaseGroupUrlList = ({
         <thead>
           <tr>
             <th>{l('URL')}</th>
-            <th>{l('Release Group')}</th>
+            <th>{l('Release group')}</th>
             <th>{l('Artist')}</th>
           </tr>
         </thead>

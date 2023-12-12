@@ -34,8 +34,8 @@ const AnnotationLinks = ({
           )}
         >
           {entity.latest_annotation && nonEmpty(entity.latest_annotation.text)
-            ? l('Edit annotation')
-            : l('Add annotation')}
+            ? lp('Edit annotation', 'interactive')
+            : lp('Add annotation', 'interactive')}
         </a>
       </li>
       {numberOfRevisions > 0 ? (

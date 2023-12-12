@@ -49,7 +49,7 @@ import {canNominate} from '../utility/voting.js';
 const ADDED_ENTITIES_TYPES = {
   area:         N_l('Area'),
   artist:       N_l('Artist'),
-  cover_art:    N_l('Cover Art'),
+  cover_art:    N_lp('Cover art', 'singular'),
   event:        N_l('Event'),
   instrument:   N_l('Instrument'),
   label:        N_l('Label'),
@@ -66,34 +66,38 @@ function generateUserTypesList(
 ): $ReadOnlyArray<VarSubstArg> {
   const typesList: Array<VarSubstArg> = [];
   if (user.deleted) {
-    typesList.push(l('Deleted User'));
+    typesList.push(lp('Deleted user', 'user type'));
   }
   if (isAutoEditor(user)) {
-    typesList.push(exp.l(
-      '{doc|Auto-Editor}',
-      {doc: '/doc/Editor#Auto-editors'},
-    ));
+    typesList.push(
+      <a href="/doc/Editor#Auto-editors">
+        {lp('Auto-editor', 'user type')}
+      </a>,
+    );
   }
   if (isBot(user)) {
-    typesList.push(l('Internal/Bot'));
+    typesList.push(lp('Internal/Bot', 'user type'));
   }
   if (isRelationshipEditor(user)) {
-    typesList.push(exp.l(
-      '{doc|Relationship Editor}',
-      {doc: '/doc/Editor#Relationship_editors'},
-    ));
+    typesList.push(
+      <a href="/doc/Editor#Relationship_editors">
+        {lp('Relationship editor', 'user type')}
+      </a>,
+    );
   }
   if (isWikiTranscluder(user)) {
-    typesList.push(exp.l(
-      '{doc|Transclusion Editor}',
-      {doc: '/doc/Editor#Transclusion_editors'},
-    ));
+    typesList.push(
+      <a href="/doc/Editor#Transclusion_editors">
+        {lp('Transclusion editor', 'user type')}
+      </a>,
+    );
   }
   if (isLocationEditor(user)) {
-    typesList.push(exp.l(
-      '{doc|Location Editor}',
-      {doc: '/doc/Editor#Location_editors'},
-    ));
+    typesList.push(
+      <a href="/doc/Editor#Location_editors">
+        {lp('Location editor', 'user type')}
+      </a>,
+    );
   }
   if (user.is_limited) {
     typesList.push(
@@ -101,13 +105,13 @@ function generateUserTypesList(
         className="tooltip"
         title={l('This user is new to MusicBrainz.')}
       >
-        {l('Beginner')}
+        {lp('Beginner', 'user type')}
       </span>,
     );
   }
   // If no other types apply, then this is a normal user
   if (typesList.length === 0) {
-    typesList.push(l('Normal User'));
+    typesList.push(lp('Normal user', 'user type'));
   }
 
   return typesList;
@@ -155,7 +159,7 @@ const UserProfileInformation = ({
   const showBioAndURL = !!(!user.is_limited || $c.user);
   let memberSince;
   if (user.name === 'rob') {
-    memberSince = l('The Dawn of the Project');
+    memberSince = l('The dawn of the project');
   } else if (user.is_charter) {
     memberSince = l('The early days of the project');
   } else {
@@ -184,21 +188,21 @@ const UserProfileInformation = ({
 
   return (
     <>
-      <h2>{l('General Information')}</h2>
+      <h2>{l('General information')}</h2>
 
       <table className="profileinfo" role="presentation">
         <UserProfileProperty name={addColonText(l('Email'))}>
           {user.has_email_address ? (
             <>
-              {viewingOwnProfile ? email : l('(hidden)')}
+              {viewingOwnProfile ? email : lp('(hidden)', 'email address')}
               {' '}
               {nonEmpty(user.email_confirmation_date) ? (
-                texp.l('(verified at {date})', {
+                texp.lp('(verified at {date})', 'email address', {
                   date: formatUserDate($c, user.email_confirmation_date),
                 })
               ) : (
                 <>
-                  {exp.l('(<strong>unverified!</strong>)')}
+                  {exp.lp('(<strong>unverified!</strong>)', 'email address')}
                   {' '}
                   {noEmailWarning}
                 </>
@@ -240,7 +244,7 @@ const UserProfileInformation = ({
             </>
           ) : (
             <>
-              {lp('(none)', 'email')}
+              {lp('(none)', 'email address')}
               {' '}
               {noEmailWarning}
             </>
@@ -801,19 +805,22 @@ const UserProfileStatistics = ({
           <thead>
             <tr>
               <th colSpan="2">
-                {l('Tags and ratings')}
+                {lp('Tags and ratings', 'folksonomy')}
               </th>
             </tr>
           </thead>
           <tbody>
             {hasPublicTags ? (
               <>
-                <UserProfileProperty name={l('Tags upvoted')}>
+                <UserProfileProperty name={lp('Tags upvoted', 'folksonomy')}>
                   {user.deleted ? (
                     <abbr
-                      title={l('Tags are removed when an editor is deleted.')}
+                      title={lp(
+                        'Tags are removed when an editor is deleted.',
+                        'folksonomy',
+                      )}
                     >
-                      {lp('Removed', 'tags')}
+                      {lp('Removed', 'folksonomy tags')}
                     </abbr>
                   ) : $c.user && upvotedTagCount > 0 ? exp.l(
                     '{count} ({view_url|view})',
@@ -824,12 +831,17 @@ const UserProfileStatistics = ({
                   ) : formatCount($c, upvotedTagCount)}
                 </UserProfileProperty>
 
-                <UserProfileProperty name={l('Tags downvoted')}>
+                <UserProfileProperty
+                  name={lp('Tags downvoted', 'folksonomy')}
+                >
                   {user.deleted ? (
                     <abbr
-                      title={l('Tags are removed when an editor is deleted.')}
+                      title={lp(
+                        'Tags are removed when an editor is deleted.',
+                        'folksonomy',
+                      )}
                     >
-                      {lp('Removed', 'tags')}
+                      {lp('Removed', 'folksonomy tags')}
                     </abbr>
                   ) : $c.user && downvotedTagCount > 0 ? exp.l(
                     '{count} ({view_url|view})',
@@ -916,7 +928,7 @@ const UserProfile = ({
     >
       {isSpammer(user) && !adminViewing ? (
         <>
-          <h2>{l('Blocked Spam Account')}</h2>
+          <h2>{l('Blocked spam account')}</h2>
           <p>
             {l(`This user was blocked and their profile is hidden
                 because they were deemed to be spamming.

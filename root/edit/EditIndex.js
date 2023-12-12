@@ -156,7 +156,7 @@ const EditIndex = ({
             </p>
           )}
 
-          <h2>{l('Edit notes')}</h2>
+          <h2>{lp('Edit notes', 'noun')}</h2>
           {$c.user ? (
             <>
               <EditNotes edit={edit} index={0} isOnEditPage />

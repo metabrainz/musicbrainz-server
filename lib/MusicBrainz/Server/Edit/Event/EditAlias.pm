@@ -2,14 +2,14 @@ package MusicBrainz::Server::Edit::Event::EditAlias;
 use Moose;
 
 use MusicBrainz::Server::Constants qw( $EDIT_EVENT_EDIT_ALIAS );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 
 extends 'MusicBrainz::Server::Edit::Alias::Edit';
 with 'MusicBrainz::Server::Edit::Event';
 
 sub _alias_model { shift->c->model('Event')->alias }
 
-sub edit_name { N_l('Edit event alias') }
+sub edit_name { N_lp('Edit event alias', 'edit type') }
 sub edit_kind { 'edit' }
 sub edit_type { $EDIT_EVENT_EDIT_ALIAS }
 

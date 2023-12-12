@@ -56,7 +56,7 @@ const WorkResults = ({
             <th>{l('Artists')}</th>
             <th>{l('ISWC')}</th>
             <th>{l('Type')}</th>
-            <th>{l('Lyrics Languages')}</th>
+            <th>{l('Lyrics languages')}</th>
           </>
         }
         pager={pager}

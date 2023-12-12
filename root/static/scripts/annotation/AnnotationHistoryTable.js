@@ -104,7 +104,7 @@ const AnnotationHistoryTable = ({
           ) : null}
           <th>{l('Editor')}</th>
           <th>{l('Date')}</th>
-          <th>{l('Version History')}</th>
+          <th>{l('Version history')}</th>
         </tr>
       </thead>
       <tbody>

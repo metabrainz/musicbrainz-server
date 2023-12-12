@@ -19,7 +19,7 @@ use MusicBrainz::Server::Edit::Utils qw(
 );
 use MusicBrainz::Server::Edit::Historic::Utils qw( get_historic_type );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 
 use MooseX::Types::Moose qw( ArrayRef Str Int );
 use MooseX::Types::Structured qw( Dict Optional );
@@ -39,7 +39,7 @@ with 'MusicBrainz::Server::Edit::ReleaseGroup::RelatedEntities',
      'MusicBrainz::Server::Edit::Role::Preview';
 
 sub edit_type { $EDIT_RELEASEGROUP_EDIT }
-sub edit_name { N_l('Edit release group') }
+sub edit_name { N_lp('Edit release group', 'edit type') }
 sub _edit_model { 'ReleaseGroup' }
 sub release_group_id { shift->data->{entity}{id} }
 

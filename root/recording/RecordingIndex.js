@@ -53,16 +53,16 @@ const RecordingAppearancesTable = ({
           <th className="t pos">{l('#')}</th>
           <th>{l('Title')}</th>
           <th className="treleases">{l('Length')}</th>
-          <th>{l('Track Artist')}</th>
-          <th>{l('Release Title')}</th>
-          <th>{l('Release Artist')}</th>
-          <th>{l('Release Group Type')}</th>
+          <th>{l('Track artist')}</th>
+          <th>{l('Release title')}</th>
+          <th>{l('Release artist')}</th>
+          <th>{l('Release group type')}</th>
           <th>{l('Country') + lp('/', 'and') + l('Date')}</th>
           <th>{l('Label')}</th>
           <th>{l('Catalog#')}</th>
           {$c?.session?.tport == null
             ? null
-            : <th>{l('Tagger')}</th>}
+            : <th>{lp('Tagger', 'audio file metadata')}</th>}
         </tr>
       </thead>
       <tbody>

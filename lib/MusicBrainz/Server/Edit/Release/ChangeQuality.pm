@@ -11,7 +11,7 @@ use MusicBrainz::Server::Constants qw(
 );
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Release::RelatedEntities',
@@ -23,7 +23,7 @@ with 'MusicBrainz::Server::Edit::Release::RelatedEntities',
 
 use aliased 'MusicBrainz::Server::Entity::Release';
 
-sub edit_name { N_l('Change release data quality') }
+sub edit_name { N_lp('Change release data quality', 'edit type') }
 sub edit_kind { 'other' }
 sub edit_type { $EDIT_RELEASE_CHANGE_QUALITY }
 sub release_id { shift->data->{release}{id} }

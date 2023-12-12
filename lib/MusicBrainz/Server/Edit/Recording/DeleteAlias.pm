@@ -3,7 +3,7 @@ use Moose;
 
 use MusicBrainz::Server::Constants qw( $EDIT_RECORDING_DELETE_ALIAS );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 
 extends 'MusicBrainz::Server::Edit::Alias::Delete';
 with 'MusicBrainz::Server::Edit::Recording';
@@ -12,7 +12,7 @@ use aliased 'MusicBrainz::Server::Entity::Recording';
 
 sub _alias_model { shift->c->model('Recording')->alias }
 
-sub edit_name { N_l('Remove recording alias') }
+sub edit_name { N_lp('Remove recording alias', 'edit type') }
 sub edit_kind { 'remove' }
 sub edit_type { $EDIT_RECORDING_DELETE_ALIAS }
 

@@ -61,7 +61,7 @@ test 'Delete account as a regular user' => sub {
         '/',
         q(Redirected to the main page),
     );
-    $mech->content_contains('Log In', 'The editor is no longer logged in');
+    $mech->content_contains('Log in', 'The editor is no longer logged in');
 
     $mech->get_ok('/account/edit');
     html_ok($mech->content);
@@ -79,7 +79,7 @@ test 'Delete account as a regular user' => sub {
 
     $second_session->get_ok('/');
     $second_session->content_contains(
-        'Log In',
+        'Log in',
         'The deleted user is no longer logged in from the second session',
     );
 };

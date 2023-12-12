@@ -17,8 +17,8 @@ type PropsT = {
 const StatisticsEventIndex = ({
   events,
 }: PropsT): React$Element<typeof Layout> => (
-  <Layout fullWidth title="Statistics Events">
-    <h1>{'Statistics Events'}</h1>
+  <Layout fullWidth title="Statistics events">
+    <h1>{'Statistics events'}</h1>
     <table className="tbl">
       <thead>
         <tr>

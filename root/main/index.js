@@ -33,7 +33,7 @@ const Homepage = ({
   <Layout
     fullWidth
     isHomepage
-    title={l('MusicBrainz - The Open Music Encyclopedia')}
+    title={l('MusicBrainz - the open music encyclopedia')}
   >
     <div id="maincontent">
       <div id="content">
@@ -113,7 +113,7 @@ const Homepage = ({
 
       <div className="sidebar">
         <div className="feature-column" id="blog-feed">
-          <h2>{l('MetaBrainz Blog')}</h2>
+          <h2>{l('MetaBrainz blog')}</h2>
 
           {blogEntries?.length ? (
             <>
@@ -146,7 +146,9 @@ const Homepage = ({
       <div className="sidebar">
         <div>
           <div className="feature-column" id="taggers">
-            <h2 className="taggers">{l('Tag Your Music')}</h2>
+            <h2 className="taggers">
+              {lp('Tag your music', 'audio file metadata')}
+            </h2>
             <ul>
               <li>
                 <a href="//picard.musicbrainz.org">
@@ -166,7 +168,7 @@ const Homepage = ({
           </div>
 
           <div className="feature-column" id="quick-start">
-            <h2>{l('Quick Start')}</h2>
+            <h2>{l('Quick start')}</h2>
             <ul>
               <li>
                 <a href="/doc/Beginners_Guide">{l('Beginners guide')}</a>
@@ -203,10 +205,10 @@ const Homepage = ({
         <h2 className="community">{l('Community')}</h2>
         <ul>
           <li>
-            <a href="/doc/How_to_Contribute">{l('How to Contribute')}</a>
+            <a href="/doc/How_to_Contribute">{l('How to contribute')}</a>
           </li>
           <li>
-            <a href="https://tickets.metabrainz.org/">{l('Bug Tracker')}</a>
+            <a href="https://tickets.metabrainz.org/">{l('Bug tracker')}</a>
           </li>
           <li>
             <a href="https://community.metabrainz.org/">{l('Forums')}</a>
@@ -243,7 +245,7 @@ const Homepage = ({
     </div>
 
     <div className="feature-column" style={{clear: 'both', paddingTop: '1%'}}>
-      <h2>{l('Recent Additions')}</h2>
+      <h2>{l('Recent additions')}</h2>
       <div style={{height: '160px', overflow: 'hidden'}}>
         {newestReleases.map((artwork, index) => (
           <ReleaseArtwork

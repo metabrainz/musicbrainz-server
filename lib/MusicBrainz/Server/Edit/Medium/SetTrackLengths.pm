@@ -8,7 +8,7 @@ use MusicBrainz::Server::Constants qw( $EDIT_SET_TRACK_LENGTHS );
 use MusicBrainz::Server::Data::Utils qw( localized_note );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array to_json_object );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_l N_lp );
 
 use aliased 'MusicBrainz::Server::Entity::CDTOC';
 use aliased 'MusicBrainz::Server::Entity::Medium';
@@ -20,7 +20,7 @@ with 'MusicBrainz::Server::Edit::Release::RelatedEntities',
      'MusicBrainz::Server::Edit::Medium',
      'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
-sub edit_name { N_l('Set track lengths') }
+sub edit_name { N_lp('Set track lengths', 'edit type') }
 sub edit_type { $EDIT_SET_TRACK_LENGTHS }
 sub edit_kind { 'other' }
 sub edit_template { 'SetTrackLengths' }

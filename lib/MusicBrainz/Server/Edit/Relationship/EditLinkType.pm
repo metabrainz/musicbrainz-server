@@ -11,7 +11,7 @@ use MusicBrainz::Server::Entity::ExampleRelationship;
 use MusicBrainz::Server::Entity::Link;
 use MusicBrainz::Server::Entity::Relationship;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 use Scalar::Util qw( looks_like_number );
 
 use aliased 'MusicBrainz::Server::Entity::LinkType';
@@ -20,7 +20,7 @@ extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Relationship',
      'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
-sub edit_name { N_l('Edit relationship type') }
+sub edit_name { N_lp('Edit relationship type', 'edit type') }
 sub edit_kind { 'edit' }
 sub edit_type { $EDIT_RELATIONSHIP_EDIT_LINK_TYPE }
 sub edit_template { 'EditRelationshipType' }

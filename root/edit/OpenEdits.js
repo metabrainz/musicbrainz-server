@@ -24,9 +24,9 @@ const OpenEdits = ({
   pager,
   refineUrlArgs,
 }: Props): React$Element<typeof Layout> => (
-  <Layout fullWidth title={l('Open Edits')}>
+  <Layout fullWidth title={lp('Open edits', 'noun')}>
     <div id="content">
-      <h1>{l('Open Edits')}</h1>
+      <h1>{lp('Open edits', 'noun')}</h1>
       <EditList
         editCountLimit={editCountLimit}
         edits={edits}

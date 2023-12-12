@@ -37,9 +37,9 @@ const DeleteUser = ({
     <UserAccountLayout
       entity={user}
       page="delete"
-      title="Delete Account"
+      title="Delete account"
     >
-      <h2>{'Delete Account'}</h2>
+      <h2>{'Delete account'}</h2>
       <p>
         {exp.l_admin(
           `Are you sure you want to delete all information about {e}?

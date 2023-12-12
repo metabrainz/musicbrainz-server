@@ -42,9 +42,9 @@ const InstrumentList = ({
   const unknown = instrumentsByType.unknown;
 
   return (
-    <Layout fullWidth title={l('Instrument List')}>
+    <Layout fullWidth title={l('Instrument list')}>
       <div id="content">
-        <h1>{l('Instrument List')}</h1>
+        <h1>{l('Instrument list')}</h1>
         {instrumentTypes.map(type => (
           <React.Fragment key={type.id}>
             <h2>{lp_attributes(type.name, 'instrument_type')}</h2>
