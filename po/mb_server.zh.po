@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-12 12:24+0000\n"
+"POT-Creation-Date: 2023-12-12 16:22+0200\n"
 "PO-Revision-Date: 2023-12-03 12:27+0000\n"
 "Last-Translator: yangmouren <yangmouren5618@163.com>\n"
 "Language-Team: Chinese (Simplified) <https://translations.metabrainz.org/"
@@ -711,7 +711,7 @@ msgstr "可被批准"
 #: ../root/release_group/ReleaseGroupMerge.js:52
 #: ../root/series/SeriesMerge.js:51
 #: ../root/static/scripts/common/components/FilterForm.js:269
-#: ../root/static/scripts/edit/components/ExternalLinkAttributeDialog.js:210
+#: ../root/static/scripts/edit/components/ExternalLinkAttributeDialog.js:204
 #: ../root/static/scripts/edit/components/URLInputPopover.js:126
 #: ../root/static/scripts/relationship-editor/components/DialogButtons.js:28
 #: ../root/work/WorkMerge.js:65
@@ -847,7 +847,7 @@ msgstr "自定义分隔符"
 
 #: ../root/release/edit/information.tt:148
 #: ../lib/MusicBrainz/Server/Plugin/FormRenderer.pm:253
-#: ../root/static/scripts/edit/components/PartialDateInput.js:186
+#: ../root/static/scripts/edit/components/PartialDateInput.js:188
 msgid "DD"
 msgstr "日"
 
@@ -920,7 +920,7 @@ msgstr ""
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:151
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:86
 #: ../root/search/components/InstrumentResults.js:55
-#: ../root/static/scripts/collection/components/CollectionEditForm.js:209
+#: ../root/static/scripts/collection/components/CollectionEditForm.js:211
 #: ../root/utility/tableColumns.js:681
 msgid "Description"
 msgstr "描述"
@@ -953,7 +953,7 @@ msgstr "详细信息"
 #: ../root/edit/details/EditRelease.js:93
 #: ../root/edit/details/EditReleaseGroup.js:50
 #: ../root/edit/details/EditSeries.js:48 ../root/edit/details/EditWork.js:59
-#: ../root/static/scripts/genre/components/GenreEditForm.js:151
+#: ../root/static/scripts/genre/components/GenreEditForm.js:147
 msgid "Disambiguation"
 msgstr "消歧义"
 
@@ -1008,7 +1008,7 @@ msgstr "捐助"
 
 #: ../root/release/edit/macros.tt:54
 #: ../root/static/scripts/edit/components/ArtistCreditBubble.js:165
-#: ../root/static/scripts/edit/components/ExternalLinkAttributeDialog.js:219
+#: ../root/static/scripts/edit/components/ExternalLinkAttributeDialog.js:213
 #: ../root/static/scripts/edit/components/GuessCaseOptionsPopover.js:64
 #: ../root/static/scripts/edit/components/URLInputPopover.js:134
 #: ../root/static/scripts/relationship-editor/components/DialogButtons.js:37
@@ -1046,7 +1046,7 @@ msgstr "修改"
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:135
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:120
 #: ../root/release/CoverArt.js:110
-#: ../root/static/scripts/edit/components/ArtistCreditEditor.js:444
+#: ../root/static/scripts/edit/components/ArtistCreditEditor.js:447
 #: ../root/user/UserCollections.js:134
 #, fuzzy
 #| msgid "Edit"
@@ -1172,7 +1172,7 @@ msgid "Endpoint:"
 msgstr "终点："
 
 #: ../root/components/forms.tt:258 ../root/components/forms.tt:283
-#: ../root/static/scripts/edit/components/GuessCaseOptions.js:113
+#: ../root/static/scripts/edit/components/GuessCaseOptions.js:111
 msgid "English"
 msgstr "英语"
 
@@ -1268,7 +1268,7 @@ msgstr "过期操作"
 #: ../root/recording/edit_form.tt:51 ../root/release/edit/information.tt:268
 #: ../root/release_group/edit_form.tt:23 ../root/series/edit_form.tt:26
 #: ../root/work/edit_form.tt:90 ../root/layout/components/ExternalLinks.js:170
-#: ../root/static/scripts/genre/components/GenreEditForm.js:160
+#: ../root/static/scripts/genre/components/GenreEditForm.js:156
 msgid "External links"
 msgstr "外部链接"
 
@@ -1343,7 +1343,7 @@ msgid_plural "Found {n} results for \"{q}\""
 msgstr[0] "找到 \"{q}\" 的 {n} 条结果"
 
 #: ../root/components/forms.tt:260 ../root/components/forms.tt:285
-#: ../root/static/scripts/edit/components/GuessCaseOptions.js:115
+#: ../root/static/scripts/edit/components/GuessCaseOptions.js:113
 msgid "French"
 msgstr "法语"
 
@@ -1356,7 +1356,7 @@ msgstr "完整目录："
 #: ../root/edit/details/AddArtist.js:76 ../root/edit/details/EditArtist.js:95
 #: ../root/layout/components/sidebar/ArtistSidebar.js:89
 #: ../root/search/components/ArtistResults.js:54
-#: ../root/static/scripts/account/components/EditProfileForm.js:237
+#: ../root/static/scripts/account/components/EditProfileForm.js:222
 #: ../root/user/UserProfile.js:273
 msgid "Gender"
 msgstr "性别"
@@ -1372,7 +1372,7 @@ msgstr "流派"
 
 #: ../root/components/forms.tt:228 ../root/release/edit/information.tt:14
 #: ../root/release/edit/tracklist.tt:527
-#: ../root/static/scripts/edit/components/FormRowNameWithGuessCase.js:153
+#: ../root/static/scripts/edit/components/FormRowNameWithGuessCase.js:149
 msgid "Guess case"
 msgstr "猜测案例"
 
@@ -1393,7 +1393,7 @@ msgid "Guess case medium title"
 msgstr "猜测案例中的标题"
 
 #: ../root/components/forms.tt:232 ../root/release/edit/information.tt:16
-#: ../root/static/scripts/edit/components/GuessCaseOptions.js:111
+#: ../root/static/scripts/edit/components/GuessCaseOptions.js:109
 #: ../root/static/scripts/edit/components/GuessCaseOptionsPopover.js:26
 #: ../root/static/scripts/guess-case/MB/Control/GuessCase.js:25
 msgid "Guess case options"
@@ -1405,7 +1405,7 @@ msgstr "猜测音轨大小写"
 
 #: ../root/components/forms.tt:230 ../root/release/edit/information.tt:15
 #: ../root/release/edit/tracklist.tt:225
-#: ../root/static/scripts/edit/components/FormRowNameWithGuessCase.js:159
+#: ../root/static/scripts/edit/components/FormRowNameWithGuessCase.js:155
 msgid "Guess feat. artists"
 msgstr "猜猜看。艺术家"
 
@@ -1682,7 +1682,7 @@ msgid "Javascript is required for this page to work properly."
 msgstr "此页面需要 Javascript 才能正常工作。"
 
 #: ../root/components/forms.tt:267 ../root/components/forms.tt:292
-#: ../root/static/scripts/edit/components/GuessCaseOptions.js:133
+#: ../root/static/scripts/edit/components/GuessCaseOptions.js:131
 msgid "Keep all-uppercase words uppercased"
 msgstr "使所有大写单词依然保持大写"
 
@@ -1845,7 +1845,7 @@ msgstr "查找 CD"
 
 #: ../root/release/edit/information.tt:141
 #: ../lib/MusicBrainz/Server/Plugin/FormRenderer.pm:252
-#: ../root/static/scripts/edit/components/PartialDateInput.js:174
+#: ../root/static/scripts/edit/components/PartialDateInput.js:176
 msgid "MM"
 msgstr "月"
 
@@ -1981,11 +1981,11 @@ msgstr "上移音轨"
 #: ../root/search/components/SeriesResults.js:57
 #: ../root/search/components/TagResults.js:51
 #: ../root/search/components/WorkResults.js:54
-#: ../root/static/scripts/account/components/ApplicationForm.js:81
-#: ../root/static/scripts/collection/components/CollectionEditForm.js:197
+#: ../root/static/scripts/account/components/ApplicationForm.js:82
+#: ../root/static/scripts/collection/components/CollectionEditForm.js:199
 #: ../root/static/scripts/common/components/FilterForm.js:135
-#: ../root/static/scripts/edit/components/FormRowNameWithGuessCase.js:112
-#: ../root/static/scripts/genre/components/GenreEditForm.js:147
+#: ../root/static/scripts/edit/components/FormRowNameWithGuessCase.js:108
+#: ../root/static/scripts/genre/components/GenreEditForm.js:143
 #: ../root/static/scripts/release/components/EditWorkDialog.js:166
 #: ../root/user/UserSubscriptions.js:48
 msgid "Name"
@@ -2457,7 +2457,7 @@ msgstr "{artist} 的专辑 “{name}”"
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:141
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:128
 #: ../root/release/CoverArt.js:116
-#: ../root/static/scripts/account/components/EditProfileForm.js:315
+#: ../root/static/scripts/account/components/EditProfileForm.js:300
 #: ../root/static/scripts/edit/components/Multiselect.js:210
 #: ../root/user/UserCollections.js:135
 msgid "Remove"
@@ -2651,7 +2651,7 @@ msgid "Select images..."
 msgstr "选择图片..."
 
 #: ../root/components/forms.tt:259 ../root/components/forms.tt:284
-#: ../root/static/scripts/edit/components/GuessCaseOptions.js:114
+#: ../root/static/scripts/edit/components/GuessCaseOptions.js:112
 msgid "Sentence"
 msgstr "语句"
 
@@ -2892,7 +2892,7 @@ msgid "The tracklist for this medium is unknown."
 msgstr "此媒介的音轨列表未知。"
 
 #: ../root/components/forms.tt:201 ../root/release/edit/information.tt:164
-#: ../root/static/scripts/edit/components/PartialDateInput.js:52
+#: ../root/static/scripts/edit/components/PartialDateInput.js:53
 msgid ""
 "The year should have four digits. If you want to enter a year earlier than "
 "1000 CE, please pad with zeros, such as “0123”."
@@ -3239,7 +3239,7 @@ msgid "Transclusion editor"
 msgstr "位置编辑者"
 
 #: ../root/components/forms.tt:261 ../root/components/forms.tt:286
-#: ../root/static/scripts/edit/components/GuessCaseOptions.js:116
+#: ../root/static/scripts/edit/components/GuessCaseOptions.js:114
 msgid "Turkish"
 msgstr "土耳其语"
 
@@ -3285,9 +3285,9 @@ msgstr "Twitter"
 #: ../root/search/components/ReleaseResults.js:120
 #: ../root/search/components/SeriesResults.js:58
 #: ../root/search/components/WorkResults.js:58
-#: ../root/static/scripts/account/components/ApplicationForm.js:88
-#: ../root/static/scripts/alias/AliasEditForm.js:331
-#: ../root/static/scripts/collection/components/CollectionEditForm.js:203
+#: ../root/static/scripts/account/components/ApplicationForm.js:89
+#: ../root/static/scripts/alias/AliasEditForm.js:332
+#: ../root/static/scripts/collection/components/CollectionEditForm.js:205
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:875
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:547
 #: ../root/static/scripts/common/components/FilterForm.js:83
@@ -3358,7 +3358,7 @@ msgid "Uploading image..."
 msgstr "正在上传图片..."
 
 #: ../root/components/forms.tt:272 ../root/components/forms.tt:297
-#: ../root/static/scripts/edit/components/GuessCaseOptions.js:142
+#: ../root/static/scripts/edit/components/GuessCaseOptions.js:140
 msgid "Uppercase Roman numerals"
 msgstr "大写罗马数字"
 
@@ -3507,7 +3507,7 @@ msgstr "作品详情"
 
 #: ../root/release/edit/information.tt:133
 #: ../lib/MusicBrainz/Server/Plugin/FormRenderer.pm:251
-#: ../root/static/scripts/edit/components/PartialDateInput.js:161
+#: ../root/static/scripts/edit/components/PartialDateInput.js:163
 msgid "YYYY"
 msgstr "年"
 
@@ -3749,7 +3749,7 @@ msgstr "编辑"
 #: ../root/edit/search_macros.tt:190 ../root/release/edit/tracklist.tt:3
 #: ../root/release/edit/tracklist.tt:83 ../root/release/edit/tracklist.tt:316
 #: ../root/release/edit/tracklist.tt:495 ../root/release/edit/tracklist.tt:510
-#: ../root/static/scripts/edit/components/GuessCaseOptions.js:121
+#: ../root/static/scripts/edit/components/GuessCaseOptions.js:119
 #: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:886
 msgid "help"
 msgstr "帮助"
@@ -6002,7 +6002,7 @@ msgid "These coordinates could not be parsed"
 msgstr "无法解析这些坐标"
 
 #: ../lib/MusicBrainz/Server/Form/Field/DatePeriod.pm:42
-#: ../root/static/scripts/edit/components/DateRangeFieldset.js:68
+#: ../root/static/scripts/edit/components/DateRangeFieldset.js:67
 msgid "The end date cannot precede the begin date."
 msgstr "结束日期不能早于开始日期。"
 
@@ -6443,7 +6443,7 @@ msgid "Please enter your old password below, and then your new password."
 msgstr "请在下方输入您的旧密码和新密码。"
 
 #: ../root/account/ChangePassword.js:69 ../root/account/LostPassword.js:44
-#: ../root/static/scripts/account/components/RegisterForm.js:64
+#: ../root/static/scripts/account/components/RegisterForm.js:57
 #: ../root/user/Login.js:100
 msgid "Username"
 msgstr ""
@@ -6457,7 +6457,7 @@ msgid "New password:"
 msgstr "新密码："
 
 #: ../root/account/ChangePassword.js:93 ../root/account/ResetPassword.js:49
-#: ../root/static/scripts/account/components/RegisterForm.js:100
+#: ../root/static/scripts/account/components/RegisterForm.js:93
 msgid "Confirm password:"
 msgstr "确认密码："
 
@@ -6593,9 +6593,9 @@ msgstr ""
 "电子邮件。如果您忘记了您的用户名，请先 {link|取回您的用户名} 再重置密码。"
 
 #: ../root/account/LostPassword.js:50 ../root/account/LostUsername.js:37
-#: ../root/static/scripts/account/components/EditProfileForm.js:218
-#: ../root/static/scripts/account/components/PreferencesForm.js:212
-#: ../root/static/scripts/account/components/RegisterForm.js:107
+#: ../root/static/scripts/account/components/EditProfileForm.js:203
+#: ../root/static/scripts/account/components/PreferencesForm.js:211
+#: ../root/static/scripts/account/components/RegisterForm.js:100
 #: ../root/user/UserProfile.js:194
 msgid "Email"
 msgstr "电子邮件"
@@ -7066,7 +7066,7 @@ msgstr ""
 #: ../root/report/components/EventList.js:69
 #: ../root/search/components/EventResults.js:77
 #: ../root/search/components/WorkResults.js:56
-#: ../root/static/scripts/account/components/PreferencesForm.js:251
+#: ../root/static/scripts/account/components/PreferencesForm.js:250
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:896
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:555
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:15
@@ -7111,7 +7111,7 @@ msgstr "{parent_areas} 的 {area_type}"
 #: ../root/components/TagEntitiesList.js:174
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:221
 #: ../root/report/ReportsIndex.js:175
-#: ../root/static/scripts/account/components/PreferencesForm.js:256
+#: ../root/static/scripts/account/components/PreferencesForm.js:255
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:25
 #: ../root/tag/TagLayout.js:29
 msgid "Labels"
@@ -7864,7 +7864,7 @@ msgstr ""
 
 #: ../root/collection/CollectionIndex.js:205
 #: ../root/collection/CollectionMerge.js:70
-#: ../root/static/scripts/collection/components/CollectionEditForm.js:220
+#: ../root/static/scripts/collection/components/CollectionEditForm.js:222
 #: ../root/user/UserCollections.js:117
 msgid "Collaborators"
 msgstr "合作者"
@@ -7904,7 +7904,7 @@ msgid "Private"
 msgstr "私有"
 
 #: ../root/collection/CollectionMerge.js:79
-#: ../root/static/scripts/account/components/PreferencesForm.js:191
+#: ../root/static/scripts/account/components/PreferencesForm.js:190
 #: ../root/user/UserCollections.js:128
 msgid "Privacy"
 msgstr "隐私"
@@ -7981,7 +7981,7 @@ msgstr "别名"
 #: ../root/components/Aliases/AliasTable.js:27
 #: ../root/edit/details/AddRemoveAlias.js:71
 #: ../root/edit/details/EditAlias.js:93
-#: ../root/static/scripts/alias/AliasEditForm.js:312
+#: ../root/static/scripts/alias/AliasEditForm.js:313
 msgid "Locale"
 msgstr "语系"
 
@@ -8013,7 +8013,7 @@ msgid "Aliases"
 msgstr "别名"
 
 #: ../root/components/Aliases/index.js:52
-#: ../root/static/scripts/alias/AliasEditForm.js:277
+#: ../root/static/scripts/alias/AliasEditForm.js:278
 msgid ""
 "An alias is an alternate name for an entity. They typically contain common "
 "misspellings or variations of the name and are also used to improve search "
@@ -8291,7 +8291,7 @@ msgstr[0] "查看所有 {num} 个地点"
 #: ../root/edit/details/AddSeries.js:25 ../root/edit/details/EditSeries.js:34
 #: ../root/report/ReportsIndex.js:564
 #: ../root/report/components/SeriesList.js:47
-#: ../root/static/scripts/account/components/PreferencesForm.js:261
+#: ../root/static/scripts/account/components/PreferencesForm.js:260
 msgid "Series"
 msgstr "系列"
 
@@ -9219,7 +9219,7 @@ msgstr ""
 #: ../root/layout/components/sidebar/WorkSidebar.js:69
 #: ../root/search/components/WorkResults.js:59
 #: ../root/static/scripts/release/components/WorkLanguageMultiselect.js:143
-#: ../root/static/scripts/work/edit.js:346
+#: ../root/static/scripts/work/edit.js:336
 #, fuzzy
 #| msgid "Lyrics Languages"
 msgid "Lyrics languages"
@@ -10594,7 +10594,7 @@ msgstr "热门 CD 存根"
 #: ../root/layout/components/BottomMenu.js:240
 #: ../root/layout/components/sidebar/CollectionSidebar.js:72
 #: ../root/layout/components/sidebar/EditLinks.js:31
-#: ../root/static/scripts/account/components/PreferencesForm.js:246
+#: ../root/static/scripts/account/components/PreferencesForm.js:245
 msgid "Editing"
 msgstr "修改"
 
@@ -10770,7 +10770,7 @@ msgid "My collections"
 msgstr "我的收藏"
 
 #: ../root/layout/components/TopMenu.js:93
-#: ../root/static/scripts/account/components/PreferencesForm.js:206
+#: ../root/static/scripts/account/components/PreferencesForm.js:205
 #, fuzzy
 #| msgid "My Ratings"
 msgid "My ratings"
@@ -10844,7 +10844,7 @@ msgid "Edit relationship types"
 msgstr "编辑关系类型"
 
 #: ../root/layout/components/TopMenu.js:209
-#: ../root/static/scripts/account/components/RegisterForm.js:131
+#: ../root/static/scripts/account/components/RegisterForm.js:124
 #, fuzzy
 #| msgid "Create Account"
 msgctxt "interactive"
@@ -13974,150 +13974,150 @@ msgstr "网页应用程序"
 msgid "Installed Application"
 msgstr "已安装的应用程序"
 
-#: ../root/static/scripts/account/components/ApplicationForm.js:95
+#: ../root/static/scripts/account/components/ApplicationForm.js:96
 msgid "Callback URL"
 msgstr "回调 URL"
 
-#: ../root/static/scripts/account/components/ApplicationForm.js:103
+#: ../root/static/scripts/account/components/ApplicationForm.js:104
 msgid ""
 "Callback URI is optional for installed applications. If set, its scheme must "
 "be a custom reverse-DNS string, as in <code>org.example.app://auth</code>, "
 "for installed applications."
 msgstr ""
 
-#: ../root/static/scripts/account/components/EditProfileForm.js:210
+#: ../root/static/scripts/account/components/EditProfileForm.js:195
 msgid ""
 "This is a development server. Your email address is not private or secure. "
 "Proceed with caution!"
 msgstr ""
 "这是一台开发用服务器。您的电子邮件地址可能不是私有和安全的。请慎重行事！"
 
-#: ../root/static/scripts/account/components/EditProfileForm.js:223
+#: ../root/static/scripts/account/components/EditProfileForm.js:208
 msgid "If you change your email address, you will be required to verify it."
 msgstr "如果您更改了电子邮件地址，您将需要重新验证它。"
 
-#: ../root/static/scripts/account/components/EditProfileForm.js:230
+#: ../root/static/scripts/account/components/EditProfileForm.js:215
 msgid "Website"
 msgstr "网站"
 
-#: ../root/static/scripts/account/components/EditProfileForm.js:245
+#: ../root/static/scripts/account/components/EditProfileForm.js:230
 #: ../root/user/UserProfile.js:280
 msgctxt "user area"
 msgid "Location"
 msgstr ""
 
-#: ../root/static/scripts/account/components/EditProfileForm.js:270
+#: ../root/static/scripts/account/components/EditProfileForm.js:255
 msgid ""
 "You can pick the level you prefer here: your country, region or city. Be as "
 "specific as you want to!"
 msgstr ""
 "您可以选择您想要的详细程度：您的国家，地区，或城市。您想要多详细就能多详细！"
 
-#: ../root/static/scripts/account/components/EditProfileForm.js:277
+#: ../root/static/scripts/account/components/EditProfileForm.js:262
 msgid "Birth date:"
 msgstr "出生日期："
 
-#: ../root/static/scripts/account/components/EditProfileForm.js:282
+#: ../root/static/scripts/account/components/EditProfileForm.js:267
 msgid ""
 "We will use your birth date to display your age in years on your profile "
 "page."
 msgstr "我们会使用您的出生日期在您的个人资料页面显示年龄。"
 
-#: ../root/static/scripts/account/components/EditProfileForm.js:289
+#: ../root/static/scripts/account/components/EditProfileForm.js:274
 #: ../root/user/UserProfile.js:402
 msgid "Bio"
 msgstr "简介"
 
-#: ../root/static/scripts/account/components/EditProfileForm.js:293
+#: ../root/static/scripts/account/components/EditProfileForm.js:278
 #, fuzzy
 #| msgid "Languages Known:"
 msgid "Languages known:"
 msgstr "了解的语言："
 
-#: ../root/static/scripts/account/components/EditProfileForm.js:329
+#: ../root/static/scripts/account/components/EditProfileForm.js:314
 msgid "Add a language"
 msgstr "添加一个语言"
 
-#: ../root/static/scripts/account/components/EditProfileForm.js:337
-#: ../root/static/scripts/account/components/PreferencesForm.js:267
+#: ../root/static/scripts/account/components/EditProfileForm.js:322
+#: ../root/static/scripts/account/components/PreferencesForm.js:266
 #, fuzzy
 #| msgid "Save"
 msgctxt "interactive"
 msgid "Save"
 msgstr "保存"
 
-#: ../root/static/scripts/account/components/PreferencesForm.js:158
+#: ../root/static/scripts/account/components/PreferencesForm.js:157
 msgid "Regional settings"
 msgstr "区域设定"
 
-#: ../root/static/scripts/account/components/PreferencesForm.js:167
+#: ../root/static/scripts/account/components/PreferencesForm.js:166
 msgid "Guess timezone"
 msgstr "猜测时区"
 
-#: ../root/static/scripts/account/components/PreferencesForm.js:172
+#: ../root/static/scripts/account/components/PreferencesForm.js:171
 msgid "Timezone:"
 msgstr "时区："
 
-#: ../root/static/scripts/account/components/PreferencesForm.js:180
+#: ../root/static/scripts/account/components/PreferencesForm.js:179
 msgid "Date/time format:"
 msgstr "日期/时间格式"
 
-#: ../root/static/scripts/account/components/PreferencesForm.js:193
+#: ../root/static/scripts/account/components/PreferencesForm.js:192
 #, fuzzy
 #| msgid "Allow other users to see my tags"
 msgid "Allow other users to see:"
 msgstr "允许其他用户查看我的标签"
 
-#: ../root/static/scripts/account/components/PreferencesForm.js:196
+#: ../root/static/scripts/account/components/PreferencesForm.js:195
 #, fuzzy
 #| msgid "No subscriptions."
 msgid "My subscriptions"
 msgstr "没有订阅。"
 
-#: ../root/static/scripts/account/components/PreferencesForm.js:201
+#: ../root/static/scripts/account/components/PreferencesForm.js:200
 #, fuzzy
 #| msgid "Add a new genre"
 msgctxt "folksonomy"
 msgid "My tags and genres"
 msgstr "添加新流派"
 
-#: ../root/static/scripts/account/components/PreferencesForm.js:214
+#: ../root/static/scripts/account/components/PreferencesForm.js:213
 #, fuzzy
 #| msgid "Email Sent"
 msgid "Email me about:"
 msgstr "电子邮件已发送"
 
-#: ../root/static/scripts/account/components/PreferencesForm.js:217
+#: ../root/static/scripts/account/components/PreferencesForm.js:216
 msgid "The first “no” vote on any of my edits"
 msgstr ""
 
-#: ../root/static/scripts/account/components/PreferencesForm.js:222
+#: ../root/static/scripts/account/components/PreferencesForm.js:221
 msgid "Notes on edits I have left notes on"
 msgstr ""
 
-#: ../root/static/scripts/account/components/PreferencesForm.js:227
+#: ../root/static/scripts/account/components/PreferencesForm.js:226
 msgid "Notes on edits I have voted on"
 msgstr ""
 
-#: ../root/static/scripts/account/components/PreferencesForm.js:232
+#: ../root/static/scripts/account/components/PreferencesForm.js:231
 msgid "Notes on edits I have abstained on"
 msgstr ""
 
-#: ../root/static/scripts/account/components/PreferencesForm.js:239
+#: ../root/static/scripts/account/components/PreferencesForm.js:238
 msgid "Send me mails with edits to my subscriptions:"
 msgstr "当我的订阅被编辑时发送电子邮件通知"
 
-#: ../root/static/scripts/account/components/PreferencesForm.js:248
+#: ../root/static/scripts/account/components/PreferencesForm.js:247
 #, fuzzy
 #| msgid "Automatically subscribe me to labels I create."
 msgid "Automatically subscribe me when I add:"
 msgstr "自动订阅我创建的厂牌。"
 
-#: ../root/static/scripts/account/components/RegisterForm.js:70
+#: ../root/static/scripts/account/components/RegisterForm.js:63
 msgid "Your username will be publicly visible."
 msgstr "您的用户名将公开可见。"
 
-#: ../root/static/scripts/account/components/RegisterForm.js:81
+#: ../root/static/scripts/account/components/RegisterForm.js:74
 msgid ""
 "The username you have entered looks like an email address. This is allowed, "
 "but please keep in mind that everyone will be able to see it. Only use an "
@@ -14127,42 +14127,42 @@ msgstr ""
 "您输入的用户名看起来像是一个电子邮件地址。尽管这是可行的，但请留意所有人都能"
 "看到它。请仅在您对此完全满意的情况下将电子邮件地址作为您的用户名。"
 
-#: ../root/static/scripts/account/components/RegisterForm.js:92
+#: ../root/static/scripts/account/components/RegisterForm.js:85
 #: ../root/user/Login.js:107
 msgid "Password:"
 msgstr "密码:"
 
-#: ../root/static/scripts/account/components/RegisterForm.js:113
+#: ../root/static/scripts/account/components/RegisterForm.js:106
 msgid ""
 "You must provide a working email address if you wish to contribute to the "
 "database."
 msgstr "如果您想对数据库做出贡献，您必须提供一个可用的电子邮件地址。"
 
-#: ../root/static/scripts/account/components/RegisterForm.js:119
+#: ../root/static/scripts/account/components/RegisterForm.js:112
 msgid "Captcha"
 msgstr "验证码"
 
-#: ../root/static/scripts/account/components/RegisterForm.js:126
+#: ../root/static/scripts/account/components/RegisterForm.js:119
 msgid ""
 "Please review the {coc|MusicBrainz Code of Conduct} before creating an "
 "account."
 msgstr "请在创建账号前查阅 {coc|MusicBrainz 行为准则}。"
 
-#: ../root/static/scripts/alias/AliasEditForm.js:293
+#: ../root/static/scripts/alias/AliasEditForm.js:294
 #, fuzzy
 #| msgid "Alias Details"
 msgid "Alias details"
 msgstr "别名详细信息"
 
-#: ../root/static/scripts/alias/AliasEditForm.js:300
+#: ../root/static/scripts/alias/AliasEditForm.js:301
 msgid "Alias name:"
 msgstr "别名:"
 
-#: ../root/static/scripts/alias/AliasEditForm.js:324
+#: ../root/static/scripts/alias/AliasEditForm.js:325
 msgid "This is the primary alias for this locale"
 msgstr ""
 
-#: ../root/static/scripts/alias/AliasEditForm.js:339
+#: ../root/static/scripts/alias/AliasEditForm.js:340
 msgid "This alias is no longer current."
 msgstr "此别名现在已不使用。"
 
@@ -14251,27 +14251,27 @@ msgstr "显示更多艺术家名单"
 msgid "Show more..."
 msgstr "显示更多..."
 
-#: ../root/static/scripts/collection/components/CollectionEditForm.js:194
+#: ../root/static/scripts/collection/components/CollectionEditForm.js:196
 msgid "Collection details"
 msgstr "收藏详情"
 
-#: ../root/static/scripts/collection/components/CollectionEditForm.js:213
+#: ../root/static/scripts/collection/components/CollectionEditForm.js:215
 msgid "Allow other users to see this collection"
 msgstr "允许其他用户查看这个歌曲集"
 
-#: ../root/static/scripts/collection/components/CollectionEditForm.js:228
+#: ../root/static/scripts/collection/components/CollectionEditForm.js:230
 msgid "Add collection"
 msgstr ""
 
-#: ../root/static/scripts/collection/components/CollectionEditForm.js:230
+#: ../root/static/scripts/collection/components/CollectionEditForm.js:232
 msgid "Update collection"
 msgstr "更新收藏"
 
-#: ../root/static/scripts/collection/components/CollectionEditForm.js:288
+#: ../root/static/scripts/collection/components/CollectionEditForm.js:290
 msgid "Add collaborator"
 msgstr "添加合作编辑者"
 
-#: ../root/static/scripts/collection/components/CollectionEditForm.js:330
+#: ../root/static/scripts/collection/components/CollectionEditForm.js:332
 msgid "Remove collaborator"
 msgstr "移除合作编辑者"
 
@@ -15415,12 +15415,12 @@ msgstr ""
 msgid "This entity has open edits."
 msgstr ""
 
-#: ../root/static/scripts/edit/components/ExternalLinkAttributeDialog.js:198
+#: ../root/static/scripts/edit/components/ExternalLinkAttributeDialog.js:192
 #: ../root/static/scripts/relationship-editor/components/DialogDatePeriod.js:202
 msgid "This relationship has ended."
 msgstr "此关联已终止"
 
-#: ../root/static/scripts/edit/components/ExternalLinkAttributeDialog.js:233
+#: ../root/static/scripts/edit/components/ExternalLinkAttributeDialog.js:227
 #, fuzzy
 #| msgid "Edit Attributes"
 msgctxt "interactive"
@@ -15431,7 +15431,7 @@ msgstr "编辑属性"
 msgid "Show me an alert whenever I receive a new edit note."
 msgstr "每当我收到新的编辑备注时显示提示。"
 
-#: ../root/static/scripts/edit/components/PartialDateInput.js:56
+#: ../root/static/scripts/edit/components/PartialDateInput.js:57
 msgid "The date you've entered is not valid"
 msgstr "您输入的日期无效"
 
@@ -15685,7 +15685,7 @@ msgstr "添加其他链接"
 msgid "Add another relationship"
 msgstr "添加其他关联"
 
-#: ../root/static/scripts/genre/components/GenreEditForm.js:140
+#: ../root/static/scripts/genre/components/GenreEditForm.js:136
 msgid "Genre details"
 msgstr "流派详情"
 
@@ -16218,14 +16218,14 @@ msgstr ""
 msgid "Add lyrics language"
 msgstr "添加歌词语言"
 
-#: ../root/static/scripts/work/edit.js:340
+#: ../root/static/scripts/work/edit.js:330
 #, fuzzy
 #| msgid "Add a language"
 msgctxt "interactive"
 msgid "Add language"
 msgstr "添加一个语言"
 
-#: ../root/static/scripts/work/edit.js:352
+#: ../root/static/scripts/work/edit.js:342
 #, fuzzy
 #| msgid "Remove Language"
 msgctxt "interactive"
