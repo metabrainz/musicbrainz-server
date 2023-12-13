@@ -111,7 +111,7 @@ const Index = ({
             <td colSpan="3">{fc('recording')}</td>
           </tr>
           <tr>
-            <th>{addColonText(l('Tracks)'))}</th>
+            <th>{addColonText(l('Tracks'))}</th>
             <td colSpan="3">{fc('track')}</td>
           </tr>
           <tr>

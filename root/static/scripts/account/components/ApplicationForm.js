@@ -93,7 +93,7 @@ class ApplicationForm extends React.Component<Props, State> {
         />
         <FormRowURLLong
           field={this.state.form.field.oauth_redirect_uri}
-          label={addColonText(l('Callback URL'))}
+          label={addColonText(l('Callback URI'))}
           onChange={this.handleOauthRedirectURIChangeBound}
           required={this.state.form.field.oauth_type.value === 'web'}
         />

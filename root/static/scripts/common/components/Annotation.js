@@ -52,7 +52,7 @@ const Annotation = ({
 
       {(showEmpty && annotationIsEmpty) ? (
         <div className="annotation-body small">
-          {l('This annotation is blank.')}
+          {l('This annotation is empty.')}
         </div>
       ) : collapse ? (
         <Collapsible
