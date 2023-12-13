@@ -19,20 +19,22 @@
 # t0n3t <email address hidden>, 2012
 # reosarevok <reosarevok@gmail.com>, 2023.
 # Yllelder <yllelder@gmail.com>, 2023.
+# reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-10-01 20:27+0000\n"
-"Last-Translator: Yllelder <yllelder@gmail.com>\n"
+"PO-Revision-Date: 2023-12-13 21:11+0000\n"
+"Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
+".org>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
 "musicbrainz/instruments/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.0.2\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
+"X-Generator: Weblate 5.2.1\n"
 
 #: DB:instrument/name:438
 msgid "12 string guitar"
@@ -285,7 +287,6 @@ msgid "Wurlitzer electric piano"
 msgstr "piano eléctrico Wurlitzer"
 
 #: DB:instrument/name:563
-#, fuzzy
 msgid "Xaphoon"
 msgstr "Xaphoon"
 
@@ -3202,11 +3203,9 @@ msgid "rebec"
 msgstr ""
 
 #: DB:instrument/name:1187
-#, fuzzy
-#| msgid "theremin"
 msgctxt "Ibizan double woodwind"
 msgid "reclam de xeremies"
-msgstr "theremín"
+msgstr "reclam de xeremies"
 
 #: DB:instrument/name:721
 msgctxt "Brazilian metal scraper"
@@ -4424,11 +4423,9 @@ msgid "xalam"
 msgstr ""
 
 #: DB:instrument/name:1186
-#, fuzzy
-#| msgid "theremin"
 msgctxt "Mallorcan bagpipe"
 msgid "xeremies"
-msgstr "theremín"
+msgstr "xeremies"
 
 #: DB:instrument/name:484
 msgctxt "Chinese end-blown flute"

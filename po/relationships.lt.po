@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-12-02 04:27+0000\n"
+"PO-Revision-Date: 2023-12-13 21:11+0000\n"
 "Last-Translator: \"Vac31.\" <gateway_31@protonmail.com>\n"
 "Language-Team: Lithuanian <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/lt/>\n"
@@ -14,8 +14,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
-"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
-"1 : n % 1 != 0 ? 2: 3);\n"
+"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 :"
+" n % 1 != 0 ? 2: 3);\n"
 "X-Generator: Weblate 5.2.1\n"
 
 #: DB:link_attribute_type/description:1355
@@ -563,7 +563,7 @@ msgstr "Nurodo vietovę, kurioje vyko renginių serija."
 
 #: DB:link_type/description:715
 msgid "Indicates the area where the work had its first performance"
-msgstr "Nurodo sritį, kurioje kūrinys buvo pristatytas pirmą kartą"
+msgstr "Nurodo teritoriją, kurioje kūrinys buvo pristatytas pirmą kartą."
 
 #: DB:link_type/description:956
 msgid ""
@@ -3877,6 +3877,10 @@ msgid ""
 "individually (collections of songs, several sonatas or concertos published "
 "as a set, books of piano pieces, etc.)"
 msgstr ""
+"Naudok, jei nori nurodyti, kad pirminis kūrinys nėra skirtas atlikti kaip "
+"visuma, o yra tik kūrinių grupė arba kūriniai, kurie gali būti atliekami "
+"atskirai (dainų rinkiniai, kelios sonatos ar koncertai, išleisti kaip "
+"komplektas, pianistinių kūrinių knygos ir t. t.)."
 
 #: DB:link_attribute_type/description:1030
 msgid ""
@@ -4264,11 +4268,11 @@ msgstr ""
 #: DB:link_type/link_phrase:1228 DB:link_type/name:1228
 #: DB:link_type/long_link_phrase:1228
 msgid "broadcast"
-msgstr ""
+msgstr "transliuoti"
 
 #: DB:link_type/reverse_link_phrase:1228
 msgid "broadcast by"
-msgstr ""
+msgstr "transliuoja"
 
 #: DB:link_type/link_phrase:66 DB:link_type/link_phrase:205
 #: DB:link_type/name:205 DB:link_type/reverse_link_phrase:205
@@ -4282,36 +4286,36 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:75 DB:link_type/long_link_phrase:255
 msgid "can be downloaded for free at"
-msgstr ""
+msgstr "galima nemokamai atsisiųsti iš"
 
 #: DB:link_type/long_link_phrase:254 DB:link_type/long_link_phrase:74
 msgid "can be purchased for download at"
-msgstr ""
+msgstr "galima nusipirkti atsiuntimui iš"
 
 #: DB:link_type/long_link_phrase:79
 msgid "can be purchased for mail-order at"
-msgstr ""
+msgstr "galima užsisakyti paštu iš"
 
 #: DB:link_type/long_link_phrase:978 DB:link_type/long_link_phrase:980
 #: DB:link_type/long_link_phrase:1005 DB:link_type/long_link_phrase:979
 msgid "can be streamed at"
-msgstr ""
+msgstr "galima srautiniu perdavimo būdu naudoti"
 
 #: DB:link_attribute_type/name:921
 msgid "cancelled"
-msgstr ""
+msgstr "atšauktas"
 
 #: DB:link_type/name:1165
 msgid "carillonneur"
-msgstr ""
+msgstr "karilionierius"
 
 #: DB:link_type/link_phrase:212 DB:link_type/reverse_link_phrase:212
 msgid "catalog of records"
-msgstr ""
+msgstr "įrašų katalogas"
 
 #: DB:link_type/reverse_link_phrase:201
 msgid "catalog reissued by"
-msgstr ""
+msgstr "katalogas perleido"
 
 #: DB:link_type/name:212
 msgid "catalog site"
@@ -6773,46 +6777,46 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:928
 msgid "provided {additional} {assistant} design on"
-msgstr ""
+msgstr "teikė {additional:papildomą} {assistant:pagalbinį} dizainą"
 
 #: DB:link_type/link_phrase:206 DB:link_type/link_phrase:127
 #: DB:link_type/name:362 DB:link_type/long_link_phrase:206
 #: DB:link_type/long_link_phrase:127
 msgid "published"
-msgstr ""
+msgstr "paskelbė"
 
 #: DB:link_type/reverse_link_phrase:206 DB:link_type/reverse_link_phrase:127
 msgid "publisher"
-msgstr ""
+msgstr "leidėjas"
 
 #: DB:link_type/link_phrase:933 DB:link_type/name:933
 #: DB:link_type/long_link_phrase:933
 msgid "publishes series"
-msgstr ""
+msgstr "skelbia seriją"
 
 #: DB:link_type/name:206 DB:link_type/name:127 DB:link_type/name:161
 #: DB:link_type/name:66 DB:link_type/name:208 DB:link_type/name:32
 msgid "publishing"
-msgstr ""
+msgstr "leidyba"
 
 #: DB:link_type/reverse_link_phrase:933
 msgid "publishing label"
-msgstr ""
+msgstr "leidybos leidykla"
 
 #: DB:link_type/link_phrase:254 DB:link_type/link_phrase:74
 #: DB:link_type/name:912 DB:link_type/name:959 DB:link_type/name:254
 #: DB:link_type/name:74 DB:link_type/name:176
 msgid "purchase for download"
-msgstr ""
+msgstr "pirkti atsisiuntimui"
 
 #: DB:link_type/link_phrase:79 DB:link_type/name:960 DB:link_type/name:175
 #: DB:link_type/name:79 DB:link_type/name:913
 msgid "purchase for mail-order"
-msgstr ""
+msgstr "pirkti užsakant paštu"
 
 #: DB:link_type/link_phrase:959 DB:link_type/link_phrase:176
 msgid "purchase music for download"
-msgstr ""
+msgstr "pirkti muziką atsisiuntimui"
 
 #: DB:link_type/link_phrase:960 DB:link_type/link_phrase:175
 msgid "purchase music for mail-order"
@@ -6828,15 +6832,15 @@ msgstr ""
 
 #: DB:link_type/name:174
 msgid "purevolume"
-msgstr ""
+msgstr "purevolume"
 
 #: DB:link_type/link_phrase:1047 DB:link_type/long_link_phrase:1047
 msgid "quotes lyrics from"
-msgstr ""
+msgstr "cituoja dainų tekstus iš"
 
 #: DB:link_type/link_phrase:1046 DB:link_type/long_link_phrase:1046
 msgid "quotes music from"
-msgstr ""
+msgstr "cituoja muziką iš"
 
 #: DB:link_attribute_type/name:952
 msgid "re"

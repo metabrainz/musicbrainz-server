@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-12 16:22+0200\n"
+"POT-Creation-Date: 2023-12-12 23:26+0200\n"
 "PO-Revision-Date: 2023-12-03 12:27+0000\n"
 "Last-Translator: yangmouren <yangmouren5618@163.com>\n"
 "Language-Team: Chinese (Simplified) <https://translations.metabrainz.org/"
@@ -136,7 +136,7 @@ msgstr ""
 "总是与{csg_track_artist|音轨艺术家} 不同，因此，除非您确认无误，否则在编辑古"
 "典音乐专辑时不要使用“复制艺术家名单”选项！"
 
-#: ../root/components/common-macros.tt:480 ../root/recording/edit_form.tt:6
+#: ../root/components/common-macros.tt:484 ../root/recording/edit_form.tt:6
 msgid "<strong>Warning</strong>:"
 msgstr "<strong>警告</strong>:"
 
@@ -164,12 +164,6 @@ msgstr ""
 #: ../root/release/edit/information.tt:23
 msgid "A release title is required."
 msgstr "专辑标题必填。"
-
-#: ../root/relationship/linktype/form.tt:40
-msgid ""
-"A value of 1 or 2 indicates that either entity1 or entity0 are orderable, "
-"respectively."
-msgstr "值1或2分别表示实体1或实体0是可排序的。"
 
 #: ../root/edit/search_macros.tt:293 ../root/edit/search_macros.tt:309
 #: ../lib/MusicBrainz/Server/Data/Vote.pm:175
@@ -200,12 +194,6 @@ msgid ""
 "Add a medium by clicking “Add medium” below, or tick the box confirming the "
 "tracklist is unknown."
 msgstr "点击下方的 “添加媒介” 添加一个媒介，或勾选方框确认音轨列表为未知。"
-
-#: ../root/relationship/linktype/form.tt:105
-#, fuzzy
-#| msgid "Add a New Example"
-msgid "Add a new example"
-msgstr "添加新示例"
 
 #: ../root/release/edit/recordings.tt:178
 #: ../root/static/scripts/edit/components/AddEntityDialog.js:21
@@ -247,12 +235,6 @@ msgstr "添加封面"
 msgctxt "header"
 msgid "Add event"
 msgstr "添加事件"
-
-#: ../root/relationship/linktype/form.tt:154
-#, fuzzy
-#| msgid "Add Example"
-msgid "Add example"
-msgstr "添加示例"
 
 #: ../root/instrument/create.tt:1 ../root/instrument/create.tt:3
 #, fuzzy
@@ -378,7 +360,7 @@ msgstr ""
 "所有音轨都要求关联一个专辑。点击“编辑”为每条音轨选择一个转机。如果没有合适的"
 "专辑则选择“添加一新专辑”。"
 
-#: ../root/components/common-macros.tt:577
+#: ../root/components/common-macros.tt:581
 msgid ""
 "An entity with that name and disambiguation already exists. You must enter a "
 "unique disambiguation comment."
@@ -437,12 +419,6 @@ msgstr "通过"
 #: ../root/user/UserProfile.js:50
 msgid "Area"
 msgstr "区域"
-
-#: ../root/area/edit_form.tt:8
-#, fuzzy
-#| msgid "Area Details"
-msgid "Area details"
-msgstr "区域详细信息"
 
 #: ../root/cdstub/cdstub.tt:7 ../root/cdtoc/attach_filter_release.tt:29
 #: ../root/cdtoc/list.tt:8 ../root/cdtoc/lookup.tt:42
@@ -541,11 +517,7 @@ msgctxt "interactive"
 msgid "Attach CD TOC"
 msgstr "附上 CD 目录"
 
-#: ../root/release/edit/tracklist.tt:478
-msgid "Attach Disc ID"
-msgstr "附上唱片 ID"
-
-#: ../root/cdtoc/lookup.tt:66
+#: ../root/cdtoc/lookup.tt:66 ../root/release/edit/tracklist.tt:478
 #, fuzzy
 #| msgid "Attach Disc ID"
 msgid "Attach disc ID"
@@ -554,17 +526,6 @@ msgstr "附上唱片 ID"
 #: ../root/cdtoc/index.tt:8
 msgid "Attached to releases"
 msgstr "附上发行日期"
-
-#: ../root/relationship/linktype/form.tt:52
-#: ../root/components/RelationshipsTable.js:336
-#: ../root/edit/details/AddRelationshipType.js:167
-#: ../root/edit/details/EditRelationshipType.js:295
-#: ../root/edit/details/RemoveRelationshipType.js:117
-#: ../root/relationship/linktype/RelationshipTypeIndex.js:46
-#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:532
-#: ../root/utility/tableColumns.js:671
-msgid "Attributes"
-msgstr "属性"
 
 #: ../root/edit/search_macros.tt:399 ../root/user/UserProfile.js:74
 #, fuzzy
@@ -718,19 +679,6 @@ msgstr "可被批准"
 msgid "Cancel"
 msgstr "取消"
 
-#: ../root/relationship/linktype/form.tt:26
-#: ../root/relationship/linktype/form.tt:31
-#: ../root/edit/details/AddRelationshipType.js:133
-#: ../root/edit/details/AddRelationshipType.js:146
-#: ../root/edit/details/EditRelationshipType.js:263
-#: ../root/edit/details/EditRelationshipType.js:273
-#: ../root/relationship/linktype/RelationshipTypeIndex.js:174
-#: ../root/relationship/linktype/RelationshipTypeIndex.js:182
-#: ../root/relationship/linktype/RelationshipTypePairTree.js:94
-#: ../root/relationship/linktype/RelationshipTypePairTree.js:103
-msgid "Cardinality of {entity_placeholder}"
-msgstr "{entity_placeholder}的基数"
-
 #: ../root/release/edit/information.tt:194
 msgid "Cat. No:"
 msgstr "Cat. No:"
@@ -746,17 +694,6 @@ msgstr "Cat. No:"
 #: ../root/utility/tableColumns.js:487 ../root/utility/tableColumns.js:492
 msgid "Catalog#"
 msgstr "目录#"
-
-#: ../root/relationship/linkattributetype/form.tt:7
-#: ../root/relationship/linktype/form.tt:7
-#: ../root/edit/details/AddRelationshipAttribute.js:50
-#: ../root/edit/details/EditRelationshipAttribute.js:93
-#: ../root/edit/details/EditRelationshipType.js:239
-#: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:122
-#: ../root/relationship/linktype/RelationshipTypeIndex.js:167
-#: ../root/relationship/linktype/RelationshipTypePairTree.js:58
-msgid "Child order"
-msgstr "子订单"
 
 #: ../root/release/edit/recordings.tt:114
 msgid "Click Edit to edit the recording associations for this disc."
@@ -900,10 +837,7 @@ msgstr ""
 "日期的格式为YYYY-MM-DD。部分日期（如YYYY-MM或只是YYYY）也可以，或者你可以省略"
 "该日期。"
 
-#: ../root/doc/edit_type.tt:23 ../root/instrument/edit_form.tt:13
-#: ../root/relationship/linkattributetype/form.tt:15
-#: ../root/relationship/linktype/form.tt:20
-#: ../root/collection/CollectionIndex.js:189
+#: ../root/doc/edit_type.tt:23 ../root/collection/CollectionIndex.js:189
 #: ../root/edit/details/AddInstrument.js:65
 #: ../root/edit/details/AddRelationshipAttribute.js:42
 #: ../root/edit/details/AddRelationshipType.js:72
@@ -931,8 +865,7 @@ msgstr "描述"
 msgid "Details"
 msgstr "详细信息"
 
-#: ../root/area/edit_form.tt:10 ../root/artist/edit_form.tt:14
-#: ../root/event/edit_form.tt:13 ../root/instrument/edit_form.tt:10
+#: ../root/artist/edit_form.tt:14 ../root/event/edit_form.tt:13
 #: ../root/label/edit_form.tt:13 ../root/place/edit_form.tt:13
 #: ../root/recording/edit_form.tt:33 ../root/release/edit/information.tt:258
 #: ../root/release_group/edit_form.tt:15 ../root/series/edit_form.tt:13
@@ -953,7 +886,6 @@ msgstr "详细信息"
 #: ../root/edit/details/EditRelease.js:93
 #: ../root/edit/details/EditReleaseGroup.js:50
 #: ../root/edit/details/EditSeries.js:48 ../root/edit/details/EditWork.js:59
-#: ../root/static/scripts/genre/components/GenreEditForm.js:147
 msgid "Disambiguation"
 msgstr "消歧义"
 
@@ -989,18 +921,6 @@ msgstr "唱片IDs"
 #: ../root/release/edit/duplicates.tt:40
 msgid "Do not use any of the above releases as a starting point"
 msgstr "请勿使用上述任何版本作为起点"
-
-#: ../root/relationship/linktype/form.tt:65
-#: ../lib/MusicBrainz/Server/Form/Search/Search.pm:55
-#: ../root/edit/details/AddRelationshipType.js:185
-#: ../root/edit/details/EditRelationshipType.js:325
-#: ../root/layout/components/BottomMenu.js:295
-#: ../root/layout/components/Search.js:51
-#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:80
-#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:92
-#: ../root/search/components/SearchForm.js:54
-msgid "Documentation"
-msgstr "说明文件"
 
 #: ../root/layout.tt:111 ../root/layout/components/Footer.js:26
 msgid "Donate"
@@ -1053,16 +973,6 @@ msgstr "修改"
 msgctxt "verb, interactive"
 msgid "Edit"
 msgstr "修改"
-
-#: ../root/relationship/linkattributetype/edit.tt:1
-#: ../root/relationship/linkattributetype/edit.tt:3
-msgid "Edit Relationship Attribute"
-msgstr "编辑关系属性"
-
-#: ../root/relationship/linktype/edit.tt:1
-#: ../root/relationship/linktype/edit.tt:3
-msgid "Edit Relationship Type"
-msgstr "编辑关系类型"
 
 #: ../root/url/edit_form.tt:3
 #, fuzzy
@@ -1167,10 +1077,6 @@ msgstr "结束地区："
 msgid "End date"
 msgstr "结束日期"
 
-#: ../root/relationship/linktype/form.tt:112
-msgid "Endpoint:"
-msgstr "终点："
-
 #: ../root/components/forms.tt:258 ../root/components/forms.tt:283
 #: ../root/static/scripts/edit/components/GuessCaseOptions.js:111
 msgid "English"
@@ -1240,12 +1146,6 @@ msgstr "事件"
 msgid "Event details"
 msgstr "活动详情"
 
-#: ../root/relationship/linktype/form.tt:71
-#: ../root/edit/details/EditRelationshipType.js:333
-#: ../root/relationship/linktype/RelationshipTypeIndex.js:245
-msgid "Examples"
-msgstr "实例"
-
 #: ../root/release/edit/tracklist.tt:247
 msgid "Existing medium"
 msgstr "现有媒介"
@@ -1262,25 +1162,17 @@ msgstr "拓展媒介"
 msgid "Expire action"
 msgstr "过期操作"
 
-#: ../root/area/edit_form.tt:22 ../root/artist/edit_form.tt:70
-#: ../root/event/edit_form.tt:46 ../root/instrument/edit_form.tt:32
+#: ../root/artist/edit_form.tt:70 ../root/event/edit_form.tt:46
 #: ../root/label/edit_form.tt:41 ../root/place/edit_form.tt:37
 #: ../root/recording/edit_form.tt:51 ../root/release/edit/information.tt:268
 #: ../root/release_group/edit_form.tt:23 ../root/series/edit_form.tt:26
 #: ../root/work/edit_form.tt:90 ../root/layout/components/ExternalLinks.js:170
-#: ../root/static/scripts/genre/components/GenreEditForm.js:156
 msgid "External links"
 msgstr "外部链接"
 
 #: ../root/release/add_cover_art.tt:48
 msgid "File:"
 msgstr "文件："
-
-#: ../root/relationship/linktype/form.tt:126
-#, fuzzy
-#| msgid "Find Relationships"
-msgid "Find relationships"
-msgstr "查找关系"
 
 #: ../root/release/edit/layout.tt:64
 msgid "Finish"
@@ -1325,12 +1217,6 @@ msgstr "格式"
 #: ../root/main/index.js:214
 msgid "Forums"
 msgstr "论坛"
-
-#: ../root/relationship/linktype/form.tt:13
-#: ../root/relationship/linktype/RelationshipTypeIndex.js:203
-#: ../root/relationship/linktype/RelationshipTypePairTree.js:65
-msgid "Forward link phrase:"
-msgstr "转发链接短语："
 
 #: ../root/components/with-pager.tt:5 ../root/components/PaginatedResults.js:52
 msgid "Found {n} result"
@@ -1422,10 +1308,6 @@ msgstr "猜测排序名称"
 msgid "HH:MM"
 msgstr "HH:MM"
 
-#: ../root/instrument/edit_form.tt:20
-msgid "HTML tags allowed in the description: {tag_list}."
-msgstr "描述中允许的 HTML 标签：{tag_list}。"
-
 #: ../root/doc/edit_types.tt:5 ../root/doc/edit_types.tt:19
 #: ../root/doc/edit_types.tt:21 ../lib/MusicBrainz/Server/Edit/Historic.pm:10
 msgid "Historic"
@@ -1503,24 +1385,6 @@ msgid ""
 msgstr ""
 "ISNI编号是一对一识别个人和团体的ISO标准。如需更多信息，请查看{isni_doc|文"
 "档}。"
-
-#: ../root/area/edit_form.tt:12 ../root/edit/details/AddArea.js:68
-#: ../root/edit/details/EditArea.js:82
-#: ../root/layout/components/sidebar/AreaSidebar.js:71
-msgid "ISO 3166-1"
-msgstr "ISO 3166-1"
-
-#: ../root/area/edit_form.tt:13 ../root/edit/details/AddArea.js:75
-#: ../root/edit/details/EditArea.js:89
-#: ../root/layout/components/sidebar/AreaSidebar.js:81
-msgid "ISO 3166-2"
-msgstr "ISO 3166-2"
-
-#: ../root/area/edit_form.tt:14 ../root/edit/details/AddArea.js:82
-#: ../root/edit/details/EditArea.js:96
-#: ../root/layout/components/sidebar/AreaSidebar.js:91
-msgid "ISO 3166-3"
-msgstr "ISO 3166-3"
 
 #: ../root/recording/edit_form.tt:45 ../root/edit/details/RemoveIsrc.js:27
 #: ../root/otherlookup/OtherLookupForm.js:72
@@ -1647,12 +1511,15 @@ msgid ""
 "Otherwise, please fix the data."
 msgstr "如果您确定使用群星艺术家是正确的，请在上方确认。否则，请修正数据。"
 
-#: ../root/components/common-macros.tt:60 ../root/components/Artwork.js:50
+#: ../root/components/common-macros.tt:64 ../root/components/Artwork.js:50
 msgid "Image not available, please try again later."
 msgstr "图像不可用，请稍后再试。"
 
-#: ../root/cdtoc/lookup.tt:28
-msgid "Import CD Stub"
+#: ../root/cdtoc/lookup.tt:28 ../root/cdstub/ImportCDStub.js:100
+#, fuzzy
+#| msgid "Import CD stub"
+msgctxt "interactive"
+msgid "Import CD stub"
 msgstr "导入 CD 存根"
 
 #: ../root/edit/search_macros.tt:434
@@ -1671,13 +1538,7 @@ msgstr "导入 CD 存根"
 msgid "Instrument"
 msgstr "乐器"
 
-#: ../root/instrument/edit_form.tt:8
-#, fuzzy
-#| msgid "Instrument Details"
-msgid "Instrument details"
-msgstr "乐器详情"
-
-#: ../root/components/common-macros.tt:486
+#: ../root/components/common-macros.tt:490
 msgid "Javascript is required for this page to work properly."
 msgstr "此页面需要 Javascript 才能正常工作。"
 
@@ -1817,7 +1678,7 @@ msgctxt "user type"
 msgid "Location editor"
 msgstr "位置编辑者"
 
-#: ../root/components/common-macros.tt:421
+#: ../root/components/common-macros.tt:425
 #: ../root/components/RequestLogin.js:23
 #: ../root/layout/components/TopMenu.js:205 ../root/user/Login.js:131
 #, fuzzy
@@ -1825,15 +1686,6 @@ msgstr "位置编辑者"
 msgctxt "interactive"
 msgid "Log in"
 msgstr "登录"
-
-#: ../root/relationship/linktype/form.tt:15
-#: ../root/edit/details/AddRelationshipType.js:119
-#: ../root/edit/details/EditRelationshipType.js:231
-#: ../root/edit/details/RemoveRelationshipType.js:104
-#: ../root/relationship/linktype/RelationshipTypeIndex.js:213
-#: ../root/relationship/linktype/RelationshipTypePairTree.js:79
-msgid "Long link phrase:"
-msgstr "长链接文本："
 
 #: ../root/release/edit/recordings.tt:186
 msgid "Looking for suggested recordings..."
@@ -1862,7 +1714,7 @@ msgstr "手动输入"
 msgid "Matching CDs"
 msgstr "匹配的CD"
 
-#: ../root/cdtoc/lookup.tt:41 ../root/components/common-macros.tt:503
+#: ../root/cdtoc/lookup.tt:41 ../root/components/common-macros.tt:507
 #: ../lib/MusicBrainz/Server/Edit/Medium.pm:8
 #: ../root/cdtoc/AttachCDTocConfirmation.js:65
 #: ../root/cdtoc/SetTracklistDurations.js:56
@@ -1930,10 +1782,6 @@ msgid "Move track up"
 msgstr "上移音轨"
 
 #: ../root/components/forms.tt:226
-#: ../root/relationship/linkattributetype/form.tt:12
-#: ../root/relationship/linktype/form.tt:12
-#: ../root/relationship/linktype/form.tt:77
-#: ../root/relationship/linktype/form.tt:107
 #: ../root/components/Aliases/ArtistCreditList.js:50
 #: ../root/components/list/RecordingList.js:97
 #: ../root/edit/details/AddArea.js:41 ../root/edit/details/AddArtist.js:51
@@ -1985,21 +1833,10 @@ msgstr "上移音轨"
 #: ../root/static/scripts/collection/components/CollectionEditForm.js:199
 #: ../root/static/scripts/common/components/FilterForm.js:135
 #: ../root/static/scripts/edit/components/FormRowNameWithGuessCase.js:108
-#: ../root/static/scripts/genre/components/GenreEditForm.js:143
 #: ../root/static/scripts/release/components/EditWorkDialog.js:166
 #: ../root/user/UserSubscriptions.js:48
 msgid "Name"
 msgstr "名称"
-
-#: ../root/relationship/linkattributetype/create.tt:1
-#: ../root/relationship/linkattributetype/create.tt:3
-msgid "New Relationship Attribute"
-msgstr "新关联属性"
-
-#: ../root/relationship/linktype/create.tt:1
-#: ../root/relationship/linktype/create.tt:3
-msgid "New Relationship Type"
-msgstr "新关联类型"
 
 #: ../root/artist/edit_credit.tt:18 ../root/artist/split.tt:45
 #, fuzzy
@@ -2127,13 +1964,6 @@ msgstr "糟糕！似乎您的搜索参数不正确，请再三检查您的输入
 msgid "Options"
 msgstr "选项"
 
-#: ../root/relationship/linktype/form.tt:37
-#: ../root/edit/details/AddRelationshipType.js:158
-#: ../root/edit/details/EditRelationshipType.js:283
-#: ../root/relationship/linktype/RelationshipTypeIndex.js:189
-msgid "Orderable direction:"
-msgstr "可排序方向："
-
 #: ../root/series/edit_form.tt:17 ../root/edit/details/AddSeries.js:52
 #: ../root/edit/details/EditSeries.js:66
 #: ../root/layout/components/sidebar/SeriesSidebar.js:53
@@ -2142,7 +1972,7 @@ msgstr "可排序方向："
 msgid "Ordering type"
 msgstr "订购类型"
 
-#: ../root/components/common-macros.tt:67 ../root/components/Artwork.js:77
+#: ../root/components/common-macros.tt:71 ../root/components/Artwork.js:77
 msgid "PDF file"
 msgstr "PDF 文件"
 
@@ -2152,14 +1982,6 @@ msgstr "PDF 文件"
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:167
 msgid "Packaging"
 msgstr "包装"
-
-#: ../root/relationship/linkattributetype/form.tt:4
-#: ../root/relationship/linktype/form.tt:4
-#: ../root/edit/details/AddRelationshipAttribute.js:55
-#: ../root/edit/details/EditRelationshipAttribute.js:85
-#: ../root/edit/details/EditRelationshipType.js:315
-msgid "Parent"
-msgstr "母"
 
 #: ../root/release/edit/tracklist.tt:238
 #, fuzzy
@@ -2242,10 +2064,6 @@ msgstr "前一个"
 #| msgid "Primary Type:"
 msgid "Primary type"
 msgstr "主要类型："
-
-#: ../root/relationship/linktype/form.tt:46
-msgid "Priority:"
-msgstr "优先级："
 
 #: ../root/components/search.tt:9 ../root/search/components/SearchForm.js:76
 msgid "Query:"
@@ -2364,6 +2182,12 @@ msgstr "专辑"
 msgid "Release country"
 msgstr "发行国或地区"
 
+#: ../root/edit/search_macros.tt:434
+#, fuzzy
+#| msgid "Release Quality"
+msgid "Release data quality"
+msgstr "专辑质量"
+
 #: ../root/release/edit/layout.tt:14
 #, fuzzy
 #| msgid "Release Duplicates"
@@ -2430,12 +2254,6 @@ msgstr "专辑信息"
 msgid "Release language"
 msgstr "专辑语言"
 
-#: ../root/edit/search_macros.tt:434
-#, fuzzy
-#| msgid "Release Quality"
-msgid "Release quality"
-msgstr "专辑质量"
-
 #: ../root/cdtoc/attach_filter_release.tt:9 ../root/cdtoc/lookup.tt:85
 #: ../root/cdtoc/move_search.tt:15
 msgid "Release title or MBID"
@@ -2467,14 +2285,8 @@ msgstr "移除"
 msgid "Remove attribute"
 msgstr "移除属性"
 
-#: ../root/relationship/linktype/form.tt:81
-#, fuzzy
-#| msgid "Remove Example"
-msgid "Remove example"
-msgstr "移除示例"
-
-#: ../root/components/common-macros.tt:584
-#: ../root/components/common-macros.tt:592
+#: ../root/components/common-macros.tt:588
+#: ../root/components/common-macros.tt:596
 #: ../root/components/RemoveFromMergeTableCell.js:39
 #: ../root/utility/tableColumns.js:727 ../root/utility/tableColumns.js:737
 msgid "Remove from merge"
@@ -2541,15 +2353,6 @@ msgstr "结果："
 msgid "Reuse previous recordings"
 msgstr "复用前一录音"
 
-#: ../root/relationship/linktype/form.tt:14
-#: ../root/edit/details/AddRelationshipType.js:111
-#: ../root/edit/details/EditRelationshipType.js:221
-#: ../root/edit/details/RemoveRelationshipType.js:92
-#: ../root/relationship/linktype/RelationshipTypeIndex.js:208
-#: ../root/relationship/linktype/RelationshipTypePairTree.js:72
-msgid "Reverse link phrase:"
-msgstr "反向链接文本"
-
 #: ../root/release/edit/information.tt:307
 msgid "Review the {packaging|list of packaging types} for help."
 msgstr "查看 {packaging|包装类型列表} 以寻求帮助。"
@@ -2565,11 +2368,6 @@ msgid ""
 "Running: <span class=\"tooltip\" title=\"{msg}\">{branch} ({sha})</span>"
 msgstr ""
 "正在运行：<span class=\"tooltip\" title=\"{msg}\">{branch} ({sha})</span>"
-
-#: ../root/relationship/linkattributetype/form.tt:24
-#: ../root/relationship/linktype/form.tt:200
-msgid "Save"
-msgstr "保存"
 
 #: ../root/release/edit/information.tt:117
 #: ../root/edit/details/AddRelease.js:98
@@ -2949,28 +2747,14 @@ msgstr ""
 "个来源来支持你的观点，但你不应该在注释中输入宣传文本或其他艺术家或标签的文"
 "本。"
 
-#: ../root/area/edit_form.tt:17
-msgid "This area has ended."
-msgstr "此区域已不存在。"
-
 #: ../root/artist/edit_form.tt:53
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:53
 msgid "This artist has ended."
 msgstr "这位艺术家已经逝世。"
 
-#: ../root/relationship/linkattributetype/form.tt:20
-#: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:145
-msgid "This attribute supports free text credits"
-msgstr "此属性支持自由文本贡献名单"
-
 #: ../root/work/edit_form.tt:56
 msgid "This attribute type is only used for grouping, please select a subtype"
 msgstr "此属性类型只用于分组，请选择一个子类型"
-
-#: ../root/relationship/linkattributetype/form.tt:21
-#: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:151
-msgid "This attribute uses free text values"
-msgstr "该属性使用自由文本值"
 
 #: ../root/layout.tt:37 ../root/layout/index.js:119
 msgid ""
@@ -2985,12 +2769,12 @@ msgstr "此唱片末尾含有数据音轨"
 msgid "This disc has a hidden pregap track before track 1"
 msgstr "此唱片在音轨 1 之前有隐藏的前间隙音轨。"
 
-#: ../root/components/common-macros.tt:186
+#: ../root/components/common-macros.tt:190
 #: ../root/static/scripts/common/components/EntityLink.js:37
 msgid "This entity has been removed, and cannot be displayed correctly."
 msgstr "这个项目已被移除，无法正常显示。"
 
-#: ../root/components/common-macros.tt:186
+#: ../root/components/common-macros.tt:190
 #: ../root/static/scripts/common/components/EntityLink.js:36
 msgid "This entity will be added by this edit."
 msgstr ""
@@ -3035,7 +2819,7 @@ msgstr ""
 "这是一台 MusicBrainz 镜像服务器。若要编辑数据，请 {uri|返回 musicbrainz."
 "org}。"
 
-#: ../root/components/common-macros.tt:67 ../root/components/Artwork.js:73
+#: ../root/components/common-macros.tt:71 ../root/components/Artwork.js:73
 msgid ""
 "This is a PDF file, the thumbnail may not show the entire contents of the "
 "file."
@@ -3094,24 +2878,12 @@ msgid ""
 "be split!"
 msgstr ""
 
-#: ../root/components/common-macros.tt:229
+#: ../root/components/common-macros.tt:233
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:689
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:386
 #: ../root/static/scripts/common/components/EntityLink.js:323
 msgid "This recording is a video"
 msgstr "此录音是一个视频"
-
-#: ../root/relationship/linktype/form.tt:17
-msgid "This relationship allows setting dates"
-msgstr "此关联允许设定日期"
-
-#: ../root/relationship/linktype/form.tt:16
-msgid "This relationship is deprecated"
-msgstr "此关联已弃用"
-
-#: ../root/relationship/linktype/form.tt:100
-msgid "This relationship type does not have any examples."
-msgstr "此关联类型没有任何示例。"
 
 #: ../root/release/edit/information.tt:235
 msgid "This release does not have a barcode"
@@ -3136,12 +2908,12 @@ msgid ""
 "isn’t meant to be a vinyl, or your vinyl isn’t actually a shellac disc."
 msgstr ""
 
-#: ../root/components/common-macros.tt:559
+#: ../root/components/common-macros.tt:563
 #: ../root/static/scripts/common/components/DataTrackIcon.js:13
 msgid "This track is a data track."
 msgstr "该音轨是数据轨。"
 
-#: ../root/components/common-macros.tt:555
+#: ../root/components/common-macros.tt:559
 #: ../root/static/scripts/common/components/PregapTrackIcon.js:13
 msgid "This track is hidden in the pregap."
 msgstr "此音轨隐藏在前置间隙中。"
@@ -3291,14 +3063,13 @@ msgstr "Twitter"
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:875
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:547
 #: ../root/static/scripts/common/components/FilterForm.js:83
-#: ../root/static/scripts/edit/externalLinks.js:1210
-#: ../root/static/scripts/edit/externalLinks.js:1532
+#: ../root/static/scripts/edit/externalLinks.js:1232
+#: ../root/static/scripts/edit/externalLinks.js:1554
 #: ../root/utility/tableColumns.js:654 ../root/utility/tableColumns.js:659
 msgid "Type"
 msgstr "类型"
 
-#: ../root/area/edit_form.tt:11 ../root/artist/edit_form.tt:16
-#: ../root/event/edit_form.tt:14 ../root/instrument/edit_form.tt:11
+#: ../root/artist/edit_form.tt:16 ../root/event/edit_form.tt:14
 #: ../root/label/edit_form.tt:15 ../root/place/edit_form.tt:15
 #: ../root/release/add_cover_art.tt:54 ../root/release/edit/information.tt:103
 #: ../root/series/edit_form.tt:16 ../root/work/edit_form.tt:14
@@ -3340,10 +3111,6 @@ msgstr "URL"
 #: ../root/release/edit/tracklist.tt:21
 msgid "Unable to parse the tracklist you entered."
 msgstr "无法解析输入的音轨列表。"
-
-#: ../root/edit/search_macros.tt:399
-msgid "Untrusted"
-msgstr "未信任的"
 
 #: ../root/release/edit/recordings.tt:98
 msgid "Update the recording artist credit to match the track artist credit."
@@ -3569,7 +3336,7 @@ msgstr "您还没有进行任何更改！"
 msgid "You must be logged in to use this option."
 msgstr "您必须登录才能使用此选项。"
 
-#: ../root/components/common-macros.tt:576
+#: ../root/components/common-macros.tt:580
 msgid "You must enter a disambiguation comment for this entity."
 msgstr "您必须为此实体输入消歧义注解。"
 
@@ -3650,9 +3417,13 @@ msgstr ""
 "告知原因，请给我们{uri|发送消息}。"
 
 #: ../root/release/edit/tracklist.tt:289
+#, fuzzy
+#| msgid ""
+#| "You’ve seeded some Disc IDs that aren’t matched to any medium. If this is "
+#| "wrong, use the “Attach Disc ID” options below."
 msgid ""
-"You’ve seeded some Disc IDs that aren’t matched to any medium. If this is "
-"wrong, use the “Attach Disc ID” options below."
+"You’ve seeded some disc IDs that aren’t matched to any medium. If this is "
+"wrong, use the “Attach disc ID” options below."
 msgstr ""
 "您给未附加至任何媒介的唱片ID制了种。如有误，请使用下方的\"附上唱片 ID\"选项。"
 
@@ -3663,7 +3434,7 @@ msgid ""
 "please make sure the artists have been entered correctly."
 msgstr ""
 
-#: ../root/components/common-macros.tt:186
+#: ../root/components/common-macros.tt:190
 #: ../lib/MusicBrainz/Server/Edit/Relationship/RemoveLinkType.pm:86
 #: ../lib/MusicBrainz/Server/Edit/Release/Create.pm:112
 #: ../root/edit/details/EditAlias.js:76
@@ -3712,7 +3483,7 @@ msgstr "介于"
 msgid "by"
 msgstr "来自"
 
-#: ../root/components/common-macros.tt:107
+#: ../root/components/common-macros.tt:111
 #: ../root/static/scripts/common/components/EntityLink.js:96
 msgid "cancelled"
 msgstr "已取消"
@@ -3758,17 +3529,17 @@ msgstr "帮助"
 msgid "hide tracklist"
 msgstr "隐藏音轨列表"
 
-#: ../root/components/common-macros.tt:98
+#: ../root/components/common-macros.tt:102
 #: ../root/static/scripts/common/components/EntityLink.js:117
 msgid "historical"
 msgstr "历史"
 
-#: ../root/components/common-macros.tt:96
+#: ../root/components/common-macros.tt:100
 #: ../root/static/scripts/common/components/EntityLink.js:119
 msgid "historical, until {end}"
 msgstr "历史，直到{end}"
 
-#: ../root/components/common-macros.tt:94
+#: ../root/components/common-macros.tt:98
 #: ../root/static/scripts/common/components/EntityLink.js:113
 msgid "historical, {begin}-{end}"
 msgstr "历史，{begin}-{end}"
@@ -3801,8 +3572,8 @@ msgstr "包括其他的编辑者"
 msgid "includes"
 msgstr "包括"
 
-#: ../root/components/common-macros.tt:153
-#: ../root/components/common-macros.tt:229
+#: ../root/components/common-macros.tt:157
+#: ../root/components/common-macros.tt:233
 #: ../root/static/scripts/common/components/EntityLink.js:141
 #: ../root/static/scripts/common/components/EntityLink.js:426
 msgid "info"
@@ -3930,7 +3701,7 @@ msgstr "优先显示最近的编辑备注"
 msgid "{artist} - {name}"
 msgstr "{artist} - {name}"
 
-#: ../root/components/common-macros.tt:131
+#: ../root/components/common-macros.tt:135
 #: ../root/static/scripts/common/components/ExpandedArtistCredit.js:34
 msgid "{artist} as {name}"
 msgstr "{artist} 作为 {name}"
@@ -3944,7 +3715,7 @@ msgstr[0] "{artist} 没有包含 {n} 条音轨的专辑。"
 msgid "{doc|Disc ID}:"
 msgstr "{doc|唱片 ID}："
 
-#: ../root/components/common-macros.tt:199 ../root/main/index.js:270
+#: ../root/components/common-macros.tt:203 ../root/main/index.js:270
 #: ../root/static/scripts/common/components/DescriptiveLink.js:74
 #: ../root/static/scripts/release-editor/dialogs.js:150
 msgid "{entity} by {artist}"
@@ -3956,7 +3727,7 @@ msgid ""
 "read them and respond if necessary."
 msgstr "你的一些编辑下有 {link|新的备注} 。请务必阅读并进行必要的回应。"
 
-#: ../root/components/common-macros.tt:260
+#: ../root/components/common-macros.tt:264
 #: ../root/static/scripts/common/components/EntityLink.js:262
 msgid "{name} – {additional_info}"
 msgstr "{name} – {additional_info}"
@@ -3966,7 +3737,7 @@ msgid "{num} release found matching your query."
 msgid_plural "{num} releases found matching your query."
 msgstr[0] "找到符合您查询的 {num} 张专辑"
 
-#: ../root/components/common-macros.tt:199
+#: ../root/components/common-macros.tt:203
 #: ../root/static/scripts/common/components/DescriptiveLink.js:87
 msgid "{place} in {area}"
 msgstr "位于 {area} 的 {place}"
@@ -3998,7 +3769,7 @@ msgid ""
 "that the artist has been entered correctly."
 msgstr "{valink|群星} 仅在极少情况下被用于录音，请确保输入的艺术家正确。"
 
-#: ../root/components/common-macros.tt:550
+#: ../root/components/common-macros.tt:554
 #: ../root/static/scripts/common/i18n/addColon.js:13
 #: ../root/static/scripts/common/i18n/addColon.js:17
 msgid "{variable}:"
@@ -5575,56 +5346,56 @@ msgctxt "edit type"
 msgid "Edit URL"
 msgstr "修改URL"
 
-#: ../lib/MusicBrainz/Server/Edit/Utils.pm:271
+#: ../lib/MusicBrainz/Server/Edit/Utils.pm:271 ../root/utility/edit.js:47
 #, fuzzy
 #| msgid "Open"
 msgctxt "adjective, edit status"
 msgid "Open"
 msgstr "已开启"
 
-#: ../lib/MusicBrainz/Server/Edit/Utils.pm:272
+#: ../lib/MusicBrainz/Server/Edit/Utils.pm:272 ../root/utility/edit.js:40
 #, fuzzy
 #| msgid "Applied"
 msgctxt "edit status"
 msgid "Applied"
 msgstr "已生效"
 
-#: ../lib/MusicBrainz/Server/Edit/Utils.pm:273
+#: ../lib/MusicBrainz/Server/Edit/Utils.pm:273 ../root/utility/edit.js:45
 #, fuzzy
 #| msgid "Failed vote"
 msgctxt "edit status"
 msgid "Failed vote"
 msgstr "失败的投票"
 
-#: ../lib/MusicBrainz/Server/Edit/Utils.pm:274
+#: ../lib/MusicBrainz/Server/Edit/Utils.pm:274 ../root/utility/edit.js:43
 #, fuzzy
 #| msgid "Failed dependency"
 msgctxt "edit status"
 msgid "Failed dependency"
 msgstr "失败的依赖"
 
-#: ../lib/MusicBrainz/Server/Edit/Utils.pm:275
+#: ../lib/MusicBrainz/Server/Edit/Utils.pm:275 ../root/utility/edit.js:42
 #, fuzzy
 #| msgid "Error"
 msgctxt "edit status"
 msgid "Error"
 msgstr "错误"
 
-#: ../lib/MusicBrainz/Server/Edit/Utils.pm:276
+#: ../lib/MusicBrainz/Server/Edit/Utils.pm:276 ../root/utility/edit.js:44
 #, fuzzy
 #| msgid "Failed prerequisite"
 msgctxt "edit status"
 msgid "Failed prerequisite"
 msgstr "失败的前置条件"
 
-#: ../lib/MusicBrainz/Server/Edit/Utils.pm:277
+#: ../lib/MusicBrainz/Server/Edit/Utils.pm:277 ../root/utility/edit.js:46
 #, fuzzy
 #| msgid "No votes"
 msgctxt "edit status"
 msgid "No votes"
 msgstr "无投票"
 
-#: ../lib/MusicBrainz/Server/Edit/Utils.pm:278
+#: ../lib/MusicBrainz/Server/Edit/Utils.pm:278 ../root/utility/edit.js:41
 #, fuzzy
 #| msgid "Cancelled"
 msgctxt "edit status"
@@ -6089,7 +5860,7 @@ msgid "This is not a valid time."
 msgstr "这不是有效的时间。"
 
 #: ../lib/MusicBrainz/Server/Form/Field/URL.pm:28
-#: ../root/static/scripts/edit/externalLinks.js:711
+#: ../root/static/scripts/edit/externalLinks.js:733
 #, perl-brace-format
 msgid "Please enter a valid URL, such as “{example_url}”."
 msgstr "请输入一个有效的 URL，例如“{example_url}”。"
@@ -6231,6 +6002,17 @@ msgstr "输入 CD 存根"
 msgctxt "noun, folksonomy"
 msgid "Tag"
 msgstr "标签"
+
+#: ../lib/MusicBrainz/Server/Form/Search/Search.pm:55
+#: ../root/edit/details/AddRelationshipType.js:185
+#: ../root/edit/details/EditRelationshipType.js:325
+#: ../root/layout/components/BottomMenu.js:295
+#: ../root/layout/components/Search.js:51
+#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:80
+#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:92
+#: ../root/search/components/SearchForm.js:54
+msgid "Documentation"
+msgstr "说明文件"
 
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:63
 #: ../root/search/components/SearchForm.js:58
@@ -6479,7 +6261,11 @@ msgstr "修改密码"
 
 #: ../root/account/DeleteOwnAccount.js:41
 #: ../root/account/DeleteOwnAccount.js:43
-msgid "Delete Account"
+#: ../root/components/UserAccountTabs.js:115
+#, fuzzy
+#| msgid "Delete Account"
+msgctxt "header"
+msgid "Delete account"
 msgstr "删除账号"
 
 #: ../root/account/DeleteOwnAccount.js:46
@@ -6507,6 +6293,9 @@ msgid "Are you sure you want to delete your account? This cannot be undone!"
 msgstr "您确定要删除您的帐号吗？该操作将无法被撤销！"
 
 #: ../root/account/DeleteOwnAccount.js:82
+#, fuzzy
+#| msgid "Delete my account"
+msgctxt "interactive"
 msgid "Delete my account"
 msgstr "删除我的账号"
 
@@ -6735,12 +6524,14 @@ msgid "Set a new password for your MusicBrainz account."
 msgstr "为您的 MusicBrainz 账号设置一个新密码。"
 
 #: ../root/account/applications/ApplicationList.js:34
+#: ../root/static/scripts/account/components/ApplicationForm.js:40
 #, fuzzy
 #| msgid "Web Application"
 msgid "Web application"
 msgstr "网页应用程序"
 
 #: ../root/account/applications/ApplicationList.js:35
+#: ../root/static/scripts/account/components/ApplicationForm.js:41
 #, fuzzy
 #| msgid "Installed Application"
 msgid "Installed application"
@@ -7169,7 +6960,7 @@ msgstr "此地区没有与任何录音的关联。"
 #: ../root/label/LabelRelationships.js:30
 #: ../root/relationship/RelationshipsHeader.js:37
 #: ../root/static/scripts/common/components/Relationships.js:92
-#: ../root/static/scripts/relationship-editor/components/RelationshipEditor.js:631
+#: ../root/static/scripts/relationship-editor/components/RelationshipEditor.js:649
 msgid "Relationships"
 msgstr "关联"
 
@@ -7561,10 +7352,12 @@ msgid "Uses"
 msgstr "使用"
 
 #: ../root/artist_credit/ArtistCreditIndex.js:124
+#: ../root/artist_credit/ArtistCreditLayout.js:26
 #: ../root/components/TagEntitiesList.js:182
 #: ../root/components/list/RecordingList.js:62
 #: ../root/report/ReportsIndex.js:200
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:33
+#: ../root/tag/TagLayout.js:25
 msgid "Release groups"
 msgstr "专辑组"
 
@@ -7596,10 +7389,6 @@ msgstr[0] "查看所有 {num} 条音轨"
 #: ../root/components/EntityTabs.js:79 ../root/tag/TagLayout.js:23
 msgid "Overview"
 msgstr "概要"
-
-#: ../root/artist_credit/ArtistCreditLayout.js:26 ../root/tag/TagLayout.js:25
-msgid "Release Groups"
-msgstr "发行团"
 
 #: ../root/artist_credit/ArtistCreditLayout.js:43
 #: ../root/artist_credit/ArtistCreditLayout.js:47
@@ -7700,13 +7489,6 @@ msgstr "导入 CD 存根"
 #: ../root/cdstub/ImportCDStub.js:38
 msgid "Please search for the artist you wish to add a new release for:"
 msgstr ""
-
-#: ../root/cdstub/ImportCDStub.js:100
-#, fuzzy
-#| msgid "Import CD stub"
-msgctxt "interactive"
-msgid "Import CD stub"
-msgstr "导入 CD 存根"
 
 #: ../root/cdtoc/AttachCDTocConfirmation.js:53
 msgid ""
@@ -8166,7 +7948,7 @@ msgstr "标签"
 
 #: ../root/components/EntityTabs.js:141 ../root/entity/Ratings.js:46
 #: ../root/entity/Ratings.js:90
-#: ../root/static/scripts/edit/externalLinks.js:735
+#: ../root/static/scripts/edit/externalLinks.js:757
 msgid "Reviews"
 msgstr "评论"
 
@@ -8198,6 +7980,16 @@ msgstr "查看所有 {num} 个关联"
 #: ../root/static/scripts/relationship-editor/components/DialogEntityCredit.js:216
 msgid "Credited as"
 msgstr "署名为"
+
+#: ../root/components/RelationshipsTable.js:336
+#: ../root/edit/details/AddRelationshipType.js:167
+#: ../root/edit/details/EditRelationshipType.js:295
+#: ../root/edit/details/RemoveRelationshipType.js:117
+#: ../root/relationship/linktype/RelationshipTypeIndex.js:46
+#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:532
+#: ../root/utility/tableColumns.js:671
+msgid "Attributes"
+msgstr "属性"
 
 #: ../root/components/RelationshipsTable.js:352
 msgid "“{link_phrase}” relationships"
@@ -8291,7 +8083,6 @@ msgstr[0] "查看所有 {num} 个地点"
 #: ../root/edit/details/AddSeries.js:25 ../root/edit/details/EditSeries.js:34
 #: ../root/report/ReportsIndex.js:564
 #: ../root/report/components/SeriesList.js:47
-#: ../root/static/scripts/account/components/PreferencesForm.js:260
 msgid "Series"
 msgstr "系列"
 
@@ -8341,13 +8132,6 @@ msgstr "收藏集"
 #: ../root/components/UserAccountTabs.js:77
 msgid "Edit profile"
 msgstr "编辑资料"
-
-#: ../root/components/UserAccountTabs.js:115
-#: ../root/components/UserAccountTabs.js:122
-#, fuzzy
-#| msgid "Delete Account"
-msgid "Delete account"
-msgstr "删除账号"
 
 #: ../root/components/VotingPeriod.js:40
 msgid ""
@@ -9053,6 +8837,21 @@ msgstr "此注释为空。"
 msgid "Summary"
 msgstr "概要"
 
+#: ../root/edit/details/AddArea.js:68 ../root/edit/details/EditArea.js:82
+#: ../root/layout/components/sidebar/AreaSidebar.js:71
+msgid "ISO 3166-1"
+msgstr "ISO 3166-1"
+
+#: ../root/edit/details/AddArea.js:75 ../root/edit/details/EditArea.js:89
+#: ../root/layout/components/sidebar/AreaSidebar.js:81
+msgid "ISO 3166-2"
+msgstr "ISO 3166-2"
+
+#: ../root/edit/details/AddArea.js:82 ../root/edit/details/EditArea.js:96
+#: ../root/layout/components/sidebar/AreaSidebar.js:91
+msgid "ISO 3166-3"
+msgstr "ISO 3166-3"
+
 #: ../root/edit/details/AddArea.js:102 ../root/edit/details/EditArea.js:119
 msgctxt "area ended boolean"
 msgid "Ended"
@@ -9129,6 +8928,21 @@ msgid ""
 "which no longer exist."
 msgstr ""
 
+#: ../root/edit/details/AddRelationshipAttribute.js:50
+#: ../root/edit/details/EditRelationshipAttribute.js:93
+#: ../root/edit/details/EditRelationshipType.js:239
+#: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:122
+#: ../root/relationship/linktype/RelationshipTypeIndex.js:167
+#: ../root/relationship/linktype/RelationshipTypePairTree.js:58
+msgid "Child order"
+msgstr "子订单"
+
+#: ../root/edit/details/AddRelationshipAttribute.js:55
+#: ../root/edit/details/EditRelationshipAttribute.js:85
+#: ../root/edit/details/EditRelationshipType.js:315
+msgid "Parent"
+msgstr "母"
+
 #: ../root/edit/details/AddRelationshipAttribute.js:60
 #: ../root/edit/details/EditRelationshipAttribute.js:101
 msgid "Creditable"
@@ -9162,6 +8976,22 @@ msgstr ""
 msgid "Link phrase:"
 msgstr "链接文本："
 
+#: ../root/edit/details/AddRelationshipType.js:111
+#: ../root/edit/details/EditRelationshipType.js:221
+#: ../root/edit/details/RemoveRelationshipType.js:92
+#: ../root/relationship/linktype/RelationshipTypeIndex.js:208
+#: ../root/relationship/linktype/RelationshipTypePairTree.js:72
+msgid "Reverse link phrase:"
+msgstr "反向链接文本"
+
+#: ../root/edit/details/AddRelationshipType.js:119
+#: ../root/edit/details/EditRelationshipType.js:231
+#: ../root/edit/details/RemoveRelationshipType.js:104
+#: ../root/relationship/linktype/RelationshipTypeIndex.js:213
+#: ../root/relationship/linktype/RelationshipTypePairTree.js:79
+msgid "Long link phrase:"
+msgstr "长链接文本："
+
 #: ../root/edit/details/AddRelationshipType.js:126
 #: ../root/edit/details/RemoveRelationshipType.js:87
 #: ../root/edit/details/RemoveRelationshipType.js:99
@@ -9169,6 +8999,23 @@ msgstr "链接文本："
 msgctxt "link_phrase"
 msgid "(none)"
 msgstr "(无)"
+
+#: ../root/edit/details/AddRelationshipType.js:133
+#: ../root/edit/details/AddRelationshipType.js:146
+#: ../root/edit/details/EditRelationshipType.js:263
+#: ../root/edit/details/EditRelationshipType.js:273
+#: ../root/relationship/linktype/RelationshipTypeIndex.js:174
+#: ../root/relationship/linktype/RelationshipTypeIndex.js:182
+#: ../root/relationship/linktype/RelationshipTypePairTree.js:94
+#: ../root/relationship/linktype/RelationshipTypePairTree.js:103
+msgid "Cardinality of {entity_placeholder}"
+msgstr "{entity_placeholder}的基数"
+
+#: ../root/edit/details/AddRelationshipType.js:158
+#: ../root/edit/details/EditRelationshipType.js:283
+#: ../root/relationship/linktype/RelationshipTypeIndex.js:189
+msgid "Orderable direction:"
+msgstr "可排序方向："
 
 #: ../root/edit/details/AddRelationshipType.js:193
 msgctxt "documentation"
@@ -9333,6 +9180,11 @@ msgstr ""
 #: ../root/edit/details/EditRelationshipType.js:255
 msgid "Deprecated:"
 msgstr "已弃用："
+
+#: ../root/edit/details/EditRelationshipType.js:333
+#: ../root/relationship/linktype/RelationshipTypeIndex.js:245
+msgid "Examples"
+msgstr "实例"
 
 #: ../root/edit/details/EditRelease.js:165
 msgid "This edit also changed the track artists."
@@ -9877,7 +9729,10 @@ msgid "{entity_type} by {artist}"
 msgstr "{artist} 的 {entity_type}"
 
 #: ../root/entity/NotFound.js:19
-msgid "Area Not Found"
+#, fuzzy
+#| msgid "Area Not Found"
+msgctxt "header"
+msgid "Area not found"
 msgstr "未找到地区"
 
 #: ../root/entity/NotFound.js:21
@@ -9887,7 +9742,10 @@ msgid ""
 msgstr ""
 
 #: ../root/entity/NotFound.js:28
-msgid "Artist Not Found"
+#, fuzzy
+#| msgid "Artist Not Found"
+msgctxt "header"
+msgid "Artist not found"
 msgstr "未找到艺术家"
 
 #: ../root/entity/NotFound.js:30
@@ -9897,7 +9755,10 @@ msgid ""
 msgstr ""
 
 #: ../root/entity/NotFound.js:37
-msgid "Artist Credit Not Found"
+#, fuzzy
+#| msgid "Artist Credit Not Found"
+msgctxt "header"
+msgid "Artist credit not found"
 msgstr "未找到艺术家名单"
 
 #: ../root/entity/NotFound.js:38
@@ -9905,7 +9766,10 @@ msgid "Sorry, we could not find an artist credit with that ID."
 msgstr ""
 
 #: ../root/entity/NotFound.js:43
-msgid "CD TOC Not Found"
+#, fuzzy
+#| msgid "CD TOC Not Found"
+msgctxt "header"
+msgid "CD TOC not found"
 msgstr "未找到 CD 目录"
 
 #: ../root/entity/NotFound.js:44
@@ -9913,7 +9777,10 @@ msgid "Sorry, we could not find the CD TOC you specified."
 msgstr "抱歉，无法找到指定的 CD 目录。"
 
 #: ../root/entity/NotFound.js:49
-msgid "Collection Not Found"
+#, fuzzy
+#| msgid "Collection Not Found"
+msgctxt "header"
+msgid "Collection not found"
 msgstr "未找到收藏"
 
 #: ../root/entity/NotFound.js:51
@@ -9921,7 +9788,10 @@ msgid "Sorry, we could not find a collection with that MusicBrainz ID."
 msgstr ""
 
 #: ../root/entity/NotFound.js:57
-msgid "Edit Not Found"
+#, fuzzy
+#| msgid "Edit Not Found"
+msgctxt "header"
+msgid "Edit not found"
 msgstr "未找到编辑"
 
 #: ../root/entity/NotFound.js:59
@@ -9931,7 +9801,10 @@ msgid ""
 msgstr ""
 
 #: ../root/entity/NotFound.js:66
-msgid "Election Not Found"
+#, fuzzy
+#| msgid "Election Not Found"
+msgctxt "header"
+msgid "Election not found"
 msgstr "未找到选举"
 
 #: ../root/entity/NotFound.js:67
@@ -9943,7 +9816,10 @@ msgid "Back to all elections."
 msgstr "返回所有选举。"
 
 #: ../root/entity/NotFound.js:72
-msgid "Event Not Found"
+#, fuzzy
+#| msgid "Event Not Found"
+msgctxt "header"
+msgid "Event not found"
 msgstr "未找到事件"
 
 #: ../root/entity/NotFound.js:74
@@ -9953,7 +9829,10 @@ msgid ""
 msgstr ""
 
 #: ../root/entity/NotFound.js:81
-msgid "Genre Not Found"
+#, fuzzy
+#| msgid "Genre Not Found"
+msgctxt "header"
+msgid "Genre not found"
 msgstr "未找到流派"
 
 #: ../root/entity/NotFound.js:83
@@ -9963,7 +9842,10 @@ msgid ""
 msgstr ""
 
 #: ../root/entity/NotFound.js:90
-msgid "Instrument Not Found"
+#, fuzzy
+#| msgid "Instrument Not Found"
+msgctxt "header"
+msgid "Instrument not found"
 msgstr "未找到乐器"
 
 #: ../root/entity/NotFound.js:92
@@ -9973,7 +9855,10 @@ msgid ""
 msgstr ""
 
 #: ../root/entity/NotFound.js:99
-msgid "ISRC Not Currently Used"
+#, fuzzy
+#| msgid "ISRC Not Currently Used"
+msgctxt "header"
+msgid "ISRC not currently used"
 msgstr "未被使用的 ISRC"
 
 #: ../root/entity/NotFound.js:101
@@ -9985,7 +9870,10 @@ msgstr ""
 "音} 并编辑。"
 
 #: ../root/entity/NotFound.js:109
-msgid "ISWC Not Currently Used"
+#, fuzzy
+#| msgid "ISWC Not Currently Used"
+msgctxt "header"
+msgid "ISWC not currently used"
 msgstr "未被使用的 ISWC"
 
 #: ../root/entity/NotFound.js:111
@@ -9997,7 +9885,10 @@ msgstr ""
 "品} 并编辑。"
 
 #: ../root/entity/NotFound.js:118
-msgid "Label Not Found"
+#, fuzzy
+#| msgid "Label Not Found"
+msgctxt "header"
+msgid "Label not found"
 msgstr "未找到厂牌"
 
 #: ../root/entity/NotFound.js:120
@@ -10007,7 +9898,10 @@ msgid ""
 msgstr ""
 
 #: ../root/entity/NotFound.js:127
-msgid "Entity Not Found"
+#, fuzzy
+#| msgid "Entity Not Found"
+msgctxt "header"
+msgid "Entity not found"
 msgstr "未找到实体"
 
 #: ../root/entity/NotFound.js:129
@@ -10017,8 +9911,11 @@ msgid ""
 msgstr ""
 
 #: ../root/entity/NotFound.js:136
-msgid "Place Not Found"
-msgstr "未找到地点"
+#, fuzzy
+#| msgid "Page Not Found"
+msgctxt "header"
+msgid "Place not found"
+msgstr "页面未找到"
 
 #: ../root/entity/NotFound.js:138
 msgid ""
@@ -10027,7 +9924,10 @@ msgid ""
 msgstr ""
 
 #: ../root/entity/NotFound.js:145
-msgid "Recording Not Found"
+#, fuzzy
+#| msgid "Recording Not Found"
+msgctxt "header"
+msgid "Recording not found"
 msgstr "未找到录音"
 
 #: ../root/entity/NotFound.js:147
@@ -10037,7 +9937,10 @@ msgid ""
 msgstr ""
 
 #: ../root/entity/NotFound.js:154
-msgid "Relationship Attribute Not Found"
+#, fuzzy
+#| msgid "Relationship Attribute Not Found"
+msgctxt "header"
+msgid "Relationship attribute not found"
 msgstr "未找到关联属性"
 
 #: ../root/entity/NotFound.js:156
@@ -10046,7 +9949,10 @@ msgid ""
 msgstr ""
 
 #: ../root/entity/NotFound.js:163
-msgid "Relationship Type Not Found"
+#, fuzzy
+#| msgid "Relationship Type Not Found"
+msgctxt "header"
+msgid "Relationship type not found"
 msgstr "未找到关联类型"
 
 #: ../root/entity/NotFound.js:165
@@ -10054,7 +9960,10 @@ msgid "Sorry, we could not find a relationship type with that MusicBrainz ID."
 msgstr ""
 
 #: ../root/entity/NotFound.js:172
-msgid "Release Not Found"
+#, fuzzy
+#| msgid "Release Not Found"
+msgctxt "header"
+msgid "Release not found"
 msgstr "未找到专辑"
 
 #: ../root/entity/NotFound.js:174
@@ -10064,7 +9973,10 @@ msgid ""
 msgstr ""
 
 #: ../root/entity/NotFound.js:181
-msgid "Release Group Not Found"
+#, fuzzy
+#| msgid "Release Group Not Found"
+msgctxt "header"
+msgid "Release group not found"
 msgstr "未找到专辑组"
 
 #: ../root/entity/NotFound.js:183
@@ -10074,7 +9986,10 @@ msgid ""
 msgstr ""
 
 #: ../root/entity/NotFound.js:190
-msgid "Series Not Found"
+#, fuzzy
+#| msgid "Series Not Found"
+msgctxt "singular, header"
+msgid "Series not found"
 msgstr "未找到系列"
 
 #: ../root/entity/NotFound.js:192
@@ -10084,7 +9999,10 @@ msgid ""
 msgstr ""
 
 #: ../root/entity/NotFound.js:199
-msgid "Track Not Found"
+#, fuzzy
+#| msgid "Track Not Found"
+msgctxt "header"
+msgid "Track not found"
 msgstr "未找到音轨"
 
 #: ../root/entity/NotFound.js:201
@@ -10094,7 +10012,10 @@ msgid ""
 msgstr ""
 
 #: ../root/entity/NotFound.js:209
-msgid "URL Not Found"
+#, fuzzy
+#| msgid "URL Not Found"
+msgctxt "header"
+msgid "URL not found"
 msgstr "未找到 URL"
 
 #: ../root/entity/NotFound.js:210
@@ -10102,7 +10023,10 @@ msgid "Sorry, we could not find a URL with that MusicBrainz ID."
 msgstr ""
 
 #: ../root/entity/NotFound.js:215
-msgid "Editor Not Found"
+#, fuzzy
+#| msgid "Editor Not Found"
+msgctxt "header"
+msgid "Editor not found"
 msgstr "未找到编辑者"
 
 #: ../root/entity/NotFound.js:217
@@ -10112,7 +10036,10 @@ msgid ""
 msgstr ""
 
 #: ../root/entity/NotFound.js:224
-msgid "Work Not Found"
+#, fuzzy
+#| msgid "Work Not Found"
+msgctxt "header"
+msgid "Work not found"
 msgstr "未找到作品"
 
 #: ../root/entity/NotFound.js:226
@@ -10271,28 +10198,6 @@ msgstr "ISO代码"
 #: ../root/futureColumnLabels.js:39
 msgid "ISO number"
 msgstr "国际标准化组织编号"
-
-#: ../root/genre/CreateGenre.js:24 ../root/genre/CreateGenre.js:26
-msgid "Add a new genre"
-msgstr "添加新流派"
-
-#: ../root/genre/DeleteGenre.js:31 ../root/genre/DeleteGenre.js:33
-#, fuzzy
-#| msgid "Remove genre"
-msgctxt "header"
-msgid "Remove genre"
-msgstr "移除流派"
-
-#: ../root/genre/DeleteGenre.js:35
-msgid "Are you sure you want to remove the genre {genre}?"
-msgstr "您确定要移除流派 {genre} 吗？"
-
-#: ../root/genre/EditGenre.js:30
-#, fuzzy
-#| msgid "Edit genre"
-msgctxt "header"
-msgid "Edit genre"
-msgstr "编辑流派"
 
 #: ../root/genre/GenreIndex.js:34
 msgid "Genre information"
@@ -10546,10 +10451,8 @@ msgstr "MusicBrainz 安卓版"
 msgid "MusicBrainz Server"
 msgstr "MusicBrainz 服务器"
 
-#: ../root/layout/components/BottomMenu.js:199
-#, fuzzy
-#| msgid "MusicBrainz Database"
-msgid "MusicBrainz database"
+#: ../root/layout/components/BottomMenu.js:199 ../root/main/index.js:220
+msgid "MusicBrainz Database"
 msgstr "MusicBrainz 数据库"
 
 #: ../root/layout/components/BottomMenu.js:202
@@ -11322,7 +11225,7 @@ msgid "Internal server error"
 msgstr "内部服务器错误"
 
 #: ../root/main/error/Error500.js:40
-#: ../root/static/scripts/relationship-editor/components/RelationshipEditor.js:553
+#: ../root/static/scripts/relationship-editor/components/RelationshipEditor.js:571
 msgid "Oops, something went wrong!"
 msgstr "糟糕，出现了一些问题！"
 
@@ -11414,7 +11317,7 @@ msgstr "请求数据："
 
 #: ../root/main/error/components/ErrorInfo.js:22
 #: ../root/report/ReportNotAvailable.js:13
-#: ../root/report/ReportNotAvailable.js:15 ../root/utility/edit.js:42
+#: ../root/report/ReportNotAvailable.js:15
 msgid "Error"
 msgstr "错误"
 
@@ -11534,10 +11437,6 @@ msgstr "社区"
 #| msgid "How to Contribute"
 msgid "How to contribute"
 msgstr "如何贡献"
-
-#: ../root/main/index.js:220
-msgid "MusicBrainz Database"
-msgstr "MusicBrainz 数据库"
 
 #: ../root/main/index.js:224
 msgid ""
@@ -11843,6 +11742,14 @@ msgstr "UUID："
 msgid "Parent attribute"
 msgstr "母属性"
 
+#: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:145
+msgid "This attribute supports free text credits"
+msgstr "此属性支持自由文本贡献名单"
+
+#: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:151
+msgid "This attribute uses free text values"
+msgstr "该属性使用自由文本值"
+
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:157
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:150
 msgid "Possible values"
@@ -11929,7 +11836,7 @@ msgid "{entity0}-{entity1}"
 msgstr "{entity0}-{entity1}"
 
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:127
-#: ../root/static/scripts/edit/externalLinks.js:777
+#: ../root/static/scripts/edit/externalLinks.js:799
 #: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:72
 msgid "This relationship type is deprecated and should not be used."
 msgstr ""
@@ -11937,6 +11844,11 @@ msgstr ""
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:199
 msgid "Link phrases"
 msgstr "连接词"
+
+#: ../root/relationship/linktype/RelationshipTypeIndex.js:203
+#: ../root/relationship/linktype/RelationshipTypePairTree.js:65
+msgid "Forward link phrase:"
+msgstr "转发链接短语："
 
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:228
 msgid "Guidelines"
@@ -13966,14 +13878,6 @@ msgid ""
 "series all others should be merged into:"
 msgstr ""
 
-#: ../root/static/scripts/account/components/ApplicationForm.js:40
-msgid "Web Application"
-msgstr "网页应用程序"
-
-#: ../root/static/scripts/account/components/ApplicationForm.js:41
-msgid "Installed Application"
-msgstr "已安装的应用程序"
-
 #: ../root/static/scripts/account/components/ApplicationForm.js:96
 msgid "Callback URL"
 msgstr "回调 URL"
@@ -14112,6 +14016,13 @@ msgstr "当我的订阅被编辑时发送电子邮件通知"
 #| msgid "Automatically subscribe me to labels I create."
 msgid "Automatically subscribe me when I add:"
 msgstr "自动订阅我创建的厂牌。"
+
+#: ../root/static/scripts/account/components/PreferencesForm.js:260
+#: ../root/static/scripts/common/utility/formatEntityTypeName.js:35
+#: ../root/tag/TagLayout.js:33
+msgctxt "plural"
+msgid "Series"
+msgstr "系列"
 
 #: ../root/static/scripts/account/components/RegisterForm.js:63
 msgid "Your username will be publicly visible."
@@ -14922,12 +14833,6 @@ msgstr "{begin_date} – ????"
 msgid "{begin_date} –"
 msgstr "{begin_date} –"
 
-#: ../root/static/scripts/common/utility/formatEntityTypeName.js:35
-#: ../root/tag/TagLayout.js:33
-msgctxt "plural"
-msgid "Series"
-msgstr "系列"
-
 #: ../root/static/scripts/common/utility/relationshipDateText.js:25
 msgid "on {date}"
 msgstr "于 {date}"
@@ -15280,12 +15185,12 @@ msgid "Some relationship types are missing for this URL."
 msgstr ""
 
 #: ../root/static/scripts/edit/URLCleanup.js:6892
-#: ../root/static/scripts/edit/externalLinks.js:1025
+#: ../root/static/scripts/edit/externalLinks.js:1047
 msgid "This relationship type combination is invalid."
 msgstr ""
 
 #: ../root/static/scripts/edit/check-duplicates.js:156
-#: ../root/static/scripts/edit/externalLinks.js:706
+#: ../root/static/scripts/edit/externalLinks.js:728
 #: ../root/static/scripts/release/components/EditWorkDialog.js:175
 msgid "Required field."
 msgstr "必填项。"
@@ -15544,150 +15449,146 @@ msgstr "修改URL"
 msgid "All of your changes will be lost if you leave this page."
 msgstr "如果离开此网页，您的所有更改将会丢失。"
 
-#: ../root/static/scripts/edit/externalLinks.js:718
+#: ../root/static/scripts/edit/externalLinks.js:740
 msgid ""
 "“{example_url}” is just an example. Please enter the actual link you want to "
 "add."
 msgstr "“{example_url}”只是一个例子。请输入你想添加的实际链接。"
 
-#: ../root/static/scripts/edit/externalLinks.js:726
+#: ../root/static/scripts/edit/externalLinks.js:748
 msgid ""
 "Links to MusicBrainz URLs are not allowed. Did you mean to paste something "
 "else?"
 msgstr "不允许添加 MusicBrainz 的 URL。您是想要粘贴其他 URL 吗？"
 
-#: ../root/static/scripts/edit/externalLinks.js:733
+#: ../root/static/scripts/edit/externalLinks.js:755
 msgid ""
 "Please don’t enter CritiqueBrainz links — reviews are automatically linked "
 "from the “{reviews_tab_name}” tab."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:741
+#: ../root/static/scripts/edit/externalLinks.js:763
 msgid ""
 "Links to this website are not allowed because it is known to host malware."
 msgstr "不允许添加此网站的链接，因为它是已知的恶意网站。"
 
-#: ../root/static/scripts/edit/externalLinks.js:747
+#: ../root/static/scripts/edit/externalLinks.js:769
 msgid ""
 "Please don’t enter bundled/shortened URLs, enter the destination URL(s) "
 "instead."
 msgstr "请勿输入捆绑链接或短链接，请输入目标网站 URL。"
 
-#: ../root/static/scripts/edit/externalLinks.js:753
+#: ../root/static/scripts/edit/externalLinks.js:775
 msgid ""
 "Please don’t enter Google AMP links, since they are effectively an extra "
 "redirect. Enter the destination URL instead."
 msgstr ""
 "请勿输入 Google AMP 链接，因为它们只是一次额外的重定向。请输入目标 URL。"
 
-#: ../root/static/scripts/edit/externalLinks.js:760
+#: ../root/static/scripts/edit/externalLinks.js:782
 msgid ""
 "Please don’t enter links to search results. If you’ve found any links "
 "through your search that seem useful, do enter those instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:767
+#: ../root/static/scripts/edit/externalLinks.js:789
 msgid "Please select a link type for the URL you’ve entered."
 msgstr "请为您输入的 URL 选择一个链接类型。"
 
-#: ../root/static/scripts/edit/externalLinks.js:787
+#: ../root/static/scripts/edit/externalLinks.js:809
 #: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:987
-#: ../root/static/scripts/relationship-editor/components/RelationshipEditor.js:526
+#: ../root/static/scripts/relationship-editor/components/RelationshipEditor.js:544
 msgid "This relationship already exists."
 msgstr "此关联已存在。"
 
-#: ../root/static/scripts/edit/externalLinks.js:799
+#: ../root/static/scripts/edit/externalLinks.js:821
 #: ../root/static/scripts/relationship-editor/components/DialogSourceEntity.js:61
 msgid ""
 "This URL is not allowed for the selected link type, or is incorrectly "
 "formatted."
 msgstr "此 URL 不适用于选中的链接类型，或格式错误。"
 
-#: ../root/static/scripts/edit/externalLinks.js:804
+#: ../root/static/scripts/edit/externalLinks.js:826
 msgid "This URL is not allowed for the selected link type."
 msgstr "此 URL 不适用于选中的链接类型。"
 
-#: ../root/static/scripts/edit/externalLinks.js:810
+#: ../root/static/scripts/edit/externalLinks.js:832
 msgid "This URL is not allowed for areas."
 msgstr "此 URL 不适用于地区。"
 
-#: ../root/static/scripts/edit/externalLinks.js:813
+#: ../root/static/scripts/edit/externalLinks.js:835
 msgid "This URL is not allowed for artists."
 msgstr "此 URL 不适用于艺术家。"
 
-#: ../root/static/scripts/edit/externalLinks.js:816
+#: ../root/static/scripts/edit/externalLinks.js:838
 msgid "This URL is not allowed for events."
 msgstr "此 URL 不适用于活动。"
 
-#: ../root/static/scripts/edit/externalLinks.js:819
+#: ../root/static/scripts/edit/externalLinks.js:841
 msgid "This URL is not allowed for instruments."
 msgstr "此 URL 不适用于乐器。"
 
-#: ../root/static/scripts/edit/externalLinks.js:822
+#: ../root/static/scripts/edit/externalLinks.js:844
 msgid "This URL is not allowed for labels."
 msgstr "此 URL 不适用于厂牌。"
 
-#: ../root/static/scripts/edit/externalLinks.js:825
+#: ../root/static/scripts/edit/externalLinks.js:847
 msgid "This URL is not allowed for places."
 msgstr "此 URL 不适用于地点。"
 
-#: ../root/static/scripts/edit/externalLinks.js:828
+#: ../root/static/scripts/edit/externalLinks.js:850
 msgid "This URL is not allowed for recordings."
 msgstr "此 URL 不适用于录音。"
 
-#: ../root/static/scripts/edit/externalLinks.js:831
+#: ../root/static/scripts/edit/externalLinks.js:853
 msgid "This URL is not allowed for releases."
 msgstr "此 URL 不适用于专辑。"
 
-#: ../root/static/scripts/edit/externalLinks.js:834
+#: ../root/static/scripts/edit/externalLinks.js:856
 msgid "This URL is not allowed for release groups."
 msgstr "此 URL 不适用于专辑组。"
 
-#: ../root/static/scripts/edit/externalLinks.js:838
+#: ../root/static/scripts/edit/externalLinks.js:860
 msgid "This URL is not allowed for series."
 msgstr "此 URL 不适用于系列。"
 
-#: ../root/static/scripts/edit/externalLinks.js:841
+#: ../root/static/scripts/edit/externalLinks.js:863
 msgid "This URL is not allowed for works."
 msgstr "此 URL 不适用于作品。"
 
-#: ../root/static/scripts/edit/externalLinks.js:1149
+#: ../root/static/scripts/edit/externalLinks.js:1171
 #: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:322
 msgid "{description} ({url|more documentation})"
 msgstr "{description}（{url|详细文档}）"
 
-#: ../root/static/scripts/edit/externalLinks.js:1198
+#: ../root/static/scripts/edit/externalLinks.js:1220
 #, fuzzy
 #| msgid "Remove relationship"
 msgctxt "interactive"
 msgid "Remove relationship"
 msgstr "移除关系"
 
-#: ../root/static/scripts/edit/externalLinks.js:1285
+#: ../root/static/scripts/edit/externalLinks.js:1307
 msgid "video"
 msgstr "视频"
 
-#: ../root/static/scripts/edit/externalLinks.js:1416
+#: ../root/static/scripts/edit/externalLinks.js:1438
 #, fuzzy
 #| msgid "Remove Link"
 msgid "Remove link"
 msgstr "移除链接"
 
-#: ../root/static/scripts/edit/externalLinks.js:1446
+#: ../root/static/scripts/edit/externalLinks.js:1468
 msgid "Add link"
 msgstr "添加链接"
 
-#: ../root/static/scripts/edit/externalLinks.js:1449
+#: ../root/static/scripts/edit/externalLinks.js:1471
 msgid "Add another link"
 msgstr "添加其他链接"
 
-#: ../root/static/scripts/edit/externalLinks.js:1558
+#: ../root/static/scripts/edit/externalLinks.js:1580
 msgid "Add another relationship"
 msgstr "添加其他关联"
-
-#: ../root/static/scripts/genre/components/GenreEditForm.js:136
-msgid "Genre details"
-msgstr "流派详情"
 
 #: ../root/static/scripts/guess-case/modes.js:313
 msgid ""
@@ -17092,12 +16993,12 @@ msgstr "被否决"
 msgid "Failed"
 msgstr "失败"
 
-#: ../root/user/UserProfile.js:652 ../root/utility/edit.js:41
+#: ../root/user/UserProfile.js:652
 msgctxt "edit"
 msgid "Cancelled"
 msgstr ""
 
-#: ../root/user/UserProfile.js:662 ../root/utility/edit.js:47
+#: ../root/user/UserProfile.js:662
 msgid "Open"
 msgstr "已开启"
 
@@ -17437,26 +17338,6 @@ msgstr "关闭时自动接受"
 msgid "Reject upon closing"
 msgstr "关闭时自动拒绝"
 
-#: ../root/utility/edit.js:40
-msgid "Applied"
-msgstr "已生效"
-
-#: ../root/utility/edit.js:43
-msgid "Failed dependency"
-msgstr "失败的依赖"
-
-#: ../root/utility/edit.js:44
-msgid "Failed prerequisite"
-msgstr "失败的前置条件"
-
-#: ../root/utility/edit.js:45
-msgid "Failed vote"
-msgstr "失败的投票"
-
-#: ../root/utility/edit.js:46
-msgid "No votes"
-msgstr "无投票"
-
 #: ../root/utility/edit.js:61
 msgid "This edit is open for voting."
 msgstr "此编辑开启投票。"
@@ -17500,11 +17381,17 @@ msgid "This edit was cancelled."
 msgstr "此次编辑已取消。"
 
 #: ../root/utility/tableColumns.js:750
-msgid "Relationship Type"
+#, fuzzy
+#| msgid "Relationship type"
+msgctxt "header"
+msgid "Relationship type"
 msgstr "关联类型"
 
 #: ../root/utility/tableColumns.js:765
-msgid "Ordering Type"
+#, fuzzy
+#| msgid "Ordering Type"
+msgctxt "header"
+msgid "Ordering type"
 msgstr "订购类型"
 
 #: ../root/utility/tableColumns.js:773
@@ -17512,7 +17399,10 @@ msgid "Subscribed"
 msgstr "已订阅"
 
 #: ../root/utility/tableColumns.js:821
-msgid "Lyrics Languages"
+#, fuzzy
+#| msgid "Lyrics Languages"
+msgctxt "header"
+msgid "Lyrics languages"
 msgstr "歌词语言"
 
 #: ../root/vote/VotingIndex.js:34
@@ -17752,6 +17642,151 @@ msgid ""
 msgstr ""
 "<strong>警告：</strong> 你正在合并的作品中有一些拥有不同的ISWC编号。请先确保"
 "这些作品确实为相同作品，然后再继续进行合并。"
+
+#~ msgid ""
+#~ "A value of 1 or 2 indicates that either entity1 or entity0 are orderable, "
+#~ "respectively."
+#~ msgstr "值1或2分别表示实体1或实体0是可排序的。"
+
+#, fuzzy
+#~| msgid "Add a New Example"
+#~ msgid "Add a new example"
+#~ msgstr "添加新示例"
+
+#, fuzzy
+#~| msgid "Add Example"
+#~ msgid "Add example"
+#~ msgstr "添加示例"
+
+#, fuzzy
+#~| msgid "Area Details"
+#~ msgid "Area details"
+#~ msgstr "区域详细信息"
+
+#~ msgid "Attach Disc ID"
+#~ msgstr "附上唱片 ID"
+
+#~ msgid "Edit Relationship Attribute"
+#~ msgstr "编辑关系属性"
+
+#~ msgid "Edit Relationship Type"
+#~ msgstr "编辑关系类型"
+
+#~ msgid "Endpoint:"
+#~ msgstr "终点："
+
+#, fuzzy
+#~| msgid "Find Relationships"
+#~ msgid "Find relationships"
+#~ msgstr "查找关系"
+
+#~ msgid "HTML tags allowed in the description: {tag_list}."
+#~ msgstr "描述中允许的 HTML 标签：{tag_list}。"
+
+#~ msgid "Import CD Stub"
+#~ msgstr "导入 CD 存根"
+
+#, fuzzy
+#~| msgid "Instrument Details"
+#~ msgid "Instrument details"
+#~ msgstr "乐器详情"
+
+#~ msgid "New Relationship Attribute"
+#~ msgstr "新关联属性"
+
+#~ msgid "New Relationship Type"
+#~ msgstr "新关联类型"
+
+#~ msgid "Priority:"
+#~ msgstr "优先级："
+
+#, fuzzy
+#~| msgid "Remove Example"
+#~ msgid "Remove example"
+#~ msgstr "移除示例"
+
+#~ msgid "Save"
+#~ msgstr "保存"
+
+#~ msgid "This area has ended."
+#~ msgstr "此区域已不存在。"
+
+#~ msgid "This relationship allows setting dates"
+#~ msgstr "此关联允许设定日期"
+
+#~ msgid "This relationship is deprecated"
+#~ msgstr "此关联已弃用"
+
+#~ msgid "This relationship type does not have any examples."
+#~ msgstr "此关联类型没有任何示例。"
+
+#~ msgid "Untrusted"
+#~ msgstr "未信任的"
+
+#~ msgid "Delete Account"
+#~ msgstr "删除账号"
+
+#~ msgid "Release Groups"
+#~ msgstr "发行团"
+
+#~ msgid "Place Not Found"
+#~ msgstr "未找到地点"
+
+#~ msgid "Add a new genre"
+#~ msgstr "添加新流派"
+
+#, fuzzy
+#~| msgid "Remove genre"
+#~ msgctxt "header"
+#~ msgid "Remove genre"
+#~ msgstr "移除流派"
+
+#~ msgid "Are you sure you want to remove the genre {genre}?"
+#~ msgstr "您确定要移除流派 {genre} 吗？"
+
+#, fuzzy
+#~| msgid "Edit genre"
+#~ msgctxt "header"
+#~ msgid "Edit genre"
+#~ msgstr "编辑流派"
+
+#, fuzzy
+#~| msgid "MusicBrainz Database"
+#~ msgid "MusicBrainz database"
+#~ msgstr "MusicBrainz 数据库"
+
+#~ msgid "Web Application"
+#~ msgstr "网页应用程序"
+
+#~ msgid "Installed Application"
+#~ msgstr "已安装的应用程序"
+
+#~ msgid "Genre details"
+#~ msgstr "流派详情"
+
+#~ msgid "Applied"
+#~ msgstr "已生效"
+
+#~ msgid "Failed dependency"
+#~ msgstr "失败的依赖"
+
+#~ msgid "Failed prerequisite"
+#~ msgstr "失败的前置条件"
+
+#~ msgid "Failed vote"
+#~ msgstr "失败的投票"
+
+#~ msgid "No votes"
+#~ msgstr "无投票"
+
+#~ msgid "Relationship Type"
+#~ msgstr "关联类型"
+
+#~ msgid "Ordering Type"
+#~ msgstr "订购类型"
+
+#~ msgid "Lyrics Languages"
+#~ msgstr "歌词语言"
 
 #~ msgid "Add Area"
 #~ msgstr "添加地区"

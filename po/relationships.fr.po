@@ -40,7 +40,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-11-23 20:27+0000\n"
+"PO-Revision-Date: 2023-12-13 16:28+0000\n"
 "Last-Translator: yvanzo <yvanzo@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: French <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/fr/>\n"
@@ -620,7 +620,7 @@ msgid ""
 "Indicates the artist(s) who gave the first performance of the work; this is "
 "usually mostly relevant for classical music"
 msgstr ""
-"Indique l'artiste ayant présenté l'œuvre pour la première fois; "
+"Indique l'artiste ayant présenté l'œuvre pour la première fois ; "
 "habituellement pertinent pour la musique classique."
 
 #: DB:link_type/description:55
@@ -1126,7 +1126,7 @@ msgid ""
 "unknown."
 msgstr ""
 "Relie un événement à la région où il s’est tenu. À n’utiliser que si le lieu "
-"exact est inconnu !"
+"exact est inconnu."
 
 #: DB:link_type/description:794
 msgid "Links an event to the place where it was held."
@@ -1169,7 +1169,7 @@ msgstr "Dirige vers la page BookBrainz pour cet artiste."
 
 #: DB:link_type/description:851
 msgid "Points to the BookBrainz page for this label."
-msgstr "Dirige vers la page BookBrainz pour ce label"
+msgstr "Dirige vers la page BookBrainz pour ce label."
 
 #: DB:link_type/description:853
 msgid "Points to the BookBrainz page for this release group."
@@ -1398,7 +1398,7 @@ msgstr "Le livret de {entity1} a été {additional:de plus} écrit en {entity0}"
 msgid ""
 "The lyrics for {entity1} were {additional:additionally} written at {entity0}"
 msgstr ""
-"Les paroles de {entity1} ont {addition:en plus} été écrites à {entity0}"
+"Les paroles de {entity1} ont {additional:en plus} été écrites à {entity0}"
 
 #: DB:link_type/long_link_phrase:877
 msgid ""
@@ -2354,9 +2354,8 @@ msgid ""
 "href=\"/doc/Label\">record label</a>."
 msgstr ""
 "Ceci indique l’organisation qui promeut (ou gère la promotion) d’une "
-"parution.\n"
-"Ce n’est <strong>pas</strong> le même concept que le <a href=\"/doc/"
-"Label\">label discographique</a>."
+"parution. Ce n’est <strong>pas</strong> le même concept que le <a href=\"/"
+"doc/Label\">label discographique</a>."
 
 #: DB:link_type/description:362
 msgid ""
@@ -4120,13 +4119,6 @@ msgid ""
 msgstr ""
 
 #: DB:link_type/description:1229
-#, fuzzy
-#| msgid ""
-#| "This relationship type is used to indicate that a release group is a "
-#| "cover version of another release group, i.e. when an artist performs a "
-#| "new rendition of another artist's album.<br/>\n"
-#| "For individual songs, see the <a href=\"/relationship/a3005666-a872-32c3-"
-#| "ad06-98af558e99b0\">recording-work performance relationship type</a>."
 msgid ""
 "This relationship type is used to indicate that a release group is a re‐"
 "recording of another release group, that is, when an artist performs a new "
@@ -4139,8 +4131,13 @@ msgid ""
 "a>."
 msgstr ""
 "Ce type de relation est utilisé pour indiquer qu’un groupe de parution est "
-"une reprise d’un autre groupe de parution, c.-à-d. quand un artiste fait une "
-"nouvelle interprétation de l’album d’un autre artiste."
+"un réenregistrement d’un autre groupe de parution, c.-à-d. quand un artiste "
+"fait une nouvelle interprétation de l’album de son propre album.<br/>\n"
+"Pour une interprétation en public de son album, voir le type de relation <a "
+"href=\"/relationship/62beff0a-679c-43f3-8fe6-f6c8ed8581e4\">interprétation "
+"en public</a>.<br/>\n"
+"Pour une reprise de l’album d’un autre artiste, voir le type de relation <a "
+"href=\"/relationship/cf02e524-9d5b-46b7-a88e-329737395818\">reprise</a>."
 
 #: DB:link_type/description:1005
 msgid ""
