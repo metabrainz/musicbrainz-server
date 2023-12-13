@@ -53,17 +53,17 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-12-12 23:26+0200\n"
-"PO-Revision-Date: 2023-12-12 21:29+0000\n"
-"Last-Translator: reosarevok <reosarevok@users.noreply.translations."
-"metabrainz.org>\n"
+"PO-Revision-Date: 2023-12-13 21:11+0000\n"
+"Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
+".org>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
 "X-Generator: Weblate 5.2.1\n"
 
 #: ../root/components/common-macros.tt:12
@@ -2158,10 +2158,8 @@ msgid "Release country"
 msgstr "País de publicación"
 
 #: ../root/edit/search_macros.tt:434
-#, fuzzy
-#| msgid "Release Quality"
 msgid "Release data quality"
-msgstr "Calidad de publicación"
+msgstr "Calidad de datos de publicaciones"
 
 #: ../root/release/edit/layout.tt:14
 msgid "Release duplicates"
@@ -5927,8 +5925,6 @@ msgstr "Cambiar contraseña"
 #: ../root/account/DeleteOwnAccount.js:41
 #: ../root/account/DeleteOwnAccount.js:43
 #: ../root/components/UserAccountTabs.js:115
-#, fuzzy
-#| msgid "Delete account"
 msgctxt "header"
 msgid "Delete account"
 msgstr "Eliminar cuenta"
@@ -5960,8 +5956,6 @@ msgstr ""
 "tarde."
 
 #: ../root/account/DeleteOwnAccount.js:82
-#, fuzzy
-#| msgid "Delete my account"
 msgctxt "interactive"
 msgid "Delete my account"
 msgstr "Eliminar mi cuenta"
@@ -7408,7 +7402,7 @@ msgstr ""
 #: ../root/report/ReportsIndex.js:117
 #: ../root/static/scripts/artist/components/ArtistCreditRenamer.js:217
 msgid "Artist credits"
-msgstr "Créditos de artista"
+msgstr "Créditos de artistas"
 
 #: ../root/components/Aliases/ArtistCreditList.js:36
 msgid ""
@@ -9355,8 +9349,6 @@ msgid "{entity_type} by {artist}"
 msgstr ""
 
 #: ../root/entity/NotFound.js:19
-#, fuzzy
-#| msgid "Area Not Found"
 msgctxt "header"
 msgid "Area not found"
 msgstr "Área no encontrada"
@@ -9368,8 +9360,6 @@ msgid ""
 msgstr ""
 
 #: ../root/entity/NotFound.js:28
-#, fuzzy
-#| msgid "Artist Not Found"
 msgctxt "header"
 msgid "Artist not found"
 msgstr "Artista no encontrado"
@@ -9383,30 +9373,24 @@ msgstr ""
 "{search_url|usar la búsqueda}."
 
 #: ../root/entity/NotFound.js:37
-#, fuzzy
-#| msgid "Artist Not Found"
 msgctxt "header"
 msgid "Artist credit not found"
-msgstr "Artista no encontrado"
+msgstr "Crédito de artista no encontrado"
 
 #: ../root/entity/NotFound.js:38
 msgid "Sorry, we could not find an artist credit with that ID."
 msgstr ""
 
 #: ../root/entity/NotFound.js:43
-#, fuzzy
-#| msgid "CD TOC Not Found"
 msgctxt "header"
 msgid "CD TOC not found"
-msgstr "No se ha encontrado una TOC de CD"
+msgstr "TOC de CD no encontrada"
 
 #: ../root/entity/NotFound.js:44
 msgid "Sorry, we could not find the CD TOC you specified."
 msgstr "No hemos encontrado la TOC de CD que has indicado."
 
 #: ../root/entity/NotFound.js:49
-#, fuzzy
-#| msgid "Collection Not Found"
 msgctxt "header"
 msgid "Collection not found"
 msgstr "Colección no encontrada"
@@ -9416,8 +9400,6 @@ msgid "Sorry, we could not find a collection with that MusicBrainz ID."
 msgstr ""
 
 #: ../root/entity/NotFound.js:57
-#, fuzzy
-#| msgid "Edit Not Found"
 msgctxt "header"
 msgid "Edit not found"
 msgstr "Edición no encontrada"
@@ -9431,8 +9413,6 @@ msgstr ""
 "la búsqueda}."
 
 #: ../root/entity/NotFound.js:66
-#, fuzzy
-#| msgid "Election Not Found"
 msgctxt "header"
 msgid "Election not found"
 msgstr "Elección no encontrada"
@@ -9446,8 +9426,6 @@ msgid "Back to all elections."
 msgstr "Volver a las elecciones"
 
 #: ../root/entity/NotFound.js:72
-#, fuzzy
-#| msgid "Event Not Found"
 msgctxt "header"
 msgid "Event not found"
 msgstr "Evento no encontrado"
@@ -9459,11 +9437,9 @@ msgid ""
 msgstr ""
 
 #: ../root/entity/NotFound.js:81
-#, fuzzy
-#| msgid "Page not found"
 msgctxt "header"
 msgid "Genre not found"
-msgstr "Página no encontrada"
+msgstr "Género no encontrado"
 
 #: ../root/entity/NotFound.js:83
 msgid ""
@@ -9472,8 +9448,6 @@ msgid ""
 msgstr ""
 
 #: ../root/entity/NotFound.js:90
-#, fuzzy
-#| msgid "Instrument Not Found"
 msgctxt "header"
 msgid "Instrument not found"
 msgstr "Instrumento no encontrado"
@@ -9485,11 +9459,9 @@ msgid ""
 msgstr ""
 
 #: ../root/entity/NotFound.js:99
-#, fuzzy
-#| msgid "ISRC Not Currently Used"
 msgctxt "header"
 msgid "ISRC not currently used"
-msgstr "El ISRC no está en uso"
+msgstr "ISRC no en uso"
 
 #: ../root/entity/NotFound.js:101
 msgid ""
@@ -9500,11 +9472,9 @@ msgstr ""
 "{search_url|busca la grabación} y hazlo."
 
 #: ../root/entity/NotFound.js:109
-#, fuzzy
-#| msgid "ISWC Not Currently Used"
 msgctxt "header"
 msgid "ISWC not currently used"
-msgstr "Este ISWC no está en uso."
+msgstr "ISWC no en uso"
 
 #: ../root/entity/NotFound.js:111
 msgid ""
@@ -9515,8 +9485,6 @@ msgstr ""
 "obra, {search_url|busca la obra} y añádelo."
 
 #: ../root/entity/NotFound.js:118
-#, fuzzy
-#| msgid "Label Not Found"
 msgctxt "header"
 msgid "Label not found"
 msgstr "Discográfica no encontrada"
@@ -9530,8 +9498,6 @@ msgstr ""
 "probar a {search_url|usar la búsqueda}."
 
 #: ../root/entity/NotFound.js:127
-#, fuzzy
-#| msgid "Entity Not Found"
 msgctxt "header"
 msgid "Entity not found"
 msgstr "Entidad no encontrada"
@@ -9543,11 +9509,9 @@ msgid ""
 msgstr ""
 
 #: ../root/entity/NotFound.js:136
-#, fuzzy
-#| msgid "Page not found"
 msgctxt "header"
 msgid "Place not found"
-msgstr "Página no encontrada"
+msgstr "Lugar no encontrado"
 
 #: ../root/entity/NotFound.js:138
 msgid ""
@@ -9556,8 +9520,6 @@ msgid ""
 msgstr ""
 
 #: ../root/entity/NotFound.js:145
-#, fuzzy
-#| msgid "Recording Not Found"
 msgctxt "header"
 msgid "Recording not found"
 msgstr "Grabación no encontrada"
@@ -9571,11 +9533,9 @@ msgstr ""
 "{search_url|usar la búsqueda}."
 
 #: ../root/entity/NotFound.js:154
-#, fuzzy
-#| msgid "Relationship attribute in use"
 msgctxt "header"
 msgid "Relationship attribute not found"
-msgstr "Atributo de relación en uso"
+msgstr "Atributo de relación no encontrado"
 
 #: ../root/entity/NotFound.js:156
 msgid ""
@@ -9583,19 +9543,15 @@ msgid ""
 msgstr "No hemos encontrado un atributo de relación con esa ID de MusicBrainz."
 
 #: ../root/entity/NotFound.js:163
-#, fuzzy
-#| msgid "Relationship type in use"
 msgctxt "header"
 msgid "Relationship type not found"
-msgstr "Tipo de relación en uso"
+msgstr "Tipo de relación no encontrado"
 
 #: ../root/entity/NotFound.js:165
 msgid "Sorry, we could not find a relationship type with that MusicBrainz ID."
 msgstr ""
 
 #: ../root/entity/NotFound.js:172
-#, fuzzy
-#| msgid "Release Not Found"
 msgctxt "header"
 msgid "Release not found"
 msgstr "Publicación no encontrada"
@@ -9609,11 +9565,9 @@ msgstr ""
 "a {search_url|usar la búsqueda}."
 
 #: ../root/entity/NotFound.js:181
-#, fuzzy
-#| msgid "Release Group Not Found"
 msgctxt "header"
 msgid "Release group not found"
-msgstr "No se encontró el grupo de publicaciones"
+msgstr "Grupo de publicaciones no encontrado"
 
 #: ../root/entity/NotFound.js:183
 msgid ""
@@ -9624,11 +9578,9 @@ msgstr ""
 "Puedes probar a {search_url|usar la búsqueda}."
 
 #: ../root/entity/NotFound.js:190
-#, fuzzy
-#| msgid "Page not found"
 msgctxt "singular, header"
 msgid "Series not found"
-msgstr "Página no encontrada"
+msgstr "Serie no encontrada"
 
 #: ../root/entity/NotFound.js:192
 msgid ""
@@ -9637,11 +9589,9 @@ msgid ""
 msgstr ""
 
 #: ../root/entity/NotFound.js:199
-#, fuzzy
-#| msgid "Track Not Found"
 msgctxt "header"
 msgid "Track not found"
-msgstr "Pista No Encontrada"
+msgstr "Pista no encontrada"
 
 #: ../root/entity/NotFound.js:201
 msgid ""
@@ -9650,8 +9600,6 @@ msgid ""
 msgstr ""
 
 #: ../root/entity/NotFound.js:209
-#, fuzzy
-#| msgid "URL Not Found"
 msgctxt "header"
 msgid "URL not found"
 msgstr "URL no encontrada"
@@ -9661,8 +9609,6 @@ msgid "Sorry, we could not find a URL with that MusicBrainz ID."
 msgstr "No hemos encontrado una URL con esa ID de MusicBrainz."
 
 #: ../root/entity/NotFound.js:215
-#, fuzzy
-#| msgid "Editor Not Found"
 msgctxt "header"
 msgid "Editor not found"
 msgstr "Editor no encontrado"
@@ -9676,8 +9622,6 @@ msgstr ""
 "usar la búsqueda}."
 
 #: ../root/entity/NotFound.js:224
-#, fuzzy
-#| msgid "Work Not Found"
 msgctxt "header"
 msgid "Work not found"
 msgstr "Obra no encontrada"
@@ -16780,15 +16724,11 @@ msgid "This edit was cancelled."
 msgstr "Esta edición fue cancelada."
 
 #: ../root/utility/tableColumns.js:750
-#, fuzzy
-#| msgid "Relationship types"
 msgctxt "header"
 msgid "Relationship type"
-msgstr "Tipos de relación"
+msgstr "Tipo de relación"
 
 #: ../root/utility/tableColumns.js:765
-#, fuzzy
-#| msgid "Ordering type"
 msgctxt "header"
 msgid "Ordering type"
 msgstr "Tipo de ordenación"
@@ -16798,8 +16738,6 @@ msgid "Subscribed"
 msgstr "Suscrito"
 
 #: ../root/utility/tableColumns.js:821
-#, fuzzy
-#| msgid "Lyrics languages"
 msgctxt "header"
 msgid "Lyrics languages"
 msgstr "Idiomas de la letra"

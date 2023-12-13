@@ -16,21 +16,24 @@
 # Stich Lilo <email address hidden>, 2020
 # Kevin López Brante <email address hidden>, 2012
 # Tiago Natale, 2022
-#   Tobias Quathamer <email address hidden>, 2007
+# Tobias Quathamer <email address hidden>, 2007
 # t0n3t <email address hidden>, 2012
+# reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2012-05-24 18:50+0000\n"
-"Last-Translator: Tiago Natale, 2022\n"
-"Language-Team: Spanish (http://app.transifex.com/musicbrainz/musicbrainz/"
-"language/es/)\n"
+"PO-Revision-Date: 2023-12-13 21:11+0000\n"
+"Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
+".org>\n"
+"Language-Team: Spanish <https://translations.metabrainz.org/projects/"
+"musicbrainz/relationship-types/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? "
-"1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
+"X-Generator: Weblate 5.2.1\n"
 
 #: DB:link_attribute_type/description:1355
 msgid "A performance-centered, usually one to three year postgraduate program."
@@ -5442,10 +5445,8 @@ msgid "is a remix of"
 msgstr "es una remezcla de"
 
 #: DB:link_type/long_link_phrase:1229
-#, fuzzy
-#| msgid "is a remaster of"
 msgid "is a re‐recording of"
-msgstr "es una versión remasterizada de"
+msgstr "es una versión regrabada de"
 
 #: DB:link_type/long_link_phrase:11
 msgid "is a single/EP which was taken from"
@@ -6912,22 +6913,16 @@ msgid "revision of"
 msgstr ""
 
 #: DB:link_type/name:1229
-#, fuzzy
-#| msgid "recording"
 msgid "re‐recording"
-msgstr "grabación"
+msgstr "regrabación"
 
 #: DB:link_type/link_phrase:1229
-#, fuzzy
-#| msgid "recording"
 msgid "re‐recording of"
-msgstr "grabación"
+msgstr "regrabación de"
 
 #: DB:link_type/reverse_link_phrase:1229
-#, fuzzy
-#| msgid "recording"
 msgid "re‐recordings"
-msgstr "grabación"
+msgstr "regrabaciones"
 
 #: DB:link_type/name:349 DB:link_type/reverse_link_phrase:349
 msgid "rights society"
