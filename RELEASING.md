@@ -43,7 +43,11 @@ See the private system administration wiki for additional prerequisites.
 Assuming the source messages were updated when releasing beta (if not, see that under the beta
 process below first!), you need to start by updating the translated messages:
 
-1. Merge `translations` to `beta` (`git merge --log=876423 --no-ff translations`) and push.
+1. _Commit_ and _push_ any change from the
+   [repository in Weblate](https://translations.metabrainz.org/projects/musicbrainz/#repository),
+   and update your local `translations` branch.
+
+2. Merge `translations` to `beta` (`git merge --log=876423 --no-ff translations`) and push.
    Wait until [CircleCI](https://circleci.com/gh/metabrainz/musicbrainz-server) is happy
    with this merge as some unmatching translations can break building Docker images.
 
@@ -155,9 +159,13 @@ It has some differences with the production release process; follow these steps:
 1. On the translations update step, do not just update translated messages,
    also update source messages for translation. This involves four steps:
 
-   1. Merge `translations` to `beta` (`git merge --log=876423 --no-ff translations`) and push.
+   1. _Commit_ and _push_ any change from the
+      [repository in Weblate](https://translations.metabrainz.org/projects/musicbrainz/#repository),
+      and update your local `translations` branch.
 
-   2. On `master` (or `beta` if changes have been pushed directly there),
+   2. Merge `translations` to `beta` (`git merge --log=876423 --no-ff translations`) and push.
+
+   3. On `master` (or `beta` if changes have been pushed directly there),
       run `./po/update_pot.sh` to generate new .pot files from the
       database and templates. It's often a good idea to manually check
       the changes to the .pot files: this is a good moment to find typos
