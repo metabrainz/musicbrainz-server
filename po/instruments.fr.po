@@ -20,19 +20,21 @@
 # Youenn Piolet, 2015
 # yvanz, 2016-2017,2019-2020
 # yvanz, 2016
+# yvanzo <yvanzo@users.noreply.translations.metabrainz.org>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2012-05-24 18:57+0000\n"
-"Last-Translator: yvanz, 2016-2017,2019-2020\n"
-"Language-Team: French (http://app.transifex.com/musicbrainz/musicbrainz/"
-"language/fr/)\n"
+"PO-Revision-Date: 2023-12-13 16:28+0000\n"
+"Last-Translator: yvanzo <yvanzo@users.noreply.translations.metabrainz.org>\n"
+"Language-Team: French <https://translations.metabrainz.org/projects/"
+"musicbrainz/instruments/fr/>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % "
-"1000000 == 0 ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : ((n != 0 && n % "
+"1000000 == 0) ? 1 : 2);\n"
+"X-Generator: Weblate 5.2.1\n"
 
 #: DB:instrument/name:438
 msgid "12 string guitar"
@@ -1432,7 +1434,7 @@ msgstr "effets"
 
 #: DB:instrument/name:51
 msgid "electric bass guitar"
-msgstr "guitare basse"
+msgstr "guitare basse électrique"
 
 #: DB:instrument/name:208
 msgid "electric cello"
@@ -1797,7 +1799,7 @@ msgstr "glockenspiel"
 
 #: DB:instrument/name:268
 msgid "goblet drum"
-msgstr "darbouka"
+msgstr "percussion en forme de gobelet"
 
 #: DB:instrument/name:270
 msgctxt "Tuned metal discs"
@@ -1945,7 +1947,7 @@ msgstr "harmonica"
 #: DB:instrument/name:135
 msgctxt "Portable Indian reed organ"
 msgid "harmonium"
-msgstr "harmonium"
+msgstr "harmonium indien"
 
 #: DB:instrument/name:58
 msgid "harp"
@@ -2283,6 +2285,7 @@ msgid "kethuk"
 msgstr ""
 
 #: DB:instrument/name:367
+#, fuzzy
 msgid "kettle drum"
 msgstr "timbales"
 
@@ -3972,7 +3975,7 @@ msgstr "tible"
 
 #: DB:instrument/name:105
 msgid "timbales"
-msgstr "timbales"
+msgstr "timbales cubaines"
 
 #: DB:instrument/name:167
 msgid "timpani"

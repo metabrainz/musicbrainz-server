@@ -21,19 +21,21 @@
 # Youenn Piolet, 2015
 # yvanz, 2016-2017
 # yvanz, 2016
+# yvanzo <yvanzo@users.noreply.translations.metabrainz.org>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2012-05-24 19:17+0000\n"
-"Last-Translator: Nicolás Tamargo <reosarevok@gmail.com>, 2022\n"
-"Language-Team: French (http://app.transifex.com/musicbrainz/musicbrainz/"
-"language/fr/)\n"
+"PO-Revision-Date: 2023-12-13 16:28+0000\n"
+"Last-Translator: yvanzo <yvanzo@users.noreply.translations.metabrainz.org>\n"
+"Language-Team: French <https://translations.metabrainz.org/projects/"
+"musicbrainz/instrument-descriptions/fr/>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % "
-"1000000 == 0 ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : ((n != 0 && n % "
+"1000000 == 0) ? 1 : 2);\n"
+"X-Generator: Weblate 5.2.1\n"
 
 #. name:rebab 
 #: DB:instrument/description:239
@@ -192,8 +194,8 @@ msgid ""
 "A larger version of tef, used to indicate the rhythmic structures (usul) in "
 "makam music."
 msgstr ""
-"Une version plus grande du tef, utilisé pour les structures rythmiques "
-"(usul) de la musique makam. "
+"Une version plus grande du tef, utilisé pour les structures rythmiques (usul)"
+" de la musique makam."
 
 #. name:laser harp 
 #: DB:instrument/description:515
@@ -340,7 +342,7 @@ msgid ""
 "body."
 msgstr ""
 "Une flûte globulaire est un type de flûte dont le corps est un résonateur, "
-"au lieu d’un cylindre. "
+"au lieu d’un cylindre."
 
 #. name:acoustic fretless guitar 
 #: DB:instrument/description:539
@@ -468,7 +470,7 @@ msgid ""
 "bars"
 msgstr ""
 "L’amadinda est un xylophone géant du sud de l’Ouganda, constitué de barres "
-"sonores de bois dur. "
+"sonores de bois dur."
 
 #. name:Irish harp / clàrsach 
 #: DB:instrument/description:355
@@ -626,8 +628,8 @@ msgid ""
 "Bass member of the Serbo-Croatian tamburica orchestra, it is contrabass "
 "like. it has four thick metal strings"
 msgstr ""
-"proche de la contrebasse, dotée de quatre cordes en métal, elle fait "
-"généralement la partie basse des orchestres de tamburica  serbo-croates."
+"Proche de la contrebasse, dotée de quatre cordes en métal, elle fait "
+"généralement la partie basse des orchestres de tamburica serbo-croates."
 
 #. name:segunda 
 #: DB:instrument/description:757
@@ -1089,7 +1091,7 @@ msgstr ""
 msgid "Dunun is a family of West African cylindrical drums."
 msgstr ""
 "Les dum dum sont une famille de tambours cylindriques de l’Afrique de "
-"l’Ouest. "
+"l’Ouest."
 
 #. name:EWI 
 #: DB:instrument/description:441
@@ -2070,7 +2072,7 @@ msgid ""
 msgstr ""
 "Ressemble à une flûte à bec, mais à anche double et un doigté de cornemuse. "
 "Utilisé principalement pour apprendre à jouer de la cornemuse, mais parfois "
-"utilisée comme instrument à part entière"
+"utilisée comme instrument à part entière."
 
 #. name:gumbri 
 #: DB:instrument/description:325
@@ -2287,7 +2289,7 @@ msgstr ""
 "chèvre ou plus rarement en terre cuite. Avec que peu de trous et une "
 "amplitude d'une seule octave, il était utilisé par les bergers. Les "
 "variantes modernes sont plus compliquées et sont généralement fabriquées en "
-"corne de bœuf. "
+"corne de bœuf."
 
 #. name:xylorimba 
 #: DB:instrument/description:703
@@ -2916,7 +2918,7 @@ msgstr ""
 #. name:ruan 
 #: DB:instrument/description:545
 msgid "Ruan is a family of Chinese plucked lutes."
-msgstr "Les ruans sont une famille de luths à cordes pincées chinois. "
+msgstr "Les ruans sont une famille de luths à cordes pincées chinois."
 
 #. name:junjung 
 #: DB:instrument/description:892
@@ -3358,7 +3360,7 @@ msgid ""
 "The agogô is a single or multiple bell used in samba music with origins in "
 "traditional Yoruba music."
 msgstr ""
-"L’agogô est un instrument à une ou  plusieurs cloches utilisé dans la samba "
+"L’agogô est un instrument à une ou plusieurs cloches utilisé dans la samba "
 "avec des origines dans la musique traditionnelle Yoruba."
 
 #. name:ajaeng 
@@ -3486,7 +3488,7 @@ msgid ""
 msgstr ""
 "Le saxhorn baryton est un instrument de musique à pistons et perce conique "
 "de la famille des cuivres. Il est en si♭, inférieur d’un octave à la "
-"trompette en si♭. "
+"trompette en si♭."
 
 #. name:bass clarinet 
 #: DB:instrument/description:11
@@ -3750,7 +3752,7 @@ msgid ""
 msgstr ""
 "Le dinc tac ta est un instrument à vent à anche libre joué par la minorité Ê "
 "Đê du Vietnam. Il est composé d’un tube en bambou avec trois trous et une "
-"calebasse. "
+"calebasse."
 
 #. name:diyingehu 
 #: DB:instrument/description:220
@@ -3874,7 +3876,7 @@ msgid ""
 "The gayageum is a traditional Korean zither-like string instrument which "
 "normally has 12 strings."
 msgstr ""
-"Le gayageum est un instrument  traditionnel coréen habituellement à douze "
+"Le gayageum est un instrument traditionnel coréen habituellement à douze "
 "cordes de la famille des cithares."
 
 #. name:gehu 
@@ -4072,7 +4074,7 @@ msgid ""
 "yai."
 msgstr ""
 "Le khong wong lek est un cercle de gongs utilisé dans la musique classique "
-"thaï.  Il comporte 18 gongs accordés et est plus petit et plus aigu que le "
+"thaï. Il comporte 18 gongs accordés et est plus petit et plus aigu que le "
 "khong wong yai."
 
 #. name:khong wong yai 
@@ -4082,7 +4084,7 @@ msgid ""
 "tuned bossed gongs and is larger and lower in pitch than the khong wong lek."
 msgstr ""
 "Le khong wong yai est un cercle de gongs utilisé dans la musique de "
-"Thaïlande. Il comporte 16 gongs accordés est est plus grand et plus grave "
+"Thaïlande. Il comporte 16 gongs accordés et il est plus grand et plus grave "
 "que le khong wong lek."
 
 #. name:khèn Mèo 
@@ -4353,7 +4355,7 @@ msgstr ""
 msgid ""
 "The ocarina is a type of vessel flute which has a mouthpiece extending from "
 "the body."
-msgstr "L’ocarina est un type de flûte globulaire à conduit. "
+msgstr "L’ocarina est un type de flûte globulaire à conduit."
 
 #. name:octave mandolin 
 #: DB:instrument/description:601
@@ -4874,7 +4876,7 @@ msgid ""
 msgstr ""
 "L’ukulélé est un petit instrument ressemblant à une guitare associé "
 "habituellement à la musique hawaïenne. Il a généralement quatre cordes en "
-"nylon ou en boyaux. "
+"nylon ou en boyaux."
 
 #. name:valiha 
 #: DB:instrument/description:517
@@ -5075,10 +5077,10 @@ msgid ""
 "(made of tin, pottery or wood) covered with animal skin with a long Arundo "
 "donax reed attached."
 msgstr ""
-"Le żafżafa ou rabbaba est un tambour à friction maltais constitué d’un fût "
+"Le żafżafa ou rabbaba est un <a href=\"https://fr.wikipedia.org/wiki/"
+"Tambour_%C3%A0_friction\">tambour à friction</a> maltais constitué d’un fût "
 "cylindrique (en fer, poterie ou bois) couvert par une peau d’animal auquel "
-"est attachée un long roseau en arundo donax. (<a href=\"https://fr.wikipedia."
-"org/wiki/Tambour_%C3%A0_friction\">Wikipédia</a>)"
+"est attachée un long roseau en arundo donax."
 
 #. name:theatre organ 
 #: DB:instrument/description:347
@@ -5239,7 +5241,7 @@ msgstr ""
 #: DB:instrument/description:541
 msgid "Turkish box-shaped kemenche, mainly used for folk music."
 msgstr ""
-"Kemençe turque oblongue, principalement utilisée en musique folklorique. "
+"Kemençe turque oblongue, principalement utilisée en musique folklorique."
 
 #. name:kudüm 
 #: DB:instrument/description:525
@@ -6101,9 +6103,9 @@ msgid ""
 "often two, first and second bass. it can either have three double strings or "
 "two double strings and three single strings"
 msgstr ""
-"second plus petit instrument des orchestres de tamburica serbo-croates. Il y "
-"en a généralement deux, première et deuxième basse. Il peut être doté de "
-"trois cordes doubles ou deux cordes doubles et trois cordes simples."
+"Le second plus petit instrument des orchestres de tamburica serbo-croates. "
+"Il y en a généralement deux, première et deuxième basse. Il peut être doté "
+"de trois cordes doubles ou deux cordes doubles et trois cordes simples."
 
 #. name:härjedalspipa 
 #: DB:instrument/description:818
@@ -6145,7 +6147,7 @@ msgid ""
 "single strings (prim/bisernica) or two double strings and two single strings "
 "(bisernica)"
 msgstr ""
-"plus petit instrument des orchestres de tamburica  serbo-croates. C’est "
+"Le plus petit instrument des orchestres de tamburica serbo-croates. C’est "
 "généralement l’instrument principal. Il peut être doté d’une corde double et "
 "trois cordes simples (prim/bisernica) ou deux cordes doubles et deux cordes "
 "simples (bisernica)."
@@ -6222,7 +6224,7 @@ msgstr ""
 #. name:vibrandoneon 
 #: DB:instrument/description:840
 msgid "wood accordina with piano keys invented in Italy"
-msgstr "accordina en bois avec des touches de piano, inventée en Italie."
+msgstr "Accordina en bois avec des touches de piano, inventée en Italie."
 
 #. name:Irish flute 
 #: DB:instrument/description:878

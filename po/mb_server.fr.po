@@ -66,7 +66,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-12-12 23:26+0200\n"
-"PO-Revision-Date: 2023-11-23 20:27+0000\n"
+"PO-Revision-Date: 2023-12-13 16:28+0000\n"
 "Last-Translator: yvanzo <yvanzo@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: French <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/fr/>\n"
@@ -201,11 +201,6 @@ msgid "<strong>Warning</strong>:"
 msgstr "<strong>Attention</strong> :"
 
 #: ../root/cdtoc/lookup.tt:22
-#, fuzzy
-#| msgid ""
-#| "A CD Stub was found that matches the disc ID you provided. If the below "
-#| "tracklist appears correct, you may use it as a starting point as a new "
-#| "MusicBrainz release"
 msgid ""
 "A CD stub was found that matches the disc ID you provided. If the below "
 "tracklist appears correct, you may use it as a starting point as a new "
@@ -645,10 +640,8 @@ msgstr ""
 
 #: ../root/artist/edit_form.tt:42 ../root/components/list/ArtistList.js:102
 #: ../root/search/components/ArtistResults.js:57
-#, fuzzy
-#| msgid "Begin area:"
 msgid "Begin area"
-msgstr "Début (région) :"
+msgstr "Début (région)"
 
 #: ../root/artist/edit_form.tt:38 ../root/components/forms.tt:212
 #: ../root/event/edit_form.tt:36 ../root/artist/utils.js:34
@@ -845,11 +838,9 @@ msgstr "Pays"
 
 #: ../root/release_group/set_cover_art.tt:67
 #: ../root/edit/components/EditArtwork.js:36 ../root/user/UserProfile.js:52
-#, fuzzy
-#| msgid "Cover art:"
 msgctxt "singular"
 msgid "Cover art"
-msgstr "Illustration :"
+msgstr "Illustration"
 
 #: ../root/release/add_cover_art.tt:85
 msgid "Creating edit..."
@@ -1076,11 +1067,9 @@ msgstr "Modifier une Illustration"
 #: ../root/forms/edit-note.tt:2 ../root/release/edit/editnote.tt:27
 #: ../root/release/edit/layout.tt:18
 #: ../root/static/scripts/edit/components/EnterEditNote.js:48
-#, fuzzy
-#| msgid "Edit note:"
 msgctxt "noun"
 msgid "Edit note"
-msgstr "Note de modification :"
+msgstr "Note de modification"
 
 #: ../root/edit/search_macros.tt:434
 #, fuzzy
@@ -1132,10 +1121,8 @@ msgstr "Activer les numéros de pistes du vinyle"
 
 #: ../root/artist/edit_form.tt:56 ../root/components/list/ArtistList.js:112
 #: ../root/search/components/ArtistResults.js:59
-#, fuzzy
-#| msgid "End area:"
 msgid "End area"
-msgstr "Fin (région) :"
+msgstr "Fin (région)"
 
 #: ../root/artist/edit_form.tt:51 ../root/components/forms.tt:214
 #: ../root/event/edit_form.tt:38 ../root/artist/utils.js:65
@@ -2210,10 +2197,8 @@ msgstr "Précédent"
 #: ../root/release/edit/information.tt:95 ../root/release_group/edit_form.tt:16
 #: ../root/edit/details/AddReleaseGroup.js:67
 #: ../root/edit/details/EditReleaseGroup.js:60
-#, fuzzy
-#| msgid "Primary Type:"
 msgid "Primary type"
-msgstr "Type primaire :"
+msgstr "Type primaire"
 
 #: ../root/components/search.tt:9 ../root/search/components/SearchForm.js:76
 msgid "Query:"
@@ -3105,7 +3090,7 @@ msgstr "Cet enregistrement est une vidéo"
 
 #: ../root/release/edit/information.tt:235
 msgid "This release does not have a barcode"
-msgstr "Cette parution n’a aucun code-barres."
+msgstr "Cette parution n’a pas de code-barres."
 
 #: ../root/release/discids.tt:58
 msgid "This release has no mediums that can have disc IDs."
@@ -6854,7 +6839,7 @@ msgid ""
 msgstr ""
 "Saisissez votre nom d'utilisateur et votre adresse courriel ci-dessous. Nous "
 "vous enverrons un courriel incluant un lien pour réinitialiser votre mot de "
-"passe. Si vous avez oublié votre mot de passe, {lien|retrouvez-le} en "
+"passe. Si vous avez oublié votre mot de passe, {link|retrouvez-le} en "
 "premier et après réinitialisez votre mot de passe."
 
 #: ../root/account/LostPassword.js:50 ../root/account/LostUsername.js:37
@@ -7312,7 +7297,7 @@ msgstr "Rubriques :"
 
 #: ../root/annotation/EditAnnotation.js:114
 msgid "= Title 1 =; == Title 2 ==; === Title 3 ==="
-msgstr "= Titre 1 =; == Titre 2 ==; === Titre 3 ==="
+msgstr "= Titre 1 = ; == Titre 2 == ; === Titre 3 ==="
 
 #: ../root/annotation/EditAnnotation.js:118
 msgid "Lists:"
@@ -8529,11 +8514,9 @@ msgid "Disc IDs ({num})"
 msgstr "ID de disque ({num})"
 
 #: ../root/components/EntityTabs.js:114
-#, fuzzy
-#| msgid "Cover art:"
 msgctxt "plural"
 msgid "Cover art"
-msgstr "Illustration :"
+msgstr "Illustration"
 
 #: ../root/components/EntityTabs.js:116
 #, fuzzy
@@ -9947,11 +9930,9 @@ msgstr "Fusionner"
 #: ../root/edit/details/MergeReleases.js:293
 #: ../root/edit/details/MergeReleases.js:313
 #: ../root/edit/details/MergeSeries.js:25 ../root/edit/details/MergeWorks.js:25
-#, fuzzy
-#| msgid "Into:"
 msgctxt "header, paired with Merge"
 msgid "Into"
-msgstr "Dans :"
+msgstr "Dans"
 
 #: ../root/edit/details/MergeArtists.js:32
 msgid "Rename artist and relationship credits"
@@ -11170,10 +11151,8 @@ msgid "Help translate"
 msgstr "Aider à traduire"
 
 #: ../root/layout/components/BottomMenu.js:115
-#, fuzzy
-#| msgid "About Us"
 msgid "About us"
-msgstr "Qui sommes-nous ?"
+msgstr "À propos de nous"
 
 #: ../root/layout/components/BottomMenu.js:120
 msgid "About MusicBrainz"
@@ -11628,11 +11607,9 @@ msgid "Added"
 msgstr "Ajouté"
 
 #: ../root/layout/components/sidebar/CDStubSidebar.js:56
-#, fuzzy
-#| msgid "Last modified:"
 msgctxt "CD stub"
 msgid "Last modified"
-msgstr "Modifier en dernier :"
+msgstr "Modifier en dernier"
 
 #: ../root/layout/components/sidebar/CDStubSidebar.js:81
 msgid "Import as MusicBrainz release"
@@ -12853,11 +12830,9 @@ msgid "original"
 msgstr "original"
 
 #: ../root/release/CoverArt.js:57
-#, fuzzy
-#| msgid "Cover art:"
 msgctxt "plural, header"
 msgid "Cover art"
-msgstr "Illustration :"
+msgstr "Illustrations"
 
 #: ../root/release/CoverArt.js:63
 #, fuzzy
@@ -13737,8 +13712,8 @@ msgstr ""
 "le titre. Pour les parutions « classiques », consulter {CSG|les directives "
 "du style classique}. Pour les parutions autre que « classiques », ceci est "
 "généralement hérité d’une ancienne version de MusicBrainz et devrait être "
-"corrigé. Consulter la {featured_artists|page sur les artistes invités} pour "
-"en savoir plus."
+"corrigé. Consultez la {featured_artists|page sur les artistes invités} pour "
+"en savoir plus !"
 
 #: ../root/report/FeaturingReleases.js:41 ../root/report/ReportsIndex.js:309
 msgid "Releases with titles containing featuring artists"
@@ -14297,8 +14272,8 @@ msgstr ""
 msgid ""
 "For instructions on how to add one, see the {add_discids|documentation page}."
 msgstr ""
-"Pour apprendre comment ajouter un ID de disque, suivez le {add_discids|"
-"guide} !"
+"Pour apprendre comment ajouter un ID de disque, suivez le "
+"{add_discids|guide}."
 
 #: ../root/report/ReleasesMissingDiscIds.js:36
 #: ../root/report/ReportsIndex.js:430
@@ -15263,16 +15238,12 @@ msgid "Date/time format:"
 msgstr "Format de date et d’heure :"
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:192
-#, fuzzy
-#| msgid "Allow other users to see my tags"
 msgid "Allow other users to see:"
-msgstr "Autoriser les autres utilisateurs à voir mes tags"
+msgstr "Autoriser les autres utilisateurs à voir :"
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:195
-#, fuzzy
-#| msgid "No subscriptions."
 msgid "My subscriptions"
-msgstr "Aucun abonnement."
+msgstr "Mes abonnements"
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:200
 #, fuzzy
@@ -15282,10 +15253,8 @@ msgid "My tags and genres"
 msgstr "Ajouter un nouveau genre"
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:213
-#, fuzzy
-#| msgid "Email Sent"
 msgid "Email me about:"
-msgstr "courriel envoyé"
+msgstr "Envoyez moi un courriel pour :"
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:216
 msgid "The first “no” vote on any of my edits"
@@ -15310,10 +15279,8 @@ msgstr ""
 "abonnements :"
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:247
-#, fuzzy
-#| msgid "Automatically subscribe me to labels I add."
 msgid "Automatically subscribe me when I add:"
-msgstr "Abonnez-moi automatiquement aux labels que j’ajoute."
+msgstr "Abonnez-moi automatiquement quand j’ajoute :"
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:260
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:35
@@ -16251,7 +16218,7 @@ msgstr "Cette personne est décédée."
 
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:74
 msgid "Dissolved:"
-msgstr "Dissous : "
+msgstr "Dissous :"
 
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:75
 msgid "This group has dissolved."
@@ -16817,23 +16784,16 @@ msgid "This relationship has open edits."
 msgstr "Cette relation a des modifications ouvertes."
 
 #: ../root/static/scripts/edit/components/ReleaseMergeStrategy.js:52
-#, fuzzy
-#| msgid ""
-#| "“{matched_text}” seems to indicate medium ordering rather than a medium "
-#| "title. If this is the case, please use the up/down arrows on the right "
-#| "side to set the medium position instead of adding a title (see "
-#| "{release_style|the guidelines}). Otherwise, please confirm that this is "
-#| "the actual title using the checkbox below."
 msgid ""
 "“{matched_text}” seems to indicate medium ordering rather than a medium "
 "title. If this is the case, please set the appropriate medium position "
 "instead of adding a title (see {release_style|the guidelines})."
 msgstr ""
-"« {matchext_text} » semble indique un ordre des supports plutôt qu’un titre "
+"« {matched_text} » semble indique un ordre des supports plutôt qu’un titre "
 "de support. Si c’est le cas, veuillez utiliser les flèches haut/bas sur le "
-"côté droit pour ordonner les supports au lieu de leur ajouter un titre. "
-"(Voir les {release_style| directives de style}.) Sinon, merci de confirmer "
-"que c’est le titre actuel en cochant la case ci-dessous."
+"côté droit pour ordonner les supports au lieu de leur ajouter un titre. ("
+"Voir les {release_style|directives de style}.) Sinon, merci de confirmer que "
+"c’est le titre actuel en cochant la case ci-dessous."
 
 #: ../root/static/scripts/edit/components/ReleaseMergeStrategy.js:116
 msgid ""
@@ -18105,7 +18065,7 @@ msgstr "Je souhaite rester connecté"
 
 #: ../root/user/Login.js:136
 msgid "Forgot your {link1|username} or {link2|password}?"
-msgstr "J’ai oublié mon {link1|nom d’utilisateur} ou mon {link2|mot de passe}."
+msgstr "{link1|Nom d’utilisateur} ou {link2|mot de passe} oublié ?"
 
 #: ../root/user/PrivilegedUsers.js:37
 #, fuzzy

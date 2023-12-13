@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-11-23 20:27+0000\n"
+"PO-Revision-Date: 2023-12-13 16:28+0000\n"
 "Last-Translator: yvanzo <yvanzo@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: French <https://translations.metabrainz.org/projects/"
 "musicbrainz/statistics/fr/>\n"
@@ -131,10 +131,10 @@ msgid ""
 "relased and unused TRMs pruned from the database. Inline editing is turned "
 "off by default, causing a drop in voting activity."
 msgstr ""
-"Sorties : relations approfondies qui permettent aux utilisateurs de "
-"connecter des entités simples de données, et les TRM inutilisés sont enlevés "
-"de la base de données. L’édition en ligne est désactivée par défaut, ce qui "
-"cause une baisse de l’activité de vote."
+"Relations approfondies qui permettent aux utilisateurs de connecter des "
+"entités simples de données, et les TRM inutilisés sont enlevés de la base de "
+"données. L’édition en ligne est désactivée par défaut, ce qui cause une "
+"baisse de l’activité de vote."
 
 #: DB:statistics.statistic_event/description:2019-06-25
 msgid ""
@@ -183,8 +183,8 @@ msgstr "Langues des albums"
 msgid ""
 "Album languages, guess case improvements and revamps edit forms released."
 msgstr ""
-"Sortie : amélioration de la découverte des langues des albums et de la casse "
-"ainsi que des formulaires de modification revampés."
+"Amélioration de la découverte des langues des albums et de la casse ainsi "
+"que des formulaires de modification revampés."
 
 #: DB:statistics.statistic_event/description:2015-05-19
 msgid ""
@@ -214,13 +214,12 @@ msgstr "SoundUnwound bêta d’Amazon"
 
 #: DB:statistics.statistic_event/description:2004-02-24
 msgid "Amazon coverart support released."
-msgstr "Sortie : prise en charge des illustration provenant d’Amazon"
+msgstr "Prise en charge des illustrations provenant d’Amazon."
 
 #: DB:statistics.statistic_event/description:2006-07-12
 msgid "An improved release editor and a new site design are released."
 msgstr ""
-"Sortie : éditeur de parution amélioré ainsi qu’une nouvelle conception pour "
-"le site. "
+"Éditeur de parution amélioré ainsi qu’une nouvelle conception pour le site."
 
 #: DB:statistics.statistic_event/description:2015-06-02
 msgid ""
@@ -230,7 +229,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/description:2004-11-14
 msgid "Annotation support released."
-msgstr "Sortie : prise en charge des annotations"
+msgstr "Prise en charge des annotations."
 
 #: DB:statistics.statistic_event/title:2004-11-14
 msgid "Annotations"
@@ -249,8 +248,8 @@ msgid ""
 "Artist subscriptions made public and various smaller user centric "
 "improvements are released."
 msgstr ""
-"Sortie : les abonnements aux artistes sont rendus publics, et petites "
-"améliorations pour les utilisateurs."
+"Les abonnements aux artistes sont rendus publics, et petites améliorations "
+"pour les utilisateurs."
 
 #: DB:statistics.statistic_event/description:2003-06-22
 msgid "Artist subscriptions."
@@ -319,8 +318,7 @@ msgstr "Collections, évaluations, ébauches de CD"
 
 #: DB:statistics.statistic_event/description:2008-11-24
 msgid "Collection, Ratings, CDStubs, LastUpdate released."
-msgstr ""
-"Sortie : collections, évaluations, ébauches de CD, dernières mise à jour."
+msgstr "Collections, évaluations, ébauches de CD, dernières mise à jour."
 
 #: DB:statistics.statistic_event/description:2021-05-18
 msgid ""
@@ -355,8 +353,8 @@ msgid ""
 "Edit display improvements, turned off RDF dumps, new install scripts "
 "released."
 msgstr ""
-"Sortie : améliorations de l’affichage des modifications, arrêt des vidages "
-"« RDF », nouveaux scripts d’installation."
+"Améliorations de l’affichage des modifications, arrêt des vidages « RDF », "
+"nouveaux scripts d’installation."
 
 #: DB:statistics.statistic_event/title:2020-02-18
 msgid "Edit history visible without logging in"
@@ -442,8 +440,8 @@ msgid ""
 "FreeDB auto import feature turned off and autoeditor elections released. "
 "Unused TRMs pruned from the database."
 msgstr ""
-"Sortie : fonction d’auto-importation de FreeDB est désactivée et élections "
-"des auto-éditeurs. Les TRM inutilisés sont enlevés de la base de données."
+"Fonction d’auto-importation de FreeDB est désactivée et élections des auto-"
+"éditeurs. Les TRM inutilisés sont enlevés de la base de données."
 
 #: DB:statistics.statistic_event/title:2004-10-10
 msgid "FreeDB off/Autoeditors"
@@ -499,8 +497,8 @@ msgstr "Catalogue CD baby importé comme ébauches de CD"
 msgid ""
 "Imported the metadata from the CD Baby catalog into our CD Stubs collection."
 msgstr ""
-"Métadonnées du catalogue de CD Baby importé dans notre collection d’ébauches "
-"de CD"
+"Métadonnées du catalogue de CD Baby importées dans notre collection d’"
+"ébauches de CD."
 
 #: DB:statistics.statistic_event/title:2004-07-24
 msgid "Improve voting"
@@ -530,15 +528,14 @@ msgstr ""
 #: DB:statistics.statistic_event/description:2011-05-12
 msgid "In preparation for NGS, editing is turned off until release."
 msgstr ""
-"En préparation pour NGS, les modifications sont désactivées jusqu’à la "
-"sortie."
+"En préparation de NGS, les modifications sont désactivées jusqu’à la sortie."
 
 #: DB:statistics.statistic_event/description:2011-05-02
 msgid ""
 "In preparation for NGS, editors are encouraged to avoid editing until "
 "release unless entirely necessary."
 msgstr ""
-"En préparation pour NGS, les éditeurs sont encouragés à éviter de modifier "
+"En préparation de NGS, les éditeurs sont encouragés à éviter de modifier "
 "jusqu’à la sortie sauf si vraiment nécessaire."
 
 #: DB:statistics.statistic_event/title:2006-03-05
@@ -547,7 +544,7 @@ msgstr "Recherche indexée/XML WS"
 
 #: DB:statistics.statistic_event/description:2006-03-05
 msgid "Indexes search and a new XML based Web Service are released."
-msgstr "Sortie : recherche indexée et nouveau service Web basé sur XML."
+msgstr "Recherche indexée et nouveau service Web basé sur XML."
 
 #: DB:statistics.statistic_event/title:2004-01-17
 msgid "Inline edits"
@@ -556,8 +553,8 @@ msgstr "Modifications en ligne"
 #: DB:statistics.statistic_event/description:2004-01-17
 msgid "Inline edits, new reports, improved data import scripts."
 msgstr ""
-"Sortie : modifications en ligne, nouveau rapports, scripts améliorés "
-"d’importation de données. "
+"Modifications en ligne, nouveau rapports, scripts améliorés d’importation de "
+"données."
 
 #: DB:statistics.statistic_event/title:2004-05-09
 msgid "Install scripts"
@@ -623,8 +620,8 @@ msgstr ""
 msgid ""
 "Link to MusicBrainz feature, release events and edit suggestions released."
 msgstr ""
-"Sortie : fonction de lien vers MusicBrainz, événements de parution et "
-"suggestions de modification. "
+"Fonction de lien vers MusicBrainz, événements de parution et suggestions de "
+"modification."
 
 #: DB:statistics.statistic_event/description:2007-01-20
 msgid "Linkara Musica becomes first commercial customer of MetaBrainz."
@@ -652,7 +649,7 @@ msgstr "Menus/scripts client"
 
 #: DB:statistics.statistic_event/title:2021-05-18
 msgid "Mergeable collections, artist series and ratable places"
-msgstr "Collections fusionnables, séries d’artistes et lieux évaluables."
+msgstr "Collections fusionnables, séries d’artistes et lieux évaluables"
 
 #: DB:statistics.statistic_event/description:2008-04-21
 msgid "MetaBrainz accepts three students for Google Summer of Code."
@@ -660,7 +657,7 @@ msgstr "MetaBrainz accepte trois étudiants pour le « Google Summer of Code �
 
 #: DB:statistics.statistic_event/title:2008-09-23
 msgid "MetaBrainz hires Oliver Charles"
-msgstr "MetaBrainz engage Oliver Charles."
+msgstr "MetaBrainz engage Oliver Charles"
 
 #: DB:statistics.statistic_event/title:2005-04-19
 msgid "MetaBrainz launched"
@@ -684,11 +681,11 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2008-04-01
 msgid "MetaWeb signed"
-msgstr "Signature avec MetaWeb "
+msgstr "Signature avec MetaWeb"
 
 #: DB:statistics.statistic_event/title:2015-11-30
 msgid "More auto-edits"
-msgstr "Davantage de modifications automatiques."
+msgstr "Davantage de modifications automatiques"
 
 #: DB:statistics.statistic_event/description:2015-11-16
 msgid ""
@@ -761,7 +758,7 @@ msgstr "Sortie de NGS"
 
 #: DB:statistics.statistic_event/description:2011-05-18
 msgid "NGS, a MusicBrainz major rewrite, is released!"
-msgstr "Sortie : NGS, une réécriture majeure de MusicBrainz !"
+msgstr "NGS, une réécriture majeure de MusicBrainz !"
 
 #: DB:statistics.statistic_event/title:2016-02-22
 msgid "New MusicBrainz design"
@@ -783,7 +780,7 @@ msgstr "Pistes hors album"
 
 #: DB:statistics.statistic_event/description:2003-10-13
 msgid "Non album tracks are released."
-msgstr "Sortie : pistes hors album."
+msgstr "Pistes hors album."
 
 #: DB:statistics.statistic_event/description:2008-09-23
 msgid "Oliver Charles becomes employee #1 of MetaBrainz Foundation."
@@ -861,14 +858,14 @@ msgstr "Éditeur de parution"
 
 #: DB:statistics.statistic_event/description:2003-10-19
 msgid "Release editor and Guess Case released."
-msgstr "Sortie : éditeur de parution et deviner la casse."
+msgstr "Éditeur de parution et devineur de casse."
 
 #: DB:statistics.statistic_event/description:2009-05-24
 msgid ""
 "Release groups, ISRC support, CDStub searching and search fixes released."
 msgstr ""
-"Sortie : groupes de parution, prise en charge des ISRC, recherche d’ébauches "
-"de CD et correctifs de recherche."
+"Groupes de parution, prise en charge des ISRC, recherche d’ébauches de CD et "
+"correctifs de recherche."
 
 #: DB:statistics.statistic_event/description:2015-04-06
 msgid ""
@@ -897,7 +894,7 @@ msgstr "Correctifs SG5"
 
 #: DB:statistics.statistic_event/title:2018-06-30
 msgid "SOLR-based search server deployed"
-msgstr "Déploiment du serveur de recherche basé sur Solr."
+msgstr "Déploiement du serveur de recherche basé sur Solr"
 
 #: DB:statistics.statistic_event/title:2017-09-06
 msgid "Sambhav Kothari and Param Singh replace Roman Tsukanov"
@@ -921,8 +918,7 @@ msgstr "Améliorations de la recherche"
 #: DB:statistics.statistic_event/title:2015-11-16
 msgid "Several new auto-edit types and translations"
 msgstr ""
-"Plusieurs nouveaux types de modification automatique et nouvelles "
-"traductions."
+"Plusieurs nouveaux types de modification automatique et nouvelles traductions"
 
 #: DB:statistics.statistic_event/description:2020-05-16
 msgid ""
@@ -949,7 +945,7 @@ msgid ""
 "database."
 msgstr ""
 "Implantation des directives de style 5, et les TRM inutilisés sont enlevés "
-"de la base de données"
+"de la base de données."
 
 #: DB:statistics.statistic_event/title:2014-10-17
 msgid "Style process updated again, reosarevok \"promoted\" to Style BDFL"
@@ -957,7 +953,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/description:2007-04-01
 msgid "Support for Labels and data quality are released."
-msgstr "Sortie : prise en charge des labels et qualité des données."
+msgstr "Prise en charge des labels et de la qualité des données."
 
 #: DB:statistics.statistic_event/title:2015-06-29
 msgid "Tag up/downvoting"
@@ -990,7 +986,7 @@ msgstr ""
 msgid "The Cover Art Archive becomes initially available"
 msgstr ""
 "L’archive des illustrations « Cover Art Archive » est proposée pour la "
-"première fois."
+"première fois"
 
 #: DB:statistics.statistic_event/description:2012-10-10
 msgid "The Cover Art Archive is officially released"
@@ -1101,7 +1097,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/description:2006-12-17
 msgid "The search features and web service improvements are released."
-msgstr "Sortie : fonctions de recherche et améliorations du service Web."
+msgstr "Fonctions de recherche et améliorations du service Web."
 
 #: DB:statistics.statistic_event/description:2014-10-17
 msgid ""
@@ -1124,9 +1120,8 @@ msgid ""
 "Top menu navigation improved, duplicate artists, album edit all, track time "
 "editing features released."
 msgstr ""
-"Sorties : amélioration de la navigation du menu d’en haut, recherche "
-"d’artistes en double, tout modifier dans l’album, modification de la durée "
-"de pistes."
+"Amélioration de la navigation du menu d’en haut, recherche d’artistes en "
+"double, tout modifier dans l’album, modification de la durée de pistes."
 
 #: DB:statistics.statistic_event/title:2007-12-07
 msgid "Track times set from DiscIDs"
@@ -1159,8 +1154,8 @@ msgstr ""
 #: DB:statistics.statistic_event/description:2004-07-24
 msgid "Voting logic was improved, web based autoeditor elections released."
 msgstr ""
-"Sortie : amélioration de la logique de vote, élections des auto-éditeurs "
-"basées sur le Web."
+"Amélioration de la logique de vote, élections des auto-éditeurs basées sur "
+"le Web."
 
 #: DB:statistics.statistic_event/title:2013-06-24
 msgid "Voting period for contested edits extended"
@@ -1240,8 +1235,6 @@ msgstr "Pays"
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/CoverArt.js:70
 #: ../root/statistics/StatisticsLayout.js:60 ../root/statistics/stats.js:21
-#, fuzzy
-#| msgid "Cover Art"
 msgctxt "plural"
 msgid "Cover art"
 msgstr "Illustration"
@@ -1428,7 +1421,7 @@ msgstr "Parutions avec illustration :"
 
 #: ../root/statistics/CoverArt.js:99 ../root/statistics/CoverArt.js:296
 msgid "Pieces of cover art:"
-msgstr "Illustrations :"
+msgstr "Types d’illustration :"
 
 #: ../root/statistics/CoverArt.js:121
 #, fuzzy
@@ -1663,15 +1656,13 @@ msgid "CD stubs (all time / current):"
 msgstr "Ébauches de CD (historique / courant ) :"
 
 #: ../root/statistics/Index.js:182
-#, fuzzy
-#| msgid "Tags (raw / aggregated):"
 msgctxt "folksonomy"
 msgid "Tags (raw / aggregated):"
-msgstr "Balises (brut / agrégé) : "
+msgstr "Balises (brut / agrégé) :"
 
 #: ../root/statistics/Index.js:188
 msgid "Ratings (raw / aggregated):"
-msgstr "Évaluations (brut / agrégé) : "
+msgstr "Évaluations (brut / agrégé) :"
 
 #: ../root/statistics/Index.js:196
 msgid "Identifiers"
@@ -1708,11 +1699,11 @@ msgstr "ISNI"
 
 #: ../root/statistics/Index.js:246
 msgid "of type Person:"
-msgstr "de type Personne : "
+msgstr "de type Personne :"
 
 #: ../root/statistics/Index.js:252
 msgid "of type Group:"
-msgstr "de type Groupe : "
+msgstr "de type Groupe :"
 
 #: ../root/statistics/Index.js:258
 msgid "of type Orchestra:"
@@ -1728,7 +1719,7 @@ msgstr "de type Personnage :"
 
 #: ../root/statistics/Index.js:276
 msgid "of type Other:"
-msgstr "de type Autre : "
+msgstr "de type Autre :"
 
 #: ../root/statistics/Index.js:282
 msgid "with no type set:"
@@ -1829,10 +1820,8 @@ msgid "High data quality"
 msgstr "Données de haute qualité"
 
 #: ../root/statistics/Index.js:487
-#, fuzzy
-#| msgid "Default Data Quality:"
 msgid "Default data quality"
-msgstr "Qualité par défaut des données :"
+msgstr "Qualité par défaut des données"
 
 #: ../root/statistics/Index.js:494 ../root/statistics/stats.js:579
 #, fuzzy
@@ -2368,7 +2357,7 @@ msgstr "Artistes n’apparaissant dans aucun crédit d’artiste"
 
 #: ../root/statistics/stats.js:73
 msgid "Artists with no country set"
-msgstr "Artistes sans précision de pays "
+msgstr "Artistes sans précision de pays"
 
 #: ../root/statistics/stats.js:78
 #, fuzzy
@@ -2387,10 +2376,8 @@ msgid "Non-binary Artists"
 msgstr ""
 
 #: ../root/statistics/stats.js:93
-#, fuzzy
-#| msgid "Gender not applicable:"
 msgid "Gender not applicable"
-msgstr "Genre non applicable :"
+msgstr "Genre non applicable"
 
 #: ../root/statistics/stats.js:98
 msgid "Artists with no gender set (non-group artists)"
@@ -2439,10 +2426,8 @@ msgid "Artist credits"
 msgstr "Crédits d’artistes"
 
 #: ../root/statistics/stats.js:158
-#, fuzzy
-#| msgid "CD Stubs (all time / current):"
 msgid "CD stubs (current)"
-msgstr "Ébauches de CD (historique / courant ) :"
+msgstr "Ébauches de CD (actuelles)"
 
 #: ../root/statistics/stats.js:163
 msgid "CD stubs (ever submitted)"
@@ -2577,7 +2562,7 @@ msgstr "Modifications par jour"
 
 #: ../root/statistics/stats.js:340
 msgid "Edits per week"
-msgstr "Modifications par semaine "
+msgstr "Modifications par semaine"
 
 #: ../root/statistics/stats.js:346
 msgid "Editors (all)"
@@ -2797,10 +2782,8 @@ msgid "Releases with CAA cover art"
 msgstr "Parutions avec des illustrations CAA"
 
 #: ../root/statistics/stats.js:689
-#, fuzzy
-#| msgid "Releases with cover art:"
 msgid "Releases with no cover art"
-msgstr "Parutions avec illustration :"
+msgstr "Parutions sans illustration"
 
 #: ../root/statistics/stats.js:694
 msgid "Releases with a medium with no format set"
@@ -2811,10 +2794,8 @@ msgid "Releases with a medium with no format set that have cover art"
 msgstr ""
 
 #: ../root/statistics/stats.js:704
-#, fuzzy
-#| msgid "Releases with cover art:"
 msgid "Releases with cover art"
-msgstr "Parutions avec illustration :"
+msgstr "Parutions avec illustration"
 
 #: ../root/statistics/stats.js:709
 #, fuzzy
@@ -2975,28 +2956,28 @@ msgstr "/jour"
 #: ../root/statistics/stats.js:928
 msgid "Releases with 1 Disc ID"
 msgid_plural "Releases with {n} Disc IDs"
-msgstr[0] "Parutions avec 1 ID de disque"
+msgstr[0] "Parutions avec {n} ID de disque"
 msgstr[1] "Parutions avec {n} ID de disque"
 msgstr[2] "Parutions avec {n} ID de disque"
 
 #: ../root/statistics/stats.js:939
 msgid "Mediums with 1 Disc ID"
 msgid_plural "Mediums with {n} Disc IDs"
-msgstr[0] "Support avec 1 ID de disque"
+msgstr[0] "Support avec {n} ID de disque"
 msgstr[1] "Support avec {n} ID de disque"
 msgstr[2] "Support avec {n} ID de disque"
 
 #: ../root/statistics/stats.js:950
 msgid "Recordings with 1 Release"
 msgid_plural "Recordings with {n} Releases"
-msgstr[0] "Enregistrements avec 1 parution"
+msgstr[0] "Enregistrements avec {n} parution"
 msgstr[1] "Enregistrements avec {n} parutions"
 msgstr[2] "Enregistrements avec {n} parutions"
 
 #: ../root/statistics/stats.js:961
 msgid "Release Groups with 1 Release"
 msgid_plural "Release Groups with {n} Releases"
-msgstr[0] "Groupes de parution avec 1 parution"
+msgstr[0] "Groupes de parution avec {n} parution"
 msgstr[1] "Groupes de parution avec {n} parution"
 msgstr[2] "Groupes de parution avec {n} parution"
 
