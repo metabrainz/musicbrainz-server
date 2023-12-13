@@ -189,7 +189,7 @@ class PreferencesForm extends React.Component<Props, State> {
         <fieldset>
           <legend>{l('Privacy')}</legend>
           <p>
-            {l('Allow other users to see:')}
+            {addColonText(l('Allow other users to see'))}
             <FormRowCheckbox
               field={field.public_subscriptions}
               label={l('My subscriptions')}
@@ -210,7 +210,7 @@ class PreferencesForm extends React.Component<Props, State> {
         <fieldset>
           <legend>{l('Email')}</legend>
           <p>
-            {l('Email me about:')}
+            {addColonText(l('Email me about'))}
             <FormRowCheckbox
               field={field.email_on_no_vote}
               label={l('The first “no” vote on any of my edits')}
@@ -235,7 +235,9 @@ class PreferencesForm extends React.Component<Props, State> {
           <p>
             <FormRowSelect
               field={field.subscriptions_email_period}
-              label={l('Send me mails with edits to my subscriptions:')}
+              label={addColonText(l(
+                'Send me mails with edits to my subscriptions',
+              ))}
               onChange={this.handleSubscriptionsEmailPeriodChangeBound}
               options={subscriptionsEmailPeriodOptions}
             />
@@ -244,7 +246,7 @@ class PreferencesForm extends React.Component<Props, State> {
         <fieldset>
           <legend>{l('Editing')}</legend>
           <p>
-            {l('Automatically subscribe me when I add:')}
+            {addColonText(l('Automatically subscribe me when I add'))}
             <FormRowCheckbox
               field={field.subscribe_to_created_artists}
               label={l('Artists')}

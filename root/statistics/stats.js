@@ -19,7 +19,7 @@ const stats = {
     'collection': {label: l('Collections')},
     'core-entities': {label: l('Core entities')},
     'cover-art': {hide: true, label: lp('Cover art', 'plural')},
-    'edit-information': {hide: true, label: l('Edit information')},
+    'edit-information': {hide: true, label: lp('Edit information', 'noun')},
     'edit-types': {label: lp('Edit types', 'noun')},
     'event-types': {label: l('Event types')},
     'formats': {label: l('Formats')},

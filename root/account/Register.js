@@ -71,7 +71,7 @@ const Register = ({
     <p>
       {exp.l(
         `If you have any questions, please review the {faq|FAQs}
-         or {doc|documentation} before {con|contacting us}. `,
+         or {doc|documentation} before {con|contacting us}.`,
         {
           con: CONTACT_URL,
           doc: '/doc/MusicBrainz_Documentation',

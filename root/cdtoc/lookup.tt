@@ -20,7 +20,7 @@
   [% IF cdstub %]
   <h2>[% l('CD stub found') %]</h2>
   <p>[% l('A CD stub was found that matches the disc ID you provided. If the below tracklist
-           appears correct, you may use it as a starting point as a new MusicBrainz release') %]</p>
+           appears correct, you may use it as a starting point for a new MusicBrainz release.') %]</p>
   <h3>[% l('{artist} - {name}', { artist => cdstub.artist,
                                   name => cdstub.title }) %]</h3>
   [% INCLUDE 'cdstub/cdstub.tt' %]
