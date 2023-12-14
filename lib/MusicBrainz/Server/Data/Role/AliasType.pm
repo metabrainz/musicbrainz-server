@@ -5,14 +5,22 @@ use namespace::autoclean;
 use MusicBrainz::Server::Entity::AliasType;
 use MusicBrainz::Server::Data::Utils qw( load_subobjects );
 
-with 'MusicBrainz::Server::Data::Role::OptionsTree';
-
-sub _columns { 'id, gid, name, parent AS parent_id, child_order, description' }
+with 'MusicBrainz::Server::Data::Role::OptionsTree',
+     'MusicBrainz::Server::Data::Role::Attribute';
 
 sub load {
     my ($self, @objs) = @_;
 
     load_subobjects($self, 'type', @objs);
+}
+
+sub in_use {
+    my ($self, $id) = @_;
+    # We can get the alias table by just dropping "_type" from the type table
+    my $alias_table = $self->_table =~ s/_type$//r;
+    return $self->sql->select_single_value(
+        "SELECT 1 FROM $alias_table WHERE type = ? LIMIT 1",
+        $id);
 }
 
 1;
