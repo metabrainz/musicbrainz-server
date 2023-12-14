@@ -127,7 +127,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/description:2012-09-01
 msgid ""
-"After a successful Summer of Code, Ian McEwen joins the MusicBrainz team"
+"After a successful Summer of Code, Ian McEwen joins the MusicBrainz team."
 msgstr ""
 
 #: DB:statistics.statistic_event/description:2016-11-08
@@ -169,10 +169,6 @@ msgstr ""
 msgid "Aliases for recordings, releases and release groups"
 msgstr ""
 
-#: DB:statistics.statistic_event/title:2004-02-24
-msgid "Amazon Coverart"
-msgstr ""
-
 #: DB:statistics.statistic_event/description:2008-09-01
 msgid ""
 "Amazon betas <a href=\"http://web.archive.org/web/20210123164029/https://www."
@@ -184,8 +180,12 @@ msgstr ""
 msgid "Amazon betas SoundUnwound"
 msgstr ""
 
+#: DB:statistics.statistic_event/title:2004-02-24
+msgid "Amazon cover art"
+msgstr ""
+
 #: DB:statistics.statistic_event/description:2004-02-24
-msgid "Amazon coverart support released."
+msgid "Amazon cover art support released."
 msgstr ""
 
 #: DB:statistics.statistic_event/description:2006-07-12
@@ -716,7 +716,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/description:2018-06-30
 msgid ""
-"Our old search server gets a significant upgrade with its move to SOLR, "
+"Our old search server gets a significant upgrade with its move to Solr, "
 "including almost-instant index updates."
 msgstr ""
 
@@ -808,10 +808,6 @@ msgstr ""
 msgid "SG5 Fixes"
 msgstr ""
 
-#: DB:statistics.statistic_event/title:2018-06-30
-msgid "SOLR-based search server deployed"
-msgstr ""
-
 #: DB:statistics.statistic_event/title:2017-09-06
 msgid "Sambhav Kothari and Param Singh replace Roman Tsukanov"
 msgstr ""
@@ -845,6 +841,10 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2008-04-21
 msgid "SoC 2008"
+msgstr ""
+
+#: DB:statistics.statistic_event/title:2018-06-30
+msgid "Solr-based search server deployed"
 msgstr ""
 
 #: DB:statistics.statistic_event/description:2020-12-31
@@ -894,11 +894,11 @@ msgid ""
 msgstr ""
 
 #: DB:statistics.statistic_event/description:2012-04-30
-msgid "The Cover Art Archive becomes initially available"
+msgid "The Cover Art Archive becomes initially available."
 msgstr ""
 
 #: DB:statistics.statistic_event/description:2012-10-10
-msgid "The Cover Art Archive is officially released"
+msgid "The Cover Art Archive is officially released."
 msgstr ""
 
 #: DB:statistics.statistic_event/title:2014-05-19
@@ -959,7 +959,7 @@ msgstr ""
 #: DB:statistics.statistic_event/description:2011-08-03
 msgid ""
 "The first version of the MusicBrainz Android app, a Google Summer of Code "
-"project by Jamie McDonald, is made officially available"
+"project by Jamie McDonald, is made officially available."
 msgstr ""
 
 #: DB:statistics.statistic_event/description:2015-09-08
@@ -1067,7 +1067,7 @@ msgstr ""
 msgid ""
 "With the AcousticBrainz project deemed to not have fulfilled its original "
 "goals, the MetaBrainz Foundation decides to stop work on it, with a view to "
-"shut down the site in 2023"
+"shut down the site in 2023."
 msgstr ""
 
 #: DB:statistics.statistic_event/title:2014-03-17
@@ -1459,9 +1459,9 @@ msgstr ""
 msgid "Recordings"
 msgstr ""
 
-#: ../root/statistics/Index.js:114
-msgid "Tracks)"
-msgstr ""
+#: ../root/statistics/Index.js:114 ../root/statistics/stats.js:844
+msgid "Tracks"
+msgstr "Песме"
 
 #: ../root/statistics/Index.js:122 ../root/statistics/Index.js:739
 #: ../root/statistics/Index.js:746 ../root/statistics/Index.js:778
@@ -2050,6 +2050,7 @@ msgid "Artist types and genders"
 msgstr ""
 
 #: ../root/statistics/stats.js:22
+msgctxt "noun"
 msgid "Edit information"
 msgstr ""
 
@@ -2663,10 +2664,6 @@ msgstr ""
 #: ../root/statistics/stats.js:839
 msgid "Votes for/against work tags"
 msgstr ""
-
-#: ../root/statistics/stats.js:844
-msgid "Tracks"
-msgstr "Песме"
 
 #: ../root/statistics/stats.js:865
 msgid "Abstentions"
