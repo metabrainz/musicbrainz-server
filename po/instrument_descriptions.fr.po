@@ -25,7 +25,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-12-13 16:28+0000\n"
+"PO-Revision-Date: 2023-12-14 16:28+0000\n"
 "Last-Translator: yvanzo <yvanzo@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: French <https://translations.metabrainz.org/projects/"
 "musicbrainz/instrument-descriptions/fr/>\n"
@@ -78,12 +78,10 @@ msgstr ""
 
 #. name:kös 
 #: DB:instrument/description:739
-#, fuzzy
-#| msgid "A Turkish drum used in the traditional Ottoman military bands"
 msgid "A Turkish drum used in the traditional Ottoman military bands."
 msgstr ""
 "Un instrument de percussion turc utilisé dans les troupes de musique "
-"militaire ottomane"
+"militaire ottomane."
 
 #. name:tef 
 #: DB:instrument/description:531
@@ -127,10 +125,8 @@ msgstr "Un orgue de chambre est un petit orgue à tuyaux."
 
 #. name:cuatro 
 #: DB:instrument/description:439
-#, fuzzy
-#| msgid "A class of South-American guitars"
 msgid "A class of South-American guitars."
-msgstr "Une classe de guitares sud-américaines"
+msgstr "Une classe de guitares sud-américaines."
 
 #. name:saduk 
 #: DB:instrument/description:804
@@ -401,10 +397,8 @@ msgstr ""
 
 #. name:pang gu ly hu hmông 
 #: DB:instrument/description:315
-#, fuzzy
-#| msgid "a kind of a \"slide whistle\" form. Hmông flute"
 msgid "A “slide whistle”-like type of Hmông flute."
-msgstr "une sorte de pipeau à coulisse. Flûte hmông"
+msgstr "Une flûte Hmong de type pipeau à coulisse."
 
 #. name:acoustic fretless guitar 
 #: DB:instrument/description:539
@@ -771,10 +765,8 @@ msgstr ""
 
 #. name:bendir 
 #: DB:instrument/description:343
-#, fuzzy
-#| msgid "Bendir, frame drum from North Africa, doesn't have jingles"
 msgid "Bendir, frame drum from North Africa, doesn't have jingles."
-msgstr "Le bendir, un tambour sur cadre d’Afrique du Nord, sans cymbalette"
+msgstr "Le bendir, un tambour sur cadre d’Afrique du Nord, sans cymbalette."
 
 #. name:kemanak 
 #: DB:instrument/description:988
@@ -1104,10 +1096,8 @@ msgstr ""
 
 #. name:ki pah 
 #: DB:instrument/description:307
-#, fuzzy
-#| msgid "cow horns without fingerholes. with mouthpiece and free reed"
 msgid "Cow horns without fingerholes, with mouthpiece and free reed."
-msgstr "cornes de vache sans trou pour les doigts, avec embout et anche libre"
+msgstr "Cornes de vache sans trou pour les doigts, avec embout et anche libre."
 
 #. name:cümbüş 
 #: DB:instrument/description:410
@@ -1131,10 +1121,8 @@ msgstr ""
 
 #. name:crumhorn 
 #: DB:instrument/description:348
-#, fuzzy
-#| msgid "Crumhorn used in the 14th to 17th centuries in Europe"
 msgid "Crumhorn used in the 14th to 17th centuries in Europe."
-msgstr "Le tournebout, utilisé en Europe du 14e au 17e siècle"
+msgstr "Le tournebout, utilisé en Europe du 14e au 17e siècle."
 
 #. name:bell 
 #: DB:instrument/description:116
@@ -1311,9 +1299,10 @@ msgid ""
 "<li>Unrelated Indian drone “tanpura”.</li> <li>Related Indian “pandour”.</"
 "li> </ul>"
 msgstr ""
-"À ne pas confondre avec l’ensemble serbo-croate « tamburica » ou le drone "
-"indien « tanpura » ! Ancien instrument à cordes perse/turque descendant du « "
-"tanbur »."
+"À ne pas confondre avec : <ul><li>L’ensemble serbo-croate « tamburica "
+"».</li><li>L’ancien instrument à cordes perse/turque « tanbur » dont "
+"descendent de nombreux autres.</li><li>Le drone indien « tanpura "
+"».</li><li>???</li></ul>"
 
 #. name:resonator guitar 
 #: DB:instrument/description:386
@@ -1474,10 +1463,8 @@ msgstr ""
 
 #. name:hmông flute 
 #: DB:instrument/description:312
-#, fuzzy
-#| msgid "family of Hmông flutes"
 msgid "Family of Hmông flutes."
-msgstr "flûte hmông"
+msgstr "Famille de flûtes Hmong."
 
 #. name:recorder 
 #: DB:instrument/description:18
@@ -2656,10 +2643,8 @@ msgstr ""
 
 #. name:Mexican vihuela 
 #: DB:instrument/description:92
-#, fuzzy
-#| msgid "Mexican vihuela, used by mariachi bands"
 msgid "Mexican vihuela, used by mariachi bands."
-msgstr "La vihuela mexicaine, utilisée par les mariachis"
+msgstr "La vihuela mexicaine, utilisée par les mariachis."
 
 #. name:fundeh 
 #: DB:instrument/description:881
@@ -3100,16 +3085,12 @@ msgstr ""
 
 #. name:ti bwa 
 #: DB:instrument/description:332
-#, fuzzy
-#| msgid ""
-#| "ti bwa, percussion instrument made of a piece of bamboo laid horizontally "
-#| "and beaten with sticks"
 msgid ""
 "Percussion instrument from Martinique made of a piece of bamboo laid "
 "horizontally and beaten with sticks."
 msgstr ""
-"le ti bwa, instrument de percussion fait d’un morceau de bambou horizontal "
-"frappé avec des baguettes"
+"Percussion martiniquaise faite d’un morceau de bambou horizontal frappé avec "
+"des baguettes."
 
 #. name:body percussion 
 #: DB:instrument/description:500
@@ -3785,10 +3766,8 @@ msgstr ""
 
 #. name:tanbou ka 
 #: DB:instrument/description:333
-#, fuzzy
-#| msgid "Tanbou ka or Tambu ka (a small high-pitched drum)"
 msgid "Tanbou ka or Tambu ka (a small high-pitched drum)."
-msgstr "Le tanbou ka ou tambu ka (petit tambour à son aigu)"
+msgstr "Le tanbou ka ou tambu ka (petit tambour à son aigu)."
 
 #. name:tap dance 
 #: DB:instrument/description:559
@@ -3807,11 +3786,8 @@ msgstr ""
 
 #. name:tenor viol 
 #: DB:instrument/description:922
-#, fuzzy
-#| msgid "Violone, The largest/deepest member of the Viol family"
 msgid "Tenor member of the viol family."
-msgstr ""
-"Le violone, le plus grand et plus grave membre de la famille des violes"
+msgstr "Membre ténor de la famille des violes."
 
 #. name:Cretan lyra 
 #: DB:instrument/description:482
@@ -5157,12 +5133,8 @@ msgstr ""
 
 #. name:saz 
 #: DB:instrument/description:472
-#, fuzzy
-#| msgid "The saz is a long-necked fretted lute"
 msgid "The saz is a long-necked fretted lute."
-msgstr ""
-"Le saz est luth à manche long avec frettes. (<a href=\"http://fr.wikipedia."
-"org/wiki/Saz\">Wikipédia</a>)"
+msgstr "Le saz est luth à manche long avec frettes."
 
 #. name:sheng 
 #: DB:instrument/description:45
@@ -6299,17 +6271,13 @@ msgstr ""
 
 #. name:fretless bass 
 #: DB:instrument/description:435
-#, fuzzy
-#| msgid "variety of bass guitars without frets"
 msgid "Variety of bass guitars without frets."
-msgstr "variété de guitares basse sans frette"
+msgstr "Variété de guitares basse sans frette."
 
 #. name:cymbal 
 #: DB:instrument/description:271
-#, fuzzy
-#| msgid "Various types of cymbal. Also called chũm chọe"
 msgid "Various types of cymbal. Also called chũm chọe."
-msgstr "Divers types de cymbales, aussi appelées chũm chọe"
+msgstr "Divers types de cymbales, aussi appelées chũm chọe."
 
 #. name:Blaster Beam 
 #: DB:instrument/description:852
@@ -6340,11 +6308,9 @@ msgstr ""
 
 #. name:violone 
 #: DB:instrument/description:420
-#, fuzzy
-#| msgid "Violone, The largest/deepest member of the Viol family"
 msgid "Violone, The largest/deepest member of the Viol family."
 msgstr ""
-"Le violone, le plus grand et plus grave membre de la famille des violes"
+"Le violone, le plus grand et plus grave membre de la famille des violes."
 
 #. name:shekere 
 #: DB:instrument/description:381

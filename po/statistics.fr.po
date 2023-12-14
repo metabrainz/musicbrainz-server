@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-12-13 16:28+0000\n"
+"PO-Revision-Date: 2023-12-14 16:28+0000\n"
 "Last-Translator: yvanzo <yvanzo@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: French <https://translations.metabrainz.org/projects/"
 "musicbrainz/statistics/fr/>\n"
@@ -209,14 +209,10 @@ msgid "Amazon betas SoundUnwound"
 msgstr "SoundUnwound bêta d’Amazon"
 
 #: DB:statistics.statistic_event/title:2004-02-24
-#, fuzzy
-#| msgid "Amazon Coverart"
 msgid "Amazon cover art"
 msgstr "Illustrations provenant d’Amazon"
 
 #: DB:statistics.statistic_event/description:2004-02-24
-#, fuzzy
-#| msgid "Amazon coverart support released."
 msgid "Amazon cover art support released."
 msgstr "Prise en charge des illustrations provenant d’Amazon."
 
@@ -245,7 +241,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2003-06-22
 msgid "Artist subscriptions"
-msgstr "Abonnements aux artistes"
+msgstr "Abonnements à des artistes"
 
 #: DB:statistics.statistic_event/description:2005-02-13
 msgid ""
@@ -376,7 +372,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2003-11-10
 msgid "Edit search"
-msgstr "Recherche des modifications"
+msgstr "Rechercher de modification"
 
 #: DB:statistics.statistic_event/description:2007-12-07
 msgid ""
@@ -799,10 +795,6 @@ msgid "Oliver Charles joins MusicBrainz full-time"
 msgstr "Oliver Charles rejoint MusicBrainz à plein temps"
 
 #: DB:statistics.statistic_event/description:2018-06-30
-#, fuzzy
-#| msgid ""
-#| "Our old search server gets a significant upgrade with its move to SOLR, "
-#| "including almost-instant index updates."
 msgid ""
 "Our old search server gets a significant upgrade with its move to Solr, "
 "including almost-instant index updates."
@@ -937,8 +929,6 @@ msgid "SoC 2008"
 msgstr "Soc 2008"
 
 #: DB:statistics.statistic_event/title:2018-06-30
-#, fuzzy
-#| msgid "SOLR-based search server deployed"
 msgid "Solr-based search server deployed"
 msgstr "Déploiement du serveur de recherche basé sur Solr"
 
@@ -993,19 +983,15 @@ msgstr ""
 "de MusicBrainz."
 
 #: DB:statistics.statistic_event/description:2012-04-30
-#, fuzzy
-#| msgid "The Cover Art Archive becomes initially available"
 msgid "The Cover Art Archive becomes initially available."
 msgstr ""
 "L’archive des illustrations « Cover Art Archive » est proposée pour la "
-"première fois"
+"première fois."
 
 #: DB:statistics.statistic_event/description:2012-10-10
-#, fuzzy
-#| msgid "The Cover Art Archive is officially released"
 msgid "The Cover Art Archive is officially released."
 msgstr ""
-"L’archive des illustrations « Cover Art Archive » est officiellement lancée"
+"L’archive des illustrations « Cover Art Archive » est officiellement lancée."
 
 #: DB:statistics.statistic_event/title:2014-05-19
 msgid "The CritiqueBrainz project goes live"
@@ -1256,14 +1242,10 @@ msgstr "Illustration"
 #: ../root/statistics/layout.tt:23 ../root/statistics/layout.tt:34
 #: ../root/statistics/StatisticsLayout.js:96
 #: ../root/statistics/StatisticsLayout.js:109
-#, fuzzy
-#| msgid "Database Statistics"
 msgid "Database statistics"
 msgstr "Statistiques de la base de données"
 
 #: ../root/statistics/layout.tt:15
-#, fuzzy
-#| msgid "Database Statistics - {title}"
 msgid "Database statistics - {title}"
 msgstr "Statistiques de la base de données - {title}"
 
@@ -1286,8 +1268,6 @@ msgid "Edits"
 msgstr "Modifications"
 
 #: ../root/statistics/timeline.tt:28
-#, fuzzy
-#| msgid "Exact Values (items vs. day)"
 msgid "Exact values (items vs. day)"
 msgstr "Valeurs exactes (articles vs jour)"
 
@@ -1309,8 +1289,6 @@ msgid "Legend"
 msgstr "Légende"
 
 #: ../root/statistics/timeline.tt:6 ../root/statistics/timeline.tt:19
-#, fuzzy
-#| msgid "MusicBrainz Events"
 msgid "MusicBrainz events"
 msgstr "Événements MusicBrainz"
 
@@ -1320,14 +1298,10 @@ msgid "Overview"
 msgstr "Aperçu"
 
 #: ../root/statistics/timeline.tt:30
-#, fuzzy
-#| msgid "Rate of Change (average items/day vs. day)"
 msgid "Rate of change (average items/day vs. day)"
 msgstr "Taux de modification (articles moyens/jour vs jour)"
 
 #: ../root/statistics/timeline.tt:10
-#, fuzzy
-#| msgid "Rate of Change Graph"
 msgid "Rate of change graph"
 msgstr "Graphique du taux de modification"
 
@@ -1413,8 +1387,6 @@ msgid "Total"
 msgstr "Total"
 
 #: ../root/statistics/Countries.js:98
-#, fuzzy
-#| msgid "Unknown Country"
 msgid "Unknown country"
 msgstr "Pays inconnu"
 
@@ -1438,8 +1410,6 @@ msgid "Pieces of cover art:"
 msgstr "Types d’illustration :"
 
 #: ../root/statistics/CoverArt.js:121
-#, fuzzy
-#| msgid "By Release Group Type"
 msgid "By release group type"
 msgstr "Par type de groupe de parution"
 
@@ -1448,8 +1418,6 @@ msgid "No type"
 msgstr "Pas de type"
 
 #: ../root/statistics/CoverArt.js:156
-#, fuzzy
-#| msgid "By Release Status"
 msgid "By release status"
 msgstr "Par statut de parution"
 
@@ -1458,8 +1426,6 @@ msgid "No status"
 msgstr "Pas de statut"
 
 #: ../root/statistics/CoverArt.js:192
-#, fuzzy
-#| msgid "By Release Format"
 msgid "By release format"
 msgstr "Par format de parution"
 
@@ -1490,8 +1456,6 @@ msgid "Pieces of cover art"
 msgstr "Illustrations"
 
 #: ../root/statistics/CoverArt.js:293
-#, fuzzy
-#| msgid "By Cover Art Type"
 msgid "By cover art type"
 msgstr "Par type d’illustration"
 
@@ -1592,8 +1556,6 @@ msgid "% of total mediums"
 msgstr "% du nombre total de supports"
 
 #: ../root/statistics/Formats.js:94
-#, fuzzy
-#| msgid "Unknown Format"
 msgid "Unknown format"
 msgstr "Format inconnu"
 
@@ -1602,8 +1564,6 @@ msgid "Basic metadata"
 msgstr "Métadonnées de base"
 
 #: ../root/statistics/Index.js:91 ../root/statistics/stats.js:20
-#, fuzzy
-#| msgid "Core Entities"
 msgid "Core entities"
 msgstr "Entités principales"
 
@@ -1648,8 +1608,6 @@ msgid "Genres"
 msgstr "Genres"
 
 #: ../root/statistics/Index.js:156
-#, fuzzy
-#| msgid "Other Entities"
 msgid "Other entities"
 msgstr "Autres entités"
 
@@ -1664,8 +1622,6 @@ msgid "Collections"
 msgstr "Collections"
 
 #: ../root/statistics/Index.js:173
-#, fuzzy
-#| msgid "CD Stubs (all time / current):"
 msgid "CD stubs (all time / current):"
 msgstr "Ébauches de CD (historique / courant ) :"
 
@@ -1788,8 +1744,6 @@ msgid "by a single artist:"
 msgstr "par un seul artiste :"
 
 #: ../root/statistics/Index.js:398
-#, fuzzy
-#| msgid "Release Status"
 msgid "Release status"
 msgstr "Statut de la parution"
 
@@ -1798,8 +1752,6 @@ msgid "No status set"
 msgstr "Pas de statut de défini"
 
 #: ../root/statistics/Index.js:424
-#, fuzzy
-#| msgid "Release Packaging"
 msgid "Release packaging"
 msgstr "Emballage de parution"
 
@@ -1808,8 +1760,6 @@ msgid "No packaging set"
 msgstr "Pas d’emballage de défini"
 
 #: ../root/statistics/Index.js:450
-#, fuzzy
-#| msgid "Cover Art Sources"
 msgid "Cover art sources"
 msgstr "Sources des illustrations"
 
@@ -1822,14 +1772,10 @@ msgid "No front cover art:"
 msgstr "Pas d’illustration de couverture :"
 
 #: ../root/statistics/Index.js:472
-#, fuzzy
-#| msgid "Data Quality"
 msgid "Data quality"
 msgstr "Qualité des données"
 
 #: ../root/statistics/Index.js:481 ../root/statistics/stats.js:569
-#, fuzzy
-#| msgid "High Data Quality"
 msgid "High data quality"
 msgstr "Données de haute qualité"
 
@@ -1838,20 +1784,14 @@ msgid "Default data quality"
 msgstr "Qualité par défaut des données"
 
 #: ../root/statistics/Index.js:494 ../root/statistics/stats.js:579
-#, fuzzy
-#| msgid "Normal Data Quality"
 msgid "Normal data quality"
 msgstr "Qualité de données normale"
 
 #: ../root/statistics/Index.js:501 ../root/statistics/stats.js:584
-#, fuzzy
-#| msgid "Unknown Data Quality"
 msgid "Unknown data quality"
 msgstr "Qualité de données inconnue"
 
 #: ../root/statistics/Index.js:509 ../root/statistics/stats.js:574
-#, fuzzy
-#| msgid "Low Data Quality"
 msgid "Low data quality"
 msgstr "Données de mauvaise qualité"
 
@@ -1883,8 +1823,6 @@ msgid "Mediums with at least one disc ID:"
 msgstr "Support avec au moins un ID de disque :"
 
 #: ../root/statistics/Index.js:616
-#, fuzzy
-#| msgid "Primary Types"
 msgid "Primary types"
 msgstr "Types principaux"
 
@@ -1897,8 +1835,6 @@ msgid "None"
 msgstr "Aucun"
 
 #: ../root/statistics/Index.js:648
-#, fuzzy
-#| msgid "Secondary Types"
 msgid "Secondary types"
 msgstr "Types secondaires"
 
@@ -2044,11 +1980,9 @@ msgid "who leave edit notes:"
 msgstr "qui ont laissé des notes de modification :"
 
 #: ../root/statistics/Index.js:1158
-#, fuzzy
-#| msgid "who use tags:"
 msgctxt "folksonomy"
 msgid "who use tags:"
-msgstr "qui utilisent des balises :"
+msgstr "qui utilisent des tags :"
 
 #: ../root/statistics/Index.js:1165
 msgid "who use ratings:"
@@ -2141,8 +2075,6 @@ msgid "Abstain"
 msgstr "S’abstenir"
 
 #: ../root/statistics/LanguagesScripts.js:50
-#, fuzzy
-#| msgid "Languages and Scripts"
 msgid "Languages and scripts"
 msgstr "Langues et systèmes d’écriture"
 
@@ -2190,8 +2122,6 @@ msgid "It seems we have no history to show at all!"
 msgstr ""
 
 #: ../root/statistics/NoStatistics.js:15 ../root/statistics/NoStatistics.js:16
-#, fuzzy
-#| msgid "No Statistics"
 msgid "No statistics"
 msgstr "Pas de statistiques"
 
@@ -2228,60 +2158,42 @@ msgid "{type0}-{type1} relationships:"
 msgstr "Relations de {type0}-{type1} :"
 
 #: ../root/statistics/stats.js:16
-#, fuzzy
-#| msgid "Areas"
 msgid "Area types"
-msgstr "Régions"
+msgstr "Types de région"
 
 #: ../root/statistics/stats.js:17
-#, fuzzy
-#| msgid "Artist Countries"
 msgid "Artist countries"
 msgstr "Pays des artistes"
 
 #: ../root/statistics/stats.js:18
-#, fuzzy
-#| msgid "Artist Types and Genders"
 msgid "Artist types and genders"
 msgstr "Types et genres des artistes"
 
 #: ../root/statistics/stats.js:22
-#, fuzzy
-#| msgid "Edit Information"
 msgctxt "noun"
 msgid "Edit information"
 msgstr "Modifier les informations"
 
 #: ../root/statistics/stats.js:23
-#, fuzzy
-#| msgid "Edit Types"
 msgctxt "noun"
 msgid "Edit types"
-msgstr "Type de modification"
+msgstr "Types de modification"
 
 #: ../root/statistics/stats.js:24
-#, fuzzy
-#| msgid "Events"
 msgid "Event types"
-msgstr "Événements"
+msgstr "Types d’événement"
 
 #: ../root/statistics/stats.js:26
-#, fuzzy
-#| msgid "Instruments"
 msgid "Instrument types"
-msgstr "Instruments"
+msgstr "Types d’instrument"
 
 #: ../root/statistics/stats.js:27
-#, fuzzy
-#| msgid "Label Countries"
 msgid "Label countries"
 msgstr "Pays des labels"
 
 #: ../root/statistics/stats.js:28
-#, fuzzy
-#| msgid "Labels"
 msgid "Label types"
-msgstr "Labels"
+msgstr "Types de label"
 
 #: ../root/statistics/stats.js:29
 msgctxt "stats category"
@@ -2289,78 +2201,53 @@ msgid "Other"
 msgstr "Autre"
 
 #: ../root/statistics/stats.js:30
-#, fuzzy
-#| msgid "Places"
 msgid "Place types"
-msgstr "Lieux"
+msgstr "Types de lieu"
 
 #: ../root/statistics/stats.js:31
-#, fuzzy
-#| msgid "Ratings and Tags"
 msgctxt "folksonomy"
 msgid "Ratings and tags"
-msgstr "Évaluations et balises"
+msgstr "Évaluations et tags"
 
 #: ../root/statistics/stats.js:33
-#, fuzzy
-#| msgid "Release Countries"
 msgid "Release countries"
 msgstr "Pays de parution"
 
 #: ../root/statistics/stats.js:34
-#, fuzzy
-#| msgid "Release groups"
 msgid "Release group types"
-msgstr "Groupes de parution"
+msgstr "Types de groupe de parution"
 
 #: ../root/statistics/stats.js:35
-#, fuzzy
-#| msgid "Release Languages"
 msgid "Release languages"
 msgstr "Langues de parution"
 
 #: ../root/statistics/stats.js:36
-#, fuzzy
-#| msgid "Release Packaging"
 msgid "Release packagings"
-msgstr "Emballage de parution"
+msgstr "Emballages de parution"
 
 #: ../root/statistics/stats.js:37
-#, fuzzy
-#| msgid "Release Data Quality"
 msgid "Release data quality"
-msgstr "Qualité des données de parution"
+msgstr "Qualité des données de la parution"
 
 #: ../root/statistics/stats.js:38
-#, fuzzy
-#| msgid "Release Scripts"
 msgid "Release scripts"
 msgstr "Systèmes d’écriture des parutions"
 
 #: ../root/statistics/stats.js:39
-#, fuzzy
-#| msgid "Release Status"
 msgid "Release statuses"
-msgstr "Statut de la parution"
+msgstr "Statuts de la parution"
 
 #: ../root/statistics/stats.js:40
-#, fuzzy
-#| msgctxt "plural"
-#| msgid "Series"
 msgid "Series types"
-msgstr "Séries"
+msgstr "Types de série"
 
 #: ../root/statistics/stats.js:42
-#, fuzzy
-#| msgid "Languages"
 msgid "Work languages"
-msgstr "Langues"
+msgstr "Langues des œuvres"
 
 #: ../root/statistics/stats.js:43
-#, fuzzy
-#| msgid "No type"
 msgid "Work types"
-msgstr "Pas de type"
+msgstr "Types des œuvres"
 
 #: ../root/statistics/stats.js:58
 msgid "Areas with no type set"
@@ -2375,16 +2262,12 @@ msgid "Artists with no country set"
 msgstr "Artistes sans précision de pays"
 
 #: ../root/statistics/stats.js:78
-#, fuzzy
-#| msgid "Female Artists"
 msgid "Female artists"
-msgstr "Artiste féminine"
+msgstr "Artistes féminins"
 
 #: ../root/statistics/stats.js:83
-#, fuzzy
-#| msgid "Male Artists"
 msgid "Male artists"
-msgstr "Artistes homme"
+msgstr "Artistes masculins"
 
 #: ../root/statistics/stats.js:88
 msgid "Non-binary Artists"
@@ -2435,8 +2318,6 @@ msgid "Persons"
 msgstr "Personnes"
 
 #: ../root/statistics/stats.js:148
-#, fuzzy
-#| msgid "Artist Credits"
 msgid "Artist credits"
 msgstr "Crédits d’artistes"
 
@@ -2449,10 +2330,8 @@ msgid "CD stubs (ever submitted)"
 msgstr ""
 
 #: ../root/statistics/stats.js:168
-#, fuzzy
-#| msgid "CDStub tracks"
 msgid "CD stub tracks"
-msgstr "Pistes de l’ébauche de CD"
+msgstr "Pistes d’ébauche de CD"
 
 #: ../root/statistics/stats.js:178
 msgid "Collections with collaborators"
@@ -2508,7 +2387,7 @@ msgstr "Collections de lieux"
 
 #: ../root/statistics/stats.js:243
 msgid "Recording collections"
-msgstr "Collections d’enregistrements"
+msgstr "Colletions d’enregistrements"
 
 #: ../root/statistics/stats.js:248
 msgid "Collections of type Release"
@@ -2547,8 +2426,6 @@ msgid "Error edits"
 msgstr "Modifications en erreur"
 
 #: ../root/statistics/stats.js:309
-#, fuzzy
-#| msgid "Evalnochange Edits"
 msgid "Evalnochange edits"
 msgstr "Modifications « evalnochange » (évaluation pas de changement)"
 
@@ -2565,11 +2442,9 @@ msgid "Edits that have been voted down"
 msgstr ""
 
 #: ../root/statistics/stats.js:329
-#, fuzzy
-#| msgid "Open Edits"
 msgctxt "noun"
 msgid "Open edits"
-msgstr "Modifications ouvertes"
+msgstr "Modifications en attente"
 
 #: ../root/statistics/stats.js:335
 msgid "Edits per day"
@@ -2705,10 +2580,8 @@ msgid "Mediums with no format set"
 msgstr "Support sans format de défini"
 
 #: ../root/statistics/stats.js:544
-#, fuzzy
-#| msgid "Mediums with Disc IDs"
 msgid "Mediums with disc IDs"
-msgstr "Support avec ID de disque"
+msgstr "Supports avec ID de disque"
 
 #: ../root/statistics/stats.js:554
 msgid "Places with no country set"
@@ -2791,8 +2664,6 @@ msgid "Releases with no country set"
 msgstr "Parutions sans pays de déterminé"
 
 #: ../root/statistics/stats.js:684
-#, fuzzy
-#| msgid "Releases with CAA Cover Art"
 msgid "Releases with CAA cover art"
 msgstr "Parutions avec des illustrations CAA"
 
@@ -2813,8 +2684,6 @@ msgid "Releases with cover art"
 msgstr "Parutions avec illustration"
 
 #: ../root/statistics/stats.js:709
-#, fuzzy
-#| msgid "Releases with Disc IDs"
 msgid "Releases with disc IDs"
 msgstr "Parutions avec ID de disque"
 
@@ -2925,8 +2794,6 @@ msgid "Approvals"
 msgstr "Approbations"
 
 #: ../root/statistics/stats.js:875
-#, fuzzy
-#| msgid "No Votes"
 msgid "No votes"
 msgstr "Pas de vote"
 
@@ -2939,8 +2806,6 @@ msgid "Votes per week"
 msgstr "Votes par semaine"
 
 #: ../root/statistics/stats.js:891
-#, fuzzy
-#| msgid "Yes Votes"
 msgid "Yes votes"
 msgstr "Votes oui"
 

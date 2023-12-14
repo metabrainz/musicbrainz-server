@@ -32,7 +32,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-12-13 16:28+0000\n"
+"PO-Revision-Date: 2023-12-14 16:28+0000\n"
 "Last-Translator: yvanzo <yvanzo@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: French <https://translations.metabrainz.org/projects/"
 "musicbrainz/attributes/fr/>\n"
@@ -151,12 +151,9 @@ msgid "8cm CD+G"
 msgstr "CD+G 8 cm (3 po)"
 
 #: DB:medium_format/description:166
-#, fuzzy
-#| msgctxt "medium_format"
-#| msgid "8cm DVD disc, often used for video singles."
 msgctxt "medium_format"
 msgid "8cm DVD, often used for video singles."
-msgstr "Disque DVD 8cm, souvent utilisé pour les clips vidéos."
+msgstr "DVD 8cm, souvent utilisé pour les clips vidéos."
 
 #: DB:medium_format/description:58
 msgctxt "medium_format"
@@ -3319,11 +3316,6 @@ msgid "Fireng-i Fer"
 msgstr "Fireng-i Fer"
 
 #: DB:medium_format/description:73
-#, fuzzy
-#| msgctxt "medium_format"
-#| msgid ""
-#| "Flat discs with grooves used in phonographs/gramophones. For shellac and "
-#| "vinyl records, use that specifically"
 msgctxt "medium_format"
 msgid ""
 "Flat discs with grooves used in phonographs/gramophones. For shellac and "
@@ -3331,7 +3323,7 @@ msgid ""
 msgstr ""
 "Disques plats à sillon pouvant être lus par un gramophone ou un tourne-"
 "disque. À utiliser en particulier pour les disques fabriqués en gomme-laque "
-"shellac ou en vinyle"
+"shellac ou en vinyle."
 
 #: DB:medium_format/name:51
 msgctxt "medium_format"

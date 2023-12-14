@@ -40,7 +40,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-12-13 16:28+0000\n"
+"PO-Revision-Date: 2023-12-14 16:28+0000\n"
 "Last-Translator: yvanzo <yvanzo@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: French <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/fr/>\n"
@@ -367,10 +367,8 @@ msgid "IMSLP page for"
 msgstr "Page IMSLP pour"
 
 #: DB:link_attribute_type/description:516
-#, fuzzy
-#| msgid "Indicates a bonus disc"
 msgid "Indicates a bonus disc."
-msgstr "Signale un disque bonus"
+msgstr "Signale un disque bonus."
 
 #: DB:link_type/description:162
 msgid ""
@@ -1234,124 +1232,84 @@ msgid "Points to the Internet Movie Database page for this place."
 msgstr "Dirige vers la page IMDb pour ce lieu."
 
 #: DB:link_type/description:358
-#, fuzzy
-#| msgid ""
-#| "Points to the Wikidata page for this area, and will be used to fetch "
-#| "Wikipedia summaries"
 msgid ""
 "Points to the Wikidata page for this area, and will be used to fetch "
 "Wikipedia summaries."
 msgstr ""
 "Dirige vers la page Wikidata pour cette région, et sert à récupérer les "
-"extraits de Wikipédia"
+"extraits de Wikipédia."
 
 #: DB:link_type/description:352
-#, fuzzy
-#| msgid ""
-#| "Points to the Wikidata page for this artist, and will be used to fetch "
-#| "Wikipedia summaries"
 msgid ""
 "Points to the Wikidata page for this artist, and will be used to fetch "
 "Wikipedia summaries."
 msgstr ""
 "Dirige vers la page Wikidata pour cet artiste, et sert à récupérer les "
-"extraits de Wikipédia"
+"extraits de Wikipédia."
 
 #: DB:link_type/description:790
-#, fuzzy
-#| msgid ""
-#| "Points to the Wikidata page for this event, and will be used to fetch "
-#| "Wikipedia summaries"
 msgid ""
 "Points to the Wikidata page for this event, and will be used to fetch "
 "Wikipedia summaries."
 msgstr ""
 "Dirige vers la page Wikidata pour cet événement, et sert à récupérer les "
-"extraits de Wikipédia"
+"extraits de Wikipédia."
 
 #: DB:link_type/description:1087
-#, fuzzy
-#| msgid ""
-#| "Points to the Wikidata page for this genre, and will be used to fetch "
-#| "Wikipedia summaries"
 msgid ""
 "Points to the Wikidata page for this genre, and will be used to fetch "
 "Wikipedia summaries."
 msgstr ""
 "Dirige vers la page Wikidata pour ce genre, et sert à récupérer les extraits "
-"de Wikipédia"
+"de Wikipédia."
 
 #: DB:link_type/description:733
-#, fuzzy
-#| msgid ""
-#| "Points to the Wikidata page for this instrument, and will be used to "
-#| "fetch Wikipedia summaries"
 msgid ""
 "Points to the Wikidata page for this instrument, and will be used to fetch "
 "Wikipedia summaries."
 msgstr ""
 "Dirige vers la page Wikidata pour cet instrument, et sert à récupérer les "
-"extraits de Wikipédia"
+"extraits de Wikipédia."
 
 #: DB:link_type/description:354
-#, fuzzy
-#| msgid ""
-#| "Points to the Wikidata page for this label, and will be used to fetch "
-#| "Wikipedia summaries"
 msgid ""
 "Points to the Wikidata page for this label, and will be used to fetch "
 "Wikipedia summaries."
 msgstr ""
 "Dirige vers la page Wikidata pour ce label, et sert à récupérer les extraits "
-"de Wikipédia"
+"de Wikipédia."
 
 #: DB:link_type/description:594
-#, fuzzy
-#| msgid ""
-#| "Points to the Wikidata page for this place, and will be used to fetch "
-#| "Wikipedia summaries"
 msgid ""
 "Points to the Wikidata page for this place, and will be used to fetch "
 "Wikipedia summaries."
 msgstr ""
 "Dirige vers la page Wikidata pour ce lieu, et sert à récupérer les extraits "
-"de Wikipédia"
+"de Wikipédia."
 
 #: DB:link_type/description:353
-#, fuzzy
-#| msgid ""
-#| "Points to the Wikidata page for this release group, and will be used to "
-#| "fetch Wikipedia summaries"
 msgid ""
 "Points to the Wikidata page for this release group, and will be used to "
 "fetch Wikipedia summaries."
 msgstr ""
 "Dirige vers la page Wikidata pour ce groupe de parution, et sert à récupérer "
-"les extraits de Wikipédia"
+"les extraits de Wikipédia."
 
 #: DB:link_type/description:749
-#, fuzzy
-#| msgid ""
-#| "Points to the Wikidata page for this series, and will be used to fetch "
-#| "Wikipedia summaries"
 msgid ""
 "Points to the Wikidata page for this series, and will be used to fetch "
 "Wikipedia summaries."
 msgstr ""
 "Dirige vers la page Wikidata pour cette série, et sert à récupérer les "
-"extraits de Wikipédia"
+"extraits de Wikipédia."
 
 #: DB:link_type/description:351
-#, fuzzy
-#| msgid ""
-#| "Points to the Wikidata page for this work, and will be used to fetch "
-#| "Wikipedia summaries"
 msgid ""
 "Points to the Wikidata page for this work, and will be used to fetch "
 "Wikipedia summaries."
 msgstr ""
 "Dirige vers la page Wikidata pour cette œuvre, et sert à récupérer les "
-"extraits de Wikipédia"
+"extraits de Wikipédia."
 
 #: DB:link_type/description:89
 msgid "Points to the Wikipedia page for this album."
@@ -2130,16 +2088,12 @@ msgstr ""
 "parution d’être relié aux simples et EP qui lui sont associés."
 
 #: DB:link_type/description:281
-#, fuzzy
-#| msgid ""
-#| "This indicates that a work is made up of multiple parts (e.g. an "
-#| "orchestral suite broken into movements)"
 msgid ""
 "This indicates that a work is made up of multiple parts (such as an "
 "orchestral suite broken into movements)."
 msgstr ""
 "Ceci indique qu’une œuvre est composée de plusieurs parties (p. ex. une "
-"suite orchestrale divisée en mouvements). "
+"suite orchestrale divisée en mouvements)."
 
 #: DB:link_type/description:858
 msgid ""
@@ -3711,13 +3665,6 @@ msgstr ""
 "a>."
 
 #: DB:link_type/description:310
-#, fuzzy
-#| msgid ""
-#| "This points to the <a href=\"//viaf.org/\">VIAF</a> page for this artist. "
-#| "VIAF is an international project to make a common authority file "
-#| "available to libraries across the world. An authority file is similar to "
-#| "an MBID for libraries. (<a href=\"//en.wikipedia.org/wiki/"
-#| "Virtual_International_Authority_File\">more information on Wikipedia</a>)"
 msgid ""
 "This points to the <a href=\"//viaf.org/\">VIAF</a> page for this artist. "
 "VIAF is an international project to make a common authority file available "
@@ -3730,16 +3677,9 @@ msgstr ""
 "offert aux bibliothèques du monde. Un fichier d’autorité est semblable à un "
 "MBID pour les bibliothèques. (<a href=\"//http://fr.wikipedia.org/wiki/"
 "Fichier_d%27autorit%C3%A9_international_virtuel\">Plus d’informations sur "
-"Wikipédia</a>)"
+"Wikipédia</a>.)"
 
 #: DB:link_type/description:311
-#, fuzzy
-#| msgid ""
-#| "This points to the <a href=\"//viaf.org/\">VIAF</a> page for this label. "
-#| "VIAF is an international project to make a common authority file "
-#| "available to libraries across the world. An authority file is similar to "
-#| "an MBID for libraries. (<a href=\"//en.wikipedia.org/wiki/"
-#| "Virtual_International_Authority_File\">more information on Wikipedia</a>)"
 msgid ""
 "This points to the <a href=\"//viaf.org/\">VIAF</a> page for this label. "
 "VIAF is an international project to make a common authority file available "
@@ -3752,16 +3692,9 @@ msgstr ""
 "offert aux bibliothèques du monde. Un fichier d’autorité est semblable à un "
 "MBID pour les bibliothèques. (<a href=\"//http://fr.wikipedia.org/wiki/"
 "Fichier_d%27autorit%C3%A9_international_virtuel\">Plus d’informations sur "
-"Wikipédia</a>)"
+"Wikipédia</a>.)"
 
 #: DB:link_type/description:920
-#, fuzzy
-#| msgid ""
-#| "This points to the <a href=\"//viaf.org/\">VIAF</a> page for this place. "
-#| "VIAF is an international project to make a common authority file "
-#| "available to libraries across the world. An authority file is similar to "
-#| "an MBID for libraries. (<a href=\"//en.wikipedia.org/wiki/"
-#| "Virtual_International_Authority_File\">more information on Wikipedia</a>)"
 msgid ""
 "This points to the <a href=\"//viaf.org/\">VIAF</a> page for this place. "
 "VIAF is an international project to make a common authority file available "
@@ -3774,16 +3707,9 @@ msgstr ""
 "offert aux bibliothèques du monde. Un fichier d’autorité est semblable à un "
 "MBID pour les bibliothèques. (<a href=\"//http://fr.wikipedia.org/wiki/"
 "Fichier_d%27autorit%C3%A9_international_virtuel\">Plus d’informations sur "
-"Wikipédia</a>)"
+"Wikipédia</a>.)"
 
 #: DB:link_type/description:1001
-#, fuzzy
-#| msgid ""
-#| "This points to the <a href=\"//viaf.org/\">VIAF</a> page for this artist. "
-#| "VIAF is an international project to make a common authority file "
-#| "available to libraries across the world. An authority file is similar to "
-#| "an MBID for libraries. (<a href=\"//en.wikipedia.org/wiki/"
-#| "Virtual_International_Authority_File\">more information on Wikipedia</a>)"
 msgid ""
 "This points to the <a href=\"//viaf.org/\">VIAF</a> page for this series. "
 "VIAF is an international project to make a common authority file available "
@@ -3791,12 +3717,12 @@ msgid ""
 "libraries (<a href=\"//en.wikipedia.org/wiki/"
 "Virtual_International_Authority_File\">more information on Wikipedia</a>)."
 msgstr ""
-"Ceci dirige vers la page <a href=\"//viaf.org/\">VIAF</a>pour cet artiste. "
+"Ceci dirige vers la page <a href=\"//viaf.org/\">VIAF</a>pour cette série. "
 "VIAF est un projet international de création d’un fichier d’autorité commun "
 "offert aux bibliothèques du monde. Un fichier d’autorité est semblable à un "
 "MBID pour les bibliothèques. (<a href=\"//http://fr.wikipedia.org/wiki/"
 "Fichier_d%27autorit%C3%A9_international_virtuel\">Plus d’informations sur "
-"Wikipédia</a>)"
+"Wikipédia</a>.)"
 
 #: DB:link_type/description:312
 #, fuzzy
@@ -4172,11 +4098,6 @@ msgstr ""
 "youtube.com/user/&lt;nomd’utilisateur&gt;."
 
 #: DB:link_type/description:792
-#, fuzzy
-#| msgid ""
-#| "This relationship type can be used to link a series to the equivalent "
-#| "entry in YouTube. URLs should follow the format http://www.youtube.com/"
-#| "user/&lt;username&gt;"
 msgid ""
 "This relationship type can be used to link a series to the equivalent entry "
 "in YouTube. URLs should follow the format http://www.youtube.com/user/&lt;"
@@ -4184,14 +4105,9 @@ msgid ""
 msgstr ""
 "Ce type de relation peut être utilisé pour relier une série à son entrée "
 "équivalente sur YouTube. Les URL devraient suivre le format http://www."
-"youtube.com/user/&lt;nomd’utilisateur&gt;"
+"youtube.com/user/&lt;nomd’utilisateur&gt;."
 
 #: DB:link_type/description:791
-#, fuzzy
-#| msgid ""
-#| "This relationship type can be used to link an event to the equivalent "
-#| "entry in YouTube. URLs should follow the format http://www.youtube.com/"
-#| "user/&lt;username&gt;"
 msgid ""
 "This relationship type can be used to link an event to the equivalent entry "
 "in YouTube. URLs should follow the format http://www.youtube.com/user/&lt;"
@@ -4199,7 +4115,7 @@ msgid ""
 msgstr ""
 "Ce type de relation peut être utilisé pour relier un événement à son entrée "
 "équivalente sur YouTube. Les URL devraient suivre le format http://www."
-"youtube.com/user/&lt;nomd’utilisateur&gt;"
+"youtube.com/user/&lt;nomd’utilisateur&gt;."
 
 #: DB:link_type/description:258
 msgid ""
@@ -4431,13 +4347,10 @@ msgstr ""
 "dédié au catalogage de la musique de jeux vidéo et d’animes."
 
 #: DB:link_type/description:838
-#, fuzzy
-#| msgid ""
-#| "This relationship type links a label to its corresponding page at Last.fm"
 msgid ""
 "This relationship type links a label to its corresponding page at Last.fm."
 msgstr ""
-"Ce type de relation relie un label à sa page correspondante sur Last.fm"
+"Ce type de relation relie un label à sa page correspondante sur Last.fm."
 
 #: DB:link_type/description:1013
 msgid ""
@@ -4457,12 +4370,9 @@ msgstr ""
 "Ce type de relation relie un lieu à sa page correspondante sur Bandsintown."
 
 #: DB:link_type/description:837
-#, fuzzy
-#| msgid ""
-#| "This relationship type links a place to its corresponding page at Last.fm"
 msgid ""
 "This relationship type links a place to its corresponding page at Last.fm."
-msgstr "Ce type de relation relie un lieu à sa page correspondante sur Last.fm"
+msgstr "Ce type de relation relie un lieu à sa page correspondante sur Last.fm."
 
 #: DB:link_type/description:787
 msgid ""
@@ -4471,14 +4381,10 @@ msgstr ""
 "Ce type de relation relie un lieu à sa page correspondante sur Songkick."
 
 #: DB:link_type/description:817
-#, fuzzy
-#| msgid ""
-#| "This relationship type links a place to its corresponding page at setlist."
-#| "fm"
 msgid ""
 "This relationship type links a place to its corresponding page at setlist.fm."
 msgstr ""
-"Ce type de relation relie un lieu à sa page correspondante sur setlist.fm"
+"Ce type de relation relie un lieu à sa page correspondante sur setlist.fm."
 
 #: DB:link_type/description:86
 msgid ""
@@ -4491,16 +4397,12 @@ msgstr ""
 "dédié au catalogage de la musique de jeux vidéo et d’animes."
 
 #: DB:link_type/description:938
-#, fuzzy
-#| msgid ""
-#| "This relationship type links a series (like a festival) to its "
-#| "corresponding page at setlist.fm"
 msgid ""
 "This relationship type links a series (like a festival) to its corresponding "
 "page at setlist.fm."
 msgstr ""
 "Ce type de relation relie une série (telle qu’un festival) à sa page "
-"correspondante sur setlist.fm"
+"correspondante sur setlist.fm."
 
 #: DB:link_type/description:1192
 msgid ""
@@ -4597,13 +4499,10 @@ msgstr ""
 "Bandsintown."
 
 #: DB:link_type/description:839
-#, fuzzy
-#| msgid ""
-#| "This relationship type links an event to its corresponding page at Last.fm"
 msgid ""
 "This relationship type links an event to its corresponding page at Last.fm."
 msgstr ""
-"Ce type de relation relie un événement à sa page correspondante sur Last.fm"
+"Ce type de relation relie un événement à sa page correspondante sur Last.fm."
 
 #: DB:link_type/description:786
 msgid ""
@@ -4612,16 +4511,12 @@ msgstr ""
 "Ce type de relation relie un événement à sa page correspondante sur Songkick."
 
 #: DB:link_type/description:811
-#, fuzzy
-#| msgid ""
-#| "This relationship type links an event to its corresponding page at "
-#| "setlist.fm"
 msgid ""
 "This relationship type links an event to its corresponding page at setlist."
 "fm."
 msgstr ""
 "Ce type de relation relie un événement à sa page correspondante sur setlist."
-"fm"
+"fm."
 
 #: DB:link_type/description:1088
 msgid "This relationship type links genres to the areas they originate from."
@@ -4692,15 +4587,11 @@ msgstr ""
 "d’écriture ou l’orthographe."
 
 #: DB:link_attribute_type/description:834
-#, fuzzy
-#| msgid ""
-#| "Treble or boy soprano is a young male singer with an unchanged voice in "
-#| "the soprano range"
 msgid ""
 "Treble or boy soprano is a young male singer with an unchanged voice in the "
 "soprano range."
 msgstr ""
-"Un jeune soprano est un jeune chanteur dont la voix de soprano n’a pas mué"
+"Un jeune soprano est un jeune chanteur dont la voix de soprano n’a pas mué."
 
 #: DB:link_attribute_type/description:1032
 msgid ""
@@ -4867,16 +4758,12 @@ msgstr ""
 "sonates ou concertos publiés ensemble, livres de pièces pour piano, etc.)."
 
 #: DB:link_attribute_type/description:1030
-#, fuzzy
-#| msgid ""
-#| "Use this to mark acts of an opera (as opposed to other parts that are not "
-#| "acts)"
 msgid ""
 "Use this to mark acts of an opera (as opposed to other parts that are not "
 "acts)."
 msgstr ""
 "Utilisez cet attribut pour indiquer les actes d’un opéra (par opposition aux "
-"autres parties qui ne sont pas des actes)"
+"autres parties qui ne sont pas des actes)."
 
 #: DB:link_attribute_type/description:1079
 msgid ""
