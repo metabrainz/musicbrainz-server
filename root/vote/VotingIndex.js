@@ -86,9 +86,11 @@ const VotingIndex = (): React$Element<typeof Layout> => (
            applies unnoticed can cause quite a big mess! Most are guaranteed
            to remain open for at least two full days even if they get three
            “Yes” votes, to avoid them closing too quickly, but it’s always
-           good to get more eyes on them. Below you can find four different
+           good to get more eyes on them. Below you can find five different
            searches: one for all destructive edits (which might be
-           overwhelming sometimes), one for entity merges and removals only
+           overwhelming sometimes), one only for those destructive edits
+           that have no edit notes (so no reasoning has been provided
+           for them at all), one for entity merges and removals only
            (the edits more likely to cause a mess if they incorrectly go
            through), one for relationship removals only, and one for
            destructive changes to releases (track, medium and release label
@@ -104,6 +106,16 @@ const VotingIndex = (): React$Element<typeof Layout> => (
             'conditions.1.field=status&conditions.1.operator=%3D&conditions.1.args=1&' +
             'conditions.2.field=editor&conditions.2.operator=not_me&conditions.2.name=&conditions.2.args.0=&' +
             'conditions.3.field=voter&conditions.3.operator=me&conditions.3.name=&conditions.3.voter_id=&conditions.3.args=no'}
+          showSubscribedArtistsUrl
+        />
+        <VotingGuideRow
+          guideName={l('All open destructive edits without edit notes')}
+          mainUrl={'/search/edits?' +
+            'conditions.0.field=type&conditions.0.operator=%3D&conditions.0.args=9&conditions.0.args=84&conditions.0.args=4&conditions.0.args=153&conditions.0.args=134&conditions.0.args=14&conditions.0.args=64&conditions.0.args=74&conditions.0.args=24&conditions.0.args=225%2C223%2C311&conditions.0.args=143&conditions.0.args=44&conditions.0.args=83&conditions.0.args=3&conditions.0.args=315&conditions.0.args=152&conditions.0.args=133&conditions.0.args=78&conditions.0.args=410&conditions.0.args=13&conditions.0.args=53&conditions.0.args=63&conditions.0.args=73&conditions.0.args=23&conditions.0.args=36&conditions.0.args=224&conditions.0.args=142&conditions.0.args=211&conditions.0.args=43&conditions.0.args=47&' +
+            'conditions.1.field=status&conditions.1.operator=%3D&conditions.1.args=1&' +
+            'conditions.2.field=editor&conditions.2.operator=not_me&conditions.2.name=&conditions.2.args.0=&' +
+            'conditions.3.field=voter&conditions.3.operator=me&conditions.3.name=&conditions.3.voter_id=&conditions.3.args=no&' +
+            'conditions.4.field=edit_note_author&conditions.4.operator=nobody&conditions.4.name=&conditions.4.args.0='}
           showSubscribedArtistsUrl
         />
         <VotingGuideRow
@@ -290,6 +302,16 @@ const VotingIndex = (): React$Element<typeof Layout> => (
             'conditions.1.field=open_time&conditions.1.operator=>&conditions.1.args.0=2+weeks+ago&conditions.1.args.1=&' +
             'conditions.2.field=status&conditions.2.operator=%3D&conditions.2.args=1&' +
             'conditions.3.field=voter&conditions.3.operator=me&conditions.3.name=&conditions.3.voter_id=&conditions.3.args=no'}
+          showSubscribedArtistsUrl
+        />
+        <VotingGuideRow
+          guideName={l('All edits from beginner editors without edit notes made less than 2 weeks ago')}
+          mainUrl={'/search/edits?' +
+            'conditions.0.field=editor&conditions.0.operator=limited&conditions.0.name=&conditions.0.args.0=&' +
+            'conditions.1.field=open_time&conditions.1.operator=>&conditions.1.args.0=2+weeks+ago&conditions.1.args.1=&' +
+            'conditions.2.field=status&conditions.2.operator=%3D&conditions.2.args=1&' +
+            'conditions.3.field=voter&conditions.3.operator=me&conditions.3.name=&conditions.3.voter_id=&conditions.3.args=no&' +
+            'conditions.4.field=edit_note_author&conditions.4.operator=nobody&conditions.4.name=&conditions.4.args.0='}
           showSubscribedArtistsUrl
         />
         <VotingGuideRow
