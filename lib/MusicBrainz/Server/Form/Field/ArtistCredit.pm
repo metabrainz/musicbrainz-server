@@ -11,6 +11,7 @@ extends 'HTML::FormHandler::Field::Compound';
 use MusicBrainz::Server::Edit::Utils qw( clean_submitted_artist_credits );
 use MusicBrainz::Server::Entity::ArtistCredit;
 use MusicBrainz::Server::Entity::ArtistCreditName;
+use MusicBrainz::Server::Form::Utils qw( localize_error );
 use MusicBrainz::Server::Translation qw( l );
 
 has_field 'names'             => ( type => 'Repeatable', num_when_empty => 1 );
@@ -132,6 +133,10 @@ sub json {
     }
 
     return to_json({names => $names});
+}
+
+sub build_localize_meth {
+    return \&localize_error;
 }
 
 =head1 COPYRIGHT AND LICENSE
