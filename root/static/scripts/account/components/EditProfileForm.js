@@ -311,7 +311,7 @@ class EditProfileForm extends React.Component<Props, State> {
                   onClick={this.handleLanguageAddBound}
                   type="button"
                 >
-                  {l('Add a language')}
+                  {lp('Add language', 'interactive')}
                 </button>
               </span>
             </li>

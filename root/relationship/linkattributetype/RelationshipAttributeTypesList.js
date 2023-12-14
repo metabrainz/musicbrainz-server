@@ -11,6 +11,7 @@ import * as React from 'react';
 
 import {SanitizedCatalystContext} from '../../context.mjs';
 import Layout from '../../layout/index.js';
+import {l_admin} from '../../static/scripts/common/i18n/admin.js'
 import expand2react from '../../static/scripts/common/i18n/expand2react.js';
 import bracketed, {bracketedText}
   from '../../static/scripts/common/utility/bracketed.js';
@@ -59,7 +60,7 @@ const AttributeDetails = ({
             <a
               href={'/relationship-attributes/create?parent=' + attribute.gid}
             >
-              {l('Add child')}
+              {l_admin('Add child')}
             </a>
             {' | '}
           </>
@@ -181,7 +182,7 @@ const RelationshipAttributeTypesList = ({
         {isRelationshipEditor($c.user) ? (
           <p>
             <a href="/relationship-attributes/create">
-              {l('Add a new relationship attribute')}
+              {l_admin('Add a new relationship attribute')}
             </a>
           </p>
         ) : null}

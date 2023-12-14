@@ -330,7 +330,7 @@ const ReportsIndex = (): React$Element<typeof Layout> => {
           />
           <ReportsIndexEntry
             content={l(
-              'Releases with catalog numbers that look like Label Codes',
+              'Releases with catalog numbers that look like label codes',
             )}
             reportName="CatNoLooksLikeLabelCode"
           />
