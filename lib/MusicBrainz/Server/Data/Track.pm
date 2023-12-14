@@ -169,6 +169,7 @@ sub find_by_recording
                 release.packaging AS r_packaging,
                 release.edits_pending AS r_edits_pending,
                 release.comment AS r_comment,
+                release.quality AS r_quality,
             date_year, date_month, date_day
           FROM track
           JOIN medium ON medium.id = track.medium
