@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-12 23:26+0200\n"
+"POT-Creation-Date: 2023-12-13 23:21+0200\n"
 "PO-Revision-Date: 2023-12-03 12:27+0000\n"
 "Last-Translator: yangmouren <yangmouren5618@163.com>\n"
 "Language-Team: Chinese (Simplified) <https://translations.metabrainz.org/"
@@ -148,8 +148,8 @@ msgstr "<strong>警告</strong>:"
 #| "MusicBrainz release"
 msgid ""
 "A CD stub was found that matches the disc ID you provided. If the below "
-"tracklist appears correct, you may use it as a starting point as a new "
-"MusicBrainz release"
+"tracklist appears correct, you may use it as a starting point for a new "
+"MusicBrainz release."
 msgstr ""
 "CD 存根成功匹配了你提供的唱片 ID。如果下面音轨列表内容正确，你可以将它作为 "
 "MusicBrainz 的新发行版"
@@ -274,8 +274,8 @@ msgid "Add place"
 msgstr "添加地点"
 
 #: ../root/release/edit/layout.tt:7
-#: ../root/static/scripts/release-editor/init.js:261
-#: ../root/static/scripts/release-editor/init.js:262
+#: ../root/static/scripts/release-editor/init.js:286
+#: ../root/static/scripts/release-editor/init.js:287
 #, fuzzy
 #| msgid "Add release"
 msgctxt "header"
@@ -6489,9 +6489,13 @@ msgstr ""
 "声明}。"
 
 #: ../root/account/Register.js:73
+#, fuzzy
+#| msgid ""
+#| "If you have any questions, please review the {faq|FAQs} or {doc|"
+#| "documentation} before {con|contacting us}. "
 msgid ""
 "If you have any questions, please review the {faq|FAQs} or {doc|"
-"documentation} before {con|contacting us}. "
+"documentation} before {con|contacting us}."
 msgstr ""
 "如果您有任何问题，请在{con|联系我们}之前查看{faq|常见问题}和{doc|文档}。 "
 
@@ -6857,7 +6861,7 @@ msgstr ""
 #: ../root/report/components/EventList.js:69
 #: ../root/search/components/EventResults.js:77
 #: ../root/search/components/WorkResults.js:56
-#: ../root/static/scripts/account/components/PreferencesForm.js:250
+#: ../root/static/scripts/account/components/PreferencesForm.js:252
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:896
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:555
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:15
@@ -6902,7 +6906,7 @@ msgstr "{parent_areas} 的 {area_type}"
 #: ../root/components/TagEntitiesList.js:174
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:221
 #: ../root/report/ReportsIndex.js:175
-#: ../root/static/scripts/account/components/PreferencesForm.js:255
+#: ../root/static/scripts/account/components/PreferencesForm.js:257
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:25
 #: ../root/tag/TagLayout.js:29
 msgid "Labels"
@@ -8829,6 +8833,7 @@ msgstr ""
 
 #: ../root/edit/details/AddAnnotation.js:56
 #: ../root/edit/details/historic/AddReleaseAnnotation.js:35
+#: ../root/static/scripts/common/components/Annotation.js:55
 msgid "This annotation is empty."
 msgstr "此注释为空。"
 
@@ -10497,7 +10502,7 @@ msgstr "热门 CD 存根"
 #: ../root/layout/components/BottomMenu.js:240
 #: ../root/layout/components/sidebar/CollectionSidebar.js:72
 #: ../root/layout/components/sidebar/EditLinks.js:31
-#: ../root/static/scripts/account/components/PreferencesForm.js:245
+#: ../root/static/scripts/account/components/PreferencesForm.js:247
 msgid "Editing"
 msgstr "修改"
 
@@ -12535,9 +12540,9 @@ msgid ""
 "headliner and supporting artist) please merge them."
 msgstr ""
 
-#: ../root/report/DuplicateEvents.js:32
-msgid "Possible duplicate events"
-msgstr ""
+#: ../root/report/DuplicateEvents.js:32 ../root/report/ReportsIndex.js:147
+msgid "Possibly duplicate events"
+msgstr "可能重复的事件"
 
 #: ../root/report/DuplicateRelationshipsArtists.js:24
 msgid ""
@@ -13309,10 +13314,6 @@ msgstr "有注释的艺术家"
 msgid "Events with annotations"
 msgstr ""
 
-#: ../root/report/ReportsIndex.js:147
-msgid "Possibly duplicate events"
-msgstr "可能重复的事件"
-
 #: ../root/report/ReportsIndex.js:168
 msgid "Instruments without a link to Wikidata"
 msgstr "没有 Wikidata 链接的乐器"
@@ -13856,8 +13857,8 @@ msgstr ""
 #: ../root/search/error/RateLimited.js:24
 msgid ""
 "Sorry, but your query “(<code>{query}</code>)” could not be performed, "
-"because it appears you've been rate-limited. Either the server is overloaded "
-"or you're making a lot of requests all at once!."
+"because it appears you’ve been rate-limited. Either the server is overloaded "
+"or you’re making a lot of requests all at once."
 msgstr ""
 
 #: ../root/search/error/UriTooLarge.js:20
@@ -13879,7 +13880,9 @@ msgid ""
 msgstr ""
 
 #: ../root/static/scripts/account/components/ApplicationForm.js:96
-msgid "Callback URL"
+#, fuzzy
+#| msgid "Callback URL"
+msgid "Callback URI"
 msgstr "回调 URL"
 
 #: ../root/static/scripts/account/components/ApplicationForm.js:104
@@ -13943,7 +13946,7 @@ msgid "Add a language"
 msgstr "添加一个语言"
 
 #: ../root/static/scripts/account/components/EditProfileForm.js:322
-#: ../root/static/scripts/account/components/PreferencesForm.js:266
+#: ../root/static/scripts/account/components/PreferencesForm.js:268
 #, fuzzy
 #| msgid "Save"
 msgctxt "interactive"
@@ -13969,7 +13972,7 @@ msgstr "日期/时间格式"
 #: ../root/static/scripts/account/components/PreferencesForm.js:192
 #, fuzzy
 #| msgid "Allow other users to see my tags"
-msgid "Allow other users to see:"
+msgid "Allow other users to see"
 msgstr "允许其他用户查看我的标签"
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:195
@@ -13988,7 +13991,7 @@ msgstr "添加新流派"
 #: ../root/static/scripts/account/components/PreferencesForm.js:213
 #, fuzzy
 #| msgid "Email Sent"
-msgid "Email me about:"
+msgid "Email me about"
 msgstr "电子邮件已发送"
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:216
@@ -14007,17 +14010,19 @@ msgstr ""
 msgid "Notes on edits I have abstained on"
 msgstr ""
 
-#: ../root/static/scripts/account/components/PreferencesForm.js:238
-msgid "Send me mails with edits to my subscriptions:"
+#: ../root/static/scripts/account/components/PreferencesForm.js:239
+#, fuzzy
+#| msgid "Send me mails with edits to my subscriptions:"
+msgid "Send me mails with edits to my subscriptions"
 msgstr "当我的订阅被编辑时发送电子邮件通知"
 
-#: ../root/static/scripts/account/components/PreferencesForm.js:247
+#: ../root/static/scripts/account/components/PreferencesForm.js:249
 #, fuzzy
 #| msgid "Automatically subscribe me to labels I create."
-msgid "Automatically subscribe me when I add:"
+msgid "Automatically subscribe me when I add"
 msgstr "自动订阅我创建的厂牌。"
 
-#: ../root/static/scripts/account/components/PreferencesForm.js:260
+#: ../root/static/scripts/account/components/PreferencesForm.js:262
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:35
 #: ../root/tag/TagLayout.js:33
 msgctxt "plural"
@@ -14256,10 +14261,6 @@ msgstr "第 {current} 张图片，共 {total} 张"
 #: ../root/static/scripts/edit/components/withLoadedTypeInfo.js:144
 msgid "Loading..."
 msgstr "正在载入..."
-
-#: ../root/static/scripts/common/components/Annotation.js:55
-msgid "This annotation is blank."
-msgstr ""
 
 #: ../root/static/scripts/common/components/Annotation.js:73
 msgid "(no changelog)"
@@ -15445,7 +15446,7 @@ msgstr "修改URL"
 
 #: ../root/static/scripts/edit/components/forms.js:104
 #: ../root/static/scripts/edit/confirmNavigationFallback.js:44
-#: ../root/static/scripts/release-editor/init.js:312
+#: ../root/static/scripts/release-editor/init.js:337
 msgid "All of your changes will be lost if you leave this page."
 msgstr "如果离开此网页，您的所有更改将会丢失。"
 
@@ -15926,12 +15927,12 @@ msgstr ""
 msgid "You haven’t selected a label for “{name}”."
 msgstr "您还没有为 “{name}” 选择一个厂牌。"
 
-#: ../root/static/scripts/release-editor/init.js:40
+#: ../root/static/scripts/release-editor/init.js:41
 msgid "Error loading release: {error}"
 msgstr "加载专辑时发生了错误：{error}"
 
-#: ../root/static/scripts/release-editor/init.js:265
-#: ../root/static/scripts/release-editor/init.js:266
+#: ../root/static/scripts/release-editor/init.js:290
+#: ../root/static/scripts/release-editor/init.js:291
 #, fuzzy
 #| msgid "Edit release"
 msgctxt "header"

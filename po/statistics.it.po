@@ -176,8 +176,11 @@ msgstr ""
 "visualizzati sulle pagine delle pubblicazioni, rendendoli molto più visibili."
 
 #: DB:statistics.statistic_event/description:2012-09-01
+#, fuzzy
+#| msgid ""
+#| "After a successful Summer of Code, Ian McEwen joins the MusicBrainz team"
 msgid ""
-"After a successful Summer of Code, Ian McEwen joins the MusicBrainz team"
+"After a successful Summer of Code, Ian McEwen joins the MusicBrainz team."
 msgstr ""
 "Dopo una Summer of Code ben riuscita, Ian McEwen si unisce al team di "
 "MusicBrainz"
@@ -234,10 +237,6 @@ msgstr ""
 msgid "Aliases for recordings, releases and release groups"
 msgstr "Alias per registrazioni, pubblicazioni e gruppi di pubblicazioni"
 
-#: DB:statistics.statistic_event/title:2004-02-24
-msgid "Amazon Coverart"
-msgstr "Copertine di Amazon"
-
 #: DB:statistics.statistic_event/description:2008-09-01
 msgid ""
 "Amazon betas <a href=\"http://web.archive.org/web/20210123164029/https://www."
@@ -252,8 +251,16 @@ msgstr ""
 msgid "Amazon betas SoundUnwound"
 msgstr "Amazon lancia la beta di SoundUnwound"
 
+#: DB:statistics.statistic_event/title:2004-02-24
+#, fuzzy
+#| msgid "Amazon Coverart"
+msgid "Amazon cover art"
+msgstr "Copertine di Amazon"
+
 #: DB:statistics.statistic_event/description:2004-02-24
-msgid "Amazon coverart support released."
+#, fuzzy
+#| msgid "Amazon coverart support released."
+msgid "Amazon cover art support released."
 msgstr "Rilascio del supporto per le copertine di Amazon."
 
 #: DB:statistics.statistic_event/description:2006-07-12
@@ -887,8 +894,12 @@ msgid "Oliver Charles joins MusicBrainz full-time"
 msgstr "Oliver Charles si unisce a MusicBrainz a tempo pieno"
 
 #: DB:statistics.statistic_event/description:2018-06-30
+#, fuzzy
+#| msgid ""
+#| "Our old search server gets a significant upgrade with its move to SOLR, "
+#| "including almost-instant index updates."
 msgid ""
-"Our old search server gets a significant upgrade with its move to SOLR, "
+"Our old search server gets a significant upgrade with its move to Solr, "
 "including almost-instant index updates."
 msgstr ""
 "Il nostro vecchio server di ricerca riceve un upgrade significativo con il "
@@ -1002,10 +1013,6 @@ msgstr "Roman Tsukanov si unisce al team di MetaBrainz"
 msgid "SG5 Fixes"
 msgstr "Correzioni a LGS5"
 
-#: DB:statistics.statistic_event/title:2018-06-30
-msgid "SOLR-based search server deployed"
-msgstr "Server di ricerca basato su SOLR distribuito"
-
 #: DB:statistics.statistic_event/title:2017-09-06
 msgid "Sambhav Kothari and Param Singh replace Roman Tsukanov"
 msgstr "Sambhav Kothari e Param Singh sostituiscono Roman Tsukanov"
@@ -1049,6 +1056,12 @@ msgstr ""
 #: DB:statistics.statistic_event/title:2008-04-21
 msgid "SoC 2008"
 msgstr "SoC 2008"
+
+#: DB:statistics.statistic_event/title:2018-06-30
+#, fuzzy
+#| msgid "SOLR-based search server deployed"
+msgid "Solr-based search server deployed"
+msgstr "Server di ricerca basato su SOLR distribuito"
 
 #: DB:statistics.statistic_event/description:2020-12-31
 msgid ""
@@ -1107,11 +1120,15 @@ msgstr ""
 "MusicBrainz."
 
 #: DB:statistics.statistic_event/description:2012-04-30
-msgid "The Cover Art Archive becomes initially available"
+#, fuzzy
+#| msgid "The Cover Art Archive becomes initially available"
+msgid "The Cover Art Archive becomes initially available."
 msgstr "Il Cover Art Archive è disponibile in anteprima"
 
 #: DB:statistics.statistic_event/description:2012-10-10
-msgid "The Cover Art Archive is officially released"
+#, fuzzy
+#| msgid "The Cover Art Archive is officially released"
+msgid "The Cover Art Archive is officially released."
 msgstr "Il Cover Art Archive viene rilasciato ufficialmente"
 
 #: DB:statistics.statistic_event/title:2014-05-19
@@ -1188,9 +1205,13 @@ msgstr ""
 "include molti cambiamenti e miglioramenti, è rilasciata."
 
 #: DB:statistics.statistic_event/description:2011-08-03
+#, fuzzy
+#| msgid ""
+#| "The first version of the MusicBrainz Android app, a Google Summer of Code "
+#| "project by Jamie McDonald, is made officially available"
 msgid ""
 "The first version of the MusicBrainz Android app, a Google Summer of Code "
-"project by Jamie McDonald, is made officially available"
+"project by Jamie McDonald, is made officially available."
 msgstr ""
 "La prima versione dell'app Android di MusicBrainz, un progetto Google Summer "
 "of Code di Jamie McDonald, viene resa ufficialmente disponibile"
@@ -1331,10 +1352,15 @@ msgid "Web service version 1 taken down"
 msgstr "Web service versione 1 messo offline"
 
 #: DB:statistics.statistic_event/description:2022-02-16
+#, fuzzy
+#| msgid ""
+#| "With the AcousticBrainz project deemed to not have fulfilled its original "
+#| "goals, the MetaBrainz Foundation decides to stop work on it, with a view "
+#| "to shut down the site in 2023"
 msgid ""
 "With the AcousticBrainz project deemed to not have fulfilled its original "
 "goals, the MetaBrainz Foundation decides to stop work on it, with a view to "
-"shut down the site in 2023"
+"shut down the site in 2023."
 msgstr ""
 "Giudicando che il progetto AcousticBrainz non ha realizzato i suoi obiettivi "
 "originari, la MetaBrainz Foundation decide di interrompere il lavoro su di "
@@ -1764,9 +1790,9 @@ msgstr "Entità centrali"
 msgid "Recordings"
 msgstr "Registrazioni"
 
-#: ../root/statistics/Index.js:114
-msgid "Tracks)"
-msgstr ""
+#: ../root/statistics/Index.js:114 ../root/statistics/stats.js:844
+msgid "Tracks"
+msgstr "Tracce"
 
 #: ../root/statistics/Index.js:122 ../root/statistics/Index.js:739
 #: ../root/statistics/Index.js:746 ../root/statistics/Index.js:778
@@ -2404,6 +2430,7 @@ msgstr "Tipo e genere degli artisti"
 #: ../root/statistics/stats.js:22
 #, fuzzy
 #| msgid "Edit Information"
+msgctxt "noun"
 msgid "Edit information"
 msgstr "Informazioni sulle modifiche"
 
@@ -3085,10 +3112,6 @@ msgstr "Voti a favore/contro tag di serie"
 #: ../root/statistics/stats.js:839
 msgid "Votes for/against work tags"
 msgstr "Voti a favore/contro tag di opere"
-
-#: ../root/statistics/stats.js:844
-msgid "Tracks"
-msgstr "Tracce"
 
 #: ../root/statistics/stats.js:865
 msgid "Abstentions"

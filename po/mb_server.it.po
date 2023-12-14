@@ -32,7 +32,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-12 23:26+0200\n"
+"POT-Creation-Date: 2023-12-13 23:21+0200\n"
 "PO-Revision-Date: 2023-11-22 04:27+0000\n"
 "Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
 "metabrainz.org>\n"
@@ -175,8 +175,8 @@ msgstr "<strong>Attenzione</strong>:"
 #| "MusicBrainz release"
 msgid ""
 "A CD stub was found that matches the disc ID you provided. If the below "
-"tracklist appears correct, you may use it as a starting point as a new "
-"MusicBrainz release"
+"tracklist appears correct, you may use it as a starting point for a new "
+"MusicBrainz release."
 msgstr ""
 "È stata trovata una bozza CD che corrisponde all'ID disco che hai fornito. "
 "Se il seguente elenco tracce ti sembra corretto, lo puoi utilizzare come "
@@ -306,8 +306,8 @@ msgid "Add place"
 msgstr "Aggiungi luogo"
 
 #: ../root/release/edit/layout.tt:7
-#: ../root/static/scripts/release-editor/init.js:261
-#: ../root/static/scripts/release-editor/init.js:262
+#: ../root/static/scripts/release-editor/init.js:286
+#: ../root/static/scripts/release-editor/init.js:287
 #, fuzzy
 #| msgid "Add release"
 msgctxt "header"
@@ -6935,9 +6935,13 @@ msgstr ""
 "nostra {doc|dichiarazione di conformità con la GDPR}."
 
 #: ../root/account/Register.js:73
+#, fuzzy
+#| msgid ""
+#| "If you have any questions, please review the {faq|FAQs} or {doc|"
+#| "documentation} before {con|contacting us}. "
 msgid ""
 "If you have any questions, please review the {faq|FAQs} or {doc|"
-"documentation} before {con|contacting us}. "
+"documentation} before {con|contacting us}."
 msgstr ""
 "Se hai delle domande, dai un'occhiata alle {faq|domande frequenti} e alla "
 "{doc|documentazione} prima di {con|contattarci}. "
@@ -7322,7 +7326,7 @@ msgstr ""
 #: ../root/report/components/EventList.js:69
 #: ../root/search/components/EventResults.js:77
 #: ../root/search/components/WorkResults.js:56
-#: ../root/static/scripts/account/components/PreferencesForm.js:250
+#: ../root/static/scripts/account/components/PreferencesForm.js:252
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:896
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:555
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:15
@@ -7367,7 +7371,7 @@ msgstr "{area_type} in {parent_areas}"
 #: ../root/components/TagEntitiesList.js:174
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:221
 #: ../root/report/ReportsIndex.js:175
-#: ../root/static/scripts/account/components/PreferencesForm.js:255
+#: ../root/static/scripts/account/components/PreferencesForm.js:257
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:25
 #: ../root/tag/TagLayout.js:29
 msgid "Labels"
@@ -9479,6 +9483,7 @@ msgstr "Testo"
 
 #: ../root/edit/details/AddAnnotation.js:56
 #: ../root/edit/details/historic/AddReleaseAnnotation.js:35
+#: ../root/static/scripts/common/components/Annotation.js:55
 msgid "This annotation is empty."
 msgstr "Questa annotazione è vuota."
 
@@ -11272,7 +11277,7 @@ msgstr "Bozze CD principali"
 #: ../root/layout/components/BottomMenu.js:240
 #: ../root/layout/components/sidebar/CollectionSidebar.js:72
 #: ../root/layout/components/sidebar/EditLinks.js:31
-#: ../root/static/scripts/account/components/PreferencesForm.js:245
+#: ../root/static/scripts/account/components/PreferencesForm.js:247
 msgid "Editing"
 msgstr "Modifiche"
 
@@ -13511,8 +13516,8 @@ msgstr ""
 "data. Se si tratta di doppioni (per esempio, se ci sono eventi separati per "
 "l'esibizione principale e per il gruppo spalla) ti chiediamo di unirli."
 
-#: ../root/report/DuplicateEvents.js:32
-msgid "Possible duplicate events"
+#: ../root/report/DuplicateEvents.js:32 ../root/report/ReportsIndex.js:147
+msgid "Possibly duplicate events"
 msgstr "Eventi che potrebbero essere doppioni"
 
 #: ../root/report/DuplicateRelationshipsArtists.js:24
@@ -14519,10 +14524,6 @@ msgstr "Artisti con annotazioni"
 msgid "Events with annotations"
 msgstr "Eventi con annotazioni"
 
-#: ../root/report/ReportsIndex.js:147
-msgid "Possibly duplicate events"
-msgstr "Eventi che potrebbero essere doppioni"
-
 #: ../root/report/ReportsIndex.js:168
 msgid "Instruments without a link to Wikidata"
 msgstr "Strumenti senza un collegamento a Wikidata"
@@ -15147,10 +15148,15 @@ msgstr ""
 "oppure prova a cercare meno parole o parole diverse."
 
 #: ../root/search/error/RateLimited.js:24
+#, fuzzy
+#| msgid ""
+#| "Sorry, but your query “(<code>{query}</code>)” could not be performed, "
+#| "because it appears you've been rate-limited. Either the server is "
+#| "overloaded or you're making a lot of requests all at once!."
 msgid ""
 "Sorry, but your query “(<code>{query}</code>)” could not be performed, "
-"because it appears you've been rate-limited. Either the server is overloaded "
-"or you're making a lot of requests all at once!."
+"because it appears you’ve been rate-limited. Either the server is overloaded "
+"or you’re making a lot of requests all at once."
 msgstr ""
 "Spiacenti, ma non è stato possibile eseguire la tua ricerca “(<code>{query}</"
 "code>)” poiché la tua frequenza di connessione è stata limitata. Il server "
@@ -15178,7 +15184,9 @@ msgstr ""
 "cui unire tutte le altre:"
 
 #: ../root/static/scripts/account/components/ApplicationForm.js:96
-msgid "Callback URL"
+#, fuzzy
+#| msgid "Callback URL"
+msgid "Callback URI"
 msgstr "URL di callback"
 
 #: ../root/static/scripts/account/components/ApplicationForm.js:104
@@ -15249,7 +15257,7 @@ msgid "Add a language"
 msgstr "Aggiungi una lingua"
 
 #: ../root/static/scripts/account/components/EditProfileForm.js:322
-#: ../root/static/scripts/account/components/PreferencesForm.js:266
+#: ../root/static/scripts/account/components/PreferencesForm.js:268
 #, fuzzy
 #| msgid "Save"
 msgctxt "interactive"
@@ -15275,7 +15283,7 @@ msgstr "Formato di data/ora:"
 #: ../root/static/scripts/account/components/PreferencesForm.js:192
 #, fuzzy
 #| msgid "Allow other users to see my tags"
-msgid "Allow other users to see:"
+msgid "Allow other users to see"
 msgstr "Permetti agli altri utenti di vedere i miei tag"
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:195
@@ -15294,7 +15302,7 @@ msgstr "Aggiungi un nuovo genere"
 #: ../root/static/scripts/account/components/PreferencesForm.js:213
 #, fuzzy
 #| msgid "Email Sent"
-msgid "Email me about:"
+msgid "Email me about"
 msgstr "Email inviata"
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:216
@@ -15313,17 +15321,19 @@ msgstr ""
 msgid "Notes on edits I have abstained on"
 msgstr ""
 
-#: ../root/static/scripts/account/components/PreferencesForm.js:238
-msgid "Send me mails with edits to my subscriptions:"
+#: ../root/static/scripts/account/components/PreferencesForm.js:239
+#, fuzzy
+#| msgid "Send me mails with edits to my subscriptions:"
+msgid "Send me mails with edits to my subscriptions"
 msgstr "Inviami email con le modifiche alle mie iscrizioni:"
 
-#: ../root/static/scripts/account/components/PreferencesForm.js:247
+#: ../root/static/scripts/account/components/PreferencesForm.js:249
 #, fuzzy
 #| msgid "Automatically subscribe me to labels I add."
-msgid "Automatically subscribe me when I add:"
+msgid "Automatically subscribe me when I add"
 msgstr "Iscrivimi automaticamente alle etichette che aggiungo."
 
-#: ../root/static/scripts/account/components/PreferencesForm.js:260
+#: ../root/static/scripts/account/components/PreferencesForm.js:262
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:35
 #: ../root/tag/TagLayout.js:33
 msgctxt "plural"
@@ -15579,10 +15589,6 @@ msgstr "Immagine {current} di {total}"
 #: ../root/static/scripts/edit/components/withLoadedTypeInfo.js:144
 msgid "Loading..."
 msgstr "Caricamento in corso..."
-
-#: ../root/static/scripts/common/components/Annotation.js:55
-msgid "This annotation is blank."
-msgstr "Questa annotazione è vuota."
 
 #: ../root/static/scripts/common/components/Annotation.js:73
 msgid "(no changelog)"
@@ -16935,7 +16941,7 @@ msgstr "Modifica URL"
 
 #: ../root/static/scripts/edit/components/forms.js:104
 #: ../root/static/scripts/edit/confirmNavigationFallback.js:44
-#: ../root/static/scripts/release-editor/init.js:312
+#: ../root/static/scripts/release-editor/init.js:337
 msgid "All of your changes will be lost if you leave this page."
 msgstr "Se lasci questa pagina perderai tutte le tue modifiche."
 
@@ -17477,12 +17483,12 @@ msgstr ""
 msgid "You haven’t selected a label for “{name}”."
 msgstr "Non hai selezionato un'etichetta per \"{name}\"."
 
-#: ../root/static/scripts/release-editor/init.js:40
+#: ../root/static/scripts/release-editor/init.js:41
 msgid "Error loading release: {error}"
 msgstr "Errore nel caricamento della pubblicazione: {error}"
 
-#: ../root/static/scripts/release-editor/init.js:265
-#: ../root/static/scripts/release-editor/init.js:266
+#: ../root/static/scripts/release-editor/init.js:290
+#: ../root/static/scripts/release-editor/init.js:291
 #, fuzzy
 #| msgid "Edit release"
 msgctxt "header"
@@ -19413,6 +19419,12 @@ msgstr ""
 "<strong>Attenzione:</strong> alcune delle opere che stai unendo hanno ISWC "
 "diversi. Assicurati che si tratti davvero delle stesse opere prima di "
 "proseguire."
+
+#~ msgid "Possible duplicate events"
+#~ msgstr "Eventi che potrebbero essere doppioni"
+
+#~ msgid "This annotation is blank."
+#~ msgstr "Questa annotazione è vuota."
 
 #~ msgid ""
 #~ "A value of 1 or 2 indicates that either entity1 or entity0 are orderable, "

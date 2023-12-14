@@ -65,7 +65,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-12 23:26+0200\n"
+"POT-Creation-Date: 2023-12-13 23:21+0200\n"
 "PO-Revision-Date: 2023-12-13 16:28+0000\n"
 "Last-Translator: yvanzo <yvanzo@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: French <https://translations.metabrainz.org/projects/"
@@ -201,10 +201,15 @@ msgid "<strong>Warning</strong>:"
 msgstr "<strong>Attention</strong> :"
 
 #: ../root/cdtoc/lookup.tt:22
+#, fuzzy
+#| msgid ""
+#| "A CD stub was found that matches the disc ID you provided. If the below "
+#| "tracklist appears correct, you may use it as a starting point as a new "
+#| "MusicBrainz release"
 msgid ""
 "A CD stub was found that matches the disc ID you provided. If the below "
-"tracklist appears correct, you may use it as a starting point as a new "
-"MusicBrainz release"
+"tracklist appears correct, you may use it as a starting point for a new "
+"MusicBrainz release."
 msgstr ""
 "Une ébauche de CD correspondant à l’ID que vous avez fourni a été trouvée. "
 "Si la liste de pistes ci-dessous semble correcte, vous pourriez l’utiliser "
@@ -334,8 +339,8 @@ msgid "Add place"
 msgstr "Ajouter un lieu"
 
 #: ../root/release/edit/layout.tt:7
-#: ../root/static/scripts/release-editor/init.js:261
-#: ../root/static/scripts/release-editor/init.js:262
+#: ../root/static/scripts/release-editor/init.js:286
+#: ../root/static/scripts/release-editor/init.js:287
 #, fuzzy
 #| msgid "Add release"
 msgctxt "header"
@@ -6959,9 +6964,13 @@ msgstr ""
 "notre {doc|déclaration de conformité au RGPD}."
 
 #: ../root/account/Register.js:73
+#, fuzzy
+#| msgid ""
+#| "If you have any questions, please review the {faq|FAQs} or {doc|"
+#| "documentation} before {con|contacting us}. "
 msgid ""
 "If you have any questions, please review the {faq|FAQs} or {doc|"
-"documentation} before {con|contacting us}. "
+"documentation} before {con|contacting us}."
 msgstr ""
 "Si vous avez des questions, veuillez consulter la {faq|FAQ} ou la {doc|"
 "documentation} avant de {con|nous contacter}."
@@ -7345,7 +7354,7 @@ msgstr ""
 #: ../root/report/components/EventList.js:69
 #: ../root/search/components/EventResults.js:77
 #: ../root/search/components/WorkResults.js:56
-#: ../root/static/scripts/account/components/PreferencesForm.js:250
+#: ../root/static/scripts/account/components/PreferencesForm.js:252
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:896
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:555
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:15
@@ -7390,7 +7399,7 @@ msgstr "{area_type} dans {parent_areas}"
 #: ../root/components/TagEntitiesList.js:174
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:221
 #: ../root/report/ReportsIndex.js:175
-#: ../root/static/scripts/account/components/PreferencesForm.js:255
+#: ../root/static/scripts/account/components/PreferencesForm.js:257
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:25
 #: ../root/tag/TagLayout.js:29
 msgid "Labels"
@@ -9505,6 +9514,7 @@ msgstr "Texte"
 
 #: ../root/edit/details/AddAnnotation.js:56
 #: ../root/edit/details/historic/AddReleaseAnnotation.js:35
+#: ../root/static/scripts/common/components/Annotation.js:55
 msgid "This annotation is empty."
 msgstr "Cette annotation est vide."
 
@@ -11307,7 +11317,7 @@ msgstr "Les premières ébauches de CD"
 #: ../root/layout/components/BottomMenu.js:240
 #: ../root/layout/components/sidebar/CollectionSidebar.js:72
 #: ../root/layout/components/sidebar/EditLinks.js:31
-#: ../root/static/scripts/account/components/PreferencesForm.js:245
+#: ../root/static/scripts/account/components/PreferencesForm.js:247
 msgid "Editing"
 msgstr "Modification"
 
@@ -13533,8 +13543,8 @@ msgstr ""
 "date. Si ce sont des doublons (par exemple si ce sont des événements séparés "
 "pour l’artiste principal et l’artiste de soutien), veuillez les fusionner."
 
-#: ../root/report/DuplicateEvents.js:32
-msgid "Possible duplicate events"
+#: ../root/report/DuplicateEvents.js:32 ../root/report/ReportsIndex.js:147
+msgid "Possibly duplicate events"
 msgstr "Événements probablement en double"
 
 #: ../root/report/DuplicateRelationshipsArtists.js:24
@@ -14272,8 +14282,8 @@ msgstr ""
 msgid ""
 "For instructions on how to add one, see the {add_discids|documentation page}."
 msgstr ""
-"Pour apprendre comment ajouter un ID de disque, suivez le "
-"{add_discids|guide}."
+"Pour apprendre comment ajouter un ID de disque, suivez le {add_discids|"
+"guide}."
 
 #: ../root/report/ReleasesMissingDiscIds.js:36
 #: ../root/report/ReportsIndex.js:430
@@ -14503,10 +14513,6 @@ msgstr "Artistes avec des annotations"
 #: ../root/report/ReportsIndex.js:143
 msgid "Events with annotations"
 msgstr "Événements avec des annotations"
-
-#: ../root/report/ReportsIndex.js:147
-msgid "Possibly duplicate events"
-msgstr "Événements probablement en double"
 
 #: ../root/report/ReportsIndex.js:168
 msgid "Instruments without a link to Wikidata"
@@ -15112,10 +15118,15 @@ msgstr ""
 "différents aide parfois."
 
 #: ../root/search/error/RateLimited.js:24
+#, fuzzy
+#| msgid ""
+#| "Sorry, but your query “(<code>{query}</code>)” could not be performed, "
+#| "because it appears you've been rate-limited. Either the server is "
+#| "overloaded or you're making a lot of requests all at once!."
 msgid ""
 "Sorry, but your query “(<code>{query}</code>)” could not be performed, "
-"because it appears you've been rate-limited. Either the server is overloaded "
-"or you're making a lot of requests all at once!."
+"because it appears you’ve been rate-limited. Either the server is overloaded "
+"or you’re making a lot of requests all at once."
 msgstr ""
 "Désolé mais votre requête « <code>{query}</code> » n’a pas pu être effectuée "
 "à cause d’une limitation de débit. Soit le serveur est surchargé, soit vous "
@@ -15142,7 +15153,9 @@ msgstr ""
 "Veuillez choisir la série dans laquelle vous souhaitez fusionner les autres :"
 
 #: ../root/static/scripts/account/components/ApplicationForm.js:96
-msgid "Callback URL"
+#, fuzzy
+#| msgid "Callback URL"
+msgid "Callback URI"
 msgstr "URL de rappel"
 
 #: ../root/static/scripts/account/components/ApplicationForm.js:104
@@ -15214,7 +15227,7 @@ msgid "Add a language"
 msgstr "Ajouter une langue"
 
 #: ../root/static/scripts/account/components/EditProfileForm.js:322
-#: ../root/static/scripts/account/components/PreferencesForm.js:266
+#: ../root/static/scripts/account/components/PreferencesForm.js:268
 #, fuzzy
 #| msgid "Save"
 msgctxt "interactive"
@@ -15238,7 +15251,9 @@ msgid "Date/time format:"
 msgstr "Format de date et d’heure :"
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:192
-msgid "Allow other users to see:"
+#, fuzzy
+#| msgid "Allow other users to see:"
+msgid "Allow other users to see"
 msgstr "Autoriser les autres utilisateurs à voir :"
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:195
@@ -15253,7 +15268,9 @@ msgid "My tags and genres"
 msgstr "Ajouter un nouveau genre"
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:213
-msgid "Email me about:"
+#, fuzzy
+#| msgid "Email me about:"
+msgid "Email me about"
 msgstr "Envoyez moi un courriel pour :"
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:216
@@ -15272,17 +15289,21 @@ msgstr ""
 msgid "Notes on edits I have abstained on"
 msgstr ""
 
-#: ../root/static/scripts/account/components/PreferencesForm.js:238
-msgid "Send me mails with edits to my subscriptions:"
+#: ../root/static/scripts/account/components/PreferencesForm.js:239
+#, fuzzy
+#| msgid "Send me mails with edits to my subscriptions:"
+msgid "Send me mails with edits to my subscriptions"
 msgstr ""
 "Envoyez-moi des courriels quand des modifications ont été apportés à mes "
 "abonnements :"
 
-#: ../root/static/scripts/account/components/PreferencesForm.js:247
-msgid "Automatically subscribe me when I add:"
+#: ../root/static/scripts/account/components/PreferencesForm.js:249
+#, fuzzy
+#| msgid "Automatically subscribe me when I add:"
+msgid "Automatically subscribe me when I add"
 msgstr "Abonnez-moi automatiquement quand j’ajoute :"
 
-#: ../root/static/scripts/account/components/PreferencesForm.js:260
+#: ../root/static/scripts/account/components/PreferencesForm.js:262
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:35
 #: ../root/tag/TagLayout.js:33
 msgctxt "plural"
@@ -15537,10 +15558,6 @@ msgstr "Image {current} sur {total}"
 #: ../root/static/scripts/edit/components/withLoadedTypeInfo.js:144
 msgid "Loading..."
 msgstr "Chargement en cours..."
-
-#: ../root/static/scripts/common/components/Annotation.js:55
-msgid "This annotation is blank."
-msgstr "Cette annotation est vide."
 
 #: ../root/static/scripts/common/components/Annotation.js:73
 msgid "(no changelog)"
@@ -16791,9 +16808,9 @@ msgid ""
 msgstr ""
 "« {matched_text} » semble indique un ordre des supports plutôt qu’un titre "
 "de support. Si c’est le cas, veuillez utiliser les flèches haut/bas sur le "
-"côté droit pour ordonner les supports au lieu de leur ajouter un titre. ("
-"Voir les {release_style|directives de style}.) Sinon, merci de confirmer que "
-"c’est le titre actuel en cochant la case ci-dessous."
+"côté droit pour ordonner les supports au lieu de leur ajouter un titre. "
+"(Voir les {release_style|directives de style}.) Sinon, merci de confirmer "
+"que c’est le titre actuel en cochant la case ci-dessous."
 
 #: ../root/static/scripts/edit/components/ReleaseMergeStrategy.js:116
 msgid ""
@@ -16880,7 +16897,7 @@ msgstr "Modifier l’URL"
 
 #: ../root/static/scripts/edit/components/forms.js:104
 #: ../root/static/scripts/edit/confirmNavigationFallback.js:44
-#: ../root/static/scripts/release-editor/init.js:312
+#: ../root/static/scripts/release-editor/init.js:337
 msgid "All of your changes will be lost if you leave this page."
 msgstr "Tous vos changements seront perdus si vous quittez cette page."
 
@@ -17425,12 +17442,12 @@ msgstr ""
 msgid "You haven’t selected a label for “{name}”."
 msgstr "Vous n’avez pas choisi d’étiquette pour « {name} »."
 
-#: ../root/static/scripts/release-editor/init.js:40
+#: ../root/static/scripts/release-editor/init.js:41
 msgid "Error loading release: {error}"
 msgstr "Erreur lors chargement de la parution : {error}"
 
-#: ../root/static/scripts/release-editor/init.js:265
-#: ../root/static/scripts/release-editor/init.js:266
+#: ../root/static/scripts/release-editor/init.js:290
+#: ../root/static/scripts/release-editor/init.js:291
 #, fuzzy
 #| msgid "Edit release"
 msgctxt "header"
@@ -19382,6 +19399,12 @@ msgstr ""
 "<strong>Attention :</strong> Certaines œuvres vous vous apprêtez à fusionner "
 "ont des ISWC différents. Veuillez vous assurez que ce sont vraiment les "
 "mêmes œuvres et que vous voulez continuer la fusion."
+
+#~ msgid "Possible duplicate events"
+#~ msgstr "Événements probablement en double"
+
+#~ msgid "This annotation is blank."
+#~ msgstr "Cette annotation est vide."
 
 #~ msgid ""
 #~ "A value of 1 or 2 indicates that either entity1 or entity0 are orderable, "

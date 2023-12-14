@@ -131,8 +131,11 @@ msgid "8cm CD+G"
 msgstr "8cm-cd+g"
 
 #: DB:medium_format/description:166
+#, fuzzy
+#| msgctxt "medium_format"
+#| msgid "8cm DVD disc, often used for video singles."
 msgctxt "medium_format"
-msgid "8cm DVD disc, often used for video singles."
+msgid "8cm DVD, often used for video singles."
 msgstr "8cm-dvd, vaak gebruikt voor videosingles."
 
 #: DB:medium_format/description:58
@@ -3264,10 +3267,15 @@ msgid "Fireng-i Fer"
 msgstr "Fireng-i Fer"
 
 #: DB:medium_format/description:73
+#, fuzzy
+#| msgctxt "medium_format"
+#| msgid ""
+#| "Flat discs with grooves used in phonographs/gramophones. For shellac and "
+#| "vinyl records, use that specifically"
 msgctxt "medium_format"
 msgid ""
 "Flat discs with grooves used in phonographs/gramophones. For shellac and "
-"vinyl records, use that specifically"
+"vinyl records, use that specifically."
 msgstr ""
 "Platte schijven met groeven die met een platenspeler worden afgespeeld. "
 "Gebruik een specifieker medium, zoals schellak of vinyl, als je weet wat het "
