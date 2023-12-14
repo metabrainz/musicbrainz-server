@@ -27,8 +27,8 @@ const BrowseCDStubs = ({
   cdStubs,
   pager,
 }: Props): React$Element<typeof Layout> => (
-  <Layout fullWidth title={l('Top CD Stubs')}>
-    <h1>{l('Top CD Stubs')}</h1>
+  <Layout fullWidth title={l('Top CD stubs')}>
+    <h1>{l('Top CD stubs')}</h1>
     <PaginatedResults pager={pager} total>
       <table className="tbl">
         <thead>
