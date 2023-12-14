@@ -53,17 +53,17 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-12-13 23:21+0200\n"
-"PO-Revision-Date: 2023-12-13 21:11+0000\n"
-"Last-Translator: reosarevok <reosarevok@users.noreply.translations."
-"metabrainz.org>\n"
+"PO-Revision-Date: 2023-12-14 02:28+0000\n"
+"Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
+".org>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
 "X-Generator: Weblate 5.2.1\n"
 
 #: ../root/components/common-macros.tt:12
@@ -188,11 +188,6 @@ msgid "<strong>Warning</strong>:"
 msgstr "<strong>Advertencia</strong>:"
 
 #: ../root/cdtoc/lookup.tt:22
-#, fuzzy
-#| msgid ""
-#| "A CD stub was found that matches the disc ID you provided. If the below "
-#| "tracklist appears correct, you may use it as a starting point as a new "
-#| "MusicBrainz release"
 msgid ""
 "A CD stub was found that matches the disc ID you provided. If the below "
 "tracklist appears correct, you may use it as a starting point for a new "
@@ -200,7 +195,7 @@ msgid ""
 msgstr ""
 "Hemos encontrado un esbozo de CD que coincide con la ID de disco que has "
 "suministrado. Si la lista de pistas parece correcta, puedes usarla como base "
-"para una nueva publicación de MusicBrainz"
+"para una nueva publicación de MusicBrainz."
 
 #: ../root/release/edit/tracklist.tt:323
 msgid ""
@@ -6147,16 +6142,12 @@ msgid ""
 msgstr ""
 
 #: ../root/account/Register.js:73
-#, fuzzy
-#| msgid ""
-#| "If you have any questions, please review the {faq|FAQs} or {doc|"
-#| "documentation} before {con|contacting us}. "
 msgid ""
 "If you have any questions, please review the {faq|FAQs} or {doc|"
 "documentation} before {con|contacting us}."
 msgstr ""
-"Si tienes alguna pregunta, consulta las {faq|FAQs} y la {doc|documentación} "
-"antes de {con|contactar con nosotros}. "
+"Si tienes alguna pregunta, consulta las {faq|preguntas frequentes} y la "
+"{doc|documentación} antes de {con|contactar con nosotros}."
 
 #: ../root/account/Register.js:85
 msgid ""
@@ -13378,10 +13369,8 @@ msgid ""
 msgstr ""
 
 #: ../root/static/scripts/account/components/ApplicationForm.js:96
-#, fuzzy
-#| msgid "Callback URL"
 msgid "Callback URI"
-msgstr "Volviendo a llamar URL"
+msgstr "URI de callback"
 
 #: ../root/static/scripts/account/components/ApplicationForm.js:104
 msgid ""
@@ -13465,10 +13454,8 @@ msgid "Date/time format:"
 msgstr "Formato de fecha y hora"
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:192
-#, fuzzy
-#| msgid "Allow other users to see:"
 msgid "Allow other users to see"
-msgstr "Permitir que otros usuarios vean:"
+msgstr "Permitir que otros usuarios vean"
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:195
 msgid "My subscriptions"
@@ -13480,10 +13467,8 @@ msgid "My tags and genres"
 msgstr ""
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:213
-#, fuzzy
-#| msgid "Email me about:"
 msgid "Email me about"
-msgstr "Quiero recibir un correo acerca de:"
+msgstr "Quiero recibir un correo acerca de"
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:216
 msgid "The first “no” vote on any of my edits"
@@ -13502,16 +13487,12 @@ msgid "Notes on edits I have abstained on"
 msgstr "Notas nuevas en ediciones en las que me haya abstenido"
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:239
-#, fuzzy
-#| msgid "Send me mails with edits to my subscriptions:"
 msgid "Send me mails with edits to my subscriptions"
-msgstr "Enviadme correos con las ediciones a mis suscripciones:"
+msgstr "Enviadme correos con las ediciones a mis suscripciones"
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:249
-#, fuzzy
-#| msgid "Automatically subscribe me when I add:"
 msgid "Automatically subscribe me when I add"
-msgstr "Quiero ser suscrito automáticamente cuando cree:"
+msgstr "Quiero ser suscrito automáticamente cuando cree"
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:262
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:35

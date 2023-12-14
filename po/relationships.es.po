@@ -22,17 +22,17 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-12-13 21:11+0000\n"
-"Last-Translator: reosarevok <reosarevok@users.noreply.translations."
-"metabrainz.org>\n"
+"PO-Revision-Date: 2023-12-14 02:28+0000\n"
+"Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
+".org>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
 "X-Generator: Weblate 5.2.1\n"
 
 #: DB:link_attribute_type/description:1355
@@ -231,10 +231,8 @@ msgid "Describes the fact a person was contracted by a place as an engineer."
 msgstr ""
 
 #: DB:link_type/description:357
-#, fuzzy
-#| msgid "Designates that a work is or was the anthem for an area"
 msgid "Designates that a work is or was the anthem for an area."
-msgstr "Designa que un trabajo es o era el himno de un área"
+msgstr "Designa que un trabajo es o era el himno de un área."
 
 #: DB:link_type/description:356
 msgid "Designates that one area is contained by another."
@@ -309,10 +307,8 @@ msgid "IMSLP page for"
 msgstr "Página de IMSLP de"
 
 #: DB:link_attribute_type/description:516
-#, fuzzy
-#| msgid "Indicates a bonus disc"
 msgid "Indicates a bonus disc."
-msgstr "Indica un disco adicional"
+msgstr "Indica un disco adicional."
 
 #: DB:link_type/description:162
 msgid ""
@@ -351,14 +347,12 @@ msgid "Indicates a parent-child relationship."
 msgstr "Indica una relación padre-hijo."
 
 #: DB:link_type/description:396
-#, fuzzy
-#| msgid "Indicates the official homepage for a place."
 msgid "Indicates a pictorial image (JPEG, GIF, PNG) of a place."
-msgstr "Indica la página web oficial de un lugar."
+msgstr "Indica una imagen (JPEG, GIF, PNG) de un lugar."
 
 #: DB:link_type/description:173
 msgid "Indicates a pictorial image (JPEG, GIF, PNG) of an artist."
-msgstr ""
+msgstr "Indica una imagen (JPEG, GIF, PNG) de un artista."
 
 #: DB:link_type/description:943
 msgid ""
@@ -449,10 +443,8 @@ msgid ""
 msgstr ""
 
 #: DB:link_attribute_type/description:567
-#, fuzzy
-#| msgid "Indicates that one entity is a cover of another entity"
 msgid "Indicates that one entity is a cover of another entity."
-msgstr "Indica que una entidad es la imagen de otra entidad."
+msgstr "Indica que una entidad es una versión (cover) de otra entidad."
 
 #: DB:link_type/description:996
 msgid "Indicates that the artist is part of a series."
@@ -515,10 +507,8 @@ msgid "Indicates the area an event series was held in."
 msgstr ""
 
 #: DB:link_type/description:715
-#, fuzzy
-#| msgid "This indicates that the recording is of a live performance."
 msgid "Indicates the area where the work had its first performance."
-msgstr "Indica que la grabación es de una actuación en vivo."
+msgstr "Indica el área donde tuvo lugar la primera interpretación de la obra."
 
 #: DB:link_type/description:956
 msgid ""
@@ -539,10 +529,8 @@ msgid ""
 msgstr ""
 
 #: DB:link_type/description:845
-#, fuzzy
-#| msgid "This indicates that the recording is of a live performance."
 msgid "Indicates the event where the work had its first performance."
-msgstr "Indica que la grabación es de una actuación en vivo."
+msgstr "Indica el evento donde tuvo lugar la primera interpretación de la obra."
 
 #: DB:link_type/description:986
 msgid ""
@@ -612,10 +600,8 @@ msgid "Indicates the person who translated the lyrics/libretto for this work."
 msgstr ""
 
 #: DB:link_type/description:716
-#, fuzzy
-#| msgid "This indicates that the recording is of a live performance."
 msgid "Indicates the place where the work had its first performance."
-msgstr "Indica que la grabación es de una actuación en vivo."
+msgstr "Indica el lugar donde tuvo lugar la primera interpretación de la obra."
 
 #: DB:link_type/description:32
 msgid ""
@@ -835,12 +821,12 @@ msgid "Links a release to the place it was engineered at."
 msgstr ""
 
 #: DB:link_type/description:953
-#, fuzzy
-#| msgid "This links a release to a license under which it is available."
 msgid ""
 "Links a release to the place it was manufactured at. Use a more specific "
 "credit if available."
-msgstr "Conecta una publicación a una licencia bajo la cual está disponible."
+msgstr ""
+"Conecta una publicación al lugar en la que fue fabricada. Usa un crédito más "
+"específico si es posible."
 
 #: DB:link_type/description:697
 msgid "Links a release to the place it was mastered at."
@@ -1026,36 +1012,36 @@ msgid "Points to the Internet Movie Database page for this place."
 msgstr ""
 
 #: DB:link_type/description:358
-#, fuzzy
-#| msgid "Points to the Wikipedia page for this album."
 msgid ""
 "Points to the Wikidata page for this area, and will be used to fetch "
 "Wikipedia summaries."
-msgstr "Apunta a la página de Wikipedia de este álbum."
+msgstr ""
+"Apunta a la página de Wikidata de este área, y sirve para obtener sumarios "
+"de Wikipedia."
 
 #: DB:link_type/description:352
-#, fuzzy
-#| msgid "Points to the Wikipedia page for this artist."
 msgid ""
 "Points to the Wikidata page for this artist, and will be used to fetch "
 "Wikipedia summaries."
-msgstr "Apunta a la página de Wikipedia de este artista."
+msgstr ""
+"Apunta a la página de Wikidata de este artista, y sirve para obtener "
+"sumarios de Wikipedia."
 
 #: DB:link_type/description:790
-#, fuzzy
-#| msgid "Points to the Wikipedia page for this album."
 msgid ""
 "Points to the Wikidata page for this event, and will be used to fetch "
 "Wikipedia summaries."
-msgstr "Apunta a la página de Wikipedia de este álbum."
+msgstr ""
+"Apunta a la página de Wikidata de este evento, y sirve para obtener sumarios "
+"de Wikipedia."
 
 #: DB:link_type/description:1087
-#, fuzzy
-#| msgid "Points to the Wikipedia page for this album."
 msgid ""
 "Points to the Wikidata page for this genre, and will be used to fetch "
 "Wikipedia summaries."
-msgstr "Apunta a la página de Wikipedia de este álbum."
+msgstr ""
+"Apunta a la página de Wikidata de este género, y sirve para obtener sumarios "
+"de Wikipedia."
 
 #: DB:link_type/description:733
 msgid ""
@@ -1064,20 +1050,20 @@ msgid ""
 msgstr ""
 
 #: DB:link_type/description:354
-#, fuzzy
-#| msgid "Points to the Wikipedia page for this album."
 msgid ""
 "Points to the Wikidata page for this label, and will be used to fetch "
 "Wikipedia summaries."
-msgstr "Apunta a la página de Wikipedia de este álbum."
+msgstr ""
+"Apunta a la página de Wikidata de esta discográfica, y sirve para obtener "
+"sumarios de Wikipedia."
 
 #: DB:link_type/description:594
-#, fuzzy
-#| msgid "Points to the Wikipedia page for this album."
 msgid ""
 "Points to the Wikidata page for this place, and will be used to fetch "
 "Wikipedia summaries."
-msgstr "Apunta a la página de Wikipedia de este álbum."
+msgstr ""
+"Apunta a la página de Wikidata de este lugar, y sirve para obtener sumarios "
+"de Wikipedia."
 
 #: DB:link_type/description:353
 msgid ""
@@ -1086,20 +1072,20 @@ msgid ""
 msgstr ""
 
 #: DB:link_type/description:749
-#, fuzzy
-#| msgid "Points to the Wikipedia page for this album."
 msgid ""
 "Points to the Wikidata page for this series, and will be used to fetch "
 "Wikipedia summaries."
-msgstr "Apunta a la página de Wikipedia de este álbum."
+msgstr ""
+"Apunta a la página de Wikidata de esta serie, y sirve para obtener sumarios "
+"de Wikipedia."
 
 #: DB:link_type/description:351
-#, fuzzy
-#| msgid "Points to the Wikipedia page for this album."
 msgid ""
 "Points to the Wikidata page for this work, and will be used to fetch "
 "Wikipedia summaries."
-msgstr "Apunta a la página de Wikipedia de este álbum."
+msgstr ""
+"Apunta a la página de Wikidata de esta obra, y sirve para obtener sumarios "
+"de Wikipedia."
 
 #: DB:link_type/description:89
 msgid "Points to the Wikipedia page for this album."
@@ -1122,10 +1108,8 @@ msgid "Points to the Wikipedia page for this instrument."
 msgstr ""
 
 #: DB:link_type/description:595
-#, fuzzy
-#| msgid "Points to the Wikipedia page for this place"
 msgid "Points to the Wikipedia page for this place."
-msgstr "Apunta a la página de Wikipedia de este lugar"
+msgstr "Apunta a la página de Wikipedia de este lugar."
 
 #: DB:link_type/description:744
 msgid "Points to the Wikipedia page for this series."
@@ -1305,15 +1289,12 @@ msgid ""
 msgstr ""
 
 #: DB:link_attribute_type/description:582
-#, fuzzy
-#| msgid ""
-#| "This attribute indicates that the streamable content is not audio but "
-#| "video."
 msgid ""
 "This attribute indicates that the content is not audio (or text) only, but "
 "video."
 msgstr ""
-"Este atributo indica que el contenido en streaming no es audio, sino vídeo."
+"Este atributo indica que el contenido no es simplemente audio o texto, sino "
+"que incluye vídeo."
 
 #: DB:link_attribute_type/description:788
 msgid "This attribute indicates the number of an entity in a series."
@@ -3551,11 +3532,9 @@ msgid ""
 msgstr ""
 
 #: DB:link_type/description:840
-#, fuzzy
-#| msgid "This links an artist to its page at Bandcamp."
 msgid ""
 "This relationship type links an artist to its corresponding page at Last.fm."
-msgstr "Esto enlaza un artista con su página en Bandcamp."
+msgstr "Esto enlaza un artista con su página en Last.fm."
 
 #: DB:link_type/description:785
 msgid ""
@@ -3563,12 +3542,10 @@ msgid ""
 msgstr ""
 
 #: DB:link_type/description:816
-#, fuzzy
-#| msgid "This links an artist to its page at Bandcamp."
 msgid ""
 "This relationship type links an artist to its corresponding page at setlist."
 "fm."
-msgstr "Esto enlaza un artista con su página en Bandcamp."
+msgstr "Esto enlaza un artista con su página en setlist.fm."
 
 #: DB:link_type/description:189
 msgid "This relationship type links an artist to their Myspace page."

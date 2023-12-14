@@ -18,22 +18,25 @@
 # t0n3t <email address hidden>, 2012
 # Kevin López Brante <email address hidden>, 2012
 # Tiago Natale, 2022
-#   Tobias Quathamer <email address hidden>, 2007
+# Tobias Quathamer <email address hidden>, 2007
 # t0n3t <email address hidden>, 2012
 # Yumi V <email address hidden>, 2017
+# reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2012-05-24 19:17+0000\n"
-"Last-Translator: Nicolás Tamargo <reosarevok@gmail.com>, 2011-2013,2023\n"
-"Language-Team: Spanish (http://app.transifex.com/musicbrainz/musicbrainz/"
-"language/es/)\n"
+"PO-Revision-Date: 2023-12-14 02:28+0000\n"
+"Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
+".org>\n"
+"Language-Team: Spanish <https://translations.metabrainz.org/projects/"
+"musicbrainz/instrument-descriptions/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? "
-"1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
+"X-Generator: Weblate 5.2.1\n"
 
 #. name:rebab 
 #: DB:instrument/description:239
@@ -76,12 +79,10 @@ msgstr ""
 
 #. name:kös 
 #: DB:instrument/description:739
-#, fuzzy
-#| msgid "A Turkish drum used in the traditional Ottoman military bands"
 msgid "A Turkish drum used in the traditional Ottoman military bands."
 msgstr ""
 "Un instrumento de percusión turco usado en las bandas militares otomanas "
-"tradicionales"
+"tradicionales."
 
 #. name:tef 
 #: DB:instrument/description:531
@@ -124,17 +125,11 @@ msgstr "Un órgano de cámara es un órgano de tubos pequeño."
 
 #. name:cuatro 
 #: DB:instrument/description:439
-#, fuzzy
-#| msgid "A class of South-American guitars"
 msgid "A class of South-American guitars."
 msgstr "Una clase de guitarras sudamericanas."
 
 #. name:saduk 
 #: DB:instrument/description:804
-#, fuzzy
-#| msgid ""
-#| "A cross between a saxophone and a duduk invented and played by Alexander "
-#| "Berne"
 msgid ""
 "A cross between a saxophone and a duduk invented and played by Alexander "
 "Berne."
@@ -217,10 +212,6 @@ msgstr ""
 
 #. name:đàn tứ dây 
 #: DB:instrument/description:233
-#, fuzzy
-#| msgid ""
-#| "A latter-day construction in the form of a four-stringed, square-bodied "
-#| "bass guitar"
 msgid ""
 "A latter-day construction in the form of a four-stringed, square-bodied bass "
 "guitar."
@@ -257,14 +248,11 @@ msgstr ""
 
 #. name:bowed piano 
 #: DB:instrument/description:504
-#, fuzzy
-#| msgid ""
-#| "A piano whose strings are bowed, using nylon filament or other materials"
 msgid ""
 "A piano whose strings are bowed, using nylon filament or other materials."
 msgstr ""
 "Un piano cuyas cuerdas son tocadas frotándolas con un arco, hecho de "
-"filamento de nailon u otros materiales"
+"filamento de nailon u otros materiales."
 
 #. name:theatre organ 
 #: DB:instrument/description:347
@@ -704,13 +692,9 @@ msgstr ""
 
 #. name:bendir 
 #: DB:instrument/description:343
-#, fuzzy
-#| msgid ""
-#| "A tar is a single-headed frame drum from North Africa and the Middle East."
 msgid "Bendir, frame drum from North Africa, doesn't have jingles."
 msgstr ""
-"Un tar es un instrumento de percusión de un solo parche, del norte de África "
-"y Oriente Medio."
+"Un bendir es un tambor de marco sin sonajas procedente del norte de África."
 
 #. name:kemanak 
 #: DB:instrument/description:988
@@ -1334,10 +1318,8 @@ msgstr ""
 
 #. name:hmông flute 
 #: DB:instrument/description:312
-#, fuzzy
-#| msgid "family of Hmông flutes"
 msgid "Family of Hmông flutes."
-msgstr "familia de flautas hmong"
+msgstr "Familia de flautas hmong."
 
 #. name:recorder 
 #: DB:instrument/description:18
@@ -1971,19 +1953,13 @@ msgstr ""
 
 #. name:djoza 
 #: DB:instrument/description:850
-#, fuzzy
-#| msgid ""
-#| "its origins can be sourced almost 5000 years ago, this Iraqi string "
-#| "instrument is the forefather of several instruments around the world. Its "
-#| "name means coconut or acorn, while originally made of walnut, it is today "
-#| "of coconut and fish-skin or heart-membrane."
 msgid ""
 "Its origins can be sourced almost 5000 years ago, this Iraqi string "
 "instrument is the forefather of several instruments around the world. Its "
 "name means coconut or acorn, while originally made of walnut, it is today of "
 "coconut and fish-skin or heart-membrane."
 msgstr ""
-"sus orígenes se remontan hacia casi unos 5000 años; este instrumento de "
+"Sus orígenes se remontan hacia casi unos 5000 años; este instrumento de "
 "cuerdas iraquí es el antecesor de varios instrumentos de todo el mundo. Su "
 "nombre significa coco o bellota; aunque en un principio estaba hecho de "
 "nogal, hoy en día es de coco y piel de pescado o membrana del corazón."
@@ -2450,10 +2426,8 @@ msgstr ""
 
 #. name:Mexican vihuela 
 #: DB:instrument/description:92
-#, fuzzy
-#| msgid "Mexican vihuela, used by mariachi bands"
 msgid "Mexican vihuela, used by mariachi bands."
-msgstr "Vihuela mexicana, utilizada por los grupos mariachis"
+msgstr "Vihuela mexicana, utilizada por los grupos mariachis."
 
 #. name:fundeh 
 #: DB:instrument/description:881
@@ -3103,16 +3077,12 @@ msgstr ""
 
 #. name:banjolin 
 #: DB:instrument/description:831
-#, fuzzy
-#| msgid ""
-#| "reinvented several times in different lands, it combines banjo body and "
-#| "neck of mandolin, it is tuned like it and the violin."
 msgid ""
 "Reinvented several times in different lands, it combines banjo body and neck "
 "of mandolin, it is tuned like it and the violin."
 msgstr ""
-"reinventada varias veces en distintas tierras, combina el cuerpo de un banyo "
-"y el mástil de una mandolina, se afina como una y como el violín"
+"Reinventada varias veces en distintas tierras, combina el cuerpo de un banyo "
+"y el mástil de una mandolina, se afina como una y como el violín."
 
 #. name:kenong 
 #: DB:instrument/description:985
@@ -4602,10 +4572,8 @@ msgstr ""
 
 #. name:saz 
 #: DB:instrument/description:472
-#, fuzzy
-#| msgid "The saz is a long-necked fretted lute"
 msgid "The saz is a long-necked fretted lute."
-msgstr "El saz es un laúd de largo mástil con trastes"
+msgstr "El saz es un laúd de largo mástil con trastes."
 
 #. name:sheng 
 #: DB:instrument/description:45
@@ -5143,11 +5111,10 @@ msgstr ""
 
 #. name:classical kemençe 
 #: DB:instrument/description:542
-#, fuzzy
-#| msgid "Turkish box-shaped kemenche, mainly used for folk music."
 msgid "Turkish bowl-shaped kemenche, mainly used in classical Ottoman music."
 msgstr ""
-"Kemenche turco en forma de caja, usado principalmente para música folclórica."
+"Kemenche turco en forma de bol, usado principalmente en la música clásica "
+"otomana."
 
 #. name:kemençe of the Black Sea 
 #: DB:instrument/description:541
@@ -5157,10 +5124,9 @@ msgstr ""
 
 #. name:kudüm 
 #: DB:instrument/description:525
-#, fuzzy
-#| msgid "Turkish pair of small, hemispherical drums"
 msgid "Turkish pair of small, hemispherical drums."
-msgstr "Par turco de pequeños y semiesféricos instrumentos de percusión"
+msgstr ""
+"Par de pequeños instrumentos de percusión semiesféricos de origen turco."
 
 #. name:pākuru 
 #: DB:instrument/description:867
@@ -5402,17 +5368,13 @@ msgstr ""
 
 #. name:hichiriki 
 #: DB:instrument/description:616
-#, fuzzy
-#| msgid "Used in gagaku, it is a double reed flute"
 msgid "Used in gagaku, it is a double reed flute."
-msgstr "Utilizado en gagaku, es una flauta de doble lengüeta"
+msgstr "Utilizado en gagaku, es una flauta de doble lengüeta."
 
 #. name:ryuteki 
 #: DB:instrument/description:617
-#, fuzzy
-#| msgid "Used in gagaku, it is a transverse flute"
 msgid "Used in gagaku, it is a transverse flute."
-msgstr "Utilizado en gagaku, es una flauta travesera"
+msgstr "Utilizado en gagaku, es una flauta travesera."
 
 #. name:kagurabue 
 #: DB:instrument/description:849
@@ -5571,19 +5533,14 @@ msgstr ""
 
 #. name:tanpura 
 #: DB:instrument/description:829
-#, fuzzy
-#| msgid ""
-#| "Usually accompanying sitar on ragas, the fretless instrument comes in "
-#| "different sizes: largest; male-voice, smaller; female-voice and smallest; "
-#| "the instrument-accompanying \"tanpuri\""
 msgid ""
 "Usually accompanying sitar on ragas, the fretless instrument comes in "
 "different sizes: largest; male-voice, smaller; female-voice and smallest; "
 "the instrument-accompanying \"tanpuri\"."
 msgstr ""
-"Por lo general, acompañando al sitar en los ragas, el instrumento sin traste "
+"Instrumento sin traste que generalmente acompaña al sitar en los ragas, "
 "viene en diferentes tamaños: grande, masculina; pequeño, femenina; y más "
-"pequeño, el instrumento que acompaña a la \"tanpura\""
+"pequeño, el instrumento de acompañamiento \"tanpuri\"."
 
 #. name:angklung 
 #: DB:instrument/description:371
@@ -5604,10 +5561,8 @@ msgstr ""
 
 #. name:fretless bass 
 #: DB:instrument/description:435
-#, fuzzy
-#| msgid "variety of bass guitars without frets"
 msgid "Variety of bass guitars without frets."
-msgstr "variedad de bajos sin trastes"
+msgstr "Tipo de bajos sin trastes."
 
 #. name:cymbal 
 #: DB:instrument/description:271
@@ -5717,15 +5672,11 @@ msgstr ""
 
 #. name:wind synthesizer 
 #: DB:instrument/description:560
-#, fuzzy
-#| msgid ""
-#| "wind synthesizer or wind controller, it is connected to a midi controller "
-#| "and is played like a wind instrument."
 msgid ""
 "Wind synthesizer or wind controller, it is connected to a MIDI controller "
 "and is played like a wind instrument."
 msgstr ""
-"sintetizador de viento o controlador de viento; está conectado a un "
+"Sintetizador de viento o controlador de viento; está conectado a un "
 "controlador MIDI y se toca como un instrumento de viento."
 
 #. name:torupill 
@@ -5753,10 +5704,8 @@ msgstr ""
 
 #. name:vibrandoneon 
 #: DB:instrument/description:840
-#, fuzzy
-#| msgid "wood accordina with piano keys invented in Italy"
 msgid "Wood accordina with piano keys invented in Italy."
-msgstr "accordina de madera con teclas de piano inventada en Italia"
+msgstr "Accordina de madera con teclas de piano inventada en Italia."
 
 #. name:Irish flute 
 #: DB:instrument/description:878

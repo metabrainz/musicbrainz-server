@@ -19,17 +19,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-12-13 21:11+0000\n"
-"Last-Translator: reosarevok <reosarevok@users.noreply.translations."
-"metabrainz.org>\n"
+"PO-Revision-Date: 2023-12-14 02:28+0000\n"
+"Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
+".org>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
 "musicbrainz/statistics/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
 "X-Generator: Weblate 5.2.1\n"
 
 #: DB:statistics.statistic_event/title:2015-09-08
@@ -205,10 +205,8 @@ msgid "Amazon betas SoundUnwound"
 msgstr ""
 
 #: DB:statistics.statistic_event/title:2004-02-24
-#, fuzzy
-#| msgid "Amazon Coverart"
 msgid "Amazon cover art"
-msgstr "Amazon Coverart"
+msgstr "Imágenes de Amazon"
 
 #: DB:statistics.statistic_event/description:2004-02-24
 msgid "Amazon cover art support released."
@@ -2093,8 +2091,6 @@ msgid "Artist types and genders"
 msgstr ""
 
 #: ../root/statistics/stats.js:22
-#, fuzzy
-#| msgid "Edit information"
 msgctxt "noun"
 msgid "Edit information"
 msgstr "Información sobre ediciones"
