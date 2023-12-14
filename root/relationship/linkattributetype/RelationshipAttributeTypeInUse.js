@@ -16,11 +16,11 @@ type Props = {
 const RelationshipAttributeTypeInUse = ({
   type,
 }: Props): React$Element<typeof Layout> => (
-  <Layout fullWidth title={l('Relationship attribute in use')}>
+  <Layout fullWidth title="Relationship attribute in use">
     <div className="content">
-      <h1>{l('Relationship attribute in use')}</h1>
+      <h1>{'Relationship attribute in use'}</h1>
       <p>
-        {texp.l(
+        {texp.l_admin(
           `The relationship attribute type “{type}” can’t be removed
            because it’s still in use.`,
           {type: type.name},

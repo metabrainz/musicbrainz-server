@@ -20,12 +20,12 @@ const DeleteRelationshipAttributeType = ({
 }: Props): React$Element<typeof ConfirmLayout> => (
   <ConfirmLayout
     form={form}
-    question={exp.l(
+    question={exp.l_admin(
       `Are you sure you wish to remove the
        <strong>{link_attr_type}</strong> relationship attribute?`,
       {link_attr_type: type.name},
     )}
-    title={l('Remove relationship attribute')}
+    title="Remove relationship attribute"
   />
 );
 
