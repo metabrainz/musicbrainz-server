@@ -37,7 +37,7 @@ test 'Browse CD Stubs page contains the expected data' => sub {
     html_ok($mech->content);
 
     $mech->title_like(
-        qr/Top CD Stubs/,
+        qr/Top CD stubs/,
         'The page title matches the expected one',
     );
     $mech->content_like(
