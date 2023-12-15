@@ -13,14 +13,12 @@ import MediumTracklist from '../medium/MediumTracklist.js';
 import DescriptiveLink
   from '../static/scripts/common/components/DescriptiveLink.js';
 import linkedEntities from '../static/scripts/common/linkedEntities.mjs';
-import {arraysEqual} from '../static/scripts/common/utility/arrays.js';
-import formatTrackLength
-  from '../static/scripts/common/utility/formatTrackLength.js';
 import EnterEdit from '../static/scripts/edit/components/EnterEdit.js';
 import EnterEditNote
   from '../static/scripts/edit/components/EnterEditNote.js';
 
 import CDTocInfo from './CDTocInfo.js';
+import {areFormattedLengthsEqual} from './utils.js';
 
 type SetTracklistDurationsProps = {
   +cdToc: CDTocT,
@@ -36,11 +34,6 @@ const SetTracklistDurations = ({
   const newLengths = cdToc.track_details.map(track => track.length_time);
   const oldLengths = medium.cdtoc_tracks.map(track => track.length);
   const release = linkedEntities.release[medium.release_id];
-  const areFormattedLengthsEqual = arraysEqual(
-    oldLengths,
-    newLengths,
-    (a, b) => formatTrackLength(a) === formatTrackLength(b),
-  );
 
   return (
     <Layout fullWidth title={l('Set tracklist durations')}>
@@ -62,7 +55,7 @@ const SetTracklistDurations = ({
 
       <h2>{l('Changes')}</h2>
 
-      {areFormattedLengthsEqual ? (
+      {areFormattedLengthsEqual(oldLengths, newLengths) ? (
         <p>
           {l('This edit would only make subsecond changes to track lengths.')}
         </p>

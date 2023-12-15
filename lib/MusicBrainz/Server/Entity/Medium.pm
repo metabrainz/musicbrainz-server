@@ -190,6 +190,12 @@ around TO_JSON => sub {
         $data->{cdtoc_tracks} = to_json_array($self->cdtoc_tracks);
     }
 
+    if ($self->durations_loaded) {
+        $data->{pregap_length} = $self->pregap_length;
+        $data->{cdtoc_track_lengths} = $self->cdtoc_track_lengths;
+        $data->{data_track_lengths} = $self->data_track_lengths;
+    }
+
     if ($self->tracks_pager) {
         $data->{tracks_pager} = serialize_pager($self->tracks_pager);
     }
