@@ -1223,7 +1223,9 @@ msgid "Timeline"
 msgstr "Tidslinje"
 
 #: ../root/statistics/timeline.tt:25
-msgid "Timeline Graph"
+#, fuzzy
+#| msgid "Timeline Graph"
+msgid "Timeline graph"
 msgstr "Tidslinjegraf"
 
 #: ../root/statistics/timeline.tt:16

@@ -74,7 +74,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-13 23:21+0200\n"
+"POT-Creation-Date: 2023-12-14 18:52+0000\n"
 "PO-Revision-Date: 2023-12-12 12:50+0000\n"
 "Last-Translator: yvanzo <yvanzo@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: German <https://translations.metabrainz.org/projects/"
@@ -1041,7 +1041,7 @@ msgstr "Bearbeiten"
 #: ../root/components/Aliases/ArtistCreditList.js:82
 #: ../root/components/EntityTabs.js:155
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:96
-#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:68
+#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:69
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:135
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:120
 #: ../root/release/CoverArt.js:110
@@ -2385,7 +2385,7 @@ msgstr "Veröffentlichung „{name}“ von {artist}"
 #: ../root/components/Aliases/AliasTableRow.js:65
 #: ../root/layout/components/sidebar/RemoveLink.js:34
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:102
-#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:74
+#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:75
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:141
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:128
 #: ../root/release/CoverArt.js:116
@@ -6265,8 +6265,8 @@ msgstr "Tag"
 #: ../root/edit/details/EditRelationshipType.js:325
 #: ../root/layout/components/BottomMenu.js:295
 #: ../root/layout/components/Search.js:51
-#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:80
-#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:92
+#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:81
+#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:93
 #: ../root/search/components/SearchForm.js:54
 msgid "Documentation"
 msgstr "Dokumentation"
@@ -7768,7 +7768,10 @@ msgid "No tracks with this artist credit were found."
 msgstr ""
 
 #: ../root/cdstub/BrowseCDStubs.js:30 ../root/cdstub/BrowseCDStubs.js:31
-msgid "Top CD Stubs"
+#: ../root/layout/components/BottomMenu.js:231
+#, fuzzy
+#| msgid "Top CD Stubs"
+msgid "Top CD stubs"
 msgstr "Top-CD-Stubs"
 
 #: ../root/cdstub/BrowseCDStubs.js:38
@@ -10986,12 +10989,6 @@ msgctxt "folksonomy"
 msgid "Tag cloud"
 msgstr "Tag-Nachschlagen"
 
-#: ../root/layout/components/BottomMenu.js:231
-#, fuzzy
-#| msgid "Top CD Stubs"
-msgid "Top CD stubs"
-msgstr "Top-CD-Stubs"
-
 #: ../root/layout/components/BottomMenu.js:240
 #: ../root/layout/components/sidebar/CollectionSidebar.js:72
 #: ../root/layout/components/sidebar/EditLinks.js:31
@@ -12239,34 +12236,11 @@ msgstr ""
 
 #: ../root/relationship/RelationshipsHeader.js:23
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:87
-#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:178
+#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:179
 #, fuzzy
 #| msgid "Relationship Attributes"
 msgid "Relationship attributes"
 msgstr "Beziehungsattribute"
-
-#: ../root/relationship/linkattributetype/DeleteRelationshipAttributeType.js:24
-msgid ""
-"Are you sure you wish to remove the <strong>{link_attr_type}</strong> "
-"relationship attribute?"
-msgstr ""
-"Bist du sicher, dass du das <strong>{link_attr_type}</strong>-"
-"Beziehungsattribut löschen willst?"
-
-#: ../root/relationship/linkattributetype/DeleteRelationshipAttributeType.js:28
-msgid "Remove relationship attribute"
-msgstr "Beziehungsattribut entfernen"
-
-#: ../root/relationship/linkattributetype/RelationshipAttributeTypeInUse.js:19
-#: ../root/relationship/linkattributetype/RelationshipAttributeTypeInUse.js:21
-msgid "Relationship attribute in use"
-msgstr "Beziehungsattribut in Benutzen"
-
-#: ../root/relationship/linkattributetype/RelationshipAttributeTypeInUse.js:24
-msgid ""
-"The relationship attribute type “{type}” can’t be removed because it’s still "
-"in use."
-msgstr ""
 
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:77
 #, fuzzy
@@ -12293,7 +12267,7 @@ msgid "This attribute uses free text values"
 msgstr ""
 
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:157
-#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:150
+#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:151
 msgid "Possible values"
 msgstr ""
 
@@ -12319,45 +12293,13 @@ msgstr ""
 msgid "This attribute isn’t directly being used by any relationship types."
 msgstr ""
 
-#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:45
+#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:46
 msgid "none"
 msgstr "keine"
 
-#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:62
-msgid "Add child"
-msgstr "Kind hinzufügen"
-
-#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:168
+#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:169
 msgid "No relationship attributes found."
 msgstr "Keine Beziehungsattribute gefunden."
-
-#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:184
-msgid "Add a new relationship attribute"
-msgstr ""
-
-#: ../root/relationship/linktype/DeleteRelationshipType.js:24
-msgid ""
-"Are you sure you wish to remove the <strong>{link_type}</strong> "
-"relationship type?"
-msgstr ""
-"Bist du sicher, dass du den <strong>{link_type}</strong>-Beziehungstypen "
-"löschen willst?"
-
-#: ../root/relationship/linktype/DeleteRelationshipType.js:28
-msgid "Remove relationship type"
-msgstr "Beziehungstyp entfernen"
-
-#: ../root/relationship/linktype/RelationshipTypeInUse.js:19
-#: ../root/relationship/linktype/RelationshipTypeInUse.js:21
-#, fuzzy
-#| msgid "Relationship Type In Use"
-msgid "Relationship type in use"
-msgstr "Beziehungstyp in Benutzung"
-
-#: ../root/relationship/linktype/RelationshipTypeInUse.js:24
-msgid ""
-"The relationship type “{type}” can’t be removed because it’s still in use."
-msgstr ""
 
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:48
 msgid "This relationship type doesn't allow any attributes."
@@ -12436,10 +12378,6 @@ msgstr "&lt; Zurück zu allen Beziehungstypen"
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:194
 msgid "{type0}-{type1} relationship types"
 msgstr "{type0}-{type1}-Beziehungstypen"
-
-#: ../root/relationship/linktype/RelationshipTypePairTree.js:203
-msgid "Add a new {type0}-{type1} relationship type"
-msgstr ""
 
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:214
 msgid "Expand all descriptions"
@@ -12911,6 +12849,7 @@ msgstr ""
 "Katalognummer zu finden."
 
 #: ../root/report/CatNoLooksLikeLabelCode.js:39
+#: ../root/report/ReportsIndex.js:333
 #, fuzzy
 #| msgid "Releases with catalog numbers that look like Label Codes"
 msgid "Releases with catalog numbers that look like label codes"
@@ -14062,10 +14001,6 @@ msgstr ""
 "Veröffentlichungen, wo bei einigen (aber nicht allen) Medien kein Format "
 "angegeben ist"
 
-#: ../root/report/ReportsIndex.js:333
-msgid "Releases with catalog numbers that look like Label Codes"
-msgstr "Veröffentlichungen mit Katalognummern, die wie Label-Codes aussehen"
-
 #: ../root/report/ReportsIndex.js:339
 msgid ""
 "Translated/Transliterated Pseudo-Releases marked as the original version"
@@ -14660,7 +14595,11 @@ msgid "Languages known:"
 msgstr "Beherrschte Sprachen:"
 
 #: ../root/static/scripts/account/components/EditProfileForm.js:314
-msgid "Add a language"
+#: ../root/static/scripts/work/edit.js:330
+#, fuzzy
+#| msgid "Add a language"
+msgctxt "interactive"
+msgid "Add language"
 msgstr "Eine Sprache hinzufügen"
 
 #: ../root/static/scripts/account/components/EditProfileForm.js:322
@@ -16956,13 +16895,6 @@ msgstr ""
 msgid "Add lyrics language"
 msgstr ""
 
-#: ../root/static/scripts/work/edit.js:330
-#, fuzzy
-#| msgid "Add a language"
-msgctxt "interactive"
-msgid "Add language"
-msgstr "Eine Sprache hinzufügen"
-
 #: ../root/static/scripts/work/edit.js:342
 #, fuzzy
 #| msgid "Remove Language"
@@ -18520,6 +18452,46 @@ msgstr ""
 "<strong>Achtung:</strong> Einige der Werke, die du vereinst, haben "
 "unterschiedliche ISWCs. Bitte stelle sicher, dass es sich tatsächlich um die "
 "gleichen Werke handelt und dass du die Vereinigung durchführen willst."
+
+#~ msgid "Top CD Stubs"
+#~ msgstr "Top-CD-Stubs"
+
+#~ msgid ""
+#~ "Are you sure you wish to remove the <strong>{link_attr_type}</strong> "
+#~ "relationship attribute?"
+#~ msgstr ""
+#~ "Bist du sicher, dass du das <strong>{link_attr_type}</strong>-"
+#~ "Beziehungsattribut löschen willst?"
+
+#~ msgid "Remove relationship attribute"
+#~ msgstr "Beziehungsattribut entfernen"
+
+#~ msgid "Relationship attribute in use"
+#~ msgstr "Beziehungsattribut in Benutzen"
+
+#~ msgid "Add child"
+#~ msgstr "Kind hinzufügen"
+
+#~ msgid ""
+#~ "Are you sure you wish to remove the <strong>{link_type}</strong> "
+#~ "relationship type?"
+#~ msgstr ""
+#~ "Bist du sicher, dass du den <strong>{link_type}</strong>-Beziehungstypen "
+#~ "löschen willst?"
+
+#~ msgid "Remove relationship type"
+#~ msgstr "Beziehungstyp entfernen"
+
+#, fuzzy
+#~| msgid "Relationship Type In Use"
+#~ msgid "Relationship type in use"
+#~ msgstr "Beziehungstyp in Benutzung"
+
+#~ msgid "Releases with catalog numbers that look like Label Codes"
+#~ msgstr "Veröffentlichungen mit Katalognummern, die wie Label-Codes aussehen"
+
+#~ msgid "Add a language"
+#~ msgstr "Eine Sprache hinzufügen"
 
 #~ msgid "Possible duplicate events"
 #~ msgstr "Möglicherweise doppelte Veranstaltungen"

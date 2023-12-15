@@ -1323,7 +1323,9 @@ msgid "Timeline"
 msgstr "Chronologie"
 
 #: ../root/statistics/timeline.tt:25
-msgid "Timeline Graph"
+#, fuzzy
+#| msgid "Timeline Graph"
+msgid "Timeline graph"
 msgstr "Graphique chronologique"
 
 #: ../root/statistics/timeline.tt:16

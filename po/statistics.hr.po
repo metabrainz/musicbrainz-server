@@ -1217,7 +1217,7 @@ msgid "Timeline"
 msgstr ""
 
 #: ../root/statistics/timeline.tt:25
-msgid "Timeline Graph"
+msgid "Timeline graph"
 msgstr ""
 
 #: ../root/statistics/timeline.tt:16
