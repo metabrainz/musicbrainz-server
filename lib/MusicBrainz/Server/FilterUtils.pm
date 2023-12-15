@@ -24,7 +24,7 @@ sub create_artist_events_form {
 }
 
 sub create_artist_release_groups_form {
-    my ($c, $artist_id) = @_;
+    my ($c, $artist_id, $want_all_statuses, $want_va_only) = @_;
 
     my %form_args = (
         entity_type => 'release_group',
@@ -33,7 +33,7 @@ sub create_artist_release_groups_form {
     );
 
     $form_args{artist_credits} =
-        $c->model('ReleaseGroup')->find_artist_credits_by_artist($artist_id);
+        $c->model('ReleaseGroup')->find_artist_credits_by_artist($artist_id, $want_all_statuses, $want_va_only);
 
     return $c->form(filter_form => 'Filter::ReleaseGroup', %form_args);
 }

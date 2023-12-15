@@ -30,11 +30,12 @@ import {bracketedText} from '../static/scripts/common/utility/bracketed.js';
 import entityHref from '../static/scripts/common/utility/entityHref.js';
 import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
 import {returnToCurrentPage} from '../utility/returnUri.js';
+import uriWith from '../utility/uriWith.js';
 
 import ArtistLayout from './ArtistLayout.js';
 
 type FooterSwitchProps = {
-  +artist: ArtistT,
+  +$c: CatalystContextT,
   +hasDefault: boolean,
   +hasExtra: boolean,
   +hasVariousArtists: boolean,
@@ -69,7 +70,7 @@ type Props = {
 };
 
 const FooterSwitch = ({
-  artist,
+  $c,
   hasDefault,
   hasExtra,
   hasVariousArtists,
@@ -77,7 +78,9 @@ const FooterSwitch = ({
   includingAllStatuses,
   showingVariousArtistsOnly,
 }: FooterSwitchProps): React$Element<'p' | React$FragmentType> => {
-  const artistLink = entityHref(artist);
+  const artistLink = $c.req.uri;
+  const hasArtistCreditFilter =
+    Boolean($c.req.query_params?.['filter.artist_credit_id']);
 
   function buildLinks(
     showDefault: boolean,
@@ -88,28 +91,72 @@ const FooterSwitch = ({
     const links = [];
     if (showDefault) {
       links.push(
-        <a href={artistLink} key="show-default">
+        <a
+          href={uriWith(
+            artistLink,
+            {
+              'all': 0,
+              'dropped_ac_filter': hasArtistCreditFilter,
+              'filter.artist_credit_id': '',
+              'va': 0,
+            },
+          )}
+          key="show-default"
+        >
           {l('Show official release groups')}
         </a>,
       );
     }
     if (showAll) {
       links.push(
-        <a href={`${artistLink}?all=1`} key="show-all">
+        <a
+          href={uriWith(
+            artistLink,
+            {
+              'all': 1,
+              'dropped_ac_filter': hasArtistCreditFilter,
+              'filter.artist_credit_id': '',
+              'va': 0,
+            },
+          )}
+          key="show-all"
+        >
           {l('Show all release groups')}
         </a>,
       );
     }
     if (showVA) {
       links.push(
-        <a href={`${artistLink}?va=1`} key="show-va">
+        <a
+          href={uriWith(
+            artistLink,
+            {
+              'all': 0,
+              'dropped_ac_filter': hasArtistCreditFilter,
+              'filter.artist_credit_id': '',
+              'va': 1,
+            },
+          )}
+          key="show-va"
+        >
           {l('Show official various artist release groups')}
         </a>,
       );
     }
     if (showAllVA) {
       links.push(
-        <a href={`${artistLink}?all=1&va=1`} key="show-all-va">
+        <a
+          href={uriWith(
+            artistLink,
+            {
+              'all': 1,
+              'dropped_ac_filter': hasArtistCreditFilter,
+              'filter.artist_credit_id': '',
+              'va': 1,
+            },
+          )}
+          key="show-all-va"
+        >
           {l('Show all various artist release groups')}
         </a>,
       );
@@ -221,6 +268,8 @@ const ArtistIndex = ({
   const $c = React.useContext(SanitizedCatalystContext);
   const existingRecordings = recordings?.length ? recordings : null;
   const existingReleaseGroups = releaseGroups?.length ? releaseGroups : null;
+  const wasACFilterDropped = $c.req.query_params?.dropped_ac_filter === 'true';
+
 
   return (
     <ArtistLayout entity={artist} page="index">
@@ -284,6 +333,9 @@ const ArtistIndex = ({
       <Filter
         ajaxFormUrl={ajaxFilterFormUrl}
         initialFilterForm={filterForm}
+        showACDroppedMessage={wasACFilterDropped}
+        showAllReleaseGroups={includingAllStatuses}
+        showVAReleaseGroups={showingVariousArtistsOnly}
       />
 
       {existingReleaseGroups ? (
@@ -332,18 +384,30 @@ const ArtistIndex = ({
             'This artist has no release groups, only standalone recordings.',
           )}
         </p>
-      ) : (!existingReleaseGroups && hasFilter) ? (
-        <p>{l('No results found that match this search.')}</p>
       ) : (
-        <FooterSwitch
-          artist={artist}
-          hasDefault={hasDefault}
-          hasExtra={hasExtra}
-          hasVariousArtists={hasVariousArtists}
-          hasVariousArtistsExtra={hasVariousArtistsExtra}
-          includingAllStatuses={includingAllStatuses}
-          showingVariousArtistsOnly={showingVariousArtistsOnly}
-        />
+        <>
+          {(!existingReleaseGroups && hasFilter) ? (
+            <p>{l('No release groups found that match this search.')}</p>
+          ) : null}
+
+          <FooterSwitch
+            $c={$c}
+            hasDefault={hasDefault}
+            hasExtra={hasExtra}
+            hasVariousArtists={hasVariousArtists}
+            hasVariousArtistsExtra={hasVariousArtistsExtra}
+            includingAllStatuses={includingAllStatuses}
+            showingVariousArtistsOnly={showingVariousArtistsOnly}
+          />
+
+          {hasFilter ? (
+            <p>
+              {l(`Note: Any artist credit filtering will be dropped
+                  when navigating via the links above,
+                  since the artist credit lists usually vary per page.`)}
+            </p>
+          ) : null}
+        </>
       )}
 
       {manifest.js('artist/index', {async: 'async'})}

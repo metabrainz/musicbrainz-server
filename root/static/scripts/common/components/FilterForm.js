@@ -36,6 +36,9 @@ export type FilterFormT = $ReadOnly<{
 
 type Props = {
   +form: FilterFormT,
+  +showACDroppedMessage?: boolean,
+  +showAllReleaseGroups?: boolean,
+  +showVAReleaseGroups?: boolean,
 };
 
 function getSubmitText(type: string) {
@@ -54,7 +57,12 @@ function getSubmitText(type: string) {
   return '';
 }
 
-const FilterForm = ({form}: Props): React$Element<'div'> => {
+const FilterForm = ({
+  form,
+  showACDroppedMessage = false,
+  showAllReleaseGroups = false,
+  showVAReleaseGroups = false,
+}: Props): React$Element<'div'> => {
   const typeIdField = form.field.type_id;
   const typeIdOptions = form.options_type_id;
   const secondaryTypeIdField = form.field.secondary_type_id;
@@ -71,6 +79,7 @@ const FilterForm = ({form}: Props): React$Element<'div'> => {
   const statusIdOptions = form.options_status_id;
   const statusIdField = form.field.status_id;
   const setlistField = form.field.setlist;
+  const showArtistCreditForm = artistCreditIdField && artistCreditIdOptions;
 
   return (
     <div id="filter">
@@ -112,7 +121,7 @@ const FilterForm = ({form}: Props): React$Element<'div'> => {
               </tr>
             ) : null}
 
-            {artistCreditIdField && artistCreditIdOptions ? (
+            {showArtistCreditForm ? (
               <tr>
                 <td>
                   {addColonText(l('Artist credit'))}
@@ -127,6 +136,19 @@ const FilterForm = ({form}: Props): React$Element<'div'> => {
                     style={{maxWidth: '40em'}}
                     uncontrolled
                   />
+                </td>
+              </tr>
+            ) : null}
+
+            {showACDroppedMessage && showArtistCreditForm ? (
+              <tr>
+                <td />
+                <td>
+                  {exp.l(
+                    `<strong>Warning:</strong> The artist credit filter
+                     was dropped because the list of available artist credits
+                     may not be the same as on the previous page.`,
+                  )}
                 </td>
               </tr>
             ) : null}
@@ -252,6 +274,14 @@ const FilterForm = ({form}: Props): React$Element<'div'> => {
                 </td>
               </tr>
             ) : null}
+
+            {showAllReleaseGroups
+              ? <input name="all" type="hidden" value="1" />
+              : null}
+
+            {showVAReleaseGroups
+              ? <input name="va" type="hidden" value="1" />
+              : null}
 
             <tr>
               <td />

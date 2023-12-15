@@ -170,14 +170,93 @@ sub load
 
 sub find_artist_credits_by_artist
 {
-    my ($self, $artist_id) = @_;
+    my ($self, $artist_id, $show_all, $show_va) = @_;
 
-    my $query = 'SELECT DISTINCT rel.artist_credit
-                 FROM release_group rel
-                 JOIN artist_credit_name acn
-                     ON acn.artist_credit = rel.artist_credit
-                 WHERE acn.artist = ?';
+    if ($self->has_materialized_artist_release_group_data) {
+        return $self->_find_artist_credits_by_artist_fast($artist_id, $show_all, $show_va);
+    }
+    return $self->_find_artist_credits_by_artist_slow($artist_id, $show_all, $show_va);
+}
+
+sub _find_artist_credits_by_artist_fast {
+    my ($self, $artist_id, $show_all, $show_va) = @_;
+
+    my @conditions;
+
+    push @conditions, 'arg.is_track_artist = ' . ($show_va ? 'TRUE' : 'FALSE');
+
+    # Show only credits that match the RGs that will be filtered (official/all)
+    unless ($show_all) {
+        push @conditions, 'arg.unofficial = FALSE';
+    }
+
+    push @conditions, 'arg.artist = ?';
+
+    my $query = 'SELECT DISTINCT rg.artist_credit
+                            FROM artist_release_group arg
+                            JOIN release_group rg ON arg.release_group = rg.id
+                           WHERE ' . join(' AND ', @conditions);
     my $ids = $self->sql->select_single_column_array($query, $artist_id);
+    return $self->c->model('ArtistCredit')->find_by_ids($ids);
+}
+
+sub _find_artist_credits_by_artist_slow {
+    my ($self, $artist_id, $show_all, $show_va) = @_;
+
+    my $main_condition;
+    my $extra_condition;
+    my $params;
+
+    if ($show_va) {
+        $main_condition = <<~'SQL';
+            rg.id IN (
+                SELECT release_group
+                  FROM release
+                  JOIN medium ON medium.release = release.id
+                  JOIN track ON track.medium = medium.id
+                  JOIN artist_credit_name acn
+                    ON acn.artist_credit = track.artist_credit
+                 WHERE acn.artist = ?
+            )
+            AND rg.id NOT IN (
+                SELECT id
+                  FROM release_group
+                  JOIN artist_credit_name acn
+                    ON release_group.artist_credit = acn.artist_credit
+                 WHERE acn.artist = ?
+            )
+            SQL
+        $params = [$artist_id, $artist_id];
+    } else {
+        $main_condition = 'acn.artist = ?';
+        $params = [$artist_id];
+    }
+    # Show only credits that match the RGs that will be filtered (official/all)
+    unless ($show_all) {
+        $extra_condition = <<~'SQL';
+            AND (
+                EXISTS (
+                    SELECT 1
+                      FROM release
+                     WHERE release.release_group = rg.id
+                       AND release.status = '1'
+                ) OR NOT EXISTS (
+                    SELECT 1
+                      FROM release
+                     WHERE release.release_group = rg.id
+                       AND release.status IS NOT NULL
+                )
+            )
+            SQL
+    }
+
+    my $query = "SELECT DISTINCT rg.artist_credit
+                            FROM release_group rg
+                            JOIN artist_credit_name acn
+                              ON acn.artist_credit = rg.artist_credit
+                           WHERE $main_condition
+                                 $extra_condition";
+    my $ids = $self->sql->select_single_column_array($query, @$params);
     return $self->c->model('ArtistCredit')->find_by_ids($ids);
 }
 
@@ -418,7 +497,7 @@ sub find_by_artist
 
 sub _has_by_track_artist_slow
 {
-    my ($self, $artist_id, $query_extra_only) = @_;
+    my ($self, $artist_id, $query_extra_only, %args) = @_;
 
     my $status_condition = $self->pick_status_condition($query_extra_only);
 
@@ -476,7 +555,7 @@ sub has_by_track_artist
 
 sub _find_by_track_artist_slow
 {
-    my ($self, $artist_id, $show_all, $limit, $offset) = @_;
+    my ($self, $artist_id, $show_all, $limit, $offset, %args) = @_;
 
     my $extra_conditions = '';
     # Show only RGs with official releases by default, plus all-status-less ones so people fix the status
@@ -544,14 +623,14 @@ sub _find_by_track_artist_slow
 
 sub find_by_track_artist
 {
-    my ($self, $artist_id, $show_all, $limit, $offset) = @_;
+    my ($self, $artist_id, $show_all, $limit, $offset, %args) = @_;
 
     # Note: This excludes release groups where $artist_id appears in
     # the release group artist credit.
     if ($self->has_materialized_artist_release_group_data) {
-        return $self->_find_by_artist_fast($artist_id, $show_all, 1, $limit, $offset);
+        return $self->_find_by_artist_fast($artist_id, $show_all, 1, $limit, $offset, %args);
     }
-    return $self->_find_by_track_artist_slow($artist_id, $show_all, $limit, $offset);
+    return $self->_find_by_track_artist_slow($artist_id, $show_all, $limit, $offset, %args);
 }
 
 sub find_by_artist_credit
