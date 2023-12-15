@@ -102,18 +102,32 @@ sub validate_collaborators {
     my $is_valid = 1;
     for my $collaborator (@collaborators) {
         my $id_field = $collaborator->field('id');
+        my $id = $id_field->value;
         my $name_field = $collaborator->field('name');
-        if (defined $name_field->value && !(defined $id_field->value)) {
-            my $editor = $self->ctx->model('Editor')->get_by_name($name_field->value);
+        my $name = $name_field->value;
+
+        if (defined $id) {
+            my $count =
+                grep { $_->field('id')->value eq $id } @collaborators;
+            if ($count > 1) {
+                $id_field->add_error(
+                    l('“{collaborator}” was added more than once. Did you intend to select someone else?',
+                      {collaborator => $name}),
+                );
+                $is_valid = 0;
+            }
+        }
+        if (defined $name && !(defined $id)) {
+            my $editor = $self->ctx->model('Editor')->get_by_name($name);
             if (defined $editor) {
                 $id_field->add_error(
                     l('To add “{editor}” as a collaborator, please select them from the dropdown.',
-                      {editor => $name_field->value}),
+                      {editor => $name}),
                 );
             } else {
                 $id_field->add_error(
                     l('Editor “{editor}” does not exist.',
-                      {editor => $name_field->value}),
+                      {editor => $name}),
                 );
             }
             $is_valid = 0;
