@@ -193,10 +193,16 @@ const ExternalLinkAttributeDialog = (props: PropsT): React$MixedElement => {
     }
   };
 
-  const handleSubmit = (event: SyntheticEvent<HTMLFormElement>) => {
+  const handleSubmit = (
+    event: SyntheticEvent<HTMLFormElement>,
+    closeAndReturnFocus: () => void,
+  ) => {
+    event.stopPropagation();
+    event.preventDefault();
     if (hasErrors) {
       dispatch({type: 'show-all-pending-errors'});
-      event.preventDefault();
+    } else {
+      handleConfirm(closeAndReturnFocus);
     }
   };
 
@@ -206,7 +212,7 @@ const ExternalLinkAttributeDialog = (props: PropsT): React$MixedElement => {
         <form
           className="external-link-attribute-dialog"
           onKeyDown={handleKeyDown}
-          onSubmit={handleSubmit}
+          onSubmit={(event) => handleSubmit(event, closeAndReturnFocus)}
         >
           <DateRangeFieldset
             dispatch={dateDispatch}
@@ -234,7 +240,6 @@ const ExternalLinkAttributeDialog = (props: PropsT): React$MixedElement => {
               <button
                 className="positive"
                 disabled={hasErrors}
-                onClick={() => handleConfirm(closeAndReturnFocus)}
                 type="submit"
               >
                 {l('Done')}
