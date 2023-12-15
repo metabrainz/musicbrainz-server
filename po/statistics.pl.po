@@ -1230,7 +1230,9 @@ msgid "Timeline"
 msgstr ""
 
 #: ../root/statistics/timeline.tt:25
-msgid "Timeline Graph"
+#, fuzzy
+#| msgid "Timeline Graph"
+msgid "Timeline graph"
 msgstr "Wykres z osią czasu"
 
 #: ../root/statistics/timeline.tt:16

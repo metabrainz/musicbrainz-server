@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-13 23:21+0200\n"
+"POT-Creation-Date: 2023-12-14 18:52+0000\n"
 "PO-Revision-Date: 2023-09-05 14:27+0000\n"
 "Last-Translator: reosarevok <reosarevok@users.noreply.translations."
 "metabrainz.org>\n"
@@ -949,7 +949,7 @@ msgstr "עריכה"
 #: ../root/components/Aliases/ArtistCreditList.js:82
 #: ../root/components/EntityTabs.js:155
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:96
-#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:68
+#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:69
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:135
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:120
 #: ../root/release/CoverArt.js:110
@@ -2253,7 +2253,7 @@ msgstr "הוצאה “{name}” על־ידי {artist}"
 #: ../root/components/Aliases/AliasTableRow.js:65
 #: ../root/layout/components/sidebar/RemoveLink.js:34
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:102
-#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:74
+#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:75
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:141
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:128
 #: ../root/release/CoverArt.js:116
@@ -5987,8 +5987,8 @@ msgstr "תג"
 #: ../root/edit/details/EditRelationshipType.js:325
 #: ../root/layout/components/BottomMenu.js:295
 #: ../root/layout/components/Search.js:51
-#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:80
-#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:92
+#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:81
+#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:93
 #: ../root/search/components/SearchForm.js:54
 msgid "Documentation"
 msgstr "תיעוד"
@@ -7402,7 +7402,10 @@ msgid "No tracks with this artist credit were found."
 msgstr ""
 
 #: ../root/cdstub/BrowseCDStubs.js:30 ../root/cdstub/BrowseCDStubs.js:31
-msgid "Top CD Stubs"
+#: ../root/layout/components/BottomMenu.js:231
+#, fuzzy
+#| msgid "Top CD Stubs"
+msgid "Top CD stubs"
 msgstr "ספחי תקליטור מובילים"
 
 #: ../root/cdstub/BrowseCDStubs.js:38
@@ -10577,12 +10580,6 @@ msgctxt "folksonomy"
 msgid "Tag cloud"
 msgstr "חפוש תג"
 
-#: ../root/layout/components/BottomMenu.js:231
-#, fuzzy
-#| msgid "Top CD Stubs"
-msgid "Top CD stubs"
-msgstr "ספחי תקליטור מובילים"
-
 #: ../root/layout/components/BottomMenu.js:240
 #: ../root/layout/components/sidebar/CollectionSidebar.js:72
 #: ../root/layout/components/sidebar/EditLinks.js:31
@@ -11784,32 +11781,11 @@ msgstr ""
 
 #: ../root/relationship/RelationshipsHeader.js:23
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:87
-#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:178
+#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:179
 #, fuzzy
 #| msgid "Relationship Attributes"
 msgid "Relationship attributes"
 msgstr "תכונות קשר־גומלין"
-
-#: ../root/relationship/linkattributetype/DeleteRelationshipAttributeType.js:24
-msgid ""
-"Are you sure you wish to remove the <strong>{link_attr_type}</strong> "
-"relationship attribute?"
-msgstr "האם להסיר תכונת קשר־גומלין<strong>{link_attr_type}</strong>?"
-
-#: ../root/relationship/linkattributetype/DeleteRelationshipAttributeType.js:28
-msgid "Remove relationship attribute"
-msgstr "הסרת תכונת קשר־גומלין"
-
-#: ../root/relationship/linkattributetype/RelationshipAttributeTypeInUse.js:19
-#: ../root/relationship/linkattributetype/RelationshipAttributeTypeInUse.js:21
-msgid "Relationship attribute in use"
-msgstr "תכונת קשר־גומלין בשימוש"
-
-#: ../root/relationship/linkattributetype/RelationshipAttributeTypeInUse.js:24
-msgid ""
-"The relationship attribute type “{type}” can’t be removed because it’s still "
-"in use."
-msgstr ""
 
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:77
 #, fuzzy
@@ -11836,7 +11812,7 @@ msgid "This attribute uses free text values"
 msgstr "תכונה זו משתמשת בערך מלל חופשי"
 
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:157
-#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:150
+#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:151
 msgid "Possible values"
 msgstr "ערכים אפשרים"
 
@@ -11862,43 +11838,13 @@ msgstr "{type0} - {type1}"
 msgid "This attribute isn’t directly being used by any relationship types."
 msgstr "תכונה זו אינה משמשת במישרין סוג קשר־גומלין כלשהו."
 
-#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:45
+#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:46
 msgid "none"
 msgstr ""
 
-#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:62
-msgid "Add child"
-msgstr "הוספת צאצא"
-
-#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:168
+#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:169
 msgid "No relationship attributes found."
 msgstr "לא נמצאו תכונות קשר־גומלין"
-
-#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:184
-msgid "Add a new relationship attribute"
-msgstr ""
-
-#: ../root/relationship/linktype/DeleteRelationshipType.js:24
-msgid ""
-"Are you sure you wish to remove the <strong>{link_type}</strong> "
-"relationship type?"
-msgstr "האם להסיר סוג קשר־גומלין<strong>{link_type}</strong>?"
-
-#: ../root/relationship/linktype/DeleteRelationshipType.js:28
-msgid "Remove relationship type"
-msgstr "הסרת סוג קשר־גומלין"
-
-#: ../root/relationship/linktype/RelationshipTypeInUse.js:19
-#: ../root/relationship/linktype/RelationshipTypeInUse.js:21
-#, fuzzy
-#| msgid "Relationship Type In Use"
-msgid "Relationship type in use"
-msgstr "סוגי קשרי־גומלין בשימוש"
-
-#: ../root/relationship/linktype/RelationshipTypeInUse.js:24
-msgid ""
-"The relationship type “{type}” can’t be removed because it’s still in use."
-msgstr ""
 
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:48
 msgid "This relationship type doesn't allow any attributes."
@@ -11973,10 +11919,6 @@ msgstr "&lt; חזרה לכל סוגי קשרי־הגומלין"
 
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:194
 msgid "{type0}-{type1} relationship types"
-msgstr ""
-
-#: ../root/relationship/linktype/RelationshipTypePairTree.js:203
-msgid "Add a new {type0}-{type1} relationship type"
 msgstr ""
 
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:214
@@ -12441,6 +12383,7 @@ msgid ""
 msgstr ""
 
 #: ../root/report/CatNoLooksLikeLabelCode.js:39
+#: ../root/report/ReportsIndex.js:333
 #, fuzzy
 #| msgid "Releases with catalog numbers that look like Label Codes"
 msgid "Releases with catalog numbers that look like label codes"
@@ -13523,10 +13466,6 @@ msgstr ""
 msgid "Releases where some (but not all) mediums have no format set"
 msgstr ""
 
-#: ../root/report/ReportsIndex.js:333
-msgid "Releases with catalog numbers that look like Label Codes"
-msgstr "הוצאות עם מספר קטלוגי דומה לקוד חברת תקליטים"
-
 #: ../root/report/ReportsIndex.js:339
 msgid ""
 "Translated/Transliterated Pseudo-Releases marked as the original version"
@@ -14103,7 +14042,11 @@ msgid "Languages known:"
 msgstr "שפה:"
 
 #: ../root/static/scripts/account/components/EditProfileForm.js:314
-msgid "Add a language"
+#: ../root/static/scripts/work/edit.js:330
+#, fuzzy
+#| msgid "Add a language"
+msgctxt "interactive"
+msgid "Add language"
 msgstr "הוספת שפה"
 
 #: ../root/static/scripts/account/components/EditProfileForm.js:322
@@ -16301,13 +16244,6 @@ msgstr "רשימת המזכים מטה עשויה להיות חלקית, מאח�
 msgid "Add lyrics language"
 msgstr ""
 
-#: ../root/static/scripts/work/edit.js:330
-#, fuzzy
-#| msgid "Add a language"
-msgctxt "interactive"
-msgid "Add language"
-msgstr "הוספת שפה"
-
 #: ../root/static/scripts/work/edit.js:342
 #, fuzzy
 #| msgid "Remove Language"
@@ -17899,6 +17835,42 @@ msgid ""
 msgstr ""
 "<strong>אזהרה:</strong> לחלק מהיצירות שנבחרו למיזוג יש ISWCs שונה. נא וודא "
 "שאכן מדובר באותן היצירות ורק אז להמשיך במיזוג."
+
+#~ msgid "Top CD Stubs"
+#~ msgstr "ספחי תקליטור מובילים"
+
+#~ msgid ""
+#~ "Are you sure you wish to remove the <strong>{link_attr_type}</strong> "
+#~ "relationship attribute?"
+#~ msgstr "האם להסיר תכונת קשר־גומלין<strong>{link_attr_type}</strong>?"
+
+#~ msgid "Remove relationship attribute"
+#~ msgstr "הסרת תכונת קשר־גומלין"
+
+#~ msgid "Relationship attribute in use"
+#~ msgstr "תכונת קשר־גומלין בשימוש"
+
+#~ msgid "Add child"
+#~ msgstr "הוספת צאצא"
+
+#~ msgid ""
+#~ "Are you sure you wish to remove the <strong>{link_type}</strong> "
+#~ "relationship type?"
+#~ msgstr "האם להסיר סוג קשר־גומלין<strong>{link_type}</strong>?"
+
+#~ msgid "Remove relationship type"
+#~ msgstr "הסרת סוג קשר־גומלין"
+
+#, fuzzy
+#~| msgid "Relationship Type In Use"
+#~ msgid "Relationship type in use"
+#~ msgstr "סוגי קשרי־גומלין בשימוש"
+
+#~ msgid "Releases with catalog numbers that look like Label Codes"
+#~ msgstr "הוצאות עם מספר קטלוגי דומה לקוד חברת תקליטים"
+
+#~ msgid "Add a language"
+#~ msgstr "הוספת שפה"
 
 #~ msgid ""
 #~ "A value of 1 or 2 indicates that either entity1 or entity0 are orderable, "

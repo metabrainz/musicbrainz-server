@@ -1261,8 +1261,10 @@ msgid "Timeline"
 msgstr "Хронология"
 
 #: ../root/statistics/timeline.tt:25
-msgid "Timeline Graph"
-msgstr ""
+#, fuzzy
+#| msgid "Timeline"
+msgid "Timeline graph"
+msgstr "Хронология"
 
 #: ../root/statistics/timeline.tt:16
 msgid "Zoom:"

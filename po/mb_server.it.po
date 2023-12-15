@@ -32,7 +32,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-13 23:21+0200\n"
+"POT-Creation-Date: 2023-12-14 18:52+0000\n"
 "PO-Revision-Date: 2023-11-22 04:27+0000\n"
 "Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
 "metabrainz.org>\n"
@@ -1007,7 +1007,7 @@ msgstr "Modifica"
 #: ../root/components/Aliases/ArtistCreditList.js:82
 #: ../root/components/EntityTabs.js:155
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:96
-#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:68
+#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:69
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:135
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:120
 #: ../root/release/CoverArt.js:110
@@ -2393,7 +2393,7 @@ msgstr "Pubblicazione \"{name}\" di {artist}"
 #: ../root/components/Aliases/AliasTableRow.js:65
 #: ../root/layout/components/sidebar/RemoveLink.js:34
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:102
-#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:74
+#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:75
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:141
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:128
 #: ../root/release/CoverArt.js:116
@@ -6416,8 +6416,8 @@ msgstr "Tag"
 #: ../root/edit/details/EditRelationshipType.js:325
 #: ../root/layout/components/BottomMenu.js:295
 #: ../root/layout/components/Search.js:51
-#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:80
-#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:92
+#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:81
+#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:93
 #: ../root/search/components/SearchForm.js:54
 msgid "Documentation"
 msgstr "Documentazione"
@@ -7949,7 +7949,10 @@ msgid "No tracks with this artist credit were found."
 msgstr "Non è stata trovata nessuna traccia con quest'accreditamento artista."
 
 #: ../root/cdstub/BrowseCDStubs.js:30 ../root/cdstub/BrowseCDStubs.js:31
-msgid "Top CD Stubs"
+#: ../root/layout/components/BottomMenu.js:231
+#, fuzzy
+#| msgid "Top CD Stubs"
+msgid "Top CD stubs"
 msgstr "Bozze CD principali"
 
 #: ../root/cdstub/BrowseCDStubs.js:38
@@ -11268,12 +11271,6 @@ msgctxt "folksonomy"
 msgid "Tag cloud"
 msgstr "Nuvola di tag"
 
-#: ../root/layout/components/BottomMenu.js:231
-#, fuzzy
-#| msgid "Top CD Stubs"
-msgid "Top CD stubs"
-msgstr "Bozze CD principali"
-
 #: ../root/layout/components/BottomMenu.js:240
 #: ../root/layout/components/sidebar/CollectionSidebar.js:72
 #: ../root/layout/components/sidebar/EditLinks.js:31
@@ -12547,36 +12544,11 @@ msgstr ""
 
 #: ../root/relationship/RelationshipsHeader.js:23
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:87
-#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:178
+#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:179
 #, fuzzy
 #| msgid "Relationship Attributes"
 msgid "Relationship attributes"
 msgstr "Attributi delle relazioni"
-
-#: ../root/relationship/linkattributetype/DeleteRelationshipAttributeType.js:24
-msgid ""
-"Are you sure you wish to remove the <strong>{link_attr_type}</strong> "
-"relationship attribute?"
-msgstr ""
-"Sei sicuro di voler rimuovere l'attributo di relazione "
-"<strong>{link_attr_type}</strong>?"
-
-#: ../root/relationship/linkattributetype/DeleteRelationshipAttributeType.js:28
-msgid "Remove relationship attribute"
-msgstr "Rimuovi attributo della relazione"
-
-#: ../root/relationship/linkattributetype/RelationshipAttributeTypeInUse.js:19
-#: ../root/relationship/linkattributetype/RelationshipAttributeTypeInUse.js:21
-msgid "Relationship attribute in use"
-msgstr "Attributo di relazione in uso"
-
-#: ../root/relationship/linkattributetype/RelationshipAttributeTypeInUse.js:24
-msgid ""
-"The relationship attribute type “{type}” can’t be removed because it’s still "
-"in use."
-msgstr ""
-"Il tipo di attributo di relazione “{type}” non può essere rimosso perché è "
-"ancora in uso."
 
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:77
 #, fuzzy
@@ -12603,7 +12575,7 @@ msgid "This attribute uses free text values"
 msgstr "Quest'attributo utilizza valori a testo libero"
 
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:157
-#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:150
+#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:151
 msgid "Possible values"
 msgstr "Valori possibili"
 
@@ -12631,46 +12603,13 @@ msgstr "{type0} - {type1}"
 msgid "This attribute isn’t directly being used by any relationship types."
 msgstr "Quest'attributo non è direttamente in uso in nessun tipo di relazione."
 
-#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:45
+#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:46
 msgid "none"
 msgstr "nessuno"
 
-#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:62
-msgid "Add child"
-msgstr "Aggiungi discendente"
-
-#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:168
+#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:169
 msgid "No relationship attributes found."
 msgstr "Nessun attributo di relazione trovato."
-
-#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:184
-msgid "Add a new relationship attribute"
-msgstr "Aggiungi un nuovo attributo di relazione"
-
-#: ../root/relationship/linktype/DeleteRelationshipType.js:24
-msgid ""
-"Are you sure you wish to remove the <strong>{link_type}</strong> "
-"relationship type?"
-msgstr ""
-"Sei sicuro di voler rimuovere il tipo di relazione <strong>{link_type}</"
-"strong>?"
-
-#: ../root/relationship/linktype/DeleteRelationshipType.js:28
-msgid "Remove relationship type"
-msgstr "Rimuovi tipo della relazione"
-
-#: ../root/relationship/linktype/RelationshipTypeInUse.js:19
-#: ../root/relationship/linktype/RelationshipTypeInUse.js:21
-#, fuzzy
-#| msgid "Relationship Type In Use"
-msgid "Relationship type in use"
-msgstr "Tipo di relazione in uso"
-
-#: ../root/relationship/linktype/RelationshipTypeInUse.js:24
-msgid ""
-"The relationship type “{type}” can’t be removed because it’s still in use."
-msgstr ""
-"Il tipo di relazione “{type}” non può essere rimosso perché è ancora in uso."
 
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:48
 msgid "This relationship type doesn't allow any attributes."
@@ -12749,10 +12688,6 @@ msgstr "&lt; Torna a tutti i tipi di relazione"
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:194
 msgid "{type0}-{type1} relationship types"
 msgstr "Tipi di relazione {type0}-{type1}"
-
-#: ../root/relationship/linktype/RelationshipTypePairTree.js:203
-msgid "Add a new {type0}-{type1} relationship type"
-msgstr "Aggiungi un nuovo tipo di relazione {type0}-{type1}"
 
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:214
 msgid "Expand all descriptions"
@@ -13271,6 +13206,7 @@ msgstr ""
 "cerca di trovare il vero numero di catalogo."
 
 #: ../root/report/CatNoLooksLikeLabelCode.js:39
+#: ../root/report/ReportsIndex.js:333
 #, fuzzy
 #| msgid "Releases with catalog numbers that look like Label Codes"
 msgid "Releases with catalog numbers that look like label codes"
@@ -14579,10 +14515,6 @@ msgstr ""
 "Pubblicazioni in cui alcuni (ma non tutti) i supporti non hanno un formato "
 "impostato"
 
-#: ../root/report/ReportsIndex.js:333
-msgid "Releases with catalog numbers that look like Label Codes"
-msgstr "Pubblicazioni con numeri di catalogo che sembrano Label Code"
-
 #: ../root/report/ReportsIndex.js:339
 msgid ""
 "Translated/Transliterated Pseudo-Releases marked as the original version"
@@ -15253,7 +15185,11 @@ msgid "Languages known:"
 msgstr "Lingue parlate:"
 
 #: ../root/static/scripts/account/components/EditProfileForm.js:314
-msgid "Add a language"
+#: ../root/static/scripts/work/edit.js:330
+#, fuzzy
+#| msgid "Add a language"
+msgctxt "interactive"
+msgid "Add language"
 msgstr "Aggiungi una lingua"
 
 #: ../root/static/scripts/account/components/EditProfileForm.js:322
@@ -17698,13 +17634,6 @@ msgstr ""
 msgid "Add lyrics language"
 msgstr "Aggiungi lingua del testo"
 
-#: ../root/static/scripts/work/edit.js:330
-#, fuzzy
-#| msgid "Add a language"
-msgctxt "interactive"
-msgid "Add language"
-msgstr "Aggiungi una lingua"
-
 #: ../root/static/scripts/work/edit.js:342
 #, fuzzy
 #| msgid "Remove Language"
@@ -19419,6 +19348,65 @@ msgstr ""
 "<strong>Attenzione:</strong> alcune delle opere che stai unendo hanno ISWC "
 "diversi. Assicurati che si tratti davvero delle stesse opere prima di "
 "proseguire."
+
+#~ msgid "Top CD Stubs"
+#~ msgstr "Bozze CD principali"
+
+#~ msgid ""
+#~ "Are you sure you wish to remove the <strong>{link_attr_type}</strong> "
+#~ "relationship attribute?"
+#~ msgstr ""
+#~ "Sei sicuro di voler rimuovere l'attributo di relazione "
+#~ "<strong>{link_attr_type}</strong>?"
+
+#~ msgid "Remove relationship attribute"
+#~ msgstr "Rimuovi attributo della relazione"
+
+#~ msgid "Relationship attribute in use"
+#~ msgstr "Attributo di relazione in uso"
+
+#~ msgid ""
+#~ "The relationship attribute type “{type}” can’t be removed because it’s "
+#~ "still in use."
+#~ msgstr ""
+#~ "Il tipo di attributo di relazione “{type}” non può essere rimosso perché "
+#~ "è ancora in uso."
+
+#~ msgid "Add child"
+#~ msgstr "Aggiungi discendente"
+
+#~ msgid "Add a new relationship attribute"
+#~ msgstr "Aggiungi un nuovo attributo di relazione"
+
+#~ msgid ""
+#~ "Are you sure you wish to remove the <strong>{link_type}</strong> "
+#~ "relationship type?"
+#~ msgstr ""
+#~ "Sei sicuro di voler rimuovere il tipo di relazione <strong>{link_type}</"
+#~ "strong>?"
+
+#~ msgid "Remove relationship type"
+#~ msgstr "Rimuovi tipo della relazione"
+
+#, fuzzy
+#~| msgid "Relationship Type In Use"
+#~ msgid "Relationship type in use"
+#~ msgstr "Tipo di relazione in uso"
+
+#~ msgid ""
+#~ "The relationship type “{type}” can’t be removed because it’s still in use."
+#~ msgstr ""
+#~ "Il tipo di relazione “{type}” non può essere rimosso perché è ancora in "
+#~ "uso."
+
+#~ msgid "Add a new {type0}-{type1} relationship type"
+#~ msgstr "Aggiungi un nuovo tipo di relazione {type0}-{type1}"
+
+#~ msgid "Releases with catalog numbers that look like Label Codes"
+#~ msgstr "Pubblicazioni con numeri di catalogo che sembrano Label Code"
+
+#~ msgid "Add a language"
+#~ msgstr "Aggiungi una lingua"
 
 #~ msgid "Possible duplicate events"
 #~ msgstr "Eventi che potrebbero essere doppioni"

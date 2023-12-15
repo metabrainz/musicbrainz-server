@@ -41,7 +41,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-13 23:21+0200\n"
+"POT-Creation-Date: 2023-12-14 18:52+0000\n"
 "PO-Revision-Date: 2023-10-27 01:27+0000\n"
 "Last-Translator: julian45 <techieboy45@gmail.com>\n"
 "Language-Team: Japanese <https://translations.metabrainz.org/projects/"
@@ -997,7 +997,7 @@ msgstr "編集"
 #: ../root/components/Aliases/ArtistCreditList.js:82
 #: ../root/components/EntityTabs.js:155
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:96
-#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:68
+#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:69
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:135
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:120
 #: ../root/release/CoverArt.js:110
@@ -2314,7 +2314,7 @@ msgstr "{artist}のリリース「{name}」"
 #: ../root/components/Aliases/AliasTableRow.js:65
 #: ../root/layout/components/sidebar/RemoveLink.js:34
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:102
-#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:74
+#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:75
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:141
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:128
 #: ../root/release/CoverArt.js:116
@@ -6033,8 +6033,8 @@ msgstr "タグ"
 #: ../root/edit/details/EditRelationshipType.js:325
 #: ../root/layout/components/BottomMenu.js:295
 #: ../root/layout/components/Search.js:51
-#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:80
-#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:92
+#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:81
+#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:93
 #: ../root/search/components/SearchForm.js:54
 msgid "Documentation"
 msgstr "ドキュメント"
@@ -7456,7 +7456,10 @@ msgid "No tracks with this artist credit were found."
 msgstr ""
 
 #: ../root/cdstub/BrowseCDStubs.js:30 ../root/cdstub/BrowseCDStubs.js:31
-msgid "Top CD Stubs"
+#: ../root/layout/components/BottomMenu.js:231
+#, fuzzy
+#| msgid "Top CD Stubs"
+msgid "Top CD stubs"
 msgstr "上位のCDスタブ"
 
 #: ../root/cdstub/BrowseCDStubs.js:38
@@ -10537,12 +10540,6 @@ msgctxt "folksonomy"
 msgid "Tag cloud"
 msgstr "タグ検索"
 
-#: ../root/layout/components/BottomMenu.js:231
-#, fuzzy
-#| msgid "Top CD Stubs"
-msgid "Top CD stubs"
-msgstr "上位のCDスタブ"
-
 #: ../root/layout/components/BottomMenu.js:240
 #: ../root/layout/components/sidebar/CollectionSidebar.js:72
 #: ../root/layout/components/sidebar/EditLinks.js:31
@@ -11757,32 +11754,11 @@ msgstr ""
 
 #: ../root/relationship/RelationshipsHeader.js:23
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:87
-#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:178
+#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:179
 #, fuzzy
 #| msgid "Relationship Attributes"
 msgid "Relationship attributes"
 msgstr "関係属性"
-
-#: ../root/relationship/linkattributetype/DeleteRelationshipAttributeType.js:24
-msgid ""
-"Are you sure you wish to remove the <strong>{link_attr_type}</strong> "
-"relationship attribute?"
-msgstr "本当に<strong>{link_attr_type}</strong>という関係属性を削除しますか？"
-
-#: ../root/relationship/linkattributetype/DeleteRelationshipAttributeType.js:28
-msgid "Remove relationship attribute"
-msgstr "関係属性を削除"
-
-#: ../root/relationship/linkattributetype/RelationshipAttributeTypeInUse.js:19
-#: ../root/relationship/linkattributetype/RelationshipAttributeTypeInUse.js:21
-msgid "Relationship attribute in use"
-msgstr "使用中の関係属性"
-
-#: ../root/relationship/linkattributetype/RelationshipAttributeTypeInUse.js:24
-msgid ""
-"The relationship attribute type “{type}” can’t be removed because it’s still "
-"in use."
-msgstr ""
 
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:77
 #, fuzzy
@@ -11809,7 +11785,7 @@ msgid "This attribute uses free text values"
 msgstr ""
 
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:157
-#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:150
+#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:151
 msgid "Possible values"
 msgstr "可能な値"
 
@@ -11835,43 +11811,13 @@ msgstr ""
 msgid "This attribute isn’t directly being used by any relationship types."
 msgstr ""
 
-#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:45
+#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:46
 msgid "none"
 msgstr "なし"
 
-#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:62
-msgid "Add child"
-msgstr "子を追加"
-
-#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:168
+#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:169
 msgid "No relationship attributes found."
 msgstr "関係属性が見つかりません。"
-
-#: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:184
-msgid "Add a new relationship attribute"
-msgstr ""
-
-#: ../root/relationship/linktype/DeleteRelationshipType.js:24
-msgid ""
-"Are you sure you wish to remove the <strong>{link_type}</strong> "
-"relationship type?"
-msgstr "本当に<strong>{link_type}</strong>という関係タイプを削除しますか？"
-
-#: ../root/relationship/linktype/DeleteRelationshipType.js:28
-msgid "Remove relationship type"
-msgstr "関係タイプを削除"
-
-#: ../root/relationship/linktype/RelationshipTypeInUse.js:19
-#: ../root/relationship/linktype/RelationshipTypeInUse.js:21
-#, fuzzy
-#| msgid "Relationship Type In Use"
-msgid "Relationship type in use"
-msgstr "使用中の関係タイプ"
-
-#: ../root/relationship/linktype/RelationshipTypeInUse.js:24
-msgid ""
-"The relationship type “{type}” can’t be removed because it’s still in use."
-msgstr ""
 
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:48
 msgid "This relationship type doesn't allow any attributes."
@@ -11947,10 +11893,6 @@ msgstr "←全関係タイプへ戻る"
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:194
 msgid "{type0}-{type1} relationship types"
 msgstr "{type0}-{type1}の関係タイプ"
-
-#: ../root/relationship/linktype/RelationshipTypePairTree.js:203
-msgid "Add a new {type0}-{type1} relationship type"
-msgstr ""
 
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:214
 msgid "Expand all descriptions"
@@ -12398,6 +12340,7 @@ msgid ""
 msgstr ""
 
 #: ../root/report/CatNoLooksLikeLabelCode.js:39
+#: ../root/report/ReportsIndex.js:333
 #, fuzzy
 #| msgid "Releases with catalog numbers that look like Label Codes"
 msgid "Releases with catalog numbers that look like label codes"
@@ -13418,10 +13361,6 @@ msgstr "余分なデータトラックのあるリリース"
 msgid "Releases where some (but not all) mediums have no format set"
 msgstr ""
 
-#: ../root/report/ReportsIndex.js:333
-msgid "Releases with catalog numbers that look like Label Codes"
-msgstr "カタログ番号がレーベルコードの形式になっているリリース"
-
 #: ../root/report/ReportsIndex.js:339
 msgid ""
 "Translated/Transliterated Pseudo-Releases marked as the original version"
@@ -13979,7 +13918,11 @@ msgid "Languages known:"
 msgstr "知っている言語:"
 
 #: ../root/static/scripts/account/components/EditProfileForm.js:314
-msgid "Add a language"
+#: ../root/static/scripts/work/edit.js:330
+#, fuzzy
+#| msgid "Add a language"
+msgctxt "interactive"
+msgid "Add language"
 msgstr "言語を追加"
 
 #: ../root/static/scripts/account/components/EditProfileForm.js:322
@@ -16130,13 +16073,6 @@ msgstr ""
 msgid "Add lyrics language"
 msgstr ""
 
-#: ../root/static/scripts/work/edit.js:330
-#, fuzzy
-#| msgid "Add a language"
-msgctxt "interactive"
-msgid "Add language"
-msgstr "言語を追加"
-
 #: ../root/static/scripts/work/edit.js:342
 #, fuzzy
 #| msgid "Remove Language"
@@ -17640,6 +17576,43 @@ msgid ""
 "ISWCs. Please make sure they are indeed the same works and you wish to "
 "continue with the merge."
 msgstr ""
+
+#~ msgid "Top CD Stubs"
+#~ msgstr "上位のCDスタブ"
+
+#~ msgid ""
+#~ "Are you sure you wish to remove the <strong>{link_attr_type}</strong> "
+#~ "relationship attribute?"
+#~ msgstr ""
+#~ "本当に<strong>{link_attr_type}</strong>という関係属性を削除しますか？"
+
+#~ msgid "Remove relationship attribute"
+#~ msgstr "関係属性を削除"
+
+#~ msgid "Relationship attribute in use"
+#~ msgstr "使用中の関係属性"
+
+#~ msgid "Add child"
+#~ msgstr "子を追加"
+
+#~ msgid ""
+#~ "Are you sure you wish to remove the <strong>{link_type}</strong> "
+#~ "relationship type?"
+#~ msgstr "本当に<strong>{link_type}</strong>という関係タイプを削除しますか？"
+
+#~ msgid "Remove relationship type"
+#~ msgstr "関係タイプを削除"
+
+#, fuzzy
+#~| msgid "Relationship Type In Use"
+#~ msgid "Relationship type in use"
+#~ msgstr "使用中の関係タイプ"
+
+#~ msgid "Releases with catalog numbers that look like Label Codes"
+#~ msgstr "カタログ番号がレーベルコードの形式になっているリリース"
+
+#~ msgid "Add a language"
+#~ msgstr "言語を追加"
 
 #~ msgid "Possible duplicate events"
 #~ msgstr "重複している可能性のあるイベント"
