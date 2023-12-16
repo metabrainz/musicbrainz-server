@@ -225,6 +225,7 @@ function inferLinkDirection(
     linkTypeId !== null &&
     personGroupLinkTypeIds.has(linkTypeId)
   ) {
+    const isSourceUnset = source.typeID === null;
     const isSourcePerson = source.typeID === ARTIST_TYPE_PERSON;
     const isSourceGroup =
       source.typeID !== null && ARTIST_GROUP_TYPES.has(source.typeID);
@@ -233,10 +234,13 @@ function inferLinkDirection(
     const isTargetGroup =
       target.typeID !== null && ARTIST_GROUP_TYPES.has(target.typeID);
 
-
-    if (isSourcePerson && isTargetGroup) {
+    /*
+     * The source's type will be unset if the entity hasn't been added yet,
+     * so make an inference based on the target's type in that case.
+     */
+    if ((isSourcePerson || isSourceUnset) && isTargetGroup) {
       newState.backward = false;
-    } else if (isSourceGroup && isTargetPerson) {
+    } else if ((isSourceGroup || isSourceUnset) && isTargetPerson) {
       newState.backward = true;
     }
   }
