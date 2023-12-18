@@ -33,10 +33,11 @@
 
 # Testing
 <!--
-    Talk about the testing you have done, and the testing you have not done
-    whether you rely on automated tests or you don't know how to test something.
-    It's useful for others to know what you've already checked so that they can
-    avoid repeating the same things and consider what you might have missed.
+    Talk about the testing you have or haven’t done (whether you rely
+    on automated tests, or don’t know how to test something). It’s useful
+    for others to know what you’ve already tested so that they can avoid
+    repeating the same steps, and instead consider what you might’ve
+    missed.
 -->
 
 :beginner: If you tested anything on specific pages, mention them here, such as:
