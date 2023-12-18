@@ -303,11 +303,6 @@ const stats = {
     color: '#ff0000',
     label: l('Error edits'),
   },
-  'count.edit.evalnochange': {
-    category: 'edit-information',
-    color: '#ff0000',
-    label: l('Evalnochange edits'),
-  },
   'count.edit.faileddep': {
     category: 'edit-information',
     color: '#ff0000',
