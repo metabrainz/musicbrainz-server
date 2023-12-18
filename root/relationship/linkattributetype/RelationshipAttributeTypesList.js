@@ -66,13 +66,13 @@ const AttributeDetails = ({
           </>
         )}
         <a href={'/relationship-attribute/' + attribute.gid + '/edit'}>
-          {lp('Edit', 'verb, interactive')}
+          {l_admin('Edit')}
         </a>
         {childrenAttrs.length ? null : (
           <>
             {' | '}
             <a href={'/relationship-attribute/' + attribute.gid + '/delete'}>
-              {l('Remove')}
+              {l_admin('Remove')}
             </a>
           </>
         )}

@@ -128,7 +128,7 @@ const AdminMenu = ({user}: UserProp) => (
     <ul>
       {isLocationEditor(user) ? (
         <li>
-          <a href="/area/create">{lp('Add area', 'interactive')}</a>
+          <a href="/area/create">{l_admin('Add area')}</a>
         </li>
       ) : null}
 
@@ -136,14 +136,14 @@ const AdminMenu = ({user}: UserProp) => (
         <>
           <li>
             <a href="/instrument/create">
-              {lp('Add instrument', 'interactive')}
+              {l_admin('Add instrument')}
             </a>
           </li>
           <li>
-            <a href="/genre/create">{lp('Add genre', 'interactive')}</a>
+            <a href="/genre/create">{l_admin('Add genre')}</a>
           </li>
           <li>
-            <a href="/relationships">{l('Edit relationship types')}</a>
+            <a href="/relationships">{l_admin('Edit relationship types')}</a>
           </li>
         </>
       ) : null}

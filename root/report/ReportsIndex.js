@@ -157,15 +157,15 @@ const ReportsIndex = (): React$Element<typeof Layout> => {
 
         {isRelationshipEditor($c.user) ? (
           <>
-            <h2>{l('Instruments')}</h2>
+            <h2>{l_admin('Instruments')}</h2>
 
             <ul>
               <ReportsIndexEntry
-                content={l('Instruments without an image')}
+                content={l_admin('Instruments without an image')}
                 reportName="InstrumentsWithoutAnImage"
               />
               <ReportsIndexEntry
-                content={l('Instruments without a link to Wikidata')}
+                content={l_admin('Instruments without a link to Wikidata')}
                 reportName="InstrumentsWithoutWikidata"
               />
             </ul>
