@@ -110,7 +110,7 @@ test 'Cannot cancel a cancelled edit' => sub {
     );
 
     $mech->content_contains(
-        'Error Cancelling Edit',
+        'Error cancelling edit',
         'The "cannot cancel edit" page is displayed',
     );
     $mech->content_contains(
@@ -138,7 +138,7 @@ test 'Cannot cancel an accepted edit' => sub {
     );
 
     $mech->content_contains(
-        'Error Cancelling Edit',
+        'Error cancelling edit',
         'The "cannot cancel edit" page is displayed',
     );
     $mech->content_contains(
@@ -161,7 +161,7 @@ test q(Cannot cancel someone else's edit) => sub {
         'Fetched cancel edit page',
     );
     $mech->content_contains(
-        'Error Cancelling Edit',
+        'Error cancelling edit',
         'The "cannot cancel edit" page is displayed',
     );
     $mech->content_contains(

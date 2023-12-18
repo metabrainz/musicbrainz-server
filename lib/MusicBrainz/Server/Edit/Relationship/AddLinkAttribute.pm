@@ -6,14 +6,14 @@ use MusicBrainz::Server::Constants qw( $EDIT_RELATIONSHIP_ADD_ATTRIBUTE );
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 
 extends 'MusicBrainz::Server::Edit';
-with 'MusicBrainz::Server::Edit::Relationship';
-with 'MusicBrainz::Server::Edit::Role::Insert';
-with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
+with 'MusicBrainz::Server::Edit::Relationship',
+     'MusicBrainz::Server::Edit::Role::Insert',
+     'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
-sub edit_name { N_l('Add relationship attribute') }
+sub edit_name { N_lp('Add relationship attribute', 'edit type') }
 sub edit_kind { 'add' }
 sub edit_type { $EDIT_RELATIONSHIP_ADD_ATTRIBUTE }
 sub edit_template { 'AddRelationshipAttribute' }
@@ -26,7 +26,7 @@ has '+data' => (
         child_order => Str,
         creditable => Optional[Bool],
         free_text => Optional[Bool],
-    ]
+    ],
 );
 
 sub foreign_keys
@@ -34,7 +34,7 @@ sub foreign_keys
     my $self = shift;
     return {
         LinkAttributeType => [ $self->data->{parent_id} ],
-    }
+    };
 }
 
 sub build_display_data
@@ -49,7 +49,7 @@ sub build_display_data
         parent => defined $parent_id ? to_json_object($loaded->{LinkAttributeType}{$parent_id}) : undef,
         creditable => boolean_to_json($self->data->{creditable}),
         free_text => boolean_to_json($self->data->{free_text}),
-    }
+    };
 }
 
 sub insert {
@@ -58,14 +58,16 @@ sub insert {
     my $entity = $self->c->model('LinkAttributeType')->insert($self->data);
     $self->entity_id($entity->id);
     $self->entity_gid($entity->gid);
-};
+}
 
 sub reject {
     MusicBrainz::Server::Edit::Exceptions::MustApply->throw(
-        'Edits of this type cannot be rejected'
+        'Edits of this type cannot be rejected',
     );
 }
 
 
 no Moose;
 __PACKAGE__->meta->make_immutable;
+
+1;

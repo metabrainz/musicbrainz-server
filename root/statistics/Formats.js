@@ -91,7 +91,7 @@ const Formats = ({
                         searchValue={entity.name}
                         text={lp_attributes(entity.name, 'medium_format')}
                       />
-                    ) : l('Unknown Format')}
+                    ) : l('Unknown format')}
                 </td>
                 <td className="t">
                   {formatCount($c, formatStat.release_count)}

@@ -46,7 +46,7 @@ sub show : Chained('load') PathPart('')
             %{$c->stash->{component_props}},
             iswcs => to_json_array($iswcs),
             works => to_json_array(\@works),
-        }
+        },
     );
 }
 

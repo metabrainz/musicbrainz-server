@@ -183,7 +183,7 @@ test all => sub {
         gid => ignore(),
         id => $new_artist->{id},
         last_updated => ignore(),
-        name => "\x{677e}",
+        name => "\x{677e}", ## no critic (ProhibitEscapedCharacters) - unassigned/unnamed character
         sort_name => '{\\"abc\\": 123}',
         type => undef,
     });
@@ -249,3 +249,6 @@ test all => sub {
 
 run_me;
 done_testing;
+
+1;
+

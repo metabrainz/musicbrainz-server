@@ -7,10 +7,11 @@ use MusicBrainz::Server::Data::Utils qw( object_to_ids );
 use MusicBrainz::Server::Entity::ReleaseGroupSecondaryType;
 
 extends 'MusicBrainz::Server::Data::Entity';
-with 'MusicBrainz::Server::Data::Role::EntityCache';
-with 'MusicBrainz::Server::Data::Role::SelectAll' => { order_by => [ 'name'] };
-with 'MusicBrainz::Server::Data::Role::OptionsTree';
-with 'MusicBrainz::Server::Data::Role::Attribute';
+with 'MusicBrainz::Server::Data::Role::EntityCache',
+     'MusicBrainz::Server::Data::Role::OptionsTree' => {
+        order_by => ['name'],
+     },
+     'MusicBrainz::Server::Data::Role::Attribute';
 
 sub _type { 'release_group_secondary_type' }
 
@@ -34,8 +35,8 @@ sub load_for_release_groups {
              FROM release_group_secondary_type_join
              JOIN release_group_secondary_type ON id = secondary_type
              WHERE release_group = any(?)',
-            \@ids
-        )
+            \@ids,
+        );
     };
 
     my $types_by_rg = {};
@@ -48,7 +49,7 @@ sub load_for_release_groups {
             $rg->secondary_types([
                 map {
                     MusicBrainz::Server::Entity::ReleaseGroupSecondaryType->new($_)
-                } @{ $types_by_rg->{$rg->id} }
+                } @{ $types_by_rg->{$rg->id} },
             ]);
         }
     }

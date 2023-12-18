@@ -32,9 +32,9 @@ const NotesReceived = ({
   const $c = React.useContext(CatalystContext);
 
   return (
-    <Layout fullWidth title={l('Recent Notes Left on Your Edits')}>
+    <Layout fullWidth title={l('Recent notes left on your edits')}>
       <div id="content">
-        <h1>{l('Recent Notes Left on Your Edits')}</h1>
+        <h1>{l('Recent notes left on your edits')}</h1>
         {$c.user?.is_limited ? null : (
           <NewNotesAlertCheckbox
             checked={getRequestCookie(

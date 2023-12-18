@@ -18,8 +18,8 @@ has '_cache' => (
     default => sub { +{} },
     traits => [ 'Hash' ],
     handles => {
-        _get_cache => 'get'
-    }
+        _get_cache => 'get',
+    },
 );
 
 has 'default_profile' => (
@@ -41,7 +41,7 @@ sub BUILD
             }
         }
         load_class($profile->{class});
-        my $cache = $profile->{class}->new($profile->{options} || {});;
+        my $cache = $profile->{class}->new($profile->{options} || {});
         if ($profile->{wrapped}) {
             $cache = MusicBrainz::Server::CacheWrapper->new(_orig => $cache);
         }

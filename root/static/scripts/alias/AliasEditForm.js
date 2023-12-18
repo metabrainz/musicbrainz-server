@@ -12,7 +12,6 @@ import * as React from 'react';
 
 import type {
   AliasEditFormT,
-  WritableAliasEditFormT,
 } from '../../../entity/alias/types.js';
 import isBlank from '../common/utility/isBlank.js';
 import DateRangeFieldset, {
@@ -33,7 +32,6 @@ import FormRowSortNameWithGuessCase, {
 } from '../edit/components/FormRowSortNameWithGuessCase.js';
 import {
   type StateT as GuessCaseOptionsStateT,
-  type WritableStateT as WritableGuessCaseOptionsStateT,
   createInitialState as createGuessCaseOptionsState,
 } from '../edit/components/GuessCaseOptions.js';
 import copyFieldData, {
@@ -76,13 +74,6 @@ type StateT = {
   +searchHintType: number,
 };
 
-type WritableStateT = {
-  ...StateT,
-  form: WritableAliasEditFormT,
-  guessCaseOptions: WritableGuessCaseOptionsStateT,
-  previousForm?: AliasEditFormT | null,
-};
-
 const blankDatePeriod = {
   errors: [],
   field: {
@@ -113,85 +104,95 @@ function createInitialState(form: AliasEditFormT, searchHintType: number) {
 }
 
 function reducer(state: StateT, action: ActionT): StateT {
-  return mutate<WritableStateT, StateT>(state, newState => {
-    switch (action.type) {
-      case 'update-date-range': {
-        runDateRangeFieldsetReducer(
-          newState.form.field.period,
-          action.action,
-        );
-        break;
-      }
-      case 'update-name': {
-        const nameState = {
-          field: newState.form.field.name,
-          guessCaseOptions: newState.guessCaseOptions,
-          isGuessCaseOptionsOpen: newState.isGuessCaseOptionsOpen,
-        };
-        runNameReducer(nameState, action.action);
-        newState.guessCaseOptions = nameState.guessCaseOptions;
-        newState.isGuessCaseOptionsOpen = nameState.isGuessCaseOptionsOpen;
-        break;
-      }
-      case 'update-sortname': {
-        runSortNameReducer({
-          nameField: state.form.field.name,
-          sortNameField: newState.form.field.sort_name,
-        }, action.action);
-        break;
-      }
-      case 'set-locale': {
-        newState.form.field.locale.value = action.locale;
-        if (action.locale === '') {
-          newState.form.field.primary_for_locale.value = false;
-        }
-        break;
-      }
-      case 'set-primary-for-locale': {
-        const enabled = action.enabled;
-        newState.form.field.primary_for_locale.value = enabled;
-        break;
-      }
-      case 'set-type': {
-        const formField = newState.form.field;
-        formField.type_id.value = action.type_id;
-        const isTypeSearchHint =
-          parseInt(action.type_id, 10) === state.searchHintType;
-        newState.isTypeSearchHint = isTypeSearchHint;
-        /*
-         * Many fields are irrelevant for search hints,
-         * so we blank (and disable) them if the user selects
-         * the search hint type, and bring them back if they select
-         * something else again.
-         */
-        if (isTypeSearchHint) {
-          newState.previousForm = state.form;
-          formField.sort_name.value = '';
-          formField.locale.value = '';
-          formField.primary_for_locale.value = false;
-          copyDatePeriodField(blankDatePeriod, formField.period);
-        } else if (state.previousForm) {
-          const previousFormField = state.previousForm.field;
-          copyFieldData(previousFormField.sort_name, formField.sort_name);
-          copyFieldData(previousFormField.locale, formField.locale);
-          copyFieldData(
-            previousFormField.primary_for_locale,
-            formField.primary_for_locale,
-          );
-          copyDatePeriodField(previousFormField.period, formField.period);
-          newState.previousForm = null;
-        }
-        break;
-      }
-      case 'show-all-pending-errors': {
-        applyAllPendingErrors(newState.form);
-        break;
-      }
-      default: {
-        /*:: exhaustive(action); */
-      }
+  const newStateCtx = mutate(state);
+  const fieldCtx = newStateCtx.get('form', 'field');
+
+  switch (action.type) {
+    case 'update-date-range': {
+      runDateRangeFieldsetReducer(
+        newStateCtx.get('form', 'field', 'period'),
+        action.action,
+      );
+      break;
     }
-  });
+    case 'update-name': {
+      const nameStateCtx = mutate({
+        field: state.form.field.name,
+        guessCaseOptions: state.guessCaseOptions,
+        isGuessCaseOptionsOpen: state.isGuessCaseOptionsOpen,
+      });
+      runNameReducer(nameStateCtx, action.action);
+      const nameState = nameStateCtx.read();
+      newStateCtx
+        .set('form', 'field', 'name', nameState.field)
+        .set('guessCaseOptions', nameState.guessCaseOptions)
+        .set('isGuessCaseOptionsOpen', nameState.isGuessCaseOptionsOpen);
+      break;
+    }
+    case 'update-sortname': {
+      const sortNameStateCtx = mutate({
+        nameField: state.form.field.name,
+        sortNameField: state.form.field.sort_name,
+      });
+      runSortNameReducer(sortNameStateCtx, action.action);
+      const sortNameState = sortNameStateCtx.read();
+      fieldCtx
+        .set('name', sortNameState.nameField)
+        .set('sort_name', sortNameState.sortNameField);
+      break;
+    }
+    case 'set-locale': {
+      fieldCtx.set('locale', 'value', action.locale);
+      if (action.locale === '') {
+        fieldCtx.set('primary_for_locale', 'value', false);
+      }
+      break;
+    }
+    case 'set-primary-for-locale': {
+      const enabled = action.enabled;
+      fieldCtx.set('primary_for_locale', 'value', enabled);
+      break;
+    }
+    case 'set-type': {
+      fieldCtx.set('type_id', 'value', action.type_id);
+      const isTypeSearchHint =
+        parseInt(action.type_id, 10) === state.searchHintType;
+      newStateCtx.set('isTypeSearchHint', isTypeSearchHint);
+      /*
+       * Many fields are irrelevant for search hints,
+       * so we blank (and disable) them if the user selects
+       * the search hint type, and bring them back if they select
+       * something else again.
+       */
+      if (isTypeSearchHint) {
+        newStateCtx.set('previousForm', state.form);
+        fieldCtx
+          .set('sort_name', 'value', '')
+          .set('locale', 'value', '')
+          .set('primary_for_locale', 'value', false);
+        copyDatePeriodField(blankDatePeriod, fieldCtx.get('period'));
+      } else if (state.previousForm) {
+        const previousFormField = state.previousForm.field;
+        copyFieldData(previousFormField.sort_name, fieldCtx.get('sort_name'));
+        copyFieldData(previousFormField.locale, fieldCtx.get('locale'));
+        copyFieldData(
+          previousFormField.primary_for_locale,
+          fieldCtx.get('primary_for_locale'),
+        );
+        copyDatePeriodField(previousFormField.period, fieldCtx.get('period'));
+        newStateCtx.set('previousForm', null);
+      }
+      break;
+    }
+    case 'show-all-pending-errors': {
+      applyAllPendingErrors(newStateCtx.get('form'));
+      break;
+    }
+    default: {
+      /*:: exhaustive(action); */
+    }
+  }
+  return newStateCtx.final();
 }
 
 const AliasEditForm = ({
@@ -200,7 +201,7 @@ const AliasEditForm = ({
   form: initialForm,
   locales,
   searchHintType,
-}: Props): React$Element<typeof React.Fragment> => {
+}: Props): React$Element<React$FragmentType> => {
   const localeOptions = {
     grouped: false,
     options: locales,
@@ -290,7 +291,7 @@ const AliasEditForm = ({
       >
         <div className="half-width">
           <fieldset>
-            <legend>{l('Alias Details')}</legend>
+            <legend>{l('Alias details')}</legend>
             <FormRowNameWithGuessCase
               dispatch={nameDispatch}
               entity={entity}

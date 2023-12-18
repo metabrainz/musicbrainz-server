@@ -9,7 +9,7 @@
            in order to attach this disc to another MusicBrainz release, or
            to add a new one if the search shows it is missing from the database.') %]</p>
       [% INCLUDE 'cdtoc/list.tt' edit_links=0 %]
-  <p>[% l('We used DiscID <code>{discid}</code> to look up this information.', { discid => link_cdtoc(cdtoc) }) %]</p>
+  <p>[% l('We used disc ID <code>{discid}</code> to look up this information.', { discid => link_cdtoc(cdtoc) }) %]</p>
   [% ELSE %]
     <p>[% l('There are currently no discs in MusicBrainz associated with the information
              you provided. You can search using the form below in order to attach this disc
@@ -18,18 +18,18 @@
   [% END %]
 
   [% IF cdstub %]
-  <h2>[% l('CD Stub found') %]</h2>
-  <p>[% l('A CD Stub was found that matches the disc ID you provided. If the below tracklist
-           appears correct, you may use it as a starting point as a new MusicBrainz release') %]</p>
+  <h2>[% l('CD stub found') %]</h2>
+  <p>[% l('A CD stub was found that matches the disc ID you provided. If the below tracklist
+           appears correct, you may use it as a starting point for a new MusicBrainz release.') %]</p>
   <h3>[% l('{artist} - {name}', { artist => cdstub.artist,
                                   name => cdstub.title }) %]</h3>
   [% INCLUDE 'cdstub/cdstub.tt' %]
   <form action="[% c.uri_for_action('/cdstub/import', [ cdstub.discid ]) %]" method="get">
-    <p>[% form_submit(l('Import CD Stub')) %]</p>
+    <p>[% form_submit(lp('Import CD stub', 'interactive')) %]</p>
   </form>
 
   [% IF possible_mediums.size %]
-  <h2>[% l('Possible Mediums') %]</h2>
+  <h2>[% l('Possible mediums') %]</h2>
   <p>[% l('Based on the above CD stub, we also found the following releases in MusicBrainz
            that may be related:') %]</p>
   <form action="[% c.req.uri %]" method="GET">
@@ -63,7 +63,7 @@
         [% attach_list_script() %]
       </tbody>
     </table>
-    <p>[% form_submit(l('Attach Disc ID')) %]</p>
+    <p>[% form_submit(l('Attach disc ID')) %]</p>
   </form>
   [% END %]
   [% END %]

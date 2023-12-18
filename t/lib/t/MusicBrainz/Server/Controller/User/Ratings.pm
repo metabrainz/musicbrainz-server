@@ -2,6 +2,7 @@ package t::MusicBrainz::Server::Controller::User::Ratings;
 use strict;
 use warnings;
 
+use HTTP::Status qw( :constants );
 use Test::Routine;
 use Test::More;
 
@@ -25,20 +26,20 @@ $mech->get('/user/new_editor/ratings');
 $mech->content_contains('Kate Bush', 'new_editor has rated Kate Bush');
 
 $mech->get('/user/alice/ratings');
-is ($mech->status(), 403, q(alice's ratings are private));
+is ($mech->status(), HTTP_FORBIDDEN, q(alice's ratings are private));
 
 $mech->get('/login');
 $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
 
 $mech->get('/user/alice/ratings');
-is ($mech->status(), 403, q(alice's ratings are still private));
+is ($mech->status(), HTTP_FORBIDDEN, q(alice's ratings are still private));
 
 $mech->get('/logout');
 $mech->get('/login');
 $mech->submit_form( with_fields => { username => 'alice', password => 'secret1' } );
 
 $mech->get('/user/alice/ratings');
-is ($mech->status(), 200, 'alice can view her own ratings');
+is ($mech->status(), HTTP_OK, 'alice can view her own ratings');
 $mech->content_contains('Alice has not rated anything', 'alice has not rated anything');
 
 };

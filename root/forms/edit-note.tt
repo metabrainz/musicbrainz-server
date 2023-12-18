@@ -1,4 +1,4 @@
 <fieldset class="editnote">
-    <legend>[%- l('Edit Note') -%]</legend>
+    <legend>[%- lp('Edit note', 'noun') -%]</legend>
     [% edit_note(hide_help) %]
 </fieldset>

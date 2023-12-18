@@ -26,7 +26,7 @@ const ArtistCreditList = ({
     <table className="tbl">
       <thead>
         <tr>
-          <th>{l('Artist Credit')}</th>
+          <th>{l('Artist credit')}</th>
         </tr>
       </thead>
       <tbody>

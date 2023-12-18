@@ -20,19 +20,19 @@ use MusicBrainz::Server::Data::Utils qw(
 use MusicBrainz::Server::Data::Utils::Cleanup qw( used_in_relationship );
 
 extends 'MusicBrainz::Server::Data::Entity';
-with 'MusicBrainz::Server::Data::Role::Relatable';
-with 'MusicBrainz::Server::Data::Role::Name';
-with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'event' };
-with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'event' };
-with 'MusicBrainz::Server::Data::Role::Area';
-with 'MusicBrainz::Server::Data::Role::GIDEntityCache';
-with 'MusicBrainz::Server::Data::Role::DeleteAndLog' => { type => 'event' };
-with 'MusicBrainz::Server::Data::Role::PendingEdits' => { table => 'event' };
-with 'MusicBrainz::Server::Data::Role::Rating' => { type => 'event' };
-with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'event' };
-with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'event' };
-with 'MusicBrainz::Server::Data::Role::Merge';
-with 'MusicBrainz::Server::Data::Role::Collection';
+with 'MusicBrainz::Server::Data::Role::Relatable',
+     'MusicBrainz::Server::Data::Role::Name',
+     'MusicBrainz::Server::Data::Role::Annotation' => { type => 'event' },
+     'MusicBrainz::Server::Data::Role::Alias' => { type => 'event' },
+     'MusicBrainz::Server::Data::Role::Area',
+     'MusicBrainz::Server::Data::Role::GIDEntityCache',
+     'MusicBrainz::Server::Data::Role::DeleteAndLog' => { type => 'event' },
+     'MusicBrainz::Server::Data::Role::PendingEdits' => { table => 'event' },
+     'MusicBrainz::Server::Data::Role::Rating' => { type => 'event' },
+     'MusicBrainz::Server::Data::Role::Tag' => { type => 'event' },
+     'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'event' },
+     'MusicBrainz::Server::Data::Role::Merge',
+     'MusicBrainz::Server::Data::Role::Collection';
 
 sub _type {
     return 'event';
@@ -57,10 +57,10 @@ sub _id_column
 sub _column_mapping
 {
     return {
-        type_id => 'type',
         begin_date => sub { MusicBrainz::Server::Entity::PartialDate->new_from_row(shift, shift() . 'begin_date_') },
         end_date => sub { MusicBrainz::Server::Entity::PartialDate->new_from_row(shift, shift() . 'end_date_') },
-        map { $_ => $_ } qw( id gid comment setlist time ended name cancelled edits_pending last_updated)
+        type_id => 'type',
+        map { $_ => $_ } qw( id gid comment setlist time ended name cancelled edits_pending last_updated),
     };
 }
 
@@ -117,7 +117,7 @@ sub _merge_impl
     my @merge_options = ($self->sql => (
                            table => 'event',
                            old_ids => \@old_ids,
-                           new_id => $new_id
+                           new_id => $new_id,
                         ));
 
     merge_table_attributes(@merge_options, columns => [ qw( time type ) ]);
@@ -130,14 +130,16 @@ sub _merge_impl
 
 sub _hash_to_row
 {
-    my ($self, $event, $names) = @_;
+    my ($self, $event) = @_;
+
     my $row = hash_to_row($event, {
         type => 'type_id',
-        map { $_ => $_ } qw( comment setlist time ended name cancelled )
+        map { $_ => $_ } qw( cancelled comment ended name setlist time ),
     });
 
     add_partial_date_to_row($row, $event->{begin_date}, 'begin_date');
     add_partial_date_to_row($row, $event->{end_date}, 'end_date');
+
     return $row;
 }
 
@@ -250,13 +252,13 @@ sub _order_by {
 
     my $order_by = order_by($order, 'date', {
         'date' => sub {
-            return 'begin_date_year, begin_date_month, begin_date_day, time, name COLLATE musicbrainz'
+            return 'begin_date_year, begin_date_month, begin_date_day, time, name COLLATE musicbrainz';
         },
         'name' => sub {
-            return 'name COLLATE musicbrainz, begin_date_year, begin_date_month, begin_date_day, time'
+            return 'name COLLATE musicbrainz, begin_date_year, begin_date_month, begin_date_day, time';
         },
         'type' => sub {
-            return 'type, begin_date_year, begin_date_month, begin_date_day, time, name COLLATE musicbrainz'
+            return 'type, begin_date_year, begin_date_month, begin_date_day, time, name COLLATE musicbrainz';
         },
     });
 
@@ -305,8 +307,8 @@ sub find_related_entities
         $_ => {
             performers => { hits => 0, results => [] },
             places => { hits => 0, results => [] },
-            areas => { hits => 0, results => [] }
-        }
+            areas => { hits => 0, results => [] },
+        },
     }, @ids;
 
     for my $event_id (@ids) {
@@ -333,7 +335,7 @@ sub find_related_entities
                     ? [ @performers[ 0 .. ($limit-1) ] ]
                     : \@performers,
             },
-        }
+        };
     }
 
     return %map;
@@ -414,8 +416,8 @@ sub _find_performers
         push @{ $map->{$event_id} }, {
             credit => $credit,
             entity => $artists->{$artist_id},
-            roles => [ uniq @{ $roles } ]
-        }
+            roles => [ uniq @{ $roles } ],
+        };
     }
 }
 
@@ -474,8 +476,8 @@ sub _find_places
         $map->{$event_id} ||= [];
         push @{ $map->{$event_id} }, {
             credit => $credit,
-            entity => $places->{$place_id}
-        }
+            entity => $places->{$place_id},
+        };
     }
 }
 
@@ -505,8 +507,8 @@ sub _find_areas
         $map->{$event_id} ||= [];
         push @{ $map->{$event_id} }, {
             credit => $credit,
-            entity => $areas->{$area_id}
-        }
+            entity => $areas->{$area_id},
+        };
     }
 }
 

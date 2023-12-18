@@ -2,6 +2,7 @@ package t::MusicBrainz::Server::Controller::Instrument::Create;
 use strict;
 use warnings;
 
+use HTTP::Status qw( :constants );
 use Test::Routine;
 use Test::More;
 use MusicBrainz::Server::Test qw( capture_edits html_ok );
@@ -27,7 +28,7 @@ test 'Adding a new instrument' => sub {
 
     $mech->get('/login');
     $mech->submit_form(
-        with_fields => { username => 'instrument_editor', password => 'pass' }
+        with_fields => { username => 'instrument_editor', password => 'pass' },
     );
 
     $mech->get_ok(
@@ -101,7 +102,7 @@ test 'Instrument creation is blocked for unprivileged users' => sub {
     $mech->get('/instrument/create');
     is(
         $mech->status,
-        403,
+        HTTP_FORBIDDEN,
         'Trying to add an instrument without the right privileges gives a 403 Forbidden error',
     );
 };

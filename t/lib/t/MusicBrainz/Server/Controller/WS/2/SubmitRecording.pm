@@ -13,7 +13,7 @@ use HTTP::Status qw( :constants );
 
 use MusicBrainz::Server::Test qw( xml_ok xml_post );
 use MusicBrainz::Server::Test ws_test => {
-    version => 2
+    version => 2,
 };
 
 test all => sub {
@@ -89,9 +89,9 @@ is_deeply($edit->data->{isrcs}, [
     { isrc => 'GBAAA0300123',
       recording => {
           id => $rec->id,
-          name => $rec->name
-      }
-  }
+          name => $rec->name,
+      },
+  },
 ]);
 my $en_data = MusicBrainz::Server::Data::EditNote->new(c => $c);
 $en_data->load_for_edits($edit);

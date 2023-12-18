@@ -4,11 +4,11 @@ use warnings;
 
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_ADD_TRACK_KV );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 
 use MusicBrainz::Server::Edit::Historic::Base;
 
-sub edit_name     { N_l('Add track (historic)') }
+sub edit_name     { N_lp('Add track (historic)', 'edit type') }
 sub edit_kind     { 'add' }
 sub historic_type { 18 }
 sub edit_type     { $EDIT_HISTORIC_ADD_TRACK_KV }
@@ -23,8 +23,8 @@ sub _build_related_entities
     return {
         artist    => [ $self->data->{artist_id} ],
         release   => $self->data->{release_ids},
-        recording => [ $self->data->{recording_id} ]
-    }
+        recording => [ $self->data->{recording_id} ],
+    };
 }
 
 sub release_ids { @{ shift->data->{release_ids} } }
@@ -34,11 +34,11 @@ sub foreign_keys
     my $self = shift;
     return {
         Release => {
-            map { $_ => [ 'ArtistCredit' ] } $self->release_ids
+            map { $_ => [ 'ArtistCredit' ] } $self->release_ids,
         },
         Artist => [ $self->data->{artist_id} ],
-        Recording => [ $self->data->{recording_id} ]
-    }
+        Recording => [ $self->data->{recording_id} ],
+    };
 }
 
 sub build_display_data
@@ -56,7 +56,7 @@ sub build_display_data
                 to_json_object($_ == -42
                     ? Release->new( name => '[non-album tracks]' )
                     : $loaded->{Release}{$_})
-            } $self->release_ids
+            } $self->release_ids,
         ],
         position  => $self->data->{position},
         name      => $self->data->{name},
@@ -64,9 +64,9 @@ sub build_display_data
         artist    => to_json_object($loaded->{Artist}{ $self->data->{artist_id} }),
         recording => to_json_object(
             $loaded->{Recording}{ $self->data->{recording_id} } ||
-            Recording->new( name => $self->data->{name} )
+            Recording->new( name => $self->data->{name} ),
         ),
-    }
+    };
 }
 
 sub upgrade

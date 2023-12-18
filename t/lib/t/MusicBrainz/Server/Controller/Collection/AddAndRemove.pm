@@ -3,6 +3,7 @@ use utf8;
 use strict;
 use warnings;
 
+use HTTP::Status qw( :constants );
 use Test::Routine;
 use Test::More;
 
@@ -12,7 +13,7 @@ around run_test => sub {
 
     $test->mech->get('/login');
     $test->mech->submit_form(
-        with_fields => { username => 'editor1', password => 'pass' }
+        with_fields => { username => 'editor1', password => 'pass' },
     );
 
     $test->$orig(@args);
@@ -74,7 +75,7 @@ test 'Trying to add incorrect ids to collection fails gracefully' => sub {
     );
     is(
         $mech->status,
-        400,
+        HTTP_BAD_REQUEST,
         'Trying to add an invalid id to a collection fails',
     );
     $mech->text_contains(

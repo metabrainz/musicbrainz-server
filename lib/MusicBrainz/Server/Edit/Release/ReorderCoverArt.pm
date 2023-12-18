@@ -8,7 +8,7 @@ use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_REORDER_COVER_ART );
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 
 use List::AllUtils qw( nsort_by );
 use Data::Compare;
@@ -17,11 +17,11 @@ use aliased 'MusicBrainz::Server::Entity::Release';
 use aliased 'MusicBrainz::Server::Entity::Artwork';
 
 extends 'MusicBrainz::Server::Edit::WithDifferences';
-with 'MusicBrainz::Server::Edit::Release';
-with 'MusicBrainz::Server::Edit::Release::RelatedEntities';
-with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
+with 'MusicBrainz::Server::Edit::Release',
+     'MusicBrainz::Server::Edit::Release::RelatedEntities',
+     'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
-sub edit_name { N_l('Reorder cover art') }
+sub edit_name { N_lp('Reorder cover art', 'plural, edit type') }
 sub edit_kind { 'other' }
 sub edit_type { $EDIT_RELEASE_REORDER_COVER_ART }
 sub release_ids { shift->data->{entity}{id} }
@@ -30,7 +30,7 @@ sub edit_template { 'ReorderCoverArt' }
 sub alter_edit_pending {
     return {
         Release => [ shift->release_ids ],
-    }
+    };
 }
 
 has '+data' => (
@@ -38,11 +38,11 @@ has '+data' => (
         entity => Dict[
             id   => Int,
             name => Str,
-            mbid => Str
+            mbid => Str,
         ],
         old => ArrayRef[Dict[ id => Int, position => Int ]],
         new => ArrayRef[Dict[ id => Int, position => Int ]],
-    ]
+    ],
 );
 
 sub initialize {
@@ -57,7 +57,7 @@ sub initialize {
         entity => {
             id => $release->id,
             name => $release->name,
-            mbid => $release->gid
+            mbid => $release->gid,
         },
         old => $opts{old},
         new => $opts{new},
@@ -69,7 +69,7 @@ sub accept {
 
     my $release = $self->c->model('Release')->get_by_gid($self->data->{entity}{mbid})
         or MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
-            'This release no longer exists'
+            'This release no longer exists',
         );
 
     my $current = $self->c->model('Artwork')->find_by_release($release);
@@ -95,7 +95,7 @@ sub foreign_keys {
     my %fk;
 
     $fk{Release} = {
-        $self->data->{entity}{id} => [ 'ArtistCredit' ]
+        $self->data->{entity}{id} => [ 'ArtistCredit' ],
     };
 
     return \%fk;

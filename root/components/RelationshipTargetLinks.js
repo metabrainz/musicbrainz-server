@@ -30,7 +30,7 @@ import relationshipDateText
 
 export function displayDatedExtraAttributes(
   pair: DatedExtraAttributes,
-): React$MixedElement | string {
+): Expand2ReactOutput {
   const renderedDatePeriods = commaOnlyListText(
     pair.datePeriods.map(datePeriod => (
       relationshipDateText(datePeriod, false /* bracketEnded */)

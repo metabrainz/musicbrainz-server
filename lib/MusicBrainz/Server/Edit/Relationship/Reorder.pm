@@ -13,22 +13,21 @@ use MusicBrainz::Server::Data::Utils qw( partial_date_to_hash type_to_model );
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Edit::Types qw( PartialDateHash LinkAttributesArray );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
-use MusicBrainz::Server::Translation qw ( N_l );
+use MusicBrainz::Server::Translation qw ( N_lp );
 use aliased 'MusicBrainz::Server::Entity::Link';
 use aliased 'MusicBrainz::Server::Entity::LinkAttribute';
 use aliased 'MusicBrainz::Server::Entity::Relationship';
 
 extends 'MusicBrainz::Server::Edit';
+with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit',
+     'MusicBrainz::Server::Edit::Role::Preview',
+     'MusicBrainz::Server::Edit::Relationship',
+     'MusicBrainz::Server::Edit::Relationship::RelatedEntities';
 
-sub edit_name { N_l('Reorder relationships') }
+sub edit_name { N_lp('Reorder relationships', 'edit type') }
 sub edit_kind { 'other' }
 sub edit_type { $EDIT_RELATIONSHIPS_REORDER }
 sub edit_template { 'ReorderRelationships' }
-
-with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
-with 'MusicBrainz::Server::Edit::Role::Preview';
-with 'MusicBrainz::Server::Edit::Relationship';
-with 'MusicBrainz::Server::Edit::Relationship::RelatedEntities';
 
 subtype 'LinkTypeHash'
     => as Dict[
@@ -66,10 +65,10 @@ has '+data' => (
                 relationship => find_type_constraint('ReorderedRelationshipHash'),
                 old_order => Int,
                 new_order => Int,
-            ]
+            ],
         ],
         edit_version => Optional[Int],
-    ]
+    ],
 );
 
 sub link_type { shift->data->{link_type} }
@@ -129,7 +128,7 @@ sub _build_relationship {
                     } else {
                         ();
                     }
-                } @{ $data->{attributes} }
+                } @{ $data->{attributes} },
             ],
         ),
         entity0 => $entity0,
@@ -171,7 +170,7 @@ sub adjust_edit_pending
         $self->data->{link_type}{entity0_type},
         $self->data->{link_type}{entity1_type},
         $adjust,
-        map { $_->{relationship}{id} } @{ $self->data->{relationship_order} }
+        map { $_->{relationship}{id} } @{ $self->data->{relationship_order} },
     );
 }
 
@@ -218,11 +217,11 @@ sub initialize {
             attributes => $self->serialize_link_attributes($link->all_attributes),
             entity0 => {
                 id => $relationship->entity0_id,
-                name => $relationship->entity0->name
+                name => $relationship->entity0->name,
             },
             entity1 => {
                 id => $relationship->entity1_id,
-                name => $relationship->entity1->name
+                name => $relationship->entity1->name,
             },
         };
     }
@@ -255,8 +254,8 @@ sub build_display_data {
                 relationship => $self->_build_relationship($loaded, $_->{relationship}),
             },
             sort { $a->{new_order} <=> $b->{new_order} }
-                @{ $self->data->{relationship_order} }
-        ]
+                @{ $self->data->{relationship_order} },
+        ],
     };
 }
 
@@ -266,7 +265,7 @@ sub accept {
     $self->c->model('Relationship')->reorder(
         $self->data->{link_type}{entity0_type},
         $self->data->{link_type}{entity1_type},
-        map { $_->{relationship}{id} => $_->{new_order} } @{ $self->data->{relationship_order} }
+        map { $_->{relationship}{id} => $_->{new_order} } @{ $self->data->{relationship_order} },
     );
 }
 

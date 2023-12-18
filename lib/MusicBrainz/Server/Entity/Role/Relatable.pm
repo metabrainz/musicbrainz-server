@@ -24,8 +24,8 @@ has 'relationships' => (
     handles => {
         all_relationships       => 'elements',
         add_relationship        => 'push',
-        clear_relationships     => 'clear'
-    }
+        clear_relationships     => 'clear',
+    },
 );
 
 has 'paged_relationship_groups' => (
@@ -58,7 +58,7 @@ sub grouped_relationships
         if ($relationship->source_credit) {
             $phrase = l('{role} (as {credited_name})', {
                 role => $phrase,
-                credited_name => $relationship->source_credit
+                credited_name => $relationship->source_credit,
             });
         }
 
@@ -92,7 +92,7 @@ has '_relationships_by_link_type_name' => (
         } sort_by { $_->id } (
             $self->all_relationships,
             (map { $_->all_relationships }
-                values %{ $self->paged_relationship_groups })
+                values %{ $self->paged_relationship_groups }),
         );
         \%result;
     },
@@ -127,7 +127,7 @@ around TO_JSON => sub {
         $json->{paged_relationship_groups} = {
             map {
                 $_ => to_json_object($paged_relationship_groups{$_})
-            } keys %paged_relationship_groups
+            } keys %paged_relationship_groups,
         };
     }
 

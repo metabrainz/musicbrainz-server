@@ -87,15 +87,15 @@ sub CACHE_MANAGER_OPTIONS {
         default_profile => 'external',
     );
 
-    return \%CACHE_MANAGER_OPTIONS
+    return \%CACHE_MANAGER_OPTIONS;
 }
 
 sub CATALYST_DEBUG { 0 }
 
 sub COVER_ART_ARCHIVE_ACCESS_KEY { 'hi_im_public' }
 sub COVER_ART_ARCHIVE_SECRET_KEY { 'hi_im_private' }
-sub COVER_ART_ARCHIVE_UPLOAD_PREFIXER { shift; sprintf('//localhost:5050/%s', shift) };
-sub COVER_ART_ARCHIVE_DOWNLOAD_PREFIX { 'http://localhost:8081' };
+sub COVER_ART_ARCHIVE_UPLOAD_PREFIXER { shift; sprintf('//localhost:5050/%s', shift) }
+sub COVER_ART_ARCHIVE_DOWNLOAD_PREFIX { 'http://localhost:8081' }
 sub COVER_ART_ARCHIVE_IA_METADATA_PREFIX { 'http://localhost:5050/metadata' }
 
 sub DATASTORE_REDIS_ARGS {

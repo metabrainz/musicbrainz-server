@@ -5,20 +5,20 @@ use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Constants qw( $EDIT_RECORDING_CREATE $EDIT_RECORDING_REMOVE_ISRC );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 
 use aliased 'MusicBrainz::Server::Entity::Recording';
 use aliased 'MusicBrainz::Server::Entity::ISRC';
 
 extends 'MusicBrainz::Server::Edit';
-with 'MusicBrainz::Server::Edit::Recording::RelatedEntities';
-with 'MusicBrainz::Server::Edit::Recording';
-with 'MusicBrainz::Server::Edit::Role::AllowAmending' => {
-    create_edit_type => $EDIT_RECORDING_CREATE,
-    entity_type => 'recording',
-};
+with 'MusicBrainz::Server::Edit::Recording::RelatedEntities',
+     'MusicBrainz::Server::Edit::Recording',
+     'MusicBrainz::Server::Edit::Role::AllowAmending' => {
+        create_edit_type => $EDIT_RECORDING_CREATE,
+        entity_type => 'recording',
+     };
 
-sub edit_name { N_l('Remove ISRC') }
+sub edit_name { N_lp('Remove ISRC', 'edit type') }
 sub edit_kind { 'remove' }
 sub edit_type { $EDIT_RECORDING_REMOVE_ISRC }
 sub edit_template { 'RemoveIsrc' }
@@ -29,20 +29,20 @@ has '+data' => (
     isa => Dict[
         isrc => Dict[
             id   => Int,
-            isrc => Str
+            isrc => Str,
         ],
         recording => Dict[
             id   => Int,
-            name => Str
-        ]
-    ]
+            name => Str,
+        ],
+    ],
 );
 
 method alter_edit_pending
 {
     return {
         Recording => [ $self->data->{recording}{id} ],
-        ISRC      => [ $self->data->{isrc}{id} ]
+        ISRC      => [ $self->data->{isrc}{id} ],
     }
 }
 
@@ -62,7 +62,7 @@ method build_display_data ($loaded)
             recording => $loaded->{Recording}{ $self->data->{recording}{id} } //
                          Recording->new(
                              id => $self->data->{recording}{id},
-                             name => $self->data->{recording}{name}
+                             name => $self->data->{recording}{name},
                          ),
             recording_id => $self->data->{recording}{id},
         );
@@ -83,8 +83,8 @@ sub initialize
         },
         recording => {
             id   => $isrc->recording->id,
-            name => $isrc->recording->name
-        }
+            name => $isrc->recording->name,
+        },
     });
 }
 
@@ -103,3 +103,5 @@ around allow_auto_edit => sub {
 
 no Moose;
 __PACKAGE__->meta->make_immutable;
+
+1;

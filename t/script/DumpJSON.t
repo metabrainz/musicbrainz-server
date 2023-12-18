@@ -496,13 +496,13 @@ EOF
         'primary-type-id' => undef,
         rating => {
             value => undef,
-            'votes-count' => 0
+            'votes-count' => 0,
         },
         relations => [],
         'secondary-type-ids' => [],
         'secondary-types' => [],
         tags => [],
-        title => 'Blue Hits'
+        title => 'Blue Hits',
     );
 
     $build_packet->(5, $dbmirror_pending, $dbmirror_pendingdata);
@@ -633,3 +633,5 @@ EOF
 
 run_me;
 done_testing;
+
+1;

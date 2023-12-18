@@ -154,7 +154,7 @@ sub delete : PathPart('delete') Chained('load') {
             });
         }
         $c->response->redirect(
-            $c->uri_for_action('/edit/show', [ $edit_id ])
+            $c->uri_for_action('/edit/show', [ $edit_id ]),
         );
         $c->detach;
     } else {
@@ -185,14 +185,14 @@ sub modify : PathPart('modify') Chained('load') {
     if ($c->form_posted_and_valid($form)) {
         if ($form->field('cancel')->input) {
             $c->response->redirect(
-                $c->uri_for_action('/edit/show', [ $edit_id ])
+                $c->uri_for_action('/edit/show', [ $edit_id ]),
             );
             $c->detach;
         } else {
             my $new_note = $form->field('text')->value;
             if ($new_note eq $edit_note->text) {
                 $form->field('text')->add_error(
-                    l('You haven’t made any changes!')
+                    l('You haven’t made any changes!'),
                 );
             } else {
                 $c->model('MB')->with_transaction(sub {
@@ -204,7 +204,7 @@ sub modify : PathPart('modify') Chained('load') {
                     );
                 });
                 $c->response->redirect(
-                    $c->uri_for_action('/edit/show', [ $edit_id ])
+                    $c->uri_for_action('/edit/show', [ $edit_id ]),
                 );
                 $c->detach;
             }
@@ -227,9 +227,9 @@ sub edit_note_change : PathPart('change') Chained('load') Args(1) RequireAuth(ac
 
     if (!is_database_row_id($change_id)) {
         $c->stash(
-            message => 'The note change ID must be a positive integer'
+            message => 'The note change ID must be a positive integer',
         );
-        $c->detach('/error_400')
+        $c->detach('/error_400');
     }
 
     my $note_change = $c->model('EditNoteChange')->get_by_id($change_id)
@@ -248,7 +248,7 @@ sub edit_note_change : PathPart('change') Chained('load') Args(1) RequireAuth(ac
             message =>
                 "The note change with ID “$change_id” is not associated with this note.",
         );
-        $c->detach('/error_400')
+        $c->detach('/error_400');
     }
 
     $c->model('Editor')->load($note_change);
@@ -277,7 +277,7 @@ sub edit_note_history : PathPart('changes') Chained('load') RequireAuth(account_
     my $note_changes = $self->_load_paged(
         $c, sub {
             $c->model('EditNoteChange')->get_history($edit_note->id);
-        }
+        },
     );
 
     $c->model('Editor')->load(@$note_changes);

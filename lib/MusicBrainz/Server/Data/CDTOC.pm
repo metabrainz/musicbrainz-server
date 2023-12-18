@@ -84,7 +84,7 @@ sub find_or_insert
             freedb_id => $cdtoc->freedb_id,
             track_count => $cdtoc->track_count,
             leadout_offset => $cdtoc->leadout_offset,
-            track_offset => $cdtoc->track_offset
+            track_offset => $cdtoc->track_offset,
         }, 'id');
 
     return $id;

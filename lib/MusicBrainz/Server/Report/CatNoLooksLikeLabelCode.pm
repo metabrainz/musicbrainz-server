@@ -17,7 +17,7 @@ sub query {
             ON r.id = rl.release
             JOIN artist_credit ac ON r.artist_credit = ac.id
         WHERE rl.catalog_number ~ '^LC[\\s-]*\\d{4,5}$'
-    }
+    };
 }
 
 __PACKAGE__->meta->make_immutable;

@@ -10,7 +10,7 @@ use MusicBrainz::Server::Data::Series;
 use MusicBrainz::Server::Edit::Utils qw( changed_display_data changed_relations );
 use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
-use MusicBrainz::Server::Translation qw ( N_l );
+use MusicBrainz::Server::Translation qw ( N_lp );
 
 use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict Optional );
@@ -18,16 +18,16 @@ use MooseX::Types::Structured qw( Dict Optional );
 use aliased 'MusicBrainz::Server::Entity::Series';
 
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
-with 'MusicBrainz::Server::Edit::Series';
-with 'MusicBrainz::Server::Edit::CheckForConflicts';
-with 'MusicBrainz::Server::Edit::Role::AllowAmending' => {
-    create_edit_type => $EDIT_SERIES_CREATE,
-    entity_type => 'series',
-};
-with 'MusicBrainz::Server::Edit::Role::CheckDuplicates';
+with 'MusicBrainz::Server::Edit::Series',
+     'MusicBrainz::Server::Edit::CheckForConflicts',
+     'MusicBrainz::Server::Edit::Role::AllowAmending' => {
+        create_edit_type => $EDIT_SERIES_CREATE,
+        entity_type => 'series',
+     },
+     'MusicBrainz::Server::Edit::Role::CheckDuplicates';
 
 sub edit_type { $EDIT_SERIES_EDIT }
-sub edit_name { N_l('Edit series') }
+sub edit_name { N_lp('Edit series', 'edit type') }
 sub _edit_model { 'Series' }
 sub series_id { shift->entity_id }
 
@@ -46,11 +46,11 @@ has '+data' => (
         entity => Dict[
             id => Int,
             gid => Optional[Str],
-            name => Str
+            name => Str,
         ],
         new => change_fields(),
         old => change_fields(),
-    ]
+    ],
 );
 
 sub foreign_keys {
@@ -81,7 +81,7 @@ sub build_display_data {
 
     $data->{series} = to_json_object(
         $loaded->{Series}{ $self->data->{entity}{id} } ||
-        Series->new( name => $self->data->{entity}{name} )
+        Series->new( name => $self->data->{entity}{name} ),
     );
 
     if (exists $data->{type}) {
@@ -133,7 +133,7 @@ around editor_may_approve => sub {
 
 sub current_instance {
     my $self = shift;
-    $self->c->model('Series')->get_by_id($self->entity_id),
+    $self->c->model('Series')->get_by_id($self->entity_id);
 }
 
 sub _edit_hash {

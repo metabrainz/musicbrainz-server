@@ -25,7 +25,7 @@ my $already_exists = { work => { id => 1, name => 'Foo' }, iswc => 'T-000.000.00
 test 'Enters an autoedit' => sub {
     my $test = shift;
     my $edit = _create_edit($test, [
-        $valid_addition
+        $valid_addition,
     ]);
 
     ok(!$edit->is_open, 'The edit is not open');
@@ -40,7 +40,7 @@ test 'Enters an autoedit' => sub {
 test 'Enters set of ISWCs (no duplicates)' => sub {
     my $test = shift;
     my $edit = _create_edit($test, [
-        $valid_addition, $valid_addition
+        $valid_addition, $valid_addition,
     ]);
 
     ok(!$edit->is_open, 'The edit is not open');
@@ -56,7 +56,7 @@ test 'Notices no changes' => sub {
     my $test = shift;
     isa_ok exception {
         _create_edit($test, [
-            $already_exists
+            $already_exists,
         ]);
     }, 'MusicBrainz::Server::Edit::Exceptions::NoChanges';
 };

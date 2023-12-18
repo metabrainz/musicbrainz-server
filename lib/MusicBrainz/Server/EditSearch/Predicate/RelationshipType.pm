@@ -15,7 +15,7 @@ sub operator_cardinality_map {
     return (
         '=' => undef,
         '!=' => undef,
-    )
+    );
 }
 
 sub combine_with_query {

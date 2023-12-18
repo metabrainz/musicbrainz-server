@@ -51,7 +51,7 @@ const RelationshipTargetTypeGroups = (React.memo<PropsT>(({
     preselectedTargetType: null,
     releaseHasUnloadedTracks,
     source,
-    title: l('Add Relationship'),
+    title: lp('Add relationship', 'header'),
   });
 
   const sections = [];
@@ -106,7 +106,7 @@ const RelationshipTargetTypeGroups = (React.memo<PropsT>(({
           <td className="add-relationship">
             <ButtonPopover
               buildChildren={buildPopoverContent}
-              buttonContent={l('Add relationship')}
+              buttonContent={lp('Add relationship', 'interactive')}
               buttonProps={{
                 className: 'add-item with-label add-relationship',
               }}

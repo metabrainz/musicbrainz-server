@@ -34,7 +34,7 @@ use aliased 'MusicBrainz::Server::Entity::EditNote';
 
 has 'c' => (
     is => 'rw',
-    isa => 'Object'
+    isa => 'Object',
 );
 
 Readonly our $url_prefix => 'https://' . DBDefs->WEB_SERVER_USED_IN_EMAIL;
@@ -116,7 +116,7 @@ sub _create_message_to_editor_email
     my $contact_url = $url_prefix .
         sprintf '/user/%s/contact', uri_escape_utf8($from->name);
 
-    my $body = <<EOS;
+    my $body = <<"EOS";
 MusicBrainz user '$from_name' has sent you the following message:
 ------------------------------------------------------------------------
 $message
@@ -124,7 +124,7 @@ $message
 EOS
 
     if ($opts{reveal_address}) {
-        $body .= <<EOS;
+        $body .= <<"EOS";
 If you would like to respond, please reply to this message or visit
 $contact_url to send '$from_name' an email.
 
@@ -132,7 +132,7 @@ $contact_url to send '$from_name' an email.
 EOS
     }
     else {
-        $body .= <<EOS;
+        $body .= <<"EOS";
 If you would like to respond, please visit
 $contact_url to send '$from_name' an email.
 
@@ -159,7 +159,7 @@ sub _create_email_verification_email
     my $ip = $opts{ip};
     my $user_name = $opts{editor}->name;
 
-    my $body = <<EOS;
+    my $body = <<"EOS";
 Hello $user_name,
 
 This is a verification email for your MusicBrainz account. Please click
@@ -198,7 +198,7 @@ sub _create_email_in_use_email
     my $ip = $opts{ip};
     my $user_name = $opts{editor}->name;
 
-    my $body = <<EOS;
+    my $body = <<"EOS";
 Hello $user_name,
 
 You have requested to verify this email address for the MusicBrainz account $user_name,
@@ -249,7 +249,7 @@ sub _create_lost_username_email
     my $user_name = $opts{user}->name;
     my $lost_password_url = $url_prefix . '/lost-password';
 
-    my $body = <<EOS;
+    my $body = <<"EOS";
 Someone, probably you, asked to look up the username of the
 MusicBrainz account associated with this email address.
 
@@ -295,7 +295,7 @@ sub _create_no_vote_email
     }
     $close_time = $close_time->strftime('%F %H:%M %Z');
 
-    my $body = <<EOS;
+    my $body = <<"EOS";
 '${\ $voter->name }' has voted against your edit #$edit_id.
 -------------------------------------------------------------------------
 To respond, please add your note at:
@@ -336,7 +336,7 @@ sub _create_password_reset_request_email
 
     my $reset_password_link = $opts{reset_password_link};
 
-    my $body = <<EOS;
+    my $body = <<"EOS";
 Someone, probably you, asked that your MusicBrainz password be reset.
 
 To reset your password, click the link below:
@@ -403,7 +403,7 @@ sub _create_edit_note_email
     if ($own_edit) {
         push @headers, ('Subject'  => "Note added to your edit #$edit_id");
 
-        $body = <<EOS;
+        $body = <<"EOS";
 '$from' has added the following note to your edit #$edit_id:
 ------------------------------------------------------------------------
 $note_text
@@ -418,7 +418,7 @@ EOS
     else {
         push @headers, ('Subject'  => "Note added to edit #$edit_id");
 
-        $body = <<EOS;
+        $body = <<"EOS";
 '$from' has added the following note to edit #$edit_id:
 ------------------------------------------------------------------------
 $note_text
@@ -457,7 +457,7 @@ sub send_message_to_editor
         my $message = $opts{message};
 
         $copy->header_str_set( To => _user_address($opts{from}) );
-        $copy->body_str_set(<<EOF);
+        $copy->body_str_set(<<"EOF");
 This is a copy of the message you sent to MusicBrainz editor '$toname':
 ------------------------------------------------------------------------
 $message
@@ -507,7 +507,7 @@ sub send_subscriptions_digest
 
     my $email = MusicBrainz::Server::Email::Subscriptions->new(
         from => $EMAIL_NOREPLY_ADDRESS,
-        %opts
+        %opts,
     );
     return try { $self->_send_email($email->create_email) } catch { warn $_ };
 }
@@ -660,7 +660,7 @@ sub send_editor_report {
 has 'transport' => (
     is => 'rw',
     lazy => 1,
-    builder => '_build_transport'
+    builder => '_build_transport',
 );
 
 sub get_test_transport
@@ -699,8 +699,8 @@ sub _send_email
             grep { defined                   }
             map  { Email::Address->parse($_) }
             map  { $email->header($_)        }
-                qw(to cc bcc)
-        ]
+                qw(to cc bcc),
+        ],
     };
 
     $email->header_set('BCC'); # removes the header

@@ -23,11 +23,11 @@ const IpLookup = ({
   pager,
   users,
 }: Props): React$Element<typeof Layout> => (
-  <Layout fullWidth title={l('IP lookup')}>
+  <Layout fullWidth title="IP lookup">
     <div id="content">
-      <h1>{l('IP lookup')}</h1>
+      <h1>{'IP lookup'}</h1>
       <p>
-        {l('IP hash:') + ' ' + ipHash}
+        {'IP hash: ' + ipHash}
       </p>
       {users.length ? (
         <PaginatedResults pager={pager}>
@@ -35,7 +35,7 @@ const IpLookup = ({
         </PaginatedResults>
       ) : (
         <p>
-          {l('No results')}
+          {'No results'}
         </p>
       )}
     </div>

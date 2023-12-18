@@ -2,6 +2,7 @@ package t::MusicBrainz::Server::Controller::Relationship::LinkAttributeType::Del
 use strict;
 use warnings;
 
+use HTTP::Status qw( :constants );
 use Test::Routine;
 use Test::More;
 use MusicBrainz::Server::Test qw( capture_edits html_ok );
@@ -48,6 +49,6 @@ test 'Deleting relationship attributes (instrument)' => sub {
 
     $mech->get(
         '/relationship-attribute/f6100277-c7b8-4c8d-aa26-d8cd014b6761/delete');
-    is($mech->status, 403);
+    is($mech->status, HTTP_FORBIDDEN);
 };
 1;

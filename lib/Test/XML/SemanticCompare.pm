@@ -8,7 +8,8 @@ use 5.008;
 our $VERSION = '0.01';
 
 use base 'Test::Builder::Module';
-our @EXPORT = qw( is_xml_same );
+use Exporter 'import';
+our @EXPORT_OK = qw( is_xml_same );
 
 use XML::SemanticDiff;
 

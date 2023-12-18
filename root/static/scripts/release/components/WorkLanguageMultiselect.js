@@ -140,7 +140,7 @@ const WorkLanguageMultiselect: React$AbstractComponent<
 }: WorkLanguageMultiselectPropsT): React$MixedElement => (
   <tr>
     <td className="section">
-      {addColonText(l('Lyrics Languages'))}
+      {addColonText(l('Lyrics languages'))}
     </td>
     <td className="lyrics-languages">
       <LanguageMultiselect

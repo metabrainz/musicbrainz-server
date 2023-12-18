@@ -23,7 +23,7 @@ has_field 'name' => (
 );
 
 has_field 'length' => (
-    type => '+MusicBrainz::Server::Form::Field::Length'
+    type => '+MusicBrainz::Server::Form::Field::Length',
 );
 
 has_field 'comment' => (
@@ -31,12 +31,12 @@ has_field 'comment' => (
 );
 
 has_field 'artist_credit' => (
-    type => '+MusicBrainz::Server::Form::Field::ArtistCredit'
+    type => '+MusicBrainz::Server::Form::Field::ArtistCredit',
 );
 
 has_field 'isrcs' => (
     type => 'Repeatable',
-    inflate_default_method => \&inflate_isrcs
+    inflate_default_method => \&inflate_isrcs,
 );
 
 has_field 'isrcs.contains' => (
@@ -44,13 +44,13 @@ has_field 'isrcs.contains' => (
 );
 
 has_field 'video' => (
-    type => 'Checkbox'
+    type => 'Checkbox',
 );
 
 has 'used_by_tracks' => (
     is => 'ro',
     isa => 'Bool',
-    required => 1
+    required => 1,
 );
 
 after 'validate' => sub {
@@ -66,7 +66,7 @@ after 'validate' => sub {
         $length->value != $length->init_value) {
         $length->add_error(l(
             'This recording’s duration is determined by the tracks that are ' .
-            'linked to it, and cannot be changed directly.'
+            'linked to it, and cannot be changed directly.',
         ));
     }
 };

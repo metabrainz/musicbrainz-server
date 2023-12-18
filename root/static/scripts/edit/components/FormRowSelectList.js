@@ -15,7 +15,7 @@ import FormRow from './FormRow.js';
 type Props<S> = {
   +addId: string,
   +addLabel: string,
-  +getSelectField: (S) => ReadOnlyFieldT<?StrOrNum>,
+  +getSelectField: (S) => FieldT<?StrOrNum>,
   +hideAddButton?: boolean,
   +label: React$Node,
   +onAdd: (event: SyntheticEvent<HTMLButtonElement>) => void,
@@ -24,7 +24,7 @@ type Props<S> = {
   +options: MaybeGroupedOptionsT,
   +removeClassName: string,
   +removeLabel: string,
-  +repeatable: ReadOnlyRepeatableFieldT<S>,
+  +repeatable: RepeatableFieldT<S>,
 };
 
 const FormRowSelectList = <S: {+id: number, ...}>({

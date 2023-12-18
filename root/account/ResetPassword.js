@@ -15,8 +15,8 @@ import FormRowText from '../static/scripts/edit/components/FormRowText.js';
 import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
 
 type ResetPasswordFormT = FormT<{
-  +confirm_password: ReadOnlyFieldT<string>,
-  +password: ReadOnlyFieldT<string>,
+  +confirm_password: FieldT<string>,
+  +password: FieldT<string>,
 }>;
 
 type Props = {
@@ -26,8 +26,8 @@ type Props = {
 const ResetPassword = ({
   form,
 }: Props): React$Element<typeof Layout> => (
-  <Layout fullWidth title={l('Reset Password')}>
-    <h1>{l('Reset Password')}</h1>
+  <Layout fullWidth title={lp('Reset password', 'header')}>
+    <h1>{lp('Reset password', 'header')}</h1>
 
     <p>
       {l('Set a new password for your MusicBrainz account.')}
@@ -52,7 +52,7 @@ const ResetPassword = ({
         uncontrolled
       />
       <FormRow hasNoLabel>
-        <FormSubmit label={l('Reset Password')} />
+        <FormSubmit label={lp('Reset password', 'interactive')} />
       </FormRow>
     </form>
   </Layout>

@@ -59,7 +59,7 @@ has 'access_token' => (
 has 'expire_time' => (
     isa => DateTime,
     is => 'rw',
-    coerce => 1
+    coerce => 1,
 );
 
 has 'scope' => (
@@ -70,7 +70,7 @@ has 'scope' => (
 has 'granted' => (
     isa => DateTime,
     is => 'rw',
-    coerce => 1
+    coerce => 1,
 );
 
 our @ACCESS_SCOPE_PERMISSIONS = (

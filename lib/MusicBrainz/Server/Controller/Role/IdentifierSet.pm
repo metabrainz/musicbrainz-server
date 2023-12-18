@@ -6,34 +6,34 @@ use MusicBrainz::Server::Data::Utils qw( type_to_model );
 
 parameter 'entity_type' => (
     isa => 'Str',
-    required => 1
+    required => 1,
 );
 
 parameter 'identifier_type' => (
     isa => 'Str',
-    required => 1
+    required => 1,
 );
 
 parameter 'identifier_plural' => (
     isa => 'Maybe[Str]',
     required => 1,
-    default => undef
+    default => undef,
 );
 
 parameter 'add_edit' => (
     isa => 'Int',
-    required => 1
+    required => 1,
 );
 
 parameter 'remove_edit' => (
     isa => 'Int',
-    required => 1
+    required => 1,
 );
 
 parameter 'include_source' => (
     isa => 'Bool',
     required => 1,
-    default => 0
+    default => 0,
 );
 
 role
@@ -60,10 +60,10 @@ role
                     "$identifier_type" => $_,
                     "$entity_type" => {
                         id => $entity->id,
-                        name => $entity->name
+                        name => $entity->name,
                     },
                     $include_source ? (source   => 0) : ()
-                }, @identifiers ]
+                }, @identifiers ],
             );
         });
     };
@@ -76,7 +76,7 @@ role
                 $c, $form,
                 edit_type => $remove_edit,
                 $identifier_type => $_,
-                $entity_type => $entity
+                $entity_type => $entity,
             );
         }) for @identifiers;
     };

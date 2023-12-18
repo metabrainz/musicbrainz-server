@@ -5,17 +5,17 @@ use MusicBrainz::Server::Entity::Types;
 
 has 'distance' => (
     is => 'rw',
-    isa => 'Int'
+    isa => 'Int',
 );
 
 has 'medium_id' => (
     is => 'rw',
-    isa => 'Int'
+    isa => 'Int',
 );
 
 has 'medium' => (
     is => 'rw',
-    isa => 'Medium'
+    isa => 'Medium',
 );
 
 

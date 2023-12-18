@@ -28,10 +28,10 @@ sub alter_edit_pending
     my $model = $self->c->model( $self->_delete_model);
     if ($model->does('MusicBrainz::Server::Data::Role::PendingEdits')) {
         return {
-            $self->_delete_model => [ $self->entity_id ]
-        }
+            $self->_delete_model => [ $self->entity_id ],
+        };
     } else {
-        return { }
+        return { };
     }
 }
 
@@ -42,10 +42,10 @@ sub _build_related_entities
     if ($self->status != $STATUS_APPLIED &&
             $model->does('MusicBrainz::Server::Data::Role::LinksToEdit')) {
         return {
-            $model->edit_link_table => [ $self->entity_id ]
-        }
+            $model->edit_link_table => [ $self->entity_id ],
+        };
     } else {
-        return { }
+        return { };
     }
 }
 
@@ -54,15 +54,15 @@ sub entity_id { shift->data->{entity_id} }
 has '+data' => (
     isa => Dict[
         entity_id => Int,
-        name      => Str
-    ]
+        name      => Str,
+    ],
 );
 
 sub foreign_keys {
     my ($self) = @_;
     return {
-        $self->_delete_model => [ $self->data->{entity_id} ]
-    }
+        $self->_delete_model => [ $self->data->{entity_id} ],
+    };
 }
 
 sub build_display_data
@@ -75,8 +75,8 @@ sub build_display_data
         entity => to_json_object(
             $loaded->{$model}{ $self->data->{entity_id} } ||
             $self->c->model($model)->_entity_class->new(
-                name => $self->data->{name}
-            )
+                name => $self->data->{name},
+            ),
         ),
         entity_type => $entity_type,
     };
@@ -98,11 +98,11 @@ override accept => sub {
     my $model = $self->c->model($self->_delete_model);
 
     MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
-        'This entity no longer exists.'
+        'This entity no longer exists.',
     ) unless $model->get_by_id($self->entity_id);
 
     MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
-        'This entity cannot currently be deleted due to related data.'
+        'This entity cannot currently be deleted due to related data.',
     ) unless $model->can_delete($self->entity_id);
 
     $model->delete($self->entity_id);
@@ -111,7 +111,7 @@ override accept => sub {
 # We do allow auto edits for this (as ModBot needs to insert them)
 sub modbot_auto_edit { 1 }
 
-sub edit_template { 'RemoveEntity' };
+sub edit_template { 'RemoveEntity' }
 
 __PACKAGE__->meta->make_immutable;
 

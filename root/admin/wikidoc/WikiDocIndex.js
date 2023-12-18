@@ -38,13 +38,13 @@ const WikiDocTable = ({
         Cell: ({cell: {value}}: CellRenderProps<WikiDocT, string>) => (
           <a href={'/doc/' + encodeURIComponent(value)}>{value}</a>
         ),
-        Header: N_l('Page name'),
+        Header: 'Page name',
         accessor: (x: WikiDocT) => x.id,
         cellProps: {className: 'title'},
         id: 'name',
       };
       const transcludedVersionColumn = {
-        Header: N_l('Transcluded version'),
+        Header: 'Transcluded version',
         accessor: (x: WikiDocT) => x.version,
         cellProps: {
           className: 'c transcluded-version',
@@ -65,7 +65,7 @@ const WikiDocTable = ({
                   style={{color: 'red'}}
                 >
                   {original.wiki_version === 0
-                    ? l('Error!')
+                    ? 'Error!'
                     : original.wiki_version}
                 </span>
                 {original.wiki_version ? (
@@ -78,7 +78,7 @@ const WikiDocTable = ({
                               '?diff=' + original.wiki_version +
                               '&oldid=' + original.version}
                       >
-                        {l('diff')}
+                        {'diff'}
                       </a>,
                     )}
                   </>
@@ -87,7 +87,7 @@ const WikiDocTable = ({
             )}
           </>
         ),
-        Header: N_l('Wiki version'),
+        Header: 'Wiki version',
         accessor: (x: WikiDocT) => x.wiki_version,
         headerProps: {className: 'c'},
         id: 'wiki-version',
@@ -99,23 +99,23 @@ const WikiDocTable = ({
                      '?page=' + encodeURIComponent(original.id) +
                      '&new_version=' + original.wiki_version}
             >
-              {l('Update')}
+              {'Update'}
             </a>
             {' | '}
             <a href={'/admin/wikidoc/delete' +
                      '?page=' + encodeURIComponent(original.id)}
             >
-              {l('Remove')}
+              {'Remove'}
             </a>
             {' | '}
             <a href={'//' + wikiServer +
                      '/' + encodeURIComponent(original.id)}
             >
-              {l('View on wiki')}
+              {'View on wiki'}
             </a>
           </>
         ),
-        Header: l('Actions'),
+        Header: 'Actions',
         accessor: (x: WikiDocT) => x.id,
         cellProps: {className: 'actions c'},
         headerProps: {className: 'c'},
@@ -146,11 +146,11 @@ const WikiDocTable = ({
 const WikiDocIndex = (props: PropsT): React$Element<typeof Layout> => {
   const $c = React.useContext(SanitizedCatalystContext);
   return (
-    <Layout fullWidth title={l('Transclusion Table')}>
+    <Layout fullWidth title="Transclusion table">
       <div className="content">
-        <h1>{l('Transclusion Table')}</h1>
+        <h1>{'Transclusion table'}</h1>
         <p>
-          {exp.l(
+          {exp.l_admin(
             `Read the {doc|WikiDocs} documentation for an overview of how
              transclusion works.`,
             {doc: '/doc/WikiDocs'},
@@ -161,28 +161,28 @@ const WikiDocIndex = (props: PropsT): React$Element<typeof Layout> => {
             <ul>
               <li key="create">
                 <a href="/admin/wikidoc/create">
-                  {l('Add a new entry')}
+                  {'Add a new entry'}
                 </a>
               </li>
               <li key="history">
                 <a href="/admin/wikidoc/history">
-                  {l('View transclusion history')}
+                  {'View transclusion history'}
                 </a>
               </li>
             </ul>
             <p>
-              {exp.l(`<strong>Note:</strong> MediaWiki does not check to
-                      see if the version number matches the page name,
-                      it will take the version number and provide
-                      whatever page is associated with it. Make sure to
-                      double check your work when updating a page!`)}
+              {exp.l_admin(`<strong>Note:</strong> MediaWiki does not check to
+                            see if the version number matches the page name,
+                            it will take the version number and provide
+                            whatever page is associated with it. Make sure to
+                            double check your work when updating a page!`)}
             </p>
           </>
         ) : null}
 
         {props.wikiIsUnreachable ? (
           <p style={{color: 'red', fontWeight: 'bold'}}>
-            {l('There was a problem accessing the wiki API.')}
+            {'There was a problem accessing the wiki API.'}
           </p>
         ) : null}
       </div>

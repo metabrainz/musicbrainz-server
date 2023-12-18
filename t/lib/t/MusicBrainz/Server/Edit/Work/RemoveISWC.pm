@@ -24,7 +24,7 @@ has edit => (
     is => 'ro',
     lazy => 1,
     clearer => '_clear_edit',
-    builder => '_build_edit'
+    builder => '_build_edit',
 );
 
 test 'Entering makes no changes' => sub {
@@ -65,7 +65,7 @@ sub _build_edit {
     $test->c->model('Edit')->create(
         edit_type => $EDIT_WORK_REMOVE_ISWC,
         editor_id => 1,
-        iswc => $test->c->model('ISWC')->get_by_id(1)
+        iswc => $test->c->model('ISWC')->get_by_id(1),
     );
 }
 

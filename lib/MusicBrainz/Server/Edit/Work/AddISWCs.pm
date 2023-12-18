@@ -3,22 +3,22 @@ use Moose;
 use MooseX::Types::Structured qw( Dict );
 use MooseX::Types::Moose qw( ArrayRef Str Int );
 use MusicBrainz::Server::Constants qw( $EDIT_WORK_ADD_ISWCS );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Work::RelatedEntities' => {
-    -excludes => 'work_ids'
-};
-with 'MusicBrainz::Server::Edit::Work';
-with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
+        -excludes => 'work_ids',
+     },
+     'MusicBrainz::Server::Edit::Work',
+     'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
 use aliased 'MusicBrainz::Server::Entity::Work';
 use aliased 'MusicBrainz::Server::Entity::ISWC';
 
 sub edit_type { $EDIT_WORK_ADD_ISWCS }
-sub edit_name { N_l('Add ISWCs') }
+sub edit_name { N_lp('Add ISWCs', 'edit type') }
 sub edit_kind { 'add' }
 sub edit_template { 'AddIswcs' }
 
@@ -30,10 +30,10 @@ has '+data' => (
             iswc      => Str,
             work => Dict[
                 id => Int,
-                name => Str
-            ]
-        ]]
-    ]
+                name => Str,
+            ],
+        ]],
+    ],
 );
 
 sub initialize
@@ -46,7 +46,7 @@ sub initialize
     }
     else {
         $self->data({
-            iswcs => \@iswcs
+            iswcs => \@iswcs,
         });
     }
 }
@@ -55,8 +55,8 @@ sub _build_related_entities
 {
     my $self = shift;
     return {
-        work => [ $self->work_ids ]
-    }
+        work => [ $self->work_ids ],
+    };
 }
 
 sub foreign_keys
@@ -64,7 +64,7 @@ sub foreign_keys
     my $self = shift;
     return {
         Work => [ $self->work_ids ],
-    }
+    };
 }
 
 sub build_display_data
@@ -75,12 +75,12 @@ sub build_display_data
             map { +{
                 work => to_json_object(
                     $loaded->{Work}{ $_->{work}{id} } ||
-                    Work->new( id => $_->{work}{id}, name => $_->{work}{name} )
+                    Work->new( id => $_->{work}{id}, name => $_->{work}{name} ),
                 ),
                 iswc => to_json_object(ISWC->new( iswc => $_->{iswc} )),
-            } } @{ $self->data->{iswcs} }
-        ]
-    }
+            } } @{ $self->data->{iswcs} },
+        ],
+    };
 }
 
 sub accept {
@@ -91,20 +91,22 @@ sub accept {
     if (@iswcs == 0) {
         MusicBrainz::Server::Edit::Exceptions::NoLongerApplicable->throw(
             'This edit no longer changes anything, either because all the ' .
-            'works are deleted, or all the ISWCs are already present.'
+            'works are deleted, or all the ISWCs are already present.',
         );
     } else {
         $self->c->model('ISWC')->insert(
             map +{
                 work_id => $_->{work}{id},
-                iswc => $_->{iswc}
-            }, @iswcs
+                iswc => $_->{iswc},
+            }, @iswcs,
         );
     }
 }
 
 no Moose;
 __PACKAGE__->meta->make_immutable;
+
+1;
 
 =head1 COPYRIGHT AND LICENSE
 

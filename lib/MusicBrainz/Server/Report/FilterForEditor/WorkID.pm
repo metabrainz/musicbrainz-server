@@ -11,7 +11,7 @@ sub filter_sql {
         'JOIN l_artist_work ON l_artist_work.entity1 = work_id
          JOIN editor_subscribe_artist esa ON esa.artist = l_artist_work.entity0
          WHERE esa.editor = ?',
-        $editor_id
+        $editor_id,
     );
 }
 

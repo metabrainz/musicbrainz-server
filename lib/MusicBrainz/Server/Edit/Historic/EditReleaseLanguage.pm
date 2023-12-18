@@ -4,14 +4,14 @@ use warnings;
 
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_EDIT_RELEASE_LANGUAGE );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 use MusicBrainz::Server::Validation qw( is_positive_integer );
 
 use aliased 'MusicBrainz::Server::Entity::Release';
 
 use MusicBrainz::Server::Edit::Historic::Base;
 
-sub edit_name     { N_l('Edit release') }
+sub edit_name     { N_lp('Edit release', 'edit type') }
 sub edit_kind     { 'edit' }
 sub historic_type { 44 }
 sub edit_type     { $EDIT_HISTORIC_EDIT_RELEASE_LANGUAGE }
@@ -21,8 +21,8 @@ sub _build_related_entities
 {
     my $self = shift;
     return {
-        release => [ map { @{ $_->{release_ids} } } @{ $self->data->{old} } ]
-    }
+        release => [ map { @{ $_->{release_ids} } } @{ $self->data->{old} } ],
+    };
 }
 
 sub foreign_keys
@@ -35,14 +35,14 @@ sub foreign_keys
         Language => [
             grep { is_positive_integer($_) }
             $self->data->{language_id},
-            map { $_->{language_id} } @{ $self->data->{old} }
+            map { $_->{language_id} } @{ $self->data->{old} },
         ],
         Script => [
             grep { is_positive_integer($_) }
             $self->data->{script_id},
-            map { $_->{script_id} } @{ $self->data->{old} }
-        ]
-    }
+            map { $_->{script_id} } @{ $self->data->{old} },
+        ],
+    };
 }
 
 sub build_display_data
@@ -62,16 +62,16 @@ sub build_display_data
                                 Release->new(
                                     id => $_,
                                     name => $release_name,
-                                )
+                                ),
                             )
-                        } @{ $_->{release_ids} }
-                    ]
+                        } @{ $_->{release_ids} },
+                    ],
                 }
-            } @{ $self->data->{old} }
+            } @{ $self->data->{old} },
         ],
         language => to_json_object($loaded->{Language}{ $self->data->{language_id} }),
         script   => to_json_object($loaded->{Script}{ $self->data->{script_id} }),
-    }
+    };
 }
 
 sub upgrade
@@ -89,15 +89,15 @@ sub upgrade
             release_ids  => $self->album_release_ids($album_id),
             language_id  => $language_id,
             script_id    => $script_id,
-            release_name => $self->new_value->{"AlbumName$i"}
-        }
+            release_name => $self->new_value->{"AlbumName$i"},
+        };
     }
 
     my ($language_id, $script_id) = split /,/, $self->new_value->{Language};
     $self->data({
         language_id => $language_id,
         script_id   => $script_id,
-        old => \@old
+        old => \@old,
     });
 
     return $self;

@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import DBDefs from '../../static/scripts/common/DBDefs.mjs';
 import FormRowRadio
   from '../../static/scripts/edit/components/FormRowRadio.js';
@@ -35,7 +33,7 @@ const typeOptions = {
   grouped: false,
   options: [
     {label: N_l('Artist'), value: 'artist'},
-    {label: N_l('Release Group'), value: 'release_group'},
+    {label: N_l('Release group'), value: 'release_group'},
     {label: N_l('Release'), value: 'release'},
     {label: N_l('Recording'), value: 'recording'},
     {label: N_l('Work'), value: 'work'},
@@ -43,9 +41,9 @@ const typeOptions = {
     {label: N_l('Area'), value: 'area'},
     {label: N_l('Place'), value: 'place'},
     {label: N_l('Annotation'), value: 'annotation'},
-    {label: N_l('CD Stub'), value: 'cdstub'},
+    {label: N_l('CD stub'), value: 'cdstub'},
     {label: N_l('Editor'), value: 'editor'},
-    {label: N_lp('Tag', 'noun'), value: 'tag'},
+    {label: N_lp('Tag', 'noun, folksonomy'), value: 'tag'},
     {label: N_l('Instrument'), value: 'instrument'},
     {label: N_lp('Series', 'singular'), value: 'series'},
     {label: N_l('Event'), value: 'event'},
@@ -69,7 +67,7 @@ const methodOptions = [
 
 const SearchForm = ({
   form,
-}: Props): React$Element<typeof React.Fragment> => (
+}: Props): React$Element<React$FragmentType> => (
   <>
     <div className="searchform">
       <form action="/search" method="get">

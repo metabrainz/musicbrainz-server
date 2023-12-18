@@ -25,7 +25,7 @@ export const ACCESS_SCOPE_PERMISSIONS: {
   [ACCESS_SCOPE_RATING]: N_l('View and modify your private ratings'),
   [ACCESS_SCOPE_SUBMIT_BARCODE]: N_l('Submit new barcodes to the database'),
   [ACCESS_SCOPE_SUBMIT_ISRC]: N_l('Submit new ISRCs to the database'),
-  [ACCESS_SCOPE_TAG]: N_l('View and modify your private tags'),
+  [ACCESS_SCOPE_TAG]: N_lp('View and modify your private tags', 'folksonomy'),
 };
 
 export const CONTACT_URL = 'https://metabrainz.org/contact';

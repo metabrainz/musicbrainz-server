@@ -17,47 +17,49 @@ use MusicBrainz::Server::Edit::Utils qw(
 );
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array to_json_object );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 use Set::Scalar;
 
 use aliased 'MusicBrainz::Server::Entity::Work';
 
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
-with 'MusicBrainz::Server::Edit::Work::RelatedEntities';
-with 'MusicBrainz::Server::Edit::Work';
-with 'MusicBrainz::Server::Edit::CheckForConflicts';
-with 'MusicBrainz::Server::Edit::Role::AllowAmending' => {
-    create_edit_type => $EDIT_WORK_CREATE,
-    entity_type => 'work',
-};
-with 'MusicBrainz::Server::Edit::Role::ValueSet' => {
-    prop_name => 'attributes',
-    get_current => sub { shift->current_instance->attributes },
-    extract_value => \&_work_attribute_to_edit,
-    hash => sub {
-        my $input = shift;
-        state $json = JSON->new->allow_blessed->canonical;
+with 'MusicBrainz::Server::Edit::Work::RelatedEntities',
+     'MusicBrainz::Server::Edit::Work',
+     'MusicBrainz::Server::Edit::CheckForConflicts',
+     'MusicBrainz::Server::Edit::Role::AllowAmending' => {
+        create_edit_type => $EDIT_WORK_CREATE,
+        entity_type => 'work',
+     },
+     'MusicBrainz::Server::Edit::Role::ValueSet' => {
+        prop_name => 'attributes',
+        get_current => sub { shift->current_instance->attributes },
+        extract_value => \&_work_attribute_to_edit,
+        hash => sub {
+            my $input = shift;
+            state $json = JSON->new->allow_blessed->canonical;
 
-        # The various string append and 0 additions here are to create a
-        # canonical form for hashing, as we will later be doing a string
-        # comparison on the JavaScript. Thus "foo":0 and "foo":"0" will be
-        # different, so we need to make sure all keys are normalised.
-        return $json->encode({
-            attribute_text => '' . ($input->{attribute_text} // ''),
-            attribute_type_id => 0 + $input->{attribute_type_id},
-            attribute_value_id => 0 + ($input->{attribute_value_id} // 0),
-        });
-    }
-};
-with 'MusicBrainz::Server::Edit::Role::ValueSet' => {
-    prop_name => 'languages',
-    get_current => sub {
-        my $self = shift;
+            # The various string append and 0 additions here are to create a
+            # canonical form for hashing, as we will later be doing a string
+            # comparison on the JavaScript. Thus "foo":0 and "foo":"0" will be
+            # different, so we need to make sure all keys are normalised.
+            return $json->encode({
+                attribute_text => '' . ($input->{attribute_text} // ''),
+                attribute_type_id => 0 + $input->{attribute_type_id},
+                attribute_value_id => 0 + ($input->{attribute_value_id} // 0),
+            });
+        },
+     },
+     'MusicBrainz::Server::Edit::Role::ValueSet' => {
+        prop_name => 'languages',
+        get_current => sub {
+            my $self = shift;
 
-        $self->c->model('Work')->language->find_by_entity_id($self->entity_id);
-    },
-    extract_value => sub { shift->language_id },
-};
+            $self->c->model('Work')->language->find_by_entity_id(
+                $self->entity_id,
+            );
+        },
+        extract_value => sub { shift->language_id },
+     };
 
 sub _mapping {
     my $self = shift;
@@ -65,7 +67,7 @@ sub _mapping {
         attributes => sub {
             my $instance = shift;
             return [
-                map { _work_attribute_to_edit($_) } $instance->all_attributes
+                map { _work_attribute_to_edit($_) } $instance->all_attributes,
             ];
         },
         languages => sub {
@@ -80,12 +82,12 @@ sub _work_attribute_to_edit {
         attribute_text =>
             $work_attribute->value_id ? undef : $work_attribute->value,
         attribute_value_id => $work_attribute->value_id,
-        attribute_type_id => $work_attribute->type->id
+        attribute_type_id => $work_attribute->type->id,
     };
 }
 
 sub edit_type { $EDIT_WORK_EDIT }
-sub edit_name { N_l('Edit work') }
+sub edit_name { N_lp('Edit work', 'edit type') }
 sub edit_template { 'EditWork' }
 sub _edit_model { 'Work' }
 sub work_id { shift->entity_id }
@@ -102,8 +104,8 @@ sub change_fields
         attributes    => Optional[ArrayRef[Dict[
             attribute_text => Maybe[Str],
             attribute_value_id => Maybe[Int],
-            attribute_type_id => Int
-        ]]]
+            attribute_type_id => Int,
+        ]]],
     ];
 }
 
@@ -112,10 +114,10 @@ has '+data' => (
         entity => Dict[
             id => Int,
             gid => Optional[Str],
-            name => Str
+            name => Str,
         ],
         new => change_fields(),
-        old => change_fields()
+        old => change_fields(),
     ],
 );
 
@@ -154,7 +156,7 @@ sub build_display_data
 
     $display->{work} = to_json_object(
         $loaded->{Work}{ $self->entity_id } ||
-        Work->new( name => $data->{entity}{name} )
+        Work->new( name => $data->{entity}{name} ),
     );
 
     if (exists $data->{new}{attributes}) {
@@ -178,7 +180,7 @@ sub build_display_data
     if (exists $data->{new}{languages}) {
         for my $side (qw( old new )) {
             $display->{languages}{$side} = to_json_array[
-                map { $loaded->{Language}{$_} } @{ $data->{$side}{languages} // [] }
+                map { $loaded->{Language}{$_} } @{ $data->{$side}{languages} // [] },
             ];
         }
     }
@@ -242,7 +244,7 @@ sub _edit_hash {
     my $d = $self->merge_changes;
     delete $d->{iswc};
     return $d;
-};
+}
 
 after accept => sub {
     my $self = shift;

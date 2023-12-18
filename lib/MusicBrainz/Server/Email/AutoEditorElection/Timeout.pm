@@ -14,7 +14,7 @@ sub text
 
     my $timeout = $MusicBrainz::Server::Data::AutoEditorElection::PROPOSAL_TIMEOUT; ## no critic 'ProhibitUnusedVarsStricter'
 
-    return strip tt <<EOF;
+    return strip tt <<"EOF";
 This election has been cancelled, because two seconders could not be
 found within the allowed time ([% timeout %]).
 

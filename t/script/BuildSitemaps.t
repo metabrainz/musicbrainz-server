@@ -84,7 +84,7 @@ test 'Sitemap build scripts' => sub {
 
         my $got = [
             sort_by { $_->{loc} }
-            (map +{ loc => $_->loc, lastmod => $_->lastmod }, $map->sitemaps)
+            (map +{ loc => $_->loc, lastmod => $_->lastmod }, $map->sitemaps),
         ];
 
         $expected = [sort_by { $_->{loc} } @{$expected}];
@@ -102,7 +102,7 @@ test 'Sitemap build scripts' => sub {
             sort_by { $_->{loc} }
             (map +{ loc      => $_->loc,
                     priority => $_->priority,
-                    lastmod  => $_->lastmod }, $map->urls)
+                    lastmod  => $_->lastmod }, $map->urls),
         ];
 
         cmp_deeply($got, $expected, $file);
@@ -786,3 +786,5 @@ EOF
 
 run_me;
 done_testing;
+
+1;

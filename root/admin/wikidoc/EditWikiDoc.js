@@ -27,28 +27,28 @@ const EditWikiDoc = ({
   form,
   page,
 }: Props): React$Element<typeof Layout> => (
-  <Layout fullWidth title={l('Update Page')}>
+  <Layout fullWidth title="Update page">
     <div id="content">
-      <h1>{l('Update Page')}</h1>
+      <h1>{'Update page'}</h1>
       <form method="post">
         <FormCsrfToken form={form} />
         <div className="row">
-          <label>{l('Page:')}</label>
+          <label>{'Page:'}</label>
           <span>{page}</span>
         </div>
         <div className="row">
-          <label>{l('Current version:')}</label>
+          <label>{'Current version:'}</label>
           <span>{currentVersion}</span>
         </div>
         <FormRowText
           field={form.field.version}
-          label={l('New version:')}
+          label="New version:"
           required
           type="number"
           uncontrolled
         />
         <div className="row no-label">
-          <FormSubmit label={l('Update')} />
+          <FormSubmit label="Update" />
         </div>
       </form>
     </div>

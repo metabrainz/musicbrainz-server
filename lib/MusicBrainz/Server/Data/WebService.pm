@@ -4,18 +4,20 @@ use namespace::autoclean;
 
 use DBDefs;
 use HTTP::Status qw( :constants );
-use MusicBrainz::Server::Release;
 use MusicBrainz::Server::Validation qw(
     is_non_negative_integer
     is_positive_integer
 );
+use Readonly;
 use URI::Escape qw( uri_escape_utf8 );
 
 with 'MusicBrainz::Server::Data::Role::Context';
 
+Readonly my $RELEASE_ATTR_SECTION_STATUS_START => 100;
+
 # Escape special characters in a Lucene search query
 sub escape_query {
-    (shift // '') =~ s/([+\-&|!(){}\[\]\^"~*?:\\])/\\$1/gr
+    (shift // '') =~ s/([+\-&|!(){}\[\]\^"~*?:\\])/\\$1/gr;
 }
 
 # construct a lucene search query based on the args given and then pass it to a search server.
@@ -30,11 +32,11 @@ sub xml_search
     my $dismax = 'false';
 
     if (is_positive_integer($args->{offset})) {
-        $offset = $args->{offset}
+        $offset = $args->{offset};
     }
 
     if (is_positive_integer($args->{limit})) {
-        $limit = $args->{limit}
+        $limit = $args->{limit};
     }
 
     $limit = 25 if ($limit < 1 || $limit > 100);
@@ -44,7 +46,7 @@ sub xml_search
         if (ref($args->{query})) {
             return {
                 error => 'Must specify at most 1 query argument',
-                code  => HTTP_BAD_REQUEST
+                code  => HTTP_BAD_REQUEST,
             };
         }
 
@@ -101,7 +103,7 @@ sub xml_search
         }
         if (defined $args->{releasestatus} && $args->{releasestatus} =~ /^\d+$/)
         {
-            $query .= ' AND status:' . ($args->{releasestatus} - MusicBrainz::Server::Release::RELEASE_ATTR_SECTION_STATUS_START + 1) . '^0.0001';
+            $query .= ' AND status:' . ($args->{releasestatus} - $RELEASE_ATTR_SECTION_STATUS_START + 1) . '^0.0001';
         }
         if (is_positive_integer($args->{count}))
         {
@@ -194,7 +196,7 @@ sub xml_search
     {
         return {
             error => "Invalid resource $resource.",
-            code  => HTTP_BAD_REQUEST
+            code  => HTTP_BAD_REQUEST,
         };
     }
 
@@ -204,7 +206,7 @@ sub xml_search
     {
         return {
             error => q(You submitted a blank search query. You must include a non-blank 'query=' parameter with your search.),
-            code  => HTTP_BAD_REQUEST
+            code  => HTTP_BAD_REQUEST,
         };
     }
 
@@ -234,7 +236,7 @@ sub xml_search
     }
 
     if (DBDefs->SEARCH_X_ACCEL_REDIRECT) {
-        return { redirect_url => '/internal/search/' . DBDefs->SEARCH_SERVER . $url_ext }
+        return { redirect_url => '/internal/search/' . DBDefs->SEARCH_SERVER . $url_ext };
     } else {
         my $url = 'http://' . DBDefs->SEARCH_SERVER . $url_ext;
         my $response = $self->c->lwp->get($url);
@@ -248,15 +250,15 @@ sub xml_search
             {
                 return {
                     error => 'Search server could not complete query: Bad request',
-                    code  => HTTP_BAD_REQUEST
-                }
+                    code  => HTTP_BAD_REQUEST,
+                };
             }
             else
             {
                 return {
                     error => "Could not retrieve sub-document page from search server. Error: $url  -> " . $response->status_line,
-                    code  => HTTP_SERVICE_UNAVAILABLE
-                }
+                    code  => HTTP_SERVICE_UNAVAILABLE,
+                };
             }
         }
     }

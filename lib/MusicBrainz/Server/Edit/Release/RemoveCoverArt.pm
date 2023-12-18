@@ -7,18 +7,18 @@ use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_REMOVE_COVER_ART );
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 
 use aliased 'MusicBrainz::Server::Entity::Release';
 use aliased 'MusicBrainz::Server::Entity::Artwork';
 
 extends 'MusicBrainz::Server::Edit';
-with 'MusicBrainz::Server::Edit::Release';
-with 'MusicBrainz::Server::Edit::Release::RelatedEntities';
-with 'MusicBrainz::Server::Edit::Role::CoverArt';
-with 'MusicBrainz::Server::Edit::Role::NeverAutoEdit';
+with 'MusicBrainz::Server::Edit::Release',
+     'MusicBrainz::Server::Edit::Release::RelatedEntities',
+     'MusicBrainz::Server::Edit::Role::CoverArt',
+     'MusicBrainz::Server::Edit::Role::NeverAutoEdit';
 
-sub edit_name { N_l('Remove cover art') }
+sub edit_name { N_lp('Remove cover art', 'singular, edit type') }
 sub edit_kind { 'remove' }
 sub edit_type { $EDIT_RELEASE_REMOVE_COVER_ART }
 sub release_ids { shift->data->{entity}{id} }
@@ -30,14 +30,14 @@ has '+data' => (
         entity => Dict[
             id   => Int,
             name => Str,
-            mbid => Str
+            mbid => Str,
         ],
         cover_art_id => Int,
         cover_art_types => ArrayRef[Int],
         cover_art_comment => Str,
         cover_art_mime_type => Optional[Str],
-        cover_art_suffix => Optional[Str]
-    ]
+        cover_art_suffix => Optional[Str],
+    ],
 );
 
 sub initialize {
@@ -52,15 +52,15 @@ sub initialize {
         entity => {
             id => $release->id,
             name => $release->name,
-            mbid => $release->gid
+            mbid => $release->gid,
         },
         cover_art_id => $cover_art->id,
         cover_art_comment => $cover_art->comment,
         cover_art_types => [
-            grep { defined } map { $type_map{$_}->id } @{ $cover_art->types }
+            grep { defined } map { $type_map{$_}->id } @{ $cover_art->types },
         ],
         cover_art_mime_type => $cover_art->mime_type,
-        cover_art_suffix => $cover_art->suffix
+        cover_art_suffix => $cover_art->suffix,
     });
 }
 
@@ -69,7 +69,7 @@ sub accept {
 
     $self->c->model('Release')->get_by_id($self->data->{entity}{id})
         or MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
-            'This release no longer exists'
+            'This release no longer exists',
         );
 
     $self->c->model('CoverArtArchive')->delete($self->data->{cover_art_id});
@@ -79,12 +79,12 @@ sub foreign_keys {
     my ($self) = @_;
     return {
         Release => {
-            $self->data->{entity}{id} => [ 'ArtistCredit' ]
+            $self->data->{entity}{id} => [ 'ArtistCredit' ],
         },
         Artwork => {
-            $self->data->{cover_art_id} => [ 'Release' ]
+            $self->data->{cover_art_id} => [ 'Release' ],
         },
-        CoverArtType => $self->data->{cover_art_types}
+        CoverArtType => $self->data->{cover_art_types},
     };
 }
 
@@ -100,12 +100,12 @@ sub build_display_data {
             id => $self->data->{cover_art_id},
             comment => $self->data->{cover_art_comment},
             exists $self->data->{cover_art_mime_type} ? (mime_type => $self->data->{cover_art_mime_type}) : (),
-            exists $self->data->{cover_art_suffix} ? (suffix => $self->data->{cover_art_suffix}) : ()
+            exists $self->data->{cover_art_suffix} ? (suffix => $self->data->{cover_art_suffix}) : (),
         );
 
     $artwork->cover_art_types([
         map { $loaded->{CoverArtType}{$_} }
-            @{ $self->data->{cover_art_types} }
+            @{ $self->data->{cover_art_types} },
     ]);
 
     return {

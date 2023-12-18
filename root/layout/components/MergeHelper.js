@@ -27,7 +27,7 @@ const MergeHelper = ({merger}: Props): React$Element<'div'> => {
         action={`/${merger.type}/merge?` + returnToCurrentPage($c)}
         method="post"
       >
-        <h2>{l('Merge Process')}</h2>
+        <h2>{l('Merge process')}</h2>
         <p>
           {l(`You currently have the following entities
               selected for merging:`)}
@@ -68,7 +68,7 @@ const MergeHelper = ({merger}: Props): React$Element<'div'> => {
               type="submit"
               value="merge"
             >
-              {lp('Merge', 'button/link')}
+              {lp('Merge', 'interactive')}
             </button>
           ) : null}
           <button name="submit" type="submit" value="remove">

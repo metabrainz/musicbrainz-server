@@ -43,8 +43,8 @@ const SetTracklistDurations = ({
   );
 
   return (
-    <Layout fullWidth title={l('Set Tracklist Durations')}>
-      <h1>{l('Set Tracklist Durations')}</h1>
+    <Layout fullWidth title={l('Set tracklist durations')}>
+      <h1>{l('Set tracklist durations')}</h1>
 
       <p>
         {l(`You are about to enter an edit that will change

@@ -110,7 +110,7 @@ sub sig_die_handler {
                 }) : (),
             );
         };
-    };
+    }
     return unless $stacktrace;
 
     my %sentry_frames;
@@ -127,7 +127,7 @@ sub sig_die_handler {
                 eval {
                     %context = get_context($frame->filename, $frame->line);
                 };
-            };
+            }
 
             push @included_frames, { %{ $frames->[$i] }, %context };
         }
@@ -256,7 +256,7 @@ sub build_request_and_user_context {
         ($body ? (data => $body) : ()),
         headers => {
             map { my $value = $req->headers->header($_); ($_ => $value) }
-                $req->headers->header_field_names
+                $req->headers->header_field_names,
         },
         method => $req->method,
     );

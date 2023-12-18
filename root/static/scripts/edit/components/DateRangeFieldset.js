@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import mutate from 'mutate-cow';
+import mutate, {type CowContext} from 'mutate-cow';
 import * as React from 'react';
 
 import isDateEmpty from '../../common/utility/isDateEmpty.js';
@@ -40,8 +40,6 @@ type PropsT = {
 
 export type StateT = DatePeriodFieldT;
 
-export type WritableStateT = WritableDatePeriodFieldT;
-
 export function partialDateFromField(
   compoundField: PartialDateFieldT,
 ): PartialDateT {
@@ -53,7 +51,8 @@ export function partialDateFromField(
   };
 }
 
-function validateDatePeriod(state: WritableStateT) {
+function validateDatePeriod(stateCtx: CowContext<StateT>) {
+  const state = stateCtx.read();
   const beginDateField = state.field.begin_date;
   const endDateField = state.field.end_date;
   const pendingErrors = [];
@@ -67,14 +66,15 @@ function validateDatePeriod(state: WritableStateT) {
   )) {
     pendingErrors.push(l('The end date cannot precede the begin date.'));
   }
-  state.errors = state.errors.filter(e => pendingErrors.includes(e));
-  state.pendingErrors = pendingErrors;
+  stateCtx
+    .set('errors', state.errors.filter(e => pendingErrors.includes(e)))
+    .set('pendingErrors', pendingErrors);
 }
 
 function runDateFieldReducer(
-  dateField: WritablePartialDateFieldT,
+  dateField: CowContext<PartialDateFieldT>,
   action: FormRowPartialDateActionT,
-  state: WritableStateT,
+  state: CowContext<StateT>,
 ) {
   runFormRowPartialDateReducer(
     dateField,
@@ -97,14 +97,14 @@ function runDateFieldReducer(
 }
 
 export function runReducer(
-  state: WritableStateT,
+  state: CowContext<StateT>,
   action: ActionT,
 ): void {
-  const subfields = state.field;
+  const subfields = state.get('field');
   switch (action.type) {
     case 'update-begin-date': {
       runDateFieldReducer(
-        subfields.begin_date,
+        subfields.get('begin_date'),
         action.action,
         state,
       );
@@ -112,7 +112,7 @@ export function runReducer(
     }
     case 'update-end-date': {
       runDateFieldReducer(
-        subfields.end_date,
+        subfields.get('end_date'),
         action.action,
         state,
       );
@@ -129,18 +129,18 @@ export function runReducer(
     }
     case 'set-ended': {
       const enabled = action.enabled;
-      subfields.ended.value = enabled;
+      subfields.set('ended', 'value', enabled);
       break;
     }
     case 'copy-date': {
-      const beginDateFields = subfields.begin_date.field;
+      const beginDateFields = subfields.read().begin_date.field;
       const year = String(beginDateFields.year.value ?? '');
       const month = String(beginDateFields.month.value ?? '');
       const day = String(beginDateFields.day.value ?? '');
       const newEndDate: PartialDateStringsT =
         {day: day, month: month, year: year};
       runFormRowPartialDateReducer(
-        subfields.end_date,
+        subfields.get('end_date'),
         {
           date: newEndDate,
           type: 'set-date',
@@ -163,9 +163,9 @@ export function reducer(
   state: StateT,
   action: ActionT,
 ): StateT {
-  return mutate<WritableStateT, StateT>(state, (newState) => {
-    runReducer(newState, action);
-  });
+  const ctx = mutate(state);
+  runReducer(ctx, action);
+  return ctx.final();
 }
 
 const DateRangeFieldset = (React.memo<PropsT>(({
@@ -181,7 +181,7 @@ const DateRangeFieldset = (React.memo<PropsT>(({
   return (
     <>
       <fieldset>
-        <legend>{l('Date Period')}</legend>
+        <legend>{l('Date period')}</legend>
         <p>
           {l(`Dates are in the format YYYY-MM-DD.
               Partial dates such as YYYY-MM or just YYYY are OK,

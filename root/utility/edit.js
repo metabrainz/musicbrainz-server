@@ -37,14 +37,14 @@ const EXPIRE_ACTIONS = {
 };
 
 const STATUS_NAMES = {
-  [EDIT_STATUS_APPLIED]:        N_l('Applied'),
-  [EDIT_STATUS_DELETED]:        N_lp('Cancelled', 'edit'),
-  [EDIT_STATUS_ERROR]:          N_l('Error'),
-  [EDIT_STATUS_FAILEDDEP]:      N_l('Failed dependency'),
-  [EDIT_STATUS_FAILEDPREREQ]:   N_l('Failed prerequisite'),
-  [EDIT_STATUS_FAILEDVOTE]:     N_l('Failed vote'),
-  [EDIT_STATUS_NOVOTES]:        N_l('No votes'),
-  [EDIT_STATUS_OPEN]:           N_l('Open'),
+  [EDIT_STATUS_APPLIED]:        N_lp('Applied', 'edit status'),
+  [EDIT_STATUS_DELETED]:        N_lp('Cancelled', 'edit status'),
+  [EDIT_STATUS_ERROR]:          N_lp('Error', 'edit status'),
+  [EDIT_STATUS_FAILEDDEP]:      N_lp('Failed dependency', 'edit status'),
+  [EDIT_STATUS_FAILEDPREREQ]:   N_lp('Failed prerequisite', 'edit status'),
+  [EDIT_STATUS_FAILEDVOTE]:     N_lp('Failed vote', 'edit status'),
+  [EDIT_STATUS_NOVOTES]:        N_lp('No votes', 'edit status'),
+  [EDIT_STATUS_OPEN]:           N_lp('Open', 'adjective, edit status'),
 };
 
 export function getEditExpireAction(edit: GenericEditWithIdT): string {

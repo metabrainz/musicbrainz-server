@@ -21,7 +21,7 @@ with 'MusicBrainz::Server::Controller::Role::WikipediaExtract';
 with 'MusicBrainz::Server::Controller::Role::CommonsImage';
 with 'MusicBrainz::Server::Controller::Role::EditRelationships';
 with 'MusicBrainz::Server::Controller::Role::Collection' => {
-    entity_type     => 'event'
+    entity_type     => 'event',
 };
 
 use MusicBrainz::Server::Constants qw(
@@ -91,7 +91,7 @@ sub show : PathPart('') Chained('load') {
 sub _merge_load_entities {
     my ($self, $c, @events) = @_;
     $c->model('Event')->load_related_info(@events);
-};
+}
 
 =head2 WRITE METHODS
 

@@ -13,7 +13,7 @@ has_field 'username' => (
     type => 'Text',
     required => 1,
     messages => { required => N_l('Username field is required') },
-    localize_meth => sub { my ($self, @message) = @_; return l(@message); }
+    localize_meth => sub { my ($self, @message) = @_; return l(@message); },
 );
 
 has_field 'password' => (
@@ -21,11 +21,11 @@ has_field 'password' => (
     required => 1,
     min_length => 1,
     messages => { required => N_l('Password field is required') },
-    localize_meth => sub { my ($self, @message) = @_; return l(@message); }
+    localize_meth => sub { my ($self, @message) = @_; return l(@message); },
 );
 
 has_field 'remember_me' => (
-    type => 'Boolean'
+    type => 'Boolean',
 );
 
 __PACKAGE__->meta->make_immutable;

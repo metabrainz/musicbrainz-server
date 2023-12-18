@@ -21,21 +21,21 @@ const DeleteWikiDoc = ({
   form,
   page,
 }: Props): React$Element<typeof Layout> => (
-  <Layout fullWidth title={l('Remove Page')}>
+  <Layout fullWidth title="Remove page">
     <div id="content">
-      <h1>{l('Remove Page')}</h1>
+      <h1>{'Remove page'}</h1>
       <p>
-        {exp.l(`Are you sure you wish to remove the page
-                “{page_uri|{page_name}}” from the transclusion table?`,
-               {
-                 page_name: page,
-                 page_uri: '/doc/' + encodeURIComponent(page),
-               })}
+        {exp.l_admin(`Are you sure you wish to remove the page
+                      “{page_uri|{page_name}}” from the transclusion table?`,
+                     {
+                       page_name: page,
+                       page_uri: '/doc/' + encodeURIComponent(page),
+                     })}
       </p>
       <form method="post" name="confirm">
         <FormCsrfToken form={form} />
         <FormSubmit
-          label={l('Yes, I am sure')}
+          label="Yes, I am sure"
           name="confirm.submit"
           value="1"
         />

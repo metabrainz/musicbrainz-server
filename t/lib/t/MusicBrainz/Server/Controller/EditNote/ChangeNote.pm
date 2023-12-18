@@ -31,7 +31,7 @@ test all => sub {
     # Test as normal editor
     $mech->get_ok('/login');
     $mech->submit_form(
-        with_fields => {username => 'editor1', password => 'pass'}
+        with_fields => {username => 'editor1', password => 'pass'},
     );
 
     $mech->get_ok('/edit/1');
@@ -143,7 +143,7 @@ test all => sub {
         with_fields => {
         'edit-note-modify.text' => '',
         'edit-note-modify.reason' => 'Fixing typo',
-        }
+        },
     );
     html_ok($mech->content);
     $mech->content_contains(
@@ -156,7 +156,7 @@ test all => sub {
         with_fields => {
         'edit-note-modify.text' => 'a',
         'edit-note-modify.reason' => 'Fixing typo',
-        }
+        },
     );
     html_ok($mech->content);
     $mech->content_contains(
@@ -169,7 +169,7 @@ test all => sub {
         with_fields => {
         'edit-note-modify.text' => 'Editor 1 leaves another note years later',
         'edit-note-modify.reason' => 'Fixing typo',
-        }
+        },
     );
 
     $mech->get_ok('/edit/1');
@@ -196,7 +196,7 @@ test all => sub {
 
     # Actually remove edit note 5
     $mech->submit_form(
-        with_fields => {'edit-note-delete.reason' => 'I did a dumb'}
+        with_fields => {'edit-note-delete.reason' => 'I did a dumb'},
     );
 
     $mech->get_ok('/edit/1');
@@ -237,7 +237,7 @@ test all => sub {
     # Test as admin
     $mech->get_ok('/login');
     $mech->submit_form(
-        with_fields => {username => 'admin3', password => 'pass'}
+        with_fields => {username => 'admin3', password => 'pass'},
     );
 
     $mech->get_ok('/edit/1');
@@ -256,7 +256,7 @@ test all => sub {
     );
     # Delete edit note 1 without a reason
     $mech->submit_form(
-        with_fields => {'edit-note-delete.reason' => ''}
+        with_fields => {'edit-note-delete.reason' => ''},
     );
 
     $mech->get_ok('/edit/1');
@@ -274,7 +274,7 @@ test all => sub {
     );
     # "Delete" edit note 5 again to change the reason
     $mech->submit_form(
-        with_fields => {'edit-note-delete.reason' => 'Editor made a mistake'}
+        with_fields => {'edit-note-delete.reason' => 'Editor made a mistake'},
     );
     $mech->get_ok('/edit/1');
     html_ok($mech->content);

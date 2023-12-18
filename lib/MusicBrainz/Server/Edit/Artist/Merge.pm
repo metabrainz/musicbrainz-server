@@ -6,14 +6,14 @@ use MooseX::Types::Moose qw( ArrayRef Bool Int Str );
 use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Constants qw( $EDIT_ARTIST_MERGE $EDITOR_MODBOT );
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json localized_note );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_l N_lp );
 use Hash::Merge qw( merge );
 
 extends 'MusicBrainz::Server::Edit::Generic::Merge';
-with 'MusicBrainz::Server::Edit::Role::MergeSubscription';
-with 'MusicBrainz::Server::Edit::Artist';
+with 'MusicBrainz::Server::Edit::Role::MergeSubscription',
+     'MusicBrainz::Server::Edit::Artist';
 
-sub edit_name { N_l('Merge artists') }
+sub edit_name { N_lp('Merge artists', 'edit type') }
 sub edit_type { $EDIT_ARTIST_MERGE }
 
 sub _merge_model { 'Artist' }
@@ -29,23 +29,23 @@ sub foreign_keys
             } (
                 $self->data->{new_entity}{id},
                 map { $_->{id} } @{ $self->data->{old_entities} },
-            )
-        }
-    }
+            ),
+        },
+    };
 }
 
 has '+data' => (
     isa => Dict[
         new_entity => Dict[
             id   => Int,
-            name => Str
+            name => Str,
         ],
         old_entities => ArrayRef[ Dict[
             name => Str,
-            id   => Int
+            id   => Int,
         ] ],
-        rename => Bool
-    ]
+        rename => Bool,
+    ],
 );
 
 sub do_merge
@@ -58,7 +58,7 @@ sub do_merge
     my (undef, $dropped_columns) = $self->c->model('Artist')->merge(
         $new_id,
         \@old_ids,
-        rename => $self->data->{rename}
+        rename => $self->data->{rename},
     );
 
     if ($dropped_columns->{type}) {
@@ -110,7 +110,7 @@ sub do_merge
             },
         );
     }
-};
+}
 
 around _build_related_entities => sub {
     my ($orig, $self, @args) = @_;
@@ -138,7 +138,7 @@ around build_display_data => sub {
     return $data;
 };
 
-sub edit_template { 'MergeArtists' };
+sub edit_template { 'MergeArtists' }
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

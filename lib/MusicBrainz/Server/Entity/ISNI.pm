@@ -6,7 +6,7 @@ with 'MusicBrainz::Server::Entity::Role::PendingEdits';
 
 has 'isni' => (
     is => 'rw',
-    isa => 'Str'
+    isa => 'Str',
 );
 
 sub url {

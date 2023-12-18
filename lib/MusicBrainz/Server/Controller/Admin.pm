@@ -1,11 +1,11 @@
 package MusicBrainz::Server::Controller::Admin;
 use Moose;
 use namespace::autoclean;
+use HTTP::Status qw( :constants );
 use Try::Tiny;
 
-BEGIN { extends 'MusicBrainz::Server::Controller' };
+BEGIN { extends 'MusicBrainz::Server::Controller' }
 
-use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::Constants qw( :privileges );
 use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
@@ -20,7 +20,7 @@ sub edit_user : Path('/admin/user/edit') Args(1) RequireAuth HiddenOnMirrors Sec
     my $user = $c->model('Editor')->get_by_name($user_name);
 
     if (not defined $user) {
-        $c->detach('/user/not_found')
+        $c->detach('/user/not_found');
     }
     $c->stash->{viewing_own_profile} = $c->user_exists && $c->user->id == $user->id;
 
@@ -46,7 +46,7 @@ sub edit_user : Path('/admin/user/edit') Args(1) RequireAuth HiddenOnMirrors Sec
             email                   => $user->email,
             skip_verification       => 0,
             website                 => $user->website,
-            biography               => $user->biography
+            biography               => $user->biography,
         },
     );
 
@@ -88,7 +88,7 @@ sub edit_user : Path('/admin/user/edit') Args(1) RequireAuth HiddenOnMirrors Sec
             }
         }
 
-        $c->flash->{message} = l('User successfully edited.');
+        $c->flash->{message} = 'User successfully edited.';
         $c->response->redirect($c->uri_for_action('/user/profile', [$form->field('username')->value]));
         $c->detach;
     } else {
@@ -96,18 +96,14 @@ sub edit_user : Path('/admin/user/edit') Args(1) RequireAuth HiddenOnMirrors Sec
     }
 }
 
-sub delete_user : Path('/admin/user/delete') Args(1) RequireAuth HiddenOnMirrors SecureForm {
+sub delete_user : Path('/admin/user/delete') Args(1) RequireAuth(account_admin) HiddenOnMirrors SecureForm {
     my ($self, $c, $name) = @_;
 
     my $editor = $c->model('Editor')->get_by_name($name);
     $c->detach('/user/not_found') if !$editor || $editor->deleted;
 
-    $c->stash->{viewing_own_profile} = $c->user_exists && $c->user->id == $editor->id;
-
     my $id = $editor->id;
-    if ($id != $c->user->id && !$c->user->is_account_admin) {
-        $c->detach('/error_403');
-    }
+    $c->detach('/account/delete') if $c->user_exists && $c->user->id == $id;
 
     $c->stash( user => $editor );
 
@@ -124,16 +120,9 @@ sub delete_user : Path('/admin/user/delete') Args(1) RequireAuth HiddenOnMirrors
 
     if ($c->form_posted_and_valid($form)) {
         my $allow_reuse = 0;
-        if ($id != $c->user->id && $c->user->is_account_admin) {
-            $allow_reuse = 1 if $form->field('allow_reuse')->value;
-        }
+        $allow_reuse = 1 if $form->field('allow_reuse')->value;
 
         $c->model('Editor')->delete($id, $allow_reuse);
-        if ($id == $c->user->id) { # don't log out an admin deleting a different user
-            MusicBrainz::Server::Controller::User->_clear_login_cookie($c);
-            $c->logout;
-            $c->delete_session;
-        }
 
         $editor->name('Deleted Editor #' . $id);
         $editor->email('editor-' . $id . '@musicbrainz.invalid');
@@ -161,7 +150,7 @@ sub edit_banner : Path('/admin/banner/edit') Args(0) RequireAuth(banner_editor) 
         $store->set($alert_cache_key, $form->values->{message});
         $store->set($alert_mtime_cache_key, time());
 
-        $c->flash->{message} = l('Banner updated. Remember that each server has its own, independent banner.');
+        $c->flash->{message} = 'Banner updated. Remember that each server has its own, independent banner.';
         $c->response->redirect($c->uri_for('/'));
         $c->detach;
     } else {
@@ -197,8 +186,8 @@ sub email_search : Path('/admin/email-search') Args(0) RequireAuth(account_admin
         } catch {
             my $error = $_;
             if ("$error" =~ m/invalid regular expression/) {
-                $form->field('email')->add_error(l('Invalid regular expression.'));
-                $c->response->status(400);
+                $form->field('email')->add_error('Invalid regular expression.');
+                $c->response->status(HTTP_BAD_REQUEST);
             } else {
                 die $error;
             }
@@ -263,8 +252,8 @@ sub locked_username_search : Path('/admin/locked-usernames/search') Args(0) Requ
         } catch {
             my $error = $_;
             if ("$error" =~ m/invalid regular expression/) {
-                $form->field('username')->add_error(l('Invalid regular expression.'));
-                $c->response->status(400);
+                $form->field('username')->add_error('Invalid regular expression.');
+                $c->response->status(HTTP_BAD_REQUEST);
             } else {
                 die $error;
             }
@@ -308,7 +297,7 @@ sub privilege_search : Path('/admin/privilege-search') Args(0) RequireAuth(accou
                 $privs,
                 $values->{show_exact},
                 shift,
-                shift
+                shift,
             );
         });
     }

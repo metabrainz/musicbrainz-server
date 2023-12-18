@@ -21,7 +21,7 @@ sub query {
             ON rgm.id = rg.id
         WHERE rgm.release_count = 1
           AND r.name != rg.name
-    '
+    ';
 }
 
 __PACKAGE__->meta->make_immutable;

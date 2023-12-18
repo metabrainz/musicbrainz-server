@@ -8,7 +8,7 @@ use aliased 'MusicBrainz::Server::WebService::WebServiceStash';
 
 parameter 'endpoints' => (
     isa => 'HashRef',
-    required => 1
+    required => 1,
 );
 
 role

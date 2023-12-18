@@ -10,12 +10,12 @@ with 't::Mechanize', 't::Context';
 
 use HTTP::Status qw( :constants );
 use HTTP::Request::Common qw( DELETE );
-use Test::XML::SemanticCompare;
+use Test::XML::SemanticCompare qw( is_xml_same );
 
 use MusicBrainz::Server::Constants qw( %ENTITIES );
 use MusicBrainz::Server::Test qw( xml_ok );
 use MusicBrainz::Server::Test ws_test => {
-    version => 2
+    version => 2,
 };
 
 test all => sub {
@@ -152,7 +152,7 @@ EOXML
             '89a675c2-3e37-3518-b83c-418bad59a85a?client=test-1.0';
 
         $mech->put($bad_entity_uri);
-        is($mech->status, 405);
+        is($mech->status, HTTP_METHOD_NOT_ALLOWED);
         xml_ok($mech->content);
         is_xml_same($mech->content, <<'EOXML');
 <?xml version="1.0" encoding="UTF-8"?>

@@ -27,7 +27,7 @@ const EditGenre = ({
     entity={entity}
     fullWidth
     page="edit"
-    title={l('Edit genre')}
+    title="Edit genre"
   >
     <GenreEditForm form={form} />
     {manifest.js('genre/components/GenreEditForm', {async: 'async'})}

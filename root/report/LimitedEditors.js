@@ -10,6 +10,7 @@
 import * as React from 'react';
 
 import {CatalystContext} from '../context.mjs';
+import {l_admin} from '../static/scripts/common/i18n/admin.js';
 import {isAccountAdmin} from '../static/scripts/common/utility/privileges.js';
 
 import EditorList from './components/EditorList.js';
@@ -27,14 +28,14 @@ const LimitedEditors = ({
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={exp.l(
+      description={exp.l_admin(
         'This report lists {url|beginner/limited editors}.',
         {url: '/doc/How_to_Create_an_Account'},
       )}
       entityType="editor"
       filtered={filtered}
       generated={generated}
-      title={l('Beginner/limited editors')}
+      title={l_admin('Beginner/limited editors')}
       totalEntries={pager.total_entries}
     >
       {isAccountAdmin($c.user) ? (

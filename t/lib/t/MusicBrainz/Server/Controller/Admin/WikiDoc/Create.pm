@@ -3,6 +3,7 @@ use strict;
 use warnings;
 
 use Digest::MD5 qw( md5_hex );
+use HTTP::Status qw( :constants );
 use Test::Routine;
 use Test::More;
 use MusicBrainz::Server::Test qw( capture_edits html_ok );
@@ -47,7 +48,7 @@ test 'Create a new transcluded page' => sub {
     $mech->get('/admin/wikidoc/create');
     is(
         $mech->status,
-        403,
+        HTTP_FORBIDDEN,
         'Non-privileged user cannot access the Add Page WikiDoc page',
     );
 
@@ -67,7 +68,7 @@ test 'Create a new transcluded page' => sub {
         $mech->submit_form_ok({
             with_fields => {
                 'wikidoc.page' => 'Transclusion_Testing',
-                'wikidoc.version' => 1
+                'wikidoc.version' => 1,
             },
         },
         'The form returned a 2xx response code')

@@ -29,7 +29,7 @@ with 'MusicBrainz::Server::Controller::Role::WikipediaExtract';
 with 'MusicBrainz::Server::Controller::Role::CommonsImage';
 with 'MusicBrainz::Server::Controller::Role::EditRelationships';
 with 'MusicBrainz::Server::Controller::Role::Collection' => {
-    entity_type => 'instrument'
+    entity_type => 'instrument',
 };
 
 sub base : Chained('/') PathPart('instrument') CaptureArgs(0) { }
@@ -184,7 +184,7 @@ with 'MusicBrainz::Server::Controller::Role::Merge' => {
 sub _merge_load_entities {
     my ($self, $c, @instruments) = @_;
     $c->model('InstrumentType')->load(@instruments);
-};
+}
 
 with 'MusicBrainz::Server::Controller::Role::Create' => {
     form      => 'Instrument',
@@ -203,7 +203,7 @@ for my $method (qw( create edit merge merge_queue delete add_alias edit_alias de
             $c->detach('/error_403');
         }
     };
-};
+}
 
 sub list : Path('/instruments') Args(0) {
     my ($self, $c) = @_;
@@ -227,7 +227,7 @@ sub list : Path('/instruments') Args(0) {
             %{$c->stash->{component_props}},
             instruments_by_type => $entities,
             instrument_types => to_json_array(\@types),
-        }
+        },
     );
 }
 

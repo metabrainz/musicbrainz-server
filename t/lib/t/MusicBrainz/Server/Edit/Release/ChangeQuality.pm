@@ -8,7 +8,7 @@ use Test::More;
 with 't::Edit';
 with 't::Context';
 
-BEGIN { use MusicBrainz::Server::Edit::Release::ChangeQuality };
+BEGIN { use MusicBrainz::Server::Edit::Release::ChangeQuality }
 
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_CHANGE_QUALITY );

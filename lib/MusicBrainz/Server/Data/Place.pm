@@ -19,19 +19,19 @@ use MusicBrainz::Server::Data::Utils qw(
 use MusicBrainz::Server::Data::Utils::Cleanup qw( used_in_relationship );
 
 extends 'MusicBrainz::Server::Data::Entity';
-with 'MusicBrainz::Server::Data::Role::Relatable';
-with 'MusicBrainz::Server::Data::Role::Name';
-with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'place' };
-with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'place' };
-with 'MusicBrainz::Server::Data::Role::GIDEntityCache';
-with 'MusicBrainz::Server::Data::Role::DeleteAndLog' => { type => 'place' };
-with 'MusicBrainz::Server::Data::Role::PendingEdits' => { table => 'place' };
-with 'MusicBrainz::Server::Data::Role::Rating' => { type => 'place' };
-with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'place' };
-with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'place' };
-with 'MusicBrainz::Server::Data::Role::Merge';
-with 'MusicBrainz::Server::Data::Role::Area';
-with 'MusicBrainz::Server::Data::Role::Collection';
+with 'MusicBrainz::Server::Data::Role::Relatable',
+     'MusicBrainz::Server::Data::Role::Name',
+     'MusicBrainz::Server::Data::Role::Annotation' => { type => 'place' },
+     'MusicBrainz::Server::Data::Role::Alias' => { type => 'place' },
+     'MusicBrainz::Server::Data::Role::GIDEntityCache',
+     'MusicBrainz::Server::Data::Role::DeleteAndLog' => { type => 'place' },
+     'MusicBrainz::Server::Data::Role::PendingEdits' => { table => 'place' },
+     'MusicBrainz::Server::Data::Role::Rating' => { type => 'place' },
+     'MusicBrainz::Server::Data::Role::Tag' => { type => 'place' },
+     'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'place' },
+     'MusicBrainz::Server::Data::Role::Merge',
+     'MusicBrainz::Server::Data::Role::Area',
+     'MusicBrainz::Server::Data::Role::Collection';
 
 sub _type { 'place' }
 
@@ -62,13 +62,13 @@ sub _column_mapping
         edits_pending => 'edits_pending',
         comment => 'comment',
         last_updated => 'last_updated',
-        ended => 'ended'
+        ended => 'ended',
     };
 }
 
 sub _area_columns
 {
-    return ['area']
+    return ['area'];
 }
 
 sub load
@@ -120,7 +120,7 @@ sub _merge_impl
     my @merge_options = ($self->sql => (
                            table => 'place',
                            old_ids => \@old_ids,
-                           new_id => $new_id
+                           new_id => $new_id,
                         ));
 
     merge_table_attributes(@merge_options, columns => [ qw( type area coordinates ) ]);
@@ -133,19 +133,19 @@ sub _merge_impl
 
 sub _hash_to_row
 {
-    my ($self, $place, $names) = @_;
+    my ($self, $place) = @_;
+
     my $row = hash_to_row($place, {
-        type => 'type_id',
-        ended => 'ended',
-        name => 'name',
         area => 'area_id',
-        map { $_ => $_ } qw( comment address )
+        type => 'type_id',
+        map { $_ => $_ } qw( address comment ended name ),
     });
 
     add_partial_date_to_row($row, $place->{begin_date}, 'begin_date');
     add_partial_date_to_row($row, $place->{end_date}, 'end_date');
     add_coordinates_to_row($row, $place->{coordinates}, 'coordinates')
         if exists $place->{coordinates};
+
     return $row;
 }
 
@@ -175,26 +175,26 @@ sub _order_by {
     my ($self, $order) = @_;
     my $order_by = order_by($order, 'name', {
         'name' => sub {
-            return 'name COLLATE musicbrainz'
+            return 'name COLLATE musicbrainz';
         },
         'area' => sub {
-            return 'area, name COLLATE musicbrainz'
+            return 'area, name COLLATE musicbrainz';
         },
         'address' => sub {
-            return 'address COLLATE musicbrainz, name COLLATE musicbrainz'
+            return 'address COLLATE musicbrainz, name COLLATE musicbrainz';
         },
         'begin_date' => sub {
-            return 'begin_date_year, begin_date_month, begin_date_day, name COLLATE musicbrainz'
+            return 'begin_date_year, begin_date_month, begin_date_day, name COLLATE musicbrainz';
         },
         'end_date' => sub {
-            return 'end_date_year, end_date_month, end_date_day, name COLLATE musicbrainz'
+            return 'end_date_year, end_date_month, end_date_day, name COLLATE musicbrainz';
         },
         'type' => sub {
-            return 'type, name COLLATE musicbrainz'
-        }
+            return 'type, name COLLATE musicbrainz';
+        },
     });
 
-    return $order_by
+    return $order_by;
 }
 
 __PACKAGE__->meta->make_immutable;

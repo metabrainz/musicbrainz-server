@@ -3,9 +3,10 @@ use utf8;
 use strict;
 use warnings;
 
+use HTTP::Status qw( :constants );
 use Test::Routine;
 use MusicBrainz::Server::Test ws_test_json => {
-    version => 2
+    version => 2,
 };
 
 with 't::Mechanize', 't::Context';
@@ -29,7 +30,7 @@ test 'lookup rating for user' => sub {
       {
         help => 'For usage, please see: https://musicbrainz.org/development/mmd',
         error => 'You are not authorized to access this resource.',
-      }, { response_code => 401 };
+      }, { response_code => HTTP_UNAUTHORIZED };
 
   ws_test_json 'ratings lookup for user succeeds after authentication',
   '/rating?id=802673f0-9b88-4e8a-bb5c-dd01d68b086f&entity=artist' =>
@@ -61,13 +62,13 @@ test 'lookup tag for user' => sub {
       {
         help => 'For usage, please see: https://musicbrainz.org/development/mmd',
         error => 'You are not authorized to access this resource.',
-      }, { response_code => 401 };
+      }, { response_code => HTTP_UNAUTHORIZED };
 
   ws_test_json 'tag lookup for user succeeds after authentication',
   '/tag?id=802673f0-9b88-4e8a-bb5c-dd01d68b086f&entity=artist' =>
       {
         'user-tags' => [
-          {name => 'japanese'}
+          {name => 'japanese'},
         ],
       }, { username => 'new_editor', password => 'password' };
 };

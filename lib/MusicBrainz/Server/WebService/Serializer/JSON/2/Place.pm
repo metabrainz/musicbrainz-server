@@ -21,7 +21,7 @@ sub serialize
         : JSON::null;
 
     return \%body;
-};
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

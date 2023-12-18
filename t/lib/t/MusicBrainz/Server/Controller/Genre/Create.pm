@@ -2,6 +2,7 @@ package t::MusicBrainz::Server::Controller::Genre::Create;
 use strict;
 use warnings;
 
+use HTTP::Status qw( :constants );
 use Test::Routine;
 use Test::More;
 use MusicBrainz::Server::Test qw( capture_edits html_ok );
@@ -24,7 +25,7 @@ test 'Adding a new genre' => sub {
 
     $mech->get_ok('/login');
     $mech->submit_form(
-        with_fields => { username => 'genre_editor', password => 'pass' }
+        with_fields => { username => 'genre_editor', password => 'pass' },
     );
 
     $mech->get_ok(
@@ -39,9 +40,9 @@ test 'Adding a new genre' => sub {
             {
                 'edit-genre.comment' => 'A comment!',
                 'edit-genre.name' => 'surrogate stone',
-                'edit-genre.edit_note' => 'Totally not just alternative rock.'
+                'edit-genre.edit_note' => 'Totally not just alternative rock.',
             },
-            'The form returned a 2xx response code'
+            'The form returned a 2xx response code',
         );
     } $c;
 
@@ -94,7 +95,7 @@ test 'Genre creation is blocked for unprivileged users' => sub {
     $mech->get('/genre/create');
     is(
         $mech->status,
-        403,
+        HTTP_FORBIDDEN,
         'Trying to add a genre without the right privileges gives a 403 Forbidden error',
     );
 };

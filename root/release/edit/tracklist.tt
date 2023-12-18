@@ -120,7 +120,7 @@
   </table>
 
   <!-- ko if: searchResults() && searchResults().length > 0 -->
-  <p>[% l('Select a medium from the search results below and then click "Add Medium".') %]</p>
+  <p>[% l('Select a medium from the search results below and then click "Add medium".') %]</p>
   <p>[% l('The tracklist for the medium (including the track/recording associations, but not other data such as medium format) will be loaded as a medium on this release.') %]</p>
   <!-- /ko -->
 
@@ -235,7 +235,7 @@
 
   <div class="buttons">
     <button type="button" class="negative" id="close-track-parser" data-bind="click: close">[% l('Close') %]</button>
-    <button type="button" id="parse-tracks" style="float: right" data-bind="click: parse">[% l('Parse Tracks') %]</button>
+    <button type="button" id="parse-tracks" style="float: right" data-bind="click: parse">[% l('Parse tracks') %]</button>
   </div>
 </div>
 
@@ -264,13 +264,13 @@
 
   <div class="buttons">
     <button type="button" class="negative" id="close-add-medium" data-click="close">[% l('Close') %]</button>
-    <button type="button" style="float: right" class="positive" data-click="addMedium" data-bind="enable: currentTab().result()">[% l('Add Medium') %]</button>
+    <button type="button" style="float: right" class="positive" data-click="addMedium" data-bind="enable: currentTab().result()">[% lp('Add medium', 'interactive') %]</button>
   </div>
 </div>
 
 <div data-bind="with: rootField.release">
   <p class="error field-error" data-bind="showErrorRightAway: needsMediums">
-    [%~ l('Add a medium by clicking “Add Medium” below, or tick the box confirming the tracklist is unknown.') ~%]
+    [%~ l('Add a medium by clicking “Add medium” below, or tick the box confirming the tracklist is unknown.') ~%]
   </p>
 
   <!-- ko if: !mediums().length -->
@@ -286,7 +286,7 @@
               mediums().map(function (m) { return m.toc(); }).filter(Boolean).length < ($data.seededTocs ? Object.values($data.seededTocs).length : 0) -->
     <div class="warning">
       <p>
-        [%~ l('You’ve seeded some Disc IDs that aren’t matched to any medium. If this is wrong, use the “Attach Disc ID” options below.') ~%]
+        [%~ l('You’ve seeded some disc IDs that aren’t matched to any medium. If this is wrong, use the “Attach disc ID” options below.') ~%]
       </p>
     </div>
   <!-- /ko -->
@@ -463,7 +463,7 @@
             <tr class="subh">
               <td colspan="7">
                 [% data_track_icon %]
-                [% l('Data Tracks') %]
+                [% l('Data tracks') %]
               </td>
             </tr>
             <!-- ko loop: { items: dataTracks, id: 'uniqueID' } -->
@@ -475,7 +475,7 @@
 
       <!-- ko if: $parent.seededTocs && Object.keys($parent.seededTocs).length -->
       <div id="discid-attachment">
-        [% add_colon(l('Attach Disc ID')) %]
+        [% add_colon(l('Attach disc ID')) %]
         <select data-bind="options: Object.values($parent.seededTocs).sort(),
                            optionsText: $root.utils.calculateDiscID,
                            optionsCaption: '',
@@ -521,7 +521,7 @@
         <!-- /ko -->
 
         <div class="buttons">
-          <button type="button" class="open-track-parser" data-click="openTrackParser">[% l('Track Parser') %]</button>
+          <button type="button" class="open-track-parser" data-click="openTrackParser">[% l('Track parser') %]</button>
           <button type="button" class="reset-track-numbers" data-click="resetTrackNumbers">[%- l('Reset track numbers') -%]</button>
           <button type="button" data-click="swapTitlesWithArtists">[%- l('Swap track titles with artist credits') -%]</button>
           <button type="button" data-click="guessMediumCase">[%- l('Guess case') -%]</button>

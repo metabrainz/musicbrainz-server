@@ -20,7 +20,7 @@ type OtherLookupFormProps = {
 
 type OtherLookupFormRowProps = {
   +action: string,
-  +field: ReadOnlyFieldT<string>,
+  +field: FieldT<string>,
   +label: string,
 };
 

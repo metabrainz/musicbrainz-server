@@ -43,7 +43,7 @@ test 'Deleting an alias' => sub {
         {
             entity => {
                 id => 2,
-                name => 'Warp Records'
+                name => 'Warp Records',
             },
             alias_id  => 1,
             name      => 'Test Label Alias',
@@ -51,12 +51,12 @@ test 'Deleting an alias' => sub {
             begin_date => {
                 year => undef,
                 month => undef,
-                day => undef
+                day => undef,
             },
             end_date => {
                 year => undef,
                 month => undef,
-                day => undef
+                day => undef,
             },
             ended => 0,
             type_id => 1,
@@ -85,7 +85,7 @@ sub prepare_test {
 
     $test->mech->get('/login');
     $test->mech->submit_form(
-        with_fields => { username => 'new_editor', password => 'password' }
+        with_fields => { username => 'new_editor', password => 'password' },
     );
 }
 

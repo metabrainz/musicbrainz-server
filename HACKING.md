@@ -187,8 +187,9 @@ types based on JSON data:
 We have a set of browser-automated UI tests running with Selenium WebDriver.
 These are a bit more involved to set up:
 
- * Install ChromeDriver:
-   https://github.com/SeleniumHQ/selenium/wiki/ChromeDriver
+ * Install ChromeDriver from
+   https://googlechromelabs.github.io/chrome-for-testing/
+   ensuring that you choose a version compatible with your version of Chrome.
 
  * Install a version of Google Chrome that supports headless mode (versions 59
    and above).
@@ -214,10 +215,39 @@ These are a bit more involved to set up:
  * Run `./script/create_test_db.sh SELENIUM` and
    `env MUSICBRAINZ_RUNNING_TESTS=1 ./script/compile_resources.sh` again.
 
+Some Selenium tests make search queries and require a working search setup.
+(While not all tests require one, it helps to have one ready.)
+
+ * Set up [mb-solr](https://github.com/metabrainz/mb-solr).
+   It should be fairly easy to get running in the background with
+   `docker-compose up`.
+   As it listens on port 8983 by default, make sure `SEARCH_SERVER` is set to
+   `127.0.0.1:8983/solr` in DBDefs.pm.
+
+ * Set up [sir](https://github.com/metabrainz/sir) with a virtual environment
+   under `./venv` (relative to the sir checkout). You don't have to start it:
+   this is done by script/reset_selenium_env.sh, which is invoked by
+   t/selenium.js before each test. (If you need to inspect the sir logs of
+   each run, they get saved to t/selenium/.sir-reindex.log and
+   t/selenium/.sir-amqp_watch.log for the reindex and amqp_watch commands
+   respectively.)
+
+   Extensions and functions should be installed to the `musicbrainz_selenium`
+   database. (reset_selenium_env.sh takes care of triggers for you.) You can
+   do this manually (from the sir checkout):
+
+   ```sh
+   psql -U postgres -d musicbrainz_selenium -f sql/CreateExtension.sql
+   psql -U musicbrainz -d musicbrainz_selenium -f sql/CreateFunctions.sql
+   ```
+
 With the above prerequisites out of the way, the tests can be run from the
 command line like so:
 
-    $ ./t/selenium.js
+    $ SIR_DIR=~/code/sir ./t/selenium.js
+
+Where `SIR_DIR` is the path to your sir checkout. (You can omit this if the
+tests you're running don't require search.)
 
 If you want to run specific tests under ./t/selenium/, you can specify the
 paths to them as arguments. t/selenium.mjs also accepts some command line flags
@@ -521,6 +551,222 @@ Common instructions for porting:
 
  7. All components should be named following the `UpperCamelCase` convention.
 
+React state management
+----------------------
+
+For simple components with a small amount of isolated state,
+`React.useState` works great.
+
+For complex pages (let's call these apps), where an action in one deeply-
+nested part of the component tree can affect the state in a sibling or
+higher-up part of the tree (e.g. in the relationship editor), it's
+recommended to have one [reducer](https://react.dev/learn/extracting-state-logic-into-a-reducer)
+in the very top component and pass all state downward as props.  React calls
+this concept [lifting state up](https://react.dev/learn/sharing-state-between-components)
+to create a "top-down" data flow.
+
+While having all state flow in one direction greatly simplifies reasoning
+about how changes are propagated and how state is kept in sync across many
+components, it also creates two issues that you need to manage:
+
+  * The first issue is related to performance: if all state comes from the
+    top component, then React has to re-render the entire page each time
+    any piece of state changes.  There are steps to address this, but they
+    must work together (i.e. one step on its own won't help, but will when
+    combined with the rest).
+
+    1. Make sure your components don't get too large and have a clear
+       purpose. If you can identify parts of a component that can render
+       (update) less often than the other parts, consider splitting those
+       parts into separate components.
+
+    2. Make sure every component only receives the props it actually needs.
+       For example, consider a component that receives the number of elements
+       of a list as a prop, but then only performs a boolean check on the
+       number, like `numItems > x`.  In this case you should just pass the
+       result of `numItems > x` as a prop.
+
+    3. Make liberal use of
+       [React.memo](https://react.dev/reference/react/memo),
+       especially for components that have complicated render functions.
+       Assuming you also follow the previous point (passing only the
+       essential information used by the component), then `React.memo` will
+       ensure that rendering can be skipped when the props don't change.
+       The cost of React comparing the props for a small sub-tree will be
+       much less than the cost of rendering the entire tree again.
+
+    It's highly recommended to install the
+    [React Developer Tools](https://react.dev/learn/react-developer-tools)
+    browser extension to identify areas where components are updating
+    unnecessarily.  With the tools pane open, click on the settings cog
+    and make sure the following checkboxes are enabled:
+
+      * "Highlight updates when components render," under "General."
+
+      * "Record why each component rendered while profiling," under
+         "Profiler."
+
+    The first setting will highlight component updates on the page, which
+    should make it obvious where unnecessary updates are occurring. (For
+    example, editing a relationship shouldn't update every other relationship
+    on the page.) The second setting will tell you in the profiler which
+    props changed to trigger those updates.
+
+    Once you indentify which props are triggering unnecessary updates,
+    it's generally just a matter of making them more specific as per above,
+    or caching them with the `useMemo` and `useCallback` hooks. Another
+    situation might be where you are passing a prop which is used in a
+    callback (say, an event handler), but doesn't actually affect the
+    rendered output at all. Consider passing that prop as a
+    [ref](https://react.dev/reference/react/useRef) instead,
+    since the ref's identity will remain stable.
+
+  * The second issue with top-down data flow is related to organization: if
+    there's only one reducer function, then how do we avoid it becoming a
+    mess, managing tons of actions from many different files? And how do we
+    make it clear what component an action is dispatched from?
+
+    Even though there's only one "real" reducer, we don't have to make it
+    handle every single action in the app on its own. We can still define
+    separate reducers for each child component, and simply call them from the
+    parent reducer.
+
+    A general outline of the types and functions you'd typically define in
+    a component file are described below. These are specific to the file's
+    component, and handle all the actions/state used by that component.
+
+      * `type ActionT`: A union type that lists all the actions that the
+        component can `dispatch`. Each action should be an object with a
+        `type` field that names the action, e.g. `add-item`, `show-help`,
+        etc., along with any additional data needed by the action.
+
+      * `type StateT`: A read-only type that describes the state which is
+        needed to display the component and dispatch actions.
+
+      * `type PropsT`: In many cases, the only props you need are `dispatch`
+        (`(ActionT) => void`) and `state` (`StateT`), though it also makes
+        sense to pass static values that never change as props instead of
+        including them in `state`. If you need these props in the `reducer`
+        function, having them in `state` is convenient, though.
+
+      * `function createInitialState(...)`: Builds a `StateT`. The arguments
+        to this function are up to you and depend on what properties you need
+        to initialize.
+
+      * `function reducer(state: StateT, action: ActionT)`: Sets up a switch
+        statement over `action.type` and returns an updated `StateT`.
+
+        `StateT` should be deeply read-only. To make modifications, first
+        make a copy:
+
+        ```js
+        const newState = {...state};
+        // ... and while handling some action:
+        newState.someList = [...newState.someList, newItem];
+        ```
+
+        If you need to make complex updates to deeply-nested properties,
+        use the `mutate-cow` library.
+
+        If you're managing a sorted list of hundreds of items, while also
+        handling insertions and deletions to that list and maintaining its
+        order, consider using the `weight-balanced-tree` module to store the
+        list as a binary tree. This module has the advantage that it can make
+        immutable updates to the list in an efficient manner, without copying
+        the whole tree.
+
+    Above it was mentioned that each component would receive `dispatch` as a
+    prop from the parent, but this `dispatch` accepts the child's `ActionT`,
+    not the parent's. Thus, the parent needs to create this `dispatch`
+    function in some way. There's also a `reducer` function for the
+    child, but we want a way to call this from the parent reducer without
+    having to list out every child action.
+
+    What you want to do is encapsulate all of the child actions into a single
+    parent action. This makes it easy to define `dispatch` for the child
+    (with `React.useCallback`) and call its reducer:
+
+    ```js
+    import {
+      type ActionT as ChildActionT,
+      reducer as childReducer,
+    } from './Child.js';
+
+    type ActionT =
+      | {+type: 'update-child', +action: ChildActionT}
+      // ...
+      ;
+
+    function reducer(state: StateT, action: ActionT): StateT {
+      switch (action.type) {
+        /*
+         * No need to list every child action here, since they're
+         * encapsulated by `update-child`.
+         */
+        case 'update-child': {
+          const childAction = action.action;
+          /*
+           * You could even have another switch statement here on
+           * childAction.type, in case you need to handle particular actions
+           * in the parent reducer (because they affect state in the parent
+           * that the child doesn't know about).
+           */
+          state.child = childReducer(state.child, childAction);
+          break;
+        }
+      }
+    }
+
+    function ParentComponent(props: PropsT) {
+      const [state, dispatch] = React.useReducer(
+        reducer,
+        props,
+        createInitialState,
+      );
+
+      /*
+       * Create the child's dispatch function. The child need not worry how
+       * it was defined, just that it can pass its own actions to it.
+       */
+      const childDispatch = React.useCallback((action: ChildActionT) => {
+        /*
+         * If you need to identify the child in some way (perhaps its index
+         * in a list), you can add extra arguments to this function.  The
+         * child will of course have to adjust how it calls dispatch, e.g.
+         * `dispatch(myIndex, action)`.
+         */
+        dispatch({type: 'update-child', action});
+      }, [dispatch]);
+
+      return <Child dispatch={childDispatch} />;
+    }
+    ```
+
+    As noted in a comment in the above example, sometimes a child action may
+    actually require you to modify some state in the parent. With this setup,
+    you can still easily look at the child action and handle it in the parent
+    reducer if necessary. You may not even need to handle the action in the
+    child reducer at all: it might just happen to be dispatched from there
+    but only affect state in the parent. In a case like that, you can
+    optionally just pass the parent's `dispatch` function to the child.
+    You can decide whichever is cleaner on a case-by-case basis.
+
+    For a working example of the recommendations above, refer to
+    /root/static/scripts/tests/examples/todo-list/. You can compile it using
+    `./script/compile_resources.sh tests` and navigate to
+    `/root/static/scripts/tests/examples/todo-list/index.html` on your
+    local server to try it out.
+
+  As a final note, you may be wondering whether it's appropriate to use
+  `React.useState` in a much larger app that has top-down data flow.
+  (This isn't about whether you'll have to import external or shared
+  components that use `useState`; that is a certainty and not an issue at all
+  because the state should be isolated.) In the context of the app, there's
+  nothing wrong with `useState` for relatively simple components that
+  have a small amount of isolated state. You shouldn't force a component to
+  follow this pattern if you can accomplish your goal much more simply with
+  `useState`.
+
 Cover Art Archive development
 -----------------------------
 
@@ -586,13 +832,13 @@ There are two utilities which can help here:
     and not any magic Webpack imports, then you may do so with
     ./bin/sucrase-node (the same as you would with just `node`).
 
- 2. ./webpack/exec.mjs
+ 2. ./webpack/exec
 
     If you'd like to execute any kind of script (ESM or CommonJS) which may
     import modules that make use of magic Webpack imports, then use
-    ./webpack/exec.mjs instead. This tools works by compiling the input
-    script to a temporary file, which is then executed directly and cleaned
-    up once it's finished with.
+    ./webpack/exec instead. This tools works by compiling the input script to
+    a temporary file, which is then executed directly and cleaned up once
+    it's finished with.
 
     ```sh
     $ cat <<EOF > test.js
@@ -600,7 +846,7 @@ There are two utilities which can help here:
       require('./root/static/scripts/common/i18n/commaOnlyList.js').default;
     console.log(commaOnlyList([1, 2, 3]));
     EOF
-    $ ./webpack/exec.mjs test.js
+    $ ./webpack/exec test.js
     ```
 
 Potential issues and fixes

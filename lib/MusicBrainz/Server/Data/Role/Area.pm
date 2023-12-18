@@ -22,7 +22,7 @@ sub find_by_area {
         $extra_conditions = " AND (editor.privs & $SPAMMER_FLAG) = 0";
     }
 
-    my $query = <<~SQL;
+    my $query = <<~"SQL";
         SELECT $columns
           FROM $table
          WHERE \$1 $area_cols_condition

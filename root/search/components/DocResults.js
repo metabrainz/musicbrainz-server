@@ -13,9 +13,9 @@ import Layout from '../../layout/index.js';
 import {GOOGLE_CUSTOM_SEARCH} from '../../static/scripts/common/DBDefs.mjs';
 
 const DocResults = (): React$Element<typeof Layout> => (
-  <Layout fullWidth title={l('Documentation Search')}>
+  <Layout fullWidth title={l('Documentation search')}>
     <div className="wikicontent" id="content">
-      <h1>{l('Documentation Search')}</h1>
+      <h1>{l('Documentation search')}</h1>
       <script
         async
         src={'https://cse.google.com/cse.js?cx=' + encodeURIComponent(GOOGLE_CUSTOM_SEARCH)}

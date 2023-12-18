@@ -13,16 +13,16 @@ import {addColonText} from '../i18n/addColon.js';
 
 export type FilterFormT = $ReadOnly<{
   ...FormT<{
-    +artist_credit_id: ReadOnlyFieldT<number>,
-    +country_id?: ReadOnlyFieldT<number>,
-    +date?: ReadOnlyFieldT<string>,
-    +label_id?: ReadOnlyFieldT<number>,
-    +name: ReadOnlyFieldT<string>,
-    +role_type?: ReadOnlyFieldT<number>,
-    +secondary_type_id?: ReadOnlyFieldT<number>,
-    +setlist?: ReadOnlyFieldT<string>,
-    +status_id?: ReadOnlyFieldT<number>,
-    +type_id?: ReadOnlyFieldT<number>,
+    +artist_credit_id: FieldT<number>,
+    +country_id?: FieldT<number>,
+    +date?: FieldT<string>,
+    +label_id?: FieldT<number>,
+    +name: FieldT<string>,
+    +role_type?: FieldT<number>,
+    +secondary_type_id?: FieldT<number>,
+    +setlist?: FieldT<string>,
+    +status_id?: FieldT<number>,
+    +type_id?: FieldT<number>,
   }>,
   entity_type: 'recording' | 'release' | 'release_group',
   options_artist_credit_id: SelectOptionsT,
@@ -203,7 +203,7 @@ const FilterForm = ({form}: Props): React$Element<'div'> => {
             {statusIdField && statusIdOptions ? (
               <tr>
                 <td>
-                  {addColonText(lp('Status', 'release status'))}
+                  {addColonText(lp('Status', 'release'))}
                 </td>
                 <td>
                   <SelectField

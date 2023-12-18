@@ -15,7 +15,7 @@ around run_test => sub {
 
     $test->mech->get('/login');
     $test->mech->submit_form(
-        with_fields => { username => 'editor1', password => 'pass' }
+        with_fields => { username => 'editor1', password => 'pass' },
     );
 
     $test->$orig(@args);
@@ -31,15 +31,15 @@ test 'Can create new relationship attribute' => sub {
     html_ok($mech->content);
 
     my ($name, $child_order) = (
-        'Additional additional', 1
+        'Additional additional', 1,
     );
 
     my @edits = capture_edits {
         my $response = $mech->submit_form(
             with_fields => {
                 'linkattrtype.name' => $name,
-                'linkattrtype.child_order' => $child_order
-            }
+                'linkattrtype.child_order' => $child_order,
+            },
         );
         ok($mech->success);
 
@@ -64,7 +64,7 @@ test 'Can create child relationship attribute using parentid' => sub {
 
     my $parent = $test->c->model('LinkAttributeType')->get_by_gid($gid);
     my ($parent_id, $name, $child_order) = (
-        $parent->id, '77th trombone', 1
+        $parent->id, '77th trombone', 1,
     );
 
     my @edits = capture_edits {
@@ -72,8 +72,8 @@ test 'Can create child relationship attribute using parentid' => sub {
             with_fields => {
                 'linkattrtype.name' => $name,
                 'linkattrtype.child_order' => $child_order,
-                'linkattrtype.parent_id' => $parent_id
-            }
+                'linkattrtype.parent_id' => $parent_id,
+            },
         );
     } $test->c;
     is(@edits, 0, 'no edits created for an instrument attempt');

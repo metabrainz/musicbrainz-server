@@ -50,16 +50,16 @@ role {
 
             my %old = hashed(
                 $params->hash,
-                @{ $self->data->{old}->{$prop_name} }
+                @{ $self->data->{old}->{$prop_name} },
             );
 
             my %current = hashed(
                 $params->hash,
-                map { $params->extract_value->($_) } @$current
+                map { $params->extract_value->($_) } @$current,
             );
 
             my %new = hashed(
-                $params->hash, @{ $self->data->{new}->{$prop_name} }
+                $params->hash, @{ $self->data->{new}->{$prop_name} },
             );
 
             my @old_keys = nsort_by { $old{$_}->[1] } keys %old;
@@ -80,7 +80,7 @@ role {
             $merged->{$prop_name} = [
                 map { $all_values{$_}->[0] }
                 nsort_by { $key_indices{$_} }
-                @keys
+                @keys,
             ];
         }
 

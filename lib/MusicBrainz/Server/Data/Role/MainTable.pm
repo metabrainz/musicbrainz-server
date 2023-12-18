@@ -10,7 +10,7 @@ requires '_type';
 sub _main_table {
     my $type = shift->_type;
     return $ENTITIES{$type}{table} // $type;
-};
+}
 
 sub _table { shift->_main_table }
 

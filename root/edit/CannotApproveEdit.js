@@ -31,8 +31,8 @@ const CannotApproveEdit = ({edit}: Props): React$Element<typeof Layout> => {
     )
   );
   return (
-    <Layout fullWidth title={l('Error Approving Edit')}>
-      <h1>{l('Error Approving Edit')}</h1>
+    <Layout fullWidth title={l('Error approving edit')}>
+      <h1>{l('Error approving edit')}</h1>
       <p>
         {exp.l(
           'There was a problem approving {edit}.',

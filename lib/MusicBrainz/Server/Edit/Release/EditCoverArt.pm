@@ -8,19 +8,19 @@ use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_EDIT_COVER_ART );
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 use MusicBrainz::Server::Validation qw( normalise_strings );
 
 use aliased 'MusicBrainz::Server::Entity::Release';
 use aliased 'MusicBrainz::Server::Entity::Artwork';
 
 extends 'MusicBrainz::Server::Edit::WithDifferences';
-with 'MusicBrainz::Server::Edit::Release';
-with 'MusicBrainz::Server::Edit::Release::RelatedEntities';
-with 'MusicBrainz::Server::Edit::Role::CoverArt';
-with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
+with 'MusicBrainz::Server::Edit::Release',
+     'MusicBrainz::Server::Edit::Release::RelatedEntities',
+     'MusicBrainz::Server::Edit::Role::CoverArt',
+     'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
-sub edit_name { N_l('Edit cover art') }
+sub edit_name { N_lp('Edit cover art', 'singular, edit type') }
 sub edit_kind { 'edit' }
 sub edit_type { $EDIT_RELEASE_EDIT_COVER_ART }
 sub release_ids { shift->data->{entity}{id} }
@@ -40,12 +40,12 @@ has '+data' => (
         entity => Dict[
             id   => Int,
             name => Str,
-            mbid => Str
+            mbid => Str,
         ],
         id => Int,
         old => change_fields(),
         new => change_fields(),
-    ]
+    ],
 );
 
 sub initialize {
@@ -54,7 +54,7 @@ sub initialize {
 
     my %old = (
         types => $opts{old_types},
-        comment => $opts{old_comment},,
+        comment => $opts{old_comment},
     );
 
     my %new = (
@@ -66,10 +66,10 @@ sub initialize {
         entity => {
             id => $release->id,
             name => $release->name,
-            mbid => $release->gid
+            mbid => $release->gid,
         },
         id => $opts{artwork_id},
-        $self->_change_data(\%old, %new)
+        $self->_change_data(\%old, %new),
     });
 }
 
@@ -78,19 +78,19 @@ sub accept {
 
     my $release = $self->c->model('Release')->get_by_gid($self->data->{entity}{mbid})
         or MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
-            'This release no longer exists'
+            'This release no longer exists',
         );
 
     $self->c->model('CoverArtArchive')->exists($self->data->{id})
         or MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
-            'This cover art no longer exists'
+            'This cover art no longer exists',
         );
 
     $self->c->model('CoverArtArchive')->update_cover_art(
         $release->id,
         $self->data->{id},
         $self->data->{new}->{types},
-        $self->data->{new}->{comment}
+        $self->data->{new}->{comment},
     );
 }
 
@@ -110,16 +110,16 @@ sub foreign_keys {
     my %fk;
 
     $fk{Release} = {
-        $self->data->{entity}{id} => [ 'ArtistCredit' ]
+        $self->data->{entity}{id} => [ 'ArtistCredit' ],
     };
 
     $fk{Artwork} = {
-        $self->data->{id} => [ 'Release' ]
+        $self->data->{id} => [ 'Release' ],
     };
 
     $fk{CoverArtType} = [
         @{ $self->data->{new}->{types} },
-        @{ $self->data->{old}->{types} }
+        @{ $self->data->{old}->{types} },
     ] if defined $self->data->{new}->{types};
 
     return \%fk;
@@ -144,8 +144,8 @@ sub build_display_data {
                      comment => $self->data->{new}{comment} // '',
                      cover_art_types => [ map {
                          $loaded->{CoverArtType}{$_}
-                     } @{ $self->data->{new}{types} // [] }]
-        )
+                     } @{ $self->data->{new}{types} // [] }],
+        ),
     );
 
     if ($self->data->{old}{types})
@@ -157,15 +157,15 @@ sub build_display_data {
             new => [ map {
                 to_json_object($loaded->{CoverArtType}{$_})
             } @{ $self->data->{new}{types} // [] } ],
-        }
+        };
     }
 
     if (exists $self->data->{old}{comment})
     {
         $data{comment} = {
             old => $self->data->{old}{comment},
-            new => $self->data->{new}{comment}
-        }
+            new => $self->data->{new}{comment},
+        };
     }
 
     return \%data;

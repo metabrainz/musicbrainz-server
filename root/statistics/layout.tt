@@ -5,14 +5,14 @@
     ['index', link_statistics_tab('/statistics', l('Overview')) ]
     ['countries', link_statistics_tab('/statistics/countries', l('Countries')) ],
     ['languages-scripts', link_statistics_tab('/statistics/languages-scripts', l('Languages/Scripts')) ],
-    ['coverart', link_statistics_tab('/statistics/coverart', l('Cover Art')) ],
+    ['coverart', link_statistics_tab('/statistics/coverart', lp('Cover art', 'plural')) ],
     ['relationships', link_statistics_tab('/statistics/relationships', l('Relationships')) ],
     ['edits', link_statistics_tab('/statistics/edits', l('Edits')) ],
     ['formats', link_statistics_tab('/statistics/formats', l('Formats')) ],
     ['editors', link_statistics_tab('/statistics/editors', l('Editors')) ],
     ['timeline', link_statistics_tab('/statistics/timeline/main', l('Timeline')) ],
 ] -%]
-[%- html_title = l('Database Statistics - {title}', {title => title} ) -%]
+[%- html_title = l('Database statistics - {title}', {title => title} ) -%]
 [%- PROCESS "statistics/macros-footer.tt" -%]
 
 
@@ -20,7 +20,7 @@
     [%- WRAPPER "layout.tt" title=html_title full_width=1 -%]
         [%- PROCESS "statistics/macros-header.tt" -%]
         <div class="statisticsheader">
-            <h1>[%- l('Database Statistics') -%]</h1>
+            <h1>[%- l('Database statistics') -%]</h1>
         </div>
         [% INCLUDE 'components/tabs.tt' list=info_links %]
         [%- content -%]
@@ -31,7 +31,7 @@
         [%- PROCESS "statistics/macros-header.tt" -%]
         <div id="content">
             <div class="statisticsheader">
-                <h1>[%- l('Database Statistics') -%]</h1>
+                <h1>[%- l('Database statistics') -%]</h1>
             </div>
             [% INCLUDE 'components/tabs.tt' list=info_links %]
             [%- content -%]

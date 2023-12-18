@@ -7,7 +7,7 @@ use MusicBrainz::Server::Translation qw( l );
 extends 'MusicBrainz::Server::Entity::URL';
 with 'MusicBrainz::Server::Entity::URL::Sidebar';
 
-sub sidebar_name { l('Stream at YouTube Music') };
+sub sidebar_name { l('Stream at YouTube Music') }
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

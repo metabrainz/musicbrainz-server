@@ -8,7 +8,7 @@
  */
 
 type Props = {
-  +field: ReadOnlyFieldT<number | string>,
+  +field: FieldT<number | string>,
 };
 
 const HiddenField = ({

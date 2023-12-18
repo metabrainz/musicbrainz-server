@@ -26,7 +26,7 @@ has_field 'child_order' => (
 has_field 'name' => (
     type      => 'Text',
     required  => 1,
-    maxlength => 255
+    maxlength => 255,
 );
 
 has_field 'description' => (

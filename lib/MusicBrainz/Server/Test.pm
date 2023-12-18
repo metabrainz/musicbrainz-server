@@ -28,7 +28,7 @@ use Test::Builder;
 use Test::Deep qw( cmp_deeply );
 use Test::Differences;
 use Test::WWW::Mechanize::Catalyst;
-use Test::XML::SemanticCompare;
+use Test::XML::SemanticCompare qw( is_xml_same );
 use Test::XPath;
 use XML::LibXML;
 use Email::Sender::Transport::Test;
@@ -82,7 +82,7 @@ sub create_test_context
         );
         MusicBrainz::Server::Context->new(
             cache_manager => $cache_manager,
-            %args
+            %args,
         );
     };
 
@@ -141,7 +141,7 @@ sub prepare_test_server
         $ENV{MUSICBRAINZ_RUNNING_TESTS} = 1;
         $ENV{PERL_JSON_BACKEND} = 2;
         *DBDefs::REPLICATION_TYPE = sub { RT_STANDALONE };
-    };
+    }
 
     $test_transport->clear_deliveries;
 }
@@ -167,7 +167,7 @@ sub capture_edits (&$)
     my $new_max = $c->sql->select_single_value('SELECT max(id) FROM edit') // 0;
     return () if $new_max <= $current_max;
     return nsort_by { $_->id } values %{ $c->model('Edit')->get_by_ids(
-        ($current_max + 1)..$new_max
+        ($current_max + 1)..$new_max,
     ) };
 }
 
@@ -273,7 +273,7 @@ sub old_edit_row
         expiretime => '2010-02-05 19:34:17+00',
         tab        => 'artist',
         col        => 'name',
-        %args
+        %args,
     };
 }
 
@@ -369,7 +369,7 @@ sub _build_ws_test_xml {
             is_xml_same($expected, $mech->content);
             $Test->note($mech->content);
         });
-    }
+    };
 }
 
 sub _build_ws_test_json {

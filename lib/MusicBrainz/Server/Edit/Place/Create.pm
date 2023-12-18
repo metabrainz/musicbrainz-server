@@ -4,7 +4,7 @@ use namespace::autoclean;
 
 use MusicBrainz::Server::Constants qw( $EDIT_PLACE_CREATE );
 use MusicBrainz::Server::Edit::Types qw( CoordinateHash Nullable PartialDateHash );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use aliased 'MusicBrainz::Server::Entity::PartialDate';
@@ -17,13 +17,13 @@ use aliased 'MusicBrainz::Server::Entity::Place';
 use aliased 'MusicBrainz::Server::Entity::Area';
 
 extends 'MusicBrainz::Server::Edit::Generic::Create';
-with 'MusicBrainz::Server::Edit::Role::Preview';
-with 'MusicBrainz::Server::Edit::Place';
-with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
-with 'MusicBrainz::Server::Edit::Role::DatePeriod';
-with 'MusicBrainz::Server::Edit::Role::CheckDuplicates';
+with 'MusicBrainz::Server::Edit::Role::Preview',
+     'MusicBrainz::Server::Edit::Place',
+     'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit',
+     'MusicBrainz::Server::Edit::Role::DatePeriod',
+     'MusicBrainz::Server::Edit::Role::CheckDuplicates';
 
-sub edit_name { N_l('Add place') }
+sub edit_name { N_lp('Add place', 'edit type') }
 sub edit_type { $EDIT_PLACE_CREATE }
 sub _create_model { 'Place' }
 sub place_id { shift->entity_id }
@@ -39,7 +39,7 @@ has '+data' => (
         begin_date  => Nullable[PartialDateHash],
         end_date    => Nullable[PartialDateHash],
         ended       => Optional[Bool],
-    ]
+    ],
 );
 
 sub foreign_keys
@@ -65,7 +65,7 @@ sub build_display_data
         end_date    => to_json_object(PartialDate->new($self->data->{end_date})),
         place       => to_json_object((defined($self->entity_id) &&
             $loaded->{Place}{ $self->entity_id }) ||
-            Place->new( name => $self->data->{name} )
+            Place->new( name => $self->data->{name} ),
         ),
         ended       => boolean_to_json($self->data->{ended}),
         comment     => $self->data->{comment},
@@ -73,7 +73,7 @@ sub build_display_data
         coordinates => defined $self->data->{coordinates} &&
                        to_json_object(Coordinates->new($self->data->{coordinates})),
         area        => defined($self->data->{area_id}) &&
-                       to_json_object($loaded->{Area}{ $self->data->{area_id} } // Area->new())
+                       to_json_object($loaded->{Area}{ $self->data->{area_id} } // Area->new()),
     };
 }
 
@@ -93,7 +93,7 @@ override _is_disambiguation_needed => sub {
     my $duplicate_areas = $self->c->sql->select_single_column_array(
         'SELECT area FROM place
          WHERE lower(musicbrainz_unaccent(name)) = lower(musicbrainz_unaccent(?))',
-        $name
+        $name,
     );
 
     return $self->_possible_duplicate_area($area_id, @$duplicate_areas);

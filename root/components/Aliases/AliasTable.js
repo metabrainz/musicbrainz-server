@@ -21,8 +21,8 @@ const AliasTable = (props: Props): React$Element<'table'> => (
       <tr>
         <th>{l('Alias')}</th>
         <th>{l('Sort name')}</th>
-        <th>{l('Begin Date')}</th>
-        <th>{l('End Date')}</th>
+        <th>{l('Begin date')}</th>
+        <th>{l('End date')}</th>
         <th>{l('Type')}</th>
         <th>{l('Locale')}</th>
         {props.allowEditing

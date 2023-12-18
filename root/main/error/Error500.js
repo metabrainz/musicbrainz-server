@@ -34,7 +34,7 @@ const Error500 = ({
 }: Props): React$Element<typeof ErrorLayout> => {
   const $c = React.useContext(CatalystContext);
   return (
-    <ErrorLayout title={l('Internal Server Error')}>
+    <ErrorLayout title={l('Internal server error')}>
       <p>
         <strong>
           {l('Oops, something went wrong!')}

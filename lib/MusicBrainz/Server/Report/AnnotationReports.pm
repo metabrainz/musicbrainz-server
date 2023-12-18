@@ -10,12 +10,12 @@ for my $type (grep { $_ ne 'instrument' && $_ ne 'area' } entities_with('annotat
     my $subs_section = '';
 
     if ($has_subs) {
-        $subs_section = <<EOF;
+        $subs_section = <<"EOF";
      'MusicBrainz::Server::Report::FilterForEditor::${model}ID',
 EOF
     }
 
-    eval <<EOF; ## no critic 'ProhibitStringyEval'
+    eval <<"EOF"; ## no critic 'ProhibitStringyEval'
 package MusicBrainz::Server::Report::Annotations$plural;
 use Moose;
 

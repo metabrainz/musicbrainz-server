@@ -19,10 +19,10 @@ role {
     my $entity_type = model_to_type($model);
     my $entity_id = "${entity_type}_id";
 
-    with 'MusicBrainz::Server::Edit::Alias';
-    with "MusicBrainz::Server::Edit::$model";
-    with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
-    with 'MusicBrainz::Server::Edit::Role::DatePeriod';
+    with 'MusicBrainz::Server::Edit::Alias',
+         "MusicBrainz::Server::Edit::$model",
+         'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit',
+         'MusicBrainz::Server::Edit::Role::DatePeriod';
 
     has data => (
         is => 'rw',
@@ -33,19 +33,19 @@ role {
             sort_name => Optional[Str],
             entity => Dict[
                 id => Int,
-                name => Str
+                name => Str,
             ],
             locale => Nullable[Str],
             begin_date => Nullable[PartialDateHash],
             end_date => Nullable[PartialDateHash],
             type_id => Nullable[Int],
             primary_for_locale => Nullable[Bool],
-            ended => Optional[Bool]
-        ]
+            ended => Optional[Bool],
+        ],
     );
 
     has alias => (
-        is => 'rw'
+        is => 'rw',
     );
 
     has alias_id => (
@@ -85,8 +85,8 @@ role {
                 end_date => $data{end_date},
                 type_id => $data{type_id},
                 primary_for_locale => $data{primary_for_locale},
-                ended => $data{ended}
-            })->id
+                ended => $data{ended},
+            })->id,
         );
     };
 
@@ -100,7 +100,7 @@ role {
         my $entity = delete $opts{entity} or die 'Missing entity object';
         $opts{entity} = {
             id => $entity->id,
-            name => $entity->name
+            name => $entity->name,
         };
 
         $self->enforce_dependencies(\%opts);
@@ -142,7 +142,7 @@ role {
             $self->c->model($model)->_entity_class->new(
                 id => $entity_id,
                 name => $self->data->{entity}{name},
-            )
+            ),
         );
 
         return {
@@ -160,6 +160,6 @@ role {
     };
 };
 
-sub edit_template { 'AddRemoveAlias' };
+sub edit_template { 'AddRemoveAlias' }
 
 1;

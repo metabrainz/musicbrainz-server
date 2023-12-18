@@ -3,7 +3,9 @@ package MusicBrainz::Server::Entity::LinkTypeAttribute;
 use Moose;
 use MusicBrainz::Server::Entity::Types;
 
-with 'MusicBrainz::Server::Entity::Role::Type' => { model => 'LinkAttributeType' };
+with 'MusicBrainz::Server::Entity::Role::Type' => {
+    model => 'LinkAttributeType',
+};
 
 has 'min' => (
     is => 'rw',

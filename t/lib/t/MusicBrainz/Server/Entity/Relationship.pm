@@ -42,11 +42,11 @@ $rel = MusicBrainz::Server::Entity::Relationship->new(
                     name => 'additional',
                     root => MusicBrainz::Server::Entity::LinkAttributeType->new(
                         name => 'additional',
-                        id => 1
+                        id => 1,
                     ),
-                )
+                ),
             ),
-        ]
+        ],
     ),
 );
 is( $rel->phrase, 'was additionally arranged by' );
@@ -61,11 +61,11 @@ $rel = MusicBrainz::Server::Entity::Relationship->new(
                     name => 'orchestra',
                     root => MusicBrainz::Server::Entity::LinkAttributeType->new(
                         name => 'instrument',
-                        id => $INSTRUMENT_ROOT_ID
+                        id => $INSTRUMENT_ROOT_ID,
                     ),
-                )
+                ),
             ),
-        ]
+        ],
     ),
 );
 is( $rel->phrase, 'has orchestra arranged by' );
@@ -80,7 +80,7 @@ $rel = MusicBrainz::Server::Entity::Relationship->new(
                     name => 'orchestra',
                     root => MusicBrainz::Server::Entity::LinkAttributeType->new(
                         name => 'instrument',
-                        id => $INSTRUMENT_ROOT_ID
+                        id => $INSTRUMENT_ROOT_ID,
                     ),
                 ),
             ),
@@ -89,11 +89,11 @@ $rel = MusicBrainz::Server::Entity::Relationship->new(
                     name => 'piano',
                     root => MusicBrainz::Server::Entity::LinkAttributeType->new(
                         name => 'instrument',
-                        id => $INSTRUMENT_ROOT_ID
+                        id => $INSTRUMENT_ROOT_ID,
                     ),
                 ),
-            )
-        ]
+            ),
+        ],
     ),
 );
 is( $rel->phrase, 'has orchestra and piano arranged by' );
@@ -108,7 +108,7 @@ $rel = MusicBrainz::Server::Entity::Relationship->new(
                     name => 'orchestra',
                     root => MusicBrainz::Server::Entity::LinkAttributeType->new(
                         name => 'instrument',
-                        id => $INSTRUMENT_ROOT_ID
+                        id => $INSTRUMENT_ROOT_ID,
                     ),
                 ),
             ),
@@ -117,11 +117,11 @@ $rel = MusicBrainz::Server::Entity::Relationship->new(
                     name => 'additional',
                     root => MusicBrainz::Server::Entity::LinkAttributeType->new(
                         name => 'additional',
-                        id => $INSTRUMENT_ROOT_ID
+                        id => $INSTRUMENT_ROOT_ID,
                     ),
-                )
+                ),
             ),
-        ]
+        ],
     ),
 );
 is( $rel->phrase, 'has orchestra additionally arranged by' );
@@ -141,7 +141,7 @@ $rel = MusicBrainz::Server::Entity::Relationship->new(
                     name => 'founding',
                     root => MusicBrainz::Server::Entity::LinkAttributeType->new(
                         name => 'founding',
-                        id => $INSTRUMENT_ROOT_ID
+                        id => $INSTRUMENT_ROOT_ID,
                     ),
                 ),
             ),
@@ -150,7 +150,7 @@ $rel = MusicBrainz::Server::Entity::Relationship->new(
                     name => 'vocal',
                     root => MusicBrainz::Server::Entity::LinkAttributeType->new(
                         name => 'vocal',
-                        id => $INSTRUMENT_ROOT_ID
+                        id => $INSTRUMENT_ROOT_ID,
                     ),
                 ),
             ),
@@ -159,11 +159,11 @@ $rel = MusicBrainz::Server::Entity::Relationship->new(
                     name => 'guitar',
                     root => MusicBrainz::Server::Entity::LinkAttributeType->new(
                         name => 'instrument',
-                        id => $INSTRUMENT_ROOT_ID
+                        id => $INSTRUMENT_ROOT_ID,
                     ),
                 ),
-            )
-        ]
+            ),
+        ],
     ),
 );
 is( $rel->phrase, 'is a founding member of' );

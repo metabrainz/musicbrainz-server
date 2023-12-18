@@ -185,7 +185,7 @@ const RelationshipItem = (React.memo<PropsT>(({
     source,
     targetTypeOptions: null,
     targetTypeRef: null,
-    title: l('Edit Relationship'),
+    title: lp('Edit relationship', 'header'),
     user,
   });
 

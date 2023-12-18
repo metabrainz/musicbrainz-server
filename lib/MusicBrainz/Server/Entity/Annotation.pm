@@ -15,33 +15,33 @@ sub entity_type { 'annotation' }
 
 has 'parent' => (
     does => 'MusicBrainz::Server::Entity::Role::Annotation',
-    is => 'rw'
+    is => 'rw',
 );
 
 has 'editor_id' => (
     is => 'rw',
-    isa => 'Int'
+    isa => 'Int',
 );
 
 has 'editor' => (
     is => 'rw',
-    isa => 'Editor'
+    isa => 'Editor',
 );
 
 has 'text' => (
     is => 'rw',
-    isa => 'Maybe[Str]'
+    isa => 'Maybe[Str]',
 );
 
 has 'changelog' => (
     is => 'rw',
-    isa => 'Str'
+    isa => 'Str',
 );
 
 has 'creation_date' => (
     is => 'rw',
     isa => DateTime,
-    coerce => 1
+    coerce => 1,
 );
 
 sub summary

@@ -15,7 +15,7 @@ sub sidebar_name {
     } else {
         return l('Stream at Tidal');
     }
-};
+}
 
 sub url_is_scheme_independent { 1 }
 

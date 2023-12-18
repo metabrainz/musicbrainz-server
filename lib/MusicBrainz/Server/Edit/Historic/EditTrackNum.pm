@@ -5,13 +5,13 @@ use warnings;
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_EDIT_TRACKNUM );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use Scalar::Util qw( looks_like_number );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 
 use MusicBrainz::Server::Edit::Historic::Base;
 
 use aliased 'MusicBrainz::Server::Entity::Recording';
 
-sub edit_name     { N_l('Edit track (historic)') }
+sub edit_name     { N_lp('Edit track (historic)', 'edit type') }
 sub edit_kind     { 'edit' }
 sub historic_type { 5 }
 sub edit_type     { $EDIT_HISTORIC_EDIT_TRACKNUM }
@@ -21,8 +21,8 @@ sub _build_related_entities
 {
     my $self = shift;
     return {
-        release => $self->data->{release_ids}
-    }
+        release => $self->data->{release_ids},
+    };
 }
 
 sub foreign_keys
@@ -41,12 +41,12 @@ sub build_display_data
             $loaded->{Recording}{ $self->data->{recording_id} } ||
             Recording->new(
                 id => $self->data->{recording_id},
-            )
+            ),
         ),
         position => {
             old => $self->data->{old}{position},
             new => $self->data->{new}{position},
-        }
+        },
     };
 }
 
@@ -64,8 +64,8 @@ sub upgrade
         old          => { position => $self->previous_value },
         new          => { position => $self->new_value },
         release_ids  => $self->album_release_ids(
-            $self->track_to_album( $self->row_id )
-        )
+            $self->track_to_album( $self->row_id ),
+        ),
     });
 
     return $self;

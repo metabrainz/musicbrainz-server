@@ -22,7 +22,7 @@ sub run {
     $self->sql->do(
         "SELECT s.*
          INTO $qualified_table
-         FROM ( $query ) s"
+         FROM ( $query ) s",
     );
 }
 

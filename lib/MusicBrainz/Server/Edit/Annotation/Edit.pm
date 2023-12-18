@@ -23,9 +23,9 @@ role {
     my $entity_type = model_to_type($model);
     my $entity_id = "${entity_type}_id";
 
-    with "MusicBrainz::Server::Edit::$model";
-    with 'MusicBrainz::Server::Edit::Role::Preview';
-    with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
+    with "MusicBrainz::Server::Edit::$model",
+         'MusicBrainz::Server::Edit::Role::Preview',
+         'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
     has data => (
         is => 'rw',
@@ -37,7 +37,7 @@ role {
             changelog => Nullable[Str],
             entity    => NullableOnPreview[Dict[
                 id   => Int,
-                name => Str
+                name => Str,
             ]],
             old_annotation_id => Optional[Nullable[Int]],
         ],
@@ -96,7 +96,7 @@ role {
             $self->c->model('ArtistCredit')->load($entity) if $entity_properties->{artist_credits};
             $data->{$entity_type} = to_json_object(
                 $entity //
-                $self->c->model($model)->_entity_class->new(name => $self->data->{entity}{name})
+                $self->c->model($model)->_entity_class->new(name => $self->data->{entity}{name}),
             );
         }
 
@@ -110,13 +110,13 @@ role {
 
         if ($latest_annotation && $latest_annotation->creation_date > $self->created_time) {
             MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
-                'The annotation has changed since this edit was entered.'
+                'The annotation has changed since this edit was entered.',
             );
         }
 
         if (!$self->c->model($model)->get_by_id($self->data->{entity}{id})) {
             MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
-                'The relevant entity has been removed since this edit was entered.'
+                'The relevant entity has been removed since this edit was entered.',
             );
         }
 
@@ -124,7 +124,7 @@ role {
             entity_id => $self->data->{entity}{id},
             text      => $self->data->{text},
             changelog => $self->data->{changelog},
-            editor_id => $self->data->{editor_id}
+            editor_id => $self->data->{editor_id},
         });
 
         # We add the annotation id to the raw edit data for reference
@@ -141,7 +141,7 @@ role {
         if ($entity) {
             $opts{entity} = {
                 id => $entity->id,
-                name => $entity->name
+                name => $entity->name,
             };
         }
         else
@@ -191,6 +191,6 @@ role {
     };
 };
 
-sub edit_template { 'AddAnnotation' };
+sub edit_template { 'AddAnnotation' }
 
 1;

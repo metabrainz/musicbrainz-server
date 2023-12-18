@@ -136,7 +136,7 @@ export const EntityListContent = ({
   showVotesSelect = false,
   tag,
   user,
-}: EntityListContentProps): React$Element<typeof React.Fragment> => {
+}: EntityListContentProps): React$Element<React$FragmentType> => {
   const $c = React.useContext(CatalystContext);
   return (
     <>

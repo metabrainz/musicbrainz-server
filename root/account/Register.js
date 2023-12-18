@@ -25,14 +25,14 @@ const Register = ({
   form,
   invalidCaptchaResponse,
 }: Props): React$Element<typeof Layout> => (
-  <Layout fullWidth title={l('Create an Account')}>
+  <Layout fullWidth title={lp('Create an account', 'header')}>
     {invalidCaptchaResponse ? (
       <Warning
         message={l('Captcha incorrect. Try again.')}
       />
     ) : null}
 
-    <h1>{l('Create an Account')}</h1>
+    <h1>{lp('Create an account', 'header')}</h1>
 
     <p>
       {exp.l(
@@ -71,7 +71,7 @@ const Register = ({
     <p>
       {exp.l(
         `If you have any questions, please review the {faq|FAQs}
-         or {doc|documentation} before {con|contacting us}. `,
+         or {doc|documentation} before {con|contacting us}.`,
         {
           con: CONTACT_URL,
           doc: '/doc/MusicBrainz_Documentation',

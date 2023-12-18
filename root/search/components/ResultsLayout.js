@@ -29,9 +29,9 @@ const ResultsLayout = ({
   const $c = React.useContext(CatalystContext);
 
   return (
-    <Layout fullWidth title={l('Search Results')}>
+    <Layout fullWidth title={l('Search results')}>
       <div id="content">
-        <h1>{l('Search Results')}</h1>
+        <h1>{l('Search results')}</h1>
         {nonEmpty(lastUpdated) ? (
           <p>
             {texp.l(

@@ -11,11 +11,11 @@ use MusicBrainz::Server::Validation qw( validate_coordinates );
 extends 'MusicBrainz::Server::Form::Field::Text';
 
 has '+deflate_method' => (
-    default => sub { \&deflate_coordinates }
+    default => sub { \&deflate_coordinates },
 );
 
 has '+validate_when_empty' => (
-    default => 1
+    default => 1,
 );
 
 my %DIRECTIONS = ( n => 1, s => -1, e => 1, w => -1 );
@@ -29,7 +29,7 @@ sub reverse_direction {
         @dirs = qw( e w );
     }
     my $direction = first { ($number > 0) eq ($DIRECTIONS{lc $_} > 0) } @dirs;
-    return $number * $DIRECTIONS{$direction} . uc $direction
+    return $number * $DIRECTIONS{$direction} . uc $direction;
 }
 
 sub validate {

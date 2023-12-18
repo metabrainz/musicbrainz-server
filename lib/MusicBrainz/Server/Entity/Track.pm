@@ -6,47 +6,47 @@ use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Track qw( format_track_length );
 
 extends 'MusicBrainz::Server::Entity';
-with 'MusicBrainz::Server::Entity::Role::ArtistCredit';
-with 'MusicBrainz::Server::Entity::Role::GID';
-with 'MusicBrainz::Server::Entity::Role::Name';
-with 'MusicBrainz::Server::Entity::Role::PendingEdits';
+with 'MusicBrainz::Server::Entity::Role::ArtistCredit',
+     'MusicBrainz::Server::Entity::Role::GID',
+     'MusicBrainz::Server::Entity::Role::Name',
+     'MusicBrainz::Server::Entity::Role::PendingEdits';
 
 has 'recording_id' => (
     is => 'rw',
     isa => 'Int',
-    clearer => 'clear_recording_id'
+    clearer => 'clear_recording_id',
 );
 
 has 'recording' => (
     is => 'rw',
     isa => 'Recording',
-    clearer => 'clear_recording'
+    clearer => 'clear_recording',
 );
 
 has 'medium_id' => (
     is => 'rw',
-    isa => 'Int'
+    isa => 'Int',
 );
 
 has 'medium' => (
     is => 'rw',
-    isa => 'Medium'
+    isa => 'Medium',
 );
 
 has 'position' => (
     is => 'rw',
-    isa => 'Int'
+    isa => 'Int',
 );
 
 has 'number' => (
     is => 'rw',
-    isa => 'Str'
+    isa => 'Str',
 );
 
 has 'length' => (
     is => 'rw',
     isa => 'Maybe[Int]',
-    clearer => 'clear_length'
+    clearer => 'clear_length',
 );
 
 sub formatted_length {

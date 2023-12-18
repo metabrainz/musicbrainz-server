@@ -37,7 +37,7 @@ test all => sub {
             { relationship => $rels->{2}, old_order => 2, new_order => 3 },
             { relationship => $rels->{3}, old_order => 3, new_order => 2 },
             { relationship => $rels->{4}, old_order => 4, new_order => 1 },
-        ]
+        ],
     );
 
     my $edit = $c->model('Edit')->create(%edit_args);

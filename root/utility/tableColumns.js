@@ -747,7 +747,7 @@ export const relTypeColumn:
         {l_relationships(original.link_name)}
       </a>
     ),
-    Header: N_l('Relationship Type'),
+    Header: N_lp('Relationship type', 'header'),
     id: 'relationship_type',
   };
 
@@ -762,7 +762,7 @@ export const seriesOrderingTypeColumn:
         ? lp_attributes(orderingType.name, 'series_ordering_type')
         : null;
     },
-    Header: N_l('Ordering Type'),
+    Header: N_lp('Ordering type', 'header'),
     id: 'ordering-type',
   };
 
@@ -779,7 +779,7 @@ export const taggerColumn:
     Cell: ({row: {original}}) => (
       <TaggerIcon entityType={original.entityType} gid={original.gid} />
     ),
-    Header: N_l('Tagger'),
+    Header: N_lp('Tagger', 'audio file metadata'),
     id: 'tagger',
   };
 
@@ -818,6 +818,6 @@ export const workLanguagesColumn:
         ))}
       </ul>
     ),
-    Header: N_l('Lyrics Languages'),
+    Header: N_lp('Lyrics languages', 'header'),
     id: 'lyrics-languages',
   };

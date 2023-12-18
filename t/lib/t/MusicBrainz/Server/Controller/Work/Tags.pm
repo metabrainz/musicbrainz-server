@@ -2,6 +2,7 @@ package t::MusicBrainz::Server::Controller::Work::Tags;
 use strict;
 use warnings;
 
+use HTTP::Status qw( :constants );
 use Test::Routine;
 use Test::More;
 use MusicBrainz::Server::Test qw( html_ok );
@@ -93,17 +94,17 @@ test 'Cannot tag without a confirmed email address' => sub {
 
     $c->model('Editor')->insert({
         name => 'iwannatag',
-        password => 'password'
+        password => 'password',
     });
 
     $mech->get_ok('/login');
     $mech->submit_form( with_fields => { username => 'iwannatag', password => 'password' } );
 
     $mech->get('/work/745c079d-374e-4436-9448-da92dedef3ce/tags/upvote?tags=boring, classical');
-    is ($mech->status, 401, 'Tag adding rejected without confirmed address');
+    is ($mech->status, HTTP_UNAUTHORIZED, 'Tag adding rejected without confirmed address');
 
     $mech->get('/work/745c079d-374e-4436-9448-da92dedef3ce/tags/downvote?tags=boring, classical');
-    is ($mech->status, 401, 'Tag downvoting rejected without confirmed address');
+    is ($mech->status, HTTP_UNAUTHORIZED, 'Tag downvoting rejected without confirmed address');
 };
 
 1;

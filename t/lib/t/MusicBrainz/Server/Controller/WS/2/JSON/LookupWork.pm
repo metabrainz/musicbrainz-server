@@ -6,7 +6,7 @@ use warnings;
 use JSON;
 use Test::Routine;
 use MusicBrainz::Server::Test ws_test_json => {
-    version => 2
+    version => 2,
 };
 
 with 't::Mechanize', 't::Context';
@@ -84,7 +84,7 @@ test 'work lookup via iswc' => sub {
                     languages => ['jpn'],
                     type => 'Song',
                     'type-id' => 'f061270a-2fd6-32f1-a641-f0f8676d14e6',
-                }]
+                }],
         };
 };
 
@@ -141,7 +141,7 @@ test 'work lookup with recording relationships' => sub {
                     'source-credit' => '',
                     'target-credit' => '',
                     'target-type' => 'recording',
-                }
+                },
             ],
             iswcs => [],
             language => 'jpn',

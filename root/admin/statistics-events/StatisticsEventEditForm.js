@@ -24,33 +24,33 @@ const StatisticsEventForm = ({
     <FormCsrfToken form={form} />
     <div className="half-width">
       <fieldset>
-        <legend>{l('Statistics event details')}</legend>
+        <legend>{'Statistics event details'}</legend>
         <FormRowTextLong
           field={form.field.date}
-          label={addColonText(l('Date'))}
+          label="Date:"
           required
           uncontrolled
         />
         <FormRowTextLong
           field={form.field.title}
-          label={addColonText(l('Title'))}
+          label="Title:"
           required
           uncontrolled
         />
         <FormRowTextLong
           field={form.field.description}
-          label={addColonText(l('Description'))}
+          label="Description:"
           uncontrolled
         />
         <FormRowTextLong
           field={form.field.link}
-          label={addColonText(l('Link'))}
+          label="Link:"
           uncontrolled
         />
       </fieldset>
     </div>
     <div className="row no-label">
-      <FormSubmit label={l('Submit')} />
+      <FormSubmit label="Submit" />
     </div>
   </form>
 );

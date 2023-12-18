@@ -81,7 +81,7 @@ const EditWork = ({edit}: Props): React$Element<'table'> => {
       ) : null}
       {languages ? (
         <Diff
-          label={addColonText(l('Lyrics Languages'))}
+          label={addColonText(l('Lyrics languages'))}
           newText={commaOnlyListText(
             languages.new.map(localizeLanguage),
           )}

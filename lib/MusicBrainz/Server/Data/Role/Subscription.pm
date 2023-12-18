@@ -16,7 +16,7 @@ parameter 'column' => (
 
 parameter 'active_class' => (
     isa => 'Str',
-    required => 1
+    required => 1,
 );
 
 parameter 'deleted_class' => (
@@ -43,7 +43,7 @@ role
             table => $params->table,
             column => $params->column,
             active_class => $params->active_class,
-            deleted_class => $params->deleted_class
+            deleted_class => $params->deleted_class,
         );
     };
 };

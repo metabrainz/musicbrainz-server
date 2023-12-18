@@ -11,7 +11,7 @@ import FieldErrors from './FieldErrors.js';
 import FormRow from './FormRow.js';
 
 type CommonProps = {
-  +field: ReadOnlyFieldT<string>,
+  +field: FieldT<string>,
   +hideHelp?: boolean,
 };
 
@@ -45,7 +45,7 @@ React$Element<'fieldset'> => {
   }
   return (
     <fieldset className="editnote">
-      <legend>{l('Edit Note')}</legend>
+      <legend>{lp('Edit note', 'noun')}</legend>
       {hideHelp ? null : (
         <>
           <p>

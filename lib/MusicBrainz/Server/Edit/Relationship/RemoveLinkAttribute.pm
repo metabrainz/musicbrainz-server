@@ -4,13 +4,13 @@ use MooseX::Types::Structured qw( Dict Optional );
 use MooseX::Types::Moose qw( Str Int );
 use MusicBrainz::Server::Constants qw( $EDIT_RELATIONSHIP_REMOVE_LINK_ATTRIBUTE );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 
 extends 'MusicBrainz::Server::Edit';
-with 'MusicBrainz::Server::Edit::Relationship';
-with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
+with 'MusicBrainz::Server::Edit::Relationship',
+     'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
-sub edit_name { N_l('Remove relationship attribute') }
+sub edit_name { N_lp('Remove relationship attribute', 'edit type') }
 sub edit_kind { 'remove' }
 sub edit_type { $EDIT_RELATIONSHIP_REMOVE_LINK_ATTRIBUTE }
 sub edit_template { 'RemoveRelationshipAttribute' }
@@ -21,8 +21,8 @@ has '+data' => (
         description => Nullable[Str],
         id          => Int,
         parent_id   => Nullable[Int],
-        child_order => Optional[Str]
-    ]
+        child_order => Optional[Str],
+    ],
 );
 
 sub build_display_data {
@@ -36,8 +36,10 @@ sub build_display_data {
 
 sub accept {
     my $self = shift;
-    $self->c->model('LinkAttributeType')->delete($self->data->{id})
-};
+    $self->c->model('LinkAttributeType')->delete($self->data->{id});
+}
 
 no Moose;
 __PACKAGE__->meta->make_immutable;
+
+1;

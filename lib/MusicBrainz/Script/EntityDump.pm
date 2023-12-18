@@ -83,7 +83,7 @@ sub handle_rows {
     if (@new_rows) {
         $handle_inserts->($c, $schema, $table, \@new_rows);
     }
-};
+}
 
 sub get_rows {
     my ($c, $table, $column, $values) = @_;
@@ -646,7 +646,7 @@ sub get_core_entities_by_gids {
 
     my $ids = $c->sql->select_single_column_array(
         "SELECT id FROM $entity_type WHERE gid = any(?) ORDER BY id",
-        $gids
+        $gids,
     );
 
     get_core_entities($c, $entity_type, $ids);

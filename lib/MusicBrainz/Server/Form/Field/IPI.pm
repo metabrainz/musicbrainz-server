@@ -17,7 +17,7 @@ apply ([
     {
         check => sub { is_valid_ipi(shift) },
         message => sub { l('This is not a valid IPI.') },
-    }
+    },
 ]);
 
 1;

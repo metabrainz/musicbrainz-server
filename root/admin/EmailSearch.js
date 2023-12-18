@@ -9,7 +9,6 @@
 
 import PaginatedResults from '../components/PaginatedResults.js';
 import Layout from '../layout/index.js';
-import expand2react from '../static/scripts/common/i18n/expand2react.js';
 import FormRowText from '../static/scripts/edit/components/FormRowText.js';
 import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
 
@@ -17,7 +16,7 @@ import UserList from './components/UserList.js';
 
 type Props = {
   +form: FormT<{
-    +email: ReadOnlyFieldT<string>,
+    +email: FieldT<string>,
   }>,
   +pager?: PagerT,
   +results?: $ReadOnlyArray<UnsanitizedEditorT>,
@@ -28,13 +27,13 @@ const EmailSearch = ({
   pager,
   results,
 }: Props): React$Element<typeof Layout> => (
-  <Layout fullWidth title={l('Search users by email')}>
+  <Layout fullWidth title="Search users by email">
     <div id="content">
-      <h1>{l('Search users by email')}</h1>
+      <h1>{'Search users by email'}</h1>
 
       <form action="/admin/email-search" method="post">
         <p>
-          {exp.l(
+          {exp.l_admin(
             'Enter a {link|POSIX regular expression}.',
             {
               link: 'https://www.postgresql.org/docs/12/' +
@@ -43,7 +42,7 @@ const EmailSearch = ({
           )}
         </p>
         <p>
-          {expand2react(
+          {exp.l_admin(
             `Since periods (<code>.</code>) and tags preceded with a
              <code>+</code> sign on the user side of the address (that is,
              before the <code>@</code> sign) are often used as “free aliases”
@@ -65,14 +64,14 @@ const EmailSearch = ({
 
         <FormRowText
           field={form.field.email}
-          label={addColonText(l('Email'))}
+          label="Email:"
           size={50}
           uncontrolled
         />
 
         <div className="row no-label">
           <FormSubmit
-            label={l('Search')}
+            label="Search"
             name="emailsearch.submit"
             value="1"
           />
@@ -84,7 +83,7 @@ const EmailSearch = ({
               <UserList users={results} />
             </PaginatedResults>
           ) : (
-            <p>{l('No results found.')}</p>
+            <p>{'No results found.'}</p>
           )
         ) : null}
       </form>

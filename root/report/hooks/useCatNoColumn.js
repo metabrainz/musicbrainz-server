@@ -23,7 +23,7 @@ function useCatNoColumn<
       const catNoColumn = defineTextColumn<D>({
         columnName: 'catalog-number',
         getText: result => result.catalog_number,
-        title: l('Catalog Number'),
+        title: l('Catalog number'),
       });
 
 

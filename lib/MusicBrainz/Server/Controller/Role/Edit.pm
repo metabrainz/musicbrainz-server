@@ -6,17 +6,17 @@ use MusicBrainz::Server::Data::Utils qw( model_to_type );
 
 parameter 'form' => (
     isa => 'Str',
-    required => 1
+    required => 1,
 );
 
 parameter 'edit_type' => (
     isa => 'Int',
-    required => 1
+    required => 1,
 );
 
 parameter 'edit_arguments' => (
     isa => 'CodeRef',
-    default => sub { sub { } }
+    default => sub { sub { } },
 );
 
 role {
@@ -25,9 +25,9 @@ role {
 
     $extra{consumer}->name->config(
         action => {
-            edit => { Chained => 'load', Edit => undef }
+            edit => { Chained => 'load', Edit => undef },
         },
-        edit_edit_type => $params->edit_type
+        edit_edit_type => $params->edit_type,
     );
 
     method 'edit' => sub {
@@ -67,7 +67,7 @@ role {
                 $c->response->redirect(
                     $c->uri_for_action($self->action_for('show'), [ $edit_entity->gid ]));
             },
-            $params->edit_arguments->($self, $c, $edit_entity)
+            $params->edit_arguments->($self, $c, $edit_entity),
         );
     };
 };

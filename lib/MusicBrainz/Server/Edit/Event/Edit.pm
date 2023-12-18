@@ -19,7 +19,7 @@ use MusicBrainz::Server::Edit::Utils qw(
 );
 use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 use MusicBrainz::Server::Validation qw( normalise_strings );
 
 use MooseX::Types::Moose qw( Bool Int Str );
@@ -29,15 +29,15 @@ use aliased 'MusicBrainz::Server::Entity::Event';
 use aliased 'MusicBrainz::Server::Entity::PartialDate';
 
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
-with 'MusicBrainz::Server::Edit::CheckForConflicts';
-with 'MusicBrainz::Server::Edit::Event';
-with 'MusicBrainz::Server::Edit::Role::AllowAmending' => {
-    create_edit_type => $EDIT_EVENT_CREATE,
-    entity_type => 'event',
-};
-with 'MusicBrainz::Server::Edit::Role::DatePeriod';
+with 'MusicBrainz::Server::Edit::CheckForConflicts',
+     'MusicBrainz::Server::Edit::Event',
+     'MusicBrainz::Server::Edit::Role::AllowAmending' => {
+        create_edit_type => $EDIT_EVENT_CREATE,
+        entity_type => 'event',
+     },
+     'MusicBrainz::Server::Edit::Role::DatePeriod';
 
-sub edit_name { N_l('Edit event') }
+sub edit_name { N_lp('Edit event', 'edit type') }
 sub edit_type { $EDIT_EVENT_EDIT }
 sub edit_template { 'EditEvent' }
 
@@ -63,11 +63,11 @@ has '+data' => (
         entity => Dict[
             id => Int,
             gid => Str,
-            name => Str
+            name => Str,
         ],
         new => change_fields(),
         old => change_fields(),
-    ]
+    ],
 );
 
 sub foreign_keys
@@ -101,7 +101,7 @@ sub build_display_data
 
     $data->{event} = to_json_object(
         $loaded->{Event}{ $self->data->{entity}{id} } ||
-        Event->new( name => $self->data->{entity}{name} )
+        Event->new( name => $self->data->{entity}{name} ),
     );
 
     for my $date_prop (qw( begin_date end_date )) {

@@ -16,6 +16,7 @@ import {
   reduceArtistCreditNames,
 } from '../common/immutable-entities.js';
 import MB from '../common/MB.js';
+import {arraysEqual} from '../common/utility/arrays.js';
 import {getSourceEntityData} from '../common/utility/catalyst.js';
 import clean from '../common/utility/clean.js';
 import {
@@ -202,13 +203,25 @@ releaseEditor.init = function (options) {
         const savedReleaseACLength = savedReleaseAC.names.length;
         const savedReleaseACReduced = reduceArtistCredit(savedReleaseAC);
 
+        /*
+         * Returns true if the supplied ArtistCreditNameT arrays include the
+         * same underlying artists.
+         */
+        const sameArtists = (a, b) => arraysEqual(a, b,
+          (a, b) => a.artist && b.artist && a.artist.gid === b.artist.gid);
+
         for (const medium of release.mediums()) {
           for (const track of medium.tracks()) {
             const trackAC = track.artistCredit();
-            if (reduceArtistCredit(trackAC) === savedReleaseACReduced) {
+            if (
+              reduceArtistCredit(trackAC) === savedReleaseACReduced ||
+              sameArtists(trackAC.names, releaseAC.names)
+            ) {
               /*
-               * If the track credits exactly match the old release credits,
-               * update them to use the new release credits.
+               * If the track credits exactly match the old release credits
+               * or the track credits include the same artists as the new
+               * release credits, update them to use the new release
+               * credits.
                */
               track.artistCredit(releaseAC);
               track.artistCreditEditorInst?.current?.setState({
@@ -225,11 +238,23 @@ releaseEditor.init = function (options) {
                * length of the release credits) track artists match the
                * release artists. This handles renaming primary artists on
                * tracks that also include featured artists (MBS-13273).
+               *
+               * Don't do anything if the track credits already start with
+               * the same artists as the new release credits to avoid
+               * duplicating artists in the case where the track is
+               * credited to "A & B feat. C" and the release is updated
+               * from "A" to "A & B" or "A feat. B".
                */
               const trackPrefix = reduceArtistCreditNames(
                 trackAC.names.slice(0, savedReleaseACLength), true,
               );
-              if (trackPrefix === savedReleaseACReduced) {
+              if (
+                trackPrefix === savedReleaseACReduced &&
+                !sameArtists(
+                  trackAC.names.slice(0, releaseAC.names.length),
+                  releaseAC.names,
+                )
+              ) {
                 /*
                  * Replace the old release artist(s) with the new one(s) and
                  * restore the old join phrase following the release artist.
@@ -258,12 +283,12 @@ releaseEditor.init = function (options) {
 
     if (self.action === 'add') {
       document.title = name
-        ? hyphenateTitle(name, l('Add Release'))
-        : l('Add Release');
+        ? hyphenateTitle(name, lp('Add release', 'header'))
+        : lp('Add release', 'header');
     } else {
       document.title = name
-        ? hyphenateTitle(name, l('Edit Release'))
-        : l('Edit Release');
+        ? hyphenateTitle(name, lp('Edit release', 'header'))
+        : lp('Edit release', 'header');
     }
   });
 

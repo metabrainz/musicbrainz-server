@@ -51,7 +51,7 @@ test 'Release group alias appears on alias page content and on JSON-LD' => sub {
         'byArtist' => {
             '@type' => ['Person', 'MusicGroup'],
             '@id' => 'http://musicbrainz.org/artist/745c079d-374e-4436-9448-da92dedef3ce',
-            'name' => 'Test Artist'
+            'name' => 'Test Artist',
         },
         'creditedTo' => 'Test Artist',
         # Search hint should not appear on JSON-LD
@@ -59,7 +59,7 @@ test 'Release group alias appears on alias page content and on JSON-LD' => sub {
         'albumProductionType' => 'http://schema.org/StudioAlbum',
         'name' => 'Test RG 1',
         '@type' => 'MusicAlbum',
-        '@context' => 'https://schema.org/docs/jsonldcontext.json'
+        '@context' => 'https://schema.org/docs/jsonldcontext.json',
     };
 };
 

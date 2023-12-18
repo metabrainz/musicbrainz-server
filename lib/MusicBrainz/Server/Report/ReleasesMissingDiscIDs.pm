@@ -21,7 +21,7 @@ sub query {
           )
           AND status NOT IN (3, 4) -- ignore pseudo and bootleg releases
         ) r
-    }
+    };
 }
 
 __PACKAGE__->meta->make_immutable;

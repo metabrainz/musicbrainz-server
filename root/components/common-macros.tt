@@ -43,6 +43,10 @@ two. -%]
     Translation.ln(text, plural, num, args);
 END; -%]
 
+[%~ MACRO l_admin(text) BLOCK;
+    text;
+END; -%]
+
 [%~ MACRO artwork_hover(artwork) BLOCK -%]
     [%- IF artwork.l_types; comma_only_list(artwork.l_types) | html; END %][% IF artwork.comment %] ([% artwork.comment | html%])[% END -%]
 [%- END -%]
@@ -419,7 +423,7 @@ END -%]
 END -%]
 
 [%~ MACRO request_login(text) BLOCK; # Converted to React at root/components/RequestLogin.js
-    simple_link(login_url(), text || l('Log in'));
+    simple_link(login_url(), text || lp('Log in', 'interactive'));
 END -%]
 
 [%~ MACRO tagger_icon(entity) BLOCK -%]

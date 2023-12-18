@@ -44,7 +44,7 @@ sub query {
             JOIN release AS r ON r.id = m.release
         ORDER BY
             r.name
-    }
+    };
 }
 
 __PACKAGE__->meta->make_immutable;

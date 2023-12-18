@@ -25,8 +25,8 @@ test all => sub {
     $mech->submit_form(
         with_fields => {
             'merge.target' => 3,
-            'merge.edit_note' => 'Required'
-        }
+            'merge.edit_note' => 'Required',
+        },
     );
 
     my $edit = MusicBrainz::Server::Test->get_latest_edit($c);

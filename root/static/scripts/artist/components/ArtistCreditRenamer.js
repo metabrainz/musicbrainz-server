@@ -214,7 +214,7 @@ const ArtistCreditRenamer = ({
       id="artist-credit-renamer"
       style={{display: artistName === state.name ? 'none' : 'block'}}
     >
-      <legend>{l('Artist Credits')}</legend>
+      <legend>{l('Artist credits')}</legend>
       <p>
         {exp.l(
           `Please select the {doc|artist credits} that you want to

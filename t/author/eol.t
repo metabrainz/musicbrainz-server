@@ -22,3 +22,5 @@ find(sub {
 }, map { "$Bin/../../$_" } qw( lib root t ) );
 
 done_testing;
+
+1;

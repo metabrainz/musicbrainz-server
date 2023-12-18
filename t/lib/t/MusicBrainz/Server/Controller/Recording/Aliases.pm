@@ -37,7 +37,7 @@ test 'Recording alias appears on alias page content and on JSON-LD' => sub {
         '@type' => 'MusicRecording',
         '@context' => 'https://schema.org/docs/jsonldcontext.json',
         'duration' => 'PT04M54S',
-        'name' => 'King of the Mountain'
+        'name' => 'King of the Mountain',
     };
 };
 

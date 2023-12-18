@@ -6,7 +6,7 @@ use MusicBrainz::Server::Entity::Types;
 has $_ => (
     is  => 'rw',
     isa => 'Int',
-    default => 0
+    default => 0,
 ) for qw( deleted renamed );
 
 has 'track' => (

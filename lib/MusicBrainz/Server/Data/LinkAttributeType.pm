@@ -14,9 +14,9 @@ use MusicBrainz::Server::Data::Utils qw(
 );
 
 extends 'MusicBrainz::Server::Data::Entity';
-with 'MusicBrainz::Server::Data::Role::EntityCache';
-with 'MusicBrainz::Server::Data::Role::GetByGID';
-with 'MusicBrainz::Server::Data::Role::OptionsTree';
+with 'MusicBrainz::Server::Data::Role::EntityCache',
+     'MusicBrainz::Server::Data::Role::GetByGID',
+     'MusicBrainz::Server::Data::Role::OptionsTree';
 
 sub _type { 'link_attribute_type' }
 
@@ -216,14 +216,14 @@ sub delete
 
 sub _hash_to_row
 {
-    my ($self, $values) = @_;
+    my ($self, $link_attribute_type) = @_;
 
-    return hash_to_row($values, {
-        parent          => 'parent_id',
-        child_order      => 'child_order',
-        name            => 'name',
-        description     => 'description',
+    my $row = hash_to_row($link_attribute_type, {
+        parent  => 'parent_id',
+        map { $_ => $_ } qw( child_order description name ),
     });
+
+    return $row;
 }
 
 sub get_by_gid
@@ -257,7 +257,7 @@ sub merge_instrument_attributes {
                   JOIN link_attribute_type ON link_attribute_type.gid = instrument.gid
             )
             SELECT attribute_id FROM id_mapping WHERE entity_id = ? OR entity_id = any(?)
-            ORDER BY entity_id = ? DESC', $target_id, \@source_ids, $target_id
+            ORDER BY entity_id = ? DESC', $target_id, \@source_ids, $target_id,
         );
     };
     my $new_links = $self->sql->select_list_of_hashes('
@@ -417,8 +417,8 @@ for my $method (qw( delete update )) {
                 'SELECT id FROM link
                  JOIN link_attribute la ON link.id = la.link
                  WHERE la.attribute_type = ?',
-                $id
-            ) }
+                $id,
+            ) },
         );
     };
 }

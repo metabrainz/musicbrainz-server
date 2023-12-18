@@ -2,6 +2,7 @@ package MusicBrainz::Server::Controller::Dialog;
 use Encode qw( decode_utf8 );
 use Moose;
 use namespace::autoclean;
+use HTTP::Status qw( :constants );
 
 BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
@@ -35,7 +36,7 @@ sub dialog : Path('/dialog') Edit {
 sub bad_request {
     my ($self, $c, $message) = @_;
 
-    $c->res->status(400);
+    $c->res->status(HTTP_BAD_REQUEST);
     $c->res->content_type('text/plain; charset=utf-8');
     $c->res->body($message);
 }

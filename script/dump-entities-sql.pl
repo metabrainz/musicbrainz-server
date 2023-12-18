@@ -83,7 +83,7 @@ sub dump_release_groups {
 
     my $release_ids = $c->sql->select_single_column_array(
         'SELECT release.id FROM release WHERE release_group = any(?) ORDER BY release.id',
-        pluck('id', $rows)
+        pluck('id', $rows),
     );
 
     releases($c, $release_ids);

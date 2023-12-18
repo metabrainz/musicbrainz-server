@@ -49,7 +49,7 @@ const UrlList = <D: {+url: ?UrlT, ...}>({
         columnName: 'url_entity',
         getContent: result => result.url?.gid ?? '',
         getHref: result => result.url?.gid ? '/url/' + result.url.gid : '',
-        title: l('URL Entity'),
+        title: l('URL entity'),
       });
 
       return [

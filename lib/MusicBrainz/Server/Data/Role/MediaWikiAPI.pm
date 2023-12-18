@@ -39,7 +39,7 @@ sub _get_cache_and_key
     my $cache = $self->c->cache;
     my $cache_key = join(':', grep { defined } ('wp', $prefix, $title, $language));
 
-    return ($cache, $cache_key)
+    return ($cache, $cache_key);
 }
 
 sub _get_and_process_json
@@ -99,7 +99,7 @@ sub _get_and_process_json
         return {content => $content->{claims}};
     } else {
         return undef;
-    };
+    }
 }
 
 no Moose;

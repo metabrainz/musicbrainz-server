@@ -21,6 +21,7 @@ import FormSubmit from '../../edit/components/FormSubmit.js';
 type PreferencesFormT = FormT<{
   +csrf_token: FieldT<string>,
   +datetime_format: FieldT<string>,
+  +email_on_abstain: FieldT<boolean>,
   +email_on_no_vote: FieldT<boolean>,
   +email_on_notes: FieldT<boolean>,
   +email_on_vote: FieldT<boolean>,
@@ -99,9 +100,8 @@ class PreferencesForm extends React.Component<Props, State> {
 
   handleTimezoneChange(e: SyntheticEvent<HTMLSelectElement>) {
     const selectedTimezone = e.currentTarget.value;
-    this.setState(prevState => mutate<State, _>(prevState, newState => {
-      newState.form.field.timezone.value = selectedTimezone;
-    }));
+    this.setState(prevState => mutate(prevState)
+      .set('form', 'field', 'timezone', 'value', selectedTimezone).final());
   }
 
   handleTimezoneGuessBound: () => void;
@@ -117,9 +117,8 @@ class PreferencesForm extends React.Component<Props, State> {
     if (nonEmpty(guess)) {
       for (const option of this.state.timezoneOptions.options) {
         if (option.value === guess) {
-          this.setState(prevState => mutate<State, _>(prevState, newState => {
-            newState.form.field.timezone.value = guess;
-          }));
+          this.setState(prevState => mutate(prevState)
+            .set('form', 'field', 'timezone', 'value', guess).final());
           break;
         }
       }
@@ -131,9 +130,10 @@ class PreferencesForm extends React.Component<Props, State> {
 
   handleDateTimeFormatChange(e: SyntheticEvent<HTMLSelectElement>) {
     const selectedDateTimeFormat = e.currentTarget.value;
-    this.setState(prevState => mutate<State, _>(prevState, newState => {
-      newState.form.field.datetime_format.value = selectedDateTimeFormat;
-    }));
+    this.setState(prevState => mutate(prevState)
+      .set('form', 'field', 'datetime_format', 'value',
+           selectedDateTimeFormat)
+      .final());
   }
 
   handleSubscriptionsEmailPeriodChangeBound:
@@ -141,10 +141,10 @@ class PreferencesForm extends React.Component<Props, State> {
 
   handleSubscriptionsEmailPeriodChange(e: SyntheticEvent<HTMLSelectElement>) {
     const selectedSubscriptionsEmailPeriod = e.currentTarget.value;
-    this.setState(prevState => mutate<State, _>(prevState, newState => {
-      newState.form.field.subscriptions_email_period.value =
-        selectedSubscriptionsEmailPeriod;
-    }));
+    this.setState(prevState => mutate(prevState)
+      .set('form', 'field', 'subscriptions_email_period', 'value',
+           selectedSubscriptionsEmailPeriod)
+      .final());
   }
 
   render(): React$Element<'form'> {
@@ -188,76 +188,84 @@ class PreferencesForm extends React.Component<Props, State> {
         </fieldset>
         <fieldset>
           <legend>{l('Privacy')}</legend>
-          <FormRowCheckbox
-            field={field.public_subscriptions}
-            label={l('Allow other users to see my subscriptions')}
-            uncontrolled
-          />
-          <FormRowCheckbox
-            field={field.public_tags}
-            label={l('Allow other users to see my tags')}
-            uncontrolled
-          />
-          <FormRowCheckbox
-            field={field.public_ratings}
-            label={l('Allow other users to see my ratings')}
-            uncontrolled
-          />
+          <p>
+            {addColonText(l('Allow other users to see'))}
+            <FormRowCheckbox
+              field={field.public_subscriptions}
+              label={l('My subscriptions')}
+              uncontrolled
+            />
+            <FormRowCheckbox
+              field={field.public_tags}
+              label={lp('My tags and genres', 'folksonomy')}
+              uncontrolled
+            />
+            <FormRowCheckbox
+              field={field.public_ratings}
+              label={l('My ratings')}
+              uncontrolled
+            />
+          </p>
         </fieldset>
         <fieldset>
           <legend>{l('Email')}</legend>
-          <FormRowCheckbox
-            field={field.email_on_no_vote}
-            label={l(
-              `Mail me when one of my edits gets a "no" vote.
-               (Note: the email is only sent for the first "no" vote,
-               not each one)`,
-            )}
-            uncontrolled
-          />
-          <FormRowCheckbox
-            field={field.email_on_notes}
-            label={l(
-              `When I add a note to an edit,
-               mail me all future notes for that edit.`,
-            )}
-            uncontrolled
-          />
-          <FormRowCheckbox
-            field={field.email_on_vote}
-            label={l(
-              `When I vote on an edit,
-               mail me all future notes for that edit.`,
-            )}
-            uncontrolled
-          />
-          <FormRowSelect
-            field={field.subscriptions_email_period}
-            label={l('Send me mails with edits to my subscriptions:')}
-            onChange={this.handleSubscriptionsEmailPeriodChangeBound}
-            options={subscriptionsEmailPeriodOptions}
-          />
+          <p>
+            {addColonText(l('Email me about'))}
+            <FormRowCheckbox
+              field={field.email_on_no_vote}
+              label={l('The first “no” vote on any of my edits')}
+              uncontrolled
+            />
+            <FormRowCheckbox
+              field={field.email_on_notes}
+              label={l('Notes on edits I have left notes on')}
+              uncontrolled
+            />
+            <FormRowCheckbox
+              field={field.email_on_vote}
+              label={l('Notes on edits I have voted on')}
+              uncontrolled
+            />
+            <FormRowCheckbox
+              field={field.email_on_abstain}
+              label={l('Notes on edits I have abstained on')}
+              uncontrolled
+            />
+          </p>
+          <p>
+            <FormRowSelect
+              field={field.subscriptions_email_period}
+              label={addColonText(l(
+                'Send me mails with edits to my subscriptions',
+              ))}
+              onChange={this.handleSubscriptionsEmailPeriodChangeBound}
+              options={subscriptionsEmailPeriodOptions}
+            />
+          </p>
         </fieldset>
         <fieldset>
           <legend>{l('Editing')}</legend>
-          <FormRowCheckbox
-            field={field.subscribe_to_created_artists}
-            label={l('Automatically subscribe me to artists I add.')}
-            uncontrolled
-          />
-          <FormRowCheckbox
-            field={field.subscribe_to_created_labels}
-            label={l('Automatically subscribe me to labels I add.')}
-            uncontrolled
-          />
-          <FormRowCheckbox
-            field={field.subscribe_to_created_series}
-            label={l('Automatically subscribe me to series I add.')}
-            uncontrolled
-          />
+          <p>
+            {addColonText(l('Automatically subscribe me when I add'))}
+            <FormRowCheckbox
+              field={field.subscribe_to_created_artists}
+              label={l('Artists')}
+              uncontrolled
+            />
+            <FormRowCheckbox
+              field={field.subscribe_to_created_labels}
+              label={l('Labels')}
+              uncontrolled
+            />
+            <FormRowCheckbox
+              field={field.subscribe_to_created_series}
+              label={lp('Series', 'plural')}
+              uncontrolled
+            />
+          </p>
         </fieldset>
         <FormRow hasNoLabel>
-          <FormSubmit label={l('Save')} />
+          <FormSubmit label={lp('Save', 'interactive')} />
         </FormRow>
       </form>
     );

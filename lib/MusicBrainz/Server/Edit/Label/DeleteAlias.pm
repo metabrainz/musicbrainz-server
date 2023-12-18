@@ -4,7 +4,7 @@ use Moose;
 use MusicBrainz::Server::Constants qw( $EDIT_LABEL_DELETE_ALIAS );
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 
 extends 'MusicBrainz::Server::Edit::Alias::Delete';
 with 'MusicBrainz::Server::Edit::Label';
@@ -13,7 +13,7 @@ use aliased 'MusicBrainz::Server::Entity::Label';
 
 sub _alias_model { shift->c->model('Label')->alias }
 
-sub edit_name { N_l('Remove label alias') }
+sub edit_name { N_lp('Remove label alias', 'edit type') }
 sub edit_kind { 'remove' }
 sub edit_type { $EDIT_LABEL_DELETE_ALIAS }
 
@@ -36,12 +36,12 @@ has 'label_id' => (
     isa => 'Int',
     is => 'rw',
     lazy => 1,
-    default => sub { shift->data->{entity}{id} }
+    default => sub { shift->data->{entity}{id} },
 );
 
 has 'label' => (
     isa => 'Label',
-    is => 'rw'
+    is => 'rw',
 );
 
 sub foreign_keys
@@ -60,7 +60,7 @@ around 'build_display_data' => sub
     my $data = $self->$orig($loaded);
     $data->{label} = to_json_object(
         $loaded->{Label}{ $self->label_id } ||
-        Label->new(name => $self->data->{entity}{name})
+        Label->new(name => $self->data->{entity}{name}),
     );
 
     return $data;

@@ -25,7 +25,7 @@ test 'Can create relationship types with documentation' => sub {
         reverse_link_phrase => 'was founded by',
         documentation => $documentation,
         attributes => [],
-        long_link_phrase => 'founded'
+        long_link_phrase => 'founded',
     );
 
     $edit->accept;

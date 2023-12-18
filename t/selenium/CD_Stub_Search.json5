@@ -9,7 +9,7 @@
     {
       command: 'assertEval',
       target: "window.document.querySelector('table.tbl').innerText",
-      value: 'CD Stub\tArtist\tTracks\nTest Stub\tTest Artist\t2',
+      value: 'CD stub\tArtist\tTracks\nTest Stub\tTest Artist\t2',
     },
   ],
 }

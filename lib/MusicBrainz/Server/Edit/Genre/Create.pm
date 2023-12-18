@@ -5,7 +5,7 @@ use namespace::autoclean;
 use MusicBrainz::Server::Constants qw( $EDIT_GENRE_CREATE );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 use aliased 'MusicBrainz::Server::Entity::PartialDate';
 use Moose::Util::TypeConstraints;
 use MooseX::Types::Moose qw( Str );
@@ -14,11 +14,11 @@ use MooseX::Types::Structured qw( Dict Optional );
 use aliased 'MusicBrainz::Server::Entity::Genre';
 
 extends 'MusicBrainz::Server::Edit::Generic::Create';
-with 'MusicBrainz::Server::Edit::Role::Preview';
-with 'MusicBrainz::Server::Edit::Genre';
-with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
+with 'MusicBrainz::Server::Edit::Role::Preview',
+     'MusicBrainz::Server::Edit::Genre',
+     'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
-sub edit_name { N_l('Add genre') }
+sub edit_name { N_lp('Add genre', 'edit type') }
 sub edit_type { $EDIT_GENRE_CREATE }
 sub _create_model { 'Genre' }
 sub genre_id { shift->entity_id }
@@ -29,7 +29,7 @@ has '+data' => (
         name       => Str,
         gid        => Optional[Str],
         comment    => Nullable[Str],
-    ]
+    ],
 );
 
 sub foreign_keys
@@ -49,12 +49,12 @@ sub build_display_data
         comment => $self->data->{comment},
         genre   => to_json_object((defined($self->entity_id) &&
             $loaded->{Genre}{ $self->entity_id }) ||
-            Genre->new( name => $self->data->{name} )
+            Genre->new( name => $self->data->{name} ),
         ),
     };
 }
 
-sub edit_template { 'AddGenre' };
+sub edit_template { 'AddGenre' }
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

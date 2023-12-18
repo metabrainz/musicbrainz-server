@@ -271,8 +271,8 @@ test 'Text attributes with undef values raise exceptions' => sub {
             attributes => [
                 {
                     type => { gid => 'ebd303c3-7f57-452a-aa3b-d780ebad868d' },
-                    text_value => undef
-                }
+                    text_value => undef,
+                },
             ],
         );
     }, qr/Attribute ebd303c3-7f57-452a-aa3b-d780ebad868d requires a text value/);
@@ -332,10 +332,10 @@ test 'Instrument credits can be added to an existing relationship' => sub {
         attributes => [
             {
                 type => {
-                    gid => '63021302-86cd-4aee-80df-2270d54f4978'
+                    gid => '63021302-86cd-4aee-80df-2270d54f4978',
                 },
-                credited_as => 'crazy guitar'
-            }
+                credited_as => 'crazy guitar',
+            },
         ],
     );
 
@@ -388,10 +388,10 @@ test 'Entity credits can be added to an existing relationship' => sub {
                         root => {
                             gid => '0a5341f8-3b1d-4f99-a0c6-26b7f4e42c7f',
                             id => 1,
-                            name => 'additional'
-                        }
-                    }
-                }
+                            name => 'additional',
+                        },
+                    },
+                },
             ],
             begin_date => { month => undef, day => undef, year => undef },
             end_date => { year => undef, month => undef, day => undef },
@@ -399,12 +399,12 @@ test 'Entity credits can be added to an existing relationship' => sub {
             entity0 => {
                name => 'Artist 1',
                gid => '945c079d-374e-4436-9448-da92dedef3cf',
-               id => 3
+               id => 3,
             },
             entity1 => {
                gid => '75a40343-ff6e-45d6-a5d2-110388d34858',
                id => 4,
-               name => 'Artist 2'
+               name => 'Artist 2',
             },
            link_type => {
                 id => 103,
@@ -416,17 +416,17 @@ test 'Entity credits can be added to an existing relationship' => sub {
         },
         new => {
             entity1_credit => 'Bar Credit',
-            entity0_credit => 'Foo Credit'
+            entity0_credit => 'Foo Credit',
         },
         old => {
             entity1_credit => '',
-            entity0_credit => ''
+            entity0_credit => '',
         },
         relationship_id => 1,
         type1 => 'artist',
         type0 => 'artist',
         entity1_credit => '',
-        entity0_credit => ''
+        entity0_credit => '',
     });
 };
 
@@ -538,7 +538,7 @@ sub _create_edit {
         begin_date => { year => 1994 },
         end_date => { year => 1995 },
         entity1 => $c->model('Artist')->get_by_id(5),
-        %args
+        %args,
     );
 }
 

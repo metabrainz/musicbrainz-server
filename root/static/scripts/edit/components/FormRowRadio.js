@@ -16,12 +16,12 @@ import FormLabel from './FormLabel.js';
 import FormRow from './FormRow.js';
 
 type RadioOptionsT = $ReadOnlyArray<{
-  +label: string | (() => string | React$MixedElement),
+  +label: string | (() => Expand2ReactOutput),
   +value: number | string,
 }>;
 
 type Props = {
-  +field: ReadOnlyFieldT<string>,
+  +field: FieldT<string>,
   +label: React$Node,
   +options: RadioOptionsT,
   +required?: boolean,
@@ -47,7 +47,7 @@ const FormRowRadio = ({
               value={option.value}
             />
             {' '}
-            {unwrapNl<string | React$MixedElement>(option.label)}
+            {unwrapNl<Expand2ReactOutput>(option.label)}
           </label>
           {index < options.length - 1 ? <br /> : null}
         </React.Fragment>

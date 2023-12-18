@@ -78,7 +78,7 @@ sub install_logging {
             my $t = tv_interval($t0);
 
             push @retained_stack, [
-                $package->name . '->' . $method->name, $t, [@call_stack]
+                $package->name . '->' . $method->name, $t, [@call_stack],
             ];
 
             @call_stack = @retained_stack;
@@ -89,6 +89,6 @@ sub install_logging {
             $orig->(@_);
         }
     });
-};
+}
 
 1;

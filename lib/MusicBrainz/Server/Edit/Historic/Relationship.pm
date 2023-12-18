@@ -163,13 +163,13 @@ sub _expand_relationships {
     my $mappings = $end_point_map{$entity0_type}{$entity1_type}{$link_type_id} ||
         [ [
             upgrade_type($entity0_type),
-            upgrade_type($entity1_type)
+            upgrade_type($entity1_type),
         ] ];
 
     if ($entity0_type eq 'track' && $entity1_type eq 'track' && $link_type_id == 5) {
         if ($link_type_phrase =~ /translated/ || $link_type_phrase =~ /parody/) {
             $mappings = [
-                [ 'work', 'work' ]
+                [ 'work', 'work' ],
             ];
             ($entity0_id, $entity1_id) = ($entity1_id, $entity0_id);
 
@@ -185,7 +185,7 @@ sub _expand_relationships {
         }
         else {
             $mappings = [
-                [ 'recording', 'work' ]
+                [ 'recording', 'work' ],
             ];
         }
     }
@@ -205,7 +205,7 @@ sub _expand_relationships {
                     entity1_type     => $mapped_type1,
                     entity0_name     => $entity0_name,
                     entity1_name     => $entity1_name,
-                    link_type_phrase => $link_type_phrase
+                    link_type_phrase => $link_type_phrase,
                 }
             } $self->$map_1($entity1_id)
         } $self->$map_0($entity0_id)
@@ -234,7 +234,7 @@ sub _display_relationships {
             my $entity0 = $loaded->{ $model0 }{ $entity0_id } ||
                 $self->c->model($model0)->_entity_class->new(
                     id => $entity0_id,
-                    name => $_->{entity0_name}
+                    name => $_->{entity0_name},
                 );
             MusicBrainz::Server::Entity::Relationship->link_entity($entity0_type, $entity0_id, $entity0);
             my $entity1 = $loaded->{ $model1 }{ $entity1_id } ||
@@ -259,12 +259,12 @@ sub _display_relationships {
                         entity0_type => $entity0_type,
                         entity1_type => $entity1_type,
                         id           => $link_type_id,
-                        link_phrase  => $_->{link_type_phrase}
-                    )
+                        link_phrase  => $_->{link_type_phrase},
+                    ),
                 ),
                 direction => $DIRECTION_FORWARD,
             ));
-        } @{ $data->{links} }
+        } @{ $data->{links} },
     ];
 }
 

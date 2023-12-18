@@ -13,7 +13,7 @@ sub entity_type { 'release_packaging' }
 
 sub l_name {
     my $self = shift;
-    return lp($self->name, 'release_packaging')
+    return lp($self->name, 'release_packaging');
 }
 
 __PACKAGE__->meta->make_immutable;

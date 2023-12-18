@@ -3,7 +3,7 @@ use Moose;
 
 use MusicBrainz::Server::Constants qw( $EDIT_RECORDING_DELETE_ALIAS );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 
 extends 'MusicBrainz::Server::Edit::Alias::Delete';
 with 'MusicBrainz::Server::Edit::Recording';
@@ -12,7 +12,7 @@ use aliased 'MusicBrainz::Server::Entity::Recording';
 
 sub _alias_model { shift->c->model('Recording')->alias }
 
-sub edit_name { N_l('Remove recording alias') }
+sub edit_name { N_lp('Remove recording alias', 'edit type') }
 sub edit_kind { 'remove' }
 sub edit_type { $EDIT_RECORDING_DELETE_ALIAS }
 
@@ -29,7 +29,7 @@ has 'recording_id' => (
     isa => 'Int',
     is => 'rw',
     lazy => 1,
-    default => sub { shift->data->{entity}{id} }
+    default => sub { shift->data->{entity}{id} },
 );
 
 sub foreign_keys {
@@ -46,7 +46,7 @@ around 'build_display_data' => sub {
     my $data = $self->$orig($loaded);
     $data->{recording} = to_json_object(
         $loaded->{Recording}{ $self->recording_id } ||
-        Recording->new(name => $self->data->{entity}{name})
+        Recording->new(name => $self->data->{entity}{name}),
     );
 
     return $data;

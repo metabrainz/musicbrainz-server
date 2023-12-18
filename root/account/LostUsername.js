@@ -16,7 +16,7 @@ import FormRowEmailLong
 import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
 
 type LostUsernameFormT = FormT<{
-  +email: ReadOnlyFieldT<string>,
+  +email: FieldT<string>,
 }>;
 
 type Props = {
@@ -24,8 +24,8 @@ type Props = {
 };
 
 const LostUsername = (props: Props): React$Element<typeof Layout> => (
-  <Layout fullWidth title={l('Lost Username')}>
-    <h1>{l('Lost Username')}</h1>
+  <Layout fullWidth title={l('Lost username')}>
+    <h1>{l('Lost username')}</h1>
     <p>
       {l(`Enter your email address below and we will send you an email with
           your MusicBrainz account information.`)}
@@ -39,7 +39,7 @@ const LostUsername = (props: Props): React$Element<typeof Layout> => (
         uncontrolled
       />
       <FormRow hasNoLabel>
-        <FormSubmit label={l('Send Email')} />
+        <FormSubmit label={lp('Send email', 'interactive')} />
       </FormRow>
     </form>
   </Layout>

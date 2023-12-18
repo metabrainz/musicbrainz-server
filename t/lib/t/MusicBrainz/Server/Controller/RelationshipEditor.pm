@@ -2,8 +2,7 @@ package t::MusicBrainz::Server::Controller::RelationshipEditor;
 use strict;
 use warnings;
 
-require Exporter;
-our @ISA = qw( Exporter );
+use base 'Exporter';
 
 our @EXPORT_OK = qw(
     $additional_attribute
@@ -29,7 +28,7 @@ our $additional_attribute = {
         id => 1,
         gid => '0a5341f8-3b1d-4f99-a0c6-26b7f4e42c7f',
         name => 'additional',
-    }
+    },
 };
 
 our $string_instruments_attribute = {
@@ -42,7 +41,7 @@ our $string_instruments_attribute = {
         id => 302,
         gid => 'b879ca9a-bf4b-41f8-b1a3-aa109f2e3bea',
         name => 'plucked string instruments',
-    }
+    },
 };
 
 our $guitar_attribute = {
@@ -55,7 +54,7 @@ our $guitar_attribute = {
         id => 229,
         gid => '63021302-86cd-4aee-80df-2270d54f4978',
         name => 'guitar',
-    }
+    },
 };
 
 our $crazy_guitar = {
@@ -89,7 +88,7 @@ test 'Can add relationship' => sub {
                 'rel-editor.rels.0.period.end_date.month' => '1',
                 'rel-editor.rels.0.period.end_date.day' => '1',
                 'rel-editor.rels.0.period.ended' => '1',
-            }
+            },
         );
     } $c;
 
@@ -117,12 +116,12 @@ test 'Can add relationship' => sub {
 
     cmp_deeply($edits[0]->data,  {
         %edit_data,
-        attributes => [$additional_attribute, $crazy_guitar]
+        attributes => [$additional_attribute, $crazy_guitar],
     });
 
     cmp_deeply($edits[1]->data,  {
         %edit_data,
-        attributes => [$additional_attribute, $string_instruments_attribute]
+        attributes => [$additional_attribute, $string_instruments_attribute],
     });
 };
 
@@ -153,7 +152,7 @@ test 'Can edit relationship' => sub {
                 'rel-editor.rels.0.period.end_date.month' => '9',
                 'rel-editor.rels.0.period.end_date.day' => '9',
                 'rel-editor.rels.0.period.ended' => '1',
-            }
+            },
         );
     } $c;
 
@@ -170,12 +169,12 @@ test 'Can edit relationship' => sub {
             entity0 => {
                 gid => 'e2a083a9-9942-4d6e-b4d2-8397320b95f7',
                 id => 8,
-                name => 'Test Alias'
+                name => 'Test Alias',
             },
             entity1 => {
                 gid => '54b9d183-7dab-42ba-94a3-7388a66604b8',
                 id => 2,
-                name => 'King of the Mountain'
+                name => 'King of the Mountain',
             },
             link_type => {
                 id => 148,
@@ -226,7 +225,7 @@ test 'Can remove relationship' => sub {
                 'rel-editor.rels.0.attributes.2.type.gid' => '63021302-86cd-4aee-80df-2270d54f4978',
                 'rel-editor.rels.0.entity.0.gid' => 'e2a083a9-9942-4d6e-b4d2-8397320b95f7',
                 'rel-editor.rels.0.entity.1.gid' => '54b9d183-7dab-42ba-94a3-7388a66604b8',
-            }
+            },
         );
     } $c;
 
@@ -250,7 +249,7 @@ test 'MBS-7058: Can submit a relationship without "ended" fields' => sub {
                 'rel-editor.rels.0.action' => 'add',
                 'rel-editor.rels.0.entity.0.gid' => '745c079d-374e-4436-9448-da92dedef3ce',
                 'rel-editor.rels.0.entity.1.gid' => '54b9d183-7dab-42ba-94a3-7388a66604b8',
-            }
+            },
         );
     } $c;
 
@@ -283,7 +282,7 @@ test 'Can submit a relationship with empty-string date values' => sub {
                 'rel-editor.rels.0.period.begin_date.year' => '',
                 'rel-editor.rels.0.period.begin_date.month' => '',
                 'rel-editor.rels.0.period.begin_date.day' => '',
-            }
+            },
         );
     } $c;
 
@@ -307,7 +306,7 @@ test 'mismatched link types are rejected' => sub {
                 'rel-editor.rels.0.action' => 'add',
                 'rel-editor.rels.0.entity.0.gid' => '745c079d-374e-4436-9448-da92dedef3ce',
                 'rel-editor.rels.0.entity.1.gid' => '54b9d183-7dab-42ba-94a3-7388a66604b8',
-            }
+            },
         );
     } $c;
 
@@ -334,7 +333,7 @@ test 'Can submit URL relationships using actual URLs, not gids' => sub {
                 'rel-editor.rels.1.action' => 'add',
                 'rel-editor.rels.1.entity.0.gid' => '745c079d-374e-4436-9448-da92dedef3ce',
                 'rel-editor.rels.1.entity.1.url' => 'http://link.example/',
-            }
+            },
         );
     } $c;
 
@@ -377,7 +376,7 @@ test 'Can clear all attributes from a relationship' => sub {
                 'rel-editor.rels.0.entity.0.type' => 'artist',
                 'rel-editor.rels.0.entity.1.gid' => '54b9d183-7dab-42ba-94a3-7388a66604b8',
                 'rel-editor.rels.0.entity.1.type' => 'recording',
-            }
+            },
         );
     } $c;
 

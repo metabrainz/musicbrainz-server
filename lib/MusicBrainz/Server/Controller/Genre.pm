@@ -36,7 +36,7 @@ after 'load' => sub {
     my $entity_name = $self->{entity_name};
     my $entity = $c->stash->{ $entity_name };
     $c->stash(
-        can_delete => $c->model('Genre')->can_delete($entity->id)
+        can_delete => $c->model('Genre')->can_delete($entity->id),
     );
 };
 
@@ -49,7 +49,7 @@ sub show : PathPart('') Chained('load') {
             genre => $c->stash->{genre}->TO_JSON,
             numberOfRevisions => $c->stash->{number_of_revisions},
             wikipediaExtract  => to_json_object(
-                $c->stash->{wikipedia_extract}
+                $c->stash->{wikipedia_extract},
             ),
         },
         current_view => 'Node',
@@ -87,7 +87,7 @@ for my $method (qw( create edit delete add_alias edit_alias delete_alias edit_an
             $c->detach('/error_403');
         }
     };
-};
+}
 
 sub list : Path('/genres') Args(0) {
     my ($self, $c) = @_;

@@ -18,12 +18,12 @@ sub serialize
             map +{
                 title => $_->title,
                 artist => $_->artist || JSON::null,
-                length => $_->length
-            }, $cdstub->all_tracks
+                length => $_->length,
+            }, $cdstub->all_tracks,
         ],
-        'track-count' => $cdstub->track_count
+        'track-count' => $cdstub->track_count,
     };
-};
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

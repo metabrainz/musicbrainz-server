@@ -16,6 +16,8 @@ apply(
                 my ( $value, $field ) = @_;
                 return l('Label codes must be greater than 0 and 5 digits at most');
             },
-        }
-    ]
+        },
+    ],
 );
+
+1;

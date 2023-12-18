@@ -36,7 +36,7 @@ has_field 'comment' => (
 
 has_field 'period' => (
     type => '+MusicBrainz::Server::Form::Field::DatePeriod',
-    not_nullable => 1
+    not_nullable => 1,
 );
 
 sub edit_field_names

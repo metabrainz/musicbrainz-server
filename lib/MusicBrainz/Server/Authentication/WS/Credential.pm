@@ -21,7 +21,7 @@ sub authenticate
     # correctly encoded as UTF-8. Catalyst::Plugin::Unicode::Encoding only deals
     # with parameters and URL captures - not arbitrary headers.
     try {
-        decode('utf-8', $c->req->header('Authorization'), Encode::FB_CROAK)
+        decode('utf-8', $c->req->header('Authorization'), Encode::FB_CROAK);
     }
     catch {
         $c->stash->{bad_auth_encoding} = 1;
@@ -55,7 +55,7 @@ sub _build_bearer_auth_header
     my ($self, $c, $opts) = @_;
 
     return Catalyst::Authentication::Credential::HTTP::_join_auth_header_parts(
-        Bearer => $self->_build_auth_header_common($c, $opts)
+        Bearer => $self->_build_auth_header_common($c, $opts),
     );
 }
 

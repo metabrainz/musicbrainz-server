@@ -17,7 +17,7 @@ my $ws_defs = Data::OptList::mkopt([
                          inc      => [ qw(aliases annotation _relations
                                           tags user-tags genres user-genres ratings user-ratings) ],
                          optional => [ qw(fmt limit offset) ],
-                         linked   => [ qw( area artist place collection ) ]
+                         linked   => [ qw( area artist place collection ) ],
      },
      event => {
                          action   => '/ws/2/event/lookup',
@@ -55,7 +55,7 @@ sub event_toplevel {
 
     if ($inc->aliases) {
         my $aliases = $c->model('Event')->alias->find_by_entity_ids(
-            map { $_->id } @events
+            map { $_->id } @events,
         );
         for (@events) {
             $stash->store($_)->{aliases} = $aliases->{$_->id};

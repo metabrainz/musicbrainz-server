@@ -4,13 +4,13 @@ use warnings;
 
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_CHANGE_ARTIST_QUALITY );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 
 use MusicBrainz::Server::Edit::Historic::Base;
 
 use aliased 'MusicBrainz::Server::Entity::Artist';
 
-sub edit_name     { N_l('Change artist quality (historic)') }
+sub edit_name     { N_lp('Change artist quality (historic)', 'edit type') }
 sub edit_kind     { 'other' }
 sub historic_type { 52 }
 sub edit_type     { $EDIT_HISTORIC_CHANGE_ARTIST_QUALITY }
@@ -20,8 +20,8 @@ sub _build_related_entities
 {
     my $self = shift;
     return {
-        artist => [ $self->data->{artist_id} ]
-    }
+        artist => [ $self->data->{artist_id} ],
+    };
 }
 
 sub foreign_keys
@@ -29,7 +29,7 @@ sub foreign_keys
     my $self = shift;
     return {
         Artist => [ $self->data->{artist_id} ],
-    }
+    };
 }
 
 sub build_display_data
@@ -38,13 +38,13 @@ sub build_display_data
     return {
         artist => to_json_object(
             $loaded->{Artist}{ $self->data->{artist_id} } ||
-            Artist->new( id => $self->data->{artist_id} )
+            Artist->new( id => $self->data->{artist_id} ),
         ),
         quality => {
             old => $self->data->{old}{quality} + 0, # force number
             new => $self->data->{new}{quality} + 0, # force number
-        }
-    }
+        },
+    };
 }
 
 sub upgrade

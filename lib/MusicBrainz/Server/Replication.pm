@@ -3,6 +3,7 @@ package MusicBrainz::Server::Replication;
 use strict;
 use warnings;
 
+## no critic (ProhibitConstantPragma)
 # The possible values for DBDefs->REPLICATION_TYPE
 use constant RT_MASTER => 1;
 use constant RT_SLAVE => 2; # deprecated in favor of RT_MIRROR
@@ -11,9 +12,8 @@ use constant RT_STANDALONE => 3;
 
 use constant REPLICATION_ACCESS_URI => 'https://metabrainz.org/api/musicbrainz';
 
-use Exporter;
+use base 'Exporter';
 {
-    our @ISA = qw( Exporter );
     our %EXPORT_TAGS = (
         replication_type => [qw(
                 RT_MASTER

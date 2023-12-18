@@ -32,7 +32,7 @@ $mech->content_contains('Invalid URL format', q(Invalid URL format 'foo' trigger
 $mech->submit_form( with_fields => {
     'profile.birth_date.year' => 0,
     'profile.birth_date.month' => 1,
-    'profile.birth_date.day' => 1
+    'profile.birth_date.day' => 1,
 } );
 $mech->content_contains('invalid date', 'Invalid date 0-1-1 triggers validation failure.');
 $mech->submit_form( with_fields => {
@@ -41,7 +41,7 @@ $mech->submit_form( with_fields => {
     'profile.email' => 'new_email@example.com',
     'profile.birth_date.year' => '',
     'profile.birth_date.month' => '',
-    'profile.birth_date.day' => ''
+    'profile.birth_date.day' => '',
 } );
 $mech->content_contains('Your profile has been updated');
 $mech->content_contains('We have sent you a verification email');
@@ -126,13 +126,13 @@ test 'After removing email address, editors cannot edit' => sub {
     $c->sql->do(
         'UPDATE editor SET email = ?, email_confirm_date = now()
          WHERE name = ?',
-        'foo@bar.baz', 'new_editor'
+        'foo@bar.baz', 'new_editor',
     );
 
     $mech->get('/login');
     $mech->submit_form( with_fields => {
         username => 'new_editor',
-        password => 'password'
+        password => 'password',
     });
 
     {

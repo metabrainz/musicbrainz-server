@@ -10,7 +10,7 @@ has 'conn' => (
     is         => 'ro',
     handles    => [qw( dbh )],
     lazy_build => 1,
-    clearer => '_clear_conn'
+    clearer => '_clear_conn',
 );
 
 has 'database' => (
@@ -22,10 +22,10 @@ has 'sql' => (
     is => 'ro',
     default => sub {
         my $self = shift;
-        Sql->new( $self->conn )
+        Sql->new( $self->conn );
     },
     lazy => 1,
-    clearer => '_clear_sql'
+    clearer => '_clear_sql',
 );
 
 sub _build_conn
@@ -72,7 +72,7 @@ sub _disconnect {
 
 sub disconnect {
     my $self = shift;
-    $self->_disconnect
+    $self->_disconnect;
 }
 
 sub refresh {

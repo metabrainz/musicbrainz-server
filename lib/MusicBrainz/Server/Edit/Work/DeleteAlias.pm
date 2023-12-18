@@ -3,17 +3,17 @@ use Moose;
 
 use MusicBrainz::Server::Constants qw( $EDIT_WORK_DELETE_ALIAS );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 
 extends 'MusicBrainz::Server::Edit::Alias::Delete';
-with 'MusicBrainz::Server::Edit::Work::RelatedEntities';
-with 'MusicBrainz::Server::Edit::Work';
+with 'MusicBrainz::Server::Edit::Work::RelatedEntities',
+     'MusicBrainz::Server::Edit::Work';
 
 use aliased 'MusicBrainz::Server::Entity::Work';
 
 sub _alias_model { shift->c->model('Work')->alias }
 
-sub edit_name { N_l('Remove work alias') }
+sub edit_name { N_lp('Remove work alias', 'edit type') }
 sub edit_kind { 'remove' }
 sub edit_type { $EDIT_WORK_DELETE_ALIAS }
 
@@ -29,7 +29,7 @@ has 'work_id' => (
     isa => 'Int',
     is => 'rw',
     lazy => 1,
-    default => sub { shift->data->{entity}{id} }
+    default => sub { shift->data->{entity}{id} },
 );
 
 sub foreign_keys
@@ -48,7 +48,7 @@ around 'build_display_data' => sub
     my $data = $self->$orig($loaded);
     $data->{work} = to_json_object(
         $loaded->{Work}{ $self->work_id } ||
-        Work->new( name => $self->data->{entity}{name} )
+        Work->new( name => $self->data->{entity}{name} ),
     );
 
     return $data;

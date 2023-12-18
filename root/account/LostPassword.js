@@ -17,8 +17,8 @@ import FormRowText from '../static/scripts/edit/components/FormRowText.js';
 import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
 
 type LostPasswordFormT = FormT<{
-  +email: ReadOnlyFieldT<string>,
-  +username: ReadOnlyFieldT<string>,
+  +email: FieldT<string>,
+  +username: FieldT<string>,
 }>;
 
 type Props = {
@@ -26,8 +26,8 @@ type Props = {
 };
 
 const LostPassword = (props: Props): React$Element<typeof Layout> => (
-  <Layout fullWidth title={l('Lost Password')}>
-    <h1>{l('Lost Password')}</h1>
+  <Layout fullWidth title={l('Lost password')}>
+    <h1>{l('Lost password')}</h1>
     <p>
       {exp.l(
         `Enter your username and email below. We will send you an
@@ -52,7 +52,7 @@ const LostPassword = (props: Props): React$Element<typeof Layout> => (
         uncontrolled
       />
       <FormRow hasNoLabel>
-        <FormSubmit label={l('Reset Password')} />
+        <FormSubmit label={lp('Reset password', 'interactive')} />
       </FormRow>
     </form>
   </Layout>

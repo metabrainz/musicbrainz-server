@@ -22,9 +22,9 @@ const RateLimited = ({
     <p>
       {exp.l(
         `Sorry, but your query “(<code>{query}</code>)” could not be
-         performed, because it appears you've been rate-limited.
-         Either the server is overloaded or you're making
-         a lot of requests all at once!.`,
+         performed, because it appears you’ve been rate-limited.
+         Either the server is overloaded or you’re making
+         a lot of requests all at once.`,
         {query: query},
       )}
     </p>

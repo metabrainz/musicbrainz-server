@@ -30,7 +30,7 @@ sub edit_template { die 'Unimplemented' }
 
 has 'c' => (
     isa => 'Object',
-    is => 'rw'
+    is => 'rw',
 );
 
 has [qw( id editor_id language_id )] => (
@@ -40,18 +40,18 @@ has [qw( id editor_id language_id )] => (
 
 has 'editor' => (
     isa => 'Editor',
-    is => 'rw'
+    is => 'rw',
 );
 
 has 'language' => (
     isa => 'Language',
-    is => 'rw'
+    is => 'rw',
 );
 
 has [qw( created_time expires_time close_time )] => (
     isa => DateTimeType,
     is => 'rw',
-    coerce => 1
+    coerce => 1,
 );
 
 sub is_expired
@@ -90,7 +90,7 @@ has 'data' => (
 has 'display_data' => (
     isa => 'HashRef',
     is => 'rw',
-    predicate => 'is_loaded'
+    predicate => 'is_loaded',
 );
 
 has 'raw_data' => (
@@ -111,8 +111,8 @@ has 'edit_notes' => (
     traits => [ 'Array' ],
     handles => {
         add_edit_note => 'push',
-        all_edit_notes => 'elements'
-    }
+        all_edit_notes => 'elements',
+    },
 );
 
 has 'votes' => (
@@ -123,8 +123,8 @@ has 'votes' => (
     handles => {
         add_vote => 'push',
         all_votes => 'elements',
-        _grep_votes => 'grep'
-    }
+        _grep_votes => 'grep',
+    },
 );
 
 sub yes_votes {
@@ -177,7 +177,7 @@ sub edit_conditions
         duration      => $OPEN_EDIT_DURATION->in_units('days'),
         votes         => $REQUIRED_VOTES,
         expire_action => $EXPIRE_ACCEPT,
-        auto_edit     => 1
+        auto_edit     => 1,
     };
 }
 
@@ -219,7 +219,7 @@ sub approval_requires_comment {
     return $self->_grep_votes(sub {
         $_->vote == $VOTE_NO &&
             !$_->superseded &&
-                $_->editor_id != $editor->id
+                $_->editor_id != $editor->id;
     }) > 0;
 }
 
@@ -236,7 +236,7 @@ the value
 has related_entities => (
     is => 'rw',
     builder => '_build_related_entities',
-    lazy => 1
+    lazy => 1,
 );
 sub _build_related_entities { return {} }
 

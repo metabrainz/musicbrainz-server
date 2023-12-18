@@ -5,7 +5,7 @@ use namespace::autoclean;
 use MusicBrainz::Server::Constants qw( $EDIT_INSTRUMENT_CREATE );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 use Moose::Util::TypeConstraints;
 use MooseX::Types::Moose qw( Str Int );
 use MooseX::Types::Structured qw( Dict );
@@ -13,11 +13,11 @@ use MooseX::Types::Structured qw( Dict );
 use aliased 'MusicBrainz::Server::Entity::Instrument';
 
 extends 'MusicBrainz::Server::Edit::Generic::Create';
-with 'MusicBrainz::Server::Edit::Role::Preview';
-with 'MusicBrainz::Server::Edit::Instrument';
-with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
+with 'MusicBrainz::Server::Edit::Role::Preview',
+     'MusicBrainz::Server::Edit::Instrument',
+     'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
-sub edit_name { N_l('Add instrument') }
+sub edit_name { N_lp('Add instrument', 'edit type') }
 sub edit_type { $EDIT_INSTRUMENT_CREATE }
 sub _create_model { 'Instrument' }
 sub instrument_id { shift->entity_id }
@@ -29,7 +29,7 @@ has '+data' => (
         comment     => Nullable[Str],
         type_id     => Nullable[Int],
         description => Nullable[Str],
-    ]
+    ],
 );
 
 sub foreign_keys {
@@ -50,7 +50,7 @@ sub build_display_data {
         type        => $type ? to_json_object($loaded->{InstrumentType}{$type}) : undef,
         instrument  => to_json_object((defined($self->entity_id) &&
             $loaded->{Instrument}{ $self->entity_id }) ||
-            Instrument->new( name => $self->data->{name} )
+            Instrument->new( name => $self->data->{name} ),
         ),
         comment     => $self->data->{comment},
         description => $self->data->{description},

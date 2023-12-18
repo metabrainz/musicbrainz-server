@@ -12,8 +12,8 @@ extends 'HTML::FormHandler::Field::Text';
 apply([
     {
         check => sub { is_database_row_id(shift) },
-        message => sub { l('This is not a valid database ID') }
-    }
+        message => sub { l('This is not a valid database ID') },
+    },
 ]);
 
 1;

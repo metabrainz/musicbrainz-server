@@ -99,9 +99,9 @@ const TagCloud = ({
 }: Props): React$Element<typeof Layout> => {
   const $c = React.useContext(CatalystContext);
   return (
-    <Layout fullWidth title={l('Tags')}>
+    <Layout fullWidth title={lp('Tags', 'folksonomy')}>
       <div id="content">
-        <h1>{l('Tags')}</h1>
+        <h1>{lp('Tags', 'folksonomy')}</h1>
         <p>
           {l(
             'These are the most used genres and other tags in the database.',
@@ -120,14 +120,14 @@ const TagCloud = ({
             ? generateTagList($c, genres)
             : generateTagCloud($c, genres, genreMaxCount)
 
-        ) : l('No genre tags have been used yet.')}
+        ) : lp('No genre tags have been used yet.', 'folksonomy')}
 
         <h2>{l('Other tags')}</h2>
         {tags.length ? (
           showList
             ? generateTagList($c, tags)
             : generateTagCloud($c, tags, tagMaxCount)
-        ) : l('No non-genre tags have been used yet.')}
+        ) : lp('No non-genre tags have been used yet.', 'folksonomy')}
       </div>
     </Layout>
   );

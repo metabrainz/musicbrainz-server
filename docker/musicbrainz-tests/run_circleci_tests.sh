@@ -8,7 +8,7 @@ rm /etc/service/{postgresql,redis}/down && sv start postgresql redis
 
 sudo -E -H -u musicbrainz carton exec -- ./script/create_test_db.sh
 
-sudo -E -H -u musicbrainz make -C po all_quiet deploy
+sudo -E -H -u musicbrainz make -C po test_source all_quiet deploy
 
 MUSICBRAINZ_RUNNING_TESTS=1 \
     NODE_ENV=test \

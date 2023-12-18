@@ -18,7 +18,7 @@ import ErrorLayout from './ErrorLayout.js';
 const Error403 = (): React$Element<typeof ErrorLayout> => {
   const $c = React.useContext(CatalystContext);
   return (
-    <ErrorLayout title={l('Forbidden Request')}>
+    <ErrorLayout title={l('Forbidden request')}>
       <p>
         <strong>
           {l('The page you requested is private.')}

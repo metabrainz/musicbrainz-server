@@ -14,17 +14,17 @@ sub entity_type { 'medium_format' }
 
 sub l_name {
     my $self = shift;
-    return lp($self->name, 'medium_format')
+    return lp($self->name, 'medium_format');
 }
 
 has 'year' => (
     is => 'rw',
-    isa => 'Maybe[Int]'
+    isa => 'Maybe[Int]',
 );
 
 has 'has_discids' => (
     is => 'rw',
-    isa => 'Bool'
+    isa => 'Bool',
 );
 
 around TO_JSON => sub {

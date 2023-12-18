@@ -60,7 +60,7 @@ has edit_cache => (
         cached_edits => 'get',
         cache_edits => 'set',
         remove_from_cache => 'delete',
-    }
+    },
 );
 
 has cache_usage => (
@@ -71,7 +71,7 @@ has cache_usage => (
         used_again => 'delete',
         not_reused_cache_items => 'keys',
         reset_cache_usage => 'clear',
-    }
+    },
 );
 
 sub first_used {
@@ -120,7 +120,7 @@ sub run {
                             $self->emailer->send_subscriptions_digest(
                                 editor => $editor,
                                 collator => $collator,
-                                %$data
+                                %$data,
                             );
                         } else { printf "... not sending email (dry run)\n" if $self->verbose; }
                     } else { printf "... no verified email address, not sending\n" if $self->verbose; }
@@ -177,7 +177,7 @@ sub extract_subscription_data
             push @{ $edits{ $sub->type } }, {
                 open => \@open,
                 applied => \@applied,
-                subscription => $sub
+                subscription => $sub,
             };
         }
         else {

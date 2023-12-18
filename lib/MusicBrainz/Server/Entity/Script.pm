@@ -13,17 +13,17 @@ sub l_name {
 
 has 'iso_code' => (
     is => 'rw',
-    isa => 'Str'
+    isa => 'Str',
 );
 
 has 'iso_number' => (
     is => 'rw',
-    isa => 'Str'
+    isa => 'Str',
 );
 
 has 'frequency' => (
     is => 'rw',
-    isa => 'Int'
+    isa => 'Int',
 );
 
 around TO_JSON => sub {

@@ -10,10 +10,10 @@
 /* eslint-disable no-unused-vars */
 
 declare type ConfirmFormT = FormT<{
-  +cancel: ReadOnlyFieldT<string>,
-  +edit_note: ReadOnlyFieldT<string>,
-  +make_votable: ReadOnlyFieldT<boolean>,
-  +submit: ReadOnlyFieldT<string>,
+  +cancel: FieldT<string>,
+  +edit_note: FieldT<string>,
+  +make_votable: FieldT<boolean>,
+  +submit: FieldT<string>,
 }>;
 
 declare type MediumFieldT = CompoundFieldT<{
@@ -44,23 +44,23 @@ declare type MergeReleasesFormT = FormT<{
 }>;
 
 declare type SearchFormT = FormT<{
-  +limit: ReadOnlyFieldT<number>,
-  +method: ReadOnlyFieldT<'advanced' | 'direct' | 'indexed'>,
-  +query: ReadOnlyFieldT<string>,
-  +type: ReadOnlyFieldT<string>,
+  +limit: FieldT<number>,
+  +method: FieldT<'advanced' | 'direct' | 'indexed'>,
+  +query: FieldT<string>,
+  +type: FieldT<string>,
 }>;
 
 declare type SecureConfirmFormT = FormT<{
-  +cancel: ReadOnlyFieldT<string>,
-  +csrf_token: ReadOnlyFieldT<string>,
-  +submit: ReadOnlyFieldT<string>,
+  +cancel: FieldT<string>,
+  +csrf_token: FieldT<string>,
+  +submit: FieldT<string>,
 }>;
 
 declare type TagLookupFormT = FormT<{
-  +artist: ReadOnlyFieldT<string>,
-  +duration: ReadOnlyFieldT<string>,
-  +filename: ReadOnlyFieldT<string>,
-  +release: ReadOnlyFieldT<string>,
-  +track: ReadOnlyFieldT<string>,
-  +tracknum: ReadOnlyFieldT<string>,
+  +artist: FieldT<string>,
+  +duration: FieldT<string>,
+  +filename: FieldT<string>,
+  +release: FieldT<string>,
+  +track: FieldT<string>,
+  +tracknum: FieldT<string>,
 }, 'tag-lookup'>;

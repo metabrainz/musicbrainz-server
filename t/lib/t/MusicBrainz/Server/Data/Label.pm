@@ -63,7 +63,7 @@ test all => sub {
         area_id => 221,
         ipi_codes => [ '00407982340' ],
         isni_codes => [ '0000000106750994' ],
-        end_date => { year => 2000, month => 5 }
+        end_date => { year => 2000, month => 5 },
     });
     ok($label->{id} > 1);
 
@@ -93,7 +93,7 @@ test all => sub {
         begin_date => { year => 1990 },
         ipi_codes => [ '00407982341' ],
         isni_codes => [ '0000000106750995' ],
-        comment => 'Drum & bass label'
+        comment => 'Drum & bass label',
     });
 
     $label = $label_data->get_by_id($label->id);
@@ -147,13 +147,13 @@ test 'Cannot edit an label into something that would violate uniqueness' => sub 
     ok !exception { $c->model('Label')->update(4, { comment => '' }) };
     $conflicts_exception_ok->(
         exception { $c->model('Label')->update(3, { name => 'B' }) },
-        4
+        4,
     );
 
     ok !exception { $c->model('Label')->update(3, { name => 'B', comment => 'Unique' }) };
     $conflicts_exception_ok->(
         exception { $c->model('Label')->update(3, { comment => '' }) },
-        4
+        4,
     );
 };
 

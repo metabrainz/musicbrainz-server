@@ -29,7 +29,7 @@ const DuplicateEvents = ({
     entityType="event"
     filtered={filtered}
     generated={generated}
-    title={l('Possible duplicate events')}
+    title={l('Possibly duplicate events')}
     totalEntries={pager.total_entries}
   >
     <EventList items={items} pager={pager} />

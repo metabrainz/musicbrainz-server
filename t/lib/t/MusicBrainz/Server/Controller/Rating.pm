@@ -3,6 +3,7 @@ use utf8;
 use strict;
 use warnings;
 
+use HTTP::Status qw( :constants );
 use Test::Routine;
 use Test::More;
 
@@ -17,25 +18,25 @@ test 'Ratings are inserted / updated as expected' => sub {
 
     $mech->get_ok('/login');
     $mech->submit_form(
-        with_fields => {username => 'new_editor', password => 'password' }
+        with_fields => {username => 'new_editor', password => 'password' },
     );
 
     $mech->get('/rating/rate/?entity_type=label&entity_id=2&rating=100');
-    is($mech->status, 200, 'First time rating submission went through');
+    is($mech->status, HTTP_OK, 'First time rating submission went through');
 
     my $label = $c->model('Label')->get_by_id(2);
     $c->model('Label')->load_meta($label);
     is($label->rating, 100, 'The rating was successfully added');
 
     $mech->get('/rating/rate/?entity_type=label&entity_id=2&rating=20');
-    is($mech->status, 200, 'Re-rating submission went through');
+    is($mech->status, HTTP_OK, 'Re-rating submission went through');
 
     $label = $c->model('Label')->get_by_id(2);
     $c->model('Label')->load_meta($label);
     is($label->rating, 20, 'The rating was successfully updated');
 
     $mech->get('/rating/rate/?entity_type=label&entity_id=2&rating=0');
-    is($mech->status, 200, 'Delete rating submission went through');
+    is($mech->status, HTTP_OK, 'Delete rating submission went through');
 
     $label = $c->model('Label')->get_by_id(2);
     $c->model('Label')->load_meta($label);
@@ -51,14 +52,14 @@ test 'Cannot rate without a confirmed email address' => sub {
 
     $c->model('Editor')->insert({
         name => 'iwannarate',
-        password => 'password'
+        password => 'password',
     });
 
     $mech->get_ok('/login');
     $mech->submit_form( with_fields => { username => 'iwannarate', password => 'password' } );
 
     $mech->get('/rating/rate/?entity_type=label&entity_id=2&rating=100');
-    is ($mech->status, 401, 'Rating rejected without confirmed address');
+    is ($mech->status, HTTP_UNAUTHORIZED, 'Rating rejected without confirmed address');
 };
 
 test 'Invalid ratings are rejected gracefully' => sub {
@@ -72,13 +73,13 @@ test 'Invalid ratings are rejected gracefully' => sub {
     $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
 
     $mech->get('/rating/rate/?entity_type=label&entity_id=2&rating=420');
-    is ($mech->status, 400, 'Rating > 100 is rejected');
+    is ($mech->status, HTTP_BAD_REQUEST, 'Rating > 100 is rejected');
 
     $mech->get('/rating/rate/?entity_type=label&entity_id=2&rating=-20');
-    is ($mech->status, 400, 'Rating < 0 is rejected');
+    is ($mech->status, HTTP_BAD_REQUEST, 'Rating < 0 is rejected');
 
     $mech->get('/rating/rate/?entity_type=label&entity_id=2&rating=asdfg');
-    is ($mech->status, 400, 'Non-numeric rating is rejected');
+    is ($mech->status, HTTP_BAD_REQUEST, 'Non-numeric rating is rejected');
 };
 
 1;

@@ -14,7 +14,7 @@ sub sidebar_name {
     else {
         return 'Threads';
     }
-};
+}
 
 
 __PACKAGE__->meta->make_immutable;

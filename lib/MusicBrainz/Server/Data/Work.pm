@@ -16,25 +16,25 @@ use MusicBrainz::Server::Entity::WorkAttribute;
 use MusicBrainz::Server::Entity::WorkAttributeType;
 
 extends 'MusicBrainz::Server::Data::Entity';
-with 'MusicBrainz::Server::Data::Role::Relatable';
-with 'MusicBrainz::Server::Data::Role::Name';
-with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'work' };
-with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'work' };
-with 'MusicBrainz::Server::Data::Role::GIDEntityCache';
-with 'MusicBrainz::Server::Data::Role::DeleteAndLog' => { type => 'work' };
-with 'MusicBrainz::Server::Data::Role::Rating' => { type => 'work' };
-with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'work' };
-with 'MusicBrainz::Server::Data::Role::PendingEdits' => { table => 'work' };
-with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'work' };
-with 'MusicBrainz::Server::Data::Role::Merge';
-with 'MusicBrainz::Server::Data::Role::Collection';
-with 'MusicBrainz::Server::Data::Role::ValueSet' => {
-    entity_type         => 'work',
-    plural_value_type   => 'languages',
-    value_attribute     => 'language_id',
-    value_class         => 'WorkLanguage',
-    value_type          => 'language',
-};
+with 'MusicBrainz::Server::Data::Role::Relatable',
+     'MusicBrainz::Server::Data::Role::Name',
+     'MusicBrainz::Server::Data::Role::Annotation' => { type => 'work' },
+     'MusicBrainz::Server::Data::Role::Alias' => { type => 'work' },
+     'MusicBrainz::Server::Data::Role::GIDEntityCache',
+     'MusicBrainz::Server::Data::Role::DeleteAndLog' => { type => 'work' },
+     'MusicBrainz::Server::Data::Role::Rating' => { type => 'work' },
+     'MusicBrainz::Server::Data::Role::Tag' => { type => 'work' },
+     'MusicBrainz::Server::Data::Role::PendingEdits' => { table => 'work' },
+     'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'work' },
+     'MusicBrainz::Server::Data::Role::Merge',
+     'MusicBrainz::Server::Data::Role::Collection',
+     'MusicBrainz::Server::Data::Role::ValueSet' => {
+        entity_type         => 'work',
+        plural_value_type   => 'languages',
+        value_attribute     => 'language_id',
+        value_class         => 'WorkLanguage',
+        value_type          => 'language',
+     };
 
 sub _type { 'work' }
 
@@ -160,10 +160,10 @@ sub _order_by {
     my ($self, $order) = @_;
     my $order_by = order_by($order, 'name', {
         'name' => sub {
-            return 'name COLLATE musicbrainz'
+            return 'name COLLATE musicbrainz';
         },
         'type' => sub {
-            return 'type, name COLLATE musicbrainz'
+            return 'type, name COLLATE musicbrainz';
         },
     });
 
@@ -233,7 +233,7 @@ sub _merge_impl
            ?, work_attribute_type, work_attribute_text,
            work_attribute_type_allowed_value
          FROM all_attributes',
-      [ $new_id, @old_ids ], $new_id
+      [ $new_id, @old_ids ], $new_id,
     );
 
     merge_table_attributes(
@@ -241,8 +241,8 @@ sub _merge_impl
             table => 'work',
             columns => [ qw( type ) ],
             old_ids => \@old_ids,
-            new_id => $new_id
-        )
+            new_id => $new_id,
+        ),
     );
 
     $self->_delete_and_redirect_gids('work', $new_id, @old_ids);
@@ -252,9 +252,10 @@ sub _merge_impl
 sub _hash_to_row
 {
     my ($self, $work) = @_;
+
     my $row = hash_to_row($work, {
         type => 'type_id',
-        map { $_ => $_ } qw( comment name )
+        map { $_ => $_ } qw( comment name ),
     });
 
     return $row;
@@ -403,8 +404,8 @@ sub _find_writers
         push @{ $map->{$work_id} }, {
             credit => $credit,
             entity => $artists->{$artist_id},
-            roles => [ uniq @{ $roles } ]
-        }
+            roles => [ uniq @{ $roles } ],
+        };
     }
 }
 
@@ -457,15 +458,15 @@ sub _find_recording_artists
     for my $row (@$rows) {
         my ($work_id, $ac_id) = @$row;
         $work_acs{$work_id} ||= [];
-        push @{ $work_acs{$work_id} }, $ac_id
+        push @{ $work_acs{$work_id} }, $ac_id;
     }
 
     for my $work_id (keys %work_acs) {
         my $artist_credit_ids = $work_acs{$work_id};
         $map->{$work_id} ||= [];
         push @{ $map->{$work_id} }, map +{
-            entity => $artist_credits->{$_}
-        }, @$artist_credit_ids
+            entity => $artist_credits->{$_},
+        }, @$artist_credit_ids;
     }
 }
 
@@ -493,8 +494,8 @@ sub set_attributes {
                 exists $_->{attribute_text} ?  $_->{attribute_text} : undef,
             work_attribute_type_allowed_value =>
                 exists $_->{attribute_value_id} ? $_->{attribute_value_id} :
-                    undef
-        }, @attributes
+                    undef,
+        }, @attributes,
     );
 }
 

@@ -6,7 +6,7 @@ with 'MusicBrainz::Server::Entity::Role::PendingEdits';
 
 has 'ipi' => (
     is => 'rw',
-    isa => 'Str'
+    isa => 'Str',
 );
 
 sub TO_JSON {

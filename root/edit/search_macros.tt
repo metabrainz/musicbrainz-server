@@ -5,7 +5,7 @@
 [% END %]
 
 [% BLOCK search_heading %]
-  <h1>[% l('Search for Edits') %]</h1>
+  <h1>[% l('Search for edits') %]</h1>
   <p>[% l('The filters below allow you to find only edits fulfilling specific criteria. See the {doc_link|documentation} for more info about using the filters.', {doc_link => doc_link('How to Use the Edit Search')}) %]</p>
   <p>[% l('If you want to save an edit search for future use, you can just bookmark it!') %]</p>
 [% END %]
@@ -88,6 +88,8 @@
                predicate_editor_flag(field.field_name, field);
              CASE 'MusicBrainz::Server::EditSearch::Predicate::AppliedEdits';
                predicate_int(field.field_name, field);
+             CASE 'MusicBrainz::Server::EditSearch::Predicate::URL';
+               predicate_url(field.field_name, field);
            END %]
         [% IF field.does('MusicBrainz::Server::EditSearch::Predicate::Role::User');
              predicate_user(field.field_name, field);
@@ -394,12 +396,12 @@
                  [ '!=', l('is not') ] ], field_contents) %]
 
   <select name="args" multiple="multiple">
-    [%~ editor_flags = [[1, l('Auto-Editor')], [2, l('Bot')]];
-        IF c.user.is_account_admin; editor_flags.push([4, l('Untrusted')]); END;
+    [%~ editor_flags = [[1, lp('Auto-editor', 'user type')], [2, lp('Bot', 'user type')]];
+        IF c.user.is_account_admin; editor_flags.push([4, l_admin('Untrusted')]); END;
         editor_flags.push(
-          [8, l('Relationship Editor')],
-          [32, l('Wiki Transcluder')],
-          [256, l('Location Editor')]
+          [8, lp('Relationship editor', 'user type')],
+          [32, lp('Transclusion editor', 'user type')],
+          [256, lp('Location editor', 'user type')]
         )
     ~%]
     [%- FOR item=editor_flags %]
@@ -408,6 +410,15 @@
             >[% html_escape(item.1) %]</option>
     [%- END %]
   </select>
+[% END %]
+
+[% MACRO predicate_url(field, field_contents) WRAPPER wfield predicate="url" %]
+  [% operators([ [ '=', l('is') ]
+                 [ '!=', l('is not') ] ], field_contents) %]
+
+  <span class="arg">
+    <input type="text" size="75" class="name" name="args.0" value="[% html_escape(field_contents.argument(0)) %]" />
+  </span>
 [% END %]
 
 [% BLOCK needs_login %]
@@ -427,8 +438,8 @@
                    [ 'status', lp('Status', 'edit status') ],
                    [ 'type', l('Type') ],
                    [ 'vote_count', l('Vote tally') ],
-                   [ 'edit_note_author', l('Edit Note Authors'), {requires_login => 1} ],
-                   [ 'edit_note_content', l('Edit Note Content'), {requires_login => 1} ],
+                   [ 'edit_note_author', l('Edit note authors'), {requires_login => 1} ],
+                   [ 'edit_note_content', l('Edit note content'), {requires_login => 1} ],
                    [ 'edit_subscription', l('Edited entity'), {requires_login => 1} ],
                    [ 'area', l('Area') ],
                    [ 'artist', l('Artist') ],
@@ -439,19 +450,20 @@
                    [ 'place', l('Place') ],
                    [ 'recording', l('Recording') ],
                    [ 'release', l('Release') ],
-                   [ 'release_group', l('Release Group') ],
+                   [ 'release_group', l('Release group') ],
                    [ 'series', lp('Series', 'singular') ],
+                   [ 'url', l('URL') ],
                    [ 'work', l('Work') ],
                    [ 'editor', l('Editor'), {requires_login => 1} ],
                    [ 'voter', l('Voter'), {requires_login => 1} ]
-                   [ 'release_language', l('Release Language') ],
-                   [ 'release_quality', l('Release Quality') ],
-                   [ 'artist_area', l('Artist Area') ],
-                   [ 'label_area', l('Label Area') ]
-                   [ 'release_country', l('Release Country') ]
-                   [ 'link_type', l('Relationship Type') ],
-                   [ 'editor_flag', l('Editor Flag'), {requires_login => 1} ],
-                   [ 'applied_edits', l('Applied Edit Count of Editor'), {requires_login => 1} ],
+                   [ 'release_language', l('Release language') ],
+                   [ 'release_quality', l('Release data quality') ],
+                   [ 'artist_area', l('Artist area') ],
+                   [ 'label_area', l('Label area') ]
+                   [ 'release_country', l('Release country') ]
+                   [ 'link_type', l('Relationship type') ],
+                   [ 'editor_flag', l('Editor flag'), {requires_login => 1} ],
+                   [ 'applied_edits', l('Applied edit count of editor'), {requires_login => 1} ],
                    ] -%]
       [% UNLESS (field.2.requires_login && !c.user_exists) %]
         <option
@@ -480,6 +492,8 @@
     [% FOR linked_type=[ 'area', 'event', 'genre', 'instrument', 'place', 'recording', 'release_group', 'release', 'work' ];
          predicate_link(linked_type);
        END %]
+
+    [% predicate_url('url') %]
 
     [% predicate_user('editor') %]
     [% predicate_voter('voter') %]

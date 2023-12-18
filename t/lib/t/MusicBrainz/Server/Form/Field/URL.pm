@@ -15,7 +15,7 @@ use URI;
     has '+name' => ( default => 'test-edit' );
 
     has_field 'url' => (
-        type => '+MusicBrainz::Server::Form::Field::URL'
+        type => '+MusicBrainz::Server::Form::Field::URL',
     );
 }
 
@@ -25,16 +25,16 @@ test 'URL field validation' => sub {
 
     $form->process({
         'test-edit' => {
-            url => 'http://musicbrainz.org/'
-        }
+            url => 'http://musicbrainz.org/',
+        },
     });
 
     ok($form->is_valid, 'processed without errors');
 
     $form->process({
         'test-edit' => {
-            url => 'not a url'
-        }
+            url => 'not a url',
+        },
     });
 
     ok(!$form->is_valid, 'did not process with invalid URLs');
@@ -42,8 +42,10 @@ test 'URL field validation' => sub {
 
 test 'URL FIF' => sub {
     my $form = t::MusicBrainz::Server::Form::Field::URL::TestForm->new(
-        init_object => { url => URI->new('http://musicbrainz.org/') }
+        init_object => { url => URI->new('http://musicbrainz.org/') },
     );
 
     is($form->field('url')->fif, 'http://musicbrainz.org/');
 };
+
+1;

@@ -8,7 +8,7 @@ use Test::More;
 with 't::Edit';
 with 't::Context';
 
-BEGIN { use MusicBrainz::Server::Edit::Recording::RemoveISRC };
+BEGIN { use MusicBrainz::Server::Edit::Recording::RemoveISRC }
 
 use MusicBrainz::Server::Constants qw( $EDIT_RECORDING_REMOVE_ISRC );
 use MusicBrainz::Server::Test qw( accept_edit reject_edit );
@@ -73,7 +73,7 @@ sub create_edit {
     return $c->model('Edit')->create(
         edit_type => $EDIT_RECORDING_REMOVE_ISRC,
         editor_id => 1,
-        isrc      => $isrc
+        isrc      => $isrc,
     );
 }
 

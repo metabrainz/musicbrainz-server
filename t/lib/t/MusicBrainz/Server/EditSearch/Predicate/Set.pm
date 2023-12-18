@@ -15,8 +15,8 @@ test 'operator BETWEEN' => sub {
         'type' =>
         {
             operator => '=',
-            args => [ 1, 2, 3, 4, 5 ]
-        }
+            args => [ 1, 2, 3, 4, 5 ],
+        },
     );
 
     ok(defined $field, 'did construct a field');
@@ -44,8 +44,8 @@ test 'Non-integer arguments are rejected' => sub {
         'type' =>
         {
             operator => '=',
-            args => [ 1, 2, 3, '4,5' ]
-        }
+            args => [ 1, 2, 3, '4,5' ],
+        },
     );
 
     ok(defined $field, 'did construct a field');

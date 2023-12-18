@@ -12,7 +12,7 @@ around inflate_rows => sub {
     my $items = $self->$orig(@_);
 
     my $instruments = $self->c->model('Instrument')->get_by_ids(
-        map { $_->{instrument_id} } @$items
+        map { $_->{instrument_id} } @$items,
     );
     $self->c->model('InstrumentType')->load(values %$instruments);
 
@@ -20,7 +20,7 @@ around inflate_rows => sub {
         map +{
             %$_,
             instrument => to_json_object($instruments->{ $_->{instrument_id} }),
-        }, @$items
+        }, @$items,
     ];
 };
 

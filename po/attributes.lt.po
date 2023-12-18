@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-11-12 13:27+0000\n"
+"PO-Revision-Date: 2023-12-11 19:28+0000\n"
 "Last-Translator: \"Vac31.\" <gateway_31@protonmail.com>\n"
 "Language-Team: Lithuanian <https://translations.metabrainz.org/projects/"
 "musicbrainz/attributes/lt/>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
 "11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
 "1 : n % 1 != 0 ? 2: 3);\n"
-"X-Generator: Weblate 5.1\n"
+"X-Generator: Weblate 5.2.1\n"
 
 #: DB:work_type/description:9
 msgctxt "work_type"
@@ -125,8 +125,11 @@ msgid "8cm CD+G"
 msgstr "8 cm CD+G"
 
 #: DB:medium_format/description:166
+#, fuzzy
+#| msgctxt "medium_format"
+#| msgid "8cm DVD disc, often used for video singles."
 msgctxt "medium_format"
-msgid "8cm DVD disc, often used for video singles."
+msgid "8cm DVD, often used for video singles."
 msgstr "8 cm DVD diskas, dažnai naudojamas vaizdo įrašų singlams."
 
 #: DB:medium_format/description:58
@@ -1555,7 +1558,7 @@ msgstr ""
 #: DB:cover_art_archive.art_type/name:2
 msgctxt "cover_art_type"
 msgid "Back"
-msgstr ""
+msgstr "Galinis"
 
 #: DB:work_attribute_type_allowed_value/value:323
 msgctxt "work_attribute_type_allowed_value"
@@ -1868,7 +1871,7 @@ msgstr ""
 #: DB:cover_art_archive.art_type/name:3
 msgctxt "cover_art_type"
 msgid "Booklet"
-msgstr ""
+msgstr "Knygelė"
 
 #: DB:release_status/name:3
 msgctxt "release_status"
@@ -3149,7 +3152,7 @@ msgstr ""
 msgctxt "medium_format"
 msgid ""
 "Flat discs with grooves used in phonographs/gramophones. For shellac and "
-"vinyl records, use that specifically"
+"vinyl records, use that specifically."
 msgstr ""
 
 #: DB:medium_format/name:51

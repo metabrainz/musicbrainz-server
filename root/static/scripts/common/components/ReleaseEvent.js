@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import formatDate from '../utility/formatDate.js';
 import isDateEmpty from '../utility/isDateEmpty.js';
 
@@ -20,7 +18,7 @@ type Props = {
 
 const ReleaseEvent = ({
   event,
-}: Props): React$Element<typeof React.Fragment> => (
+}: Props): React$Element<React$FragmentType> => (
   <>
     {isDateEmpty(event.date) ? null : (
       <>

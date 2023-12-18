@@ -21,7 +21,7 @@ sub _url_prefix
     my $self = shift;
 
     # Release Groups only support front cover art.
-    return join('/', DBDefs->COVER_ART_ARCHIVE_DOWNLOAD_PREFIX, 'release-group', $self->release_group->gid, 'front')
+    return join('/', DBDefs->COVER_ART_ARCHIVE_DOWNLOAD_PREFIX, 'release-group', $self->release_group->gid, 'front');
 }
 
 __PACKAGE__->meta->make_immutable;

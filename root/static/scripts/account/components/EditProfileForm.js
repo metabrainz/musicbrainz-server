@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import mutate from 'mutate-cow';
+import mutate, {type CowRootContext} from 'mutate-cow';
 import * as React from 'react';
 
 import Autocomplete from '../../common/components/Autocomplete.js';
@@ -35,14 +35,9 @@ type AreaClassT = {
   name: string,
 };
 
-type UserLanguageFieldT = ReadOnlyCompoundFieldT<{
-  +fluency: ReadOnlyFieldT<FluencyT | null>,
-  +language_id: ReadOnlyFieldT<number | null>,
-}>;
-
-type WritableUserLanguageFieldT = CompoundFieldT<{
-  fluency: FieldT<FluencyT | null>,
-  language_id: FieldT<number | null>,
+type UserLanguageFieldT = CompoundFieldT<{
+  +fluency: FieldT<FluencyT | null>,
+  +language_id: FieldT<number | null>,
 }>;
 
 type EditProfileFormFieldsT = {
@@ -60,11 +55,6 @@ type EditProfileFormFieldsT = {
 
 type EditProfileFormT = FormT<EditProfileFormFieldsT>;
 
-type WritableEditProfileFormT = FormT<{
-  ...EditProfileFormFieldsT,
-  languages: RepeatableFieldT<WritableUserLanguageFieldT>,
-}>;
-
 type Props = {
   +form: EditProfileFormT,
   +language_options: MaybeGroupedOptionsT,
@@ -73,11 +63,6 @@ type Props = {
 type State = {
   +form: EditProfileFormT,
   +languageOptions: MaybeGroupedOptionsT,
-};
-
-type WritableState = {
-  form: WritableEditProfileFormT,
-  +language_options: MaybeGroupedOptionsT,
 };
 
 const genderOptions = {
@@ -109,28 +94,33 @@ class EditProfileForm extends React.Component<Props, State> {
     this.handleLanguageAddBound = () => this.handleLanguageAdd();
   }
 
+  _mutateState(callback: (CowRootContext<State>) => void) {
+    this.setState(prevState => {
+      return mutate(prevState).update(callback).final();
+    });
+  }
+
   handleAreaChangeBound: (area: AreaClassT) => void;
 
   handleAreaChange(area: AreaClassT) {
-    this.setState(
-      prevState => mutate<WritableState, State>(prevState, newState => {
-        const formField = newState.form.field;
-        formField.area_id.value = area.id;
-        formField.area.field.name.value = area.name;
-        formField.area.field.gid.value = area.gid;
-      }),
-    );
+    this._mutateState(ctx => {
+      ctx
+        .get('form', 'field')
+        .set('area_id', 'value', area.id)
+        .get('area', 'field')
+        .set('name', 'value', area.name)
+        .set('gid', 'value', area.gid);
+    });
   }
 
   handleGenderChangeBound: (e: SyntheticEvent<HTMLSelectElement>) => void;
 
   handleGenderChange(e: SyntheticEvent<HTMLSelectElement>) {
     const selectedGender = e.currentTarget.value;
-    this.setState(
-      prevState => mutate<WritableState, State>(prevState, newState => {
-        newState.form.field.gender_id.value = parseInt(selectedGender, 10);
-      }),
-    );
+    this._mutateState(ctx => {
+      ctx.set('form', 'field', 'gender_id', 'value',
+              parseInt(selectedGender, 10));
+    });
   }
 
   handleLanguageChange(
@@ -138,12 +128,10 @@ class EditProfileForm extends React.Component<Props, State> {
     languageIndex: number,
   ) {
     const selectedLanguage = parseInt(e.currentTarget.value, 10);
-    this.setState(
-      prevState => mutate<WritableState, State>(prevState, newState => {
-        const compound = newState.form.field.languages.field[languageIndex];
-        compound.field.language_id.value = selectedLanguage;
-      }),
-    );
+    this._mutateState(ctx => {
+      ctx.set('form', 'field', 'languages', 'field', languageIndex,
+              'field', 'language_id', 'value', selectedLanguage);
+    });
   }
 
   handleFluencyChange(
@@ -159,34 +147,31 @@ class EditProfileForm extends React.Component<Props, State> {
       case 'native':
         selectedFluency = selectedValue;
     }
-    this.setState(
-      prevState => mutate<WritableState, State>(prevState, newState => {
-        const compound = newState.form.field.languages.field[languageIndex];
-        compound.field.fluency.value = selectedFluency;
-      }),
-    );
+    this._mutateState(ctx => {
+      ctx.set('form', 'field', 'languages', 'field', languageIndex,
+              'field', 'fluency', 'value', selectedFluency);
+    });
   }
 
   removeLanguage(languageIndex: number) {
-    this.setState(prevState => mutate<State, _>(prevState, newState => {
-      newState.form.field.languages.field.splice(languageIndex, 1);
-    }));
+    this._mutateState(ctx => {
+      ctx.get('form', 'field', 'languages', 'field')
+        .write().splice(languageIndex, 1);
+    });
   }
 
   handleLanguageAddBound: () => void;
 
   handleLanguageAdd() {
-    this.setState(
-      prevState => mutate<WritableState, State>(prevState, newState => {
-        pushCompoundField<{
-          fluency: FluencyT | null,
-          language_id: number | null,
-        }>(newState.form.field.languages, {
-          fluency: null,
-          language_id: null,
-        });
-      }),
-    );
+    this._mutateState((ctx) => {
+      pushCompoundField<{
+        fluency: FluencyT | null,
+        language_id: number | null,
+      }>(ctx.get('form', 'field', 'languages'), {
+        fluency: null,
+        language_id: null,
+      });
+    });
   }
 
   render(): React$Element<'form'> {
@@ -290,7 +275,7 @@ class EditProfileForm extends React.Component<Props, State> {
         />
 
         <FormRow>
-          <FormLabel label={l('Languages Known:')} />
+          <FormLabel label={l('Languages known:')} />
           <ul className="inline">
             {field.languages.field.map((languageField, index) => (
               <li className="language" key={index}>
@@ -326,7 +311,7 @@ class EditProfileForm extends React.Component<Props, State> {
                   onClick={this.handleLanguageAddBound}
                   type="button"
                 >
-                  {l('Add a language')}
+                  {lp('Add language', 'interactive')}
                 </button>
               </span>
             </li>
@@ -334,7 +319,7 @@ class EditProfileForm extends React.Component<Props, State> {
         </FormRow>
 
         <FormRow hasNoLabel>
-          <FormSubmit label={l('Save')} />
+          <FormSubmit label={lp('Save', 'interactive')} />
         </FormRow>
       </form>
     );

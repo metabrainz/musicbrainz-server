@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Controller::Tag;
 use Moose;
 use Moose::Util qw( find_meta );
+use HTTP::Status qw( :constants );
 
 BEGIN { extends 'MusicBrainz::Server::Controller' }
 
@@ -11,7 +12,7 @@ use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 
 with 'MusicBrainz::Server::Controller::Role::Load' => {
     model       => 'Tag',
-    entity_name => 'tag'
+    entity_name => 'tag',
 };
 
 sub base : Chained('/') PathPart('tag') CaptureArgs(0) { }
@@ -60,7 +61,7 @@ sub cloud : Path('/tags')
                     tag => to_json_object($_->{tag}),
                 },
                 sort { $a->{tag}->name cmp $b->{tag}->name }
-                @$genres
+                @$genres,
             ] : [],
             showList => boolean_to_json($show_list),
             tagMaxCount => $tag_hits ? $tags->[0]->{count} + 0 : 0,
@@ -70,7 +71,7 @@ sub cloud : Path('/tags')
                     tag => to_json_object($_->{tag}),
                 },
                 sort { $a->{tag}->name cmp $b->{tag}->name }
-                @$tags
+                @$tags,
             ] : [],
         },
     );
@@ -100,7 +101,7 @@ sub show : Chained('load') PathPart('')
                             entity_id => $_->{entity_id},
                         }, @$entities],
                     })
-                } entities_with('tags')
+                } entities_with('tags'),
             },
         },
 
@@ -144,7 +145,7 @@ for my $entity_type (entities_with('tags')) {
 sub not_found : Private
 {
     my ($self, $c, $tagname) = @_;
-    $c->response->status(404);
+    $c->response->status(HTTP_NOT_FOUND);
     $c->stash(
         current_view => 'Node',
         component_path => 'tag/NotFound',

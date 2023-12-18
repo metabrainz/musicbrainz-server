@@ -24,23 +24,23 @@ use MusicBrainz::Server::Edit::Utils qw(
 );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Track;
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
-with 'MusicBrainz::Server::Edit::Recording::RelatedEntities';
-with 'MusicBrainz::Server::Edit::Recording';
-with 'MusicBrainz::Server::Edit::Role::AllowAmending' => {
-    create_edit_type => $EDIT_RECORDING_CREATE,
-    entity_type => 'recording',
-};
-with 'MusicBrainz::Server::Edit::Role::EditArtistCredit';
-with 'MusicBrainz::Server::Edit::Role::Preview';
-with 'MusicBrainz::Server::Edit::CheckForConflicts';
+with 'MusicBrainz::Server::Edit::Recording::RelatedEntities',
+     'MusicBrainz::Server::Edit::Recording',
+     'MusicBrainz::Server::Edit::Role::AllowAmending' => {
+        create_edit_type => $EDIT_RECORDING_CREATE,
+        entity_type => 'recording',
+     },
+     'MusicBrainz::Server::Edit::Role::EditArtistCredit',
+     'MusicBrainz::Server::Edit::Role::Preview',
+     'MusicBrainz::Server::Edit::CheckForConflicts';
 
 use aliased 'MusicBrainz::Server::Entity::Recording';
 
 sub edit_type { $EDIT_RECORDING_EDIT }
-sub edit_name { N_l('Edit recording') }
+sub edit_name { N_lp('Edit recording', 'edit type') }
 sub edit_template { 'EditRecording' }
 sub _edit_model { 'Recording' }
 sub recording_id { return shift->entity_id }
@@ -64,7 +64,7 @@ sub change_fields
         artist_credit => Optional[ArtistCreditDefinition],
         length        => Nullable[Int],
         comment       => Nullable[Str],
-        video         => Optional[Bool]
+        video         => Optional[Bool],
     ];
 }
 
@@ -73,11 +73,11 @@ has '+data' => (
         entity => Dict[
             id => Int,
             gid => Optional[Str],
-            name => Str
+            name => Str,
         ],
         old => change_fields(),
         new => change_fields(),
-    ]
+    ],
 );
 
 sub to_hash {
@@ -115,8 +115,8 @@ sub foreign_keys
         $relations->{Artist} = {
             map {
                 load_artist_credit_definitions($self->data->{$_}{artist_credit})
-            } qw( new old )
-        }
+            } qw( new old ),
+        };
     }
 
     $relations->{Recording} = { $self->data->{entity}{id} => [ 'ArtistCredit' ] };
@@ -141,7 +141,7 @@ sub build_display_data
         $data->{artist_credit} = {
             new => to_json_object(artist_credit_from_loaded_definition($loaded, $self->data->{new}{artist_credit})),
             old => to_json_object(artist_credit_from_loaded_definition($loaded, $self->data->{old}{artist_credit})),
-        }
+        };
     }
 
     if (exists $self->data->{new}{video}) {
@@ -153,7 +153,7 @@ sub build_display_data
 
     $data->{recording} = to_json_object(
         $loaded->{Recording}{ $self->data->{entity}{id} } ||
-        Recording->new( name => $self->data->{entity}{name} )
+        Recording->new( name => $self->data->{entity}{name} ),
     );
 
     return $data;
@@ -176,7 +176,7 @@ sub _mapping
 {
     return (
         artist_credit => sub {
-            artist_credit_to_ref(shift->artist_credit)
+            artist_credit_to_ref(shift->artist_credit);
         },
     );
 }

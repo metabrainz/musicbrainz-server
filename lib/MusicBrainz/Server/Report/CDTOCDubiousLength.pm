@@ -31,7 +31,7 @@ sub query {
         ORDER BY
             medium_format.name,
             cdtoc.leadout_offset DESC
-    }
+    };
 }
 
 __PACKAGE__->meta->make_immutable;

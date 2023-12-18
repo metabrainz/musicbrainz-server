@@ -44,7 +44,7 @@ sub options_artist_credit_id {
     my ($self, $field) = @_;
     return [
         map +{ value => $_->id, label => $_->name },
-        @{ $self->artist_credits }
+        @{ $self->artist_credits },
     ];
 }
 
@@ -53,7 +53,7 @@ sub options_secondary_type_id {
     return [
         { value => '-1', label => lp('[none]', 'release group type') },
         map +{ value => $_->id, label => $_->l_name },
-        @{ $self->secondary_types }
+        @{ $self->secondary_types },
     ];
 }
 
@@ -62,7 +62,7 @@ sub options_type_id {
     return [
         { value => '-1', label => lp('[none]', 'release group type') },
         map +{ value => $_->id, label => $_->l_name },
-        @{ $self->types }
+        @{ $self->types },
     ];
 }
 

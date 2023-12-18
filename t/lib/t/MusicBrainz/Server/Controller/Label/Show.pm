@@ -52,8 +52,8 @@ page_test_jsonld $mech => {
         {
             'name' => 'Arrival',
             '@id' => 'http://musicbrainz.org/release/f34c079d-374e-4436-9448-da92dedef3ce',
-            '@type' => 'MusicRelease'
-        }
+            '@type' => 'MusicRelease',
+        },
     ],
     'artistSigned' => [
         {
@@ -78,14 +78,14 @@ page_test_jsonld $mech => {
     'foundingLocation' => {
         'name' => 'United Kingdom',
         '@id' => 'http://musicbrainz.org/area/8a754a16-0027-3a29-b6d7-2b40ea0481ed',
-        '@type' => 'Country'
+        '@type' => 'Country',
     },
     'name' => 'Warp Records',
     'foundingDate' => '1989-02-03',
     'dissolutionDate' => '2008-05-19',
     'sameAs' => 'http://musicbrainz.org/label/efdf3fe9-c293-4acd-b4b2-8d2a7d4f9592',
     '@id' => 'http://musicbrainz.org/label/46f0f4cd-8aab-4b33-b698-f459faf64190',
-    '@type' => 'MusicLabel'
+    '@type' => 'MusicLabel',
 };
 
 };

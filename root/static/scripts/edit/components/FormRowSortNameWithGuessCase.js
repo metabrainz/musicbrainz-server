@@ -7,6 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import type {CowContext} from 'mutate-cow';
 import * as React from 'react';
 
 import {ARTIST_TYPE_PERSON} from '../../common/constants.js';
@@ -31,44 +32,43 @@ type PropsT = {
   +disabled?: boolean,
   +dispatch: (ActionT) => void,
   +entity: SortNamedEntityT,
-  +field: ReadOnlyFieldT<string | null>,
+  +field: FieldT<string | null>,
   +label?: React$Node,
   +required?: boolean,
 };
 
 export type StateT = {
-  +nameField: ReadOnlyFieldT<string | null>,
-  +sortNameField: ReadOnlyFieldT<string | null>,
-};
-
-export type WritableStateT = {
-  +nameField: ReadOnlyFieldT<string | null>,
-  sortNameField: FieldT<string | null>,
+  +nameField: FieldT<string | null>,
+  +sortNameField: FieldT<string | null>,
 };
 
 export function runReducer(
-  newState: WritableStateT,
+  newState: CowContext<StateT>,
   action: ActionT,
 ) {
   switch (action.type) {
     case 'set-sortname': {
-      newState.sortNameField.value = action.sortName;
+      newState.set('sortNameField', 'value', action.sortName);
       break;
     }
     case 'guess-case-sortname': {
       const {entityType, typeID} = action.entity;
       const isPerson =
         entityType === 'artist' && typeID === ARTIST_TYPE_PERSON;
-      newState.sortNameField.value =
+      newState.set(
+        'sortNameField', 'value',
         GuessCase.entities[entityType].sortname(
-          newState.nameField.value ?? '',
+          newState.read().nameField.value ?? '',
           isPerson,
-        );
+        ),
+      );
       break;
     }
     case 'copy-sortname': {
-      newState.sortNameField.value =
-        newState.nameField.value ?? '';
+      newState.set(
+        'sortNameField', 'value',
+        newState.read().nameField.value ?? '',
+      );
       break;
     }
   }

@@ -5,14 +5,14 @@ use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Entity::Types;
 
 extends 'MusicBrainz::Server::Entity';
-with 'MusicBrainz::Server::Entity::Role::Relatable';
-with 'MusicBrainz::Server::Entity::Role::Taggable';
-with 'MusicBrainz::Server::Entity::Role::Annotation';
-with 'MusicBrainz::Server::Entity::Role::DatePeriod';
-with 'MusicBrainz::Server::Entity::Role::Rating';
-with 'MusicBrainz::Server::Entity::Role::Review';
-with 'MusicBrainz::Server::Entity::Role::Comment';
-with 'MusicBrainz::Server::Entity::Role::Type' => { model => 'EventType' };
+with 'MusicBrainz::Server::Entity::Role::Annotation',
+     'MusicBrainz::Server::Entity::Role::Comment',
+     'MusicBrainz::Server::Entity::Role::DatePeriod',
+     'MusicBrainz::Server::Entity::Role::Rating',
+     'MusicBrainz::Server::Entity::Role::Relatable',
+     'MusicBrainz::Server::Entity::Role::Review',
+     'MusicBrainz::Server::Entity::Role::Taggable',
+     'MusicBrainz::Server::Entity::Role::Type' => { model => 'EventType' };
 
 use MooseX::Types::Structured qw( Dict );
 use MooseX::Types::Moose qw( ArrayRef Object Str );
@@ -25,7 +25,7 @@ sub entity_type { 'event' }
 
 has 'setlist' => (
     is => 'rw',
-    isa => 'Str'
+    isa => 'Str',
 );
 
 has 'cancelled' => (
@@ -52,14 +52,14 @@ has 'performers' => (
         Dict[
             credit => Str,
             roles => ArrayRef[Str],
-            entity => Object
-        ]
+            entity => Object,
+        ],
     ],
     default => sub { [] },
     handles => {
         add_performer => 'push',
         all_performers => 'elements',
-    }
+    },
 );
 
 has 'places' => (
@@ -68,14 +68,14 @@ has 'places' => (
     isa => ArrayRef[
         Dict[
             credit => Str,
-            entity => Object
-        ]
+            entity => Object,
+        ],
     ],
     default => sub { [] },
     handles => {
         add_place => 'push',
         all_places => 'elements',
-    }
+    },
 );
 
 has 'areas' => (
@@ -84,14 +84,14 @@ has 'areas' => (
     isa => ArrayRef[
         Dict[
             credit => Str,
-            entity => Object
-        ]
+            entity => Object,
+        ],
     ],
     default => sub { [] },
     handles => {
         add_area => 'push',
         all_areas => 'elements',
-    }
+    },
 );
 
 sub related_series {

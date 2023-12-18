@@ -49,14 +49,14 @@ export const ArtistResultsInline = ({
     columns={
       <>
         <th>{l('Name')}</th>
-        <th>{l('Sort Name')}</th>
+        <th>{l('Sort name')}</th>
         <th>{l('Type')}</th>
         <th>{l('Gender')}</th>
         <th>{l('Area')}</th>
         <th>{l('Begin')}</th>
-        <th>{l('Begin Area')}</th>
+        <th>{l('Begin area')}</th>
         <th>{l('End')}</th>
-        <th>{l('End Area')}</th>
+        <th>{l('End area')}</th>
       </>
     }
     pager={pager}

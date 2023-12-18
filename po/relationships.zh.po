@@ -222,7 +222,9 @@ msgid "Describes the fact a person was contracted by a place as an engineer."
 msgstr "说明某人在某地点受雇为工程师。"
 
 #: DB:link_type/description:357
-msgid "Designates that a work is or was the anthem for an area"
+#, fuzzy
+#| msgid "Designates that a work is or was the anthem for an area"
+msgid "Designates that a work is or was the anthem for an area."
 msgstr "表明作品是或曾是某地区的象征性歌曲"
 
 #: DB:link_type/description:356
@@ -244,9 +246,13 @@ msgid "Discogs page for"
 msgstr "Discogs 页，关于"
 
 #: DB:link_attribute_type/description:1020
+#, fuzzy
+#| msgid ""
+#| "For indicating the step-spouse of the artist's parent, or the sibling "
+#| "relationship with the children of such a spouse"
 msgid ""
 "For indicating the step-spouse of the artist's parent, or the sibling "
-"relationship with the children of such a spouse"
+"relationship with the children of such a spouse."
 msgstr "用来指艺术家父母的再婚配偶或艺术家的继兄弟姐妹关系"
 
 #: DB:link_attribute_type/description:580
@@ -297,7 +303,9 @@ msgid "IMSLP page for"
 msgstr "国际乐谱库页，关于"
 
 #: DB:link_attribute_type/description:516
-msgid "Indicates a bonus disc"
+#, fuzzy
+#| msgid "Indicates a bonus disc"
+msgid "Indicates a bonus disc."
 msgstr "指附赠唱片"
 
 #: DB:link_type/description:162
@@ -341,7 +349,9 @@ msgid "Indicates a parent-child relationship."
 msgstr "指亲子关系。"
 
 #: DB:link_type/description:396
-msgid "Indicates a pictorial image (JPEG, GIF, PNG) of a place"
+#, fuzzy
+#| msgid "Indicates a pictorial image (JPEG, GIF, PNG) of a place"
+msgid "Indicates a pictorial image (JPEG, GIF, PNG) of a place."
 msgstr "指某地点的形象化图像 (JPEG, GIF, PNG)"
 
 #: DB:link_type/description:173
@@ -355,7 +365,10 @@ msgid ""
 msgstr "指某地点被从一个位置移动到另一个位置，但仍被广泛视为相同位置。"
 
 #: DB:link_attribute_type/description:1019
-msgid "Indicates a sibling with whom the artist has only one parent in common"
+#, fuzzy
+#| msgid ""
+#| "Indicates a sibling with whom the artist has only one parent in common"
+msgid "Indicates a sibling with whom the artist has only one parent in common."
 msgstr "指艺术家同父异母或同母异父的兄弟姐妹"
 
 #: DB:link_type/description:842
@@ -442,7 +455,9 @@ msgid ""
 msgstr "表明该活动预期会表演特定专辑组(一般是正规专辑)。"
 
 #: DB:link_attribute_type/description:567
-msgid "Indicates that one entity is a cover of another entity"
+#, fuzzy
+#| msgid "Indicates that one entity is a cover of another entity"
+msgid "Indicates that one entity is a cover of another entity."
 msgstr "表明该实体是另一实体的翻唱或翻奏"
 
 #: DB:link_type/description:996
@@ -506,17 +521,25 @@ msgid ""
 msgstr "表明两人处于恋爱关系但未结婚。"
 
 #: DB:link_type/description:1085
-msgid "Indicates the area an event series was held at."
+#, fuzzy
+#| msgid "Indicates the area an event series was held at."
+msgid "Indicates the area an event series was held in."
 msgstr "指活动系列所在地点。"
 
 #: DB:link_type/description:715
-msgid "Indicates the area where the work had its first performance"
+#, fuzzy
+#| msgid "Indicates the area where the work had its first performance"
+msgid "Indicates the area where the work had its first performance."
 msgstr "指作品初次演出所在地区"
 
 #: DB:link_type/description:956
+#, fuzzy
+#| msgid ""
+#| "Indicates the artist(s) who gave the first performance of the work; this "
+#| "is usually mostly relevant for classical music"
 msgid ""
 "Indicates the artist(s) who gave the first performance of the work; this is "
-"usually mostly relevant for classical music"
+"usually mostly relevant for classical music."
 msgstr "指初次演出作品的艺术家；多与古典音乐相关"
 
 #: DB:link_type/description:55
@@ -532,7 +555,9 @@ msgid ""
 msgstr ""
 
 #: DB:link_type/description:845
-msgid "Indicates the event where the work had its first performance"
+#, fuzzy
+#| msgid "Indicates the event where the work had its first performance"
+msgid "Indicates the event where the work had its first performance."
 msgstr "指作品初次演出所属活动"
 
 #: DB:link_type/description:986
@@ -601,7 +626,9 @@ msgid "Indicates the person who translated the lyrics/libretto for this work."
 msgstr "指该作品的歌词/歌剧剧本译者。"
 
 #: DB:link_type/description:716
-msgid "Indicates the place where the work had its first performance"
+#, fuzzy
+#| msgid "Indicates the place where the work had its first performance"
+msgid "Indicates the place where the work had its first performance."
 msgstr "指该作品初次演出所在地点。"
 
 #: DB:link_type/description:32
@@ -629,13 +656,13 @@ msgstr ""
 "指此作品的词曲版权方。这和<a href=\"/doc/Label\">厂牌</a><strong>不是</"
 "strong>一个概念。"
 
-#: DB:link_type/link_phrase:840 DB:link_type/link_phrase:837
-#: DB:link_type/link_phrase:839 DB:link_type/link_phrase:838
+#: DB:link_type/link_phrase:837 DB:link_type/link_phrase:838
+#: DB:link_type/link_phrase:839 DB:link_type/link_phrase:840
 msgid "Last.fm"
 msgstr "Last.fm"
 
-#: DB:link_type/reverse_link_phrase:840 DB:link_type/reverse_link_phrase:837
-#: DB:link_type/reverse_link_phrase:839 DB:link_type/reverse_link_phrase:838
+#: DB:link_type/reverse_link_phrase:837 DB:link_type/reverse_link_phrase:838
+#: DB:link_type/reverse_link_phrase:839 DB:link_type/reverse_link_phrase:840
 msgid "Last.fm page for"
 msgstr "Last.fm 页，关于"
 
@@ -828,9 +855,13 @@ msgid "Links a release to the place it was engineered at."
 msgstr "将专辑链接到后期工程所在地点。"
 
 #: DB:link_type/description:953
+#, fuzzy
+#| msgid ""
+#| "Links a release to the place it was manufactured at. Use a more specific "
+#| "credit if available"
 msgid ""
 "Links a release to the place it was manufactured at. Use a more specific "
-"credit if available"
+"credit if available."
 msgstr "将专辑链接到制作地点。如果可用的话，使用尽可能确切的演职员信息"
 
 #: DB:link_type/description:697
@@ -922,7 +953,7 @@ msgstr ""
 #: DB:link_type/description:1168
 msgid ""
 "Links an event to a label or other organization credited for presenting it "
-"(often as \"Label presents Event\")."
+"(often as “Label presents Event”)."
 msgstr ""
 
 #: DB:link_type/description:806
@@ -960,11 +991,19 @@ msgid "Links an event to the place where it was held."
 msgstr "将活动链接到举办地点。"
 
 #: DB:link_attribute_type/description:830
-msgid "Local time a band's performance is scheduled to start, formatted HH:MM."
+#, fuzzy
+#| msgid ""
+#| "Local time a band's performance is scheduled to start, formatted HH:MM."
+msgid ""
+"Local time a performance was scheduled to start or a program was broadcast, "
+"formatted HH:MM."
 msgstr "乐队演出在当地的预定开始时间，格式为HH:MM。"
 
 #: DB:link_attribute_type/description:1060
-msgid "Meane or mean is a young male singer with a voice lower than a treble"
+#, fuzzy
+#| msgid ""
+#| "Meane or mean is a young male singer with a voice lower than a treble"
+msgid "Meane or mean is a young male singer with a voice lower than a treble."
 msgstr "童中音是音高比童高音低的男童歌手。"
 
 #: DB:link_type/link_phrase:215 DB:link_type/link_phrase:462
@@ -1018,63 +1057,103 @@ msgid "Points to the Internet Movie Database page for this place."
 msgstr "指向此地点的IMDb页。"
 
 #: DB:link_type/description:358
+#, fuzzy
+#| msgid ""
+#| "Points to the Wikidata page for this area, and will be used to fetch "
+#| "Wikipedia summaries"
 msgid ""
 "Points to the Wikidata page for this area, and will be used to fetch "
-"Wikipedia summaries"
+"Wikipedia summaries."
 msgstr "指向此地区的维基数据页，用于获取维基百科概要"
 
 #: DB:link_type/description:352
+#, fuzzy
+#| msgid ""
+#| "Points to the Wikidata page for this artist, and will be used to fetch "
+#| "Wikipedia summaries"
 msgid ""
 "Points to the Wikidata page for this artist, and will be used to fetch "
-"Wikipedia summaries"
+"Wikipedia summaries."
 msgstr "指向此艺术家的维基数据页，用于获取维基百科概要"
 
 #: DB:link_type/description:790
+#, fuzzy
+#| msgid ""
+#| "Points to the Wikidata page for this event, and will be used to fetch "
+#| "Wikipedia summaries"
 msgid ""
 "Points to the Wikidata page for this event, and will be used to fetch "
-"Wikipedia summaries"
+"Wikipedia summaries."
 msgstr "指向此活动的维基数据页，用于获取维基百科概要"
 
 #: DB:link_type/description:1087
+#, fuzzy
+#| msgid ""
+#| "Points to the Wikidata page for this genre, and will be used to fetch "
+#| "Wikipedia summaries"
 msgid ""
 "Points to the Wikidata page for this genre, and will be used to fetch "
-"Wikipedia summaries"
+"Wikipedia summaries."
 msgstr "指向此流派的维基数据页，用于获取维基百科概要"
 
 #: DB:link_type/description:733
+#, fuzzy
+#| msgid ""
+#| "Points to the Wikidata page for this instrument, and will be used to "
+#| "fetch Wikipedia summaries"
 msgid ""
 "Points to the Wikidata page for this instrument, and will be used to fetch "
-"Wikipedia summaries"
+"Wikipedia summaries."
 msgstr "指向此乐器的维基数据页，用于获取维基百科概要"
 
 #: DB:link_type/description:354
+#, fuzzy
+#| msgid ""
+#| "Points to the Wikidata page for this label, and will be used to fetch "
+#| "Wikipedia summaries"
 msgid ""
 "Points to the Wikidata page for this label, and will be used to fetch "
-"Wikipedia summaries"
+"Wikipedia summaries."
 msgstr "指向此厂牌的维基数据页，用于获取维基百科概要"
 
 #: DB:link_type/description:594
+#, fuzzy
+#| msgid ""
+#| "Points to the Wikidata page for this place, and will be used to fetch "
+#| "Wikipedia summaries"
 msgid ""
 "Points to the Wikidata page for this place, and will be used to fetch "
-"Wikipedia summaries"
+"Wikipedia summaries."
 msgstr "指向此地点的维基数据页，用于获取维基百科概要"
 
 #: DB:link_type/description:353
+#, fuzzy
+#| msgid ""
+#| "Points to the Wikidata page for this release group, and will be used to "
+#| "fetch Wikipedia summaries"
 msgid ""
 "Points to the Wikidata page for this release group, and will be used to "
-"fetch Wikipedia summaries"
+"fetch Wikipedia summaries."
 msgstr "指向此专辑组的维基数据页，用于获取维基百科概要"
 
 #: DB:link_type/description:749
+#, fuzzy
+#| msgid ""
+#| "Points to the Wikidata page for this series, and will be used to fetch "
+#| "Wikipedia summaries"
 msgid ""
 "Points to the Wikidata page for this series, and will be used to fetch "
-"Wikipedia summaries"
+"Wikipedia summaries."
 msgstr "指向此系列的维基数据页，用于获取维基百科概要"
 
 #: DB:link_type/description:351
+#, fuzzy
+#| msgid ""
+#| "Points to the Wikidata page for this work, and will be used to fetch "
+#| "Wikipedia summaries"
 msgid ""
 "Points to the Wikidata page for this work, and will be used to fetch "
-"Wikipedia summaries"
+"Wikipedia summaries."
 msgstr "指向此作品的维基数据页，用于获取维基百科概要"
 
 #: DB:link_type/description:89
@@ -1098,7 +1177,9 @@ msgid "Points to the Wikipedia page for this instrument."
 msgstr "指向此乐器的维基百科页。"
 
 #: DB:link_type/description:595
-msgid "Points to the Wikipedia page for this place"
+#, fuzzy
+#| msgid "Points to the Wikipedia page for this place"
+msgid "Points to the Wikipedia page for this place."
 msgstr "指向此地点的维基百科页。"
 
 #: DB:link_type/description:744
@@ -1256,7 +1337,7 @@ msgstr "该属性指“特邀演出嘉宾”，通常为不是乐队成员的表
 #: DB:link_attribute_type/description:1094
 msgid ""
 "This attribute indicates a member the band is named after and without which "
-"it wouldn't exist (such as Miles Davis -&gt; Miles Davis Sextet)"
+"it wouldn't exist (such as Miles Davis -&gt; Miles Davis Sextet)."
 msgstr ""
 
 #: DB:link_attribute_type/description:511
@@ -1280,9 +1361,12 @@ msgid ""
 msgstr ""
 
 #: DB:link_attribute_type/description:582
+#, fuzzy
+#| msgid "This attribute indicates the number of an entity in a series."
 msgid ""
-"This attribute indicates that the content is not audio (or text) but video."
-msgstr ""
+"This attribute indicates that the content is not audio (or text) only, but "
+"video."
+msgstr "该属性指系列中实体数。"
 
 #: DB:link_attribute_type/description:788
 msgid "This attribute indicates the number of an entity in a series."
@@ -1508,10 +1592,15 @@ msgstr ""
 "人或机构。"
 
 #: DB:link_type/description:19
+#, fuzzy
+#| msgid ""
+#| "This indicates a person or agency who did design or illustration for the "
+#| "release. This relationship is deprecated, please use either \"design\" or "
+#| "\"illustration\" (or both!)"
 msgid ""
 "This indicates a person or agency who did design or illustration for the "
-"release. This relationship is deprecated, please use either \"design\" or "
-"\"illustration\" (or both!)"
+"release. This relationship is deprecated, please use either “design” or "
+"“illustration” (or both!) instead."
 msgstr ""
 "这指的是参与设计专辑或制作专辑插图的个人或机构。此关联已弃用，请使用“设"
 "计”或“插图”之一(或二者！)"
@@ -1765,10 +1854,14 @@ msgstr ""
 "相关的单曲或迷你专辑。"
 
 #: DB:link_type/description:281
+#, fuzzy
+#| msgid ""
+#| "This indicates that an event is made up of multiple parts (e.g. a "
+#| "festival happening on multiple venues over the course of a few days)."
 msgid ""
 "This indicates that a work is made up of multiple parts (such as an "
-"orchestral suite broken into movements)"
-msgstr ""
+"orchestral suite broken into movements)."
+msgstr "这表明活动包含多个部分(例如几天内在多处场地举行的音乐节)。"
 
 #: DB:link_type/description:858
 msgid ""
@@ -1956,14 +2049,20 @@ msgid ""
 "sometimes also a venue)."
 msgstr ""
 
-#: DB:link_type/description:295 DB:link_type/description:41
-#: DB:link_type/description:296 DB:link_type/description:297
-#: DB:link_type/description:298 DB:link_type/description:158
-#: DB:link_type/description:294 DB:link_type/description:282
-#: DB:link_type/description:293
+#: DB:link_type/description:295 DB:link_type/description:294
+#: DB:link_type/description:297 DB:link_type/description:158
+#: DB:link_type/description:41 DB:link_type/description:296
+#: DB:link_type/description:293 DB:link_type/description:282
+#: DB:link_type/description:298
+#, fuzzy
+#| msgid ""
+#| "This indicates the artist who arranged a tune into a form suitable for "
+#| "performance. 'Arrangement' is used as a catch-all term for all processes "
+#| "that turn a composition into a form that can be played by a specific type "
+#| "of ensemble."
 msgid ""
 "This indicates the artist who arranged a tune into a form suitable for "
-"performance. 'Arrangement' is used as a catch-all term for all processes "
+"performance. “Arrangement” is used as a catch-all term for all processes "
 "that turn a composition into a form that can be played by a specific type of "
 "ensemble."
 msgstr ""
@@ -2440,10 +2539,7 @@ msgid ""
 msgstr ""
 
 #: DB:link_type/description:77
-msgid ""
-"This links a MusicBrainz release to the equivalent entry at Amazon and will "
-"often provide cover art if there is no cover art in the <a href=\"/doc/"
-"Cover_Art_Archive\">Cover Art Archive</a>."
+msgid "This links a MusicBrainz release to the equivalent entry at Amazon."
 msgstr ""
 
 #: DB:link_type/description:888
@@ -3060,60 +3156,99 @@ msgid ""
 msgstr "链接一个<a href=\"/doc/Work\" title=\"Work\">作品</a>的两个版本。"
 
 #: DB:link_type/description:310
+#, fuzzy
+#| msgid ""
+#| "This points to the <a href=\"//viaf.org/\">VIAF</a> page for this artist. "
+#| "VIAF is an international project to make a common authority file "
+#| "available to libraries across the world. An authority file is similar to "
+#| "an MBID for libraries. (<a href=\"//en.wikipedia.org/wiki/"
+#| "Virtual_International_Authority_File\">more information on Wikipedia</a>)"
 msgid ""
 "This points to the <a href=\"//viaf.org/\">VIAF</a> page for this artist. "
 "VIAF is an international project to make a common authority file available "
 "to libraries across the world. An authority file is similar to an MBID for "
-"libraries. (<a href=\"//en.wikipedia.org/wiki/"
-"Virtual_International_Authority_File\">more information on Wikipedia</a>)"
+"libraries (<a href=\"//en.wikipedia.org/wiki/"
+"Virtual_International_Authority_File\">more information on Wikipedia</a>)."
 msgstr ""
 "这指向艺术家的<a href=\"//viaf.org/\">VIAF</a>页面。VIAF是一个向世界各地图书"
 "馆提供规范文件的国际项目。对图书馆而言，规范文件类似于MBID。(<a href=\"//en."
 "wikipedia.org/wiki/Virtual_International_Authority_File\">详情见维基百科</a>)"
 
 #: DB:link_type/description:311
+#, fuzzy
+#| msgid ""
+#| "This points to the <a href=\"//viaf.org/\">VIAF</a> page for this label. "
+#| "VIAF is an international project to make a common authority file "
+#| "available to libraries across the world. An authority file is similar to "
+#| "an MBID for libraries. (<a href=\"//en.wikipedia.org/wiki/"
+#| "Virtual_International_Authority_File\">more information on Wikipedia</a>)"
 msgid ""
 "This points to the <a href=\"//viaf.org/\">VIAF</a> page for this label. "
 "VIAF is an international project to make a common authority file available "
 "to libraries across the world. An authority file is similar to an MBID for "
-"libraries. (<a href=\"//en.wikipedia.org/wiki/"
-"Virtual_International_Authority_File\">more information on Wikipedia</a>)"
+"libraries (<a href=\"//en.wikipedia.org/wiki/"
+"Virtual_International_Authority_File\">more information on Wikipedia</a>)."
 msgstr ""
 "这指向厂牌的<a href=\"//viaf.org/\">VIAF</a>页面。VIAF是一个向世界各地图书馆"
 "提供规范文件的国际项目。对图书馆而言，规范文件类似于MBID。(<a href=\"//en."
 "wikipedia.org/wiki/Virtual_International_Authority_File\">详情见维基百科</a>)"
 
 #: DB:link_type/description:920
+#, fuzzy
+#| msgid ""
+#| "This points to the <a href=\"//viaf.org/\">VIAF</a> page for this place. "
+#| "VIAF is an international project to make a common authority file "
+#| "available to libraries across the world. An authority file is similar to "
+#| "an MBID for libraries. (<a href=\"//en.wikipedia.org/wiki/"
+#| "Virtual_International_Authority_File\">more information on Wikipedia</a>)"
 msgid ""
 "This points to the <a href=\"//viaf.org/\">VIAF</a> page for this place. "
 "VIAF is an international project to make a common authority file available "
 "to libraries across the world. An authority file is similar to an MBID for "
-"libraries. (<a href=\"//en.wikipedia.org/wiki/"
-"Virtual_International_Authority_File\">more information on Wikipedia</a>)"
+"libraries (<a href=\"//en.wikipedia.org/wiki/"
+"Virtual_International_Authority_File\">more information on Wikipedia</a>)."
 msgstr ""
 "这指向地点的<a href=\"//viaf.org/\">VIAF</a>页面。VIAF是一个向世界各地图书馆"
 "提供规范文件的国际项目。对图书馆而言，规范文件类似于MBID。(<a href=\"//en."
 "wikipedia.org/wiki/Virtual_International_Authority_File\">详情见维基百科</a>)"
 
 #: DB:link_type/description:1001
+#, fuzzy
+#| msgid ""
+#| "This points to the <a href=\"//viaf.org/\">VIAF</a> page for this series. "
+#| "VIAF is an international project to make a common authority file "
+#| "available to libraries across the world. An authority file is similar to "
+#| "an MBID for libraries. (<a href=\"//en.wikipedia.org/wiki/"
+#| "Virtual_International_Authority_File\">more information on Wikipedia</a>)"
 msgid ""
 "This points to the <a href=\"//viaf.org/\">VIAF</a> page for this series. "
 "VIAF is an international project to make a common authority file available "
 "to libraries across the world. An authority file is similar to an MBID for "
-"libraries. (<a href=\"//en.wikipedia.org/wiki/"
-"Virtual_International_Authority_File\">more information on Wikipedia</a>)"
+"libraries (<a href=\"//en.wikipedia.org/wiki/"
+"Virtual_International_Authority_File\">more information on Wikipedia</a>)."
 msgstr ""
 "这指向系列的<a href=\"//viaf.org/\">VIAF</a>页面。VIAF是一个向世界各地图书馆"
 "提供规范文件的国际项目。对图书馆而言，规范文件类似于MBID。(<a href=\"//en."
 "wikipedia.org/wiki/Virtual_International_Authority_File\">详情见维基百科</a>)"
 
 #: DB:link_type/description:312
+#, fuzzy
+#| msgid ""
+#| "This points to the <a href=\"//viaf.org/\">VIAF</a> page for this work. "
+#| "VIAF is an international project to make a common authority file "
+#| "available to libraries across the world. An authority file is similar to "
+#| "an MBID for libraries. (<a href=\"//en.wikipedia.org/wiki/"
+#| "Virtual_International_Authority_File\">more information on Wikipedia</"
+#| "a>)\n"
+#| "<br/><br/>\n"
+#| "<strong>Note:</strong> Works in VIAF aren't very detailed. Only add links "
+#| "to MusicBrainz works if you're absolutely sure it's the same work."
 msgid ""
 "This points to the <a href=\"//viaf.org/\">VIAF</a> page for this work. VIAF "
 "is an international project to make a common authority file available to "
 "libraries across the world. An authority file is similar to an MBID for "
-"libraries. (<a href=\"//en.wikipedia.org/wiki/"
-"Virtual_International_Authority_File\">more information on Wikipedia</a>)\n"
+"libraries (<a href=\"//en.wikipedia.org/wiki/"
+"Virtual_International_Authority_File\">more information on Wikipedia</a>).\n"
 "<br/><br/>\n"
 "<strong>Note:</strong> Works in VIAF aren't very detailed. Only add links to "
 "MusicBrainz works if you're absolutely sure it's the same work."
@@ -3389,8 +3524,12 @@ msgid ""
 msgstr ""
 
 #: DB:link_type/description:627
-msgid "This relationship type can be used to link a place to its blog"
-msgstr ""
+#, fuzzy
+#| msgid ""
+#| "This relationship type is used to link to a page where the release can be "
+#| "purchased for mail order."
+msgid "This relationship type can be used to link a place to its blog."
+msgstr "此关联类型用于链接专辑邮购页。"
 
 #: DB:link_type/description:528
 msgid ""
@@ -3403,14 +3542,14 @@ msgstr ""
 msgid ""
 "This relationship type can be used to link a series to the equivalent entry "
 "in YouTube. URLs should follow the format http://www.youtube.com/user/&lt;"
-"username&gt;"
+"username&gt;."
 msgstr ""
 
 #: DB:link_type/description:791
 msgid ""
 "This relationship type can be used to link an event to the equivalent entry "
 "in YouTube. URLs should follow the format http://www.youtube.com/user/&lt;"
-"username&gt;"
+"username&gt;."
 msgstr ""
 
 #: DB:link_type/description:258
@@ -3457,10 +3596,7 @@ msgstr ""
 #: DB:link_type/description:78
 msgid ""
 "This relationship type is <strong>deprecated</strong>! Please upload covers "
-"on the cover art tab for the release and/or add an ASIN relationship.\n"
-"\n"
-"Note about CD Baby: Many CD Baby releases are also available (usually with "
-"bigger covers) on Amazon.com."
+"on the cover art tab for the release."
 msgstr ""
 
 #: DB:link_type/description:15
@@ -3470,6 +3606,19 @@ msgid ""
 "rendition of another artist's album.<br/>\n"
 "For individual songs, see the <a href=\"/relationship/a3005666-a872-32c3-"
 "ad06-98af558e99b0\">recording-work performance relationship type</a>."
+msgstr ""
+
+#: DB:link_type/description:1229
+msgid ""
+"This relationship type is used to indicate that a release group is a re‐"
+"recording of another release group, that is, when an artist performs a new "
+"studio rendition of their own album.<br/>\n"
+"For a live performance of the album, see the <a href=\"/"
+"relationship/62beff0a-679c-43f3-8fe6-f6c8ed8581e4\">live performance "
+"relationship type</a>.<br/>\n"
+"For a cover recording of the album by a different artist, see the <a href=\"/"
+"relationship/cf02e524-9d5b-46b7-a88e-329737395818\">cover relationship type</"
+"a>."
 msgstr ""
 
 #: DB:link_type/description:1005
@@ -3594,7 +3743,7 @@ msgstr ""
 
 #: DB:link_type/description:838
 msgid ""
-"This relationship type links a label to its corresponding page at Last.fm"
+"This relationship type links a label to its corresponding page at Last.fm."
 msgstr ""
 
 #: DB:link_type/description:1013
@@ -3614,7 +3763,7 @@ msgstr ""
 
 #: DB:link_type/description:837
 msgid ""
-"This relationship type links a place to its corresponding page at Last.fm"
+"This relationship type links a place to its corresponding page at Last.fm."
 msgstr ""
 
 #: DB:link_type/description:787
@@ -3624,7 +3773,7 @@ msgstr ""
 
 #: DB:link_type/description:817
 msgid ""
-"This relationship type links a place to its corresponding page at setlist.fm"
+"This relationship type links a place to its corresponding page at setlist.fm."
 msgstr ""
 
 #: DB:link_type/description:86
@@ -3639,7 +3788,7 @@ msgstr ""
 #: DB:link_type/description:938
 msgid ""
 "This relationship type links a series (like a festival) to its corresponding "
-"page at setlist.fm"
+"page at setlist.fm."
 msgstr ""
 
 #: DB:link_type/description:1192
@@ -3664,9 +3813,11 @@ msgid ""
 msgstr ""
 
 #: DB:link_type/description:840
+#, fuzzy
+#| msgid "This links an artist to its page at Bandcamp."
 msgid ""
-"This relationship type links an artist to its corresponding page at Last.fm"
-msgstr ""
+"This relationship type links an artist to its corresponding page at Last.fm."
+msgstr "此链接为艺术家的 Bandcamp 页面。"
 
 #: DB:link_type/description:785
 msgid ""
@@ -3674,10 +3825,12 @@ msgid ""
 msgstr ""
 
 #: DB:link_type/description:816
+#, fuzzy
+#| msgid "This links an artist to its page at Bandcamp."
 msgid ""
 "This relationship type links an artist to its corresponding page at setlist."
-"fm"
-msgstr ""
+"fm."
+msgstr "此链接为艺术家的 Bandcamp 页面。"
 
 #: DB:link_type/description:189
 msgid "This relationship type links an artist to their Myspace page."
@@ -3717,7 +3870,7 @@ msgstr ""
 
 #: DB:link_type/description:839
 msgid ""
-"This relationship type links an event to its corresponding page at Last.fm"
+"This relationship type links an event to its corresponding page at Last.fm."
 msgstr ""
 
 #: DB:link_type/description:786
@@ -3727,7 +3880,8 @@ msgstr ""
 
 #: DB:link_type/description:811
 msgid ""
-"This relationship type links an event to its corresponding page at setlist.fm"
+"This relationship type links an event to its corresponding page at setlist."
+"fm."
 msgstr ""
 
 #: DB:link_type/description:1088
@@ -3787,10 +3941,13 @@ msgid ""
 msgstr "音译曲目列表不会更改语言，只会更改脚本或拼写。"
 
 #: DB:link_attribute_type/description:834
+#, fuzzy
+#| msgid ""
+#| "Meane or mean is a young male singer with a voice lower than a treble"
 msgid ""
 "Treble or boy soprano is a young male singer with an unchanged voice in the "
-"soprano range"
-msgstr ""
+"soprano range."
+msgstr "童中音是音高比童高音低的男童歌手。"
 
 #: DB:link_attribute_type/description:1032
 msgid ""
@@ -3809,60 +3966,57 @@ msgstr ""
 
 #: DB:link_type/description:949
 msgid ""
-"Use this relationship for credits like \"Recording was arranged by X for "
-"Label\""
+"Use this relationship for credits like “Recording was arranged by X for "
+"Label”."
 msgstr ""
 
 #: DB:link_type/description:946
 msgid ""
-"Use this relationship for credits like \"Recording was mixed by X for Label\""
+"Use this relationship for credits like “Recording was mixed by X for Label”."
 msgstr ""
 
 #: DB:link_type/description:950
 msgid ""
-"Use this relationship for credits like \"Recording was produced by X for "
-"Label\""
+"Use this relationship for credits like “Recording was produced by X for "
+"Label”."
 msgstr ""
 
 #: DB:link_type/description:1178
 msgid ""
-"Use this relationship for credits like \"Recording was remixed by X for "
-"Label\""
+"Use this relationship for credits like “Recording was remixed by X for "
+"Label”."
 msgstr ""
 
 #: DB:link_type/description:948
 msgid ""
-"Use this relationship for credits like \"Release was arranged by X for "
-"Label\""
+"Use this relationship for credits like “Release was arranged by X for Label”."
 msgstr ""
 
 #: DB:link_type/description:952
 msgid ""
-"Use this relationship for credits like \"Release was manufactured by X for "
-"Label\""
+"Use this relationship for credits like “Release was manufactured by X for "
+"Label”."
 msgstr ""
 
 #: DB:link_type/description:1183
 msgid ""
-"Use this relationship for credits like \"Release was mastered by X for "
-"Label\""
+"Use this relationship for credits like “Release was mastered by X for Label”."
 msgstr ""
 
 #: DB:link_type/description:947
 msgid ""
-"Use this relationship for credits like \"Release was mixed by X for Label\""
+"Use this relationship for credits like “Release was mixed by X for Label”."
 msgstr ""
 
 #: DB:link_type/description:951
 msgid ""
-"Use this relationship for credits like \"Release was produced by X for "
-"Label\""
+"Use this relationship for credits like “Release was produced by X for Label”."
 msgstr ""
 
 #: DB:link_attribute_type/description:1353
 msgid ""
 "Use this to indicate that the mastering relationship is specifically for a "
-"pre-master"
+"pre-master."
 msgstr ""
 
 #: DB:link_attribute_type/description:952
@@ -3876,13 +4030,13 @@ msgid ""
 "Use this to indicate the parent work is not intended to be performed as a "
 "whole, but is just a grouping of pieces or works that can be performed "
 "individually (collections of songs, several sonatas or concertos published "
-"as a set, books of piano pieces, etc.)"
+"as a set, books of piano pieces, etc.)."
 msgstr ""
 
 #: DB:link_attribute_type/description:1030
 msgid ""
 "Use this to mark acts of an opera (as opposed to other parts that are not "
-"acts)"
+"acts)."
 msgstr ""
 
 #: DB:link_attribute_type/description:1079
@@ -3911,8 +4065,8 @@ msgstr "VGMdb"
 msgid "VGMdb page for"
 msgstr "VGMdb页，关于"
 
-#: DB:link_type/name:311 DB:link_type/name:310 DB:link_type/name:312
-#: DB:link_type/name:920 DB:link_type/name:1001
+#: DB:link_type/name:311 DB:link_type/name:310 DB:link_type/name:920
+#: DB:link_type/name:1001 DB:link_type/name:312
 msgid "VIAF"
 msgstr "VIAF"
 
@@ -3941,17 +4095,17 @@ msgid "Whistling (with mouth, not a whistle)"
 msgstr ""
 
 #: DB:link_type/link_phrase:1087 DB:link_type/link_phrase:353
-#: DB:link_type/link_phrase:749 DB:link_type/link_phrase:594
-#: DB:link_type/link_phrase:354 DB:link_type/link_phrase:790
-#: DB:link_type/link_phrase:352 DB:link_type/link_phrase:733
+#: DB:link_type/link_phrase:790 DB:link_type/link_phrase:354
+#: DB:link_type/link_phrase:352 DB:link_type/link_phrase:594
+#: DB:link_type/link_phrase:749 DB:link_type/link_phrase:733
 #: DB:link_type/link_phrase:358 DB:link_type/reverse_link_phrase:351
 msgid "Wikidata"
 msgstr "Wikidata"
 
 #: DB:link_type/link_phrase:351 DB:link_type/reverse_link_phrase:1087
-#: DB:link_type/reverse_link_phrase:353 DB:link_type/reverse_link_phrase:749
-#: DB:link_type/reverse_link_phrase:594 DB:link_type/reverse_link_phrase:354
-#: DB:link_type/reverse_link_phrase:790 DB:link_type/reverse_link_phrase:352
+#: DB:link_type/reverse_link_phrase:353 DB:link_type/reverse_link_phrase:790
+#: DB:link_type/reverse_link_phrase:354 DB:link_type/reverse_link_phrase:352
+#: DB:link_type/reverse_link_phrase:594 DB:link_type/reverse_link_phrase:749
 #: DB:link_type/reverse_link_phrase:733 DB:link_type/reverse_link_phrase:358
 msgid "Wikidata page for"
 msgstr "维基数据页，关于"
@@ -3980,15 +4134,15 @@ msgstr "YouTube Music"
 msgid "YouTube Music channel for"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:791 DB:link_type/reverse_link_phrase:792
-#: DB:link_type/reverse_link_phrase:193 DB:link_type/reverse_link_phrase:225
-#: DB:link_type/reverse_link_phrase:528
+#: DB:link_type/reverse_link_phrase:792 DB:link_type/reverse_link_phrase:193
+#: DB:link_type/reverse_link_phrase:225 DB:link_type/reverse_link_phrase:528
+#: DB:link_type/reverse_link_phrase:791
 msgid "YouTube channel for"
 msgstr ""
 
-#: DB:link_type/link_phrase:791 DB:link_type/link_phrase:792
-#: DB:link_type/link_phrase:193 DB:link_type/link_phrase:225
-#: DB:link_type/link_phrase:528
+#: DB:link_type/link_phrase:792 DB:link_type/link_phrase:193
+#: DB:link_type/link_phrase:225 DB:link_type/link_phrase:528
+#: DB:link_type/link_phrase:791
 msgid "YouTube channels"
 msgstr "YouTube 频道"
 
@@ -4046,8 +4200,8 @@ msgstr "Apple Music"
 msgid "arranged at"
 msgstr "编曲，在"
 
-#: DB:link_type/name:948 DB:link_type/name:949
-#: DB:link_type/reverse_link_phrase:948 DB:link_type/reverse_link_phrase:949
+#: DB:link_type/name:949 DB:link_type/name:948
+#: DB:link_type/reverse_link_phrase:949 DB:link_type/reverse_link_phrase:948
 msgid "arranged for"
 msgstr "编曲，为"
 
@@ -4499,7 +4653,7 @@ msgstr ""
 msgid "contract"
 msgstr ""
 
-#: DB:link_type/link_phrase:948 DB:link_type/link_phrase:949
+#: DB:link_type/link_phrase:949 DB:link_type/link_phrase:948
 msgid "contracted arrangement for"
 msgstr ""
 
@@ -4508,10 +4662,10 @@ msgid "contracted manufacturing for"
 msgstr ""
 
 #: DB:link_type/link_phrase:1183
-msgid "contracted mastered for"
+msgid "contracted mastering for"
 msgstr ""
 
-#: DB:link_type/link_phrase:946 DB:link_type/link_phrase:947
+#: DB:link_type/link_phrase:947 DB:link_type/link_phrase:946
 msgid "contracted mixing for"
 msgstr ""
 
@@ -5083,8 +5237,8 @@ msgstr "在以下位置有唱片页面"
 msgid "has a Geonames page at"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:840 DB:link_type/long_link_phrase:837
-#: DB:link_type/long_link_phrase:839 DB:link_type/long_link_phrase:838
+#: DB:link_type/long_link_phrase:837 DB:link_type/long_link_phrase:838
+#: DB:link_type/long_link_phrase:839 DB:link_type/long_link_phrase:840
 msgid "has a Last.fm page at"
 msgstr ""
 
@@ -5119,9 +5273,9 @@ msgid "has a VGMdb page at"
 msgstr "有VGMdb页在"
 
 #: DB:link_type/long_link_phrase:1087 DB:link_type/long_link_phrase:353
-#: DB:link_type/long_link_phrase:749 DB:link_type/long_link_phrase:594
-#: DB:link_type/long_link_phrase:354 DB:link_type/long_link_phrase:790
-#: DB:link_type/long_link_phrase:352 DB:link_type/long_link_phrase:733
+#: DB:link_type/long_link_phrase:790 DB:link_type/long_link_phrase:354
+#: DB:link_type/long_link_phrase:352 DB:link_type/long_link_phrase:594
+#: DB:link_type/long_link_phrase:749 DB:link_type/long_link_phrase:733
 #: DB:link_type/long_link_phrase:358
 msgid "has a Wikidata page at"
 msgstr ""
@@ -5251,9 +5405,9 @@ msgstr ""
 msgid "has an interview at"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:791 DB:link_type/long_link_phrase:792
-#: DB:link_type/long_link_phrase:193 DB:link_type/long_link_phrase:225
-#: DB:link_type/long_link_phrase:528
+#: DB:link_type/long_link_phrase:792 DB:link_type/long_link_phrase:193
+#: DB:link_type/long_link_phrase:225 DB:link_type/long_link_phrase:528
+#: DB:link_type/long_link_phrase:791
 msgid "has an official YouTube channel at"
 msgstr ""
 
@@ -5501,7 +5655,7 @@ msgstr ""
 msgid "instrument"
 msgstr "乐器"
 
-#: DB:link_type/name:41 DB:link_type/name:158 DB:link_type/name:282
+#: DB:link_type/name:158 DB:link_type/name:41 DB:link_type/name:282
 msgid "instrument arranger"
 msgstr "乐器编曲"
 
@@ -5594,6 +5748,10 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:230 DB:link_type/long_link_phrase:9
 msgid "is a remix of"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:1229
+msgid "is a re‐recording of"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:11
@@ -5770,8 +5928,8 @@ msgstr "刻纹，在"
 msgid "lacquer cut location for"
 msgstr "刻纹地点，为"
 
-#: DB:link_type/name:840 DB:link_type/name:837 DB:link_type/name:839
-#: DB:link_type/name:838
+#: DB:link_type/name:837 DB:link_type/name:838 DB:link_type/name:839
+#: DB:link_type/name:840
 msgid "last.fm"
 msgstr "last.fm"
 
@@ -6132,8 +6290,8 @@ msgstr ""
 msgid "mixed at"
 msgstr ""
 
-#: DB:link_type/name:946 DB:link_type/name:947
-#: DB:link_type/reverse_link_phrase:946 DB:link_type/reverse_link_phrase:947
+#: DB:link_type/name:947 DB:link_type/name:946
+#: DB:link_type/reverse_link_phrase:947 DB:link_type/reverse_link_phrase:946
 msgid "mixed for"
 msgstr ""
 
@@ -6576,7 +6734,7 @@ msgstr ""
 msgid "pre"
 msgstr ""
 
-#: DB:link_type/name:845 DB:link_type/name:716 DB:link_type/name:715
+#: DB:link_type/name:845 DB:link_type/name:715 DB:link_type/name:716
 #: DB:link_type/name:956
 msgid "premiere"
 msgstr ""
@@ -6597,7 +6755,7 @@ msgstr "首演于"
 msgid "premieres"
 msgstr ""
 
-#: DB:link_type/link_phrase:716 DB:link_type/link_phrase:715
+#: DB:link_type/link_phrase:715 DB:link_type/link_phrase:716
 msgid "premieres hosted"
 msgstr ""
 
@@ -7059,6 +7217,24 @@ msgstr ""
 #: DB:link_type/name:315 DB:link_type/reverse_link_phrase:315
 msgid "revision of"
 msgstr ""
+
+#: DB:link_type/name:1229
+#, fuzzy
+#| msgid "recording"
+msgid "re‐recording"
+msgstr "录音"
+
+#: DB:link_type/link_phrase:1229
+#, fuzzy
+#| msgid "recording"
+msgid "re‐recording of"
+msgstr "录音"
+
+#: DB:link_type/reverse_link_phrase:1229
+#, fuzzy
+#| msgid "recording"
+msgid "re‐recordings"
+msgstr "录音"
 
 #: DB:link_type/name:349 DB:link_type/reverse_link_phrase:349
 msgid "rights society"
@@ -7552,7 +7728,7 @@ msgstr ""
 msgid "vocal"
 msgstr "人声"
 
-#: DB:link_type/name:296 DB:link_type/name:298 DB:link_type/name:294
+#: DB:link_type/name:294 DB:link_type/name:296 DB:link_type/name:298
 msgid "vocal arranger"
 msgstr "人声编曲"
 
@@ -7678,8 +7854,8 @@ msgid "whistling"
 msgstr ""
 
 #: DB:link_type/name:1087 DB:link_type/name:351 DB:link_type/name:353
-#: DB:link_type/name:749 DB:link_type/name:594 DB:link_type/name:354
-#: DB:link_type/name:790 DB:link_type/name:352 DB:link_type/name:733
+#: DB:link_type/name:790 DB:link_type/name:354 DB:link_type/name:352
+#: DB:link_type/name:594 DB:link_type/name:749 DB:link_type/name:733
 #: DB:link_type/name:358
 msgid "wikidata"
 msgstr "维基数据"
@@ -7739,8 +7915,8 @@ msgstr ""
 msgid "written in"
 msgstr ""
 
-#: DB:link_type/name:791 DB:link_type/name:792 DB:link_type/name:193
-#: DB:link_type/name:225 DB:link_type/name:528
+#: DB:link_type/name:792 DB:link_type/name:193 DB:link_type/name:225
+#: DB:link_type/name:528 DB:link_type/name:791
 msgid "youtube"
 msgstr "youtube"
 
@@ -7959,28 +8135,28 @@ msgstr ""
 msgid "{additional:additionally} {associate} {co:co-}arranged"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:41 DB:link_type/long_link_phrase:158
+#: DB:link_type/long_link_phrase:158 DB:link_type/long_link_phrase:41
 #: DB:link_type/long_link_phrase:282
 msgid ""
 "{additional:additionally} {associate} {co:co-}arranged {instrument:%|"
 "instruments} on"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:296 DB:link_type/long_link_phrase:298
-#: DB:link_type/long_link_phrase:294
+#: DB:link_type/long_link_phrase:294 DB:link_type/long_link_phrase:296
+#: DB:link_type/long_link_phrase:298
 msgid ""
 "{additional:additionally} {associate} {co:co-}arranged {vocal:%|vocals} on"
 msgstr ""
 
-#: DB:link_type/link_phrase:41 DB:link_type/link_phrase:158
+#: DB:link_type/link_phrase:158 DB:link_type/link_phrase:41
 #: DB:link_type/link_phrase:282
 msgid ""
 "{additional:additionally} {associate} {instrument:%|instruments} {co:co-}"
 "arranged"
 msgstr ""
 
-#: DB:link_type/link_phrase:296 DB:link_type/link_phrase:298
-#: DB:link_type/link_phrase:294
+#: DB:link_type/link_phrase:294 DB:link_type/link_phrase:296
+#: DB:link_type/link_phrase:298
 msgid "{additional:additionally} {associate} {vocal:%|vocals} {co:co-}arranged"
 msgstr ""
 
@@ -8247,13 +8423,13 @@ msgstr ""
 msgid "{additional} {associate} {co:co-}arranger"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:41 DB:link_type/reverse_link_phrase:158
+#: DB:link_type/reverse_link_phrase:158 DB:link_type/reverse_link_phrase:41
 #: DB:link_type/reverse_link_phrase:282
 msgid "{additional} {associate} {instrument:%|instruments} {co:co-}arranger"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:296 DB:link_type/reverse_link_phrase:298
-#: DB:link_type/reverse_link_phrase:294
+#: DB:link_type/reverse_link_phrase:294 DB:link_type/reverse_link_phrase:296
+#: DB:link_type/reverse_link_phrase:298
 msgid "{additional} {associate} {vocal:%|vocals} {co:co-}arranger"
 msgstr ""
 
@@ -8498,7 +8674,7 @@ msgstr ""
 msgid "{entity1} was arranged at {entity0}"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:948 DB:link_type/long_link_phrase:949
+#: DB:link_type/long_link_phrase:949 DB:link_type/long_link_phrase:948
 msgid "{entity1} was arranged for {entity0}"
 msgstr ""
 
@@ -8542,7 +8718,7 @@ msgstr "{entity1} 于 {entity0} 制造"
 msgid "{entity1} was mastered for {entity0}"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:946 DB:link_type/long_link_phrase:947
+#: DB:link_type/long_link_phrase:947 DB:link_type/long_link_phrase:946
 msgid "{entity1} was mixed for {entity0}"
 msgstr ""
 

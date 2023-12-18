@@ -4,18 +4,18 @@
   [% IF release.name %]
     [%- React.embed(c, 'release/ReleaseHeader', { release => React.to_json_object(release), page => 'edit' }) -%]
   [% ELSE %]
-    <h1>[% lp('Add Release', 'header') %]</h1>
+    <h1>[% lp('Add release', 'header') %]</h1>
   [% END %]
 
   <div id="release-editor" style="display: none;" data-bind="delegatedHandler: ['click', 'change', 'keydown']">
     <ul>
-      <li><a href="#information">[% l('Release Information') %]</a></li>
+      <li><a href="#information">[% l('Release information') %]</a></li>
       [% IF NOT release.gid %]
-        <li><a href="#duplicates-tab">[% l('Release Duplicates') %]</a></li>
+        <li><a href="#duplicates-tab">[% l('Release duplicates') %]</a></li>
       [% END %]
       <li><a href="#tracklist">[% l('Tracklist') %]</a></li>
       <li><a href="#recordings" title="[% l('First enter all track information, including titles and artist credits, in order to edit their recordings.') | html_entity %]">[% l('Recordings') %]</a></li>
-      <li><a href="#edit-note">[% l('Edit Note') %]</a></li>
+      <li><a href="#edit-note">[% lp('Edit note', 'noun') %]</a></li>
     </ul>
 
     <!-- ko if: seedErrors -->
@@ -64,7 +64,7 @@
       <button type="button" data-bind="visible: (activeTabIndex() > 0 || action === 'edit') && (activeTabIndex() < tabCount - 1)" data-click="lastTab">[% l('Finish') | html_entity %]</button>
 
       <!-- ko template: { if: activeTabID() === "#tracklist", data: addMediumDialog } -->
-        <button type="button" data-click="open">[% l('Add Medium') %]</button>
+        <button type="button" data-click="open">[% lp('Add medium', 'interactive') %]</button>
       <!-- /ko -->
 
     </div>

@@ -17,17 +17,17 @@ has 'genre' => (
 
 has 'entity_id' => (
     is => 'rw',
-    isa => 'Int'
+    isa => 'Int',
 );
 
 has 'entity' => (
     is => 'rw',
-    isa => 'Object'
+    isa => 'Object',
 );
 
 has 'count' => (
     is => 'rw',
-    isa => 'Int'
+    isa => 'Int',
 );
 
 sub TO_JSON {

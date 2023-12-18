@@ -48,7 +48,7 @@ export const WorkListRow = ({
   showIswcs = false,
   showRatings = false,
   work,
-}: WorkListRowProps): React$Element<typeof React.Fragment> => {
+}: WorkListRowProps): React$Element<React$FragmentType> => {
   const $c = React.useContext(CatalystContext);
 
   return (

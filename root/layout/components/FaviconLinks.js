@@ -7,9 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
-const FaviconLinks = (): React$Element<typeof React.Fragment> => (
+const FaviconLinks = (): React$Element<React$FragmentType> => (
   <>
     <link
       href="/static/images/favicons/apple-touch-icon-57x57.png"

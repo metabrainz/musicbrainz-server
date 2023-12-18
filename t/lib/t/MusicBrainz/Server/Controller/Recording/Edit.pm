@@ -47,7 +47,7 @@ test 'Editing a recording (inc. replacing ISRC)' => sub {
                 'edit-recording.artist_credit.names.2.artist.id' => '5',
                 'edit-recording.isrcs.0' => 'USS1Z9900001',
             },
-            'The form returned a 2xx response code'
+            'The form returned a 2xx response code',
         );
     } $c;
 
@@ -85,7 +85,7 @@ test 'Editing a recording (inc. replacing ISRC)' => sub {
                             artist => { id => 5, name => 'David Bowie' },
                             name => 'David Bowie',
                             join_phrase => '',
-                        }
+                        },
                     ],
                 },
                 name => 'Another name',
@@ -99,7 +99,7 @@ test 'Editing a recording (inc. replacing ISRC)' => sub {
                             artist => { id => 6, name => 'ABBA' },
                             name => 'ABBA',
                             join_phrase => '',
-                        }
+                        },
                     ],
                 },
                 name => 'Dancing Queen',
@@ -171,11 +171,11 @@ test 'Editing a recording (inc. replacing ISRC)' => sub {
                 isrc => 'USS1Z9900001',
                 recording => {
                     id => 1,
-                    name => 'Dancing Queen'
+                    name => 'Dancing Queen',
                 },
                 source => 0,
             } ],
-            client_version => JSON::null
+            client_version => JSON::null,
         },
         'The add ISRC edit contains the right data',
     );
@@ -219,7 +219,7 @@ test 'Editing a recording without submitting the artist credit field' => sub {
                 'edit-recording.name' => 'Dancing Queen',
                 'edit-recording.isrcs.0' => 'DEE250800231',
             },
-            'The form returned a 2xx response code'
+            'The form returned a 2xx response code',
         );
     } $c;
 
@@ -269,7 +269,7 @@ sub prepare_test {
 
     $test->mech->get('/login');
     $test->mech->submit_form(
-        with_fields => { username => 'editor', password => 'pass' }
+        with_fields => { username => 'editor', password => 'pass' },
     );
 }
 

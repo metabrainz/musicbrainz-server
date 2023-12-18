@@ -37,7 +37,7 @@ export const trackParserDialog =
 
 Object.assign(trackParserDialog, {
   element: '#track-parser-dialog',
-  title: l('Track Parser'),
+  title: l('Track parser'),
 
   toBeParsed: ko.observable(''),
   result: ko.observable(null),
@@ -306,7 +306,7 @@ export const addMediumDialog = releaseEditor.addMediumDialog = new Dialog();
 
 Object.assign(addMediumDialog, {
   element: '#add-medium-dialog',
-  title: l('Add Medium'),
+  title: lp('Add medium', 'header'),
 
   trackParser: trackParserDialog,
   mediumSearch: mediumSearchTab,

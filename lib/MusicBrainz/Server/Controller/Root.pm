@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Controller::Root;
 use DateTime::Locale;
 use Digest::MD5 qw( md5_hex );
+use HTTP::Status qw( :constants );
 use Moose;
 use namespace::autoclean;
 use Try::Tiny;
@@ -15,7 +16,11 @@ BEGIN { extends 'Catalyst::Controller' }
 use DBDefs;
 use MusicBrainz::Server::Constants qw( $VARTIST_GID $CONTACT_URL );
 use MusicBrainz::Server::ControllerUtils::SSL qw( ensure_ssl );
-use MusicBrainz::Server::Data::Utils qw( boolean_to_json type_to_model );
+use MusicBrainz::Server::Data::Utils qw(
+    boolean_to_json
+    non_empty
+    type_to_model
+);
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 use MusicBrainz::Server::Replication qw( :replication_type );
 use aliased 'MusicBrainz::Server::Translation';
@@ -30,7 +35,7 @@ Readonly my $IP_STORE_EXPIRES => (60 * 60 * 24 * 30 * 6); # 6 months
 __PACKAGE__->config->{namespace} = '';
 
 with 'MusicBrainz::Server::Controller::Role::Profile' => {
-    threshold => DBDefs->PROFILE_SITE()
+    threshold => DBDefs->PROFILE_SITE(),
 };
 
 =head1 NAME
@@ -154,7 +159,7 @@ sub error_400 : Private
 {
     my ($self, $c) = @_;
 
-    $c->response->status(400);
+    $c->response->status(HTTP_BAD_REQUEST);
 
     my %props = (
         hostname => $c->stash->{hostname},
@@ -173,7 +178,7 @@ sub error_401 : Private
 {
     my ($self, $c) = @_;
 
-    $c->response->status(401);
+    $c->response->status(HTTP_UNAUTHORIZED);
     $c->stash(
         component_path => 'main/error/Error401',
         current_view => 'Node',
@@ -184,7 +189,7 @@ sub error_403 : Private
 {
     my ($self, $c) = @_;
 
-    $c->response->status(403);
+    $c->response->status(HTTP_FORBIDDEN);
     $c->stash(
         component_path => 'main/error/Error403',
         current_view => 'Node',
@@ -194,7 +199,7 @@ sub error_403 : Private
 sub error_404 : Private {
     my ($self, $c, $message) = @_;
 
-    $c->response->status(404);
+    $c->response->status(HTTP_NOT_FOUND);
     $c->stash(
         component_path => 'main/error/Error404',
         component_props => { message => $message },
@@ -206,7 +211,7 @@ sub error_500 : Private
 {
     my ($self, $c) = @_;
 
-    $c->response->status(500);
+    $c->response->status(HTTP_INTERNAL_SERVER_ERROR);
     $c->stash(
         component_path => 'main/error/Error500',
         component_props => {
@@ -220,7 +225,7 @@ sub error_503 : Private
 {
     my ($self, $c) = @_;
 
-    $c->response->status(503);
+    $c->response->status(HTTP_SERVICE_UNAVAILABLE);
     $c->stash(
         component_path => 'main/error/Error503',
         current_view => 'Node',
@@ -231,7 +236,7 @@ sub error_mirror : Private
 {
     my ($self, $c) = @_;
 
-    $c->response->status(403);
+    $c->response->status(HTTP_FORBIDDEN);
     $c->stash(
         component_path => 'main/error/MirrorError403',
         current_view => 'Node',
@@ -242,7 +247,7 @@ sub error_mirror_404 : Private
 {
     my ($self, $c) = @_;
 
-    $c->response->status(404);
+    $c->response->status(HTTP_NOT_FOUND);
     $c->stash(
         component_path => 'main/error/MirrorError404',
         current_view => 'Node',
@@ -325,10 +330,25 @@ sub begin : Private
     # For displaying which git branch is active as well as last commit information
     # (only shown on staging servers)
     my %git_info;
+
+    # For redirecting back to the main server from staging server banners
+    my $main_server_url;
+
     if (DBDefs->DB_STAGING_SERVER) {
         $git_info{branch} = DBDefs->GIT_BRANCH;
         $git_info{sha} = DBDefs->GIT_SHA;
         $git_info{msg} = DBDefs->GIT_MSG;
+
+        $main_server_url = $c->req->uri->clone;
+        $main_server_url->port(''); # won't unset it itself when setting host
+        $main_server_url->host_port(
+            non_empty(DBDefs->BETA_REDIRECT_HOSTNAME)
+                ? DBDefs->BETA_REDIRECT_HOSTNAME
+                : 'musicbrainz.org',
+        );
+        if (DBDefs->IS_BETA) {
+            $main_server_url->query_param_append('unset_beta', 1);
+        }
     }
 
     $c->stash(
@@ -346,6 +366,9 @@ sub begin : Private
         new_edit_notes => $new_edit_notes,
         new_edit_notes_mtime => $new_edit_notes_mtime,
         contact_url => $CONTACT_URL,
+        main_server_url => defined $main_server_url
+                               ? $main_server_url->as_string
+                               : undef,
         component_props => {},
     );
 
@@ -425,7 +448,7 @@ sub begin : Private
     if (my $merger = $c->try_get_session('merger')) {
         my $model = $c->model(type_to_model($merger->type));
         my @merge = values %{
-            $model->get_by_ids($merger->all_entities)
+            $model->get_by_ids($merger->all_entities);
         };
         $c->model('ArtistCredit')->load(@merge);
 
@@ -466,7 +489,7 @@ sub end : ActionClass('RenderView')
         is_sanitized               => DBDefs->DB_STAGING_SERVER_SANITIZED,
         development_server         => DBDefs->DEVELOPMENT_SERVER,
         beta_redirect              => DBDefs->BETA_REDIRECT_HOSTNAME,
-        is_beta                    => DBDefs->IS_BETA
+        is_beta                    => DBDefs->IS_BETA,
     };
 
     $c->stash->{various_artist_mbid} = $VARTIST_GID;

@@ -16,7 +16,7 @@ type Props = {
 const ResetPasswordStatus = ({
   message,
 }: Props): React$Element<typeof StatusPage> => (
-  <StatusPage title={l('Reset Password')}>
+  <StatusPage title={lp('Reset password', 'header')}>
     <p>{message}</p>
   </StatusPage>
 );

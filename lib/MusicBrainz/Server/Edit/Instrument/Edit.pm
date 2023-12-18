@@ -11,7 +11,7 @@ use MusicBrainz::Server::Edit::Utils qw(
 );
 use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 
 use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict Optional );
@@ -19,11 +19,11 @@ use MooseX::Types::Structured qw( Dict Optional );
 use aliased 'MusicBrainz::Server::Entity::Instrument';
 
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
-with 'MusicBrainz::Server::Edit::CheckForConflicts';
-with 'MusicBrainz::Server::Edit::Instrument';
-with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
+with 'MusicBrainz::Server::Edit::CheckForConflicts',
+     'MusicBrainz::Server::Edit::Instrument',
+     'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
-sub edit_name { N_l('Edit instrument') }
+sub edit_name { N_lp('Edit instrument', 'edit type') }
 sub edit_type { $EDIT_INSTRUMENT_EDIT }
 sub edit_template { 'EditInstrument' }
 
@@ -43,11 +43,11 @@ has '+data' => (
         entity => Dict[
             id => Int,
             gid => Optional[Str],
-            name => Str
+            name => Str,
         ],
         new => change_fields(),
         old => change_fields(),
-    ]
+    ],
 );
 
 sub foreign_keys {
@@ -75,7 +75,7 @@ sub build_display_data {
 
     $data->{instrument} = to_json_object(
         $loaded->{Instrument}{ $self->data->{entity}{id} } ||
-        Instrument->new( name => $self->data->{entity}{name} )
+        Instrument->new( name => $self->data->{entity}{name} ),
     );
 
     if (defined $data->{type}) {

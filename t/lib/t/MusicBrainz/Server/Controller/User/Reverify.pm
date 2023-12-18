@@ -43,7 +43,7 @@ $mech->get_ok('/user/new_editor');
 $mech->content_like(qr{\(verified at (.*)\)});
 
 my $editor = $c->model('Editor')->get_by_name('new_editor');
-ok($editor->email_confirmation_date->year > 2003, 'Reverification date is newer than original verification date')
+ok($editor->email_confirmation_date->year > 2003, 'Reverification date is newer than original verification date');
 
 };
 

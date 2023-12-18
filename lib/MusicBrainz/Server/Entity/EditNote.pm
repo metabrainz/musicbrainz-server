@@ -22,7 +22,7 @@ has 'editor_id' => (
 
 has 'editor' => (
     isa => 'Editor',
-    is => 'rw'
+    is => 'rw',
 );
 
 has 'edit_id' => (
@@ -33,7 +33,7 @@ has 'edit_id' => (
 has 'edit' => (
     isa => 'Edit',
     is => 'rw',
-    weak_ref => 1
+    weak_ref => 1,
 );
 
 has 'text' => (
@@ -44,7 +44,7 @@ has 'text' => (
 has 'post_time' => (
     isa => DateTime,
     is => 'rw',
-    coerce => 1
+    coerce => 1,
 );
 
 has 'latest_change' => (

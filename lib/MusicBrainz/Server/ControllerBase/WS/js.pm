@@ -1,6 +1,7 @@
 package MusicBrainz::Server::ControllerBase::WS::js;
 use Moose;
 use namespace::autoclean;
+use HTTP::Status qw( :constants );
 use MusicBrainz::Server::WebService::Format;
 use MusicBrainz::Server::WebService::JSONSerializer;
 
@@ -11,20 +12,20 @@ with 'MusicBrainz::Server::WebService::Format';
 sub serializers {
     [
         'MusicBrainz::Server::WebService::JSONSerializer',
-    ]
+    ];
 }
 
 sub bad_req : Private
 {
     my ($self, $c) = @_;
-    $c->res->status(400);
+    $c->res->status(HTTP_BAD_REQUEST);
     $self->output_error($c);
 }
 
 sub not_found : Private
 {
     my ($self, $c) = @_;
-    $c->res->status(404);
+    $c->res->status(HTTP_NOT_FOUND);
     $self->output_error($c);
 }
 

@@ -8,7 +8,7 @@ sub operator_cardinality_map {
   return (
       'includes' => undef,
       'not-includes' => undef,
-  )
+  );
 }
 
 sub combine_with_query {
@@ -38,7 +38,7 @@ sub combine_with_query {
         )",
         \@patterns,
     ]);
-};
+}
 
 1;
 

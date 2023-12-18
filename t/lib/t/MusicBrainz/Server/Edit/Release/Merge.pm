@@ -7,7 +7,7 @@ use Test::More;
 
 with 't::Context';
 
-BEGIN { use MusicBrainz::Server::Edit::Release::Merge };
+BEGIN { use MusicBrainz::Server::Edit::Release::Merge }
 
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_MERGE $STATUS_APPLIED $STATUS_ERROR );
@@ -31,8 +31,8 @@ test all => sub {
         old_entities => [
             {
                 id => 7,
-                name => 'Release 2'
-            }
+                name => 'Release 2',
+            },
         ],
         merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_APPEND,
         medium_changes => [
@@ -49,7 +49,7 @@ test all => sub {
                         old_name => '',
                         new_name => '',
                     },
-                ]
+                ],
             },
             {
                 release => {
@@ -64,9 +64,9 @@ test all => sub {
                         old_name => '',
                         new_name => '',
                     },
-                ]
-            }
-        ]
+                ],
+            },
+        ],
     );
 
     ok($c->model('Release')->get_by_id(6));
@@ -88,8 +88,8 @@ test all => sub {
         old_entities => [
             {
                 id => 8,
-                name => 'Release 2'
-            }
+                name => 'Release 2',
+            },
         ],
         merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_APPEND,
         medium_changes => [
@@ -113,7 +113,7 @@ test all => sub {
                         old_name => '',
                         new_name => '',
                     },
-                ]
+                ],
             },
             {
                 release => {
@@ -128,9 +128,9 @@ test all => sub {
                         old_name => '',
                         new_name => '',
                     },
-                ]
-            }
-        ]
+                ],
+            },
+        ],
     );
 
     accept_edit($c, $edit);
@@ -153,10 +153,10 @@ test 'Linking Merge Release edits to recordings' => sub {
         old_entities => [
             {
                 id => 7,
-                name => 'Release 2'
-            }
+                name => 'Release 2',
+            },
         ],
-        merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_MERGE
+        merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_MERGE,
     );
 
     # Use a set because the order can be different, but the elements should be the same.
@@ -175,8 +175,8 @@ test 'Linking Merge Release edits to recordings' => sub {
         old_entities => [
             {
                 id => 7,
-                name => 'Release 2'
-            }
+                name => 'Release 2',
+            },
         ],
         merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_APPEND,
         medium_changes => [
@@ -193,7 +193,7 @@ test 'Linking Merge Release edits to recordings' => sub {
                         old_name => '',
                         new_name => '',
                     },
-                ]
+                ],
             },
             {
                 release => {
@@ -208,9 +208,9 @@ test 'Linking Merge Release edits to recordings' => sub {
                         old_name => '',
                         new_name => '',
                     },
-                ]
-            }
-        ]
+                ],
+            },
+        ],
     );
 
     is_deeply([], $edit->related_entities->{recording}, 'empty related recordings for MERGE_APPEND');
@@ -228,7 +228,7 @@ test 'Old medium and tracks are removed during merge' => sub {
         editor_id => 1,
         new_entity =>     { id => 6, name => 'Release 1' },
         old_entities => [ { id => 7, name => 'Release 2' } ],
-        merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_MERGE
+        merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_MERGE,
     );
 
     $edit->accept();
@@ -290,7 +290,7 @@ test 'Relationships used as documentation examples are merged (MBS-8516)' => sub
     is($edit->status, $STATUS_APPLIED);
 
     my $examples = $c->sql->select_single_column_array(
-        'SELECT id FROM documentation.l_release_url_example ORDER BY id'
+        'SELECT id FROM documentation.l_release_url_example ORDER BY id',
     );
     is_deeply($examples, [1, 4]);
 };
@@ -569,10 +569,10 @@ test 'Merging release with empty medium (MBS-11614)' => sub {
         old_entities => [
             {
                 id => 111,
-                name => 'No Empty Mediums'
-            }
+                name => 'No Empty Mediums',
+            },
         ],
-        merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_MERGE
+        merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_MERGE,
     );
     ok($wrong_edit->is_open);
     $c->model('Edit')->accept($wrong_edit);
@@ -588,10 +588,10 @@ test 'Merging release with empty medium (MBS-11614)' => sub {
         old_entities => [
             {
                 id => 101,
-                name => 'One Empty Medium'
-            }
+                name => 'One Empty Medium',
+            },
         ],
-        merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_MERGE
+        merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_MERGE,
     );
 
     ok($right_edit->is_open);
@@ -632,8 +632,8 @@ test 'Merge goes through despite duplicate annotations (MBS-12550)' => sub {
         old_entities => [
             {
                 id => 7,
-                name => 'Release 2'
-            }
+                name => 'Release 2',
+            },
         ],
         merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_APPEND,
         medium_changes => [
@@ -650,7 +650,7 @@ test 'Merge goes through despite duplicate annotations (MBS-12550)' => sub {
                         old_name => '',
                         new_name => '',
                     },
-                ]
+                ],
             },
             {
                 release => {
@@ -665,9 +665,9 @@ test 'Merge goes through despite duplicate annotations (MBS-12550)' => sub {
                         old_name => '',
                         new_name => '',
                     },
-                ]
-            }
-        ]
+                ],
+            },
+        ],
     );
 
     accept_edit($c, $edit);
@@ -676,7 +676,7 @@ test 'Merge goes through despite duplicate annotations (MBS-12550)' => sub {
     is(
         $merged_annotation->text,
         'Annotation',
-        'The annotation was kept and not duplicated since it was the same'
+        'The annotation was kept and not duplicated since it was the same',
     );
 };
 

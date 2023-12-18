@@ -260,7 +260,7 @@ sub create_full_edit {
         begin_date => { year => 1995, month => 1, day => 12 },
         end_date => { year => 2005, month => 5, day => 30 },
         ipi_codes => [ '00262168177' ],
-        isni_codes => [ '0000000106750994' ]
+        isni_codes => [ '0000000106750994' ],
     );
 }
 

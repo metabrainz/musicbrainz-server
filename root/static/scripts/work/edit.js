@@ -34,23 +34,13 @@ import {initializeGuessCase} from '../guess-case/MB/Control/GuessCase.js';
 
 const scriptArgs = getScriptArgs();
 
-type WorkAttributeField = ReadOnlyCompoundFieldT<{
-  +type_id: ReadOnlyFieldT<?number>,
-  +value: ReadOnlyFieldT<?StrOrNum>,
-}>;
-
-type WorkForm = FormT<{
-  +attributes: ReadOnlyRepeatableFieldT<WorkAttributeField>,
-  +languages: ReadOnlyRepeatableFieldT<ReadOnlyFieldT<?number>>,
-}>;
-
-type WritableWorkAttributeField = CompoundFieldT<{
+type WorkAttributeField = CompoundFieldT<{
   +type_id: FieldT<?number>,
   +value: FieldT<?StrOrNum>,
 }>;
 
-type WritableWorkForm = FormT<{
-  +attributes: RepeatableFieldT<WritableWorkAttributeField>,
+type WorkForm = FormT<{
+  +attributes: RepeatableFieldT<WorkAttributeField>,
   +languages: RepeatableFieldT<FieldT<?number>>,
 }>;
 
@@ -96,10 +86,10 @@ const store = createStore<WorkForm, ActionT, (ActionT) => empty>(function (
       break;
 
     case 'EDIT_LANGUAGE':
-      state = mutate<WritableWorkForm, WorkForm>(state, newState => {
-        newState.field.languages.field[action.index].value =
-          parseIntegerOrNull(action.languageId);
-      });
+      state = mutate(state)
+        .set('field', 'languages', 'field', action.index, 'value',
+             parseIntegerOrNull(action.languageId))
+        .final();
       break;
 
     case 'REMOVE_LANGUAGE':
@@ -115,15 +105,15 @@ const store = createStore<WorkForm, ActionT, (ActionT) => empty>(function (
 });
 
 function addLanguageToState(form: WorkForm): WorkForm {
-  return mutate<WritableWorkForm, _>(form, newForm => {
-    pushField(newForm.field.languages, null);
-  });
+  return mutate(form).update('field', 'languages', (fieldCtx) => {
+    pushField(fieldCtx, null);
+  }).final();
 }
 
 function removeLanguageFromState(form: WorkForm, i: number): WorkForm {
-  return mutate<WritableWorkForm, _>(form, newForm => {
-    newForm.field.languages.field.splice(i, 1);
-  });
+  return mutate(form).update('field', 'languages', 'field', (fieldCtx) => {
+    fieldCtx.write().splice(i, 1);
+  }).final();
 }
 
 class WorkAttribute {
@@ -279,15 +269,15 @@ function byID(
 {
   const attributes = form.field.attributes;
   if (!attributes.field.length) {
-    form = mutate<WritableWorkForm, _>(form, newForm => {
+    form = mutate(form).update('field', 'attributes', (attributesCtx) => {
       pushCompoundField<{
         +type_id: ?number,
         +value: ?StrOrNum,
-      }>(newForm.field.attributes, {
+      }>(attributesCtx, {
         type_id: null,
         value: null,
       });
-    });
+    }).final();
   }
 }
 
@@ -321,7 +311,7 @@ function removeLanguage(i: number) {
   });
 }
 
-const getSelectField = (field: ReadOnlyFieldT<?number>) => field;
+const getSelectField = (field: FieldT<?number>) => field;
 
 const workLanguagesNode = document.getElementById('work-languages-editor');
 if (!workLanguagesNode) {
@@ -337,19 +327,19 @@ function renderWorkLanguages() {
     workLanguagesRoot.render(
       <FormRowSelectList
         addId="add-language"
-        addLabel={l('Add Language')}
+        addLabel={lp('Add language', 'interactive')}
         getSelectField={getSelectField}
         hideAddButton={
           selectedLanguageIds.includes(String(LANGUAGE_MUL_ID)) ||
           selectedLanguageIds.includes(String(LANGUAGE_ZXX_ID))
         }
-        label={addColonText(l('Lyrics Languages'))}
+        label={addColonText(l('Lyrics languages'))}
         onAdd={addLanguage}
         onEdit={editLanguage}
         onRemove={removeLanguage}
         options={workLanguageOptions}
         removeClassName="remove-language"
-        removeLabel={l('Remove Language')}
+        removeLabel={lp('Remove language', 'interactive')}
         repeatable={form.field.languages}
       />,
     );

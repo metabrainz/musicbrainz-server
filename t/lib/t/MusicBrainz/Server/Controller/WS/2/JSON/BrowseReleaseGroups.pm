@@ -6,7 +6,7 @@ use warnings;
 use JSON;
 use Test::Routine;
 use MusicBrainz::Server::Test ws_test_json => {
-    version => 2
+    version => 2,
 };
 
 with 't::Mechanize', 't::Context';
@@ -54,7 +54,7 @@ test 'browse release group via release' => sub {
                         { count => 1, disambiguation => 'stuff', id => '51cfaac4-6696-480b-8f1b-27cfc789109c', name => 'grime' }],
                     'rating' => { 'votes-count' => 1, 'value' => 4 },
                     disambiguation => '',
-                }]
+                }],
         };
 };
 
@@ -129,7 +129,7 @@ test 'browse release group via artist' => sub {
                     genres => [ ],
                     'rating' => { 'votes-count' => 0, 'value' => JSON::null },
                     disambiguation => '',
-                }]
+                }],
         };
 };
 
@@ -142,7 +142,7 @@ test 'browse singles via artist' => sub {
         {
             'release-group-count' => 0,
             'release-group-offset' => 0,
-            'release-groups' => []
+            'release-groups' => [],
         };
 };
 
@@ -189,7 +189,7 @@ test 'browse official release groups via artist' => sub {
                         { count => 1, disambiguation => 'stuff', id => '51cfaac4-6696-480b-8f1b-27cfc789109c', name => 'grime' }],
                     'rating' => { 'votes-count' => 1, 'value' => 4 },
                     disambiguation => '',
-                }]
+                }],
         };
 };
 

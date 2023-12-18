@@ -15,7 +15,7 @@ sub text
     my $escape = sub { uri_escape_utf8(shift) }; ## no critic 'ProhibitUnusedVarsStricter'
     my $timeout = $MusicBrainz::Server::Data::AutoEditorElection::PROPOSAL_TIMEOUT; ## no critic 'ProhibitUnusedVarsStricter'
 
-    return strip tt <<EOF;
+    return strip tt <<"EOF";
 A new candidate has been put forward for autoeditor status:
 
 Candidate: [% self.election.candidate.name %]

@@ -5,17 +5,17 @@ use MusicBrainz::Server::Entity::Types;
 
 has 'editor_id' => (
     is => 'rw',
-    isa => 'Int'
+    isa => 'Int',
 );
 
 has 'editor' => (
     is => 'rw',
-    isa => 'Editor'
+    isa => 'Editor',
 );
 
 has 'rating' => (
     is => 'rw',
-    isa => 'Int'
+    isa => 'Int',
 );
 
 sub TO_JSON {

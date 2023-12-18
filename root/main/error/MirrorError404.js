@@ -10,7 +10,7 @@
 import ErrorLayout from './ErrorLayout.js';
 
 const MirrorError404 = (): React$Element<typeof ErrorLayout> => (
-  <ErrorLayout title={l('Page Not Found')}>
+  <ErrorLayout title={l('Page not found')}>
     <p>
       <strong>
         {l(`Sorry, the page you're looking for

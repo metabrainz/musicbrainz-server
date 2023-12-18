@@ -7,11 +7,11 @@ use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 use MusicBrainz::Server::Filters qw( format_wikitext );
 
 extends 'MusicBrainz::Server::Entity';
-with 'MusicBrainz::Server::Entity::Role::GID';
-with 'MusicBrainz::Server::Entity::Role::Name';
-
-
-with 'MusicBrainz::Server::Entity::Role::Type' => { model => 'CollectionType' };
+with 'MusicBrainz::Server::Entity::Role::GID',
+     'MusicBrainz::Server::Entity::Role::Name',
+     'MusicBrainz::Server::Entity::Role::Type' => {
+    model => 'CollectionType',
+};
 
 sub entity_type { 'collection' }
 
@@ -27,24 +27,24 @@ has 'editor_id' => (
 
 has 'public' => (
     is => 'rw',
-    isa => 'Bool'
+    isa => 'Bool',
 );
 
 has 'description' => (
     is => 'rw',
-    isa => 'Str'
+    isa => 'Str',
 );
 
 has entity_count => (
     is => 'rw',
     isa => 'Int',
-    predicate => 'loaded_entity_count'
+    predicate => 'loaded_entity_count',
 );
 
 has subscribed => (
     is => 'rw',
     isa => 'Bool',
-    predicate => 'loaded_subscription'
+    predicate => 'loaded_subscription',
 );
 
 has 'collaborators' => (
@@ -54,7 +54,7 @@ has 'collaborators' => (
     default => sub { [] },
     handles => {
         all_collaborators => 'elements',
-    }
+    },
 );
 
 around TO_JSON => sub {

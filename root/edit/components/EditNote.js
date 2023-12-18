@@ -17,6 +17,7 @@ import {
 } from '../../constants.js';
 import {CatalystContext} from '../../context.mjs';
 import EditorLink from '../../static/scripts/common/components/EditorLink.js';
+import {l_admin} from '../../static/scripts/common/i18n/admin.js';
 import bracketed from '../../static/scripts/common/utility/bracketed.js';
 import {isAccountAdmin, isAddingNotesDisabled}
   from '../../static/scripts/common/utility/privileges.js';
@@ -191,7 +192,7 @@ const EditNote = ({
               {' '}
               {bracketed(
                 <a href={`/edit-note/${editNote.id}/changes`}>
-                  {lp('see all changes', 'edit note')}
+                  {l_admin('see all changes')}
                 </a>,
               )}
             </span>
@@ -243,7 +244,7 @@ const EditNote = ({
                   {' '}
                   {bracketed(
                     <a href={`/edit-note/${editNote.id}/changes`}>
-                      {lp('see all changes', 'edit note')}
+                      {l_admin('see all changes')}
                     </a>,
                   )}
                 </>

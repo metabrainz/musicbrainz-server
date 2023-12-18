@@ -258,7 +258,7 @@ test 'Editing two artists into a conflict fails gracefully' => sub {
         name => 'Conflicting name',
         comment => 'Conflicting comment',
         ipi_codes => [],
-        isni_codes => []
+        isni_codes => [],
     );
 
     my $edit_2 = $c->model('Edit')->create(
@@ -268,7 +268,7 @@ test 'Editing two artists into a conflict fails gracefully' => sub {
         name => 'Conflicting name',
         comment => 'Conflicting comment',
         ipi_codes => [],
-        isni_codes => []
+        isni_codes => [],
     );
 
     ok !exception { $edit_1->accept }, 'First edit can be applied';

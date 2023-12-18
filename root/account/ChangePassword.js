@@ -21,10 +21,10 @@ import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
 import HiddenField from '../static/scripts/edit/components/HiddenField.js';
 
 type ChangePasswordFormT = FormT<{
-  +confirm_password: ReadOnlyFieldT<string>,
-  +old_password: ReadOnlyFieldT<string>,
-  +password: ReadOnlyFieldT<string>,
-  +username: ReadOnlyFieldT<string>,
+  +confirm_password: FieldT<string>,
+  +old_password: FieldT<string>,
+  +password: FieldT<string>,
+  +username: FieldT<string>,
 }>;
 
 type Props = {
@@ -37,7 +37,7 @@ const ChangePasswordPageContent = ({
   form,
   isMandatory = false,
   userExists = false,
-}: Props): React$Element<typeof React.Fragment> => (
+}: Props): React$Element<React$FragmentType> => (
   <>
     {isMandatory ? (
       <p>
@@ -96,7 +96,7 @@ const ChangePasswordPageContent = ({
         uncontrolled
       />
       <FormRow hasNoLabel>
-        <FormSubmit label={l('Change Password')} />
+        <FormSubmit label={lp('Change password', 'interactive')} />
       </FormRow>
     </form>
   </>
@@ -114,9 +114,9 @@ const ChangePassword = ({
       <UserAccountLayout
         entity={sanitizedAccountLayoutUser(user)}
         page="change_password"
-        title={l('Change Password')}
+        title={lp('Change password', 'header')}
       >
-        <h2>{l('Change Password')}</h2>
+        <h2>{lp('Change password', 'header')}</h2>
         <ChangePasswordPageContent
           form={form}
           isMandatory={isMandatory}
@@ -127,8 +127,8 @@ const ChangePassword = ({
   }
 
   return (
-    <Layout fullWidth title={l('Change Password')}>
-      <h1>{l('Change Password')}</h1>
+    <Layout fullWidth title={lp('Change password', 'header')}>
+      <h1>{lp('Change password', 'header')}</h1>
       <ChangePasswordPageContent form={form} isMandatory={isMandatory} />
     </Layout>
   );

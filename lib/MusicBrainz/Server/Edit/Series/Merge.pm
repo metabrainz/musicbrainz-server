@@ -1,14 +1,14 @@
 package MusicBrainz::Server::Edit::Series::Merge;
 use Moose;
 use MusicBrainz::Server::Constants qw( $EDIT_SERIES_MERGE );
-use MusicBrainz::Server::Translation qw ( N_l );
+use MusicBrainz::Server::Translation qw ( N_lp );
 
 extends 'MusicBrainz::Server::Edit::Generic::Merge';
-with 'MusicBrainz::Server::Edit::Role::MergeSubscription';
-with 'MusicBrainz::Server::Edit::Series';
+with 'MusicBrainz::Server::Edit::Role::MergeSubscription',
+     'MusicBrainz::Server::Edit::Series';
 
 sub edit_type { $EDIT_SERIES_MERGE }
-sub edit_name { N_l('Merge series') }
+sub edit_name { N_lp('Merge series', 'edit type') }
 
 sub _merge_model { 'Series' }
 sub subscription_model { shift->c->model('Series')->subscription }
@@ -24,12 +24,12 @@ sub foreign_keys {
             } (
                 $self->data->{new_entity}{id},
                 map { $_->{id} } @{ $self->data->{old_entities} },
-            )
-        }
-    }
+            ),
+        },
+    };
 }
 
-sub edit_template { 'MergeSeries' };
+sub edit_template { 'MergeSeries' }
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

@@ -14,18 +14,18 @@ use MusicBrainz::Server::Edit::Utils qw(
     clean_submitted_artist_credits
 );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 use Scalar::Util qw( looks_like_number );
 
 extends 'MusicBrainz::Server::Edit::Generic::Create';
-with 'MusicBrainz::Server::Edit::Role::Preview';
-with 'MusicBrainz::Server::Edit::ReleaseGroup::RelatedEntities';
-with 'MusicBrainz::Server::Edit::ReleaseGroup';
-with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
+with 'MusicBrainz::Server::Edit::Role::Preview',
+     'MusicBrainz::Server::Edit::ReleaseGroup::RelatedEntities',
+     'MusicBrainz::Server::Edit::ReleaseGroup',
+     'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
 use aliased 'MusicBrainz::Server::Entity::ReleaseGroup';
 
-sub edit_name { N_l('Add release group') }
+sub edit_name { N_lp('Add release group', 'edit type') }
 sub edit_type { $EDIT_RELEASEGROUP_CREATE }
 sub _create_model { 'ReleaseGroup' }
 sub release_group_id { shift->entity_id }
@@ -36,8 +36,8 @@ has '+data' => (
         name          => Str,
         artist_credit => ArtistCreditDefinition,
         comment       => Nullable[Str],
-        secondary_type_ids => Optional[ArrayRef[Int]]
-    ]
+        secondary_type_ids => Optional[ArrayRef[Int]],
+    ],
 );
 
 sub foreign_keys
@@ -47,7 +47,7 @@ sub foreign_keys
         Artist           => { load_artist_credit_definitions($self->data->{artist_credit}) },
         ReleaseGroup     => [ $self->entity_id ],
         ReleaseGroupType => [ $self->data->{type_id} ],
-        ReleaseGroupSecondaryType => $self->data->{secondary_type_ids}
+        ReleaseGroupSecondaryType => $self->data->{secondary_type_ids},
     };
 }
 
@@ -67,7 +67,7 @@ sub build_display_data
                               $loaded->{ReleaseGroup}{ $self->entity_id }) ||
                                   ReleaseGroup->new( name => $self->data->{name} )),
         secondary_types => join(' + ', map { $loaded->{ReleaseGroupSecondaryType}{$_}->l_name }
-                                    @{ $self->data->{secondary_type_ids} })
+                                    @{ $self->data->{secondary_type_ids} }),
     };
 }
 

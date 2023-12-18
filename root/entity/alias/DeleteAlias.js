@@ -28,7 +28,7 @@ const DeleteAlias = ({
   type,
 }: Props): React$MixedElement => {
   const LayoutComponent = chooseLayoutComponent(type);
-  const header = l('Remove alias');
+  const header = lp('Remove alias', 'header');
 
   return (
     <LayoutComponent

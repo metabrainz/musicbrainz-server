@@ -34,16 +34,32 @@ export default function getOpenEditsLink(
     return null;
   }
 
-  return (
-    '/search/edits?auto_edit_filter=&order=desc&negation=0&combinator=and' +
+  const entity0Conditions = entity0.entityType === 'url' ? (
+    `&conditions.0.field=${encodeURIComponent(entity0.entityType)}` +
+    '&conditions.0.operator=%3D' +
+    `&conditions.0.args.0=${encodeURIComponent(entity0Name)}`
+  ) : (
     `&conditions.0.field=${encodeURIComponent(entity0.entityType)}` +
     '&conditions.0.operator=%3D' +
     `&conditions.0.name=${encodeURIComponent(entity0Name)}` +
-    `&conditions.0.args.0=${encodeURIComponent(String(entity0.id))}` +
+    `&conditions.0.args.0=${encodeURIComponent(String(entity0.id))}`
+  );
+
+  const entity1Conditions = entity1.entityType === 'url' ? (
+    `&conditions.1.field=${encodeURIComponent(entity1.entityType)}` +
+    '&conditions.1.operator=%3D' +
+    `&conditions.1.args.0=${encodeURIComponent(entity1Name)}`
+  ) : (
     `&conditions.1.field=${encodeURIComponent(entity1.entityType)}` +
     '&conditions.1.operator=%3D' +
     `&conditions.1.name=${encodeURIComponent(entity1Name)}` +
-    `&conditions.1.args.0=${encodeURIComponent(String(entity1.id))}` +
+    `&conditions.1.args.0=${encodeURIComponent(String(entity1.id))}`
+  );
+
+  return (
+    '/search/edits?auto_edit_filter=&order=desc&negation=0&combinator=and' +
+    entity0Conditions +
+    entity1Conditions +
     '&conditions.2.field=type' +
     '&conditions.2.operator=%3D&conditions.2.args=90%2C233' +
     '&conditions.2.args=91&conditions.2.args=92' +

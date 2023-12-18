@@ -45,7 +45,7 @@ test 'Logged in users can see matching CD stubs' => sub {
         'Fetched the attach page for CD TOC matching existing CD stub',
     );
     $mech->text_contains(
-        'A CD Stub was found that matches the disc ID',
+        'A CD stub was found that matches the disc ID',
         'The matching CD stub message is displayed',
     );
     $mech->text_contains('CD stub name', 'The CD stub name is displayed');
@@ -122,7 +122,7 @@ test 'A matching CD stub searches for possible releases' => sub {
         'Fetched the attach page for CD TOC matching existing CD stub',
     );
     $mech->text_contains(
-        'A CD Stub was found that matches the disc ID',
+        'A CD stub was found that matches the disc ID',
         'The matching CD stub message is displayed',
     );
     $mech->text_contains(

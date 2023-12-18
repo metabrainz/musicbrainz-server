@@ -31,7 +31,7 @@ test '/edit/open shows open edits' => sub {
     html_ok($test->mech->content);
     $test->mech->content_contains(
         '/edit/' . $edit->id,
-        'The open edit is shown'
+        'The open edit is shown',
     );
 };
 

@@ -9,7 +9,7 @@ use Test::Fatal;
 with 't::Edit';
 with 't::Context';
 
-BEGIN { use MusicBrainz::Server::Edit::Recording::Edit };
+BEGIN { use MusicBrainz::Server::Edit::Recording::Edit }
 
 use MusicBrainz::Server::Constants qw( $EDIT_RECORDING_EDIT );
 use MusicBrainz::Server::Test qw( accept_edit reject_edit );
@@ -67,7 +67,7 @@ test 'Case changes to recording comments are auto-edits' => sub {
         edit_type => $EDIT_RECORDING_EDIT,
         editor_id => 1,
         to_edit => $recording,
-        comment => 'Test CommenT'
+        comment => 'Test CommenT',
     );
 
     is($edit->status, 2);
@@ -89,7 +89,7 @@ test 'Check conflicts (non-conflicting edits)' => sub {
         edit_type => $EDIT_RECORDING_EDIT,
         editor_id => 1,
         to_edit   => $c->model('Recording')->get_by_id(1),
-        comment   => 'Comment change'
+        comment   => 'Comment change',
     );
 
     ok !exception { $edit_1->accept }, 'accepted edit 1';
@@ -110,7 +110,7 @@ test 'Check conflicts (conflicting edits)' => sub {
         editor_id => 1,
         to_edit   => $c->model('Recording')->get_by_id(1),
         name    => 'Renamed recording',
-        comment => 'comment FOO'
+        comment => 'comment FOO',
     );
 
     my $edit_2 = $c->model('Edit')->create(
@@ -141,7 +141,7 @@ test 'Submitting a recording edit with an undef comment' => sub {
         editor_id => 1,
         to_edit => $recording,
         name => '~foooo~',
-        comment => undef
+        comment => undef,
     );
 
     ok !exception { $edit->accept }, 'accepted edit';
@@ -170,7 +170,7 @@ sub is_unchanged {
         is($recording->comment, 'a comment');
         is($recording->artist_credit_id, 1);
         is($recording->length, undef);
-    }
+    };
 }
 
 1;

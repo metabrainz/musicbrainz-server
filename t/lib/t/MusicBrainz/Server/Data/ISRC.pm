@@ -75,7 +75,7 @@ is(scalar @isrcs, 0);
 
 $sql->begin;
 $test->c->model('ISRC')->insert(
-    { isrc => 'DEE250800232', recording_id => 2 }
+    { isrc => 'DEE250800232', recording_id => 2 },
 );
 $sql->commit;
 

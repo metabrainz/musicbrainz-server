@@ -19,7 +19,7 @@ const CannotSplit = ({
   isEmpty,
 }: Props): React$Element<typeof ArtistLayout> => (
   <ArtistLayout entity={artist} page="cannot_split">
-    <h2>{l('Split Into Separate Artists')}</h2>
+    <h2>{l('Split into separate artists')}</h2>
     <p>
       {isEmpty /*:: === true */ ? (
         l(`This artist is already empty and is awaiting automatic deletion.`)

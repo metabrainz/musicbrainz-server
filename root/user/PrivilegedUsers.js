@@ -34,7 +34,7 @@ const PrivilegedUsers = ({
     <div id="content">
       <h1>{l('Privileged user accounts')}</h1>
 
-      <h2>{l('Auto-editors')}</h2>
+      <h2>{lp('Auto-editors', 'header')}</h2>
       <p>
         {exp.l(
           `Auto-editors are trusted users who have been given
@@ -53,7 +53,7 @@ const PrivilegedUsers = ({
       </p>
       <UserInlineList editors={autoEditors} />
 
-      <h2>{l('Relationship editors')}</h2>
+      <h2>{lp('Relationship editors', 'header')}</h2>
       <p>
         {exp.l(
           `Relationship editors are users who can add or modify relationship
@@ -72,7 +72,7 @@ const PrivilegedUsers = ({
       </p>
       <UserInlineList editors={relationshipEditors} />
 
-      <h2>{l('Transclusion editors')}</h2>
+      <h2>{lp('Transclusion editors', 'header')}</h2>
       <p>
         {exp.l(
           `Transclusion editors are users who add and maintain entries in
@@ -88,7 +88,7 @@ const PrivilegedUsers = ({
       </p>
       <UserInlineList editors={transclusionEditors} />
 
-      <h2>{l('Location editors')}</h2>
+      <h2>{lp('Location editors', 'header')}</h2>
       <p>
         {exp.l(
           'Location editors are users who can add or modify {uri|areas}.',
@@ -103,7 +103,7 @@ const PrivilegedUsers = ({
       </p>
       <UserInlineList editors={locationEditors} />
 
-      <h2>{l('Banner message editors')}</h2>
+      <h2>{lp('Banner message editors', 'header')}</h2>
       <p>
         {l(`Banner message editors are users who can set a message that
             is shown in a banner on all pages, for example to warn users about
@@ -117,7 +117,7 @@ const PrivilegedUsers = ({
       </p>
       <UserInlineList editors={bannerEditors} />
 
-      <h2>{l('Account administrators')}</h2>
+      <h2>{lp('Account administrators', 'header')}</h2>
       <p>{l('Account administrators can edit and delete user accounts.')}</p>
       <p>
         {texp.l(
@@ -127,7 +127,7 @@ const PrivilegedUsers = ({
       </p>
       <UserInlineList editors={accountAdmins} />
 
-      <h2>{l('Bots')}</h2>
+      <h2>{lp('Bots', 'header')}</h2>
       <p>
         {texp.l(
           'The following {count} user accounts are bots:',

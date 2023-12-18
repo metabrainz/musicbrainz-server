@@ -7,6 +7,7 @@ use Moose;
 BEGIN { extends 'MusicBrainz::Server::Controller' }
 
 use Encode;
+use HTTP::Status qw( :constants );
 use JSON;
 use MusicBrainz::Server::CGI::Expand qw( expand_hash );
 use MusicBrainz::Server::Constants qw(
@@ -109,7 +110,7 @@ sub detach_with_error {
 
     my $json = JSON->new;
     $c->res->body($json->encode({ error => $error }));
-    $c->res->status(400);
+    $c->res->status(HTTP_BAD_REQUEST);
     $c->detach;
 }
 

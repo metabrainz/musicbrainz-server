@@ -41,14 +41,14 @@ test 'Can have artist credits with no join phrase' => sub {
             {
                 artist => { id => 1, name => 'Ed Rush' },
                 name => 'Ed Rush',
-                join_phrase => undef
+                join_phrase => undef,
             },
             {
                 artist => { id => 2, name => 'Optical' },
                 name => 'Optical',
-                join_phrase => ''
-            }
-        ]
+                join_phrase => '',
+            },
+        ],
     });
 
     cmp_ok($ac_id, '>', 0);
@@ -109,7 +109,7 @@ test 'Merging updates matching names' => sub {
     # renamed to "Merge".
     my $artist_credit_id = $c->sql->select_single_value(
         'SELECT artist_credit FROM artist_credit_name WHERE artist = ? AND name = ?',
-        3, 'Merge'
+        3, 'Merge',
     );
     my $ac = $artist_credit_data->get_by_id($artist_credit_id);
 
@@ -134,12 +134,12 @@ test 'Merging updates matching names' => sub {
 
     my $new_redirect_new_id = $c->sql->select_single_value(
         'SELECT new_id FROM artist_credit_gid_redirect WHERE gid = ?',
-        $queen_and_david_bowie_gid
+        $queen_and_david_bowie_gid,
     );
     is($new_redirect_new_id, $ac->id, 'Old “Queen & David Bowie” redirects to “Queen & Merge”');
     my $old_redirect_new_id = $c->sql->select_single_value(
         'SELECT new_id FROM artist_credit_gid_redirect WHERE gid = ?',
-        $old_redirect_gid
+        $old_redirect_gid,
     );
     is($old_redirect_new_id, $ac->id, 'Old existing redirect now points to “Queen & Merge”');
 
@@ -147,7 +147,7 @@ test 'Merging updates matching names' => sub {
     # left alone.
     $artist_credit_id = $c->sql->select_single_value(
         'SELECT artist_credit FROM artist_credit_name WHERE artist = ? AND name = ?',
-        3, 'Bowie'
+        3, 'Bowie',
     );
     $ac = $artist_credit_data->get_by_id($artist_credit_id);
 
@@ -174,7 +174,7 @@ test 'Merging updates matching names' => sub {
 
     $new_redirect_new_id = $c->sql->select_single_value(
         'SELECT new_id FROM artist_credit_gid_redirect WHERE gid = ?',
-        $queen_and_bowie_gid
+        $queen_and_bowie_gid,
     );
     is($new_redirect_new_id, $ac->id, 'Old “Queen & Bowie” redirects to the new “Queen & Bowie”');
 };
@@ -207,21 +207,21 @@ test 'Replace artist credit' => sub {
             {
                 artist => { id => 5, name => 'Bob & Tom' },
                 name => 'Bob & Tom',
-                join_phrase => undef
-            }
+                join_phrase => undef,
+            },
         ] },
         { names => [
             {
                 artist => { id => 6, name => 'Ed Rush' },
                 name => 'Ed Rush',
-                join_phrase => undef
+                join_phrase => undef,
             },
             {
                 artist => { id => 7, name => 'Optical' },
                 name => 'Optical',
-                join_phrase => ''
-            }
-        ]}
+                join_phrase => '',
+            },
+        ]},
     );
 
     is($c->model('ArtistCredit')->get_by_id(1), undef, 'has removed artist credit 1');
@@ -230,7 +230,7 @@ test 'Replace artist credit' => sub {
         $c->model('ReleaseGroup')->get_by_id(1),
         $c->model('Release')->get_by_id(1),
         $c->model('Recording')->get_by_id(1),
-        $c->model('Track')->get_by_id(1)
+        $c->model('Track')->get_by_id(1),
     );
 
     is((grep { $_->artist_credit_id == 1 } @ents), 0, 'nothing refers to artist credit 1');
@@ -246,32 +246,32 @@ test 'Replace artist credit identity' => sub {
             {
                 artist => { id => 5, name => 'Bob & Tom' },
                 name => 'Bob & Tom',
-                join_phrase => undef
-            }
+                join_phrase => undef,
+            },
         ] },
         { names => [
             {
                 artist => { id => 5, name => 'Bob & Tom' },
                 name => 'Bob & Tom',
-                join_phrase => undef
-            }
-        ] }
+                join_phrase => undef,
+            },
+        ] },
     );
     $c->model('ArtistCredit')->replace(
         { names => [
             {
                 artist => { id => 5, name => 'Bob & Tom' },
                 name => 'Bob & Tom',
-                join_phrase => undef
-            }
+                join_phrase => undef,
+            },
         ] },
         { names => [
             {
                 artist => { id => 5, name => 'Bob & Tom' },
                 name => 'Bob & Tom',
-                join_phrase => ''
-            }
-        ] }
+                join_phrase => '',
+            },
+        ] },
     );
 
     is($c->model('ArtistCredit')->get_by_id(1)->artist_count, 1,
@@ -449,7 +449,7 @@ $ac = $artist_credit_data->find_or_insert({
             artist => { id => 2, name => 'David Bowie' },
             name => 'David Bowie',
             join_phrase => '',
-        }
+        },
     ] });
 
 is($ac, 1, 'Found artist credit for Queen & David Bowie');
@@ -466,7 +466,7 @@ $ac = $artist_credit_data->find_or_insert({
             artist => { id => 2, name => 'Portishead' },
             name => 'Portishead',
             join_phrase => undef,
-        }
+        },
     ] });
 
 $test->c->sql->commit;
@@ -482,7 +482,7 @@ $artist_credit_data->merge_artists(3, [ 2 ]);
 $test->c->sql->commit;
 
 $ac = $artist_credit_data->get_by_id(
-    $test->c->sql->select_single_value(q(SELECT id FROM artist_credit WHERE name = 'Queen & David Bowie'))
+    $test->c->sql->select_single_value(q(SELECT id FROM artist_credit WHERE name = 'Queen & David Bowie')),
 );
 
 is($ac->names->[0]->artist_id, 1);
@@ -509,14 +509,14 @@ my $normalized_ac = $artist_credit_data->find_or_insert({
     names => [
         { artist => { id => 1 }, name => 'Bob', join_phrase => ' & ' },
         { artist => { id => 2 }, name => 'Tom', join_phrase => '' },
-    ]
+    ],
 });
 
 my $messy_ac = $artist_credit_data->find_or_insert({
     names => [
         { artist => { id => 1 }, name => 'Bob', join_phrase => '      &   ' },
         { artist => { id => 2 }, name => 'Tom', join_phrase => '' },
-    ]
+    ],
 });
 
 is($normalized_ac, $messy_ac);

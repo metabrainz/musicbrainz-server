@@ -8,17 +8,17 @@ use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_ADD_COVER_ART );
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 
 use aliased 'MusicBrainz::Server::Entity::Release';
 use aliased 'MusicBrainz::Server::Entity::Artwork';
 
 extends 'MusicBrainz::Server::Edit';
-with 'MusicBrainz::Server::Edit::Release';
-with 'MusicBrainz::Server::Edit::Release::RelatedEntities';
-with 'MusicBrainz::Server::Edit::Role::CoverArt';
+with 'MusicBrainz::Server::Edit::Release',
+     'MusicBrainz::Server::Edit::Release::RelatedEntities',
+     'MusicBrainz::Server::Edit::Role::CoverArt';
 
-sub edit_name { N_l('Add cover art') }
+sub edit_name { N_lp('Add cover art', 'singular, edit type') }
 sub edit_kind { 'add' }
 sub edit_type { $EDIT_RELEASE_ADD_COVER_ART }
 sub release_ids { shift->data->{entity}{id} }
@@ -30,14 +30,14 @@ has '+data' => (
         entity => Dict[
             id   => Int,
             name => Str,
-            mbid => Str
+            mbid => Str,
         ],
         cover_art_types => ArrayRef[Int],
         cover_art_position => Int,
         cover_art_id   => Int,
         cover_art_comment => Str,
         cover_art_mime_type => Str,
-    ]
+    ],
 );
 
 sub initialize {
@@ -48,7 +48,7 @@ sub initialize {
         entity => {
             id => $release->id,
             name => $release->name,
-            mbid => $release->gid
+            mbid => $release->gid,
         },
         cover_art_types => $opts{cover_art_types},
         cover_art_position => $opts{cover_art_position},
@@ -63,7 +63,7 @@ sub accept {
 
     $self->c->model('Release')->get_by_gid($self->data->{entity}{mbid})
         or MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
-            'This release no longer exists'
+            'This release no longer exists',
         );
 }
 
@@ -80,7 +80,7 @@ sub post_insert {
         $self->data->{cover_art_position},
         $self->data->{cover_art_types},
         $self->data->{cover_art_comment},
-        $self->data->{cover_art_mime_type}
+        $self->data->{cover_art_mime_type},
     );
 }
 
@@ -95,9 +95,9 @@ sub foreign_keys {
     my ($self) = @_;
     return {
         Release => {
-            $self->data->{entity}{id} => [ 'ArtistCredit' ]
+            $self->data->{entity}{id} => [ 'ArtistCredit' ],
         },
-        CoverArtType => $self->data->{cover_art_types}
+        CoverArtType => $self->data->{cover_art_types},
     };
 }
 

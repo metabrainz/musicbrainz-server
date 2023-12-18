@@ -13,17 +13,17 @@ use MusicBrainz::Server::Edit::Utils qw(
 );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Track;
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 
 use aliased 'MusicBrainz::Server::Entity::Recording';
 
 extends 'MusicBrainz::Server::Edit::Generic::Create';
-with 'MusicBrainz::Server::Edit::Recording::RelatedEntities';
-with 'MusicBrainz::Server::Edit::Recording';
-with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
+with 'MusicBrainz::Server::Edit::Recording::RelatedEntities',
+     'MusicBrainz::Server::Edit::Recording',
+     'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
 sub edit_type { $EDIT_RECORDING_CREATE }
-sub edit_name { N_l('Add standalone recording') }
+sub edit_name { N_lp('Add standalone recording', 'edit type') }
 sub edit_template { 'AddStandaloneRecording' }
 sub _create_model { 'Recording' }
 sub recording_id { return shift->entity_id }
@@ -43,8 +43,8 @@ sub foreign_keys
     my $self = shift;
     return {
         Artist    => { load_artist_credit_definitions($self->data->{artist_credit}) },
-        Recording => { $self->entity_id => [ 'ArtistCredit' ] }
-    }
+        Recording => { $self->entity_id => [ 'ArtistCredit' ] },
+    };
 }
 
 sub build_display_data
@@ -59,7 +59,7 @@ sub build_display_data
         video         => boolean_to_json($self->data->{video}),
         recording     => to_json_object((defined($self->entity_id) &&
             $loaded->{Recording}{ $self->entity_id }) ||
-            Recording->new( name => $self->data->{name} )
+            Recording->new( name => $self->data->{name} ),
         ),
     };
 }
@@ -70,7 +70,7 @@ sub _insert_hash
     my ($self, $data) = @_;
     $data->{artist_credit} = $self->c->model('ArtistCredit')->find_or_insert($data->{artist_credit});
     $data->{comment} //= '';
-    return $data
+    return $data;
 }
 
 around reject => sub {

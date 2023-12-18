@@ -28,7 +28,7 @@ sub serialize
         if $inc && $inc->releases;
 
     return \%body;
-};
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

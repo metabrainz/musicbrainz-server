@@ -98,7 +98,7 @@ sub _create_edit {
         editor_id => 1,
         entity    => $c->model('Artist')->get_by_id(1),
         alias     => $alias,
-        @args
+        @args,
     );
 }
 

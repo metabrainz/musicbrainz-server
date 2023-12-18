@@ -8,7 +8,7 @@ use MusicBrainz::Server::Translation qw( l N_l );
 
 my $error_message = N_l(
     'The form you’ve submitted has expired. ' .
-    'Please resubmit your request.'
+    'Please resubmit your request.',
 );
 
 sub localize_error {

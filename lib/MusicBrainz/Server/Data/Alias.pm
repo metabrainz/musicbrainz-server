@@ -18,13 +18,13 @@ has 'parent' => (
     does => 'MusicBrainz::Server::Data::Role::Alias',
     is => 'rw',
     required => 1,
-    weak_ref => 1
+    weak_ref => 1,
 );
 
 has [qw( table type entity )] => (
     isa      => 'Str',
     is       => 'rw',
-    required => 1
+    required => 1,
 );
 
 sub _table
@@ -57,7 +57,7 @@ sub _column_mapping
         begin_date => sub { MusicBrainz::Server::Entity::PartialDate->new_from_row(shift, shift() . 'begin_date_') },
         end_date => sub { MusicBrainz::Server::Entity::PartialDate->new_from_row(shift, shift() . 'end_date_') },
         primary_for_locale  => 'primary_for_locale',
-        ended                => 'ended'
+        ended                => 'ended',
     };
 }
 
@@ -213,7 +213,7 @@ sub merge
                                          ORDER BY primary_for_locale DESC, ($type = ?) DESC, id DESC) > 1 AS redundant
                    FROM $table WHERE $type = any(?)
              ) a WHERE redundant
-         )", $new_id, [ $new_id, @old_ids ]
+         )", $new_id, [ $new_id, @old_ids ],
     );
 
     # Merge based on all properties of each alias, other than primary_for_locale,
@@ -226,7 +226,7 @@ sub merge
                                          ORDER BY primary_for_locale DESC, ($type = ?) DESC) > 1 AS redundant
                    FROM $table WHERE $type = any(?)
              ) a WHERE redundant
-        )", $new_id, [ $new_id, @old_ids ]
+        )", $new_id, [ $new_id, @old_ids ],
     );
 
     # Update all aliases to the new entity
@@ -248,7 +248,7 @@ sub merge
                       AND name = old_entity.name
                     LIMIT 1
                )",
-        $new_id, [ @old_ids ]
+        $new_id, [ @old_ids ],
     );
 }
 
@@ -294,7 +294,7 @@ sub exists {
                AND type IS NOT DISTINCT FROM ?
                AND $table.id IS DISTINCT FROM ?
                AND $type = ?
-         )", $alias->{name}, $alias->{locale}, $alias->{type_id}, $alias->{not_id}, $alias->{entity}
+         )", $alias->{name}, $alias->{locale}, $alias->{type_id}, $alias->{not_id}, $alias->{entity},
     );
 }
 

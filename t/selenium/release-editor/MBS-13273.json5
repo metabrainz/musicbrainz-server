@@ -54,8 +54,7 @@
       value: '',
     },
     // After switching to the tracklist tab, the first two tracks' artist credits should be updated
-    // since they began with the original release credits, but the remaining tracks' credits should
-    // be unchanged.
+    // since they began with the original release credits.
     {
       command: 'click',
       target: 'css=a[href="#tracklist"]',
@@ -71,6 +70,7 @@
       target: "document.querySelectorAll('#tracklist span.artist.autocomplete input.name')[1].value",
       value: 'Lethal Bizzle & Super Furry Animals feat. Bing Crosby',
     },
+    // These tracks' credits should be unchanged.
     {
       command: 'assertEval',
       target: "document.querySelectorAll('#tracklist span.artist.autocomplete input.name')[2].value",
@@ -85,6 +85,13 @@
       command: 'assertEval',
       target: "document.querySelectorAll('#tracklist span.artist.autocomplete input.name')[4].value",
       value: 'Bing Crosby',
+    },
+    // This track was credited to the new release artists but used ' feat. ' as its join phrase.
+    // The join phrase should be updated.
+    {
+      command: 'assertEval',
+      target: "document.querySelectorAll('#tracklist span.artist.autocomplete input.name')[5].value",
+      value: 'Lethal Bizzle & Super Furry Animals',
     },
     {
       command: 'open',

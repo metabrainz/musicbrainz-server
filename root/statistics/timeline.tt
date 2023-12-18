@@ -3,11 +3,11 @@
         <div id="graph-lines">
         <h2>
             <input type="checkbox" id="disable-events-checkbox" data-bind="checked: options.events" />
-            <label for="disable-events-checkbox">[% l('MusicBrainz Events') %]</label>
+            <label for="disable-events-checkbox">[% l('MusicBrainz events') %]</label>
         </h2>
         <h2 class="collapse-top-margin">
             <input type="checkbox" id="show-rate-graph" data-bind="checked: options.rate" />
-            <label for="show-rate-graph">[% l('Rate of Change Graph') %]</label>
+            <label for="show-rate-graph">[% l('Rate of change graph') %]</label>
         </h2>
         <!-- ko template: {name: 'template.category', foreach: categories } --><!-- /ko -->
         </div>
@@ -16,18 +16,18 @@
             <tr><th>[% l('Zoom:') %]</th><td>[% l('Draw a rectangle on either graph') %]</td></tr>
             <tr><th>[% l('Reset:') %]</th><td>[% l('Click to deselect') %]</td></tr>
             <tr><th>[% l('Add/remove lines:') %]</th><td>[% l('Check boxes above') %]</td></tr>
-            <tr><th>[% add_colon(l('MusicBrainz Events')) %]</th><td>[% l('Hover and click on vertical lines') %]</td></tr>
+            <tr><th>[% add_colon(l('MusicBrainz events')) %]</th><td>[% l('Hover and click on vertical lines') %]</td></tr>
         </table>
         <div id="overview" data-bind="flot: 'overview'"></div>
     </div>
 [%~ END ~%]
 
-[%~ WRAPPER "statistics/layout.tt" title=l("Timeline Graph") sidebar=sidebar page='timeline' ~%]
+[%~ WRAPPER "statistics/layout.tt" title=l("Timeline graph") sidebar=sidebar page='timeline' ~%]
 [%~ PROCESS "statistics/macros-header.tt" ~%]
 
-<h2>[% l('Exact Values (items vs. day)') %]</h2>
+<h2>[% l('Exact values (items vs. day)') %]</h2>
 <div id="graph-container" data-bind="flot: 'main'"></div>
-<h2 data-bind="visible: options.rate">[% l('Rate of Change (average items/day vs. day)') %]</h2>
+<h2 data-bind="visible: options.rate">[% l('Rate of change (average items/day vs. day)') %]</h2>
 <div data-bind="flot: 'rate'" id="rate-of-change-graph"></div>
 
 <script type="text/html" id="template.category">

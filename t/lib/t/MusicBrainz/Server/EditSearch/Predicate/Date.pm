@@ -14,8 +14,8 @@ test 'operator BETWEEN' => sub {
         'opened' =>
         {
             operator => 'BETWEEN',
-            args => [ '2010-01-01', '2011-05-01' ]
-        }
+            args => [ '2010-01-01', '2011-05-01' ],
+        },
     );
 
     ok(defined $field, 'did construct a field');
@@ -36,7 +36,7 @@ test 'operator BETWEEN' => sub {
     is_deeply(
         [$query->where],
         [ [ 'edit.opened BETWEEN SYMMETRIC ? AND ?', [ $date1, $date2 ] ] ],
-        'added correct WHERE clause'
+        'added correct WHERE clause',
     );
 };
 

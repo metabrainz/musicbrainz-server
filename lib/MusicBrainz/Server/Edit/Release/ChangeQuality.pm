@@ -11,19 +11,19 @@ use MusicBrainz::Server::Constants qw(
 );
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 
 extends 'MusicBrainz::Server::Edit';
-with 'MusicBrainz::Server::Edit::Release::RelatedEntities';
-with 'MusicBrainz::Server::Edit::Release';
-with 'MusicBrainz::Server::Edit::Role::AllowAmending' => {
-    create_edit_type => $EDIT_RELEASE_CREATE,
-    entity_type => 'release',
-};
+with 'MusicBrainz::Server::Edit::Release::RelatedEntities',
+     'MusicBrainz::Server::Edit::Release',
+     'MusicBrainz::Server::Edit::Role::AllowAmending' => {
+        create_edit_type => $EDIT_RELEASE_CREATE,
+        entity_type => 'release',
+     };
 
 use aliased 'MusicBrainz::Server::Entity::Release';
 
-sub edit_name { N_l('Change release data quality') }
+sub edit_name { N_lp('Change release data quality', 'edit type') }
 sub edit_kind { 'other' }
 sub edit_type { $EDIT_RELEASE_CHANGE_QUALITY }
 sub release_id { shift->data->{release}{id} }
@@ -33,25 +33,25 @@ method alter_edit_pending
 {
     return {
         Release => [ $self->release_id ],
-    }
+    };
 }
 
 sub change_fields
 {
     return Dict[
         quality => Int,
-    ]
+    ];
 }
 
 has '+data' => (
     isa => Dict[
         release => Dict[
             id => Int,
-            name => Str
+            name => Str,
         ],
         old     => change_fields(),
-        new     => change_fields()
-    ]
+        new     => change_fields(),
+    ],
 );
 
 method foreign_keys
@@ -74,7 +74,7 @@ method build_display_data ($loaded)
         quality => {
             old => $self->data->{old}{quality} + 0,
             new => $self->data->{new}{quality} + 0,
-        }
+        },
     }
 }
 
@@ -88,7 +88,7 @@ method initialize (%opts)
     $self->data({
         release => {
             id => $release->id,
-            name => $release->name
+            name => $release->name,
         },
         old => { quality => $release->quality },
         new => { quality => $opts{quality} + 0 },
@@ -100,7 +100,7 @@ method accept
 {
     $self->c->model('Release')->update(
         $self->release_id,
-        { quality => $self->data->{new}{quality} }
+        { quality => $self->data->{new}{quality} },
     );
 }
 
@@ -111,3 +111,5 @@ sub allow_auto_edit
 }
 
 __PACKAGE__->meta->make_immutable;
+
+1;

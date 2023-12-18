@@ -29,25 +29,25 @@ import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
 
 type EditUserFormT = FormT<{
   ...SecureConfirmFormT,
-  +account_admin: ReadOnlyFieldT<boolean>,
-  +adding_notes_disabled: ReadOnlyFieldT<boolean>,
-  +auto_editor: ReadOnlyFieldT<boolean>,
-  +banner_editor: ReadOnlyFieldT<boolean>,
-  +biography: ReadOnlyFieldT<string>,
-  +bot: ReadOnlyFieldT<boolean>,
-  +editing_disabled: ReadOnlyFieldT<boolean>,
-  +email: ReadOnlyFieldT<string>,
-  +link_editor: ReadOnlyFieldT<boolean>,
-  +location_editor: ReadOnlyFieldT<boolean>,
-  +mbid_submitter: ReadOnlyFieldT<boolean>,
-  +no_nag: ReadOnlyFieldT<boolean>,
-  +show_exact: ReadOnlyFieldT<boolean>,
-  +skip_verification: ReadOnlyFieldT<boolean>,
-  +spammer: ReadOnlyFieldT<boolean>,
-  +untrusted: ReadOnlyFieldT<boolean>,
-  +username: ReadOnlyFieldT<string>,
-  +website: ReadOnlyFieldT<string>,
-  +wiki_transcluder: ReadOnlyFieldT<boolean>,
+  +account_admin: FieldT<boolean>,
+  +adding_notes_disabled: FieldT<boolean>,
+  +auto_editor: FieldT<boolean>,
+  +banner_editor: FieldT<boolean>,
+  +biography: FieldT<string>,
+  +bot: FieldT<boolean>,
+  +editing_disabled: FieldT<boolean>,
+  +email: FieldT<string>,
+  +link_editor: FieldT<boolean>,
+  +location_editor: FieldT<boolean>,
+  +mbid_submitter: FieldT<boolean>,
+  +no_nag: FieldT<boolean>,
+  +show_exact: FieldT<boolean>,
+  +skip_verification: FieldT<boolean>,
+  +spammer: FieldT<boolean>,
+  +untrusted: FieldT<boolean>,
+  +username: FieldT<string>,
+  +website: FieldT<string>,
+  +wiki_transcluder: FieldT<boolean>,
 }>;
 
 type Props = {
@@ -66,120 +66,118 @@ const EditUser = ({
     <UserAccountLayout
       entity={user}
       page="edit_user"
-      title={l('Adjust User Account Flags')}
+      title="Adjust user account flags"
     >
       <form method="post">
         <FormCsrfToken form={form} />
 
         <input name="submitted" type="hidden" value="1" />
 
-        <h2>{l('User permissions')}</h2>
+        <h2>{'User permissions'}</h2>
         <FormRowCheckbox
           field={form.field.auto_editor}
-          label={l('Auto-editor')}
+          label="Auto-editor"
           uncontrolled
         />
         <FormRowCheckbox
           field={form.field.wiki_transcluder}
-          label={l('Transclusion editor')}
+          label="Transclusion editor"
           uncontrolled
         />
         <FormRowCheckbox
           field={form.field.link_editor}
-          label={l('Relationship editor')}
+          label="Relationship editor"
           uncontrolled
         />
         <FormRowCheckbox
           field={form.field.location_editor}
-          label={l('Location editor')}
+          label="Location editor"
           uncontrolled
         />
         <FormRowCheckbox
           field={form.field.banner_editor}
-          label={l('Banner message editor')}
+          label="Banner message editor"
           uncontrolled
         />
 
-        <h2>{l('User sanctions')}</h2>
+        <h2>{'User sanctions'}</h2>
         <FormRowCheckbox
           field={form.field.spammer}
-          label={l('Spammer')}
+          label="Spammer"
           uncontrolled
         />
         <FormRowCheckbox
           field={form.field.editing_disabled}
-          label={l('Editing/voting disabled')}
+          label="Editing/voting disabled"
           uncontrolled
         />
         <FormRowCheckbox
           field={form.field.adding_notes_disabled}
-          label={l('Edit notes disabled')}
+          label="Edit notes disabled"
           uncontrolled
         />
         <FormRowCheckbox
           field={form.field.untrusted}
-          label={l('Untrusted')}
+          label="Untrusted"
           uncontrolled
         />
 
-        <h2>{l('Technical flags')}</h2>
+        <h2>{'Technical flags'}</h2>
         <FormRowCheckbox
           field={form.field.bot}
-          label={l('Bot')}
+          label="Bot"
           uncontrolled
         />
         <FormRowCheckbox
           field={form.field.no_nag}
-          label={l('No nag')}
+          label="No nag"
           uncontrolled
         />
 
-        <h2>{l('Administration flags')}</h2>
+        <h2>{'Administration flags'}</h2>
         <FormRowCheckbox
           field={form.field.mbid_submitter}
-          label={exp.l(
-            '<abbr title="MusicBrainz Identifier">MBID</abbr> submitter',
-          )}
+          label="MBID submitter"
           uncontrolled
         />
         <FormRowCheckbox
           disabled={viewingOwnProfile}
           field={form.field.account_admin}
-          label={l('Account admin')}
+          label="Account admin"
           uncontrolled
         />
 
-        <h2>{l('Edit profile')}</h2>
+        <h2>{'Edit profile'}</h2>
         <FormRowText
           field={form.field.username}
-          label={addColonText(l('Username'))}
+          label="Username:"
           required
           uncontrolled
         />
         <FormRowEmailLong
           field={form.field.email}
-          label={addColonText(l('Email'))}
+          label="Email:"
           uncontrolled
         />
         <FormRowCheckbox
           field={form.field.skip_verification}
-          label={l('Skip verification')}
+          label="Skip verification"
           uncontrolled
         />
         <FormRowURLLong
           field={form.field.website}
-          label={addColonText(l('Website'))}
+          label="Website:"
           uncontrolled
         />
         <FormRowTextArea
           cols={80}
           field={form.field.biography}
-          label={addColonText(l('Bio'))}
+          label="Bio:"
           rows={5}
         />
 
         <FormRow hasNoLabel>
-          <FormSubmit label={l('Edit user')} />
+          <FormSubmit label="Edit user" />
         </FormRow>
       </form>
     </UserAccountLayout>

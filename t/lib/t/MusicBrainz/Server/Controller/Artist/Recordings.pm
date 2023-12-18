@@ -49,13 +49,13 @@ test 'Artist recordings page contains the expected data and JSON-LD' => sub {
             'duration' => 'PT02M03S',
             '@type' => 'MusicRecording',
             '@id' => 'http://musicbrainz.org/recording/123c079d-374e-4436-9448-da92dedef3ce',
-            'name' => 'Test Recording'
+            'name' => 'Test Recording',
         },
         'name' => 'Test Artist',
         'location' => {
             'name' => 'United Kingdom',
             '@type' => 'Country',
-            '@id' => 'http://musicbrainz.org/area/8a754a16-0027-3a29-b6d7-2b40ea0481ed'
+            '@id' => 'http://musicbrainz.org/area/8a754a16-0027-3a29-b6d7-2b40ea0481ed',
         },
         '@type' => ['Person', 'MusicGroup'],
         '@context' => 'https://schema.org/docs/jsonldcontext.json',
@@ -63,15 +63,15 @@ test 'Artist recordings page contains the expected data and JSON-LD' => sub {
         'birthPlace' => {
             '@id' => 'http://musicbrainz.org/area/8a754a16-0027-3a29-b6d7-2b40ea0481ed',
             '@type' => 'Country',
-            'name' => 'United Kingdom'
+            'name' => 'United Kingdom',
         },
         'deathDate' => '2009-03-04',
         'deathPlace' => {
             '@type' => 'Country',
             '@id' => 'http://musicbrainz.org/area/8a754a16-0027-3a29-b6d7-2b40ea0481ed',
-            'name' => 'United Kingdom'
+            'name' => 'United Kingdom',
         },
-        '@id' => 'http://musicbrainz.org/artist/745c079d-374e-4436-9448-da92dedef3ce'
+        '@id' => 'http://musicbrainz.org/artist/745c079d-374e-4436-9448-da92dedef3ce',
     };
 };
 

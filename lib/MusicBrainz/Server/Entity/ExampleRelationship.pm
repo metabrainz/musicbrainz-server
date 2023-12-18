@@ -8,18 +8,18 @@ use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 has name => (
     isa => 'Str',
     required => 1,
-    is => 'ro'
+    is => 'ro',
 );
 
 has published => (
     isa => 'Bool',
     is => 'ro',
-    required => 1
+    required => 1,
 );
 
 has relationship => (
     is => 'ro',
-    required => 1
+    required => 1,
 );
 
 sub TO_JSON {

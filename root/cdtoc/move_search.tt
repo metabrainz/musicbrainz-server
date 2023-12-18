@@ -1,5 +1,5 @@
-[% WRAPPER 'layout.tt' title=l('Move Disc ID') full_width=1 %]
-    <h1>[% l('Move Disc ID') %]</h1>
+[% WRAPPER 'layout.tt' title=lp('Move disc ID', 'header') full_width=1 %]
+    <h1>[% lp('Move disc ID', 'header') %]</h1>
     <p>
         [% l('Select a release to which the disc ID <code>{discid}</code>. should be moved to.', { discid => medium_cdtoc.cdtoc.discid }) %]
     </p>

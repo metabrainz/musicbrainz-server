@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Controller::Track;
 use Moose;
 use namespace::autoclean;
+use HTTP::Status qw( :constants );
 use MusicBrainz::Server::Validation qw( is_guid );
 
 BEGIN { extends 'MusicBrainz::Server::Controller'; }
@@ -39,7 +40,7 @@ sub show : Chained('load') PathPart('')
     {
         $uri = $c->uri_for_action('/recording/show', [ $c->stash->{recording}->gid ]);
         # The track link is now a recording link: this should be considered a permanent move
-        $c->response->redirect($uri, 301);
+        $c->response->redirect($uri, HTTP_MOVED_PERMANENTLY);
     }
     else
     {
@@ -51,7 +52,7 @@ sub show : Chained('load') PathPart('')
         $uri->path($uri->path . '/disc/' . $medium->position);
         $uri->fragment($track->gid);
 
-        $c->response->redirect($uri, 303);
+        $c->response->redirect($uri, HTTP_SEE_OTHER);
     }
 
     $c->detach;

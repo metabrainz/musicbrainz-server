@@ -16,11 +16,11 @@ import FormRowTextArea
 import chooseLayoutComponent from '../utility/chooseLayoutComponent.js';
 
 type EditAnnotationFormT = FormT<{
-  +changelog: ReadOnlyFieldT<string>,
-  +edit_note: ReadOnlyFieldT<string>,
-  +make_votable: ReadOnlyFieldT<boolean>,
-  +preview: ReadOnlyFieldT<string>,
-  +text: ReadOnlyFieldT<string>,
+  +changelog: FieldT<string>,
+  +edit_note: FieldT<string>,
+  +make_votable: FieldT<boolean>,
+  +preview: FieldT<string>,
+  +text: FieldT<string>,
 }>;
 
 type EditAnnotationProps = {
@@ -44,9 +44,9 @@ const EditAnnotation = ({
       entity={entity}
       fullWidth
       page="edit-annotation"
-      title={l('Edit annotation')}
+      title={lp('Edit annotation', 'header')}
     >
-      <h2>{l('Edit annotation')}</h2>
+      <h2>{lp('Edit annotation', 'header')}</h2>
 
       <p>
         {exp.l(
@@ -90,12 +90,12 @@ const EditAnnotation = ({
             type="submit"
             value="preview"
           >
-            {lp('Preview', 'button')}
+            {lp('Preview', 'interactive')}
           </button>
         </EnterEdit>
       </form>
 
-      <h3>{l('Annotation Formatting')}</h3>
+      <h3>{l('Annotation formatting')}</h3>
       <p>
         {l('Annotations support a limited set of wiki formatting options:')}
       </p>

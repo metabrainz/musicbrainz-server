@@ -7,6 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import {captureException} from '@sentry/browser';
 import * as tree from 'weight-balanced-tree';
 
 import {compactEntityJson} from '../../../../utility/compactEntityJson.js';
@@ -192,6 +193,7 @@ export default function prepareHtmlFormSubmission(
         state.entity,
       );
 
+      const changes = [];
       let relIndex = 0;
       for (
         const relationship of
@@ -200,6 +202,7 @@ export default function prepareHtmlFormSubmission(
         if (relationship._status === REL_STATUS_NOOP) {
           continue;
         }
+        changes.push(relationship);
         pushRelationshipHiddenInputs(
           formName,
           state.entity,
@@ -210,10 +213,20 @@ export default function prepareHtmlFormSubmission(
       }
 
       if (hasSessionStorage) {
-        window.sessionStorage.setItem(
-          'relationshipEditorState',
-          JSON.stringify(compactEntityJson(state)),
-        );
+        try {
+          window.sessionStorage.setItem(
+            'relationshipEditorChanges',
+            JSON.stringify(compactEntityJson(changes)),
+          );
+        } catch (error) {
+          /*
+           * Don't prevent the form from submitting if we encounter
+           * an error; for instance, "quota exceeded," which we can't do
+           * anything about. Exceeding the storage quota should be much
+           * less likely now that MBS-13393 is mitigated.
+           */
+          captureException(error);
+        }
       }
     },
   );

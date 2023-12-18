@@ -41,7 +41,7 @@ sub serialize
     }
 
     return \%body;
-};
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

@@ -8,19 +8,19 @@ use MusicBrainz::Server::Edit::Types qw( Nullable );
 use MusicBrainz::Server::Edit::Medium::Util ':all';
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array to_json_object );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 
 extends 'MusicBrainz::Server::Edit';
-with 'MusicBrainz::Server::Edit::Role::Preview';
-with 'MusicBrainz::Server::Edit::Medium::RelatedEntities';
-with 'MusicBrainz::Server::Edit::Medium';
-with 'MusicBrainz::Server::Edit::Role::NeverAutoEdit';
+with 'MusicBrainz::Server::Edit::Role::Preview',
+     'MusicBrainz::Server::Edit::Medium::RelatedEntities',
+     'MusicBrainz::Server::Edit::Medium',
+     'MusicBrainz::Server::Edit::Role::NeverAutoEdit';
 
 use aliased 'MusicBrainz::Server::Entity::Release';
 use aliased 'MusicBrainz::Server::Entity::Medium';
 
 sub edit_type { $EDIT_MEDIUM_DELETE }
-sub edit_name { N_l('Remove medium') }
+sub edit_name { N_lp('Remove medium', 'edit type') }
 sub edit_kind { 'remove' }
 sub medium_id { shift->data->{medium_id} }
 sub edit_template { 'RemoveMedium' }
@@ -32,8 +32,8 @@ has '+data' => (
         tracklist => Optional[ArrayRef[track()]],
         name => Str,
         position => Int,
-        release_id => Int
-    ]
+        release_id => Int,
+    ],
 );
 
 sub alter_edit_pending
@@ -41,8 +41,8 @@ sub alter_edit_pending
     my $self = shift;
     return {
         'Medium' => [ $self->medium_id ],
-        'Release' => [ $self->data->{release_id} ]
-    }
+        'Release' => [ $self->data->{release_id} ],
+    };
 }
 
 sub foreign_keys
@@ -88,7 +88,7 @@ sub build_display_data
     return {
         medium => to_json_object($medium),
         tracks => to_json_array(display_tracklist($loaded, $self->data->{tracklist})),
-    }
+    };
 }
 
 sub initialize

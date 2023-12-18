@@ -4,6 +4,7 @@ use strict;
 use warnings;
 
 use base 'Template::Plugin';
+use HTTP::Status qw( :constants );
 use MusicBrainz::Server::ControllerUtils::JSON;
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use MusicBrainz::Server::Entity::Util::JSON;
@@ -14,7 +15,7 @@ sub embed {
 
     my $response = render_component($c, $component, $props);
     my $status = $response->{status};
-    if (!defined $status || $status == 200) {
+    if (!defined $status || $status == HTTP_OK) {
         return $response->{body};
     } else {
         die $response->{body};

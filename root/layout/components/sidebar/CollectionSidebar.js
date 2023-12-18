@@ -74,7 +74,7 @@ const CollectionSidebar = ({
       <ul className="links">
         <li>
           <EntityLink
-            content={l('Open edits')}
+            content={lp('Open edits', 'noun')}
             entity={collection}
             subPath="open_edits"
           />

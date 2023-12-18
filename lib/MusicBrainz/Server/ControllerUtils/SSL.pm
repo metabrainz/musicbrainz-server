@@ -5,7 +5,7 @@ use warnings;
 use DBDefs;
 
 use Sub::Exporter -setup => {
-    exports => [qw( ensure_ssl )]
+    exports => [qw( ensure_ssl )],
 };
 
 sub ensure_ssl {

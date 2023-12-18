@@ -29,9 +29,9 @@ const Donation = ({
   <UserAccountLayout
     entity={sanitizedAccountLayoutUser(user)}
     page="donation"
-    title={l('Donation Check')}
+    title={l('Donation check')}
   >
-    <h2>{l('Donation Check')}</h2>
+    <h2>{l('Donation check')}</h2>
     {checkFailed ? (
       <Warning
         message={

@@ -318,6 +318,28 @@ export default function compareRelationships(
     if (seriesItemCmp) {
       return seriesItemCmp;
     }
+  } else if (
+    targetIdCmp === 0 &&
+    targetA.entityType === 'series' &&
+    targetA.orderingTypeID === SERIES_ORDERING_TYPE_AUTOMATIC &&
+    linkTypeId != null &&
+    PART_OF_SERIES_LINK_TYPE_IDS.includes(linkTypeId)
+  ){
+    const seriesItemCmp = (
+      /*
+       * If the number attributes are different, the relationships would
+       * reference different rows in the link table, which is enough to
+       * establish uniqueness.
+       */
+      compareStrings(
+        getPaddedSeriesNumber(a),
+        getPaddedSeriesNumber(b),
+      ) ||
+      compareDatePeriods(a, b)
+    );
+    if (seriesItemCmp) {
+      return seriesItemCmp;
+    }
   }
 
   const linkOrderCmp = a.linkOrder - b.linkOrder;

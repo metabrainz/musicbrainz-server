@@ -114,7 +114,7 @@ my @conversions = (
                 '}' .
             '}'
         ),
-    }
+    },
 );
 
 sub get_value {

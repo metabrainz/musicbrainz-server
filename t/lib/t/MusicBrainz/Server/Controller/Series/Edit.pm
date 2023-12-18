@@ -133,7 +133,7 @@ test 'Editing parts of series data' => sub {
                 'edit-series.rel.1.attributes.0.text_value' => 'B11',
                 'edit-series.rel.1.link_order' => '3',
             },
-            'The form returned a 2xx response code'
+            'The form returned a 2xx response code',
         );
     } $c;
 
@@ -150,8 +150,8 @@ test 'Editing parts of series data' => sub {
                 id => 788,
                 gid => 'a59c5830-5ec7-38fe-9a21-c7ea54f6650a',
                 name => 'number',
-            }
-        }
+            },
+        },
     };
 
     cmp_deeply(
@@ -171,7 +171,7 @@ test 'Editing parts of series data' => sub {
                 attributes => [{ %$number_attribute, text_value => 'A1' }],
             },
         },
-        'The first relationship edit has the right data'
+        'The first relationship edit has the right data',
     );
 
     isa_ok($edits[1], 'MusicBrainz::Server::Edit::Relationship::Edit');
@@ -193,7 +193,7 @@ test 'Editing parts of series data' => sub {
                 attributes => [{ %$number_attribute, text_value => 'A11' }],
             },
         },
-        'The second relationship edit has the right data'
+        'The second relationship edit has the right data',
     );
 
     isa_ok($edits[2], 'MusicBrainz::Server::Edit::Relationship::Reorder');
@@ -220,7 +220,7 @@ sub prepare_test {
 
     $test->mech->get('/login');
     $test->mech->submit_form(
-        with_fields => { username => 'editor', password => 'pass' }
+        with_fields => { username => 'editor', password => 'pass' },
     );
 }
 

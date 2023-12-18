@@ -3,7 +3,7 @@ use Moose;
 use namespace::autoclean;
 use Moose::Util qw( find_meta );
 
-BEGIN { extends 'MusicBrainz::Server::Controller' };
+BEGIN { extends 'MusicBrainz::Server::Controller' }
 
 use DateTime;
 use DBDefs;
@@ -15,7 +15,7 @@ use MusicBrainz::Server::ControllerUtils::SSL qw( ensure_ssl );
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json type_to_model );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array to_json_object );
 use MusicBrainz::Server::Log qw( log_debug );
-use MusicBrainz::Server::Translation qw( l );
+use MusicBrainz::Server::Translation qw( l lp );
 use Try::Tiny;
 
 with 'MusicBrainz::Server::Controller::Role::Subscribe';
@@ -34,7 +34,7 @@ use MusicBrainz::Server::Constants qw(
 
 with 'MusicBrainz::Server::Controller::Role::Load' => {
     entity_name => 'user',
-    model => 'Editor'
+    model => 'Editor',
 };
 
 =head1 NAME
@@ -85,7 +85,7 @@ sub _perform_login {
         if ($c->user->requires_password_reset) {
             $c->response->redirect($c->uri_for_action('/account/change_password', {
                 username => $c->user->name,
-                mandatory => 1
+                mandatory => 1,
             } ));
             $c->logout;
             $c->detach;
@@ -301,7 +301,7 @@ sub _check_for_confirmed_email {
         $c->stash(
             component_path  => 'user/UserMessage',
             component_props => {
-                title    => l('Send Email'),
+                title    => lp('Send email', 'header'),
                 message  => l('You cannot contact other users because you have not {url|verified your email address}.',
                             {url => $c->uri_for_action('/account/resend_verification')}),
             },
@@ -327,7 +327,7 @@ sub contact : Chained('load') RequireAuth HiddenOnMirrors SecureForm
         $c->stash(
             component_path  => 'user/UserMessage',
             component_props => {
-                title    => l('Send Email'),
+                title    => lp('Send email', 'header'),
                 message  => l(
                     'You are not allowed to send messages to editors.',
                 ),
@@ -342,7 +342,7 @@ sub contact : Chained('load') RequireAuth HiddenOnMirrors SecureForm
         $c->stash(
             component_path  => 'user/UserMessage',
             component_props => {
-                title    => l('Send Email'),
+                title    => lp('Send email', 'header'),
                 message  => l('The editor {name} has no email address attached to their account.',
                             { name => $editor->name }),
             },
@@ -357,11 +357,11 @@ sub contact : Chained('load') RequireAuth HiddenOnMirrors SecureForm
         $c->stash(
             component_path  => 'user/UserMessage',
             component_props => {
-                title    => l('Email Sent'),
+                title    => lp('Email sent', 'header'),
                 message  => l(q(Your email has been successfully sent! Click {link|here} to continue to {user}'s profile.),
                             {
                                 link => $c->uri_for_action('/user/profile', [ $editor->name ]),
-                                user => $editor->name
+                                user => $editor->name,
                             }),
             },
             current_view    => 'Node',
@@ -550,8 +550,8 @@ sub ratings : Chained('load') PathPart('ratings') Args(1) HiddenOnMirrors
         $c->stash(
             message  => l(
                 q('{type}' is not an entity type that can have ratings.),
-                { type => $type }
-            )
+                { type => $type },
+            ),
         );
         $c->detach('/error_400');
     }
@@ -565,7 +565,7 @@ sub ratings : Chained('load') PathPart('ratings') Args(1) HiddenOnMirrors
 
     my $ratings = $self->_load_paged($c, sub {
         $c->model($model)->rating->find_editor_ratings(
-            $user->id, $c->user_exists && $user->id == $c->user->id, shift, shift)
+            $user->id, $c->user_exists && $user->id == $c->user->id, shift, shift);
     }, limit => 100);
     $c->model('ArtistCredit')->load(@$ratings);
 

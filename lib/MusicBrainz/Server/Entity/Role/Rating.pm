@@ -3,17 +3,17 @@ use Moose::Role;
 
 has 'rating' => (
     is => 'rw',
-    isa => 'Int'
+    isa => 'Int',
 );
 
 has 'user_rating' => (
     is => 'rw',
-    isa => 'Int'
+    isa => 'Int',
 );
 
 has 'rating_count' => (
     is => 'rw',
-    isa => 'Int'
+    isa => 'Int',
 );
 
 around TO_JSON => sub {

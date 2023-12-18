@@ -361,8 +361,8 @@ test 'Vote statistics for editor' => sub {
             },
             all    => {
                 count      => 3,
-                percentage => 60
-            }
+                percentage => 60,
+            },
         },
         {
             name   => 'No',
@@ -372,8 +372,8 @@ test 'Vote statistics for editor' => sub {
             },
             all    => {
                 count      => 1,
-                percentage => 20
-            }
+                percentage => 20,
+            },
         },
         {
             name   => 'Abstain',
@@ -383,8 +383,8 @@ test 'Vote statistics for editor' => sub {
             },
             all    => {
                 count      => 1,
-                percentage => 20
-            }
+                percentage => 20,
+            },
         },
         {
             name   => 'Total',
@@ -393,8 +393,8 @@ test 'Vote statistics for editor' => sub {
             },
             all    => {
                 count      => 5,
-            }
-        }
+            },
+        },
     ]);
 };
 

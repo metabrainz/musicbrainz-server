@@ -6,7 +6,7 @@ use warnings;
 use JSON;
 use Test::Routine;
 use MusicBrainz::Server::Test ws_test_json => {
-    version => 2
+    version => 2,
 };
 
 with 't::Mechanize', 't::Context';
@@ -33,7 +33,7 @@ test 'direct disc id lookup' => sub {
               88129,
               92729,
               115276,
-              153877
+              153877,
             ],
             sectors => 189343,
             releases => [
@@ -70,11 +70,11 @@ test 'direct disc id lookup' => sub {
                                       88129,
                                       92729,
                                       115276,
-                                      153877
+                                      153877,
                                     ],
                                     sectors => 189343,
-                                }
-                            ]
+                                },
+                            ],
                         },
                     ],
                     'cover-art-archive' => {
@@ -96,9 +96,9 @@ test 'direct disc id lookup' => sub {
                     'release-events' => [{
                         date => '2007',
                         area => JSON::null,
-                    }]
-                }
-            ]
+                    }],
+                },
+            ],
         };
 };
 
@@ -208,11 +208,11 @@ test 'lookup via toc' => sub {
                                       88129,
                                       92729,
                                       115276,
-                                      153877
+                                      153877,
                                     ],
                                     sectors => 189343,
-                                }
-                            ]
+                                },
+                            ],
                         },
                     ],
                     'cover-art-archive' => {
@@ -237,8 +237,8 @@ test 'lookup via toc' => sub {
                     }],
                     tags => [],
                     genres => [],
-                }
-            ]
+                },
+            ],
         };
 };
 

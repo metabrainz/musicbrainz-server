@@ -14,13 +14,13 @@ const RelationshipTabs = ({page}: {page?: string}) => (
   <>
     {buildTab(
       page,
-      l('Relationship Types'),
+      l('Relationship types'),
       '/relationships',
       'relationships',
     )}
     {buildTab(
       page,
-      l('Relationship Attributes'),
+      l('Relationship attributes'),
       '/relationship-attributes',
       'attributes',
     )}

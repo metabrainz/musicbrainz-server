@@ -10,8 +10,8 @@ use MusicBrainz::Server::Validation qw( validate_coordinates );
 my $ws_defs = Data::OptList::mkopt([
     'parse-coordinates' => {
         method   => 'GET',
-        required => [ qw(coordinates) ]
-    }
+        required => [ qw(coordinates) ],
+    },
 ]);
 
 with 'MusicBrainz::Server::WebService::Validator' => {
@@ -29,7 +29,7 @@ sub parse_coordinates : Chained('root') PathPart('parse-coordinates') {
     $c->detach('bad_req') unless $coordinates;
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    $c->res->body(encode_json({ coordinates => $coordinates }))
+    $c->res->body(encode_json({ coordinates => $coordinates }));
 }
 
 1;

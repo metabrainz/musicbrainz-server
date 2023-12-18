@@ -21,7 +21,7 @@
 
   <div class="half-width">
     <fieldset>
-      <legend>[% l('Recording Details') %]</legend>
+      <legend>[% l('Recording details') %]</legend>
       [% React.embed(c, 'static/scripts/recording/RecordingName', {
            field => form_to_json(form.field('name')),
            recording => {
@@ -48,7 +48,7 @@
     [% PROCESS 'forms/relationship-editor.tt' %]
 
     <fieldset>
-      <legend>[% l('External Links') %]</legend>
+      <legend>[% l('External links') %]</legend>
       [% external_links_editor() %]
     </fieldset>
 

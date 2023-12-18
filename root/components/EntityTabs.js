@@ -111,9 +111,10 @@ function buildLinks(
 
   if (entityProperties.cover_art) {
     links.push(buildLink(
-      entity.cover_art_presence === 'darkened' ? l('Cover Art') : (
-        texp.l(
-          'Cover Art ({num})',
+      entity.cover_art_presence === 'darkened' ? lp('Cover art', 'plural') : (
+        texp.lp(
+          'Cover art ({num})',
+          'plural',
           {num: $c.stash.release_artwork_count || 0},
         )
       ),
@@ -128,7 +129,7 @@ function buildLinks(
   }
 
   if (entityProperties.tags) {
-    links.push(buildLink(l('Tags'), entity, 'tags', page));
+    links.push(buildLink(lp('Tags', 'folksonomy'), entity, 'tags', page));
   }
 
   if (
@@ -150,13 +151,15 @@ function buildLinks(
     if (editTab) {
       links.push(editTab);
     } else {
-      links.push(buildLink(l('Edit'), entity, 'edit', page));
+      links.push(
+        buildLink(lp('Edit', 'verb, interactive'), entity, 'edit', page),
+      );
     }
   }
 
   if (entity.entityType === 'release') {
     links.push(buildLink(
-      l('Edit Relationships'),
+      l('Edit relationships'),
       entity,
       'edit-relationships',
       page,

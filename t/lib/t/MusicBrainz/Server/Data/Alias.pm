@@ -129,7 +129,7 @@ test all => sub {
                                  sort_name => 'New sort name',
                                  locale => 'en_AU',
                                  primary_for_locale => 1,
-                                 ended => 0
+                                 ended => 0,
                                 });
     my $alias_id = $alias2->{id};
     $alias_set = $artist_data->alias->find_by_entity_id(1);
@@ -146,7 +146,7 @@ test all => sub {
                                  sort_name => 'Newer sort name',
                                  locale => 'en_AU',
                                  primary_for_locale => 1,
-                                 ended => 0
+                                 ended => 0,
                                 });
     $alias_set = $artist_data->alias->find_by_entity_id(1);
     is(scalar @$alias_set, 2, 'Artist #1 has a second newly inserted alias');
@@ -306,7 +306,7 @@ test 'Exists only checks a single entity' => sub {
             locale => undef,
             type_id => undef,
             not_id => undef,
-            entity => shift})
+            entity => shift});
       };
 
     ok($check_alias->('Old name', 1), 'Old name aliased to artist #1');

@@ -17,13 +17,6 @@ import FormRowText from '../../edit/components/FormRowText.js';
 import FormSubmit from '../../edit/components/FormSubmit.js';
 
 export type RegisterFormT = FormT<{
-  +confirm_password: ReadOnlyFieldT<string>,
-  +email: ReadOnlyFieldT<string>,
-  +password: ReadOnlyFieldT<string>,
-  +username: ReadOnlyFieldT<string>,
-}>;
-
-export type WritableRegisterFormT = FormT<{
   +confirm_password: FieldT<string>,
   +email: FieldT<string>,
   +password: FieldT<string>,
@@ -128,7 +121,7 @@ export const RegisterForm = ({
             {coc: '/doc/Code_of_Conduct'},
           )}
         </p>
-        <FormSubmit label={l('Create Account')} />
+        <FormSubmit label={lp('Create account', 'interactive')} />
       </FormRow>
     </form>
   );

@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import openEditsForRelIconUrl
   from '../../../images/icons/open_edits_for_rel.svg';
 import type {
@@ -28,7 +26,7 @@ type PropsT = {
 
 const RelationshipPendingEditsWarning = ({
   relationship,
-}: PropsT): React$Element<typeof React.Fragment> | null => {
+}: PropsT): React$Element<React$FragmentType> | null => {
   const hasPendingEdits = relationship.editsPending;
   const openEditsLink = getOpenEditsLink(relationship);
 

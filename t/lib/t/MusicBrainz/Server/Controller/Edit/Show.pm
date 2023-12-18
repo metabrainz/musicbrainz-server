@@ -51,7 +51,7 @@ test 'Check edit page displays basic components' => sub {
     $mech->content_contains(
         'Edit by <a href="/user/editor1">',
         'The edit page lists the editor who entered the edit',
-    )
+    );
 };
 
 test 'Check edit page differences for own edit' => sub {

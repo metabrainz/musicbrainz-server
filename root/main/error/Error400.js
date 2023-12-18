@@ -23,7 +23,7 @@ const Error400 = ({
   message,
   useLanguages,
 }: Props): React$Element<typeof ErrorLayout> => (
-  <ErrorLayout title={l('Bad Request')}>
+  <ErrorLayout title={l('Bad request')}>
     <p>
       <strong>
         {l('Sorry, there was a problem with your request.')}
@@ -49,7 +49,7 @@ const Error400 = ({
       )}
     </p>
 
-    <h2>{l('Technical Information')}</h2>
+    <h2>{l('Technical information')}</h2>
 
     <ErrorEnvironment useLanguages={useLanguages} />
   </ErrorLayout>

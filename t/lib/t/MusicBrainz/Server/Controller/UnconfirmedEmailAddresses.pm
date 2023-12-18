@@ -41,7 +41,7 @@ test 'Paths that allow browsing without a confirmed email address' => sub {
 
     cmp_set(
         \@actions_without_edit_attribute,
-        \@unconfirmed_email_whitelist
+        \@unconfirmed_email_whitelist,
     );
 };
 
@@ -58,6 +58,7 @@ test 'Paths that allow browsing without a confirmed email address' => sub {
   'Controller::Account::Subscriptions::Series::remove',
   'Controller::Account::applications',
   'Controller::Account::change_password',
+  'Controller::Account::delete',
   'Controller::Account::donation',
   'Controller::Account::edit',
   'Controller::Account::edit_application',

@@ -3,6 +3,7 @@ use utf8;
 use strict;
 use warnings;
 
+use HTTP::Status qw( :constants );
 use Test::Routine;
 use Test::More;
 
@@ -56,7 +57,7 @@ test 'Can view tags' => sub {
 
     $test->mech->get('/tag/not-found');
     html_ok($test->mech->content);
-    is($test->mech->status(), 404);
+    is($test->mech->status(), HTTP_NOT_FOUND);
 
     $test->mech->get_ok('/tag/hip-hop%2Frap/');
     html_ok($test->mech->content);

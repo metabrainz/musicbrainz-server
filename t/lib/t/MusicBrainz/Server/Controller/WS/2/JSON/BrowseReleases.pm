@@ -3,11 +3,12 @@ use utf8;
 use strict;
 use warnings;
 
+use HTTP::Status qw( :constants );
 use JSON;
 use Test::Routine;
 use Test::More;
 use MusicBrainz::Server::Test ws_test_json => {
-    version => 2
+    version => 2,
 };
 
 with 't::Mechanize', 't::Context';
@@ -22,7 +23,7 @@ test 'errors' => sub {
     my $mech = $test->mech;
     $mech->default_header('Accept' => 'application/json');
     $mech->get('/ws/2/release?recording=7b1f6e95-b523-43b6-a048-810ea5d463a8');
-    is($mech->status, 404, 'browse releases via non-existent recording');
+    is($mech->status, HTTP_NOT_FOUND, 'browse releases via non-existent recording');
 
     is_json($mech->content, encode_json({
           error => 'Not Found',
@@ -73,7 +74,7 @@ test 'browse releases via artist (paging)' => sub {
                     disambiguation => '',
                     packaging => JSON::null,
                     'packaging-id' => JSON::null,
-                }]
+                }],
         };
 };
 
@@ -129,7 +130,7 @@ test 'browse releases via label' => sub {
                             'format-id' => '9712d52a-4509-3d4b-a1a2-67c88c643e31',
                             position => 2,
                             'track-count' => 9,
-                            title => 'Chestplate Singles'
+                            title => 'Chestplate Singles',
                         }],
                     asin => 'B001IKWNCE',
                     disambiguation => '',
@@ -177,7 +178,7 @@ test 'browse releases via label' => sub {
                     disambiguation => '',
                     packaging => JSON::null,
                     'packaging-id' => JSON::null,
-                }]
+                }],
         };
 };
 
@@ -258,7 +259,7 @@ test  'browse releases via release group' => sub {
                     disambiguation => '',
                     packaging => JSON::null,
                     'packaging-id' => JSON::null,
-                }]
+                }],
         };
 };
 
@@ -279,7 +280,7 @@ test 'browse releases via recording, with recording rels' => sub {
                     back => JSON::false,
                     count => 0,
                     darkened => JSON::false,
-                    front => JSON::false
+                    front => JSON::false,
                 },
                 disambiguation => '',
                 id => 'ec0d0122-b559-4aa1-a017-7068814aae57',
@@ -349,7 +350,7 @@ test 'browse releases via recording, with recording rels' => sub {
                                 },
                                 'target-type' => 'work',
                             }],
-                        }
+                        },
                     },
                     tracks => [
                         {
@@ -387,7 +388,7 @@ test 'browse releases via recording, with recording rels' => sub {
                                     },
                                     'target-type' => 'artist',
                                 }],
-                            }
+                            },
                         },
                         {
                             id => 'e9f7ca98-ba9d-3276-97a4-26475c9f4527',
@@ -402,9 +403,9 @@ test 'browse releases via recording, with recording rels' => sub {
                                 length => 240400,
                                 video => JSON::false,
                                 relations => [],
-                            }
-                        }
-                    ]
+                            },
+                        },
+                    ],
                 } ],
                 packaging => JSON::null,
                 'packaging-id' => JSON::null,
@@ -413,7 +414,7 @@ test 'browse releases via recording, with recording rels' => sub {
                 'status-id' => '4e304316-386d-3409-af2e-78857eec5cfe',
                 'text-representation' => {
                     language => 'eng',
-                    script => 'Latn'
+                    script => 'Latn',
                 },
                 title => 'Soup',
                 relations => [],
@@ -464,7 +465,7 @@ test 'browse releases via track artist' => sub {
                     disambiguation => '',
                     packaging => JSON::null,
                     'packaging-id' => JSON::null,
-                }]
+                }],
         };
 };
 

@@ -5631,7 +5631,7 @@ __metadata:
     less-loader: "npm:10.0.1"
     less-plugin-clean-css: "npm:1.5.1"
     leven: "npm:2.0.0"
-    mutate-cow: "npm:4.1.1"
+    mutate-cow: "npm:5.0.0"
     nodemon: "npm:2.0.20"
     nyc: "npm:14.1.1"
     path-browserify: "npm:1.0.1"
@@ -5643,6 +5643,7 @@ __metadata:
     querystring: "npm:0.2.0"
     react: "npm:18.1.0"
     react-dom: "npm:18.1.0"
+    react-is: "npm:18.2.0"
     react-table: "npm:7.8.0"
     redux: "npm:4.2.0"
     selenium-webdriver: "npm:4.0.0-alpha.5"
@@ -5666,10 +5667,10 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"mutate-cow@npm:4.1.1":
-  version: 4.1.1
-  resolution: "mutate-cow@npm:4.1.1"
-  checksum: 936ee76f6f41a64963cd4ab76d600ac29172182822b2dc4a23f464efa305120a6fe81a9da705abfa5c8eeb5e3471ce3df22927eab9b1183e368896129604ceab
+"mutate-cow@npm:5.0.0":
+  version: 5.0.0
+  resolution: "mutate-cow@npm:5.0.0"
+  checksum: 5b664eac43b8faeea0406a1fcf9ae2b88e099f8b60cf8b19e852291eb6499ed6ea03ef2d4a7d87211dad59d94394f5e89cfd4a235e0d435c8aba8a8cea2c435e
   languageName: node
   linkType: hard
 
@@ -6552,6 +6553,13 @@ __metadata:
   peerDependencies:
     react: ^18.1.0
   checksum: aa6b9a134a5837db92ce7ba73cff76ec0137bc643a27f886557a43fb36cdc75e8d950bda05ca3eeb0292be38e7bd8f9fe5c2eecede76f4800d552008e030ad0d
+  languageName: node
+  linkType: hard
+
+"react-is@npm:18.2.0":
+  version: 18.2.0
+  resolution: "react-is@npm:18.2.0"
+  checksum: 6eb5e4b28028c23e2bfcf73371e72cd4162e4ac7ab445ddae2afe24e347a37d6dc22fae6e1748632cd43c6d4f9b8f86dcf26bf9275e1874f436d129952528ae0
   languageName: node
   linkType: hard
 

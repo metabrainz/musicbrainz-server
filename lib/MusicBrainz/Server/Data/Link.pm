@@ -38,7 +38,7 @@ sub _column_mapping
         type_id    => 'link_type',
         begin_date => sub { MusicBrainz::Server::Entity::PartialDate->new_from_row(shift, 'begin_date_') },
         end_date   => sub { MusicBrainz::Server::Entity::PartialDate->new_from_row(shift, 'end_date_') },
-        ended      => 'ended'
+        ended      => 'ended',
     };
 }
 
@@ -230,7 +230,7 @@ sub find_or_insert
     my $row = {
         link_type => $values->{link_type_id},
         attribute_count => scalar(@attrs),
-        ended => $values->{ended}
+        ended => $values->{ended},
     };
     add_partial_date_to_row($row, $values->{begin_date}, 'begin_date');
     add_partial_date_to_row($row, $values->{end_date}, 'end_date');
@@ -248,7 +248,7 @@ sub find_or_insert
             $self->sql->insert_row('link_attribute_credit', {
                 attribute_type => $attribute_type,
                 link => $id,
-                credited_as => $attr->{credited_as}
+                credited_as => $attr->{credited_as},
             });
         }
 
@@ -256,7 +256,7 @@ sub find_or_insert
             $self->sql->insert_row('link_attribute_text_value', {
                 link           => $id,
                 attribute_type => $attribute_type,
-                text_value     => $attr->{text_value}
+                text_value     => $attr->{text_value},
             });
         }
     }

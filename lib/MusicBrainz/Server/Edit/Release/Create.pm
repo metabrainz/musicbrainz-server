@@ -16,19 +16,19 @@ use MusicBrainz::Server::Edit::Utils qw(
 );
 use MusicBrainz::Server::Entity::ReleaseEvent;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array to_json_object );
-use MusicBrainz::Server::Translation qw( l N_l );
+use MusicBrainz::Server::Translation qw( l N_lp );
 
 extends 'MusicBrainz::Server::Edit::Generic::Create';
-with 'MusicBrainz::Server::Edit::Role::Preview';
-with 'MusicBrainz::Server::Edit::Release::RelatedEntities';
-with 'MusicBrainz::Server::Edit::Release';
-with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
+with 'MusicBrainz::Server::Edit::Role::Preview',
+     'MusicBrainz::Server::Edit::Release::RelatedEntities',
+     'MusicBrainz::Server::Edit::Release',
+     'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
 use aliased 'MusicBrainz::Server::Entity::PartialDate';
 use aliased 'MusicBrainz::Server::Entity::Release';
 use aliased 'MusicBrainz::Server::Entity::ReleaseGroup';
 
-sub edit_name { N_l('Add release') }
+sub edit_name { N_lp('Add release', 'edit type') }
 sub edit_type { $EDIT_RELEASE_CREATE }
 sub _create_model { 'Release' }
 sub release_id { shift->entity_id }
@@ -50,8 +50,8 @@ has '+data' => (
         events => Optional[ArrayRef[Dict[
             date => Nullable[PartialDateHash],
             country_id => Nullable[Int],
-        ]]]
-    ]
+        ]]],
+    ],
 );
 
 after 'initialize' => sub {
@@ -122,11 +122,11 @@ sub build_display_data
                     date => PartialDate->new({
                         year => $_->{date}{year},
                         month => $_->{date}{month},
-                        day => $_->{date}{day}
-                    })
+                        day => $_->{date}{day},
+                    }),
                 )
-            } @{ $self->data->{events} }
-        ])
+            } @{ $self->data->{events} },
+        ]),
     };
 }
 
@@ -135,7 +135,7 @@ sub _insert_hash
     my ($self, $data) = @_;
     $data->{artist_credit} = $self->c->model('ArtistCredit')->find_or_insert($data->{artist_credit});
     $data->{comment} = '' unless defined $data->{comment};
-    return $data
+    return $data;
 }
 
 sub restore {
@@ -153,7 +153,7 @@ sub restore {
 
             exists $data->{country_id}
                 ? (country_id => delete $data->{country_id}) : ()
-        }]
+        }];
     }
 
     $self->data($data);

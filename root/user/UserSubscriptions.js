@@ -21,11 +21,11 @@ import loopParity from '../utility/loopParity.js';
 import {returnToCurrentPage} from '../utility/returnUri.js';
 
 const titleByEntityType = {
-  artist: N_l('Artist Subscriptions'),
-  collection: N_l('Collection Subscriptions'),
-  editor: N_l('Editor Subscriptions'),
-  label: N_l('Label Subscriptions'),
-  series: N_l('Series Subscriptions'),
+  artist: N_l('Artist subscriptions'),
+  collection: N_l('Collection subscriptions'),
+  editor: N_l('Editor subscriptions'),
+  label: N_l('Label subscriptions'),
+  series: N_l('Series subscriptions'),
 };
 
 type UserSubscriptionsTableProps = {

@@ -116,7 +116,11 @@ const RelationshipTypeDetails = ({
         {'[ '}
         {isRelationshipEditor($c.user) ? (
           <>
-            <EntityLink content={l('Edit')} entity={relType} subPath="edit" />
+            <EntityLink
+              content={lp('Edit', 'verb, interactive')}
+              entity={relType}
+              subPath="edit"
+            />
             {childrenTypes.length ? null : (
               <>
                 {' | '}
@@ -195,7 +199,7 @@ const RelationshipTypePairTree = ({
         {isRelationshipEditor($c.user) ? (
           <p>
             <a href={'/relationships/' + type0 + '-' + type1 + '/create'}>
-              {texp.l(
+              {texp.l_admin(
                 'Add a new {type0}-{type1} relationship type',
                 {type0: formattedType0, type1: formattedType1},
               )}

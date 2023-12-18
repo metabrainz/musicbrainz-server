@@ -6,21 +6,21 @@ use List::AllUtils qw( any uniq );
 use MusicBrainz::Server::Constants qw( $EDIT_RECORDING_ADD_ISRCS );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 use MusicBrainz::Server::Edit::Exceptions;
 
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Recording::RelatedEntities' => {
-    -excludes => 'recording_ids'
-};
-with 'MusicBrainz::Server::Edit::Recording';
-with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
+        -excludes => 'recording_ids',
+     },
+     'MusicBrainz::Server::Edit::Recording',
+     'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
 use aliased 'MusicBrainz::Server::Entity::Recording';
 use aliased 'MusicBrainz::Server::Entity::ISRC';
 
 sub edit_type { $EDIT_RECORDING_ADD_ISRCS }
-sub edit_name { N_l('Add ISRCs') }
+sub edit_name { N_lp('Add ISRCs', 'edit type') }
 sub edit_kind { 'add' }
 sub edit_template { 'AddIsrcs' }
 
@@ -32,12 +32,12 @@ has '+data' => (
             isrc      => Str,
             recording => Dict[
                 id => Int,
-                name => Str
+                name => Str,
             ],
             source    => Nullable[Int],
         ]],
-        client_version => Nullable[Str]
-    ]
+        client_version => Nullable[Str],
+    ],
 );
 
 sub initialize
@@ -51,7 +51,7 @@ sub initialize
     else {
         $self->data({
             isrcs => \@isrcs,
-            client_version => $opts{client_version}
+            client_version => $opts{client_version},
         });
     }
 }
@@ -62,8 +62,8 @@ sub _build_related_entities
     return {
         recording => [ uniq map {
             $_->{recording}{id}
-        } @{ $self->data->{isrcs} } ]
-    }
+        } @{ $self->data->{isrcs} } ],
+    };
 }
 
 sub foreign_keys
@@ -72,8 +72,8 @@ sub foreign_keys
     return {
         Recording => { map {
             $_->{recording}{id} => ['ArtistCredit']
-        } @{ $self->data->{isrcs} } }
-    }
+        } @{ $self->data->{isrcs} } },
+    };
 }
 
 sub build_display_data
@@ -84,15 +84,15 @@ sub build_display_data
             map { +{
                 recording => to_json_object(
                     $loaded->{Recording}{ $_->{recording}{id} } ||
-                    Recording->new( id => $_->{recording}{id}, name => $_->{recording}{name} )
+                    Recording->new( id => $_->{recording}{id}, name => $_->{recording}{name} ),
                 ),
                 isrc      => to_json_object(ISRC->new( isrc => $_->{isrc} )),
-                source    => $_->{source}
-            } } @{ $self->data->{isrcs} }
+                source    => $_->{source},
+            } } @{ $self->data->{isrcs} },
         ],
         client_version => $self->data->{client_version},
 
-    }
+    };
 }
 
 sub accept
@@ -107,7 +107,7 @@ sub accept
         } map +{
             recording_id => $_->{recording}{id},
             isrc => $_->{isrc},
-            source => $_->{source}
+            source => $_->{source},
         }, @{ $self->data->{isrcs} };
 
     $self->c->model('ISRC')->insert(@new_isrcs) if @new_isrcs;
@@ -115,3 +115,5 @@ sub accept
 
 no Moose;
 __PACKAGE__->meta->make_immutable;
+
+1;

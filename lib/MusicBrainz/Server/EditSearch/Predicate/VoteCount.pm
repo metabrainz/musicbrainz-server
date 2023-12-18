@@ -10,7 +10,7 @@ extends 'MusicBrainz::Server::EditSearch::Predicate::ID';
 has vote => (
     is => 'ro',
     isa => 'Int',
-    required => 1
+    required => 1,
 );
 
 sub combine_with_query {

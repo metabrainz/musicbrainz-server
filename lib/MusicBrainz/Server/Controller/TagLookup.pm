@@ -9,8 +9,9 @@ use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
 use MusicBrainz::Server::Data::Search qw( escape_query );
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
+use Readonly;
 
-use constant LOOKUPS_PER_NAG => 5;
+Readonly my $LOOKUPS_PER_NAG => 5;
 
 sub _parse_filename
 {
@@ -116,7 +117,7 @@ sub nag_check
 
     $session->{nag}++;
 
-    return 0 if ($session->{nag} < LOOKUPS_PER_NAG);
+    return 0 if ($session->{nag} < $LOOKUPS_PER_NAG);
 
     $session->{nag} = 0;
     return 1; # nag this user.
@@ -132,7 +133,7 @@ sub external : Private
         recording => 'track',
         release => 'release',
         dur => 'duration',
-        tnum => 'tracknum'
+        tnum => 'tracknum',
     };
 
     # Collect all the terms we have
@@ -158,13 +159,13 @@ sub external : Private
     # Try and find the most exact search
     my $type;
     if ($terms{recording} || $terms{tnum} || $terms{dur}) {
-        $type = 'recording'
+        $type = 'recording';
     }
     elsif ($terms{release}) {
-        $type = 'release'
+        $type = 'release';
     }
     elsif ($terms{artist}) {
-        $type = 'artist'
+        $type = 'artist';
     }
     else {
         $c->detach('not_found');
@@ -200,7 +201,7 @@ sub index : Path('')
         map {
             ("tag-lookup.$_" => $c->req->query_params->{"tag-lookup.$_"} //
                                 $c->req->query_params->{$_})
-        } qw( artist release tracknum track duration filename )
+        } qw( artist release tracknum track duration filename ),
     };
 
     $c->stash(

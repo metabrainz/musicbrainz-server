@@ -13,7 +13,6 @@ import * as React from 'react';
 import {SanitizedCatalystContext} from '../../../../context.mjs';
 import type {
   GenreFormT,
-  WritableGenreFormT,
 } from '../../../../genre/types.js';
 import isBlank from '../../common/utility/isBlank.js';
 import EnterEdit from '../../edit/components/EnterEdit.js';
@@ -25,7 +24,6 @@ import FormRowNameWithGuessCase, {
 import FormRowTextLong from '../../edit/components/FormRowTextLong.js';
 import {
   type StateT as GuessCaseOptionsStateT,
-  type WritableStateT as WritableGuessCaseOptionsStateT,
   createInitialState as createGuessCaseOptionsState,
 } from '../../edit/components/GuessCaseOptions.js';
 import {
@@ -52,12 +50,6 @@ type StateT = {
   +isGuessCaseOptionsOpen: boolean,
 };
 
-type WritableStateT = {
-  ...StateT,
-  form: WritableGenreFormT,
-  guessCaseOptions: WritableGuessCaseOptionsStateT,
-};
-
 function createInitialState(form: GenreFormT) {
   return {
     form,
@@ -67,24 +59,28 @@ function createInitialState(form: GenreFormT) {
 }
 
 function reducer(state: StateT, action: ActionT): StateT {
-  return mutate<WritableStateT, StateT>(state, newState => {
-    switch (action.type) {
-      case 'update-name': {
-        const nameState = {
-          field: newState.form.field.name,
-          guessCaseOptions: newState.guessCaseOptions,
-          isGuessCaseOptionsOpen: newState.isGuessCaseOptionsOpen,
-        };
-        runNameReducer(nameState, action.action);
-        newState.guessCaseOptions = nameState.guessCaseOptions;
-        newState.isGuessCaseOptionsOpen = nameState.isGuessCaseOptionsOpen;
-        break;
-      }
-      default: {
-        /*:: exhaustive(action); */
-      }
+  let newState = state;
+  switch (action.type) {
+    case 'update-name': {
+      const nameStateCtx = mutate({
+        field: state.form.field.name,
+        guessCaseOptions: state.guessCaseOptions,
+        isGuessCaseOptionsOpen: state.isGuessCaseOptionsOpen,
+      });
+      runNameReducer(nameStateCtx, action.action);
+      const nameState = nameStateCtx.read();
+      newState = mutate(state)
+        .set('form', 'field', 'name', nameState.field)
+        .set('guessCaseOptions', nameState.guessCaseOptions)
+        .set('isGuessCaseOptionsOpen', nameState.isGuessCaseOptionsOpen)
+        .final();
+      break;
     }
-  });
+    default: {
+      /*:: exhaustive(action); */
+    }
+  }
+  return newState;
 }
 
 const GenreEditForm = ({
@@ -137,18 +133,18 @@ const GenreEditForm = ({
     >
       <div className="half-width">
         <fieldset>
-          <legend>{l('Genre details')}</legend>
+          <legend>{'Genre details'}</legend>
           <FormRowNameWithGuessCase
             dispatch={nameDispatch}
             entity={genre}
             field={state.form.field.name}
             guessCaseOptions={state.guessCaseOptions}
             isGuessCaseOptionsOpen={state.isGuessCaseOptionsOpen}
-            label={addColonText(l('Name'))}
+            label="Name:"
           />
           <FormRowTextLong
             field={state.form.field.comment}
-            label={addColonText(l('Disambiguation'))}
+            label="Disambiguation:"
             uncontrolled
           />
         </fieldset>
@@ -157,7 +153,7 @@ const GenreEditForm = ({
           seededRelationships={$c.stash.seeded_relationships}
         />
         <fieldset>
-          <legend>{l('External Links')}</legend>
+          <legend>{'External links'}</legend>
           <ExternalLinksEditor
             isNewEntity={!genre.id}
             ref={externalLinksEditorRef}

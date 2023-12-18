@@ -16,7 +16,7 @@ type Props = {
 const DiscIdNotValid = ({
   discId,
 }: Props): React$Element<typeof StatusPage> => (
-  <StatusPage title={l('Invalid Disc ID')}>
+  <StatusPage title={l('Invalid disc ID')}>
     <p>
       {exp.l(
         'Sorry, <code>{discid}</code> is not a valid disc ID.',

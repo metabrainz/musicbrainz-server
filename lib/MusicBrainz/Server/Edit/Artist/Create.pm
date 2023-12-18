@@ -6,7 +6,7 @@ use MusicBrainz::Server::Constants qw( $EDIT_ARTIST_CREATE );
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use MusicBrainz::Server::Edit::Types qw( Nullable PartialDateHash );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 use aliased 'MusicBrainz::Server::Entity::PartialDate';
 use Moose::Util::TypeConstraints;
 use MooseX::Types::Moose qw( ArrayRef Bool Str Int );
@@ -16,17 +16,19 @@ use aliased 'MusicBrainz::Server::Entity::Artist';
 use aliased 'MusicBrainz::Server::Entity::Area';
 
 extends 'MusicBrainz::Server::Edit::Generic::Create';
-with 'MusicBrainz::Server::Edit::Role::Preview';
-with 'MusicBrainz::Server::Edit::Artist';
-with 'MusicBrainz::Server::Edit::Role::SubscribeOnCreation' => {
-    editor_subscription_preference => sub { shift->subscribe_to_created_artists }
-};
-with 'MusicBrainz::Server::Edit::Role::Insert';
-with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
-with 'MusicBrainz::Server::Edit::Role::CheckDuplicates';
-with 'MusicBrainz::Server::Edit::Role::DatePeriod';
+with 'MusicBrainz::Server::Edit::Role::Preview',
+     'MusicBrainz::Server::Edit::Artist',
+     'MusicBrainz::Server::Edit::Role::SubscribeOnCreation' => {
+        editor_subscription_preference => sub {
+            shift->subscribe_to_created_artists;
+        },
+     },
+     'MusicBrainz::Server::Edit::Role::Insert',
+     'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit',
+     'MusicBrainz::Server::Edit::Role::CheckDuplicates',
+     'MusicBrainz::Server::Edit::Role::DatePeriod';
 
-sub edit_name { N_l('Add artist') }
+sub edit_name { N_lp('Add artist', 'edit type') }
 sub edit_type { $EDIT_ARTIST_CREATE }
 sub _create_model { 'Artist' }
 sub artist_id { shift->entity_id }
@@ -46,8 +48,8 @@ has '+data' => (
         end_date   => Nullable[PartialDateHash],
         ipi_codes  => Optional[ArrayRef[Str]],
         isni_codes => Optional[ArrayRef[Str]],
-        ended      => Optional[Bool]
-    ]
+        ended      => Optional[Bool],
+    ],
 );
 
 before initialize => sub {
@@ -72,7 +74,7 @@ sub foreign_keys
         ArtistType => [ $self->data->{type_id} ],
         Gender     => [ $self->data->{gender_id} ],
         Area       => [ $self->data->{area_id},
-                        $self->data->{begin_area_id}, $self->data->{end_area_id} ]
+                        $self->data->{begin_area_id}, $self->data->{end_area_id} ],
     };
 }
 
@@ -84,7 +86,7 @@ sub build_display_data
     my $gender = $self->data->{gender_id};
     my $artist = to_json_object((defined($self->entity_id) &&
             $loaded->{Artist}{ $self->entity_id }) ||
-            Artist->new( name => $self->data->{name} )
+            Artist->new( name => $self->data->{name} ),
     );
 
     return {
@@ -97,7 +99,7 @@ sub build_display_data
         artist     => $artist,
         ipi_codes  => $self->data->{ipi_codes},
         isni_codes => $self->data->{isni_codes},
-        ended      => boolean_to_json($self->data->{ended})
+        ended      => boolean_to_json($self->data->{ended}),
     };
 }
 
@@ -106,7 +108,7 @@ sub _insert_hash
     my ($self, $data) = @_;
     $data->{sort_name} ||= $data->{name};
     return $data;
-};
+}
 
 sub restore {
     my ($self, $data) = @_;
@@ -120,7 +122,7 @@ sub restore {
     $self->data($data);
 }
 
-sub edit_template { 'AddArtist' };
+sub edit_template { 'AddArtist' }
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

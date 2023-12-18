@@ -171,6 +171,7 @@ export function* getInitialRelationshipUpdates(
 
 export function createInitialState(
   args: InitialStateArgsT,
+  submittedRelationships?: ?$ReadOnlyArray<RelationshipStateT>,
 ): RelationshipEditorStateT {
   const {seededRelationships} = args;
 
@@ -205,6 +206,19 @@ export function createInitialState(
     );
   }
 
+  if (submittedRelationships) {
+    updateRelationships(
+      newState,
+      submittedRelationships.map((submittedRelationship) => {
+        return {
+          onConflict: onConflictUseGivenValue,
+          relationship: submittedRelationship,
+          type: ADD_RELATIONSHIP,
+        };
+      }),
+    );
+  }
+
   return newState;
 }
 
@@ -212,12 +226,16 @@ export function loadOrCreateInitialState(
   args: InitialStateArgsT,
 ): RelationshipEditorStateT {
   const $c = getCatalystContext();
+  let submittedRelationships;
   if (hasSessionStorage && $c.req.method === 'POST') {
-    const submission = sessionStorage.getItem('relationshipEditorState');
-    if (nonEmpty(submission)) {
+    const submittedRelationshipsJson =
+      sessionStorage.getItem('relationshipEditorChanges');
+    if (nonEmpty(submittedRelationshipsJson)) {
       try {
+        submittedRelationships = ((decompactEntityJson(
+          JSON.parse(submittedRelationshipsJson),
         // $FlowIgnore[unclear-type]
-        return (decompactEntityJson(JSON.parse(submission)): any);
+        ): any): $ReadOnlyArray<RelationshipStateT>);
       } catch (e) {
         captureException(e);
       } finally {
@@ -226,12 +244,12 @@ export function loadOrCreateInitialState(
          * development, so delay the sessionStorage removal.
          */
         setTimeout(() => {
-          sessionStorage.removeItem('relationshipEditorState');
+          sessionStorage.removeItem('relationshipEditorChanges');
         }, 1000);
       }
     }
   }
-  return createInitialState(args);
+  return createInitialState(args, submittedRelationships);
 }
 
 export function* getUpdatesForAcceptedRelationship(

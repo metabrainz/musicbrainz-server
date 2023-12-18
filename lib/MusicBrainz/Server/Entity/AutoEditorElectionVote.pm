@@ -21,7 +21,7 @@ has 'voter' => (
 
 has [qw( election_id voter_id )] => (
     isa => 'Int',
-    is  => 'rw'
+    is  => 'rw',
 );
 
 has 'vote_time' => (
@@ -32,7 +32,7 @@ has 'vote_time' => (
 
 has 'vote' => (
     isa => VoteOption,
-    is  => 'rw'
+    is  => 'rw',
 );
 
 our %VOTE_NAMES = (

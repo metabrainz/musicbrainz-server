@@ -7,6 +7,8 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import type {CowContext} from 'mutate-cow';
+
 import expand2react from '../../common/i18n/expand2react.js';
 import bracketed from '../../common/utility/bracketed.js';
 import getBooleanCookie from '../../common/utility/getBooleanCookie.js';
@@ -29,10 +31,6 @@ export type StateT = {
   +upperCaseRoman: boolean,
 };
 
-export type WritableStateT = {
-  ...StateT,
-};
-
 export type PropsT = $ReadOnly<{
   ...StateT,
   +dispatch: (ActionT) => void,
@@ -47,7 +45,7 @@ export function createInitialState(): StateT {
 }
 
 export function runReducer(
-  state: WritableStateT,
+  state: CowContext<StateT>,
   action: ActionT,
 ): void {
   switch (action.type) {
@@ -55,20 +53,20 @@ export function runReducer(
       const modeName = action.modeName;
       gc.modeName = modeName;
       setCookie('guesscase_mode', modeName);
-      state.modeName = modeName;
+      state.set('modeName', modeName);
       break;
     }
     case 'set-keep-upper-case': {
       const enabled = action.enabled;
       gc.CFG_KEEP_UPPERCASED = enabled;
       setCookie('guesscase_keepuppercase', enabled);
-      state.keepUpperCase = enabled;
+      state.set('keepUpperCase', enabled);
       break;
     }
     case 'set-upper-case-roman': {
       const enabled = action.enabled;
       setCookie('guesscase_roman', enabled);
-      state.upperCaseRoman = enabled;
+      state.set('upperCaseRoman', enabled);
       break;
     }
   }

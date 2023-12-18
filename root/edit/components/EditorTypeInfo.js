@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import bracketed from '../../static/scripts/common/utility/bracketed.js';
 import {isBot} from '../../static/scripts/common/utility/privileges.js';
 
@@ -18,7 +16,7 @@ type Props = {
 
 const EditorTypeInfo = ({
   editor,
-}: Props): React$Element<typeof React.Fragment> | null => (
+}: Props): React$Element<React$FragmentType> | null => (
   editor == null ? null : (
     <>
       {editor.is_limited ? (

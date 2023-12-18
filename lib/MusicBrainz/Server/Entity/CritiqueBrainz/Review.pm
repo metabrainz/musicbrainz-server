@@ -8,27 +8,27 @@ use MusicBrainz::Server::Types;
 
 has id => (
     is => 'ro',
-    isa => 'Str'
+    isa => 'Str',
 );
 
 has created => (
     is => 'ro',
-    isa => 'DateTime'
+    isa => 'DateTime',
 );
 
 has body => (
     is => 'ro',
-    isa => 'Str'
+    isa => 'Str',
 );
 
 has author => (
     is => 'ro',
-    isa => 'MusicBrainz::Server::Entity::CritiqueBrainz::User'
+    isa => 'MusicBrainz::Server::Entity::CritiqueBrainz::User',
 );
 
 has rating => (
     is => 'ro',
-    isa => 'Maybe[Int]'
+    isa => 'Maybe[Int]',
 );
 
 sub href {

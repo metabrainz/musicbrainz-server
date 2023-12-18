@@ -1,55 +1,55 @@
 <form action="[% c.req.uri %]" method="post" class="edit-relationship">
     [%- USE r = FormRenderer(form) -%]
 
-    [% form_row_select(r, 'parent_id', add_colon(l('Parent'))) %]
+    [% form_row_select(r, 'parent_id', 'Parent:') %]
 
     [% WRAPPER form_row %]
-        [% r.label('child_order', add_colon(l('Child order'))) %]
+        [% r.label('child_order', 'Child order:') %]
         [% r.number('child_order') %]
         [% field_errors(form, 'child_order') %]
     [% END %]
 
-    [% form_row_text_long(r, 'name', add_colon(l('Name'))) %]
-    [% form_row_text_long(r, 'link_phrase', l('Forward link phrase:')) %]
-    [% form_row_text_long(r, 'reverse_link_phrase', l('Reverse link phrase:')) %]
-    [% form_row_text_long(r, 'long_link_phrase', l('Long link phrase:')) %]
-    [% form_row_checkbox(r, 'is_deprecated', l('This relationship is deprecated')) %]
-    [% form_row_checkbox(r, 'has_dates', l('This relationship allows setting dates')) %]
+    [% form_row_text_long(r, 'name', 'Name:') %]
+    [% form_row_text_long(r, 'link_phrase', 'Forward link phrase:') %]
+    [% form_row_text_long(r, 'reverse_link_phrase', 'Reverse link phrase:') %]
+    [% form_row_text_long(r, 'long_link_phrase', 'Long link phrase:') %]
+    [% form_row_checkbox(r, 'is_deprecated', 'This relationship is deprecated') %]
+    [% form_row_checkbox(r, 'has_dates', 'This relationship allows setting dates') %]
 
     [% WRAPPER form_row %]
-        [% r.label('description', add_colon(l('Description'))) %]
+        [% r.label('description', 'Description:') %]
         [% r.textarea('description', { cols => 80, rows => 6 }) %]
         [% field_errors(form, 'description') %]
     [% END %]
 
     [% WRAPPER form_row %]
-        [% r.label('entity0_cardinality', add_colon(l('Cardinality of {entity_placeholder}', { entity_placeholder => '<code>{entity0}</code>' }))) %]
+        [% r.label('entity0_cardinality', 'Cardinality of <code>{entity0}</code>') %]
         [% r.number('entity0_cardinality') %]
         [% field_errors(form, 'entity0_cardinality') %]
     [% END %]
     [% WRAPPER form_row %]
-        [% r.label('entity1_cardinality', add_colon(l('Cardinality of {entity_placeholder}', { entity_placeholder => '<code>{entity1}</code>' }))) %]
+        [% r.label('entity1_cardinality', 'Cardinality of <code>{entity1}</code>') %]
         [% r.number('entity1_cardinality') %]
         [% field_errors(form, 'entity1_cardinality') %]
     [% END %]
 
     [% WRAPPER form_row %]
-        [% r.label('orderable_direction', l('Orderable direction:')) %]
+        [% r.label('orderable_direction', 'Orderable direction:') %]
         [% r.number('orderable_direction') %]
         <div class="no-label">
-            [% l('A value of 1 or 2 indicates that either entity1 or entity0 are orderable, respectively.') %]
+            [% 'A value of 1 or 2 indicates that either entity1 or entity0 are orderable, respectively.' %]
         </div>
         [% field_errors(form, 'orderable_direction') %]
     [% END %]
 
     [% WRAPPER form_row %]
-        [% r.label('priority', l('Priority:')) %]
+        [% r.label('priority', 'Priority:') %]
         [% r.number('priority') %]
         [% field_errors(form, 'priority') %]
     [% END %]
 
     [% WRAPPER form_row %]
-        <label>[% add_colon(l('Attributes')) %]</label>
+        <label>[% 'Attributes:' %]</label>
         [% FOR field IN form.field('attributes').fields %]
             <div class="no-label">
                     [% r.hidden(field.field('type')) %]
@@ -62,23 +62,23 @@
     [% END %]
 
     [% WRAPPER form_row %]
-      [% r.label('documentation', add_colon(l('Documentation'))) %]
+      [% r.label('documentation', 'Documentation:') %]
       [% r.textarea('documentation', { cols => 80, rows => 10 }) %]
     [% END %]
 
     [% IF form.isa('MusicBrainz::Server::Form::Admin::LinkType::Edit') %]
     <fieldset>
-        <legend>[% l('Examples') %]</legend>
+        <legend>[% 'Examples' %]</legend>
         <div data-bind="if: MB.ExampleRelationshipsEditor.viewModel.examples().length > 0">
             <div data-bind="foreach: MB.ExampleRelationshipsEditor.viewModel.examples">
                 [% WRAPPER form_row %]
                     <label class="required"
                            data-bind="attr: { for: examplePrefix($index(), 'name') }">
-                        [%- add_colon(l('Name')) -%]
+                        [%- 'Name:' -%]
                     </label>
                     <input type="text" data-bind="attr: { name: examplePrefix($index(), 'name') }, value: name" />
                     <button type="button" data-bind="click: removeExample">
-                        [% l('Remove Example') %]
+                        [% 'Remove example' %]
                     </button>
                 [% END %]
 
@@ -97,19 +97,19 @@
         <div data-bind="if: MB.ExampleRelationshipsEditor.viewModel.examples().length == 0">
             [% WRAPPER form_row %]
                 <div class="no-label">
-                    [% l('This relationship type does not have any examples.') %]
+                    [% 'This relationship type does not have any examples.' %]
                 </div>
             [% END %]
         </div>
 
-        <h3>[% l('Add a New Example') %]</h3>
+        <h3>[% 'Add a new example' %]</h3>
         [% WRAPPER form_row %]
-            <label>[% add_colon(l('Name')) %]</label>
+            <label>[% 'Name:' %]</label>
             <input type="text" data-bind="value: currentExample.name" />
         [% END %]
 
         [%- WRAPPER form_row -%]
-          <label class="required">[% l('Endpoint:') %]</label>
+          <label class="required">[% 'Endpoint:' %]</label>
           <select style="width: 130px; margin-right: 4px;"
               data-bind="options: availableEntityTypes, value: selectedEntityType,
                          optionsText: 'text', optionsValue: 'value'">
@@ -123,7 +123,7 @@
           </span>
           <button type="button" data-bind="click: currentExample.possibleRelationships.search,
                              enable: currentExample.possibleRelationships.query">
-                [% l('Find Relationships') %]</button>
+                [% 'Find relationships' %]</button>
         [%- END -%]
 
         <div class="row" data-bind="visible: currentExample.possibleRelationships.error">
@@ -151,7 +151,7 @@
         [% WRAPPER form_row %]
             <div class="no-label">
                 <button type="button" data-bind="click: currentExample.add, enable: currentExample.relationship()">
-                    [% l('Add Example') %]
+                    [% 'Add example' %]
                 </button>
             </div>
         [% END %]
@@ -197,6 +197,6 @@ function examplePrefix(i, s) {
     [% END %]
 
     <div class="row no-label">
-        [% form_submit(l('Save')) %]
+        [% form_submit('Save') %]
     </div>
 </form>

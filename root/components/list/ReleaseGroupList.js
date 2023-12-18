@@ -155,7 +155,7 @@ const ReleaseGroupList = ({
   seriesItemNumbers,
   showRatings,
   sortable,
-}: ReleaseGroupListProps): Array<React$Element<typeof React.Fragment>> => {
+}: ReleaseGroupListProps): Array<React$Element<React$FragmentType>> => {
   const groupedReleaseGroups = groupBy(releaseGroups, x => x.typeName ?? '');
   const tables = [];
   for (const [type, releaseGroupsOfType] of groupedReleaseGroups) {

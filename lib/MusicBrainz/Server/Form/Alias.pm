@@ -17,30 +17,30 @@ has '+name' => ( default => 'edit-alias' );
 
 has_field 'name' => (
     type => '+MusicBrainz::Server::Form::Field::Text',
-    required => 1
+    required => 1,
 );
 
 has_field 'sort_name' => (
-    type => '+MusicBrainz::Server::Form::Field::Text'
+    type => '+MusicBrainz::Server::Form::Field::Text',
 );
 
 has_field 'locale' => (
     type     => 'Select',
-    required => 0
+    required => 0,
 );
 
 has_field 'type_id' => (
     type => 'Select',
-    required => 0
+    required => 0,
 );
 
 has_field 'primary_for_locale' => (
-    type => 'Checkbox'
+    type => 'Checkbox',
 );
 
 has_field 'period' => (
     type => '+MusicBrainz::Server::Form::Field::DatePeriod',
-    not_nullable => 1
+    not_nullable => 1,
 );
 
 has 'id' => (
@@ -57,18 +57,18 @@ has 'parent_id' => (
 has 'alias_model' => (
     isa => 'MusicBrainz::Server::Data::Alias',
     is  => 'ro',
-    required => 1
+    required => 1,
 );
 
 has search_hint_type_id => (
     isa => 'Int',
     is => 'ro',
-    required => 1
+    required => 1,
 );
 
 sub edit_field_names {
     qw( name locale sort_name period.begin_date period.end_date
-        period.ended type_id primary_for_locale )
+        period.ended type_id primary_for_locale );
 }
 
 sub _locale_name_special_cases {
@@ -98,7 +98,7 @@ sub options_locale {
             };
         }
         sort_by { $ALIAS_LOCALES{$_}->name }
-        keys %ALIAS_LOCALES
+        keys %ALIAS_LOCALES,
     ];
 }
 

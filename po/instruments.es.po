@@ -19,20 +19,22 @@
 # t0n3t <email address hidden>, 2012
 # reosarevok <reosarevok@gmail.com>, 2023.
 # Yllelder <yllelder@gmail.com>, 2023.
+# reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-10-01 20:27+0000\n"
-"Last-Translator: Yllelder <yllelder@gmail.com>\n"
+"PO-Revision-Date: 2023-12-14 02:28+0000\n"
+"Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
+".org>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
 "musicbrainz/instruments/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.0.2\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
+"X-Generator: Weblate 5.2.1\n"
 
 #: DB:instrument/name:438
 msgid "12 string guitar"
@@ -285,7 +287,6 @@ msgid "Wurlitzer electric piano"
 msgstr "piano eléctrico Wurlitzer"
 
 #: DB:instrument/name:563
-#, fuzzy
 msgid "Xaphoon"
 msgstr "Xaphoon"
 
@@ -378,7 +379,7 @@ msgid "amadinda"
 msgstr "amadinda"
 
 #: DB:instrument/name:809
-msgctxt "mongolian mouth harp"
+msgctxt "Mongolian mouth harp"
 msgid "aman khuur"
 msgstr ""
 
@@ -692,7 +693,7 @@ msgid "bendir"
 msgstr "bendir"
 
 #: DB:instrument/name:828
-msgctxt "begeš, large bass serbo-croatian plucked stringinstrument"
+msgctxt "begeš, large bass Serbo-Croatian plucked string instrument"
 msgid "berda"
 msgstr ""
 
@@ -728,14 +729,14 @@ msgid "birbynė"
 msgstr ""
 
 #: DB:instrument/name:801
-msgctxt "Wooden natural brass"
+msgctxt "wooden natural brass"
 msgid "birch lur"
 msgstr ""
 
 #: DB:instrument/name:824
-msgctxt "prim, small serbo-croatian plucked stringinstrument"
+msgctxt "prim, small Serbo-Croatian plucked string instrument"
 msgid "bisernica"
-msgstr ""
+msgstr "bisernica"
 
 #: DB:instrument/name:70
 msgid "biwa"
@@ -839,7 +840,7 @@ msgid "brass"
 msgstr "viento-metal"
 
 #: DB:instrument/name:825
-msgctxt "basprim, serbo-croatian plucked stringinstrument"
+msgctxt "basprim, Serbo-Croatian plucked string instrument"
 msgid "brač"
 msgstr ""
 
@@ -853,7 +854,7 @@ msgid "brushes"
 msgstr "escobillas"
 
 #: DB:instrument/name:826
-msgctxt "kontra, serbo-croatian plucked stringinstrument"
+msgctxt "kontra, Serbo-Croatian plucked string instrument"
 msgid "bugarija"
 msgstr ""
 
@@ -1014,7 +1015,7 @@ msgid "ching"
 msgstr ""
 
 #: DB:instrument/name:821
-msgctxt "oboe-like double-reed from South-America"
+msgctxt "oboe-like double reed from South America"
 msgid "chirimía"
 msgstr "chirimía"
 
@@ -1071,7 +1072,7 @@ msgid "cizhonghu"
 msgstr ""
 
 #: DB:instrument/name:904
-msgctxt "egyptian ancient clappers"
+msgctxt "Egyptian ancient clappers"
 msgid "clapper"
 msgstr ""
 
@@ -1107,9 +1108,9 @@ msgid "clavinet"
 msgstr "clavinet"
 
 #: DB:instrument/name:780
-msgctxt "free reed aerophone with pitching pipes."
+msgctxt "free reed aerophone with pitching pipes"
 msgid "claviola"
-msgstr ""
+msgstr "claviola"
 
 #: DB:instrument/name:815
 msgctxt "electronic keyboard, forerunner to analogue synthesizers"
@@ -1238,7 +1239,7 @@ msgid "cò ke"
 msgstr ""
 
 #: DB:instrument/name:410
-msgctxt "Turkish oud like"
+msgctxt "Turkish oud-like"
 msgid "cümbüş"
 msgstr ""
 
@@ -1539,7 +1540,7 @@ msgid "fipple flute"
 msgstr ""
 
 #: DB:instrument/name:1184
-msgctxt "Bass Flugelhorn used in cobla"
+msgctxt "bass flugelhorn used in cobla"
 msgid "fiscorn"
 msgstr ""
 
@@ -1576,7 +1577,7 @@ msgid "flumpet"
 msgstr ""
 
 #: DB:instrument/name:13
-msgctxt "Reedless aerophone"
+msgctxt "reedless aerophone"
 msgid "flute"
 msgstr "flauta"
 
@@ -1778,7 +1779,7 @@ msgid "gittern"
 msgstr ""
 
 #: DB:instrument/name:796
-msgctxt "Elguitar/bass effect device"
+msgctxt "electric guitar/bass effect device"
 msgid "gizmo"
 msgstr ""
 
@@ -3201,6 +3202,11 @@ msgctxt "Medieval bowed lute"
 msgid "rebec"
 msgstr ""
 
+#: DB:instrument/name:1187
+msgctxt "Ibizan double woodwind"
+msgid "reclam de xeremies"
+msgstr "reclam de xeremies"
+
 #: DB:instrument/name:721
 msgctxt "Brazilian metal scraper"
 msgid "reco-reco"
@@ -3303,6 +3309,11 @@ msgstr ""
 msgid "sabar"
 msgstr ""
 
+#: DB:instrument/name:1188
+msgctxt "Catalonian bagpipe"
+msgid "sac de gemecs"
+msgstr ""
+
 #: DB:instrument/name:149
 msgid "sackbut"
 msgstr ""
@@ -3321,7 +3332,7 @@ msgid "samba whistle"
 msgstr ""
 
 #: DB:instrument/name:830
-msgctxt "solo serbo-croatian plucked lute"
+msgctxt "solo Serbo-Croatian plucked lute"
 msgid "samica"
 msgstr ""
 
@@ -3886,7 +3897,7 @@ msgid "temple blocks"
 msgstr ""
 
 #: DB:instrument/name:810
-msgctxt "steel mongolian jew's harp"
+msgctxt "steel Mongolian jew's harp"
 msgid "temür khuur"
 msgstr ""
 
@@ -4110,7 +4121,7 @@ msgid "tube zither"
 msgstr ""
 
 #: DB:instrument/name:775
-msgctxt "analogue electronic monophonic Organ"
+msgctxt "analogue electronic monophonic organ"
 msgid "tubon"
 msgstr ""
 
@@ -4281,9 +4292,9 @@ msgid "viola d'amore"
 msgstr ""
 
 #: DB:instrument/name:93
-msgctxt "Generic member of the viol family, Use for \"Viol\" Credits"
+msgctxt "generic member of the viol family, use for \"viol\" credits"
 msgid "viola da gamba"
-msgstr ""
+msgstr "viola da gamba"
 
 #: DB:instrument/name:227
 msgid "viola organista"
@@ -4309,9 +4320,9 @@ msgid "violino piccolo"
 msgstr ""
 
 #: DB:instrument/name:834
-msgctxt "cretan lyra / violin hybrid"
+msgctxt "Cretan lyra / violin hybrid"
 msgid "viololyra"
-msgstr ""
+msgstr "viololyra"
 
 #: DB:instrument/name:693
 msgctxt "for violoncello use \"cello\""
@@ -4415,6 +4426,11 @@ msgstr ""
 #: DB:instrument/name:97
 msgid "xalam"
 msgstr ""
+
+#: DB:instrument/name:1186
+msgctxt "Mallorcan bagpipe"
+msgid "xeremies"
+msgstr "xeremies"
 
 #: DB:instrument/name:484
 msgctxt "Chinese end-blown flute"
@@ -4528,7 +4544,7 @@ msgid "ütőgardon"
 msgstr ""
 
 #: DB:instrument/name:827
-msgctxt "čelović or csello, counter serbo-croatian plucked stringinstrument"
+msgctxt "čelović or csello, counter Serbo-Croatian plucked string instrument"
 msgid "čelo"
 msgstr ""
 

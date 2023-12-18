@@ -17,13 +17,13 @@ use MusicBrainz::Server::Edit::Utils qw(
     verify_artist_credits
 );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 
 extends 'MusicBrainz::Server::Edit';
-with 'MusicBrainz::Server::Edit::Artist';
-with 'MusicBrainz::Server::Edit::Role::NeverAutoEdit';
+with 'MusicBrainz::Server::Edit::Artist',
+     'MusicBrainz::Server::Edit::Role::NeverAutoEdit';
 
-sub edit_name { N_l('Edit artist credit') }
+sub edit_name { N_lp('Edit artist credit', 'edit type') }
 sub edit_kind { 'edit' }
 sub edit_type { $EDIT_ARTIST_EDITCREDIT }
 sub edit_template { 'EditArtistCredit' }
@@ -42,7 +42,7 @@ sub alter_edit_pending {
     return {
         Artist => [ keys(%old) ],
         ArtistCredit => [ $old_ac_id ],
-    }
+    };
 }
 
 sub _build_related_entities {
@@ -54,17 +54,17 @@ sub _build_related_entities {
     push @{ $related->{artist} }, keys(%new), keys(%old);
 
     return $related;
-};
+}
 
 has '+data' => (
     isa => Dict[
         old => Dict[
-            artist_credit => ArtistCreditDefinition
+            artist_credit => ArtistCreditDefinition,
         ],
         new => Dict[
-            artist_credit => ArtistCreditDefinition
-        ]
-    ]
+            artist_credit => ArtistCreditDefinition,
+        ],
+    ],
 );
 
 sub foreign_keys
@@ -75,7 +75,7 @@ sub foreign_keys
     $relations->{Artist} = {
         map {
             load_artist_credit_definitions($self->data->{$_}{artist_credit})
-        } qw( new old )
+        } qw( new old ),
     };
 
     return $relations;
@@ -88,7 +88,7 @@ sub build_display_data
     my $data = {};
     $data->{artist_credit} = {
         new => to_json_object(artist_credit_from_loaded_definition($loaded, $self->data->{new}{artist_credit})),
-        old => to_json_object(artist_credit_from_loaded_definition($loaded, $self->data->{old}{artist_credit}))
+        old => to_json_object(artist_credit_from_loaded_definition($loaded, $self->data->{old}{artist_credit})),
     };
 
     my $old_ac_id = $self->c->model('ArtistCredit')->find($self->data->{old}{artist_credit});
@@ -106,11 +106,11 @@ sub initialize {
 
     my $data = {
         new => {
-            artist_credit => clean_submitted_artist_credits($opts{artist_credit})
+            artist_credit => clean_submitted_artist_credits($opts{artist_credit}),
         },
         old => {
-            artist_credit => artist_credit_to_ref($old_ac)
-        }
+            artist_credit => artist_credit_to_ref($old_ac),
+        },
     };
 
     MusicBrainz::Server::Edit::Exceptions::NoChanges->throw
@@ -127,7 +127,7 @@ sub accept {
 
     $self->c->model('ArtistCredit')->replace(
         $self->data->{old}{artist_credit},
-        $self->data->{new}{artist_credit}
+        $self->data->{new}{artist_credit},
     );
 }
 
