@@ -17,7 +17,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-12-19 04:28+0000\n"
+"PO-Revision-Date: 2023-12-20 02:28+0000\n"
 "Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
 "metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -282,6 +282,8 @@ msgstr ""
 #: DB:instrument/description:347
 msgid "A pipe organ, such as the Wurlitzer, meant to accompany early films."
 msgstr ""
+"Un organo a canne, come il Wurlitzer, usato come accompagnamento ai primi "
+"film."
 
 #. name:prepared piano 
 #: DB:instrument/description:481
@@ -506,6 +508,9 @@ msgid ""
 "similar to the one of a recorder and a tube with a piston that varies the "
 "pitch. It is often used as a sound effect."
 msgstr ""
+"Conosciuto anche come flauto a pistone, jazzo-flute o flauto a stantuffo, è "
+"composto da un bocchino simile a quello di un flauto dolce e da un tubo con "
+"un pistone che ne varia il tono. È usato spesso come effetto sonoro."
 
 #. name:soprano recorder 
 #: DB:instrument/description:469
@@ -1840,6 +1845,13 @@ msgid ""
 "with a single-reed each, they each have 4 sound-holes in front, and "
 "traditionally, one in the back."
 msgstr ""
+"Per la cornamusa maiorchina, vedi <a href=\"/instrument/21d5d4ec-f8ef-44dc-"
+"b02f-e564de057dcc\">xeremies</a>.<br /> Per l'oboe latinoamericano, vedi <a "
+"href=\"/instrument/174e4a7a-dad6-4b3b-95e2-e3010b53a0ca\">chirimía</a>.<br /"
+"> Per lo strumento medievale della famiglia dei legni, vedi <a href=\"/"
+"instrument/b4f112c3-d666-47f2-bb85-bae28572ca13\">ciaramella</a>.<br /> È "
+"composto da due tubi in canna ad ancia singola legati insieme, ciascuno con "
+"4 fori di risonanza frontali e, tradizionalmente, uno posteriore."
 
 #. name:reed organ 
 #: DB:instrument/description:204
@@ -1938,6 +1950,15 @@ msgid ""
 "made of skin and it has one chanter with usually 3 drones, but of these "
 "usually one is real and the others are only decorative."
 msgstr ""
+"Per lo strumento senza sacca e a due tubi usato a Ibiza, vedi <a href=\"/"
+"instrument/1464f316-aca0-4690-9115-28805720f846\">reclam de xeremies</a>.<br "
+"/> Per l'oboe latinoamericano, vedi <a href=\"/instrument/174e4a7a-dad6-4b3b-"
+"95e2-e3010b53a0ca\">chirimía</a>.<br /> Per lo strumento medievale della "
+"famiglia dei legni, vedi <a href=\"/instrument/b4f112c3-d666-47f2-bb85-"
+"bae28572ca13\">ciaramella</a>.<br /> Usata storicamente sin dal Medioevo "
+"nelle isole Baleari, ha una sacca in pelle, una canna del canto e in genere "
+"3 canne di bordone, di cui solitamente una vera e le altre solo di "
+"decorazione."
 
 #. name:lira da braccio 
 #: DB:instrument/description:1016
@@ -2907,9 +2928,9 @@ msgid ""
 "holed, the other 5 holed, with the bell of an ox horn."
 msgstr ""
 "Realizzato a partire dalla pelle intera di un animale, è utilizzato nei "
-"festival tradizionali. La canna di imboccatura (mserka) è in gomma o canna "
-"di bambù, mentre le canne del canto (saqqafa) sono due canne di bambù, "
-"rispettivamente con 2 e 5 fori, con una campana in corno di bue."
+"festival tradizionali. La canna di imboccatura (mserka) è in gomma o in "
+"canna, mentre le canne del canto (saqqafa) sono due canne, rispettivamente "
+"con 2 e 5 fori, con una campana in corno di bue."
 
 #. name:quijada 
 #: DB:instrument/description:755
@@ -2954,7 +2975,7 @@ msgstr ""
 #. name:rondador 
 #: DB:instrument/description:568
 msgid "Made of cane, it is used in Ecuador."
-msgstr "Realizzato in canna di bambù, è usato in Ecuador."
+msgstr "Realizzato in canna, è usato in Ecuador."
 
 #. name:duggi 
 #: DB:instrument/description:851
@@ -4156,7 +4177,7 @@ msgid ""
 msgstr ""
 "Idiofono a raschiamento fatto di ossa legate con una corda e sfregate con un "
 "guscio di conchiglia, in Catalogna è sfregato con una castagnetta. La "
-"ginebra è una variante fatta di canne di bambù."
+"ginebra è una variante fatta di canne."
 
 #. name:pemade 
 #: DB:instrument/description:976
@@ -7210,8 +7231,8 @@ msgid ""
 "bamboo frame that is shook. It has been in use since ancient times by "
 "Sundanese peoples."
 msgstr ""
-"Solitamente composto da 2-3 canne intagliate in bambù appese a un telaio in "
-"legno o bambù che viene agitato. È usato dai sundanesi sin dall'antichità."
+"Solitamente composto da 2-3 canne di bambù intagliate, appese a un telaio in "
+"legno o in bambù che viene agitato. È usato dai sundanesi sin dall'antichità."
 
 #. name:valved brass instruments 
 #: DB:instrument/description:201
@@ -7249,6 +7270,9 @@ msgid ""
 "e564de057dcc\">xeremies</a>, the main difference being that here all the "
 "drones are functional."
 msgstr ""
+"Molto simile alla <a href=\"/instrument/21d5d4ec-f8ef-44dc-b02f-"
+"e564de057dcc\">xeremies</a>, con la differenza principale di avere tutte le "
+"canne di bordone funzionanti."
 
 #. name:percussion 
 #: DB:instrument/description:99
@@ -7288,6 +7312,8 @@ msgstr ""
 #: DB:instrument/description:364
 msgid "West African xylophone that uses gourds as its resonators."
 msgstr ""
+"Xilofono dell'Africa occidentale che usa delle zucche a fiasco come "
+"risuonatori."
 
 #. name:concert flute 
 #: DB:instrument/description:414
