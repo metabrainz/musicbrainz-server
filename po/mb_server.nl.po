@@ -28,14 +28,15 @@
 # nikki, 2013
 # nikki, 2012
 # RandomMushroom128 <RandomMushroom128@users.noreply.translations.metabrainz.org>, 2023.
+# kellnerd <kellnerd@users.noreply.translations.metabrainz.org>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-12-14 18:52+0000\n"
-"PO-Revision-Date: 2023-08-20 10:27+0000\n"
-"Last-Translator: RandomMushroom128 <RandomMushroom128@users.noreply."
-"translations.metabrainz.org>\n"
+"PO-Revision-Date: 2023-12-19 04:28+0000\n"
+"Last-Translator: kellnerd <kellnerd@users.noreply.translations.metabrainz."
+"org>\n"
 "Language-Team: Dutch <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/nl/>\n"
 "Language: nl\n"
@@ -43,7 +44,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.18.2\n"
+"X-Generator: Weblate 5.3\n"
 
 #: ../root/components/common-macros.tt:12
 msgid " ({text})"
@@ -214,10 +215,6 @@ msgstr ""
 "kunnen artiesten en composities worden gekoppeld."
 
 #: ../root/release/edit/tracklist.tt:273
-#, fuzzy
-#| msgid ""
-#| "Add a medium by clicking “Add Medium” below, or tick the box confirming "
-#| "the tracklist is unknown."
 msgid ""
 "Add a medium by clicking “Add medium” below, or tick the box confirming the "
 "tracklist is unknown."
@@ -239,43 +236,31 @@ msgid "Add a new release"
 msgstr "Nieuwe uitgave toevoegen"
 
 #: ../root/area/create.tt:1 ../root/area/create.tt:3
-#, fuzzy
-#| msgid "Add area"
 msgctxt "header"
 msgid "Add area"
 msgstr "Gebied toevoegen"
 
 #: ../root/artist/create.tt:1 ../root/artist/create.tt:3
-#, fuzzy
-#| msgid "Add artist"
 msgctxt "header"
 msgid "Add artist"
 msgstr "Artiest toevoegen"
 
 #: ../root/release/add_cover_art.tt:1 ../root/release/add_cover_art.tt:8
-#, fuzzy
-#| msgid "Add cover art"
 msgctxt "plural, header"
 msgid "Add cover art"
 msgstr "Afbeeldingen toevoegen"
 
 #: ../root/event/create.tt:1 ../root/event/create.tt:3
-#, fuzzy
-#| msgid "Add event"
 msgctxt "header"
 msgid "Add event"
 msgstr "Evenement toevoegen"
 
 #: ../root/instrument/create.tt:1 ../root/instrument/create.tt:3
-#, fuzzy
-#| msgid "Add instrument"
 msgctxt "header"
 msgid "Add instrument"
 msgstr "Instrument toevoegen"
 
 #: ../root/label/create.tt:1 ../root/label/create.tt:3
-#, fuzzy
-#| msgid "Add label"
 msgctxt "header"
 msgid "Add label"
 msgstr "Platenmaatschappij toevoegen"
@@ -283,22 +268,16 @@ msgstr "Platenmaatschappij toevoegen"
 #: ../root/release/edit/information.tt:215
 #: ../root/release/edit/information.tt:216
 #: ../root/layout/components/BottomMenu.js:248
-#, fuzzy
-#| msgid "Add label"
 msgctxt "interactive"
 msgid "Add label"
 msgstr "Platenmaatschappij toevoegen"
 
 #: ../root/release/edit/layout.tt:67 ../root/release/edit/tracklist.tt:267
-#, fuzzy
-#| msgid "Add medium"
 msgctxt "interactive"
 msgid "Add medium"
 msgstr "Medium toevoegen"
 
 #: ../root/place/create.tt:1 ../root/place/create.tt:3
-#, fuzzy
-#| msgid "Add place"
 msgctxt "header"
 msgid "Add place"
 msgstr "Plaats toevoegen"
@@ -306,38 +285,27 @@ msgstr "Plaats toevoegen"
 #: ../root/release/edit/layout.tt:7
 #: ../root/static/scripts/release-editor/init.js:286
 #: ../root/static/scripts/release-editor/init.js:287
-#, fuzzy
-#| msgid "Add release"
 msgctxt "header"
 msgid "Add release"
 msgstr "Uitgave toevoegen"
 
 #: ../root/release/edit/information.tt:171
 #: ../root/release/edit/information.tt:172
-#, fuzzy
-#| msgctxt "button/menu"
-#| msgid "Add Release Event"
 msgctxt "interactive"
 msgid "Add release event"
 msgstr "Uitgavegebeurtenis toevoegen"
 
 #: ../root/release_group/create.tt:1 ../root/release_group/create.tt:3
-#, fuzzy
-#| msgid "Add release group"
 msgctxt "header"
 msgid "Add release group"
 msgstr "Uitgavegroep toevoegen"
 
 #: ../root/series/create.tt:1 ../root/series/create.tt:3
-#, fuzzy
-#| msgid "Add series"
 msgctxt "header, singular"
 msgid "Add series"
 msgstr "Serie toevoegen"
 
 #: ../root/recording/create.tt:1 ../root/recording/create.tt:3
-#, fuzzy
-#| msgid "Add standalone recording"
 msgctxt "header"
 msgid "Add standalone recording"
 msgstr "Losse opname toevoegen"
@@ -347,16 +315,11 @@ msgid "Add track(s)"
 msgstr "Nummer(s) toevoegen"
 
 #: ../root/work/create.tt:1 ../root/work/create.tt:2
-#, fuzzy
-#| msgid "Add work"
 msgctxt "header"
 msgid "Add work"
 msgstr "Compositie toevoegen"
 
 #: ../root/work/edit_form.tt:77
-#, fuzzy
-#| msgctxt "button/menu"
-#| msgid "Add Work Attribute"
 msgctxt "interactive"
 msgid "Add work attribute"
 msgstr "Compositie-eigenschap toevoegen"
@@ -416,8 +379,6 @@ msgid "Annotation"
 msgstr "Aantekening"
 
 #: ../root/edit/search_macros.tt:434
-#, fuzzy
-#| msgid "Applied Edit Count of Editor"
 msgid "Applied edit count of editor"
 msgstr "Aantal doorgevoerde bewerkingen van de gebruiker"
 
@@ -519,14 +480,10 @@ msgid "Artist"
 msgstr "Artiest"
 
 #: ../root/edit/search_macros.tt:434
-#, fuzzy
-#| msgid "Artist Area"
 msgid "Artist area"
 msgstr "Gebied van artiest"
 
 #: ../root/artist/edit_form.tt:10
-#, fuzzy
-#| msgid "Artist Details"
 msgid "Artist details"
 msgstr "Artiestdetails"
 
@@ -543,16 +500,11 @@ msgstr "TOC van de cd toevoegen"
 
 #: ../root/cdtoc/attach_artist_releases.tt:40
 #: ../root/cdtoc/attach_filter_release.tt:54
-#, fuzzy
-#| msgctxt "button/menu"
-#| msgid "Attach CD TOC"
 msgctxt "interactive"
 msgid "Attach CD TOC"
 msgstr "TOC van de cd toevoegen"
 
 #: ../root/cdtoc/lookup.tt:66 ../root/release/edit/tracklist.tt:478
-#, fuzzy
-#| msgid "Attach Disc ID"
 msgid "Attach disc ID"
 msgstr "Disc-ID toevoegen"
 
@@ -561,8 +513,6 @@ msgid "Attached to releases"
 msgstr "Gekoppeld aan uitgaven"
 
 #: ../root/edit/search_macros.tt:399 ../root/user/UserProfile.js:74
-#, fuzzy
-#| msgid "Auto-editor"
 msgctxt "user type"
 msgid "Auto-editor"
 msgstr "Autoredacteur"
@@ -610,10 +560,8 @@ msgstr ""
 
 #: ../root/artist/edit_form.tt:42 ../root/components/list/ArtistList.js:102
 #: ../root/search/components/ArtistResults.js:57
-#, fuzzy
-#| msgid "Begin area:"
 msgid "Begin area"
-msgstr "Begingebied:"
+msgstr "Begingebied"
 
 #: ../root/artist/edit_form.tt:38 ../root/components/forms.tt:212
 #: ../root/event/edit_form.tt:36 ../root/artist/utils.js:34
@@ -647,17 +595,11 @@ msgid "Blog"
 msgstr "Weblog"
 
 #: ../root/edit/search_macros.tt:399
-#, fuzzy
-#| msgid "Bot"
 msgctxt "user type"
 msgid "Bot"
 msgstr "Robot"
 
 #: ../root/layout.tt:124 ../root/layout/components/Footer.js:52
-#, fuzzy
-#| msgid ""
-#| "Brought to you by {MeB|MetaBrainz Foundation} and our {spon|sponsors} and "
-#| "{supp|supporters}. Cover Art provided by the {caa|Cover Art Archive}."
 msgid ""
 "Brought to you by {MeB|MetaBrainz Foundation} and our {spon|sponsors} and "
 "{supp|supporters}. Cover art provided by the {caa|Cover Art Archive}."
@@ -668,8 +610,6 @@ msgstr ""
 
 #: ../root/layout.tt:115 ../root/layout/components/Footer.js:32
 #: ../root/main/index.js:211
-#, fuzzy
-#| msgid "Bug Tracker"
 msgid "Bug tracker"
 msgstr "Bugtracker"
 
@@ -684,8 +624,6 @@ msgid "CD stub by {artist}"
 msgstr "Cd-beginnetje van {artist}"
 
 #: ../root/cdtoc/lookup.tt:21
-#, fuzzy
-#| msgid "CD Stub found"
 msgid "CD stub found"
 msgstr "Cd-beginnetje gevonden"
 
@@ -809,11 +747,9 @@ msgstr "Land"
 
 #: ../root/release_group/set_cover_art.tt:67
 #: ../root/edit/components/EditArtwork.js:36 ../root/user/UserProfile.js:52
-#, fuzzy
-#| msgid "Cover art:"
 msgctxt "singular"
 msgid "Cover art"
-msgstr "Afbeelding:"
+msgstr "Afbeelding"
 
 #: ../root/release/add_cover_art.tt:85
 msgid "Creating edit..."
@@ -832,8 +768,6 @@ msgstr "DD"
 #: ../root/medium/tracklist.tt:37 ../root/release/edit/tracklist.tt:466
 #: ../root/medium/MediumTracklist.js:53
 #: ../root/static/scripts/release/components/MediumTable.js:128
-#, fuzzy
-#| msgid "Data Tracks"
 msgid "Data tracks"
 msgstr "Datanummers"
 
@@ -863,8 +797,6 @@ msgstr "Datum"
 #: ../root/artist/edit_form.tt:34 ../root/components/forms.tt:208
 #: ../root/event/edit_form.tt:32
 #: ../root/static/scripts/edit/components/DateRangeFieldset.js:184
-#, fuzzy
-#| msgid "Date Period"
 msgid "Date period"
 msgstr "Periode"
 
@@ -990,8 +922,6 @@ msgstr "Bewerken"
 
 #: ../root/cdtoc/list.tt:18 ../root/entity/edit.tt:1
 #: ../root/release/discids.tt:12 ../root/collection/EditCollection.js:32
-#, fuzzy
-#| msgid "Edit"
 msgctxt "verb, header"
 msgid "Edit"
 msgstr "Bewerken"
@@ -1016,22 +946,16 @@ msgid "Edit"
 msgstr "Bewerken"
 
 #: ../root/url/edit_form.tt:3
-#, fuzzy
-#| msgid "Edit URL"
 msgctxt "header"
 msgid "Edit URL"
 msgstr "URL bewerken"
 
 #: ../root/artist/edit_credit.tt:1 ../root/artist/edit_credit.tt:6
-#, fuzzy
-#| msgid "Edit artist credit"
 msgctxt "header"
 msgid "Edit artist credit"
 msgstr "Vermelding van artiest bewerken"
 
 #: ../root/release/edit_cover_art.tt:1 ../root/release/edit_cover_art.tt:4
-#, fuzzy
-#| msgid "Edit cover art"
 msgctxt "singular, header"
 msgid "Edit cover art"
 msgstr "Afbeelding bewerken"
@@ -1039,21 +963,15 @@ msgstr "Afbeelding bewerken"
 #: ../root/forms/edit-note.tt:2 ../root/release/edit/editnote.tt:27
 #: ../root/release/edit/layout.tt:18
 #: ../root/static/scripts/edit/components/EnterEditNote.js:48
-#, fuzzy
-#| msgid "Edit note:"
 msgctxt "noun"
 msgid "Edit note"
-msgstr "Bewerkingsnotitie:"
+msgstr "Bewerkingsnotitie"
 
 #: ../root/edit/search_macros.tt:434
-#, fuzzy
-#| msgid "Edit Note Authors"
 msgid "Edit note authors"
 msgstr "Auteurs van bewerkingsnotities"
 
 #: ../root/edit/search_macros.tt:434
-#, fuzzy
-#| msgid "Edit Note Content"
 msgid "Edit note content"
 msgstr "Inhoud van de bewerkingsnotitie"
 
@@ -1065,8 +983,6 @@ msgstr "Bewerkingsnotitie:"
 #: ../root/doc/edit_type.tt:18 ../root/doc/edit_types.tt:1
 #: ../root/doc/edit_types.tt:3 ../root/edit/components/EditSidebar.js:99
 #: ../root/layout/components/BottomMenu.js:317
-#, fuzzy
-#| msgid "Edit Types"
 msgctxt "noun"
 msgid "Edit types"
 msgstr "Bewerkingstypes"
@@ -1084,8 +1000,6 @@ msgid "Editor"
 msgstr "Redacteur"
 
 #: ../root/edit/search_macros.tt:434
-#, fuzzy
-#| msgid "Editor Flag"
 msgid "Editor flag"
 msgstr "Type redacteur"
 
@@ -1095,10 +1009,8 @@ msgstr "Nummering voor vinyl inschakelen"
 
 #: ../root/artist/edit_form.tt:56 ../root/components/list/ArtistList.js:112
 #: ../root/search/components/ArtistResults.js:59
-#, fuzzy
-#| msgid "End area:"
 msgid "End area"
-msgstr "Eindgebied:"
+msgstr "Eindgebied"
 
 #: ../root/artist/edit_form.tt:51 ../root/components/forms.tt:214
 #: ../root/event/edit_form.tt:38 ../root/artist/utils.js:65
@@ -1190,8 +1102,6 @@ msgid "Event"
 msgstr "Evenement"
 
 #: ../root/event/edit_form.tt:11
-#, fuzzy
-#| msgid "Event Details"
 msgid "Event details"
 msgstr "Details van het evenement"
 
@@ -1323,8 +1233,6 @@ msgid "Guess case"
 msgstr "Hoofdletters gokken"
 
 #: ../root/components/forms.tt:254
-#, fuzzy
-#| msgid "Guess case"
 msgctxt "interactive"
 msgid "Guess case"
 msgstr "Hoofdletters gokken"
@@ -1589,8 +1497,6 @@ msgid "Image not available, please try again later."
 msgstr "Afbeelding niet beschikbaar, probeer het later nog eens."
 
 #: ../root/cdtoc/lookup.tt:28 ../root/cdstub/ImportCDStub.js:100
-#, fuzzy
-#| msgid "Import CD stub"
 msgctxt "interactive"
 msgid "Import CD stub"
 msgstr "Een cd-beginnetje importeren"
@@ -1677,8 +1583,6 @@ msgid "Label"
 msgstr "Platenmaatschappij"
 
 #: ../root/edit/search_macros.tt:434
-#, fuzzy
-#| msgid "Label Area"
 msgid "Label area"
 msgstr "Gebied van platenmaatschappij"
 
@@ -1689,8 +1593,6 @@ msgid "Label code"
 msgstr "Platenmaatschappijcode"
 
 #: ../root/label/edit_form.tt:10
-#, fuzzy
-#| msgid "Label Details"
 msgid "Label details"
 msgstr "Platenmaatschappijdetails"
 
@@ -1745,8 +1647,6 @@ msgid "Loading edit previews..."
 msgstr "Voorvertoningen van de bewerkingen worden geladen …"
 
 #: ../root/edit/search_macros.tt:399 ../root/user/UserProfile.js:98
-#, fuzzy
-#| msgid "Location editor"
 msgctxt "user type"
 msgid "Location editor"
 msgstr "Locatieredacteur"
@@ -1754,8 +1654,6 @@ msgstr "Locatieredacteur"
 #: ../root/components/common-macros.tt:425
 #: ../root/components/RequestLogin.js:23
 #: ../root/layout/components/TopMenu.js:205 ../root/user/Login.js:131
-#, fuzzy
-#| msgid "Log in"
 msgctxt "interactive"
 msgid "Log in"
 msgstr "Aanmelden"
@@ -1807,8 +1705,6 @@ msgstr "Mediumtitel:"
 #: ../root/layout/merge-helper.tt:30
 #: ../root/layout/components/MergeHelper.js:71
 #: ../root/layout/components/sidebar/MergeLink.js:34
-#, fuzzy
-#| msgid "Merge"
 msgctxt "interactive"
 msgid "Merge"
 msgstr "Samenvoegen"
@@ -1824,8 +1720,6 @@ msgid "Move"
 msgstr "Verplaatsen"
 
 #: ../root/cdtoc/move_search.tt:1 ../root/cdtoc/move_search.tt:2
-#, fuzzy
-#| msgid "Move disc ID"
 msgctxt "header"
 msgid "Move disc ID"
 msgstr "Disc-ID verplaatsen"
@@ -1912,14 +1806,10 @@ msgid "Name"
 msgstr "Naam"
 
 #: ../root/artist/edit_credit.tt:18 ../root/artist/split.tt:45
-#, fuzzy
-#| msgid "New Artist Credit"
 msgid "New artist credit"
 msgstr "Nieuwe vermelding van een artiest"
 
 #: ../root/release/add_cover_art.tt:148
-#, fuzzy
-#| msgid "New Image Goes Here"
 msgid "New image goes here"
 msgstr "Nieuwe afbeelding komt hier"
 
@@ -2053,8 +1943,6 @@ msgstr "Opties"
 #: ../root/series/edit_form.tt:17 ../root/edit/details/AddSeries.js:52
 #: ../root/edit/details/EditSeries.js:66
 #: ../root/layout/components/sidebar/SeriesSidebar.js:53
-#, fuzzy
-#| msgid "Ordering Type"
 msgid "Ordering type"
 msgstr "Volgorde"
 
@@ -2070,8 +1958,6 @@ msgid "Packaging"
 msgstr "Verpakking"
 
 #: ../root/release/edit/tracklist.tt:238
-#, fuzzy
-#| msgid "Parse Tracks"
 msgid "Parse tracks"
 msgstr "Nummers invullen"
 
@@ -2089,8 +1975,6 @@ msgid "Place"
 msgstr "Plaats"
 
 #: ../root/place/edit_form.tt:10
-#, fuzzy
-#| msgid "Place Details"
 msgid "Place details"
 msgstr "Details van de plaats"
 
@@ -2133,8 +2017,6 @@ msgid "Position"
 msgstr "Positie"
 
 #: ../root/cdtoc/lookup.tt:32
-#, fuzzy
-#| msgid "Possible Mediums"
 msgid "Possible mediums"
 msgstr "Mogelijke media"
 
@@ -2149,10 +2031,8 @@ msgstr "Vorige"
 #: ../root/release/edit/information.tt:95 ../root/release_group/edit_form.tt:16
 #: ../root/edit/details/AddReleaseGroup.js:67
 #: ../root/edit/details/EditReleaseGroup.js:60
-#, fuzzy
-#| msgid "Primary Type:"
 msgid "Primary type"
-msgstr "Primair type:"
+msgstr "Primair type"
 
 #: ../root/components/search.tt:9 ../root/search/components/SearchForm.js:76
 msgid "Query:"
@@ -2186,8 +2066,6 @@ msgid "Recording"
 msgstr "Opname"
 
 #: ../root/recording/edit_form.tt:24
-#, fuzzy
-#| msgid "Recording Details"
 msgid "Recording details"
 msgstr "Details van de opname"
 
@@ -2216,8 +2094,6 @@ msgid "Reject"
 msgstr "Verwerpen"
 
 #: ../root/edit/search_macros.tt:399 ../root/user/UserProfile.js:84
-#, fuzzy
-#| msgid "Relationship editor"
 msgctxt "user type"
 msgid "Relationship editor"
 msgstr "Relatieredacteur"
@@ -2267,8 +2143,6 @@ msgid "Release"
 msgstr "Uitgave"
 
 #: ../root/edit/search_macros.tt:434
-#, fuzzy
-#| msgid "Release Country"
 msgid "Release country"
 msgstr "Land van uitgave"
 
@@ -2279,8 +2153,6 @@ msgid "Release data quality"
 msgstr "Kwaliteit van de gegevens"
 
 #: ../root/release/edit/layout.tt:14
-#, fuzzy
-#| msgid "Release Duplicates"
 msgid "Release duplicates"
 msgstr "Duplicaten van de uitgave"
 
@@ -2316,8 +2188,6 @@ msgid "Release group"
 msgstr "Uitgavegroep"
 
 #: ../root/release_group/edit_form.tt:12
-#, fuzzy
-#| msgid "Release Group Details"
 msgid "Release group details"
 msgstr "Details van de uitgavegroep"
 
@@ -2328,8 +2198,6 @@ msgstr "Uitgavegroep ‘{name}’ van {artist}"
 
 #: ../root/cdtoc/attach_artist_releases.tt:31
 #: ../root/cdtoc/attach_filter_release.tt:46
-#, fuzzy
-#| msgid "Release Group: {release_group_link}"
 msgid "Release group: {release_group_link}"
 msgstr "Uitgavegroep: {release_group_link}"
 
@@ -2339,8 +2207,6 @@ msgid "Release information"
 msgstr "Informatie over de uitgave"
 
 #: ../root/edit/search_macros.tt:434
-#, fuzzy
-#| msgid "Release Language"
 msgid "Release language"
 msgstr "Taal van de uitgave"
 
@@ -2383,8 +2249,6 @@ msgid "Remove from merge"
 msgstr "Niet samenvoegen"
 
 #: ../root/release/edit/information.tt:199
-#, fuzzy
-#| msgid "Remove label"
 msgctxt "interactive"
 msgid "Remove label"
 msgstr "Platenmaatschappij verwijderen"
@@ -2394,8 +2258,6 @@ msgid "Remove medium"
 msgstr "Medium verwijderen"
 
 #: ../root/release/edit/information.tt:159
-#, fuzzy
-#| msgid "Remove Release Event"
 msgid "Remove release event"
 msgstr "Uitgavegebeurtenis verwijderen"
 
@@ -2419,8 +2281,6 @@ msgstr "{item} verwijderen"
 
 #: ../root/release/reorder_cover_art.tt:1
 #: ../root/release/reorder_cover_art.tt:4
-#, fuzzy
-#| msgid "Reorder cover art"
 msgctxt "plural, header"
 msgid "Reorder cover art"
 msgstr "Volgorde veranderen"
@@ -2515,10 +2375,6 @@ msgid "Select"
 msgstr "Selecteren"
 
 #: ../root/release/edit/tracklist.tt:123
-#, fuzzy
-#| msgid ""
-#| "Select a medium from the search results below and then click \"Add "
-#| "Medium\"."
 msgid ""
 "Select a medium from the search results below and then click \"Add medium\"."
 msgstr ""
@@ -2563,15 +2419,11 @@ msgid "Series"
 msgstr "Serie"
 
 #: ../root/series/edit_form.tt:10
-#, fuzzy
-#| msgid "Series Details"
 msgid "Series details"
 msgstr "Details van de serie"
 
 #: ../root/release_group/set_cover_art.tt:1
 #: ../root/release_group/set_cover_art.tt:4
-#, fuzzy
-#| msgid "Set cover art"
 msgctxt "singular, header"
 msgid "Set cover art"
 msgstr "Afbeelding instellen"
@@ -2638,8 +2490,6 @@ msgid "Sort name"
 msgstr "Sorteernaam"
 
 #: ../root/artist/split.tt:1
-#, fuzzy
-#| msgid "Split Artist"
 msgid "Split artist"
 msgstr "Artiest splitsen"
 
@@ -2661,8 +2511,6 @@ msgstr "Status"
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:179
 #: ../root/search/components/ReleaseResults.js:121
 #: ../root/static/scripts/common/components/FilterForm.js:206
-#, fuzzy
-#| msgid "Status"
 msgctxt "release"
 msgid "Status"
 msgstr "Status"
@@ -2692,8 +2540,6 @@ msgstr "Nummers en artiesten omdraaien"
 #: ../root/search/components/ReleaseResults.js:124
 #: ../root/static/scripts/common/components/TaggerIcon.js:82
 #: ../root/utility/tableColumns.js:782
-#, fuzzy
-#| msgid "Tagger"
 msgctxt "audio file metadata"
 msgid "Tagger"
 msgstr "Tagger"
@@ -3114,8 +2960,6 @@ msgstr "Aantal nummers:"
 
 #: ../root/release/edit/tracklist.tt:524
 #: ../root/static/scripts/release-editor/dialogs.js:40
-#, fuzzy
-#| msgid "Track Parser"
 msgid "Track parser"
 msgstr "Automatisch vullen"
 
@@ -3155,8 +2999,6 @@ msgstr ""
 "media van deze uitgave hebt, kan je alle media verwijderen."
 
 #: ../root/edit/search_macros.tt:399 ../root/user/UserProfile.js:91
-#, fuzzy
-#| msgid "Transclusion editor"
 msgctxt "user type"
 msgid "Transclusion editor"
 msgstr "Transclusieredacteur"
@@ -3378,8 +3220,6 @@ msgid ""
 msgstr ""
 
 #: ../root/cdtoc/lookup.tt:12
-#, fuzzy
-#| msgid "We used DiscID <code>{discid}</code> to look up this information."
 msgid "We used disc ID <code>{discid}</code> to look up this information."
 msgstr ""
 "We hebben de disc-ID <code>{discid}</code> gebruikt om deze informatie op te "
@@ -3422,8 +3262,6 @@ msgid "Work attributes"
 msgstr "Compositie-eigenschappen"
 
 #: ../root/work/edit_form.tt:11
-#, fuzzy
-#| msgid "Work Details"
 msgid "Work details"
 msgstr "Details van de compositie"
 
@@ -3584,10 +3422,6 @@ msgstr ""
 "alsjeblieft {uri|een bericht}."
 
 #: ../root/release/edit/tracklist.tt:289
-#, fuzzy
-#| msgid ""
-#| "You’ve seeded some Disc IDs that aren’t matched to any medium. If this is "
-#| "wrong, use the “Attach Disc ID” options below."
 msgid ""
 "You’ve seeded some disc IDs that aren’t matched to any medium. If this is "
 "wrong, use the “Attach disc ID” options below."
@@ -4396,8 +4230,6 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Controller/User.pm:330
 #: ../lib/MusicBrainz/Server/Controller/User.pm:345
 #: ../root/user/ContactUser.js:44 ../root/user/ContactUser.js:46
-#, fuzzy
-#| msgid "send email"
 msgctxt "header"
 msgid "Send email"
 msgstr "e-mail versturen"
@@ -4424,8 +4256,6 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Controller/User.pm:360
 #: ../root/account/LostPasswordSent.js:15
 #: ../root/account/LostUsernameSent.js:15
-#, fuzzy
-#| msgid "Email Sent"
 msgctxt "header"
 msgid "Email sent"
 msgstr "E-mail verstuurd"
@@ -4580,120 +4410,86 @@ msgid "Total"
 msgstr "Totaal"
 
 #: ../lib/MusicBrainz/Server/Edit/Area/AddAlias.pm:11
-#, fuzzy
-#| msgid "Add area alias"
 msgctxt "edit type"
 msgid "Add area alias"
 msgstr "Alias aan gebied toevoegen"
 
 #: ../lib/MusicBrainz/Server/Edit/Area/AddAnnotation.pm:11
-#, fuzzy
-#| msgid "Add area annotation"
 msgctxt "edit type"
 msgid "Add area annotation"
 msgstr "Aantekening aan het gebied toevoegen"
 
 #: ../lib/MusicBrainz/Server/Edit/Area/Create.pm:23
-#, fuzzy
-#| msgid "Add area"
 msgctxt "edit type"
 msgid "Add area"
 msgstr "Gebied toevoegen"
 
 #: ../lib/MusicBrainz/Server/Edit/Area/Delete.pm:10
-#, fuzzy
-#| msgid "Remove area"
 msgctxt "edit type"
 msgid "Remove area"
 msgstr "Gebied verwijderen"
 
 #: ../lib/MusicBrainz/Server/Edit/Area/DeleteAlias.pm:15
-#, fuzzy
-#| msgid "Remove area alias"
 msgctxt "edit type"
 msgid "Remove area alias"
 msgstr "Alias van gebied verwijderen"
 
 #: ../lib/MusicBrainz/Server/Edit/Area/Edit.pm:31
-#, fuzzy
-#| msgid "Edit area"
 msgctxt "edit type"
 msgid "Edit area"
 msgstr "Gebied bewerken"
 
 #: ../lib/MusicBrainz/Server/Edit/Area/EditAlias.pm:12
-#, fuzzy
-#| msgid "Edit area alias"
 msgctxt "edit type"
 msgid "Edit area alias"
 msgstr "Alias van gebied bewerken"
 
 #: ../lib/MusicBrainz/Server/Edit/Area/Merge.pm:11
-#, fuzzy
-#| msgid "Merge areas"
 msgctxt "edit type"
 msgid "Merge areas"
 msgstr "Gebieden samenvoegen"
 
 #: ../lib/MusicBrainz/Server/Edit/Artist/AddAlias.pm:11
-#, fuzzy
-#| msgid "Add artist alias"
 msgctxt "edit type"
 msgid "Add artist alias"
 msgstr "Alias aan deze artiest toevoegen"
 
 #: ../lib/MusicBrainz/Server/Edit/Artist/AddAnnotation.pm:11
-#, fuzzy
-#| msgid "Add artist annotation"
 msgctxt "edit type"
 msgid "Add artist annotation"
 msgstr "Aantekening aan de artiest toevoegen"
 
 #: ../lib/MusicBrainz/Server/Edit/Artist/Create.pm:31
-#, fuzzy
-#| msgid "Add artist"
 msgctxt "edit type"
 msgid "Add artist"
 msgstr "Artiest toevoegen"
 
 #: ../lib/MusicBrainz/Server/Edit/Artist/Delete.pm:11
-#, fuzzy
-#| msgid "Remove artist"
 msgctxt "edit type"
 msgid "Remove artist"
 msgstr "Artiest verwijderen"
 
 #: ../lib/MusicBrainz/Server/Edit/Artist/DeleteAlias.pm:15
-#, fuzzy
-#| msgid "Remove artist alias"
 msgctxt "edit type"
 msgid "Remove artist alias"
 msgstr "Alias van de artiest verwijderen"
 
 #: ../lib/MusicBrainz/Server/Edit/Artist/Edit.pm:42
-#, fuzzy
-#| msgid "Edit artist"
 msgctxt "edit type"
 msgid "Edit artist"
 msgstr "Artiest bewerken"
 
 #: ../lib/MusicBrainz/Server/Edit/Artist/EditAlias.pm:12
-#, fuzzy
-#| msgid "Edit artist alias"
 msgctxt "edit type"
 msgid "Edit artist alias"
 msgstr "Alias van deze artiest bewerken"
 
 #: ../lib/MusicBrainz/Server/Edit/Artist/EditArtistCredit.pm:26
-#, fuzzy
-#| msgid "Edit artist credit"
 msgctxt "edit type"
 msgid "Edit artist credit"
 msgstr "Vermelding van artiest bewerken"
 
 #: ../lib/MusicBrainz/Server/Edit/Artist/Merge.pm:16
-#, fuzzy
-#| msgid "Merge artists"
 msgctxt "edit type"
 msgid "Merge artists"
 msgstr "Artiesten samenvoegen"
@@ -4721,85 +4517,61 @@ msgstr ""
 "geslacht hebben."
 
 #: ../lib/MusicBrainz/Server/Edit/Event/AddAlias.pm:11
-#, fuzzy
-#| msgid "Add event alias"
 msgctxt "edit type"
 msgid "Add event alias"
 msgstr "Alias voor dit evenement toevoegen"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/AddAnnotation.pm:11
-#, fuzzy
-#| msgid "Add event annotation"
 msgctxt "edit type"
 msgid "Add event annotation"
 msgstr "Aantekening aan het evenement toevoegen"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/Create.pm:23
-#, fuzzy
-#| msgid "Add event"
 msgctxt "edit type"
 msgid "Add event"
 msgstr "Evenement toevoegen"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/Delete.pm:11
-#, fuzzy
-#| msgid "Remove event"
 msgctxt "edit type"
 msgid "Remove event"
 msgstr "Evenement verwijderen"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/DeleteAlias.pm:16
-#, fuzzy
-#| msgid "Remove event alias"
 msgctxt "edit type"
 msgid "Remove event alias"
 msgstr "Alias van evenement verwijderen"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/Edit.pm:40
-#, fuzzy
-#| msgid "Edit event"
 msgctxt "edit type"
 msgid "Edit event"
 msgstr "Evenement bewerken"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/EditAlias.pm:12
-#, fuzzy
-#| msgid "Edit event alias"
 msgctxt "edit type"
 msgid "Edit event alias"
 msgstr "Alias van dit evenement bewerken"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/Merge.pm:11
-#, fuzzy
-#| msgid "Merge events"
 msgctxt "edit type"
 msgid "Merge events"
 msgstr "Evenementen samenvoegen"
 
 #: ../lib/MusicBrainz/Server/Edit/Genre/AddAlias.pm:11
-#, fuzzy
-#| msgid "Add genre alias"
 msgctxt "edit type"
 msgid "Add genre alias"
 msgstr "Een alias voor dit genre toevoegen"
 
 #: ../lib/MusicBrainz/Server/Edit/Genre/AddAnnotation.pm:11
-#, fuzzy
-#| msgid "Add genre annotation"
 msgctxt "edit type"
 msgid "Add genre annotation"
 msgstr "Aantekening aan het genre toevoegen"
 
 #: ../lib/MusicBrainz/Server/Edit/Genre/Create.pm:21
-#, fuzzy
-#| msgid "Add genre"
 msgctxt "edit type"
 msgid "Add genre"
 msgstr "Genre toevoegen"
 
 #: ../lib/MusicBrainz/Server/Edit/Genre/Delete.pm:10
-#, fuzzy
-#| msgid "Remove genre"
 msgctxt "edit type"
 msgid "Remove genre"
 msgstr "Genre verwijderen"
@@ -5713,64 +5485,46 @@ msgid "Add work alias"
 msgstr "Alias aan deze compositie toevoegen"
 
 #: ../lib/MusicBrainz/Server/Edit/Work/AddAnnotation.pm:11
-#, fuzzy
-#| msgid "Add work annotation"
 msgctxt "edit type"
 msgid "Add work annotation"
 msgstr "Aantekening aan de compositie toevoegen"
 
 #: ../lib/MusicBrainz/Server/Edit/Work/AddISWCs.pm:21
-#, fuzzy
-#| msgid "Add ISWCs"
 msgctxt "edit type"
 msgid "Add ISWCs"
 msgstr "ISWC’s toevoegen"
 
 #: ../lib/MusicBrainz/Server/Edit/Work/Create.pm:18
-#, fuzzy
-#| msgid "Add work"
 msgctxt "edit type"
 msgid "Add work"
 msgstr "Compositie toevoegen"
 
 #: ../lib/MusicBrainz/Server/Edit/Work/Delete.pm:11
-#, fuzzy
-#| msgid "Remove work"
 msgctxt "edit type"
 msgid "Remove work"
 msgstr "Compositie verwijderen"
 
 #: ../lib/MusicBrainz/Server/Edit/Work/DeleteAlias.pm:16
-#, fuzzy
-#| msgid "Remove work alias"
 msgctxt "edit type"
 msgid "Remove work alias"
 msgstr "Alias van de compositie verwijderen"
 
 #: ../lib/MusicBrainz/Server/Edit/Work/Edit.pm:90
-#, fuzzy
-#| msgid "Edit work"
 msgctxt "edit type"
 msgid "Edit work"
 msgstr "Compositie bewerken"
 
 #: ../lib/MusicBrainz/Server/Edit/Work/EditAlias.pm:13
-#, fuzzy
-#| msgid "Edit work alias"
 msgctxt "edit type"
 msgid "Edit work alias"
 msgstr "Alias van deze compositie bewerken"
 
 #: ../lib/MusicBrainz/Server/Edit/Work/Merge.pm:12
-#, fuzzy
-#| msgid "Merge works"
 msgctxt "edit type"
 msgid "Merge works"
 msgstr "Composities samenvoegen"
 
 #: ../lib/MusicBrainz/Server/Edit/Work/RemoveISWC.pm:23
-#, fuzzy
-#| msgid "Remove ISWC"
 msgctxt "edit type"
 msgid "Remove ISWC"
 msgstr "ISWC verwijderen"
@@ -5980,27 +5734,18 @@ msgid "Redirect URL must be entered for web applications."
 msgstr "Voor web-applicaties moet een omleidings-URL worden opgegeven."
 
 #: ../lib/MusicBrainz/Server/Form/Application.pm:52
-#, fuzzy
-#| msgid ""
-#| "Redirect URL scheme must be either <code>http</code> or <code>https</"
-#| "code> for web applications."
 msgid ""
 "Redirect URL scheme must be either “http” or “https” for web applications."
-msgstr ""
-"De omleidings-URL voor webapplicaties moet <code>http</code> of <code>https</"
-"code> gebruiken."
+msgstr "De omleidings-URL voor webapplicaties moet “http” of “https” gebruiken."
 
 #: ../lib/MusicBrainz/Server/Form/Application.pm:59
-#, fuzzy, perl-brace-format
-#| msgid ""
-#| "Redirect URL scheme must be a reverse-DNS string, as in <code>org.example."
-#| "app://auth</code>, for installed applications."
+#, perl-brace-format
 msgid ""
 "Redirect URL scheme must be a reverse-DNS string, as in “{example_url}”, for "
 "installed applications."
 msgstr ""
-"De omleidings-URL moet een omgekeerde DNS-reeks zijn, zoals <code>org."
-"example.app://auth</code> voor geïnstalleerde applicaties."
+"De omleidings-URL moet een omgekeerde DNS-reeks zijn, zoals “{example_url}” "
+"voor geïnstalleerde applicaties."
 
 #: ../lib/MusicBrainz/Server/Form/Area.pm:88
 msgid "An area already exists with this ISO code"
@@ -6300,9 +6045,6 @@ msgstr "Cd-beginnetje importeren"
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:49
 #: ../root/layout/components/Search.js:42
 #: ../root/search/components/SearchForm.js:46
-#, fuzzy
-#| msgctxt "noun"
-#| msgid "Tag"
 msgctxt "noun, folksonomy"
 msgid "Tag"
 msgstr "Etiket"
@@ -6557,8 +6299,6 @@ msgid "Confirm password:"
 msgstr "Wachtwoord bevestigen:"
 
 #: ../root/account/ChangePassword.js:99
-#, fuzzy
-#| msgid "Change Password"
 msgctxt "interactive"
 msgid "Change password"
 msgstr "Wachtwoord veranderen"
@@ -6566,8 +6306,6 @@ msgstr "Wachtwoord veranderen"
 #: ../root/account/ChangePassword.js:117 ../root/account/ChangePassword.js:119
 #: ../root/account/ChangePassword.js:130 ../root/account/ChangePassword.js:131
 #: ../root/components/UserAccountTabs.js:89
-#, fuzzy
-#| msgid "Change Password"
 msgctxt "header"
 msgid "Change password"
 msgstr "Wachtwoord veranderen"
@@ -6575,8 +6313,6 @@ msgstr "Wachtwoord veranderen"
 #: ../root/account/DeleteOwnAccount.js:41
 #: ../root/account/DeleteOwnAccount.js:43
 #: ../root/components/UserAccountTabs.js:115
-#, fuzzy
-#| msgid "Delete Account"
 msgctxt "header"
 msgid "Delete account"
 msgstr "Account verwijderen"
@@ -6613,16 +6349,12 @@ msgstr ""
 "worden gemaakt!"
 
 #: ../root/account/DeleteOwnAccount.js:82
-#, fuzzy
-#| msgid "Delete my account"
 msgctxt "interactive"
 msgid "Delete my account"
 msgstr "Mijn account verwijderen"
 
 #: ../root/account/Donation.js:32 ../root/account/Donation.js:34
 #: ../root/components/UserAccountTabs.js:95
-#, fuzzy
-#| msgid "Donation Check"
 msgid "Donation check"
 msgstr "Donatiecontrole"
 
@@ -6667,8 +6399,6 @@ msgid "You will never be nagged again!"
 msgstr "Je wordt nooit meer lastiggevallen!"
 
 #: ../root/account/EditProfile.js:34 ../root/account/EditProfile.js:36
-#, fuzzy
-#| msgid "Edit profile"
 msgctxt "header"
 msgid "Edit profile"
 msgstr "Profiel bewerken"
@@ -6679,8 +6409,6 @@ msgid ""
 msgstr "Zie ook je {uri|voorkeuren}, waar ook je privacyinstellingen staan."
 
 #: ../root/account/EmailVerificationStatus.js:19
-#, fuzzy
-#| msgid "Email Verification"
 msgctxt "header"
 msgid "Email verification"
 msgstr "E-mailverificatie"
@@ -6695,8 +6423,6 @@ msgstr ""
 
 #: ../root/account/LostPassword.js:29 ../root/account/LostPassword.js:30
 #: ../root/account/LostPasswordSent.js:15
-#, fuzzy
-#| msgid "Lost Password"
 msgid "Lost password"
 msgstr "Wachtwoord verloren"
 
@@ -6720,8 +6446,6 @@ msgid "Email"
 msgstr "E-mail"
 
 #: ../root/account/LostPassword.js:55 ../root/account/ResetPassword.js:55
-#, fuzzy
-#| msgid "Reset Password"
 msgctxt "interactive"
 msgid "Reset password"
 msgstr "Wachtwoord opnieuw instellen"
@@ -6738,8 +6462,6 @@ msgstr ""
 
 #: ../root/account/LostUsername.js:27 ../root/account/LostUsername.js:28
 #: ../root/account/LostUsernameSent.js:15
-#, fuzzy
-#| msgid "Lost Username"
 msgid "Lost username"
 msgstr "Gebruikersnaam kwijt"
 
@@ -6752,8 +6474,6 @@ msgstr ""
 "informatie over je account bij MusicBrainz."
 
 #: ../root/account/LostUsername.js:42 ../root/user/ContactUser.js:79
-#, fuzzy
-#| msgid "send email"
 msgctxt "interactive"
 msgid "Send email"
 msgstr "e-mail versturen"
@@ -6782,8 +6502,6 @@ msgstr ""
 "gebruikerspagina."
 
 #: ../root/account/Register.js:28 ../root/account/Register.js:35
-#, fuzzy
-#| msgid "Create an Account"
 msgctxt "header"
 msgid "Create an account"
 msgstr "Een account aanmaken"
@@ -6827,16 +6545,12 @@ msgstr ""
 "over het naleven van de AVG}."
 
 #: ../root/account/Register.js:73
-#, fuzzy
-#| msgid ""
-#| "If you have any questions, please review the {faq|FAQs} or {doc|"
-#| "documentation} before {con|contacting us}. "
 msgid ""
 "If you have any questions, please review the {faq|FAQs} or {doc|"
 "documentation} before {con|contacting us}."
 msgstr ""
-"Als je vragen hebt, kan je ook eerst in de {faq|veelgestelde vragen} of {doc|"
-"documentatie} kijken voordat je {con|contact met ons opneemt}."
+"Als je vragen hebt, kan je ook eerst in de {faq|veelgestelde vragen} of "
+"{doc|documentatie} kijken voordat je {con|contact met ons opneemt}."
 
 #: ../root/account/Register.js:85
 msgid ""
@@ -6857,8 +6571,6 @@ msgstr ""
 
 #: ../root/account/ResetPassword.js:29 ../root/account/ResetPassword.js:30
 #: ../root/account/ResetPasswordStatus.js:19
-#, fuzzy
-#| msgid "Reset Password"
 msgctxt "header"
 msgid "Reset password"
 msgstr "Wachtwoord opnieuw instellen"
@@ -6872,24 +6584,18 @@ msgstr "Stel een nieuw wachtwoord voor je MusicBrainz-account in."
 #, fuzzy
 #| msgid "Web Application"
 msgid "Web application"
-msgstr "Web Application"
+msgstr "Web application"
 
 #: ../root/account/applications/ApplicationList.js:35
 #: ../root/static/scripts/account/components/ApplicationForm.js:41
-#, fuzzy
-#| msgid "Installed Application"
 msgid "Installed application"
 msgstr "Geïnstalleerde applicatie"
 
 #: ../root/account/applications/ApplicationList.js:65
-#, fuzzy
-#| msgid "Revoke Access"
 msgid "Revoke access"
 msgstr "Toegang intrekken"
 
 #: ../root/account/applications/ApplicationList.js:77
-#, fuzzy
-#| msgid "Offline Access"
 msgid "Offline access"
 msgstr "Offline toegang"
 
@@ -6979,8 +6685,6 @@ msgstr "Je hebt geen geregistreerde applicaties."
 
 #: ../root/account/applications/EditApplication.js:21
 #: ../root/account/applications/EditApplication.js:22
-#, fuzzy
-#| msgid "Edit Application"
 msgctxt "header"
 msgid "Edit application"
 msgstr "Applicatie bewerken"
@@ -6994,15 +6698,11 @@ msgstr "Bijwerken"
 
 #: ../root/account/applications/RegisterApplication.js:22
 #: ../root/account/applications/RegisterApplication.js:23
-#, fuzzy
-#| msgid "Register Application"
 msgctxt "header"
 msgid "Register application"
 msgstr "Applicatie registreren"
 
 #: ../root/account/applications/RegisterApplication.js:27
-#, fuzzy
-#| msgid "Register Application"
 msgctxt "interactive"
 msgid "Register application"
 msgstr "Applicatie registreren"
@@ -7012,8 +6712,6 @@ msgid "Are you sure you want to remove this application?"
 msgstr "Weet je zeker dat je deze applicatie wil verwijderen?"
 
 #: ../root/account/applications/RemoveApplication.js:22
-#, fuzzy
-#| msgid "Remove Application"
 msgctxt "header"
 msgid "Remove application"
 msgstr "Applicatie verwijderen"
@@ -7027,16 +6725,12 @@ msgid "Are you sure you want to revoke this application’s access?"
 msgstr ""
 
 #: ../root/account/applications/RevokeApplicationAccess.js:46
-#, fuzzy
-#| msgid "Revoke Application Access"
 msgctxt "header"
 msgid "Revoke application access"
 msgstr "Toegang voor applicatie intrekken"
 
 #: ../root/account/sso/DiscourseRegistered.js:19
 #: ../root/account/sso/DiscourseRegistered.js:20
-#, fuzzy
-#| msgid "Account Created"
 msgctxt "header"
 msgid "Account created"
 msgstr "Account aangemaakt"
@@ -7060,8 +6754,6 @@ msgstr ""
 
 #: ../root/account/sso/DiscourseUnconfirmedEmailAddress.js:13
 #: ../root/account/sso/DiscourseUnconfirmedEmailAddress.js:14
-#, fuzzy
-#| msgid "Unverified Email Address"
 msgctxt "header"
 msgid "Unverified email address"
 msgstr "Niet-geverifieerd e-mailadres"
@@ -7107,8 +6799,6 @@ msgstr "De aantekening van dit object heeft geen geschiedenis."
 
 #: ../root/annotation/EditAnnotation.js:47
 #: ../root/annotation/EditAnnotation.js:49
-#, fuzzy
-#| msgid "Edit annotation"
 msgctxt "header"
 msgid "Edit annotation"
 msgstr "Aantekening bewerken"
@@ -7137,15 +6827,11 @@ msgid "Changelog:"
 msgstr "Veranderingslogboek:"
 
 #: ../root/annotation/EditAnnotation.js:93
-#, fuzzy
-#| msgid "Preview"
 msgctxt "interactive"
 msgid "Preview"
 msgstr "Voorbeeld"
 
 #: ../root/annotation/EditAnnotation.js:98
-#, fuzzy
-#| msgid "Annotation Formatting"
 msgid "Annotation formatting"
 msgstr "Opmaak van de aantekening"
 
@@ -7389,8 +7075,6 @@ msgid "This area has no relationships to any works."
 msgstr "Dit gebied is niet gerelateerd aan composities."
 
 #: ../root/area/DeleteArea.js:35 ../root/area/DeleteArea.js:37
-#, fuzzy
-#| msgid "Remove area"
 msgctxt "header"
 msgid "Remove area"
 msgstr "Gebied verwijderen"
@@ -7823,8 +7507,6 @@ msgstr "Geen nummers met deze artiestvermelding gevonden."
 
 #: ../root/cdstub/BrowseCDStubs.js:30 ../root/cdstub/BrowseCDStubs.js:31
 #: ../root/layout/components/BottomMenu.js:231
-#, fuzzy
-#| msgid "Top CD Stubs"
 msgid "Top CD stubs"
 msgstr "Populaire cd-beginnetjes"
 
@@ -7849,8 +7531,6 @@ msgid "Added {add}, last modified {lastmod}"
 msgstr "{add} toegevoegd, {lastmod} het laatst bewerkt"
 
 #: ../root/cdstub/CDStubNotFound.js:19
-#, fuzzy
-#| msgid "CD Stub Not Found"
 msgid "CD stub not found"
 msgstr "Cd-beginnetje niet gevonden"
 
@@ -7863,8 +7543,6 @@ msgstr ""
 "proberen om {search_url|ernaar te zoeken}."
 
 #: ../root/cdstub/DiscIdNotValid.js:19
-#, fuzzy
-#| msgid "Invalid Disc ID"
 msgid "Invalid disc ID"
 msgstr "Ongeldige disc-ID"
 
@@ -7873,8 +7551,6 @@ msgid "Sorry, <code>{discid}</code> is not a valid disc ID."
 msgstr "<code>{discid}</code> is helaas geen geldige disc-ID."
 
 #: ../root/cdstub/ImportCDStub.js:36
-#, fuzzy
-#| msgid "Import CD stub"
 msgctxt "header"
 msgid "Import CD stub"
 msgstr "Een cd-beginnetje importeren"
@@ -7946,8 +7622,6 @@ msgid "Sectors"
 msgstr "Sectoren"
 
 #: ../root/cdtoc/RemoveDiscId.js:35 ../root/cdtoc/RemoveDiscId.js:37
-#, fuzzy
-#| msgid "Remove disc ID"
 msgctxt "header"
 msgid "Remove disc ID"
 msgstr "Disc-ID verwijderen"
@@ -7994,8 +7668,6 @@ msgstr ""
 
 #: ../root/cdtoc/SetTracklistDurations.js:46
 #: ../root/cdtoc/SetTracklistDurations.js:47
-#, fuzzy
-#| msgid "Set Tracklist Durations"
 msgid "Set tracklist durations"
 msgstr "Stel de duur van de nummers in"
 
@@ -8033,8 +7705,6 @@ msgid "See all of {editor}'s public collections"
 msgstr "Bekijk alle openbare collecties van {editor}"
 
 #: ../root/collection/CollectionHeader.js:86
-#, fuzzy
-#| msgid "Edit"
 msgctxt "verb, header, interactive"
 msgid "Edit"
 msgstr "Bewerken"
@@ -8231,8 +7901,6 @@ msgid "{entity} has no aliases."
 msgstr "{entity} heeft geen aliassen."
 
 #: ../root/components/Aliases/index.js:75
-#, fuzzy
-#| msgid "Add a new alias"
 msgctxt "interactive"
 msgid "Add a new alias"
 msgstr "Nieuwe alias toevoegen"
@@ -8363,15 +8031,11 @@ msgid "Disc IDs ({num})"
 msgstr "Disc-ID’s ({num})"
 
 #: ../root/components/EntityTabs.js:114
-#, fuzzy
-#| msgid "Cover art:"
 msgctxt "plural"
 msgid "Cover art"
-msgstr "Afbeelding:"
+msgstr "Afbeelding"
 
 #: ../root/components/EntityTabs.js:116
-#, fuzzy
-#| msgid "Cover Art ({num})"
 msgctxt "plural"
 msgid "Cover art ({num})"
 msgstr "Afbeelding(en) ({num})"
@@ -8382,8 +8046,6 @@ msgstr "Afbeelding(en) ({num})"
 #: ../root/static/scripts/common/components/TagEditor.js:674
 #: ../root/tag/TagCloud.js:102 ../root/tag/TagCloud.js:104
 #: ../root/user/UserTagList.js:64
-#, fuzzy
-#| msgid "Tags"
 msgctxt "folksonomy"
 msgid "Tags"
 msgstr "Etiketten"
@@ -8680,16 +8342,12 @@ msgid "Submit new ISRCs to the database"
 msgstr "Nieuwe ISRC’s in te dienen."
 
 #: ../root/constants.js:28
-#, fuzzy
-#| msgid "View and modify your private tags"
 msgctxt "folksonomy"
 msgid "View and modify your private tags"
 msgstr "Je privétags bekijken en bewerken"
 
 #: ../root/doc/DocError.js:32 ../root/doc/DocError.js:36
 #: ../root/main/error/Error404.js:32 ../root/main/error/MirrorError404.js:13
-#, fuzzy
-#| msgid "Page Not Found"
 msgid "Page not found"
 msgstr "Pagina niet gevonden"
 
@@ -8733,8 +8391,6 @@ msgid "Search the documentation..."
 msgstr "Documentatie doorzoeken …"
 
 #: ../root/edit/CancelEdit.js:28 ../root/edit/CancelEdit.js:29
-#, fuzzy
-#| msgid "Cancel edit"
 msgctxt "header"
 msgid "Cancel edit"
 msgstr "Bewerking annuleren"
@@ -8760,8 +8416,6 @@ msgstr ""
 "zijn om redacteurs op een andere bewerking te wijzen."
 
 #: ../root/edit/CancelEdit.js:56
-#, fuzzy
-#| msgid "Cancel edit"
 msgctxt "interactive"
 msgid "Cancel edit"
 msgstr "Bewerking annuleren"
@@ -8780,8 +8434,6 @@ msgstr "Alleen {doc|autoredacteurs} kunnen een bewerking direct goedkeuren."
 
 #: ../root/edit/CannotApproveEdit.js:34 ../root/edit/CannotApproveEdit.js:35
 #: ../root/edit/NoteIsRequired.js:21 ../root/edit/NoteIsRequired.js:22
-#, fuzzy
-#| msgid "Error Approving Edit"
 msgid "Error approving edit"
 msgstr "Fout bij het goedkeuren van de bewerking"
 
@@ -8790,8 +8442,6 @@ msgid "There was a problem approving {edit}."
 msgstr "Er was een probleem bij het goedkeuren van {edit}."
 
 #: ../root/edit/CannotCancelEdit.js:22 ../root/edit/CannotCancelEdit.js:23
-#, fuzzy
-#| msgid "Error Cancelling Edit"
 msgid "Error cancelling edit"
 msgstr "Fout bij het annuleren van de bewerking"
 
@@ -8804,8 +8454,6 @@ msgid "Only the editor who entered an edit can cancel it."
 msgstr ""
 
 #: ../root/edit/CannotVote.js:13 ../root/edit/CannotVote.js:14
-#, fuzzy
-#| msgid "Error Voting on Edits"
 msgid "Error voting on edits"
 msgstr "Fout bij het stemmen"
 
@@ -8898,8 +8546,6 @@ msgid "You must be logged in to vote on edits."
 msgstr "Je moet aangemeld zijn om op bewerkingen te stemmen."
 
 #: ../root/edit/EditIndex.js:159
-#, fuzzy
-#| msgid "Edit notes"
 msgctxt "noun"
 msgid "Edit notes"
 msgstr "Bewerkingsnotities"
@@ -8957,8 +8603,6 @@ msgstr ""
 "bewerking plaatsen om hem direct goed te keuren."
 
 #: ../root/edit/NotesReceived.js:35 ../root/edit/NotesReceived.js:37
-#, fuzzy
-#| msgid "Recent Notes Left on Your Edits"
 msgid "Recent notes left on your edits"
 msgstr "Recente notities bij mijn bewerkingen"
 

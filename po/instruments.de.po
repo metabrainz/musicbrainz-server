@@ -16,11 +16,13 @@
 # TL, 2015-2016
 # Tobias Sarner <email address hidden>, 2020
 # Philipp Wolfer <ph.wolfer@gmail.com>, 2023.
+# kellnerd <kellnerd@users.noreply.translations.metabrainz.org>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-08-28 08:34+0000\n"
-"Last-Translator: Philipp Wolfer <ph.wolfer@gmail.com>\n"
+"PO-Revision-Date: 2023-12-18 21:28+0000\n"
+"Last-Translator: kellnerd <kellnerd@users.noreply.translations.metabrainz."
+"org>\n"
 "Language-Team: German <https://translations.metabrainz.org/projects/"
 "musicbrainz/instruments/de/>\n"
 "Language: de\n"
@@ -28,7 +30,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.18.2\n"
+"X-Generator: Weblate 5.3\n"
 
 #: DB:instrument/name:438
 msgid "12 string guitar"
@@ -373,9 +375,6 @@ msgid "amadinda"
 msgstr "Amadinda"
 
 #: DB:instrument/name:809
-#, fuzzy
-#| msgctxt "mongolian mouth harp"
-#| msgid "aman khuur"
 msgctxt "Mongolian mouth harp"
 msgid "aman khuur"
 msgstr "Mongolische Maultrommel"
@@ -729,17 +728,11 @@ msgid "birbynė"
 msgstr "Birbynė"
 
 #: DB:instrument/name:801
-#, fuzzy
-#| msgctxt "Wooden natural brass"
-#| msgid "birch lur"
 msgctxt "wooden natural brass"
 msgid "birch lur"
 msgstr "Lure"
 
 #: DB:instrument/name:824
-#, fuzzy
-#| msgctxt "prim, small serbo-croatian plucked stringinstrument"
-#| msgid "bisernica"
 msgctxt "prim, small Serbo-Croatian plucked string instrument"
 msgid "bisernica"
 msgstr "Bisernica"
@@ -3230,11 +3223,9 @@ msgid "rebec"
 msgstr "Rebec"
 
 #: DB:instrument/name:1187
-#, fuzzy
-#| msgid "theremin"
 msgctxt "Ibizan double woodwind"
 msgid "reclam de xeremies"
-msgstr "Theremin"
+msgstr "Schalmeienruf"
 
 #: DB:instrument/name:721
 msgctxt "Brazilian metal scraper"
@@ -4470,11 +4461,9 @@ msgid "xalam"
 msgstr "Tidinit"
 
 #: DB:instrument/name:1186
-#, fuzzy
-#| msgid "theremin"
 msgctxt "Mallorcan bagpipe"
 msgid "xeremies"
-msgstr "Theremin"
+msgstr "Xeremies"
 
 #: DB:instrument/name:484
 msgctxt "Chinese end-blown flute"
