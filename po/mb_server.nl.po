@@ -30,14 +30,15 @@
 # RandomMushroom128 <RandomMushroom128@users.noreply.translations.metabrainz.org>, 2023.
 # kellnerd <kellnerd@users.noreply.translations.metabrainz.org>, 2023.
 # mfmeulenbelt <mfmeulenbelt@users.noreply.translations.metabrainz.org>, 2023.
+# reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-12-14 18:52+0000\n"
-"PO-Revision-Date: 2023-12-19 16:23+0000\n"
-"Last-Translator: mfmeulenbelt <mfmeulenbelt@users.noreply.translations."
-"metabrainz.org>\n"
+"PO-Revision-Date: 2023-12-19 21:28+0000\n"
+"Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
+".org>\n"
 "Language-Team: Dutch <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/nl/>\n"
 "Language: nl\n"
@@ -10456,32 +10457,22 @@ msgid "Data licenses"
 msgstr "Gegevenslicenties"
 
 #: ../root/layout/components/BottomMenu.js:138
-#, fuzzy
-#| msgid "Social Contract"
 msgid "Social contract"
 msgstr "Sociaal contract"
 
 #: ../root/layout/components/BottomMenu.js:141
-#, fuzzy
-#| msgid "Code of Conduct"
 msgid "Code of conduct"
 msgstr "Gedragscode"
 
 #: ../root/layout/components/BottomMenu.js:144
-#, fuzzy
-#| msgid "Privacy Policy"
 msgid "Privacy policy"
 msgstr "Privacybeleid"
 
 #: ../root/layout/components/BottomMenu.js:147
-#, fuzzy
-#| msgid "GDPR Compliance"
 msgid "GDPR compliance"
 msgstr "Naleving van de AVG"
 
 #: ../root/layout/components/BottomMenu.js:150
-#, fuzzy
-#| msgid "Data Removal Policy"
 msgid "Data removal policy"
 msgstr "Beleid voor gegevensverwijdering"
 
@@ -10495,8 +10486,6 @@ msgid "Statistics"
 msgstr "Statistieken"
 
 #: ../root/layout/components/BottomMenu.js:162
-#, fuzzy
-#| msgid "Timeline Graph"
 msgid "Timeline graph"
 msgstr "Tijdslijn"
 
@@ -10539,8 +10528,6 @@ msgid "MusicBrainz Database"
 msgstr "Onze database"
 
 #: ../root/layout/components/BottomMenu.js:202
-#, fuzzy
-#| msgid "Developer Resources"
 msgid "Developer resources"
 msgstr "Hulpmiddelen voor ontwikkelaars"
 
@@ -10553,20 +10540,14 @@ msgid "Live Data Feed"
 msgstr "Live gegevensfeed"
 
 #: ../root/layout/components/BottomMenu.js:222
-#, fuzzy
-#| msgid "Advanced Search"
 msgid "Advanced search"
 msgstr "Geavanceerd zoeken"
 
 #: ../root/layout/components/BottomMenu.js:225
-#, fuzzy
-#| msgid "Edit Search"
 msgid "Edit search"
 msgstr "Bewerkingen zoeken"
 
 #: ../root/layout/components/BottomMenu.js:228
-#, fuzzy
-#| msgid "Tag Cloud"
 msgctxt "folksonomy"
 msgid "Tag cloud"
 msgstr "Etikettenwolk"
