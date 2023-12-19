@@ -25,7 +25,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-12-14 16:28+0000\n"
+"PO-Revision-Date: 2023-12-19 21:28+0000\n"
 "Last-Translator: yvanzo <yvanzo@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: French <https://translations.metabrainz.org/projects/"
 "musicbrainz/instrument-descriptions/fr/>\n"
@@ -35,7 +35,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : ((n != 0 && n % "
 "1000000 == 0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.2.1\n"
+"X-Generator: Weblate 5.3\n"
 
 #. name:rebab 
 #: DB:instrument/description:239
@@ -446,16 +446,11 @@ msgstr ""
 
 #. name:samica 
 #: DB:instrument/description:830
-#, fuzzy
-#| msgid ""
-#| "also known as dangubica or kuterevka, it is similar to the bisernica and "
-#| "the ancestor of the entire tamburica ensemble. this plucked long-necked "
-#| "lute has two double strings and is played solo."
 msgid ""
 "Also known as dangubica or kuterevka, it is similar to the bisernica and the "
 "ancestor of the entire tamburica ensemble. This plucked long-necked lute has "
 "two double strings and is played solo."
-msgstr "Luth à long manche doté de deux doubles cordes."
+msgstr "???. Ce luth à long manche doté de deux doubles cordes."
 
 #. name:gopichant 
 #: DB:instrument/description:643
@@ -564,16 +559,12 @@ msgstr ""
 
 #. name:gizmo 
 #: DB:instrument/description:796
-#, fuzzy
-#| msgid ""
-#| "An effects device to be clamped on the bridge, it produces \"synthesizer-"
-#| "like\" sounds"
 msgid ""
 "An effects device to be clamped on the bridge, it produces “synthesizer-"
 "like” sounds."
 msgstr ""
-"Boîtier d’effet pour guitare électrique, posé sur son chevalet, équipé de "
-"touches et de roues, il permet d’en frotter les cordes."
+"Boîtier d’effet pour guitare électrique, posé sur son chevalet, il produit "
+"des sons « de synthétiseur »."
 
 #. name:electric sitar 
 #: DB:instrument/description:246
@@ -894,16 +885,10 @@ msgstr ""
 
 #. name:bonang panembung 
 #: DB:instrument/description:972
-#, fuzzy
-#| msgid ""
-#| "The piccolo oboe is the smallest and highest pitched member of the oboe "
-#| "family."
 msgid ""
 "Chiefly used in Yogyvanese gamelan, the largest and deepest pitched member "
 "of the bonang family of gong-chimes."
 msgstr ""
-"La musette est le plus petit et le plus aigu membre de la famille des "
-"hautbois."
 
 #. name:naobo 
 #: DB:instrument/description:599
@@ -955,10 +940,8 @@ msgstr ""
 
 #. name:dholak 
 #: DB:instrument/description:382
-#, fuzzy
-#| msgid "dholak, classical North Indian hand drum"
 msgid "Classical North Indian hand drum."
-msgstr "Le dholak est un tambour à main de l’Inde du Nord."
+msgstr "Tambour à main de l’Inde du Nord."
 
 #. name:glockenspiel 
 #: DB:instrument/description:165
@@ -980,15 +963,12 @@ msgstr ""
 
 #. name:disk drive 
 #: DB:instrument/description:602
-#, fuzzy
-#| msgid ""
-#| "as using drives for producing music, harddrives, floppy, cd or other."
 msgid ""
 "Computer drives used for producing music, be it hard drives, floppy, CD or "
 "other."
 msgstr ""
-"comme utiliser des lecteurs pour faire de la musique, disques durs, lecteurs "
-"de disquettes, CD ou autres."
+"Lecteurs d’ordinateur utilisés pour faire de la musique, que ce soient des "
+"disques durs, lecteurs de disquettes, de CD ou autres."
 
 #. name:bombarde 
 #: DB:instrument/description:431
@@ -1076,23 +1056,12 @@ msgstr ""
 
 #. name:čelo 
 #: DB:instrument/description:827
-#, fuzzy
-#| msgid ""
-#| "counterpoint member of the Serbo-Coatian tamburica orchestra, it is "
-#| "guitar like like the bugarija. it can either have two double strings and "
-#| "two single strings (čelović) or now four single strings are more common. "
-#| "(čelo/čelović/) the čelović is a different pitch than the čelo"
 msgid ""
 "Counterpoint member of the Serbo-Coatian tamburica orchestra, it is guitar "
 "like like the bugarija. It can have two double strings and two single "
 "strings (čelović) but now four single strings are more common (čelo/"
 "čelović). The čelović is a different pitch than the čelo."
 msgstr ""
-"proche de la guitare comme la bugarija, dotée de soit deux cordes doubles et "
-"deux cordes simples (čelović) ou plus souvent aujourd’hui de quatre cordes "
-"simples, elle fait généralement la partie de contre chant des orchestres de "
-"tamburica serbo-croates. (čelo/čelović/) La čelović est dans une tonalité "
-"différente de la čelo."
 
 #. name:ki pah 
 #: DB:instrument/description:307
@@ -2005,13 +1974,8 @@ msgstr ""
 
 #. name:traditional basque ensemble 
 #: DB:instrument/description:909
-#, fuzzy
-#| msgid ""
-#| "The tinya is a small drum used in the traditional music of the Andes."
 msgid "Instruments used in the traditional music of the Basque people."
 msgstr ""
-"Le tinya est un petit tambour utilisé dans la musique traditionnelle des "
-"Andes."
 
 #. name:Indonesian rebab 
 #: DB:instrument/description:1011
@@ -2605,17 +2569,10 @@ msgstr ""
 
 #. name:English flageolet 
 #: DB:instrument/description:844
-#, fuzzy
-#| msgid ""
-#| "while today it is obscure, it was developed and improved for 400 years, "
-#| "the French flageolet has 4 holes in front and two thumb holes in the back"
 msgid ""
 "Meant as an improvement on the flageolet design, the English flageolet had "
 "six finger holes in the front and one thumb hole in the back."
 msgstr ""
-"Bien oublié aujourd'hui, il a été amélioré au fil de quatre siècles.Le "
-"flageolet du Midi de la France possède quatre trous sur le dessuset deux "
-"trous pour les pouces en-dessous."
 
 #. name:gemshorn 
 #: DB:instrument/description:868
@@ -5375,11 +5332,8 @@ msgstr "Le topshuur est un luth à deux cordes de Mongolie et de Touva."
 
 #. name:treble viol 
 #: DB:instrument/description:921
-#, fuzzy
-#| msgid "The E♭ clarinet is a member of the clarinet family."
 msgid "The treble, descant or soprano member of the viol family."
 msgstr ""
-"La petite clarinette en Mi♭ est un membre de la famille des clarinettes."
 
 #. name:trống bông 
 #: DB:instrument/description:305
@@ -5655,13 +5609,8 @@ msgstr ""
 
 #. name:rōria 
 #: DB:instrument/description:859
-#, fuzzy
-#| msgid ""
-#| "The guan is a Chinese double reed wind instrument made from hardwood or "
-#| "bamboo."
 msgid "Thin quiet mouth harp like instrument made of wood or bone."
 msgstr ""
-"Le guan est un instrument à vent à anche double en bois dur ou en bambou."
 
 #. name:lute 
 #: DB:instrument/description:83
@@ -6063,10 +6012,8 @@ msgstr ""
 
 #. name:ryuteki 
 #: DB:instrument/description:617
-#, fuzzy
-#| msgid "The limbe is a Mongolian transverse flute."
 msgid "Used in gagaku, it is a transverse flute."
-msgstr "La limbe est une flûte traversière mongole."
+msgstr ""
 
 #. name:kagurabue 
 #: DB:instrument/description:849
@@ -6177,16 +6124,10 @@ msgstr ""
 
 #. name:bonang panerus 
 #: DB:instrument/description:971
-#, fuzzy
-#| msgid ""
-#| "The piccolo oboe is the smallest and highest pitched member of the oboe "
-#| "family."
 msgid ""
 "Used to play fast melodies, it is the highest pitched member of the bonang "
 "family of gong-chimes."
 msgstr ""
-"La musette est le plus petit et le plus aigu membre de la famille des "
-"hautbois."
 
 #. name:lap harp 
 #: DB:instrument/description:886
