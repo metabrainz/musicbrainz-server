@@ -10,7 +10,6 @@
 import * as React from 'react';
 
 import {CatalystContext} from '../context.mjs';
-import {l_admin} from '../static/scripts/common/i18n/admin.js';
 import {isAccountAdmin} from '../static/scripts/common/utility/privileges.js';
 
 import EditorList from './components/EditorList.js';

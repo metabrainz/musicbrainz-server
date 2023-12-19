@@ -11,7 +11,6 @@ import * as React from 'react';
 
 import RequestLogin from '../../components/RequestLogin.js';
 import {CatalystContext} from '../../context.mjs';
-import {l_admin} from '../../static/scripts/common/i18n/admin.js';
 import {
   isAccountAdmin,
   isAdmin,

@@ -13,7 +13,6 @@ import type {CellRenderProps} from 'react-table';
 import PaginatedResults from '../../components/PaginatedResults.js';
 import useTable from '../../hooks/useTable.js';
 import EditorLink from '../../static/scripts/common/components/EditorLink.js';
-import {l_admin} from '../../static/scripts/common/i18n/admin.js';
 import bracketed from '../../static/scripts/common/utility/bracketed.js';
 import {
   defineTextColumn,

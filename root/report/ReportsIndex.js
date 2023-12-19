@@ -11,7 +11,6 @@ import * as React from 'react';
 
 import {SanitizedCatalystContext} from '../context.mjs';
 import Layout from '../layout/index.js';
-import {l_admin} from '../static/scripts/common/i18n/admin.js';
 import {
   isAccountAdmin,
   isRelationshipEditor,
