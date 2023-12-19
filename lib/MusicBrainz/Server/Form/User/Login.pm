@@ -7,8 +7,8 @@ use MusicBrainz::Server::Form::Utils qw( localize_error );
 use MusicBrainz::Server::Translation qw( N_l );
 extends 'HTML::FormHandler';
 
-with 'MusicBrainz::Server::Form::Role::ToJSON';
-with 'MusicBrainz::Server::Form::Role::CSRFToken';
+with 'MusicBrainz::Server::Form::Role::ToJSON',
+     'MusicBrainz::Server::Form::Role::CSRFToken';
 
 has_field 'username' => (
     type => 'Text',

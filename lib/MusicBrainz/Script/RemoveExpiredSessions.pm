@@ -19,9 +19,9 @@ use namespace::autoclean;
 use English;
 use POSIX qw( ceil );
 
-with 'MooseX::Runnable';
-with 'MooseX::Getopt';
-with 'MusicBrainz::Script::Role::Context';
+with 'MooseX::Runnable',
+     'MooseX::Getopt',
+     'MusicBrainz::Script::Role::Context';
 
 has 'verbose' => (
     isa => 'Bool',

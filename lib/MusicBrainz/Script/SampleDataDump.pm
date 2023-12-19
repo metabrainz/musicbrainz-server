@@ -25,8 +25,8 @@ use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Log qw( log_info );
 use Readonly;
 
-with 'MooseX::Runnable';
-with 'MooseX::Getopt';
+with 'MooseX::Runnable',
+     'MooseX::Getopt';
 
 has database => (
     is => 'ro',

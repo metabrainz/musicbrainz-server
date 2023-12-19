@@ -24,9 +24,9 @@ use MusicBrainz::Server::Data::Utils qw( localized_note type_to_model );
 use MusicBrainz::Server::Data::Utils::Cleanup qw( used_in_relationship );
 use MusicBrainz::Server::Translation qw( N_l );
 
-with 'MooseX::Runnable';
-with 'MooseX::Getopt';
-with 'MusicBrainz::Script::Role::Context';
+with 'MooseX::Runnable',
+     'MooseX::Getopt',
+     'MusicBrainz::Script::Role::Context';
 
 my %edit_class = (
     artist => $EDIT_ARTIST_DELETE,
