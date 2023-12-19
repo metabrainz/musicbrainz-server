@@ -3,8 +3,9 @@ package MusicBrainz::Server::Controller::RelationshipEditor;
 use utf8;
 
 use Moose;
+use MooseX::MethodAttributes;
 
-BEGIN { extends 'MusicBrainz::Server::Controller' }
+extends 'MusicBrainz::Server::Controller';
 
 use Encode;
 use HTTP::Status qw( :constants );

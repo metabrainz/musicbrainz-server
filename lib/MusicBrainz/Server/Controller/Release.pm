@@ -1,9 +1,11 @@
 package MusicBrainz::Server::Controller::Release;
 use Moose;
+use MooseX::MethodAttributes;
+
 use MusicBrainz::Server::Track;
 use aliased 'MusicBrainz::Server::Entity::Recording';
 
-BEGIN { extends 'MusicBrainz::Server::Controller' }
+extends 'MusicBrainz::Server::Controller';
 
 with 'MusicBrainz::Server::Controller::Role::Load' => {
     entity_name     => 'release',

@@ -1,10 +1,11 @@
 package MusicBrainz::Server::Controller::Track;
 use Moose;
+use MooseX::MethodAttributes;
 use namespace::autoclean;
 use HTTP::Status qw( :constants );
 use MusicBrainz::Server::Validation qw( is_guid );
 
-BEGIN { extends 'MusicBrainz::Server::Controller'; }
+extends 'MusicBrainz::Server::Controller';
 with 'MusicBrainz::Server::Controller::Role::Load' => {
     entity_name => 'track',
     model       => 'Track',

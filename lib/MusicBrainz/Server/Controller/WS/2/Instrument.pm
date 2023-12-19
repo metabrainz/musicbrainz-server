@@ -1,9 +1,10 @@
 package MusicBrainz::Server::Controller::WS::2::Instrument;
 use Moose;
+use MooseX::MethodAttributes;
 use namespace::autoclean;
 use MusicBrainz::Server::Validation qw( is_guid );
 
-BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::2' }
+extends 'MusicBrainz::Server::ControllerBase::WS::2';
 
 use aliased 'MusicBrainz::Server::WebService::WebServiceStash';
 

@@ -1,7 +1,8 @@
 package MusicBrainz::Server::Controller::Test;
 use Moose;
+use MooseX::MethodAttributes;
 
-BEGIN { extends 'Catalyst::Controller' }
+extends 'Catalyst::Controller';
 
 use DBDefs;
 

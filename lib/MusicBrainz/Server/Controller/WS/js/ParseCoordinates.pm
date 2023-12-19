@@ -1,9 +1,12 @@
 package MusicBrainz::Server::Controller::WS::js::ParseCoordinates;
 use Moose;
+use MooseX::MethodAttributes;
 use namespace::autoclean;
 use JSON;
 use utf8;
-BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::js' }
+
+extends 'MusicBrainz::Server::ControllerBase::WS::js';
+
 use MusicBrainz::Server::Data::Utils qw( trim );
 use MusicBrainz::Server::Validation qw( validate_coordinates );
 

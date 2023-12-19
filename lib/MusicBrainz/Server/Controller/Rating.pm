@@ -1,7 +1,9 @@
 package MusicBrainz::Server::Controller::Rating;
 use Moose;
+use MooseX::MethodAttributes;
 use namespace::autoclean;
-BEGIN { extends 'MusicBrainz::Server::Controller' }
+
+extends 'MusicBrainz::Server::Controller';
 
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
 use MusicBrainz::Server::Translation qw( l );

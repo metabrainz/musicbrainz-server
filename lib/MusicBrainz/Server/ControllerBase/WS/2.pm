@@ -1,6 +1,8 @@
 package MusicBrainz::Server::ControllerBase::WS::2;
 use Moose;
-BEGIN { extends 'Catalyst::Controller'; }
+use MooseX::MethodAttributes;
+
+extends 'Catalyst::Controller';
 
 use DBDefs;
 use HTTP::Status qw( :constants );

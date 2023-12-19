@@ -1,8 +1,9 @@
 package MusicBrainz::Server::Controller::ReleaseEditor;
 use utf8;
 use Moose;
+use MooseX::MethodAttributes;
 
-BEGIN { extends 'MusicBrainz::Server::Controller' }
+extends 'MusicBrainz::Server::Controller';
 
 __PACKAGE__->config(
     namespace => 'release_editor',
