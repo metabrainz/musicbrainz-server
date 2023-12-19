@@ -37,11 +37,13 @@
 # yvanz, 2018
 # Philipp Wolfer <ph.wolfer@gmail.com>, 2023.
 # yvanzo <yvanzo@users.noreply.translations.metabrainz.org>, 2023.
+# reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-12-14 16:28+0000\n"
-"Last-Translator: yvanzo <yvanzo@users.noreply.translations.metabrainz.org>\n"
+"PO-Revision-Date: 2023-12-19 21:28+0000\n"
+"Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
+".org>\n"
 "Language-Team: French <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/fr/>\n"
 "Language: fr\n"
@@ -50,7 +52,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : ((n != 0 && n % "
 "1000000 == 0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.2.1\n"
+"X-Generator: Weblate 5.3\n"
 
 #: DB:link_attribute_type/description:1355
 msgid "A performance-centered, usually one to three year postgraduate program."
@@ -282,8 +284,6 @@ msgstr ""
 "qu’ingénieur."
 
 #: DB:link_type/description:357
-#, fuzzy
-#| msgid "Designates that a work is or was the anthem for an area"
 msgid "Designates that a work is or was the anthem for an area."
 msgstr "Indique qu’une œuvre est ou était l’hymne d’une région."
 
@@ -306,10 +306,6 @@ msgid "Discogs page for"
 msgstr "Page Discogs pour"
 
 #: DB:link_attribute_type/description:1020
-#, fuzzy
-#| msgid ""
-#| "For indicating the step-spouse of the artist's parent, or the sibling "
-#| "relationship with the children of such a spouse"
 msgid ""
 "For indicating the step-spouse of the artist's parent, or the sibling "
 "relationship with the children of such a spouse."
@@ -420,8 +416,6 @@ msgid "Indicates a parent-child relationship."
 msgstr "Indique une relation parent-enfant."
 
 #: DB:link_type/description:396
-#, fuzzy
-#| msgid "Indicates a pictorial image (JPEG, GIF, PNG) of a place"
 msgid "Indicates a pictorial image (JPEG, GIF, PNG) of a place."
 msgstr "Indique une illustration (JPEG, GIF, PNG) d’un lieu."
 
@@ -438,9 +432,6 @@ msgstr ""
 "à être généralement considéré comme le même lieu."
 
 #: DB:link_attribute_type/description:1019
-#, fuzzy
-#| msgid ""
-#| "Indicates a sibling with whom the artist has only one parent in common"
 msgid "Indicates a sibling with whom the artist has only one parent in common."
 msgstr ""
 "Indique un frère ou une sœur avec qui l’artiste n’a qu’un seul parent en "
@@ -547,8 +538,6 @@ msgstr ""
 "parution particulier (habituellement un album)."
 
 #: DB:link_attribute_type/description:567
-#, fuzzy
-#| msgid "Indicates that one entity is a cover of another entity"
 msgid "Indicates that one entity is a cover of another entity."
 msgstr "Indique qu’une entité est la reprise d’une autre entité."
 
@@ -621,22 +610,14 @@ msgstr ""
 "mariées."
 
 #: DB:link_type/description:1085
-#, fuzzy
-#| msgid "Indicates the area an event series was held at."
 msgid "Indicates the area an event series was held in."
 msgstr "Indique la région où une série d’événements s’est déroulée."
 
 #: DB:link_type/description:715
-#, fuzzy
-#| msgid "Indicates the area where the work had its first performance"
 msgid "Indicates the area where the work had its first performance."
-msgstr "Indique le lieu de la première présentation de l’œuvre."
+msgstr "Indique la région de la première présentation de l’œuvre."
 
 #: DB:link_type/description:956
-#, fuzzy
-#| msgid ""
-#| "Indicates the artist(s) who gave the first performance of the work; this "
-#| "is usually mostly relevant for classical music"
 msgid ""
 "Indicates the artist(s) who gave the first performance of the work; this is "
 "usually mostly relevant for classical music."
@@ -661,8 +642,6 @@ msgstr ""
 "la musique (mais pas nécessairement les paroles)."
 
 #: DB:link_type/description:845
-#, fuzzy
-#| msgid "Indicates the event where the work had its first performance"
 msgid "Indicates the event where the work had its first performance."
 msgstr "Indique l’événement de première représentation de l’œuvre."
 
@@ -740,8 +719,6 @@ msgstr ""
 "Indique la personne ayant traduit les paroles/le livret pour cette œuvre."
 
 #: DB:link_type/description:716
-#, fuzzy
-#| msgid "Indicates the place where the work had its first performance"
 msgid "Indicates the place where the work had its first performance."
 msgstr "Indique le lieu de la première présentation de l’œuvre."
 
@@ -1011,10 +988,6 @@ msgid "Links a release to the place it was engineered at."
 msgstr "Relie une parution au lieu où elle a été techniquement conçue."
 
 #: DB:link_type/description:953
-#, fuzzy
-#| msgid ""
-#| "Links a release to the place it was manufactured at. Use a more specific "
-#| "credit if available"
 msgid ""
 "Links a release to the place it was manufactured at. Use a more specific "
 "credit if available."
@@ -1173,13 +1146,10 @@ msgstr ""
 "HH:MM."
 
 #: DB:link_attribute_type/description:1060
-#, fuzzy
-#| msgid ""
-#| "Meane or mean is a young male singer with a voice lower than a treble"
 msgid "Meane or mean is a young male singer with a voice lower than a treble."
 msgstr ""
-"Un jeune alto est un jeune chanteur dont la voix est plus basse que celle "
-"d’un jeune soprano mais plus haute qu’un contralto."
+"Un jeune alto est un jeune chanteur dont la voix est plus basse que celle d’"
+"un jeune soprano mais plus haute qu’un contralto."
 
 #: DB:link_type/link_phrase:215 DB:link_type/link_phrase:462
 #: DB:link_type/link_phrase:189
@@ -1332,8 +1302,6 @@ msgid "Points to the Wikipedia page for this instrument."
 msgstr "Dirige vers la page Wikipédia pour cet instrument."
 
 #: DB:link_type/description:595
-#, fuzzy
-#| msgid "Points to the Wikipedia page for this place"
 msgid "Points to the Wikipedia page for this place."
 msgstr "Dirige vers la page Wikipédia pour ce lieu."
 
@@ -1496,10 +1464,6 @@ msgstr ""
 "ne fait pas habituellement partie du groupe."
 
 #: DB:link_attribute_type/description:1094
-#, fuzzy
-#| msgid ""
-#| "This attribute indicates a member the band is named after and without "
-#| "which it wouldn't exist (e.g. Miles Davis -&gt; Miles Davis Sextet)"
 msgid ""
 "This attribute indicates a member the band is named after and without which "
 "it wouldn't exist (such as Miles Davis -&gt; Miles Davis Sextet)."
@@ -1785,19 +1749,14 @@ msgstr ""
 "que liaison entre les artistes et les labels."
 
 #: DB:link_type/description:19
-#, fuzzy
-#| msgid ""
-#| "This indicates a person or agency who did design or illustration for the "
-#| "release. This relationship is deprecated, please use either \"design\" or "
-#| "\"illustration\" (or both!)"
 msgid ""
 "This indicates a person or agency who did design or illustration for the "
 "release. This relationship is deprecated, please use either “design” or "
 "“illustration” (or both!) instead."
 msgstr ""
-"Ceci indique une personne ou agence qui a fait de la conception ou de "
-"l’illustration pour cette parution. Cette relation est maintenant obsolète "
-"et ne doit plus être utilisée, merci d’utiliser plus « conception » ou « "
+"Ceci indique une personne ou agence qui a fait de la conception ou de l’"
+"illustration pour cette parution. Cette relation est maintenant obsolète et "
+"ne doit plus être utilisée, merci d’utiliser plus « conception » ou « "
 "illustration » (ou les deux) à la place."
 
 #: DB:link_type/description:130
@@ -2310,20 +2269,14 @@ msgstr ""
 #: DB:link_type/description:41 DB:link_type/description:296
 #: DB:link_type/description:293 DB:link_type/description:282
 #: DB:link_type/description:298
-#, fuzzy
-#| msgid ""
-#| "This indicates the artist who arranged a tune into a form suitable for "
-#| "performance. 'Arrangement' is used as a catch-all term for all processes "
-#| "that turn a composition into a form that can be played by a specific type "
-#| "of ensemble."
 msgid ""
 "This indicates the artist who arranged a tune into a form suitable for "
 "performance. “Arrangement” is used as a catch-all term for all processes "
 "that turn a composition into a form that can be played by a specific type of "
 "ensemble."
 msgstr ""
-"Ceci indique l’artiste ayant arrangé un morceau pour le rendre propre à "
-"l’interprétation. « Arrangement » est utilisé comme terme à tout faire pour "
+"Ceci indique l’artiste ayant arrangé un morceau pour le rendre propre à l’"
+"interprétation. « Arrangement » est utilisé comme terme à tout faire pour "
 "tous les processus transformant une composition en un format qui peut être "
 "joué par un type spécifique d’ensemble."
 
@@ -2920,10 +2873,8 @@ msgstr ""
 "a> à l’enregistrement source."
 
 #: DB:link_type/description:77
-#, fuzzy
-#| msgid "This links a label to the equivalent entry at YouTube."
 msgid "This links a MusicBrainz release to the equivalent entry at Amazon."
-msgstr "Ceci relie un label à l’entrée équivalente sur YouTube."
+msgstr "Ceci relie un parution à l’entrée équivalente sur Amazon."
 
 #: DB:link_type/description:888
 msgid ""
@@ -3725,17 +3676,6 @@ msgstr ""
 "Wikipédia</a>.)"
 
 #: DB:link_type/description:312
-#, fuzzy
-#| msgid ""
-#| "This points to the <a href=\"//viaf.org/\">VIAF</a> page for this work. "
-#| "VIAF is an international project to make a common authority file "
-#| "available to libraries across the world. An authority file is similar to "
-#| "an MBID for libraries. (<a href=\"//en.wikipedia.org/wiki/"
-#| "Virtual_International_Authority_File\">more information on Wikipedia</"
-#| "a>)\n"
-#| "<br/><br/>\n"
-#| "<strong>Note:</strong> Works in VIAF aren't very detailed. Only add links "
-#| "to MusicBrainz works if you're absolutely sure it's the same work."
 msgid ""
 "This points to the <a href=\"//viaf.org/\">VIAF</a> page for this work. VIAF "
 "is an international project to make a common authority file available to "
@@ -3753,8 +3693,8 @@ msgstr ""
 "Fichier_d%27autorit%C3%A9_international_virtuel\">Plus d’informations sur "
 "Wikipédia</a>)\n"
 "<br/><br/>\n"
-"<strong>Note :</strong> Les œuvres ne sont pas très détaillées dans VIAF. "
-"N’ajouter des liens vers les œuvres MusicBrainz que si vous êtes absolument "
+"<strong>Note :</strong> Les œuvres ne sont pas très détaillées dans VIAF. N’"
+"ajouter des liens vers les œuvres MusicBrainz que si vous êtes absolument "
 "sûr que c’est la même œuvre."
 
 #: DB:link_type/description:197
@@ -4081,11 +4021,8 @@ msgstr ""
 "un studio ou une salle) à la/aux personne(s) qui l’a/l’ont fondé."
 
 #: DB:link_type/description:627
-#, fuzzy
-#| msgid "This relationship type can be used to link a place to its blog"
 msgid "This relationship type can be used to link a place to its blog."
-msgstr ""
-"Ce type de relation peut être utilisé pour relier un lieu à son blogue."
+msgstr "Ce type de relation peut être utilisé pour relier un lieu à son blogue."
 
 #: DB:link_type/description:528
 msgid ""
@@ -4429,10 +4366,6 @@ msgstr ""
 "Bandsintown."
 
 #: DB:link_type/description:840
-#, fuzzy
-#| msgid ""
-#| "This relationship type links an artist to its corresponding page at Last."
-#| "fm"
 msgid ""
 "This relationship type links an artist to its corresponding page at Last.fm."
 msgstr ""
@@ -4445,10 +4378,6 @@ msgstr ""
 "Ce type de relation relie un artiste à sa page correspondante sur Songkick."
 
 #: DB:link_type/description:816
-#, fuzzy
-#| msgid ""
-#| "This relationship type links an artist to its corresponding page at "
-#| "setlist.fm"
 msgid ""
 "This relationship type links an artist to its corresponding page at setlist."
 "fm."
@@ -4617,10 +4546,6 @@ msgstr ""
 "que « plusieurs personnes ont collaboré »."
 
 #: DB:link_type/description:949
-#, fuzzy
-#| msgid ""
-#| "Use this relationship for credits like \"Recording was arranged by X for "
-#| "Label\""
 msgid ""
 "Use this relationship for credits like “Recording was arranged by X for "
 "Label”."
@@ -4629,10 +4554,6 @@ msgstr ""
 "arrangé par X pour Label »."
 
 #: DB:link_type/description:946
-#, fuzzy
-#| msgid ""
-#| "Use this relationship for credits like \"Recording was mixed by X for "
-#| "Label\""
 msgid ""
 "Use this relationship for credits like “Recording was mixed by X for Label”."
 msgstr ""
@@ -4640,10 +4561,6 @@ msgstr ""
 "mixé par X pour Label »."
 
 #: DB:link_type/description:950
-#, fuzzy
-#| msgid ""
-#| "Use this relationship for credits like \"Recording was produced by X for "
-#| "Label\""
 msgid ""
 "Use this relationship for credits like “Recording was produced by X for "
 "Label”."
@@ -4652,22 +4569,14 @@ msgstr ""
 "produit par X pour Label »."
 
 #: DB:link_type/description:1178
-#, fuzzy
-#| msgid ""
-#| "Use this relationship for credits like \"Recording was mixed by X for "
-#| "Label\""
 msgid ""
 "Use this relationship for credits like “Recording was remixed by X for "
 "Label”."
 msgstr ""
 "Utilisez cette relation pour les crédits du type : « Enregistrement a été "
-"mixé par X pour Label »."
+"remixé par X pour Label »."
 
 #: DB:link_type/description:948
-#, fuzzy
-#| msgid ""
-#| "Use this relationship for credits like \"Release was arranged by X for "
-#| "Label\""
 msgid ""
 "Use this relationship for credits like “Release was arranged by X for Label”."
 msgstr ""
@@ -4675,10 +4584,6 @@ msgstr ""
 "par X pour Label »."
 
 #: DB:link_type/description:952
-#, fuzzy
-#| msgid ""
-#| "Use this relationship for credits like \"Release was manufactured by X "
-#| "for Label\""
 msgid ""
 "Use this relationship for credits like “Release was manufactured by X for "
 "Label”."
@@ -4687,21 +4592,13 @@ msgstr ""
 "fabriquée par X pour Label »."
 
 #: DB:link_type/description:1183
-#, fuzzy
-#| msgid ""
-#| "Use this relationship for credits like \"Release was mixed by X for "
-#| "Label\""
 msgid ""
 "Use this relationship for credits like “Release was mastered by X for Label”."
 msgstr ""
-"Utilisez cette relation pour les crédits du type : « Parution a été mixée "
-"par X pour Label »."
+"Utilisez cette relation pour les crédits du type : « Parution a été "
+"masterisé par X pour Label »."
 
 #: DB:link_type/description:947
-#, fuzzy
-#| msgid ""
-#| "Use this relationship for credits like \"Release was mixed by X for "
-#| "Label\""
 msgid ""
 "Use this relationship for credits like “Release was mixed by X for Label”."
 msgstr ""
@@ -4709,10 +4606,6 @@ msgstr ""
 "par X pour Label »."
 
 #: DB:link_type/description:951
-#, fuzzy
-#| msgid ""
-#| "Use this relationship for credits like \"Release was produced by X for "
-#| "Label\""
 msgid ""
 "Use this relationship for credits like “Release was produced by X for Label”."
 msgstr ""
@@ -4720,16 +4613,12 @@ msgstr ""
 "par X pour Label »."
 
 #: DB:link_attribute_type/description:1353
-#, fuzzy
-#| msgid ""
-#| "Use this to indicate that the mastering relationship is specifically for "
-#| "a remaster."
 msgid ""
 "Use this to indicate that the mastering relationship is specifically for a "
 "pre-master."
 msgstr ""
 "Indique qu’une relation de matriçage concerne plus spécifiquement un "
-"rematriçage."
+"pré-matriçage."
 
 #: DB:link_attribute_type/description:952
 msgid ""
@@ -4740,12 +4629,6 @@ msgstr ""
 "rematriçage."
 
 #: DB:link_attribute_type/description:1033
-#, fuzzy
-#| msgid ""
-#| "Use this to indicate the parent work is not intended to be performed as a "
-#| "whole, but is just a grouping of pieces or works that can be performed "
-#| "individually (collections of songs, several sonatas or concertos "
-#| "published as a set, books of piano pieces, etc.)"
 msgid ""
 "Use this to indicate the parent work is not intended to be performed as a "
 "whole, but is just a grouping of pieces or works that can be performed "
@@ -5395,10 +5278,8 @@ msgid "contracted manufacturing for"
 msgstr "a contracté la fabrication de"
 
 #: DB:link_type/link_phrase:1183
-#, fuzzy
-#| msgid "contracted manufacturing for"
 msgid "contracted mastering for"
-msgstr "a contracté la fabrication de"
+msgstr "a contracté le matriçage de"
 
 #: DB:link_type/link_phrase:947 DB:link_type/link_phrase:946
 msgid "contracted mixing for"
