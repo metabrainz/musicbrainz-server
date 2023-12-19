@@ -21,11 +21,13 @@
 # yvanz, 2016-2017,2019-2020
 # yvanz, 2016
 # yvanzo <yvanzo@users.noreply.translations.metabrainz.org>, 2023.
+# reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-12-14 16:28+0000\n"
-"Last-Translator: yvanzo <yvanzo@users.noreply.translations.metabrainz.org>\n"
+"PO-Revision-Date: 2023-12-19 21:28+0000\n"
+"Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
+".org>\n"
 "Language-Team: French <https://translations.metabrainz.org/projects/"
 "musicbrainz/instruments/fr/>\n"
 "Language: fr\n"
@@ -34,7 +36,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : ((n != 0 && n % "
 "1000000 == 0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.2.1\n"
+"X-Generator: Weblate 5.3\n"
 
 #: DB:instrument/name:438
 msgid "12 string guitar"
@@ -729,9 +731,6 @@ msgid "birbynė"
 msgstr ""
 
 #: DB:instrument/name:801
-#, fuzzy
-#| msgctxt "Wooden natural brass"
-#| msgid "birch lur"
 msgctxt "wooden natural brass"
 msgid "birch lur"
 msgstr "lur en bouleau"
@@ -1111,9 +1110,6 @@ msgid "clavinet"
 msgstr "Clavinet"
 
 #: DB:instrument/name:780
-#, fuzzy
-#| msgctxt "free reed aerophone with pitching pipes."
-#| msgid "claviola"
 msgctxt "free reed aerophone with pitching pipes"
 msgid "claviola"
 msgstr "Claviola"
@@ -1583,9 +1579,6 @@ msgid "flumpet"
 msgstr "flumpet"
 
 #: DB:instrument/name:13
-#, fuzzy
-#| msgctxt "Reedless aerophone"
-#| msgid "flute"
 msgctxt "reedless aerophone"
 msgid "flute"
 msgstr "flûte"
@@ -1788,9 +1781,6 @@ msgid "gittern"
 msgstr "guiterne"
 
 #: DB:instrument/name:796
-#, fuzzy
-#| msgctxt "Elguitar/bass effect device"
-#| msgid "gizmo"
 msgctxt "electric guitar/bass effect device"
 msgid "gizmo"
 msgstr "Gizmo"
@@ -4136,9 +4126,6 @@ msgid "tube zither"
 msgstr "cithare tube"
 
 #: DB:instrument/name:775
-#, fuzzy
-#| msgctxt "analogue electronic monophonic Organ"
-#| msgid "tubon"
 msgctxt "analogue electronic monophonic organ"
 msgid "tubon"
 msgstr "Tubon"
@@ -4310,9 +4297,6 @@ msgid "viola d'amore"
 msgstr "viole d’amour"
 
 #: DB:instrument/name:93
-#, fuzzy
-#| msgctxt "Generic member of the viol family, Use for \"Viol\" Credits"
-#| msgid "viola da gamba"
 msgctxt "generic member of the viol family, use for \"viol\" credits"
 msgid "viola da gamba"
 msgstr "viole de gambe"
