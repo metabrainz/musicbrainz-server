@@ -29,14 +29,15 @@
 # nikki, 2012
 # RandomMushroom128 <RandomMushroom128@users.noreply.translations.metabrainz.org>, 2023.
 # kellnerd <kellnerd@users.noreply.translations.metabrainz.org>, 2023.
+# mfmeulenbelt <mfmeulenbelt@users.noreply.translations.metabrainz.org>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-12-14 18:52+0000\n"
-"PO-Revision-Date: 2023-12-19 04:28+0000\n"
-"Last-Translator: kellnerd <kellnerd@users.noreply.translations.metabrainz."
-"org>\n"
+"PO-Revision-Date: 2023-12-19 16:23+0000\n"
+"Last-Translator: mfmeulenbelt <mfmeulenbelt@users.noreply.translations."
+"metabrainz.org>\n"
 "Language-Team: Dutch <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/nl/>\n"
 "Language: nl\n"
@@ -167,18 +168,13 @@ msgid "<strong>Warning</strong>:"
 msgstr "<strong>Waarschuwing</strong>:"
 
 #: ../root/cdtoc/lookup.tt:22
-#, fuzzy
-#| msgid ""
-#| "A CD Stub was found that matches the disc ID you provided. If the below "
-#| "tracklist appears correct, you may use it as a starting point as a new "
-#| "MusicBrainz release"
 msgid ""
 "A CD stub was found that matches the disc ID you provided. If the below "
 "tracklist appears correct, you may use it as a starting point for a new "
 "MusicBrainz release."
 msgstr ""
 "Er is een cd-beginnetje gevonden dat overeenkomt met je disc-ID. Als de "
-"onderstaande nummerlijst correct lijkt, kan je hem gebruiken om een nieuwe "
+"onderstaande nummerlijst correct lijkt, kan je het gebruiken om een nieuwe "
 "uitgave aan MusicBrainz toe te voegen."
 
 #: ../root/release/edit/tracklist.tt:323
@@ -939,8 +935,6 @@ msgstr "Bewerken"
 #: ../root/release/CoverArt.js:110
 #: ../root/static/scripts/edit/components/ArtistCreditEditor.js:447
 #: ../root/user/UserCollections.js:134
-#, fuzzy
-#| msgid "Edit"
 msgctxt "verb, interactive"
 msgid "Edit"
 msgstr "Bewerken"
@@ -1064,7 +1058,7 @@ msgstr ""
 
 #: ../root/edit/search_macros.tt:434
 msgid "Entered"
-msgstr ""
+msgstr "Ingediend"
 
 #: ../root/components/forms.tt:30
 msgid ""
@@ -1389,6 +1383,8 @@ msgid ""
 "If needed, the characters \"[\", \"]\", and \"&\" can be escaped using the "
 "HTML entities \"&lsqb;\", \"&rsqb;\", and \"&amp;\" respectively."
 msgstr ""
+"Als je de tekens ‘[’, ‘]’ en ‘&’ nodig hebt, kun je de html-codes ‘&lsqb’, "
+"‘&rsqb’ en ‘&amp;’ gebruiken."
 
 #: ../root/release/edit/recordings.tt:134
 msgid ""
@@ -1446,6 +1442,8 @@ msgid ""
 "If you don’t select an existing release group, a new one will be added with "
 "the types selected below."
 msgstr ""
+"Als je geen bestaande uitgavegroep selecteert, wordt er een nieuwe "
+"toegevoegd met de hieronder geselecteerde types."
 
 #: ../root/release/edit/tracklist.tt:5
 msgid "If you have a tracklist you can copy and paste, you can input it here."
@@ -1535,6 +1533,13 @@ msgid ""
 "elsewhere and the durations are significantly different, consider adding a "
 "new recording instead."
 msgstr ""
+"Houd er rekening mee dat de duur van de opname {doc_link|opnieuw aan de hand "
+"van de nummers wordt berekend} als de duur van een nummer verandert. Dus als "
+"je de duur van een nummer verbetert en de opname die bij dat nummer hoort "
+"alleen op deze uitgave wordt gebruikt, voeg je geen nieuwe opname toe. Maar "
+"als deze opname ook elders wordt gebruikt en de duur van de gekoppelde "
+"nummers significant verschillen, kan je overwegen om een nieuwe opname toe "
+"te voegen."
 
 #: ../root/release/edit/tracklist.tt:502
 msgid ""
@@ -1542,6 +1547,9 @@ msgid ""
 "disc ID! If you unselect it by mistake, please readd the pregap track before "
 "submitting."
 msgstr ""
+"Vergeet niet dat het nummer wordt verwijderd als je dit vakje uitvinkt en "
+"het medium een disc-ID heeft! Als je het per ongeluk hebt uitgevinkt, moet "
+"je het pregapnummer weer toevoegen voordat je de bewerking indient."
 
 #: ../root/release/edit/tracklist.tt:517
 msgid ""
@@ -1549,6 +1557,9 @@ msgid ""
 "a disc ID! If you unselect it by mistake, please readd the data tracks "
 "before submitting."
 msgstr ""
+"Vergeet niet dat de nummers worden verwijderd als je dit vakje uitvinkt en "
+"het medium een disc-ID heeft! Als je het per ongeluk hebt uitgevinkt, moet "
+"je de pregapnummers weer toevoegen voordat je de bewerking indient."
 
 #: ../root/cdtoc/attach_artist_releases.tt:17
 #: ../root/cdtoc/attach_filter_release.tt:31 ../root/cdtoc/list.tt:11
@@ -1710,8 +1721,6 @@ msgid "Merge"
 msgstr "Samenvoegen"
 
 #: ../root/layout/merge-helper.tt:3 ../root/layout/components/MergeHelper.js:30
-#, fuzzy
-#| msgid "Merge Process"
 msgid "Merge process"
 msgstr "Samenvoegingsproces"
 
@@ -1903,6 +1912,9 @@ msgid ""
 "2011-05-16; or which remove relationships, entered after 2013-07-08; or "
 "which reorder relationships."
 msgstr ""
+"Let op: er wordt nu alleen gezocht naar bewerkingen die relaties toevoegen "
+"of bewerken en ingediend zijn na 16 mei 2011, of die relaties verwijderen en "
+"ingediend zijn na 8 juli 2013, of die de volgorde van relaties veranderen."
 
 #: ../root/release/edit/recordings.tt:120
 msgid "Now loading recording associations..."
@@ -2104,7 +2116,7 @@ msgstr "Relatieredacteur"
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:91
 #: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:294
 msgid "Relationship type"
-msgstr ""
+msgstr "Relatietype"
 
 #: ../root/cdtoc/attach_artist_releases.tt:15
 #: ../root/cdtoc/attach_filter_release.tt:28 ../root/cdtoc/lookup.tt:40
@@ -2147,10 +2159,8 @@ msgid "Release country"
 msgstr "Land van uitgave"
 
 #: ../root/edit/search_macros.tt:434
-#, fuzzy
-#| msgid "Release Quality"
 msgid "Release data quality"
-msgstr "Kwaliteit van de gegevens"
+msgstr "Gegevenskwaliteit van de uitgave"
 
 #: ../root/release/edit/layout.tt:14
 msgid "Release duplicates"
@@ -2365,10 +2375,8 @@ msgstr "Zoeken …"
 #: ../root/release/edit/information.tt:98 ../root/release_group/edit_form.tt:17
 #: ../root/edit/details/AddReleaseGroup.js:80
 #: ../root/edit/details/EditReleaseGroup.js:79
-#, fuzzy
-#| msgid "Secondary type"
 msgid "Secondary types"
-msgstr "Secundair type"
+msgstr "Secundaire types"
 
 #: ../root/cdtoc/move_search.tt:42 ../root/cdtoc/SelectArtistForCDToc.js:94
 msgid "Select"
@@ -2602,6 +2610,9 @@ msgid ""
 "written in, nor to the language used for other extra information on the "
 "cover."
 msgstr ""
+"De taal moet worden ingesteld op de taal die voor de titel van de uitgave en "
+"de nummers is gebruikt. De taal moet niet worden ingesteld op de taal waarin "
+"de teksten of extra informatie op de voorkant zijn geschreven."
 
 #: ../root/release/edit/information.tt:351
 msgid ""
@@ -2620,6 +2631,8 @@ msgid ""
 "The script attribute should be set to the script used for the release title "
 "and track titles."
 msgstr ""
+"Het schrift moet worden ingesteld op het schrift dat voor de titels van de "
+"uitgave en de nummers is gebruikt."
 
 #: ../root/layout.tt:70 ../root/layout/index.js:250
 msgid "The server is temporarily in read-only mode for database maintenance."
@@ -2631,6 +2644,9 @@ msgid ""
 "The sort name is an artist name variant used when sorting alphabetically. "
 "For usage information check the {sort_name_doc|sort name guidelines}."
 msgstr ""
+"De sorteernaam is een variant van de artiestennaam die goed alfabetisch kan "
+"worden gesorteerd. Zie voor informatie de {sort_name_doc|richtlijnen voor "
+"sorteernamen}."
 
 #: ../root/release/edit/tracklist.tt:124
 msgid ""
@@ -2665,6 +2681,10 @@ msgid ""
 "disc to another MusicBrainz release, or to add a new one if the search shows "
 "it is missing from the database."
 msgstr ""
+"MusicBrainz heeft nu geen schijf die past bij de informatie die je hebt "
+"opgegeven. Je kunt met het formulier hieronder zoeken om deze schijf aan een "
+"andere MusicBrainz-uitgave toe te voegen of een nieuwe uitgave toevoegen als "
+"de schijf nog niet in de databank staat."
 
 #: ../root/release/discids.tt:56
 msgid ""
@@ -2744,7 +2764,7 @@ msgstr "Dit object is verwijderd en kan niet correct worden weergegeven."
 #: ../root/components/common-macros.tt:190
 #: ../root/static/scripts/common/components/EntityLink.js:36
 msgid "This entity will be added by this edit."
-msgstr ""
+msgstr "Dit object zal door deze bewerking worden toegevoegd."
 
 #: ../root/event/edit_form.tt:15
 msgid "This event was cancelled."
@@ -2943,6 +2963,9 @@ msgid ""
 "To enter a new tracklist, use an existing medium or import a disc from a CD "
 "stub, select the appropriate tab."
 msgstr ""
+"Om een nieuwe nummerlijst in te voeren, kan je een bestaand medium gebruiken "
+"of een medium van een cd-beginnetje importeren. Selecteer hiervoor het "
+"bijbehorende tabblad."
 
 #: ../root/cdstub/index.tt:21 ../root/cdstub/CDStubIndex.js:55
 #: ../root/cdtoc/CDTocInfo.js:42
@@ -3218,6 +3241,11 @@ msgid ""
 "below in order to attach this disc to another MusicBrainz release, or to add "
 "a new one if the search shows it is missing from the database."
 msgstr ""
+"We hebben schijven gevonden die passen bij de informatie die je hebt "
+"opgevraagd. Als geen van de uitgaven hieronder de juiste is, kun je met het "
+"formulier hieronder zoeken om deze schijf aan een andere MusicBrainz-uitgave "
+"toe te voegen of een nieuwe uitgave toevoegen als de schijf nog niet in de "
+"databank staat."
 
 #: ../root/cdtoc/lookup.tt:12
 msgid "We used disc ID <code>{discid}</code> to look up this information."
@@ -3305,6 +3333,11 @@ msgid ""
 "artists, or “{use_track_lengths}” if you have track lengths but want the "
 "parser to ignore them."
 msgstr ""
+"Je kan de selectievakjes hieronder gebruiken om bepaalde delen uit te "
+"schakelen. Je kan bijvoorbeeld “{lines_have_artists}” uitschakelen als je "
+"geen artiesten voor de nummers hebt, of “{use_track_lengths}” uitschakelen "
+"als je wel de duur van de nummers hebt, maar die bij het invullen wil "
+"negeren."
 
 #: ../root/release/edit/information.tt:165
 msgid "You cannot use the same country more than once."
@@ -3341,6 +3374,8 @@ msgid ""
 "You must enter a title for every track (if the track is untitled, enter "
 "“{untitled_track}”)."
 msgstr ""
+"Je moet voor elk nummer een titel invoeren (als het nummer geen titel heeft, "
+"vul je “{untitled_track}” in)."
 
 #: ../root/release/edit/editnote.tt:32
 msgid "You must provide an edit note when adding a release."
@@ -3355,6 +3390,12 @@ msgid ""
 "selecting “{add_a_new_artist}” from the bottom of the search results drop-"
 "down."
 msgstr ""
+"Je moet voor elk nummer een artiest selecteren (de achtergrondkleur van het "
+"artiestveld moet groen zijn). Als je een artiest hebt ingevoerd maar de "
+"achtergrond ongekleurd blijft, klik je op het vergrootglas om de artiest in "
+"MusicBrainz te zoeken. Als de artiest nog niet bestaat, kan je hem toevoegen "
+"door onderaan de vervolgkeuzelijst met de zoekresultaten “{add_a_new_artist}”"
+" te selecteren."
 
 #: ../root/release/edit/information.tt:30
 msgid ""
@@ -3365,6 +3406,12 @@ msgid ""
 "selecting “{add_a_new_artist}” from the bottom of the search results drop-"
 "down."
 msgstr ""
+"Je moet voor de uitgave een artiest selecteren (de achtergrondkleur van het "
+"artiestveld moet groen zijn). Als je een artiest hebt ingevoerd maar de "
+"achtergrond ongekleurd blijft, klik je op het vergrootglas om de artiest in "
+"MusicBrainz te zoeken. Als de artiest nog niet bestaat, kan je hem toevoegen "
+"door onderaan de vervolgkeuzelijst met de zoekresultaten “{add_a_new_artist}”"
+" te selecteren."
 
 #: ../root/release/edit/information.tt:56
 msgid "You must select an existing release group."
@@ -3796,7 +3843,7 @@ msgstr "« Vorige"
 #: ../root/components/forms.tt:362
 msgid ""
 "“Last Name, First Name” and “Group, The” are common examples of sort names."
-msgstr ""
+msgstr "Sorteernamen zijn bijvoorbeeld “Voornaam, Achternaam” en “Groep, De”."
 
 #: ../root/components/paginator.tt:19 ../root/components/paginator.tt:31
 #: ../root/components/paginator.tt:39 ../root/components/Paginator.js:94
@@ -3982,7 +4029,7 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:825
 msgid "There is no OAuth token with these parameters."
-msgstr ""
+msgstr "Er is geen OAuth-token met deze parameters."
 
 #: ../lib/MusicBrainz/Server/Controller/Account/Subscriptions/Collection.pm:22
 msgid "The provided collection ID doesn’t exist."
@@ -4003,31 +4050,33 @@ msgstr "‘{id}’ is geen geldige verkiezings-ID"
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:78
 msgid "Please provide a CD TOC ID."
-msgstr ""
+msgstr "Geef een cd-TOC-ID op."
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:82
 msgid "The provided CD TOC ID is not valid."
-msgstr ""
+msgstr "De opgegeven cd-TOC-ID is ongeldig."
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:88
 msgid "Please provide a medium ID."
-msgstr ""
+msgstr "Geef een medium-ID op."
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:92
 msgid "The provided medium id is not valid."
-msgstr ""
+msgstr "De opgegeven medium-ID is niet geldig."
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:98
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:226
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:441
 msgid "The provided medium ID doesn’t exist."
-msgstr ""
+msgstr "De opgegeven medium-ID bestaat niet."
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:104
 msgid ""
 "The provided CD TOC ID doesn’t exist or is not connected to the provided "
 "medium."
 msgstr ""
+"De opgegeven cd-TOC-ID bestaat niet of is niet aan het opgegeven medium "
+"gekoppeld."
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:153
 msgid "Please provide a medium ID"
@@ -4073,6 +4122,8 @@ msgstr "De opgegeven TOC van de cd bestaat niet."
 msgid ""
 "“{id}” is not a valid row ID; the entity might have been merged or removed."
 msgstr ""
+"“{id}” is geen geldige rij-ID; mogelijk is het object samengevoegd of "
+"verwijderd."
 
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:294
 #: ../lib/MusicBrainz/Server/Form/ChangeReleaseQuality.pm:24
@@ -4103,7 +4154,7 @@ msgstr "Standaard"
 #: ../lib/MusicBrainz/Server/Controller/EditNote.pm:105
 #: ../lib/MusicBrainz/Server/Controller/EditNote.pm:123
 msgid "Can’t change edit note"
-msgstr ""
+msgstr "De bewerkingsnotitie kan iet worden gewijzigd"
 
 #: ../lib/MusicBrainz/Server/Controller/EditNote.pm:50
 msgid "You can’t change other users’ edit notes."
@@ -4206,12 +4257,16 @@ msgstr "[onbekend]"
 msgid ""
 "Language set. If it was not intended, just {url|set “{prev_lang_name}” back}."
 msgstr ""
+"Taal ingesteld. Als dat niet de bedoeling is, kun je het {url|terugzetten "
+"naar “{prev_lang_name}”}."
 
 #: ../lib/MusicBrainz/Server/Controller/Root.pm:101
 msgid ""
 "If you find any problems with the translation, please {url|help us improve "
 "it}!"
 msgstr ""
+"Als je fouten in de vertaling ziet, {url|kan je helpen om haar te "
+"verbeteren}."
 
 #: ../lib/MusicBrainz/Server/Controller/Root.pm:322
 msgid ""
@@ -4577,76 +4632,56 @@ msgid "Remove genre"
 msgstr "Genre verwijderen"
 
 #: ../lib/MusicBrainz/Server/Edit/Genre/DeleteAlias.pm:16
-#, fuzzy
-#| msgid "Remove genre alias"
 msgctxt "edit type"
 msgid "Remove genre alias"
 msgstr "Alias van dit genre verwijderen"
 
 #: ../lib/MusicBrainz/Server/Edit/Genre/Edit.pm:22
-#, fuzzy
-#| msgid "Edit genre"
 msgctxt "edit type"
 msgid "Edit genre"
 msgstr "Genre bewerken"
 
 #: ../lib/MusicBrainz/Server/Edit/Genre/EditAlias.pm:12
-#, fuzzy
-#| msgid "Edit genre alias"
 msgctxt "edit type"
 msgid "Edit genre alias"
 msgstr "Alias van dit genre bewerken"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/AddDiscID.pm:12
 #: ../lib/MusicBrainz/Server/Edit/Medium/AddDiscID.pm:11
-#, fuzzy
-#| msgid "Add disc ID"
 msgctxt "edit type"
 msgid "Add disc ID"
 msgstr "Disc-ID toevoegen"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/AddLink.pm:11
 #: ../lib/MusicBrainz/Server/Edit/Relationship/Create.pm:32
-#, fuzzy
-#| msgid "Add relationship"
 msgctxt "edit type"
 msgid "Add relationship"
 msgstr "Relatie toevoegen"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/AddRelease.pm:22
 #: ../lib/MusicBrainz/Server/Edit/Release/Create.pm:31
-#, fuzzy
-#| msgid "Add release"
 msgctxt "edit type"
 msgid "Add release"
 msgstr "Uitgave toevoegen"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/AddReleaseAnnotation.pm:14
 #: ../lib/MusicBrainz/Server/Edit/Release/AddAnnotation.pm:11
-#, fuzzy
-#| msgid "Add release annotation"
 msgctxt "edit type"
 msgid "Add release annotation"
 msgstr "Aantekening aan de uitgave toevoegen"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/AddReleaseEvents.pm:12
-#, fuzzy
-#| msgid "Add release events (historic)"
 msgctxt "edit type"
 msgid "Add release events (historic)"
 msgstr "Uitgavegebeurtenissen toevoegen (historisch)"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/AddTrack.pm:12
 #: ../lib/MusicBrainz/Server/Edit/Historic/AddTrackKV.pm:11
-#, fuzzy
-#| msgid "Add track (historic)"
 msgctxt "edit type"
 msgid "Add track (historic)"
 msgstr "Nummer toevoegen (historisch)"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/ChangeArtistQuality.pm:13
-#, fuzzy
-#| msgid "Change artist quality (historic)"
 msgctxt "edit type"
 msgid "Change artist quality (historic)"
 msgstr "Gegevenskwaliteit van de artiest veranderen (historisch)"
@@ -4659,40 +4694,30 @@ msgstr "Gegevenskwaliteit van de artiest veranderen (historisch)"
 #: ../lib/MusicBrainz/Server/Edit/Historic/MoveReleaseToRG.pm:18
 #: ../lib/MusicBrainz/Server/Edit/Release/Edit.pm:47
 #: ../lib/MusicBrainz/Server/Edit/Release/EditArtist.pm:31
-#, fuzzy
-#| msgid "Edit release"
 msgctxt "edit type"
 msgid "Edit release"
 msgstr "Uitgave bewerken"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/ChangeReleaseQuality.pm:13
 #: ../lib/MusicBrainz/Server/Edit/Release/ChangeQuality.pm:26
-#, fuzzy
-#| msgid "Change release data quality"
 msgctxt "edit type"
 msgid "Change release data quality"
 msgstr "Gegevenskwaliteitsscore van de uitgave veranderen"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/ChangeTrackArtist.pm:14
 #: ../lib/MusicBrainz/Server/Edit/Historic/EditTrackNum.pm:14
-#, fuzzy
-#| msgid "Edit track (historic)"
 msgctxt "edit type"
 msgid "Edit track (historic)"
 msgstr "Nummer bewerken (historisch)"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/EditLink.pm:16
 #: ../lib/MusicBrainz/Server/Edit/Relationship/Edit.pm:40
-#, fuzzy
-#| msgid "Edit relationship"
 msgctxt "edit type"
 msgid "Edit relationship"
 msgstr "Relatie bewerken"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/EditReleaseEvents.pm:12
 #: ../lib/MusicBrainz/Server/Edit/Historic/EditReleaseEventsOld.pm:18
-#, fuzzy
-#| msgid "Edit release events (historic)"
 msgctxt "edit type"
 msgid "Edit release events (historic)"
 msgstr "Uitgavegebeurtenissen bewerken (historisch)"
@@ -4700,15 +4725,11 @@ msgstr "Uitgavegebeurtenissen bewerken (historisch)"
 #: ../lib/MusicBrainz/Server/Edit/Historic/EditTrackLength.pm:13
 #: ../lib/MusicBrainz/Server/Edit/Historic/EditTrackName.pm:23
 #: ../lib/MusicBrainz/Server/Edit/Recording/Edit.pm:43
-#, fuzzy
-#| msgid "Edit recording"
 msgctxt "edit type"
 msgid "Edit recording"
 msgstr "Opname bewerken"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/MACToSAC.pm:13
-#, fuzzy
-#| msgid "Convert release to single artist (historic)"
 msgctxt "edit type"
 msgid "Convert release to single artist (historic)"
 msgstr "Uitgave naar één artiest omzetten (historisch)"
@@ -4716,210 +4737,152 @@ msgstr "Uitgave naar één artiest omzetten (historisch)"
 #: ../lib/MusicBrainz/Server/Edit/Historic/MergeRelease.pm:13
 #: ../lib/MusicBrainz/Server/Edit/Historic/MergeReleaseMAC.pm:10
 #: ../lib/MusicBrainz/Server/Edit/Release/Merge.pm:139
-#, fuzzy
-#| msgid "Merge releases"
 msgctxt "edit type"
 msgid "Merge releases"
 msgstr "Uitgaven samenvoegen"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/MoveDiscID.pm:12
 #: ../lib/MusicBrainz/Server/Edit/Medium/MoveDiscID.pm:21
-#, fuzzy
-#| msgid "Move disc ID"
 msgctxt "edit type"
 msgid "Move disc ID"
 msgstr "Disc-ID verplaatsen"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/RemoveDiscID.pm:12
 #: ../lib/MusicBrainz/Server/Edit/Medium/RemoveDiscID.pm:10
-#, fuzzy
-#| msgid "Remove disc ID"
 msgctxt "edit type"
 msgid "Remove disc ID"
 msgstr "Disc-ID verwijderen"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/RemoveLabelAlias.pm:12
 #: ../lib/MusicBrainz/Server/Edit/Label/DeleteAlias.pm:16
-#, fuzzy
-#| msgid "Remove label alias"
 msgctxt "edit type"
 msgid "Remove label alias"
 msgstr "Alias van platenmaatschappij verwijderen"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/RemoveLink.pm:11
 #: ../lib/MusicBrainz/Server/Edit/Relationship/Delete.pm:36
-#, fuzzy
-#| msgid "Remove relationship"
 msgctxt "edit type"
 msgid "Remove relationship"
 msgstr "Relatie verwijderen"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/RemoveRelease.pm:15
 #: ../lib/MusicBrainz/Server/Edit/Release/Delete.pm:12
-#, fuzzy
-#| msgid "Remove release"
 msgctxt "edit type"
 msgid "Remove release"
 msgstr "Uitgave verwijderen"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/RemoveReleaseEvents.pm:12
-#, fuzzy
-#| msgid "Remove release events (historic)"
 msgctxt "edit type"
 msgid "Remove release events (historic)"
 msgstr "Uitgavegebeurtenissen verwijderen (historisch)"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/RemoveReleases.pm:12
-#, fuzzy
-#| msgid "Remove releases (historic)"
 msgctxt "edit type"
 msgid "Remove releases (historic)"
 msgstr "Uitgaven verwijderen (historisch)"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/RemoveTrack.pm:11
-#, fuzzy
-#| msgid "Remove track"
 msgctxt "edit type"
 msgid "Remove track"
 msgstr "Nummer verwijderen"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/SACToMAC.pm:16
-#, fuzzy
-#| msgid "Convert release to multiple artists (historic)"
 msgctxt "edit type"
 msgid "Convert release to multiple artists (historic)"
-msgstr "Zet uitgave om naar meerdere artiesten (historisch)"
+msgstr "Uitgave om naar meerdere artiesten omzetten (historisch)"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/SetTrackLengthsFromCDTOC.pm:14
 #: ../lib/MusicBrainz/Server/Edit/Medium/SetTrackLengths.pm:23
-#, fuzzy
-#| msgid "Set track lengths"
 msgctxt "edit type"
 msgid "Set track lengths"
 msgstr "Duur van de nummers instellen"
 
 #: ../lib/MusicBrainz/Server/Edit/Instrument/AddAlias.pm:11
-#, fuzzy
-#| msgid "Add instrument alias"
 msgctxt "edit type"
 msgid "Add instrument alias"
-msgstr "Nog een alias voor dit instrument toevoegen"
+msgstr "Alias voor dit instrument toevoegen"
 
 #: ../lib/MusicBrainz/Server/Edit/Instrument/AddAnnotation.pm:11
-#, fuzzy
-#| msgid "Add instrument annotation"
 msgctxt "edit type"
 msgid "Add instrument annotation"
 msgstr "Aantekening aan het instrument toevoegen"
 
 #: ../lib/MusicBrainz/Server/Edit/Instrument/Create.pm:20
-#, fuzzy
-#| msgid "Add instrument"
 msgctxt "edit type"
 msgid "Add instrument"
 msgstr "Instrument toevoegen"
 
 #: ../lib/MusicBrainz/Server/Edit/Instrument/Delete.pm:10
-#, fuzzy
-#| msgid "Remove instrument"
 msgctxt "edit type"
 msgid "Remove instrument"
 msgstr "Instrument verwijderen"
 
 #: ../lib/MusicBrainz/Server/Edit/Instrument/DeleteAlias.pm:16
-#, fuzzy
-#| msgid "Remove instrument alias"
 msgctxt "edit type"
 msgid "Remove instrument alias"
 msgstr "Alias van het instrument verwijderen"
 
 #: ../lib/MusicBrainz/Server/Edit/Instrument/Edit.pm:26
-#, fuzzy
-#| msgid "Edit instrument"
 msgctxt "edit type"
 msgid "Edit instrument"
 msgstr "Instrument bewerken"
 
 #: ../lib/MusicBrainz/Server/Edit/Instrument/EditAlias.pm:12
-#, fuzzy
-#| msgid "Edit instrument alias"
 msgctxt "edit type"
 msgid "Edit instrument alias"
 msgstr "Alias van dit instrument bewerken"
 
 #: ../lib/MusicBrainz/Server/Edit/Instrument/Merge.pm:11
-#, fuzzy
-#| msgid "Merge instruments"
 msgctxt "edit type"
 msgid "Merge instruments"
 msgstr "Instrumenten samenvoegen"
 
 #: ../lib/MusicBrainz/Server/Edit/Label/AddAlias.pm:11
-#, fuzzy
-#| msgid "Add label alias"
 msgctxt "edit type"
 msgid "Add label alias"
 msgstr "Alias aan deze platenmaatschappij toevoegen"
 
 #: ../lib/MusicBrainz/Server/Edit/Label/AddAnnotation.pm:11
-#, fuzzy
-#| msgid "Add label annotation"
 msgctxt "edit type"
 msgid "Add label annotation"
 msgstr "Aantekening aan de platenmaatschappij toevoegen"
 
 #: ../lib/MusicBrainz/Server/Edit/Label/Create.pm:30
-#, fuzzy
-#| msgid "Add label"
 msgctxt "edit type"
 msgid "Add label"
 msgstr "Platenmaatschappij toevoegen"
 
 #: ../lib/MusicBrainz/Server/Edit/Label/Delete.pm:12
-#, fuzzy
-#| msgid "Remove label"
 msgctxt "edit type"
 msgid "Remove label"
 msgstr "Platenmaatschappij verwijderen"
 
 #: ../lib/MusicBrainz/Server/Edit/Label/Edit.pm:42
-#, fuzzy
-#| msgid "Edit label"
 msgctxt "edit type"
 msgid "Edit label"
 msgstr "Platenmaatschappij bewerken"
 
 #: ../lib/MusicBrainz/Server/Edit/Label/EditAlias.pm:12
-#, fuzzy
-#| msgid "Edit label alias"
 msgctxt "edit type"
 msgid "Edit label alias"
 msgstr "Alias van deze platenmaatschappij bewerken"
 
 #: ../lib/MusicBrainz/Server/Edit/Label/Merge.pm:12
-#, fuzzy
-#| msgid "Merge labels"
 msgctxt "edit type"
 msgid "Merge labels"
 msgstr "Platenmaatschappijen samenvoegen"
 
 #: ../lib/MusicBrainz/Server/Edit/Medium/Create.pm:31
-#, fuzzy
-#| msgid "Add medium"
 msgctxt "edit type"
 msgid "Add medium"
 msgstr "Medium toevoegen"
 
 #: ../lib/MusicBrainz/Server/Edit/Medium/Delete.pm:23
-#, fuzzy
-#| msgid "Remove medium"
 msgctxt "edit type"
 msgid "Remove medium"
 msgstr "Medium verwijderen"
 
 #: ../lib/MusicBrainz/Server/Edit/Medium/Edit.pm:51
-#, fuzzy
-#| msgid "Edit medium"
 msgctxt "edit type"
 msgid "Edit medium"
 msgstr "Medium bewerken"
@@ -4933,120 +4896,86 @@ msgstr ""
 "is verwijderd nadat deze bewerking was ingediend."
 
 #: ../lib/MusicBrainz/Server/Edit/Place/AddAlias.pm:11
-#, fuzzy
-#| msgid "Add place alias"
 msgctxt "edit type"
 msgid "Add place alias"
 msgstr "Alias aan deze plaats toevoegen"
 
 #: ../lib/MusicBrainz/Server/Edit/Place/AddAnnotation.pm:11
-#, fuzzy
-#| msgid "Add place annotation"
 msgctxt "edit type"
 msgid "Add place annotation"
 msgstr "Aantekening aan de plaats toevoegen"
 
 #: ../lib/MusicBrainz/Server/Edit/Place/Create.pm:26
-#, fuzzy
-#| msgid "Add place"
 msgctxt "edit type"
 msgid "Add place"
 msgstr "Plaats toevoegen"
 
 #: ../lib/MusicBrainz/Server/Edit/Place/Delete.pm:10
-#, fuzzy
-#| msgid "Remove place"
 msgctxt "edit type"
 msgid "Remove place"
 msgstr "Plaats verwijderen"
 
 #: ../lib/MusicBrainz/Server/Edit/Place/DeleteAlias.pm:15
-#, fuzzy
-#| msgid "Remove place alias"
 msgctxt "edit type"
 msgid "Remove place alias"
 msgstr "Alias van deze plaats verwijderen"
 
 #: ../lib/MusicBrainz/Server/Edit/Place/Edit.pm:43
-#, fuzzy
-#| msgid "Edit place"
 msgctxt "edit type"
 msgid "Edit place"
 msgstr "Plaats bewerken"
 
 #: ../lib/MusicBrainz/Server/Edit/Place/EditAlias.pm:12
-#, fuzzy
-#| msgid "Edit place alias"
 msgctxt "edit type"
 msgid "Edit place alias"
 msgstr "Alias van deze plaats bewerken"
 
 #: ../lib/MusicBrainz/Server/Edit/Place/Merge.pm:11
-#, fuzzy
-#| msgid "Merge places"
 msgctxt "edit type"
 msgid "Merge places"
 msgstr "Plaatsen samenvoegen"
 
 #: ../lib/MusicBrainz/Server/Edit/Recording/AddAlias.pm:11
-#, fuzzy
-#| msgid "Add recording alias"
 msgctxt "edit type"
 msgid "Add recording alias"
 msgstr "Alias aan deze opname toevoegen"
 
 #: ../lib/MusicBrainz/Server/Edit/Recording/AddAnnotation.pm:11
-#, fuzzy
-#| msgid "Add recording annotation"
 msgctxt "edit type"
 msgid "Add recording annotation"
 msgstr "Aantekening aan de opname toevoegen"
 
 #: ../lib/MusicBrainz/Server/Edit/Recording/AddISRCs.pm:23
-#, fuzzy
-#| msgid "Add ISRCs"
 msgctxt "edit type"
 msgid "Add ISRCs"
 msgstr "ISRC’s toevoegen"
 
 #: ../lib/MusicBrainz/Server/Edit/Recording/Create.pm:26
-#, fuzzy
-#| msgid "Add standalone recording"
 msgctxt "edit type"
 msgid "Add standalone recording"
 msgstr "Losse opname toevoegen"
 
 #: ../lib/MusicBrainz/Server/Edit/Recording/Delete.pm:12
-#, fuzzy
-#| msgid "Remove recording"
 msgctxt "edit type"
 msgid "Remove recording"
 msgstr "Opname verwijderen"
 
 #: ../lib/MusicBrainz/Server/Edit/Recording/DeleteAlias.pm:15
-#, fuzzy
-#| msgid "Remove recording alias"
 msgctxt "edit type"
 msgid "Remove recording alias"
 msgstr "Alias van de opname verwijderen"
 
 #: ../lib/MusicBrainz/Server/Edit/Recording/EditAlias.pm:12
-#, fuzzy
-#| msgid "Edit recording alias"
 msgctxt "edit type"
 msgid "Edit recording alias"
 msgstr "Alias van de opname bewerken"
 
 #: ../lib/MusicBrainz/Server/Edit/Recording/Merge.pm:15
-#, fuzzy
-#| msgid "Merge recordings"
 msgctxt "edit type"
 msgid "Merge recordings"
 msgstr "Opnames samenvoegen"
 
 #: ../lib/MusicBrainz/Server/Edit/Recording/RemoveISRC.pm:21
-#, fuzzy
-#| msgid "Remove ISRC"
 msgctxt "edit type"
 msgid "Remove ISRC"
 msgstr "ISRC verwijderen"
@@ -5062,15 +4991,11 @@ msgid "Relationship"
 msgstr "Relatie"
 
 #: ../lib/MusicBrainz/Server/Edit/Relationship/AddLinkAttribute.pm:16
-#, fuzzy
-#| msgid "Add relationship attribute"
 msgctxt "edit type"
 msgid "Add relationship attribute"
 msgstr "Relatie-eigenschap toevoegen"
 
 #: ../lib/MusicBrainz/Server/Edit/Relationship/AddLinkType.pm:15
-#, fuzzy
-#| msgid "Add relationship type"
 msgctxt "edit type"
 msgid "Add relationship type"
 msgstr "Relatietype toevoegen"
@@ -5094,99 +5019,71 @@ msgstr ""
 "Er is al een {relationship_type}-relatie tussen {entity0} en {entity1}."
 
 #: ../lib/MusicBrainz/Server/Edit/Relationship/EditLinkAttribute.pm:17
-#, fuzzy
-#| msgid "Edit relationship attribute"
 msgctxt "edit type"
 msgid "Edit relationship attribute"
 msgstr "Relatie-eigenschap bewerken"
 
 #: ../lib/MusicBrainz/Server/Edit/Relationship/EditLinkType.pm:23
-#, fuzzy
-#| msgid "Edit relationship type"
 msgctxt "edit type"
 msgid "Edit relationship type"
 msgstr "Relatietype bewerken"
 
 #: ../lib/MusicBrainz/Server/Edit/Relationship/RemoveLinkAttribute.pm:13
-#, fuzzy
-#| msgid "Remove relationship attribute"
 msgctxt "edit type"
 msgid "Remove relationship attribute"
 msgstr "Relatie-eigenschap verwijderen"
 
 #: ../lib/MusicBrainz/Server/Edit/Relationship/RemoveLinkType.pm:14
-#, fuzzy
-#| msgid "Remove relationship type"
 msgctxt "edit type"
 msgid "Remove relationship type"
 msgstr "Relatietype verwijderen"
 
 #: ../lib/MusicBrainz/Server/Edit/Relationship/Reorder.pm:27
-#, fuzzy
-#| msgid "Reorder relationships"
 msgctxt "edit type"
 msgid "Reorder relationships"
 msgstr "Relaties herschikken"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/AddAlias.pm:11
-#, fuzzy
-#| msgid "Add release alias"
 msgctxt "edit type"
 msgid "Add release alias"
 msgstr "Alias aan de uitgave toevoegen"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/AddCoverArt.pm:21
-#, fuzzy
-#| msgid "Add cover art"
 msgctxt "singular, edit type"
 msgid "Add cover art"
 msgstr "Afbeeldingen toevoegen"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/AddReleaseLabel.pm:19
-#, fuzzy
-#| msgid "Add release label"
 msgctxt "edit type"
 msgid "Add release label"
 msgstr "Platenmaatschappij aan de uitgave toevoegen"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/DeleteAlias.pm:15
-#, fuzzy
-#| msgid "Remove release alias"
 msgctxt "edit type"
 msgid "Remove release alias"
 msgstr "Alias van de uitgave verwijderen"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/DeleteReleaseLabel.pm:21
-#, fuzzy
-#| msgid "Remove release label"
 msgctxt "edit type"
 msgid "Remove release label"
 msgstr "De platenmaatschappij van de uitgave verwijderen"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/EditAlias.pm:12
-#, fuzzy
-#| msgid "Edit release alias"
 msgctxt "edit type"
 msgid "Edit release alias"
 msgstr "Alias van de uitgave bewerken"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/EditBarcodes.pm:20
-#, fuzzy
-#| msgid "Edit barcodes"
 msgctxt "edit type"
 msgid "Edit barcodes"
 msgstr "Streepjescodes bewerken"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/EditCoverArt.pm:23
-#, fuzzy
-#| msgid "Edit cover art"
 msgctxt "singular, edit type"
 msgid "Edit cover art"
 msgstr "Afbeelding bewerken"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/EditReleaseLabel.pm:27
-#, fuzzy
-#| msgid "Edit release label"
 msgctxt "edit type"
 msgid "Edit release label"
 msgstr "Platenmaatschappij van de uitgave bewerken"
@@ -5204,85 +5101,61 @@ msgid "These releases could not be merged: {reason}"
 msgstr "Deze uitgaven kunnen niet worden samengevoegd: {reason}"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/RemoveCoverArt.pm:21
-#, fuzzy
-#| msgid "Remove cover art"
 msgctxt "singular, edit type"
 msgid "Remove cover art"
 msgstr "Afbeelding verwijderen"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/ReorderCoverArt.pm:24
-#, fuzzy
-#| msgid "Reorder cover art"
 msgctxt "plural, edit type"
 msgid "Reorder cover art"
 msgstr "Volgorde veranderen"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/ReorderMediums.pm:20
-#, fuzzy
-#| msgid "Reorder mediums"
 msgctxt "edit type"
 msgid "Reorder mediums"
 msgstr "Volgorde van de media veranderen"
 
 #: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/AddAlias.pm:11
-#, fuzzy
-#| msgid "Add release group alias"
 msgctxt "edit type"
 msgid "Add release group alias"
 msgstr "Alias aan de uitgavegroep toevoegen"
 
 #: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/AddAnnotation.pm:11
-#, fuzzy
-#| msgid "Add release group annotation"
 msgctxt "edit type"
 msgid "Add release group annotation"
 msgstr "Aantekening aan de uitgavegroep toevoegen"
 
 #: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/Create.pm:28
-#, fuzzy
-#| msgid "Add release group"
 msgctxt "edit type"
 msgid "Add release group"
 msgstr "Uitgavegroep toevoegen"
 
 #: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/Delete.pm:12
-#, fuzzy
-#| msgid "Remove release group"
 msgctxt "edit type"
 msgid "Remove release group"
 msgstr "Uitgavegroep verwijderen"
 
 #: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/DeleteAlias.pm:15
-#, fuzzy
-#| msgid "Remove release group alias"
 msgctxt "edit type"
 msgid "Remove release group alias"
 msgstr "Alias van de uitgavegroep verwijderen"
 
 #: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/Edit.pm:42
-#, fuzzy
-#| msgid "Edit release group"
 msgctxt "edit type"
 msgid "Edit release group"
 msgstr "Uitgavegroep bewerken"
 
 #: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/EditAlias.pm:12
-#, fuzzy
-#| msgid "Edit release group alias"
 msgctxt "edit type"
 msgid "Edit release group alias"
 msgstr "Alias van de uitgavegroep bewerken"
 
 #: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/Merge.pm:13
-#, fuzzy
-#| msgid "Merge release groups"
 msgctxt "edit type"
 msgid "Merge release groups"
 msgstr "Uitgavegroepen samenvoegen"
 
 #: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/SetCoverArt.pm:20
-#, fuzzy
-#| msgid "Set cover art"
 msgctxt "singular, edit type"
 msgid "Set cover art"
 msgstr "Afbeelding instellen"
@@ -5348,18 +5221,14 @@ msgstr[1] ""
 "Controleer {label_search|alle plekken waar deze IPI wordt gebruikt}."
 
 #: ../lib/MusicBrainz/Server/Edit/Series/AddAlias.pm:11
-#, fuzzy
-#| msgid "Add series alias"
 msgctxt "edit type"
 msgid "Add series alias"
 msgstr "Een alias voor deze serie toevoegen"
 
 #: ../lib/MusicBrainz/Server/Edit/Series/AddAnnotation.pm:11
-#, fuzzy
-#| msgid "Add series annotation"
 msgctxt "edit type"
 msgid "Add series annotation"
-msgstr "Aantekening aan de serie toeveoegen"
+msgstr "Aantekening aan de serie toevoegen"
 
 #: ../lib/MusicBrainz/Server/Edit/Series/Create.pm:24
 #, fuzzy
@@ -5411,57 +5280,41 @@ msgid "Edit URL"
 msgstr "URL bewerken"
 
 #: ../lib/MusicBrainz/Server/Edit/Utils.pm:271 ../root/utility/edit.js:47
-#, fuzzy
-#| msgid "Open"
 msgctxt "adjective, edit status"
 msgid "Open"
-msgstr "Geopend"
+msgstr "Open"
 
 #: ../lib/MusicBrainz/Server/Edit/Utils.pm:272 ../root/utility/edit.js:40
-#, fuzzy
-#| msgid "Applied"
 msgctxt "edit status"
 msgid "Applied"
 msgstr "Doorgevoerd"
 
 #: ../lib/MusicBrainz/Server/Edit/Utils.pm:273 ../root/utility/edit.js:45
-#, fuzzy
-#| msgid "Failed vote"
 msgctxt "edit status"
 msgid "Failed vote"
 msgstr "Stemming mislukt"
 
 #: ../lib/MusicBrainz/Server/Edit/Utils.pm:274 ../root/utility/edit.js:43
-#, fuzzy
-#| msgid "Failed dependency"
 msgctxt "edit status"
 msgid "Failed dependency"
 msgstr "Mislukt door afhankelijkheid"
 
 #: ../lib/MusicBrainz/Server/Edit/Utils.pm:275 ../root/utility/edit.js:42
-#, fuzzy
-#| msgid "Error"
 msgctxt "edit status"
 msgid "Error"
 msgstr "Fout"
 
 #: ../lib/MusicBrainz/Server/Edit/Utils.pm:276 ../root/utility/edit.js:44
-#, fuzzy
-#| msgid "Failed prerequisite"
 msgctxt "edit status"
 msgid "Failed prerequisite"
 msgstr "Mislukt door voorwaarde"
 
 #: ../lib/MusicBrainz/Server/Edit/Utils.pm:277 ../root/utility/edit.js:46
-#, fuzzy
-#| msgid "No votes"
 msgctxt "edit status"
 msgid "No votes"
 msgstr "Geen stemmen"
 
 #: ../lib/MusicBrainz/Server/Edit/Utils.pm:278 ../root/utility/edit.js:41
-#, fuzzy
-#| msgid "Cancelled"
 msgctxt "edit status"
 msgid "Cancelled"
 msgstr "Geannuleerd"
@@ -5471,15 +5324,11 @@ msgid "Wiki documentation"
 msgstr "Wikidocumentatie"
 
 #: ../lib/MusicBrainz/Server/Edit/WikiDoc/Change.pm:16
-#, fuzzy
-#| msgid "Change WikiDoc"
 msgctxt "edit type"
 msgid "Change WikiDoc"
 msgstr "WikiDoc veranderen"
 
 #: ../lib/MusicBrainz/Server/Edit/Work/AddAlias.pm:11
-#, fuzzy
-#| msgid "Add work alias"
 msgctxt "edit type"
 msgid "Add work alias"
 msgstr "Alias aan deze compositie toevoegen"
@@ -5647,15 +5496,15 @@ msgstr "{role} (als {credited_name})"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Anghami.pm:10
 msgid "Stream at Anghami"
-msgstr ""
+msgstr "Streamen met Anghami"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Audiomack.pm:10
 msgid "Stream at Audiomack"
-msgstr ""
+msgstr "Streamen met Audiomack"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Boomplay.pm:10
 msgid "Stream at Boomplay"
-msgstr ""
+msgstr "Streamen met Boomplay"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/CPDL.pm:9
 msgid "Score(s) at CPDL"
@@ -5687,7 +5536,7 @@ msgstr "Niconico"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/RateYourMusic.pm:13
 msgid "Interview at Rate Your Music"
-msgstr ""
+msgstr "Interview op Rate Your Music"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Runeberg.pm:9
 msgid "Project Runeberg"
@@ -5786,6 +5635,8 @@ msgid ""
 "You must provide an edit note. If you want to blank the note, please remove "
 "it instead."
 msgstr ""
+"Je moet een bewerkingsnotitie opgeven. Als je de notitie leeg wilt laten, "
+"kun je haar verwijderen."
 
 #: ../lib/MusicBrainz/Server/Form/Field/ArtistCredit.pm:50
 #, perl-brace-format
@@ -6037,10 +5888,8 @@ msgstr "De geboortedatum moet na 1900 zijn"
 #: ../root/layout/components/Search.js:45
 #: ../root/search/components/CDStubResults.js:44
 #: ../root/search/components/SearchForm.js:44
-#, fuzzy
-#| msgid "CD stub import"
 msgid "CD stub"
-msgstr "Cd-beginnetje importeren"
+msgstr "Cd-beginnetje"
 
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:49
 #: ../root/layout/components/Search.js:42

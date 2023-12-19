@@ -10,11 +10,13 @@
 # Remko de Keijzer <email address hidden>, 2021
 # RandomMushroom128 <RandomMushroom128@users.noreply.translations.metabrainz.org>, 2023.
 # mfmeulenbelt <mfmeulenbelt@gmail.com>, 2023.
+# mfmeulenbelt <mfmeulenbelt@users.noreply.translations.metabrainz.org>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-08-29 13:27+0000\n"
-"Last-Translator: mfmeulenbelt <mfmeulenbelt@gmail.com>\n"
+"PO-Revision-Date: 2023-12-19 15:28+0000\n"
+"Last-Translator: mfmeulenbelt <mfmeulenbelt@users.noreply.translations."
+"metabrainz.org>\n"
 "Language-Team: Dutch <https://translations.metabrainz.org/projects/"
 "musicbrainz/attributes/nl/>\n"
 "Language: nl\n"
@@ -22,7 +24,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.18.2\n"
+"X-Generator: Weblate 5.3\n"
 
 #: DB:work_type/description:9
 msgctxt "work_type"
@@ -48,7 +50,7 @@ msgstr ""
 #: DB:medium_format/name:205
 msgctxt "medium_format"
 msgid "10\" Acetate"
-msgstr ""
+msgstr "10″-lakplaat"
 
 #: DB:medium_format/name:54
 msgctxt "medium_format"
@@ -63,7 +65,7 @@ msgstr "10″-vinyl"
 #: DB:medium_format/name:206
 msgctxt "medium_format"
 msgid "12\" Acetate"
-msgstr ""
+msgstr "12″-lakplaat"
 
 #: DB:medium_format/name:72
 msgctxt "medium_format"
@@ -93,7 +95,7 @@ msgstr "5,25″-floppy"
 #: DB:medium_format/name:204
 msgctxt "medium_format"
 msgid "7\" Acetate"
-msgstr ""
+msgstr "7″-lakplaat"
 
 #: DB:medium_format/name:52
 msgctxt "medium_format"
@@ -131,9 +133,6 @@ msgid "8cm CD+G"
 msgstr "8cm-cd+g"
 
 #: DB:medium_format/description:166
-#, fuzzy
-#| msgctxt "medium_format"
-#| msgid "8cm DVD disc, often used for video singles."
 msgctxt "medium_format"
 msgid "8cm DVD, often used for video singles."
 msgstr "8cm-dvd, vaak gebruikt voor videosingles."
@@ -379,6 +378,8 @@ msgid ""
 "A company that manufactures physical releases (such as pressing CDs or vinyl "
 "records)."
 msgstr ""
+"Een bedrijf dat fysieke uitgaven produceert (zoals het persen van cd’s of "
+"vinylplaten)."
 
 #: DB:work_type/description:4
 msgctxt "work_type"
@@ -432,6 +433,7 @@ msgstr ""
 msgctxt "label_type"
 msgid "A label that primarily puts out unsanctioned (bootleg) releases."
 msgstr ""
+"Een platenmaatschappij die vooral onofficiële (bootleg)uitgaven uitbrengt."
 
 #: DB:release_packaging/description:55
 msgctxt "release_packaging"
@@ -736,7 +738,7 @@ msgstr "Een serie gerelateerde concerten van een artiest op dezelfde locatie."
 msgctxt "series_type"
 msgid ""
 "A series of release groups containing episodes of the same podcast series."
-msgstr ""
+msgstr "Een serie uitgavegroepen met afleveringen van dezelfde podcastserie."
 
 #: DB:series_type/description:47
 msgctxt "series_type"
@@ -1062,7 +1064,7 @@ msgstr "Acemtarab"
 #: DB:medium_format/name:203
 msgctxt "medium_format"
 msgid "Acetate"
-msgstr ""
+msgstr "Lakplaat"
 
 #: DB:work_attribute_type_allowed_value/value:848
 msgctxt "work_attribute_type_allowed_value"
@@ -1320,7 +1322,7 @@ msgstr ""
 #: DB:label_type/description:8
 msgctxt "label_type"
 msgid "An organization which collects royalties on behalf of artists."
-msgstr ""
+msgstr "Een organisatie die namens artiesten royalty’s int."
 
 #: DB:work_type/description:12
 msgctxt "work_type"
@@ -3267,11 +3269,6 @@ msgid "Fireng-i Fer"
 msgstr "Fireng-i Fer"
 
 #: DB:medium_format/description:73
-#, fuzzy
-#| msgctxt "medium_format"
-#| msgid ""
-#| "Flat discs with grooves used in phonographs/gramophones. For shellac and "
-#| "vinyl records, use that specifically"
 msgctxt "medium_format"
 msgid ""
 "Flat discs with grooves used in phonographs/gramophones. For shellac and "
@@ -6377,7 +6374,7 @@ msgstr "playbutton"
 #: DB:series_type/name:80
 msgctxt "series_type"
 msgid "Podcast"
-msgstr ""
+msgstr "Podcast"
 
 #: DB:work_type/name:21
 msgctxt "work_type"
