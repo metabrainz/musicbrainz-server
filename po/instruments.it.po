@@ -17,7 +17,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-12-18 00:28+0000\n"
+"PO-Revision-Date: 2023-12-19 04:28+0000\n"
 "Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
 "metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -1302,7 +1302,7 @@ msgstr "ding tac ta"
 
 #: DB:instrument/name:602
 msgid "disk drive"
-msgstr "drive per disco"
+msgstr "unità a disco"
 
 #: DB:instrument/name:220
 msgctxt "bass gehu (huqin)"
@@ -1559,7 +1559,7 @@ msgstr "chitarra flamenca"
 
 #: DB:instrument/name:604
 msgid "floppy disk drive"
-msgstr "drive per floppy disk"
+msgstr "unità a floppy disk"
 
 #: DB:instrument/name:29
 msgid "flugelhorn"
@@ -1927,7 +1927,7 @@ msgstr "handpan"
 
 #: DB:instrument/name:603
 msgid "hard disk drive"
-msgstr "drive per disco rigido"
+msgstr "unità a disco rigido"
 
 #: DB:instrument/name:78
 msgid "hardingfele"
