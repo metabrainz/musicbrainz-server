@@ -8,13 +8,14 @@
 # Remko de Keijzer <email address hidden>, 2021
 # kellnerd <kellnerd@users.noreply.translations.metabrainz.org>, 2023.
 # mfmeulenbelt <mfmeulenbelt@users.noreply.translations.metabrainz.org>, 2023.
+# reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-12-19 16:23+0000\n"
-"Last-Translator: mfmeulenbelt <mfmeulenbelt@users.noreply.translations."
-"metabrainz.org>\n"
+"PO-Revision-Date: 2023-12-19 21:28+0000\n"
+"Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
+".org>\n"
 "Language-Team: Dutch <https://translations.metabrainz.org/projects/"
 "musicbrainz/statistics/nl/>\n"
 "Language: nl\n"
@@ -426,7 +427,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2003-11-10
 msgid "Edit search"
-msgstr "Zoeken naar bewerkingen"
+msgstr "Bewerkingen zoeken"
 
 #: DB:statistics.statistic_event/description:2007-12-07
 msgid ""
@@ -1521,8 +1522,6 @@ msgid "Timeline"
 msgstr "Tijdslijn"
 
 #: ../root/statistics/timeline.tt:25
-#, fuzzy
-#| msgid "Timeline Graph"
 msgid "Timeline graph"
 msgstr "Tijdslijn"
 
