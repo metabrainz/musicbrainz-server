@@ -3,18 +3,21 @@
 # Hinkus <email address hidden>, 2012
 # Mihkel Tõnnov <email address hidden>, 2008-2009,2011-2013
 # Mihkel Tõnnov <email address hidden>, 2014
+# reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2012-05-24 18:57+0000\n"
-"Last-Translator: Mihkel Tõnnov <mihhkel@gmail.com>, 2014\n"
-"Language-Team: Estonian (http://app.transifex.com/musicbrainz/musicbrainz/"
-"language/et/)\n"
+"PO-Revision-Date: 2023-12-19 21:28+0000\n"
+"Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
+".org>\n"
+"Language-Team: Estonian <https://translations.metabrainz.org/projects/"
+"musicbrainz/instruments/et/>\n"
 "Language: et\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.3\n"
 
 #: DB:instrument/name:438
 msgid "12 string guitar"
@@ -714,11 +717,9 @@ msgid "birch lur"
 msgstr ""
 
 #: DB:instrument/name:824
-#, fuzzy
-#| msgid "bass harmonica"
 msgctxt "prim, small Serbo-Croatian plucked string instrument"
 msgid "bisernica"
-msgstr "bass-suupill"
+msgstr "bisernica"
 
 #: DB:instrument/name:70
 msgid "biwa"
@@ -1090,12 +1091,9 @@ msgid "clavinet"
 msgstr "Clavinet"
 
 #: DB:instrument/name:780
-#, fuzzy
-#| msgctxt "Alto of modern violin family"
-#| msgid "viola"
 msgctxt "free reed aerophone with pitching pipes"
 msgid "claviola"
-msgstr "vioola (altviiul)"
+msgstr "claviola"
 
 #: DB:instrument/name:815
 msgctxt "electronic keyboard, forerunner to analogue synthesizers"
@@ -1562,11 +1560,9 @@ msgid "flumpet"
 msgstr ""
 
 #: DB:instrument/name:13
-#, fuzzy
-#| msgid "lute"
 msgctxt "reedless aerophone"
 msgid "flute"
-msgstr "lauto"
+msgstr "flööt"
 
 #: DB:instrument/name:1074
 msgid "flutina"
@@ -3190,11 +3186,9 @@ msgid "rebec"
 msgstr "rebekk"
 
 #: DB:instrument/name:1187
-#, fuzzy
-#| msgid "theremin"
 msgctxt "Ibizan double woodwind"
 msgid "reclam de xeremies"
-msgstr "teremin"
+msgstr "reclam de xeremies"
 
 #: DB:instrument/name:721
 msgctxt "Brazilian metal scraper"
@@ -4422,11 +4416,9 @@ msgid "xalam"
 msgstr ""
 
 #: DB:instrument/name:1186
-#, fuzzy
-#| msgid "theremin"
 msgctxt "Mallorcan bagpipe"
 msgid "xeremies"
-msgstr "teremin"
+msgstr "xeremies"
 
 #: DB:instrument/name:484
 msgctxt "Chinese end-blown flute"
