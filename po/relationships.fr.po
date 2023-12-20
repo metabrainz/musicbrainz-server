@@ -41,7 +41,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-12-19 21:28+0000\n"
+"PO-Revision-Date: 2023-12-20 12:38+0000\n"
 "Last-Translator: yvanzo <yvanzo@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: French <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/fr/>\n"
@@ -684,7 +684,7 @@ msgstr "Indique le parolier pour cette œuvre."
 
 #: DB:link_type/description:42
 msgid "Indicates the mastering engineer for this work."
-msgstr "Indique le chef opérateur de matriçage pour cette œuvre."
+msgstr "Indique l’ingénieur de matriçage pour cette parution."
 
 #: DB:link_type/description:219
 msgid "Indicates the official homepage for a label."
@@ -2287,8 +2287,7 @@ msgid ""
 msgstr ""
 "Indique l’organisation qui a réalisé la matrice en verre d’une parution. Ce "
 "n’est <strong>pas</strong> le même concept que celui de <a href=\"/doc/"
-"Label\">label discographique</a>, ou que celui de chef opérateur de "
-"matriçage."
+"Label\">label discographique</a>, ou que celui d’ingénieur de matriçage."
 
 #: DB:link_type/description:989
 msgid ""
@@ -3752,6 +3751,10 @@ msgid ""
 "wiki/Sound_recording_copyright_symbol\" target=\"_blank\">phonographic "
 "copyright</a> holder for this recording, usually indicated with a ℗ symbol."
 msgstr ""
+"Cette relation indique qu’un artiste est détenteur des droits "
+"phonographiques pour cet enregistrement, habituellement indiqué par le <a "
+"href=\"//fr.wikipedia.org/wiki/Symbole_de_copyright_phonographique\" target="
+"\"_blank\">symbole ℗</a>."
 
 #: DB:link_type/description:710
 msgid ""
@@ -3759,12 +3762,18 @@ msgid ""
 "wiki/Sound_recording_copyright_symbol\" target=\"_blank\">phonographic "
 "copyright</a> holder for this release, usually indicated with a ℗ symbol."
 msgstr ""
+"Cette relation indique qu’un artiste est détenteur des droits "
+"phonographiques pour cette parution, habituellement indiqué par le <a href=\""
+"//fr.wikipedia.org/wiki/Symbole_de_copyright_phonographique\" target=\"_blank"
+"\">symbole ℗</a>."
 
 #: DB:link_type/description:709
 msgid ""
 "This relationship indicates the artist is the copyright holder for this "
 "release, usually indicated with a © symbol."
 msgstr ""
+"Cette relation indique qu’un artiste est détenteur des droits d‘auteur pour "
+"cette parution, habituellement indiqué par le symbole ©."
 
 #: DB:link_type/description:1010
 msgid ""
@@ -3794,6 +3803,9 @@ msgid ""
 "wiki/Sound_recording_copyright_symbol\">phonographic copyright</a> holder "
 "for this recording, usually indicated with a ℗ symbol."
 msgstr ""
+"Cette relation indique qu’un label est détenteur des droits phonographiques "
+"pour cet enregistrement, habituellement indiqué par le <a href=\"//fr."
+"wikipedia.org/wiki/Symbole_de_copyright_phonographique\">symbole ℗</a>."
 
 #: DB:link_type/description:711
 msgid ""
@@ -3801,12 +3813,17 @@ msgid ""
 "wiki/Sound_recording_copyright_symbol\">phonographic copyright</a> holder "
 "for this release, usually indicated with a ℗ symbol."
 msgstr ""
+"Cette relation indique qu’un label est détenteur des droits phonographiques "
+"pour cette parution, habituellement indiqué par le <a href=\"//fr.wikipedia."
+"org/wiki/Symbole_de_copyright_phonographique\">symbole ℗</a>."
 
 #: DB:link_type/description:708
 msgid ""
 "This relationship indicates the label is the copyright holder for this "
 "release, usually indicated with a © symbol."
 msgstr ""
+"Cette relation indique qu’un label est détenteur des droits d’auteur pour "
+"cette parution, habituellement indiqué par le symbole ©."
 
 #: DB:link_type/description:83
 msgid ""
@@ -3837,7 +3854,7 @@ msgid ""
 "relationship."
 msgstr ""
 "Cette relation est obsolète. Pour indiquer les éditeurs d’une œuvre, ajouter "
-"les relations label-œuvre. Pour indiquer les détenteurs ℗, utiliser la "
+"des relations label-œuvre. Pour indiquer les détenteurs ℗, utiliser la "
 "relation droits phonographiques d’auteur."
 
 #: DB:link_type/description:751
@@ -5294,7 +5311,7 @@ msgstr "droits d’auteur"
 
 #: DB:link_type/reverse_link_phrase:708 DB:link_type/reverse_link_phrase:709
 msgid "copyrighted (©) by"
-msgstr ""
+msgstr "protégé par les droits d'auteur (©) de"
 
 #: DB:link_attribute_type/name:1349
 msgid "counterpoint"
@@ -6173,14 +6190,14 @@ msgstr "site historique"
 #: DB:link_type/link_phrase:708 DB:link_type/link_phrase:709
 #: DB:link_type/long_link_phrase:708 DB:link_type/long_link_phrase:709
 msgid "holds copyright (©) for"
-msgstr ""
+msgstr "détient les droits d’auteur (©) de"
 
 #: DB:link_type/link_phrase:867 DB:link_type/link_phrase:711
 #: DB:link_type/link_phrase:710 DB:link_type/link_phrase:869
 #: DB:link_type/long_link_phrase:867 DB:link_type/long_link_phrase:711
 #: DB:link_type/long_link_phrase:710 DB:link_type/long_link_phrase:869
 msgid "holds phonographic copyright (℗) for"
-msgstr ""
+msgstr "détient les droits phonographiques (℗) de"
 
 #: DB:link_type/name:801
 msgid "host"
@@ -6794,7 +6811,7 @@ msgstr "poste d’ingénieur de matriçage"
 
 #: DB:link_type/link_phrase:704
 msgid "mastering engineer position at"
-msgstr "poste d’Ingénieur de matriçage à"
+msgstr "poste d’ingénieur de matriçage à"
 
 #: DB:link_type/reverse_link_phrase:704
 msgid "mastering engineers"
@@ -7296,12 +7313,12 @@ msgstr "relation personnelle"
 #: DB:link_type/name:867 DB:link_type/name:711 DB:link_type/name:710
 #: DB:link_type/name:869
 msgid "phonographic copyright"
-msgstr "droits phonographiques d’auteur"
+msgstr "droits phonographiques"
 
 #: DB:link_type/reverse_link_phrase:867 DB:link_type/reverse_link_phrase:711
 #: DB:link_type/reverse_link_phrase:710 DB:link_type/reverse_link_phrase:869
 msgid "phonographic copyright (℗) by"
-msgstr ""
+msgstr "droits phonographiques (℗) par"
 
 #: DB:link_type/name:123 DB:link_type/name:1175 DB:link_type/name:20
 msgid "photography"
@@ -9052,6 +9069,8 @@ msgstr ""
 #: DB:link_type/link_phrase:42 DB:link_type/reverse_link_phrase:42
 msgid "{additional} {assistant} {associate} {co:co-}{pre:pre-}{re}mastering"
 msgstr ""
+"{assistant:assistant de} {co:co-}{pre:pre-}{re}matriçage "
+"{additional:supplémentaire} {associate:associé}"
 
 #: DB:link_type/link_phrase:37 DB:link_type/link_phrase:132
 #: DB:link_type/reverse_link_phrase:37 DB:link_type/reverse_link_phrase:132
@@ -9111,7 +9130,7 @@ msgstr ""
 
 #: DB:link_type/link_phrase:756 DB:link_type/link_phrase:697
 msgid "{additional} {pre:pre-}{re}mastering location for"
-msgstr ""
+msgstr "lieu de {pre:pre-}{re}matriçage {additional:supplémentaire} de"
 
 #: DB:link_type/reverse_link_phrase:888
 msgid "{anniversary:anniversary tour for|tour in support of}"
