@@ -13,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-12-19 21:28+0000\n"
-"Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
-".org>\n"
+"PO-Revision-Date: 2023-12-20 12:38+0000\n"
+"Last-Translator: mfmeulenbelt <mfmeulenbelt@users.noreply.translations."
+"metabrainz.org>\n"
 "Language-Team: Dutch <https://translations.metabrainz.org/projects/"
 "musicbrainz/statistics/nl/>\n"
 "Language: nl\n"
@@ -427,7 +427,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2003-11-10
 msgid "Edit search"
-msgstr "Bewerkingen zoeken"
+msgstr "Zoeken naar bewerkingen"
 
 #: DB:statistics.statistic_event/description:2007-12-07
 msgid ""
@@ -1996,8 +1996,6 @@ msgid "No front cover art:"
 msgstr "Geen afbeelding van de voorkant:"
 
 #: ../root/statistics/Index.js:472
-#, fuzzy
-#| msgid "Data Quality"
 msgid "Data quality"
 msgstr "Gegevenskwaliteit"
 
@@ -2277,7 +2275,7 @@ msgstr "mislukt (interne fout):"
 #: ../root/statistics/Index.js:1265
 msgctxt "edit"
 msgid "Cancelled"
-msgstr ""
+msgstr "Geannuleerd"
 
 #: ../root/statistics/Index.js:1276 ../root/statistics/Index.js:1328
 msgid "Last 7 days:"
@@ -2641,11 +2639,11 @@ msgstr "Openbare collecties"
 
 #: ../root/statistics/stats.js:193
 msgid "Area collections"
-msgstr "Collecties van gebieden"
+msgstr "Collecties met gebieden"
 
 #: ../root/statistics/stats.js:198
 msgid "Artist collections"
-msgstr "Collecties van artiesten"
+msgstr "Collecties met artiesten"
 
 #: ../root/statistics/stats.js:203
 msgid "Collections of type Attending"
@@ -2661,11 +2659,11 @@ msgstr "Collecties van evenementen (alle soorten)"
 
 #: ../root/statistics/stats.js:218
 msgid "Instrument collections"
-msgstr "Collecties van instrumenten"
+msgstr "Collecties met instrumenten"
 
 #: ../root/statistics/stats.js:223
 msgid "Label collections"
-msgstr "Collecties van platenmaatschappijen"
+msgstr "Collecties met platenmaatschappijen"
 
 #: ../root/statistics/stats.js:228
 msgid "Collections of type Maybe attending"
@@ -2677,11 +2675,11 @@ msgstr "Collecties van het type ‘Heb ik’"
 
 #: ../root/statistics/stats.js:238
 msgid "Place collections"
-msgstr "Collecties van plaatsen"
+msgstr "Collecties met plaatsen"
 
 #: ../root/statistics/stats.js:243
 msgid "Recording collections"
-msgstr "Collecties van opnames"
+msgstr "Collectie van opnamen"
 
 #: ../root/statistics/stats.js:248
 msgid "Collections of type Release"
@@ -2693,7 +2691,7 @@ msgstr "Collecties van uitgaven (alle soorten)"
 
 #: ../root/statistics/stats.js:258
 msgid "Release group collections"
-msgstr "Collecties van uitgavegroepen"
+msgstr "Collecties met uitgavegroepen"
 
 #: ../root/statistics/stats.js:263
 msgid "Series collections"
@@ -2705,7 +2703,7 @@ msgstr "Collecties van het type ‘Verlanglijstje’"
 
 #: ../root/statistics/stats.js:273
 msgid "Work collections"
-msgstr "Collecties van composities"
+msgstr "Collecties met composities"
 
 #: ../root/statistics/stats.js:294
 msgid "Applied edits"
@@ -2738,8 +2736,6 @@ msgid "Edits that have been voted down"
 msgstr "Bewerkingen die zijn weggestemd"
 
 #: ../root/statistics/stats.js:329
-#, fuzzy
-#| msgid "Open Edits"
 msgctxt "noun"
 msgid "Open edits"
 msgstr "Open bewerkingen"
