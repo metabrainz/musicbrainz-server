@@ -36,9 +36,9 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-12-14 18:52+0000\n"
-"PO-Revision-Date: 2023-12-19 21:28+0000\n"
-"Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
-".org>\n"
+"PO-Revision-Date: 2023-12-20 12:38+0000\n"
+"Last-Translator: mfmeulenbelt <mfmeulenbelt@users.noreply.translations."
+"metabrainz.org>\n"
 "Language-Team: Dutch <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/nl/>\n"
 "Language: nl\n"
@@ -2909,7 +2909,7 @@ msgstr ""
 "Deze uitgavestatus wordt gebruikt voor onofficiële vertalingen en "
 "transliteraties van nummerlijsten en uitgavetitels, en geeft geen "
 "afzonderlijke echte uitgave aan. Hij moet niet worden gebruikt om bootlegs, "
-"mixtape/straat albums, demo’s of digitale albums aan te geven. Vergeet niet "
+"mixtape/straatalbums, demo’s of digitale albums aan te geven. Vergeet niet "
 "om de uitgave met de {url|vertaald/getranslitereerd}-relatie te koppelen aan "
 "de originele uitgave."
 
@@ -5232,50 +5232,36 @@ msgid "Add series annotation"
 msgstr "Aantekening aan de serie toevoegen"
 
 #: ../lib/MusicBrainz/Server/Edit/Series/Create.pm:24
-#, fuzzy
-#| msgid "Add series"
 msgctxt "edit type"
 msgid "Add series"
 msgstr "Serie toevoegen"
 
 #: ../lib/MusicBrainz/Server/Edit/Series/Delete.pm:12
-#, fuzzy
-#| msgid "Remove series"
 msgctxt "edit type"
 msgid "Remove series"
 msgstr "Serie verwijderen"
 
 #: ../lib/MusicBrainz/Server/Edit/Series/DeleteAlias.pm:16
-#, fuzzy
-#| msgid "Remove series alias"
 msgctxt "edit type"
 msgid "Remove series alias"
 msgstr "Alias van de serie verwijderen"
 
 #: ../lib/MusicBrainz/Server/Edit/Series/Edit.pm:30
-#, fuzzy
-#| msgid "Edit series"
 msgctxt "edit type"
 msgid "Edit series"
 msgstr "Serie bewerken"
 
 #: ../lib/MusicBrainz/Server/Edit/Series/EditAlias.pm:12
-#, fuzzy
-#| msgid "Edit series alias"
 msgctxt "edit type"
 msgid "Edit series alias"
 msgstr "Alias van deze serie bewerken"
 
 #: ../lib/MusicBrainz/Server/Edit/Series/Merge.pm:11
-#, fuzzy
-#| msgid "Merge series"
 msgctxt "edit type"
 msgid "Merge series"
 msgstr "Serie samenvoegen"
 
 #: ../lib/MusicBrainz/Server/Edit/URL/Edit.pm:26
-#, fuzzy
-#| msgid "Edit URL"
 msgctxt "edit type"
 msgid "Edit URL"
 msgstr "URL bewerken"
@@ -6036,6 +6022,8 @@ msgstr "Overig"
 msgid ""
 "This username contains invalid characters. (Check for consecutive spaces.)"
 msgstr ""
+"Deze gebruikersnaam bevat ongeldige tekens. (Controleer of er opeenvolgende "
+"spaties zijn.)"
 
 #: ../lib/MusicBrainz/Server/Form/Utils.pm:217
 msgid "This username is reserved for internal use."
@@ -6133,7 +6121,7 @@ msgstr "Voer je oude wachtwoord hieronder in, en daarna je nieuwe wachtwoord."
 #: ../root/static/scripts/account/components/RegisterForm.js:57
 #: ../root/user/Login.js:100
 msgid "Username"
-msgstr ""
+msgstr "Gebruikersnaam"
 
 #: ../root/account/ChangePassword.js:77
 msgid "Old password:"
@@ -6431,10 +6419,8 @@ msgstr "Stel een nieuw wachtwoord voor je MusicBrainz-account in."
 
 #: ../root/account/applications/ApplicationList.js:34
 #: ../root/static/scripts/account/components/ApplicationForm.js:40
-#, fuzzy
-#| msgid "Web Application"
 msgid "Web application"
-msgstr "Web application"
+msgstr "Webapplicatie"
 
 #: ../root/account/applications/ApplicationList.js:35
 #: ../root/static/scripts/account/components/ApplicationForm.js:41
@@ -6485,7 +6471,7 @@ msgstr "Toegang"
 
 #: ../root/account/applications/ApplicationList.js:117
 msgid "Last granted token"
-msgstr ""
+msgstr "Laatste toegestane token"
 
 #: ../root/account/applications/ApplicationList.js:118
 #: ../root/account/applications/ApplicationList.js:158
@@ -6518,14 +6504,10 @@ msgstr ""
 "voor meer informatie."
 
 #: ../root/account/applications/ApplicationList.js:156
-#, fuzzy
-#| msgid "OAuth Client ID"
 msgid "OAuth client ID"
-msgstr "OAuth Client-ID"
+msgstr "OAuth-client-ID"
 
 #: ../root/account/applications/ApplicationList.js:157
-#, fuzzy
-#| msgid "OAuth Client Secret"
 msgid "OAuth client secret"
 msgstr "OAuth-clientgeheim"
 
@@ -6540,8 +6522,6 @@ msgid "Edit application"
 msgstr "Applicatie bewerken"
 
 #: ../root/account/applications/EditApplication.js:26
-#, fuzzy
-#| msgid "Update"
 msgctxt "verb, data, interactive"
 msgid "Update"
 msgstr "Bijwerken"
@@ -6568,11 +6548,11 @@ msgstr "Applicatie verwijderen"
 
 #: ../root/account/applications/RevokeApplicationAccess.js:30
 msgid "You’re about to revoke {app}’s permissions to:"
-msgstr ""
+msgstr "Je staat op het punt de volgende toestemmingen van {app} in te trekken:"
 
 #: ../root/account/applications/RevokeApplicationAccess.js:42
 msgid "Are you sure you want to revoke this application’s access?"
-msgstr ""
+msgstr "Weet je zeker dat je de toegang van deze applicatie wil intrekken?"
 
 #: ../root/account/applications/RevokeApplicationAccess.js:46
 msgctxt "header"
@@ -6669,7 +6649,7 @@ msgstr ""
 #: ../root/static/scripts/relationship-editor/components/DialogPreview.js:172
 msgctxt "header"
 msgid "Preview"
-msgstr ""
+msgstr "Voorvertoning"
 
 #: ../root/annotation/EditAnnotation.js:80
 #: ../root/static/scripts/common/components/Annotation.js:71
@@ -7004,7 +6984,7 @@ msgstr "Officiële uitgavegroepen van deze artiest worden weergegeven"
 
 #: ../root/artist/ArtistIndex.js:239
 msgid "Performance name of"
-msgstr ""
+msgstr "Artiestennaam van"
 
 #: ../root/artist/ArtistIndex.js:247
 msgid "Legal name"
@@ -7043,7 +7023,7 @@ msgstr "Deze artiest heeft geen uitgavegroepen, alleen losse opnames."
 
 #: ../root/artist/ArtistIndex.js:336
 msgid "No results found that match this search."
-msgstr ""
+msgstr "Geen resultaten voor deze zoekopdracht gevonden."
 
 #: ../root/artist/ArtistMerge.js:30 ../root/artist/ArtistMerge.js:32
 msgid "Merge artists"
@@ -7060,6 +7040,7 @@ msgstr ""
 #: ../root/artist/ArtistMerge.js:50
 msgid "You should only use the checkbox above to fix errors (such as typos)."
 msgstr ""
+"Je moet dit vakje alleen aanvinken om fouten te herstellen (zoals tikfouten)."
 
 #: ../root/artist/ArtistMerge.js:56
 msgid ""
@@ -7407,7 +7388,7 @@ msgstr "Een cd-beginnetje importeren"
 
 #: ../root/cdstub/ImportCDStub.js:38
 msgid "Please search for the artist you wish to add a new release for:"
-msgstr ""
+msgstr "Zoek naar de artiest waar je een nieuwe uitgave voor wil toevoegen:"
 
 #: ../root/cdtoc/AttachCDTocConfirmation.js:53
 msgid ""
@@ -7419,7 +7400,7 @@ msgstr ""
 
 #: ../root/cdtoc/AttachCDTocConfirmation.js:80
 msgid "Track length comparison"
-msgstr ""
+msgstr "Vergelijking van nummerlengten"
 
 #: ../root/cdtoc/AttachCDTocConfirmation.js:84
 #: ../root/cdtoc/SetTracklistDurations.js:67
@@ -7515,6 +7496,9 @@ msgid ""
 "release. This will allow you to add this artist and a release at the same "
 "time"
 msgstr ""
+"Ook als je de artiest die je zoekt niet ziet, kan je een nieuwe uitgave "
+"toevoegen. Je kan dan tijdens het toevoegen van de uitgave ook de artiest "
+"toevoegen."
 
 #: ../root/cdtoc/SetTracklistDurations.js:46
 #: ../root/cdtoc/SetTracklistDurations.js:47
@@ -7675,11 +7659,9 @@ msgstr "Bevestigen"
 
 #: ../root/collection/CreateCollection.js:28
 #: ../root/collection/CreateCollection.js:31
-#, fuzzy
-#| msgid "Add to a new collection"
 msgctxt "header"
 msgid "Add a new collection"
-msgstr "Aan een nieuwe collectie toevoegen"
+msgstr "Een nieuwe collectie toevoegen"
 
 #: ../root/collection/DeleteCollection.js:28
 #: ../root/collection/DeleteCollection.js:34
@@ -7933,7 +7915,7 @@ msgstr "Bekijk alle {num} relaties"
 #: ../root/static/scripts/relationship-editor/components/DialogEntityCredit.js:212
 #: ../root/static/scripts/relationship-editor/components/DialogEntityCredit.js:216
 msgid "Credited as"
-msgstr ""
+msgstr "Vermeld als"
 
 #: ../root/components/RelationshipsTable.js:336
 #: ../root/edit/details/AddRelationshipType.js:167
@@ -8302,6 +8284,8 @@ msgstr "Er was een probleem bij het annuleren van {edit}."
 #: ../root/edit/CannotCancelEdit.js:33
 msgid "Only the editor who entered an edit can cancel it."
 msgstr ""
+"Een bewerking kan alleen worden geannuleerd door de redacteur die haar "
+"indiende."
 
 #: ../root/edit/CannotVote.js:13 ../root/edit/CannotVote.js:14
 msgid "Error voting on edits"
@@ -8314,11 +8298,11 @@ msgstr "Je mag nu niet stemmen; lees de mededeling bovenaan de pagina."
 #: ../root/edit/DeleteNote.js:32 ../root/edit/DeleteNote.js:33
 #: ../root/edit/components/EditNote.js:148
 msgid "Remove edit note"
-msgstr ""
+msgstr "Bewerkingsnotitie verwijderen"
 
 #: ../root/edit/DeleteNote.js:35
 msgid "Are you sure you want to remove the following edit note?"
-msgstr ""
+msgstr "Weet je zeker dat je de volgende bewerkingsnotitie wil verwijderen?"
 
 #: ../root/edit/DeleteNote.js:47
 msgid ""
@@ -8326,6 +8310,9 @@ msgid ""
 "things clearer for other editors checking the editing history in the future. "
 "Otherwise it can be omitted."
 msgstr ""
+"We raden aan om een reden voor het verwijderen toe te voegen als je denkt "
+"dat het duidelijker zou zijn voor andere redacteurs die later de "
+"bewerkingsgeschiedenis bekijken. Anders kan je het ook weglaten."
 
 #: ../root/edit/DeleteNote.js:54 ../root/edit/ModifyNote.js:71
 #: ../root/user/ReportUser.js:139
@@ -8415,21 +8402,24 @@ msgstr "Je moet aangemeld zijn om bewerkingsnotities te bekijken."
 #: ../root/edit/ModifyNote.js:36 ../root/edit/ModifyNote.js:37
 #: ../root/edit/components/EditNote.js:143
 msgid "Modify edit note"
-msgstr ""
+msgstr "Bewerkingsnotitie bewerken"
 
 #: ../root/edit/ModifyNote.js:39
 msgid "You are modifying the following edit note:"
-msgstr ""
+msgstr "Je bewerkt de volgende bewerkingsnotitie:"
 
 #: ../root/edit/ModifyNote.js:52
 msgid "New edit note"
-msgstr ""
+msgstr "Nieuwe bewerkingsnotitie"
 
 #: ../root/edit/ModifyNote.js:58
 msgid ""
 "Keep in mind modification of edit notes is mostly intended to correct small "
 "mistakes. Editors won’t be notified of your changes via email."
 msgstr ""
+"Houd er rekening mee dat het bewerken van bewerkingsnotities vooral voor het "
+"verbeteren van foutjes is bedoeld. Redacteurs krijgen geen e-mail over de "
+"veranderingen."
 
 #: ../root/edit/ModifyNote.js:65
 msgid ""
@@ -8437,6 +8427,9 @@ msgid ""
 "checking this edit in the future. Keep in mind the reason will be displayed "
 "to other editors."
 msgstr ""
+"Je hoeft geen reden toe te voegen, maar dat kan het voor redacteurs die deze "
+"bewerking later bekijken duidelijker zijn. Houd er rekening mee dat de reden "
+"voor andere redacteurs zichtbaar zal zijn."
 
 #: ../root/edit/ModifyNote.js:81 ../root/oauth2/OAuth2FormPost.js:44
 #: ../root/static/scripts/edit/components/InlineSubmitButton.js:21
@@ -8466,24 +8459,18 @@ msgstr ""
 #: ../root/edit/components/ListHeader.js:158
 #: ../root/layout/components/sidebar/CollectionSidebar.js:77
 #: ../root/layout/components/sidebar/EditLinks.js:43
-#, fuzzy
-#| msgid "Open edits"
 msgctxt "noun"
 msgid "Open edits"
 msgstr "Open bewerkingen"
 
 #: ../root/edit/SubscribedEditorEdits.js:27
 #: ../root/edit/SubscribedEditorEdits.js:29
-#, fuzzy
-#| msgid "Edits by Your Subscribed Editors"
 msgid "Edits by your subscribed editors"
-msgstr "Bewerkingen door redacteurs waar ik op geabonneerd ben"
+msgstr "Bewerkingen door geabonneerde redacteurs"
 
 #: ../root/edit/SubscribedEdits.js:27 ../root/edit/SubscribedEdits.js:29
-#, fuzzy
-#| msgid "All edits for your subscribed entities"
 msgid "Edits for your subscribed entities"
-msgstr "Alle bewerkingen voor objecten waarop je bent geabonneerd"
+msgstr "Bewerkingen van geabonneerde objecten"
 
 #: ../root/edit/SubscribedEdits.js:32
 msgid ""
@@ -8491,6 +8478,9 @@ msgid ""
 "well as edits linked to entities which are part of a collection you are "
 "subscribed to."
 msgstr ""
+"Op deze pagina zie je bewerkingen voor objecten waar je rechtstreeks op bent "
+"geabonneerd en bewerkingen voor objecten in een collectie waarop je bent "
+"geabonneerd."
 
 #: ../root/edit/components/EditArtwork.js:27
 #: ../root/edit/details/ReorderCoverArt.js:25
@@ -8583,34 +8573,45 @@ msgstr "[duur ontbreekt]"
 #: ../root/edit/components/EditNote.js:169
 msgid "This edit note was removed by its author. Reason given: “{reason}”."
 msgstr ""
+"Deze bewerkingsnotitie is door haar auteur verwijderd. Gegeven reden: "
+"“{reason}”."
 
 #: ../root/edit/components/EditNote.js:174
 msgid "This edit note was removed by its author. No reason was provided."
 msgstr ""
+"Deze bewerkingsnotitie is door haar auteur verwijderd. Er is geen reden "
+"gegeven."
 
 #: ../root/edit/components/EditNote.js:180
 msgid "This edit note was removed by an admin. Reason given: “{reason}”."
 msgstr ""
+"Deze bewerkingsnotitie is door een beheerder verwijderd. Gegeven reden: "
+"“{reason}”."
 
 #: ../root/edit/components/EditNote.js:185
 msgid "This edit note was removed by an admin. No reason was provided."
 msgstr ""
+"Deze bewerkingsnotitie is door een beheerder verwijderd. Er is geen reden "
+"gegeven."
 
 #: ../root/edit/components/EditNote.js:212
 msgid "Last modified by the note author ({time}). Reason given: “{reason}”."
 msgstr ""
+"Laatste aanpassing door de auteur van de notitie ({time}). Gegeven reden: "
+"“{reason}”."
 
 #: ../root/edit/components/EditNote.js:221
 msgid "Last modified by the note author ({time})."
-msgstr ""
+msgstr "Laatste aanpassing door de auteur van de notitie ({time})."
 
 #: ../root/edit/components/EditNote.js:228
 msgid "Last modified by an admin ({time}). Reason given: “{reason}”."
 msgstr ""
+"Laatste aanpassing door een beheerder ({time}). Gegeven reden: “{reason}”."
 
 #: ../root/edit/components/EditNote.js:237
 msgid "Last modified by an admin ({time})."
-msgstr ""
+msgstr "Laatste aanpassing door een beheerder ({time})."
 
 #: ../root/edit/components/EditNoteHelp.js:20
 msgid ""
@@ -8671,8 +8672,6 @@ msgstr "Veelgestelde vragen over bewerkingen"
 
 #: ../root/edit/components/EditSummary.js:60
 #: ../root/static/scripts/common/MB/Control/EditSummary.js:31
-#, fuzzy
-#| msgid "Add Note"
 msgctxt "interactive"
 msgid "Add note"
 msgstr "Notitie toevoegen"
@@ -8767,14 +8766,10 @@ msgid "Help:"
 msgstr "Help:"
 
 #: ../root/edit/components/ListHeader.js:215
-#, fuzzy
-#| msgid "Introduction to Voting"
 msgid "Introduction to voting"
 msgstr "Hoe werkt stemmen"
 
 #: ../root/edit/components/ListHeader.js:219
-#, fuzzy
-#| msgid "Introduction to Editing"
 msgid "Introduction to editing"
 msgstr "Hoe werkt bewerken"
 
@@ -8784,8 +8779,6 @@ msgid "Style guidelines"
 msgstr "Stijlgids"
 
 #: ../root/edit/components/Vote.js:107
-#, fuzzy
-#| msgid "None"
 msgctxt "vote"
 msgid "None"
 msgstr "Geen"
@@ -8832,12 +8825,12 @@ msgstr "ISO 3166-3"
 #: ../root/edit/details/AddArea.js:102 ../root/edit/details/EditArea.js:119
 msgctxt "area ended boolean"
 msgid "Ended"
-msgstr ""
+msgstr "Beëindigd"
 
 #: ../root/edit/details/AddArtist.js:129 ../root/edit/details/EditArtist.js:155
 msgctxt "artist ended boolean"
 msgid "Ended"
-msgstr ""
+msgstr "Beëindigd"
 
 #: ../root/edit/details/AddCoverArt.js:39
 #: ../root/edit/details/RemoveCoverArt.js:39
@@ -8861,7 +8854,7 @@ msgstr "Opmerking:"
 #: ../root/edit/details/AddEvent.js:50 ../root/edit/details/EditEvent.js:54
 msgctxt "event"
 msgid "Cancelled"
-msgstr ""
+msgstr "Geannuleerd"
 
 #: ../root/edit/details/AddIsrcs.js:27 ../root/edit/details/EditBarcodes.js:27
 msgid "Client:"
@@ -8887,12 +8880,12 @@ msgstr "ISWC {iswc} naar {work}"
 #: ../root/edit/details/AddLabel.js:74 ../root/edit/details/EditLabel.js:111
 msgctxt "label ended boolean"
 msgid "Ended"
-msgstr ""
+msgstr "Beëindigd"
 
 #: ../root/edit/details/AddPlace.js:84 ../root/edit/details/EditPlace.js:109
 msgctxt "place ended boolean"
 msgid "Ended"
-msgstr ""
+msgstr "Beëindigd"
 
 #: ../root/edit/details/AddRelationship.js:33
 msgid "Link order:"
@@ -9039,25 +9032,21 @@ msgstr "Primair voor localisatie"
 #: ../root/edit/details/EditAlias.js:125
 msgctxt "alias ended boolean"
 msgid "Ended"
-msgstr ""
+msgstr "Beëindigd"
 
 #: ../root/edit/details/AddWork.js:65 ../root/edit/details/EditWork.js:84
 #: ../root/layout/components/sidebar/WorkSidebar.js:69
 #: ../root/search/components/WorkResults.js:59
 #: ../root/static/scripts/release/components/WorkLanguageMultiselect.js:143
 #: ../root/static/scripts/work/edit.js:336
-#, fuzzy
-#| msgid "Lyrics Languages"
 msgid "Lyrics languages"
-msgstr "Taal van de tekst"
+msgstr "Talen van de tekst"
 
 #: ../root/edit/details/ChangeReleaseQuality.js:30
 #: ../root/edit/details/historic/ChangeArtistQuality.js:30
 #: ../root/edit/details/historic/ChangeReleaseQuality.js:40
 #: ../root/layout/components/sidebar/SidebarDataQuality.js:36
 #: ../root/release/ChangeQuality.js:67
-#, fuzzy
-#| msgid "Data Quality"
 msgid "Data quality"
 msgstr "Gegevenskwaliteit"
 
@@ -9097,7 +9086,7 @@ msgstr "primair voor {locale}"
 #: ../root/report/components/ArtistCreditList.js:29
 #: ../root/static/scripts/common/components/FilterForm.js:118
 msgid "Artist credit"
-msgstr ""
+msgstr "Artiestvermelding:"
 
 #: ../root/edit/details/EditArtistCredit.js:41
 msgid "See all uses of the artist credit being changed."
@@ -9110,14 +9099,10 @@ msgstr ""
 "doorgevoerd."
 
 #: ../root/edit/details/EditMedium.js:309
-#, fuzzy
-#| msgid "Old Tracklist"
 msgid "Old tracklist"
 msgstr "Oude nummerlijst"
 
 #: ../root/edit/details/EditMedium.js:310
-#, fuzzy
-#| msgid "New Tracklist"
 msgid "New tracklist"
 msgstr "Nieuwe nummerlijst"
 
@@ -9134,20 +9119,17 @@ msgid "New recording"
 msgstr "Nieuwe opname"
 
 #: ../root/edit/details/EditMedium.js:576
-#, fuzzy
-#| msgid "Old Artist"
 msgid "Old artist"
 msgstr "Oude artiest"
 
 #: ../root/edit/details/EditMedium.js:577
-#, fuzzy
-#| msgid "New Artist"
 msgid "New artist"
 msgstr "Nieuwe artiest"
 
 #: ../root/edit/details/EditRecording.js:63
 msgid "This edit makes subsecond changes to the recording length"
 msgstr ""
+"Deze bewerking verandert de duur van de opnamen met minder dan een seconde."
 
 #: ../root/edit/details/EditRelationshipType.js:144
 #: ../root/edit/details/historic/EditRelationship.js:42
@@ -9210,8 +9192,6 @@ msgstr "Type compositie"
 #: ../root/edit/details/MergeRecordings.js:19
 #: ../root/edit/details/MergeReleaseGroups.js:20
 #: ../root/edit/details/MergeSeries.js:19 ../root/edit/details/MergeWorks.js:19
-#, fuzzy
-#| msgid "Merge"
 msgctxt "verb, header, paired with Into"
 msgid "Merge"
 msgstr "Samenvoegen"
@@ -9229,11 +9209,9 @@ msgstr "Samenvoegen"
 #: ../root/edit/details/MergeReleases.js:293
 #: ../root/edit/details/MergeReleases.js:313
 #: ../root/edit/details/MergeSeries.js:25 ../root/edit/details/MergeWorks.js:25
-#, fuzzy
-#| msgid "Into:"
 msgctxt "header, paired with Merge"
 msgid "Into"
-msgstr "Naar:"
+msgstr "Naar"
 
 #: ../root/edit/details/MergeArtists.js:32
 msgid "Rename artist and relationship credits"
@@ -9260,8 +9238,6 @@ msgid "This release has no media to merge."
 msgstr "Deze uitgave heeft geen media om samen te voegen."
 
 #: ../root/edit/details/MergeReleases.js:307
-#, fuzzy
-#| msgid "Recording Merges"
 msgid "Recording merges"
 msgstr "Opnamesamenvoegingen"
 
@@ -9342,7 +9318,7 @@ msgstr "Nieuwe posities:"
 
 #: ../root/edit/details/ReorderMediums.js:42
 msgid "Mediums"
-msgstr ""
+msgstr "Media"
 
 #: ../root/edit/details/ReorderMediums.js:46
 msgid "Medium <span class=\"new\">{new}</span>: {title} (new medium)"
@@ -9371,16 +9347,14 @@ msgstr ""
 #: ../root/edit/details/ReorderRelationships.js:21
 #: ../root/static/scripts/relationship-editor/components/DialogPreview.js:157
 msgid "Old order"
-msgstr ""
+msgstr "Oude volgorde"
 
 #: ../root/edit/details/ReorderRelationships.js:22
 #: ../root/static/scripts/relationship-editor/components/DialogPreview.js:161
 msgid "New order"
-msgstr ""
+msgstr "Nieuwe volgorde"
 
 #: ../root/edit/details/SetCoverArt.js:37
-#, fuzzy
-#| msgid "Old cover art:"
 msgctxt "singular"
 msgid "Old cover art:"
 msgstr "Oude afbeeldingen:"
@@ -9399,8 +9373,6 @@ msgid "We are unable to display this cover art."
 msgstr "We kunnen deze afbeelding niet weergeven."
 
 #: ../root/edit/details/SetCoverArt.js:65
-#, fuzzy
-#| msgid "New cover art:"
 msgctxt "singular"
 msgid "New cover art:"
 msgstr "Nieuwe afbeeldingen:"
@@ -9439,43 +9411,39 @@ msgstr "Nieuwe relaties:"
 #: ../root/edit/details/historic/EditReleaseAttributes.js:34
 msgctxt "release type and status"
 msgid "Old"
-msgstr ""
+msgstr "Oud"
 
 #: ../root/edit/details/historic/EditReleaseAttributes.js:41
 msgid "Type: {type}, status: {status}"
 msgstr "Type: {type}, status: {status}"
 
 #: ../root/edit/details/historic/EditReleaseAttributes.js:60
-#, fuzzy
-#| msgid "New Type:"
 msgid "New type:"
 msgstr "Nieuw type:"
 
 #: ../root/edit/details/historic/EditReleaseAttributes.js:67
-#, fuzzy
-#| msgid "New Status:"
 msgid "New status:"
 msgstr "Nieuwe status:"
 
 #: ../root/edit/details/historic/EditReleaseEvents.js:121
 msgctxt "list of added release events"
 msgid "Added"
-msgstr ""
+msgstr "Toegevoegd"
 
 #: ../root/edit/details/historic/EditReleaseEvents.js:136
 msgctxt "list of removed release events"
 msgid "Removed"
-msgstr ""
+msgstr "Verwijderd"
 
 #: ../root/edit/details/historic/EditReleaseEvents.js:152
 msgctxt "list of edited release events"
 msgid "Edited"
-msgstr ""
+msgstr "Bewerkt"
 
 #: ../root/edit/details/historic/EditReleaseLanguage.js:20
 msgctxt "release language"
 msgid "Old"
-msgstr ""
+msgstr "Oud"
 
 #: ../root/edit/details/historic/EditReleaseLanguage.js:27
 msgid "Language: {language}, script: {script}"
@@ -9530,16 +9498,16 @@ msgstr "Indiener"
 #: ../root/elections/ElectionDetails.js:40
 #: ../root/elections/ElectionTable/index.js:27
 msgid "1st seconder"
-msgstr ""
+msgstr "Eerste secondant"
 
 #: ../root/elections/ElectionDetails.js:48
 #: ../root/elections/ElectionTable/index.js:28
 msgid "2nd seconder"
-msgstr ""
+msgstr "Tweede secondant"
 
 #: ../root/elections/ElectionDetails.js:59
 msgid "Total votes"
-msgstr ""
+msgstr "Totaal aantal stemmen"
 
 #: ../root/elections/ElectionDetails.js:63
 #: ../root/elections/ElectionTable/index.js:29
@@ -9553,7 +9521,7 @@ msgstr "Tegenstemmen"
 
 #: ../root/elections/ElectionDetails.js:71
 msgid "Abstentions"
-msgstr ""
+msgstr "Onthoudingen"
 
 #: ../root/elections/ElectionDetails.js:79
 msgid "Votes for/against:"
@@ -9627,7 +9595,7 @@ msgstr "Secondeer deze kandidaat"
 
 #: ../root/elections/ElectionVoting.js:80
 msgid "Your current vote: {vote}"
-msgstr ""
+msgstr "Je huidige stem: {vote}"
 
 #: ../root/elections/ElectionVoting.js:88
 msgid "Vote YES"
@@ -9679,7 +9647,7 @@ msgstr "Uitgebrachte stemmen"
 
 #: ../root/elections/Show.js:37
 msgid "The list of voters will only be shown when the election is complete."
-msgstr ""
+msgstr "De stemlijst wordt alleen weergegeven nadat de verkiezing is afgelopen."
 
 #: ../root/entity/Collections.js:40
 msgid "{entity} has been added to {num} collection:"
@@ -9745,8 +9713,6 @@ msgid "{entity_type} by {artist}"
 msgstr "{entity_type} van {artist}"
 
 #: ../root/entity/NotFound.js:19
-#, fuzzy
-#| msgid "Area Not Found"
 msgctxt "header"
 msgid "Area not found"
 msgstr "Gebied niet gevonden"
@@ -9760,8 +9726,6 @@ msgstr ""
 "proberen om {search_url|ernaar te zoeken}."
 
 #: ../root/entity/NotFound.js:28
-#, fuzzy
-#| msgid "Artist Not Found"
 msgctxt "header"
 msgid "Artist not found"
 msgstr "Artiest niet gevonden"
@@ -9775,8 +9739,6 @@ msgstr ""
 "proberen om {search_url|ernaar te zoeken}."
 
 #: ../root/entity/NotFound.js:37
-#, fuzzy
-#| msgid "Artist Credit Not Found"
 msgctxt "header"
 msgid "Artist credit not found"
 msgstr "Artiestvermelding niet gevonden"
@@ -9786,8 +9748,6 @@ msgid "Sorry, we could not find an artist credit with that ID."
 msgstr "We konden helaas gaan artiestvermelding met die MusicBrainz-ID vinden."
 
 #: ../root/entity/NotFound.js:43
-#, fuzzy
-#| msgid "CD TOC Not Found"
 msgctxt "header"
 msgid "CD TOC not found"
 msgstr "TOC niet gevonden"
@@ -9797,8 +9757,6 @@ msgid "Sorry, we could not find the CD TOC you specified."
 msgstr "We konden de door jou opgegeven TOC helaas niet vinden."
 
 #: ../root/entity/NotFound.js:49
-#, fuzzy
-#| msgid "Collection Not Found"
 msgctxt "header"
 msgid "Collection not found"
 msgstr "Collectie niet gevonden"
@@ -9808,8 +9766,6 @@ msgid "Sorry, we could not find a collection with that MusicBrainz ID."
 msgstr "We konden helaas geen collectie met die MusicBrainz-ID vinden."
 
 #: ../root/entity/NotFound.js:57
-#, fuzzy
-#| msgid "Edit Not Found"
 msgctxt "header"
 msgid "Edit not found"
 msgstr "Bewerking niet gevonden"
@@ -9823,8 +9779,6 @@ msgstr ""
 "proberen om {search_url|ernaar te zoeken}."
 
 #: ../root/entity/NotFound.js:66
-#, fuzzy
-#| msgid "Election Not Found"
 msgctxt "header"
 msgid "Election not found"
 msgstr "Verkiezing niet gevonden"
@@ -9838,8 +9792,6 @@ msgid "Back to all elections."
 msgstr "Terug naar alle verkiezingen"
 
 #: ../root/entity/NotFound.js:72
-#, fuzzy
-#| msgid "Event Not Found"
 msgctxt "header"
 msgid "Event not found"
 msgstr "Evenement niet gevonden"
@@ -9853,8 +9805,6 @@ msgstr ""
 "proberen om {search_url|ernaar te zoeken}."
 
 #: ../root/entity/NotFound.js:81
-#, fuzzy
-#| msgid "Genre Not Found"
 msgctxt "header"
 msgid "Genre not found"
 msgstr "Genre niet gevonden"
@@ -9868,8 +9818,6 @@ msgstr ""
 "beschikbare genres in onze {genre_list|genrelijst} vinden."
 
 #: ../root/entity/NotFound.js:90
-#, fuzzy
-#| msgid "Instrument Not Found"
 msgctxt "header"
 msgid "Instrument not found"
 msgstr "Instrument niet gevonden"
@@ -9883,8 +9831,6 @@ msgstr ""
 "proberen om {search_url|ernaar te zoeken}."
 
 #: ../root/entity/NotFound.js:99
-#, fuzzy
-#| msgid "ISRC Not Currently Used"
 msgctxt "header"
 msgid "ISRC not currently used"
 msgstr "Deze ISRC is nu niet in gebruik"
@@ -9898,8 +9844,6 @@ msgstr ""
 "als je het aan een opname wil toevoegen en voeg dan de ISRC toe."
 
 #: ../root/entity/NotFound.js:109
-#, fuzzy
-#| msgid "ISWC Not Currently Used"
 msgctxt "header"
 msgid "ISWC not currently used"
 msgstr "Deze ISWC is nu niet in gebruik"
@@ -9914,8 +9858,6 @@ msgstr ""
 "toe."
 
 #: ../root/entity/NotFound.js:118
-#, fuzzy
-#| msgid "Label Not Found"
 msgctxt "header"
 msgid "Label not found"
 msgstr "Platenmaatschappij niet gevonden"
@@ -9929,8 +9871,6 @@ msgstr ""
 "kan ook proberen om {search_url|ernaar te zoeken}."
 
 #: ../root/entity/NotFound.js:127
-#, fuzzy
-#| msgid "Entity Not Found"
 msgctxt "header"
 msgid "Entity not found"
 msgstr "Object niet gevonden"
@@ -9944,11 +9884,9 @@ msgstr ""
 "proberen om {search_url|ernaar te zoeken}."
 
 #: ../root/entity/NotFound.js:136
-#, fuzzy
-#| msgid "Page Not Found"
 msgctxt "header"
 msgid "Place not found"
-msgstr "Pagina niet gevonden"
+msgstr "Plaats niet gevonden"
 
 #: ../root/entity/NotFound.js:138
 msgid ""
@@ -9959,8 +9897,6 @@ msgstr ""
 "proberen om {search_url|ernaar te zoeken}."
 
 #: ../root/entity/NotFound.js:145
-#, fuzzy
-#| msgid "Recording Not Found"
 msgctxt "header"
 msgid "Recording not found"
 msgstr "Opname niet gevonden"
@@ -9974,8 +9910,6 @@ msgstr ""
 "proberen om {search_url|ernaar te zoeken}."
 
 #: ../root/entity/NotFound.js:154
-#, fuzzy
-#| msgid "Relationship Attribute Not Found"
 msgctxt "header"
 msgid "Relationship attribute not found"
 msgstr "Relatie-eigenschap niet gevonden"
@@ -9987,8 +9921,6 @@ msgstr ""
 "We konden helaas geen relatie-eigenschap met die MusicBrainz-ID vinden."
 
 #: ../root/entity/NotFound.js:163
-#, fuzzy
-#| msgid "Relationship Type Not Found"
 msgctxt "header"
 msgid "Relationship type not found"
 msgstr "Relatietype niet gevonden"
@@ -9998,8 +9930,6 @@ msgid "Sorry, we could not find a relationship type with that MusicBrainz ID."
 msgstr "We konden helaas geen relatietype met die MusicBrainz-ID vinden."
 
 #: ../root/entity/NotFound.js:172
-#, fuzzy
-#| msgid "Release Not Found"
 msgctxt "header"
 msgid "Release not found"
 msgstr "Uitgave niet gevonden"
@@ -10013,8 +9943,6 @@ msgstr ""
 "proberen om {search_url|ernaar te zoeken}."
 
 #: ../root/entity/NotFound.js:181
-#, fuzzy
-#| msgid "Release Group Not Found"
 msgctxt "header"
 msgid "Release group not found"
 msgstr "Uitgavegroep niet gevonden"
@@ -10028,8 +9956,6 @@ msgstr ""
 "proberen om {search_url|ernaar te zoeken}."
 
 #: ../root/entity/NotFound.js:190
-#, fuzzy
-#| msgid "Series Not Found"
 msgctxt "singular, header"
 msgid "Series not found"
 msgstr "Serie niet gevonden"
@@ -10043,8 +9969,6 @@ msgstr ""
 "proberen om {search_url|ernaar te zoeken}."
 
 #: ../root/entity/NotFound.js:199
-#, fuzzy
-#| msgid "Track Not Found"
 msgctxt "header"
 msgid "Track not found"
 msgstr "Nummer niet gevonden"
@@ -10058,8 +9982,6 @@ msgstr ""
 "ook proberen om {search_url|ernaar te zoeken}."
 
 #: ../root/entity/NotFound.js:209
-#, fuzzy
-#| msgid "URL Not Found"
 msgctxt "header"
 msgid "URL not found"
 msgstr "URL niet gevonden"
@@ -10069,8 +9991,6 @@ msgid "Sorry, we could not find a URL with that MusicBrainz ID."
 msgstr "We konden helaas geen URL met die MusicBrainz-ID vinden."
 
 #: ../root/entity/NotFound.js:215
-#, fuzzy
-#| msgid "Editor Not Found"
 msgctxt "header"
 msgid "Editor not found"
 msgstr "Redacteur niet gevonden"
@@ -10084,8 +10004,6 @@ msgstr ""
 "{search_url|ernaar te zoeken}."
 
 #: ../root/entity/NotFound.js:224
-#, fuzzy
-#| msgid "Work Not Found"
 msgctxt "header"
 msgid "Work not found"
 msgstr "Compositie niet gevonden"
@@ -10113,16 +10031,12 @@ msgid "{link} has no ratings."
 msgstr "{link} heeft geen waarderingen"
 
 #: ../root/entity/Ratings.js:97
-#, fuzzy
-#| msgid "Most Recent"
 msgid "Most recent"
 msgstr "Meest recent"
 
 #: ../root/entity/Ratings.js:104
-#, fuzzy
-#| msgid "Most Popular"
 msgid "Most popular"
-msgstr "Populairst"
+msgstr "Meest populair"
 
 #: ../root/entity/Subscribers.js:57
 msgid "This is a special purpose entity and does not support subscriptions."
@@ -10192,22 +10106,16 @@ msgid "You are not currently subscribed. {sub|Subscribe}?"
 msgstr "Je bent momenteel niet geabonneerd. {sub|Abonneren}?"
 
 #: ../root/entity/alias/AddOrEditAlias.js:37
-#, fuzzy
-#| msgid "Add alias"
 msgctxt "header"
 msgid "Add alias"
 msgstr "Alias toevoegen"
 
 #: ../root/entity/alias/AddOrEditAlias.js:38
-#, fuzzy
-#| msgid "Edit alias"
 msgctxt "header"
 msgid "Edit alias"
 msgstr "Alias bewerken"
 
 #: ../root/entity/alias/DeleteAlias.js:31
-#, fuzzy
-#| msgid "Remove alias"
 msgctxt "header"
 msgid "Remove alias"
 msgstr "Alias verwijderen"
@@ -10270,23 +10178,17 @@ msgid "Genre information"
 msgstr "Genre-informatie"
 
 #: ../root/genre/GenreIndex.js:36
-#, fuzzy
-#| msgid "Associated tags"
 msgctxt "folksonomy"
 msgid "Associated tags"
 msgstr "Gerelateerde tags"
 
 #: ../root/genre/GenreIndex.js:39
-#, fuzzy
-#| msgid "Primary tag"
 msgctxt "folksonomy"
 msgid "Primary tag"
 msgstr "Primaire tag"
 
 #: ../root/genre/GenreListPage.js:20 ../root/genre/GenreListPage.js:22
 #: ../root/layout/components/BottomMenu.js:326
-#, fuzzy
-#| msgid "Genre List"
 msgid "Genre list"
 msgstr "Genrelijst"
 
@@ -10314,8 +10216,6 @@ msgstr ""
 
 #: ../root/instrument/DeleteInstrument.js:34
 #: ../root/instrument/DeleteInstrument.js:36
-#, fuzzy
-#| msgid "Remove instrument"
 msgctxt "header"
 msgid "Remove instrument"
 msgstr "Instrument verwijderen"
@@ -10347,8 +10247,6 @@ msgstr ""
 
 #: ../root/instrument/List.js:45 ../root/instrument/List.js:47
 #: ../root/layout/components/BottomMenu.js:323
-#, fuzzy
-#| msgid "Instrument List"
 msgid "Instrument list"
 msgstr "Instrumentenlijst"
 
@@ -10417,14 +10315,10 @@ msgid "(reset language)"
 msgstr "(taal terugzetten)"
 
 #: ../root/layout/components/BottomMenu.js:104
-#, fuzzy
-#| msgid "Help Translate"
 msgid "Help translate"
-msgstr "Help mee vertalen"
+msgstr "Help mee met vertalen"
 
 #: ../root/layout/components/BottomMenu.js:115
-#, fuzzy
-#| msgid "About Us"
 msgid "About us"
 msgstr "Over ons"
 
@@ -10445,14 +10339,10 @@ msgid "Shop"
 msgstr "Winkel"
 
 #: ../root/layout/components/BottomMenu.js:132
-#, fuzzy
-#| msgid "Contact Us"
 msgid "Contact us"
-msgstr "Contact"
+msgstr "Contact opnemen"
 
 #: ../root/layout/components/BottomMenu.js:135
-#, fuzzy
-#| msgid "Data Licenses"
 msgid "Data licenses"
 msgstr "Gegevenslicenties"
 
@@ -10470,11 +10360,11 @@ msgstr "Privacybeleid"
 
 #: ../root/layout/components/BottomMenu.js:147
 msgid "GDPR compliance"
-msgstr "Naleving van de AVG"
+msgstr "Naleven van de AVG"
 
 #: ../root/layout/components/BottomMenu.js:150
 msgid "Data removal policy"
-msgstr "Beleid voor gegevensverwijdering"
+msgstr "Beleid voor gegevens verwijderen"
 
 #: ../root/layout/components/BottomMenu.js:156
 #: ../root/user/PrivilegedUsers.js:33 ../root/user/PrivilegedUsers.js:35
@@ -10490,10 +10380,8 @@ msgid "Timeline graph"
 msgstr "Tijdslijn"
 
 #: ../root/layout/components/BottomMenu.js:165
-#, fuzzy
-#| msgid "MusicBrainz: Artist"
 msgid "MusicBrainz history"
-msgstr "MusicBrainz: Artiest"
+msgstr "De geschiedenis van MusicBrainz"
 
 #: ../root/layout/components/BottomMenu.js:174
 msgid "Products"
@@ -10545,7 +10433,7 @@ msgstr "Geavanceerd zoeken"
 
 #: ../root/layout/components/BottomMenu.js:225
 msgid "Edit search"
-msgstr "Bewerkingen zoeken"
+msgstr "Zoeken naar bewerkingen"
 
 #: ../root/layout/components/BottomMenu.js:228
 msgctxt "folksonomy"
@@ -10560,16 +10448,12 @@ msgid "Editing"
 msgstr "Bewerken"
 
 #: ../root/layout/components/BottomMenu.js:245
-#, fuzzy
-#| msgid "Add artist"
 msgctxt "interactive"
 msgid "Add artist"
 msgstr "Artiest toevoegen"
 
 #: ../root/layout/components/BottomMenu.js:252
 #: ../root/layout/components/sidebar/ArtistSidebar.js:147
-#, fuzzy
-#| msgid "Add release group"
 msgctxt "interactive"
 msgid "Add release group"
 msgstr "Uitgavegroep toevoegen"
@@ -10578,44 +10462,32 @@ msgstr "Uitgavegroep toevoegen"
 #: ../root/layout/components/sidebar/ArtistSidebar.js:152
 #: ../root/layout/components/sidebar/LabelSidebar.js:105
 #: ../root/layout/components/sidebar/ReleaseGroupSidebar.js:80
-#, fuzzy
-#| msgid "Add release"
 msgctxt "interactive"
 msgid "Add release"
 msgstr "Uitgave toevoegen"
 
 #: ../root/layout/components/BottomMenu.js:260
-#, fuzzy
-#| msgid "Add Various Artists Release"
 msgctxt "interactive"
 msgid "Add Various Artists release"
 msgstr "Uitgave van diverse artiesten toevoegen"
 
 #: ../root/layout/components/BottomMenu.js:265
-#, fuzzy
-#| msgid "Add standalone recording"
 msgctxt "interactive"
 msgid "Add standalone recording"
-msgstr "Losse opname toevoegen"
+msgstr "Opname zonder uitgave toevoegen"
 
 #: ../root/layout/components/BottomMenu.js:269
 #: ../root/layout/components/sidebar/ArtistSidebar.js:162
-#, fuzzy
-#| msgid "Add work"
 msgctxt "interactive"
 msgid "Add work"
 msgstr "Compositie toevoegen"
 
 #: ../root/layout/components/BottomMenu.js:272
-#, fuzzy
-#| msgid "Add place"
 msgctxt "interactive"
 msgid "Add place"
 msgstr "Plaats toevoegen"
 
 #: ../root/layout/components/BottomMenu.js:276
-#, fuzzy
-#| msgid "Add series"
 msgctxt "singular, interactive"
 msgid "Add series"
 msgstr "Serie toevoegen"
@@ -10623,15 +10495,11 @@ msgstr "Serie toevoegen"
 #: ../root/layout/components/BottomMenu.js:280
 #: ../root/layout/components/sidebar/ArtistSidebar.js:167
 #: ../root/layout/components/sidebar/PlaceSidebar.js:121
-#, fuzzy
-#| msgid "Add event"
 msgctxt "interactive"
 msgid "Add event"
 msgstr "Evenement toevoegen"
 
 #: ../root/layout/components/BottomMenu.js:283
-#, fuzzy
-#| msgid "Vote on Edits"
 msgid "Vote on edits"
 msgstr "Op bewerkingen stemmen"
 
@@ -10645,8 +10513,6 @@ msgid "Beginners guide"
 msgstr "Handleiding voor beginners"
 
 #: ../root/layout/components/BottomMenu.js:306
-#, fuzzy
-#| msgid "How Tos"
 msgid "How tos"
 msgstr "Korte handleidingen"
 
@@ -10655,8 +10521,6 @@ msgid "FAQs"
 msgstr "Veelgestelde vragen"
 
 #: ../root/layout/components/BottomMenu.js:313
-#, fuzzy
-#| msgid "Documentation Index"
 msgid "Documentation index"
 msgstr "Alle documentatie"
 
@@ -10665,8 +10529,6 @@ msgstr "Alle documentatie"
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:112
 #: ../root/relationship/linktype/RelationshipTypesList.js:60
 #: ../root/utility/tableColumns.js:373
-#, fuzzy
-#| msgid "Relationship Types"
 msgid "Relationship types"
 msgstr "Relatietypes"
 
@@ -10715,14 +10577,12 @@ msgid "MusicBrainz: Track"
 msgstr "MusicBrainz: Nummer"
 
 #: ../root/layout/components/TopMenu.js:69
-#, fuzzy
-#| msgid "Log Out"
 msgid "Log out"
 msgstr "Afmelden"
 
 #: ../root/layout/components/TopMenu.js:83
 msgid "My data"
-msgstr ""
+msgstr "Mijn gegevens"
 
 #: ../root/layout/components/TopMenu.js:89
 #: ../root/layout/components/sidebar/CollectionLinks.js:50
@@ -10732,43 +10592,31 @@ msgstr "Mijn collecties"
 
 #: ../root/layout/components/TopMenu.js:93
 #: ../root/static/scripts/account/components/PreferencesForm.js:205
-#, fuzzy
-#| msgid "My Ratings"
 msgid "My ratings"
 msgstr "Mijn waarderingen"
 
 #: ../root/layout/components/TopMenu.js:97
 msgctxt "folksonomy"
 msgid "My tags"
-msgstr ""
+msgstr "Mijn etiketten"
 
 #: ../root/layout/components/TopMenu.js:101
-#, fuzzy
-#| msgid "My Open Edits"
 msgid "My open edits"
 msgstr "Mijn open bewerkingen"
 
 #: ../root/layout/components/TopMenu.js:104
-#, fuzzy
-#| msgid "All edits"
 msgid "All my edits"
-msgstr "Alle bewerkingen"
+msgstr "Al mijn bewerkingen"
 
 #: ../root/layout/components/TopMenu.js:107
-#, fuzzy
-#| msgid "Edits for Subscribed Entities"
 msgid "Edits for subscribed entities"
-msgstr "Bewerkingen van objecten waar ik op geabonneerd ben"
+msgstr "Bewerkingen van geabonneerde objecten"
 
 #: ../root/layout/components/TopMenu.js:111
-#, fuzzy
-#| msgid "Edits by Subscribed Editors"
 msgid "Edits by subscribed editors"
-msgstr "Bewerkingen door redacteurs waar ik op geabonneerd ben"
+msgstr "Bewerkingen door geabonneerde redacteurs"
 
 #: ../root/layout/components/TopMenu.js:115
-#, fuzzy
-#| msgid "Notes Left on My Edits"
 msgid "Notes left on my edits"
 msgstr "Notities bij mijn bewerkingen"
 
@@ -10777,52 +10625,38 @@ msgid "Admin"
 msgstr "Beheerder"
 
 #: ../root/layout/components/TopMenu.js:131
-#, fuzzy
-#| msgid "Add area"
 msgctxt "interactive"
 msgid "Add area"
 msgstr "Gebied toevoegen"
 
 #: ../root/layout/components/TopMenu.js:139
 #: ../root/static/scripts/relationship-editor/components/DialogAttribute/MultiselectAttribute.js:39
-#, fuzzy
-#| msgid "Add instrument"
 msgctxt "interactive"
 msgid "Add instrument"
 msgstr "Instrument toevoegen"
 
 #: ../root/layout/components/TopMenu.js:143
-#, fuzzy
-#| msgid "Add genre"
 msgctxt "interactive"
 msgid "Add genre"
 msgstr "Genre toevoegen"
 
 #: ../root/layout/components/TopMenu.js:146
-#, fuzzy
-#| msgid "Edit relationship type"
 msgid "Edit relationship types"
-msgstr "Relatietype bewerken"
+msgstr "Relatietypes bewerken"
 
 #: ../root/layout/components/TopMenu.js:209
 #: ../root/static/scripts/account/components/RegisterForm.js:124
-#, fuzzy
-#| msgid "Create Account"
 msgctxt "interactive"
 msgid "Create account"
 msgstr "Registreren"
 
 #: ../root/layout/components/sidebar/AnnotationLinks.js:37
 #: ../root/static/scripts/common/components/Annotation.js:97
-#, fuzzy
-#| msgid "Edit annotation"
 msgctxt "interactive"
 msgid "Edit annotation"
 msgstr "Aantekening bewerken"
 
 #: ../root/layout/components/sidebar/AnnotationLinks.js:38
-#, fuzzy
-#| msgid "Add annotation"
 msgctxt "interactive"
 msgid "Add annotation"
 msgstr "Aantekening toevoegen"
@@ -10841,25 +10675,19 @@ msgid "Artist information"
 msgstr "Informatie over de artiest"
 
 #: ../root/layout/components/sidebar/ArtistSidebar.js:157
-#, fuzzy
-#| msgid "Add recording"
 msgctxt "interactive"
 msgid "Add recording"
 msgstr "Opname toevoegen"
 
 #: ../root/layout/components/sidebar/CDStubSidebar.js:48
-#, fuzzy
-#| msgid "Added"
 msgctxt "CD stub"
 msgid "Added"
 msgstr "Toegevoegd"
 
 #: ../root/layout/components/sidebar/CDStubSidebar.js:56
-#, fuzzy
-#| msgid "Last modified:"
 msgctxt "CD stub"
 msgid "Last modified"
-msgstr "Laatste bewerking:"
+msgstr "Laatste bewerking"
 
 #: ../root/layout/components/sidebar/CDStubSidebar.js:81
 msgid "Import as MusicBrainz release"
@@ -10973,8 +10801,6 @@ msgid "Subscribe"
 msgstr "Abonneren"
 
 #: ../root/layout/components/sidebar/EditLinks.js:36
-#, fuzzy
-#| msgid "Log in to edit"
 msgctxt "interactive"
 msgid "Log in to edit"
 msgstr "Meld je aan om te bewerken"
@@ -11034,11 +10860,11 @@ msgstr "Gesloten"
 
 #: ../root/layout/components/sidebar/PlayOnListenBrainzButton.js:59
 msgid "ListenBrainz"
-msgstr ""
+msgstr "ListenBrainz"
 
 #: ../root/layout/components/sidebar/PlayOnListenBrainzButton.js:64
 msgid "Play on ListenBrainz"
-msgstr ""
+msgstr "Luisteren op ListenBrainz"
 
 #: ../root/layout/components/sidebar/RecordingSidebar.js:45
 msgid "Recording information"
@@ -11053,8 +10879,6 @@ msgid "Release group information"
 msgstr "Informatie over de uitgavegroep"
 
 #: ../root/layout/components/sidebar/ReleaseGroupSidebar.js:88
-#, fuzzy
-#| msgid "Set cover art"
 msgctxt "singular, interactive"
 msgid "Set cover art"
 msgstr "Afbeelding instellen"
@@ -11132,9 +10956,6 @@ msgstr "(geen)"
 
 #: ../root/layout/components/sidebar/SidebarTags.js:53
 #: ../root/static/scripts/common/components/TagEditor.js:691
-#, fuzzy
-#| msgctxt "type"
-#| msgid "(none)"
 msgctxt "folksonomy tag"
 msgid "(none)"
 msgstr "(geen)"
@@ -11151,15 +10972,11 @@ msgstr "Genres"
 #: ../root/static/scripts/common/components/TagEditor.js:552
 #: ../root/static/scripts/common/components/TagEditor.js:685
 #: ../root/user/UserTagList.js:102
-#, fuzzy
-#| msgid "Other tags"
 msgctxt "folksonomy"
 msgid "Other tags"
 msgstr "Andere etiketten"
 
 #: ../root/layout/components/sidebar/SidebarTags.js:105
-#, fuzzy
-#| msgid "See all tags"
 msgctxt "folksonomy"
 msgid "See all tags"
 msgstr "Bekijk alle etiketten"
@@ -11192,8 +11009,6 @@ msgstr ""
 "Gefeliciteerd met je verjaardag, en bedankt voor je bijdrage aan MusicBrainz!"
 
 #: ../root/main/ConfirmSeed.js:31
-#, fuzzy
-#| msgid "Confirm Form Submission"
 msgid "Confirm form submission"
 msgstr "Verzenden van het formulier bevestigen"
 
@@ -11216,8 +11031,6 @@ msgstr ""
 "kan je de gegevens controleren en als je wil dingen veranderen."
 
 #: ../root/main/error/Error400.js:26
-#, fuzzy
-#| msgid "Bad Request"
 msgid "Bad request"
 msgstr "Verkeerd verzoek"
 
@@ -11234,14 +11047,10 @@ msgstr ""
 "voeg elke foutmelding toe die hierboven wordt weergegeven."
 
 #: ../root/main/error/Error400.js:52 ../root/main/error/TimeoutError.js:37
-#, fuzzy
-#| msgid "Technical Information"
 msgid "Technical information"
 msgstr "Technische informatie"
 
 #: ../root/main/error/Error401.js:19
-#, fuzzy
-#| msgid "Unauthorized Request"
 msgid "Unauthorized request"
 msgstr "Ongeautoriseerde aanvraag"
 
@@ -11266,8 +11075,6 @@ msgstr ""
 "org</code> met ons op onder vermelding van je gebruikersnaam."
 
 #: ../root/main/error/Error403.js:21 ../root/main/error/MirrorError403.js:13
-#, fuzzy
-#| msgid "Forbidden Request"
 msgid "Forbidden request"
 msgstr "Verboden verzoek"
 
@@ -11301,8 +11108,6 @@ msgstr ""
 "en voeg elke foutmelding toe die hierboven wordt weergegeven."
 
 #: ../root/main/error/Error500.js:37
-#, fuzzy
-#| msgid "Internal Server Error"
 msgid "Internal server error"
 msgstr "Interne serverfout"
 
@@ -11340,8 +11145,6 @@ msgstr ""
 "elke foutmelding die je hierboven ziet aan de bug toe."
 
 #: ../root/main/error/Error503.js:13
-#, fuzzy
-#| msgid "System Busy"
 msgid "System busy"
 msgstr "Systeem bezig"
 
@@ -11379,8 +11182,6 @@ msgstr ""
 "musicbrainz.org/} gebruiken."
 
 #: ../root/main/error/TimeoutError.js:25
-#, fuzzy
-#| msgid "Request Timed Out"
 msgid "Request timed out"
 msgstr "Verzoek duurde te lang"
 
@@ -11415,10 +11216,8 @@ msgid "(No details about this error are available)"
 msgstr "(Over deze foutmelding zijn geen details beschikbaar)"
 
 #: ../root/main/index.js:36
-#, fuzzy
-#| msgid "MusicBrainz - The Open Music Encyclopedia"
 msgid "MusicBrainz - the open music encyclopedia"
-msgstr "MusicBrainz – De open muziekencyclopedie"
+msgstr "MusicBrainz: de open muziekencyclopedie"
 
 #: ../root/main/index.js:40
 msgid "Welcome to MusicBrainz!"
@@ -11484,8 +11283,6 @@ msgstr ""
 "gratis en open} probeert te houden."
 
 #: ../root/main/index.js:116
-#, fuzzy
-#| msgid "MetaBrainz Blog"
 msgid "MetaBrainz blog"
 msgstr "Ons weblog"
 
@@ -11502,15 +11299,11 @@ msgid "The blog is currently unavailable."
 msgstr "Dit weblog is nu niet beschikbaar."
 
 #: ../root/main/index.js:150
-#, fuzzy
-#| msgid "Tag Your Music"
 msgctxt "audio file metadata"
 msgid "Tag your music"
 msgstr "Tag je muziek"
 
 #: ../root/main/index.js:171
-#, fuzzy
-#| msgid "Quick Start"
 msgid "Quick start"
 msgstr "Snel starten"
 
@@ -11531,8 +11324,6 @@ msgid "Community"
 msgstr "Gemeenschap"
 
 #: ../root/main/index.js:208
-#, fuzzy
-#| msgid "How to Contribute"
 msgid "How to contribute"
 msgstr "Zelf bijdragen"
 
@@ -11560,14 +11351,10 @@ msgstr ""
 "met MusicBrainz overweg kunnen."
 
 #: ../root/main/index.js:248
-#, fuzzy
-#| msgid "Recent Additions"
 msgid "Recent additions"
 msgstr "Recent toegevoegd"
 
 #: ../root/mbid/NotFound.js:21
-#, fuzzy
-#| msgid "MBID Not Found"
 msgid "MBID not found"
 msgstr "MBID niet gevonden"
 
@@ -11582,6 +11369,9 @@ msgid ""
 "it is an ID for something else than an entity (for example, a "
 "{rel_type_table|relationship type})."
 msgstr ""
+"Er zijn geen MusicBrainz-{entity_doc|objecten} voor de {mbid_doc|MBID} {mbid}"
+". Of de MBID klopt niet, of het object is verwijderd, of het is een ID van "
+"iets anders dan een object (bijvoorbeeld een {rel_type_table|relatietype})."
 
 #: ../root/mbid/NotFound.js:39
 msgid "{mbid} is not a valid {mbid_doc|MBID}."
@@ -11593,8 +11383,6 @@ msgstr "Geen {mbid_doc|MBID} opgegeven."
 
 #: ../root/oauth2/OAuth2Authorize.js:28 ../root/oauth2/OAuth2Authorize.js:29
 #: ../root/oauth2/OAuth2Oob.js:21
-#, fuzzy
-#| msgid "OAuth Authorization"
 msgid "OAuth authorization"
 msgstr "OAuth-machtiging"
 
@@ -11615,8 +11403,6 @@ msgid "Allow access"
 msgstr "Toegang toestaan"
 
 #: ../root/oauth2/OAuth2Error.js:21
-#, fuzzy
-#| msgid "OAuth Authorization Error"
 msgid "OAuth authorization error"
 msgstr "OAuth-machtigingsfout"
 
@@ -11683,8 +11469,6 @@ msgstr "Andere zoekmogelijkheden"
 #: ../root/otherlookup/OtherLookupReleaseResults.js:23
 #: ../root/search/components/ResultsLayout.js:32
 #: ../root/search/components/ResultsLayout.js:34
-#, fuzzy
-#| msgid "Search Results"
 msgid "Search results"
 msgstr "Zoekresultaten"
 
@@ -11716,8 +11500,6 @@ msgstr ""
 
 #: ../root/recording/DeleteRecording.js:34
 #: ../root/recording/DeleteRecording.js:36
-#, fuzzy
-#| msgid "Remove recording"
 msgctxt "header"
 msgid "Remove recording"
 msgstr "Opname verwijderen"
@@ -11747,26 +11529,18 @@ msgid "Recording by {artist}"
 msgstr "Opname van {artist}"
 
 #: ../root/recording/RecordingIndex.js:56
-#, fuzzy
-#| msgid "Track Artist"
 msgid "Track artist"
 msgstr "Nummerartiest"
 
 #: ../root/recording/RecordingIndex.js:57
-#, fuzzy
-#| msgid "Release Title"
 msgid "Release title"
 msgstr "Titel van de uitgave"
 
 #: ../root/recording/RecordingIndex.js:58
-#, fuzzy
-#| msgid "Release Artist"
 msgid "Release artist"
 msgstr "Artiest van de uitgave"
 
 #: ../root/recording/RecordingIndex.js:59
-#, fuzzy
-#| msgid "Release Group Type"
 msgid "Release group type"
 msgstr "Type uitgavegroep"
 
@@ -11814,14 +11588,10 @@ msgstr ""
 #: ../root/relationship/RelationshipsHeader.js:23
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:87
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:179
-#, fuzzy
-#| msgid "Relationship Attributes"
 msgid "Relationship attributes"
 msgstr "Relatie-eigenschappen"
 
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:77
-#, fuzzy
-#| msgid "Relationship Attribute"
 msgid "Relationship attribute"
 msgstr "Relatie-eigenschap"
 
@@ -11982,6 +11752,9 @@ msgid ""
 "is. It is not a mark of how good or bad the music itself is — for that, use "
 "{ratings_doc|ratings}."
 msgstr ""
+"{data_quality_doc|De gegevenskwaliteit} geeft aan hoe goed de gegevens over "
+"een uitgave zijn. Het heeft niets te maken met de kwaliteit van de muziek, "
+"daar gebruik je {ratings_doc|waarderingen} voor."
 
 #: ../root/release/CoverArt.js:32
 msgid "250px"
@@ -12000,15 +11773,11 @@ msgid "original"
 msgstr "Origineel"
 
 #: ../root/release/CoverArt.js:57
-#, fuzzy
-#| msgid "Cover art:"
 msgctxt "plural, header"
 msgid "Cover art"
-msgstr "Afbeelding:"
+msgstr "Afbeelding"
 
 #: ../root/release/CoverArt.js:63
-#, fuzzy
-#| msgid "Cannot show cover art"
 msgctxt "plural, header"
 msgid "Cannot show cover art"
 msgstr "De afbeelding kan niet worden getoond"
@@ -12030,29 +11799,21 @@ msgid "We do not currently have any cover art for {release}."
 msgstr "We hebben momenteel geen afbeelding van {release}."
 
 #: ../root/release/CoverArt.js:147
-#, fuzzy
-#| msgid "Add cover art"
 msgctxt "plural, interactive"
 msgid "Add cover art"
 msgstr "Afbeeldingen toevoegen"
 
 #: ../root/release/CoverArt.js:153
-#, fuzzy
-#| msgid "Reorder cover art"
 msgctxt "plural, interactive"
 msgid "Reorder cover art"
 msgstr "Volgorde veranderen"
 
 #: ../root/release/CoverArt.js:162
-#, fuzzy
-#| msgid "Log in to upload cover art"
 msgctxt "plural, interactive"
 msgid "Log in to upload cover art"
 msgstr "Meld je aan om afbeeldingen toe te voegen"
 
 #: ../root/release/CoverArtDarkened.js:19
-#, fuzzy
-#| msgid "Cannot Add Cover Art"
 msgctxt "plural"
 msgid "Cannot add cover art"
 msgstr "Kan geen afbeelding toevoegen"
@@ -12062,8 +11823,6 @@ msgid "Choose one or more cover art types for this image"
 msgstr "Kies één of meer types voor deze afbeelding"
 
 #: ../root/release/DeleteRelease.js:31 ../root/release/DeleteRelease.js:33
-#, fuzzy
-#| msgid "Remove release"
 msgctxt "header"
 msgid "Remove release"
 msgstr "Uitgave verwijderen"
@@ -12106,10 +11865,10 @@ msgid ""
 "You are about to merge the following releases into a single release. Please "
 "select the release which you would like other releases to be merged into:"
 msgstr ""
+"Je staat op het punt de volgende uitgaven tot één uitgave samen te voegen. "
+"Selecteer de uitgave waarin de andere uitgaven moeten worden samengevoegd:"
 
 #: ../root/release/RemoveCoverArt.js:31
-#, fuzzy
-#| msgid "Remove cover art"
 msgctxt "singular, header"
 msgid "Remove cover art"
 msgstr "Afbeelding verwijderen"
@@ -12271,13 +12030,6 @@ msgid "Artists that may be groups"
 msgstr "Artiesten die groepen zouden kunnen zijn"
 
 #: ../root/report/ArtistsThatMayBePersons.js:24
-#, fuzzy
-#| msgid ""
-#| "This report lists artists that have their type set to other than Person, "
-#| "but may be a person, based on their relationships. For example, an artist "
-#| "will appear here if it is listed as a member of another. If you find that "
-#| "an artist here is indeed a person, change its type. If it is not, please "
-#| "make sure that all the relationships are correct and make sense."
 msgid ""
 "This report lists artists that have their type set to other than Person or "
 "Character, but may be a person, based on their relationships. For example, "
@@ -12286,12 +12038,12 @@ msgid ""
 "type. If it is not, please make sure that all the relationships are correct "
 "and make sense."
 msgstr ""
-"In dit rapport staan artiesten die op MusicBrainz niet als persoon bekend "
-"zijn, maar dat op basis van relaties misschien wel zouden moeten zijn. Een "
-"artiest staat hier bijvoorbeeld in omdat hij een lid is van een andere "
-"artiest. Verander het type als de artiest inderdaad een persoon is. Als de "
-"artiest geen persoon is, kan je controleren of alle relaties kloppen en "
-"logisch zijn."
+"In dit rapport staan artiesten die op MusicBrainz niet als persoon of "
+"personage bekend zijn, maar dat op basis van relaties misschien wel zouden "
+"moeten zijn. Een artiest staat hier bijvoorbeeld in omdat hij een lid is van "
+"een andere artiest (of personage). Verander het type als de artiest "
+"inderdaad een persoon is. Als de artiest geen persoon is, kan je controleren "
+"of alle relaties kloppen en logisch zijn."
 
 #: ../root/report/ArtistsThatMayBePersons.js:34
 #: ../root/report/ReportsIndex.js:64
@@ -12381,6 +12133,10 @@ msgid ""
 "CD). This usually means a disc ID was generated for the wrong format (SACD) "
 "or with a buggy tool."
 msgstr ""
+"In dit rapport staan disc-ID’s met een totale duur die veel langer is dan op "
+"een standaard cd past (minstens 88 minuten voor een cd of dertig minuten "
+"voor een mini-cd). Dat betekent meestal dat een disc-ID is gemaakt voor een "
+"verkeerd soort medium (SACD) of met defecte software."
 
 #: ../root/report/CDTocDubiousLength.js:32 ../root/report/ReportsIndex.js:633
 msgid "Disc IDs with dubious duration"
@@ -12395,6 +12151,12 @@ msgid ""
 "sure though that no existing lengths clash with the disc ID, or that any "
 "clashes are clear mistakes."
 msgstr ""
+"In dit rapport staan disc-ID’s die aan een uitgave zijn gekoppeld maar niet "
+"zijn toegepast omdat minstens één nummerduur op de uitgave niet bekend is. "
+"Het rapport wordt beperkt tot media waaraan maar één disc-ID is gekoppeld, "
+"zodat de disc-ID heel waarschijnlijk zonder zorgen kan worden toegepast. Pas "
+"wel op dat de lengtes niet te veel afwijken van de disc-ID of dat "
+"afwijkingen duidelijk fouten zijn."
 
 #: ../root/report/CDTocNotApplied.js:34 ../root/report/ReportsIndex.js:637
 msgid "Disc IDs attached but not applied"
@@ -12455,11 +12217,9 @@ msgstr ""
 
 #: ../root/report/CatNoLooksLikeLabelCode.js:39
 #: ../root/report/ReportsIndex.js:333
-#, fuzzy
-#| msgid "Releases with catalog numbers that look like Label Codes"
 msgid "Releases with catalog numbers that look like label codes"
 msgstr ""
-"Uitgaven met catalogusnummers die eruitzien als platenmaatschappijcodes"
+"Uitgaven met catalogusnummers die er uitzien als platenmaatschappijcodes"
 
 #: ../root/report/CollaborationRelationships.js:32
 msgid ""
@@ -12802,6 +12562,13 @@ msgid ""
 "has an album and single with the same name, then there is usually no need to "
 "change anything. In other cases, a disambiguation comment may be helpful."
 msgstr ""
+"In dit rapport staan uitgavegroepen met erg op elkaar lijkende namen en "
+"artiesten. Als de uitgaven in dezelfde uitgavegroep thuishoren (zie de "
+"{url|richtlijnen}), kunnen de uitgavegroepen worden samengevoegd. Als ze "
+"niet moeten worden samengevoegd maar aan de hand van het type uitgavegroep "
+"uit elkaar kunnen worden gehouden (zoals een album en single met dezelfde "
+"naam), hoeft er meestal niets te veranderen. In andere gevallen kan een "
+"verduidelijking handig zijn."
 
 #: ../root/report/DuplicateReleaseGroups.js:52
 #: ../root/report/ReportsIndex.js:228
@@ -12901,6 +12668,8 @@ msgid ""
 "This report shows instruments without an image relationship to StaticBrainz "
 "(that is, without an IROMBOOK image)."
 msgstr ""
+"In dit rapport staan instrumenten zonder afbeeldingskoppeling naar "
+"StaticBrainz (dat wil zeggen, zonder een IROMBOOK-afbeelding)."
 
 #: ../root/report/InstrumentsWithoutAnImage.js:30
 #: ../root/report/ReportsIndex.js:164
@@ -13002,8 +12771,6 @@ msgstr "Aan meerdere objecten gekoppelde URL’s"
 #: ../root/report/LinksWithMultipleEntities.js:61
 #: ../root/report/WikidataLinksWithMultipleEntities.js:56
 #: ../root/report/components/UrlList.js:52
-#, fuzzy
-#| msgid "URL Entity"
 msgid "URL entity"
 msgstr "URL-object"
 
@@ -13021,11 +12788,17 @@ msgid ""
 "improved but the data quality wasn’t changed accordingly, just enter a data "
 "quality change to remove it from this report."
 msgstr ""
+"In dit rapport staan uitgaven met een lage gegevenskwaliteit. Als je de tijd "
+"hebt, kan je de gegevens zo veel mogelijk proberen te verbeteren en daarna "
+"de kwaliteit instellen op Normaal (of zelfs Hoog, als je alle mogelijke "
+"informatie hebt toegevoegd). Als een uitgave al is verbeterd maar de "
+"gegevenskwaliteit niet is aangepast, kun je dat laatste doen om de uitgave "
+"uit het rapport te halen."
 
 #: ../root/report/LowDataQualityReleases.js:38
 #: ../root/report/ReportsIndex.js:472
 msgid "Releases marked as having low data quality"
-msgstr ""
+msgstr "Uitgaven met een lage gegevenskwaliteit"
 
 #: ../root/report/MediumsWithOrderInTitle.js:24
 msgid ""
@@ -13049,6 +12822,8 @@ msgid ""
 "This report lists all releases with gaps in the medium numbers (for example, "
 "there is a medium 1 and 3 but no medium 2)."
 msgstr ""
+"In dit rapport staan alle uitgaven waarvan de media niet continu genummerd "
+"zijn (bijv. als er media met de posities 1 en 3 zijn, maar niet 2)."
 
 #: ../root/report/MediumsWithSequenceIssues.js:30
 msgid "Releases with medium number issues"
@@ -13150,11 +12925,15 @@ msgid ""
 "pretty much never release non-bootleg releases, so chances are that either "
 "the label or the status are wrong."
 msgstr ""
+"In dit rapport staan uitgaven met minstens één in bootlegs gespecialiseerde "
+"platenmaatschappij die niet de status bootleg hebben. Omdat deze "
+"platenmaatschappijen zelden officiële uitgaven uitbrengen, is de kans groot "
+"dat de platenmaatschappij of de status niet klopt."
 
 #: ../root/report/NonBootlegsOnBootlegLabels.js:32
 #: ../root/report/ReportsIndex.js:461
 msgid "Releases on bootleg labels not set to bootleg"
-msgstr ""
+msgstr "Niet-bootleguitgaven met bootlegplatenmaatschappijen"
 
 #: ../root/report/PartOfSetRelationships.js:24
 msgid ""
@@ -13279,6 +13058,8 @@ msgid ""
 "This report shows recordings with relationships using dates in the future. "
 "Those are probably typos (such as 2109 instead of 2019)."
 msgstr ""
+"In dit rapport staan opnamen met relaties die in de toekomst liggen. Dit "
+"zijn waarschijnlijk tikfouten (zoals 2109 in plaats van 2019)."
 
 #: ../root/report/RecordingsWithFutureDates.js:61
 msgid "Recordings with relationships having dates in the future"
@@ -13519,6 +13300,11 @@ msgid ""
 "not “Digital Media”. Generally, these should be moved to the appropriate "
 "digital media release. If one doesn’t exist yet, feel free to add it."
 msgstr ""
+"In dit rapport staan uitgaven met relaties die alleen op digitale media van "
+"toepassing zijn (downloaden, streamen) maar waarvan het medium niet is "
+"ingesteld op ‘Digitale media’. Meestal moeten deze relaties worden "
+"verplaatst naar de digitale uitgave. Als die nog niet bestaat, kun je haar "
+"toevoegen."
 
 #: ../root/report/ReleasesWithDownloadRelationships.js:34
 #: ../root/report/ReportsIndex.js:394
@@ -13546,6 +13332,11 @@ msgid ""
 "format is “Digital Media”. Generally, these should be moved to the "
 "appropriate physical release. If one doesn’t exist yet, feel free to add it."
 msgstr ""
+"In dit rapport staan uitgaven die volgens de relaties per post kunnen worden "
+"besteld (wat alleen voor fysieke media mogelijk is), maar waarvan alle media "
+"zijn ingesteld op ‘Digitale media’. Meestal moeten deze relaties worden "
+"verplaatst naar de fysieke uitgave. Als die nog niet bestaat, kun je haar "
+"toevoegen."
 
 #: ../root/report/ReleasesWithMailOrderRelationships.js:33
 #: ../root/report/ReportsIndex.js:398
@@ -13584,18 +13375,24 @@ msgid ""
 "always exactly match the actual art for that specific release (for example, "
 "they should have the same barcode, format, etc.)."
 msgstr ""
+"In dit rapport staan uitgaven zonder afbeelding in het Cover Art Archive. "
+"Aangezien de meeste uitgaven een afbeelding hebben, moeten voor veruit de "
+"meeste uitgaven in dit rapport afbeeldingen {caa_how_to|naar het Cover Art "
+"Archive worden geüpload}. Het moeten wel afbeeldingen zijn van precies "
+"dezelfde uitgave: dingen als de streepjescode en de hoogte-breedteverhouding "
+"moeten identiek zijn."
 
 #: ../root/report/ReleasesWithoutCaa.js:35
 msgid ""
 "We strongly suggest restricting this report to entities in your "
 "subscriptions only for a more manageable list of results."
 msgstr ""
+"We raden sterk aan om dit rapport te beperken tot objecten waarop je bent "
+"geabonneerd, zodat de lijst te behappen is."
 
 #: ../root/report/ReleasesWithoutCaa.js:40 ../root/report/ReportsIndex.js:366
-#, fuzzy
-#| msgid "This release has artwork in the Cover Art Archive"
 msgid "Releases without any art in the Cover Art Archive"
-msgstr "Deze uitgave heeft afbeeldingen in het Cover Art Archive"
+msgstr "Uitgaven zonder afbeeldingen in het Cover Art Archive"
 
 #: ../root/report/ReleasesWithoutVaCredit.js:24
 msgid ""
@@ -13754,7 +13551,7 @@ msgstr ""
 #: ../root/report/ReportsIndex.js:467
 #: ../root/report/ShowNotesButNotBroadcast.js:37
 msgid "Non-broadcast releases with linked show notes"
-msgstr ""
+msgstr "Niet-uitzendingen met gekoppelde shownotities"
 
 #: ../root/report/ReportsIndex.js:501
 msgid "Recordings with annotations"
@@ -13854,6 +13651,14 @@ msgid ""
 "a better type or removed if nothing is a good fit. If the release is indeed "
 "a podcast, the release group type should be set to Broadcast."
 msgstr ""
+"In dit rapport staan uitgaven met een {doc|relatie voor shownotities}, maar "
+"waarvan het type van de uitgavegroep niet uitzending is. Shownotities zijn "
+"bedoeld voor podcasts en dergelijke, en de relatie moet niet worden gebruikt "
+"voor willekeurige aantekeningen voor andere soorten uitgaven, ook al wordt "
+"ze vaak wel zo gebruikt. In dat geval moet de relatie worden veranderd naar "
+"een ander type of gewoon worden verwijderd. Als de uitgave wel een "
+"uitzending is, moet het type van de uitgavegroep op uitzending worden "
+"ingesteld."
 
 #: ../root/report/SingleMediumReleasesWithMediumTitles.js:24
 msgid ""
@@ -13903,6 +13708,10 @@ msgid ""
 "Notice that sometimes this is justified and correct, don't automatically "
 "assume it is a mistake! If you confirm it is a mistake, please correct it."
 msgstr ""
+"In dit rapport staan uitgaven met nummertitels die de nummerpositie "
+"bevatten, zoals “1) Naam” (in plaats van gewoon “Naam”). Houd er wel "
+"rekening mee dat het juist kán zijn: ga er niet automatisch van uit dat het "
+"fout is! Als je zeker weet dat het fout is, kan je het verbeteren."
 
 #: ../root/report/TracksNamedWithSequence.js:33
 msgid "Releases where track names start with their track number"
@@ -13914,6 +13723,9 @@ msgid ""
 "(for example, there is no \"track 2\"), or with duplicated track numbers "
 "(for example, there are two \"track 4\"s)."
 msgstr ""
+"In dit rapport staan alle uitgaven waarop de nummers niet continu genummerd "
+"zijn (bijv. als er geen nummer 2 is) of waarop meerdere nummers dezelfde "
+"positie hebben (bijvoorbeeld als er twee nummers 4 zijn)."
 
 #: ../root/report/TracksWithSequenceIssues.js:31
 msgid "Releases with track number issues"
@@ -14099,8 +13911,6 @@ msgstr "Laatst bewerkt op"
 
 #: ../root/search/SearchIndex.js:32 ../root/taglookup/Index.js:17
 #: ../root/taglookup/Index.js:19
-#, fuzzy
-#| msgid "Tag lookup"
 msgctxt "audio file metadata"
 msgid "Tag lookup"
 msgstr "Naar tags zoeken"
@@ -14123,8 +13933,6 @@ msgstr "Je kan ook {uri|een nieuwe artiest toevoegen}."
 
 #: ../root/search/components/DocResults.js:16
 #: ../root/search/components/DocResults.js:18
-#, fuzzy
-#| msgid "Documentation Search"
 msgid "Documentation search"
 msgstr "Documentatie zoeken"
 
@@ -14134,7 +13942,7 @@ msgstr "Documentatie zoeken"
 #: ../root/utility/tableColumns.js:388
 msgctxt "event location"
 msgid "Location"
-msgstr ""
+msgstr "Locatie"
 
 #: ../root/search/components/EventResults.js:87
 msgid "Alternatively, you may {uri|add a new event}."
@@ -14177,8 +13985,6 @@ msgid "Last updated: {date}"
 msgstr "Het laatst bijgewerkt op: {date}"
 
 #: ../root/search/components/SearchError.js:24
-#, fuzzy
-#| msgid "Search Error"
 msgid "Search error"
 msgstr "Zoekfout"
 
@@ -14255,11 +14061,6 @@ msgstr ""
 "met minder woorden te zoeken."
 
 #: ../root/search/error/RateLimited.js:24
-#, fuzzy
-#| msgid ""
-#| "Sorry, but your query “(<code>{query}</code>)” could not be performed, "
-#| "because it appears you've been rate-limited. Either the server is "
-#| "overloaded or you're making a lot of requests all at once!."
 msgid ""
 "Sorry, but your query “(<code>{query}</code>)” could not be performed, "
 "because it appears you’ve been rate-limited. Either the server is overloaded "
@@ -14267,7 +14068,7 @@ msgid ""
 msgstr ""
 "Je zoekopdracht “<code>{query}</code>” kon niet helaas worden uitgevoerd "
 "omdat je snelheid is gelimiteerd. Dit komt omdat de server overbelast is of "
-"omdat je te veel gelijktijdige verzoeken doet!"
+"omdat je te veel gelijktijdige verzoeken doet."
 
 #: ../root/search/error/UriTooLarge.js:20
 msgid "Sorry, your query was too large."
@@ -14290,10 +14091,8 @@ msgstr ""
 "waarin je de andere wil samenvoegen:"
 
 #: ../root/static/scripts/account/components/ApplicationForm.js:96
-#, fuzzy
-#| msgid "Callback URL"
 msgid "Callback URI"
-msgstr "URL voor terugbellen"
+msgstr "URI voor terugbellen"
 
 #: ../root/static/scripts/account/components/ApplicationForm.js:104
 msgid ""
@@ -14326,7 +14125,7 @@ msgstr "Website"
 #: ../root/user/UserProfile.js:280
 msgctxt "user area"
 msgid "Location"
-msgstr ""
+msgstr "Locatie"
 
 #: ../root/static/scripts/account/components/EditProfileForm.js:255
 msgid ""
@@ -14354,23 +14153,17 @@ msgid "Bio"
 msgstr "Bio"
 
 #: ../root/static/scripts/account/components/EditProfileForm.js:278
-#, fuzzy
-#| msgid "Languages Known:"
 msgid "Languages known:"
-msgstr "Bekende talen:"
+msgstr "Talenkennis:"
 
 #: ../root/static/scripts/account/components/EditProfileForm.js:314
 #: ../root/static/scripts/work/edit.js:330
-#, fuzzy
-#| msgid "Add a language"
 msgctxt "interactive"
 msgid "Add language"
 msgstr "Taal toevoegen"
 
 #: ../root/static/scripts/account/components/EditProfileForm.js:322
 #: ../root/static/scripts/account/components/PreferencesForm.js:268
-#, fuzzy
-#| msgid "Save"
 msgctxt "interactive"
 msgid "Save"
 msgstr "Opslaan"
@@ -14392,57 +14185,45 @@ msgid "Date/time format:"
 msgstr "Opmaak van datum en tijd:"
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:192
-#, fuzzy
-#| msgid "Allow other users to see my tags"
 msgid "Allow other users to see"
-msgstr "Toestaan dat andere gebruikers mijn etiketten zien"
+msgstr "Toestaan dat andere gebruikers dit zien"
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:195
-#, fuzzy
-#| msgid "No subscriptions."
 msgid "My subscriptions"
-msgstr "Geen abonnementen."
+msgstr "Mijn abonnementen"
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:200
-#, fuzzy
-#| msgid "Add a new genre"
 msgctxt "folksonomy"
 msgid "My tags and genres"
-msgstr "Nieuw genre toevoegen"
+msgstr "Mijn etiketten en genres"
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:213
-#, fuzzy
-#| msgid "Email Sent"
 msgid "Email me about"
-msgstr "E-mail verstuurd"
+msgstr "E-mail me over"
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:216
 msgid "The first “no” vote on any of my edits"
-msgstr ""
+msgstr "De eerste tegenstem voor een van mijn bewerkingen"
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:221
 msgid "Notes on edits I have left notes on"
-msgstr ""
+msgstr "Notities bij bewerkingen waarbij ik ook een notitie heb geplaatst"
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:226
 msgid "Notes on edits I have voted on"
-msgstr ""
+msgstr "Notities bij bewerkingen waarop ik heb gestemd"
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:231
 msgid "Notes on edits I have abstained on"
-msgstr ""
+msgstr "Notities bij bewerkingen waarbij ik onthouding heb gestemd"
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:239
-#, fuzzy
-#| msgid "Send me mails with edits to my subscriptions:"
 msgid "Send me mails with edits to my subscriptions"
-msgstr "Stuur mij e-mails met bewerkingen in mijn abonnementen:"
+msgstr "Stuur mij e-mails met bewerkingen in mijn abonnementen"
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:249
-#, fuzzy
-#| msgid "Automatically subscribe me to labels I create."
 msgid "Automatically subscribe me when I add"
-msgstr "Abonneer me automatisch op platenmaatschappijen die ik toevoeg."
+msgstr "Abonneer me automatisch als ik het volgende toevoeg"
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:262
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:35
@@ -14489,12 +14270,10 @@ msgid ""
 "Please review the {coc|MusicBrainz Code of Conduct} before creating an "
 "account."
 msgstr ""
-"We raden je aan om de {coc|Gedragscode van MusicBrainz} voordat je je "
-"registreert."
+"We raden je aan om de {coc|Gedragscode van MusicBrainz} te lezen voordat je "
+"je registreert."
 
 #: ../root/static/scripts/alias/AliasEditForm.js:294
-#, fuzzy
-#| msgid "Alias Details"
 msgid "Alias details"
 msgstr "Details van de alias"
 
@@ -14513,16 +14292,14 @@ msgstr "Deze alias wordt niet meer gebruikt."
 #: ../root/static/scripts/annotation/AnnotationHistoryTable.js:101
 msgctxt "annotation"
 msgid "Old"
-msgstr ""
+msgstr "Oud"
 
 #: ../root/static/scripts/annotation/AnnotationHistoryTable.js:102
 msgctxt "annotation"
 msgid "New"
-msgstr ""
+msgstr "Nieuw"
 
 #: ../root/static/scripts/annotation/AnnotationHistoryTable.js:107
-#, fuzzy
-#| msgid "Version History"
 msgid "Version history"
 msgstr "Versiegeschiedenis"
 
@@ -14570,6 +14347,9 @@ msgid ""
 "new name. Only use this if you are sure the existing credits are incorrect "
 "(such as for typos)."
 msgstr ""
+"Hiermee worden extra bewerkingen gemaakt om elke vermelding te veranderen "
+"naar de nieuwe naam. Gebruik dit alleen als je zeker weet dat de bestaande "
+"vermeldingen niet kloppen (zoals tikfouten)."
 
 #: ../root/static/scripts/artist/components/ArtistCreditRenamer.js:231
 msgid ""
@@ -14612,7 +14392,7 @@ msgstr "Toestaan dat andere gebruikers deze collectie zien"
 
 #: ../root/static/scripts/collection/components/CollectionEditForm.js:230
 msgid "Add collection"
-msgstr ""
+msgstr "Collectie toevoegen"
 
 #: ../root/static/scripts/collection/components/CollectionEditForm.js:232
 msgid "Update collection"
@@ -14681,11 +14461,9 @@ msgid "Vote on all edits:"
 msgstr "Op alle bewerkingen stemmen:"
 
 #: ../root/static/scripts/common/MB/Control/EditSummary.js:23
-#, fuzzy
-#| msgid "Remove event"
 msgctxt "interactive"
 msgid "Remove note"
-msgstr "Evenement verwijderen"
+msgstr "Notitie verwijderen"
 
 #: ../root/static/scripts/common/artworkViewer.js:76
 msgid "Image {current} of {total}"
@@ -14721,19 +14499,17 @@ msgstr "Aantekening het laatst bewerkt op {date}"
 
 #: ../root/static/scripts/common/components/ArtistCreditLink.js:49
 msgid "This artist credit has {edit_search|open edits}."
-msgstr ""
+msgstr "Er zijn {edit_search|open bewerkingen} voor deze artiestvermelding."
 
 #: ../root/static/scripts/common/components/ArtistCreditLink.js:54
 msgid "This artist credit has open edits."
-msgstr ""
+msgstr "Er zijn open bewerkingen voor deze artiestvermelding."
 
 #: ../root/static/scripts/common/components/ArtistRoles.js:29
 msgid "{artist} ({roles})"
 msgstr "{artist} ({roles})"
 
 #: ../root/static/scripts/common/components/ArtistRoles.js:46
-#, fuzzy
-#| msgid "Artist Roles"
 msgid "Artist roles"
 msgstr "Artiestenrollen"
 
@@ -14789,7 +14565,7 @@ msgstr "Een evenement zoeken"
 
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:131
 msgid "Search for a genre"
-msgstr ""
+msgstr "Een genre zoeken"
 
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:132
 msgid "Search for an instrument"
@@ -14829,7 +14605,7 @@ msgstr "Een compositie zoeken"
 
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:332
 msgid "{forward_link_phrase} / {backward_link_phrase}"
-msgstr ""
+msgstr "{forward_link_phrase} / {backward_link_phrase}"
 
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:398
 msgid "by {artist}"
@@ -14841,11 +14617,11 @@ msgstr "{first_list_item} … {last_list_item}"
 
 #: ../root/static/scripts/common/components/Autocomplete2/reducer.js:159
 msgid "Hide descriptions"
-msgstr ""
+msgstr "Beschrijvingen verbergen"
 
 #: ../root/static/scripts/common/components/Autocomplete2/reducer.js:160
 msgid "Show descriptions"
-msgstr ""
+msgstr "Beschrijvingen tonen"
 
 #: ../root/static/scripts/common/components/Autocomplete2/reducer.js:255
 msgid ""
@@ -14963,7 +14739,7 @@ msgstr "De speellijst bevat"
 
 #: ../root/static/scripts/common/components/FingerprintTable.js:69
 msgid "Error loading AcoustIDs: {error}"
-msgstr ""
+msgstr "Fout bij het laden van AcoustID’s: {error}"
 
 #: ../root/static/scripts/common/components/FingerprintTable.js:105
 msgid "Link"
@@ -15083,8 +14859,6 @@ msgid "Withdraw vote"
 msgstr "Stem intrekken"
 
 #: ../root/static/scripts/common/components/TagEditor.js:127
-#, fuzzy
-#| msgid "You’ve upvoted this tag"
 msgctxt "folksonomy"
 msgid "You’ve upvoted this tag"
 msgstr "Je hebt dit etiket omhoog gestemd."
@@ -15094,8 +14868,6 @@ msgid "Upvote"
 msgstr "Plussen"
 
 #: ../root/static/scripts/common/components/TagEditor.js:141
-#, fuzzy
-#| msgid "You’ve downvoted this tag"
 msgctxt "folksonomy"
 msgid "You’ve downvoted this tag"
 msgstr "Je hebt dit etiket omlaag gestemd."
@@ -15111,24 +14883,16 @@ msgstr "Er zijn geen andere genres."
 
 #: ../root/static/scripts/common/components/TagEditor.js:559
 #: ../root/user/UserTagList.js:120
-#, fuzzy
-#| msgid "There are no other tags to show."
 msgctxt "folksonomy"
 msgid "There are no other tags to show."
 msgstr "Er zijn geen andere etiketten."
 
 #: ../root/static/scripts/common/components/TagEditor.js:563
-#, fuzzy
-#| msgid "Nobody has tagged this yet."
 msgctxt "folksonomy"
 msgid "Nobody has tagged this yet."
 msgstr "Nog niemand heeft dit een etiket gegeven."
 
 #: ../root/static/scripts/common/components/TagEditor.js:574
-#, fuzzy
-#| msgid ""
-#| "Tags with a score of zero or below, and tags that you’ve downvoted are "
-#| "hidden."
 msgctxt "folksonomy"
 msgid ""
 "Tags with a score of zero or below, and tags that you’ve downvoted are "
@@ -15138,30 +14902,21 @@ msgstr ""
 "zijn verborgen."
 
 #: ../root/static/scripts/common/components/TagEditor.js:582
-#, fuzzy
-#| msgid "Tags with a score of zero or below are hidden."
 msgctxt "folksonomy"
 msgid "Tags with a score of zero or below are hidden."
 msgstr "Etiketten met een score van nul of lager zijn verborgen."
 
 #: ../root/static/scripts/common/components/TagEditor.js:592
-#, fuzzy
-#| msgid "Show all tags."
 msgctxt "folksonomy"
 msgid "Show all tags."
 msgstr "Alle etiketten tonen."
 
 #: ../root/static/scripts/common/components/TagEditor.js:601
-#, fuzzy
-#| msgid "All tags are being shown."
 msgctxt "folksonomy"
 msgid "All tags are being shown."
 msgstr "Alle etiketten zijn zichtbaar."
 
 #: ../root/static/scripts/common/components/TagEditor.js:610
-#, fuzzy
-#| msgid ""
-#| "Hide tags with a score of zero or below, and tags that you’ve downvoted."
 msgctxt "folksonomy"
 msgid ""
 "Hide tags with a score of zero or below, and tags that you’ve downvoted."
@@ -15170,24 +14925,16 @@ msgstr ""
 "gestemd."
 
 #: ../root/static/scripts/common/components/TagEditor.js:623
-#, fuzzy
-#| msgid "Hide tags with a score of zero or below."
 msgctxt "folksonomy"
 msgid "Hide tags with a score of zero or below."
 msgstr "Verberg etiketten met een score van nul of lager."
 
 #: ../root/static/scripts/common/components/TagEditor.js:634
-#, fuzzy
-#| msgid "Add Tags"
 msgctxt "folksonomy"
 msgid "Add tags"
 msgstr "Etiketten toevoegen"
 
 #: ../root/static/scripts/common/components/TagEditor.js:637
-#, fuzzy
-#| msgid ""
-#| "You can add your own {tagdocs|tags} below. Use commas to separate "
-#| "multiple tags."
 msgctxt "folksonomy"
 msgid ""
 "You can add your own {tagdocs|tags} below. Use commas to separate multiple "
@@ -15197,30 +14944,21 @@ msgstr ""
 "tussen verschillende etiketten."
 
 #: ../root/static/scripts/common/components/TagEditor.js:652
-#, fuzzy
-#| msgid "Submit tags"
 msgctxt "folksonomy"
 msgid "Submit tags"
 msgstr "Etiketten indienen"
 
 #: ../root/static/scripts/common/components/TagEditor.js:698
-#, fuzzy
-#| msgid "see all tags"
 msgctxt "folksonomy"
 msgid "see all tags"
 msgstr "bekijk alle etiketten"
 
 #: ../root/static/scripts/common/components/TagEditor.js:714
-#, fuzzy
-#| msgctxt "noun"
-#| msgid "Tag"
 msgctxt "verb, folksonomy"
 msgid "Tag"
 msgstr "Etiket"
 
 #: ../root/static/scripts/common/components/TaggerIcon.js:79
-#, fuzzy
-#| msgid "Open in tagger"
 msgctxt "audio file metadata"
 msgid "Open in tagger"
 msgstr "In de tagger openen"
@@ -15242,10 +14980,8 @@ msgstr ""
 "Creative Commons BY-SA-licentie}."
 
 #: ../root/static/scripts/common/components/WorkArtists.js:27
-#, fuzzy
-#| msgid "Work Artists"
 msgid "Work artists"
-msgstr "Uitvoerend artiesten"
+msgstr "Uitvoerende artiesten"
 
 #: ../root/static/scripts/common/entity.js:256
 msgid "You selected {label}."
@@ -15362,7 +15098,7 @@ msgstr "Begonnen:"
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:52
 msgctxt "artist end date"
 msgid "Ended"
-msgstr ""
+msgstr "Beëindigd"
 
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:63
 msgid "This person is deceased."
@@ -15584,7 +15320,7 @@ msgstr ""
 
 #: ../root/static/scripts/edit/URLCleanup.js:5431
 msgid "Please link to Threads profiles, not threads."
-msgstr ""
+msgstr "Link naar Threads-profielen, niet naar Threads zelf."
 
 #: ../root/static/scripts/edit/URLCleanup.js:5818
 msgid "This is not a profile, but a Twitter documentation page."
@@ -15656,6 +15392,8 @@ msgid ""
 "Links to Wikipedia user pages are not allowed. Please link only to actual "
 "Wikipedia articles."
 msgstr ""
+"Links naar Wikipedia-gebruikerspagina’s zijn niet toegestaan. Link alleen "
+"naar Wikipedia-artikelen."
 
 #: ../root/static/scripts/edit/URLCleanup.js:6469
 msgid ""
@@ -15678,36 +15416,26 @@ msgid ""
 "This is a release (playlist) link, not an artist channel. Please link to the "
 "artist channel instead."
 msgstr ""
+"Dit is een link naar een uitgave (afspeellijst), niet een kanaal van een "
+"artiest. Link naar het kanaal van de artiest."
 
 #: ../root/static/scripts/edit/URLCleanup.js:6590
-#, fuzzy
-#| msgid ""
-#| "Please link to a specific video. Add channel pages to the relevant "
-#| "artist, label, etc. instead."
 msgid ""
 "Please link to a specific release (playlist) link. Add track (video) links "
 "to the relevant recordings instead."
 msgstr ""
-"Voeg een link naar een specifieke video toe. Kanalen moeten aan de relevante "
-"artiest, platenmaatschappij etc. worden gekoppeld."
+"Voeg een link naar een specifieke uitgave (afspeellijst) toe. Nummers "
+"(video’s) moeten aan de relevante opnamen worden gekoppeld."
 
 #: ../root/static/scripts/edit/URLCleanup.js:6600
-#, fuzzy
-#| msgid ""
-#| "Please link to a specific video. Add channel pages to the relevant "
-#| "artist, label, etc. instead."
 msgid ""
 "Please link to a specific release (playlist) link. Add channel links to the "
 "relevant artists instead."
 msgstr ""
-"Voeg een link naar een specifieke video toe. Kanalen moeten aan de relevante "
-"artiest, platenmaatschappij etc. worden gekoppeld."
+"Voeg een link naar een specifieke uitgave (afspeellijst) toe. Kanalen moeten "
+"aan de relevante artiesten worden gekoppeld."
 
 #: ../root/static/scripts/edit/URLCleanup.js:6610
-#, fuzzy
-#| msgid ""
-#| "This is a redirect link. Please follow {redirect_url|your link} and add "
-#| "the link it redirects to instead."
 msgid ""
 "This is likely a redirect link. Please follow {redirect_url|your link} and "
 "add the release (playlist) link it redirects to instead."
@@ -15804,7 +15532,7 @@ msgstr "Je hebt nog geen titel ingevuld."
 
 #: ../root/static/scripts/edit/components/ArtistCreditBubble.js:79
 msgid "This track hasn’t been added yet."
-msgstr ""
+msgstr "Dit nummer is nog niet toegevoegd."
 
 #: ../root/static/scripts/edit/components/ArtistCreditBubble.js:97
 msgid "Artist in MusicBrainz:"
@@ -15819,11 +15547,9 @@ msgid "Join phrase:"
 msgstr "Koppelzin:"
 
 #: ../root/static/scripts/edit/components/ArtistCreditBubble.js:123
-#, fuzzy
-#| msgid "Add Artist Credit"
 msgctxt "interactive"
 msgid "Add artist credit"
-msgstr "Artiest toevoegen"
+msgstr "Artiestvermelding toevoegen"
 
 #: ../root/static/scripts/edit/components/ArtistCreditBubble.js:135
 msgid "Change all artists on this release that match “{name}”"
@@ -15834,20 +15560,14 @@ msgid "Change all artists on this release that are currently empty"
 msgstr "Verander alle artiesten op deze uitgave die nu leeg zijn"
 
 #: ../root/static/scripts/edit/components/ArtistCreditBubble.js:150
-#, fuzzy
-#| msgid "Copy Credits"
 msgid "Copy credits"
-msgstr "Artiesten kopiëren"
+msgstr "Artiestvermeldingen kopiëren"
 
 #: ../root/static/scripts/edit/components/ArtistCreditBubble.js:157
-#, fuzzy
-#| msgid "Paste Credits"
 msgid "Paste credits"
-msgstr "Artiesten plakken"
+msgstr "Artiestvermeldingen plakken"
 
 #: ../root/static/scripts/edit/components/ArtistCreditNameEditor.js:130
-#, fuzzy
-#| msgid "Remove Artist Credit"
 msgctxt "interactive"
 msgid "Remove artist credit"
 msgstr "Vermelding van artiest verwijderen"
@@ -15874,11 +15594,11 @@ msgstr ""
 
 #: ../root/static/scripts/edit/components/EntityPendingEditsWarning.js:31
 msgid "This entity has {edits_link|open edits}."
-msgstr ""
+msgstr "Dit object heeft {edits_link|open bewerkingen}."
 
 #: ../root/static/scripts/edit/components/EntityPendingEditsWarning.js:36
 msgid "This entity has open edits."
-msgstr ""
+msgstr "Dit object heeft open bewerkingen."
 
 #: ../root/static/scripts/edit/components/ExternalLinkAttributeDialog.js:192
 #: ../root/static/scripts/relationship-editor/components/DialogDatePeriod.js:202
@@ -15886,8 +15606,6 @@ msgid "This relationship has ended."
 msgstr "Deze relatie is beëindigd."
 
 #: ../root/static/scripts/edit/components/ExternalLinkAttributeDialog.js:227
-#, fuzzy
-#| msgid "Edit Attributes"
 msgctxt "interactive"
 msgid "Edit attributes"
 msgstr "Eigenschappen bewerken"
@@ -15902,8 +15620,6 @@ msgid "The date you've entered is not valid"
 msgstr "De datum die je hebt ingevoerd, is niet geldig"
 
 #: ../root/static/scripts/edit/components/PossibleDuplicates.js:24
-#, fuzzy
-#| msgid "Possible Duplicates"
 msgid "Possible duplicates"
 msgstr "Mogelijke dubbelen"
 
@@ -15925,30 +15641,21 @@ msgstr ""
 
 #: ../root/static/scripts/edit/components/RelationshipPendingEditsWarning.js:38
 msgid "This relationship has {edit_search|open edits}."
-msgstr ""
+msgstr "Deze relatie heeft {edits_search|open bewerkingen}."
 
 #: ../root/static/scripts/edit/components/RelationshipPendingEditsWarning.js:43
 msgid "This relationship has open edits."
-msgstr ""
+msgstr "Deze relatie heeft open bewerkingen."
 
 #: ../root/static/scripts/edit/components/ReleaseMergeStrategy.js:52
-#, fuzzy
-#| msgid ""
-#| "“{matched_text}” seems to indicate medium ordering rather than a medium "
-#| "title. If this is the case, please use the up/down arrows on the right "
-#| "side to set the medium position instead of adding a title (see "
-#| "{release_style|the guidelines}). Otherwise, please confirm that this is "
-#| "the actual title using the checkbox below."
 msgid ""
 "“{matched_text}” seems to indicate medium ordering rather than a medium "
 "title. If this is the case, please set the appropriate medium position "
 "instead of adding a title (see {release_style|the guidelines})."
 msgstr ""
 "Het lijkt erop dat “{matched_text}” niet de naam van het medium, maar de "
-"positie is. In dit geval moet je de naam verwijderen en het medium met de "
-"pijltjes rechts naar de juiste positie verplaatsen (zie de {release_style|"
-"stijlgids}). Als de titel wel klopt, kan je dat met het selectievakje "
-"hieronder bevestigen."
+"positie is. In dat geval moet de juiste positie van het medium instellen in "
+"plaats van een naam toevoegen (zie de {release_style|stijlgids})."
 
 #: ../root/static/scripts/edit/components/ReleaseMergeStrategy.js:116
 msgid ""
@@ -16026,8 +15733,6 @@ msgid "Cleaned up to"
 msgstr "Opgeschoond tot"
 
 #: ../root/static/scripts/edit/components/URLInputPopover.js:148
-#, fuzzy
-#| msgid "Edit URL"
 msgctxt "interactive"
 msgid "Edit URL"
 msgstr "URL bewerken"
@@ -16058,6 +15763,8 @@ msgid ""
 "Please don’t enter CritiqueBrainz links — reviews are automatically linked "
 "from the “{reviews_tab_name}” tab."
 msgstr ""
+"Voeg geen links naar CritiqueBrainz toe;  recensies worden automatisch "
+"gelinkt via het tabblad “{reviews_tab_name}”."
 
 #: ../root/static/scripts/edit/externalLinks.js:763
 msgid ""
@@ -16162,8 +15869,6 @@ msgid "{description} ({url|more documentation})"
 msgstr "{description} ({url|meer documentatie})"
 
 #: ../root/static/scripts/edit/externalLinks.js:1220
-#, fuzzy
-#| msgid "Remove relationship"
 msgctxt "interactive"
 msgid "Remove relationship"
 msgstr "Relatie verwijderen"
@@ -16173,10 +15878,8 @@ msgid "video"
 msgstr "video"
 
 #: ../root/static/scripts/edit/externalLinks.js:1438
-#, fuzzy
-#| msgid "Remove Link"
 msgid "Remove link"
-msgstr "Website verwijderen"
+msgstr "Link verwijderen"
 
 #: ../root/static/scripts/edit/externalLinks.js:1468
 msgid "Add link"
@@ -16245,7 +15948,7 @@ msgstr "Verlaten"
 
 #: ../root/static/scripts/relationship-editor/components/DialogAttribute/MultiselectAttribute.js:40
 msgid "Add vocal"
-msgstr ""
+msgstr "Vocaal toevoegen"
 
 #: ../root/static/scripts/relationship-editor/components/DialogAttribute/MultiselectAttribute.js:167
 msgid "This attribute is required."
@@ -16254,7 +15957,7 @@ msgstr "Deze eigenschap is verplicht."
 #: ../root/static/scripts/relationship-editor/components/DialogAttribute/MultiselectAttribute.js:239
 msgctxt "relationship attribute"
 msgid "Add another"
-msgstr ""
+msgstr "Nog een toevoegen"
 
 #: ../root/static/scripts/relationship-editor/components/DialogDatePeriod.js:217
 msgid ""
@@ -16286,6 +15989,8 @@ msgid ""
 "Some tracks/mediums haven’t been loaded yet. If you want to use this option, "
 "please close this dialog and load all tracks/mediums beforehand."
 msgstr ""
+"Sommige nummers/media zijn nog niet geladen. Als je deze optie wil "
+"gebruiken, sluit je dit dialoogvenster en laad je eerst alle nummmers/media."
 
 #: ../root/static/scripts/relationship-editor/components/DialogEntityCredit.js:149
 msgid "All of these relationships."
@@ -16304,10 +16009,12 @@ msgid ""
 "A credited name is optional. You can leave this field blank to keep the "
 "current name."
 msgstr ""
+"De vermelde naam is optioneel. Je kan dit veld leeglaten om de huidige naam "
+"te behouden."
 
 #: ../root/static/scripts/relationship-editor/components/DialogLinkOrder.js:44
 msgid "Order"
-msgstr ""
+msgstr "Volgorde"
 
 #: ../root/static/scripts/relationship-editor/components/DialogLinkOrder.js:56
 msgid ""
@@ -16315,6 +16022,9 @@ msgid ""
 "may set its position in the list here (as an alternative to the up- and down-"
 "arrow buttons)."
 msgstr ""
+"Als deze relatie binnen andere relaties van hetzelfde type een specifieke "
+"volgorde heeft, kan je de positie hier instellen (als alternatief voor de "
+"knoppen met pijltjes omhoog en omlaag)."
 
 #: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:66
 msgid ""
@@ -16326,19 +16036,19 @@ msgstr ""
 
 #: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:88
 msgid "This relationship type is not allowed with the current series type."
-msgstr ""
+msgstr "Dit relatietype is voor dit serietype niet toegestaan."
 
 #: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:126
 msgid "Type or click to search"
-msgstr ""
+msgstr "Tik of klik om te zoeken"
 
 #: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:309
 msgid "Please select a relationship type. ({url|more documentation})"
-msgstr ""
+msgstr "Selecteer een relatietype ({url|meer documentatie})"
 
 #: ../root/static/scripts/relationship-editor/components/DialogPreview.js:224
 msgid "Please fill out all required fields."
-msgstr ""
+msgstr "Vul alle verplichte velden in."
 
 #: ../root/static/scripts/relationship-editor/components/DialogPreview.js:236
 msgid "Change direction"
@@ -16346,11 +16056,11 @@ msgstr "Richting omkeren"
 
 #: ../root/static/scripts/relationship-editor/components/DialogTargetEntity.js:61
 msgid "The series you’ve selected is for artists."
-msgstr ""
+msgstr "De serie die je hebt geselecteerd, is voor artiesten."
 
 #: ../root/static/scripts/relationship-editor/components/DialogTargetEntity.js:62
 msgid "The series you’ve selected is for events."
-msgstr ""
+msgstr "De serie die je hebt geselecteerd, is voor evenementen."
 
 #: ../root/static/scripts/relationship-editor/components/DialogTargetEntity.js:63
 msgid "The series you’ve selected is for recordings."
@@ -16374,13 +16084,16 @@ msgstr "Objecten in een relatie kunnen niet hetzelfde zijn."
 
 #: ../root/static/scripts/relationship-editor/components/DialogTargetType.js:52
 msgid "Related type"
-msgstr ""
+msgstr "Gerelateerd type"
 
 #: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:902
 msgid ""
 "Warning: This relationship has open edits. {show|Click here} to view these "
 "edits and make sure they do not conflict with your own."
 msgstr ""
+"Waarschuwing: Deze relatie heeft open bewerkingen. {show|Klik hier} om deze "
+"bewerkingen te bekijken en zorg dat ze niet met jouw bewerkingen "
+"conflicteren."
 
 #: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:1007
 msgid "This will add a relationship to all checked recordings."
@@ -16396,11 +16109,9 @@ msgstr "geen object"
 
 #: ../root/static/scripts/relationship-editor/components/RelationshipItem.js:117
 msgid "{target} (as {credited_name})"
-msgstr ""
+msgstr "{target} (als {credited_name})"
 
 #: ../root/static/scripts/relationship-editor/components/RelationshipItem.js:188
-#, fuzzy
-#| msgid "Edit relationship"
 msgctxt "header"
 msgid "Edit relationship"
 msgstr "Relatie bewerken"
@@ -16465,8 +16176,6 @@ msgstr "Nog een compositie toevoegen"
 #: ../root/static/scripts/relationship-editor/components/RelationshipTargetTypeGroups.js:54
 #: ../root/static/scripts/release/components/RelationshipEditorBatchTools.js:70
 #: ../root/static/scripts/release/components/TrackRelationshipEditor.js:408
-#, fuzzy
-#| msgid "Add relationship"
 msgctxt "header"
 msgid "Add relationship"
 msgstr "Relatie toevoegen"
@@ -16480,8 +16189,6 @@ msgid "These relationships have a specific ordering"
 msgstr "Deze relaties hebben een specifieke volgorde"
 
 #: ../root/static/scripts/relationship-editor/components/RelationshipTargetTypeGroups.js:109
-#, fuzzy
-#| msgid "Add relationship"
 msgctxt "interactive"
 msgid "Add relationship"
 msgstr "Relatie toevoegen"
@@ -16521,8 +16228,6 @@ msgid "Page {page} of {total}"
 msgstr "Pagina {page} van {total}"
 
 #: ../root/static/scripts/release-editor/dialogs.js:309
-#, fuzzy
-#| msgid "Add medium"
 msgctxt "header"
 msgid "Add medium"
 msgstr "Medium toevoegen"
@@ -16563,8 +16268,6 @@ msgstr "Fout bij het laden van de uitgave: {error}"
 
 #: ../root/static/scripts/release-editor/init.js:290
 #: ../root/static/scripts/release-editor/init.js:291
-#, fuzzy
-#| msgid "Edit release"
 msgctxt "header"
 msgid "Edit release"
 msgstr "Uitgave bewerken"
@@ -16627,25 +16330,28 @@ msgid ""
 "This will add a new work for each checked recording that has no work "
 "already. The work names will be the same as their respective recording."
 msgstr ""
+"Hiermee wordt voor elke aangevinkte opname die nog geen compositie heeft een "
+"compositie toegevoegd. De titels van de composities worden gelijk aan de "
+"titles van de bijbehorende opnamen."
 
 #: ../root/static/scripts/release/components/BatchCreateWorksDialog.js:241
 msgid ""
 "Only use this option after you’ve tried searching for the work(s) you want "
 "to add, and are certain they do not already exist on MusicBrainz."
 msgstr ""
+"Gebruik deze optie alleen nadat je gezocht hebt naar de compositie(s) die je "
+"wil toevoegen, en zeker weet dat ze op MusicBrainz nog niet bestaan."
 
 #: ../root/static/scripts/release/components/BatchCreateWorksDialog.js:323
 #: ../root/static/scripts/release/components/RelationshipEditorBatchTools.js:94
 msgid "To use this tool, select some recordings using the checkboxes below."
-msgstr ""
+msgstr "Om dit hulpmiddel te gebruiken, vink je hieronder opnamen aan."
 
 #: ../root/static/scripts/release/components/BatchCreateWorksDialog.js:334
 msgid "Batch-add new works"
-msgstr ""
+msgstr "Een partij nieuwe composities toevoegen"
 
 #: ../root/static/scripts/release/components/EditWorkDialog.js:162
-#, fuzzy
-#| msgid "Edit work"
 msgctxt "header"
 msgid "Edit work"
 msgstr "Compositie bewerken"
@@ -16666,14 +16372,10 @@ msgid "Collapse all mediums"
 msgstr "Alle media inklappen"
 
 #: ../root/static/scripts/release/components/MediumToolbox.js:92
-#, fuzzy
-#| msgid "Display Credits Inline"
 msgid "Display credits inline"
 msgstr "Relaties onder de nummers weergeven"
 
 #: ../root/static/scripts/release/components/MediumToolbox.js:93
-#, fuzzy
-#| msgid "Display Credits at Bottom"
 msgid "Display credits at bottom"
 msgstr "Relaties onderaan weergeven"
 
@@ -16683,7 +16385,7 @@ msgstr "Artiest van de opname:"
 
 #: ../root/static/scripts/release/components/RelationshipEditorBatchTools.js:101
 msgid "To use this tool, select some works using the checkboxes below."
-msgstr ""
+msgstr "Om dit hulpmiddel te gebruiken, vink je hieronder composities aan."
 
 #: ../root/static/scripts/release/components/RelationshipEditorBatchTools.js:145
 msgid "Batch-add a relationship to recordings"
@@ -16691,7 +16393,7 @@ msgstr "Een partij relaties aan opnames toevoegen"
 
 #: ../root/static/scripts/release/components/RelationshipEditorBatchTools.js:147
 msgid "[selected recording]"
-msgstr ""
+msgstr "[geselecteerde opname]"
 
 #: ../root/static/scripts/release/components/RelationshipEditorBatchTools.js:173
 msgid "Batch-add a relationship to works"
@@ -16699,15 +16401,13 @@ msgstr "Een partij relaties aan composities toevoegen"
 
 #: ../root/static/scripts/release/components/RelationshipEditorBatchTools.js:175
 msgid "[selected work]"
-msgstr ""
+msgstr "[geselecteerde compositie]"
 
 #: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:279
 msgid "An error occurred:"
-msgstr ""
+msgstr "Er is een fout opgetreden:"
 
 #: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1525
-#, fuzzy
-#| msgid "Track Relationships"
 msgid "Track relationships"
 msgstr "Nummerrelaties"
 
@@ -16716,6 +16416,8 @@ msgid ""
 "Some tracks/mediums haven’t been loaded yet. If you want to make batch "
 "operations on these, please fully load them first."
 msgstr ""
+"Sommige nummers/media zijn nog niet geladen. Als je ze in één keer wil "
+"bewerken, moet je wachten tot ze allemaal zijn geladen."
 
 #: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1611
 #: ../root/static/scripts/release/components/TracklistAndCredits.js:374
@@ -16724,20 +16426,16 @@ msgstr ""
 "We hebben geen informatie over de media en nummerlijst van deze uitgave."
 
 #: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1648
-#, fuzzy
-#| msgid "Release Relationships"
 msgid "Release relationships"
 msgstr "Uitgaverelaties"
 
 #: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1691
-#, fuzzy
-#| msgid "Release Group Relationships"
 msgid "Release group relationships"
 msgstr "Relaties van de uitgavegroep"
 
 #: ../root/static/scripts/release/components/TrackRelationshipEditor.js:343
 msgid "Error loading work relationships: {error}"
-msgstr ""
+msgstr "Fout bij het laden van compositierelaties: {error}"
 
 #: ../root/static/scripts/release/components/TrackRelationshipEditor.js:428
 msgid "Add related work"
@@ -16758,11 +16456,9 @@ msgstr ""
 #: ../root/static/scripts/release/components/WorkLanguageMultiselect.js:81
 #: ../root/static/scripts/release/components/WorkLanguageMultiselect.js:147
 msgid "Add lyrics language"
-msgstr ""
+msgstr "Taal toevoegen"
 
 #: ../root/static/scripts/work/edit.js:342
-#, fuzzy
-#| msgid "Remove Language"
 msgctxt "interactive"
 msgid "Remove language"
 msgstr "Taal verwijderen"
@@ -16950,8 +16646,6 @@ msgstr[0] "{num} compositie gevonden"
 msgstr[1] "{num} composities gevonden"
 
 #: ../root/tag/NotFound.js:17
-#, fuzzy
-#| msgid "Tag Not Used"
 msgctxt "folksonomy"
 msgid "Tag not used"
 msgstr "Etiket niet in gebruik"
@@ -16985,8 +16679,6 @@ msgid "Show as a list instead."
 msgstr "In een lijst weergeven."
 
 #: ../root/tag/TagCloud.js:123
-#, fuzzy
-#| msgid "No genre tags have been used yet."
 msgctxt "folksonomy"
 msgid "No genre tags have been used yet."
 msgstr "Er zijn nog geen genre-etiketten gebruikt."
@@ -16996,34 +16688,25 @@ msgid "Other tags"
 msgstr "Andere etiketten"
 
 #: ../root/tag/TagCloud.js:130
-#, fuzzy
-#| msgid "No non-genre tags have been used yet."
 msgctxt "folksonomy"
 msgid "No non-genre tags have been used yet."
-msgstr "Er zijn nog geen etiketten gebruikt die geen genre zijn."
+msgstr "Er zijn nog geen niet-genre-etiketten gebruikt."
 
 #: ../root/tag/TagIndex.js:38
-#, fuzzy
-#| msgid "This tag is associated with the genre {genre}."
 msgctxt "folksonomy"
 msgid "This tag is associated with the genre {genre}."
-msgstr "Deze tag is geassocieerd met het genre {genre}."
+msgstr "Dit etiket is geassocieerd met het genre {genre}."
 
 #: ../root/tag/TagLayout.js:48 ../root/tag/TagLayout.js:50
 #: ../root/tag/TagLayout.js:57
-#, fuzzy
-#| msgid "Tag “{tag}”"
 msgctxt "folksonomy"
 msgid "Tag “{tag}”"
 msgstr "Etiket ‘{tag}’"
 
 #: ../root/tag/TagLayout.js:62
-#, fuzzy
-#| msgctxt "noun"
-#| msgid "Tag"
 msgctxt "folksonomy"
 msgid "Tag"
-msgstr "Etiket"
+msgstr "Etiket toevoegen"
 
 #: ../root/taglookup/Form.js:45
 msgid "Duration"
@@ -17074,8 +16757,6 @@ msgid "I just donated! Why am I seeing this?"
 msgstr "Ik heb net gedoneerd! Waarom zie ik dit?"
 
 #: ../root/taglookup/NotFound.js:13
-#, fuzzy
-#| msgid "Tag Lookup Error"
 msgctxt "audio file metadata"
 msgid "Tag lookup error"
 msgstr "Fout bij het opzoeken van de tag"
@@ -17093,21 +16774,15 @@ msgid "Please {search|try again}, providing at least one of these parameters"
 msgstr "{search|Probeer het nog eens} met ten minste één van deze parameters"
 
 #: ../root/taglookup/Results.js:19 ../root/taglookup/Results.js:21
-#, fuzzy
-#| msgid "Tag Lookup Results"
 msgctxt "audio file metadata"
 msgid "Tag lookup results"
 msgstr "Resultaten voor de gezochte tags"
 
 #: ../root/url/UrlIndex.js:21
-#, fuzzy
-#| msgid "URL Information"
 msgid "URL information"
 msgstr "Informatie over de URL"
 
 #: ../root/url/UrlIndex.js:22
-#, fuzzy
-#| msgid "URL Details"
 msgid "URL details"
 msgstr "Details van de URL"
 
@@ -17128,8 +16803,6 @@ msgid "Send a copy to my own email address"
 msgstr "Stuur een kopie naar mijn e-mailadres"
 
 #: ../root/user/Login.js:51 ../root/user/Login.js:52
-#, fuzzy
-#| msgid "Log in"
 msgctxt "header"
 msgid "Log in"
 msgstr "Aanmelden"
@@ -17166,8 +16839,6 @@ msgid "Forgot your {link1|username} or {link2|password}?"
 msgstr "Ben je je {link1|gebruikersnaam} of {link2|wachtwoord} vergeten?"
 
 #: ../root/user/PrivilegedUsers.js:37
-#, fuzzy
-#| msgid "Auto-editors"
 msgctxt "header"
 msgid "Auto-editors"
 msgstr "Autoredacteurs"
@@ -17190,8 +16861,6 @@ msgid "The following {count} users have auto-editor privileges:"
 msgstr "De volgende {count} gebruikers hebben autoredacteurprivileges:"
 
 #: ../root/user/PrivilegedUsers.js:56
-#, fuzzy
-#| msgid "Relationship editors"
 msgctxt "header"
 msgid "Relationship editors"
 msgstr "Relatieredacteurs"
@@ -17213,8 +16882,6 @@ msgid "The following {count} users are relationship editors:"
 msgstr "De volgende {count} gebruikers zijn relatieredacteurs:"
 
 #: ../root/user/PrivilegedUsers.js:75
-#, fuzzy
-#| msgid "Transclusion editors"
 msgctxt "header"
 msgid "Transclusion editors"
 msgstr "Transclusieredacteurs"
@@ -17232,8 +16899,6 @@ msgid "The following {count} users are transclusion editors:"
 msgstr "De volgende {count} gebruikers zijn transclusieredacteurs:"
 
 #: ../root/user/PrivilegedUsers.js:91
-#, fuzzy
-#| msgid "Location editors"
 msgctxt "header"
 msgid "Location editors"
 msgstr "Locatieredacteurs"
@@ -17249,8 +16914,6 @@ msgid "The following {count} users are location editors:"
 msgstr "De volgende {count} gebruikers zijn locatieredacteurs:"
 
 #: ../root/user/PrivilegedUsers.js:106
-#, fuzzy
-#| msgid "Banner message editors"
 msgctxt "header"
 msgid "Banner message editors"
 msgstr "Mededelingsredacteurs"
@@ -17261,14 +16924,15 @@ msgid ""
 "banner on all pages, for example to warn users about upcoming site "
 "maintenance."
 msgstr ""
+"Mededelingsredacteurs zijn gebruikers die een mededeling kunnen instellen "
+"die op alle pagina’s wordt getoond, bijvoorbeeld om gebruikers te "
+"waarschuwen voor aanstaand onderhoud."
 
 #: ../root/user/PrivilegedUsers.js:114
 msgid "The following {count} users are banner message editors:"
 msgstr "De volgende {count} gebruikers zijn mededelingsredacteurs:"
 
 #: ../root/user/PrivilegedUsers.js:120
-#, fuzzy
-#| msgid "Account administrators"
 msgctxt "header"
 msgid "Account administrators"
 msgstr "Accountbeheerders"
@@ -17282,8 +16946,6 @@ msgid "The following {count} users are account administrators:"
 msgstr "De volgende {count} gebruikers zijn accountbeheerders:"
 
 #: ../root/user/PrivilegedUsers.js:130
-#, fuzzy
-#| msgid "Bots"
 msgctxt "header"
 msgid "Bots"
 msgstr "Robots"
@@ -17293,8 +16955,6 @@ msgid "The following {count} user accounts are bots:"
 msgstr "De volgende {count} gebruikers zijn robots:"
 
 #: ../root/user/ReportUser.js:83 ../root/user/ReportUser.js:85
-#, fuzzy
-#| msgid "Report User"
 msgctxt "header"
 msgid "Report user"
 msgstr "Gebruiker rapporteren"
@@ -17305,7 +16965,7 @@ msgid ""
 "report it. If you feel there’s a problem that still needs action, please "
 "{link|contact us}."
 msgstr ""
-"Deze account is al verwijderd, dus hoeft hij waarschijnlijk niet te worden "
+"Deze gebruiker is al verwijderd, dus hoeft hij waarschijnlijk niet te worden "
 "gerapporteerd. Als je denkt dat er nog steeds een probleem is dat moet "
 "worden opgelost, kan je {link|contact met ons opnemen}."
 
@@ -17355,79 +17015,56 @@ msgstr ""
 
 #: ../root/user/ReportUser.js:167
 msgid "Receive email updates about this report"
-msgstr ""
+msgstr "E-mails met nieuws over dit rapport ontvangen"
 
 #: ../root/user/ReportUser.js:178
 msgid "Send"
 msgstr "Verzenden"
 
 #: ../root/user/UserCollections.js:42
-#, fuzzy
-#| msgid "Area Collections"
 msgid "Area collections"
-msgstr "Collecties van gebieden"
+msgstr "Collecties met gebieden"
 
 #: ../root/user/UserCollections.js:43
-#, fuzzy
-#| msgid "Artist Collections"
 msgid "Artist collections"
-msgstr "Collecties van artiesten"
+msgstr "Collecties met artiesten"
 
 #: ../root/user/UserCollections.js:44
-#, fuzzy
-#| msgid "Event Collections"
 msgid "Event collections"
-msgstr "Collecties van evenementen"
+msgstr "Collecties met evenementen"
 
 #: ../root/user/UserCollections.js:45
-#, fuzzy
-#| msgid "Instrument Collections"
 msgid "Instrument collections"
-msgstr "Collecties van instrumenten"
+msgstr "Collecties met instrumenten"
 
 #: ../root/user/UserCollections.js:46
-#, fuzzy
-#| msgid "Label Collections"
 msgid "Label collections"
-msgstr "Collecties van platenmaatschappijen"
+msgstr "Collecties met platenmaatschappijen"
 
 #: ../root/user/UserCollections.js:47
-#, fuzzy
-#| msgid "Place Collections"
 msgid "Place collections"
-msgstr "Collecties van plaatsen"
+msgstr "Collecties met plaatsen"
 
 #: ../root/user/UserCollections.js:48
-#, fuzzy
-#| msgid "Recording Collections"
 msgid "Recording collections"
-msgstr "Collecties van opnames"
+msgstr "Collectie van opnamen"
 
 #: ../root/user/UserCollections.js:49
-#, fuzzy
-#| msgid "Release Collections"
 msgid "Release collections"
-msgstr "Collecties van uitgaven."
+msgstr "Collecties met uitgaven"
 
 #: ../root/user/UserCollections.js:50
-#, fuzzy
-#| msgid "Release Group Collections"
 msgid "Release group collections"
-msgstr "Collecties van uitgavegroepen"
+msgstr "Collecties met uitgavegroepen"
 
 #: ../root/user/UserCollections.js:51
-#, fuzzy
-#| msgctxt "plural"
-#| msgid "Series Collections"
 msgctxt "plural"
 msgid "Series collections"
-msgstr "Collecties van series"
+msgstr "Collecties met series"
 
 #: ../root/user/UserCollections.js:52
-#, fuzzy
-#| msgid "Work Collections"
 msgid "Work collections"
-msgstr "Collecties van composities"
+msgstr "Collecties met composities"
 
 #: ../root/user/UserCollections.js:64
 msgid "{collaborator_number} (including you)"
@@ -17454,11 +17091,9 @@ msgid "{user} isn’t collaborating in any public collections."
 msgstr "{user} werkt niet aan openbare collecties mee."
 
 #: ../root/user/UserCollections.js:228
-#, fuzzy
-#| msgid "Add to a new collection"
 msgctxt "interactive"
 msgid "Add a new collection"
-msgstr "Aan een nieuwe collectie toevoegen"
+msgstr "Een nieuwe collectie toevoegen"
 
 #: ../root/user/UserEdits.js:42 ../root/user/UserEdits.js:43
 msgid "Votes by {name}"
@@ -17497,36 +17132,26 @@ msgid "Edits by {name}"
 msgstr "Bewerkingen door {name}"
 
 #: ../root/user/UserProfile.js:69
-#, fuzzy
-#| msgid "Deleted User"
 msgctxt "user type"
 msgid "Deleted user"
 msgstr "Verwijderde gebruiker"
 
 #: ../root/user/UserProfile.js:79
-#, fuzzy
-#| msgid "Internal/Bot"
 msgctxt "user type"
 msgid "Internal/Bot"
 msgstr "Intern/Robot"
 
 #: ../root/user/UserProfile.js:108
-#, fuzzy
-#| msgid "Beginner"
 msgctxt "user type"
 msgid "Beginner"
 msgstr "Beginner"
 
 #: ../root/user/UserProfile.js:114
-#, fuzzy
-#| msgid "Normal User"
 msgctxt "user type"
 msgid "Normal user"
 msgstr "Normale gebruiker"
 
 #: ../root/user/UserProfile.js:162
-#, fuzzy
-#| msgid "The Dawn of the Project"
 msgid "The dawn of the project"
 msgstr "De start van het project"
 
@@ -17543,28 +17168,20 @@ msgstr ""
 "geverifieerd."
 
 #: ../root/user/UserProfile.js:191
-#, fuzzy
-#| msgid "General Information"
 msgid "General information"
 msgstr "Algemene informatie"
 
 #: ../root/user/UserProfile.js:197
-#, fuzzy
-#| msgid "(hidden)"
 msgctxt "email address"
 msgid "(hidden)"
 msgstr "(verborgen)"
 
 #: ../root/user/UserProfile.js:200
-#, fuzzy
-#| msgid "(verified at {date})"
 msgctxt "email address"
 msgid "(verified at {date})"
 msgstr "(geverifieerd op {date})"
 
 #: ../root/user/UserProfile.js:205
-#, fuzzy
-#| msgid "(<strong>unverified!</strong>)"
 msgctxt "email address"
 msgid "(<strong>unverified!</strong>)"
 msgstr "(<strong>ongeverifieerd!</strong>)"
@@ -17578,9 +17195,6 @@ msgid "send email"
 msgstr "e-mail versturen"
 
 #: ../root/user/UserProfile.js:247
-#, fuzzy
-#| msgctxt "type"
-#| msgid "(none)"
 msgctxt "email address"
 msgid "(none)"
 msgstr "(geen)"
@@ -17602,10 +17216,8 @@ msgid "Member since"
 msgstr "Lid sinds"
 
 #: ../root/user/UserProfile.js:292
-#, fuzzy
-#| msgid "Description"
 msgid "Restrictions"
-msgstr "Omschrijving"
+msgstr "Beperkingen"
 
 #: ../root/user/UserProfile.js:299
 msgid "Last login"
@@ -17641,7 +17253,7 @@ msgstr "abonneren"
 
 #: ../root/user/UserProfile.js:419
 msgid "Languages"
-msgstr ""
+msgstr "Talen"
 
 #: ../root/user/UserProfile.js:494 ../root/user/UserProfile.js:594
 #: ../root/user/UserProfile.js:604 ../root/user/UserProfile.js:614
@@ -17686,7 +17298,7 @@ msgstr "Mislukt"
 #: ../root/user/UserProfile.js:652
 msgctxt "edit"
 msgid "Cancelled"
-msgstr ""
+msgstr "Geannuleerd"
 
 #: ../root/user/UserProfile.js:662
 msgid "Open"
@@ -17730,7 +17342,7 @@ msgstr "Toegevoegde objecten"
 
 #: ../root/user/UserProfile.js:792
 msgid "This user has not added any entities."
-msgstr ""
+msgstr "Deze gebruiker heeft geen objecten toegevoegd."
 
 #: ../root/user/UserProfile.js:802
 msgid "This table shows a summary of secondary data added by this editor."
@@ -17739,15 +17351,11 @@ msgstr ""
 "deze redacteur zijn toegevoegd."
 
 #: ../root/user/UserProfile.js:808
-#, fuzzy
-#| msgid "Tags and ratings"
 msgctxt "folksonomy"
 msgid "Tags and ratings"
 msgstr "Etiketten en waarderingen"
 
 #: ../root/user/UserProfile.js:815
-#, fuzzy
-#| msgid "Tags upvoted"
 msgctxt "folksonomy"
 msgid "Tags upvoted"
 msgstr "Etiketten omhoog gestemd"
@@ -17755,30 +17363,26 @@ msgstr "Etiketten omhoog gestemd"
 #: ../root/user/UserProfile.js:819 ../root/user/UserProfile.js:840
 msgctxt "folksonomy"
 msgid "Tags are removed when an editor is deleted."
-msgstr ""
+msgstr "Als een redacteur wordt verwijderd, worden etiketten ook verwijderd."
 
 #: ../root/user/UserProfile.js:823 ../root/user/UserProfile.js:844
-#, fuzzy
-#| msgid "Removed"
 msgctxt "folksonomy tags"
 msgid "Removed"
 msgstr "Verwijderd"
 
 #: ../root/user/UserProfile.js:835
-#, fuzzy
-#| msgid "Tags downvoted"
 msgctxt "folksonomy"
 msgid "Tags downvoted"
 msgstr "Etiketten omlaag gestemd"
 
 #: ../root/user/UserProfile.js:861
 msgid "Ratings are removed when an editor is deleted."
-msgstr ""
+msgstr "Als een redacteur wordt verwijderd, worden waarderingen ook verwijderd."
 
 #: ../root/user/UserProfile.js:864
 msgctxt "ratings"
 msgid "Removed"
-msgstr ""
+msgstr "Verwijderd"
 
 #: ../root/user/UserProfile.js:914
 msgid "Editing/voting disabled"
@@ -17789,8 +17393,6 @@ msgid "Edit notes disabled"
 msgstr "Bewerkingsnotities uitgeschakeld"
 
 #: ../root/user/UserProfile.js:931
-#, fuzzy
-#| msgid "Blocked Spam Account"
 msgid "Blocked spam account"
 msgstr "Geblokkeerd spamaccount"
 
@@ -17849,32 +17451,22 @@ msgid "{user} has not rated anything."
 msgstr "{user} heeft niets een waardering gegeven."
 
 #: ../root/user/UserSubscriptions.js:24
-#, fuzzy
-#| msgid "Artist Subscriptions"
 msgid "Artist subscriptions"
 msgstr "Abonnementen op artiesten"
 
 #: ../root/user/UserSubscriptions.js:25
-#, fuzzy
-#| msgid "Collection Subscriptions"
 msgid "Collection subscriptions"
 msgstr "Abonnementen op collecties"
 
 #: ../root/user/UserSubscriptions.js:26
-#, fuzzy
-#| msgid "Editor Subscriptions"
 msgid "Editor subscriptions"
 msgstr "Abonnementen op redacteurs"
 
 #: ../root/user/UserSubscriptions.js:27
-#, fuzzy
-#| msgid "Label Subscriptions"
 msgid "Label subscriptions"
 msgstr "Abonnementen op platenmaatschappijen"
 
 #: ../root/user/UserSubscriptions.js:28
-#, fuzzy
-#| msgid "Series Subscriptions"
 msgid "Series subscriptions"
 msgstr "Abonnementen op series"
 
@@ -17937,54 +17529,41 @@ msgstr[0] "{editor} is geabonneerd op {n} privécollectie."
 msgstr[1] "{editor} is geabonneerd op {n} privécollecties."
 
 #: ../root/user/UserTagList.js:21
-#, fuzzy
-#| msgid "Tags {user} downvoted"
 msgctxt "folksonomy"
 msgid "Tags {user} downvoted"
-msgstr "Tags die {user} omlaag heeft gestemd"
+msgstr "Etiketten die {user} omlaag heeft gestemd"
 
 #: ../root/user/UserTagList.js:22
-#, fuzzy
-#| msgid "Tags {user} upvoted"
 msgctxt "folksonomy"
 msgid "Tags {user} upvoted"
-msgstr "Tags die {user} omhoog heeft gestemd"
+msgstr "Etiketten die {user} omhoog heeft gestemd"
 
 #: ../root/user/UserTagList.js:127
 msgid "{user} has not downvoted any tags."
-msgstr "{user} heeft geen tags omlaag gestemd."
+msgstr "{user} heeft geen etiketten omlaag gestemd."
 
 #: ../root/user/UserTagList.js:134
 msgid "{user} has not upvoted any tags."
-msgstr "{user} heeft geen tags omhoog gestemd."
+msgstr "{user} heeft geen etiketten omhoog gestemd."
 
 #: ../root/user/components/UserInlineList.js:24
 msgid "No users found"
 msgstr "Geen gebruikers gevonden"
 
 #: ../root/user/components/UserTagFilters.js:33
-#, fuzzy
-#| msgctxt "tag upvotes or downvotes"
-#| msgid "Show votes"
 msgctxt "folksonomy tag upvotes or downvotes"
 msgid "Show votes"
 msgstr "Stemmen weergeven"
 
 #: ../root/user/components/UserTagFilters.js:41
-#, fuzzy
-#| msgctxt "tag"
-#| msgid "upvotes"
 msgctxt "folksonomy tag"
 msgid "upvotes"
-msgstr "stemmen omhoog"
+msgstr "plussen"
 
 #: ../root/user/components/UserTagFilters.js:42
-#, fuzzy
-#| msgctxt "tag"
-#| msgid "downvotes"
 msgctxt "folksonomy tag"
 msgid "downvotes"
-msgstr "stemmen omlaag"
+msgstr "minnen"
 
 #: ../root/user/components/UserTagFilters.js:51
 msgid "Sort by"
@@ -18083,6 +17662,10 @@ msgid ""
 "edit was entered. This may happen when the same edit is entered in twice; "
 "one will pass but the other will fail."
 msgstr ""
+"Deze bewerking is mislukt omdat de gegevens die ermee werden bewerkt na het "
+"indienen van de bewerking zijn gewijzigd. Dit kan gebeuren als dezelfde "
+"bewerking twee keer wordt ingediend; dan wordt er een doorgevoert en een "
+"niet."
 
 #: ../root/utility/edit.js:86
 msgid ""
@@ -18097,15 +17680,11 @@ msgid "This edit was cancelled."
 msgstr "Deze bewerking is geannuleerd."
 
 #: ../root/utility/tableColumns.js:750
-#, fuzzy
-#| msgid "Relationship Types"
 msgctxt "header"
 msgid "Relationship type"
-msgstr "Relatietypes"
+msgstr "Relatietype"
 
 #: ../root/utility/tableColumns.js:765
-#, fuzzy
-#| msgid "Ordering Type"
 msgctxt "header"
 msgid "Ordering type"
 msgstr "Volgorde"
@@ -18115,11 +17694,9 @@ msgid "Subscribed"
 msgstr "Geabonneerd"
 
 #: ../root/utility/tableColumns.js:821
-#, fuzzy
-#| msgid "Lyrics Languages"
 msgctxt "header"
 msgid "Lyrics languages"
-msgstr "Taal van de tekst"
+msgstr "Talen van de teksten"
 
 #: ../root/vote/VotingIndex.js:34
 msgid "…related to artists in my subscriptions"
