@@ -61,12 +61,13 @@
 # yvanz, 2016,2018
 # yvanz, 2018
 # yvanzo <yvanzo@users.noreply.translations.metabrainz.org>, 2023.
+# reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-12-14 18:52+0000\n"
-"PO-Revision-Date: 2023-12-14 16:28+0000\n"
+"PO-Revision-Date: 2023-12-20 12:38+0000\n"
 "Last-Translator: yvanzo <yvanzo@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: French <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/fr/>\n"
@@ -76,7 +77,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : ((n != 0 && n % "
 "1000000 == 0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.2.1\n"
+"X-Generator: Weblate 5.3\n"
 
 #: ../root/components/common-macros.tt:12
 msgid " ({text})"
@@ -3940,13 +3941,13 @@ msgid_plural ""
 "into the edit queue for peer review."
 msgstr[0] ""
 "Merci, votre {edit_url|modification} ({edit_ids}) a été intégrée à la file "
-"des modifications afin d’être revue par un pair."
+"des modifications afin d’être revue par des pairs."
 msgstr[1] ""
 "Merci, vos {num_edits} {edit_url|modifications} ({edit_ids}) ont été "
-"intégrées à la file des modifications afin d’être revue par un pair."
+"intégrées à la file des modifications afin d’être revue par des pairs."
 msgstr[2] ""
 "Merci, vos {num_edits} {edit_url|modifications} ({edit_ids}) ont été "
-"intégrées à la file des modifications afin d’être revue par un pair."
+"intégrées à la file des modifications afin d’être revue par des pairs."
 
 #: ../lib/MusicBrainz/Server/Controller.pm:137
 #, perl-brace-format
@@ -3961,16 +3962,16 @@ msgid_plural ""
 msgstr[0] ""
 "Merci, votre {edit_url|modification} ({edit_ids}) a été intégrée, avec "
 "{num_open_edits} autres dans la file des modifications pour être revue par "
-"un pair, et le reste a été automatiquement accepté et appliqué."
+"des pairs, et le reste a été automatiquement accepté et appliqué."
 msgstr[1] ""
 "Merci, vos {num_edits} {edit_url|modifications} ({edit_ids}) ont été "
 "intégrées, avec {num_open_edits} autres dans la file des modifications pour "
-"être revue par un pair, et le reste a été automatiquement accepté et "
+"être revue par des pairs, et le reste a été automatiquement accepté et "
 "appliqué."
 msgstr[2] ""
 "Merci, vos {num_edits} {edit_url|modifications} ({edit_ids}) ont été "
 "intégrées, avec {num_open_edits} autres dans la file des modifications pour "
-"être revue par un pair, et le reste a été automatiquement accepté et "
+"être revue par des pairs, et le reste a été automatiquement accepté et "
 "appliqué."
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:57
@@ -6719,7 +6720,8 @@ msgid ""
 "here!"
 msgstr ""
 "Notez que tout contenu envoyés à MusicBrainz sera publié sous une licence "
-"{open|ouverte et libre}, ne publiez pas de texte protégé par copyright ici !"
+"{open|ouverte et libre}, ne publiez pas ici de texte protégé par le droit d’"
+"auteur !"
 
 #: ../root/annotation/EditAnnotation.js:62
 #: ../root/static/scripts/artist/components/ArtistCreditRenamer.js:278
@@ -10758,14 +10760,10 @@ msgid "All my edits"
 msgstr "Toutes mes modifications"
 
 #: ../root/layout/components/TopMenu.js:107
-#, fuzzy
-#| msgid "Edits for Subscribed Entities"
 msgid "Edits for subscribed entities"
 msgstr "Modifications aux entités abonnées"
 
 #: ../root/layout/components/TopMenu.js:111
-#, fuzzy
-#| msgid "Edits by Subscribed Editors"
 msgid "Edits by subscribed editors"
 msgstr "Modifications par éditeurs abonnés"
 
