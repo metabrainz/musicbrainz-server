@@ -14,7 +14,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-12-19 15:28+0000\n"
+"PO-Revision-Date: 2023-12-20 12:38+0000\n"
 "Last-Translator: mfmeulenbelt <mfmeulenbelt@users.noreply.translations."
 "metabrainz.org>\n"
 "Language-Team: Dutch <https://translations.metabrainz.org/projects/"
@@ -1315,9 +1315,9 @@ msgid ""
 "character interaction)."
 msgstr ""
 "Een oratorium is een grote, vaak religieuze, compositie voor een orkest, "
-"koor en solisten. Hoewel een oratorium karakters en een plot heeft, wordt "
+"koor en solisten. Hoewel een oratorium personages en een plot heeft, wordt "
 "het meestal niet theatraal opgevoerd, dus zonder kostuums, decor en veel "
-"interactie tussen de karakters."
+"interactie tussen de personages."
 
 #: DB:label_type/description:8
 msgctxt "label_type"
@@ -2266,7 +2266,7 @@ msgstr "Cevher"
 #: DB:artist_type/name:4
 msgctxt "artist_type"
 msgid "Character"
-msgstr "Karakter"
+msgstr "Personage"
 
 #: DB:artist_type/name:6
 msgctxt "artist_type"
