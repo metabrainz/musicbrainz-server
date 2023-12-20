@@ -75,8 +75,9 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-12-14 18:52+0000\n"
-"PO-Revision-Date: 2023-12-19 15:28+0000\n"
-"Last-Translator: Philipp Wolfer <ph.wolfer@gmail.com>\n"
+"PO-Revision-Date: 2023-12-20 12:38+0000\n"
+"Last-Translator: kellnerd <kellnerd@users.noreply.translations.metabrainz."
+"org>\n"
 "Language-Team: German <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/de/>\n"
 "Language: de\n"
@@ -8548,43 +8549,43 @@ msgstr ""
 
 #: ../root/edit/components/ListHeader.js:49
 msgid "Open edits for {user}"
-msgstr ""
+msgstr "Offene Bearbeitungen für {user}"
 
 #: ../root/edit/components/ListHeader.js:57
 msgid "All edits for {user}"
-msgstr ""
+msgstr "Alle Bearbeitungen für {user}"
 
 #: ../root/edit/components/ListHeader.js:69
 msgid "Open edits for this collection"
-msgstr ""
+msgstr "Offene Bearbeitungen für diese Sammlung"
 
 #: ../root/edit/components/ListHeader.js:70
 msgid "Open edits for this entity"
-msgstr ""
+msgstr "Offene Bearbeitungen für dieses Objekt"
 
 #: ../root/edit/components/ListHeader.js:80
 msgid "All edits for this collection"
-msgstr ""
+msgstr "Alle Bearbeitungen für diese Sammlung"
 
 #: ../root/edit/components/ListHeader.js:81
 msgid "All edits for this entity"
-msgstr ""
+msgstr "Alle Bearbeitungen für dieses Objekt"
 
 #: ../root/edit/components/ListHeader.js:92
 msgid "All edits for your subscribed entities"
-msgstr ""
+msgstr "Alle Bearbeitungen für deine abonnierten Objekte"
 
 #: ../root/edit/components/ListHeader.js:100
 msgid "Open edits for your subscribed entities"
-msgstr ""
+msgstr "Offene Bearbeitungen für deine abonnierten Objekte"
 
 #: ../root/edit/components/ListHeader.js:111
 msgid "All edits for your subscribed editors"
-msgstr ""
+msgstr "Alle Bearbeitungen für deine abonnierten Bearbeiter"
 
 #: ../root/edit/components/ListHeader.js:119
 msgid "Open edits for your subscribed editors"
-msgstr ""
+msgstr "Offene Bearbeitungen für deine abonnierten Bearbeiter"
 
 #: ../root/edit/components/ListHeader.js:134
 msgid "Refine this search"
@@ -8613,11 +8614,11 @@ msgstr "Hilfe:"
 
 #: ../root/edit/components/ListHeader.js:215
 msgid "Introduction to voting"
-msgstr ""
+msgstr "Einführung ins Abstimmen"
 
 #: ../root/edit/components/ListHeader.js:219
 msgid "Introduction to editing"
-msgstr ""
+msgstr "Einführung ins Bearbeiten"
 
 #: ../root/edit/components/ListHeader.js:222
 #: ../root/layout/components/BottomMenu.js:303 ../root/main/index.js:182
@@ -8671,12 +8672,12 @@ msgstr "ISO 3166-3"
 #: ../root/edit/details/AddArea.js:102 ../root/edit/details/EditArea.js:119
 msgctxt "area ended boolean"
 msgid "Ended"
-msgstr ""
+msgstr "Beendet"
 
 #: ../root/edit/details/AddArtist.js:129 ../root/edit/details/EditArtist.js:155
 msgctxt "artist ended boolean"
 msgid "Ended"
-msgstr ""
+msgstr "Beendet"
 
 #: ../root/edit/details/AddCoverArt.js:39
 #: ../root/edit/details/RemoveCoverArt.js:39
@@ -8700,7 +8701,7 @@ msgstr "Kommentar:"
 #: ../root/edit/details/AddEvent.js:50 ../root/edit/details/EditEvent.js:54
 msgctxt "event"
 msgid "Cancelled"
-msgstr ""
+msgstr "Abgesagt"
 
 #: ../root/edit/details/AddIsrcs.js:27 ../root/edit/details/EditBarcodes.js:27
 msgid "Client:"
@@ -16736,7 +16737,7 @@ msgstr "Fehlgeschlagen"
 #: ../root/user/UserProfile.js:652
 msgctxt "edit"
 msgid "Cancelled"
-msgstr ""
+msgstr "Abgebrochen"
 
 #: ../root/user/UserProfile.js:662
 msgid "Open"
