@@ -111,7 +111,7 @@ msgstr ""
 
 #: DB:medium_format/description:166
 msgctxt "medium_format"
-msgid "8cm DVD disc, often used for video singles."
+msgid "8cm DVD, often used for video singles."
 msgstr ""
 
 #: DB:medium_format/description:58
@@ -2978,7 +2978,7 @@ msgstr ""
 msgctxt "medium_format"
 msgid ""
 "Flat discs with grooves used in phonographs/gramophones. For shellac and "
-"vinyl records, use that specifically"
+"vinyl records, use that specifically."
 msgstr ""
 
 #: DB:medium_format/name:51

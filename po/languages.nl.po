@@ -4,18 +4,21 @@
 # Maurits Meulenbelt, 2013-2022
 # Nathan Follens, 2017
 # Nikolai Prokoschenko <email address hidden>, 2011
+# mfmeulenbelt <mfmeulenbelt@users.noreply.translations.metabrainz.org>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2012-05-24 19:23+0000\n"
-"Last-Translator: Maurits Meulenbelt, 2013-2022\n"
-"Language-Team: Dutch (http://app.transifex.com/musicbrainz/musicbrainz/"
-"language/nl/)\n"
+"PO-Revision-Date: 2023-12-19 16:23+0000\n"
+"Last-Translator: mfmeulenbelt <mfmeulenbelt@users.noreply.translations."
+"metabrainz.org>\n"
+"Language-Team: Dutch <https://translations.metabrainz.org/projects/"
+"musicbrainz/languages/nl/>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.3\n"
 
 #. frequency:1 iso_code_3:abk 
 #: DB:language/name:2
@@ -355,7 +358,7 @@ msgstr "Bretons (Bretoens)"
 #. frequency:1 iso_code_3:box 
 #: DB:language/name:1322
 msgid "Buamu"
-msgstr ""
+msgstr "Bwamu"
 
 #. frequency:1 iso_code_3:bug 
 #: DB:language/name:61
@@ -380,7 +383,7 @@ msgstr "Birmees"
 #. frequency:1 iso_code_3:bsk 
 #: DB:language/name:1406
 msgid "Burushaski"
-msgstr ""
+msgstr "Burushaski"
 
 #. frequency:1 iso_code_3:cad 
 #: DB:language/name:65
@@ -925,7 +928,7 @@ msgstr "Gronings"
 #. frequency:1 iso_code_3:gcf 
 #: DB:language/name:2386
 msgid "Guadeloupean Creole French"
-msgstr ""
+msgstr "Guadeloups Creools-Frans"
 
 #. frequency:1 iso_code_3:grn 
 #: DB:language/name:160
@@ -1450,7 +1453,7 @@ msgstr "Lojban"
 #. frequency:1 iso_code_3:lou 
 #: DB:language/name:3958
 msgid "Louisiana Creole French"
-msgstr ""
+msgstr "Louisianaans Creools-Frans"
 
 #. frequency:1 iso_code_3:loz 
 #: DB:language/name:245
@@ -2127,7 +2130,7 @@ msgstr "Schots-Gaelisch"
 #. frequency:1 iso_code_3:gul 
 #: DB:language/name:2586
 msgid "Sea Island Creole English"
-msgstr ""
+msgstr "Gullah"
 
 #. frequency:1 iso_code_3:sel 
 #: DB:language/name:367
@@ -2757,7 +2760,7 @@ msgstr "[Meerdere talen]"
 #. frequency:1 iso_code_3:zxx 
 #: DB:language/name:486
 msgid "[No linguistic content]"
-msgstr ""
+msgstr "[geen taalkundige inhoud]"
 
 #~ msgid "No linguistic content"
 #~ msgstr "Geen taal"

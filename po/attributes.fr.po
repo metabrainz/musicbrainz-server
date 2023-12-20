@@ -32,7 +32,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-11-10 20:27+0000\n"
+"PO-Revision-Date: 2023-12-14 16:28+0000\n"
 "Last-Translator: yvanzo <yvanzo@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: French <https://translations.metabrainz.org/projects/"
 "musicbrainz/attributes/fr/>\n"
@@ -42,7 +42,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : ((n != 0 && n % "
 "1000000 == 0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.1\n"
+"X-Generator: Weblate 5.2.1\n"
 
 #: DB:work_type/description:9
 msgctxt "work_type"
@@ -152,8 +152,8 @@ msgstr "CD+G 8 cm (3 po)"
 
 #: DB:medium_format/description:166
 msgctxt "medium_format"
-msgid "8cm DVD disc, often used for video singles."
-msgstr "Disque DVD 8cm, souvent utilisé pour les clips vidéos."
+msgid "8cm DVD, often used for video singles."
+msgstr "DVD 8cm, souvent utilisé pour les clips vidéos."
 
 #: DB:medium_format/description:58
 msgctxt "medium_format"
@@ -563,7 +563,9 @@ msgid ""
 msgstr ""
 "Une représentation de une ou plusieurs pièces de théâtre, comédies "
 "musicales, opéras, ballets, ou autres œuvres pour la scène dans leur version "
-"avec mise en scène (par opposition à leur version sans jeu de scène)."
+"avec mise en scène (par opposition à leur <a href=\"https://fr.wikipedia.org/"
+"wiki/Concert#Le_concert_en_musique_classique\">version de concert</a> sans "
+"jeu de scène)."
 
 #: DB:place_type/description:8
 msgctxt "place_type"
@@ -3317,11 +3319,11 @@ msgstr "Fireng-i Fer"
 msgctxt "medium_format"
 msgid ""
 "Flat discs with grooves used in phonographs/gramophones. For shellac and "
-"vinyl records, use that specifically"
+"vinyl records, use that specifically."
 msgstr ""
 "Disques plats à sillon pouvant être lus par un gramophone ou un tourne-"
 "disque. À utiliser en particulier pour les disques fabriqués en gomme-laque "
-"shellac ou en vinyle"
+"shellac ou en vinyle."
 
 #: DB:medium_format/name:51
 msgctxt "medium_format"
@@ -5464,7 +5466,7 @@ msgstr "CD en mode mixte"
 #: DB:release_group_secondary_type/name:9
 msgctxt "release_group_secondary_type"
 msgid "Mixtape/Street"
-msgstr "Mixtape/Street"
+msgstr "Mixtape"
 
 #: DB:work_attribute_type_allowed_value/value:981
 msgctxt "work_attribute_type_allowed_value"
@@ -5980,7 +5982,7 @@ msgstr "Nevruzi Rumi"
 #: DB:work_attribute_type/name:33
 msgctxt "work_attribute_type"
 msgid "NexTone ID"
-msgstr "NexTone ID"
+msgstr "ID NexTone"
 
 #: DB:work_attribute_type_allowed_value/value:471
 msgctxt "work_attribute_type_allowed_value"

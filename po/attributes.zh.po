@@ -124,8 +124,11 @@ msgid "8cm CD+G"
 msgstr "8cm CD+G"
 
 #: DB:medium_format/description:166
+#, fuzzy
+#| msgctxt "medium_format"
+#| msgid "8cm DVD disc, often used for video singles."
 msgctxt "medium_format"
-msgid "8cm DVD disc, often used for video singles."
+msgid "8cm DVD, often used for video singles."
 msgstr "8厘米的DVD光盘，常用于视频单曲。"
 
 #: DB:medium_format/description:58
@@ -3116,10 +3119,15 @@ msgid "Fireng-i Fer"
 msgstr "Fireng-i Fer"
 
 #: DB:medium_format/description:73
+#, fuzzy
+#| msgctxt "medium_format"
+#| msgid ""
+#| "Flat discs with grooves used in phonographs/gramophones. For shellac and "
+#| "vinyl records, use that specifically"
 msgctxt "medium_format"
 msgid ""
 "Flat discs with grooves used in phonographs/gramophones. For shellac and "
-"vinyl records, use that specifically"
+"vinyl records, use that specifically."
 msgstr "留声机里使用的带沟槽的碟片，专门用于胶木和黑胶唱片的录制"
 
 #: DB:medium_format/name:51
