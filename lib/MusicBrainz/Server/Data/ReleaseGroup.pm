@@ -91,6 +91,10 @@ sub _where_filter
             push @query, q{(mb_simple_tsvector(rg.name) @@ plainto_tsquery('mb_simple', mb_lower(?)) OR rg.name = ?)};
             push @params, $filter->{name}, $filter->{name};
         }
+        if (exists $filter->{disambiguation}) {
+            push @query, q{(mb_simple_tsvector(rg.comment) @@ plainto_tsquery('mb_simple', mb_lower(?)) OR rg.comment = ?)};
+            push @params, ($filter->{disambiguation}) x 2;
+        }
         if (exists $filter->{artist_credit_id}) {
             $needs_rg_table = 1 if $using_artist_release_group_table;
             push @query, 'rg.artist_credit = ?';

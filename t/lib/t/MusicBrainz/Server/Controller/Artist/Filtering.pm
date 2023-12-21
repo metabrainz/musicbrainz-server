@@ -413,7 +413,7 @@ test 'Recording page filtering' => sub {
     );
     $tx->is(
         '//table[@class="tbl"]/tbody/tr/td[1]',
-        'Symphony no. 3',
+        'Symphony no. 3 (Testy 2)',
         'The entry is named "Symphony no. 3"',
     );
 
@@ -432,6 +432,47 @@ test 'Recording page filtering' => sub {
         '//table[@class="tbl"]/tbody/tr[1]/td[2]',
         'Sinfonia Varsovia, Witold Lutosławski',
         'The first has the expected artist credit"',
+    );
+
+    $mech->get_ok(
+        '/artist/af4c43d3-c0e0-421e-ac64-000329af0435/recordings?filter.video=1',
+        'Fetched artist recordings page with videos only option',
+    );
+
+    $tx = test_xpath_html($mech->content);
+    $tx->is(
+        'count(//table[@class="tbl"]/tbody/tr)',
+        '1',
+        'There is one entry in the recording table after filtering by videos only',
+    );
+    $tx->is(
+        '//table[@class="tbl"]/tbody/tr/td[1]',
+        'Interludium (Testy)',
+        'The entry is named "Interludium"',
+    );
+
+    $mech->get_ok(
+        '/artist/af4c43d3-c0e0-421e-ac64-000329af0435/recordings?filter.video=2',
+        'Fetched artist recordings page with non-videos only option',
+    );
+
+    $tx = test_xpath_html($mech->content);
+    $tx->is(
+        'count(//table[@class="tbl"]/tbody/tr)',
+        '3',
+        'There are three entries in the recording table after filtering by non-videos only',
+    );
+
+    $mech->get_ok(
+        '/artist/af4c43d3-c0e0-421e-ac64-000329af0435/recordings?filter.disambiguation=Testy',
+        'Fetched artist recordings page with disambiguation filter "Testy"',
+    );
+
+    $tx = test_xpath_html($mech->content);
+    $tx->is(
+        'count(//table[@class="tbl"]/tbody/tr)',
+        '2',
+        'There are two entries in the recording table after filtering by disambiguation',
     );
 };
 
@@ -522,6 +563,23 @@ test 'Work page filtering' => sub {
         'count(//table[@class="tbl"]/tbody/tr)',
         '1',
         'There is one entry in the work table after filtering by name "Interlude"',
+    );
+
+    $mech->get_ok(
+        '/artist/af4c43d3-c0e0-421e-ac64-000329af0435/works?filter.disambiguation=Testy',
+        'Fetched artist works page with disambiguation filter "Testy"',
+    );
+
+    $tx = test_xpath_html($mech->content);
+    $tx->is(
+        'count(//table[@class="tbl"]/tbody/tr)',
+        '1',
+        'There is one entry in the work table after filtering by disambiguation',
+    );
+    $tx->is(
+        '//table[@class="tbl"]/tbody/tr/td[1]',
+        'Mini Overture (Testy)',
+        'The entry is named "Mini Overture" and the disambiguation is indeed "Testy"',
     );
 };
 

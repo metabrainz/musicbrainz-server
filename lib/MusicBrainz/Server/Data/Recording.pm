@@ -90,9 +90,22 @@ sub find_by_artist
 
     if (exists $args{filter}) {
         my %filter = %{ $args{filter} };
+        if (exists $filter{video}) {
+            if ($filter{video} == 1) {
+                # Show only videos
+                push @where_query, 'video IS TRUE';
+            } elsif ($filter{video} == 2) {
+                # Show only non-video recordings
+                push @where_query, 'video IS FALSE';
+            }
+        }
         if (exists $filter{name}) {
             push @where_query, q{(mb_simple_tsvector(recording.name) @@ plainto_tsquery('mb_simple', mb_lower(?)) OR recording.name = ?)};
             push @where_args, $filter{name}, $filter{name};
+        }
+        if (exists $filter{disambiguation}) {
+            push @where_query, "(mb_simple_tsvector(recording.comment) @@ plainto_tsquery('mb_simple', mb_lower(?)) OR recording.comment = ?)";
+            push @where_args, ($filter{disambiguation}) x 2;
         }
         if (exists $filter{artist_credit_id}) {
             push @where_query, 'recording.artist_credit = ?';

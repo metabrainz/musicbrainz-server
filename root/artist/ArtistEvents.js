@@ -13,7 +13,7 @@ import EventList from '../components/list/EventList.js';
 import PaginatedResults from '../components/PaginatedResults.js';
 import {SanitizedCatalystContext} from '../context.mjs';
 import Filter from '../static/scripts/common/components/Filter.js';
-import {type FilterFormT}
+import {type EventFilterT}
   from '../static/scripts/common/components/FilterForm.js';
 import {returnToCurrentPage} from '../utility/returnUri.js';
 
@@ -23,7 +23,7 @@ type Props = {
   +ajaxFilterFormUrl: string,
   +artist: ArtistT,
   +events: $ReadOnlyArray<EventT>,
-  +filterForm: ?FilterFormT,
+  +filterForm: ?EventFilterT,
   +hasFilter: boolean,
   +pager: PagerT,
 };

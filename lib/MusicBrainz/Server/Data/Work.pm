@@ -113,6 +113,11 @@ sub find_by_artist
             push @where_args, ($filter{name}) x 2;
         }
 
+        if (exists $filter{disambiguation}) {
+            push @where_query, "(mb_simple_tsvector(work.comment) @@ plainto_tsquery('mb_simple', mb_lower(?)) OR work.comment = ?)";
+            push @where_args, ($filter{disambiguation}) x 2;
+        }
+
         if (exists $filter{type_id}) {
             if ($filter{type_id} eq '-1') {
                 push @where_query, 'work.type IS NULL';
