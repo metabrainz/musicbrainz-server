@@ -336,7 +336,7 @@ test 'MBS-13310: Merging artists updates empty artist_credit IDs in unreferenced
         'unreferenced_row_log table was updated correctly',
     );
 
-    $c->model('Artist')->merge(10, [11], rename => 1);
+    $c->model('Artist')->merge_with_opts(10, [11], rename => 1);
 
     cmp_deeply(
         $c->sql->select_list_of_hashes('SELECT * FROM artist_credit'),
