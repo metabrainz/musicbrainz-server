@@ -5791,11 +5791,11 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'twitter': {
-    match: [new RegExp('^(https?://)?([^/]+\\.)?twitter\\.com/', 'i')],
+    match: [new RegExp('^(https?://)?([^/]+\\.)?(twitter|x)\\.com/', 'i')],
     restrict: [{...LINK_TYPES.streamingfree, ...LINK_TYPES.socialnetwork}],
     clean: function (url) {
       url = url.replace(
-        /^(?:https?:\/\/)?(?:(?:www|mobile)\.)?twitter\.com(?:\/#!)?\//,
+        /^(?:https?:\/\/)?(?:(?:www|mobile)\.)?(?:twitter|x)\.com(?:\/#!)?\//,
         'https://twitter.com/',
       );
       url = url.replace(

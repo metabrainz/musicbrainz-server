@@ -5794,6 +5794,12 @@ limited_link_type_combinations: [
             expected_clean_url: 'https://twitter.com/UNIVERSAL_D',
   },
   {
+                     input_url: 'https://x.com/metabrainz',
+             input_entity_type: 'label',
+    expected_relationship_type: 'socialnetwork',
+            expected_clean_url: 'https://twitter.com/metabrainz',
+  },
+  {
                      input_url: 'https://twitter.com/mountain_goats/status/1062342708470132738',
              input_entity_type: 'recording',
     expected_relationship_type: 'streamingfree',
