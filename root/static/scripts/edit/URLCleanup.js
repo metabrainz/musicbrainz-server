@@ -1122,6 +1122,7 @@ const CLEANUPS: CleanupEntries = {
     clean: function (url) {
       url = url.replace(/^(?:https?:\/\/)?([^\/]+\.)?bandcamp\.com(?:\/([^?#]*))?.*$/, 'https://$1bandcamp.com/$2');
       url = url.replace(/^https:\/\/([^\/]+)\.bandcamp\.com\/(?:((?:album|track)\/[^\/]+))?.*$/, 'https://$1.bandcamp.com/$2');
+      url = url.replace(/^https:\/\/bandcamp\.com\/(?:discover|tag)\/([^\/]+).*$/, 'https://bandcamp.com/discover/$1');
       return url;
     },
     validate: function (url, id) {
@@ -1140,7 +1141,7 @@ const CLEANUPS: CleanupEntries = {
           return {result: /^https:\/\/[^\/]+\.bandcamp\.com\/$/.test(url)};
         case LINK_TYPES.bandcamp.genre:
           return {
-            result: /^https:\/\/bandcamp\.com\/tag\/[\w-]+$/.test(url),
+            result: /^https:\/\/bandcamp\.com\/discover\/[\w-]+$/.test(url),
             target: ERROR_TARGETS.ENTITY,
           };
         case LINK_TYPES.bandcamp.label:
