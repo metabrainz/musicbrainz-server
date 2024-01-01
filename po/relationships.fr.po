@@ -41,7 +41,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-12-20 12:38+0000\n"
+"PO-Revision-Date: 2023-12-21 13:28+0000\n"
 "Last-Translator: yvanzo <yvanzo@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: French <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/fr/>\n"
@@ -363,7 +363,7 @@ msgstr "Page IMSLP pour"
 
 #: DB:link_attribute_type/description:516
 msgid "Indicates a bonus disc."
-msgstr "Signale un disque bonus."
+msgstr "Indique un disque bonus."
 
 #: DB:link_type/description:162
 msgid ""

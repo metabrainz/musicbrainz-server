@@ -67,7 +67,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-12-14 18:52+0000\n"
-"PO-Revision-Date: 2023-12-20 12:38+0000\n"
+"PO-Revision-Date: 2023-12-21 13:28+0000\n"
 "Last-Translator: yvanzo <yvanzo@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: French <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/fr/>\n"
@@ -3179,8 +3179,8 @@ msgstr "Impossible d’analyser la liste de pistes que vous avez saisie."
 #: ../root/release/edit/recordings.tt:98
 msgid "Update the recording artist credit to match the track artist credit."
 msgstr ""
-"Mettre à jour le crédit d’artiste exécutant pour correspondre au crédit "
-"d’artiste de la piste."
+"Mettre à jour le crédit d’artiste de l’enregistrement pour correspondre au "
+"crédit d’artiste de la piste."
 
 #: ../root/release/edit/recordings.tt:93
 msgid "Update the recording title to match the track title."
@@ -15846,8 +15846,8 @@ msgid ""
 "The recording artists do not match! Perhaps you meant to use the \"append "
 "mediums\" merge strategy?"
 msgstr ""
-"Les artistes exécutants ne correspondent pas ! Vous vouliez peut-être "
-"utiliser la stratégie de fusion « Ajouter les supports » ?"
+"Les artistes des enregistrements ne correspondent pas ! Vous vouliez peut-"
+"être utiliser la stratégie de fusion « Ajouter les supports » ?"
 
 #: ../root/static/scripts/edit/components/ReleaseMergeStrategy.js:269
 msgid ""
@@ -16524,7 +16524,7 @@ msgstr "Afficher les crédits en bas"
 
 #: ../root/static/scripts/release/components/MediumTrackRow.js:64
 msgid "Recording artist:"
-msgstr "Artiste d’enregistrement :"
+msgstr "Artiste de l’enregistrement :"
 
 #: ../root/static/scripts/release/components/RelationshipEditorBatchTools.js:101
 msgid "To use this tool, select some works using the checkboxes below."
@@ -17467,11 +17467,11 @@ msgstr "Échec"
 #: ../root/user/UserProfile.js:652
 msgctxt "edit"
 msgid "Cancelled"
-msgstr "Annulée"
+msgstr "Annulées"
 
 #: ../root/user/UserProfile.js:662
 msgid "Open"
-msgstr "Ouverte"
+msgstr "Ouvertes"
 
 #: ../root/user/UserProfile.js:672
 msgid "Last 24 hours"
