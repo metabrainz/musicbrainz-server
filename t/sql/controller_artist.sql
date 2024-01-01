@@ -58,7 +58,7 @@ INSERT INTO work (id, gid, name, type) VALUES
 INSERT INTO iswc (work, iswc) VALUES (1, 'T-000.000.001-0');
 
 INSERT INTO link (id, link_type, attribute_count) VALUES (1, 148, 1);
-INSERT INTO link (id, link_type, attribute_count) VALUES (2, 148, 2);
+INSERT INTO link (id, link_type, attribute_count) VALUES (2, 282, 2);
 INSERT INTO link (id, link_type, attribute_count) VALUES (3, 282, 0);
 INSERT INTO link (id, link_type, attribute_count) VALUES (4, 108, 0);
 

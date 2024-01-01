@@ -82,6 +82,9 @@ export const WorkListRow = ({
           {async: 'async'},
         )}
       </td>
+      <td>
+        <ArtistRoles relations={work.misc_artists} />
+      </td>
       {showIswcs ? (
         <td>
           <IswcList iswcs={work.iswcs} />
