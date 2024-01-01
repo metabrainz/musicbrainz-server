@@ -36,7 +36,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-12-14 18:52+0000\n"
-"PO-Revision-Date: 2023-12-20 12:38+0000\n"
+"PO-Revision-Date: 2023-12-20 20:28+0000\n"
 "Last-Translator: mfmeulenbelt <mfmeulenbelt@users.noreply.translations."
 "metabrainz.org>\n"
 "Language-Team: Dutch <https://translations.metabrainz.org/projects/"
@@ -2161,7 +2161,7 @@ msgstr "Land van uitgave"
 
 #: ../root/edit/search_macros.tt:434
 msgid "Release data quality"
-msgstr "Gegevenskwaliteit van de uitgave"
+msgstr "Gegevenskwaliteit van de uitgaven"
 
 #: ../root/release/edit/layout.tt:14
 msgid "Release duplicates"
@@ -7865,7 +7865,7 @@ msgstr "Disc-ID’s ({num})"
 #: ../root/components/EntityTabs.js:114
 msgctxt "plural"
 msgid "Cover art"
-msgstr "Afbeelding"
+msgstr "Afbeeldingen"
 
 #: ../root/components/EntityTabs.js:116
 msgctxt "plural"
@@ -17023,11 +17023,11 @@ msgstr "Verzenden"
 
 #: ../root/user/UserCollections.js:42
 msgid "Area collections"
-msgstr "Collecties met gebieden"
+msgstr "Collecties van gebieden"
 
 #: ../root/user/UserCollections.js:43
 msgid "Artist collections"
-msgstr "Collecties met artiesten"
+msgstr "Collecties van artiesten"
 
 #: ../root/user/UserCollections.js:44
 msgid "Event collections"
@@ -17035,19 +17035,19 @@ msgstr "Collecties met evenementen"
 
 #: ../root/user/UserCollections.js:45
 msgid "Instrument collections"
-msgstr "Collecties met instrumenten"
+msgstr "Collecties van instrumenten"
 
 #: ../root/user/UserCollections.js:46
 msgid "Label collections"
-msgstr "Collecties met platenmaatschappijen"
+msgstr "Collecties van platenmaatschappijen"
 
 #: ../root/user/UserCollections.js:47
 msgid "Place collections"
-msgstr "Collecties met plaatsen"
+msgstr "Collecties van plaatsen"
 
 #: ../root/user/UserCollections.js:48
 msgid "Recording collections"
-msgstr "Collectie van opnamen"
+msgstr "Collecties van opnames"
 
 #: ../root/user/UserCollections.js:49
 msgid "Release collections"
@@ -17055,7 +17055,7 @@ msgstr "Collecties met uitgaven"
 
 #: ../root/user/UserCollections.js:50
 msgid "Release group collections"
-msgstr "Collecties met uitgavegroepen"
+msgstr "Collecties van uitgavegroepen"
 
 #: ../root/user/UserCollections.js:51
 msgctxt "plural"
@@ -17064,7 +17064,7 @@ msgstr "Collecties met series"
 
 #: ../root/user/UserCollections.js:52
 msgid "Work collections"
-msgstr "Collecties met composities"
+msgstr "Collecties van composities"
 
 #: ../root/user/UserCollections.js:64
 msgid "{collaborator_number} (including you)"
@@ -17302,7 +17302,7 @@ msgstr "Geannuleerd"
 
 #: ../root/user/UserProfile.js:662
 msgid "Open"
-msgstr "Geopend"
+msgstr "Open"
 
 #: ../root/user/UserProfile.js:672
 msgid "Last 24 hours"
