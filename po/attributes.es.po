@@ -46,7 +46,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-12-14 02:28+0000\n"
+"PO-Revision-Date: 2023-12-21 18:28+0000\n"
 "Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
 ".org>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
@@ -57,7 +57,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
 " ? 1 : 2);\n"
-"X-Generator: Weblate 5.2.1\n"
+"X-Generator: Weblate 5.3\n"
 
 #: DB:work_type/description:9
 msgctxt "work_type"
@@ -83,7 +83,7 @@ msgstr ""
 #: DB:medium_format/name:205
 msgctxt "medium_format"
 msgid "10\" Acetate"
-msgstr ""
+msgstr "Acetato de 10\""
 
 #: DB:medium_format/name:54
 msgctxt "medium_format"
@@ -98,7 +98,7 @@ msgstr "Disco de vinilo de 10\""
 #: DB:medium_format/name:206
 msgctxt "medium_format"
 msgid "12\" Acetate"
-msgstr ""
+msgstr "Acetato de 12\""
 
 #: DB:medium_format/name:72
 msgctxt "medium_format"
@@ -128,7 +128,7 @@ msgstr "Disquete de 5.25\""
 #: DB:medium_format/name:204
 msgctxt "medium_format"
 msgid "7\" Acetate"
-msgstr ""
+msgstr "Acetato de 7\""
 
 #: DB:medium_format/name:52
 msgctxt "medium_format"
@@ -1116,7 +1116,7 @@ msgstr "Acemtarab"
 #: DB:medium_format/name:203
 msgctxt "medium_format"
 msgid "Acetate"
-msgstr ""
+msgstr "Acetato"
 
 #: DB:work_attribute_type_allowed_value/value:848
 msgctxt "work_attribute_type_allowed_value"

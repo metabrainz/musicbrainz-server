@@ -22,7 +22,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-12-14 02:28+0000\n"
+"PO-Revision-Date: 2023-12-21 18:28+0000\n"
 "Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
 ".org>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
@@ -33,7 +33,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
 " ? 1 : 2);\n"
-"X-Generator: Weblate 5.2.1\n"
+"X-Generator: Weblate 5.3\n"
 
 #: DB:link_attribute_type/description:1355
 msgid "A performance-centered, usually one to three year postgraduate program."
@@ -105,7 +105,7 @@ msgstr "página de Allmusic para"
 
 #: DB:link_type/link_phrase:1131 DB:link_type/link_phrase:1130
 msgid "Apple Music"
-msgstr ""
+msgstr "Apple Music"
 
 #: DB:link_type/reverse_link_phrase:1131 DB:link_type/reverse_link_phrase:1130
 msgid "Apple Music page for"
@@ -159,7 +159,7 @@ msgstr "Página de BookBrainz de"
 
 #: DB:link_type/link_phrase:919 DB:link_type/name:919
 msgid "CD Baby"
-msgstr ""
+msgstr "CD Baby"
 
 #: DB:link_type/reverse_link_phrase:919
 msgid "CD Baby page for"
@@ -167,7 +167,7 @@ msgstr ""
 
 #: DB:link_type/link_phrase:981 DB:link_type/name:981
 msgid "CPDL"
-msgstr ""
+msgstr "CPDL"
 
 #: DB:link_type/reverse_link_phrase:981
 msgid "CPDL page for"
