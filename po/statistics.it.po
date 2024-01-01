@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-12-18 00:28+0000\n"
+"PO-Revision-Date: 2023-12-22 20:28+0000\n"
 "Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
 "metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -2581,7 +2581,7 @@ msgstr "Modifiche applicate"
 
 #: ../root/statistics/stats.js:299
 msgid "Cancelled edits"
-msgstr "Modifiche cancellate"
+msgstr "Modifiche annullate"
 
 #: ../root/statistics/stats.js:304
 msgid "Error edits"
