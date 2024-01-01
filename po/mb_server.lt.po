@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-12-14 18:52+0000\n"
-"PO-Revision-Date: 2023-12-13 20:01+0000\n"
+"PO-Revision-Date: 2023-12-25 11:28+0000\n"
 "Last-Translator: \"Vac31.\" <gateway_31@protonmail.com>\n"
 "Language-Team: Lithuanian <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/lt/>\n"
@@ -21,9 +21,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
-"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
-"1 : n % 1 != 0 ? 2: 3);\n"
-"X-Generator: Weblate 5.2.1\n"
+"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 :"
+" n % 1 != 0 ? 2: 3);\n"
+"X-Generator: Weblate 5.3\n"
 
 #: ../root/components/common-macros.tt:12
 msgid " ({text})"
@@ -144,11 +144,6 @@ msgid "<strong>Warning</strong>:"
 msgstr "<strong>Įspėjimas</strong>:"
 
 #: ../root/cdtoc/lookup.tt:22
-#, fuzzy
-#| msgid ""
-#| "A CD Stub was found that matches the disc ID you provided. If the below "
-#| "tracklist appears correct, you may use it as a starting point as a new "
-#| "MusicBrainz release"
 msgid ""
 "A CD stub was found that matches the disc ID you provided. If the below "
 "tracklist appears correct, you may use it as a starting point for a new "
@@ -192,15 +187,11 @@ msgstr ""
 "leidžia nurodyti nuorodas į atlikėjus ir kūrinius."
 
 #: ../root/release/edit/tracklist.tt:273
-#, fuzzy
-#| msgid ""
-#| "Add a medium by clicking “Add Medium” below, or tick the box confirming "
-#| "the tracklist is unknown."
 msgid ""
 "Add a medium by clicking “Add medium” below, or tick the box confirming the "
 "tracklist is unknown."
 msgstr ""
-"Pridėk laikmeną spustelėdamas (-a) toliau esantį mygtuką „Pridėti laikmeną“ "
+"Pridėk laikmeną spustelėdamas (-a) toliau esantį mygtuką Pridėti laikmeną "
 "arba pažymėk laukelį, patvirtinantį, kad takelių sąrašas nežinomas."
 
 #: ../root/release/edit/recordings.tt:178
@@ -217,44 +208,31 @@ msgid "Add a new release"
 msgstr "Pridėti naują leidinį"
 
 #: ../root/area/create.tt:1 ../root/area/create.tt:3
-#, fuzzy
-#| msgid "Add area"
 msgctxt "header"
 msgid "Add area"
 msgstr "Pridėti teritoriją"
 
 #: ../root/artist/create.tt:1 ../root/artist/create.tt:3
-#, fuzzy
-#| msgid "Add Artist"
 msgctxt "header"
 msgid "Add artist"
 msgstr "Pridėti atlikėją"
 
 #: ../root/release/add_cover_art.tt:1 ../root/release/add_cover_art.tt:8
-#, fuzzy
-#| msgctxt "header"
-#| msgid "Add Cover Art"
 msgctxt "plural, header"
 msgid "Add cover art"
-msgstr "Pridėti viršelį"
+msgstr "Pridėti viršelio apipavidalinimą"
 
 #: ../root/event/create.tt:1 ../root/event/create.tt:3
-#, fuzzy
-#| msgid "Add Event"
 msgctxt "header"
 msgid "Add event"
 msgstr "Pridėti renginį"
 
 #: ../root/instrument/create.tt:1 ../root/instrument/create.tt:3
-#, fuzzy
-#| msgid "Add Instrument"
 msgctxt "header"
 msgid "Add instrument"
 msgstr "Pridėti instrumentą"
 
 #: ../root/label/create.tt:1 ../root/label/create.tt:3
-#, fuzzy
-#| msgid "Add Label"
 msgctxt "header"
 msgid "Add label"
 msgstr "Pridėti leidyklą"
@@ -262,22 +240,16 @@ msgstr "Pridėti leidyklą"
 #: ../root/release/edit/information.tt:215
 #: ../root/release/edit/information.tt:216
 #: ../root/layout/components/BottomMenu.js:248
-#, fuzzy
-#| msgid "Add Label"
 msgctxt "interactive"
 msgid "Add label"
 msgstr "Pridėti leidyklą"
 
 #: ../root/release/edit/layout.tt:67 ../root/release/edit/tracklist.tt:267
-#, fuzzy
-#| msgid "Add Medium"
 msgctxt "interactive"
 msgid "Add medium"
 msgstr "Pridėti laikmeną"
 
 #: ../root/place/create.tt:1 ../root/place/create.tt:3
-#, fuzzy
-#| msgid "Add Place"
 msgctxt "header"
 msgid "Add place"
 msgstr "Pridėti vietą"
@@ -285,40 +257,27 @@ msgstr "Pridėti vietą"
 #: ../root/release/edit/layout.tt:7
 #: ../root/static/scripts/release-editor/init.js:286
 #: ../root/static/scripts/release-editor/init.js:287
-#, fuzzy
-#| msgctxt "header"
-#| msgid "Add Release"
 msgctxt "header"
 msgid "Add release"
 msgstr "Pridėti leidinį"
 
 #: ../root/release/edit/information.tt:171
 #: ../root/release/edit/information.tt:172
-#, fuzzy
-#| msgctxt "button/menu"
-#| msgid "Add Release Event"
 msgctxt "interactive"
 msgid "Add release event"
 msgstr "Pridėti leidinio įvykį"
 
 #: ../root/release_group/create.tt:1 ../root/release_group/create.tt:3
-#, fuzzy
-#| msgid "Add Release Group"
 msgctxt "header"
 msgid "Add release group"
 msgstr "Pridėti leidinių grupę"
 
 #: ../root/series/create.tt:1 ../root/series/create.tt:3
-#, fuzzy
-#| msgid "Add Series"
 msgctxt "header, singular"
 msgid "Add series"
 msgstr "Pridėti seriją"
 
 #: ../root/recording/create.tt:1 ../root/recording/create.tt:3
-#, fuzzy
-#| msgctxt "header"
-#| msgid "Add Standalone Recording"
 msgctxt "header"
 msgid "Add standalone recording"
 msgstr "Pridėti atskirą įrašą"
@@ -328,20 +287,14 @@ msgid "Add track(s)"
 msgstr "Pridėti takelį (-us)"
 
 #: ../root/work/create.tt:1 ../root/work/create.tt:2
-#, fuzzy
-#| msgctxt "header"
-#| msgid "Add Work"
 msgctxt "header"
 msgid "Add work"
 msgstr "Pridėti kūrinį"
 
 #: ../root/work/edit_form.tt:77
-#, fuzzy
-#| msgctxt "button/menu"
-#| msgid "Add Work Attribute"
 msgctxt "interactive"
 msgid "Add work attribute"
-msgstr "Pridėti kūrinio atributą"
+msgstr "Pridėti kūrinio požymį"
 
 #: ../root/components/forms.tt:173
 msgid "Add {item}"
@@ -398,8 +351,6 @@ msgid "Annotation"
 msgstr "Anotacija"
 
 #: ../root/edit/search_macros.tt:434
-#, fuzzy
-#| msgid "Applied Edit Count of Editor"
 msgid "Applied edit count of editor"
 msgstr "Taikomas redaktoriaus (-ės) redagavimo skaičius"
 
@@ -501,14 +452,10 @@ msgid "Artist"
 msgstr "Atlikėjas (-a)"
 
 #: ../root/edit/search_macros.tt:434
-#, fuzzy
-#| msgid "Artist Area"
 msgid "Artist area"
 msgstr "Atlikėjo teritoriją"
 
 #: ../root/artist/edit_form.tt:10
-#, fuzzy
-#| msgid "Artist Details"
 msgid "Artist details"
 msgstr "Išsami informacija apie atlikėją"
 
@@ -525,16 +472,11 @@ msgstr "Pridėti CD TOC"
 
 #: ../root/cdtoc/attach_artist_releases.tt:40
 #: ../root/cdtoc/attach_filter_release.tt:54
-#, fuzzy
-#| msgctxt "button/menu"
-#| msgid "Attach CD TOC"
 msgctxt "interactive"
 msgid "Attach CD TOC"
 msgstr "Pridėti CD TOC"
 
 #: ../root/cdtoc/lookup.tt:66 ../root/release/edit/tracklist.tt:478
-#, fuzzy
-#| msgid "Attach Disc ID"
 msgid "Attach disc ID"
 msgstr "Pridėti disko ID"
 
@@ -543,8 +485,6 @@ msgid "Attached to releases"
 msgstr "Pridėta prie leidinių"
 
 #: ../root/edit/search_macros.tt:399 ../root/user/UserProfile.js:74
-#, fuzzy
-#| msgid "Auto-editor"
 msgctxt "user type"
 msgid "Auto-editor"
 msgstr "Autoredaktorius (-ė)"
@@ -592,10 +532,8 @@ msgstr ""
 
 #: ../root/artist/edit_form.tt:42 ../root/components/list/ArtistList.js:102
 #: ../root/search/components/ArtistResults.js:57
-#, fuzzy
-#| msgid "Begin area:"
 msgid "Begin area"
-msgstr "Pradžios teritorija:"
+msgstr "Pradžios teritorija"
 
 #: ../root/artist/edit_form.tt:38 ../root/components/forms.tt:212
 #: ../root/event/edit_form.tt:36 ../root/artist/utils.js:34
@@ -629,8 +567,6 @@ msgid "Blog"
 msgstr "Tinklaraštis"
 
 #: ../root/edit/search_macros.tt:399
-#, fuzzy
-#| msgid "Bot"
 msgctxt "user type"
 msgid "Bot"
 msgstr "Botas"
@@ -663,10 +599,8 @@ msgid "CD stub by {artist}"
 msgstr "CD atplaiša pagal atlikėją"
 
 #: ../root/cdtoc/lookup.tt:21
-#, fuzzy
-#| msgid "CD Stub found"
 msgid "CD stub found"
-msgstr "Rasta CD atplaiša"
+msgstr "Rastas CD atplaiša"
 
 #: ../root/release/edit/tracklist.tt:248
 msgid "CD stub import"
@@ -2334,40 +2268,36 @@ msgstr ""
 #: ../root/static/scripts/edit/components/Multiselect.js:210
 #: ../root/user/UserCollections.js:135
 msgid "Remove"
-msgstr ""
+msgstr "Pašalinti"
 
 #: ../root/work/edit_form.tt:60
 msgid "Remove attribute"
-msgstr ""
+msgstr "Pašalinti požymį"
 
 #: ../root/components/common-macros.tt:588
 #: ../root/components/common-macros.tt:596
 #: ../root/components/RemoveFromMergeTableCell.js:39
 #: ../root/utility/tableColumns.js:727 ../root/utility/tableColumns.js:737
 msgid "Remove from merge"
-msgstr ""
+msgstr "Pašalinti iš sujungimo"
 
 #: ../root/release/edit/information.tt:199
-#, fuzzy
-#| msgid "Remove area"
 msgctxt "interactive"
 msgid "Remove label"
-msgstr "Pašalinti teritoriją"
+msgstr "Pašalinti leidyklą"
 
 #: ../root/release/edit/tracklist.tt:330
 msgid "Remove medium"
-msgstr ""
+msgstr "Pašalinti laikmeną"
 
 #: ../root/release/edit/information.tt:159
-#, fuzzy
-#| msgid "Release event"
 msgid "Remove release event"
-msgstr "Leidimo įvykis"
+msgstr "Pašalinti leidinio įvykį"
 
 #: ../root/layout/merge-helper.tt:33
 #: ../root/layout/components/MergeHelper.js:75
 msgid "Remove selected entities"
-msgstr ""
+msgstr "Pašalinti pasirinktus subjektus"
 
 #: ../root/release/edit/tracklist.tt:227
 msgid "Remove track"
@@ -2429,7 +2359,7 @@ msgstr ""
 #: ../root/edit/details/historic/AddRelease.js:65
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:203
 msgid "Script"
-msgstr ""
+msgstr "Raštas"
 
 #: ../root/cdtoc/attach_filter_release.tt:11 ../root/cdtoc/lookup.tt:77
 #: ../root/cdtoc/lookup.tt:87 ../root/cdtoc/move_search.tt:17
@@ -2494,12 +2424,12 @@ msgstr ""
 
 #: ../root/release/add_cover_art.tt:31
 msgid "Select images..."
-msgstr ""
+msgstr "Pasirinkti vaizdus..."
 
 #: ../root/components/forms.tt:259 ../root/components/forms.tt:284
 #: ../root/static/scripts/edit/components/GuessCaseOptions.js:112
 msgid "Sentence"
-msgstr ""
+msgstr "Sakinys"
 
 #: ../root/edit/search_macros.tt:434 ../lib/MusicBrainz/Server/Edit/Series.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:51
@@ -2511,11 +2441,9 @@ msgstr ""
 #: ../root/user/UserProfile.js:60
 msgctxt "singular"
 msgid "Series"
-msgstr ""
+msgstr "Serija"
 
 #: ../root/series/edit_form.tt:10
-#, fuzzy
-#| msgid "Series Details"
 msgid "Series details"
 msgstr "Išsami informacija apie seriją"
 
@@ -2544,7 +2472,7 @@ msgstr ""
 
 #: ../root/release/edit/duplicates.tt:2
 msgid "Similar releases"
-msgstr ""
+msgstr "Panašūs leidiniai"
 
 #: ../root/release/edit/tracklist.tt:499
 msgid ""
@@ -2564,6 +2492,8 @@ msgid ""
 "Some errors were detected in the data you’ve entered. Click on the "
 "highlighted tabs and correct any visible errors."
 msgstr ""
+"Tavo įvestuose duomenyse aptikta klaidų. Spustelėk paryškintus skirtukus ir "
+"ištaisyk matomas klaidas."
 
 #: ../root/components/forms.tt:239 ../root/components/Aliases/AliasTable.js:23
 #: ../root/components/list/ArtistList.js:73 ../root/edit/details/AddArea.js:47
@@ -2629,8 +2559,6 @@ msgstr ""
 #: ../root/search/components/ReleaseResults.js:124
 #: ../root/static/scripts/common/components/TaggerIcon.js:82
 #: ../root/utility/tableColumns.js:782
-#, fuzzy
-#| msgid "Tagger"
 msgctxt "audio file metadata"
 msgid "Tagger"
 msgstr "Žymeklis"
@@ -2640,22 +2568,22 @@ msgid ""
 "The Cover Art Archive is currently experiencing difficulties. Adding images "
 "for this release is unlikely to work at the moment."
 msgstr ""
-"Viršelio paveikslėlių archyvas dabar susiduria su sunkumais. Pridėti šio "
-"leidinio paveikslėlius šiuo metu greičiausiai nepavyks."
+"Cover Art Archive dabar susiduria su sunkumais. Pridėti šio leidinio vaizdus "
+"šiuo metu greičiausiai nepavyks."
 
 #: ../root/release/edit/information.tt:348
 msgid "The annotation field functions like a miniature wiki."
-msgstr ""
+msgstr "Anotacijų laukas veikia kaip miniatiūrinė viki."
 
 #: ../root/release/edit/information.tt:297
 msgid "The catalog number you have entered looks like an Amazon ASIN."
-msgstr ""
+msgstr "Įvestas katalogo numeris atrodo kaip Amazon ASIN."
 
 #: ../root/layout.tt:90 ../root/layout/index.js:290
 msgid ""
 "The data you have submitted does not make any changes to the data already "
 "present."
-msgstr ""
+msgstr "Tavo pateikti duomenys nekeičia jau esamų duomenų."
 
 #: ../root/release/edit/layout.tt:23
 msgid "The data you’ve seeded contained the following errors:"
@@ -2686,6 +2614,10 @@ msgid ""
 "written in, nor to the language used for other extra information on the "
 "cover."
 msgstr ""
+"Kalbos požymis turėtų būti nustatytas į kalbą, kuria rašomas leidinio "
+"pavadinimas ir kūrinių pavadinimai. Jis neturėtų būti nustatomas kaip kalba, "
+"kuria parašyti dainų žodžiai, ir kaip kalba, kuria pateikiama kita papildoma "
+"informacija ant viršelio."
 
 #: ../root/release/edit/information.tt:351
 msgid ""
@@ -2694,6 +2626,10 @@ msgid ""
 "technical limitations that may be addressed later, or because the "
 "information in itself has to be free-text)."
 msgstr ""
+"Šio lauko paskirtis – pridėti informaciją, kuri paprastai netelpa į griežtą "
+"struktūrinę MusicBrainz duomenų schemą (dėl techninių ribojimų, kurie gali "
+"būti aptarti vėliau, arba dėl to, kad pati informacija turi būti laisvo "
+"teksto)."
 
 #: ../root/release/edit/information.tt:320
 msgid ""
@@ -2704,6 +2640,7 @@ msgstr ""
 #: ../root/layout.tt:70 ../root/layout/index.js:250
 msgid "The server is temporarily in read-only mode for database maintenance."
 msgstr ""
+"Dėl duomenų bazės priežiūros serveris laikinai veikia tik skaitymo režimu."
 
 #: ../root/components/forms.tt:359
 msgid ""
@@ -2757,7 +2694,7 @@ msgstr ""
 
 #: ../root/place/edit_form.tt:29
 msgid "These coordinates could not be parsed."
-msgstr ""
+msgstr "Šių koordinačių nepavyko išanalizuoti."
 
 #: ../root/cdtoc/attach_list.tt:54 ../root/cdtoc/attach_list.tt:67
 msgid "This CDTOC is already attached to this medium."
@@ -2797,22 +2734,24 @@ msgstr ""
 #: ../root/components/common-macros.tt:190
 #: ../root/static/scripts/common/components/EntityLink.js:37
 msgid "This entity has been removed, and cannot be displayed correctly."
-msgstr ""
+msgstr "Šis subjektas buvo pašalintas ir negali būti rodomas teisingai."
 
 #: ../root/components/common-macros.tt:190
 #: ../root/static/scripts/common/components/EntityLink.js:36
 msgid "This entity will be added by this edit."
-msgstr ""
+msgstr "Šis subjektas bus pridėtas atliekant šį redagavimą."
 
 #: ../root/event/edit_form.tt:15
 msgid "This event was cancelled."
-msgstr ""
+msgstr "Šis renginys buvo atšauktas."
 
 #: ../root/release/edit/information.tt:364
 msgid ""
 "This field is not a place to store general background information about the "
 "release: that kind of information should go in the annotation field."
 msgstr ""
+"Šis laukas nėra vieta, skirta bendrai informacijai apie leidinį saugoti: "
+"tokia informacija turėtų būti pateikta anotacijos lauke."
 
 #: ../root/artist/edit_credit.tt:12
 msgid ""
@@ -2830,7 +2769,7 @@ msgstr ""
 
 #: ../root/layout.tt:37 ../root/layout/index.js:123
 msgid "This is a MusicBrainz development server."
-msgstr ""
+msgstr "Tai – MusicBrainz kūrimo serveris."
 
 #: ../root/layout.tt:53 ../root/layout/index.js:148
 msgid ""
@@ -2843,6 +2782,8 @@ msgid ""
 "This is a PDF file, the thumbnail may not show the entire contents of the "
 "file."
 msgstr ""
+"Tai yra PDF failas, todėl miniatiūroje gali būti rodomas ne visas failo "
+"turinys."
 
 #: ../root/release/edit/tracklist.tt:386
 msgid ""
@@ -2974,7 +2915,7 @@ msgstr ""
 #: ../root/cdstub/index.tt:21 ../root/cdstub/CDStubIndex.js:55
 #: ../root/cdtoc/CDTocInfo.js:42
 msgid "Total length:"
-msgstr ""
+msgstr "Bendras ilgis:"
 
 #: ../root/cdstub/index.tt:17 ../root/cdstub/CDStubIndex.js:51
 #: ../root/cdtoc/CDTocInfo.js:38
@@ -3148,7 +3089,7 @@ msgstr ""
 
 #: ../root/layout.tt:119 ../root/layout/components/Footer.js:45
 msgid "Use beta site"
-msgstr ""
+msgstr "Naudoti beta svetainę"
 
 #: ../root/release/edit/tracklist.tt:68
 msgid "Use custom artist delimiter"
@@ -3186,7 +3127,7 @@ msgstr ""
 #: ../root/edit/details/AddStandaloneRecording.js:64
 #: ../root/edit/details/EditRecording.js:77
 msgid "Video"
-msgstr ""
+msgstr "Vaizdo įrašas"
 
 #: ../root/recording/layout.tt:3 ../root/recording/RecordingLayout.js:39
 msgid "Video “{name}” by {artist}"
@@ -3254,7 +3195,7 @@ msgstr ""
 
 #: ../root/layout.tt:112 ../root/layout/components/Footer.js:27
 msgid "Wiki"
-msgstr ""
+msgstr "Viki"
 
 #: ../root/edit/search_macros.tt:434 ../lib/MusicBrainz/Server/Edit/Work.pm:9
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:42
@@ -3268,17 +3209,15 @@ msgstr ""
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:74
 #: ../root/user/UserProfile.js:61 ../root/work/WorkLayout.js:33
 msgid "Work"
-msgstr ""
+msgstr "Kūrinys"
 
 #: ../root/work/edit_form.tt:20
 #: ../root/layout/components/sidebar/WorkSidebar.js:96
 #: ../root/static/scripts/common/components/AttributeList.js:65
 msgid "Work attributes"
-msgstr ""
+msgstr "Kūrinio požymiai"
 
 #: ../root/work/edit_form.tt:11
-#, fuzzy
-#| msgid "Work Details"
 msgid "Work details"
 msgstr "Išsami informacija apie kūrinį"
 
@@ -3286,7 +3225,7 @@ msgstr "Išsami informacija apie kūrinį"
 #: ../lib/MusicBrainz/Server/Plugin/FormRenderer.pm:251
 #: ../root/static/scripts/edit/components/PartialDateInput.js:163
 msgid "YYYY"
-msgstr ""
+msgstr "MMMM"
 
 #: ../root/edit/search_macros.tt:293 ../root/edit/search_macros.tt:309
 #: ../lib/MusicBrainz/Server/Data/Vote.pm:177
@@ -3379,7 +3318,7 @@ msgstr ""
 
 #: ../root/release/edit/information.tt:56
 msgid "You must select an existing release group."
-msgstr ""
+msgstr "Turi pasirinkti esamą leidinio grupę."
 
 #: ../root/release/edit/editnote.tt:36
 #: ../lib/MusicBrainz/Server/Form/EditNoteModify.pm:32
@@ -3388,12 +3327,16 @@ msgid ""
 "Your edit note seems to have no actual content. Please provide a note that "
 "will be helpful to your fellow editors!"
 msgstr ""
+"Atrodo, kad tavo redagavimo pastaba neturi jokio turinio. Pateik pastabą, "
+"kuri būtų naudinga tavo kolegoms redaktoriams."
 
 #: ../root/edit/search.tt:7
 msgid ""
 "Your search took too long and was cancelled. It may help to be more "
 "specific, or to try again."
 msgstr ""
+"Tavo paieška užtruko per ilgai ir buvo atšaukta. Gali būti naudinga "
+"patikslinti arba pabandyti dar kartą."
 
 #: ../root/layout.tt:21 ../root/layout/index.js:215
 msgid ""
@@ -3449,7 +3392,7 @@ msgstr ""
 
 #: ../root/edit/search_macros.tt:174
 msgid "after"
-msgstr ""
+msgstr "po"
 
 #: ../root/edit/search_macros.tt:39
 msgid "all"
@@ -3552,7 +3495,7 @@ msgstr ""
 
 #: ../root/edit/search_macros.tt:352
 msgid "include"
-msgstr ""
+msgstr "įtraukti"
 
 #: ../root/edit/search_macros.tt:352
 msgid "include a beginner editor"
@@ -3579,7 +3522,7 @@ msgstr ""
 #: ../root/static/scripts/common/components/EntityLink.js:141
 #: ../root/static/scripts/common/components/EntityLink.js:426
 msgid "info"
-msgstr ""
+msgstr "informacija"
 
 #: ../root/edit/search_macros.tt:136 ../root/edit/search_macros.tt:153
 #: ../root/edit/search_macros.tt:195 ../root/edit/search_macros.tt:210
@@ -3588,11 +3531,11 @@ msgstr ""
 #: ../root/edit/search_macros.tt:338 ../root/edit/search_macros.tt:362
 #: ../root/edit/search_macros.tt:395 ../root/edit/search_macros.tt:416
 msgid "is"
-msgstr ""
+msgstr "yra"
 
 #: ../root/edit/search_macros.tt:362
 msgid "is a beginner"
-msgstr ""
+msgstr "yra pradedantysis (-ė)"
 
 #: ../root/edit/search_macros.tt:136
 msgid "is after"
@@ -3681,11 +3624,11 @@ msgstr ""
 #: ../root/cdtoc/attach_list.tt:18 ../root/cdtoc/attach_list.tt:92
 #: ../root/cdtoc/list.tt:82
 msgid "show tracklist"
-msgstr ""
+msgstr "rodyti takelių sąrašą"
 
 #: ../root/release/edit/recordings.tt:37
 msgid "track"
-msgstr ""
+msgstr "takelis"
 
 #: ../root/edit/search_macros.tt:25
 msgid "voting closing later first"
@@ -3797,7 +3740,7 @@ msgstr ""
 #: ../root/components/Paginator.js:119 ../root/components/Paginator.js:133
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:162
 msgid "…"
-msgstr ""
+msgstr "…"
 
 #: ../lib/MusicBrainz/Script/RemoveEmpty.pm:139
 msgid ""
@@ -4002,7 +3945,7 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:158
 msgid "Could not find medium"
-msgstr ""
+msgstr "Nepavyko rasti laikmena."
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:206
 msgid ""
@@ -4040,20 +3983,20 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Form/ChangeReleaseQuality.pm:24
 #: ../root/static/scripts/common/constants.js:357
 msgid "Low"
-msgstr ""
+msgstr "Žemas"
 
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:294
 #: ../lib/MusicBrainz/Server/Form/ChangeReleaseQuality.pm:25
 #: ../root/static/scripts/common/constants.js:358
 #: ../root/static/scripts/common/constants.js:359
 msgid "Normal"
-msgstr ""
+msgstr "Normalus"
 
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:294
 #: ../lib/MusicBrainz/Server/Form/ChangeReleaseQuality.pm:26
 #: ../root/static/scripts/common/constants.js:360
 msgid "High"
-msgstr ""
+msgstr "Aukštas"
 
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:294
 msgid "Default"
@@ -4174,7 +4117,7 @@ msgstr ""
 #: ../root/user/ContactUser.js:44 ../root/user/ContactUser.js:46
 msgctxt "header"
 msgid "Send email"
-msgstr ""
+msgstr "Siųsti el. laišką"
 
 #: ../lib/MusicBrainz/Server/Controller/User.pm:305
 msgid ""
@@ -4267,11 +4210,13 @@ msgid ""
 "Since your edit adding this object was still open, that edit has been "
 "cancelled instead of opening a new edit."
 msgstr ""
+"Kadangi redagavimas, kuriuo pridėjai šį objektą, vis dar buvo atidarytas, "
+"šis redagavimas buvo atšauktas, o ne atidarytas naujas redagavimas."
 
 #: ../lib/MusicBrainz/Server/Data/LinkType.pm:214
 #, perl-brace-format
 msgid "{t0}-{t1} relationships"
-msgstr ""
+msgstr "{t0}–{t1} santykiai"
 
 #: ../lib/MusicBrainz/Server/Data/Release.pm:53
 #, perl-brace-format
@@ -4320,15 +4265,11 @@ msgid "Total"
 msgstr "Iš viso"
 
 #: ../lib/MusicBrainz/Server/Edit/Area/AddAlias.pm:11
-#, fuzzy
-#| msgid "Add area alias"
 msgctxt "edit type"
 msgid "Add area alias"
 msgstr "Pridėti teritorijos slapyvardį"
 
 #: ../lib/MusicBrainz/Server/Edit/Area/AddAnnotation.pm:11
-#, fuzzy
-#| msgid "Add area annotation"
 msgctxt "edit type"
 msgid "Add area annotation"
 msgstr "Pridėti teritorijos anotaciją"
@@ -4432,11 +4373,9 @@ msgid "Edit artist credit"
 msgstr "Redaguoti atlikėjo kreditą"
 
 #: ../lib/MusicBrainz/Server/Edit/Artist/Merge.pm:16
-#, fuzzy
-#| msgid "Merge areas"
 msgctxt "edit type"
 msgid "Merge artists"
-msgstr "Sujungti teritorijas"
+msgstr "Sujungti atlikėjus"
 
 #: ../lib/MusicBrainz/Server/Edit/Artist/Merge.pm:72
 #, perl-brace-format
@@ -4455,18 +4394,14 @@ msgid ""
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Event/AddAlias.pm:11
-#, fuzzy
-#| msgid "Add area alias"
 msgctxt "edit type"
 msgid "Add event alias"
-msgstr "Pridėti teritorijos slapyvardį"
+msgstr "Pridėti renginio slapyvardį"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/AddAnnotation.pm:11
-#, fuzzy
-#| msgid "Add area annotation"
 msgctxt "edit type"
 msgid "Add event annotation"
-msgstr "Pridėti teritorijos anotaciją"
+msgstr "Pridėti renginio anotaciją"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/Create.pm:23
 #, fuzzy
@@ -4561,11 +4496,9 @@ msgstr "Redaguoti teritorijos slapyvardį"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/AddDiscID.pm:12
 #: ../lib/MusicBrainz/Server/Edit/Medium/AddDiscID.pm:11
-#, fuzzy
-#| msgid "Disc ID"
 msgctxt "edit type"
 msgid "Add disc ID"
-msgstr "Disko ID"
+msgstr "Pridėti disko ID"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/AddLink.pm:11
 #: ../lib/MusicBrainz/Server/Edit/Relationship/Create.pm:32
@@ -4660,11 +4593,9 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Edit/Historic/EditTrackLength.pm:13
 #: ../lib/MusicBrainz/Server/Edit/Historic/EditTrackName.pm:23
 #: ../lib/MusicBrainz/Server/Edit/Recording/Edit.pm:43
-#, fuzzy
-#| msgid "Recording"
 msgctxt "edit type"
 msgid "Edit recording"
-msgstr "Įrašas"
+msgstr "Redaguoti įrašą"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/MACToSAC.pm:13
 msgctxt "edit type"
@@ -4765,32 +4696,24 @@ msgid "Add instrument annotation"
 msgstr "Pridėti teritorijos anotaciją"
 
 #: ../lib/MusicBrainz/Server/Edit/Instrument/Create.pm:20
-#, fuzzy
-#| msgid "Add Instrument"
 msgctxt "edit type"
 msgid "Add instrument"
 msgstr "Pridėti instrumentą"
 
 #: ../lib/MusicBrainz/Server/Edit/Instrument/Delete.pm:10
-#, fuzzy
-#| msgid "Instrument"
 msgctxt "edit type"
 msgid "Remove instrument"
-msgstr "Instrumentas"
+msgstr "Pašalinti instrumentą"
 
 #: ../lib/MusicBrainz/Server/Edit/Instrument/DeleteAlias.pm:16
-#, fuzzy
-#| msgid "Remove area alias"
 msgctxt "edit type"
 msgid "Remove instrument alias"
-msgstr "Pašalinti teritorijos slapyvardį"
+msgstr "Pašalinti instrumento slapyvardį"
 
 #: ../lib/MusicBrainz/Server/Edit/Instrument/Edit.pm:26
-#, fuzzy
-#| msgid "Add Instrument"
 msgctxt "edit type"
 msgid "Edit instrument"
-msgstr "Pridėti instrumentą"
+msgstr "Redaguoti instrumentą"
 
 #: ../lib/MusicBrainz/Server/Edit/Instrument/EditAlias.pm:12
 #, fuzzy
