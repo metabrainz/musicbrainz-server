@@ -336,6 +336,13 @@ const ReportsIndex = (): React$Element<typeof Layout> => {
           />
           <ReportsIndexEntry
             content={l(
+              `Pseudo-releases in release groups that contain
+               only pseudo-releases`,
+            )}
+            reportName="LonelyPseudoReleases"
+          />
+          <ReportsIndexEntry
+            content={l(
               `Translated/Transliterated Pseudo-Releases
                marked as the original version`,
             )}

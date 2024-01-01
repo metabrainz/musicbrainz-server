@@ -62,6 +62,7 @@ my @all = qw(
     LabelsDisambiguationSameName
     LimitedEditors
     LinksWithMultipleEntities
+    LonelyPseudoReleases
     LowDataQualityReleases
     MediumsWithOrderInTitle
     MediumsWithSequenceIssues
@@ -163,6 +164,7 @@ use MusicBrainz::Server::Report::ISWCsWithManyWorks;
 use MusicBrainz::Server::Report::LabelsDisambiguationSameName;
 use MusicBrainz::Server::Report::LimitedEditors;
 use MusicBrainz::Server::Report::LinksWithMultipleEntities;
+use MusicBrainz::Server::Report::LonelyPseudoReleases;
 use MusicBrainz::Server::Report::LowDataQualityReleases;
 use MusicBrainz::Server::Report::MediumsWithOrderInTitle;
 use MusicBrainz::Server::Report::MediumsWithSequenceIssues;
