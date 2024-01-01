@@ -322,4 +322,89 @@ test 'Deleting a work with work attributes' => sub {
     ok !exception { $work_data->delete($a->{id}); };
 };
 
+test 'Loading different subsets of work artists' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+work_artists');
+
+    my $work = $c->model('Work')->get_by_id(1);
+
+    my @misc_artists = $work->all_misc_artists;
+    is(@misc_artists, 0, 'No artists are loaded until requested');
+
+    $c->model('Work')->load_misc_artists($work);
+    @misc_artists = $work->all_misc_artists;
+    is(@misc_artists, 1, 'There is one misc artist');
+    is_deeply(
+        $misc_artists[0]->{roles},
+        ['dedication'],
+        'The misc artist has the "dedication" role',
+    );
+    is(
+        $misc_artists[0]->{credit},
+        'NIN',
+        'The misc artist has the expected credit',
+    );
+    is(
+        $misc_artists[0]->{entity}{gid},
+        'b7ffd2af-418f-4be2-bdd1-22f8b48613da',
+        'The misc artist has the expected MBID',
+    );
+
+    $c->model('Work')->load_writers($work);
+    my @writers = $work->all_writers;
+    is(@writers, 2, 'There are two writers');
+    is_deeply(
+        $writers[0]->{roles},
+        ['composer', 'lyricist'],
+        'The first writer has the "composer" and "lyricist" roles',
+    );
+    is(
+        $writers[0]->{credit},
+        '',
+        'The first writer has no credit credit',
+    );
+    is(
+        $writers[0]->{entity}{gid},
+        '2f031686-3f01-4f33-a4fc-fb3944532efa',
+        'The first writer has the expected MBID',
+    );
+
+    $c->model('Work')->load_recording_artists($work);
+    my @recording_artists = $work->all_artists;
+    is(@recording_artists, 2, 'There are two recording artist credits');
+    is($recording_artists[0]->artist_count, 1, 'The first AC has one artist');
+    is(
+        $recording_artists[0]->names->[0]->artist->name,
+        'ABBA',
+        'The first AC artist is ABBA',
+    );
+    is(
+        $recording_artists[1]->artist_count,
+        2,
+        'The second AC has two artists',
+    );
+    is(
+        $recording_artists[1]->names->[0]->artist->name,
+        'Louis Clark',
+        'The second AC first artist is Louis Clark',
+    );
+    is(
+        $recording_artists[1]->names->[0]->artist->gid,
+        '6d7af416-da1d-4b2c-aa94-8ca43a6dfb34',
+        'The second AC first artist has the expected MBID',
+    );
+    is(
+        $recording_artists[1]->names->[0]->join_phrase,
+        ' & ',
+        'The second AC first artist has the expected join phrase',
+    );
+    is(
+        $recording_artists[1]->names->[1]->artist->name,
+        'London Philharmonic Orchestra',
+        'The second AC second artist is London Philharmonic Orchestra',
+    );
+};
+
 1;
