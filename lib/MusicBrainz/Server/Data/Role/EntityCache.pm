@@ -44,7 +44,7 @@ around get_by_ids => sub {
         foreach my $id (keys %$data) {
             $result{$id} = $data->{$id};
         }
-        $self->_add_to_cache($cache, %$data);
+        $self->_add_to_cache($cache, $data);
     }
     return \%result;
 };
@@ -123,9 +123,9 @@ sub _create_cache_entries {
 }
 
 sub _add_to_cache {
-    my ($self, $cache, %data) = @_;
+    my ($self, $cache, $data) = @_;
 
-    my @entries = $self->_create_cache_entries(\%data);
+    my @entries = $self->_create_cache_entries($data);
     $cache->set_multi(@entries) if @entries;
 }
 

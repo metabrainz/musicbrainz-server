@@ -20,7 +20,7 @@ around get_by_gid => sub {
     } else {
         $obj = $self->$orig($gid);
         if (defined($obj)) {
-            $self->_add_to_cache($cache, $obj->id => $obj);
+            $self->_add_to_cache($cache, { $obj->id => $obj });
         }
     }
     return $obj;
