@@ -21,7 +21,7 @@ has_field 'type_id' => (
 );
 
 sub filter_field_names {
-    return qw/ name role_type type_id /;
+    return qw/ disambiguation name role_type type_id /;
 }
 
 sub options_role_type {

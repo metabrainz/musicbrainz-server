@@ -127,11 +127,6 @@
     },
     {
       command: 'click',
-      target: 'css=#add-relationship-dialog button.change-direction',
-      value: '',
-    },
-    {
-      command: 'click',
       target: 'css=#add-relationship-dialog button.positive',
       value: '',
     },

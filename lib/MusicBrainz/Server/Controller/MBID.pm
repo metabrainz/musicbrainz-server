@@ -1,12 +1,13 @@
 package MusicBrainz::Server::Controller::MBID;
 use Moose;
+use MooseX::MethodAttributes;
 use namespace::autoclean;
 
 use MusicBrainz::Server::Constants qw( entities_with );
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use MusicBrainz::Server::Validation qw( is_guid );
 
-BEGIN { extends 'MusicBrainz::Server::Controller'; }
+extends 'MusicBrainz::Server::Controller';
 
 sub base : Path('/mbid') CaptureArgs(0) { }
 

@@ -4,7 +4,11 @@ use warnings;
 
 use HTML::FormHandler::Moose;
 use MusicBrainz::Server::Translation qw( l N_l );
-use MusicBrainz::Server::Form::Utils qw( language_options select_options_tree );
+use MusicBrainz::Server::Form::Utils qw(
+    language_options
+    localize_error
+    select_options_tree
+);
 use List::AllUtils qw( any uniq );
 
 extends 'MusicBrainz::Server::Form';
@@ -58,14 +62,14 @@ has_field 'attributes.type_id' => (
     type => 'Integer',
     required => 1,
     required_message => N_l('Please select a work attribute type.'),
-    localize_meth => sub { my ($self, @message) = @_; return l(@message); },
+    localize_meth => \&localize_error,
 );
 
 has_field 'attributes.value' => (
     type => '+MusicBrainz::Server::Form::Field::Text',
     required => 1,
     required_message => N_l('Please enter a work attribute value.'),
-    localize_meth => sub { my ($self, @message) = @_; return l(@message); },
+    localize_meth => \&localize_error,
 );
 
 sub is_empty_attribute {

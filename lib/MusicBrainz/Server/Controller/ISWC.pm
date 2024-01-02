@@ -1,12 +1,13 @@
 package MusicBrainz::Server::Controller::ISWC;
 use Moose;
+use MooseX::MethodAttributes;
 use namespace::autoclean;
 
 use MusicBrainz::Server::Validation qw( format_iswc is_valid_iswc );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 use List::AllUtils qw( sort_by );
 
-BEGIN { extends 'MusicBrainz::Server::Controller'; }
+extends 'MusicBrainz::Server::Controller';
 
 with 'MusicBrainz::Server::Controller::Role::Load' => {
     model => 'ISWC',

@@ -15,9 +15,8 @@ use MusicBrainz::Server::Log qw( log_info );
 
 extends 'MusicBrainz::Script::JSONDump';
 
-with 'MooseX::Runnable';
-
-with 'MusicBrainz::Script::Role::IncrementalDump';
+with 'MooseX::Runnable',
+     'MusicBrainz::Script::Role::IncrementalDump';
 
 our $TMP_EXPORT_DIR = $MusicBrainz::Script::JSONDump::TMP_EXPORT_DIR;
 

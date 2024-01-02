@@ -23,7 +23,7 @@ use MusicBrainz::Server::JSONLookup qw( json_lookup );
 use MusicBrainz::Server::Log qw( log_info );
 use Readonly;
 
-with 'MooseX::Getopt';
+with 'MooseX::Getopt'; ## no critic (ProhibitMultipleWiths) - needed to declare database
 
 has c => (
     handles => ['sql', 'dbh'],
@@ -69,7 +69,7 @@ has output_dir => (
     documentation => 'location where dumps are outputted (default: .)',
 );
 
-with 'MusicBrainz::Script::Role::TestCacheNamespace';
+with 'MusicBrainz::Script::Role::TestCacheNamespace'; ## no critic (ProhibitMultipleWiths) - needs database declared above
 
 our $TMP_EXPORT_DIR = tempdir(
     'json-dump-XXXXXX',

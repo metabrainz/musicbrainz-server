@@ -1,6 +1,8 @@
 package MusicBrainz::Server::Controller::Relationship::LinkAttributeType;
 use Moose;
+use MooseX::MethodAttributes;
 use namespace::autoclean;
+
 use MusicBrainz::Server::Constants qw(
     $EDIT_RELATIONSHIP_ADD_ATTRIBUTE
     $EDIT_RELATIONSHIP_REMOVE_LINK_ATTRIBUTE
@@ -11,12 +13,11 @@ use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 
 use MusicBrainz::Server::Validation qw( is_guid );
 
+extends 'MusicBrainz::Server::Controller';
 with 'MusicBrainz::Server::Controller::Role::Load' => {
     model => 'LinkAttributeType',
     entity_name => 'link_attr_type',
 };
-
-BEGIN { extends 'MusicBrainz::Server::Controller' }
 
 sub _load_tree
 {

@@ -3,13 +3,13 @@ use Moose;
 use namespace::autoclean;
 
 with 'MusicBrainz::Server::EditSearch::Predicate::Role::User' => {
-    template_clause => 'EXISTS (
-        SELECT TRUE FROM edit_note
-         WHERE ROLE_CLAUSE(edit_note.editor)
-           AND edit_note.edit = edit.id
-    )',
-};
-with 'MusicBrainz::Server::EditSearch::Predicate';
+        template_clause => 'EXISTS (
+            SELECT TRUE FROM edit_note
+             WHERE ROLE_CLAUSE(edit_note.editor)
+               AND edit_note.edit = edit.id
+        )',
+     },
+     'MusicBrainz::Server::EditSearch::Predicate';
 
 1;
 

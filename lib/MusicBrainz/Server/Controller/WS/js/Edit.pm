@@ -5,6 +5,7 @@ use HTML::Entities qw( encode_entities );
 use HTTP::Status qw( :constants );
 use JSON qw( encode_json );
 use Moose;
+use MooseX::MethodAttributes;
 use MusicBrainz::Server::Constants qw(
     $EDIT_RELEASE_CREATE
     $EDIT_RELEASE_EDIT
@@ -62,7 +63,8 @@ use URI;
 use aliased 'MusicBrainz::Server::Entity::ArtistCredit';
 use aliased 'MusicBrainz::Server::Entity::Track';
 use aliased 'MusicBrainz::Server::WebService::JSONSerializer';
-BEGIN { extends 'MusicBrainz::Server::Controller' }
+
+extends 'MusicBrainz::Server::Controller';
 
 Readonly our $ERROR_NOT_LOGGED_IN => 1;
 Readonly our $ERROR_NON_EXISTENT_ENTITIES => 2;

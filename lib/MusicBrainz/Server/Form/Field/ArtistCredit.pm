@@ -11,6 +11,7 @@ extends 'HTML::FormHandler::Field::Compound';
 use MusicBrainz::Server::Edit::Utils qw( clean_submitted_artist_credits );
 use MusicBrainz::Server::Entity::ArtistCredit;
 use MusicBrainz::Server::Entity::ArtistCreditName;
+use MusicBrainz::Server::Form::Utils qw( localize_error );
 use MusicBrainz::Server::Translation qw( l );
 
 has_field 'names'             => ( type => 'Repeatable', num_when_empty => 1 );
@@ -38,7 +39,7 @@ around 'validate_field' => sub {
 
         my $artist_id = Text::Trim::trim $_->{'artist'}->{'id'};
         my $artist_name = Text::Trim::trim $_->{'artist'}->{'name'};
-        my $name = Text::Trim::trim $_->{'name'} || Text::Trim::trim $_->{'artist'}->{'name'};
+        my $name = Text::Trim::trim $_->{'name'} || $artist_name;
 
         if ($artist_id && $name)
         {
@@ -50,13 +51,13 @@ around 'validate_field' => sub {
                 l('Please add an artist name for {credit}',
                   { credit => $name }));
         }
-        elsif (! $artist_id && ( $name || $artist_name ))
+        elsif (! $artist_id && $name )
         {
             # FIXME: better error message.
             $self->add_error(
                 l('Artist "{artist}" is unlinked, please select an existing artist. ' .
                   'You may need to add a new artist to MusicBrainz first.',
-                  { artist => ($name || $artist_name) }));
+                  { artist => $name }));
         }
         elsif (!$artist_id)
         {
@@ -132,6 +133,10 @@ sub json {
     }
 
     return to_json({names => $names});
+}
+
+sub build_localize_meth {
+    return \&localize_error;
 }
 
 =head1 COPYRIGHT AND LICENSE

@@ -2,9 +2,11 @@ package MusicBrainz::Server::Controller::Edit;
 use Moose;
 use namespace::autoclean;
 use Moose::Util qw( does_role );
+use MooseX::MethodAttributes;
+
 use Try::Tiny;
 
-BEGIN { extends 'MusicBrainz::Server::Controller' }
+extends 'MusicBrainz::Server::Controller';
 
 use Data::Page;
 use DBDefs;

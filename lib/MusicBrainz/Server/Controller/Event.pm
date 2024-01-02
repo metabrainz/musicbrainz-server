@@ -1,8 +1,9 @@
 package MusicBrainz::Server::Controller::Event;
 use Moose;
+use MooseX::MethodAttributes;
 use namespace::autoclean;
 
-BEGIN { extends 'MusicBrainz::Server::Controller'; }
+extends 'MusicBrainz::Server::Controller';
 
 with 'MusicBrainz::Server::Controller::Role::Load' => {
     model       => 'Event',

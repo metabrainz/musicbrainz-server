@@ -1,7 +1,8 @@
 package MusicBrainz::Server::Controller::AutoEditorElections;
 use Moose;
+use MooseX::MethodAttributes;
 
-BEGIN { extends 'MusicBrainz::Server::Controller' }
+extends 'MusicBrainz::Server::Controller';
 
 use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );

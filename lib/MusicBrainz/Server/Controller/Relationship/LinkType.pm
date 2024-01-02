@@ -1,8 +1,9 @@
 package MusicBrainz::Server::Controller::Relationship::LinkType;
 use Moose;
+use MooseX::MethodAttributes;
 use namespace::autoclean;
 
-BEGIN { extends 'MusicBrainz::Server::Controller' }
+extends 'MusicBrainz::Server::Controller';
 
 use Sql;
 use List::AllUtils qw( partition_by sort_by );

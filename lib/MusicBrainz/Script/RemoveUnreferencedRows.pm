@@ -30,9 +30,9 @@ use MusicBrainz::Errors qw( capture_exceptions );
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Log qw( log_info );
 
-with 'MooseX::Runnable';
-with 'MooseX::Getopt';
-with 'MusicBrainz::Script::Role::Context';
+with 'MooseX::Runnable',
+     'MooseX::Getopt',
+     'MusicBrainz::Script::Role::Context';
 
 has dry_run => (
     isa => 'Bool',

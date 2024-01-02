@@ -13,6 +13,11 @@ has 'entity_type' => (
     required => 1,
 );
 
+has_field 'disambiguation' => (
+    type => '+MusicBrainz::Server::Form::Field::Text',
+    default => '',
+);
+
 has_field 'name' => (
     type => '+MusicBrainz::Server::Form::Field::Text',
     default => '',
@@ -22,7 +27,7 @@ has_field 'cancel' => ( type => 'Submit' );
 has_field 'submit' => ( type => 'Submit' );
 
 sub filter_field_names {
-    return qw/ name /;
+    return qw/ disambiguation name /;
 }
 
 around TO_JSON => sub {

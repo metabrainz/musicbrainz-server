@@ -1,8 +1,11 @@
 package MusicBrainz::Server::Controller::CDStub;
 use Moose;
+use MooseX::MethodAttributes;
 use namespace::autoclean;
+
 use MusicBrainz::Server::Validation qw( is_valid_discid );
-BEGIN { extends 'MusicBrainz::Server::Controller'; }
+
+extends 'MusicBrainz::Server::Controller';
 
 use aliased 'MusicBrainz::Server::Entity::CDTOC';
 

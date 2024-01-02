@@ -55,5 +55,66 @@
       target: 'css=#add-relationship-dialog table.preview td',
       value: 'David Bowie is/was a member of Nine Inch Nails',
     },
+    // Start adding a new artist and check that relationship directions
+    // are inferred based on the target artist's type (see MBS-13405).
+    {
+      command: 'open',
+      target: '/artist/create',
+      value: '',
+    },
+    {
+      command: 'type',
+      target: 'id=id-edit-artist.name',
+      value: 'Test Artist',
+    },
+    {
+      command: 'click',
+      target: 'css=#relationship-editor button.add-item',
+      value: '',
+    },
+    {
+      command: 'sendKeys',
+      target: 'css=#add-relationship-dialog input.relationship-type',
+      value: 'member${KEY_ENTER}',
+    },
+    // Create a member-of/members relationship with David Bowie
+    // (type "Person").
+    {
+      command: 'sendKeys',
+      target: 'css=#add-relationship-dialog input.relationship-target',
+      value: '5441c29d-3602-4898-b1a1-b77fa23b8e50',
+    },
+    {
+      command: 'assertText',
+      target: 'css=#add-relationship-dialog table.preview td',
+      value: 'David Bowie is/was a member of Test Artist',
+    },
+    // Create a member-of/members relationship with Nine Inch Nails
+    // (type "Group").
+    {
+      command: 'sendKeys',
+      target: 'css=#add-relationship-dialog input.relationship-target',
+      value: 'b7ffd2af-418f-4be2-bdd1-22f8b48613da',
+    },
+    {
+      command: 'assertText',
+      target: 'css=#add-relationship-dialog table.preview td',
+      value: 'Test Artist is/was a member of Nine Inch Nails',
+    },
+    {
+      command: 'open',
+      target: '/',
+      value: '',
+    },
+    {
+      command: 'handleAlert',
+      target: 'accept',
+      value: '',
+    },
+    {
+      command: 'waitUntilUrlIs',
+      target: '/',
+      value: '',
+    },
   ],
 }

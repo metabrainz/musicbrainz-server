@@ -13,7 +13,7 @@ import RecordingList from '../components/list/RecordingList.js';
 import PaginatedResults from '../components/PaginatedResults.js';
 import {SanitizedCatalystContext} from '../context.mjs';
 import Filter from '../static/scripts/common/components/Filter.js';
-import {type FilterFormT}
+import {type RecordingFilterT}
   from '../static/scripts/common/components/FilterForm.js';
 import bracketed from '../static/scripts/common/utility/bracketed.js';
 import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
@@ -33,7 +33,7 @@ type Props = {
   ...ReleaseGroupAppearancesRoleT,
   +ajaxFilterFormUrl: string,
   +artist: ArtistT,
-  +filterForm: ?FilterFormT,
+  +filterForm: ?RecordingFilterT,
   +hasFilter: boolean,
   +hasStandalone: boolean,
   +hasVideo: boolean,

@@ -2,7 +2,7 @@ package MusicBrainz::Server::Controller::Account::Subscriptions::Collection;
 use Moose;
 use namespace::autoclean;
 
-BEGIN { extends 'MusicBrainz::Server::Controller' }
+extends 'MusicBrainz::Server::Controller';
 
 use MusicBrainz::Server::Translation qw( l );
 
