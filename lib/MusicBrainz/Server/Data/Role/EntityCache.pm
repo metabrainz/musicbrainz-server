@@ -31,12 +31,12 @@ around get_by_ids => sub {
     my %ids = map { $_ => 1 } @ids;
     my @keys = map { $self->_type . ':' . $_ } keys %ids;
     my $cache = $self->c->cache($self->_type);
-    my %data = %{$cache->get_multi(@keys)};
+    my %cached_data = %{ $cache->get_multi(@keys) };
     my %result;
-    foreach my $key (keys %data) {
+    foreach my $key (keys %cached_data) {
         my @key = split /:/, $key;
         my $id = $key[1];
-        $result{$id} = $data{$key};
+        $result{$id} = $cached_data{$key};
         delete $ids{$id};
     }
     if (%ids) {
