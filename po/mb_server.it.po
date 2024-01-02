@@ -33,7 +33,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-12-14 18:52+0000\n"
-"PO-Revision-Date: 2023-12-18 00:28+0000\n"
+"PO-Revision-Date: 2023-12-23 15:28+0000\n"
 "Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
 "metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -492,13 +492,13 @@ msgstr "Dettagli dell'artista"
 #: ../root/cdtoc/SelectArtistForCDToc.js:32
 msgctxt "header"
 msgid "Attach CD TOC"
-msgstr "Associa CD TOC"
+msgstr "Associa TOC (indice) CD"
 
 #: ../root/cdtoc/attach_artist_releases.tt:40
 #: ../root/cdtoc/attach_filter_release.tt:54
 msgctxt "interactive"
 msgid "Attach CD TOC"
-msgstr "Associa CD TOC"
+msgstr "Associa TOC (indice) CD"
 
 #: ../root/cdtoc/lookup.tt:66 ../root/release/edit/tracklist.tt:478
 msgid "Attach disc ID"
@@ -1199,7 +1199,7 @@ msgstr "Francese"
 #: ../root/cdstub/index.tt:30 ../root/cdstub/CDStubIndex.js:59
 #: ../root/cdtoc/CDTocInfo.js:25
 msgid "Full TOC:"
-msgstr "TOC completo:"
+msgstr "TOC (indice) completo:"
 
 #: ../root/artist/edit_form.tt:17 ../root/components/list/ArtistList.js:87
 #: ../root/edit/details/AddArtist.js:76 ../root/edit/details/EditArtist.js:95
@@ -1440,7 +1440,7 @@ msgid ""
 "one, using this CD TOC:"
 msgstr ""
 "Se non vedi la pubblicazione che stavi cercando, puoi aggiungerne una nuova "
-"utilizzando questo CD TOC:"
+"utilizzando questo TOC (indice) CD:"
 
 #: ../root/components/forms.tt:336 ../root/components/forms.tt:345
 msgid "If you don’t know the code for this entity, just leave the field blank."
@@ -1893,7 +1893,7 @@ msgid ""
 "because they have the wrong number of tracks."
 msgstr ""
 "Nessuno dei supporti su questa pubblicazione può essere collegato a questo "
-"TOC CD perché il numero di tracce non corrisponde."
+"TOC (indice) CD perché il numero di tracce non corrisponde."
 
 #: ../root/release/edit/recordings.tt:3 ../root/edit/details/EditRelease.js:164
 #: ../root/edit/details/MergeReleases.js:355
@@ -2029,7 +2029,7 @@ msgstr ""
 
 #: ../root/cdtoc/attach_artist_releases.tt:7
 msgid "Please select the medium you wish to attach this CD TOC to."
-msgstr "Seleziona il supporto al quale vuoi associare questo CD TOC."
+msgstr "Seleziona il supporto al quale vuoi associare questo TOC (indice) CD."
 
 #: ../root/cdtoc/list.tt:6 ../root/release/add_cover_art.tt:125
 #: ../root/release/reorder_cover_art.tt:10
@@ -2451,7 +2451,7 @@ msgstr "Imposta copertina"
 
 #: ../root/cdtoc/list.tt:54 ../root/release/discids.tt:36
 msgid "Set track lengths"
-msgstr "Imposta durata tracce"
+msgstr "Imposta durata delle tracce"
 
 #: ../root/event/edit_form.tt:17 ../root/edit/details/AddEvent.js:84
 #: ../root/edit/details/EditEvent.js:95 ../root/event/EventIndex.js:54
@@ -2729,7 +2729,7 @@ msgstr "Non è stato possibile analizzare queste coordinate."
 
 #: ../root/cdtoc/attach_list.tt:54 ../root/cdtoc/attach_list.tt:67
 msgid "This CDTOC is already attached to this medium."
-msgstr "Questo CD TOC è già associato a questo supporto."
+msgstr "Questo TOC (indice) CD è già associato a questo supporto."
 
 #: ../root/release/edit/information.tt:354
 msgid ""
@@ -2784,7 +2784,7 @@ msgstr "L'entità sarà aggiunta con questa modifica."
 
 #: ../root/event/edit_form.tt:15
 msgid "This event was cancelled."
-msgstr "Questo evento è stato cancellato."
+msgstr "Questo evento è stato annullato."
 
 #: ../root/release/edit/information.tt:364
 msgid ""
@@ -3188,11 +3188,11 @@ msgstr "Usa i campi di seguito per cercare un supporto esistente."
 
 #: ../root/release/edit/tracklist.tt:60
 msgid "Use track artists"
-msgstr "Usa artisti tracce"
+msgstr "Usa artisti delle tracce"
 
 #: ../root/release/edit/tracklist.tt:95
 msgid "Use track lengths"
-msgstr "Usa durata tracce"
+msgstr "Usa durata delle tracce"
 
 #: ../root/release/edit/tracklist.tt:37
 msgid "Use track numbers"
@@ -3377,7 +3377,7 @@ msgid ""
 "You have used the {valink|Various Artists} special purpose artist on this "
 "recording."
 msgstr ""
-"Hai utilizzato l'artista speciale {valink|Artisti vari} su questa "
+"Hai utilizzato l'artista a uso speciale {valink|Artisti vari} su questa "
 "registrazione."
 
 #: ../root/release/edit/editnote.tt:10
@@ -3506,9 +3506,9 @@ msgid ""
 "tracks below. {valink|Various Artists} should very rarely be used on tracks; "
 "please make sure the artists have been entered correctly."
 msgstr ""
-"Hai utilizzato l'artista speciale {valink|Artisti Vari} in alcune delle "
-"tracce qui sotto. {valink|Artisti Vari} non va normalmente utilizzato nelle "
-"tracce; assicurati di aver inserito correttamente gli artisti."
+"Hai utilizzato l'artista a uso speciale {valink|Artisti Vari} in alcune "
+"delle tracce qui sotto. {valink|Artisti Vari} non va normalmente utilizzato "
+"nelle tracce; assicurati di aver inserito correttamente gli artisti."
 
 #: ../root/components/common-macros.tt:190
 #: ../lib/MusicBrainz/Server/Edit/Relationship/RemoveLinkType.pm:86
@@ -3562,7 +3562,7 @@ msgstr "di"
 #: ../root/components/common-macros.tt:111
 #: ../root/static/scripts/common/components/EntityLink.js:96
 msgid "cancelled"
-msgstr "cancellato"
+msgstr "annullato"
 
 #: ../root/edit/search_macros.tt:352
 msgid "do not include"
@@ -4072,7 +4072,7 @@ msgstr "L'ID della collezione fornito non esiste."
 
 #: ../lib/MusicBrainz/Server/Controller/Artist.pm:738
 msgid "You cannot merge a special purpose artist into another artist"
-msgstr "Non è possibile unire un artista speciale con un altro artista."
+msgstr "Non è possibile unire un artista a uso speciale con un altro artista."
 
 #: ../lib/MusicBrainz/Server/Controller/Artist.pm:743
 msgid "You cannot merge into Deleted Artist"
@@ -4085,11 +4085,11 @@ msgstr "'{id}' non è un ID elezione valido"
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:78
 msgid "Please provide a CD TOC ID."
-msgstr "Inserisci un ID del CD TOC."
+msgstr "Inserisci un ID del TOC (indice) CD."
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:82
 msgid "The provided CD TOC ID is not valid."
-msgstr "L'ID del CD TOC fornito non è valido."
+msgstr "L'ID del TOC (indice) CD fornito non è valido."
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:88
 msgid "Please provide a medium ID."
@@ -4110,7 +4110,8 @@ msgid ""
 "The provided CD TOC ID doesn’t exist or is not connected to the provided "
 "medium."
 msgstr ""
-"L'ID del CD TOC fornito non esiste o non è collegato al supporto fornito."
+"L'ID del TOC (indice) CD fornito non esiste o non è collegato al supporto "
+"fornito."
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:153
 msgid "Please provide a medium ID"
@@ -4127,10 +4128,10 @@ msgid ""
 "your software maker if it persists, including the technical information "
 "below."
 msgstr ""
-"Il CD TOC fornito non è valido. È probabile che si tratti di un problema del "
-"software che hai usato per generarlo. Riprova e se il problema persiste "
-"segnalalo al creatore del software includendo le informazioni tecniche di "
-"seguito."
+"Il TOC (indice) CD fornito non è valido. È probabile che si tratti di un "
+"problema del software che hai usato per generarlo. Riprova e se il problema "
+"persiste segnalalo al creatore del software includendo le informazioni "
+"tecniche di seguito."
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:213
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:435
@@ -4148,7 +4149,7 @@ msgstr "L'ID dell'artista fornito non è valido"
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:421
 msgid "The provided CD TOC ID doesn’t exist."
-msgstr "L'ID del CD TOC fornito non esiste."
+msgstr "L'ID del TOC (indice) CD fornito non esiste."
 
 #: ../lib/MusicBrainz/Server/Controller/Collection.pm:77
 #, perl-brace-format
@@ -4219,7 +4220,8 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/Label.pm:256
 msgid "You cannot merge a special purpose label into another label."
-msgstr "Non è possibile unire un'etichetta speciale con un'altra etichetta."
+msgstr ""
+"Non è possibile unire un'etichetta a uso speciale con un'altra etichetta."
 
 #: ../lib/MusicBrainz/Server/Controller/Label.pm:261
 msgid "You cannot merge into Deleted Label."
@@ -4366,7 +4368,7 @@ msgstr "La tua segnalazione è stata inviata."
 
 #: ../lib/MusicBrainz/Server/Controller/WS/2/DiscID.pm:102
 msgid "Invalid TOC"
-msgstr "TOC non valido"
+msgstr "TOC (indice) non valido"
 
 #: ../lib/MusicBrainz/Server/Controller/WS/js.pm:286
 msgid ""
@@ -4817,7 +4819,7 @@ msgstr "Converti in pubblicazione di artisti multipli (storico)"
 #: ../lib/MusicBrainz/Server/Edit/Medium/SetTrackLengths.pm:23
 msgctxt "edit type"
 msgid "Set track lengths"
-msgstr "Imposta durata tracce"
+msgstr "Imposta durata delle tracce"
 
 #: ../lib/MusicBrainz/Server/Edit/Instrument/AddAlias.pm:11
 msgctxt "edit type"
@@ -4914,8 +4916,8 @@ msgid ""
 "The CD TOC the track times were being set from has been removed since this "
 "edit was entered."
 msgstr ""
-"Il CD TOC da cui si stava impostando la durata delle tracce è stato rimosso "
-"da quando questa modifica è stata inserita."
+"Il TOC (indice) CD da cui si stava impostando la durata delle tracce è stato "
+"rimosso da quando questa modifica è stata inserita."
 
 #: ../lib/MusicBrainz/Server/Edit/Place/AddAlias.pm:11
 msgctxt "edit type"
@@ -7215,15 +7217,15 @@ msgstr "Impossibile modificare"
 
 #: ../root/artist/SpecialPurpose.js:25
 msgid "You may not edit special purpose artists"
-msgstr "Non puoi modificare gli artisti speciali"
+msgstr "Non puoi modificare gli artisti a uso speciale"
 
 #: ../root/artist/SpecialPurpose.js:27
 msgid ""
 "The artist you are trying to edit is a special purpose artist, and you may "
 "not make direct changes to this data."
 msgstr ""
-"L'artista che stai cercando di modificare è un artista speciale: non puoi "
-"apportare cambiamenti diretti a questi dati."
+"L'artista che stai cercando di modificare è un artista a uso speciale: non "
+"puoi apportare cambiamenti diretti a questi dati."
 
 #: ../root/artist/utils.js:13
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:65
@@ -7462,7 +7464,7 @@ msgstr ""
 
 #: ../root/cdtoc/AttachCDTocConfirmation.js:80
 msgid "Track length comparison"
-msgstr "Confronto durata tracce"
+msgstr "Confronto durata delle tracce"
 
 #: ../root/cdtoc/AttachCDTocConfirmation.js:84
 #: ../root/cdtoc/SetTracklistDurations.js:67
@@ -7473,15 +7475,15 @@ msgstr ""
 
 #: ../root/cdtoc/AttachCDTocConfirmation.js:88
 msgid "CD TOC track lengths"
-msgstr "Durata tracce CD TOC"
+msgstr "Durata delle tracce nel TOC (indice) CD"
 
 #: ../root/cdtoc/AttachCDTocConfirmation.js:90
 msgid "Medium track lengths"
-msgstr "Durata tracce supporto"
+msgstr "Durata delle tracce del supporto"
 
 #: ../root/cdtoc/CDTocInfo.js:21
 msgid "CD TOC details"
-msgstr "Dettagli del CD TOC"
+msgstr "Dettagli del TOC (indice) CD"
 
 #: ../root/cdtoc/CDTocInfo.js:34
 msgid "FreeDB:"
@@ -9384,9 +9386,9 @@ msgid ""
 "was entered. Please check the changes and ensure the removal is still "
 "correct."
 msgstr ""
-"Alcune durate, titoli o artisti traccia sono cambiati rispetto a quando la "
-"modifica di rimozione è stata inserita. Controlla i cambiamenti e assicurati "
-"che la rimozione sia ancora corretta."
+"Alcune durate, titoli o artisti delle tracce sono cambiati rispetto a quando "
+"la modifica di rimozione è stata inserita. Controlla i cambiamenti e "
+"assicurati che la rimozione sia ancora corretta."
 
 #: ../root/edit/details/RemoveMedium.js:78
 msgid "Original tracklist"
@@ -9467,7 +9469,7 @@ msgstr "Nuova copertina:"
 
 #: ../root/edit/details/SetTrackLengths.js:63
 msgid "Track lengths:"
-msgstr "Durata tracce:"
+msgstr "Durata delle tracce:"
 
 #: ../root/edit/details/SetTrackLengths.js:76
 msgid "This edit makes subsecond changes to track lengths"
@@ -9477,7 +9479,7 @@ msgstr ""
 
 #: ../root/edit/details/historic/AddDiscId.js:23
 msgid "CD TOC:"
-msgstr "CD TOC:"
+msgstr "TOC (indice) CD:"
 
 #: ../root/edit/details/historic/AddTrackKV.js:49
 #: ../root/edit/details/historic/AddTrackOld.js:34
@@ -9572,7 +9574,7 @@ msgstr ""
 
 #: ../root/edit/details/historic/MoveRelease.js:26
 msgid "Change track artists:"
-msgstr "Cambia artisti tracce:"
+msgstr "Cambia artisti delle tracce:"
 
 #: ../root/elections/ElectionDetails.js:32
 #: ../root/elections/ElectionTable/index.js:22
@@ -9841,12 +9843,13 @@ msgstr ""
 #: ../root/entity/NotFound.js:43
 msgctxt "header"
 msgid "CD TOC not found"
-msgstr "CD TOC non trovato"
+msgstr "TOC (indice) CD non trovato"
 
 #: ../root/entity/NotFound.js:44
 msgid "Sorry, we could not find the CD TOC you specified."
 msgstr ""
-"Spiacenti, non è stato possibile trovare il CD TOC che hai specificato."
+"Spiacenti, non è stato possibile trovare il TOC (indice) CD che hai "
+"specificato."
 
 #: ../root/entity/NotFound.js:49
 msgctxt "header"
@@ -10140,7 +10143,7 @@ msgstr "Più popolari"
 
 #: ../root/entity/Subscribers.js:57
 msgid "This is a special purpose entity and does not support subscriptions."
-msgstr "Questa è un'entità speciale e non supporta le iscrizioni."
+msgstr "Questa è un'entità a uso speciale e non supporta le iscrizioni."
 
 #: ../root/entity/Subscribers.js:68
 msgid "There is currently {num} user subscribed to edits that you make:"
@@ -10399,15 +10402,15 @@ msgstr ""
 
 #: ../root/label/SpecialPurpose.js:25
 msgid "You may not edit special purpose labels"
-msgstr "Non puoi modificare le etichette speciali"
+msgstr "Non puoi modificare le etichette a uso speciale"
 
 #: ../root/label/SpecialPurpose.js:27
 msgid ""
 "The label you are trying to edit is a special purpose label, and you may not "
 "make direct changes to this data."
 msgstr ""
-"L'etichetta che stai cercando di modificare è un'etichetta speciale: non "
-"puoi apportare cambiamenti diretti a questi dati."
+"L'etichetta che stai cercando di modificare è un'etichetta a uso speciale: "
+"non puoi apportare cambiamenti diretti a questi dati."
 
 #: ../root/layout/components/BottomMenu.js:99
 msgid "(reset language)"
@@ -11698,7 +11701,7 @@ msgstr ""
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:87
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:179
 msgid "Relationship attributes"
-msgstr "Attributi delle relazioni"
+msgstr "Attributi di relazione"
 
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:77
 msgid "Relationship attribute"
@@ -16098,7 +16101,7 @@ msgstr "Abbandona"
 
 #: ../root/static/scripts/relationship-editor/components/DialogAttribute/MultiselectAttribute.js:40
 msgid "Add vocal"
-msgstr "Aggiungi vocale"
+msgstr "Aggiungi voce"
 
 #: ../root/static/scripts/relationship-editor/components/DialogAttribute/MultiselectAttribute.js:167
 msgid "This attribute is required."
@@ -17286,7 +17289,7 @@ msgstr "Modifiche in corso di {name}"
 
 #: ../root/user/UserEdits.js:50 ../root/user/UserEdits.js:51
 msgid "Cancelled edits by {name}"
-msgstr "Modifiche cancellate di {name}"
+msgstr "Modifiche annullate di {name}"
 
 #: ../root/user/UserEdits.js:54 ../root/user/UserEdits.js:55
 msgid "Accepted edits by {name}"

@@ -20,12 +20,12 @@
 # reosarevok <reosarevok@gmail.com>, 2023.
 # Yllelder <yllelder@gmail.com>, 2023.
 # reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2023.
+# ChurruKa <churruka@hangar18.cc>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-12-14 02:28+0000\n"
-"Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
-".org>\n"
+"PO-Revision-Date: 2023-12-21 23:28+0000\n"
+"Last-Translator: ChurruKa <churruka@hangar18.cc>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
 "musicbrainz/instruments/es/>\n"
 "Language: es\n"
@@ -34,7 +34,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
 " ? 1 : 2);\n"
-"X-Generator: Weblate 5.2.1\n"
+"X-Generator: Weblate 5.3\n"
 
 #: DB:instrument/name:438
 msgid "12 string guitar"
@@ -293,7 +293,7 @@ msgstr "Xaphoon"
 #: DB:instrument/name:778
 msgctxt "harmonica/accordion hybrid"
 msgid "accordina"
-msgstr ""
+msgstr "acordina"
 
 #: DB:instrument/name:41
 msgctxt "Commonly used bellowed free reed with keys/buttons"
@@ -337,11 +337,11 @@ msgstr ""
 #: DB:instrument/name:1029
 msgctxt "German keyed box zither"
 msgid "akkordolia"
-msgstr ""
+msgstr "acordolia"
 
 #: DB:instrument/name:718
 msgid "alfaia"
-msgstr ""
+msgstr "alfaia"
 
 #: DB:instrument/name:508
 msgid "algozey"
@@ -386,7 +386,7 @@ msgstr ""
 #: DB:instrument/name:813
 msgctxt "uses analogue circuits to produce sound"
 msgid "analog synthesizer"
-msgstr ""
+msgstr "sintetizador analógico"
 
 #: DB:instrument/name:371
 msgctxt "Single pitch bamboo rattle xylophone used in Sundanese gamelan"
@@ -405,7 +405,7 @@ msgstr ""
 #: DB:instrument/name:720
 msgctxt "Tuned metal shape."
 msgid "anvil"
-msgstr ""
+msgstr "yunque"
 
 #: DB:instrument/name:507
 msgid "archlute"
@@ -413,7 +413,7 @@ msgstr "archilaúd"
 
 #: DB:instrument/name:654
 msgid "archtop guitar"
-msgstr ""
+msgstr "guitarra archtop"
 
 #: DB:instrument/name:634
 msgid "arghul"

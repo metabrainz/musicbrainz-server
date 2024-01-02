@@ -19,12 +19,12 @@
 # Tobias Quathamer <email address hidden>, 2007
 # t0n3t <email address hidden>, 2012
 # reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2023.
+# ChurruKa <churruka@hangar18.cc>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-12-14 02:28+0000\n"
-"Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
-".org>\n"
+"PO-Revision-Date: 2023-12-21 23:28+0000\n"
+"Last-Translator: ChurruKa <churruka@hangar18.cc>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/es/>\n"
 "Language: es\n"
@@ -33,7 +33,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
 " ? 1 : 2);\n"
-"X-Generator: Weblate 5.2.1\n"
+"X-Generator: Weblate 5.3\n"
 
 #: DB:link_attribute_type/description:1355
 msgid "A performance-centered, usually one to three year postgraduate program."
@@ -105,11 +105,11 @@ msgstr "página de Allmusic para"
 
 #: DB:link_type/link_phrase:1131 DB:link_type/link_phrase:1130
 msgid "Apple Music"
-msgstr ""
+msgstr "Apple Music"
 
 #: DB:link_type/reverse_link_phrase:1131 DB:link_type/reverse_link_phrase:1130
 msgid "Apple Music page for"
-msgstr ""
+msgstr "página de Apple Music para"
 
 #: DB:link_type/link_phrase:190
 msgid "BBC Music"
@@ -117,7 +117,7 @@ msgstr "BBC Music"
 
 #: DB:link_type/name:190
 msgid "BBC Music page"
-msgstr ""
+msgstr "página de BBC Music"
 
 #: DB:link_type/reverse_link_phrase:190
 msgid "BBC Music page for"
@@ -159,19 +159,19 @@ msgstr "Página de BookBrainz de"
 
 #: DB:link_type/link_phrase:919 DB:link_type/name:919
 msgid "CD Baby"
-msgstr ""
+msgstr "CD Baby"
 
 #: DB:link_type/reverse_link_phrase:919
 msgid "CD Baby page for"
-msgstr ""
+msgstr "página de CD Baby para"
 
 #: DB:link_type/link_phrase:981 DB:link_type/name:981
 msgid "CPDL"
-msgstr ""
+msgstr "CPDL"
 
 #: DB:link_type/reverse_link_phrase:981
 msgid "CPDL page for"
-msgstr ""
+msgstr "página de CPDL para"
 
 #: DB:link_type/name:227 DB:link_type/name:8
 msgid "DJ-mix"
@@ -214,21 +214,29 @@ msgid ""
 "Describes the fact a person was contracted by a place as a mastering "
 "engineer."
 msgstr ""
+"Describe el hecho de que alguien ha sido contratado en un lugar como "
+"ingeniero de masterización."
 
 #: DB:link_type/description:703
 msgid ""
 "Describes the fact a person was contracted by a place as a mixing engineer."
 msgstr ""
+"Describe el hecho de que alguien ha sido contratado en un lugar como "
+"ingeniero de mezcla."
 
 #: DB:link_type/description:702
 msgid ""
 "Describes the fact a person was contracted by a place as a recording "
 "engineer."
 msgstr ""
+"Describe el hecho de que alguien ha sido contratado en un lugar como "
+"ingeniero de grabación."
 
 #: DB:link_type/description:701
 msgid "Describes the fact a person was contracted by a place as an engineer."
 msgstr ""
+"Describe el hecho de que alguien ha sido contratado en un lugar como "
+"ingeniero."
 
 #: DB:link_type/description:357
 msgid "Designates that a work is or was the anthem for an area."
@@ -236,7 +244,7 @@ msgstr "Designa que un trabajo es o era el himno de un área."
 
 #: DB:link_type/description:356
 msgid "Designates that one area is contained by another."
-msgstr ""
+msgstr "Indica que una área está contenida en otra."
 
 #: DB:link_type/link_phrase:1089 DB:link_type/link_phrase:180
 #: DB:link_type/link_phrase:76 DB:link_type/link_phrase:217

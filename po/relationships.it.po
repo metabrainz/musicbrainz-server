@@ -19,7 +19,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-12-17 19:28+0000\n"
+"PO-Revision-Date: 2023-12-23 05:28+0000\n"
 "Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
 "metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -726,7 +726,7 @@ msgstr "pagina di Last.fm su"
 
 #: DB:link_attribute_type/description:4
 msgid "Lead or solo vocal"
-msgstr "Voce solista o principale"
+msgstr "Voce principale o solista"
 
 #: DB:link_type/description:864
 msgid ""
@@ -1368,7 +1368,7 @@ msgstr ""
 
 #: DB:link_attribute_type/description:561
 msgid "Spoken vocals (speech)"
-msgstr "Vocali parlati"
+msgstr "Voce parlata"
 
 #: DB:link_type/long_link_phrase:880
 msgid ""
@@ -2083,7 +2083,7 @@ msgid ""
 msgstr ""
 "Indica che un gruppo di pubblicazioni per un singolo o per un EP comprende "
 "almeno una traccia presa da un gruppo di pubblicazioni per un album. Questo "
-"permette di collegare un gruppo di pubblicazioni ai suoi singoli e EP "
+"permette di collegare un gruppo di pubblicazioni ai suoi singoli ed EP "
 "collegati."
 
 #: DB:link_type/description:281
@@ -4730,7 +4730,7 @@ msgid ""
 "Treble or boy soprano is a young male singer with an unchanged voice in the "
 "soprano range."
 msgstr ""
-"Con acuto o soprano maschile si intende un giovane cantante (uomo) prima "
+"Con ragazzo soprano o treble si intende un giovane cantante (uomo) prima "
 "della muta vocale con estensione vocale da soprano."
 
 #: DB:link_attribute_type/description:1032
@@ -4992,7 +4992,7 @@ msgstr "allmusic"
 
 #: DB:link_attribute_type/description:5 DB:link_attribute_type/name:5
 msgid "alto vocals"
-msgstr "vocali alto"
+msgstr "voce d’alto"
 
 #: DB:link_type/name:77
 msgid "amazon asin"
@@ -5169,7 +5169,7 @@ msgstr "laurea (triennale)"
 
 #: DB:link_attribute_type/description:12 DB:link_attribute_type/name:12
 msgid "background vocals"
-msgstr "vocali di sottofondo"
+msgstr "voce di accompagnamento"
 
 #: DB:link_type/name:727 DB:link_type/name:726
 msgid "balance"
@@ -5185,7 +5185,7 @@ msgstr "bandsintown"
 
 #: DB:link_attribute_type/description:6 DB:link_attribute_type/name:6
 msgid "baritone vocals"
-msgstr "vocali baritono"
+msgstr "voce di baritono"
 
 #: DB:link_type/name:314
 msgid "based on"
@@ -5193,11 +5193,11 @@ msgstr "si basa su"
 
 #: DB:link_attribute_type/description:7 DB:link_attribute_type/name:7
 msgid "bass vocals"
-msgstr "vocali basso"
+msgstr "voce di basso"
 
 #: DB:link_attribute_type/description:231 DB:link_attribute_type/name:231
 msgid "bass-baritone vocals"
-msgstr "vocali basso-baritono"
+msgstr "voce di basso-baritono"
 
 #: DB:link_type/link_phrase:182
 msgid "biographies"
@@ -5281,7 +5281,7 @@ msgstr "disponibile in streaming su"
 
 #: DB:link_attribute_type/name:921
 msgid "cancelled"
-msgstr "annullata"
+msgstr "annullato"
 
 #: DB:link_type/name:1165
 msgid "carillonneur"
@@ -5326,7 +5326,7 @@ msgstr "discendenti"
 
 #: DB:link_attribute_type/description:13 DB:link_attribute_type/name:13
 msgid "choir vocals"
-msgstr "vocali coro"
+msgstr "cori"
 
 #: DB:link_attribute_type/name:1224
 msgid "choral conducting"
@@ -5514,7 +5514,7 @@ msgstr ""
 
 #: DB:link_attribute_type/description:230 DB:link_attribute_type/name:230
 msgid "contralto vocals"
-msgstr "vocali contralto"
+msgstr "voce di contralto"
 
 #: DB:link_type/name:708 DB:link_type/name:709
 msgid "copyright"
@@ -5530,7 +5530,7 @@ msgstr "contrappunto"
 
 #: DB:link_attribute_type/description:8 DB:link_attribute_type/name:8
 msgid "countertenor vocals"
-msgstr "vocali controtenore"
+msgstr "voce di controtenore"
 
 #: DB:link_attribute_type/name:567 DB:link_type/name:15
 msgid "cover"
@@ -5697,7 +5697,7 @@ msgstr "fornisce/ha fornito supporto {instrument:strumentale} per"
 
 #: DB:link_type/long_link_phrase:107
 msgid "does/did {vocal:%|vocals} support for"
-msgstr "fornisce/ha fornito supporto {vocal:%|ai vocali} per"
+msgstr "fornisce/ha fornito supporto {vocal:%|alla voce} per"
 
 #: DB:link_type/link_phrase:75 DB:link_type/link_phrase:255
 #: DB:link_type/name:958 DB:link_type/name:75 DB:link_type/name:177
@@ -6790,7 +6790,7 @@ msgstr "eventi di lancio"
 
 #: DB:link_attribute_type/name:4
 msgid "lead vocals"
-msgstr "vocali principali"
+msgstr "voce principale"
 
 #: DB:link_type/link_phrase:142 DB:link_type/name:22 DB:link_type/name:142
 #: DB:link_type/reverse_link_phrase:142
@@ -7034,7 +7034,7 @@ msgstr "laurea magistrale"
 
 #: DB:link_attribute_type/name:1060
 msgid "meane vocals"
-msgstr "vocali meane"
+msgstr "voce di ragazzo alto (meane)"
 
 #: DB:link_attribute_type/name:568
 msgid "medium"
@@ -7090,7 +7090,7 @@ msgstr "membro della band"
 
 #: DB:link_attribute_type/description:9 DB:link_attribute_type/name:9
 msgid "mezzo-soprano vocals"
-msgstr "vocali mezzosoprano"
+msgstr "voce di mezzosoprano"
 
 #: DB:link_attribute_type/name:2
 msgid "minor"
@@ -7371,7 +7371,7 @@ msgstr "altre versioni"
 
 #: DB:link_attribute_type/name:461
 msgid "other vocals"
-msgstr "altri vocali"
+msgstr "altra voce"
 
 #: DB:link_type/name:988 DB:link_type/name:989 DB:link_type/name:991
 #: DB:link_type/reverse_link_phrase:988 DB:link_type/reverse_link_phrase:989
@@ -7487,8 +7487,8 @@ msgstr ""
 #: DB:link_type/long_link_phrase:60 DB:link_type/long_link_phrase:149
 msgid "performed {additional} {guest} {solo} {vocal:%|vocals} on"
 msgstr ""
-"ha eseguito {vocal:%|vocali} {solo:solista} {guest:ospite} {additional:"
-"aggiunto} su"
+"ha eseguito {vocal:%|la voce} {solo:solista} {guest:ospite} "
+"{additional:aggiuntiva} su"
 
 #: DB:link_type/name:51 DB:link_type/name:156
 msgid "performer"
@@ -8202,7 +8202,7 @@ msgstr "songkick"
 
 #: DB:link_attribute_type/description:10 DB:link_attribute_type/name:10
 msgid "soprano vocals"
-msgstr "vocali soprano"
+msgstr "voce di soprano"
 
 #: DB:link_type/name:133 DB:link_type/name:29
 msgid "sound"
@@ -8215,7 +8215,7 @@ msgstr "soundcloud"
 
 #: DB:link_attribute_type/name:561
 msgid "spoken vocals"
-msgstr "vocali parlati"
+msgstr "voce parlata"
 
 #: DB:link_type/link_phrase:287
 msgid "standalone website"
@@ -8385,7 +8385,7 @@ msgstr "insegnanti"
 
 #: DB:link_attribute_type/description:11 DB:link_attribute_type/name:11
 msgid "tenor vocals"
-msgstr "vocali tenore"
+msgstr "voce di tenore"
 
 #: DB:link_type/name:1193 DB:link_type/name:1194 DB:link_type/name:1195
 #: DB:link_type/name:1196 DB:link_type/name:1197
@@ -8482,7 +8482,7 @@ msgstr "elenchi di tracce traslitterati/tradotti"
 
 #: DB:link_attribute_type/name:834
 msgid "treble vocals"
-msgstr "vocali acuti"
+msgstr "voce di ragazzo soprano (treble)"
 
 #: DB:link_type/name:728 DB:link_type/name:65 DB:link_type/name:970
 msgid "tribute"
@@ -8565,7 +8565,7 @@ msgstr "partecipazioni in video"
 
 #: DB:link_attribute_type/name:3 DB:link_type/name:60 DB:link_type/name:149
 msgid "vocal"
-msgstr "vocale"
+msgstr "voce"
 
 #: DB:link_type/name:294 DB:link_type/name:296 DB:link_type/name:298
 msgid "vocal arranger"
@@ -9015,7 +9015,7 @@ msgid ""
 "{additional:additionally} {associate} {co:co-}arranged {vocal:%|vocals} on"
 msgstr ""
 "ha {co:co-}arrangiato {associate:come associato} {additional:in aggiunta} "
-"{vocal:%|vocali} su"
+"{vocal:%|le voci} su"
 
 #: DB:link_type/link_phrase:158 DB:link_type/link_phrase:41
 #: DB:link_type/link_phrase:282
@@ -9031,7 +9031,7 @@ msgstr ""
 msgid "{additional:additionally} {associate} {vocal:%|vocals} {co:co-}arranged"
 msgstr ""
 "ha {co:co-}arrangiato {associate:come associato} {additional:in aggiunta} "
-"{vocal:%|vocali}"
+"{vocal:%|le voci}"
 
 #: DB:link_type/link_phrase:51 DB:link_type/link_phrase:156
 #: DB:link_type/long_link_phrase:51 DB:link_type/long_link_phrase:156
@@ -9337,8 +9337,8 @@ msgstr ""
 #: DB:link_type/reverse_link_phrase:298
 msgid "{additional} {associate} {vocal:%|vocals} {co:co-}arranger"
 msgstr ""
-"{co:co-}arrangiatore {vocal:%|vocali} {associate:associato} {additional:"
-"aggiunto}"
+"{co:co-}arrangiatore {vocal:%|voci} {associate:associato} "
+"{additional:aggiunto}"
 
 #: DB:link_type/reverse_link_phrase:51 DB:link_type/reverse_link_phrase:156
 msgid "{additional} {guest} {solo} performer"
@@ -9353,7 +9353,7 @@ msgstr ""
 #: DB:link_type/link_phrase:60 DB:link_type/link_phrase:149
 #: DB:link_type/reverse_link_phrase:60 DB:link_type/reverse_link_phrase:149
 msgid "{additional} {guest} {solo} {vocal:%|vocals}"
-msgstr "{vocal:%|vocali} {solo:solista} {guest:ospite} {additional:aggiunto}"
+msgstr "{vocal:%|voce} {solo:solista} {guest:ospite} {additional:aggiuntiva}"
 
 #: DB:link_type/link_phrase:102
 msgid "{additional} {minor} collaborator on"
@@ -9885,11 +9885,11 @@ msgstr "{video} disponibile in streaming gratuito su"
 
 #: DB:link_type/reverse_link_phrase:107
 msgid "{vocal:%|vocals} support by"
-msgstr "supporto {vocal:%|vocali} da parte di"
+msgstr "supporto {vocal:%|alla voce} da parte di"
 
 #: DB:link_type/link_phrase:107
 msgid "{vocal:%|vocals} support for"
-msgstr "supporto {vocal:%|vocali} per"
+msgstr "supporto {vocal:%|alla voce} per"
 
 #~ msgid ""
 #~ "This links a MusicBrainz release to the equivalent entry at Amazon and "

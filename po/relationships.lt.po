@@ -1,11 +1,11 @@
 #
 # Translators:
 # Vaclovas lntas (Vac.) <email address hidden>, 2023
-# "Vac31." <gateway_31@protonmail.com>, 2023.
+# "Vac31." <gateway_31@protonmail.com>, 2023, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-12-13 21:23+0000\n"
+"PO-Revision-Date: 2024-01-01 11:28+0000\n"
 "Last-Translator: \"Vac31.\" <gateway_31@protonmail.com>\n"
 "Language-Team: Lithuanian <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/lt/>\n"
@@ -14,9 +14,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
-"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
-"1 : n % 1 != 0 ? 2: 3);\n"
-"X-Generator: Weblate 5.2.1\n"
+"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 :"
+" n % 1 != 0 ? 2: 3);\n"
+"X-Generator: Weblate 5.3\n"
 
 #: DB:link_attribute_type/description:1355
 msgid "A performance-centered, usually one to three year postgraduate program."
@@ -244,10 +244,8 @@ msgstr ""
 "inžinieriumi."
 
 #: DB:link_type/description:357
-#, fuzzy
-#| msgid "Designates that a work is or was the anthem for an area"
 msgid "Designates that a work is or was the anthem for an area."
-msgstr "Nurodo, kad kūrinys yra arba buvo vietovės himnas"
+msgstr "Nurodo, kad kūrinys yra arba buvo teritorijos himnas."
 
 #: DB:link_type/description:356
 msgid "Designates that one area is contained by another."
@@ -268,16 +266,12 @@ msgid "Discogs page for"
 msgstr "Discogs puslapis, skirtas"
 
 #: DB:link_attribute_type/description:1020
-#, fuzzy
-#| msgid ""
-#| "For indicating the step-spouse of the artist's parent, or the sibling "
-#| "relationship with the children of such a spouse"
 msgid ""
 "For indicating the step-spouse of the artist's parent, or the sibling "
 "relationship with the children of such a spouse."
 msgstr ""
 "Nurodant atlikėjo patėvio sutuoktinį arba brolių ir seserų santykį su tokio "
-"sutuoktinio vaikais"
+"sutuoktinio vaikais."
 
 #: DB:link_attribute_type/description:580
 msgid ""
@@ -329,10 +323,8 @@ msgid "IMSLP page for"
 msgstr "IMSLP puslapis, skirtas"
 
 #: DB:link_attribute_type/description:516
-#, fuzzy
-#| msgid "Indicates a bonus disc"
 msgid "Indicates a bonus disc."
-msgstr "Nurodo papildomą diską"
+msgstr "Nurodo papildomą diską."
 
 #: DB:link_type/description:162
 msgid ""
@@ -383,10 +375,8 @@ msgid "Indicates a parent-child relationship."
 msgstr "Nurodo tėvo ir vaiko santykį."
 
 #: DB:link_type/description:396
-#, fuzzy
-#| msgid "Indicates a pictorial image (JPEG, GIF, PNG) of a place"
 msgid "Indicates a pictorial image (JPEG, GIF, PNG) of a place."
-msgstr "Nurodo vietos (JPEG, GIF, PNG) vaizdą"
+msgstr "Nurodo vietos (JPEG, GIF, PNG) vaizdą."
 
 #: DB:link_type/description:173
 msgid "Indicates a pictorial image (JPEG, GIF, PNG) of an artist."
@@ -401,13 +391,10 @@ msgstr ""
 "dar laikoma ta pačia."
 
 #: DB:link_attribute_type/description:1019
-#, fuzzy
-#| msgid ""
-#| "Indicates a sibling with whom the artist has only one parent in common"
 msgid "Indicates a sibling with whom the artist has only one parent in common."
 msgstr ""
-"Nurodo brolį ar seserį, su kuriuo (-ia) atlikėjas (-a) turi tik vieną bendrą "
-"tėvą ar motiną"
+"Nurodo brolį ar seserį, su kuriuo atlikėjas turi tik vieną bendrą tėvą ar "
+"motiną."
 
 #: DB:link_type/description:842
 msgid "Indicates a webpage that reviews the event in question."
@@ -504,10 +491,8 @@ msgstr ""
 "albumo) pasirodymui."
 
 #: DB:link_attribute_type/description:567
-#, fuzzy
-#| msgid "Indicates that one entity is a cover of another entity"
 msgid "Indicates that one entity is a cover of another entity."
-msgstr "Nurodo, kad vienas subjektas yra kito subjekto priedanga"
+msgstr "Nurodo, kad vienas subjektas yra kito subjekto perdainavimas."
 
 #: DB:link_type/description:996
 msgid "Indicates that the artist is part of a series."
@@ -573,50 +558,40 @@ msgstr ""
 "Nurodo, kad du asmenys, nesudarę santuokos, buvo susiję romantiškais ryšiais."
 
 #: DB:link_type/description:1085
-#, fuzzy
-#| msgid "Indicates the area an event series was held at."
 msgid "Indicates the area an event series was held in."
-msgstr "Nurodo vietovę, kurioje vyko renginių serija."
+msgstr "Nurodo teritoriją, kurioje vyko renginių serija."
 
 #: DB:link_type/description:715
-#, fuzzy
-#| msgid "Indicates the area where the work had its first performance"
 msgid "Indicates the area where the work had its first performance."
-msgstr "Nurodo teritoriją, kurioje kūrinys buvo pristatytas pirmą kartą."
+msgstr "Nurodo teritoriją, kurioje kūrinys buvo parodytas pirmą kartą."
 
 #: DB:link_type/description:956
-#, fuzzy
-#| msgid ""
-#| "Indicates the artist(s) who gave the first performance of the work; this "
-#| "is usually mostly relevant for classical music"
 msgid ""
 "Indicates the artist(s) who gave the first performance of the work; this is "
 "usually mostly relevant for classical music."
 msgstr ""
 "Nurodo atlikėją (-us), kuris (-ie) pirmą kartą pristatė kūrinį; paprastai "
-"tai dažniausiai aktualu klasikinei muzikai"
+"tai dažniausiai aktualu klasikinei muzikai."
 
 #: DB:link_type/description:55
 msgid ""
 "Indicates the composer for this release, that is, the artist who wrote the "
 "music (not necessarily the lyrics)."
 msgstr ""
-"Nurodo šio leidinio kompozitorius (-ė), tai yra atlikėjas (-a), parašęs (-"
-"usi) muziką (nebūtinai dainų tekstus)."
+"Nurodo šio leidinio kompozitorius, tai – atlikėjas, parašęs muziką ("
+"nebūtinai dainų tekstus)."
 
 #: DB:link_type/description:168
 msgid ""
 "Indicates the composer for this work, that is, the artist who wrote the "
 "music (not necessarily the lyrics)."
 msgstr ""
-"Nurodo šio kūrinio kompozitorius (-ė), tai yra atlikėjas (-a), parašęs (-"
-"usi) muziką (nebūtinai dainų tekstus)."
+"Nurodo šio kūrinio kompozitorius, tai – atlikėjas, parašęs muziką (nebūtinai "
+"dainų tekstus)."
 
 #: DB:link_type/description:845
-#, fuzzy
-#| msgid "Indicates the event where the work had its first performance"
 msgid "Indicates the event where the work had its first performance."
-msgstr "Nurodo renginį, kuriame kūrinys buvo pristatytas pirmą kartą"
+msgstr "Nurodo renginį, kuriame kūrinys buvo pristatytas pirmą kartą."
 
 #: DB:link_type/description:986
 msgid ""
@@ -653,7 +628,7 @@ msgstr "Nurodo šio kūrinio dainų žodžių autorių (-ę)."
 
 #: DB:link_type/description:42
 msgid "Indicates the mastering engineer for this work."
-msgstr "Nurodo šio kūrinio masteringo inžinierių (-ę)."
+msgstr "Nurodo šio leidinio masteringo inžinierių."
 
 #: DB:link_type/description:219
 msgid "Indicates the official homepage for a label."

@@ -1,11 +1,12 @@
 #
 # Translators:
 # Aniol, 2014
+# 0x1026 <me@hugovidafe.dev>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-08-30 01:27+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"PO-Revision-Date: 2024-01-01 11:28+0000\n"
+"Last-Translator: 0x1026 <me@hugovidafe.dev>\n"
 "Language-Team: Catalan <https://translations.metabrainz.org/projects/"
 "musicbrainz/languages/ca/>\n"
 "Language: ca\n"
@@ -13,7 +14,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.18.2\n"
+"X-Generator: Weblate 5.3\n"
 
 #. frequency:1 iso_code_3:abk 
 #: DB:language/name:2
@@ -93,7 +94,7 @@ msgstr "Llengües algonquines"
 #. frequency:1 iso_code_3:alq 
 #: DB:language/name:709
 msgid "Algonquin"
-msgstr ""
+msgstr "Algonquí"
 
 #. frequency:0 iso_code_3:null 
 #: DB:language/name:434
@@ -108,7 +109,7 @@ msgstr "Amhàric"
 #. frequency:1 iso_code_3:anp 
 #: DB:language/name:475
 msgid "Angika"
-msgstr " Angika"
+msgstr "Angika"
 
 #. frequency:0 iso_code_3:null 
 #: DB:language/name:17
@@ -138,7 +139,7 @@ msgstr "Arauac"
 #. frequency:1 iso_code_3:pka 
 #: DB:language/name:5403
 msgid "Ardhamāgadhī Prākrit"
-msgstr ""
+msgstr "Ardhamāgadhī Prākrit"
 
 #. frequency:1 iso_code_3:hye 
 #: DB:language/name:21
@@ -168,7 +169,7 @@ msgstr "Llengües atapascanes"
 #. frequency:1 iso_code_3:atj 
 #: DB:language/name:866
 msgid "Atikamekw"
-msgstr ""
+msgstr "Atikamekw"
 
 #. frequency:0 iso_code_3:null 
 #: DB:language/name:29
@@ -208,7 +209,7 @@ msgstr "Àzeri"
 #. frequency:1 iso_code_3:bvd 
 #: DB:language/name:1470
 msgid "Baeggu"
-msgstr ""
+msgstr "Baeggu"
 
 #. frequency:1 iso_code_3:ban 
 #: DB:language/name:40
@@ -238,7 +239,7 @@ msgstr "Llengües bamiléké"
 #. frequency:0 iso_code_3:null 
 #: DB:language/name:35
 msgid "Banda languages"
-msgstr " Llengües banda"
+msgstr "Llengües banda"
 
 #. frequency:0 iso_code_3:null 
 #: DB:language/name:55
@@ -268,7 +269,7 @@ msgstr "Llengües batak"
 #. frequency:1 iso_code_3:bar 
 #: DB:language/name:982
 msgid "Bavarian"
-msgstr ""
+msgstr "Bavarès"
 
 #. frequency:1 iso_code_3:bej 
 #: DB:language/name:44
@@ -333,7 +334,7 @@ msgstr "Blissymbols"
 #. frequency:1 iso_code_3:brx 
 #: DB:language/name:1394
 msgid "Bodo (India)"
-msgstr ""
+msgstr "Bodo (India)"
 
 #. frequency:1 iso_code_3:bos 
 #: DB:language/name:56
@@ -353,7 +354,7 @@ msgstr "Bretó"
 #. frequency:1 iso_code_3:box 
 #: DB:language/name:1322
 msgid "Buamu"
-msgstr ""
+msgstr "Buamu"
 
 #. frequency:1 iso_code_3:bug 
 #: DB:language/name:61
@@ -378,7 +379,7 @@ msgstr "Birmà"
 #. frequency:1 iso_code_3:bsk 
 #: DB:language/name:1406
 msgid "Burushaski"
-msgstr ""
+msgstr "Burushaski"
 
 #. frequency:1 iso_code_3:cad 
 #: DB:language/name:65
@@ -388,7 +389,7 @@ msgstr "Caddo"
 #. frequency:1 iso_code_3:frc 
 #: DB:language/name:2311
 msgid "Cajun French"
-msgstr ""
+msgstr "Francès cajun"
 
 #. frequency:1 iso_code_3:cat 
 #: DB:language/name:68
@@ -408,7 +409,7 @@ msgstr "Cebuano"
 #. frequency:1 iso_code_3:xce 
 #: DB:language/name:7217
 msgid "Celtiberian"
-msgstr ""
+msgstr "Celtiber"
 
 #. frequency:0 iso_code_3:null 
 #: DB:language/name:71
@@ -428,7 +429,7 @@ msgstr "Llengua d'Okinawa"
 #. frequency:1 iso_code_3:esu 
 #: DB:language/name:2243
 msgid "Central Yupik"
-msgstr ""
+msgstr "Yupik central"
 
 #. frequency:1 iso_code_3:chg 
 #: DB:language/name:75
@@ -588,42 +589,42 @@ msgstr "Txec"
 #. frequency:1 iso_code_3:dak 
 #: DB:language/name:99
 msgid "Dakota"
-msgstr ""
+msgstr "Dakota"
 
 #. frequency:1 iso_code_3:dan 
 #: DB:language/name:100
 msgid "Danish"
-msgstr ""
+msgstr "Danès"
 
 #. frequency:1 iso_code_3:dar 
 #: DB:language/name:101
 msgid "Dargwa"
-msgstr ""
+msgstr "Dargwa"
 
 #. frequency:1 iso_code_3:del 
 #: DB:language/name:103
 msgid "Delaware"
-msgstr ""
+msgstr "Delaware"
 
 #. frequency:1 iso_code_3:din 
 #: DB:language/name:106
 msgid "Dinka"
-msgstr ""
+msgstr "Dinka"
 
 #. frequency:1 iso_code_3:div 
 #: DB:language/name:107
 msgid "Divehi"
-msgstr ""
+msgstr "Divehi"
 
 #. frequency:1 iso_code_3:doi 
 #: DB:language/name:108
 msgid "Dogri"
-msgstr ""
+msgstr "Dogri"
 
 #. frequency:1 iso_code_3:dgr 
 #: DB:language/name:105
 msgid "Dogrib"
-msgstr ""
+msgstr "Dogrib"
 
 #. frequency:0 iso_code_3:null 
 #: DB:language/name:109
