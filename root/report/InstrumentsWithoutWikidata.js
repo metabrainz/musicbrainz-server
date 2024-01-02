@@ -26,7 +26,7 @@ const InstrumentsWithoutWikidata = ({
     entityType="instrument"
     filtered={filtered}
     generated={generated}
-    title="Instruments without a Wikidata link"
+    title="Instruments without a link to Wikidata"
     totalEntries={pager.total_entries}
   >
     <InstrumentList items={items} pager={pager} />
