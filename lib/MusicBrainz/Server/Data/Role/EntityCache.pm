@@ -25,11 +25,18 @@ sub _cache_id {
     }
 }
 
+has _cache_prefix => (
+    is => 'ro',
+    isa => 'Str',
+    default => sub { shift->_type . ':' },
+);
+
 around get_by_ids => sub {
     my ($orig, $self, @ids) = @_;
     return {} unless any { defined && $_ } @ids;
     my %ids = map { $_ => 1 } @ids;
-    my @keys = map { $self->_type . ':' . $_ } keys %ids;
+    my $cache_prefix = $self->_cache_prefix;
+    my @keys = map { $cache_prefix . $_ } keys %ids;
     my $cache = $self->c->cache($self->_type);
     my %cached_data = %{ $cache->get_multi(@keys) };
     my %result;
@@ -68,7 +75,7 @@ sub _create_cache_entries {
     my ($self, $data) = @_;
 
     my $cache_id = $self->_cache_id;
-    my $cache_prefix = $self->_type . ':';
+    my $cache_prefix = $self->_cache_prefix;
     my @ids = keys %{$data};
 
     if (scalar(@ids) > $MAX_CACHE_ENTRIES) {
@@ -166,7 +173,7 @@ sub _delete_from_cache {
         }
     }
 
-    my $cache_prefix = $self->_type . ':';
+    my $cache_prefix = $self->_cache_prefix;
     my @keys = map { $cache_prefix . $_ } @ids;
 
     my $cache = $self->c->cache($self->_type);
