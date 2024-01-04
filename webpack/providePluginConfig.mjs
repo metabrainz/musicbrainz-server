@@ -59,6 +59,12 @@ const providePluginConfig = {
 
   'texp.l_admin': [expandTextPath, 'l_admin'],
   'texp.ln_admin': [expandTextPath, 'ln_admin'],
+
+  'exp.l_statistics': [expandPath, 'l_statistics'],
+  'exp.ln_statistics': [expandPath, 'ln_statistics'],
+
+  'texp.l_statistics': [expandTextPath, 'l_statistics'],
+  'texp.ln_statistics': [expandTextPath, 'ln_statistics'],
   /* eslint-enable sort-keys */
 };
 
