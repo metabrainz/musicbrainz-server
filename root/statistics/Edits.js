@@ -37,7 +37,7 @@ const Edits = ({
   return (
     <StatisticsLayout fullWidth page="edits" title={l('Edits')}>
       <p>
-        {texp.l('Last updated: {date}', {date: dateCollected})}
+        {texp.l_statistics('Last updated: {date}', {date: dateCollected})}
       </p>
       <h2>{l('Edits')}</h2>
       {Object.keys(statsByCategory).length === 0 ? (

@@ -105,7 +105,7 @@ const Relationships = ({
       title={l('Relationships')}
     >
       <p>
-        {texp.l('Last updated: {date}', {date: dateCollected})}
+        {texp.l_statistics('Last updated: {date}', {date: dateCollected})}
       </p>
       <h2>{l('Relationships')}</h2>
       {stats['count.ar.links'] < 1 ? (
@@ -139,7 +139,7 @@ const Relationships = ({
                 <>
                   <tr className="thead">
                     <th colSpan="4">
-                      {texp.l(
+                      {texp.l_statistics(
                         '{type0}-{type1}',
                         {type0: type0, type1: type1},
                       )}
@@ -147,7 +147,7 @@ const Relationships = ({
                   </tr>
                   <tr>
                     <th colSpan="2">
-                      {texp.l(
+                      {texp.l_statistics(
                         '{type0}-{type1} relationships:',
                         {type0: type0, type1: type1},
                       )}

@@ -919,7 +919,7 @@ for (let n = 0; n < 11; n++) {
   stats[`count.release.${n}discids`] = {
     category: 'other',
     color: '#ff0000',
-    label: texp.ln(
+    label: texp.ln_statistics(
       'Releases with 1 Disc ID',
       'Releases with {n} Disc IDs',
       n,
@@ -930,7 +930,7 @@ for (let n = 0; n < 11; n++) {
   stats[`count.medium.${n}discids`] = {
     category: 'other',
     color: '#ff0000',
-    label: texp.ln(
+    label: texp.ln_statistics(
       'Mediums with 1 Disc ID',
       'Mediums with {n} Disc IDs',
       n,
@@ -941,7 +941,7 @@ for (let n = 0; n < 11; n++) {
   stats[`count.recording.${n}releases`] = {
     category: 'other',
     color: '#ff0000',
-    label: texp.ln(
+    label: texp.ln_statistics(
       'Recordings with 1 Release',
       'Recordings with {n} Releases',
       n,
@@ -952,7 +952,7 @@ for (let n = 0; n < 11; n++) {
   stats[`count.releasegroup.${n}releases`] = {
     category: 'other',
     color: '#ff0000',
-    label: texp.ln(
+    label: texp.ln_statistics(
       'Release Groups with 1 Release',
       'Release Groups with {n} Releases',
       n,
@@ -1006,7 +1006,7 @@ export function buildTypeStats(typeData) {
     stats[`count.area.type.${key}`] = {
       category: 'area-types',
       color: '#ff0000',
-      label: texp.l('{type} areas', {type: typeName}),
+      label: texp.l_statistics('{type} areas', {type: typeName}),
     };
   }
 
@@ -1018,31 +1018,31 @@ export function buildTypeStats(typeData) {
     stats[`count.artist.country.${key}`] = {
       category: 'artist-countries',
       color: '#ff0000',
-      label: texp.l('{country} artists', countryArg),
+      label: texp.l_statistics('{country} artists', countryArg),
     };
 
     stats[`count.event.country.${key}`] = {
       category: 'event-countries',
       color: '#ff0000',
-      label: texp.l('{country} events', countryArg),
+      label: texp.l_statistics('{country} events', countryArg),
     };
 
     stats[`count.label.country.${key}`] = {
       category: 'label-countries',
       color: '#ff0000',
-      label: texp.l('{country} labels', countryArg),
+      label: texp.l_statistics('{country} labels', countryArg),
     };
 
     stats[`count.place.country.${key}`] = {
       category: 'place-countries',
       color: '#ff0000',
-      label: texp.l('{country} places', countryArg),
+      label: texp.l_statistics('{country} places', countryArg),
     };
 
     stats[`count.release.country.${key}`] = {
       category: 'release-countries',
       color: '#ff0000',
-      label: texp.l('{country} releases', countryArg),
+      label: texp.l_statistics('{country} releases', countryArg),
     };
   }
 
@@ -1053,7 +1053,7 @@ export function buildTypeStats(typeData) {
     stats[`count.edit.type.${key}`] = {
       category: 'edit-types',
       color: '#ff0000',
-      label: texp.l('{type} edits', {type: typeName}),
+      label: texp.l_statistics('{type} edits', {type: typeName}),
     };
   }
 
@@ -1064,7 +1064,7 @@ export function buildTypeStats(typeData) {
     stats[`count.event.type.${key}`] = {
       category: 'event-types',
       color: '#ff0000',
-      label: texp.l('{type} events', {type: typeName}),
+      label: texp.l_statistics('{type} events', {type: typeName}),
     };
   }
 
@@ -1075,19 +1075,19 @@ export function buildTypeStats(typeData) {
     stats[`count.release.format.${key}`] = {
       category: 'formats',
       color: '#ff0000',
-      label: texp.l('{name} releases', formatArg),
+      label: texp.l_statistics('{name} releases', formatArg),
     };
 
     stats[`count.medium.format.${key}`] = {
       category: 'formats',
       color: '#ff0000',
-      label: texp.l('{name} mediums', formatArg),
+      label: texp.l_statistics('{name} mediums', formatArg),
     };
 
     stats[`count.release.format.${encodeURI(format.name)}.has_coverart`] = {
       category: 'cover-art',
       color: '#ff0000',
-      label: texp.l(
+      label: texp.l_statistics(
         'Releases with a medium of format “{format}” that have cover art',
         {format: formatArg.name},
       ),
@@ -1101,7 +1101,7 @@ export function buildTypeStats(typeData) {
     stats[`count.instrument.type.${key}`] = {
       category: 'instrument-types',
       color: '#ff0000',
-      label: texp.l('{type} instruments', {type: typeName}),
+      label: texp.l_statistics('{type} instruments', {type: typeName}),
     };
   }
 
@@ -1112,7 +1112,7 @@ export function buildTypeStats(typeData) {
     stats[`count.label.type.${key}`] = {
       category: 'label-types',
       color: '#ff0000',
-      label: texp.l('{type} labels', {type: typeName}),
+      label: texp.l_statistics('{type} labels', {type: typeName}),
     };
   }
 
@@ -1123,13 +1123,14 @@ export function buildTypeStats(typeData) {
     stats[`count.release.language.${key}`] = {
       category: 'release-languages',
       color: '#ff0000',
-      label: texp.l('{language} releases', {language: languageName}),
+      label: texp.l_statistics('{language} releases',
+                               {language: languageName}),
     };
 
     stats[`count.work.language.${key}`] = {
       category: 'work-languages',
       color: '#ff0000',
-      label: texp.l('{language} works', {language: languageName}),
+      label: texp.l_statistics('{language} works', {language: languageName}),
     };
   }
 
@@ -1140,7 +1141,7 @@ export function buildTypeStats(typeData) {
     stats[`count.release.packaging.${key}`] = {
       category: 'release-packagings',
       color: '#ff0000',
-      label: texp.l(
+      label: texp.l_statistics(
         'Releases with packaging “{packaging}”',
         {packaging: packagingName},
       ),
@@ -1154,14 +1155,14 @@ export function buildTypeStats(typeData) {
     stats[`count.place.type.${key}`] = {
       category: 'place-types',
       color: '#ff0000',
-      label: texp.l('{type} places', {type: typeName}),
+      label: texp.l_statistics('{type} places', {type: typeName}),
     };
   }
 
   for (let i = 0; i < relationshipTables.length; i++) {
     const pair = relationshipTables[i];
     const hex = fixedWidthInteger((i + 1) * 3, 2);
-    const label = texp.l(
+    const label = texp.l_statistics(
       '{first_entity_type}-{second_entity_type} Relationships',
       {
         first_entity_type: formatEntityTypeName(pair[0]),
@@ -1180,7 +1181,7 @@ export function buildTypeStats(typeData) {
     const type = relationshipTypes[key];
     const typeName = l_relationships(type.name);
 
-    const label = texp.l(
+    const label = texp.l_statistics(
       `{first_entity_type_name}-{second_entity_type_name}
        “{relationship_type_name}” relationships`,
       {
@@ -1196,7 +1197,7 @@ export function buildTypeStats(typeData) {
       label,
     };
 
-    const labelInclusive = texp.l(
+    const labelInclusive = texp.l_statistics(
       `{first_entity_type_name}-{second_entity_type_name}
        “{relationship_type_name}” relationships
        including child relationship types`,
@@ -1220,13 +1221,13 @@ export function buildTypeStats(typeData) {
     stats[`count.releasegroup.primary_type.${key}`] = {
       category: 'release-group-types',
       color: '#ff0000',
-      label: texp.l('{type} release groups', {type: typeName}),
+      label: texp.l_statistics('{type} release groups', {type: typeName}),
     };
 
     stats[`count.release.type.${encodeURI(type.name)}.has_coverart`] = {
       category: 'cover-art',
       color: '#ff0000',
-      label: texp.l(
+      label: texp.l_statistics(
         'Releases in groups of type “{type}” with cover art',
         {type: typeName},
       ),
@@ -1240,7 +1241,7 @@ export function buildTypeStats(typeData) {
     stats[`count.releasegroup.secondary_type.${key}`] = {
       category: 'release-group-types',
       color: '#ff0000',
-      label: texp.l('{type} release groups', {type: typeName}),
+      label: texp.l_statistics('{type} release groups', {type: typeName}),
     };
   }
 
@@ -1251,7 +1252,7 @@ export function buildTypeStats(typeData) {
     stats[`count.release.script.${key}`] = {
       category: 'release-scripts',
       color: '#ff0000',
-      label: texp.l('{script} releases', {script: scriptName}),
+      label: texp.l_statistics('{script} releases', {script: scriptName}),
     };
   }
 
@@ -1262,7 +1263,7 @@ export function buildTypeStats(typeData) {
     stats[`count.series.type.${key}`] = {
       category: 'series-types',
       color: '#ff0000',
-      label: texp.l('{type} series', {type: typeName}),
+      label: texp.l_statistics('{type} series', {type: typeName}),
     };
   }
 
@@ -1273,13 +1274,13 @@ export function buildTypeStats(typeData) {
     stats[`count.release.status.${key}`] = {
       category: 'release-statuses',
       color: '#ff0000',
-      label: texp.l('{status} releases', {status: statusName}),
+      label: texp.l_statistics('{status} releases', {status: statusName}),
     };
 
     stats[`count.release.status.${encodeURI(status.name)}.has_coverart`] = {
       category: 'cover-art',
       color: '#ff0000',
-      label: texp.l(
+      label: texp.l_statistics(
         'Releases of status “{status}” with cover art',
         {status: statusName},
       ),
@@ -1296,7 +1297,7 @@ export function buildTypeStats(typeData) {
     stats[`count.work.attribute.${key}`] = {
       category: 'work-attributes',
       color: '#ff0000',
-      label: texp.l(
+      label: texp.l_statistics(
         'Works with attribute “{attribute}”',
         {attribute: attributeName},
       ),
@@ -1310,7 +1311,7 @@ export function buildTypeStats(typeData) {
     stats[`count.work.type.${key}`] = {
       category: 'work-types',
       color: '#ff0000',
-      label: texp.l('{type} works', {type: typeName}),
+      label: texp.l_statistics('{type} works', {type: typeName}),
     };
   }
 }

@@ -45,8 +45,8 @@ const Formats = ({
       title={l('Release/Medium Formats')}
     >
       <p>
-        {texp.l('Last updated: {date}',
-                {date: dateCollected})}
+        {texp.l_statistics('Last updated: {date}',
+                           {date: dateCollected})}
       </p>
       <h2>{l('Release/Medium Formats')}</h2>
       <table className="tbl">

@@ -50,7 +50,7 @@ const LanguagesScripts = ({
       title={l('Languages and scripts')}
     >
       <p>
-        {texp.l('Last updated: {date}', {date: dateCollected})}
+        {texp.l_statistics('Last updated: {date}', {date: dateCollected})}
       </p>
       <p>
         {l(`All other available languages and scripts

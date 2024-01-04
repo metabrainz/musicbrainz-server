@@ -82,7 +82,7 @@ const Index = ({
   return (
     <StatisticsLayout fullWidth page="index" title={l('Overview')}>
       <p>
-        {texp.l('Last updated: {date}', {date: dateCollected})}
+        {texp.l_statistics('Last updated: {date}', {date: dateCollected})}
       </p>
       <h2>{l('Basic metadata')}</h2>
       <table className="database-statistics">
@@ -544,7 +544,7 @@ const Index = ({
               <th />
               <th />
               <th>
-                {texp.ln(
+                {texp.ln_statistics(
                   'with {num} disc ID:',
                   'with {num} disc IDs:',
                   num,
@@ -588,7 +588,7 @@ const Index = ({
               <th />
               <th />
               <th>
-                {texp.ln(
+                {texp.ln_statistics(
                   'with {num} disc ID:',
                   'with {num} disc IDs:',
                   num,

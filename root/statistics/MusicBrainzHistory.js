@@ -21,7 +21,7 @@ const MusicBrainzHistory = ({
     <h1>{l('Our glorious history')}</h1>
     {events.length
       ? events.map((event) => {
-        const title = exp.l(
+        const title = exp.l_statistics(
           '{date} - {title}',
           {date: event.date, title: event.title},
         );

@@ -70,7 +70,7 @@ const CoverArt = ({
       title={lp('Cover art', 'plural')}
     >
       <p>
-        {texp.l('Last updated: {date}', {date: dateCollected})}
+        {texp.l_statistics('Last updated: {date}', {date: dateCollected})}
       </p>
       <h2>{l('Basics')}</h2>
       {stats['count.release.has_caa'] < 1 ? (
@@ -340,7 +340,7 @@ const CoverArt = ({
               <tr key={number}>
                 <th />
                 <th>
-                  {texp.ln(
+                  {texp.ln_statistics(
                     'with {num} piece of cover art:',
                     'with {num} pieces of cover art:',
                     number,
