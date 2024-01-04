@@ -19,6 +19,10 @@ import {
   l_admin as lAdminActual,
   ln_admin as lnAdminActual,
 } from '../i18n/admin.js';
+import {
+  l_statistics as lStatisticsActual,
+  ln_statistics as lnStatisticsActual,
+} from '../i18n/statistics.js';
 
 import expand, {
   type NO_MATCH,
@@ -420,6 +424,11 @@ export const l_admin = (
   args?: ?VarArgsObject<Input>,
 ): Output => expand2react(lAdminActual(key), args);
 
+export const l_statistics = (
+  key: string,
+  args?: ?VarArgsObject<Input>,
+): Output => expand2react(lStatisticsActual(key), args);
+
 export const ln = (
   skey: string,
   pkey: string,
@@ -433,6 +442,13 @@ export const ln_admin = (
   val: number,
   args?: ?VarArgsObject<Input>,
 ): Output => expand2react(lnAdminActual(skey, pkey, val), args);
+
+export const ln_statistics = (
+  skey: string,
+  pkey: string,
+  val: number,
+  args?: ?VarArgsObject<Input>,
+): Output => expand2react(lnStatisticsActual(skey, pkey, val), args);
 
 export const lp = (
   key: string,
