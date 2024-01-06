@@ -16,8 +16,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "PO-Revision-Date: 2023-12-20 20:28+0000\n"
-"Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
-".org>\n"
+"Last-Translator: reosarevok <reosarevok@users.noreply.translations."
+"metabrainz.org>\n"
 "Language-Team: Dutch <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/nl/>\n"
 "Language: nl\n"
@@ -566,7 +566,8 @@ msgstr "Dit geeft het gebied waar een evenementenseries plaatsvindt aan."
 
 #: DB:link_type/description:715
 msgid "Indicates the area where the work had its first performance."
-msgstr "Geeft het gebied aan waar de compositie voor het eerst werd uitgevoerd."
+msgstr ""
+"Geeft het gebied aan waar de compositie voor het eerst werd uitgevoerd."
 
 #: DB:link_type/description:956
 msgid ""
@@ -1641,7 +1642,7 @@ msgstr ""
 "audioapparatuur die wordt gebruikt om geluid in zowel analoge als digitale "
 "vorm te manipuleren."
 
-#: DB:link_type/description:36 DB:link_type/description:128
+#: DB:link_type/description:128 DB:link_type/description:36
 msgid ""
 "This describes an engineer responsible for committing the performance to "
 "tape or another recording medium. This can be as complex as setting up the "
@@ -2249,6 +2250,13 @@ msgid ""
 "project (such as an audio drama or audiobook), which is usually based on a "
 "written template and involves the performance of voice actors."
 msgstr ""
+
+#: DB:link_type/description:1230
+#, fuzzy
+#| msgid "This indicates the artist was the director of this music video."
+msgid ""
+"This indicates the artist was the choreographer for this video recording."
+msgstr "Deze relatie geeft aan dat de artiest de videoclip heeft geregisseerd."
 
 #: DB:link_type/description:962
 msgid "This indicates the artist was the director of this video recording."
@@ -5182,6 +5190,12 @@ msgstr "koor"
 msgid "choral conducting"
 msgstr "koordirectie"
 
+#: DB:link_type/name:1230
+#, fuzzy
+#| msgid "photography"
+msgid "choreographer"
+msgstr "fotografie"
+
 #: DB:link_type/name:152 DB:link_type/name:53
 msgid "chorus master"
 msgstr "koorleider"
@@ -7729,7 +7743,7 @@ msgstr "opgenomen opnames"
 msgid "recorded release groups"
 msgstr "opgenomen uitgavegroepen"
 
-#: DB:link_type/name:36 DB:link_type/name:128
+#: DB:link_type/name:128 DB:link_type/name:36
 msgid "recording"
 msgstr "opname"
 
@@ -8521,7 +8535,7 @@ msgstr "was de {gast}concertmeester op"
 msgid "was the {instrument:%|instruments} technician for"
 msgstr "was de {instrument:%|instrument}technicus voor"
 
-#: DB:link_type/long_link_phrase:36 DB:link_type/long_link_phrase:128
+#: DB:link_type/long_link_phrase:128 DB:link_type/long_link_phrase:36
 msgid "was {additional} {assistant} {associate} {co:co-}recording engineer for"
 msgstr ""
 "was {additional:aanvullend} {assistant:assisterend} {associate:geassocieerd} "
@@ -8534,6 +8548,12 @@ msgstr ""
 #: DB:link_type/long_link_phrase:1165
 msgid "was {assistant} carillonneur at"
 msgstr ""
+
+#: DB:link_type/long_link_phrase:1230
+#, fuzzy
+#| msgid "was {assistant} organist at"
+msgid "was {assistant} choreographer for"
+msgstr "was {assistant:assistent-}organist van"
 
 #: DB:link_type/long_link_phrase:856
 msgid "was {assistant} organist at"
@@ -9105,13 +9125,13 @@ msgstr ""
 "{additional:aanvullende} {assistant:assisterende} {associate:geassocieerd} "
 "{co:co-}mixer"
 
-#: DB:link_type/reverse_link_phrase:36 DB:link_type/reverse_link_phrase:128
+#: DB:link_type/reverse_link_phrase:128 DB:link_type/reverse_link_phrase:36
 msgid "{additional} {assistant} {associate} {co:co-}recording engineer"
 msgstr ""
 "{additional:aanvullend} {assistant:assisterend} {associate:geassocieerd} {co:"
 "co-}opnametechnicus"
 
-#: DB:link_type/link_phrase:36 DB:link_type/link_phrase:128
+#: DB:link_type/link_phrase:128 DB:link_type/link_phrase:36
 msgid "{additional} {assistant} {associate} {co:co-}recording engineer for"
 msgstr ""
 "{additional:aanvullend} {assistant:assisterend} {associate:geassocieerd} {co:"
@@ -9235,6 +9255,18 @@ msgstr ""
 #: DB:link_type/link_phrase:1165
 msgid "{assistant} carillonneur at"
 msgstr ""
+
+#: DB:link_type/reverse_link_phrase:1230
+#, fuzzy
+#| msgid "{assistant} organists"
+msgid "{assistant} choreographer"
+msgstr "{assistant:assistent-}organisten"
+
+#: DB:link_type/link_phrase:1230
+#, fuzzy
+#| msgid "{assistant} organist at"
+msgid "{assistant} choreographer for"
+msgstr "{assistant:assistent-}organist van"
 
 #: DB:link_type/link_phrase:856
 msgid "{assistant} organist at"
@@ -9989,10 +10021,6 @@ msgstr "{vocal:%|vocale} ondersteuning voor"
 #~ msgstr ""
 #~ "Dit geeft aan dat een persoon of agentschap artistieke leiding voor deze "
 #~ "uitgave verzorgde."
-
-#~ msgid "This indicates the artist was the director of this music video."
-#~ msgstr ""
-#~ "Deze relatie geeft aan dat de artiest de videoclip heeft geregisseerd."
 
 #~ msgid ""
 #~ "This links an artist's performance name (a stage name or alias) with "

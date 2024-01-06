@@ -1535,7 +1535,7 @@ msgstr ""
 "תאור מהנדס המעורב במכונות המשמשות להפקת שמע, כגון מעבדי פעלולים וציוד שמע "
 "דיגיטלי המשמש לשינוי או להשפיע על השמע בצורה אנלוגית או דיגיטלית."
 
-#: DB:link_type/description:36 DB:link_type/description:128
+#: DB:link_type/description:128 DB:link_type/description:36
 msgid ""
 "This describes an engineer responsible for committing the performance to "
 "tape or another recording medium. This can be as complex as setting up the "
@@ -2060,6 +2060,13 @@ msgid ""
 "project (such as an audio drama or audiobook), which is usually based on a "
 "written template and involves the performance of voice actors."
 msgstr ""
+
+#: DB:link_type/description:1230
+#, fuzzy
+#| msgid "This indicates the artist was the director of this music video."
+msgid ""
+"This indicates the artist was the choreographer for this video recording."
+msgstr "ציון שאמן היה הבמאי של חוזי המוזיקה."
 
 #: DB:link_type/description:962
 msgid "This indicates the artist was the director of this video recording."
@@ -4832,6 +4839,12 @@ msgstr "קולות מקהלה"
 msgid "choral conducting"
 msgstr "ניצוח מקהלה"
 
+#: DB:link_type/name:1230
+#, fuzzy
+#| msgid "photography"
+msgid "choreographer"
+msgstr "צילום"
+
 #: DB:link_type/name:152 DB:link_type/name:53
 msgid "chorus master"
 msgstr "מנהל(ת) מקהלה"
@@ -7372,7 +7385,7 @@ msgstr "הקלטות הוקלטו"
 msgid "recorded release groups"
 msgstr "קבוצות הוצאה הוקלטה"
 
-#: DB:link_type/name:36 DB:link_type/name:128
+#: DB:link_type/name:128 DB:link_type/name:36
 msgid "recording"
 msgstr "הקלטה"
 
@@ -8164,7 +8177,7 @@ msgstr "היו {guest} מנהל(ת) הקונצרט של"
 msgid "was the {instrument:%|instruments} technician for"
 msgstr "{instrument:%|instruments} טכנאי של"
 
-#: DB:link_type/long_link_phrase:36 DB:link_type/long_link_phrase:128
+#: DB:link_type/long_link_phrase:128 DB:link_type/long_link_phrase:36
 msgid "was {additional} {assistant} {associate} {co:co-}recording engineer for"
 msgstr " {additional} {assistant} {associate} {co:co-}מהנדס הקלטה ל־"
 
@@ -8175,6 +8188,12 @@ msgstr ""
 #: DB:link_type/long_link_phrase:1165
 msgid "was {assistant} carillonneur at"
 msgstr ""
+
+#: DB:link_type/long_link_phrase:1230
+#, fuzzy
+#| msgid "was {assistant} organist at"
+msgid "was {assistant} choreographer for"
+msgstr "{assistant} אורגניסט ב־"
 
 #: DB:link_type/long_link_phrase:856
 msgid "was {assistant} organist at"
@@ -8721,11 +8740,11 @@ msgstr "{additional} {assistant} {associate} {co:co-}עותק־אב"
 msgid "{additional} {assistant} {associate} {co:co-}mixer"
 msgstr "{additional} {assistant} {associate} {co:co-}מערבל"
 
-#: DB:link_type/reverse_link_phrase:36 DB:link_type/reverse_link_phrase:128
+#: DB:link_type/reverse_link_phrase:128 DB:link_type/reverse_link_phrase:36
 msgid "{additional} {assistant} {associate} {co:co-}recording engineer"
 msgstr "{additional} {assistant} {associate} {co:co-}מהנדס הקלטה"
 
-#: DB:link_type/link_phrase:36 DB:link_type/link_phrase:128
+#: DB:link_type/link_phrase:128 DB:link_type/link_phrase:36
 msgid "{additional} {assistant} {associate} {co:co-}recording engineer for"
 msgstr "{additional} {assistant} {associate} {co:co-}מהנדס הקלטה ל־"
 
@@ -8834,6 +8853,18 @@ msgstr ""
 #: DB:link_type/link_phrase:1165
 msgid "{assistant} carillonneur at"
 msgstr ""
+
+#: DB:link_type/reverse_link_phrase:1230
+#, fuzzy
+#| msgid "{assistant} organists"
+msgid "{assistant} choreographer"
+msgstr "{assistant} אורגניסט"
+
+#: DB:link_type/link_phrase:1230
+#, fuzzy
+#| msgid "{assistant} organist at"
+msgid "{assistant} choreographer for"
+msgstr "{assistant} אורגניסט ב־"
 
 #: DB:link_type/link_phrase:856
 msgid "{assistant} organist at"
@@ -9511,9 +9542,6 @@ msgstr "תמיכה עבור {vocal:%|vocals}"
 #~ "This indicates that a person or agency did the art direction for the "
 #~ "release."
 #~ msgstr "ציון אדם או סוכנות שבצעו נהול אמנותי עבור הוצאה."
-
-#~ msgid "This indicates the artist was the director of this music video."
-#~ msgstr "ציון שאמן היה הבמאי של חוזי המוזיקה."
 
 #~ msgid ""
 #~ "This links an artist's performance name (a stage name or alias) with "

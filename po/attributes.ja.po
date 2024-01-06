@@ -844,6 +844,14 @@ msgctxt "work_attribute_type"
 msgid "ACDAM ID"
 msgstr "ACDAM ID"
 
+#: DB:work_attribute_type/name:206
+#, fuzzy
+#| msgctxt "work_attribute_type"
+#| msgid "ACAM ID"
+msgctxt "work_attribute_type"
+msgid "ACUM ID"
+msgstr "ACAM ID"
+
 #: DB:work_attribute_type/name:58
 msgctxt "work_attribute_type"
 msgid "AEI ID"
@@ -3971,6 +3979,14 @@ msgstr "イギリス・スウェーデン・ドイツの権利者団体ICEのID"
 msgctxt "work_attribute_type"
 msgid "ID for the Irish rights society IMRO"
 msgstr "アイルランドの権利者団体IMROのID"
+
+#: DB:work_attribute_type/description:206
+#, fuzzy
+#| msgctxt "work_attribute_type"
+#| msgid "ID for the Austrian rights society AKM"
+msgctxt "work_attribute_type"
+msgid "ID for the Israeli rights society ACUM"
+msgstr " オーストリアの権利者団体AKMのID"
 
 #: DB:work_attribute_type/description:36
 msgctxt "work_attribute_type"

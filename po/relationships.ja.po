@@ -1652,7 +1652,7 @@ msgstr ""
 "れるエフェクトプロセッサやデジタルオーディオ機器など、サウンドを生成するため"
 "に使用されるマシンに関与するエンジニアについて説明している。"
 
-#: DB:link_type/description:36 DB:link_type/description:128
+#: DB:link_type/description:128 DB:link_type/description:36
 msgid ""
 "This describes an engineer responsible for committing the performance to "
 "tape or another recording medium. This can be as complex as setting up the "
@@ -2216,6 +2216,13 @@ msgid ""
 "project (such as an audio drama or audiobook), which is usually based on a "
 "written template and involves the performance of voice actors."
 msgstr ""
+
+#: DB:link_type/description:1230
+#, fuzzy
+#| msgid "This indicates the artist was the director of this music video."
+msgid ""
+"This indicates the artist was the choreographer for this video recording."
+msgstr "これは、アーティストがこのミュージックビデオの監督であったことを示す。"
 
 #: DB:link_type/description:962
 msgid "This indicates the artist was the director of this video recording."
@@ -5125,6 +5132,12 @@ msgstr "合唱団のボーカル"
 msgid "choral conducting"
 msgstr ""
 
+#: DB:link_type/name:1230
+#, fuzzy
+#| msgid "discography entry"
+msgid "choreographer"
+msgstr "ディスコグラフィー項目"
+
 #: DB:link_type/name:152 DB:link_type/name:53
 msgid "chorus master"
 msgstr "コーラスマスター"
@@ -7661,7 +7674,7 @@ msgstr ""
 msgid "recorded release groups"
 msgstr ""
 
-#: DB:link_type/name:36 DB:link_type/name:128
+#: DB:link_type/name:128 DB:link_type/name:36
 msgid "recording"
 msgstr "レコーディング"
 
@@ -8453,7 +8466,7 @@ msgstr ""
 msgid "was the {instrument:%|instruments} technician for"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:36 DB:link_type/long_link_phrase:128
+#: DB:link_type/long_link_phrase:128 DB:link_type/long_link_phrase:36
 msgid "was {additional} {assistant} {associate} {co:co-}recording engineer for"
 msgstr ""
 
@@ -8463,6 +8476,10 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:1165
 msgid "was {assistant} carillonneur at"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:1230
+msgid "was {assistant} choreographer for"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:856
@@ -9019,13 +9036,13 @@ msgstr "{additional:補助的な} {assistant} {associate} {co:共同}マスタ�
 msgid "{additional} {assistant} {associate} {co:co-}mixer"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:36 DB:link_type/reverse_link_phrase:128
+#: DB:link_type/reverse_link_phrase:128 DB:link_type/reverse_link_phrase:36
 msgid "{additional} {assistant} {associate} {co:co-}recording engineer"
 msgstr ""
 "{additional:補助的な} {assistant} {associate} {co:共同}レコーディングエンジニ"
 "ア"
 
-#: DB:link_type/link_phrase:36 DB:link_type/link_phrase:128
+#: DB:link_type/link_phrase:128 DB:link_type/link_phrase:36
 msgid "{additional} {assistant} {associate} {co:co-}recording engineer for"
 msgstr ""
 
@@ -9138,6 +9155,18 @@ msgstr ""
 #: DB:link_type/link_phrase:1165
 msgid "{assistant} carillonneur at"
 msgstr ""
+
+#: DB:link_type/reverse_link_phrase:1230
+#, fuzzy
+#| msgid "{assistant} organists"
+msgid "{assistant} choreographer"
+msgstr "{assistant}オルガン奏者"
+
+#: DB:link_type/link_phrase:1230
+#, fuzzy
+#| msgid "{assistant} organists"
+msgid "{assistant} choreographer for"
+msgstr "{assistant}オルガン奏者"
 
 #: DB:link_type/link_phrase:856
 msgid "{assistant} organist at"
@@ -9799,10 +9828,6 @@ msgstr ""
 #~ msgstr ""
 #~ "これは、個人または代理店がリリースのアートディレクションを行ったことを示"
 #~ "す。"
-
-#~ msgid "This indicates the artist was the director of this music video."
-#~ msgstr ""
-#~ "これは、アーティストがこのミュージックビデオの監督であったことを示す。"
 
 #~ msgid ""
 #~ "This links an artist's performance name (a stage name or alias) with "

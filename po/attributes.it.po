@@ -24,8 +24,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
-" ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
+"0) ? 1 : 2);\n"
 "X-Generator: Weblate 5.3\n"
 
 #: DB:work_type/description:9
@@ -993,6 +993,14 @@ msgstr "ID ACAM"
 msgctxt "work_attribute_type"
 msgid "ACDAM ID"
 msgstr "ID ACDAM"
+
+#: DB:work_attribute_type/name:206
+#, fuzzy
+#| msgctxt "work_attribute_type"
+#| msgid "ACAM ID"
+msgctxt "work_attribute_type"
+msgid "ACUM ID"
+msgstr "ID ACAM"
 
 #: DB:work_attribute_type/name:58
 msgctxt "work_attribute_type"
@@ -4153,6 +4161,14 @@ msgstr "ID per l'International Copyright Enterprise"
 msgctxt "work_attribute_type"
 msgid "ID for the Irish rights society IMRO"
 msgstr "ID per la società di diritti irlandese IMRO"
+
+#: DB:work_attribute_type/description:206
+#, fuzzy
+#| msgctxt "work_attribute_type"
+#| msgid "ID for the Austrian rights society AKM"
+msgctxt "work_attribute_type"
+msgid "ID for the Israeli rights society ACUM"
+msgstr "ID per la società di diritti austriaca AKM"
 
 #: DB:work_attribute_type/description:36
 msgctxt "work_attribute_type"

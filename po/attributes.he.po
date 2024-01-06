@@ -806,6 +806,14 @@ msgctxt "work_attribute_type"
 msgid "ACDAM ID"
 msgstr "מזהה ACDAM"
 
+#: DB:work_attribute_type/name:206
+#, fuzzy
+#| msgctxt "work_attribute_type"
+#| msgid "ACAM ID"
+msgctxt "work_attribute_type"
+msgid "ACUM ID"
+msgstr "מזהה ACAM"
+
 #: DB:work_attribute_type/name:58
 msgctxt "work_attribute_type"
 msgid "AEI ID"
@@ -3926,6 +3934,14 @@ msgstr "מזהה עבור ארגון זכויות היוצרים הבינלאו�
 msgctxt "work_attribute_type"
 msgid "ID for the Irish rights society IMRO"
 msgstr ""
+
+#: DB:work_attribute_type/description:206
+#, fuzzy
+#| msgctxt "work_attribute_type"
+#| msgid "ID for the Austrian rights society AKM"
+msgctxt "work_attribute_type"
+msgid "ID for the Israeli rights society ACUM"
+msgstr "מזהה עבור אגודת הזכויות האוסטרית AKM"
 
 #: DB:work_attribute_type/description:36
 msgctxt "work_attribute_type"

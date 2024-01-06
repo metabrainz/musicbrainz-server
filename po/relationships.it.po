@@ -28,8 +28,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
-" ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
+"0) ? 1 : 2);\n"
 "X-Generator: Weblate 5.3\n"
 
 #: DB:link_attribute_type/description:1355
@@ -1679,7 +1679,7 @@ msgstr ""
 "gli effetti musicali e l'attrezzatura audio digitale utilizzata per "
 "modificare o manipolare il suono in forma analogica o digitale."
 
-#: DB:link_type/description:36 DB:link_type/description:128
+#: DB:link_type/description:128 DB:link_type/description:36
 msgid ""
 "This describes an engineer responsible for committing the performance to "
 "tape or another recording medium. This can be as complex as setting up the "
@@ -2316,6 +2316,13 @@ msgstr ""
 "Questo è l'artista responsabile per la realizzazione creativa di un progetto "
 "sonoro (come un audiodramma o un audiolibro), che si basa solitamente su un "
 "copione scritto e implica l'esibizione di attori o doppiatori."
+
+#: DB:link_type/description:1230
+#, fuzzy
+#| msgid "This indicates the artist was the director of this video recording."
+msgid ""
+"This indicates the artist was the choreographer for this video recording."
+msgstr "Indica che l'artista è stato il regista di questa registrazione video."
 
 #: DB:link_type/description:962
 msgid "This indicates the artist was the director of this video recording."
@@ -3760,8 +3767,8 @@ msgstr ""
 "VIAF è un progetto internazionale che mette a disposizione delle biblioteche "
 "di tutto il mondo un database di voci di autorità comuni. Una voce di "
 "autorità è simile a un MBID per biblioteche (<a href=\"//en.wikipedia.org/"
-"wiki/Virtual_International_Authority_File\">più informazioni su "
-"Wikipedia</a>)."
+"wiki/Virtual_International_Authority_File\">più informazioni su Wikipedia</"
+"a>)."
 
 #: DB:link_type/description:920
 msgid ""
@@ -4272,9 +4279,8 @@ msgstr ""
 "Questo tipo di relazione serve a indicare che un gruppo di pubblicazioni è "
 "una cover di un altro gruppo di pubblicazioni, cioè che un artista ha "
 "eseguito una nuova interpretazione di un album di un altro artista.<br/>\n"
-"Per canzoni singole, utilizza il <a href=\"/relationship/"
-"a3005666-a872-32c3-ad06-98af558e99b0\">tipo di relazione esecuzione "
-"registrazione-opera</a>."
+"Per canzoni singole, utilizza il <a href=\"/relationship/a3005666-a872-32c3-"
+"ad06-98af558e99b0\">tipo di relazione esecuzione registrazione-opera</a>."
 
 #: DB:link_type/description:1229
 msgid ""
@@ -4292,12 +4298,12 @@ msgstr ""
 "una ri-registrazione di un altro gruppo di pubblicazioni, cioè che un "
 "artista ha eseguito una nuova interpretazione in studio di un suo stesso "
 "album.<br/>\n"
-"Per un'esecuzione dal vivo di un album, utilizza il <a href=\"/relationship/"
-"62beff0a-679c-43f3-8fe6-f6c8ed8581e4\">tipo di relazione esecuzione dal "
-"vivo</a>.<br/>\n"
+"Per un'esecuzione dal vivo di un album, utilizza il <a href=\"/"
+"relationship/62beff0a-679c-43f3-8fe6-f6c8ed8581e4\">tipo di relazione "
+"esecuzione dal vivo</a>.<br/>\n"
 "Per una registrazione cover di un album da parte di un artista diverso, "
-"utilizza il <a href=\"/relationship/cf02e524-9d5b-46b7-a88e-329737395818\""
-">tipo di relazione cover</a>."
+"utilizza il <a href=\"/relationship/cf02e524-9d5b-46b7-"
+"a88e-329737395818\">tipo di relazione cover</a>."
 
 #: DB:link_type/description:1005
 msgid ""
@@ -5331,6 +5337,12 @@ msgstr "cori"
 #: DB:link_attribute_type/name:1224
 msgid "choral conducting"
 msgstr "direzione del coro"
+
+#: DB:link_type/name:1230
+#, fuzzy
+#| msgid "photography"
+msgid "choreographer"
+msgstr "fotografia"
 
 #: DB:link_type/name:152 DB:link_type/name:53
 msgid "chorus master"
@@ -7487,8 +7499,8 @@ msgstr ""
 #: DB:link_type/long_link_phrase:60 DB:link_type/long_link_phrase:149
 msgid "performed {additional} {guest} {solo} {vocal:%|vocals} on"
 msgstr ""
-"ha eseguito {vocal:%|la voce} {solo:solista} {guest:ospite} "
-"{additional:aggiuntiva} su"
+"ha eseguito {vocal:%|la voce} {solo:solista} {guest:ospite} {additional:"
+"aggiuntiva} su"
 
 #: DB:link_type/name:51 DB:link_type/name:156
 msgid "performer"
@@ -7882,7 +7894,7 @@ msgstr "registrazioni registrate"
 msgid "recorded release groups"
 msgstr "gruppi di pubblicazioni registrati"
 
-#: DB:link_type/name:36 DB:link_type/name:128
+#: DB:link_type/name:128 DB:link_type/name:36
 msgid "recording"
 msgstr "registrazione"
 
@@ -8668,7 +8680,7 @@ msgstr "è stato il primo violino {guest:ospite} per"
 msgid "was the {instrument:%|instruments} technician for"
 msgstr "è stato il tecnico di {instrument:%|strumenti} per"
 
-#: DB:link_type/long_link_phrase:36 DB:link_type/long_link_phrase:128
+#: DB:link_type/long_link_phrase:128 DB:link_type/long_link_phrase:36
 msgid "was {additional} {assistant} {associate} {co:co-}recording engineer for"
 msgstr ""
 "è stato un {assistant:assistente} {co:co-}tecnico di registrazione "
@@ -8681,6 +8693,12 @@ msgstr "è stato {assistant:assistente} direttore del suono per"
 #: DB:link_type/long_link_phrase:1165
 msgid "was {assistant} carillonneur at"
 msgstr "è stato {assistant:assistente} carillonneur presso"
+
+#: DB:link_type/long_link_phrase:1230
+#, fuzzy
+#| msgid "was {assistant} audio director for"
+msgid "was {assistant} choreographer for"
+msgstr "è stato {assistant:assistente} direttore del suono per"
 
 #: DB:link_type/long_link_phrase:856
 msgid "was {assistant} organist at"
@@ -9264,13 +9282,13 @@ msgstr ""
 "{assistant:assistente} {co:co-}tecnico di missaggio {associate:associato} "
 "{additional:aggiunto}"
 
-#: DB:link_type/reverse_link_phrase:36 DB:link_type/reverse_link_phrase:128
+#: DB:link_type/reverse_link_phrase:128 DB:link_type/reverse_link_phrase:36
 msgid "{additional} {assistant} {associate} {co:co-}recording engineer"
 msgstr ""
 "{assistant:assistente} {co:co-}tecnico di registrazione {associate:"
 "associato} {additional:aggiunto}"
 
-#: DB:link_type/link_phrase:36 DB:link_type/link_phrase:128
+#: DB:link_type/link_phrase:128 DB:link_type/link_phrase:36
 msgid "{additional} {assistant} {associate} {co:co-}recording engineer for"
 msgstr ""
 "{assistant:assistente} {co:co-}tecnico di registrazione {associate:"
@@ -9337,8 +9355,8 @@ msgstr ""
 #: DB:link_type/reverse_link_phrase:298
 msgid "{additional} {associate} {vocal:%|vocals} {co:co-}arranger"
 msgstr ""
-"{co:co-}arrangiatore {vocal:%|voci} {associate:associato} "
-"{additional:aggiunto}"
+"{co:co-}arrangiatore {vocal:%|voci} {associate:associato} {additional:"
+"aggiunto}"
 
 #: DB:link_type/reverse_link_phrase:51 DB:link_type/reverse_link_phrase:156
 msgid "{additional} {guest} {solo} performer"
@@ -9399,6 +9417,18 @@ msgstr "{assistant:assistente} carillonneur"
 #: DB:link_type/link_phrase:1165
 msgid "{assistant} carillonneur at"
 msgstr "{assistant:assistente} carillonneur presso"
+
+#: DB:link_type/reverse_link_phrase:1230
+#, fuzzy
+#| msgid "{assistant} organists"
+msgid "{assistant} choreographer"
+msgstr "{assistant:assistenti} organisti"
+
+#: DB:link_type/link_phrase:1230
+#, fuzzy
+#| msgid "{assistant} audio director for"
+msgid "{assistant} choreographer for"
+msgstr "{assistant:assistente} direttore del suono per"
 
 #: DB:link_type/link_phrase:856
 msgid "{assistant} organist at"

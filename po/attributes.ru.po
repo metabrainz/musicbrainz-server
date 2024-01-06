@@ -35,8 +35,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
-"n%100>=11 && n%100<=14)? 2 : 3);\n"
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
 "X-Generator: Weblate 5.3\n"
 
 #: DB:work_type/description:9
@@ -46,8 +46,8 @@ msgid ""
 "unaccompanied) choral works. What exactly is a motet depends quite a bit on "
 "the period."
 msgstr ""
-"Мотет – термин, который применяется к различным типам хоровых произведений ("
-"обычно без аккомпанемента). Музыкальная формата мотета меняется в разные "
+"Мотет – термин, который применяется к различным типам хоровых произведений "
+"(обычно без аккомпанемента). Музыкальная формата мотета меняется в разные "
 "временные эпохи."
 
 #: DB:work_type/description:5
@@ -874,6 +874,14 @@ msgstr ""
 msgctxt "work_attribute_type"
 msgid "ACDAM ID"
 msgstr ""
+
+#: DB:work_attribute_type/name:206
+#, fuzzy
+#| msgctxt "work_attribute_type"
+#| msgid "SACM ID"
+msgctxt "work_attribute_type"
+msgid "ACUM ID"
+msgstr "SACM ID"
 
 #: DB:work_attribute_type/name:58
 msgctxt "work_attribute_type"
@@ -3995,6 +4003,14 @@ msgstr "ID Международного авторского права"
 msgctxt "work_attribute_type"
 msgid "ID for the Irish rights society IMRO"
 msgstr ""
+
+#: DB:work_attribute_type/description:206
+#, fuzzy
+#| msgctxt "work_attribute_type"
+#| msgid "ID for the Mexican rights society SACM"
+msgctxt "work_attribute_type"
+msgid "ID for the Israeli rights society ACUM"
+msgstr "ID Мексиканского правового общества SACM"
 
 #: DB:work_attribute_type/description:36
 msgctxt "work_attribute_type"
