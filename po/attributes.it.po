@@ -11,11 +11,11 @@
 # salo.rock, 2012
 # salo.rock, 2022-2023
 # "salo.rock" <salo.rock+musicbrainz@gmail.com>, 2023.
-# "salo.rock" <salo.rock@users.noreply.translations.metabrainz.org>, 2023.
+# "salo.rock" <salo.rock@users.noreply.translations.metabrainz.org>, 2023, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-12-23 15:28+0000\n"
+"PO-Revision-Date: 2024-01-03 15:17+0000\n"
 "Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
 "metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -24,8 +24,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
 "X-Generator: Weblate 5.3\n"
 
 #: DB:work_type/description:9
@@ -46,8 +46,8 @@ msgid ""
 "or solo + keyboard) instrumental works, initially in baroque music."
 msgstr ""
 "\"Sonata\" è un termine generale usato per descrivere composizioni "
-"strumentali in scala ridotta (molto spesso per solisti o solisti + "
-"tastiera), inizialmente usate nella musica barocca."
+"strumentali in scala ridotta (molto spesso per solisti o solisti + tastiera)"
+", inizialmente usate nella musica barocca."
 
 #: DB:medium_format/name:205
 msgctxt "medium_format"
@@ -995,12 +995,9 @@ msgid "ACDAM ID"
 msgstr "ID ACDAM"
 
 #: DB:work_attribute_type/name:206
-#, fuzzy
-#| msgctxt "work_attribute_type"
-#| msgid "ACAM ID"
 msgctxt "work_attribute_type"
 msgid "ACUM ID"
-msgstr "ID ACAM"
+msgstr "ID ACUM"
 
 #: DB:work_attribute_type/name:58
 msgctxt "work_attribute_type"
@@ -4163,12 +4160,9 @@ msgid "ID for the Irish rights society IMRO"
 msgstr "ID per la società di diritti irlandese IMRO"
 
 #: DB:work_attribute_type/description:206
-#, fuzzy
-#| msgctxt "work_attribute_type"
-#| msgid "ID for the Austrian rights society AKM"
 msgctxt "work_attribute_type"
 msgid "ID for the Israeli rights society ACUM"
-msgstr "ID per la società di diritti austriaca AKM"
+msgstr "ID per la società di diritti israeliana ACUM"
 
 #: DB:work_attribute_type/description:36
 msgctxt "work_attribute_type"
