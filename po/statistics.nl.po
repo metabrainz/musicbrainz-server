@@ -7,13 +7,13 @@
 # Nikolai Prokoschenko <email address hidden>, 2011
 # Remko de Keijzer <email address hidden>, 2021
 # kellnerd <kellnerd@users.noreply.translations.metabrainz.org>, 2023.
-# mfmeulenbelt <mfmeulenbelt@users.noreply.translations.metabrainz.org>, 2023.
+# mfmeulenbelt <mfmeulenbelt@users.noreply.translations.metabrainz.org>, 2023, 2024.
 # reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-12-20 20:28+0000\n"
+"PO-Revision-Date: 2024-01-06 02:28+0000\n"
 "Last-Translator: mfmeulenbelt <mfmeulenbelt@users.noreply.translations."
 "metabrainz.org>\n"
 "Language-Team: Dutch <https://translations.metabrainz.org/projects/"
@@ -291,7 +291,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/description:2003-06-22
 msgid "Artist subscriptions."
-msgstr "Abonnementen op artiesten"
+msgstr "Abonnementen op artiesten."
 
 #: DB:statistics.statistic_event/description:2017-04-11
 msgid ""
@@ -1731,7 +1731,7 @@ msgstr "Kernobjecten"
 #: ../root/statistics/Index.js:686 ../root/statistics/Index.js:689
 #: ../root/statistics/stats.js:654
 msgid "Recordings"
-msgstr "Opnames"
+msgstr "Opnamen"
 
 #: ../root/statistics/Index.js:114 ../root/statistics/stats.js:839
 msgid "Tracks"
@@ -2385,7 +2385,7 @@ msgstr "Verpakkingen van uitgaven"
 
 #: ../root/statistics/stats.js:37
 msgid "Release data quality"
-msgstr "Gegevenskwaliteit van de uitgaven"
+msgstr "Gegevenskwaliteit van de uitgave"
 
 #: ../root/statistics/stats.js:38
 msgid "Release scripts"
@@ -2545,7 +2545,7 @@ msgstr "Collecties van plaatsen"
 
 #: ../root/statistics/stats.js:243
 msgid "Recording collections"
-msgstr "Collecties van opnames"
+msgstr "Collecties van opnamen"
 
 #: ../root/statistics/stats.js:248
 msgid "Collections of type Release"
@@ -2783,7 +2783,7 @@ msgstr "Waarderingen van plaatsen"
 
 #: ../root/statistics/stats.js:624
 msgid "Recording ratings"
-msgstr "Waarderingen van opnames"
+msgstr "Waarderingen van opnamen"
 
 #: ../root/statistics/stats.js:629
 msgid "Release group ratings"
@@ -2791,7 +2791,7 @@ msgstr "Waarderingen van uitgavegroepen"
 
 #: ../root/statistics/stats.js:634
 msgid "Work ratings"
-msgstr "Compositiewaarderingen"
+msgstr "Waarderingen van composities"
 
 #: ../root/statistics/stats.js:639
 msgid "Recordings with ratings"
