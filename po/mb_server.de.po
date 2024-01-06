@@ -67,7 +67,7 @@
 # yvanz, 2018
 # chaban <chaban@users.noreply.translations.metabrainz.org>, 2023.
 # Philipp Wolfer <ph.wolfer@gmail.com>, 2023.
-# kellnerd <kellnerd@users.noreply.translations.metabrainz.org>, 2023.
+# kellnerd <kellnerd@users.noreply.translations.metabrainz.org>, 2023, 2024.
 # aerozol <aerozol@users.noreply.translations.metabrainz.org>, 2023.
 # yvanzo <yvanzo@users.noreply.translations.metabrainz.org>, 2023.
 msgid ""
@@ -75,7 +75,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-02 10:11+0200\n"
-"PO-Revision-Date: 2023-12-20 12:38+0000\n"
+"PO-Revision-Date: 2024-01-04 14:53+0000\n"
 "Last-Translator: kellnerd <kellnerd@users.noreply.translations.metabrainz."
 "org>\n"
 "Language-Team: German <https://translations.metabrainz.org/projects/"
@@ -3723,7 +3723,7 @@ msgstr "{name} – {additional_info}"
 #: ../root/cdtoc/attach_filter_release.tt:20
 msgid "{num} release found matching your query."
 msgid_plural "{num} releases found matching your query."
-msgstr[0] "{num} auf deine Anfrage zutreffende Veröffentlichung gefunden."
+msgstr[0] "Eine auf deine Anfrage zutreffende Veröffentlichung gefunden."
 msgstr[1] "{num} auf deine Anfrage zutreffende Veröffentlichungen gefunden."
 
 #: ../root/components/common-macros.tt:203
@@ -5439,12 +5439,14 @@ msgstr "Dieser Alias existiert bereits."
 
 #: ../lib/MusicBrainz/Server/Form/Application.pm:48
 msgid "Redirect URL must be entered for web applications."
-msgstr ""
+msgstr "Für Web‐Anwendungen muss eine Umleitungs‐URL eingegeben werden."
 
 #: ../lib/MusicBrainz/Server/Form/Application.pm:52
 msgid ""
 "Redirect URL scheme must be either “http” or “https” for web applications."
 msgstr ""
+"Umleitungs‐URL‐Schema für Web‐Anwendungen muss entweder „http“ oder „https“ "
+"sein."
 
 #: ../lib/MusicBrainz/Server/Form/Application.pm:59
 #, perl-brace-format
@@ -5452,6 +5454,8 @@ msgid ""
 "Redirect URL scheme must be a reverse-DNS string, as in “{example_url}”, for "
 "installed applications."
 msgstr ""
+"Umleitungs‐URL‐Schema für installierte Anwendungen muss eine Zeichenkette in "
+"Reverse Domain Name Notation sein, wie in „{example_url}“."
 
 #: ../lib/MusicBrainz/Server/Form/Area.pm:88
 msgid "An area already exists with this ISO code"
@@ -6328,7 +6332,7 @@ msgstr "Anwendungen"
 #: ../root/account/applications/ApplicationList.js:97
 #: ../root/user/UserProfile.js:306
 msgid "Authorized applications"
-msgstr ""
+msgstr "Authorisierte Anwendungen"
 
 #: ../root/account/applications/ApplicationList.js:101
 msgid ""
@@ -6375,7 +6379,7 @@ msgstr "Du hast keinen Anwendungen Zugriff gewährt."
 #: ../root/account/applications/ApplicationList.js:132
 #: ../root/user/UserProfile.js:322
 msgid "Developer applications"
-msgstr ""
+msgstr "Entwickler‐Anwendungen"
 
 #: ../root/account/applications/ApplicationList.js:136
 msgid ""
@@ -6764,7 +6768,7 @@ msgstr "Benutzer"
 #: ../root/area/AreaUsers.js:31
 msgid "There is currently {num} user in this area."
 msgid_plural "There are currently {num} users in this area."
-msgstr[0] "Derzeit gibt es {num} Benutzer in diesem Gebiet."
+msgstr[0] "Derzeit gibt es einen Benutzer in diesem Gebiet."
 msgstr[1] "Derzeit gibt es {num} Benutzer in diesem Gebiet."
 
 #: ../root/area/AreaUsers.js:37
@@ -7903,7 +7907,7 @@ msgstr "Serien"
 #: ../root/components/TagEntitiesList.js:195
 msgid "See all {num} series"
 msgid_plural "See all {num} series"
-msgstr[0] "Alle {num} Instrumente anzeigen"
+msgstr[0] "Alle {num} Serien anzeigen"
 msgstr[1] "Alle {num} Serien anzeigen"
 
 #: ../root/components/TagEntitiesList.js:199
@@ -8412,13 +8416,13 @@ msgstr "Bearbeitung abbrechen"
 #: ../root/edit/components/EditList.js:82
 msgid "Found at least {n} edit"
 msgid_plural "Found at least {n} edits"
-msgstr[0] "Mindestens {n} Bearbeitung gefunden"
+msgstr[0] "Mindestens eine Bearbeitung gefunden"
 msgstr[1] "Mindestens {n} Bearbeitungen gefunden"
 
 #: ../root/edit/components/EditList.js:89
 msgid "Found {n} edit"
 msgid_plural "Found {n} edits"
-msgstr[0] "{n} Bearbeitung gefunden"
+msgstr[0] "Eine Bearbeitung gefunden"
 msgstr[1] "{n} Bearbeitungen gefunden"
 
 #: ../root/edit/components/EditList.js:105
@@ -8498,7 +8502,7 @@ msgstr "Um schneller zu schließen"
 msgid "1 vote"
 msgid_plural "{n} unanimous votes"
 msgstr[0] "1 Stimme"
-msgstr[1] "{n} Einstimmige Stimmen"
+msgstr[1] "{n} einstimmige Stimmen"
 
 #: ../root/edit/components/EditSidebar.js:80
 msgid "If no votes cast"
@@ -9008,7 +9012,7 @@ msgstr "Diese Bearbeitung veränderte auch die Titelkünstler."
 #: ../root/edit/details/EditUrl.js:68
 msgid "This change affects {num} relationship."
 msgid_plural "This change affects {num} relationships."
-msgstr[0] "Diese Änderung betrifft {num} Beziehung."
+msgstr[0] "Diese Änderung betrifft eine Beziehung."
 msgstr[1] "Diese Änderung betrifft {num} Beziehungen."
 
 #: ../root/edit/details/EditUrl.js:77
@@ -9494,7 +9498,7 @@ msgstr ""
 #: ../root/entity/Collections.js:40
 msgid "{entity} has been added to {num} collection:"
 msgid_plural "{entity} has been added to {num} collections:"
-msgstr[0] "{entity} wurde zu {num} Sammlung hinzugefügt:"
+msgstr[0] "{entity} wurde zu einer Sammlung hinzugefügt:"
 msgstr[1] "{entity} wurde zu {num} Sammlungen hinzugefügt:"
 
 #: ../root/entity/Collections.js:50
@@ -9504,7 +9508,7 @@ msgstr "{collection} von {owner}"
 #: ../root/entity/Collections.js:62
 msgid "plus {n} other private collection"
 msgid_plural "plus {n} other private collections"
-msgstr[0] "sowie {n} weitere private Sammlung"
+msgstr[0] "sowie eine weitere private Sammlung"
 msgstr[1] "sowie {n} weitere private Sammlungen"
 
 #: ../root/entity/Collections.js:71
@@ -9866,7 +9870,7 @@ msgstr ""
 #: ../root/entity/Ratings.js:68
 msgid "{count} private rating not listed."
 msgid_plural "{count} private ratings not listed."
-msgstr[0] "{count} private Bewertung nicht angezeigt."
+msgstr[0] "Eine private Bewertung nicht angezeigt."
 msgstr[1] "{count} private Bewertungen nicht angezeigt."
 
 #: ../root/entity/Ratings.js:75
@@ -9893,7 +9897,7 @@ msgstr ""
 msgid "There is currently {num} user subscribed to edits that you make:"
 msgid_plural ""
 "There are currently {num} users subscribed to edits that you make:"
-msgstr[0] "Derzeit abonniert {num} Benutzer deine Bearbeitungen:"
+msgstr[0] "Derzeit abonniert ein Benutzer deine Bearbeitungen:"
 msgstr[1] "Derzeit abonnieren {num} Benutzer deine Bearbeitungen:"
 
 #: ../root/entity/Subscribers.js:79
@@ -9901,21 +9905,21 @@ msgid "There is currently {num} user subscribed to edits that {user} makes:"
 msgid_plural ""
 "There are currently {num} users subscribed to edits that {user} makes:"
 msgstr[0] ""
-"Derzeit gibt es {num} Benutzer, der die Bearbeitungen von {user} abonniert:"
+"Derzeit gibt es einen Benutzer, der die Bearbeitungen von {user} abonniert:"
 msgstr[1] ""
 "Derzeit gibt es {num} Benutzer, die die Bearbeitungen von {user} abonnieren:"
 
 #: ../root/entity/Subscribers.js:92
 msgid "There is currently {num} user subscribed to {entity}:"
 msgid_plural "There are currently {num} users subscribed to {entity}:"
-msgstr[0] "Derzeit gibt es {num} Benutzer, der {entity} abonniert:"
+msgstr[0] "Derzeit gibt es einen Benutzer, der {entity} abonniert:"
 msgstr[1] "Derzeit gibt es {num} Benutzer, die {entity} abonnieren:"
 
 #: ../root/entity/Subscribers.js:111
 msgid "Plus {n} other anonymous user"
 msgid_plural "Plus {n} other anonymous users"
-msgstr[0] "Plus {n} weiterer anonymer Benutzer"
-msgstr[1] "Plus {n} weitere anonyme Benutzer"
+msgstr[0] "Sowie ein weiterer anonymer Benutzer"
+msgstr[1] "Sowie {n} weitere anonyme Benutzer"
 
 #: ../root/entity/Subscribers.js:121
 msgid "An anonymous user"
@@ -10104,7 +10108,7 @@ msgstr "ISRC „{isrc}“"
 #: ../root/isrc/Index.js:48
 msgid "Associated with {num} recording"
 msgid_plural "Associated with {num} recordings"
-msgstr[0] "Verbunden mit {num} Aufnahme"
+msgstr[0] "Verbunden mit einer Aufnahme"
 msgstr[1] "Verbunden mit {num} Aufnahmen"
 
 #: ../root/iswc/Index.js:31 ../root/iswc/Index.js:34
@@ -10114,7 +10118,7 @@ msgstr "ISWC „{iswc}“"
 #: ../root/iswc/Index.js:39
 msgid "Associated with {num} work"
 msgid_plural "Associated with {num} works"
-msgstr[0] "Verbunden mit {num} Werk"
+msgstr[0] "Verbunden mit einem Werk"
 msgstr[1] "Verbunden mit {num} Werken"
 
 #: ../root/label/LabelIndex.js:101
@@ -10572,7 +10576,7 @@ msgstr "Gemeinsame Sammlungen"
 #: ../root/layout/components/sidebar/CollectionLinks.js:57
 msgid "Found in {num} user collection"
 msgid_plural "Found in {num} user collections"
-msgstr[0] "In {num} Benutzersammlung gefunden"
+msgstr[0] "In einer Benutzersammlung gefunden"
 msgstr[1] "In {num} Benutzersammlungen gefunden"
 
 #: ../root/layout/components/sidebar/CollectionLinks.js:66
@@ -11658,7 +11662,7 @@ msgstr ""
 #: ../root/release/ReleaseHeader.js:29
 msgid "see all versions of this release, {count} available"
 msgid_plural "see all versions of this release, {count} available"
-msgstr[0] "alle Versionen dieser Veröffentlichung ansehen, {count} vorhanden"
+msgstr[0] "alle Versionen dieser Veröffentlichung ansehen, eine vorhanden"
 msgstr[1] "alle Versionen dieser Veröffentlichung ansehen, {count} vorhanden"
 
 #: ../root/release/ReleaseHeader.js:36
@@ -13646,6 +13650,9 @@ msgid ""
 "be a custom reverse-DNS string, as in <code>org.example.app://auth</code>, "
 "for installed applications."
 msgstr ""
+"Callback‐URI ist für installierte Anwendungen optional. Falls vorhanden muss "
+"das Schema für installierte Anwendungen eine Zeichenkette in Reverse Domain "
+"Name Notation sein, wie in <code>org.example.app://auth</code>."
 
 #: ../root/static/scripts/account/components/EditProfileForm.js:195
 msgid ""
@@ -13853,7 +13860,7 @@ msgstr "<em>kein Änderungsprotokoll angegeben</em>"
 #: ../root/static/scripts/area/places-map.js:95
 msgid "… and {place_count} other"
 msgid_plural "… and {place_count} others"
-msgstr[0] "… und {place_count} andere/r"
+msgstr[0] "… und eine andere"
 msgstr[1] "… und {place_count} andere"
 
 #: ../root/static/scripts/area/places-map.js:107
@@ -16637,7 +16644,7 @@ msgstr "Hat sich noch nie angemeldet"
 
 #: ../root/user/UserProfile.js:313 ../root/user/UserProfile.js:329
 msgid "see list"
-msgstr ""
+msgstr "Liste ansehen"
 
 #: ../root/user/UserProfile.js:339
 msgid "Homepage:"
@@ -16927,7 +16934,7 @@ msgstr[1] ""
 #: ../root/user/UserSubscriptions.js:285
 msgid "{editor} is subscribed to {n} private collection."
 msgid_plural "{editor} is subscribed to {n} private collections."
-msgstr[0] "{editor} hat {n} private Sammlung abonniert."
+msgstr[0] "{editor} hat eine private Sammlung abonniert."
 msgstr[1] "{editor} hat {n} private Sammlungen abonniert."
 
 #: ../root/user/UserTagList.js:21
@@ -17008,19 +17015,19 @@ msgstr[1] "{num} Tage"
 #: ../root/utility/age.js:161
 msgid "{num} year ago"
 msgid_plural "{num} years ago"
-msgstr[0] "vor {num} Jahr"
+msgstr[0] "vor einem Jahr"
 msgstr[1] "vor {num} Jahren"
 
 #: ../root/utility/age.js:164
 msgid "{num} month ago"
 msgid_plural "{num} months ago"
-msgstr[0] "vor {num} Monat"
+msgstr[0] "vor einem Monat"
 msgstr[1] "vor {num} Monaten"
 
 #: ../root/utility/age.js:170
 msgid "{num} day ago"
 msgid_plural "{num} days ago"
-msgstr[0] "vor {num} Tag"
+msgstr[0] "vor einem Tag"
 msgstr[1] "vor {num} Tagen"
 
 #: ../root/utility/edit.js:35
