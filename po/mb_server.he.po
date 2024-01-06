@@ -14,8 +14,9 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-02 10:11+0200\n"
-"PO-Revision-Date: 2024-01-04 14:54+0000\n"
-"Last-Translator: Philipp Wolfer <ph.wolfer@gmail.com>\n"
+"PO-Revision-Date: 2024-01-04 20:28+0000\n"
+"Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
+".org>\n"
 "Language-Team: Hebrew <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/he/>\n"
 "Language: he\n"
@@ -8697,10 +8698,10 @@ msgstr ""
 #: ../root/edit/components/EditSidebar.js:71
 msgid "1 vote"
 msgid_plural "{n} unanimous votes"
-msgstr[0] "{n} הצבעה פֶּה אֶחָד "
+msgstr[0] "{n} הצבעה פֶּה אֶחָד"
 msgstr[1] "{n} הצבעות פֶּה אֶחָד"
 msgstr[2] "{n} הצבעות פֶּה אֶחָד"
-msgstr[3] "{n} הצבעות פֶּה אֶחָד "
+msgstr[3] "{n} הצבעות פֶּה אֶחָד"
 
 #: ../root/edit/components/EditSidebar.js:80
 msgid "If no votes cast"
@@ -9284,7 +9285,7 @@ msgstr ""
 
 #: ../root/edit/details/MergeReleases.js:120
 msgid "Medium {position}: {name} is now medium {new_position}"
-msgstr "מדיה {position}: כעת מדיה {new_position}"
+msgstr "מדיה {position}: {name} כעת מדיה {new_position}"
 
 #: ../root/edit/details/MergeReleases.js:129
 msgid "Medium {position} is now medium {new_position}: {new_name}"
@@ -9915,7 +9916,7 @@ msgid ""
 "with a recording, please {search_url|search for the recording} and add it."
 msgstr ""
 "ISRC זה אינו משויך להקלטות כלשהן. אם ברצונכם לשייך אותו להקלטה, נא "
-"{search_url | חפש את ההקלטה} והוספו אותה."
+"{search_url|חפש את ההקלטה} והוספו אותה."
 
 #: ../root/entity/NotFound.js:109
 #, fuzzy
@@ -10199,8 +10200,9 @@ msgid "There are currently no users subscribed to {entity}."
 msgstr "אין כרגע משתמשים מנויים ל־{entity}."
 
 #: ../root/entity/Subscribers.js:152
+#, fuzzy
 msgid "You are currently subscribed. {unsub|Unsubscribe}?"
-msgstr "אתם מנויים כעת. {sub|Subscribe}?"
+msgstr "אתם מנויים כעת. {unsub|Unsubscribe}?"
 
 #: ../root/entity/Subscribers.js:156
 msgid "Be the first! {sub|Subscribe}?"
@@ -12271,8 +12273,8 @@ msgstr ""
 "לבדוק איזה הוצאה של מוזיקבריינז מתאימה להוצאה באמזון (עיין תבנית, רשימת "
 "רצועות וכו '). אם להוצאה יש ברקוד, ניתן גם לחפש אותו באמזון ולראות איזה ASIN "
 "תואם לו. ייתכן שימצוא גם כמה ASIN המקושרים למספר דיסקים של הוצאה מרובת "
-"דיסקים: במקרה כזה, אפשר פשוט למזג אותם (ראו {how_to_merge_releases | כיצד "
-"למזג גרסאות})."
+"דיסקים: במקרה כזה, אפשר פשוט למזג אותם (ראו {how_to_merge_releases|כיצד למזג "
+"גרסאות})."
 
 #: ../root/report/AsinsWithMultipleReleases.js:38
 #: ../root/report/ReportsIndex.js:280
@@ -12970,7 +12972,7 @@ msgid ""
 "relationship."
 msgstr ""
 "הדוח מציג הוצאות שעדיין יש את קשר־גומלין \"חלק מסט\" שהוצא משימוש וכנראה שיש "
-"למזגן. לקבלת הוראות לתיקונם, נא לעיין בתיעוד בנושא {how_to_merge_releases | "
+"למזגן. לקבלת הוראות לתיקונם, נא לעיין בתיעוד בנושא {how_to_merge_releases|"
 "כיצד למזג גרסאות}. אם הוצאות אינן ממש חלק מסט (למשל, אם מדובר בכרכים המוצאים "
 "באופן עצמאי בסדרה) נא פשוט להסיר את קשר־גומלין."
 
@@ -13892,7 +13894,7 @@ msgid ""
 "the type “{type}”. Please check you used the correct spelling. Sometimes "
 "searching for fewer or different words may also help."
 msgstr ""
-"למרבה הצער, השאילתה \"(<code>query</code>)\" אינה תואמת לאף סוג {type}. נא "
+"למרבה הצער, השאילתה \"(<code>{query}</code>)\" אינה תואמת לאף סוג {type}. נא "
 "לבדוק איות. לפעמים שימוש במספר מלים פחות או שונה במחרוזת חיפוש עשויים לעזור."
 
 #: ../root/search/error/RateLimited.js:24
@@ -14859,7 +14861,7 @@ msgstr "קוד חברת תקליטים: {code}"
 
 #: ../root/static/scripts/common/entity.js:289
 msgid "You selected {area}."
-msgstr "בחרתם {label}."
+msgstr "בחרתם {area}."
 
 #: ../root/static/scripts/common/entity.js:382
 msgid "You selected {releasegroup}."
@@ -15087,7 +15089,7 @@ msgid ""
 "Only IMSLP “{category_url_pattern}” links are allowed for artists. Please "
 "link work pages to the specific work in question."
 msgstr ""
-"רק קישורי “{explore_url_pattern}”  IMSLP אפשריים לאמנים. נא לקשר עמודי יצירה "
+"רק קישורי “{category_url_pattern}” IMSLP אפשריים לאמנים. נא לקשר עמודי יצירה "
 "ליצירה מסויימת שבספק."
 
 #: ../root/static/scripts/edit/URLCleanup.js:2970
@@ -15095,7 +15097,7 @@ msgid ""
 "IMSLP “{category_url_pattern}” links are only allowed for artists. Please "
 "link the specific work page to this work instead, if available."
 msgstr ""
-"קישורי “{explore_url_pattern}”  IMSLP אפשריים רק לאמנים. נא לקשר יצירה "
+"קישורי “{category_url_pattern}” IMSLP אפשריים רק לאמנים. נא לקשר יצירה "
 "מסויימת במקום, ככול שזמינה כזאת."
 
 #: ../root/static/scripts/edit/URLCleanup.js:3015
@@ -15134,8 +15136,8 @@ msgid ""
 "your link}, make sure the link it redirects to is still the correct one and, "
 "if so, add that link instead."
 msgstr ""
-"קישור למתחם הישן של רזידנט אגויזר. נא לעקוב אחר {ra_url | הקישור שלכם}, "
-"ולוודא שהקישור אליו הוא מפנה עדיין נכון, אם כן, הוספו קישור זה במקום."
+"קישור למתחם הישן של רזידנט אגויזר. נא לעקוב אחר {ra_url|הקישור שלכם}, ולוודא "
+"שהקישור אליו הוא מפנה עדיין נכון, אם כן, הוספו קישור זה במקום."
 
 #: ../root/static/scripts/edit/URLCleanup.js:5432
 msgid "Please link to Threads profiles, not threads."
@@ -15191,8 +15193,8 @@ msgid ""
 "Links to specific sections of Wikipedia articles are not allowed. Please "
 "remove “{fragment}” if still appropriate. See the {url|guidelines}."
 msgstr ""
-"קישור למקטעים מסוימים במאמרי ויקיפדיה אינם אפשריים. נא להסיר את "
-"\"{fragment}\" אם עדיין מתאים. נא לעיין ב־ {url | הנחיות}."
+"קישור למקטעים מסוימים במאמרי ויקיפדיה אינם אפשריים. נא להסיר את \"{fragment}"
+"\" אם עדיין מתאים. נא לעיין ב־ {url|הנחיות}."
 
 #: ../root/static/scripts/edit/URLCleanup.js:6350
 msgid ""

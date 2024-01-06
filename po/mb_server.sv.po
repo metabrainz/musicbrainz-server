@@ -5,7 +5,7 @@
 #
 # Translators:
 # A. Regnander <email address hidden>, 2017-2018
-#   <email address hidden>, 2012
+# <email address hidden>, 2012
 # Filip Bengtsson, 2018-2019
 # Henrik Mattsson-Mårn <email address hidden>, 2020
 # Jonatan Nyberg, 2016-2017,2021,2023
@@ -17,13 +17,15 @@
 # Staffan Vilcans, 2012
 # Tom Sawyer, 2022
 # yvanz, 2018
+# reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-02 10:11+0200\n"
-"PO-Revision-Date: 2023-08-18 12:59+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"PO-Revision-Date: 2024-01-04 20:28+0000\n"
+"Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
+".org>\n"
 "Language-Team: Swedish <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/sv/>\n"
 "Language: sv\n"
@@ -31,7 +33,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.18.2\n"
+"X-Generator: Weblate 5.3\n"
 
 #: ../root/components/common-macros.tt:12
 msgid " ({text})"
@@ -6203,8 +6205,8 @@ msgid ""
 "If you would like to make a donation, {donate|you can do that here}. If you "
 "have donated, but you are still being nagged, please {contact|contact us}."
 msgstr ""
-"Om du vill göra en donation, {donera|kan du göra det här}. Om du har "
-"donerat, men du blir fortfarande tjatad på, vänligen {kontakta|kontakta oss}."
+"Om du vill göra en donation, {donate|kan du göra det här}. Om du har "
+"donerat, men du blir fortfarande tjatad på, vänligen {contact|kontakta oss}."
 
 #: ../root/account/Donation.js:62
 msgid "Thank you for contributing to MusicBrainz."
@@ -7795,11 +7797,9 @@ msgid "Cover art"
 msgstr "Omslag:"
 
 #: ../root/components/EntityTabs.js:116
-#, fuzzy
-#| msgid "Cover art:"
 msgctxt "plural"
 msgid "Cover art ({num})"
-msgstr "Omslag:"
+msgstr "Omslag ({num})"
 
 #: ../root/components/EntityTabs.js:132
 #: ../root/components/UserAccountTabs.js:65 ../root/entity/Tags.js:38
@@ -9997,7 +9997,7 @@ msgstr "Var den första! {sub|Prenumerera}?"
 
 #: ../root/entity/Subscribers.js:159
 msgid "You are not currently subscribed. {sub|Subscribe}?"
-msgstr "Du prenumererar inte för tillfället. {unsub|Prenumerera}?"
+msgstr "Du prenumererar inte för tillfället. {sub|Prenumerera}?"
 
 #: ../root/entity/alias/AddOrEditAlias.js:37
 #, fuzzy

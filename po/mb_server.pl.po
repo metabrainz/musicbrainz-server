@@ -7,7 +7,7 @@
 # nikki, 2012
 # czaja <email address hidden>, 2011
 # czaja <email address hidden>, 2011
-#   <email address hidden>, 2012
+# <email address hidden>, 2012
 # Hubert Ślósarski <email address hidden>, 2013
 # Jarek . <email address hidden>, 2018
 # Kamil Kulawik <email address hidden>, 2020
@@ -19,26 +19,28 @@
 # nikki, 2012
 # Piotr Myśliński <email address hidden>, 2013
 # Sebastian Szymbor <email address hidden>, 2016-2017
-#   Tobias Toedter <email address hidden>, 2007
-#   Tobias Toedter <email address hidden>, 2007
+# Tobias Toedter <email address hidden>, 2007
+# Tobias Toedter <email address hidden>, 2007
 # yvanz, 2018
+# reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-02 10:11+0200\n"
-"PO-Revision-Date: 2023-08-18 12:57+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"PO-Revision-Date: 2024-01-04 20:28+0000\n"
+"Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
+".org>\n"
 "Language-Team: Polish <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/pl/>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && "
-"(n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && ("
+"n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
 "n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
-"X-Generator: Weblate 4.18.2\n"
+"X-Generator: Weblate 5.3\n"
 
 #: ../root/components/common-macros.tt:12
 msgid " ({text})"
@@ -7816,11 +7818,9 @@ msgid "Cover art"
 msgstr "Okładka"
 
 #: ../root/components/EntityTabs.js:116
-#, fuzzy
-#| msgid "Cover Art"
 msgctxt "plural"
 msgid "Cover art ({num})"
-msgstr "Okładka"
+msgstr "Okładka ({num})"
 
 #: ../root/components/EntityTabs.js:132
 #: ../root/components/UserAccountTabs.js:65 ../root/entity/Tags.js:38

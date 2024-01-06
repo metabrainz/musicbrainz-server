@@ -7,13 +7,15 @@
 # Vaclovas lntas (Vac.) <email address hidden>, 2023
 # Philipp Wolfer <ph.wolfer@gmail.com>, 2023.
 # "Vac31." <gateway_31@protonmail.com>, 2023.
+# reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-02 10:11+0200\n"
-"PO-Revision-Date: 2023-12-25 11:28+0000\n"
-"Last-Translator: \"Vac31.\" <gateway_31@protonmail.com>\n"
+"PO-Revision-Date: 2024-01-04 20:28+0000\n"
+"Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
+".org>\n"
 "Language-Team: Lithuanian <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/lt/>\n"
 "Language: lt\n"
@@ -21,8 +23,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
-"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
-"1 : n % 1 != 0 ? 2: 3);\n"
+"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 :"
+" n % 1 != 0 ? 2: 3);\n"
 "X-Generator: Weblate 5.3\n"
 
 #: ../root/components/common-macros.tt:12
@@ -596,7 +598,7 @@ msgstr "Pagal numatytuosius nustatymus parseris tikisi tokio formato:"
 
 #: ../root/cdstub/header.tt:5 ../root/cdstub/CDStubHeader.js:21
 msgid "CD stub by {artist}"
-msgstr "CD atplaiša pagal atlikėją"
+msgstr "CD atplaiša pagal {artist}"
 
 #: ../root/cdtoc/lookup.tt:21
 msgid "CD stub found"
@@ -1603,7 +1605,7 @@ msgstr "Kalba"
 
 #: ../root/layout.tt:138 ../root/layout/components/Footer.js:85
 msgid "Last replication packet received at {datetime}"
-msgstr "Paskutinis kopijavimo paketas gautas {datatime}"
+msgstr "Paskutinis kopijavimo paketas gautas {datetime}"
 
 #: ../root/cdstub/cdstub.tt:9 ../root/recording/edit_form.tt:35
 #: ../root/recording/edit_form.tt:38 ../root/release/edit/tracklist.tt:164
@@ -7800,11 +7802,9 @@ msgid "Cover art"
 msgstr "Viršelis"
 
 #: ../root/components/EntityTabs.js:116
-#, fuzzy
-#| msgid "Cover Art"
 msgctxt "plural"
 msgid "Cover art ({num})"
-msgstr "Viršelis"
+msgstr "Viršelis ({num})"
 
 #: ../root/components/EntityTabs.js:132
 #: ../root/components/UserAccountTabs.js:65 ../root/entity/Tags.js:38
@@ -8305,7 +8305,7 @@ msgstr "Mano balsas:"
 
 #: ../root/edit/EditIndex.js:122
 msgid "You are not currently able to vote on this edit. ({url|Details})"
-msgstr "Šiuo metu negali balsuoti už šį redagavimą. ({url|Išsamiau)"
+msgstr "Šiuo metu negali balsuoti už šį redagavimą. ({url|Išsamiau})"
 
 #: ../root/edit/EditIndex.js:132
 msgid "Testing features"
@@ -8560,7 +8560,7 @@ msgstr ""
 
 #: ../root/edit/components/EditNotes.js:78
 msgid "You are not currently able to add notes to this edit. ({url|Details})"
-msgstr "Šiuo metu negali pridėti pastabų prie šio redagavimo. ({url|Išsamiau)"
+msgstr "Šiuo metu negali pridėti pastabų prie šio redagavimo. ({url|Išsamiau})"
 
 #: ../root/edit/components/EditSidebar.js:48
 msgid "Opened:"
