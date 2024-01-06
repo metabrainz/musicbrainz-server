@@ -9,21 +9,21 @@
 # salo.rock, 2021,2023
 # "salo.rock" <salo.rock+musicbrainz@gmail.com>, 2023.
 # "salo.rock" <salo.rock@users.noreply.translations.metabrainz.org>, 2023.
+# yvanzo <yvanzo@users.noreply.translations.metabrainz.org>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-12-22 20:28+0000\n"
-"Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
-"metabrainz.org>\n"
+"PO-Revision-Date: 2024-01-03 15:50+0000\n"
+"Last-Translator: yvanzo <yvanzo@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
 "musicbrainz/statistics/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
 "X-Generator: Weblate 5.3\n"
 
 #: DB:statistics.statistic_event/title:2015-09-08
@@ -496,8 +496,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2015-08-06
 msgid "Frederik \"Freso\" S. Olesen becomes MetaBrainz Community Manager"
-msgstr ""
-"Frederik \"Freso\" S. Olesen diventa il community manager di MetaBrainz"
+msgstr "Frederik \"Freso\" S. Olesen diventa il community manager di MetaBrainz"
 
 #: DB:statistics.statistic_event/description:2004-10-10
 msgid ""
@@ -1125,8 +1124,8 @@ msgid ""
 "autoedit, unless the same code is already in use for another."
 msgstr ""
 "La traduzione italiana, realizzata perlopiù da salo.rock, è rilasciata "
-"ufficialmente. Aggiungere il primo codice IPI e/o ISNI a un'entità diventa "
-"un'auto-modifica, a meno che lo stesso codice non sia già utilizzato da "
+"ufficialmente. Aggiungere il primo codice IPI e/o ISNI a un'entità diventa un"
+"'auto-modifica, a meno che lo stesso codice non sia già utilizzato da "
 "un'altra entità."
 
 #: DB:statistics.statistic_event/title:2015-09-17
@@ -3092,16 +3091,17 @@ msgid ""
 "{first_entity_type_name}-{second_entity_type_name} "
 "“{relationship_type_name}” relationships"
 msgstr ""
-"Relazioni “{relationship_type_name}” {first_entity_type_name}-"
-"{second_entity_type_name}"
+"Relazioni “{relationship_type_name}” "
+"{first_entity_type_name}-{second_entity_type_name}"
 
 #: ../root/statistics/stats.js:1200
 msgid ""
 "{first_entity_type_name}-{second_entity_type_name} "
 "“{relationship_type_name}” relationships including child relationship types"
 msgstr ""
-"Relazioni “{relationship_type_name}” {first_entity_type_name}-"
-"{second_entity_type_name}, compresi i tipi di relazione discendenti"
+"Relazioni “{relationship_type_name}” "
+"{first_entity_type_name}-{second_entity_type_name}, compresi i tipi di "
+"relazione discendenti"
 
 #: ../root/statistics/stats.js:1223 ../root/statistics/stats.js:1243
 msgid "{type} release groups"

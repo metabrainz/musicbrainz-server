@@ -60,14 +60,14 @@
 # yvanz, 2016-2023
 # yvanz, 2016,2018
 # yvanz, 2018
-# yvanzo <yvanzo@users.noreply.translations.metabrainz.org>, 2023.
+# yvanzo <yvanzo@users.noreply.translations.metabrainz.org>, 2023, 2024.
 # reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-02 10:11+0200\n"
-"PO-Revision-Date: 2023-12-21 13:28+0000\n"
+"PO-Revision-Date: 2024-01-03 12:28+0000\n"
 "Last-Translator: yvanzo <yvanzo@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: French <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/fr/>\n"
@@ -12920,7 +12920,7 @@ msgstr ""
 #: ../root/report/LowDataQualityReleases.js:38
 #: ../root/report/ReportsIndex.js:471
 msgid "Releases marked as having low data quality"
-msgstr ""
+msgstr "Parutions marquées comme ayant des données de faible qualité"
 
 #: ../root/report/MediumsWithOrderInTitle.js:24
 msgid ""
