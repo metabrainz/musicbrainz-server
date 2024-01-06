@@ -2,21 +2,22 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# danBLOO <danielplinplon@gmail.com>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-02 10:11+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2024-01-05 20:28+0000\n"
+"Last-Translator: danBLOO <danielplinplon@gmail.com>\n"
+"Language-Team: Spanish (Latin America) <https://translations.metabrainz.org/"
+"projects/musicbrainz/server/es_419/>\n"
 "Language: es_419\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.3\n"
 
 #: ../root/components/common-macros.tt:12
 msgid " ({text})"
@@ -24,7 +25,7 @@ msgstr ""
 
 #: ../root/components/forms.tt:313
 msgid "\"C\" is a single check digit."
-msgstr ""
+msgstr "“C” es un dígito único de control."
 
 #: ../root/components/forms.tt:323
 msgid ""
