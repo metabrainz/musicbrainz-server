@@ -8,20 +8,22 @@
 # Allan Nordhøy <email address hidden>, 2017
 # CatQuest, The Endeavouring Cat, 2017
 # CatQuest, The Endeavouring Cat, 2015,2017
-#   <email address hidden>, 2012
+# <email address hidden>, 2012
 # Ian McEwen <email address hidden>, 2012
 # Kurt-Håkon Eilertsen <email address hidden>, 2014
 # peroyo <email address hidden>, 2012
 # Zaphod Beeblebrox <email address hidden>, 2012
 # CatQuest, The Endeavouring Cat, 2012
 # CatQuest, The Endeavouring Cat, 2014
+# "ApeKattQuest, MonkeyPython" <ApeKattQuestMonkeyPython@users.noreply.translations.metabrainz.org>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-02 10:11+0200\n"
-"PO-Revision-Date: 2023-08-18 12:57+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"PO-Revision-Date: 2024-01-04 20:28+0000\n"
+"Last-Translator: \"ApeKattQuest, MonkeyPython\" "
+"<ApeKattQuestMonkeyPython@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Norwegian Bokmål <https://translations.metabrainz.org/"
 "projects/musicbrainz/server/nb_NO/>\n"
 "Language: nb\n"
@@ -29,7 +31,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.18.2\n"
+"X-Generator: Weblate 5.3\n"
 
 #: ../root/components/common-macros.tt:12
 msgid " ({text})"
@@ -735,11 +737,9 @@ msgstr "Land"
 
 #: ../root/release_group/set_cover_art.tt:67
 #: ../root/edit/components/EditArtwork.js:36 ../root/user/UserProfile.js:51
-#, fuzzy
-#| msgid "Cover Art"
 msgctxt "singular"
 msgid "Cover art"
-msgstr "Plateomslag"
+msgstr "Omslagsbilde"
 
 #: ../root/release/add_cover_art.tt:85
 msgid "Creating edit..."
@@ -7680,18 +7680,14 @@ msgid "Disc IDs"
 msgstr ""
 
 #: ../root/components/EntityTabs.js:114
-#, fuzzy
-#| msgid "Cover Art"
 msgctxt "plural"
 msgid "Cover art"
-msgstr "Plateomslag"
+msgstr "Omslagsbilder"
 
 #: ../root/components/EntityTabs.js:116
-#, fuzzy
-#| msgid "Cover Art"
 msgctxt "plural"
 msgid "Cover art ({num})"
-msgstr "Plateomslag"
+msgstr "Omslagsbilder ({num})"
 
 #: ../root/components/EntityTabs.js:132
 #: ../root/components/UserAccountTabs.js:65 ../root/entity/Tags.js:38
@@ -7806,14 +7802,14 @@ msgstr "Områder"
 #: ../root/components/TagEntitiesList.js:159
 msgid "See all {num} areas"
 msgid_plural "See all {num} areas"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Se {num} sted"
+msgstr[1] "Se alle {num} steder"
 
 #: ../root/components/TagEntitiesList.js:163
 msgid "See all {num} artists"
 msgid_plural "See all {num} artists"
 msgstr[0] ""
-msgstr[1] ""
+msgstr[1] "Se alle {num} artister"
 
 #: ../root/components/TagEntitiesList.js:167
 msgid "See all {num} events"
@@ -11519,18 +11515,14 @@ msgid "original"
 msgstr ""
 
 #: ../root/release/CoverArt.js:57
-#, fuzzy
-#| msgid "Cover Art"
 msgctxt "plural, header"
 msgid "Cover art"
-msgstr "Plateomslag"
+msgstr "Omslagsbilder"
 
 #: ../root/release/CoverArt.js:63
-#, fuzzy
-#| msgid "Cannot Add Cover Art"
 msgctxt "plural, header"
 msgid "Cannot show cover art"
-msgstr "Kan ikke legge til plateomslag"
+msgstr "Kan ikke legge til omslagsbilde"
 
 #: ../root/release/CoverArt.js:100
 msgid "All sizes:"

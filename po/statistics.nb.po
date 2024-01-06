@@ -5,19 +5,22 @@
 # CatQuest, The Endeavouring Cat, 2015
 # Ian McEwen <email address hidden>, 2012
 # CatQuest, The Endeavouring Cat, 2012
+# "ApeKattQuest, MonkeyPython" <ApeKattQuestMonkeyPython@users.noreply.translations.metabrainz.org>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2012-05-24 18:54+0000\n"
-"Last-Translator: Allan Nordhøy <epost@anotheragency.no>, 2017\n"
-"Language-Team: Norwegian Bokmål (http://app.transifex.com/musicbrainz/"
-"musicbrainz/language/nb/)\n"
+"PO-Revision-Date: 2024-01-04 20:28+0000\n"
+"Last-Translator: \"ApeKattQuest, MonkeyPython\" "
+"<ApeKattQuestMonkeyPython@users.noreply.translations.metabrainz.org>\n"
+"Language-Team: Norwegian Bokmål <https://translations.metabrainz.org/"
+"projects/musicbrainz/statistics/nb_NO/>\n"
 "Language: nb\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.3\n"
 
 #: DB:statistics.statistic_event/title:2015-09-08
 msgid "\"Do Not Cluster\" guideline dropped"
@@ -80,7 +83,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/description:2003-04-05
 msgid "A new, much faster search mechanism is added."
-msgstr ""
+msgstr "MuiscBrainz får en ny, mye raskere søkemekanisme."
 
 #: DB:statistics.statistic_event/description:2006-08-15
 msgid "A rift in the MusicBrainz community leads to a Great Dispute."
@@ -141,6 +144,8 @@ msgid ""
 "After many years at Digital West in California, the MetaBrainz project moves "
 "all servers to a much larger dedicated provider in Germany, Hetzner."
 msgstr ""
+"Etter mange år ved Digital West i California, flytter MetaBrainz alle "
+"serverne til Hetzner i Tyskland."
 
 #: DB:statistics.statistic_event/description:2018-09-10
 msgid ""
@@ -173,7 +178,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2015-05-19
 msgid "Aliases for recordings, releases and release groups"
-msgstr ""
+msgstr "Aliaser for innspillinger, utgivelser og utgivelsesgrupper"
 
 #: DB:statistics.statistic_event/description:2008-09-01
 msgid ""
@@ -181,6 +186,9 @@ msgid ""
 "wired.com/2008/09/amazon-takes-on/\">SoundUnwound</a> with data from "
 "MusicBrainz."
 msgstr ""
+"Amazon bruker data fra MusicBrainz for å betakjøre <a href=\"http://web."
+"archive.org/web/20210123164029/https://www.wired.com/2008/09/amazon-takes-on/"
+"\">SoundUnwound</a>."
 
 #: DB:statistics.statistic_event/title:2008-09-01
 msgid "Amazon betas SoundUnwound"
@@ -255,7 +263,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2018-09-10
 msgid "BookBrainz becomes official MetaBrainz project"
-msgstr ""
+msgstr "BookBrainz blir ett offisielt MetaBrainzprosjekt"
 
 #: DB:statistics.statistic_event/title:2012-04-30
 msgid "CAA initial release"
@@ -356,7 +364,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2003-06-07
 msgid "Email verification"
-msgstr ""
+msgstr "Epostverifisering"
 
 #: DB:statistics.statistic_event/description:2012-06-25
 msgid ""
@@ -431,11 +439,11 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2021-05-26
 msgid "IRC channels move to Libera.Chat"
-msgstr ""
+msgstr "IRCkanaler flyttes til libera.chat"
 
 #: DB:statistics.statistic_event/title:2012-09-01
 msgid "Ian McEwen hired"
-msgstr ""
+msgstr "Ian McEwen hyres"
 
 #: DB:statistics.statistic_event/title:2015-07-17
 msgid "Ian McEwen leaves MetaBrainz"
@@ -512,7 +520,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2014-05-14
 msgid "Instruments and series"
-msgstr ""
+msgstr "Instrumenter og serier"
 
 #: DB:statistics.statistic_event/title:2021-02-01
 msgid "Italian translation released, IPI and ISNI become autoedits"
@@ -551,7 +559,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2015-09-28
 msgid "Laurent \"zas\" Monin becomes sysadmin"
-msgstr ""
+msgstr "Laurent \"zas\" Monin blir sysadmin"
 
 #: DB:statistics.statistic_event/description:2015-09-28
 msgid ""
@@ -583,7 +591,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2020-10-07
 msgid "MBBE_Bot starts running"
-msgstr ""
+msgstr "MBBE_Bot begynner å kjøre"
 
 #: DB:statistics.statistic_event/title:2005-10-23
 msgid "Menus/Client scripting"
@@ -599,11 +607,11 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2008-09-23
 msgid "MetaBrainz hires Oliver Charles"
-msgstr ""
+msgstr "MetaBrainz hyrer Oliver Charles"
 
 #: DB:statistics.statistic_event/title:2005-04-19
 msgid "MetaBrainz launched"
-msgstr ""
+msgstr "MetaBrainz lanseres"
 
 #: DB:statistics.statistic_event/title:2016-11-08
 msgid "MetaBrainz projects complete move to European servers"
@@ -639,11 +647,11 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2006-02-27
 msgid "MusicBrainz Move"
-msgstr ""
+msgstr "MusicBrainz flytter"
 
 #: DB:statistics.statistic_event/description:2010-02-08
 msgid "MusicBrainz Server source code moved to Git from Subversion."
-msgstr ""
+msgstr "MusicBrainzserverens kildekode flyttes fra Subversion til Git."
 
 #: DB:statistics.statistic_event/title:2012-01-12
 msgid "MusicBrainz adds AcoustID support"
@@ -661,7 +669,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/description:2006-02-27
 msgid "MusicBrainz moved to Digital West Networks in San Luis Obispo."
-msgstr ""
+msgstr "MusicBrainz flyttes til Digital West Networks i San Luis Obispo."
 
 #: DB:statistics.statistic_event/description:2006-03-12
 msgid ""
@@ -692,7 +700,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2016-02-22
 msgid "New MusicBrainz design"
-msgstr ""
+msgstr "Nytt MusicBrainz design"
 
 #: DB:statistics.statistic_event/title:2017-10-31
 msgid "New entity auto-editing period extended to 24 hours"
@@ -714,11 +722,11 @@ msgstr ""
 
 #: DB:statistics.statistic_event/description:2008-09-23
 msgid "Oliver Charles becomes employee #1 of MetaBrainz Foundation."
-msgstr ""
+msgstr "Oliver Charles blir første ansatte ved MetaBrainz Foundation."
 
 #: DB:statistics.statistic_event/description:2010-06-18
 msgid "Oliver Charles begins working for MusicBrainz full-time."
-msgstr ""
+msgstr "Oliver Charles begynner å arbeide fulltid for MusicBrainz."
 
 #: DB:statistics.statistic_event/title:2010-06-18
 msgid "Oliver Charles joins MusicBrainz full-time"
@@ -732,7 +740,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2013-10-14
 msgid "PUID support is removed"
-msgstr ""
+msgstr "PUID support fjernes"
 
 #: DB:statistics.statistic_event/title:2021-04-05
 msgid "Pagination added for relationships, user tags"
@@ -820,7 +828,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2017-09-06
 msgid "Sambhav Kothari and Param Singh replace Roman Tsukanov"
-msgstr ""
+msgstr "Sambhav Kothari og Param Singh erstatter Roman Tsukanov"
 
 #: DB:statistics.statistic_event/description:2018-09-09
 msgid ""
@@ -835,7 +843,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2006-12-17
 msgid "Search improvements"
-msgstr ""
+msgstr "Søkeforbedringer"
 
 #: DB:statistics.statistic_event/title:2015-11-16
 msgid "Several new auto-edit types and translations"
@@ -1040,7 +1048,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2005-02-13
 msgid "User improvements"
-msgstr ""
+msgstr "Brukerforbedringer"
 
 #: DB:statistics.statistic_event/description:2003-06-07
 msgid "Users now have to verify their email address for editing."
@@ -1124,7 +1132,7 @@ msgstr ""
 
 #: ../root/statistics/timeline.tt:14
 msgid "Controls"
-msgstr ""
+msgstr "Kontroller"
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/Countries.js:42
 #: ../root/statistics/StatisticsLayout.js:50
@@ -1133,8 +1141,6 @@ msgstr "Land"
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/CoverArt.js:70
 #: ../root/statistics/StatisticsLayout.js:60 ../root/statistics/stats.js:21
-#, fuzzy
-#| msgid "Cover Art"
 msgctxt "plural"
 msgid "Cover art"
 msgstr "Omslagsbilder"
