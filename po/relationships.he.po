@@ -1,19 +1,22 @@
 #
 # Translators:
 # Avi Markovitz <email address hidden>, 2018-2022
+# reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2012-05-24 18:50+0000\n"
-"Last-Translator: Avi Markovitz <avi.markovitz@gmail.com>, 2018-2022\n"
-"Language-Team: Hebrew (http://app.transifex.com/musicbrainz/musicbrainz/"
-"language/he/)\n"
+"PO-Revision-Date: 2024-01-04 14:54+0000\n"
+"Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
+".org>\n"
+"Language-Team: Hebrew <https://translations.metabrainz.org/projects/"
+"musicbrainz/relationship-types/he/>\n"
 "Language: he\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n == 2 && n % "
-"1 == 0) ? 1: (n % 10 == 0 && n % 1 == 0 && n > 10) ? 2 : 3;\n"
+"Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
+"n % 10 == 0) ? 2 : 3));\n"
+"X-Generator: Weblate 5.3\n"
 
 #: DB:link_attribute_type/description:1355
 msgid "A performance-centered, usually one to three year postgraduate program."
@@ -7744,7 +7747,7 @@ msgstr "הזרמת חינמית"
 
 #: DB:link_type/link_phrase:268 DB:link_type/link_phrase:85
 msgid "stream {video} for free"
-msgstr "הזרמת (חוזי) חינמית"
+msgstr "הזרמת {video:חוזי} חינמית"
 
 #: DB:link_type/name:978 DB:link_type/name:980 DB:link_type/name:1005
 #: DB:link_type/name:979
@@ -9325,7 +9328,7 @@ msgstr "{translator:translated|wrote} {additional} lהערות אלבום עבו
 
 #: DB:link_type/long_link_phrase:268 DB:link_type/long_link_phrase:85
 msgid "{video} can be streamed for free at"
-msgstr "(חוזי) ניתן להזרים בחינם מ"
+msgstr "{video:חוזי} ניתן להזרים בחינם מ"
 
 #: DB:link_type/reverse_link_phrase:107
 msgid "{vocal:%|vocals} support by"

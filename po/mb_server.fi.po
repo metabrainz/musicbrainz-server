@@ -29,13 +29,15 @@
 # yvanz, 2018
 # yvanz, 2018
 # Philipp Wolfer <ph.wolfer@gmail.com>, 2023.
+# reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-02 10:11+0200\n"
-"PO-Revision-Date: 2023-08-24 14:27+0000\n"
-"Last-Translator: Philipp Wolfer <ph.wolfer@gmail.com>\n"
+"PO-Revision-Date: 2024-01-04 14:54+0000\n"
+"Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
+".org>\n"
 "Language-Team: Finnish <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/fi/>\n"
 "Language: fi\n"
@@ -43,7 +45,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.18.2\n"
+"X-Generator: Weblate 5.3\n"
 
 #: ../root/components/common-macros.tt:12
 msgid " ({text})"
@@ -3476,7 +3478,7 @@ msgid ""
 "please make sure the artists have been entered correctly."
 msgstr ""
 "Olet käyttänyt {valink|Eri esittäjiä} erityiskäyttöön tarkoitettua artistia "
-"allaolevissa kappaleissa. {valinks|Eri esittäjiä} käytetään erittäin harvoin "
+"allaolevissa kappaleissa. {valink|Eri esittäjiä} käytetään erittäin harvoin "
 "kappaleissa. Varmista artistien olevan oikein."
 
 #: ../root/components/common-macros.tt:190

@@ -1,20 +1,23 @@
 #
 # Translators:
 # Avi Markovitz <email address hidden>, 2018-2021
+# reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2012-05-24 18:54+0000\n"
-"Last-Translator: Avi Markovitz <avi.markovitz@gmail.com>, 2018-2021\n"
-"Language-Team: Hebrew (http://app.transifex.com/musicbrainz/musicbrainz/"
-"language/he/)\n"
+"PO-Revision-Date: 2024-01-04 11:06+0000\n"
+"Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
+".org>\n"
+"Language-Team: Hebrew <https://translations.metabrainz.org/projects/"
+"musicbrainz/statistics/he/>\n"
 "Language: he\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n == 2 && n % "
-"1 == 0) ? 1: (n % 10 == 0 && n % 1 == 0 && n > 10) ? 2 : 3;\n"
+"Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
+"n % 10 == 0) ? 2 : 3));\n"
+"X-Generator: Weblate 5.3\n"
 
 #: DB:statistics.statistic_event/title:2015-09-08
 msgid "\"Do Not Cluster\" guideline dropped"
@@ -1188,10 +1191,8 @@ msgid "Database statistics"
 msgstr "סטטיסטיקת מסד נתונים"
 
 #: ../root/statistics/layout.tt:15
-#, fuzzy
-#| msgid "Database Statistics - {title}"
 msgid "Database statistics - {title}"
-msgstr "סטטיסטיקת מסד נתונים - (כותרת)"
+msgstr "סטטיסטיקת מסד נתונים - {title}"
 
 #: ../root/statistics/timeline.tt:16
 msgid "Draw a rectangle on either graph"

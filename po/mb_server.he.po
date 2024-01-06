@@ -8,15 +8,15 @@
 # Avi Markovitz <email address hidden>, 2018
 # Nicolás Tamargo <email address hidden>, 2021
 # Philipp Wolfer <ph.wolfer@gmail.com>, 2023.
-# reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2023.
+# reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2023, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-02 10:11+0200\n"
-"PO-Revision-Date: 2023-09-05 14:27+0000\n"
-"Last-Translator: reosarevok <reosarevok@users.noreply.translations."
-"metabrainz.org>\n"
+"PO-Revision-Date: 2024-01-04 11:06+0000\n"
+"Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
+".org>\n"
 "Language-Team: Hebrew <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/he/>\n"
 "Language: he\n"
@@ -25,7 +25,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
 "n % 10 == 0) ? 2 : 3));\n"
-"X-Generator: Weblate 4.18.2\n"
+"X-Generator: Weblate 5.3\n"
 
 #: ../root/components/common-macros.tt:12
 msgid " ({text})"
@@ -16617,9 +16617,9 @@ msgid ""
 "automatically approved without going through the normal voting process, as "
 "well as the ability to instantly approve other users' edits."
 msgstr ""
-"עורכים אוטומטיים הם משתמשים מהימנים שקיבלו הרשאות {url | auto-editor}. "
-"הרשאות אלה מאפשרות לבצע עריכות נבחרות שאושרו אוטומטית מבלי לעבור את תהליך "
-"ההצבעה הרגיל, כמו גם את היכולת לאשר באופן מיידי את העריכות של משתמשים אחרים."
+"עורכים אוטומטיים הם משתמשים מהימנים שקיבלו הרשאות {url|auto-editor}. הרשאות "
+"אלה מאפשרות לבצע עריכות נבחרות שאושרו אוטומטית מבלי לעבור את תהליך ההצבעה "
+"הרגיל, כמו גם את היכולת לאשר באופן מיידי את העריכות של משתמשים אחרים."
 
 #: ../root/user/PrivilegedUsers.js:50
 msgid "The following {count} users have auto-editor privileges:"
@@ -16640,7 +16640,7 @@ msgid ""
 "changes that have been accepted through the proposal system."
 msgstr ""
 "עורכי קשר־גומלין הם משתמשים שיכולים להוסיף או לשנות סוגי קשרי־גומלין במאגר. "
-"להצעת קשר־גומלין חדש, נא לעקוב אחר {url | מערכת ההצעות}. עורכי מערכות יחסים "
+"להצעת קשר־גומלין חדש, נא לעקוב אחר {מערכת ההצעות|url}. עורכי מערכות יחסים "
 "יבצעו רק שינויים שהתקבלו באמצעות מערכת ההצעות."
 
 #: ../root/user/PrivilegedUsers.js:69

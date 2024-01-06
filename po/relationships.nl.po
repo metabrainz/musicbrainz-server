@@ -11,13 +11,13 @@
 # Nikolai Prokoschenko <email address hidden>, 2011
 # nikki, 2012
 # yvanz, 2019
-# reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2023.
+# reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2023, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-12-20 20:28+0000\n"
-"Last-Translator: reosarevok <reosarevok@users.noreply.translations."
-"metabrainz.org>\n"
+"PO-Revision-Date: 2024-01-04 14:54+0000\n"
+"Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
+".org>\n"
 "Language-Team: Dutch <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/nl/>\n"
 "Language: nl\n"
@@ -199,7 +199,7 @@ msgstr "dj-mixversies"
 
 #: DB:link_type/long_link_phrase:43
 msgid "DJ-mixed {medium:% of}"
-msgstr "dj-mixte {medium:% of|medium:% van}"
+msgstr "dj-mixte {medium:% van}"
 
 #: DB:link_type/link_phrase:43
 msgid "DJ-mixed {medium}"
@@ -4874,7 +4874,7 @@ msgstr "volkslied van"
 
 #: DB:link_type/link_phrase:858 DB:link_type/long_link_phrase:858
 msgid "appears on video"
-msgstr "{entity1} is te zien in de clip van {entity0}"
+msgstr "is te zien in de clip van"
 
 #: DB:link_type/name:1131 DB:link_type/name:1130
 msgid "apple music"
@@ -7609,7 +7609,7 @@ msgstr "verzorgde {additional:aanvullende} creatieve leiding op"
 
 #: DB:link_type/long_link_phrase:1171
 msgid "provided {additional} design on"
-msgstr "verzorgde {aanvullend} het ontwerp voor"
+msgstr "verzorgde {additional:aanvullend} het ontwerp voor"
 
 #: DB:link_type/long_link_phrase:19 DB:link_type/long_link_phrase:130
 msgid "provided {additional} design/illustration on"
@@ -7622,7 +7622,7 @@ msgstr "verzorgde {additional:aanvullend} grafisch ontwerp voor"
 
 #: DB:link_type/long_link_phrase:927 DB:link_type/long_link_phrase:1173
 msgid "provided {additional} illustration on"
-msgstr "verzorgde {aanvullende} illustratie voor"
+msgstr "verzorgde {additional:aanvullende} illustratie voor"
 
 #: DB:link_type/long_link_phrase:22
 msgid "provided {additional} legal representation for"
@@ -8529,7 +8529,7 @@ msgstr "werd opnieuw gepland als"
 
 #: DB:link_type/long_link_phrase:760 DB:link_type/long_link_phrase:759
 msgid "was the {guest} concertmaster for"
-msgstr "was de {gast}concertmeester op"
+msgstr "was de {guest:gast}concertmeester op"
 
 #: DB:link_type/long_link_phrase:986 DB:link_type/long_link_phrase:987
 msgid "was the {instrument:%|instruments} technician for"
@@ -8934,7 +8934,7 @@ msgstr "{additional:aanvullende} creatieve leiding op"
 
 #: DB:link_type/link_phrase:1171 DB:link_type/reverse_link_phrase:1171
 msgid "{additional} design"
-msgstr "{aanvullend} ontwerp"
+msgstr "{additional:aanvullend} ontwerp"
 
 #: DB:link_type/link_phrase:19 DB:link_type/link_phrase:130
 #: DB:link_type/reverse_link_phrase:19 DB:link_type/reverse_link_phrase:130
@@ -8960,7 +8960,7 @@ msgstr "{additional:aanvullend} grafisch ontwerp"
 #: DB:link_type/link_phrase:927 DB:link_type/link_phrase:1173
 #: DB:link_type/reverse_link_phrase:927 DB:link_type/reverse_link_phrase:1173
 msgid "{additional} illustration"
-msgstr "{aanvullende} illustratie"
+msgstr "{additional:aanvullende} illustratie"
 
 #: DB:link_type/link_phrase:22 DB:link_type/reverse_link_phrase:22
 msgid "{additional} legal representation"
@@ -9657,7 +9657,7 @@ msgid ""
 "{entity1} was {anniversary:an anniversary tour for|a tour in support of} "
 "{entity0}"
 msgstr ""
-"{entitiy1} was {anniversary:een jubileumtournee voor|een ondersteunende "
+"{entity1} was {anniversary:een jubileumtournee voor|een ondersteunende "
 "tournee voor} {entity0}"
 
 #: DB:link_type/long_link_phrase:951 DB:link_type/long_link_phrase:950
@@ -9671,11 +9671,11 @@ msgstr "de lakplaat voor {entity1} werd gesneden in {entity0}"
 
 #: DB:link_type/reverse_link_phrase:760 DB:link_type/reverse_link_phrase:759
 msgid "{guest} concertmaster"
-msgstr "{gast}concertmeester"
+msgstr "{guest:gast}concertmeester"
 
 #: DB:link_type/link_phrase:760 DB:link_type/link_phrase:759
 msgid "{guest} concertmaster for"
-msgstr "{gast}concertmeester op"
+msgstr "{guest:gast}concertmeester op"
 
 #: DB:link_type/link_phrase:110 DB:link_type/reverse_link_phrase:110
 msgid "{half:half-}{step}siblings"

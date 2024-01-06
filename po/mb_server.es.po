@@ -47,23 +47,24 @@
 # yvanz, 2018
 # reosarevok <reosarevok@gmail.com>, 2023.
 # Yllelder <yllelder@gmail.com>, 2023.
-# reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2023.
+# reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2023, 2024.
 # 0x1026 <me@hugovidafe.dev>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-02 10:11+0200\n"
-"PO-Revision-Date: 2024-01-01 11:28+0000\n"
-"Last-Translator: 0x1026 <me@hugovidafe.dev>\n"
+"PO-Revision-Date: 2024-01-04 14:53+0000\n"
+"Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
+".org>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
 "X-Generator: Weblate 5.3\n"
 
 #: ../root/components/common-macros.tt:12
@@ -5866,13 +5867,14 @@ msgid ""
 "change their passwords. Sorry for the inconvenience. For more information "
 "see {blog|the recent blog post}."
 msgstr ""
-"Por favor cambia tu contraseña. Desafortunadamente hemos descubierto que las "
-"contraseñas de los usuarios de hashes seguros estaban temporalmente "
-"disponibles para descargar en nuestro sitio FTP. Si bien es extremadamente "
-"improbable que alguien pueda derivar las contraseñas originales de este "
-"contratiempo, requerimos que todos nuestros usuarios cambien sus "
-"contraseñas. Sentimos los inconvenientes ocasionados. Para obtener más "
-"información, consulte {blog | la reciente publicación del blog}."
+"Por favor, cambia tu contraseña. Desafortunadamente hemos descubierto que "
+"los hashes seguros de las contraseñas de los usuarios estuvieron "
+"temporalmente disponibles para descarga en nuestro sitio FTP. Si bien es "
+"extremadamente improbable que alguien pueda obtener las contraseñas "
+"originales en base a este problema, hemos decidido requerir que todos "
+"nuestros usuarios cambien sus contraseñas. Sentimos los inconvenientes "
+"ocasionados. Para obtener más información, consulta {blog|la reciente "
+"publicación del blog}."
 
 #: ../root/account/ChangePassword.js:58
 msgid "Please enter your old password below, and then your new password."
@@ -15229,7 +15231,7 @@ msgstr ""
 
 #: ../root/static/scripts/release-editor/fields.js:767
 msgid "Medium {position}"
-msgstr "Medio {posición}"
+msgstr "Medio {position}"
 
 #: ../root/static/scripts/release-editor/fields.js:776
 msgid "I confirm this medium is actually titled “{medium_title}”."
@@ -16046,7 +16048,7 @@ msgstr ""
 
 #: ../root/user/UserEdits.js:50 ../root/user/UserEdits.js:51
 msgid "Cancelled edits by {name}"
-msgstr "Cancelar ediciones por {nombre}"
+msgstr "Ediciones canceladas de {name}"
 
 #: ../root/user/UserEdits.js:54 ../root/user/UserEdits.js:55
 msgid "Accepted edits by {name}"

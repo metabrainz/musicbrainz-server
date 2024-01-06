@@ -3,19 +3,22 @@
 # Dimitris <email address hidden>, 2013
 # Dimitris <email address hidden>, 2012
 # Panos Bouklis <email address hidden>, 2012
+# reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2012-05-24 18:54+0000\n"
-"Last-Translator: Dimitris <dimpole@gmail.com>, 2013\n"
-"Language-Team: Greek (http://app.transifex.com/musicbrainz/musicbrainz/"
-"language/el/)\n"
+"PO-Revision-Date: 2024-01-04 11:06+0000\n"
+"Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
+".org>\n"
+"Language-Team: Greek <https://translations.metabrainz.org/projects/"
+"musicbrainz/statistics/el/>\n"
 "Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.3\n"
 
 #: DB:statistics.statistic_event/title:2015-09-08
 msgid "\"Do Not Cluster\" guideline dropped"
@@ -1161,10 +1164,8 @@ msgid "Database statistics"
 msgstr "Στατιστικά βάσης δεδομένων"
 
 #: ../root/statistics/layout.tt:15
-#, fuzzy
-#| msgid "Database Statistics"
 msgid "Database statistics - {title}"
-msgstr "Στατιστικά βάσης δεδομένων"
+msgstr "Στατιστικά βάσης δεδομένων - {title}"
 
 #: ../root/statistics/timeline.tt:16
 msgid "Draw a rectangle on either graph"

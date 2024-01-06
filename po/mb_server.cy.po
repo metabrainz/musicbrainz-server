@@ -5,14 +5,16 @@
 #
 # Translators:
 # adhawkins <email address hidden>, 2012
-#   <email address hidden>, 2012
+# <email address hidden>, 2012
+# reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-02 10:11+0200\n"
-"PO-Revision-Date: 2023-08-18 12:55+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"PO-Revision-Date: 2024-01-04 14:54+0000\n"
+"Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
+".org>\n"
 "Language-Team: Welsh <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/cy/>\n"
 "Language: cy\n"
@@ -21,7 +23,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n==1) ? 0 : (n==2) ? 1 : (n != 8 && n != "
 "11) ? 2 : 3;\n"
-"X-Generator: Weblate 4.18.2\n"
+"X-Generator: Weblate 5.3\n"
 
 #: ../root/components/common-macros.tt:12
 msgid " ({text})"
@@ -7339,11 +7341,9 @@ msgid "Cover art"
 msgstr "Celf Albwm"
 
 #: ../root/components/EntityTabs.js:116
-#, fuzzy
-#| msgid "Cover Art"
 msgctxt "plural"
 msgid "Cover art ({num})"
-msgstr "Celf Albwm"
+msgstr "Celf albwm ({num})"
 
 #: ../root/components/EntityTabs.js:132
 #: ../root/components/UserAccountTabs.js:65 ../root/entity/Tags.js:38

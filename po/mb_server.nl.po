@@ -30,15 +30,15 @@
 # RandomMushroom128 <RandomMushroom128@users.noreply.translations.metabrainz.org>, 2023.
 # kellnerd <kellnerd@users.noreply.translations.metabrainz.org>, 2023.
 # mfmeulenbelt <mfmeulenbelt@users.noreply.translations.metabrainz.org>, 2023.
-# reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2023.
+# reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2023, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-02 10:11+0200\n"
-"PO-Revision-Date: 2023-12-20 20:28+0000\n"
-"Last-Translator: mfmeulenbelt <mfmeulenbelt@users.noreply.translations."
-"metabrainz.org>\n"
+"PO-Revision-Date: 2024-01-04 20:28+0000\n"
+"Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
+".org>\n"
 "Language-Team: Dutch <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/nl/>\n"
 "Language: nl\n"
@@ -3851,8 +3851,8 @@ msgid_plural ""
 "Thank you, your {num_edits} {edit_url|edits} ({edit_ids}) have been "
 "automatically accepted and applied."
 msgstr[0] ""
-"Bedankt, je {num_edits} {edit_url|bewerking} ({edit_ids}) is automatisch "
-"geaccepteerd en doorgevoerd."
+"Bedankt, je {edit_url|bewerking} ({edit_ids}) is automatisch geaccepteerd en "
+"doorgevoerd."
 msgstr[1] ""
 "Bedankt, je {num_edits} {edit_url|bewerkingen} ({edit_ids}) zijn automatisch "
 "geaccepteerd en doorgevoerd."
@@ -15606,7 +15606,7 @@ msgstr ""
 
 #: ../root/static/scripts/edit/components/RelationshipPendingEditsWarning.js:38
 msgid "This relationship has {edit_search|open edits}."
-msgstr "Deze relatie heeft {edits_search|open bewerkingen}."
+msgstr "Deze relatie heeft {edit_search|open bewerkingen}."
 
 #: ../root/static/scripts/edit/components/RelationshipPendingEditsWarning.js:43
 msgid "This relationship has open edits."
@@ -16480,48 +16480,48 @@ msgstr "Composities met de tag ‘{tag}’"
 
 #: ../root/tag/EntityList.js:40
 msgid "Areas {user} tagged as “{tag}”"
-msgstr "Gebieden die {user] de tag ‘{tag}’ heeft gegeven."
+msgstr "Gebieden die {user} de tag ‘{tag}’ heeft gegeven."
 
 #: ../root/tag/EntityList.js:41
 msgid "Artists {user} tagged as “{tag}”"
-msgstr "Artiesten die {user] de tag ‘{tag}’ heeft gegeven."
+msgstr "Artiesten die {user} de tag ‘{tag}’ heeft gegeven."
 
 #: ../root/tag/EntityList.js:42
 msgid "Events {user} tagged as “{tag}”"
-msgstr "Evenementen die {user] de tag ‘{tag}’ heeft gegeven."
+msgstr "Evenementen die {user} de tag ‘{tag}’ heeft gegeven."
 
 #: ../root/tag/EntityList.js:43
 msgid "Instruments {user} tagged as “{tag}”"
-msgstr "Instrumenten die {user] de tag ‘{tag}’ heeft gegeven."
+msgstr "Instrumenten die {user} de tag ‘{tag}’ heeft gegeven."
 
 #: ../root/tag/EntityList.js:44
 msgid "Labels {user} tagged as “{tag}”"
-msgstr "Platenmaatschappijen"
+msgstr "Platenmaatschappijen die {user} de tag ‘{tag}’ heeft gegeven."
 
 #: ../root/tag/EntityList.js:45
 msgid "Places {user} tagged as “{tag}”"
-msgstr "Plaatsen die {user] de tag ‘{tag}’ heeft gegeven."
+msgstr "Plaatsen die {user} de tag ‘{tag}’ heeft gegeven."
 
 #: ../root/tag/EntityList.js:46
 msgid "Recordings {user} tagged as “{tag}”"
-msgstr "Opnames die {user] de tag ‘{tag}’ heeft gegeven."
+msgstr "Opnames die {user} de tag ‘{tag}’ heeft gegeven."
 
 #: ../root/tag/EntityList.js:47
 msgid "Releases {user} tagged as “{tag}”"
-msgstr "Uitgaven die {user] de tag ‘{tag}’ heeft gegeven."
+msgstr "Uitgaven die {user} de tag ‘{tag}’ heeft gegeven."
 
 #: ../root/tag/EntityList.js:48
 msgid "Release groups {user} tagged as “{tag}”"
-msgstr "Uitgavegroepen die {user] de tag ‘{tag}’ heeft gegeven."
+msgstr "Uitgavegroepen die {user} de tag ‘{tag}’ heeft gegeven."
 
 #: ../root/tag/EntityList.js:49
 msgctxt "plural series"
 msgid "Series {user} tagged as “{tag}”"
-msgstr "Series die {user] de tag ‘{tag}’ heeft gegeven."
+msgstr "Series die {user} de tag ‘{tag}’ heeft gegeven."
 
 #: ../root/tag/EntityList.js:50
 msgid "Works {user} tagged as “{tag}”"
-msgstr "Composities die {user] de tag ‘{tag}’ heeft gegeven."
+msgstr "Composities die {user} de tag ‘{tag}’ heeft gegeven."
 
 #: ../root/tag/EntityList.js:54
 msgid "Areas where {user} downvoted “{tag}”"
@@ -16541,7 +16541,8 @@ msgstr "Instrumenten waarbij {user} de tag ‘{tag}’ omlaag heeft gestemd"
 
 #: ../root/tag/EntityList.js:58
 msgid "Labels where {user} downvoted “{tag}”"
-msgstr "Platenmaatschappijen"
+msgstr ""
+"Platenmaatschappijen waarbij {user} de tag ‘{tag}’ omlaag heeft gestemd."
 
 #: ../root/tag/EntityList.js:59
 msgid "Places where {user} downvoted “{tag}”"

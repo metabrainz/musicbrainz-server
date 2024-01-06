@@ -10,19 +10,22 @@
 # phonebox, 2014
 # Timo Martikainen <email address hidden>, 2012-2014
 # Tukea <email address hidden>, 2016
+# reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2012-05-24 18:54+0000\n"
-"Last-Translator: Juhana Uuttu <rexroom@sci.fi>, 2023\n"
-"Language-Team: Finnish (http://app.transifex.com/musicbrainz/musicbrainz/"
-"language/fi/)\n"
+"PO-Revision-Date: 2024-01-04 11:06+0000\n"
+"Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
+".org>\n"
+"Language-Team: Finnish <https://translations.metabrainz.org/projects/"
+"musicbrainz/statistics/fi/>\n"
 "Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.3\n"
 
 #: DB:statistics.statistic_event/title:2015-09-08
 msgid "\"Do Not Cluster\" guideline dropped"
@@ -2894,7 +2897,7 @@ msgstr[1] ""
 #: ../root/statistics/stats.js:934
 msgid "Mediums with 1 Disc ID"
 msgid_plural "Mediums with {n} Disc IDs"
-msgstr[0] "Tallenteet, joissa {n} levyn tunnistetta"
+msgstr[0] "Tallenteet, joissa 1 levyn tunnistetta"
 msgstr[1] "Tallenteet, joissa {n} levyn tunnistetta"
 
 #: ../root/statistics/stats.js:945
@@ -2906,7 +2909,7 @@ msgstr[1] ""
 #: ../root/statistics/stats.js:956
 msgid "Release Groups with 1 Release"
 msgid_plural "Release Groups with {n} Releases"
-msgstr[0] "Julkaisuryhmät joissa {n} julkaisu"
+msgstr[0] "Julkaisuryhmät joissa 1 julkaisu"
 msgstr[1] "Julkaisuryhmät joissa {n} julkaisua"
 
 #: ../root/statistics/stats.js:1009
