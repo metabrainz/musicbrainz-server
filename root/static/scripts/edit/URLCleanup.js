@@ -2401,7 +2401,6 @@ const CLEANUPS: CleanupEntries = {
     match: [
       new RegExp('^(https?://)?([^/]+\\.)?audiojelly\\.com', 'i'),
       new RegExp('^(https?://)?([^/]+\\.)?e-onkyo\\.com', 'i'),
-      new RegExp('^(https?://)?([^/]+\\.)?ototoy\\.jp', 'i'),
       new RegExp('^(https?://)?([^/]+\\.)?hd-music\\.info', 'i'),
       new RegExp('^(https?://)?([^/]+\\.)?musa24\\.fi', 'i'),
     ],
@@ -4543,6 +4542,35 @@ const CLEANUPS: CleanupEntries = {
       new RegExp('^(https?://)?(www\\.)?videogam\\.in', 'i'),
     ],
     restrict: [LINK_TYPES.otherdatabases],
+  },
+  'ototoy': {
+    match: new RegExp('^(https?://)?([^/]+\\.)?ototoy\\.jp', 'i'),
+    restrict: [LINK_TYPES.downloadpurchase],
+    validate: function (url, id) {
+      const m = /^https:\/\/ototoy\.jp\/(?:(labels)\/\d+|(_\/default\/p)\/\d+|(_\/default\/a)\/\d+)$/.exec(url);
+      if (m) {
+        const suffix = m[1] || m[2] || m[3];
+        switch (id) {
+          case LINK_TYPES.downloadpurchase.label:
+            return {
+              result: suffix === 'labels',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.downloadpurchase.release:
+            return {
+              result: suffix.test(/_\/default\/p/),
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.downloadpurchase.artist:
+            return {
+              result: suffix.test(/_\/default\/a/),
+              target: ERROR_TARGETS.ENTITY,
+            };
+        }
+        return {result: false, target: ERROR_TARGETS.ENTITY};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
   },
   'overture': {
     match: [new RegExp('^(https?://)?overture\\.doremus\\.org/', 'i')],

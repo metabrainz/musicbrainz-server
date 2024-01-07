@@ -4405,6 +4405,16 @@ limited_link_type_combinations: [
              input_entity_type: 'release',
     expected_relationship_type: 'downloadpurchase',
   },
+  {
+                     input_url: 'https://ototoy.jp/_/default/a/1064270',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'downloadpurchase',
+  },
+  {
+                     input_url: 'https://ototoy.jp/labels/695414',
+             input_entity_type: 'label',
+    expected_relationship_type: 'downloadpurchase',
+  },
   // Overture by Doremus
   {
                      input_url: 'http://overture.doremus.org/artist/dc9b7eb2-7727-3d97-9ea5-7861ac99ea6a',
