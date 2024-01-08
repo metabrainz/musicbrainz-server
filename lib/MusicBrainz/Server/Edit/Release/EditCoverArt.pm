@@ -27,7 +27,7 @@ sub release_ids { shift->data->{entity}{id} }
 sub cover_art_id { shift->data->{id} }
 sub edit_template { 'EditCoverArt' }
 
-sub art_id { shift->cover_art_id }
+sub art_ids { shift->cover_art_id }
 sub entity_ids { shift->release_ids }
 sub art_archive_model { shift->c->model('CoverArtArchive') }
 

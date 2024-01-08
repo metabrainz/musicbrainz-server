@@ -3,7 +3,7 @@ use MooseX::Role::Parameterized;
 use namespace::autoclean;
 
 role {
-    requires qw( art_id entity_ids art_archive_model );
+    requires qw( art_ids entity_ids art_archive_model );
 
     method alter_edit_pending => sub {
         my $self = shift;
@@ -14,7 +14,7 @@ role {
 
         return {
             $entity_model_name => [ $self->entity_ids ],
-            $art_model_name => [ $self->art_id ],
+            $art_model_name => [ $self->art_ids ],
         };
     };
 };

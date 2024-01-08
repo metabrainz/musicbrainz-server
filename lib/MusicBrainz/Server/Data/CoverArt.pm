@@ -18,7 +18,7 @@ sub art_archive_model { shift->c->model('CoverArtArchive') }
 sub _entity_class
 {
     my ($self, $row) = @_;
-    if (exists $row->{release_group}) {
+    if (defined $row && exists $row->{release_group}) {
         return 'MusicBrainz::Server::Entity::ReleaseGroupArt';
     } else {
         return 'MusicBrainz::Server::Entity::ReleaseArt';
