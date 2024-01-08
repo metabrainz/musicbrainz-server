@@ -20,14 +20,14 @@ const InstrumentsWithoutAnImage = ({
 }: ReportDataT<ReportInstrumentT>): React$Element<typeof ReportLayout> => (
   <ReportLayout
     canBeFiltered={canBeFiltered}
-    description={l(
+    description={l_admin(
       `This report shows instruments without an image relationship
        to StaticBrainz (that is, without an IROMBOOK image).`,
     )}
     entityType="instrument"
     filtered={filtered}
     generated={generated}
-    title={l('Instruments without an image')}
+    title="Instruments without an image"
     totalEntries={pager.total_entries}
   >
     <InstrumentList items={items} pager={pager} />

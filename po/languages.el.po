@@ -2,18 +2,20 @@
 # Translators:
 # Panos Bouklis <email address hidden>, 2012
 # Dimitris <email address hidden>, 2012
+# zemeles <realmofthemadgod500@gmail.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2012-05-24 19:23+0000\n"
-"Last-Translator: Dimitris <dimpole@gmail.com>, 2012\n"
-"Language-Team: Greek (http://app.transifex.com/musicbrainz/musicbrainz/"
-"language/el/)\n"
+"PO-Revision-Date: 2023-12-27 17:28+0000\n"
+"Last-Translator: zemeles <realmofthemadgod500@gmail.com>\n"
+"Language-Team: Greek <https://translations.metabrainz.org/projects/"
+"musicbrainz/languages/el/>\n"
 "Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.3\n"
 
 #. frequency:1 iso_code_3:abk 
 #: DB:language/name:2
@@ -178,7 +180,7 @@ msgstr "Αυστραλιανές γλώσσες"
 #. frequency:0 iso_code_3:null 
 #: DB:language/name:263
 msgid "Austronesian languages"
-msgstr ""
+msgstr "Αυστρονησιακές Γλώσσες"
 
 #. frequency:1 iso_code_3:ava 
 #: DB:language/name:30

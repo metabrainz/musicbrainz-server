@@ -758,6 +758,11 @@ msgctxt "work_attribute_type"
 msgid "ACDAM ID"
 msgstr ""
 
+#: DB:work_attribute_type/name:206
+msgctxt "work_attribute_type"
+msgid "ACUM ID"
+msgstr ""
+
 #: DB:work_attribute_type/name:58
 msgctxt "work_attribute_type"
 msgid "AEI ID"
@@ -3832,6 +3837,11 @@ msgstr ""
 #: DB:work_attribute_type/description:52
 msgctxt "work_attribute_type"
 msgid "ID for the Irish rights society IMRO"
+msgstr ""
+
+#: DB:work_attribute_type/description:206
+msgctxt "work_attribute_type"
+msgid "ID for the Israeli rights society ACUM"
 msgstr ""
 
 #: DB:work_attribute_type/description:36

@@ -41,7 +41,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-12-20 12:38+0000\n"
+"PO-Revision-Date: 2023-12-21 13:28+0000\n"
 "Last-Translator: yvanzo <yvanzo@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: French <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/fr/>\n"
@@ -363,7 +363,7 @@ msgstr "Page IMSLP pour"
 
 #: DB:link_attribute_type/description:516
 msgid "Indicates a bonus disc."
-msgstr "Signale un disque bonus."
+msgstr "Indique un disque bonus."
 
 #: DB:link_type/description:162
 msgid ""
@@ -1144,8 +1144,8 @@ msgstr ""
 #: DB:link_attribute_type/description:1060
 msgid "Meane or mean is a young male singer with a voice lower than a treble."
 msgstr ""
-"Un jeune alto est un jeune chanteur dont la voix est plus basse que celle d’"
-"un jeune soprano mais plus haute qu’un contralto."
+"Un jeune alto est un jeune chanteur dont la voix est plus basse que celle "
+"d’un jeune soprano mais plus haute qu’un contralto."
 
 #: DB:link_type/link_phrase:215 DB:link_type/link_phrase:462
 #: DB:link_type/link_phrase:189
@@ -1666,7 +1666,7 @@ msgstr ""
 "utilisés pour modifier ou manipuler le son qu’il soit analogique ou "
 "numérique."
 
-#: DB:link_type/description:36 DB:link_type/description:128
+#: DB:link_type/description:128 DB:link_type/description:36
 msgid ""
 "This describes an engineer responsible for committing the performance to "
 "tape or another recording medium. This can be as complex as setting up the "
@@ -1746,9 +1746,9 @@ msgid ""
 "release. This relationship is deprecated, please use either “design” or "
 "“illustration” (or both!) instead."
 msgstr ""
-"Ceci indique une personne ou agence qui a fait de la conception ou de l’"
-"illustration pour cette parution. Cette relation est maintenant obsolète et "
-"ne doit plus être utilisée, merci d’utiliser plus « conception » ou « "
+"Ceci indique une personne ou agence qui a fait de la conception ou de "
+"l’illustration pour cette parution. Cette relation est maintenant obsolète "
+"et ne doit plus être utilisée, merci d’utiliser plus « conception » ou « "
 "illustration » (ou les deux) à la place."
 
 #: DB:link_type/description:130
@@ -2236,6 +2236,13 @@ msgid ""
 "written template and involves the performance of voice actors."
 msgstr ""
 
+#: DB:link_type/description:1230
+#, fuzzy
+#| msgid "This indicates the artist was the director of this music video."
+msgid ""
+"This indicates the artist was the choreographer for this video recording."
+msgstr "Ceci indique que l’artiste était le réalisateur de ce clip."
+
 #: DB:link_type/description:962
 msgid "This indicates the artist was the director of this video recording."
 msgstr ""
@@ -2263,8 +2270,8 @@ msgid ""
 "that turn a composition into a form that can be played by a specific type of "
 "ensemble."
 msgstr ""
-"Ceci indique l’artiste ayant arrangé un morceau pour le rendre propre à l’"
-"interprétation. « Arrangement » est utilisé comme terme à tout faire pour "
+"Ceci indique l’artiste ayant arrangé un morceau pour le rendre propre à "
+"l’interprétation. « Arrangement » est utilisé comme terme à tout faire pour "
 "tous les processus transformant une composition en un format qui peut être "
 "joué par un type spécifique d’ensemble."
 
@@ -3680,8 +3687,8 @@ msgstr ""
 "Fichier_d%27autorit%C3%A9_international_virtuel\">Plus d’informations sur "
 "Wikipédia</a>)\n"
 "<br/><br/>\n"
-"<strong>Note :</strong> Les œuvres ne sont pas très détaillées dans VIAF. N’"
-"ajouter des liens vers les œuvres MusicBrainz que si vous êtes absolument "
+"<strong>Note :</strong> Les œuvres ne sont pas très détaillées dans VIAF. "
+"N’ajouter des liens vers les œuvres MusicBrainz que si vous êtes absolument "
 "sûr que c’est la même œuvre."
 
 #: DB:link_type/description:197
@@ -3753,8 +3760,8 @@ msgid ""
 msgstr ""
 "Cette relation indique qu’un artiste est détenteur des droits "
 "phonographiques pour cet enregistrement, habituellement indiqué par le <a "
-"href=\"//fr.wikipedia.org/wiki/Symbole_de_copyright_phonographique\" target="
-"\"_blank\">symbole ℗</a>."
+"href=\"//fr.wikipedia.org/wiki/Symbole_de_copyright_phonographique\" "
+"target=\"_blank\">symbole ℗</a>."
 
 #: DB:link_type/description:710
 msgid ""
@@ -3763,9 +3770,9 @@ msgid ""
 "copyright</a> holder for this release, usually indicated with a ℗ symbol."
 msgstr ""
 "Cette relation indique qu’un artiste est détenteur des droits "
-"phonographiques pour cette parution, habituellement indiqué par le <a href=\""
-"//fr.wikipedia.org/wiki/Symbole_de_copyright_phonographique\" target=\"_blank"
-"\">symbole ℗</a>."
+"phonographiques pour cette parution, habituellement indiqué par le <a "
+"href=\"//fr.wikipedia.org/wiki/Symbole_de_copyright_phonographique\" "
+"target=\"_blank\">symbole ℗</a>."
 
 #: DB:link_type/description:709
 msgid ""
@@ -4027,7 +4034,8 @@ msgstr ""
 
 #: DB:link_type/description:627
 msgid "This relationship type can be used to link a place to its blog."
-msgstr "Ce type de relation peut être utilisé pour relier un lieu à son blogue."
+msgstr ""
+"Ce type de relation peut être utilisé pour relier un lieu à son blogue."
 
 #: DB:link_type/description:528
 msgid ""
@@ -4310,7 +4318,8 @@ msgstr ""
 #: DB:link_type/description:837
 msgid ""
 "This relationship type links a place to its corresponding page at Last.fm."
-msgstr "Ce type de relation relie un lieu à sa page correspondante sur Last.fm."
+msgstr ""
+"Ce type de relation relie un lieu à sa page correspondante sur Last.fm."
 
 #: DB:link_type/description:787
 msgid ""
@@ -4618,8 +4627,8 @@ msgid ""
 "Use this to indicate that the mastering relationship is specifically for a "
 "pre-master."
 msgstr ""
-"Indique qu’une relation de matriçage concerne plus spécifiquement un "
-"pré-matriçage."
+"Indique qu’une relation de matriçage concerne plus spécifiquement un pré-"
+"matriçage."
 
 #: DB:link_attribute_type/description:952
 msgid ""
@@ -5120,6 +5129,12 @@ msgstr "chœurs"
 #: DB:link_attribute_type/name:1224
 msgid "choral conducting"
 msgstr ""
+
+#: DB:link_type/name:1230
+#, fuzzy
+#| msgid "photography"
+msgid "choreographer"
+msgstr "photographie"
 
 #: DB:link_type/name:152 DB:link_type/name:53
 msgid "chorus master"
@@ -7665,7 +7680,7 @@ msgstr ""
 msgid "recorded release groups"
 msgstr ""
 
-#: DB:link_type/name:36 DB:link_type/name:128
+#: DB:link_type/name:128 DB:link_type/name:36
 msgid "recording"
 msgstr "enregistrement"
 
@@ -8451,7 +8466,7 @@ msgstr "était le premier violon {guest:invité} pour"
 msgid "was the {instrument:%|instruments} technician for"
 msgstr "était le technicien en {instrument:%|instruments} pour"
 
-#: DB:link_type/long_link_phrase:36 DB:link_type/long_link_phrase:128
+#: DB:link_type/long_link_phrase:128 DB:link_type/long_link_phrase:36
 msgid "was {additional} {assistant} {associate} {co:co-}recording engineer for"
 msgstr ""
 "était {additional:aussi} {co:co-}ingénieur du son {assistant} {associate:"
@@ -8464,6 +8479,12 @@ msgstr ""
 #: DB:link_type/long_link_phrase:1165
 msgid "was {assistant} carillonneur at"
 msgstr "était {assistant} carillonneur à"
+
+#: DB:link_type/long_link_phrase:1230
+#, fuzzy
+#| msgid "was {assistant} organist at"
+msgid "was {assistant} choreographer for"
+msgstr "était {assistant:assistant d’}organiste à"
 
 #: DB:link_type/long_link_phrase:856
 msgid "was {assistant} organist at"
@@ -9027,12 +9048,12 @@ msgid "{additional} {assistant} {associate} {co:co-}mixer"
 msgstr ""
 "{co:co-}mixeur {additional:supplémentaire} {assistant} {associate:associé}"
 
-#: DB:link_type/reverse_link_phrase:36 DB:link_type/reverse_link_phrase:128
+#: DB:link_type/reverse_link_phrase:128 DB:link_type/reverse_link_phrase:36
 msgid "{additional} {assistant} {associate} {co:co-}recording engineer"
 msgstr ""
 "{additional:aussi} {co:co-}ingénieur du son {assistant} {associate:associé}"
 
-#: DB:link_type/link_phrase:36 DB:link_type/link_phrase:128
+#: DB:link_type/link_phrase:128 DB:link_type/link_phrase:36
 msgid "{additional} {assistant} {associate} {co:co-}recording engineer for"
 msgstr ""
 "{additional:aussi} {co:co-}ingénieur du son {assistant} {associate:associé} "
@@ -9069,8 +9090,8 @@ msgstr ""
 #: DB:link_type/link_phrase:42 DB:link_type/reverse_link_phrase:42
 msgid "{additional} {assistant} {associate} {co:co-}{pre:pre-}{re}mastering"
 msgstr ""
-"{assistant:assistant de} {co:co-}{pre:pre-}{re}matriçage "
-"{additional:supplémentaire} {associate:associé}"
+"{assistant:assistant de} {co:co-}{pre:pre-}{re}matriçage {additional:"
+"supplémentaire} {associate:associé}"
 
 #: DB:link_type/link_phrase:37 DB:link_type/link_phrase:132
 #: DB:link_type/reverse_link_phrase:37 DB:link_type/reverse_link_phrase:132
@@ -9155,6 +9176,18 @@ msgstr "{assistant} carillonneur"
 #: DB:link_type/link_phrase:1165
 msgid "{assistant} carillonneur at"
 msgstr "{assistant} carillonneur à"
+
+#: DB:link_type/reverse_link_phrase:1230
+#, fuzzy
+#| msgid "{assistant} organists"
+msgid "{assistant} choreographer"
+msgstr "{assistant:assistants d’}organistes"
+
+#: DB:link_type/link_phrase:1230
+#, fuzzy
+#| msgid "{assistant} organist at"
+msgid "{assistant} choreographer for"
+msgstr "{assistant:assistant d’}organiste à"
 
 #: DB:link_type/link_phrase:856
 msgid "{assistant} organist at"
@@ -9875,9 +9908,6 @@ msgstr "{vocal:%|voix} de soutien pour"
 #~ msgstr ""
 #~ "Ceci indique qu’une personne ou agence a mené la direction artistique "
 #~ "pour cette parution."
-
-#~ msgid "This indicates the artist was the director of this music video."
-#~ msgstr "Ceci indique que l’artiste était le réalisateur de ce clip."
 
 #~ msgid ""
 #~ "This links an artist's performance name (a stage name or alias) with "

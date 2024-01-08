@@ -16,6 +16,7 @@ const commonPath =
   path.resolve(MB_SERVER_ROOT, 'root/static/scripts/common/');
 const i18nPath = path.resolve(commonPath, 'i18n');
 const addColonPath = path.resolve(i18nPath, 'addColon');
+const lAdminPath = path.resolve(i18nPath, 'admin');
 const hyphenateTitlePath = path.resolve(i18nPath, 'hyphenateTitle');
 const expandPath = path.resolve(i18nPath, 'expand2react');
 const expandTextPath = path.resolve(i18nPath, 'expand2text');
@@ -50,6 +51,8 @@ const providePluginConfig = {
   'texp.l': [expandTextPath, 'l'],
   'texp.ln': [expandTextPath, 'ln'],
   'texp.lp': [expandTextPath, 'lp'],
+
+  'l_admin': [lAdminPath, 'l_admin'],
 
   'exp.l_admin': [expandPath, 'l_admin'],
   'exp.ln_admin': [expandPath, 'ln_admin'],

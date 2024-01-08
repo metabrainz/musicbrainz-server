@@ -9,7 +9,6 @@
 
 import PaginatedResults from '../components/PaginatedResults.js';
 import Layout from '../layout/index.js';
-import {l_admin} from '../static/scripts/common/i18n/admin.js';
 import FormRowCheckbox
   from '../static/scripts/edit/components/FormRowCheckbox.js';
 import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';

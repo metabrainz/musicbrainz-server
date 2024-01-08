@@ -11,7 +11,6 @@ import * as React from 'react';
 
 import {SanitizedCatalystContext} from '../../context.mjs';
 import Layout from '../../layout/index.js';
-import {l_admin} from '../../static/scripts/common/i18n/admin.js'
 import expand2react from '../../static/scripts/common/i18n/expand2react.js';
 import bracketed, {bracketedText}
   from '../../static/scripts/common/utility/bracketed.js';
@@ -66,13 +65,13 @@ const AttributeDetails = ({
           </>
         )}
         <a href={'/relationship-attribute/' + attribute.gid + '/edit'}>
-          {lp('Edit', 'verb, interactive')}
+          {l_admin('Edit')}
         </a>
         {childrenAttrs.length ? null : (
           <>
             {' | '}
             <a href={'/relationship-attribute/' + attribute.gid + '/delete'}>
-              {l('Remove')}
+              {l_admin('Remove')}
             </a>
           </>
         )}

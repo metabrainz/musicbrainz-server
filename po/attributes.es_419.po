@@ -1,13 +1,17 @@
+# danBLOO <danielplinplon@gmail.com>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2024-01-05 20:28+0000\n"
+"Last-Translator: danBLOO <danielplinplon@gmail.com>\n"
+"Language-Team: Spanish (Latin America) <https://translations.metabrainz.org/"
+"projects/musicbrainz/attributes/es_419/>\n"
 "Language: es_419\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.3\n"
 
 #: DB:work_type/description:9
 msgctxt "work_type"
@@ -16,6 +20,9 @@ msgid ""
 "unaccompanied) choral works. What exactly is a motet depends quite a bit on "
 "the period."
 msgstr ""
+"“Motete” es un término que se aplica a diferentes tipos de piezas corales ("
+"por lo general sin acompañamiento). Lo que es exactamente un motete depende "
+"un poco del periodo."
 
 #: DB:work_type/description:5
 msgctxt "work_type"
@@ -743,6 +750,11 @@ msgstr ""
 #: DB:work_attribute_type/name:47
 msgctxt "work_attribute_type"
 msgid "ACDAM ID"
+msgstr ""
+
+#: DB:work_attribute_type/name:206
+msgctxt "work_attribute_type"
+msgid "ACUM ID"
 msgstr ""
 
 #: DB:work_attribute_type/name:58
@@ -3819,6 +3831,11 @@ msgstr ""
 #: DB:work_attribute_type/description:52
 msgctxt "work_attribute_type"
 msgid "ID for the Irish rights society IMRO"
+msgstr ""
+
+#: DB:work_attribute_type/description:206
+msgctxt "work_attribute_type"
+msgid "ID for the Israeli rights society ACUM"
 msgstr ""
 
 #: DB:work_attribute_type/description:36
