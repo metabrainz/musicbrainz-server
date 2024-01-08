@@ -21,12 +21,12 @@
 # Philipp Wolfer <ph.wolfer@gmail.com>, 2023.
 # kellnerd <kellnerd@users.noreply.translations.metabrainz.org>, 2023.
 # aerozol <aerozol@users.noreply.translations.metabrainz.org>, 2023.
+# "Markus O." <markus@memotech.franken.de>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-12-19 04:28+0000\n"
-"Last-Translator: kellnerd <kellnerd@users.noreply.translations.metabrainz."
-"org>\n"
+"PO-Revision-Date: 2024-01-04 03:28+0000\n"
+"Last-Translator: \"Markus O.\" <markus@memotech.franken.de>\n"
 "Language-Team: German <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/de/>\n"
 "Language: de\n"
@@ -106,7 +106,7 @@ msgstr ""
 
 #: DB:link_type/reverse_link_phrase:1131 DB:link_type/reverse_link_phrase:1130
 msgid "Apple Music page for"
-msgstr ""
+msgstr "Apple-Music-Seite für"
 
 #: DB:link_type/link_phrase:190
 msgid "BBC Music"
@@ -492,7 +492,7 @@ msgstr "Gibt an, dass ein Objekt ein Cover eines anderen Objekts ist."
 
 #: DB:link_type/description:996
 msgid "Indicates that the artist is part of a series."
-msgstr ""
+msgstr "Gibt an, dass der Künstler Teil einer Serie ist."
 
 #: DB:link_type/description:802
 msgid "Indicates that the event is part of a series."
@@ -574,12 +574,16 @@ msgid ""
 "Indicates the composer for this release, that is, the artist who wrote the "
 "music (not necessarily the lyrics)."
 msgstr ""
+"Gibt den Komponisten für diese Veröffentlichung an, d.h. den Künstler der "
+"die Musik (nicht unbedingt die Texte) geschrieben hat."
 
 #: DB:link_type/description:168
 msgid ""
 "Indicates the composer for this work, that is, the artist who wrote the "
 "music (not necessarily the lyrics)."
 msgstr ""
+"Gibt den Komponisten für dieses Werk an, d.h. den Künstler der die Musik ("
+"nicht unbedingt die Texte) geschrieben hat."
 
 #: DB:link_type/description:845
 msgid "Indicates the event where the work had its first performance."
@@ -623,7 +627,7 @@ msgstr "Gibt den Texter für diese Werk an."
 
 #: DB:link_type/description:42
 msgid "Indicates the mastering engineer for this work."
-msgstr "Gibt den Audio-Mastering-Techniker für dieses Werk an."
+msgstr "Gibt den Audio-Mastering-Techniker für diese Veröffentlichung an."
 
 #: DB:link_type/description:219
 msgid "Indicates the official homepage for a label."
@@ -872,18 +876,24 @@ msgstr ""
 #: DB:link_type/description:810
 msgid "Links a release to the event it was recorded at."
 msgstr ""
+"Verbindet eine Veröffentlichung mit der Veranstaltung, bei der sie "
+"aufgenommen wurde."
 
 #: DB:link_type/description:865
 msgid "Links a release to the place it was arranged at."
 msgstr ""
+"Verknüpft eine Veröffentlichung mit dem Ort, an dem sie zusammengestellt "
+"wurde."
 
 #: DB:link_type/description:820
 msgid "Links a release to the place it was edited at."
 msgstr ""
+"Verknüpft eine Veröffentlichung mit dem Ort, an dem sie bearbeitet wurde."
 
 #: DB:link_type/description:812
 msgid "Links a release to the place it was engineered at."
 msgstr ""
+"Verknüpft eine Veröffentlichung mit dem Ort, an dem sie angefertigt wurde."
 
 #: DB:link_type/description:953
 msgid ""
@@ -1502,7 +1512,7 @@ msgid ""
 "or manipulate sound in either an analogue or digital form."
 msgstr ""
 
-#: DB:link_type/description:36 DB:link_type/description:128
+#: DB:link_type/description:128 DB:link_type/description:36
 msgid ""
 "This describes an engineer responsible for committing the performance to "
 "tape or another recording medium. This can be as complex as setting up the "
@@ -1983,6 +1993,13 @@ msgid ""
 "project (such as an audio drama or audiobook), which is usually based on a "
 "written template and involves the performance of voice actors."
 msgstr ""
+
+#: DB:link_type/description:1230
+#, fuzzy
+#| msgid "This indicates the artist was the owner of this label."
+msgid ""
+"This indicates the artist was the choreographer for this video recording."
+msgstr "Gibt an, dass der Künstler der Eigentümer dieses Labels war."
 
 #: DB:link_type/description:962
 msgid "This indicates the artist was the director of this video recording."
@@ -3714,7 +3731,8 @@ msgstr ""
 #: DB:link_type/description:840
 msgid ""
 "This relationship type links an artist to its corresponding page at Last.fm."
-msgstr "Dieser Beziehungstyp verbindet einen Künstler mit seiner Last.fm‐Seite."
+msgstr ""
+"Dieser Beziehungstyp verbindet einen Künstler mit seiner Last.fm‐Seite."
 
 #: DB:link_type/description:785
 msgid ""
@@ -4407,6 +4425,12 @@ msgstr "Chorgesang"
 #: DB:link_attribute_type/name:1224
 msgid "choral conducting"
 msgstr ""
+
+#: DB:link_type/name:1230
+#, fuzzy
+#| msgid "photography"
+msgid "choreographer"
+msgstr "Fotografie"
 
 #: DB:link_type/name:152 DB:link_type/name:53
 msgid "chorus master"
@@ -6947,7 +6971,7 @@ msgstr ""
 msgid "recorded release groups"
 msgstr ""
 
-#: DB:link_type/name:36 DB:link_type/name:128
+#: DB:link_type/name:128 DB:link_type/name:36
 msgid "recording"
 msgstr "Aufnahme"
 
@@ -7733,7 +7757,7 @@ msgstr ""
 msgid "was the {instrument:%|instruments} technician for"
 msgstr "war der {instrument:%|Instrumente}-Techniker für"
 
-#: DB:link_type/long_link_phrase:36 DB:link_type/long_link_phrase:128
+#: DB:link_type/long_link_phrase:128 DB:link_type/long_link_phrase:36
 msgid "was {additional} {assistant} {associate} {co:co-}recording engineer for"
 msgstr ""
 
@@ -7744,6 +7768,12 @@ msgstr ""
 #: DB:link_type/long_link_phrase:1165
 msgid "was {assistant} carillonneur at"
 msgstr ""
+
+#: DB:link_type/long_link_phrase:1230
+#, fuzzy
+#| msgid "was {assistant} organist at"
+msgid "was {assistant} choreographer for"
+msgstr "war {assistant:assistierender} Organist bei"
 
 #: DB:link_type/long_link_phrase:856
 msgid "was {assistant} organist at"
@@ -8311,11 +8341,11 @@ msgstr ""
 "{additional:zusätzliche(r)} {assistant:assistierende(r)} {associate:Partner-}"
 "{co:Ko-}Mix"
 
-#: DB:link_type/reverse_link_phrase:36 DB:link_type/reverse_link_phrase:128
+#: DB:link_type/reverse_link_phrase:128 DB:link_type/reverse_link_phrase:36
 msgid "{additional} {assistant} {associate} {co:co-}recording engineer"
 msgstr ""
 
-#: DB:link_type/link_phrase:36 DB:link_type/link_phrase:128
+#: DB:link_type/link_phrase:128 DB:link_type/link_phrase:36
 msgid "{additional} {assistant} {associate} {co:co-}recording engineer for"
 msgstr ""
 
@@ -8430,6 +8460,18 @@ msgstr ""
 #: DB:link_type/link_phrase:1165
 msgid "{assistant} carillonneur at"
 msgstr ""
+
+#: DB:link_type/reverse_link_phrase:1230
+#, fuzzy
+#| msgid "{assistant} organists"
+msgid "{assistant} choreographer"
+msgstr "{assistant:assistierende} Organisten"
+
+#: DB:link_type/link_phrase:1230
+#, fuzzy
+#| msgid "{assistant} audio director for"
+msgid "{assistant} choreographer for"
+msgstr "{assistant:assistierender} Audio‐Regisseur für"
 
 #: DB:link_type/link_phrase:856
 msgid "{assistant} organist at"

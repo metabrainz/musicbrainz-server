@@ -132,13 +132,13 @@ const RelationshipTypeIndex = ({
         {isRelationshipEditor($c.user) ? (
           <span className="buttons" style={{float: 'right'}}>
             <EntityLink
-              content={lp('Edit', 'verb, interactive')}
+              content={l_admin('Edit')}
               entity={relType}
               subPath="edit"
             />
             {childrenTypes.length ? null : (
               <EntityLink
-                content={l('Remove')}
+                content={l_admin('Remove')}
                 entity={relType}
                 subPath="delete"
               />

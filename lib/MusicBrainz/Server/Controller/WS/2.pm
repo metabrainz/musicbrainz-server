@@ -1,8 +1,9 @@
 package MusicBrainz::Server::Controller::WS::2;
 
 use Moose;
+use MooseX::MethodAttributes;
 
-BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::2' }
+extends 'MusicBrainz::Server::ControllerBase::WS::2';
 
 sub default : Path {
     my ($self, $c) = @_;

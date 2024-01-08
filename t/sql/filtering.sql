@@ -84,20 +84,20 @@ INSERT INTO event (id, gid, name, type, setlist)
 
 -- Recordings
 
-INSERT INTO recording (id, gid, name, artist_credit)
-    VALUES (3400, 'ce82bfa1-733a-494a-aaa0-fc5de79bd54f', 'Interludium', 3402),
-           (3401, 'd9c7a74e-3c08-48b1-be2f-5d9a144f2c08', 'Symphony no. 3', 3401),
-           (3402, 'd9c7a74e-3c08-48b1-be2f-5d9a144f2c01', 'Brandenburg Concerto no. 5', 3401),
-           (3403, 'd9c7a74e-3c08-48b1-be2f-5d9a144f2c02', 'Brandenburg Concerto no. 5', 3402);
+INSERT INTO recording (id, gid, name, artist_credit, video, comment)
+    VALUES (3400, 'ce82bfa1-733a-494a-aaa0-fc5de79bd54f', 'Interludium', 3402, 't', 'Testy'),
+           (3401, 'd9c7a74e-3c08-48b1-be2f-5d9a144f2c08', 'Symphony no. 3', 3401, 'f', 'Testy 2'),
+           (3402, 'd9c7a74e-3c08-48b1-be2f-5d9a144f2c01', 'Brandenburg Concerto no. 5', 3401, 'f', ''),
+           (3403, 'd9c7a74e-3c08-48b1-be2f-5d9a144f2c02', 'Brandenburg Concerto no. 5', 3402, 'f', '');
 
 -- Works
 
-INSERT INTO work (id, gid, name, type)
-    VALUES (3400, 'a0cd8685-0626-49e2-8722-aa8c726287db', 'Interlude', NULL),
-           (3401, '4d89910c-14ae-4d23-b7d4-9cbe111981b6', 'Symphony no. 3', 16),
-           (3402, '4ef6d273-4534-4b37-97f1-3e01d76b2fe5', 'Symphony no. 4', 16),
-           (3403, 'fcedfaf3-63ad-4ea2-949a-b16cdc2cd019', 'Mini Overture', 12),
-           (3404, 'dbb7157a-5dc3-41c4-aacc-4e3d4705e132', 'Brandenburgisches Konzert Nr. 5 D-Dur, BWV 1050', 4);
+INSERT INTO work (id, gid, name, type, comment)
+    VALUES (3400, 'a0cd8685-0626-49e2-8722-aa8c726287db', 'Interlude', NULL, ''),
+           (3401, '4d89910c-14ae-4d23-b7d4-9cbe111981b6', 'Symphony no. 3', 16, ''),
+           (3402, '4ef6d273-4534-4b37-97f1-3e01d76b2fe5', 'Symphony no. 4', 16, ''),
+           (3403, 'fcedfaf3-63ad-4ea2-949a-b16cdc2cd019', 'Mini Overture', 12, 'Testy'),
+           (3404, 'dbb7157a-5dc3-41c4-aacc-4e3d4705e132', 'Brandenburgisches Konzert Nr. 5 D-Dur, BWV 1050', 4, '');
 
 -- Relationships
 

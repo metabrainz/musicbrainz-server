@@ -5,11 +5,12 @@
 # suming <331874545@qq.com>, 2023.
 # claybiockiller <clay0305@hotmail.com>, 2023.
 # itodouble <itodouble@outlook.com>, 2023.
+# DyingSlacker <2391773977@outlook.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-11-20 10:27+0000\n"
-"Last-Translator: itodouble <itodouble@outlook.com>\n"
+"PO-Revision-Date: 2023-12-25 11:28+0000\n"
+"Last-Translator: DyingSlacker <2391773977@outlook.com>\n"
 "Language-Team: Chinese (Simplified) <https://translations.metabrainz.org/"
 "projects/musicbrainz/attributes/zh_Hans/>\n"
 "Language: zh\n"
@@ -17,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.1\n"
+"X-Generator: Weblate 5.3\n"
 
 #: DB:work_type/description:9
 msgctxt "work_type"
@@ -56,12 +57,12 @@ msgstr "10\" 唱片"
 #: DB:medium_format/name:206
 msgctxt "medium_format"
 msgid "12\" Acetate"
-msgstr ""
+msgstr "12\" 醋酸酯光盘"
 
 #: DB:medium_format/name:72
 msgctxt "medium_format"
 msgid "12\" LaserDisc"
-msgstr "12\" LaserDisc"
+msgstr "12\" 激光光盘"
 
 #: DB:medium_format/name:55
 msgctxt "medium_format"
@@ -81,7 +82,7 @@ msgstr "3.5\" 软盘"
 #: DB:medium_format/name:91
 msgctxt "medium_format"
 msgid "5.25\" Floppy Disk"
-msgstr "5.25寸软盘"
+msgstr "5.25\" 软盘"
 
 #: DB:medium_format/name:204
 msgctxt "medium_format"
@@ -91,7 +92,7 @@ msgstr "7\" 醋酸酯光盘"
 #: DB:medium_format/name:52
 msgctxt "medium_format"
 msgid "7\" Flexi-disc"
-msgstr "7\" Flexi-disc"
+msgstr "7\" 薄膜唱片"
 
 #: DB:medium_format/name:56
 msgctxt "medium_format"
@@ -106,12 +107,12 @@ msgstr "7\" 唱片"
 #: DB:medium_format/name:71
 msgctxt "medium_format"
 msgid "8\" LaserDisc"
-msgstr "8\" LaserDisc"
+msgstr "8\" 激光光盘"
 
 #: DB:medium_format/name:78
 msgctxt "medium_format"
 msgid "8-Track Cartridge"
-msgstr "8 轨磁带"
+msgstr "8轨磁带"
 
 #: DB:medium_format/name:34
 msgctxt "medium_format"
@@ -124,19 +125,17 @@ msgid "8cm CD+G"
 msgstr "8cm CD+G"
 
 #: DB:medium_format/description:166
-#, fuzzy
-#| msgctxt "medium_format"
-#| msgid "8cm DVD disc, often used for video singles."
 msgctxt "medium_format"
 msgid "8cm DVD, often used for video singles."
-msgstr "8厘米的DVD光盘，常用于视频单曲。"
+msgstr "一种直径8CM的DVD光盘，常用于视频单曲。"
 
 #: DB:medium_format/description:58
 msgctxt "medium_format"
 msgid ""
 "90 rpm, vertical-cut shellac discs, produced by the Pathé label from 1906 to "
 "1932."
-msgstr "90转/分，垂直切割胶木唱片，由百代唱片于1906年至1932年生产。"
+msgstr ""
+"一种垂直切割胶木唱片，播放转速为90转/分，由百代唱片于1906年至1932年间生产。"
 
 #: DB:release_group_secondary_type/description:1
 msgctxt "release_group_secondary_type"
@@ -169,27 +168,28 @@ msgid ""
 "for example, a various artists soundtrack using pre-released music should be "
 "marked as both a soundtrack and a compilation.</p>"
 msgstr ""
-"<p>为了MusicBrainz数据库的目的，汇编包括以下类型的发行版：</p>\n"
+"<p>出于MusicBrainz数据库原因，合辑包括以下类型的专辑：</p>\n"
 "\n"
 "<ul>\n"
-"<li>从不同的旧来源(不一定是发行的)组合在一起的录音的合辑。例如，“最好的”、回"
-"顾性的或稀有类型的发布。</li>\n"
-"<li>一个不同艺术家的歌曲合辑，通常基于一个普遍的主题(“情人之歌”)，一个特定的"
-"时期(“1998年的金曲”)，或一些其他类型的分组(“电影歌曲”，“咖啡馆del Mar”系列"
-"等)。</li>\n"
+"<li>从不同的旧来源（不一定是已发行的专辑）组合在一起的录音的合辑。例如\"Best "
+"of\"（年代金曲合集）类型的专辑、回顾性的专辑，或者稀有的专辑。</li>\n"
+"<li>一个不同艺术家的歌曲合辑，通常基于一个普遍的主题（例如\"Songs for "
+"Lovers\"情曲合集），一个特定的时期(例如\"Hits of 1998\"1998年度金曲），或一些"
+"其他类型的分组（例如\"Songs From the Movies\"电影歌曲合集，或者\"the 'Café "
+"del Mar'系列\"合集等）。</li>\n"
 "</ul>\n"
 "\n"
 "<p>MusicBrainz项目一般不认为以下内容是合辑:</p>\n"
 "\n"
 "<ul>\n"
 "<li>重新发行的专辑，即使它包含额外的曲目。</li>\n"
-"<li>一份包含另一位艺术家音乐翻唱的致敬专辑。</li>\n"
-"<li>古典音乐唱片:包含古典艺术家作品新录音的古典音乐唱片</li>\n"
-"<li>包含几位艺术家的新音乐的分次发行</li>\n"
+"<li>包含另一位艺术家的音乐翻唱的致敬专辑。</li>\n"
+"<li>古典音乐唱片：包含古典艺术家作品新录音的古典音乐唱片</li>\n"
+"<li>包含几位艺术家的新音乐的分版发行</li>\n"
 "</ul>\n"
 "\n"
-"<p>合辑应该是对其他类型的补充，而不是替代:例如，使用预发行音乐的各种艺术家的"
-"原声带应该同时标记为原声带和合辑。</p>"
+"<p>合辑应该是对其他类型的补充，而不是替代。<li>例如，使用预发行音乐的各种艺术"
+"家的原声带应该同时标记为原声带和合辑。</p>"
 
 #: DB:release_group_primary_type/description:2
 msgctxt "release_group_primary_type"
@@ -230,23 +230,24 @@ msgstr ""
 "<p>单曲根据发行市场的不同有不同的定义。</p>\n"
 "\n"
 "<ul>\n"
-"<li>在美国市场，一首单曲通常有一首主歌，可能还有几首额外的曲目或主歌的混音;单"
-"曲通常以主歌命名;这首单曲的发布主要是为了获得电台播放和促进发行销售。</li>\n"
-"<li>英国市场(也包括澳大利亚和欧洲)与美国市场类似，但单曲通常以两张唱片的形式"
-"发行，每张唱片单独销售。他们有时也会有一个较长的单曲版本(通常是将两张唱片版本"
-"的歌曲组合在一起)，这与美国风格的单曲非常相似，这被称为“最大单曲”。(在某些情"
-"况下，最大单曲比单曲的发行时间还要长!)</li>\n"
-"<li>日本市场的驱动因素要单一得多。决定因素通常是单曲的长度和售价。直到1995"
-"年，这些单曲都普遍使用迷你CD格式发行，基本上就是一张直径通常为8厘米的小CD。大"
-"约在1995年，8厘米的单曲被淘汰，而标准的12厘米CD单曲现在更常见;一般来说，1995"
-"年以前发行的单曲，即使最初发行的是8cm格式，重新发行时也会采用12cm格式。日本的"
+"<li>在美国市场，一首单曲通常有一首主歌，可能还有几首额外的曲目或主歌的混音版"
+"本；单曲通常以主歌命名；这首单曲的发布主要是为了获得电台播放和促进发行销售。"
+"</li>\n"
+"<li>英国市场（也包括澳大利亚和欧洲）与美国市场类似，但单曲通常以两张唱片的形"
+"式发行，每张唱片单独销售。他们有时也会有一个较长的单曲版本（通常是将两张唱片"
+"不同版本的歌曲组合在一起），这与美国风格的单曲非常相似，这被称为“最大单曲”。"
+"（在某些情况下，最大单曲比单曲的发行时间还要长！）</li>\n"
+"<li>日本市场更注重单曲，决定因素通常是单曲的长度和售价。直到1995年，这些单曲"
+"都普遍使用迷你CD格式发行，基本上就是一张直径通常为8CM的小型CD。大约在1995年，"
+"8CM的单曲光盘基本被淘汰，取而代之成为主流的是标准的12CM单曲CD；一般来说，1995"
+"年以前发行的单曲，即使最初发行的是8CM格式，重新发行时也会采用12CM格式。日本的"
 "单曲通常会有这些歌曲的器乐版本，也有像英国这样的混合版本的最大单曲。有时候一"
 "张超级单曲会比一张EP包含更多的曲目，但因为它是由相同的2-3首歌的交替版本组成"
 "的，所以它仍然被归类为单曲。</li>\n"
 "</ul>\n"
 "\n"
-"<p>这首单曲还有其他的变体，称为“分裂单曲”，即由两个不同的艺术家的歌曲在一张唱"
-"片中发布，通常是黑胶唱片。</p>"
+"<p>还有一些单曲的变体，称为“Split Single”，即在一张唱片上发行两个不同艺术家的"
+"歌曲，通常是黑胶唱片。</p>"
 
 #: DB:medium_format/description:95
 msgctxt "medium_format"
@@ -659,7 +660,7 @@ msgstr "同一位艺术家在不同地点的一系列相关的音乐会。"
 msgctxt "series_type"
 msgid ""
 "A series of release groups containing episodes of the same podcast series."
-msgstr ""
+msgstr "一系列包含同一播客系列的剧集的专辑组。"
 
 #: DB:series_type/description:47
 msgctxt "series_type"
@@ -697,6 +698,8 @@ msgid ""
 "A small venue (such as a jazz club, nightclub or pub) that hosts concerts "
 "and social events. May or may not have a dedicated stage or seating."
 msgstr ""
+"一个用于举办演唱会和社交活动的小型场地（例如爵士俱乐部，夜总会或酒吧），可能"
+"会有专用的舞台和一些观众席位。"
 
 #: DB:work_type/description:15
 msgctxt "work_type"
@@ -716,8 +719,8 @@ msgid ""
 "form by far in folk and popular music, but also fairly common in a classical "
 "context (\"art songs\")."
 msgstr ""
-"歌曲最初（多数情况下仍然）指用于演唱的声乐作品，可带或不带伴奏。这是流行音乐"
-"和民间音乐的最广泛形式，但也广泛用于古典乐领域（艺术歌曲）。"
+"歌曲最初（在大多数情况下仍然是）指用于演唱的声乐作品，可能附带有伴奏。这是民"
+"间音乐和流行音乐中最常见的形式，但也广泛用于古典乐领域（艺术歌曲）。"
 
 #: DB:work_type/description:22
 msgctxt "work_type"
@@ -743,7 +746,7 @@ msgctxt "instrument_type"
 msgid ""
 "A standard grouping of instruments often played together, like a string "
 "quartet"
-msgstr "指经常搭配在一起演奏的标准化乐队，例如演奏弦乐四重奏的乐队"
+msgstr "一种标准的乐器组合，例如“弦乐四重奏”"
 
 #: DB:medium_format/description:165
 msgctxt "medium_format"
@@ -751,6 +754,8 @@ msgid ""
 "A standard size CD with the playing/data area of a 8cm CD; the remaining "
 "area is empty clear/translucent plastic, sometimes printed."
 msgstr ""
+"一种标准尺寸的CD，其上带有直径8CM的CD播放/数据区域，其余区域为空白的透明/半透"
+"明塑料，有些盘片表面印有信息。"
 
 #: DB:medium_format/description:167
 msgctxt "medium_format"
@@ -758,6 +763,8 @@ msgid ""
 "A standard size DVD with the playing/data area of a 8cm MiniDVD; the "
 "remaining area is empty clear/translucent plastic, sometimes printed."
 msgstr ""
+"一种标准尺寸的DVD，其上带有直径8CM的MiniDVD播放/数据区域，其余区域为空白的透"
+"明/半透明塑料，有些盘片表面印有信息。"
 
 #: DB:work_type/description:6
 msgctxt "work_type"
@@ -784,19 +791,19 @@ msgctxt "work_type"
 msgid ""
 "A symphony is an extended composition, almost always scored for orchestra "
 "without soloists."
-msgstr "交响曲是大型音乐作品，几乎总是由不伴随独奏家的管弦乐队演奏。"
+msgstr "交响乐是一种大型的长篇音乐作品，通常为管弦乐队而非独奏者而谱写。"
 
 #: DB:place_type/description:45
 msgctxt "place_type"
 msgid ""
 "A temporary outdoor stage erected for a music festival or other similar "
 "event."
-msgstr ""
+msgstr "一种为音乐节或其他类似活动搭建的临时露天舞台。"
 
 #: DB:release_packaging/description:2
 msgctxt "release_packaging"
 msgid "A thinner jewel case, commonly used for CD singles."
-msgstr "更薄的珍宝盒，通常用于单曲CD。"
+msgstr "一种较薄的透明塑料盒，通常用于单曲CD。"
 
 #: DB:medium_format/description:128
 msgctxt "medium_format"
@@ -805,8 +812,8 @@ msgid ""
 "portable listening. It did not find commercial success, but a few albums "
 "were released in the format in the early 00s."
 msgstr ""
-"原本用于移动聆听的带保护壳的超小型光碟。商业上不成功，但是00年代早期少数专辑"
-"以此格式发行。"
+"原本用于便携聆听的带保护壳的超小型光盘。它没有取得商业上的成功，但是00年代早"
+"期少数专辑以此格式发行。"
 
 #: DB:medium_format/description:131
 msgctxt "medium_format"
@@ -859,6 +866,14 @@ msgstr "ACAM ID"
 msgctxt "work_attribute_type"
 msgid "ACDAM ID"
 msgstr "ACDAM ID"
+
+#: DB:work_attribute_type/name:206
+#, fuzzy
+#| msgctxt "work_attribute_type"
+#| msgid "ACAM ID"
+msgctxt "work_attribute_type"
+msgid "ACUM ID"
+msgstr "ACAM ID"
 
 #: DB:work_attribute_type/name:58
 msgctxt "work_attribute_type"
@@ -1023,7 +1038,7 @@ msgstr "专辑"
 #: DB:series_ordering_type/description:2
 msgctxt "series_ordering_type"
 msgid "Allows for manually setting the position of each item in the series."
-msgstr "用于手动调节每一项目在系列中位置。"
+msgstr "用于手动调节每一项目在系列中的位置。"
 
 #: DB:work_attribute_type_allowed_value/value:854
 msgctxt "work_attribute_type_allowed_value"
@@ -1154,17 +1169,17 @@ msgctxt "place_type"
 msgid ""
 "An indoor performance facility with fixed seating, whether for music "
 "(usually, but not always, classical music) or theatre."
-msgstr ""
+msgstr "一种有固定座位的室内音乐厅，用于演奏音乐（一般为古典音乐）或戏剧。"
 
 #: DB:release_group_secondary_type/description:4
 msgctxt "release_group_secondary_type"
 msgid "An interview release contains an interview, generally with an artist."
-msgstr "采访专辑包含一段采访，一般含有一位艺术家。"
+msgstr "包含一段采访的采访专辑，通常为对艺术家的采访片段。"
 
 #: DB:release_packaging/description:54
 msgctxt "release_packaging"
 msgid "An often decorated metal tin containing one or more CDs."
-msgstr "装有一张或多张CD的金属罐，通常带有装饰。"
+msgstr "一种装有一张或多张CD的金属罐，通常带有装饰。"
 
 #: DB:work_type/description:10
 msgctxt "work_type"
@@ -1173,8 +1188,8 @@ msgid ""
 "orchestra/ensemble. In true operas all dialog is sung, through arias and "
 "recitatives, but some styles of opera include spoken dialogue."
 msgstr ""
-"歌剧是由歌唱家和管弦乐队/歌舞团表演的戏剧作品（文本+音乐部分）。真正的歌剧所"
-"有对话由咏叹调和宣叙调演唱，但部分体裁的歌剧包含口白。"
+"歌剧是由歌唱家和管弦乐队/歌舞团表演的戏剧作品（文本+音乐部分）。在真正的歌剧"
+"中，所有的对话都是通过咏叹调和朗诵来演唱的，但有些风格的歌剧包括口语对话。"
 
 #: DB:work_type/description:11
 msgctxt "work_type"
@@ -1184,13 +1199,13 @@ msgid ""
 "usually not performed theatrically (it lacks costumes, props and strong "
 "character interaction)."
 msgstr ""
-"清唱剧是由管弦乐队，合唱团和独奏家表演的大型（通常神圣）的音乐作品。尽管有角"
-"色和情节，它通常不以戏剧化形式演出（缺乏戏服，道具，强烈的角色互动）。"
+"清唱剧是一种由管弦乐队，合唱团和独奏家表演的大型（通常为神圣的）的音乐作品。"
+"虽然它有角色和情节，但它通常不是戏剧表演（缺少戏服，道具和强烈的角色互动）。"
 
 #: DB:label_type/description:8
 msgctxt "label_type"
 msgid "An organization which collects royalties on behalf of artists."
-msgstr ""
+msgstr "一种代表艺术家收取版税的组织。"
 
 #: DB:work_type/description:12
 msgctxt "work_type"
@@ -1200,7 +1215,7 @@ msgid ""
 "programmatic works shorter than a symphonic poem."
 msgstr ""
 "序曲通常指歌剧开场时的器乐曲。也存在独立（音乐会）序曲，一般是比交响诗短的程"
-"式化作品。"
+"序化作品。"
 
 #: DB:release_status/description:3
 msgctxt "release_status"
@@ -1209,7 +1224,7 @@ msgid ""
 "or the record company. This includes unofficial live recordings and pirated "
 "releases."
 msgstr ""
-"非官方/地下专辑是未经艺术家和/或唱片公司许可的专辑。它包括非官方现场表演录音"
+"非官方/地下专辑是一种未经艺术家/唱片公司许可的专辑，包括非官方的现场表演录音"
 "和盗版专辑。"
 
 #: DB:work_type/description:20
@@ -1218,8 +1233,7 @@ msgid ""
 "An étude is an instrumental musical composition, most commonly of "
 "considerable difficulty, usually designed to provide practice material for "
 "perfecting a particular technical skill."
-msgstr ""
-"练习曲是一种器乐曲，常有可观的难度，一般用作某种特定演奏技巧的练习素材。"
+msgstr "练习曲是一种器乐曲，难度通常较高，一般用作某种特定演奏技巧的练习素材。"
 
 #: DB:work_attribute_type_allowed_value/value:310
 msgctxt "work_attribute_type_allowed_value"
@@ -3971,6 +3985,14 @@ msgstr "国际著作权企业ID"
 msgctxt "work_attribute_type"
 msgid "ID for the Irish rights society IMRO"
 msgstr "爱尔兰著作权协会IMRO ID"
+
+#: DB:work_attribute_type/description:206
+#, fuzzy
+#| msgctxt "work_attribute_type"
+#| msgid "ID for the Austrian rights society AKM"
+msgctxt "work_attribute_type"
+msgid "ID for the Israeli rights society ACUM"
+msgstr "奥地利著作权协会AKM ID"
 
 #: DB:work_attribute_type/description:36
 msgctxt "work_attribute_type"

@@ -12,14 +12,24 @@ use MusicBrainz::Server::Data::Utils qw( non_empty );
 use List::AllUtils qw( uniq );
 
 extends 'MusicBrainz::Server::WebService::Serializer::JSON::LD';
-with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::Genre';
-with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::GID';
-with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::Name';
-with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::LifeSpan' =>
-    { begin_properties => sub { is_person(shift) ? qw( birthDate ) : qw( foundingDate ) },
-      end_properties   => sub { is_person(shift) ? qw( deathDate ) : qw( dissolutionDate ) } };
-with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::Aliases';
-with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::Area' => { include_birth_death => sub { my $artist = shift; return $artist->type && $artist->type->name eq 'Person' } };
+with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::Genre',
+     'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::GID',
+     'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::Name',
+     'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::LifeSpan' => {
+        begin_properties => sub {
+            is_person(shift) ? qw( birthDate ) : qw( foundingDate );
+        },
+        end_properties => sub {
+            is_person(shift) ? qw( deathDate ) : qw( dissolutionDate );
+        },
+     },
+     'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::Aliases',
+     'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::Area' => {
+        include_birth_death => sub {
+            my $artist = shift;
+            return $artist->type && $artist->type->name eq 'Person';
+        },
+     };
 
 sub is_person {
     my $artist = shift;

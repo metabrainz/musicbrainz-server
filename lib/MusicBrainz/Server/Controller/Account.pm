@@ -1,6 +1,8 @@
 package MusicBrainz::Server::Controller::Account;
 use Moose;
-BEGIN { extends 'MusicBrainz::Server::Controller' }
+use MooseX::MethodAttributes;
+
+extends 'MusicBrainz::Server::Controller';
 
 use namespace::autoclean;
 use Digest::SHA qw(sha1_base64);

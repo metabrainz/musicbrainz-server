@@ -1,6 +1,8 @@
 package MusicBrainz::Server::Controller::Series;
 use Moose;
+use MooseX::MethodAttributes;
 use namespace::autoclean;
+
 use MusicBrainz::Server::Constants qw(
     $EDIT_SERIES_CREATE
     $EDIT_SERIES_EDIT
@@ -10,7 +12,7 @@ use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array to_json_object );
 use MusicBrainz::Server::Translation qw( l );
 
-BEGIN { extends 'MusicBrainz::Server::Controller'; }
+extends 'MusicBrainz::Server::Controller';
 
 with 'MusicBrainz::Server::Controller::Role::Load' => {
     model           => 'Series',

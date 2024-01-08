@@ -1,10 +1,11 @@
 package MusicBrainz::Server::Controller::Admin;
 use Moose;
+use MooseX::MethodAttributes;
 use namespace::autoclean;
 use HTTP::Status qw( :constants );
 use Try::Tiny;
 
-BEGIN { extends 'MusicBrainz::Server::Controller' }
+extends 'MusicBrainz::Server::Controller';
 
 use MusicBrainz::Server::Constants qw( :privileges );
 use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );

@@ -1,7 +1,8 @@
 package MusicBrainz::Server::Controller::CDTOC;
 use Moose;
+use MooseX::MethodAttributes;
 
-BEGIN { extends 'MusicBrainz::Server::Controller'; }
+extends 'MusicBrainz::Server::Controller';
 
 use MusicBrainz::Server::Constants qw(
     $EDIT_MEDIUM_ADD_DISCID

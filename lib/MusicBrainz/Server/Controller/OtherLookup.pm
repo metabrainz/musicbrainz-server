@@ -2,9 +2,11 @@ package MusicBrainz::Server::Controller::OtherLookup;
 use Moose;
 use namespace::autoclean;
 
-BEGIN { extends 'MusicBrainz::Server::Controller' }
-
 use Moose::Util qw( find_meta );
+use MooseX::MethodAttributes;
+
+extends 'MusicBrainz::Server::Controller';
+
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 
 sub lookup_handler {

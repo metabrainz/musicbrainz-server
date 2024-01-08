@@ -1,7 +1,8 @@
 package MusicBrainz::Server::Controller::Vote;
 use Moose;
+use MooseX::MethodAttributes;
 
-BEGIN { extends 'MusicBrainz::Server::Controller'; }
+extends 'MusicBrainz::Server::Controller';
 
 sub index : Path('/vote') Args(0)
 {

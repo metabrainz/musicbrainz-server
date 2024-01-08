@@ -20,13 +20,13 @@ const InstrumentsWithoutWikidata = ({
 }: ReportDataT<ReportInstrumentT>): React$Element<typeof ReportLayout> => (
   <ReportLayout
     canBeFiltered={canBeFiltered}
-    description={l(
+    description={l_admin(
       `This report shows instruments without Wikidata relationships.`,
     )}
     entityType="instrument"
     filtered={filtered}
     generated={generated}
-    title={l('Instruments without a Wikidata link')}
+    title="Instruments without a link to Wikidata"
     totalEntries={pager.total_entries}
   >
     <InstrumentList items={items} pager={pager} />

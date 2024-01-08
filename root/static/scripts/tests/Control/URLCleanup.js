@@ -807,7 +807,14 @@ limited_link_type_combinations: [
                      input_url: 'https://bandcamp.com/tag/ambient-noise-wall?tab=highlights',
              input_entity_type: 'genre',
     expected_relationship_type: 'bandcamp',
-            expected_clean_url: 'https://bandcamp.com/tag/ambient-noise-wall',
+            expected_clean_url: 'https://bandcamp.com/discover/ambient-noise-wall',
+       only_valid_entity_types: ['genre'],
+  },
+  {
+                     input_url: 'https://bandcamp.com/discover/maidcore/digital?tags=rock-electro',
+             input_entity_type: 'genre',
+    expected_relationship_type: 'bandcamp',
+            expected_clean_url: 'https://bandcamp.com/discover/maidcore',
        only_valid_entity_types: ['genre'],
   },
   {
@@ -5792,6 +5799,12 @@ limited_link_type_combinations: [
              input_entity_type: 'label',
     expected_relationship_type: 'socialnetwork',
             expected_clean_url: 'https://twitter.com/UNIVERSAL_D',
+  },
+  {
+                     input_url: 'https://x.com/metabrainz',
+             input_entity_type: 'label',
+    expected_relationship_type: 'socialnetwork',
+            expected_clean_url: 'https://twitter.com/metabrainz',
   },
   {
                      input_url: 'https://twitter.com/mountain_goats/status/1062342708470132738',

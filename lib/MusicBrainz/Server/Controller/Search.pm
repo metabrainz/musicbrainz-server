@@ -1,7 +1,9 @@
 package MusicBrainz::Server::Controller::Search;
 use Moose;
+use MooseX::MethodAttributes;
 use namespace::autoclean;
-BEGIN { extends 'MusicBrainz::Server::Controller' }
+
+extends 'MusicBrainz::Server::Controller';
 
 use HTTP::Status qw( :constants );
 use List::AllUtils qw( min max );

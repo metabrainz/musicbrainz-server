@@ -1,6 +1,8 @@
 package MusicBrainz::Server::ControllerBase::WS::2;
 use Moose;
-BEGIN { extends 'Catalyst::Controller'; }
+use MooseX::MethodAttributes;
+
+extends 'Catalyst::Controller';
 
 use DBDefs;
 use HTTP::Status qw( :constants );
@@ -13,14 +15,12 @@ use MusicBrainz::Server::WebService::JSONSerializer;
 use MusicBrainz::Server::WebService::XMLSerializer;
 use Try::Tiny;
 
-with 'MusicBrainz::Server::WebService::Format';
-
-with 'MusicBrainz::Server::Controller::Role::Profile' => {
-    threshold => DBDefs->PROFILE_WEB_SERVICE(),
-};
-
-with 'MusicBrainz::Server::Controller::Role::CORS';
-with 'MusicBrainz::Server::Controller::Role::ETags';
+with 'MusicBrainz::Server::WebService::Format',
+     'MusicBrainz::Server::Controller::Role::Profile' => {
+        threshold => DBDefs->PROFILE_WEB_SERVICE(),
+     },
+     'MusicBrainz::Server::Controller::Role::CORS',
+     'MusicBrainz::Server::Controller::Role::ETags';
 
 sub serializers {
     [

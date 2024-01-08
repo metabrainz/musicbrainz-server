@@ -912,6 +912,14 @@ msgctxt "work_attribute_type"
 msgid "ACDAM ID"
 msgstr "ACDAM-ID"
 
+#: DB:work_attribute_type/name:206
+#, fuzzy
+#| msgctxt "work_attribute_type"
+#| msgid "ACAM ID"
+msgctxt "work_attribute_type"
+msgid "ACUM ID"
+msgstr "ACAM-ID"
+
 #: DB:work_attribute_type/name:58
 msgctxt "work_attribute_type"
 msgid "AEI ID"
@@ -4055,6 +4063,14 @@ msgstr "ID für das International Copyright Enterprise"
 msgctxt "work_attribute_type"
 msgid "ID for the Irish rights society IMRO"
 msgstr "ID für die irische Verwertungsgesellschaft IMRO"
+
+#: DB:work_attribute_type/description:206
+#, fuzzy
+#| msgctxt "work_attribute_type"
+#| msgid "ID for the Austrian rights society AKM"
+msgctxt "work_attribute_type"
+msgid "ID for the Israeli rights society ACUM"
+msgstr "ID für die österreichische Verwertungsgesellschaft AKM"
 
 #: DB:work_attribute_type/description:36
 msgctxt "work_attribute_type"

@@ -31,25 +31,45 @@
 :beginner: If you have a lot to say, be more detailed in this section.
 
 
-# Checklist for author
+# Testing
+<!--
+    Talk about the testing you have or haven’t done (whether you rely
+    on automated tests, or don’t know how to test something). It’s useful
+    for others to know what you’ve already tested so that they can avoid
+    repeating the same steps, and instead consider what you might’ve
+    missed.
+-->
+
+:beginner: If you tested anything on specific pages, mention them here, such as:
+Tested something on `/release/mbid` using a sample/full database
+
+
+# Documenting
+<!--
+    List changes to the documentation, which can be placed in the WikiDoc pages,
+    in this Git repository, in another repository, in the database...
+-->
+
+:beginner: If you updated documentation pages, mention them here, such as:
+Updated [WikiDocs page](https://wiki.musicbrainz.org/Category:WikiDocs_Page)
+
+
+# Draft progress
 <!--
     The tasks you have to do to get your change ready for review. Use this if
     you draft a pull request. Mark done tasks with an [x] as you progress. See
     https://github.blog/2019-02-14-introducing-draft-pull-requests/
 -->
 
-* [x] Read the [Contributing Guidelines](https://github.com/metabrainz/musicbrainz-server/blob/master/CONTRIBUTING.md)
-* [ ] Delete irrelevant parts of this template
-* [ ] Update the [WikiDocs pages](https://wiki.musicbrainz.org/Category:WikiDocs_Page)
-  * [ ] :beginner: Page...
-* [ ] :beginner: Task...
+* [ ] :beginner: If you draft a pull request, mention missing tasks as items:
+  * [ ] :beginner: And even subtasks as indented/nested items!
 
 
-# Action
+# Further action
 <!--
     Other than merging your change, do you want / need us to do anything else
     with your change? This could include reviewing a specific part of your PR.
 -->
 
-1. Make updated WikiDocs pages visible on MusicBrainz website
-2. :beginner: Action...
+1. :beginner: If any action is needed on merge or deployment, list it such as:
+   1. Make updated WikiDocs pages visible on MusicBrainz website

@@ -1,9 +1,10 @@
 package MusicBrainz::Server::Controller::Tag;
 use Moose;
 use Moose::Util qw( find_meta );
+use MooseX::MethodAttributes;
 use HTTP::Status qw( :constants );
 
-BEGIN { extends 'MusicBrainz::Server::Controller' }
+extends 'MusicBrainz::Server::Controller';
 
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json type_to_model );
 use MusicBrainz::Server::Constants qw( %ENTITIES entities_with );

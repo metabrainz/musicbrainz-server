@@ -1,9 +1,11 @@
 package MusicBrainz::Server::Controller::Release;
 use Moose;
+use MooseX::MethodAttributes;
+
 use MusicBrainz::Server::Track;
 use aliased 'MusicBrainz::Server::Entity::Recording';
 
-BEGIN { extends 'MusicBrainz::Server::Controller' }
+extends 'MusicBrainz::Server::Controller';
 
 with 'MusicBrainz::Server::Controller::Role::Load' => {
     entity_name     => 'release',
@@ -133,7 +135,19 @@ sub discids : Chained('load') {
     $c->model('CDTOC')->load(@medium_cdtocs);
     $c->model('Medium')->load(@medium_cdtocs);
     $c->model('Medium')->load_track_durations(map { $_->medium } @medium_cdtocs);
-    $c->stash( has_cdtocs => scalar(@medium_cdtocs) > 0 );
+    my $has_cdtocs = scalar(@medium_cdtocs) > 0;
+
+    my %props = (
+        hasCDTocs => boolean_to_json($has_cdtocs),
+        mediumCDTocs => to_json_array(\@medium_cdtocs),
+        release => $release->TO_JSON,
+    );
+
+    $c->stash(
+        component_path => 'release/DiscIds',
+        component_props => \%props,
+        current_view => 'Node',
+    );
 }
 
 sub _load_mediums_limited {

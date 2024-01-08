@@ -13,7 +13,7 @@ import WorkList from '../components/list/WorkList.js';
 import PaginatedResults from '../components/PaginatedResults.js';
 import {SanitizedCatalystContext} from '../context.mjs';
 import Filter from '../static/scripts/common/components/Filter.js';
-import {type FilterFormT}
+import {type WorkFilterT}
   from '../static/scripts/common/components/FilterForm.js';
 import {returnToCurrentPage} from '../utility/returnUri.js';
 
@@ -22,7 +22,7 @@ import ArtistLayout from './ArtistLayout.js';
 type Props = {
   +ajaxFilterFormUrl: string,
   +artist: ArtistT,
-  +filterForm: ?FilterFormT,
+  +filterForm: ?WorkFilterT,
   +hasFilter: boolean,
   +pager: PagerT,
   +works: ?$ReadOnlyArray<WorkT>,

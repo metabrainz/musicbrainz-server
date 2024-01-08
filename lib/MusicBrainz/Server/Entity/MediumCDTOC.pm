@@ -45,6 +45,7 @@ around TO_JSON => sub {
 
     my $json = $self->$orig;
     $json->{cdtoc} = $self->cdtoc->TO_JSON;
+    $json->{medium} = $self->medium ? $self->medium->TO_JSON : undef;
     return $json;
 };
 

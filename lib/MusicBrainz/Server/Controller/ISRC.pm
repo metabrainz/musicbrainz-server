@@ -1,8 +1,9 @@
 package MusicBrainz::Server::Controller::ISRC;
 use Moose;
+use MooseX::MethodAttributes;
 use namespace::autoclean;
 
-BEGIN { extends 'MusicBrainz::Server::Controller'; }
+extends 'MusicBrainz::Server::Controller';
 
 use MusicBrainz::Server::Validation qw( is_valid_isrc );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );

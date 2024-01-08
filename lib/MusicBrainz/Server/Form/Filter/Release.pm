@@ -54,7 +54,7 @@ has_field 'status_id' => (
 );
 
 sub filter_field_names {
-    return qw/ name artist_credit_id country_id date label_id status_id /;
+    return qw/ disambiguation name artist_credit_id country_id date label_id status_id /;
 }
 
 sub options_artist_credit_id {

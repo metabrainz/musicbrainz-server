@@ -117,7 +117,7 @@ const RelationshipTypeDetails = ({
         {isRelationshipEditor($c.user) ? (
           <>
             <EntityLink
-              content={lp('Edit', 'verb, interactive')}
+              content={l_admin('Edit')}
               entity={relType}
               subPath="edit"
             />
@@ -125,7 +125,7 @@ const RelationshipTypeDetails = ({
               <>
                 {' | '}
                 <EntityLink
-                  content={l('Remove')}
+                  content={l_admin('Remove')}
                   entity={relType}
                   subPath="delete"
                 />
