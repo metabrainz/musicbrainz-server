@@ -8,11 +8,11 @@
 # Nikolai Prokoschenko <email address hidden>, 2011
 # reneweesp <email address hidden>, 2017,2019
 # RandomMushroom128 <RandomMushroom128@users.noreply.translations.metabrainz.org>, 2023.
-# mfmeulenbelt <mfmeulenbelt@users.noreply.translations.metabrainz.org>, 2023.
+# mfmeulenbelt <mfmeulenbelt@users.noreply.translations.metabrainz.org>, 2023, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-12-20 20:28+0000\n"
+"PO-Revision-Date: 2024-01-04 14:54+0000\n"
 "Last-Translator: mfmeulenbelt <mfmeulenbelt@users.noreply.translations."
 "metabrainz.org>\n"
 "Language-Team: Dutch <https://translations.metabrainz.org/projects/"
@@ -2292,7 +2292,7 @@ msgstr "doosciter met toetsen"
 
 #: DB:instrument/name:154
 msgid "keyed brass instruments"
-msgstr "koperblazers met knoppen"
+msgstr "koperblazers met kleppen"
 
 #: DB:instrument/name:774
 msgctxt "Shoulder-strapped electric keyboard"

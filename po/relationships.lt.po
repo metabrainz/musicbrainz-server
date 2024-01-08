@@ -2,11 +2,13 @@
 # Translators:
 # Vaclovas lntas (Vac.) <email address hidden>, 2023
 # "Vac31." <gateway_31@protonmail.com>, 2023, 2024.
+# reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-01-01 11:28+0000\n"
-"Last-Translator: \"Vac31.\" <gateway_31@protonmail.com>\n"
+"PO-Revision-Date: 2024-01-04 14:54+0000\n"
+"Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
+".org>\n"
 "Language-Team: Lithuanian <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/lt/>\n"
 "Language: lt\n"
@@ -208,7 +210,7 @@ msgstr "DJ mikseris (-ė)"
 
 #: DB:link_type/reverse_link_phrase:43
 msgid "DJ-mixer {medium}"
-msgstr "DJ mikseris (-ė) {laikmena}"
+msgstr "DJ mikseris (-ė) {medium}"
 
 #: DB:link_type/reverse_link_phrase:227
 msgid "DJ-mixes"
@@ -578,8 +580,8 @@ msgid ""
 "Indicates the composer for this release, that is, the artist who wrote the "
 "music (not necessarily the lyrics)."
 msgstr ""
-"Nurodo šio leidinio kompozitorius, tai – atlikėjas, parašęs muziką ("
-"nebūtinai dainų tekstus)."
+"Nurodo šio leidinio kompozitorius, tai – atlikėjas, parašęs muziką "
+"(nebūtinai dainų tekstus)."
 
 #: DB:link_type/description:168
 msgid ""
@@ -1606,7 +1608,7 @@ msgid ""
 "or manipulate sound in either an analogue or digital form."
 msgstr ""
 
-#: DB:link_type/description:36 DB:link_type/description:128
+#: DB:link_type/description:128 DB:link_type/description:36
 msgid ""
 "This describes an engineer responsible for committing the performance to "
 "tape or another recording medium. This can be as complex as setting up the "
@@ -2087,6 +2089,13 @@ msgid ""
 "project (such as an audio drama or audiobook), which is usually based on a "
 "written template and involves the performance of voice actors."
 msgstr ""
+
+#: DB:link_type/description:1230
+#, fuzzy
+#| msgid "Indicates an artist that performed on this recording."
+msgid ""
+"This indicates the artist was the choreographer for this video recording."
+msgstr "Nurodo atlikėją, kuris (-i) atliko šiame įraše."
 
 #: DB:link_type/description:962
 msgid "This indicates the artist was the director of this video recording."
@@ -4433,6 +4442,12 @@ msgstr ""
 #: DB:link_attribute_type/name:1224
 msgid "choral conducting"
 msgstr ""
+
+#: DB:link_type/name:1230
+#, fuzzy
+#| msgid "photography"
+msgid "choreographer"
+msgstr "fotografija"
 
 #: DB:link_type/name:152 DB:link_type/name:53
 msgid "chorus master"
@@ -6966,7 +6981,7 @@ msgstr ""
 msgid "recorded release groups"
 msgstr ""
 
-#: DB:link_type/name:36 DB:link_type/name:128
+#: DB:link_type/name:128 DB:link_type/name:36
 msgid "recording"
 msgstr ""
 
@@ -7754,7 +7769,7 @@ msgstr ""
 msgid "was the {instrument:%|instruments} technician for"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:36 DB:link_type/long_link_phrase:128
+#: DB:link_type/long_link_phrase:128 DB:link_type/long_link_phrase:36
 msgid "was {additional} {assistant} {associate} {co:co-}recording engineer for"
 msgstr ""
 
@@ -7764,6 +7779,10 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:1165
 msgid "was {assistant} carillonneur at"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:1230
+msgid "was {assistant} choreographer for"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:856
@@ -8304,11 +8323,11 @@ msgstr ""
 msgid "{additional} {assistant} {associate} {co:co-}mixer"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:36 DB:link_type/reverse_link_phrase:128
+#: DB:link_type/reverse_link_phrase:128 DB:link_type/reverse_link_phrase:36
 msgid "{additional} {assistant} {associate} {co:co-}recording engineer"
 msgstr ""
 
-#: DB:link_type/link_phrase:36 DB:link_type/link_phrase:128
+#: DB:link_type/link_phrase:128 DB:link_type/link_phrase:36
 msgid "{additional} {assistant} {associate} {co:co-}recording engineer for"
 msgstr ""
 
@@ -8414,6 +8433,14 @@ msgstr ""
 
 #: DB:link_type/link_phrase:1165
 msgid "{assistant} carillonneur at"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:1230
+msgid "{assistant} choreographer"
+msgstr ""
+
+#: DB:link_type/link_phrase:1230
+msgid "{assistant} choreographer for"
 msgstr ""
 
 #: DB:link_type/link_phrase:856

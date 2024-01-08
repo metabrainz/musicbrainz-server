@@ -18,13 +18,14 @@
 # Tiago Natale, 2022
 # Tobias Quathamer <email address hidden>, 2007
 # t0n3t <email address hidden>, 2012
-# reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2023.
+# reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2023, 2024.
 # ChurruKa <churruka@hangar18.cc>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-12-21 23:28+0000\n"
-"Last-Translator: ChurruKa <churruka@hangar18.cc>\n"
+"PO-Revision-Date: 2024-01-04 11:06+0000\n"
+"Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
+".org>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/es/>\n"
 "Language: es\n"
@@ -538,7 +539,8 @@ msgstr ""
 
 #: DB:link_type/description:845
 msgid "Indicates the event where the work had its first performance."
-msgstr "Indica el evento donde tuvo lugar la primera interpretación de la obra."
+msgstr ""
+"Indica el evento donde tuvo lugar la primera interpretación de la obra."
 
 #: DB:link_type/description:986
 msgid ""
@@ -1423,7 +1425,7 @@ msgid ""
 "or manipulate sound in either an analogue or digital form."
 msgstr ""
 
-#: DB:link_type/description:36 DB:link_type/description:128
+#: DB:link_type/description:128 DB:link_type/description:36
 msgid ""
 "This describes an engineer responsible for committing the performance to "
 "tape or another recording medium. This can be as complex as setting up the "
@@ -1892,6 +1894,13 @@ msgid ""
 "project (such as an audio drama or audiobook), which is usually based on a "
 "written template and involves the performance of voice actors."
 msgstr ""
+
+#: DB:link_type/description:1230
+#, fuzzy
+#| msgid "This indicates that the recording is of a live performance."
+msgid ""
+"This indicates the artist was the choreographer for this video recording."
+msgstr "Indica que la grabación es de una actuación en vivo."
 
 #: DB:link_type/description:962
 msgid "This indicates the artist was the director of this video recording."
@@ -4218,6 +4227,10 @@ msgstr "voces de coro"
 
 #: DB:link_attribute_type/name:1224
 msgid "choral conducting"
+msgstr ""
+
+#: DB:link_type/name:1230
+msgid "choreographer"
 msgstr ""
 
 #: DB:link_type/name:152 DB:link_type/name:53
@@ -6752,7 +6765,7 @@ msgstr ""
 msgid "recorded release groups"
 msgstr ""
 
-#: DB:link_type/name:36 DB:link_type/name:128
+#: DB:link_type/name:128 DB:link_type/name:36
 msgid "recording"
 msgstr "grabación"
 
@@ -7538,7 +7551,7 @@ msgstr ""
 msgid "was the {instrument:%|instruments} technician for"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:36 DB:link_type/long_link_phrase:128
+#: DB:link_type/long_link_phrase:128 DB:link_type/long_link_phrase:36
 msgid "was {additional} {assistant} {associate} {co:co-}recording engineer for"
 msgstr ""
 
@@ -7548,6 +7561,10 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:1165
 msgid "was {assistant} carillonneur at"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:1230
+msgid "was {assistant} choreographer for"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:856
@@ -8106,11 +8123,11 @@ msgstr ""
 "{co:co-}ingeniero de mezcla {additional:adicional} {assistant:asistente} "
 "{associate:asociado}"
 
-#: DB:link_type/reverse_link_phrase:36 DB:link_type/reverse_link_phrase:128
+#: DB:link_type/reverse_link_phrase:128 DB:link_type/reverse_link_phrase:36
 msgid "{additional} {assistant} {associate} {co:co-}recording engineer"
 msgstr ""
 
-#: DB:link_type/link_phrase:36 DB:link_type/link_phrase:128
+#: DB:link_type/link_phrase:128 DB:link_type/link_phrase:36
 msgid "{additional} {assistant} {associate} {co:co-}recording engineer for"
 msgstr ""
 
@@ -8222,6 +8239,14 @@ msgstr ""
 
 #: DB:link_type/link_phrase:1165
 msgid "{assistant} carillonneur at"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:1230
+msgid "{assistant} choreographer"
+msgstr "coreógrafo {assistant:asistente}"
+
+#: DB:link_type/link_phrase:1230
+msgid "{assistant} choreographer for"
 msgstr ""
 
 #: DB:link_type/link_phrase:856

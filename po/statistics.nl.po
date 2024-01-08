@@ -7,13 +7,13 @@
 # Nikolai Prokoschenko <email address hidden>, 2011
 # Remko de Keijzer <email address hidden>, 2021
 # kellnerd <kellnerd@users.noreply.translations.metabrainz.org>, 2023.
-# mfmeulenbelt <mfmeulenbelt@users.noreply.translations.metabrainz.org>, 2023.
+# mfmeulenbelt <mfmeulenbelt@users.noreply.translations.metabrainz.org>, 2023, 2024.
 # reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-12-20 20:28+0000\n"
+"PO-Revision-Date: 2024-01-06 02:28+0000\n"
 "Last-Translator: mfmeulenbelt <mfmeulenbelt@users.noreply.translations."
 "metabrainz.org>\n"
 "Language-Team: Dutch <https://translations.metabrainz.org/projects/"
@@ -291,7 +291,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/description:2003-06-22
 msgid "Artist subscriptions."
-msgstr "Abonnementen op artiesten"
+msgstr "Abonnementen op artiesten."
 
 #: DB:statistics.statistic_event/description:2017-04-11
 msgid ""
@@ -1521,24 +1521,24 @@ msgstr "Artiesten"
 #: ../root/statistics/Index.js:401 ../root/statistics/Index.js:427
 #: ../root/statistics/Index.js:453 ../root/statistics/Index.js:475
 #: ../root/statistics/Index.js:524 ../root/statistics/LanguagesScripts.js:72
-#: ../root/statistics/LanguagesScripts.js:160 ../root/statistics/stats.js:674
+#: ../root/statistics/LanguagesScripts.js:160 ../root/statistics/stats.js:669
 msgid "Releases"
 msgstr "Uitgaven"
 
 #: ../root/statistics/Countries.js:64 ../root/statistics/Index.js:118
 #: ../root/statistics/Index.js:711 ../root/statistics/Index.js:718
-#: ../root/statistics/stats.js:514
+#: ../root/statistics/stats.js:509
 msgid "Labels"
 msgstr "Platenmaatschappijen"
 
 #: ../root/statistics/Countries.js:68 ../root/statistics/Index.js:146
-#: ../root/statistics/Index.js:909 ../root/statistics/stats.js:434
+#: ../root/statistics/Index.js:909 ../root/statistics/stats.js:429
 msgid "Events"
 msgstr "Evenementen"
 
 #: ../root/statistics/Countries.js:72 ../root/statistics/Index.js:134
 #: ../root/statistics/Index.js:829 ../root/statistics/Index.js:836
-#: ../root/statistics/stats.js:549
+#: ../root/statistics/stats.js:544
 msgid "Places"
 msgstr "Plaatsen"
 
@@ -1596,7 +1596,7 @@ msgstr "Geen mediumtype"
 
 #: ../root/statistics/CoverArt.js:230 ../root/statistics/Index.js:98
 #: ../root/statistics/Index.js:612 ../root/statistics/Index.js:619
-#: ../root/statistics/Index.js:651 ../root/statistics/stats.js:754
+#: ../root/statistics/Index.js:651 ../root/statistics/stats.js:749
 msgid "Release groups"
 msgstr "Uitgavegroepen"
 
@@ -1707,7 +1707,7 @@ msgid "% of total releases"
 msgstr "% van het totale aantal uitgaven"
 
 #: ../root/statistics/Formats.js:59 ../root/statistics/Index.js:106
-#: ../root/statistics/Index.js:568 ../root/statistics/stats.js:534
+#: ../root/statistics/Index.js:568 ../root/statistics/stats.js:529
 msgid "Mediums"
 msgstr "Media"
 
@@ -1729,21 +1729,21 @@ msgstr "Kernobjecten"
 
 #: ../root/statistics/Index.js:110 ../root/statistics/Index.js:682
 #: ../root/statistics/Index.js:686 ../root/statistics/Index.js:689
-#: ../root/statistics/stats.js:659
+#: ../root/statistics/stats.js:654
 msgid "Recordings"
-msgstr "Opnames"
+msgstr "Opnamen"
 
-#: ../root/statistics/Index.js:114 ../root/statistics/stats.js:844
+#: ../root/statistics/Index.js:114 ../root/statistics/stats.js:839
 msgid "Tracks"
 msgstr "Nummers"
 
 #: ../root/statistics/Index.js:122 ../root/statistics/Index.js:739
 #: ../root/statistics/Index.js:746 ../root/statistics/Index.js:778
-#: ../root/statistics/LanguagesScripts.js:76 ../root/statistics/stats.js:896
+#: ../root/statistics/LanguagesScripts.js:76 ../root/statistics/stats.js:891
 msgid "Works"
 msgstr "Composities"
 
-#: ../root/statistics/Index.js:126 ../root/statistics/stats.js:849
+#: ../root/statistics/Index.js:126 ../root/statistics/stats.js:844
 msgid "URLs"
 msgstr "URL’s"
 
@@ -1753,17 +1753,17 @@ msgid "Areas"
 msgstr "Gebieden"
 
 #: ../root/statistics/Index.js:138 ../root/statistics/Index.js:857
-#: ../root/statistics/Index.js:864 ../root/statistics/stats.js:779
+#: ../root/statistics/Index.js:864 ../root/statistics/stats.js:774
 msgctxt "plural"
 msgid "Series"
 msgstr "Series"
 
 #: ../root/statistics/Index.js:142 ../root/statistics/Index.js:879
-#: ../root/statistics/Index.js:886 ../root/statistics/stats.js:454
+#: ../root/statistics/Index.js:886 ../root/statistics/stats.js:449
 msgid "Instruments"
 msgstr "Instrumenten"
 
-#: ../root/statistics/Index.js:150 ../root/statistics/stats.js:449
+#: ../root/statistics/Index.js:150 ../root/statistics/stats.js:444
 msgid "Genres"
 msgstr "Genres"
 
@@ -1798,7 +1798,7 @@ msgstr "Waarderingen (totaal / verzameld):"
 msgid "Identifiers"
 msgstr "Identificatoren"
 
-#: ../root/statistics/Index.js:199 ../root/statistics/stats.js:529
+#: ../root/statistics/Index.js:199 ../root/statistics/stats.js:524
 msgid "MBIDs"
 msgstr "MBID’s"
 
@@ -1819,11 +1819,11 @@ msgstr "Disc-ID’s"
 msgid "Barcodes"
 msgstr "Streepjescodes"
 
-#: ../root/statistics/Index.js:223 ../root/statistics/stats.js:464
+#: ../root/statistics/Index.js:223 ../root/statistics/stats.js:459
 msgid "IPIs"
 msgstr "IPI’s"
 
-#: ../root/statistics/Index.js:227 ../root/statistics/stats.js:479
+#: ../root/statistics/Index.js:227 ../root/statistics/stats.js:474
 msgid "ISNIs"
 msgstr "ISNI’s"
 
@@ -1935,7 +1935,7 @@ msgstr "Geen afbeelding van de voorkant:"
 msgid "Data quality"
 msgstr "Gegevenskwaliteit"
 
-#: ../root/statistics/Index.js:481 ../root/statistics/stats.js:569
+#: ../root/statistics/Index.js:481 ../root/statistics/stats.js:564
 msgid "High data quality"
 msgstr "hoge gegevenskwaliteit"
 
@@ -1943,15 +1943,15 @@ msgstr "hoge gegevenskwaliteit"
 msgid "Default data quality"
 msgstr "standaard gegevenskwaliteit"
 
-#: ../root/statistics/Index.js:494 ../root/statistics/stats.js:579
+#: ../root/statistics/Index.js:494 ../root/statistics/stats.js:574
 msgid "Normal data quality"
 msgstr "normale gegevenskwaliteit"
 
-#: ../root/statistics/Index.js:501 ../root/statistics/stats.js:584
+#: ../root/statistics/Index.js:501 ../root/statistics/stats.js:579
 msgid "Unknown data quality"
 msgstr "onbekende gegevenskwaliteit"
 
-#: ../root/statistics/Index.js:509 ../root/statistics/stats.js:574
+#: ../root/statistics/Index.js:509 ../root/statistics/stats.js:569
 msgid "Low data quality"
 msgstr "lage gegevenskwaliteit"
 
@@ -1997,7 +1997,7 @@ msgstr "Geen"
 msgid "Secondary types"
 msgstr "Secundaire types"
 
-#: ../root/statistics/Index.js:694 ../root/statistics/stats.js:854
+#: ../root/statistics/Index.js:694 ../root/statistics/stats.js:849
 msgid "Videos"
 msgstr "Video’s"
 
@@ -2208,7 +2208,7 @@ msgid "Yesterday:"
 msgstr "gisteren:"
 
 #: ../root/statistics/Index.js:1290 ../root/statistics/Index.js:1293
-#: ../root/statistics/Index.js:1322 ../root/statistics/stats.js:860
+#: ../root/statistics/Index.js:1322 ../root/statistics/stats.js:855
 msgid "Votes"
 msgstr "Stemmen"
 
@@ -2385,7 +2385,7 @@ msgstr "Verpakkingen van uitgaven"
 
 #: ../root/statistics/stats.js:37
 msgid "Release data quality"
-msgstr "Gegevenskwaliteit van de uitgaven"
+msgstr "Gegevenskwaliteit van de uitgave"
 
 #: ../root/statistics/stats.js:38
 msgid "Release scripts"
@@ -2545,7 +2545,7 @@ msgstr "Collecties van plaatsen"
 
 #: ../root/statistics/stats.js:243
 msgid "Recording collections"
-msgstr "Collecties van opnames"
+msgstr "Collecties van opnamen"
 
 #: ../root/statistics/stats.js:248
 msgid "Collections of type Release"
@@ -2584,506 +2584,502 @@ msgid "Error edits"
 msgstr "Foute bewerkingen"
 
 #: ../root/statistics/stats.js:309
-msgid "Evalnochange edits"
-msgstr "Evalnochange-bewerkingen"
-
-#: ../root/statistics/stats.js:314
 msgid "Edits that have failed dependency checks"
 msgstr "Bewerkingen die niet door de controle van afhankelijkheden kwamen"
 
-#: ../root/statistics/stats.js:319
+#: ../root/statistics/stats.js:314
 msgid "Edits that have failed prerequisite checks"
 msgstr "Bewerkingen die niet door de controle van voorwaarden kwamen"
 
-#: ../root/statistics/stats.js:324
+#: ../root/statistics/stats.js:319
 msgid "Edits that have been voted down"
 msgstr "Bewerkingen die zijn weggestemd"
 
-#: ../root/statistics/stats.js:329
+#: ../root/statistics/stats.js:324
 msgctxt "noun"
 msgid "Open edits"
 msgstr "Open bewerkingen"
 
-#: ../root/statistics/stats.js:335
+#: ../root/statistics/stats.js:330
 msgid "Edits per day"
 msgstr "Bewerkingen per dag"
 
-#: ../root/statistics/stats.js:340
+#: ../root/statistics/stats.js:335
 msgid "Edits per week"
 msgstr "Bewerkingen per week"
 
-#: ../root/statistics/stats.js:346
+#: ../root/statistics/stats.js:341
 msgid "Editors (all)"
 msgstr "Redacteurs (totaal)"
 
-#: ../root/statistics/stats.js:351
+#: ../root/statistics/stats.js:346
 msgid "Editors who edited or voted in the last week"
 msgstr "Redacteurs die afgelopen week hebben bewerkt of gestemd"
 
-#: ../root/statistics/stats.js:357
+#: ../root/statistics/stats.js:352
 msgid "Editors (deleted)"
 msgstr "Redacteurs (verwijderd)"
 
-#: ../root/statistics/stats.js:362
+#: ../root/statistics/stats.js:357
 msgid "Editors who submitted edits in the last week"
 msgstr "Redacteurs die afgelopen week bewerkingen hebben ingediend"
 
-#: ../root/statistics/stats.js:368
+#: ../root/statistics/stats.js:363
 msgid "Editors (current)"
 msgstr "Redacteurs (huidig)"
 
-#: ../root/statistics/stats.js:374
+#: ../root/statistics/stats.js:369
 msgid "Editors (current) who have ever been active"
 msgstr "Redacteurs (huidig) die ooit actief zijn geweest"
 
-#: ../root/statistics/stats.js:379
+#: ../root/statistics/stats.js:374
 msgid "Editors who have registered applications"
 msgstr "Redacteurs die applicaties hebben geregistreerd"
 
-#: ../root/statistics/stats.js:384
+#: ../root/statistics/stats.js:379
 msgid "Editors who use collections"
 msgstr "Redacteurs die collecties gebruiken"
 
-#: ../root/statistics/stats.js:389
+#: ../root/statistics/stats.js:384
 msgid "Editors who have made edits"
 msgstr "Redacteurs die bewerkingen hebben gemaakt"
 
-#: ../root/statistics/stats.js:394
+#: ../root/statistics/stats.js:389
 msgid "Editors who have written edit notes"
 msgstr "Redacteurs die bewerkingsnotities hebben geschreven"
 
-#: ../root/statistics/stats.js:399
+#: ../root/statistics/stats.js:394
 msgid "Editors who have added ratings"
 msgstr "Redacteurs die waarderingen hebben toegevoegd"
 
-#: ../root/statistics/stats.js:404
+#: ../root/statistics/stats.js:399
 msgid "Editors who use subscriptions"
 msgstr "Redacteurs die abonnementen gebruiken"
 
-#: ../root/statistics/stats.js:409
+#: ../root/statistics/stats.js:404
 msgctxt "folksonomy"
 msgid "Editors who have added tags"
 msgstr "Redacteurs die etiketten hebben toegevoegd"
 
-#: ../root/statistics/stats.js:414
+#: ../root/statistics/stats.js:409
 msgid "Editors who have voted on edits"
 msgstr "Redacteurs die op bewerkingen hebben gestemd"
 
-#: ../root/statistics/stats.js:419
+#: ../root/statistics/stats.js:414
 msgid "Editors who have not been active at all"
 msgstr "Redacteurs die helemaal niet actief zijn geweest"
 
-#: ../root/statistics/stats.js:424
+#: ../root/statistics/stats.js:419
 msgid "Editors who have only validated their email"
 msgstr "Redacteurs die alleen hun e-mailadres hebben bevestigd"
 
-#: ../root/statistics/stats.js:429
+#: ../root/statistics/stats.js:424
 msgid "Editors who voted in the last week"
 msgstr "Redacteurs die afgelopen week hebben gestemd"
 
-#: ../root/statistics/stats.js:439
+#: ../root/statistics/stats.js:434
 msgid "Events with no country set"
 msgstr "Evenementen zonder land"
 
-#: ../root/statistics/stats.js:444
+#: ../root/statistics/stats.js:439
 msgid "Events with no type set"
 msgstr "Evenementen zonder type"
 
-#: ../root/statistics/stats.js:459
+#: ../root/statistics/stats.js:454
 msgid "Instruments with no type set"
 msgstr "Instrumenten zonder types"
 
-#: ../root/statistics/stats.js:469
+#: ../root/statistics/stats.js:464
 msgid "Artist IPIs"
 msgstr "Artiest-IPI’s"
 
-#: ../root/statistics/stats.js:474
+#: ../root/statistics/stats.js:469
 msgid "Label IPIs"
 msgstr "IPI’s van platenmaatschappijen"
 
-#: ../root/statistics/stats.js:484
+#: ../root/statistics/stats.js:479
 msgid "Artist ISNIs"
 msgstr "ISNI’s van artiesten"
 
-#: ../root/statistics/stats.js:489
+#: ../root/statistics/stats.js:484
 msgid "Label ISNIs"
 msgstr "ISNI’s van platenmaatschappijen"
 
-#: ../root/statistics/stats.js:494
+#: ../root/statistics/stats.js:489
 msgid "ISRCs (unique)"
 msgstr "ISRC’s (uniek)"
 
-#: ../root/statistics/stats.js:499
+#: ../root/statistics/stats.js:494
 msgid "ISRCs (all uses)"
 msgstr "ISRC’s (elk gebruik)"
 
-#: ../root/statistics/stats.js:504
+#: ../root/statistics/stats.js:499
 msgid "ISWCs (unique)"
 msgstr "ISWC’s (uniek)"
 
-#: ../root/statistics/stats.js:509
+#: ../root/statistics/stats.js:504
 msgid "ISWCs (all uses)"
 msgstr "ISWC’s (elk gebruik)"
 
-#: ../root/statistics/stats.js:519
+#: ../root/statistics/stats.js:514
 msgid "Labels with no country set"
 msgstr "Platenmaatschappijen zonder land"
 
-#: ../root/statistics/stats.js:524
+#: ../root/statistics/stats.js:519
 msgid "Labels with no type set"
 msgstr "Platenmaatschappijen zonder type"
 
-#: ../root/statistics/stats.js:539
+#: ../root/statistics/stats.js:534
 msgid "Mediums with no format set"
 msgstr "Media zonder type"
 
-#: ../root/statistics/stats.js:544
+#: ../root/statistics/stats.js:539
 msgid "Mediums with disc IDs"
 msgstr "Media met disc-ID’s"
 
-#: ../root/statistics/stats.js:554
+#: ../root/statistics/stats.js:549
 msgid "Places with no country set"
 msgstr "Plaatsen zonder land"
 
-#: ../root/statistics/stats.js:559
+#: ../root/statistics/stats.js:554
 msgid "Places with no type set"
 msgstr "Plaatsen zonder type"
 
-#: ../root/statistics/stats.js:564
+#: ../root/statistics/stats.js:559
 msgid "Default (Normal + Unknown) Data Quality"
 msgstr "Standaard (normale en onbekende) gegevenskwaliteit"
 
-#: ../root/statistics/stats.js:589
+#: ../root/statistics/stats.js:584
 msgid "Entities with ratings"
 msgstr "Objecten met waarderingen"
 
-#: ../root/statistics/stats.js:594
+#: ../root/statistics/stats.js:589
 msgid "Artists with ratings"
 msgstr "Artiesten met waarderingen"
 
-#: ../root/statistics/stats.js:599
+#: ../root/statistics/stats.js:594
 msgid "Labels with ratings"
 msgstr "Platenmaatschappijen met waarderingen"
 
-#: ../root/statistics/stats.js:604
+#: ../root/statistics/stats.js:599
 msgid "Places with ratings"
 msgstr "Plaatsen met waarderingen"
 
-#: ../root/statistics/stats.js:609
+#: ../root/statistics/stats.js:604
 msgid "Ratings"
 msgstr "Waarderingen"
 
-#: ../root/statistics/stats.js:614
+#: ../root/statistics/stats.js:609
 msgid "Artist ratings"
 msgstr "Waarderingen van artiesten"
 
-#: ../root/statistics/stats.js:619
+#: ../root/statistics/stats.js:614
 msgid "Label ratings"
 msgstr "Waarderingen van platenmaatschappijen"
 
-#: ../root/statistics/stats.js:624
+#: ../root/statistics/stats.js:619
 msgid "Place ratings"
 msgstr "Waarderingen van plaatsen"
 
-#: ../root/statistics/stats.js:629
+#: ../root/statistics/stats.js:624
 msgid "Recording ratings"
-msgstr "Waarderingen van opnames"
+msgstr "Waarderingen van opnamen"
 
-#: ../root/statistics/stats.js:634
+#: ../root/statistics/stats.js:629
 msgid "Release group ratings"
 msgstr "Waarderingen van uitgavegroepen"
 
-#: ../root/statistics/stats.js:639
+#: ../root/statistics/stats.js:634
 msgid "Work ratings"
-msgstr "Compositiewaarderingen"
+msgstr "Waarderingen van composities"
 
-#: ../root/statistics/stats.js:644
+#: ../root/statistics/stats.js:639
 msgid "Recordings with ratings"
 msgstr "Opnames met waarderingen"
 
-#: ../root/statistics/stats.js:649
+#: ../root/statistics/stats.js:644
 msgid "Release groups with ratings"
 msgstr "Uitgavegroepen met waarderingen"
 
-#: ../root/statistics/stats.js:654
+#: ../root/statistics/stats.js:649
 msgid "Works with ratings"
 msgstr "Composities met waarderingen"
 
-#: ../root/statistics/stats.js:664
+#: ../root/statistics/stats.js:659
 msgid "Recordings with ISRCs"
 msgstr "Opnames met ISRC’s"
 
-#: ../root/statistics/stats.js:669
+#: ../root/statistics/stats.js:664
 msgid "Standalone recordings"
 msgstr "Losse opnames (zonder uitgave)"
 
-#: ../root/statistics/stats.js:679
+#: ../root/statistics/stats.js:674
 msgid "Releases with no country set"
 msgstr "Uitgaven zonder land"
 
-#: ../root/statistics/stats.js:684
+#: ../root/statistics/stats.js:679
 msgid "Releases with CAA cover art"
 msgstr "Uitgaven met afbeeldingen van het CAA"
 
-#: ../root/statistics/stats.js:689
+#: ../root/statistics/stats.js:684
 msgid "Releases with no cover art"
 msgstr "Uitgaven met afbeeldingen"
 
-#: ../root/statistics/stats.js:694
+#: ../root/statistics/stats.js:689
 msgid "Releases with a medium with no format set"
 msgstr "Uitgaven met een medium zonder mediumtype"
 
-#: ../root/statistics/stats.js:699
+#: ../root/statistics/stats.js:694
 msgid "Releases with a medium with no format set that have cover art"
 msgstr "Uitgaven met afbeelding en met een medium zonder mediumtype"
 
-#: ../root/statistics/stats.js:704
+#: ../root/statistics/stats.js:699
 msgid "Releases with cover art"
 msgstr "Uitgaven met afbeeldingen"
 
-#: ../root/statistics/stats.js:709
+#: ../root/statistics/stats.js:704
 msgid "Releases with disc IDs"
 msgstr "Uitgaven met disc-ID’s"
 
-#: ../root/statistics/stats.js:714
+#: ../root/statistics/stats.js:709
 msgid "Releases with no language set"
 msgstr "Uitgaven zonder taal"
 
-#: ../root/statistics/stats.js:719
+#: ../root/statistics/stats.js:714
 msgid "Releases not credited to Various Artists"
 msgstr "Uitgaven die niet aan diverse artiesten zijn toegeschreven"
 
-#: ../root/statistics/stats.js:724
+#: ../root/statistics/stats.js:719
 msgid "Releases with no packaging set"
 msgstr "Uitgaven zonder ingestelde verpakking"
 
-#: ../root/statistics/stats.js:729
+#: ../root/statistics/stats.js:724
 msgid "Releases with no script set"
 msgstr "Uitgaven waarvoor geen schrift is ingesteld"
 
-#: ../root/statistics/stats.js:734
+#: ../root/statistics/stats.js:729
 msgid "Releases with no status set"
 msgstr "Uitgaven zonder status"
 
-#: ../root/statistics/stats.js:739
+#: ../root/statistics/stats.js:734
 msgid "Releases with no status set that have cover art"
 msgstr "Uitgaven zonder status maar met afbeelding"
 
-#: ../root/statistics/stats.js:744
+#: ../root/statistics/stats.js:739
 msgid "Releases in groups with no type set that have cover art"
 msgstr "Uitgaven met afbeelding in uitgavegroepen zonder type"
 
-#: ../root/statistics/stats.js:749
+#: ../root/statistics/stats.js:744
 msgid "Releases credited to Various Artists"
 msgstr "Uitgaven die aan diverse artiesten zijn toegeschreven"
 
-#: ../root/statistics/stats.js:759
+#: ../root/statistics/stats.js:754
 msgid "Release groups with automatically inferred cover art"
 msgstr "Uitgavegroepen met automatisch afgeleide hoesafbeeldingen"
 
-#: ../root/statistics/stats.js:764
+#: ../root/statistics/stats.js:759
 msgid "Release groups with user-selected cover art"
 msgstr "Uitgavegroepen met door gebruikers ingestelde hoesafbeeldingen"
 
-#: ../root/statistics/stats.js:769
+#: ../root/statistics/stats.js:764
 msgid "Release groups with no primary type set"
 msgstr "Uitgavegroepen zonder primair type"
 
-#: ../root/statistics/stats.js:774
+#: ../root/statistics/stats.js:769
 msgid "Release groups with no secondary type set"
 msgstr "Uitgavegroepen zonder secundair type"
 
-#: ../root/statistics/stats.js:784
+#: ../root/statistics/stats.js:779
 msgid "Series with no type set"
 msgstr "Series zonder ingesteld type"
 
-#: ../root/statistics/stats.js:789
+#: ../root/statistics/stats.js:784
 msgctxt "folksonomy"
 msgid "Unique tag names"
 msgstr "Unieke etiketnamen"
 
-#: ../root/statistics/stats.js:794
+#: ../root/statistics/stats.js:789
 msgctxt "folksonomy"
 msgid "Votes for/against tags"
 msgstr "Stemmen voor/tegen etiketten"
 
-#: ../root/statistics/stats.js:799
+#: ../root/statistics/stats.js:794
 msgid "Votes for/against area tags"
 msgstr "Stemmen voor/tegen etiketten voor gebieden"
 
-#: ../root/statistics/stats.js:804
+#: ../root/statistics/stats.js:799
 msgid "Votes for/against artist tags"
 msgstr "Stemmen voor/tegen etiketten voor artiesten"
 
-#: ../root/statistics/stats.js:809
+#: ../root/statistics/stats.js:804
 msgid "Votes for/against instrument tags"
 msgstr "Stemmen voor/tegen etiketten voor instrumenten"
 
-#: ../root/statistics/stats.js:814
+#: ../root/statistics/stats.js:809
 msgid "Votes for/against label tags"
 msgstr "Stemmen voor/tegen etiketten voor platenmaatschappijen"
 
-#: ../root/statistics/stats.js:819
+#: ../root/statistics/stats.js:814
 msgid "Votes for/against recording tags"
 msgstr "Stemmen voor/tegen etiketten voor opnames"
 
-#: ../root/statistics/stats.js:824
+#: ../root/statistics/stats.js:819
 msgid "Votes for/against release tags"
 msgstr "Stemmen voor/tegen etiketten voor uitgaven"
 
-#: ../root/statistics/stats.js:829
+#: ../root/statistics/stats.js:824
 msgid "Votes for/against release group tags"
 msgstr "Stemmen voor/tegen etiketten voor uitgavegroepen"
 
-#: ../root/statistics/stats.js:834
+#: ../root/statistics/stats.js:829
 msgid "Votes for/against series tags"
 msgstr "Stemmen voor/tegen etiketten voor series"
 
-#: ../root/statistics/stats.js:839
+#: ../root/statistics/stats.js:834
 msgid "Votes for/against work tags"
 msgstr "Stemmen voor/tegen etiketten voor composities"
 
-#: ../root/statistics/stats.js:865
+#: ../root/statistics/stats.js:860
 msgid "Abstentions"
 msgstr "Onthoudingen"
 
-#: ../root/statistics/stats.js:870
+#: ../root/statistics/stats.js:865
 msgid "Approvals"
 msgstr "Goedkeuringen"
 
-#: ../root/statistics/stats.js:875
+#: ../root/statistics/stats.js:870
 msgid "No votes"
 msgstr "Geen stemmen"
 
-#: ../root/statistics/stats.js:881
+#: ../root/statistics/stats.js:876
 msgid "Votes per day"
 msgstr "Stemmen per dag"
 
-#: ../root/statistics/stats.js:886
+#: ../root/statistics/stats.js:881
 msgid "Votes per week"
 msgstr "Stemmen per week"
 
-#: ../root/statistics/stats.js:891
+#: ../root/statistics/stats.js:886
 msgid "Yes votes"
 msgstr "Voorstemmen"
 
-#: ../root/statistics/stats.js:901
+#: ../root/statistics/stats.js:896
 msgid "Works with no attributes"
 msgstr "Composities zonder eigenschappen"
 
-#: ../root/statistics/stats.js:906
+#: ../root/statistics/stats.js:901
 msgid "Works with ISWCs"
 msgstr "Composities met ISWC’s"
 
-#: ../root/statistics/stats.js:911
+#: ../root/statistics/stats.js:906
 msgid "Works with no language set"
 msgstr "Composities zonder taal"
 
-#: ../root/statistics/stats.js:916
+#: ../root/statistics/stats.js:911
 msgid "Works with no type set"
 msgstr "Composities zonder type"
 
-#: ../root/statistics/stats.js:918
+#: ../root/statistics/stats.js:913
 msgid "/day"
 msgstr "/dag"
 
-#: ../root/statistics/stats.js:928
+#: ../root/statistics/stats.js:923
 msgid "Releases with 1 Disc ID"
 msgid_plural "Releases with {n} Disc IDs"
 msgstr[0] "Uitgaven met één disc-id"
 msgstr[1] "Uitgaven met {n} disc-ID’s"
 
-#: ../root/statistics/stats.js:939
+#: ../root/statistics/stats.js:934
 msgid "Mediums with 1 Disc ID"
 msgid_plural "Mediums with {n} Disc IDs"
 msgstr[0] "Media met 1 disc-id"
 msgstr[1] "Media met {n} disc-ID’s"
 
-#: ../root/statistics/stats.js:950
+#: ../root/statistics/stats.js:945
 msgid "Recordings with 1 Release"
 msgid_plural "Recordings with {n} Releases"
 msgstr[0] "Opnames met één uitgave"
 msgstr[1] "Opnames met {n} uitgaven"
 
-#: ../root/statistics/stats.js:961
+#: ../root/statistics/stats.js:956
 msgid "Release Groups with 1 Release"
 msgid_plural "Release Groups with {n} Releases"
 msgstr[0] "Uitgavegroepen met 1 uitgave"
 msgstr[1] "Uitgavegroepen met {n} uitgaven"
 
-#: ../root/statistics/stats.js:1014
+#: ../root/statistics/stats.js:1009
 msgid "{type} areas"
 msgstr "Gebieden van het type ‘{type}’"
 
-#: ../root/statistics/stats.js:1026
+#: ../root/statistics/stats.js:1021
 msgid "{country} artists"
 msgstr "artiesten uit {country}"
 
-#: ../root/statistics/stats.js:1032
+#: ../root/statistics/stats.js:1027
 msgid "{country} events"
 msgstr "evenementen in {country}"
 
-#: ../root/statistics/stats.js:1038
+#: ../root/statistics/stats.js:1033
 msgid "{country} labels"
 msgstr "platenmaatschappijen uit {country}"
 
-#: ../root/statistics/stats.js:1044
+#: ../root/statistics/stats.js:1039
 msgid "{country} places"
 msgstr "plaatsen in {country}"
 
-#: ../root/statistics/stats.js:1050
+#: ../root/statistics/stats.js:1045
 msgid "{country} releases"
 msgstr "uitgaven uit {country}"
 
-#: ../root/statistics/stats.js:1061
+#: ../root/statistics/stats.js:1056
 msgid "{type} edits"
 msgstr "Bewerkingen van het type ‘{type}’"
 
-#: ../root/statistics/stats.js:1072
+#: ../root/statistics/stats.js:1067
 msgid "{type} events"
 msgstr "Evenementen van het type ‘{type}’"
 
-#: ../root/statistics/stats.js:1083
+#: ../root/statistics/stats.js:1078
 msgid "{name} releases"
 msgstr "uitgaven met de naam {name}"
 
-#: ../root/statistics/stats.js:1089
+#: ../root/statistics/stats.js:1084
 msgid "{name} mediums"
 msgstr "{name} media"
 
-#: ../root/statistics/stats.js:1096
+#: ../root/statistics/stats.js:1091
 msgid "Releases with a medium of format “{format}” that have cover art"
 msgstr "Uitgaven met een medium van het type ‘{format}’ met afbeelding"
 
-#: ../root/statistics/stats.js:1109
+#: ../root/statistics/stats.js:1104
 msgid "{type} instruments"
 msgstr "Instrumenten van het type ‘{type}’"
 
-#: ../root/statistics/stats.js:1120
+#: ../root/statistics/stats.js:1115
 msgid "{type} labels"
 msgstr "Platenmaatschappijen van het type ‘{type}’"
 
-#: ../root/statistics/stats.js:1131
+#: ../root/statistics/stats.js:1126
 msgid "{language} releases"
 msgstr "uitgaven in het {language}"
 
-#: ../root/statistics/stats.js:1137
+#: ../root/statistics/stats.js:1132
 msgid "{language} works"
 msgstr "Composities in het {language}"
 
-#: ../root/statistics/stats.js:1149
+#: ../root/statistics/stats.js:1144
 msgid "Releases with packaging “{packaging}”"
 msgstr "Uitgaven met de verpakking ‘{packaging}’"
 
-#: ../root/statistics/stats.js:1162
+#: ../root/statistics/stats.js:1157
 msgid "{type} places"
 msgstr "Plaatsen van het type ‘{type}’"
 
-#: ../root/statistics/stats.js:1170
+#: ../root/statistics/stats.js:1165
 msgid "{first_entity_type}-{second_entity_type} Relationships"
 msgstr "Relaties tussen {first_entity_type} en {second_entity_type}"
 
-#: ../root/statistics/stats.js:1189
+#: ../root/statistics/stats.js:1184
 msgid ""
 "{first_entity_type_name}-{second_entity_type_name} "
 "“{relationship_type_name}” relationships"
@@ -3091,7 +3087,7 @@ msgstr ""
 "Relaties van het type {relationship_type_name} tussen "
 "{first_entity_type_name} en {second_entity_type_name}"
 
-#: ../root/statistics/stats.js:1205
+#: ../root/statistics/stats.js:1200
 msgid ""
 "{first_entity_type_name}-{second_entity_type_name} "
 "“{relationship_type_name}” relationships including child relationship types"
@@ -3099,41 +3095,44 @@ msgstr ""
 "Relaties van het type {relationship_type_name} en onderliggende relatietypes "
 "tussen {first_entity_type_name} en {second_entity_type_name}"
 
-#: ../root/statistics/stats.js:1228 ../root/statistics/stats.js:1248
+#: ../root/statistics/stats.js:1223 ../root/statistics/stats.js:1243
 msgid "{type} release groups"
 msgstr "Uitgavegroepen van het type ‘{type}’"
 
-#: ../root/statistics/stats.js:1235
+#: ../root/statistics/stats.js:1230
 msgid "Releases in groups of type “{type}” with cover art"
 msgstr "Uitgaven in groepen van het type ‘{type}’ met afbeelding"
 
-#: ../root/statistics/stats.js:1259
+#: ../root/statistics/stats.js:1254
 msgid "{script} releases"
 msgstr "Uitgaven in het {script} schrift"
 
-#: ../root/statistics/stats.js:1270
+#: ../root/statistics/stats.js:1265
 msgid "{type} series"
 msgstr "Series van het type ‘{type}’"
 
-#: ../root/statistics/stats.js:1281
+#: ../root/statistics/stats.js:1276
 msgid "{status} releases"
 msgstr "Uitgaven met de status ‘{status}’"
 
-#: ../root/statistics/stats.js:1288
+#: ../root/statistics/stats.js:1283
 msgid "Releases of status “{status}” with cover art"
 msgstr "Uitgaven met de status ‘{status}’ met afbeelding"
 
-#: ../root/statistics/stats.js:1305
+#: ../root/statistics/stats.js:1300
 msgid "Works with attribute “{attribute}”"
 msgstr "Composities met de eigenschap ‘{attribute}’"
 
-#: ../root/statistics/stats.js:1318
+#: ../root/statistics/stats.js:1313
 msgid "{type} works"
 msgstr "Composities van het type ‘{type}’"
 
 #: ../root/statistics/utilities.js:40
 msgid "See on timeline"
 msgstr "Op de tijdslijn bekijken"
+
+#~ msgid "Evalnochange edits"
+#~ msgstr "Evalnochange-bewerkingen"
 
 #~ msgid "Release Groups"
 #~ msgstr "Uitgavegroepen"
