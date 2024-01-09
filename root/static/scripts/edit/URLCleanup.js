@@ -4546,6 +4546,9 @@ const CLEANUPS: CleanupEntries = {
   'ototoy': {
     match: new RegExp('^(https?://)?([^/]+\\.)?ototoy\\.jp', 'i'),
     restrict: [LINK_TYPES.downloadpurchase],
+    clean: function (url) {
+      return url.replace(/^(?:https:\/\/)?(?:www\.)?ototoy\.jp\/(labels|_\/default\/[ap])\/(\d+).*$/, 'https://ototoy.jp/$1/$2');
+    },
     validate: function (url, id) {
       const m = /^https:\/\/ototoy\.jp\/(labels|_\/default\/[ap])\/\d+$/.exec(url);
       if (m) {
