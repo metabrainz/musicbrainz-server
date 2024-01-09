@@ -79,7 +79,9 @@ const EditorStatsTable = ({
             ))
           ) : (
             <tr className="even">
-              <td colSpan="3">{l_statistics('There is no data to display here.')}</td>
+              <td colSpan="3">
+                {l_statistics('There is no data to display here.')}
+              </td>
             </tr>
           )}
         </tbody>
@@ -100,8 +102,8 @@ const Editors = ({
       {texp.l_statistics('Last updated: {date}', {date: dateCollected})}
     </p>
     <p>
-      {l_statistics(`For the vote statistics, only yes or no votes are counted, abstain
-          votes are not counted.`)}
+      {l_statistics(`For the vote statistics, only yes or no votes are
+                     counted, abstain votes are not counted.`)}
     </p>
     <div
       style={{display: 'inline-block', float: 'left', marginRight: '50px'}}

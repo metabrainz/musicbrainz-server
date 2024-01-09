@@ -13,7 +13,11 @@ import {l_statistics} from '../static/scripts/common/i18n/statistics.js';
 import StatisticsLayout from './StatisticsLayout.js';
 
 const NoStatistics = (): React$Element<typeof StatisticsLayout> => (
-  <StatisticsLayout fullWidth page="index" title={l_statistics('No statistics')}>
+  <StatisticsLayout
+    fullWidth
+    page="index"
+    title={l_statistics('No statistics')}
+  >
     <h2>{l_statistics('No statistics')}</h2>
     <p>
       {exp.l_statistics(

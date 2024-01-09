@@ -120,7 +120,9 @@ const CoverArt = ({
                 <th colSpan="4">{l_statistics('By release group type')}</th>
               </tr>
               <tr>
-                <th colSpan="2">{l_statistics('Releases with cover art:')}</th>
+                <th colSpan="2">
+                  {l_statistics('Releases with cover art:')}
+                </th>
                 <td>
                   {formatCount($c, stats['count.release.has_caa'])}
                   {' '}
@@ -155,7 +157,9 @@ const CoverArt = ({
                 <th colSpan="4">{l_statistics('By release status')}</th>
               </tr>
               <tr>
-                <th colSpan="2">{l_statistics('Releases with cover art:')}</th>
+                <th colSpan="2">
+                  {l_statistics('Releases with cover art:')}
+                </th>
                 <td>
                   {formatCount($c, stats['count.release.has_caa'])}
                   {' '}
@@ -191,7 +195,9 @@ const CoverArt = ({
                 <th colSpan="4">{l_statistics('By release format')}</th>
               </tr>
               <tr>
-                <th colSpan="2">{l_statistics('Releases with cover art:')}</th>
+                <th colSpan="2">
+                  {l_statistics('Releases with cover art:')}
+                </th>
                 <td>
                   {formatCount($c, stats['count.release.has_caa'])}
                   {' '}
@@ -230,7 +236,9 @@ const CoverArt = ({
       <table className="database-statistics">
         <tbody>
           <tr>
-            <th colSpan="2">{l_statistics('Release groups with cover art:')}</th>
+            <th colSpan="2">
+              {l_statistics('Release groups with cover art:')}
+            </th>
             <td>
               {formatCount($c, stats['count.releasegroup.caa'])}
               {' '}

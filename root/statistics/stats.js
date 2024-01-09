@@ -23,7 +23,8 @@ const stats = {
     'collection': {label: l_statistics('Collections')},
     'core-entities': {label: l_statistics('Core entities')},
     'cover-art': {hide: true, label: lp_statistics('Cover art', 'plural')},
-    'edit-information': {hide: true, label: lp_statistics('Edit information', 'noun')},
+    'edit-information':
+      {hide: true, label: lp_statistics('Edit information', 'noun')},
     'edit-types': {label: lp_statistics('Edit types', 'noun')},
     'event-types': {label: l_statistics('Event types')},
     'formats': {label: l_statistics('Formats')},
@@ -695,7 +696,9 @@ const stats = {
   'count.release.format.null.has_coverart': {
     category: 'cover-art',
     color: '#ff0000',
-    label: l_statistics('Releases with a medium with no format set that have cover art'),
+    label: l_statistics(
+      'Releases with a medium with no format set that have cover art',
+    ),
   },
   'count.release.has_caa': {
     category: 'cover-art',
@@ -740,7 +743,9 @@ const stats = {
   'count.release.type.null.has_coverart': {
     category: 'cover-art',
     color: '#ff0000',
-    label: l_statistics('Releases in groups with no type set that have cover art'),
+    label: l_statistics(
+      'Releases in groups with no type set that have cover art',
+    ),
   },
   'count.release.various': {
     category: 'other',
@@ -755,7 +760,9 @@ const stats = {
   'count.releasegroup.caa.inferred': {
     category: 'cover-art',
     color: '#ff0000',
-    label: l_statistics('Release groups with automatically inferred cover art'),
+    label: l_statistics(
+      'Release groups with automatically inferred cover art',
+    ),
   },
   'count.releasegroup.caa.manually_selected': {
     category: 'cover-art',

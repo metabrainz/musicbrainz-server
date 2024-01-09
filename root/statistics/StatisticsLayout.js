@@ -96,7 +96,8 @@ const StatisticsLayout = ({
   sidebar,
   title,
 }: StatisticsLayoutPropsT): React$Element<typeof Layout> => {
-  const htmlTitle = hyphenateTitle(l_statistics('Database statistics'), title);
+  const htmlTitle = hyphenateTitle(l_statistics('Database statistics'),
+                                   title);
   return (
     <Layout
       fullWidth={fullWidth}

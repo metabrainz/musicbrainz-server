@@ -480,13 +480,17 @@ const Index = ({
           </tr>
           <tr>
             <th />
-            <th colSpan="2">{addColonText(l_statistics('High data quality'))}</th>
+            <th colSpan="2">
+              {addColonText(l_statistics('High data quality'))}
+            </th>
             <td>{fc('quality.release.high')}</td>
             <td>{fp('quality.release.high', 'release')}</td>
           </tr>
           <tr>
             <th />
-            <th colSpan="2">{addColonText(l_statistics('Default data quality'))}</th>
+            <th colSpan="2">
+              {addColonText(l_statistics('Default data quality'))}
+            </th>
             <td>{fc('quality.release.default')}</td>
             <td>{fp('quality.release.default', 'release')}</td>
           </tr>
@@ -508,7 +512,9 @@ const Index = ({
           </tr>
           <tr>
             <th />
-            <th colSpan="2">{addColonText(l_statistics('Low data quality'))}</th>
+            <th colSpan="2">
+              {addColonText(l_statistics('Low data quality'))}
+            </th>
             <td>{fc('quality.release.low')}</td>
             <td>{fp('quality.release.low', 'release')}</td>
           </tr>
@@ -618,7 +624,9 @@ const Index = ({
             <th colSpan="4">{l_statistics('Primary types')}</th>
           </tr>
           <tr>
-            <th colSpan="2">{addColonText(l_statistics('Release groups'))}</th>
+            <th colSpan="2">
+              {addColonText(l_statistics('Release groups'))}
+            </th>
             <td>{fc('releasegroup')}</td>
             <td />
           </tr>
@@ -650,7 +658,9 @@ const Index = ({
             <th colSpan="4">{l_statistics('Secondary types')}</th>
           </tr>
           <tr>
-            <th colSpan="2">{addColonText(l_statistics('Release groups'))}</th>
+            <th colSpan="2">
+              {addColonText(l_statistics('Release groups'))}
+            </th>
             <td>{fc('releasegroup')}</td>
             <td />
           </tr>
@@ -863,7 +873,9 @@ const Index = ({
             <th colSpan="4">{l_statistics('Types')}</th>
           </tr>
           <tr>
-            <th colSpan="2">{addColonText(lp_statistics('Series', 'plural'))}</th>
+            <th colSpan="2">
+              {addColonText(lp_statistics('Series', 'plural'))}
+            </th>
             <td>{fc('series')}</td>
             <td />
           </tr>
@@ -1030,7 +1042,9 @@ const Index = ({
           </tr>
           <tr>
             <th />
-            <th colSpan="2">{addColonText(l_statistics('Of instruments'))}</th>
+            <th colSpan="2">
+              {addColonText(l_statistics('Of instruments'))}
+            </th>
             <td>{fc('collection.type.instrument')}</td>
             <td>{fp('collection.type.instrument', 'collection')}</td>
           </tr>
@@ -1054,7 +1068,9 @@ const Index = ({
           </tr>
           <tr>
             <th />
-            <th colSpan="2">{addColonText(l_statistics('Of release groups'))}</th>
+            <th colSpan="2">
+              {addColonText(l_statistics('Of release groups'))}
+            </th>
             <td>{fc('collection.type.release_group')}</td>
             <td>{fp('collection.type.release_group', 'collection')}</td>
           </tr>
@@ -1084,7 +1100,9 @@ const Index = ({
           </tr>
           <tr>
             <th />
-            <th colSpan="2">{addColonText(l_statistics('With collaborators'))}</th>
+            <th colSpan="2">
+              {addColonText(l_statistics('With collaborators'))}
+            </th>
             <td>{fc('collection.has_collaborators')}</td>
             <td>{fp('collection.has_collaborators', 'collection')}</td>
           </tr>
@@ -1157,7 +1175,9 @@ const Index = ({
           <tr>
             <th />
             <th />
-            <th colSpan="2">{lp_statistics('who use tags:', 'folksonomy')}</th>
+            <th colSpan="2">
+              {lp_statistics('who use tags:', 'folksonomy')}
+            </th>
             <td>{fc('editor.valid.active.tags')}</td>
             <td>{fp('editor.valid.active.tags', 'editor.valid.active')}</td>
           </tr>
@@ -1264,7 +1284,9 @@ const Index = ({
           </tr>
           <tr>
             <th />
-            <th colSpan="3">{addColonText(lp_statistics('Cancelled', 'edit'))}</th>
+            <th colSpan="3">
+              {addColonText(lp_statistics('Cancelled', 'edit'))}
+            </th>
             <td>{fc('edit.deleted')}</td>
             <td>{fp('edit.deleted', 'edit')}</td>
           </tr>
@@ -1298,7 +1320,9 @@ const Index = ({
           </tr>
           <tr>
             <th />
-            <th colSpan="3">{addColonText(lp_statistics('Approve', 'vote'))}</th>
+            <th colSpan="3">
+              {addColonText(lp_statistics('Approve', 'vote'))}
+            </th>
             <td>{fc('vote.approve')}</td>
             <td>{fp('vote.approve', 'vote')}</td>
           </tr>
@@ -1316,7 +1340,9 @@ const Index = ({
           </tr>
           <tr>
             <th />
-            <th colSpan="3">{addColonText(lp_statistics('Abstain', 'vote'))}</th>
+            <th colSpan="3">
+              {addColonText(lp_statistics('Abstain', 'vote'))}
+            </th>
             <td>{fc('vote.abstain')}</td>
             <td>{fp('vote.abstain', 'vote')}</td>
           </tr>

@@ -39,7 +39,11 @@ const Countries = ({
 }: CountriesStatsT): React$Element<typeof StatisticsLayout> => {
   const $c = React.useContext(CatalystContext);
   return (
-    <StatisticsLayout fullWidth page="countries" title={l_statistics('Countries')}>
+    <StatisticsLayout
+      fullWidth
+      page="countries"
+      title={l_statistics('Countries')}
+    >
       <p>
         {texp.l_statistics('Last updated: {date}',
                            {date: dateCollected})}
