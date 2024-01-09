@@ -15,7 +15,7 @@ const NoStatistics = (): React$Element<typeof StatisticsLayout> => (
   <StatisticsLayout fullWidth page="index" title={l('No statistics')}>
     <h2>{l('No statistics')}</h2>
     <p>
-      {exp.l(
+      {exp.l_statistics(
         `Statistics have never been collected for this server. If you are the
          administrator for this server, you should run
          <code>./admin/CollectStats.pl</code> or import

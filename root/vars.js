@@ -92,6 +92,10 @@ declare var exp: {
     key: string,
     args?: ?{+[arg: string]: Expand2ReactInput, ...},
   ) => Expand2ReactOutput,
+  +l_statistics: (
+    key: string,
+    args?: ?{+[arg: string]: Expand2ReactInput, ...},
+  ) => Expand2ReactOutput,
   +ln: (
     skey: string,
     pkey: string,
@@ -99,6 +103,12 @@ declare var exp: {
     args?: ?{+[arg: string]: Expand2ReactInput, ...},
   ) => Expand2ReactOutput,
   +ln_admin: (
+    skey: string,
+    pkey: string,
+    val: number,
+    args?: ?{+[arg: string]: Expand2ReactInput, ...},
+  ) => Expand2ReactOutput,
+  +ln_statistics: (
     skey: string,
     pkey: string,
     val: number,
@@ -120,6 +130,10 @@ declare var texp: {
     key: string,
     args: {+[arg: string]: StrOrNum, ...},
   ) => string,
+  +l_statistics: (
+    key: string,
+    args: {+[arg: string]: StrOrNum, ...},
+  ) => string,
   +ln: (
     skey: string,
     pkey: string,
@@ -127,6 +141,12 @@ declare var texp: {
     args: {+[arg: string]: StrOrNum, ...},
   ) => string,
   +ln_admin: (
+    skey: string,
+    pkey: string,
+    val: number,
+    args: {+[arg: string]: StrOrNum, ...},
+  ) => string,
+  +ln_statistics: (
     skey: string,
     pkey: string,
     val: number,

@@ -10,6 +10,7 @@
 
 import timelineIconUrl
   from '../static/images/icons/timeline.png';
+import {l_statistics as l} from '../static/scripts/common/i18n/statistics.js';
 
 export function formatPercentage(
   $c: CatalystContextT,

@@ -41,8 +41,8 @@ const Countries = ({
   return (
     <StatisticsLayout fullWidth page="countries" title={l('Countries')}>
       <p>
-        {texp.l('Last updated: {date}',
-                {date: dateCollected})}
+        {texp.l_statistics('Last updated: {date}',
+                           {date: dateCollected})}
       </p>
       <table className="tbl" id="countries-table">
         <thead>

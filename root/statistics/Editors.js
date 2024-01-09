@@ -97,7 +97,7 @@ const Editors = ({
 }: EditorsStatsT): React$Element<typeof StatisticsLayout> => (
   <StatisticsLayout fullWidth page="editors" title={l('Editors')}>
     <p>
-      {texp.l('Last updated: {date}', {date: dateCollected})}
+      {texp.l_statistics('Last updated: {date}', {date: dateCollected})}
     </p>
     <p>
       {l(`For the vote statistics, only yes or no votes are counted, abstain
