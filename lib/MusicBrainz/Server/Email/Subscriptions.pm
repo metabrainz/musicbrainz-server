@@ -172,7 +172,7 @@ type = sub.isa('MusicBrainz::Server::Entity::Subscription::DeletedArtist') ? 'ar
 [%- IF type == 'collection' -%]
 [%- type | ucfirst %] "[% sub.last_seen_name %]" - deleted or made private
 [% ELSE -%]
-[%- type | ucfirst %] "[% sub.last_known_name %]"[% '(' _ sub.last_known_comment _ ') ' IF sub.last_known_comment %] - [% sub.reason %] by edit #[% edit %]
+[%- type | ucfirst %] "[% sub.last_known_name %]"[% ' (' _ sub.last_known_comment _ ')' IF sub.last_known_comment %] - [% sub.reason %] by edit #[% edit %]
 [% self.server %]/edit/[% edit %]
 [% END -%]
 [%- END %]
