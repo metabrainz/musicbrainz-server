@@ -158,6 +158,7 @@ export const FAVICON_CLASSES = {
   'lyric.evesta.jp': 'evestalyric',
   'mainlynorfolk.info': 'mainlynorfolk',
   'melon.com': 'melon',
+  'metacritic.com': 'metacritic',
   'metal-archives.com': 'metalarchives',
   'metalmusicarchives.com': 'metalmusicarchives',
   'mixcloud.com': 'mixcloud',

@@ -119,6 +119,7 @@ my %URL_SPECIALIZATIONS = (
     'MainlyNorfolk'       => qr{^https?://(?:www\.)?mainlynorfolk\.info/}i,
     'Maniadb'             => qr{^https?://(?:www\.)?maniadb\.com/}i,
     'Melon'               => qr{^https?://www\.melon\.com/}i,
+    'Metacritic'          => qr{^https?://(?:www\.)?metacritic\.com/}i,
     'MetalArchives'       => qr{^https?://(?:www\.)?metal-archives\.com/}i,
     'MetalMusicArchives'  => qr{^https?://(?:www\.)?metalmusicarchives\.com/}i,
     'MiguMusic'           => qr{^https?://music\.migu\.cn/}i,

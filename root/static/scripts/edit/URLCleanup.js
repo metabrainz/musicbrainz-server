@@ -3925,6 +3925,23 @@ const CLEANUPS: CleanupEntries = {
       return {result: false, target: ERROR_TARGETS.URL};
     },
   },
+  'metacritic': {
+    match: [new RegExp('^(https?://)?(www\\.)?metacritic\\.com', 'i')],
+    restrict: [LINK_TYPES.review],
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?(?:www\.)?metacritic\.com\/music\/([\w-]+\/[\w-]+).*$/, 'https://www.metacritic.com/music/$1');
+    },
+    validate: function (url, id) {
+      const isReview = /^https:\/\/www\.metacritic\.com\/music\/[\w-]+\/[\w-]+$/.test(url);
+      if (isReview) {
+        return {
+          result: id === LINK_TYPES.review.release_group,
+          target: ERROR_TARGETS.ENTITY,
+        };
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
   'metalarchives': {
     match: [new RegExp('^(https?://)?(www\\.)?metal-archives\\.com/', 'i')],
     restrict: [{...LINK_TYPES.otherdatabases, ...LINK_TYPES.review}],
