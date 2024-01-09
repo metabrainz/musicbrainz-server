@@ -9,7 +9,7 @@
 
 import Layout from '../layout/index.js';
 import expand2react from '../static/scripts/common/i18n/expand2react.js';
-import {l_statistics as l} from '../static/scripts/common/i18n/statistics.js';
+import {l_statistics} from '../static/scripts/common/i18n/statistics.js';
 
 type PropsT = {
   +events: $ReadOnlyArray<StatisticsEventT>,
@@ -18,8 +18,8 @@ type PropsT = {
 const MusicBrainzHistory = ({
   events,
 }: PropsT): React$Element<typeof Layout> => (
-  <Layout fullWidth title={l('History')}>
-    <h1>{l('Our glorious history')}</h1>
+  <Layout fullWidth title={l_statistics('History')}>
+    <h1>{l_statistics('Our glorious history')}</h1>
     {events.length
       ? events.map((event) => {
         const title = exp.l_statistics(
@@ -39,7 +39,7 @@ const MusicBrainzHistory = ({
         );
       }) : (
         <p>
-          {l('It seems we have no history to show at all!')}
+          {l_statistics('It seems we have no history to show at all!')}
         </p>
       )}
   </Layout>

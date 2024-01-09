@@ -7,13 +7,14 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import {l_statistics as l} from '../static/scripts/common/i18n/statistics.js';
+
+import {l_statistics} from '../static/scripts/common/i18n/statistics.js';
 
 import StatisticsLayout from './StatisticsLayout.js';
 
 const NoStatistics = (): React$Element<typeof StatisticsLayout> => (
-  <StatisticsLayout fullWidth page="index" title={l('No statistics')}>
-    <h2>{l('No statistics')}</h2>
+  <StatisticsLayout fullWidth page="index" title={l_statistics('No statistics')}>
+    <h2>{l_statistics('No statistics')}</h2>
     <p>
       {exp.l_statistics(
         `Statistics have never been collected for this server. If you are the

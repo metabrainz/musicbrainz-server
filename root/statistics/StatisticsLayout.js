@@ -11,8 +11,11 @@
 import Tabs from '../components/Tabs.js';
 import Layout from '../layout/index.js';
 import {unwrapNl} from '../static/scripts/common/i18n.js';
-import {l_statistics as l, N_l_statistics as N_l}
-  from '../static/scripts/common/i18n/statistics.js';
+import {
+  l_statistics,
+  N_l_statistics,
+  N_lp_statistics,
+} from '../static/scripts/common/i18n/statistics.js';
 import statisticsLessUrl from '../static/styles/statistics.less';
 
 type StatisticsLayoutPropsT = {
@@ -42,47 +45,47 @@ const infoLinks = [
   {
     link: '/statistics',
     page: 'index',
-    title: N_l('Overview'),
+    title: N_l_statistics('Overview'),
   },
   {
     link: '/statistics/countries',
     page: 'countries',
-    title: N_l('Countries'),
+    title: N_l_statistics('Countries'),
   },
   {
     link: '/statistics/languages-scripts',
     page: 'languages-scripts',
-    title: N_l('Languages/Scripts'),
+    title: N_l_statistics('Languages/Scripts'),
   },
   {
     link: '/statistics/coverart',
     page: 'coverart',
-    title: N_lp('Cover art', 'plural'),
+    title: N_lp_statistics('Cover art', 'plural'),
   },
   {
     link: '/statistics/relationships',
     page: 'relationships',
-    title: N_l('Relationships'),
+    title: N_l_statistics('Relationships'),
   },
   {
     link: '/statistics/edits',
     page: 'edits',
-    title: N_l('Edits'),
+    title: N_l_statistics('Edits'),
   },
   {
     link: '/statistics/formats',
     page: 'formats',
-    title: N_l('Formats'),
+    title: N_l_statistics('Formats'),
   },
   {
     link: '/statistics/editors',
     page: 'editors',
-    title: N_l('Editors'),
+    title: N_l_statistics('Editors'),
   },
   {
     link: '/statistics/timeline/main',
     page: 'timeline',
-    title: N_l('Timeline'),
+    title: N_l_statistics('Timeline'),
   },
 ];
 
@@ -93,7 +96,7 @@ const StatisticsLayout = ({
   sidebar,
   title,
 }: StatisticsLayoutPropsT): React$Element<typeof Layout> => {
-  const htmlTitle = hyphenateTitle(l('Database statistics'), title);
+  const htmlTitle = hyphenateTitle(l_statistics('Database statistics'), title);
   return (
     <Layout
       fullWidth={fullWidth}
@@ -106,7 +109,7 @@ const StatisticsLayout = ({
       />
       <div id="content">
         <div className="statisticsheader">
-          <h1>{l('Database statistics')}</h1>
+          <h1>{l_statistics('Database statistics')}</h1>
         </div>
         <Tabs>
           {infoLinks.map(props => (

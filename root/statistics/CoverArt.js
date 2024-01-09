@@ -10,8 +10,7 @@
 import * as React from 'react';
 
 import {CatalystContext} from '../context.mjs';
-import {l_statistics as l}
-  from '../static/scripts/common/i18n/statistics.js';
+import {l_statistics} from '../static/scripts/common/i18n/statistics.js';
 import mapRange from '../static/scripts/common/utility/mapRange.js';
 
 import StatisticsLayout from './StatisticsLayout.js';
@@ -67,21 +66,21 @@ const CoverArt = ({
     <StatisticsLayout
       fullWidth
       page="coverart"
-      title={lp('Cover art', 'plural')}
+      title={lp_statistics('Cover art', 'plural')}
     >
       <p>
         {texp.l_statistics('Last updated: {date}', {date: dateCollected})}
       </p>
-      <h2>{l('Basics')}</h2>
+      <h2>{l_statistics('Basics')}</h2>
       {stats['count.release.has_caa'] < 1 ? (
         <p>
-          {l('No cover art statistics available.')}
+          {l_statistics('No cover art statistics available.')}
         </p>
       ) : (
         <table className="database-statistics">
           <tbody>
             <tr>
-              <th>{l('Releases with cover art:')}</th>
+              <th>{l_statistics('Releases with cover art:')}</th>
               <td>
                 {formatCount($c, stats['count.release.has_caa'])}
                 {' '}
@@ -96,7 +95,7 @@ const CoverArt = ({
               </td>
             </tr>
             <tr>
-              <th>{l('Pieces of cover art:')}</th>
+              <th>{l_statistics('Pieces of cover art:')}</th>
               <td>
                 {formatCount($c, stats['count.coverart'])}
                 {' '}
@@ -107,21 +106,21 @@ const CoverArt = ({
           </tbody>
         </table>
       )}
-      <h2>{l('Releases')}</h2>
+      <h2>{l_statistics('Releases')}</h2>
       {(releaseTypeStats.length === 0 &&
         releaseStatusStats.length === 0 &&
         releaseFormatStats.length === 0) ? (
           <p>
-            {l('No cover art statistics available.')}
+            {l_statistics('No cover art statistics available.')}
           </p>
         ) : (
           <table className="database-statistics">
             <tbody>
               <tr className="thead">
-                <th colSpan="4">{l('By release group type')}</th>
+                <th colSpan="4">{l_statistics('By release group type')}</th>
               </tr>
               <tr>
-                <th colSpan="2">{l('Releases with cover art:')}</th>
+                <th colSpan="2">{l_statistics('Releases with cover art:')}</th>
                 <td>
                   {formatCount($c, stats['count.release.has_caa'])}
                   {' '}
@@ -135,7 +134,7 @@ const CoverArt = ({
                   <th>
                     {nameOrNull(
                       lp_attributes(type.type, 'release_group_primary_type'),
-                      l('No type'),
+                      l_statistics('No type'),
                     )}
                   </th>
                   <td>
@@ -153,10 +152,10 @@ const CoverArt = ({
                 </tr>
               ))}
               <tr className="thead">
-                <th colSpan="4">{l('By release status')}</th>
+                <th colSpan="4">{l_statistics('By release status')}</th>
               </tr>
               <tr>
-                <th colSpan="2">{l('Releases with cover art:')}</th>
+                <th colSpan="2">{l_statistics('Releases with cover art:')}</th>
                 <td>
                   {formatCount($c, stats['count.release.has_caa'])}
                   {' '}
@@ -170,7 +169,7 @@ const CoverArt = ({
                   <th>
                     {nameOrNull(
                       lp_attributes(status.status, 'release_status'),
-                      l('No status'),
+                      l_statistics('No status'),
                     )}
                   </th>
                   <td>
@@ -189,10 +188,10 @@ const CoverArt = ({
                 </tr>
               ))}
               <tr className="thead">
-                <th colSpan="4">{l('By release format')}</th>
+                <th colSpan="4">{l_statistics('By release format')}</th>
               </tr>
               <tr>
-                <th colSpan="2">{l('Releases with cover art:')}</th>
+                <th colSpan="2">{l_statistics('Releases with cover art:')}</th>
                 <td>
                   {formatCount($c, stats['count.release.has_caa'])}
                   {' '}
@@ -206,7 +205,7 @@ const CoverArt = ({
                   <th>
                     {nameOrNull(
                       lp_attributes(format.format, 'medium_format'),
-                      l('No format'),
+                      l_statistics('No format'),
                     )}
                   </th>
                   <td>
@@ -227,11 +226,11 @@ const CoverArt = ({
             </tbody>
           </table>)
       }
-      <h2>{l('Release groups')}</h2>
+      <h2>{l_statistics('Release groups')}</h2>
       <table className="database-statistics">
         <tbody>
           <tr>
-            <th colSpan="2">{l('Release groups with cover art:')}</th>
+            <th colSpan="2">{l_statistics('Release groups with cover art:')}</th>
             <td>
               {formatCount($c, stats['count.releasegroup.caa'])}
               {' '}
@@ -241,7 +240,7 @@ const CoverArt = ({
           </tr>
           <tr>
             <th />
-            <th>{l('manually selected:')}</th>
+            <th>{l_statistics('manually selected:')}</th>
             <td>
               {formatCount(
                 $c,
@@ -263,7 +262,7 @@ const CoverArt = ({
           </tr>
           <tr>
             <th />
-            <th>{l('automatically inferred:')}</th>
+            <th>{l_statistics('automatically inferred:')}</th>
             <td>
               {formatCount($c, stats['count.releasegroup.caa.inferred'])}
               {' '}
@@ -281,19 +280,19 @@ const CoverArt = ({
         </tbody>
       </table>
 
-      <h2>{l('Pieces of cover art')}</h2>
+      <h2>{l_statistics('Pieces of cover art')}</h2>
       {stats['count.release.has_caa'] < 1 ? (
         <p>
-          {l('No cover art statistics available.')}
+          {l_statistics('No cover art statistics available.')}
         </p>
       ) : (
         <table className="database-statistics">
           <tbody>
             <tr className="thead">
-              <th colSpan="4">{l('By cover art type')}</th>
+              <th colSpan="4">{l_statistics('By cover art type')}</th>
             </tr>
             <tr>
-              <th colSpan="2">{l('Pieces of cover art:')}</th>
+              <th colSpan="2">{l_statistics('Pieces of cover art:')}</th>
               <td>
                 {formatCount($c, stats['count.coverart'])}
                 {' '}
@@ -307,7 +306,7 @@ const CoverArt = ({
                 <th>
                   {nameOrNull(
                     lp_attributes(type.type, 'cover_art_type'),
-                    l('No type'),
+                    l_statistics('No type'),
                   )}
                 </th>
                 <td>
@@ -325,10 +324,10 @@ const CoverArt = ({
               </tr>
             ))}
             <tr className="thead">
-              <th colSpan="4">{l('Per release')}</th>
+              <th colSpan="4">{l_statistics('Per release')}</th>
             </tr>
             <tr>
-              <th colSpan="2">{l('Releases with cover art:')}</th>
+              <th colSpan="2">{l_statistics('Releases with cover art:')}</th>
               <td>
                 {formatCount($c, stats['count.release.has_caa'])}
                 {' '}
@@ -371,7 +370,7 @@ const CoverArt = ({
             ))}
             <tr>
               <th />
-              <th>{l('with 30 or more pieces of cover art:')}</th>
+              <th>{l_statistics('with 30 or more pieces of cover art:')}</th>
               <td>
                 {formatCount(
                   $c,
