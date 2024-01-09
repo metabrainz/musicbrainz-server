@@ -4547,9 +4547,9 @@ const CLEANUPS: CleanupEntries = {
     match: new RegExp('^(https?://)?([^/]+\\.)?ototoy\\.jp', 'i'),
     restrict: [LINK_TYPES.downloadpurchase],
     validate: function (url, id) {
-      const m = /^https:\/\/ototoy\.jp\/(?:(labels)\/\d+|(_\/default\/p)\/\d+|(_\/default\/a)\/\d+)$/.exec(url);
+      const m = /^https:\/\/ototoy\.jp\/(labels|_\/default\/[ap])\/\d+$/.exec(url);
       if (m) {
-        const suffix = m[1] || m[2] || m[3];
+        const suffix = m[1];
         switch (id) {
           case LINK_TYPES.downloadpurchase.label:
             return {
