@@ -7,6 +7,10 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import {
+  l_statistics as l,
+  lp_statistics as lp,
+} from '../static/scripts/common/i18n/statistics.js';
 import formatEntityTypeName
   from '../static/scripts/common/utility/formatEntityTypeName.js';
 import {fixedWidthInteger} from '../static/scripts/common/utility/strings.js';
