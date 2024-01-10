@@ -186,6 +186,7 @@ export const FAVICON_CLASSES = {
   'opac.kbr.be': 'kbr',
   'openlibrary.org': 'openlibrary',
   'operabase.com': 'operabase',
+  'ototoy.jp': 'ototoy',
   'overture.doremus.org': 'overture',
   'patreon.com': 'patreon',
   'paypal.me': 'paypal',

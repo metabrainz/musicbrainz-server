@@ -145,6 +145,7 @@ my %URL_SPECIALIZATIONS = (
     'OpenLibrary'         => qr{^https?://(?:www\.)?openlibrary\.org/}i,
     'Operabase'           => qr{^https?://(?:www\.)?operabase\.com/}i,
     'Operadis'            => qr{^https?://(?:www\.)?operadis-opera-discography\.org\.uk/}i,
+    'OTOTOY'              => qr{^https?://ototoy\.jp/}i,
     'Overture'            => qr{^https?://overture\.doremus\.org/}i,
     'Ozon'                => qr{^https?://(?:www\.)?ozon\.ru/}i,
     'Patreon'             => qr{^https?://(?:www\.)?patreon\.com/}i,

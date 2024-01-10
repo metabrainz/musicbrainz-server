@@ -4422,9 +4422,25 @@ limited_link_type_combinations: [
   },
   // OTOTOY
   {
-                     input_url: 'http://ototoy.jp/_/default/p/45622',
+                     input_url: 'http://www.ototoy.jp/_/default/p/45622',
              input_entity_type: 'release',
     expected_relationship_type: 'downloadpurchase',
+       only_valid_entity_types: ['release'],
+            expected_clean_url: 'https://ototoy.jp/_/default/p/45622',
+  },
+  {
+                     input_url: 'https://www.ototoy.jp/_/default/a/1064270#discography',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'downloadpurchase',
+       only_valid_entity_types: ['artist'],
+            expected_clean_url: 'https://ototoy.jp/_/default/a/1064270',
+  },
+  {
+                     input_url: 'https://ototoy.jp/labels/695414/orderby/releasedate-asc',
+             input_entity_type: 'label',
+    expected_relationship_type: 'downloadpurchase',
+       only_valid_entity_types: ['label'],
+            expected_clean_url: 'https://ototoy.jp/labels/695414',
   },
   // Overture by Doremus
   {
