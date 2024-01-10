@@ -9,7 +9,6 @@
 
 import Layout from '../layout/index.js';
 import expand2react from '../static/scripts/common/i18n/expand2react.js';
-import {l_statistics} from '../static/scripts/common/i18n/statistics.js';
 
 type PropsT = {
   +events: $ReadOnlyArray<StatisticsEventT>,

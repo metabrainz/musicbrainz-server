@@ -11,7 +11,6 @@ import * as React from 'react';
 
 import {CatalystContext} from '../context.mjs';
 import {compare} from '../static/scripts/common/i18n.js';
-import {l_statistics} from '../static/scripts/common/i18n/statistics.js';
 import formatEntityTypeName
   from '../static/scripts/common/utility/formatEntityTypeName.js';
 

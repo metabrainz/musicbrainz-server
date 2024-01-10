@@ -11,11 +11,6 @@
 import Tabs from '../components/Tabs.js';
 import Layout from '../layout/index.js';
 import {unwrapNl} from '../static/scripts/common/i18n.js';
-import {
-  l_statistics,
-  N_l_statistics,
-  N_lp_statistics,
-} from '../static/scripts/common/i18n/statistics.js';
 import statisticsLessUrl from '../static/styles/statistics.less';
 
 type StatisticsLayoutPropsT = {

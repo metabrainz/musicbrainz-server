@@ -10,7 +10,6 @@
 import * as React from 'react';
 
 import {CatalystContext} from '../context.mjs';
-import {l_statistics} from '../static/scripts/common/i18n/statistics.js';
 import mapRange from '../static/scripts/common/utility/mapRange.js';
 
 import StatisticsLayout from './StatisticsLayout.js';

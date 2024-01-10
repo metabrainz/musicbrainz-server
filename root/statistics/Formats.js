@@ -12,7 +12,6 @@ import * as React from 'react';
 
 import LinkSearchableProperty from '../components/LinkSearchableProperty.js';
 import {CatalystContext} from '../context.mjs';
-import {l_statistics} from '../static/scripts/common/i18n/statistics.js';
 import loopParity from '../utility/loopParity.js';
 
 import StatisticsLayout from './StatisticsLayout.js';

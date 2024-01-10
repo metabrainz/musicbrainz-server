@@ -7,9 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-
-import {l_statistics} from '../static/scripts/common/i18n/statistics.js';
-
 import StatisticsLayout from './StatisticsLayout.js';
 
 const NoStatistics = (): React$Element<typeof StatisticsLayout> => (

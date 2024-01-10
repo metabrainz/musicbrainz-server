@@ -12,7 +12,6 @@ import * as React from 'react';
 import LinkSearchableEditType from '../components/LinkSearchableEditType.js';
 import {CatalystContext} from '../context.mjs';
 import {l as lMbServer} from '../static/scripts/common/i18n.js';
-import {l_statistics} from '../static/scripts/common/i18n/statistics.js';
 
 import StatisticsLayout from './StatisticsLayout.js';
 import {formatCount, formatPercentage, TimelineLink} from './utilities.js';
