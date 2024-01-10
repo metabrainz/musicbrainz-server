@@ -68,6 +68,8 @@ globals:
   l_statistics: readonly
   ln_statistics: readonly
   lp_statistics: readonly
+  N_l_statistics: readonly
+  N_lp_statistics: readonly
 
 settings:
   flowtype:

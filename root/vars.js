@@ -83,6 +83,9 @@ declare var l_statistics: typeof l;
 declare var ln_statistics: typeof ln;
 declare var lp_statistics: typeof lp;
 
+declare var N_l_statistics: typeof N_l;
+declare var N_lp_statistics: typeof N_lp;
+
 declare var exp: {
   +l: (
     key: string,
