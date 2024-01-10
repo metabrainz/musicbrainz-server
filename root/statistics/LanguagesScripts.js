@@ -13,7 +13,6 @@ import * as React from 'react';
 import LinkSearchableProperty from '../components/LinkSearchableProperty.js';
 import {CatalystContext} from '../context.mjs';
 import * as manifest from '../static/manifest.mjs';
-import {l_statistics as l} from '../static/scripts/common/i18n/statistics.js';
 import loopParity from '../utility/loopParity.js';
 
 import StatisticsLayout from './StatisticsLayout.js';
@@ -47,37 +46,37 @@ const LanguagesScripts = ({
     <StatisticsLayout
       fullWidth
       page="languages-scripts"
-      title={l('Languages and scripts')}
+      title={l_statistics('Languages and scripts')}
     >
       <p>
         {texp.l_statistics('Last updated: {date}', {date: dateCollected})}
       </p>
       <p>
-        {l(`All other available languages and scripts
+        {l_statistics(`All other available languages and scripts
             have 0 releases and works.`)}
       </p>
       <div
         style={{display: 'inline-block', float: 'left', marginRight: '50px'}}
       >
-        <h2 style={{marginTop: 0}}>{l('Languages')}</h2>
+        <h2 style={{marginTop: 0}}>{l_statistics('Languages')}</h2>
         <table className="tbl" id="languages-table">
           <thead>
             <tr>
-              <th className="pos">{l('Rank')}</th>
+              <th className="pos">{l_statistics('Rank')}</th>
               <th>
-                {l('Languages')}
+                {l_statistics('Languages')}
                 <div className="arrow" />
               </th>
               <th>
-                {l('Releases')}
+                {l_statistics('Releases')}
                 <div className="arrow" />
               </th>
               <th>
-                {l('Works')}
+                {l_statistics('Works')}
                 <div className="arrow" />
               </th>
               <th>
-                {l('Total')}
+                {l_statistics('Total')}
                 <div className="arrow" />
               </th>
             </tr>
@@ -94,7 +93,7 @@ const LanguagesScripts = ({
                     <td>
                       {language
                         ? l_languages(language.name)
-                        : l('Unknown language')}
+                        : l_statistics('Unknown language')}
                     </td>
                     <td className="t">
                       {nonEmpty(isoCode3) ? (
@@ -147,17 +146,17 @@ const LanguagesScripts = ({
         </table>
       </div>
       <div style={{display: 'inline-block', float: 'left'}}>
-        <h2 style={{marginTop: 0}}>{l('Scripts')}</h2>
+        <h2 style={{marginTop: 0}}>{l_statistics('Scripts')}</h2>
         <table className="tbl" id="scripts-table">
           <thead>
             <tr>
-              <th className="pos">{l('Rank')}</th>
+              <th className="pos">{l_statistics('Rank')}</th>
               <th>
-                {l('Script')}
+                {l_statistics('Script')}
                 <div className="arrow" />
               </th>
               <th>
-                {l('Releases')}
+                {l_statistics('Releases')}
                 <div className="arrow" />
               </th>
             </tr>
@@ -170,7 +169,7 @@ const LanguagesScripts = ({
                   <td>
                     {scriptStat.entity
                       ? l_scripts(scriptStat.entity.name)
-                      : l('Unknown script')}
+                      : l_statistics('Unknown script')}
                   </td>
                   <td className="t">
                     {scriptStat.entity ? (

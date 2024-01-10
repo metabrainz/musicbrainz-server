@@ -11,7 +11,6 @@ import * as React from 'react';
 
 import {CatalystContext} from '../context.mjs';
 import {compare} from '../static/scripts/common/i18n.js';
-import {l_statistics as l} from '../static/scripts/common/i18n/statistics.js';
 import formatEntityTypeName
   from '../static/scripts/common/utility/formatEntityTypeName.js';
 
@@ -102,27 +101,27 @@ const Relationships = ({
     <StatisticsLayout
       fullWidth
       page="relationships"
-      title={l('Relationships')}
+      title={l_statistics('Relationships')}
     >
       <p>
         {texp.l_statistics('Last updated: {date}', {date: dateCollected})}
       </p>
-      <h2>{l('Relationships')}</h2>
+      <h2>{l_statistics('Relationships')}</h2>
       {stats['count.ar.links'] < 1 ? (
         <p>
-          {l('No relationship statistics available.')}
+          {l_statistics('No relationship statistics available.')}
         </p>
       ) : (
         <table className="database-statistics">
           <tbody>
             <tr className="thead">
               <th />
-              <th>{lp('This type only', 'relationships')}</th>
-              <th>{lp('Including subtypes', 'relationships')}</th>
+              <th>{lp_statistics('This type only', 'relationships')}</th>
+              <th>{lp_statistics('Including subtypes', 'relationships')}</th>
               <th />
             </tr>
             <tr>
-              <th>{addColonText(l('Relationships'))}</th>
+              <th>{addColonText(l_statistics('Relationships'))}</th>
               <td />
               <td>
                 {formatCount($c, stats['count.ar.links'])}

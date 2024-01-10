@@ -10,7 +10,6 @@
 
 import timelineIconUrl
   from '../static/images/icons/timeline.png';
-import {l_statistics as l} from '../static/scripts/common/i18n/statistics.js';
 
 export function formatPercentage(
   $c: CatalystContextT,
@@ -38,7 +37,7 @@ export const TimelineLink = ({
 }: {statName: string}): React$Element<'a'> => (
   <a
     href={'/statistics/timeline/' + encodeURIComponent(statName)}
-    title={l('See on timeline')}
+    title={l_statistics('See on timeline')}
   >
     <img
       alt=""

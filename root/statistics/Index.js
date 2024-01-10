@@ -11,8 +11,6 @@
 import * as React from 'react';
 
 import {CatalystContext} from '../context.mjs';
-import {l_statistics as l, lp_statistics as lp}
-  from '../static/scripts/common/i18n/statistics.js';
 import mapRange from '../static/scripts/common/utility/mapRange.js';
 
 import StatisticsLayout from './StatisticsLayout.js';
@@ -80,97 +78,97 @@ const Index = ({
     (a: number, b: number) => formatPercentage($c, a / b, 1);
 
   return (
-    <StatisticsLayout fullWidth page="index" title={l('Overview')}>
+    <StatisticsLayout fullWidth page="index" title={l_statistics('Overview')}>
       <p>
         {texp.l_statistics('Last updated: {date}', {date: dateCollected})}
       </p>
-      <h2>{l('Basic metadata')}</h2>
+      <h2>{l_statistics('Basic metadata')}</h2>
       <table className="database-statistics">
         <tbody>
           <tr className="thead">
-            <th colSpan="4">{l('Core entities')}</th>
+            <th colSpan="4">{l_statistics('Core entities')}</th>
           </tr>
           <tr>
-            <th>{addColonText(l('Artists'))}</th>
+            <th>{addColonText(l_statistics('Artists'))}</th>
             <td colSpan="3">{fc('artist')}</td>
           </tr>
           <tr>
-            <th>{addColonText(l('Release groups'))}</th>
+            <th>{addColonText(l_statistics('Release groups'))}</th>
             <td colSpan="3">{fc('releasegroup')}</td>
           </tr>
           <tr>
-            <th>{addColonText(l('Releases'))}</th>
+            <th>{addColonText(l_statistics('Releases'))}</th>
             <td colSpan="3">{fc('release')}</td>
           </tr>
           <tr>
-            <th>{addColonText(l('Mediums'))}</th>
+            <th>{addColonText(l_statistics('Mediums'))}</th>
             <td colSpan="3">{fc('medium')}</td>
           </tr>
           <tr>
-            <th>{addColonText(l('Recordings'))}</th>
+            <th>{addColonText(l_statistics('Recordings'))}</th>
             <td colSpan="3">{fc('recording')}</td>
           </tr>
           <tr>
-            <th>{addColonText(l('Tracks'))}</th>
+            <th>{addColonText(l_statistics('Tracks'))}</th>
             <td colSpan="3">{fc('track')}</td>
           </tr>
           <tr>
-            <th>{addColonText(l('Labels'))}</th>
+            <th>{addColonText(l_statistics('Labels'))}</th>
             <td colSpan="3">{fc('label')}</td>
           </tr>
           <tr>
-            <th>{addColonText(l('Works'))}</th>
+            <th>{addColonText(l_statistics('Works'))}</th>
             <td colSpan="3">{fc('work')}</td>
           </tr>
           <tr>
-            <th>{addColonText(l('URLs'))}</th>
+            <th>{addColonText(l_statistics('URLs'))}</th>
             <td colSpan="3">{fc('url')}</td>
           </tr>
           <tr>
-            <th>{addColonText(l('Areas'))}</th>
+            <th>{addColonText(l_statistics('Areas'))}</th>
             <td colSpan="3">{fc('area')}</td>
           </tr>
           <tr>
-            <th>{addColonText(l('Places'))}</th>
+            <th>{addColonText(l_statistics('Places'))}</th>
             <td colSpan="3">{fc('place')}</td>
           </tr>
           <tr>
-            <th>{addColonText(lp('Series', 'plural'))}</th>
+            <th>{addColonText(lp_statistics('Series', 'plural'))}</th>
             <td colSpan="3">{fc('series')}</td>
           </tr>
           <tr>
-            <th>{addColonText(l('Instruments'))}</th>
+            <th>{addColonText(l_statistics('Instruments'))}</th>
             <td colSpan="3">{fc('instrument')}</td>
           </tr>
           <tr>
-            <th>{addColonText(l('Events'))}</th>
+            <th>{addColonText(l_statistics('Events'))}</th>
             <td colSpan="3">{fc('event')}</td>
           </tr>
           <tr>
-            <th>{addColonText(l('Genres'))}</th>
+            <th>{addColonText(l_statistics('Genres'))}</th>
             <td colSpan="3">{fc('genre')}</td>
           </tr>
         </tbody>
         <tbody>
           <tr className="thead">
-            <th colSpan="4">{l('Other entities')}</th>
+            <th colSpan="4">{l_statistics('Other entities')}</th>
           </tr>
           <tr>
-            <th>{l('Editors (valid / deleted):')}</th>
+            <th>{l_statistics('Editors (valid / deleted):')}</th>
             <td>{fc('editor.valid')}</td>
             <td>{'/'}</td>
             <td>{fc('editor.deleted')}</td>
           </tr>
           <tr>
-            <th>{addColonText(l('Relationships'))}</th>
+            <th>{addColonText(l_statistics('Relationships'))}</th>
             <td colSpan="3">{fc('ar.links')}</td>
           </tr>
           <tr>
-            <th>{addColonText(l('Collections'))}</th>
+            <th>{addColonText(l_statistics('Collections'))}</th>
             <td colSpan="3">{fc('collection')}</td>
           </tr>
           <tr>
-            <th>{l('CD stubs (all time / current):')}</th>
+            <th>{l_statistics('CD stubs (all time / current):')}</th>
             <td>{fc('cdstub.submitted')}</td>
             <td>{'/'}</td>
             <td>
@@ -179,13 +177,13 @@ const Index = ({
             </td>
           </tr>
           <tr>
-            <th>{lp('Tags (raw / aggregated):', 'folksonomy')}</th>
+            <th>{lp_statistics('Tags (raw / aggregated):', 'folksonomy')}</th>
             <td>{fc('tag.raw')}</td>
             <td>{'/'}</td>
             <td>{fc('tag')}</td>
           </tr>
           <tr>
-            <th>{l('Ratings (raw / aggregated):')}</th>
+            <th>{l_statistics('Ratings (raw / aggregated):')}</th>
             <td>{fc('rating.raw')}</td>
             <td>{'/'}</td>
             <td>{fc('rating')}</td>
@@ -193,116 +191,116 @@ const Index = ({
         </tbody>
         <tbody>
           <tr className="thead">
-            <th colSpan="4">{l('Identifiers')}</th>
+            <th colSpan="4">{l_statistics('Identifiers')}</th>
           </tr>
           <tr>
-            <th>{addColonText(l('MBIDs'))}</th>
+            <th>{addColonText(l_statistics('MBIDs'))}</th>
             <td colSpan="3">{fc('mbid')}</td>
           </tr>
           <tr>
-            <th>{l('ISRCs (all / unique):')}</th>
+            <th>{l_statistics('ISRCs (all / unique):')}</th>
             <td>{fc('isrc.all')}</td>
             <td>{'/'}</td>
             <td>{fc('isrc')}</td>
           </tr>
           <tr>
-            <th>{l('ISWCs (all / unique):')}</th>
+            <th>{l_statistics('ISWCs (all / unique):')}</th>
             <td>{fc('iswc.all')}</td>
             <td>{'/'}</td>
             <td>{fc('iswc')}</td>
           </tr>
           <tr>
-            <th>{addColonText(l('Disc IDs'))}</th>
+            <th>{addColonText(l_statistics('Disc IDs'))}</th>
             <td colSpan="3">{fc('discid')}</td>
           </tr>
           <tr>
-            <th>{addColonText(l('Barcodes'))}</th>
+            <th>{addColonText(l_statistics('Barcodes'))}</th>
             <td colSpan="3">{fc('barcode')}</td>
           </tr>
           <tr>
-            <th>{addColonText(l('IPIs'))}</th>
+            <th>{addColonText(l_statistics('IPIs'))}</th>
             <td colSpan="3">{fc('ipi')}</td>
           </tr>
           <tr>
-            <th>{addColonText(l('ISNIs'))}</th>
+            <th>{addColonText(l_statistics('ISNIs'))}</th>
             <td colSpan="3">{fc('isni')}</td>
           </tr>
         </tbody>
       </table>
 
-      <h2>{l('Artists')}</h2>
+      <h2>{l_statistics('Artists')}</h2>
       <table className="database-statistics">
         <tbody>
           <tr className="thead">
-            <th colSpan="4">{l('Artists')}</th>
+            <th colSpan="4">{l_statistics('Artists')}</th>
           </tr>
           <tr>
-            <th colSpan="2">{addColonText(l('Artists'))}</th>
+            <th colSpan="2">{addColonText(l_statistics('Artists'))}</th>
             <td>{fc('artist')}</td>
             <td />
           </tr>
           <tr>
             <th />
-            <th>{l('of type Person:')}</th>
+            <th>{l_statistics('of type Person:')}</th>
             <td>{fc('artist.type.person')}</td>
             <td>{fp('artist.type.person', 'artist')}</td>
           </tr>
           <tr>
             <th />
-            <th>{l('of type Group:')}</th>
+            <th>{l_statistics('of type Group:')}</th>
             <td>{fc('artist.type.group')}</td>
             <td>{fp('artist.type.group', 'artist')}</td>
           </tr>
           <tr>
             <th />
-            <th>{l('of type Orchestra:')}</th>
+            <th>{l_statistics('of type Orchestra:')}</th>
             <td>{fc('artist.type.orchestra')}</td>
             <td>{fp('artist.type.orchestra', 'artist')}</td>
           </tr>
           <tr>
             <th />
-            <th>{l('of type Choir:')}</th>
+            <th>{l_statistics('of type Choir:')}</th>
             <td>{fc('artist.type.choir')}</td>
             <td>{fp('artist.type.choir', 'artist')}</td>
           </tr>
           <tr>
             <th />
-            <th>{l('of type Character:')}</th>
+            <th>{l_statistics('of type Character:')}</th>
             <td>{fc('artist.type.character')}</td>
             <td>{fp('artist.type.character', 'artist')}</td>
           </tr>
           <tr>
             <th />
-            <th>{l('of type Other:')}</th>
+            <th>{l_statistics('of type Other:')}</th>
             <td>{fc('artist.type.other')}</td>
             <td>{fp('artist.type.other', 'artist')}</td>
           </tr>
           <tr>
             <th />
-            <th>{l('with no type set:')}</th>
+            <th>{l_statistics('with no type set:')}</th>
             <td>{fc('artist.type.null')}</td>
             <td>{fp('artist.type.null', 'artist')}</td>
           </tr>
           <tr>
             <th />
-            <th>{l('with appearances in artist credits:')}</th>
+            <th>{l_statistics('with appearances in artist credits:')}</th>
             <td>{fc('artist.has_credits')}</td>
             <td>{fp('artist.has_credits', 'artist')}</td>
           </tr>
           <tr>
             <th />
-            <th>{l('with no appearances in artist credits:')}</th>
+            <th>{l_statistics('with no appearances in artist credits:')}</th>
             <td>{fc('artist.0credits')}</td>
             <td>{fp('artist.0credits', 'artist')}</td>
           </tr>
           <tr>
-            <th colSpan="2">{l('Non-group artists:')}</th>
+            <th colSpan="2">{l_statistics('Non-group artists:')}</th>
             <td>{formatCount($c, nonGroupCount)}</td>
             <td />
           </tr>
           <tr>
             <th />
-            <th>{l('Male:')}</th>
+            <th>{l_statistics('Male:')}</th>
             <td>{fc('artist.gender.male')}</td>
             <td>
               {_formatPercentage(
@@ -313,7 +311,7 @@ const Index = ({
           </tr>
           <tr>
             <th />
-            <th>{l('Female:')}</th>
+            <th>{l_statistics('Female:')}</th>
             <td>{fc('artist.gender.female')}</td>
             <td>
               {_formatPercentage(
@@ -324,7 +322,7 @@ const Index = ({
           </tr>
           <tr>
             <th />
-            <th>{addColonText(l('Non-binary'))}</th>
+            <th>{addColonText(l_statistics('Non-binary'))}</th>
             <td>{fc('artist.gender.nonbinary')}</td>
             <td>
               {_formatPercentage(
@@ -335,7 +333,7 @@ const Index = ({
           </tr>
           <tr>
             <th />
-            <th>{l('Other gender:')}</th>
+            <th>{l_statistics('Other gender:')}</th>
             <td>{fc('artist.gender.other')}</td>
             <td>
               {_formatPercentage(
@@ -346,7 +344,7 @@ const Index = ({
           </tr>
           <tr>
             <th />
-            <th>{l('Gender not applicable:')}</th>
+            <th>{l_statistics('Gender not applicable:')}</th>
             <td>{fc('artist.gender.not_applicable')}</td>
             <td>
               {_formatPercentage(
@@ -357,7 +355,7 @@ const Index = ({
           </tr>
           <tr>
             <th />
-            <th>{l('with no gender set:')}</th>
+            <th>{l_statistics('with no gender set:')}</th>
             <td>{fc('artist.gender.null')}</td>
             <td>
               {_formatPercentage(
@@ -369,36 +367,36 @@ const Index = ({
         </tbody>
       </table>
 
-      <h2>{l('Releases, Data Quality, and Disc IDs')}</h2>
+      <h2>{l_statistics('Releases, Data Quality, and Disc IDs')}</h2>
       <table className="database-statistics">
         <tbody>
           <tr className="thead">
-            <th colSpan="5">{l('Releases')}</th>
+            <th colSpan="5">{l_statistics('Releases')}</th>
           </tr>
           <tr>
-            <th colSpan="3">{addColonText(l('Releases'))}</th>
+            <th colSpan="3">{addColonText(l_statistics('Releases'))}</th>
             <td>{fc('release')}</td>
             <td />
           </tr>
           <tr>
             <th />
-            <th colSpan="2">{l('by various artists:')}</th>
+            <th colSpan="2">{l_statistics('by various artists:')}</th>
             <td>{fc('release.various')}</td>
             <td>{fp('release.various', 'release')}</td>
           </tr>
           <tr>
             <th />
-            <th colSpan="2">{l('by a single artist:')}</th>
+            <th colSpan="2">{l_statistics('by a single artist:')}</th>
             <td>{fc('release.nonvarious')}</td>
             <td>{fp('release.nonvarious', 'release')}</td>
           </tr>
         </tbody>
         <tbody>
           <tr className="thead">
-            <th colSpan="5">{l('Release status')}</th>
+            <th colSpan="5">{l_statistics('Release status')}</th>
           </tr>
           <tr>
-            <th colSpan="3">{addColonText(l('Releases'))}</th>
+            <th colSpan="3">{addColonText(l_statistics('Releases'))}</th>
             <td>{fc('release')}</td>
             <td />
           </tr>
@@ -414,17 +412,17 @@ const Index = ({
           ))}
           <tr>
             <th />
-            <th colSpan="2">{l('No status set')}</th>
+            <th colSpan="2">{l_statistics('No status set')}</th>
             <td>{fc('release.status.null')}</td>
             <td>{fp('release.status.null', 'release')}</td>
           </tr>
         </tbody>
         <tbody>
           <tr className="thead">
-            <th colSpan="5">{l('Release packaging')}</th>
+            <th colSpan="5">{l_statistics('Release packaging')}</th>
           </tr>
           <tr>
-            <th colSpan="3">{addColonText(l('Releases'))}</th>
+            <th colSpan="3">{addColonText(l_statistics('Releases'))}</th>
             <td>{fc('release')}</td>
             <td />
           </tr>
@@ -440,65 +438,69 @@ const Index = ({
           ))}
           <tr>
             <th />
-            <th colSpan="2">{l('No packaging set')}</th>
+            <th colSpan="2">{l_statistics('No packaging set')}</th>
             <td>{fc('release.packaging.null')}</td>
             <td>{fp('release.packaging.null', 'release')}</td>
           </tr>
         </tbody>
         <tbody>
           <tr className="thead">
-            <th colSpan="5">{l('Cover art sources')}</th>
+            <th colSpan="5">{l_statistics('Cover art sources')}</th>
           </tr>
           <tr>
-            <th colSpan="3">{addColonText(l('Releases'))}</th>
+            <th colSpan="3">{addColonText(l_statistics('Releases'))}</th>
             <td>{fc('release')}</td>
             <td />
           </tr>
           <tr>
             <th />
-            <th colSpan="2">{l('CAA:')}</th>
+            <th colSpan="2">{l_statistics('CAA:')}</th>
             <td>{fc('release.coverart.caa')}</td>
             <td>{fp('release.coverart.caa', 'release')}</td>
           </tr>
           <tr>
             <th />
-            <th colSpan="2">{l('No front cover art:')}</th>
+            <th colSpan="2">{l_statistics('No front cover art:')}</th>
             <td>{fc('release.coverart.none')}</td>
             <td>{fp('release.coverart.none', 'release')}</td>
           </tr>
         </tbody>
         <tbody>
           <tr className="thead">
-            <th colSpan="5">{l('Data quality')}</th>
+            <th colSpan="5">{l_statistics('Data quality')}</th>
           </tr>
           <tr>
-            <th colSpan="3">{addColonText(l('Releases'))}</th>
+            <th colSpan="3">{addColonText(l_statistics('Releases'))}</th>
             <td>{fc('release')}</td>
             <td />
           </tr>
           <tr>
             <th />
-            <th colSpan="2">{addColonText(l('High data quality'))}</th>
+            <th colSpan="2">
+              {addColonText(l_statistics('High data quality'))}
+            </th>
             <td>{fc('quality.release.high')}</td>
             <td>{fp('quality.release.high', 'release')}</td>
           </tr>
           <tr>
             <th />
-            <th colSpan="2">{addColonText(l('Default data quality'))}</th>
+            <th colSpan="2">
+              {addColonText(l_statistics('Default data quality'))}
+            </th>
             <td>{fc('quality.release.default')}</td>
             <td>{fp('quality.release.default', 'release')}</td>
           </tr>
           <tr>
             <th />
             <th />
-            <th>{addColonText(l('Normal data quality'))}</th>
+            <th>{addColonText(l_statistics('Normal data quality'))}</th>
             <td>{fc('quality.release.normal')}</td>
             <td>{fp('quality.release.normal', 'quality.release.default')}</td>
           </tr>
           <tr>
             <th />
             <th />
-            <th>{addColonText(l('Unknown data quality'))}</th>
+            <th>{addColonText(l_statistics('Unknown data quality'))}</th>
             <td>{fc('quality.release.unknown')}</td>
             <td>
               {fp('quality.release.unknown', 'quality.release.default')}
@@ -506,35 +508,37 @@ const Index = ({
           </tr>
           <tr>
             <th />
-            <th colSpan="2">{addColonText(l('Low data quality'))}</th>
+            <th colSpan="2">
+              {addColonText(l_statistics('Low data quality'))}
+            </th>
             <td>{fc('quality.release.low')}</td>
             <td>{fp('quality.release.low', 'release')}</td>
           </tr>
         </tbody>
         <tbody>
           <tr className="thead">
-            <th colSpan="5">{l('Disc IDs')}</th>
+            <th colSpan="5">{l_statistics('Disc IDs')}</th>
           </tr>
           <tr>
-            <th colSpan="3">{addColonText(l('Disc IDs'))}</th>
+            <th colSpan="3">{addColonText(l_statistics('Disc IDs'))}</th>
             <td>{fc('discid')}</td>
             <td />
           </tr>
           <tr>
-            <th colSpan="3">{addColonText(l('Releases'))}</th>
+            <th colSpan="3">{addColonText(l_statistics('Releases'))}</th>
             <td>{fc('release')}</td>
             <td />
           </tr>
           <tr>
             <th />
-            <th colSpan="2">{l('Releases with no disc IDs:')}</th>
+            <th colSpan="2">{l_statistics('Releases with no disc IDs:')}</th>
             <td>{fc('release.0discids')}</td>
             <td>{fp('release.0discids', 'release')}</td>
           </tr>
           <tr>
             <th />
             <th colSpan="2">
-              {l('Releases with at least one disc ID:')}
+              {l_statistics('Releases with at least one disc ID:')}
             </th>
             <td>{fc('release.has_discid')}</td>
             <td>{fp('release.has_discid', 'release')}</td>
@@ -560,25 +564,25 @@ const Index = ({
           <tr>
             <th />
             <th />
-            <th>{l('with 10 or more disc IDs:')}</th>
+            <th>{l_statistics('with 10 or more disc IDs:')}</th>
             <td>{fc('release.10discids')}</td>
             <td>{fp('release.10discids', 'release.has_discid')}</td>
           </tr>
           <tr>
-            <th colSpan="3">{addColonText(l('Mediums'))}</th>
+            <th colSpan="3">{addColonText(l_statistics('Mediums'))}</th>
             <td>{fc('medium')}</td>
             <td />
           </tr>
           <tr>
             <th />
-            <th colSpan="2">{l('Mediums with no disc IDs:')}</th>
+            <th colSpan="2">{l_statistics('Mediums with no disc IDs:')}</th>
             <td>{fc('medium.0discids')}</td>
             <td>{fp('medium.0discids', 'medium')}</td>
           </tr>
           <tr>
             <th />
             <th colSpan="2">
-              {l('Mediums with at least one disc ID:')}
+              {l_statistics('Mediums with at least one disc ID:')}
             </th>
             <td>{fc('medium.has_discid')}</td>
             <td>{fp('medium.has_discid', 'medium')}</td>
@@ -602,21 +606,23 @@ const Index = ({
           <tr>
             <th />
             <th />
-            <th>{l('with 10 or more disc IDs:')}</th>
+            <th>{l_statistics('with 10 or more disc IDs:')}</th>
             <td>{fc('medium.10discids')}</td>
             <td>{fp('medium.10discids', 'medium.has_discid')}</td>
           </tr>
         </tbody>
       </table>
 
-      <h2>{l('Release groups')}</h2>
+      <h2>{l_statistics('Release groups')}</h2>
       <table className="database-statistics">
         <tbody>
           <tr className="thead">
-            <th colSpan="4">{l('Primary types')}</th>
+            <th colSpan="4">{l_statistics('Primary types')}</th>
           </tr>
           <tr>
-            <th colSpan="2">{addColonText(l('Release groups'))}</th>
+            <th colSpan="2">
+              {addColonText(l_statistics('Release groups'))}
+            </th>
             <td>{fc('releasegroup')}</td>
             <td />
           </tr>
@@ -640,15 +646,17 @@ const Index = ({
           ))}
           <tr>
             <th />
-            <th>{l('None')}</th>
+            <th>{l_statistics('None')}</th>
             <td>{fc('releasegroup.primary_type.null')}</td>
             <td>{fp('releasegroup.primary_type.null', 'releasegroup')}</td>
           </tr>
           <tr className="thead">
-            <th colSpan="4">{l('Secondary types')}</th>
+            <th colSpan="4">{l_statistics('Secondary types')}</th>
           </tr>
           <tr>
-            <th colSpan="2">{addColonText(l('Release groups'))}</th>
+            <th colSpan="2">
+              {addColonText(l_statistics('Release groups'))}
+            </th>
             <td>{fc('releasegroup')}</td>
             <td />
           </tr>
@@ -672,50 +680,50 @@ const Index = ({
           ))}
           <tr>
             <th />
-            <th>{l('None')}</th>
+            <th>{l_statistics('None')}</th>
             <td>{fc('releasegroup.secondary_type.null')}</td>
             <td>{fp('releasegroup.secondary_type.null', 'releasegroup')}</td>
           </tr>
         </tbody>
       </table>
 
-      <h2>{l('Recordings')}</h2>
+      <h2>{l_statistics('Recordings')}</h2>
       <table className="database-statistics">
         <tbody>
           <tr className="thead">
-            <th colSpan="3">{l('Recordings')}</th>
+            <th colSpan="3">{l_statistics('Recordings')}</th>
           </tr>
           <tr>
-            <th>{addColonText(l('Recordings'))}</th>
+            <th>{addColonText(l_statistics('Recordings'))}</th>
             <td>{fc('recording')}</td>
             <td />
           </tr>
           <tr>
-            <th>{addColonText(l('Videos'))}</th>
+            <th>{addColonText(l_statistics('Videos'))}</th>
             <td>{fc('video')}</td>
             <td>{fp('video', 'recording')}</td>
           </tr>
           <tr>
-            <th>{addColonText(lp('Standalone', 'recording'))}</th>
+            <th>{addColonText(lp_statistics('Standalone', 'recording'))}</th>
             <td>{fc('recording.standalone')}</td>
             <td>{fp('recording.standalone', 'recording')}</td>
           </tr>
           <tr>
-            <th>{addColonText(l('With ISRCs'))}</th>
+            <th>{addColonText(l_statistics('With ISRCs'))}</th>
             <td>{fc('recording.has_isrc')}</td>
             <td>{fp('recording.has_isrc', 'recording')}</td>
           </tr>
         </tbody>
       </table>
 
-      <h2>{l('Labels')}</h2>
+      <h2>{l_statistics('Labels')}</h2>
       <table className="database-statistics">
         <tbody>
           <tr className="thead">
-            <th colSpan="4">{l('Types')}</th>
+            <th colSpan="4">{l_statistics('Types')}</th>
           </tr>
           <tr>
-            <th colSpan="2">{addColonText(l('Labels'))}</th>
+            <th colSpan="2">{addColonText(l_statistics('Labels'))}</th>
             <td>{fc('label')}</td>
             <td />
           </tr>
@@ -729,21 +737,21 @@ const Index = ({
           ))}
           <tr>
             <th />
-            <th>{l('None')}</th>
+            <th>{l_statistics('None')}</th>
             <td>{fc('label.type.null')}</td>
             <td>{fp('label.type.null', 'label')}</td>
           </tr>
         </tbody>
       </table>
 
-      <h2>{l('Works')}</h2>
+      <h2>{l_statistics('Works')}</h2>
       <table className="database-statistics">
         <tbody>
           <tr className="thead">
-            <th colSpan="4">{l('Types')}</th>
+            <th colSpan="4">{l_statistics('Types')}</th>
           </tr>
           <tr>
-            <th colSpan="2">{addColonText(l('Works'))}</th>
+            <th colSpan="2">{addColonText(l_statistics('Works'))}</th>
             <td>{fc('work')}</td>
             <td />
           </tr>
@@ -757,12 +765,12 @@ const Index = ({
           ))}
           <tr>
             <th />
-            <th>{l('None')}</th>
+            <th>{l_statistics('None')}</th>
             <td>{fc('work.type.null')}</td>
             <td>{fp('work.type.null', 'work')}</td>
           </tr>
           <tr>
-            <th>{addColonText(l('With ISWCs'))}</th>
+            <th>{addColonText(l_statistics('With ISWCs'))}</th>
             <td>{fc('work.has_iswc')}</td>
             <td>{fp('work.has_iswc', 'work')}</td>
           </tr>
@@ -772,10 +780,10 @@ const Index = ({
       <table className="database-statistics">
         <tbody>
           <tr className="thead">
-            <th colSpan="4">{l('Attributes')}</th>
+            <th colSpan="4">{l_statistics('Attributes')}</th>
           </tr>
           <tr>
-            <th colSpan="2">{addColonText(l('Works'))}</th>
+            <th colSpan="2">{addColonText(l_statistics('Works'))}</th>
             <td>{fc('work')}</td>
             <td />
           </tr>
@@ -791,21 +799,21 @@ const Index = ({
           ))}
           <tr>
             <th />
-            <th>{l('None')}</th>
+            <th>{l_statistics('None')}</th>
             <td>{fc('work.attribute.null')}</td>
             <td>{fp('work.attribute.null', 'work')}</td>
           </tr>
         </tbody>
       </table>
 
-      <h2>{l('Areas')}</h2>
+      <h2>{l_statistics('Areas')}</h2>
       <table className="database-statistics">
         <tbody>
           <tr className="thead">
-            <th colSpan="4">{l('Types')}</th>
+            <th colSpan="4">{l_statistics('Types')}</th>
           </tr>
           <tr>
-            <th colSpan="2">{addColonText(l('Areas'))}</th>
+            <th colSpan="2">{addColonText(l_statistics('Areas'))}</th>
             <td>{fc('area')}</td>
             <td />
           </tr>
@@ -819,21 +827,21 @@ const Index = ({
           ))}
           <tr>
             <th />
-            <th>{l('None')}</th>
+            <th>{l_statistics('None')}</th>
             <td>{fc('area.type.null')}</td>
             <td>{fp('area.type.null', 'area')}</td>
           </tr>
         </tbody>
       </table>
 
-      <h2>{l('Places')}</h2>
+      <h2>{l_statistics('Places')}</h2>
       <table className="database-statistics">
         <tbody>
           <tr className="thead">
-            <th colSpan="4">{l('Types')}</th>
+            <th colSpan="4">{l_statistics('Types')}</th>
           </tr>
           <tr>
-            <th colSpan="2">{addColonText(l('Places'))}</th>
+            <th colSpan="2">{addColonText(l_statistics('Places'))}</th>
             <td>{fc('place')}</td>
             <td />
           </tr>
@@ -847,21 +855,23 @@ const Index = ({
           ))}
           <tr>
             <th />
-            <th>{l('None')}</th>
+            <th>{l_statistics('None')}</th>
             <td>{fc('place.type.null')}</td>
             <td>{fp('place.type.null', 'place')}</td>
           </tr>
         </tbody>
       </table>
 
-      <h2>{lp('Series', 'plural')}</h2>
+      <h2>{lp_statistics('Series', 'plural')}</h2>
       <table className="database-statistics">
         <tbody>
           <tr className="thead">
-            <th colSpan="4">{l('Types')}</th>
+            <th colSpan="4">{l_statistics('Types')}</th>
           </tr>
           <tr>
-            <th colSpan="2">{addColonText(lp('Series', 'plural'))}</th>
+            <th colSpan="2">
+              {addColonText(lp_statistics('Series', 'plural'))}
+            </th>
             <td>{fc('series')}</td>
             <td />
           </tr>
@@ -876,14 +886,14 @@ const Index = ({
         </tbody>
       </table>
 
-      <h2>{l('Instruments')}</h2>
+      <h2>{l_statistics('Instruments')}</h2>
       <table className="database-statistics">
         <tbody>
           <tr className="thead">
-            <th colSpan="4">{l('Types')}</th>
+            <th colSpan="4">{l_statistics('Types')}</th>
           </tr>
           <tr>
-            <th colSpan="2">{addColonText(l('Instruments'))}</th>
+            <th colSpan="2">{addColonText(l_statistics('Instruments'))}</th>
             <td>{fc('instrument')}</td>
             <td />
           </tr>
@@ -899,18 +909,18 @@ const Index = ({
           ))}
           <tr>
             <th />
-            <th>{l('None')}</th>
+            <th>{l_statistics('None')}</th>
             <td>{fc('instrument.type.null')}</td>
             <td>{fp('instrument.type.null', 'instrument')}</td>
           </tr>
         </tbody>
       </table>
 
-      <h2>{l('Events')}</h2>
+      <h2>{l_statistics('Events')}</h2>
       <table className="database-statistics">
         <tbody>
           <tr className="thead">
-            <th colSpan="4">{l('Types')}</th>
+            <th colSpan="4">{l_statistics('Types')}</th>
           </tr>
           <tr>
             <th colSpan="2">{addColonText(('Events'))}</th>
@@ -927,34 +937,34 @@ const Index = ({
           ))}
           <tr>
             <th />
-            <th>{l('None')}</th>
+            <th>{l_statistics('None')}</th>
             <td>{fc('event.type.null')}</td>
             <td>{fp('event.type.null', 'event')}</td>
           </tr>
         </tbody>
       </table>
 
-      <h2>{l('Collections')}</h2>
+      <h2>{l_statistics('Collections')}</h2>
       <table className="database-statistics">
         <tbody>
           <tr className="thead">
-            <th colSpan="5">{l('Collections')}</th>
+            <th colSpan="5">{l_statistics('Collections')}</th>
           </tr>
           <tr>
-            <th colSpan="3">{addColonText(l('Collections'))}</th>
+            <th colSpan="3">{addColonText(l_statistics('Collections'))}</th>
             <td>{fc('collection')}</td>
             <td />
           </tr>
           <tr>
             <th />
-            <th colSpan="2">{addColonText(l('Of releases'))}</th>
+            <th colSpan="2">{addColonText(l_statistics('Of releases'))}</th>
             <td>{fc('collection.type.release.all')}</td>
             <td>{fp('collection.type.release.all', 'collection')}</td>
           </tr>
           <tr>
             <th />
             <th />
-            <th>{addColonText(l('Generic'))}</th>
+            <th>{addColonText(l_statistics('Generic'))}</th>
             <td>{fc('collection.type.release')}</td>
             <td>
               {fp('collection.type.release', 'collection.type.release.all')}
@@ -963,7 +973,7 @@ const Index = ({
           <tr>
             <th />
             <th />
-            <th>{addColonText(l('Owned music'))}</th>
+            <th>{addColonText(l_statistics('Owned music'))}</th>
             <td>{fc('collection.type.owned')}</td>
             <td>
               {fp('collection.type.owned', 'collection.type.release.all')}
@@ -972,7 +982,7 @@ const Index = ({
           <tr>
             <th />
             <th />
-            <th>{addColonText(l('Wishlist'))}</th>
+            <th>{addColonText(l_statistics('Wishlist'))}</th>
             <td>{fc('collection.type.wishlist')}</td>
             <td>
               {fp('collection.type.wishlist', 'collection.type.release.all')}
@@ -980,14 +990,14 @@ const Index = ({
           </tr>
           <tr>
             <th />
-            <th colSpan="2">{addColonText(l('Of events'))}</th>
+            <th colSpan="2">{addColonText(l_statistics('Of events'))}</th>
             <td>{fc('collection.type.event.all')}</td>
             <td>{fp('collection.type.event.all', 'collection')}</td>
           </tr>
           <tr>
             <th />
             <th />
-            <th>{addColonText(l('Generic'))}</th>
+            <th>{addColonText(l_statistics('Generic'))}</th>
             <td>{fc('collection.type.event')}</td>
             <td>
               {fp('collection.type.event', 'collection.type.event.all')}
@@ -996,7 +1006,7 @@ const Index = ({
           <tr>
             <th />
             <th />
-            <th>{addColonText(l('Of type Attending'))}</th>
+            <th>{addColonText(l_statistics('Of type Attending'))}</th>
             <td>{fc('collection.type.attending')}</td>
             <td>
               {fp('collection.type.attending', 'collection.type.event.all')}
@@ -1005,7 +1015,7 @@ const Index = ({
           <tr>
             <th />
             <th />
-            <th>{addColonText(l('Of type Maybe attending'))}</th>
+            <th>{addColonText(l_statistics('Of type Maybe attending'))}</th>
             <td>{fc('collection.type.maybe_attending')}</td>
             <td>
               {fp(
@@ -1016,93 +1026,99 @@ const Index = ({
           </tr>
           <tr>
             <th />
-            <th colSpan="2">{addColonText(l('Of areas'))}</th>
+            <th colSpan="2">{addColonText(l_statistics('Of areas'))}</th>
             <td>{fc('collection.type.area')}</td>
             <td>{fp('collection.type.area', 'collection')}</td>
           </tr>
           <tr>
             <th />
-            <th colSpan="2">{addColonText(l('Of artists'))}</th>
+            <th colSpan="2">{addColonText(l_statistics('Of artists'))}</th>
             <td>{fc('collection.type.artist')}</td>
             <td>{fp('collection.type.artist', 'collection')}</td>
           </tr>
           <tr>
             <th />
-            <th colSpan="2">{addColonText(l('Of instruments'))}</th>
+            <th colSpan="2">
+              {addColonText(l_statistics('Of instruments'))}
+            </th>
             <td>{fc('collection.type.instrument')}</td>
             <td>{fp('collection.type.instrument', 'collection')}</td>
           </tr>
           <tr>
             <th />
-            <th colSpan="2">{addColonText(l('Of labels'))}</th>
+            <th colSpan="2">{addColonText(l_statistics('Of labels'))}</th>
             <td>{fc('collection.type.label')}</td>
             <td>{fp('collection.type.label', 'collection')}</td>
           </tr>
           <tr>
             <th />
-            <th colSpan="2">{addColonText(l('Of places'))}</th>
+            <th colSpan="2">{addColonText(l_statistics('Of places'))}</th>
             <td>{fc('collection.type.place')}</td>
             <td>{fp('collection.type.place', 'collection')}</td>
           </tr>
           <tr>
             <th />
-            <th colSpan="2">{addColonText(l('Of recordings'))}</th>
+            <th colSpan="2">{addColonText(l_statistics('Of recordings'))}</th>
             <td>{fc('collection.type.recording')}</td>
             <td>{fp('collection.type.recording', 'collection')}</td>
           </tr>
           <tr>
             <th />
-            <th colSpan="2">{addColonText(l('Of release groups'))}</th>
+            <th colSpan="2">
+              {addColonText(l_statistics('Of release groups'))}
+            </th>
             <td>{fc('collection.type.release_group')}</td>
             <td>{fp('collection.type.release_group', 'collection')}</td>
           </tr>
           <tr>
             <th />
-            <th colSpan="2">{addColonText(l('Of series'))}</th>
+            <th colSpan="2">{addColonText(l_statistics('Of series'))}</th>
             <td>{fc('collection.type.series')}</td>
             <td>{fp('collection.type.series', 'collection')}</td>
           </tr>
           <tr>
             <th />
-            <th colSpan="2">{addColonText(l('Of works'))}</th>
+            <th colSpan="2">{addColonText(l_statistics('Of works'))}</th>
             <td>{fc('collection.type.work')}</td>
             <td>{fp('collection.type.work', 'collection')}</td>
           </tr>
           <tr>
             <th />
-            <th colSpan="2">{addColonText(l('Public'))}</th>
+            <th colSpan="2">{addColonText(l_statistics('Public'))}</th>
             <td>{fc('collection.public')}</td>
             <td>{fp('collection.public', 'collection')}</td>
           </tr>
           <tr>
             <th />
-            <th colSpan="2">{addColonText(l('Private'))}</th>
+            <th colSpan="2">{addColonText(l_statistics('Private'))}</th>
             <td>{fc('collection.private')}</td>
             <td>{fp('collection.private', 'collection')}</td>
           </tr>
           <tr>
             <th />
-            <th colSpan="2">{addColonText(l('With collaborators'))}</th>
+            <th colSpan="2">
+              {addColonText(l_statistics('With collaborators'))}
+            </th>
             <td>{fc('collection.has_collaborators')}</td>
             <td>{fp('collection.has_collaborators', 'collection')}</td>
           </tr>
         </tbody>
       </table>
 
-      <h2>{l('Editors, Edits, and Votes')}</h2>
+      <h2>{l_statistics('Editors, Edits, and Votes')}</h2>
       <table className="database-statistics">
         <tbody>
           <tr className="thead">
-            <th colSpan="6">{l('Editors')}</th>
+            <th colSpan="6">{l_statistics('Editors')}</th>
           </tr>
           <tr>
-            <th colSpan="4">{l('Editors (valid):')}</th>
+            <th colSpan="4">{l_statistics('Editors (valid):')}</th>
             <td>{fc('editor.valid')}</td>
             <td />
           </tr>
           <tr>
             <th />
-            <th colSpan="3">{l('active ever:')}</th>
+            <th colSpan="3">{l_statistics('active ever:')}</th>
             <td>{fc('editor.valid.active')}</td>
             <td>{fp('editor.valid.active', 'editor.valid')}</td>
           </tr>
@@ -1110,7 +1126,7 @@ const Index = ({
             <th />
             <th />
             <th colSpan="2">
-              {l('who edited and/or voted in the last 7 days:')}
+              {l_statistics('who edited and/or voted in the last 7 days:')}
             </th>
             <td>{fc('editor.activelastweek')}</td>
             <td>{fp('editor.activelastweek', 'editor.valid.active')}</td>
@@ -1119,7 +1135,7 @@ const Index = ({
             <th />
             <th />
             <th />
-            <th>{l('who edited in the last 7 days:')}</th>
+            <th>{l_statistics('who edited in the last 7 days:')}</th>
             <td>{fc('editor.editlastweek')}</td>
             <td>{fp('editor.editlastweek', 'editor.activelastweek')}</td>
           </tr>
@@ -1127,42 +1143,44 @@ const Index = ({
             <th />
             <th />
             <th />
-            <th>{l('who voted in the last 7 days:')}</th>
+            <th>{l_statistics('who voted in the last 7 days:')}</th>
             <td>{fc('editor.votelastweek')}</td>
             <td>{fp('editor.votelastweek', 'editor.activelastweek')}</td>
           </tr>
           <tr>
             <th />
             <th />
-            <th colSpan="2">{l('who edit:')}</th>
+            <th colSpan="2">{l_statistics('who edit:')}</th>
             <td>{fc('editor.valid.active.edits')}</td>
             <td>{fp('editor.valid.active.edits', 'editor.valid.active')}</td>
           </tr>
           <tr>
             <th />
             <th />
-            <th colSpan="2">{l('who vote:')}</th>
+            <th colSpan="2">{l_statistics('who vote:')}</th>
             <td>{fc('editor.valid.active.votes')}</td>
             <td>{fp('editor.valid.active.votes', 'editor.valid.active')}</td>
           </tr>
           <tr>
             <th />
             <th />
-            <th colSpan="2">{l('who leave edit notes:')}</th>
+            <th colSpan="2">{l_statistics('who leave edit notes:')}</th>
             <td>{fc('editor.valid.active.notes')}</td>
             <td>{fp('editor.valid.active.notes', 'editor.valid.active')}</td>
           </tr>
           <tr>
             <th />
             <th />
-            <th colSpan="2">{lp('who use tags:', 'folksonomy')}</th>
+            <th colSpan="2">
+              {lp_statistics('who use tags:', 'folksonomy')}
+            </th>
             <td>{fc('editor.valid.active.tags')}</td>
             <td>{fp('editor.valid.active.tags', 'editor.valid.active')}</td>
           </tr>
           <tr>
             <th />
             <th />
-            <th colSpan="2">{l('who use ratings:')}</th>
+            <th colSpan="2">{l_statistics('who use ratings:')}</th>
             <td>{fc('editor.valid.active.ratings')}</td>
             <td>
               {fp('editor.valid.active.ratings', 'editor.valid.active')}
@@ -1171,7 +1189,7 @@ const Index = ({
           <tr>
             <th />
             <th />
-            <th colSpan="2">{l('who use subscriptions:')}</th>
+            <th colSpan="2">{l_statistics('who use subscriptions:')}</th>
             <td>{fc('editor.valid.active.subscriptions')}</td>
             <td>
               {fp('editor.valid.active.subscriptions', 'editor.valid.active')}
@@ -1180,7 +1198,7 @@ const Index = ({
           <tr>
             <th />
             <th />
-            <th colSpan="2">{l('who use collections:')}</th>
+            <th colSpan="2">{l_statistics('who use collections:')}</th>
             <td>{fc('editor.valid.active.collections')}</td>
             <td>
               {fp('editor.valid.active.collections', 'editor.valid.active')}
@@ -1190,7 +1208,7 @@ const Index = ({
             <th />
             <th />
             <th colSpan="2">
-              {l('who have registered applications:')}
+              {l_statistics('who have registered applications:')}
             </th>
             <td>{fc('editor.valid.active.applications')}</td>
             <td>
@@ -1199,140 +1217,146 @@ const Index = ({
           </tr>
           <tr>
             <th />
-            <th colSpan="3">{l('validated email only:')}</th>
+            <th colSpan="3">{l_statistics('validated email only:')}</th>
             <td>{fc('editor.valid.validated_only')}</td>
             <td>{fp('editor.valid.validated_only', 'editor.valid')}</td>
           </tr>
           <tr>
             <th />
-            <th colSpan="3">{l('inactive:')}</th>
+            <th colSpan="3">{l_statistics('inactive:')}</th>
             <td>{fc('editor.valid.inactive')}</td>
             <td>{fp('editor.valid.inactive', 'editor.valid')}</td>
           </tr>
           <tr>
-            <th colSpan="4">{l('Editors (deleted):')}</th>
+            <th colSpan="4">{l_statistics('Editors (deleted):')}</th>
             <td>{fc('editor.deleted')}</td>
             <td />
           </tr>
         </tbody>
         <tbody>
           <tr className="thead">
-            <th colSpan="6">{l('Edits')}</th>
+            <th colSpan="6">{l_statistics('Edits')}</th>
           </tr>
           <tr>
-            <th colSpan="4">{addColonText(l('Edits'))}</th>
+            <th colSpan="4">{addColonText(l_statistics('Edits'))}</th>
             <td>{fc('edit')}</td>
             <td />
           </tr>
           <tr>
             <th />
-            <th colSpan="3">{addColonText(l('Open'))}</th>
+            <th colSpan="3">{addColonText(l_statistics('Open'))}</th>
             <td>{fc('edit.open')}</td>
             <td>{fp('edit.open', 'edit')}</td>
           </tr>
           <tr>
             <th />
-            <th colSpan="3">{addColonText(l('Applied'))}</th>
+            <th colSpan="3">{addColonText(l_statistics('Applied'))}</th>
             <td>{fc('edit.applied')}</td>
             <td>{fp('edit.applied', 'edit')}</td>
           </tr>
           <tr>
             <th />
-            <th colSpan="3">{addColonText(l('Voted down'))}</th>
+            <th colSpan="3">{addColonText(l_statistics('Voted down'))}</th>
             <td>{fc('edit.failedvote')}</td>
             <td>{fp('edit.failedvote', 'edit')}</td>
           </tr>
           <tr>
             <th />
-            <th colSpan="3">{l('Failed (dependency):')}</th>
+            <th colSpan="3">{l_statistics('Failed (dependency):')}</th>
             <td>{fc('edit.faileddep')}</td>
             <td>{fp('edit.faileddep', 'edit')}</td>
           </tr>
           <tr>
             <th />
-            <th colSpan="3">{l('Failed (prerequisite):')}</th>
+            <th colSpan="3">{l_statistics('Failed (prerequisite):')}</th>
             <td>{fc('edit.failedprereq')}</td>
             <td>{fp('edit.failedprereq', 'edit')}</td>
           </tr>
           <tr>
             <th />
-            <th colSpan="3">{l('Failed (internal error):')}</th>
+            <th colSpan="3">{l_statistics('Failed (internal error):')}</th>
             <td>{fc('edit.error')}</td>
             <td>{fp('edit.error', 'edit')}</td>
           </tr>
           <tr>
             <th />
-            <th colSpan="3">{addColonText(lp('Cancelled', 'edit'))}</th>
+            <th colSpan="3">
+              {addColonText(lp_statistics('Cancelled', 'edit'))}
+            </th>
             <td>{fc('edit.deleted')}</td>
             <td>{fp('edit.deleted', 'edit')}</td>
           </tr>
           <tr>
-            <th colSpan="4">{addColonText(l('Edits'))}</th>
+            <th colSpan="4">{addColonText(l_statistics('Edits'))}</th>
             <td>{fc('edit')}</td>
             <td />
           </tr>
           <tr>
             <th />
-            <th colSpan="3">{l('Last 7 days:')}</th>
+            <th colSpan="3">{l_statistics('Last 7 days:')}</th>
             <td>{fc('edit.perweek')}</td>
             <td>{fp('edit.perweek', 'edit')}</td>
           </tr>
           <tr>
             <th />
             <th colSpan="2" />
-            <th>{l('Yesterday:')}</th>
+            <th>{l_statistics('Yesterday:')}</th>
             <td>{fc('edit.perday')}</td>
             <td>{fp('edit.perday', 'edit.perweek')}</td>
           </tr>
         </tbody>
         <tbody>
           <tr className="thead">
-            <th colSpan="6">{l('Votes')}</th>
+            <th colSpan="6">{l_statistics('Votes')}</th>
           </tr>
           <tr>
-            <th colSpan="4">{addColonText(l('Votes'))}</th>
+            <th colSpan="4">{addColonText(l_statistics('Votes'))}</th>
             <td>{fc('vote')}</td>
             <td />
           </tr>
           <tr>
             <th />
-            <th colSpan="3">{addColonText(lp('Approve', 'vote'))}</th>
+            <th colSpan="3">
+              {addColonText(lp_statistics('Approve', 'vote'))}
+            </th>
             <td>{fc('vote.approve')}</td>
             <td>{fp('vote.approve', 'vote')}</td>
           </tr>
           <tr>
             <th />
-            <th colSpan="3">{addColonText(lp('Yes', 'vote'))}</th>
+            <th colSpan="3">{addColonText(lp_statistics('Yes', 'vote'))}</th>
             <td>{fc('vote.yes')}</td>
             <td>{fp('vote.yes', 'vote')}</td>
           </tr>
           <tr>
             <th />
-            <th colSpan="3">{addColonText(lp('No', 'vote'))}</th>
+            <th colSpan="3">{addColonText(lp_statistics('No', 'vote'))}</th>
             <td>{fc('vote.no')}</td>
             <td>{fp('vote.no', 'vote')}</td>
           </tr>
           <tr>
             <th />
-            <th colSpan="3">{addColonText(lp('Abstain', 'vote'))}</th>
+            <th colSpan="3">
+              {addColonText(lp_statistics('Abstain', 'vote'))}
+            </th>
             <td>{fc('vote.abstain')}</td>
             <td>{fp('vote.abstain', 'vote')}</td>
           </tr>
           <tr>
-            <th colSpan="4">{addColonText(l('Votes'))}</th>
+            <th colSpan="4">{addColonText(l_statistics('Votes'))}</th>
             <td>{fc('vote')}</td>
             <td />
           </tr>
           <tr>
             <th />
-            <th colSpan="3">{l('Last 7 days:')}</th>
+            <th colSpan="3">{l_statistics('Last 7 days:')}</th>
             <td>{fc('vote.perweek')}</td>
             <td>{fp('vote.perweek', 'vote')}</td>
           </tr>
           <tr>
             <th />
             <th />
-            <th colSpan="2">{l('Yesterday:')}</th>
+            <th colSpan="2">{l_statistics('Yesterday:')}</th>
             <td>{fc('vote.perday')}</td>
             <td>{fp('vote.perday', 'vote.perweek')}</td>
           </tr>

@@ -13,7 +13,6 @@ import * as React from 'react';
 import {CatalystContext} from '../context.mjs';
 import * as manifest from '../static/manifest.mjs';
 import EntityLink from '../static/scripts/common/components/EntityLink.js';
-import {l_statistics as l} from '../static/scripts/common/i18n/statistics.js';
 import loopParity from '../utility/loopParity.js';
 
 import StatisticsLayout from './StatisticsLayout.js';
@@ -39,7 +38,11 @@ const Countries = ({
 }: CountriesStatsT): React$Element<typeof StatisticsLayout> => {
   const $c = React.useContext(CatalystContext);
   return (
-    <StatisticsLayout fullWidth page="countries" title={l('Countries')}>
+    <StatisticsLayout
+      fullWidth
+      page="countries"
+      title={l_statistics('Countries')}
+    >
       <p>
         {texp.l_statistics('Last updated: {date}',
                            {date: dateCollected})}
@@ -47,33 +50,33 @@ const Countries = ({
       <table className="tbl" id="countries-table">
         <thead>
           <tr>
-            <th className="pos">{l('Rank')}</th>
+            <th className="pos">{l_statistics('Rank')}</th>
             <th>
-              {l('Country')}
+              {l_statistics('Country')}
               <div className="arrow" />
             </th>
             <th>
-              {l('Artists')}
+              {l_statistics('Artists')}
               <div className="arrow" />
             </th>
             <th>
-              {l('Releases')}
+              {l_statistics('Releases')}
               <div className="arrow" />
             </th>
             <th>
-              {l('Labels')}
+              {l_statistics('Labels')}
               <div className="arrow" />
             </th>
             <th>
-              {l('Events')}
+              {l_statistics('Events')}
               <div className="arrow" />
             </th>
             <th>
-              {l('Places')}
+              {l_statistics('Places')}
               <div className="arrow" />
             </th>
             <th>
-              {l('Total')}
+              {l_statistics('Total')}
               <div className="arrow" />
             </th>
           </tr>
@@ -95,7 +98,7 @@ const Countries = ({
                 <td>
                   {hasCountryCode
                     ? <EntityLink entity={country} />
-                    : l('Unknown country')}
+                    : l_statistics('Unknown country')}
                 </td>
                 <td className="t">
                   {hasCountryCode ? (
