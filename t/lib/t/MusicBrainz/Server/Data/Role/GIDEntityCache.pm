@@ -12,6 +12,8 @@ use MusicBrainz::Server::Context;
 
 with 't::Context' => { -excludes => '_build_context' };
 
+our $gid1 = '3f8c4788-d193-4931-b6b7-3aa7bf64ac33';
+
 {
     package t::GIDEntityCache::MyEntity;
     use Moose;
@@ -30,13 +32,13 @@ with 't::Context' => { -excludes => '_build_context' };
     {
         my $self = shift;
         $self->get_by_id_called(1);
-        return { 1 => t::GIDEntityCache::MyEntity->new(id => 1, gid => 'abc') };
+        return { 1 => t::GIDEntityCache::MyEntity->new(id => 1, gid => $gid1) };
     }
     sub get_by_gid
     {
         my $self = shift;
         $self->get_by_gid_called(1);
-        return t::GIDEntityCache::MyEntity->new(id => 1, gid => 'abc');
+        return t::GIDEntityCache::MyEntity->new(id => 1, gid => $gid1);
     }
 
     package t::GIDEntityCache::MyCachedEntityData;
@@ -87,14 +89,14 @@ test all => sub {
 my $test = shift;
 my $entity_data = t::GIDEntityCache::MyCachedEntityData->new(c => $test->c);
 
-my $entity = $entity_data->get_by_gid('abc');
+my $entity = $entity_data->get_by_gid($gid1);
 is ( $entity->id, 1 );
 is ( $entity_data->get_by_gid_called, 1 );
 is ( $entity_data->get_by_id_called, 0 );
 is ( $test->c->cache->_orig->get_called, 1 );
 is ( $test->c->cache->_orig->set_called, 2 );
 ok ( $test->c->cache->_orig->data->{'my_cached_entity_data:1'} =~ '1' );
-ok ( $test->c->cache->_orig->data->{'my_cached_entity_data:abc'} =~ '1' );
+ok ( $test->c->cache->_orig->data->{"my_cached_entity_data:$gid1"} =~ '1' );
 
 
 $entity_data->get_by_gid_called(0);
@@ -102,7 +104,7 @@ $entity_data->get_by_id_called(0);
 $test->c->cache->_orig->get_called(0);
 $test->c->cache->_orig->set_called(0);
 
-$entity = $entity_data->get_by_gid('abc');
+$entity = $entity_data->get_by_gid($gid1);
 is ( $entity->id, 1 );
 is ( $entity_data->get_by_gid_called, 0 );
 is ( $entity_data->get_by_id_called, 0 );
@@ -117,7 +119,7 @@ $test->c->cache->_orig->set_called(0);
 
 delete $test->c->cache->_orig->data->{'my_cached_entity_data:1'};
 
-$entity = $entity_data->get_by_gid('abc');
+$entity = $entity_data->get_by_gid($gid1);
 is ( $entity->id, 1 );
 is ( $entity_data->get_by_gid_called, 0 );
 is ( $entity_data->get_by_id_called, 1 );
