@@ -924,6 +924,17 @@ limited_link_type_combinations: [
             expected_clean_url: 'https://gamechops.bandcamp.com/campaign/samus-chill',
        only_valid_entity_types: ['release'],
   },
+  {
+                     input_url: 'https://bandcamp.com/videoframe?video_id=188124/',
+             input_entity_type: 'recording',
+    expected_relationship_type: undefined,
+       input_relationship_type: 'streamingfree',
+       only_valid_entity_types: [],
+                expected_error: {
+                                  error: 'Please do not add',
+                                  target: 'url',
+                                },
+  },
   // Bandsintown
   {
                      input_url: "https://m.bandsintown.com/MattDobberteen's50thBirthday?came_from=178",
