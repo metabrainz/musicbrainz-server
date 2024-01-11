@@ -23,14 +23,6 @@ source admin/config.sh
 . ./admin/functions.sh
 make_temp_dir
 
-DUMP_DIR="$JSON_DUMP_DIR"/incremental
-
-# Create necessary directories and set permissions. If we're not doing a full
-# dump then $DUMP_STAMP is empty, so that argument is ignored.
-
-mkdir -m "$JSON_DUMP_DIR_MODE" -p "$DUMP_DIR"
-chown "$JSON_DUMP_USER:$JSON_DUMP_GROUP" "$DUMP_DIR"
-
 # The database from which the dumps are generated is replicated, but created
 # as standalone - meaning it has foreign keys and triggers. Foreign keys are
 # needed for MusicBrainz::Server::Role::FollowForeignKeys to work. The
@@ -52,20 +44,22 @@ shopt -s nullglob
 DUMP_FILE=`echo -n "$TEMP_DIR"/json-dump-*/*.tar.xz`
 shopt -u nullglob
 
-# Incremental JSON dumps go to the "FTP data directory", consistent with the
-# full dumps, but they aren't synced to real FTP like the full dumps are,
-# since they require a replication token to access.
-#
-# They're synced from here to a Docker volume shared by the metabrainz.org
-# container on another server, via ./bin/rsync-incremental-json-dumps.
+# Incremental JSON dumps are synced to a Docker volume on the same host as
+# the metabrainz.org container.
 if [ "$DUMP_FILE" ]
 then
     echo Copying incremental json dumps to backup dir
     chown "$JSON_DUMP_USER:$JSON_DUMP_GROUP" "$TEMP_DIR"/json-dump-*/*
     chmod "$JSON_DUMP_FILE_MODE" "$TEMP_DIR"/json-dump-*/*
-    mv "$TEMP_DIR"/* "$DUMP_DIR"/
 
-    MBS_ADMIN_CONFIG=config.incremental-json-dump.sh ./bin/rsync-fullexport-files
+    retry rsync \
+        --archive \
+        --rsh "ssh -i $RSYNC_INCREMENTAL_JSON_DUMPS_KEY -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -p $RSYNC_INCREMENTAL_JSON_DUMPS_PORT" \
+        --verbose \
+        "$TEMP_DIR"/ \
+        brainz@$RSYNC_INCREMENTAL_JSON_DUMPS_HOST:./
+
+    rm -rf "$TEMP_DIR"/*
 fi
 
 # eof
