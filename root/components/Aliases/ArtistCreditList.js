@@ -34,7 +34,8 @@ const ArtistCreditList = ({
       <p>
         {exp.l(
           `This is a list of all the different ways {artist} is credited
-           in the database. View the {doc|artist credit documentation}
+           as the artist in tracks, recordings, releases and release groups.
+           View the {doc|artist credit documentation}
            for more details.`,
           {
             artist: <EntityLink entity={entity} />,
