@@ -1470,16 +1470,16 @@ limited_link_type_combinations: [
        only_valid_entity_types: ['release'],
   },
   {
-                     input_url: 'https://m.bugs.co.kr/album/20488834?wl_ref=M_contents_01_07',
-             input_entity_type: 'release',
+                     input_url: 'https://m.bugs.co.kr/track/31247088#comments',
+             input_entity_type: 'recording',
        input_relationship_type: 'streamingpaid',
     expected_relationship_type: ['downloadpurchase', 'streamingpaid'],
 limited_link_type_combinations: [
                                   ['downloadpurchase', 'streamingpaid'],
                                   'streamingpaid',
                                 ],
-            expected_clean_url: 'https://music.bugs.co.kr/album/20488834',
-       only_valid_entity_types: ['release'],
+            expected_clean_url: 'https://music.bugs.co.kr/track/31247088',
+       only_valid_entity_types: ['recording'],
   },
   {
                      input_url: 'https://music.bugs.co.kr/mv/618959',
