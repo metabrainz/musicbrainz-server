@@ -2,11 +2,23 @@
 
 set -e -o pipefail
 
+function sv_start_if_down() {
+  while [[ $# -gt 0 ]]
+  do
+    if [[ -e "/etc/service/$1/down" ]]
+    then
+      rm -fv "/etc/service/$1/down"
+      sv start "$1"
+    fi
+    shift
+  done
+}
+
 sudo -E -H -u musicbrainz mkdir -p junit_output
 
 sudo -E -H -u musicbrainz cp docker/musicbrainz-tests/DBDefs.pm lib/
 
-rm /etc/service/{postgresql,redis}/down && sv start postgresql redis
+sv_start_if_down postgresql redis
 
 sudo -E -H -u musicbrainz carton exec -- ./script/create_test_db.sh
 
@@ -23,7 +35,7 @@ sudo -E -H -u musicbrainz ./node_modules/.bin/flow --quiet
 sudo -E -H -u musicbrainz ./node_modules/.bin/eslint --max-warnings 0 .
 ! git grep -Pw '(N_)?l[np]?\(' -- 'root/statistics/**.js'
 
-rm /etc/service/chrome/down && sv start chrome
+sv_start_if_down chrome
 
 sudo -E -H -u musicbrainz carton exec -- node \
     t/web.js \
@@ -38,7 +50,7 @@ sudo -u postgres createdb -O musicbrainz -T musicbrainz_test -U postgres musicbr
 sudo -u postgres createdb -O musicbrainz -T musicbrainz_test -U postgres musicbrainz_test_full_export
 sudo -u postgres createdb -O musicbrainz -T musicbrainz_test -U postgres musicbrainz_test_sitemaps
 
-rm /etc/service/{template-renderer,vnu,website}/down && sv start template-renderer vnu website
+sv_start_if_down template-renderer vnu website
 
 export MMD_SCHEMA_ROOT=/home/musicbrainz/mb-solr/mmd-schema
 export JUNIT_OUTPUT_FILE=junit_output/perl_and_pgtap.xml
