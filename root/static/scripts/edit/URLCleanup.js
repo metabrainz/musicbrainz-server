@@ -4584,7 +4584,7 @@ const CLEANUPS: CleanupEntries = {
     restrict: [LINK_TYPES.otherdatabases],
   },
   'ototoy': {
-    match: new RegExp('^(https?://)?([^/]+\\.)?ototoy\\.jp', 'i'),
+    match: [new RegExp('^(https?://)?([^/]+\\.)?ototoy\\.jp', 'i')],
     restrict: [LINK_TYPES.downloadpurchase],
     clean: function (url) {
       return url.replace(/^(?:https?:\/\/)?(?:www\.)?ototoy\.jp\/(labels|_\/default\/[ap])\/(\d+).*$/, 'https://ototoy.jp/$1/$2');
@@ -4601,12 +4601,12 @@ const CLEANUPS: CleanupEntries = {
             };
           case LINK_TYPES.downloadpurchase.release:
             return {
-              result: suffix.test(/_\/default\/p/),
+              result: /_\/default\/p/.test(suffix),
               target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.downloadpurchase.artist:
             return {
-              result: suffix.test(/_\/default\/a/),
+              result: /_\/default\/a/.test(suffix),
               target: ERROR_TARGETS.ENTITY,
             };
         }
