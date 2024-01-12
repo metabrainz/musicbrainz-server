@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -e -o pipefail
+
 sudo -E -H -u musicbrainz mkdir -p junit_output
 
 sudo -E -H -u musicbrainz cp docker/musicbrainz-tests/DBDefs.pm lib/
