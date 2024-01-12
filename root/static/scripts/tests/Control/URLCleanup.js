@@ -1480,7 +1480,6 @@ limited_link_type_combinations: [
   {
                      input_url: 'https://music.bugs.co.kr/mv/618959',
              input_entity_type: 'release',
-       input_relationship_type: 'streamingpaid',
     expected_relationship_type: ['downloadpurchase', 'streamingpaid'],
 limited_link_type_combinations: [
                                   ['downloadpurchase', 'streamingpaid'],
