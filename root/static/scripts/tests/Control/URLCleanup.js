@@ -1460,52 +1460,62 @@ limited_link_type_combinations: [
   {
                      input_url: 'https://music.bugs.co.kr/album/20488834?wl_ref=M_contents_01_07',
              input_entity_type: 'release',
+       input_relationship_type: 'streamingpaid',
     expected_relationship_type: ['downloadpurchase', 'streamingpaid'],
 limited_link_type_combinations: [
                                   ['downloadpurchase', 'streamingpaid'],
                                   'streamingpaid',
                                 ],
             expected_clean_url: 'https://music.bugs.co.kr/album/20488834',
+       only_valid_entity_types: ['release'],
   },
   {
                      input_url: 'https://m.bugs.co.kr/album/20488834?wl_ref=M_contents_01_07',
              input_entity_type: 'release',
+       input_relationship_type: 'streamingpaid',
     expected_relationship_type: ['downloadpurchase', 'streamingpaid'],
 limited_link_type_combinations: [
                                   ['downloadpurchase', 'streamingpaid'],
                                   'streamingpaid',
                                 ],
             expected_clean_url: 'https://music.bugs.co.kr/album/20488834',
+       only_valid_entity_types: ['release'],
   },
   {
                      input_url: 'https://music.bugs.co.kr/mv/618959',
              input_entity_type: 'release',
+       input_relationship_type: 'streamingpaid',
     expected_relationship_type: ['downloadpurchase', 'streamingpaid'],
 limited_link_type_combinations: [
                                   ['downloadpurchase', 'streamingpaid'],
                                   'streamingpaid',
                                 ],
             expected_clean_url: 'https://music.bugs.co.kr/mv/618959',
+       only_valid_entity_types: ['recording', 'release'],
   },
   {
                      input_url: 'https://music.bugs.co.kr/artist/80276288?wl_ref=M_Search_01_01',
              input_entity_type: 'artist',
+       input_relationship_type: 'streamingpaid',
     expected_relationship_type: ['downloadpurchase', 'streamingpaid'],
 limited_link_type_combinations: [
                                   ['downloadpurchase', 'streamingpaid'],
                                   'streamingpaid',
                                 ],
             expected_clean_url: 'https://music.bugs.co.kr/artist/80276288',
+       only_valid_entity_types: ['artist'],
   },
   {
                      input_url: 'https://m.bugs.co.kr/artist/80276288',
              input_entity_type: 'artist',
+       input_relationship_type: 'streamingpaid',
     expected_relationship_type: ['downloadpurchase', 'streamingpaid'],
 limited_link_type_combinations: [
                                   ['downloadpurchase', 'streamingpaid'],
                                   'streamingpaid',
                                 ],
             expected_clean_url: 'https://music.bugs.co.kr/artist/80276288',
+       only_valid_entity_types: ['artist'],
   },
   {
                      input_url: 'https://music.bugs.co.kr/search/integrated?q=dreamcatcher',
