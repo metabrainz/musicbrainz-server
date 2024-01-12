@@ -2572,7 +2572,7 @@ limited_link_type_combinations: [
                                   ['downloadpurchase', 'streamingpaid'],
                                   'streamingpaid',
                                 ],
-            expected_clean_url: 'https://genie.co.kr/detail/artistInfo?xxnm=81599561',
+            expected_clean_url: 'https://www.genie.co.kr/detail/artistInfo?xxnm=81599561',
   },
   {
                      input_url: 'https://www.genie.co.kr/search/searchMain?query=Dreamcatcher',
