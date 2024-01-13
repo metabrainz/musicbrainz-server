@@ -10,5 +10,5 @@ module.exports = [
    */
   /node_modules\/(?!@babel\/runtime|@popperjs|jed|mutate-cow|punycode|react|weight-balanced-tree)/,
   /root\/static\/scripts\/tests\/typeInfo\.js/,
-  /root\/static\/build\/jed-[A-z_-]+?\.source\.js$/,
+  /root\/static\/build\/jed-[A-z0-9_-]+?\.source\.js$/,
 ];

@@ -131,7 +131,10 @@ sub set_language
     }
     my $set_lang = web_set_locale(\@avail_lang, [ 'utf-8' ], LC_MESSAGES);
     if (!defined $set_lang) {
-        return 'en';
+        # Force setting 'es_419' which seems to not be recognized by
+        # Locale::Util most likely, or I18N::LangTags::Detect maybe.
+        # A more definitive fix should be implemented for MBS-13446.
+        return contains_string(\@avail_lang, 'es_419') ? 'es_419' : 'en';
     }
     # Strip off charset
     $set_lang =~ s/\.utf-8//;
@@ -170,9 +173,9 @@ sub language_from_cookie
 {
     my ($self, $cookie) = @_;
     my $cookie_munge = defined $cookie ? $cookie->value : '';
-    $cookie_munge =~ s/-([A-Z]{2})/-\L$1/;
+    $cookie_munge =~ s/-([A-Z0-9]{2,})/-\L$1/;
     my $cookie_nocountry = defined $cookie ? $cookie->value : '';
-    $cookie_nocountry =~ s/-[A-Z]{2}//;
+    $cookie_nocountry =~ s/-[A-Z0-9]{2,}//;
     if (defined $cookie &&
         any { $cookie->value eq $_ || $cookie_munge eq $_ } DBDefs->MB_LANGUAGES) {
         return $cookie->value;
