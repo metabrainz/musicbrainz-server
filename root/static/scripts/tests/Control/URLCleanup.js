@@ -6509,6 +6509,12 @@ limited_link_type_combinations: [
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'https://id.oclc.org/worldcat/entity/E39PBJtCD4cBkp4m9Gfb88jKVC',
   },
+  {
+                     input_url: 'https://entities.oclc.org/worldcat/entity/E39PCYRCtHWqdGhtK9yGDjJKwK.html',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://id.oclc.org/worldcat/entity/E39PCYRCtHWqdGhtK9yGDjJKwK',
+  },
   // YesAsia
   {
                      input_url: 'https://www.yesasia.com/global/twice-korea/0-aid3437787-0-bpt.47-zh_TW/list.html',
