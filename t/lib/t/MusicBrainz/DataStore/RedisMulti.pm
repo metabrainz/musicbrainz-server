@@ -23,10 +23,10 @@ stores. Consistency among all the stores is checked after each operation.
 
 # Initialize tests
 my $args1 = DBDefs->DATASTORE_REDIS_ARGS;
-$args1->{database} = $args1->{test_database};
+$args1->{database} = DBDefs->REDIS_TEST_DATABASE;
 
 my $args2 = DBDefs->DATASTORE_REDIS_ARGS;
-$args2->{database} = $args2->{test_database} + 1;
+$args2->{database} = DBDefs->REDIS_TEST_DATABASE + 1;
 
 my $redis1 = MusicBrainz::DataStore::Redis->new($args1);
 my $redis2 = MusicBrainz::DataStore::Redis->new($args2);
