@@ -33,6 +33,7 @@ sub _build_cache_aware_context {
         $test->c,
         cache_manager => MusicBrainz::Server::CacheManager->new(%$opts),
         models => {}, # Need to reload models to use this new $c
+        fresh_connector => 1,
     );
 }
 
