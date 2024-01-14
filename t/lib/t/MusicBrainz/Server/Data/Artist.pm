@@ -295,15 +295,7 @@ $sql->commit;
 test 'Merging with a cache' => sub {
     my $test = shift;
 
-    my $opts = DBDefs->CACHE_MANAGER_OPTIONS;
-    $opts->{profiles}{external}{options}{namespace} = 'mbtest:';
-
-    my $c = $test->c->meta->clone_object(
-        $test->c,
-        cache_manager => MusicBrainz::Server::CacheManager->new(%$opts),
-        models => {}, # Need to reload models to use this new $c
-    );
-
+    my $c = $test->cache_aware_c;
     my $cache = $c->cache_manager->_get_cache('external');
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+data_artist');
