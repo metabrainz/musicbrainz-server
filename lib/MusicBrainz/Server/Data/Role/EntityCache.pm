@@ -49,10 +49,14 @@ around get_by_ids => sub {
     }
     if (%ids) {
         my $data = $self->$orig(keys %ids) || {};
-        foreach my $id (keys %$data) {
+        my @ids_to_cache = keys %$data;
+        foreach my $id (@ids_to_cache) {
             $result{$id} = $data->{$id};
         }
-        $self->_add_to_cache($cache, $data);
+        if (scalar(@ids_to_cache) > $MAX_CACHE_ENTRIES) {
+            @ids_to_cache = @ids_to_cache[0..$MAX_CACHE_ENTRIES];
+        }
+        $self->_add_to_cache($cache, $data, \@ids_to_cache);
     }
     return \%result;
 };
@@ -73,15 +77,13 @@ after merge => sub {
 };
 
 sub _create_cache_entries {
-    my ($self, $data) = @_;
+    my ($self, $data, $ids) = @_;
 
     my $cache_id = $self->_cache_id;
     my $cache_prefix = $self->_cache_prefix;
-    my @ids = keys %{$data};
 
-    if (scalar(@ids) > $MAX_CACHE_ENTRIES) {
-        @ids = @ids[0..$MAX_CACHE_ENTRIES];
-    }
+    my @ids = @$ids;
+    return unless @ids;
 
     my $ttl = DBDefs->ENTITY_CACHE_TTL;
 
@@ -131,9 +133,9 @@ sub _create_cache_entries {
 }
 
 sub _add_to_cache {
-    my ($self, $cache, $data) = @_;
+    my ($self, $cache, $data, $ids) = @_;
 
-    my @entries = $self->_create_cache_entries($data);
+    my @entries = $self->_create_cache_entries($data, $ids);
     $cache->set_multi(@entries) if @entries;
 }
 

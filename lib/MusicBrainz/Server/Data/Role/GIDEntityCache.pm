@@ -20,17 +20,17 @@ around get_by_gid => sub {
     } else {
         $obj = $self->$orig($gid);
         if (defined($obj)) {
-            $self->_add_to_cache($cache, { $obj->id => $obj });
+            $self->_add_to_cache($cache, { $obj->id => $obj }, [$obj->id]);
         }
     }
     return $obj;
 };
 
 around _create_cache_entries => sub {
-    my ($orig, $self, $data) = @_;
+    my ($orig, $self, $data, $ids) = @_;
 
     my $prefix = $self->_cache_prefix;
-    my @orig_entries = $self->$orig($data);
+    my @orig_entries = $self->$orig($data, $ids);
     my @entries = @orig_entries;
     # Only add gid entries for entities returned from $self->$orig, which
     # may be a subset of $data if any are being deleted in a concurrent
