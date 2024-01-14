@@ -4,6 +4,7 @@ use DBDefs;
 use Moose::Role;
 use namespace::autoclean;
 use List::AllUtils qw( uniq );
+use MusicBrainz::Server::Validation qw( is_database_row_id );
 use Readonly;
 
 requires '_type';
@@ -155,7 +156,7 @@ sub _add_to_cache_impl {
     my %possible_recently_invalidated_id_map = map {
         my $key = $invalidated_prefix . $_;
         ($key => $_)
-    } @$ids;
+    } grep { is_database_row_id($_) } @$ids;
     # Check which of these keys actually exist in our Redis store,
     # indicating which entity IDs were recently-invalidated in the cache.
     my @recently_invalidated_ids = map {

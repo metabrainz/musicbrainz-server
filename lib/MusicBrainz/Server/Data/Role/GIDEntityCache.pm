@@ -2,6 +2,7 @@ package MusicBrainz::Server::Data::Role::GIDEntityCache;
 
 use Moose::Role;
 use namespace::autoclean;
+use Scalar::Util qw( blessed );
 
 with 'MusicBrainz::Server::Data::Role::EntityCache';
 
@@ -20,7 +21,12 @@ around get_by_gid => sub {
     } else {
         $obj = $self->$orig($gid);
         if (defined($obj)) {
-            $self->_add_to_cache($cache, { $obj->id => $obj }, [$obj->id]);
+            $id = $obj->id;
+            $self->_add_to_cache(
+                $cache,
+                { $id => $obj, $gid => $id, $obj->gid => $id },
+                [$id, $gid, $obj->gid],
+            );
         }
     }
     return $obj;
@@ -30,9 +36,13 @@ around _create_cache_entries => sub {
     my ($orig, $self, $data, $ids) = @_;
 
     my $prefix = $self->_cache_prefix;
-    my @orig_entries = $self->$orig($data, $ids);
-    my @entries = @orig_entries;
-    for my $entry (@orig_entries) {
+    my @entries = $self->$orig($data, $ids);
+    my @entity_entries = grep {
+        my $value = $_->[1];
+        blessed $value &&
+            $value->does('MusicBrainz::Server::Entity::Role::GID')
+    } @entries;
+    for my $entry (@entity_entries) {
         my $entity = $entry->[1];
         push @entries, [$prefix . $entity->gid, $entity->id];
     }

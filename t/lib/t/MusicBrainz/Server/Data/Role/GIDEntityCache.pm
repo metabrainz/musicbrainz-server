@@ -102,7 +102,7 @@ is ( $entity->id, 1 );
 is ( $entity_data->get_by_gid_called, 1 );
 is ( $entity_data->get_by_id_called, 0 );
 is ( $test->c->cache->_orig->get_called, 1 );
-is ( $test->c->cache->_orig->set_called, 2 );
+is ( $test->c->cache->_orig->set_called, 4 );
 ok ( $test->c->cache->_orig->data->{'my_cached_entity_data:1'} =~ '1' );
 ok ( $test->c->cache->_orig->data->{"my_cached_entity_data:$gid1"} =~ '1' );
 
@@ -294,6 +294,38 @@ test 'Cache is transactional (MBS-7241)' => sub {
     };
 
     die $error if $error;
+};
+
+test 'Redirected gids are cached' => sub {
+    my $test = shift;
+    my $c = $test->cache_aware_c;
+
+    $c->sql->begin;
+    $c->sql->do(<<~'SQL');
+        INSERT INTO artist (id, gid, name, sort_name)
+             VALUES (3, '5809b63b-73d9-406c-b67d-f145a5a9b696', 'A', 'A');
+        INSERT INTO artist_gid_redirect
+             VALUES ('6322dacd-64c9-4ae8-a7ca-eada3f8abf2e', 3);
+        SQL
+    $c->model('Artist')->get_by_gid('6322dacd-64c9-4ae8-a7ca-eada3f8abf2e');
+    $c->sql->commit;
+
+    ok($c->cache->get('artist:3')->isa('MusicBrainz::Server::Entity::Artist'),
+       'id is cached');
+
+    is($c->cache->get('artist:5809b63b-73d9-406c-b67d-f145a5a9b696'),
+       3,
+       'gid is cached');
+
+    is($c->cache->get('artist:6322dacd-64c9-4ae8-a7ca-eada3f8abf2e'),
+       3,
+       'redirected gid is cached');
+
+    $c->sql->auto_commit(1);
+    $c->sql->do(<<~'SQL');
+        DELETE FROM artist_gid_redirect WHERE new_id = 3;
+        DELETE FROM artist WHERE id = 3;
+        SQL
 };
 
 1;
