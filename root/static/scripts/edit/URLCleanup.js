@@ -4004,7 +4004,9 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'metalmusicarchives': {
-    match: [new RegExp('^(https?://)?(www\\.)?metalmusicarchives\\.com', 'i')],
+    match: [
+      new RegExp('^(https?://)?(www\\.)?metalmusicarchives\\.com', 'i'),
+    ],
     restrict: [LINK_TYPES.otherdatabases],
     clean: function (url) {
       url = url.replace(/^(?:https?:\/\/)?(?:www\.)?metalmusicarchives\.com\/([^#?]+).*$/, 'https://www.metalmusicarchives.com/$1');

@@ -324,7 +324,7 @@ export default function compareRelationships(
     targetA.orderingTypeID === SERIES_ORDERING_TYPE_AUTOMATIC &&
     linkTypeId != null &&
     PART_OF_SERIES_LINK_TYPE_IDS.includes(linkTypeId)
-  ){
+  ) {
     const seriesItemCmp = (
       /*
        * If the number attributes are different, the relationships would

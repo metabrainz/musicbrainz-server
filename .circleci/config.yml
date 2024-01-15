@@ -3,13 +3,13 @@ version: 2.1
 executors:
   musicbrainz-tests:
     docker:
-      - image: metabrainz/musicbrainz-tests:v-2024-01.1
+      - image: metabrainz/musicbrainz-tests:v-2024-01.419
         user: root
     working_directory: /home/musicbrainz/musicbrainz-server
 
   musicbrainz-tests-perl-5-dot-30:
     docker:
-      - image: metabrainz/musicbrainz-tests:v-2024-01.1-perl5.30
+      - image: metabrainz/musicbrainz-tests:v-2024-01.419-perl5.30
         user: root
     working_directory: /home/musicbrainz/musicbrainz-server
 
