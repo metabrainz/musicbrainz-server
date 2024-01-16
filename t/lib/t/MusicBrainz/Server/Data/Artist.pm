@@ -295,7 +295,7 @@ $sql->commit;
 test 'Merging with a cache' => sub {
     my $test = shift;
 
-    my $c = $test->cache_aware_c;
+    my $c = $test->c;
     my $cache = $c->cache_manager->_get_cache('external');
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+data_artist');

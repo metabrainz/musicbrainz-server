@@ -9,136 +9,49 @@ use Test::More;
 use Try::Tiny;
 
 use DBDefs;
-use MusicBrainz::Server::CacheManager;
-use MusicBrainz::Server::CacheWrapper::Redis;
-use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Data::Artist;
+use MusicBrainz::Server::Test;
 use Sql;
 
-with 't::Context' => { -excludes => '_build_context' };
-
-our $gid1 = '3f8c4788-d193-4931-b6b7-3aa7bf64ac33';
-
-{
-    package t::GIDEntityCache::MyEntity;
-    use Moose;
-    use namespace::autoclean;
-    extends 'MusicBrainz::Server::Entity';
-    with 'MusicBrainz::Server::Entity::Role::Relatable';
-
-    package t::GIDEntityCache::MyEntityData;
-    use Moose;
-    use namespace::autoclean;
-    extends 'MusicBrainz::Server::Data::Entity';
-    with 'MusicBrainz::Server::Data::Role::GetByGID';
-    has 'get_by_id_called' => ( is => 'rw', isa => 'Bool', default => 0 );
-    has 'get_by_gid_called' => ( is => 'rw', isa => 'Bool', default => 0 );
-    sub get_by_ids
-    {
-        my $self = shift;
-        $self->get_by_id_called(1);
-        return { 1 => t::GIDEntityCache::MyEntity->new(id => 1, gid => $gid1) };
-    }
-    sub get_by_gid
-    {
-        my $self = shift;
-        $self->get_by_gid_called(1);
-        return t::GIDEntityCache::MyEntity->new(id => 1, gid => $gid1);
-    }
-
-    package t::GIDEntityCache::MyCachedEntityData;
-    use Moose;
-    use namespace::autoclean;
-    extends 't::GIDEntityCache::MyEntityData';
-    with 'MusicBrainz::Server::Data::Role::GIDEntityCache';
-    sub _type { 'my_cached_entity_data' }
-
-    package t::GIDEntityCache::MockCache;
-    use Moose;
-    use namespace::autoclean;
-    has 'data' => ( is => 'rw', isa => 'HashRef', default => sub { +{} } );
-    has 'get_called' => ( is => 'rw', isa => 'Int', default => 0 );
-    has 'set_called' => ( is => 'rw', isa => 'Int', default => 0 );
-    sub get
-    {
-        my ($self, $key) = @_;
-        $self->get_called($self->get_called + 1);
-        return $self->data->{$key};
-    }
-    sub set
-    {
-        my ($self, $key, $data) = @_;
-        $self->set_called($self->set_called + 1);
-        $self->data->{$key} = $data;
-    }
-}
-
-sub _build_context {
-    my $cache_manager = MusicBrainz::Server::CacheManager->new(
-        profiles => {
-            test => {
-                class => 't::GIDEntityCache::MockCache',
-                wrapped => 1,
-                keys => ['my_cached_entity_data'],
-            },
-        },
-        default_profile => 'test',
-    );
-
-    return MusicBrainz::Server::Context->new(cache_manager => $cache_manager);
-}
+with 't::Context';
 
 test all => sub {
+    my $test = shift;
 
-my $test = shift;
-my $c = $test->c;
-my $sql = $c->sql;
-my $entity_data = t::GIDEntityCache::MyCachedEntityData->new(c => $c);
+    my $c = $test->c;
+    my $sql = $c->sql;
+    my $cache = $c->cache('artist');
+    my $artist_data = $c->model('Artist');
+    my $gid = '9d0987a9-47fb-44c1-af17-f267cff912fd';
 
-$sql->begin;
-my $entity = $entity_data->get_by_gid($gid1);
-$sql->commit;
-is ( $entity->id, 1 );
-is ( $entity_data->get_by_gid_called, 1 );
-is ( $entity_data->get_by_id_called, 0 );
-is ( $test->c->cache->_orig->get_called, 1 );
-is ( $test->c->cache->_orig->set_called, 4 );
-ok ( $test->c->cache->_orig->data->{'my_cached_entity_data:1'} =~ '1' );
-ok ( $test->c->cache->_orig->data->{"my_cached_entity_data:$gid1"} =~ '1' );
+    $sql->auto_commit(1);
+    $sql->do(<<~'SQL', $gid);
+        INSERT INTO artist (id, gid, name, sort_name)
+            VALUES (3, ?, 'Test', 'Test');
+        SQL
 
+    ok(!$cache->exists('artist:3'),
+       'artist is not in the cache');
+    ok(!$cache->exists("artist:$gid"),
+       'artist gid is not in the cache');
 
-$entity_data->get_by_gid_called(0);
-$entity_data->get_by_id_called(0);
-$test->c->cache->_orig->get_called(0);
-$test->c->cache->_orig->set_called(0);
+    $sql->begin;
+    my $artist = $artist_data->get_by_gid($gid);
+    $sql->commit;
 
-$sql->begin;
-$entity = $entity_data->get_by_gid($gid1);
-$sql->commit;
-is ( $entity->id, 1 );
-is ( $entity_data->get_by_gid_called, 0 );
-is ( $entity_data->get_by_id_called, 0 );
-is ( $test->c->cache->_orig->get_called, 2 );
-is ( $test->c->cache->_orig->set_called, 0 );
+    is($artist->id, 3,
+       'get_by_gid returns artist with id=3 before caching');
+    ok($cache->get('artist:3')->isa('MusicBrainz::Server::Entity::Artist'),
+       'cache contains artist for id');
+    is($cache->get("artist:$gid"), '3',
+       'cache contains id for gid');
 
+    $sql->begin;
+    $artist = $artist_data->get_by_gid($gid);
+    $sql->commit;
 
-$entity_data->get_by_gid_called(0);
-$entity_data->get_by_id_called(0);
-$test->c->cache->_orig->get_called(0);
-$test->c->cache->_orig->set_called(0);
-
-delete $test->c->cache->_orig->data->{'my_cached_entity_data:1'};
-
-$sql->begin;
-$entity = $entity_data->get_by_gid($gid1);
-$sql->commit;
-is ( $entity->id, 1 );
-is ( $entity_data->get_by_gid_called, 0 );
-is ( $entity_data->get_by_id_called, 1 );
-is ( $test->c->cache->_orig->get_called, 2 );
-is ( $test->c->cache->_orig->set_called, 2 );
-
-
+    is($artist->id, 3,
+       'get_by_gid returns artist with id=3 after caching');
 };
 
 test 'Cache is transactional (MBS-7241)' => sub {
@@ -147,15 +60,8 @@ test 'Cache is transactional (MBS-7241)' => sub {
     no warnings 'redefine';
 
     # Important: each context needs a separate database connection (fresh_connector).
-    my $c1 = $test->_build_cache_aware_context;
-    my $c2 = $test->_build_cache_aware_context;
-
-    $c1->connector->disconnect;
-    $c1->clear_connector;
-
-    $c2->connector->disconnect;
-    $c2->clear_connector;
-
+    my $c1 = MusicBrainz::Server::Test->create_test_context(fresh_connector => 1);
+    my $c2 = MusicBrainz::Server::Test->create_test_context(fresh_connector => 1);
     my $_delete_from_cache = MusicBrainz::Server::Data::Artist->can('_delete_from_cache');
 
     $c1->sql->auto_commit(1);
@@ -298,7 +204,7 @@ test 'Cache is transactional (MBS-7241)' => sub {
 
 test 'Redirected gids are cached' => sub {
     my $test = shift;
-    my $c = $test->cache_aware_c;
+    my $c = $test->c;
 
     $c->sql->begin;
     $c->sql->do(<<~'SQL');

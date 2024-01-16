@@ -181,7 +181,7 @@ test 'Merging updates matching names' => sub {
 
 test 'Merging clears the cache' => sub {
     my $test = shift;
-    my $c = $test->cache_aware_c;
+    my $c = $test->c;
     my $cache = $c->cache_manager->_get_cache('external');
     my $artist_credit_data = $c->model('ArtistCredit');
 
