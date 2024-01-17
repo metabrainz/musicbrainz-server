@@ -4,6 +4,8 @@ use warnings;
 
 use HTML::FormHandler::Moose;
 
+use MusicBrainz::Server::Validation qw( is_valid_edit_note );
+
 extends 'MusicBrainz::Server::Form';
 
 has '+name' => ( default => 'enter-vote' );
@@ -24,6 +26,15 @@ has_field 'vote.vote' => (
 
 has_field 'vote.edit_note' => (
     type => 'Text',
+    validate_method => \&validate_note,
 );
+
+sub validate_note {
+    my ($self, $field) = @_;
+
+    if (!is_valid_edit_note($field->value)) {
+        $field->value(undef);
+    }
+}
 
 1;
