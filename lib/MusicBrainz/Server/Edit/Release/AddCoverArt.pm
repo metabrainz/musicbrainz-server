@@ -16,7 +16,7 @@ use aliased 'MusicBrainz::Server::Entity::ReleaseArt';
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Release',
      'MusicBrainz::Server::Edit::Release::RelatedEntities',
-     'MusicBrainz::Server::Edit::Role::CoverArt';
+     'MusicBrainz::Server::Edit::Role::Art';
 
 sub edit_name { N_lp('Add cover art', 'singular, edit type') }
 sub edit_kind { 'add' }
@@ -24,6 +24,10 @@ sub edit_type { $EDIT_RELEASE_ADD_COVER_ART }
 sub release_ids { shift->data->{entity}{id} }
 sub cover_art_id { shift->data->{cover_art_id} }
 sub edit_template { 'AddCoverArt' }
+
+sub art_id { shift->cover_art_id }
+sub entity_ids { shift->release_ids }
+sub art_archive_model { shift->c->model('CoverArtArchive') }
 
 has '+data' => (
     isa => Dict[

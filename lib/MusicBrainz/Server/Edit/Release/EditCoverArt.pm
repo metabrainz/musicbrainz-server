@@ -17,7 +17,7 @@ use aliased 'MusicBrainz::Server::Entity::ReleaseArt';
 extends 'MusicBrainz::Server::Edit::WithDifferences';
 with 'MusicBrainz::Server::Edit::Release',
      'MusicBrainz::Server::Edit::Release::RelatedEntities',
-     'MusicBrainz::Server::Edit::Role::CoverArt',
+     'MusicBrainz::Server::Edit::Role::Art',
      'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
 sub edit_name { N_lp('Edit cover art', 'singular, edit type') }
@@ -26,6 +26,10 @@ sub edit_type { $EDIT_RELEASE_EDIT_COVER_ART }
 sub release_ids { shift->data->{entity}{id} }
 sub cover_art_id { shift->data->{id} }
 sub edit_template { 'EditCoverArt' }
+
+sub art_id { shift->cover_art_id }
+sub entity_ids { shift->release_ids }
+sub art_archive_model { shift->c->model('CoverArtArchive') }
 
 sub change_fields
 {
