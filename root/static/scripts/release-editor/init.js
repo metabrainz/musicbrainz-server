@@ -350,10 +350,17 @@ releaseEditor.init = function (options) {
 
   // Keep in sync with is_valid_edit_note in Server::Validation
   this.rootField.invalidEditNote = function () {
+    const editNote = self.rootField.editNote();
+
+    // We don't want line format chars to stop an edit note from being "empty"
+    const editNoteNoLineFormat = editNote.replace(
+      /[\u200b\u00AD\p{Cc}\p{Cf}\p{Mn}]/ug,
+      '',
+    );
     return self.action === 'add' && (
-      empty(self.rootField.editNote()) ||
-      /^[\p{White_Space}\p{Punctuation}]+$/u.test(self.rootField.editNote()) ||
-      /^\p{ASCII}$/u.test(self.rootField.editNote())
+      empty(editNote) ||
+      /^[\p{White_Space}\p{Punctuation}]+$/u.test(editNoteNoLineFormat) ||
+      /^\p{ASCII}$/u.test(editNoteNoLineFormat)
     );
   };
 

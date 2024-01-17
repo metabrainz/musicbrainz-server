@@ -52,7 +52,10 @@ use Encode qw( decode encode );
 use Scalar::Util qw( looks_like_number );
 use Text::Unaccent::PurePerl qw( unac_string_utf16 );
 use MusicBrainz::Server::Constants qw( $MAX_POSTGRES_INT $MAX_POSTGRES_BIGINT );
-use MusicBrainz::Server::Data::Utils qw( contains_number );
+use MusicBrainz::Server::Data::Utils qw(
+    contains_number
+    remove_lineformatting_characters
+);
 use utf8;
 
 sub unaccent_utf16 ($)
@@ -315,6 +318,14 @@ sub is_valid_edit_note
 {
     my $edit_note = shift;
 
+    return 0 unless $edit_note;
+
+    # We don't want line format chars to stop an edit note from being "empty"
+    $edit_note = remove_lineformatting_characters($edit_note);
+    # Additional format chars that can cause unwanted negatives
+    $edit_note =~ s/[\p{Cf}\p{Mn}]//g;
+
+    # The note might now be entirely empty - if so, it is useless
     return 0 unless $edit_note;
 
     # An edit note with only spaces and / or punctuation is useless
