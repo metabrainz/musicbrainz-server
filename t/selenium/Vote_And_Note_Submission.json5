@@ -1,0 +1,73 @@
+{
+  title: 'Vote and note submission',
+  commands: [
+    {
+      command: 'open',
+      target: '/user/editor1/edits',
+      value: '',
+    },
+    // We want to vote No on the first edit
+    {
+      command: 'click',
+      target: 'xpath=//*[@id="id-enter-vote.vote.0.vote-No"]',
+      value: '',
+    },
+    // We want to vote Yes on the second edit
+    {
+      command: 'click',
+      target: 'xpath=//*[@id="id-enter-vote.vote.1.vote-Yes"]',
+      value: '',
+    },
+    // We want to leave a valid note on the first edit
+    {
+      command: 'click',
+      target: 'xpath=//*[@id="edits"]/form/div[2]/div[2]/div[2]/a[1]',
+      value: '',
+    },
+    {
+      command: 'type',
+      target: 'xpath=//*[@id="edits"]/form/div[2]/div[4]/div/div[2]/textarea',
+      value: 'This is an edit note!',
+    },
+    // We want to leave an invalid note on the second edit
+    {
+      command: 'click',
+      target: 'xpath=//*[@id="edits"]/form/div[3]/div[2]/div[2]/a[1]',
+      value: '',
+    },
+    {
+      command: 'type',
+      target: 'xpath=//*[@id="edits"]/form/div[3]/div[4]/div/div[2]/textarea',
+      value: 'a',
+    },
+    // We submit the test
+    {
+      command: 'clickAndWait',
+      target: 'xpath=//button[contains(text(), "Submit votes & edit notes")]',
+      value: '',
+    },
+    // We check both votes were submitted correctly
+    {
+      command: 'assertText',
+      target: 'xpath=(//div[contains(@class, "my-vote")])[1]',
+      value: 'My vote: No',
+    },
+    {
+      command: 'assertText',
+      target: 'xpath=(//div[contains(@class, "my-vote")])[2]',
+      value: 'My vote: Yes',
+    },
+    // We check the valid note was submitted correctly
+    {
+      command: 'assertText',
+      target: 'xpath=//*[@id="note-3-1"]/div',
+      value: 'This is an edit note!',
+    },
+    // We check the invalid note was dropped and is not present
+    {
+      command: 'assertEval',
+      target: 'document.querySelector("#note-2-1 div")',
+      value: 'null',
+    },
+  ],
+}
