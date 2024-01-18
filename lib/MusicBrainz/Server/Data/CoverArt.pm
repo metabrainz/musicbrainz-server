@@ -6,57 +6,14 @@ use MusicBrainz::Server::Data::Utils qw(
     object_to_ids
     placeholders
 );
-use MusicBrainz::Server::Validation qw( is_database_bigint_id );
 
 extends 'MusicBrainz::Server::Data::Entity';
-with 'MusicBrainz::Server::Data::Role::PendingEdits' => {
-    table => 'cover_art_archive.cover_art',
-};
+with 'MusicBrainz::Server::Data::Role::Art',
+     'MusicBrainz::Server::Data::Role::PendingEdits' => {
+         table => 'cover_art_archive.cover_art',
+     };
 
-sub _table
-{
-    return 'cover_art_archive.cover_art ' .
-        'JOIN cover_art_archive.image_type USING (mime_type)';
-}
-
-sub _columns
-{
-    return 'cover_art_archive.cover_art.id,
-            cover_art_archive.cover_art.release,
-            cover_art_archive.cover_art.comment,
-            cover_art_archive.cover_art.edit,
-            cover_art_archive.cover_art.ordering,
-            cover_art_archive.cover_art.edits_pending,
-            cover_art_archive.cover_art.mime_type,
-            cover_art_archive.image_type.suffix';
-}
-
-sub _id_column
-{
-    return 'cover_art_archive.cover_art.id';
-}
-
-sub is_valid_id {
-    (undef, my $id) = @_;
-    is_database_bigint_id($id);
-}
-
-sub _column_mapping
-{
-    return {
-        id => 'id',
-        release_id => 'release',
-        comment => 'comment',
-        edit_id => 'edit',
-        ordering => 'ordering',
-        edits_pending => 'edits_pending',
-        is_front => 'is_front',
-        is_back => 'is_back',
-        approved => 'approved',
-        suffix => 'suffix',
-        mime_type => 'mime_type',
-    };
-}
+sub art_archive_model { shift->c->model('CoverArtArchive') }
 
 sub _entity_class
 {
@@ -71,90 +28,22 @@ sub _entity_class
 sub find_by_release
 {
     my ($self, @releases) = @_;
-    my %id_to_release = object_to_ids(@releases);
-    my @ids = keys %id_to_release;
 
-    return unless @ids; # nothing to do
-    my $query = 'SELECT
-            cover_art_archive.index_listing.id,
-            cover_art_archive.index_listing.release,
-            cover_art_archive.index_listing.comment,
-            cover_art_archive.index_listing.edit,
-            cover_art_archive.index_listing.ordering,
-            cover_art_archive.cover_art.edits_pending,
-            cover_art_archive.index_listing.approved,
-            cover_art_archive.index_listing.is_front,
-            cover_art_archive.index_listing.is_back,
-            cover_art_archive.image_type.mime_type,
-            cover_art_archive.image_type.suffix
-        FROM cover_art_archive.index_listing
-        JOIN cover_art_archive.cover_art
-        ON cover_art_archive.cover_art.id = cover_art_archive.index_listing.id
-        JOIN cover_art_archive.image_type
-        ON cover_art_archive.index_listing.mime_type = cover_art_archive.image_type.mime_type
-        WHERE cover_art_archive.index_listing.release
-        IN (' . placeholders(@ids) . ')
-        ORDER BY cover_art_archive.index_listing.ordering';
-
-    my @artwork = $self->query_to_list($query, \@ids);
-    for my $image (@artwork) {
-        $image->release($id_to_release{$image->release_id}->[0]);
-    }
-
-    return \@artwork;
+    return $self->find_by_entity(\@releases);
 }
 
 sub find_front_cover_by_release
 {
     my ($self, @releases) = @_;
-    my %id_to_release = object_to_ids(@releases);
-    my @ids = keys %id_to_release;
 
-    return unless @ids; # nothing to do
-    my $query = 'SELECT
-            cover_art_archive.index_listing.id,
-            cover_art_archive.index_listing.release,
-            cover_art_archive.index_listing.comment,
-            cover_art_archive.index_listing.edit,
-            cover_art_archive.index_listing.ordering,
-            cover_art_archive.cover_art.edits_pending,
-            cover_art_archive.index_listing.approved,
-            cover_art_archive.index_listing.is_front,
-            cover_art_archive.index_listing.is_back,
-            cover_art_archive.image_type.mime_type,
-            cover_art_archive.image_type.suffix
-        FROM cover_art_archive.index_listing
-        JOIN cover_art_archive.cover_art
-        ON cover_art_archive.cover_art.id = cover_art_archive.index_listing.id
-        JOIN musicbrainz.release
-        ON cover_art_archive.index_listing.release = musicbrainz.release.id
-        JOIN cover_art_archive.image_type
-        ON cover_art_archive.index_listing.mime_type = cover_art_archive.image_type.mime_type
-        WHERE cover_art_archive.index_listing.release
-        IN (' . placeholders(@ids) . ')
-        AND is_front = true';
-
-    my @artwork = $self->query_to_list($query, \@ids);
-    foreach my $image (@artwork) {
-        foreach my $release (@{ $id_to_release{$image->release_id} })
-        {
-            $image->release($release);
-        }
-    }
-
-    return \@artwork;
+    return $self->find_front_artwork_by_entity(\@releases);
 }
 
 sub find_count_by_release
 {
     my ($self, $release_id) = @_;
 
-    return unless $release_id; # nothing to do
-    my $query = 'SELECT count(*)
-        FROM cover_art_archive.index_listing
-        WHERE cover_art_archive.index_listing.release = ?';
-
-    return $self->sql->select_single_value($query, $release_id);
+    return $self->find_count_by_entity($release_id);
 }
 
 sub load_for_release_groups
