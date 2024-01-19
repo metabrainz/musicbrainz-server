@@ -20,10 +20,19 @@ test 'Accepting removes the linked cover art' => sub {
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+release');
 
+    my $release = $c->model('Release')->get_by_id(1);
+    create_add_edit($c, $release);
+
+    my @artwork = get_artwork($c, $release);
+    is(scalar @artwork, 1, 'artwork exists');
+
     ok !exception {
-        my $edit = create_edit($c);
+        my $edit = create_remove_edit($c, $release);
         accept_edit($c, $edit);
     };
+
+    @artwork = get_artwork($c, $release);
+    is(scalar @artwork, 0, 'artwork was removed');
 };
 
 test 'Rejecting does not make any changes' => sub {
@@ -32,37 +41,45 @@ test 'Rejecting does not make any changes' => sub {
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+release');
 
+    my $release = $c->model('Release')->get_by_id(1);
+
     ok !exception {
-        my $edit = create_edit($c);
+        create_add_edit($c, $release);
+        my $edit = create_remove_edit($c, $release);
         reject_edit($c, $edit);
     };
 };
 
-sub create_edit {
-    my $c = shift;
-    my $release = $c->model('Release')->get_by_id(1) or die 'Could not load release, is the test data correct?';
+sub get_artwork {
+    my ($c, $release) = @_;
+    return @{ $c->model('CoverArt')->find_by_release($release) };
+}
+
+sub create_add_edit {
+    my ($c, $release) = @_;
 
     $c->model('Edit')->create(
         edit_type => $EDIT_RELEASE_ADD_COVER_ART,
         editor_id => 1,
-
-        release => $c->model('Release')->get_by_id(1),
+        release => $release,
         cover_art_id => '1234',
         cover_art_types => [ ],
         cover_art_position => 1,
         cover_art_comment => '',
         cover_art_mime_type => 'image/jpeg',
     )->accept;
+}
 
-    my ($artwork) = @{ $c->model('CoverArt')->find_by_release($release) };
+sub create_remove_edit {
+    my ($c, $release) = @_;
+
+    my @artwork = get_artwork($c, $release);
 
     $c->model('Edit')->create(
         edit_type => $EDIT_RELEASE_REMOVE_COVER_ART,
         editor_id => 1,
-
         release => $release,
-        to_delete => $artwork,
-
+        to_delete => $artwork[0],
         cover_art_type => 'cover',
         cover_art_page => 2,
     );
