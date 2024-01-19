@@ -11,10 +11,11 @@ role {
         my $art_archive_model = $self->art_archive_model;
         my $entity_model_name = $art_archive_model->entity_model_name;
         my $art_model_name = $art_archive_model->art_model_name;
+        my @art_ids = $self->art_ids;
 
         return {
             $entity_model_name => [ $self->entity_ids ],
-            $art_model_name => [ $self->art_ids ],
+            @art_ids ? ($art_model_name => \@art_ids) : (),
         };
     };
 };
