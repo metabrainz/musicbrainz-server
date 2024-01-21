@@ -498,74 +498,22 @@ const UserEditsProperty = ({
   );
 };
 
-type EditStatsT = {
-  +accepted_auto_count: number,
-  +accepted_count: number,
-  +cancelled_count: number,
-  +failed_count: number,
-  +last_day_count: number,
-  +open_count: number,
-  +rejected_count: number,
-};
-
-type SecondaryStatsT = {
-  +downvoted_tag_count?: number,
-  +rating_count?: number,
-  +upvoted_tag_count?: number,
-};
-
-type VoteStatsT = Array<{
-  +all: {
-    +count: number,
-    +percentage: number,
-  },
-  +name: string,
-  +recent: {
-    +count: number,
-    +percentage: number,
-  },
-}>;
-
-type EntitiesStatsT = {
-  +area: number,
-  +artist: number,
-  +cover_art: number,
-  +event: number,
-  +instrument: number,
-  +label: number,
-  +place: number,
-  +recording: number,
-  +release: number,
-  +releasegroup: number,
-  +series: number,
-  +work: number,
-};
-
 type UserProfileStatisticsProps = {
-  +addedEntities: EntitiesStatsT,
-  +editStats: EditStatsT,
-  +secondaryStats: SecondaryStatsT,
+  +stats: EditorStatsT,
   +user: UnsanitizedEditorT,
-  +votes: VoteStatsT,
 };
 
 const UserProfileStatistics = ({
-  editStats,
+  stats,
   user,
-  votes,
-  secondaryStats,
-  addedEntities,
 }: UserProfileStatisticsProps) => {
   const $c = React.useContext(CatalystContext);
-  const voteTotals = votes.pop();
+  const addedEntities = stats.added_entities;
+  const editStats = stats.edit_stats;
+  const secondaryStats = stats.secondary_stats;
+  const voteStats = stats.vote_stats;
+  const voteTotals = voteStats.pop();
   const encodedName = encodeURIComponent(user.name);
-  const allAppliedCount = editStats.accepted_count +
-                          editStats.accepted_auto_count;
-  const allEditsCount = allAppliedCount +
-                        editStats.rejected_count +
-                        editStats.failed_count +
-                        editStats.cancelled_count +
-                        editStats.open_count;
   const hasAddedEntities =
     Object.values(addedEntities).some((number) => number !== 0);
   const hasPublicRatings = secondaryStats.rating_count != null;
@@ -592,10 +540,10 @@ const UserProfileStatistics = ({
             {$c.user ? exp.l(
               '{count} ({view_url|view})',
               {
-                count: formatCount($c, allEditsCount),
+                count: formatCount($c, editStats.total_count),
                 view_url: `/user/${encodedName}/edits`,
               },
-            ) : formatCount($c, allEditsCount)}
+            ) : formatCount($c, editStats.total_count)}
           </UserProfileProperty>
 
           <UserProfileProperty name={lp('Accepted', 'edit descriptor')}>
@@ -622,10 +570,10 @@ const UserProfileStatistics = ({
             {$c.user ? exp.l(
               '{count} ({view_url|view})',
               {
-                count: formatCount($c, allAppliedCount),
+                count: formatCount($c, editStats.applied_count),
                 view_url: `/user/${encodedName}/edits/applied`,
               },
-            ) : formatCount($c, allAppliedCount)}
+            ) : formatCount($c, editStats.applied_count)}
           </UserProfileProperty>
 
           <UserProfileProperty className="negative" name={l('Voted down')}>
@@ -713,7 +661,7 @@ const UserProfileStatistics = ({
           </tr>
         </thead>
         <tbody>
-          {votes.map(voteStat => (
+          {voteStats.map(voteStat => (
             <tr key={voteStat.name}>
               <th headers="table_vote_summary_vote">
                 {voteStat.name}
@@ -880,29 +828,23 @@ const UserProfileStatistics = ({
 };
 
 type UserProfileProps = {
-  +addedEntities: EntitiesStatsT,
   +applicationCount: number,
-  +editStats: EditStatsT,
   +ipHashes: $ReadOnlyArray<string>,
-  +secondaryStats: SecondaryStatsT,
+  +stats: EditorStatsT,
   +subscribed: boolean,
   +subscriberCount: number,
   +tokenCount: number,
   +user: UnsanitizedEditorT,
-  +votes: VoteStatsT,
 };
 
 const UserProfile = ({
   applicationCount,
-  editStats,
   ipHashes,
-  secondaryStats,
   subscribed,
   subscriberCount,
+  stats,
   tokenCount,
   user,
-  votes,
-  addedEntities,
 }: UserProfileProps): React$Element<typeof UserAccountLayout> => {
   const $c = React.useContext(SanitizedCatalystContext);
   const viewingOwnProfile = $c.user != null && $c.user.id === user.id;
@@ -973,11 +915,8 @@ const UserProfile = ({
           />
 
           <UserProfileStatistics
-            addedEntities={addedEntities}
-            editStats={editStats}
-            secondaryStats={secondaryStats}
+            stats={stats}
             user={user}
-            votes={votes}
           />
 
           {$c.user && !viewingOwnProfile && !user.deleted ? (

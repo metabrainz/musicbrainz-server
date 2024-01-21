@@ -41,6 +41,8 @@ export default {
   'account/ResetPasswordStatus': (): Promise<mixed> => import('../account/ResetPasswordStatus.js'),
   'account/sso/DiscourseRegistered': (): Promise<mixed> => import('../account/sso/DiscourseRegistered.js'),
   'account/sso/DiscourseUnconfirmedEmailAddress': (): Promise<mixed> => import('../account/sso/DiscourseUnconfirmedEmailAddress.js'),
+  'admin/DeleteUsers': (): Promise<mixed> => import('../admin/DeleteUsers.js'),
+  'admin/DeleteUsersConfirm': (): Promise<mixed> => import('../admin/DeleteUsersConfirm.js'),
   'admin/attributes/Attribute': (): Promise<mixed> => import('../admin/attributes/Attribute.js'),
   'admin/attributes/CannotRemoveAttribute': (): Promise<mixed> => import('../admin/attributes/CannotRemoveAttribute.js'),
   'admin/attributes/DeleteAttribute': (): Promise<mixed> => import('../admin/attributes/DeleteAttribute.js'),

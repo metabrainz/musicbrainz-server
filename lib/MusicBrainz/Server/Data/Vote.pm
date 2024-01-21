@@ -2,11 +2,10 @@ package MusicBrainz::Server::Data::Vote;
 use Moose;
 use namespace::autoclean;
 
-use List::AllUtils qw( any sum );
+use List::AllUtils qw( any );
 use Carp qw( confess );
-use MusicBrainz::Server::Data::Utils qw( map_query placeholders );
+use MusicBrainz::Server::Data::Utils qw( placeholders );
 use MusicBrainz::Server::Email;
-use MusicBrainz::Server::Translation qw( l lp );
 use MusicBrainz::Server::Constants qw( :vote );
 use MusicBrainz::Server::Types qw( VoteOption );
 
@@ -126,71 +125,6 @@ sub enter_votes
         }
 
     }, $self->c->sql);
-}
-
-sub editor_statistics
-{
-    my ($self, $editor) = @_;
-
-    my $base_query = 'SELECT vote, count(vote) AS count ' .
-        'FROM vote ' .
-        'WHERE NOT superseded AND editor = ? ';
-
-    my $q_all_votes    = $base_query . 'GROUP BY vote';
-    my $q_recent_votes = $base_query .
-        q{ AND vote_time > NOW() - INTERVAL '28 day' } .
-        ' GROUP BY vote';
-
-    my $all_votes = map_query($self->c->sql, 'vote' => 'count', $q_all_votes, $editor->id);
-    my $recent_votes = map_query($self->c->sql, 'vote' => 'count', $q_recent_votes, $editor->id);
-
-    return [
-        # Summarise for each vote type
-        $self->summarize_votes($VOTE_YES, $all_votes, $recent_votes),
-        $self->summarize_votes($VOTE_NO, $all_votes, $recent_votes),
-        $self->summarize_votes($VOTE_ABSTAIN, $all_votes, $recent_votes),
-
-        # Show Approve only if there are approves to be shown or if editor is an autoeditor
-        $all_votes->{$VOTE_APPROVE} || $editor->is_auto_editor
-            ? $self->summarize_votes($VOTE_APPROVE, $all_votes, $recent_votes)
-            : (),
-
-        # Add totals
-        {
-            name => l('Total'),
-            recent => {
-                count      => sum(values %$recent_votes) || 0,
-            },
-            all => {
-                count      => sum(values %$all_votes) || 0,
-            },
-        },
-    ];
-}
-
-sub summarize_votes
-{
-    my ($self, $vote_kind, $all_votes, $recent_votes) = @_;
-    my %names = (
-        $VOTE_ABSTAIN => lp('Abstain', 'vote'),
-        $VOTE_NO => lp('No', 'vote'),
-        $VOTE_YES => lp('Yes', 'vote'),
-        $VOTE_APPROVE => lp('Approve', 'vote'),
-    );
-
-    return (
-        {
-            name    => $names{$vote_kind},
-            recent  => {
-                count      => $recent_votes->{$vote_kind} || 0,
-                percentage => int(($recent_votes->{$vote_kind} || 0) / (sum(values %$recent_votes) || 1) * 100 + 0.5),
-            },
-            all     => {
-                count      => ($all_votes->{$vote_kind} || 0),
-                percentage => int(($all_votes->{$vote_kind} || 0) / (sum(values %$all_votes) || 1) * 100 + 0.5),
-            },
-        }
-    );
 }
 
 sub load_for_edits

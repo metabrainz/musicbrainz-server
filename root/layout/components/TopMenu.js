@@ -182,6 +182,11 @@ const AdminMenu = ({user}: UserProp) => (
               {l_admin('Locked username search')}
             </a>
           </li>
+          <li>
+            <a href="/admin/delete-users">
+              {l('Delete users')}
+            </a>
+          </li>
         </>
       ) : null}
     </ul>

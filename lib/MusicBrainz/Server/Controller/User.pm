@@ -470,7 +470,6 @@ sub profile : Chained('load') PathPart('') HiddenOnMirrors
     my $subscr_model = $c->model('Editor')->subscription;
     $c->stash->{subscribed}       = $c->user_exists && $subscr_model->check_subscription($c->user->id, $user->id);
     $c->stash->{subscriber_count} = $subscr_model->get_subscribed_editor_count($user->id);
-    $c->stash->{votes}            = $c->model('Vote')->editor_statistics($user);
 
     my (undef, $token_count) = $c->model('EditorOAuthToken')->find_granted_by_editor($user->id);
 
@@ -479,10 +478,10 @@ sub profile : Chained('load') PathPart('') HiddenOnMirrors
     $c->model('Gender')->load($user);
     $c->model('EditorLanguage')->load_for_editor($user);
 
-    my $edit_stats = $c->model('Editor')->various_edit_counts($user->id);
-    $edit_stats->{last_day_count} = $c->model('Editor')->last_24h_edit_count($user->id);
-    my $added_entities = $c->model('Editor')->added_entities_counts($user->id);
-    my $secondary_stats = $c->model('Editor')->secondary_counts($user->id, $c->stash->{viewing_own_profile});
+    my $stats = $c->model('Editor')->get_editor_stats(
+        $user,
+        $c->stash->{viewing_own_profile},
+    );
 
     my @ip_hashes;
     if ($c->user_exists && $c->user->is_account_admin && !(
@@ -495,15 +494,12 @@ sub profile : Chained('load') PathPart('') HiddenOnMirrors
 
     my %props = (
         applicationCount    => $application_count,
-        editStats           => $edit_stats,
         ipHashes            => \@ip_hashes,
         subscribed          => $c->stash->{subscribed},
         subscriberCount     => $c->stash->{subscriber_count},
+        stats               => $stats,
         tokenCount          => $token_count,
         user                => $c->unsanitized_editor_json($user),
-        votes               => $c->stash->{votes},
-        addedEntities       => $added_entities,
-        secondaryStats      => $secondary_stats,
     );
 
     $c->stash(
