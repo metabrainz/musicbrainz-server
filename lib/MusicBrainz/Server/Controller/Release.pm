@@ -2,6 +2,11 @@ package MusicBrainz::Server::Controller::Release;
 use Moose;
 use MooseX::MethodAttributes;
 
+use MusicBrainz::Server::Constants qw(
+    :edit_type
+    $MAX_INITIAL_MEDIUMS
+    $MAX_INITIAL_TRACKS
+);
 use MusicBrainz::Server::Track;
 use aliased 'MusicBrainz::Server::Entity::Recording';
 
@@ -15,6 +20,14 @@ with 'MusicBrainz::Server::Controller::Role::Load' => {
 with 'MusicBrainz::Server::Controller::Role::LoadWithRowID';
 with 'MusicBrainz::Server::Controller::Role::Alias';
 with 'MusicBrainz::Server::Controller::Role::Annotation';
+with 'MusicBrainz::Server::Controller::Role::Art' => {
+    art_archive_name => 'cover',
+    art_archive_model_name => 'CoverArtArchive',
+    add_art_edit_type => $EDIT_RELEASE_ADD_COVER_ART,
+    edit_art_edit_type => $EDIT_RELEASE_EDIT_COVER_ART,
+    remove_art_edit_type => $EDIT_RELEASE_REMOVE_COVER_ART,
+    reorder_art_edit_type => $EDIT_RELEASE_REORDER_COVER_ART,
+};
 with 'MusicBrainz::Server::Controller::Role::Details';
 with 'MusicBrainz::Server::Controller::Role::EditListing';
 with 'MusicBrainz::Server::Controller::Role::Tag';
@@ -29,22 +42,14 @@ with 'MusicBrainz::Server::Controller::Role::Collection' => {
     entity_type => 'release',
 };
 
-use HTTP::Status qw( :constants );
 use List::AllUtils qw( first nsort_by uniq );
 use MusicBrainz::Server::Translation qw( l );
-use MusicBrainz::Server::Constants qw(
-    :edit_type
-    $MAX_INITIAL_MEDIUMS
-    $MAX_INITIAL_TRACKS
-);
 use MusicBrainz::Server::Validation qw(
     is_integer
     is_positive_integer
 );
-use MusicBrainz::Server::ControllerUtils::Delete qw( cancel_or_action );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array to_json_object );
 use POSIX qw( ceil );
-use Scalar::Util qw( looks_like_number );
 use MusicBrainz::Server::Data::Utils qw(
     artist_credit_to_ref
     boolean_to_json
@@ -298,144 +303,6 @@ sub change_quality : Chained('load') PathPart('change-quality') Edit {
     );
 }
 
-sub cover_art_uploaded : Chained('load') PathPart('cover-art-uploaded') {
-    my ($self, $c) = @_;
-
-    $c->stash->{filename} = $c->req->params->{key};
-}
-
-sub add_cover_art : Chained('load') PathPart('add-cover-art') Edit {
-    my ($self, $c) = @_;
-    my $entity = $c->stash->{$self->{entity_name}};
-
-    $c->model('Release')->load_meta($entity);
-
-    if (!$entity->may_have_cover_art) {
-        $c->stash(
-            current_view => 'Node',
-            component_path => 'release/CoverArtDarkened',
-            component_props => {
-                release => $entity->TO_JSON,
-            },
-        );
-        $c->detach;
-    }
-
-    my @mime_types = map { $_->{mime_type} } @{ $c->model('CoverArtArchive')->mime_types };
-
-    my @artwork = @{ $c->model('CoverArt')->find_by_release($entity) };
-    $c->model('CoverArtType')->load_for(@artwork);
-
-    my $count = 1;
-
-    my $id = $c->model('CoverArtArchive')->fresh_id;
-    $c->stash({
-        id => $id,
-        index_url => DBDefs->COVER_ART_ARCHIVE_DOWNLOAD_PREFIX . '/release/' . $entity->gid . '/',
-        images => \@artwork,
-        mime_types => \@mime_types,
-        access_key => DBDefs->COVER_ART_ARCHIVE_ACCESS_KEY // '',
-        cover_art_types_json => $c->json->encode(
-            [ map {
-                { name => $_->name, l_name => $_->l_name, id => $_->id }
-            } $c->model('CoverArtType')->get_all() ]),
-    });
-
-    my $form = $c->form(
-        form => 'Release::AddCoverArt',
-        item => {
-            id => $id,
-            position => $count,
-        },
-    );
-
-    my $accept = $c->req->header('Accept');
-    my $returning_json = defined $accept &&
-        $accept =~ m{\bapplication/json\b};
-
-    if ($c->form_posted_and_valid($form)) {
-        $c->model('MB')->with_transaction(sub {
-            $self->_insert_edit(
-                $c, $form,
-                edit_type => $EDIT_RELEASE_ADD_COVER_ART,
-                release => $entity,
-                cover_art_types => [
-                    grep { defined $_ && looks_like_number($_) }
-                        @{ $form->field('type_id')->value },
-                    ],
-                cover_art_position => $form->field('position')->value,
-                cover_art_id => $form->field('id')->value,
-                cover_art_comment => $form->field('comment')->value || '',
-                cover_art_mime_type => $form->field('mime_type')->value,
-            );
-        });
-
-        unless ($returning_json) {
-            $c->response->redirect($c->uri_for_action('/release/cover_art', [ $entity->gid ]));
-            $c->detach;
-        }
-    } elsif ($c->form_posted) {
-        $c->response->status(HTTP_INTERNAL_SERVER_ERROR);
-    } elsif (%{ $c->req->query_params }) {
-        # Process query parameters to support seeding fields.
-        my $merged = { ( %{$form->fif}, %{$c->req->query_params} ) };
-        $form->process( params => $merged );
-        $form->clear_errors;
-    }
-
-    if ($returning_json) {
-        $c->response->body($c->json_utf8->encode($form->TO_JSON));
-        $c->response->content_type('application/json; charset=utf-8');
-    }
-}
-
-sub reorder_cover_art : Chained('load') PathPart('reorder-cover-art') Edit {
-    my ($self, $c) = @_;
-    my $entity = $c->stash->{$self->{entity_name}};
-
-    $c->model('Release')->load_meta($entity);
-
-    if (!$entity->may_have_cover_art) {
-        $c->stash(
-            current_view => 'Node',
-            component_path => 'release/CoverArtDarkened',
-            component_props => {
-                release => $entity->TO_JSON,
-            },
-        );
-        $c->detach;
-    }
-
-    my $artwork = $c->model('CoverArt')->find_by_release($entity);
-    $c->model('CoverArtType')->load_for(@$artwork);
-
-    $c->stash( images => $artwork );
-
-    my $count = 1;
-    my @positions = map {
-        { id => $_->id, position => $count++ }
-    } @$artwork;
-
-    my $form = $c->form(
-        form => 'Release::ReorderCoverArt',
-        init_object => { artwork => \@positions },
-    );
-    if ($c->form_posted_and_valid($form)) {
-        $c->model('MB')->with_transaction(sub {
-            $self->_insert_edit(
-                $c, $form,
-                edit_type => $EDIT_RELEASE_REORDER_COVER_ART,
-                release => $entity,
-                old => \@positions,
-                new => $form->field('artwork')->value,
-            );
-        });
-
-        $c->response->redirect($c->uri_for_action('/release/cover_art', [ $entity->gid ]));
-        $c->detach;
-    }
-}
-
 with 'MusicBrainz::Server::Controller::Role::Merge' => {
     edit_type => $EDIT_RELEASE_MERGE,
     merge_form => 'Merge::Release',
@@ -633,119 +500,6 @@ with 'MusicBrainz::Server::Controller::Role::Delete' => {
     edit_type        => $EDIT_RELEASE_DELETE,
     create_edit_type => $EDIT_RELEASE_CREATE,
 };
-
-sub edit_cover_art : Chained('load') PathPart('edit-cover-art') Args(1) Edit {
-    my ($self, $c, $id) = @_;
-
-    my $entity = $c->stash->{entity};
-
-    my @artwork = @{
-        $c->model('CoverArt')->find_by_release($entity);
-    } or $c->detach('/error_404', [ l('This release has no artwork.') ]);
-
-    $c->model('CoverArtType')->load_for(@artwork);
-
-    my $artwork = first { $_->id == $id } @artwork or $c->detach(
-        '/error_404',
-        [ l('Found no artwork with ID “{id}”.', { id => $id }) ],
-    );
-
-    $c->stash({
-        artwork => $artwork,
-        images => \@artwork,
-        index_url => DBDefs->COVER_ART_ARCHIVE_DOWNLOAD_PREFIX . '/release/' . $entity->gid . '/',
-    });
-
-    my @type_ids = map { $_->id } $c->model('CoverArtType')->get_by_name(@{ $artwork->type_names });
-
-    my $form = $c->form(
-        form => 'Release::EditCoverArt',
-        item => {
-            id => $id,
-            type_id => \@type_ids,
-            comment => $artwork->comment,
-        },
-    );
-    if ($c->form_posted_and_valid($form)) {
-        $c->model('MB')->with_transaction(sub {
-            $self->_insert_edit(
-                $c, $form,
-                edit_type => $EDIT_RELEASE_EDIT_COVER_ART,
-                release => $entity,
-                artwork_id => $artwork->id,
-                old_types => [ grep { defined $_ && looks_like_number($_) } @type_ids ],
-                old_comment => $artwork->comment,
-                new_types => [ grep { defined $_ && looks_like_number($_) } @{ $form->field('type_id')->value } ],
-                new_comment => $form->field('comment')->value || '',
-            );
-        });
-
-        $c->response->redirect($c->uri_for_action('/release/cover_art', [ $entity->gid ]));
-        $c->detach;
-    }
-}
-
-sub remove_cover_art : Chained('load') PathPart('remove-cover-art') Args(1) Edit {
-    my ($self, $c, $id) = @_;
-
-    my $release = $c->stash->{entity};
-    my $artwork = first { $_->id == $id }
-        @{ $c->model('CoverArt')->find_by_release($release) }
-            or $c->detach('/error_404');
-    $c->model('CoverArtType')->load_for($artwork);
-
-    $c->stash( artwork => $artwork );
-
-    my $edit = $c->model('Edit')->find_creation_edit($EDIT_RELEASE_ADD_COVER_ART, $artwork->id, id_field => 'cover_art_id');
-    cancel_or_action($c, $edit, $c->uri_for_action('/release/cover_art', [ $release->gid ]), sub {
-        $self->edit_action($c,
-            form        => 'Confirm',
-            form_args   => { requires_edit_note => 1 },
-            type        => $EDIT_RELEASE_REMOVE_COVER_ART,
-            edit_args   => {
-                release   => $release,
-                to_delete => $artwork,
-            },
-            on_creation => sub {
-                $c->response->redirect($c->uri_for_action('/release/cover_art', [ $release->gid ]));
-            },
-        );
-    });
-
-    $c->stash(
-        current_view => 'Node',
-        component_path => 'release/RemoveCoverArt',
-        component_props => {
-            artwork => $artwork->TO_JSON,
-            form => $c->stash->{form}->TO_JSON,
-            release => $release->TO_JSON,
-        },
-    );
-}
-
-sub cover_art : Chained('load') PathPart('cover-art') {
-    my ($self, $c) = @_;
-    my $release = $c->stash->{entity};
-    $c->model('Release')->load_meta($release);
-
-    my $artwork = [];
-
-    if ($release->may_have_cover_art) {
-        $artwork = $c->model('CoverArt')->find_by_release($release);
-        $c->model('CoverArtType')->load_for(@$artwork);
-    }
-
-    $c->stash(
-        # Needed for JSON-LD
-        cover_art => $artwork,
-        current_view => 'Node',
-        component_path => 'release/CoverArt',
-        component_props => {
-            coverArt => to_json_array($artwork),
-            release => $release->TO_JSON,
-        },
-    );
-}
 
 sub edit_relationships : Chained('load') PathPart('edit-relationships') Edit {
     my ($self, $c) = @_;
