@@ -60,6 +60,7 @@ my @all = qw(
     ISRCsWithManyRecordings
     ISWCsWithManyWorks
     LabelsDisambiguationSameName
+    LicenseLinks
     LimitedEditors
     LinksWithMultipleEntities
     LowDataQualityReleases
@@ -161,6 +162,7 @@ use MusicBrainz::Server::Report::InstrumentsWithoutWikidata;
 use MusicBrainz::Server::Report::ISRCsWithManyRecordings;
 use MusicBrainz::Server::Report::ISWCsWithManyWorks;
 use MusicBrainz::Server::Report::LabelsDisambiguationSameName;
+use MusicBrainz::Server::Report::LicenseLinks;
 use MusicBrainz::Server::Report::LimitedEditors;
 use MusicBrainz::Server::Report::LinksWithMultipleEntities;
 use MusicBrainz::Server::Report::LowDataQualityReleases;

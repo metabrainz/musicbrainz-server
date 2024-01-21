@@ -605,6 +605,10 @@ const ReportsIndex = (): React$Element<typeof Layout> => {
             content={l('Wikidata URLs linked to multiple entities')}
             reportName="WikidataLinksWithMultipleEntities"
           />
+          <ReportsIndexEntry
+            content={l('URLs used in license relationships')}
+            reportName="LicenseLinks"
+          />
         </ul>
 
         <h2>{l('ISRCs')}</h2>
