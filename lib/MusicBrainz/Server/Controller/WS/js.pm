@@ -332,7 +332,7 @@ sub cover_art_upload : Chained('root') PathPart('cover-art-upload') Args(1)
     my $context = $c->model('MB')->context;
 
     unless ($c->model('CoverArtArchive')->exists_for_release_gid($gid)) {
-        my $bucket_uri = URI->new(DBDefs->COVER_ART_ARCHIVE_UPLOAD_PREFIXER($bucket));
+        my $bucket_uri = URI->new(DBDefs->INTERNET_ARCHIVE_UPLOAD_PREFIXER($bucket));
         $bucket_uri->scheme('https');
 
         if (
@@ -349,8 +349,8 @@ sub cover_art_upload : Chained('root') PathPart('cover-art-upload') Args(1)
         $s3_request->header(
             'authorization' => sprintf(
                 'LOW %s:%s',
-                DBDefs->COVER_ART_ARCHIVE_ACCESS_KEY,
-                DBDefs->COVER_ART_ARCHIVE_SECRET_KEY,
+                DBDefs->INTERNET_ARCHIVE_ACCESS_KEY,
+                DBDefs->INTERNET_ARCHIVE_SECRET_KEY,
             ),
         );
         $s3_request->header('x-archive-meta-collection' => 'coverartarchive');
@@ -380,7 +380,7 @@ sub cover_art_upload : Chained('root') PathPart('cover-art-upload') Args(1)
 
             if ($s3_error_code eq 'BucketAlreadyExists') {
                 # Check that we're the owner of the existing bucket.
-                my $ia_metadata_uri = DBDefs->COVER_ART_ARCHIVE_IA_METADATA_PREFIX . "/$bucket";
+                my $ia_metadata_uri = DBDefs->INTERNET_ARCHIVE_IA_METADATA_PREFIX . "/$bucket";
                 $response = $context->lwp->request(HTTP::Request->new(GET => $ia_metadata_uri));
 
                 my $item_metadata_content = $response->decoded_content;
@@ -506,7 +506,7 @@ sub cover_art_upload : Chained('root') PathPart('cover-art-upload') Args(1)
     $s3_policy{expiration} = $expiration->datetime . '.000Z';
 
     my $data = {
-        action => DBDefs->COVER_ART_ARCHIVE_UPLOAD_PREFIXER($bucket),
+        action => DBDefs->INTERNET_ARCHIVE_UPLOAD_PREFIXER($bucket),
         image_id => "$id",
         formdata => $c->model('CoverArtArchive')->post_fields($bucket, $gid, $id, \%s3_policy),
         nonce => $nonce,

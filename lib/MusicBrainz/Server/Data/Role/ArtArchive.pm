@@ -141,8 +141,8 @@ sub post_fields {
     my $suffix = $self->image_type_suffix($mime_type);
 
     # We have one access key for both the coverartarchive and eventartarchive.
-    my $access_key = $opts->{access_key} // DBDefs->COVER_ART_ARCHIVE_ACCESS_KEY;
-    my $secret_key = $opts->{secret_key} // DBDefs->COVER_ART_ARCHIVE_SECRET_KEY;
+    my $access_key = $opts->{access_key} // DBDefs->INTERNET_ARCHIVE_ACCESS_KEY;
+    my $secret_key = $opts->{secret_key} // DBDefs->INTERNET_ARCHIVE_SECRET_KEY;
     my $filename = "mbid-$mbid-$id.$suffix";
 
     my $archive = $self->art_archive_name;
