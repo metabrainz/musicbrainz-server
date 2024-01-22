@@ -41,7 +41,7 @@
     },
     {
       command: 'runScript',
-      target: 'window.COVER_ART_IMAGE_ID = 135',
+      target: 'window.ARTWORK_IMAGE_ID = 135',
       value: '',
     },
     {

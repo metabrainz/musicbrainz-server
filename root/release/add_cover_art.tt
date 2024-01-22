@@ -173,6 +173,6 @@
   </form>
 
   <script type="text/javascript">
-    MB.CoverArt.add_cover_art("[%- entity.gid -%]");
+    MB.CoverArt.add_art("[%- entity.gid -%]");
   </script>
 [%- END -%]
