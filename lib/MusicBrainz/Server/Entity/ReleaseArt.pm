@@ -33,8 +33,6 @@ sub _ia_entity { shift->release }
 
 sub _download_prefix { DBDefs->COVER_ART_ARCHIVE_DOWNLOAD_PREFIX }
 
-sub _ia_download_prefix { DBDefs->COVER_ART_ARCHIVE_IA_DOWNLOAD_PREFIX }
-
 __PACKAGE__->meta->make_immutable;
 
 no Moose;

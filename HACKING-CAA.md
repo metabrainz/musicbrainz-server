@@ -122,5 +122,6 @@ Now that all of that is configured you can point the musicbrainz server at
 the upload and download urls for your local cover art archive, change
 the following values in lib/DBDefs.pm:
 
-    sub COVER_ART_ARCHIVE_UPLOAD_PREFIXER { shift; sprintf("//localhost:5050/%s", shift) };
-    sub COVER_ART_ARCHIVE_DOWNLOAD_PREFIX { "http://localhost:8080" };
+    sub INTERNET_ARCHIVE_UPLOAD_PREFIXER { shift; sprintf("//localhost:5050/%s", shift) }
+    sub COVER_ART_ARCHIVE_DOWNLOAD_PREFIX { "http://localhost:8080" }
+    sub EVENT_ART_ARCHIVE_DOWNLOAD_PREFIX { "http://localhost:8080" }

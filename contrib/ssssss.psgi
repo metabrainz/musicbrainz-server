@@ -120,8 +120,8 @@ sub check_authorization_header
     if (
         !defined $user ||
         !defined $pass ||
-        $user ne DBDefs->COVER_ART_ARCHIVE_ACCESS_KEY ||
-        $pass ne DBDefs->COVER_ART_ARCHIVE_SECRET_KEY
+        $user ne DBDefs->INTERNET_ARCHIVE_ACCESS_KEY ||
+        $pass ne DBDefs->INTERNET_ARCHIVE_SECRET_KEY
     ) {
         my $response = $request->new_response(403);
         $response->content_type('text/xml');

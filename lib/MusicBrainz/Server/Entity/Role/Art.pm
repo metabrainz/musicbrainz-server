@@ -1,11 +1,12 @@
 package MusicBrainz::Server::Entity::Role::Art;
 
+use DBDefs;
 use Moose::Role;
 use MusicBrainz::Server::Constants qw( %ENTITIES );
 
 with 'MusicBrainz::Server::Entity::Role::PendingEdits';
 
-requires qw( _entity _ia_entity _download_prefix _ia_download_prefix );
+requires qw( _entity _ia_entity _download_prefix );
 
 has types => (
     is => 'rw',
@@ -72,7 +73,7 @@ sub _ia_url_prefix {
 
     $suffix //= '';
 
-    my $download_prefix = $self->_ia_download_prefix;
+    my $download_prefix = DBDefs->INTERNET_ARCHIVE_IA_DOWNLOAD_PREFIX;
     unless ($download_prefix) {
         $suffix =~ s/_thumb([0-9]+)\.jpg/-$1.jpg/;
         return $self->_url_prefix($suffix);
@@ -118,7 +119,7 @@ sub huge_thumbnail { my $self = shift; return $self->_url_prefix('-1200.jpg'); }
 # "original" links still point to the public API at coverartarchive.org via
 # small_thumbnail, large_thumbnail, etc.
 #
-# COVER_ART_ARCHIVE_IA_DOWNLOAD_PREFIX is required to be configured in
+# INTERNET_ARCHIVE_IA_DOWNLOAD_PREFIX is required to be configured in
 # DBDefs.pm; if it isn't, we fall back to using the configured redirect
 # service.
 sub small_ia_thumbnail { shift->_ia_url_prefix('_thumb250.jpg') }
