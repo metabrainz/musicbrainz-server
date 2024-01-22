@@ -1553,6 +1553,13 @@ limited_link_type_combinations: [
                                 },
        only_valid_entity_types: [],
   },
+  // Buy Me a Coffee
+  {
+                     input_url: 'http://buymeacoffee.com/joebaemusic',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'patronage',
+            expected_clean_url: 'https://www.buymeacoffee.com/joebaemusic',
+  },
   // Cancioneros Musicales Españoles (CME)
   {
                      input_url: 'cancioneros.si/mediawiki/index.php?title=Cancionero_Musical_de_Palacio#RELACI.C3.93N_DE_OBRAS',

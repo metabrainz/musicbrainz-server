@@ -1844,6 +1844,15 @@ const CLEANUPS: CleanupEntries = {
       return {result: false, target: ERROR_TARGETS.URL};
     },
   },
+  'buymeacoffee': {
+    match: [
+      new RegExp('^(https?://)?(www\\.)?buymeacoffee\\.com/[^/?#]', 'i'),
+    ],
+    restrict: [LINK_TYPES.patronage],
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?(?:www\.)?buymeacoffee\.com\/([^\/?#]+).*$/, 'https://www.buymeacoffee.com/$1');
+    },
+  },
   'cancionerosmewiki': {
     match: [new RegExp(
       '^(https?://)?(www\\.)?cancioneros\\.si/mediawiki/',
