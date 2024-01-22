@@ -5008,6 +5008,28 @@ const CLEANUPS: CleanupEntries = {
       return url;
     },
   },
+  'rism': {
+    match: [new RegExp('^(https?://)?(www\\.)?rism\\.online', 'i')],
+    restrict: [LINK_TYPES.otherdatabases],
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?(?:www\.)?rism\.online\/(\w+)\/(\d+).*$/, 'https://rism.online/$1/$2');
+    },
+    validate: function (url, id) {
+      let m = /^https:\/\/rism\.online\/(\w+)\/(\d+)$/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.otherdatabases.artist:
+            return {
+              result: prefix === 'people',
+              target: ERROR_TARGETS.ENTITY,
+            };
+        }
+        return {result: false, target: ERROR_TARGETS.ENTITY};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
   'rockcomar': {
     match: [new RegExp('^(https?://)?(www\\.)?rock\\.com\\.ar', 'i')],
     restrict: [LINK_TYPES.otherdatabases],
