@@ -163,6 +163,7 @@ my %URL_SPECIALIZATIONS = (
     'Recochoku'           => qr{^https?://(?:www\.)?recochoku\.jp/}i,
     'ResidentAdvisor'     => qr{^https?://(?:www\.)?ra\.co/}i,
     'ReverbNation'        => qr{^https?://(?:www\.)?reverbnation\.com/}i,
+    'RISM'                => qr{^https?://(?:www\.)?rism\.online/}i,
     'RockComAr'           => qr{^https?://(?:www\.)?rock\.com\.ar/}i,
     'RockensDanmarkskort' => qr{^https?://(?:www\.)?rockensdanmarkskort\.dk/}i,
     'RockInChina'         => qr{^https?://(?:www\.)?rockinchina\.com/}i,
