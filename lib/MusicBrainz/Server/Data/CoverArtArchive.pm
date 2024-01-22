@@ -50,12 +50,6 @@ sub merge_release_groups {
     );
 }
 
-sub exists_for_release_gid {
-    my ($self, $release_gid) = @_;
-
-    $self->exists_for_entity_gid($release_gid);
-}
-
 1;
 
 =head1 COPYRIGHT AND LICENSE
