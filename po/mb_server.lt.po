@@ -6,16 +6,15 @@
 # Translators:
 # Vaclovas lntas (Vac.) <email address hidden>, 2023
 # Philipp Wolfer <ph.wolfer@gmail.com>, 2023.
-# "Vac31." <gateway_31@protonmail.com>, 2023.
+# "Vac31." <gateway_31@protonmail.com>, 2023, 2024.
 # reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-02 10:11+0200\n"
-"PO-Revision-Date: 2024-01-04 20:28+0000\n"
-"Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
-".org>\n"
+"PO-Revision-Date: 2024-01-17 00:28+0000\n"
+"Last-Translator: \"Vac31.\" <gateway_31@protonmail.com>\n"
 "Language-Team: Lithuanian <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/lt/>\n"
 "Language: lt\n"
@@ -574,23 +573,18 @@ msgid "Bot"
 msgstr "Botas"
 
 #: ../root/layout.tt:124 ../root/layout/components/Footer.js:52
-#, fuzzy
-#| msgid ""
-#| "Brought to you by {MeB|MetaBrainz Foundation} and our {spon|sponsors} and "
-#| "{supp|supporters}. Cover Art provided by the {caa|Cover Art Archive}."
 msgid ""
 "Brought to you by {MeB|MetaBrainz Foundation} and our {spon|sponsors} and "
 "{supp|supporters}. Cover art provided by the {caa|Cover Art Archive}."
 msgstr ""
-"Pateikia {MeB|MetaBrainz fondas} ir mūsų {spon|rėmėjai} bei {supp|"
-"palaikytojai}. Viršelį pateikė {caa|Cover Art Archive}."
+"Pristato {MeB|MetaBrainz fondas} ir mūsų {spon|rėmėjai} bei "
+"{supp|palaikytojai}. Viršelio apipavidalinimą pateikė {caa|Cover Art "
+"Archive}."
 
 #: ../root/layout.tt:115 ../root/layout/components/Footer.js:32
 #: ../root/main/index.js:211
-#, fuzzy
-#| msgid "Bug Tracker"
 msgid "Bug tracker"
-msgstr "Klaidų seklys"
+msgstr "Riktų sekiklis"
 
 #: ../root/release/edit/tracklist.tt:6
 msgid "By default, the parser expects the following format:"
@@ -723,11 +717,9 @@ msgstr "Šalis"
 
 #: ../root/release_group/set_cover_art.tt:67
 #: ../root/edit/components/EditArtwork.js:36 ../root/user/UserProfile.js:51
-#, fuzzy
-#| msgid "Cover Art"
 msgctxt "singular"
 msgid "Cover art"
-msgstr "Viršelis"
+msgstr "Viršelio apipavidalinimas"
 
 #: ../root/release/add_cover_art.tt:85
 msgid "Creating edit..."
@@ -746,8 +738,6 @@ msgstr "DD"
 #: ../root/medium/tracklist.tt:37 ../root/release/edit/tracklist.tt:466
 #: ../root/medium/MediumTracklist.js:53
 #: ../root/static/scripts/release/components/MediumTable.js:128
-#, fuzzy
-#| msgid "Data Tracks"
 msgid "Data tracks"
 msgstr "Duomenų takeliai"
 
@@ -777,8 +767,6 @@ msgstr "Data"
 #: ../root/artist/edit_form.tt:34 ../root/components/forms.tt:208
 #: ../root/event/edit_form.tt:32
 #: ../root/static/scripts/edit/components/DateRangeFieldset.js:184
-#, fuzzy
-#| msgid "Date Period"
 msgid "Date period"
 msgstr "Datos laikotarpis"
 
@@ -888,8 +876,6 @@ msgstr "Redaguoti"
 
 #: ../root/cdtoc/list.tt:18 ../root/entity/edit.tt:1
 #: ../root/collection/EditCollection.js:32 ../root/release/DiscIds.js:111
-#, fuzzy
-#| msgid "Edit"
 msgctxt "verb, header"
 msgid "Edit"
 msgstr "Redaguoti"
@@ -904,53 +890,39 @@ msgstr "Redaguoti"
 #: ../root/release/CoverArt.js:110
 #: ../root/static/scripts/edit/components/ArtistCreditEditor.js:447
 #: ../root/user/UserCollections.js:134
-#, fuzzy
-#| msgid "Edit"
 msgctxt "verb, interactive"
 msgid "Edit"
 msgstr "Redaguoti"
 
 #: ../root/url/edit_form.tt:3
-#, fuzzy
-#| msgid "Edit URL"
 msgctxt "header"
 msgid "Edit URL"
 msgstr "Redaguoti URL"
 
 #: ../root/artist/edit_credit.tt:1 ../root/artist/edit_credit.tt:6
-#, fuzzy
-#| msgid "Edit Artist Credit"
 msgctxt "header"
 msgid "Edit artist credit"
-msgstr "Redaguoti atlikėjo kreditą"
+msgstr "Redaguoti atlikėjo įvardijimą"
 
 #: ../root/release/edit_cover_art.tt:1 ../root/release/edit_cover_art.tt:4
-#, fuzzy
-#| msgid "Edit Cover Art"
 msgctxt "singular, header"
 msgid "Edit cover art"
-msgstr "Redaguoti viršelį"
+msgstr "Redaguoti viršelio apipavidalinimą"
 
 #: ../root/forms/edit-note.tt:2 ../root/release/edit/editnote.tt:27
 #: ../root/release/edit/layout.tt:18
 #: ../root/static/scripts/edit/components/EnterEditNote.js:48
-#, fuzzy
-#| msgid "Edit note:"
 msgctxt "noun"
 msgid "Edit note"
-msgstr "Redagavimo užrašas:"
+msgstr "Redagavimo pastaba:"
 
 #: ../root/edit/search_macros.tt:434
-#, fuzzy
-#| msgid "Edit Note Authors"
 msgid "Edit note authors"
-msgstr "Redaguoti užrašų autorių"
+msgstr "Redaguoti pastabų autorius"
 
 #: ../root/edit/search_macros.tt:434
-#, fuzzy
-#| msgid "Edit Note Content"
 msgid "Edit note content"
-msgstr "Redaguoti užrašo turinį"
+msgstr "Redaguoti pastabos turinį"
 
 #: ../root/components/forms.tt:36 ../root/components/forms.tt:40
 #: ../root/static/scripts/edit/components/EnterEditNote.js:77
@@ -960,11 +932,9 @@ msgstr "Redagavimo užrašas:"
 #: ../root/doc/edit_type.tt:18 ../root/doc/edit_types.tt:1
 #: ../root/doc/edit_types.tt:3 ../root/edit/components/EditSidebar.js:99
 #: ../root/layout/components/BottomMenu.js:317
-#, fuzzy
-#| msgid "Edit Types"
 msgctxt "noun"
 msgid "Edit types"
-msgstr "Redaguoti tipus"
+msgstr "Redagavimo tipai"
 
 #: ../root/edit/search_macros.tt:434
 msgid "Edited entity"
@@ -979,10 +949,8 @@ msgid "Editor"
 msgstr "Redaktorius (-ė)"
 
 #: ../root/edit/search_macros.tt:434
-#, fuzzy
-#| msgid "Editor Flag"
 msgid "Editor flag"
-msgstr "Redaktoriaus (-ės) vardynas"
+msgstr "Redaktoriaus (-ės) gairelė"
 
 #: ../root/release/edit/tracklist.tt:45
 msgid "Enable vinyl track numbers"
@@ -990,10 +958,8 @@ msgstr "Įjungti vinilo takelių numerius"
 
 #: ../root/artist/edit_form.tt:56 ../root/components/list/ArtistList.js:112
 #: ../root/search/components/ArtistResults.js:59
-#, fuzzy
-#| msgid "End area:"
 msgid "End area"
-msgstr "Pabaigos teritorija:"
+msgstr "Pabaigos teritorija"
 
 #: ../root/artist/edit_form.tt:51 ../root/components/forms.tt:214
 #: ../root/event/edit_form.tt:38 ../root/artist/utils.js:65
@@ -1083,8 +1049,6 @@ msgid "Event"
 msgstr "Renginys"
 
 #: ../root/event/edit_form.tt:11
-#, fuzzy
-#| msgid "Event Details"
 msgid "Event details"
 msgstr "Išsami informacija apie renginį"
 
@@ -1110,7 +1074,7 @@ msgstr "Galiojimo pabaigos veiksmas"
 #: ../root/release_group/edit_form.tt:23 ../root/series/edit_form.tt:26
 #: ../root/work/edit_form.tt:90 ../root/layout/components/ExternalLinks.js:170
 msgid "External links"
-msgstr ""
+msgstr "Išorinės nuorodos"
 
 #: ../root/release/add_cover_art.tt:48
 msgid "File:"
@@ -1212,40 +1176,38 @@ msgstr "Žanras"
 #: ../root/release/edit/tracklist.tt:527
 #: ../root/static/scripts/edit/components/FormRowNameWithGuessCase.js:149
 msgid "Guess case"
-msgstr "Atspėti atvejį"
+msgstr "Atspėti raidžių lygį"
 
 #: ../root/components/forms.tt:249
 msgctxt "header"
 msgid "Guess case"
-msgstr ""
+msgstr "Atspėti raidžių lygį"
 
 #: ../root/components/forms.tt:254
-#, fuzzy
-#| msgid "Guess case"
 msgctxt "interactive"
 msgid "Guess case"
-msgstr "Atspėti atvejį"
+msgstr "Atspėti raidžių lygį"
 
 #: ../root/release/edit/tracklist.tt:320
 msgid "Guess case medium title"
-msgstr ""
+msgstr "Atspėti raidžių lygio laikmeno pavadinimą"
 
 #: ../root/components/forms.tt:232 ../root/release/edit/information.tt:16
 #: ../root/static/scripts/edit/components/GuessCaseOptions.js:109
 #: ../root/static/scripts/edit/components/GuessCaseOptionsPopover.js:26
 #: ../root/static/scripts/guess-case/MB/Control/GuessCase.js:25
 msgid "Guess case options"
-msgstr "Atspėti atvejį parinktys"
+msgstr "Atspėti raidžių lygių parinktys"
 
 #: ../root/release/edit/tracklist.tt:224
 msgid "Guess case track"
-msgstr ""
+msgstr "Atspėti raidžių lygio takelį"
 
 #: ../root/components/forms.tt:230 ../root/release/edit/information.tt:15
 #: ../root/release/edit/tracklist.tt:225
 #: ../root/static/scripts/edit/components/FormRowNameWithGuessCase.js:155
 msgid "Guess feat. artists"
-msgstr "Atspėti feat. atlikėjus"
+msgstr "Atspėti feat. (su) atlikėjus"
 
 #: ../root/release/edit/tracklist.tt:528
 msgid "Guess feat. artists from track titles"
@@ -2516,7 +2478,7 @@ msgstr ""
 
 #: ../root/layout.tt:119 ../root/layout/components/Footer.js:44
 msgid "Stop using beta site"
-msgstr ""
+msgstr "Nustoti naudoti beta svetainę"
 
 #: ../root/release/edit/editnote.tt:44
 #: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1871
@@ -2696,6 +2658,8 @@ msgstr ""
 msgid ""
 "This beta test server allows testing of new features with the live database."
 msgstr ""
+"Šiame beta bandymų serveryje galima išbandyti naujas funkcijas su tiesiogine "
+"duomenų baze."
 
 #: ../root/release/edit/tracklist.tt:509
 msgid "This disc contains data tracks at the end"
@@ -11358,7 +11322,7 @@ msgstr ""
 
 #: ../root/otherlookup/OtherLookupForm.js:92
 msgid "Label IPI:"
-msgstr ""
+msgstr "Įrašų kompanijos IPI:"
 
 #: ../root/otherlookup/OtherLookupForm.js:97
 msgid "Label ISNI:"
@@ -12086,6 +12050,7 @@ msgstr ""
 #: ../root/report/ReportsIndex.js:332
 msgid "Releases with catalog numbers that look like label codes"
 msgstr ""
+"Leidiniai su katalogo numeriais, kurie atrodo kaip įrašų kompanijos kodai"
 
 #: ../root/report/CollaborationRelationships.js:32
 msgid ""
@@ -13455,7 +13420,7 @@ msgstr ""
 
 #: ../root/search/components/LabelResults.js:80
 msgid "Alternatively, you may {uri|add a new label}."
-msgstr ""
+msgstr "Arba gali {uri|pridėti naują įrašų kompaniją}."
 
 #: ../root/search/components/PaginatedSearchResults.js:54
 msgid "The last page of results is page {last_page}."
@@ -14474,7 +14439,7 @@ msgstr "Pasirinkai {label}."
 
 #: ../root/static/scripts/common/entity.js:262
 msgid "Label code: {code}"
-msgstr "Leidyklos kodas: {code}"
+msgstr "Įrašų kompanijos kodas: {code}"
 
 #: ../root/static/scripts/common/entity.js:289
 msgid "You selected {area}."
@@ -14684,6 +14649,11 @@ msgid ""
 "(“{album_url_pattern}” or “{single_url_pattern}”) instead, and feel free to "
 "add this profile link to the appropriate artist or label."
 msgstr ""
+"Tai yra Bandcamp profilis, o ne konkretaus leidinio puslapis. Net jei šiuo "
+"metu jame rodomas šis leidinys, tai gali pasikeisti, kai atlikėjas išleis "
+"kitą. Vietoj to surask ir pridėk atitinkamo leidinio puslapį "
+"(„{album_url_pattern}“ arba „{single_url_pattern}“) ir nedvejodamas (-a) "
+"pridėk šio profilio nuorodą atitinkamam atlikėjui ar įrašų kompanijai."
 
 #: ../root/static/scripts/edit/URLCleanup.js:1509
 msgid "Please link to the main page for the artist, not a specific product."
@@ -15241,7 +15211,7 @@ msgstr "Pašalinti teritoriją"
 
 #: ../root/static/scripts/edit/externalLinks.js:1307
 msgid "video"
-msgstr ""
+msgstr "vaizdo įrašas"
 
 #: ../root/static/scripts/edit/externalLinks.js:1438
 #, fuzzy
@@ -16858,10 +16828,10 @@ msgstr[3] ""
 #: ../root/user/UserSubscriptions.js:224
 msgid "{num} label"
 msgid_plural "{num} labels"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "{num} įrašų kompanija"
+msgstr[1] "{num} įrašų kompanijos"
+msgstr[2] "{num} įrašų kompanijų"
+msgstr[3] "{num} įrašų kompanijų"
 
 #: ../root/user/UserSubscriptions.js:235
 msgid "{num} series"
