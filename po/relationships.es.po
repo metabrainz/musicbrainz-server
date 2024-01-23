@@ -20,12 +20,12 @@
 # t0n3t <email address hidden>, 2012
 # reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2023, 2024.
 # ChurruKa <churruka@hangar18.cc>, 2023.
+# yvanzo <yvanzo@users.noreply.translations.metabrainz.org>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-01-04 11:06+0000\n"
-"Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
-".org>\n"
+"PO-Revision-Date: 2024-01-12 09:58+0000\n"
+"Last-Translator: yvanzo <yvanzo@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/es/>\n"
 "Language: es\n"
@@ -539,8 +539,7 @@ msgstr ""
 
 #: DB:link_type/description:845
 msgid "Indicates the event where the work had its first performance."
-msgstr ""
-"Indica el evento donde tuvo lugar la primera interpretación de la obra."
+msgstr "Indica el evento donde tuvo lugar la primera interpretación de la obra."
 
 #: DB:link_type/description:986
 msgid ""

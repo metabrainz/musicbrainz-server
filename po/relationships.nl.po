@@ -13,12 +13,12 @@
 # yvanz, 2019
 # reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2023, 2024.
 # mfmeulenbelt <mfmeulenbelt@users.noreply.translations.metabrainz.org>, 2024.
+# yvanzo <yvanzo@users.noreply.translations.metabrainz.org>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-01-06 02:28+0000\n"
-"Last-Translator: mfmeulenbelt <mfmeulenbelt@users.noreply.translations."
-"metabrainz.org>\n"
+"PO-Revision-Date: 2024-01-16 14:28+0000\n"
+"Last-Translator: yvanzo <yvanzo@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Dutch <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/nl/>\n"
 "Language: nl\n"
@@ -9011,6 +9011,7 @@ msgid "{additional} libretto"
 msgstr "{additional:aanvullend} libretto"
 
 #: DB:link_type/link_phrase:879 DB:link_type/link_phrase:880
+#, fuzzy
 msgid "{additional} libretto writing location for"
 msgstr ""
 "is de locatie waar het libretto van {entity1} {additional:aanvullend} "
@@ -9029,6 +9030,7 @@ msgid "{additional} lyrics"
 msgstr "{additional:aanvullende} tekst"
 
 #: DB:link_type/link_phrase:877 DB:link_type/link_phrase:878
+#, fuzzy
 msgid "{additional} lyrics writing location for"
 msgstr ""
 "is de locatie waar de tekst van {entity1} {additional:aanvullend} geschreven "
