@@ -9,6 +9,8 @@ use HTTP::Status qw( :constants );
 use Hook::LexWrap;
 use Set::Scalar;
 
+use MusicBrainz::Server;
+
 with 't::Context', 't::Mechanize';
 
 my @unconfirmed_email_whitelist;
