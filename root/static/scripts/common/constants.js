@@ -201,6 +201,7 @@ export const FAVICON_CLASSES = {
   'rateyourmusic.com': 'rateyourmusic',
   'recochoku.jp': 'recochoku',
   'reverbnation.com': 'reverbnation',
+  'rism.online': 'rism',
   'rock.com.ar': 'rockcomar',
   'rockensdanmarkskort.dk': 'rockensdanmarkskort',
   'rockinchina.com': 'ric',

@@ -4562,6 +4562,41 @@ limited_link_type_combinations: [
                      input_url: 'http://pinterest.com/tucenter/',
             expected_clean_url: 'https://www.pinterest.com/tucenter/',
   },
+  // pixiv
+  {
+                     input_url: 'https://www.pixiv.net/en/users/23610071/illustrations',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'artgallery',
+            expected_clean_url: 'https://www.pixiv.net/users/23610071',
+  },
+  // Prog Archives
+  {
+                     input_url: 'http://www.progarchives.com/artist.asp?id=105#discography',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.progarchives.com/artist.asp?id=105',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'progarchives.com/album.asp?id=00001823',
+             input_entity_type: 'release_group',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.progarchives.com/album.asp?id=1823',
+       only_valid_entity_types: ['release_group'],
+  },
+  {
+                     input_url: 'https://www.progarchives.com/video.asp?id=7855',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'otherdatabases',
+       only_valid_entity_types: ['recording'],
+  },
+  {
+                     input_url: 'https://www.progarchives.com/Collaborators.asp?id=9702',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.progarchives.com/Collaborators.asp?id=9702',
+       only_valid_entity_types: [],
+  },
   // PureVolume
   {
                      input_url: 'http://www.purevolume.com/withbloodcomescleansing',
@@ -4838,39 +4873,18 @@ limited_link_type_combinations: [
     expected_relationship_type: 'socialnetwork',
             expected_clean_url: 'https://www.reverbnation.com/tomorrowsyesterdayband',
   },
-  // pixiv
+  // RISM
   {
-                     input_url: 'https://www.pixiv.net/en/users/23610071/illustrations',
-             input_entity_type: 'artist',
-    expected_relationship_type: 'artgallery',
-            expected_clean_url: 'https://www.pixiv.net/users/23610071',
-  },
-  // Prog Archives
-  {
-                     input_url: 'http://www.progarchives.com/artist.asp?id=105#discography',
+                     input_url: 'http://rism.online/people/50377/sources?mode=sources&fq=num-holdings%3A2%20to%2010&page=1&rows=20',
              input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
-            expected_clean_url: 'https://www.progarchives.com/artist.asp?id=105',
+            expected_clean_url: 'https://rism.online/people/50377',
        only_valid_entity_types: ['artist'],
   },
   {
-                     input_url: 'progarchives.com/album.asp?id=00001823',
-             input_entity_type: 'release_group',
+                     input_url: 'https://rism.online/sources/300000437',
+             input_entity_type: 'work',
     expected_relationship_type: 'otherdatabases',
-            expected_clean_url: 'https://www.progarchives.com/album.asp?id=1823',
-       only_valid_entity_types: ['release_group'],
-  },
-  {
-                     input_url: 'https://www.progarchives.com/video.asp?id=7855',
-             input_entity_type: 'recording',
-    expected_relationship_type: 'otherdatabases',
-       only_valid_entity_types: ['recording'],
-  },
-  {
-                     input_url: 'https://www.progarchives.com/Collaborators.asp?id=9702',
-             input_entity_type: 'artist',
-    expected_relationship_type: 'otherdatabases',
-            expected_clean_url: 'https://www.progarchives.com/Collaborators.asp?id=9702',
        only_valid_entity_types: [],
   },
   // Rock.com.ar
