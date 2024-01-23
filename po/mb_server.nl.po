@@ -31,14 +31,14 @@
 # kellnerd <kellnerd@users.noreply.translations.metabrainz.org>, 2023.
 # mfmeulenbelt <mfmeulenbelt@users.noreply.translations.metabrainz.org>, 2023, 2024.
 # reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2023, 2024.
+# yvanzo <yvanzo@users.noreply.translations.metabrainz.org>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-02 10:11+0200\n"
-"PO-Revision-Date: 2024-01-16 14:28+0000\n"
-"Last-Translator: mfmeulenbelt <mfmeulenbelt@users.noreply.translations."
-"metabrainz.org>\n"
+"PO-Revision-Date: 2024-01-17 09:58+0000\n"
+"Last-Translator: yvanzo <yvanzo@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Dutch <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/nl/>\n"
 "Language: nl\n"
@@ -59,8 +59,7 @@ msgstr "‘C’ is een enkel controlegetal."
 #: ../root/components/forms.tt:323
 msgid ""
 "\"CC\" is the appropriate for the registrant two-character country code."
-msgstr ""
-"‘CC’ is bestemd voor de landcode van twee karakters van de registrator."
+msgstr "‘CC’ is bestemd voor de landcode van twee karakters van de registrator."
 
 #: ../root/components/forms.tt:312
 msgid "\"DDD\" is a nine digit work identifier."
@@ -1034,8 +1033,8 @@ msgid ""
 "Enter the delimiter that separates the track name from the artist name "
 "(valid {url|regular expressions} are accepted)."
 msgstr ""
-"Geef het scheidingsteken tussen de titel van het nummer en de artiest op "
-"(geldige {url|reguliere expressies} zijn mogelijk)."
+"Geef het scheidingsteken tussen de titel van het nummer en de artiest op ("
+"geldige {url|reguliere expressies} zijn mogelijk)."
 
 #: ../root/edit/search_macros.tt:434
 msgid "Entered"
@@ -1996,8 +1995,7 @@ msgstr ""
 msgid ""
 "Please see the {doc|Cover Art Types} documentation for a description of "
 "these types."
-msgstr ""
-"Lees de {doc|documentatie over afbeeldingstypes} voor een beschrijving."
+msgstr "Lees de {doc|documentatie over afbeeldingstypes} voor een beschrijving."
 
 #: ../root/cdtoc/attach_artist_releases.tt:7
 msgid "Please select the medium you wish to attach this CD TOC to."
@@ -2694,9 +2692,9 @@ msgid ""
 "can quote a source to support a point you're making, you should never enter "
 "promotional texts or other artist or label-owned texts into the annotation."
 msgstr ""
-"Deze aantekening wordt onder een open licentie (<a href=\"{url}\" "
-"target=\"_blank\">CC BY-NC-SA 3.0</a>) gepubliceerd, en mag daarom geen "
-"tekst bevatten waarvoor je niet het recht hebt om onder deze licentie te "
+"Deze aantekening wordt onder een open licentie (<a href=\"{url}\" target="
+"\"_blank\">CC BY-NC-SA 3.0</a>) gepubliceerd, en mag daarom geen tekst "
+"bevatten waarvoor je niet het recht hebt om onder deze licentie te "
 "publiceren. Hoewel je een bron mag citeren om je punt te ondersteunen, moet "
 "je nooit promotieteksten of andere teksten die eigendom van een artiest of "
 "platenmaatschappij zijn in de aantekening verwerken."
@@ -3362,8 +3360,8 @@ msgstr ""
 "artiestveld moet groen zijn). Als je een artiest hebt ingevoerd maar de "
 "achtergrond ongekleurd blijft, klik je op het vergrootglas om de artiest in "
 "MusicBrainz te zoeken. Als de artiest nog niet bestaat, kan je hem toevoegen "
-"door onderaan de vervolgkeuzelijst met de zoekresultaten "
-"“{add_a_new_artist}” te selecteren."
+"door onderaan de vervolgkeuzelijst met de zoekresultaten “{add_a_new_artist}”"
+" te selecteren."
 
 #: ../root/release/edit/information.tt:30
 msgid ""
@@ -3378,8 +3376,8 @@ msgstr ""
 "artiestveld moet groen zijn). Als je een artiest hebt ingevoerd maar de "
 "achtergrond ongekleurd blijft, klik je op het vergrootglas om de artiest in "
 "MusicBrainz te zoeken. Als de artiest nog niet bestaat, kan je hem toevoegen "
-"door onderaan de vervolgkeuzelijst met de zoekresultaten "
-"“{add_a_new_artist}” te selecteren."
+"door onderaan de vervolgkeuzelijst met de zoekresultaten “{add_a_new_artist}”"
+" te selecteren."
 
 #: ../root/release/edit/information.tt:56
 msgid "You must select an existing release group."
@@ -3908,8 +3906,7 @@ msgstr "De verificatiesleutel ontbreekt."
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:101
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:276
 msgid "The checksum is invalid, please double check your email."
-msgstr ""
-"Het controlegetal klopt niet, controleer je e-mail alsjeblieft opnieuw."
+msgstr "Het controlegetal klopt niet, controleer je e-mail alsjeblieft opnieuw."
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:112
 msgid "Sorry, this email verification link has expired."
@@ -3990,9 +3987,9 @@ msgid ""
 "us at {mail|support@musicbrainz.org}."
 msgstr ""
 "<strong>We konden je geen bevestigingsmail sturen.</strong><br/>Bevestig dat "
-"je een geldig e-mailadres hebt ingevuld door je {settings|"
-"gebruikersinstellingen} te wijzigen. Neem contact op met {mail|"
-"support@musicbrainz.org} als het probleem zich blijft voordoen."
+"je een geldig e-mailadres hebt ingevuld door je "
+"{settings|gebruikersinstellingen} te wijzigen. Neem contact op met "
+"{mail|support@musicbrainz.org} als het probleem zich blijft voordoen."
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:827
 msgid "There is no OAuth token with these parameters."
@@ -4980,8 +4977,7 @@ msgstr ""
 msgid ""
 "The “{relationship_type}” relationship between “{entity0}” and “{entity1}” "
 "already exists."
-msgstr ""
-"Er is al een {relationship_type}-relatie tussen {entity0} en {entity1}."
+msgstr "Er is al een {relationship_type}-relatie tussen {entity0} en {entity1}."
 
 #: ../lib/MusicBrainz/Server/Edit/Relationship/EditLinkAttribute.pm:17
 msgctxt "edit type"
@@ -5536,8 +5532,7 @@ msgstr "Voor webapplicaties moet een omleidings-URL worden opgegeven."
 #: ../lib/MusicBrainz/Server/Form/Application.pm:52
 msgid ""
 "Redirect URL scheme must be either “http” or “https” for web applications."
-msgstr ""
-"De omleidings-URL voor webapplicaties moet “http” of “https” gebruiken."
+msgstr "De omleidings-URL voor webapplicaties moet “http” of “https” gebruiken."
 
 #: ../lib/MusicBrainz/Server/Form/Application.pm:59
 #, perl-brace-format
@@ -5699,8 +5694,7 @@ msgstr "ongeldige datum"
 #: ../root/static/scripts/relationship-editor/components/RelationshipItem.js:290
 msgid ""
 "You must select a relationship type and target entity for every relationship."
-msgstr ""
-"Je moet voor elke relatie een relatietype en een doelobject selecteren."
+msgstr "Je moet voor elke relatie een relatietype en een doelobject selecteren."
 
 #: ../lib/MusicBrainz/Server/Form/Field/Setlist.pm:15
 msgid "Please ensure all lines start with @, * or #, followed by a space."
@@ -5942,8 +5936,7 @@ msgstr "Voer het wachtwoord in dit veld in."
 
 #: ../lib/MusicBrainz/Server/Form/User/Register.pm:55
 msgid "The password confirmation does not match the password"
-msgstr ""
-"De bevestiging van het wachtwoord komt niet overeen met het wachtwoord."
+msgstr "De bevestiging van het wachtwoord komt niet overeen met het wachtwoord."
 
 #: ../lib/MusicBrainz/Server/Form/User/Report.pm:35
 #: ../root/user/ReportUser.js:48
@@ -6369,8 +6362,8 @@ msgid ""
 "If you have any questions, please review the {faq|FAQs} or {doc|"
 "documentation} before {con|contacting us}."
 msgstr ""
-"Als je vragen hebt, kan je ook eerst in de {faq|veelgestelde vragen} of {doc|"
-"documentatie} kijken voordat je {con|contact met ons opneemt}."
+"Als je vragen hebt, kan je ook eerst in de {faq|veelgestelde vragen} of "
+"{doc|documentatie} kijken voordat je {con|contact met ons opneemt}."
 
 #: ../root/account/Register.js:85
 msgid ""
@@ -6480,10 +6473,10 @@ msgid ""
 "MusicBrainz API}? {register_url|Register an application} to generate OAuth "
 "tokens. See our {oauth2_doc_url|OAuth documentation} for more details."
 msgstr ""
-"Wil je een applicatie ontwikkelen die de {mb_api_doc_url|API van "
-"MusicBrainz} gebruikt? {register_url|Registreer een applicatie} om OAuth-"
-"tokens te genereren. Bekijk onze {oauth2_doc_url|documentatie over OAuth} "
-"voor meer informatie."
+"Wil je een applicatie ontwikkelen die de {mb_api_doc_url|API van MusicBrainz}"
+" gebruikt? {register_url|Registreer een applicatie} om OAuth-tokens te "
+"genereren. Bekijk onze {oauth2_doc_url|documentatie over OAuth} voor meer "
+"informatie."
 
 #: ../root/account/applications/ApplicationList.js:156
 msgid "OAuth client ID"
@@ -6530,8 +6523,7 @@ msgstr "Applicatie verwijderen"
 
 #: ../root/account/applications/RevokeApplicationAccess.js:30
 msgid "You’re about to revoke {app}’s permissions to:"
-msgstr ""
-"Je staat op het punt de volgende toestemmingen van {app} in te trekken:"
+msgstr "Je staat op het punt de volgende toestemmingen van {app} in te trekken:"
 
 #: ../root/account/applications/RevokeApplicationAccess.js:42
 msgid "Are you sure you want to revoke this application’s access?"
@@ -6658,8 +6650,7 @@ msgstr "Nadruk:"
 
 #: ../root/annotation/EditAnnotation.js:107
 msgid "''italics''; '''bold'''; '''''bold italics'''''; ---- horizontal rule"
-msgstr ""
-"''cursief''; '''vet'''; '''''cursief en vet'''''; ---- horizontale lijn"
+msgstr "''cursief''; '''vet'''; '''''cursief en vet'''''; ---- horizontale lijn"
 
 #: ../root/annotation/EditAnnotation.js:112
 msgid "Headings:"
@@ -6701,8 +6692,8 @@ msgid ""
 msgstr ""
 "Omdat vierkante haakjes [] worden gebruikt om links te creëren, moet je de "
 "html-equivalenten (<code>&amp;#91;</code> voor [) en (<code>&amp;#93;</code> "
-"voor ]) gebruiken, als je niet wil dat ze in links worden omgezet. "
-"Voorbeeld: als je [onbekend] wil gebruiken in de aantekening, moet je "
+"voor ]) gebruiken, als je niet wil dat ze in links worden omgezet. Voorbeeld:"
+" als je [onbekend] wil gebruiken in de aantekening, moet je "
 "<code>&amp;#91;onbekend&amp;#93;</code> typen om de gewenste tekst te laten "
 "zien."
 
@@ -8211,8 +8202,7 @@ msgstr ""
 
 #: ../root/doc/DocPage.js:90
 msgid "This page is {doc|transcluded} from revision {version} of {title}."
-msgstr ""
-"Deze pagina is {doc|getranscludeerd} van revisie {version} van {title}."
+msgstr "Deze pagina is {doc|getranscludeerd} van revisie {version} van {title}."
 
 #: ../root/doc/DocPage.js:98
 msgid "This page is {doc|transcluded} from {title}."
@@ -8620,8 +8610,8 @@ msgid ""
 "writing edit notes!"
 msgstr ""
 "Je kan voor je bewerkingsnotities {doc_formatting|beperkte wiki-opmaak "
-"gebruiken}. Houd bij het schrijven altijd rekening met de {doc_coc|"
-"Gedragscode}."
+"gebruiken}. Houd bij het schrijven altijd rekening met de "
+"{doc_coc|Gedragscode}."
 
 #: ../root/edit/components/EditNotes.js:55
 msgid "No edit notes have been added."
@@ -8697,8 +8687,8 @@ msgid ""
 "This field is intentionally left as it was originally entered (untranslated, "
 "unformatted)."
 msgstr ""
-"Dit veld wordt bewust weergegeven zoals het oorspronkelijk werd ingevoerd "
-"(niet vertaald, zonder opmaak)."
+"Dit veld wordt bewust weergegeven zoals het oorspronkelijk werd ingevoerd ("
+"niet vertaald, zonder opmaak)."
 
 #: ../root/edit/components/ListHeader.js:49
 msgid "Open edits for {user}"
@@ -9341,8 +9331,8 @@ msgid ""
 "Medium <span class=\"new\">{new}</span> (moved from position <span "
 "class=\"old\">{old}</span>)"
 msgstr ""
-"Medium <span class=\"new\">{new}</span> (verplaatst van positie <span "
-"class=\"old\">{old}</span>)"
+"Medium <span class=\"new\">{new}</span> (verplaatst van positie <span class="
+"\"old\">{old}</span>)"
 
 #: ../root/edit/details/ReorderRelationships.js:21
 #: ../root/static/scripts/relationship-editor/components/DialogPreview.js:157
@@ -9563,8 +9553,7 @@ msgstr "{url|Meld je aan} om te zien of je op deze kandidaat kan stemmen."
 
 #: ../root/elections/ElectionVoting.js:36
 msgid "You cannot vote for this candidate, because you are not an auto-editor."
-msgstr ""
-"Je kan niet op deze kandidaat stemmen omdat je geen autoredacteur bent."
+msgstr "Je kan niet op deze kandidaat stemmen omdat je geen autoredacteur bent."
 
 #: ../root/elections/ElectionVoting.js:41
 msgid ""
@@ -9647,8 +9636,7 @@ msgstr "Uitgebrachte stemmen"
 
 #: ../root/elections/Show.js:37
 msgid "The list of voters will only be shown when the election is complete."
-msgstr ""
-"De stemlijst wordt alleen weergegeven nadat de verkiezing is afgelopen."
+msgstr "De stemlijst wordt alleen weergegeven nadat de verkiezing is afgelopen."
 
 #: ../root/entity/Collections.js:40
 msgid "{entity} has been added to {num} collection:"
@@ -9918,8 +9906,7 @@ msgstr "Relatie-eigenschap niet gevonden"
 #: ../root/entity/NotFound.js:156
 msgid ""
 "Sorry, we could not find a relationship attribute with that MusicBrainz ID."
-msgstr ""
-"We konden helaas geen relatie-eigenschap met die MusicBrainz-ID vinden."
+msgstr "We konden helaas geen relatie-eigenschap met die MusicBrainz-ID vinden."
 
 #: ../root/entity/NotFound.js:163
 msgctxt "header"
@@ -10048,8 +10035,7 @@ msgid "There is currently {num} user subscribed to edits that you make:"
 msgid_plural ""
 "There are currently {num} users subscribed to edits that you make:"
 msgstr[0] "Er is nu één gebruiker geabonneerd op bewerkingen die je maakt:"
-msgstr[1] ""
-"Er zijn nu {num} gebruikers geabonneerd op bewerkingen die je maakt:"
+msgstr[1] "Er zijn nu {num} gebruikers geabonneerd op bewerkingen die je maakt:"
 
 #: ../root/entity/Subscribers.js:79
 msgid "There is currently {num} user subscribed to edits that {user} makes:"
@@ -11151,16 +11137,15 @@ msgstr ""
 
 #: ../root/main/error/MirrorError404.js:16
 msgid "Sorry, the page you're looking for is not available on a mirror server."
-msgstr ""
-"De pagina die je zoekt is helaas niet beschikbaar op een spiegelserver."
+msgstr "De pagina die je zoekt is helaas niet beschikbaar op een spiegelserver."
 
 #: ../root/main/error/MirrorError404.js:23
 msgid ""
 "In order to view this page, please visit the main server at {mb|https://"
 "musicbrainz.org/}."
 msgstr ""
-"Om deze pagina te bekijken, moet je de hoofdserver op {mb|https://"
-"musicbrainz.org/} gebruiken."
+"Om deze pagina te bekijken, moet je de hoofdserver op {mb|https://musicbrainz"
+".org/} gebruiken."
 
 #: ../root/main/error/TimeoutError.js:25
 msgid "Request timed out"
@@ -11222,8 +11207,8 @@ msgid ""
 "to contribute and releasing the {doc|data} under {doc2|open licenses}."
 msgstr ""
 "<strong>De ultieme bron van informatie over muziek te zijn</strong> door "
-"iedereen bij te laten dragen en de {doc|gegevens} onder {doc2|open "
-"licenties} vrij te geven."
+"iedereen bij te laten dragen en de {doc|gegevens} onder {doc2|open licenties}"
+" vrij te geven."
 
 #: ../root/main/index.js:67
 msgid ""
@@ -11250,8 +11235,8 @@ msgstr ""
 msgid ""
 "{about|More Information} &#x2014; {faq|FAQs} &#x2014; {contact|Contact Us}"
 msgstr ""
-"{about|Meer informatie} &#x2014; {faq|Veelgestelde vragen} &#x2014; {contact|"
-"Contact}"
+"{about|Meer informatie} &#x2014; {faq|Veelgestelde vragen} &#x2014; "
+"{contact|Contact}"
 
 #: ../root/main/index.js:103
 msgid ""
@@ -11350,10 +11335,9 @@ msgid ""
 "it is an ID for something else than an entity (for example, a "
 "{rel_type_table|relationship type})."
 msgstr ""
-"Er zijn geen MusicBrainz-{entity_doc|objecten} voor de {mbid_doc|MBID} "
-"{mbid}. Of de MBID klopt niet, of het object is verwijderd, of het is een ID "
-"van iets anders dan een object (bijvoorbeeld een {rel_type_table|"
-"relatietype})."
+"Er zijn geen MusicBrainz-{entity_doc|objecten} voor de {mbid_doc|MBID} {mbid}"
+". Of de MBID klopt niet, of het object is verwijderd, of het is een ID van "
+"iets anders dan een object (bijvoorbeeld een {rel_type_table|relatietype})."
 
 #: ../root/mbid/NotFound.js:39
 msgid "{mbid} is not a valid {mbid_doc|MBID}."
@@ -11605,8 +11589,8 @@ msgid ""
 "The possible values for this relationship can be seen from the "
 "{instrument_list|instrument list}."
 msgstr ""
-"Je kan de mogelijke waarden voor deze relatie vinden in de {instrument_list|"
-"instrumentenlijst}."
+"Je kan de mogelijke waarden voor deze relatie vinden in de "
+"{instrument_list|instrumentenlijst}."
 
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:182
 msgid "Relationship usage"
@@ -12557,11 +12541,11 @@ msgid ""
 "change anything. In other cases, a disambiguation comment may be helpful."
 msgstr ""
 "In dit rapport staan uitgavegroepen met erg op elkaar lijkende namen en "
-"artiesten. Als de uitgaven in dezelfde uitgavegroep thuishoren (zie de {url|"
-"richtlijnen}), kunnen de uitgavegroepen worden samengevoegd. Als ze niet "
-"moeten worden samengevoegd maar aan de hand van het type uitgavegroep uit "
-"elkaar kunnen worden gehouden (zoals een album en single met dezelfde naam), "
-"hoeft er meestal niets te veranderen. In andere gevallen kan een "
+"artiesten. Als de uitgaven in dezelfde uitgavegroep thuishoren (zie de "
+"{url|richtlijnen}), kunnen de uitgavegroepen worden samengevoegd. Als ze "
+"niet moeten worden samengevoegd maar aan de hand van het type uitgavegroep "
+"uit elkaar kunnen worden gehouden (zoals een album en single met dezelfde "
+"naam), hoeft er meestal niets te veranderen. In andere gevallen kan een "
 "verduidelijking handig zijn."
 
 #: ../root/report/DuplicateReleaseGroups.js:52
@@ -13085,8 +13069,8 @@ msgid ""
 "This report shows release groups linked to the Various Artists entity "
 "without \"Various Artists\" as the credited name."
 msgstr ""
-"In dit rapport staan uitgavegroepen die gekoppeld zijn aan de artiest "
-"‘Diverse Artiesten’, maar die onder een andere artiestennaam worden vermeld."
+"In dit rapport staan uitgavegroepen die gekoppeld zijn aan de artiest ‘"
+"Diverse Artiesten’, maar die onder een andere artiestennaam worden vermeld."
 
 #: ../root/report/ReleaseGroupsWithoutVaCredit.js:31
 #: ../root/report/ReportsIndex.js:236
@@ -13100,8 +13084,8 @@ msgid ""
 "This report shows release groups with \"Various Artists\" as the credited "
 "name but not linked to the Various Artists entity."
 msgstr ""
-"In dit rapport staan uitgavegroepen die niet gekoppeld zijn aan de artiest "
-"‘Diverse Artiesten’, maar waarvan de artiest wel als ‘Diverse Artiesten’ "
+"In dit rapport staan uitgavegroepen die niet gekoppeld zijn aan de artiest ‘"
+"Diverse Artiesten’, maar waarvan de artiest wel als ‘Diverse Artiesten’ "
 "wordt vermeld."
 
 #: ../root/report/ReleaseGroupsWithoutVaLink.js:31
@@ -13386,8 +13370,8 @@ msgid ""
 "This report shows releases with \"Various Artists\" as the credited name but "
 "not linked to the Various Artists entity."
 msgstr ""
-"In dit rapport staan uitgaven die niet gekoppeld zijn aan de artiest "
-"‘Diverse Artiesten’, maar waarvan de artiest wel als ‘Diverse Artiesten’ "
+"In dit rapport staan uitgaven die niet gekoppeld zijn aan de artiest ‘"
+"Diverse Artiesten’, maar waarvan de artiest wel als ‘Diverse Artiesten’ "
 "wordt vermeld."
 
 #: ../root/report/ReleasesWithoutVaLink.js:30
@@ -13561,8 +13545,7 @@ msgstr "Wikidata-URL’s die aan meerdere objecten zijn gekoppeld"
 #: ../root/report/SeparateDiscs.js:24
 msgid ""
 "This report shows releases which have (disc n) or (bonus disc) in the title."
-msgstr ""
-"In dit rapport staan uitgaven met (disc n) of (bonus disc) in de titel."
+msgstr "In dit rapport staan uitgaven met (disc n) of (bonus disc) in de titel."
 
 #: ../root/report/SeparateDiscs.js:29
 msgid ""
@@ -16215,9 +16198,9 @@ msgid ""
 msgstr ""
 "Het lijkt erop dat “{matched_text}” niet de naam van het medium, maar de "
 "positie is. In dit geval moet je de naam verwijderen en het medium met de "
-"pijltjes rechts naar de juiste positie verplaatsen (zie de {release_style|"
-"stijlgids}). Als de titel wel klopt, kan je dat met het selectievakje "
-"hieronder bevestigen."
+"pijltjes rechts naar de juiste positie verplaatsen (zie de "
+"{release_style|stijlgids}). Als de titel wel klopt, kan je dat met het "
+"selectievakje hieronder bevestigen."
 
 #: ../root/static/scripts/release-editor/fields.js:893
 msgid "You haven’t selected a label for “{name}”."
@@ -16726,8 +16709,8 @@ msgid ""
 "That search can't be performed, because you must provide at least one of "
 "'recording', 'track number', 'duration', 'release', or 'artist'."
 msgstr ""
-"Die zoekopdracht kan niet worden uitgevoerd omdat je ten minste één "
-"‘opname’, ‘nummerpositie’, ‘duur’, ‘uitgave’ of ‘artiest’ moet opgeven."
+"Die zoekopdracht kan niet worden uitgevoerd omdat je ten minste één ‘opname’"
+", ‘nummerpositie’, ‘duur’, ‘uitgave’ of ‘artiest’ moet opgeven."
 
 #: ../root/taglookup/NotFound.js:22
 msgid "Please {search|try again}, providing at least one of these parameters"
@@ -16952,14 +16935,14 @@ msgid ""
 "without links is unlikely to be acted on fast, since it will require a lot "
 "of additional research."
 msgstr ""
-"Zorg dat je rechtstreekse links naar het gedrag dat je wil melden opgeeft "
-"(bijvoorbeeld “<code>https://musicbrainz.org/edit/23</code>” in plaats van "
-"“bewerking 23” en gebruik “<code>https://musicbrainz.org/edit/42</code> en "
-"<code>https://musicbrainz.org/edit/43</code>” in plaats van “<code>https://"
-"musicbrainz.org/user/Gebruikersnaam/edits</code>”). Met deze links kunnen de "
-"ontvangers van de melding veel makkelijker naar de problemen kijken. Een "
-"melding zonder links wordt waarschijnlijk minder snel opgepakt omdat er veel "
-"meer onderzoek voor nodig is."
+"Zorg dat je rechtstreekse links naar het gedrag dat je wil melden opgeeft ("
+"bijvoorbeeld “<code>https://musicbrainz.org/edit/23</code>” in plaats van “"
+"bewerking 23” en gebruik “<code>https://musicbrainz.org/edit/42</code> en "
+"<code>https://musicbrainz.org/edit/43</code>” in plaats van "
+"“<code>https://musicbrainz.org/user/Gebruikersnaam/edits</code>”). Met deze "
+"links kunnen de ontvangers van de melding veel makkelijker naar de problemen "
+"kijken. Een melding zonder links wordt waarschijnlijk minder snel opgepakt "
+"omdat er veel meer onderzoek voor nodig is."
 
 #: ../root/user/ReportUser.js:157
 msgid ""
@@ -17337,8 +17320,7 @@ msgstr "Tags omlaag gestemd"
 
 #: ../root/user/UserProfile.js:860
 msgid "Ratings are removed when an editor is deleted."
-msgstr ""
-"Als een redacteur wordt verwijderd, worden waarderingen ook verwijderd."
+msgstr "Als een redacteur wordt verwijderd, worden waarderingen ook verwijderd."
 
 #: ../root/user/UserProfile.js:863
 msgctxt "ratings"
@@ -17703,8 +17685,8 @@ msgid ""
 msgstr ""
 "Standaard worden je eigen bewerkingen en bewerkingen waar je al op hebt "
 "gestemd in deze zoekopdrachten overgeslagen. Als je dit wil veranderen, kan "
-"je de zoekopdracht openen en de voorwaarden “Redacteur ben ik niet” en "
-"“Stemmer ben ik niet” verwijderen."
+"je de zoekopdracht openen en de voorwaarden “Redacteur ben ik niet” en “"
+"Stemmer ben ik niet” verwijderen."
 
 #: ../root/vote/VotingIndex.js:81
 msgid "Destructive edits"
