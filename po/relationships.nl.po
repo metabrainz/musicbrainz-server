@@ -17,8 +17,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-01-16 14:28+0000\n"
-"Last-Translator: yvanzo <yvanzo@users.noreply.translations.metabrainz.org>\n"
+"PO-Revision-Date: 2024-01-17 09:50+0000\n"
+"Last-Translator: mfmeulenbelt <mfmeulenbelt@users.noreply.translations."
+"metabrainz.org>\n"
 "Language-Team: Dutch <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/nl/>\n"
 "Language: nl\n"
@@ -9011,11 +9012,8 @@ msgid "{additional} libretto"
 msgstr "{additional:aanvullend} libretto"
 
 #: DB:link_type/link_phrase:879 DB:link_type/link_phrase:880
-#, fuzzy
 msgid "{additional} libretto writing location for"
-msgstr ""
-"is de locatie waar het libretto van {entity1} {additional:aanvullend} "
-"geschreven werd"
+msgstr "is de locatie waar het libretto {additional:aanvullend} geschreven werd"
 
 #: DB:link_type/link_phrase:24 DB:link_type/reverse_link_phrase:24
 msgid "{additional} liner notes {translator}"
@@ -9030,11 +9028,8 @@ msgid "{additional} lyrics"
 msgstr "{additional:aanvullende} tekst"
 
 #: DB:link_type/link_phrase:877 DB:link_type/link_phrase:878
-#, fuzzy
 msgid "{additional} lyrics writing location for"
-msgstr ""
-"is de locatie waar de tekst van {entity1} {additional:aanvullend} geschreven "
-"werd."
+msgstr "{additional:aanvullende} schrijflocatie van de tekst van"
 
 #: DB:link_type/reverse_link_phrase:878
 msgid "{additional} lyrics written at"
@@ -9124,7 +9119,7 @@ msgstr "was {additional:aanvullend} {assistant:assistent}koorleider"
 
 #: DB:link_type/reverse_link_phrase:46 DB:link_type/reverse_link_phrase:151
 msgid "{additional} {assistant} conductor"
-msgstr "was {aanvullend }{assistant:assistent}dirigent"
+msgstr "was {additional:aanvullend }{assistant:assistent}dirigent"
 
 #: DB:link_type/link_phrase:928 DB:link_type/reverse_link_phrase:928
 msgid "{additional} {assistant} design"
@@ -9132,7 +9127,7 @@ msgstr "verzorgde {additional:aanvullend} {assistant:als assistent} het ontwerp"
 
 #: DB:link_type/reverse_link_phrase:153 DB:link_type/reverse_link_phrase:47
 msgid "{additional} {assistant} remixer"
-msgstr "remixte {aanvullend}{assistant: als assistent}"
+msgstr "remixte {additional:aanvullend}{assistant: als assistent}"
 
 #: DB:link_type/reverse_link_phrase:140 DB:link_type/reverse_link_phrase:31
 msgid "{additional} {assistant} {associate} {co:co-}audio engineer"
@@ -9185,8 +9180,8 @@ msgstr ""
 #: DB:link_type/link_phrase:1179
 msgid "{additional} {assistant} {associate} {co:co-}transferred"
 msgstr ""
-"zorgde {aanvullend}{assistant: als assistent}{associate: als "
-"partner}{co:gezamenlijk} voor het overzetten"
+"zorgde {additional:aanvullend}{assistant: als assistent}{associate: als "
+"partner}{co:gezamenlijk} voor het overzetten van"
 
 #: DB:link_type/reverse_link_phrase:1179
 msgid "{additional} {assistant} {associate} {co:co-}transferrer"

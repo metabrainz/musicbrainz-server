@@ -36,7 +36,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-02 10:11+0200\n"
-"PO-Revision-Date: 2024-01-06 02:28+0000\n"
+"PO-Revision-Date: 2024-01-16 14:28+0000\n"
 "Last-Translator: mfmeulenbelt <mfmeulenbelt@users.noreply.translations."
 "metabrainz.org>\n"
 "Language-Team: Dutch <https://translations.metabrainz.org/projects/"
@@ -8159,11 +8159,11 @@ msgstr "Je e-mailadres bekijken"
 
 #: ../root/constants.js:24
 msgid "View your public account information"
-msgstr "Je openbare accountinformatie bekijken"
+msgstr "Je openbare accountinformatie te bekijken"
 
 #: ../root/constants.js:25
 msgid "View and modify your private ratings"
-msgstr "Je privéwaarderingen bekijken en bewerken"
+msgstr "Je privéwaarderingen te bekijken en bewerken"
 
 #: ../root/constants.js:26
 msgid "Submit new barcodes to the database"
@@ -8176,7 +8176,7 @@ msgstr "Nieuwe ISRC’s in te dienen."
 #: ../root/constants.js:28
 msgctxt "folksonomy"
 msgid "View and modify your private tags"
-msgstr "Je privétags bekijken en bewerken"
+msgstr "Je privétags te bekijken en bewerken"
 
 #: ../root/doc/DocError.js:32 ../root/doc/DocError.js:36
 #: ../root/main/error/Error404.js:32 ../root/main/error/MirrorError404.js:13
@@ -11374,7 +11374,7 @@ msgstr "{app} vraagt toestemming om:"
 
 #: ../root/oauth2/OAuth2Authorize.js:44
 msgid "Perform the above operations when I'm not using the application"
-msgstr "Voer de bovenstaande operaties uit als ik de applicatie niet gebruik"
+msgstr "Het bovenstaande te doen als ik de toepassing niet gebruik"
 
 #: ../root/oauth2/OAuth2Authorize.js:59
 msgid "No thanks"
