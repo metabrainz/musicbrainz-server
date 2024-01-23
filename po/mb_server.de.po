@@ -75,7 +75,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-02 10:11+0200\n"
-"PO-Revision-Date: 2024-01-04 14:53+0000\n"
+"PO-Revision-Date: 2024-01-10 19:28+0000\n"
 "Last-Translator: kellnerd <kellnerd@users.noreply.translations.metabrainz."
 "org>\n"
 "Language-Team: German <https://translations.metabrainz.org/projects/"
@@ -5895,7 +5895,7 @@ msgstr "Häufig verwendet"
 #: ../lib/MusicBrainz/Server/Form/Utils.pm:59
 msgctxt "language optgroup"
 msgid "Other"
-msgstr "Andere"
+msgstr "Sonstige"
 
 #: ../lib/MusicBrainz/Server/Form/Utils.pm:83
 msgctxt "script optgroup"
@@ -5905,7 +5905,7 @@ msgstr "Häufig verwendet"
 #: ../lib/MusicBrainz/Server/Form/Utils.pm:83
 msgctxt "script optgroup"
 msgid "Other"
-msgstr "Andere"
+msgstr "Sonstige"
 
 #: ../lib/MusicBrainz/Server/Form/Utils.pm:220
 msgid ""

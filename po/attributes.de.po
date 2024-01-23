@@ -48,11 +48,11 @@
 # Wieland Hoffmann <email address hidden>, 2011
 # chaban <chaban@users.noreply.translations.metabrainz.org>, 2023.
 # Philipp Wolfer <ph.wolfer@gmail.com>, 2023.
-# kellnerd <kellnerd@users.noreply.translations.metabrainz.org>, 2023.
+# kellnerd <kellnerd@users.noreply.translations.metabrainz.org>, 2023, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-12-20 12:38+0000\n"
+"PO-Revision-Date: 2024-01-10 19:28+0000\n"
 "Last-Translator: kellnerd <kellnerd@users.noreply.translations.metabrainz."
 "org>\n"
 "Language-Team: German <https://translations.metabrainz.org/projects/"
@@ -6095,12 +6095,12 @@ msgstr "Originalproduktion"
 #: DB:artist_type/name:3
 msgctxt "artist_type"
 msgid "Other"
-msgstr "Anderes"
+msgstr "Sonstiger"
 
 #: DB:cover_art_archive.art_type/name:8
 msgctxt "cover_art_type"
 msgid "Other"
-msgstr "Anderes"
+msgstr "Sonstiges"
 
 #: DB:gender/name:3
 msgctxt "gender"
@@ -6115,17 +6115,17 @@ msgstr "Anderes"
 #: DB:place_type/name:3
 msgctxt "place_type"
 msgid "Other"
-msgstr "Anderes"
+msgstr "Sonstiges"
 
 #: DB:release_group_primary_type/name:11
 msgctxt "release_group_primary_type"
 msgid "Other"
-msgstr "Anderes"
+msgstr "Sonstiges"
 
 #: DB:release_packaging/name:5
 msgctxt "release_packaging"
 msgid "Other"
-msgstr "Anderes"
+msgstr "Sonstige"
 
 #: DB:instrument_type/name:5
 msgctxt "instrument_type"
