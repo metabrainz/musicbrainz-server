@@ -20,11 +20,6 @@
       value: '',
     },
     {
-      command: 'check',
-      target: "id=id-add-cover-art.edit_note",
-      value: 'seeded note',
-    },
-    {
       command: 'sendKeys',
       target: "xpath=(//input[contains(@class, 'comment')])[1]",
       value: 'front',
