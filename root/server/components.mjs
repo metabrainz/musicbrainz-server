@@ -218,6 +218,7 @@ export default {
   'report/ArtistsWithNoSubscribers': (): Promise<mixed> => import('../report/ArtistsWithNoSubscribers.js'),
   'report/AsinsWithMultipleReleases': (): Promise<mixed> => import('../report/AsinsWithMultipleReleases.js'),
   'report/BadAmazonUrls': (): Promise<mixed> => import('../report/BadAmazonUrls.js'),
+  'report/BootlegsOnNonBootlegLabels': (): Promise<mixed> => import('../report/BootlegsOnNonBootlegLabels.js'),
   'report/CatNoLooksLikeAsin': (): Promise<mixed> => import('../report/CatNoLooksLikeAsin.js'),
   'report/CatNoLooksLikeIsrc': (): Promise<mixed> => import('../report/CatNoLooksLikeIsrc.js'),
   'report/CatNoLooksLikeLabelCode': (): Promise<mixed> => import('../report/CatNoLooksLikeLabelCode.js'),

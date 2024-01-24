@@ -463,6 +463,12 @@ const ReportsIndex = (): React$Element<typeof Layout> => {
           />
           <ReportsIndexEntry
             content={l(
+              'Releases on non-bootleg labels set to bootleg',
+            )}
+            reportName="BootlegsOnNonBootlegLabels"
+          />
+          <ReportsIndexEntry
+            content={l(
               'Non-broadcast releases with linked show notes',
             )}
             reportName="ShowNotesButNotBroadcast"
