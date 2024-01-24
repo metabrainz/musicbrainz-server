@@ -1,0 +1,27 @@
+FROM perl:5.38.2
+
+RUN useradd --create-home --shell /bin/bash musicbrainz && \
+    mkdir /var/ssssss && \
+    chown musicbrainz:musicbrainz /var/ssssss
+
+USER musicbrainz:musicbrainz
+
+WORKDIR /home/musicbrainz/musicbrainz-server
+RUN mkdir contrib lib && \
+    chown -R musicbrainz:musicbrainz .
+
+RUN cpanm \
+        File::Slurp \
+        Log::Dispatch \
+        Plack \
+        String::ShellQuote
+
+COPY contrib/ssssss.psgi contrib/
+COPY docker/ssssss/DBDefs.pm lib/
+
+ENV PERL5LIB="/home/musicbrainz/perl5/lib/perl5"
+ENV SSSSSS_STORAGE=/var/ssssss
+
+ENTRYPOINT ["/home/musicbrainz/perl5/bin/plackup", \
+            "--port", "5050", \
+            "-r", "contrib/ssssss.psgi"]
