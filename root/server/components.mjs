@@ -343,7 +343,7 @@ export default {
   'series/SeriesIndex': (): Promise<mixed> => import('../series/SeriesIndex.js'),
   'series/SeriesMerge': (): Promise<mixed> => import('../series/SeriesMerge.js'),
   'statistics/Countries': (): Promise<mixed> => import('../statistics/Countries.js'),
-  'statistics/CoverArt': (): Promise<mixed> => import('../statistics/CoverArt.js'),
+  'statistics/Images': (): Promise<mixed> => import('../statistics/Images.js'),
   'statistics/Editors': (): Promise<mixed> => import('../statistics/Editors.js'),
   'statistics/Edits': (): Promise<mixed> => import('../statistics/Edits.js'),
   'statistics/Formats': (): Promise<mixed> => import('../statistics/Formats.js'),

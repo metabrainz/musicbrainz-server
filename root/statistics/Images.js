@@ -52,7 +52,7 @@ const nameOrNull = (name: string, defaultName: string) => {
   return name;
 };
 
-const CoverArt = ({
+const Images = ({
   dateCollected,
   releaseTypeStats,
   releaseStatusStats,
@@ -64,8 +64,8 @@ const CoverArt = ({
   return (
     <StatisticsLayout
       fullWidth
-      page="coverart"
-      title={lp_statistics('Cover art', 'plural')}
+      page="images"
+      title={l_statistics('Images')}
     >
       <p>
         {texp.l_statistics('Last updated: {date}', {date: dateCollected})}
@@ -73,7 +73,7 @@ const CoverArt = ({
       <h2>{l_statistics('Basics')}</h2>
       {stats['count.release.has_caa'] < 1 ? (
         <p>
-          {l_statistics('No cover art statistics available.')}
+          {l_statistics('No artwork statistics available.')}
         </p>
       ) : (
         <table className="database-statistics">
@@ -99,6 +99,30 @@ const CoverArt = ({
                 {formatCount($c, stats['count.coverart'])}
                 {' '}
                 <TimelineLink statName="count.coverart" />
+              </td>
+              <td />
+            </tr>
+            <tr>
+              <th>{addColonText(l_statistics('Events with event art'))}</th>
+              <td>
+                {formatCount($c, stats['count.event.has_art'])}
+                {' '}
+                <TimelineLink statName="count.event.has_art" />
+              </td>
+              <td>
+                {formatPercentage(
+                  $c,
+                  stats['count.event.has_art'] / stats['count.event'],
+                  1,
+                )}
+              </td>
+            </tr>
+            <tr>
+              <th>{addColonText(l_statistics('Pieces of event art'))}</th>
+              <td>
+                {formatCount($c, stats['count.event.art'])}
+                {' '}
+                <TimelineLink statName="count.event.art" />
               </td>
               <td />
             </tr>
@@ -404,4 +428,4 @@ const CoverArt = ({
   );
 };
 
-export default CoverArt;
+export default Images;

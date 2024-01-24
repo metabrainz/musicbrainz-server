@@ -387,6 +387,7 @@ test 'Paths that allow browsing without a confirmed email address' => sub {
   'Controller::Statistics::editors',
   'Controller::Statistics::edits',
   'Controller::Statistics::formats',
+  'Controller::Statistics::images',
   'Controller::Statistics::individual_timeline',
   'Controller::Statistics::languages_scripts',
   'Controller::Statistics::musicbrainz_history',

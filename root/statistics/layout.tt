@@ -5,7 +5,7 @@
     ['index', link_statistics_tab('/statistics', l('Overview')) ]
     ['countries', link_statistics_tab('/statistics/countries', l('Countries')) ],
     ['languages-scripts', link_statistics_tab('/statistics/languages-scripts', l('Languages/Scripts')) ],
-    ['coverart', link_statistics_tab('/statistics/coverart', lp('Cover art', 'plural')) ],
+    ['images', link_statistics_tab('/statistics/images', l('Images')) ],
     ['relationships', link_statistics_tab('/statistics/relationships', l('Relationships')) ],
     ['edits', link_statistics_tab('/statistics/edits', l('Edits')) ],
     ['formats', link_statistics_tab('/statistics/formats', l('Formats')) ],
