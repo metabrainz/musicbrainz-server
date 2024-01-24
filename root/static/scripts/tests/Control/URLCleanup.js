@@ -4866,6 +4866,40 @@ limited_link_type_combinations: [
             expected_clean_url: 'https://www.progarchives.com/Collaborators.asp?id=9702',
        only_valid_entity_types: [],
   },
+  // Qobuz
+  {
+                     input_url: 'https://www.qobuz.com/gb-en/interpreter/nitepunk/3241976',
+             input_entity_type: 'artist',
+       input_relationship_type: 'streamingpaid',
+limited_link_type_combinations: [
+                                  'streamingpaid',
+                                  ['downloadpurchase', 'streamingpaid'],
+                                ],
+            expected_clean_url: 'https://www.qobuz.com/gb-en/interpreter/nitepunk/3241976',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://www.qobuz.com/fr-fr/label/ecm/download-streaming-albums/92473',
+             input_entity_type: 'label',
+       input_relationship_type: 'streamingpaid',
+limited_link_type_combinations: [
+                                  'streamingpaid',
+                                  ['downloadpurchase', 'streamingpaid'],
+                                ],
+            expected_clean_url: 'https://www.qobuz.com/fr-fr/label/ecm/download-streaming-albums/92473',
+       only_valid_entity_types: ['label'],
+  },
+  {
+                     input_url: 'https://www.qobuz.com/es-es/album/the-koln-concert-live-at-the-opera-koln-1975-keith-jarrett/0060254707654',
+             input_entity_type: 'release',
+       input_relationship_type: 'streamingpaid',
+limited_link_type_combinations: [
+                                  'streamingpaid',
+                                  ['downloadpurchase', 'streamingpaid'],
+                                ],
+            expected_clean_url: 'https://www.qobuz.com/es-es/album/the-koln-concert-live-at-the-opera-koln-1975-keith-jarrett/0060254707654',
+       only_valid_entity_types: ['release'],
+  },
   // Rock.com.ar
   {
                      input_url: 'http://rock.com.ar/artistas/200',
