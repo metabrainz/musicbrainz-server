@@ -21,7 +21,7 @@
     // We want to leave a valid note on the first edit
     {
       command: 'click',
-      target: 'xpath=//*[@id="edits"]/form/div[2]/div[2]/div[2]/a[1]',
+      target: 'xpath=//*[@id="edits"]/form/div[2]/div[2]/div[2]/button',
       value: '',
     },
     {
@@ -32,7 +32,7 @@
     // We want to leave an invalid note on the second edit
     {
       command: 'click',
-      target: 'xpath=//*[@id="edits"]/form/div[3]/div[2]/div[2]/a[1]',
+      target: 'xpath=//*[@id="edits"]/form/div[3]/div[2]/div[2]/button',
       value: '',
     },
     {
