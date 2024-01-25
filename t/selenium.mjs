@@ -743,6 +743,11 @@ const seleniumTests = [
     name: 'Recording_Edit_Form.json5',
     login: true,
   },
+  {
+    name: 'Vote_And_Note_Submission.json5',
+    login: true,
+    sql: 'vote_and_note_selenium.sql',
+  },
 ];
 /* eslint-enable sort-keys */
 

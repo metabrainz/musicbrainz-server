@@ -345,15 +345,27 @@ releaseEditor.init = function (options) {
   // Intialize release data/view model.
 
   this.rootField.missingEditNote = function () {
-    return self.action === 'add' && !self.rootField.editNote();
+    return self.action === 'add' && empty(self.rootField.editNote());
   };
 
   // Keep in sync with is_valid_edit_note in Server::Validation
   this.rootField.invalidEditNote = function () {
+    const editNote = self.rootField.editNote();
+    if (empty(editNote)) {
+      // This is missing, not invalid
+      return false;
+    }
+
+    // We don't want line format chars to stop an edit note from being "empty"
+    const editNoteNoLineFormat = editNote.replace(
+      /[\u200b\u00AD\p{Cc}\p{Cf}\p{Mn}]/ug,
+      '',
+    );
     return self.action === 'add' && (
-      empty(self.rootField.editNote()) ||
-      /^[\p{White_Space}\p{Punctuation}]+$/u.test(self.rootField.editNote()) ||
-      /^\p{ASCII}$/u.test(self.rootField.editNote())
+      // If it's empty now but not earlier, it was all format characters
+      empty(editNote) ||
+      /^[\p{White_Space}\p{Punctuation}]+$/u.test(editNoteNoLineFormat) ||
+      /^\p{ASCII}$/u.test(editNoteNoLineFormat)
     );
   };
 
