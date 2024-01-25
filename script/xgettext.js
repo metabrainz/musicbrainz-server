@@ -154,7 +154,7 @@ const catchErrors = cb => {
   };
 };
 
-const keywords = {
+let keywords = {
   l: catchErrors(function (match) {
     const [arg0] = match.arguments;
 
@@ -223,6 +223,12 @@ const keywords = {
   N_l: match => keywords.l(match),
   N_ln: match => keywords.ln(match),
   N_lp: match => keywords.lp(match),
+};
+
+keywords = {
+  ...keywords,
+  l_statistics: keywords.l,
+  ln_statistics: keywords.ln,
 };
 
 const parser = new XGettext({

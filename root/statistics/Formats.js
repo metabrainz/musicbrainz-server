@@ -12,7 +12,6 @@ import * as React from 'react';
 
 import LinkSearchableProperty from '../components/LinkSearchableProperty.js';
 import {CatalystContext} from '../context.mjs';
-import {l_statistics as l} from '../static/scripts/common/i18n/statistics.js';
 import loopParity from '../utility/loopParity.js';
 
 import StatisticsLayout from './StatisticsLayout.js';
@@ -42,28 +41,28 @@ const Formats = ({
     <StatisticsLayout
       fullWidth
       page="formats"
-      title={l('Release/Medium Formats')}
+      title={l_statistics('Release/Medium Formats')}
     >
       <p>
-        {texp.l('Last updated: {date}',
-                {date: dateCollected})}
+        {texp.l_statistics('Last updated: {date}',
+                           {date: dateCollected})}
       </p>
-      <h2>{l('Release/Medium Formats')}</h2>
+      <h2>{l_statistics('Release/Medium Formats')}</h2>
       <table className="tbl">
         <thead>
           <tr>
-            <th className="pos">{l('Rank')}</th>
-            <th>{l('Format')}</th>
-            <th>{l('Releases')}</th>
-            <th>{l('% of total releases')}</th>
-            <th>{l('Mediums')}</th>
-            <th>{l('% of total mediums')}</th>
+            <th className="pos">{l_statistics('Rank')}</th>
+            <th>{l_statistics('Format')}</th>
+            <th>{l_statistics('Releases')}</th>
+            <th>{l_statistics('% of total releases')}</th>
+            <th>{l_statistics('Mediums')}</th>
+            <th>{l_statistics('% of total mediums')}</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td />
-            <td>{l('Total')}</td>
+            <td>{l_statistics('Total')}</td>
             <td className="t">
               {formatCount($c, stats['count.release'])}
               {' '}
@@ -91,7 +90,7 @@ const Formats = ({
                         searchValue={entity.name}
                         text={lp_attributes(entity.name, 'medium_format')}
                       />
-                    ) : l('Unknown format')}
+                    ) : l_statistics('Unknown format')}
                 </td>
                 <td className="t">
                   {formatCount($c, formatStat.release_count)}

@@ -1,25 +1,15 @@
 {
-  title: 'UI language menu not available in Spanish and Greek (MBS-9669)',
+  title: 'UI language menu not available in locale with variant (MBS-9669)',
   commands: [
     {
       command: 'open',
-      target: '/set-language/el-GR',
+      target: '/set-language/es-419',
       value: '',
     },
     {
       command: 'assertEval',
       target: "window.document.querySelector('.language-selector .menu-header').innerHTML",
-      value: 'Ελληνικά (Ελλάδα) ▾',
-    },
-    {
-      command: 'open',
-      target: '/set-language/es-ES',
-      value: '',
-    },
-    {
-      command: 'assertEval',
-      target: "window.document.querySelector('.language-selector .menu-header').innerHTML",
-      value: 'Español (España) ▾',
+      value: 'Español (Latinoamérica) ▾',
     },
   ],
 }

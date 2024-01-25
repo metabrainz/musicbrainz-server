@@ -241,7 +241,7 @@ recordingAssociation.autocompleteHook = function (track) {
 };
 
 
-function watchTrackForChanges(track) {
+export function watchTrackForChanges(track) {
   var name = track.name();
   var length = track.length();
 
@@ -262,7 +262,7 @@ function watchTrackForChanges(track) {
   }
 
   var similarTo = function (prop) {
-    return (utils.similarNames(track.name[prop], name) &&
+    return (utils.similarTrackNames(track.name[prop], name) &&
             utils.similarLengths(track.length[prop], length));
   };
 

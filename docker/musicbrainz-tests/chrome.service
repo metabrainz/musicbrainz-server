@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-exec sudo -E -H -u musicbrainz google-chrome-stable \
+exec sudo -E -H -u musicbrainz /opt/chrome-linux64/chrome \
     --headless \
     --disable-dev-shm-usage \
     --disable-gpu \

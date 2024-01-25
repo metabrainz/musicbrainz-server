@@ -23,7 +23,7 @@
                    [mbid|name] allows linking to artists and works.') -%]
         </p>
         <p>
-            [%- l('If needed, the characters "[", "]", and "&" can be escaped using the HTML entities "&lsqb;", "&rsqb;", and "&amp;" respectively.') -%]
+            [%- l('If needed, the characters "[", "]", and "&" can be escaped using the HTML entities "<code>&amp;lsqb;</code>", "<code>&amp;rsqb;</code>", and "<code>&amp;amp;</code>" respectively.') -%]
         </p>
       </fieldset>
 

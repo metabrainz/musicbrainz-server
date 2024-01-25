@@ -347,7 +347,7 @@ sub with_translations {
     my $cookie_lang = Translation->instance->language_from_cookie($c->request->cookies->{lang});
     $c->set_language_cookie($c->request->cookies->{lang}->value) if defined $c->request->cookies->{lang};
     my $lang = Translation->instance->set_language($cookie_lang);
-    my $html_lang = $lang =~ s/_([A-Z]{2})/-\L$1/r;
+    my $html_lang = $lang =~ s/_([A-Z0-9]{2,})/-\L$1/r;
 
     $c->stash(
         current_language => $lang,

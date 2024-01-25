@@ -17,11 +17,11 @@ type PropsT = {
 const MusicBrainzHistory = ({
   events,
 }: PropsT): React$Element<typeof Layout> => (
-  <Layout fullWidth title={l('History')}>
-    <h1>{l('Our glorious history')}</h1>
+  <Layout fullWidth title={l_statistics('History')}>
+    <h1>{l_statistics('Our glorious history')}</h1>
     {events.length
       ? events.map((event) => {
-        const title = exp.l(
+        const title = exp.l_statistics(
           '{date} - {title}',
           {date: event.date, title: event.title},
         );
@@ -38,7 +38,7 @@ const MusicBrainzHistory = ({
         );
       }) : (
         <p>
-          {l('It seems we have no history to show at all!')}
+          {l_statistics('It seems we have no history to show at all!')}
         </p>
       )}
   </Layout>

@@ -19,7 +19,6 @@ import {
   createRecordingObject,
   createSeriesObject,
 } from '../../../common/entity2.js';
-import {emptyRelationship} from '../constants.js';
 import compareRelationships
   from '../../../relationship-editor/utility/compareRelationships.js';
 import {
@@ -27,6 +26,7 @@ import {
   exportLinkTypeInfo,
 } from '../../../relationship-editor/utility/exportTypeInfo.js';
 import {linkAttributeTypes, linkTypes} from '../../typeInfo.js';
+import {emptyRelationship} from '../constants.js';
 
 exportLinkTypeInfo(linkTypes);
 exportLinkAttributeTypeInfo(linkAttributeTypes);
@@ -50,7 +50,7 @@ test('compareRelationships: Basic comparisons', function (t) {
     entity1: recording,
     id: -1,
     linkTypeID: 154,
-  }
+  };
 
   t.ok(
     compareRelationships(

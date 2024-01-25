@@ -18,6 +18,7 @@ import {MAX_LENGTH_DIFFERENCE, MIN_NAME_SIMILARITY}
   from '../common/constants.js';
 import escapeLuceneValue from '../common/utility/escapeLuceneValue.js';
 import request from '../common/utility/request.js';
+import {extractFeatCredits} from '../edit/utility/guessFeat.js';
 import similarity from '../edit/utility/similarity.js';
 
 import releaseEditor from './viewModel.js';
@@ -194,6 +195,18 @@ function namesAreSimilar(a, b) {
 
 utils.similarNames = function (oldName, newName) {
   return oldName == newName || namesAreSimilar(oldName, newName);
+};
+
+utils.similarTrackNames = function (oldName, newName) {
+  return utils.similarNames(oldName, newName) || namesAreSimilar(
+    /*
+     * MBS-13327: Compare track titles with featured artists removed,
+     * so that the release editor doesn't unlink recordings when such
+     * changes are made.
+     */
+    extractFeatCredits(oldName).name,
+    extractFeatCredits(newName).name,
+  );
 };
 
 utils.similarLengths = function (oldLength, newLength) {

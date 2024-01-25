@@ -12,6 +12,8 @@
  * https://tickets.metabrainz.org/browse/MBS-11178 gets resolved.
  */
 
+/* eslint-disable no-unused-vars */
+
 const collectionTypeColumnLabels = [
   N_l('Entity type'),
 ];

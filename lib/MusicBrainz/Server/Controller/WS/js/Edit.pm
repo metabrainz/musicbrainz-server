@@ -204,7 +204,7 @@ our $data_processors = {
         for my $ordering (@{ $data->{relationship_order} }) {
             my $relationship = $ordering->{relationship};
             my $new_order = delete $ordering->{link_order};
-            unless (is_database_row_id($new_order)) {
+            unless ($new_order == 0 || is_database_row_id($new_order)) {
                 $c->forward('/ws/js/detach_with_error', [
                     'EDIT_RELATIONSHIPS_REORDER: invalid link_order',
                 ]);

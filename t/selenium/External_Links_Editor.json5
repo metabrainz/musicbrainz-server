@@ -452,6 +452,36 @@
       target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'external-link-item')][2]//div[contains(@class, 'error')]",
       value: 'Please don’t enter links to search results. If you’ve found any links through your search that seem useful, do enter those instead.',
     },
+    // Set relationship credit
+    {
+      command: 'sendKeys',
+      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[1]",
+      value: 'https://soundcloud.com/psuhhoteek${KEY_ENTER}',
+    },
+    // Open popover
+    {
+      command: 'click',
+      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'relationship-item')][2]//button[contains(@class, 'edit-item')]",
+      value: '',
+    },
+    // Set credit: Testy
+    {
+      command: 'sendKeys',
+      target: "xpath=//div[@id='external-link-attribute-dialog']//input[@id='id-credit']",
+      value: 'Testy',
+    },
+    // Save
+    {
+      command: 'click',
+      target: "xpath=(//div[@id='external-link-attribute-dialog']//button[contains(@class, 'positive')])[1]",
+      value: '',
+    },
+    // Assert credit is correctly displayed
+    {
+      command: 'assertText',
+      target: "xpath=//table[@id='external-links-editor']//tr[contains(@class, 'relationship-item')][2]//span[contains(@class, 'entity-credit')][1]",
+      value: ' (credited as “Testy”)',
+    },
     // deprecated link type detection for existing links (MBS-8408)
     {
       command: 'type',
