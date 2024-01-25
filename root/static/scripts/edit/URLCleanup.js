@@ -4780,6 +4780,57 @@ const CLEANUPS: CleanupEntries = {
     match: [new RegExp('^(https?://)?([^/]+\\.)?purevolume\\.com', 'i')],
     restrict: [LINK_TYPES.purevolume],
   },
+  'qobuz': {
+    match: [
+      new RegExp('^(https?://)?(www\\.)?qobuz\\.com/', 'i'),
+    ],
+    restrict: [
+      LINK_TYPES.streamingpaid,
+      multiple(LINK_TYPES.downloadpurchase, LINK_TYPES.streamingpaid),
+    ],
+    select: function (url, sourceType) {
+      switch (sourceType) {
+        case 'artist':
+          return LINK_TYPES.streamingpaid.artist;
+        case 'label':
+          return LINK_TYPES.streamingpaid.label;
+        case 'release':
+          return LINK_TYPES.streamingpaid.release;
+      }
+      return false;
+    },
+    clean: function (url) {
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?qobuz\.com\//, 'https://www.qobuz.com/');
+      return url;
+    },
+    validate: function (url, id) {
+      const m = /^https:\/\/www\.qobuz\.com\/(?:[a-z]{2}-[a-z]{2}\/)?(album|interpreter|label)\/[\w\d-]+\/(?:[\w\d-]+\/)?[\w\d]+$/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.downloadpurchase.artist:
+          case LINK_TYPES.streamingpaid.artist:
+            return {
+              result: prefix === 'interpreter',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.downloadpurchase.label:
+          case LINK_TYPES.streamingpaid.label:
+            return {
+              result: prefix === 'label',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.downloadpurchase.release:
+          case LINK_TYPES.streamingpaid.release:
+            return {
+              result: prefix === 'album',
+              target: ERROR_TARGETS.ENTITY,
+            };
+        }
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
   'quebecinfomusique': {
     match: [new RegExp(
       '^(https?://)?(www\\.)?(qim|quebecinfomusique)\\.com',
