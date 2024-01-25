@@ -933,12 +933,12 @@ class Barcode {
   }
 
   checkDigit(barcode) {
-    if (barcode.length !== 12) {
+    if (barcode.length !== 13) {
       return false;
     }
 
     let calc = 0;
-    for (let i = 0; i < 12; i++) {
+    for (let i = 0; i < 13; i++) {
       calc += parseInt(barcode[i], 10) * this.weights[i];
     }
 
@@ -947,8 +947,8 @@ class Barcode {
   }
 
   validateCheckDigit(barcode) {
-    return this.checkDigit(barcode.slice(0, 12)) ===
-            parseInt(barcode[12], 10);
+    return this.checkDigit(barcode.slice(0, 13)) ===
+            parseInt(barcode[13], 10);
   }
 
   writeBarcode(barcode) {
@@ -957,7 +957,7 @@ class Barcode {
   }
 }
 
-Barcode.prototype.weights = [1, 3, 1, 3, 1, 3, 1, 3, 1, 3, 1, 3];
+Barcode.prototype.weights = [3, 1, 3, 1, 3, 1, 3, 1, 3, 1, 3, 1, 3];
 
 fields.Barcode = Barcode;
 
