@@ -49,14 +49,14 @@
 # Yllelder <yllelder@gmail.com>, 2023.
 # reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2023, 2024.
 # 0x1026 <me@hugovidafe.dev>, 2024.
+# yvanzo <yvanzo@users.noreply.translations.metabrainz.org>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-02 10:11+0200\n"
-"PO-Revision-Date: 2024-01-04 14:53+0000\n"
-"Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
-".org>\n"
+"PO-Revision-Date: 2024-01-12 09:57+0000\n"
+"Last-Translator: yvanzo <yvanzo@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/es/>\n"
 "Language: es\n"
@@ -622,9 +622,9 @@ msgid ""
 "Brought to you by {MeB|MetaBrainz Foundation} and our {spon|sponsors} and "
 "{supp|supporters}. Cover art provided by the {caa|Cover Art Archive}."
 msgstr ""
-"Ofrecido por {MeB|MetaBrainz Foundation} con la ayuda de {spon|"
-"patrocinadores} y {supp|simpatizantes}. Imágenes proporcionadas por el {caa|"
-"Cover Art Archive}."
+"Ofrecido por {MeB|MetaBrainz Foundation} con la ayuda de "
+"{spon|patrocinadores} y {supp|simpatizantes}. Imágenes proporcionadas por el "
+"{caa|Cover Art Archive}."
 
 #: ../root/layout.tt:115 ../root/layout/components/Footer.js:32
 #: ../root/main/index.js:211
@@ -3933,8 +3933,8 @@ msgid ""
 msgstr ""
 "La TOC de CD suministrada no es válida, probablemente debido a un problema "
 "con el programa que hayas utilizado para generarla. Inténtalo de nuevo, y si "
-"sigue sin funcionar házselo saber a los desarrolladores de tu programa "
-"(junto con la información técnica que encontrarás más abajo)."
+"sigue sin funcionar házselo saber a los desarrolladores de tu programa ("
+"junto con la información técnica que encontrarás más abajo)."
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:214
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:436
@@ -6135,8 +6135,8 @@ msgid ""
 "If you have any questions, please review the {faq|FAQs} or {doc|"
 "documentation} before {con|contacting us}."
 msgstr ""
-"Si tienes alguna pregunta, consulta las {faq|preguntas frequentes} y la {doc|"
-"documentación} antes de {con|contactar con nosotros}."
+"Si tienes alguna pregunta, consulta las {faq|preguntas frequentes} y la "
+"{doc|documentación} antes de {con|contactar con nosotros}."
 
 #: ../root/account/Register.js:85
 msgid ""

@@ -25,7 +25,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-01-04 14:54+0000\n"
+"PO-Revision-Date: 2024-01-10 19:28+0000\n"
 "Last-Translator: kellnerd <kellnerd@users.noreply.translations.metabrainz."
 "org>\n"
 "Language-Team: German <https://translations.metabrainz.org/projects/"
@@ -1677,7 +1677,7 @@ msgstr "mit Typ Figur:"
 
 #: ../root/statistics/Index.js:276
 msgid "of type Other:"
-msgstr "mit Typ Anderes:"
+msgstr "mit Typ Sonstiges:"
 
 #: ../root/statistics/Index.js:282
 msgid "with no type set:"
@@ -2184,7 +2184,7 @@ msgstr "Labeltypen"
 #: ../root/statistics/stats.js:29
 msgctxt "stats category"
 msgid "Other"
-msgstr "Anderes"
+msgstr "Sonstiges"
 
 #: ../root/statistics/stats.js:30
 msgid "Place types"

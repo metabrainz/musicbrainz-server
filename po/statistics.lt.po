@@ -1,11 +1,11 @@
 #
 # Translators:
-# "Vac31." <gateway_31@protonmail.com>, 2023.
+# "Vac31." <gateway_31@protonmail.com>, 2023, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-12-21 13:28+0000\n"
+"PO-Revision-Date: 2024-01-17 20:29+0000\n"
 "Last-Translator: \"Vac31.\" <gateway_31@protonmail.com>\n"
 "Language-Team: Lithuanian <https://translations.metabrainz.org/projects/"
 "musicbrainz/statistics/lt/>\n"
@@ -14,8 +14,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
-"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
-"1 : n % 1 != 0 ? 2: 3);\n"
+"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 :"
+" n % 1 != 0 ? 2: 3);\n"
 "X-Generator: Weblate 5.3\n"
 
 #: DB:statistics.statistic_event/title:2015-09-08
@@ -24,7 +24,7 @@ msgstr "„Nesudaryti klasterių“ gairės atsisakyta"
 
 #: DB:statistics.statistic_event/title:2017-04-11
 msgid "\"feat.\" standardization dropped"
-msgstr "„feat.“ standartizavimo atsisakyta"
+msgstr "„feat. (su)“ standartizavimo atsisakyta"
 
 #: DB:statistics.statistic_event/title:2021-04-19
 msgid "1200px thumbnails"
@@ -63,7 +63,7 @@ msgid ""
 "A major update for the Picard tagger is released, with a huge amount of "
 "bugfixes and improvements."
 msgstr ""
-"Išleistas didelis Picard žymeklio atnaujinimas, kuriame ištaisyta daugybė "
+"Išleistas didelis Picard žymeklio naujinimas, kuriame ištaisyta daugybė "
 "klaidų ir patobulinimų."
 
 #: DB:statistics.statistic_event/description:2019-11-12
@@ -81,16 +81,16 @@ msgid ""
 "A new AJAX coverart uploader is released, making it easier to add cover art "
 "to releases."
 msgstr ""
-"Išleistas naujas AJAX viršelių įkėlėjas, kuris palengvina leidinių viršelių "
-"pridėjimą."
+"Išleistas naujas AJAX viršelio apipavidalinimų įkėlėjas, kuris palengvina "
+"leidinių viršelių pridėjimą."
 
 #: DB:statistics.statistic_event/description:2015-12-28
 msgid ""
 "A new banner message now notifies users whenever they receive a new edit "
 "note."
 msgstr ""
-"Nauja reklamjuostės žinutė dabar informuoja naudotojus, kai jie gauna naują "
-"redagavimo pastabą."
+"Nauja reklamjuostės pranešimas dabar informuoja naudotojus, kai jie gauna "
+"naują redagavimo pastabą."
 
 #: DB:statistics.statistic_event/description:2003-04-05
 msgid "A new, much faster search mechanism is added."
@@ -107,7 +107,7 @@ msgid ""
 "more than one release event on one release."
 msgstr ""
 "Labai svarbus schemos pakeitimo leidimas pridėta naujo subjekto tipą "
-"(teritorijas), palaikomi atlikėjų ir leidyklų ISNI kodai, taip pat "
+"(teritorijas), palaikomi atlikėjų ir įrašų kompanijų ISNI kodai, taip pat "
 "suteikiama galimybė viename leidinyje turėti daugiau nei vieną leidinio "
 "įvykį."
 
@@ -137,10 +137,10 @@ msgid ""
 "relased and unused TRMs pruned from the database. Inline editing is turned "
 "off by default, causing a drop in voting activity."
 msgstr ""
-"Išplėstiniai santykiai, leidžiantys naudotojams sujungti pagrindines duomenų "
-"subjektus, yra išleisti, o nenaudojami TRM pašalinami iš duomenų bazės. "
-"Pagal numatytuosius nustatymus išjungiamas vidinis redagavimas, dėl to "
-"sumažėja balsavimo aktyvumas."
+"Išplėstiniai santykiai, leidžiantys naudotojams prijungti pagrindines "
+"duomenų subjektus, yra išleisti, o nenaudojami TRM pašalinami iš duomenų "
+"bazės. Pagal numatytuosius nustatymus išjungiamas vidinis redagavimas, dėl "
+"to sumažėja balsavimo aktyvumas."
 
 #: DB:statistics.statistic_event/description:2019-06-25
 msgid ""
@@ -151,10 +151,10 @@ msgid ""
 "more safe."
 msgstr ""
 "Po daugybės užkulisinių dramų MetaBrainz laimi teisinį mūšį prieš autorių "
-"teisių trolius, kurie bandė pateikti ieškinį dėl Vikitekos paveikslėlių "
-"naudojimo. Vaizdai vis dar atsisakomi MetaBrainz svetainėse, kad būtų "
-"išvengta tolesnių problemų, kol Vikiteka atliks pakeitimus, kurie padidins "
-"pakartotinio vaizdų naudojimo saugumą."
+"teisių trolius, kurie bandė pateikti ieškinį dėl Vikitekos vaizdų naudojimo. "
+"Vaizdai vis dar atsisakomi MetaBrainz svetainėse, kad būtų išvengta tolesnių "
+"problemų, kol Vikiteka atliks pakeitimus, kurie padidins pakartotinio vaizdų "
+"naudojimo saugumą."
 
 #: DB:statistics.statistic_event/description:2011-11-23
 msgid ""
@@ -165,14 +165,11 @@ msgstr ""
 "todėl jie tampa daug labiau matomi."
 
 #: DB:statistics.statistic_event/description:2012-09-01
-#, fuzzy
-#| msgid ""
-#| "After a successful Summer of Code, Ian McEwen joins the MusicBrainz team"
 msgid ""
 "After a successful Summer of Code, Ian McEwen joins the MusicBrainz team."
 msgstr ""
 "Po sėkmingos Summer of Code prie MusicBrainz komandos prisijungė Ianas "
-"Makevenas (angl. Ian McEwen)"
+"Makevenas (angl. Ian McEwen)."
 
 #: DB:statistics.statistic_event/description:2016-11-08
 msgid ""
@@ -189,6 +186,9 @@ msgid ""
 "adopted as an official project and given an actual developer position with "
 "the hiring of Monkey."
 msgstr ""
+"Po kelerių metų, kai BookBrainz buvo tik bendruomenės inicijuotas projektas, "
+"jis priimamas kaip oficialus projektas ir jam suteikiama reali programuotojo "
+"pozicija, įdarbinant Monkey."
 
 #: DB:statistics.statistic_event/description:2021-05-26
 msgid ""
@@ -206,6 +206,8 @@ msgstr "Albumo kalbos"
 msgid ""
 "Album languages, guess case improvements and revamps edit forms released."
 msgstr ""
+"Išleistos albumo kalbos, patobulinta atspėti raidžių lygį ir pakeistos "
+"redagavimo formos."
 
 #: DB:statistics.statistic_event/description:2015-05-19
 msgid ""
@@ -227,22 +229,21 @@ msgid ""
 "wired.com/2008/09/amazon-takes-on/\">SoundUnwound</a> with data from "
 "MusicBrainz."
 msgstr ""
+"Amazon pristato <a href=\"http://web.archive.org/web/20210123164029/"
+"https://www.wired.com/2008/09/amazon-takes-on/\">SoundUnwound</a> betą su "
+"MusicBrainz duomenimis."
 
 #: DB:statistics.statistic_event/title:2008-09-01
 msgid "Amazon betas SoundUnwound"
-msgstr ""
+msgstr "Amazon pristato SoundUnwound betą"
 
 #: DB:statistics.statistic_event/title:2004-02-24
-#, fuzzy
-#| msgid "Amazon Coverart"
 msgid "Amazon cover art"
-msgstr "Amazon viršelis"
+msgstr "Amazon viršelio apipavidalinimas"
 
 #: DB:statistics.statistic_event/description:2004-02-24
-#, fuzzy
-#| msgid "Amazon coverart support released."
 msgid "Amazon cover art support released."
-msgstr "Išleistas Amazon viršelio palaikymas."
+msgstr "Išleistas Amazon viršelio apipavidalinimo palaikymas."
 
 #: DB:statistics.statistic_event/description:2006-07-12
 msgid "An improved release editor and a new site design are released."
@@ -2162,11 +2163,9 @@ msgid "Edit information"
 msgstr ""
 
 #: ../root/statistics/stats.js:23
-#, fuzzy
-#| msgid "Edit Types"
 msgctxt "noun"
 msgid "Edit types"
-msgstr "Redaguoti tipus"
+msgstr "Redagavimo tipai"
 
 #: ../root/statistics/stats.js:24
 #, fuzzy

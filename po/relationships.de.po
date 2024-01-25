@@ -19,14 +19,15 @@
 # Ulrich Klauer <email address hidden>, 2016
 # chaban <chaban@users.noreply.translations.metabrainz.org>, 2023.
 # Philipp Wolfer <ph.wolfer@gmail.com>, 2023.
-# kellnerd <kellnerd@users.noreply.translations.metabrainz.org>, 2023.
+# kellnerd <kellnerd@users.noreply.translations.metabrainz.org>, 2023, 2024.
 # aerozol <aerozol@users.noreply.translations.metabrainz.org>, 2023.
 # "Markus O." <markus@memotech.franken.de>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-01-04 03:28+0000\n"
-"Last-Translator: \"Markus O.\" <markus@memotech.franken.de>\n"
+"PO-Revision-Date: 2024-01-10 19:28+0000\n"
+"Last-Translator: kellnerd <kellnerd@users.noreply.translations.metabrainz."
+"org>\n"
 "Language-Team: German <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/de/>\n"
 "Language: de\n"
@@ -6196,7 +6197,7 @@ msgstr "geringfügig"
 #: DB:link_type/name:162 DB:link_type/name:129 DB:link_type/name:25
 #: DB:link_type/name:999 DB:link_type/name:998
 msgid "misc"
-msgstr "Sonstiges"
+msgstr "Verchiedenes"
 
 #: DB:link_type/link_phrase:162 DB:link_type/link_phrase:129
 #: DB:link_type/link_phrase:25 DB:link_type/link_phrase:999
