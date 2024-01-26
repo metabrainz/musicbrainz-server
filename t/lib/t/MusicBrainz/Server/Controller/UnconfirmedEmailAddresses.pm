@@ -363,6 +363,7 @@ test 'Paths that allow browsing without a confirmed email address' => sub {
   'Controller::Root::index',
   'Controller::Root::set_beta_preference',
   'Controller::Root::set_language',
+  'Controller::SSSSSSProxy::ssssss',
   'Controller::Search::search',
   'Controller::Series::alias',
   'Controller::Series::aliases',

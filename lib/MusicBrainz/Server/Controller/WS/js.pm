@@ -545,8 +545,20 @@ sub _art_upload {
     my $expiration = gmtime() + 3600;
     $s3_policy{expiration} = $expiration->datetime . '.000Z';
 
+    my $action = URI->new(DBDefs->INTERNET_ARCHIVE_UPLOAD_PREFIXER($bucket));
+    # On test servers using contrib/ssssss.psgi, have the client send uploads
+    # to `MusicBrainz::Server::Controller::SSSSSSProxy`.
+    if (DBDefs->DB_STAGING_TESTING_FEATURES) {
+        my $ssssss_server = URI->new(DBDefs->SSSSSS_SERVER);
+        if ($action->authority eq $ssssss_server->authority) {
+            $action->scheme($c->req->uri->scheme);
+            $action->authority(DBDefs->WEB_SERVER);
+            $action->path('/ssssss' . $action->path);
+        }
+    }
+
     my $data = {
-        action => DBDefs->INTERNET_ARCHIVE_UPLOAD_PREFIXER($bucket),
+        action => $action->as_string,
         image_id => "$id",
         formdata => $art_archive_model->post_fields($bucket, $gid, $id, \%s3_policy),
         nonce => $nonce,

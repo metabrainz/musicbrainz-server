@@ -359,6 +359,10 @@ sub INTERNET_ARCHIVE_IA_METADATA_PREFIX { 'https://archive.org/metadata' }
 sub COVER_ART_ARCHIVE_DOWNLOAD_PREFIX { '//coverartarchive.org' }
 sub EVENT_ART_ARCHIVE_DOWNLOAD_PREFIX { '//eventartarchive.org' }
 
+# Required in order to use the `/ssssss` endpoint. See the
+# `MusicBrainz::Server::Controller::SSSSSSProxy` module for more information.
+sub SSSSSS_SERVER { 'http://localhost:5050' }
+
 # Mapbox access token must be set to display area/place maps.
 sub MAPBOX_MAP_ID { 'mapbox/streets-v11' }
 sub MAPBOX_ACCESS_TOKEN { '' }
