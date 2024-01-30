@@ -4,6 +4,7 @@ use warnings;
 
 use Test::Routine;
 use Test::More;
+use Test::XML::SemanticCompare qw( is_xml_same );
 
 with 't::Mechanize', 't::Context';
 
@@ -29,10 +30,10 @@ test all => sub {
             VALUES ('78ad6e24-dc0a-4c20-8284-db2d44d28fb9', 49161);
         SQL
 
-    my $ean13 = '5021603064126';
+    my $isrc = 'JPA600102450';
     my $content = _create_request_content(
         'fbe4eb72-0f24-3875-942e-f581589713d4',
-        $ean13,
+        $isrc,
     );
 
     my $req = xml_post('/ws/2/release?client=test-1.0', $content);
@@ -46,6 +47,44 @@ test all => sub {
         $mech->request($req);
         is($mech->status, HTTP_BAD_REQUEST);
     };
+
+    subtest 'Submissions of alphanumeric barcodes are rejected' => sub {
+        $req = xml_post('/ws/2/release?client=test-1.0', $content);
+        $mech->request($req);
+        is($mech->status, HTTP_BAD_REQUEST);
+        is_xml_same($mech->content, <<~"EOXML");
+            <?xml version="1.0"?>
+            <error>
+                <text>$isrc is not a valid barcode</text>
+                <text>For usage, please see: https://musicbrainz.org/development/mmd</text>
+            </error>
+            EOXML
+    };
+
+    my $truncated_barcode = '502160306412';
+    $content = _create_request_content(
+        'fbe4eb72-0f24-3875-942e-f581589713d4',
+        $truncated_barcode,
+    );
+
+    subtest 'Submissions of invalid GTIN barcodes are rejected' => sub {
+        $req = xml_post('/ws/2/release?client=test-1.0', $content);
+        $mech->request($req);
+        is($mech->status, HTTP_BAD_REQUEST);
+        is_xml_same($mech->content, <<~"EOXML");
+            <?xml version="1.0"?>
+            <error>
+                <text>$truncated_barcode is not a valid GTIN (EAN/UPC) barcode</text>
+                <text>For usage, please see: https://musicbrainz.org/development/mmd</text>
+            </error>
+            EOXML
+    };
+
+    my $ean13 = '5021603064126';
+    $content = _create_request_content(
+        'fbe4eb72-0f24-3875-942e-f581589713d4',
+        $ean13,
+    );
 
     $req = xml_post('/ws/2/release?client=test-1.0', $content);
     $mech->request($req);
