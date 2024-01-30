@@ -147,7 +147,7 @@ validationTest((
 validationTest((
   'Barcode check digit validation'
 ), function (t) {
-  t.plan(5);
+  t.plan(9);
 
   const release = releaseEditor.rootField.release();
   const field = release.barcode;
@@ -157,4 +157,12 @@ validationTest((
   t.ok(field.validateCheckDigit('9399431762528'), 'GTIN-13 (EAN-13) has valid check digit');
   t.ok(field.validateCheckDigit('810121774182'), 'GTIN-12 (UPC-A) has valid check digit');
   t.ok(field.validateCheckDigit('07642357'), 'GTIN-8 (EAN-8) has valid check digit');
+  /*
+   * Use slice to drop add-on like the actual release editor code does
+   * TODO: Test barcode validation rather than just the check digit validation
+   */
+  t.ok(field.validateCheckDigit('02083116542649'.slice(0, -2)), 'GTIN-12 (UPC-A) with 2-digit add-on (UPC-2) has valid check digit');
+  t.ok(field.validateCheckDigit('01501272866800084'.slice(0, -5)), 'GTIN-12 (UPC-A) with 5-digit add-on (UPC-5) has valid check digit');
+  t.ok(field.validateCheckDigit('419091010790904'.slice(0, -2)), 'GTIN-13 (EAN-13) with 2-digit add-on (EAN-2) has valid check digit');
+  t.ok(field.validateCheckDigit('842056520418700004'.slice(0, -5)), 'GTIN-13 (EAN-13) with 5-digit add-on (EAN-5) has valid check digit');
 });
