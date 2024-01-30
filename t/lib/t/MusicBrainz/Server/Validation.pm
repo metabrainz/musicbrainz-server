@@ -183,15 +183,15 @@ test 'Test is_valid_barcode' => sub {
 };
 
 test 'Test is_valid_gtin' => sub {
-    ok(!is_valid_gtin('1234567'), 'Invalid EAN (7 chars)');
-    ok(is_valid_gtin('96385074'), 'Valid EAN (8 chars)');
-    ok(!is_valid_gtin('96385076'), 'Invalid EAN (8 chars)');
-    ok(is_valid_gtin('123456789999'), 'Valid UPC (12 chars)');
-    ok(!is_valid_gtin('123456789997'), 'Invalid UPC (12 chars)');
-    ok(is_valid_gtin('5901234123457'), 'Valid EAN (13 chars)');
-    ok(!is_valid_gtin('5901234123459'), 'Invalid EAN (13 chars)');
-    ok(is_valid_gtin('12345678901231'), 'Valid GTIN (14 chars)');
-    ok(!is_valid_gtin('12345678901234'), 'Invalid GTIN (14 chars)');
+    ok(!is_valid_gtin('1234565'), '7-digit barcode with valid check digit has invalid length');
+    ok(is_valid_gtin('96385074'), 'GTIN-8 (EAN-8) is valid');
+    ok(!is_valid_gtin('96385076'), 'GTIN-8 (EAN-8) has invalid check digit');
+    ok(is_valid_gtin('123456789999'), 'GTIN-12 (UPC-A) is valid');
+    ok(!is_valid_gtin('123456789997'), 'GTIN-12 (UPC-A) has invalid check digit');
+    ok(is_valid_gtin('5901234123457'), 'GTIN-13 (EAN-13) is valid');
+    ok(!is_valid_gtin('5901234123459'), 'GTIN-13 (EAN-13) has invalid check digit');
+    ok(is_valid_gtin('12345678901231'), 'GTIN-14 (EAN/UCC-128 or ITF-14) is valid');
+    ok(!is_valid_gtin('12345678901234'), 'GTIN-14 (EAN/UCC-128 or ITF-14) has invalid check digit');
 };
 
 test 'Test is_valid_partial_date' => sub {
