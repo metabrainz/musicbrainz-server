@@ -184,12 +184,15 @@ test 'Test is_valid_barcode' => sub {
 
 test 'Test is_valid_gtin' => sub {
     ok(!is_valid_gtin('1234565'), '7-digit barcode with valid check digit has invalid length');
-    ok(is_valid_gtin('96385074'), 'GTIN-8 (EAN-8) is valid');
-    ok(!is_valid_gtin('96385076'), 'GTIN-8 (EAN-8) has invalid check digit');
-    ok(is_valid_gtin('123456789999'), 'GTIN-12 (UPC-A) is valid');
-    ok(!is_valid_gtin('123456789997'), 'GTIN-12 (UPC-A) has invalid check digit');
-    ok(is_valid_gtin('5901234123457'), 'GTIN-13 (EAN-13) is valid');
-    ok(!is_valid_gtin('5901234123459'), 'GTIN-13 (EAN-13) has invalid check digit');
+    ok(is_valid_gtin('07642357'), 'GTIN-8 (EAN-8) is valid');
+    ok(!is_valid_gtin('07642358'), 'GTIN-8 (EAN-8) has invalid check digit');
+    ok(is_valid_gtin('718752155427'), 'GTIN-12 (UPC-A) is valid');
+    ok(!is_valid_gtin('718752155428'), 'GTIN-12 (UPC-A) has invalid check digit');
+    ok(is_valid_gtin('0666017082523'), '13-digit 0-padded GTIN-12 (UPC-A) is valid');
+    ok(is_valid_gtin('4050538793819'), 'GTIN-13 (EAN-13) is valid');
+    ok(!is_valid_gtin('4050538793810'), 'GTIN-13 (EAN-13) has invalid check digit');
+    ok(is_valid_gtin('00602577318801'), '14-digit 0-padded GTIN-12 (UPC-A) is valid');
+    ok(is_valid_gtin('07875354382095'), '14-digit 0-padded GTIN-13 (EAN-13) is valid');
     ok(is_valid_gtin('02083116542649'), 'GTIN-12 (UPC-A) with 2-digit add-on (UPC-2) is valid');
     ok(is_valid_gtin('01501272866800084'), 'GTIN-12 (UPC-A) with 5-digit add-on (UPC-5) is valid');
     ok(is_valid_gtin('419091010790904'), 'GTIN-13 (EAN-13) with 2-digit add-on (EAN-2) is valid');
