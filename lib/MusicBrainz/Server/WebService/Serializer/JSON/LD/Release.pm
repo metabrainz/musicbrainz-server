@@ -1,5 +1,6 @@
 package MusicBrainz::Server::WebService::Serializer::JSON::LD::Release;
 use Moose;
+use MusicBrainz::Server::Validation qw( is_valid_gtin );
 use MusicBrainz::Server::WebService::Serializer::JSON::LD::Utils qw( serialize_entity list_or_single artwork );
 use List::AllUtils qw( uniq uniq_by );
 
@@ -83,7 +84,18 @@ around serialize => sub {
             $ret->{track} = \@tracks if @tracks;
         }
 
-        $ret->{gtin14} = $entity->barcode->code if $entity->barcode;
+        if ($entity->barcode) {
+            my $barcode_value = $entity->barcode->code;
+            if (is_valid_gtin($barcode_value)) {
+                $ret->{gtin} = $barcode_value;
+            } else {
+                $ret->{identifier} = {
+                  '@type' => 'PropertyValue',
+                  'propertyID' => 'barcode',
+                  'value' => $barcode_value,
+                };
+            }
+        }
 
         $ret->{creditedTo} = $entity->artist_credit->name if $entity->artist_credit;
     }
