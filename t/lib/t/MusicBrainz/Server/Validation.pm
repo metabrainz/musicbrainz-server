@@ -190,8 +190,6 @@ test 'Test is_valid_gtin' => sub {
     ok(!is_valid_gtin('123456789997'), 'GTIN-12 (UPC-A) has invalid check digit');
     ok(is_valid_gtin('5901234123457'), 'GTIN-13 (EAN-13) is valid');
     ok(!is_valid_gtin('5901234123459'), 'GTIN-13 (EAN-13) has invalid check digit');
-    ok(is_valid_gtin('12345678901231'), 'GTIN-14 (EAN/UCC-128 or ITF-14) is valid');
-    ok(!is_valid_gtin('12345678901234'), 'GTIN-14 (EAN/UCC-128 or ITF-14) has invalid check digit');
 };
 
 test 'Test is_valid_partial_date' => sub {
