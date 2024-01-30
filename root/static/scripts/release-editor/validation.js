@@ -178,7 +178,18 @@ utils.withRelease(function (release) {
   var checkDigitText = l('The check digit would be {checkdigit}.');
   var doubleCheckText = l('Please double-check the barcode on the release.');
 
-  if (barcode.length === 11) {
+  if (barcode.length === 8) {
+    if (field.validateCheckDigit(barcode)) {
+      field.message(l('The barcode you entered is a valid EAN code.'));
+      searchExistingBarcode(field, barcode, release.gid());
+    } else {
+      field.error(
+        l('The barcode you entered is not a valid EAN code.') +
+        ' ' +
+        doubleCheckText,
+      );
+    }
+  } else if (barcode.length === 11) {
     field.error(
       l(
         `The barcode you entered looks like a UPC code

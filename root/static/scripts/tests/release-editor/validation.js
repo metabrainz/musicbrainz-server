@@ -147,7 +147,7 @@ validationTest((
 validationTest((
   'Barcode check digit validation'
 ), function (t) {
-  t.plan(4);
+  t.plan(5);
 
   const release = releaseEditor.rootField.release();
   const field = release.barcode;
@@ -156,4 +156,5 @@ validationTest((
   t.ok(field.validateCheckDigit('0810121774182'), '13-digit 0-padded GTIN-12 (UPC-A) has valid check digit');
   t.ok(field.validateCheckDigit('9399431762528'), 'GTIN-13 (EAN-13) has valid check digit');
   t.ok(field.validateCheckDigit('810121774182'), 'GTIN-12 (UPC-A) has valid check digit');
+  t.ok(field.validateCheckDigit('07642357'), 'GTIN-8 (EAN-8) has valid check digit');
 });
