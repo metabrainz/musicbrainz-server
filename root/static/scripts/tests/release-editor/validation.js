@@ -154,8 +154,7 @@ validationTest((
 
   t.ok(field.validateCheckDigit('00810121774182'), '0-padded GTIN-14');
   t.ok(field.validateCheckDigit('12345678901231'), 'GTIN-14');
-  // Adding '0' + as it matches what the actual release editor code does
-  t.ok(field.validateCheckDigit('0' + '0810121774182'), '0-padded EAN-13');
-  t.ok(field.validateCheckDigit('0' + '9399431762528'), 'EAN-13');
-  t.ok(field.validateCheckDigit('00' + '810121774182'), 'UPC');
+  t.ok(field.validateCheckDigit('0810121774182'), '0-padded EAN-13');
+  t.ok(field.validateCheckDigit('9399431762528'), 'EAN-13');
+  t.ok(field.validateCheckDigit('810121774182'), 'UPC');
 });

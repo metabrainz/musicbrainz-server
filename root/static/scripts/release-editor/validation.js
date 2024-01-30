@@ -186,11 +186,11 @@ utils.withRelease(function (release) {
       ) +
       ' ' +
       expand2text(
-        checkDigitText, {checkdigit: field.checkDigit('0' + barcode)},
+        checkDigitText, {checkdigit: field.checkDigit(barcode)},
       ),
     );
   } else if (barcode.length === 12) {
-    if (field.validateCheckDigit('00' + barcode)) {
+    if (field.validateCheckDigit(barcode)) {
       field.message(l('The barcode you entered is a valid UPC code.'));
       searchExistingBarcode(field, barcode, release.gid());
     } else {
@@ -209,7 +209,7 @@ utils.withRelease(function (release) {
       );
     }
   } else if (barcode.length === 13) {
-    if (field.validateCheckDigit('0' + barcode)) {
+    if (field.validateCheckDigit(barcode)) {
       field.message(l('The barcode you entered is a valid EAN code.'));
       searchExistingBarcode(field, barcode, release.gid());
     } else {
