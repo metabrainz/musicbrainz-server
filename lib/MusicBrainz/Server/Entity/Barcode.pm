@@ -9,14 +9,6 @@ has 'code' => (
 
 use overload '""' => sub { shift->code }, fallback => 1;
 
-sub type {
-    my ($self) = @_;
-    return 'EAN' if length($self->code) == 8;
-    return 'UPC' if length($self->code) == 12;
-    return 'EAN' if length($self->code) == 13;
-    return 'GTIN' if length($self->code) == 14;
-}
-
 sub format
 {
     my $self = shift;
