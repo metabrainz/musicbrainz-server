@@ -50,7 +50,7 @@ page_test_jsonld $mech => {
         '@type' => 'MusicLabel',
     },
     '@type' => 'MusicRelease',
-    'gtin14' => '0094634396028',
+    'gtin' => '0094634396028',
     'creditedTo' => 'Kate Bush',
     'track' => [
         {

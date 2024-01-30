@@ -161,7 +161,7 @@ function searchExistingBarcode(field, barcode, releaseId) {
   });
 }
 
-// Barcode should be a valid EAN/UPC.
+// Barcode should be a valid GTIN (EAN/UPC) or double-checked.
 
 utils.withRelease(function (release) {
   var field = release.barcode;
@@ -175,10 +175,21 @@ utils.withRelease(function (release) {
     return;
   }
 
-  var checkDigitText = l('The check digit is {checkdigit}.');
+  var checkDigitText = l('The check digit would be {checkdigit}.');
   var doubleCheckText = l('Please double-check the barcode on the release.');
 
-  if (barcode.length === 11) {
+  if (barcode.length === 8) {
+    if (field.validateCheckDigit(barcode)) {
+      field.message(l('The barcode you entered is a valid EAN code.'));
+      searchExistingBarcode(field, barcode, release.gid());
+    } else {
+      field.error(
+        l('The barcode you entered is not a valid EAN code.') +
+        ' ' +
+        doubleCheckText,
+      );
+    }
+  } else if (barcode.length === 11) {
     field.error(
       l(
         `The barcode you entered looks like a UPC code
@@ -186,11 +197,11 @@ utils.withRelease(function (release) {
       ) +
       ' ' +
       expand2text(
-        checkDigitText, {checkdigit: field.checkDigit('0' + barcode)},
+        checkDigitText, {checkdigit: field.checkDigit(barcode)},
       ),
     );
   } else if (barcode.length === 12) {
-    if (field.validateCheckDigit('00' + barcode)) {
+    if (field.validateCheckDigit(barcode)) {
       field.message(l('The barcode you entered is a valid UPC code.'));
       searchExistingBarcode(field, barcode, release.gid());
     } else {
@@ -209,7 +220,7 @@ utils.withRelease(function (release) {
       );
     }
   } else if (barcode.length === 13) {
-    if (field.validateCheckDigit('0' + barcode)) {
+    if (field.validateCheckDigit(barcode)) {
       field.message(l('The barcode you entered is a valid EAN code.'));
       searchExistingBarcode(field, barcode, release.gid());
     } else {
@@ -223,9 +234,89 @@ utils.withRelease(function (release) {
     if (field.validateCheckDigit(barcode)) {
       field.message(l('The barcode you entered is a valid GTIN code.'));
       searchExistingBarcode(field, barcode, release.gid());
+    } else if (field.validateCheckDigit(barcode.slice(0, -2))) {
+      field.error(
+        l('The barcode you entered is a valid UPC code.') +
+        ' ' +
+        texp.l(
+          `However it ends with an add-on code.
+           Please add it as “{annotation_text}” to the annotation field below,
+           and keep the main code “{main_digits}” only in the barcode field.`,
+          {
+            annotation_text: 'UPC-2: ' + barcode.slice(-2),
+            main_digits: barcode.slice(0, -2),
+          },
+        ),
+      );
     } else {
       field.error(
         l('The barcode you entered is not a valid GTIN code.') +
+        ' ' +
+        doubleCheckText,
+      );
+    }
+  } else if (barcode.length === 15) {
+    if (field.validateCheckDigit(barcode.slice(0, -2))) {
+      field.error(
+        l('The barcode you entered is a valid EAN code.') +
+        ' ' +
+        texp.l(
+          `However it ends with an add-on code.
+           Please add it as “{annotation_text}” to the annotation field below,
+           and keep the main code “{main_digits}” only in the barcode field.`,
+          {
+            annotation_text: 'EAN-2: ' + barcode.slice(-2),
+            main_digits: barcode.slice(0, -2),
+          },
+        ),
+      );
+    } else {
+      field.error(
+        l('The barcode you entered is not a valid EAN code.') +
+        ' ' +
+        doubleCheckText,
+      );
+    }
+  } else if (barcode.length === 17) {
+    if (field.validateCheckDigit(barcode.slice(0, -5))) {
+      field.error(
+        l('The barcode you entered is a valid UPC code.') +
+        ' ' +
+        texp.l(
+          `However it ends with an add-on code.
+           Please add it as “{annotation_text}” to the annotation field below,
+           and keep the main code “{main_digits}” only in the barcode field.`,
+          {
+            annotation_text: 'UPC-5: ' + barcode.slice(-5),
+            main_digits: barcode.slice(0, -5),
+          },
+        ),
+      );
+    } else {
+      field.error(
+        l('The barcode you entered is not a valid UPC code.') +
+        ' ' +
+        doubleCheckText,
+      );
+    }
+  } else if (barcode.length === 18) {
+    if (field.validateCheckDigit(barcode.slice(0, -5))) {
+      field.error(
+        l('The barcode you entered is a valid EAN code.') +
+        ' ' +
+        texp.l(
+          `However it ends with an add-on code.
+           Please add it as “{annotation_text}” to the annotation field below,
+           and keep the main code “{main_digits}” only in the barcode field.`,
+          {
+            annotation_text: 'EAN-5: ' + barcode.slice(-5),
+            main_digits: barcode.slice(0, -5),
+          },
+        ),
+      );
+    } else {
+      field.error(
+        l('The barcode you entered is not a valid EAN code.') +
         ' ' +
         doubleCheckText,
       );

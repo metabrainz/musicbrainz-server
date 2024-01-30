@@ -27,7 +27,7 @@ use base 'Exporter';
         is_freedb_id
         is_valid_discid
         is_valid_barcode
-        is_valid_ean
+        is_valid_gtin
         is_valid_isrc
         format_isrc
         is_valid_time
@@ -207,16 +207,23 @@ sub is_valid_barcode
     return $barcode =~ /^[0-9]+$/;
 }
 
-sub is_valid_ean
+sub has_valid_gtin_check_digit
 {
-    my $ean = shift;
-    my $length = length($ean);
-    if ($length == 8 || $length == 12 || $length == 13 || $length == 14 || $length == 17 || $length == 18) {
-        my $sum = 0;
-        for (my $i = 2; $i <= $length; $i++) {
-                $sum += substr($ean, $length - $i, 1) * ($i % 2 == 1 ? 1 : 3);
-        }
-        return ((10 - $sum % 10) % 10) == substr($ean, $length - 1, 1);
+    my $barcode = shift;
+    my $length = length($barcode);
+    my $sum = 0;
+    for (my $i = 2; $i <= $length; $i++) {
+        $sum += substr($barcode, $length - $i, 1) * ($i % 2 == 1 ? 1 : 3);
+    }
+    return ((10 - $sum % 10) % 10) == substr($barcode, $length - 1, 1);
+}
+
+sub is_valid_gtin
+{
+    my $barcode = shift;
+    my $length = length($barcode);
+    if ($length == 8 || $length == 12 || $length == 13 || $length == 14) {
+        return has_valid_gtin_check_digit($barcode);
     }
     return 0;
 }
