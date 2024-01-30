@@ -25,7 +25,7 @@ use MusicBrainz::Server::Validation qw(
     encode_entities
     normalise_strings
     is_valid_barcode
-    is_valid_ean
+    is_valid_gtin
     is_valid_partial_date
     is_database_row_id
     is_database_bigint_id
@@ -182,16 +182,16 @@ test 'Test is_valid_barcode' => sub {
     ok(!is_valid_barcode('129483615aaa'), 'Invalid Barcode');
 };
 
-test 'Test is_valid_ean' => sub {
-    ok(!is_valid_ean('1234567'), 'Invalid EAN (7 chars)');
-    ok(is_valid_ean('96385074'), 'Valid EAN (8 chars)');
-    ok(!is_valid_ean('96385076'), 'Invalid EAN (8 chars)');
-    ok(is_valid_ean('123456789999'), 'Valid UPC (12 chars)');
-    ok(!is_valid_ean('123456789997'), 'Invalid UPC (12 chars)');
-    ok(is_valid_ean('5901234123457'), 'Valid EAN (13 chars)');
-    ok(!is_valid_ean('5901234123459'), 'Invalid EAN (13 chars)');
-    ok(is_valid_ean('12345678901231'), 'Valid GTIN (14 chars)');
-    ok(!is_valid_ean('12345678901234'), 'Invalid GTIN (14 chars)');
+test 'Test is_valid_gtin' => sub {
+    ok(!is_valid_gtin('1234567'), 'Invalid EAN (7 chars)');
+    ok(is_valid_gtin('96385074'), 'Valid EAN (8 chars)');
+    ok(!is_valid_gtin('96385076'), 'Invalid EAN (8 chars)');
+    ok(is_valid_gtin('123456789999'), 'Valid UPC (12 chars)');
+    ok(!is_valid_gtin('123456789997'), 'Invalid UPC (12 chars)');
+    ok(is_valid_gtin('5901234123457'), 'Valid EAN (13 chars)');
+    ok(!is_valid_gtin('5901234123459'), 'Invalid EAN (13 chars)');
+    ok(is_valid_gtin('12345678901231'), 'Valid GTIN (14 chars)');
+    ok(!is_valid_gtin('12345678901234'), 'Invalid GTIN (14 chars)');
 };
 
 test 'Test is_valid_partial_date' => sub {

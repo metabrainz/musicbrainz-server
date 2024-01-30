@@ -13,7 +13,7 @@ use MusicBrainz::Server::Constants qw(
 );
 use List::AllUtils qw( natatime partition_by uniq uniq_by );
 use MusicBrainz::Server::WebService::XML::XPath;
-use MusicBrainz::Server::Validation qw( is_guid is_valid_ean );
+use MusicBrainz::Server::Validation qw( is_guid is_valid_gtin );
 use Readonly;
 use Try::Tiny;
 
@@ -328,7 +328,7 @@ sub release_submit : Private
         my $barcode = $xp->find('mb:barcode', $node)->string_value or next;
 
         $self->_error($c, "$barcode is not a valid barcode")
-            unless is_valid_ean($barcode);
+            unless is_valid_gtin($barcode);
 
         push @submit, { release => $id, barcode => $barcode };
     }
