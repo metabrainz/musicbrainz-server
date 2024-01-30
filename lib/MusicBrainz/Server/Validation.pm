@@ -222,7 +222,7 @@ sub is_valid_ean
 {
     my $ean = shift;
     my $length = length($ean);
-    if ($length == 8 || $length == 12 || $length == 13 || $length == 14 || $length == 17 || $length == 18) {
+    if ($length == 8 || $length == 12 || $length == 13 || $length == 14) {
         return has_valid_ean_check_digit($ean);
     }
     return 0;

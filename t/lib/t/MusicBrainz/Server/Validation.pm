@@ -192,10 +192,6 @@ test 'Test is_valid_ean' => sub {
     ok(!is_valid_ean('5901234123459'), 'Invalid EAN (13 chars)');
     ok(is_valid_ean('12345678901231'), 'Valid GTIN (14 chars)');
     ok(!is_valid_ean('12345678901234'), 'Invalid GTIN (14 chars)');
-    ok(is_valid_ean('12345678912345675'), 'Valid (17 chars)');
-    ok(!is_valid_ean('12345678912345677'), 'Invalid (17 chars)');
-    ok(is_valid_ean('123456789123456789'), 'Valid SSCC (18 chars)');
-    ok(!is_valid_ean('123456789123456787'), 'Invalid SSCC (18 chars)');
 };
 
 test 'Test is_valid_partial_date' => sub {
