@@ -223,13 +223,7 @@ sub is_valid_gtin
     my $barcode = shift;
     my $length = length($barcode);
     if ($length == 8 || $length == 12 || $length == 13 || $length == 14) {
-        return 1 if has_valid_gtin_check_digit($barcode);
-    }
-    if ($length == 14 || $length == 15) {
-        return 1 if has_valid_gtin_check_digit(substr($barcode, 0, -2));
-    }
-    if ($length == 17 || $length == 18) {
-        return 1 if has_valid_gtin_check_digit(substr($barcode, 0, -5));
+        return has_valid_gtin_check_digit($barcode);
     }
     return 0;
 }
