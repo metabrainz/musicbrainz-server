@@ -161,7 +161,7 @@ function searchExistingBarcode(field, barcode, releaseId) {
   });
 }
 
-// Barcode should be a valid EAN/UPC.
+// Barcode should be a valid GTIN (EAN/UPC) or double-checked.
 
 utils.withRelease(function (release) {
   var field = release.barcode;
@@ -175,7 +175,7 @@ utils.withRelease(function (release) {
     return;
   }
 
-  var checkDigitText = l('The check digit is {checkdigit}.');
+  var checkDigitText = l('The check digit would be {checkdigit}.');
   var doubleCheckText = l('Please double-check the barcode on the release.');
 
   if (barcode.length === 11) {

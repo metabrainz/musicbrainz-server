@@ -145,7 +145,7 @@ validationTest((
 });
 
 validationTest((
-  'Barcode validation'
+  'Barcode check digit validation'
 ), function (t) {
   t.plan(5);
 
