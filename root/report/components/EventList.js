@@ -74,7 +74,7 @@ const EventList = <D: {+event: ?EventT, ...}>({
       const timeColumn = defineTextColumn<D>({
         columnName: 'time',
         getText: result => result.event?.time ?? '',
-        title: l('Time'),
+        title: lp('Time', 'event'),
       });
       const dateColumn = defineDatePeriodColumn<D>({
         getEntity: result => result.event ?? null,
