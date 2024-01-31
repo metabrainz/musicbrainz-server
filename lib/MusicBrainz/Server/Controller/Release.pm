@@ -626,6 +626,7 @@ around _validate_merge => sub {
 sub _merge_load_entities {
     my ($self, $c, @releases) = @_;
     $c->model('ArtistCredit')->load(@releases);
+    $c->model('ReleaseGroup')->load(@releases);
     $c->model('Release')->load_related_info(@releases);
 }
 

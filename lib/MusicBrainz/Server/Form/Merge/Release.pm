@@ -47,6 +47,10 @@ has_field 'medium_positions.map.name' => (
     type => 'Text',
 );
 
+has_field 'merge_rgs' => (
+    type => 'Checkbox',
+);
+
 sub edit_field_names { qw(merge_strategy) }
 
 sub options_merge_strategy {
