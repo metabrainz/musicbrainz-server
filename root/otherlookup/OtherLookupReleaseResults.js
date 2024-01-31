@@ -24,7 +24,6 @@ const OtherLookupReleaseResults = ({
     {results.length ? (
       <ReleaseList
         releases={results}
-        showLanguages
         showStatus
         showType
       />

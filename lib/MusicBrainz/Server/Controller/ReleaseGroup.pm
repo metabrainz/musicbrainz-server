@@ -81,6 +81,8 @@ sub show : Chained('load') PathPart('') {
     $c->model('Release')->load_related_info(@$releases);
     $c->model('Release')->load_meta(@$releases);
     $c->model('ArtistCredit')->load(@$releases);
+    $c->model('Language')->load(@$releases);
+    $c->model('Script')->load(@$releases);
     $c->model('ReleaseStatus')->load(@$releases);
 
     my %props = (

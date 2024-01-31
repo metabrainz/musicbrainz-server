@@ -41,7 +41,6 @@ type Props = {
   +order?: string,
   +releases: $ReadOnlyArray<ReleaseT>,
   +showInstrumentCreditsAndRelTypes?: boolean,
-  +showLanguages?: boolean,
   +showRatings?: boolean,
   +showStatus?: boolean,
   +showType?: boolean,
@@ -57,7 +56,6 @@ const ReleaseList = ({
   releases,
   seriesItemNumbers,
   showInstrumentCreditsAndRelTypes = false,
-  showLanguages = false,
   showRatings = false,
   showStatus = false,
   showType = false,
@@ -138,11 +136,9 @@ const ReleaseList = ({
         sortable: sortable,
         title: l('Barcode'),
       });
-      const releaseLanguageColumn = showLanguages
-        ? defineReleaseLanguageColumn<ReleaseT>({
-          getEntity: entity => entity,
-        })
-        : null;
+      const releaseLanguageColumn = defineReleaseLanguageColumn<ReleaseT>({
+        getEntity: entity => entity,
+      });
       const instrumentUsageColumn = showInstrumentCreditsAndRelTypes
         ? defineInstrumentUsageColumn({
           instrumentCreditsAndRelTypes: instrumentCreditsAndRelTypes,
@@ -199,7 +195,6 @@ const ReleaseList = ({
       releases,
       seriesItemNumbers,
       showInstrumentCreditsAndRelTypes,
-      showLanguages,
       showRatings,
       showStatus,
       showType,
