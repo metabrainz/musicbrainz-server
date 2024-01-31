@@ -72,7 +72,7 @@ const EventResults = ({
           <>
             <th>{l('Name')}</th>
             <th>{l('Date')}</th>
-            <th>{l('Time')}</th>
+            <th>{lp('Time', 'event')}</th>
             <th>{l('Type')}</th>
             <th>{l('Artists')}</th>
             <th>{lp('Location', 'event location')}</th>

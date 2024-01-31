@@ -37,7 +37,7 @@
         [% too_short_year_error('too_short_begin_year') %]
         [% form_row_date(r, 'period.end_date', add_colon(l('End date'))) %]
         [% too_short_year_error('too_short_end_year') %]
-        [%- form_row_time(r, 'time', add_colon(l('Time'))) -%]
+        [%- form_row_time(r, 'time', add_colon(lp('Time', 'event'))) -%]
       </fieldset>
 
       [% PROCESS 'forms/relationship-editor.tt' %]

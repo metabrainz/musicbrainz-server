@@ -75,7 +75,10 @@ const EventSidebar = ({event}: Props): React$Element<'div'> => {
         ) : null}
 
         {event.time ? (
-          <SidebarProperty className="time" label={addColonText(l('Time'))}>
+          <SidebarProperty
+            className="time"
+            label={addColonText(lp('Time', 'event'))}
+          >
             {event.time}
           </SidebarProperty>
         ) : null}
