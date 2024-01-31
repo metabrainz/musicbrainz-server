@@ -12,22 +12,22 @@ with 'MusicBrainz::Server::Controller::Role::Load' => {
     model           => 'Release',
     relationships   => { all => ['show'], cardinal => ['edit_relationships'], default => ['url'] },
 };
-with 'MusicBrainz::Server::Controller::Role::LoadWithRowID';
-with 'MusicBrainz::Server::Controller::Role::Alias';
-with 'MusicBrainz::Server::Controller::Role::Annotation';
-with 'MusicBrainz::Server::Controller::Role::Details';
-with 'MusicBrainz::Server::Controller::Role::EditListing';
-with 'MusicBrainz::Server::Controller::Role::Tag';
-with 'MusicBrainz::Server::Controller::Role::JSONLD' => {
-    endpoints => {
-        show => {copy_stash => ['release_artwork', 'top_tags']},
-        aliases => {copy_stash => ['aliases']},
-        cover_art => {copy_stash => ['cover_art']},
-    },
-};
-with 'MusicBrainz::Server::Controller::Role::Collection' => {
-    entity_type => 'release',
-};
+     'MusicBrainz::Server::Controller::Role::LoadWithRowID',
+     'MusicBrainz::Server::Controller::Role::Alias',
+     'MusicBrainz::Server::Controller::Role::Annotation',
+     'MusicBrainz::Server::Controller::Role::Details',
+     'MusicBrainz::Server::Controller::Role::EditListing',
+     'MusicBrainz::Server::Controller::Role::Tag',
+     'MusicBrainz::Server::Controller::Role::JSONLD' => {
+        endpoints => {
+            show => {copy_stash => ['release_artwork', 'top_tags']},
+            aliases => {copy_stash => ['aliases']},
+            cover_art => {copy_stash => ['cover_art']},
+        },
+     },
+     'MusicBrainz::Server::Controller::Role::Collection' => {
+        entity_type => 'release',
+     };
 
 use HTTP::Status qw( :constants );
 use List::AllUtils qw( first nsort_by uniq );

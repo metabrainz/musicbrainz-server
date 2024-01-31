@@ -16,22 +16,22 @@ use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array to_json_object );
 
 with 'MusicBrainz::Server::Controller::Role::Load' => {
-    model           => 'Instrument',
-    entity_name     => 'instrument',
-    relationships   => { cardinal => ['show', 'edit'], default => ['url'] },
-};
-with 'MusicBrainz::Server::Controller::Role::LoadWithRowID';
-with 'MusicBrainz::Server::Controller::Role::Annotation';
-with 'MusicBrainz::Server::Controller::Role::Alias';
-with 'MusicBrainz::Server::Controller::Role::Details';
-with 'MusicBrainz::Server::Controller::Role::Tag';
-with 'MusicBrainz::Server::Controller::Role::EditListing';
-with 'MusicBrainz::Server::Controller::Role::WikipediaExtract';
-with 'MusicBrainz::Server::Controller::Role::CommonsImage';
-with 'MusicBrainz::Server::Controller::Role::EditRelationships';
-with 'MusicBrainz::Server::Controller::Role::Collection' => {
-    entity_type => 'instrument',
-};
+        model           => 'Instrument',
+        entity_name     => 'instrument',
+        relationships   => { cardinal => ['show', 'edit'], default => ['url'] },
+     },
+     'MusicBrainz::Server::Controller::Role::LoadWithRowID',
+     'MusicBrainz::Server::Controller::Role::Annotation',
+     'MusicBrainz::Server::Controller::Role::Alias',
+     'MusicBrainz::Server::Controller::Role::Details',
+     'MusicBrainz::Server::Controller::Role::Tag',
+     'MusicBrainz::Server::Controller::Role::EditListing',
+     'MusicBrainz::Server::Controller::Role::WikipediaExtract',
+     'MusicBrainz::Server::Controller::Role::CommonsImage',
+     'MusicBrainz::Server::Controller::Role::EditRelationships',
+     'MusicBrainz::Server::Controller::Role::Collection' => {
+        entity_type => 'instrument',
+     };
 
 sub base : Chained('/') PathPart('instrument') CaptureArgs(0) { }
 

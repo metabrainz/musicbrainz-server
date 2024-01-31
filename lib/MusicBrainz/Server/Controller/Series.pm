@@ -15,28 +15,30 @@ use MusicBrainz::Server::Translation qw( l );
 extends 'MusicBrainz::Server::Controller';
 
 with 'MusicBrainz::Server::Controller::Role::Load' => {
-    model           => 'Series',
-    entity_name     => 'series',
-    relationships => {
-        cardinal => ['edit'],
-        subset => {show => ['area', 'artist', 'label', 'place', 'recording', 'release_group', 'series', 'url', 'work']},
-        default => ['url'],
-    },
-};
-with 'MusicBrainz::Server::Controller::Role::LoadWithRowID';
-with 'MusicBrainz::Server::Controller::Role::Annotation';
-with 'MusicBrainz::Server::Controller::Role::Alias';
-with 'MusicBrainz::Server::Controller::Role::Cleanup';
-with 'MusicBrainz::Server::Controller::Role::Details';
-with 'MusicBrainz::Server::Controller::Role::Tag';
-with 'MusicBrainz::Server::Controller::Role::EditListing';
-with 'MusicBrainz::Server::Controller::Role::Subscribe';
-with 'MusicBrainz::Server::Controller::Role::EditRelationships';
-with 'MusicBrainz::Server::Controller::Role::WikipediaExtract';
-with 'MusicBrainz::Server::Controller::Role::CommonsImage';
-with 'MusicBrainz::Server::Controller::Role::Collection' => {
-    entity_type => 'series',
-};
+        model           => 'Series',
+        entity_name     => 'series',
+        relationships => {
+            cardinal => ['edit'],
+            subset => {show => ['area', 'artist', 'label', 'place',
+                                'recording', 'release_group', 'series',
+                                'url', 'work']},
+            default => ['url'],
+        },
+     },
+     'MusicBrainz::Server::Controller::Role::LoadWithRowID',
+     'MusicBrainz::Server::Controller::Role::Annotation',
+     'MusicBrainz::Server::Controller::Role::Alias',
+     'MusicBrainz::Server::Controller::Role::Cleanup',
+     'MusicBrainz::Server::Controller::Role::Details',
+     'MusicBrainz::Server::Controller::Role::Tag',
+     'MusicBrainz::Server::Controller::Role::EditListing',
+     'MusicBrainz::Server::Controller::Role::Subscribe',
+     'MusicBrainz::Server::Controller::Role::EditRelationships',
+     'MusicBrainz::Server::Controller::Role::WikipediaExtract',
+     'MusicBrainz::Server::Controller::Role::CommonsImage',
+     'MusicBrainz::Server::Controller::Role::Collection' => {
+        entity_type => 'series',
+     };
 
 sub base : Chained('/') PathPart('series') CaptureArgs(0) { }
 

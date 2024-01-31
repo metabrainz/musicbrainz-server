@@ -8,48 +8,51 @@ use namespace::autoclean;
 
 extends 'MusicBrainz::Server::Controller';
 with 'MusicBrainz::Server::Controller::Role::Load' => {
-    model           => 'Artist',
-    relationships   => {
-        cardinal    => ['edit'],
-        subset => {
-            split => ['artist'],
-            show => ['artist', 'url'],
-            relationships => [qw( area artist event instrument label place series url )],
+        model           => 'Artist',
+        relationships   => {
+            cardinal    => ['edit'],
+            subset => {
+                split => ['artist'],
+                show => ['artist', 'url'],
+                relationships => [qw( area artist event instrument label place series url )],
+            },
+            default     => ['url'],
+            paged_subset => {
+                relationships => [qw( recording release release_group work )],
+            },
         },
-        default     => ['url'],
-        paged_subset => {
-            relationships => [qw( recording release release_group work )],
+     },
+     'MusicBrainz::Server::Controller::Role::LoadWithRowID',
+     'MusicBrainz::Server::Controller::Role::Annotation',
+     'MusicBrainz::Server::Controller::Role::Alias',
+     'MusicBrainz::Server::Controller::Role::Details',
+     'MusicBrainz::Server::Controller::Role::EditListing',
+     'MusicBrainz::Server::Controller::Role::IPI',
+     'MusicBrainz::Server::Controller::Role::ISNI',
+     'MusicBrainz::Server::Controller::Role::Rating',
+     'MusicBrainz::Server::Controller::Role::Tag',
+     'MusicBrainz::Server::Controller::Role::Subscribe',
+     'MusicBrainz::Server::Controller::Role::Cleanup',
+     'MusicBrainz::Server::Controller::Role::WikipediaExtract',
+     'MusicBrainz::Server::Controller::Role::CommonsImage',
+     'MusicBrainz::Server::Controller::Role::EditRelationships',
+     'MusicBrainz::Server::Controller::Role::JSONLD' => {
+        endpoints => {
+            show => {copy_stash => [
+                {from => 'release_groups_jsonld', to => 'release_groups'},
+                {from => 'recordings_jsonld', to => 'recordings'},
+                {from => 'identities', to => 'identities'},
+                {from => 'legal_name', to => 'legal_name'},
+                {from => 'other_identities', to => 'other_identities'},
+                'top_tags']},
+            recordings => {copy_stash => [{from => 'recordings_jsonld', to => 'recordings'}]},
+            relationships => {},
+            aliases => {copy_stash => ['aliases']},
         },
-    },
-};
-with 'MusicBrainz::Server::Controller::Role::LoadWithRowID';
-with 'MusicBrainz::Server::Controller::Role::Annotation';
-with 'MusicBrainz::Server::Controller::Role::Alias';
-with 'MusicBrainz::Server::Controller::Role::Details';
-with 'MusicBrainz::Server::Controller::Role::EditListing';
-with 'MusicBrainz::Server::Controller::Role::IPI';
-with 'MusicBrainz::Server::Controller::Role::ISNI';
-with 'MusicBrainz::Server::Controller::Role::Rating';
-with 'MusicBrainz::Server::Controller::Role::Tag';
-with 'MusicBrainz::Server::Controller::Role::Subscribe';
-with 'MusicBrainz::Server::Controller::Role::Cleanup';
-with 'MusicBrainz::Server::Controller::Role::WikipediaExtract';
-with 'MusicBrainz::Server::Controller::Role::CommonsImage';
-with 'MusicBrainz::Server::Controller::Role::EditRelationships';
-with 'MusicBrainz::Server::Controller::Role::JSONLD' => {
-    endpoints => {show => {copy_stash => [{from => 'release_groups_jsonld', to => 'release_groups'},
-                                          {from => 'recordings_jsonld', to => 'recordings'},
-                                          {from => 'identities', to => 'identities'},
-                                          {from => 'legal_name', to => 'legal_name'},
-                                          {from => 'other_identities', to => 'other_identities'},
-                                          'top_tags']},
-                  recordings => {copy_stash => [{from => 'recordings_jsonld', to => 'recordings'}]},
-                  relationships => {},
-                  aliases => {copy_stash => ['aliases']}},
-};
-with 'MusicBrainz::Server::Controller::Role::Collection' => {
-    entity_type => 'artist',
-};
+     },
+     'MusicBrainz::Server::Controller::Role::Collection' => {
+        entity_type => 'artist',
+     };
 
 use Data::Page;
 use HTTP::Status qw( :constants );

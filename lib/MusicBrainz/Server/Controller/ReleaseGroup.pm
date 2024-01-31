@@ -17,28 +17,35 @@ use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array to_json_object );
 use MusicBrainz::Server::Entity::Util::Release qw( group_by_release_status );
 
 with 'MusicBrainz::Server::Controller::Role::Load' => {
-    model           => 'ReleaseGroup',
-    entity_name     => 'rg',
-    relationships   => { all => ['show'], cardinal => ['edit'], default => ['url'] },
-};
-with 'MusicBrainz::Server::Controller::Role::LoadWithRowID';
-with 'MusicBrainz::Server::Controller::Role::Alias';
-with 'MusicBrainz::Server::Controller::Role::Annotation';
-with 'MusicBrainz::Server::Controller::Role::Details';
-with 'MusicBrainz::Server::Controller::Role::Rating';
-with 'MusicBrainz::Server::Controller::Role::Tag';
-with 'MusicBrainz::Server::Controller::Role::EditListing';
-with 'MusicBrainz::Server::Controller::Role::WikipediaExtract';
-with 'MusicBrainz::Server::Controller::Role::Cleanup';
-with 'MusicBrainz::Server::Controller::Role::EditRelationships';
-with 'MusicBrainz::Server::Controller::Role::JSONLD' => {
-    endpoints => {show => {copy_stash => [{from => 'releases_jsonld', to => 'releases'}, 'top_tags']},
-                  aliases => {copy_stash => ['aliases']}},
-};
-with 'MusicBrainz::Server::Controller::Role::Collection' => {
-    entity_name => 'rg',
-    entity_type => 'release_group',
-};
+        model           => 'ReleaseGroup',
+        entity_name     => 'rg',
+        relationships   => { all => ['show'], cardinal => ['edit'], default => ['url'] },
+     },
+     'MusicBrainz::Server::Controller::Role::LoadWithRowID',
+     'MusicBrainz::Server::Controller::Role::Alias',
+     'MusicBrainz::Server::Controller::Role::Annotation',
+     'MusicBrainz::Server::Controller::Role::Details',
+     'MusicBrainz::Server::Controller::Role::Rating',
+     'MusicBrainz::Server::Controller::Role::Tag',
+     'MusicBrainz::Server::Controller::Role::EditListing',
+     'MusicBrainz::Server::Controller::Role::WikipediaExtract',
+     'MusicBrainz::Server::Controller::Role::Cleanup',
+     'MusicBrainz::Server::Controller::Role::EditRelationships',
+     'MusicBrainz::Server::Controller::Role::JSONLD' => {
+        endpoints => {
+            show => {
+                copy_stash => [
+                    {from => 'releases_jsonld', to => 'releases'},
+                    'top_tags',
+                ],
+            },
+            aliases => {copy_stash => ['aliases']},
+        },
+     },
+     'MusicBrainz::Server::Controller::Role::Collection' => {
+        entity_name => 'rg',
+        entity_type => 'release_group',
+     };
 
 use aliased 'MusicBrainz::Server::Entity::ArtistCredit';
 

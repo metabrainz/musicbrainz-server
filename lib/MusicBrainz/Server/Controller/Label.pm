@@ -6,41 +6,46 @@ use namespace::autoclean;
 extends 'MusicBrainz::Server::Controller';
 
 with 'MusicBrainz::Server::Controller::Role::Load' => {
-    model           => 'Label',
-    entity_name     => 'label',
-    relationships   => {
-        cardinal => ['edit'],
-        default => ['url'],
-        subset => {
-            show => ['artist', 'label', 'url'],
-            relationships => [qw( area artist instrument label place series url )],
+        model           => 'Label',
+        entity_name     => 'label',
+        relationships   => {
+            cardinal => ['edit'],
+            default => ['url'],
+            subset => {
+                show => ['artist', 'label', 'url'],
+                relationships => [qw( area artist instrument label place series url )],
+            },
+            paged_subset => {
+                relationships => [qw( event recording release release_group work )],
+            },
         },
-        paged_subset => {
-            relationships => [qw( event recording release release_group work )],
+     },
+     'MusicBrainz::Server::Controller::Role::LoadWithRowID',
+     'MusicBrainz::Server::Controller::Role::Annotation',
+     'MusicBrainz::Server::Controller::Role::Alias',
+     'MusicBrainz::Server::Controller::Role::Cleanup',
+     'MusicBrainz::Server::Controller::Role::Details',
+     'MusicBrainz::Server::Controller::Role::EditListing',
+     'MusicBrainz::Server::Controller::Role::IPI',
+     'MusicBrainz::Server::Controller::Role::ISNI',
+     'MusicBrainz::Server::Controller::Role::Rating',
+     'MusicBrainz::Server::Controller::Role::Tag',
+     'MusicBrainz::Server::Controller::Role::Subscribe',
+     'MusicBrainz::Server::Controller::Role::WikipediaExtract',
+     'MusicBrainz::Server::Controller::Role::CommonsImage',
+     'MusicBrainz::Server::Controller::Role::EditRelationships',
+     'MusicBrainz::Server::Controller::Role::JSONLD' => {
+        endpoints => {
+            show => {copy_stash => [
+                {from => 'releases_jsonld', to => 'releases'}, 
+                'top_tags'],
+            },
+            aliases => {copy_stash => ['aliases']},
         },
-    },
-};
-with 'MusicBrainz::Server::Controller::Role::LoadWithRowID';
-with 'MusicBrainz::Server::Controller::Role::Annotation';
-with 'MusicBrainz::Server::Controller::Role::Alias';
-with 'MusicBrainz::Server::Controller::Role::Cleanup';
-with 'MusicBrainz::Server::Controller::Role::Details';
-with 'MusicBrainz::Server::Controller::Role::EditListing';
-with 'MusicBrainz::Server::Controller::Role::IPI';
-with 'MusicBrainz::Server::Controller::Role::ISNI';
-with 'MusicBrainz::Server::Controller::Role::Rating';
-with 'MusicBrainz::Server::Controller::Role::Tag';
-with 'MusicBrainz::Server::Controller::Role::Subscribe';
-with 'MusicBrainz::Server::Controller::Role::WikipediaExtract';
-with 'MusicBrainz::Server::Controller::Role::CommonsImage';
-with 'MusicBrainz::Server::Controller::Role::EditRelationships';
-with 'MusicBrainz::Server::Controller::Role::JSONLD' => {
-    endpoints => {show => {copy_stash => [{from => 'releases_jsonld', to => 'releases'}, 'top_tags']},
-                  aliases => {copy_stash => ['aliases']}},
-};
-with 'MusicBrainz::Server::Controller::Role::Collection' => {
-    entity_type => 'label',
-};
+     },
+     'MusicBrainz::Server::Controller::Role::Collection' => {
+        entity_type => 'label',
+     };
 
 use MusicBrainz::Server::Constants qw(
     $DLABEL_ID

@@ -12,9 +12,9 @@ with 'MusicBrainz::Server::Controller::Role::Load' => {
     entity_name     => 'url',
     relationships   => { all => ['show', 'edit'] },
 };
-with 'MusicBrainz::Server::Controller::Role::LoadWithRowID';
-with 'MusicBrainz::Server::Controller::Role::EditListing';
-with 'MusicBrainz::Server::Controller::Role::EditRelationships';
+with 'MusicBrainz::Server::Controller::Role::LoadWithRowID',
+     'MusicBrainz::Server::Controller::Role::EditListing',
+     'MusicBrainz::Server::Controller::Role::EditRelationships';
 
 =head1 NAME
 
