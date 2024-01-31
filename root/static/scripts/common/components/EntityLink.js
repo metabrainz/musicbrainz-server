@@ -45,7 +45,9 @@ export const DeletedLink = ({
       }
       title={caption}
     >
-      {isolateText(nonEmpty(name) ? name : l('[removed]'))}
+      {isolateText(nonEmpty(name)
+        ? name
+        : lp('[removed]', 'generic entity'))}
     </span>
   );
 };

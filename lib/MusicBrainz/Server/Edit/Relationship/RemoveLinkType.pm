@@ -5,7 +5,7 @@ use MooseX::Types::Structured qw( Dict  Optional Tuple );
 use MusicBrainz::Server::Constants qw( $EDIT_RELATIONSHIP_REMOVE_LINK_TYPE );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
-use MusicBrainz::Server::Translation qw( l N_lp );
+use MusicBrainz::Server::Translation qw( lp N_lp );
 
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Relationship',
@@ -83,7 +83,7 @@ sub _build_attributes {
                 max => $_->{max},
                 type => $loaded->{LinkAttributeType}{ $_->{type} } ||
                     MusicBrainz::Server::Entity::LinkAttributeType->new(
-                        name => ($_->{name} || l('[removed]')),
+                        name => ($_->{name} || lp('[removed]', 'relationship attribute type')),
                     ),
                   ))
           } @$list,
