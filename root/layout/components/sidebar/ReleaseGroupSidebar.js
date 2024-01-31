@@ -62,7 +62,7 @@ const ReleaseGroupSidebar = ({
         </SidebarProperty>
 
         {typeName ? (
-          <SidebarProperty className="type" label={l('Type:')}>
+          <SidebarProperty className="type" label={addColonText(l('Type'))}>
             {typeName}
           </SidebarProperty>
         ) : null}

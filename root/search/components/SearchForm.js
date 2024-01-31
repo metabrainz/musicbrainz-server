@@ -79,7 +79,7 @@ const SearchForm = ({
         />
         <FormRowSelect
           field={form.field.type}
-          label={l('Type:')}
+          label={addColonText(l('Type'))}
           options={typeOptions}
           uncontrolled
         />

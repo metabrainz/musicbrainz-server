@@ -13,7 +13,7 @@
         [%- duplicate_entities_section() -%]
         [%- form_row_text_long(r, 'comment', add_colon(l('Disambiguation'))) -%]
         [%- disambiguation_error() -%]
-        [%- form_row_select(r, 'type_id', l('Type:')) -%]
+        [%- form_row_select(r, 'type_id', add_colon(l('Type'))) -%]
         [%- form_row_select(r, 'gender_id', add_colon(l('Gender'))) -%]
         [% WRAPPER form_row %]
           [% area_field = form.field('area.name') %]
