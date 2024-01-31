@@ -108,7 +108,7 @@ END; -%]
 [%~ MACRO cancelled(entity) BLOCK -%]
     [%- IF entity.cancelled -%]
         <span class="cancelled">(<bdi>
-            [%~ l("cancelled") ~%]
+            [%~ lp("cancelled", 'event') ~%]
             </bdi>)</span>
     [%- END -%]
 [%- END -%]

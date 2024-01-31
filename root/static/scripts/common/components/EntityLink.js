@@ -93,7 +93,7 @@ const EventDisambiguation = ({
     <>
       {dates && showDate ? ' ' + bracketedText(dates) : null}
       {event.cancelled
-        ? <Comment className="cancelled" comment={l('cancelled')} />
+        ? <Comment className="cancelled" comment={lp('cancelled', 'event')} />
         : null}
     </>
   );
