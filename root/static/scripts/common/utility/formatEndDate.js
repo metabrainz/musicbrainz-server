@@ -15,6 +15,6 @@ export default function formatEndDate<T: $ReadOnly<{
   ...
 }>>(entity: T): null | string {
   return isDateEmpty(entity.end_date)
-    ? (entity.ended ? l('[unknown]') : null)
+    ? (entity.ended ? lp('[unknown]', 'date') : null)
     : formatDate(entity.end_date);
 }

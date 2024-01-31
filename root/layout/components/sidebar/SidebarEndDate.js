@@ -35,7 +35,7 @@ const SidebarEndDate = ({
   isDateEmpty(entity.end_date) ? (
     entity.ended ? (
       <SidebarProperty className="end-date" label={label}>
-        {l('[unknown]')}
+        {lp('[unknown]', 'date')}
       </SidebarProperty>
     ) : null
   ) : (
