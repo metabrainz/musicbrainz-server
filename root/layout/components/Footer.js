@@ -50,10 +50,8 @@ const Footer = (): React$Element<'div'> => {
       <p className="right">
         {exp.l(
           `Brought to you by {MeB|MetaBrainz Foundation} and our
-           {spon|sponsors} and {supp|supporters}. Cover art provided
-           by the {caa|Cover Art Archive}.`,
+           {spon|sponsors} and {supp|supporters}.`,
           {
-            caa: '//coverartarchive.org/',
             MeB: 'https://metabrainz.org/',
             spon: 'https://metabrainz.org/sponsors',
             supp: 'https://metabrainz.org/supporters',
