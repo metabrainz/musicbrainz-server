@@ -14,7 +14,7 @@ use Data::UUID::MT;
 use Math::Random::Secure qw( irand );
 use MIME::Base64 qw( encode_base64url );
 use JSON::XS;
-use List::AllUtils qw( any natatime sort_by );
+use List::AllUtils qw( any natatime sort_by uniq );
 use MusicBrainz::Server::Constants qw(
     $DARTIST_ID
     $VARTIST_ID
@@ -66,6 +66,7 @@ our @EXPORT_OK = qw(
     non_empty
     object_to_ids
     order_by
+    parse_tags
     partial_date_to_hash
     placeholders
     ref_to_type
@@ -768,6 +769,13 @@ sub contains_string {
 
     return 0 unless defined $array_ref;
     return any { $_ eq $string } @$array_ref;
+}
+
+sub parse_tags {
+    my ($input) = @_;
+
+    # make sure the list contains only unique tags
+    uniq grep { $_ } map { lc trim $_ } split /,/, $input;
 }
 
 1;

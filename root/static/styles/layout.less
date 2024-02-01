@@ -523,13 +523,14 @@ div.warning img.warning {
         display: -webkit-box;
         display: -webkit-flex;
         display: flex;
-        a {
+        a, span.flexgrow {
             display: inline-block;
             overflow-wrap: anywhere;
             padding: 4px;
             flex-grow: 1;
             -webkit-flex-grow: 1;
         }
+        span.flexgrow > a { padding: 0px }
     }
 }
 
