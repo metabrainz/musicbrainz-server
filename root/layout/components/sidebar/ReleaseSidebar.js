@@ -156,7 +156,7 @@ const ReleaseSidebar = ({release}: Props): React$Element<'div'> | null => {
 
       <SidebarProperties>
         {nonEmpty(typeName) ? (
-          <SidebarProperty className="type" label={l('Type:')}>
+          <SidebarProperty className="type" label={addColonText(l('Type'))}>
             {typeName}
           </SidebarProperty>
         ) : null}

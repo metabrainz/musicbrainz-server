@@ -25,7 +25,7 @@ use MusicBrainz::Server::Validation qw(
     encode_entities
     normalise_strings
     is_valid_barcode
-    is_valid_ean
+    is_valid_gtin
     is_valid_partial_date
     is_database_row_id
     is_database_bigint_id
@@ -182,20 +182,21 @@ test 'Test is_valid_barcode' => sub {
     ok(!is_valid_barcode('129483615aaa'), 'Invalid Barcode');
 };
 
-test 'Test is_valid_ean' => sub {
-    ok(!is_valid_ean('1234567'), 'Invalid EAN (7 chars)');
-    ok(is_valid_ean('96385074'), 'Valid EAN (8 chars)');
-    ok(!is_valid_ean('96385076'), 'Invalid EAN (8 chars)');
-    ok(is_valid_ean('123456789999'), 'Valid UPC (12 chars)');
-    ok(!is_valid_ean('123456789997'), 'Invalid UPC (12 chars)');
-    ok(is_valid_ean('5901234123457'), 'Valid EAN (13 chars)');
-    ok(!is_valid_ean('5901234123459'), 'Invalid EAN (13 chars)');
-    ok(is_valid_ean('12345678901231'), 'Valid GTIN (14 chars)');
-    ok(!is_valid_ean('12345678901234'), 'Invalid GTIN (14 chars)');
-    ok(is_valid_ean('12345678912345675'), 'Valid (17 chars)');
-    ok(!is_valid_ean('12345678912345677'), 'Invalid (17 chars)');
-    ok(is_valid_ean('123456789123456789'), 'Valid SSCC (18 chars)');
-    ok(!is_valid_ean('123456789123456787'), 'Invalid SSCC (18 chars)');
+test 'Test is_valid_gtin' => sub {
+    ok(!is_valid_gtin('1234565'), '7-digit barcode with valid check digit has invalid length');
+    ok(is_valid_gtin('07642357'), 'GTIN-8 (EAN-8) is valid');
+    ok(!is_valid_gtin('07642358'), 'GTIN-8 (EAN-8) has invalid check digit');
+    ok(is_valid_gtin('718752155427'), 'GTIN-12 (UPC-A) is valid');
+    ok(!is_valid_gtin('718752155428'), 'GTIN-12 (UPC-A) has invalid check digit');
+    ok(is_valid_gtin('0666017082523'), '13-digit 0-padded GTIN-12 (UPC-A) is valid');
+    ok(is_valid_gtin('4050538793819'), 'GTIN-13 (EAN-13) is valid');
+    ok(!is_valid_gtin('4050538793810'), 'GTIN-13 (EAN-13) has invalid check digit');
+    ok(is_valid_gtin('00602577318801'), '14-digit 0-padded GTIN-12 (UPC-A) is valid');
+    ok(is_valid_gtin('07875354382095'), '14-digit 0-padded GTIN-13 (EAN-13) is valid');
+    ok(!is_valid_gtin('02083116542649'), 'GTIN-12 (UPC-A) with 2-digit add-on (UPC-2) is invalid (until MBS-13468)');
+    ok(!is_valid_gtin('01501272866800084'), 'GTIN-12 (UPC-A) with 5-digit add-on (UPC-5) is invalid (until MBS-13468)');
+    ok(!is_valid_gtin('419091010790904'), 'GTIN-13 (EAN-13) with 2-digit add-on (EAN-2) is invalid (until MBS-13468)');
+    ok(!is_valid_gtin('842056520418700004'), 'GTIN-13 (EAN-13) with 5-digit add-on (EAN-5) is invalid (until MBS-13468)');
 };
 
 test 'Test is_valid_partial_date' => sub {

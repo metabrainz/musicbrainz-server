@@ -90,7 +90,7 @@ const EventList = ({
       const timeColumn = defineTextColumn<EventT>({
         columnName: 'time',
         getText: entity => entity.time,
-        title: l('Time'),
+        title: lp('Time', 'event'),
       });
       const rolesOnlyColumn = artist && artistRoles
         ? defineTextColumn<EventT>({

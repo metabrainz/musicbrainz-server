@@ -12,7 +12,6 @@ import * as React from 'react';
 import {stripAttributes} from '../../../edit/utility/linkPhrase.js';
 import {INSTRUMENT_ROOT_ID} from '../../constants.js';
 import {unwrapNl} from '../../i18n.js';
-import {addColonText} from '../../i18n/addColon.js';
 import {commaOnlyListText} from '../../i18n/commaOnlyList.js';
 import localizeLanguageName from '../../i18n/localizeLanguageName.js';
 import localizeLinkAttributeTypeDescription

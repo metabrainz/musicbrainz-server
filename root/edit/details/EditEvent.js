@@ -85,7 +85,7 @@ const EditEvent = ({edit}: Props): React$Element<'table'> => {
       ) : null}
       {time ? (
         <FullChangeDiff
-          label={addColonText(l('Time'))}
+          label={addColonText(lp('Time', 'event'))}
           newContent={time.new ?? ''}
           oldContent={time.old ?? ''}
         />

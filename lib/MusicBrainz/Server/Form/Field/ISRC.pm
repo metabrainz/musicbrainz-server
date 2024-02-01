@@ -14,7 +14,7 @@ has '+minlength' => ( default => 12 );
 apply ([
     {
         transform => sub { return format_isrc(shift) },
-        message => sub { l('This is not a valid ISRC') },
+        message => sub { l('This is not a valid ISRC.') },
     },
     {
         check => sub { is_valid_isrc(shift) },

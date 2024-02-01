@@ -38,6 +38,10 @@ INSERT INTO cover_art_archive.art_type VALUES (10, 'Sticker', NULL, 0, NULL, 'c3
 INSERT INTO cover_art_archive.art_type VALUES (11, 'Poster', NULL, 0, NULL, 'b9d36ca3-edb0-3c29-8176-c2af91aa0222');
 INSERT INTO cover_art_archive.art_type VALUES (12, 'Liner', NULL, 0, NULL, 'b8e7f026-be35-3d73-a082-a7bcf26c9fd6');
 INSERT INTO cover_art_archive.art_type VALUES (13, 'Watermark', NULL, 0, NULL, 'aa17a439-aed9-381f-969b-e9a4bae7a57a');
+INSERT INTO cover_art_archive.art_type VALUES (14, 'Raw/Unedited', NULL, 0, 'Use for images that need work to be used for tagging (but can possibly already be used for reference)', 'c76e83e2-d175-4487-9e58-d960eb6fad4f');
+INSERT INTO cover_art_archive.art_type VALUES (15, 'Matrix/Runout', NULL, 0, 'The section on a CD, record or other media containing such data as matrix numbers. Usually found in the hub of a CD or the dead wax area of a vinyl record.', '769dd9f7-3847-4f0a-a687-806ad2cf839d');
+INSERT INTO cover_art_archive.art_type VALUES (48, 'Top', NULL, 0, 'The top of a box or other similar packaging (for most common six sided packaging options, the one perpendicular to and above front, back and spines).', 'cf9985e0-9eee-4cbb-88f9-992aa3062e48');
+INSERT INTO cover_art_archive.art_type VALUES (49, 'Bottom', NULL, 0, 'The bottom of a box or other similar packaging (for most common six sided packaging options, the one perpendicular to and below front, back and spines).', '0b7128b0-7b36-4879-8d03-0333132a2106');
 
 INSERT INTO cover_art_archive.image_type VALUES ('image/jpeg', 'jpg');
 INSERT INTO cover_art_archive.image_type VALUES ('image/png', 'png');

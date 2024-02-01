@@ -9,6 +9,7 @@
 
 import * as React from 'react';
 
+import {CONTACT_URL} from '../constants.js';
 import {CatalystContext} from '../context.mjs';
 import Layout from '../layout/index.js';
 import * as manifest from '../static/manifest.mjs';
@@ -86,9 +87,9 @@ const Login = ({
               </p>
               <p>
                 {exp.l(
-                  `If you think this is a mistake, please contact
-                   <code>support@musicbrainz.org</code>
+                  `If you think this is a mistake, please {contact|contact us}
                    with the name of your account.`,
+                  {contact: CONTACT_URL},
                 )}
               </p>
             </span>

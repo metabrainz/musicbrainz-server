@@ -16,7 +16,7 @@ use MusicBrainz::Server::Edit::Utils qw(
 );
 use MusicBrainz::Server::Entity::ReleaseEvent;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array to_json_object );
-use MusicBrainz::Server::Translation qw( l N_lp );
+use MusicBrainz::Server::Translation qw( lp N_lp );
 
 extends 'MusicBrainz::Server::Edit::Generic::Create';
 with 'MusicBrainz::Server::Edit::Role::Preview',
@@ -109,7 +109,7 @@ sub build_display_data
         barcode       => $self->data->{barcode},
         release_group => (defined($self->data->{release_group_id}) &&
                            to_json_object($loaded->{ReleaseGroup}{ $self->data->{release_group_id} } ||
-                               ReleaseGroup->new( name => l('[removed]') ))),
+                               ReleaseGroup->new( name => lp('[removed]', 'release group') ))),
         release       => to_json_object(defined($self->entity_id) &&
                             $loaded->{Release}{ $self->entity_id } ||
                             Release->new( name => $self->data->{name} )),

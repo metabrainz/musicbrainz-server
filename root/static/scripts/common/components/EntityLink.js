@@ -45,7 +45,9 @@ export const DeletedLink = ({
       }
       title={caption}
     >
-      {isolateText(nonEmpty(name) ? name : l('[removed]'))}
+      {isolateText(nonEmpty(name)
+        ? name
+        : lp('[removed]', 'generic entity'))}
     </span>
   );
 };
@@ -93,7 +95,7 @@ const EventDisambiguation = ({
     <>
       {dates && showDate ? ' ' + bracketedText(dates) : null}
       {event.cancelled
-        ? <Comment className="cancelled" comment={l('cancelled')} />
+        ? <Comment className="cancelled" comment={lp('cancelled', 'event')} />
         : null}
     </>
   );

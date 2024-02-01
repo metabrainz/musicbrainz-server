@@ -73,7 +73,11 @@ const EditAlias = ({edit}: Props): React$Element<'table'> => {
                       : locales[aliasLocale],
                   )}
                 </>
-              ) : <span className="deleted">{l('[removed]')}</span>}
+              ) : (
+                <span className="deleted">
+                  {lp('[removed]', 'alias')}
+                </span>
+              )}
             </td>
           </tr>) : null}
 
