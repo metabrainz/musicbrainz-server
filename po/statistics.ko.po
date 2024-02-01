@@ -1,18 +1,20 @@
 #
 # Translators:
+# hashflu <minwuekim@gmail.com>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2012-05-24 18:54+0000\n"
-"Last-Translator: FULL NAME <email address hidden>\n"
-"Language-Team: Korean (http://app.transifex.com/musicbrainz/musicbrainz/"
-"language/ko/)\n"
+"PO-Revision-Date: 2024-01-26 13:28+0000\n"
+"Last-Translator: hashflu <minwuekim@gmail.com>\n"
+"Language-Team: Korean <https://translations.metabrainz.org/projects/"
+"musicbrainz/statistics/ko/>\n"
 "Language: ko\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 5.3\n"
 
 #: DB:statistics.statistic_event/title:2015-09-08
 msgid "\"Do Not Cluster\" guideline dropped"
@@ -1122,8 +1124,6 @@ msgid "Countries"
 msgstr ""
 
 #: ../root/statistics/layout.tt:4
-#, fuzzy
-#| msgid "Cover Art"
 msgctxt "plural"
 msgid "Cover art"
 msgstr "커버 아트"

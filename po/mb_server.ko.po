@@ -6,13 +6,14 @@
 # Translators:
 # Nick Conrads <email address hidden>, 2020
 # Yuza Tea <email address hidden>, 2021
+# hashflu <minwuekim@gmail.com>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-25 22:54+0200\n"
-"PO-Revision-Date: 2023-08-18 12:56+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"PO-Revision-Date: 2024-01-26 13:28+0000\n"
+"Last-Translator: hashflu <minwuekim@gmail.com>\n"
 "Language-Team: Korean <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/ko/>\n"
 "Language: ko\n"
@@ -20,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.18.2\n"
+"X-Generator: Weblate 5.3\n"
 
 #: ../root/components/common-macros.tt:12
 msgid " ({text})"
@@ -337,7 +338,7 @@ msgstr ""
 
 #: ../root/release/edit/tracklist.tt:144
 msgid "An error occurred: "
-msgstr "오류 발생"
+msgstr "오류 발생: "
 
 #: ../root/release/edit/information.tt:251
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:46
@@ -718,11 +719,9 @@ msgstr "국가"
 
 #: ../root/release_group/set_cover_art.tt:67
 #: ../root/edit/components/EditArtwork.js:36 ../root/user/UserProfile.js:51
-#, fuzzy
-#| msgid "Cover art:"
 msgctxt "singular"
 msgid "Cover art"
-msgstr "커버 아트:"
+msgstr "커버 아트"
 
 #: ../root/release/add_cover_art.tt:85
 msgid "Creating edit..."
@@ -2342,11 +2341,9 @@ msgstr "아티스트 정보"
 
 #: ../root/release_group/set_cover_art.tt:1
 #: ../root/release_group/set_cover_art.tt:4
-#, fuzzy
-#| msgid "Cover art:"
 msgctxt "singular, header"
 msgid "Set cover art"
-msgstr "커버 아트:"
+msgstr "커버 아트"
 
 #: ../root/cdtoc/list.tt:54 ../root/release/DiscIds.js:70
 msgid "Set track lengths"
@@ -3693,7 +3690,7 @@ msgstr "이 사용자 이름을 가진 사용자가 없습니다"
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:206
 msgid "There is no user with this username and email"
-msgstr "이 사용자 이름과 이메일을 가진 사용자가 없습니다."
+msgstr "이 사용자 이름과 이메일을 가진 사용자가 없습니다"
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:209
 msgid ""
@@ -3990,11 +3987,9 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Controller/User.pm:361
 #: ../root/account/LostPasswordSent.js:15
 #: ../root/account/LostUsernameSent.js:15
-#, fuzzy
-#| msgid "Email:"
 msgctxt "header"
 msgid "Email sent"
-msgstr "이메일:"
+msgstr "이메일"
 
 #: ../lib/MusicBrainz/Server/Controller/User.pm:362
 #, perl-brace-format
@@ -4992,11 +4987,9 @@ msgid "Merge release groups"
 msgstr "발매 그룹"
 
 #: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/SetCoverArt.pm:20
-#, fuzzy
-#| msgid "Cover art:"
 msgctxt "singular, edit type"
 msgid "Set cover art"
-msgstr "커버 아트:"
+msgstr "커버 아트"
 
 #: ../lib/MusicBrainz/Server/Edit/Role/IPI.pm:40
 #, perl-brace-format
@@ -6127,10 +6120,8 @@ msgstr ""
 
 #: ../root/account/LostUsername.js:27 ../root/account/LostUsername.js:28
 #: ../root/account/LostUsernameSent.js:15
-#, fuzzy
-#| msgid "Username:"
 msgid "Lost username"
-msgstr "사용자명:"
+msgstr "사용자명"
 
 #: ../root/account/LostUsername.js:30
 msgid ""
@@ -6331,18 +6322,14 @@ msgstr "업데이트"
 
 #: ../root/account/applications/RegisterApplication.js:22
 #: ../root/account/applications/RegisterApplication.js:23
-#, fuzzy
-#| msgid "Description:"
 msgctxt "header"
 msgid "Register application"
-msgstr "설명:"
+msgstr "설명"
 
 #: ../root/account/applications/RegisterApplication.js:27
-#, fuzzy
-#| msgid "Description:"
 msgctxt "interactive"
 msgid "Register application"
-msgstr "설명:"
+msgstr "설명"
 
 #: ../root/account/applications/RemoveApplication.js:21
 msgid "Are you sure you want to remove this application?"
@@ -7580,18 +7567,14 @@ msgid "Disc IDs"
 msgstr ""
 
 #: ../root/components/EntityTabs.js:114
-#, fuzzy
-#| msgid "Cover art:"
 msgctxt "plural"
 msgid "Cover art"
-msgstr "커버 아트:"
+msgstr "커버 아트"
 
 #: ../root/components/EntityTabs.js:116
-#, fuzzy
-#| msgid "Cover art:"
 msgctxt "plural"
 msgid "Cover art ({num})"
-msgstr "커버 아트:"
+msgstr "커버 아트 {{num}}"
 
 #: ../root/components/EntityTabs.js:132
 #: ../root/components/UserAccountTabs.js:65 ../root/entity/Tags.js:38
@@ -10517,11 +10500,9 @@ msgid "Release group information"
 msgstr ""
 
 #: ../root/layout/components/sidebar/ReleaseGroupSidebar.js:88
-#, fuzzy
-#| msgid "Cover art:"
 msgctxt "singular, interactive"
 msgid "Set cover art"
-msgstr "커버 아트:"
+msgstr "커버 아트"
 
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:90
 msgid "Front cover image failed to load correctly.<br/>{all|View all artwork}."
@@ -10829,7 +10810,7 @@ msgstr ""
 
 #: ../root/main/index.js:40
 msgid "Welcome to MusicBrainz!"
-msgstr "뮤주브레인즈에서 환영합니다."
+msgstr "뮤직브레인즈에 온 것을 환영합니다!"
 
 #: ../root/main/index.js:44
 msgid ""
@@ -10936,10 +10917,8 @@ msgid ""
 msgstr ""
 
 #: ../root/main/index.js:248
-#, fuzzy
-#| msgid "Description:"
 msgid "Recent additions"
-msgstr "설명:"
+msgstr "설명"
 
 #: ../root/mbid/NotFound.js:21
 #, fuzzy
@@ -11350,11 +11329,9 @@ msgid "original"
 msgstr ""
 
 #: ../root/release/CoverArt.js:57
-#, fuzzy
-#| msgid "Cover art:"
 msgctxt "plural, header"
 msgid "Cover art"
-msgstr "커버 아트:"
+msgstr "커버 아트"
 
 #: ../root/release/CoverArt.js:63
 msgctxt "plural, header"
@@ -13310,10 +13287,8 @@ msgid "My tags and genres"
 msgstr ""
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:213
-#, fuzzy
-#| msgid "Email:"
 msgid "Email me about"
-msgstr "이메일:"
+msgstr "이메일"
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:216
 msgid "The first “no” vote on any of my edits"
@@ -16176,7 +16151,7 @@ msgstr ""
 
 #: ../root/user/UserProfile.js:418
 msgid "Languages"
-msgstr ""
+msgstr "언어"
 
 #: ../root/user/UserProfile.js:493 ../root/user/UserProfile.js:593
 #: ../root/user/UserProfile.js:603 ../root/user/UserProfile.js:613
