@@ -6108,8 +6108,8 @@ msgstr "歌词作于某地点"
 msgid "lyrics written in"
 msgstr "歌词作于某地"
 
-#: DB:link_type/reverse_link_phrase:960 DB:link_type/reverse_link_phrase:175
-#: DB:link_type/reverse_link_phrase:79
+#: DB:link_type/reverse_link_phrase:79 DB:link_type/reverse_link_phrase:960
+#: DB:link_type/reverse_link_phrase:175
 msgid "mail-order purchase page for"
 msgstr "邮购页，关于"
 
@@ -6975,8 +6975,8 @@ msgstr "出版唱片公司"
 msgid "purchase for download"
 msgstr "付费下载"
 
-#: DB:link_type/link_phrase:79 DB:link_type/name:960 DB:link_type/name:175
-#: DB:link_type/name:79 DB:link_type/name:913
+#: DB:link_type/link_phrase:79 DB:link_type/name:79 DB:link_type/name:960
+#: DB:link_type/name:175 DB:link_type/name:913
 msgid "purchase for mail-order"
 msgstr "付费邮购"
 

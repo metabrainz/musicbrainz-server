@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-01-23 18:28+0000\n"
+"PO-Revision-Date: 2024-02-01 11:28+0000\n"
 "Last-Translator: \"Vac31.\" <gateway_31@protonmail.com>\n"
 "Language-Team: Lithuanian <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/lt/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
 "11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 :"
 " n % 1 != 0 ? 2: 3);\n"
-"X-Generator: Weblate 5.3\n"
+"X-Generator: Weblate 5.3.1\n"
 
 #: DB:link_attribute_type/description:1355
 msgid "A performance-centered, usually one to three year postgraduate program."
@@ -32,10 +32,11 @@ msgid ""
 "people involved with the label can post content to. Examples include "
 "Facebook pages, and accounts on Twitter, Instagram and Flickr."
 msgstr ""
-"Socialinio tinklo puslapis − tai nuosavas įrašų kompanijos puslapis<a href="
-"\"https://en.wikipedia.org/wiki/Social_networking_service\">socialiniame "
-"tinkle</a>, kuriame turinį gali skelbti tik su kompaniją susiję asmenys. "
-"Pavyzdžiai: Facebook puslapiai, paskyros Twitter, Instagram ir Flickr."
+"Socialinio tinklo puslapis − tai nuosavas įrašų kompanijos puslapis<a "
+"href=\"https://en.wikipedia.org/wiki/"
+"Social_networking_service\">socialiniame tinkle</a>, kuriame turinį gali "
+"skelbti tik su kompaniją susiję asmenys. Pavyzdžiai: Facebook puslapiai, "
+"paskyros Twitter, Instagram ir Flickr."
 
 #: DB:link_type/description:784
 msgid ""
@@ -1254,8 +1255,8 @@ msgid ""
 "target=\"_blank\">record label</a>."
 msgstr ""
 "Vietoj to leidėjai turėtų būti pridėti prie kūrinių. Atmink, kad tai "
-"<strong>nėra</strong> ta pati sąvoka kaip <a href=\"/doc/Label\" target="
-"\"_blank\">leidybinė kompanija</a>."
+"<strong>nėra</strong> ta pati sąvoka kaip <a href=\"/doc/Label\" "
+"target=\"_blank\">leidybinė kompanija</a>."
 
 #: DB:link_type/link_phrase:174
 msgid "PureVolume"
@@ -1567,14 +1568,14 @@ msgid ""
 "<li>A bootleg label reissues another label's catalog.</li>\n"
 "</ul>"
 msgstr ""
-"Tai apibūdina situaciją, kai viena leidykla savo vardu perleidžia kitos "
-"leidyklos katalogo (dalį). Taip gali atsitikti bent trimis atvejais:\n"
+"Tai apibūdina situaciją, kai viena leidybinė kompanija savo vardu perleidžia "
+"kitos kompanijos katalogo (dalį). Taip gali atsitikti bent trimis atvejais:\n"
 "<ul>\n"
-"<li>Leidykla tam tikram laikotarpiui įsigyja kitos leidyklos katalogo nuomą "
-"tam tikrame pasaulio regione.</li>\n"
-"<li>Leidykla nusiperka teises į nebeegzistuojančios leidyklos katalogą arba "
-"nusiperka leidyklą (su jos katalogu) ir ją išardo.</li>\n"
-"<li>Nelegali leidykla perleidžia kitos leidyklos katalogą.</li>\n"
+"<li>Leidybinė kompanija tam tikram laikotarpiui įsigyja kitos kompanijos "
+"katalogo nuomą tam tikrame pasaulio regione.</li>\n"
+"<li>Leidybinė kompanija nusiperka teises į nebeegzistuojančios lei katalogą "
+"arba nusiperka kompanija (su jos katalogu) ir ją išardo.</li>\n"
+"<li>Nelegali leidybinė kompanija perleidžia kitos kompanijos katalogą.</li>\n"
 "</ul>"
 
 #: DB:link_type/description:140 DB:link_type/description:31
@@ -4852,7 +4853,7 @@ msgstr ""
 
 #: DB:link_type/reverse_link_phrase:309
 msgid "edits"
-msgstr ""
+msgstr "redagavimai"
 
 #: DB:link_type/link_phrase:925 DB:link_type/name:925
 msgid "educational institution connection"
@@ -6017,8 +6018,8 @@ msgstr ""
 msgid "lyrics written in"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:960 DB:link_type/reverse_link_phrase:175
-#: DB:link_type/reverse_link_phrase:79
+#: DB:link_type/reverse_link_phrase:79 DB:link_type/reverse_link_phrase:960
+#: DB:link_type/reverse_link_phrase:175
 msgid "mail-order purchase page for"
 msgstr ""
 
@@ -6884,8 +6885,8 @@ msgstr "leidybos leidybinė kompanija"
 msgid "purchase for download"
 msgstr "pirkti atsisiuntimui"
 
-#: DB:link_type/link_phrase:79 DB:link_type/name:960 DB:link_type/name:175
-#: DB:link_type/name:79 DB:link_type/name:913
+#: DB:link_type/link_phrase:79 DB:link_type/name:79 DB:link_type/name:960
+#: DB:link_type/name:175 DB:link_type/name:913
 msgid "purchase for mail-order"
 msgstr "pirkti užsakant paštu"
 

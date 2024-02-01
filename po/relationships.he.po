@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "PO-Revision-Date: 2024-01-04 14:54+0000\n"
-"Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
-".org>\n"
+"Last-Translator: reosarevok <reosarevok@users.noreply.translations."
+"metabrainz.org>\n"
 "Language-Team: Hebrew <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/he/>\n"
 "Language: he\n"
@@ -6444,8 +6444,8 @@ msgstr "תמליל נכתב ב־"
 msgid "lyrics written in"
 msgstr "תמליל נכתב על־ידי"
 
-#: DB:link_type/reverse_link_phrase:960 DB:link_type/reverse_link_phrase:175
-#: DB:link_type/reverse_link_phrase:79
+#: DB:link_type/reverse_link_phrase:79 DB:link_type/reverse_link_phrase:960
+#: DB:link_type/reverse_link_phrase:175
 msgid "mail-order purchase page for"
 msgstr "עמוד רכישת דוא\"ל עבור"
 
@@ -7311,8 +7311,8 @@ msgstr "חברת תקליטים מוציא לאור"
 msgid "purchase for download"
 msgstr "רכישה בהורדה"
 
-#: DB:link_type/link_phrase:79 DB:link_type/name:960 DB:link_type/name:175
-#: DB:link_type/name:79 DB:link_type/name:913
+#: DB:link_type/link_phrase:79 DB:link_type/name:79 DB:link_type/name:960
+#: DB:link_type/name:175 DB:link_type/name:913
 msgid "purchase for mail-order"
 msgstr "רכישה בהזמנת דוא\"ל"
 

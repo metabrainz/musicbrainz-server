@@ -33,8 +33,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
-" ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
+"0) ? 1 : 2);\n"
 "X-Generator: Weblate 5.3\n"
 
 #: DB:instrument/name:438
@@ -898,6 +898,11 @@ msgctxt "Modern wood and metal-bead shaker"
 msgid "cabasa"
 msgstr ""
 
+#: DB:instrument/name:1195
+msgctxt "Auvergnat bagpipe"
+msgid "cabrette"
+msgstr ""
+
 #: DB:instrument/name:903
 msgctxt "Brazilian Samba snare-drum"
 msgid "caixa"
@@ -1059,6 +1064,11 @@ msgctxt "19th century bass trombone"
 msgid "cimbasso"
 msgstr ""
 
+#: DB:instrument/name:1194
+msgctxt "Romanian & Moldovan bagpipe"
+msgid "cimpoi"
+msgstr ""
+
 #: DB:instrument/name:761
 msgid "citole"
 msgstr ""
@@ -1128,6 +1138,11 @@ msgctxt "Folk/classical Catalonian music ensemble"
 msgid "cobla"
 msgstr ""
 
+#: DB:instrument/name:1189
+msgctxt "Catalonian ancient cobla ensemble"
+msgid "cobla de tres quartans"
+msgstr ""
+
 #: DB:instrument/name:414
 msgid "concert flute"
 msgstr "flauta de concierto"
@@ -1183,8 +1198,16 @@ msgid "cor anglais"
 msgstr ""
 
 #: DB:instrument/name:510
+#, fuzzy
+#| msgid "cornamuse"
+msgctxt "Renaissance capped double-reed"
 msgid "cornamuse"
 msgstr "cornamusa"
+
+#: DB:instrument/name:1190
+msgctxt "French two-drone bagpipes"
+msgid "cornemuse du centre"
+msgstr ""
 
 #: DB:instrument/name:25
 msgctxt "19th century brass trumpet-like"
@@ -1211,6 +1234,9 @@ msgid "crotales"
 msgstr "crótalos"
 
 #: DB:instrument/name:348
+#, fuzzy
+#| msgid "crumhorn"
+msgctxt "Curved capped double reed"
 msgid "crumhorn"
 msgstr "cromorno"
 
@@ -3620,6 +3646,11 @@ msgstr "saxofón soprano"
 msgid "soprano violin"
 msgstr "violín soprano"
 
+#: DB:instrument/name:1191
+msgctxt "Complex Neapolitan bagpipe"
+msgid "sordellina"
+msgstr ""
+
 #: DB:instrument/name:151
 msgid "sousaphone"
 msgstr "sousafón"
@@ -4109,6 +4140,11 @@ msgstr ""
 msgid "trống bông"
 msgstr ""
 
+#: DB:instrument/name:1193
+msgctxt "Greek double chanter droneless bagpipe"
+msgid "tsampouna"
+msgstr ""
+
 #: DB:instrument/name:34
 msgid "tuba"
 msgstr "tuba"
@@ -4497,6 +4533,11 @@ msgstr ""
 
 #: DB:instrument/name:715
 msgid "zabumba"
+msgstr ""
+
+#: DB:instrument/name:1192
+msgctxt "Large Italian bagpipe"
+msgid "zampogna"
 msgstr ""
 
 #: DB:instrument/name:328

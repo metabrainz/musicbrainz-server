@@ -583,8 +583,8 @@ msgid ""
 "Indicates the composer for this work, that is, the artist who wrote the "
 "music (not necessarily the lyrics)."
 msgstr ""
-"Gibt den Komponisten für dieses Werk an, d.h. den Künstler der die Musik ("
-"nicht unbedingt die Texte) geschrieben hat."
+"Gibt den Komponisten für dieses Werk an, d.h. den Künstler der die Musik "
+"(nicht unbedingt die Texte) geschrieben hat."
 
 #: DB:link_type/description:845
 msgid "Indicates the event where the work had its first performance."
@@ -6026,8 +6026,8 @@ msgstr "Liedtext geschrieben bei"
 msgid "lyrics written in"
 msgstr "Liedtext geschrieben in"
 
-#: DB:link_type/reverse_link_phrase:960 DB:link_type/reverse_link_phrase:175
-#: DB:link_type/reverse_link_phrase:79
+#: DB:link_type/reverse_link_phrase:79 DB:link_type/reverse_link_phrase:960
+#: DB:link_type/reverse_link_phrase:175
 msgid "mail-order purchase page for"
 msgstr "Bestellseite für"
 
@@ -6895,8 +6895,8 @@ msgstr "Veröffentlichungs-Studio"
 msgid "purchase for download"
 msgstr "zum Herunterladen kaufen"
 
-#: DB:link_type/link_phrase:79 DB:link_type/name:960 DB:link_type/name:175
-#: DB:link_type/name:79 DB:link_type/name:913
+#: DB:link_type/link_phrase:79 DB:link_type/name:79 DB:link_type/name:960
+#: DB:link_type/name:175 DB:link_type/name:913
 msgid "purchase for mail-order"
 msgstr "bestellen"
 

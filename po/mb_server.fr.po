@@ -66,8 +66,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-02 10:11+0200\n"
-"PO-Revision-Date: 2024-01-03 12:28+0000\n"
+"POT-Creation-Date: 2024-01-25 22:54+0200\n"
+"PO-Revision-Date: 2024-02-01 14:01+0000\n"
 "Last-Translator: yvanzo <yvanzo@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: French <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/fr/>\n"
@@ -77,7 +77,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : ((n != 0 && n % "
 "1000000 == 0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.3\n"
+"X-Generator: Weblate 5.3.1\n"
 
 #: ../root/components/common-macros.tt:12
 msgid " ({text})"
@@ -678,7 +678,7 @@ msgstr "Peut être approuvé"
 #: ../root/release_group/ReleaseGroupMerge.js:52
 #: ../root/series/SeriesMerge.js:51
 #: ../root/static/scripts/common/components/FilterForm.js:378
-#: ../root/static/scripts/edit/components/ExternalLinkAttributeDialog.js:204
+#: ../root/static/scripts/edit/components/ExternalLinkAttributeDialog.js:237
 #: ../root/static/scripts/edit/components/URLInputPopover.js:126
 #: ../root/static/scripts/relationship-editor/components/DialogButtons.js:28
 #: ../root/work/WorkMerge.js:65
@@ -915,8 +915,8 @@ msgid "Donate"
 msgstr "Faites un don"
 
 #: ../root/release/edit/macros.tt:54
-#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:165
-#: ../root/static/scripts/edit/components/ExternalLinkAttributeDialog.js:213
+#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:166
+#: ../root/static/scripts/edit/components/ExternalLinkAttributeDialog.js:245
 #: ../root/static/scripts/edit/components/GuessCaseOptionsPopover.js:64
 #: ../root/static/scripts/edit/components/URLInputPopover.js:134
 #: ../root/static/scripts/relationship-editor/components/DialogButtons.js:37
@@ -1290,7 +1290,7 @@ msgstr "Historique"
 
 #: ../root/release/edit/information.tt:339
 msgid "I confirm that this is the barcode as it appears on the release."
-msgstr "Je confirme que c’est le code-barres comme l est sur la parution."
+msgstr "Je confirme que c’est le code-barres comme il apparaît sur la parution."
 
 #: ../root/release/edit/tracklist.tt:390
 msgid "I confirm this is a correct medium format/packaging combination."
@@ -1316,8 +1316,8 @@ msgstr "Je ne connais pas la liste des pistes pour ce support."
 msgid "I have no information about this release’s media and tracklist."
 msgstr "Je n’ai aucune information à propos des supports et des pistes."
 
-#: ../root/edit/search_macros.tt:434 ../root/futureColumnLabels.js:20
-#: ../root/futureColumnLabels.js:36
+#: ../root/edit/search_macros.tt:434 ../root/futureColumnLabels.js:22
+#: ../root/futureColumnLabels.js:38
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:118
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:161
 msgid "ID"
@@ -1398,9 +1398,14 @@ msgid "ISWCs"
 msgstr "ISWC"
 
 #: ../root/event/edit_form.tt:26
+#, fuzzy
+#| msgid ""
+#| "If needed, the characters \"[\", \"]\", and \"&\" can be escaped using "
+#| "the HTML entities \"&lsqb;\", \"&rsqb;\", and \"&amp;\" respectively."
 msgid ""
 "If needed, the characters \"[\", \"]\", and \"&\" can be escaped using the "
-"HTML entities \"&lsqb;\", \"&rsqb;\", and \"&amp;\" respectively."
+"HTML entities \"<code>&amp;lsqb;</code>\", \"<code>&amp;rsqb;</code>\", and "
+"\"<code>&amp;amp;</code>\" respectively."
 msgstr ""
 "Si besoin, les caractères \"[\", \"]\" et \"&\" peuvent être échappés en "
 "utilisant leurs entités HTML respectives \"&lsqb;\", \"&rsqb;\", et \"&amp;"
@@ -1809,8 +1814,8 @@ msgstr "Déplacer la piste vers le haut"
 #: ../root/edit/details/historic/AddTrackKV.js:30
 #: ../root/edit/details/historic/AddTrackOld.js:22
 #: ../root/edit/details/historic/EditReleaseName.js:22
-#: ../root/entity/Details.js:96 ../root/futureColumnLabels.js:21
-#: ../root/futureColumnLabels.js:37
+#: ../root/entity/Details.js:96 ../root/futureColumnLabels.js:23
+#: ../root/futureColumnLabels.js:39
 #: ../root/search/components/AnnotationResults.js:55
 #: ../root/search/components/AreaResults.js:63
 #: ../root/search/components/ArtistResults.js:51
@@ -2110,7 +2115,7 @@ msgstr "Enregistrement « {name} » par {artist}"
 #: ../root/release/edit/layout.tt:17 ../root/area/AreaRecordings.js:25
 #: ../root/artist/ArtistRecordings.js:144
 #: ../root/artist/ArtistRecordings.js:146
-#: ../root/artist_credit/ArtistCreditIndex.js:145
+#: ../root/artist_credit/ArtistCreditIndex.js:146
 #: ../root/artist_credit/ArtistCreditLayout.js:28
 #: ../root/components/EntityTabs.js:30
 #: ../root/components/TagEntitiesList.js:190
@@ -2666,6 +2671,9 @@ msgid ""
 "The sort name is an artist name variant used when sorting alphabetically. "
 "For usage information check the {sort_name_doc|sort name guidelines}."
 msgstr ""
+"Le nom de tri est une version du nom de l’artiste utilisée pour le tri "
+"alphabétique. Pour en savoir plus, consultez les {sort_name_doc|directives "
+"de style pour les noms de tri}."
 
 #: ../root/release/edit/tracklist.tt:124
 msgid ""
@@ -3010,7 +3018,7 @@ msgstr "Liste de pistes"
 
 #: ../root/release/edit/duplicates.tt:12
 #: ../root/release_group/set_cover_art.tt:47
-#: ../root/artist_credit/ArtistCreditIndex.js:156
+#: ../root/artist_credit/ArtistCreditIndex.js:157
 #: ../root/artist_credit/ArtistCreditLayout.js:29
 #: ../root/components/list/ReleaseList.js:108
 #: ../root/edit/details/MergeReleases.js:238
@@ -3093,8 +3101,8 @@ msgstr "Twitter"
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:875
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:547
 #: ../root/static/scripts/common/components/FilterForm.js:147
-#: ../root/static/scripts/edit/externalLinks.js:1232
-#: ../root/static/scripts/edit/externalLinks.js:1554
+#: ../root/static/scripts/edit/externalLinks.js:1273
+#: ../root/static/scripts/edit/externalLinks.js:1615
 #: ../root/utility/tableColumns.js:654 ../root/utility/tableColumns.js:659
 msgid "Type"
 msgstr "Type"
@@ -3424,7 +3432,7 @@ msgstr "Vous devez choisir un groupe de parution existant."
 
 #: ../root/release/edit/editnote.tt:36
 #: ../lib/MusicBrainz/Server/Form/EditNoteModify.pm:32
-#: ../lib/MusicBrainz/Server/Form/Role/EditNote.pm:30
+#: ../lib/MusicBrainz/Server/Form/Role/EditNote.pm:32
 msgid ""
 "Your edit note seems to have no actual content. Please provide a note that "
 "will be helpful to your fellow editors!"
@@ -4144,20 +4152,20 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:296
 #: ../lib/MusicBrainz/Server/Form/ChangeReleaseQuality.pm:24
-#: ../root/static/scripts/common/constants.js:357
+#: ../root/static/scripts/common/constants.js:360
 msgid "Low"
 msgstr "Bas"
 
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:296
 #: ../lib/MusicBrainz/Server/Form/ChangeReleaseQuality.pm:25
-#: ../root/static/scripts/common/constants.js:358
-#: ../root/static/scripts/common/constants.js:359
+#: ../root/static/scripts/common/constants.js:361
+#: ../root/static/scripts/common/constants.js:362
 msgid "Normal"
 msgstr "Normal"
 
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:296
 #: ../lib/MusicBrainz/Server/Form/ChangeReleaseQuality.pm:26
-#: ../root/static/scripts/common/constants.js:360
+#: ../root/static/scripts/common/constants.js:363
 msgid "High"
 msgstr "Haute"
 
@@ -5460,7 +5468,7 @@ msgctxt "autoeditor election status (short)"
 msgid "Cancelled"
 msgstr "Annulée"
 
-#: ../lib/MusicBrainz/Server/Entity/Barcode.pm:25
+#: ../lib/MusicBrainz/Server/Entity/Barcode.pm:26
 #: ../root/static/scripts/common/utility/formatBarcode.js:15
 msgid "[none]"
 msgstr "[aucun]"
@@ -5782,7 +5790,7 @@ msgid "This is not a valid time."
 msgstr "Cette heure n’est pas valide."
 
 #: ../lib/MusicBrainz/Server/Form/Field/URL.pm:28
-#: ../root/static/scripts/edit/externalLinks.js:733
+#: ../root/static/scripts/edit/externalLinks.js:753
 #, perl-brace-format
 msgid "Please enter a valid URL, such as “{example_url}”."
 msgstr "Veuillez entrer un URL valide, tel que « {example_url} »."
@@ -5878,7 +5886,7 @@ msgid "The form you’ve submitted has expired. Please resubmit your request."
 msgstr ""
 "Le formulaire que vous avez envoyé a expiré. Merci de l’envoyer de nouveau."
 
-#: ../lib/MusicBrainz/Server/Form/Role/EditNote.pm:26
+#: ../lib/MusicBrainz/Server/Form/Role/EditNote.pm:28
 msgid "You must provide an edit note"
 msgstr "Vous devez fournir une note de modification"
 
@@ -5895,22 +5903,22 @@ msgid "A fluency level is required."
 msgstr "Un niveau de maîtrise est requis."
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:79
-#: ../root/static/scripts/common/constants.js:368
+#: ../root/static/scripts/common/constants.js:371
 msgid "Basic"
 msgstr "De base"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:80
-#: ../root/static/scripts/common/constants.js:369
+#: ../root/static/scripts/common/constants.js:372
 msgid "Intermediate"
 msgstr "Intermédiaire"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:81
-#: ../root/static/scripts/common/constants.js:367
+#: ../root/static/scripts/common/constants.js:370
 msgid "Advanced"
 msgstr "Avancé"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:82
-#: ../root/static/scripts/common/constants.js:370
+#: ../root/static/scripts/common/constants.js:373
 msgid "Native"
 msgstr "Natif"
 
@@ -6127,19 +6135,19 @@ msgstr ""
 msgid "This value is not allowed for this work attribute type."
 msgstr "Cette valeur n’est pas permise pour ce type d’attribut d’œuvre."
 
-#: ../lib/MusicBrainz/Server/Translation.pm:254
+#: ../lib/MusicBrainz/Server/Translation.pm:257
 #: ../root/static/scripts/common/i18n/commaList.js:28
 #, perl-brace-format
 msgid "{almost_last_list_item} and {last_list_item}"
 msgstr "{almost_last_list_item} et {last_list_item}"
 
-#: ../lib/MusicBrainz/Server/Translation.pm:260
+#: ../lib/MusicBrainz/Server/Translation.pm:263
 #: ../root/static/scripts/common/i18n/commaList.js:35
 #, perl-brace-format
 msgid "{list_item}, {rest}"
 msgstr "{list_item}, {rest}"
 
-#: ../lib/MusicBrainz/Server/Translation.pm:271
+#: ../lib/MusicBrainz/Server/Translation.pm:274
 #: ../root/static/scripts/common/i18n/commaList.js:23
 #: ../root/static/scripts/common/i18n/commaOnlyList.js:24
 #: ../root/static/scripts/common/i18n/semicolonOnlyList.js:20
@@ -6147,7 +6155,7 @@ msgstr "{list_item}, {rest}"
 msgid "{last_list_item}"
 msgstr "{last_list_item}"
 
-#: ../lib/MusicBrainz/Server/Translation.pm:274
+#: ../lib/MusicBrainz/Server/Translation.pm:277
 #: ../root/static/scripts/common/i18n/commaOnlyList.js:30
 #, perl-brace-format
 msgid "{commas_only_list_item}, {rest}"
@@ -6539,7 +6547,7 @@ msgstr "Dernier jeton attribué"
 #: ../root/account/applications/ApplicationList.js:158
 #: ../root/components/Aliases/AliasTable.js:29
 #: ../root/components/Aliases/ArtistCreditList.js:54
-#: ../root/futureColumnLabels.js:27 ../root/futureColumnLabels.js:41
+#: ../root/futureColumnLabels.js:29 ../root/futureColumnLabels.js:43
 #: ../root/static/scripts/common/components/FingerprintTable.js:80
 #: ../root/utility/tableColumns.js:82
 msgid "Actions"
@@ -6709,7 +6717,7 @@ msgstr ""
 
 #: ../root/annotation/EditAnnotation.js:62
 #: ../root/static/scripts/artist/components/ArtistCreditRenamer.js:278
-#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:69
+#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:70
 #: ../root/static/scripts/relationship-editor/components/DialogPreview.js:172
 msgctxt "header"
 msgid "Preview"
@@ -6910,7 +6918,7 @@ msgstr "Relations"
 
 #: ../root/area/AreaReleases.js:35 ../root/area/AreaReleases.js:38
 #: ../root/artist/ArtistReleases.js:46 ../root/artist/ArtistReleases.js:47
-#: ../root/artist_credit/ArtistCreditIndex.js:135
+#: ../root/artist_credit/ArtistCreditIndex.js:136
 #: ../root/artist_credit/ArtistCreditLayout.js:27
 #: ../root/components/EntityTabs.js:31
 #: ../root/components/TagEntitiesList.js:186
@@ -7307,14 +7315,17 @@ msgid "This artist credit is composed of the following artists:"
 msgstr "Ce crédit d’artiste est composé des artistes suivants :"
 
 #: ../root/artist_credit/ArtistCreditIndex.js:103
+#, fuzzy
+#| msgid "credited as “{credit}”"
+msgctxt "artist credit"
 msgid "credited as “{credit}”"
 msgstr "crédité comme « {credit} »"
 
-#: ../root/artist_credit/ArtistCreditIndex.js:111
+#: ../root/artist_credit/ArtistCreditIndex.js:112
 msgid "Uses"
 msgstr "Usages"
 
-#: ../root/artist_credit/ArtistCreditIndex.js:124
+#: ../root/artist_credit/ArtistCreditIndex.js:125
 #: ../root/artist_credit/ArtistCreditLayout.js:26
 #: ../root/components/TagEntitiesList.js:182
 #: ../root/components/list/RecordingList.js:62
@@ -7324,7 +7335,7 @@ msgstr "Usages"
 msgid "Release groups"
 msgstr "Groupes de parution"
 
-#: ../root/artist_credit/ArtistCreditIndex.js:126
+#: ../root/artist_credit/ArtistCreditIndex.js:127
 #: ../root/components/TagEntitiesList.js:183
 msgid "See all {num} release groups"
 msgid_plural "See all {num} release groups"
@@ -7332,7 +7343,7 @@ msgstr[0] "Voir le groupe de parution"
 msgstr[1] "Voir tous les {num} groupes de parution"
 msgstr[2] "Voir tous les {num} groupes de parution"
 
-#: ../root/artist_credit/ArtistCreditIndex.js:136
+#: ../root/artist_credit/ArtistCreditIndex.js:137
 #: ../root/components/TagEntitiesList.js:187
 msgid "See all {num} releases"
 msgid_plural "See all {num} releases"
@@ -7340,7 +7351,7 @@ msgstr[0] "Voir la parution"
 msgstr[1] "Voir toutes les {num} parutions"
 msgstr[2] "Voir toutes les {num} parutions"
 
-#: ../root/artist_credit/ArtistCreditIndex.js:147
+#: ../root/artist_credit/ArtistCreditIndex.js:148
 #: ../root/components/TagEntitiesList.js:191
 msgid "See all {num} recordings"
 msgid_plural "See all {num} recordings"
@@ -7348,7 +7359,7 @@ msgstr[0] "Voir l’enregistrement"
 msgstr[1] "Voir tous les {num} enregistrements"
 msgstr[2] "Voir tous les {num} enregistrements"
 
-#: ../root/artist_credit/ArtistCreditIndex.js:158
+#: ../root/artist_credit/ArtistCreditIndex.js:159
 msgid "See all {num} tracks"
 msgid_plural "See all {num} tracks"
 msgstr[0] "Voir {num} piste"
@@ -7666,7 +7677,7 @@ msgstr "Collection « {collection} »"
 msgid "Collection"
 msgstr "Collection"
 
-#: ../root/collection/CollectionMerge.js:58 ../root/futureColumnLabels.js:16
+#: ../root/collection/CollectionMerge.js:58 ../root/futureColumnLabels.js:18
 msgid "Entity type"
 msgstr "Type d’entité"
 
@@ -7986,7 +7997,7 @@ msgstr "Tags"
 
 #: ../root/components/EntityTabs.js:141 ../root/entity/Ratings.js:46
 #: ../root/entity/Ratings.js:90
-#: ../root/static/scripts/edit/externalLinks.js:757
+#: ../root/static/scripts/edit/externalLinks.js:777
 msgid "Reviews"
 msgstr "Critiques"
 
@@ -8241,7 +8252,7 @@ msgid "Code"
 msgstr "Code"
 
 #: ../root/components/list/ReleaseGroupList.js:84
-#: ../root/futureColumnLabels.js:31
+#: ../root/futureColumnLabels.js:33
 msgid "Year"
 msgstr "Année"
 
@@ -10292,35 +10303,35 @@ msgstr ""
 "événement. Veuillez choisir l’événement dans lequel vous souhaitez fusionner "
 "les autres :"
 
-#: ../root/futureColumnLabels.js:22
+#: ../root/futureColumnLabels.js:24
 msgid "ISO 639-1"
 msgstr "ISO 639-1"
 
-#: ../root/futureColumnLabels.js:23
+#: ../root/futureColumnLabels.js:25
 msgid "ISO 639-2/B"
 msgstr "ISO 639-2/B"
 
-#: ../root/futureColumnLabels.js:24
+#: ../root/futureColumnLabels.js:26
 msgid "ISO 639-2/T"
 msgstr "ISO 639-2/T"
 
-#: ../root/futureColumnLabels.js:25
+#: ../root/futureColumnLabels.js:27
 msgid "ISO 639-3"
 msgstr "ISO 639-3"
 
-#: ../root/futureColumnLabels.js:26 ../root/futureColumnLabels.js:40
+#: ../root/futureColumnLabels.js:28 ../root/futureColumnLabels.js:42
 msgid "Frequency"
 msgstr "Fréquence"
 
-#: ../root/futureColumnLabels.js:32
+#: ../root/futureColumnLabels.js:34
 msgid "Disc IDs allowed"
 msgstr "ID de disque permis"
 
-#: ../root/futureColumnLabels.js:38
+#: ../root/futureColumnLabels.js:40
 msgid "ISO code"
 msgstr "Code ISO"
 
-#: ../root/futureColumnLabels.js:39
+#: ../root/futureColumnLabels.js:41
 msgid "ISO number"
 msgstr "Numéro ISO"
 
@@ -11816,7 +11827,7 @@ msgid "{entity0}-{entity1}"
 msgstr "{entity0}-{entity1}"
 
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:127
-#: ../root/static/scripts/edit/externalLinks.js:799
+#: ../root/static/scripts/edit/externalLinks.js:819
 #: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:72
 msgid "This relationship type is deprecated and should not be used."
 msgstr "Ce type de relation est obsolète et ne devrait pas être utilisé."
@@ -15257,8 +15268,8 @@ msgstr ""
 
 #: ../root/static/scripts/edit/URLCleanup.js:661
 #: ../root/static/scripts/edit/URLCleanup.js:924
-#: ../root/static/scripts/edit/URLCleanup.js:4267
-#: ../root/static/scripts/edit/URLCleanup.js:5276
+#: ../root/static/scripts/edit/URLCleanup.js:4316
+#: ../root/static/scripts/edit/URLCleanup.js:5430
 msgid ""
 "This is a redirect link. Please follow {redirect_url|your link} and add the "
 "link it redirects to instead."
@@ -15282,7 +15293,20 @@ msgstr ""
 "Seuls les livres audio d’Apple Books peuvent être ajoutés à MusicBrainz. "
 "Veuillez envisager de les ajouter à {bookbrainz_url|BookBrainz} à la place."
 
-#: ../root/static/scripts/edit/URLCleanup.js:1134
+#: ../root/static/scripts/edit/URLCleanup.js:1136
+#, fuzzy
+#| msgid ""
+#| "Please do not link directly to WhoSampled “{unwanted_url_pattern}” pages. "
+#| "Link to the appropriate WhoSampled artist, track or album page instead."
+msgid ""
+"Please do not add “{blocked_url_pattern}” links, link to the appropriate "
+"“{wanted_url_pattern}” page instead."
+msgstr ""
+"Merci de ne pas lier directement aux pages « {unwanted_url_pattern} » de "
+"WhoSampled. À la place, liez à la page WhoSampled de l’artiste, de la piste, "
+"ou de l’album concerné."
+
+#: ../root/static/scripts/edit/URLCleanup.js:1156
 msgid ""
 "Please link to the main page for the artist, not to a specific album or "
 "track."
@@ -15290,14 +15314,14 @@ msgstr ""
 "Merci de lier à la page principale pour cet artiste, plutôt qu’à un album ou "
 "une piste en particulier."
 
-#: ../root/static/scripts/edit/URLCleanup.js:1151
+#: ../root/static/scripts/edit/URLCleanup.js:1173
 msgid ""
 "Please link to the main page for the label, not to a specific album or track."
 msgstr ""
 "Merci de lier à la page principale pour ce label, plutôt qu’à un album ou "
 "une piste en particulier."
 
-#: ../root/static/scripts/edit/URLCleanup.js:1173
+#: ../root/static/scripts/edit/URLCleanup.js:1195
 msgid ""
 "This is a Bandcamp profile, not a page for a specific recording. Even if it "
 "shows a single recording right now, that can change when the artist releases "
@@ -15312,7 +15336,7 @@ msgstr ""
 "(« {single_url_pattern} ») à la place, et n’hésitez pas à ajouter ce profil "
 "Bandcamp à l’artiste ou au label correspondant."
 
-#: ../root/static/scripts/edit/URLCleanup.js:1201
+#: ../root/static/scripts/edit/URLCleanup.js:1223
 msgid ""
 "This is a Bandcamp profile, not a page for a specific release. Even if it "
 "shows this release right now, that can change when the artist releases "
@@ -15327,19 +15351,19 @@ msgstr ""
 "la place, et n’hésitez pas à ajouter ce profil Bandcamp à l’artiste ou au "
 "label correspondant."
 
-#: ../root/static/scripts/edit/URLCleanup.js:1509
+#: ../root/static/scripts/edit/URLCleanup.js:1531
 msgid "Please link to the main page for the artist, not a specific product."
 msgstr ""
 "Merci de lier à la page principale pour cet artiste, plutôt qu’à un produit "
 "en particulier."
 
-#: ../root/static/scripts/edit/URLCleanup.js:1511
+#: ../root/static/scripts/edit/URLCleanup.js:1533
 msgid "Please link to the main page for the label, not a specific product."
 msgstr ""
 "Merci de lier à la page principale pour ce label, plutôt qu’à un produit en "
 "particulier."
 
-#: ../root/static/scripts/edit/URLCleanup.js:2260
+#: ../root/static/scripts/edit/URLCleanup.js:2291
 msgid ""
 "Discogs “{master_url_pattern}” links group several releases, so this should "
 "be added to the release group instead."
@@ -15347,7 +15371,7 @@ msgstr ""
 "Les liens « {master_url_pattern} » de Discogs groupent plusieurs parutions, "
 "ils doivent donc être ajoutés au groupe de parution."
 
-#: ../root/static/scripts/edit/URLCleanup.js:2952
+#: ../root/static/scripts/edit/URLCleanup.js:2982
 msgid ""
 "Only IMSLP “{category_url_pattern}” links are allowed for artists. Please "
 "link work pages to the specific work in question."
@@ -15355,7 +15379,7 @@ msgstr ""
 "Les liens «  {category_url_pattern}  » de IMSLP sont les seuls autorisés "
 "pour les artistes. Merci de lier les pages d’œuvre à l’œuvre en question."
 
-#: ../root/static/scripts/edit/URLCleanup.js:2970
+#: ../root/static/scripts/edit/URLCleanup.js:3000
 msgid ""
 "IMSLP “{category_url_pattern}” links are only allowed for artists. Please "
 "link the specific work page to this work instead, if available."
@@ -15363,7 +15387,7 @@ msgstr ""
 "Les liens «  {category_url_pattern}  » de IMSLP ne sont autorisés que pour "
 "les artistes. Merci de lier la page dédiée à cette œuvre, si elle existe."
 
-#: ../root/static/scripts/edit/URLCleanup.js:3015
+#: ../root/static/scripts/edit/URLCleanup.js:3045
 msgid ""
 "Instagram “{explore_url_pattern}” links are not allowed. Please link to a "
 "profile instead, if there is one."
@@ -15371,7 +15395,7 @@ msgstr ""
 "Les liens «  {explore_url_pattern}  » de Instagram ne sont pas autorisés. "
 "Merci de lier à un profil Instagram, s’il existe."
 
-#: ../root/static/scripts/edit/URLCleanup.js:3043
+#: ../root/static/scripts/edit/URLCleanup.js:3073
 msgid ""
 "Please do not link directly to images, link to the appropriate Instagram "
 "profile page instead. If you want to link to a video, {url|add a standalone "
@@ -15381,11 +15405,11 @@ msgstr ""
 "correspondant à cette page, s’il existe. Si vous voulez lier à une vidéo, "
 "{url|ajoutez un enregistrement isolé} pour cela à la place."
 
-#: ../root/static/scripts/edit/URLCleanup.js:3068
+#: ../root/static/scripts/edit/URLCleanup.js:3098
 msgid "This is an internal Instagram page and should not be added."
 msgstr "C’est une page interne à Instagram et ne doit donc pas être ajoutée."
 
-#: ../root/static/scripts/edit/URLCleanup.js:4164
+#: ../root/static/scripts/edit/URLCleanup.js:4213
 msgid ""
 "Musixmatch “{album_url_pattern}” pages are a bad match for MusicBrainz "
 "release groups, and linking to them is currently disallowed. Please consider "
@@ -15397,11 +15421,11 @@ msgstr ""
 "liens de Musixmatch directement aux artistes et œuvres correspondants de "
 "MusicBrainz."
 
-#: ../root/static/scripts/edit/URLCleanup.js:4793
+#: ../root/static/scripts/edit/URLCleanup.js:4925
 msgid "Only RYM music videos can be linked to recordings."
 msgstr "Seul les clips RYM peuvent être liés à des enregistrements."
 
-#: ../root/static/scripts/edit/URLCleanup.js:4855
+#: ../root/static/scripts/edit/URLCleanup.js:4987
 msgid ""
 "This is a link to the old Resident Advisor domain. Please follow {ra_url|"
 "your link}, make sure the link it redirects to is still the correct one and, "
@@ -15411,23 +15435,23 @@ msgstr ""
 "suivre {ra_url|votre lien} et d’ajouter le lien final à la place, si "
 "approprié."
 
-#: ../root/static/scripts/edit/URLCleanup.js:5432
+#: ../root/static/scripts/edit/URLCleanup.js:5586
 msgid "Please link to Threads profiles, not threads."
 msgstr "Merci de lier à un profil Threads, pas à un fil."
 
-#: ../root/static/scripts/edit/URLCleanup.js:5819
+#: ../root/static/scripts/edit/URLCleanup.js:5973
 msgid "This is not a profile, but a Twitter documentation page."
 msgstr "Cet n’est pas un profil, mais une page de documentation Twitter."
 
-#: ../root/static/scripts/edit/URLCleanup.js:5833
+#: ../root/static/scripts/edit/URLCleanup.js:5987
 msgid "Please link to Twitter profiles, not tweets."
 msgstr "Merci de lier au profil Twitter, pas à un tweet."
 
-#: ../root/static/scripts/edit/URLCleanup.js:5851
+#: ../root/static/scripts/edit/URLCleanup.js:6005
 msgid "This site does not allow direct links to their images."
 msgstr "Ce site n’autorise pas les liens directs vers ses images."
 
-#: ../root/static/scripts/edit/URLCleanup.js:6057
+#: ../root/static/scripts/edit/URLCleanup.js:6211
 msgid ""
 "Please link to the “{allowed_url_pattern}” page rather than this "
 "“{current_url_pattern}” link."
@@ -15435,7 +15459,7 @@ msgstr ""
 "Merci de lier à la page en « {allowed_url_pattern} » plutôt que ce lien en "
 "« {current_url_pattern} »."
 
-#: ../root/static/scripts/edit/URLCleanup.js:6187
+#: ../root/static/scripts/edit/URLCleanup.js:6341
 msgid ""
 "There is an unencoded “?” or “#” character in this URL. Please check whether "
 "it is useless and should be removed, or whether it is an error and the URL "
@@ -15445,7 +15469,7 @@ msgstr ""
 "vérifier si il est inutile et doit être supprimé ou si c’est une erreur et "
 "que l’URL est mal encodée."
 
-#: ../root/static/scripts/edit/URLCleanup.js:6207
+#: ../root/static/scripts/edit/URLCleanup.js:6361
 msgid ""
 "Please do not link directly to WhoSampled “{unwanted_url_pattern}” pages. "
 "Link to the appropriate WhoSampled artist, track or album page instead."
@@ -15454,21 +15478,21 @@ msgstr ""
 "WhoSampled. À la place, liez à la page WhoSampled de l’artiste, de la piste, "
 "ou de l’album concerné."
 
-#: ../root/static/scripts/edit/URLCleanup.js:6228
+#: ../root/static/scripts/edit/URLCleanup.js:6382
 msgid "Please link WhoSampled “{album_url_pattern}” pages to release groups."
 msgstr ""
 "Merci de lier les pages « {album_url_pattern} » de WhoSampled aux groupes de "
 "parution."
 
-#: ../root/static/scripts/edit/URLCleanup.js:6246
+#: ../root/static/scripts/edit/URLCleanup.js:6400
 msgid "Please link WhoSampled artist pages to artists."
 msgstr "Merci de lier les pages d’artiste de WhoSampled aux artistes."
 
-#: ../root/static/scripts/edit/URLCleanup.js:6258
+#: ../root/static/scripts/edit/URLCleanup.js:6412
 msgid "Please link WhoSampled track pages to recordings."
 msgstr "Merci de lier les pages de pistes de WhoSampled aux enregistrements."
 
-#: ../root/static/scripts/edit/URLCleanup.js:6325
+#: ../root/static/scripts/edit/URLCleanup.js:6479
 msgid ""
 "Links to specific sections of Wikipedia articles are not allowed. Please "
 "remove “{fragment}” if still appropriate. See the {url|guidelines}."
@@ -15477,7 +15501,7 @@ msgstr ""
 "autorisés. Veuillez supprimer « {fragment} » si cela reste approprié. Voir "
 "les {url|directives}."
 
-#: ../root/static/scripts/edit/URLCleanup.js:6350
+#: ../root/static/scripts/edit/URLCleanup.js:6504
 msgid ""
 "Links to Wikipedia user pages are not allowed. Please link only to actual "
 "Wikipedia articles."
@@ -15485,7 +15509,7 @@ msgstr ""
 "Les liens vers les pages utilisateur Wikipédia ne sont pas autorisés. "
 "Veuillez n’entrer de lien que vers les articles de Wikipédia."
 
-#: ../root/static/scripts/edit/URLCleanup.js:6470
+#: ../root/static/scripts/edit/URLCleanup.js:6624
 msgid ""
 "This is a playlist link, which isn’t a video channel and is not guaranteed "
 "to be officially approved. Please link to the official channel for this "
@@ -15496,25 +15520,25 @@ msgstr ""
 "entrer à la place un lien vers le canal officiel de cette entité, si il "
 "existe."
 
-#: ../root/static/scripts/edit/URLCleanup.js:6510
+#: ../root/static/scripts/edit/URLCleanup.js:6664
 msgid "Only video and playlist links are allowed on releases."
 msgstr ""
 "Seuls les liens vers des vidéos ou des listes de lecture sont autorisés pour "
 "les parutions."
 
-#: ../root/static/scripts/edit/URLCleanup.js:6555
+#: ../root/static/scripts/edit/URLCleanup.js:6709
 msgid ""
 "This is a release (playlist) link, not an artist channel. Please link to the "
 "artist channel instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6591
+#: ../root/static/scripts/edit/URLCleanup.js:6745
 msgid ""
 "Please link to a specific release (playlist) link. Add track (video) links "
 "to the relevant recordings instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6601
+#: ../root/static/scripts/edit/URLCleanup.js:6755
 msgid ""
 "Please link to a specific release (playlist) link. Add channel links to the "
 "relevant artists instead."
@@ -15523,7 +15547,7 @@ msgstr ""
 "à cette parution. Ajoutez les liens de chaîne (<code>/channel</code>) à "
 "l’artiste correspondant."
 
-#: ../root/static/scripts/edit/URLCleanup.js:6611
+#: ../root/static/scripts/edit/URLCleanup.js:6765
 msgid ""
 "This is likely a redirect link. Please follow {redirect_url|your link} and "
 "add the release (playlist) link it redirects to instead."
@@ -15531,7 +15555,7 @@ msgstr ""
 "Ceci est a priori un lien de redirection. Merci de suivre {redirect_url|"
 "votre lien} et d’ajouter le lien final (<code>/playlist</code>) à la place."
 
-#: ../root/static/scripts/edit/URLCleanup.js:6653
+#: ../root/static/scripts/edit/URLCleanup.js:6807
 msgid ""
 "Wikipedia normally has no entries for specific releases, so adding Wikipedia "
 "links to a release is currently blocked. Please add this Wikipedia link to "
@@ -15541,7 +15565,7 @@ msgstr ""
 "les liens Wikpédia sont bloqués pour les parutions. À la place, merci "
 "d’ajouter ce lien Wikpédia au groupe de parution, si approprié."
 
-#: ../root/static/scripts/edit/URLCleanup.js:6665
+#: ../root/static/scripts/edit/URLCleanup.js:6819
 msgid ""
 "Wikidata normally has no entries for specific releases, so adding Wikidata "
 "links to a release is currently blocked. Please add this Wikidata link to "
@@ -15551,17 +15575,17 @@ msgstr ""
 "les liens Wikidata sont bloqués pour les parutions. À la place, merci "
 "d’ajouter ce lien Wikidata au groupe de parution, si approprié."
 
-#: ../root/static/scripts/edit/URLCleanup.js:6876
+#: ../root/static/scripts/edit/URLCleanup.js:7030
 msgid "Some relationship types are missing for this URL."
 msgstr "Certains types de relation sont manquants pour cette URL."
 
-#: ../root/static/scripts/edit/URLCleanup.js:6893
-#: ../root/static/scripts/edit/externalLinks.js:1047
+#: ../root/static/scripts/edit/URLCleanup.js:7047
+#: ../root/static/scripts/edit/externalLinks.js:1073
 msgid "This relationship type combination is invalid."
 msgstr "Cette combinaison de types de relation est invalide."
 
 #: ../root/static/scripts/edit/check-duplicates.js:156
-#: ../root/static/scripts/edit/externalLinks.js:728
+#: ../root/static/scripts/edit/externalLinks.js:748
 #: ../root/static/scripts/release/components/EditWorkDialog.js:175
 msgid "Required field."
 msgstr "Champ requis."
@@ -15603,58 +15627,63 @@ msgid "Add a new work"
 msgstr "Ajouter une nouvelle œuvre"
 
 #: ../root/static/scripts/edit/components/ArtistCreditBubble.js:60
+#, fuzzy
+#| msgid ""
+#| "Use the following fields to enter collaborations. See the {ac|Artist "
+#| "Credit} documentation for more information."
 msgid ""
-"Use the following fields to enter collaborations. See the {ac|Artist Credit} "
-"documentation for more information."
+"Use the following fields to enter artist name variations and multiple artist "
+"collaborations. See the {ac|Artist Credit} documentation for more "
+"information."
 msgstr ""
 "Utiliser les champs suivants pour saisir les collaborations, voir la "
 "documentation sur le {ac|crédit d’artiste} pour plus d’informations."
 
-#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:75
+#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:76
 msgid "[missing track name]"
 msgstr "[nom de piste manquant]"
 
-#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:78
+#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:79
 msgid "You haven’t entered a track name yet."
 msgstr "Vous n’avez pas encore saisi de nom de piste."
 
-#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:79
+#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:80
 msgid "This track hasn’t been added yet."
 msgstr "Cette piste n’a pas encore été ajoutée."
 
-#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:97
+#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:98
 msgid "Artist in MusicBrainz:"
 msgstr "Artiste dans MusicBrainz :"
 
-#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:98
+#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:99
 msgid "Artist as credited:"
 msgstr "Artiste comme il est crédité :"
 
-#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:99
+#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:100
 msgid "Join phrase:"
 msgstr "Phrase de jointure :"
 
-#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:123
+#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:124
 msgctxt "interactive"
 msgid "Add artist credit"
 msgstr "Ajouter un crédit d’artiste"
 
-#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:135
+#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:136
 msgid "Change all artists on this release that match “{name}”"
 msgstr ""
 "Changer tous les artistes pour cette parution qui correspondent à « {name} »"
 
-#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:139
+#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:140
 msgid "Change all artists on this release that are currently empty"
 msgstr ""
 "Changer tous les artistes pour cette parution qui sont actuellement "
 "manquants."
 
-#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:150
+#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:151
 msgid "Copy credits"
 msgstr "Copier les crédits"
 
-#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:157
+#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:158
 msgid "Paste credits"
 msgstr "Coller les crédits"
 
@@ -15690,12 +15719,12 @@ msgstr "Cette entité a des {edits_link|modifications ouvertes}."
 msgid "This entity has open edits."
 msgstr "Cette entité a des modifications ouvertes."
 
-#: ../root/static/scripts/edit/components/ExternalLinkAttributeDialog.js:192
+#: ../root/static/scripts/edit/components/ExternalLinkAttributeDialog.js:219
 #: ../root/static/scripts/relationship-editor/components/DialogDatePeriod.js:202
 msgid "This relationship has ended."
 msgstr "Cette relation n’existe plus."
 
-#: ../root/static/scripts/edit/components/ExternalLinkAttributeDialog.js:227
+#: ../root/static/scripts/edit/components/ExternalLinkAttributeDialog.js:259
 msgctxt "interactive"
 msgid "Edit attributes"
 msgstr "Modifier les attributs"
@@ -15830,13 +15859,25 @@ msgctxt "interactive"
 msgid "Edit URL"
 msgstr "Modifier l’URL"
 
+#: ../root/static/scripts/edit/components/UrlRelationshipCreditFieldset.js:37
+#, fuzzy
+#| msgid "Credits"
+msgid "Credit"
+msgstr "Crédits"
+
+#: ../root/static/scripts/edit/components/UrlRelationshipCreditFieldset.js:40
+#, fuzzy
+#| msgid "Credited as"
+msgid "Credited to"
+msgstr "Crédité en tant que"
+
 #: ../root/static/scripts/edit/components/forms.js:104
 #: ../root/static/scripts/edit/confirmNavigationFallback.js:44
 #: ../root/static/scripts/release-editor/init.js:337
 msgid "All of your changes will be lost if you leave this page."
 msgstr "Tous vos changements seront perdus si vous quittez cette page."
 
-#: ../root/static/scripts/edit/externalLinks.js:740
+#: ../root/static/scripts/edit/externalLinks.js:760
 msgid ""
 "“{example_url}” is just an example. Please enter the actual link you want to "
 "add."
@@ -15844,7 +15885,7 @@ msgstr ""
 "« {example_url} » est juste un exemple. Veuillez entrer un lien que vous "
 "voulez réellement ajouter."
 
-#: ../root/static/scripts/edit/externalLinks.js:748
+#: ../root/static/scripts/edit/externalLinks.js:768
 msgid ""
 "Links to MusicBrainz URLs are not allowed. Did you mean to paste something "
 "else?"
@@ -15852,7 +15893,7 @@ msgstr ""
 "Les liens vers des URL MusicBrainz ne sont pas autorisés. Vous pensiez "
 "ajouter autre chose ?"
 
-#: ../root/static/scripts/edit/externalLinks.js:755
+#: ../root/static/scripts/edit/externalLinks.js:775
 msgid ""
 "Please don’t enter CritiqueBrainz links — reviews are automatically linked "
 "from the “{reviews_tab_name}” tab."
@@ -15860,14 +15901,14 @@ msgstr ""
 "Merci de ne pas entrer de lien CritiqueBrainz — Les critiques sont "
 "automatiquement liées depuis l’onglet « {reviews_tab_name} »."
 
-#: ../root/static/scripts/edit/externalLinks.js:763
+#: ../root/static/scripts/edit/externalLinks.js:783
 msgid ""
 "Links to this website are not allowed because it is known to host malware."
 msgstr ""
 "Les liens vers ce site Web ne sont pas permis car il est connu pour héberger "
 "des logiciels malveillants."
 
-#: ../root/static/scripts/edit/externalLinks.js:769
+#: ../root/static/scripts/edit/externalLinks.js:789
 msgid ""
 "Please don’t enter bundled/shortened URLs, enter the destination URL(s) "
 "instead."
@@ -15875,7 +15916,7 @@ msgstr ""
 "Merci de ne pas entrer d’URL raccourcie, veuillez entrer l’URL (les URLs) "
 "cible(s) à la place."
 
-#: ../root/static/scripts/edit/externalLinks.js:775
+#: ../root/static/scripts/edit/externalLinks.js:795
 msgid ""
 "Please don’t enter Google AMP links, since they are effectively an extra "
 "redirect. Enter the destination URL instead."
@@ -15883,7 +15924,7 @@ msgstr ""
 "Merci de ne pas entrer de lien Google AMP, car il s’agit d’une redirection. "
 "Veuillez entrer l’URL de destination à la place."
 
-#: ../root/static/scripts/edit/externalLinks.js:782
+#: ../root/static/scripts/edit/externalLinks.js:802
 msgid ""
 "Please don’t enter links to search results. If you’ve found any links "
 "through your search that seem useful, do enter those instead."
@@ -15891,17 +15932,17 @@ msgstr ""
 "Veuillez ne pas entrer de lien vers des résultats de recherche. Si vous "
 "trouvez des liens utiles par cette recherche, merci de les entrer à la place."
 
-#: ../root/static/scripts/edit/externalLinks.js:789
+#: ../root/static/scripts/edit/externalLinks.js:809
 msgid "Please select a link type for the URL you’ve entered."
 msgstr "Veuillez choisir un type de lien pour l’URL que vous avez saisie."
 
-#: ../root/static/scripts/edit/externalLinks.js:809
+#: ../root/static/scripts/edit/externalLinks.js:829
 #: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:991
 #: ../root/static/scripts/relationship-editor/components/RelationshipEditor.js:544
 msgid "This relationship already exists."
 msgstr "Cette relation existe déjà."
 
-#: ../root/static/scripts/edit/externalLinks.js:821
+#: ../root/static/scripts/edit/externalLinks.js:841
 #: ../root/static/scripts/relationship-editor/components/DialogSourceEntity.js:61
 msgid ""
 "This URL is not allowed for the selected link type, or is incorrectly "
@@ -15910,81 +15951,88 @@ msgstr ""
 "Cette URL n’est pas permise pour le type de lien choisi, ou elle est mal "
 "formatée."
 
-#: ../root/static/scripts/edit/externalLinks.js:826
+#: ../root/static/scripts/edit/externalLinks.js:846
 msgid "This URL is not allowed for the selected link type."
 msgstr "Cette URL n’est pas permise pour le type de lien sélectionné."
 
-#: ../root/static/scripts/edit/externalLinks.js:832
+#: ../root/static/scripts/edit/externalLinks.js:852
 msgid "This URL is not allowed for areas."
 msgstr "Cette URL n’est pas permise pour les régions."
 
-#: ../root/static/scripts/edit/externalLinks.js:835
+#: ../root/static/scripts/edit/externalLinks.js:855
 msgid "This URL is not allowed for artists."
 msgstr "Cette URL n’est pas permise pour les artistes."
 
-#: ../root/static/scripts/edit/externalLinks.js:838
+#: ../root/static/scripts/edit/externalLinks.js:858
 msgid "This URL is not allowed for events."
 msgstr "Cette URL n’est pas permise pour les événements."
 
-#: ../root/static/scripts/edit/externalLinks.js:841
+#: ../root/static/scripts/edit/externalLinks.js:861
 msgid "This URL is not allowed for instruments."
 msgstr "Cette URL n’est pas permise pour les instruments."
 
-#: ../root/static/scripts/edit/externalLinks.js:844
+#: ../root/static/scripts/edit/externalLinks.js:864
 msgid "This URL is not allowed for labels."
 msgstr "Cette URL n’est pas permise pour les labels."
 
-#: ../root/static/scripts/edit/externalLinks.js:847
+#: ../root/static/scripts/edit/externalLinks.js:867
 msgid "This URL is not allowed for places."
 msgstr "Cette URL n’est pas permise pour les lieux."
 
-#: ../root/static/scripts/edit/externalLinks.js:850
+#: ../root/static/scripts/edit/externalLinks.js:870
 msgid "This URL is not allowed for recordings."
 msgstr "Cette URL n’est pas permise pour les enregistrements."
 
-#: ../root/static/scripts/edit/externalLinks.js:853
+#: ../root/static/scripts/edit/externalLinks.js:873
 msgid "This URL is not allowed for releases."
 msgstr "Cette URL n’est pas permise pour les parutions."
 
-#: ../root/static/scripts/edit/externalLinks.js:856
+#: ../root/static/scripts/edit/externalLinks.js:876
 msgid "This URL is not allowed for release groups."
 msgstr "Cette URL n’est pas permise pour les groupes de parution."
 
-#: ../root/static/scripts/edit/externalLinks.js:860
+#: ../root/static/scripts/edit/externalLinks.js:880
 msgid "This URL is not allowed for series."
 msgstr "Cette URL n’est pas permise pour les séries."
 
-#: ../root/static/scripts/edit/externalLinks.js:863
+#: ../root/static/scripts/edit/externalLinks.js:883
 msgid "This URL is not allowed for works."
 msgstr "Cette URL n’est pas permise pour les œuvres."
 
-#: ../root/static/scripts/edit/externalLinks.js:1171
+#: ../root/static/scripts/edit/externalLinks.js:1200
 #: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:322
 msgid "{description} ({url|more documentation})"
 msgstr "{description} ({url|plus de documentation})"
 
-#: ../root/static/scripts/edit/externalLinks.js:1220
+#: ../root/static/scripts/edit/externalLinks.js:1260
 msgctxt "interactive"
 msgid "Remove relationship"
 msgstr "Enlever la relation"
 
-#: ../root/static/scripts/edit/externalLinks.js:1307
+#: ../root/static/scripts/edit/externalLinks.js:1334
+#, fuzzy
+#| msgid "credited as “{credit}”"
+msgctxt "relationship credit"
+msgid "credited as “{credit}”"
+msgstr "crédité comme « {credit} »"
+
+#: ../root/static/scripts/edit/externalLinks.js:1358
 msgid "video"
 msgstr "vidéo"
 
-#: ../root/static/scripts/edit/externalLinks.js:1438
+#: ../root/static/scripts/edit/externalLinks.js:1495
 msgid "Remove link"
 msgstr "Enlever un lien"
 
-#: ../root/static/scripts/edit/externalLinks.js:1468
+#: ../root/static/scripts/edit/externalLinks.js:1525
 msgid "Add link"
 msgstr "Ajouter un lien"
 
-#: ../root/static/scripts/edit/externalLinks.js:1471
+#: ../root/static/scripts/edit/externalLinks.js:1528
 msgid "Add another link"
 msgstr "Ajouter un autre lien"
 
-#: ../root/static/scripts/edit/externalLinks.js:1580
+#: ../root/static/scripts/edit/externalLinks.js:1641
 msgid "Add another relationship"
 msgstr "Ajouter une autre relation"
 
@@ -16430,7 +16478,21 @@ msgid "The barcode you entered is not a valid EAN code."
 msgstr "Le code-barres que vous avez saisi n’est pas un code EAN valide."
 
 #: ../root/static/scripts/release-editor/validation.js:224
-msgid "The barcode you entered is not a valid UPC or EAN code."
+#, fuzzy
+#| msgid "The barcode you entered is a valid EAN code."
+msgid "The barcode you entered is a valid GTIN code."
+msgstr "Le code-barres que vous avez saisi est un code EAN valide."
+
+#: ../root/static/scripts/release-editor/validation.js:228
+#, fuzzy
+#| msgid "The barcode you entered is not a valid EAN code."
+msgid "The barcode you entered is not a valid GTIN code."
+msgstr "Le code-barres que vous avez saisi n’est pas un code EAN valide."
+
+#: ../root/static/scripts/release-editor/validation.js:235
+#, fuzzy
+#| msgid "The barcode you entered is not a valid UPC or EAN code."
+msgid "The barcode you entered is not a valid UPC, EAN or GTIN code."
 msgstr ""
 "Le code-barres que vous avez saisi n’est pas un code EAN ou UPC valide."
 
