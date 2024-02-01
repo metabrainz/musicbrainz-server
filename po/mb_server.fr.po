@@ -67,7 +67,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-25 22:54+0200\n"
-"PO-Revision-Date: 2024-01-03 12:28+0000\n"
+"PO-Revision-Date: 2024-02-01 14:01+0000\n"
 "Last-Translator: yvanzo <yvanzo@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: French <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/fr/>\n"
@@ -77,7 +77,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : ((n != 0 && n % "
 "1000000 == 0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.3\n"
+"X-Generator: Weblate 5.3.1\n"
 
 #: ../root/components/common-macros.tt:12
 msgid " ({text})"
@@ -1290,7 +1290,7 @@ msgstr "Historique"
 
 #: ../root/release/edit/information.tt:339
 msgid "I confirm that this is the barcode as it appears on the release."
-msgstr "Je confirme que c’est le code-barres comme l est sur la parution."
+msgstr "Je confirme que c’est le code-barres comme il apparaît sur la parution."
 
 #: ../root/release/edit/tracklist.tt:390
 msgid "I confirm this is a correct medium format/packaging combination."
@@ -2671,6 +2671,9 @@ msgid ""
 "The sort name is an artist name variant used when sorting alphabetically. "
 "For usage information check the {sort_name_doc|sort name guidelines}."
 msgstr ""
+"Le nom de tri est une version du nom de l’artiste utilisée pour le tri "
+"alphabétique. Pour en savoir plus, consultez les {sort_name_doc|directives "
+"de style pour les noms de tri}."
 
 #: ../root/release/edit/tracklist.tt:124
 msgid ""
