@@ -7,7 +7,7 @@ use Test::More;
 
 with 't::Context';
 
-test 'Release group artwork is ordered by release date' => sub {
+test 'Release group artwork is ordered by raw/unedited, then release date' => sub {
     my $test = shift;
     my $c = $test->c;
 
@@ -38,7 +38,17 @@ test 'Release group artwork is ordered by release date' => sub {
 
     my $release_group = $c->model('ReleaseGroup')->get_by_id(1);
     $c->model('Artwork')->load_for_release_groups($release_group);
-    is($release_group->cover_art->id, 9876543210);
+    is($release_group->cover_art->id, 9876543210,
+       'Cover image from earliest release is selected');
+
+    $c->sql->do(<<~'SQL');
+        INSERT INTO cover_art_archive.cover_art_type (id, type_id)
+             VALUES (9876543210, 14);
+        SQL
+
+    $c->model('Artwork')->load_for_release_groups($release_group);
+    is($release_group->cover_art->id, 2,
+       'Non-raw cover image is selected');
 
     ok($c->model('Artwork')->is_valid_id($release_group->cover_art->id), 'CAA ID larger than INT_MAX is considered valid');
 };
