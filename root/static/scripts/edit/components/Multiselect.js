@@ -194,7 +194,7 @@ export const MultiselectValue: MultiselectValueComponentT = React.memo(<
         * lost and/or doesn't need to be shifted to an unrelated row;
         * neither situation is accessible.
         */}
-      {state.removed ? l('[removed]') : (
+      {state.removed ? lp('[removed]', 'generic row') : (
         <>
           <Autocomplete2
             dispatch={autocompleteDispatch}

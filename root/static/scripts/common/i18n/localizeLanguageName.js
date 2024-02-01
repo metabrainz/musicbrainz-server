@@ -12,7 +12,7 @@ function localizeLanguageName(
   isWork?: boolean = false,
 ): string {
   if (!language) {
-    return l('[removed]');
+    return lp('[removed]', 'language');
   }
   // For works, "No linguistic content" is meant as "No lyrics"
   if (isWork && language.iso_code_3 === 'zxx') {
