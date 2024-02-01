@@ -17,7 +17,7 @@ use MusicBrainz::Server::Data::Utils qw(
     type_to_model
 );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
-use MusicBrainz::Server::Translation qw( l );
+use MusicBrainz::Server::Translation qw( lp );
 use MusicBrainz::Server::Validation qw(
     is_database_row_id
     is_non_negative_integer
@@ -219,7 +219,7 @@ role {
                 : ($source_type lt $target_type ? 0 : 1);
 
             $target //= $c->model(type_to_model($target_type))->_new_from_row({
-                name => $rel->{target_name} // l('[unknown]'),
+                name => $rel->{target_name} // lp('[unknown]', 'generic entity'),
             });
 
             my $source_credit = '';
