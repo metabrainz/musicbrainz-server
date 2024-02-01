@@ -20,17 +20,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-01-12 14:28+0000\n"
-"Last-Translator: yvanzo <yvanzo@users.noreply.translations.metabrainz.org>\n"
+"PO-Revision-Date: 2024-02-01 00:28+0000\n"
+"Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
+".org>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
 "musicbrainz/statistics/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.3\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
+"X-Generator: Weblate 5.3.1\n"
 
 #: DB:statistics.statistic_event/title:2015-09-08
 msgid "\"Do Not Cluster\" guideline dropped"
@@ -1109,7 +1110,7 @@ msgstr ""
 #: DB:statistics.statistic_event/title:2014-03-17
 #: ../root/statistics/stats.js:42
 msgid "Work attributes"
-msgstr ""
+msgstr "Atributos de obra"
 
 #: DB:statistics.statistic_event/description:2014-03-17
 msgid ""
@@ -1967,7 +1968,7 @@ msgstr "Alfabetos"
 
 #: ../root/statistics/LanguagesScripts.js:155
 msgid "Script"
-msgstr "Alfabeto"
+msgstr "Sistema de escritura"
 
 #: ../root/statistics/LanguagesScripts.js:172
 msgid "Unknown script"
@@ -2065,7 +2066,7 @@ msgstr "Empaques de publicaciones"
 
 #: ../root/statistics/stats.js:38
 msgid "Release data quality"
-msgstr "Calidad de datos de publicaciones"
+msgstr "Calidad de datos de la publicación"
 
 #: ../root/statistics/stats.js:39
 msgid "Release scripts"
