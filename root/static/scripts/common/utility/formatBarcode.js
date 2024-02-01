@@ -12,7 +12,7 @@ function formatBarcode(code: string | null): string {
     return '';
   }
   if (code === '') {
-    return l('[none]');
+    return lp('[none]', 'barcode');
   }
   return code;
 }
