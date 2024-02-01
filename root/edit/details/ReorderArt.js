@@ -22,27 +22,18 @@ component ReorderArt(
   formattedEntityType: string,
 ) {
   const display = edit.display_data;
+  // $FlowIgnore[prop-missing]
+  const entity = display[entityType];
   const oldArt = display.old;
   const newArt = display.new;
-  let historyMessage;
 
-  if (entityType === 'event') {
-    historyMessage = expand2html(
-      l(`We are unable to display history for this event
-         art. For a current listing of evebt art, please see the
-         {eventart|events's art page}.`),
-      // $FlowIgnore[incompatible-call]
-      {eventart: entityHref(display.event, 'event-art')},
-    );
-  } else if (entityType === 'release') {
-    historyMessage = expand2html(
-      l(`We are unable to display history for this cover
-         art. For a current listing of cover art, please see the
-         {coverart|release's cover art page}.`),
-      // $FlowIgnore[incompatible-call]
-      {coverart: entityHref(display.release, 'cover-art')},
-    );
-  }
+  const historyMessage = entity.gid ? (
+    expand2html(
+      l(`We are unable to display history for this piece of artwork.
+         See {artpage|all current artwork}.`),
+      {artpage: entityHref(entity, archiveName + '-art')},
+    )
+  ) : l('We are unable to display history for this piece of artwork.');
 
   return (
     <table className={'details reorder-' + archiveName + '-art'}>
@@ -50,7 +41,7 @@ component ReorderArt(
         <th>{addColonText(formattedEntityType)}</th>
         <td>
           {/* $FlowIgnore[prop-missing] */}
-          <DescriptiveLink entity={display[entityType]} />
+          <DescriptiveLink entity={entity} />
         </td>
       </tr>
 
