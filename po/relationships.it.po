@@ -20,16 +20,17 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-01-03 15:50+0000\n"
-"Last-Translator: yvanzo <yvanzo@users.noreply.translations.metabrainz.org>\n"
+"PO-Revision-Date: 2024-01-27 20:28+0000\n"
+"Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
+"metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
 "X-Generator: Weblate 5.3\n"
 
 #: DB:link_attribute_type/description:1355
@@ -5741,7 +5742,7 @@ msgstr "musica antica"
 
 #: DB:link_type/name:309
 msgid "edit"
-msgstr "edit"
+msgstr "modifica"
 
 #: DB:link_type/link_phrase:309
 msgid "edit of"

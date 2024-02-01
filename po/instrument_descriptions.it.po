@@ -13,21 +13,22 @@
 # salo.rock, 2022-2023
 # Valentina Menale <email address hidden>, 2016
 # "salo.rock" <salo.rock+musicbrainz@gmail.com>, 2023.
-# "salo.rock" <salo.rock@users.noreply.translations.metabrainz.org>, 2023.
+# "salo.rock" <salo.rock@users.noreply.translations.metabrainz.org>, 2023, 2024.
 # yvanzo <yvanzo@users.noreply.translations.metabrainz.org>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-01-03 15:49+0000\n"
-"Last-Translator: yvanzo <yvanzo@users.noreply.translations.metabrainz.org>\n"
+"PO-Revision-Date: 2024-01-28 20:28+0000\n"
+"Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
+"metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
 "musicbrainz/instrument-descriptions/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
 "X-Generator: Weblate 5.3\n"
 
 #. name:rebab 
@@ -1816,11 +1817,6 @@ msgstr ""
 
 #. name:siku 
 #: DB:instrument/description:569
-#, fuzzy
-#| msgid ""
-#| "For the Italian bag-pipe, see <a href=\"/\">zampogna</a>.<br /> Also "
-#| "known as zampona, traditional Andean panpipe has two rows of pipes tied "
-#| "together with colourful bands."
 msgid ""
 "For the Italian bagpipe, see <a href=\"/"
 "instrument/7186ac40-8154-49d0-8d24-33efd8c2a41e\">zampogna</a>.<br /> Also "
@@ -1903,24 +1899,16 @@ msgstr ""
 
 #. name:fiscorn 
 #: DB:instrument/description:1184
-#, fuzzy
-#| msgid ""
-#| "For the instrument known in Italy as flicorno see <a href=\"/instrument/"
-#| "\">saxhorn</a>.<br /> For the instrument known in Spain as fliscorno see "
-#| "<a href=\"/instrument/fd016966-658e-40db-8fe1-f2235fe1e9a3\">flugelhorn</"
-#| "a>.<br /><br /> Originating in Germanic polka bands, it is used today in "
-#| "Catalan cobla."
 msgid ""
 "For the instrument known in Italy as flicorno see saxhorn.<br /> For the "
 "instrument known in Spain as fliscorno see <a href=\"/instrument/"
 "fd016966-658e-40db-8fe1-f2235fe1e9a3\">flugelhorn</a>.<br /><br /> "
 "Originating in Germanic polka bands, it is used today in Catalan cobla."
 msgstr ""
-"Per lo strumento noto in Italia come flicorno, vedi <a href=\"/instrument/"
-"\">flicorno</a>.<br /> Per lo strumento noto in Spagna come fliscorno, vedi "
-"<a href=\"/instrument/fd016966-658e-40db-8fe1-f2235fe1e9a3\">flicorno "
-"soprano</a>.<br /><br /> Ebbe origine nelle bande di polka germaniche e oggi "
-"è usato nella cobla catalana."
+"Per lo strumento noto in Italia come flicorno, vedi flicorno.<br /> Per lo "
+"strumento noto in Spagna come fliscorno, vedi <a href=\"/instrument/fd016966"
+"-658e-40db-8fe1-f2235fe1e9a3\">flicorno soprano</a>.<br /><br /> Ebbe "
+"origine nelle bande di polka germaniche e oggi è usato nella cobla catalana."
 
 #. name:diatonic button accordion 
 #: DB:instrument/description:361
@@ -1981,17 +1969,6 @@ msgstr ""
 
 #. name:xeremies 
 #: DB:instrument/description:1186
-#, fuzzy
-#| msgid ""
-#| "For the two tube bagless used on Ibiza, see <a href=\"/"
-#| "instrument/1464f316-aca0-4690-9115-28805720f846\">reclam de xeremies</a>."
-#| "<br /> For the Latin American oboe, see <a href=\"/instrument/174e4a7a-"
-#| "dad6-4b3b-95e2-e3010b53a0ca\">chirimía</a>.<br /> For the mediaeval "
-#| "woodwind, see <a href=\"/instrument/b4f112c3-d666-47f2-bb85-"
-#| "bae28572ca13\">shawm</a>.<br /> Used historically since the middle ages "
-#| "on the Iberian islands, its bag is made of skin and it has one chanter "
-#| "with usually 3 drones, but of these usually one is real and the others "
-#| "are only decorative."
 msgid ""
 "For the two tube bagless used on Ibiza, see <a href=\"/instrument/1464f316-"
 "aca0-4690-9115-28805720f846\">reclam de xeremies</a>.<br /> For the Latin "
@@ -2005,13 +1982,15 @@ msgid ""
 "usually one is real and the others are only decorative."
 msgstr ""
 "Per lo strumento senza sacca e a due tubi usato a Ibiza, vedi <a href=\"/"
-"instrument/1464f316-aca0-4690-9115-28805720f846\">reclam de xeremies</a>."
-"<br /> Per l'oboe latinoamericano, vedi <a href=\"/instrument/174e4a7a-"
-"dad6-4b3b-95e2-e3010b53a0ca\">chirimía</a>.<br /> Per lo strumento medievale "
-"della famiglia dei legni, vedi <a href=\"/instrument/b4f112c3-d666-47f2-bb85-"
-"bae28572ca13\">ciaramella</a>.<br /> Usata storicamente sin dal Medioevo "
-"nelle isole Baleari, ha una sacca in pelle, una canna del canto e in genere "
-"3 canne di bordone, di cui solitamente una vera e le altre solo di "
+"instrument/1464f316-aca0-4690-9115-28805720f846\">reclam de xeremies</a>.<br "
+"/> Per l'oboe latinoamericano, vedi <a href=\"/instrument/174e4a7a-dad6-4b3b-"
+"95e2-e3010b53a0ca\">chirimía</a>.<br /> Per lo strumento medievale della "
+"famiglia dei legni, vedi <a href=\"/instrument/b4f112c3-d666-47f2-bb85-"
+"bae28572ca13\">ciaramella</a>.<br /> Per la ciaramella catalana chiamata "
+"anche xaramita o xirimita, vedi <a href=\"/instrument/ad0ddf4c-05ca-"
+"4d9b-a159-8caed25e6bf4\">gralla</a>.<br /><br /> Usata storicamente sin dal "
+"Medioevo nelle isole Baleari, ha una sacca in pelle, una canna del canto e "
+"in genere 3 canne di bordone, di cui solitamente una vera e le altre solo di "
 "decorazione."
 
 #. name:lira da braccio 
@@ -3547,21 +3526,6 @@ msgstr ""
 
 #. name:shawm 
 #: DB:instrument/description:408
-#, fuzzy
-#| msgid ""
-#| "Not to be confused with zummara or other double clarinets with similar "
-#| "names.<br /> For the multiple bore free reed created in 1880 see "
-#| "Martinshorn.<br /> For the similarly named single-reed woodwind see <a "
-#| "href=\"/instrument/e3511ed1-3d73-4340-880f-c8ccc8eda11c\">chalumeau</a>."
-#| "<br /> For the Japanese descendant named from Portuguese, see <a href=\"/"
-#| "instrument/07b91470-b63e-41e4-88e6-11c4acac064f\">charumera</a>.<br /> "
-#| "For the Catalan shawm, see <a href=\"/instrument/dffe56f5-cd75-4392-"
-#| "ad31-1c3abf2b8e37\"> tible</a>.<br /> For the Italian ciaramella see <a "
-#| "href=\"/instrument/814816db-3368-4889-a8cd-aa34bd1043f0\">piffero</a>."
-#| "<br /> For the bagpipe, see xeremia.<br /><br /> European medieval and "
-#| "renaissance conical bore double-reed woodwind, two types evolved; one "
-#| "from Middle-eastern instruments and one from bagpipe chanters. A "
-#| "combination of both where used to develop the modern oboe."
 msgid ""
 "Not to be confused with zummara or other double clarinets with similar names."
 "<br /> For the multiple bore free reed created in 1880, see Martinshorn.<br /"
@@ -3583,16 +3547,17 @@ msgstr ""
 "1880, vedi Martinshorn.<br /> Per lo strumento ad ancia singola della "
 "famiglia dei legni dal nome simile, vedi <a href=\"/instrument/"
 "e3511ed1-3d73-4340-880f-c8ccc8eda11c\">salmoè</a>.<br /> Per il discendente "
-"giapponese che prende il nome dal portoghese, vedi <a href=\"/"
-"instrument/07b91470-b63e-41e4-88e6-11c4acac064f\">charumera</a>.<br /> Per "
-"la ciaramella catalana, vedi <a href=\"/instrument/dffe56f5-cd75-4392-"
-"ad31-1c3abf2b8e37\">tible</a>.<br /> Per la ciaramella italiana, vedi <a "
-"href=\"/instrument/814816db-3368-4889-a8cd-aa34bd1043f0\">piffero</a>.<br /> "
-"Per la cornamusa, vedi xeremia.<br /><br /> Strumento medievale e "
-"rinascimentale europeo della famiglia dei legni, a sezione conica e ad ancia "
-"doppia, si evolvette in due tipi: uno a partire dagli strumenti "
-"mediorientali e l'altro a partire dalle canne del canto delle cornamuse. Una "
-"combinazione dei due tipi fu usata per sviluppare l'oboe moderno."
+"giapponese che prende il nome dal portoghese, vedi <a href=\"/instrument/"
+"07b91470-b63e-41e4-88e6-11c4acac064f\">charumera</a>.<br /> Per la "
+"ciaramella catalana, vedi <a href=\"/instrument/dffe56f5-cd75-4392-ad31-"
+"1c3abf2b8e37\">tible</a>.<br /> Per la ciaramella italiana, vedi <a href=\"/"
+"instrument/814816db-3368-4889-a8cd-aa34bd1043f0\">piffero</a>.<br /> Per la "
+"cornamusa, vedi <a href=\"/instrument/21d5d4ec-f8ef-44dc-b02f-e564de057dcc\""
+">xeremies</a>.<br /><br /> Strumento medievale e rinascimentale europeo "
+"della famiglia dei legni, a sezione conica e ad ancia doppia, si evolvette "
+"in due tipi: uno a partire dagli strumenti mediorientali e l'altro a partire "
+"dalle canne del canto delle cornamuse. Una combinazione dei due tipi fu "
+"usata per sviluppare l'oboe moderno."
 
 #. name:oboe 
 #: DB:instrument/description:8

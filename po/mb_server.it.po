@@ -34,16 +34,17 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-25 22:54+0200\n"
-"PO-Revision-Date: 2024-01-03 15:48+0000\n"
-"Last-Translator: yvanzo <yvanzo@users.noreply.translations.metabrainz.org>\n"
+"PO-Revision-Date: 2024-01-28 09:28+0000\n"
+"Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
+"metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
 "X-Generator: Weblate 5.3\n"
 
 #: ../root/components/common-macros.tt:12
@@ -1367,18 +1368,14 @@ msgid "ISWCs"
 msgstr "ISWC"
 
 #: ../root/event/edit_form.tt:26
-#, fuzzy
-#| msgid ""
-#| "If needed, the characters \"[\", \"]\", and \"&\" can be escaped using "
-#| "the HTML entities \"&lsqb;\", \"&rsqb;\", and \"&amp;\" respectively."
 msgid ""
 "If needed, the characters \"[\", \"]\", and \"&\" can be escaped using the "
 "HTML entities \"<code>&amp;lsqb;</code>\", \"<code>&amp;rsqb;</code>\", and "
 "\"<code>&amp;amp;</code>\" respectively."
 msgstr ""
 "Se necessario, è possibile effettuare l'escape dei caratteri \"[\", \"]\" e "
-"\"&\" utilizzando rispettivamente le entità HTML \"&lsqb;\", \"&rsqb;\" e "
-"\"&amp;\"."
+"\"&\" utilizzando rispettivamente le entità HTML \"<code>&amp;lsqb;</code>\""
+", \"<code>&amp;rsqb;</code>\" e \"<code>&amp;amp;</code>\"."
 
 #: ../root/release/edit/recordings.tt:134
 msgid ""
@@ -7280,8 +7277,6 @@ msgid "This artist credit is composed of the following artists:"
 msgstr "Quest'accreditamento artista è composto dai seguenti artisti:"
 
 #: ../root/artist_credit/ArtistCreditIndex.js:103
-#, fuzzy
-#| msgid "credited as “{credit}”"
 msgctxt "artist credit"
 msgid "credited as “{credit}”"
 msgstr "accreditato come “{credit}”"
@@ -15307,17 +15302,12 @@ msgstr ""
 "Potresti aggiungere libri a {bookbrainz_url|BookBrainz}."
 
 #: ../root/static/scripts/edit/URLCleanup.js:1136
-#, fuzzy
-#| msgid ""
-#| "Please do not link directly to WhoSampled “{unwanted_url_pattern}” pages. "
-#| "Link to the appropriate WhoSampled artist, track or album page instead."
 msgid ""
 "Please do not add “{blocked_url_pattern}” links, link to the appropriate "
 "“{wanted_url_pattern}” page instead."
 msgstr ""
-"Non aggiungere collegamenti diretti a pagine “{unwanted_url_pattern}” di "
-"WhoSampled. Aggiungi collegamenti alla pagina artista, traccia o album di "
-"WhoSampled appropriata."
+"Non aggiungere collegamenti “{blocked_url_pattern}”, ma piuttosto aggiungi "
+"collegamenti alla pagina “{wanted_url_pattern}” appropriata."
 
 #: ../root/static/scripts/edit/URLCleanup.js:1156
 msgid ""
@@ -15647,17 +15637,14 @@ msgid "Add a new work"
 msgstr "Aggiungi una nuova opera"
 
 #: ../root/static/scripts/edit/components/ArtistCreditBubble.js:60
-#, fuzzy
-#| msgid ""
-#| "Use the following fields to enter collaborations. See the {ac|Artist "
-#| "Credit} documentation for more information."
 msgid ""
 "Use the following fields to enter artist name variations and multiple artist "
 "collaborations. See the {ac|Artist Credit} documentation for more "
 "information."
 msgstr ""
-"Utilizza i campi di seguito per inserire collaborazioni. Vai alla "
-"documentazione sugli {ac|accreditamenti artista} per maggiori informazioni."
+"Utilizza i campi di seguito per inserire varianti del nome dell'artista e "
+"collaborazioni tra più artisti. Vai alla documentazione sugli {ac|"
+"accreditamenti artista} per maggiori informazioni."
 
 #: ../root/static/scripts/edit/components/ArtistCreditBubble.js:76
 msgid "[missing track name]"
@@ -15877,16 +15864,12 @@ msgid "Edit URL"
 msgstr "Modifica URL"
 
 #: ../root/static/scripts/edit/components/UrlRelationshipCreditFieldset.js:37
-#, fuzzy
-#| msgid "Credits"
 msgid "Credit"
-msgstr "Accreditamenti"
+msgstr "Accreditamento"
 
 #: ../root/static/scripts/edit/components/UrlRelationshipCreditFieldset.js:40
-#, fuzzy
-#| msgid "Credited as"
 msgid "Credited to"
-msgstr "Accreditato come"
+msgstr "Accreditato a"
 
 #: ../root/static/scripts/edit/components/forms.js:104
 #: ../root/static/scripts/edit/confirmNavigationFallback.js:44
@@ -16026,8 +16009,6 @@ msgid "Remove relationship"
 msgstr "Rimuovi relazione"
 
 #: ../root/static/scripts/edit/externalLinks.js:1334
-#, fuzzy
-#| msgid "credited as “{credit}”"
 msgctxt "relationship credit"
 msgid "credited as “{credit}”"
 msgstr "accreditato come “{credit}”"
@@ -16492,22 +16473,16 @@ msgid "The barcode you entered is not a valid EAN code."
 msgstr "Il codice a barre inserito non è un codice EAN valido."
 
 #: ../root/static/scripts/release-editor/validation.js:224
-#, fuzzy
-#| msgid "The barcode you entered is a valid EAN code."
 msgid "The barcode you entered is a valid GTIN code."
-msgstr "Il codice a barre inserito è un codice EAN valido."
+msgstr "Il codice a barre inserito è un codice GTIN valido."
 
 #: ../root/static/scripts/release-editor/validation.js:228
-#, fuzzy
-#| msgid "The barcode you entered is not a valid EAN code."
 msgid "The barcode you entered is not a valid GTIN code."
-msgstr "Il codice a barre inserito non è un codice EAN valido."
+msgstr "Il codice a barre inserito non è un codice GTIN valido."
 
 #: ../root/static/scripts/release-editor/validation.js:235
-#, fuzzy
-#| msgid "The barcode you entered is not a valid UPC or EAN code."
 msgid "The barcode you entered is not a valid UPC, EAN or GTIN code."
-msgstr "Il codice a barre inserito non è un codice UPC o EAN valido."
+msgstr "Il codice a barre inserito non è un codice UPC, EAN o GTIN valido."
 
 #: ../root/static/scripts/release/components/BatchCreateWorksDialog.js:236
 msgid ""
