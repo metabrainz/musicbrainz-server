@@ -32,8 +32,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
-" ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
+"0) ? 1 : 2);\n"
 "X-Generator: Weblate 5.3\n"
 
 #: DB:link_attribute_type/description:1355
@@ -539,7 +539,8 @@ msgstr ""
 
 #: DB:link_type/description:845
 msgid "Indicates the event where the work had its first performance."
-msgstr "Indica el evento donde tuvo lugar la primera interpretación de la obra."
+msgstr ""
+"Indica el evento donde tuvo lugar la primera interpretación de la obra."
 
 #: DB:link_type/description:986
 msgid ""
@@ -5820,8 +5821,8 @@ msgstr ""
 msgid "lyrics written in"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:960 DB:link_type/reverse_link_phrase:175
-#: DB:link_type/reverse_link_phrase:79
+#: DB:link_type/reverse_link_phrase:79 DB:link_type/reverse_link_phrase:960
+#: DB:link_type/reverse_link_phrase:175
 msgid "mail-order purchase page for"
 msgstr "página de compra por correo para"
 
@@ -6687,8 +6688,8 @@ msgstr ""
 msgid "purchase for download"
 msgstr "comprar para descarga"
 
-#: DB:link_type/link_phrase:79 DB:link_type/name:960 DB:link_type/name:175
-#: DB:link_type/name:79 DB:link_type/name:913
+#: DB:link_type/link_phrase:79 DB:link_type/name:79 DB:link_type/name:960
+#: DB:link_type/name:175 DB:link_type/name:913
 msgid "purchase for mail-order"
 msgstr "comprar por correo"
 

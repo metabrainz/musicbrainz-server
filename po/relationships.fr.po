@@ -6732,8 +6732,8 @@ msgstr "paroles écrites à"
 msgid "lyrics written in"
 msgstr "paroles écrites en"
 
-#: DB:link_type/reverse_link_phrase:960 DB:link_type/reverse_link_phrase:175
-#: DB:link_type/reverse_link_phrase:79
+#: DB:link_type/reverse_link_phrase:79 DB:link_type/reverse_link_phrase:960
+#: DB:link_type/reverse_link_phrase:175
 msgid "mail-order purchase page for"
 msgstr "page d’achat par correspondance pour"
 
@@ -7603,8 +7603,8 @@ msgstr "label d’édition"
 msgid "purchase for download"
 msgstr "acheter pour télécharger"
 
-#: DB:link_type/link_phrase:79 DB:link_type/name:960 DB:link_type/name:175
-#: DB:link_type/name:79 DB:link_type/name:913
+#: DB:link_type/link_phrase:79 DB:link_type/name:79 DB:link_type/name:960
+#: DB:link_type/name:175 DB:link_type/name:913
 msgid "purchase for mail-order"
 msgstr "acheter par correspondance"
 

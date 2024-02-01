@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
-"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 :"
-" n % 1 != 0 ? 2: 3);\n"
+"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
+"1 : n % 1 != 0 ? 2: 3);\n"
 "X-Generator: Weblate 5.3\n"
 
 #: DB:link_attribute_type/description:1355
@@ -32,10 +32,11 @@ msgid ""
 "people involved with the label can post content to. Examples include "
 "Facebook pages, and accounts on Twitter, Instagram and Flickr."
 msgstr ""
-"Socialinio tinklo puslapis − tai nuosavas įrašų kompanijos puslapis<a href="
-"\"https://en.wikipedia.org/wiki/Social_networking_service\">socialiniame "
-"tinkle</a>, kuriame turinį gali skelbti tik su kompaniją susiję asmenys. "
-"Pavyzdžiai: Facebook puslapiai, paskyros Twitter, Instagram ir Flickr."
+"Socialinio tinklo puslapis − tai nuosavas įrašų kompanijos puslapis<a "
+"href=\"https://en.wikipedia.org/wiki/"
+"Social_networking_service\">socialiniame tinkle</a>, kuriame turinį gali "
+"skelbti tik su kompaniją susiję asmenys. Pavyzdžiai: Facebook puslapiai, "
+"paskyros Twitter, Instagram ir Flickr."
 
 #: DB:link_type/description:784
 msgid ""
@@ -1254,8 +1255,8 @@ msgid ""
 "target=\"_blank\">record label</a>."
 msgstr ""
 "Vietoj to leidėjai turėtų būti pridėti prie kūrinių. Atmink, kad tai "
-"<strong>nėra</strong> ta pati sąvoka kaip <a href=\"/doc/Label\" target="
-"\"_blank\">leidybinė kompanija</a>."
+"<strong>nėra</strong> ta pati sąvoka kaip <a href=\"/doc/Label\" "
+"target=\"_blank\">leidybinė kompanija</a>."
 
 #: DB:link_type/link_phrase:174
 msgid "PureVolume"
@@ -6017,8 +6018,8 @@ msgstr ""
 msgid "lyrics written in"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:960 DB:link_type/reverse_link_phrase:175
-#: DB:link_type/reverse_link_phrase:79
+#: DB:link_type/reverse_link_phrase:79 DB:link_type/reverse_link_phrase:960
+#: DB:link_type/reverse_link_phrase:175
 msgid "mail-order purchase page for"
 msgstr ""
 
@@ -6884,8 +6885,8 @@ msgstr "leidybos leidybinė kompanija"
 msgid "purchase for download"
 msgstr "pirkti atsisiuntimui"
 
-#: DB:link_type/link_phrase:79 DB:link_type/name:960 DB:link_type/name:175
-#: DB:link_type/name:79 DB:link_type/name:913
+#: DB:link_type/link_phrase:79 DB:link_type/name:79 DB:link_type/name:960
+#: DB:link_type/name:175 DB:link_type/name:913
 msgid "purchase for mail-order"
 msgstr "pirkti užsakant paštu"
 
