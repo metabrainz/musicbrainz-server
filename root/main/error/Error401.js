@@ -9,6 +9,7 @@
 
 import * as React from 'react';
 
+import {CONTACT_URL} from '../../constants.js';
 import {CatalystContext} from '../../context.mjs';
 
 import ErrorLayout from './ErrorLayout.js';
@@ -35,9 +36,9 @@ const Error401 = (): React$Element<typeof ErrorLayout> => {
 
       <p>
         {exp.l(
-          `If you think this is a mistake, please contact
-          <code>support@musicbrainz.org</code>
-          with the name of your account.`,
+          `If you think this is a mistake, please {contact|contact us}
+           with the name of your account.`,
+          {contact: CONTACT_URL},
         )}
       </p>
     </ErrorLayout>
