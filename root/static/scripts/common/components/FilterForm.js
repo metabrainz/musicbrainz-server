@@ -9,7 +9,6 @@
 
 import SelectField from '../../common/components/SelectField.js';
 import FieldErrors from '../../edit/components/FieldErrors.js';
-import {addColonText} from '../i18n/addColon.js';
 
 type GenericFilterFormFieldsT = {
   +disambiguation: FieldT<string>,
