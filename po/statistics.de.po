@@ -19,15 +19,14 @@
 # Tobias Quathamer <email address hidden>, 2007
 # Ulrich Klauer <email address hidden>, 2015-2016
 # Wieland Hoffmann <email address hidden>, 2013-2014
-# Philipp Wolfer <ph.wolfer@gmail.com>, 2023.
+# Philipp Wolfer <ph.wolfer@gmail.com>, 2023, 2024.
 # kellnerd <kellnerd@users.noreply.translations.metabrainz.org>, 2023, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-01-10 19:28+0000\n"
-"Last-Translator: kellnerd <kellnerd@users.noreply.translations.metabrainz."
-"org>\n"
+"PO-Revision-Date: 2024-01-31 12:28+0000\n"
+"Last-Translator: Philipp Wolfer <ph.wolfer@gmail.com>\n"
 "Language-Team: German <https://translations.metabrainz.org/projects/"
 "musicbrainz/statistics/de/>\n"
 "Language: de\n"
@@ -456,7 +455,7 @@ msgid ""
 "tags."
 msgstr ""
 "Genres als neues Objekt hinzugefügt, obwohl sie weiterhin eng an Tags "
-"gebunden sind"
+"gebunden sind."
 
 #: DB:statistics.statistic_event/title:2006-08-15
 msgid "Great Dispute"
@@ -963,7 +962,7 @@ msgstr "Das AcousticBrainz-Projekt geht auf Sendung"
 
 #: DB:statistics.statistic_event/title:2022-02-16
 msgid "The AcousticBrainz project is discontinued"
-msgstr ""
+msgstr "Das AcousticBrainz-Projekt wird eingestellt"
 
 #: DB:statistics.statistic_event/title:2011-08-03
 msgid "The Android app goes live"
@@ -1020,7 +1019,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/description:2014-05-19
 msgid "The beta version of CritiqueBrainz is launched."
-msgstr "Die Betaversion von CritiqueBrainz wird gestartet"
+msgstr "Die Betaversion von CritiqueBrainz wird gestartet."
 
 #: DB:statistics.statistic_event/description:2013-10-14
 msgid ""
@@ -1139,7 +1138,7 @@ msgid ""
 msgstr ""
 "Version 1 des Webservice (bereits seit 2011 veraltet) wird endlich endgültig "
 "abgeschaltet (mehr als ein Jahr nach der Ankündigung, dass dies in sechs "
-"Monaten geschehen würde!)"
+"Monaten geschehen würde!)."
 
 #: DB:statistics.statistic_event/description:2004-07-24
 msgid "Voting logic was improved, web based autoeditor elections released."
@@ -1691,7 +1690,7 @@ msgstr "nichtbinär"
 
 #: ../root/statistics/Index.js:336
 msgid "Other gender:"
-msgstr "Anderes Geschlecht:"
+msgstr "anderes Geschlecht:"
 
 #: ../root/statistics/Index.js:347
 msgid "Gender not applicable:"

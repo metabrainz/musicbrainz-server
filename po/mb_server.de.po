@@ -66,7 +66,7 @@
 # c8ba6e46576070595b2ba64068f9a431_0cfbcb2, 2012
 # yvanz, 2018
 # chaban <chaban@users.noreply.translations.metabrainz.org>, 2023.
-# Philipp Wolfer <ph.wolfer@gmail.com>, 2023.
+# Philipp Wolfer <ph.wolfer@gmail.com>, 2023, 2024.
 # kellnerd <kellnerd@users.noreply.translations.metabrainz.org>, 2023, 2024.
 # aerozol <aerozol@users.noreply.translations.metabrainz.org>, 2023.
 # yvanzo <yvanzo@users.noreply.translations.metabrainz.org>, 2023.
@@ -75,9 +75,8 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-25 22:54+0200\n"
-"PO-Revision-Date: 2024-01-10 19:28+0000\n"
-"Last-Translator: kellnerd <kellnerd@users.noreply.translations.metabrainz."
-"org>\n"
+"PO-Revision-Date: 2024-01-31 12:28+0000\n"
+"Last-Translator: Philipp Wolfer <ph.wolfer@gmail.com>\n"
 "Language-Team: German <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/de/>\n"
 "Language: de\n"
@@ -5636,10 +5635,8 @@ msgid "[none]"
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Recording.pm:38
-#, fuzzy
-#| msgid "Video"
 msgid "Videos only"
-msgstr "Video"
+msgstr "Nur Videos"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Recording.pm:39
 msgid "Non-videos only"
@@ -15233,10 +15230,8 @@ msgid "Edit URL"
 msgstr "URL bearbeiten"
 
 #: ../root/static/scripts/edit/components/UrlRelationshipCreditFieldset.js:37
-#, fuzzy
-#| msgid "Credits"
 msgid "Credit"
-msgstr "Nennungen"
+msgstr "Nennung"
 
 #: ../root/static/scripts/edit/components/UrlRelationshipCreditFieldset.js:40
 #, fuzzy
@@ -15806,24 +15801,18 @@ msgid "The barcode you entered is not a valid EAN code."
 msgstr "Der Strichcode, den du eingegeben hast, ist keine gültige EAN."
 
 #: ../root/static/scripts/release-editor/validation.js:224
-#, fuzzy
-#| msgid "The barcode you entered is a valid EAN code."
 msgid "The barcode you entered is a valid GTIN code."
-msgstr "Der von dir eingegebene Strichcode ist eine gültige EAN."
+msgstr "Der von dir eingegebene Strichcode ist eine gültige GTIN."
 
 #: ../root/static/scripts/release-editor/validation.js:228
-#, fuzzy
-#| msgid "The barcode you entered is not a valid EAN code."
 msgid "The barcode you entered is not a valid GTIN code."
-msgstr "Der Strichcode, den du eingegeben hast, ist keine gültige EAN."
+msgstr "Der Strichcode, den du eingegeben hast, ist keine gültige GTIN."
 
 #: ../root/static/scripts/release-editor/validation.js:235
-#, fuzzy
-#| msgid "The barcode you entered is not a valid UPC or EAN code."
 msgid "The barcode you entered is not a valid UPC, EAN or GTIN code."
 msgstr ""
 "Der Strichcode, den du eingegeben hast, ist kein gültiger UPC und keine "
-"gültige EAN."
+"gültige EAN oder GTIN."
 
 #: ../root/static/scripts/release/components/BatchCreateWorksDialog.js:236
 msgid ""
