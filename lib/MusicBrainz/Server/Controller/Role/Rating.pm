@@ -28,8 +28,17 @@ sub ratings : Chained('load') PathPart('ratings')
 
     my @public_ratings;
     my $private_rating_count = 0;
+    my $spammer_rating_count = 0;
 
     for my $rating (@ratings) {
+        # We don't want spammer ratings, but they're still
+        # part of the calculated rating.
+        # Once MBS-12794 is done we can just skip these silently
+        if ($rating->editor->is_spammer) {
+            $spammer_rating_count++;
+            next;
+        }
+
         if ($rating->editor->preferences->public_ratings) {
             push @public_ratings, $rating;
         } else {
@@ -43,6 +52,7 @@ sub ratings : Chained('load') PathPart('ratings')
         $entity_properties->{reviews} ? (mostRecentReview => to_json_object($entity->most_recent_review)) : (),
         publicRatings => to_json_array(\@public_ratings),
         privateRatingCount => $private_rating_count,
+        spammerRatingCount => $spammer_rating_count,
     );
 
     $c->stash(

@@ -25,6 +25,7 @@ type Props = {
   +mostRecentReview: CritiqueBrainzReviewT,
   +privateRatingCount: number,
   +publicRatings: $ReadOnlyArray<RatingT>,
+  +spammerRatingCount: number,
 };
 
 const Ratings = ({
@@ -33,11 +34,14 @@ const Ratings = ({
   mostRecentReview,
   privateRatingCount,
   publicRatings,
+  spammerRatingCount,
 }: Props): React$MixedElement => {
   const entityType = entity.entityType;
   const entityProperties = ENTITIES[entity.entityType];
   const LayoutComponent = chooseLayoutComponent(entityType);
-  const hasRatings = publicRatings.length || privateRatingCount > 0;
+  const hasRatings = publicRatings.length ||
+                     privateRatingCount > 0 ||
+                     spammerRatingCount > 0;
 
   return (
     <LayoutComponent
@@ -72,9 +76,25 @@ const Ratings = ({
                   )}
                 </p>
               ) : null}
-              {l('Average rating:')}
-              {' '}
-              <StaticRatingStars rating={entity.rating} />
+              {/* Remove this once MBS-12794 skips spammers for averages */}
+              {spammerRatingCount > 0 ? (
+                <p>
+                  {exp.ln(
+                    '{count} hidden rating by a spammer user.',
+                    '{count} hidden ratings by spammer users.',
+                    spammerRatingCount,
+                    {count: spammerRatingCount},
+                  )}
+                </p>
+              ) : null}
+              {publicRatings.length === 0 && privateRatingCount === 0
+                ? null : (
+                  <>
+                    {l('Average rating:')}
+                    {' '}
+                    <StaticRatingStars rating={entity.rating} />
+                  </>
+                )}
             </>
           ) : (
             <p>
