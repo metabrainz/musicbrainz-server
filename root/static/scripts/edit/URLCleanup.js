@@ -3340,7 +3340,7 @@ const CLEANUPS: CleanupEntries = {
           target: ERROR_TARGETS.URL,
         };
       }
-      const m = /^https:\/\/www\.junodownload\.com\/(artists|labels|products)\/[\w\d-]+\/$/.exec(url);
+      const m = /^https:\/\/www\.junodownload\.com\/(artists|labels|products)\/[\w\d+-]+\/$/.exec(url);
       if (m) {
         const prefix = m[1];
         switch (id) {
