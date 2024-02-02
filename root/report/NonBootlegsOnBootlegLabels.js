@@ -24,7 +24,7 @@ const NonBootlegsOnBootlegLabels = ({
       `This report shows releases that have at least one “Bootleg Production”
        label in their labels list, but are not set to status “Bootleg”.
        These labels pretty much never release non-bootleg releases,
-       so chances are that either the label or the status are wrong.`,
+       so chances are that either the label or the status is wrong.`,
     )}
     entityType="release"
     filtered={filtered}

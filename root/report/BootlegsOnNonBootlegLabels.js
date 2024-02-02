@@ -25,7 +25,7 @@ const BootlegsOnNonBootlegLabels = ({
        at least one label in their labels list which is not “[no label]” nor
        has the type “Bootleg Production”.
        Other types of labels pretty much never release bootleg releases,
-       so chances are that either the label or the status are wrong.`,
+       so chances are that either the label or the status is wrong.`,
     )}
     entityType="release"
     filtered={filtered}
