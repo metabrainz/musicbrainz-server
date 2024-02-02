@@ -105,6 +105,7 @@ export default {
   'collection/EditCollection': (): Promise<mixed> => import('../collection/EditCollection.js'),
   'doc/DocError': (): Promise<mixed> => import('../doc/DocError.js'),
   'doc/DocPage': (): Promise<mixed> => import('../doc/DocPage.js'),
+  'doc/EditTypeList': (): Promise<mixed> => import('../doc/EditTypeList.js'),
   'edit/CancelEdit': (): Promise<mixed> => import('../edit/CancelEdit.js'),
   'edit/CannotApproveEdit': (): Promise<mixed> => import('../edit/CannotApproveEdit.js'),
   'edit/CannotCancelEdit': (): Promise<mixed> => import('../edit/CannotCancelEdit.js'),
