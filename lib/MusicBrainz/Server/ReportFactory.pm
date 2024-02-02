@@ -24,6 +24,7 @@ my @all = qw(
     ArtistsThatMayBePersons
     ArtistsWithNoSubscribers
     BadAmazonURLs
+    BootlegsOnNonBootlegLabels
     CatNoLooksLikeASIN
     CatNoLooksLikeISRC
     CatNoLooksLikeLabelCode
@@ -125,6 +126,7 @@ use MusicBrainz::Server::Report::ArtistsThatMayBePersons;
 use MusicBrainz::Server::Report::ArtistsWithMultipleOccurrencesInArtistCredits;
 use MusicBrainz::Server::Report::ArtistsWithNoSubscribers;
 use MusicBrainz::Server::Report::BadAmazonURLs;
+use MusicBrainz::Server::Report::BootlegsOnNonBootlegLabels;
 use MusicBrainz::Server::Report::CatNoLooksLikeASIN;
 use MusicBrainz::Server::Report::CatNoLooksLikeISRC;
 use MusicBrainz::Server::Report::CatNoLooksLikeLabelCode;
