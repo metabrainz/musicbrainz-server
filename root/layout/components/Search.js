@@ -36,6 +36,7 @@ const TYPE_OPTION_GROUPS: $ReadOnlyArray<SearchOptionGroupT> = [
     instrument:    N_l('Instrument'),
     label:         N_l('Label'),
     place:         N_l('Place'),
+    url:           N_l('URL'),
   },
   { // derived data
     annotation:    N_l('Annotation'),

@@ -395,13 +395,19 @@ export function defineLinkColumn<D>(
     +columnName: string,
     getContent: (D) => string,
     getHref: (D) => string,
+    +rel?: 'noopener noreferrer',
+    +target?: '_blank',
     +title: string,
   },
 ): ColumnOptions<D, string> {
   return {
     accessor: row => props.getContent(row) ?? '',
     Cell: ({row: {original}}) => (
-      <a href={props.getHref(original)}>
+      <a
+        href={props.getHref(original)}
+        rel={props.rel}
+        target={props.target}
+      >
         {props.getContent(original)}
       </a>
     ),

@@ -740,6 +740,10 @@ sub schema_fixup
         $data->{'artist_credit'} = MusicBrainz::Server::Entity::ArtistCredit->new( { names => \@credits } );
     }
 
+    if ($type eq 'url') {
+        $data->{name} = $data->{resource};
+    }
+
     if ($type eq 'work') {
         if (defined $data->{relationships}) {
             my %relationship_map = partition_by { $_->entity1->gid }
@@ -900,7 +904,7 @@ sub external_search
             undef;
 
         # Use types as provided by jsonnew format
-        if ($type =~ /^(area|artist|event|instrument|label|place|recording|release|release-group|work|annotation|cdstub|editor)$/) {
+        if ($type =~ /^(area|artist|event|instrument|label|place|recording|release|release-group|url|work|annotation|cdstub|editor)$/) {
             $xmltype .= 's';
         }
 
