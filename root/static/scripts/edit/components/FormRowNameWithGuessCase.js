@@ -7,10 +7,8 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-/* eslint-disable import/newline-after-import -- the FlowIgnore triggers it */
 import type {CowContext} from 'mutate-cow';
 import * as React from 'react';
-// $FlowIgnore[missing-export]
 import {flushSync} from 'react-dom';
 
 import GuessCase from '../../guess-case/MB/GuessCase/Main.js';
