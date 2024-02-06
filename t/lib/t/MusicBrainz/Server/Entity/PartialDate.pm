@@ -61,13 +61,13 @@ $date = Date->new( day => 1 );
 is ($date->format, '????-??-01');
 
 $date = Date->new( year => 0 );
-is ($date->format, '0000');
+is ($date->format, '-0001', 'Astronomical 0 turns into 1 BCE');
 
 $date = Date->new( month => 1 );
 is ($date->format, '????-01');
 
 $date = Date->new( year => -1, month => 1, day => 1 );
-is ($date->format, '-001-01-01');
+is ($date->format, '-0002-01-01', 'BCE year is formatted correctly');
 
 my ($a, $b);
 

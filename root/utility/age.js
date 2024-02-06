@@ -28,9 +28,8 @@ export function hasAge<T: $ReadOnly<{...DatePeriodRoleT, ...}>>(
 
   /*
    * If there is no begin year, there is no age.
-   * Only compute ages when the begin date is AD.
    */
-  if (!begin || beginYear == null || beginYear < 1) {
+  if (!begin || beginYear == null) {
     return false;
   }
 

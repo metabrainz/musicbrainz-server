@@ -18,7 +18,6 @@ test('formatDate', function (t) {
   t.equal(formatDate(null), '');
   t.equal(formatDate(undefined), '');
   t.equal(formatDate({}), '');
-  t.equal(formatDate({year: 0}), '0000');
   t.equal(formatDate({year: 1999}), '1999');
   t.equal(formatDate({year: 1999, month: 1}), '1999-01');
   t.equal(formatDate({year: 1999, month: 1, day: 1}), '1999-01-01');
@@ -26,7 +25,8 @@ test('formatDate', function (t) {
   t.equal(formatDate({month: 1}), '????-01');
   t.equal(formatDate({month: 1, day: 1}), '????-01-01');
   t.equal(formatDate({day: 1}), '????-??-01');
-  t.equal(formatDate({year: 0, month: 1, day: 1}), '0000-01-01');
-  t.equal(formatDate({year: -1, month: 1, day: 1}), '-0001-01-01');
+  t.equal(formatDate({year: 0}), '-0001');
+  t.equal(formatDate({year: 0, month: 1, day: 1}), '-0001-01-01');
+  t.equal(formatDate({year: -1, month: 1, day: 1}), '-0002-01-01');
   /* eslint-enable sort-keys */
 });

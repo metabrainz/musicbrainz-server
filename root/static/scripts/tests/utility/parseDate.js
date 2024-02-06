@@ -12,7 +12,7 @@ import test from 'tape';
 import parseDate from '../../common/utility/parseDate.js';
 
 test('parseDate', function (t) {
-  t.plan(16);
+  t.plan(18);
 
   /* eslint-disable sort-keys */
   const parseDateTests = [
@@ -23,6 +23,8 @@ test('parseDate', function (t) {
     {date: '1999', expected: {year: 1999, month: null, day: null}},
     {date: '????-01-02', expected: {year: null, month: 1, day: 2}},
     {date: '????-??-02', expected: {year: null, month: null, day: 2}},
+    {date: '-0046-??-02', expected: {year: -46, month: null, day: 2}},
+    {date: '-0046', expected: {year: -46, month: null, day: null}},
     {date: '1999-??-02', expected: {year: 1999, month: null, day: 2}},
 
     // Relationship editor seeding format (via URL query params).
