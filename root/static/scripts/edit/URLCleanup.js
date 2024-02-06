@@ -5698,16 +5698,30 @@ const CLEANUPS: CleanupEntries = {
   },
   'tiktok': {
     match: [new RegExp('^(https?://)?(www\\.)?tiktok\\.com', 'i')],
-    restrict: [LINK_TYPES.socialnetwork],
+    restrict: [{...LINK_TYPES.streamingfree, ...LINK_TYPES.socialnetwork}],
     clean: function (url) {
       return url.replace(
-        /^(?:https?:\/\/)(?:www\.)?tiktok\.com\/@([\w.]+)(?:[\/?&#].*)?$/,
+        /^(?:https?:\/\/)(?:www\.)?tiktok\.com\/@([\w.]+(?:\/video\/\d+)?)(?:[\/?#].*)?$/,
         'https://www.tiktok.com/@$1',
       );
     },
     validate: function (url, id) {
-      const m = /^https:\/\/www\.tiktok\.com\/@[\w.]+$/.exec(url);
+      const m = /^https:\/\/www\.tiktok\.com\/@[\w.]+(\/video\/\d+)?$/.exec(url);
       if (m) {
+        const isAVideo = !!m[1];
+        if (Object.values(LINK_TYPES.streamingfree).includes(id)) {
+          return {
+            result: isAVideo &&
+              (id === LINK_TYPES.streamingfree.recording),
+            target: ERROR_TARGETS.ENTITY,
+          };
+        } else if (isAVideo) {
+          return {
+            error: l('Please link to TikTok profiles, not videos.'),
+            result: false,
+            target: ERROR_TARGETS.ENTITY,
+          };
+        }
         switch (id) {
           case LINK_TYPES.socialnetwork.artist:
           case LINK_TYPES.socialnetwork.label:
