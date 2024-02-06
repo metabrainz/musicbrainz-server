@@ -1,5 +1,5 @@
-// flow-typed signature: de0a47185086152df6ab4a598943384d
-// flow-typed version: cf9120ecbb/react-dom_v18.x.x/flow_>=v0.127.x
+// flow-typed signature: bd8a9984746306d26194a489f3aeff35
+// flow-typed version: 388e9edcf0/react-dom_v18.x.x/flow_>=v0.127.x
 
 declare module 'react-dom_shared-types' {
   /**
@@ -130,6 +130,8 @@ declare module 'react-dom' {
 
   declare function unmountComponentAtNode(container: any): boolean;
 
+  declare function flushSync(callback: () => mixed): void;
+
   declare function unstable_batchedUpdates<A, B, C, D, E>(
     callback: (a: A, b: B, c: C, d: D, e: E) => mixed,
     a: A,
@@ -158,7 +160,7 @@ declare module 'react-dom/client' {
 
   declare opaque type FiberRoot;
 
-  declare type RootType = {
+  declare export type RootType = {
     render(children: ReactNodeList): void,
     unmount(): void,
     _internalRoot: FiberRoot | null,

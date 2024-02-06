@@ -7,7 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-// $FlowIgnore[missing-export]
 import {flushSync} from 'react-dom';
 
 function isElementVisible(element: HTMLElement) {
