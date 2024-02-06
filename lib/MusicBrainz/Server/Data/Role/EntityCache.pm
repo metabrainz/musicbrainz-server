@@ -3,7 +3,7 @@ package MusicBrainz::Server::Data::Role::EntityCache;
 use DBDefs;
 use Moose::Role;
 use namespace::autoclean;
-use List::AllUtils qw( any natatime uniq );
+use List::AllUtils qw( natatime uniq );
 use MusicBrainz::Server::Constants qw( %ENTITIES );
 use MusicBrainz::Server::Log qw( log_debug );
 use MusicBrainz::Server::Validation qw( is_database_row_id );
@@ -33,7 +33,8 @@ has _cache_prefix => (
 
 around get_by_ids => sub {
     my ($orig, $self, @ids) = @_;
-    return {} unless any { defined && $_ } @ids;
+    @ids = grep { is_database_row_id($_) } @ids;
+    return {} unless @ids;
     my %ids = map { $_ => 1 } @ids;
     my $cache_prefix = $self->_cache_prefix;
     my @keys = map { $cache_prefix . $_ } keys %ids;
