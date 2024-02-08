@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-02 10:11+0200\n"
+"POT-Creation-Date: 2024-01-25 22:54+0200\n"
 "PO-Revision-Date: 2023-12-03 12:27+0000\n"
 "Last-Translator: yangmouren <yangmouren5618@163.com>\n"
 "Language-Team: Chinese (Simplified) <https://translations.metabrainz.org/"
@@ -672,7 +672,7 @@ msgstr "可被批准"
 #: ../root/release_group/ReleaseGroupMerge.js:52
 #: ../root/series/SeriesMerge.js:51
 #: ../root/static/scripts/common/components/FilterForm.js:378
-#: ../root/static/scripts/edit/components/ExternalLinkAttributeDialog.js:204
+#: ../root/static/scripts/edit/components/ExternalLinkAttributeDialog.js:237
 #: ../root/static/scripts/edit/components/URLInputPopover.js:126
 #: ../root/static/scripts/relationship-editor/components/DialogButtons.js:28
 #: ../root/work/WorkMerge.js:65
@@ -911,8 +911,8 @@ msgid "Donate"
 msgstr "捐助"
 
 #: ../root/release/edit/macros.tt:54
-#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:165
-#: ../root/static/scripts/edit/components/ExternalLinkAttributeDialog.js:213
+#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:166
+#: ../root/static/scripts/edit/components/ExternalLinkAttributeDialog.js:245
 #: ../root/static/scripts/edit/components/GuessCaseOptionsPopover.js:64
 #: ../root/static/scripts/edit/components/URLInputPopover.js:134
 #: ../root/static/scripts/relationship-editor/components/DialogButtons.js:37
@@ -1318,8 +1318,8 @@ msgstr "我不知道这种媒介的音轨表。"
 msgid "I have no information about this release’s media and tracklist."
 msgstr "我没有关于这个版本的媒体和音轨列表的信息。"
 
-#: ../root/edit/search_macros.tt:434 ../root/futureColumnLabels.js:20
-#: ../root/futureColumnLabels.js:36
+#: ../root/edit/search_macros.tt:434 ../root/futureColumnLabels.js:22
+#: ../root/futureColumnLabels.js:38
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:118
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:161
 msgid "ID"
@@ -1399,9 +1399,14 @@ msgid "ISWCs"
 msgstr "ISWC"
 
 #: ../root/event/edit_form.tt:26
+#, fuzzy
+#| msgid ""
+#| "If needed, the characters \"[\", \"]\", and \"&\" can be escaped using "
+#| "the HTML entities \"&lsqb;\", \"&rsqb;\", and \"&amp;\" respectively."
 msgid ""
 "If needed, the characters \"[\", \"]\", and \"&\" can be escaped using the "
-"HTML entities \"&lsqb;\", \"&rsqb;\", and \"&amp;\" respectively."
+"HTML entities \"<code>&amp;lsqb;</code>\", \"<code>&amp;rsqb;</code>\", and "
+"\"<code>&amp;amp;</code>\" respectively."
 msgstr ""
 "如果有需要，\"[\"，\"]\"，和\"&\"等字符，可以用HTML的\"&lsqb;\"，\"&rsqb;\"，"
 "和 \"&amp;\" 等实体编码符号替换。"
@@ -1795,8 +1800,8 @@ msgstr "上移音轨"
 #: ../root/edit/details/historic/AddTrackKV.js:30
 #: ../root/edit/details/historic/AddTrackOld.js:22
 #: ../root/edit/details/historic/EditReleaseName.js:22
-#: ../root/entity/Details.js:96 ../root/futureColumnLabels.js:21
-#: ../root/futureColumnLabels.js:37
+#: ../root/entity/Details.js:96 ../root/futureColumnLabels.js:23
+#: ../root/futureColumnLabels.js:39
 #: ../root/search/components/AnnotationResults.js:55
 #: ../root/search/components/AreaResults.js:63
 #: ../root/search/components/ArtistResults.js:51
@@ -2089,7 +2094,7 @@ msgstr "{artist}的录音“{name}”"
 #: ../root/release/edit/layout.tt:17 ../root/area/AreaRecordings.js:25
 #: ../root/artist/ArtistRecordings.js:144
 #: ../root/artist/ArtistRecordings.js:146
-#: ../root/artist_credit/ArtistCreditIndex.js:145
+#: ../root/artist_credit/ArtistCreditIndex.js:146
 #: ../root/artist_credit/ArtistCreditLayout.js:28
 #: ../root/components/EntityTabs.js:30
 #: ../root/components/TagEntitiesList.js:190
@@ -2952,7 +2957,7 @@ msgstr "音轨列表"
 
 #: ../root/release/edit/duplicates.tt:12
 #: ../root/release_group/set_cover_art.tt:47
-#: ../root/artist_credit/ArtistCreditIndex.js:156
+#: ../root/artist_credit/ArtistCreditIndex.js:157
 #: ../root/artist_credit/ArtistCreditLayout.js:29
 #: ../root/components/list/ReleaseList.js:108
 #: ../root/edit/details/MergeReleases.js:238
@@ -3032,8 +3037,8 @@ msgstr "Twitter"
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:875
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:547
 #: ../root/static/scripts/common/components/FilterForm.js:147
-#: ../root/static/scripts/edit/externalLinks.js:1232
-#: ../root/static/scripts/edit/externalLinks.js:1554
+#: ../root/static/scripts/edit/externalLinks.js:1273
+#: ../root/static/scripts/edit/externalLinks.js:1615
 #: ../root/utility/tableColumns.js:654 ../root/utility/tableColumns.js:659
 msgid "Type"
 msgstr "类型"
@@ -3346,7 +3351,7 @@ msgstr "您必须选择一个现有的专辑组。"
 
 #: ../root/release/edit/editnote.tt:36
 #: ../lib/MusicBrainz/Server/Form/EditNoteModify.pm:32
-#: ../lib/MusicBrainz/Server/Form/Role/EditNote.pm:30
+#: ../lib/MusicBrainz/Server/Form/Role/EditNote.pm:32
 msgid ""
 "Your edit note seems to have no actual content. Please provide a note that "
 "will be helpful to your fellow editors!"
@@ -4006,20 +4011,20 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:296
 #: ../lib/MusicBrainz/Server/Form/ChangeReleaseQuality.pm:24
-#: ../root/static/scripts/common/constants.js:357
+#: ../root/static/scripts/common/constants.js:360
 msgid "Low"
 msgstr "低"
 
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:296
 #: ../lib/MusicBrainz/Server/Form/ChangeReleaseQuality.pm:25
-#: ../root/static/scripts/common/constants.js:358
-#: ../root/static/scripts/common/constants.js:359
+#: ../root/static/scripts/common/constants.js:361
+#: ../root/static/scripts/common/constants.js:362
 msgid "Normal"
 msgstr "一般"
 
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:296
 #: ../lib/MusicBrainz/Server/Form/ChangeReleaseQuality.pm:26
-#: ../root/static/scripts/common/constants.js:360
+#: ../root/static/scripts/common/constants.js:363
 msgid "High"
 msgstr "高"
 
@@ -5521,7 +5526,7 @@ msgctxt "autoeditor election status (short)"
 msgid "Cancelled"
 msgstr "已取消"
 
-#: ../lib/MusicBrainz/Server/Entity/Barcode.pm:25
+#: ../lib/MusicBrainz/Server/Entity/Barcode.pm:26
 #: ../root/static/scripts/common/utility/formatBarcode.js:15
 msgid "[none]"
 msgstr "【无】"
@@ -5837,7 +5842,7 @@ msgid "This is not a valid time."
 msgstr "这不是有效的时间。"
 
 #: ../lib/MusicBrainz/Server/Form/Field/URL.pm:28
-#: ../root/static/scripts/edit/externalLinks.js:733
+#: ../root/static/scripts/edit/externalLinks.js:753
 #, perl-brace-format
 msgid "Please enter a valid URL, such as “{example_url}”."
 msgstr "请输入一个有效的 URL，例如“{example_url}”。"
@@ -5927,7 +5932,7 @@ msgstr "添加独立录音时必须提供编辑备注"
 msgid "The form you’ve submitted has expired. Please resubmit your request."
 msgstr "您提交的表单已过期。请重新提交请求。"
 
-#: ../lib/MusicBrainz/Server/Form/Role/EditNote.pm:26
+#: ../lib/MusicBrainz/Server/Form/Role/EditNote.pm:28
 msgid "You must provide an edit note"
 msgstr "必须提供编辑备注"
 
@@ -5944,22 +5949,22 @@ msgid "A fluency level is required."
 msgstr "流利程度为必填项。"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:79
-#: ../root/static/scripts/common/constants.js:368
+#: ../root/static/scripts/common/constants.js:371
 msgid "Basic"
 msgstr "基础"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:80
-#: ../root/static/scripts/common/constants.js:369
+#: ../root/static/scripts/common/constants.js:372
 msgid "Intermediate"
 msgstr "中级"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:81
-#: ../root/static/scripts/common/constants.js:367
+#: ../root/static/scripts/common/constants.js:370
 msgid "Advanced"
 msgstr "高级"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:82
-#: ../root/static/scripts/common/constants.js:370
+#: ../root/static/scripts/common/constants.js:373
 msgid "Native"
 msgstr "母语"
 
@@ -6167,19 +6172,19 @@ msgstr "您不能多次输入相同的属性和值。"
 msgid "This value is not allowed for this work attribute type."
 msgstr "此值不适用于此作品属性类型。"
 
-#: ../lib/MusicBrainz/Server/Translation.pm:254
+#: ../lib/MusicBrainz/Server/Translation.pm:257
 #: ../root/static/scripts/common/i18n/commaList.js:28
 #, perl-brace-format
 msgid "{almost_last_list_item} and {last_list_item}"
 msgstr "{almost_last_list_item} 和 {last_list_item}"
 
-#: ../lib/MusicBrainz/Server/Translation.pm:260
+#: ../lib/MusicBrainz/Server/Translation.pm:263
 #: ../root/static/scripts/common/i18n/commaList.js:35
 #, perl-brace-format
 msgid "{list_item}, {rest}"
 msgstr "{list_item}, {rest}"
 
-#: ../lib/MusicBrainz/Server/Translation.pm:271
+#: ../lib/MusicBrainz/Server/Translation.pm:274
 #: ../root/static/scripts/common/i18n/commaList.js:23
 #: ../root/static/scripts/common/i18n/commaOnlyList.js:24
 #: ../root/static/scripts/common/i18n/semicolonOnlyList.js:20
@@ -6187,7 +6192,7 @@ msgstr "{list_item}, {rest}"
 msgid "{last_list_item}"
 msgstr "{last_list_item}"
 
-#: ../lib/MusicBrainz/Server/Translation.pm:274
+#: ../lib/MusicBrainz/Server/Translation.pm:277
 #: ../root/static/scripts/common/i18n/commaOnlyList.js:30
 #, perl-brace-format
 msgid "{commas_only_list_item}, {rest}"
@@ -6577,7 +6582,7 @@ msgstr ""
 #: ../root/account/applications/ApplicationList.js:158
 #: ../root/components/Aliases/AliasTable.js:29
 #: ../root/components/Aliases/ArtistCreditList.js:54
-#: ../root/futureColumnLabels.js:27 ../root/futureColumnLabels.js:41
+#: ../root/futureColumnLabels.js:29 ../root/futureColumnLabels.js:43
 #: ../root/static/scripts/common/components/FingerprintTable.js:80
 #: ../root/utility/tableColumns.js:82
 msgid "Actions"
@@ -6762,7 +6767,7 @@ msgstr ""
 
 #: ../root/annotation/EditAnnotation.js:62
 #: ../root/static/scripts/artist/components/ArtistCreditRenamer.js:278
-#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:69
+#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:70
 #: ../root/static/scripts/relationship-editor/components/DialogPreview.js:172
 msgctxt "header"
 msgid "Preview"
@@ -6957,7 +6962,7 @@ msgstr "关联"
 
 #: ../root/area/AreaReleases.js:35 ../root/area/AreaReleases.js:38
 #: ../root/artist/ArtistReleases.js:46 ../root/artist/ArtistReleases.js:47
-#: ../root/artist_credit/ArtistCreditIndex.js:135
+#: ../root/artist_credit/ArtistCreditIndex.js:136
 #: ../root/artist_credit/ArtistCreditLayout.js:27
 #: ../root/components/EntityTabs.js:31
 #: ../root/components/TagEntitiesList.js:186
@@ -7335,14 +7340,17 @@ msgid "This artist credit is composed of the following artists:"
 msgstr "此艺术家名单包括以下艺术家："
 
 #: ../root/artist_credit/ArtistCreditIndex.js:103
+#, fuzzy
+#| msgid "credited as “{credit}”"
+msgctxt "artist credit"
 msgid "credited as “{credit}”"
 msgstr "署名为 “{credit}”"
 
-#: ../root/artist_credit/ArtistCreditIndex.js:111
+#: ../root/artist_credit/ArtistCreditIndex.js:112
 msgid "Uses"
 msgstr "使用"
 
-#: ../root/artist_credit/ArtistCreditIndex.js:124
+#: ../root/artist_credit/ArtistCreditIndex.js:125
 #: ../root/artist_credit/ArtistCreditLayout.js:26
 #: ../root/components/TagEntitiesList.js:182
 #: ../root/components/list/RecordingList.js:62
@@ -7352,25 +7360,25 @@ msgstr "使用"
 msgid "Release groups"
 msgstr "专辑组"
 
-#: ../root/artist_credit/ArtistCreditIndex.js:126
+#: ../root/artist_credit/ArtistCreditIndex.js:127
 #: ../root/components/TagEntitiesList.js:183
 msgid "See all {num} release groups"
 msgid_plural "See all {num} release groups"
 msgstr[0] "查看所有 {num} 个专辑组"
 
-#: ../root/artist_credit/ArtistCreditIndex.js:136
+#: ../root/artist_credit/ArtistCreditIndex.js:137
 #: ../root/components/TagEntitiesList.js:187
 msgid "See all {num} releases"
 msgid_plural "See all {num} releases"
 msgstr[0] "查看所有 {num} 张专辑"
 
-#: ../root/artist_credit/ArtistCreditIndex.js:147
+#: ../root/artist_credit/ArtistCreditIndex.js:148
 #: ../root/components/TagEntitiesList.js:191
 msgid "See all {num} recordings"
 msgid_plural "See all {num} recordings"
 msgstr[0] "查看所有 {num} 条录音"
 
-#: ../root/artist_credit/ArtistCreditIndex.js:158
+#: ../root/artist_credit/ArtistCreditIndex.js:159
 msgid "See all {num} tracks"
 msgid_plural "See all {num} tracks"
 msgstr[0] "查看所有 {num} 条音轨"
@@ -7675,7 +7683,7 @@ msgstr "收藏 “{collection}”"
 msgid "Collection"
 msgstr "收藏集"
 
-#: ../root/collection/CollectionMerge.js:58 ../root/futureColumnLabels.js:16
+#: ../root/collection/CollectionMerge.js:58 ../root/futureColumnLabels.js:18
 msgid "Entity type"
 msgstr "实体类型"
 
@@ -7959,7 +7967,7 @@ msgstr "标签"
 
 #: ../root/components/EntityTabs.js:141 ../root/entity/Ratings.js:46
 #: ../root/entity/Ratings.js:90
-#: ../root/static/scripts/edit/externalLinks.js:757
+#: ../root/static/scripts/edit/externalLinks.js:777
 msgid "Reviews"
 msgstr "评论"
 
@@ -8183,7 +8191,7 @@ msgid "Code"
 msgstr "代码"
 
 #: ../root/components/list/ReleaseGroupList.js:84
-#: ../root/futureColumnLabels.js:31
+#: ../root/futureColumnLabels.js:33
 msgid "Year"
 msgstr "年份"
 
@@ -10179,35 +10187,35 @@ msgid ""
 "event all others should be merged into:"
 msgstr ""
 
-#: ../root/futureColumnLabels.js:22
+#: ../root/futureColumnLabels.js:24
 msgid "ISO 639-1"
 msgstr "ISO 639-1"
 
-#: ../root/futureColumnLabels.js:23
+#: ../root/futureColumnLabels.js:25
 msgid "ISO 639-2/B"
 msgstr "ISO 639-2/B"
 
-#: ../root/futureColumnLabels.js:24
+#: ../root/futureColumnLabels.js:26
 msgid "ISO 639-2/T"
 msgstr "ISO 639-2/T"
 
-#: ../root/futureColumnLabels.js:25
+#: ../root/futureColumnLabels.js:27
 msgid "ISO 639-3"
 msgstr "ISO 639-3"
 
-#: ../root/futureColumnLabels.js:26 ../root/futureColumnLabels.js:40
+#: ../root/futureColumnLabels.js:28 ../root/futureColumnLabels.js:42
 msgid "Frequency"
 msgstr "频率"
 
-#: ../root/futureColumnLabels.js:32
+#: ../root/futureColumnLabels.js:34
 msgid "Disc IDs allowed"
 msgstr "允许的唱片 ID"
 
-#: ../root/futureColumnLabels.js:38
+#: ../root/futureColumnLabels.js:40
 msgid "ISO code"
 msgstr "ISO代码"
 
-#: ../root/futureColumnLabels.js:39
+#: ../root/futureColumnLabels.js:41
 msgid "ISO number"
 msgstr "国际标准化组织编号"
 
@@ -11763,7 +11771,7 @@ msgid "{entity0}-{entity1}"
 msgstr "{entity0}-{entity1}"
 
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:127
-#: ../root/static/scripts/edit/externalLinks.js:799
+#: ../root/static/scripts/edit/externalLinks.js:819
 #: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:72
 msgid "This relationship type is deprecated and should not be used."
 msgstr ""
@@ -14840,8 +14848,8 @@ msgstr ""
 
 #: ../root/static/scripts/edit/URLCleanup.js:661
 #: ../root/static/scripts/edit/URLCleanup.js:924
-#: ../root/static/scripts/edit/URLCleanup.js:4267
-#: ../root/static/scripts/edit/URLCleanup.js:5276
+#: ../root/static/scripts/edit/URLCleanup.js:4316
+#: ../root/static/scripts/edit/URLCleanup.js:5430
 msgid ""
 "This is a redirect link. Please follow {redirect_url|your link} and add the "
 "link it redirects to instead."
@@ -14860,18 +14868,24 @@ msgid ""
 "books to {bookbrainz_url|BookBrainz} instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:1134
+#: ../root/static/scripts/edit/URLCleanup.js:1136
+msgid ""
+"Please do not add “{blocked_url_pattern}” links, link to the appropriate "
+"“{wanted_url_pattern}” page instead."
+msgstr ""
+
+#: ../root/static/scripts/edit/URLCleanup.js:1156
 msgid ""
 "Please link to the main page for the artist, not to a specific album or "
 "track."
 msgstr "请链接到此艺术家的主页，而非特定专辑或音轨。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:1151
+#: ../root/static/scripts/edit/URLCleanup.js:1173
 msgid ""
 "Please link to the main page for the label, not to a specific album or track."
 msgstr "请链接到此厂牌的主页，而非特定专辑或音轨。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:1173
+#: ../root/static/scripts/edit/URLCleanup.js:1195
 msgid ""
 "This is a Bandcamp profile, not a page for a specific recording. Even if it "
 "shows a single recording right now, that can change when the artist releases "
@@ -14880,7 +14894,7 @@ msgid ""
 "the appropriate artist or label."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:1201
+#: ../root/static/scripts/edit/URLCleanup.js:1223
 msgid ""
 "This is a Bandcamp profile, not a page for a specific release. Even if it "
 "shows this release right now, that can change when the artist releases "
@@ -14889,39 +14903,39 @@ msgid ""
 "add this profile link to the appropriate artist or label."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:1509
+#: ../root/static/scripts/edit/URLCleanup.js:1531
 msgid "Please link to the main page for the artist, not a specific product."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:1511
+#: ../root/static/scripts/edit/URLCleanup.js:1533
 msgid "Please link to the main page for the label, not a specific product."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:2260
+#: ../root/static/scripts/edit/URLCleanup.js:2291
 msgid ""
 "Discogs “{master_url_pattern}” links group several releases, so this should "
 "be added to the release group instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:2952
+#: ../root/static/scripts/edit/URLCleanup.js:2982
 msgid ""
 "Only IMSLP “{category_url_pattern}” links are allowed for artists. Please "
 "link work pages to the specific work in question."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:2970
+#: ../root/static/scripts/edit/URLCleanup.js:3000
 msgid ""
 "IMSLP “{category_url_pattern}” links are only allowed for artists. Please "
 "link the specific work page to this work instead, if available."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:3015
+#: ../root/static/scripts/edit/URLCleanup.js:3045
 msgid ""
 "Instagram “{explore_url_pattern}” links are not allowed. Please link to a "
 "profile instead, if there is one."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:3043
+#: ../root/static/scripts/edit/URLCleanup.js:3073
 msgid ""
 "Please do not link directly to images, link to the appropriate Instagram "
 "profile page instead. If you want to link to a video, {url|add a standalone "
@@ -14930,51 +14944,51 @@ msgstr ""
 "请不要直接链接到图片，而是链接到适当的Instagram主页。如果你想链接到一个视频，"
 "{url|添加一个独立的录音}。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:3068
+#: ../root/static/scripts/edit/URLCleanup.js:3098
 msgid "This is an internal Instagram page and should not be added."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:4164
+#: ../root/static/scripts/edit/URLCleanup.js:4213
 msgid ""
 "Musixmatch “{album_url_pattern}” pages are a bad match for MusicBrainz "
 "release groups, and linking to them is currently disallowed. Please consider "
 "adding Musixmatch links to the relevant artists and works instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:4793
+#: ../root/static/scripts/edit/URLCleanup.js:4925
 msgid "Only RYM music videos can be linked to recordings."
 msgstr "只有RYM的音乐视频可以链接到录音。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:4855
+#: ../root/static/scripts/edit/URLCleanup.js:4987
 msgid ""
 "This is a link to the old Resident Advisor domain. Please follow {ra_url|"
 "your link}, make sure the link it redirects to is still the correct one and, "
 "if so, add that link instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:5432
+#: ../root/static/scripts/edit/URLCleanup.js:5586
 msgid "Please link to Threads profiles, not threads."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:5819
+#: ../root/static/scripts/edit/URLCleanup.js:5973
 msgid "This is not a profile, but a Twitter documentation page."
 msgstr "这不是个人资料页，而是一个 Twitter 文档页面。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:5833
+#: ../root/static/scripts/edit/URLCleanup.js:5987
 msgid "Please link to Twitter profiles, not tweets."
 msgstr "请链接至 Twitter 个人资料，而非推文。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:5851
+#: ../root/static/scripts/edit/URLCleanup.js:6005
 msgid "This site does not allow direct links to their images."
 msgstr "此网站不允许图片直链。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:6057
+#: ../root/static/scripts/edit/URLCleanup.js:6211
 msgid ""
 "Please link to the “{allowed_url_pattern}” page rather than this "
 "“{current_url_pattern}” link."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6187
+#: ../root/static/scripts/edit/URLCleanup.js:6341
 msgid ""
 "There is an unencoded “?” or “#” character in this URL. Please check whether "
 "it is useless and should be removed, or whether it is an error and the URL "
@@ -14983,25 +14997,25 @@ msgstr ""
 "此 URL 中有未编码的 “?” 或 “#” 字符。请检查它们是否是无用的，并且应该被移除，"
 "或是 URL 被错误编码。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:6207
+#: ../root/static/scripts/edit/URLCleanup.js:6361
 msgid ""
 "Please do not link directly to WhoSampled “{unwanted_url_pattern}” pages. "
 "Link to the appropriate WhoSampled artist, track or album page instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6228
+#: ../root/static/scripts/edit/URLCleanup.js:6382
 msgid "Please link WhoSampled “{album_url_pattern}” pages to release groups."
 msgstr "请将 WhoSampled “{album_url_pattern}” 页面链接至专辑组。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:6246
+#: ../root/static/scripts/edit/URLCleanup.js:6400
 msgid "Please link WhoSampled artist pages to artists."
 msgstr "请将 WhoSampled 艺术家页面链接至艺术家。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:6258
+#: ../root/static/scripts/edit/URLCleanup.js:6412
 msgid "Please link WhoSampled track pages to recordings."
 msgstr "请将 WhoSampled 音轨页面链接至录音。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:6325
+#: ../root/static/scripts/edit/URLCleanup.js:6479
 msgid ""
 "Links to specific sections of Wikipedia articles are not allowed. Please "
 "remove “{fragment}” if still appropriate. See the {url|guidelines}."
@@ -15009,13 +15023,13 @@ msgstr ""
 "不允许链接至维基百科文字的特定部分。如果合适，请移除 “{fragment}”。详见  "
 "{url|指南}。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:6350
+#: ../root/static/scripts/edit/URLCleanup.js:6504
 msgid ""
 "Links to Wikipedia user pages are not allowed. Please link only to actual "
 "Wikipedia articles."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6470
+#: ../root/static/scripts/edit/URLCleanup.js:6624
 msgid ""
 "This is a playlist link, which isn’t a video channel and is not guaranteed "
 "to be officially approved. Please link to the official channel for this "
@@ -15024,17 +15038,17 @@ msgstr ""
 "这是一个播放列表链接，不是视频频道，也不能保证得到官方批准。如果该实体存在，"
 "请链接到该实体的官方频道。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:6510
+#: ../root/static/scripts/edit/URLCleanup.js:6664
 msgid "Only video and playlist links are allowed on releases."
 msgstr "专辑只能有视频或播放列表链接。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:6555
+#: ../root/static/scripts/edit/URLCleanup.js:6709
 msgid ""
 "This is a release (playlist) link, not an artist channel. Please link to the "
 "artist channel instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6591
+#: ../root/static/scripts/edit/URLCleanup.js:6745
 #, fuzzy
 #| msgid ""
 #| "Please link to a specific video. Add channel pages to the relevant "
@@ -15044,7 +15058,7 @@ msgid ""
 "to the relevant recordings instead."
 msgstr "请链接到具体的视频。添加相关的歌手，标签等渠道页面。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:6601
+#: ../root/static/scripts/edit/URLCleanup.js:6755
 #, fuzzy
 #| msgid ""
 #| "Please link to a specific video. Add channel pages to the relevant "
@@ -15054,7 +15068,7 @@ msgid ""
 "relevant artists instead."
 msgstr "请链接到具体的视频。添加相关的歌手，标签等渠道页面。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:6611
+#: ../root/static/scripts/edit/URLCleanup.js:6765
 #, fuzzy
 #| msgid ""
 #| "This is a redirect link. Please follow {redirect_url|your link} and add "
@@ -15065,31 +15079,31 @@ msgid ""
 msgstr ""
 "这是一个重定向链接。请关注{redirect_url|您的链接}并添加它重定向后的链接。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:6653
+#: ../root/static/scripts/edit/URLCleanup.js:6807
 msgid ""
 "Wikipedia normally has no entries for specific releases, so adding Wikipedia "
 "links to a release is currently blocked. Please add this Wikipedia link to "
 "the release group instead, if appropriate."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6665
+#: ../root/static/scripts/edit/URLCleanup.js:6819
 msgid ""
 "Wikidata normally has no entries for specific releases, so adding Wikidata "
 "links to a release is currently blocked. Please add this Wikidata link to "
 "the release group instead, if appropriate."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6876
+#: ../root/static/scripts/edit/URLCleanup.js:7030
 msgid "Some relationship types are missing for this URL."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6893
-#: ../root/static/scripts/edit/externalLinks.js:1047
+#: ../root/static/scripts/edit/URLCleanup.js:7047
+#: ../root/static/scripts/edit/externalLinks.js:1073
 msgid "This relationship type combination is invalid."
 msgstr ""
 
 #: ../root/static/scripts/edit/check-duplicates.js:156
-#: ../root/static/scripts/edit/externalLinks.js:728
+#: ../root/static/scripts/edit/externalLinks.js:748
 #: ../root/static/scripts/release/components/EditWorkDialog.js:175
 msgid "Required field."
 msgstr "必填项。"
@@ -15131,58 +15145,63 @@ msgid "Add a new work"
 msgstr "添加新作品"
 
 #: ../root/static/scripts/edit/components/ArtistCreditBubble.js:60
+#, fuzzy
+#| msgid ""
+#| "Use the following fields to enter collaborations. See the {ac|Artist "
+#| "Credit} documentation for more information."
 msgid ""
-"Use the following fields to enter collaborations. See the {ac|Artist Credit} "
-"documentation for more information."
+"Use the following fields to enter artist name variations and multiple artist "
+"collaborations. See the {ac|Artist Credit} documentation for more "
+"information."
 msgstr ""
 "使用以下表单栏来输入合作关系。如需更多信息请参见 {ac|艺术家名单} 文档。"
 
-#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:75
+#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:76
 msgid "[missing track name]"
 msgstr "[缺失音轨名称]"
 
-#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:78
+#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:79
 msgid "You haven’t entered a track name yet."
 msgstr "您还没有输入音轨名称。"
 
-#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:79
+#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:80
 msgid "This track hasn’t been added yet."
 msgstr ""
 
-#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:97
+#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:98
 msgid "Artist in MusicBrainz:"
 msgstr "MusicBrainz 中的艺术家："
 
-#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:98
+#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:99
 msgid "Artist as credited:"
 msgstr ""
 
-#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:99
+#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:100
 msgid "Join phrase:"
 msgstr "连接词："
 
-#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:123
+#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:124
 #, fuzzy
 #| msgid "Add Artist Credit"
 msgctxt "interactive"
 msgid "Add artist credit"
 msgstr "添加艺术家信息"
 
-#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:135
+#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:136
 msgid "Change all artists on this release that match “{name}”"
 msgstr "修改此专辑内匹配 “{name}” 的所有艺术家"
 
-#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:139
+#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:140
 msgid "Change all artists on this release that are currently empty"
 msgstr ""
 
-#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:150
+#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:151
 #, fuzzy
 #| msgid "Copy Credits"
 msgid "Copy credits"
 msgstr "复制名单"
 
-#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:157
+#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:158
 #, fuzzy
 #| msgid "Paste Credits"
 msgid "Paste credits"
@@ -15219,12 +15238,12 @@ msgstr ""
 msgid "This entity has open edits."
 msgstr ""
 
-#: ../root/static/scripts/edit/components/ExternalLinkAttributeDialog.js:192
+#: ../root/static/scripts/edit/components/ExternalLinkAttributeDialog.js:219
 #: ../root/static/scripts/relationship-editor/components/DialogDatePeriod.js:202
 msgid "This relationship has ended."
 msgstr "此关联已终止"
 
-#: ../root/static/scripts/edit/components/ExternalLinkAttributeDialog.js:227
+#: ../root/static/scripts/edit/components/ExternalLinkAttributeDialog.js:259
 #, fuzzy
 #| msgid "Edit Attributes"
 msgctxt "interactive"
@@ -15342,150 +15361,169 @@ msgctxt "interactive"
 msgid "Edit URL"
 msgstr "修改URL"
 
+#: ../root/static/scripts/edit/components/UrlRelationshipCreditFieldset.js:37
+#, fuzzy
+#| msgid "Credits"
+msgid "Credit"
+msgstr "贡献名单"
+
+#: ../root/static/scripts/edit/components/UrlRelationshipCreditFieldset.js:40
+#, fuzzy
+#| msgid "Credited as"
+msgid "Credited to"
+msgstr "署名为"
+
 #: ../root/static/scripts/edit/components/forms.js:104
 #: ../root/static/scripts/edit/confirmNavigationFallback.js:44
 #: ../root/static/scripts/release-editor/init.js:337
 msgid "All of your changes will be lost if you leave this page."
 msgstr "如果离开此网页，您的所有更改将会丢失。"
 
-#: ../root/static/scripts/edit/externalLinks.js:740
+#: ../root/static/scripts/edit/externalLinks.js:760
 msgid ""
 "“{example_url}” is just an example. Please enter the actual link you want to "
 "add."
 msgstr "“{example_url}”只是一个例子。请输入你想添加的实际链接。"
 
-#: ../root/static/scripts/edit/externalLinks.js:748
+#: ../root/static/scripts/edit/externalLinks.js:768
 msgid ""
 "Links to MusicBrainz URLs are not allowed. Did you mean to paste something "
 "else?"
 msgstr "不允许添加 MusicBrainz 的 URL。您是想要粘贴其他 URL 吗？"
 
-#: ../root/static/scripts/edit/externalLinks.js:755
+#: ../root/static/scripts/edit/externalLinks.js:775
 msgid ""
 "Please don’t enter CritiqueBrainz links — reviews are automatically linked "
 "from the “{reviews_tab_name}” tab."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:763
+#: ../root/static/scripts/edit/externalLinks.js:783
 msgid ""
 "Links to this website are not allowed because it is known to host malware."
 msgstr "不允许添加此网站的链接，因为它是已知的恶意网站。"
 
-#: ../root/static/scripts/edit/externalLinks.js:769
+#: ../root/static/scripts/edit/externalLinks.js:789
 msgid ""
 "Please don’t enter bundled/shortened URLs, enter the destination URL(s) "
 "instead."
 msgstr "请勿输入捆绑链接或短链接，请输入目标网站 URL。"
 
-#: ../root/static/scripts/edit/externalLinks.js:775
+#: ../root/static/scripts/edit/externalLinks.js:795
 msgid ""
 "Please don’t enter Google AMP links, since they are effectively an extra "
 "redirect. Enter the destination URL instead."
 msgstr ""
 "请勿输入 Google AMP 链接，因为它们只是一次额外的重定向。请输入目标 URL。"
 
-#: ../root/static/scripts/edit/externalLinks.js:782
+#: ../root/static/scripts/edit/externalLinks.js:802
 msgid ""
 "Please don’t enter links to search results. If you’ve found any links "
 "through your search that seem useful, do enter those instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:789
+#: ../root/static/scripts/edit/externalLinks.js:809
 msgid "Please select a link type for the URL you’ve entered."
 msgstr "请为您输入的 URL 选择一个链接类型。"
 
-#: ../root/static/scripts/edit/externalLinks.js:809
+#: ../root/static/scripts/edit/externalLinks.js:829
 #: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:991
 #: ../root/static/scripts/relationship-editor/components/RelationshipEditor.js:544
 msgid "This relationship already exists."
 msgstr "此关联已存在。"
 
-#: ../root/static/scripts/edit/externalLinks.js:821
+#: ../root/static/scripts/edit/externalLinks.js:841
 #: ../root/static/scripts/relationship-editor/components/DialogSourceEntity.js:61
 msgid ""
 "This URL is not allowed for the selected link type, or is incorrectly "
 "formatted."
 msgstr "此 URL 不适用于选中的链接类型，或格式错误。"
 
-#: ../root/static/scripts/edit/externalLinks.js:826
+#: ../root/static/scripts/edit/externalLinks.js:846
 msgid "This URL is not allowed for the selected link type."
 msgstr "此 URL 不适用于选中的链接类型。"
 
-#: ../root/static/scripts/edit/externalLinks.js:832
+#: ../root/static/scripts/edit/externalLinks.js:852
 msgid "This URL is not allowed for areas."
 msgstr "此 URL 不适用于地区。"
 
-#: ../root/static/scripts/edit/externalLinks.js:835
+#: ../root/static/scripts/edit/externalLinks.js:855
 msgid "This URL is not allowed for artists."
 msgstr "此 URL 不适用于艺术家。"
 
-#: ../root/static/scripts/edit/externalLinks.js:838
+#: ../root/static/scripts/edit/externalLinks.js:858
 msgid "This URL is not allowed for events."
 msgstr "此 URL 不适用于活动。"
 
-#: ../root/static/scripts/edit/externalLinks.js:841
+#: ../root/static/scripts/edit/externalLinks.js:861
 msgid "This URL is not allowed for instruments."
 msgstr "此 URL 不适用于乐器。"
 
-#: ../root/static/scripts/edit/externalLinks.js:844
+#: ../root/static/scripts/edit/externalLinks.js:864
 msgid "This URL is not allowed for labels."
 msgstr "此 URL 不适用于厂牌。"
 
-#: ../root/static/scripts/edit/externalLinks.js:847
+#: ../root/static/scripts/edit/externalLinks.js:867
 msgid "This URL is not allowed for places."
 msgstr "此 URL 不适用于地点。"
 
-#: ../root/static/scripts/edit/externalLinks.js:850
+#: ../root/static/scripts/edit/externalLinks.js:870
 msgid "This URL is not allowed for recordings."
 msgstr "此 URL 不适用于录音。"
 
-#: ../root/static/scripts/edit/externalLinks.js:853
+#: ../root/static/scripts/edit/externalLinks.js:873
 msgid "This URL is not allowed for releases."
 msgstr "此 URL 不适用于专辑。"
 
-#: ../root/static/scripts/edit/externalLinks.js:856
+#: ../root/static/scripts/edit/externalLinks.js:876
 msgid "This URL is not allowed for release groups."
 msgstr "此 URL 不适用于专辑组。"
 
-#: ../root/static/scripts/edit/externalLinks.js:860
+#: ../root/static/scripts/edit/externalLinks.js:880
 msgid "This URL is not allowed for series."
 msgstr "此 URL 不适用于系列。"
 
-#: ../root/static/scripts/edit/externalLinks.js:863
+#: ../root/static/scripts/edit/externalLinks.js:883
 msgid "This URL is not allowed for works."
 msgstr "此 URL 不适用于作品。"
 
-#: ../root/static/scripts/edit/externalLinks.js:1171
+#: ../root/static/scripts/edit/externalLinks.js:1200
 #: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:322
 msgid "{description} ({url|more documentation})"
 msgstr "{description}（{url|详细文档}）"
 
-#: ../root/static/scripts/edit/externalLinks.js:1220
+#: ../root/static/scripts/edit/externalLinks.js:1260
 #, fuzzy
 #| msgid "Remove relationship"
 msgctxt "interactive"
 msgid "Remove relationship"
 msgstr "移除关系"
 
-#: ../root/static/scripts/edit/externalLinks.js:1307
+#: ../root/static/scripts/edit/externalLinks.js:1334
+#, fuzzy
+#| msgid "credited as “{credit}”"
+msgctxt "relationship credit"
+msgid "credited as “{credit}”"
+msgstr "署名为 “{credit}”"
+
+#: ../root/static/scripts/edit/externalLinks.js:1358
 msgid "video"
 msgstr "视频"
 
-#: ../root/static/scripts/edit/externalLinks.js:1438
+#: ../root/static/scripts/edit/externalLinks.js:1495
 #, fuzzy
 #| msgid "Remove Link"
 msgid "Remove link"
 msgstr "移除链接"
 
-#: ../root/static/scripts/edit/externalLinks.js:1468
+#: ../root/static/scripts/edit/externalLinks.js:1525
 msgid "Add link"
 msgstr "添加链接"
 
-#: ../root/static/scripts/edit/externalLinks.js:1471
+#: ../root/static/scripts/edit/externalLinks.js:1528
 msgid "Add another link"
 msgstr "添加其他链接"
 
-#: ../root/static/scripts/edit/externalLinks.js:1580
+#: ../root/static/scripts/edit/externalLinks.js:1641
 msgid "Add another relationship"
 msgstr "添加其他关联"
 
@@ -15889,7 +15927,21 @@ msgid "The barcode you entered is not a valid EAN code."
 msgstr "您输入的条形码不是有效的 EAN 代码。"
 
 #: ../root/static/scripts/release-editor/validation.js:224
-msgid "The barcode you entered is not a valid UPC or EAN code."
+#, fuzzy
+#| msgid "The barcode you entered is a valid EAN code."
+msgid "The barcode you entered is a valid GTIN code."
+msgstr "您输入的条形码是有效的 EAN 代码。"
+
+#: ../root/static/scripts/release-editor/validation.js:228
+#, fuzzy
+#| msgid "The barcode you entered is not a valid EAN code."
+msgid "The barcode you entered is not a valid GTIN code."
+msgstr "您输入的条形码不是有效的 EAN 代码。"
+
+#: ../root/static/scripts/release-editor/validation.js:235
+#, fuzzy
+#| msgid "The barcode you entered is not a valid UPC or EAN code."
+msgid "The barcode you entered is not a valid UPC, EAN or GTIN code."
 msgstr "您输入的条形码不是有效的 UPC 或 EAN 代码。"
 
 #: ../root/static/scripts/release/components/BatchCreateWorksDialog.js:236

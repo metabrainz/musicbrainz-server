@@ -1215,13 +1215,6 @@ msgstr ""
 "由石材，骨头或木材制成的横吹笛。有10至39厘米长，通常由3个孔，但无孔到5个孔的"
 "变种都有。"
 
-#. name:crumhorn 
-#: DB:instrument/description:348
-#, fuzzy
-#| msgid "Crumhorn used in the 14th to 17th centuries in Europe"
-msgid "Crumhorn used in the 14th to 17th centuries in Europe."
-msgstr "在欧洲14至17世纪应用的克鲁姆双簧管"
-
 #. name:bell 
 #: DB:instrument/description:116
 msgid "Cup or bellshaped bells, these are shook or struck."
@@ -1739,12 +1732,24 @@ msgid ""
 "a96bbbd1-7e44-4e79-b12e-a03ac232db98\">tamborim</a>.<br />"
 msgstr ""
 
+#. name:cornamuse 
+#: DB:instrument/description:510
+msgid ""
+"For the French bagpipe, see <a href=\"/instrument/fc4a9a4d-3901-4c67-"
+"bfe5-5acbcdaef535\">cornemuse du centre</a>.<br /> For Italian cornamusa, "
+"see <a href=\"/instrument/1d865ced-d86a-4277-8914-009740e37887\">bagpipe</a>."
+"<br /> Related to the crumhorn, it was used in the Renaissance. Because only "
+"a paragraph by Praetorius is the only known information, all reconstructions "
+"are approximations."
+msgstr ""
+
 #. name:siku 
 #: DB:instrument/description:569
 msgid ""
-"For the Italian bag-pipe, see <a href=\"/\">zampogna</a>.<br /> Also known "
-"as zampona, traditional Andean panpipe has two rows of pipes tied together "
-"with colourful bands."
+"For the Italian bagpipe, see <a href=\"/"
+"instrument/7186ac40-8154-49d0-8d24-33efd8c2a41e\">zampogna</a>.<br /> Also "
+"known as zampona, traditional Andean panpipe has two rows of pipes tied "
+"together with colourful bands."
 msgstr ""
 
 #. name:chalumeau 
@@ -1770,6 +1775,17 @@ msgid ""
 "traditionally, one in the back."
 msgstr ""
 
+#. name:zampogna 
+#: DB:instrument/description:1192
+msgid ""
+"For the South-American panpipe, see <a href=\"/"
+"instrument/448eeddf-37a3-49f3-9e46-d46ccd821aaf\">siku</a>.<br /> For the "
+"similarly named Greek bagpipe, see <a href=\"/instrument/86cf0eb3-b12d-40eb-"
+"bc32-928a1aebe3b1\">tsampouna</a>.<br /> Made of an entire sheep or "
+"goatskin, it has a single round stock that all chanters and drones are fixed "
+"into."
+msgstr ""
+
 #. name:reed organ 
 #: DB:instrument/description:204
 msgid ""
@@ -1786,11 +1802,10 @@ msgstr ""
 #. name:fiscorn 
 #: DB:instrument/description:1184
 msgid ""
-"For the instrument known in Italy as flicorno see <a href=\"/instrument/"
-"\">saxhorn</a>.<br /> For the instrument known in Spain as fliscorno see <a "
-"href=\"/instrument/fd016966-658e-40db-8fe1-f2235fe1e9a3\">flugelhorn</a>."
-"<br /><br /> Originating in Germanic polka bands, it is used today in "
-"Catalan cobla."
+"For the instrument known in Italy as flicorno see saxhorn.<br /> For the "
+"instrument known in Spain as fliscorno see <a href=\"/instrument/"
+"fd016966-658e-40db-8fe1-f2235fe1e9a3\">flugelhorn</a>.<br /><br /> "
+"Originating in Germanic polka bands, it is used today in Catalan cobla."
 msgstr ""
 
 #. name:diatonic button accordion 
@@ -1801,6 +1816,15 @@ msgid ""
 "keyed MELODION, see <a href=\"/instrument/8ab40df2-106b-4b9b-"
 "a50c-0798ee95da8f\">melodica</a>.<br /> Also known as Melodeon, it has 1 to "
 "2 rows of buttons that each produce two tones (bisonoric)."
+msgstr ""
+
+#. name:tsampouna 
+#: DB:instrument/description:1193
+msgid ""
+"For the similarly named Italian bagpipe, see <a href=\"/"
+"instrument/7186ac40-8154-49d0-8d24-33efd8c2a41e\">zampogna</a>.<br /> Made "
+"of goatskin, it has two chanters and no drones. Its name is a reborrowing of "
+"the Italian."
 msgstr ""
 
 #. name:charumera 
@@ -1832,6 +1856,8 @@ msgid ""
 "American oboe, see <a href=\"/instrument/174e4a7a-dad6-4b3b-95e2-"
 "e3010b53a0ca\">chirimía</a>.<br /> For the mediaeval woodwind, see <a "
 "href=\"/instrument/b4f112c3-d666-47f2-bb85-bae28572ca13\">shawm</a>.<br /> "
+"For the Catalan shawm also called xaramita or xirimita, see <a href=\"/"
+"instrument/ad0ddf4c-05ca-4d9b-a159-8caed25e6bf4\">gralla</a>.<br /><br /> "
 "Used historically since the middle ages on the Iberian islands, its bag is "
 "made of skin and it has one chanter with usually 3 drones, but of these "
 "usually one is real and the others are only decorative."
@@ -2495,6 +2521,14 @@ msgid ""
 msgstr ""
 "自古以来在东南欧和土耳其为人所知，用于舞蹈和其他表演活动中的小型青铜指钹。与"
 "某些手鼓上镶嵌的小钹类似。"
+
+#. name:cimpoi 
+#: DB:instrument/description:1194
+msgid ""
+"Known since the 15th century, it is made of a whole goat or sheep skin with "
+"fur either in or out. It has from 5 to 8 fingerholes and metalwork decorated "
+"wooden chanters."
+msgstr ""
 
 #. name:krakebs 
 #: DB:instrument/description:652
@@ -3185,6 +3219,23 @@ msgid ""
 "singer. While upright versions exist, they are rare."
 msgstr ""
 
+#. name:cabrette 
+#: DB:instrument/description:1195
+msgid ""
+"Not to be confused with chabrette, a Limousin bagpipe.<br /> 19th century "
+"Auvergne goat-skin based bag with double reed chanter and purely decorative "
+"drone in single stock. <br /> Early models were mouth blown, later modified "
+"to have bellows."
+msgstr ""
+
+#. name:crumhorn 
+#: DB:instrument/description:348
+msgid ""
+"Not to be confused with the 17-18 century French court oboe cromorne.<br /> "
+"Used during the Renaissance, its double-reed is inside a windcap and its "
+"body ends in a decorative curve."
+msgstr ""
+
 #. name:tabor 
 #: DB:instrument/description:806
 msgid ""
@@ -3205,6 +3256,17 @@ msgstr ""
 "切莫与波斯鲁特琴<a href=\"/instrument/d50ba107-4930-4e0b-8b3f-ffbea4a1ade1\">"
 "盖查克琴</a>混淆。"
 
+#. name:cornemuse du centre 
+#: DB:instrument/description:1190
+msgid ""
+"Not to be confused with the Renaissance double-reed <a href=\"/"
+"instrument/28527011-9cf4-4dcd-a70c-22042a92a52c\">cornamuse</a>.<br /> For "
+"Italian cornamusa, see <a href=\"/instrument/1d865ced-"
+"d86a-4277-8914-009740e37887\">bagpipe</a>.<br /> While also a general term "
+"for bagpipes in French, they have two telescoping drones with single reeds "
+"and a double-reed chanter."
+msgstr ""
+
 #. name:dulcian 
 #: DB:instrument/description:496
 msgid ""
@@ -3217,18 +3279,19 @@ msgstr ""
 #: DB:instrument/description:408
 msgid ""
 "Not to be confused with zummara or other double clarinets with similar names."
-"<br /> For the multiple bore free reed created in 1880 see Martinshorn.<br /"
-"> For the similarly named single-reed woodwind see <a href=\"/instrument/"
+"<br /> For the multiple bore free reed created in 1880, see Martinshorn.<br /"
+"> For the similarly named single-reed woodwind, see <a href=\"/instrument/"
 "e3511ed1-3d73-4340-880f-c8ccc8eda11c\">chalumeau</a>.<br /> For the Japanese "
 "descendant named from Portuguese, see <a href=\"/instrument/07b91470-"
 "b63e-41e4-88e6-11c4acac064f\">charumera</a>.<br /> For the Catalan shawm, "
 "see <a href=\"/instrument/dffe56f5-cd75-4392-ad31-1c3abf2b8e37\"> tible</a>."
-"<br /> For the Italian ciaramella see <a href=\"/"
+"<br /> For the Italian ciaramella, see <a href=\"/"
 "instrument/814816db-3368-4889-a8cd-aa34bd1043f0\">piffero</a>.<br /> For the "
-"bagpipe, see xeremia.<br /><br /> European medieval and renaissance conical "
-"bore double-reed woodwind, two types evolved; one from Middle-eastern "
-"instruments and one from bagpipe chanters. A combination of both where used "
-"to develop the modern oboe."
+"bagpipe, see <a href=\"/instrument/21d5d4ec-f8ef-44dc-b02f-e564de057dcc\"> "
+"xeremies</a>.<br /><br /> European medieval and Renaissance conical bore "
+"double-reed woodwind, two types evolved; one from Middle-Eastern instruments "
+"and one from bagpipe chanters. A combination of both were used to develop "
+"the modern oboe."
 msgstr ""
 
 #. name:oboe 
@@ -3751,6 +3814,13 @@ msgid ""
 msgstr ""
 "可能追溯到公元前6000年，是吉尔吉斯/柯尔克孜族的民族象征。由一整块杏木或刺柏木"
 "制成，具3根肠弦，在东欧很多地区有衍生品。"
+
+#. name:cobla de tres quartans 
+#: DB:instrument/description:1189
+msgid ""
+"Precursor of the cobla used in sardana, it was in use since the medieval "
+"period."
+msgstr ""
 
 #. name:baroque guitar 
 #: DB:instrument/description:917
@@ -4308,6 +4378,13 @@ msgstr ""
 "特殊版本的筒排琴，用于哇扬筒排琴甘美兰演奏。按斯连德罗调音，演奏一至两对，使"
 "用同一只手演奏和湿润琴键。"
 
+#. name:sordellina 
+#: DB:instrument/description:1191
+msgid ""
+"Starting as a pastoral folk bellows blown bagpipe, it was developed into a "
+"complex 2, then 3 and finally 4 chanter with keyed regulators."
+msgstr ""
+
 #. name:jantar 
 #: DB:instrument/description:1032
 msgid ""
@@ -4692,14 +4769,6 @@ msgid ""
 "The citole is an archaic musical instrument, similar to and a distant "
 "ancestor of the modern guitar."
 msgstr "西特琴是一种古代乐器，类似于吉他，是现代吉他的远祖。"
-
-#. name:cornamuse 
-#: DB:instrument/description:510
-msgid ""
-"The cornamuse is a double reed instrument from the Renaissance, similar to "
-"the crumhorn but with a closed bell."
-msgstr ""
-"柯纳慕斯管是文艺复兴时期的双簧乐器，类似于克鲁姆双簧管，但管口呈闭合状。"
 
 #. name:cò ke 
 #: DB:instrument/description:309
@@ -6879,6 +6948,17 @@ msgstr "越南苗族笛(苗族长笛)"
 #: DB:instrument/description:314
 msgid "trắng jâu bass form of trắng lu"
 msgstr "章瑶笛，章卢笛的低音版"
+
+#, fuzzy
+#~| msgid "Crumhorn used in the 14th to 17th centuries in Europe"
+#~ msgid "Crumhorn used in the 14th to 17th centuries in Europe."
+#~ msgstr "在欧洲14至17世纪应用的克鲁姆双簧管"
+
+#~ msgid ""
+#~ "The cornamuse is a double reed instrument from the Renaissance, similar "
+#~ "to the crumhorn but with a closed bell."
+#~ msgstr ""
+#~ "柯纳慕斯管是文艺复兴时期的双簧乐器，类似于克鲁姆双簧管，但管口呈闭合状。"
 
 #~ msgid "Balafon, Malian 'gourd xylophone'"
 #~ msgstr "巴拉风，马里'葫芦木琴 '"

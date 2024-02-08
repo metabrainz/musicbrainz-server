@@ -5792,8 +5792,8 @@ msgstr ""
 msgid "lyrics written in"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:960 DB:link_type/reverse_link_phrase:175
-#: DB:link_type/reverse_link_phrase:79
+#: DB:link_type/reverse_link_phrase:79 DB:link_type/reverse_link_phrase:960
+#: DB:link_type/reverse_link_phrase:175
 msgid "mail-order purchase page for"
 msgstr "σελίδα για αγορά μέσω αλληλογραφίας για"
 
@@ -6659,8 +6659,8 @@ msgstr ""
 msgid "purchase for download"
 msgstr "κατέβασμα με πληρωμή"
 
-#: DB:link_type/link_phrase:79 DB:link_type/name:960 DB:link_type/name:175
-#: DB:link_type/name:79 DB:link_type/name:913
+#: DB:link_type/link_phrase:79 DB:link_type/name:79 DB:link_type/name:960
+#: DB:link_type/name:175 DB:link_type/name:913
 msgid "purchase for mail-order"
 msgstr "αγορά μέσω αλληλογραφίας"
 

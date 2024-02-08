@@ -71,7 +71,7 @@ test 'get_by_gid with non existent GID' => sub {
 
 test 'Updating a link attribute invalidates cache entries for links' => sub {
     my $test = shift;
-    my $c = $test->cache_aware_c;
+    my $c = $test->c;
 
     $c->sql->do(<<~'SQL');
         INSERT INTO link (id, link_type, attribute_count)

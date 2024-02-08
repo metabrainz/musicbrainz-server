@@ -20,20 +20,21 @@
 # t0n3t <email address hidden>, 2012
 # reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2023, 2024.
 # ChurruKa <churruka@hangar18.cc>, 2023.
+# yvanzo <yvanzo@users.noreply.translations.metabrainz.org>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-01-04 11:06+0000\n"
-"Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
-".org>\n"
+"PO-Revision-Date: 2024-01-26 13:28+0000\n"
+"Last-Translator: reosarevok <reosarevok@users.noreply.translations."
+"metabrainz.org>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
-" ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
+"0) ? 1 : 2);\n"
 "X-Generator: Weblate 5.3\n"
 
 #: DB:link_attribute_type/description:1355
@@ -1897,7 +1898,6 @@ msgstr ""
 
 #: DB:link_type/description:1230
 #, fuzzy
-#| msgid "This indicates that the recording is of a live performance."
 msgid ""
 "This indicates the artist was the choreographer for this video recording."
 msgstr "Indica que la grabación es de una actuación en vivo."
@@ -4438,7 +4438,9 @@ msgstr "versión"
 
 #: DB:link_type/link_phrase:78
 msgid "cover art"
-msgstr "imagen"
+msgstr ""
+"Portada\n"
+"Caratula"
 
 #: DB:link_type/reverse_link_phrase:78
 msgid "cover art for"
@@ -4632,7 +4634,7 @@ msgstr ""
 
 #: DB:link_type/name:309
 msgid "edit"
-msgstr ""
+msgstr "editar"
 
 #: DB:link_type/link_phrase:309
 msgid "edit of"
@@ -5821,8 +5823,8 @@ msgstr ""
 msgid "lyrics written in"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:960 DB:link_type/reverse_link_phrase:175
-#: DB:link_type/reverse_link_phrase:79
+#: DB:link_type/reverse_link_phrase:79 DB:link_type/reverse_link_phrase:960
+#: DB:link_type/reverse_link_phrase:175
 msgid "mail-order purchase page for"
 msgstr "página de compra por correo para"
 
@@ -6688,8 +6690,8 @@ msgstr ""
 msgid "purchase for download"
 msgstr "comprar para descarga"
 
-#: DB:link_type/link_phrase:79 DB:link_type/name:960 DB:link_type/name:175
-#: DB:link_type/name:79 DB:link_type/name:913
+#: DB:link_type/link_phrase:79 DB:link_type/name:79 DB:link_type/name:960
+#: DB:link_type/name:175 DB:link_type/name:913
 msgid "purchase for mail-order"
 msgstr "comprar por correo"
 

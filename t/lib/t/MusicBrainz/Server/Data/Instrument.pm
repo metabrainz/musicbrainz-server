@@ -51,7 +51,7 @@ test 'Load basic data' => sub {
 
 test 'Create, update, delete instruments' => sub {
     my $test = shift;
-    my $c = $test->cache_aware_c;
+    my $c = $test->c;
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+data_instrument');
 

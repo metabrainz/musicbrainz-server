@@ -13,13 +13,14 @@
 # salo.rock, 2022-2023
 # Valentina Menale <email address hidden>, 2016
 # "salo.rock" <salo.rock+musicbrainz@gmail.com>, 2023.
-# "salo.rock" <salo.rock@users.noreply.translations.metabrainz.org>, 2023.
+# "salo.rock" <salo.rock@users.noreply.translations.metabrainz.org>, 2023, 2024.
 # yvanzo <yvanzo@users.noreply.translations.metabrainz.org>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-01-03 15:49+0000\n"
-"Last-Translator: yvanzo <yvanzo@users.noreply.translations.metabrainz.org>\n"
+"PO-Revision-Date: 2024-01-28 09:28+0000\n"
+"Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
+"metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
 "musicbrainz/instruments/it/>\n"
 "Language: it\n"
@@ -891,6 +892,11 @@ msgctxt "Modern wood and metal-bead shaker"
 msgid "cabasa"
 msgstr "cabassa"
 
+#: DB:instrument/name:1195
+msgctxt "Auvergnat bagpipe"
+msgid "cabrette"
+msgstr "cabrette"
+
 #: DB:instrument/name:903
 msgctxt "Brazilian Samba snare-drum"
 msgid "caixa"
@@ -1052,6 +1058,11 @@ msgctxt "19th century bass trombone"
 msgid "cimbasso"
 msgstr "cimbasso"
 
+#: DB:instrument/name:1194
+msgctxt "Romanian & Moldovan bagpipe"
+msgid "cimpoi"
+msgstr "cimpoi"
+
 #: DB:instrument/name:761
 msgid "citole"
 msgstr "citola"
@@ -1121,6 +1132,11 @@ msgctxt "Folk/classical Catalonian music ensemble"
 msgid "cobla"
 msgstr "cobla"
 
+#: DB:instrument/name:1189
+msgctxt "Catalonian ancient cobla ensemble"
+msgid "cobla de tres quartans"
+msgstr "cobla de tres quartans"
+
 #: DB:instrument/name:414
 msgid "concert flute"
 msgstr "flauto traverso (flauto da concerto)"
@@ -1176,8 +1192,14 @@ msgid "cor anglais"
 msgstr "corno inglese"
 
 #: DB:instrument/name:510
+msgctxt "Renaissance capped double-reed"
 msgid "cornamuse"
 msgstr "cornamusa rinascimentale"
+
+#: DB:instrument/name:1190
+msgctxt "French two-drone bagpipes"
+msgid "cornemuse du centre"
+msgstr "cornamusa del centro Francia"
 
 #: DB:instrument/name:25
 msgctxt "19th century brass trumpet-like"
@@ -1204,6 +1226,7 @@ msgid "crotales"
 msgstr "crotali"
 
 #: DB:instrument/name:348
+msgctxt "Curved capped double reed"
 msgid "crumhorn"
 msgstr "cromorno"
 
@@ -3613,6 +3636,11 @@ msgstr "sassofono soprano"
 msgid "soprano violin"
 msgstr "violino soprano"
 
+#: DB:instrument/name:1191
+msgctxt "Complex Neapolitan bagpipe"
+msgid "sordellina"
+msgstr "sordellina"
+
 #: DB:instrument/name:151
 msgid "sousaphone"
 msgstr "sousafono"
@@ -4102,6 +4130,11 @@ msgstr "trắng lu"
 msgid "trống bông"
 msgstr "trống bông"
 
+#: DB:instrument/name:1193
+msgctxt "Greek double chanter droneless bagpipe"
+msgid "tsampouna"
+msgstr "tsampouna"
+
 #: DB:instrument/name:34
 msgid "tuba"
 msgstr "tuba"
@@ -4491,6 +4524,11 @@ msgstr "yueqin"
 #: DB:instrument/name:715
 msgid "zabumba"
 msgstr "zabumba"
+
+#: DB:instrument/name:1192
+msgctxt "Large Italian bagpipe"
+msgid "zampogna"
+msgstr "zampogna"
 
 #: DB:instrument/name:328
 msgid "zarb"

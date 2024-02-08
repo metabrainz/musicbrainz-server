@@ -1714,6 +1714,8 @@ sub update_amazon_asin {
             { id => $release->id },
         );
     }
+
+    $self->_delete_from_cache($release_id);
 }
 
 __PACKAGE__->meta->make_immutable;
