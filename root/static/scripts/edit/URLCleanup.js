@@ -5413,7 +5413,7 @@ const CLEANUPS: CleanupEntries = {
   },
   'spotify': {
     match: [new RegExp(
-      '^(https?://)?([^/]+\\.)?(spotify\\.(?:com|link))/' +
+      '^(https?://)?(((?!shop)[^/])+\.)?(spotify\\.(?:com|link))/' +
       '(?!(?:intl-[a-z]+/)?user)',
       'i',
     )],
@@ -5464,6 +5464,27 @@ const CLEANUPS: CleanupEntries = {
         return {result: false, target: ERROR_TARGETS.ENTITY};
       }
       return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
+  'spotifyshop': {
+    match: [new RegExp('^(https?://)?shop\\.spotify\\.com/', 'i')],
+    restrict: [LINK_TYPES.downloadpurchase, LINK_TYPES.mailorder],
+    clean: function (url) {
+      url = url.replace(/^(?:https?:\/\/)?shop\.spotify\.com\/([^?#]+)(?:[?#].*)?$/, 'https://shop.spotify.com/$1');
+      return url;
+    },
+    validate: function (url, id) {
+      switch (id) {
+        case LINK_TYPES.downloadpurchase.recording:
+        case LINK_TYPES.downloadpurchase.release:
+        case LINK_TYPES.mailorder.recording:
+        case LINK_TYPES.mailorder.release:
+          return {
+            result: /^https:\/\/shop\.spotify\.com\/[^?#]+$/.test(url),
+            target: ERROR_TARGETS.URL,
+          };
+      }
+      return {result: false, target: ERROR_TARGETS.ENTITY};
     },
   },
   'spotifyuseraccount': {
