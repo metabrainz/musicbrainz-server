@@ -14,9 +14,11 @@ const dateRegex = /^(\d{4}|\?{4}|-)(?:-(\d{2}|\?{2}|-)(?:-(\d{2}|\?{2}|-))?)?$/;
 function parseDate(str: string): PartialDateT {
   const match = str.match(dateRegex) || [];
   return {
+    /* eslint-disable sort-keys */
     year: parseIntegerOrNull(match[1]),
     month: parseIntegerOrNull(match[2]),
     day: parseIntegerOrNull(match[3]),
+    /* eslint-enable sort-keys */
   };
 }
 

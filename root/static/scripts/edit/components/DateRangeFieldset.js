@@ -187,6 +187,10 @@ const DateRangeFieldset = (React.memo<PropsT>(({
               Partial dates such as YYYY-MM or just YYYY are OK,
               or you can omit the date entirely.`)}
         </p>
+        <p>
+          {l(`You can also enter a full date string into the parsing field
+              rather than entering year, month and day separately.`)}
+        </p>
         <FormRowPartialDate
           disabled={disabled}
           dispatch={hooks.beginDateDispatch}

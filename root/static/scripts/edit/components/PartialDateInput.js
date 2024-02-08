@@ -9,6 +9,7 @@
 
 import type {CowContext} from 'mutate-cow';
 
+import parseNaturalDate from '../../common/utility/parseNaturalDate.js';
 import {isDateValid, isYearFourDigits} from '../utility/dates.js';
 import {applyPendingErrors} from '../utility/subfieldErrors.js';
 
@@ -16,7 +17,11 @@ import {applyPendingErrors} from '../utility/subfieldErrors.js';
 export type ActionT =
   | {
       +type: 'set-date',
-      +date: {+year?: string, +month?: string, +day?: string},
+      +date: {
+        +year?: string,
+        +month?: string,
+        +day?: string,
+      },
     }
   | {+type: 'show-pending-errors'};
 /* eslint-enable ft-flow/sort-keys */
@@ -101,6 +106,11 @@ type DatePartPropsT = {
   value?: StrOrNum,
 };
 
+type DateParserPropsT = {
+  onBlur?: () => void,
+  onChange?: (SyntheticEvent<HTMLInputElement>) => void,
+};
+
 const PartialDateInput = (props: Props): React$Element<'span'> => {
   const disabled = props.disabled ?? false;
   const field = props.field;
@@ -109,6 +119,7 @@ const PartialDateInput = (props: Props): React$Element<'span'> => {
   const yearProps: DatePartPropsT = {};
   const monthProps: DatePartPropsT = {};
   const dayProps: DatePartPropsT = {};
+  const parserProps: DateParserPropsT = {};
 
   if (props.uncontrolled) {
     yearProps.defaultValue = field.field.year.value;
@@ -133,6 +144,7 @@ const PartialDateInput = (props: Props): React$Element<'span'> => {
     yearProps.onBlur = handleBlur;
     monthProps.onBlur = handleBlur;
     dayProps.onBlur = handleBlur;
+    parserProps.onBlur = handleBlur;
 
     yearProps.onChange = (event) => handleDateChange(
       event,
@@ -146,6 +158,14 @@ const PartialDateInput = (props: Props): React$Element<'span'> => {
       event,
       'day',
     );
+
+    parserProps.onChange = (event) => {
+      const date = parseNaturalDate(event.currentTarget.value);
+      props.dispatch({
+        date: date,
+        type: 'set-date',
+      });
+    };
 
     yearProps.value = field.field.year.value ?? '';
     monthProps.value = field.field.month.value ?? '';
@@ -190,6 +210,21 @@ const PartialDateInput = (props: Props): React$Element<'span'> => {
         type="text"
         {...dayProps}
       />
+      {props.uncontrolled ? null : (
+        <>
+          {' '}
+          <input
+            className="partial-date-parser"
+            disabled={disabled}
+            id={'id-' + field.html_name + '.partial-date-parser'}
+            name={field.html_name + '.partial-date-parser'}
+            placeholder={l('or paste a full date here')}
+            size={12}
+            type="text"
+            {...parserProps}
+          />
+        </>
+      )}
     </span>
   );
 };
