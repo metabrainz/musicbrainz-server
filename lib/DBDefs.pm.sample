@@ -289,21 +289,12 @@ sub WEB_SERVER                { 'www.musicbrainz.example.com' }
 # sub SESSION_STORE_ARGS { return {} }
 # sub SESSION_EXPIRE { return 36000; } # 10 hours
 
-# Redis by default has 16 numbered databases available, of which DB 0
-# is the default.  Here you can configure which of these databases are
-# used by musicbrainz-server.
-#
-# test_database will be completely erased on each test run, so make
-# sure it doesn't point at any production data you may have in your
-# redis server.
-
 # sub DATASTORE_REDIS_ARGS {
 #     my $self = shift;
 #     return {
 #         database => 0,
 #         namespace => $self->CACHE_NAMESPACE,
 #         server => '127.0.0.1:6379',
-#         test_database => 1,
 #     };
 # }
 

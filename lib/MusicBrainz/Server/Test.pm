@@ -66,27 +66,32 @@ MusicBrainz::Server::DatabaseConnectionFactory->alias('READWRITE' => 'TEST');
 our $test_context;
 our $test_transport = Email::Sender::Transport::Test->new();
 
+sub get_test_context
+{
+    my ($class) = @_;
+
+    $test_context //= $class->create_test_context;
+    return $test_context;
+}
+
 sub create_test_context
 {
     my ($class, %args) = @_;
 
-    $test_context ||= do {
-        my $cache_manager = MusicBrainz::Server::CacheManager->new(
-            profiles => {
-                null => {
-                    class => 'Cache::Null',
-                    wrapped => 1,
-                },
-            },
-            default_profile => 'null',
-        );
-        MusicBrainz::Server::Context->new(
-            cache_manager => $cache_manager,
-            %args,
-        );
-    };
+    my $cache_opts = DBDefs->CACHE_MANAGER_OPTIONS;
+    my $store_opts = DBDefs->DATASTORE_REDIS_ARGS;
 
-    return $test_context;
+    $cache_opts->{profiles}{external}{options}{database} =
+        DBDefs->REDIS_TEST_DATABASE;
+    $store_opts->{database} =
+        DBDefs->REDIS_TEST_DATABASE;
+
+    return MusicBrainz::Server::Context->new(
+        cache_manager =>
+            MusicBrainz::Server::CacheManager->new(%$cache_opts),
+        store => MusicBrainz::DataStore::Redis->new(%$store_opts),
+        %args,
+    );
 }
 
 sub _load_query

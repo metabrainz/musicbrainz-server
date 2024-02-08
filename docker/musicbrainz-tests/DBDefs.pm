@@ -81,6 +81,7 @@ sub CACHE_MANAGER_OPTIONS {
                 options => {
                     server => 'localhost:6379',
                     namespace => $self->CACHE_NAMESPACE,
+                    database => 0,
                 },
             },
         },
@@ -104,7 +105,6 @@ sub DATASTORE_REDIS_ARGS {
         database => 0,
         namespace => $self->CACHE_NAMESPACE,
         server => 'localhost:6379',
-        test_database => 1,
     };
 }
 
@@ -134,6 +134,7 @@ sub PLUGIN_CACHE_OPTIONS {
         class => 'MusicBrainz::Server::CacheWrapper::Redis',
         server => 'localhost:6379',
         namespace => $self->CACHE_NAMESPACE . 'Catalyst:',
+        database => 0,
     };
 }
 

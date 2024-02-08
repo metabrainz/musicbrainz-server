@@ -25,13 +25,9 @@ sub _build_context {
 
     if ($ENV{MUSICBRAINZ_RUNNING_TESTS}) {
         require MusicBrainz::Server::Test;
-        return MusicBrainz::Server::Test->create_test_context;
+        return MusicBrainz::Server::Test->get_test_context;
     } else {
-        my $cache_opts = DBDefs->CACHE_MANAGER_OPTIONS;
-        my $c = MusicBrainz::Server::Context->new(
-            cache_manager => MusicBrainz::Server::CacheManager->new($cache_opts),
-        );
-        return $c;
+        return MusicBrainz::Server::Context->new;
     }
 }
 

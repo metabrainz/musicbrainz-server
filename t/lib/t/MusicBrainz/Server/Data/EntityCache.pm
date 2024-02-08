@@ -5,104 +5,41 @@ use warnings;
 use Test::Routine;
 use Test::Moose;
 use Test::More;
-
-{
-    package MyEntityData;
-    use Moose;
-    use namespace::autoclean;
-
-    extends 'MusicBrainz::Server::Data::Entity';
-    sub _type { 'my_entity_data' }
-    sub get_by_ids
-    {
-        my $self = shift;
-        $self->get_called(1);
-        return { 1 => 'data' };
-    }
-
-    package MyCachedEntityData;
-    use Moose;
-    use namespace::autoclean;
-
-    extends 'MyEntityData';
-    with 'MusicBrainz::Server::Data::Role::EntityCache';
-    has 'get_called' => ( is => 'rw', isa => 'Bool', default => 0 );
-    sub _cache_id { 1 }
-
-    package MockCache;
-    use Moose;
-    use namespace::autoclean;
-
-    has 'data' => ( is => 'rw', isa => 'HashRef', default => sub { +{} } );
-    has 'get_called' => ( is => 'rw', isa => 'Bool', default => 0 );
-    has 'set_called' => ( is => 'rw', isa => 'Bool', default => 0 );
-    sub get
-    {
-        my ($self, $key) = @_;
-        $self->get_called(1);
-        return $self->data->{$key};
-    }
-    sub set
-    {
-        my ($self, $key, $data) = @_;
-        $self->set_called(1);
-        $self->data->{$key} = $data;
-    }
-}
-
-use MusicBrainz::Server::CacheManager;
 use MusicBrainz::Server::Context;
 
-with 't::Context' => { -excludes => '_build_context' };
-
-sub _build_context {
-    my $cache_manager = MusicBrainz::Server::CacheManager->new(
-        profiles => {
-            test => {
-                class => 'MockCache',
-                wrapped => 1,
-                keys => ['my_entity_data'],
-            },
-        },
-        default_profile => 'test',
-    );
-
-    return MusicBrainz::Server::Context->new(cache_manager => $cache_manager);
-}
+with 't::Context';
 
 test all => sub {
+    my $test = shift;
+    my $c = $test->c;
+    my $sql = $c->sql;
+    my $cache = $c->cache('artist');
+    my $artist_data = $c->model('Artist');
 
-my $test = shift;
+    $sql->auto_commit(1);
+    $sql->do(<<~'SQL');
+        INSERT INTO artist (id, gid, name, sort_name)
+            VALUES (3, 'e7717242-d43f-46e0-b5ef-9a46ca4d458a', 'Test', 'Test');
+        SQL
 
-my $entity_data = MyCachedEntityData->new(c => $test->c);
+    ok(!$cache->exists('artist:3'),
+       'artist is not in the cache');
 
-my $entity = $entity_data->get_by_id(1);
-is ( $entity, 'data' );
-is ( $entity_data->get_called, 1 );
-is ( $test->c->cache->_orig->get_called, 1 );
-is ( $test->c->cache->_orig->set_called, 1 );
-ok ( $test->c->cache->_orig->data->{'my_entity_data:1'} =~ 'data' );
+    $sql->begin;
+    my $artist = $artist_data->get_by_id(3);
+    $sql->commit;
 
+    is($artist->id, 3,
+       'get_by_id returns artist with id=3 before caching');
+    ok($cache->get('artist:3')->isa('MusicBrainz::Server::Entity::Artist'),
+       'cache contains artist for id');
 
-$entity_data->get_called(0);
-$test->c->cache->_orig->get_called(0);
-$test->c->cache->_orig->set_called(0);
+    $sql->begin;
+    $artist = $artist_data->get_by_id(3);
+    $sql->commit;
 
-$entity = $entity_data->get_by_id(1);
-is ( $entity, 'data' );
-is ( $entity_data->get_called, 0 );
-is ( $test->c->cache->_orig->get_called, 1 );
-is ( $test->c->cache->_orig->set_called, 0 );
-
-
-delete $test->c->cache->_orig->data->{'my_entity_data:1'};
-$entity = $entity_data->get_by_id(1);
-is ( $entity, 'data' );
-is ( $entity_data->get_called, 1 );
-is ( $test->c->cache->_orig->get_called, 1 );
-is ( $test->c->cache->_orig->set_called, 1 );
-ok ( $test->c->cache->_orig->data->{'my_entity_data:1'} =~ 'data' );
-
+    is($artist->id, 3,
+       'get_by_id returns artist with id=3 after caching');
 };
 
 1;

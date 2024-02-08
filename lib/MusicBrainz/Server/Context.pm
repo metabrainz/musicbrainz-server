@@ -13,8 +13,16 @@ use LWP::UserAgent;
 has 'cache_manager' => (
     is => 'ro',
     isa => 'MusicBrainz::Server::CacheManager',
+    lazy => 1,
+    builder => '_build_cache_manager',
+    clearer => 'clear_cache_manager',
     handles => [ 'cache' ],
 );
+
+sub _build_cache_manager {
+    my $cache_opts = DBDefs->CACHE_MANAGER_OPTIONS;
+    return MusicBrainz::Server::CacheManager->new($cache_opts);
+}
 
 has 'connector' => (
     is => 'ro',
@@ -84,8 +92,11 @@ has store => (
     is => 'ro',
     does => 'MusicBrainz::DataStore',
     lazy => 1,
-    default => sub { MusicBrainz::DataStore::RedisMulti->new },
+    builder => '_build_store',
+    clearer => 'clear_store',
 );
+
+sub _build_store { MusicBrainz::DataStore::RedisMulti->new }
 
 # This is not the Catalyst stash, but it's used by
 # MusicBrainz::Server::JSONLookup to trick some controller methods into
@@ -120,6 +131,14 @@ sub create_script_context
     my $cache_manager = MusicBrainz::Server::CacheManager->new(DBDefs->CACHE_MANAGER_OPTIONS);
     return MusicBrainz::Server::Context->new(cache_manager => $cache_manager, database => 'MAINTENANCE', %args);
 }
+
+# `DBDefs::DETERMINE_MAX_REQUEST_TIME` must be called with a Catalyst request
+# object. This attribute stores the result of that call so it can be accessed
+# in the data layer.
+has 'max_request_time' => (
+    is => 'rw',
+    isa => 'Maybe[Int]',
+);
 
 1;
 

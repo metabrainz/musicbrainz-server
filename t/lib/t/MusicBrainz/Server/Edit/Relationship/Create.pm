@@ -114,7 +114,7 @@ test 'Entities load correctly after being merged (MBS-2477)' => sub {
     MusicBrainz::Server::Test->prepare_test_database($c, '+edit_relationship_edit');
 
     my $edit = _create_edit($c);
-    $c->model('Artist')->merge(5, [4]);
+    $c->model('Artist')->merge(5, 4);
     $c->model('Edit')->load_all($edit);
 
     is($edit->display_data->{relationship}{entity1_id}, 5);
