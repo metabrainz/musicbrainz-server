@@ -181,13 +181,16 @@ test 'Merging updates matching names' => sub {
 
 test 'Merging clears the cache' => sub {
     my $test = shift;
-    my $c = $test->cache_aware_c;
+    my $c = $test->c;
     my $cache = $c->cache_manager->_get_cache('external');
     my $artist_credit_data = $c->model('ArtistCredit');
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+artistcredit');
 
+    $c->sql->begin;
     $artist_credit_data->get_by_ids(1);
+    $c->sql->commit;
+
     ok($cache->get('artist_credit:1'), 'cache contains artist credit #1');
 
     $c->sql->begin;
@@ -336,7 +339,7 @@ test 'MBS-13310: Merging artists updates empty artist_credit IDs in unreferenced
         'unreferenced_row_log table was updated correctly',
     );
 
-    $c->model('Artist')->merge(10, [11], rename => 1);
+    $c->model('Artist')->merge_with_opts(10, [11], rename => 1);
 
     cmp_deeply(
         $c->sql->select_list_of_hashes('SELECT * FROM artist_credit'),

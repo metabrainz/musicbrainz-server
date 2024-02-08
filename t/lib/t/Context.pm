@@ -5,35 +5,17 @@ use namespace::autoclean;
 use Carp qw( confess );
 use DBDefs;
 use File::Temp;
+use MusicBrainz::DataStore::Redis;
 use MusicBrainz::Server::Test;
 
 has c => (
     is => 'ro',
     builder => '_build_context',
-);
-
-has cache_aware_c => (
-    is => 'ro',
-    builder => '_build_cache_aware_context',
-    clearer => '_clear_cache_aware_c',
     lazy => 1,
 );
 
 sub _build_context {
-    MusicBrainz::Server::Test->create_test_context();
-}
-
-sub _build_cache_aware_context {
-    my $test = shift;
-
-    my $opts = DBDefs->CACHE_MANAGER_OPTIONS;
-    $opts->{profiles}{external}{options}{namespace} = 'mbtest:';
-
-    return $test->c->meta->clone_object(
-        $test->c,
-        cache_manager => MusicBrainz::Server::CacheManager->new(%$opts),
-        models => {}, # Need to reload models to use this new $c
-    );
+    MusicBrainz::Server::Test->get_test_context;
 }
 
 around run_test => sub {
@@ -42,19 +24,20 @@ around run_test => sub {
 
     MusicBrainz::Server::Test->prepare_test_server;
 
-    $self->c->connector->_disconnect;
+    my $c = $self->c;
 
-    $self->c->sql->begin;
-    $self->_clear_cache_aware_c;
+    $c->sql->begin;
 
     $self->$orig(@_);
 
-    if ($self->c->sql->transaction_depth > 1 ||
-        $self->c->sql->transaction_depth > 1) {
+    if ($c->sql->transaction_depth > 1 ||
+        $c->sql->transaction_depth > 1) {
         confess('Transactions still open after test complete');
     }
 
-    $self->c->sql->rollback;
+    $c->sql->rollback;
+    $c->cache->clear;
+    $c->store->clear;
 };
 
 1;

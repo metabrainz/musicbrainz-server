@@ -244,7 +244,7 @@ $artist_data->update_gid_redirects(3, 4);
 $artist = $artist_data->get_by_gid('2adff2b0-5dbf-11de-8a39-0800200c9a66');
 is($artist->id, 3);
 
-$artist_data->merge(3, [ 4 ]);
+$artist_data->merge(3, 4);
 $artist = $artist_data->get_by_id(4);
 ok(!defined $artist);
 
@@ -295,35 +295,27 @@ $sql->commit;
 test 'Merging with a cache' => sub {
     my $test = shift;
 
-    my $opts = DBDefs->CACHE_MANAGER_OPTIONS;
-    $opts->{profiles}{external}{options}{namespace} = 'mbtest:';
-
-    my $c = $test->c->meta->clone_object(
-        $test->c,
-        cache_manager => MusicBrainz::Server::CacheManager->new(%$opts),
-        models => {}, # Need to reload models to use this new $c
-    );
-
+    my $c = $test->c;
     my $cache = $c->cache_manager->_get_cache('external');
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+data_artist');
 
     $c->sql->begin;
-
     my $artist1 = $c->model('Artist')->get_by_gid('745c079d-374e-4436-9448-da92dedef3ce');
     my $artist2 = $c->model('Artist')->get_by_gid('945c079d-374e-4436-9448-da92dedef3cf');
+    $c->sql->commit;
 
     for my $artist ($artist1, $artist2) {
         ok($cache->get('artist:' . $artist->gid), 'caches artist via GID');
         ok($cache->get('artist:' . $artist->id), 'caches artist via ID');
     }
 
-    $c->model('Artist')->merge($artist1->id, [ $artist2->id ]);
+    $c->sql->begin;
+    $c->model('Artist')->merge($artist1->id, $artist2->id);
+    $c->sql->commit;
 
     ok(!$cache->get('artist:' . $artist2->gid), 'artist 2 no longer in cache (by gid)');
     ok(!$cache->get('artist:' . $artist2->id), 'artist 2 no longer in cache (by id)');
-
-    $c->sql->commit;
 };
 
 test 'Deny delete "Various Artists" trigger' => sub {
@@ -367,7 +359,7 @@ test 'Merging attributes' => sub {
         );
         SQL
 
-    $c->model('Artist')->merge(3, [4, 5]);
+    $c->model('Artist')->merge(3, 4, 5);
     my $artist = $c->model('Artist')->get_by_id(3);
     is($artist->begin_date->year, 2000);
     is($artist->begin_date->month, 6);
@@ -386,7 +378,7 @@ test 'Merging "ended" flag' => sub {
                    (4, '0db63477-bc98-4aac-a76a-28d78971a07c', 'An Artist', 'Artist, An', TRUE);
         SQL
 
-    $c->model('Artist')->merge(3, [4]);
+    $c->model('Artist')->merge(3, 4);
     my $artist = $c->model('Artist')->get_by_id(3);
     ok($artist->ended, 'merge result retains "ended" flag (MBS-6763)');
 };
@@ -416,7 +408,7 @@ test 'Merging attributes for VA' => sub {
         );
         SQL
 
-    $c->model('Artist')->merge(1, [4, 5, 6]);
+    $c->model('Artist')->merge(1, 4, 5, 6);
     my $artist = $c->model('Artist')->get_by_id(1);
 
     is($artist->begin_date->year, undef, 'begin date...');
@@ -508,7 +500,7 @@ test q(Merging an artist that's in a collection) => sub {
     });
 
     $c->model('Collection')->add_entities_to_collection('artist', $collection->{id}, $artist1->{id});
-    $c->model('Artist')->merge($artist2->{id}, [$artist1->{id}]);
+    $c->model('Artist')->merge($artist2->{id}, $artist1->{id});
 
     ok($c->sql->select_single_value('SELECT 1 FROM editor_collection_artist WHERE artist = ?', $artist2->{id}));
 };
