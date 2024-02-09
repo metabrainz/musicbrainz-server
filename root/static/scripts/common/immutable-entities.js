@@ -42,7 +42,7 @@ export const reduceArtistCredit =
  */
 export function reduceArtistCreditNames(
   names: $ReadOnlyArray<ArtistCreditNameT>,
-  dropFinalJoinPhrase?: false,
+  dropFinalJoinPhrase?: boolean = false,
 ): string {
   let s = names.reduce(reduceName, '');
   if (dropFinalJoinPhrase && names.length > 0) {
