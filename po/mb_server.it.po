@@ -35,8 +35,9 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-02-01 14:05+0000\n"
-"PO-Revision-Date: 2024-02-04 04:28+0000\n"
-"Last-Translator: GABG <musicbrainz@gabg.email>\n"
+"PO-Revision-Date: 2024-02-05 02:28+0000\n"
+"Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
+"metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/it/>\n"
 "Language: it\n"
@@ -2924,7 +2925,7 @@ msgstr "Questa traccia è nascosta nel pre-gap."
 #: ../root/search/components/EventResults.js:75
 msgctxt "event"
 msgid "Time"
-msgstr "Tempo"
+msgstr "Orario"
 
 #: ../root/cdstub/cdstub.tt:5 ../root/cdtoc/list.tt:7
 #: ../root/release/edit/information.tt:8 ../root/release/edit/tracklist.tt:162
@@ -3952,18 +3953,12 @@ msgid "The user with ID '{user_id}' could not be found."
 msgstr "Impossibile trovare l'utente con ID '{user_id}'."
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:176
-#, fuzzy
-#| msgid ""
-#| "We were unable to send login information to your email address.  Please "
-#| "try again, however if you continue to experience difficulty contact us at "
-#| "support@musicbrainz.org."
 msgid ""
 "We were unable to send login information to your email address. Please try "
 "again, and if that still doesn’t work, {contact_url|contact us}."
 msgstr ""
 "Non è stato possibile inviare le informazioni di accesso al tuo indirizzo "
-"email.  Per favore prova di nuovo, ma se continui ad incontrare difficoltà "
-"contattaci all'indirizzo support@musicbrainz.org."
+"email. Prova di nuovo e, se il problema persiste, {contact_url|contattaci}."
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:203
 msgid "There is no user with this username"
@@ -4017,21 +4012,14 @@ msgid "Your password has been changed."
 msgstr "La tua password è stata cambiata."
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:745
-#, fuzzy
-#| msgid ""
-#| "<strong>We were unable to send a verification email to you.</strong><br/"
-#| ">Please confirm that you have entered a valid address by editing your "
-#| "{settings|account settings}. If the problem still persists, please "
-#| "contact us at {mail|support@musicbrainz.org}."
 msgid ""
 "<strong>We were unable to send you a verification email.</strong><br/>Please "
 "re-enter your address in your {settings|account settings}. If that still "
 "doesn’t work, {contact_url|contact us}."
 msgstr ""
 "<strong>Non è stato possibile inviarti un'email di verifica.</strong><br/"
-">Assicurati di aver inserito un indirizzo valido modificando le {settings|"
-"impostazioni del tuo account}. Se il problema persiste, contattaci "
-"all'indirizzo {mail|support@musicbrainz.org}."
+">Reinserisci il tuo indirizzo nelle {settings|impostazioni del tuo account}. "
+"Se il problema persiste, {contact_url|contattaci}."
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:828
 msgid "There is no OAuth token with these parameters."
@@ -4247,8 +4235,6 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Controller/Role/EditRelationships.pm:222
 #: ../root/static/scripts/relationship-editor/components/DialogPreview.js:108
 #: ../root/static/scripts/relationship-editor/components/DialogSourceEntity.js:117
-#, fuzzy
-#| msgid "[unknown]"
 msgctxt "generic entity"
 msgid "[unknown]"
 msgstr "[sconosciuto]"
@@ -5036,8 +5022,6 @@ msgid "Remove relationship type"
 msgstr "Rimuovi tipo di relazione"
 
 #: ../lib/MusicBrainz/Server/Edit/Relationship/RemoveLinkType.pm:86
-#, fuzzy
-#| msgid "[removed]"
 msgctxt "relationship attribute type"
 msgid "[removed]"
 msgstr "[rimosso]"
@@ -5063,8 +5047,6 @@ msgid "Add release label"
 msgstr "Aggiungi etichetta alla pubblicazione"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/Create.pm:112
-#, fuzzy
-#| msgid "[removed]"
 msgctxt "release group"
 msgid "[removed]"
 msgstr "[rimosso]"
@@ -5457,8 +5439,6 @@ msgstr "Annullato"
 
 #: ../lib/MusicBrainz/Server/Entity/Barcode.pm:18
 #: ../root/static/scripts/common/utility/formatBarcode.js:15
-#, fuzzy
-#| msgid "[none]"
 msgctxt "barcode"
 msgid "[none]"
 msgstr "[nessuno]"
@@ -7530,8 +7510,6 @@ msgstr "Fine"
 
 #: ../root/cdtoc/CDTocInfo.js:56 ../root/cdtoc/CDTocInfo.js:58
 #: ../root/cdtoc/CDTocInfo.js:60
-#, fuzzy
-#| msgid "Time"
 msgctxt "CD timecode"
 msgid "Time"
 msgstr "Tempo"
@@ -8971,7 +8949,7 @@ msgstr "Annullato"
 
 #: ../root/edit/details/AddEvent.js:77
 msgid "Time"
-msgstr "Tempo"
+msgstr "Orario"
 
 #: ../root/edit/details/AddIsrcs.js:27 ../root/edit/details/EditBarcodes.js:27
 msgid "Client:"
@@ -9200,8 +9178,6 @@ msgid "primary for {locale}"
 msgstr "primario per {locale}"
 
 #: ../root/edit/details/EditAlias.js:78
-#, fuzzy
-#| msgid "[removed]"
 msgctxt "alias"
 msgid "[removed]"
 msgstr "[rimosso]"
@@ -9508,8 +9484,6 @@ msgid "New cover art:"
 msgstr "Nuova copertina:"
 
 #: ../root/edit/details/SetTrackLengths.js:58
-#, fuzzy
-#| msgid "[removed]"
 msgctxt "CD TOC"
 msgid "[removed]"
 msgstr "[rimosso]"
@@ -11066,11 +11040,9 @@ msgstr "Informazioni sulla serie"
 
 #: ../root/layout/components/sidebar/SidebarEndDate.js:38
 #: ../root/static/scripts/common/utility/formatEndDate.js:18
-#, fuzzy
-#| msgid "[unknown]"
 msgctxt "date"
 msgid "[unknown]"
-msgstr "[sconosciuto]"
+msgstr "[sconosciuta]"
 
 #: ../root/layout/components/sidebar/SidebarLicenses.js:141
 msgid "License"
@@ -11207,16 +11179,12 @@ msgstr ""
 "modificare o aggiungere dati al database."
 
 #: ../root/main/error/Error401.js:39 ../root/user/Login.js:90
-#, fuzzy
-#| msgid ""
-#| "If you think this is a mistake, please contact <code>support@musicbrainz."
-#| "org</code> with the name of your account."
 msgid ""
 "If you think this is a mistake, please {contact|contact us} with the name of "
 "your account."
 msgstr ""
-"Se ritieni che si tratti di un errore, contatta <code>support@musicbrainz."
-"org</code> indicando il nome del tuo account."
+"Se ritieni che si tratti di un errore, {contact|contattaci} indicando il "
+"nome del tuo account."
 
 #: ../root/main/error/Error403.js:21 ../root/main/error/MirrorError403.js:13
 msgid "Forbidden request"
@@ -11341,7 +11309,7 @@ msgstr "Potresti riprovare ricaricando la pagina."
 
 #: ../root/main/error/components/ErrorEnvironment.js:27
 msgid "Date and time"
-msgstr ""
+msgstr "Data e ora"
 
 #: ../root/main/error/components/ErrorEnvironment.js:34
 msgid "Host:"
@@ -15188,11 +15156,9 @@ msgid "{title} - {subtitle}"
 msgstr "{title} - {subtitle}"
 
 #: ../root/static/scripts/common/i18n/localizeLanguageName.js:15
-#, fuzzy
-#| msgid "[removed]"
 msgctxt "language"
 msgid "[removed]"
-msgstr "[rimosso]"
+msgstr "[rimossa]"
 
 #: ../root/static/scripts/common/i18n/semicolonOnlyList.js:25
 msgid "{semicolon_only_list_item}; {rest}"
@@ -15804,8 +15770,6 @@ msgid "Edit attributes"
 msgstr "Modifica attributi"
 
 #: ../root/static/scripts/edit/components/Multiselect.js:197
-#, fuzzy
-#| msgid "[removed]"
 msgctxt "generic row"
 msgid "[removed]"
 msgstr "[rimosso]"
@@ -16512,10 +16476,8 @@ msgstr ""
 "di una di queste:"
 
 #: ../root/static/scripts/release-editor/validation.js:178
-#, fuzzy
-#| msgid "The check digit is {checkdigit}."
 msgid "The check digit would be {checkdigit}."
-msgstr "La cifra di controllo è {checkdigit}."
+msgstr "La cifra di controllo sarebbe {checkdigit}."
 
 #: ../root/static/scripts/release-editor/validation.js:179
 msgid "Please double-check the barcode on the release."
@@ -16569,16 +16531,17 @@ msgid ""
 "the annotation field below, and keep the main code “{main_digits}” only in "
 "the barcode field."
 msgstr ""
+"Termina, però, con un codice aggiuntivo. Aggiungilo come “{annotation_text}” "
+"al campo annotazione, più in basso, e mantieni solo il codice principale "
+"“{main_digits}” nel campo codice a barre."
 
 #: ../root/static/scripts/release-editor/validation.js:253
 msgid "The barcode you entered is not a valid GTIN code."
 msgstr "Il codice a barre inserito non è un codice GTIN valido."
 
 #: ../root/static/scripts/release-editor/validation.js:297
-#, fuzzy
-#| msgid "The barcode you entered is a valid UPC code."
 msgid "The barcode you entered is not a valid UPC code."
-msgstr "Il codice a barre inserito è un codice UPC valido."
+msgstr "Il codice a barre inserito non è un codice UPC valido."
 
 #: ../root/static/scripts/release-editor/validation.js:326
 msgid "The barcode you entered is not a valid UPC, EAN or GTIN code."

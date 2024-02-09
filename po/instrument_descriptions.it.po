@@ -18,7 +18,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-01-28 20:28+0000\n"
+"PO-Revision-Date: 2024-02-09 04:28+0000\n"
 "Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
 "metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -27,9 +27,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.3\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
+"X-Generator: Weblate 5.3.1\n"
 
 #. name:rebab 
 #: DB:instrument/description:239
@@ -1241,8 +1241,8 @@ msgid ""
 "and a long angular drone pipe that is balanced over the shoulder, the two "
 "flared pipes have inlaid metal designs and can have goat head decorations."
 msgstr ""
-"Di provenienza ceco-polacca, grande sacca in pelle di capra azionata tramite "
-"il mantice, con una canna del canto a sei fori di diteggiatura e una lunga "
+"Di provenienza ceco-polacca, grande sacca in pelle di capra insufflata a "
+"mantice, con una canna del canto a sei fori di diteggiatura e una lunga "
 "canna di bordone ad angolo che si appoggia sulla spalla; le due canne, con "
 "padiglione a campana, hanno motivi in metallo intarsiato e possono avere "
 "decorazioni a forma di testa di capra."
@@ -1798,6 +1798,13 @@ msgid ""
 "a paragraph by Praetorius is the only known information, all reconstructions "
 "are approximations."
 msgstr ""
+"Per la cornamusa francese, vedi <a href=\"/instrument/"
+"fc4a9a4d-3901-4c67-bfe5-5acbcdaef535\">cornamusa del centro Francia</a>.<br /"
+"> Per lo strumento chiamato cornamusa in italiano, vedi <a href=\"/"
+"instrument/1d865ced-d86a-4277-8914-009740e37887\">cornamusa</a>.<br /> "
+"Imparentata con il cromorno, era usata nel Rinascimento. Siccome le uniche "
+"informazioni arrivateci sono un paragrafo scritto da Praetorius, tutte le "
+"ricostruzioni sono approssimazioni."
 
 #. name:siku 
 #: DB:instrument/description:569
@@ -1858,6 +1865,12 @@ msgid ""
 "goatskin, it has a single round stock that all chanters and drones are fixed "
 "into."
 msgstr ""
+"Per il flauto di Pan sudamericano, vedi <a href=\"/instrument/448eeddf-"
+"37a3-49f3-9e46-d46ccd821aaf\">siku</a>.<br /> Per la cornamusa greca dal "
+"nome simile, vedi <a href=\"/instrument/86cf0eb3-b12d-40eb-bc32-"
+"928a1aebe3b1\">tsampouna</a>.<br /> Realizzata con l'intera pelle di una "
+"pecora o capra, ha un solo ceppo a tronco di cono a cui sono fissate tutte "
+"le canne del canto e di bordone."
 
 #. name:reed organ 
 #: DB:instrument/description:204
@@ -1883,14 +1896,6 @@ msgstr ""
 
 #. name:musette de cour 
 #: DB:instrument/description:735
-#, fuzzy
-#| msgid ""
-#| "Also known as baroque musette, it was a small bagpipe used predominantly "
-#| "by French court and nobility in the 1600-1700's.<br /> For the instrument "
-#| "known as “chinese musette”, see <a href=\"/instrument/15cd573d-15a8-4f9f-"
-#| "a48f-f73218d85e14/\">suona</a>.<br /> For the oboe also known as musette, "
-#| "see <a href=\"/instrument/77b29599-96c7-4571-9fae-09e7e42b8175/\">piccolo "
-#| "oboe</a>."
 msgid ""
 "For the instrument known as \"chinese musette\", see <a href=\"/"
 "instrument/15cd573d-15a8-4f9f-a48f-f73218d85e14/\">suona</a>.<br /> For the "
@@ -1899,12 +1904,12 @@ msgid ""
 "Also known as baroque musette, it was a small bagpipe used predominantly by "
 "French court and nobility in the 1600-1700's."
 msgstr ""
-"Conosciuta anche come musette o musette barocca, era una piccola cornamusa "
-"usata principalmente dalla corte e dalla nobiltà francese nel XVII e XVIII "
-"secolo.<br /> Per lo strumento conosciuto come \"musette cinese\", vedi <a "
-"href=\"/instrument/15cd573d-15a8-4f9f-a48f-f73218d85e14/\">suona</a>.<br /> "
-"Per l'oboe conosciuto anche come musette, vedi <a href=\"/"
-"instrument/77b29599-96c7-4571-9fae-09e7e42b8175/\">oboe musette</a>."
+"Per lo strumento conosciuto come \"musette cinese\", vedi <a href=\"/"
+"instrument/15cd573d-15a8-4f9f-a48f-f73218d85e14/\">suona</a>.<br /> Per "
+"l'oboe conosciuto anche come musette, vedi <a href=\"/instrument/"
+"77b29599-96c7-4571-9fae-09e7e42b8175/\">oboe musette</a>.<br /> Conosciuta "
+"anche come musette o musette barocca, era una piccola cornamusa usata "
+"principalmente dalla corte e dalla nobiltà francese nel XVII e XVIII secolo."
 
 #. name:fiscorn 
 #: DB:instrument/description:1184
@@ -1944,6 +1949,10 @@ msgid ""
 "of goatskin, it has two chanters and no drones. Its name is a reborrowing of "
 "the Italian."
 msgstr ""
+"Per la cornamusa italiana dal nome simile, vedi <a href=\"/instrument/"
+"7186ac40-8154-49d0-8d24-33efd8c2a41e\">zampogna</a>.<br /> Realizzata in "
+"pelle di capra, ha due canne del canto, ma nessuna canna di bordone. Il suo "
+"nome è un prestito di ritorno dall'italiano."
 
 #. name:charumera 
 #: DB:instrument/description:1150
@@ -2718,6 +2727,9 @@ msgid ""
 "Known since atleast the 16th century, it has a long chanter, a three-"
 "segmented shoulder drone and a short blowpipe."
 msgstr ""
+"Conosciuta almeno dal XVI secolo, ha una canna del canto lunga, una canna di "
+"bordone in tre pezzi che si appoggia sulla spalla e una canna di imboccatura "
+"corta."
 
 #. name:cimpoi 
 #: DB:instrument/description:1194
@@ -2726,6 +2738,9 @@ msgid ""
 "fur either in or out. It has from 5 to 8 fingerholes and metalwork decorated "
 "wooden chanters."
 msgstr ""
+"Conosciuta dal XV secolo, è realizzata con l'intera pelle di una capra o "
+"pecora, con pelliccia all'interno o all'esterno. Ha dai 5 agli 8 fori di "
+"diteggiatura e canne del canto in legno con decorazioni in metallo."
 
 #. name:krakebs 
 #: DB:instrument/description:652
@@ -2774,8 +2789,8 @@ msgid ""
 "Large gourd (hue) with no finger-holes, it is blown like a jug and has a "
 "booming bass sound."
 msgstr ""
-"Grande zucca a fiasco (detta hue) senza fori per la diteggiatura, su cui si "
-"soffia come un contenitore e che produce un suono basso rimbombante."
+"Grande zucca a fiasco (detta hue) senza fori di diteggiatura, su cui si "
+"soffia come su un jug e che produce un suono basso rimbombante."
 
 #. name:footbass 
 #: DB:instrument/description:1020
@@ -3483,6 +3498,11 @@ msgid ""
 "drone in single stock. <br /> Early models were mouth blown, later modified "
 "to have bellows."
 msgstr ""
+"Da non confondere con la chabrette, una cornamusa del Limosino.<br /> Sacca "
+"in pelle di capra originaria dell'Alvernia del XIX secolo, con canna del "
+"canto ad ancia doppia e canna di bordone solo di decorazione fissate su un "
+"solo ceppo.<br /> I primi modelli erano a fiato, mentre in seguito fu "
+"modificata per avere dei mantici."
 
 #. name:crumhorn 
 #: DB:instrument/description:348
@@ -3491,6 +3511,10 @@ msgid ""
 "Used during the Renaissance, its double-reed is inside a windcap and its "
 "body ends in a decorative curve."
 msgstr ""
+"Da non confondere con il cromorne, un oboe usato alla corte di Francia nel "
+"XVII-XVIII secolo.<br /> Usato durante il Rinascimento, la sua ancia doppia "
+"è all'interno di un'incapsulatura e la sua canna termina con una curva "
+"decorativa."
 
 #. name:tabor 
 #: DB:instrument/description:806
@@ -3528,6 +3552,12 @@ msgid ""
 "for bagpipes in French, they have two telescoping drones with single reeds "
 "and a double-reed chanter."
 msgstr ""
+"Da non confondere con la <a href=\"/instrument/28527011-9cf4-4dcd-a70c-"
+"22042a92a52c\">cornamusa rinascimentale</a> ad ancia doppia.<br /> Per lo "
+"strumento chiamato cornamusa in italiano, vedi <a href=\"/instrument/"
+"1d865ced-d86a-4277-8914-009740e37887\">cornamusa</a>.<br /> Pur essendo "
+"anche il termine francese generico per la cornamusa, ha due canne di bordone "
+"a coulisse e ad ancia singola e una canna del canto ad ancia doppia."
 
 #. name:dulcian 
 #: DB:instrument/description:496
@@ -4152,6 +4182,8 @@ msgid ""
 "Precursor of the cobla used in sardana, it was in use since the medieval "
 "period."
 msgstr ""
+"Precursore della cobla usata nella sardana, era in uso a partire dal periodo "
+"medievale."
 
 #. name:baroque guitar 
 #: DB:instrument/description:917
@@ -4730,6 +4762,9 @@ msgid ""
 "Starting as a pastoral folk bellows blown bagpipe, it was developed into a "
 "complex 2, then 3 and finally 4 chanter with keyed regulators."
 msgstr ""
+"Inizialmente una cornamusa a uso tradizionale/pastorale e insufflata a "
+"mantice, fu sviluppata in uno strumento complesso con 2, poi 3 e infine 4 "
+"canne del canto, con regolatori a chiave."
 
 #. name:jantar 
 #: DB:instrument/description:1032
@@ -6675,6 +6710,10 @@ msgid ""
 "leather with 2 drones: a bass and a tenor and a chanter with 7-8 finger-"
 "holes."
 msgstr ""
+"Tradizionalmente suonata insieme al <a href=\"/instrument/814816db-3368-4889"
+"-a8cd-aa34bd1043f0\">piffero</a> nelle ensemble tradizionali, la sua sacca è "
+"solitamente in pelle di capretto e ha due canne di bordone (basso e tenore) "
+"e una canna del canto con 7-8 fori di diteggiatura."
 
 #. name:caixa 
 #: DB:instrument/description:903
