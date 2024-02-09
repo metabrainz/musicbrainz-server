@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-25 22:54+0200\n"
-"PO-Revision-Date: 2024-02-01 14:01+0000\n"
+"PO-Revision-Date: 2024-02-01 14:09+0000\n"
 "Last-Translator: \"Vac31.\" <Vaclovas@users.noreply.translations.metabrainz."
 "org>\n"
 "Language-Team: Lithuanian <https://translations.metabrainz.org/projects/"
@@ -3069,11 +3069,11 @@ msgstr "Nepavyko išanalizuoti įvesto takelių sąrašo."
 msgid "Update the recording artist credit to match the track artist credit."
 msgstr ""
 "Atnaujinti įrašo atlikėjo įvardijimą, kad sutaptų su takelio atlikėjo "
-"įvardijimą."
+"įvardijimą"
 
 #: ../root/release/edit/recordings.tt:93
 msgid "Update the recording title to match the track title."
-msgstr ""
+msgstr "Atnaujinti įrašo pavadinimą, kad sutaptų su takelio pavadinimu"
 
 #: ../root/release/add_cover_art.tt:84
 msgid "Uploading image..."
@@ -3082,7 +3082,7 @@ msgstr "Įkeliamas vaizdas..."
 #: ../root/components/forms.tt:272 ../root/components/forms.tt:297
 #: ../root/static/scripts/edit/components/GuessCaseOptions.js:140
 msgid "Uppercase Roman numerals"
-msgstr ""
+msgstr "Padaryti romėniškus skaitmenis didžiosiomis raidėmis"
 
 #: ../root/layout.tt:119 ../root/layout/components/Footer.js:45
 msgid "Use beta site"
