@@ -36,12 +36,12 @@
 # yvanz, 2016
 # yvanz, 2018
 # Philipp Wolfer <ph.wolfer@gmail.com>, 2023.
-# yvanzo <yvanzo@users.noreply.translations.metabrainz.org>, 2023.
+# yvanzo <yvanzo@users.noreply.translations.metabrainz.org>, 2023, 2024.
 # reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-12-21 13:28+0000\n"
+"PO-Revision-Date: 2024-02-02 12:28+0000\n"
 "Last-Translator: yvanzo <yvanzo@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: French <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/fr/>\n"
@@ -51,7 +51,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : ((n != 0 && n % "
 "1000000 == 0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.3\n"
+"X-Generator: Weblate 5.3.1\n"
 
 #: DB:link_attribute_type/description:1355
 msgid "A performance-centered, usually one to three year postgraduate program."
@@ -957,6 +957,9 @@ msgid ""
 "Links a release to the area it was transferred in (for example from an old "
 "tape to digital). Use only when the place is unknown!"
 msgstr ""
+"Relie une parution à la région où elle a été transférée d’un type de support "
+"à un autre (par exemple d’une cassette à un CD).. À n’utiliser que lorsque "
+"le lieu est inconnu !"
 
 #: DB:link_type/description:967
 msgid ""
@@ -1023,6 +1026,8 @@ msgid ""
 "Links a release to the place it was transferred at (for example from an old "
 "tape to digital)."
 msgstr ""
+"Relie une parution au lieu où elle a été transférée d’un type de support à "
+"un autre (par exemple d’une cassette à un CD)."
 
 #: DB:link_type/description:954
 msgid ""
@@ -1705,6 +1710,8 @@ msgid ""
 "This describes an engineer responsible for transferring a release, for "
 "example from an old tape to digital."
 msgstr ""
+"Ceci crédite l’ingénieur qui a transféré une parution vers un nouveau type "
+"de support (par exemple d’une cassette à un CD)."
 
 #: DB:link_type/description:143
 msgid ""
@@ -8224,15 +8231,15 @@ msgstr "tournées"
 
 #: DB:link_type/name:1179
 msgid "transfer"
-msgstr ""
+msgstr "transfert"
 
 #: DB:link_type/name:1182
 msgid "transferred at"
-msgstr ""
+msgstr "transférée à"
 
 #: DB:link_type/name:1181
 msgid "transferred in"
-msgstr ""
+msgstr "transférée en"
 
 #: DB:link_type/name:2
 msgid "transl-tracklisting"
@@ -8666,11 +8673,11 @@ msgstr "a été {additional:supplémentairement} tourné en"
 
 #: DB:link_type/reverse_link_phrase:1182
 msgid "{additional:additionally} transferred at"
-msgstr ""
+msgstr "transférée {additional:en plus} à"
 
 #: DB:link_type/reverse_link_phrase:1181
 msgid "{additional:additionally} transferred in"
-msgstr ""
+msgstr "transférée {additional:en plus} en"
 
 #: DB:link_type/link_phrase:872 DB:link_type/long_link_phrase:871
 #: DB:link_type/long_link_phrase:872
@@ -8765,6 +8772,8 @@ msgstr ""
 #: DB:link_type/long_link_phrase:1179
 msgid "{additional:additionally} {assistant} {associate} {co:co-}transferred"
 msgstr ""
+"a {co:co-}transféré {additional:en plus} {assistant:en tant qu’assistant} "
+"{associate:en tant qu’associé}"
 
 #: DB:link_type/link_phrase:28 DB:link_type/link_phrase:138
 #: DB:link_type/long_link_phrase:28 DB:link_type/long_link_phrase:138
@@ -8982,7 +8991,7 @@ msgstr "lieu {additional:supplémentaire} de tournge de"
 
 #: DB:link_type/link_phrase:1181 DB:link_type/link_phrase:1182
 msgid "{additional} transferring location for"
-msgstr ""
+msgstr "lieu {additional:supplémentaire} pour le transfert de"
 
 #: DB:link_type/link_phrase:883 DB:link_type/link_phrase:884
 msgid "{additional} translating location for"
@@ -9072,6 +9081,8 @@ msgstr ""
 #: DB:link_type/reverse_link_phrase:1179
 msgid "{additional} {assistant} {associate} {co:co-}transferrer"
 msgstr ""
+"{co:co-}ingénieur de transfert {additional:en plus} {assistant:en tant "
+"qu’assistant} {associate:en tant qu’associé}"
 
 #: DB:link_type/reverse_link_phrase:28 DB:link_type/reverse_link_phrase:138
 msgid ""
@@ -9544,7 +9555,7 @@ msgstr "{entity1} a été tourné {additional:supplémentairement} en {entity0}"
 
 #: DB:link_type/long_link_phrase:1181 DB:link_type/long_link_phrase:1182
 msgid "{entity1} was {additional:additionally} transferred at {entity0}"
-msgstr ""
+msgstr "{entity1} a {additional:en plus} été transférée à {entity0}"
 
 #: DB:link_type/long_link_phrase:883
 msgid "{entity1} was {additional:additionally} translated at {entity0}"
