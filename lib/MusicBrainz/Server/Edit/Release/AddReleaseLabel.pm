@@ -59,7 +59,7 @@ sub initialize {
     die 'Missing "release" argument' unless ($release || $self->preview);
 
     if ($release) {
-        $self->c->model('ReleaseLabel')->load($release) unless $release->all_labels;
+        $self->c->model('ReleaseLabel')->load($release);
 
         $self->throw_if_release_label_is_duplicate(
             $release,
