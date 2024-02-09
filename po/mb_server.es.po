@@ -55,17 +55,17 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-02-01 14:05+0000\n"
-"PO-Revision-Date: 2024-02-01 00:28+0000\n"
-"Last-Translator: reosarevok <reosarevok@users.noreply.translations."
-"metabrainz.org>\n"
+"PO-Revision-Date: 2024-02-09 13:29+0000\n"
+"Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
+".org>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
 "X-Generator: Weblate 5.3.1\n"
 
 #: ../root/components/common-macros.tt:12
@@ -1383,18 +1383,14 @@ msgid "ISWCs"
 msgstr "ISWCs"
 
 #: ../root/event/edit_form.tt:26
-#, fuzzy
-#| msgid ""
-#| "If needed, the characters \"[\", \"]\", and \"&\" can be escaped using "
-#| "the HTML entities \"&lsqb;\", \"&rsqb;\", and \"&amp;\" respectively."
 msgid ""
 "If needed, the characters \"[\", \"]\", and \"&\" can be escaped using the "
 "HTML entities \"<code>&amp;lsqb;</code>\", \"<code>&amp;rsqb;</code>\", and "
 "\"<code>&amp;amp;</code>\" respectively."
 msgstr ""
-"En caso necesario, los caracteres \"[\", \"]\" y \"&\" pueden escaparse "
-"utilizando las entidades HTML \"&lsqb;\", \"&rsqb;\" y \"&amp;\" "
-"respectivamente."
+"En caso necesario, puedes escapar los caracteres \"[\", \"]\" y \"&\" "
+"utilizando las entidades HTML \"<code>&amp;lsqb;</code>\", \""
+"<code>&amp;rsqb;</code>\", y \"<code>&amp;amp;</code>\" respectivamente."
 
 #: ../root/release/edit/recordings.tt:134
 msgid ""
@@ -2825,7 +2821,7 @@ msgstr ""
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:385
 #: ../root/static/scripts/common/components/EntityLink.js:325
 msgid "This recording is a video"
-msgstr "Esta grabación es un video"
+msgstr "Esta grabación es un vídeo"
 
 #: ../root/release/edit/information.tt:235
 msgid "This release does not have a barcode"
@@ -2861,10 +2857,9 @@ msgstr ""
 #: ../root/layout/components/sidebar/EventSidebar.js:80
 #: ../root/report/components/EventList.js:77
 #: ../root/search/components/EventResults.js:75
-#, fuzzy
 msgctxt "event"
 msgid "Time"
-msgstr "Duración"
+msgstr "Hora"
 
 #: ../root/cdstub/cdstub.tt:5 ../root/cdtoc/list.tt:7
 #: ../root/release/edit/information.tt:8 ../root/release/edit/tracklist.tt:162
@@ -3104,11 +3099,11 @@ msgstr "Validando archivo..."
 #: ../root/edit/details/EditRecording.js:77
 #: ../root/static/scripts/common/components/FilterForm.js:210
 msgid "Video"
-msgstr "Video"
+msgstr "Vídeo"
 
 #: ../root/recording/layout.tt:3 ../root/recording/RecordingLayout.js:39
 msgid "Video “{name}” by {artist}"
-msgstr ""
+msgstr "Vídeo “{name}” de {artist}"
 
 #: ../root/edit/search_macros.tt:434 ../root/edit/EditIndex.js:76
 #: ../root/edit/components/EditHeader.js:128
@@ -3356,11 +3351,9 @@ msgstr ""
 
 #: ../root/components/common-macros.tt:190
 #: ../root/static/scripts/common/components/EntityLink.js:50
-#, fuzzy
-#| msgid "[removed]"
 msgctxt "generic entity"
 msgid "[removed]"
-msgstr "[eliminado]"
+msgstr "[eliminado/a]"
 
 #: ../root/edit/search_macros.tt:174
 msgid "after"
@@ -3402,8 +3395,6 @@ msgstr "de"
 
 #: ../root/components/common-macros.tt:111
 #: ../root/static/scripts/common/components/EntityLink.js:98
-#, fuzzy
-#| msgid "cancelled"
 msgctxt "event"
 msgid "cancelled"
 msgstr "cancelado"
@@ -3802,18 +3793,13 @@ msgid "The user with ID '{user_id}' could not be found."
 msgstr "No se pudo encontrar el usuario con la ID '{user_id}'."
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:176
-#, fuzzy
-#| msgid ""
-#| "We were unable to send login information to your email address.  Please "
-#| "try again, however if you continue to experience difficulty contact us at "
-#| "support@musicbrainz.org."
 msgid ""
 "We were unable to send login information to your email address. Please try "
 "again, and if that still doesn’t work, {contact_url|contact us}."
 msgstr ""
 "No hemos podido enviar la información de inicio de sesión a tu dirección de "
-"correo. Vuelve a intentarlo, y si sigues teniendo problemas ponte en "
-"contacto con nosotros en support@musicbrainz.org."
+"correo. Vuelve a intentarlo, y si sigues teniendo problemas, {contact_url|"
+"ponte en contacto con nosotros}."
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:203
 msgid "There is no user with this username"
@@ -4077,11 +4063,9 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Controller/Role/EditRelationships.pm:222
 #: ../root/static/scripts/relationship-editor/components/DialogPreview.js:108
 #: ../root/static/scripts/relationship-editor/components/DialogSourceEntity.js:117
-#, fuzzy
-#| msgid "[unknown]"
 msgctxt "generic entity"
 msgid "[unknown]"
-msgstr "[desconocido]"
+msgstr "[desconocido/a]"
 
 #: ../lib/MusicBrainz/Server/Controller/Root.pm:94
 #, perl-brace-format
@@ -4822,8 +4806,6 @@ msgid "Remove relationship type"
 msgstr "Eliminar tipo de relación"
 
 #: ../lib/MusicBrainz/Server/Edit/Relationship/RemoveLinkType.pm:86
-#, fuzzy
-#| msgid "[removed]"
 msgctxt "relationship attribute type"
 msgid "[removed]"
 msgstr "[eliminado]"
@@ -4849,8 +4831,6 @@ msgid "Add release label"
 msgstr "Añadir discográfica a la publicación"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/Create.pm:112
-#, fuzzy
-#| msgid "[removed]"
 msgctxt "release group"
 msgid "[removed]"
 msgstr "[eliminado]"
@@ -5219,8 +5199,6 @@ msgstr "Cancelada"
 
 #: ../lib/MusicBrainz/Server/Entity/Barcode.pm:18
 #: ../root/static/scripts/common/utility/formatBarcode.js:15
-#, fuzzy
-#| msgid "[none]"
 msgctxt "barcode"
 msgid "[none]"
 msgstr "[ninguno]"
@@ -5542,14 +5520,12 @@ msgid "[none]"
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Recording.pm:38
-#, fuzzy
-#| msgid "Video"
 msgid "Videos only"
-msgstr "Video"
+msgstr "Solo vídeos"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Recording.pm:39
 msgid "Non-videos only"
-msgstr ""
+msgstr "Solo no vídeos"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Release.pm:95
 msgid ""
@@ -6491,7 +6467,7 @@ msgstr "Artistas"
 #: ../root/area/AreaArtists.js:52 ../root/instrument/InstrumentArtists.js:59
 #: ../root/report/DuplicateArtists.js:127
 msgid "Add selected artists for merging"
-msgstr "Agregar artistas seleccionados para fusionar"
+msgstr "Fusionar los artistas seleccionados"
 
 #: ../root/area/AreaArtists.js:60
 msgid "This area is not currently associated with any artists."
@@ -6510,7 +6486,7 @@ msgstr "Eventos"
 #: ../root/area/AreaEvents.js:54 ../root/artist/ArtistEvents.js:69
 #: ../root/place/PlaceEvents.js:53
 msgid "Add selected events for merging"
-msgstr "Añadir eventos seleccionados para la fusión"
+msgstr "Fusionar los eventos seleccionados"
 
 #: ../root/area/AreaEvents.js:62
 msgid "This area is not currently associated with any events."
@@ -6533,7 +6509,7 @@ msgstr "Discográficas"
 
 #: ../root/area/AreaLabels.js:51
 msgid "Add selected labels for merging"
-msgstr ""
+msgstr "Fusionar las discográficas seleccionadas"
 
 #: ../root/area/AreaLabels.js:59
 msgid "This area is not currently associated with any labels."
@@ -6565,7 +6541,7 @@ msgstr ""
 
 #: ../root/area/AreaPlaces.js:69
 msgid "Add selected places for merging"
-msgstr ""
+msgstr "Fusionar los lugares seleccionados"
 
 #: ../root/area/AreaPlaces.js:78
 msgid "This area is not currently associated with any places."
@@ -6610,7 +6586,7 @@ msgstr "Publicaciones"
 #: ../root/instrument/InstrumentReleases.js:58 ../root/label/LabelIndex.js:96
 #: ../root/release_group/ReleaseGroupIndex.js:191
 msgid "Add selected releases for merging"
-msgstr "Agregar publicaciones seleccionadas para fusionar"
+msgstr "Fusionar las publicaciones seleccionadas"
 
 #: ../root/area/AreaReleases.js:60
 msgid "This area is not currently associated with any releases."
@@ -6758,7 +6734,7 @@ msgstr "Fusionar grupos de publicaciones"
 #: ../root/artist/ArtistIndex.js:323 ../root/artist/ArtistRecordings.js:169
 #: ../root/instrument/InstrumentRecordings.js:59 ../root/isrc/Index.js:99
 msgid "Add selected recordings for merging"
-msgstr "Agregar grabaciones seleccionadas para fusionar"
+msgstr "Fusionar las grabaciones seleccionadas"
 
 #: ../root/artist/ArtistIndex.js:332
 msgid "This artist has no release groups, only standalone recordings."
@@ -6813,7 +6789,7 @@ msgstr ""
 
 #: ../root/artist/ArtistRecordings.js:89
 msgid "Showing only videos"
-msgstr ""
+msgstr "Mostrando solo vídeos"
 
 #: ../root/artist/ArtistRecordings.js:105
 msgid "Showing all recordings"
@@ -6857,7 +6833,7 @@ msgstr ""
 
 #: ../root/artist/ArtistReleases.js:93
 msgid "This artist only has releases by various artists."
-msgstr "Este artista solo tiene publicaciones con múltiples artistas"
+msgstr "Este artista solo tiene publicaciones con múltiples artistas."
 
 #: ../root/artist/ArtistReleases.js:98
 msgid ""
@@ -6869,7 +6845,7 @@ msgstr ""
 
 #: ../root/artist/ArtistWorks.js:65 ../root/iswc/Index.js:79
 msgid "Add selected works for merging"
-msgstr "Agregar obras seleccionadas para fusionar"
+msgstr "Fusionar las obras seleccionadas"
 
 #: ../root/artist/ArtistWorks.js:74
 msgid "No works found that match this search."
@@ -6899,15 +6875,15 @@ msgstr "No se puede editar"
 
 #: ../root/artist/SpecialPurpose.js:25
 msgid "You may not edit special purpose artists"
-msgstr "No está permitido editar los artistas de propósito especial."
+msgstr "No puedes editar un artista de propósito especial"
 
 #: ../root/artist/SpecialPurpose.js:27
 msgid ""
 "The artist you are trying to edit is a special purpose artist, and you may "
 "not make direct changes to this data."
 msgstr ""
-"El artista que estás intentando editar es de propósito especial, y no está "
-"permitido realizar cambios directos sobre estos datos."
+"Estás intentando editar un artista de propósito especial. No es posible "
+"editar esta información."
 
 #: ../root/artist/utils.js:13
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:65
@@ -6937,7 +6913,7 @@ msgstr "Fundado"
 #: ../root/artist/utils.js:32
 msgctxt "character artist"
 msgid "Created"
-msgstr "Creada"
+msgstr "Creado"
 
 #: ../root/artist/utils.js:41
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:65
@@ -7092,7 +7068,7 @@ msgstr "Número de búsquedas"
 #: ../root/cdstub/BrowseCDStubs.js:39
 #: ../root/layout/components/sidebar/CDStubSidebar.js:66
 msgid "Modify count"
-msgstr "Recuento de modificaciones"
+msgstr "Número de modificaciones"
 
 #: ../root/cdstub/BrowseCDStubs.js:49 ../root/cdstub/CDStubHeader.js:22
 #: ../root/cdstub/CDStubLayout.js:29
@@ -7201,7 +7177,6 @@ msgstr "Fin"
 
 #: ../root/cdtoc/CDTocInfo.js:56 ../root/cdtoc/CDTocInfo.js:58
 #: ../root/cdtoc/CDTocInfo.js:60
-#, fuzzy
 msgctxt "CD timecode"
 msgid "Time"
 msgstr "Duración"
@@ -7231,10 +7206,10 @@ msgid ""
 "ID can belong to more than one release. For more in-depth information about "
 "this topic, please see our {doc|CD submission guide}."
 msgstr ""
-"Debes estar seguro de que esta ID de disco fue asociada a esta publicación "
-"por error, ya que una publicación puede tener varias IDs de disco y una ID "
-"puede estar asociada a más de una publicación. Para saber más de este tema, "
-"consulta nuestra {doc|guía sobre IDs de disco}."
+"Debes tener la seguridad de que esta ID de disco fue asociada a esta "
+"publicación por error, ya que una publicación puede tener varias IDs de "
+"disco y una ID puede estar asociada a más de una publicación. Para saber más "
+"de este tema, consulta nuestra {doc|guía sobre IDs de disco}."
 
 #: ../root/cdtoc/SelectArtistForCDToc.js:37
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:128
@@ -7352,7 +7327,7 @@ msgstr "Privacidad"
 #: ../root/collection/CollectionMerge.js:116
 #: ../root/collection/CollectionMerge.js:118
 msgid "Merge collections"
-msgstr "Combinar colecciones"
+msgstr "Fusionar colecciones"
 
 #: ../root/collection/CollectionMerge.js:120
 msgid ""
@@ -7533,11 +7508,11 @@ msgstr ""
 
 #: ../root/components/ConfirmLayout.js:38 ../root/edit/DeleteNote.js:64
 msgid "Yes, I am sure"
-msgstr "Sí, seguro."
+msgstr "Sí, seguro"
 
 #: ../root/components/CritiqueBrainzLinks.js:43
 msgid "An error occurred when loading reviews."
-msgstr "Se ha producido un error al cargar las opiniones."
+msgstr "Se ha producido un error al cargar las reseñas."
 
 #: ../root/components/CritiqueBrainzLinks.js:47
 msgid ""
@@ -7558,7 +7533,7 @@ msgstr[2] ""
 
 #: ../root/components/EntityDeletionHelp.js:24
 msgid "Are you sure you wish to remove {entity} from MusicBrainz?"
-msgstr "¿Estás seguro de que deseas eliminar {entity} de MusicBrainz?"
+msgstr "¿Seguro que deseas eliminar {entity} de MusicBrainz?"
 
 #: ../root/components/EntityDeletionHelp.js:30
 msgid ""
@@ -7613,14 +7588,14 @@ msgstr "Etiquetas"
 #: ../root/entity/Ratings.js:90
 #: ../root/static/scripts/edit/externalLinks.js:777
 msgid "Reviews"
-msgstr "Opiniones"
+msgstr "Reseñas"
 
 #: ../root/components/EntityTabs.js:142
 #: ../root/components/UserAccountTabs.js:70 ../root/entity/Ratings.js:50
 #: ../root/user/UserProfile.js:856 ../root/user/UserRatingList.js:48
 #: ../root/user/UserRatingList.js:82
 msgid "Ratings"
-msgstr "Valoraciones"
+msgstr "Calificaciones"
 
 #: ../root/components/EntityTabs.js:162
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:286
@@ -7760,6 +7735,7 @@ msgstr[2] ""
 #: ../root/edit/details/AddSeries.js:25 ../root/edit/details/EditSeries.js:34
 #: ../root/report/ReportsIndex.js:563
 #: ../root/report/components/SeriesList.js:47
+#, fuzzy
 msgid "Series"
 msgstr "Series"
 
@@ -7884,7 +7860,7 @@ msgstr "Autores"
 
 #: ../root/constants.js:22
 msgid "View and modify your private collections"
-msgstr "Ver y modificar colecciones privadas"
+msgstr "Ver y modificar tus colecciones privadas"
 
 #: ../root/constants.js:23
 msgid "View your email address"
@@ -7896,7 +7872,7 @@ msgstr "Ver la información pública de tu cuenta"
 
 #: ../root/constants.js:25
 msgid "View and modify your private ratings"
-msgstr "Ver y modificar valoraciones privadas"
+msgstr "Ver y modificar tus calificaciones privadas"
 
 #: ../root/constants.js:26
 msgid "Submit new barcodes to the database"
@@ -7923,7 +7899,9 @@ msgstr "“{id}” no es una página de documentación válida."
 #: ../root/doc/DocError.js:46 ../root/main/error/Error400.js:37
 #: ../root/main/error/Error403.js:29 ../root/main/error/Error404.js:46
 msgid "Looking for help? Check out our {doc|documentation} or {faq|FAQ}."
-msgstr "¿Necesitas ayuda? Consulta la {doc|documentación} o las {faq|FAQ}."
+msgstr ""
+"¿Necesitas ayuda? Consulta la {doc|documentación} o las {faq|preguntas "
+"frecuentes}."
 
 #: ../root/doc/DocError.js:55
 msgid ""
@@ -7941,11 +7919,11 @@ msgstr ""
 
 #: ../root/doc/DocPage.js:90
 msgid "This page is {doc|transcluded} from revision {version} of {title}."
-msgstr "Página {doc|transcluída} desde la revisión {version} de {title}."
+msgstr "Página {doc|transcluída} a partir de la revisión {version} de {title}."
 
 #: ../root/doc/DocPage.js:98
 msgid "This page is {doc|transcluded} from {title}."
-msgstr "Página {doc|transcluída} desde {title}."
+msgstr "Página {doc|transcluída} a partir de {title}."
 
 #: ../root/doc/components/DocSearchBox.js:18
 msgid "Search the documentation..."
@@ -7966,15 +7944,15 @@ msgstr ""
 #: ../root/edit/components/ListEdit.js:51
 #: ../root/edit/details/historic/RemoveRelationship.js:35
 msgid "An error occurred while loading this edit."
-msgstr "Se ha producido un error mientras se aplicaba esta edición."
+msgstr "Se ha producido un error al cargar esta edición."
 
 #: ../root/edit/CancelEdit.js:48
 msgid ""
 "You may enter an edit note while cancelling this edit. This can be useful to "
 "point editors to another edit."
 msgstr ""
-"Puedes añadir una nota al cancelar la edición: puede ser útil para pedir a "
-"los votantes que miren otra edición distinta."
+"Puedes añadir una nota al cancelar la edición, por ejemplo para pedir a los "
+"votantes que consulten otra edición distinta."
 
 #: ../root/edit/CancelEdit.js:56
 msgctxt "interactive"
@@ -7987,11 +7965,11 @@ msgstr "La edición ha sido cancelada."
 
 #: ../root/edit/CannotApproveEdit.js:26 ../root/edit/CannotCancelEdit.js:32
 msgid "The edit has already been closed."
-msgstr "La edición ya está cerrada"
+msgstr "La edición ya está cerrada."
 
 #: ../root/edit/CannotApproveEdit.js:29
 msgid "Only {doc|auto-editors} can approve an edit."
-msgstr "Sólo los {doc|autoeditores} pueden aprobar una edición."
+msgstr "Solo los {doc|autoeditores} pueden aprobar una edición."
 
 #: ../root/edit/CannotApproveEdit.js:34 ../root/edit/CannotApproveEdit.js:35
 #: ../root/edit/NoteIsRequired.js:21 ../root/edit/NoteIsRequired.js:22
@@ -8000,7 +7978,7 @@ msgstr "Error al aprobar la edición"
 
 #: ../root/edit/CannotApproveEdit.js:38
 msgid "There was a problem approving {edit}."
-msgstr "Ha habido un problema al aprobar el {edit}."
+msgstr "Ha habido un problema para aprobar {edit}."
 
 #: ../root/edit/CannotCancelEdit.js:22 ../root/edit/CannotCancelEdit.js:23
 msgid "Error cancelling edit"
@@ -8008,7 +7986,7 @@ msgstr "Error al cancelar la edición"
 
 #: ../root/edit/CannotCancelEdit.js:26
 msgid "There was a problem cancelling {edit}."
-msgstr "Ha habido un problema al cancelar el {edit}."
+msgstr "Ha habido un problema al cancelar {edit}."
 
 #: ../root/edit/CannotCancelEdit.js:33
 msgid "Only the editor who entered an edit can cancel it."
@@ -8049,7 +8027,7 @@ msgstr ""
 
 #: ../root/edit/EditData.js:57
 msgid "Data:"
-msgstr "Data:"
+msgstr "Datos:"
 
 #: ../root/edit/EditData.js:62
 msgid "Related entities:"
@@ -8082,7 +8060,7 @@ msgstr "No puedes votar en esta edición. ({url|¿Por qué?})"
 
 #: ../root/edit/EditIndex.js:132
 msgid "Testing features"
-msgstr "Características de prueba"
+msgstr "Opciones de prueba"
 
 #: ../root/edit/EditIndex.js:134
 msgid ""
@@ -8119,7 +8097,7 @@ msgstr "Enviar nota"
 
 #: ../root/edit/EditIndex.js:171
 msgid "You must be logged in to see edit notes."
-msgstr "Debes estar conectado para editar notas."
+msgstr "Debes iniciar sesión para ver las notas de edición."
 
 #: ../root/edit/ModifyNote.js:36 ../root/edit/ModifyNote.js:37
 #: ../root/edit/components/EditNote.js:142
@@ -8218,7 +8196,7 @@ msgstr "Edición de {editor}"
 
 #: ../root/edit/components/EditHeader.js:86
 msgid "Editor hidden"
-msgstr "Ocular Editor"
+msgstr "Editor oculto"
 
 #: ../root/edit/components/EditHeader.js:92
 msgid "log in to see who"
@@ -8234,21 +8212,22 @@ msgstr "Mi voto: "
 
 #: ../root/edit/components/EditHeader.js:118
 msgid "N/A"
-msgstr "N/A"
+msgstr "n/p"
 
 #: ../root/edit/components/EditHeader.js:119
 #: ../root/static/scripts/common/components/OrderableDirection.js:22
+#, fuzzy
 msgid "None"
 msgstr "Ninguno"
 
 #: ../root/edit/components/EditHeader.js:141
 #: ../root/edit/components/EditSidebar.js:53 ../root/elections/Show.js:32
 msgid "Voting"
-msgstr "Votar"
+msgstr "Votación"
 
 #: ../root/edit/components/EditHeader.js:149
 msgid "Approved"
-msgstr "Aprobado"
+msgstr "Aprobada"
 
 #: ../root/edit/components/EditHeader.js:177
 #: ../root/edit/components/EditSummary.js:69
@@ -8271,8 +8250,8 @@ msgstr[2] "Encontradas al menos {n} ediciones"
 msgid "Found {n} edit"
 msgid_plural "Found {n} edits"
 msgstr[0] "Se encontró una edición"
-msgstr[1] "Se encontraron al menos {n} ediciones"
-msgstr[2] "Se encontraron al menos {n} ediciones"
+msgstr[1] "Se encontraron {n} ediciones"
+msgstr[2] "Se encontraron {n} ediciones"
 
 #: ../root/edit/components/EditList.js:105
 #: ../root/edit/components/EditList.js:121
@@ -8336,7 +8315,7 @@ msgstr "No puedes añadir notas a esta edición. ({url|¿Por qué?})"
 
 #: ../root/edit/components/EditSidebar.js:48
 msgid "Opened:"
-msgstr "Abiertas:"
+msgstr "Creada:"
 
 #: ../root/edit/components/EditSidebar.js:68
 msgid "For quicker closing"
@@ -8363,11 +8342,11 @@ msgstr "Para saber más:"
 
 #: ../root/edit/components/EditSidebar.js:97
 msgid "Voting FAQ"
-msgstr "FAQ de votaciones"
+msgstr "Preguntas frecuentes sobre votaciones"
 
 #: ../root/edit/components/EditSidebar.js:98
 msgid "Editing FAQ"
-msgstr "FAQ de ediciones"
+msgstr "Preguntas frecuentes sobre ediciones"
 
 #: ../root/edit/components/EditSummary.js:60
 #: ../root/static/scripts/common/MB/Control/EditSummary.js:31
@@ -8554,9 +8533,8 @@ msgid "Cancelled"
 msgstr ""
 
 #: ../root/edit/details/AddEvent.js:77
-#, fuzzy
 msgid "Time"
-msgstr "Duración"
+msgstr "Hora"
 
 #: ../root/edit/details/AddIsrcs.js:27 ../root/edit/details/EditBarcodes.js:27
 msgid "Client:"
@@ -8783,8 +8761,6 @@ msgid "primary for {locale}"
 msgstr "primario para {locale}"
 
 #: ../root/edit/details/EditAlias.js:78
-#, fuzzy
-#| msgid "[removed]"
 msgctxt "alias"
 msgid "[removed]"
 msgstr "[eliminado]"
@@ -9065,11 +9041,9 @@ msgid "New cover art:"
 msgstr "Nueva imagen:"
 
 #: ../root/edit/details/SetTrackLengths.js:58
-#, fuzzy
-#| msgid "[removed]"
 msgctxt "CD TOC"
 msgid "[removed]"
-msgstr "[eliminado]"
+msgstr "[eliminada]"
 
 #: ../root/edit/details/SetTrackLengths.js:63
 msgid "Track lengths:"
@@ -10569,11 +10543,9 @@ msgstr ""
 
 #: ../root/layout/components/sidebar/SidebarEndDate.js:38
 #: ../root/static/scripts/common/utility/formatEndDate.js:18
-#, fuzzy
-#| msgid "[unknown]"
 msgctxt "date"
 msgid "[unknown]"
-msgstr "[desconocido]"
+msgstr "[desconocida]"
 
 #: ../root/layout/components/sidebar/SidebarLicenses.js:141
 msgid "License"
@@ -10699,16 +10671,12 @@ msgstr ""
 "base de datos."
 
 #: ../root/main/error/Error401.js:39 ../root/user/Login.js:90
-#, fuzzy
-#| msgid ""
-#| "If you think this is a mistake, please contact <code>support@musicbrainz."
-#| "org</code> with the name of your account."
 msgid ""
 "If you think this is a mistake, please {contact|contact us} with the name of "
 "your account."
 msgstr ""
-"Si crees que es un error, contacta con <code>support@musicbrainz.org</code> "
-"indicando el nombre de tu cuenta."
+"Si crees que es un error, {contact|ponte en contacto con nosotros} indicando "
+"el nombre de tu cuenta."
 
 #: ../root/main/error/Error403.js:21 ../root/main/error/MirrorError403.js:13
 msgid "Forbidden request"
@@ -11144,7 +11112,7 @@ msgstr "AcoustIDs asociadas"
 
 #: ../root/recording/RecordingHeader.js:40
 msgid "Video by {artist}"
-msgstr ""
+msgstr "Vídeo de {artist}"
 
 #: ../root/recording/RecordingHeader.js:41
 msgid "Recording by {artist}"
@@ -12887,7 +12855,7 @@ msgstr ""
 #: ../root/report/ReportsIndex.js:541
 #: ../root/report/VideosInNonVideoMediums.js:40
 msgid "Video recordings in non-video mediums"
-msgstr ""
+msgstr "Grabaciones en vídeo en medios sin formato de vídeo"
 
 #: ../root/report/ReportsIndex.js:554
 msgid "Places with annotations"
@@ -13044,6 +13012,8 @@ msgid ""
 "This report shows recordings marked as video, but that appear in at least "
 "one medium that does not support videos."
 msgstr ""
+"Este informe muestra grabaciones marcadas como vídeo que aparecen en al "
+"menos un medio con un formato que no incluye vídeos."
 
 #: ../root/report/VideosInNonVideoMediums.js:29
 msgid ""
@@ -13054,6 +13024,12 @@ msgid ""
 "should always be separate. If you split the recordings, consider whether it "
 "makes sense to link them with a {doc_link|music video relationship}."
 msgstr ""
+"Lo más probable es que o la grabación es efectivamente un vídeo, pero el "
+"formato es incorrecto (un CD que debería ser un VCD, por ejemplo), or que la "
+"misma grabación esté en uso como vídeo y audio. Las versiones en audio y "
+"vídeo deben ser siempre dos grabaciones separadas. Si separas dos "
+"grabaciones, es posible que quieras conectarlas con {doc_link|la relación de "
+"videoclip}."
 
 #: ../root/report/WikidataLinksWithMultipleEntities.js:40
 msgid ""
@@ -14226,8 +14202,6 @@ msgid "{title} - {subtitle}"
 msgstr "{title} - {subtitle}"
 
 #: ../root/static/scripts/common/i18n/localizeLanguageName.js:15
-#, fuzzy
-#| msgid "[removed]"
 msgctxt "language"
 msgid "[removed]"
 msgstr "[eliminado]"
@@ -14338,6 +14312,8 @@ msgid ""
 "Please link to a channel, not a specific video. Videos should be linked to "
 "the appropriate recordings or releases instead."
 msgstr ""
+"Debes enlazar a un canal, no un vídeo. Añade los enlaces de vídeo a las "
+"grabaciones o publicaciones adecuadas."
 
 #: ../root/static/scripts/edit/URLCleanup.js:392
 msgid ""
@@ -14350,6 +14326,8 @@ msgid ""
 "Please link to a specific video. Add channel pages to the relevant artist, "
 "label, etc. instead."
 msgstr ""
+"Debes enlazar a un vídeo en concreto. Añade el enlace del canal al artista o "
+"discográfica apropriado/a."
 
 #: ../root/static/scripts/edit/URLCleanup.js:402
 msgid ""
@@ -14459,6 +14437,9 @@ msgid ""
 "profile page instead. If you want to link to a video, {url|add a standalone "
 "recording} for it instead."
 msgstr ""
+"No añadas enlaces a imágenes, sino a la página de perfil. Si quieres añadir "
+"un enlace a un vídeo, {url|añade una grabación independiente} para el vídeo "
+"y enlázalo allí."
 
 #: ../root/static/scripts/edit/URLCleanup.js:3098
 msgid "This is an internal Instagram page and should not be added."
@@ -14473,7 +14454,7 @@ msgstr ""
 
 #: ../root/static/scripts/edit/URLCleanup.js:4925
 msgid "Only RYM music videos can be linked to recordings."
-msgstr ""
+msgstr "Solo las páginas de videoclips de RYM pueden asociarse a una grabación."
 
 #: ../root/static/scripts/edit/URLCleanup.js:4987
 msgid ""
@@ -14730,11 +14711,9 @@ msgid "Edit attributes"
 msgstr "Editar atributos"
 
 #: ../root/static/scripts/edit/components/Multiselect.js:197
-#, fuzzy
-#| msgid "[removed]"
 msgctxt "generic row"
 msgid "[removed]"
-msgstr "[eliminado]"
+msgstr "[eliminado/a]"
 
 #: ../root/static/scripts/edit/components/NewNotesAlertCheckbox.js:35
 msgid "Show me an alert whenever I receive a new edit note."
@@ -14855,16 +14834,12 @@ msgid "Edit URL"
 msgstr "Editar URL"
 
 #: ../root/static/scripts/edit/components/UrlRelationshipCreditFieldset.js:37
-#, fuzzy
-#| msgid "Credits"
 msgid "Credit"
-msgstr "créditos"
+msgstr "Crédito"
 
 #: ../root/static/scripts/edit/components/UrlRelationshipCreditFieldset.js:40
-#, fuzzy
-#| msgid "Credited As"
 msgid "Credited to"
-msgstr "Acreditado Como"
+msgstr "Acreditado como"
 
 #: ../root/static/scripts/edit/components/forms.js:104
 #: ../root/static/scripts/edit/confirmNavigationFallback.js:44
@@ -15415,10 +15390,8 @@ msgstr ""
 "dígito de control."
 
 #: ../root/static/scripts/release-editor/validation.js:235
-#, fuzzy
-#| msgid "The barcode you entered is a valid EAN code."
 msgid "The barcode you entered is a valid GTIN code."
-msgstr "Este código de barras es un código EAN válido."
+msgstr "Este código de barras es un código GTIN válido."
 
 #: ../root/static/scripts/release-editor/validation.js:242
 #: ../root/static/scripts/release-editor/validation.js:264
@@ -15431,22 +15404,16 @@ msgid ""
 msgstr ""
 
 #: ../root/static/scripts/release-editor/validation.js:253
-#, fuzzy
-#| msgid "The barcode you entered is not a valid EAN code."
 msgid "The barcode you entered is not a valid GTIN code."
-msgstr "Este código de barras no es un código EAN válido."
+msgstr "Este código de barras no es un código GTIN válido."
 
 #: ../root/static/scripts/release-editor/validation.js:297
-#, fuzzy
-#| msgid "The barcode you entered is a valid UPC code."
 msgid "The barcode you entered is not a valid UPC code."
-msgstr "Este código de barras es un código UPC válido."
+msgstr "Este código de barras no es un código UPC válido."
 
 #: ../root/static/scripts/release-editor/validation.js:326
-#, fuzzy
-#| msgid "The barcode you entered is not a valid UPC or EAN code."
 msgid "The barcode you entered is not a valid UPC, EAN or GTIN code."
-msgstr "El código de barras introducido no es un UPC o EAN válido."
+msgstr "El código de barras introducido no es un UPC, EAN o GTIN válido."
 
 #: ../root/static/scripts/release/components/BatchCreateWorksDialog.js:236
 msgid ""

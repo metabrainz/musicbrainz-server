@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-02-01 00:28+0000\n"
+"PO-Revision-Date: 2024-02-09 13:29+0000\n"
 "Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
 ".org>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
@@ -1738,6 +1738,7 @@ msgstr "Tipos principales"
 #: ../root/statistics/Index.js:802 ../root/statistics/Index.js:830
 #: ../root/statistics/Index.js:858 ../root/statistics/Index.js:912
 #: ../root/statistics/Index.js:940
+#, fuzzy
 msgid "None"
 msgstr "Ninguno"
 
