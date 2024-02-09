@@ -566,7 +566,7 @@ const ReportsIndex = (): React$Element<typeof Layout> => {
           />
         </ul>
 
-        <h2>{l('Series')}</h2>
+        <h2>{lp('Series', 'plural')}</h2>
 
         <ul>
           <ReportsIndexEntry

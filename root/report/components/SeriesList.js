@@ -44,7 +44,7 @@ const SeriesList = <D: {+series: ?SeriesT, ...}>({
       const nameColumn = defineEntityColumn<D>({
         columnName: 'series',
         getEntity: result => result.series ?? null,
-        title: l('Series'),
+        title: lp('Series', 'plural'),
       });
 
       return [
