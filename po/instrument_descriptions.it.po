@@ -27,8 +27,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
-" ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
+"0) ? 1 : 2);\n"
 "X-Generator: Weblate 5.3\n"
 
 #. name:rebab 
@@ -447,22 +447,6 @@ msgid ""
 msgstr ""
 "Conosciuta anche come chitarra spagnola, è usata nella musica classica, "
 "tradizionale e in altri generi; ha corde in nylon o budello."
-
-#. name:musette de cour 
-#: DB:instrument/description:735
-msgid ""
-"Also known as baroque musette, it was a small bagpipe used predominantly by "
-"French court and nobility in the 1600-1700's.<br /> For the instrument known "
-"as “chinese musette”, see <a href=\"/instrument/15cd573d-15a8-4f9f-a48f-"
-"f73218d85e14/\">suona</a>.<br /> For the oboe also known as musette, see <a "
-"href=\"/instrument/77b29599-96c7-4571-9fae-09e7e42b8175/\">piccolo oboe</a>."
-msgstr ""
-"Conosciuta anche come musette o musette barocca, era una piccola cornamusa "
-"usata principalmente dalla corte e dalla nobiltà francese nel XVII e XVIII "
-"secolo.<br /> Per lo strumento conosciuto come \"musette cinese\", vedi <a "
-"href=\"/instrument/15cd573d-15a8-4f9f-a48f-f73218d85e14/\">suona</a>.<br /> "
-"Per l'oboe conosciuto anche come musette, vedi <a href=\"/"
-"instrument/77b29599-96c7-4571-9fae-09e7e42b8175/\">oboe musette</a>."
 
 #. name:samica 
 #: DB:instrument/description:830
@@ -1897,6 +1881,31 @@ msgstr ""
 "ance, è grande, simile a un pianoforte verticale e ha pedali collegati a un "
 "mantice con ance. Il suono è prodotto suonando la tastiera."
 
+#. name:musette de cour 
+#: DB:instrument/description:735
+#, fuzzy
+#| msgid ""
+#| "Also known as baroque musette, it was a small bagpipe used predominantly "
+#| "by French court and nobility in the 1600-1700's.<br /> For the instrument "
+#| "known as “chinese musette”, see <a href=\"/instrument/15cd573d-15a8-4f9f-"
+#| "a48f-f73218d85e14/\">suona</a>.<br /> For the oboe also known as musette, "
+#| "see <a href=\"/instrument/77b29599-96c7-4571-9fae-09e7e42b8175/\">piccolo "
+#| "oboe</a>."
+msgid ""
+"For the instrument known as \"chinese musette\", see <a href=\"/"
+"instrument/15cd573d-15a8-4f9f-a48f-f73218d85e14/\">suona</a>.<br /> For the "
+"oboe also known as musette, see <a href=\"/"
+"instrument/77b29599-96c7-4571-9fae-09e7e42b8175/\">piccolo oboe</a>.<br /> "
+"Also known as baroque musette, it was a small bagpipe used predominantly by "
+"French court and nobility in the 1600-1700's."
+msgstr ""
+"Conosciuta anche come musette o musette barocca, era una piccola cornamusa "
+"usata principalmente dalla corte e dalla nobiltà francese nel XVII e XVIII "
+"secolo.<br /> Per lo strumento conosciuto come \"musette cinese\", vedi <a "
+"href=\"/instrument/15cd573d-15a8-4f9f-a48f-f73218d85e14/\">suona</a>.<br /> "
+"Per l'oboe conosciuto anche come musette, vedi <a href=\"/"
+"instrument/77b29599-96c7-4571-9fae-09e7e42b8175/\">oboe musette</a>."
+
 #. name:fiscorn 
 #: DB:instrument/description:1184
 msgid ""
@@ -1906,9 +1915,10 @@ msgid ""
 "Originating in Germanic polka bands, it is used today in Catalan cobla."
 msgstr ""
 "Per lo strumento noto in Italia come flicorno, vedi flicorno.<br /> Per lo "
-"strumento noto in Spagna come fliscorno, vedi <a href=\"/instrument/fd016966"
-"-658e-40db-8fe1-f2235fe1e9a3\">flicorno soprano</a>.<br /><br /> Ebbe "
-"origine nelle bande di polka germaniche e oggi è usato nella cobla catalana."
+"strumento noto in Spagna come fliscorno, vedi <a href=\"/instrument/"
+"fd016966-658e-40db-8fe1-f2235fe1e9a3\">flicorno soprano</a>.<br /><br /> "
+"Ebbe origine nelle bande di polka germaniche e oggi è usato nella cobla "
+"catalana."
 
 #. name:diatonic button accordion 
 #: DB:instrument/description:361
@@ -1982,13 +1992,13 @@ msgid ""
 "usually one is real and the others are only decorative."
 msgstr ""
 "Per lo strumento senza sacca e a due tubi usato a Ibiza, vedi <a href=\"/"
-"instrument/1464f316-aca0-4690-9115-28805720f846\">reclam de xeremies</a>.<br "
-"/> Per l'oboe latinoamericano, vedi <a href=\"/instrument/174e4a7a-dad6-4b3b-"
-"95e2-e3010b53a0ca\">chirimía</a>.<br /> Per lo strumento medievale della "
-"famiglia dei legni, vedi <a href=\"/instrument/b4f112c3-d666-47f2-bb85-"
+"instrument/1464f316-aca0-4690-9115-28805720f846\">reclam de xeremies</a>."
+"<br /> Per l'oboe latinoamericano, vedi <a href=\"/instrument/174e4a7a-"
+"dad6-4b3b-95e2-e3010b53a0ca\">chirimía</a>.<br /> Per lo strumento medievale "
+"della famiglia dei legni, vedi <a href=\"/instrument/b4f112c3-d666-47f2-bb85-"
 "bae28572ca13\">ciaramella</a>.<br /> Per la ciaramella catalana chiamata "
-"anche xaramita o xirimita, vedi <a href=\"/instrument/ad0ddf4c-05ca-"
-"4d9b-a159-8caed25e6bf4\">gralla</a>.<br /><br /> Usata storicamente sin dal "
+"anche xaramita o xirimita, vedi <a href=\"/instrument/ad0ddf4c-05ca-4d9b-"
+"a159-8caed25e6bf4\">gralla</a>.<br /><br /> Usata storicamente sin dal "
 "Medioevo nelle isole Baleari, ha una sacca in pelle, una canna del canto e "
 "in genere 3 canne di bordone, di cui solitamente una vera e le altre solo di "
 "decorazione."
@@ -2701,6 +2711,13 @@ msgstr ""
 "Conosciuti dall'antichità in Europa sudorientale e Turchia, sono piccoli "
 "cimbalini a dita in bronzo, usati per la danza e per altre esibizioni. Sono "
 "simili ai sonagli presenti in alcuni tamburi a cornice."
+
+#. name:veuze 
+#: DB:instrument/description:1196
+msgid ""
+"Known since atleast the 16th century, it has a long chanter, a three-"
+"segmented shoulder drone and a short blowpipe."
+msgstr ""
 
 #. name:cimpoi 
 #: DB:instrument/description:1194
@@ -3547,17 +3564,17 @@ msgstr ""
 "1880, vedi Martinshorn.<br /> Per lo strumento ad ancia singola della "
 "famiglia dei legni dal nome simile, vedi <a href=\"/instrument/"
 "e3511ed1-3d73-4340-880f-c8ccc8eda11c\">salmoè</a>.<br /> Per il discendente "
-"giapponese che prende il nome dal portoghese, vedi <a href=\"/instrument/"
-"07b91470-b63e-41e4-88e6-11c4acac064f\">charumera</a>.<br /> Per la "
-"ciaramella catalana, vedi <a href=\"/instrument/dffe56f5-cd75-4392-ad31-"
-"1c3abf2b8e37\">tible</a>.<br /> Per la ciaramella italiana, vedi <a href=\"/"
-"instrument/814816db-3368-4889-a8cd-aa34bd1043f0\">piffero</a>.<br /> Per la "
-"cornamusa, vedi <a href=\"/instrument/21d5d4ec-f8ef-44dc-b02f-e564de057dcc\""
-">xeremies</a>.<br /><br /> Strumento medievale e rinascimentale europeo "
-"della famiglia dei legni, a sezione conica e ad ancia doppia, si evolvette "
-"in due tipi: uno a partire dagli strumenti mediorientali e l'altro a partire "
-"dalle canne del canto delle cornamuse. Una combinazione dei due tipi fu "
-"usata per sviluppare l'oboe moderno."
+"giapponese che prende il nome dal portoghese, vedi <a href=\"/"
+"instrument/07b91470-b63e-41e4-88e6-11c4acac064f\">charumera</a>.<br /> Per "
+"la ciaramella catalana, vedi <a href=\"/instrument/dffe56f5-cd75-4392-"
+"ad31-1c3abf2b8e37\">tible</a>.<br /> Per la ciaramella italiana, vedi <a "
+"href=\"/instrument/814816db-3368-4889-a8cd-aa34bd1043f0\">piffero</a>.<br /> "
+"Per la cornamusa, vedi <a href=\"/instrument/21d5d4ec-f8ef-44dc-b02f-"
+"e564de057dcc\">xeremies</a>.<br /><br /> Strumento medievale e "
+"rinascimentale europeo della famiglia dei legni, a sezione conica e ad ancia "
+"doppia, si evolvette in due tipi: uno a partire dagli strumenti "
+"mediorientali e l'altro a partire dalle canne del canto delle cornamuse. Una "
+"combinazione dei due tipi fu usata per sviluppare l'oboe moderno."
 
 #. name:oboe 
 #: DB:instrument/description:8
@@ -6649,6 +6666,15 @@ msgid ""
 msgstr ""
 "Tradizionalmente realizzato in salice, ha quattro corde e una piccola cassa "
 "piriforme. Suonato con un plettro, ha un tono più acuto rispetto alla pipa."
+
+#. name:piva 
+#: DB:instrument/description:1197
+msgid ""
+"Traditionally played with the <a href=\"/instrument/814816db-3368-4889-a8cd-"
+"aa34bd1043f0\">piffero</a> in folk ensambles, the bag is usually made of kid-"
+"leather with 2 drones: a bass and a tenor and a chanter with 7-8 finger-"
+"holes."
+msgstr ""
 
 #. name:caixa 
 #: DB:instrument/description:903

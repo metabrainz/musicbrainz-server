@@ -3072,6 +3072,11 @@ msgstr "管风琴"
 msgid "piri"
 msgstr "朝鲜筚篥"
 
+#: DB:instrument/name:1197
+msgctxt "Northern Italian bagpipe"
+msgid "piva"
+msgstr ""
+
 #: DB:instrument/name:700
 msgid "pkhachich"
 msgstr "普哈奇奇"
@@ -4304,6 +4309,11 @@ msgstr "维努笛"
 #: DB:instrument/name:650
 msgid "vessel flute"
 msgstr "腔体笛"
+
+#: DB:instrument/name:1196
+msgctxt "Breton bagpipe"
+msgid "veuze"
+msgstr ""
 
 #: DB:instrument/name:840
 msgctxt "accordina with piano keys"

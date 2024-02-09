@@ -74,7 +74,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-25 22:54+0200\n"
+"POT-Creation-Date: 2024-02-01 14:05+0000\n"
 "PO-Revision-Date: 2024-01-31 12:28+0000\n"
 "Last-Translator: Philipp Wolfer <ph.wolfer@gmail.com>\n"
 "Language-Team: German <https://translations.metabrainz.org/projects/"
@@ -599,7 +599,7 @@ msgstr "Anfangsgebiet"
 #: ../root/edit/details/AddArea.js:89 ../root/edit/details/AddEvent.js:63
 #: ../root/edit/details/AddLabel.js:61 ../root/edit/details/AddPlace.js:73
 #: ../root/edit/details/AddRemoveAlias.js:90
-#: ../root/edit/details/EditAlias.js:111 ../root/edit/details/EditArea.js:103
+#: ../root/edit/details/EditAlias.js:115 ../root/edit/details/EditArea.js:103
 #: ../root/edit/details/EditEvent.js:72 ../root/edit/details/EditLabel.js:93
 #: ../root/edit/details/EditPlace.js:93
 #: ../root/layout/components/sidebar/AreaSidebar.js:58
@@ -677,7 +677,7 @@ msgstr "Kann abgesegnet werden"
 #: ../root/recording/RecordingMerge.js:67 ../root/release/ReleaseMerge.js:68
 #: ../root/release_group/ReleaseGroupMerge.js:52
 #: ../root/series/SeriesMerge.js:51
-#: ../root/static/scripts/common/components/FilterForm.js:378
+#: ../root/static/scripts/common/components/FilterForm.js:377
 #: ../root/static/scripts/edit/components/ExternalLinkAttributeDialog.js:237
 #: ../root/static/scripts/edit/components/URLInputPopover.js:126
 #: ../root/static/scripts/relationship-editor/components/DialogButtons.js:28
@@ -771,7 +771,7 @@ msgstr "Den Veröffentlichungstitel zur Veröffentlichungsgruppe kopieren"
 #: ../root/recording/RecordingIndex.js:60
 #: ../root/release_group/ReleaseGroupIndex.js:171
 #: ../root/search/components/ReleaseResults.js:115
-#: ../root/static/scripts/common/components/FilterForm.js:252
+#: ../root/static/scripts/common/components/FilterForm.js:251
 #: ../root/utility/tableColumns.js:509 ../root/utility/tableColumns.js:521
 msgid "Country"
 msgstr "Land"
@@ -819,7 +819,7 @@ msgstr "Datenspuren"
 #: ../root/search/components/EventResults.js:74
 #: ../root/search/components/ReleaseResults.js:115
 #: ../root/static/scripts/annotation/AnnotationHistoryTable.js:106
-#: ../root/static/scripts/common/components/FilterForm.js:284
+#: ../root/static/scripts/common/components/FilterForm.js:283
 #: ../root/utility/tableColumns.js:284 ../root/utility/tableColumns.js:289
 #: ../root/utility/tableColumns.js:515 ../root/utility/tableColumns.js:521
 msgid "Date"
@@ -890,7 +890,7 @@ msgstr "Details"
 #: ../root/edit/details/EditRelease.js:93
 #: ../root/edit/details/EditReleaseGroup.js:50
 #: ../root/edit/details/EditSeries.js:48 ../root/edit/details/EditWork.js:59
-#: ../root/static/scripts/common/components/FilterForm.js:354
+#: ../root/static/scripts/common/components/FilterForm.js:353
 msgid "Disambiguation"
 msgstr "Unterscheidung"
 
@@ -1028,7 +1028,7 @@ msgstr "Endgebiet"
 #: ../root/edit/details/AddArea.js:96 ../root/edit/details/AddEvent.js:70
 #: ../root/edit/details/AddLabel.js:68 ../root/edit/details/AddPlace.js:79
 #: ../root/edit/details/AddRemoveAlias.js:97
-#: ../root/edit/details/EditAlias.js:118 ../root/edit/details/EditArea.js:111
+#: ../root/edit/details/EditAlias.js:122 ../root/edit/details/EditArea.js:111
 #: ../root/edit/details/EditEvent.js:80 ../root/edit/details/EditLabel.js:102
 #: ../root/edit/details/EditPlace.js:101
 #: ../root/elections/ElectionTable/index.js:25
@@ -1372,7 +1372,7 @@ msgstr "ISRC"
 #: ../root/recording/edit_form.tt:45 ../root/report/ReportsIndex.js:610
 #: ../root/search/components/RecordingResults.js:144
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:721
-#: ../root/static/scripts/common/components/Autocomplete2/formatters.js:411
+#: ../root/static/scripts/common/components/Autocomplete2/formatters.js:410
 #: ../root/static/scripts/common/components/IsrcList.js:44
 #: ../root/utility/tableColumns.js:694
 msgid "ISRCs"
@@ -1570,7 +1570,7 @@ msgstr ""
 #: ../root/report/components/LabelUrlList.js:35
 #: ../root/search/components/ReleaseResults.js:116
 #: ../root/search/components/SearchForm.js:40
-#: ../root/static/scripts/common/components/FilterForm.js:236
+#: ../root/static/scripts/common/components/FilterForm.js:235
 #: ../root/static/scripts/common/constants.js:40
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:60
 #: ../root/user/UserProfile.js:54 ../root/utility/tableColumns.js:538
@@ -1649,7 +1649,7 @@ msgstr "Ortsbearbeiter"
 
 #: ../root/components/common-macros.tt:425
 #: ../root/components/RequestLogin.js:23
-#: ../root/layout/components/TopMenu.js:204 ../root/user/Login.js:131
+#: ../root/layout/components/TopMenu.js:204 ../root/user/Login.js:132
 msgctxt "interactive"
 msgid "Log in"
 msgstr "Einloggen"
@@ -1792,7 +1792,7 @@ msgstr "Titel hochschieben"
 #: ../root/search/components/WorkResults.js:54
 #: ../root/static/scripts/account/components/ApplicationForm.js:82
 #: ../root/static/scripts/collection/components/CollectionEditForm.js:199
-#: ../root/static/scripts/common/components/FilterForm.js:169
+#: ../root/static/scripts/common/components/FilterForm.js:168
 #: ../root/static/scripts/edit/components/FormRowNameWithGuessCase.js:108
 #: ../root/static/scripts/release/components/EditWorkDialog.js:166
 #: ../root/user/UserSubscriptions.js:48
@@ -2466,7 +2466,7 @@ msgstr ""
 #: ../root/components/list/ArtistList.js:73 ../root/edit/details/AddArea.js:47
 #: ../root/edit/details/AddArtist.js:56 ../root/edit/details/AddLabel.js:47
 #: ../root/edit/details/AddRemoveAlias.js:63
-#: ../root/edit/details/EditAlias.js:87 ../root/edit/details/EditArea.js:59
+#: ../root/edit/details/EditAlias.js:91 ../root/edit/details/EditArea.js:59
 #: ../root/edit/details/EditArtist.js:72 ../root/edit/details/EditLabel.js:57
 #: ../root/layout/components/sidebar/ArtistSidebar.js:78
 #: ../root/report/DuplicateArtists.js:68
@@ -2496,7 +2496,7 @@ msgstr "Status"
 #: ../root/edit/details/historic/AddRelease.js:56
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:179
 #: ../root/search/components/ReleaseResults.js:121
-#: ../root/static/scripts/common/components/FilterForm.js:268
+#: ../root/static/scripts/common/components/FilterForm.js:267
 msgctxt "release"
 msgid "Status"
 msgstr "Status"
@@ -2839,8 +2839,8 @@ msgstr ""
 
 #: ../root/components/common-macros.tt:233
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:689
-#: ../root/static/scripts/common/components/Autocomplete2/formatters.js:386
-#: ../root/static/scripts/common/components/EntityLink.js:323
+#: ../root/static/scripts/common/components/Autocomplete2/formatters.js:385
+#: ../root/static/scripts/common/components/EntityLink.js:325
 msgid "This recording is a video"
 msgstr "Diese Aufnahme ist ein Video"
 
@@ -2882,14 +2882,14 @@ msgstr "Dieser Titel ist eine Datenspur."
 msgid "This track is hidden in the pregap."
 msgstr "Dieser Titel ist im Pregap versteckt."
 
-#: ../root/event/edit_form.tt:40 ../root/cdtoc/CDTocInfo.js:56
-#: ../root/cdtoc/CDTocInfo.js:58 ../root/cdtoc/CDTocInfo.js:60
-#: ../root/components/list/EventList.js:93 ../root/edit/details/AddEvent.js:77
+#: ../root/event/edit_form.tt:40 ../root/components/list/EventList.js:93
 #: ../root/edit/details/EditEvent.js:88
-#: ../root/layout/components/sidebar/EventSidebar.js:78
-#: ../root/main/error/components/ErrorEnvironment.js:27
+#: ../root/layout/components/sidebar/EventSidebar.js:80
 #: ../root/report/components/EventList.js:77
 #: ../root/search/components/EventResults.js:75
+#, fuzzy
+#| msgid "Time"
+msgctxt "event"
 msgid "Time"
 msgstr "Zeit"
 
@@ -2987,7 +2987,10 @@ msgstr "Türkisch"
 msgid "Twitter"
 msgstr "Twitter"
 
-#: ../root/edit/search_macros.tt:434
+#: ../root/artist/edit_form.tt:16 ../root/edit/search_macros.tt:434
+#: ../root/event/edit_form.tt:14 ../root/label/edit_form.tt:15
+#: ../root/place/edit_form.tt:15 ../root/release/edit/information.tt:103
+#: ../root/series/edit_form.tt:16 ../root/work/edit_form.tt:14
 #: ../root/account/applications/ApplicationList.js:155
 #: ../root/components/Aliases/AliasTable.js:26
 #: ../root/components/list/ReleaseGroupList.js:105
@@ -2998,13 +3001,17 @@ msgstr "Twitter"
 #: ../root/edit/details/AddReleaseGroup.js:66
 #: ../root/edit/details/AddRemoveAlias.js:83
 #: ../root/edit/details/AddSeries.js:44 ../root/edit/details/AddWork.js:53
-#: ../root/edit/details/EditAlias.js:105 ../root/edit/details/EditArea.js:73
+#: ../root/edit/details/EditAlias.js:109 ../root/edit/details/EditArea.js:73
 #: ../root/edit/details/EditArtist.js:86 ../root/edit/details/EditEvent.js:61
 #: ../root/edit/details/EditInstrument.js:58
 #: ../root/edit/details/EditLabel.js:73 ../root/edit/details/EditPlace.js:59
 #: ../root/edit/details/EditReleaseGroup.js:59
 #: ../root/edit/details/EditSeries.js:55
 #: ../root/edit/details/historic/AddRelease.js:45 ../root/iswc/Index.js:60
+#: ../root/layout/components/sidebar/CollectionSidebar.js:59
+#: ../root/layout/components/sidebar/ReleaseGroupSidebar.js:65
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:159
+#: ../root/layout/components/sidebar/SidebarType.js:25
 #: ../root/release/CoverArtFields.js:54 ../root/report/DuplicateArtists.js:69
 #: ../root/report/DuplicateReleaseGroups.js:61
 #: ../root/report/IswcsWithManyWorks.js:53
@@ -3023,29 +3030,22 @@ msgstr "Twitter"
 #: ../root/search/components/RecordingResults.js:151
 #: ../root/search/components/ReleaseGroupResults.js:65
 #: ../root/search/components/ReleaseResults.js:120
+#: ../root/search/components/SearchForm.js:82
 #: ../root/search/components/SeriesResults.js:58
 #: ../root/search/components/WorkResults.js:58
 #: ../root/static/scripts/account/components/ApplicationForm.js:89
 #: ../root/static/scripts/alias/AliasEditForm.js:332
 #: ../root/static/scripts/collection/components/CollectionEditForm.js:205
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:875
-#: ../root/static/scripts/common/components/Autocomplete2/formatters.js:547
-#: ../root/static/scripts/common/components/FilterForm.js:147
+#: ../root/static/scripts/common/components/Autocomplete2/formatters.js:546
+#: ../root/static/scripts/common/components/FilterForm.js:146
 #: ../root/static/scripts/edit/externalLinks.js:1273
 #: ../root/static/scripts/edit/externalLinks.js:1615
 #: ../root/utility/tableColumns.js:654 ../root/utility/tableColumns.js:659
 msgid "Type"
 msgstr "Typ"
 
-#: ../root/artist/edit_form.tt:16 ../root/event/edit_form.tt:14
-#: ../root/label/edit_form.tt:15 ../root/place/edit_form.tt:15
-#: ../root/release/add_cover_art.tt:54 ../root/release/edit/information.tt:103
-#: ../root/series/edit_form.tt:16 ../root/work/edit_form.tt:14
-#: ../root/layout/components/sidebar/CollectionSidebar.js:59
-#: ../root/layout/components/sidebar/ReleaseGroupSidebar.js:65
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:159
-#: ../root/layout/components/sidebar/SidebarType.js:25
-#: ../root/search/components/SearchForm.js:82
+#: ../root/release/add_cover_art.tt:54
 msgid "Type:"
 msgstr "Typ:"
 
@@ -3138,7 +3138,7 @@ msgstr "Validiere Datei …"
 #: ../root/recording/edit_form.tt:44
 #: ../root/edit/details/AddStandaloneRecording.js:64
 #: ../root/edit/details/EditRecording.js:77
-#: ../root/static/scripts/common/components/FilterForm.js:211
+#: ../root/static/scripts/common/components/FilterForm.js:210
 msgid "Video"
 msgstr "Video"
 
@@ -3420,13 +3420,10 @@ msgstr ""
 "Künstler korrekt eingegeben wurden."
 
 #: ../root/components/common-macros.tt:190
-#: ../lib/MusicBrainz/Server/Edit/Relationship/RemoveLinkType.pm:86
-#: ../lib/MusicBrainz/Server/Edit/Release/Create.pm:112
-#: ../root/edit/details/EditAlias.js:76
-#: ../root/edit/details/SetTrackLengths.js:58
-#: ../root/static/scripts/common/components/EntityLink.js:48
-#: ../root/static/scripts/common/i18n/localizeLanguageName.js:15
-#: ../root/static/scripts/edit/components/Multiselect.js:197
+#: ../root/static/scripts/common/components/EntityLink.js:50
+#, fuzzy
+#| msgid "[removed]"
+msgctxt "generic entity"
 msgid "[removed]"
 msgstr "[entfernt]"
 
@@ -3448,7 +3445,7 @@ msgstr "eine"
 
 #: ../root/release/edit/recordings.tt:210
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:708
-#: ../root/static/scripts/common/components/Autocomplete2/formatters.js:403
+#: ../root/static/scripts/common/components/Autocomplete2/formatters.js:402
 msgid "appears on"
 msgstr "erscheint auf"
 
@@ -3469,7 +3466,10 @@ msgid "by"
 msgstr "von"
 
 #: ../root/components/common-macros.tt:111
-#: ../root/static/scripts/common/components/EntityLink.js:96
+#: ../root/static/scripts/common/components/EntityLink.js:98
+#, fuzzy
+#| msgid "cancelled"
+msgctxt "event"
 msgid "cancelled"
 msgstr "abgesagt"
 
@@ -3515,17 +3515,17 @@ msgid "hide tracklist"
 msgstr "Titelliste verstecken"
 
 #: ../root/components/common-macros.tt:102
-#: ../root/static/scripts/common/components/EntityLink.js:117
+#: ../root/static/scripts/common/components/EntityLink.js:119
 msgid "historical"
 msgstr "historisch"
 
 #: ../root/components/common-macros.tt:100
-#: ../root/static/scripts/common/components/EntityLink.js:119
+#: ../root/static/scripts/common/components/EntityLink.js:121
 msgid "historical, until {end}"
 msgstr "historisch, bis {end}"
 
 #: ../root/components/common-macros.tt:98
-#: ../root/static/scripts/common/components/EntityLink.js:113
+#: ../root/static/scripts/common/components/EntityLink.js:115
 msgid "historical, {begin}-{end}"
 msgstr "historisch, {begin}–{end}"
 
@@ -3559,8 +3559,8 @@ msgstr "enthält"
 
 #: ../root/components/common-macros.tt:157
 #: ../root/components/common-macros.tt:233
-#: ../root/static/scripts/common/components/EntityLink.js:141
-#: ../root/static/scripts/common/components/EntityLink.js:426
+#: ../root/static/scripts/common/components/EntityLink.js:143
+#: ../root/static/scripts/common/components/EntityLink.js:428
 msgid "info"
 msgstr "Info"
 
@@ -3716,7 +3716,7 @@ msgstr ""
 "Bitte lies diese unbedingt und antworte bei Bedarf."
 
 #: ../root/components/common-macros.tt:264
-#: ../root/static/scripts/common/components/EntityLink.js:262
+#: ../root/static/scripts/common/components/EntityLink.js:264
 msgid "{name} – {additional_info}"
 msgstr "{name} – {additional_info}"
 
@@ -3780,7 +3780,7 @@ msgstr ""
 #: ../root/components/paginator.tt:19 ../root/components/paginator.tt:31
 #: ../root/components/paginator.tt:39 ../root/components/Paginator.js:94
 #: ../root/components/Paginator.js:119 ../root/components/Paginator.js:133
-#: ../root/static/scripts/common/components/Autocomplete2/formatters.js:162
+#: ../root/static/scripts/common/components/Autocomplete2/formatters.js:161
 msgid "…"
 msgstr "…"
 
@@ -3856,56 +3856,60 @@ msgstr[1] ""
 "sie von anderen überprüft werden, und der Rest wurde automatisch akzeptiert "
 "und angewandt."
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:59
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:60
 msgid "The user ID is missing or is in an invalid format."
 msgstr "Die Benutzer-ID fehlt oder ist in einem ungültigen Format."
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:69
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:70
 msgid "The email address is missing."
 msgstr "Die E-Mail-Adresse fehlt."
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:79
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:80
 msgid "The time is missing or is in an invalid format."
 msgstr "Die Zeit fehlt oder ist in einem ungültigen Format."
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:90
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:91
 msgid "The verification key is missing."
 msgstr "Der Verifikationsschlüssel fehlt."
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:101
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:276
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:102
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:278
 msgid "The checksum is invalid, please double check your email."
 msgstr "Die Prüfsumme ist ungültig, bitte überprüfe noch mal deine E-Mail."
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:112
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:113
 msgid "Sorry, this email verification link has expired."
 msgstr "Entschuldigung, dieser E-Mail-Bestätigungslink ist abgelaufen."
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:124
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:288
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:125
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:290
 #, perl-brace-format
 msgid "The user with ID '{user_id}' could not be found."
 msgstr "Der Benutzer mit der ID „{user_id}“ konnte nicht gefunden werden."
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:175
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:176
+#, fuzzy
+#| msgid ""
+#| "We were unable to send login information to your email address.  Please "
+#| "try again, however if you continue to experience difficulty contact us at "
+#| "support@musicbrainz.org."
 msgid ""
-"We were unable to send login information to your email address.  Please try "
-"again, however if you continue to experience difficulty contact us at "
-"support@musicbrainz.org."
+"We were unable to send login information to your email address. Please try "
+"again, and if that still doesn’t work, {contact_url|contact us}."
 msgstr ""
 "Wir konnten leider keine Einlog-Informationen an deine E-Mail-Adresse "
 "schicken. Bitte versuch es noch einmal; wenn es allerdings weiterhin nicht "
 "klappt, kontaktiere uns unter support@musicbrainz.org."
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:201
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:203
 msgid "There is no user with this username"
 msgstr "Es gibt keinen Benutzer mit diesem Namen"
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:206
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:208
 msgid "There is no user with this username and email"
 msgstr "Es gibt keinen Benutzer mit diesem Namen und dieser E-Mail"
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:209
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:211
 msgid ""
 "We can't send a password reset email, because we have no email on record for "
 "this user."
@@ -3913,27 +3917,27 @@ msgstr ""
 "Wir können keine Passwort-Zurücksetzen-E-Mail schicken, weil wir keine E-"
 "Mail-Adresse für diesen Benutzer haben."
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:239
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:241
 msgid "Your password has been reset."
 msgstr "Dein Passwort wurde zurückgesetzt."
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:254
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:256
 msgid "Missing one or more required parameters."
 msgstr "Es fehlen ein oder mehrere erforderliche Parameter."
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:265
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:267
 msgid "Sorry, this password reset link has expired."
 msgstr "Entschuldigung, dieser Passwort-Zurücksetzlink ist abgelaufen."
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:339
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:341
 msgid "There is no user with this email"
 msgstr "Es gibt keinen Benutzer mit dieser E-Mail"
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:422
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:424
 msgid "Your profile has been updated."
 msgstr "Dein Profil wurde aktualisiert."
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:426
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:428
 #, perl-brace-format
 msgid ""
 "We have sent you a verification email to <code>{email}</code>. Please check "
@@ -3944,23 +3948,28 @@ msgstr ""
 "Bitte schaue in Deinem Posteingang nach und klicke auf den Link in der E-"
 "Mail, um Deine neue E-Mail-Adresse zu bestätigen."
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:465
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:467
 msgid "Your password has been changed."
 msgstr "Dein Passwort wurde geändert."
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:743
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:745
+#, fuzzy
+#| msgid ""
+#| "<strong>We were unable to send a verification email to you.</strong><br/"
+#| ">Please confirm that you have entered a valid address by editing your "
+#| "{settings|account settings}. If the problem still persists, please "
+#| "contact us at {mail|support@musicbrainz.org}."
 msgid ""
-"<strong>We were unable to send a verification email to you.</strong><br/"
-">Please confirm that you have entered a valid address by editing your "
-"{settings|account settings}. If the problem still persists, please contact "
-"us at {mail|support@musicbrainz.org}."
+"<strong>We were unable to send you a verification email.</strong><br/>Please "
+"re-enter your address in your {settings|account settings}. If that still "
+"doesn’t work, {contact_url|contact us}."
 msgstr ""
 "<strong>Wir konnten dir keine Bestätigungs-Mail schicken.</strong><br/>Bitte "
 "schau doch noch mal in deinen {settings|Kontoeinstellungen}, ob du eine "
 "gültige Adresse angegeben hast. Wenn das Problem weiterhin besteht, "
 "kontaktiere uns unter {mail|support@musicbrainz.org}."
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:827
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:828
 msgid "There is no OAuth token with these parameters."
 msgstr ""
 
@@ -4157,10 +4166,11 @@ msgstr ""
 "Die alte und neue Anmerkungs-ID müssen eindeutige, positive Ganzzahlen sein."
 
 #: ../lib/MusicBrainz/Server/Controller/Role/EditRelationships.pm:222
-#: ../root/layout/components/sidebar/SidebarEndDate.js:38
-#: ../root/static/scripts/common/utility/formatEndDate.js:18
 #: ../root/static/scripts/relationship-editor/components/DialogPreview.js:108
 #: ../root/static/scripts/relationship-editor/components/DialogSourceEntity.js:117
+#, fuzzy
+#| msgid "[unknown]"
+msgctxt "generic entity"
 msgid "[unknown]"
 msgstr "[unbekannt]"
 
@@ -4925,6 +4935,13 @@ msgctxt "edit type"
 msgid "Remove relationship type"
 msgstr "Beziehungstyp entfernen"
 
+#: ../lib/MusicBrainz/Server/Edit/Relationship/RemoveLinkType.pm:86
+#, fuzzy
+#| msgid "[removed]"
+msgctxt "relationship attribute type"
+msgid "[removed]"
+msgstr "[entfernt]"
+
 #: ../lib/MusicBrainz/Server/Edit/Relationship/Reorder.pm:27
 msgctxt "edit type"
 msgid "Reorder relationships"
@@ -4944,6 +4961,13 @@ msgstr "Cover-Art hinzufügen"
 msgctxt "edit type"
 msgid "Add release label"
 msgstr "Veröffentlichungslabel hinzufügen"
+
+#: ../lib/MusicBrainz/Server/Edit/Release/Create.pm:112
+#, fuzzy
+#| msgid "[removed]"
+msgctxt "release group"
+msgid "[removed]"
+msgstr "[entfernt]"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/DeleteAlias.pm:15
 msgctxt "edit type"
@@ -5303,8 +5327,11 @@ msgctxt "autoeditor election status (short)"
 msgid "Cancelled"
 msgstr "Abgebrochen"
 
-#: ../lib/MusicBrainz/Server/Entity/Barcode.pm:26
+#: ../lib/MusicBrainz/Server/Entity/Barcode.pm:18
 #: ../root/static/scripts/common/utility/formatBarcode.js:15
+#, fuzzy
+#| msgid "[none]"
+msgctxt "barcode"
 msgid "[none]"
 msgstr "[keiner]"
 
@@ -5574,9 +5601,6 @@ msgid "This is not a valid ISO 3166-3 code"
 msgstr "Dies ist kein gültiger ISO-3166-3-Code"
 
 #: ../lib/MusicBrainz/Server/Form/Field/ISRC.pm:17
-msgid "This is not a valid ISRC"
-msgstr "Dies ist kein gültiger ISRC"
-
 #: ../lib/MusicBrainz/Server/Form/Field/ISRC.pm:21
 msgid "This is not a valid ISRC."
 msgstr "Dies ist kein gültiger ISRC."
@@ -6007,7 +6031,7 @@ msgstr "Bitte gib unten dein altes Passwort an und dann dein neues."
 
 #: ../root/account/ChangePassword.js:69 ../root/account/LostPassword.js:44
 #: ../root/static/scripts/account/components/RegisterForm.js:57
-#: ../root/user/Login.js:100
+#: ../root/user/Login.js:101
 msgid "Username"
 msgstr "Benutzername"
 
@@ -6478,7 +6502,7 @@ msgstr "Unbestätigte E-Mail-Adresse"
 
 #: ../root/annotation/AnnotationComparison.js:43
 #: ../root/annotation/AnnotationComparison.js:45
-#: ../root/edit/details/AddAnnotation.js:64
+#: ../root/edit/details/AddAnnotation.js:63
 msgid "Annotation comparison"
 msgstr "Vergleich der Anmerkungen"
 
@@ -6618,7 +6642,7 @@ msgstr ""
 #: ../root/search/components/WorkResults.js:56
 #: ../root/static/scripts/account/components/PreferencesForm.js:252
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:896
-#: ../root/static/scripts/common/components/Autocomplete2/formatters.js:555
+#: ../root/static/scripts/common/components/Autocomplete2/formatters.js:554
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:15
 #: ../root/tag/TagLayout.js:24 ../root/utility/tableColumns.js:802
 msgid "Artists"
@@ -7339,6 +7363,14 @@ msgstr "Start"
 msgid "End"
 msgstr "Ende"
 
+#: ../root/cdtoc/CDTocInfo.js:56 ../root/cdtoc/CDTocInfo.js:58
+#: ../root/cdtoc/CDTocInfo.js:60
+#, fuzzy
+#| msgid "Time"
+msgctxt "CD timecode"
+msgid "Time"
+msgstr "Zeit"
+
 #: ../root/cdtoc/CDTocInfo.js:57 ../root/cdtoc/CDTocInfo.js:59
 #: ../root/cdtoc/CDTocInfo.js:61
 msgid "Sectors"
@@ -7551,14 +7583,14 @@ msgstr "Bist du sicher, dass du die Sammlung {collection} löschen möchtest?"
 
 #: ../root/components/Aliases/AliasTable.js:22
 #: ../root/edit/details/AddRemoveAlias.js:57
-#: ../root/edit/details/EditAlias.js:63 ../root/edit/details/EditAlias.js:81
+#: ../root/edit/details/EditAlias.js:63 ../root/edit/details/EditAlias.js:85
 #: ../root/edit/details/historic/RemoveLabelAlias.js:17
 msgid "Alias"
 msgstr "Alias"
 
 #: ../root/components/Aliases/AliasTable.js:27
 #: ../root/edit/details/AddRemoveAlias.js:71
-#: ../root/edit/details/EditAlias.js:93
+#: ../root/edit/details/EditAlias.js:97
 #: ../root/static/scripts/alias/AliasEditForm.js:313
 msgid "Locale"
 msgstr "Sprachumgebung"
@@ -7991,7 +8023,7 @@ msgid "About to close"
 msgstr "Schließt in Kürze"
 
 #: ../root/components/list/EventList.js:109
-#: ../root/static/scripts/common/components/FilterForm.js:336
+#: ../root/static/scripts/common/components/FilterForm.js:335
 msgid "Role"
 msgstr "Rolle"
 
@@ -8023,7 +8055,7 @@ msgstr "[fehlende Medien]"
 #: ../root/report/components/WorkList.js:55
 #: ../root/search/components/WorkResults.js:55
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:895
-#: ../root/static/scripts/common/components/Autocomplete2/formatters.js:554
+#: ../root/static/scripts/common/components/Autocomplete2/formatters.js:553
 msgid "Writers"
 msgstr "Autoren"
 
@@ -8646,18 +8678,18 @@ msgstr "automatisch angewandt"
 msgid "{yes} yes : {no} no"
 msgstr "{yes} ja : {no} nein"
 
-#: ../root/edit/details/AddAnnotation.js:43
+#: ../root/edit/details/AddAnnotation.js:42
 #: ../root/edit/details/historic/AddReleaseAnnotation.js:25
 msgid "Text"
 msgstr "Text"
 
-#: ../root/edit/details/AddAnnotation.js:56
+#: ../root/edit/details/AddAnnotation.js:55
 #: ../root/edit/details/historic/AddReleaseAnnotation.js:35
 #: ../root/static/scripts/common/components/Annotation.js:55
 msgid "This annotation is empty."
 msgstr "Diese Anmerkung ist leer."
 
-#: ../root/edit/details/AddAnnotation.js:72
+#: ../root/edit/details/AddAnnotation.js:71
 #: ../root/edit/details/historic/AddReleaseAnnotation.js:43
 msgid "Summary"
 msgstr "Zusammenfassung"
@@ -8710,6 +8742,10 @@ msgstr "Kommentar:"
 msgctxt "event"
 msgid "Cancelled"
 msgstr "Abgesagt"
+
+#: ../root/edit/details/AddEvent.js:77
+msgid "Time"
+msgstr "Zeit"
 
 #: ../root/edit/details/AddIsrcs.js:27 ../root/edit/details/EditBarcodes.js:27
 msgid "Client:"
@@ -8879,12 +8915,12 @@ msgid "view all aliases"
 msgstr "alle Aliasse anzeigen"
 
 #: ../root/edit/details/AddRemoveAlias.js:75
-#: ../root/edit/details/EditAlias.js:99
+#: ../root/edit/details/EditAlias.js:103
 msgid "Primary for locale"
 msgstr "Primär für Sprachumgebung"
 
 #: ../root/edit/details/AddRemoveAlias.js:104
-#: ../root/edit/details/EditAlias.js:125
+#: ../root/edit/details/EditAlias.js:129
 msgctxt "alias ended boolean"
 msgid "Ended"
 msgstr ""
@@ -8937,9 +8973,16 @@ msgstr "Vergleich ansehen"
 msgid "primary for {locale}"
 msgstr "Primär für {locale}"
 
+#: ../root/edit/details/EditAlias.js:78
+#, fuzzy
+#| msgid "[removed]"
+msgctxt "alias"
+msgid "[removed]"
+msgstr "[entfernt]"
+
 #: ../root/edit/details/EditArtistCredit.js:26
 #: ../root/report/components/ArtistCreditList.js:29
-#: ../root/static/scripts/common/components/FilterForm.js:128
+#: ../root/static/scripts/common/components/FilterForm.js:127
 msgid "Artist credit"
 msgstr ""
 
@@ -9220,6 +9263,13 @@ msgstr ""
 msgctxt "singular"
 msgid "New cover art:"
 msgstr "Neues Cover-Art:"
+
+#: ../root/edit/details/SetTrackLengths.js:58
+#, fuzzy
+#| msgid "[removed]"
+msgctxt "CD TOC"
+msgid "[removed]"
+msgstr "[entfernt]"
 
 #: ../root/edit/details/SetTrackLengths.js:63
 msgid "Track lengths:"
@@ -10752,6 +10802,14 @@ msgstr "Datenqualität ändern"
 msgid "Series information"
 msgstr "Serieninformationen"
 
+#: ../root/layout/components/sidebar/SidebarEndDate.js:38
+#: ../root/static/scripts/common/utility/formatEndDate.js:18
+#, fuzzy
+#| msgid "[unknown]"
+msgctxt "date"
+msgid "[unknown]"
+msgstr "[unbekannt]"
+
 #: ../root/layout/components/sidebar/SidebarLicenses.js:141
 msgid "License"
 msgstr "Lizenz"
@@ -10860,15 +10918,15 @@ msgstr ""
 msgid "Technical information"
 msgstr "Technische Informationen"
 
-#: ../root/main/error/Error401.js:19
+#: ../root/main/error/Error401.js:20
 msgid "Unauthorized request"
 msgstr "Unautorisierte Anfrage"
 
-#: ../root/main/error/Error401.js:22 ../root/report/LimitedEditors.js:43
+#: ../root/main/error/Error401.js:23 ../root/report/LimitedEditors.js:43
 msgid "Sorry, you are not authorized to view this page."
 msgstr "Tut uns leid, aber du bist nicht berechtigt, diese Seite anzusehen."
 
-#: ../root/main/error/Error401.js:29
+#: ../root/main/error/Error401.js:30
 msgid ""
 "You must first {url|add and verify your email address} before being able to "
 "edit or add anything to the database."
@@ -10876,10 +10934,14 @@ msgstr ""
 "Bevor du etwas bearbeiten oder zur Datenbank hinzufügen kannst, musst du "
 "zuerst {url|deine E-Mail-Adresse hinzufügen und bestätigen}."
 
-#: ../root/main/error/Error401.js:38 ../root/user/Login.js:89
+#: ../root/main/error/Error401.js:39 ../root/user/Login.js:90
+#, fuzzy
+#| msgid ""
+#| "If you think this is a mistake, please contact <code>support@musicbrainz."
+#| "org</code> with the name of your account."
 msgid ""
-"If you think this is a mistake, please contact <code>support@musicbrainz."
-"org</code> with the name of your account."
+"If you think this is a mistake, please {contact|contact us} with the name of "
+"your account."
 msgstr ""
 "Wenn du denkst, dass dies ein Fehler ist, kontaktiere bitte "
 "<code>support@musicbrainz.org</code> und gib deinen Kontonamen an."
@@ -11002,6 +11064,10 @@ msgstr ""
 #: ../root/main/error/TimeoutError.js:33
 msgid "It may help to try again by reloading the page."
 msgstr "Es kann helfen, zu versuchen, die Seite erneut zu laden."
+
+#: ../root/main/error/components/ErrorEnvironment.js:27
+msgid "Date and time"
+msgstr ""
 
 #: ../root/main/error/components/ErrorEnvironment.js:34
 msgid "Host:"
@@ -11695,7 +11761,7 @@ msgstr ""
 
 #: ../root/release_group/ReleaseGroupHeader.js:28
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:814
-#: ../root/static/scripts/common/components/Autocomplete2/formatters.js:504
+#: ../root/static/scripts/common/components/Autocomplete2/formatters.js:503
 msgid "Release group by {artist}"
 msgstr "Veröffentlichungsgruppe von {artist}"
 
@@ -13497,7 +13563,7 @@ msgstr "Dokumentationssuche"
 
 #: ../root/search/components/EventResults.js:78
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:1049
-#: ../root/static/scripts/common/components/Autocomplete2/formatters.js:221
+#: ../root/static/scripts/common/components/Autocomplete2/formatters.js:220
 #: ../root/utility/tableColumns.js:388
 msgctxt "event location"
 msgid "Location"
@@ -13796,7 +13862,7 @@ msgid ""
 msgstr ""
 
 #: ../root/static/scripts/account/components/RegisterForm.js:85
-#: ../root/user/Login.js:107
+#: ../root/user/Login.js:108
 msgid "Password:"
 msgstr "Passwort:"
 
@@ -13984,17 +14050,17 @@ msgid "Slow? Switch back to indexed search."
 msgstr "Zu langsam? Verwende wieder die indexierte Suche."
 
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:714
-#: ../root/static/scripts/common/components/Autocomplete2/formatters.js:407
+#: ../root/static/scripts/common/components/Autocomplete2/formatters.js:406
 msgid "standalone recording"
 msgstr "alleinstehende Aufnahme"
 
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:808
-#: ../root/static/scripts/common/components/Autocomplete2/formatters.js:499
+#: ../root/static/scripts/common/components/Autocomplete2/formatters.js:498
 msgid "{release_group_type} by {artist}"
 msgstr "{release_group_type} von {artist}"
 
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:1047
-#: ../root/static/scripts/common/components/Autocomplete2/formatters.js:217
+#: ../root/static/scripts/common/components/Autocomplete2/formatters.js:216
 msgid "Performers"
 msgstr "Interpreten"
 
@@ -14145,15 +14211,15 @@ msgstr "Nach einer Serie suchen"
 msgid "Search for a work"
 msgstr "Nach einem Werk suchen"
 
-#: ../root/static/scripts/common/components/Autocomplete2/formatters.js:332
+#: ../root/static/scripts/common/components/Autocomplete2/formatters.js:331
 msgid "{forward_link_phrase} / {backward_link_phrase}"
 msgstr ""
 
-#: ../root/static/scripts/common/components/Autocomplete2/formatters.js:398
+#: ../root/static/scripts/common/components/Autocomplete2/formatters.js:397
 msgid "by {artist}"
 msgstr "von {artist}"
 
-#: ../root/static/scripts/common/components/Autocomplete2/formatters.js:462
+#: ../root/static/scripts/common/components/Autocomplete2/formatters.js:461
 msgid "{first_list_item} … {last_list_item}"
 msgstr "{first_list_item} … {last_list_item}"
 
@@ -14208,7 +14274,7 @@ msgstr ""
 msgid "[missing editor]"
 msgstr "[fehlender Bearbeiter]"
 
-#: ../root/static/scripts/common/components/EntityLink.js:125
+#: ../root/static/scripts/common/components/EntityLink.js:127
 #: ../root/url/UrlIndex.js:31
 msgid ""
 "This link has been temporarily disabled because it has been reported as "
@@ -14217,15 +14283,15 @@ msgstr ""
 "Dieser Link wurde vorübergehend deaktiviert, da er als potenziell schädlich "
 "gemeldet wurde."
 
-#: ../root/static/scripts/common/components/EntityLink.js:337
+#: ../root/static/scripts/common/components/EntityLink.js:339
 msgid "This release has artwork in the Cover Art Archive"
 msgstr "Diese Veröffentlichung hat Artwork im Cover-Art-Archiv"
 
-#: ../root/static/scripts/common/components/EntityLink.js:351
+#: ../root/static/scripts/common/components/EntityLink.js:353
 msgid "This release group has artwork in the Cover Art Archive"
 msgstr ""
 
-#: ../root/static/scripts/common/components/EntityLink.js:367
+#: ../root/static/scripts/common/components/EntityLink.js:369
 msgid ""
 "High quality: All available data has been added, if possible including cover "
 "art with liner info that proves it"
@@ -14233,7 +14299,7 @@ msgstr ""
 "Hohe Qualität: Alle verfügbaren Daten wurden hinzugefügt, wenn möglich "
 "einschließlich Cover-Art mit Liner-Informationen, die diese belegen"
 
-#: ../root/static/scripts/common/components/EntityLink.js:380
+#: ../root/static/scripts/common/components/EntityLink.js:382
 msgid ""
 "Low quality: The release needs serious fixes, or its existence is hard to "
 "prove (but it’s not clearly fake)"
@@ -14246,31 +14312,31 @@ msgstr ""
 msgid "Filter"
 msgstr "Filter"
 
-#: ../root/static/scripts/common/components/FilterForm.js:104
+#: ../root/static/scripts/common/components/FilterForm.js:103
 msgid "Filter events"
 msgstr ""
 
-#: ../root/static/scripts/common/components/FilterForm.js:106
+#: ../root/static/scripts/common/components/FilterForm.js:105
 msgid "Filter recordings"
 msgstr "Aufnahmen filtern"
 
-#: ../root/static/scripts/common/components/FilterForm.js:108
+#: ../root/static/scripts/common/components/FilterForm.js:107
 msgid "Filter releases"
 msgstr "Veröffentlichungen filtern"
 
-#: ../root/static/scripts/common/components/FilterForm.js:110
+#: ../root/static/scripts/common/components/FilterForm.js:109
 msgid "Filter release groups"
 msgstr "Veröffentlichungsgruppen filtern"
 
-#: ../root/static/scripts/common/components/FilterForm.js:112
+#: ../root/static/scripts/common/components/FilterForm.js:111
 msgid "Filter works"
 msgstr ""
 
-#: ../root/static/scripts/common/components/FilterForm.js:188
+#: ../root/static/scripts/common/components/FilterForm.js:187
 msgid "Setlist contains"
 msgstr ""
 
-#: ../root/static/scripts/common/components/FilterForm.js:311
+#: ../root/static/scripts/common/components/FilterForm.js:310
 msgid "Secondary type"
 msgstr ""
 
@@ -14310,7 +14376,7 @@ msgstr ""
 msgid "Show less ISWCs"
 msgstr ""
 
-#: ../root/static/scripts/common/components/MediumDescription.js:19
+#: ../root/static/scripts/common/components/MediumDescription.js:18
 msgid "{medium_format} {position}"
 msgstr "{medium_format} {position}"
 
@@ -14551,6 +14617,13 @@ msgstr ""
 #: ../root/static/scripts/common/i18n/hyphenateTitle.js:14
 msgid "{title} - {subtitle}"
 msgstr "{title} - {subtitle}"
+
+#: ../root/static/scripts/common/i18n/localizeLanguageName.js:15
+#, fuzzy
+#| msgid "[removed]"
+msgctxt "language"
+msgid "[removed]"
+msgstr "[entfernt]"
 
 #: ../root/static/scripts/common/i18n/semicolonOnlyList.js:25
 msgid "{semicolon_only_list_item}; {rest}"
@@ -15103,6 +15176,13 @@ msgstr "Diese Beziehung ist beendet."
 msgctxt "interactive"
 msgid "Edit attributes"
 msgstr "Eigenschaften bearbeiten"
+
+#: ../root/static/scripts/edit/components/Multiselect.js:197
+#, fuzzy
+#| msgid "[removed]"
+msgctxt "generic row"
+msgid "[removed]"
+msgstr "[entfernt]"
 
 #: ../root/static/scripts/edit/components/NewNotesAlertCheckbox.js:35
 msgid "Show me an alert whenever I receive a new edit note."
@@ -15766,25 +15846,43 @@ msgstr ""
 "Duplikat einer davon hinzufügst:"
 
 #: ../root/static/scripts/release-editor/validation.js:178
-msgid "The check digit is {checkdigit}."
+#, fuzzy
+#| msgid "The check digit is {checkdigit}."
+msgid "The check digit would be {checkdigit}."
 msgstr "Die Prüfziffer ist {checkdigit}."
 
 #: ../root/static/scripts/release-editor/validation.js:179
 msgid "Please double-check the barcode on the release."
 msgstr "Bitte überprüfe den Strichcode auf der Veröffentlichung nochmal genau."
 
-#: ../root/static/scripts/release-editor/validation.js:184
+#: ../root/static/scripts/release-editor/validation.js:183
+#: ../root/static/scripts/release-editor/validation.js:224
+#: ../root/static/scripts/release-editor/validation.js:261
+#: ../root/static/scripts/release-editor/validation.js:305
+msgid "The barcode you entered is a valid EAN code."
+msgstr "Der von dir eingegebene Strichcode ist eine gültige EAN."
+
+#: ../root/static/scripts/release-editor/validation.js:187
+#: ../root/static/scripts/release-editor/validation.js:228
+#: ../root/static/scripts/release-editor/validation.js:275
+#: ../root/static/scripts/release-editor/validation.js:319
+msgid "The barcode you entered is not a valid EAN code."
+msgstr "Der Strichcode, den du eingegeben hast, ist keine gültige EAN."
+
+#: ../root/static/scripts/release-editor/validation.js:195
 msgid ""
 "The barcode you entered looks like a UPC code with the check digit missing."
 msgstr ""
 "Der von dir eingegebene Barcode scheint ein UPC mit fehlender Prüfziffer zu "
 "sein."
 
-#: ../root/static/scripts/release-editor/validation.js:194
+#: ../root/static/scripts/release-editor/validation.js:205
+#: ../root/static/scripts/release-editor/validation.js:239
+#: ../root/static/scripts/release-editor/validation.js:283
 msgid "The barcode you entered is a valid UPC code."
 msgstr "Der von dir eingegebene Strichcode ist ein gültiger UPC."
 
-#: ../root/static/scripts/release-editor/validation.js:199
+#: ../root/static/scripts/release-editor/validation.js:210
 msgid ""
 "The barcode you entered is either an invalid UPC code, or an EAN code with "
 "the check digit missing."
@@ -15792,23 +15890,31 @@ msgstr ""
 "Der Strichcode, den du eingegeben hast, ist entweder ein ungültiger UPC oder "
 "eine EAN mit fehlender Prüfziffer."
 
-#: ../root/static/scripts/release-editor/validation.js:213
-msgid "The barcode you entered is a valid EAN code."
-msgstr "Der von dir eingegebene Strichcode ist eine gültige EAN."
-
-#: ../root/static/scripts/release-editor/validation.js:217
-msgid "The barcode you entered is not a valid EAN code."
-msgstr "Der Strichcode, den du eingegeben hast, ist keine gültige EAN."
-
-#: ../root/static/scripts/release-editor/validation.js:224
+#: ../root/static/scripts/release-editor/validation.js:235
 msgid "The barcode you entered is a valid GTIN code."
 msgstr "Der von dir eingegebene Strichcode ist eine gültige GTIN."
 
-#: ../root/static/scripts/release-editor/validation.js:228
+#: ../root/static/scripts/release-editor/validation.js:242
+#: ../root/static/scripts/release-editor/validation.js:264
+#: ../root/static/scripts/release-editor/validation.js:286
+#: ../root/static/scripts/release-editor/validation.js:308
+msgid ""
+"However it ends with an add-on code. Please add it as “{annotation_text}” to "
+"the annotation field below, and keep the main code “{main_digits}” only in "
+"the barcode field."
+msgstr ""
+
+#: ../root/static/scripts/release-editor/validation.js:253
 msgid "The barcode you entered is not a valid GTIN code."
 msgstr "Der Strichcode, den du eingegeben hast, ist keine gültige GTIN."
 
-#: ../root/static/scripts/release-editor/validation.js:235
+#: ../root/static/scripts/release-editor/validation.js:297
+#, fuzzy
+#| msgid "The barcode you entered is a valid UPC code."
+msgid "The barcode you entered is not a valid UPC code."
+msgstr "Der von dir eingegebene Strichcode ist ein gültiger UPC."
+
+#: ../root/static/scripts/release-editor/validation.js:326
 msgid "The barcode you entered is not a valid UPC, EAN or GTIN code."
 msgstr ""
 "Der Strichcode, den du eingegeben hast, ist kein gültiger UPC und keine "
@@ -16273,39 +16379,39 @@ msgstr "Meine E-Mail-Adresse offen anzeigen"
 msgid "Send a copy to my own email address"
 msgstr "Eine Kopie an meine eigene E-Mail-Adresse senden"
 
-#: ../root/user/Login.js:51 ../root/user/Login.js:52
+#: ../root/user/Login.js:52 ../root/user/Login.js:53
 msgctxt "header"
 msgid "Log in"
 msgstr "Einloggen"
 
-#: ../root/user/Login.js:56
+#: ../root/user/Login.js:57
 msgid "You need to be logged in to view this page."
 msgstr "Um diese Seite zu betrachten, musst du eingeloggt sein."
 
-#: ../root/user/Login.js:62
+#: ../root/user/Login.js:63
 msgid "Don't have an account? {uri|Create one now}!"
 msgstr "Hast du noch kein Benutzerkonto? {uri|Erstell einfach eins}!"
 
-#: ../root/user/Login.js:73
+#: ../root/user/Login.js:74
 msgid "Incorrect username or password"
 msgstr "Falscher Benutzername oder Passwort"
 
-#: ../root/user/Login.js:83
+#: ../root/user/Login.js:84
 msgid ""
 "You cannot log in because this account has been marked as a spam account."
 msgstr ""
 
-#: ../root/user/Login.js:116
+#: ../root/user/Login.js:117
 msgid "This is a development server; all passwords have been reset to \"mb\"."
 msgstr ""
 "Dies ist ein Entwicklungsserver; alle Passwörter wurden auf „mb“ "
 "zurückgesetzt."
 
-#: ../root/user/Login.js:124
+#: ../root/user/Login.js:125
 msgid "Keep me logged in"
 msgstr "Eingeloggt bleiben"
 
-#: ../root/user/Login.js:136
+#: ../root/user/Login.js:137
 msgid "Forgot your {link1|username} or {link2|password}?"
 msgstr ""
 "Hast du deinen {link1|Benutzernamen} oder dein {link2|Passwort} vergessen?"
@@ -17373,6 +17479,9 @@ msgstr ""
 "<strong>Achtung:</strong> Einige der Werke, die du vereinst, haben "
 "unterschiedliche ISWCs. Bitte stelle sicher, dass es sich tatsächlich um die "
 "gleichen Werke handelt und dass du die Vereinigung durchführen willst."
+
+#~ msgid "This is not a valid ISRC"
+#~ msgstr "Dies ist kein gültiger ISRC"
 
 #~ msgctxt "interactive"
 #~ msgid "Add area"
