@@ -11,14 +11,38 @@ import {reduceArtistCreditNames} from '../../common/immutable-entities.js';
 import {arraysEqual} from '../../common/utility/arrays.js';
 import {cloneArrayDeep} from '../../common/utility/cloneDeep.mjs';
 
-/*
- * Returns true if the supplied credits include the same underlying artists.
+/**
+ * Returns true if the first n artists in a and b have the same GIDs.
+ * If n is 0 or negative, compares the entire arrays.
  */
-const sameArtists = (
+const sameEntities = (
   a: $ReadOnlyArray<ArtistCreditNameT>,
   b: $ReadOnlyArray<ArtistCreditNameT>,
-) => arraysEqual(a, b,
-  (a, b) => a.artist && b.artist && a.artist.gid === b.artist.gid);
+  n: number,
+): boolean => arraysEqual(
+  n > 0 ? a.slice(0, n) : a,
+  n > 0 ? b.slice(0, n) : b,
+  (a, b) => a.artist && b.artist && a.artist.gid === b.artist.gid,
+);
+
+/*
+ * Returns a copy of orig with its first numToReplace names changed to
+ * replacement, preserving the original join phrase from the end of the
+ * replaced names.
+ */
+const replacePrefix = (
+  orig: $ReadOnlyArray<ArtistCreditNameT>,
+  numToReplace: number,
+  replacement: $ReadOnlyArray<ArtistCreditNameT>,
+): $ReadOnlyArray<ArtistCreditNameT> => {
+  const updated = cloneArrayDeep(replacement)
+    .concat(orig.slice(numToReplace));
+  updated[replacement.length - 1] = {
+    ...updated[replacement.length - 1],
+    joinPhrase: orig[numToReplace - 1].joinPhrase,
+  };
+  return updated;
+};
 
 /*
  * Returns updated artist credits for a track that's part of a release whose
@@ -32,26 +56,10 @@ export default function getUpdatedTrackArtists(
   oldArtists: $ReadOnlyArray<ArtistCreditNameT>,
   newArtists: $ReadOnlyArray<ArtistCreditNameT>,
 ): $ReadOnlyArray<ArtistCreditNameT> {
-  const oldArtistsReduced = reduceArtistCreditNames(oldArtists);
-
-  /*
-   * If the track credits exactly match the old release credits or the track
-   * credits include the same artists as the new release credits, update
-   * them to use the new release credits.
-   */
-  if (
-    reduceArtistCreditNames(trackArtists) === oldArtistsReduced ||
-    sameArtists(trackArtists, newArtists)
-  ) {
-    return newArtists;
-  }
-
-  /*
-   * If the track credits contain more artists than the old release credits,
-   * also check if the first N (where N is the length of the release
-   * credits) track artists match the release artists. This handles renaming
-   * primary artists on tracks that also include featured artists
-   * (MBS-13273).
+  /**
+   * If all or a prefix of the track's credits are rendered the same way as
+   * the old release's, update the matching portion to use the new release's
+   * credits.
    *
    * Don't do anything if the track credits already start with the same
    * artists as the new release credits to avoid duplicating artists in the
@@ -61,31 +69,29 @@ export default function getUpdatedTrackArtists(
   if (
     oldArtists.length > 0 &&
     newArtists.length > 0 &&
-    trackArtists.length > oldArtists.length
+    !sameEntities(trackArtists, newArtists, newArtists.length)
   ) {
-    const trackPrefix = reduceArtistCreditNames(
-      trackArtists.slice(0, oldArtists.length), true,
-    );
-    if (
-      trackPrefix === oldArtistsReduced &&
-      !sameArtists(
-        trackArtists.slice(0, newArtists.length),
-        newArtists,
-      )
-    ) {
-      /*
-       * Replace the old release artist(s) with the new one(s) and restore
-       * the old join phrase following the release artist.
-       */
-      const names = cloneArrayDeep(newArtists)
-        .concat(trackArtists.slice(oldArtists.length));
-      names[newArtists.length - 1] = {
-        artist: names[newArtists.length - 1].artist,
-        joinPhrase: trackArtists[oldArtists.length - 1].joinPhrase,
-        name: names[newArtists.length - 1].name,
-      };
-      return names;
+    const oldReduced = reduceArtistCreditNames(oldArtists);
+    for (let i = trackArtists.length; i >= 1; i--) {
+      const prefixReduced = reduceArtistCreditNames(
+        trackArtists.slice(0, i),
+        i < trackArtists.length,
+      );
+      if (prefixReduced === oldReduced) {
+        return replacePrefix(trackArtists, i, newArtists);
+      }
+      if (prefixReduced.length <= oldReduced.length) {
+        break;
+      }
     }
+  }
+
+  /**
+   * If the track starts with the same underlying artists as the new release,
+   * update it so the artists will be rendered the same way.
+   */
+  if (sameEntities(trackArtists, newArtists, newArtists.length)) {
+    return replacePrefix(trackArtists, newArtists.length, newArtists);
   }
 
   return trackArtists;
