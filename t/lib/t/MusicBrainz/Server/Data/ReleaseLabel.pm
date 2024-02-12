@@ -124,58 +124,20 @@ test 'Release labels are intelligently merged when one release label has a catal
            'has cat no ABC for label 1');
 };
 
-test 'Modiyfing release labels invalidates the release cache entry' => sub {
+test 'Release labels are not cached on the release' => sub {
     my $test = shift;
     my $c = $test->c;
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+releaselabel');
 
-    my $cache_release = sub {
-        $c->store->delete('release:recently_invalidated:1');
+    # Ensure the release is cached.
+    $c->sql->begin;
+    my $release = $c->model('Release')->get_by_id(1);
+    $c->model('ReleaseLabel')->load($release);
+    $c->sql->commit;
 
-        # Ensure the release is cached.
-        $c->sql->begin;
-        $c->model('Release')->get_by_id(1);
-        $c->sql->commit;
-
-        ok(
-            defined $c->cache->get('release:1'),
-            'release is cached',
-        );
-    };
-
-    $cache_release->();
-
-    my $release_label = $c->model('ReleaseLabel')->insert({
-        release_id => 1,
-        catalog_number => 'ABC-123-Y',
-    });
-
-    ok(
-        !defined $c->cache->get('release:1'),
-        'release was uncached after inserting release label',
-    );
-
-    $cache_release->();
-
-    $c->model('ReleaseLabel')->update(
-        $release_label->id,
-        { catalog_number => 'ABC-123-Z' },
-    );
-
-    ok(
-        !defined $c->cache->get('release:1'),
-        'release was uncached after updating release label',
-    );
-
-    $cache_release->();
-
-    $c->model('ReleaseLabel')->delete($release_label->id);
-
-    ok(
-        !defined $c->cache->get('release:1'),
-        'release was uncached after deleting release label',
-    );
+    $release = $c->cache->get('release:1');
+    ok(!$release->has_labels);
 };
 
 test '`load` does not duplicate labels on cached release' => sub {

@@ -47,28 +47,6 @@ has 'sth' => (
     clearer => 'clear_sth',
 );
 
-# Note: These callbacks run regardless of whether the transaction succeeded!
-has 'post_txn_callbacks' => (
-    traits  => ['Array'],
-    is => 'rw',
-    isa => 'ArrayRef[CodeRef]',
-    default => sub { [] },
-);
-
-sub add_post_txn_callback {
-    my ($self, $callback) = @_;
-    croak 'add_post_txn_callback called without begin'
-        unless $self->is_in_transaction;
-    my $index = $self->transaction_depth - 1;
-    push @{ $self->post_txn_callbacks->[$index] }, $callback;
-}
-
-sub _run_post_txn_callbacks {
-    my ($self) = @_;
-    my $callbacks = pop @{ $self->post_txn_callbacks };
-    $_->() for @$callbacks;
-}
-
 sub finish
 {
     my ($self) = @_;
@@ -253,8 +231,8 @@ sub delete_row
 
 # We don't support nested transactions (i.e., we don't make use of
 # savepoints), but we do fake them in order to allow tests that use both
-# `t::Context` and `t::Mechanize` to actually function. Besides running the
-# `post_txn_callbacks`, nested commits and rollbacks are simply ignored.
+# `t::Context` and `t::Mechanize` to actually function. Nested commits and
+# rollbacks are simply ignored.
 has 'transaction_depth' => (
     isa => 'Int',
     is => 'ro',
@@ -270,7 +248,6 @@ sub begin
 {
     my $self = shift;
     $self->dbh->{AutoCommit} = 0;
-    push @{ $self->post_txn_callbacks }, [];
     my $txn_depth = $self->inc_transaction_depth;
     if ($txn_depth == 1) {
         return Sql::Timer->new('BEGIN', []) if $self->debug;
@@ -284,7 +261,6 @@ sub commit
 
     my $txn_depth = $self->dec_transaction_depth;
     if ($txn_depth > 0) {
-        $self->_run_post_txn_callbacks;
         return;
     }
 
@@ -304,17 +280,6 @@ sub commit
         cluck $err unless ($self->quiet);
         eval { $self->rollback };
         croak $err;
-    }
-    finally {
-        # Note: exceptions in `finally` blocks cannot be propagated "due to
-        # fundamental limitations of Perl."
-        #
-        # Never use `post_txn_callbacks` for anything that MUST complete
-        # to preserve database or cache consistency.
-        #
-        # Aside: we could pass any caught error here if any callback needs to
-        # determine whether the commit succeeded in the future.
-        $self->_run_post_txn_callbacks;
     };
 }
 
@@ -325,7 +290,6 @@ sub rollback
 
     my $txn_depth = $self->dec_transaction_depth;
     if ($txn_depth > 0) {
-        $self->_run_post_txn_callbacks;
         return;
     }
 
@@ -344,10 +308,6 @@ sub rollback
         $self->dbh->{AutoCommit} = 1;
         cluck $err unless $self->quiet;
         croak $err;
-    }
-    finally {
-        # See the comment in `commit` above.
-        $self->_run_post_txn_callbacks;
     };
 }
 
