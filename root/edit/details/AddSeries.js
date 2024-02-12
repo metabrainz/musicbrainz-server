@@ -22,7 +22,7 @@ const AddSeries = ({edit}: Props): React$MixedElement => {
       <table className="details">
         <tbody>
           <tr>
-            <th>{addColonText(l('Series'))}</th>
+            <th>{addColonText(lp('Series', 'singular'))}</th>
             <td><EntityLink entity={edit.display_data.series} /></td>
           </tr>
         </tbody>

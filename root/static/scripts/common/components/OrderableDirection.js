@@ -19,7 +19,7 @@ const OrderableDirection = ({
   let directionName;
   switch (direction) {
     case 0:
-      directionName = l('None');
+      directionName = lp('None', 'relationship order direction');
       break;
     case 1:
       directionName = l('Forward');

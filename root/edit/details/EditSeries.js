@@ -31,7 +31,7 @@ const EditSeries = ({edit}: Props): React$Element<'table'> => {
     <table className="details edit-series">
       <tbody>
         <tr>
-          <th>{addColonText(l('Series'))}</th>
+          <th>{addColonText(lp('Series', 'singular'))}</th>
           <td colSpan="2">
             <EntityLink entity={series} />
           </td>
