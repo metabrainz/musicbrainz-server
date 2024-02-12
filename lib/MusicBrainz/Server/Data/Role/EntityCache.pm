@@ -108,11 +108,6 @@ after delete => sub {
     $self->_delete_from_cache(@ids);
 };
 
-after merge => sub {
-    my ($self, @ids) = @_;
-    $self->_delete_from_cache(@ids);
-};
-
 sub _create_cache_entries {
     my ($self, $data, $ids) = @_;
 
@@ -189,7 +184,9 @@ sub _delete_from_cache {
         $max_request_time = $RECENTLY_INVALIDATED_TTL;
     }
     my $invalidated_prefix = $self->_recently_invalidated_prefix;
-    my @invalidated_flags = map { $invalidated_prefix . $_ } @ids;
+    my @invalidated_flags = map { $invalidated_prefix . $_ } grep {
+        is_database_row_id($_)
+    } @ids;
     $c->store->set_multi(map {
         [$_, 1, $max_request_time + 1]
     } @invalidated_flags);

@@ -128,6 +128,7 @@ has 'labels' => (
         clear_labels => 'clear',
         label_count => 'count',
     },
+    predicate => 'has_labels',
 );
 
 has 'mediums' => (
