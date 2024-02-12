@@ -329,16 +329,6 @@ msgid ""
 "styles, the strings are nylon or gut."
 msgstr ""
 
-#. name:musette de cour 
-#: DB:instrument/description:735
-msgid ""
-"Also known as baroque musette, it was a small bagpipe used predominantly by "
-"French court and nobility in the 1600-1700's.<br /> For the instrument known "
-"as “chinese musette”, see <a href=\"/instrument/15cd573d-15a8-4f9f-a48f-"
-"f73218d85e14/\">suona</a>.<br /> For the oboe also known as musette, see <a "
-"href=\"/instrument/77b29599-96c7-4571-9fae-09e7e42b8175/\">piccolo oboe</a>."
-msgstr ""
-
 #. name:samica 
 #: DB:instrument/description:830
 msgid ""
@@ -1404,6 +1394,17 @@ msgid ""
 "reeds. Sound is produced by playing the keyboard."
 msgstr ""
 
+#. name:musette de cour 
+#: DB:instrument/description:735
+msgid ""
+"For the instrument known as \"chinese musette\", see <a href=\"/"
+"instrument/15cd573d-15a8-4f9f-a48f-f73218d85e14/\">suona</a>.<br /> For the "
+"oboe also known as musette, see <a href=\"/"
+"instrument/77b29599-96c7-4571-9fae-09e7e42b8175/\">piccolo oboe</a>.<br /> "
+"Also known as baroque musette, it was a small bagpipe used predominantly by "
+"French court and nobility in the 1600-1700's."
+msgstr ""
+
 #. name:fiscorn 
 #: DB:instrument/description:1184
 msgid ""
@@ -1988,6 +1989,13 @@ msgid ""
 "Known since ancient times in south-east Europe and Turkey, small bronze "
 "finger cymbals are used for dancing and other performances. These are "
 "similar to the jingles set in some frame drums."
+msgstr ""
+
+#. name:veuze 
+#: DB:instrument/description:1196
+msgid ""
+"Known since atleast the 16th century, it has a long chanter, a three-"
+"segmented shoulder drone and a short blowpipe."
 msgstr ""
 
 #. name:cimpoi 
@@ -5028,6 +5036,15 @@ msgstr ""
 msgid ""
 "Traditionally made of willow, it has four strings and a small, pear-shaped "
 "body. Played with a pick, it has a higher pitch than the pipa."
+msgstr ""
+
+#. name:piva 
+#: DB:instrument/description:1197
+msgid ""
+"Traditionally played with the <a href=\"/instrument/814816db-3368-4889-a8cd-"
+"aa34bd1043f0\">piffero</a> in folk ensambles, the bag is usually made of kid-"
+"leather with 2 drones: a bass and a tenor and a chanter with 7-8 finger-"
+"holes."
 msgstr ""
 
 #. name:caixa 

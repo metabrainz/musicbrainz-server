@@ -3025,6 +3025,11 @@ msgstr ""
 msgid "piri"
 msgstr ""
 
+#: DB:instrument/name:1197
+msgctxt "Northern Italian bagpipe"
+msgid "piva"
+msgstr ""
+
 #: DB:instrument/name:700
 msgid "pkhachich"
 msgstr ""
@@ -4245,6 +4250,11 @@ msgstr ""
 
 #: DB:instrument/name:650
 msgid "vessel flute"
+msgstr ""
+
+#: DB:instrument/name:1196
+msgctxt "Breton bagpipe"
+msgid "veuze"
 msgstr ""
 
 #: DB:instrument/name:840

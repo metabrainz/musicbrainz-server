@@ -18,7 +18,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-01-28 09:28+0000\n"
+"PO-Revision-Date: 2024-02-01 21:28+0000\n"
 "Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
 "metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -29,7 +29,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
 " ? 1 : 2);\n"
-"X-Generator: Weblate 5.3\n"
+"X-Generator: Weblate 5.3.1\n"
 
 #: DB:instrument/name:438
 msgid "12 string guitar"
@@ -3043,6 +3043,11 @@ msgstr "organo a canne"
 msgid "piri"
 msgstr "piri"
 
+#: DB:instrument/name:1197
+msgctxt "Northern Italian bagpipe"
+msgid "piva"
+msgstr "piva"
+
 #: DB:instrument/name:700
 msgid "pkhachich"
 msgstr "pkhachich"
@@ -4264,6 +4269,11 @@ msgstr "venu"
 #: DB:instrument/name:650
 msgid "vessel flute"
 msgstr "flauto globulare"
+
+#: DB:instrument/name:1196
+msgctxt "Breton bagpipe"
+msgid "veuze"
+msgstr "veuze"
 
 #: DB:instrument/name:840
 msgctxt "accordina with piano keys"

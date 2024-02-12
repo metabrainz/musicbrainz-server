@@ -24,18 +24,18 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-01-26 13:28+0000\n"
-"Last-Translator: reosarevok <reosarevok@users.noreply.translations."
-"metabrainz.org>\n"
+"PO-Revision-Date: 2024-02-09 13:29+0000\n"
+"Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
+".org>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.3\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
+"X-Generator: Weblate 5.3.1\n"
 
 #: DB:link_attribute_type/description:1355
 msgid "A performance-centered, usually one to three year postgraduate program."
@@ -1734,6 +1734,8 @@ msgid ""
 "This indicates that an artist appears on a music video, but doesn't actually "
 "perform on the audio track."
 msgstr ""
+"Indica un artista que aparece en un videoclip, pero no participa en la pista "
+"de audio."
 
 #: DB:link_type/description:121
 msgid "This indicates that an artist had a recording contract with a label."
@@ -1862,7 +1864,7 @@ msgstr ""
 
 #: DB:link_type/description:1185
 msgid "This indicates the artist directed video on this release."
-msgstr ""
+msgstr "Indica que el artista dirigió vídeo en esta publicación."
 
 #: DB:link_type/description:973
 msgid "This indicates the artist that inspired this artist’s name."
@@ -1897,14 +1899,13 @@ msgid ""
 msgstr ""
 
 #: DB:link_type/description:1230
-#, fuzzy
 msgid ""
 "This indicates the artist was the choreographer for this video recording."
-msgstr "Indica que la grabación es de una actuación en vivo."
+msgstr "Indica que el artista fue el coreógrafo de esta grabación de vídeo."
 
 #: DB:link_type/description:962
 msgid "This indicates the artist was the director of this video recording."
-msgstr ""
+msgstr "Indica que el artista fue el director de esta grabación de vídeo."
 
 #: DB:link_type/description:991
 msgid "This indicates the artist was the owner of this label."
@@ -2079,15 +2080,15 @@ msgstr ""
 
 #: DB:link_type/description:963
 msgid "This indicates the video was shot at this place."
-msgstr ""
+msgstr "Indica que el vídeo fue grabado en este lugar."
 
 #: DB:link_type/description:966
 msgid "This indicates the video was shot at/during this event."
-msgstr ""
+msgstr "Indica que el vídeo fue grabado durante este evento."
 
 #: DB:link_type/description:964
 msgid "This indicates the video was shot in this area."
-msgstr ""
+msgstr "Indica que el vídeo fue grabado en este área."
 
 #: DB:link_type/description:914
 msgid ""
@@ -2196,7 +2197,7 @@ msgstr ""
 #: DB:link_type/description:857
 msgid ""
 "This is used to link a music video to the corresponding audio recording."
-msgstr ""
+msgstr "Enlaza un videoclip a la grabación de audio equivalente."
 
 #: DB:link_type/description:705
 msgid "This is used to link a place to the equivalent entry in Discogs."
@@ -2407,8 +2408,8 @@ msgid ""
 "This links a label to a channel, playlist, or user page on a video sharing "
 "site containing videos curated by it."
 msgstr ""
-"Esto vincula una etiqueta a un canal, lista de reproducción o página de "
-"usuario en un sitio para compartir videos que contiene videos seleccionados "
+"Enlaza una discográfica a un canal, lista de reproducción o página de "
+"usuario en un sitio para compartir vídeos que contiene vídeos seleccionados "
 "por ella."
 
 #: DB:link_type/description:214
@@ -2464,6 +2465,8 @@ msgid ""
 "This links a place to a channel, playlist, or user page on a video sharing "
 "site containing videos curated by it."
 msgstr ""
+"Enlaza un lugar a un canal, lista de reproducción o página de usuario en un "
+"sitio para compartir vídeos que contiene vídeos seleccionados por él."
 
 #: DB:link_type/description:1191
 msgid "This links a place to a fan-created website."
@@ -2638,6 +2641,8 @@ msgid ""
 "This links a series to a channel, playlist, or user page on a video sharing "
 "site containing videos curated by it."
 msgstr ""
+"Enlaza una serie a un canal, lista de reproducción o página de usuario en un "
+"sitio para compartir vídeos que contiene vídeos seleccionados por ella."
 
 #: DB:link_type/description:1189
 msgid "This links a series to a fan-created website."
@@ -2759,8 +2764,8 @@ msgid ""
 "This links an artist to a channel, playlist, or user page on a video sharing "
 "site containing videos curated by it."
 msgstr ""
-"Esto vincula a un artista a un canal, lista de reproducción o página de "
-"usuario en un sitio para compartir videos seleccionados por él."
+"Enlaza un artista a un canal, lista de reproducción o página de usuario en "
+"un sitio para compartir vídeos que contiene vídeos seleccionados por él."
 
 #: DB:link_type/description:172
 msgid "This links an artist to a fan-created website."
@@ -2895,6 +2900,8 @@ msgid ""
 "This links an event to a channel, playlist, or user page on a video sharing "
 "site containing videos curated by it."
 msgstr ""
+"Enlaza un evento a un canal, lista de reproducción o página de usuario en un "
+"sitio para compartir vídeos que contiene vídeos seleccionados por él."
 
 #: DB:link_type/description:898
 msgid ""
@@ -5212,7 +5219,7 @@ msgstr "tiene letras disponibles en "
 
 #: DB:link_type/long_link_phrase:857
 msgid "has music video"
-msgstr "tiene video musical"
+msgstr "tiene el videoclip"
 
 #: DB:link_type/long_link_phrase:316
 msgid "has orchestration"
@@ -6087,15 +6094,15 @@ msgstr ""
 
 #: DB:link_type/name:857
 msgid "music video"
-msgstr ""
+msgstr "videoclip"
 
 #: DB:link_type/reverse_link_phrase:857
 msgid "music video for"
-msgstr "Video Musical Para"
+msgstr "videoclip de"
 
 #: DB:link_type/link_phrase:857
 msgid "music videos"
-msgstr "Videos Musicales"
+msgstr "videoclips"
 
 #: DB:link_type/name:1046
 msgid "musical quotation"

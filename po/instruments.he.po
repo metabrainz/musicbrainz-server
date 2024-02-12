@@ -3072,6 +3072,11 @@ msgstr "עוגב"
 msgid "piri"
 msgstr "פירי"
 
+#: DB:instrument/name:1197
+msgctxt "Northern Italian bagpipe"
+msgid "piva"
+msgstr ""
+
 #: DB:instrument/name:700
 msgid "pkhachich"
 msgstr "פקהאצ'יץ'"
@@ -4304,6 +4309,11 @@ msgstr "מפגש"
 #: DB:instrument/name:650
 msgid "vessel flute"
 msgstr "חליל כלי־קיבול"
+
+#: DB:instrument/name:1196
+msgctxt "Breton bagpipe"
+msgid "veuze"
+msgstr ""
 
 #: DB:instrument/name:840
 msgctxt "accordina with piano keys"

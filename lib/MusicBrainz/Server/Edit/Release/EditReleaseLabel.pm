@@ -207,7 +207,7 @@ sub initialize
         $self->c->model('Release')->load($release_label);
         $self->c->model('Medium')->load_for_releases($release_label->release);
         $self->c->model('MediumFormat')->load($release_label->release->all_mediums);
-        $self->c->model('ReleaseLabel')->load($release_label->release) unless $release_label->release->all_labels;
+        $self->c->model('ReleaseLabel')->load($release_label->release);
     }
 
     $self->throw_if_release_label_is_duplicate(

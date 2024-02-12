@@ -165,7 +165,7 @@ test 'Editing a relationship succeeds despite an entity being merged' => sub {
     );
 
     ok($edit->is_open);
-    $c->model('Artist')->merge(5, 4);
+    $c->model('Artist')->merge(5, [4]);
     ok !exception { $edit->accept };
 };
 
@@ -189,7 +189,7 @@ test q(Editing a relationship fails if one of the entities is merged, and the
     );
 
     ok($edit->is_open);
-    $c->model('Artist')->merge(5, 4);
+    $c->model('Artist')->merge(5, [4]);
     $c->model('Relationship')->insert('artist', 'artist', {
         entity0_id      => 3,
         entity1_id      => 5,
