@@ -5418,6 +5418,14 @@ limited_link_type_combinations: [
        only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series'],
   },
   {
+                     input_url: 'http://shop.spotify.com/en-US/artist/4O15NlyKLIASxsJ0PrXPfz/product/pink-tape-autographed-digital-album-alternate-cover?utm_medium=&utm_source=&utm_content=artiststore&utm_term=&utm_promo=&container_platform=&utm_campaign=',
+             input_entity_type: 'release',
+limited_link_type_combinations: ['downloadpurchase', 'mailorder'],
+            expected_clean_url: 'https://shop.spotify.com/en-US/artist/4O15NlyKLIASxsJ0PrXPfz/product/pink-tape-autographed-digital-album-alternate-cover',
+       input_relationship_type: 'downloadpurchase',
+       only_valid_entity_types: ['recording', 'release'],
+  },
+  {
                      input_url: 'https://spotify.link/auVCkcbzoyb',
              input_entity_type: 'artist',
     expected_relationship_type: undefined,
