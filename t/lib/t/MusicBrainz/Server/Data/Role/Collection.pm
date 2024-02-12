@@ -91,6 +91,8 @@ for my $entity_type (entities_with('collections')) {
                 medium_positions => {},
                 merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_MERGE,
             );
+        } elsif ($entity_type eq 'artist') {
+            $model->merge($entity2->{id}, [$entity1->{id}]);
         } else {
             $model->merge($entity2->{id}, $entity1->{id});
         }

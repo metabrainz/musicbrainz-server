@@ -41,7 +41,7 @@ sub _entity_class
 sub load
 {
     my ($self, @releases) = @_;
-    my %id_to_release = object_to_ids(@releases);
+    my %id_to_release = object_to_ids(grep { !$_->has_labels } @releases);
     my @ids = keys %id_to_release;
     return unless @ids; # nothing to do
     my $query = 'SELECT ' . $self->_columns . '
@@ -134,7 +134,9 @@ sub insert
 
     push @created, $class->new(id => $self->sql->insert_row('release_label', $row, 'id'));
 
-    $self->c->model('Series')->reorder_for_entities('release', $row->{release});
+    my $release_id = $row->{release};
+    $self->c->model('Series')->reorder_for_entities('release', $release_id);
+    $self->c->model('Release')->_delete_from_cache($release_id);
 
     return wantarray ? @created : $created[0];
 }
@@ -153,17 +155,19 @@ sub update
     );
 
     $self->c->model('Series')->reorder_for_entities('release', $release_id);
+    $self->c->model('Release')->_delete_from_cache($release_id);
 }
 
 sub delete {
     my ($self, @release_label_ids) = @_;
 
-    my $releases = $self->sql->select_single_column_array(
+    my $release_ids = $self->sql->select_single_column_array(
         'DELETE FROM release_label WHERE id = any(?) RETURNING release',
         \@release_label_ids,
     );
 
-    $self->c->model('Series')->reorder_for_entities('release', @$releases);
+    $self->c->model('Series')->reorder_for_entities('release', @$release_ids);
+    $self->c->model('Release')->_delete_from_cache(@$release_ids);
 }
 
 __PACKAGE__->meta->make_immutable;

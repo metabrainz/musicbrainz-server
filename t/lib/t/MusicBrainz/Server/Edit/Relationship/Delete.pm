@@ -135,7 +135,7 @@ test 'Entities load correctly after being merged (MBS-2477)' => sub {
         relationship => $relationship,
     );
 
-    $c->model('Artist')->merge(4, 3);
+    $c->model('Artist')->merge(4, [3]);
     $c->model('Edit')->load_all($edit);
 
     is($edit->display_data->{relationship}{entity0_id}, 4);

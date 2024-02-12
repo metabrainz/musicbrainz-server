@@ -2,6 +2,7 @@ package t::MusicBrainz::Server::Data::ReleaseLabel;
 use strict;
 use warnings;
 
+use Test::Deep qw( cmp_deeply );
 use Test::Routine;
 use Test::Moose;
 use Test::More;
@@ -121,6 +122,101 @@ test 'Release labels are intelligently merged when one release label has a catal
     is($release->label_count => 1, 'has 2 label/catno pairs');
     ok((grep { $_->label_id == 1 && $_->catalog_number eq 'ABC' } $release->all_labels),
            'has cat no ABC for label 1');
+};
+
+test 'Modiyfing release labels invalidates the release cache entry' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+releaselabel');
+
+    my $cache_release = sub {
+        $c->store->delete('release:recently_invalidated:1');
+
+        # Ensure the release is cached.
+        $c->sql->begin;
+        $c->model('Release')->get_by_id(1);
+        $c->sql->commit;
+
+        ok(
+            defined $c->cache->get('release:1'),
+            'release is cached',
+        );
+    };
+
+    $cache_release->();
+
+    my $release_label = $c->model('ReleaseLabel')->insert({
+        release_id => 1,
+        catalog_number => 'ABC-123-Y',
+    });
+
+    ok(
+        !defined $c->cache->get('release:1'),
+        'release was uncached after inserting release label',
+    );
+
+    $cache_release->();
+
+    $c->model('ReleaseLabel')->update(
+        $release_label->id,
+        { catalog_number => 'ABC-123-Z' },
+    );
+
+    ok(
+        !defined $c->cache->get('release:1'),
+        'release was uncached after updating release label',
+    );
+
+    $cache_release->();
+
+    $c->model('ReleaseLabel')->delete($release_label->id);
+
+    ok(
+        !defined $c->cache->get('release:1'),
+        'release was uncached after deleting release label',
+    );
+};
+
+test '`load` does not duplicate labels on cached release' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+releaselabel');
+
+    # Ensure the release is cached.
+    $c->sql->begin;
+    my $release = $c->model('Release')->get_by_id(1);
+    $c->model('ReleaseLabel')->load($release);
+    $c->sql->commit;
+
+    # Load release from cache.
+    $release = $c->model('Release')->get_by_id(1);
+    $c->model('ReleaseLabel')->load($release);
+
+    cmp_deeply(
+        [map {
+            id => $_->id,
+            release_id => $_->release_id,
+            label_id => $_->label_id,
+            catalog_number => $_->catalog_number,
+        }, @{ $release->labels }],
+        [
+            {
+                id => 1,
+                release_id => 1,
+                label_id => 1,
+                catalog_number => 'ABC-123',
+            },
+            {
+                id => 2,
+                release_id => 1,
+                label_id => 1,
+                catalog_number => 'ABC-123-X',
+            },
+        ],
+        'there are two release labels',
+    );
 };
 
 1;
