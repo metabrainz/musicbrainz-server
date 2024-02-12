@@ -1,7 +1,9 @@
 package MusicBrainz::Server::Controller;
 use Moose;
+use MooseX::MethodAttributes;
 use namespace::autoclean;
-BEGIN { extends 'Catalyst::Controller'; }
+
+extends 'Catalyst::Controller';
 
 use Carp;
 use Data::Page;

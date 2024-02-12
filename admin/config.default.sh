@@ -36,3 +36,7 @@ RSYNC_FULLEXPORT_PORT='65415'
 RSYNC_FULLEXPORT_DIR="$FTP_DATA_DIR/fullexport"
 RSYNC_FULLEXPORT_KEY='~/.ssh/rsync-data-fullexport'
 RSYNC_LATEST_KEY='~/.ssh/rsync-data-latest'
+
+RSYNC_INCREMENTAL_JSON_DUMPS_HOST='mbincrementaljson.local'
+RSYNC_INCREMENTAL_JSON_DUMPS_PORT='65415'
+RSYNC_INCREMENTAL_JSON_DUMPS_KEY='~/.ssh/rsync-json-dumps-incremental'

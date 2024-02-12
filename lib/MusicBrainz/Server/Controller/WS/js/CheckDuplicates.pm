@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Controller::WS::js::CheckDuplicates;
 use Moose;
+use MooseX::MethodAttributes;
 use namespace::autoclean;
 use HTTP::Status qw( :constants );
 use JSON;
@@ -7,7 +8,7 @@ use Try::Tiny;
 use MusicBrainz::Server::Data::Utils qw(type_to_model);
 use aliased 'MusicBrainz::Server::WebService::JSONSerializer';
 
-BEGIN {extends 'MusicBrainz::Server::ControllerBase::WS::js'}
+extends 'MusicBrainz::Server::ControllerBase::WS::js';
 
 my $ws_defs = Data::OptList::mkopt([
     'check_duplicates' => {

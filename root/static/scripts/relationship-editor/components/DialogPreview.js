@@ -105,7 +105,7 @@ const DialogPreview = (React.memo<PropsT>(({
           : (
             (isDatabaseRowId(entity.id) || nonEmpty(entity.name))
               ? '' // have EntityLink determine the content
-              : l('[unknown]'))
+              : lp('[unknown]', 'generic entity'))
       }
       deletedCaption={
         (batchSelectionCount != null && entity === source)

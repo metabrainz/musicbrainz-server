@@ -1,18 +1,20 @@
 #
 # Translators:
 # 황다운 <email address hidden>, 2018
+# hashflu <minwuekim@gmail.com>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2012-05-24 18:52+0000\n"
-"Last-Translator: 황다운 <ghkdekdns71@gmail.com>, 2018\n"
-"Language-Team: Korean (http://app.transifex.com/musicbrainz/musicbrainz/"
-"language/ko/)\n"
+"PO-Revision-Date: 2024-01-26 13:28+0000\n"
+"Last-Translator: hashflu <minwuekim@gmail.com>\n"
+"Language-Team: Korean <https://translations.metabrainz.org/projects/"
+"musicbrainz/attributes/ko/>\n"
 "Language: ko\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 5.3\n"
 
 #: DB:work_type/description:9
 msgctxt "work_type"
@@ -21,8 +23,8 @@ msgid ""
 "unaccompanied) choral works. What exactly is a motet depends quite a bit on "
 "the period."
 msgstr ""
-"\"모테트\"란 여러가지 형식의 (보통음 무반주) 합창 작품에 대해서 사용되는 용어"
-"입니다. 엄밀히 이를 가르키는지는 시대에 따라서 크게 다릅니다. "
+"\"모테트\"란 여러가지 형식의 (보통음 무반주) 합창 작품에 대해서 사용되는 "
+"용어입니다. 엄밀한 정의는 시대에 따라서 크게 다릅니다."
 
 #: DB:work_type/description:5
 msgctxt "work_type"
@@ -36,7 +38,7 @@ msgstr ""
 #: DB:medium_format/name:205
 msgctxt "medium_format"
 msgid "10\" Acetate"
-msgstr ""
+msgstr "10인치 아세테이트"
 
 #: DB:medium_format/name:54
 msgctxt "medium_format"
@@ -51,7 +53,7 @@ msgstr "10인치 비닐"
 #: DB:medium_format/name:206
 msgctxt "medium_format"
 msgid "12\" Acetate"
-msgstr ""
+msgstr "12인치 아세테이트"
 
 #: DB:medium_format/name:72
 msgctxt "medium_format"
@@ -76,12 +78,12 @@ msgstr "3.5인치 프로피 디스크"
 #: DB:medium_format/name:91
 msgctxt "medium_format"
 msgid "5.25\" Floppy Disk"
-msgstr ""
+msgstr "5.25인치 플로피 디스크"
 
 #: DB:medium_format/name:204
 msgctxt "medium_format"
 msgid "7\" Acetate"
-msgstr ""
+msgstr "7인치 아세테이트"
 
 #: DB:medium_format/name:52
 msgctxt "medium_format"
@@ -106,22 +108,22 @@ msgstr "8인치 레이저 디스크"
 #: DB:medium_format/name:78
 msgctxt "medium_format"
 msgid "8-Track Cartridge"
-msgstr ""
+msgstr "8트랙 카트리지"
 
 #: DB:medium_format/name:34
 msgctxt "medium_format"
 msgid "8cm CD"
-msgstr ""
+msgstr "8cm CD"
 
 #: DB:medium_format/name:40
 msgctxt "medium_format"
 msgid "8cm CD+G"
-msgstr ""
+msgstr "8cm CD+G"
 
 #: DB:medium_format/description:166
 msgctxt "medium_format"
 msgid "8cm DVD, often used for video singles."
-msgstr ""
+msgstr "주로 뮤직비디오 싱글에 쓰이는 8cm DVD."
 
 #: DB:medium_format/description:58
 msgctxt "medium_format"
@@ -243,19 +245,19 @@ msgstr ""
 #: DB:work_attribute_type_allowed_value/value:794
 msgctxt "work_attribute_type_allowed_value"
 msgid "A Dorian"
-msgstr ""
+msgstr "도리안 선법"
 
 #: DB:work_attribute_type_allowed_value/value:806
 msgctxt "work_attribute_type_allowed_value"
 msgid "A Mixolydian"
-msgstr ""
+msgstr "믹솔리디아 선법"
 
 #: DB:work_type/description:2
 msgctxt "work_type"
 msgid ""
 "A ballet is music composed to be used, together with a choreography, for a "
 "ballet dance production."
-msgstr ""
+msgstr "발레는 발레 공연에 안무와 함께 사용하도록 작곡된 음악입니다."
 
 #: DB:release_packaging/description:19
 msgctxt "release_packaging"
@@ -752,6 +754,11 @@ msgstr ""
 #: DB:work_attribute_type/name:47
 msgctxt "work_attribute_type"
 msgid "ACDAM ID"
+msgstr ""
+
+#: DB:work_attribute_type/name:206
+msgctxt "work_attribute_type"
+msgid "ACUM ID"
 msgstr ""
 
 #: DB:work_attribute_type/name:58
@@ -3828,6 +3835,11 @@ msgstr ""
 #: DB:work_attribute_type/description:52
 msgctxt "work_attribute_type"
 msgid "ID for the Irish rights society IMRO"
+msgstr ""
+
+#: DB:work_attribute_type/description:206
+msgctxt "work_attribute_type"
+msgid "ID for the Israeli rights society ACUM"
 msgstr ""
 
 #: DB:work_attribute_type/description:36

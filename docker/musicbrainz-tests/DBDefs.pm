@@ -81,6 +81,7 @@ sub CACHE_MANAGER_OPTIONS {
                 options => {
                     server => 'localhost:6379',
                     namespace => $self->CACHE_NAMESPACE,
+                    database => 0,
                 },
             },
         },
@@ -104,7 +105,6 @@ sub DATASTORE_REDIS_ARGS {
         database => 0,
         namespace => $self->CACHE_NAMESPACE,
         server => 'localhost:6379',
-        test_database => 1,
     };
 }
 
@@ -124,7 +124,7 @@ sub GIT_SHA { return }
 
 sub HTML_VALIDATOR { 'http://localhost:8888?out=json' }
 
-sub MB_LANGUAGES { qw( de el-gr es-es et fi fr he it ja nl sq en ) }
+sub MB_LANGUAGES { qw( de el es es-419 et fi fr he it ja nl sq en ) }
 
 sub ACTIVE_SCHEMA_SEQUENCE { 28 }
 
@@ -134,6 +134,7 @@ sub PLUGIN_CACHE_OPTIONS {
         class => 'MusicBrainz::Server::CacheWrapper::Redis',
         server => 'localhost:6379',
         namespace => $self->CACHE_NAMESPACE . 'Catalyst:',
+        database => 0,
     };
 }
 

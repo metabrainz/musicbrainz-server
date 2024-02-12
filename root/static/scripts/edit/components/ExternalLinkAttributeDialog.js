@@ -30,13 +30,17 @@ import DateRangeFieldset, {
   partialDateFromField,
   runReducer as runDateRangeFieldsetReducer,
 } from './DateRangeFieldset.js';
+import UrlRelationshipCreditFieldset
+  from './UrlRelationshipCreditFieldset.js';
 
 type PropsT = {
+  creditableEntityProp: 'entity0_credit' | 'entity1_credit' | null,
   onConfirm: ($ReadOnly<Partial<LinkStateT>>) => void,
   relationship: LinkRelationshipT,
 };
 
 type StateT = {
+  +credit: FieldT<string | null>,
   +datePeriodField: DatePeriodFieldT,
   +initialDatePeriodField: DatePeriodFieldT,
 };
@@ -50,6 +54,7 @@ type ActionT =
       +props: PropsT,
       +type: 'update-initial-date-period',
     }
+  | {+credit: string, +type: 'update-relationship-credit'}
   | {+type: 'reset'}
   | {+type: 'show-all-pending-errors'};
 
@@ -57,6 +62,13 @@ const createInitialState = (props: PropsT): StateT => {
   const relationship = props.relationship;
   const beginDate = relationship.begin_date;
   const endDate = relationship.end_date;
+
+  const credit = createField(
+    'credit',
+    props.creditableEntityProp
+      ? relationship[props.creditableEntityProp]
+      : null,
+  );
 
   const datePeriodField = {
     errors: [],
@@ -86,6 +98,7 @@ const createInitialState = (props: PropsT): StateT => {
   };
 
   return {
+    credit,
     datePeriodField,
     initialDatePeriodField: datePeriodField,
   };
@@ -115,6 +128,9 @@ const reducer = (state: StateT, action: ActionT): StateT => {
       break;
     case 'show-all-pending-errors':
       applyAllPendingErrors(ctx.get('datePeriodField'));
+      break;
+    case 'update-relationship-credit':
+      ctx.set('credit', 'value', action.credit);
       break;
     default:
       throw new Error('Unknown action: ' + action.type);
@@ -155,12 +171,17 @@ const ExternalLinkAttributeDialog = (props: PropsT): React$MixedElement => {
     if (hasErrors) {
       return;
     }
-    const field = state.datePeriodField.field;
-    props.onConfirm({
-      begin_date: partialDateFromField(field.begin_date),
-      end_date: partialDateFromField(field.end_date),
-      ended: field.ended.value,
-    });
+    const dateFields = state.datePeriodField.field;
+    const confirmedProps = {
+      begin_date: partialDateFromField(dateFields.begin_date),
+      end_date: partialDateFromField(dateFields.end_date),
+      ended: dateFields.ended.value,
+    };
+    if (props.creditableEntityProp) {
+      // $FlowIgnore[prop-missing]
+      confirmedProps[props.creditableEntityProp] = state.credit.value;
+    }
+    props.onConfirm(confirmedProps);
     closeAndReturnFocus();
   };
 
@@ -172,10 +193,16 @@ const ExternalLinkAttributeDialog = (props: PropsT): React$MixedElement => {
     }
   };
 
-  const handleSubmit = (event: SyntheticEvent<HTMLFormElement>) => {
+  const handleSubmit = (
+    event: SyntheticEvent<HTMLFormElement>,
+    closeAndReturnFocus: () => void,
+  ) => {
+    event.stopPropagation();
+    event.preventDefault();
     if (hasErrors) {
       dispatch({type: 'show-all-pending-errors'});
-      event.preventDefault();
+    } else {
+      handleConfirm(closeAndReturnFocus);
     }
   };
 
@@ -185,13 +212,19 @@ const ExternalLinkAttributeDialog = (props: PropsT): React$MixedElement => {
         <form
           className="external-link-attribute-dialog"
           onKeyDown={handleKeyDown}
-          onSubmit={handleSubmit}
+          onSubmit={(event) => handleSubmit(event, closeAndReturnFocus)}
         >
           <DateRangeFieldset
             dispatch={dateDispatch}
             endedLabel={l('This relationship has ended.')}
             field={state.datePeriodField}
           />
+          {props.creditableEntityProp ? (
+            <UrlRelationshipCreditFieldset
+              dispatch={dispatch}
+              field={state.credit}
+            />
+          ) : null}
           <div
             className="buttons"
             style={{display: 'block', marginTop: '1em'}}
@@ -207,7 +240,6 @@ const ExternalLinkAttributeDialog = (props: PropsT): React$MixedElement => {
               <button
                 className="positive"
                 disabled={hasErrors}
-                onClick={() => handleConfirm(closeAndReturnFocus)}
                 type="submit"
               >
                 {l('Done')}

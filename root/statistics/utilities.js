@@ -37,7 +37,7 @@ export const TimelineLink = ({
 }: {statName: string}): React$Element<'a'> => (
   <a
     href={'/statistics/timeline/' + encodeURIComponent(statName)}
-    title={l('See on timeline')}
+    title={l_statistics('See on timeline')}
   >
     <img
       alt=""

@@ -47,11 +47,12 @@
 # Ulrich Klauer <email address hidden>, 2015-2016
 # Wieland Hoffmann <email address hidden>, 2011
 # chaban <chaban@users.noreply.translations.metabrainz.org>, 2023.
-# Philipp Wolfer <ph.wolfer@gmail.com>, 2023.
+# Philipp Wolfer <ph.wolfer@gmail.com>, 2023, 2024.
+# kellnerd <kellnerd@users.noreply.translations.metabrainz.org>, 2023, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-08-31 20:27+0000\n"
+"PO-Revision-Date: 2024-01-31 12:28+0000\n"
 "Last-Translator: Philipp Wolfer <ph.wolfer@gmail.com>\n"
 "Language-Team: German <https://translations.metabrainz.org/projects/"
 "musicbrainz/attributes/de/>\n"
@@ -60,7 +61,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.18.2\n"
+"X-Generator: Weblate 5.3\n"
 
 #: DB:work_type/description:9
 msgctxt "work_type"
@@ -85,7 +86,7 @@ msgstr ""
 #: DB:medium_format/name:205
 msgctxt "medium_format"
 msgid "10\" Acetate"
-msgstr ""
+msgstr "10\" Azetat"
 
 #: DB:medium_format/name:54
 msgctxt "medium_format"
@@ -100,7 +101,7 @@ msgstr "10″-Vinyl"
 #: DB:medium_format/name:206
 msgctxt "medium_format"
 msgid "12\" Acetate"
-msgstr ""
+msgstr "12\" Azetat"
 
 #: DB:medium_format/name:72
 msgctxt "medium_format"
@@ -130,7 +131,7 @@ msgstr "5,25″-Diskette"
 #: DB:medium_format/name:204
 msgctxt "medium_format"
 msgid "7\" Acetate"
-msgstr ""
+msgstr "7\" Azetat"
 
 #: DB:medium_format/name:52
 msgctxt "medium_format"
@@ -168,9 +169,6 @@ msgid "8cm CD+G"
 msgstr "8-cm-CD+G"
 
 #: DB:medium_format/description:166
-#, fuzzy
-#| msgctxt "medium_format"
-#| msgid "8cm DVD disc, often used for video singles."
 msgctxt "medium_format"
 msgid "8cm DVD, often used for video singles."
 msgstr "8cm-DVD, häufig für Video-Singles verwendet."
@@ -586,6 +584,10 @@ msgid ""
 "replace it with a new version with some changes or to just retire it "
 "altogether (e.g. because of legal issues)."
 msgstr ""
+"Eine zuvor offizielle Veröffentlichung, die vom Künstler und/oder seiner "
+"Plattenfirma nach der Veröffentlichung aktiv aus dem Verkehr gezogen wurde, "
+"sei es, um sie durch eine neue Version mit einigen Änderungen zu ersetzen "
+"oder sie ganz aus dem Programm zu nehmen (z. B. wegen rechtlicher Probleme)."
 
 #: DB:release_group_secondary_type/description:10
 msgctxt "release_group_secondary_type"
@@ -840,6 +842,8 @@ msgid ""
 "A temporary outdoor stage erected for a music festival or other similar "
 "event."
 msgstr ""
+"Eine temporär errichtete Freiluftbühne für ein Musikfestival oder eine "
+"ähnliche Veranstaltung."
 
 #: DB:release_packaging/description:2
 msgctxt "release_packaging"
@@ -912,6 +916,11 @@ msgstr "ACAM-ID"
 msgctxt "work_attribute_type"
 msgid "ACDAM ID"
 msgstr "ACDAM-ID"
+
+#: DB:work_attribute_type/name:206
+msgctxt "work_attribute_type"
+msgid "ACUM ID"
+msgstr "ACUM-ID"
 
 #: DB:work_attribute_type/name:58
 msgctxt "work_attribute_type"
@@ -1011,7 +1020,7 @@ msgstr ""
 #: DB:medium_format/name:203
 msgctxt "medium_format"
 msgid "Acetate"
-msgstr ""
+msgstr "Azetat"
 
 #: DB:work_attribute_type_allowed_value/value:848
 msgctxt "work_attribute_type_allowed_value"
@@ -1175,6 +1184,9 @@ msgid ""
 "but often includes musical performances in between the awarding of said "
 "prizes, especially for musical awards."
 msgstr ""
+"Eine Preisverleihung ist eine Veranstaltung, die sich auf die Vergabe von "
+"Preisen konzentriert, aber oft musikalische Auftritte zwischen der "
+"Verleihung der genannten Preise umfasst, insbesondere bei Musikpreisen."
 
 #: DB:release_group_primary_type/description:12
 msgctxt "release_group_primary_type"
@@ -2115,7 +2127,7 @@ msgstr ""
 #: DB:release_status/name:6
 msgctxt "release_status"
 msgid "Cancelled"
-msgstr ""
+msgstr "Abgesagt"
 
 #: DB:work_attribute_type_allowed_value/value:64
 msgctxt "work_attribute_type_allowed_value"
@@ -3169,7 +3181,7 @@ msgstr "Festival"
 #: DB:place_type/name:45
 msgctxt "place_type"
 msgid "Festival stage"
-msgstr ""
+msgstr "Festivalbühne"
 
 #: DB:work_attribute_type_allowed_value/value:372
 msgctxt "work_attribute_type_allowed_value"
@@ -3202,18 +3214,13 @@ msgid "Fireng-i Fer"
 msgstr "Fireng-i Fer"
 
 #: DB:medium_format/description:73
-#, fuzzy
-#| msgctxt "medium_format"
-#| msgid ""
-#| "Flat discs with grooves used in phonographs/gramophones. For shellac and "
-#| "vinyl records, use that specifically"
 msgctxt "medium_format"
 msgid ""
 "Flat discs with grooves used in phonographs/gramophones. For shellac and "
 "vinyl records, use that specifically."
 msgstr ""
 "Flache Scheiben mit Rillen für Phonographen/Grammophone. Für Schellack- und "
-"Vinylplatten das Spezifische verwenden"
+"Vinylplatten das Spezifische verwenden."
 
 #: DB:medium_format/name:51
 msgctxt "medium_format"
@@ -4062,6 +4069,11 @@ msgctxt "work_attribute_type"
 msgid "ID for the Irish rights society IMRO"
 msgstr "ID für die irische Verwertungsgesellschaft IMRO"
 
+#: DB:work_attribute_type/description:206
+msgctxt "work_attribute_type"
+msgid "ID for the Israeli rights society ACUM"
+msgstr "ID für die israelische Verwertungsgesellschaft ACUM"
+
 #: DB:work_attribute_type/description:36
 msgctxt "work_attribute_type"
 msgid "ID for the Italian rights society SIAE"
@@ -4283,7 +4295,7 @@ msgstr ""
 #: DB:area_type/name:9
 msgctxt "area_type"
 msgid "Indigenous territory / reserve"
-msgstr ""
+msgstr "Indigenes Territorium / Reservat"
 
 #: DB:place_type/name:5
 msgctxt "place_type"
@@ -6085,12 +6097,12 @@ msgstr "Originalproduktion"
 #: DB:artist_type/name:3
 msgctxt "artist_type"
 msgid "Other"
-msgstr "Anderes"
+msgstr "Sonstiger"
 
 #: DB:cover_art_archive.art_type/name:8
 msgctxt "cover_art_type"
 msgid "Other"
-msgstr "Anderes"
+msgstr "Sonstiges"
 
 #: DB:gender/name:3
 msgctxt "gender"
@@ -6105,17 +6117,17 @@ msgstr "Anderes"
 #: DB:place_type/name:3
 msgctxt "place_type"
 msgid "Other"
-msgstr "Anderes"
+msgstr "Sonstiges"
 
 #: DB:release_group_primary_type/name:11
 msgctxt "release_group_primary_type"
 msgid "Other"
-msgstr "Anderes"
+msgstr "Sonstiges"
 
 #: DB:release_packaging/name:5
 msgctxt "release_packaging"
 msgid "Other"
-msgstr "Anderes"
+msgstr "Sonstige"
 
 #: DB:instrument_type/name:5
 msgctxt "instrument_type"
@@ -8290,7 +8302,7 @@ msgstr "Wunschliste"
 #: DB:release_status/name:5
 msgctxt "release_status"
 msgid "Withdrawn"
-msgstr ""
+msgstr "Zurückgezogen"
 
 #: DB:series_type/name:46
 msgctxt "series_type"

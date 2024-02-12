@@ -807,7 +807,14 @@ limited_link_type_combinations: [
                      input_url: 'https://bandcamp.com/tag/ambient-noise-wall?tab=highlights',
              input_entity_type: 'genre',
     expected_relationship_type: 'bandcamp',
-            expected_clean_url: 'https://bandcamp.com/tag/ambient-noise-wall',
+            expected_clean_url: 'https://bandcamp.com/discover/ambient-noise-wall',
+       only_valid_entity_types: ['genre'],
+  },
+  {
+                     input_url: 'https://bandcamp.com/discover/maidcore/digital?tags=rock-electro',
+             input_entity_type: 'genre',
+    expected_relationship_type: 'bandcamp',
+            expected_clean_url: 'https://bandcamp.com/discover/maidcore',
        only_valid_entity_types: ['genre'],
   },
   {
@@ -916,6 +923,17 @@ limited_link_type_combinations: [
     expected_relationship_type: 'crowdfunding',
             expected_clean_url: 'https://gamechops.bandcamp.com/campaign/samus-chill',
        only_valid_entity_types: ['release'],
+  },
+  {
+                     input_url: 'https://bandcamp.com/videoframe?video_id=188124/',
+             input_entity_type: 'recording',
+    expected_relationship_type: undefined,
+       input_relationship_type: 'streamingfree',
+       only_valid_entity_types: [],
+                expected_error: {
+                                  error: 'Please do not add',
+                                  target: 'url',
+                                },
   },
   // Bandsintown
   {
@@ -1442,22 +1460,26 @@ limited_link_type_combinations: [
   {
                      input_url: 'https://music.bugs.co.kr/album/20488834?wl_ref=M_contents_01_07',
              input_entity_type: 'release',
+       input_relationship_type: 'streamingpaid',
     expected_relationship_type: ['downloadpurchase', 'streamingpaid'],
 limited_link_type_combinations: [
                                   ['downloadpurchase', 'streamingpaid'],
                                   'streamingpaid',
                                 ],
             expected_clean_url: 'https://music.bugs.co.kr/album/20488834',
+       only_valid_entity_types: ['release'],
   },
   {
-                     input_url: 'https://m.bugs.co.kr/album/20488834?wl_ref=M_contents_01_07',
-             input_entity_type: 'release',
+                     input_url: 'https://m.bugs.co.kr/track/31247088#comments',
+             input_entity_type: 'recording',
+       input_relationship_type: 'streamingpaid',
     expected_relationship_type: ['downloadpurchase', 'streamingpaid'],
 limited_link_type_combinations: [
                                   ['downloadpurchase', 'streamingpaid'],
                                   'streamingpaid',
                                 ],
-            expected_clean_url: 'https://music.bugs.co.kr/album/20488834',
+            expected_clean_url: 'https://music.bugs.co.kr/track/31247088',
+       only_valid_entity_types: ['recording'],
   },
   {
                      input_url: 'https://music.bugs.co.kr/mv/618959',
@@ -1469,26 +1491,31 @@ limited_link_type_combinations: [
                                   'streamingpaid',
                                 ],
             expected_clean_url: 'https://music.bugs.co.kr/mv/618959',
+       only_valid_entity_types: ['recording', 'release'],
   },
   {
                      input_url: 'https://music.bugs.co.kr/artist/80276288?wl_ref=M_Search_01_01',
              input_entity_type: 'artist',
+       input_relationship_type: 'streamingpaid',
     expected_relationship_type: ['downloadpurchase', 'streamingpaid'],
 limited_link_type_combinations: [
                                   ['downloadpurchase', 'streamingpaid'],
                                   'streamingpaid',
                                 ],
             expected_clean_url: 'https://music.bugs.co.kr/artist/80276288',
+       only_valid_entity_types: ['artist'],
   },
   {
                      input_url: 'https://m.bugs.co.kr/artist/80276288',
              input_entity_type: 'artist',
+       input_relationship_type: 'streamingpaid',
     expected_relationship_type: ['downloadpurchase', 'streamingpaid'],
 limited_link_type_combinations: [
                                   ['downloadpurchase', 'streamingpaid'],
                                   'streamingpaid',
                                 ],
             expected_clean_url: 'https://music.bugs.co.kr/artist/80276288',
+       only_valid_entity_types: ['artist'],
   },
   {
                      input_url: 'https://music.bugs.co.kr/search/integrated?q=dreamcatcher',
@@ -1525,6 +1552,13 @@ limited_link_type_combinations: [
                                   target: 'url',
                                 },
        only_valid_entity_types: [],
+  },
+  // Buy Me a Coffee
+  {
+                     input_url: 'http://buymeacoffee.com/joebaemusic',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'patronage',
+            expected_clean_url: 'https://www.buymeacoffee.com/joebaemusic',
   },
   // Cancioneros Musicales Españoles (CME)
   {
@@ -2554,7 +2588,7 @@ limited_link_type_combinations: [
                                   ['downloadpurchase', 'streamingpaid'],
                                   'streamingpaid',
                                 ],
-            expected_clean_url: 'https://genie.co.kr/detail/artistInfo?xxnm=81599561',
+            expected_clean_url: 'https://www.genie.co.kr/detail/artistInfo?xxnm=81599561',
   },
   {
                      input_url: 'https://www.genie.co.kr/search/searchMain?query=Dreamcatcher',
@@ -3732,6 +3766,20 @@ limited_link_type_combinations: [
                                 ],
             expected_clean_url: 'https://www.melon.com/video/detail2.htm?mvId=50264300',
   },
+  // Metacritic
+  {
+                     input_url: 'http://metacritic.com/music/the-record/boygenius/details',
+             input_entity_type: 'release_group',
+    expected_relationship_type: 'review',
+            expected_clean_url: 'https://www.metacritic.com/music/the-record/boygenius',
+       only_valid_entity_types: ['release_group'],
+  },
+  {
+                     input_url: 'https://www.metacritic.com/person/boygenius/',
+             input_entity_type: 'release_group',
+    expected_relationship_type: 'review',
+       only_valid_entity_types: [],
+  },
   // (The) Metal Archives
   {
                      input_url: 'http://metal-archives.com/artists/Phillip_Gallagher/591782',
@@ -4401,9 +4449,25 @@ limited_link_type_combinations: [
   },
   // OTOTOY
   {
-                     input_url: 'http://ototoy.jp/_/default/p/45622',
+                     input_url: 'http://www.ototoy.jp/_/default/p/45622',
              input_entity_type: 'release',
     expected_relationship_type: 'downloadpurchase',
+       only_valid_entity_types: ['release'],
+            expected_clean_url: 'https://ototoy.jp/_/default/p/45622',
+  },
+  {
+                     input_url: 'https://www.ototoy.jp/_/default/a/1064270#discography',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'downloadpurchase',
+       only_valid_entity_types: ['artist'],
+            expected_clean_url: 'https://ototoy.jp/_/default/a/1064270',
+  },
+  {
+                     input_url: 'https://ototoy.jp/labels/695414/orderby/releasedate-asc',
+             input_entity_type: 'label',
+    expected_relationship_type: 'downloadpurchase',
+       only_valid_entity_types: ['label'],
+            expected_clean_url: 'https://ototoy.jp/labels/695414',
   },
   // Overture by Doremus
   {
@@ -4497,6 +4561,41 @@ limited_link_type_combinations: [
   {
                      input_url: 'http://pinterest.com/tucenter/',
             expected_clean_url: 'https://www.pinterest.com/tucenter/',
+  },
+  // pixiv
+  {
+                     input_url: 'https://www.pixiv.net/en/users/23610071/illustrations',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'artgallery',
+            expected_clean_url: 'https://www.pixiv.net/users/23610071',
+  },
+  // Prog Archives
+  {
+                     input_url: 'http://www.progarchives.com/artist.asp?id=105#discography',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.progarchives.com/artist.asp?id=105',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'progarchives.com/album.asp?id=00001823',
+             input_entity_type: 'release_group',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.progarchives.com/album.asp?id=1823',
+       only_valid_entity_types: ['release_group'],
+  },
+  {
+                     input_url: 'https://www.progarchives.com/video.asp?id=7855',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'otherdatabases',
+       only_valid_entity_types: ['recording'],
+  },
+  {
+                     input_url: 'https://www.progarchives.com/Collaborators.asp?id=9702',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.progarchives.com/Collaborators.asp?id=9702',
+       only_valid_entity_types: [],
   },
   // PureVolume
   {
@@ -4774,40 +4873,53 @@ limited_link_type_combinations: [
     expected_relationship_type: 'socialnetwork',
             expected_clean_url: 'https://www.reverbnation.com/tomorrowsyesterdayband',
   },
-  // pixiv
+  // RISM
   {
-                     input_url: 'https://www.pixiv.net/en/users/23610071/illustrations',
-             input_entity_type: 'artist',
-    expected_relationship_type: 'artgallery',
-            expected_clean_url: 'https://www.pixiv.net/users/23610071',
-  },
-  // Prog Archives
-  {
-                     input_url: 'http://www.progarchives.com/artist.asp?id=105#discography',
+                     input_url: 'http://rism.online/people/50377/sources?mode=sources&fq=num-holdings%3A2%20to%2010&page=1&rows=20',
              input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
-            expected_clean_url: 'https://www.progarchives.com/artist.asp?id=105',
+            expected_clean_url: 'https://rism.online/people/50377',
        only_valid_entity_types: ['artist'],
   },
   {
-                     input_url: 'progarchives.com/album.asp?id=00001823',
-             input_entity_type: 'release_group',
+                     input_url: 'https://rism.online/sources/300000437',
+             input_entity_type: 'work',
     expected_relationship_type: 'otherdatabases',
-            expected_clean_url: 'https://www.progarchives.com/album.asp?id=1823',
-       only_valid_entity_types: ['release_group'],
-  },
-  {
-                     input_url: 'https://www.progarchives.com/video.asp?id=7855',
-             input_entity_type: 'recording',
-    expected_relationship_type: 'otherdatabases',
-       only_valid_entity_types: ['recording'],
-  },
-  {
-                     input_url: 'https://www.progarchives.com/Collaborators.asp?id=9702',
-             input_entity_type: 'artist',
-    expected_relationship_type: 'otherdatabases',
-            expected_clean_url: 'https://www.progarchives.com/Collaborators.asp?id=9702',
        only_valid_entity_types: [],
+  },
+  // Qobuz
+  {
+                     input_url: 'https://www.qobuz.com/gb-en/interpreter/nitepunk/3241976',
+             input_entity_type: 'artist',
+       input_relationship_type: 'streamingpaid',
+limited_link_type_combinations: [
+                                  'streamingpaid',
+                                  ['downloadpurchase', 'streamingpaid'],
+                                ],
+            expected_clean_url: 'https://www.qobuz.com/gb-en/interpreter/nitepunk/3241976',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://www.qobuz.com/fr-fr/label/ecm/download-streaming-albums/92473',
+             input_entity_type: 'label',
+       input_relationship_type: 'streamingpaid',
+limited_link_type_combinations: [
+                                  'streamingpaid',
+                                  ['downloadpurchase', 'streamingpaid'],
+                                ],
+            expected_clean_url: 'https://www.qobuz.com/fr-fr/label/ecm/download-streaming-albums/92473',
+       only_valid_entity_types: ['label'],
+  },
+  {
+                     input_url: 'https://www.qobuz.com/es-es/album/the-koln-concert-live-at-the-opera-koln-1975-keith-jarrett/0060254707654',
+             input_entity_type: 'release',
+       input_relationship_type: 'streamingpaid',
+limited_link_type_combinations: [
+                                  'streamingpaid',
+                                  ['downloadpurchase', 'streamingpaid'],
+                                ],
+            expected_clean_url: 'https://www.qobuz.com/es-es/album/the-koln-concert-live-at-the-opera-koln-1975-keith-jarrett/0060254707654',
+       only_valid_entity_types: ['release'],
   },
   // Rock.com.ar
   {
@@ -5794,6 +5906,12 @@ limited_link_type_combinations: [
             expected_clean_url: 'https://twitter.com/UNIVERSAL_D',
   },
   {
+                     input_url: 'https://x.com/metabrainz',
+             input_entity_type: 'label',
+    expected_relationship_type: 'socialnetwork',
+            expected_clean_url: 'https://twitter.com/metabrainz',
+  },
+  {
                      input_url: 'https://twitter.com/mountain_goats/status/1062342708470132738',
              input_entity_type: 'recording',
     expected_relationship_type: 'streamingfree',
@@ -6454,6 +6572,12 @@ limited_link_type_combinations: [
              input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'https://id.oclc.org/worldcat/entity/E39PBJtCD4cBkp4m9Gfb88jKVC',
+  },
+  {
+                     input_url: 'https://entities.oclc.org/worldcat/entity/E39PCYRCtHWqdGhtK9yGDjJKwK.html',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://id.oclc.org/worldcat/entity/E39PCYRCtHWqdGhtK9yGDjJKwK',
   },
   // YesAsia
   {

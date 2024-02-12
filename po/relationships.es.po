@@ -18,11 +18,13 @@
 # Tiago Natale, 2022
 # Tobias Quathamer <email address hidden>, 2007
 # t0n3t <email address hidden>, 2012
-# reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2023.
+# reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2023, 2024.
+# ChurruKa <churruka@hangar18.cc>, 2023.
+# yvanzo <yvanzo@users.noreply.translations.metabrainz.org>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-12-14 02:28+0000\n"
+"PO-Revision-Date: 2024-02-09 13:29+0000\n"
 "Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
 ".org>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
@@ -33,7 +35,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
 " ? 1 : 2);\n"
-"X-Generator: Weblate 5.2.1\n"
+"X-Generator: Weblate 5.3.1\n"
 
 #: DB:link_attribute_type/description:1355
 msgid "A performance-centered, usually one to three year postgraduate program."
@@ -105,11 +107,11 @@ msgstr "página de Allmusic para"
 
 #: DB:link_type/link_phrase:1131 DB:link_type/link_phrase:1130
 msgid "Apple Music"
-msgstr ""
+msgstr "Apple Music"
 
 #: DB:link_type/reverse_link_phrase:1131 DB:link_type/reverse_link_phrase:1130
 msgid "Apple Music page for"
-msgstr ""
+msgstr "página de Apple Music para"
 
 #: DB:link_type/link_phrase:190
 msgid "BBC Music"
@@ -117,7 +119,7 @@ msgstr "BBC Music"
 
 #: DB:link_type/name:190
 msgid "BBC Music page"
-msgstr ""
+msgstr "página de BBC Music"
 
 #: DB:link_type/reverse_link_phrase:190
 msgid "BBC Music page for"
@@ -159,19 +161,19 @@ msgstr "Página de BookBrainz de"
 
 #: DB:link_type/link_phrase:919 DB:link_type/name:919
 msgid "CD Baby"
-msgstr ""
+msgstr "CD Baby"
 
 #: DB:link_type/reverse_link_phrase:919
 msgid "CD Baby page for"
-msgstr ""
+msgstr "página de CD Baby para"
 
 #: DB:link_type/link_phrase:981 DB:link_type/name:981
 msgid "CPDL"
-msgstr ""
+msgstr "CPDL"
 
 #: DB:link_type/reverse_link_phrase:981
 msgid "CPDL page for"
-msgstr ""
+msgstr "página de CPDL para"
 
 #: DB:link_type/name:227 DB:link_type/name:8
 msgid "DJ-mix"
@@ -214,21 +216,29 @@ msgid ""
 "Describes the fact a person was contracted by a place as a mastering "
 "engineer."
 msgstr ""
+"Describe el hecho de que alguien ha sido contratado en un lugar como "
+"ingeniero de masterización."
 
 #: DB:link_type/description:703
 msgid ""
 "Describes the fact a person was contracted by a place as a mixing engineer."
 msgstr ""
+"Describe el hecho de que alguien ha sido contratado en un lugar como "
+"ingeniero de mezcla."
 
 #: DB:link_type/description:702
 msgid ""
 "Describes the fact a person was contracted by a place as a recording "
 "engineer."
 msgstr ""
+"Describe el hecho de que alguien ha sido contratado en un lugar como "
+"ingeniero de grabación."
 
 #: DB:link_type/description:701
 msgid "Describes the fact a person was contracted by a place as an engineer."
 msgstr ""
+"Describe el hecho de que alguien ha sido contratado en un lugar como "
+"ingeniero."
 
 #: DB:link_type/description:357
 msgid "Designates that a work is or was the anthem for an area."
@@ -236,7 +246,7 @@ msgstr "Designa que un trabajo es o era el himno de un área."
 
 #: DB:link_type/description:356
 msgid "Designates that one area is contained by another."
-msgstr ""
+msgstr "Indica que una área está contenida en otra."
 
 #: DB:link_type/link_phrase:1089 DB:link_type/link_phrase:180
 #: DB:link_type/link_phrase:76 DB:link_type/link_phrase:217
@@ -530,7 +540,8 @@ msgstr ""
 
 #: DB:link_type/description:845
 msgid "Indicates the event where the work had its first performance."
-msgstr "Indica el evento donde tuvo lugar la primera interpretación de la obra."
+msgstr ""
+"Indica el evento donde tuvo lugar la primera interpretación de la obra."
 
 #: DB:link_type/description:986
 msgid ""
@@ -1415,7 +1426,7 @@ msgid ""
 "or manipulate sound in either an analogue or digital form."
 msgstr ""
 
-#: DB:link_type/description:36 DB:link_type/description:128
+#: DB:link_type/description:128 DB:link_type/description:36
 msgid ""
 "This describes an engineer responsible for committing the performance to "
 "tape or another recording medium. This can be as complex as setting up the "
@@ -1723,6 +1734,8 @@ msgid ""
 "This indicates that an artist appears on a music video, but doesn't actually "
 "perform on the audio track."
 msgstr ""
+"Indica un artista que aparece en un videoclip, pero no participa en la pista "
+"de audio."
 
 #: DB:link_type/description:121
 msgid "This indicates that an artist had a recording contract with a label."
@@ -1851,7 +1864,7 @@ msgstr ""
 
 #: DB:link_type/description:1185
 msgid "This indicates the artist directed video on this release."
-msgstr ""
+msgstr "Indica que el artista dirigió vídeo en esta publicación."
 
 #: DB:link_type/description:973
 msgid "This indicates the artist that inspired this artist’s name."
@@ -1885,9 +1898,14 @@ msgid ""
 "written template and involves the performance of voice actors."
 msgstr ""
 
+#: DB:link_type/description:1230
+msgid ""
+"This indicates the artist was the choreographer for this video recording."
+msgstr "Indica que el artista fue el coreógrafo de esta grabación de vídeo."
+
 #: DB:link_type/description:962
 msgid "This indicates the artist was the director of this video recording."
-msgstr ""
+msgstr "Indica que el artista fue el director de esta grabación de vídeo."
 
 #: DB:link_type/description:991
 msgid "This indicates the artist was the owner of this label."
@@ -2062,15 +2080,15 @@ msgstr ""
 
 #: DB:link_type/description:963
 msgid "This indicates the video was shot at this place."
-msgstr ""
+msgstr "Indica que el vídeo fue grabado en este lugar."
 
 #: DB:link_type/description:966
 msgid "This indicates the video was shot at/during this event."
-msgstr ""
+msgstr "Indica que el vídeo fue grabado durante este evento."
 
 #: DB:link_type/description:964
 msgid "This indicates the video was shot in this area."
-msgstr ""
+msgstr "Indica que el vídeo fue grabado en este área."
 
 #: DB:link_type/description:914
 msgid ""
@@ -2179,7 +2197,7 @@ msgstr ""
 #: DB:link_type/description:857
 msgid ""
 "This is used to link a music video to the corresponding audio recording."
-msgstr ""
+msgstr "Enlaza un videoclip a la grabación de audio equivalente."
 
 #: DB:link_type/description:705
 msgid "This is used to link a place to the equivalent entry in Discogs."
@@ -2390,8 +2408,8 @@ msgid ""
 "This links a label to a channel, playlist, or user page on a video sharing "
 "site containing videos curated by it."
 msgstr ""
-"Esto vincula una etiqueta a un canal, lista de reproducción o página de "
-"usuario en un sitio para compartir videos que contiene videos seleccionados "
+"Enlaza una discográfica a un canal, lista de reproducción o página de "
+"usuario en un sitio para compartir vídeos que contiene vídeos seleccionados "
 "por ella."
 
 #: DB:link_type/description:214
@@ -2447,6 +2465,8 @@ msgid ""
 "This links a place to a channel, playlist, or user page on a video sharing "
 "site containing videos curated by it."
 msgstr ""
+"Enlaza un lugar a un canal, lista de reproducción o página de usuario en un "
+"sitio para compartir vídeos que contiene vídeos seleccionados por él."
 
 #: DB:link_type/description:1191
 msgid "This links a place to a fan-created website."
@@ -2621,6 +2641,8 @@ msgid ""
 "This links a series to a channel, playlist, or user page on a video sharing "
 "site containing videos curated by it."
 msgstr ""
+"Enlaza una serie a un canal, lista de reproducción o página de usuario en un "
+"sitio para compartir vídeos que contiene vídeos seleccionados por ella."
 
 #: DB:link_type/description:1189
 msgid "This links a series to a fan-created website."
@@ -2742,8 +2764,8 @@ msgid ""
 "This links an artist to a channel, playlist, or user page on a video sharing "
 "site containing videos curated by it."
 msgstr ""
-"Esto vincula a un artista a un canal, lista de reproducción o página de "
-"usuario en un sitio para compartir videos seleccionados por él."
+"Enlaza un artista a un canal, lista de reproducción o página de usuario en "
+"un sitio para compartir vídeos que contiene vídeos seleccionados por él."
 
 #: DB:link_type/description:172
 msgid "This links an artist to a fan-created website."
@@ -2878,6 +2900,8 @@ msgid ""
 "This links an event to a channel, playlist, or user page on a video sharing "
 "site containing videos curated by it."
 msgstr ""
+"Enlaza un evento a un canal, lista de reproducción o página de usuario en un "
+"sitio para compartir vídeos que contiene vídeos seleccionados por él."
 
 #: DB:link_type/description:898
 msgid ""
@@ -4212,6 +4236,10 @@ msgstr "voces de coro"
 msgid "choral conducting"
 msgstr ""
 
+#: DB:link_type/name:1230
+msgid "choreographer"
+msgstr ""
+
 #: DB:link_type/name:152 DB:link_type/name:53
 msgid "chorus master"
 msgstr ""
@@ -4417,7 +4445,9 @@ msgstr "versión"
 
 #: DB:link_type/link_phrase:78
 msgid "cover art"
-msgstr "imagen"
+msgstr ""
+"Portada\n"
+"Caratula"
 
 #: DB:link_type/reverse_link_phrase:78
 msgid "cover art for"
@@ -4611,7 +4641,7 @@ msgstr ""
 
 #: DB:link_type/name:309
 msgid "edit"
-msgstr ""
+msgstr "editar"
 
 #: DB:link_type/link_phrase:309
 msgid "edit of"
@@ -5189,7 +5219,7 @@ msgstr "tiene letras disponibles en "
 
 #: DB:link_type/long_link_phrase:857
 msgid "has music video"
-msgstr "tiene video musical"
+msgstr "tiene el videoclip"
 
 #: DB:link_type/long_link_phrase:316
 msgid "has orchestration"
@@ -5800,8 +5830,8 @@ msgstr ""
 msgid "lyrics written in"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:960 DB:link_type/reverse_link_phrase:175
-#: DB:link_type/reverse_link_phrase:79
+#: DB:link_type/reverse_link_phrase:79 DB:link_type/reverse_link_phrase:960
+#: DB:link_type/reverse_link_phrase:175
 msgid "mail-order purchase page for"
 msgstr "página de compra por correo para"
 
@@ -6064,15 +6094,15 @@ msgstr ""
 
 #: DB:link_type/name:857
 msgid "music video"
-msgstr ""
+msgstr "videoclip"
 
 #: DB:link_type/reverse_link_phrase:857
 msgid "music video for"
-msgstr "Video Musical Para"
+msgstr "videoclip de"
 
 #: DB:link_type/link_phrase:857
 msgid "music videos"
-msgstr "Videos Musicales"
+msgstr "videoclips"
 
 #: DB:link_type/name:1046
 msgid "musical quotation"
@@ -6667,8 +6697,8 @@ msgstr ""
 msgid "purchase for download"
 msgstr "comprar para descarga"
 
-#: DB:link_type/link_phrase:79 DB:link_type/name:960 DB:link_type/name:175
-#: DB:link_type/name:79 DB:link_type/name:913
+#: DB:link_type/link_phrase:79 DB:link_type/name:79 DB:link_type/name:960
+#: DB:link_type/name:175 DB:link_type/name:913
 msgid "purchase for mail-order"
 msgstr "comprar por correo"
 
@@ -6744,7 +6774,7 @@ msgstr ""
 msgid "recorded release groups"
 msgstr ""
 
-#: DB:link_type/name:36 DB:link_type/name:128
+#: DB:link_type/name:128 DB:link_type/name:36
 msgid "recording"
 msgstr "grabación"
 
@@ -7530,7 +7560,7 @@ msgstr ""
 msgid "was the {instrument:%|instruments} technician for"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:36 DB:link_type/long_link_phrase:128
+#: DB:link_type/long_link_phrase:128 DB:link_type/long_link_phrase:36
 msgid "was {additional} {assistant} {associate} {co:co-}recording engineer for"
 msgstr ""
 
@@ -7540,6 +7570,10 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:1165
 msgid "was {assistant} carillonneur at"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:1230
+msgid "was {assistant} choreographer for"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:856
@@ -8098,11 +8132,11 @@ msgstr ""
 "{co:co-}ingeniero de mezcla {additional:adicional} {assistant:asistente} "
 "{associate:asociado}"
 
-#: DB:link_type/reverse_link_phrase:36 DB:link_type/reverse_link_phrase:128
+#: DB:link_type/reverse_link_phrase:128 DB:link_type/reverse_link_phrase:36
 msgid "{additional} {assistant} {associate} {co:co-}recording engineer"
 msgstr ""
 
-#: DB:link_type/link_phrase:36 DB:link_type/link_phrase:128
+#: DB:link_type/link_phrase:128 DB:link_type/link_phrase:36
 msgid "{additional} {assistant} {associate} {co:co-}recording engineer for"
 msgstr ""
 
@@ -8214,6 +8248,14 @@ msgstr ""
 
 #: DB:link_type/link_phrase:1165
 msgid "{assistant} carillonneur at"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:1230
+msgid "{assistant} choreographer"
+msgstr "coreógrafo {assistant:asistente}"
+
+#: DB:link_type/link_phrase:1230
+msgid "{assistant} choreographer for"
 msgstr ""
 
 #: DB:link_type/link_phrase:856

@@ -1,7 +1,9 @@
 package MusicBrainz::Server::Controller::TagLookup;
 use Moose;
+use MooseX::MethodAttributes;
 use namespace::autoclean;
-BEGIN { extends 'MusicBrainz::Server::Controller' }
+
+extends 'MusicBrainz::Server::Controller';
 
 use List::AllUtils qw( any );
 use MusicBrainz::Server::Form::TagLookup;

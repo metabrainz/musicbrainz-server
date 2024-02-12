@@ -22,7 +22,7 @@ const SidebarType = ({
   typeType,
 }: Props): React$MixedElement | null => (
   entity.typeID == null ? null : (
-    <SidebarProperty className="type" label={l('Type:')}>
+    <SidebarProperty className="type" label={addColonText(l('Type'))}>
       {lp_attributes(
         linkedEntities[typeType][entity.typeID].name,
         typeType,

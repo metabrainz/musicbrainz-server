@@ -2,12 +2,14 @@ package MusicBrainz::Server::WebService::Serializer::JSON::LD::Place;
 use Moose;
 
 extends 'MusicBrainz::Server::WebService::Serializer::JSON::LD';
-with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::Genre';
-with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::GID';
-with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::Name';
-with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::LifeSpan';
-with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::Aliases';
-with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::Area' => { property => 'containedIn' };
+with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::Genre',
+     'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::GID',
+     'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::Name',
+     'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::LifeSpan',
+     'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::Aliases',
+     'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::Area' => {
+        property => 'containedIn',
+     };
 
 around serialize => sub {
     my ($orig, $self, $entity, $inc, $stash, $toplevel) = @_;

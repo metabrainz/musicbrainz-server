@@ -1,8 +1,9 @@
 package MusicBrainz::Server::Controller::Genre;
 use Moose;
+use MooseX::MethodAttributes;
 use namespace::autoclean;
 
-BEGIN { extends 'MusicBrainz::Server::Controller' }
+extends 'MusicBrainz::Server::Controller';
 
 use List::AllUtils qw( sort_by );
 use MusicBrainz::Server::Entity::Util::JSON qw(

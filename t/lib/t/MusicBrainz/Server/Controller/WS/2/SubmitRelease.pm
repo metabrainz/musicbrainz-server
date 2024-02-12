@@ -4,6 +4,7 @@ use warnings;
 
 use Test::Routine;
 use Test::More;
+use Test::XML::SemanticCompare qw( is_xml_same );
 
 with 't::Mechanize', 't::Context';
 
@@ -29,14 +30,11 @@ test all => sub {
             VALUES ('78ad6e24-dc0a-4c20-8284-db2d44d28fb9', 49161);
         SQL
 
-    my $content = '<?xml version="1.0" encoding="UTF-8"?>
-<metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
-  <release-list>
-    <release id="fbe4eb72-0f24-3875-942e-f581589713d4">
-      <barcode>5021603064126</barcode>
-    </release>
-  </release-list>
-</metadata>';
+    my $isrc = 'JPA600102450';
+    my $content = _create_request_content(
+        'fbe4eb72-0f24-3875-942e-f581589713d4',
+        $isrc,
+    );
 
     my $req = xml_post('/ws/2/release?client=test-1.0', $content);
     $mech->request($req);
@@ -49,6 +47,44 @@ test all => sub {
         $mech->request($req);
         is($mech->status, HTTP_BAD_REQUEST);
     };
+
+    subtest 'Submissions of alphanumeric barcodes are rejected' => sub {
+        $req = xml_post('/ws/2/release?client=test-1.0', $content);
+        $mech->request($req);
+        is($mech->status, HTTP_BAD_REQUEST);
+        is_xml_same($mech->content, <<~"EOXML");
+            <?xml version="1.0"?>
+            <error>
+                <text>$isrc is not a valid barcode</text>
+                <text>For usage, please see: https://musicbrainz.org/development/mmd</text>
+            </error>
+            EOXML
+    };
+
+    my $truncated_barcode = '502160306412';
+    $content = _create_request_content(
+        'fbe4eb72-0f24-3875-942e-f581589713d4',
+        $truncated_barcode,
+    );
+
+    subtest 'Submissions of invalid GTIN barcodes are rejected' => sub {
+        $req = xml_post('/ws/2/release?client=test-1.0', $content);
+        $mech->request($req);
+        is($mech->status, HTTP_BAD_REQUEST);
+        is_xml_same($mech->content, <<~"EOXML");
+            <?xml version="1.0"?>
+            <error>
+                <text>$truncated_barcode is not a valid GTIN (EAN/UPC) barcode</text>
+                <text>For usage, please see: https://musicbrainz.org/development/mmd</text>
+            </error>
+            EOXML
+    };
+
+    my $ean13 = '5021603064126';
+    $content = _create_request_content(
+        'fbe4eb72-0f24-3875-942e-f581589713d4',
+        $ean13,
+    );
 
     $req = xml_post('/ws/2/release?client=test-1.0', $content);
     $mech->request($req);
@@ -64,7 +100,7 @@ test all => sub {
                     id => 243064,
                     name => 'For Beginner Piano',
                 },
-                barcode => '5021603064126',
+                barcode => $ean13,
                 old_barcode => undef,
             },
         ],
@@ -84,14 +120,11 @@ test all => sub {
     my $next_edit = MusicBrainz::Server::Test->get_latest_edit($c);
     is($next_edit->id, $edit->id, 'did not submit an edit');
 
-    $content = '<?xml version="1.0" encoding="UTF-8"?>
-<metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
-  <release-list>
-    <release id="78ad6e24-dc0a-4c20-8284-db2d44d28fb9">
-      <barcode>796122009228</barcode>
-    </release>
-  </release-list>
-</metadata>';
+    my $upc_a = '796122009228';
+    $content = _create_request_content(
+        '78ad6e24-dc0a-4c20-8284-db2d44d28fb9',
+        $upc_a,
+    );
 
     $req = xml_post('/ws/2/release', $content);
     $req->header('User-Agent', 'test-ua');
@@ -109,7 +142,7 @@ test all => sub {
                     id => $rel->id,
                     name => $rel->name,
                 },
-                barcode => '796122009228',
+                barcode => $upc_a,
                 old_barcode => '4942463511227',
             },
         ],
@@ -126,6 +159,20 @@ test all => sub {
     } $c;
     is(@edits => 0);
 };
+
+sub _create_request_content {
+    my ($recording_mbid, $barcode) = @_;
+    return <<~"EOXML";
+        <?xml version="1.0" encoding="UTF-8"?>
+        <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
+          <release-list>
+            <release id="$recording_mbid">
+              <barcode>$barcode</barcode>
+            </release>
+          </release-list>
+        </metadata>
+        EOXML
+}
 
 1;
 

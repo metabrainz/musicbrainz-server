@@ -217,6 +217,10 @@ sub find_by_artist
             push @where_query, "(mb_simple_tsvector(event.name) @@ plainto_tsquery('mb_simple', mb_lower(?)) OR event.name = ?)";
             push @where_args, ($filter{name}) x 2;
         }
+        if (exists $filter{disambiguation}) {
+            push @where_query, "(mb_simple_tsvector(event.comment) @@ plainto_tsquery('mb_simple', mb_lower(?)) OR event.comment = ?)";
+            push @where_args, ($filter{disambiguation}) x 2;
+        }
         if (exists $filter{type_id}) {
             if ($filter{type_id} eq '-1') {
                 push @where_query, 'event.type IS NULL';

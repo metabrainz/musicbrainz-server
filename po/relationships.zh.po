@@ -1513,7 +1513,7 @@ msgstr ""
 "这说明工程师应用了产生音效的机器，比如以模拟或数字方式修改或操纵音效的效果器"
 "和数字音频设备。"
 
-#: DB:link_type/description:36 DB:link_type/description:128
+#: DB:link_type/description:128 DB:link_type/description:36
 msgid ""
 "This describes an engineer responsible for committing the performance to "
 "tape or another recording medium. This can be as complex as setting up the "
@@ -2034,6 +2034,15 @@ msgid ""
 "project (such as an audio drama or audiobook), which is usually based on a "
 "written template and involves the performance of voice actors."
 msgstr ""
+
+#: DB:link_type/description:1230
+#, fuzzy
+#| msgid ""
+#| "This indicates an artist who was the concertmaster/leader for an "
+#| "orchestra or band on this recording."
+msgid ""
+"This indicates the artist was the choreographer for this video recording."
+msgstr "这表明艺术家是录音中乐团或乐队的首席演奏者/领班。"
 
 #: DB:link_type/description:962
 msgid "This indicates the artist was the director of this video recording."
@@ -4505,6 +4514,12 @@ msgstr ""
 msgid "choral conducting"
 msgstr ""
 
+#: DB:link_type/name:1230
+#, fuzzy
+#| msgid "discography entry"
+msgid "choreographer"
+msgstr "唱片条目"
+
 #: DB:link_type/name:152 DB:link_type/name:53
 msgid "chorus master"
 msgstr ""
@@ -6093,8 +6108,8 @@ msgstr "歌词作于某地点"
 msgid "lyrics written in"
 msgstr "歌词作于某地"
 
-#: DB:link_type/reverse_link_phrase:960 DB:link_type/reverse_link_phrase:175
-#: DB:link_type/reverse_link_phrase:79
+#: DB:link_type/reverse_link_phrase:79 DB:link_type/reverse_link_phrase:960
+#: DB:link_type/reverse_link_phrase:175
 msgid "mail-order purchase page for"
 msgstr "邮购页，关于"
 
@@ -6960,8 +6975,8 @@ msgstr "出版唱片公司"
 msgid "purchase for download"
 msgstr "付费下载"
 
-#: DB:link_type/link_phrase:79 DB:link_type/name:960 DB:link_type/name:175
-#: DB:link_type/name:79 DB:link_type/name:913
+#: DB:link_type/link_phrase:79 DB:link_type/name:79 DB:link_type/name:960
+#: DB:link_type/name:175 DB:link_type/name:913
 msgid "purchase for mail-order"
 msgstr "付费邮购"
 
@@ -7037,7 +7052,7 @@ msgstr ""
 msgid "recorded release groups"
 msgstr ""
 
-#: DB:link_type/name:36 DB:link_type/name:128
+#: DB:link_type/name:128 DB:link_type/name:36
 msgid "recording"
 msgstr "录音"
 
@@ -7829,7 +7844,7 @@ msgstr ""
 msgid "was the {instrument:%|instruments} technician for"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:36 DB:link_type/long_link_phrase:128
+#: DB:link_type/long_link_phrase:128 DB:link_type/long_link_phrase:36
 msgid "was {additional} {assistant} {associate} {co:co-}recording engineer for"
 msgstr ""
 
@@ -7839,6 +7854,10 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:1165
 msgid "was {assistant} carillonneur at"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:1230
+msgid "was {assistant} choreographer for"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:856
@@ -8379,11 +8398,11 @@ msgstr ""
 msgid "{additional} {assistant} {associate} {co:co-}mixer"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:36 DB:link_type/reverse_link_phrase:128
+#: DB:link_type/reverse_link_phrase:128 DB:link_type/reverse_link_phrase:36
 msgid "{additional} {assistant} {associate} {co:co-}recording engineer"
 msgstr ""
 
-#: DB:link_type/link_phrase:36 DB:link_type/link_phrase:128
+#: DB:link_type/link_phrase:128 DB:link_type/link_phrase:36
 msgid "{additional} {assistant} {associate} {co:co-}recording engineer for"
 msgstr ""
 
@@ -8490,6 +8509,16 @@ msgstr ""
 #: DB:link_type/link_phrase:1165
 msgid "{assistant} carillonneur at"
 msgstr ""
+
+#: DB:link_type/reverse_link_phrase:1230
+msgid "{assistant} choreographer"
+msgstr ""
+
+#: DB:link_type/link_phrase:1230
+#, fuzzy
+#| msgid "discography entry for"
+msgid "{assistant} choreographer for"
+msgstr "的唱片条目"
 
 #: DB:link_type/link_phrase:856
 msgid "{assistant} organist at"

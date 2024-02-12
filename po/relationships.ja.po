@@ -14,11 +14,13 @@
 # 和田篤 <email address hidden>, 2019
 # 和田篤 <email address hidden>, 2019
 # julian45 <techieboy45@gmail.com>, 2023.
+# reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-10-27 01:27+0000\n"
-"Last-Translator: julian45 <techieboy45@gmail.com>\n"
+"PO-Revision-Date: 2024-01-04 14:54+0000\n"
+"Last-Translator: reosarevok <reosarevok@users.noreply.translations."
+"metabrainz.org>\n"
 "Language-Team: Japanese <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/ja/>\n"
 "Language: ja\n"
@@ -26,7 +28,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.1\n"
+"X-Generator: Weblate 5.3\n"
 
 #: DB:link_attribute_type/description:1355
 msgid "A performance-centered, usually one to three year postgraduate program."
@@ -1373,22 +1375,22 @@ msgstr "口頭言語（スピーチ）"
 #: DB:link_type/long_link_phrase:880
 msgid ""
 "The libretto for {entity1} was {additional:additionally} written at {entity0}"
-msgstr "{entry1}の台本は{additional:補助的に}{entity0}によって書かれました"
+msgstr "{entity1}の台本は{additional:補助的に}{entity0}によって書かれました"
 
 #: DB:link_type/long_link_phrase:879
 msgid ""
 "The libretto for {entity1} was {additional:additionally} written in {entity0}"
-msgstr "{entry1}の台本は{additional:補助的に}{entity0}によって書かれました"
+msgstr "{entity1}の台本は{additional:補助的に}{entity0}によって書かれました"
 
 #: DB:link_type/long_link_phrase:878
 msgid ""
 "The lyrics for {entity1} were {additional:additionally} written at {entity0}"
-msgstr "{entry1}の歌詞は{additional:補助的に}{entity0}によって書かれました"
+msgstr "{entity1}の歌詞は{additional:補助的に}{entity0}によって書かれました"
 
 #: DB:link_type/long_link_phrase:877
 msgid ""
 "The lyrics for {entity1} were {additional:additionally} written in {entity0}"
-msgstr "{entry1}の歌詞は{additional:補助的に}{entity0}によって書かれました"
+msgstr "{entity1}の歌詞は{additional:補助的に}{entity0}によって書かれました"
 
 #: DB:link_type/long_link_phrase:274
 msgid "The score for {entity1} can be downloaded for free at {entity0}"
@@ -1652,7 +1654,7 @@ msgstr ""
 "れるエフェクトプロセッサやデジタルオーディオ機器など、サウンドを生成するため"
 "に使用されるマシンに関与するエンジニアについて説明している。"
 
-#: DB:link_type/description:36 DB:link_type/description:128
+#: DB:link_type/description:128 DB:link_type/description:36
 msgid ""
 "This describes an engineer responsible for committing the performance to "
 "tape or another recording medium. This can be as complex as setting up the "
@@ -2216,6 +2218,13 @@ msgid ""
 "project (such as an audio drama or audiobook), which is usually based on a "
 "written template and involves the performance of voice actors."
 msgstr ""
+
+#: DB:link_type/description:1230
+#, fuzzy
+#| msgid "This indicates the artist was the director of this music video."
+msgid ""
+"This indicates the artist was the choreographer for this video recording."
+msgstr "これは、アーティストがこのミュージックビデオの監督であったことを示す。"
 
 #: DB:link_type/description:962
 msgid "This indicates the artist was the director of this video recording."
@@ -5125,6 +5134,12 @@ msgstr "合唱団のボーカル"
 msgid "choral conducting"
 msgstr ""
 
+#: DB:link_type/name:1230
+#, fuzzy
+#| msgid "discography entry"
+msgid "choreographer"
+msgstr "ディスコグラフィー項目"
+
 #: DB:link_type/name:152 DB:link_type/name:53
 msgid "chorus master"
 msgstr "コーラスマスター"
@@ -6713,8 +6728,8 @@ msgstr ""
 msgid "lyrics written in"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:960 DB:link_type/reverse_link_phrase:175
-#: DB:link_type/reverse_link_phrase:79
+#: DB:link_type/reverse_link_phrase:79 DB:link_type/reverse_link_phrase:960
+#: DB:link_type/reverse_link_phrase:175
 msgid "mail-order purchase page for"
 msgstr "次の通信販売ページ"
 
@@ -7584,8 +7599,8 @@ msgstr ""
 msgid "purchase for download"
 msgstr "ダウンロード販売"
 
-#: DB:link_type/link_phrase:79 DB:link_type/name:960 DB:link_type/name:175
-#: DB:link_type/name:79 DB:link_type/name:913
+#: DB:link_type/link_phrase:79 DB:link_type/name:79 DB:link_type/name:960
+#: DB:link_type/name:175 DB:link_type/name:913
 msgid "purchase for mail-order"
 msgstr "通信販売"
 
@@ -7661,7 +7676,7 @@ msgstr ""
 msgid "recorded release groups"
 msgstr ""
 
-#: DB:link_type/name:36 DB:link_type/name:128
+#: DB:link_type/name:128 DB:link_type/name:36
 msgid "recording"
 msgstr "レコーディング"
 
@@ -8453,7 +8468,7 @@ msgstr ""
 msgid "was the {instrument:%|instruments} technician for"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:36 DB:link_type/long_link_phrase:128
+#: DB:link_type/long_link_phrase:128 DB:link_type/long_link_phrase:36
 msgid "was {additional} {assistant} {associate} {co:co-}recording engineer for"
 msgstr ""
 
@@ -8463,6 +8478,10 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:1165
 msgid "was {assistant} carillonneur at"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:1230
+msgid "was {assistant} choreographer for"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:856
@@ -9019,13 +9038,13 @@ msgstr "{additional:補助的な} {assistant} {associate} {co:共同}マスタ�
 msgid "{additional} {assistant} {associate} {co:co-}mixer"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:36 DB:link_type/reverse_link_phrase:128
+#: DB:link_type/reverse_link_phrase:128 DB:link_type/reverse_link_phrase:36
 msgid "{additional} {assistant} {associate} {co:co-}recording engineer"
 msgstr ""
 "{additional:補助的な} {assistant} {associate} {co:共同}レコーディングエンジニ"
 "ア"
 
-#: DB:link_type/link_phrase:36 DB:link_type/link_phrase:128
+#: DB:link_type/link_phrase:128 DB:link_type/link_phrase:36
 msgid "{additional} {assistant} {associate} {co:co-}recording engineer for"
 msgstr ""
 
@@ -9138,6 +9157,18 @@ msgstr ""
 #: DB:link_type/link_phrase:1165
 msgid "{assistant} carillonneur at"
 msgstr ""
+
+#: DB:link_type/reverse_link_phrase:1230
+#, fuzzy
+#| msgid "{assistant} organists"
+msgid "{assistant} choreographer"
+msgstr "{assistant}オルガン奏者"
+
+#: DB:link_type/link_phrase:1230
+#, fuzzy
+#| msgid "{assistant} organists"
+msgid "{assistant} choreographer for"
+msgstr "{assistant}オルガン奏者"
 
 #: DB:link_type/link_phrase:856
 msgid "{assistant} organist at"
@@ -9799,10 +9830,6 @@ msgstr ""
 #~ msgstr ""
 #~ "これは、個人または代理店がリリースのアートディレクションを行ったことを示"
 #~ "す。"
-
-#~ msgid "This indicates the artist was the director of this music video."
-#~ msgstr ""
-#~ "これは、アーティストがこのミュージックビデオの監督であったことを示す。"
 
 #~ msgid ""
 #~ "This links an artist's performance name (a stage name or alias) with "

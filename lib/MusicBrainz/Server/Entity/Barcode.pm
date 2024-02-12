@@ -1,6 +1,6 @@
 package MusicBrainz::Server::Entity::Barcode;
 use Moose;
-use MusicBrainz::Server::Translation qw( l );
+use MusicBrainz::Server::Translation qw( lp );
 
 has 'code' => (
     is => 'rw',
@@ -9,20 +9,13 @@ has 'code' => (
 
 use overload '""' => sub { shift->code }, fallback => 1;
 
-sub type {
-    my ($self) = @_;
-    return 'EAN' if length($self->code) == 8;
-    return 'UPC' if length($self->code) == 12;
-    return 'EAN' if length($self->code) == 13;
-}
-
 sub format
 {
     my $self = shift;
 
     return '' unless defined $self->code;
 
-    return $self->code eq '' ? l('[none]') : $self->code;
+    return $self->code eq '' ? lp('[none]', 'barcode') : $self->code;
 }
 
 around BUILDARGS => sub {

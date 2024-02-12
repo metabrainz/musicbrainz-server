@@ -1,9 +1,20 @@
 #!/usr/bin/env bash
 
+function sv_start_if_down() {
+  while [[ $# -gt 0 ]]
+  do
+    if [[ -e "/etc/service/$1/down" ]]
+    then
+      rm -fv "/etc/service/$1/down"
+      sv start "$1"
+    fi
+    shift
+  done
+}
+
 cd /home/musicbrainz/musicbrainz-server
 
-rm /etc/service/{postgresql,redis}/down
-sv start postgresql redis
+sv_start_if_down postgresql redis
 
 # Wait for the database to start.
 sleep 10
@@ -20,7 +31,7 @@ popd
 
 # Set the open file limit Solr requests on startup, then start Solr.
 ulimit -n 65000
-rm /etc/service/solr/down && sv up solr
+sv_start_if_down solr
 
 # Setup the rabbitmq user/vhost used by pg_amqp + sir.
 service rabbitmq-server start
@@ -47,8 +58,7 @@ psql -U musicbrainz -f sql/eaa_triggers.sql musicbrainz_selenium
 cd /home/musicbrainz/musicbrainz-server
 
 # Start the various CAA-related services.
-rm /etc/service/{artwork-indexer,artwork-redirect,ssssss}/down
-sv start artwork-indexer artwork-redirect ssssss
+sv_start_if_down artwork-indexer artwork-redirect ssssss
 
 # Compile static resources.
 corepack enable
@@ -64,8 +74,7 @@ NODE_ENV=test \
 # See add_mbtest_alias.sh for details.
 ./docker/musicbrainz-tests/add_mbtest_alias.sh
 
-rm /etc/service/{template-renderer,website}/down
-sv start template-renderer website
+sv_start_if_down template-renderer website
 
 # Wait for plackup to start.
 sleep 10

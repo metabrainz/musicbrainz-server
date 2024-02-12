@@ -24,7 +24,7 @@ const ErrorEnvironment = ({
   return (
     <>
       <p>
-        <strong>{addColonText(l('Time'))}</strong>
+        <strong>{addColonText(l('Date and time'))}</strong>
         {' '}
         {new Date().toISOString()}
       </p>

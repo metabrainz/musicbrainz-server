@@ -34,7 +34,7 @@
     {
       command: 'type',
       target: 'css=#external-link-0 input[type=url]',
-      value: 'https://bandcamp.com/tag/newgenre',
+      value: 'https://bandcamp.com/discover/newgenre',
     },
     {
       command: 'clickAndWait',
@@ -72,7 +72,7 @@
           entity1: {
             gid: '$$__IGNORE__$$',
             id: 1,
-            name: 'https://bandcamp.com/tag/newgenre',
+            name: 'https://bandcamp.com/discover/newgenre',
           },
           entity_id: 1,
           link_type: {
@@ -152,7 +152,7 @@
     {
       command: 'type',
       target: 'css=#url-input-popover input.raw-url',
-      value: 'https://bandcamp.com/tag/newgenre2',
+      value: 'https://bandcamp.com/discover/newgenre2',
     },
     {
       command: 'sendKeys',
@@ -216,7 +216,7 @@
             entity1: {
               gid: '$$__IGNORE__$$',
               id: 1,
-              name: 'https://bandcamp.com/tag/newgenre',
+              name: 'https://bandcamp.com/discover/newgenre',
             },
             link_type: {
               id: 1092,
@@ -230,14 +230,14 @@
             entity1: {
               gid: '$$__IGNORE__$$',
               id: 2,
-              name: 'https://bandcamp.com/tag/newgenre2',
+              name: 'https://bandcamp.com/discover/newgenre2',
             },
           },
           old: {
             entity1: {
               gid: '$$__IGNORE__$$',
               id: 1,
-              name: 'https://bandcamp.com/tag/newgenre',
+              name: 'https://bandcamp.com/discover/newgenre',
             },
           },
           relationship_id: 1,
@@ -331,7 +331,7 @@
             entity1: {
               gid: '$$__IGNORE__$$',
               id: 1,
-              name: 'https://bandcamp.com/tag/newgenre',
+              name: 'https://bandcamp.com/discover/newgenre',
             },
             id: 1,
             link: {

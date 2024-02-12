@@ -56,7 +56,7 @@ const CollectionSidebar = ({
         </SidebarProperty>
 
         {nonEmpty(typeName) ? (
-          <SidebarProperty className="type" label={l('Type:')}>
+          <SidebarProperty className="type" label={addColonText(l('Type'))}>
             {lp_attributes(typeName, 'collection_type')}
           </SidebarProperty>
         ) : null}

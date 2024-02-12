@@ -104,7 +104,7 @@ const entries = [
 }, {});
 
 function langToPosix(lang) {
-  return lang.replace(/^([a-zA-Z]+)-([a-zA-Z]+)$/, function (match, l, c) {
+  return lang.replace(/^([a-zA-Z]+)-([a-zA-Z0-9]+)$/, function (match, l, c) {
     l = l.toLowerCase();
     c = c.toUpperCase();
     return l + '_' + c.toUpperCase();
@@ -192,7 +192,7 @@ const MB_LANGUAGES = shell.exec(
   `find ${shellQuote.quote([PO_DIR])} -type f -name 'mb_server*.po'`,
   {silent: true},
 ).stdout.split('\n').reduce((accum, filePath) => {
-  const lang = filePath.replace(/^.*\/mb_server\.([A-z_]+)\.po$/, '$1');
+  const lang = filePath.replace(/^.*\/mb_server\.([A-z0-9_]+)\.po$/, '$1');
   if (lang && lang !== 'en') {
     accum.push(langToPosix(lang));
   }

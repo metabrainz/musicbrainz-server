@@ -18,6 +18,7 @@ use Sub::Exporter -setup => {
                       build_type_info
                       build_options_tree
                       indentation
+                      localize_error
                       validate_username
               )],
 };
@@ -195,6 +196,11 @@ sub build_child_info {
 sub indentation {
     my $level = shift;
     return "\N{NO-BREAK SPACE}" x (3 * $level);
+}
+
+sub localize_error {
+    my ($self, @message) = @_;
+    return l(@message);
 }
 
 sub validate_username {

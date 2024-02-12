@@ -1,7 +1,8 @@
 package MusicBrainz::Server::Controller::OAuth2;
 use Moose;
+use MooseX::MethodAttributes;
 
-BEGIN { extends 'MusicBrainz::Server::Controller'; }
+extends 'MusicBrainz::Server::Controller';
 
 use DBDefs;
 use DateTime;

@@ -31,6 +31,7 @@ declare type MediumCDTocT = $ReadOnly<{
   ...EntityRoleT<'medium_cdtoc'>,
   +cdtoc: CDTocT,
   +editsPending: boolean,
+  +medium?: MediumT,
 }>;
 
 declare type MediumFormatT = {
@@ -43,13 +44,16 @@ declare type MediumFormatT = {
 declare type MediumT = $ReadOnly<{
   ...EntityRoleT<'medium'>,
   ...LastUpdateRoleT,
+  +cdtoc_track_lengths?: $ReadOnlyArray<number | null>,
   +cdtoc_tracks?: $ReadOnlyArray<TrackT>,
   +cdtocs: $ReadOnlyArray<string>,
+  +data_track_lengths?: $ReadOnlyArray<number | null>,
   +editsPending: boolean,
   +format: MediumFormatT | null,
   +format_id: number | null,
   +name: string,
   +position: number,
+  +pregap_length?: $ReadOnlyArray<number | null>,
   +release_id: number,
   +track_count: number | null,
   +tracks?: $ReadOnlyArray<TrackT>,

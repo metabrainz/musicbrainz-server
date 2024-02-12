@@ -3,6 +3,7 @@ use DateTime::Locale;
 use Digest::MD5 qw( md5_hex );
 use HTTP::Status qw( :constants );
 use Moose;
+use MooseX::MethodAttributes;
 use namespace::autoclean;
 use Try::Tiny;
 use List::AllUtils qw( max );
@@ -10,7 +11,7 @@ use Readonly;
 use URI::Escape qw( uri_escape_utf8 );
 use URI::QueryParam;
 
-BEGIN { extends 'Catalyst::Controller' }
+extends 'Catalyst::Controller';
 
 # Import MusicBrainz libraries
 use DBDefs;

@@ -1,9 +1,10 @@
 package MusicBrainz::Server::Controller::Work;
 use 5.10.0;
 use Moose;
+use MooseX::MethodAttributes;
 use namespace::autoclean;
 
-BEGIN { extends 'MusicBrainz::Server::Controller'; }
+extends 'MusicBrainz::Server::Controller';
 
 use MusicBrainz::Server::Constants qw(
     $EDIT_WORK_CREATE

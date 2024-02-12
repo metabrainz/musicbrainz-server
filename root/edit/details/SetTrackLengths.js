@@ -55,7 +55,7 @@ const SetTrackLengths = ({edit}: Props): React$Element<'table'> => {
         <td colSpan="2">
           {cdtoc ? (
             <CDTocLink cdToc={cdtoc} />
-          ) : l('[removed]')}
+          ) : lp('[removed]', 'CD TOC')}
         </td>
       </tr>
 

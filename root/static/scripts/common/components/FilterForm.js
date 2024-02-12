@@ -9,30 +9,89 @@
 
 import SelectField from '../../common/components/SelectField.js';
 import FieldErrors from '../../edit/components/FieldErrors.js';
-import {addColonText} from '../i18n/addColon.js';
 
-export type FilterFormT = $ReadOnly<{
-  ...FormT<{
-    +artist_credit_id: FieldT<number>,
-    +country_id?: FieldT<number>,
-    +date?: FieldT<string>,
-    +label_id?: FieldT<number>,
-    +name: FieldT<string>,
-    +role_type?: FieldT<number>,
-    +secondary_type_id?: FieldT<number>,
-    +setlist?: FieldT<string>,
-    +status_id?: FieldT<number>,
-    +type_id?: FieldT<number>,
-  }>,
-  entity_type: 'recording' | 'release' | 'release_group',
-  options_artist_credit_id: SelectOptionsT,
-  options_country_id: SelectOptionsT,
-  options_label_id?: SelectOptionsT,
-  options_role_type?: SelectOptionsT,
-  options_secondary_type_id?: SelectOptionsT,
-  options_status_id?: SelectOptionsT,
-  options_type_id?: SelectOptionsT,
+type GenericFilterFormFieldsT = {
+  +disambiguation: FieldT<string>,
+  +name: FieldT<string>,
+};
+
+type EventFilterFormT = FormT<{
+  ...GenericFilterFormFieldsT,
+  +setlist: FieldT<string>,
+  +type_id: FieldT<number>,
 }>;
+
+export type EventFilterT = $ReadOnly<{
+  ...EventFilterFormT,
+  +entity_type: 'event',
+  +options_type_id: SelectOptionsT,
+}>;
+
+type RecordingFilterFormT = FormT<{
+  ...GenericFilterFormFieldsT,
+  +artist_credit_id: FieldT<number>,
+  +video: FieldT<number>,
+}>;
+
+export type RecordingFilterT = $ReadOnly<{
+  ...RecordingFilterFormT,
+  +entity_type: 'recording',
+  +options_artist_credit_id: SelectOptionsT,
+  +options_video: SelectOptionsT,
+}>;
+
+type ReleaseFilterFormT = FormT<{
+  ...GenericFilterFormFieldsT,
+  +artist_credit_id: FieldT<number>,
+  +country_id: FieldT<number>,
+  +date: FieldT<string>,
+  +label_id: FieldT<number>,
+  +status_id: FieldT<number>,
+}>;
+
+export type ReleaseFilterT = $ReadOnly<{
+  ...ReleaseFilterFormT,
+  +entity_type: 'release',
+  +options_artist_credit_id: SelectOptionsT,
+  +options_country_id: SelectOptionsT,
+  +options_label_id: SelectOptionsT,
+  +options_status_id: SelectOptionsT,
+}>;
+
+type ReleaseGroupFilterFormT = FormT<{
+  ...GenericFilterFormFieldsT,
+  +artist_credit_id: FieldT<number>,
+  +secondary_type_id: FieldT<number>,
+  +type_id: FieldT<number>,
+}>;
+
+export type ReleaseGroupFilterT = $ReadOnly<{
+  ...ReleaseGroupFilterFormT,
+  +entity_type: 'release_group',
+  +options_artist_credit_id: SelectOptionsT,
+  +options_secondary_type_id: SelectOptionsT,
+  +options_type_id: SelectOptionsT,
+}>;
+
+type WorkFilterFormT = FormT<{
+  ...GenericFilterFormFieldsT,
+  +role_type: FieldT<number>,
+  +type_id: FieldT<number>,
+}>;
+
+export type WorkFilterT = $ReadOnly<{
+  ...WorkFilterFormT,
+  +entity_type: 'work',
+  +options_role_type: SelectOptionsT,
+  +options_type_id: SelectOptionsT,
+}>;
+
+export type FilterFormT =
+  | EventFilterT
+  | RecordingFilterT
+  | ReleaseFilterT
+  | ReleaseGroupFilterT
+  | WorkFilterT;
 
 type Props = {
   +form: FilterFormT,
@@ -54,228 +113,276 @@ function getSubmitText(type: string) {
   return '';
 }
 
-const FilterForm = ({form}: Props): React$Element<'div'> => {
-  const typeIdField = form.field.type_id;
-  const typeIdOptions = form.options_type_id;
-  const secondaryTypeIdField = form.field.secondary_type_id;
-  const secondaryTypeIdOptions = form.options_secondary_type_id;
-  const artistCreditIdField = form.field.artist_credit_id;
-  const artistCreditIdOptions = form.options_artist_credit_id;
-  const countryIdOptions = form.options_country_id;
-  const countryIdField = form.field.country_id;
-  const labelIdOptions = form.options_label_id;
-  const labelIdField = form.field.label_id;
-  const dateField = form.field.date;
-  const roleTypeField = form.field.role_type;
-  const roleTypeOptions = form.options_role_type;
-  const statusIdOptions = form.options_status_id;
-  const statusIdField = form.field.status_id;
-  const setlistField = form.field.setlist;
+type FieldProps = {
+  field: FieldT<number>,
+  options: SelectOptionsT,
+};
 
-  return (
-    <div id="filter">
-      <form method="get">
-        <table>
-          <tbody>
-            {typeIdField && typeIdOptions ? (
-              <tr>
-                <td>
-                  {addColonText(l('Type'))}
-                </td>
-                <td>
-                  <SelectField
-                    field={typeIdField}
-                    options={{grouped: false, options: typeIdOptions}}
-                    style={{maxWidth: '40em'}}
-                    uncontrolled
-                  />
-                </td>
-              </tr>
-            ) : null}
+const ArtistCreditField = ({
+  field,
+  options,
+}: FieldProps): React$Element<'tr'> => (
+  <tr>
+    <td>
+      {addColonText(l('Artist credit'))}
+    </td>
+    <td>
+      <SelectField
+        field={field}
+        options={{
+          grouped: false,
+          options: options,
+        }}
+        style={{maxWidth: '40em'}}
+        uncontrolled
+      />
+    </td>
+  </tr>
+);
 
-            {secondaryTypeIdField && secondaryTypeIdOptions ? (
-              <tr>
-                <td>
-                  {addColonText(l('Secondary type'))}
-                </td>
-                <td>
-                  <SelectField
-                    field={secondaryTypeIdField}
-                    options={{
-                      grouped: false,
-                      options: secondaryTypeIdOptions,
-                    }}
-                    style={{maxWidth: '40em'}}
-                    uncontrolled
-                  />
-                </td>
-              </tr>
-            ) : null}
+const TypeField = ({field, options}: FieldProps): React$Element<'tr'> => (
+  <tr>
+    <td>
+      {addColonText(l('Type'))}
+    </td>
+    <td>
+      <SelectField
+        field={field}
+        options={{
+          grouped: false,
+          options: options,
+        }}
+        style={{maxWidth: '40em'}}
+        uncontrolled
+      />
+    </td>
+  </tr>
+);
 
-            {artistCreditIdField && artistCreditIdOptions ? (
-              <tr>
-                <td>
-                  {addColonText(l('Artist credit'))}
-                </td>
-                <td>
-                  <SelectField
-                    field={artistCreditIdField}
-                    options={{
-                      grouped: false,
-                      options: artistCreditIdOptions,
-                    }}
-                    style={{maxWidth: '40em'}}
-                    uncontrolled
-                  />
-                </td>
-              </tr>
-            ) : null}
+const FilterForm = ({form}: Props): React$Element<'div'> => (
+  <div id="filter">
+    <form method="get">
+      <table>
+        <tbody>
+          <tr>
+            <td>{addColonText(l('Name'))}</td>
+            <td>
+              <input
+                defaultValue={form.field.name.value}
+                name={form.field.name.html_name}
+                size="47"
+                type="text"
+              />
+            </td>
+          </tr>
 
-            <tr>
-              <td>{addColonText(l('Name'))}</td>
-              <td>
-                <input
-                  defaultValue={form.field.name.value}
-                  name={form.field.name.html_name}
-                  size="47"
-                  type="text"
-                />
-              </td>
-            </tr>
-
-            {roleTypeField && roleTypeOptions ? (
-              <tr>
-                <td>
-                  {addColonText(l('Role'))}
-                </td>
-                <td>
-                  <SelectField
-                    field={roleTypeField}
-                    options={{
-                      grouped: false,
-                      options: roleTypeOptions,
-                    }}
-                    style={{maxWidth: '40em'}}
-                    uncontrolled
-                  />
-                </td>
-              </tr>
-            ) : null}
-
-            {labelIdField && labelIdOptions ? (
-              <tr>
-                <td>
-                  {addColonText(l('Label'))}
-                </td>
-                <td>
-                  <SelectField
-                    field={labelIdField}
-                    options={{
-                      grouped: false,
-                      options: labelIdOptions,
-                    }}
-                    style={{maxWidth: '40em'}}
-                    uncontrolled
-                  />
-                </td>
-              </tr>
-            ) : null}
-
-            {countryIdField && countryIdOptions ? (
-              <tr>
-                <td>
-                  {addColonText(l('Country'))}
-                </td>
-                <td>
-                  <SelectField
-                    field={countryIdField}
-                    options={{
-                      grouped: false,
-                      options: countryIdOptions,
-                    }}
-                    style={{maxWidth: '40em'}}
-                    uncontrolled
-                  />
-                </td>
-              </tr>
-            ) : null}
-
-            {statusIdField && statusIdOptions ? (
-              <tr>
-                <td>
-                  {addColonText(lp('Status', 'release'))}
-                </td>
-                <td>
-                  <SelectField
-                    field={statusIdField}
-                    options={{
-                      grouped: false,
-                      options: statusIdOptions,
-                    }}
-                    style={{maxWidth: '40em'}}
-                    uncontrolled
-                  />
-                </td>
-              </tr>
-            ) : null}
-
-            {dateField ? (
-              <tr>
-                <td>
-                  {addColonText(l('Date'))}
-                </td>
-                <td>
-                  <input
-                    defaultValue={dateField.value ?? ''}
-                    name={dateField.html_name}
-                    size="47"
-                    type="text"
-                  />
-                  <FieldErrors field={dateField} />
-                </td>
-              </tr>
-            ) : null}
-
-            {setlistField ? (
+          {form.entity_type === 'event' ? (
+            <>
+              <TypeField
+                field={form.field.type_id}
+                options={form.options_type_id}
+              />
               <tr>
                 <td>
                   {addColonText(l('Setlist contains'))}
                 </td>
                 <td>
                   <input
-                    defaultValue={setlistField.value ?? ''}
-                    name={setlistField.html_name}
+                    defaultValue={form.field.setlist.value ?? ''}
+                    name={form.field.setlist.html_name}
                     size="47"
                     type="text"
                   />
-                  <FieldErrors field={setlistField} />
+                  <FieldErrors field={form.field.setlist} />
                 </td>
               </tr>
-            ) : null}
+            </>
+          ) : null}
 
-            <tr>
-              <td />
-              <td>
-                <span className="buttons">
-                  <button className="submit positive" type="submit">
-                    {getSubmitText(form.entity_type)}
-                  </button>
-                  <button
-                    className="submit negative"
-                    name="filter.cancel"
-                    type="submit"
-                    value="1"
-                  >
-                    {l('Cancel')}
-                  </button>
-                </span>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </form>
-    </div>
-  );
-};
+          {form.entity_type === 'recording' ? (
+            <>
+              <ArtistCreditField
+                field={form.field.artist_credit_id}
+                options={form.options_artist_credit_id}
+              />
+              <tr>
+                <td>
+                  {addColonText(l('Video'))}
+                </td>
+                <td>
+                  <SelectField
+                    field={form.field.video}
+                    options={{
+                      grouped: false,
+                      options: form.options_video,
+                    }}
+                    style={{maxWidth: '40em'}}
+                    uncontrolled
+                  />
+                </td>
+              </tr>
+            </>
+          ) : null}
+
+          {form.entity_type === 'release' ? (
+            <>
+              <ArtistCreditField
+                field={form.field.artist_credit_id}
+                options={form.options_artist_credit_id}
+              />
+              <tr>
+                <td>
+                  {addColonText(l('Label'))}
+                </td>
+                <td>
+                  <SelectField
+                    field={form.field.label_id}
+                    options={{
+                      grouped: false,
+                      options: form.options_label_id,
+                    }}
+                    style={{maxWidth: '40em'}}
+                    uncontrolled
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  {addColonText(l('Country'))}
+                </td>
+                <td>
+                  <SelectField
+                    field={form.field.country_id}
+                    options={{
+                      grouped: false,
+                      options: form.options_country_id,
+                    }}
+                    style={{maxWidth: '40em'}}
+                    uncontrolled
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  {addColonText(lp('Status', 'release'))}
+                </td>
+                <td>
+                  <SelectField
+                    field={form.field.status_id}
+                    options={{
+                      grouped: false,
+                      options: form.options_status_id,
+                    }}
+                    style={{maxWidth: '40em'}}
+                    uncontrolled
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  {addColonText(l('Date'))}
+                </td>
+                <td>
+                  <input
+                    defaultValue={form.field.date.value ?? ''}
+                    name={form.field.date.html_name}
+                    size="47"
+                    type="text"
+                  />
+                  <FieldErrors field={form.field.date} />
+                </td>
+              </tr>
+            </>
+          ) : null}
+
+          {form.entity_type === 'release_group' ? (
+            <>
+              <TypeField
+                field={form.field.type_id}
+                options={form.options_type_id}
+              />
+              <ArtistCreditField
+                field={form.field.artist_credit_id}
+                options={form.options_artist_credit_id}
+              />
+              <tr>
+                <td>
+                  {addColonText(l('Secondary type'))}
+                </td>
+                <td>
+                  <SelectField
+                    field={form.field.secondary_type_id}
+                    options={{
+                      grouped: false,
+                      options: form.options_secondary_type_id,
+                    }}
+                    style={{maxWidth: '40em'}}
+                    uncontrolled
+                  />
+                </td>
+              </tr>
+            </>
+          ) : null}
+
+          {form.entity_type === 'work' ? (
+            <>
+              <TypeField
+                field={form.field.type_id}
+                options={form.options_type_id}
+              />
+              <tr>
+                <td>
+                  {addColonText(l('Role'))}
+                </td>
+                <td>
+                  <SelectField
+                    field={form.field.role_type}
+                    options={{
+                      grouped: false,
+                      options: form.options_role_type,
+                    }}
+                    style={{maxWidth: '40em'}}
+                    uncontrolled
+                  />
+                </td>
+              </tr>
+            </>
+          ) : null}
+
+          <tr>
+            <td>{addColonText(l('Disambiguation'))}</td>
+            <td>
+              <input
+                defaultValue={form.field.disambiguation.value}
+                name={form.field.disambiguation.html_name}
+                size="47"
+                type="text"
+              />
+            </td>
+          </tr>
+
+          <tr>
+            <td />
+            <td>
+              <span className="buttons">
+                <button className="submit positive" type="submit">
+                  {getSubmitText(form.entity_type)}
+                </button>
+                <button
+                  className="submit negative"
+                  name="filter.cancel"
+                  type="submit"
+                  value="1"
+                >
+                  {l('Cancel')}
+                </button>
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </form>
+  </div>
+);
 
 export default FilterForm;

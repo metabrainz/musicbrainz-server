@@ -3,10 +3,10 @@ package MusicBrainz::Server::Controller::Artist;
 use utf8;
 
 use Moose;
+use MooseX::MethodAttributes;
 use namespace::autoclean;
 
-BEGIN { extends 'MusicBrainz::Server::Controller'; }
-
+extends 'MusicBrainz::Server::Controller';
 with 'MusicBrainz::Server::Controller::Role::Load' => {
     model           => 'Artist',
     relationships   => {

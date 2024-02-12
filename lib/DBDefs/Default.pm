@@ -192,6 +192,21 @@ sub GOOGLE_CUSTOM_SEARCH { '' }
 # you use it in your own definitions.
 sub CACHE_NAMESPACE { 'MB:' }
 
+# Redis by default has 16 numbered databases available, of which DB 0 is the
+# default. You can configure which of these databases are used by
+# musicbrainz-server via the `database` properties in `PLUGIN_CACHE_OPTIONS`,
+# `CACHE_MANAGER_OPTIONS`, and `DATASTORE_REDIS_ARGS`. It is not recommended
+# to change the default of 0 unless you are sharing a Redis instance with
+# other services. (We do not advise this; please heed the note about
+# `REDIS_TEST_DATABASE` below, or suffer data loss.)
+#
+# `REDIS_TEST_DATABASE` indicates the minimum DB number used when running
+# tests. This is used for both the cache and the store. Note that the tests
+# may use additional DB numbers greater than or equal to
+# `REDIS_TEST_DATABASE`, and that all production DB numbers should be less
+# than it. All test databases will be completely erased on each test run.
+sub REDIS_TEST_DATABASE { 1 }
+
 # PLUGIN_CACHE_OPTIONS are the options configured for Plugin::Cache.  $c->cache
 # is provided by Plugin::Cache, and is required for HTTP Digest authentication
 # in the webservice (Catalyst::Authentication::Credential::HTTP).
@@ -201,6 +216,7 @@ sub PLUGIN_CACHE_OPTIONS {
         class => 'MusicBrainz::Server::CacheWrapper::Redis',
         server => '127.0.0.1:6379',
         namespace => $self->CACHE_NAMESPACE . 'Catalyst:',
+        database => 0,
     };
 }
 
@@ -215,6 +231,7 @@ sub CACHE_MANAGER_OPTIONS {
                 options => {
                     server => '127.0.0.1:6379',
                     namespace => $self->CACHE_NAMESPACE,
+                    database => 0,
                 },
             },
         },
@@ -248,21 +265,12 @@ sub SESSION_STORE { 'Session::Store::MusicBrainz' }
 sub SESSION_STORE_ARGS { return {} }
 sub SESSION_EXPIRE { return 36000; } # 10 hours
 
-# Redis by default has 16 numbered databases available, of which DB 0
-# is the default.  Here you can configure which of these databases are
-# used by musicbrainz-server.
-#
-# test_database will be completely erased on each test run, so make
-# sure it doesn't point at any production data you may have in your
-# redis server.
-
 sub DATASTORE_REDIS_ARGS {
     my $self = shift;
     return {
         database => 0,
         namespace => $self->CACHE_NAMESPACE,
         server => '127.0.0.1:6379',
-        test_database => 1,
     };
 }
 

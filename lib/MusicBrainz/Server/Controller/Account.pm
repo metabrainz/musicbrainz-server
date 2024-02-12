@@ -1,11 +1,14 @@
 package MusicBrainz::Server::Controller::Account;
 use Moose;
-BEGIN { extends 'MusicBrainz::Server::Controller' }
+use MooseX::MethodAttributes;
+
+extends 'MusicBrainz::Server::Controller';
 
 use namespace::autoclean;
 use Digest::SHA qw(sha1_base64);
 use JSON;
 use List::AllUtils qw( uniq );
+use MusicBrainz::Server::Constants qw( $CONTACT_URL );
 use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
@@ -170,8 +173,9 @@ sub _send_password_reset_email
     }
     catch {
         $c->flash->{message} = l(
-            'We were unable to send login information to your email address.  Please try again, ' .
-            'however if you continue to experience difficulty contact us at support@musicbrainz.org.',
+            'We were unable to send login information to your email address. ' .
+            'Please try again, and if that still doesn’t work, {contact_url|contact us}.',
+            {contact_url => $CONTACT_URL},
         );
     };
 }
@@ -738,12 +742,11 @@ sub _send_confirmation_email
     }
     catch {
         $c->flash->{message} = l(
-            '<strong>We were unable to send a verification email to you.</strong><br/>Please confirm that you have entered a valid ' .
-            'address by editing your {settings|account settings}. If the problem still persists, please contact us at ' .
-            '{mail|support@musicbrainz.org}.',
+            '<strong>We were unable to send you a verification email.</strong><br/>Please re-enter your address ' .
+            'in your {settings|account settings}. If that still doesn’t work, {contact_url|contact us}.',
             {
                 settings => $c->uri_for_action('/account/edit'),
-                mail => 'mailto:support@musicbrainz.org',
+                contact_url => $CONTACT_URL,
             },
         );
     };

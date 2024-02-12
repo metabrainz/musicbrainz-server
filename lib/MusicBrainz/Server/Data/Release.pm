@@ -110,6 +110,10 @@ sub _where_filter
             push @query, q{(mb_simple_tsvector(release.name) @@ plainto_tsquery('mb_simple', mb_lower(?)) OR release.name = ?)};
             push @params, $filter->{name}, $filter->{name};
         }
+        if (exists $filter->{disambiguation}) {
+            push @query, q{(mb_simple_tsvector(release.comment) @@ plainto_tsquery('mb_simple', mb_lower(?)) OR release.comment = ?)};
+            push @params, $filter->{disambiguation}, $filter->{disambiguation};
+        }
         if (exists $filter->{artist_credit_id}) {
             push @query, 'release.artist_credit = ?';
             push @params, $filter->{artist_credit_id};
@@ -1710,6 +1714,8 @@ sub update_amazon_asin {
             { id => $release->id },
         );
     }
+
+    $self->_delete_from_cache($release_id);
 }
 
 __PACKAGE__->meta->make_immutable;

@@ -19,7 +19,6 @@ import Warning from '../static/scripts/common/components/Warning.js';
 import {FLUENCY_NAMES} from '../static/scripts/common/constants.js';
 import * as TYPES from '../static/scripts/common/constants/editTypes.js';
 import {compare} from '../static/scripts/common/i18n.js';
-import {l_admin} from '../static/scripts/common/i18n/admin.js';
 import commaList, {commaListText}
   from '../static/scripts/common/i18n/commaList.js';
 import commaOnlyList, {commaOnlyListText}

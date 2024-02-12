@@ -36,9 +36,6 @@ const ENTITIES = {
     annotations: {
       edit_type: 85,
     },
-    cache: {
-      id: 1,
-    },
     collections: true,
     custom_tabs: ([
       'artists',
@@ -72,16 +69,10 @@ const ENTITIES = {
     url: 'area',
   },
   area_alias_type: {
-    cache: {
-      id: 39,
-    },
     model: 'AreaAliasType',
     table: 'area_alias_type',
   },
   area_type: {
-    cache: {
-      id: 2,
-    },
     model: 'AreaType',
   },
   artist: {
@@ -94,9 +85,6 @@ const ENTITIES = {
     },
     annotations: {
       edit_type: 5,
-    },
-    cache: {
-      id: 3,
     },
     collections: true,
     custom_tabs: ([
@@ -150,22 +138,13 @@ const ENTITIES = {
     url: 'artist',
   },
   artist_alias_type: {
-    cache: {
-      id: 40,
-    },
     model: 'ArtistAliasType',
     table: 'artist_alias_type',
   },
   artist_credit: {
-    cache: {
-      id: 4,
-    },
     model: 'ArtistCredit',
   },
   artist_type: {
-    cache: {
-      id: 5,
-    },
     model: 'ArtistType',
   },
   cdstub: {
@@ -194,15 +173,9 @@ const ENTITIES = {
     url: 'collection',
   },
   collection_type: {
-    cache: {
-      id: 6,
-    },
     model: 'CollectionType',
   },
   cover_art_type: {
-    cache: {
-      id: 7,
-    },
     model: 'CoverArtType',
   },
   editor: {
@@ -223,9 +196,6 @@ const ENTITIES = {
     },
     annotations: {
       edit_type: 154,
-    },
-    cache: {
-      id: 8,
     },
     collections: true,
     date_period: true,
@@ -255,22 +225,13 @@ const ENTITIES = {
     url: 'event',
   },
   event_alias_type: {
-    cache: {
-      id: 41,
-    },
     model: 'EventAliasType',
     table: 'event_alias_type',
   },
   event_type: {
-    cache: {
-      id: 9,
-    },
     model: 'EventType',
   },
   gender: {
-    cache: {
-      id: 10,
-    },
     model: 'Gender',
   },
   genre: {
@@ -283,9 +244,6 @@ const ENTITIES = {
     },
     annotations: {
       edit_type: 164,
-    },
-    cache: {
-      id: 333,
     },
     disambiguation: true,
     edit_table: true,
@@ -304,9 +262,6 @@ const ENTITIES = {
     url: 'genre',
   },
   genre_alias_type: {
-    cache: {
-      id: 50,
-    },
     model: 'GenreAliasType',
     table: 'genre_alias_type',
   },
@@ -320,9 +275,6 @@ const ENTITIES = {
     },
     annotations: {
       edit_type: 135,
-    },
-    cache: {
-      id: 11,
     },
     collections: true,
     custom_tabs: ([
@@ -352,16 +304,10 @@ const ENTITIES = {
     url: 'instrument',
   },
   instrument_alias_type: {
-    cache: {
-      id: 42,
-    },
     model: 'InstrumentAliasType',
     table: 'instrument_alias_type',
   },
   instrument_type: {
-    cache: {
-      id: 12,
-    },
     model: 'InstrumentType',
   },
   isrc: {
@@ -382,9 +328,6 @@ const ENTITIES = {
     },
     annotations: {
       edit_type: 15,
-    },
-    cache: {
-      id: 13,
     },
     collections: true,
     date_period: true,
@@ -429,41 +372,23 @@ const ENTITIES = {
     url: 'label',
   },
   label_alias_type: {
-    cache: {
-      id: 43,
-    },
     model: 'LabelAliasType',
     table: 'label_alias_type',
   },
   label_type: {
-    cache: {
-      id: 14,
-    },
     model: 'LabelType',
   },
   language: {
-    cache: {
-      id: 15,
-    },
     model: 'Language',
   },
   link: {
-    cache: {
-      id: 16,
-    },
     model: 'Link',
   },
   link_attribute_type: {
-    cache: {
-      id: 17,
-    },
     last_updated_column: true,
     model: 'LinkAttributeType',
   },
   link_type: {
-    cache: {
-      id: 18,
-    },
     last_updated_column: true,
     mbid: {
       relatable: false,
@@ -478,9 +403,6 @@ const ENTITIES = {
     model: 'MediumCDTOC',
   },
   medium_format: {
-    cache: {
-      id: 19,
-    },
     model: 'MediumFormat',
   },
   place: {
@@ -493,9 +415,6 @@ const ENTITIES = {
     },
     annotations: {
       edit_type: 65,
-    },
-    cache: {
-      id: 20,
     },
     collections: true,
     custom_tabs: ([
@@ -529,16 +448,10 @@ const ENTITIES = {
     url: 'place',
   },
   place_alias_type: {
-    cache: {
-      id: 44,
-    },
     model: 'PlaceAliasType',
     table: 'place_alias_type',
   },
   place_type: {
-    cache: {
-      id: 21,
-    },
     model: 'PlaceType',
   },
   recording: {
@@ -553,9 +466,6 @@ const ENTITIES = {
       edit_type: 75,
     },
     artist_credits: true,
-    cache: {
-      id: 22,
-    },
     collections: true,
     custom_tabs: ([
       'fingerprints',
@@ -584,9 +494,6 @@ const ENTITIES = {
     url: 'recording',
   },
   recording_alias_type: {
-    cache: {
-      id: 45,
-    },
     model: 'RecordingAliasType',
     table: 'recording_alias_type',
   },
@@ -602,9 +509,6 @@ const ENTITIES = {
       edit_type: 35,
     },
     artist_credits: true,
-    cache: {
-      id: 23,
-    },
     collections: true,
     cover_art: true,
     disambiguation: true,
@@ -630,9 +534,6 @@ const ENTITIES = {
     url: 'release',
   },
   release_alias_type: {
-    cache: {
-      id: 46,
-    },
     model: 'ReleaseAliasType',
     table: 'release_alias_type',
   },
@@ -648,9 +549,6 @@ const ENTITIES = {
       edit_type: 25,
     },
     artist_credits: true,
-    cache: {
-      id: 24,
-    },
     collections: true,
     disambiguation: true,
     edit_table: true,
@@ -684,40 +582,22 @@ const ENTITIES = {
     url: 'release-group',
   },
   release_group_alias_type: {
-    cache: {
-      id: 47,
-    },
     model: 'ReleaseGroupAliasType',
     table: 'release_group_alias_type',
   },
   release_group_secondary_type: {
-    cache: {
-      id: 25,
-    },
     model: 'ReleaseGroupSecondaryType',
   },
   release_group_type: {
-    cache: {
-      id: 26,
-    },
     model: 'ReleaseGroupType',
   },
   release_packaging: {
-    cache: {
-      id: 27,
-    },
     model: 'ReleasePackaging',
   },
   release_status: {
-    cache: {
-      id: 28,
-    },
     model: 'ReleaseStatus',
   },
   script: {
-    cache: {
-      id: 29,
-    },
     model: 'Script',
   },
   series: {
@@ -730,9 +610,6 @@ const ENTITIES = {
     },
     annotations: {
       edit_type: 144,
-    },
-    cache: {
-      id: 30,
     },
     collections: true,
     disambiguation: true,
@@ -762,28 +639,16 @@ const ENTITIES = {
     url: 'series',
   },
   series_alias_type: {
-    cache: {
-      id: 48,
-    },
     model: 'SeriesAliasType',
     table: 'series_alias_type',
   },
   series_ordering_type: {
-    cache: {
-      id: 31,
-    },
     model: 'SeriesOrderingType',
   },
   series_type: {
-    cache: {
-      id: 32,
-    },
     model: 'SeriesType',
   },
   tag: {
-    cache: {
-      id: 33,
-    },
     model: 'Tag',
   },
   track: {
@@ -825,9 +690,6 @@ const ENTITIES = {
     annotations: {
       edit_type: 45,
     },
-    cache: {
-      id: 34,
-    },
     collections: true,
     disambiguation: true,
     edit_table: true,
@@ -857,34 +719,19 @@ const ENTITIES = {
     url: 'work',
   },
   work_alias_type: {
-    cache: {
-      id: 49,
-    },
     model: 'WorkAliasType',
     table: 'work_alias_type',
   },
   work_attribute: {
-    cache: {
-      id: 35,
-    },
     model: 'WorkAttribute',
   },
   work_attribute_type: {
-    cache: {
-      id: 36,
-    },
     model: 'WorkAttributeType',
   },
   work_attribute_type_allowed_value: {
-    cache: {
-      id: 37,
-    },
     model: 'WorkAttributeTypeAllowedValue',
   },
   work_type: {
-    cache: {
-      id: 38,
-    },
     model: 'WorkType',
   },
 };

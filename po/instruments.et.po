@@ -3,18 +3,21 @@
 # Hinkus <email address hidden>, 2012
 # Mihkel Tõnnov <email address hidden>, 2008-2009,2011-2013
 # Mihkel Tõnnov <email address hidden>, 2014
+# reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2012-05-24 18:57+0000\n"
-"Last-Translator: Mihkel Tõnnov <mihhkel@gmail.com>, 2014\n"
-"Language-Team: Estonian (http://app.transifex.com/musicbrainz/musicbrainz/"
-"language/et/)\n"
+"PO-Revision-Date: 2023-12-19 21:28+0000\n"
+"Last-Translator: reosarevok <reosarevok@users.noreply.translations."
+"metabrainz.org>\n"
+"Language-Team: Estonian <https://translations.metabrainz.org/projects/"
+"musicbrainz/instruments/et/>\n"
 "Language: et\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.3\n"
 
 #: DB:instrument/name:438
 msgid "12 string guitar"
@@ -714,11 +717,9 @@ msgid "birch lur"
 msgstr ""
 
 #: DB:instrument/name:824
-#, fuzzy
-#| msgid "bass harmonica"
 msgctxt "prim, small Serbo-Croatian plucked string instrument"
 msgid "bisernica"
-msgstr "bass-suupill"
+msgstr "bisernica"
 
 #: DB:instrument/name:70
 msgid "biwa"
@@ -877,6 +878,11 @@ msgstr ""
 #: DB:instrument/name:108
 msgctxt "Modern wood and metal-bead shaker"
 msgid "cabasa"
+msgstr ""
+
+#: DB:instrument/name:1195
+msgctxt "Auvergnat bagpipe"
+msgid "cabrette"
 msgstr ""
 
 #: DB:instrument/name:903
@@ -1040,6 +1046,11 @@ msgctxt "19th century bass trombone"
 msgid "cimbasso"
 msgstr ""
 
+#: DB:instrument/name:1194
+msgctxt "Romanian & Moldovan bagpipe"
+msgid "cimpoi"
+msgstr ""
+
 #: DB:instrument/name:761
 msgid "citole"
 msgstr ""
@@ -1090,12 +1101,9 @@ msgid "clavinet"
 msgstr "Clavinet"
 
 #: DB:instrument/name:780
-#, fuzzy
-#| msgctxt "Alto of modern violin family"
-#| msgid "viola"
 msgctxt "free reed aerophone with pitching pipes"
 msgid "claviola"
-msgstr "vioola (altviiul)"
+msgstr "claviola"
 
 #: DB:instrument/name:815
 msgctxt "electronic keyboard, forerunner to analogue synthesizers"
@@ -1110,6 +1118,11 @@ msgstr ""
 #: DB:instrument/name:1185
 msgctxt "Folk/classical Catalonian music ensemble"
 msgid "cobla"
+msgstr ""
+
+#: DB:instrument/name:1189
+msgctxt "Catalonian ancient cobla ensemble"
+msgid "cobla de tres quartans"
 msgstr ""
 
 #: DB:instrument/name:414
@@ -1167,7 +1180,13 @@ msgid "cor anglais"
 msgstr ""
 
 #: DB:instrument/name:510
+msgctxt "Renaissance capped double-reed"
 msgid "cornamuse"
+msgstr ""
+
+#: DB:instrument/name:1190
+msgctxt "French two-drone bagpipes"
+msgid "cornemuse du centre"
 msgstr ""
 
 #: DB:instrument/name:25
@@ -1195,6 +1214,9 @@ msgid "crotales"
 msgstr ""
 
 #: DB:instrument/name:348
+#, fuzzy
+#| msgid "crumhorn"
+msgctxt "Curved capped double reed"
 msgid "crumhorn"
 msgstr "krummhorn"
 
@@ -1562,11 +1584,9 @@ msgid "flumpet"
 msgstr ""
 
 #: DB:instrument/name:13
-#, fuzzy
-#| msgid "lute"
 msgctxt "reedless aerophone"
 msgid "flute"
-msgstr "lauto"
+msgstr "flööt"
 
 #: DB:instrument/name:1074
 msgid "flutina"
@@ -3013,6 +3033,11 @@ msgstr "vileorel"
 msgid "piri"
 msgstr "piri"
 
+#: DB:instrument/name:1197
+msgctxt "Northern Italian bagpipe"
+msgid "piva"
+msgstr ""
+
 #: DB:instrument/name:700
 msgid "pkhachich"
 msgstr ""
@@ -3190,11 +3215,9 @@ msgid "rebec"
 msgstr "rebekk"
 
 #: DB:instrument/name:1187
-#, fuzzy
-#| msgid "theremin"
 msgctxt "Ibizan double woodwind"
 msgid "reclam de xeremies"
-msgstr "teremin"
+msgstr "reclam de xeremies"
 
 #: DB:instrument/name:721
 msgctxt "Brazilian metal scraper"
@@ -3607,6 +3630,11 @@ msgstr "sopransaksofon"
 #: DB:instrument/name:210
 msgid "soprano violin"
 msgstr "sopranviiul"
+
+#: DB:instrument/name:1191
+msgctxt "Complex Neapolitan bagpipe"
+msgid "sordellina"
+msgstr ""
 
 #: DB:instrument/name:151
 msgid "sousaphone"
@@ -4097,6 +4125,11 @@ msgstr "trắng lu"
 msgid "trống bông"
 msgstr "trống bông"
 
+#: DB:instrument/name:1193
+msgctxt "Greek double chanter droneless bagpipe"
+msgid "tsampouna"
+msgstr ""
+
 #: DB:instrument/name:34
 msgid "tuba"
 msgstr "tuuba"
@@ -4225,6 +4258,11 @@ msgstr "venu"
 
 #: DB:instrument/name:650
 msgid "vessel flute"
+msgstr ""
+
+#: DB:instrument/name:1196
+msgctxt "Breton bagpipe"
+msgid "veuze"
 msgstr ""
 
 #: DB:instrument/name:840
@@ -4422,11 +4460,9 @@ msgid "xalam"
 msgstr ""
 
 #: DB:instrument/name:1186
-#, fuzzy
-#| msgid "theremin"
 msgctxt "Mallorcan bagpipe"
 msgid "xeremies"
-msgstr "teremin"
+msgstr "xeremies"
 
 #: DB:instrument/name:484
 msgctxt "Chinese end-blown flute"
@@ -4492,6 +4528,11 @@ msgstr "yuèqín"
 
 #: DB:instrument/name:715
 msgid "zabumba"
+msgstr ""
+
+#: DB:instrument/name:1192
+msgctxt "Large Italian bagpipe"
+msgid "zampogna"
 msgstr ""
 
 #: DB:instrument/name:328

@@ -907,6 +907,11 @@ msgctxt "Modern wood and metal-bead shaker"
 msgid "cabasa"
 msgstr "カバサ"
 
+#: DB:instrument/name:1195
+msgctxt "Auvergnat bagpipe"
+msgid "cabrette"
+msgstr ""
+
 #: DB:instrument/name:903
 msgctxt "Brazilian Samba snare-drum"
 msgid "caixa"
@@ -1071,6 +1076,11 @@ msgctxt "19th century bass trombone"
 msgid "cimbasso"
 msgstr "チンバッソ"
 
+#: DB:instrument/name:1194
+msgctxt "Romanian & Moldovan bagpipe"
+msgid "cimpoi"
+msgstr ""
+
 #: DB:instrument/name:761
 msgid "citole"
 msgstr "シトル"
@@ -1146,6 +1156,11 @@ msgctxt "Folk/classical Catalonian music ensemble"
 msgid "cobla"
 msgstr ""
 
+#: DB:instrument/name:1189
+msgctxt "Catalonian ancient cobla ensemble"
+msgid "cobla de tres quartans"
+msgstr ""
+
 #: DB:instrument/name:414
 msgid "concert flute"
 msgstr "コンサート・フルート"
@@ -1201,8 +1216,16 @@ msgid "cor anglais"
 msgstr "コーラングレ"
 
 #: DB:instrument/name:510
+#, fuzzy
+#| msgid "cornamuse"
+msgctxt "Renaissance capped double-reed"
 msgid "cornamuse"
 msgstr "コルナムーサ"
+
+#: DB:instrument/name:1190
+msgctxt "French two-drone bagpipes"
+msgid "cornemuse du centre"
+msgstr ""
 
 #: DB:instrument/name:25
 msgctxt "19th century brass trumpet-like"
@@ -1229,6 +1252,9 @@ msgid "crotales"
 msgstr "アンティーク・シンバル/クロテイル/"
 
 #: DB:instrument/name:348
+#, fuzzy
+#| msgid "crumhorn"
+msgctxt "Curved capped double reed"
 msgid "crumhorn"
 msgstr "クルムホルン"
 
@@ -3057,6 +3083,11 @@ msgstr "パイプオルガン"
 msgid "piri"
 msgstr "ピリ"
 
+#: DB:instrument/name:1197
+msgctxt "Northern Italian bagpipe"
+msgid "piva"
+msgstr ""
+
 #: DB:instrument/name:700
 msgid "pkhachich"
 msgstr "pkhachich"
@@ -3655,6 +3686,11 @@ msgstr "ソプラノ・サクソフォン"
 msgid "soprano violin"
 msgstr "ソプラノ・ヴァイオリン"
 
+#: DB:instrument/name:1191
+msgctxt "Complex Neapolitan bagpipe"
+msgid "sordellina"
+msgstr ""
+
 #: DB:instrument/name:151
 msgid "sousaphone"
 msgstr "スーザフォン"
@@ -4147,6 +4183,11 @@ msgstr "trắng lu"
 msgid "trống bông"
 msgstr "trống bông"
 
+#: DB:instrument/name:1193
+msgctxt "Greek double chanter droneless bagpipe"
+msgid "tsampouna"
+msgstr ""
+
 #: DB:instrument/name:34
 msgid "tuba"
 msgstr "チューバ"
@@ -4279,6 +4320,11 @@ msgstr "ヴェヌー"
 #: DB:instrument/name:650
 msgid "vessel flute"
 msgstr "容器形笛"
+
+#: DB:instrument/name:1196
+msgctxt "Breton bagpipe"
+msgid "veuze"
+msgstr ""
 
 #: DB:instrument/name:840
 msgctxt "accordina with piano keys"
@@ -4547,6 +4593,11 @@ msgstr "月琴（ユエチン）"
 #: DB:instrument/name:715
 msgid "zabumba"
 msgstr "ザブンバ"
+
+#: DB:instrument/name:1192
+msgctxt "Large Italian bagpipe"
+msgid "zampogna"
+msgstr ""
 
 #: DB:instrument/name:328
 msgid "zarb"

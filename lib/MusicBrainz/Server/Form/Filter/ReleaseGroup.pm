@@ -37,7 +37,7 @@ has_field 'secondary_type_id' => (
 );
 
 sub filter_field_names {
-    return qw/ name artist_credit_id secondary_type_id type_id /;
+    return qw/ disambiguation name artist_credit_id secondary_type_id type_id /;
 }
 
 sub options_artist_credit_id {

@@ -2,8 +2,9 @@ package MusicBrainz::Server::Controller::ArtistCredit;
 use Moose;
 use namespace::autoclean;
 use Moose::Util qw( find_meta );
+use MooseX::MethodAttributes;
 
-BEGIN { extends 'MusicBrainz::Server::Controller' }
+extends 'MusicBrainz::Server::Controller';
 
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
 use MusicBrainz::Server::Constants qw( %ENTITIES entities_with );

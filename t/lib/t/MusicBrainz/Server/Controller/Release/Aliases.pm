@@ -32,7 +32,7 @@ test 'Release alias appears on alias page content and on JSON-LD' => sub {
     $mech->text_contains('Release name', 'Alias page lists the alias type');
 
     page_test_jsonld $mech => {
-        'gtin14' => '0094634396028',
+        'gtin' => '0094634396028',
         'alternateName' => ["\N{LATIN CAPITAL LETTER AE}rial"],
         'creditedTo' => 'Kate Bush',
         'recordLabel' => {

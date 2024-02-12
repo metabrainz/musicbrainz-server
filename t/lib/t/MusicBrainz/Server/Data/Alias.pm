@@ -321,7 +321,7 @@ test 'Exists only checks a single entity' => sub {
 
 test 'Modifying instrument aliases invalidates the link attribute type caches' => sub {
     my $test = shift;
-    my $c = $test->cache_aware_c;
+    my $c = $test->c;
 
     my $piano_lat_id = 180;
     my $piano_via_all;

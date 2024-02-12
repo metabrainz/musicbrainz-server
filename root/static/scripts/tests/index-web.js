@@ -22,6 +22,7 @@ require('./release-editor/edits.js');
 require('./release-editor/fields.js');
 require('./release-editor/trackParser.js');
 require('./release-editor/utils.js');
+require('./release-editor/recordingAssociation.js');
 require('./release-editor/validation.js');
 require('./utility/age.js');
 require('./utility/areDatesEqual.js');

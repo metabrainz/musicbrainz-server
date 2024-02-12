@@ -932,23 +932,18 @@ class Barcode {
     });
   }
 
-  checkDigit(barcode) {
-    if (barcode.length !== 12) {
-      return false;
-    }
-
+  checkDigit(barcodeTrunk) {
+    const iMax = barcodeTrunk.length - 1;
     let calc = 0;
-    for (let i = 0; i < 12; i++) {
-      calc += parseInt(barcode[i], 10) * this.weights[i];
+    for (let i = 0; i <= iMax; i++) {
+      calc += parseInt(barcodeTrunk[iMax - i], 10) * (i % 2 === 1 ? 1 : 3);
     }
-
-    var digit = 10 - (calc % 10);
-    return digit === 10 ? 0 : digit;
+    return (10 - (calc % 10)) % 10;
   }
 
   validateCheckDigit(barcode) {
-    return this.checkDigit(barcode.slice(0, 12)) ===
-            parseInt(barcode[12], 10);
+    return this.checkDigit(barcode.slice(0, -1)) ===
+            parseInt(barcode.slice(-1), 10);
   }
 
   writeBarcode(barcode) {
@@ -956,8 +951,6 @@ class Barcode {
     this.confirmed(false);
   }
 }
-
-Barcode.prototype.weights = [1, 3, 1, 3, 1, 3, 1, 3, 1, 3, 1, 3];
 
 fields.Barcode = Barcode;
 

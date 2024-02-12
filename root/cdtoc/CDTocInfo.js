@@ -53,11 +53,11 @@ const CDTocInfo = ({cdToc}: Props): React$Element<React$FragmentType> => (
               <th colSpan="2">{l('End')}</th>
             </tr>
             <tr>
-              <th>{l('Time')}</th>
+              <th>{lp('Time', 'CD timecode')}</th>
               <th>{l('Sectors')}</th>
-              <th>{l('Time')}</th>
+              <th>{lp('Time', 'CD timecode')}</th>
               <th>{l('Sectors')}</th>
-              <th>{l('Time')}</th>
+              <th>{lp('Time', 'CD timecode')}</th>
               <th>{l('Sectors')}</th>
             </tr>
             {cdToc.track_details.map((track, index) => (

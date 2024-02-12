@@ -12,7 +12,6 @@ import * as React from 'react';
 import LinkSearchableEditType from '../components/LinkSearchableEditType.js';
 import {CatalystContext} from '../context.mjs';
 import {l as lMbServer} from '../static/scripts/common/i18n.js';
-import {l_statistics as l} from '../static/scripts/common/i18n/statistics.js';
 
 import StatisticsLayout from './StatisticsLayout.js';
 import {formatCount, formatPercentage, TimelineLink} from './utilities.js';
@@ -35,20 +34,20 @@ const Edits = ({
 }: EditsStatsT): React$Element<typeof StatisticsLayout> => {
   const $c = React.useContext(CatalystContext);
   return (
-    <StatisticsLayout fullWidth page="edits" title={l('Edits')}>
+    <StatisticsLayout fullWidth page="edits" title={l_statistics('Edits')}>
       <p>
-        {texp.l('Last updated: {date}', {date: dateCollected})}
+        {texp.l_statistics('Last updated: {date}', {date: dateCollected})}
       </p>
-      <h2>{l('Edits')}</h2>
+      <h2>{l_statistics('Edits')}</h2>
       {Object.keys(statsByCategory).length === 0 ? (
         <p>
-          {l('No edit statistics available.')}
+          {l_statistics('No edit statistics available.')}
         </p>
       ) : (
         <table className="database-statistics">
           <tbody>
             <tr>
-              <th colSpan="2">{addColonText(l('Edits'))}</th>
+              <th colSpan="2">{addColonText(l_statistics('Edits'))}</th>
               <td>
                 {formatCount($c, stats['count.edit'])}
                 {' '}

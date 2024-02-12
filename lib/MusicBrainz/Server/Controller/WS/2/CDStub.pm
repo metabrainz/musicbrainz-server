@@ -1,7 +1,9 @@
 package MusicBrainz::Server::Controller::WS::2::CDStub;
 use Moose;
+use MooseX::MethodAttributes;
 use namespace::autoclean;
-BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::2' }
+
+extends 'MusicBrainz::Server::ControllerBase::WS::2';
 
 use MusicBrainz::Server::WebService::XML::XPath;
 

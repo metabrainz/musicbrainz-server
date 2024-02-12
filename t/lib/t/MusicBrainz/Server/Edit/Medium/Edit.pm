@@ -713,7 +713,7 @@ test 'Tracklist merging (MBS-8752 / MBS-7475)' => sub {
 
 test 'Fail edits using cached deleted recordings (MBS-8858)' => sub {
     my $test = shift;
-    my $c = $test->cache_aware_c;
+    my $c = $test->c;
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+edit_medium');
 

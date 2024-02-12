@@ -2,9 +2,11 @@ package MusicBrainz::Server;
 
 use Moose;
 use namespace::autoclean;
-BEGIN { extends 'Catalyst' }
+
+extends 'Catalyst';
 
 use Class::Load qw( load_class );
+use Data::Dumper;
 use DBDefs;
 use Digest::SHA qw( sha256 );
 use HTML::Entities ();
@@ -22,7 +24,7 @@ use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array to_json_object );
 use MusicBrainz::Server::Log qw( logger );
 use MusicBrainz::Server::Validation qw( is_positive_integer );
 use POSIX qw(SIGALRM);
-use Scalar::Util qw( refaddr );
+use Scalar::Util qw( looks_like_number refaddr );
 use Sys::Hostname;
 use Time::HiRes qw( clock_gettime CLOCK_REALTIME CLOCK_MONOTONIC );
 use Try::Tiny;
@@ -103,7 +105,13 @@ unless (DBDefs->CATALYST_DEBUG) {
     push @args, 'ErrorInfo';
 }
 
-__PACKAGE__->config->{'Plugin::Cache'}{backend} = DBDefs->PLUGIN_CACHE_OPTIONS;
+{
+    my $plugin_cache_opts = DBDefs->PLUGIN_CACHE_OPTIONS;
+    if ($ENV{MUSICBRAINZ_RUNNING_TESTS}) {
+        $plugin_cache_opts->{database} = DBDefs->REDIS_TEST_DATABASE;
+    }
+    __PACKAGE__->config->{'Plugin::Cache'}{backend} = $plugin_cache_opts;
+}
 
 require MusicBrainz::Server::Authentication::WS::Credential;
 require MusicBrainz::Server::Authentication::WS::Store;
@@ -346,7 +354,7 @@ sub with_translations {
     my $cookie_lang = Translation->instance->language_from_cookie($c->request->cookies->{lang});
     $c->set_language_cookie($c->request->cookies->{lang}->value) if defined $c->request->cookies->{lang};
     my $lang = Translation->instance->set_language($cookie_lang);
-    my $html_lang = $lang =~ s/_([A-Z]{2})/-\L$1/r;
+    my $html_lang = $lang =~ s/_([A-Z0-9]{2,})/-\L$1/r;
 
     $c->stash(
         current_language => $lang,
@@ -430,6 +438,10 @@ before dispatch => sub {
         my $cache_namespace = DBDefs->CACHE_NAMESPACE;
         *DBDefs::CACHE_NAMESPACE = sub { $cache_namespace . $database . ':' };
         *DBDefs::ENTITY_CACHE_TTL = sub { 1 };
+        # Clear any Redis handles referencing the previous `CACHE_NAMESPACE`.
+        $ctx->clear_cache_manager;
+        # The Redis store may be the same instance as the cache in development.
+        $ctx->clear_store;
         # CSP script-src directives conflict with `Function` constructor calls
         # injected by babel-plugin-instanbul (unsafe-eval).
         $self->res->header('Content-Security-Policy', '');
@@ -462,6 +474,8 @@ after dispatch => sub {
         # back to the default (READWRITE, or READONLY for mirrors).
         $ctx->clear_connector;
         $ctx->clear_database;
+        $ctx->clear_cache_manager;
+        $ctx->clear_store;
         *DBDefs::CACHE_NAMESPACE = $ORIG_CACHE_NAMESPACE;
         *DBDefs::ENTITY_CACHE_TTL = $ORIG_ENTITY_CACHE_TTL;
     }
@@ -474,6 +488,17 @@ around dispatch => sub {
     my ($orig, $c, @args) = @_;
 
     my $max_request_time = DBDefs->DETERMINE_MAX_REQUEST_TIME($c->req);
+
+    if (
+        defined($max_request_time) &&
+        (!looks_like_number($max_request_time) || $max_request_time < 0)
+     ) {
+        $c->log->warn(
+            'DETERMINE_MAX_REQUEST_TIME did not return a valid number: ' .
+            Dumper($max_request_time),
+        );
+        $max_request_time = undef;
+    }
 
     if (defined($max_request_time) && $max_request_time > 0) {
         alarm($max_request_time);
@@ -491,6 +516,8 @@ around dispatch => sub {
         $action->safe(1);
         POSIX::sigaction(SIGALRM, $action);
     }
+
+    $c->model('MB')->context->max_request_time($max_request_time);
 
     $c->$orig(@args);
 

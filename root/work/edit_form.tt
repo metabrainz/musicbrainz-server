@@ -11,7 +11,7 @@
       <legend>[%- l('Work details') -%]</legend>
       [%- form_row_name_with_guesscase(r) -%]
       [%- form_row_text_long(r, 'comment', add_colon(l('Disambiguation'))) -%]
-      [%- form_row_select(r, 'type_id', l('Type:')) -%]
+      [%- form_row_select(r, 'type_id', add_colon(l('Type'))) -%]
       <div id="work-languages-editor"></div>
       [%- form_row_text_list(r, 'iswcs', add_colon(l('ISWCs')), l('ISWC')) -%]
     </fieldset>

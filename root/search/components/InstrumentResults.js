@@ -61,7 +61,7 @@ const InstrumentResults = ({
       />
       {isRelationshipEditor($c.user) ? (
         <p>
-          {exp.l('Alternatively, you may {uri|add a new instrument}.', {
+          {exp.l_admin('Alternatively, you may {uri|add a new instrument}.', {
             uri: '/instrument/create?edit-instrument.name=' +
               encodeURIComponent(query),
           })}

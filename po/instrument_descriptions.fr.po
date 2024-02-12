@@ -22,11 +22,13 @@
 # yvanz, 2016-2017
 # yvanz, 2016
 # yvanzo <yvanzo@users.noreply.translations.metabrainz.org>, 2023.
+# reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-12-14 16:28+0000\n"
-"Last-Translator: yvanzo <yvanzo@users.noreply.translations.metabrainz.org>\n"
+"PO-Revision-Date: 2023-12-19 21:28+0000\n"
+"Last-Translator: reosarevok <reosarevok@users.noreply.translations."
+"metabrainz.org>\n"
 "Language-Team: French <https://translations.metabrainz.org/projects/"
 "musicbrainz/instrument-descriptions/fr/>\n"
 "Language: fr\n"
@@ -35,7 +37,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : ((n != 0 && n % "
 "1000000 == 0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.2.1\n"
+"X-Generator: Weblate 5.3\n"
 
 #. name:rebab 
 #: DB:instrument/description:239
@@ -130,10 +132,6 @@ msgstr "Une classe de guitares sud-américaines."
 
 #. name:saduk 
 #: DB:instrument/description:804
-#, fuzzy
-#| msgid ""
-#| "A cross between a saxophone and a duduk invented and played by Alexander "
-#| "Berne"
 msgid ""
 "A cross between a saxophone and a duduk invented and played by Alexander "
 "Berne."
@@ -214,10 +212,6 @@ msgstr ""
 
 #. name:đàn tứ dây 
 #: DB:instrument/description:233
-#, fuzzy
-#| msgid ""
-#| "A latter-day construction in the form of a four-stringed, square-bodied "
-#| "bass guitar"
 msgid ""
 "A latter-day construction in the form of a four-stringed, square-bodied bass "
 "guitar."
@@ -240,10 +234,6 @@ msgstr ""
 
 #. name:mandolute 
 #: DB:instrument/description:766
-#, fuzzy
-#| msgid ""
-#| "A mandolute is a North African fretted string instrument which combines a "
-#| "traditional oud string format with five pairs of metal strings"
 msgid ""
 "A mandolute is a North African fretted string instrument which combines a "
 "traditional oud string format with five pairs of metal strings."
@@ -262,9 +252,6 @@ msgstr ""
 
 #. name:bowed piano 
 #: DB:instrument/description:504
-#, fuzzy
-#| msgid ""
-#| "A piano whose strings are bowed, using nylon filament or other materials"
 msgid ""
 "A piano whose strings are bowed, using nylon filament or other materials."
 msgstr ""
@@ -295,10 +282,6 @@ msgstr ""
 
 #. name:chirimía 
 #: DB:instrument/description:821
-#, fuzzy
-#| msgid ""
-#| "a relative of the shawm, it was introduced to central and south-america "
-#| "by the spanish in the sixteenth and seventeenth century."
 msgid ""
 "A relative of the shawm, it was introduced to central and south-america by "
 "the Spanish in the sixteenth and seventeenth century."
@@ -370,10 +353,6 @@ msgstr "Un type de cithare sans frette."
 
 #. name:tràm plè 
 #: DB:instrument/description:308
-#, fuzzy
-#| msgid ""
-#| "a variant of the \"Hmông flute\". flute blowers lips enclose the blowing "
-#| "hole with the vibrating \"free reed\" inside"
 msgid ""
 "A variant of the Hmông flute, in which the flute blower’s lips enclose the "
 "blowing hole with the vibrating free reed inside."
@@ -434,28 +413,13 @@ msgid ""
 "styles, the strings are nylon or gut."
 msgstr ""
 
-#. name:musette de cour 
-#: DB:instrument/description:735
-msgid ""
-"Also known as baroque musette, it was a small bagpipe used predominantly by "
-"French court and nobility in the 1600-1700's.<br /> For the instrument known "
-"as “chinese musette”, see <a href=\"/instrument/15cd573d-15a8-4f9f-a48f-"
-"f73218d85e14/\">suona</a>.<br /> For the oboe also known as musette, see <a "
-"href=\"/instrument/77b29599-96c7-4571-9fae-09e7e42b8175/\">piccolo oboe</a>."
-msgstr ""
-
 #. name:samica 
 #: DB:instrument/description:830
-#, fuzzy
-#| msgid ""
-#| "also known as dangubica or kuterevka, it is similar to the bisernica and "
-#| "the ancestor of the entire tamburica ensemble. this plucked long-necked "
-#| "lute has two double strings and is played solo."
 msgid ""
 "Also known as dangubica or kuterevka, it is similar to the bisernica and the "
 "ancestor of the entire tamburica ensemble. This plucked long-necked lute has "
 "two double strings and is played solo."
-msgstr "Luth à long manche doté de deux doubles cordes."
+msgstr "???. Ce luth à long manche doté de deux doubles cordes."
 
 #. name:gopichant 
 #: DB:instrument/description:643
@@ -564,16 +528,12 @@ msgstr ""
 
 #. name:gizmo 
 #: DB:instrument/description:796
-#, fuzzy
-#| msgid ""
-#| "An effects device to be clamped on the bridge, it produces \"synthesizer-"
-#| "like\" sounds"
 msgid ""
 "An effects device to be clamped on the bridge, it produces “synthesizer-"
 "like” sounds."
 msgstr ""
-"Boîtier d’effet pour guitare électrique, posé sur son chevalet, équipé de "
-"touches et de roues, il permet d’en frotter les cordes."
+"Boîtier d’effet pour guitare électrique, posé sur son chevalet, il produit "
+"des sons « de synthétiseur »."
 
 #. name:electric sitar 
 #: DB:instrument/description:246
@@ -584,9 +544,6 @@ msgstr ""
 
 #. name:jug 
 #: DB:instrument/description:505
-#, fuzzy
-#| msgid ""
-#| "an empty jug (usually made of glass or stoneware) played with the mouth"
 msgid ""
 "An empty jug (usually made of glass or stoneware) played with the mouth."
 msgstr ""
@@ -614,11 +571,6 @@ msgstr ""
 
 #. name:barbat 
 #: DB:instrument/description:819
-#, fuzzy
-#| msgid ""
-#| "ancient central asian/persian string instrument ancestor of the iranian "
-#| "oud. it was an important instrument in pre-islamic iran and persia. the "
-#| "current \"Persian barbat\" is more similar to the oud"
 msgid ""
 "Ancient Central Asian/Persian string instrument, ancestor of the Iranian "
 "oud. it was an important instrument in pre-Islamic Iran and Persia. The "
@@ -731,10 +683,6 @@ msgstr ""
 
 #. name:berda 
 #: DB:instrument/description:828
-#, fuzzy
-#| msgid ""
-#| "Bass member of the Serbo-Croatian tamburica orchestra, it is contrabass "
-#| "like. it has four thick metal strings"
 msgid ""
 "Bass member of the Serbo-Croatian tamburica orchestra, it is contrabass "
 "like. It has four thick metal strings."
@@ -894,16 +842,10 @@ msgstr ""
 
 #. name:bonang panembung 
 #: DB:instrument/description:972
-#, fuzzy
-#| msgid ""
-#| "The piccolo oboe is the smallest and highest pitched member of the oboe "
-#| "family."
 msgid ""
 "Chiefly used in Yogyvanese gamelan, the largest and deepest pitched member "
 "of the bonang family of gong-chimes."
 msgstr ""
-"La musette est le plus petit et le plus aigu membre de la famille des "
-"hautbois."
 
 #. name:naobo 
 #: DB:instrument/description:599
@@ -933,15 +875,11 @@ msgstr ""
 
 #. name:bugarija 
 #: DB:instrument/description:826
-#, fuzzy
-#| msgid ""
-#| "chord rhythm member of the Serbo-Croatian tamburica orchestra, it is "
-#| "guitar like. it has one double string D and three single strings"
 msgid ""
 "Chord rhythm member of the Serbo-Croatian tamburica orchestra, it is guitar "
 "like. It has one double string D and three single strings."
 msgstr ""
-"proche de la guitare, dotée d’une double corde en ré et de trois cordes "
+"Proche de la guitare, dotée d’une double corde en ré et de trois cordes "
 "simples, elle fait la partie rythmique des orchestres de tamburica serbo-"
 "croates."
 
@@ -955,10 +893,8 @@ msgstr ""
 
 #. name:dholak 
 #: DB:instrument/description:382
-#, fuzzy
-#| msgid "dholak, classical North Indian hand drum"
 msgid "Classical North Indian hand drum."
-msgstr "Le dholak est un tambour à main de l’Inde du Nord."
+msgstr "Tambour à main de l’Inde du Nord."
 
 #. name:glockenspiel 
 #: DB:instrument/description:165
@@ -980,29 +916,20 @@ msgstr ""
 
 #. name:disk drive 
 #: DB:instrument/description:602
-#, fuzzy
-#| msgid ""
-#| "as using drives for producing music, harddrives, floppy, cd or other."
 msgid ""
 "Computer drives used for producing music, be it hard drives, floppy, CD or "
 "other."
 msgstr ""
-"comme utiliser des lecteurs pour faire de la musique, disques durs, lecteurs "
-"de disquettes, CD ou autres."
+"Lecteurs d’ordinateur utilisés pour faire de la musique, que ce soient des "
+"disques durs, lecteurs de disquettes, de CD ou autres."
 
 #. name:bombarde 
 #: DB:instrument/description:431
-#, fuzzy
-#| msgid "conical bore double-reed musical instrument from Brittany"
 msgid "Conical bore double-reed musical instrument from Brittany."
 msgstr "Instrument breton à perce conique et à anche double."
 
 #. name:telharmonium 
 #: DB:instrument/description:125
-#, fuzzy
-#| msgid ""
-#| "considered the first electromechanical musical instrument, an early "
-#| "electronic organ."
 msgid ""
 "Considered the first electromechanical musical instrument, an early "
 "electronic organ."
@@ -1076,23 +1003,12 @@ msgstr ""
 
 #. name:čelo 
 #: DB:instrument/description:827
-#, fuzzy
-#| msgid ""
-#| "counterpoint member of the Serbo-Coatian tamburica orchestra, it is "
-#| "guitar like like the bugarija. it can either have two double strings and "
-#| "two single strings (čelović) or now four single strings are more common. "
-#| "(čelo/čelović/) the čelović is a different pitch than the čelo"
 msgid ""
 "Counterpoint member of the Serbo-Coatian tamburica orchestra, it is guitar "
 "like like the bugarija. It can have two double strings and two single "
 "strings (čelović) but now four single strings are more common (čelo/"
 "čelović). The čelović is a different pitch than the čelo."
 msgstr ""
-"proche de la guitare comme la bugarija, dotée de soit deux cordes doubles et "
-"deux cordes simples (čelović) ou plus souvent aujourd’hui de quatre cordes "
-"simples, elle fait généralement la partie de contre chant des orchestres de "
-"tamburica serbo-croates. (čelo/čelović/) La čelović est dans une tonalité "
-"différente de la čelo."
 
 #. name:ki pah 
 #: DB:instrument/description:307
@@ -1101,16 +1017,12 @@ msgstr "Cornes de vache sans trou pour les doigts, avec embout et anche libre."
 
 #. name:cümbüş 
 #: DB:instrument/description:410
-#, fuzzy
-#| msgid ""
-#| "created by Zeynel Abidin who name himself after the instrument, it's a "
-#| "banjolin like modern Turkish instrument"
 msgid ""
 "Created by Zeynel Abidin Cümbüş, who named himself after it, it’s a banjolin-"
 "like modern Turkish instrument."
 msgstr ""
-"inventé par Zeynel Abidin qui fut surnommé par le nom de son instrument, "
-"c'est une sorte de banjoluth moderne turc."
+"Inventé par Zeynel Abidin Cümbüş qui fut surnommé par le nom de son "
+"instrument, c'est une sorte de banjoluth moderne turc."
 
 #. name:kōauau 
 #: DB:instrument/description:782
@@ -1118,11 +1030,6 @@ msgid ""
 "Cross-blown flute made of stone, bone or wood. It is 10 to 39 cm long, with "
 "usually 3 holes, but everything from none to 5 is known."
 msgstr ""
-
-#. name:crumhorn 
-#: DB:instrument/description:348
-msgid "Crumhorn used in the 14th to 17th centuries in Europe."
-msgstr "Le tournebout, utilisé en Europe du 14e au 17e siècle."
 
 #. name:bell 
 #: DB:instrument/description:116
@@ -1299,10 +1206,10 @@ msgid ""
 "<li>Unrelated Indian drone “tanpura”.</li> <li>Related Indian “pandour”.</"
 "li> </ul>"
 msgstr ""
-"À ne pas confondre avec : <ul><li>L’ensemble serbo-croate « tamburica "
-"».</li><li>L’ancien instrument à cordes perse/turque « tanbur » dont "
-"descendent de nombreux autres.</li><li>Le drone indien « tanpura "
-"».</li><li>???</li></ul>"
+"À ne pas confondre avec : <ul><li>L’ensemble serbo-croate « tamburica ».</"
+"li><li>L’ancien instrument à cordes perse/turque « tanbur » dont descendent "
+"de nombreux autres.</li><li>Le drone indien « tanpura ».</li><li>???</li></"
+"ul>"
 
 #. name:resonator guitar 
 #: DB:instrument/description:386
@@ -1412,10 +1319,8 @@ msgstr ""
 
 #. name:tubon 
 #: DB:instrument/description:775
-#, fuzzy
-#| msgid "electronic bass organ proto-keytar"
 msgid "Electronic bass organ, proto-keytar."
-msgstr "Orgue électronique basse proto-keytar."
+msgstr "Orgue électronique basse, proto-keytar."
 
 #. name:saxophone quartet 
 #: DB:instrument/description:942
@@ -1539,14 +1444,11 @@ msgstr ""
 
 #. name:floppy disk drive 
 #: DB:instrument/description:604
-#, fuzzy
-#| msgid ""
-#| "Floppy Drives configured to produce tones while reading, software is used."
 msgid ""
 "Floppy drives configured to produce tones while reading, using software."
 msgstr ""
-"Lecteurs de disquettes réglés pour produire des tonalités durant la lecture, "
-"un logiciel est utilisé."
+"Lecteurs de disquettes réglés pour produire des tonalités durant la lecture. "
+"Un logiciel est utilisé."
 
 #. name:hardingfele 
 #: DB:instrument/description:78
@@ -1563,12 +1465,24 @@ msgid ""
 "a96bbbd1-7e44-4e79-b12e-a03ac232db98\">tamborim</a>.<br />"
 msgstr ""
 
+#. name:cornamuse 
+#: DB:instrument/description:510
+msgid ""
+"For the French bagpipe, see <a href=\"/instrument/fc4a9a4d-3901-4c67-"
+"bfe5-5acbcdaef535\">cornemuse du centre</a>.<br /> For Italian cornamusa, "
+"see <a href=\"/instrument/1d865ced-d86a-4277-8914-009740e37887\">bagpipe</a>."
+"<br /> Related to the crumhorn, it was used in the Renaissance. Because only "
+"a paragraph by Praetorius is the only known information, all reconstructions "
+"are approximations."
+msgstr ""
+
 #. name:siku 
 #: DB:instrument/description:569
 msgid ""
-"For the Italian bag-pipe, see <a href=\"/\">zampogna</a>.<br /> Also known "
-"as zampona, traditional Andean panpipe has two rows of pipes tied together "
-"with colourful bands."
+"For the Italian bagpipe, see <a href=\"/"
+"instrument/7186ac40-8154-49d0-8d24-33efd8c2a41e\">zampogna</a>.<br /> Also "
+"known as zampona, traditional Andean panpipe has two rows of pipes tied "
+"together with colourful bands."
 msgstr ""
 
 #. name:chalumeau 
@@ -1594,6 +1508,17 @@ msgid ""
 "traditionally, one in the back."
 msgstr ""
 
+#. name:zampogna 
+#: DB:instrument/description:1192
+msgid ""
+"For the South-American panpipe, see <a href=\"/"
+"instrument/448eeddf-37a3-49f3-9e46-d46ccd821aaf\">siku</a>.<br /> For the "
+"similarly named Greek bagpipe, see <a href=\"/instrument/86cf0eb3-b12d-40eb-"
+"bc32-928a1aebe3b1\">tsampouna</a>.<br /> Made of an entire sheep or "
+"goatskin, it has a single round stock that all chanters and drones are fixed "
+"into."
+msgstr ""
+
 #. name:reed organ 
 #: DB:instrument/description:204
 msgid ""
@@ -1607,14 +1532,24 @@ msgid ""
 "reeds. Sound is produced by playing the keyboard."
 msgstr ""
 
+#. name:musette de cour 
+#: DB:instrument/description:735
+msgid ""
+"For the instrument known as \"chinese musette\", see <a href=\"/"
+"instrument/15cd573d-15a8-4f9f-a48f-f73218d85e14/\">suona</a>.<br /> For the "
+"oboe also known as musette, see <a href=\"/"
+"instrument/77b29599-96c7-4571-9fae-09e7e42b8175/\">piccolo oboe</a>.<br /> "
+"Also known as baroque musette, it was a small bagpipe used predominantly by "
+"French court and nobility in the 1600-1700's."
+msgstr ""
+
 #. name:fiscorn 
 #: DB:instrument/description:1184
 msgid ""
-"For the instrument known in Italy as flicorno see <a href=\"/instrument/"
-"\">saxhorn</a>.<br /> For the instrument known in Spain as fliscorno see <a "
-"href=\"/instrument/fd016966-658e-40db-8fe1-f2235fe1e9a3\">flugelhorn</a>."
-"<br /><br /> Originating in Germanic polka bands, it is used today in "
-"Catalan cobla."
+"For the instrument known in Italy as flicorno see saxhorn.<br /> For the "
+"instrument known in Spain as fliscorno see <a href=\"/instrument/"
+"fd016966-658e-40db-8fe1-f2235fe1e9a3\">flugelhorn</a>.<br /><br /> "
+"Originating in Germanic polka bands, it is used today in Catalan cobla."
 msgstr ""
 
 #. name:diatonic button accordion 
@@ -1625,6 +1560,15 @@ msgid ""
 "keyed MELODION, see <a href=\"/instrument/8ab40df2-106b-4b9b-"
 "a50c-0798ee95da8f\">melodica</a>.<br /> Also known as Melodeon, it has 1 to "
 "2 rows of buttons that each produce two tones (bisonoric)."
+msgstr ""
+
+#. name:tsampouna 
+#: DB:instrument/description:1193
+msgid ""
+"For the similarly named Italian bagpipe, see <a href=\"/"
+"instrument/7186ac40-8154-49d0-8d24-33efd8c2a41e\">zampogna</a>.<br /> Made "
+"of goatskin, it has two chanters and no drones. Its name is a reborrowing of "
+"the Italian."
 msgstr ""
 
 #. name:charumera 
@@ -1656,6 +1600,8 @@ msgid ""
 "American oboe, see <a href=\"/instrument/174e4a7a-dad6-4b3b-95e2-"
 "e3010b53a0ca\">chirimía</a>.<br /> For the mediaeval woodwind, see <a "
 "href=\"/instrument/b4f112c3-d666-47f2-bb85-bae28572ca13\">shawm</a>.<br /> "
+"For the Catalan shawm also called xaramita or xirimita, see <a href=\"/"
+"instrument/ad0ddf4c-05ca-4d9b-a159-8caed25e6bf4\">gralla</a>.<br /><br /> "
 "Used historically since the middle ages on the Iberian islands, its bag is "
 "made of skin and it has one chanter with usually 3 drones, but of these "
 "usually one is real and the others are only decorative."
@@ -1683,10 +1629,6 @@ msgstr ""
 
 #. name:claviola 
 #: DB:instrument/description:780
-#, fuzzy
-#| msgid ""
-#| "free reed melodica like instrument that is worn like an accordion, with "
-#| "differenting length pipes which control the pitch"
 msgid ""
 "Free reed melodica-like instrument that is worn like an accordion, with "
 "differing length pipes which control the pitch."
@@ -1827,8 +1769,6 @@ msgstr ""
 
 #. name:hard disk drive 
 #: DB:instrument/description:603
-#, fuzzy
-#| msgid "Harddisk configured to produce tones in pattern."
 msgid "Hard disk configured to produce tones in pattern."
 msgstr "Disque dur configuré pour produire des tonalités organisées."
 
@@ -2005,13 +1945,8 @@ msgstr ""
 
 #. name:traditional basque ensemble 
 #: DB:instrument/description:909
-#, fuzzy
-#| msgid ""
-#| "The tinya is a small drum used in the traditional music of the Andes."
 msgid "Instruments used in the traditional music of the Basque people."
 msgstr ""
-"Le tinya est un petit tambour utilisé dans la musique traditionnelle des "
-"Andes."
 
 #. name:Indonesian rebab 
 #: DB:instrument/description:1011
@@ -2213,6 +2148,21 @@ msgid ""
 "Known since ancient times in south-east Europe and Turkey, small bronze "
 "finger cymbals are used for dancing and other performances. These are "
 "similar to the jingles set in some frame drums."
+msgstr ""
+
+#. name:veuze 
+#: DB:instrument/description:1196
+msgid ""
+"Known since atleast the 16th century, it has a long chanter, a three-"
+"segmented shoulder drone and a short blowpipe."
+msgstr ""
+
+#. name:cimpoi 
+#: DB:instrument/description:1194
+msgid ""
+"Known since the 15th century, it is made of a whole goat or sheep skin with "
+"fur either in or out. It has from 5 to 8 fingerholes and metalwork decorated "
+"wooden chanters."
 msgstr ""
 
 #. name:krakebs 
@@ -2461,17 +2411,12 @@ msgstr ""
 
 #. name:duggi 
 #: DB:instrument/description:851
-#, fuzzy
-#| msgid ""
-#| "made of clay with two layers of goat skin, it is used as a rhythmic "
-#| "accompaniment to shehnai players and is one of the instruments of the "
-#| "Baul community."
 msgid ""
 "Made of clay with two layers of goat skin, it is used as a rhythmic "
 "accompaniment to shehnai players and is one of the instruments of the Baul "
 "community."
 msgstr ""
-"fait de terre cuite avec deux peaux de chèvre tendues, il est utilisé en "
+"Fait de terre cuite avec deux peaux de chèvre tendues, il est utilisé en "
 "accompagnement rythmique des joueurs de shehnai et fait partie des "
 "instruments de la communauté Baul."
 
@@ -2605,17 +2550,10 @@ msgstr ""
 
 #. name:English flageolet 
 #: DB:instrument/description:844
-#, fuzzy
-#| msgid ""
-#| "while today it is obscure, it was developed and improved for 400 years, "
-#| "the French flageolet has 4 holes in front and two thumb holes in the back"
 msgid ""
 "Meant as an improvement on the flageolet design, the English flageolet had "
 "six finger holes in the front and one thumb hole in the back."
 msgstr ""
-"Bien oublié aujourd'hui, il a été amélioré au fil de quatre siècles.Le "
-"flageolet du Midi de la France possède quatre trous sur le dessuset deux "
-"trous pour les pouces en-dessous."
 
 #. name:gemshorn 
 #: DB:instrument/description:868
@@ -2676,9 +2614,6 @@ msgstr ""
 
 #. name:aman khuur 
 #: DB:instrument/description:809
-#, fuzzy
-#| msgid ""
-#| "there are two types: temür/tömör khuur (steel) and khulsan khuur (bamboo)"
 msgid ""
 "Mongolian mouth harp. There are two types: temür/tömör khuur (steel) and "
 "khulsan khuur (bamboo)."
@@ -2708,14 +2643,10 @@ msgstr ""
 
 #. name:chirimía and drum 
 #: DB:instrument/description:822
-#, fuzzy
-#| msgid ""
-#| "much like the pipe and tabor, the chirimía and drum is a South American "
-#| "cousin."
 msgid ""
 "Much like the pipe and tabor, the chirimía and drum is a South American "
 "cousin."
-msgstr "cousin sud-américain du galoubet et tambour."
+msgstr "Cousin sud-américain du galoubet et tambour."
 
 #. name:rauschpfeife 
 #: DB:instrument/description:595
@@ -2810,6 +2741,23 @@ msgid ""
 "singer. While upright versions exist, they are rare."
 msgstr ""
 
+#. name:cabrette 
+#: DB:instrument/description:1195
+msgid ""
+"Not to be confused with chabrette, a Limousin bagpipe.<br /> 19th century "
+"Auvergne goat-skin based bag with double reed chanter and purely decorative "
+"drone in single stock. <br /> Early models were mouth blown, later modified "
+"to have bellows."
+msgstr ""
+
+#. name:crumhorn 
+#: DB:instrument/description:348
+msgid ""
+"Not to be confused with the 17-18 century French court oboe cromorne.<br /> "
+"Used during the Renaissance, its double-reed is inside a windcap and its "
+"body ends in a decorative curve."
+msgstr ""
+
 #. name:tabor 
 #: DB:instrument/description:806
 msgid ""
@@ -2828,6 +2776,17 @@ msgid ""
 "d50ba107-4930-4e0b-8b3f-ffbea4a1ade1\">ghaychak</a>."
 msgstr ""
 
+#. name:cornemuse du centre 
+#: DB:instrument/description:1190
+msgid ""
+"Not to be confused with the Renaissance double-reed <a href=\"/"
+"instrument/28527011-9cf4-4dcd-a70c-22042a92a52c\">cornamuse</a>.<br /> For "
+"Italian cornamusa, see <a href=\"/instrument/1d865ced-"
+"d86a-4277-8914-009740e37887\">bagpipe</a>.<br /> While also a general term "
+"for bagpipes in French, they have two telescoping drones with single reeds "
+"and a double-reed chanter."
+msgstr ""
+
 #. name:dulcian 
 #: DB:instrument/description:496
 msgid ""
@@ -2840,18 +2799,19 @@ msgstr ""
 #: DB:instrument/description:408
 msgid ""
 "Not to be confused with zummara or other double clarinets with similar names."
-"<br /> For the multiple bore free reed created in 1880 see Martinshorn.<br /"
-"> For the similarly named single-reed woodwind see <a href=\"/instrument/"
+"<br /> For the multiple bore free reed created in 1880, see Martinshorn.<br /"
+"> For the similarly named single-reed woodwind, see <a href=\"/instrument/"
 "e3511ed1-3d73-4340-880f-c8ccc8eda11c\">chalumeau</a>.<br /> For the Japanese "
 "descendant named from Portuguese, see <a href=\"/instrument/07b91470-"
 "b63e-41e4-88e6-11c4acac064f\">charumera</a>.<br /> For the Catalan shawm, "
 "see <a href=\"/instrument/dffe56f5-cd75-4392-ad31-1c3abf2b8e37\"> tible</a>."
-"<br /> For the Italian ciaramella see <a href=\"/"
+"<br /> For the Italian ciaramella, see <a href=\"/"
 "instrument/814816db-3368-4889-a8cd-aa34bd1043f0\">piffero</a>.<br /> For the "
-"bagpipe, see xeremia.<br /><br /> European medieval and renaissance conical "
-"bore double-reed woodwind, two types evolved; one from Middle-eastern "
-"instruments and one from bagpipe chanters. A combination of both where used "
-"to develop the modern oboe."
+"bagpipe, see <a href=\"/instrument/21d5d4ec-f8ef-44dc-b02f-e564de057dcc\"> "
+"xeremies</a>.<br /><br /> European medieval and Renaissance conical bore "
+"double-reed woodwind, two types evolved; one from Middle-Eastern instruments "
+"and one from bagpipe chanters. A combination of both were used to develop "
+"the modern oboe."
 msgstr ""
 
 #. name:oboe 
@@ -2895,11 +2855,6 @@ msgstr ""
 
 #. name:ondioline 
 #: DB:instrument/description:814
-#, fuzzy
-#| msgid ""
-#| "one of the first analogue synths, it had a filter bank with 15 sliders "
-#| "for different sounds, and a \"vibrato\" inducing keyboard based on the "
-#| "ondes Martenot's."
 msgid ""
 "One of the first analogue synths, it had a filter bank with 15 sliders for "
 "different sounds, and a “vibrato” inducing keyboard based on the ondes "
@@ -3276,6 +3231,13 @@ msgid ""
 "it has derivations in much of eastern Europe."
 msgstr ""
 
+#. name:cobla de tres quartans 
+#: DB:instrument/description:1189
+msgid ""
+"Precursor of the cobla used in sardana, it was in use since the medieval "
+"period."
+msgstr ""
+
 #. name:baroque guitar 
 #: DB:instrument/description:917
 msgid ""
@@ -3395,11 +3357,6 @@ msgstr ""
 
 #. name:brač 
 #: DB:instrument/description:825
-#, fuzzy
-#| msgid ""
-#| "second smallest member of the Serbo-Croatian tamburica orchestra, there "
-#| "are often two, first and second bass. it can either have three double "
-#| "strings or two double strings and three single strings"
 msgid ""
 "Second smallest member of the Serbo-Croatian tamburica orchestra, there are "
 "often two, first and second bass. It can either have three double strings or "
@@ -3524,10 +3481,6 @@ msgstr ""
 
 #. name:härjedalspipa 
 #: DB:instrument/description:818
-#, fuzzy
-#| msgid ""
-#| "six holed fipple flute used traditionally in pastoral settings like its "
-#| "cousin the spilåpipa."
 msgid ""
 "Six holed fipple flute used traditionally in pastoral settings like its "
 "cousin the spilåpipa."
@@ -3611,10 +3564,6 @@ msgstr ""
 
 #. name:piano spinet 
 #: DB:instrument/description:798
-#, fuzzy
-#| msgid ""
-#| "small piano with drop action stickers manufactured from around 1930 to "
-#| "the early 1990s."
 msgid ""
 "Small piano with drop action stickers manufactured from around 1930 to the "
 "early 1990s."
@@ -3631,10 +3580,6 @@ msgstr ""
 
 #. name:Guitaret 
 #: DB:instrument/description:795
-#, fuzzy
-#| msgid ""
-#| "small white electric thumb piano with metal tines and an electromagnetic "
-#| "pickup."
 msgid ""
 "Small white electric thumb piano with metal tines and an electromagnetic "
 "pickup."
@@ -3656,12 +3601,6 @@ msgstr ""
 
 #. name:bisernica 
 #: DB:instrument/description:824
-#, fuzzy
-#| msgid ""
-#| "smallest member of the Serbo-Croatian tamburica orchestra, it is usually "
-#| "the lead or \"prim\" instrument. it can either have one double string and "
-#| "three single strings (prim/bisernica) or two double strings and two "
-#| "single strings (bisernica)"
 msgid ""
 "Smallest member of the Serbo-Croatian tamburica orchestra, it is usually the "
 "lead or \"prim\" instrument. It can either have one double string and three "
@@ -3721,10 +3660,6 @@ msgstr ""
 
 #. name:amadinda 
 #: DB:instrument/description:363
-#, fuzzy
-#| msgid ""
-#| "Amadinda, southern Uganda giant xylophone, made on with resonating "
-#| "hardwood bars"
 msgid ""
 "Southern Ugandan giant xylophone, made on with resonating hardwood bars."
 msgstr ""
@@ -3737,6 +3672,13 @@ msgid ""
 "Special version of the gendèr used in Gamelan gendèr wayang performances. "
 "Tuned in Slendro, one to two pairs are played using the same hand to both "
 "play and dampen the keys."
+msgstr ""
+
+#. name:sordellina 
+#: DB:instrument/description:1191
+msgid ""
+"Starting as a pastoral folk bellows blown bagpipe, it was developed into a "
+"complex 2, then 3 and finally 4 chanter with keyed regulators."
 msgstr ""
 
 #. name:jantar 
@@ -3917,18 +3859,11 @@ msgstr ""
 
 #. name:tanbur 
 #: DB:instrument/description:477
-#, fuzzy
-#| msgid "the ancient ancestor of many related lute like instruments."
 msgid "The ancient ancestor of many related lute like instruments."
 msgstr "Ancêtre de nombreux instruments de type luth."
 
 #. name:archlute 
 #: DB:instrument/description:507
-#, fuzzy
-#| msgid ""
-#| "The archlute is a European plucked string instrument developed around "
-#| "1600 as a compromise between the very large theorbo and the Renaissance "
-#| "tenor lute"
 msgid ""
 "The archlute is a European plucked string instrument developed around 1600 "
 "as a compromise between the very large theorbo and the Renaissance tenor "
@@ -4168,25 +4103,12 @@ msgstr ""
 
 #. name:citole 
 #: DB:instrument/description:761
-#, fuzzy
-#| msgid ""
-#| "The citole is an archaic musical instrument, similar and a distant "
-#| "ancestor of the modern guitar."
 msgid ""
 "The citole is an archaic musical instrument, similar to and a distant "
 "ancestor of the modern guitar."
 msgstr ""
 "La citole est un est un instrument à cordes pincées archaïque, lointain "
 "ancêtre de la guitare moderne et similaire à la celle-ci."
-
-#. name:cornamuse 
-#: DB:instrument/description:510
-msgid ""
-"The cornamuse is a double reed instrument from the Renaissance, similar to "
-"the crumhorn but with a closed bell."
-msgstr ""
-"La cornemuse est un instrument à anche double de la Renaissance, semblable "
-"au tournebout mais à cloche fermée."
 
 #. name:cò ke 
 #: DB:instrument/description:309
@@ -4260,10 +4182,6 @@ msgstr ""
 
 #. name:dilruba 
 #: DB:instrument/description:530
-#, fuzzy
-#| msgid ""
-#| "The dilruba is a bowed string instrument from Northern India, mostly used "
-#| "in religious music and light classical songs"
 msgid ""
 "The dilruba is a bowed string instrument from Northern India, mostly used in "
 "religious music and light classical songs."
@@ -4367,10 +4285,6 @@ msgstr "L’erhu est un instrument chinois à deux cordes frottées."
 
 #. name:esraj 
 #: DB:instrument/description:529
-#, fuzzy
-#| msgid ""
-#| "The esraj is a bowed string instrument from Eastern and Central India, "
-#| "mostly used as an accompanying instrument"
 msgid ""
 "The esraj is a bowed string instrument from Eastern and Central India, "
 "mostly used as an accompanying instrument."
@@ -4766,10 +4680,6 @@ msgstr "La limbe est une flûte traversière mongole."
 
 #. name:luthéal 
 #: DB:instrument/description:737
-#, fuzzy
-#| msgid ""
-#| "The luthéal is a kind of hybrid piano which extends the register "
-#| "possibilities of a standard piano, created by Georges Cloetens"
 msgid ""
 "The luthéal is a kind of hybrid piano which extends the register "
 "possibilities of a standard piano, created by Georges Cloetens."
@@ -4779,10 +4689,6 @@ msgstr ""
 
 #. name:mandocello 
 #: DB:instrument/description:600
-#, fuzzy
-#| msgid ""
-#| "The mandocello is a plucked string instrument of the mandolin family, the "
-#| "equivalent to the cello in the violin family"
 msgid ""
 "The mandocello is a plucked string instrument of the mandolin family, the "
 "equivalent to the cello in the violin family."
@@ -5375,11 +5281,8 @@ msgstr "Le topshuur est un luth à deux cordes de Mongolie et de Touva."
 
 #. name:treble viol 
 #: DB:instrument/description:921
-#, fuzzy
-#| msgid "The E♭ clarinet is a member of the clarinet family."
 msgid "The treble, descant or soprano member of the viol family."
 msgstr ""
-"La petite clarinette en Mi♭ est un membre de la famille des clarinettes."
 
 #. name:trống bông 
 #: DB:instrument/description:305
@@ -5429,8 +5332,6 @@ msgstr ""
 
 #. name:valiha 
 #: DB:instrument/description:517
-#, fuzzy
-#| msgid "The valiha is a bamboo tube zither from Madagascar"
 msgid "The valiha is a bamboo tube zither from Madagascar."
 msgstr "Le vahila est une cithare en bambou de Madagascar."
 
@@ -5447,10 +5348,6 @@ msgstr ""
 
 #. name:virginal 
 #: DB:instrument/description:509
-#, fuzzy
-#| msgid ""
-#| "The virginals is a smaller and simpler rectangular form of the "
-#| "harpsichord with only one string per note"
 msgid ""
 "The virginal is a smaller and simpler rectangular form of the harpsichord "
 "with only one string per note."
@@ -5655,13 +5552,8 @@ msgstr ""
 
 #. name:rōria 
 #: DB:instrument/description:859
-#, fuzzy
-#| msgid ""
-#| "The guan is a Chinese double reed wind instrument made from hardwood or "
-#| "bamboo."
 msgid "Thin quiet mouth harp like instrument made of wood or bone."
 msgstr ""
-"Le guan est un instrument à vent à anche double en bois dur ou en bambou."
 
 #. name:lute 
 #: DB:instrument/description:83
@@ -5734,6 +5626,15 @@ msgid ""
 "body. Played with a pick, it has a higher pitch than the pipa."
 msgstr ""
 
+#. name:piva 
+#: DB:instrument/description:1197
+msgid ""
+"Traditionally played with the <a href=\"/instrument/814816db-3368-4889-a8cd-"
+"aa34bd1043f0\">piffero</a> in folk ensambles, the bag is usually made of kid-"
+"leather with 2 drones: a bass and a tenor and a chanter with 7-8 finger-"
+"holes."
+msgstr ""
+
 #. name:caixa 
 #: DB:instrument/description:903
 msgid ""
@@ -5792,8 +5693,6 @@ msgstr ""
 
 #. name:classical kemençe 
 #: DB:instrument/description:542
-#, fuzzy
-#| msgid "Turkish bowl-shaped kemenche, mainly used in classical Ottoman music"
 msgid "Turkish bowl-shaped kemenche, mainly used in classical Ottoman music."
 msgstr ""
 "Le klâsik kemençe est piriforme et principalement utilisée dans la musique "
@@ -5807,8 +5706,6 @@ msgstr ""
 
 #. name:kudüm 
 #: DB:instrument/description:525
-#, fuzzy
-#| msgid "Turkish pair of small, hemispherical drums"
 msgid "Turkish pair of small, hemispherical drums."
 msgstr "Paire de petits tambours hémisphériques."
 
@@ -5918,8 +5815,6 @@ msgstr ""
 
 #. name:khulsan khuur 
 #: DB:instrument/description:811
-#, fuzzy
-#| msgid "used for folksongs, particularly by young girls."
 msgid "Used for folk songs, particularly by young girls."
 msgstr "Guimbarde mongole en bambou, traditionnellement jouée par les filles."
 
@@ -6013,8 +5908,6 @@ msgstr ""
 
 #. name:temür khuur 
 #: DB:instrument/description:810
-#, fuzzy
-#| msgid "used in folkmedisine and shamanistic rituals"
 msgid "Used in folk medicine and shamanistic rituals."
 msgstr ""
 "Guimbarde mongole en métal, traditionnellement jouée dans les rituels "
@@ -6063,10 +5956,8 @@ msgstr ""
 
 #. name:ryuteki 
 #: DB:instrument/description:617
-#, fuzzy
-#| msgid "The limbe is a Mongolian transverse flute."
 msgid "Used in gagaku, it is a transverse flute."
-msgstr "La limbe est une flûte traversière mongole."
+msgstr ""
 
 #. name:kagurabue 
 #: DB:instrument/description:849
@@ -6177,16 +6068,10 @@ msgstr ""
 
 #. name:bonang panerus 
 #: DB:instrument/description:971
-#, fuzzy
-#| msgid ""
-#| "The piccolo oboe is the smallest and highest pitched member of the oboe "
-#| "family."
 msgid ""
 "Used to play fast melodies, it is the highest pitched member of the bonang "
 "family of gong-chimes."
 msgstr ""
-"La musette est le plus petit et le plus aigu membre de la famille des "
-"hautbois."
 
 #. name:lap harp 
 #: DB:instrument/description:886
@@ -6222,27 +6107,17 @@ msgstr ""
 
 #. name:analog synthesizer 
 #: DB:instrument/description:813
-#, fuzzy
-#| msgid ""
-#| "using analogue circuits and techniques to produce sound electronically, "
-#| "the first types where created in the 1920's with thermionic valves and "
-#| "other electromechanical machineries."
 msgid ""
 "Using analogue circuits and techniques to produce sound electronically, the "
 "first types where created in the 1920's with thermionic valves and other "
 "electromechanical machineries."
 msgstr ""
-"utilise des circuits et techniques analogiques pour produire "
+"Utilise des circuits et techniques analogiques pour produire "
 "électroniquement des sons, les premiers types furent créés dans les années "
 "1920 avec des valves thermoïonique et autres machineries électromécaniques."
 
 #. name:tanpura 
 #: DB:instrument/description:829
-#, fuzzy
-#| msgid ""
-#| "Usually accompanying sitar on ragas, the fretless instrument comes in "
-#| "different sizes: largest; male-voice, smaller; female-voice and smallest; "
-#| "the instrument-accompanying \"tanpuri\""
 msgid ""
 "Usually accompanying sitar on ragas, the fretless instrument comes in "
 "different sizes: largest; male-voice, smaller; female-voice and smallest; "
@@ -6346,15 +6221,11 @@ msgstr ""
 
 #. name:flageolet 
 #: DB:instrument/description:843
-#, fuzzy
-#| msgid ""
-#| "while today it is obscure, it was developed and improved for 400 years, "
-#| "the French flageolet has 4 holes in front and two thumb holes in the back"
 msgid ""
 "While today it is obscure, it was developed and improved for 400 years. The "
 "French flageolet has four holes in the front and two thumb holes in the back."
 msgstr ""
-"Bien oublié aujourd'hui, il a été amélioré au fil de quatre siècles.Le "
+"Bien oublié aujourd'hui, il a été amélioré au fil de quatre siècles. Le "
 "flageolet du Midi de la France possède quatre trous sur le dessuset deux "
 "trous pour les pouces en-dessous."
 
@@ -6390,15 +6261,11 @@ msgstr ""
 
 #. name:wind synthesizer 
 #: DB:instrument/description:560
-#, fuzzy
-#| msgid ""
-#| "wind synthesizer or wind controller, it is connected to a midi controller "
-#| "and is played like a wind instrument."
 msgid ""
 "Wind synthesizer or wind controller, it is connected to a MIDI controller "
 "and is played like a wind instrument."
 msgstr ""
-"Le synthétiseur d'instruments à vent est câblé à une console midiet se joue "
+"Le synthétiseur d'instruments à vent est câblé à une console MIDI et se joue "
 "comme un instrument à vent."
 
 #. name:torupill 
@@ -6426,8 +6293,6 @@ msgstr ""
 
 #. name:vibrandoneon 
 #: DB:instrument/description:840
-#, fuzzy
-#| msgid "wood accordina with piano keys invented in Italy"
 msgid "Wood accordina with piano keys invented in Italy."
 msgstr "Accordina en bois avec des touches de piano, inventée en Italie."
 
@@ -6477,6 +6342,16 @@ msgstr "flûte saó ôi, utilisée par les Muong"
 #: DB:instrument/description:314
 msgid "trắng jâu bass form of trắng lu"
 msgstr "trắng jâu est la basse du trắng lu"
+
+#~ msgid "Crumhorn used in the 14th to 17th centuries in Europe."
+#~ msgstr "Le tournebout, utilisé en Europe du 14e au 17e siècle."
+
+#~ msgid ""
+#~ "The cornamuse is a double reed instrument from the Renaissance, similar "
+#~ "to the crumhorn but with a closed bell."
+#~ msgstr ""
+#~ "La cornemuse est un instrument à anche double de la Renaissance, "
+#~ "semblable au tournebout mais à cloche fermée."
 
 #~ msgid "Balafon, Malian 'gourd xylophone'"
 #~ msgstr "Balafon, xylophone à calebasses du Mali."

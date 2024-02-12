@@ -1120,11 +1120,34 @@ const CLEANUPS: CleanupEntries = {
       },
     ],
     clean: function (url) {
+      // To reject /videoframe links without breaking the ?video_id parameter
+      if (/^https?:\/\/bandcamp.com\/videoframe/.test(url)) {
+        return url;
+      }
       url = url.replace(/^(?:https?:\/\/)?([^\/]+\.)?bandcamp\.com(?:\/([^?#]*))?.*$/, 'https://$1bandcamp.com/$2');
       url = url.replace(/^https:\/\/([^\/]+)\.bandcamp\.com\/(?:((?:album|track)\/[^\/]+))?.*$/, 'https://$1.bandcamp.com/$2');
+      url = url.replace(/^https:\/\/bandcamp\.com\/(?:discover|tag)\/([^\/]+).*$/, 'https://bandcamp.com/discover/$1');
       return url;
     },
     validate: function (url, id) {
+      if (/^https:\/\/(?:[^\/]+\.)?bandcamp\.com\/videoframe/.test(url)) {
+        return {
+          error: exp.l(
+            `Please do not add “{blocked_url_pattern}” links,
+             link to the appropriate “{wanted_url_pattern}” page instead.`,
+            {
+              blocked_url_pattern: (
+                <span className="url-quote">{'/videoframe'}</span>
+              ),
+              wanted_url_pattern: (
+                <span className="url-quote">{'/track'}</span>
+              ),
+            },
+          ),
+          result: false,
+          target: ERROR_TARGETS.URL,
+        };
+      }
       switch (id) {
         case LINK_TYPES.bandcamp.artist:
           if (/^https:\/\/[^\/]+\.bandcamp\.com\/(album|track)/.test(url)) {
@@ -1140,7 +1163,7 @@ const CLEANUPS: CleanupEntries = {
           return {result: /^https:\/\/[^\/]+\.bandcamp\.com\/$/.test(url)};
         case LINK_TYPES.bandcamp.genre:
           return {
-            result: /^https:\/\/bandcamp\.com\/tag\/[\w-]+$/.test(url),
+            result: /^https:\/\/bandcamp\.com\/discover\/[\w-]+$/.test(url),
             target: ERROR_TARGETS.ENTITY,
           };
         case LINK_TYPES.bandcamp.label:
@@ -1821,6 +1844,15 @@ const CLEANUPS: CleanupEntries = {
       return {result: false, target: ERROR_TARGETS.URL};
     },
   },
+  'buymeacoffee': {
+    match: [
+      new RegExp('^(https?://)?(www\\.)?buymeacoffee\\.com/[^/?#]', 'i'),
+    ],
+    restrict: [LINK_TYPES.patronage],
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?(?:www\.)?buymeacoffee\.com\/([^\/?#]+).*$/, 'https://www.buymeacoffee.com/$1');
+    },
+  },
   'cancionerosmewiki': {
     match: [new RegExp(
       '^(https?://)?(www\\.)?cancioneros\\.si/mediawiki/',
@@ -2401,7 +2433,6 @@ const CLEANUPS: CleanupEntries = {
     match: [
       new RegExp('^(https?://)?([^/]+\\.)?audiojelly\\.com', 'i'),
       new RegExp('^(https?://)?([^/]+\\.)?e-onkyo\\.com', 'i'),
-      new RegExp('^(https?://)?([^/]+\\.)?ototoy\\.jp', 'i'),
       new RegExp('^(https?://)?([^/]+\\.)?hd-music\\.info', 'i'),
       new RegExp('^(https?://)?([^/]+\\.)?musa24\\.fi', 'i'),
     ],
@@ -3924,6 +3955,23 @@ const CLEANUPS: CleanupEntries = {
       return {result: false, target: ERROR_TARGETS.URL};
     },
   },
+  'metacritic': {
+    match: [new RegExp('^(https?://)?(www\\.)?metacritic\\.com', 'i')],
+    restrict: [LINK_TYPES.review],
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?(?:www\.)?metacritic\.com\/music\/([\w-]+\/[\w-]+).*$/, 'https://www.metacritic.com/music/$1');
+    },
+    validate: function (url, id) {
+      const isReview = /^https:\/\/www\.metacritic\.com\/music\/[\w-]+\/[\w-]+$/.test(url);
+      if (isReview) {
+        return {
+          result: id === LINK_TYPES.review.release_group,
+          target: ERROR_TARGETS.ENTITY,
+        };
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
   'metalarchives': {
     match: [new RegExp('^(https?://)?(www\\.)?metal-archives\\.com/', 'i')],
     restrict: [{...LINK_TYPES.otherdatabases, ...LINK_TYPES.review}],
@@ -3965,7 +4013,9 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'metalmusicarchives': {
-    match: [new RegExp('^(https?://)?(www\\.)?metalmusicarchives\\.com', 'i')],
+    match: [
+      new RegExp('^(https?://)?(www\\.)?metalmusicarchives\\.com', 'i'),
+    ],
     restrict: [LINK_TYPES.otherdatabases],
     clean: function (url) {
       url = url.replace(/^(?:https?:\/\/)?(?:www\.)?metalmusicarchives\.com\/([^#?]+).*$/, 'https://www.metalmusicarchives.com/$1');
@@ -4544,6 +4594,38 @@ const CLEANUPS: CleanupEntries = {
     ],
     restrict: [LINK_TYPES.otherdatabases],
   },
+  'ototoy': {
+    match: [new RegExp('^(https?://)?([^/]+\\.)?ototoy\\.jp', 'i')],
+    restrict: [LINK_TYPES.downloadpurchase],
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?(?:www\.)?ototoy\.jp\/(labels|_\/default\/[ap])\/(\d+).*$/, 'https://ototoy.jp/$1/$2');
+    },
+    validate: function (url, id) {
+      const m = /^https:\/\/ototoy\.jp\/(labels|_\/default\/[ap])\/\d+$/.exec(url);
+      if (m) {
+        const suffix = m[1];
+        switch (id) {
+          case LINK_TYPES.downloadpurchase.label:
+            return {
+              result: suffix === 'labels',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.downloadpurchase.release:
+            return {
+              result: /_\/default\/p/.test(suffix),
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.downloadpurchase.artist:
+            return {
+              result: /_\/default\/a/.test(suffix),
+              target: ERROR_TARGETS.ENTITY,
+            };
+        }
+        return {result: false, target: ERROR_TARGETS.ENTITY};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
   'overture': {
     match: [new RegExp('^(https?://)?overture\\.doremus\\.org/', 'i')],
     restrict: [LINK_TYPES.otherdatabases],
@@ -4697,6 +4779,57 @@ const CLEANUPS: CleanupEntries = {
   'purevolume': {
     match: [new RegExp('^(https?://)?([^/]+\\.)?purevolume\\.com', 'i')],
     restrict: [LINK_TYPES.purevolume],
+  },
+  'qobuz': {
+    match: [
+      new RegExp('^(https?://)?(www\\.)?qobuz\\.com/', 'i'),
+    ],
+    restrict: [
+      LINK_TYPES.streamingpaid,
+      multiple(LINK_TYPES.downloadpurchase, LINK_TYPES.streamingpaid),
+    ],
+    select: function (url, sourceType) {
+      switch (sourceType) {
+        case 'artist':
+          return LINK_TYPES.streamingpaid.artist;
+        case 'label':
+          return LINK_TYPES.streamingpaid.label;
+        case 'release':
+          return LINK_TYPES.streamingpaid.release;
+      }
+      return false;
+    },
+    clean: function (url) {
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?qobuz\.com\//, 'https://www.qobuz.com/');
+      return url;
+    },
+    validate: function (url, id) {
+      const m = /^https:\/\/www\.qobuz\.com\/(?:[a-z]{2}-[a-z]{2}\/)?(album|interpreter|label)\/[\w\d-]+\/(?:[\w\d-]+\/)?[\w\d]+$/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.downloadpurchase.artist:
+          case LINK_TYPES.streamingpaid.artist:
+            return {
+              result: prefix === 'interpreter',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.downloadpurchase.label:
+          case LINK_TYPES.streamingpaid.label:
+            return {
+              result: prefix === 'label',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.downloadpurchase.release:
+          case LINK_TYPES.streamingpaid.release:
+            return {
+              result: prefix === 'album',
+              target: ERROR_TARGETS.ENTITY,
+            };
+        }
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
   },
   'quebecinfomusique': {
     match: [new RegExp(
@@ -4933,6 +5066,28 @@ const CLEANUPS: CleanupEntries = {
       url = url.replace(/([?&])&+/, '$1');
       url = url.replace(/[?&]$/, '');
       return url;
+    },
+  },
+  'rism': {
+    match: [new RegExp('^(https?://)?(www\\.)?rism\\.online', 'i')],
+    restrict: [LINK_TYPES.otherdatabases],
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?(?:www\.)?rism\.online\/(\w+)\/(\d+).*$/, 'https://rism.online/$1/$2');
+    },
+    validate: function (url, id) {
+      let m = /^https:\/\/rism\.online\/(\w+)\/(\d+)$/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.otherdatabases.artist:
+            return {
+              result: prefix === 'people',
+              target: ERROR_TARGETS.ENTITY,
+            };
+        }
+        return {result: false, target: ERROR_TARGETS.ENTITY};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
     },
   },
   'rockcomar': {
@@ -5791,11 +5946,11 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'twitter': {
-    match: [new RegExp('^(https?://)?([^/]+\\.)?twitter\\.com/', 'i')],
+    match: [new RegExp('^(https?://)?([^/]+\\.)?(twitter|x)\\.com/', 'i')],
     restrict: [{...LINK_TYPES.streamingfree, ...LINK_TYPES.socialnetwork}],
     clean: function (url) {
       url = url.replace(
-        /^(?:https?:\/\/)?(?:(?:www|mobile)\.)?twitter\.com(?:\/#!)?\//,
+        /^(?:https?:\/\/)?(?:(?:www|mobile)\.)?(?:twitter|x)\.com(?:\/#!)?\//,
         'https://twitter.com/',
       );
       url = url.replace(
@@ -6376,12 +6531,12 @@ const CLEANUPS: CleanupEntries = {
   },
   'worldcat': {
     match: [
-      new RegExp('^(https?://)?id\\.oclc\\.org/worldcat/', 'i'),
+      new RegExp('^(https?://)?(?:entities|id)\\.oclc\\.org/worldcat/', 'i'),
       new RegExp('^(https?://)?(www\\.)?worldcat\\.org/', 'i'),
     ],
     restrict: [LINK_TYPES.otherdatabases],
     clean: function (url) {
-      url = url.replace(/^(?:https?:\/\/)?(id\.oclc\.org\/worldcat\/entity\/[^./?&#]+).*$/, 'https://$1');
+      url = url.replace(/^(?:https?:\/\/)?(?:entities|id)\.oclc\.org\/(worldcat\/entity\/[^./?&#]+).*$/, 'https://id.oclc.org/$1');
       url = url.replace(/^(?:https?:\/\/)?(?:www\.)?worldcat\.org/, 'https://www.worldcat.org');
       url = url.replace(/^https:\/\/www\.worldcat\.org(?:\/title\/[a-zA-Z0-9_-]+)?\/oclc\/([^&?]+)(?:.*)$/, 'https://www.worldcat.org/oclc/$1');
       // oclc permalinks have no ending slash but identities ones do

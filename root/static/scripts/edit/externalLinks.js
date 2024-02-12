@@ -22,6 +22,7 @@ import {
 import invariant from '../../../utility/invariant.js';
 import {
   EMPTY_PARTIAL_DATE,
+  ENTITIES_WITH_RELATIONSHIP_CREDITS,
   FAVICON_CLASSES,
   VIDEO_ATTRIBUTE_GID,
   VIDEO_ATTRIBUTE_ID,
@@ -103,7 +104,9 @@ export type LinkStateT = $ReadOnly<{
         +relationships?: void,
       }
     | null,
+  +entity0_credit: string,
   +entity1: RelatableEntityT | null,
+  +entity1_credit: string,
   +pendingTypes: $ReadOnlyArray<number> | null,
   +rawUrl: string,
   // New relationships will use a unique string ID like "new-1".
@@ -144,6 +147,8 @@ type LinksEditorState = {
 
 export class _ExternalLinksEditor
   extends React.Component<LinksEditorProps, LinksEditorState> {
+  creditableEntityProp: 'entity0_credit' | 'entity1_credit' | null;
+
   tableRef: {current: HTMLTableElement | null};
 
   generalLinkTypes: $ReadOnlyArray<LinkTypeOptionT>;
@@ -257,6 +262,13 @@ export class _ExternalLinksEditor
 
     this.sourceType = sourceType;
     this.initialLinks = initialLinks;
+    if (ENTITIES_WITH_RELATIONSHIP_CREDITS[sourceType]) {
+      this.creditableEntityProp = sourceType < 'url'
+        ? 'entity0_credit'
+        : 'entity1_credit';
+    } else {
+      this.creditableEntityProp = null;
+    }
     this.state = {links: withOneEmptyLink(initialLinks)};
     this.tableRef = React.createRef();
     this.oldLinks = this.getOldLinksHash();
@@ -660,6 +672,14 @@ export class _ExternalLinksEditor
 
       pushInput(prefix, 'link_type_id', String(link.type) || '');
 
+      if (this.creditableEntityProp) {
+        pushInput(
+          prefix,
+          this.creditableEntityProp,
+          link[this.creditableEntityProp] || '',
+        );
+      }
+
       const beginDate = link.begin_date || EMPTY_PARTIAL_DATE;
       const endDate = link.end_date || EMPTY_PARTIAL_DATE;
 
@@ -909,7 +929,10 @@ export class _ExternalLinksEditor
     return HIGHLIGHTS.NONE;
   }
 
-  getRelationshipHighlightType(link: LinkRelationshipT): HighlightT {
+  getRelationshipHighlightType(
+    link: LinkRelationshipT,
+    creditableEntityProp: CreditableEntityOptionsT,
+  ): HighlightT {
     if (this.props.isNewEntity) {
       return HIGHLIGHTS.NONE;
     }
@@ -921,9 +944,12 @@ export class _ExternalLinksEditor
     }
     const oldLink = this.oldLinks.get(String(link.relationship));
     const linkTypeChanged = oldLink && +link.type !== +oldLink.type;
+    const creditChanged =
+      oldLink && creditableEntityProp &&
+      oldLink[creditableEntityProp] !== link[creditableEntityProp];
     const datePeriodTypeChanged =
       oldLink && compareDatePeriods(oldLink, link);
-    if (linkTypeChanged || datePeriodTypeChanged) {
+    if (linkTypeChanged || creditChanged || datePeriodTypeChanged) {
       return HIGHLIGHTS.EDIT;
     }
     return HIGHLIGHTS.NONE;
@@ -1055,10 +1081,13 @@ export class _ExternalLinksEditor
               <ExternalLink
                 canMerge={canMerge}
                 cleanupUrl={(url) => this.cleanupUrl(url)}
+                creditableEntityProp={this.creditableEntityProp}
                 duplicate={duplicate ? duplicate[0].urlIndex : null}
                 error={urlError}
                 getRelationshipHighlightType={
-                  (link) => this.getRelationshipHighlightType(link)
+                  (link) => this.getRelationshipHighlightType(
+                    link, this.creditableEntityProp,
+                  )
                 }
                 handleAttributesChange={
                   (index, attributes) => this.setLinkState(index, attributes)
@@ -1184,6 +1213,7 @@ const TypeDescription =
   };
 
 type ExternalLinkRelationshipProps = {
+  +creditableEntityProp: 'entity0_credit' | 'entity1_credit' | null,
   +hasUrlError: boolean,
   +highlight: HighlightT,
   +isOnlyRelationship: boolean,
@@ -1199,7 +1229,13 @@ type ExternalLinkRelationshipProps = {
 
 const ExternalLinkRelationship =
   (props: ExternalLinkRelationshipProps): React$Element<'tr'> => {
-    const {link, hasUrlError, highlight, urlMatchesType} = props;
+    const {
+      creditableEntityProp,
+      link,
+      hasUrlError,
+      highlight,
+      urlMatchesType,
+    } = props;
     const linkType = link.type ? linkedEntities.link_type[link.type] : null;
     const backward = linkType && linkType.type1 > 'url';
     const hasDate = !isDateEmpty(link.begin_date) ||
@@ -1209,6 +1245,10 @@ const ExternalLinkRelationship =
     const showTypeSelection = (link.error || hasUrlError)
       ? true
       : !(urlMatchesType || isEmpty(link));
+
+    const creditedName = creditableEntityProp
+      ? link[creditableEntityProp]
+      : null;
 
     return (
       <tr className="relationship-item" key={link.relationship}>
@@ -1221,6 +1261,7 @@ const ExternalLinkRelationship =
             />
           ) : null}
           <ExternalLinkAttributeDialog
+            creditableEntityProp={creditableEntityProp}
             onConfirm={
               (attributes) => props.onAttributesChange(link.index, attributes)
             }
@@ -1286,6 +1327,16 @@ const ExternalLinkRelationship =
                   {bracketedText(formatDatePeriod(link))}
                 </span>
               ) : null}
+              {nonEmpty(creditedName) ? (
+                <span className="entity-credit">
+                  {' '}
+                  {bracketedText(texp.lp(
+                    'credited as “{credit}”',
+                    'relationship credit',
+                    {credit: creditedName},
+                  ))}
+                </span>
+              ) : null}
             </label>
           </div>
           {linkType &&
@@ -1318,12 +1369,18 @@ const ExternalLinkRelationship =
     );
   };
 
+type CreditableEntityOptionsT = 'entity0_credit' | 'entity1_credit' | null;
+
 type LinkProps = {
   +canMerge: boolean,
   +cleanupUrl: (string) => string,
+  +creditableEntityProp: CreditableEntityOptionsT,
   +duplicate: number | null,
   +error: ErrorT | null,
-  +getRelationshipHighlightType: (LinkRelationshipT) => HighlightT,
+  +getRelationshipHighlightType: (
+    LinkRelationshipT,
+    CreditableEntityOptionsT
+  ) => HighlightT,
   +handleAttributesChange: (number, $ReadOnly<Partial<LinkStateT>>) => void,
   +handleLinkRemove: (number) => void,
   +handleLinkSubmit: (SyntheticKeyboardEvent<HTMLInputElement>) => void,
@@ -1529,8 +1586,12 @@ export class ExternalLink extends React.Component<LinkProps> {
         {notEmpty &&
           props.relationships.map((link, index) => (
             <ExternalLinkRelationship
+              creditableEntityProp={props.creditableEntityProp}
               hasUrlError={props.error != null}
-              highlight={props.getRelationshipHighlightType(link)}
+              highlight={props.getRelationshipHighlightType(
+                link,
+                props.creditableEntityProp,
+              )}
               isOnlyRelationship={props.relationships.length === 1}
               key={index}
               link={link}
@@ -1601,7 +1662,9 @@ const defaultLinkState: LinkStateT = {
   end_date: EMPTY_PARTIAL_DATE,
   ended: false,
   entity0: null,
+  entity0_credit: '',
   entity1: null,
+  entity1_credit: '',
   pendingTypes: null,
   rawUrl: '',
   relationship: null,
@@ -1684,7 +1747,9 @@ export function parseRelationships(
         end_date: data.end_date || EMPTY_PARTIAL_DATE,
         ended: data.ended || false,
         entity0: sourceData || null,
+        entity0_credit: data.entity0_credit || '',
         entity1: target,
+        entity1_credit: data.entity1_credit || '',
         pendingTypes: null,
         rawUrl: target.name,
         relationship: data.id,

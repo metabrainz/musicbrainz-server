@@ -5,6 +5,8 @@ use warnings;
 use HTML::FormHandler::Moose;
 extends 'MusicBrainz::Server::Form::Filter::Generic';
 
+use MusicBrainz::Server::Translation qw( l );
+
 has 'artist_credits' => (
     isa => 'ArrayRef[ArtistCredit]',
     is => 'ro',
@@ -15,8 +17,12 @@ has_field 'artist_credit_id' => (
     type => 'Select',
 );
 
+has_field 'video' => (
+    type => 'Select',
+);
+
 sub filter_field_names {
-    return qw/ name artist_credit_id /;
+    return qw/ disambiguation name artist_credit_id video /;
 }
 
 sub options_artist_credit_id {
@@ -27,11 +33,19 @@ sub options_artist_credit_id {
     ];
 }
 
+sub options_video {
+    return [
+        { value => 1, label => l('Videos only') },
+        { value => 2, label => l('Non-videos only') },
+    ];
+}
+
 around TO_JSON => sub {
     my ($orig, $self) = @_;
 
     my $json = $self->$orig;
     $json->{options_artist_credit_id} = $self->options_artist_credit_id;
+    $json->{options_video} = $self->options_video;
     return $json;
 };
 

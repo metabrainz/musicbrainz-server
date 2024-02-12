@@ -1456,7 +1456,7 @@ msgid ""
 "or manipulate sound in either an analogue or digital form."
 msgstr ""
 
-#: DB:link_type/description:36 DB:link_type/description:128
+#: DB:link_type/description:128 DB:link_type/description:36
 msgid ""
 "This describes an engineer responsible for committing the performance to "
 "tape or another recording medium. This can be as complex as setting up the "
@@ -1926,6 +1926,13 @@ msgid ""
 "project (such as an audio drama or audiobook), which is usually based on a "
 "written template and involves the performance of voice actors."
 msgstr ""
+
+#: DB:link_type/description:1230
+#, fuzzy
+#| msgid "Indicates an artist that performed on this recording."
+msgid ""
+"This indicates the artist was the choreographer for this video recording."
+msgstr "Указывает исполнителя, выступавшего на этой записи."
 
 #: DB:link_type/description:962
 msgid "This indicates the artist was the director of this video recording."
@@ -4248,6 +4255,12 @@ msgstr ""
 msgid "choral conducting"
 msgstr ""
 
+#: DB:link_type/name:1230
+#, fuzzy
+#| msgid "photography"
+msgid "choreographer"
+msgstr "фото"
+
 #: DB:link_type/name:152 DB:link_type/name:53
 msgid "chorus master"
 msgstr "хормейстер"
@@ -5838,8 +5851,8 @@ msgstr ""
 msgid "lyrics written in"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:960 DB:link_type/reverse_link_phrase:175
-#: DB:link_type/reverse_link_phrase:79
+#: DB:link_type/reverse_link_phrase:79 DB:link_type/reverse_link_phrase:960
+#: DB:link_type/reverse_link_phrase:175
 msgid "mail-order purchase page for"
 msgstr ""
 
@@ -6705,8 +6718,8 @@ msgstr ""
 msgid "purchase for download"
 msgstr ""
 
-#: DB:link_type/link_phrase:79 DB:link_type/name:960 DB:link_type/name:175
-#: DB:link_type/name:79 DB:link_type/name:913
+#: DB:link_type/link_phrase:79 DB:link_type/name:79 DB:link_type/name:960
+#: DB:link_type/name:175 DB:link_type/name:913
 msgid "purchase for mail-order"
 msgstr ""
 
@@ -6782,7 +6795,7 @@ msgstr ""
 msgid "recorded release groups"
 msgstr ""
 
-#: DB:link_type/name:36 DB:link_type/name:128
+#: DB:link_type/name:128 DB:link_type/name:36
 msgid "recording"
 msgstr ""
 
@@ -7570,7 +7583,7 @@ msgstr ""
 msgid "was the {instrument:%|instruments} technician for"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:36 DB:link_type/long_link_phrase:128
+#: DB:link_type/long_link_phrase:128 DB:link_type/long_link_phrase:36
 msgid "was {additional} {assistant} {associate} {co:co-}recording engineer for"
 msgstr ""
 
@@ -7580,6 +7593,10 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:1165
 msgid "was {assistant} carillonneur at"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:1230
+msgid "was {assistant} choreographer for"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:856
@@ -8120,11 +8137,11 @@ msgstr ""
 msgid "{additional} {assistant} {associate} {co:co-}mixer"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:36 DB:link_type/reverse_link_phrase:128
+#: DB:link_type/reverse_link_phrase:128 DB:link_type/reverse_link_phrase:36
 msgid "{additional} {assistant} {associate} {co:co-}recording engineer"
 msgstr ""
 
-#: DB:link_type/link_phrase:36 DB:link_type/link_phrase:128
+#: DB:link_type/link_phrase:128 DB:link_type/link_phrase:36
 msgid "{additional} {assistant} {associate} {co:co-}recording engineer for"
 msgstr ""
 
@@ -8230,6 +8247,14 @@ msgstr ""
 
 #: DB:link_type/link_phrase:1165
 msgid "{assistant} carillonneur at"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:1230
+msgid "{assistant} choreographer"
+msgstr ""
+
+#: DB:link_type/link_phrase:1230
+msgid "{assistant} choreographer for"
 msgstr ""
 
 #: DB:link_type/link_phrase:856

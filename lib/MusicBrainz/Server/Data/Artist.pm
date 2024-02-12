@@ -339,7 +339,13 @@ sub delete
     return 1;
 }
 
-sub merge
+sub merge {
+    my ($self, $new_id, @old_ids) = @_;
+
+    $self->merge_with_opts($new_id, \@old_ids);
+}
+
+sub merge_with_opts
 {
     my ($self, $new_id, $old_ids, %opts) = @_;
 

@@ -70,6 +70,7 @@ our @EXPORT_OK = qw(
     placeholders
     ref_to_type
     remove_equal
+    remove_lineformatting_characters
     sanitize
     take_while
     trim
@@ -438,6 +439,7 @@ sub remove_invalid_characters {
     =~ s/[\N{ZERO WIDTH NO-BREAK SPACE}\x{F0000}-\x{FFFFF}\x{100000}-\x{10FFFF}${noncharacter_pattern}]//gr;
 }
 
+# Keep in sync with invalidEditNote in static/scripts/release-editor/init.js
 sub remove_lineformatting_characters {
     shift
     # trim lasting line-formatting characters:

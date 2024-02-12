@@ -1,7 +1,8 @@
 package MusicBrainz::Server::Controller::Report;
 use Moose;
+use MooseX::MethodAttributes;
 
-BEGIN { extends 'MusicBrainz::Server::Controller'; }
+extends 'MusicBrainz::Server::Controller';
 
 use DateTime;
 use MusicBrainz::Server::Filters qw( format_wikitext );

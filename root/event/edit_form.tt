@@ -11,7 +11,7 @@
         <legend>[% l('Event details') %]</legend>
         [%- form_row_name_with_guesscase(r) -%]
         [%- form_row_text_long(r, 'comment', add_colon(l('Disambiguation'))) -%]
-        [%- form_row_select(r, 'type_id', l('Type:')) -%]
+        [%- form_row_select(r, 'type_id', add_colon(l('Type'))) -%]
         [% form_row_checkbox(r, 'cancelled', l('This event was cancelled.')) %]
         [% WRAPPER form_row %]
           [% r.label('setlist', add_colon(l('Setlist'))) %]
@@ -23,7 +23,7 @@
                    [mbid|name] allows linking to artists and works.') -%]
         </p>
         <p>
-            [%- l('If needed, the characters "[", "]", and "&" can be escaped using the HTML entities "&lsqb;", "&rsqb;", and "&amp;" respectively.') -%]
+            [%- l('If needed, the characters "[", "]", and "&" can be escaped using the HTML entities "<code>&amp;lsqb;</code>", "<code>&amp;rsqb;</code>", and "<code>&amp;amp;</code>" respectively.') -%]
         </p>
       </fieldset>
 
@@ -37,7 +37,7 @@
         [% too_short_year_error('too_short_begin_year') %]
         [% form_row_date(r, 'period.end_date', add_colon(l('End date'))) %]
         [% too_short_year_error('too_short_end_year') %]
-        [%- form_row_time(r, 'time', add_colon(l('Time'))) -%]
+        [%- form_row_time(r, 'time', add_colon(lp('Time', 'event'))) -%]
       </fieldset>
 
       [% PROCESS 'forms/relationship-editor.tt' %]

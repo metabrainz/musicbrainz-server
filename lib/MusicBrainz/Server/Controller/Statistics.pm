@@ -2,7 +2,9 @@ package MusicBrainz::Server::Controller::Statistics;
 use Digest::MD5 qw( md5_hex );
 use HTTP::Status qw( :constants );
 use Moose;
+use MooseX::MethodAttributes;
 use namespace::autoclean;
+
 use MusicBrainz::Server::Data::Statistics::ByDate;
 use MusicBrainz::Server::Data::Statistics::ByName;
 use MusicBrainz::Server::Data::CountryArea;
@@ -14,7 +16,7 @@ use Date::Calc qw( Today Add_Delta_Days Date_to_Time );
 
 use aliased 'MusicBrainz::Server::EditRegistry';
 
-BEGIN { extends 'MusicBrainz::Server::Controller'; }
+extends 'MusicBrainz::Server::Controller';
 
 sub statistics : Path('')
 {

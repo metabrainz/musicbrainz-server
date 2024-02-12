@@ -23,7 +23,7 @@ and expiring keys.
 
 # Initialize tests
 my $args = DBDefs->DATASTORE_REDIS_ARGS;
-$args->{database} = $args->{test_database};
+$args->{database} = DBDefs->REDIS_TEST_DATABASE;
 my $redis = MusicBrainz::DataStore::Redis->new(%$args);
 
 test 'Database is still selected in new Redis copy' => sub {

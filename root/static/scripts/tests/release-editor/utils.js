@@ -8,7 +8,7 @@
 
 import test from 'tape';
 
-import {
+import utils, {
   calculateDiscID,
   unformatTrackLength,
 } from '../../release-editor/utils.js';
@@ -58,5 +58,17 @@ test('calculateDiscID', function (t) {
       '1 9 252000 150 31615 67600 87137 108242 127110 142910 166340 231445',
     ),
     'gtWBI_F_fQFSSRt8nVChAVFaT_A-',
+  );
+});
+
+test('similarTrackNames', function (t) {
+  t.plan(1);
+
+  t.ok(
+    utils.similarTrackNames(
+      'Brooklyn Rumba (feat. Dr. Israel & Marc Ribot)',
+      'Brooklyn Rumba',
+    ),
+    'name with feat. artist is similar to name without feat. artist',
   );
 });

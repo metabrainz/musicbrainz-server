@@ -8,7 +8,6 @@
  */
 
 import Layout from '../layout/index.js';
-import {l_admin} from '../static/scripts/common/i18n/admin.js';
 import FormCsrfToken
   from '../static/scripts/edit/components/FormCsrfToken.js';
 import FormRowTextArea
