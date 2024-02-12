@@ -5670,6 +5670,13 @@ limited_link_type_combinations: ['downloadpurchase', 'mailorder'],
             expected_clean_url: 'https://www.tiktok.com/@officialrandl',
        only_valid_entity_types: ['artist', 'label', 'place', 'series'],
   },
+  {
+                     input_url: 'https://www.tiktok.com/@mimo_mio/video/7029807544944069894',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://www.tiktok.com/@mimo_mio/video/7029807544944069894',
+       only_valid_entity_types: ['recording'],
+  },
   // Tipeee
   {
                      input_url: 'https://www.tipeee.com/example/news',
