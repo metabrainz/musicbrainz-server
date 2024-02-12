@@ -3054,6 +3054,11 @@ msgstr "orgue à tuyaux"
 msgid "piri"
 msgstr "piri"
 
+#: DB:instrument/name:1197
+msgctxt "Northern Italian bagpipe"
+msgid "piva"
+msgstr ""
+
 #: DB:instrument/name:700
 msgid "pkhachich"
 msgstr "pkhachich"
@@ -4275,6 +4280,11 @@ msgstr ""
 #: DB:instrument/name:650
 msgid "vessel flute"
 msgstr "flûte globulaire"
+
+#: DB:instrument/name:1196
+msgctxt "Breton bagpipe"
+msgid "veuze"
+msgstr ""
 
 #: DB:instrument/name:840
 msgctxt "accordina with piano keys"

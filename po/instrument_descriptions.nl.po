@@ -449,22 +449,6 @@ msgstr ""
 "Een klassieke gitaar, ook een Spaanse gitaar genoemd, wordt gebruikt voor "
 "klassieke, volks- en andere muziek en heeft snaren van nylon of darm."
 
-#. name:musette de cour 
-#: DB:instrument/description:735
-msgid ""
-"Also known as baroque musette, it was a small bagpipe used predominantly by "
-"French court and nobility in the 1600-1700's.<br /> For the instrument known "
-"as “chinese musette”, see <a href=\"/instrument/15cd573d-15a8-4f9f-a48f-"
-"f73218d85e14/\">suona</a>.<br /> For the oboe also known as musette, see <a "
-"href=\"/instrument/77b29599-96c7-4571-9fae-09e7e42b8175/\">piccolo oboe</a>."
-msgstr ""
-"Een musette de cour, ook wel een musette baroque genoemd, is een kleine "
-"doedelzak die in de 17e en 18e eeuw aan het Franse hof populair was.<br /"
-">Zie <a href=\"/instrument/15cd573d-15a8-4f9f-a48f-f73218d85e14/\">suona</a> "
-"voor het instrument dat ook wel ‘Chinese musette’ wordt genoemd.<br />Ook de "
-"<a href=\"/instrument/77b29599-96c7-4571-9fae-09e7e42b8175/\">piccolohobo</"
-"a> wordt wel eens een musette genoemd."
-
 #. name:samica 
 #: DB:instrument/description:830
 msgid ""
@@ -1918,6 +1902,31 @@ msgstr ""
 "wordt genoemd.<br /> Zie <a href=\"/instrument/8ab40df2-106b-4b9b-"
 "a50c-0798ee95da8f\">melodica</a> voor het blaasinstrument met toetsen."
 
+#. name:musette de cour 
+#: DB:instrument/description:735
+#, fuzzy
+#| msgid ""
+#| "Also known as baroque musette, it was a small bagpipe used predominantly "
+#| "by French court and nobility in the 1600-1700's.<br /> For the instrument "
+#| "known as “chinese musette”, see <a href=\"/instrument/15cd573d-15a8-4f9f-"
+#| "a48f-f73218d85e14/\">suona</a>.<br /> For the oboe also known as musette, "
+#| "see <a href=\"/instrument/77b29599-96c7-4571-9fae-09e7e42b8175/\">piccolo "
+#| "oboe</a>."
+msgid ""
+"For the instrument known as \"chinese musette\", see <a href=\"/"
+"instrument/15cd573d-15a8-4f9f-a48f-f73218d85e14/\">suona</a>.<br /> For the "
+"oboe also known as musette, see <a href=\"/"
+"instrument/77b29599-96c7-4571-9fae-09e7e42b8175/\">piccolo oboe</a>.<br /> "
+"Also known as baroque musette, it was a small bagpipe used predominantly by "
+"French court and nobility in the 1600-1700's."
+msgstr ""
+"Een musette de cour, ook wel een musette baroque genoemd, is een kleine "
+"doedelzak die in de 17e en 18e eeuw aan het Franse hof populair was.<br /"
+">Zie <a href=\"/instrument/15cd573d-15a8-4f9f-a48f-f73218d85e14/\">suona</a> "
+"voor het instrument dat ook wel ‘Chinese musette’ wordt genoemd.<br />Ook de "
+"<a href=\"/instrument/77b29599-96c7-4571-9fae-09e7e42b8175/\">piccolohobo</"
+"a> wordt wel eens een musette genoemd."
+
 #. name:fiscorn 
 #: DB:instrument/description:1184
 #, fuzzy
@@ -2755,6 +2764,13 @@ msgstr ""
 "andere uitvoeringen. Ze lijken erg op de belletjes in de lijsten van sommige "
 "lijstrommels. De instrumenten zijn als sinds de oudheid in Zuidoost-Europa "
 "en Turkije bekend."
+
+#. name:veuze 
+#: DB:instrument/description:1196
+msgid ""
+"Known since atleast the 16th century, it has a long chanter, a three-"
+"segmented shoulder drone and a short blowpipe."
+msgstr ""
 
 #. name:cimpoi 
 #: DB:instrument/description:1194
@@ -6819,6 +6835,15 @@ msgstr ""
 "De liuqin wordt traditioneel gemaakt van wilgenhout, heeft vier snaren en "
 "een kleine peervormige klankkast. Hij wordt met een plectrum bespeeld en "
 "heeft een hoger geluid dan de pipa."
+
+#. name:piva 
+#: DB:instrument/description:1197
+msgid ""
+"Traditionally played with the <a href=\"/instrument/814816db-3368-4889-a8cd-"
+"aa34bd1043f0\">piffero</a> in folk ensambles, the bag is usually made of kid-"
+"leather with 2 drones: a bass and a tenor and a chanter with 7-8 finger-"
+"holes."
+msgstr ""
 
 #. name:caixa 
 #: DB:instrument/description:903
