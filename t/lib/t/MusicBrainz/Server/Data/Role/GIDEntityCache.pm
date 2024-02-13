@@ -9,6 +9,7 @@ use Test::More;
 use Try::Tiny;
 
 use DBDefs;
+use List::AllUtils qw( any );
 use MusicBrainz::Server::Data::Artist;
 use MusicBrainz::Server::Test;
 use Sql;
@@ -144,6 +145,14 @@ test 'Cache is transactional (MBS-7241)' => sub {
     $c1->sql->commit;
 
     *MusicBrainz::Server::Data::Artist::_delete_from_cache = sub { ## no critic (ProtectPrivateVars)
+        my ($self, @ids) = @_;
+
+        # For this test, we only want to override `_delete_from_cache` where
+        # it deletes artist 3.
+        unless (any { $_ == 3 } @ids) {
+            return $_delete_from_cache->($self, @ids);
+        }
+
         my $artist = $c2->model('Artist')->get_by_id(3);
 
         my $status = 'before database deletion commits, ' .
@@ -159,7 +168,7 @@ test 'Cache is transactional (MBS-7241)' => sub {
         ok($c2->cache->get('artist:3')->isa('MusicBrainz::Server::Entity::Artist'),
             '(a.) cache contains artist entity ' . $status);
 
-        $_delete_from_cache->(@_);
+        $_delete_from_cache->($self, @ids);
 
         $status = 'before database deletion commits, ' .
             'but after cache deletion';

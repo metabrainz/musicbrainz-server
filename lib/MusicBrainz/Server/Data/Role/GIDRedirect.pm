@@ -126,16 +126,24 @@ sub remove_gid_redirects
 {
     my ($self, @ids) = @_;
     my $table = $self->_gid_redirect_table;
-    $self->sql->do("DELETE FROM $table WHERE new_id IN (" . placeholders(@ids) . ')', @ids);
+    my $gids = $self->sql->select_single_column_array(<<~"SQL", \@ids);
+        DELETE FROM $table WHERE new_id = any(?) RETURNING gid
+        SQL
+    if ($self->can('_delete_from_cache')) {
+        $self->_delete_from_cache(@$gids);
+    }
 }
 
 sub update_gid_redirects
 {
     my ($self, $new_id, @old_ids) = @_;
     my $table = $self->_gid_redirect_table;
-    $self->sql->do("
-        UPDATE $table SET new_id = ?
-        WHERE new_id IN (" . placeholders(@old_ids) . ')', $new_id, @old_ids);
+    my $gids = $self->sql->select_single_column_array(<<~"SQL", $new_id, \@old_ids);
+        UPDATE $table SET new_id = ? WHERE new_id = any(?) RETURNING gid
+        SQL
+    if ($self->can('_delete_from_cache')) {
+        $self->_delete_from_cache(@$gids);
+    }
 }
 
 
