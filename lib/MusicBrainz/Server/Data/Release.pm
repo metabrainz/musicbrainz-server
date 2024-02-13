@@ -893,14 +893,20 @@ sub update {
             SQL
     }
 
-    if ($update->{events} || $update->{name}) {
-        $self->c->model('Series')->reorder_for_entities('release', $release_id);
-    }
-
     if ($update->{events} || $new_release_group_id) {
         $self->c->model('Series')->reorder_for_entities('release_group', $release_group_id);
     }
 }
+
+# This is run `after` so that cache invalidation happens first
+# (via `Data::Role::EntityCache``).
+after update => sub {
+    my ($self, $release_id, $update) = @_;
+
+    if ($update->{events} || $update->{name}) {
+        $self->c->model('Series')->reorder_for_entities('release', $release_id);
+    }
+};
 
 sub can_delete { 1 }
 

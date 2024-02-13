@@ -676,11 +676,17 @@ sub update {
     $self->sql->update_row('release_group', $row, { id => $group_id }) if %$row;
     $self->c->model('ReleaseGroupSecondaryType')->set_types($group_id, $update->{secondary_type_ids})
         if exists $update->{secondary_type_ids};
+}
+
+# This is run `after` so that cache invalidation happens first
+# (via `Data::Role::EntityCache``).
+after update => sub {
+    my ($self, $group_id, $update) = @_;
 
     if ($update->{name}) {
         $self->c->model('Series')->reorder_for_entities('release_group', $group_id);
     }
-}
+};
 
 sub can_delete
 {
