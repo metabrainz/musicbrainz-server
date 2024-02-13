@@ -55,7 +55,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-02-01 14:05+0000\n"
-"PO-Revision-Date: 2024-02-09 13:29+0000\n"
+"PO-Revision-Date: 2024-02-13 20:29+0000\n"
 "Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
 ".org>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
@@ -2448,9 +2448,9 @@ msgid ""
 "tracks that contain audio or video ({info|more info})"
 msgstr ""
 "Algunos discos contienen una o más pistas de datos después de todas las "
-"pistas de audio. Utilízalo para añadir (o eliminar) la sección de pistas de "
-"datos especiales. Solo debes añadir pistas de datos que contengan audio o "
-"vídeo ({info|más info})"
+"pistas de audio. Utiliza esta casilla para añadir (o eliminar) la sección de "
+"pistas de datos. Solo debes añadir pistas de datos que contengan audio o "
+"vídeo ({info|más información})"
 
 #: ../root/release/edit/editnote.tt:4
 msgid ""
@@ -2514,7 +2514,7 @@ msgstr "Grabaciones sugeridas:"
 
 #: ../root/release/edit/tracklist.tt:526
 msgid "Swap track titles with artist credits"
-msgstr "Intercambiar nombres de pistas y artistas."
+msgstr "Intercambiar títulos de pista y artistas"
 
 #: ../root/cdtoc/attach_artist_releases.tt:21
 #: ../root/cdtoc/attach_filter_release.tt:35 ../root/cdtoc/list.tt:15
@@ -2564,8 +2564,8 @@ msgid ""
 "The disambiguation field is used to help users distinguish between "
 "identically named releases."
 msgstr ""
-"El campo de desambiguación se utiliza para ayudar a los usuarios a "
-"distinguir entre versiones con nombres idénticos."
+"El campo de desambiguación sirve para ayudar a los usuarios a distinguir "
+"entre publicaciones con el mismo nombre."
 
 #: ../root/edit/search_macros.tt:9
 msgid ""
@@ -2573,8 +2573,8 @@ msgid ""
 "See the {doc_link|documentation} for more info about using the filters."
 msgstr ""
 "Los filtros que aparecen a continuación te permiten encontrar solo las "
-"ediciones que cumplen criterios específicos. Consulta la {doc_link|"
-"documentación} para obtener más información sobre el uso de los filtros."
+"ediciones que cumplen criterios específicos. Consulta la "
+"{doc_link|documentación} para saber más sobre el uso de los filtros."
 
 #: ../root/release/edit/information.tt:314
 msgid ""
@@ -2591,10 +2591,10 @@ msgid ""
 "technical limitations that may be addressed later, or because the "
 "information in itself has to be free-text)."
 msgstr ""
-"El propósito de este campo es añadir información que normalmente no encaja "
-"en el modelo de datos estructurado de MusicBrainz (debido a limitaciones "
-"técnicas que quizás sean arregladas más adelante, o porque la información en "
-"si misma tiene que ser un texto libre)."
+"Este campo sirve para añadir información que no tiene un sitio en el modelo "
+"de datos estructurado de MusicBrainz (ya sea por limitaciones técnicas que "
+"quizá cambien más tarde, o porque la información solo es útil como parte de "
+"un texto)."
 
 #: ../root/release/edit/information.tt:320
 msgid ""
@@ -2635,7 +2635,7 @@ msgid ""
 "1000 CE, please pad with zeros, such as “0123”."
 msgstr ""
 "El año debe tener cuatro dígitos. Si quieres introducir un año anterior a "
-"1000 AC, rellénalo con ceros, por ejemplo \"0123\"."
+"1000, añade ceros a la izquierda, por ejemplo \"0123\"."
 
 #: ../root/cdtoc/lookup.tt:14
 msgid ""
@@ -2644,10 +2644,10 @@ msgid ""
 "disc to another MusicBrainz release, or to add a new one if the search shows "
 "it is missing from the database."
 msgstr ""
-"Actualmente no hay discos en MusicBrainz asociados a la información que nos "
-"has proporcionado. Puedes buscar utilizando el formulario que aparece a "
-"continuación para asociar este disco a otra publicación de MusicBrainz, o "
-"para añadir uno nuevo si la búsqueda muestra que falta en la base de datos."
+"No hay discos en MusicBrainz asociados a la información que nos has "
+"proporcionado. Puedes usar el formulario que aparece a continuación para "
+"buscar otra publicación de MusicBrainz que asociar con este disco, o para "
+"añadir una nueva si la búsqueda indica que aún no está en la base de datos."
 
 #: ../root/artist/split.tt:10
 msgid ""
@@ -2658,8 +2658,8 @@ msgid ""
 "remove this artist in the upcoming days."
 msgstr ""
 "No hay grabaciones, grupos de publicaciones, publicaciones o pistas "
-"asociadas solo a {name}. Si estás intentando eliminar {name}, edita todos "
-"los créditos de artista de la parte inferior de la pestaña de {alias_uri|"
+"acreditadas solo a {name}. Si estás intentando eliminar {name}, edita todos "
+"los créditos de artista de la parte inferior de la {alias_uri|pestaña de "
 "alias} y elimina todas las {rel_uri|relaciones}, lo que permitirá a ModBot "
 "eliminar el artista automáticamente en unos días."
 
@@ -2683,7 +2683,7 @@ msgstr ""
 #: ../root/artist/edit_form.tt:53
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:53
 msgid "This artist has ended."
-msgstr "Este artista ya no está activo."
+msgstr "Este artista ya no existe."
 
 #: ../root/work/edit_form.tt:56
 msgid "This attribute type is only used for grouping, please select a subtype"
@@ -2693,7 +2693,7 @@ msgstr ""
 msgid ""
 "This beta test server allows testing of new features with the live database."
 msgstr ""
-"Este servidor beta permite probar mejoras y nuevas herramientas en la base "
+"Este servidor beta permite probar mejoras y nuevas opciones usando la base "
 "de datos real."
 
 #: ../root/release/edit/tracklist.tt:509
@@ -2723,8 +2723,8 @@ msgid ""
 "This field is not a place to store general background information about the "
 "release: that kind of information should go in the annotation field."
 msgstr ""
-"Este campo no debe utilizarse para dar información general sobre la "
-"publicación: el lugar correcto para estos datos es la anotación."
+"No uses la desambiguación para dar información general sobre la publicación: "
+"el lugar correcto para este tipo información es la anotación."
 
 #: ../root/artist/edit_credit.tt:12
 msgid ""
@@ -2732,10 +2732,10 @@ msgid ""
 "accepted, all tracks, recordings, releases and release groups using this "
 "artist credit will be update to use the new one."
 msgstr ""
-"Este formulario te permite editar el crédito de artista \"{ac}\". Cuando la "
-"edición sea aceptada, todas las pistas, grabaciones, lanzamientos y grupos "
-"de lanzamientos que utilicen este crédito de artista serán actualizados para "
-"usar el nuevo."
+"Este formulario te permite editar el crédito de artista \"{ac}\". Si la "
+"edición es aceptada, todas las pistas, grabaciones, publicaciones y grupos "
+"de publicaciones que utilicen este crédito de artista serán actualizados "
+"para usar el nuevo."
 
 #: ../root/artist/split.tt:29
 msgid ""
@@ -3413,7 +3413,7 @@ msgstr ""
 
 #: ../root/edit/search_macros.tt:35
 msgid "do not match"
-msgstr "no coinciden"
+msgstr "no coinciden con"
 
 #: ../root/edit/search_macros.tt:380
 msgid "does not include"
@@ -3504,10 +3504,12 @@ msgid "is a beginner"
 msgstr ""
 
 #: ../root/edit/search_macros.tt:136
+#, fuzzy
 msgid "is after"
 msgstr "mayor que"
 
 #: ../root/edit/search_macros.tt:136
+#, fuzzy
 msgid "is before"
 msgstr "menor que"
 
@@ -3521,6 +3523,7 @@ msgid "is in my subscriptions"
 msgstr "está en mis suscripciones"
 
 #: ../root/edit/search_macros.tt:153
+#, fuzzy
 msgid "is less than"
 msgstr "menor que"
 
@@ -3529,6 +3532,7 @@ msgid "is me"
 msgstr "soy yo"
 
 #: ../root/edit/search_macros.tt:153
+#, fuzzy
 msgid "is more than"
 msgstr "mayor que"
 
@@ -3556,6 +3560,7 @@ msgid "link"
 msgstr "enlace"
 
 #: ../root/edit/search_macros.tt:35
+#, fuzzy
 msgid "match"
 msgstr "cumplan"
 
@@ -3564,6 +3569,7 @@ msgid "newest first"
 msgstr "nuevas primero"
 
 #: ../root/edit/search_macros.tt:20
+#, fuzzy
 msgid "non-auto-edits"
 msgstr "no autoediciones"
 
@@ -3590,7 +3596,7 @@ msgstr "grabación"
 #: ../root/cdtoc/attach_list.tt:18 ../root/cdtoc/attach_list.tt:92
 #: ../root/cdtoc/list.tt:82
 msgid "show tracklist"
-msgstr "lista de pistas"
+msgstr "mostrar lista de pistas"
 
 #: ../root/release/edit/recordings.tt:37
 msgid "track"
@@ -3620,7 +3626,7 @@ msgstr "{artist} como {name}"
 #: ../root/cdtoc/attach_artist_releases.tt:45
 msgid "{artist} has no releases which have only {n} track."
 msgid_plural "{artist} has no releases which have {n} tracks."
-msgstr[0] "{artist} no tiene publicaciones con solo {n} pista."
+msgstr[0] "{artist} no tiene publicaciones con solo una pista."
 msgstr[1] "{artist} no tiene publicaciones con {n} pistas."
 msgstr[2] "{artist} no tiene publicaciones con {n} pistas."
 
@@ -3683,7 +3689,7 @@ msgid ""
 "{valink|Various Artists} should very rarely be used on recordings, make sure "
 "that the artist has been entered correctly."
 msgstr ""
-"{valink|Various Artists} no suele ser el artista adecuado para una "
+"{valink|Varios Artistas} no suele ser el artista adecuado para una "
 "grabación. Asegúrate de que has introducido el artista correctamente."
 
 #: ../root/components/common-macros.tt:542
@@ -3721,7 +3727,7 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Controller.pm:37
 #, perl-brace-format
 msgid "'{id}' is not a valid MusicBrainz ID"
-msgstr "'{id}' no es una ID de MusicBrainz válida"
+msgstr "“{id}” no es una ID de MusicBrainz válida"
 
 #: ../lib/MusicBrainz/Server/Controller.pm:125
 #, perl-brace-format
@@ -3763,19 +3769,19 @@ msgstr[2] ""
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:60
 msgid "The user ID is missing or is in an invalid format."
-msgstr "No se encuentra la ID de usuario, o está en un formato no válido."
+msgstr "La ID de usuario no fue suministrada, o tiene un formato no válido."
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:70
 msgid "The email address is missing."
-msgstr "No se encuentra la dirección de correo."
+msgstr "La dirección de correo no fue suministrada."
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:80
 msgid "The time is missing or is in an invalid format."
-msgstr "No se encuentra la hora, o está en un formato no válido."
+msgstr "La hora no fue suministrada, o tiene un formato no válido."
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:91
 msgid "The verification key is missing."
-msgstr "No se encuentra la clave de verificación."
+msgstr "La clave de verificación no fue suministrada."
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:102
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:278
@@ -3872,13 +3878,13 @@ msgstr "No puedes fusionar un artista de propósito especial con otro artista"
 #: ../lib/MusicBrainz/Server/Controller/Artist.pm:743
 msgid "You cannot merge into Deleted Artist"
 msgstr ""
-"No puedes fusionar otro artista con la entidad para artistas eliminados "
-"(Deleted Artist)."
+"No puedes fusionar otro artista con la entidad para artistas eliminados “"
+"Deleted Artist”."
 
 #: ../lib/MusicBrainz/Server/Controller/AutoEditorElections.pm:87
 #, perl-brace-format
 msgid "'{id}' is not a valid election ID"
-msgstr "'{id}' no es una ID de elección válida"
+msgstr "“{id}” no es una ID de elección válida"
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:79
 msgid "Please provide a CD TOC ID."
@@ -5919,8 +5925,8 @@ msgid ""
 "For information about the account deletion process, please read the {uri|"
 "account FAQ}."
 msgstr ""
-"Para obtener información sobre el proceso de eliminación de cuentas lee {uri|"
-"las preguntas frecuentes sobre cuentas}."
+"Para saber más sobre el proceso de eliminación de cuentas lee {uri|las "
+"preguntas frecuentes sobre cuentas}."
 
 #: ../root/account/DeleteOwnAccount.js:54
 msgid ""
@@ -6040,9 +6046,9 @@ msgid ""
 "receive this email or still have problems logging in, please {link|contact "
 "us}."
 msgstr ""
-"Te hemos enviado las instrucciones para recuperar tu contraseña. Si no "
-"recibes el correo o sigues teniendo problemas para conectarte, {link|"
-"avísanos}."
+"Te hemos enviado las instrucciones para restablecer tu contraseña. Si no "
+"recibes el correo o sigues teniendo problemas para conectarte, "
+"{link|avísanos}."
 
 #: ../root/account/LostUsername.js:27 ../root/account/LostUsername.js:28
 #: ../root/account/LostUsernameSent.js:15
@@ -6069,8 +6075,8 @@ msgid ""
 "us}."
 msgstr ""
 "Te hemos enviado la información sobre tu cuenta de MusicBrainz. Si no "
-"recibes el correo o sigues teniendo problemas para conectarte, {link|"
-"avísanos}."
+"recibes el correo o sigues teniendo problemas para conectarte, "
+"{link|avísanos}."
 
 #: ../root/account/Preferences.js:34 ../root/account/PreferencesSaved.js:18
 #: ../root/components/UserAccountTabs.js:82
@@ -9197,7 +9203,9 @@ msgstr "Votos a favor / en contra:"
 #: ../root/elections/ElectionDetails.js:81
 msgid ""
 "The tally of votes cast will only be shown when the election is complete."
-msgstr "El recuento de votos solo se mostrará cuando la elección termine."
+msgstr ""
+"El recuento de votos será visible cuando termine la votación en esta "
+"elección."
 
 #: ../root/elections/ElectionDetails.js:89
 #: ../root/elections/ElectionTable/index.js:23
@@ -9216,7 +9224,7 @@ msgstr "Fecha de inicio"
 
 #: ../root/elections/ElectionVotes.js:27
 msgid "Vote"
-msgstr "Votar"
+msgstr "Voto"
 
 #: ../root/elections/ElectionVotes.js:38
 msgid "(private)"
@@ -9224,8 +9232,7 @@ msgstr "(privado)"
 
 #: ../root/elections/ElectionVoting.js:27
 msgid "To find out if you can vote for this candidate, please {url|log in}."
-msgstr ""
-"Para comprobar si puedes votar por este candidato, {url|inicia sesión}."
+msgstr "Para comprobar si puedes votar por este candidato, {url|inicia sesión}."
 
 #: ../root/elections/ElectionVoting.js:36
 msgid "You cannot vote for this candidate, because you are not an auto-editor."
@@ -9244,8 +9251,8 @@ msgid ""
 "been found."
 msgstr ""
 "La votación aún no ha comenzado. Si quieres apoyar a este candidato, puedes "
-"avalar su nominación.Si no lo apoyas, ten en cuenta que no podrás votar No "
-"(o abstenerte) hasta que haya dos avales."
+"avalar su nominación. Si no lo apoyas, ten en cuenta que no podrás votar No ("
+"o abstenerte) hasta que haya dos avales."
 
 #: ../root/elections/ElectionVoting.js:53
 msgid "Voting is closed."
@@ -9269,7 +9276,7 @@ msgstr "Votar NO"
 
 #: ../root/elections/ElectionVoting.js:94
 msgid "Abstain"
-msgstr "Abstención"
+msgstr "Abstenerse"
 
 #: ../root/elections/ElectionVoting.js:111
 msgid "Cancel the election"
@@ -9282,7 +9289,7 @@ msgstr "Elecciones a autoeditor"
 
 #: ../root/elections/Index.js:23
 msgid "No elections found."
-msgstr "No se encontraron elecciones."
+msgstr "No hay elecciones."
 
 #: ../root/elections/Nominate.js:25
 msgid ""
@@ -9301,7 +9308,7 @@ msgstr "Elección a autoeditor #{no}"
 
 #: ../root/elections/Show.js:29
 msgid "Back to elections"
-msgstr "Volver a las elecciones"
+msgstr "Volver a la lista de elecciones"
 
 #: ../root/elections/Show.js:34
 msgid "Votes cast"
@@ -9325,7 +9332,7 @@ msgstr "{collection} de {owner}"
 #: ../root/entity/Collections.js:62
 msgid "plus {n} other private collection"
 msgid_plural "plus {n} other private collections"
-msgstr[0] "y {n} colección privada más"
+msgstr[0] "y una colección privada más"
 msgstr[1] "y {n} colecciones privadas más"
 msgstr[2] "y {n} colecciones privadas más"
 
@@ -9346,12 +9353,12 @@ msgstr "{mbid|<abbr title=\"ID de MusicBrainz\">MBID</abbr>}:"
 
 #: ../root/entity/Details.js:109 ../root/report/components/InstrumentList.js:69
 msgid "Last updated"
-msgstr "Última actualización:"
+msgstr "Última actualización"
 
 #: ../root/entity/Details.js:113
 msgctxt "last updated"
 msgid "(unknown)"
-msgstr "(desconocido)"
+msgstr "(sin datos)"
 
 #: ../root/entity/Details.js:117
 msgid "Permanent link:"
@@ -9367,7 +9374,7 @@ msgstr ""
 
 #: ../root/entity/Edits.js:53 ../root/entity/Edits.js:57
 msgid "Open Edits for {name}"
-msgstr "Ediciones abiertas para {name}"
+msgstr "Ediciones pendientes para {name}"
 
 #: ../root/entity/Edits.js:54 ../root/entity/Edits.js:58
 msgid "Edits for {name}"
@@ -9387,6 +9394,8 @@ msgid ""
 "Sorry, we could not find an area with that MusicBrainz ID. You may wish to "
 "try and {search_url|search for it} instead."
 msgstr ""
+"No hemos encontrado un área con esa ID de MusicBrainz. Siempre puedes "
+"{search_url|iniciar una búsqueda}."
 
 #: ../root/entity/NotFound.js:28
 msgctxt "header"
@@ -9398,8 +9407,8 @@ msgid ""
 "Sorry, we could not find an artist with that MusicBrainz ID. You may wish to "
 "try and {search_url|search for it} instead."
 msgstr ""
-"No hemos encontrado un artista con esa ID de MusicBrainz. Puedes probar a "
-"{search_url|usar la búsqueda}."
+"No hemos encontrado un artista con esa ID de MusicBrainz. Siempre puedes "
+"{search_url|iniciar una búsqueda}."
 
 #: ../root/entity/NotFound.js:37
 msgctxt "header"
@@ -9438,8 +9447,8 @@ msgid ""
 "Sorry, we could not find an edit with that edit ID. You may wish to try and "
 "perform an {search_url|edit search} instead."
 msgstr ""
-"No hemos encontrado una edición con esa ID. Puedes probar a {search_url|usar "
-"la búsqueda}."
+"No hemos encontrado una edición con esa ID. Puedes {search_url|iniciar una "
+"búsqueda}."
 
 #: ../root/entity/NotFound.js:66
 msgctxt "header"
@@ -9448,11 +9457,11 @@ msgstr "Elección no encontrada"
 
 #: ../root/entity/NotFound.js:67
 msgid "Sorry, we could not find this election."
-msgstr "No hemos encontrado esta elección"
+msgstr "No hemos encontrado esta elección."
 
 #: ../root/entity/NotFound.js:69
 msgid "Back to all elections."
-msgstr "Volver a las elecciones"
+msgstr "Ver la lista de elecciones."
 
 #: ../root/entity/NotFound.js:72
 msgctxt "header"
@@ -9464,6 +9473,8 @@ msgid ""
 "Sorry, we could not find an event with that MusicBrainz ID. You may wish to "
 "try and {search_url|search for it} instead."
 msgstr ""
+"No hemos encontrado un evento con esa ID de MusicBrainz. Siempre puedes "
+"{search_url|iniciar una búsqueda}."
 
 #: ../root/entity/NotFound.js:81
 msgctxt "header"
@@ -9486,6 +9497,8 @@ msgid ""
 "Sorry, we could not find an instrument with that MusicBrainz ID. You may "
 "wish to try and {search_url|search for it} instead."
 msgstr ""
+"No hemos encontrado un instrumento con esa ID de MusicBrainz. Siempre puedes "
+"{search_url|iniciar una búsqueda}."
 
 #: ../root/entity/NotFound.js:99
 msgctxt "header"
@@ -9498,7 +9511,7 @@ msgid ""
 "with a recording, please {search_url|search for the recording} and add it."
 msgstr ""
 "Este ISRC no está asociado a ninguna grabación. Si quieres asociarlo a una, "
-"{search_url|busca la grabación} y hazlo."
+"{search_url|busca la grabación} y añádelo."
 
 #: ../root/entity/NotFound.js:109
 msgctxt "header"
@@ -9510,8 +9523,8 @@ msgid ""
 "This ISWC is not associated with any works. If you wish to associate it with "
 "a work, please {search_url|search for the work} and add it."
 msgstr ""
-"Este ISWC no está asociado con ninguna obra. Si quieres asociarlo a una "
-"obra, {search_url|busca la obra} y añádelo."
+"Este ISWC no está asociado a ninguna obra. Si quieres asociarlo a una, "
+"{search_url|busca la obra} y añádelo."
 
 #: ../root/entity/NotFound.js:118
 msgctxt "header"
@@ -9523,8 +9536,8 @@ msgid ""
 "Sorry, we could not find a label with that MusicBrainz ID. You may wish to "
 "try and {search_url|search for it} instead."
 msgstr ""
-"No hemos encontrado una discográfica con esa ID de MusicBrainz. Puedes "
-"probar a {search_url|usar la búsqueda}."
+"No hemos encontrado una discográfica con esa ID de MusicBrainz. Siempre "
+"puedes {search_url|iniciar una búsqueda}."
 
 #: ../root/entity/NotFound.js:127
 msgctxt "header"
@@ -9536,6 +9549,8 @@ msgid ""
 "Sorry, we could not find a MusicBrainz entity with that ID. You may wish to "
 "try and {search_url|search for it} instead."
 msgstr ""
+"No hemos encontrado una entidad con esa ID de MusicBrainz. Siempre puedes "
+"{search_url|iniciar una búsqueda}."
 
 #: ../root/entity/NotFound.js:136
 msgctxt "header"
@@ -9547,6 +9562,8 @@ msgid ""
 "Sorry, we could not find a place with that MusicBrainz ID. You may wish to "
 "try and {search_url|search for it} instead."
 msgstr ""
+"No hemos encontrado un lugar con esa ID de MusicBrainz. Siempre puedes "
+"{search_url|iniciar una búsqueda}."
 
 #: ../root/entity/NotFound.js:145
 msgctxt "header"
@@ -9558,8 +9575,8 @@ msgid ""
 "Sorry, we could not find a recording with that MusicBrainz ID. You may wish "
 "to try and {search_url|search for it} instead."
 msgstr ""
-"No hemos encontrado una grabación con esa ID de MusicBrainz. Puedes probar a "
-"{search_url|usar la búsqueda}."
+"No hemos encontrado una grabación con esa ID de MusicBrainz. Siempre puedes "
+"{search_url|iniciar una búsqueda}."
 
 #: ../root/entity/NotFound.js:154
 msgctxt "header"
@@ -9590,8 +9607,8 @@ msgid ""
 "Sorry, we could not find a release with that MusicBrainz ID. You may wish to "
 "try and {search_url|search for it} instead."
 msgstr ""
-"No hemos encontrado una publicación con esa ID de MusicBrainz. Puedes probar "
-"a {search_url|usar la búsqueda}."
+"No hemos encontrado una publicación con esa ID de MusicBrainz. Siempre "
+"puedes {search_url|iniciar una búsqueda}."
 
 #: ../root/entity/NotFound.js:181
 msgctxt "header"
@@ -9604,7 +9621,7 @@ msgid ""
 "wish to try and {search_url|search for it} instead."
 msgstr ""
 "No hemos encontrado un grupo de publicaciones con esa ID de MusicBrainz. "
-"Puedes probar a {search_url|usar la búsqueda}."
+"Siempre puedes {search_url|iniciar una búsqueda}."
 
 #: ../root/entity/NotFound.js:190
 msgctxt "singular, header"
@@ -9616,6 +9633,8 @@ msgid ""
 "Sorry, we could not find a series with that MusicBrainz ID. You may wish to "
 "try and {search_url|search for it} instead."
 msgstr ""
+"No hemos encontrado una serie con esa ID de MusicBrainz. Siempre puedes "
+"{search_url|iniciar una búsqueda}."
 
 #: ../root/entity/NotFound.js:199
 msgctxt "header"
@@ -9627,6 +9646,8 @@ msgid ""
 "Sorry, we could not find neither a recording nor a track with that "
 "MusicBrainz ID. You may wish to try and {search_url|search for it} instead."
 msgstr ""
+"No hemos encontrado una grabación ni una pista con esa ID de MusicBrainz. "
+"Siempre puedes {search_url|iniciar una búsqueda}."
 
 #: ../root/entity/NotFound.js:209
 msgctxt "header"
@@ -9647,8 +9668,8 @@ msgid ""
 "Sorry, we could not find an editor with that name. You may wish to try and "
 "{search_url|search for them} instead."
 msgstr ""
-"No hemos encontrado un usuario con ese nombre. Puedes probar a {search_url|"
-"usar la búsqueda}."
+"No hemos encontrado un usuario con ese nombre. Siempre puedes {search_url|"
+"iniciar una búsqueda}."
 
 #: ../root/entity/NotFound.js:224
 msgctxt "header"
@@ -9660,23 +9681,23 @@ msgid ""
 "Sorry, we could not find a work with that MusicBrainz ID. You may wish to "
 "try and {search_url|search for it} instead."
 msgstr ""
-"No hemos encontrado una obra con esa ID de MusicBrainz. Puedes probar a "
-"{search_url|usar la búsqueda}."
+"No hemos encontrado una obra con esa ID de MusicBrainz. Siempre puedes "
+"{search_url|iniciar una búsqueda}."
 
 #: ../root/entity/Ratings.js:68
 msgid "{count} private rating not listed."
 msgid_plural "{count} private ratings not listed."
-msgstr[0] "{count} valoración privada no indicada."
-msgstr[1] "{count} valoraciones privadas no indicada."
-msgstr[2] "{count} valoraciones privadas no indicada."
+msgstr[0] "Una calificación privada no indicada."
+msgstr[1] "{count} calificaciones privadas no indicadas."
+msgstr[2] "{count} calificaciones privadas no indicadas."
 
 #: ../root/entity/Ratings.js:75
 msgid "Average rating:"
-msgstr "Puntuación media:"
+msgstr "Calificación media:"
 
 #: ../root/entity/Ratings.js:81
 msgid "{link} has no ratings."
-msgstr "{link} no tiene valoraciones"
+msgstr "{link} no tiene calificaciones."
 
 #: ../root/entity/Ratings.js:97
 msgid "Most recent"
@@ -9702,9 +9723,9 @@ msgstr[2] ""
 msgid "There is currently {num} user subscribed to edits that {user} makes:"
 msgid_plural ""
 "There are currently {num} users subscribed to edits that {user} makes:"
-msgstr[0] "Hay {num} usuario suscrito a las ediciones realizadas por {user}."
-msgstr[1] "Hay {num} usuarios suscritos a las ediciones realizadas por {user}."
-msgstr[2] "Hay {num} usuarios suscritos a las ediciones realizadas por {user}."
+msgstr[0] "Hay un usuario suscrito a las ediciones realizadas por {user}:"
+msgstr[1] "Hay {num} usuarios suscritos a las ediciones realizadas por {user}:"
+msgstr[2] "Hay {num} usuarios suscritos a las ediciones realizadas por {user}:"
 
 #: ../root/entity/Subscribers.js:92
 msgid "There is currently {num} user subscribed to {entity}:"
@@ -9733,7 +9754,7 @@ msgstr "No hay usuarios suscritos a tus ediciones."
 
 #: ../root/entity/Subscribers.js:138
 msgid "There are currently no users subscribed to edits that {user} makes."
-msgstr "No hay usuarios suscritos a las ediciones realizadas por {user}."
+msgstr "No hay usuarios suscritos a las ediciones de {user}."
 
 #: ../root/entity/Subscribers.js:143
 msgid "There are currently no users subscribed to {entity}."
@@ -9901,9 +9922,9 @@ msgstr "ISRC “{isrc}”"
 #: ../root/isrc/Index.js:48
 msgid "Associated with {num} recording"
 msgid_plural "Associated with {num} recordings"
-msgstr[0] "Asociadas con {num} grabación"
-msgstr[1] "Asociadas con {num} grabaciones"
-msgstr[2] "Asociadas con {num} grabaciones"
+msgstr[0] "Asociado a una grabación"
+msgstr[1] "Asociado a {num} grabaciones"
+msgstr[2] "Asociado a {num} grabaciones"
 
 #: ../root/iswc/Index.js:31 ../root/iswc/Index.js:34
 msgid "ISWC “{iswc}”"
@@ -9912,7 +9933,7 @@ msgstr "ISWC “{iswc}”"
 #: ../root/iswc/Index.js:39
 msgid "Associated with {num} work"
 msgid_plural "Associated with {num} works"
-msgstr[0] "Asociado a {num} obra"
+msgstr[0] "Asociado a una obra"
 msgstr[1] "Asociado a {num} obras"
 msgstr[2] "Asociado a {num} obras"
 
@@ -10148,7 +10169,7 @@ msgstr ""
 
 #: ../root/layout/components/BottomMenu.js:309 ../root/main/index.js:185
 msgid "FAQs"
-msgstr "FAQs"
+msgstr "Preguntas frecuentes"
 
 #: ../root/layout/components/BottomMenu.js:313
 msgid "Documentation index"
@@ -10367,7 +10388,7 @@ msgstr ""
 #: ../root/layout/components/sidebar/CollectionLinks.js:57
 msgid "Found in {num} user collection"
 msgid_plural "Found in {num} user collections"
-msgstr[0] "En {num} colección"
+msgstr[0] "En una colección"
 msgstr[1] "En {num} colecciones"
 msgstr[2] "En {num} colecciones"
 
@@ -10435,11 +10456,11 @@ msgstr "Fundación:"
 
 #: ../root/layout/components/sidebar/LabelSidebar.js:73
 msgid "Defunct:"
-msgstr "Desaparecida:"
+msgstr "Cierre:"
 
 #: ../root/layout/components/sidebar/LastUpdated.js:23
 msgid "Last updated on {date}"
-msgstr "Última actualización el {date}"
+msgstr "Última actualización: {date}"
 
 #: ../root/layout/components/sidebar/LastUpdated.js:28
 msgid "Last updated on an unknown date"
@@ -10457,7 +10478,7 @@ msgstr ""
 #: ../root/layout/components/sidebar/PlaceSidebar.js:67
 msgctxt "place"
 msgid "Opened"
-msgstr "Abierto"
+msgstr "Apertura"
 
 #: ../root/layout/components/sidebar/PlaceSidebar.js:76
 msgctxt "place"
@@ -10467,7 +10488,7 @@ msgstr "Cierre"
 #: ../root/layout/components/sidebar/PlaceSidebar.js:77
 msgctxt "place"
 msgid "Closed"
-msgstr "Cerrada"
+msgstr "Cierre"
 
 #: ../root/layout/components/sidebar/PlayOnListenBrainzButton.js:59
 msgid "ListenBrainz"
@@ -10555,11 +10576,11 @@ msgstr "Licencia"
 #: ../root/static/scripts/release/components/MediumTable.js:88
 #: ../root/utility/tableColumns.js:466
 msgid "Rating"
-msgstr "Valoración"
+msgstr "Calificación"
 
 #: ../root/layout/components/sidebar/SidebarRating.js:33
 msgid "see all ratings"
-msgstr "ver todas las valoraciones"
+msgstr "ver todas las calificaciones"
 
 #: ../root/layout/components/sidebar/SidebarTags.js:52
 #: ../root/static/scripts/common/components/TagEditor.js:682
@@ -10596,7 +10617,7 @@ msgstr "Ver todas las etiquetas"
 
 #: ../root/layout/components/sidebar/WorkSidebar.js:60
 msgid "Work information"
-msgstr "Información de obra"
+msgstr "Información de la obra"
 
 #: ../root/layout/index.js:38
 msgid "Birthday cakes"
@@ -10647,8 +10668,8 @@ msgid ""
 "Found a problem on our site? Please {report|report a bug} and include any "
 "error message that is shown above."
 msgstr ""
-"¿Has encontrado un problema en la página? {report|Infórmanos}, e incluye "
-"todo mensaje de error indicado arriba."
+"¿Has encontrado un problema en la página? {report|Infórmanos}, incluyendo el "
+"mensaje de error si lo hay."
 
 #: ../root/main/error/Error400.js:52 ../root/main/error/TimeoutError.js:37
 msgid "Technical information"
@@ -10667,7 +10688,7 @@ msgid ""
 "You must first {url|add and verify your email address} before being able to "
 "edit or add anything to the database."
 msgstr ""
-"Debes {url|añadir y/o verificar tu dirección de correo} para poder editar la "
+"Debes {url|añadir y verificar tu dirección de correo} para poder editar la "
 "base de datos."
 
 #: ../root/main/error/Error401.js:39 ../root/user/Login.js:90
@@ -10701,13 +10722,15 @@ msgstr ""
 #: ../root/main/error/Error404.js:40
 #: ../root/main/error/components/ErrorInfo.js:28
 msgid "Error message: "
-msgstr "Mensaje de error:"
+msgstr "Mensaje de error: "
 
 #: ../root/main/error/Error404.js:52
 msgid ""
 "Found a broken link on our site? Please {report|report a bug} and include "
 "any error message that is shown above."
 msgstr ""
+"¿Has encontrado un enlace roto? {report|Infórmanos}, incluyendo el mensaje "
+"de error si lo hay."
 
 #: ../root/main/error/Error500.js:37
 msgid "Internal server error"
@@ -10741,8 +10764,8 @@ msgid ""
 "If the problem persists, please {report|report a bug} and include any error "
 "message that is shown above."
 msgstr ""
-"Si el problema no se soluciona, {report|infórmanos}, e incluye todo mensaje "
-"de error indicado arriba."
+"Si el problema no se soluciona, {report|infórmanos}, incluyendo el mensaje "
+"de error si lo hay."
 
 #: ../root/main/error/Error503.js:13
 msgid "System busy"
@@ -10777,8 +10800,8 @@ msgid ""
 "In order to view this page, please visit the main server at {mb|https://"
 "musicbrainz.org/}."
 msgstr ""
-"Para ver esta página, visita el servidor principal en {mb|https://"
-"musicbrainz.org/}."
+"Para ver esta página, visita el servidor principal en {mb|https://musicbrainz"
+".org/}."
 
 #: ../root/main/error/TimeoutError.js:25
 msgid "Request timed out"
@@ -10802,11 +10825,11 @@ msgstr "Servidor:"
 
 #: ../root/main/error/components/ErrorEnvironment.js:42
 msgid "Interface language:"
-msgstr "Idioma de la interfaz."
+msgstr "Idioma de la interfaz:"
 
 #: ../root/main/error/components/ErrorEnvironment.js:55
 msgid "Request data:"
-msgstr "Datos de solicitud:"
+msgstr "Datos de la solicitud:"
 
 #: ../root/main/error/components/ErrorInfo.js:22
 #: ../root/report/ReportNotAvailable.js:13
@@ -10870,8 +10893,7 @@ msgstr ""
 #: ../root/main/index.js:91
 msgid ""
 "{about|More Information} &#x2014; {faq|FAQs} &#x2014; {contact|Contact Us}"
-msgstr ""
-"{about|Más información} &#x2014; {faq|FAQs} &#x2014; {contact|Contacto}"
+msgstr "{about|Más información} &#x2014; {faq|FAQs} &#x2014; {contact|Contacto}"
 
 #: ../root/main/index.js:103
 msgid ""
@@ -10880,8 +10902,8 @@ msgid ""
 "MusicBrainz {free|free and open source}."
 msgstr ""
 "MusicBrainz es operada por la {uri|MetaBrainz Foundation}, una corporación "
-"californiana sin fines de lucro, exenta de impuestos 501(c)(3) dedicada a "
-"mantener a MusicBrainz {free|libre y de código abierto}."
+"californiana sin fines de lucro (501(c)(3)) dedicada a mantener MusicBrainz "
+"{free|libre y de código abierto}."
 
 #: ../root/main/index.js:116
 msgid "MetaBrainz blog"
@@ -10889,7 +10911,7 @@ msgstr "Blog de MetaBrainz"
 
 #: ../root/main/index.js:121
 msgid "Latest posts:"
-msgstr "Últimas entradas"
+msgstr "Últimas entradas:"
 
 #: ../root/main/index.js:133
 msgid "Read more »"
@@ -10934,7 +10956,7 @@ msgid ""
 "released into the <strong>Public Domain</strong> and can be downloaded and "
 "used <strong>for free</strong>."
 msgstr ""
-"La mayor parte de la información de la <strong>Base de datos de MusicBrainz</"
+"La mayor parte de la información de la <strong>base de datos de MusicBrainz</"
 "strong> está publicada bajo <strong>dominio público</strong> y puede "
 "descargarse y usarse <strong>gratuitamente</strong>."
 
@@ -10947,8 +10969,8 @@ msgid ""
 "Use our <strong>XML web service</strong> or <strong>development libraries</"
 "strong> to create your own MusicBrainz-enabled applications."
 msgstr ""
-"Usa nuestro <strong>servicio web XML</strong> o <strong>las librerías de "
-"desarrollo</strong> para crear tus propias aplicaciones usando MusicBrainz."
+"Usa nuestra <strong>API XML</strong> o <strong>las librerías de desarrollo</"
+"strong> para crear tus propias aplicaciones usando MusicBrainz."
 
 #: ../root/main/index.js:248
 msgid "Recent additions"
@@ -11038,7 +11060,7 @@ msgstr "IPI del artista:"
 
 #: ../root/otherlookup/OtherLookupForm.js:87
 msgid "Artist ISNI:"
-msgstr "Artista ISNI:"
+msgstr "ISNI del artista:"
 
 #: ../root/otherlookup/OtherLookupForm.js:92
 msgid "Label IPI:"
@@ -11074,11 +11096,11 @@ msgstr ""
 
 #: ../root/place/PlaceMap.js:47
 msgid "A map cannot be shown because this place has no coordinates."
-msgstr "Un mapa no puede ser mostrado porque este lugar no tiene coordenadas."
+msgstr "No podemos mostrar un mapa porque este lugar no tiene coordenadas."
 
 #: ../root/place/PlaceMerge.js:28 ../root/place/PlaceMerge.js:30
 msgid "Merge places"
-msgstr "Combinar lugares"
+msgstr "Fusionar lugares"
 
 #: ../root/place/PlaceMerge.js:32
 msgid ""
@@ -11146,7 +11168,7 @@ msgstr ""
 
 #: ../root/recording/RecordingIndex.js:176
 msgid "Appears on releases"
-msgstr "Aparece en estas publicaciones:"
+msgstr "Aparece en estas publicaciones"
 
 #: ../root/recording/RecordingIndex.js:184
 msgid "No releases found which feature this recording."
