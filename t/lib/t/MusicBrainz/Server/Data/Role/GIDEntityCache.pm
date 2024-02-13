@@ -186,7 +186,7 @@ test 'Cache is transactional (MBS-7241)' => sub {
             '(b.) concurrent get_by_gid returns artist ' . $status);
 
         is($c2->cache->get('artist:3'), undef,
-            '(b.) cache is not repopulated after concurrent get_by_gid' .
+            '(b.) cache is not repopulated after concurrent get_by_gid ' .
             $status);
     };
 
