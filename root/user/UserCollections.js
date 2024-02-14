@@ -105,28 +105,28 @@ const CollectionsEntityTypeSection = ({
       const typeColumn = defineTypeColumn({typeContext: 'collection_type'});
       const sizeColumn:
         ColumnOptions<CollectionT, number> = {
-          Header: formatPluralEntityTypeName(type),
           accessor: x => x.entity_count,
+          Header: formatPluralEntityTypeName(type),
           id: 'size',
         };
       const collaboratorsColumn:
         ColumnOptions<CollectionT, $ReadOnlyArray<EditorT>> = {
+          accessor: x => x.collaborators,
           Cell: ({cell: {value}}) => (
             formatCollaboratorNumber(value, activeUserId)
           ),
           Header: l('Collaborators'),
-          accessor: x => x.collaborators,
           id: 'collaborators',
         };
       const privacyColumn:
         ColumnOptions<CollectionT, boolean> = {
+          accessor: x => x.public,
           Cell: ({row: {original}}) => formatPrivacy(
             original,
             activeUserId,
             isCollaborative,
           ),
           Header: l('Privacy'),
-          accessor: x => x.public,
           id: 'privacy',
         };
       const actionsColumn = defineActionsColumn({
