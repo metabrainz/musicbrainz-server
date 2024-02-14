@@ -111,7 +111,7 @@ test('action: set-credit', function (t) {
 test('action: update-target-type', function (t) {
   t.plan(2);
 
-  let initialState = createInitialState({
+  const initialState = createInitialState({
     ...commonInitialState,
     initialRelationship: newArtistRecordingRelationship,
     source: recording,
