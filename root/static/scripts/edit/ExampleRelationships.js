@@ -14,7 +14,7 @@ MB.ExampleRelationshipsEditor = (function (ERE) {
   let jsRoot;
 
   // Private methods
-  var searchUrl;
+  let searchUrl;
 
   ERE.init = function (config) {
     type0 = config.type0;
@@ -26,9 +26,9 @@ MB.ExampleRelationshipsEditor = (function (ERE) {
 
     ERE.viewModel = new ViewModel();
 
-    var autocomplete = MB.Control.EntityAutocomplete({
-      inputs: $('span.autocomplete'),
+    const autocomplete = MB.Control.EntityAutocomplete({
       entity: type0,
+      inputs: $('span.autocomplete'),
       setEntity: ERE.viewModel.selectedEntityType,
     });
     ERE.viewModel.selectedEntityType.subscribe(autocomplete.changeEntity);
@@ -66,7 +66,7 @@ MB.ExampleRelationshipsEditor = (function (ERE) {
   };
 
   ERE.Example = function (name, relationship) {
-    var self = this;
+    const self = this;
 
     self.name = ko.observable(name);
     self.relationship = relationship;
@@ -79,14 +79,10 @@ MB.ExampleRelationshipsEditor = (function (ERE) {
 
   const ViewModel = function () {
     return {
-      examples: ko.observableArray(),
       availableEntityTypes: ko.observableArray(),
-      selectedEntityType: ko.observable(),
       currentExample: {
-        name: ko.observable(),
-        relationship: ko.observable(),
         add: function () {
-          var ce = this.currentExample;
+          const ce = this.currentExample;
 
           this.examples.push(
             new ERE.Example(ce.name(), ce.relationship()),
@@ -96,8 +92,12 @@ MB.ExampleRelationshipsEditor = (function (ERE) {
           ce.relationship(null);
           ce.possibleRelationships.clear();
         },
+        name: ko.observable(),
         possibleRelationships: new RelationshipSearcher(),
+        relationship: ko.observable(),
       },
+      examples: ko.observableArray(),
+      selectedEntityType: ko.observable(),
     };
   };
 
@@ -107,7 +107,7 @@ MB.ExampleRelationshipsEditor = (function (ERE) {
 
 
   const RelationshipSearcher = function () {
-    var self = this;
+    const self = this;
 
     self.query = ko.observable();
     self.error = ko.observable();
@@ -115,14 +115,14 @@ MB.ExampleRelationshipsEditor = (function (ERE) {
     self.results = ko.observableArray();
 
     self.search = function () {
-      var possible = this.currentExample.possibleRelationships;
+      const possible = this.currentExample.possibleRelationships;
 
       request({url: searchUrl(possible.query())})
         .fail(function (jqxhr, status, error) {
           self.error('Lookup failed: ' + error);
         })
         .done(function (data) {
-          var searchResultType = data.entityType.replace('-', '_');
+          const searchResultType = data.entityType.replace('-', '_');
 
           if (!(searchResultType === type0 ||
                 searchResultType === type1)) {
@@ -132,7 +132,7 @@ MB.ExampleRelationshipsEditor = (function (ERE) {
             return;
           }
 
-          var relationships = data.relationships.filter(
+          const relationships = data.relationships.filter(
             x => x.linkTypeID === linkTypeID,
           );
 
@@ -152,12 +152,12 @@ MB.ExampleRelationshipsEditor = (function (ERE) {
                 id: rel.id,
                 phrase: rel.verbosePhrase,
                 source: {
-                  name: source.name,
                   mbid: source.gid,
+                  name: source.name,
                 },
                 target: {
-                  name: target.name,
                   mbid: target.gid,
+                  name: target.name,
                 },
               });
             }
