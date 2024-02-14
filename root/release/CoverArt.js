@@ -11,6 +11,7 @@ import * as React from 'react';
 
 import {Artwork} from '../components/Artwork.js';
 import RequestLogin from '../components/RequestLogin.js';
+import {RELEASE_STATUS_PSEUDORELEASE} from '../constants.js';
 import {SanitizedCatalystContext} from '../context.mjs';
 import EntityLink from '../static/scripts/common/components/EntityLink.js';
 import {commaOnlyListText}
@@ -132,12 +133,27 @@ const CoverArt = ({
           </p>
         </>
       ) : (
-        <p>
-          {exp.l(
-            'We do not currently have any cover art for {release}.',
-            {release: <EntityLink entity={release} />},
-          )}
-        </p>
+        <>
+          <p>
+            {exp.l(
+              'We do not currently have any cover art for {release}.',
+              {release: <EntityLink entity={release} />},
+            )}
+          </p>
+          {release.status?.id === RELEASE_STATUS_PSEUDORELEASE ? (
+            <p>
+              {exp.l(
+                `Keep in mind pseudo-releases generally shouldn’t have
+                 cover art. See {doc|the guidelines for pseudo-releases}
+                 for more info.`,
+                {
+                  doc:
+                    '/doc/Style/Specific_types_of_releases/Pseudo-Releases',
+                },
+              )}
+            </p>
+          ) : null}
+        </>
       )}
 
       {release.may_have_cover_art /*:: === true */ ? (

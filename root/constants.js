@@ -78,3 +78,5 @@ export const PUBLIC_FLAGS: number = AUTO_EDITOR_FLAG &
                                     BANNER_EDITOR_FLAG;
 
 export const EDITOR_MODBOT = 4;
+
+export const RELEASE_STATUS_PSEUDORELEASE = 4;
