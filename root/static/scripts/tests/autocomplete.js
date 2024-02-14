@@ -15,11 +15,11 @@ import '../common/MB/Control/Autocomplete.js';
 
 function autocompleteTest(name, callback) {
   test(name, function (t) {
-    var $fixture = $('<div>').appendTo('body');
-    var $input = $('<input>').attr('type', 'text').appendTo($fixture);
+    const $fixture = $('<div>').appendTo('body');
+    const $input = $('<input>').attr('type', 'text').appendTo($fixture);
 
     ko.applyBindingsToNode($input[0], {autocomplete: {entity: 'artist'}});
-    var $menu = $input.entitylookup('widget');
+    const $menu = $input.entitylookup('widget');
 
     callback(t, $input, $menu);
 
@@ -37,13 +37,13 @@ $.Widget.prototype._delay = function (handler) {
 };
 
 $.mb.entitylookup.prototype.options.source = function (request, response) {
-  var data = [
+  const data = [
     {
+      comment: 'Foo!',
+      gid: 'ac467e15-90a4-424e-9d4b-dda9564a5b35',
+      id: '123',
       name: 'Foo.',
       sortname: 'Foo?',
-      comment: 'Foo!',
-      id: '123',
-      gid: 'ac467e15-90a4-424e-9d4b-dda9564a5b35',
     },
     {
       current: 1,
@@ -61,11 +61,11 @@ function blurAutocomplete($input) {
 }
 
 function clickOnMenuItem($input, $menu, itemToClick) {
-  var $item = $menu.find('.ui-menu-item' + itemToClick).find('a');
+  const $item = $menu.find('.ui-menu-item' + itemToClick).find('a');
 
   $item.mouseenter();
 
-  var mousedown = $.Event('mousedown');
+  const mousedown = $.Event('mousedown');
   $item.trigger(mousedown);
 
   if (!mousedown.isDefaultPrevented()) {
