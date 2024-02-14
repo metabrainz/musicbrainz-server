@@ -427,8 +427,8 @@ class ArtistCreditEditor extends React.Component {
                         artistCredit: {
                           names: [{
                             artist,
-                            name: artist.name,
                             joinPhrase: '',
+                            name: artist.name,
                           }],
                         },
                       });
