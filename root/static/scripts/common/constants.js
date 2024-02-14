@@ -251,8 +251,8 @@ export const FAVICON_CLASSES = {
   // eslint-disable-next-line sort-keys
   'vimeo.com': 'vimeo',
   'vk.com': 'vk',
-  'vkdb.jp': 'vkdb',
   'vk.gy': 'vkgy',
+  'vkdb.jp': 'vkdb',
   'vndb.org': 'vndb',
   'vocadb.net': 'vocadb',
   'weibo.com': 'weibo',
