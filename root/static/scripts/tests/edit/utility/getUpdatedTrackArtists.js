@@ -97,6 +97,13 @@ test('getUpdatedTrackArtists', function (t) {
       want: [name('C', '3', ' & '), name('D', '4')],
     },
     {
+      desc: 'shared prefix, track matches new with diff. join phrase',
+      track: [name('A', '1', ' & '), name('B', '2')],
+      oldRel: [name('A', '1')],
+      newRel: [name('A', '1', ' feat. '), name('B', '2')],
+      want: [name('A', '1', ' feat. '), name('B', '2')],
+    },
+    {
       desc: 'multiple artists with credited-as, track matches old',
       track: [name('A', '1', ' & ', 'a'), name('B', '2')],
       oldRel: [name('A', '1', ' & ', 'a'), name('B', '2')],
@@ -120,6 +127,112 @@ test('getUpdatedTrackArtists', function (t) {
         name('A', '1', ' & ', 'a'),
         name('B', '2', ' feat. '),
         name('C', '3'),
+      ],
+    },
+    {
+      desc: 'old name but diff. entity',
+      track: [name('A', '1')],
+      oldRel: [name('A', '2')],
+      newRel: [name('B', '3')],
+      want: [name('B', '3')],
+    },
+    {
+      desc: 'old name but diff. entity with feat.',
+      track: [name('A', '1', ' feat. '), name('C', '4')],
+      oldRel: [name('A', '2')],
+      newRel: [name('B', '3')],
+      want: [name('B', '3', ' feat. '), name('C', '4')],
+    },
+    {
+      desc: 'old name but diff. entity (single vs. multiple)',
+      track: [name('A & B', '1')],
+      oldRel: [name('A', '2', ' & '), name('B', '3')],
+      newRel: [name('C', '4')],
+      want: [name('C', '4')],
+    },
+    {
+      desc: 'old name but diff. entity (single vs. multiple) with feat.',
+      track: [name('A & B', '1', ' feat. '), name('C', '2')],
+      oldRel: [name('A', '3', ' & '), name('B', '4')],
+      newRel: [name('D', '5')],
+      // TODO: This should be updated like the non-feat. version.
+      want: [name('A & B', '1', ' feat. '), name('C', '2')],
+    },
+    {
+      desc: 'old name but diff. entity (multiple vs. single)',
+      track: [name('A', '1', ' & '), name('B', '2')],
+      oldRel: [name('A & B', '3')],
+      newRel: [name('C', '4')],
+      want: [name('C', '4')],
+    },
+    {
+      desc: 'old name but diff. entity (multiple vs. single) with feat.',
+      track: [
+        name('A', '1', ' & '),
+        name('B', '2', ' feat. '),
+        name('C', '3'),
+      ],
+      oldRel: [name('A & B', '4')],
+      newRel: [name('D', '5')],
+      // TODO: This should be updated like the non-feat. version.
+      want: [
+        name('A', '1', ' & '),
+        name('B', '2', ' feat. '),
+        name('C', '3'),
+      ],
+    },
+    {
+      desc: 'new name but diff. entity',
+      track: [name('A', '1')],
+      oldRel: [name('B', '2')],
+      newRel: [name('A', '3')],
+      want: [name('A', '1')],
+    },
+    {
+      desc: 'new name but diff. entity with feat.',
+      track: [name('A', '1', ' feat. '), name('C', '4')],
+      oldRel: [name('B', '2')],
+      newRel: [name('A', '3')],
+      want: [name('A', '1', ' feat. '), name('C', '4')],
+    },
+    {
+      desc: 'new name but diff. entity (single vs. multiple)',
+      track: [name('A & B', '1')],
+      oldRel: [name('C', '4')],
+      newRel: [name('A', '2', ' & '), name('B', '3')],
+      // TODO: This should possibly use the new release artists.
+      want: [name('A & B', '1')],
+    },
+    {
+      desc: 'new name but diff. entity (single vs. multiple) with feat.',
+      track: [name('A & B', '1', ' feat. '), name('D', '5')],
+      oldRel: [name('C', '4')],
+      newRel: [name('A', '2', ' & '), name('B', '3')],
+      // TODO: This should possibly use the new release artists.
+      want: [name('A & B', '1', ' feat. '), name('D', '5')],
+    },
+    {
+      desc: 'new name but diff. entity (multiple vs. single)',
+      track: [name('A', '1', ' & '), name('B', '2')],
+      oldRel: [name('C', '3')],
+      newRel: [name('A & B', '4')],
+      // TODO: This should possibly use the new release artist.
+      want: [name('A', '1', ' & '), name('B', '2')],
+    },
+    {
+      desc: 'new name but diff. entity (multiple vs. single) with feat.',
+      track: [
+        name('A', '1', ' & '),
+        name('B', '2', ' feat. '),
+        name('D', '5'),
+      ],
+      oldRel: [name('C', '3')],
+      newRel: [name('A & B', '4')],
+      // TODO: This should possibly use the new release artist.
+      want: [
+        name('A', '1', ' & '),
+        name('B', '2', ' feat. '),
+        name('D', '5'),
       ],
     },
   ];
