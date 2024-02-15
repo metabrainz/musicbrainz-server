@@ -467,8 +467,8 @@ const TrackRelationshipEditor = (React.memo<TrackRelationshipEditorPropsT>(({
   ) => {
     dispatch({
       isSelected: event.currentTarget.checked,
-      type: 'toggle-select-recording',
       recording: track.recording,
+      type: 'toggle-select-recording',
     });
   }, [dispatch, track.recording]);
 
