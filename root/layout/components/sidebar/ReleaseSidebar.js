@@ -228,6 +228,7 @@ const ReleaseSidebar = ({release}: Props): React$Element<'div'> | null => {
                       className="wrap-anywhere"
                       entity={releaseLabel.label}
                       showDisambiguation={false}
+                      showDisambiguationOnHover
                     />
                     <br />
                   </>

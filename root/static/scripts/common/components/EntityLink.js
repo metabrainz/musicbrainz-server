@@ -157,6 +157,7 @@ type EntityLinkProps = {
   +showCaaPresence?: boolean,
   +showDeleted?: boolean,
   +showDisambiguation?: boolean,
+  +showDisambiguationOnHover?: boolean,
   +showEditsPending?: boolean,
   +showEventDate?: boolean,
   +showIcon?: boolean,
@@ -181,6 +182,7 @@ const EntityLink = ({
   showCaaPresence = false,
   showDeleted = true,
   showDisambiguation: passedShowDisambiguation,
+  showDisambiguationOnHover = false,
   showEditsPending = true,
   showEventDate = true,
   showIcon: passedShowIcon = false,
@@ -216,6 +218,12 @@ $ReadOnlyArray<Expand2ReactOutput> | Expand2ReactOutput | null => {
 
   if (entity.entityType === 'artist' && empty(hover)) {
     hover = entity.sort_name + (comment ? ' ' + bracketedText(comment) : '');
+  }
+
+  if (showDisambiguationOnHover) {
+    hover = empty(hover)
+      ? comment
+      : hover + ' ' + bracketedText(comment);
   }
 
   if (entity.entityType === 'area') {
