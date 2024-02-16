@@ -75,9 +75,7 @@ sub _locale_name_special_cases {
     # Special-case some locales that have a non-descriptive name
     my $locale = shift;
     my $code = ($locale->code =~ s/-/_/gr);
-    if ($code eq 'el_POLYTON') {
-        return 'Greek Polytonic';
-    } elsif ($code eq 'skr') {
+    if ($code eq 'skr') {
         return 'Saraiki';
     } elsif ($code eq 'skr_PK') {
         return 'Saraiki Pakistan';
