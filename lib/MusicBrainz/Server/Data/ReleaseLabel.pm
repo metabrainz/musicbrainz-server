@@ -136,7 +136,6 @@ sub insert
 
     my $release_id = $row->{release};
     $self->c->model('Series')->reorder_for_entities('release', $release_id);
-    $self->c->model('Release')->_delete_from_cache($release_id);
 
     return wantarray ? @created : $created[0];
 }
@@ -155,7 +154,6 @@ sub update
     );
 
     $self->c->model('Series')->reorder_for_entities('release', $release_id);
-    $self->c->model('Release')->_delete_from_cache($release_id);
 }
 
 sub delete {
@@ -167,7 +165,6 @@ sub delete {
     );
 
     $self->c->model('Series')->reorder_for_entities('release', @$release_ids);
-    $self->c->model('Release')->_delete_from_cache(@$release_ids);
 }
 
 __PACKAGE__->meta->make_immutable;
