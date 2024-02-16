@@ -79,10 +79,6 @@ sub _locale_name_special_cases {
         return 'Saraiki';
     } elsif ($code eq 'skr_PK') {
         return 'Saraiki Pakistan';
-    } elsif ($code eq 'sr_Cyrl_YU') {
-        return 'Serbian Cyrillic Yugoslavia';
-    } elsif ($code eq 'sr_Latn_YU') {
-        return 'Serbian Latin Yugoslavia';
     } else {
         return $locale->name;
     }
