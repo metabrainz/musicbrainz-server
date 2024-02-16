@@ -4967,7 +4967,7 @@ const CLEANUPS: CleanupEntries = {
   },
   'residentadvisor': {
     match: [
-      new RegExp('^(https?://)?(www\\.)?ra\\.co/(?!exchange)', 'i'),
+      new RegExp('^(https?://)?([^/]+\\.)?ra\\.co/(?!exchange)', 'i'),
       new RegExp('^(https?://)?(www\\.)?residentadvisor\\.net/', 'i'),
     ],
     restrict: [{
@@ -4976,7 +4976,7 @@ const CLEANUPS: CleanupEntries = {
       ...LINK_TYPES.discographyentry,
     }],
     clean: function (url) {
-      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?ra\.co\//, 'https://ra.co/');
+      url = url.replace(/^(?:https?:\/\/)?(?:[^/]+\.)?ra\.co\//, 'https://ra.co/');
       url = url.replace(/^https:\/\/ra\.co\/(clubs|dj|events|labels|podcast|reviews|tracks)\/([^\/?#]+).*$/, 'https://ra.co/$1/$2');
       return url;
     },

@@ -4788,7 +4788,7 @@ limited_link_type_combinations: [
        only_valid_entity_types: ['event'],
   },
   {
-                     input_url: 'http://ra.co/labels/2795',
+                     input_url: 'http://es.ra.co/labels/2795',
              input_entity_type: 'label',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'https://ra.co/labels/2795',
