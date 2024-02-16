@@ -20,18 +20,14 @@ the following sequence of events:
 
  1. Request A updates artist ID=123 and calls _delete_from_cache(123). In our
     persistent Redis store, we set `artist:recently_invalidated:123` to '1'.
-    In our Redis cache, we delete `artist:123`. (While cache addition is
-    delayed until after the relevant transaction commits, cache deletion is
-    performed immediately.)
+    In our Redis cache, we delete `artist:123`.
 
  2. Request B starts before request A's database transaction commits, and
     attempts to load artist ID=123. Since it's not in the cache, we read it
-    from the database, seeing the "old" version.
+    from the database, seeing the "old" version, and add the stale artist to
+    the cache at `artist:123`.
 
- 3. Request B commits, and adds the stale artist to the cache at
-    `artist:123`.
-
- 4. Immediately after adding it to the cache, we check for the presence of an
+ 3. Immediately after adding it to the cache, we check for the presence of an
     `artist:recently_invalidated:123` key in the Redis store. If it exists,
     we remove the stale `artist:123` entry we just added to the cache.
 
@@ -125,20 +121,7 @@ sub _add_to_cache {
     my @entries = $self->_create_cache_entries($data, $ids);
     return unless @entries;
 
-    my $sql = $self->c->sql;
-    if ($sql->is_in_transaction) {
-        $sql->add_post_txn_callback(sub {
-            $self->_add_to_cache_impl($cache, \@entries, $ids);
-        });
-    } else {
-        $self->_add_to_cache_impl($cache, \@entries, $ids);
-    }
-}
-
-sub _add_to_cache_impl {
-    my ($self, $cache, $entries, $ids) = @_;
-
-    $cache->set_multi(@$entries);
+    $cache->set_multi(@entries);
 
     # Check if any entities we've just cached were recently invalidated.
     # If so, delete them. This must be performed after the cache

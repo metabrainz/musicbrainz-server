@@ -823,4 +823,20 @@ test 'Merging releases with the same date should discard unknown country events'
        'no unknown release events');
 };
 
+test 'Release events are not cached on the release' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+releaselabel');
+
+    # Ensure the release is cached.
+    $c->sql->begin;
+    my $release = $c->model('Release')->get_by_id(1);
+    $c->model('Release')->load_release_events($release);
+    $c->sql->commit;
+
+    $release = $c->cache->get('release:1'),
+    is(scalar($release->all_events), 0, 'cached release has no events');
+};
+
 1;
