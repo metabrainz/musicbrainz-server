@@ -78,12 +78,18 @@ sub update
 
     $self->sql->update_row('event', $row, { id => $event_id }) if %$row;
 
+    return 1;
+}
+
+# This is run `after` so that cache invalidation happens first
+# (via `Data::Role::EntityCache``).
+after update => sub {
+    my ($self, $event_id, $update) = @_;
+
     if (any { exists $update->{$_} } qw( name begin_date end_date time )) {
         $self->c->model('Series')->reorder_for_entities('event', $event_id);
     }
-
-    return 1;
-}
+};
 
 sub can_delete { 1 }
 
