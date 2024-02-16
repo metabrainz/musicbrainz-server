@@ -95,7 +95,7 @@ sub options_locale {
                 label => indentation($code =~ /_/ ? 1 : 0) . _locale_name_special_cases($locale),
             };
         }
-        sort_by { $ALIAS_LOCALES{$_}->name }
+        sort_by { _locale_name_special_cases($ALIAS_LOCALES{$_}) }
         keys %ALIAS_LOCALES,
     ];
 }
