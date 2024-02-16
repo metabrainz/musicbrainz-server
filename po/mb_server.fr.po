@@ -67,7 +67,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-02-01 14:05+0000\n"
-"PO-Revision-Date: 2024-02-01 14:01+0000\n"
+"PO-Revision-Date: 2024-02-12 15:28+0000\n"
 "Last-Translator: yvanzo <yvanzo@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: French <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/fr/>\n"
@@ -1399,18 +1399,14 @@ msgid "ISWCs"
 msgstr "ISWC"
 
 #: ../root/event/edit_form.tt:26
-#, fuzzy
-#| msgid ""
-#| "If needed, the characters \"[\", \"]\", and \"&\" can be escaped using "
-#| "the HTML entities \"&lsqb;\", \"&rsqb;\", and \"&amp;\" respectively."
 msgid ""
 "If needed, the characters \"[\", \"]\", and \"&\" can be escaped using the "
 "HTML entities \"<code>&amp;lsqb;</code>\", \"<code>&amp;rsqb;</code>\", and "
 "\"<code>&amp;amp;</code>\" respectively."
 msgstr ""
-"Si besoin, les caractères \"[\", \"]\" et \"&\" peuvent être échappés en "
-"utilisant leurs entités HTML respectives \"&lsqb;\", \"&rsqb;\", et \"&amp;"
-"\"."
+"Si besoin, les caractères « [ », « ] » et « & » peuvent être échappés en "
+"utilisant leurs entités HTML respectives « <code>&amp;lsqb;</code> », « "
+"<code>&amp;rsqb;</code> » et « <code>&amp;amp;</code> »."
 
 #: ../root/release/edit/recordings.tt:134
 msgid ""
@@ -2959,8 +2955,6 @@ msgstr "Cette piste est cachée dans le pré-intervalle."
 #: ../root/layout/components/sidebar/EventSidebar.js:80
 #: ../root/report/components/EventList.js:77
 #: ../root/search/components/EventResults.js:75
-#, fuzzy
-#| msgid "Time"
 msgctxt "event"
 msgid "Time"
 msgstr "Heure"
@@ -3502,11 +3496,9 @@ msgstr ""
 
 #: ../root/components/common-macros.tt:190
 #: ../root/static/scripts/common/components/EntityLink.js:50
-#, fuzzy
-#| msgid "[removed]"
 msgctxt "generic entity"
 msgid "[removed]"
-msgstr "[enlevé]"
+msgstr "[enlevée]"
 
 #: ../root/edit/search_macros.tt:174
 msgid "after"
@@ -3548,8 +3540,6 @@ msgstr "par"
 
 #: ../root/components/common-macros.tt:111
 #: ../root/static/scripts/common/components/EntityLink.js:98
-#, fuzzy
-#| msgid "cancelled"
 msgctxt "event"
 msgid "cancelled"
 msgstr "annulé"
@@ -3859,6 +3849,8 @@ msgstr "« Précédent"
 msgid ""
 "“Last Name, First Name” and “Group, The” are common examples of sort names."
 msgstr ""
+"« Nom de Famille, Prénom » et « Groupe, Le » sont des exemples courants de "
+"noms de tri."
 
 #: ../root/components/paginator.tt:19 ../root/components/paginator.tt:31
 #: ../root/components/paginator.tt:39 ../root/components/Paginator.js:94
@@ -3982,18 +3974,13 @@ msgid "The user with ID '{user_id}' could not be found."
 msgstr "L’utilisateur avec l’ID #{user_id} n’a pu être trouvé."
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:176
-#, fuzzy
-#| msgid ""
-#| "We were unable to send login information to your email address.  Please "
-#| "try again, however if you continue to experience difficulty contact us at "
-#| "support@musicbrainz.org."
 msgid ""
 "We were unable to send login information to your email address. Please try "
 "again, and if that still doesn’t work, {contact_url|contact us}."
 msgstr ""
-"Nous n’avons pas pu envoyer vos informations de compte sur votre adresse "
-"courriel. Veuillez ressayer, cependant si cette erreur persiste, veuillez "
-"nous contacter à support@musicbrainz.org."
+"Nous n’avons pas pu envoyer vos informations de connexion à votre adresse "
+"courriel. Veuillez réessayer, cependant si cette erreur persiste {contact_url"
+"|contactez-nous}."
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:203
 msgid "There is no user with this username"
@@ -4047,21 +4034,15 @@ msgid "Your password has been changed."
 msgstr "Votre mot de passe a été changé."
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:745
-#, fuzzy
-#| msgid ""
-#| "<strong>We were unable to send a verification email to you.</strong><br/"
-#| ">Please confirm that you have entered a valid address by editing your "
-#| "{settings|account settings}. If the problem still persists, please "
-#| "contact us at {mail|support@musicbrainz.org}."
 msgid ""
 "<strong>We were unable to send you a verification email.</strong><br/>Please "
 "re-enter your address in your {settings|account settings}. If that still "
 "doesn’t work, {contact_url|contact us}."
 msgstr ""
-"<strong>Nous n’avons pas pu vous envoyer un courriel de vérification.</"
-"strong><br/>Veuillez confirmer que vous avez saisi une adresse valide en "
-"modifiant votre {settings|profil}. Si le problème persiste encore, veuillez "
-"nous contacter à {mail|support@musicbrainz.org}."
+"<strong>Nous n’avons pas pu vous envoyer un courriel de "
+"vérification.</strong><br/>Veuillez ressaisir votre adresse courriel dans "
+"votre {settings|profil}. Si cela ne fonctionne toujours pas {contact_url"
+"|contactez-nous}."
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:828
 msgid "There is no OAuth token with these parameters."
@@ -4279,11 +4260,9 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Controller/Role/EditRelationships.pm:222
 #: ../root/static/scripts/relationship-editor/components/DialogPreview.js:108
 #: ../root/static/scripts/relationship-editor/components/DialogSourceEntity.js:117
-#, fuzzy
-#| msgid "[unknown]"
 msgctxt "generic entity"
 msgid "[unknown]"
-msgstr "[inconnu]"
+msgstr "[inconnue]"
 
 #: ../lib/MusicBrainz/Server/Controller/Root.pm:94
 #, perl-brace-format
@@ -5074,8 +5053,6 @@ msgid "Remove relationship type"
 msgstr "Enlever le type de relation"
 
 #: ../lib/MusicBrainz/Server/Edit/Relationship/RemoveLinkType.pm:86
-#, fuzzy
-#| msgid "[removed]"
 msgctxt "relationship attribute type"
 msgid "[removed]"
 msgstr "[enlevé]"
@@ -5101,8 +5078,6 @@ msgid "Add release label"
 msgstr "Ajouter un label à la parution"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/Create.pm:112
-#, fuzzy
-#| msgid "[removed]"
 msgctxt "release group"
 msgid "[removed]"
 msgstr "[enlevé]"
@@ -5495,8 +5470,6 @@ msgstr "Annulée"
 
 #: ../lib/MusicBrainz/Server/Entity/Barcode.pm:18
 #: ../root/static/scripts/common/utility/formatBarcode.js:15
-#, fuzzy
-#| msgid "[none]"
 msgctxt "barcode"
 msgid "[none]"
 msgstr "[aucun]"
@@ -5677,6 +5650,8 @@ msgid ""
 "“{collaborator}” was added more than once. Did you intend to select someone "
 "else?"
 msgstr ""
+"« {collaborator} » a été ajouté plus d’une fois. Souhaitiez-vous "
+"sélectionner quelqu’un d’autre ?"
 
 #: ../lib/MusicBrainz/Server/Form/Collection.pm:124
 #, perl-brace-format
@@ -7340,8 +7315,6 @@ msgid "This artist credit is composed of the following artists:"
 msgstr "Ce crédit d’artiste est composé des artistes suivants :"
 
 #: ../root/artist_credit/ArtistCreditIndex.js:103
-#, fuzzy
-#| msgid "credited as “{credit}”"
 msgctxt "artist credit"
 msgid "credited as “{credit}”"
 msgstr "crédité comme « {credit} »"
@@ -7575,11 +7548,9 @@ msgstr "Fin (date)"
 
 #: ../root/cdtoc/CDTocInfo.js:56 ../root/cdtoc/CDTocInfo.js:58
 #: ../root/cdtoc/CDTocInfo.js:60
-#, fuzzy
-#| msgid "Time"
 msgctxt "CD timecode"
 msgid "Time"
-msgstr "Heure"
+msgstr "Temps"
 
 #: ../root/cdtoc/CDTocInfo.js:57 ../root/cdtoc/CDTocInfo.js:59
 #: ../root/cdtoc/CDTocInfo.js:61
@@ -8443,7 +8414,7 @@ msgstr "Un problème est survenu à la suppression de la modification {edit}."
 
 #: ../root/edit/CannotCancelEdit.js:33
 msgid "Only the editor who entered an edit can cancel it."
-msgstr ""
+msgstr "Seul l’éditeur qui a entré cette modification peut l’annuler."
 
 #: ../root/edit/CannotVote.js:13 ../root/edit/CannotVote.js:14
 msgid "Error voting on edits"
@@ -9253,8 +9224,6 @@ msgid "primary for {locale}"
 msgstr "principal pour {locale}"
 
 #: ../root/edit/details/EditAlias.js:78
-#, fuzzy
-#| msgid "[removed]"
 msgctxt "alias"
 msgid "[removed]"
 msgstr "[enlevé]"
@@ -9558,11 +9527,9 @@ msgid "New cover art:"
 msgstr "Nouvelle illustration :"
 
 #: ../root/edit/details/SetTrackLengths.js:58
-#, fuzzy
-#| msgid "[removed]"
 msgctxt "CD TOC"
 msgid "[removed]"
-msgstr "[enlevé]"
+msgstr "[enlevée]"
 
 #: ../root/edit/details/SetTrackLengths.js:63
 msgid "Track lengths:"
@@ -11131,11 +11098,9 @@ msgstr "Informations sur la série"
 
 #: ../root/layout/components/sidebar/SidebarEndDate.js:38
 #: ../root/static/scripts/common/utility/formatEndDate.js:18
-#, fuzzy
-#| msgid "[unknown]"
 msgctxt "date"
 msgid "[unknown]"
-msgstr "[inconnu]"
+msgstr "[inconnue]"
 
 #: ../root/layout/components/sidebar/SidebarLicenses.js:141
 msgid "License"
@@ -11273,16 +11238,12 @@ msgstr ""
 "pouvoir modifier ou ajouter quoi que ce soit à la base de données."
 
 #: ../root/main/error/Error401.js:39 ../root/user/Login.js:90
-#, fuzzy
-#| msgid ""
-#| "If you think this is a mistake, please contact <code>support@musicbrainz."
-#| "org</code> with the name of your account."
 msgid ""
 "If you think this is a mistake, please {contact|contact us} with the name of "
 "your account."
 msgstr ""
-"Si vous pensez que ceci est une erreur, veuillez contacter "
-"<code>support@musicbrainz.org</code> avec le nom de votre compte."
+"Si vous pensez que ceci est une erreur, veuillez {contact|nous contacter} "
+"avec le nom de votre compte."
 
 #: ../root/main/error/Error403.js:21 ../root/main/error/MirrorError403.js:13
 msgid "Forbidden request"
@@ -11408,7 +11369,7 @@ msgstr "Vous pouvez essayer à nouveau en rechargeant la page."
 
 #: ../root/main/error/components/ErrorEnvironment.js:27
 msgid "Date and time"
-msgstr ""
+msgstr "Date et heure"
 
 #: ../root/main/error/components/ErrorEnvironment.js:34
 msgid "Host:"
@@ -15189,11 +15150,9 @@ msgid "{title} - {subtitle}"
 msgstr "{title} — {subtitle}"
 
 #: ../root/static/scripts/common/i18n/localizeLanguageName.js:15
-#, fuzzy
-#| msgid "[removed]"
 msgctxt "language"
 msgid "[removed]"
-msgstr "[enlevé]"
+msgstr "[enlevée]"
 
 #: ../root/static/scripts/common/i18n/semicolonOnlyList.js:25
 msgid "{semicolon_only_list_item}; {rest}"
@@ -15368,17 +15327,12 @@ msgstr ""
 "Veuillez envisager de les ajouter à {bookbrainz_url|BookBrainz} à la place."
 
 #: ../root/static/scripts/edit/URLCleanup.js:1136
-#, fuzzy
-#| msgid ""
-#| "Please do not link directly to WhoSampled “{unwanted_url_pattern}” pages. "
-#| "Link to the appropriate WhoSampled artist, track or album page instead."
 msgid ""
 "Please do not add “{blocked_url_pattern}” links, link to the appropriate "
 "“{wanted_url_pattern}” page instead."
 msgstr ""
-"Merci de ne pas lier directement aux pages « {unwanted_url_pattern} » de "
-"WhoSampled. À la place, liez à la page WhoSampled de l’artiste, de la piste, "
-"ou de l’album concerné."
+"Merci de ne pas ajouter de lien « {blocked_url_pattern} », liez plutôt une "
+"page « {wanted_url_pattern} » appropriée."
 
 #: ../root/static/scripts/edit/URLCleanup.js:1156
 msgid ""
@@ -15701,17 +15655,14 @@ msgid "Add a new work"
 msgstr "Ajouter une nouvelle œuvre"
 
 #: ../root/static/scripts/edit/components/ArtistCreditBubble.js:60
-#, fuzzy
-#| msgid ""
-#| "Use the following fields to enter collaborations. See the {ac|Artist "
-#| "Credit} documentation for more information."
 msgid ""
 "Use the following fields to enter artist name variations and multiple artist "
 "collaborations. See the {ac|Artist Credit} documentation for more "
 "information."
 msgstr ""
-"Utiliser les champs suivants pour saisir les collaborations, voir la "
-"documentation sur le {ac|crédit d’artiste} pour plus d’informations."
+"Utilisez les champs suivants pour saisir les variations de nom d’artiste et "
+"les collaborations. Voir la documentation sur le {ac|crédit d’artiste} pour "
+"plus d’informations."
 
 #: ../root/static/scripts/edit/components/ArtistCreditBubble.js:76
 msgid "[missing track name]"
@@ -15804,11 +15755,9 @@ msgid "Edit attributes"
 msgstr "Modifier les attributs"
 
 #: ../root/static/scripts/edit/components/Multiselect.js:197
-#, fuzzy
-#| msgid "[removed]"
 msgctxt "generic row"
 msgid "[removed]"
-msgstr "[enlevé]"
+msgstr "[enlevée]"
 
 #: ../root/static/scripts/edit/components/NewNotesAlertCheckbox.js:35
 msgid "Show me an alert whenever I receive a new edit note."
@@ -15941,16 +15890,12 @@ msgid "Edit URL"
 msgstr "Modifier l’URL"
 
 #: ../root/static/scripts/edit/components/UrlRelationshipCreditFieldset.js:37
-#, fuzzy
-#| msgid "Credits"
 msgid "Credit"
-msgstr "Crédits"
+msgstr "Crédit"
 
 #: ../root/static/scripts/edit/components/UrlRelationshipCreditFieldset.js:40
-#, fuzzy
-#| msgid "Credited as"
 msgid "Credited to"
-msgstr "Crédité en tant que"
+msgstr "Crédité à"
 
 #: ../root/static/scripts/edit/components/forms.js:104
 #: ../root/static/scripts/edit/confirmNavigationFallback.js:44
@@ -16091,8 +16036,6 @@ msgid "Remove relationship"
 msgstr "Enlever la relation"
 
 #: ../root/static/scripts/edit/externalLinks.js:1334
-#, fuzzy
-#| msgid "credited as “{credit}”"
 msgctxt "relationship credit"
 msgid "credited as “{credit}”"
 msgstr "crédité comme « {credit} »"
@@ -16524,10 +16467,8 @@ msgstr ""
 "exact de l’une d’entre elles :"
 
 #: ../root/static/scripts/release-editor/validation.js:178
-#, fuzzy
-#| msgid "The check digit is {checkdigit}."
 msgid "The check digit would be {checkdigit}."
-msgstr "Le chiffre de vérification est {checkdigit}."
+msgstr "Le chiffre de vérification serait {checkdigit}."
 
 #: ../root/static/scripts/release-editor/validation.js:179
 msgid "Please double-check the barcode on the release."
@@ -16569,10 +16510,8 @@ msgstr ""
 "code EAN sans le chiffre de contrôle."
 
 #: ../root/static/scripts/release-editor/validation.js:235
-#, fuzzy
-#| msgid "The barcode you entered is a valid EAN code."
 msgid "The barcode you entered is a valid GTIN code."
-msgstr "Le code-barres que vous avez saisi est un code EAN valide."
+msgstr "Le code-barres que vous avez saisi est un code GTIN valide."
 
 #: ../root/static/scripts/release-editor/validation.js:242
 #: ../root/static/scripts/release-editor/validation.js:264
@@ -16585,23 +16524,17 @@ msgid ""
 msgstr ""
 
 #: ../root/static/scripts/release-editor/validation.js:253
-#, fuzzy
-#| msgid "The barcode you entered is not a valid EAN code."
 msgid "The barcode you entered is not a valid GTIN code."
-msgstr "Le code-barres que vous avez saisi n’est pas un code EAN valide."
+msgstr "Le code-barres que vous avez saisi n’est pas un code GTIN valide."
 
 #: ../root/static/scripts/release-editor/validation.js:297
-#, fuzzy
-#| msgid "The barcode you entered is a valid UPC code."
 msgid "The barcode you entered is not a valid UPC code."
-msgstr "Le code-barres que vous avez saisi est un code UPC valide."
+msgstr "Le code-barres que vous avez saisi n’est pas un code UPC valide."
 
 #: ../root/static/scripts/release-editor/validation.js:326
-#, fuzzy
-#| msgid "The barcode you entered is not a valid UPC or EAN code."
 msgid "The barcode you entered is not a valid UPC, EAN or GTIN code."
 msgstr ""
-"Le code-barres que vous avez saisi n’est pas un code EAN ou UPC valide."
+"Le code-barres que vous avez saisi n’est pas un code EAN, UPC ou GTIN valide."
 
 #: ../root/static/scripts/release/components/BatchCreateWorksDialog.js:236
 msgid ""
