@@ -77,6 +77,10 @@ sub _locale_name_special_cases {
     my $code = ($locale->code =~ s/-/_/gr);
     if ($code eq 'el_POLYTON') {
         return 'Greek Polytonic';
+    } elsif ($code eq 'skr') {
+        return 'Saraiki';
+    } elsif ($code eq 'skr_PK') {
+        return 'Saraiki Pakistan';
     } elsif ($code eq 'sr_Cyrl_YU') {
         return 'Serbian Cyrillic Yugoslavia';
     } elsif ($code eq 'sr_Latn_YU') {
