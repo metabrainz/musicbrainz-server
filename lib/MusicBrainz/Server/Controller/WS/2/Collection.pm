@@ -108,9 +108,9 @@ for my $entity_type (entities_with('collections')) {
         $c->model('Editor')->load($collection);
 
         my ($limit, $offset) = $self->_limit_and_offset($c);
-        my @results = $c->model($entity_properties->{model})->find_by_collection($collection->id, $limit, $offset);
-
-        $opts->{$plural} = $self->make_list(@results);
+        my ($results, $hits) = $c->model($entity_properties->{model})->find_by_collection($collection->id, $limit, $offset);
+        my @entities = map { $_->{entity} } @$results;
+        $opts->{$plural} = $self->make_list(\@entities, $hits);
 
         my $linked = "linked_$plural";
         $self->$linked($c, $stash, $opts->{$plural}->{items});

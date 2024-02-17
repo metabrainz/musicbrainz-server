@@ -16,6 +16,8 @@ import filterReleaseLabels
   from '../../static/scripts/common/utility/filterReleaseLabels.js';
 import formatBarcode
   from '../../static/scripts/common/utility/formatBarcode.js';
+import {defineNameAndCommentColumn}
+  from '../../static/scripts/common/utility/tableColumns.js';
 import {
   defineArtistCreditColumn,
   defineCheckboxColumn,
@@ -33,6 +35,7 @@ import {
 } from '../../utility/tableColumns.js';
 
 type Props = {
+  ...CollectionCommentsRoleT,
   ...InstrumentCreditsAndRelTypesRoleT,
   ...SeriesItemNumbersRoleT,
   +checkboxes?: string,
@@ -40,6 +43,7 @@ type Props = {
   +mergeForm?: MergeReleasesFormT,
   +order?: string,
   +releases: $ReadOnlyArray<ReleaseT>,
+  +showCollectionComments?: boolean,
   +showInstrumentCreditsAndRelTypes?: boolean,
   +showLanguages?: boolean,
   +showRatings?: boolean,
@@ -49,13 +53,17 @@ type Props = {
 };
 
 const ReleaseList = ({
+  canEditCollectionComments,
   checkboxes,
+  collectionComments,
+  collectionId,
   filterLabel,
   instrumentCreditsAndRelTypes,
   mergeForm,
   order,
   releases,
   seriesItemNumbers,
+  showCollectionComments = false,
   showInstrumentCreditsAndRelTypes = false,
   showLanguages = false,
   showRatings = false,
@@ -73,13 +81,28 @@ const ReleaseList = ({
       const seriesNumberColumn = seriesItemNumbers
         ? defineSeriesNumberColumn({seriesItemNumbers: seriesItemNumbers})
         : null;
-      const nameColumn = defineNameColumn<ReleaseT>({
-        descriptive: false, // since ACs are in the next column
-        order: order,
-        showCaaPresence: true,
-        sortable: sortable,
-        title: l('Release'),
-      });
+      const nameColumn = showCollectionComments && nonEmpty(collectionId) ? (
+        defineNameAndCommentColumn<ReleaseT>({
+          canEditCollectionComments: canEditCollectionComments,
+          collectionComments: showCollectionComments
+            ? collectionComments
+            : undefined,
+          collectionId: collectionId,
+          descriptive: false, // since ACs are in the next column
+          order: order,
+          showCaaPresence: true,
+          sortable: sortable,
+          title: l('Release'),
+        })
+      ) : (
+        defineNameColumn<ReleaseT>({
+          descriptive: false, // since ACs are in the next column
+          order: order,
+          showCaaPresence: true,
+          sortable: sortable,
+          title: l('Release'),
+        })
+      );
       const artistCreditColumn = defineArtistCreditColumn<ReleaseT>({
         columnName: 'artist',
         getArtistCredit: entity => entity.artistCredit,
@@ -191,13 +214,17 @@ const ReleaseList = ({
     [
       $c.session?.tport,
       $c.user,
+      canEditCollectionComments,
       checkboxes,
+      collectionComments,
+      collectionId,
       filterLabel,
       instrumentCreditsAndRelTypes,
       mergeForm,
       order,
       releases,
       seriesItemNumbers,
+      showCollectionComments,
       showInstrumentCreditsAndRelTypes,
       showLanguages,
       showRatings,
@@ -212,6 +239,7 @@ const ReleaseList = ({
   return (
     <>
       {table}
+      {manifest.js('common/components/NameWithCommentCell', {async: 'async'})}
       {manifest.js('common/components/ReleaseEvents', {async: 'async'})}
       {manifest.js('common/components/TaggerIcon', {async: 'async'})}
     </>

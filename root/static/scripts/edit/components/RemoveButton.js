@@ -9,18 +9,21 @@
 
 type PropsT = {
   dataIndex?: number,
+  disabled?: boolean,
   onClick: (event: SyntheticEvent<HTMLInputElement>) => void,
   title: string,
 };
 
 const RemoveButton = ({
   dataIndex,
+  disabled = false,
   onClick,
   title,
 }: PropsT): React$Element<'button'> => (
   <button
     className="nobutton icon remove-item"
     data-index={dataIndex}
+    disabled={disabled}
     onClick={onClick}
     title={title}
     type="button"
