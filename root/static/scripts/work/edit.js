@@ -7,14 +7,12 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-/* eslint-disable import/newline-after-import -- the FlowIgnore triggers it */
 import $ from 'jquery';
 import ko, {
   type Observable as KnockoutObservable,
   type ObservableArray as KnockoutObservableArray,
 } from 'knockout';
 import mutate from 'mutate-cow';
-// $FlowIgnore[missing-export]
 import {flushSync} from 'react-dom';
 import * as ReactDOMClient from 'react-dom/client';
 import {legacy_createStore as createStore} from 'redux';

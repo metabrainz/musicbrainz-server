@@ -3211,10 +3211,10 @@ limited_link_type_combinations: [
        only_valid_entity_types: ['label'],
   },
   {
-                     input_url: 'https://www.junodownload.com/artists/Raito/?facet%5Bsubgenre_id%5D%5B0%5D=12%7C%7C3',
+                     input_url: 'https://www.junodownload.com/artists/Kurwastyle+Project/?facet%5Bsubgenre_id%5D%5B0%5D=12%7C%7C3',
              input_entity_type: 'artist',
     expected_relationship_type: 'downloadpurchase',
-            expected_clean_url: 'https://www.junodownload.com/artists/Raito/',
+            expected_clean_url: 'https://www.junodownload.com/artists/Kurwastyle+Project/',
        only_valid_entity_types: ['artist'],
   },
   {
@@ -4788,7 +4788,7 @@ limited_link_type_combinations: [
        only_valid_entity_types: ['event'],
   },
   {
-                     input_url: 'http://ra.co/labels/2795',
+                     input_url: 'http://es.ra.co/labels/2795',
              input_entity_type: 'label',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'https://ra.co/labels/2795',
@@ -5418,6 +5418,14 @@ limited_link_type_combinations: [
        only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series'],
   },
   {
+                     input_url: 'http://shop.spotify.com/en-US/artist/4O15NlyKLIASxsJ0PrXPfz/product/pink-tape-autographed-digital-album-alternate-cover?utm_medium=&utm_source=&utm_content=artiststore&utm_term=&utm_promo=&container_platform=&utm_campaign=',
+             input_entity_type: 'release',
+limited_link_type_combinations: ['downloadpurchase', 'mailorder'],
+            expected_clean_url: 'https://shop.spotify.com/en-US/artist/4O15NlyKLIASxsJ0PrXPfz/product/pink-tape-autographed-digital-album-alternate-cover',
+       input_relationship_type: 'downloadpurchase',
+       only_valid_entity_types: ['recording', 'release'],
+  },
+  {
                      input_url: 'https://spotify.link/auVCkcbzoyb',
              input_entity_type: 'artist',
     expected_relationship_type: undefined,
@@ -5661,6 +5669,13 @@ limited_link_type_combinations: [
     expected_relationship_type: 'socialnetwork',
             expected_clean_url: 'https://www.tiktok.com/@officialrandl',
        only_valid_entity_types: ['artist', 'label', 'place', 'series'],
+  },
+  {
+                     input_url: 'https://www.tiktok.com/@mimo_mio/video/7029807544944069894',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://www.tiktok.com/@mimo_mio/video/7029807544944069894',
+       only_valid_entity_types: ['recording'],
   },
   // Tipeee
   {

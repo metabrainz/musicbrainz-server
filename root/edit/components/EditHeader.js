@@ -116,7 +116,7 @@ const EditHeader = ({
                         lp(latestVoteForEditorName, 'vote')
                       ) : isEditEditor ? (
                         l('N/A')
-                      ) : l('None')}
+                      ) : lp('None', 'vote')}
                     </div>
                   ) : null}
                 </td>

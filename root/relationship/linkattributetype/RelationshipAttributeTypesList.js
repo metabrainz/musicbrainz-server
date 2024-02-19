@@ -42,7 +42,7 @@ const AttributeDetails = ({
   const childrenAttrs = attribute.children || [];
   const translatedDescription = attribute.description
     ? expand2react(l_relationships(attribute.description))
-    : l('none');
+    : lp('none', 'relationship attribute description');
   const descriptionSection = topLevel
     ? translatedDescription
     : bracketed(translatedDescription);

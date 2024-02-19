@@ -12,19 +12,15 @@ import ko from 'knockout';
 import {
   artistCreditsAreEqual,
   hasVariousArtists,
-  reduceArtistCredit,
-  reduceArtistCreditNames,
 } from '../common/immutable-entities.js';
 import MB from '../common/MB.js';
-import {arraysEqual} from '../common/utility/arrays.js';
 import {getSourceEntityData} from '../common/utility/catalyst.js';
 import clean from '../common/utility/clean.js';
-import {
-  cloneArrayDeep,
-  cloneObjectDeep,
-} from '../common/utility/cloneDeep.mjs';
+import {cloneObjectDeep} from '../common/utility/cloneDeep.mjs';
 import request from '../common/utility/request.js';
 import * as externalLinks from '../edit/externalLinks.js';
+import getUpdatedTrackArtists from
+  '../edit/utility/getUpdatedTrackArtists.js';
 import * as validation from '../edit/validation.js';
 
 import fields from './fields.js';
@@ -200,74 +196,19 @@ releaseEditor.init = function (options) {
 
     if (tabID === '#tracklist' && releaseACChanged) {
       if (!hasVariousArtists(releaseAC)) {
-        const savedReleaseACLength = savedReleaseAC.names.length;
-        const savedReleaseACReduced = reduceArtistCredit(savedReleaseAC);
-
-        /*
-         * Returns true if the supplied ArtistCreditNameT arrays include the
-         * same underlying artists.
-         */
-        const sameArtists = (a, b) => arraysEqual(a, b,
-          (a, b) => a.artist && b.artist && a.artist.gid === b.artist.gid);
-
         for (const medium of release.mediums()) {
           for (const track of medium.tracks()) {
             const trackAC = track.artistCredit();
-            if (
-              reduceArtistCredit(trackAC) === savedReleaseACReduced ||
-              sameArtists(trackAC.names, releaseAC.names)
-            ) {
-              /*
-               * If the track credits exactly match the old release credits
-               * or the track credits include the same artists as the new
-               * release credits, update them to use the new release
-               * credits.
-               */
-              track.artistCredit(releaseAC);
+            const names = getUpdatedTrackArtists(
+              trackAC.names,
+              savedReleaseAC.names,
+              releaseAC.names,
+            );
+            if (names !== trackAC.names) {
+              track.artistCredit({names});
               track.artistCreditEditorInst?.current?.setState({
                 artistCredit: track.artistCredit.peek(),
               });
-            } else if (
-              savedReleaseACLength > 0 &&
-              releaseAC.names.length > 0 &&
-              trackAC.names.length > savedReleaseACLength
-            ) {
-              /*
-               * If the track credits contain more artists than the old
-               * release credits, also check if the first N (where N is the
-               * length of the release credits) track artists match the
-               * release artists. This handles renaming primary artists on
-               * tracks that also include featured artists (MBS-13273).
-               *
-               * Don't do anything if the track credits already start with
-               * the same artists as the new release credits to avoid
-               * duplicating artists in the case where the track is
-               * credited to "A & B feat. C" and the release is updated
-               * from "A" to "A & B" or "A feat. B".
-               */
-              const trackPrefix = reduceArtistCreditNames(
-                trackAC.names.slice(0, savedReleaseACLength), true,
-              );
-              if (
-                trackPrefix === savedReleaseACReduced &&
-                !sameArtists(
-                  trackAC.names.slice(0, releaseAC.names.length),
-                  releaseAC.names,
-                )
-              ) {
-                /*
-                 * Replace the old release artist(s) with the new one(s) and
-                 * restore the old join phrase following the release artist.
-                 */
-                const names = cloneArrayDeep(releaseAC.names)
-                  .concat(trackAC.names.slice(savedReleaseACLength));
-                names[releaseAC.names.length - 1].joinPhrase =
-                  trackAC.names[savedReleaseACLength - 1].joinPhrase;
-                track.artistCredit({names});
-                track.artistCreditEditorInst?.current?.setState({
-                  artistCredit: track.artistCredit.peek(),
-                });
-              }
             }
           }
         }

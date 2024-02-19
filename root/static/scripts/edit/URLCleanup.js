@@ -3340,7 +3340,7 @@ const CLEANUPS: CleanupEntries = {
           target: ERROR_TARGETS.URL,
         };
       }
-      const m = /^https:\/\/www\.junodownload\.com\/(artists|labels|products)\/[\w\d-]+\/$/.exec(url);
+      const m = /^https:\/\/www\.junodownload\.com\/(artists|labels|products)\/[\w\d+-]+\/$/.exec(url);
       if (m) {
         const prefix = m[1];
         switch (id) {
@@ -4967,7 +4967,7 @@ const CLEANUPS: CleanupEntries = {
   },
   'residentadvisor': {
     match: [
-      new RegExp('^(https?://)?(www\\.)?ra\\.co/(?!exchange)', 'i'),
+      new RegExp('^(https?://)?([^/]+\\.)?ra\\.co/(?!exchange)', 'i'),
       new RegExp('^(https?://)?(www\\.)?residentadvisor\\.net/', 'i'),
     ],
     restrict: [{
@@ -4976,7 +4976,7 @@ const CLEANUPS: CleanupEntries = {
       ...LINK_TYPES.discographyentry,
     }],
     clean: function (url) {
-      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?ra\.co\//, 'https://ra.co/');
+      url = url.replace(/^(?:https?:\/\/)?(?:[^/]+\.)?ra\.co\//, 'https://ra.co/');
       url = url.replace(/^https:\/\/ra\.co\/(clubs|dj|events|labels|podcast|reviews|tracks)\/([^\/?#]+).*$/, 'https://ra.co/$1/$2');
       return url;
     },
@@ -5413,7 +5413,7 @@ const CLEANUPS: CleanupEntries = {
   },
   'spotify': {
     match: [new RegExp(
-      '^(https?://)?([^/]+\\.)?(spotify\\.(?:com|link))/' +
+      '^(https?://)?(((?!shop)[^/])+\.)?(spotify\\.(?:com|link))/' +
       '(?!(?:intl-[a-z]+/)?user)',
       'i',
     )],
@@ -5464,6 +5464,27 @@ const CLEANUPS: CleanupEntries = {
         return {result: false, target: ERROR_TARGETS.ENTITY};
       }
       return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
+  'spotifyshop': {
+    match: [new RegExp('^(https?://)?shop\\.spotify\\.com/', 'i')],
+    restrict: [LINK_TYPES.downloadpurchase, LINK_TYPES.mailorder],
+    clean: function (url) {
+      url = url.replace(/^(?:https?:\/\/)?shop\.spotify\.com\/([^?#]+)(?:[?#].*)?$/, 'https://shop.spotify.com/$1');
+      return url;
+    },
+    validate: function (url, id) {
+      switch (id) {
+        case LINK_TYPES.downloadpurchase.recording:
+        case LINK_TYPES.downloadpurchase.release:
+        case LINK_TYPES.mailorder.recording:
+        case LINK_TYPES.mailorder.release:
+          return {
+            result: /^https:\/\/shop\.spotify\.com\/[^?#]+$/.test(url),
+            target: ERROR_TARGETS.URL,
+          };
+      }
+      return {result: false, target: ERROR_TARGETS.ENTITY};
     },
   },
   'spotifyuseraccount': {
@@ -5698,16 +5719,30 @@ const CLEANUPS: CleanupEntries = {
   },
   'tiktok': {
     match: [new RegExp('^(https?://)?(www\\.)?tiktok\\.com', 'i')],
-    restrict: [LINK_TYPES.socialnetwork],
+    restrict: [{...LINK_TYPES.streamingfree, ...LINK_TYPES.socialnetwork}],
     clean: function (url) {
       return url.replace(
-        /^(?:https?:\/\/)(?:www\.)?tiktok\.com\/@([\w.]+)(?:[\/?&#].*)?$/,
+        /^(?:https?:\/\/)(?:www\.)?tiktok\.com\/@([\w.]+(?:\/video\/\d+)?)(?:[\/?#].*)?$/,
         'https://www.tiktok.com/@$1',
       );
     },
     validate: function (url, id) {
-      const m = /^https:\/\/www\.tiktok\.com\/@[\w.]+$/.exec(url);
+      const m = /^https:\/\/www\.tiktok\.com\/@[\w.]+(\/video\/\d+)?$/.exec(url);
       if (m) {
+        const isAVideo = !!m[1];
+        if (Object.values(LINK_TYPES.streamingfree).includes(id)) {
+          return {
+            result: isAVideo &&
+              (id === LINK_TYPES.streamingfree.recording),
+            target: ERROR_TARGETS.ENTITY,
+          };
+        } else if (isAVideo) {
+          return {
+            error: l('Please link to TikTok profiles, not videos.'),
+            result: false,
+            target: ERROR_TARGETS.ENTITY,
+          };
+        }
         switch (id) {
           case LINK_TYPES.socialnetwork.artist:
           case LINK_TYPES.socialnetwork.label:
