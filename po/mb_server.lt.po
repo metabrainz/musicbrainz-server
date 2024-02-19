@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-02-01 14:05+0000\n"
-"PO-Revision-Date: 2024-02-06 15:28+0000\n"
+"PO-Revision-Date: 2024-02-17 19:28+0000\n"
 "Last-Translator: \"Vac31.\" <Vaclovas@users.noreply.translations.metabrainz."
 "org>\n"
 "Language-Team: Lithuanian <https://translations.metabrainz.org/projects/"
@@ -26,7 +26,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
 "11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 :"
 " n % 1 != 0 ? 2: 3);\n"
-"X-Generator: Weblate 5.3.1\n"
+"X-Generator: Weblate 5.4\n"
 
 #: ../root/components/common-macros.tt:12
 msgid " ({text})"
@@ -3667,15 +3667,15 @@ msgstr "takelis"
 
 #: ../root/edit/search_macros.tt:25
 msgid "voting closing later first"
-msgstr ""
+msgstr "balsavimas užsidaro vėliau pirmiausia"
 
 #: ../root/edit/search_macros.tt:25
 msgid "voting closing sooner first"
-msgstr ""
+msgstr "balsavimas užsidaro anksčiau pirmiausia"
 
 #: ../root/edit/search_macros.tt:25
 msgid "with recent edit notes first"
-msgstr ""
+msgstr "su naujausiomis redagavimo pastabomis pirmiausia"
 
 #: ../root/cdtoc/lookup.tt:24
 msgid "{artist} - {name}"
@@ -3756,21 +3756,24 @@ msgid ""
 "{valink|Various Artists} should very rarely be used on recordings, make sure "
 "that the artist has been entered correctly."
 msgstr ""
+"{valink|Įvairūs atlikėjai} labai retai turėtų būti naudojamas įrašams, "
+"įsitikink, kad atlikėjas įvestas teisingai."
 
 #: ../root/components/common-macros.tt:542
 #: ../root/static/scripts/common/i18n/addColon.js:13
 #: ../root/static/scripts/common/i18n/addColon.js:17
 msgid "{variable}:"
-msgstr ""
+msgstr "{variable}:"
 
 #: ../root/release/edit/layout.tt:61
 msgid "« Previous"
-msgstr ""
+msgstr "« Ankstesnis"
 
 #: ../root/components/forms.tt:362
 msgid ""
 "“Last Name, First Name” and “Group, The” are common examples of sort names."
 msgstr ""
+"„Pavardė, Vardas“ ir „Grupė, ir“ yra įprasti rūšiavimo pavadinimų pavyzdžiai."
 
 #: ../root/components/paginator.tt:19 ../root/components/paginator.tt:31
 #: ../root/components/paginator.tt:39 ../root/components/Paginator.js:94
@@ -3799,7 +3802,7 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Controller.pm:37
 #, perl-brace-format
 msgid "'{id}' is not a valid MusicBrainz ID"
-msgstr ""
+msgstr "„{id}“ nėra tinkamas MusicBrainz ID."
 
 #: ../lib/MusicBrainz/Server/Controller.pm:125
 #, perl-brace-format
@@ -3810,9 +3813,17 @@ msgid_plural ""
 "Thank you, your {num_edits} {edit_url|edits} ({edit_ids}) have been "
 "automatically accepted and applied."
 msgstr[0] ""
+"Ačiū, tavo {edit_url|redagavimas} ({edit_ids}) buvo automatiškai priimtas ir "
+"pritaikytas."
 msgstr[1] ""
+"Ačiū, tavo {num_edits} {edit_url|redagavimai} buvo automatiškai priimtas ir "
+"pritaikytas."
 msgstr[2] ""
+"Ačiū, tavo {num_edits} {edit_url|redagavimas} buvo automatiškai priimtas ir "
+"pritaikytas."
 msgstr[3] ""
+"Ačiū, tavo {num_edits} {edit_url|redagavimų} buvo automatiškai priimtas ir "
+"pritaikytas."
 
 #: ../lib/MusicBrainz/Server/Controller.pm:131
 #, perl-brace-format
@@ -3823,9 +3834,17 @@ msgid_plural ""
 "Thank you, your {num_edits} {edit_url|edits} ({edit_ids}) have been entered "
 "into the edit queue for peer review."
 msgstr[0] ""
+"Ačiū, tavo {edit_url|redagavimas} ({edit_ids}) buvo įtrauktas į redagavimo "
+"eilę tarpusavio peržiūrai."
 msgstr[1] ""
+"Ačiū, tavo {num_edits} {edit_url|redagavimai} ({edit_ids}) buvo įtrauktos į "
+"redagavimo eilę tarpusavio peržiūrai."
 msgstr[2] ""
+"Ačiū, tavo {num_edits} {edit_url|redagavimas} ({edit_ids}) buvo įtrauktas į "
+"redagavimo eilę tarpusavio peržiūrai."
 msgstr[3] ""
+"Ačiū, tavo {num_edits} {edit_url|redagavimų} ({edit_ids}) buvo įtraukti į "
+"redagavimo eilę tarpusavio peržiūrai."
 
 #: ../lib/MusicBrainz/Server/Controller.pm:139
 #, perl-brace-format
