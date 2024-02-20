@@ -37,7 +37,6 @@ declare type EditorT = {
   ...EntityRoleT<'editor'>,
   +avatar: string,
   +deleted: boolean,
-  +is_limited: boolean,
   +name: string,
   +privileges: number,
 };
@@ -79,7 +78,6 @@ declare type UnsanitizedEditorT = $ReadOnly<{
   +has_confirmed_email_address: boolean,
   +has_email_address: boolean,
   +is_charter: boolean,
-  +is_limited: boolean,
   +languages: $ReadOnlyArray<EditorLanguageT> | null,
   +last_login_date: string | null,
   +name: string,

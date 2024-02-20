@@ -32,6 +32,7 @@ import {
   isAccountAdmin,
   isAddingNotesDisabled,
   isAutoEditor,
+  isBeginner,
   isBot,
   isEditingDisabled,
   isLocationEditor,
@@ -99,7 +100,7 @@ function generateUserTypesList(
       </a>,
     );
   }
-  if (user.is_limited) {
+  if (isBeginner(user)) {
     typesList.push(
       <span
         className="tooltip"
@@ -141,7 +142,7 @@ component UserProfileInformation(
   viewingOwnProfile: boolean,
 ) {
   const $c = React.useContext(CatalystContext);
-  const showBioAndURL = !user.is_limited || $c.user != null;
+  const showBioAndURL = !isBeginner(user) || $c.user != null;
   let memberSince;
   if (user.name === 'rob') {
     memberSince = l('The dawn of the project');

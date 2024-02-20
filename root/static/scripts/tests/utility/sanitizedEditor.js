@@ -18,7 +18,6 @@ const sanitizedNormalEditor = {
   deleted: false,
   entityType: 'editor',
   id: 1,
-  is_limited: false,
   name: 'editor1',
   privileges: 0,
 };
@@ -27,7 +26,6 @@ const deletedEditor = {
   ...genericEditor,
   deleted: true,
   id: 123,
-  is_limited: false,
   name: 'Deleted Editor #123',
   privileges: 0,
 };
@@ -37,7 +35,6 @@ const sanitizedDeletedEditor = {
   deleted: true,
   entityType: 'editor',
   id: 123,
-  is_limited: false,
   name: 'Deleted Editor #123',
   privileges: 0,
 };
@@ -46,7 +43,6 @@ const autoEditor = {
   ...genericEditor,
   deleted: false,
   id: 2,
-  is_limited: false,
   name: 'Priv McPrivileged',
   privileges: 1,
 };
@@ -56,7 +52,6 @@ const sanitizedAutoEditor = {
   deleted: false,
   entityType: 'editor',
   id: 2,
-  is_limited: false,
   name: 'Priv McPrivileged',
   privileges: 1,
 };
@@ -65,7 +60,6 @@ const bannedEditor = {
   ...genericEditor,
   deleted: false,
   id: 3,
-  is_limited: false,
   name: 'Gaiseric',
   privileges: 3072,
 };
@@ -75,28 +69,25 @@ const sanitizedBannedEditor = {
   deleted: false,
   entityType: 'editor',
   id: 3,
-  is_limited: false,
   name: 'Gaiseric',
   privileges: 0,
 };
 
-const limitedEditor = {
+const beginnerEditor = {
   ...genericEditor,
   deleted: false,
   id: 5,
-  is_limited: true,
   name: 'Nancy NewEditor',
-  privileges: 0,
+  privileges: 8192,
 };
 
-const sanitizedLimitedEditor = {
+const sanitizedBeginnerEditor = {
   avatar: '',
   deleted: false,
   entityType: 'editor',
   id: 5,
-  is_limited: true,
   name: 'Nancy NewEditor',
-  privileges: 0,
+  privileges: 8192,
 };
 
 test('sanitizedEditor', function (t) {
@@ -127,8 +118,8 @@ test('sanitizedEditor', function (t) {
   );
 
   t.deepEqual(
-    sanitizedEditor(limitedEditor),
-    sanitizedLimitedEditor,
+    sanitizedEditor(beginnerEditor),
+    sanitizedBeginnerEditor,
     'Beginner editor is sanitized as expected',
   );
 });

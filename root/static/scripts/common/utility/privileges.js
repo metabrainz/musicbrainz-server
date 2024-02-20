@@ -12,6 +12,7 @@ import {
   ADDING_NOTES_DISABLED_FLAG,
   AUTO_EDITOR_FLAG,
   BANNER_EDITOR_FLAG,
+  BEGINNER_FLAG,
   BOT_FLAG,
   DONT_NAG_FLAG,
   EDITING_DISABLED_FLAG,
@@ -93,6 +94,13 @@ export function isBannerEditor(editor: EditorPropT): boolean {
     return false;
   }
   return (editor.privileges & BANNER_EDITOR_FLAG) > 0;
+}
+
+export function isBeginner(editor: EditorPropT): boolean {
+  if (editor == null) {
+    return false;
+  }
+  return (editor.privileges & BEGINNER_FLAG) > 0;
 }
 
 export function isEditingDisabled(editor: EditorPropT): boolean {

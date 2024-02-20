@@ -74,7 +74,6 @@ function createCollaboratorAutocompleteState(
         deleted: false,
         entityType: 'editor',
         id,
-        is_limited: false,
         name,
         privileges: -1,
       },
