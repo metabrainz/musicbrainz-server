@@ -204,6 +204,59 @@ test all => sub {
     };
 };
 
+test 'Beginner flag is removed when editor fulfils requirements' => sub {
+    my $test = shift;
+    MusicBrainz::Server::Test->prepare_raw_test_database($test->c, '+edit');
+
+    note('We add Editor 10, with 9 accepted edits');
+    $test->c->sql->do(<<~"SQL");
+        INSERT INTO editor (id, name, password, ha1, email, email_confirm_date, member_since, privs)
+            VALUES (10, 'Editor', '{CLEARTEXT}pass', 'b5ba49bbd92eb35ddb35b5acd039440d', '', now(), '2014-12-01', 8192);
+
+        -- Dummy edits to put editor on cusp of losing beginner flag
+        INSERT INTO edit (id, editor, type, status, expire_time)
+            SELECT x, 10, 1, 2, now() FROM generate_series(1000, 1008) x;
+        INSERT INTO edit_data (edit, data)
+            SELECT x, '{}' FROM generate_series(1000, 1008) x;
+        SELECT setval('edit_id_seq', (SELECT MAX(id) FROM edit));
+        SQL
+
+    my $beginner_editor = $test->c->model('Editor')->get_by_id(10);
+    ok($beginner_editor->is_beginner, 'Editor 10 is a beginner');
+
+    note('We enter an autoedit for the editor');
+    $test->c->model('Edit')->create(
+        edit_type => 123,
+        editor_id => 10,
+        privileges => 1,
+    );
+
+    $beginner_editor = $test->c->model('Editor')->get_by_id(10);
+    ok($beginner_editor->is_beginner, 'Editor 10 still is a beginner');
+
+    note('We enter an open edit for the editor');
+    my $edit = $test->c->model('Edit')->create(
+        edit_type => 123,
+        editor_id => 10,
+        privileges => $UNTRUSTED_FLAG,
+    );
+
+    is($edit->status, $STATUS_OPEN, 'The edit is open');
+
+    $beginner_editor = $test->c->model('Editor')->get_by_id(10);
+    ok($beginner_editor->is_beginner, 'Editor 10 still is a beginner');
+
+    note('We approve the edit');
+    my $approver = $test->c->model('Editor')->get_by_id(1);
+    $test->c->model('Edit')->approve($edit, $approver);
+
+    $edit = $test->c->model('Edit')->get_by_id($edit->id);
+    is($edit->status, $STATUS_APPLIED, 'The edit is now applied');
+
+    $beginner_editor = $test->c->model('Editor')->get_by_id(10);
+    ok(!$beginner_editor->is_beginner, 'Editor 10 is no longer a beginner');
+};
+
 test 'Collections' => sub {
     my $test = shift;
 
