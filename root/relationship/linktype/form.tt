@@ -43,12 +43,6 @@
     [% END %]
 
     [% WRAPPER form_row %]
-        [% r.label('priority', 'Priority:') %]
-        [% r.number('priority') %]
-        [% field_errors(form, 'priority') %]
-    [% END %]
-
-    [% WRAPPER form_row %]
         <label>[% 'Attributes:' %]</label>
         [% FOR field IN form.field('attributes').fields %]
             <div class="no-label">
