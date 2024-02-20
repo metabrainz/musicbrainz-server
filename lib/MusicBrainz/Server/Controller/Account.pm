@@ -8,7 +8,7 @@ use namespace::autoclean;
 use Digest::SHA qw(sha1_base64);
 use JSON;
 use List::AllUtils qw( uniq );
-use MusicBrainz::Server::Constants qw( $CONTACT_URL );
+use MusicBrainz::Server::Constants qw( $BEGINNER_FLAG $CONTACT_URL );
 use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
@@ -639,6 +639,7 @@ sub register : Path('/register') ForbiddenOnMirrors RequireSSL DenyWhenReadonly 
             my $editor = $c->model('Editor')->insert({
                 name => $form->field('username')->value,
                 password => $form->field('password')->value,
+                privs => $BEGINNER_FLAG,
             });
 
             my $email = $form->field('email')->value;

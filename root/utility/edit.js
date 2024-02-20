@@ -26,6 +26,7 @@ import {
 import {
   isAddingNotesDisabled,
   isAutoEditor,
+  isBeginner,
   isBot,
   isEditingEnabled,
 } from '../static/scripts/common/utility/privileges.js';
@@ -186,8 +187,8 @@ export function editorMayVote(
   editor: ?UnsanitizedEditorT,
 ): boolean {
   return (
-    !!editor &&
-    !editor.is_limited &&
+    editor != null &&
+    !isBeginner(editor) &&
     nonEmpty(editor.email_confirmation_date) &&
     !isBot(editor) &&
     isEditingEnabled(editor)

@@ -257,4 +257,62 @@ test '_determine_new_status for different quality levels' => sub {
     is($status, undef, 'Normal quality edit with 1 Yes / 3 No stays open before expiration');
 };
 
+test 'Edit queue removes beginner flag when editor fulfils requirements' => sub {
+    my $test = shift;
+
+    note('We add Editor 10 (newly joined) and 11 (old editor), both with 9 accepted edits');
+    $test->c->sql->do(<<~"SQL");
+        INSERT INTO editor (id, name, password, ha1, email, email_confirm_date, member_since, privs)
+            VALUES (10, 'Editor', '{CLEARTEXT}pass', 'b5ba49bbd92eb35ddb35b5acd039440d', '', now(), now(), 8192),
+                   (11, 'Editor2', '{CLEARTEXT}pass', 'b5ba49bbd92eb35ddb35b5acd039440d', '', now(), '2014-12-01', 8192);
+
+        -- Dummy edits to put editors on cusp of losing beginner flag
+        INSERT INTO edit (id, editor, type, status, expire_time)
+            SELECT x, 10, 1, 2, now() FROM generate_series(1, 9) x;
+        INSERT INTO edit_data (edit, data)
+            SELECT x, '{}' FROM generate_series(1, 9) x;
+
+        INSERT INTO edit (id, editor, type, status, expire_time)
+            SELECT x, 11, 1, 2, now() FROM generate_series(11, 19) x;
+        INSERT INTO edit_data (edit, data)
+            SELECT x, '{}' FROM generate_series(11, 19) x;
+
+        -- Open tenth edit for each editor
+        INSERT INTO edit (id, editor, type, status, open_time, expire_time) VALUES (101, 10, $mock_class, 1, now() - interval '8 days', now() - interval '1 hour');
+        INSERT INTO edit_data (edit, data) VALUES (101, '{}');
+        INSERT INTO edit (id, editor, type, status, open_time, expire_time) VALUES (102, 11, $mock_class, 1, now() - interval '8 days', now() - interval '1 hour');
+        INSERT INTO edit_data (edit, data) VALUES (102, '{}');
+        SQL
+
+    my $new_beginner_editor = $test->c->model('Editor')->get_by_id(10);
+    my $seasoned_beginner_editor = $test->c->model('Editor')->get_by_id(11);
+    ok($new_beginner_editor->is_beginner, 'Editor 10 is a beginner');
+    ok($seasoned_beginner_editor->is_beginner, 'Editor 11 is a beginner');
+
+    note('We process the edit queue, accepting the 10th edit for both editors');
+    my $errors = $test->edit_queue->process_edits;
+    is($errors, 0, 'without errors');
+
+    $new_beginner_editor = $test->c->model('Editor')->get_by_id(10);
+    $seasoned_beginner_editor = $test->c->model('Editor')->get_by_id(11);
+    ok($new_beginner_editor->is_beginner, 'Editor 10 still is a beginner');
+    ok(!$seasoned_beginner_editor->is_beginner, 'Editor 11 is no longer a beginner');
+
+    note('We mark Editor 10 as having joined long ago');
+    $test->c->sql->do(<<~"SQL");
+        UPDATE editor SET member_since = '2020-01-02' WHERE id = 10;
+
+        -- Open eleventh edit for the editor
+        INSERT INTO edit (id, editor, type, status, open_time, expire_time) VALUES (103, 10, $mock_class, 1, now() - interval '8 days', now() - interval '1 hour');
+        INSERT INTO edit_data (edit, data) VALUES (103, '{}');
+        SQL
+
+    note('We process the edit queue, accepting the 11th edit for Editor 10');
+    $errors = $test->edit_queue->process_edits;
+    is($errors, 0, 'without errors');
+
+    $new_beginner_editor = $test->c->model('Editor')->get_by_id(10);
+    ok(!$new_beginner_editor->is_beginner, 'Editor 10 is no longer a beginner');
+};
+
 1;

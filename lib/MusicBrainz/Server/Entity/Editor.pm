@@ -14,7 +14,7 @@ use MusicBrainz::Server::Data::Utils qw(
 use MusicBrainz::Server::Entity::Preferences;
 use MusicBrainz::Server::Entity::Types qw( Area ); ## no critic 'ProhibitUnusedImport'
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array to_json_object );
-use MusicBrainz::Server::Constants qw( :privileges $EDITOR_MODBOT);
+use MusicBrainz::Server::Constants qw( :privileges );
 use MusicBrainz::Server::Filters qw( format_wikitext );
 use MusicBrainz::Server::Types DateTime => { -as => 'DateTimeType' };
 
@@ -100,6 +100,12 @@ sub is_banner_editor
     return (shift->privileges & $mask) > 0;
 }
 
+sub is_beginner
+{
+    my $mask = $BEGINNER_FLAG;
+    return (shift->privileges & $mask) > 0;
+}
+
 sub is_editing_disabled {
     (shift->privileges & $EDITING_DISABLED_FLAG) > 0;
 }
@@ -112,7 +118,7 @@ sub may_vote {
     my $self = shift;
 
     return $self->has_confirmed_email_address &&
-           !$self->is_limited &&
+           !$self->is_beginner &&
            !$self->is_bot &&
            $self->is_editing_enabled;
 }
@@ -152,11 +158,6 @@ has [qw( biography website )] => (
     isa => 'Str',
 );
 
-has 'has_ten_accepted_edits' => (
-    is  => 'rw',
-    isa => 'Bool',
-);
-
 use DateTime;
 has [qw( registration_date )] => (
     isa    => DateTimeType,
@@ -194,16 +195,6 @@ has 'preferences' => (
     lazy => 1,
     default => sub { MusicBrainz::Server::Entity::Preferences->new },
 );
-
-sub is_limited
-{
-    # Please keep the logic in sync with Report::LimitedEditors and EditSearch::Predicate::Role::User
-    my $self = shift;
-    return
-        !($self->id == $EDITOR_MODBOT) &&
-        !$self->deleted &&
-        ($self->is_newbie || !$self->has_ten_accepted_edits);
-}
 
 has birth_date => (
    is => 'rw',
@@ -319,7 +310,6 @@ sub _unsanitized_json {
         has_confirmed_email_address => boolean_to_json($self->has_confirmed_email_address),
         has_email_address           => boolean_to_json($self->has_email_address),
         is_charter                  => boolean_to_json($self->is_charter),
-        is_limited                  => boolean_to_json($self->is_limited),
         languages                   => to_json_array($self->languages),
         last_login_date             => datetime_to_iso8601($self->last_login_date),
         preferences                 => $self->preferences->TO_JSON,
@@ -344,7 +334,6 @@ sub TO_JSON {
         deleted => boolean_to_json($self->deleted),
         entityType => 'editor',
         id => $self->id,
-        is_limited => boolean_to_json($self->is_limited),
         name => $self->name,
         privileges => 0 + $self->public_privileges,
     };
@@ -405,20 +394,12 @@ A short custom block of text an editor can use to describe themselves
 
 A custom URL editors can use to link to their homepage
 
-=head2 has_ten_accepted_edits
-
-A flag showing if this user has at least ten accepted non-auto-edits.
-
 =head2 registration_date, last_login_date, email_confirmation_date
 
 The date the user registered, last logged in and last confirmed their
 email address, respectively.
 
 =head1 METHODS
-
-=head2 is_newbie
-
-Determine if this "editor" is a newbie - someone who is new to MusicBrainz.
 
 =head2 is_auto_editor
 
@@ -455,6 +436,10 @@ The editor is able to administer the accounts of other editors
 =head2 is_banner_editor
 
 The editor is able to change the banner message
+
+=head2 is_beginner
+
+The editor is a beginner (< 2 weeks old and/or < 10 accepted edits)
 
 =head2 new_privileged
 

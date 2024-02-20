@@ -8,13 +8,16 @@
  */
 
 import bracketed from '../../static/scripts/common/utility/bracketed.js';
-import {isBot} from '../../static/scripts/common/utility/privileges.js';
+import {
+  isBeginner,
+  isBot,
+} from '../../static/scripts/common/utility/privileges.js';
 
 component EditorTypeInfo(editor: EditorT | null) {
   return (
     editor == null ? null : (
       <>
-        {editor.is_limited ? (
+        {isBeginner(editor) ? (
           <span className="editor-class">
             {bracketed(
               <span

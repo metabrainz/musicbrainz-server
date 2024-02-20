@@ -25,6 +25,7 @@ use MusicBrainz::Server::Constants qw(
     :edit_status
     :vote
     $AUTO_EDITOR_FLAG
+    $BEGINNER_FLAG
     $UNTRUSTED_FLAG
     $MINIMUM_RESPONSE_PERIOD
     $LIMIT_FOR_EDIT_LISTING
@@ -795,6 +796,34 @@ sub _do_accept
 
     my $status = try {
         $edit->accept;
+
+        # If this was not an autoedit and the editor is a beginner
+        # who can now lose the flag, do that
+        unless ($edit->auto_edit) {
+            my $editor_id = $edit->editor_id;
+            my $editor = $self->c->model('Editor')->get_by_id($editor_id);
+            if ($editor->is_beginner && !$editor->is_newbie) {
+                # We check if this will be the tenth accepted edit
+                my $has_nine_edits =
+                    $self->c->sql->select_single_value(<<~"SQL", $editor_id, $STATUS_APPLIED);
+                        SELECT 1
+                          FROM edit
+                         WHERE edit.editor = ?
+                           AND edit.autoedit = 0
+                           AND edit.status = ?
+                        OFFSET 8
+                        SQL
+
+                if ($has_nine_edits) {
+                    $self->c->sql->do(<<~"SQL", $BEGINNER_FLAG, $editor_id);
+                        UPDATE editor
+                           SET privs = privs - ?
+                         WHERE id = ?
+                        SQL
+                }
+            }
+        }
+
         return $STATUS_APPLIED;
     }
     catch {

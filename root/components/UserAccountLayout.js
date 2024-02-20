@@ -18,7 +18,6 @@ export type AccountLayoutUserT = {
   +deleted: boolean,
   +entityType: 'editor',
   +id: number,
-  +is_limited: boolean,
   +name: string,
   +preferences: {
     +public_ratings: boolean,
