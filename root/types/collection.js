@@ -17,7 +17,6 @@ declare type CollectionT = $ReadOnly<{
   +description: string,
   +description_html: string,
   +editor: EditorT | null,
-  +editor_is_limited: boolean,
   +entity_count: number,
   +gid: string,
   +item_entity_type?: CollectableEntityTypeT,
