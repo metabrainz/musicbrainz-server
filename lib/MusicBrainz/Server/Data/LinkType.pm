@@ -39,7 +39,6 @@ sub _build_columns
         'entity_type1 AS entity1_type',
         'reverse_link_phrase',
         'description',
-        'priority',
         'child_order',
         'long_link_phrase',
         'is_deprecated',
@@ -440,7 +439,6 @@ sub _hash_to_row
             link_phrase
             long_link_phrase
             name
-            priority
             reverse_link_phrase
         ),
     });

@@ -60,11 +60,6 @@ sub l_description {
     return l($self->description);
 }
 
-has 'priority' => (
-    is => 'rw',
-    isa => 'Int',
-);
-
 has 'attributes' => (
     is => 'rw',
     isa => 'ArrayRef[LinkTypeAttribute]',
