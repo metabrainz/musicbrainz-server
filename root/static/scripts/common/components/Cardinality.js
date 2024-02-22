@@ -23,7 +23,7 @@ const Cardinality = ({cardinality}: Props): React$MixedElement => {
       cardinalityName = l('Many relationships');
       break;
     default:
-      cardinalityName = l('Unknown');
+      cardinalityName = lp('Unknown', 'cardinality');
       break;
   }
 

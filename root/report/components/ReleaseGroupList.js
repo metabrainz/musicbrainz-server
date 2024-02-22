@@ -60,7 +60,7 @@ const ReleaseGroupList = <D: {+release_group: ?ReleaseGroupT, ...}>({
         columnName: 'type',
         getText: result => {
           const typeName = result.release_group?.l_type_name;
-          return nonEmpty(typeName) ? typeName : l('Unknown');
+          return nonEmpty(typeName) ? typeName : lp('Unknown', 'type');
         },
         title: l('Type'),
       });

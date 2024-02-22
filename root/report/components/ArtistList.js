@@ -56,7 +56,7 @@ const ArtistList = <D: {+artist: ?ArtistT, ...}>({
           const typeName = result.artist?.typeName;
           return (nonEmpty(typeName)
             ? lp_attributes(typeName, 'artist_type')
-            : l('Unknown')
+            : lp('Unknown', 'type')
           );
         },
         title: l('Type'),
