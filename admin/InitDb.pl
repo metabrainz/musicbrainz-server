@@ -12,7 +12,7 @@ use MusicBrainz::Server::Replication qw( :replication_type );
 
 use aliased 'MusicBrainz::Server::DatabaseConnectionFactory' => 'Databases';
 
-my $REPTYPE = DBDefs->REPLICATION_TYPE;
+my $REPTYPE = $ENV{REPLICATION_TYPE} // DBDefs->REPLICATION_TYPE;
 
 my $psql = 'psql';
 my $path_to_pending_so;

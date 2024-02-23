@@ -11,8 +11,8 @@ requires qw( follow_primary_key );
 
 has _foreign_keys_cache => (
     isa => 'HashRef',
-    is => 'ro',
-    default => sub { +{} },
+    is => 'rw',
+    predicate => '_has_foreign_keys_cache',
 );
 
 has _primary_keys_cache => (

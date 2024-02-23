@@ -35,6 +35,12 @@ test all => sub {
     my $schema_seq = DBDefs->DB_SCHEMA_SEQUENCE;
     my $psql = File::Spec->catfile($root, 'admin/psql');
 
+    system (
+        File::Spec->catfile($root, 'script/dump_foreign_keys.pl'),
+        '--database' => 'TEST',
+        '--output' => '/tmp/mb_TEST_foreign_keys',
+    );
+
     my $exec_sql = sub {
         my $sql = shell_quote(shift);
 
@@ -96,6 +102,7 @@ test all => sub {
             '--compress',
             '--output-dir' => $output_dir,
             '--replication-access-uri' => "file://$rep_dir",
+            '--foreign-keys-dump' => '/tmp/mb_TEST_foreign_keys',
         );
     };
 
