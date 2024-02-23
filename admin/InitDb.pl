@@ -11,6 +11,7 @@ use String::ShellQuote qw( shell_quote );
 use DBDefs;
 use MusicBrainz::Server::Constants qw( @FULL_SCHEMA_LIST );
 use MusicBrainz::Server::Replication qw( :replication_type );
+use MusicBrainz::Script::Utils qw( find_files );
 
 use aliased 'MusicBrainz::Server::DatabaseConnectionFactory' => 'Databases';
 
@@ -24,6 +25,7 @@ my $fFixUTF8 = 0;
 my $fCreateDB;
 my $fInstallExtension;
 my $fExtensionSchema;
+my $initial_sql = 'InsertDefaultRows.sql';
 my $tmp_dir;
 
 use Getopt::Long;
@@ -58,12 +60,15 @@ sub RequireMinimumPostgreSQLVersion
 
 sub RunSQLScript
 {
-    my ($db, $file, $startmessage, $path) = @_;
-    $startmessage ||= "Running $file";
+    my ($db, $file, $startmessage) = @_;
+    $startmessage ||= "Running $file ...";
     print localtime() . " : $startmessage ($file)\n" unless $fQuiet;
 
-    $path //= $sqldir;
-    my $quoted_file_path = shell_quote("$path/$file");
+    my $quoted_file_path = do {
+        my ($file_path) = find_files($file, $file, $sqldir,
+                                     DBDefs->MB_SERVER_ROOT);
+        shell_quote($file_path);
+    };
 
     my $opts = $db->shell_args;
     my $echo = ($fEcho ? '-e' : '');
@@ -117,7 +122,7 @@ sub InstallExtension
 
     chomp($sharedir);
 
-    RunSQLScript($db, "$sharedir/contrib/$ext", "Installing $ext extension ...", '');
+    RunSQLScript($db, "$sharedir/contrib/$ext", "Installing $ext extension ...");
 }
 
 sub CreateReplicationFunction
@@ -267,8 +272,8 @@ sub CreateRelations
         push @opts, '--database', $databaseName;
         system($^X, "$FindBin::Bin/MBImport.pl", @opts, @$import);
         die "\nFailed to import dataset.\n" if ($CHILD_ERROR >> 8);
-    } else {
-        RunSQLScript($DB, 'InsertDefaultRows.sql', 'Adding default rows ...');
+    } elsif ($initial_sql) {
+        RunSQLScript($DB, $initial_sql);
     }
 
     RunSQLScript($DB, 'CreatePrimaryKeys.sql', 'Creating primary keys ...');
@@ -475,6 +480,8 @@ Less commonly used options:
 
      --install-extension Install a postgres extension module
      --extension-schema  Which schema to install the extension module into.
+     --initial-sql       SQL file to initialize the database with.
+                         (default: admin/sql/InsertDefaultRows.sql)
 
 After the import option, you may specify one or more MusicBrainz data dump
 files for importing into the database. Once this script runs to completion
@@ -508,6 +515,7 @@ GetOptions(
     'extension-schema=s'  => \$fExtensionSchema,
     'tmp-dir=s'           => \$tmp_dir,
     'reptype=s'           => \$REPTYPE,
+    'initial-sql=s'       => \$initial_sql,
 ) or exit 2;
 
 my $DB = Databases->get($databaseName);
