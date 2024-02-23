@@ -12,7 +12,7 @@ fi
 source ./admin/functions.sh
 
 if ! script/database_exists $DATABASE; then
-    ./admin/InitDb.pl --createdb --database $DATABASE --clean
+    ./admin/InitDb.pl --createdb --database $DATABASE --clean --initial-sql ''
 fi
 
 echo `date` : Clearing old test database
@@ -50,7 +50,6 @@ OUTPUT=`./admin/psql $DATABASE <./admin/sql/CreateFunctions.sql 2>&1` || ( echo 
 OUTPUT=`./admin/psql $DATABASE <./admin/sql/CreateConstraints.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
 OUTPUT=`./admin/psql $DATABASE <./admin/sql/CreatePrimaryKeys.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
 OUTPUT=`./admin/psql $DATABASE <./admin/sql/CreateFKConstraints.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
-OUTPUT=`./admin/psql $DATABASE <./admin/sql/CreateTriggers.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
 OUTPUT=`./admin/psql $DATABASE <./admin/sql/CreateIndexes.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
 OUTPUT=`./admin/psql $DATABASE <./admin/sql/CreateSearchIndexes.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
 
@@ -65,7 +64,6 @@ OUTPUT=`./admin/psql $DATABASE <./admin/sql/caa/CreateViews.sql 2>&1` || ( echo 
 OUTPUT=`./admin/psql $DATABASE <./admin/sql/caa/CreateFunctions.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
 OUTPUT=`./admin/psql $DATABASE <./admin/sql/caa/CreatePrimaryKeys.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
 OUTPUT=`./admin/psql $DATABASE <./admin/sql/caa/CreateFKConstraints.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
-OUTPUT=`./admin/psql $DATABASE <./admin/sql/caa/CreateTriggers.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
 OUTPUT=`./admin/psql $DATABASE <./admin/sql/caa/CreateIndexes.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
 
 echo `date` : Creating Wikidocs Schema
@@ -83,7 +81,6 @@ OUTPUT=`./admin/psql $DATABASE <./admin/sql/eaa/CreateViews.sql 2>&1` || ( echo 
 OUTPUT=`./admin/psql $DATABASE <./admin/sql/eaa/CreateFunctions.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
 OUTPUT=`./admin/psql $DATABASE <./admin/sql/eaa/CreatePrimaryKeys.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
 OUTPUT=`./admin/psql $DATABASE <./admin/sql/eaa/CreateFKConstraints.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
-OUTPUT=`./admin/psql $DATABASE <./admin/sql/eaa/CreateTriggers.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
 OUTPUT=`./admin/psql $DATABASE <./admin/sql/eaa/CreateIndexes.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
 
 echo `date` : Creating sitemaps Schema
@@ -105,6 +102,13 @@ OUTPUT=`echo "CREATE EXTENSION pgtap WITH SCHEMA public;" | ./admin/psql --syste
 
 echo `date` : Inserting initial data
 OUTPUT=`./admin/psql $DATABASE < ./t/sql/initial.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
+
+echo `date` : Creating triggers
+OUTPUT=`./admin/psql $DATABASE <./admin/sql/CreateTriggers.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
+OUTPUT=`./admin/psql $DATABASE <./admin/sql/caa/CreateTriggers.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
+OUTPUT=`./admin/psql $DATABASE <./admin/sql/eaa/CreateTriggers.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
+
+echo `date` : Setting sequences
 OUTPUT=`./admin/psql $DATABASE <./admin/sql/SetSequences.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
 
 echo `date` : Complete with no errors
