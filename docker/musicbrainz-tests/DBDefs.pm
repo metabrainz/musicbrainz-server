@@ -56,15 +56,15 @@ MusicBrainz::Server::DatabaseConnectionFactory->register_databases(
         port        => 5432,
         username    => 'musicbrainz',
     },
-    TEST_DBMIRROR2_MASTER => {
-        database    => 'musicbrainz_test_dbmirror2_master',
+    TEST_MASTER => {
+        database    => 'musicbrainz_test_master',
         host        => 'localhost',
         password    => '',
         port        => 5432,
         username    => 'musicbrainz',
     },
-    TEST_DBMIRROR2_SLAVE => {
-        database    => 'musicbrainz_test_dbmirror2_slave',
+    TEST_MIRROR => {
+        database    => 'musicbrainz_test_mirror',
         host        => 'localhost',
         password    => '',
         port        => 5432,
