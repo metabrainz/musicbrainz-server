@@ -356,6 +356,14 @@ sub linked_areas
     $self->_aliases($c, 'Area', $areas, $stash);
 }
 
+sub linked_genres
+{
+    my ($self, $c, $stash, $genres) = @_;
+
+    $self->_tags($c, 'Genre', $genres, $stash);
+    $self->_aliases($c, 'Genre', $genres, $stash);
+}
+
 sub linked_instruments
 {
     my ($self, $c, $stash, $instruments) = @_;

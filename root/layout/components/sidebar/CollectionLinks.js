@@ -23,6 +23,7 @@ const noCollectionsStrings = {
   area: N_l('You have no area collections!'),
   artist: N_l('You have no artist collections!'),
   event: N_l('You have no event collections!'),
+  genre: N_l('You have no genre collections!'),
   instrument: N_l('You have no instrument collections!'),
   label: N_l('You have no label collections!'),
   place: N_l('You have no place collections!'),

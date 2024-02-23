@@ -70,37 +70,42 @@ for my $entity_type (entities_with('collections')) {
         my $test = shift;
         my $c = $test->c;
 
-        MusicBrainz::Server::Test->prepare_test_database($test->c, '+releasegroup');
+        SKIP: {
+            skip 'Genres do not support merging', 1
+                if $entity_type eq 'genre';
 
-        $c->sql->do(<<~"SQL");
-            INSERT INTO editor (id, name, password, ha1)
-                VALUES (5, 'me', '{CLEARTEXT}mb', 'a152e69b4cf029912ac2dd9742d8a9fc');
-            SELECT setval('${entity_type}_id_seq', 666, FALSE);
-            SQL
+            MusicBrainz::Server::Test->prepare_test_database($test->c, '+releasegroup');
 
-        my $model = $c->model($ENTITIES{$entity_type}{model});
-        my $entity1 = $model->insert(create_insert($entity_type, 'Test123'));
-        my $entity2 = $model->insert(create_insert($entity_type, 'Test456'));
+            $c->sql->do(<<~"SQL");
+                INSERT INTO editor (id, name, password, ha1)
+                    VALUES (5, 'me', '{CLEARTEXT}mb', 'a152e69b4cf029912ac2dd9742d8a9fc');
+                SELECT setval('${entity_type}_id_seq', 666, FALSE);
+                SQL
 
-        create_collection($c, $entity_type, $entity1);
+            my $model = $c->model($ENTITIES{$entity_type}{model});
+            my $entity1 = $model->insert(create_insert($entity_type, 'Test123'));
+            my $entity2 = $model->insert(create_insert($entity_type, 'Test456'));
 
-        if ($entity_type eq 'release') {
-            $model->merge(
-                new_id => $entity2->{id},
-                old_ids => [$entity1->{id}],
-                medium_positions => {},
-                merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_MERGE,
-            );
-        } elsif ($entity_type eq 'artist') {
-            $model->merge($entity2->{id}, [$entity1->{id}]);
-        } else {
-            $model->merge($entity2->{id}, $entity1->{id});
+            create_collection($c, $entity_type, $entity1);
+
+            if ($entity_type eq 'release') {
+                $model->merge(
+                    new_id => $entity2->{id},
+                    old_ids => [$entity1->{id}],
+                    medium_positions => {},
+                    merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_MERGE,
+                );
+            } elsif ($entity_type eq 'artist') {
+                $model->merge($entity2->{id}, [$entity1->{id}]);
+            } else {
+                $model->merge($entity2->{id}, $entity1->{id});
+            }
+
+            ok($c->sql->select_single_value(
+                "SELECT 1 FROM editor_collection_$entity_type WHERE $entity_type = ?",
+                $entity2->{id},
+            ));
         }
-
-        ok($c->sql->select_single_value(
-            "SELECT 1 FROM editor_collection_$entity_type WHERE $entity_type = ?",
-            $entity2->{id},
-        ));
     };
 }
 

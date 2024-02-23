@@ -63,6 +63,7 @@ INSERT INTO editor_collection_type VALUES (12, 'Recording', 'recording', NULL, 2
 INSERT INTO editor_collection_type VALUES (13, 'Release group', 'release_group', NULL, 2, NULL, '8b6a6897-2ab8-3e18-84ae-e4b7b3791d65');
 INSERT INTO editor_collection_type VALUES (14, 'Series', 'series', NULL, 2, NULL, '39115bd2-dc2a-3576-9fc6-f609ea9061a0');
 INSERT INTO editor_collection_type VALUES (15, 'Work', 'work', NULL, 2, NULL, '918a5dfb-dc15-3251-b57f-25fbdfe019ca');
+INSERT INTO editor_collection_type VALUES (16, 'Genre', 'genre', NULL, 2, NULL, '1210f9ce-e138-3b08-94b5-05d21032b696');
 
 INSERT INTO event_alias_type VALUES (1, 'Event name', NULL, 0, NULL, '412aac48-424b-3052-a314-1f926e8018c8');
 INSERT INTO event_alias_type VALUES (2, 'Search hint', NULL, 0, NULL, '9b7e72d0-ef3f-3c75-908c-f94c48eb6484');

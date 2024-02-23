@@ -12,6 +12,7 @@ import * as React from 'react';
 import AreaList from '../components/list/AreaList.js';
 import ArtistList from '../components/list/ArtistList.js';
 import EventList from '../components/list/EventList.js';
+import GenreList from '../components/list/GenreList.js';
 import InstrumentList from '../components/list/InstrumentList.js';
 import LabelList from '../components/list/LabelList.js';
 import PlaceList from '../components/list/PlaceList.js';
@@ -43,6 +44,7 @@ type Props =
   | PropsForEntity<AreaT>
   | PropsForEntity<ArtistT>
   | PropsForEntity<EventT>
+  | PropsForEntity<GenreT>
   | PropsForEntity<InstrumentT>
   | PropsForEntity<LabelT>
   | PropsForEntity<PlaceT>
@@ -87,6 +89,13 @@ const listPicker = (
           showLocation
           showRatings
           showType
+          {...sharedProps}
+        />
+      );
+    case 'genre':
+      return (
+        <GenreList
+          genres={props.entities}
           {...sharedProps}
         />
       );

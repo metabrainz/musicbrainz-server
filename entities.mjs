@@ -245,6 +245,7 @@ const ENTITIES = {
     annotations: {
       edit_type: 164,
     },
+    collections: true,
     disambiguation: true,
     edit_table: true,
     mbid: {

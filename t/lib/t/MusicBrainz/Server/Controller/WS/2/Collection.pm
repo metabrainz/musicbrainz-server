@@ -25,7 +25,7 @@ test 'collection lookup' => sub {
         '/collection/' =>
         '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
-  <collection-list count="22">
+  <collection-list count="24">
     <collection type="Area" id="9ece2fbd-3f4e-431d-9424-da8af38374e0" entity-type="area">
       <name>private area collection</name>
       <editor>the-anti-kuno</editor>
@@ -40,6 +40,11 @@ test 'collection lookup' => sub {
       <name>private event collection</name>
       <editor>the-anti-kuno</editor>
       <event-list count="1" />
+    </collection>
+    <collection entity-type="genre" type="Genre" id="7749c811-d77c-4ea5-9a9e-e2a4e7ae0d1b">
+      <name>private genre collection</name>
+      <editor>the-anti-kuno</editor>
+      <genre-list count="0" />
     </collection>
     <collection entity-type="instrument" type="Instrument" id="cdef54c4-2798-4d39-a0c9-5074191f9b6e">
       <name>private instrument collection</name>
@@ -95,6 +100,11 @@ test 'collection lookup' => sub {
       <name>public event collection</name>
       <editor>the-anti-kuno</editor>
       <event-list count="1" />
+    </collection>
+    <collection entity-type="genre" type="Genre" id="7749c811-d77c-4ea5-9a9e-e2a4e7ae0d1a">
+      <name>public genre collection</name>
+      <editor>the-anti-kuno</editor>
+      <genre-list count="0" />
     </collection>
     <collection id="7749c811-d77c-4ea5-9a9e-e2a4e7ae0d1f" type="Instrument" entity-type="instrument">
       <name>public instrument collection</name>
@@ -201,7 +211,7 @@ test 'collection lookup' => sub {
         '/collection/?editor=the-anti-kuno' =>
         '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
-  <collection-list count="11">
+  <collection-list count="12">
     <collection id="cc8cd8ee-6477-47d5-a16d-adac11ed9f30" type="Area" entity-type="area">
       <name>public area collection</name>
       <editor>the-anti-kuno</editor>
@@ -216,6 +226,11 @@ test 'collection lookup' => sub {
       <name>public event collection</name>
       <editor>the-anti-kuno</editor>
       <event-list count="1" />
+    </collection>
+    <collection entity-type="genre" type="Genre" id="7749c811-d77c-4ea5-9a9e-e2a4e7ae0d1a">
+      <name>public genre collection</name>
+      <editor>the-anti-kuno</editor>
+      <genre-list count="0" />
     </collection>
     <collection id="7749c811-d77c-4ea5-9a9e-e2a4e7ae0d1f" type="Instrument" entity-type="instrument">
       <name>public instrument collection</name>
@@ -264,7 +279,7 @@ test 'collection lookup' => sub {
         '/collection/?editor=the-anti-kuno&inc=user-collections&limit=3' =>
         '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
-  <collection-list count="22">
+  <collection-list count="24">
     <collection type="Area" id="9ece2fbd-3f4e-431d-9424-da8af38374e0" entity-type="area">
       <name>private area collection</name>
       <editor>the-anti-kuno</editor>
@@ -347,6 +362,10 @@ EOXML
     ws2_test_xml 'GET /events on a release collection 400s',
         '/collection/dd07ea8b-0ec3-4b2d-85cf-80e523de4902/events',
         $bad_entity_response->('event'), { response_code => HTTP_BAD_REQUEST };
+
+    ws2_test_xml 'GET /genres on a release collection 400s',
+        '/collection/dd07ea8b-0ec3-4b2d-85cf-80e523de4902/genres',
+        $bad_entity_response->('genre'), { response_code => HTTP_BAD_REQUEST };
 
     ws2_test_xml 'GET /instruments on a release collection 400s',
         '/collection/dd07ea8b-0ec3-4b2d-85cf-80e523de4902/instruments',

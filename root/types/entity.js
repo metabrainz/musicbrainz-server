@@ -74,6 +74,7 @@ declare type CollectableEntityT =
   | AreaT
   | ArtistT
   | EventT
+  | GenreT
   | InstrumentT
   | LabelT
   | PlaceT
@@ -87,6 +88,7 @@ declare type CollectableEntityTypeT =
   | 'area'
   | 'artist'
   | 'event'
+  | 'genre'
   | 'instrument'
   | 'label'
   | 'place'

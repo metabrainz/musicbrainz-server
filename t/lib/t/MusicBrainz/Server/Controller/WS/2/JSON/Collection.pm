@@ -32,7 +32,7 @@ test 'collection lookup' => sub {
 
     ws2_test_json 'collections lookup',
         '/collection/' => {
-            'collection-count' => 22,
+            'collection-count' => 24,
             'collection-offset' => 0,
             'collections' => [
                 {
@@ -106,6 +106,24 @@ test 'collection lookup' => sub {
                     'entity-type' => 'place',
                     'name' => 'private place collection',
                     'id' => '65e18c7a-0958-4066-9c3e-7c1474c623d1',
+                },
+                {
+                    'id' => '7749c811-d77c-4ea5-9a9e-e2a4e7ae0d1a',
+                    'entity-type' => 'genre',
+                    'name' => 'public genre collection',
+                    'type' => 'Genre',
+                    'type-id' => '1210f9ce-e138-3b08-94b5-05d21032b696',
+                    'editor' => 'the-anti-kuno',
+                    'genre-count' => '0',
+                },
+                {
+                    'id' => '7749c811-d77c-4ea5-9a9e-e2a4e7ae0d1b',
+                    'entity-type' => 'genre',
+                    'name' => 'private genre collection',
+                    'type' => 'Genre',
+                    'type-id' => '1210f9ce-e138-3b08-94b5-05d21032b696',
+                    'editor' => 'the-anti-kuno',
+                    'genre-count' => '0',
                 },
                 {
                     'id' => '7749c811-d77c-4ea5-9a9e-e2a4e7ae0d1f',
