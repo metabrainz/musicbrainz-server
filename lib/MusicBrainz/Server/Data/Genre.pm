@@ -4,6 +4,7 @@ use Moose;
 use MusicBrainz::Server::Data::Utils qw(
     hash_to_row
     load_subobjects
+    order_by
 );
 use MusicBrainz::Server::Entity::Genre;
 
@@ -16,7 +17,8 @@ with 'MusicBrainz::Server::Data::Role::Relatable',
      'MusicBrainz::Server::Data::Role::PendingEdits' => { table => 'genre' },
      'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'genre' },
      'MusicBrainz::Server::Data::Role::SelectAll',
-     'MusicBrainz::Server::Data::Role::DeleteAndLog' => { type => 'genre' };
+     'MusicBrainz::Server::Data::Role::DeleteAndLog' => { type => 'genre' },
+     'MusicBrainz::Server::Data::Role::Collection';
 
 sub _type { 'genre' }
 
@@ -71,6 +73,7 @@ sub can_delete { 1 }
 sub delete {
     my ($self, $genre_id) = @_;
 
+    $self->c->model('Collection')->delete_entities('genre', $genre_id);
     $self->c->model('Relationship')->delete_entities('genre', $genre_id);
     $self->annotation->delete($genre_id);
     $self->alias->delete_entities($genre_id);
@@ -105,6 +108,18 @@ sub get_all_names {
         SELECT name FROM genre
         ORDER BY name COLLATE musicbrainz ASC
         SQL
+}
+
+sub _order_by {
+    my ($self, $order) = @_;
+
+    my $order_by = order_by($order, 'name', {
+        'name' => sub {
+            return 'name COLLATE musicbrainz';
+        },
+    });
+
+    return $order_by;
 }
 
 __PACKAGE__->meta->make_immutable;

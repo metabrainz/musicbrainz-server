@@ -1624,6 +1624,8 @@ INSERT INTO editor_collection (id, gid, editor, name, public, description, type)
 INSERT INTO editor_collection (id, gid, editor, name, public, description, type) VALUES (20, '870dbdcf-e047-4da5-9c80-c39e964da96f', 95821, 'private series collection', FALSE, '', 14);
 INSERT INTO editor_collection (id, gid, editor, name, public, description, type) VALUES (21, '3529acda-c0c1-4b13-9761-a4a8dedb64be', 95821, 'public work collection', TRUE, '', 15);
 INSERT INTO editor_collection (id, gid, editor, name, public, description, type) VALUES (22, 'b69030b0-911e-4f7d-aa59-c488b2c8fe8e', 95821, 'private work collection', FALSE, '', 15);
+INSERT INTO editor_collection (id, gid, editor, name, public, description, type) VALUES (23, '7749c811-d77c-4ea5-9a9e-e2a4e7ae0d1a', 95821, 'public genre collection', TRUE, '', 16);
+INSERT INTO editor_collection (id, gid, editor, name, public, description, type) VALUES (24, '7749c811-d77c-4ea5-9a9e-e2a4e7ae0d1b', 95821, 'private genre collection',FALSE, '', 16);
 
 INSERT INTO editor_collection_area (collection, area) VALUES (1, 13);
 INSERT INTO editor_collection_area (collection, area) VALUES (2, 81);
