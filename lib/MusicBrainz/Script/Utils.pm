@@ -11,6 +11,7 @@ use feature 'state';
 use base 'Exporter';
 
 our @EXPORT_OK = qw(
+    find_files
     find_mbdump_file
     get_primary_keys
     get_foreign_keys
@@ -18,27 +19,43 @@ our @EXPORT_OK = qw(
     retry
 );
 
+=sub find_files
+
+Looks for files named C<$file> in C<@search_paths>. The given paths may
+contain a direct reference to the file, or directories which will be checked
+instead.
+
+Returns an array of found files (in the specified search order).
+
+=cut
+
+sub find_files {
+    my ($file, @search_paths) = @_;
+
+    return uniq(grep { -f } map {
+        (basename($_) eq $file ? $_ : ()), "$_/$file"
+    } @search_paths);
+}
+
 =sub find_mbdump_file
 
-Looks for an mbdump file named C<$table> in C<@search_paths>. The given paths
-may contain a direct reference to the file, or directories which will be
-checked instead.
+Looks for an mbdump file named C<$table> in C<@search_paths>. The semantics
+are the same as for C<find_files>, except:
 
-Returns an array of found files (in the specified search order) in list
-context, or the first such match in scalar context.
+ 1. The file is additionally searched for under an 'mbdump' sub-directory in
+    each search path.
+ 2. The first matching file is returned in scalar context.
 
 =cut
 
 sub find_mbdump_file {
     my ($table, @search_paths) = @_;
 
-    my @r;
-    for my $arg (@search_paths) {
-        push(@r, $arg), next if -f $arg and basename($arg) eq $table;
-        push(@r, "$arg/$table"), next if -f "$arg/$table";
-        push(@r, "$arg/mbdump/$table"), next if -f "$arg/mbdump/$table";
-    }
-    return wantarray ? uniq(@r) : $r[0];
+    my @result = find_files($table, map {
+        ($_, "$_/mbdump")
+    } @search_paths);
+
+    return wantarray ? @result : $result[0];
 }
 
 =sub get_foreign_keys
