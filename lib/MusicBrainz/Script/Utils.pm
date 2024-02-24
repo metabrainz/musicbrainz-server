@@ -3,17 +3,42 @@ use strict;
 use warnings;
 
 use English;
+use File::Basename qw( basename );
 
 use feature 'state';
 
 use base 'Exporter';
 
 our @EXPORT_OK = qw(
+    find_mbdump_file
     get_primary_keys
     get_foreign_keys
     log
     retry
 );
+
+=sub find_mbdump_file
+
+Looks for an mbdump file named C<$table> in C<@search_paths>. The given paths
+may contain a direct reference to the file, or directories which will be
+checked instead.
+
+Returns an array of found files (in the specified search order) in list
+context, or the first such match in scalar context.
+
+=cut
+
+sub find_mbdump_file {
+    my ($table, @search_paths) = @_;
+
+    my @r;
+    for my $arg (@search_paths) {
+        push(@r, $arg), next if -f $arg and basename($arg) eq $table;
+        push(@r, "$arg/$table"), next if -f "$arg/$table";
+        push(@r, "$arg/mbdump/$table"), next if -f "$arg/mbdump/$table";
+    }
+    return wantarray ? @r : $r[0];
+}
 
 =sub get_foreign_keys
 
