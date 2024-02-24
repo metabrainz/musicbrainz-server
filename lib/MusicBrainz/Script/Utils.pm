@@ -4,6 +4,7 @@ use warnings;
 
 use English;
 use File::Basename qw( basename );
+use List::AllUtils qw( uniq );
 
 use feature 'state';
 
@@ -37,7 +38,7 @@ sub find_mbdump_file {
         push(@r, "$arg/$table"), next if -f "$arg/$table";
         push(@r, "$arg/mbdump/$table"), next if -f "$arg/mbdump/$table";
     }
-    return wantarray ? @r : $r[0];
+    return wantarray ? uniq(@r) : $r[0];
 }
 
 =sub get_foreign_keys

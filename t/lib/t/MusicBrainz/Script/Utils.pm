@@ -50,10 +50,9 @@ test 'find_mbdump_file works as expected' => sub {
     is($result, $f2_path, 'scalar file is found in mbdump sub-directory');
 
     @result = find_mbdump_file('artist', $f1_path, $dir1, $dir2);
-    is(scalar @result, 3, 'three results are found');
+    is(scalar @result, 2, 'two files are found (no duplicates)');
     is($result[0], $f1_path, 'first file is correctly found');
-    is($result[1], $f1_path, 'second file is correctly found');
-    is($result[2], $f3_path, 'third file is correctly found');
+    is($result[1], $f3_path, 'second file is correctly found');
 
     unlink $f1_path, $f2_path;
     rmdir($dir1);
