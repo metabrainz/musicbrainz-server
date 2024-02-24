@@ -9,6 +9,7 @@ use FindBin;
 use lib "$FindBin::Bin/../../lib";
 
 use Getopt::Long;
+use MusicBrainz::Script::Utils qw( find_mbdump_file );
 use MusicBrainz::Server::Context;
 use DBDefs;
 use Sql;
@@ -194,7 +195,7 @@ sub ImportReplicationTables
 
     for my $table (('dbmirror_pending', 'dbmirror_pendingdata'))
     {
-        my $file = find_file($table);
+        my $file = find_mbdump_file($table, @ARGV);
         $file or print("No data file found for '$table', skipping\n"), die;
 
         if (not empty($table))
@@ -217,7 +218,7 @@ sub ImportReplicationTables
 
 sub ImportDBMirror2ReplicationTables {
     for my $table (qw( pending_data pending_keys pending_ts )) {
-        my $file = find_file($table);
+        my $file = find_mbdump_file($table, @ARGV);
 
         if (!$file) {
             # See NOTE-NOPK-1 in LoadReplicationChanges.
@@ -234,21 +235,6 @@ sub ImportDBMirror2ReplicationTables {
     }
 
     return 1;
-}
-
-sub find_file
-{
-    my $table = shift;
-
-    for my $arg (@ARGV)
-    {
-        use File::Basename;
-        return $arg if -f $arg and basename($arg) eq $table;
-        return "$arg/$table" if -f "$arg/$table";
-        return "$arg/mbdump/$table" if -f "$arg/mbdump/$table";
-    }
-
-    undef;
 }
 
 {
