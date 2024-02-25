@@ -129,7 +129,7 @@ sub pre_key_traversal {
     } elsif ($change->{operation} eq 'd') {
         $c->sql->auto_commit(1);
         $c->sql->do(<<"SQL", $data->{id}, $change->{table}, $replication_sequence);
-            INSERT INTO json_dump.delete_entities
+            INSERT INTO json_dump.deleted_entities
                 (id, entity_type, replication_sequence)
             VALUES (?, ?, ?)
             ON CONFLICT DO NOTHING
