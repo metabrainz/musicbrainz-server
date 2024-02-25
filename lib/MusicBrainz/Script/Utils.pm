@@ -3,7 +3,6 @@ use strict;
 use warnings;
 
 use English;
-use File::Basename qw( basename );
 use List::AllUtils qw( uniq );
 
 use feature 'state';
@@ -33,7 +32,11 @@ sub find_files {
     my ($file, @search_paths) = @_;
 
     return uniq(grep { -f } map {
-        (basename($_) eq $file ? $_ : ()), "$_/$file"
+        my $search_path = $_;
+        (
+            ($search_path =~ m/\Q$file\E$/ ? $search_path : ()),
+            "$search_path/$file"
+        )
     } @search_paths);
 }
 
