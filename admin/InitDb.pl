@@ -283,6 +283,7 @@ sub CreateRelations
     RunSQLScript($DB, 'caa/CreatePrimaryKeys.sql', 'Creating CAA primary keys ...');
     RunSQLScript($DB, 'documentation/CreatePrimaryKeys.sql', 'Creating documentation primary keys ...');
     RunSQLScript($DB, 'eaa/CreatePrimaryKeys.sql', 'Creating EAA primary keys ...');
+    RunSQLScript($DB, 'json_dump/CreatePrimaryKeys.sql', 'Creating json_dump primary keys ...');
     RunSQLScript($DB, 'statistics/CreatePrimaryKeys.sql', 'Creating statistics primary keys ...');
     RunSQLScript($DB, 'wikidocs/CreatePrimaryKeys.sql', 'Creating wikidocs primary keys ...');
 
