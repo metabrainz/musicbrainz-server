@@ -8,7 +8,32 @@ use File::Temp qw( tempdir );
 use Test::More;
 use Test::Routine;
 
-use MusicBrainz::Script::Utils qw( find_mbdump_file );
+use MusicBrainz::Script::Utils qw( find_files find_mbdump_file );
+
+test 'find_files works as expected' => sub {
+    my $test = shift;
+
+    my $tmp_dir = tempdir('find_files-XXXXXXXX', DIR => '/tmp', CLEANUP => 1);
+    my $sql_dir = File::Spec->catdir($tmp_dir, 'sql');
+    my $caa_dir = File::Spec->catdir($sql_dir, 'caa');
+
+    system('mkdir', $sql_dir, $caa_dir);
+
+    my $create_tables_sql_path =
+        File::Spec->catfile($caa_dir, 'CreateTables.sql');
+
+    system('touch', $create_tables_sql_path);
+
+    my @result;
+
+    @result = find_files(
+        'caa/CreateTables.sql',
+        "$caa_dir/CreateTables.sql",
+    );
+    is(scalar @result, 1, 'one file is found');
+    is($result[0], $create_tables_sql_path,
+       'file with path prefix is found by direct reference');
+};
 
 test 'find_mbdump_file works as expected' => sub {
     my $test = shift;
