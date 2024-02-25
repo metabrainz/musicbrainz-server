@@ -32,7 +32,8 @@ else
 fi
 
 echo `date` : Set up pgtap extension
-OUTPUT=`echo "CREATE EXTENSION IF NOT EXISTS pgtap WITH SCHEMA public;" | \
+OUTPUT=`echo '\set ON_ERROR_STOP 1' $'\n' \
+             'CREATE EXTENSION IF NOT EXISTS pgtap WITH SCHEMA public;' | \
         ./admin/psql --system $DATABASE 2>&1` || \
     ( echo "$OUTPUT" && exit 1 )
 
