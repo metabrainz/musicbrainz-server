@@ -10,7 +10,10 @@ use lib "$FindBin::Bin/../lib";
 use Getopt::Long;
 use DBDefs;
 use Sql;
-use MusicBrainz::Script::Utils qw( is_table_empty );
+use MusicBrainz::Script::Utils qw(
+    copy_table_from_file
+    is_table_empty
+);
 use MusicBrainz::Server::Replication qw( :replication_type );
 use MusicBrainz::Server::Constants qw( @FULL_TABLE_LIST );
 
@@ -18,7 +21,6 @@ use aliased 'MusicBrainz::Server::DatabaseConnectionFactory' => 'Databases';
 
 my ($fHelp, $fIgnoreErrors);
 my $tmpdir = '/tmp';
-my $fProgress = -t STDOUT;
 my $fFixUTF8 = 0;
 my $skip_ensure_editor = 0;
 my $update_replication_control = 1;
@@ -215,104 +217,25 @@ if ($update_replication_control) {
 
 exit($errors ? 1 : 0);
 
-
-
 sub ImportTable
 {
     my ($table, $file) = @_;
 
-    print localtime() . " : load $table\n";
+    my $rows = copy_table_from_file(
+        $sql, $table, $file,
+        delete_first    => $delete_first,
+        fix_utf8        => $fFixUTF8,
+        ignore_errors   => $fIgnoreErrors,
+    );
 
-    my $rows = 0;
-
-    my $t1 = [gettimeofday];
-    my $interval;
-
-    my $size = -s($file)
-        or return 1;
-
-    my $p = sub {
-        my ($pre, $post) = @_;
-        no integer;
-        printf $pre.'%-30.30s %9d %3d%% %9d'.$post,
-                $table, $rows, int(100 * tell(LOAD) / $size),
-                $rows / ($interval||1);
-    };
-
-    $OUTPUT_AUTOFLUSH = 1;
-
-    eval
-    {
-        # open in :bytes mode (always keep byte octets), to allow fixing of invalid
-        # UTF-8 byte sequences in --fix-broken-utf8 mode.
-        # in default mode, the Pg driver will take care of the UTF-8 transformation
-        # and croak on any invalid UTF-8 character
-        open(LOAD, '<:bytes', $file) or die "open $file: $OS_ERROR";
-
-        # If you're looking at this code because your import failed, maybe
-        # with an error like this:
-        #   ERROR:  copy: line 1, Missing data for column "automodsaccepted"
-        # then the chances are it's because the data you're trying to load
-        # doesn't match the structure of the database you're trying to load it
-        # into.  Please make sure you've got the right copy of the server
-        # code, as described in the INSTALL file.
-
-        $sql->begin;
-        $sql->do("DELETE FROM $table") if $delete_first;
-        my $dbh = $sql->dbh; # issues a ping, must be done before COPY
-        $sql->do("COPY $table FROM stdin");
-
-        $p->('', '') if $fProgress;
-        my $t;
-
-        use Encode;
-        while (<LOAD>)
-        {
-                $t = $_;
-                if ($fFixUTF8) {
-                        # replaces any invalid UTF-8 character with special 0xFFFD codepoint
-                        # and warn on any such occurence
-                        $t = Encode::decode('UTF-8', $t, Encode::FB_DEFAULT | Encode::WARN_ON_ERR);
-                } else {
-                        $t = Encode::decode('UTF-8', $t, Encode::FB_CROAK);
-                }
-                if (!$dbh->pg_putcopydata($t))
-                {
-                        print 'ERROR while processing: ', $t;
-                        die;
-                }
-
-                ++$rows;
-                unless ($rows & 0xFFF)
-                {
-                        $interval = tv_interval($t1);
-                        $p->("\r", '') if $fProgress;
-                }
-        }
-        $dbh->pg_putcopyend() or die;
-        $interval = tv_interval($t1);
-        $p->(($fProgress ? "\r" : ''), sprintf(" %.2f sec\n", $interval));
-
-        close LOAD
-                or die $OS_ERROR;
-
-        $sql->commit;
-
-        die 'Error loading data'
-                if -f $file and is_table_empty($sql, $table);
-
+    if ($rows) {
         ++$tables;
         $totalrows += $rows;
-
-        1;
-    };
-
-    return 1 unless $EVAL_ERROR;
-    warn "Error loading $file: $EVAL_ERROR";
-    $sql->rollback;
-
-    ++$errors, return 0 if $fIgnoreErrors;
-    exit 1;
+        return 1;
+    } else {
+        ++$errors;
+        return 0;
+    }
 }
 
 sub ImportAllTables

@@ -9,7 +9,10 @@ use FindBin;
 use lib "$FindBin::Bin/../../lib";
 
 use Getopt::Long;
-use MusicBrainz::Script::Utils qw( is_table_empty );
+use MusicBrainz::Script::Utils qw(
+    copy_table_from_file
+    is_table_empty
+);
 use MusicBrainz::Server::Context;
 use DBDefs;
 use Sql;
@@ -105,72 +108,19 @@ sub ImportTable
 {
     my ($table, $file) = @_;
 
-    print localtime() . " : load $table\n";
+    my $rows = copy_table_from_file(
+        $sql, $table, $file,
+        ignore_errors => $fIgnoreErrors,
+    );
 
-    my $rows = 0;
-
-    my $t1 = [gettimeofday];
-    my $interval;
-
-    my $size = -s($file) || 1;
-
-    my $p = sub {
-        my ($pre, $post) = @_;
-        no integer;
-        printf $pre.'%-30.30s %9d %3d%% %9d'.$post,
-                $table, $rows, int(100 * tell(LOAD) / $size),
-                $rows / ($interval||1);
-    };
-
-    $OUTPUT_AUTOFLUSH = 1;
-
-    eval
-    {
-        open(LOAD, '<:encoding(utf8)', $file) or die "open $file: $OS_ERROR";
-
-        $sql->begin;
-        my $dbh = $sql->dbh; # issues a ping, must be done before COPY
-        $sql->do("COPY $table FROM stdin");
-
-        $p->('', '');
-
-        while (<LOAD>)
-        {
-                $dbh->pg_putcopydata($_) or die;
-
-                ++$rows;
-                unless ($rows & 0xFFF)
-                {
-                        $interval = tv_interval($t1);
-                        $p->("\r", '');
-                }
-        }
-
-        $dbh->pg_putcopyend() or die;
-
-        $interval = tv_interval($t1);
-        $p->("\r", sprintf(" %.2f sec\n", $interval));
-
-        close LOAD
-                or die $OS_ERROR;
-
-        $sql->commit;
-
-        die 'Error loading data'
-                if -f $file and is_table_empty($sql, $table);
-
+    if ($rows) {
         ++$tables;
         $totalrows += $rows;
-
-        1;
-    };
-
-    return 1 unless $EVAL_ERROR;
-    warn "Error loading $file: $EVAL_ERROR";
-    $sql->rollback;
-
-    ++$errors, return 0 if $fIgnoreErrors;
-    exit 1;
+        return 1;
+    } else {
+        ++$errors;
+        return 0;
+    }
 }
 
 sub ImportReplicationTables
