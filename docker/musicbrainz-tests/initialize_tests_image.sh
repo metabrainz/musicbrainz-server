@@ -14,7 +14,8 @@ sv_start_if_down \
     postgresql \
     redis # script/dump_js_type_info.pl needs Redis running.
 
-sudo -E -H -u musicbrainz carton exec -- ./script/create_test_db.sh
+REPLICATION_TYPE=1 \
+    sudo -E -H -u musicbrainz carton exec -- ./script/create_test_db.sh
 
 cd /var/lib/postgresql
 
