@@ -9,6 +9,7 @@ use FindBin;
 use lib "$FindBin::Bin/../../lib";
 
 use Getopt::Long;
+use MusicBrainz::Script::Utils qw( is_table_empty );
 use MusicBrainz::Server::Context;
 use DBDefs;
 use Sql;
@@ -156,7 +157,7 @@ sub ImportTable
         $sql->commit;
 
         die 'Error loading data'
-                if -f $file and empty($table);
+                if -f $file and is_table_empty($sql, $table);
 
         ++$tables;
         $totalrows += $rows;
@@ -170,17 +171,6 @@ sub ImportTable
 
     ++$errors, return 0 if $fIgnoreErrors;
     exit 1;
-}
-
-sub empty
-{
-    my $table = shift;
-
-    my $any = $sql->select_single_value(
-        "SELECT 1 FROM $table LIMIT 1",
-    );
-
-    not defined $any;
 }
 
 sub ImportReplicationTables
@@ -197,7 +187,7 @@ sub ImportReplicationTables
         my $file = find_file($table);
         $file or print("No data file found for '$table', skipping\n"), die;
 
-        if (not empty($table))
+        if (not is_table_empty($sql, $table))
         {
             die "$table already contains data; skipping\n";
             next;
@@ -226,7 +216,7 @@ sub ImportDBMirror2ReplicationTables {
         }
 
         my $qualified_table = "dbmirror2.$table";
-        if (!empty($qualified_table)) {
+        if (!is_table_empty($sql, $qualified_table)) {
             die "$qualified_table already contains data";
         }
 

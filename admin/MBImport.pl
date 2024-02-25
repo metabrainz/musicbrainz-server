@@ -10,6 +10,7 @@ use lib "$FindBin::Bin/../lib";
 use Getopt::Long;
 use DBDefs;
 use Sql;
+use MusicBrainz::Script::Utils qw( is_table_empty );
 use MusicBrainz::Server::Replication qw( :replication_type );
 use MusicBrainz::Server::Constants qw( @FULL_TABLE_LIST );
 
@@ -298,7 +299,7 @@ sub ImportTable
         $sql->commit;
 
         die 'Error loading data'
-                if -f $file and empty($table);
+                if -f $file and is_table_empty($sql, $table);
 
         ++$tables;
         $totalrows += $rows;
@@ -312,17 +313,6 @@ sub ImportTable
 
     ++$errors, return 0 if $fIgnoreErrors;
     exit 1;
-}
-
-sub empty
-{
-    my $table = shift;
-
-    my $any = $sql->select_single_value(
-        "SELECT 1 FROM $table LIMIT 1",
-    );
-
-    not defined $any;
 }
 
 sub ImportAllTables
@@ -342,7 +332,7 @@ sub ImportAllTables
         {
                 my $basetable = $1;
 
-                if (not empty($basetable) and not $delete_first)
+                if (not is_table_empty($sql, $basetable) and not $delete_first)
                 {
                         warn "$basetable table already contains data; skipping $table\n";
                         next;
@@ -352,7 +342,7 @@ sub ImportAllTables
                 ImportTable($basetable, $file) or next;
 
         } else {
-                if (not empty($table) and not $delete_first)
+                if (not is_table_empty($sql, $table) and not $delete_first)
                 {
                         warn "$table already contains data; skipping\n";
                         next;
