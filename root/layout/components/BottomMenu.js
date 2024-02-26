@@ -138,7 +138,7 @@ const AboutMenu = () => (
         <a href="https://metabrainz.org/social-contract">{l('Social contract')}</a>
       </li>
       <li>
-        <a href="/doc/Code_of_Conduct">{l('Code of conduct')}</a>
+        <a href="/doc/Code_of_Conduct">{l('Code of Conduct')}</a>
       </li>
       <li>
         <a href="https://metabrainz.org/privacy">{l('Privacy policy')}</a>
