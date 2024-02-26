@@ -6594,6 +6594,63 @@ limited_link_type_combinations: [
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'https://id.oclc.org/worldcat/entity/E39PCYRCtHWqdGhtK9yGDjJKwK',
   },
+  // Yandex
+  {
+                     input_url: 'http://music.yandex.com/artist/168862',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://music.yandex.com/artist/168862',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://music.yandex.kz/#!/artist/168862',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://music.yandex.com/artist/168862',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://music.yandex.com/#!/label/2681159',
+             input_entity_type: 'label',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://music.yandex.com/label/2681159',
+       only_valid_entity_types: ['label'],
+  },
+  {
+                     input_url: 'https://music.yandex.ru/album/22248502',
+             input_entity_type: 'release',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://music.yandex.com/album/22248502',
+       only_valid_entity_types: ['release'],
+  },
+  {
+                     input_url: 'https://music.yandex.com/iframe/#album/22248502',
+             input_entity_type: 'release',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://music.yandex.com/album/22248502',
+       only_valid_entity_types: ['release'],
+  },
+  {
+                     input_url: 'https://music.yandex.com/iframe/#track/103805357:22248502',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://music.yandex.com/album/22248502/track/103805357',
+       only_valid_entity_types: ['recording'],
+  },
+  {
+                     input_url: 'https://music.yandex.by/album/22248502/track/103805357',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://music.yandex.com/album/22248502/track/103805357',
+       only_valid_entity_types: ['recording'],
+  },
+  {
+                     input_url: 'https://music.yandex.uz/#!/album/22248502/track/103805357',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://music.yandex.com/album/22248502/track/103805357',
+       only_valid_entity_types: ['recording'],
+  },
   // YesAsia
   {
                      input_url: 'https://www.yesasia.com/global/twice-korea/0-aid3437787-0-bpt.47-zh_TW/list.html',
