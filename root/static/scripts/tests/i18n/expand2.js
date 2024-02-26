@@ -11,7 +11,7 @@ import expand2text, {
 } from '../../common/i18n/expand2text.js';
 
 test('expand2', function (t) {
-  t.plan(69);
+  t.plan(70);
 
   let error = '';
   const consoleError = console.error;
@@ -46,6 +46,7 @@ test('expand2', function (t) {
   );
   expandText('An {apple_fruit}', null, 'An {apple_fruit}');
   expandText('An {apple_fruit}', {apple_fruit: 'apple'}, 'An apple');
+  expandText('An {apple fruit}', {'apple fruit': 'apple'}, 'An apple');
   expandText('A {number}', {number: 1}, 'A 1');
   expandHtml('{null} value', {null: null}, ' value');
   t.equal(error, '');
