@@ -44,7 +44,8 @@ const AttachCDTocConfirmation = ({
       <p>
         {exp.l(
           `Are you sure that you wish to attach the disc ID
-           <code>{discid}</code> to {format} {pos} of {release} by {artist}?`,
+           <code>{discid}</code> to medium {pos} ({format})
+           of {release} by {artist}?`,
           {
             artist: <ArtistCreditLink artistCredit={release.artistCredit} />,
             discid: cdToc.discid,
