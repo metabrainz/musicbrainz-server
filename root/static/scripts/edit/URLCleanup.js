@@ -6339,7 +6339,41 @@ const CLEANUPS: CleanupEntries = {
     )],
     restrict: [LINK_TYPES.streamingfree],
     clean: function (url) {
-      return url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?vk\.com/, 'https://vk.com');
+      url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?vk\.com/, 'https://vk.com');
+      // Remove 'ref' and 'from' parameters
+      url = url.replace(/([&?])(?:from|ref)=[^?&]*/g, '$1');
+      // Ensure the first parameter left uses ? not to break the URL
+      url = url.replace(/([&?])&+/, '$1');
+      url = url.replace(/[&?]$/, '');
+      url = url.replace(/^https:\/\/vk\.com\/(?:artist\/\w+\?z|audio\?act)=audio_playlist-(\d+_\d+).*$/, 'https://vk.com/music/album/-$1');
+      url = url.replace(/^https:\/\/vk\.com\/artist\/\w+\?z=video-(\d+_\d+).*$/, 'https://vk.com/video-$1');
+      url = url.replace(/^https:\/\/vk\.com\/((?:audio|video|music\/album\/)-\d+_\d+).*$/, 'https://vk.com/$1');
+      return url;
+    },
+    validate: function (url, id) {
+      const m = /^https:\/\/vk\.com\/(?:(artist)\/\w+|(audio|video)-\d+_\d+|(music\/album)\/-\d+_\d+)$/.exec(url);
+      if (m) {
+        const prefix = m[1] || m[2] || m[3];
+        switch (id) {
+          case LINK_TYPES.streamingfree.artist:
+            return {
+              result: prefix === 'artist',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.streamingfree.recording:
+            return {
+              result: prefix === 'audio' || prefix === 'video',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.streamingfree.release:
+            return {
+              result: prefix === 'music/album',
+              target: ERROR_TARGETS.ENTITY,
+            };
+        }
+        return {result: false, target: ERROR_TARGETS.ENTITY};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
     },
   },
   'vndb': {
