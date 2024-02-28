@@ -6221,6 +6221,30 @@ limited_link_type_combinations: [
     expected_relationship_type: 'socialnetwork',
             expected_clean_url: 'https://vk.com/tin_sontsya',
   },
+  {
+                     input_url: 'https://vk.com/audio-2001235442_109235442',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://vk.com/audio-2001235442_109235442',
+  },
+  {
+                     input_url: 'https://vk.com/music/album/-2000547103_15547103',
+             input_entity_type: 'release',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://vk.com/music/album/-2000547103_15547103',
+  },
+  {
+                     input_url: 'https://vk.com/artist/shortparis',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://vk.com/artist/shortparis',
+  },
+  {
+                     input_url: 'https://vk.com/video-2000471995_63471995',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://vk.com/video-2000471995_63471995',
+  },
   // vkgy
   {
                      input_url: 'http://www.vk.gy/artists/skull/',

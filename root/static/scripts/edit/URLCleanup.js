@@ -6276,7 +6276,10 @@ const CLEANUPS: CleanupEntries = {
     restrict: [LINK_TYPES.socialnetwork],
   },
   'vk': {
-    match: [new RegExp('^(https?://)?([^/]+\\.)?vk\\.com/', 'i')],
+    match: [new RegExp(
+      '^(https?://)?([^/]+\\.)?vk\\.com/(?!(?:artist|audio|music|video))',
+      'i',
+    )],
     restrict: [LINK_TYPES.socialnetwork],
     clean: function (url) {
       return url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?vk\.com/, 'https://vk.com');
@@ -6327,6 +6330,16 @@ const CLEANUPS: CleanupEntries = {
         return {result: false, target: ERROR_TARGETS.ENTITY};
       }
       return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
+  'vkmusic': {
+    match: [new RegExp(
+      '^(https?://)?([^/]+\\.)?vk\\.com/(?:artist|audio|music|video)',
+      'i',
+    )],
+    restrict: [LINK_TYPES.streamingfree],
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?vk\.com/, 'https://vk.com');
     },
   },
   'vndb': {
