@@ -2,13 +2,17 @@ package MusicBrainz::Server::Entity::URL::VK;
 
 use Moose;
 
+use MusicBrainz::Server::Translation qw( l );
+
 extends 'MusicBrainz::Server::Entity::URL';
 with 'MusicBrainz::Server::Entity::URL::Sidebar';
 
 sub sidebar_name {
     my $self = shift;
 
-    if ($self->decoded =~ m{^https?://(?:www.)?vk.com/([^/]+)$}) {
+    if ($self->url =~ m{^(?:https?:)?//(?:[^/]+.)?vk.com/(?:artist|audio|music|video)}i) {
+        return l('Stream at VK');
+    } elsif ($self->decoded =~ m{^https?://(?:www.)?vk.com/([^/]+)$}) {
         return $1;
     } else {
         return 'VK';

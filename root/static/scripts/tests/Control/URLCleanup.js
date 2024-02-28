@@ -6221,6 +6221,48 @@ limited_link_type_combinations: [
     expected_relationship_type: 'socialnetwork',
             expected_clean_url: 'https://vk.com/tin_sontsya',
   },
+  {
+                     input_url: 'https://vk.com/audio-2001235442_109235442',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://vk.com/audio-2001235442_109235442',
+       only_valid_entity_types: ['recording'],
+  },
+  {
+                     input_url: 'https://vk.com/music/album/-2000201522_14201522_4f3a68cd0bdf507ba4',
+             input_entity_type: 'release',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://vk.com/music/album/-2000201522_14201522',
+       only_valid_entity_types: ['release'],
+  },
+  {
+                     input_url: 'https://m.vk.com/audio?act=audio_playlist-2000201522_14201522',
+             input_entity_type: 'release',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://vk.com/music/album/-2000201522_14201522',
+       only_valid_entity_types: ['release'],
+  },
+  {
+                     input_url: 'https://vk.com/artist/shortparis?from=group&z=audio_playlist-2000595165_15595165',
+             input_entity_type: 'release',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://vk.com/music/album/-2000595165_15595165',
+       only_valid_entity_types: ['release'],
+  },
+  {
+                     input_url: 'http://m.vk.com/artist/shortparis',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://vk.com/artist/shortparis',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://vk.com/artist/khleb?z=video-2000471995_63471995',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://vk.com/video-2000471995_63471995',
+       only_valid_entity_types: ['recording'],
+  },
   // vkgy
   {
                      input_url: 'http://www.vk.gy/artists/skull/',
