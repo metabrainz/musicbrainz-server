@@ -45,10 +45,10 @@ test 'basic place lookup' => sub {
         content_cb => sub {
             my $content = shift;
 
-            like $content, qr{"longitude":\s*1.234},
+            like $content, qr{"longitude":\s*1\.234},
                 'longitude is outputted as a float';
 
-            like $content, qr{"latitude":\s*0.323},
+            like $content, qr{"latitude":\s*0\.323},
                 'latitude is outputted as a float';
         },
         extra_plan => 2,

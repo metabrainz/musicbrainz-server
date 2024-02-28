@@ -8,10 +8,10 @@ with 'MusicBrainz::Server::Entity::URL::Sidebar';
 sub sidebar_name {
     my $self = shift;
 
-    if ($self->url =~ m{^(?:https?:)?//(?:www.)?youtube.com/watch\?v=([a-z0-9_-]+)/?$}i) {
+    if ($self->url =~ m{^(?:https?:)?//(?:www\.)?youtube\.com/watch\?v=([a-z0-9_-]+)/?$}i) {
         return 'Play on YouTube';
     }
-    elsif ($self->decoded =~ m{^(?:https?:)?//(?:www.)?youtube.com/(?:(?:c|user)/)?([^/#?]+)/?$}i) {
+    elsif ($self->decoded =~ m{^(?:https?:)?//(?:www\.)?youtube\.com/(?:(?:c|user)/)?([^/#?]+)/?$}i) {
         return $1;
     }
     else {

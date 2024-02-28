@@ -8,10 +8,10 @@ with 'MusicBrainz::Server::Entity::URL::Sidebar';
 sub sidebar_name {
     my $self = shift;
 
-    if ($self->url =~ m{^(?:https?://www.45worlds.com/([a-z0-9]+)/(?:artist|label)/[^/?&#]+)$}i) {
+    if ($self->url =~ m{^(?:https?://www\.45worlds\.com/([a-z0-9]+)/(?:artist|label)/[^/?&#]+)$}i) {
         return '45worlds ' . $1;
     }
-    elsif ($self->url =~ m{^(?:https?://www.45worlds.com/classical/(composer|conductor|orchestra|soloist)/[^/?&#]+)$}i) {
+    elsif ($self->url =~ m{^(?:https?://www\.45worlds\.com/classical/(composer|conductor|orchestra|soloist)/[^/?&#]+)$}i) {
         return '45worlds classical (' . $1 . ')';
     }
     else {

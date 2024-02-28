@@ -10,9 +10,9 @@ with 'MusicBrainz::Server::Entity::URL::Sidebar';
 sub sidebar_name {
     my $self = shift;
 
-    if ($self->url =~ m{^(?:https?:)?//(?:[^/]+.)?vk.com/(?:artist|audio|music|video)}i) {
+    if ($self->url =~ m{^(?:https?:)?//(?:[^/]+\.)?vk\.com/(?:artist|audio|music|video)}i) {
         return l('Stream at VK');
-    } elsif ($self->decoded =~ m{^https?://(?:www.)?vk.com/([^/]+)$}) {
+    } elsif ($self->decoded =~ m{^https?://(?:www\.)?vk\.com/([^/]+)$}) {
         return $1;
     } else {
         return 'VK';
