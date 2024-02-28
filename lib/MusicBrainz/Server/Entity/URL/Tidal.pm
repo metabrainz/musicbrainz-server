@@ -10,7 +10,7 @@ with 'MusicBrainz::Server::Entity::URL::Sidebar';
 sub sidebar_name {
     my $self = shift;
 
-    if ($self->url =~ m{^https://store.tidal.com/([a-z]{2})}i) {
+    if ($self->url =~ m{^https://store\.tidal\.com/([a-z]{2})}i) {
         return l('Purchase at Tidal');
     } else {
         return l('Stream at Tidal');

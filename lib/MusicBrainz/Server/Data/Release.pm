@@ -1686,7 +1686,7 @@ sub series_ordering {
 
 sub parse_asin {
     my $uri = shift;
-    my ($asin) = $uri =~ m{^https?://(?:www.)?.*?(?:\:[0-9]+)?/.*/([0-9B][0-9A-Z]{9})(?:[^0-9A-Z]|$)}i;
+    my ($asin) = $uri =~ m{^https?://(?:www\.)?.*?(?:\:[0-9]+)?/.*/([0-9B][0-9A-Z]{9})(?:[^0-9A-Z]|$)}i;
     return $asin;
 }
 
