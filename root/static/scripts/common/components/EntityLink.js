@@ -411,9 +411,18 @@ $ReadOnlyArray<Expand2ReactOutput> | Expand2ReactOutput | null => {
         />,
       );
     }
-    if (comment) {
+    const primaryAlias = entity.primaryAlias ?? '';
+    if (comment || primaryAlias) {
+      const textParts = [];
+      if (primaryAlias) {
+        textParts.push(primaryAlias);
+      }
+      if (comment) {
+        textParts.push(comment);
+      }
+      const text = textParts.join(', ');
       parts.push(
-        <Comment className="comment" comment={comment} key="comment" />,
+        <Comment className="comment" comment={text} key="comment" />,
       );
     }
     if (entity.entityType === 'area') {

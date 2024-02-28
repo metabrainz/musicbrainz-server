@@ -25,6 +25,11 @@ has 'sort_name' => (
     isa => 'Str',
 );
 
+has 'primary_alias' => (
+    is => 'rw',
+    isa => 'Str',
+);
+
 has 'gender_id' => (
     is => 'rw',
     isa => 'Int',
@@ -82,6 +87,7 @@ around TO_JSON => sub {
         $self->begin_area ? (begin_area => $self->begin_area->TO_JSON) : (),
         $self->end_area ? (end_area => $self->end_area->TO_JSON) : (),
         $self->gender ? (gender => $self->gender->TO_JSON) : (),
+        $self->primary_alias ? (primaryAlias => $self->primary_alias) : (),
         begin_area_id => $self->begin_area_id,
         end_area_id => $self->end_area_id,
         gender_id => $self->gender_id,

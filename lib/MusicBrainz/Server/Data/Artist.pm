@@ -3,7 +3,7 @@ use Moose;
 use namespace::autoclean;
 
 use Carp;
-use List::AllUtils qw( any );
+use List::AllUtils qw( any first );
 use MusicBrainz::Server::Constants qw( $ARTIST_TYPE_GROUP );
 use MusicBrainz::Server::Entity::Artist;
 use MusicBrainz::Server::Entity::PartialDate;
@@ -465,12 +465,28 @@ sub _hash_to_row
 }
 
 sub load_related_info {
-    my ($self, @artists) = @_;
+    my ($self, $artists_ref, $alias_language) = @_;
 
     my $c = $self->c;
+    my @artists = @{$artists_ref};
     $c->model('ArtistType')->load(@artists);
     $c->model('Gender')->load(@artists);
     $c->model('Area')->load(@artists);
+
+    if (defined $alias_language) {
+        my $aliases = $c->model('Artist')->alias->find_by_entity_ids(
+            map { $_->id } @artists,
+        );
+        # TODO: This is overly simplistic. It should probably share the
+        # more-complicated fallback logic from _with_primary_alias in
+        # MusicBrainz::Server::WebService::JSONSerializer.
+        for my $artist (@artists) {
+            my $alias = first {
+                defined $_->locale && $_->locale eq $alias_language && $_->primary_for_locale
+            } @{$aliases->{$artist->id}};
+            $artist->{primary_alias} = $alias->name if (defined $alias);
+        }
+    }
 }
 
 sub load_meta
