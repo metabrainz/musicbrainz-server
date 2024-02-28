@@ -465,12 +465,37 @@ sub _hash_to_row
 }
 
 sub load_related_info {
-    my ($self, @artists) = @_;
+    my ($self, $artists_ref, $user_lang) = @_;
 
     my $c = $self->c;
+    my @artists = @{$artists_ref};
     $c->model('ArtistType')->load(@artists);
     $c->model('Gender')->load(@artists);
     $c->model('Area')->load(@artists);
+
+    if (defined $user_lang) {
+        my $short_user_lang = substr($user_lang, 0, 2);
+        my $aliases = $c->model('Artist')->alias->find_by_entity_ids(
+            map { $_->id } @artists,
+        );
+        for my $artist (@artists) {
+            my $best_alias;
+            foreach my $alias (@{$aliases->{$artist->id}}) {
+                next if !defined $alias->locale || !$alias->primary_for_locale;
+                # If we find an exact match for the user's language, use it.
+                if ($alias->locale eq $user_lang) {
+                    $best_alias = $alias;
+                    last;
+                }
+                # Otherwise, favor more-generic aliases (e.g. "en" over "en_US").
+                if (substr($alias->locale, 0, 2) eq $short_user_lang &&
+                    (!defined $best_alias || length($alias->locale) == 2)) {
+                    $best_alias = $alias;
+                }
+            }
+            $artist->{primary_alias} = $best_alias->name if defined $best_alias;
+        }
+    }
 }
 
 sub load_meta

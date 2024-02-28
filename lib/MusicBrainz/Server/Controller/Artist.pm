@@ -146,9 +146,12 @@ after 'load' => sub
         }
     }
 
-    $c->model('ArtistType')->load($artist, map { $_->target } @{ $artist->relationships_by_type('artist') });
-    $c->model('Gender')->load($artist);
-    $c->model('Area')->load($artist);
+    my $lang = $c->stash->{current_language} // 'en';
+    # TODO: This loads the artist's aliases to look for a primary alias in the
+    # user's language, but note that aliases are also being loaded by the show
+    # subroutine to get the artist's legal name.
+    $c->model('Artist')->load_related_info([$artist], $lang);
+    $c->model('ArtistType')->load(map { $_->target } @{ $artist->relationships_by_type('artist') });
     $c->model('Area')->load_containment($artist->area, $artist->begin_area, $artist->end_area);
 };
 

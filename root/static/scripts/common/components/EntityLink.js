@@ -74,13 +74,23 @@ const iconClassPicker = {
 };
 
 const Comment = ({
+  alias,
   className,
   comment,
-}: {+className: string, +comment: string}) => (
+}: {+alias?: string, +className: string, +comment: string}) => (
   <>
     {' '}
     <span className={className}>
-      {bracketed(<bdi key="comment">{comment}</bdi>)}
+      {bracketed(
+        <bdi key="comment">
+          {nonEmpty(alias) ? (
+            <i title={l('Primary alias in your language')}>
+              {alias + (nonEmpty(comment) ? ', ' : '')}
+            </i>
+          ) : null}
+          {comment}
+        </bdi>,
+      )}
     </span>
   </>
 );
@@ -428,9 +438,20 @@ $ReadOnlyArray<Expand2ReactOutput> | Expand2ReactOutput | null => {
         />,
       );
     }
-    if (comment) {
+    const primaryAlias =
+      (entity.entityType !== 'track' &&
+        nonEmpty(entity.primaryAlias) &&
+        entity.primaryAlias !== entityName)
+        ? entity.primaryAlias
+        : '';
+    if (nonEmpty(comment) || nonEmpty(primaryAlias)) {
       parts.push(
-        <Comment className="comment" comment={comment} key="comment" />,
+        <Comment
+          alias={primaryAlias}
+          className="comment"
+          comment={comment}
+          key="comment"
+        />,
       );
     }
     if (entity.entityType === 'area') {
