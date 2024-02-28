@@ -109,6 +109,12 @@
         font-size: @small-text;
     }
 
+    // MediaWiki content
+    .mw-parser-output {
+        // Make pages somewhat readable on mobile devices.
+        max-width: calc(100vw - 32px);
+    }
+
     // footer section
     .wikidocs-footer {
         border-top: 2px dotted @medium-border;
