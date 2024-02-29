@@ -17,10 +17,24 @@ sub _table
     return 'application';
 }
 
-sub _columns
+sub _build_columns
 {
-    return 'id, owner, name, oauth_id, oauth_secret, oauth_redirect_uri';
+    return join q(, ), qw(
+        id
+        owner
+        name
+        oauth_id
+        oauth_secret
+        oauth_redirect_uri
+    );
 }
+
+has '_columns' => (
+    is => 'ro',
+    isa => 'Str',
+    lazy => 1,
+    builder => '_build_columns',
+);
 
 sub _column_mapping
 {

@@ -39,10 +39,26 @@ with 'MusicBrainz::Server::Data::Role::Relatable',
 
 sub _type { 'series' }
 
-sub _columns {
-    return 'series.id, series.gid, series.name COLLATE musicbrainz, series.comment, ' .
-           'series.type, ordering_type, series.edits_pending, series.last_updated';
+sub _build_columns
+{
+    return join q(, ), (
+        'series.id',
+        'series.gid',
+        'series.name COLLATE musicbrainz',
+        'series.comment',
+        'series.type',
+        'series.ordering_type',
+        'series.edits_pending',
+        'series.last_updated',
+    );
 }
+
+has '_columns' => (
+    is => 'ro',
+    isa => 'Str',
+    lazy => 1,
+    builder => '_build_columns',
+);
 
 sub _column_mapping {
     return {

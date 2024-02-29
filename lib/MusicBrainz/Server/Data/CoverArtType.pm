@@ -18,11 +18,24 @@ sub _table
     return 'cover_art_archive.art_type';
 }
 
-sub _columns
+sub _build_columns
 {
-    return 'art_type.id, art_type.gid, art_type.name, art_type.parent AS parent_id,
-            art_type.child_order, art_type.description';
+    return join q(, ), (
+        'art_type.id',
+        'art_type.gid',
+        'art_type.name',
+        'art_type.parent AS parent_id',
+        'art_type.child_order',
+        'art_type.description',
+    );
 }
+
+has '_columns' => (
+    is => 'ro',
+    isa => 'Str',
+    lazy => 1,
+    builder => '_build_columns',
+);
 
 sub _entity_class
 {

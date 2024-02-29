@@ -48,15 +48,37 @@ with 'MusicBrainz::Server::Data::Role::Relatable',
 
 sub _type { 'artist' }
 
-sub _columns
+sub _build_columns
 {
-    return 'artist.id, artist.gid, artist.name COLLATE musicbrainz, artist.sort_name COLLATE musicbrainz, ' .
-           'artist.type, artist.area, artist.begin_area, artist.end_area, ' .
-           'gender, artist.edits_pending, artist.comment, artist.last_updated, ' .
-           'artist.begin_date_year, artist.begin_date_month, artist.begin_date_day, ' .
-           'artist.end_date_year, artist.end_date_month, artist.end_date_day,' .
-           'artist.ended';
+    return join q(, ), (
+        'artist.id',
+        'artist.gid',
+        'artist.name COLLATE musicbrainz',
+        'artist.sort_name COLLATE musicbrainz',
+        'artist.type',
+        'artist.area',
+        'artist.begin_area',
+        'artist.end_area',
+        'artist.gender',
+        'artist.edits_pending',
+        'artist.comment',
+        'artist.last_updated',
+        'artist.begin_date_year',
+        'artist.begin_date_month',
+        'artist.begin_date_day',
+        'artist.end_date_year',
+        'artist.end_date_month',
+        'artist.end_date_day',
+        'artist.ended',
+    );
 }
+
+has '_columns' => (
+    is => 'ro',
+    isa => 'Str',
+    lazy => 1,
+    builder => '_build_columns',
+);
 
 sub _id_column
 {

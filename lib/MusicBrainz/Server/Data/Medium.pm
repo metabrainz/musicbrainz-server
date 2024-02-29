@@ -20,13 +20,27 @@ sub _table
     return 'medium';
 }
 
-sub _columns
+sub _build_columns
 {
-    return 'medium.id, release, position, format, medium.name,
-            medium.edits_pending, track_count,
-            COALESCE((SELECT TRUE FROM track WHERE medium = medium.id AND position = 0), false) AS has_pregap,
-            (SELECT count(*) FROM track WHERE medium = medium.id AND position > 0 AND is_data_track = false) AS cdtoc_track_count';
+    return join q(, ), (
+        'medium.id',
+        'release',
+        'position',
+        'format',
+        'medium.name',
+        'medium.edits_pending',
+        'track_count',
+        'COALESCE((SELECT TRUE FROM track WHERE medium = medium.id AND position = 0), false) AS has_pregap',
+        '(SELECT count(*) FROM track WHERE medium = medium.id AND position > 0 AND is_data_track = false) AS cdtoc_track_count',
+    );
 }
+
+has '_columns' => (
+    is => 'ro',
+    isa => 'Str',
+    lazy => 1,
+    builder => '_build_columns',
+);
 
 sub _id_column
 {

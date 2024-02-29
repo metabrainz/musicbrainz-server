@@ -242,10 +242,22 @@ my %URL_SPECIALIZATIONS = (
 
 );
 
-sub _columns
+sub _build_columns
 {
-    return 'id, gid, url, edits_pending';
+    return join q(, ), qw(
+        id
+        gid
+        url
+        edits_pending
+    );
 }
+
+has '_columns' => (
+    is => 'ro',
+    isa => 'Str',
+    lazy => 1,
+    builder => '_build_columns',
+);
 
 sub _entity_class
 {

@@ -39,13 +39,28 @@ with 'MusicBrainz::Server::Data::Role::Relatable',
 
 sub _type { 'recording' }
 
-sub _columns
+sub _build_columns
 {
-    return 'recording.id, recording.gid, recording.name COLLATE musicbrainz,
-            recording.artist_credit AS artist_credit_id,
-            recording.length, recording.comment, recording.video,
-            recording.edits_pending, recording.last_updated';
+    return join q(, ), (
+        'recording.id',
+        'recording.gid',
+        'recording.name COLLATE musicbrainz',
+        'recording.artist_credit AS artist_credit_id',
+        'recording.length',
+        'recording.comment',
+        'recording.video',
+        'recording.edits_pending',
+        'recording.last_updated',
+    );
 }
+
+has '_columns' => (
+    is => 'ro',
+    isa => 'Str',
+    lazy => 1,
+    builder => '_build_columns',
+);
+
 sub _column_mapping
 {
     return {

@@ -26,12 +26,21 @@ sub _id_column
     return 'tag.id';
 }
 
-sub _columns
+sub _build_columns
 {
-    return 'tag.id,
-            tag.name,
-            coalesce(genre.id, genre_alias.genre) as genre_id';
+    return join q(, ), (
+        'tag.id',
+        'tag.name',
+        'coalesce(genre.id, genre_alias.genre) as genre_id',
+    );
 }
+
+has '_columns' => (
+    is => 'ro',
+    isa => 'Str',
+    lazy => 1,
+    builder => '_build_columns',
+);
 
 sub _column_mapping
 {
