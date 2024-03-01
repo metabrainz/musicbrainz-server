@@ -6627,6 +6627,51 @@ const CLEANUPS: CleanupEntries = {
       return url;
     },
   },
+  'yandex': {
+    match: [new RegExp(
+      '^(https?://)?music\\.yandex\\.(?:com|by|kz|ru|uz)\/(?!video)',
+      'i',
+    )],
+    restrict: [LINK_TYPES.streamingfree],
+    clean: function (url) {
+      url = url.replace(/^https?:\/\/music\.yandex\.(?:com|by|kz|ru|uz)\//, 'https://music.yandex.com/');
+      url = url.replace(/^https:\/\/music\.yandex\.com\/(?:#!\/)?(album|artist|label)\/(\d+)(\/track\/\d+)?$/, 'https://music.yandex.com/$1/$2$3');
+      url = url.replace(/^https:\/\/music\.yandex\.com\/iframe\/#album?\/(\d+)$/, 'https://music.yandex.com/album/$1');
+      url = url.replace(/^https:\/\/music\.yandex\.com\/iframe\/#track?\/(\d+):(\d+)$/, 'https://music.yandex.com/album/$2/track/$1');
+      return url;
+    },
+    validate: function (url, id) {
+      const m = /^https:\/\/music\.yandex\.com\/(album|artist|label)\/\d+(\/track\/\d+)?$/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        const isTrack = Boolean(m[2]);
+        switch (id) {
+          case LINK_TYPES.streamingfree.artist:
+            return {
+              result: prefix === 'artist',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.streamingfree.label:
+            return {
+              result: prefix === 'label',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.streamingfree.release:
+            return {
+              result: prefix === 'album' && !isTrack,
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.streamingfree.recording:
+            return {
+              result: prefix === 'album' && isTrack,
+              target: ERROR_TARGETS.ENTITY,
+            };
+        }
+        return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
   'yesasia': {
     match: [new RegExp(
       '^(https?://)?(www\\.)?yesasia\\.com/',

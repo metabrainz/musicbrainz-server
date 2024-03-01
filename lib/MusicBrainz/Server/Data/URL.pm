@@ -221,6 +221,7 @@ my %URL_SPECIALIZATIONS = (
     'Wikipedia'           => qr{^https?://([\w-]{2,})\.wikipedia\.org/wiki/}i,
     'Wikisource'          => qr{^https?://([\w-]{2,})\.wikisource\.org/wiki/}i,
     'Worldcat'            => qr{^https?://(?:(?:entities|id)\.oclc\.org/worldcat/|(?:www\.)?worldcat\.org/)}i,
+    'Yandex'              => qr{^https?://music\.yandex\.(com|by|kz|ru|uz)/}i,
     'YesAsia'             => qr{^https?://(?:www\.)?yesasia\.com/}i,
     'YouTube'             => qr{^https?://(?:www\.)?youtube\.com/}i,
     'YouTubeMusic'        => qr{^https?://music\.youtube\.com/}i,

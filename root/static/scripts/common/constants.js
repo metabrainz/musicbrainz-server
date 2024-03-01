@@ -168,6 +168,7 @@ export const FAVICON_CLASSES = {
   'music.apple.com': 'applemusic',
   'music.bugs.co.kr': 'bugs',
   'music.migu.cn': 'migumusic',
+  'music.yandex': 'yandex',
   'music.youtube.com': 'youtubemusic',
   'musicapopular.cl': 'musicapopularcl',
   'musik-sammler.de': 'musiksammler',
