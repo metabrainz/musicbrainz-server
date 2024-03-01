@@ -6581,7 +6581,7 @@ const CLEANUPS: CleanupEntries = {
   },
   'yandex': {
     match: [new RegExp(
-      '^(https?://)?music\\.yandex\\.(?:com|by||kz|ru|uz)\/(?!video)',
+      '^(https?://)?music\\.yandex\\.(?:com|by|kz|ru|uz)\/(?!video)',
       'i',
     )],
     restrict: [LINK_TYPES.streamingfree],
