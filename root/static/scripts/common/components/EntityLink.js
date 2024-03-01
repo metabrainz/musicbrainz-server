@@ -156,8 +156,7 @@ type EntityLinkProps = {
   +nameVariation?: boolean,
   +showCaaPresence?: boolean,
   +showDeleted?: boolean,
-  +showDisambiguation?: boolean,
-  +showDisambiguationOnHover?: boolean,
+  +showDisambiguation?: boolean | 'hover',
   +showEditsPending?: boolean,
   +showEventDate?: boolean,
   +showIcon?: boolean,
@@ -182,7 +181,6 @@ const EntityLink = ({
   showCaaPresence = false,
   showDeleted = true,
   showDisambiguation: passedShowDisambiguation,
-  showDisambiguationOnHover = false,
   showEditsPending = true,
   showEventDate = true,
   showIcon: passedShowIcon = false,
@@ -220,7 +218,7 @@ $ReadOnlyArray<Expand2ReactOutput> | Expand2ReactOutput | null => {
     hover = entity.sort_name + (comment ? ' ' + bracketedText(comment) : '');
   }
 
-  if (showDisambiguationOnHover) {
+  if (showDisambiguation === 'hover') {
     hover = empty(hover)
       ? comment
       : hover + ' ' + bracketedText(comment);
@@ -409,7 +407,7 @@ $ReadOnlyArray<Expand2ReactOutput> | Expand2ReactOutput | null => {
     return parts;
   }
 
-  if (showDisambiguation) {
+  if (showDisambiguation === true) {
     if (entity.entityType === 'event') {
       parts.push(
         <EventDisambiguation
