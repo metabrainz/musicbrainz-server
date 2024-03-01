@@ -123,7 +123,7 @@ function setScrollPosition(menuId: string) {
   if (!menu) {
     return;
   }
-  let highlightedItem =
+  const highlightedItem =
     menu.querySelector('li[aria-selected=true]') ??
     // If there's no highlighted item, scroll to the top of the list.
     menu.querySelector('li');

@@ -41,11 +41,11 @@ const MediumTable = (React.memo<PropsT>(({
   const tableVars = usePagedMediumTable({
     dispatch,
     getColumnCount: (showArtists) => 4 + (showArtists ? 1 : 0),
-    release,
-    medium,
-    tracks,
     hasUnloadedTracks,
     isExpanded,
+    medium,
+    release,
+    tracks,
   });
 
   const [audioTracks, dataTracks] = React.useMemo(() => {

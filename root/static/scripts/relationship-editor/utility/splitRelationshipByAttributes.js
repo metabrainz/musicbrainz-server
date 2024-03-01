@@ -104,7 +104,7 @@ export default function splitRelationshipByAttributes(
     ]
   ) {
     for (const origAttribute of tree.iterate(origInstrumentsAndVocals)) {
-      let preservedAttribute: LinkAttrT | void = tree.find(
+      const preservedAttribute: LinkAttrT | void = tree.find(
         newAttributes,
         origAttribute,
         comparator,

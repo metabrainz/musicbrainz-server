@@ -451,6 +451,7 @@ type CleanupEntries = {
   +[type: string]: CleanupEntry,
 };
 
+/* eslint-disable sort-keys */
 const CLEANUPS: CleanupEntries = {
   '7digital': {
     match: [new RegExp(
@@ -5075,7 +5076,7 @@ const CLEANUPS: CleanupEntries = {
       return url.replace(/^(?:https?:\/\/)?(?:www\.)?rism\.online\/(\w+)\/(\d+).*$/, 'https://rism.online/$1/$2');
     },
     validate: function (url, id) {
-      let m = /^https:\/\/rism\.online\/(\w+)\/(\d+)$/.exec(url);
+      const m = /^https:\/\/rism\.online\/(\w+)\/(\d+)$/.exec(url);
       if (m) {
         const prefix = m[1];
         switch (id) {
@@ -5838,12 +5839,12 @@ const CLEANUPS: CleanupEntries = {
         switch (id) {
           case LINK_TYPES.mailorder.artist:
             return {
-              result: prefix == 'artist',
+              result: prefix === 'artist',
               target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.mailorder.release:
             return {
-              result: prefix == 'item',
+              result: prefix === 'item',
               target: ERROR_TARGETS.ENTITY,
             };
         }
@@ -6864,6 +6865,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
 };
+/* eslint-enable sort-keys */
 
 function testAll(tests: $ReadOnlyArray<RegExp>, text: string) {
   for (let i = 0; i < tests.length; i++) {

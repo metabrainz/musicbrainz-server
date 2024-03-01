@@ -61,10 +61,10 @@ function handleLinkedEntitiesForMedium(
      * overwriting that (modified) type data here.
      */
     const {
-      /* eslint-disable no-unused-vars */
+      /* eslint-disable no-unused-vars, camelcase */
       link_type,
       link_attribute_type,
-      /* eslint-enable no-unused-vars */
+      /* eslint-enable no-unused-vars, camelcase */
       ...nonTypeUpdates
     } = update;
     mergeLinkedEntities(nonTypeUpdates);
@@ -86,11 +86,11 @@ const MediumRelationshipEditor = (React.memo<PropsT>(({
     dispatch,
     getColumnCount,
     handleLinkedEntities: handleLinkedEntitiesForMedium,
-    release,
-    medium,
-    tracks,
     hasUnloadedTracks,
     isExpanded,
+    medium,
+    release,
+    tracks,
   });
 
   const allMediumRecordingsChecked = React.useMemo(() => {
@@ -120,16 +120,16 @@ const MediumRelationshipEditor = (React.memo<PropsT>(({
   const selectMediumRecordings = React.useCallback(() => {
     dispatch({
       isSelected: !allMediumRecordingsChecked,
-      type: 'toggle-select-medium-recordings',
       recordingStates,
+      type: 'toggle-select-medium-recordings',
     });
   }, [dispatch, allMediumRecordingsChecked, recordingStates]);
 
   const selectMediumWorks = React.useCallback(() => {
     dispatch({
       isSelected: !allMediumWorksChecked,
-      type: 'toggle-select-medium-works',
       recordingStates,
+      type: 'toggle-select-medium-works',
     });
   }, [dispatch, allMediumWorksChecked, recordingStates]);
 

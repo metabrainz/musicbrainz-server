@@ -32,9 +32,9 @@ export default function useEntityNameFromField(
         name = mapName(name);
       }
       dispatch({
-        type: 'update-entity',
-        entityType,
         changes: {name},
+        entityType,
+        type: 'update-entity',
       });
     };
 
