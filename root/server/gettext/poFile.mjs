@@ -43,7 +43,7 @@ export function find(domain: string, locale: string): string {
 }
 
 export function loadFromPath(fpath: string, domain: string): JedOptions {
-  return po2json.parseFileSync(fpath, {domain, format: 'jed1.x'});
+  return po2json.parseFileSync(fpath, {domain, format: 'jed'});
 }
 
 export function load(

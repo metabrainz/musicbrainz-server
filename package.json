@@ -51,7 +51,7 @@
     "nodemon": "2.0.20",
     "pg": "8.3.3",
     "pg-cursor": "2.3.3",
-    "po2json": "0.4.1",
+    "po2json": "https://github.com/mikeedwards/po2json.git#51e2310485bbe35e9e57f2eee238185459ca0eab",
     "punycode": "2.1.1",
     "querystring": "0.2.0",
     "react": "18.1.0",

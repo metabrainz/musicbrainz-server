@@ -13,7 +13,7 @@ declare module 'po2json' {
   declare module.exports: {
     parseFileSync: (
       fileName: string,
-      options: {domain: string, format: 'jed1.x'}
+      options: {domain: string, format: 'jed'}
     ) => JedOptions,
   };
 }
