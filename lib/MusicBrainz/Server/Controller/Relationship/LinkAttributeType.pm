@@ -9,6 +9,7 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_RELATIONSHIP_ATTRIBUTE
     $INSTRUMENT_ROOT_ID
 );
+use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 
 use MusicBrainz::Server::Validation qw( is_guid );
@@ -101,6 +102,15 @@ sub create : Path('/relationship-attributes/create') Args(0) RequireAuth(relatio
         $c->response->redirect($c->uri_for_action('relationship/linkattributetype/show', [ $attribute_edit->entity_gid ]));
         $c->detach;
     }
+
+    $c->stash(
+        current_view => 'Node',
+        component_path => 'relationship/linkattributetype/CreateRelationshipAttributeType',
+        component_props => {
+            form => $form->TO_JSON,
+            parentSelectOptions => $form->options_parent_id,
+        },
+    );
 }
 
 sub edit : Chained('load') RequireAuth(relationship_editor)
@@ -153,6 +163,17 @@ sub edit : Chained('load') RequireAuth(relationship_editor)
             $c->response->redirect($c->uri_for_action('relationship/linkattributetype/show', [ $link_attr_type->gid ]));
         }
     }
+
+    $c->stash(
+        current_view => 'Node',
+        component_path => 'relationship/linkattributetype/EditRelationshipAttributeType',
+        component_props => {
+            disableCreditable => boolean_to_json($attribute_in_use && $link_attr_type->creditable),
+            disableFreeText => boolean_to_json($attribute_in_use),
+            form => $form->TO_JSON,
+            parentSelectOptions => $form->options_parent_id,
+        },
+    );
 }
 
 sub delete : Chained('load') RequireAuth(relationship_editor) SecureForm
