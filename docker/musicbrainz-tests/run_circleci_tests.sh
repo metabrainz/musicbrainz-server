@@ -31,9 +31,17 @@ MUSICBRAINZ_RUNNING_TESTS=1 \
     sudo -E -H -u musicbrainz \
         carton exec -- ./script/compile_resources.sh client server web-tests
 
+echo Checking JavaScript code’s static types with Flow
 sudo -E -H -u musicbrainz ./node_modules/.bin/flow --quiet
+echo OK
+
+echo Checking JavaScript code’s quality and style with ESLint
 sudo -E -H -u musicbrainz ./node_modules/.bin/eslint --max-warnings 0 .
+echo OK
+
+echo Checking translation domain in statistics code
 ! sudo -E -H -u musicbrainz git grep -Pw '(N_)?l[np]?\(' -- 'root/statistics/**.js'
+echo OK
 
 sv_start_if_down chrome
 
