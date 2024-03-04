@@ -33,7 +33,7 @@ MUSICBRAINZ_RUNNING_TESTS=1 \
 
 sudo -E -H -u musicbrainz ./node_modules/.bin/flow --quiet
 sudo -E -H -u musicbrainz ./node_modules/.bin/eslint --max-warnings 0 .
-! git grep -Pw '(N_)?l[np]?\(' -- 'root/statistics/**.js'
+! sudo -E -H -u musicbrainz git grep -Pw '(N_)?l[np]?\(' -- 'root/statistics/**.js'
 
 sv_start_if_down chrome
 
