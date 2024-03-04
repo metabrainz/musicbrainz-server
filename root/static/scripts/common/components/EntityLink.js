@@ -156,7 +156,7 @@ type EntityLinkProps = {
   +nameVariation?: boolean,
   +showCaaPresence?: boolean,
   +showDeleted?: boolean,
-  +showDisambiguation?: boolean,
+  +showDisambiguation?: boolean | 'hover',
   +showEditsPending?: boolean,
   +showEventDate?: boolean,
   +showIcon?: boolean,
@@ -216,6 +216,12 @@ $ReadOnlyArray<Expand2ReactOutput> | Expand2ReactOutput | null => {
 
   if (entity.entityType === 'artist' && empty(hover)) {
     hover = entity.sort_name + (comment ? ' ' + bracketedText(comment) : '');
+  }
+
+  if (showDisambiguation === 'hover') {
+    hover = empty(hover)
+      ? comment
+      : hover + ' ' + bracketedText(comment);
   }
 
   if (entity.entityType === 'area') {
@@ -401,7 +407,7 @@ $ReadOnlyArray<Expand2ReactOutput> | Expand2ReactOutput | null => {
     return parts;
   }
 
-  if (showDisambiguation) {
+  if (showDisambiguation === true) {
     if (entity.entityType === 'event') {
       parts.push(
         <EventDisambiguation
