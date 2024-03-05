@@ -166,6 +166,11 @@ msgstr ""
 msgid "Marxophone"
 msgstr "marxofoni"
 
+#: DB:instrument/name:1199
+msgctxt "Belorussian duda"
+msgid "Matstsyanka"
+msgstr ""
+
 #: DB:instrument/name:92
 msgid "Mexican vihuela"
 msgstr "meksikolainen vihuela"
@@ -3613,6 +3618,11 @@ msgstr ""
 #: DB:instrument/name:104
 msgid "snare drum"
 msgstr "pikkurumpu"
+
+#: DB:instrument/name:1198
+msgctxt "Latvian bagpipe"
+msgid "somu dūdas"
+msgstr ""
 
 #: DB:instrument/name:284
 msgid "song loan"

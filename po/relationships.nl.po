@@ -1889,14 +1889,41 @@ msgstr ""
 "Dit geeft een artiest aan die een orkest, band of koor op deze uitgave "
 "dirigeerde."
 
+#: DB:link_type/description:1233
+#, fuzzy
+#| msgid "This indicates an artist who did design for the release."
+msgid "This indicates an artist who did design for the event."
+msgstr "Dit geeft aan welke artiest de uitgave heeft vormgegeven."
+
 #: DB:link_type/description:928
 msgid "This indicates an artist who did design for the release."
 msgstr "Dit geeft aan welke artiest de uitgave heeft vormgegeven."
+
+#: DB:link_type/description:1232
+#, fuzzy
+#| msgid "This indicates an artist who did illustration for the release."
+msgid "This indicates an artist who did illustration for the event."
+msgstr ""
+"Dit geeft aan welke artiest illustraties voor deze uitgave heeft gemaakt."
 
 #: DB:link_type/description:927
 msgid "This indicates an artist who did illustration for the release."
 msgstr ""
 "Dit geeft aan welke artiest illustraties voor deze uitgave heeft gemaakt."
+
+#: DB:link_type/description:1234
+#, fuzzy
+#| msgid ""
+#| "This indicates an artist who did the graphic design for the release, "
+#| "arranging pieces of content into a coherent and aesthetically-pleasing "
+#| "sleeve design."
+msgid ""
+"This indicates an artist who did the graphic design for the event, arranging "
+"pieces of content into a coherent and aesthetically-pleasing design."
+msgstr ""
+"Dit geeft aan welke artiest de grafische vormgeving voor de uitgave heeft "
+"verzorgd. Dit bestaat uit het samenstellen van verschillende beelden en "
+"typografie om een mooi hoesontwerp te produceren."
 
 #: DB:link_type/description:27
 msgid ""
@@ -1915,6 +1942,18 @@ msgid ""
 msgstr ""
 "Dit geeft aan welke artiest verantwoordelijk was voor de creatieve en "
 "praktische dagelijkse aspecten die bij het maken van een opname komen kijken."
+
+#: DB:link_type/description:1231
+#, fuzzy
+#| msgid ""
+#| "This indicates an artist who provided artwork for the release when no "
+#| "more specific information is available."
+msgid ""
+"This indicates an artist who provided artwork for the event when no more "
+"specific information is available."
+msgstr ""
+"Dit geeft aan welke artiest artwork voor de uitgave heeft verzorgd. Gebruik "
+"dit als je geen specifiekere informatie hebt."
 
 #: DB:link_type/description:993
 msgid ""
@@ -5008,7 +5047,7 @@ msgstr "A&R-medewerkers"
 msgid "artists and repertoire position"
 msgstr "artiesten en repertoire (A&R)"
 
-#: DB:link_type/name:993 DB:link_type/name:1170
+#: DB:link_type/name:1231 DB:link_type/name:993 DB:link_type/name:1170
 msgid "artwork"
 msgstr "artwork"
 
@@ -5529,7 +5568,7 @@ msgstr "afleidingen"
 msgid "derived from"
 msgstr "afgeleid van"
 
-#: DB:link_type/name:928 DB:link_type/name:1171
+#: DB:link_type/name:1233 DB:link_type/name:928 DB:link_type/name:1171
 msgid "design"
 msgstr "ontwerp"
 
@@ -5854,7 +5893,8 @@ msgstr "glasmaster gemaakt door"
 msgid "glass mastering location for"
 msgstr "locatie waar de glasmaster werd gemaakt van"
 
-#: DB:link_type/name:1172 DB:link_type/name:125 DB:link_type/name:27
+#: DB:link_type/name:1172 DB:link_type/name:1234 DB:link_type/name:125
+#: DB:link_type/name:27
 msgid "graphic design"
 msgstr "grafisch ontwerp"
 
@@ -6327,7 +6367,7 @@ msgstr "hosts"
 msgid "hybrid of"
 msgstr "hybride afgeleide van"
 
-#: DB:link_type/name:927 DB:link_type/name:1173
+#: DB:link_type/name:1232 DB:link_type/name:927 DB:link_type/name:1173
 msgid "illustration"
 msgstr "illustratie"
 
@@ -7633,7 +7673,8 @@ msgstr "verzorgde juridische vertegenwoordiging voor"
 msgid "provided {additional} art direction on"
 msgstr "verzorgde {additional:aanvullende} artistieke leiding op"
 
-#: DB:link_type/long_link_phrase:993 DB:link_type/long_link_phrase:1170
+#: DB:link_type/long_link_phrase:1231 DB:link_type/long_link_phrase:993
+#: DB:link_type/long_link_phrase:1170
 msgid "provided {additional} artwork on"
 msgstr "leverde {additional:aanvullende} artwork voor"
 
@@ -7649,12 +7690,13 @@ msgstr "verzorgde {additional:aanvullend} het ontwerp voor"
 msgid "provided {additional} design/illustration on"
 msgstr "verzorgde {additional:aanvullend} ontwerp/illustratie voor"
 
-#: DB:link_type/long_link_phrase:1172 DB:link_type/long_link_phrase:125
-#: DB:link_type/long_link_phrase:27
+#: DB:link_type/long_link_phrase:1172 DB:link_type/long_link_phrase:1234
+#: DB:link_type/long_link_phrase:125 DB:link_type/long_link_phrase:27
 msgid "provided {additional} graphic design on"
 msgstr "verzorgde {additional:aanvullend} grafisch ontwerp voor"
 
-#: DB:link_type/long_link_phrase:927 DB:link_type/long_link_phrase:1173
+#: DB:link_type/long_link_phrase:1232 DB:link_type/long_link_phrase:927
+#: DB:link_type/long_link_phrase:1173
 msgid "provided {additional} illustration on"
 msgstr "verzorgde {additional:aanvullende} illustratie voor"
 
@@ -7668,7 +7710,7 @@ msgstr ""
 "verzorgde{assistant: als assistent} {additional:aanvullende} artistieke "
 "leiding op"
 
-#: DB:link_type/long_link_phrase:928
+#: DB:link_type/long_link_phrase:1233 DB:link_type/long_link_phrase:928
 msgid "provided {additional} {assistant} design on"
 msgstr ""
 "verzorgde{assistant: als assistent} {additional:aanvullend} ontwerp voor"
@@ -8958,7 +9000,8 @@ msgstr "hier {additional:aanvullend }geschreven"
 msgid "{additional} art direction"
 msgstr "{additional:aanvullende} artistieke leiding"
 
-#: DB:link_type/link_phrase:993 DB:link_type/link_phrase:1170
+#: DB:link_type/link_phrase:1231 DB:link_type/link_phrase:993
+#: DB:link_type/link_phrase:1170 DB:link_type/reverse_link_phrase:1231
 #: DB:link_type/reverse_link_phrase:993 DB:link_type/reverse_link_phrase:1170
 msgid "{additional} artwork"
 msgstr "{additional:aanvullend} artwork"
@@ -8995,13 +9038,15 @@ msgstr "{additional:aanvullende} editlocatie van"
 msgid "{additional} engineering location for"
 msgstr "{additional:aanvullende} technieklocatie van"
 
-#: DB:link_type/link_phrase:1172 DB:link_type/link_phrase:125
-#: DB:link_type/link_phrase:27 DB:link_type/reverse_link_phrase:1172
+#: DB:link_type/link_phrase:1172 DB:link_type/link_phrase:1234
+#: DB:link_type/link_phrase:125 DB:link_type/link_phrase:27
+#: DB:link_type/reverse_link_phrase:1172 DB:link_type/reverse_link_phrase:1234
 #: DB:link_type/reverse_link_phrase:125 DB:link_type/reverse_link_phrase:27
 msgid "{additional} graphic design"
 msgstr "{additional:aanvullend} grafisch ontwerp"
 
-#: DB:link_type/link_phrase:927 DB:link_type/link_phrase:1173
+#: DB:link_type/link_phrase:1232 DB:link_type/link_phrase:927
+#: DB:link_type/link_phrase:1173 DB:link_type/reverse_link_phrase:1232
 #: DB:link_type/reverse_link_phrase:927 DB:link_type/reverse_link_phrase:1173
 msgid "{additional} illustration"
 msgstr "{additional:aanvullende} illustratie"
@@ -9130,7 +9175,8 @@ msgstr "was {additional:aanvullend} {assistant:assistent}koorleider"
 msgid "{additional} {assistant} conductor"
 msgstr "was {additional:aanvullend }{assistant:assistent}dirigent"
 
-#: DB:link_type/link_phrase:928 DB:link_type/reverse_link_phrase:928
+#: DB:link_type/link_phrase:1233 DB:link_type/link_phrase:928
+#: DB:link_type/reverse_link_phrase:1233 DB:link_type/reverse_link_phrase:928
 msgid "{additional} {assistant} design"
 msgstr ""
 "verzorgde {additional:aanvullend} {assistant:als assistent} het ontwerp"

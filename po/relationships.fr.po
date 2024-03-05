@@ -1871,13 +1871,44 @@ msgstr ""
 "Ceci indique un artiste qui a dirigé un orchestre, un groupe ou un chœur "
 "pour cette parution."
 
+#: DB:link_type/description:1233
+#, fuzzy
+#| msgid "This indicates a person or agency who did design for the release."
+msgid "This indicates an artist who did design for the event."
+msgstr ""
+"Ceci indique une personne ou agence qui a fait de la conception pour cette "
+"parution."
+
 #: DB:link_type/description:928
 msgid "This indicates an artist who did design for the release."
 msgstr ""
 
+#: DB:link_type/description:1232
+#, fuzzy
+#| msgid ""
+#| "This indicates a person or agency who did illustration for the release."
+msgid "This indicates an artist who did illustration for the event."
+msgstr ""
+"Ceci indique une personne ou agence qui a fait de l’illustration pour cette "
+"parution."
+
 #: DB:link_type/description:927
 msgid "This indicates an artist who did illustration for the release."
 msgstr ""
+
+#: DB:link_type/description:1234
+#, fuzzy
+#| msgid ""
+#| "This credits the people or agency who did the graphic design, arranging "
+#| "pieces of content into a coherent and aesthetically-pleasing sleeve "
+#| "design."
+msgid ""
+"This indicates an artist who did the graphic design for the event, arranging "
+"pieces of content into a coherent and aesthetically-pleasing design."
+msgstr ""
+"Ceci crédite les personnes ou l’agence ayant réalisé la conception "
+"graphique, arrangé les éléments du contenu en une pochette cohérente et "
+"esthétiquement agréable."
 
 #: DB:link_type/description:27
 msgid ""
@@ -1893,6 +1924,18 @@ msgid ""
 msgstr ""
 "Ceci indique un artiste qui est responsable des aspects créatifs et "
 "pratiques journaliers inhérents à un enregistrement musical."
+
+#: DB:link_type/description:1231
+#, fuzzy
+#| msgid ""
+#| "This indicates an artist who conducted an orchestra, band or choir on "
+#| "this release."
+msgid ""
+"This indicates an artist who provided artwork for the event when no more "
+"specific information is available."
+msgstr ""
+"Ceci indique un artiste qui a dirigé un orchestre, un groupe ou un chœur "
+"pour cette parution."
 
 #: DB:link_type/description:993
 msgid ""
@@ -4916,7 +4959,7 @@ msgstr ""
 msgid "artists and repertoire position"
 msgstr ""
 
-#: DB:link_type/name:993 DB:link_type/name:1170
+#: DB:link_type/name:1231 DB:link_type/name:993 DB:link_type/name:1170
 msgid "artwork"
 msgstr ""
 
@@ -5439,7 +5482,7 @@ msgstr "dérivations"
 msgid "derived from"
 msgstr "dérivé de"
 
-#: DB:link_type/name:928 DB:link_type/name:1171
+#: DB:link_type/name:1233 DB:link_type/name:928 DB:link_type/name:1171
 msgid "design"
 msgstr "conception"
 
@@ -5764,7 +5807,8 @@ msgstr "matricé en verre par"
 msgid "glass mastering location for"
 msgstr "lieu de matriçage en verre de"
 
-#: DB:link_type/name:1172 DB:link_type/name:125 DB:link_type/name:27
+#: DB:link_type/name:1172 DB:link_type/name:1234 DB:link_type/name:125
+#: DB:link_type/name:27
 msgid "graphic design"
 msgstr "conception graphique"
 
@@ -6237,7 +6281,7 @@ msgstr "hôtes"
 msgid "hybrid of"
 msgstr "hybride de"
 
-#: DB:link_type/name:927 DB:link_type/name:1173
+#: DB:link_type/name:1232 DB:link_type/name:927 DB:link_type/name:1173
 msgid "illustration"
 msgstr "illustration"
 
@@ -7543,7 +7587,8 @@ msgstr "a assuré la représentation juridique pour"
 msgid "provided {additional} art direction on"
 msgstr "a assuré la direction artistique {additional:supplémentaire} sur"
 
-#: DB:link_type/long_link_phrase:993 DB:link_type/long_link_phrase:1170
+#: DB:link_type/long_link_phrase:1231 DB:link_type/long_link_phrase:993
+#: DB:link_type/long_link_phrase:1170
 msgid "provided {additional} artwork on"
 msgstr ""
 
@@ -7559,12 +7604,13 @@ msgstr "a assuré la conception {additional:supplémentaire} sur"
 msgid "provided {additional} design/illustration on"
 msgstr "a assuré la conception/l’illustration {additional:supplémentaire} sur"
 
-#: DB:link_type/long_link_phrase:1172 DB:link_type/long_link_phrase:125
-#: DB:link_type/long_link_phrase:27
+#: DB:link_type/long_link_phrase:1172 DB:link_type/long_link_phrase:1234
+#: DB:link_type/long_link_phrase:125 DB:link_type/long_link_phrase:27
 msgid "provided {additional} graphic design on"
 msgstr "a assuré la conception graphique {additional:supplémentaire} sur"
 
-#: DB:link_type/long_link_phrase:927 DB:link_type/long_link_phrase:1173
+#: DB:link_type/long_link_phrase:1232 DB:link_type/long_link_phrase:927
+#: DB:link_type/long_link_phrase:1173
 msgid "provided {additional} illustration on"
 msgstr "a assuré l’illustration {additional:supplémentaire} sur"
 
@@ -7576,7 +7622,7 @@ msgstr "a assuré la représentation juridique {additional:supplémentaire} pour
 msgid "provided {additional} {assistant} art direction on"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:928
+#: DB:link_type/long_link_phrase:1233 DB:link_type/long_link_phrase:928
 msgid "provided {additional} {assistant} design on"
 msgstr ""
 
@@ -8852,7 +8898,8 @@ msgstr "lieu {additional:supplémentaire} d’arrangement de"
 msgid "{additional} art direction"
 msgstr "direction artistique {additional:supplémentaire}"
 
-#: DB:link_type/link_phrase:993 DB:link_type/link_phrase:1170
+#: DB:link_type/link_phrase:1231 DB:link_type/link_phrase:993
+#: DB:link_type/link_phrase:1170 DB:link_type/reverse_link_phrase:1231
 #: DB:link_type/reverse_link_phrase:993 DB:link_type/reverse_link_phrase:1170
 msgid "{additional} artwork"
 msgstr ""
@@ -8889,13 +8936,15 @@ msgstr "lieu {additional:supplémentaire} de montage de"
 msgid "{additional} engineering location for"
 msgstr "lieu {additional:supplémentaire} de conception technique de"
 
-#: DB:link_type/link_phrase:1172 DB:link_type/link_phrase:125
-#: DB:link_type/link_phrase:27 DB:link_type/reverse_link_phrase:1172
+#: DB:link_type/link_phrase:1172 DB:link_type/link_phrase:1234
+#: DB:link_type/link_phrase:125 DB:link_type/link_phrase:27
+#: DB:link_type/reverse_link_phrase:1172 DB:link_type/reverse_link_phrase:1234
 #: DB:link_type/reverse_link_phrase:125 DB:link_type/reverse_link_phrase:27
 msgid "{additional} graphic design"
 msgstr "conception graphique {additional:supplémentaire}"
 
-#: DB:link_type/link_phrase:927 DB:link_type/link_phrase:1173
+#: DB:link_type/link_phrase:1232 DB:link_type/link_phrase:927
+#: DB:link_type/link_phrase:1173 DB:link_type/reverse_link_phrase:1232
 #: DB:link_type/reverse_link_phrase:927 DB:link_type/reverse_link_phrase:1173
 msgid "{additional} illustration"
 msgstr "illustration {additional:supplémentaire}"
@@ -9022,7 +9071,8 @@ msgstr ""
 msgid "{additional} {assistant} conductor"
 msgstr ""
 
-#: DB:link_type/link_phrase:928 DB:link_type/reverse_link_phrase:928
+#: DB:link_type/link_phrase:1233 DB:link_type/link_phrase:928
+#: DB:link_type/reverse_link_phrase:1233 DB:link_type/reverse_link_phrase:928
 msgid "{additional} {assistant} design"
 msgstr ""
 
@@ -9894,17 +9944,6 @@ msgstr "{vocal:%|voix} de soutien pour"
 #~ msgstr ""
 #~ "Ceci crédite une personne ou agence dont les photographies sont incluses "
 #~ "comme partie d’une parution."
-
-#~ msgid "This indicates a person or agency who did design for the release."
-#~ msgstr ""
-#~ "Ceci indique une personne ou agence qui a fait de la conception pour "
-#~ "cette parution."
-
-#~ msgid ""
-#~ "This indicates a person or agency who did illustration for the release."
-#~ msgstr ""
-#~ "Ceci indique une personne ou agence qui a fait de l’illustration pour "
-#~ "cette parution."
 
 #~ msgid ""
 #~ "This indicates an artist (generally a person) was the founder of an event "

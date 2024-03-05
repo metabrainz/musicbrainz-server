@@ -160,6 +160,11 @@ msgstr "风铃树"
 msgid "Marxophone"
 msgstr "马克思琴"
 
+#: DB:instrument/name:1199
+msgctxt "Belorussian duda"
+msgid "Matstsyanka"
+msgstr ""
+
 #: DB:instrument/name:92
 msgid "Mexican vihuela"
 msgstr "墨西哥比维拉琴"
@@ -3637,6 +3642,11 @@ msgstr "木鼓"
 #: DB:instrument/name:104
 msgid "snare drum"
 msgstr "小军鼓"
+
+#: DB:instrument/name:1198
+msgctxt "Latvian bagpipe"
+msgid "somu dūdas"
+msgstr ""
 
 #: DB:instrument/name:284
 msgid "song loan"

@@ -6,7 +6,7 @@ msgstr ""
 "Language-Team: none\n"
 "Language: fa\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: DB:instrument/name:438
@@ -150,6 +150,11 @@ msgstr ""
 
 #: DB:instrument/name:442
 msgid "Marxophone"
+msgstr ""
+
+#: DB:instrument/name:1199
+msgctxt "Belorussian duda"
+msgid "Matstsyanka"
 msgstr ""
 
 #: DB:instrument/name:92
@@ -3580,6 +3585,11 @@ msgstr ""
 
 #: DB:instrument/name:104
 msgid "snare drum"
+msgstr ""
+
+#: DB:instrument/name:1198
+msgctxt "Latvian bagpipe"
+msgid "somu dūdas"
 msgstr ""
 
 #: DB:instrument/name:284

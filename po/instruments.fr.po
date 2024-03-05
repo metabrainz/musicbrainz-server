@@ -180,6 +180,11 @@ msgstr "carillon Mark tree"
 msgid "Marxophone"
 msgstr "Marxophone"
 
+#: DB:instrument/name:1199
+msgctxt "Belorussian duda"
+msgid "Matstsyanka"
+msgstr ""
+
 #: DB:instrument/name:92
 msgid "Mexican vihuela"
 msgstr "vihuela mexicaine"
@@ -3614,6 +3619,11 @@ msgstr "tambour à fente"
 #: DB:instrument/name:104
 msgid "snare drum"
 msgstr "caisse claire"
+
+#: DB:instrument/name:1198
+msgctxt "Latvian bagpipe"
+msgid "somu dūdas"
+msgstr ""
 
 #: DB:instrument/name:284
 msgid "song loan"

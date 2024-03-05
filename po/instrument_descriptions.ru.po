@@ -5528,6 +5528,25 @@ msgid ""
 "imitate the sound of bells."
 msgstr ""
 
+#. name:Matstsyanka 
+#: DB:instrument/description:1199
+msgid ""
+"Used since ancient times, it is a smaller half round shape with the chanter "
+"in one end and drones in the other, there are two related types; from "
+"northern Belarus and east-south Lithuania one drone one chanter both having "
+"bowed horns at the end. <br /> Secondly; the macianka duda without horns has "
+"3 drones in one hole instead of one."
+msgstr ""
+
+#. name:somu dūdas 
+#: DB:instrument/description:1198
+msgid ""
+"Used since the 16th century, it is made of lamb, kid or in the north, "
+"sealskin. it has1-2 drones and a chanter with 4-7 fingerholes.<br /> <br /> "
+"The name dudy/duda(s) is used for very many folk bagpipes in Europe and "
+"western Asia - see annotation(s) for more."
+msgstr ""
+
 #. name:bonang panerus 
 #: DB:instrument/description:971
 msgid ""
